@@ -11,8 +11,10 @@ return {
 	["Zeppelin to {zone:1454}"] = "{zone:1454}행 비행선",
 
 	-- Step 2: Orgrimmar
+	-- {zone:1454} Orgrimmar · {zone:1445} Dustwallow Marsh
+	["The {zone:1454} and Crossroads stops are on the way for players coming from the previous guide; opened with none of its quests in the log, the guide starts in {zone:1445}."] = "{zone:1454}과(와) 크로스로드 정거장은 이전 가이드에서 오는 플레이어가 가는 길에 있습니다. 그 퀘스트 없이 가이드를 열면 {zone:1445}에서 시작합니다.",
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "{zone:1454} 중앙",
 
 	-- Step 3: Orgrimmar
 	-- {item:3713} Soothing Spices
@@ -66,7 +68,7 @@ return {
 
 	-- Step 14: Brackenwall Village: kill these as you meet them
 	-- {area:496} Brackenwall Village
-	["{area:496}: kill these as you meet them"] = "",
+	["{area:496}: kill these as you meet them"] = "{area:496}: 만나는 대로 처치하세요",
 	-- plural, as words: Darkfang Lurkers = {npc:4411} Darkfang Lurker · Theramore Infiltrators = {npc:4834} Theramore Infiltrator · Darkmist Lurkers = {npc:4377} Darkmist Lurker
 	["Head west back across the marsh. The Darkfang Lurkers (36-37) and Venomspitters (37-38) on the ridges north of Brackenwall drop the venom sacs. Theramore Infiltrators (35-36) sneak through the same woods: they are stealthed, so look closely.\nThe Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes. Work its outer edge, where the Spiders and Recluses (35-37) stand: the Lurkers and Silkspinners (37-39) deeper in are two or three over you.\nCareful: Darkfang Lurkers (level 36-37) use Sneak to stealth while out of combat and cast Poison once fighting.\nCareful: Stealthed spiders in the same area will attack you on sight.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "늪지대를 가로질러 서쪽으로 돌아가세요. 담쟁이 마을 북쪽 능선의 검은송곳니 늑대거미(36-37)와 독침거미(37-38)가 독주머니를 떨어뜨립니다. 같은 숲에 테라모어 첩보원(35-36)이 숨어 다니니 잘 살펴보세요.\n담쟁이 마을 북서쪽 동굴 입구에 암흑안개 거미가 득실거립니다. 모든 종류가 눈을 떨어뜨립니다. 거미와 은둔거미(35-37)가 있는 바깥쪽에서 잡으세요. 안쪽의 늑대거미와 비단거미(37-39)는 나보다 2-3레벨 높습니다.\n주의: 검은송곳니 늑대거미(36-37 레벨)는 비전투 중 은신하고 전투가 시작되면 독을 사용합니다.\n주의: 같은 지역의 은신한 거미는 보는 즉시 공격합니다.\n주의: 암흑안개 늑대거미는 은신한 채 돌아다니며 전투 중 독을 사용합니다. 거미들이 가까이 붙어 있어 추가로 끌려오기 쉬우니, 바깥쪽에서 한 마리씩 끌어오세요.",
 	-- plural, as words: Giant Darkfang Spiders = {npc:4415} Giant Darkfang Spider
@@ -109,9 +111,9 @@ return {
 
 	-- Step 21: Fly to Ratchet
 	-- {area:392} Ratchet
-	["Fly to {area:392}"] = "",
+	["Fly to {area:392}"] = "{area:392}(으)로 날아가기",
 	-- {area:496} Brackenwall Village
-	["{area:496} flight master"] = "",
+	["{area:496} flight master"] = "{area:496} 비행 조련사",
 
 	-- Step 22: Ratchet
 	-- {npc:3446} Mebok Mizzyrix
@@ -123,13 +125,13 @@ return {
 
 	-- Step 24: Ratchet flight master
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "{area:392} 비행 조련사",
 	-- {area:392} Ratchet
 	["Back north along the coast to {area:392}'s flight master."] = "해안을 따라 북쪽으로 {area:392}의 비행 조련사에게 돌아가세요.",
 
 	-- Step 25: Fly to Shadowprey Village
 	-- {area:2408} Shadowprey Village
-	["Fly to {area:2408}"] = "",
+	["Fly to {area:2408}"] = "{area:2408}(으)로 날아가기",
 	-- {area:2408} Shadowprey Village · {area:392} Ratchet
 	["Fly to {area:2408} from the flight master you are next to: {area:392}'s, or Brackenwall's if you had no errand in {area:392}."] = "지금 옆에 있는 비행 조련사에게서 {area:2408}(으)로 날아가세요. {area:392}의 비행 조련사, {area:392}에 볼일이 없었다면 담쟁이 마을의 비행 조련사입니다.",
 
@@ -158,7 +160,7 @@ return {
 
 	-- Step 30: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "",
+	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}은(는) 골짜기 서쪽 끝의 마라우돈일족 야영지에 붙잡혀 있습니다. 풀어 주고 골짜기 동쪽 밖으로 호위하십시오.\n주의: 호위 중에 켄타우로스 여섯이 공격하며 미리 정리할 수 없습니다: 호위 중에만 나타나고 함께 덤빕니다. 플레이어 기록에서 받은 30명 중 14명이 한 번 이상 실패했습니다. 친구를 데려가거나, 혼자라면 건너뛰십시오. 시작 전에 길의 일반 켄타우로스를 정리하면 도움이 됩니다.",
 
 	-- Step 31: Hornizz Brimbuzzle
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard
@@ -170,7 +172,7 @@ return {
 	-- {area:599} Thunder Axe Fortress · {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {item:13542} Demon Box
 	["North up the road to {area:599}. Clear the middle of the largest building, then use the {item:14523} on the red {object:176581} there. A {npc:11876} (37) comes out: kill it for the {item:13542}. The Burning Blade around it are well under you now."] = "길을 따라 북쪽의 {area:599}(으)로 가세요. 가장 큰 건물 가운데를 정리한 뒤, 그곳의 붉은 {object:176581}에 {item:14523}을(를) 사용하세요. {npc:11876}(37)이(가) 나타납니다. 처치하고 {item:13542}을(를) 얻으세요. 주변의 불타는 칼날단은 이제 당신보다 훨씬 낮습니다.",
 	-- {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal
-	["{item:14523}, on the {object:176581}"] = "",
+	["{item:14523}, on the {object:176581}"] = "{item:14523}, {object:176581}에 사용",
 
 	-- Step 34: Sargeron
 	-- {area:603} Sargeron
@@ -219,13 +221,13 @@ return {
 
 	-- Step 43: Back to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Back to {area:1637}"] = "",
+	["Back to {area:1637}"] = "{area:1637}(으)로 돌아가기",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "{zone:1456} 비행 조련사",
 
 	-- Step 44: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor
-	["{npc:4485} stands in the {object:172958}."] = "",
+	["{npc:4485} stands in the {object:172958}."] = "{npc:4485}은(는) {object:172958}에 서 있습니다.",
 
 	-- Step 45: Nogg
 	-- {npc:3412} Nogg · {object:172958} Valley of Honor · {npc:4485} Belgrom Rockmaul · {quest:2841} Rig Wars · {area:133} Gnomeregan
@@ -233,7 +235,7 @@ return {
 
 	-- Step 46: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} trainers"] = "",
+	["{zone:1454} trainers"] = "{zone:1454} 상급자",
 	-- {zone:1458} Undercity
 	["Train while you are in the city; everyone else trains in the {zone:1458}, next."] = "",
 	-- {zone:1458} Undercity

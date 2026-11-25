@@ -29,15 +29,13 @@ next forever/horde/40-50/01b-riverglades
 
 step Fly to the Undercity
   only Warrior,Paladin,Rogue,Priest,Mage,Warlock
-  zone Badlands
   tip Your level 40 training is in the Undercity: fly there from Kargath, train, and take the zeppelin from the towers outside the city to Grom'gol.
-  goto 4.1,44.9 "Kargath flight master"
   fly "Undercity"
   zone Undercity
 
 step Genavie Callow
   only Warrior,Paladin,Rogue,Priest,Mage,Warlock
-  when onquest 1164
+  when complete 1164
   zone Undercity
   tip Genavie Callow stands beside the flight master you land at: the Dabyrie heads from the Arathi Highlands.
   turnin 1164                           -- Genavie Callow, beside the flight master
@@ -88,12 +86,22 @@ step Fly to Booty Bay
   goto 32.5,29.3 "Grom'gol flight master"
   fly "Booty Bay"
 
+step Drizzlik
+  zone Stranglethorn Vale
+  when complete 577
+  tip Drizzlik's shop is in the building east of the inn.
+  turnin 577                          -- Drizzlik: the Snapjaw skins gathered earlier; inside
+
 step Booty Bay
   zone Stranglethorn Vale
-  turnin 577                          -- Drizzlik: the Snapjaw skins gathered earlier; inside
-  accept 628                          -- Drizzlik: the Elder Saltwater Crocolisk suns on the coast between Zul'Kunda and Grom'gol, later on this loop
   tip Gringer, the flight master, waits on Booty Bay's upper deck. The quest givers stand on the boardwalks around the harbour and in the inn.
-  turnin 213                          -- Kebok
+  accept 628                          -- Drizzlik: the Elder Saltwater Crocolisk suns on the coast between Zul'Kunda and Grom'gol, later on this loop
+
+step Kebok
+  zone Stranglethorn Vale
+  when complete 213
+  tip Kebok stands upstairs, beside the flight master.
+  turnin 213                          -- Kebok: the Tumbled Crystals from the earlier Stranglethorn guide
 
 step Kebok
   when turnedin 189
@@ -225,12 +233,12 @@ step Mistvale gorillas
   when level>=40
   when onquest 571
   when !complete 571
-  tip The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.
+  tip The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: if you will take Stranglethorn Fever with a group, keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.
   tip Careful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time.
   loop
   goto 33.03,66.12 map 1434 era r 22
   goto 32.57,66.64 map 1434 era r 22
-  collect 2799 x10 npc 1557 -- Keep fangs from these same elders for Unbagwa.
+  collect 2799 x10 npc 1557 optional -- Keep fangs from these same elders for Unbagwa (Stranglethorn Fever, with a group).
   collect 3862 quest 571 @33.0,66.1 map 1434
   collect 3919 quest 606.1 @33.03,66.12 map 1434 era
 
@@ -443,10 +451,15 @@ step Booty Bay
 
 step Whiskey Slim and Fin Fizracket
   when level>=40
-  tip Whiskey Slim, in the inn, Fin Fizracket, beside it, and "Sea Wolf" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the Feralas & Tanaris guide's Booty Bay stop offers them again.
+  tip Whiskey Slim, in the inn, and "Sea Wolf" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the Feralas & Tanaris guide's Booty Bay stop offers them again.
   accept 580                            -- Whiskey Slim, in the inn: his bottles wash up on the Hinterlands coast, around level 48
-  accept 348                            -- Fin Fizracket: Stranglethorn Fever, Unbagwa's part on the Feralas guide's Grom'gol stop
   accept 2872                           -- MacKinley, on the top floor: Stoley's Debt, for Stoley in Tanaris
+
+step Fin Fizracket
+  when level>=40
+  when group 348
+  tip Group quest: Stranglethorn Fever ends at Witch Doctor Unbagwa in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then Mokk the Savage (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along.
+  accept 348                            -- Fin Fizracket, beside the inn: Unbagwa's part on the Feralas guide's Grom'gol stop
 
 step The Bloodsail ships
   when group 624

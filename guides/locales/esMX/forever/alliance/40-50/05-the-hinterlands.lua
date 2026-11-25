@@ -9,15 +9,14 @@ return {
 	-- Step 1: The Altar of Zul
 	-- {area:355} Altar of Zul · {zone:1425} The Hinterlands · {npc:8636} Morta'gya the Keeper · {npc:7996} Qiaga the Keeper
 	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer
-	["Ride south-east to the {area:355}, the stepped Vilebranch temple in the south of the {zone:1425}, and climb to the top. Qiaga and {npc:8636} (elite, 50) stand up there: touch the top and come straight back down.\nCareful: Elite trolls guard the top platform, including {npc:7996} and {npc:8636}, along with several Vilebranch Soothsayers. The soothsayers cast spells and are linked to the rest of the group."] = "Cabalga al sureste hasta {area:355}, el templo escalonado Vilrama en el sur de {zone:1425}, y sube a la cima. Qiaga y {npc:8636} (élite, 50) están allí arriba: toca la cima y baja enseguida.\nCuidado: Trols élite vigilan la plataforma de arriba, entre ellos {npc:7996} y {npc:8636}, junto con varios adivinos Vilrama. Los adivinos lanzan hechizos y están vinculados al resto del grupo.",
+	["Ride south-east to the {area:355}, the stepped Vilebranch temple in the south of the {zone:1425}, and climb to the top. Qiaga and {npc:8636} (elite, 50) stand up there: touch the top and come straight back down.\nCareful: Elite trolls guard the top platform, including {npc:7996} and {npc:8636}, along with several Vilebranch Soothsayers. The soothsayers cast spells and are linked to the rest of the group."] = "Cabalga al sureste hasta {area:355}, el templo escalonado Vilrama en el sur de {zone:1425}, y sube a la cima. Qiaga y {npc:8636} (élite, 50) están allí arriba: toca la cima y baja enseguida.\nCuidado: Trols élite vigilan la plataforma de arriba, entre ellos {npc:7996} y {npc:8636}, junto con varios Veritas Vilrama. Los adivinos lanzan hechizos y están vinculados al resto del grupo.",
 
 	-- Step 2: Vilebranch Soothsayers
 	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer
 	["Vilebranch Soothsayers"] = "Veritas Vilrama",
 	-- {area:355} Altar of Zul · {npc:7996} Qiaga the Keeper · {npc:8636} Morta'gya the Keeper
 	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer · Vilebranch Totems = {item:279225} Vilebranch Totem
-	-- was: ["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "Los Veritas Vilrama (46-47) recorren el terreno al pie de {area:355}: sus tótems son para Maret Firetend. Cuidado: {npc:7996} y {npc:8636} (50, élites) están en el lado sureste del altar: ataca a los Veritas del lado oeste, lejos de ellos, y no subas al altar."
-	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "",
+	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "Los Veritas Vilrama (46-47) recorren el terreno al pie de {area:355}: sus tótems son para Maret Firetend, y hay más Tótems vilrama en el suelo entre ellos: recoge esos también. Cuidado: {npc:7996} y {npc:8636} (50, élites) están en el lado sureste del altar: encara a los Veritas Vilrama en su lado oeste, lejos de ellos, y no pises el altar.",
 
 	-- Step 3: Skulk Rock
 	-- {area:351} Skulk Rock · {zone:1425} The Hinterlands
@@ -26,12 +25,12 @@ return {
 
 	-- Step 4: OOX-09/HL Distress Beacon
 	-- {zone:1425} The Hinterlands
-	["Only with the distress beacon, a rare drop in the {zone:1425}: it starts a quest to find the robot it calls for."] = "",
+	["Only with the distress beacon, a rare drop in the {zone:1425}: it starts a quest to find the robot it calls for."] = "Solo con la baliza de socorro, un botín raro de {zone:1425}: inicia una misión para encontrar al robot que llama.",
 
 	-- Step 5: OOX-09/HL
 	["OOX-09/HL"] = "OOX-09/HL",
 	-- {area:351} Skulk Rock · {area:307} Overlook Cliffs · {area:348} Aerie Peak · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay
-	["The robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}, then ride back west for {area:348}; its reward waits with {npc:7406} in {area:35}, later in this guide.\nCareful: Two ambushes spawn during the escort: first three wildkin owlbeasts, then three trolls. Before each, the robot halts and announces it senses danger. Oozes, stealthed wolves and a large turtle along the path can join fights, and they respawn even if cleared beforehand."] = "",
+	["The robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}, then ride back west for {area:348}; its reward waits with {npc:7406} in {area:35}, later in this guide.\nCareful: Two ambushes spawn during the escort: first three wildkin owlbeasts, then three trolls. Before each, the robot halts and announces it senses danger. Oozes, stealthed wolves and a large turtle along the path can join fights, and they respawn even if cleared beforehand."] = "El robot está en la cabecera del río al oeste de {area:351}. Escóltalo al este hasta la orilla más allá de {area:307} y luego cabalga de vuelta al oeste hacia {area:348}; su recompensa espera con {npc:7406} en {area:35}, más adelante en esta guía.\nCuidado: durante la escolta aparecen dos emboscadas: primero tres lechubestias salvajes y luego tres trols. Antes de cada una, el robot se detiene y avisa que siente peligro. Los mocos, los lobos en sigilo y una tortuga grande del camino pueden sumarse a las peleas, y reaparecen aunque los hayas limpiado antes.",
 
 	-- Step 6: Wildkin feathers
 	["Wildkin feathers"] = "Plumas de lechúcico salvaje",
@@ -50,7 +49,7 @@ return {
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, inside"] = "{npc:5636}, adentro",
 	-- {quest:2990} Thadius Grimshade · {area:1438} Nethergarde Keep · {zone:1428} Burning Steppes
-	["for {quest:2990} at {area:1438}: the {zone:1428} guide hands it in"] = "",
+	["for {quest:2990} at {area:1438}: the {zone:1428} guide hands it in"] = "para {quest:2990} en {area:1438}: la guía de {zone:1428} la entrega",
 	-- {npc:270263} Farseer Maret Firetend
 	["{npc:270263}, just east of the aviary"] = "{npc:270263}, justo al este del aviario",
 
@@ -86,58 +85,63 @@ return {
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}, adentro",
 
-	-- Step 16: Oglethorpe Obnoticus
-	-- {zone:1444} Feralas · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay
-	["Only if you escorted the {zone:1444} robot: its reward waits with {npc:7406} here in {area:35}."] = "",
+	-- Step 16: Fin Fizracket
+	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
+	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "Misión de grupo: {quest:348} termina con {npc:1449} en el Valle del Velo de Bruma. Dale diez colmillos de gorila y llama a tres oleadas de gorilas (41-42), una tras otra, y luego a {npc:1514} (44). En las grabaciones de los jugadores, 12 de las 27 personas que la empezaron murieron allí. Acéptala si vas con un amigo o dos.",
+	-- {npc:2486} Fin Fizracket
+	["{npc:2486}, beside the inn"] = "{npc:2486}, junto a la posada",
 
 	-- Step 17: Oglethorpe Obnoticus
-	-- {zone:1425} The Hinterlands · {npc:7406} Oglethorpe Obnoticus
-	["Only if you escorted the {zone:1425} robot: {npc:7406} has its reward too."] = "",
+	-- {zone:1444} Feralas · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay
+	["Only if you escorted the {zone:1444} robot: its reward waits with {npc:7406} here in {area:35}."] = "Solo si escoltaste al robot de {zone:1444}: su recompensa espera con {npc:7406} aquí, en {area:35}.",
 
-	-- Step 18: Wild Shore: kill these as you meet them
+	-- Step 18: Oglethorpe Obnoticus
+	-- {zone:1425} The Hinterlands · {npc:7406} Oglethorpe Obnoticus
+	["Only if you escorted the {zone:1425} robot: {npc:7406} has its reward too."] = "Solo si escoltaste al robot de {zone:1425}: {npc:7406} también tiene su recompensa.",
+
+	-- Step 19: Wild Shore: kill these as you meet them
 	-- {area:43} Wild Shore
 	["{area:43}: kill these as you meet them"] = "{area:43}: mata a estos según te los encuentres",
 	-- {area:43} Wild Shore · {area:35} Booty Bay
 	["The charts and orders lie in the pirate camp on the {area:43}, just south of {area:35}; its Swashbucklers walk the shore. The Warlocks and Swashbucklers (41-43) are under you now."] = "Las cartas y órdenes están en el campamento pirata de {area:43}, justo al sur de {area:35}; sus espadachines recorren la orilla. Los brujos y espadachines (41-43) ya están por debajo de tu nivel.",
 
-	-- Step 20: The Bloodsail captains
+	-- Step 21: The Bloodsail captains
 	["The Bloodsail captains"] = "Los capitanes Velasangre",
 	-- {area:35} Booty Bay · {npc:2550} Captain Stillwater · {npc:2548} Captain Keelhaul · {npc:2546} Fleet Master Firallon
 	["The three Bloodsail ships lie at anchor off the coast just south of {area:35}: {npc:2550} (45) and {npc:2548} (46) on the nearer decks, {npc:2546} (48) on the flagship, each with a crew of 42-45 pirates. Swim out, clear each deck from the edge and pull one at a time."] = "Los tres barcos Velasangre están anclados frente a la costa justo al sur de {area:35}: {npc:2550} (45) y {npc:2548} (46) en las cubiertas más cercanas, {npc:2546} (48) en el buque insignia, cada uno con una tripulación de piratas de nivel 42-45. Nada hasta ellos, despeja cada cubierta desde el borde y atráelos de a uno.",
 
-	-- Step 22: Naga Explorers
+	-- Step 23: Naga Explorers
 	-- plural, as words: Naga Explorers = {npc:1907} Naga Explorer
 	["Naga Explorers"] = "Expedicionarios naga",
 	["Leave town by the tunnel and ride north along the coast past the Bloodsail camp: the naga comb the beaches beyond it and drop the reeds."] = "Sal del pueblo por el túnel y cabalga al norte por la costa pasando el campamento Velasangre: las nagas recorren las playas más allá y sueltan los juncos.",
 
-	-- Step 23: Zanzil's village
+	-- Step 24: Zanzil's village
 	["Zanzil's village"] = "Poblado de Zanzil",
 	-- {npc:2537} Chucky "Ten Thumbs"
 	["Ride on north along the coast to Zanzil's village. Every Zanzil follower can drop the mixture; {npc:2537} walks the south of the camp."] = "Sigue al norte por la costa hasta la aldea de Zanzil. Cualquier seguidor de Zanzil puede soltar la mezcla; {npc:2537} recorre el sur del campamento.",
 
-	-- Step 24: Maury "Club Foot" Wilkins and Jon-Jon
+	-- Step 25: Maury "Club Foot" Wilkins and Jon-Jon
 	-- {npc:2535} Maury "Club Foot" Wilkins
-	-- was: ["{npc:2535} and {npc:2536}"] = "{npc:2535} y {npc:2536}"
-	["{npc:2535} and Jon-Jon"] = "",
+	["{npc:2535} and Jon-Jon"] = "{npc:2535} y Jon-Jon",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["{npc:2535} and {npc:2536} stand together in the hills just north of Zanzil's village."] = "{npc:2535} y {npc:2536} están juntos en las colinas justo al norte de la aldea de Zanzil.",
 	-- {item:3925} Jon-Jon's Golden Spyglass · {npc:2536} Jon-Jon the Crow
-	["{item:3925}, from {npc:2536}"] = "",
+	["{item:3925}, from {npc:2536}"] = "{item:3925}, de {npc:2536}",
 
-	-- Step 25: Gorilla hills
+	-- Step 26: Gorilla hills
 	["Gorilla hills"] = "Colinas de los gorilas",
 	-- {area:35} Booty Bay · {npc:1449} Witch Doctor Unbagwa
 	-- plural, as words: Gorilla Fangs = {item:2799} Gorilla Fang · Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
 	["Ride back south-east to the Mistvale gorilla hills above {area:35}. {npc:1449} sits among the gorillas: take ten Gorilla Fangs from the Elder Mistvale Gorillas first."] = "Regresa al sureste a las colinas de gorilas Velo de Bruma sobre {area:35}. {npc:1449} está entre los gorilas: primero consigue diez Colmillos de gorila de los Gorilas Velo de Bruma ancianos.",
 
-	-- Step 26: Unbagwa's ritual
+	-- Step 27: Unbagwa's ritual
 	["Unbagwa's ritual"] = "El ritual de Unbagwa",
 	-- {npc:1514} Mokk the Savage
 	["Hand in the fangs and stay: three waves of gorillas come, {npc:1514} last.\nCareful: three waves of gorillas come one after another with little rest between, then {npc:1514}. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy."] = "Entrega los colmillos y quédate: vienen tres oleadas de gorilas, {npc:1514} al final.\nCuidado: tres oleadas de gorilas llegan una tras otra con poco descanso entre ellas, y luego {npc:1514}. Empieza con la salud y el maná al máximo, y quédate cerca de Unbagwa. A algunas clases les cuesta solas: con un amigo es fácil.",
 	-- {npc:1449} Witch Doctor Unbagwa · {area:1742} Spirit Den
 	["{npc:1449}, inside {area:1742}"] = "{npc:1449}, dentro de {area:1742}",
 
-	-- Step 28: Booty Bay
+	-- Step 29: Booty Bay
 	["Ride back down to town."] = "Cabalga de vuelta abajo hasta el pueblo.",
 	-- {npc:2616} Privateer Groy
 	["for {npc:2616} in Theramore: keep it, the Un'Goro guide lands there"] = "para {npc:2616} en Theramore: guárdalo, la guía de Un'Goro termina allí",
@@ -145,22 +149,26 @@ return {
 	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "El siguiente encargo de {npc:2498} sobre Zanzil empieza en {zone:1441}: omítelo.",
 	["MacKinley's next task sends you after elite ogres: skip it."] = "La siguiente tarea de MacKinley te envía tras ogros élite: omítela.",
 
-	-- Step 29: Monogrammed Sash
+	-- Step 30: Fin Fizracket
+	-- {npc:2486} Fin Fizracket
+	["{npc:2486}, by the inn"] = "{npc:2486}, junto a la posada",
+
+	-- Step 31: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Son enemigos élite: se recomienda agruparse, busca gente para hacerlo. {quest:8552} necesita un grupo de 2. Omítela si estás solo: la ruta te hace recuperar esa experiencia matando enemigos.",
 
-	-- Step 33: Negolash's bait
+	-- Step 35: Negolash's bait
 	-- {npc:1494} Negolash
-	["{npc:1494}'s bait"] = "",
+	["{npc:1494}'s bait"] = "el cebo de {npc:1494}",
 	-- {npc:1494} Negolash · {quest:619} Enticing Negolash · {area:35} Booty Bay · {item:4595} Junglevine Wine · {npc:2832} Nixxrax Fillamug
 	-- plural, as words: Barbecued Buzzard Wings = {item:4457} Barbecued Buzzard Wing
-	["{npc:1494} comes only for his food: hand in {quest:619} at Captain Smotts' ruined lifeboat on the shore south-east of {area:35}, with 10 Barbecued Buzzard Wings and 5 {item:4595}, and he comes to the boat. {npc:2832}, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House."] = "",
+	["{npc:1494} comes only for his food: hand in {quest:619} at Captain Smotts' ruined lifeboat on the shore south-east of {area:35}, with 10 Barbecued Buzzard Wings and 5 {item:4595}, and he comes to the boat. {npc:2832}, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House."] = "{npc:1494} viene solo por su comida: entrega {quest:619} en el bote salvavidas inservible del capitán Smotts, en la orilla al sureste de {area:35}, con 10 alas de águila ratonera a la parrilla y 5 {item:4595}, y él viene al bote. {npc:2832}, el vendedor de comida y bebida de la posada, vende el vino. Las alas son un plato de cocinero: si no cocinas, tráelas de la casa de subastas.",
 	-- {item:4457} Barbecued Buzzard Wing
-	["{item:4457}: in your bags already if you cook"] = "",
+	["{item:4457}: in your bags already if you cook"] = "{item:4457}: ya en tus bolsas si cocinas",
 	-- {object:2289} Ruined Lifeboat · {npc:1494} Negolash
-	["{object:2289}: the food goes in, {npc:1494} comes"] = "",
+	["{object:2289}: the food goes in, {npc:1494} comes"] = "{object:2289}: la comida adentro, {npc:1494} viene",
 
-	-- Step 34: Facing Negolash
+	-- Step 36: Facing Negolash
 	-- {npc:1494} Negolash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Son enemigos élite: se recomienda agruparse, busca gente con quien hacerlo. {npc:1494} (élite de nivel 52) requiere un grupo de 2. Sáltalo si vas solo: la ruta te hace recuperar la experiencia matando enemigos.",
 

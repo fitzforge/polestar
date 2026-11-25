@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {area:16724} Farholde Keep
-	["About 90 quests in Forever's new zone, from {area:16724}: the level for its port and Western Front."] = "Forever新地区的约90个任务，从{area:16724}开始：适合其港口和西部前线的等级。",
+	["About 90 quests in Forever's new zone, from {area:16724}: the level for its port and Western Front."] = "无限服新增地区的约90个任务，从{area:16724}开始：适合其港口和西部前线的等级。",
 
 	-- Step 1: Ironforge flight master
 	-- {zone:1455} Ironforge
@@ -199,68 +199,79 @@ return {
 	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge."] = "",
 	-- {npc:259158} Fuzzle · {quest:94961} Biting the Hand
 	["{npc:259158}: {quest:94961}, in his cage"] = "",
+	["the way in: she is below the town"] = "入口：她在镇子下方",
+	["Claire's cave"] = "克莱尔的洞穴",
 
 	-- Step 41: The Twilight cult
 	["The Twilight cult"] = "暮光教派",
 	-- {area:16723} Sunnyglade · {item:266148} Farmers' Mementos · {item:4338} Mageweave Cloth · {npc:263613} Brother Lowley · {area:16724} Farholde Keep · {quest:94885} Field Marshal's Log · {npc:256899} Chogg'Zac · {npc:263380} Ghostmaw
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
-	["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "{area:16723}的街道和田地里到处是邪教徒。先从中央的仪式法阵开始（在那里装满克莱尔的催化剂），向西穿过烧毁的房屋到镇子边缘，再折回东北到埃尔布里姆农场西边的松软泥土：把暮光袭击者掉落的{item:266148}埋在那里。护符、书页和指骨都从邪教徒身上掉落。\n留着他们掉落的{item:4338}：回到{area:16724}时，{npc:263613}要二十块。邪教徒偶尔会掉落{quest:94885}：右键点击它接受任务。\n小心：精英食人魔{npc:256899}（41级）在{area:16723}西侧街道巡逻，大约在44-47,47-52。把邪教徒拉到你这边，等他走过去；这里是本地区玩家死得最多的地方。\n河边的精英{npc:263380}（42级）可能从西南的田地游荡过来：让他过去。",
+	-- was: ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "{area:16723}的街道和田地里到处是邪教徒。先从中央的仪式法阵开始（在那里装满克莱尔的催化剂），向西穿过烧毁的房屋到镇子边缘，再折回东北到埃尔布林牧庄西边的松软泥土：把暮光袭击者掉落的{item:266148}埋在那里。护符、书页和指骨都从邪教徒身上掉落。\n留着他们掉落的{item:4338}：回到{area:16724}时，{npc:263613}要二十块。邪教徒偶尔会掉落{quest:94885}：右键点击它接受任务。\n小心：精英食人魔{npc:256899}（41级）在{area:16723}西侧街道巡逻，大约在44-47,47-52。把邪教徒拉到你这边，等他走过去；这里是本地区玩家死得最多的地方。\n河边的精英{npc:263380}（42级）可能从西南的田地游荡过来：让他过去。"
+	["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), then work west through the burnt houses to the edge of town. The charms, pages and finger bones drop from the cultists; keep the {item:266148} the Twilight Raiders drop: five, one for each grave west of Elbrim's farm.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "邪教徒遍布{area:16723}的街道和田野。从中间的仪式法阵开始（在那里装满克莱尔的催化剂），然后向西穿过烧毁的房屋到镇子边缘。护符、书页和指骨从邪教徒身上掉落；留着暮光掠夺者掉落的{item:266148}：五个，埃尔布里姆农场以西每个坟墓一个。\n留着他们掉落的{item:4338}：回到{area:16724}时，{npc:263613}会要二十个。邪教徒偶尔会掉落{quest:94885}：右键点击它开始任务。\n小心：精英食人魔{npc:256899}（41级）在{area:16723}西边的街道上走动，大约在44-47,47-52。把邪教徒拉到你这边，让他过去；这里死亡的玩家比本地区其他任何地方都多。\n河里的精英{npc:263380}（42级）可能会从西南的田野游荡过来：让他过去。",
 	-- {item:269990} Crystal Catalyst
 	["fill the {item:269990} at the ritual circles"] = "在仪式法阵装满{item:269990}",
-	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
+	-- {item:266148} Farmers' Mementos
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
-	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "",
+	["{item:266148}, from the Twilight Raiders: one for each grave"] = "{item:266148}，来自暮光掠夺者（{npc:256952}）：每个坟墓一个",
 	-- {quest:94885} Field Marshal's Log
 	["{quest:94885}: only if a cultist dropped the log"] = "{quest:94885}：仅当邪教徒掉落了日志时",
 
-	-- Step 42: Apprentice Claire
+	-- Step 42: Loose Soil
+	-- {item:266148} Farmers' Mementos
+	["Back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} there, one in each grave."] = "回到东北方埃尔布里姆农场以西的松软土地：把{item:266148}埋在那里，每个坟墓一个。",
+	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
+	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
+	-- was: ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}，在埃尔布林牧庄西边：每座墓需要一个暮光袭击者掉落的{item:266148}，所以先拾取五个"
+	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop"] = "{object:621813}，在埃尔布里姆农场以西：每个坟墓需要一个暮光掠夺者（{npc:256952}）掉落的{item:266148}",
+
+	-- Step 43: Apprentice Claire
 	-- {area:16723} Sunnyglade
 	["Claire is in the cave under the eastern edge of {area:16723}: its entrance is at 50.0,46.0."] = "",
 
-	-- Step 43: Cut Off the Heads
+	-- Step 44: Cut Off the Heads
 	-- {npc:256899} Chogg'Zac · {area:16723} Sunnyglade · {npc:257591} Ashe Amberhall · {area:16724} Farholde Keep
 	["{npc:256899}, the two-headed ogre, is an elite (level 41) at the western edge of {area:16723}: grouping up is advised. Claire then has the filled catalyst for {npc:257591} in {area:16724}."] = "双头食人魔{npc:256899}是精英（41级），在{area:16723}西侧边缘：建议组队。之后克莱尔会把装满的催化剂交给你，带给{area:16724}的{npc:257591}。",
 	-- {quest:94884} An Unsettling Discovery · {npc:257591} Ashe Amberhall · {area:16724} Farholde Keep
 	["{quest:94884}: for {npc:257591} in {area:16724}"] = "{quest:94884}：交给{area:16724}的{npc:257591}",
 
-	-- Step 44: Fuzzle
+	-- Step 45: Fuzzle
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["{npc:259158} wants out of {area:16723}: lead him west to his treasure at the edge of town and keep the cultists off him."] = "{npc:259158}想离开{area:16723}：带他向西走到镇子边缘找他的宝藏，别让教徒靠近他。",
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["lead {npc:259158} out of {area:16723} to his treasure, west of the town"] = "带{npc:259158}离开{area:16723}，去镇子西边找他的宝藏",
 
-	-- Step 45: Farmer Elbrim
+	-- Step 46: Farmer Elbrim
 	["Back east through the town to Elbrim's farm: the doll and the locket are in the burnt farmhouse beside it."] = "穿过镇子向东回到埃尔布里姆的农场：玩偶和项链盒在旁边烧毁的农舍里。",
 
-	-- Step 46: The Rog'mar training grounds
+	-- Step 47: The Rog'mar training grounds
 	-- {area:16743} Rog'mar
 	["The {area:16743} training grounds"] = "{area:16743}训练场",
 	-- {area:16743} Rog'mar · {npc:263071} Blademaster Kaijo · {npc:263615} Krek the Noxious
 	-- plural, as words: Rog'mar Grunts = {npc:255996} Rog'mar Grunt
-	["North-east of Elbrim's farm, the Horde drills its trainees in the fields north of {area:16743}. Stay north of the fort: its guards are far above your level. The supply crates lie around the drill grounds. Three elites work this ground: {npc:263071} (42) walks among the trainees, {npc:263615} (42) lurks at the north end, and Komuk (45), a Horde elite, patrols the hills to the east; give each of them room.\nCareful: Rog'mar Grunts (55) guard the fort's north wall, around 59,39 to 61,41. Leave the crates and trainees by the wall and take the ones further north, around 57-61,34-37."] = "在埃尔布里姆农场东北，部落在{area:16743}北边的田野里操练新兵。待在要塞北边：要塞守卫的等级远高于你。补给箱散落在训练场周围。这片区域有三个精英：{npc:263071}（42级）在新兵之间走动，{npc:263615}（42级）潜伏在北端，部落精英科穆克（45级）在东边的山丘上巡逻；离他们都远一点。\n注意：洛格玛步兵（55级）守卫着要塞北墙，约在59,39到61,41。别碰墙边的箱子和新兵，去更北边约57-61,34-37处找。",
+	["North-east of Elbrim's farm, the Horde drills its trainees in the fields north of {area:16743}. Stay north of the fort: its guards are far above your level. The supply crates lie around the drill grounds. Three elites work this ground: {npc:263071} (42) walks among the trainees, {npc:263615} (42) lurks at the north end, and Komuk (45), a Horde elite, patrols the hills to the east; give each of them room.\nCareful: Rog'mar Grunts (55) guard the fort's north wall, around 59,39 to 61,41. Leave the crates and trainees by the wall and take the ones further north, around 57-61,34-37."] = "在埃尔布林牧庄东北，部落在{area:16743}北边的田野里操练新兵。待在要塞北边：要塞守卫的等级远高于你。补给箱散落在训练场周围。这片区域有三个精英：{npc:263071}（42级）在新兵之间走动，{npc:263615}（42级）潜伏在北端，部落精英科穆克（45级）在东边的山丘上巡逻；离他们都远一点。\n注意：洛格玛步兵（55级）守卫着要塞北墙，约在59,39到61,41。别碰墙边的箱子和新兵，去更北边约57-61,34-37处找。",
 
-	-- Step 47: Blademaster Kaijo
+	-- Step 48: Blademaster Kaijo
 	-- {npc:263071} Blademaster Kaijo
 	["{npc:263071}, the elite, walks the training grounds."] = "精英{npc:263071}在训练场里走动。",
 
-	-- Step 48: Sleebo Fizzlespout's workshop
+	-- Step 49: Sleebo Fizzlespout's workshop
 	-- {npc:263367} Sleebo Fizzlespout
 	["{npc:263367}'s workshop"] = "{npc:263367}的工坊",
 	-- {area:16743} Rog'mar · {npc:263367} Sleebo Fizzlespout · {area:16726} Bolder'ok
 	["South-east, round {area:16743}'s east side, to {npc:263367}'s workshop on the hill. Komuk and the {area:16726} ogres walk the road east of the fort: let them pass before you cross it."] = "向东南绕过{area:16743}东侧，前往山上{npc:263367}的工坊。科穆克和{area:16726}食人魔在要塞东边的路上巡逻：等他们走过再过路。",
 
-	-- Step 49: The tallstriders and the marsh
+	-- Step 50: The tallstriders and the marsh
 	["The tallstriders and the marsh"] = "陆行鸟和沼泽",
 	-- plural, as words: Roving Tallstriders = {npc:263348} Roving Tallstrider
 	["The Roving Tallstriders graze the meadows south-west of the workshop; further south-west the marsh bubbles with gas: fill the vials at the vents."] = "游荡的陆行鸟在工坊西南的草地上吃草；再往西南，沼泽里冒着气体：在喷气口装满瓶子。",
 
-	-- Step 50: Terral's Watch
+	-- Step 51: Terral's Watch
 	-- {npc:259352} Watcher Cornelius
 	["{npc:259352}'s tower stands just south-west of the marsh."] = "{npc:259352}的塔楼就在沼泽西南边。",
 	-- {quest:95066} The Rog'mar Situation · {npc:257558} Demar Brant · {area:16724} Farholde Keep
 	["{quest:95066}: for {npc:257558} in {area:16724}, keep it"] = "{quest:95066}：交给{area:16724}的{npc:257558}，先保留任务",
 
-	-- Step 51: Farholde Keep
+	-- Step 52: Farholde Keep
 	-- {area:16724} Farholde Keep · {npc:257591} Ashe Amberhall · {npc:257558} Demar Brant · {area:16723} Sunnyglade · {npc:263089} Tessa Dawnbright · {npc:263613} Brother Lowley
 	["South across the plains to {area:16724}: {npc:257591} and {npc:257558} stand together in the keep at the east end, {npc:257591} first, her news is what Brant's next orders wait on. With {area:16723} saved, {npc:263089} by the orchard and {npc:263613} by the barracks have work for you too."] = "向南穿过平原前往{area:16724}：{npc:257591}和{npc:257558}一起站在东端的城堡里，先找{npc:257591}，布兰特的下一步命令要等她的消息。{area:16723}已经得救，果园旁的{npc:263089}和兵营旁的{npc:263613}也有任务给你。",
 	-- {quest:94907} A Small Favor
@@ -272,30 +283,30 @@ return {
 	-- {npc:263613} Brother Lowley · {item:4338} Mageweave Cloth · {area:16723} Sunnyglade
 	["{npc:263613}: twenty {item:4338}, from {area:16723}'s cultists and the pirates; hand it in when you are back"] = "{npc:263613}：二十块{item:4338}，来自{area:16723}的教徒和海盗；回来时再交还",
 
-	-- Step 52: Tessa Dawnbright
+	-- Step 53: Tessa Dawnbright
 	-- {npc:263089} Tessa Dawnbright
 	["{npc:263089} stands west of the inn, by the orchard: the apples hang on the trees around it."] = "{npc:263089}站在旅店西边的果园旁：苹果就挂在周围的树上。",
 
-	-- Step 53: Coyote pelts
+	-- Step 54: Coyote pelts
 	["Coyote pelts"] = "郊狼皮",
 	-- {area:16725} Wheeler's Grange
 	-- plural, as words: Plains Coyotes = {npc:259267} Plains Coyote
 	["The Plains Coyotes roam west and south-west of the keep, towards {area:16725}."] = "平原郊狼在城堡西边和西南边游荡，一直到{area:16725}附近。",
 
-	-- Step 54: Tessa Dawnbright
+	-- Step 55: Tessa Dawnbright
 	-- {quest:95961} Stepped Out · {npc:263120} Gray Dawnbright · {area:16727} Powderfuse Port
 	["{quest:95961}: for {npc:263120} in {area:16727}, keep it"] = "{quest:95961}：交给{area:16727}的{npc:263120}，先保留任务",
 
-	-- Step 55: King of the Wild Plains
+	-- Step 56: King of the Wild Plains
 	-- {npc:263315} Ombassa · {area:16729} Terral's Watch
 	["{npc:263315}, an elite lion (level 41), prowls the plains north of {area:16729}, on your way back north: grouping up is advised."] = "{npc:263315}是一只精英狮子（41级），在{area:16729}北边的平原上游荡，就在你回北边的路上：建议组队。",
 
-	-- Step 57: Sleebo Fizzlespout
+	-- Step 58: Sleebo Fizzlespout
 	-- {npc:263367} Sleebo Fizzlespout
 	["North-east to {npc:263367}'s workshop. {npc:263367}'s stress test is a fight with his G45-B4G beside the workshop: hand the quest in once it's beaten."] = "向东北前往{npc:263367}的工坊。{npc:263367}的压力测试是在工坊旁和他的G45-B4G战斗：打败后交还任务。",
 	["the stress test: beat G45-B4G beside the workshop"] = "压力测试：在工坊旁打败G45-B4G",
 
-	-- Step 58: Powderfuse Port
+	-- Step 59: Powderfuse Port
 	-- {area:16727} Powderfuse Port · {npc:255897} Friz Frazzlespark · {npc:263120} Gray Dawnbright · {npc:255894} Innkeeper Zizplink · {npc:259962} Fimbo Greasemitz · {npc:259961} Wharfmaster Whizzbuzz · {npc:260487} Gritta Chumwater · {npc:260565} Kor'gar · {npc:260560} Krikshank
 	["East down the road to {area:16727}, the goblins' harbour. {npc:255897} keeps a stall at the west end of the docks; {npc:263120}, {npc:255894} and {npc:259962} are at the inn, and {npc:259961} works the north pier. Zizplink's drink needs three things the port's traders sell: the chum from {npc:260487}, the degreaser and the old poison from {npc:260565} and {npc:260560}, by {npc:255897}'s stall."] = "沿路向东前往地精的港口{area:16727}。{npc:255897}在码头西端摆摊；{npc:263120}、{npc:255894}和{npc:259962}在旅店，{npc:259961}在北边的栈桥工作。齐兹普林克的饮料需要三样港口商人出售的东西：{npc:260487}的鱼饵，以及{npc:255897}摊位旁{npc:260565}和{npc:260560}的去污剂和陈年毒药。",
 	-- {quest:95059} Frazzlespark's Crate · {npc:257558} Demar Brant · {area:16724} Farholde Keep
@@ -306,38 +317,38 @@ return {
 	["{item:271653}, from {npc:260565}"] = "{item:271653}，从{npc:260565}处购买",
 	-- {item:271654} Expired Poison · {npc:260560} Krikshank
 	["{item:271654}, from {npc:260560}"] = "{item:271654}，从{npc:260560}处购买",
-	-- {object:628948} WANTED! (no name in this language: may be words) · {npc:260235} Trapclaw
+	-- {object:628948} WANTED! · {npc:260235} Trapclaw
 	["The {object:628948} poster by the inn: {npc:260235}"] = "旅店旁的{object:628948}告示：{npc:260235}",
 
-	-- Step 59: WANTED: Old Rot-Chum
+	-- Step 60: WANTED: Old Rot-Chum
 	-- {npc:257001} Old Rot-Chum
 	["{npc:257001} is an elite (level 42) on the south shore: grouping up is advised."] = "{npc:257001}是南岸的精英（42级）：建议组队。",
-	-- {object:628948} WANTED! (no name in this language: may be words)
+	-- {object:628948} WANTED!
 	["The {object:628948} poster by the inn"] = "旅店旁的{object:628948}告示",
 
-	-- Step 60: The murlocs, south-west
+	-- Step 61: The murlocs, south-west
 	["The murlocs, south-west"] = "西南边的鱼人",
 	-- {quest:95260} Terrors From the Deep · {npc:260231} Argo Brinewhistle
 	["South-west along the shore from the port: the saltwater murlocs camp on the beaches. On the way, a painted hide is stretched beside the path: it starts {quest:95260} for {npc:260231} at the docks."] = "从港口沿海岸向西南走：咸水鱼人在海滩上扎营。路上小路旁撑着一张彩绘兽皮：它会开始{quest:95260}，交给码头的{npc:260231}。",
 
-	-- Step 62: Back through the port
+	-- Step 63: Back through the port
 	["Back through the port"] = "返回穿过港口",
 	["Back north along the shore: hand in the murlocs and the hide on the docks on your way to the crawlers."] = "沿海岸往北返回：去找爬行者的路上，在码头交还鱼人任务和兽皮任务。",
 	-- {quest:95261} It Takes Guts
 	["{quest:95261}: the beasts' entrails come as you go; the mushrooms are for later"] = "{quest:95261}：野兽内脏边走边收集；蘑菇留到之后",
 
-	-- Step 63: The crawlers and Trapclaw
+	-- Step 64: The crawlers and Trapclaw
 	-- {npc:260235} Trapclaw
 	["The crawlers and {npc:260235}"] = "爬行者和{npc:260235}",
 	-- {npc:259962} Fimbo Greasemitz · {npc:260231} Argo Brinewhistle · {npc:260235} Trapclaw · {npc:259758} Gul'gash
 	["North along the beach from the docks: the crawlers drop the meat for {npc:259962} and the spittle for Zizplink, and their entrails count for {npc:260231}. {npc:260235}, a big crab, scuttles along the rocks east of the docks. {npc:259758}, a rare elite of level 49, roams this coast from the docks up to the pirates' camp: if you see him, keep well away."] = "从码头沿海滩向北：爬行者掉落给{npc:259962}的肉和给齐兹普林克的唾液，它们的内脏也算{npc:260231}的任务。{npc:260235}是一只大螃蟹，在码头东边的岩石上爬行。{npc:259758}是49级稀有精英，在从码头到海盗营地的海岸上游荡：如果看到他，离远点。",
 
-	-- Step 64: The Eastsea pirates
+	-- Step 65: The Eastsea pirates
 	["The Eastsea pirates"] = "东海海盗",
 	-- {npc:259758} Gul'gash
 	["North-east along the coast to the pirates' camp on the cliffs. The buccaneers and musketeers carry the smuggled goods. {npc:259758} walks the camp too: keep an eye out for him."] = "沿海岸向东北前往悬崖上的海盗营地。海盗和火枪手身上带着走私货物。{npc:259758}也在营地里游荡：多加留意。",
 
-	-- Step 65: Powderfuse Port
+	-- Step 66: Powderfuse Port
 	["Back to the port, from the north pier west through the docks."] = "返回港口，从北码头向西穿过船坞。",
 	-- {quest:95122} Unchecked Expansion
 	["{quest:95122}: for later in this guide"] = "{quest:95122}：留到本指南稍后完成",
@@ -348,13 +359,13 @@ return {
 	-- {quest:95293} Smuggler's Special · {npc:260390} Captain Bentcoin
 	["{quest:95293}: for {npc:260390} at the pirates' camp"] = "{quest:95293}：交给海盗营地的{npc:260390}",
 
-	-- Step 67: Beast Entrails as you go
+	-- Step 68: Beast Entrails as you go
 	-- {item:268632} Beast Entrails
 	["{item:268632} as you go"] = "顺路收集{item:268632}",
 	-- {zone:2548} Riverglades · {item:268632} Beast Entrails · {npc:260231} Argo Brinewhistle · {npc:257001} Old Rot-Chum · {npc:263380} Ghostmaw
 	["Most beasts in the {zone:2548} drop {item:268632} for {npc:260231}: the shore crawlers on this coast and the boars on the ridge west of the pirates.\nCareful: {npc:257001} (elite, 42), Komuk (a Horde elite, 45) and {npc:263380} (elite, 42) range over the zone's wilds: take your beasts away from them."] = "{zone:2548}的大多数野兽都会掉落{item:268632}，交给{npc:260231}：这片海岸的海滨爬行者和海盗西边山脊上的野猪都行。\n注意：{npc:257001}（精英，42级）、科穆克（部落精英，45级）和{npc:263380}（精英，42级）在该地区野外游荡：把野兽拉离它们再打。",
 
-	-- Step 68: Level 44 on the Eastsea pirates
+	-- Step 69: Level 44 on the Eastsea pirates
 	["Level 44 on the Eastsea pirates"] = "",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash · {area:1517} Uldaman
 	-- was: ["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "在打第二波之前：低于44.4级时，第二波的袭击者和投弹手（43-45级）以及之后的海盗船都比你高一级。在第一个营地西南端、远离港口的地方刷海盗和火枪手（41-43级）补经验。{npc:259758}是49级的稀有精英，在这片悬崖游荡：如果看到他，尽量远离。或者，有小队的话改刷{area:1517}地下城。"
@@ -362,115 +373,120 @@ return {
 	-- {npc:257901} Eastsea Buccaneer
 	["grind on {npc:257901}"] = "刷{npc:257901}",
 
-	-- Step 69: The pirates' second wave
+	-- Step 70: The pirates' second wave
 	["The pirates' second wave"] = "海盗的第二波",
 	-- {npc:259758} Gul'gash
 	["North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. They stand close together: pull them one at a time. {npc:259758}, a rare elite of level 49, roams these cliffs and the beach below: if you see him, keep well away."] = "从港口沿海岸向北：东海袭击者和投弹手据守在海盗营地西边的山坡上，周围都是火药桶。它们站得很近：一次拉一个。{npc:259758}是49级的稀有精英，在这片悬崖和下方海滩游荡：如果看到他，尽量远离。",
 
-	-- Step 70: Captain Bentcoin
+	-- Step 71: Captain Bentcoin
 	-- {npc:260390} Captain Bentcoin · {npc:260391} Captain Haynes
 	["East along the cliffs to the far end of the pirates' camp: {npc:260390} waits by the water, {npc:260391} beside him."] = "沿悬崖向东到海盗营地的最远端：{npc:260390}在水边等候，{npc:260391}在他旁边。",
 
-	-- Step 71: Powderfuse Port
+	-- Step 72: Powderfuse Port
 	["Back to the port."] = "返回港口。",
 
-	-- Step 72: The pirates' ships
+	-- Step 73: The pirates' ships
 	["The pirates' ships"] = "海盗船",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
 	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way."] = "",
+	["on board, at the arrow"] = "在船上，箭头处",
 	-- {item:268505} Remote Explosive Charge
-	["{item:268505}, the southern ship"] = "{item:268505}，南边的船",
-	["the middle ship"] = "中间的船",
-	["the northern ship"] = "北边的船",
+	["Plant a {item:268505} on the southern ship"] = "在南边的船上安放{item:268505}",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the middle ship"] = "在中间的船上安放{item:268505}",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the northern ship"] = "在北边的船上安放{item:268505}",
 
-	-- Step 73: Rotflesh Mushrooms
+	-- Step 74: Rotflesh Mushrooms
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom
 	["Rotflesh Mushrooms"] = "腐肉蘑菇",
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom · Mature Paletusks = {npc:255851} Mature Paletusk
 	["West from the northern ship, up the ridge: the Rotflesh Mushrooms grow among the rocks, close to the Twilight ogres' camp. The Mature Paletusks on the ridge give entrails too."] = "从北边那艘船向西爬上山脊：腐肉蘑菇长在岩石间，靠近暮光食人魔的营地。山脊上的成年白牙野猪也会掉落内脏。",
 
-	-- Step 74: Bolder'ok
+	-- Step 75: Bolder'ok
 	-- {area:16726} Bolder'ok · {npc:259057} Dunston Willis
 	["North-west to {area:16726}, the ogres' town. Its ogres side with the Horde and attack you on sight, and Clugfist on his hill in the middle is an elite (level 50): keep to the town's north-eastern edge, where {npc:259057} hides."] = "向西北前往食人魔的城镇{area:16726}。这里的食人魔与部落结盟，见人就打，中央山丘上的克拉格菲斯特是精英（50级）：沿城镇东北边缘走，{npc:259057}就藏在那里。",
 
-	-- Step 75: Gronok's Key
+	-- Step 76: Gronok's Key
 	-- {npc:263749} Gronok the Butcher · {npc:259057} Dunston Willis · {item:275043} Bloodmaster's Ring
 	["{npc:263749} (level 44) carries the key: he paces the lanes south of {npc:259057}'s hut.\nThe {item:275043} lies just west of the lanes: its fighters (elites, 41-45) only fight in a bout, so leave them be."] = "钥匙在{npc:263749}（44级）身上：他在{npc:259057}的小屋南边的小路上来回走动。\n{item:275043}就在小路西边：里面的斗士（精英，41-45级）只在比赛中战斗，别去惹他们。",
 
-	-- Step 76: Dunston Willis
+	-- Step 77: Dunston Willis
 	-- {npc:259057} Dunston Willis · {area:16726} Bolder'ok
 	["Free him, then get him out: {npc:259057} fights his way out of {area:16726}, and you keep the ogres off him. If he falls, take the quest from him again."] = "救出他，再带他出去：{npc:259057}会一路杀出{area:16726}，你负责挡住食人魔。如果他倒下，重新从他那里接受任务。",
 	-- {npc:259057} Dunston Willis · {area:16726} Bolder'ok
 	["help {npc:259057} break out of {area:16726}"] = "帮助{npc:259057}逃出{area:16726}",
 
-	-- Step 77: Finish the Beast Entrails
+	-- Step 78: Finish the Beast Entrails
 	-- {item:268632} Beast Entrails
 	["Finish the {item:268632}"] = "收集完{item:268632}",
 	-- {npc:259758} Gul'gash
 	["South-east out of the hills towards the port: the shore crawlers on the beach north of the docks are the quickest entrails. {npc:259758} wanders down to this beach too."] = "向东南离开丘陵前往港口：码头北边海滩上的海岸爬行者是最快的内脏来源。{npc:259758}也会游荡到这片海滩。",
 
-	-- Step 78: Powderfuse Port
+	-- Step 79: Powderfuse Port
 	["Down to the port."] = "下到港口。",
 	-- {quest:95267} The Monster Surfaces · {npc:257001} Old Rot-Chum
 	["{quest:95267}: a big beast in the shallows south-west of the port, near {npc:257001}, the elite"] = "{quest:95267}：港口西南浅水中的一只巨兽，靠近精英{npc:257001}",
 
-	-- Step 79: The Monster Surfaces
+	-- Step 80: The Monster Surfaces
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
-	["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}在港口西南、鱼人海滩下方的浅水中游荡。精英{npc:257001}在附近岸边走动：离他远一点。",
+	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "你召唤时{npc:260244}会浮上来：右键点击箭头处漂在水里的东西，在港口西南的浅水区，它就会在那里浮出水面。精英{npc:257001}在附近的岸边走动：离他远点。",
+	-- {item:268633} Sea Monster's Head
+	["{item:268633}, where the Threshadon surfaces when you call him"] = "{item:268633}，在你召唤时脱颚龙浮出水面的地方",
 
-	-- Step 81: The meadows
+	-- Step 82: The meadows
 	["The meadows"] = "草地",
 	-- {npc:263367} Sleebo Fizzlespout
 	["West of the port, the wildflowers grow in the meadows below {npc:263367}'s workshop."] = "港口西边，野花长在{npc:263367}工坊下方的草地上。",
 
-	-- Step 82: Farholde Keep
+	-- Step 83: Farholde Keep
 	-- {area:16724} Farholde Keep · {npc:257558} Demar Brant
 	["South-west across the plains to {area:16724}: {npc:257558} in the keep at the east end."] = "向西南穿过平原前往{area:16724}：{npc:257558}在东端的城堡里。",
 
-	-- Step 83: Demar Brant
+	-- Step 84: Demar Brant
 	-- {quest:94887} Saving Marshal Ryan
 	["{quest:94887}: for later in this guide"] = "{quest:94887}：本指南稍后完成",
 
-	-- Step 86: Brother Lowley
+	-- Step 87: Brother Lowley
 	-- {npc:263613} Brother Lowley · {npc:262031} Sister Rowland
 	["{npc:263613} tends the wounded beside the barracks: bandage three of his soldiers, then he has a note for {npc:262031} in the cathedral."] = "{npc:263613}在兵营旁照料伤员：给他的三名士兵包扎，然后他会给你一封交给大教堂里{npc:262031}的信。",
 	-- {item:272126} Makeshift Bandages
 	-- plural, as words: Wounded Soldiers = {npc:263614} Wounded Soldier
 	["{item:272126}, on the Wounded Soldiers beside him"] = "{item:272126}，用在他身旁的受伤的士兵身上",
 
-	-- Step 87: Farholde Keep, the west side
+	-- Step 88: Farholde Keep, the west side
 	-- {area:16724} Farholde Keep
 	["{area:16724}, the west side"] = "{area:16724}西侧",
 	-- {npc:263089} Tessa Dawnbright · {npc:259859} Wheatley
 	["West through the keep: {npc:263089} by the orchard, then the cathedral and {npc:259859} south of the inn if you have their errands."] = "向西穿过要塞：果园旁的{npc:263089}，如果接了他们的差事，再去大教堂和旅店南边的{npc:259859}。",
 
-	-- Step 88: Sister Rowland
+	-- Step 89: Sister Rowland
 	-- {quest:96084} Something's in the Water
 	["{quest:96084}: for later in this guide"] = "{quest:96084}：本指南稍后完成",
 
-	-- Step 90: Something's in the Water
+	-- Step 91: Something's in the Water
 	-- {area:16729} Terral's Watch · {npc:262031} Sister Rowland
 	["North past {area:16729}: fill {npc:262031}'s phial in the marsh water north-east of the tower."] = "向北经过{area:16729}：在塔楼东北的沼泽水中装满{npc:262031}的药瓶。",
 
-	-- Step 91: Terral's Watch
+	-- Step 92: Terral's Watch
 	-- {npc:259352} Watcher Cornelius
 	["{npc:259352}'s tower."] = "{npc:259352}的塔楼。",
 
-	-- Step 93: Turner's Logging Camp
+	-- Step 94: Turner's Logging Camp
 	-- {area:16736} Turner's Logging Camp · {npc:263380} Ghostmaw
 	-- plural, as words: Peasant Woodpiles = {object:645516} Peasant Woodpile
 	["West across the river to {area:16736}: the Peasant Woodpiles around the camp give the wood bundles.\nCareful: {npc:263380}, an elite (level 42), prowls the river by the camp: if he comes your way, back off and let him pass."] = "向西过河到{area:16736}：营地周围的农民木堆可以拿到木材捆。\n小心：精英{npc:263380}（42级）在营地旁的河边游荡：如果它朝你过来，就后退让它过去。",
 
-	-- Step 94: The Western Front
+	-- Step 95: The Western Front
 	-- {npc:256881} Overlord Kilgar
 	-- plural, as words: Twilight Champions = {npc:256799} Twilight Champion · Twilight Enforcers = {npc:256800} Twilight Enforcer
 	["Careful: the Western Front is written for level 44 and up. Its Twilight Champions are 43-44 and its Thralls 44, Twilight Enforcers (elites, 45) patrol through the camps, and {npc:256881} (46, elite) is for a group only. Below 44, top up on the Eastsea pirates by the port first, or come back with a friend."] = "",
 
-	-- Step 95: Sergeant Riftan
+	-- Step 96: Sergeant Riftan
 	-- {area:16685} Twilight's Shroud · {npc:258023} Sergeant Riftan
 	["North up the long valley towards {area:16685}: {npc:258023} holds a small camp below the Twilight cult's fortress."] = "沿狭长的山谷向北前往{area:16685}：{npc:258023}在暮光教派要塞下方守着一个小营地。",
 
-	-- Step 96: The Twilight camps
+	-- Step 97: The Twilight camps
 	["The Twilight camps"] = "暮光营地",
 	-- {npc:258652} Twilight Thrall · {npc:257591} Ashe Amberhall · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg
 	-- plural, as words: Farholde Scouts = {npc:256904} Farholde Scout · Twilight Enforcers = {npc:256800} Twilight Enforcer
@@ -480,7 +496,7 @@ return {
 	-- {npc:258652} Twilight Thrall
 	["kill a {npc:258652}"] = "击杀一个{npc:258652}",
 
-	-- Step 97: Marshal Ryan
+	-- Step 98: Marshal Ryan
 	-- {npc:257250} Marshal Ryan · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg
 	["{npc:257250} lies wounded among the camps at the valley's western edge.\nCareful: {npc:256881} and {npc:256891} (elites, 46) hold the fortress north of him: come at Ryan from the south."] = "{npc:257250}受伤躺在山谷西缘的营地之间。\n小心：{npc:256881}和{npc:256891}（精英，46级）据守他北边的要塞：从南边接近莱恩。",
 	-- {npc:257250} Marshal Ryan
@@ -488,74 +504,74 @@ return {
 	-- {quest:94892} Dying Wish · {npc:257558} Demar Brant · {area:16724} Farholde Keep
 	["{quest:94892}: for {npc:257558} in {area:16724}"] = "{quest:94892}：交给{area:16724}的{npc:257558}",
 
-	-- Step 98: The ogre mine
+	-- Step 99: The ogre mine
 	["The ogre mine"] = "食人魔矿洞",
 	-- plural, as words: Twilight Subjugators = {npc:260996} Twilight Subjugator · Twilight Enforcers = {npc:256800} Twilight Enforcer
 	["North of the camps the cult works ogre miners in a mine, driven by the Twilight Subjugators.\nCareful: Twilight Enforcers (elites, level 45) walk past the mine's mouth on their way through the camps. Wait for one to pass before you go in, and pull the miners and Subjugators back out to you."] = "营地北边，教派在一座矿洞里驱使食人魔矿工干活，由暮光征服者监工。\n小心：暮光执行者（精英，45级）穿行营地时会经过矿洞口。等它走过再进去，把矿工和征服者拉到外面打。",
 
-	-- Step 100: Bring Me His Head
+	-- Step 101: Bring Me His Head
 	-- {npc:256881} Overlord Kilgar
 	["{npc:256881} is an elite (level 46) in the fortress at the head of the valley, with the Enforcers around him: grouping up is advised."] = "{npc:256881}是精英（46级），在山谷尽头的要塞里，身边围着执行者：建议组队。",
 	-- {quest:94891} News to Farholde · {npc:257591} Ashe Amberhall
 	["{quest:94891}: for {npc:257591}"] = "{quest:94891}：交给{npc:257591}",
 
-	-- Step 101: Back to Farholde Keep
+	-- Step 102: Back to Farholde Keep
 	-- {area:16724} Farholde Keep
 	["Back to {area:16724}"] = "返回{area:16724}",
 	-- {area:16724} Farholde Keep
 	["Your hearthstone is bound at {area:16724}'s inn: use it, or ride back south to the keep."] = "你的炉石绑定在{area:16724}的旅店：使用炉石，或向南骑回要塞。",
 
-	-- Step 102: Farholde Keep
+	-- Step 103: Farholde Keep
 	-- {npc:260070} Bertrand Ironbrow · {npc:257558} Demar Brant · {npc:257591} Ashe Amberhall
 	["From the inn: {npc:260070} on the way in, then {npc:257558} and {npc:257591} in the keep."] = "从旅店出发：进去路上找{npc:260070}，然后是要塞里的{npc:257558}和{npc:257591}。",
 
-	-- Step 104: Demar Brant
+	-- Step 105: Demar Brant
 	-- {quest:94893} Delivering Closure · {npc:278088} Abigail Lawson · {zone:1453} Stormwind
 	["{quest:94893}: for {npc:278088} in {zone:1453}"] = "{quest:94893}：交给{zone:1453}的{npc:278088}",
 
-	-- Step 105: The Twilight Threat
+	-- Step 106: The Twilight Threat
 	-- {npc:257558} Demar Brant · {npc:1748} Highlord Bolvar Fordragon · {object:2117} Stormwind Keep
 	["{npc:257558}: Kilgar's head for {npc:1748} in {object:2117}"] = "{npc:257558}：把基尔加的头颅交给{object:2117}的{npc:1748}",
 
-	-- Step 106: Sister Rowland
+	-- Step 107: Sister Rowland
 	-- {npc:262031} Sister Rowland
 	["{npc:262031}, in the cathedral at the keep's south-west corner."] = "{npc:262031}在要塞西南角的大教堂里。",
 
-	-- Step 107: Stormwind
+	-- Step 108: Stormwind
 	-- {npc:257087} Gretchen Mayberry · {zone:1453} Stormwind · {npc:278088} Abigail Lawson · {object:2098} Cathedral Square
 	["{npc:257087} flies to {zone:1453}. {npc:278088} waits in the {object:2098}."] = "{npc:257087}可飞往{zone:1453}。{npc:278088}在{object:2098}等候。",
 
-	-- Step 109: Train before the Badlands
+	-- Step 110: Train before the Badlands
 	-- {zone:1418} Badlands
 	["Train before the {zone:1418}"] = "前往{zone:1418}前先训练",
 	-- {zone:2548} Riverglades · {zone:1418} Badlands · {zone:1425} Hinterlands · {npc:257087} Gretchen Mayberry · {zone:1453} Stormwind
 	["No class trainer stands in the {zone:2548}, and the {zone:1418} & {zone:1425} guide passes none: {npc:257087} flies to {zone:1453}, where you train before you go on."] = "{zone:2548}没有职业训练师，{zone:1418}和{zone:1425}指南途中也没有：找{npc:257087}飞往{zone:1453}，先训练再继续。",
 
-	-- Step 110: Your class trainer
+	-- Step 111: Your class trainer
 	["Your class trainer"] = "你的职业训练师",
 	-- {zone:2548} Riverglades · {zone:1453} Stormwind
 	["No class trainer stands in the {zone:2548}: train here in {zone:1453} before you fly on."] = "{zone:2548}没有职业训练师：飞走之前先在{zone:1453}训练。",
 
-	-- Step 111: Stormwind flight master
+	-- Step 112: Stormwind flight master
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "{zone:1453}飞行管理员",
 
-	-- Step 112: Shaman trainer
+	-- Step 113: Shaman trainer
 	["Shaman trainer"] = "萨满祭司训练师",
 	-- {zone:2548} Riverglades · {zone:1453} Stormwind · {zone:1418} Badlands · {zone:1425} Hinterlands · {area:1537} Ironforge · {area:144} Thelsamar
 	["No shaman trainer stands in the {zone:2548} or in {zone:1453}, and the {zone:1418} & {zone:1425} guide passes none: fly to {area:1537} and train there; {area:144} is a short flight on."] = "{zone:2548}和{zone:1453}都没有萨满祭司训练师，{zone:1418}和{zone:1425}指南途中也没有：飞往{area:1537}训练；从那里飞到{area:144}很近。",
 
-	-- Step 113: Leave Stormwind
+	-- Step 114: Leave Stormwind
 	-- {zone:1453} Stormwind
 	["Leave {zone:1453}"] = "离开{zone:1453}",
 	-- {zone:1418} Badlands · {zone:1432} Loch Modan · {area:144} Thelsamar · {zone:1453} Stormwind · {object:2096} Trade District
 	["The next guide starts in the {zone:1418}, south of {zone:1432}: fly to {area:144}. {zone:1453}'s gryphon master stands in the {object:2096}."] = "下一个指南从{zone:1432}南边的{zone:1418}开始：飞往{area:144}。{zone:1453}的狮鹫管理员在{object:2096}。",
 
-	-- Step 114: Loch Modan
+	-- Step 115: Loch Modan
 	-- {area:144} Thelsamar · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {zone:1453} Stormwind · {zone:1426} Dun Morogh · {zone:1432} Loch Modan
 	["No flight path to {area:144} yet: go to {zone:1455} (by the {area:2257} from {zone:1453}), ride out of its gates east through {zone:1426} and the tunnel into {zone:1432}, and on along the road to {area:144}."] = "还没有前往{area:144}的飞行路线：从{zone:1453}乘{area:2257}前往{zone:1455}，出城门向东穿过{zone:1426}，经隧道进入{zone:1432}，再沿道路前往{area:144}。",
 
-	-- Step 115: Fly to Thelsamar
+	-- Step 116: Fly to Thelsamar
 	-- {area:144} Thelsamar
 	["Fly to {area:144}"] = "飞往{area:144}",
 	-- {zone:1418} Badlands · {zone:1432} Loch Modan · {area:144} Thelsamar
@@ -566,9 +582,15 @@ return {
 	-- ["Level 44.4 on the Eastsea pirates"] = "在东海海盗身上升到44.4级",
 	-- ["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold hides in the middle of the town, {npc:256831} at its eastern edge, and {npc:258697} waits at his farm on the north-eastern edge."] = "从{area:16724}向北，经过{area:16729}并过河，前往被暮光教派占据的农庄小镇{area:16723}；避开镇子东边的部落要塞{area:16743}。狗头人{npc:259158}躲在镇子中央，{npc:256831}在镇子东边，{npc:258697}在东北边缘的农场等你。",
 	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "再次前往海盗悬崖。从南到北，在营地下方停泊的三艘船上安放威兹巴兹的炸药；{quest:95124}（45级）站在中间那艘船旁，她的战利品箱就在旁边。途中留意{npc:259758}。",
+	-- ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "{area:16723}的街道和田地里到处是邪教徒。先从中央的仪式法阵开始（在那里装满克莱尔的催化剂），向西穿过烧毁的房屋到镇子边缘，再折回东北到埃尔布林牧庄西边的松软泥土：把暮光袭击者掉落的{item:266148}埋在那里。护符、书页和指骨都从邪教徒身上掉落。\n留着他们掉落的{item:4338}：回到{area:16724}时，{npc:263613}要二十块。邪教徒偶尔会掉落{quest:94885}：右键点击它接受任务。\n小心：精英食人魔{npc:256899}（41级）在{area:16723}西侧街道巡逻，大约在44-47,47-52。把邪教徒拉到你这边，等他走过去；这里是本地区玩家死得最多的地方。\n河边的精英{npc:263380}（42级）可能从西南的田地游荡过来：让他过去。",
+	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}在港口西南、鱼人海滩下方的浅水中游荡。精英{npc:257001}在附近岸边走动：离他远一点。",
+	-- ["the middle ship"] = "中间的船",
+	-- ["the northern ship"] = "北边的船",
 	-- ["the {object:707245} poster"] = "通缉令",
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}，找{npc:272437}领取",
+	-- ["{item:268505}, the southern ship"] = "{item:268505}，南边的船",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026}在山口东边的路旁等候。",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031}看守着{area:16724}西南角的旧大教堂。蝙蝠栖息在教堂上层；{npc:272437}在教堂旁发放圣洁蜡烛；坟墓在礼拜堂墓地里。\n{npc:271742}是53级精英，站在大教堂内：他不会主动攻击你，千万别打他，把蝙蝠拉离他身边再打。",
+	-- ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}，在埃尔布林牧庄西边：每座墓需要一个暮光袭击者掉落的{item:266148}，所以先拾取五个",
 	-- ["{object:621813}: bury the mementos"] = "{object:621813}：埋下纪念品",
 }

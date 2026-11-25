@@ -72,9 +72,9 @@ return {
 
 	-- Step 12: The north end of the Zoram Strand
 	-- {area:414} Zoram Strand
-	["The north end of the {area:414}"] = "",
+	["The north end of the {area:414}"] = "{area:414}的北端",
 	-- {area:414} Zoram Strand · {zone:1439} Darkshore
-	["The naga's flooded ruins lie just past the north end of the {area:414}, south of {zone:1439} along the coast. The arrow cannot find its own way down into them, so it leads you to the water's edge first: from there swim north into the ruins."] = "",
+	["The naga's flooded ruins lie just past the north end of the {area:414}, south of {zone:1439} along the coast. The arrow cannot find its own way down into them, so it leads you to the water's edge first: from there swim north into the ruins."] = "纳迦的水淹废墟就在{area:414}北端稍远处，在{zone:1439}南边沿海岸。箭头找不到下行的路，所以先把你引到水边：从那里向北游进废墟。",
 
 	-- Step 13: The Corrupted Kor Gem
 	-- {item:6995} Corrupted Kor Gem

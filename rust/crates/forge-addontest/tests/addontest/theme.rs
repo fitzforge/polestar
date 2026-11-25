@@ -949,7 +949,7 @@ fn guiding_stars_a_chinese_contributor_name_is_drawn_in_a_chinese_font_on_every_
 	}
 }
 
-// The game's looks (Polestar_Looks/GameSkins.lua): each draws its own art source, and a window taken through all three
+// The game's looks (Theme/Looks/GameSkins.lua): each draws its own art source, and a window taken through all three
 // comes back to the house style as it was.
 #[test]
 fn skins_wow_forever_draws_the_client_s_atlas_blizzard_the_retail_sheet_classic_the_vanilla_dialog_a_window_goes_through_them_and_back() {
@@ -994,7 +994,7 @@ fn skins_wow_forever_draws_the_client_s_atlas_blizzard_the_retail_sheet_classic_
 	assert_eq!(out["game"], true);
 	assert_eq!(out["close"], json!({ "frame": true, "shell": false }), "the close button sits on the frame corner");
 	assert_eq!(out["drag"], true, "the title bar drags the window");
-	assert_eq!(out["blizzardCorner"], 2406979, "Blizzard: the retail sheet by file ID (Polestar_Looks/GameArt.lua)");
+	assert_eq!(out["blizzardCorner"], 2406979, "Blizzard: the retail sheet by file ID (Theme/Looks/GameArt.lua)");
 	assert_eq!(out["forever"]["metal"], true);
 	assert_eq!(out["blizzard"]["metal"], true);
 	assert_eq!(json!({ "metal": out["classic"]["metal"].clone(), "dialog": out["classic"]["dialog"].clone() }), json!({ "metal": false, "dialog": true }), "Classic: the dialog box, no metal");
@@ -1090,7 +1090,7 @@ fn skins_forever_hover_plates_use_add_blend_306c() {
 	assert_eq!(out["platBlend"], "ADD", "plateLit ADD");
 }
 
-// Classic (Polestar_Looks/GameSkins.lua, 0.3.7): the vanilla files composed as the client composes them, every backdrop
+// Classic (Theme/Looks/GameSkins.lua, 0.3.7): the vanilla files composed as the client composes them, every backdrop
 // drawn piece by piece from its edge file (no BackdropTemplate frame, so the previews draw it too). The settings
 // window wears the dialog box with its header plate and its boxed sidebar; the guide window is a chat frame (the
 // tooltip tile under the chat tab's rim, its tabs cut from the chat tab sheet, the XP bar's purple progress in the
@@ -1508,11 +1508,11 @@ fn text_size_scales_every_role_at_once_apart_from_the_window_scale_within_80_to_
 	assert_eq!(out["scale"], 1, "the window scale is left alone");
 }
 
-// The game looks (WoW Forever, Blizzard, Classic) and Hearth's painters live in a part loaded on demand
-// (Polestar_Looks): on the house look nothing of it is loaded and the kit calls draw nothing; the first of them
-// painted loads it, once, with every look's kit, painter and art table; back on the house look no kit is in use.
+// The game looks (WoW Forever, Blizzard, Classic) and Hearth's painters are part of Polestar (Theme/Looks, their
+// own load-on-demand folder before 0.4.3, #3507): every look's kit, painter and art table is there at login and no
+// folder is asked for; on the house look no kit is in use, a game look uses its own, and back on the house look none.
 #[test]
-fn the_game_looks_and_hearth_load_on_demand_the_first_time_one_is_painted_and_only_once() {
+fn the_game_looks_and_hearth_are_there_at_login_and_used_only_while_picked() {
 	let out = run(r#"
 		local loads = 0
 		local load = C_AddOns.LoadAddOn
@@ -1520,51 +1520,19 @@ fn the_game_looks_and_hearth_load_on_demand_the_first_time_one_is_painted_and_on
 			if name == "Polestar_Looks" then loads = loads + 1 end
 			return load(name, ...)
 		end
-		local house = { loaded = stub.addonsLoaded.Polestar_Looks == true, kits = T.KITS ~= nil, kit = T.Kit() ~= nil,
-			hearth = T.SKIN_PAINT.hearth ~= nil, forever = T.SKIN_PAINT.forever ~= nil, art = Polestar.GameArt ~= nil,
-			tab = T.KitTab(CreateFrame("Button"), "x"), loads = loads }
+		local house = { kits = T.KITS ~= nil, kit = T.Kit() ~= nil, hearth = T.SKIN_PAINT.hearth ~= nil, forever = T.SKIN_PAINT.forever ~= nil,
+			art = Polestar.GameArt ~= nil }
 		Polestar.Set("ui.skin", "hearth")
-		local hearth = { loads = loads, loaded = stub.addonsLoaded.Polestar_Looks == true, painter = T.SKIN_PAINT.hearth ~= nil,
-			kit = T.Kit() ~= nil }
+		local hearth = { key = T.SkinKey(), kit = T.Kit() ~= nil }
 		Polestar.Set("ui.skin", "classic")
-		local classic = { loads = loads, kit = T.Kit() ~= nil and T.Kit() == T.KITS.classic, forever = T.SKIN_PAINT.forever ~= nil,
-			blizzard = T.SKIN_PAINT.blizzard ~= nil, art = Polestar.GameArt ~= nil }
+		local classic = { key = T.SkinKey(), kit = T.Kit() ~= nil and T.Kit() == T.KITS.classic }
 		Polestar.Set("ui.skin", "polestar")
-		emit({ house = house, hearth = hearth, classic = classic, back = { loads = loads, kit = T.Kit() ~= nil } })"#);
-	assert_eq!(
-		out["house"],
-		json!({ "loaded": false, "kits": false, "kit": false, "hearth": false, "forever": false, "art": false, "tab": false, "loads": 0 }),
-		"the house look loads nothing of the game looks"
-	);
-	assert_eq!(out["hearth"], json!({ "loads": 1, "loaded": true, "painter": true, "kit": false }), "Hearth brings the part in, with no kit");
-	assert_eq!(out["classic"], json!({ "loads": 1, "kit": true, "forever": true, "blizzard": true, "art": true }), "a game look finds it in, loaded once");
-	assert_eq!(out["back"], json!({ "loads": 1, "kit": false }));
-}
-
-// The game looks' part missing or turned off in the AddOns list (Polestar_Looks): picking one of them keeps
-// Polestar's own look whole (its sizes, its controls: a switch keeps its pill), never the look's controls on
-// Polestar's frames with nothing drawn where the look's art would be.
-#[test]
-fn without_the_game_looks_part_polestar_s_own_look_stands_in_whole() {
-	let out = run(r#"
-		local load = C_AddOns.LoadAddOn
-		function C_AddOns.LoadAddOn(name, ...)
-			if name == "Polestar_Looks" then return false, "DISABLED" end
-			return load(name, ...)
-		end
-		local sw = W.Switch(UIParent, function() return true end, function() end)
-		Polestar.Set("ui.skin", "blizzard")
-		sw:Refresh()
-		local out = { id = T.SkinId(), key = T.SkinKey(), game = T.GameSkin(), kit = T.Kit() ~= nil,
-			pill = sw.Track.parts[1]:IsShown(), knob = sw.Knob:IsShown() }
-		Polestar.Set("ui.skin", "hearth")
-		out.hearth = T.SkinKey()
-		emit(out)"#);
-	assert_eq!(out["id"], "blizzard", "the choice is kept for when the part is back");
-	assert_eq!(
-		json!({ "key": out["key"], "game": out["game"], "kit": out["kit"], "pill": out["pill"], "knob": out["knob"], "hearth": out["hearth"] }),
-		json!({ "key": "polestar", "game": false, "kit": false, "pill": true, "knob": true, "hearth": "polestar" })
-	);
+		emit({ house = house, hearth = hearth, classic = classic, back = { kit = T.Kit() ~= nil }, loads = loads })"#);
+	assert_eq!(out["house"], json!({ "kits": true, "kit": false, "hearth": true, "forever": true, "art": true }), "every look's parts are there, none in use");
+	assert_eq!(out["hearth"], json!({ "key": "hearth", "kit": false }), "Hearth draws with its painters, no kit");
+	assert_eq!(out["classic"], json!({ "key": "classic", "kit": true }), "a game look draws with its kit");
+	assert_eq!(out["back"], json!({ "kit": false }));
+	assert_eq!(out["loads"], 0, "no folder asked for");
 }
 
 #[test]
@@ -1655,4 +1623,41 @@ fn the_class_quest_card_in_the_guide_window_keeps_the_general_text_size() {
 	assert_eq!(out["cardGuide"], 1, "the guide size leaves the card alone");
 	assert!((out["guideGuide"].as_f64().unwrap() - 1.4).abs() < 0.05, "and sizes the window around it: {}", out["guideGuide"]);
 	assert!((out["cardGeneral"].as_f64().unwrap() - 0.8).abs() < 0.05, "the card follows the general size: {}", out["cardGeneral"]);
+}
+
+// Fitz's 0.4.3-rc probe: a look setting changed with the settings window open cost 427-461 ms frames. The font
+// repaint (every themed string, Fonts.moved) asked each string's text scope; once a scope was set since the last
+// lookups (a preview's copy of the guide window built), every parent outside the scoped windows (the settings window's
+// hundreds of rows) walked every scoped window's frames again. One repaint walks them once now; the strings inside a
+// scope still take its size, those outside the general one.
+#[test]
+fn a_font_repaint_walks_the_scoped_windows_once_however_many_strings_live_outside_them() {
+	let out = run(r#"
+		local scoped = PolestarGuideFrame
+		local inside = scoped:CreateFontString()
+		T.Font(inside, "title")
+		local outside = {}
+		for i = 1, 60 do
+			local row = CreateFrame("Frame", nil, UIParent)
+			local fs = row:CreateFontString()
+			T.Font(fs, "body")
+			outside[i] = fs
+		end
+		local _, base = inside:GetFont()
+		local _, baseOut = outside[1]:GetFont()
+		Polestar.Set("ui.guideTextSize", 1.4)
+		-- A copy of the guide window built since (the settings window's previews: GuideFrame's build sets its scope),
+		-- which starts the scope lookups over.
+		local copy = CreateFrame("Frame", nil, UIParent)
+		T.TextScope(copy, "ui.guideTextSize")
+		local walks, children = 0, scoped.GetChildren
+		scoped.GetChildren = function(self, ...) walks = walks + 1 return children(self, ...) end
+		Polestar.Set("ui.textSize", 0.8)
+		scoped.GetChildren = nil
+		local _, inGuide = inside:GetFont()
+		local _, outGeneral = outside[60]:GetFont()
+		emit({ walks = walks, inside = inGuide / base, outside = outGeneral / baseOut })"#);
+	assert!(out["walks"].as_i64().unwrap() <= 1, "one walk of the guide window for the whole repaint: {out}");
+	assert!((out["inside"].as_f64().unwrap() - 1.4).abs() < 0.05, "a string in the window keeps its size: {out}");
+	assert!((out["outside"].as_f64().unwrap() - 0.8).abs() < 0.05, "one outside takes the general size: {out}");
 }

@@ -140,6 +140,16 @@ step The Binding
   kill 5676 quest 1689.1                      -- Summoned Voidwalker: use the Bloodstone Choker at the circle
   turnin 1689                                 -- Summon Voidwalker
 
+step The Binding
+  only Gnome,Warlock
+  when turnedin 1688
+  when available 1689
+  zone Stormwind City
+  tip Surena's Choker is already with Gakin the Darkbinder: take The Binding from him in the cellar of the Slaughtered Lamb, in the Mage Quarter. Use the Bloodstone Choker at the summoning circle there and defeat the voidwalker it calls.
+  accept 1689
+  kill 5676 quest 1689.1                      -- Summoned Voidwalker: use the Bloodstone Choker at the circle
+  turnin 1689                                 -- Summon Voidwalker
+
 # ---------------------------------------------------------------- The road in: the Jansen Stead and Saldean's
 
 step The Jansen Stead
@@ -272,7 +282,7 @@ step The Jansen Stead
   turnin 151                                  -- Verna Furlbrow
 
 step Harvest Watchers north of Saldean's Farm
-  tip On the way south from the Jansen Stead to Saldean's Farm: Harvest Watchers (level 14-15) and Golems work the fields west of the road; they drop the isosprings, gyrostabilizers, Okra and sometimes a Precessive Autocognition Assembly. Foe Reaper 4000, a level 20 rare, walks these fields: leave it alone.
+  tip On the way south from the Jansen Stead to Saldean's Farm: Harvest Watchers (level 14-15) work the fields west of the road. Stick to them: they are the only mechanicals that count for The Killing Fields, and they drop everything else here too: the isosprings, gyrostabilizers, Okra and sometimes a Precessive Autocognition Assembly. Harvest Golems drop some of the parts but don't count, and the Harvest Reapers (17) are too high. Foe Reaper 4000, a level 20 rare, walks these fields: leave it alone.
   kill 114 quest 9                            -- Harvest Watchers
   collect 255007 quest 92909.1
   collect 255010 quest 92909.2
@@ -437,6 +447,31 @@ step Stormwind
   accept 353 only Human                       -- Grimand Elmore: his package for Mountaineer Stormpike in Loch Modan, later on the route
   accept 97894                                -- Borgus Steelhand, Dwarven District: for his brother in Auberdine
   turnin 399                                  -- Baros Alexston, Cathedral Square
+
+step Gelman Stonehand
+  when onquest 97923
+  when complete 97923
+  zone Stormwind City
+  complete 97923 @58.95,37.79                 -- talk to the trainer
+  turnin 97923                                -- Gelman Stonehand, Dwarven District: Camping 101: Mining
+
+step Sprite Jumpsprocket
+  when onquest 97918
+  when complete 97918
+  zone Stormwind City
+  complete 97918 @61.76,30.48                 -- talk to the trainer
+  turnin 97918                                -- Sprite Jumpsprocket, Dwarven District: Camping 101: Engineering
+
+step Betty Quin
+  when onquest 97917
+  when complete 97917
+  zone Stormwind City
+  complete 97917 @52.92,73.96                 -- talk to the trainer
+  turnin 97917                                -- Betty Quin: Camping 101: Enchanting
+
+step Jennea Cannon
+  zone Stormwind City
+  when complete 1861
   turnin 1861 only Gnome,Human,Skyborne,Mage choose 9513 7508      -- Jennea Cannon, Wizard's Sanctum: Mirror Lake
 
 step Stormwind

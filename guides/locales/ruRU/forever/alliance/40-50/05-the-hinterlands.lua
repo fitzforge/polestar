@@ -86,36 +86,42 @@ return {
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}, внутри",
 
-	-- Step 16: Oglethorpe Obnoticus
+	-- Step 16: Fin Fizracket
+	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
+	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "Групповое задание: {quest:348} заканчивается у NPC {npc:1449} в Мглистой долине. Отдайте ему десять клыков горилл, и он призовет три волны горилл (41-42), одну за другой, затем {npc:1514} (44). В записях игроков 12 из 27 начавших погибли там. Берите, если с вами друг или двое.",
+	-- {npc:2486} Fin Fizracket
+	["{npc:2486}, beside the inn"] = "{npc:2486}, рядом с таверной",
+
+	-- Step 17: Oglethorpe Obnoticus
 	-- {zone:1444} Feralas · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay
 	["Only if you escorted the {zone:1444} robot: its reward waits with {npc:7406} here in {area:35}."] = "",
 
-	-- Step 17: Oglethorpe Obnoticus
+	-- Step 18: Oglethorpe Obnoticus
 	-- {zone:1425} The Hinterlands · {npc:7406} Oglethorpe Obnoticus
 	["Only if you escorted the {zone:1425} robot: {npc:7406} has its reward too."] = "",
 
-	-- Step 18: Wild Shore: kill these as you meet them
+	-- Step 19: Wild Shore: kill these as you meet them
 	-- {area:43} Wild Shore
 	["{area:43}: kill these as you meet them"] = "{area:43}: убивайте их по пути",
 	-- {area:43} Wild Shore · {area:35} Booty Bay
 	["The charts and orders lie in the pirate camp on the {area:43}, just south of {area:35}; its Swashbucklers walk the shore. The Warlocks and Swashbucklers (41-43) are under you now."] = "Карты и приказы лежат в пиратском лагере на месте {area:43}, чуть южнее места {area:35}; его головорезы ходят по берегу. Чернокнижники и головорезы (41-43) теперь ниже вас по уровню.",
 
-	-- Step 20: The Bloodsail captains
+	-- Step 21: The Bloodsail captains
 	["The Bloodsail captains"] = "Капитаны шайки Кровавого Паруса",
 	-- {area:35} Booty Bay · {npc:2550} Captain Stillwater · {npc:2548} Captain Keelhaul · {npc:2546} Fleet Master Firallon
 	["The three Bloodsail ships lie at anchor off the coast just south of {area:35}: {npc:2550} (45) and {npc:2548} (46) on the nearer decks, {npc:2546} (48) on the flagship, each with a crew of 42-45 pirates. Swim out, clear each deck from the edge and pull one at a time."] = "",
 
-	-- Step 22: Naga Explorers
+	-- Step 23: Naga Explorers
 	-- plural, as words: Naga Explorers = {npc:1907} Naga Explorer
 	["Naga Explorers"] = "Наги-исследователи",
 	["Leave town by the tunnel and ride north along the coast past the Bloodsail camp: the naga comb the beaches beyond it and drop the reeds."] = "Выйдите из города через туннель и езжайте на север вдоль побережья мимо лагеря Кровавого Паруса: дальше по пляжам бродят наги, с них падают тростники.",
 
-	-- Step 23: Zanzil's village
+	-- Step 24: Zanzil's village
 	["Zanzil's village"] = "Деревня Занзила",
 	-- {npc:2537} Chucky "Ten Thumbs"
 	["Ride on north along the coast to Zanzil's village. Every Zanzil follower can drop the mixture; {npc:2537} walks the south of the camp."] = "Езжайте дальше на север вдоль побережья к деревне Занзила. Мешанина может выпасть с любого последователя Занзила; {npc:2537} ходит в южной части лагеря.",
 
-	-- Step 24: Maury "Club Foot" Wilkins and Jon-Jon
+	-- Step 25: Maury "Club Foot" Wilkins and Jon-Jon
 	-- {npc:2535} Maury "Club Foot" Wilkins
 	-- was: ["{npc:2535} and {npc:2536}"] = "{npc:2535} и {npc:2536}"
 	["{npc:2535} and Jon-Jon"] = "",
@@ -124,20 +130,20 @@ return {
 	-- {item:3925} Jon-Jon's Golden Spyglass · {npc:2536} Jon-Jon the Crow
 	["{item:3925}, from {npc:2536}"] = "",
 
-	-- Step 25: Gorilla hills
+	-- Step 26: Gorilla hills
 	["Gorilla hills"] = "Холмы горилл",
 	-- {area:35} Booty Bay · {npc:1449} Witch Doctor Unbagwa
 	-- plural, as words: Gorilla Fangs = {item:2799} Gorilla Fang · Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
 	["Ride back south-east to the Mistvale gorilla hills above {area:35}. {npc:1449} sits among the gorillas: take ten Gorilla Fangs from the Elder Mistvale Gorillas first."] = "Езжайте обратно на юго-восток к холмам горилл из Мглистой долины над местом {area:35}. {npc:1449} сидит среди горилл: сначала добудьте десять клыков гориллы со старых горилл из Мглистой долины.",
 
-	-- Step 26: Unbagwa's ritual
+	-- Step 27: Unbagwa's ritual
 	["Unbagwa's ritual"] = "Ритуал Унбагвы",
 	-- {npc:1514} Mokk the Savage
 	["Hand in the fangs and stay: three waves of gorillas come, {npc:1514} last.\nCareful: three waves of gorillas come one after another with little rest between, then {npc:1514}. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy."] = "Сдайте клыки и оставайтесь на месте: придут три волны горилл, последним – {npc:1514}.\nОсторожно: три волны горилл идут одна за другой почти без передышки, затем {npc:1514}. Начинайте с полным здоровьем и маной и держитесь рядом с Унбагвой. Некоторым классам трудно в одиночку: с другом будет легко.",
 	-- {npc:1449} Witch Doctor Unbagwa · {area:1742} Spirit Den
 	["{npc:1449}, inside {area:1742}"] = "{npc:1449}, внутри: {area:1742}",
 
-	-- Step 28: Booty Bay
+	-- Step 29: Booty Bay
 	["Ride back down to town."] = "Езжайте обратно вниз, в город.",
 	-- {npc:2616} Privateer Groy
 	["for {npc:2616} in Theramore: keep it, the Un'Goro guide lands there"] = "для NPC {npc:2616} в Тераморе: сохраните, гайд по Ун'Горо начинается там",
@@ -145,11 +151,15 @@ return {
 	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "Следующее поручение {npc:2498} про Занзила начинается в зоне {zone:1441}: пропустите его.",
 	["MacKinley's next task sends you after elite ogres: skip it."] = "Следующее задание Маккинли отправляет вас к элитным ограм: пропустите его.",
 
-	-- Step 29: Monogrammed Sash
+	-- Step 30: Fin Fizracket
+	-- {npc:2486} Fin Fizracket
+	["{npc:2486}, by the inn"] = "",
+
+	-- Step 31: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 33: Negolash's bait
+	-- Step 35: Negolash's bait
 	-- {npc:1494} Negolash
 	["{npc:1494}'s bait"] = "",
 	-- {npc:1494} Negolash · {quest:619} Enticing Negolash · {area:35} Booty Bay · {item:4595} Junglevine Wine · {npc:2832} Nixxrax Fillamug
@@ -160,7 +170,7 @@ return {
 	-- {object:2289} Ruined Lifeboat · {npc:1494} Negolash
 	["{object:2289}: the food goes in, {npc:1494} comes"] = "",
 
-	-- Step 34: Facing Negolash
+	-- Step 36: Facing Negolash
 	-- {npc:1494} Negolash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 

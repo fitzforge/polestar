@@ -27,7 +27,7 @@ return {
 	-- Step 3: Scout Bolain
 	-- {npc:260026} Scout Bolain · {zone:1434} Stranglethorn Vale · {npc:256881} Overlord Kilgar
 	-- plural, as words: Twilight Enforcers = {npc:256800} Twilight Enforcer
-	["{npc:260026} waits beside the road east of the pass.\nThis guide is written for levels 41-45: the route comes here at about 41, after {zone:1434}. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and {npc:256881} (46, elite) for groups only: below 41, do Stranglethorn first."] = "",
+	["{npc:260026} waits beside the road east of the pass.\nThis guide is written for levels 41-45: the route comes here at about 41, after {zone:1434}. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and {npc:256881} (46, elite) for groups only: below 41, do Stranglethorn first."] = "{npc:260026}은(는) 고개 동쪽 도로 곁에서 기다립니다.\n이 가이드는 41-45레벨용입니다. 경로는 {zone:1434} 이후 약 41레벨에 여기로 옵니다. 항구의 두 번째 무리와 북부 서부전선 야영지는 43-45레벨이며 정예 황혼 집행자(45레벨)가 순찰하고 {npc:256881}(46레벨, 정예)은 파티 전용입니다. 41레벨 아래라면 먼저 스트랭글쏜을 하세요.",
 
 	-- Step 4: Southern Watch
 	-- {area:16744} Southern Watch
@@ -199,68 +199,79 @@ return {
 	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge."] = "",
 	-- {npc:259158} Fuzzle · {quest:94961} Biting the Hand
 	["{npc:259158}: {quest:94961}, in his cage"] = "",
+	["the way in: she is below the town"] = "들어가는 길: 그녀는 마을 아래에 있습니다",
+	["Claire's cave"] = "클레어의 동굴",
 
 	-- Step 41: The Twilight cult
 	["The Twilight cult"] = "황혼의 교단",
 	-- {area:16723} Sunnyglade · {item:266148} Farmers' Mementos · {item:4338} Mageweave Cloth · {npc:263613} Brother Lowley · {area:16724} Farholde Keep · {quest:94885} Field Marshal's Log · {npc:256899} Chogg'Zac · {npc:263380} Ghostmaw
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
-	["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "교단원들이 {area:16723}의 거리와 들판을 메우고 있습니다. 한가운데 의식의 원에서 시작해(거기서 클레어의 촉매를 채우십시오), 불탄 집들을 지나 서쪽 마을 끝까지 간 뒤, 북동쪽 엘브림 농장 서쪽의 무른 흙으로 돌아오십시오: 황혼의 약탈자가 떨어뜨리는 {item:266148}을(를) 그곳에 묻으십시오. 부적, 책장, 손가락뼈는 교단원에게서 나옵니다.\n교단원이 떨어뜨리는 {item:4338}은(는) 보관하세요: {area:16724}의 {npc:263613}이(가) 돌아가면 20개를 요구합니다. 가끔 교단원이 {quest:94885}을(를) 떨어뜨립니다: 우클릭하여 퀘스트를 시작하십시오.\n주의: 정예 오우거 {npc:256899}(41레벨)이(가) {area:16723} 서쪽 거리 44-47,47-52 부근을 돌아다닙니다. 교단원을 끌어내고 그가 지나가게 두십시오. 이 지역에서 플레이어가 가장 많이 죽은 곳입니다.\n강의 정예 {npc:263380}(42레벨)이(가) 남서쪽 들판에서 올라올 수 있습니다: 지나가게 두십시오.",
+	-- was: ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "교단원들이 {area:16723}의 거리와 들판을 메우고 있습니다. 한가운데 의식의 원에서 시작해(거기서 클레어의 촉매를 채우십시오), 불탄 집들을 지나 서쪽 마을 끝까지 간 뒤, 북동쪽 엘브림 농장 서쪽의 무른 흙으로 돌아오십시오: 황혼의 약탈자가 떨어뜨리는 {item:266148}을(를) 그곳에 묻으십시오. 부적, 책장, 손가락뼈는 교단원에게서 나옵니다.\n교단원이 떨어뜨리는 {item:4338}은(는) 보관하세요: {area:16724}의 {npc:263613}이(가) 돌아가면 20개를 요구합니다. 가끔 교단원이 {quest:94885}을(를) 떨어뜨립니다: 우클릭하여 퀘스트를 시작하십시오.\n주의: 정예 오우거 {npc:256899}(41레벨)이(가) {area:16723} 서쪽 거리 44-47,47-52 부근을 돌아다닙니다. 교단원을 끌어내고 그가 지나가게 두십시오. 이 지역에서 플레이어가 가장 많이 죽은 곳입니다.\n강의 정예 {npc:263380}(42레벨)이(가) 남서쪽 들판에서 올라올 수 있습니다: 지나가게 두십시오."
+	["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), then work west through the burnt houses to the edge of town. The charms, pages and finger bones drop from the cultists; keep the {item:266148} the Twilight Raiders drop: five, one for each grave west of Elbrim's farm.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "{area:16723}의 거리와 들판에 광신도들이 가득합니다. 가운데 의식 원에서 시작해(그곳에서 클레어의 촉매를 채우십시오) 불탄 집들을 지나 서쪽 마을 끝까지 가십시오. 부적, 쪽지, 손가락뼈는 광신도에게서 떨어집니다. 황혼의 습격자가 떨어뜨리는 {item:266148}은(는) 보관하십시오: 다섯 개, 엘브림의 농장 서쪽 무덤마다 하나씩.\n그들이 떨어뜨리는 {item:4338}도 보관하십시오: {area:16724}에 돌아가면 {npc:263613}이(가) 스무 개를 요구합니다. 가끔 광신도가 {quest:94885}을(를) 떨어뜨립니다: 오른쪽 클릭하여 퀘스트를 시작하십시오.\n주의: 정예 오우거 {npc:256899}(41레벨)이(가) {area:16723}의 서쪽 거리 44-47,47-52 부근을 돌아다닙니다. 광신도를 끌어내고 그는 지나가게 두십시오. 이 지역에서 플레이어가 가장 많이 죽은 곳입니다.\n강의 정예 {npc:263380}(42레벨)이(가) 남서쪽 들판에서 올라올 수 있습니다: 지나가게 두십시오.",
 	-- {item:269990} Crystal Catalyst
 	["fill the {item:269990} at the ritual circles"] = "의식의 원에서 {item:269990} 채우기",
-	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
+	-- {item:266148} Farmers' Mementos
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
-	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "",
+	["{item:266148}, from the Twilight Raiders: one for each grave"] = "{item:266148}, 황혼의 습격자({npc:256952})에게서: 무덤마다 하나",
 	-- {quest:94885} Field Marshal's Log
 	["{quest:94885}: only if a cultist dropped the log"] = "{quest:94885}: 교단원이 일지를 떨어뜨린 경우에만",
 
-	-- Step 42: Apprentice Claire
+	-- Step 42: Loose Soil
+	-- {item:266148} Farmers' Mementos
+	["Back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} there, one in each grave."] = "북동쪽 엘브림의 농장 서쪽의 무른 흙으로 돌아가십시오: 그곳에 {item:266148}을(를) 무덤마다 하나씩 묻으십시오.",
+	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
+	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
+	-- was: ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, 엘브림 농장 서쪽: 묘지마다 황혼 약탈자가 떨어뜨리는 {item:266148}이(가) 하나 필요하니 먼저 다섯 개를 모으세요"
+	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop"] = "{object:621813}, 엘브림의 농장 서쪽: 무덤마다 황혼의 습격자({npc:256952})가 떨어뜨리는 {item:266148} 하나",
+
+	-- Step 43: Apprentice Claire
 	-- {area:16723} Sunnyglade
 	["Claire is in the cave under the eastern edge of {area:16723}: its entrance is at 50.0,46.0."] = "",
 
-	-- Step 43: Cut Off the Heads
+	-- Step 44: Cut Off the Heads
 	-- {npc:256899} Chogg'Zac · {area:16723} Sunnyglade · {npc:257591} Ashe Amberhall · {area:16724} Farholde Keep
 	["{npc:256899}, the two-headed ogre, is an elite (level 41) at the western edge of {area:16723}: grouping up is advised. Claire then has the filled catalyst for {npc:257591} in {area:16724}."] = "머리 둘 달린 오우거 {npc:256899}은(는) {area:16723} 서쪽 끝의 정예(41레벨)입니다: 파티를 권장합니다. 이어서 클레어가 {area:16724}의 {npc:257591}에게 줄 채워진 촉매를 건넵니다.",
 	-- {quest:94884} An Unsettling Discovery · {npc:257591} Ashe Amberhall · {area:16724} Farholde Keep
 	["{quest:94884}: for {npc:257591} in {area:16724}"] = "{quest:94884}: {area:16724}의 {npc:257591}에게",
 
-	-- Step 44: Fuzzle
+	-- Step 45: Fuzzle
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["{npc:259158} wants out of {area:16723}: lead him west to his treasure at the edge of town and keep the cultists off him."] = "{npc:259158}은(는) {area:16723}을(를) 빠져나가고 싶어 합니다: 서쪽 마을 끝의 보물까지 데려가며 교단원을 막아 주십시오.",
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["lead {npc:259158} out of {area:16723} to his treasure, west of the town"] = "{npc:259158}을(를) {area:16723} 밖으로 데리고 마을 서쪽의 보물까지 가십시오",
 
-	-- Step 45: Farmer Elbrim
+	-- Step 46: Farmer Elbrim
 	["Back east through the town to Elbrim's farm: the doll and the locket are in the burnt farmhouse beside it."] = "마을을 지나 다시 동쪽 엘브림의 농장으로 가십시오. 인형과 목걸이는 그 옆의 불탄 농가에 있습니다.",
 
-	-- Step 46: The Rog'mar training grounds
+	-- Step 47: The Rog'mar training grounds
 	-- {area:16743} Rog'mar
 	["The {area:16743} training grounds"] = "{area:16743} 훈련장",
 	-- {area:16743} Rog'mar · {npc:263071} Blademaster Kaijo · {npc:263615} Krek the Noxious
 	-- plural, as words: Rog'mar Grunts = {npc:255996} Rog'mar Grunt
 	["North-east of Elbrim's farm, the Horde drills its trainees in the fields north of {area:16743}. Stay north of the fort: its guards are far above your level. The supply crates lie around the drill grounds. Three elites work this ground: {npc:263071} (42) walks among the trainees, {npc:263615} (42) lurks at the north end, and Komuk (45), a Horde elite, patrols the hills to the east; give each of them room.\nCareful: Rog'mar Grunts (55) guard the fort's north wall, around 59,39 to 61,41. Leave the crates and trainees by the wall and take the ones further north, around 57-61,34-37."] = "엘브림의 농장 북동쪽, {area:16743} 북쪽 들판에서 호드가 훈련병들을 훈련시킵니다. 요새 북쪽에 머무르십시오. 요새 경비병은 당신보다 레벨이 훨씬 높습니다. 보급품 상자는 훈련장 곳곳에 있습니다. 이곳에는 정예 셋이 있습니다. {npc:263071}(42)은(는) 훈련병들 사이를 걸어 다니고, {npc:263615}(42)은(는) 북쪽 끝에 숨어 있으며, 호드 정예 코무크(45)는 동쪽 언덕을 순찰합니다. 모두 거리를 두십시오.\n주의: 로그마르 그런트(55)가 59,39에서 61,41 부근 요새 북쪽 성벽을 지킵니다. 성벽 근처의 상자와 훈련병은 두고, 더 북쪽인 57-61,34-37 부근의 것을 노리십시오.",
 
-	-- Step 47: Blademaster Kaijo
+	-- Step 48: Blademaster Kaijo
 	-- {npc:263071} Blademaster Kaijo
 	["{npc:263071}, the elite, walks the training grounds."] = "정예 {npc:263071}은(는) 훈련장을 걸어 다닙니다.",
 
-	-- Step 48: Sleebo Fizzlespout's workshop
+	-- Step 49: Sleebo Fizzlespout's workshop
 	-- {npc:263367} Sleebo Fizzlespout
 	["{npc:263367}'s workshop"] = "{npc:263367}의 작업장",
 	-- {area:16743} Rog'mar · {npc:263367} Sleebo Fizzlespout · {area:16726} Bolder'ok
 	["South-east, round {area:16743}'s east side, to {npc:263367}'s workshop on the hill. Komuk and the {area:16726} ogres walk the road east of the fort: let them pass before you cross it."] = "남동쪽으로 {area:16743}의 동쪽을 돌아 언덕 위 {npc:263367}의 작업장으로 가십시오. 코무크와 {area:16726} 오우거들이 요새 동쪽 길을 걸어 다니니, 지나갈 때까지 기다렸다 길을 건너십시오.",
 
-	-- Step 49: The tallstriders and the marsh
+	-- Step 50: The tallstriders and the marsh
 	["The tallstriders and the marsh"] = "타조와 습지",
 	-- plural, as words: Roving Tallstriders = {npc:263348} Roving Tallstrider
 	["The Roving Tallstriders graze the meadows south-west of the workshop; further south-west the marsh bubbles with gas: fill the vials at the vents."] = "떠도는 타조는 작업장 남서쪽 초원에서 풀을 뜯습니다. 더 남서쪽 습지에는 가스가 끓어오르니, 분출구에서 약병을 채우십시오.",
 
-	-- Step 50: Terral's Watch
+	-- Step 51: Terral's Watch
 	-- {npc:259352} Watcher Cornelius
 	["{npc:259352}'s tower stands just south-west of the marsh."] = "{npc:259352}의 탑은 습지 바로 남서쪽에 있습니다.",
 	-- {quest:95066} The Rog'mar Situation · {npc:257558} Demar Brant · {area:16724} Farholde Keep
 	["{quest:95066}: for {npc:257558} in {area:16724}, keep it"] = "{quest:95066}: {area:16724}의 {npc:257558}에게 제출하니, 보관하십시오",
 
-	-- Step 51: Farholde Keep
+	-- Step 52: Farholde Keep
 	-- {area:16724} Farholde Keep · {npc:257591} Ashe Amberhall · {npc:257558} Demar Brant · {area:16723} Sunnyglade · {npc:263089} Tessa Dawnbright · {npc:263613} Brother Lowley
 	["South across the plains to {area:16724}: {npc:257591} and {npc:257558} stand together in the keep at the east end, {npc:257591} first, her news is what Brant's next orders wait on. With {area:16723} saved, {npc:263089} by the orchard and {npc:263613} by the barracks have work for you too."] = "평원을 건너 남쪽 {area:16724}(으)로 가십시오. {npc:257591}와(과) {npc:257558}은(는) 동쪽 끝 성채에 함께 있습니다. {npc:257591}부터 만나십시오. 그녀의 소식이 있어야 브랜트의 다음 명령이 나옵니다. {area:16723}을(를) 구했으니 과수원 옆의 {npc:263089}와(과) 막사 옆의 {npc:263613}도 일을 줍니다.",
 	-- {quest:94907} A Small Favor
@@ -272,30 +283,30 @@ return {
 	-- {npc:263613} Brother Lowley · {item:4338} Mageweave Cloth · {area:16723} Sunnyglade
 	["{npc:263613}: twenty {item:4338}, from {area:16723}'s cultists and the pirates; hand it in when you are back"] = "{npc:263613}: {area:16723}의 광신도와 해적에게서 얻는 {item:4338} 20개. 돌아오면 제출하십시오",
 
-	-- Step 52: Tessa Dawnbright
+	-- Step 53: Tessa Dawnbright
 	-- {npc:263089} Tessa Dawnbright
 	["{npc:263089} stands west of the inn, by the orchard: the apples hang on the trees around it."] = "{npc:263089}은(는) 여관 서쪽 과수원 옆에 있습니다. 사과는 주변 나무에 달려 있습니다.",
 
-	-- Step 53: Coyote pelts
+	-- Step 54: Coyote pelts
 	["Coyote pelts"] = "코요테 가죽",
 	-- {area:16725} Wheeler's Grange
 	-- plural, as words: Plains Coyotes = {npc:259267} Plains Coyote
 	["The Plains Coyotes roam west and south-west of the keep, towards {area:16725}."] = "평원 코요테는 성채 서쪽과 남서쪽, {area:16725} 방향으로 돌아다닙니다.",
 
-	-- Step 54: Tessa Dawnbright
+	-- Step 55: Tessa Dawnbright
 	-- {quest:95961} Stepped Out · {npc:263120} Gray Dawnbright · {area:16727} Powderfuse Port
 	["{quest:95961}: for {npc:263120} in {area:16727}, keep it"] = "{quest:95961}: {area:16727}의 {npc:263120}에게 제출하니, 보관하십시오",
 
-	-- Step 55: King of the Wild Plains
+	-- Step 56: King of the Wild Plains
 	-- {npc:263315} Ombassa · {area:16729} Terral's Watch
 	["{npc:263315}, an elite lion (level 41), prowls the plains north of {area:16729}, on your way back north: grouping up is advised."] = "정예 사자(41레벨)인 {npc:263315}이(가) {area:16729} 북쪽 평원을 배회합니다. 북쪽으로 돌아가는 길에 있으니 파티를 권장합니다.",
 
-	-- Step 57: Sleebo Fizzlespout
+	-- Step 58: Sleebo Fizzlespout
 	-- {npc:263367} Sleebo Fizzlespout
 	["North-east to {npc:263367}'s workshop. {npc:263367}'s stress test is a fight with his G45-B4G beside the workshop: hand the quest in once it's beaten."] = "북동쪽 {npc:263367}의 작업장으로 가십시오. {npc:263367}의 스트레스 테스트는 작업장 옆의 G45-B4G와 싸우는 것입니다. 쓰러뜨리면 퀘스트를 제출하십시오.",
 	["the stress test: beat G45-B4G beside the workshop"] = "스트레스 테스트: 작업장 옆의 G45-B4G 쓰러뜨리기",
 
-	-- Step 58: Powderfuse Port
+	-- Step 59: Powderfuse Port
 	-- {area:16727} Powderfuse Port · {npc:255897} Friz Frazzlespark · {npc:263120} Gray Dawnbright · {npc:255894} Innkeeper Zizplink · {npc:259962} Fimbo Greasemitz · {npc:259961} Wharfmaster Whizzbuzz · {npc:260487} Gritta Chumwater · {npc:260565} Kor'gar · {npc:260560} Krikshank
 	["East down the road to {area:16727}, the goblins' harbour. {npc:255897} keeps a stall at the west end of the docks; {npc:263120}, {npc:255894} and {npc:259962} are at the inn, and {npc:259961} works the north pier. Zizplink's drink needs three things the port's traders sell: the chum from {npc:260487}, the degreaser and the old poison from {npc:260565} and {npc:260560}, by {npc:255897}'s stall."] = "길을 따라 동쪽, 고블린 항구인 {area:16727}(으)로 내려가십시오. {npc:255897}은(는) 부두 서쪽 끝에 노점을 차렸고, {npc:263120}, {npc:255894}, {npc:259962}은(는) 여관에, {npc:259961}은(는) 북쪽 부두에서 일합니다. 지즈플링크의 음료에는 항구 상인들이 파는 세 가지가 필요합니다. {npc:260487}의 미끼, 그리고 {npc:255897}의 노점 옆에 있는 {npc:260565}와(과) {npc:260560}의 탈지제와 오래된 독극물입니다.",
 	-- {quest:95059} Frazzlespark's Crate · {npc:257558} Demar Brant · {area:16724} Farholde Keep
@@ -309,35 +320,35 @@ return {
 	-- {object:628948} WANTED! (no name in this language: may be words) · {npc:260235} Trapclaw
 	["The {object:628948} poster by the inn: {npc:260235}"] = "여관 옆 {object:628948} 벽보: {npc:260235}",
 
-	-- Step 59: WANTED: Old Rot-Chum
+	-- Step 60: WANTED: Old Rot-Chum
 	-- {npc:257001} Old Rot-Chum
 	["{npc:257001} is an elite (level 42) on the south shore: grouping up is advised."] = "{npc:257001}은(는) 남쪽 해안의 정예(42레벨)입니다. 파티를 권장합니다.",
 	-- {object:628948} WANTED! (no name in this language: may be words)
 	["The {object:628948} poster by the inn"] = "여관 옆 {object:628948} 벽보",
 
-	-- Step 60: The murlocs, south-west
+	-- Step 61: The murlocs, south-west
 	["The murlocs, south-west"] = "남서쪽의 멀록",
 	-- {quest:95260} Terrors From the Deep · {npc:260231} Argo Brinewhistle
 	["South-west along the shore from the port: the saltwater murlocs camp on the beaches. On the way, a painted hide is stretched beside the path: it starts {quest:95260} for {npc:260231} at the docks."] = "항구에서 해안을 따라 남서쪽으로 가십시오. 바닷물 멀록이 해변에 진을 치고 있습니다. 가는 길에 길가에 칠한 가죽이 펼쳐져 있는데, 부두의 {npc:260231}을(를) 위한 {quest:95260}이(가) 시작됩니다.",
 
-	-- Step 62: Back through the port
+	-- Step 63: Back through the port
 	["Back through the port"] = "항구를 거쳐 돌아가기",
 	["Back north along the shore: hand in the murlocs and the hide on the docks on your way to the crawlers."] = "해안을 따라 북쪽으로 돌아가십시오. 게들에게 가는 길에 부두에서 멀록 퀘스트와 가죽 퀘스트를 제출하십시오.",
 	-- {quest:95261} It Takes Guts
 	["{quest:95261}: the beasts' entrails come as you go; the mushrooms are for later"] = "{quest:95261}: 짐승 내장은 진행하며 모이고, 버섯은 나중에 합니다",
 
-	-- Step 63: The crawlers and Trapclaw
+	-- Step 64: The crawlers and Trapclaw
 	-- {npc:260235} Trapclaw
 	["The crawlers and {npc:260235}"] = "게와 {npc:260235}",
 	-- {npc:259962} Fimbo Greasemitz · {npc:260231} Argo Brinewhistle · {npc:260235} Trapclaw · {npc:259758} Gul'gash
 	["North along the beach from the docks: the crawlers drop the meat for {npc:259962} and the spittle for Zizplink, and their entrails count for {npc:260231}. {npc:260235}, a big crab, scuttles along the rocks east of the docks. {npc:259758}, a rare elite of level 49, roams this coast from the docks up to the pirates' camp: if you see him, keep well away."] = "부두에서 해변을 따라 북쪽으로 가십시오. 게들은 {npc:259962}에게 줄 고기와 지즈플링크에게 줄 침을 떨어뜨리고, 그 내장은 {npc:260231}의 퀘스트에 포함됩니다. 큰 게인 {npc:260235}은(는) 부두 동쪽 바위를 따라 돌아다닙니다. 49레벨 희귀 정예 {npc:259758}이(가) 부두에서 해적 야영지까지 이 해안을 배회합니다. 보이면 멀리 피하십시오.",
 
-	-- Step 64: The Eastsea pirates
+	-- Step 65: The Eastsea pirates
 	["The Eastsea pirates"] = "동부해 해적",
 	-- {npc:259758} Gul'gash
 	["North-east along the coast to the pirates' camp on the cliffs. The buccaneers and musketeers carry the smuggled goods. {npc:259758} walks the camp too: keep an eye out for him."] = "해안을 따라 북동쪽, 절벽 위 해적 야영지로 가십시오. 해적과 머스킷병이 밀수품을 지니고 있습니다. {npc:259758}도 야영지를 돌아다니니 주의하십시오.",
 
-	-- Step 65: Powderfuse Port
+	-- Step 66: Powderfuse Port
 	["Back to the port, from the north pier west through the docks."] = "북쪽 부두에서 서쪽으로 선착장을 지나 항구로 돌아가십시오.",
 	-- {quest:95122} Unchecked Expansion
 	["{quest:95122}: for later in this guide"] = "{quest:95122}: 이 가이드 후반에 진행",
@@ -348,13 +359,13 @@ return {
 	-- {quest:95293} Smuggler's Special · {npc:260390} Captain Bentcoin
 	["{quest:95293}: for {npc:260390} at the pirates' camp"] = "{quest:95293}: 해적 야영지의 {npc:260390}에게",
 
-	-- Step 67: Beast Entrails as you go
+	-- Step 68: Beast Entrails as you go
 	-- {item:268632} Beast Entrails
 	["{item:268632} as you go"] = "이동하며 {item:268632} 모으기",
 	-- {zone:2548} Riverglades · {item:268632} Beast Entrails · {npc:260231} Argo Brinewhistle · {npc:257001} Old Rot-Chum · {npc:263380} Ghostmaw
 	["Most beasts in the {zone:2548} drop {item:268632} for {npc:260231}: the shore crawlers on this coast and the boars on the ridge west of the pirates.\nCareful: {npc:257001} (elite, 42), Komuk (a Horde elite, 45) and {npc:263380} (elite, 42) range over the zone's wilds: take your beasts away from them."] = "{zone:2548}의 야수 대부분이 {npc:260231}에게 줄 {item:268632}을(를) 떨어뜨립니다. 이 해안의 해안 게와 해적 서쪽 능선의 멧돼지가 좋습니다.\n주의: {npc:257001}(정예, 42), 코무크(호드 정예, 45), {npc:263380}(정예, 42)이(가) 지역의 야생을 돌아다닙니다. 이들에게서 멀리 떨어져 사냥하십시오.",
 
-	-- Step 68: Level 44 on the Eastsea pirates
+	-- Step 69: Level 44 on the Eastsea pirates
 	["Level 44 on the Eastsea pirates"] = "",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash · {area:1517} Uldaman
 	-- was: ["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "두 번째 무리 전에: 그 약탈자와 폭격수(43-45), 그리고 그다음의 해적선은 44.4레벨 미만이면 당신보다 한 레벨 높습니다. 항구에서 떨어진 첫 번째 야영지 남서쪽 끝의 해적과 머스킷병(41-43)으로 경험치를 채우십시오. 49레벨 희귀 정예 {npc:259758}이(가) 이 절벽을 돌아다닙니다. 보이면 멀리 피하십시오. 또는 파티가 있다면 대신 {area:1517} 던전을 도십시오."
@@ -362,115 +373,120 @@ return {
 	-- {npc:257901} Eastsea Buccaneer
 	["grind on {npc:257901}"] = "{npc:257901} 사냥",
 
-	-- Step 69: The pirates' second wave
+	-- Step 70: The pirates' second wave
 	["The pirates' second wave"] = "해적의 두 번째 무리",
 	-- {npc:259758} Gul'gash
 	["North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. They stand close together: pull them one at a time. {npc:259758}, a rare elite of level 49, roams these cliffs and the beach below: if you see him, keep well away."] = "항구에서 해안을 따라 북쪽으로: 동해 약탈자와 폭격수가 해적 야영지 서쪽 비탈의 화약통 사이에 자리 잡고 있습니다. 서로 붙어 있으니 하나씩 끌어내십시오. 49레벨 희귀 정예 {npc:259758}이(가) 이 절벽과 아래 해변을 돌아다닙니다. 보이면 멀리 피하십시오.",
 
-	-- Step 70: Captain Bentcoin
+	-- Step 71: Captain Bentcoin
 	-- {npc:260390} Captain Bentcoin · {npc:260391} Captain Haynes
 	["East along the cliffs to the far end of the pirates' camp: {npc:260390} waits by the water, {npc:260391} beside him."] = "절벽을 따라 동쪽으로 해적 야영지 맨 끝까지 가십시오. {npc:260390}이(가) 물가에, 그 옆에 {npc:260391}이(가) 있습니다.",
 
-	-- Step 71: Powderfuse Port
+	-- Step 72: Powderfuse Port
 	["Back to the port."] = "항구로 돌아가십시오.",
 
-	-- Step 72: The pirates' ships
+	-- Step 73: The pirates' ships
 	["The pirates' ships"] = "해적선",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
 	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way."] = "",
+	["on board, at the arrow"] = "배 위, 화살표 위치",
 	-- {item:268505} Remote Explosive Charge
-	["{item:268505}, the southern ship"] = "{item:268505}, 남쪽 배",
-	["the middle ship"] = "가운데 배",
-	["the northern ship"] = "북쪽 배",
+	["Plant a {item:268505} on the southern ship"] = "남쪽 배에 {item:268505} 설치",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the middle ship"] = "가운데 배에 {item:268505} 설치",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the northern ship"] = "북쪽 배에 {item:268505} 설치",
 
-	-- Step 73: Rotflesh Mushrooms
+	-- Step 74: Rotflesh Mushrooms
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom
 	["Rotflesh Mushrooms"] = "부패살점 버섯",
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom · Mature Paletusks = {npc:255851} Mature Paletusk
 	["West from the northern ship, up the ridge: the Rotflesh Mushrooms grow among the rocks, close to the Twilight ogres' camp. The Mature Paletusks on the ridge give entrails too."] = "북쪽 배에서 서쪽으로 능선을 오르십시오. 부패살점 버섯은 황혼의 망치 오우거 야영지 근처 바위 사이에 자랍니다. 능선의 다 자란 흰엄니도 내장을 줍니다.",
 
-	-- Step 74: Bolder'ok
+	-- Step 75: Bolder'ok
 	-- {area:16726} Bolder'ok · {npc:259057} Dunston Willis
 	["North-west to {area:16726}, the ogres' town. Its ogres side with the Horde and attack you on sight, and Clugfist on his hill in the middle is an elite (level 50): keep to the town's north-eastern edge, where {npc:259057} hides."] = "북서쪽의 오우거 마을 {area:16726}(으)로 가십시오. 이곳 오우거는 호드 편이라 보는 즉시 공격하며, 한가운데 언덕의 클러그피스트는 정예(50레벨)입니다. {npc:259057}이(가) 숨어 있는 마을 북동쪽 가장자리로 다니십시오.",
 
-	-- Step 75: Gronok's Key
+	-- Step 76: Gronok's Key
 	-- {npc:263749} Gronok the Butcher · {npc:259057} Dunston Willis · {item:275043} Bloodmaster's Ring
 	["{npc:263749} (level 44) carries the key: he paces the lanes south of {npc:259057}'s hut.\nThe {item:275043} lies just west of the lanes: its fighters (elites, 41-45) only fight in a bout, so leave them be."] = "{npc:263749}(44레벨)이(가) 열쇠를 지니고 있습니다. {npc:259057}의 오두막 남쪽 골목을 오갑니다.\n{item:275043}은(는) 골목 바로 서쪽에 있습니다. 그곳 투사들(정예, 41-45)은 시합 중에만 싸우니 내버려 두십시오.",
 
-	-- Step 76: Dunston Willis
+	-- Step 77: Dunston Willis
 	-- {npc:259057} Dunston Willis · {area:16726} Bolder'ok
 	["Free him, then get him out: {npc:259057} fights his way out of {area:16726}, and you keep the ogres off him. If he falls, take the quest from him again."] = "그를 풀어 준 뒤 데리고 나가십시오. {npc:259057}이(가) 싸우며 {area:16726}을(를) 빠져나가는 동안 오우거가 그를 공격하지 못하게 막으십시오. 그가 쓰러지면 퀘스트를 다시 수락하십시오.",
 	-- {npc:259057} Dunston Willis · {area:16726} Bolder'ok
 	["help {npc:259057} break out of {area:16726}"] = "{npc:259057}이(가) {area:16726}에서 탈출하도록 돕기",
 
-	-- Step 77: Finish the Beast Entrails
+	-- Step 78: Finish the Beast Entrails
 	-- {item:268632} Beast Entrails
 	["Finish the {item:268632}"] = "{item:268632} 마저 모으기",
 	-- {npc:259758} Gul'gash
 	["South-east out of the hills towards the port: the shore crawlers on the beach north of the docks are the quickest entrails. {npc:259758} wanders down to this beach too."] = "언덕에서 남동쪽 항구 쪽으로 나가십시오. 부두 북쪽 해변의 해안 게가 내장을 가장 빨리 모으는 방법입니다. {npc:259758}도 이 해변까지 내려와 돌아다닙니다.",
 
-	-- Step 78: Powderfuse Port
+	-- Step 79: Powderfuse Port
 	["Down to the port."] = "항구로 내려가십시오.",
 	-- {quest:95267} The Monster Surfaces · {npc:257001} Old Rot-Chum
 	["{quest:95267}: a big beast in the shallows south-west of the port, near {npc:257001}, the elite"] = "{quest:95267}: 항구 남서쪽 얕은 물, 정예 {npc:257001} 근처의 큰 야수",
 
-	-- Step 79: The Monster Surfaces
+	-- Step 80: The Monster Surfaces
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
-	["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}은(는) 항구 남서쪽, 멀록 해변 아래 얕은 물을 배회합니다. 정예인 {npc:257001}이(가) 근처 해안을 걸어 다니니 거리를 두십시오.",
+	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}은(는) 부르면 떠오릅니다: 항구 남서쪽 얕은 물, 화살표가 가리키는 곳에 떠 있는 것을 오른쪽 클릭하면 그곳에 떠오릅니다. 정예 {npc:257001}이(가) 근처 해안을 걷습니다: 거리를 두십시오.",
+	-- {item:268633} Sea Monster's Head
+	["{item:268633}, where the Threshadon surfaces when you call him"] = "{item:268633}, 부르면 트레샤돈이 떠오르는 곳",
 
-	-- Step 81: The meadows
+	-- Step 82: The meadows
 	["The meadows"] = "초원",
 	-- {npc:263367} Sleebo Fizzlespout
 	["West of the port, the wildflowers grow in the meadows below {npc:263367}'s workshop."] = "항구 서쪽, {npc:263367}의 작업장 아래 초원에 야생화가 자랍니다.",
 
-	-- Step 82: Farholde Keep
+	-- Step 83: Farholde Keep
 	-- {area:16724} Farholde Keep · {npc:257558} Demar Brant
 	["South-west across the plains to {area:16724}: {npc:257558} in the keep at the east end."] = "남서쪽으로 평원을 가로질러 {area:16724}(으)로 가십시오. {npc:257558}은(는) 동쪽 끝 성채에 있습니다.",
 
-	-- Step 83: Demar Brant
+	-- Step 84: Demar Brant
 	-- {quest:94887} Saving Marshal Ryan
 	["{quest:94887}: for later in this guide"] = "{quest:94887}: 이 가이드 후반용",
 
-	-- Step 86: Brother Lowley
+	-- Step 87: Brother Lowley
 	-- {npc:263613} Brother Lowley · {npc:262031} Sister Rowland
 	["{npc:263613} tends the wounded beside the barracks: bandage three of his soldiers, then he has a note for {npc:262031} in the cathedral."] = "{npc:263613}은(는) 병영 옆에서 부상병을 돌보고 있습니다. 병사 세 명에게 붕대를 감아 주면 대성당의 {npc:262031}에게 보낼 쪽지를 줍니다.",
 	-- {item:272126} Makeshift Bandages
 	-- plural, as words: Wounded Soldiers = {npc:263614} Wounded Soldier
 	["{item:272126}, on the Wounded Soldiers beside him"] = "{item:272126}, 그의 옆에 있는 부상당한 병사들에게",
 
-	-- Step 87: Farholde Keep, the west side
+	-- Step 88: Farholde Keep, the west side
 	-- {area:16724} Farholde Keep
 	["{area:16724}, the west side"] = "{area:16724}, 서쪽",
 	-- {npc:263089} Tessa Dawnbright · {npc:259859} Wheatley
 	["West through the keep: {npc:263089} by the orchard, then the cathedral and {npc:259859} south of the inn if you have their errands."] = "성채를 지나 서쪽으로 가십시오. 과수원 옆의 {npc:263089}, 그다음 심부름이 있다면 대성당과 여관 남쪽의 {npc:259859}에게 들르십시오.",
 
-	-- Step 88: Sister Rowland
+	-- Step 89: Sister Rowland
 	-- {quest:96084} Something's in the Water
 	["{quest:96084}: for later in this guide"] = "{quest:96084}: 이 가이드 후반용",
 
-	-- Step 90: Something's in the Water
+	-- Step 91: Something's in the Water
 	-- {area:16729} Terral's Watch · {npc:262031} Sister Rowland
 	["North past {area:16729}: fill {npc:262031}'s phial in the marsh water north-east of the tower."] = "북쪽으로 {area:16729}을(를) 지나 탑 북동쪽 습지 물에 {npc:262031}의 약병을 채우십시오.",
 
-	-- Step 91: Terral's Watch
+	-- Step 92: Terral's Watch
 	-- {npc:259352} Watcher Cornelius
 	["{npc:259352}'s tower."] = "{npc:259352}의 탑.",
 
-	-- Step 93: Turner's Logging Camp
+	-- Step 94: Turner's Logging Camp
 	-- {area:16736} Turner's Logging Camp · {npc:263380} Ghostmaw
 	-- plural, as words: Peasant Woodpiles = {object:645516} Peasant Woodpile
 	["West across the river to {area:16736}: the Peasant Woodpiles around the camp give the wood bundles.\nCareful: {npc:263380}, an elite (level 42), prowls the river by the camp: if he comes your way, back off and let him pass."] = "강을 건너 서쪽 {area:16736}(으)로 가십시오. 야영지 주변의 농부 장작더미에서 나무 묶음을 얻습니다.\n주의: 정예 {npc:263380}(42레벨)이(가) 야영지 옆 강을 배회합니다. 다가오면 물러나서 지나가게 두십시오.",
 
-	-- Step 94: The Western Front
+	-- Step 95: The Western Front
 	-- {npc:256881} Overlord Kilgar
 	-- plural, as words: Twilight Champions = {npc:256799} Twilight Champion · Twilight Enforcers = {npc:256800} Twilight Enforcer
-	["Careful: the Western Front is written for level 44 and up. Its Twilight Champions are 43-44 and its Thralls 44, Twilight Enforcers (elites, 45) patrol through the camps, and {npc:256881} (46, elite) is for a group only. Below 44, top up on the Eastsea pirates by the port first, or come back with a friend."] = "",
+	["Careful: the Western Front is written for level 44 and up. Its Twilight Champions are 43-44 and its Thralls 44, Twilight Enforcers (elites, 45) patrol through the camps, and {npc:256881} (46, elite) is for a group only. Below 44, top up on the Eastsea pirates by the port first, or come back with a friend."] = "주의: 서부전선은 44레벨 이상용입니다. 황혼 챔피언은 43-44레벨, 하수인은 44레벨이고 황혼 집행자(정예, 45레벨)가 야영지를 순찰하며 {npc:256881}(46레벨, 정예)은 파티 전용입니다. 44레벨 아래라면 항구 곁 동해적을 더 잡거나 친구와 다시 오세요.",
 
-	-- Step 95: Sergeant Riftan
+	-- Step 96: Sergeant Riftan
 	-- {area:16685} Twilight's Shroud · {npc:258023} Sergeant Riftan
 	["North up the long valley towards {area:16685}: {npc:258023} holds a small camp below the Twilight cult's fortress."] = "긴 골짜기를 따라 북쪽 {area:16685}(으)로 가십시오. {npc:258023}은(는) 황혼의 교단 요새 아래 작은 야영지에 있습니다.",
 
-	-- Step 96: The Twilight camps
+	-- Step 97: The Twilight camps
 	["The Twilight camps"] = "황혼의 야영지",
 	-- {npc:258652} Twilight Thrall · {npc:257591} Ashe Amberhall · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg
 	-- plural, as words: Farholde Scouts = {npc:256904} Farholde Scout · Twilight Enforcers = {npc:256800} Twilight Enforcer
@@ -480,7 +496,7 @@ return {
 	-- {npc:258652} Twilight Thrall
 	["kill a {npc:258652}"] = "{npc:258652} 처치",
 
-	-- Step 97: Marshal Ryan
+	-- Step 98: Marshal Ryan
 	-- {npc:257250} Marshal Ryan · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg
 	["{npc:257250} lies wounded among the camps at the valley's western edge.\nCareful: {npc:256881} and {npc:256891} (elites, 46) hold the fortress north of him: come at Ryan from the south."] = "{npc:257250}은(는) 골짜기 서쪽 끝 야영지 사이에 부상당한 채 쓰러져 있습니다.\n주의: {npc:256881}와(과) {npc:256891}(정예, 46)이(가) 그의 북쪽 요새를 지키고 있습니다. 라이언에게는 남쪽에서 접근하십시오.",
 	-- {npc:257250} Marshal Ryan
@@ -488,74 +504,74 @@ return {
 	-- {quest:94892} Dying Wish · {npc:257558} Demar Brant · {area:16724} Farholde Keep
 	["{quest:94892}: for {npc:257558} in {area:16724}"] = "{quest:94892}: {area:16724}의 {npc:257558}에게",
 
-	-- Step 98: The ogre mine
+	-- Step 99: The ogre mine
 	["The ogre mine"] = "오우거 광산",
 	-- plural, as words: Twilight Subjugators = {npc:260996} Twilight Subjugator · Twilight Enforcers = {npc:256800} Twilight Enforcer
 	["North of the camps the cult works ogre miners in a mine, driven by the Twilight Subjugators.\nCareful: Twilight Enforcers (elites, level 45) walk past the mine's mouth on their way through the camps. Wait for one to pass before you go in, and pull the miners and Subjugators back out to you."] = "야영지 북쪽 광산에서 교단이 황혼의 정복자를 시켜 오우거 광부들을 부리고 있습니다.\n주의: 황혼의 집행자(정예, 45레벨)가 야영지를 오가며 광산 입구를 지나갑니다. 지나간 뒤에 들어가고, 광부와 정복자는 밖으로 끌어내십시오.",
 
-	-- Step 100: Bring Me His Head
+	-- Step 101: Bring Me His Head
 	-- {npc:256881} Overlord Kilgar
 	["{npc:256881} is an elite (level 46) in the fortress at the head of the valley, with the Enforcers around him: grouping up is advised."] = "{npc:256881}은(는) 골짜기 끝 요새에 있는 정예(46레벨)이며 주위에 집행자들이 있습니다. 파티를 권장합니다.",
 	-- {quest:94891} News to Farholde · {npc:257591} Ashe Amberhall
 	["{quest:94891}: for {npc:257591}"] = "{quest:94891}: {npc:257591}에게",
 
-	-- Step 101: Back to Farholde Keep
+	-- Step 102: Back to Farholde Keep
 	-- {area:16724} Farholde Keep
 	["Back to {area:16724}"] = "{area:16724}(으)로 귀환",
 	-- {area:16724} Farholde Keep
 	["Your hearthstone is bound at {area:16724}'s inn: use it, or ride back south to the keep."] = "귀환석이 {area:16724} 여관에 지정되어 있습니다. 사용하거나 남쪽 성채로 말을 타고 돌아가십시오.",
 
-	-- Step 102: Farholde Keep
+	-- Step 103: Farholde Keep
 	-- {npc:260070} Bertrand Ironbrow · {npc:257558} Demar Brant · {npc:257591} Ashe Amberhall
 	["From the inn: {npc:260070} on the way in, then {npc:257558} and {npc:257591} in the keep."] = "여관에서: 들어가는 길에 {npc:260070}, 이어서 성채 안의 {npc:257558}와(과) {npc:257591}.",
 
-	-- Step 104: Demar Brant
+	-- Step 105: Demar Brant
 	-- {quest:94893} Delivering Closure · {npc:278088} Abigail Lawson · {zone:1453} Stormwind
 	["{quest:94893}: for {npc:278088} in {zone:1453}"] = "{quest:94893}: {zone:1453}의 {npc:278088}에게",
 
-	-- Step 105: The Twilight Threat
+	-- Step 106: The Twilight Threat
 	-- {npc:257558} Demar Brant · {npc:1748} Highlord Bolvar Fordragon · {object:2117} Stormwind Keep
 	["{npc:257558}: Kilgar's head for {npc:1748} in {object:2117}"] = "{npc:257558}: 킬가르의 머리를 {object:2117}의 {npc:1748}에게",
 
-	-- Step 106: Sister Rowland
+	-- Step 107: Sister Rowland
 	-- {npc:262031} Sister Rowland
 	["{npc:262031}, in the cathedral at the keep's south-west corner."] = "{npc:262031}, 성채 남서쪽 모퉁이의 대성당에 있습니다.",
 
-	-- Step 107: Stormwind
+	-- Step 108: Stormwind
 	-- {npc:257087} Gretchen Mayberry · {zone:1453} Stormwind · {npc:278088} Abigail Lawson · {object:2098} Cathedral Square
 	["{npc:257087} flies to {zone:1453}. {npc:278088} waits in the {object:2098}."] = "{npc:257087}을(를) 통해 {zone:1453}(으)로 날아갈 수 있습니다. {npc:278088}은(는) {object:2098}에서 기다리고 있습니다.",
 
-	-- Step 109: Train before the Badlands
+	-- Step 110: Train before the Badlands
 	-- {zone:1418} Badlands
 	["Train before the {zone:1418}"] = "{zone:1418}에 가기 전에 수련하기",
 	-- {zone:2548} Riverglades · {zone:1418} Badlands · {zone:1425} Hinterlands · {npc:257087} Gretchen Mayberry · {zone:1453} Stormwind
 	["No class trainer stands in the {zone:2548}, and the {zone:1418} & {zone:1425} guide passes none: {npc:257087} flies to {zone:1453}, where you train before you go on."] = "{zone:2548}에는 직업 상급자가 없고, {zone:1418} & {zone:1425} 가이드도 상급자를 거치지 않습니다: {npc:257087}을(를) 통해 {zone:1453}(으)로 날아가서 계속 가기 전에 수련하십시오.",
 
-	-- Step 110: Your class trainer
+	-- Step 111: Your class trainer
 	["Your class trainer"] = "직업 상급자",
 	-- {zone:2548} Riverglades · {zone:1453} Stormwind
 	["No class trainer stands in the {zone:2548}: train here in {zone:1453} before you fly on."] = "{zone:2548}에는 직업 상급자가 없습니다: 계속 날아가기 전에 이곳 {zone:1453}에서 수련하십시오.",
 
-	-- Step 111: Stormwind flight master
+	-- Step 112: Stormwind flight master
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "{zone:1453} 비행 조련사",
 
-	-- Step 112: Shaman trainer
-	["Shaman trainer"] = "",
+	-- Step 113: Shaman trainer
+	["Shaman trainer"] = "주술사 교관",
 	-- {zone:2548} Riverglades · {zone:1453} Stormwind · {zone:1418} Badlands · {zone:1425} Hinterlands · {area:1537} Ironforge · {area:144} Thelsamar
 	["No shaman trainer stands in the {zone:2548} or in {zone:1453}, and the {zone:1418} & {zone:1425} guide passes none: fly to {area:1537} and train there; {area:144} is a short flight on."] = "{zone:2548}과(와) {zone:1453}에는 주술사 상급자가 없고, {zone:1418} & {zone:1425} 가이드도 상급자를 거치지 않습니다: {area:1537}(으)로 날아가서 수련하십시오. {area:144}은(는) 거기서 조금만 더 날아가면 됩니다.",
 
-	-- Step 113: Leave Stormwind
+	-- Step 114: Leave Stormwind
 	-- {zone:1453} Stormwind
 	["Leave {zone:1453}"] = "{zone:1453} 떠나기",
 	-- {zone:1418} Badlands · {zone:1432} Loch Modan · {area:144} Thelsamar · {zone:1453} Stormwind · {object:2096} Trade District
 	["The next guide starts in the {zone:1418}, south of {zone:1432}: fly to {area:144}. {zone:1453}'s gryphon master stands in the {object:2096}."] = "다음 가이드는 {zone:1432} 남쪽의 {zone:1418}에서 시작합니다: {area:144}(으)로 날아가십시오. {zone:1453}의 그리폰 조련사는 {object:2096}에 있습니다.",
 
-	-- Step 114: Loch Modan
+	-- Step 115: Loch Modan
 	-- {area:144} Thelsamar · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {zone:1453} Stormwind · {zone:1426} Dun Morogh · {zone:1432} Loch Modan
 	["No flight path to {area:144} yet: go to {zone:1455} (by the {area:2257} from {zone:1453}), ride out of its gates east through {zone:1426} and the tunnel into {zone:1432}, and on along the road to {area:144}."] = "아직 {area:144}(으)로 가는 비행 경로가 없다면: {zone:1453}에서 {area:2257}을(를) 타고 {zone:1455}(으)로 간 뒤, 성문을 나와 동쪽으로 {zone:1426}을(를) 지나 터널을 통해 {zone:1432}(으)로 들어가서 길을 따라 {area:144}까지 가십시오.",
 
-	-- Step 115: Fly to Thelsamar
+	-- Step 116: Fly to Thelsamar
 	-- {area:144} Thelsamar
 	["Fly to {area:144}"] = "{area:144}(으)로 비행",
 	-- {zone:1418} Badlands · {zone:1432} Loch Modan · {area:144} Thelsamar
@@ -566,9 +582,15 @@ return {
 	-- ["Level 44.4 on the Eastsea pirates"] = "동부해 해적에게서 44.4레벨까지 사냥",
 	-- ["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold hides in the middle of the town, {npc:256831} at its eastern edge, and {npc:258697} waits at his farm on the north-eastern edge."] = "{area:16724}에서 북쪽으로 {area:16729}을(를) 지나 강을 건너, 황혼의 교단이 장악한 농촌 마을 {area:16723}(으)로 가십시오. 마을 동쪽의 호드 요새 {area:16743}에는 가까이 가지 마십시오. 코볼트 {npc:259158}은(는) 마을 한가운데 숨어 있고, {npc:256831}은(는) 동쪽 끝에, {npc:258697}은(는) 북동쪽 끝 자기 농장에서 기다립니다.",
 	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "다시 해적 절벽으로 가십시오. 야영지 아래 정박한 배 세 척에 남쪽부터 북쪽 순서로 위즈버즈의 폭약을 설치하십시오. {quest:95124}(45레벨)은(는) 가운데 배 옆에 전리품 상자와 함께 있습니다. 가는 길에 {npc:259758}을(를) 주의하십시오.",
+	-- ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "교단원들이 {area:16723}의 거리와 들판을 메우고 있습니다. 한가운데 의식의 원에서 시작해(거기서 클레어의 촉매를 채우십시오), 불탄 집들을 지나 서쪽 마을 끝까지 간 뒤, 북동쪽 엘브림 농장 서쪽의 무른 흙으로 돌아오십시오: 황혼의 약탈자가 떨어뜨리는 {item:266148}을(를) 그곳에 묻으십시오. 부적, 책장, 손가락뼈는 교단원에게서 나옵니다.\n교단원이 떨어뜨리는 {item:4338}은(는) 보관하세요: {area:16724}의 {npc:263613}이(가) 돌아가면 20개를 요구합니다. 가끔 교단원이 {quest:94885}을(를) 떨어뜨립니다: 우클릭하여 퀘스트를 시작하십시오.\n주의: 정예 오우거 {npc:256899}(41레벨)이(가) {area:16723} 서쪽 거리 44-47,47-52 부근을 돌아다닙니다. 교단원을 끌어내고 그가 지나가게 두십시오. 이 지역에서 플레이어가 가장 많이 죽은 곳입니다.\n강의 정예 {npc:263380}(42레벨)이(가) 남서쪽 들판에서 올라올 수 있습니다: 지나가게 두십시오.",
+	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}은(는) 항구 남서쪽, 멀록 해변 아래 얕은 물을 배회합니다. 정예인 {npc:257001}이(가) 근처 해안을 걸어 다니니 거리를 두십시오.",
+	-- ["the middle ship"] = "가운데 배",
+	-- ["the northern ship"] = "북쪽 배",
 	-- ["the {object:707245} poster"] = "{object:707245} 전단",
 	-- ["{item:17028}, from {npc:272437}"] = "{npc:272437}에게서 {item:17028}",
+	-- ["{item:268505}, the southern ship"] = "{item:268505}, 남쪽 배",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026}은(는) 고개 동쪽 길가에서 기다립니다.",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031}은(는) {area:16724} 남서쪽 구석의 옛 대성당을 지키고 있습니다. 박쥐는 대성당 위층에 둥지를 틀고 있고, 그 옆에서 {npc:272437}이(가) 신성한 양초를 나눠 주며, 무덤은 예배당 묘지에 있습니다.\n53레벨 정예인 {npc:271742}이(가) 대성당 안에 서 있습니다: 먼저 공격하지 않으니 절대 공격하지 말고, 박쥐는 그에게서 떨어진 곳으로 끌어내십시오.",
+	-- ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, 엘브림 농장 서쪽: 묘지마다 황혼 약탈자가 떨어뜨리는 {item:266148}이(가) 하나 필요하니 먼저 다섯 개를 모으세요",
 	-- ["{object:621813}: bury the mementos"] = "{object:621813}: 유품 묻기",
 }

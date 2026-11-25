@@ -1,14 +1,13 @@
 //! Fitz, 0.3.6: players read the level warnings as being behind. On the shipped guides: an accept waiting for
 //! the character's level is no task (status "na", no "Requires level" line); the route moves on as before and the
-//! level-up brings it back. An accept-only step says no quest level (Levels.StepHint counts work, not taking a
-//! quest early).
+//! level-up brings it back. No step says a quest's level (#3438), and the pace line names no quest.
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::Value;
 
 // Guide `guide` for a Horde `race` `class` at `level` and `xp` of `xp_max`, every step before the one titled
 // `at` skipped (the player is there), the quest log in. -> the live step's title and index, the step `at`'s
-// index, its first accept's status and line, and the step hint on it.
+// index, its first accept's status and line.
 #[allow(clippy::too_many_arguments)]
 fn at_step(race: &str, class: &str, level: u32, xp: u32, xp_max: u32, guide: &str, at: &str, done: &str) -> Vec<Value> {
 	let dir = forge_addontest::run::addons_dir();
@@ -42,9 +41,7 @@ local live = E.GetLiveStep()
 local v = E.GetStepView(at)
 local a
 for k, gv in ipairs(v.goals) do if g.steps[at].goals[k].t == "accept" then a = gv break end end
-local h = Polestar.Levels.StepHint(at)
-emit({{ at = at, live = live, title = E.GetGuide().steps[live].title, accept = a.status, line = a.unavailableText or false,
-	hint = h and h.level or false }})
+emit({{ at = at, live = live, title = E.GetGuide().steps[live].title, accept = a.status, line = a.unavailableText or false }})
 -- The level reached: back to the accept.
 stub.world.setLevel({level} + 1); stub.advance(1)
 emit({{ live = E.GetLiveStep(), accept = E.GetStepView(at).goals[1].status }})"#
@@ -67,7 +64,6 @@ fn hillsbrad_at_28_7_passes_korran_s_level_29_step_silently_and_29_does_not_fly_
 	let (low, ding) = (&out[0], &out[1]);
 	assert_eq!(low["accept"], "na", "no task, no level text: {low}");
 	assert_eq!(low["line"], false);
-	assert_eq!(low["hint"], false, "an accept-only step says no quest level");
 	assert_eq!(low["title"], "Fly to Orgrimmar", "the route moves on as before: {low}");
 	assert_eq!(ding["live"], low["live"], "level 29: no flight back to Korran: {ding}");
 }
@@ -78,7 +74,6 @@ fn t_1485_a_warlock_at_19_6_moves_on_from_gan_rul_and_comes_back_at_20() {
 	let (low, ding) = (&out[0], &out[1]);
 	assert_eq!(low["accept"], "na", "{low}");
 	assert_eq!(low["line"], false);
-	assert_eq!(low["hint"], false);
 	assert!(low["live"].as_u64().unwrap() > low["at"].as_u64().unwrap(), "moved on: {low}");
 	assert_eq!(ding["live"], low["at"], "level 20: back to Gan'rul: {ding}");
 	assert_eq!(ding["accept"], "active");
@@ -199,16 +194,14 @@ for k, gv in ipairs(v.goals) do
 	local goal = g.steps[at].goals[k]
 	if goal.t == "accept" and goal.quest == 2478 then accept = { optional = goal.optional == true, status = gv.status } end
 end
-local h = Polestar.Levels.StepHint(at)
 local pace = Polestar.Levels.Pace()
-local hard = pace and pace.hard and pace.hard.quest or false
-emit({ live = E.GetLiveStep(), at = at, accept = accept or false, hint = h and h.level or false, hard = hard })"#
+emit({ live = E.GetLiveStep(), at = at, accept = accept or false, hint = Polestar.Levels.StepHint ~= nil, hard = pace and pace.hard ~= nil or false })"#
 			.to_string(),
 		..Default::default()
 	})
 	.remove(0);
 	assert_eq!(out["live"], out["at"], "the player is at Fizzule: {out}");
 	assert_eq!(out["accept"]["optional"], true, "Mission: Possible is an optional accept on the step: {out}");
-	assert_eq!(out["hint"], false, "no \"Level 24 quest\" line for taking it: {out}");
-	assert_ne!(out["hard"], 2478, "the pace line names no hard quest for the optional accept: {out}");
+	assert_eq!(out["hint"], false, "no quest level line at all (#3438): {out}");
+	assert_eq!(out["hard"], false, "the pace line names no hard quest (#3438): {out}");
 }

@@ -6,11 +6,13 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (traditional) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:392} Ratchet · {zone:1454} Orgrimmar · {zone:1458} Undercity
+	["{area:392}, {zone:1454} and the {zone:1458}, then into the Plaguelands."] = "{area:392}、{zone:1454}和{zone:1458}，然後前往瘟疫之地。",
+
 	-- Step 1: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "飛往{area:392}",
-	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "{zone:1456}飛行管理員",
 
 	-- Step 2: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
@@ -73,44 +75,48 @@ return {
 	["Zeppelin to {zone:1458}"] = "搭飛艇前往{zone:1458}",
 
 	-- Step 15: Chemist Cuely
+	-- {npc:8390} Chemist Cuely
+	["{npc:8390} works in the Apothecarium."] = "{npc:8390}在鍊金房工作。",
+
+	-- Step 16: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
 	["{npc:8390} and {npc:8393} work in the Apothecarium."] = "{npc:8390}和{npc:8393}在鍊金房工作。",
 	-- {npc:8393} Thersa Windsong
 	["{npc:8393}, beside him"] = "{npc:8393}，在他旁邊",
 
-	-- Step 16: Andron Gant
+	-- Step 17: Andron Gant
 	-- {npc:6522} Andron Gant · {object:36073} Rogues' Quarter
 	["{npc:6522} stands in the {object:36073}."] = "{npc:6522}站在{object:36073}。",
 
-	-- Step 17: The Undercity
+	-- Step 18: The Undercity
 	-- {object:36126} Royal Quarter
 	["Lady Sylvanas holds the {object:36126}."] = "希爾瓦娜斯女士在{object:36126}。",
 
-	-- Step 20: Jeremiah Payson
+	-- Step 21: Jeremiah Payson
 	-- {npc:8403} Jeremiah Payson
 	["{npc:8403}, nearby"] = "{npc:8403}，在附近",
 
-	-- Step 21: Jeremiah Payson
+	-- Step 22: Jeremiah Payson
 	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
 	["{quest:5050} goes back to {npc:10778} in the {zone:1422}: keep it."] = "{quest:5050}要交回給{zone:1422}的{npc:10778}：保留此任務。",
 
-	-- Step 22: Royal Quarter
+	-- Step 23: Royal Quarter
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
-	-- plural, as words: Library Books = {object:386691} Library Book
+	-- plural, as words: Library Books = {object:386759} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "僅在揹包中帶有從{area:159}鍊金店取得的書籍《{quest:79095}》時進行，詳見《圖書館藏書》指南",
 
-	-- Step 24: The Bulwark
+	-- Step 25: The Bulwark
 	-- {zone:1458} Undercity · {area:152} The Bulwark · {zone:1422} Western Plaguelands
 	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "從{zone:1458}沿路向東騎；{area:152}守著進入{zone:1422}的路。",
 	-- {npc:11615} Mickey Levine · {area:2627} Terrordale
 	["{npc:11615}: the termites are in {area:2627}, on the next guide"] = "{npc:11615}：白蟻在{area:2627}，屬於下一份指南",
 
-	-- Step 26: Felstone Field
+	-- Step 27: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
 	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "{npc:10778}的農場是{area:152}以東第一座農場。農場裡的喋喋不休的食屍鬼攜帶她護符的另一半；{npc:11075}守著田裡的大鍋。\n小心：通常有一兩隻亡靈與他並肩戰鬥，使用大鍋後還可能有更多護鍋者來襲。",
 
-	-- Step 27: Janice Felstone
+	-- Step 28: Janice Felstone
 	["Upstairs"] = "樓上",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
@@ -147,6 +153,7 @@ return {
 	-- ["The zeppelin tower stands just north-east of {zone:1454}'s main gate; take the {zone:1458} zeppelin."] = "飛艇塔就在{zone:1454}正門東北方不遠處；搭乘前往{zone:1458}的飛艇。",
 	-- ["Xylem's tower stands on the cliff just north of {area:1237}: {npc:8395}, in {area:1237}, teleports you up for free (talk to him); otherwise the path winds up its north side."] = "賽倫的塔位於{area:1237}北邊不遠的懸崖上：{area:1237}的{npc:8395}可以免費把你傳送上去（和他對話）；不然就從北側的蜿蜒小路上去。",
 	-- ["Zeppelin tower"] = "飛艇塔",
+	-- ["{area:1221}: kill these as you meet them"] = "{area:1221}：遇到就殺",
 	-- ["{area:1237} flight master"] = "{area:1237}飛行管理員",
 	-- ["{item:246680}, from the Blood Elf Arcanists"] = "{item:246680}，從血精靈祕法師身上取得",
 	-- ["{item:246721}, from {npc:246991}"] = "{item:246721}，來自{npc:246991}",
@@ -163,4 +170,5 @@ return {
 	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050}要交回給{area:28}的{npc:10778}：保留此任務。",
 	-- ["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}：交給{area:1237}的{npc:8587}",
 	-- ["{zone:1454} flight master"] = "{zone:1454}的飛行管理員",
+	-- ["{zone:1456} flight master"] = "{zone:1456}飛行管理員",
 }

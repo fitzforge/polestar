@@ -31,7 +31,7 @@ return {
 	-- Step 4: Back to the dead drop
 	["Back to the dead drop"] = "回到秘密投遞點",
 	-- {object:410369} Dead Drop
-	["Open the {object:410369} again, the chest outside Pyrewood you took the job from, and hand in the horn there. C's payment is a second hand-in at the same chest, with nothing to accept first, and it may not be there right away: players have waited from a quarter of an hour to two hours. Check a capital mailbox for C's follow-up letter on your next planned city visit, then return to this chest for it. Do not repeat the dungeon just because the payment is not yet offered."] = "",
+	["Open the {object:410369} again, the chest outside Pyrewood you took the job from, and hand in the horn there. C's payment is a second hand-in at the same chest, with nothing to accept first, and it may not be there right away: players have waited from a quarter of an hour to two hours. Check a capital mailbox for C's follow-up letter on your next planned city visit, then return to this chest for it. Do not repeat the dungeon just because the payment is not yet offered."] = "再次開啟{object:410369}，也就是你在焚木村外接下這份差事的那個箱子，在那裡交還號角。C的報酬是同一個箱子的第二次交還，無需先接受任務，而且可能不會立刻出現：玩家等待的時間從一刻鐘到兩小時不等。下次計劃中回主城時，檢查郵箱裡C的後續來信，再回這個箱子領取報酬。暫時沒有報酬任務，不代表需要重新潛入副本。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Go in alone. The {item:210186} gets you past the courtyard gate; the data does not say where in the keep the horn lies."] = "單獨進去。{item:210186}能讓你通過庭院的大門；資料沒有說明號角在城堡的哪裡。",

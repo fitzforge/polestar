@@ -1455,7 +1455,12 @@ local function addGoalNames(gv, rg, qdb)
 	-- point (`fromNpcs`). The item's droppers follow, and stand alone for
 	-- a goal with neither: they are ranked by drop chance over the whole
 	-- world, so for an item many creatures drop the best of them are
-	-- mostly in other zones.
+	-- mostly in other zones. A material gathered with a profession
+	-- (`collect … gather Skinning`: skinned, mined, picked, fished,
+	-- crafted) never takes them: its loot droppers are not where the step
+	-- gathers it (#3135: a Darkshore Medium Leather step named Feralas
+	-- ogres). Cloth and meat (`gather` with no skill) drop as loot and keep
+	-- them.
 	local npc = gv.npc or rg.npc
 	if npc then addName((N and N.Npc(npc)) or gv.npcName or rg.npcName, npc, rankedSource(rg, npc)) end
 	-- Spots holding other mobs than the point (`fromNpcsAt`: Centaur Bounty's
@@ -1469,7 +1474,8 @@ local function addGoalNames(gv, rg, qdb)
 		if #goalNames[goalCount] > before then return end
 	end
 	for i = 1, type(src) == "table" and #src or 0 do addSource(src[i], rg) end
-	if qdb then
+	local way = rg.gather or gv.gather
+	if qdb and not (type(way) == "table" and way.skill) then
 		if gv.quest and rg.oi and qdb.GetObjectiveMobs then
 			local mobs, meta = qdb.GetObjectiveMobs(gv.quest, rg.oi)
 			addDroppers(mobs, rg, meta)
@@ -1829,20 +1835,21 @@ function Buttons.QuestPingLine()
 end
 
 -- The macro for names, tried from names[preferred] on in click order. Out of
--- combat it starts from nothing ("/cleartarget [nocombat]"), so a target that
--- is none of the names -- a mob clicked by hand, the quest giver just turned
--- in to -- cannot stop the chain, and a press that finds no name marks
--- nothing; in a fight the target is left alone, since clearing it would cut
--- melee swings and Auto Shot. A plain /targetexact takes the nearest match,
+-- combat (or when the target is dead) it starts from nothing
+-- ("/cleartarget [nocombat][dead]"), so a target that is none of the names --
+-- a mob clicked by hand, the quest giver just turned in to -- or a corpse from
+-- the last kill cannot stop the chain, and a press that finds no name marks
+-- nothing; in a fight a living target is left alone, since clearing it would
+-- cut melee swings and Auto Shot. A plain /targetexact takes the nearest match,
 -- corpse or not, so each line is followed by "/cleartarget [dead]", and every
 -- later name is tried only while nothing is targeted ("[noexists]"): the
 -- first living match is kept. A name that is not MacroSafeName never becomes
 -- a line. ping: a /ping line (Buttons.PingLine) after the names; mark: a /tm
 -- line (Buttons.MarkLine) for the end. Names past MACRO_LIMIT are dropped
 -- from the end; the preferred name, the ping and the mark stay. keep: no
--- "/cleartarget [nocombat]", for a press on a living unit of the preferred
--- name (Buttons.WireCycle): /targetexact then moves on to the next unit of
--- that name.
+-- "/cleartarget [nocombat][dead]", for a press on a living unit of the
+-- preferred name (Buttons.WireCycle): /targetexact then moves on to the next
+-- unit of that name.
 function Buttons.TargetMacro(list, preferred, mark, ping, keep)
 	local n = #list
 	if n == 0 then return nil end
@@ -1857,7 +1864,7 @@ function Buttons.TargetMacro(list, preferred, mark, ping, keep)
 	local text
 	repeat
 		local lines = {}
-		if not keep then lines[1] = "/cleartarget [nocombat]" end
+		if not keep then lines[1] = "/cleartarget [nocombat][dead]" end
 		for k = 1, count do
 			lines[#lines + 1] = (k == 1 and "/targetexact " or "/targetexact [noexists] ") .. order[k]
 			lines[#lines + 1] = "/cleartarget [dead]"
@@ -1935,7 +1942,7 @@ end
 -- Repeated presses go from mob to mob (a player on Discord, 2026-11-17: the
 -- first one was already tagged). /targetexact moves on to the next unit of a
 -- name only while the target already has that name, and every macro opens
--- with "/cleartarget [nocombat]", so out of combat each press took the
+-- with "/cleartarget [nocombat][dead]", so out of combat each press took the
 -- nearest one again. The index in list of the target's name while the target
 -- is a living unit, else nil: a corpse, a unit of another name or no target
 -- keeps the clear. (Fields, not locals: the file is at Lua's local limit.)
@@ -1963,17 +1970,67 @@ function Buttons.SetPress(b, list, kindOf, text, ping)
 	b.press = p
 end
 
+-- In a fight the target macro leaves a living target alone (clearing it
+-- cuts melee swings and Auto Shot), so a press that finds none of its names
+-- keeps the unit the player had, and the macro's /tm line marks it (#2968,
+-- Emil: the skull on a Harvest Sentry). A macro cannot test a name, so the
+-- press notes the target and its icon before it runs (Buttons.NoteMark) and,
+-- after it, puts that icon back (none: SetRaidTarget 0) on a target the
+-- press left in place whose name is none of the macro's
+-- (Buttons.UndoStrayMark). A unit the press moved to, or one of its names
+-- it kept, keeps the mark. Only the press that runs the macro counts: the
+-- secure click acts on the press when useOnKeyDown (nil: the
+-- ActionButtonUseKeyDown CVar) says so, else on the release. (Fields, not
+-- locals: the file is at Lua's local limit.)
+function Buttons.NoteMark(b, down)
+	local onDown = b:GetAttribute("useOnKeyDown")
+	if onDown == nil then onDown = GetCVarBool and GetCVarBool("ActionButtonUseKeyDown") end
+	b.psMarkGuid, b.psMarkWas = nil, nil
+	if (onDown and true or false) ~= (down and true or false) then return end
+	local C = ns.Compat
+	b.psMarkGuid = C.Readable(UnitGUID and UnitGUID("target"))
+	b.psMarkWas = GetRaidTargetIndex and C.Readable(GetRaidTargetIndex("target")) or nil
+end
+
+-- The names macro text tries (its /targetexact lines) -> { [name] = true }.
+function Buttons.MacroNames(text)
+	local names = {}
+	for line in text:gmatch("[^\n]+") do
+		local name = line:match("^/targetexact%s+%b[]%s*(.-)%s*$") or line:match("^/targetexact%s+(.-)%s*$")
+		if name and name ~= "" then names[name] = true end
+	end
+	return names
+end
+
+-- attr: the macro's attribute ("macrotext", or "macrotext1" for its type1).
+function Buttons.UndoStrayMark(b, attr)
+	local guid, was = b.psMarkGuid, b.psMarkWas
+	b.psMarkGuid, b.psMarkWas = nil, nil
+	if not (guid and SetRaidTarget and UnitGUID) then return end
+	if b:GetAttribute(attr == "macrotext1" and "type1" or "type") ~= "macro" then return end
+	local text = b:GetAttribute(attr)
+	if type(text) ~= "string" or not ("\n" .. text):find("\n/tm ", 1, true) then return end
+	local C = ns.Compat
+	if C.Readable(UnitGUID("target")) ~= guid then return end
+	local name = C.Readable(UnitName and UnitName("target"))
+	if not name or Buttons.MacroNames(text)[name] then return end
+	SetRaidTarget("target", was or 0)
+end
+
 -- A press out of combat on a living unit of one of b.press's names leaves the
 -- target and starts from its name (TargetMacro's keep), so the press takes
 -- the next one of that name; the corpse lines, the other names, the ping and
 -- the mark stay. PostClick puts the applied macro back. In a fight nothing
--- changes: macros cannot, and the clear is "[nocombat]" anyway. While a
--- press is cycled, b.pressedKind and b.pressedMixed are its macro's (the
--- target list's rows mark by them). attr: the macro's attribute
--- ("macrotext", or "macrotext1" for a left click only).
+-- changes: macros cannot, and the clear is "[nocombat][dead]" anyway (a living
+-- target stays). While a press is cycled, b.pressedKind and b.pressedMixed are
+-- its macro's (the target list's rows mark by them). Every press also takes
+-- back a mark its macro put on a unit it never chose (Buttons.UndoStrayMark).
+-- attr: the macro's attribute ("macrotext", or "macrotext1" for a left click
+-- only).
 function Buttons.WireCycle(b, attr)
 	attr = attr or "macrotext"
-	b:HookScript("PreClick", function(self)
+	b:HookScript("PreClick", function(self, _, down)
+		Buttons.NoteMark(self, down)
 		local p = self.press
 		if not p or QoL.InLockdown() then return end
 		local i = Buttons.CycleIndex(p.list)
@@ -1991,6 +2048,7 @@ function Buttons.WireCycle(b, attr)
 		self.pressed, self.pressedKind, self.pressedMixed = true, kind, mixed
 	end)
 	b:HookScript("PostClick", function(self)
+		Buttons.UndoStrayMark(self, attr)
 		if not self.pressed or QoL.InLockdown() then return end
 		self.pressed, self.pressedKind, self.pressedMixed = nil, nil, nil
 		self:SetAttribute(attr, self.press and self.press.text)
@@ -2884,6 +2942,11 @@ do
 		r:Hide()
 		buildRow(r)
 		paintLook(r)
+		-- Over the guide window, whole (#2753): the guide window and the rows
+		-- share MEDIUM, and a row at UIParent's level drew part under the
+		-- window and its model and count over it. Raised once its parts
+		-- exist, which follow it; out of combat (applyRows), as Raise asks.
+		r:Raise()
 		local T = Theme()
 		if T and T.OnChanged then T.OnChanged(function() if not (T.LiveHidden and T.LiveHidden(r)) then paintLook(r) end end) end
 		wire(r, rowTooltip)
@@ -2942,6 +3005,8 @@ do
 		a:Hide()
 		buildMark(a)
 		paintLook(a)
+		-- Over the guide window with its rows (#2753, newRow).
+		a:Raise()
 		local T = Theme()
 		if T and T.OnChanged then T.OnChanged(function() if not (T.LiveHidden and T.LiveHidden(a)) then paintLook(a) end end) end
 

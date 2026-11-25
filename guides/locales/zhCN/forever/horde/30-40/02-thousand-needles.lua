@@ -129,13 +129,17 @@ return {
 	-- {npc:4483} Moktar Krin
 	["Take the lift down and follow the canyon east. {npc:4483} camps on the north-western edge of the salt flats."] = "乘升降梯下去，沿峡谷向东。{npc:4483}的营地在盐碱地的西北边缘。",
 
-	-- Step 24: Mirage Raceway
+	-- Step 24: Moktar Krin
+	-- {quest:1146} The Swarm Grows · {npc:4483} Moktar Krin
+	["{quest:1146}' second part is already handed in: take the third part from {npc:4483}, on the north-western edge of the salt flats."] = "{quest:1146}的第二部分已经交还：在盐滩西北边缘从{npc:4483}那里接取第三部分。",
+
+	-- Step 25: Mirage Raceway
 	-- {area:2240} Mirage Raceway
 	["The goblins and gnomes of the {area:2240} are neutral and give quests to both factions."] = "{area:2240}的地精和侏儒是中立的，双方阵营都能接他们的任务。",
 	-- {npc:4452} Kravel Koalbeard · {quest:5762} Hemet Nesingwary
 	["{npc:4452}'s crate for {quest:5762} in Stranglethorn, later on the route"] = "{npc:4452}的箱子，留给荆棘谷的{quest:5762}，后续路线会去",
 
-	-- Step 25: Shimmering Flats: kill these as you meet them
+	-- Step 26: Shimmering Flats: kill these as you meet them
 	-- {area:439} Shimmering Flats
 	["{area:439}: kill these as you meet them"] = "{area:439}：沿途击杀这些目标",
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Scorpid Terrors = {npc:4139} Scorpid Terror
@@ -149,7 +153,7 @@ return {
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver
 	["{quest:1104}, from the Scorpid Reavers of the north half"] = "{quest:1104}，击杀北半部的恐蝎劫掠者获取",
 
-	-- Step 26: Mirage Raceway
+	-- Step 27: Mirage Raceway
 	["South-west back to the raceway."] = "向西南返回赛道。",
 	-- {npc:4452} Kravel Koalbeard · {quest:1111} Wharfmaster Dizzywig · {area:392} Ratchet
 	["{npc:4452}: his parts order goes to {quest:1111} in {area:392}, later on the route"] = "{npc:4452}：他的零件订单要交给{area:392}的{quest:1111}，后续路线会去",
@@ -158,7 +162,7 @@ return {
 	-- {npc:4630} Pozzik · {area:392} Ratchet
 	["{npc:4630}: for Gazlowe in {area:392}, later on the route"] = "{npc:4630}：交给{area:392}的加兹鲁维，后续路线会去",
 
-	-- Step 27: Level 32
+	-- Step 28: Level 32
 	["Level 32"] = "32级",
 	-- {zone:1443} Desolace · {area:1717} Razorfen Kraul
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Scorpid Terrors = {npc:4139} Scorpid Terror
@@ -168,77 +172,77 @@ return {
 	-- {npc:4140} Scorpid Reaver
 	["grind on {npc:4140}"] = "刷{npc:4140}升级",
 
-	-- Step 28: The southern flats
+	-- Step 29: The southern flats
 	["The southern flats"] = "南部盐碱地",
 	-- plural, as words: Saltstone Crystalhides = {npc:4151} Saltstone Crystalhide
 	["South of the raceway, the Saltstone Crystalhides (32-33) and Gazers (34-35) roam the far end of the flats.\nCareful: the level 35 Gazers can still be two over you: pull them one at a time from the camp's edge, never two together."] = "赛道南方，盐石水晶蜥蜴（32-33）和盐石凝视者（34-35）游荡在盐碱地的远端。\n小心：35级的凝视者可能仍比你高两级：从营地边缘一次拉一只，绝不要同时拉两只。",
 
-	-- Step 29: The Rustmaul Dig Site
+	-- Step 30: The Rustmaul Dig Site
 	-- {item:5877} Cracked Silithid Carapace · {npc:4132} Silithid Ravager
 	["West of them the silithid swarm the dig site. Searchers and Hive Drones walk among the mounds; the Invaders (34-35) stay inside the hive cave. The first silithid you kill drops a {item:5877}: open it.\nCareful: Hive Drones call for help when they fall to 20% health, and the {npc:4132} (37, rare) walks the dig: take the Searchers and Drones (32-34) outside first, then pull the Invaders (34-35) one at a time from the cave mouth."] = "它们西边的挖掘场里遍布异种虫。异种搜寻者和异种筑巢蝎在土丘间游荡；异种侵略者（34-35）待在虫巢洞穴里。击杀的第一只异种虫会掉落{item:5877}，打开它。\n小心：异种筑巢蝎生命值降至20%时会呼救，{npc:4132}（37，稀有）在挖掘场里走动：先清掉外面的搜寻者和筑巢蝎（32-34），再从洞口一次拉一只侵略者（34-35）。",
 
-	-- Step 30: Parts of the Swarm
+	-- Step 31: Parts of the Swarm
 	["Keep killing silithid at the dig site for the heart, the talons and the carapaces."] = "继续在挖掘场击杀异种虫，收集心脏、爪子和甲壳。",
 
-	-- Step 31: Moktar Krin
+	-- Step 32: Moktar Krin
 	-- {npc:4483} Moktar Krin
 	["North from the dig to {npc:4483}'s camp on the western edge of the flats."] = "从挖掘场向北，前往盐碱地西缘{npc:4483}的营地。",
 
-	-- Step 32: Mirage Raceway
+	-- Step 33: Mirage Raceway
 	-- {area:976} Gadgetzan
 	["East to the raceway, on the way south to {area:976}."] = "向东前往赛道，顺路向南去{area:976}。",
 
-	-- Step 33: Gadgetzan
+	-- Step 34: Gadgetzan
 	-- {zone:1446} Tanaris · {area:976} Gadgetzan · {area:484} Freewind Post
 	["South from the raceway over the {zone:1446} border to {area:976}, the walled goblin town: learn its flight path and fly back to {area:484} from there, which is quicker than the walk west across the flats, and the next guides fly straight to {area:976}."] = "从赛道向南越过{zone:1446}边界到达有城墙的地精城镇{area:976}：学习那里的飞行路线，再从那里飞回{area:484}，这比向西穿过盐滩走回去更快，而且之后的指南会直接飞往{area:976}。",
 
-	-- Step 35: Freewind Post
+	-- Step 36: Freewind Post
 	-- {npc:10537} Cliffwatcher Longhorn
 	["{npc:10537} stands in the middle of the post, on the way to the flight master."] = "{npc:10537}站在岗哨中央，去飞行管理员的路上会经过。",
 	-- {npc:10537} Cliffwatcher Longhorn · {npc:11259} Nataka Longhorn · {zone:1443} Desolace
 	["{npc:10537}: for {npc:11259} in {zone:1443}, next"] = "{npc:10537}：交给{zone:1443}的{npc:11259}，接下来会去",
 
-	-- Step 36: Fly to Sun Rock Retreat
+	-- Step 37: Fly to Sun Rock Retreat
 	-- {area:460} Sun Rock Retreat
 	["Fly to {area:460}"] = "飞往{area:460}",
 	-- {area:484} Freewind Post
 	["{area:484} flight master"] = "{area:484}的飞行管理员",
 
-	-- Step 38: Scrabblescrew's Camp
+	-- Step 39: Scrabblescrew's Camp
 	-- {zone:1443} Desolace · {npc:11596} Smeed Scrabblescrew
 	["Head south out of Stonetalon into {zone:1443} and follow the road south to {npc:11596}'s camp."] = "从石爪山向南进入{zone:1443}，沿路向南前往{npc:11596}的营地。",
 
-	-- Step 39: Ghost Walker Post
+	-- Step 40: Ghost Walker Post
 	-- {npc:5395} Felgur Twocuts · {npc:11259} Nataka Longhorn · {npc:5641} Takata Steelblade · {npc:4498} Maurin Bonesplitter · {area:596} Kodo Graveyard
 	["{npc:5395} stands in the post, {npc:11259} up on its rise; {npc:5641} and {npc:4498} wait on the rise west of it, above the {area:596}."] = "{npc:5395}站在岗哨里，{npc:11259}在岗哨的高地上；{npc:5641}和{npc:4498}在其西边、{area:596}上方的高地等候。",
 	-- {npc:11259} Nataka Longhorn
 	["{npc:11259}, up on the rise"] = "{npc:11259}，在高地上",
 
-	-- Step 41: Takata Steelblade and Maurin Bonesplitter
+	-- Step 42: Takata Steelblade and Maurin Bonesplitter
 	-- {npc:5641} Takata Steelblade · {npc:4498} Maurin Bonesplitter
 	["{npc:5641} and {npc:4498}"] = "{npc:5641}和{npc:4498}",
 
-	-- Step 42: Ethel Rethor
+	-- Step 43: Ethel Rethor
 	-- {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
 	["From the rise, north-west across the plain to the ruined tower of {area:2405}: {npc:11863} waits inside. His errand is in {area:599}, the next stop; he takes it back on the walk up the coast later in this guide."] = "",
 
-	-- Step 43: Thunder Axe Fortress
+	-- Step 44: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {zone:1443} Desolace
 	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. Leave the red {object:176581} for now: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "向东前往{area:599}。将一名火刃教徒打至残血，在其死亡前使用{item:6436}，灌满一个{item:6435}。{npc:13019}带着权杖站在堡垒顶层。教徒偶尔也会掉落{item:20310}（1-5%）；拾取后阅读。红色的{object:176581}先别碰：它召出的{npc:11876}是37级，第二次来{zone:1443}时再回来处理。",
 	["On the top floor"] = "在最顶层",
 
-	-- Step 44: Sargeron
+	-- Step 45: Sargeron
 	-- {area:603} Sargeron
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue
 	["East from the fortress along the northern hills to the satyrs' ruins of {area:603}. The Shadowstalkers walk unseen.\nCareful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them."] = "",
 
-	-- Step 45: Khan Dez'hepah
+	-- Step 46: Khan Dez'hepah
 	-- {area:609} Kolkar Village · {quest:1365} Khan Dez'hepah
 	-- plural, as words: Kolkar Battle Lords = {npc:4636} Kolkar Battle Lord
 	-- was: ["South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "向南到{area:609}。{quest:1365}（35）带着一两名科卡尔队长（32-33）在东侧帐篷间游荡。先清理周围，再以满血状态单独引他。\n小心：科卡尔队长生命值降至20%时，会呼叫30码内的盟友。"
 	["South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: {quest:1365} is level 35, about two levels over you here, and Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "",
 
-	-- Step 46: Ghost Walker Post
+	-- Step 47: Ghost Walker Post
 	-- {npc:5641} Takata Steelblade · {npc:4498} Maurin Bonesplitter · {npc:5395} Felgur Twocuts · {npc:5412} Gurda Wildmane
 	["South-west down the road to the post: {npc:5641} and {npc:4498} on the rise west of it, {npc:5395} and {npc:5412} side by side in the post."] = "",
 	-- {npc:5641} Takata Steelblade · {npc:5640} Keldran · {zone:1454} Orgrimmar
@@ -250,7 +254,7 @@ return {
 	-- {npc:5412} Gurda Wildmane
 	["{npc:5412}: her totems drop from the same Magram centaurs"] = "",
 
-	-- Step 47: Kodo Graveyard
+	-- Step 48: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo · {npc:11521} Kodo Apparition
 	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702} in the graveyard and walk the tamed kodo back to {npc:11596}. At his camp, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: leave the kodo skulls on the ground alone: opening one raises a {npc:11521} (37-38) that hits hard."] = "在墓地对老迈的科多兽、濒死的科多兽或{npc:4702}使用{npc:11596}的{item:13892}，把驯服的科多兽带回{npc:11596}身边。到营地后与科多兽对话，才会计入进度并让你驯服下一只。共需五只，每次带一只。小心：不要碰地上的科多兽头骨：打开后会出现一只伤害很高的{npc:11521}（37-38级）。",
 	-- {npc:4702} Ancient Kodo
@@ -258,7 +262,7 @@ return {
 	-- {npc:11596} Smeed Scrabblescrew
 	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "把驯服的科多兽带到{npc:11596}的营地，与它交谈；重复五次",
 
-	-- Step 49: Magram Village
+	-- Step 50: Magram Village
 	-- {npc:5395} Felgur Twocuts · {item:254432} Carved Centaur Totem
 	-- plural, as words: Dread Rippers = {npc:4694} Dread Ripper
 	["South-east of Smeed's camp, the Magram centaurs camp in the hills. The Scouts and Outrunners (32-33) and the Wranglers (33-34) hold the camp's north-western edge; any centaur can drop an ear for {npc:5395} and a {item:254432} for Gurda. Careful on the way: Scorpashi Venomlashes (38-39) and Dread Rippers (39-40) roam the ground just west of the camp's edge: give them room.\nCareful: the Stormers and Pack Runners (34-35), Marauders and Maulers (35-36) and the Bonepaws (37-38) hold the middle and south of the camp: stay on its north-western edge and pull one at a time."] = "",
@@ -268,10 +272,10 @@ return {
 	-- {item:254432} Carved Centaur Totem
 	["{item:254432}, from the same centaurs"] = "",
 
-	-- Step 50: Ghost Walker Post
+	-- Step 51: Ghost Walker Post
 	["Back north-west to the post, on your way west."] = "",
 
-	-- Step 51: Shadowprey Village
+	-- Step 52: Shadowprey Village
 	-- {area:606} Gelkis Village
 	-- was: ["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village."] = "向西前往海岸上的巨魔村庄，途中避开{area:606}。{npc:268705}站在村子北边不远的小路上。"
 	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way."] = "",
@@ -280,21 +284,21 @@ return {
 	-- {npc:6726} Thalon
 	["{npc:6726}, at the village's south-west end"] = "{npc:6726}，在村庄西南端",
 
-	-- Step 52: Drulzegar Skraghook
+	-- Step 53: Drulzegar Skraghook
 	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii · {quest:6143} Other Fish to Fry · {area:598} Sar'theris Strand
-	["{npc:12340} stands at the village's south end, near {npc:12031}. At your level his {quest:6143} fits the walk north along the coast: the southern half of {area:598}, from level 34."] = "",
+	["{npc:12340} stands at the village's south end, near {npc:12031}. At your level his {quest:6143} fits the walk north along the coast: the southern half of {area:598}, from level 34."] = "{npc:12340}站在村庄南端，靠近{npc:12031}。在你的等级，他的{quest:6143}正好并入沿海岸向北的行程：{area:598}的南半部，从34级开始。",
 
-	-- Step 53: Ethel Rethor
+	-- Step 54: Ethel Rethor
 	-- {npc:11863} Azore Aldamort · {area:2406} Ranazjar Isle
 	["North along the coast, then inland to {npc:11863}'s tower. The coast's clams and naga come next, on one walk north to {area:2406}."] = "",
 	-- {npc:11863} Azore Aldamort · {item:15803} Book of the Ancients · {npc:12369} Lord Kragaru · {area:2406} Ranazjar Isle
 	["{npc:11863}'s next errand, the {item:15803}, needs {npc:12369} (38) out on {area:2406}: leave it, he is over your level."] = "{npc:11863}的下一个差事{item:15803}需要击杀{area:2406}上的{npc:12369}（38级）：先放着，他比你等级高。",
 
-	-- Step 54: Rackmore's Log
+	-- Step 55: Rackmore's Log
 	-- {object:177787} Rackmore's Log · {npc:11863} Azore Aldamort
 	["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore: read it. Its two keys drop only while you have the quest."] = "{object:177787}就在{npc:11863}所在高塔西南方不远的地上，在下行前往海岸的路上：阅读它。它所需的两把钥匙只有在接了任务后才会掉落。",
 
-	-- Step 55: Clam beds
+	-- Step 56: Clam beds
 	["Clam beds"] = "蚌床",
 	-- {item:15874} Soft-shelled Clam · {item:15878} Rackmore's Silver Key
 	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam · Enraged Reef Crawlers = {npc:12347} Enraged Reef Crawler · Drysnap Crawlers = {npc:11562} Drysnap Crawler
@@ -307,30 +311,30 @@ return {
 	-- {item:15878} Rackmore's Silver Key
 	["{item:15878}, from the Drysnap crabs"] = "{item:15878}，击杀干钳蟹获取",
 
-	-- Step 56: Sar'theris Strand
+	-- Step 57: Sar'theris Strand
 	-- {area:598} Sar'theris Strand · {item:15881} Rackmore's Golden Key · {zone:1443} Desolace
 	-- was: ["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at 38."] = "继续向北前往{area:598}获取{item:15881}：任何滑刃纳迦都可能掉落。\n小心：海滩北半部有侍从（34-35级）以及海巫和神谕者（34-36级，施法者），在33级时最多比你高两级：先在南半部打纳迦和女巫（32-33级）直到钥匙掉落，北边留到38级第二次来{zone:1443}时再去。"
 	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at about 37."] = "",
 	-- {item:15881} Rackmore's Golden Key
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}，击杀滑刃纳迦获取",
 
-	-- Step 57: Sar'theris Strand: Other Fish to Fry
-	["Stay in the southern half of the strand, where Rackmore's key drops: eight Myrmidons (34-35) walk there among the Naga, Sorceresses and Warriors (32-34).\nCareful: the northern half belongs to the Sea Witches (35-36, casters) and, at its tip, the Tidehunters (36-37): keep south of the middle of the beach."] = "",
+	-- Step 58: Sar'theris Strand: Other Fish to Fry
+	["Stay in the southern half of the strand, where Rackmore's key drops: eight Myrmidons (34-35) walk there among the Naga, Sorceresses and Warriors (32-34).\nCareful: the northern half belongs to the Sea Witches (35-36, casters) and, at its tip, the Tidehunters (36-37): keep south of the middle of the beach."] = "留在海滩南半部，拉克摩尔的钥匙就在那里掉落：八只侍从（34-35级）在纳迦、女巫和战士（32-34级）之间游荡。\n小心：北半部是海巫（35-36级，施法者）的地盘，其顶端还有潮行者（36-37级）：待在海滩中部以南。",
 	-- {npc:4714} Slitherblade Myrmidon
-	["{npc:4714}, in the strand's southern half"] = "",
+	["{npc:4714}, in the strand's southern half"] = "{npc:4714}，在海滩南半部",
 
-	-- Step 58: Rackmore's Chest
+	-- Step 59: Rackmore's Chest
 	-- {area:2406} Ranazjar Isle · {object:177786} Rackmore's Chest · {object:177673} Serpent Statue
 	["Swim out to {area:2406} off the far northern tip: {object:177786} stands on the shore beside the {object:177673}. Open it with both keys; leave the statue alone."] = "从最北端游到{area:2406}：{object:177786}在岸边的{object:177673}旁。用两把钥匙打开它；别碰雕像。",
 
-	-- Step 59: Shadowprey Village
+	-- Step 60: Shadowprey Village
 	["Hearth to Shadowprey (you bound it on the way in), or walk back south along the coast."] = "",
 	-- {item:14547} Hand of Iruxos · {npc:12340} Drulzegar Skraghook · {quest:6143} Other Fish to Fry · {zone:1443} Desolace · {zone:1454} Orgrimmar · {zone:1434} Stranglethorn Vale
 	["Taiga's {item:14547}, {npc:12340}'s {quest:6143} (unless you did it on the strand) and {zone:1443}'s other 37-40 quests wait for the second visit, at about 37: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "",
 
-	-- Step 60: Drulzegar Skraghook
+	-- Step 61: Drulzegar Skraghook
 	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii
-	["{npc:12340}, near {npc:12031}"] = "",
+	["{npc:12340}, near {npc:12031}"] = "{npc:12340}，靠近{npc:12031}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to {npc:11863}'s tower."] = "向南返回{npc:11863}所在的高塔。",
@@ -342,7 +346,7 @@ return {
 	-- ["Head north along the coast, then inland to the ruined tower of {area:2405}: {npc:11863} waits inside. The coast's clams and naga come after {area:599}, on one walk north to {area:2406}."] = "沿海岸向北，再转向内陆前往{area:2405}的废塔：{npc:11863}在塔内等候。海岸上的蚌和纳迦留到{area:599}之后，一路向北前往{area:2406}时再做。",
 	-- ["Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach; open each clam in your bags for its meat."] = "沿海岸向北。巨型软壳蚌分布在浅水中，狂怒的暗礁蟹在沙滩行走；打开背包里的每个蚌壳取出蚌肉。",
 	-- ["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village."] = "向西前往海岸上的巨魔村庄，途中避开{area:606}。{npc:268705}站在村子北边不远的小路上。",
-	-- ["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village.\n{npc:268705} may not be here on Forever: if {npc:268705} doesn't offer {quest:97265}, skip it."] = "向西前往海岸上的巨魔村庄，途中避开 {area:606}。{npc:268705} 站在村子北边不远的小路上。\n{npc:268705} 在Forever中可能不在这里：如果 {npc:268705} 没有提供 {quest:97265}，就跳过。",
+	-- ["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village.\n{npc:268705} may not be here on Forever: if {npc:268705} doesn't offer {quest:97265}, skip it."] = "向西前往海岸上的巨魔村庄，途中避开 {area:606}。{npc:268705} 站在村子北边不远的小路上。\n{npc:268705} 在无限服可能不在这里：如果 {npc:268705} 没有提供 {quest:97265}，就跳过。",
 	-- ["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at 38."] = "继续向北前往{area:598}获取{item:15881}：任何滑刃纳迦都可能掉落。\n小心：海滩北半部有侍从（34-35级）以及海巫和神谕者（34-36级，施法者），在33级时最多比你高两级：先在南半部打纳迦和女巫（32-33级）直到钥匙掉落，北边留到38级第二次来{zone:1443}时再去。",
 	-- ["Keep north to {area:598}. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time."] = "继续向北到{area:598}。海滩上有滑刃侍从、滑刃纳迦和滑刃巫师，逐只引来击杀。",
 	-- ["Keep north to {area:598}. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time. Any Slitherblade can drop {item:15881}."] = "继续向北到{area:598}。海滩上有滑刃侍从、滑刃纳迦和滑刃巫师，逐只引来击杀。任何滑刃纳迦都可能掉落{item:15881}。",

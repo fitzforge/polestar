@@ -11,8 +11,6 @@ return {
 	["Fly to the {area:1497}"] = "Летите сюда: {area:1497}",
 	-- {area:1497} Undercity · {area:340} Kargath · {object:3202} Grom'gol
 	["Your level 40 training is in the {area:1497}: fly there from {area:340}, train, and take the zeppelin from the towers outside the city to {object:3202}."] = "Ваше обучение на 40-м уровне – здесь: {area:1497}. Летите туда из места {area:340}, обучитесь и сядьте на дирижабль у башен за городом до места {object:3202}.",
-	-- {area:340} Kargath
-	["{area:340} flight master"] = "Распорядитель полетов: {area:340}",
 
 	-- Step 2: Genavie Callow
 	-- {npc:4486} Genavie Callow · {zone:1417} Arathi Highlands
@@ -40,6 +38,8 @@ return {
 	-- Step 6: Fly to Grom'gol
 	-- {object:3202} Grom'gol
 	["Fly to {object:3202}"] = "Летите сюда: {object:3202}",
+	-- {area:340} Kargath
+	["{area:340} flight master"] = "Распорядитель полетов: {area:340}",
 
 	-- Step 7: Grom'gol Base Camp
 	-- {npc:2519} Kin'weelay · {npc:1061} Gan'zulah
@@ -64,21 +64,32 @@ return {
 	-- {object:3202} Grom'gol
 	["{object:3202} flight master"] = "",
 
-	-- Step 11: Booty Bay
-	-- {area:35} Booty Bay
-	["Gringer, the flight master, waits on {area:35}'s upper deck. The quest givers stand on the boardwalks around the harbour and in the inn."] = "Грингер, распорядитель полетов, ждет на верхней палубе ({area:35}). Персонажи с заданиями стоят на мостках вокруг гавани и в таверне.",
+	-- Step 11: Drizzlik
+	-- {npc:2495} Drizzlik
+	["{npc:2495}'s shop is in the building east of the inn."] = "Лавка NPC {npc:2495} – в здании к востоку от таверны.",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}: the Snapjaw skins gathered earlier; inside"] = "",
+
+	-- Step 12: Booty Bay
+	-- {area:35} Booty Bay
+	["Gringer, the flight master, waits on {area:35}'s upper deck. The quest givers stand on the boardwalks around the harbour and in the inn."] = "Грингер, распорядитель полетов, ждет на верхней палубе ({area:35}). Персонажи с заданиями стоят на мостках вокруг гавани и в таверне.",
 	-- {npc:2495} Drizzlik · {npc:2635} Elder Saltwater Crocolisk · {object:3202} Grom'gol
 	["{npc:2495}: the {npc:2635} suns on the coast between Zul'Kunda and {object:3202}, later on this loop"] = "{npc:2495}: {npc:2635} греется на побережье между Зул'Кундой и местом {object:3202}, позже на этом круге",
 
-	-- Step 12: Kebok
+	-- Step 13: Kebok
+	-- {npc:737} Kebok
+	["{npc:737} stands upstairs, beside the flight master."] = "{npc:737} стоит на втором этаже, рядом с распорядителем полетов.",
+	-- {npc:737} Kebok
+	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
+	["{npc:737}: the Tumbled Crystals from the earlier Stranglethorn guide"] = "{npc:737}: ограненные кристаллы ({item:4106}) из прошлого гайда по Тернистой долине",
+
+	-- Step 14: Kebok
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs, has his next errand now: the Skullsplitter tusks come from the trolls of Zul'Mamwe, later on this loop."] = "У NPC {npc:737} наверху теперь есть следующее поручение: клыки Дробителей Черепов – с троллей Зул'Мамве, позже на этом круге.",
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs"] = "{npc:737}, наверху",
 
-	-- Step 13: Booty Bay
+	-- Step 15: Booty Bay
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the docks: Gazlowe's letter, if you carry it"] = "{npc:4631}, на пристани: письмо Газлоу, если оно у вас есть",
 	-- {npc:4631} Wharfmaster Lozgil · {quest:97332} Twice Misplaced Trust · {npc:259961} Wharfmaster Whizzbuzz · {area:16727} Powderfuse Port · {zone:2548} Riverglades
@@ -90,43 +101,46 @@ return {
 	["{npc:2496}: Cozzle's footlocker is in his house by {area:37}, on your way north to Nesingwary"] = "",
 	["Inside"] = "Внутри",
 
-	-- Step 14: Bloodsail Correspondence
+	-- Step 16: Bloodsail Correspondence
 	-- {area:35} Booty Bay
 	["Leave town by the tunnel; the note lies in the pirates' cove just north of {area:35}."] = "Выйдите из города через туннель; записка лежит в пиратской бухте чуть к северу от места {area:35}.",
 
-	-- Step 16: Mistvale gorillas
+	-- Step 18: Mistvale gorillas
 	["Mistvale gorillas"] = "Гориллы из Мглистой долины",
+	-- {quest:348} Stranglethorn Fever
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
-	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "Гориллы бродят по долине вокруг Унбагвы. С вожаков падают потроха; клык может упасть с любой: сохраните десять для Унбагвы, чей Мокк (44) ждет вашего визита в Тернистую долину примерно на 45-м.\nОсторожно: старые гориллы из Мглистой долины (40-41) стоят в долине близко друг к другу: выманивайте по одному.",
-	["Keep fangs from these same elders for Unbagwa."] = "",
+	-- was: ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "Гориллы бродят по долине вокруг Унбагвы. С вожаков падают потроха; клык может упасть с любой: сохраните десять для Унбагвы, чей Мокк (44) ждет вашего визита в Тернистую долину примерно на 45-м.\nОсторожно: старые гориллы из Мглистой долины (40-41) стоят в долине близко друг к другу: выманивайте по одному."
+	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: if you will take {quest:348} with a group, keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "Гориллы бродят по долине вокруг Унбагвы. Старейшины роняют потроха; любая может уронить клык: если вы возьмете {quest:348} с группой, сохраните десять для Унбагвы, чей Мокк (44) ждет вашей остановки в Тернистой долине примерно на 45-м.\nОсторожно: старые гориллы Мглистой долины (40-41) стоят близко друг к другу в долине: выманивайте по одному.",
+	-- {quest:348} Stranglethorn Fever
+	["Keep fangs from these same elders for Unbagwa ({quest:348}, with a group)."] = "Собирайте клыки с этих же старейшин для Унбагвы ({quest:348}, с группой).",
 
-	-- Step 17: Mistvale giblets
+	-- Step 19: Mistvale giblets
 	["Mistvale giblets"] = "",
 
-	-- Step 18: Mistvale gorillas at 39
+	-- Step 20: Mistvale gorillas at 39
 	["Mistvale gorillas at 39"] = "",
 	["Look for lone level 40 elders in this same camp for the sinew and giblets. Leave level 41 gorillas alone; don't stay just for extra fangs."] = "",
 
-	-- Step 19: Venture Co. mine
+	-- Step 21: Venture Co. mine
 	["Venture Co. mine"] = "Рудник Торговой компании",
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["Further north, the goblins of the Venture Co. dig at the mine east of the road; miners, foremen, surveyors and tinkerers all drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "Дальше к северу гоблины Торговой компании копают в руднике к востоку от дороги; кристаллы падают с шахтеров, десятников, геодезистов и механиков.\nОсторожно: по округе вокруг лагеря в незаметности бродят пантеры Тенегрызов и тигрицы Тернистой долины.",
 
-	-- Step 20: Shadowmaw Panthers
+	-- Step 22: Shadowmaw Panthers
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["Shadowmaw Panthers"] = "",
 	-- {quest:192} Panther Mastery
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Elder Shadowmaw Panthers = {npc:1713} Elder Shadowmaw Panther
 	["{quest:192} is still open: the Shadowmaw Panthers (37-38) stalk the jungle north of the mine, towards the Mosh'Ogg hills. They use Sneak, so they show only when you are close: pull them one at a time, and leave the Elder Shadowmaw Panthers (42-43) alone."] = "",
 
-	-- Step 22: Lashtail Raptors
+	-- Step 24: Lashtail Raptors
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["Lashtail Raptors"] = "",
 	-- {quest:195} Raptor Mastery · {object:3202} Grom'gol
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["{quest:195} is still open: the Lashtail Raptors (35-36) hunt the jungle between {object:3202} and Nesingwary's camp, on your way north."] = "",
 
-	-- Step 23: Foreman Cozzle's house
+	-- Step 25: Foreman Cozzle's house
 	-- {npc:4723} Foreman Cozzle
 	["{npc:4723}'s house"] = "",
 	-- {npc:4723} Foreman Cozzle · {area:37} Lake Nazferiti
@@ -135,49 +149,49 @@ return {
 	-- {object:20691} Cozzle's Footlocker
 	["{object:20691}, inside the house"] = "",
 
-	-- Step 24: Nesingwary's camp
+	-- Step 26: Nesingwary's camp
 	["Nesingwary's camp"] = "Лагерь Эрнестуэя",
 	["Head north up the road; the hunters camp on the hill above the river."] = "Идите на север по дороге; лагерь охотников – на холме над рекой.",
 
-	-- Step 25: Sin'Dall
+	-- Step 27: Sin'Dall
 	-- {npc:729} Sin'Dall · {npc:717} Ajeck Rouack
 	["{npc:729}, the tiger {npc:717} sent you after on your last visit, prowls the hilltop just south-west of the camp."] = "{npc:729} – тигр, за которым вас отправил {npc:717} в прошлый раз, – бродит по вершине холма чуть к юго-западу от лагеря.",
 
-	-- Step 28: Nesingwary's camp
+	-- Step 30: Nesingwary's camp
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "Вы пропустили это при прошлом посещении этих мест по маршруту: теперь это идёт первым. Это быстро и открывает следующие задания.",
 
-	-- Step 29: The Green Hills of Stranglethorn
+	-- Step 31: The Green Hills of Stranglethorn
 	-- {npc:716} Barnil Stonepot · {quest:338} The Green Hills of Stranglethorn
 	["{npc:716} collects the pages of {quest:338}: the trolls of the vale drop them now and then. Take his quest; each chapter he takes once you have all its pages."] = "{npc:716} собирает страницы книги «{quest:338}»: время от времени они падают с троллей долины. Возьмите его задание; каждую главу он принимает, когда у вас есть все ее страницы.",
 
-	-- Step 30: Chapter I
+	-- Step 32: Chapter I
 	-- {npc:716} Barnil Stonepot
 	["{npc:716}: every page of chapter I is in your bags"] = "{npc:716}: все страницы главы I в сумках",
 
-	-- Step 31: Chapter II
+	-- Step 33: Chapter II
 	-- {npc:716} Barnil Stonepot
 	["{npc:716}: every page of chapter II is in your bags"] = "{npc:716}: все страницы главы II в сумках",
 
-	-- Step 32: Chapter III
+	-- Step 34: Chapter III
 	-- {npc:716} Barnil Stonepot
 	["{npc:716}: every page of chapter III is in your bags"] = "{npc:716}: все страницы главы III в сумках",
 
-	-- Step 33: Chapter IV
+	-- Step 35: Chapter IV
 	-- {npc:716} Barnil Stonepot
 	["{npc:716}: every page of chapter IV is in your bags"] = "{npc:716}: все страницы главы IV в сумках",
 
-	-- Step 34: The Green Hills of Stranglethorn
+	-- Step 36: The Green Hills of Stranglethorn
 	-- {npc:716} Barnil Stonepot
 	["{npc:716}: the four chapters"] = "{npc:716}: четыре главы",
 
-	-- Step 35: Zul'Kunda
+	-- Step 37: Zul'Kunda
 	["Zul'Kunda"] = "Зул'Кунда",
 	-- {npc:1061} Gan'zulah · {npc:1062} Nezzliok the Dire · {object:3202} Grom'gol · {npc:2635} Elder Saltwater Crocolisk · {npc:2495} Drizzlik
 	["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them.\nOn the coast between Zul'Kunda and {object:3202} an {npc:2635} (level 38 elite) shares the spawns of the ordinary crocolisks: kill it if it is up and take its skin for {npc:2495}."] = "К западу от экспедиции вожди племени Кровавого Скальпа – {npc:1061} и {npc:1062} – стоят вместе в руинах Зул'Кунды. Сначала перебейте охрану, затем выманите их.\nНа побережье между Зул'Кундой и местом {object:3202} {npc:2635} (элитный, 38-й уровень) появляется на месте обычных кроколисков: если он на месте, убейте его и снимите шкуру для {npc:2495}.",
 	-- {object:52} Fall of Gurubashi
 	["from the {object:52}, in the ruins"] = "",
 
-	-- Step 36: Grom'gol
+	-- Step 38: Grom'gol
 	-- {object:2076} Bubbling Cauldron · {npc:2497} Nimboya
 	["the {object:2076}, beside {npc:2497}"] = "{object:2076}, рядом: {npc:2497}",
 	-- {npc:2519} Kin'weelay
@@ -185,56 +199,56 @@ return {
 	-- {npc:2519} Kin'weelay · {area:104} Vile Reef
 	["{npc:2519}: the cavern entrance under the {area:104}, west of the camp"] = "{npc:2519}: вход в пещеру под местом {area:104}, к западу от лагеря",
 
-	-- Step 37: Riding at 40
+	-- Step 39: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {npc:4752} Kildar · {object:172958} Valley of Honor · {npc:3362} Ogunaro Wolfrunner · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454}: {npc:4752} teaches Orcs in the {object:172958}, by {npc:3362}'s kennel (wolves 20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "Верховая езда требует 40-го уровня и стоит 100 золотых; изучив ее, вы получите транспорт, а без него {zone:2548} после Тернистой долины – долгий путь пешком. Сядьте на дирижабль у башни ({object:3202}) до места {zone:1454}: {npc:4752} обучает орков здесь: {object:172958}, у псарни ({npc:3362}; волки по 20 золотых). Затем дирижаблем обратно сюда: {object:3202}. Не хватает золота? Пропустите этот шаг: гайд по зоне {zone:1444} снова проходит через {zone:1454} примерно на 45-м.",
 	-- {npc:4752} Kildar
 	["{npc:4752}, riding trainer"] = "{npc:4752}, учитель верховой езды",
 
-	-- Step 38: Riding at 40
+	-- Step 40: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1411} Durotar · {area:367} Sen'jin Village · {npc:7953} Xar'Ti · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454} and go south down the {zone:1411} road to {area:367}: {npc:7953} teaches Trolls there, with Zjolnir's raptors (20 gold each). Then back to the zeppelin for {object:3202}. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "Верховая езда требует 40-го уровня и стоит 100 золотых; изучив ее, вы получите транспорт, а без него {zone:2548} после Тернистой долины – долгий путь пешком. Сядьте на дирижабль у башни ({object:3202}) до места {zone:1454} и идите на юг по дороге через {zone:1411} к месту {area:367}: {npc:7953} обучает там троллей, ящеры у Зьолнира (по 20 золотых). Затем обратно к дирижаблю до места {object:3202}. Не хватает золота? Пропустите этот шаг: гайд по зоне {zone:1444} снова проходит через {zone:1454} примерно на 45-м.",
 	-- {npc:7953} Xar'Ti
 	["{npc:7953}, riding trainer"] = "{npc:7953}, учитель верховой езды",
 
-	-- Step 39: Riding at 40
+	-- Step 41: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {area:222} Bloodhoof Village · {npc:3690} Kar Stormsinger · {npc:3685} Harb Clawhoof · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454}, fly to {zone:1456} and ride down to {area:222}: {npc:3690} teaches Tauren there, with {npc:3685}'s kodos (20 gold each). Then fly back to {zone:1454} for the {object:3202} zeppelin. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1456} again at about 45."] = "Верховая езда требует 40-го уровня и стоит 100 золотых; изучив ее, вы получите транспорт, а без него {zone:2548} после Тернистой долины – долгий путь пешком. Сядьте на дирижабль у башни ({object:3202}) до места {zone:1454}, летите сюда: {zone:1456} и спуститесь к месту {area:222}: {npc:3690} обучает там тауренов, кодо у NPC {npc:3685} (по 20 золотых). Затем летите обратно сюда: {zone:1454}, к дирижаблю до места {object:3202}. Не хватает золота? Пропустите этот шаг: гайд по зоне {zone:1444} снова проходит через {zone:1456} примерно на 45-м.",
 	-- {npc:3690} Kar Stormsinger
 	["{npc:3690}, riding trainer"] = "{npc:3690}, учитель верховой езды",
 
-	-- Step 40: Riding at 40
+	-- Step 42: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a Galestrider, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454} and fly to {zone:1456}: the skyboat to {zone:2521} leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes, and {npc:265756} teaches Skyborne at the {area:17684} in {area:16638}. Then back to {zone:1454} for the {object:3202} zeppelin. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "Верховая езда требует 40-го уровня и стоит 100 золотых; изучив ее, вы получите ветроступа, а без него {zone:2548} после Тернистой долины – долгий путь пешком. Сядьте на дирижабль у башни ({object:3202}) до места {zone:1454} и летите сюда: {zone:1456}. Небесный корабль до места {zone:2521} отходит от утесов к югу от места {area:17045}, к северу от места {zone:1456}, примерно каждые пять минут; {npc:265756} обучает небожителей здесь: {area:17684}, {area:16638}. Затем обратно сюда: {zone:1454}, к дирижаблю до места {object:3202}. Не хватает золота? Пропустите этот шаг: гайд по зоне {zone:1444} снова проходит через {zone:1454} примерно на 45-м.",
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
 	["{npc:265756}, riding trainer, at the {area:17684} in {area:16638}"] = "{npc:265756}, учитель верховой езды: {area:17684}, {area:16638}",
 
-	-- Step 41: Riding at 40
+	-- Step 43: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1458} Undercity · {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {zone:1444} Feralas · {zone:1446} Tanaris
 	-- was: ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {area:1497}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1435} guide passes the {area:1497} again at about 47."] = "Верховая езда требует 40-го уровня и стоит 100 золотых; изучив ее, вы получите транспорт, а без него {zone:2548} после Тернистой долины – долгий путь пешком. Сядьте на дирижабль у башни ({object:3202}) до башен у места {area:1497}: {npc:4773} обучает Отрекшихся ({area:159}), недалеко к северу, рядом кони-скелеты NPC {npc:4731} (по 20 золотых). Затем дирижаблем обратно до места {object:3202}. Не хватает золота? Пропустите этот шаг: гайд по зоне {zone:1435} снова проходит здесь ({area:1497}) примерно на 47-м."
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {zone:1458}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} & {zone:1446} guide passes the {zone:1458} again at about 45."] = "",
 
-	-- Step 42: Your mount at 40
+	-- Step 44: Your mount at 40
 	["Your mount at 40"] = "Ваш транспорт на 40-м",
 	-- {zone:1454} Orgrimmar · {object:172960} Cleft of Shadow · {npc:6251} Strahad Farsan · {area:392} Ratchet · {zone:1444} Feralas
 	["Warlocks don't buy riding: your mount is the Felsteed, from your class quest. Zevrost in {zone:1454}'s {object:172960} starts it and {npc:6251} in {area:392} teaches it, both on the {zone:1444} guide's {zone:1454} stop at about 45."] = "Чернокнижники не покупают верховую езду: ваш транспорт – конь Скверны из классового задания. Его начинает Зеврост ({zone:1454}, {object:172960}), а {npc:6251} ({area:392}) обучает ему; оба – на остановке в краю {zone:1454} в гайде по краю {zone:1444}, примерно на 45-м.",
 	-- {zone:1454} Orgrimmar · {npc:6251} Strahad Farsan · {area:392} Ratchet · {zone:1444} Feralas
 	["Felsteed: Zevrost in {zone:1454}, then {npc:6251} in {area:392}, on the {zone:1444} guide's {zone:1454} stop."] = "Конь Скверны: Зеврост ({zone:1454}), затем {npc:6251} ({area:392}), на остановке в краю {zone:1454} в гайде по краю {zone:1444}.",
 
-	-- Step 43: The Vile Reef
+	-- Step 45: The Vile Reef
 	-- {quest:95770} Locating the Lost City · {object:3202} Grom'gol · {area:104} Vile Reef
 	["{quest:95770}: west of {object:3202}, swim out over the {area:104} and dive to the cavern entrance in the reef; the quest completes as you find it. Leave the cavern for now: the jungle stalkers are south along the coast."] = "{quest:95770}: к западу от места {object:3202} плывите над местом {area:104} и нырните к входу в пещеру в рифе; задание выполнится, как только вы его найдете. Пока не заходите в пещеру: ящеры-ловчие – к югу вдоль побережья.",
 	-- {area:16550} Drowned City
 	["the {area:16550}'s entrance, underwater"] = "вход ({area:16550}), под водой",
 
-	-- Step 44: Jungle stalkers
+	-- Step 46: Jungle stalkers
 	["Jungle stalkers"] = "Ящеры-ловчие",
 	-- {object:3202} Grom'gol
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["The stalker raptors hunt the jungle south of {object:3202}, out towards the west coast.\nCareful: the Jungle Stalkers (40-41) are thick here: pull one at a time and rest between fights."] = "Ящеры-ловчие охотятся в джунглях к югу от места {object:3202}, ближе к западному побережью.\nОсторожно: тропических ловцов (40-41) здесь много – тяните по одному и отдыхайте между боями.",
 	["The naga explorers on the coast south of here (43-44) are for Bloads and Mok'thardin: keep both quests for your Stranglethorn stop at about 45."] = "Наги-исследователи на побережье к югу отсюда (43-44) нужны для Блоадса и Мок'тардина: сохраните оба задания до остановки в Тернистой долине примерно на 45-м.",
 
-	-- Step 45: Booty Bay
+	-- Step 47: Booty Bay
 	-- {area:35} Booty Bay
 	["Head south to {area:35}. Shaky Phillipe waits on the docks."] = "Идите на юг сюда: {area:35}. Филипп «Трусишка» ждет на пристани.",
 	-- {npc:2496} Baron Revilgaz
@@ -253,73 +267,76 @@ return {
 	-- {npc:2488} Deeg · {area:43} Wild Shore
 	["{npc:2488}, on the top floor: keep it for the {area:43} at about 45"] = "{npc:2488}, на верхнем этаже: сохраните для места {area:43}, примерно на 45-м",
 
-	-- Step 46: Whiskey Slim and Fin Fizracket
+	-- Step 48: Whiskey Slim and Fin Fizracket
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "",
-	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
-	["{npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "",
+	-- {npc:2491} Whiskey Slim · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
+	["{npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "{npc:2491}, в таверне, и «Морской волк» Мак-Кинли на верхнем этаже дают эти задания с 40-го уровня: возьмите их сейчас. Ниже 40-го их снова предложит остановка {area:35} в гайде «{zone:1444} и {zone:1446}».",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "",
-	-- {npc:2486} Fin Fizracket · {quest:348} Stranglethorn Fever · {zone:1444} Feralas · {object:3202} Grom'gol
-	-- was: ["{npc:2486}: {quest:348} (offered from 40), Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}: {quest:348} (доступно с 40-го), часть Унбагвы – на остановке в месте {object:3202} в гайде по краю {zone:1444}"
-	["{npc:2486}: {quest:348}, Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "",
 	-- {quest:2872} Stoley's Debt · {zone:1446} Tanaris
 	["MacKinley, on the top floor: {quest:2872}, for Stoley in {zone:1446}"] = "",
 
-	-- Step 47: The Bloodsail ships
+	-- Step 49: Fin Fizracket
+	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
+	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "Групповое задание: {quest:348} заканчивается у NPC {npc:1449} в Мглистой долине. Отдайте ему десять клыков горилл, и он призовет три волны горилл (41-42), одну за другой, затем {npc:1514} (44). В записях игроков 12 из 27 начавших погибли там. Берите, если с вами друг или двое.",
+	-- {npc:2486} Fin Fizracket · {zone:1444} Feralas · {object:3202} Grom'gol
+	["{npc:2486}, beside the inn: Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}, рядом с таверной: часть Унбагвы – на остановке {object:3202} в гайде «{zone:1444}»",
+
+	-- Step 50: The Bloodsail ships
 	["The Bloodsail ships"] = "Корабли Кровавого Паруса",
 	-- {quest:624} Cortello's Riddle · {area:43} Wild Shore · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh · {zone:1425} Hinterlands
 	["The scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs, with captains of 45-48: take it with a group. Its chain runs on through the {zone:1435}, {zone:1445} and the {zone:1425}."] = "Свиток «{quest:624}» лежит на палубах трех кораблей у места {area:43}; там пираты 42-45 уровня, которые ходят парами, и капитаны 45-48: идите группой. Цепочка продолжается через края {zone:1435}, {zone:1445} и {zone:1425}.",
 	-- {zone:1435} Swamp of Sorrows
 	["for a later stop in the {zone:1435}"] = "для более поздней остановки ({zone:1435})",
 
-	-- Step 48: Fly to Grom'gol
+	-- Step 51: Fly to Grom'gol
 	-- {object:3202} Grom'gol
 	["Fly back to {object:3202}: Zul'Mamwe's Skullsplitters are just east of it."] = "Летите обратно в {object:3202}: Череполомы Зул'Мамве – сразу к востоку.",
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "Распорядитель полетов: {area:35}",
 
-	-- Step 49: Zul'Mamwe
+	-- Step 52: Zul'Mamwe
 	["Zul'Mamwe"] = "Зул'Мамбве",
 	["The warriors in the northern ruins (39-40) drop both tusks and necklaces. Pull from the edge; leave the chief and his two guards to the south alone."] = "",
 
-	-- Step 50: Zul'Mamwe and Balia'mah trophy skulls
+	-- Step 53: Zul'Mamwe and Balia'mah trophy skulls
 	["Zul'Mamwe and Balia'mah trophy skulls"] = "",
 	-- {object:3202} Grom'gol
 	["Look for the trophy skulls in the small ruins north of Zul'Mamwe's warriors.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "",
 
-	-- Step 51: Kin'weelay
+	-- Step 54: Kin'weelay
 	-- {object:3202} Grom'gol
 	["Head west to {object:3202}."] = "Идите на запад сюда: {object:3202}.",
 
-	-- Step 54: Grom'gol Base Camp
+	-- Step 57: Grom'gol Base Camp
 	-- {npc:2464} Commander Aggro'gosh · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {zone:2548} Riverglades
 	["{npc:2464}: for {npc:256418} in {area:16743}, the {zone:2548}' Horde fort, in the next guide"] = "{npc:2464}: для NPC {npc:256418} ({area:16743}, крепость Орды в краю {zone:2548}), в следующем гайде",
 	-- {quest:571} Mok'thardin's Enchantment · {quest:621} Zanzil's Secret · {npc:737} Kebok · {area:35} Booty Bay · {zone:2548} Riverglades
 	["Keep {quest:571}, {quest:621} and {npc:737}'s tusks: the Skullsplitter chief, Zanzil's camps, the naga coast and {area:35} come on your Stranglethorn stop at about 45, after the {zone:2548}."] = "Сохраните задания «{quest:571}», «{quest:621}» и клыки для NPC {npc:737}: вождь Череполомов, лагеря Занзила, побережье наг и {area:35} – на остановке в Тернистой долине примерно на 45-м, после края {zone:2548}.",
 
-	-- Step 56: Nesingwary's Expedition
+	-- Step 59: Nesingwary's Expedition
 	["Head north up the road to the hunters' camp."] = "Идите на север по дороге к лагерю охотников.",
 
-	-- Step 58: Raptor Mastery
+	-- Step 61: Raptor Mastery
 	-- {npc:730} Tethis
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone."] = "Это элитные противники: лучше собрать группу, поищите напарников. {npc:730} – элита 43-го уровня: большинство классов справляются в одиночку на 45-м, но может понадобиться помощь. Если вы один, пропустите.",
 
-	-- Step 59: Panther Mastery
+	-- Step 62: Panther Mastery
 	-- {npc:728} Bhag'thera
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone."] = "Это элитные противники: лучше собрать группу, поищите напарников. {npc:728} – элита 40-го уровня: большинство классов справляются в одиночку на 42-м, но может понадобиться помощь. Если вы один, пропустите.",
 
-	-- Step 63: Big Game Hunter
+	-- Step 66: Big Game Hunter
 	-- {npc:731} King Bangalash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "Это элитные противники: лучше собрать группу, поищите напарников. {npc:731} – элита 43-го уровня: большинство классов справляются в одиночку на 45-м, но может понадобиться помощь. Если вы один, пропустите.\nОсторожно: рядом бродят тигры и незаметные пантеры Тенегрызов. Зачистите их, прежде чем тянуть его. Когда его атакуют, {npc:731} зовет на помощь существ в радиусе 20 м.",
 
-	-- Step 68: Into the Swamp of Sorrows
+	-- Step 71: Into the Swamp of Sorrows
 	-- {zone:1435} Swamp of Sorrows
 	["Into the {zone:1435}"] = "В край {zone:1435}",
 	-- {zone:1431} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
 	["Follow the road east from {zone:1431} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "Идите по дороге на восток из края {zone:1431} через край {zone:1430} в болото. {npc:1776} ждет здесь: {area:657} – лагерь дренеев у дороги, там, где она входит со стороны края {zone:1430}.",
 
-	-- Step 69: Stonard
+	-- Step 72: Stonard
 	-- {area:75} Stonard
 	["Head east to {area:75}, in the reeds south of the road."] = "Идите на восток сюда: {area:75}, в камышах к югу от дороги.",
 	-- {npc:5591} Dar
@@ -329,51 +346,51 @@ return {
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "",
 
-	-- Step 70: Sawtooth crocolisks
+	-- Step 73: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "Острозубые кроколиски",
 	-- {npc:5391} Galen Goodward · {area:75} Stonard
 	["The crocolisks wallow in the pools around {npc:5391}'s camp and south towards {area:75}; about one in four drops a flank."] = "Кроколиски лежат в лужах вокруг лагеря {npc:5391} и к югу, к месту {area:75}; бок падает примерно с каждого четвертого.",
 
-	-- Step 71: Noboru the Cudgel
+	-- Step 74: Noboru the Cudgel
 	-- {area:76} Fallow Sanctuary
 	["Noboru wanders the clearing south-west of the {area:76}; his cudgel starts a quest."] = "Нобору бродит по поляне к юго-западу от места {area:76}; его дубина начинает задание.",
 
-	-- Step 72: Draenethyst crystals
+	-- Step 75: Draenethyst crystals
 	["Draenethyst crystals"] = "Кристаллы дренетиста",
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
 	["Head north-east to the {area:76}. The crystals stand along the way up to {npc:5391}'s cage."] = "Идите на северо-восток сюда: {area:76}. Кристаллы стоят по пути к клетке ({npc:5391}).",
 
-	-- Step 73: Galen's Escape
+	-- Step 76: Galen's Escape
 	-- {npc:5391} Galen Goodward · {area:76} Fallow Sanctuary
 	["{npc:5391} is held in the {area:76} in the swamp's north-east. Free him and follow him out, fighting off the swamp creatures that chase him."] = "{npc:5391} в плену здесь: {area:76}, на северо-востоке болота. Освободите его и следуйте за ним, отбиваясь от болотных тварей.",
 
-	-- Step 74: Galen's Strongbox
+	-- Step 77: Galen's Strongbox
 	-- {area:75} Stonard
 	["His strongbox waits at his old camp north of {area:75}, on the way back west."] = "Его сундук – в его старом лагере к северу от места {area:75}, по пути обратно на запад.",
 
-	-- Step 75: Harborage
+	-- Step 78: Harborage
 	-- {area:657} Harborage · {zone:1430} Deadwind Pass
 	["Head west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}."] = "",
 
-	-- Step 76: Pool of Tears
+	-- Step 79: Pool of Tears
 	-- {area:75} Stonard · {quest:1424} Pool of Tears
 	["Back east along the road, past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}. Only Sawfin Frenzies (38-40) swim there."] = "",
 
-	-- Step 77: Misty Reed Post
+	-- Step 80: Misty Reed Post
 	-- {npc:5592} Tok'Kar · {npc:5593} Katar
 	["Follow the road south-east to the small Horde post on the shore: {npc:5592} takes the crocolisk flanks, and {npc:5593} stands beside him."] = "",
 
-	-- Step 78: Sawtooth snappers
+	-- Step 81: Sawtooth snappers
 	["Sawtooth snappers"] = "Острозубые крепкохваты",
 	-- {npc:272377} Methuselah Crab
 	-- plural, as words: Sawtooth Snappers = {npc:1087} Sawtooth Snapper
 	["The Sawtooth Snappers (41-42) line the strand south of the post; nearly every one drops a claw. Leave the murlocs further along the shore for your next swamp visit.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "",
 
-	-- Step 79: Misty Reed Post
+	-- Step 82: Misty Reed Post
 	-- {npc:5593} Katar
 	["{npc:5593}: the murlocs (41-44) wait for your next swamp visit"] = "",
 
-	-- Step 80: Stonard
+	-- Step 83: Stonard
 	-- {area:75} Stonard · {npc:1443} Fel'zerul · {quest:1430} Fresh Meat · {npc:5593} Katar
 	["Back north-west along the road to {area:75}: {npc:1443}, on the top floor, takes the artifacts. {quest:1430}'s crawlers and {npc:5593}'s murlocs wait for your next swamp visit."] = "",
 
@@ -405,6 +422,7 @@ return {
 	-- ["The Jungle Stalkers (40-41) hunt the coast south of {object:3202}. They are well above you: pull one at a time and rest between fights."] = "Тропические ловцы (40-41) охотятся на побережье к югу от места {object:3202}. Они намного выше вас: выманивайте по одному и отдыхайте между боями.",
 	-- ["The boat to {area:35} docks at the end of {area:392}'s pier."] = "Корабль ({area:35}) причаливает в конце пирса ({area:392}).",
 	-- ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang."] = "Гориллы бродят по долине вокруг Унбагвы. Потроха падают со старых горилл; клык может упасть с любой.",
+	-- ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "Гориллы бродят по долине вокруг Унбагвы. С вожаков падают потроха; клык может упасть с любой: сохраните десять для Унбагвы, чей Мокк (44) ждет вашего визита в Тернистую долину примерно на 45-м.\nОсторожно: старые гориллы из Мглистой долины (40-41) стоят в долине близко друг к другу: выманивайте по одному.",
 	-- ["The last skulls are in the ruins a short ride west, on the way back to {object:3202}."] = "Последние черепа – в руинах недалеко к западу, по пути обратно сюда: {object:3202}.",
 	-- ["The next guide starts here and takes you to {zone:1446}."] = "Следующее руководство начинается здесь и ведет в край {zone:1446}.",
 	-- ["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "Следующие трофейные черепа – в небольших руинах чуть к северу от лагеря воинов.\nПоследние черепа – в руинах недалеко к западу, по пути обратно сюда: {object:3202}.",

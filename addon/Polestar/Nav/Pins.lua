@@ -2,9 +2,14 @@
 -- Nav's own target). Contract: docs/ARCHITECTURE.md, "Pins".
 --
 --   Pins.SetLayer(layer, pins, opts)   replace a layer; opts = { world = true, minimap = true, edge = false, scale = 1,
---                                      minimapAreas = false, minMapType = nil, worldLayout = nil }
+--                                      minimapAreas = false, minMapType = nil, worldLayout = nil, summary = nil }
 --   minMapType limits world-map pins to that UIMapType or narrower views; the minimap is unaffected.
 --   worldLayout(projected, view) -> { { pin, x, y }, ... } lays out this layer on the world map only.
+--   summary: what the layer's pins are, as the player reads them ("Hand-ins"). On a continent or world map
+--   (wider than a zone) the pins of every summary layer are gathered into one pin per zone, its count on a badge
+--   and each layer's count in its tooltip ("Hand-ins: 5"); clicking it opens the zone's map, which shows them all
+--   (#2973: Dustwallow Marsh covered in quest pins on the Kalimdor map). Their areas and hulls wait for the zone
+--   map too. The minimap is unaffected.
 --   Pins.ClearLayer(layer)
 --   Pins.SetLayerVisible(layer, visible)
 --   pin = { map, x, y, f, icon, size, color = { r, g, b, a }, tooltip = string | function(tooltip),
@@ -101,6 +106,7 @@ local RING_PAD, RING2_PAD = 5, 11
 local EDGE_W, EDGE_H = 0.42, 0.3
 local FOCUS_SCALE, DIM_ALPHA = 1.3, 0.6
 local BADGE_H = 14
+local CORNER_PX = 16 -- a pin's corner mark (p.corner), in the pin's own units
 local AREA_ALPHA = 0.32 -- area disc opacity, times the pin colour's alpha
 -- Hulls: fill and rim opacity (times the pin colour's alpha), the rim's width
 -- on screen (UI units), and the solid texture their pieces are cut from.
@@ -298,6 +304,7 @@ function Pins.SetLayer(name, pins, opts)
 	layer.world = opts.world ~= false
 	layer.minMapType = tonumber(opts.minMapType)
 	layer.worldLayout = type(opts.worldLayout) == "function" and opts.worldLayout or nil
+	layer.summary = type(opts.summary) == "string" and opts.summary ~= "" and opts.summary or nil
 	layer.minimap = opts.minimap ~= false
 	layer.edge = opts.edge == true
 	layer.scale = tonumber(opts.scale) or 1
@@ -481,6 +488,10 @@ local function buildLook(f)
 	f.text = f:CreateFontString(nil, "OVERLAY")
 	f.text:SetPoint("CENTER", 0, 0)
 	f.text:Hide()
+	-- A corner mark (p.corner: the group mark on a step's numbered pin, #3580), over the pin's top-right corner.
+	f.corner = f:CreateTexture(nil, "OVERLAY", nil, 2)
+	f.corner:SetPoint("CENTER", f, "TOPRIGHT", -2, -2)
+	f.corner:Hide()
 	-- Map marks: the skin's medallion under the glyph, a dashed ring, a badge.
 	f.medal = f:CreateTexture(nil, "BORDER")
 	f.medal:SetPoint("CENTER")
@@ -626,6 +637,7 @@ local function showParts(f, p, clamped)
 		f.ring2:SetShown(not clamped and type(p.ring2) == "table")
 		f.glow:SetShown(not clamped and p.glow and true or false)
 		showBadge(f, not clamped and p.badge ~= nil)
+		if f.corner then f.corner:Hide() end
 		f.edge:SetShown(clamped and true or false)
 		f.text:Hide()
 		if p.pulse or f.pulsing then Pins.Pulse(f, not clamped and p.glow and p.pulse) end
@@ -640,6 +652,7 @@ local function showParts(f, p, clamped)
 	f.glow:SetShown(not clamped and p.glow and true or false)
 	f.edge:SetShown(clamped and true or false)
 	f.text:SetShown(not clamped and p.text ~= nil)
+	if f.corner then f.corner:SetShown(not clamped and type(p.corner) == "table" and p.corner.tex ~= nil) end
 	if p.pulse or f.pulsing then Pins.Pulse(f, not clamped and p.glow and p.pulse) end
 end
 
@@ -718,6 +731,7 @@ local function applyLook(f, p, size)
 		f.medal:Hide()
 		f.ring2:Hide()
 		showBadge(f, false)
+		if f.corner then f.corner:Hide() end
 		f.mark:SetTexture(MEDIA .. "ring")
 		f.glow:SetTexture(MEDIA .. "glow")
 		f.glow:SetBlendMode("ADD")
@@ -779,6 +793,13 @@ local function applyLook(f, p, size)
 		f.text:SetText(p.text)
 		local tc = p.textColor
 		if type(tc) == "table" then f.text:SetTextColor(tc[1] or 1, tc[2] or 1, tc[3] or 1, a) else f.text:SetTextColor(1, 1, 1, a) end
+	end
+	local corner = p.corner
+	if f.corner and type(corner) == "table" and corner.tex then
+		local c = corner.color or {}
+		f.corner:SetTexture(corner.tex)
+		f.corner:SetSize(CORNER_PX, CORNER_PX)
+		f.corner:SetVertexColor(c[1] or 1, c[2] or 1, c[3] or 1, a)
 	end
 	showParts(f, p, false)
 	Pins.SkinHook(f, "pin")
@@ -1458,6 +1479,13 @@ do
 		return count + 1
 	end
 
+	-- #2973: a view wider than a zone (a continent, the world) gathers the summary layers' pins by zone, and leaves
+	-- their areas and hulls to the zone's map.
+	local ZONE_TYPE = Enum and Enum.UIMapType and Enum.UIMapType.Zone or 3
+	local function summarized(layer, mapType)
+		return layer.summary ~= nil and mapType ~= nil and mapType < ZONE_TYPE
+	end
+
 	-- Every shown layer's hulls on the viewed map, inside the window around
 	-- the view as it is now (world.hullWin; mapType: the viewed map's, for minMapType).
 	function world.drawHulls(mapType)
@@ -1470,7 +1498,7 @@ do
 			local level = wView:Level(BLOB_LEVEL)
 			for _, name in ipairs(order) do
 				local layer = layers[name]
-				if layer and layer.world and not hidden[name]
+				if layer and layer.world and not hidden[name] and not summarized(layer, mapType)
 					and (not layer.minMapType or (mapType and mapType >= layer.minMapType)) then
 					if not layer.resolved then resolveLayer(layer) end
 					local pins = layer.pins
@@ -1534,6 +1562,54 @@ do
 		end
 	end
 
+	-- The zone a summary layer's pin lies in (#2973): its own map's zone (the map, or its widest ancestor that is still
+	-- a zone: a cave's or a city quarter's zone), else the zone the viewed map shows at its point.
+	local zoneOfMap = {}
+	local function zoneOf(p, x, y, mapID)
+		local m = p.map
+		if m and C_Map and C_Map.GetMapInfo then
+			local z = zoneOfMap[m]
+			if z == nil then
+				z = false
+				local id = m
+				for _ = 1, 12 do
+					local info = C_Map.GetMapInfo(id)
+					if not (info and info.mapType and info.mapType >= ZONE_TYPE) then break end
+					z = id
+					local parent = info.parentMapID and C_Map.GetMapInfo(info.parentMapID)
+					if not (parent and parent.mapType and parent.mapType >= ZONE_TYPE) then break end
+					id = info.parentMapID
+				end
+				zoneOfMap[m] = z
+			end
+			if z then return z end
+		end
+		local at = C_Map and C_Map.GetMapInfoAtPosition and C_Map.GetMapInfoAtPosition(mapID, x / 100, y / 100)
+		if at and at.mapID and at.mapID ~= mapID and at.mapType and at.mapType >= ZONE_TYPE then return at.mapID end
+		return nil
+	end
+
+	-- A zone's summary pin: a medallion with up to three of its layers' glyphs, a badge with how many pins it holds,
+	-- each layer's count in the tooltip; a click opens the zone's map.
+	local SUMMARY_MEDAL = 30
+	local SUMMARY_LAYER = { name = "summary", scale = 1 }
+	local function summaryPin(g)
+		local info = C_Map.GetMapInfo(g.zone)
+		local name, zone, lines = info and info.name or "", g.zone, {}
+		for i, label in ipairs(g.labels) do lines[i] = label .. ": " .. g.counts[label] end
+		return { icon = g.icons[1], stack = #g.icons > 1 and g.icons or nil, badge = g.n, count = g.n, zone = zone,
+			size = SUMMARY_MEDAL / 1.4, medalSize = SUMMARY_MEDAL, color = g.color, priority = 1,
+			tooltip = function(tip)
+				tip:SetText(name)
+				for _, l in ipairs(lines) do tip:AddLine(l, 1, 1, 1) end
+				tip:AddLine(L["Click to open the zone's map"], 1, 0.82, 0.25)
+			end,
+			onClick = function(button)
+				local map = wView and wView.map
+				if button == "LeftButton" and map and map.SetMapID then map:SetMapID(zone) end
+			end }
+	end
+
 	-- Every layer's pins, areas and hulls, and the trail, for the viewed map.
 	local function drawWorld()
 		wDirty = false
@@ -1546,6 +1622,7 @@ do
 			local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(mapID)
 			mapType = info and info.mapType
 			local pinLevel, blobLevel = v:Level(PIN_LEVEL), v:Level(BLOB_LEVEL)
+			local groups, gOrder = nil, nil
 			for _, name in ipairs(order) do
 				local layer = layers[name]
 				if layer and layer.world and not hidden[name]
@@ -1553,21 +1630,39 @@ do
 					if not layer.resolved then resolveLayer(layer) end
 					local pins = layer.pins
 					local first = n + 1
+					local sum = summarized(layer, mapType)
 					for i = 1, #pins do
 						local p = pins[i]
-						if not (p.areaOnly and not p.area) then
+						if not (p.areaOnly and (sum or not p.area)) then
 							local x, y
 							if p.map == mapID and p.x and p.y and not p.f then
 								x, y = p.x, p.y
 							elseif layer.c[i] and C and C.WorldToMap then
 								x, y = C.WorldToMap(layer.c[i], layer.wx[i], layer.wy[i], mapID)
 							end
-							if x and x >= 0 and x <= 100 and y >= 0 and y <= 100 then
+							local zone = sum and x and x >= 0 and x <= 100 and y >= 0 and y <= 100 and zoneOf(p, x, y, mapID)
+							if zone then
+								groups, gOrder = groups or {}, gOrder or {}
+								local g = groups[zone]
+								if not g then
+									g = { zone = zone, n = 0, x = 0, y = 0, counts = {}, labels = {}, icons = {}, color = p.color }
+									groups[zone] = g
+									gOrder[#gOrder + 1] = zone
+								end
+								local label = layer.summary
+								g.n, g.x, g.y = g.n + 1, g.x + x, g.y + y
+								if not g.counts[label] then
+									g.counts[label] = 0
+									g.labels[#g.labels + 1] = label
+									if #g.icons < 3 and p.icon then g.icons[#g.icons + 1] = p.icon end
+								end
+								g.counts[label] = g.counts[label] + 1
+							elseif x and x >= 0 and x <= 100 and y >= 0 and y <= 100 then
 								if not p.areaOnly then
 									n = n + 1
 									queue[n], qPin[n], qLayer[n], qX[n], qY[n], qPri[n] = n, p, layer, x, y, tonumber(p.priority) or 0
 								end
-								if p.area then
+								if p.area and not sum then
 									local dx = areaRadius(p, layer, i, x, mapID, C)
 									if dx then
 										areas = areas + 1
@@ -1583,7 +1678,7 @@ do
 							end
 						end
 					end
-					if layer.worldLayout then
+					if layer.worldLayout and not sum then
 						local projected = {}
 						for i = first, n do projected[#projected + 1] = { pin = qPin[i], x = qX[i], y = qY[i] } end
 						local arranged = layer.worldLayout(projected, v)
@@ -1595,6 +1690,11 @@ do
 						end
 					end
 				end
+			end
+			for _, zone in ipairs(gOrder or {}) do
+				local g = groups[zone]
+				n = n + 1
+				queue[n], qPin[n], qLayer[n], qX[n], qY[n], qPri[n] = n, summaryPin(g), SUMMARY_LAYER, g.x / g.n, g.y / g.n, 1
 			end
 			for i = #queue, n + 1, -1 do queue[i] = nil end
 			table.sort(queue, byPriority)
@@ -2579,6 +2679,9 @@ local function drawMinimap()
 	updateTrailDriver()
 end
 
+-- Where the minimap's pins were last placed (sample), and the move in pixels that places them again.
+local drawnAt, DRAW_PX = {}, 0.5
+
 -- Compare the state the minimap pins depend on; redraw when it changed.
 -- Returns true when something changed.
 local function sample(force)
@@ -2588,8 +2691,6 @@ local function sample(force)
 	-- changed, which draw as before.
 	if not force and not Minimap:IsVisible() and not (dirty and hasMinimapPins()) then return false end
 	local C = ns.Compat
-	local pc, px, py
-	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
 	local rotate = isRotating()
 	local facing = rotate and C and C.GetPlayerFacing and C.GetPlayerFacing() or nil
 	local radius, half, height, square = viewRadius(), Minimap:GetWidth() / 2, Minimap:GetHeight(), isSquare()
@@ -2600,12 +2701,29 @@ local function sample(force)
 	local z = PIN_ZOOM.minimap
 	local zoomK = z.wide + (z.close - z.wide) * t
 	local sizeK = tonumber(ns.Get and ns.Get("nav.minimapIconSize")) or 1
+	-- Walking moves what is drawn on the minimap a fraction of a pixel a frame (7 yd/s over a 150-450 yd radius): the
+	-- pins and the view's watchers (the route line, the spawn markers) are placed again once the player has moved half
+	-- a pixel since they were, or anything else changed (#3881: the sampler drew every frame of a 27-minute session).
+	-- The move is read from UnitPosition (numbers, no table) before Compat's world position (a vector each call).
+	local d = drawnAt
+	local ux, uy, uc, _
+	if UnitPosition then ux, uy, _, uc = UnitPosition("player") end
+	if not force and not dirty and ux and d.ux and uc == d.uc and facing == sFacing and radius == sRadius and rotate == sRotate
+		and half == sHalf and height == sHeight and square == sSquare and zoomK == sZoomK and sizeK == sSizeK
+		and math.abs(ux - d.ux) * half / radius < DRAW_PX and math.abs(uy - d.uy) * half / radius < DRAW_PX then
+		local stirred = ux ~= d.lx or uy ~= d.ly
+		d.lx, d.ly = ux, uy
+		return stirred
+	end
+	local pc, px, py
+	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
 	local moved = not (pc == sPc and px == sPx and py == sPy and facing == sFacing and radius == sRadius
 		and rotate == sRotate and half == sHalf and height == sHeight and square == sSquare and zoomK == sZoomK
 		and sizeK == sSizeK)
 	local pins = hasMinimapPins()
 	if not force and not moved and not (dirty and pins) then return false end
 	sPc, sPx, sPy, sFacing, sRadius, sRotate, sHalf, sHeight, sSquare, sZoomK, sSizeK = pc, px, py, facing, radius, rotate, half, height, square, zoomK, sizeK
+	d.ux, d.uy, d.uc, d.lx, d.ly = ux, uy, uc, ux, uy
 	if pins then
 		dirty = false
 		drawMinimap()

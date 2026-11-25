@@ -371,7 +371,7 @@ fn a_collect_that_common_mobs_drop_leads_to_them_not_to_the_rare_beside_them_tha
 }
 
 #[test]
-fn a_quest_collect_leads_to_the_droppers_near_the_quests_level_not_to_ones_3_or_more_levels_above_that_drop_it_at_more_than_twice_their_chance() {
+fn a_quest_collect_leads_to_the_droppers_near_the_quests_level_not_to_ones_3_or_more_levels_above_that_drop_it_likely_beside_or_over_them() {
 	// Two groves: level 5 Grove Saplings at 70,70 and level 10 Grove Elders at 30,30. 95116 drops from the Elder
 	// at 100% and the Sapling at 37%, 95117 from the Elder at 40% and the Sapling at 37%; quests 95300 and
 	// 95301 (level 7) ask for them.
@@ -405,11 +405,11 @@ fn a_quest_collect_leads_to_the_droppers_near_the_quests_level_not_to_ones_3_or_
 	let loose = last_goal(&data, &["  collect 95116 x8"]);
 	assert!(near(&loose, 30.0, 30.0), "{loose}");
 	assert_eq!(loose["from"], "Grove Elder");
-	// An Elder that crowds nobody out stays a source: 40% and 37% are both likely.
+	// An Elder likely beside the Saplings (40% and 37%) is passed over too (#2744: the Elder Timberling named on
+	// Timberling Seeds): the goal names and spots the Saplings only.
 	let bark = last_goal(&data, &["  accept 95301", "  collect 95117 quest 95301"]);
-	let mut ids: Vec<u64> = bark["fromNpcs"].as_array().unwrap().iter().map(|n| n["npc"].as_u64().unwrap()).collect();
-	ids.sort();
-	assert_eq!(ids, [95060, 95061]);
+	assert_eq!(bark["fromNpcs"], json!([{ "npc": 95061, "npcName": "Grove Sapling" }]));
+	assert!(spot_list(&bark).iter().all(|s| near(s, 70.0, 70.0)), "{bark}");
 }
 
 #[test]

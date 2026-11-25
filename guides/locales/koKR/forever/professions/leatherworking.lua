@@ -14,9 +14,9 @@ return {
 
 	-- Step 2: Leatherworking 1-75: vendor goods
 	-- {skill:165} Leatherworking
-	["{skill:165} 1-75: vendor goods"] = "",
+	["{skill:165} 1-75: vendor goods"] = "{skill:165} 1-75: 상인 재료",
 	-- {item:2320} Coarse Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 50 {item:2320} (5s); about 5s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "",
+	["Buy the whole bracket's share in one go: 50 {item:2320} (5s); about 5s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:2320} 50개(5실버). 모두 약 5실버. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1347}, {npc:1286}, {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367}, {npc:5817}).",
 
 	-- Step 3: Leatherworking 1-75: Auction House
 	-- {skill:165} Leatherworking
@@ -25,50 +25,51 @@ return {
 	["What 1-75 takes that the Auction House sells: 349 {item:2318}. The counts drop by what your bags, bank and mail hold."] = "1-75 구간에 필요한 것 중 경매장에서 파는 것: {item:2318} 349개. 가방, 은행, 우편함에 있는 만큼 수량이 줄어듭니다.",
 
 	-- Step 4: Light Leather (Elwynn Forest)
-	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1922} Gray Forest Wolf · {npc:525} Mangy Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:822} Young Forest Bear
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "",
+	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1922} Gray Forest Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:822} Young Forest Bear
+	-- was: ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "{spell:2152}, {spell:3756} 및 {spell:3763}에 필요한 {item:2318} 349개(75-150에 210개: 지금 모두 채집하세요): {skill:393}: 5-20레벨 야수. 여기서 {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113}와(과) {npc:822}을(를) 무두질하세요(레벨 5-20). {skill:393} 가이드가 이 루트를 안내합니다."
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "{spell:2152}, {spell:3756}, {spell:3763}에 필요한 {item:2318} 349개(그중 210개는 75-150용: 지금 모두 모으십시오): {skill:393}: 5-20레벨 짐승. 여기서 {npc:1922}, 배회하는 짐승, {npc:524}, {npc:113}, {npc:822}의 가죽을 벗기십시오(5-20레벨). {skill:393} 가이드가 경로를 안내합니다.",
 
 	-- Step 5: Light Leather (Dun Morogh)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1125} Crag Boar · {npc:1127} Elder Crag Boar · {npc:1196} Ice Claw Bear · {npc:1199} Juvenile Snow Leopard · {npc:1126} Large Crag Boar · {npc:1689} Scarred Crag Boar · {npc:1201} Snow Leopard · {npc:1138} Snow Tracker Wolf · {npc:1131} Winter Wolf · {npc:1128} Young Black Bear
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1125}, {npc:1127}, {npc:1196}, {npc:1199}, {npc:1126}, {npc:1689}, {npc:1201}, {npc:1138}, {npc:1131} and {npc:1128} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1125}, {npc:1127}, {npc:1196}, {npc:1199}, {npc:1126}, {npc:1689}, {npc:1201}, {npc:1138}, {npc:1131} and {npc:1128} here (level 5-20); the {skill:393} guide routes this."] = "{spell:2152}, {spell:3756} 및 {spell:3763}에 필요한 {item:2318} 349개(75-150에 210개: 지금 모두 채집하세요): {skill:393}: 5-20레벨 야수. 여기서 {npc:1125}, {npc:1127}, {npc:1196}, {npc:1199}, {npc:1126}, {npc:1689}, {npc:1201}, {npc:1138}, {npc:1131}와(과) {npc:1128}을(를) 무두질하세요(레벨 5-20). {skill:393} 가이드가 이 루트를 안내합니다.",
 
 	-- Step 6: Light Leather (Teldrassil)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:2033} Elder Nightsaber · {npc:2043} Nightsaber Stalker
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:2033}, Nightsaber and {npc:2043} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:2033}, Nightsaber and {npc:2043} here (level 5-20); the {skill:393} guide routes this."] = "{spell:2152}, {spell:3756} 및 {spell:3763}에 필요한 {item:2318} 349개(75-150에 210개: 지금 모두 채집하세요): {skill:393}: 5-20레벨 야수. 여기서 {npc:2033}, Nightsaber와(과) {npc:2043}을(를) 무두질하세요(레벨 5-20). {skill:393} 가이드가 이 루트를 안내합니다.",
 
 	-- Step 7: Light Leather (Zephras Isle)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:250928} Highlands Ursera · {npc:251284} Hippogryph Protector · {npc:251291} Hippogryph Youth · {npc:251707} Ornery Galestrider · {npc:256092} Shadowgale Shriekling · {npc:253282} Shriekling Fledgling · {npc:250874} Vuldren Alpha · {npc:254588} Windsong Crawler
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin Cloudrunner, Galestrider, {npc:250928}, {npc:251284}, {npc:251291}, {npc:251707}, Prideclaw, {npc:256092}, {npc:253282}, Vuldren, {npc:250874} and {npc:254588} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin Cloudrunner, Galestrider, {npc:250928}, {npc:251284}, {npc:251291}, {npc:251707}, Prideclaw, {npc:256092}, {npc:253282}, Vuldren, {npc:250874} and {npc:254588} here (level 5-20); the {skill:393} guide routes this."] = "{spell:2152}, {spell:3756} 및 {spell:3763}에 필요한 {item:2318} 349개(75-150에 210개: 지금 모두 채집하세요): {skill:393}: 5-20레벨 야수. 여기서 Cloudrunner, Galestrider, {npc:250928}, {npc:251284}, {npc:251291}, {npc:251707}, Prideclaw, {npc:256092}, {npc:253282}, Vuldren, {npc:250874}와(과) {npc:254588}을(를) 무두질하세요(레벨 5-20). {skill:393} 가이드가 이 루트를 안내합니다.",
 
 	-- Step 8: Light Leather (Durotar)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:3126} Armored Scorpid · {npc:3123} Bloodtalon Scythemaw · {npc:3122} Bloodtalon Taillasher · {npc:3125} Clattering Scorpid · {npc:3099} Dire Mottled Boar · {npc:3110} Dreadmaw Crocolisk · {npc:3121} Durotar Tiger · {npc:3100} Elder Mottled Boar · {npc:3130} Thunder Lizard · {npc:3127} Venomtail Scorpid
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:3126}, {npc:3123}, {npc:3122}, {npc:3125}, {npc:3099}, {npc:3110}, {npc:3121}, {npc:3100}, {npc:3130} and {npc:3127} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:3126}, {npc:3123}, {npc:3122}, {npc:3125}, {npc:3099}, {npc:3110}, {npc:3121}, {npc:3100}, {npc:3130} and {npc:3127} here (level 5-20); the {skill:393} guide routes this."] = "{spell:2152}, {spell:3756} 및 {spell:3763}에 필요한 {item:2318} 349개(75-150에 210개: 지금 모두 채집하세요): {skill:393}: 5-20레벨 야수. 여기서 {npc:3126}, {npc:3123}, {npc:3122}, {npc:3125}, {npc:3099}, {npc:3110}, {npc:3121}, {npc:3100}, {npc:3130}와(과) {npc:3127}을(를) 무두질하세요(레벨 5-20). {skill:393} 가이드가 이 루트를 안내합니다.",
 
 	-- Step 9: Light Leather (Mulgore)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:2956} Adult Plainstrider · {npc:2957} Elder Plainstrider · {npc:3035} Flatland Cougar · {npc:3566} Flatland Prowler · {npc:2972} Kodo Calf · {npc:2959} Prairie Stalker · {npc:2958} Prairie Wolf · {npc:2960} Prairie Wolf Alpha
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:2956}, {npc:2957}, {npc:3035}, {npc:3566}, {npc:2972}, {npc:2959}, {npc:2958} and {npc:2960} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:2956}, {npc:2957}, {npc:3035}, {npc:3566}, {npc:2972}, {npc:2959}, {npc:2958} and {npc:2960} here (level 5-20); the {skill:393} guide routes this."] = "{spell:2152}, {spell:3756} 및 {spell:3763}에 필요한 {item:2318} 349개(75-150에 210개: 지금 모두 채집하세요): {skill:393}: 5-20레벨 야수. 여기서 {npc:2956}, {npc:2957}, {npc:3035}, {npc:3566}, {npc:2972}, {npc:2959}, {npc:2958}와(과) {npc:2960}을(를) 무두질하세요(레벨 5-20). {skill:393} 가이드가 이 루트를 안내합니다.",
 
 	-- Step 10: Light Leather (Tirisfal Glades)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1548} Cursed Darkhound · {npc:1547} Decrepit Darkhound · {npc:1553} Greater Duskbat · {npc:1549} Ravenous Darkhound · {npc:1554} Vampiric Duskbat
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1548}, {npc:1547}, {npc:1553}, {npc:1549} and {npc:1554} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1548}, {npc:1547}, {npc:1553}, {npc:1549} and {npc:1554} here (level 5-20); the {skill:393} guide routes this."] = "{spell:2152}, {spell:3756} 및 {spell:3763}에 필요한 {item:2318} 349개(75-150에 210개: 지금 모두 채집하세요): {skill:393}: 5-20레벨 야수. 여기서 {npc:1548}, {npc:1547}, {npc:1553}, {npc:1549}와(과) {npc:1554}을(를) 무두질하세요(레벨 5-20). {skill:393} 가이드가 이 루트를 안내합니다.",
 
 	-- Step 11: Light Armor Kit to 51
 	-- {spell:2152} Light Armor Kit
 	["{spell:2152} to 51"] = "{spell:2152}: 51까지",
 	-- {spell:2152} Light Armor Kit · {item:2318} Light Leather
-	["{spell:2152} is orange at 1 (yellow 30, green 45, grey 60): about 64 crafts to 51. Each takes 1 {item:2318}. One {item:2318} a craft; the kits sell to vendors."] = "",
+	["{spell:2152} is orange at 1 (yellow 30, green 45, grey 60): about 64 crafts to 51. Each takes 1 {item:2318}. One {item:2318} a craft; the kits sell to vendors."] = "{spell:2152}은(는) 1에 주황색입니다(노란색 30, 초록색 45, 회색 60). 51까지 약 64번 만드세요. 한 번에 {item:2318} 1개. 제작당 {item:2318} 한 개. 키트는 상인에게 팔립니다.",
 
 	-- Step 12: Leatherworking recipes at 51
 	-- {skill:165} Leatherworking
 	["{skill:165} recipes at 51"] = "51에서 {skill:165} 제조법",
 	-- {skill:165} Leatherworking · {spell:3756} Embossed Leather Gloves · {spell:1229432} Camp Tent · {item:2318} Light Leather
-	["Back to a {skill:165} trainer: {spell:3756} (from 40, 1s 50c). Also learn {spell:1229432} (1s): Forever's {skill:165} camp item, 5 {item:2318}, placed at a campsite beside a campfire. The Camping 101: {skill:165} quest from your starting area's camping guide (after The Great Outdoors) sends you to a leatherworking trainer who teaches it free."] = "",
+	["Back to a {skill:165} trainer: {spell:3756} (from 40, 1s 50c). Also learn {spell:1229432} (1s): Forever's {skill:165} camp item, 5 {item:2318}, placed at a campsite beside a campfire. The Camping 101: {skill:165} quest from your starting area's camping guide (after The Great Outdoors) sends you to a leatherworking trainer who teaches it free."] = "{skill:165} 상급자에게 돌아가세요: {spell:3756}(40부터, 1s 50c). {spell:1229432}(1s)도 배우세요. Forever의 {skill:165} 야영 아이템으로, {item:2318} 5개를 들고 모닥불 옆 야영지에 설치하면 됩니다. 시작 지역의 야영 가이드에 있는 야영 기초 101: {skill:165} 퀘스트(위대한 야외 다음)가 상급자에게 보내며, 거기서 무료로 가르칩니다.",
 
 	-- Step 13: Embossed Leather Gloves to 75
 	-- {spell:3756} Embossed Leather Gloves
 	["{spell:3756} to 75"] = "{spell:3756}: 75까지",
 	-- {spell:3756} Embossed Leather Gloves · {item:2318} Light Leather · {item:2320} Coarse Thread
-	["{spell:3756} is orange at 51 (yellow 70, green 85, grey 100): about 25 crafts to 75. Each takes 3 {item:2318} and 2 {item:2320}. Forever teaches {spell:3756} from 40."] = "",
+	["{spell:3756} is orange at 51 (yellow 70, green 85, grey 100): about 25 crafts to 75. Each takes 3 {item:2318} and 2 {item:2320}. Forever teaches {spell:3756} from 40."] = "{spell:3756}은(는) 51에 주황색입니다(노란색 70, 초록색 85, 회색 100). 75까지 약 25번 만드세요. 한 번에 {item:2318} 3개, {item:2320} 2개. Forever는 {spell:3756}을(를) 40에서 가르칩니다.",
 
 	-- Step 14: Journeyman Leatherworking
 	-- {skill:165} Leatherworking
@@ -78,9 +79,9 @@ return {
 
 	-- Step 15: Leatherworking 75-150: vendor goods
 	-- {skill:165} Leatherworking
-	["{skill:165} 75-150: vendor goods"] = "",
+	["{skill:165} 75-150: vendor goods"] = "{skill:165} 75-150: 상인 재료",
 	-- {item:2320} Coarse Thread · {item:2321} Fine Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 70 {item:2320} (7s) and 50 {item:2321} (50s); about 57s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "",
+	["Buy the whole bracket's share in one go: 70 {item:2320} (7s) and 50 {item:2321} (50s); about 57s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:2320} 70개(7실버)와(과) {item:2321} 50개(50실버). 모두 약 57실버. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1347}, {npc:1286}, {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367}, {npc:5817}).",
 
 	-- Step 16: Leatherworking 75-150: Auction House
 	-- {skill:165} Leatherworking
@@ -90,15 +91,15 @@ return {
 
 	-- Step 17: Medium Leather (Hillsbrad Foothills)
 	-- {item:2319} Medium Leather · {item:7285} Nimble Leather Gloves · {skill:393} Skinning · {npc:2248} Cave Yeti · {npc:2356} Elder Gray Bear · {npc:2385} Feral Mountain Lion · {npc:2351} Gray Bear · {npc:2384} Starving Mountain Lion · {npc:2354} Vicious Gray Bear
-	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "",
+	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "{item:7285}에 필요한 {item:2319} 144개: {skill:393}: 18-30레벨 야수. 여기서 {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384}와(과) {npc:2354}을(를) 무두질하세요(레벨 18-30). {skill:393} 가이드가 이 루트를 안내합니다.",
 
 	-- Step 18: Medium Leather (Darkshore)
 	-- {item:2319} Medium Leather · {item:7285} Nimble Leather Gloves · {skill:393} Skinning · {npc:3823} Ghostpaw Runner · {npc:2071} Moonstalker Matriarch
-	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30. Skin {npc:3823} and {npc:2071} here (level 18-30); the {skill:393} guide routes this."] = "",
+	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30. Skin {npc:3823} and {npc:2071} here (level 18-30); the {skill:393} guide routes this."] = "{item:7285}에 필요한 {item:2319} 144개: {skill:393}: 18-30레벨 야수. 여기서 {npc:3823}와(과) {npc:2071}을(를) 무두질하세요(레벨 18-30). {skill:393} 가이드가 이 루트를 안내합니다.",
 
 	-- Step 19: Medium Leather (The Barrens)
 	-- {item:2319} Medium Leather · {item:7285} Nimble Leather Gloves · {skill:393} Skinning · {npc:3236} Barrens Kodo
-	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30. Skin {npc:3236} and Thunderhead here (level 18-30); the {skill:393} guide routes this."] = "",
+	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30. Skin {npc:3236} and Thunderhead here (level 18-30); the {skill:393} guide routes this."] = "{item:7285}에 필요한 {item:2319} 144개: {skill:393}: 18-30레벨 야수. 여기서 {npc:3236}와(과) Thunderhead을(를) 무두질하세요(레벨 18-30). {skill:393} 가이드가 이 루트를 안내합니다.",
 
 	-- Step 21: Elixir of Minor Agility
 	-- {item:2457} Elixir of Minor Agility · {item:7285} Nimble Leather Gloves · {skill:171} Alchemy
@@ -116,7 +117,7 @@ return {
 	-- {spell:3763} Fine Leather Belt
 	["{spell:3763} to 102"] = "{spell:3763}: 102까지",
 	-- {spell:3763} Fine Leather Belt · {item:2318} Light Leather · {item:2320} Coarse Thread
-	["{spell:3763} is orange at 75 (yellow 85, green 100, grey 115): about 35 crafts to 102. Each takes 6 {item:2318} and 2 {item:2320}. Forever teaches {spell:3763} from 55."] = "",
+	["{spell:3763} is orange at 75 (yellow 85, green 100, grey 115): about 35 crafts to 102. Each takes 6 {item:2318} and 2 {item:2320}. Forever teaches {spell:3763} from 55."] = "{spell:3763}은(는) 75에 주황색입니다(노란색 85, 초록색 100, 회색 115). 102까지 약 35번 만드세요. 한 번에 {item:2318} 6개, {item:2320} 2개. Forever는 {spell:3763}을(를) 55에서 가르칩니다.",
 
 	-- Step 27: Leatherworking recipes at 102
 	-- {skill:165} Leatherworking
@@ -128,7 +129,7 @@ return {
 	-- {item:7285} Nimble Leather Gloves
 	["{item:7285} to 125"] = "{item:7285}: 125까지",
 	-- {item:7285} Nimble Leather Gloves · {item:2457} Elixir of Minor Agility · {item:2319} Medium Leather · {item:2321} Fine Thread · {item:2452} Swiftthistle · {item:765} Silverleaf · {spell:3763} Fine Leather Belt · {item:2316} Dark Leather Cloak · {item:4340} Gray Dye
-	["{item:7285} is orange at 102 (yellow 120, green 132, grey 145): about 24 crafts to 125. Each takes 1 {item:2457}, 6 {item:2319} and 1 {item:2321}. Each takes an {item:2457}: an alchemist makes it from a {item:2452} and a {item:765}, and the Auction House has it cheap. With no elixirs, take {spell:3763} on to 105 and {item:2316} (from 85: 8 {item:2319}, a {item:4340} and a {item:2321}) to 125: about 28 cloaks, 224 {item:2319} in all."] = "",
+	["{item:7285} is orange at 102 (yellow 120, green 132, grey 145): about 24 crafts to 125. Each takes 1 {item:2457}, 6 {item:2319} and 1 {item:2321}. Each takes an {item:2457}: an alchemist makes it from a {item:2452} and a {item:765}, and the Auction House has it cheap. With no elixirs, take {spell:3763} on to 105 and {item:2316} (from 85: 8 {item:2319}, a {item:4340} and a {item:2321}) to 125: about 28 cloaks, 224 {item:2319} in all."] = "{item:7285}은(는) 102에 주황색입니다(노란색 120, 초록색 132, 회색 145). 125까지 약 24번 만드세요. 한 번에 {item:2457} 1개, {item:2319} 6개, {item:2321} 1개. {item:2457}이(가) 필요합니다. 연금술사가 {item:2452}와(과) {item:765}로 만들고 경매장에서 저렴합니다. 영약이 없다면 {spell:3763}을(를) 105까지, {item:2316}(85부터: {item:2319} 8개, {item:4340}, {item:2321})을(를) 125까지 이어가세요. 망토 약 28개, {item:2319} 224개입니다.",
 
 	-- Step 29: Leatherworking recipes at 125
 	-- {skill:165} Leatherworking
@@ -138,13 +139,13 @@ return {
 
 	-- Step 30: Heavy Armor Kit to 150
 	-- {spell:3780} Heavy Armor Kit
-	["{spell:3780} to 150"] = "",
+	["{spell:3780} to 150"] = "{spell:3780}: 150까지",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread · {skill:165} Leatherworking
-	["{spell:3780} is orange at 125 (yellow 145, green 155, grey 165): about 26 crafts to 150. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. {skill:165} 150 is a Legacy System milestone."] = "",
+	["{spell:3780} is orange at 125 (yellow 145, green 155, grey 165): about 26 crafts to 150. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. {skill:165} 150 is a Legacy System milestone."] = "{spell:3780}은(는) 125에 주황색입니다(노란색 145, 초록색 155, 회색 165). 150까지 약 26번 만드세요. 한 번에 {item:4234} 5개, {item:2321} 1개. 제작당 {item:4234} 다섯 개(28-40레벨 야수). 키트는 상인에게 팔립니다. {skill:165} 150은(는) 유산 시스템 이정표입니다.",
 
 	-- Step 31: Leatherworking 150-225: vendor goods
 	-- {skill:165} Leatherworking
-	["{skill:165} 150-225: vendor goods"] = "",
+	["{skill:165} 150-225: vendor goods"] = "{skill:165} 150-225: 상인 재료",
 	-- {item:2321} Fine Thread · {item:4291} Silken Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
 	["Buy the whole bracket's share in one go: 29 {item:2321} (29s), 66 Salt (33s) and 145 {item:4291} (7g 25s); about 7g 87s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:2321} 29개(29실버), 소금 66개(33실버), {item:4291} 145개(7골드 25실버), 모두 약 7골드 87실버. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1347}, {npc:1286}, {npc:5565}, {zone:1454}: {npc:3364}, {npc:3367}, {npc:5817}).",
 
@@ -188,7 +189,8 @@ return {
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 158"] = "{spell:3780}: 158까지",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread
-	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}은(는) 150에서 노란색입니다(노란색 145, 녹색 155, 회색 165). 158까지 약 15번 만듭니다. 한 번에 {item:4234} 5개와 {item:2321} 1개가 듭니다. 한 번에 {item:4234} 5개(28-40레벨 야수)이며, 키트는 상인에게 팔 수 있습니다.",
+	-- was: ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}은(는) 150에서 노란색입니다(노란색 145, 녹색 155, 회색 165). 158까지 약 15번 만듭니다. 한 번에 {item:4234} 5개와 {item:2321} 1개가 듭니다. 한 번에 {item:4234} 5개(28-40레벨 야수)이며, 키트는 상인에게 팔 수 있습니다."
+	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "{spell:3780}은(는) 150에서 노란색입니다(노란색 145, 초록색 155, 회색 165): 158까지 약 15번 제작. 매번 {item:4234} 5개와 {item:2321} 1개가 필요합니다. 제작마다 {item:4234} 다섯 개(28-40레벨 짐승). 키트는 상인에게 팝니다. {spell:3780}을(를) 배우지 않고 여기까지 왔다면 지금 배우십시오: 앞의 단계에서 가르칩니다.",
 
 	-- Step 39: Barbaric Shoulders to 165
 	-- {item:5964} Barbaric Shoulders
@@ -240,17 +242,17 @@ return {
 
 	-- Step 47: Leatherworking 225-300: vendor goods
 	-- {skill:165} Leatherworking
-	["{skill:165} 225-300: vendor goods"] = "",
+	["{skill:165} 225-300: vendor goods"] = "{skill:165} 225-300: 상인 재료",
 	-- {item:2325} Black Dye · {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "",
+	["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:2325} 39개(3골드 90실버)와(과) {item:14341} 82개(41골드). 모두 약 44골드 90실버. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1347}, {npc:1286}, {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367}, {npc:5817}).",
 
 	-- Step 48: Pattern: Wicked Leather Gauntlets
 	-- {item:15725} Pattern: Wicked Leather Gauntlets · {item:15083} Wicked Leather Gauntlets · {skill:165} Leatherworking · {npc:12942} Leonard Porter · {zone:1422} Western Plaguelands · {npc:12943} Werg Thickblade
-	["{item:15725} teaches {item:15083} ({skill:165} 235) for 1g 20s. Sold by Alliance: {npc:12942} ({zone:1422}), limited stock; Horde: {npc:12943} ({zone:1422}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "",
+	["{item:15725} teaches {item:15083} ({skill:165} 235) for 1g 20s. Sold by Alliance: {npc:12942} ({zone:1422}), limited stock; Horde: {npc:12943} ({zone:1422}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "{item:15725}은(는) 1골드 20실버에 {item:15083}({skill:165} 235)을(를) 가르칩니다. 얼라이언스 판매: {npc:12942}({zone:1422}), 수량 제한; 호드 판매: {npc:12943}({zone:1422}), 수량 제한. 판매자는 한두 개를 재고로 두고 판매 후 얼마 지나면 다시 들여놓습니다. 주울 때 귀속되므로 경매장에는 절대 없습니다.",
 
 	-- Step 49: Pattern: Runic Leather Headband
 	-- {item:15756} Pattern: Runic Leather Headband · {item:15094} Runic Leather Headband · {skill:165} Leatherworking · {npc:12941} Jase Farlane · {zone:1423} Eastern Plaguelands
-	["{item:15756} teaches {item:15094} ({skill:165} 265) for 2g 20s. Sold by {npc:12941} ({zone:1423}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "",
+	["{item:15756} teaches {item:15094} ({skill:165} 265) for 2g 20s. Sold by {npc:12941} ({zone:1423}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "{item:15756}은(는) 2골드 20실버에 {item:15094}({skill:165} 265)을(를) 가르칩니다. {npc:12941}({zone:1423})이(가) 수량 제한으로 팝니다. 판매자는 한두 개를 재고로 두고 판매 후 얼마 지나면 다시 들여놓습니다. 주울 때 귀속되므로 경매장에는 절대 없습니다.",
 
 	-- Step 50: Leatherworking 225-300: Auction House
 	-- {skill:165} Leatherworking
@@ -285,16 +287,17 @@ return {
 	-- {item:15083} Wicked Leather Gauntlets
 	["{item:15083} to 269"] = "{item:15083}: 269까지",
 	-- {item:15083} Wicked Leather Gauntlets · {item:8170} Rugged Leather · {item:2325} Black Dye · {item:14341} Rune Thread
-	["{item:15083} is orange at 239 (yellow 255, green 265, grey 275): about 39 crafts to 269. Each takes 8 {item:8170}, 1 {item:2325} and 1 {item:14341}. Eight {item:8170} a craft; {item:2325} and {item:14341} from leatherworking or tailoring vendors."] = "",
+	["{item:15083} is orange at 239 (yellow 255, green 265, grey 275): about 39 crafts to 269. Each takes 8 {item:8170}, 1 {item:2325} and 1 {item:14341}. Eight {item:8170} a craft; {item:2325} and {item:14341} from leatherworking or tailoring vendors."] = "{item:15083}은(는) 239에 주황색입니다(노란색 255, 초록색 265, 회색 275). 269까지 약 39번 만드세요. 한 번에 {item:8170} 8개, {item:2325} 1개, {item:14341} 1개. 제작당 {item:8170} 여덟 개. {item:2325}과(와) {item:14341}은(는) 가죽세공이나 재봉술 상인에게서.",
 	["from the recipe in your bags"] = "가방에 있는 제조법으로",
 
 	-- Step 56: Runic Leather Headband to 300
 	-- {item:15094} Runic Leather Headband
 	["{item:15094} to 300"] = "{item:15094}: 300까지",
 	-- {item:15094} Runic Leather Headband · {item:8170} Rugged Leather · {item:14047} Runecloth · {item:14341} Rune Thread · {skill:165} Leatherworking
-	["{item:15094} is orange at 269 (yellow 285, green 295, grey 305): about 43 crafts to 300. Each takes 14 {item:8170}, 10 {item:14047} and 1 {item:14341}. 14 {item:8170} and 10 {item:14047} a craft: the dearest stretch. {skill:165} 300 is a Legacy System milestone."] = "",
+	["{item:15094} is orange at 269 (yellow 285, green 295, grey 305): about 43 crafts to 300. Each takes 14 {item:8170}, 10 {item:14047} and 1 {item:14341}. 14 {item:8170} and 10 {item:14047} a craft: the dearest stretch. {skill:165} 300 is a Legacy System milestone."] = "{item:15094}은(는) 269에 주황색입니다(노란색 285, 초록색 295, 회색 305). 300까지 약 43번 만드세요. 한 번에 {item:8170} 14개, {item:14047} 10개, {item:14341} 1개. 제작당 {item:8170} 14개와(과) {item:14047} 10개. 가장 비싼 구간입니다. {skill:165} 300은(는) 유산 시스템 이정표입니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "{spell:2152}, {spell:3756} 및 {spell:3763}에 필요한 {item:2318} 349개(75-150에 210개: 지금 모두 채집하세요): {skill:393}: 5-20레벨 야수. 여기서 {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113}와(과) {npc:822}을(를) 무두질하세요(레벨 5-20). {skill:393} 가이드가 이 루트를 안내합니다.",
 	-- ["Artisan needs character level 35 and {skill:165} 200; it raises the cap to 300. Materials for 225-300 are worth about 312g in all."] = "전문은(는) 캐릭터 레벨 35, {skill:165} 200이(가) 필요하며 최대 숙련도를 300(으)로 올립니다. 225-300 재료는 모두 약 312골드입니다.",
 	-- ["Back to a {skill:165} trainer: {spell:10482}, {spell:14932} are taught from {skill:165} 220."] = "{skill:165} 상급자에게 돌아가세요. {spell:10482}, {spell:14932}은(는) {skill:165} 220부터 배울 수 있습니다.",
 	-- ["Back to a {skill:165} trainer: {spell:10487} is taught from {skill:165} 195."] = "{skill:165} 상급자에게 돌아가세요. {spell:10487}은(는) {skill:165} 195부터 배울 수 있습니다.",
@@ -383,4 +386,5 @@ return {
 	-- ["{skill:333}: disenchant uncommon (green) gear (or the Auction House)"] = "{skill:333}: 고급(녹색) 장비 마력 추출 (또는 경매장)",
 	-- ["{spell:3768} to 150"] = "{spell:3768}: 150까지",
 	-- ["{spell:3776} to 185"] = "{spell:3776}: 185까지",
+	-- ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}은(는) 150에서 노란색입니다(노란색 145, 녹색 155, 회색 165). 158까지 약 15번 만듭니다. 한 번에 {item:4234} 5개와 {item:2321} 1개가 듭니다. 한 번에 {item:4234} 5개(28-40레벨 야수)이며, 키트는 상인에게 팔 수 있습니다.",
 }

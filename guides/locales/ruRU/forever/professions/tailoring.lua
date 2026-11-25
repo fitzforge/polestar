@@ -10,11 +10,11 @@ return {
 	-- {skill:197} Tailoring
 	["Learn {skill:197}"] = "Изучите: {skill:197}",
 	-- {skill:197} Tailoring · {item:2589} Linen Cloth
-	["Apprentice {skill:197} lets you craft up to 75 for 10c, at any character level. Any {skill:197} trainer of your faction teaches it; the arrow picks the nearest. Keep every {item:2589} you loot: humanoids of level 5-20 drop it. 1-75 takes about 50c of recipes and 7s 20c of vendor goods, plus 144 {item:2589} to gather or buy."] = "",
+	["Apprentice {skill:197} lets you craft up to 75 for 10c, at any character level. Any {skill:197} trainer of your faction teaches it; the arrow picks the nearest. Keep every {item:2589} you loot: humanoids of level 5-20 drop it. 1-75 takes about 50c of recipes and 7s 20c of vendor goods, plus 144 {item:2589} to gather or buy."] = "Подмастерье по {skill:197} позволяет создавать предметы до 75 навыка за 10c на любом уровне персонажа; обучит любой наставник {skill:197} вашей фракции, а стрелка укажет ближайшего. Собирайте каждый {item:2589}, который найдёте: его роняют гуманоиды 5-20 уровня. На 1-75 уйдёт примерно 50c рецептов и 7s 20c товаров у продавцов, плюс 144 {item:2589}, которые нужно собрать или купить.",
 
 	-- Step 2: Tailoring 1-75: vendor goods
 	-- {skill:197} Tailoring
-	["{skill:197} 1-75: vendor goods"] = "",
+	["{skill:197} 1-75: vendor goods"] = "{skill:197} 1-75: товары торговцев",
 	-- {item:2320} Coarse Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
 	["Buy the whole bracket's share in one go: 72 {item:2320} (7s 20c); about 7s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "Купите сразу все для этого этапа: 72 {item:2320} (7с 20м); всего около 7с 20м. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:1347}, {npc:1286} и {npc:5565}; {zone:1454}: {npc:3364}, Фелика и {npc:5817}).",
 
@@ -30,9 +30,9 @@ return {
 
 	-- Step 5: Linen Cloak to 15
 	-- {spell:2387} Linen Cloak
-	["{spell:2387} to 15"] = "",
+	["{spell:2387} to 15"] = "{spell:2387} до 15",
 	-- {spell:2387} Linen Cloak · {spell:2963} Bolt of Linen Cloth · {item:2320} Coarse Thread
-	["{spell:2387} is orange at 1 (yellow 35, green 47, grey 60): about 7 crafts to 15, a point every craft. Each takes 1 {spell:2963} and 1 {item:2320}. Make the 7 {spell:2963} first: it gives points too while not grey. The trainer teaches it, and it is the cheapest way through these points in the data."] = "",
+	["{spell:2387} is orange at 1 (yellow 35, green 47, grey 60): about 7 crafts to 15, a point every craft. Each takes 1 {spell:2963} and 1 {item:2320}. Make the 7 {spell:2963} first: it gives points too while not grey. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{spell:2387}: оранжевый на 1 (желтый 35, зеленый 47, серый 60): около 7 изготовлений до 15, по очку за каждое. Каждое требует 1 {spell:2963} и 1 {item:2320}. Сначала сделайте 7 {spell:2963}: пока не серый, он тоже дает очки. Этому обучает учитель, и по данным это самый дешевый способ набрать эти очки.",
 
 	-- Step 6: Tailoring recipes at 15
 	-- {skill:197} Tailoring
@@ -44,7 +44,7 @@ return {
 	-- {item:7026} Linen Belt
 	["{item:7026} to 75"] = "{item:7026} до 75",
 	-- {item:7026} Linen Belt · {spell:2963} Bolt of Linen Cloth · {item:2320} Coarse Thread
-	["{item:7026} is orange at 15 (yellow 50, green 67, grey 85): about 65 crafts to 75. Each takes 1 {spell:2963} and 1 {item:2320}. Make the 65 {spell:2963} first: it gives points too while not grey. Each belt takes one bolt; the belts sell to vendors."] = "",
+	["{item:7026} is orange at 15 (yellow 50, green 67, grey 85): about 65 crafts to 75. Each takes 1 {spell:2963} and 1 {item:2320}. Make the 65 {spell:2963} first: it gives points too while not grey. Each belt takes one bolt; the belts sell to vendors."] = "{item:7026}: оранжевый на 15 (желтый 50, зеленый 67, серый 85): около 65 изготовлений до 75. Каждое требует 1 {spell:2963} и 1 {item:2320}. Сначала сделайте 65 {spell:2963}: пока не серый, он тоже дает очки. На каждый пояс нужна одна катушка; пояса продаются торговцам.",
 
 	-- Step 8: Journeyman Tailoring
 	-- {skill:197} Tailoring
@@ -76,7 +76,7 @@ return {
 	-- {spell:2402} Woolen Cape
 	["{spell:2402} to 104"] = "{spell:2402} до 104",
 	-- {spell:2402} Woolen Cape · {spell:2964} Bolt of Woolen Cloth · {item:2321} Fine Thread
-	["{spell:2402} is orange at 75 (yellow 80, green 97, grey 115): about 42 crafts to 104. Each takes 1 {spell:2964} and 1 {item:2321}. Make the 42 {spell:2964} first: it gives points too while not grey. {spell:2964} is taught from 55 on Forever."] = "",
+	["{spell:2402} is orange at 75 (yellow 80, green 97, grey 115): about 42 crafts to 104. Each takes 1 {spell:2964} and 1 {item:2321}. Make the 42 {spell:2964} first: it gives points too while not grey. {spell:2964} is taught from 55 on Forever."] = "{spell:2402}: оранжевый на 75 (желтый 80, зеленый 97, серый 115): около 42 изготовлений до 104. Каждое требует 1 {spell:2964} и 1 {item:2321}. Сначала сделайте 42 {spell:2964}: пока не серый, он тоже дает очки. В Forever {spell:2964} обучают с 55.",
 
 	-- Step 14: Tailoring recipes at 104
 	-- {skill:197} Tailoring
@@ -86,9 +86,9 @@ return {
 
 	-- Step 15: Stylish Red Shirt to 135
 	-- {spell:3866} Stylish Red Shirt
-	["{spell:3866} to 135"] = "",
+	["{spell:3866} to 135"] = "{spell:3866} до 135",
 	-- {spell:3866} Stylish Red Shirt · {spell:2964} Bolt of Woolen Cloth · {item:2604} Red Dye · {item:2321} Fine Thread · {item:2592} Wool Cloth
-	["{spell:3866} is orange at 104 (yellow 110, green 127, grey 145): about 49 crafts to 135. Each takes 3 {spell:2964}, 2 {item:2604} and 1 {item:2321}. Make the 147 {spell:2964} first. Three woolen bolts and two {item:2604} a shirt; {item:2592} drops from humanoids of level 15-30."] = "",
+	["{spell:3866} is orange at 104 (yellow 110, green 127, grey 145): about 49 crafts to 135. Each takes 3 {spell:2964}, 2 {item:2604} and 1 {item:2321}. Make the 147 {spell:2964} first. Three woolen bolts and two {item:2604} a shirt; {item:2592} drops from humanoids of level 15-30."] = "{spell:3866}: оранжевый на 104 (желтый 110, зеленый 127, серый 145): около 49 изготовлений до 135. Каждое требует 3 {spell:2964}, 2 {item:2604} и 1 {item:2321}. Сначала сделайте 147 {spell:2964}. На рубашку идут три шерстяные катушки и два {item:2604}; {item:2592} падает с гуманоидов 15-30 уровня.",
 
 	-- Step 16: Tailoring recipes at 135
 	-- {skill:197} Tailoring
@@ -100,11 +100,11 @@ return {
 	-- {spell:3871} Formal White Shirt
 	["{spell:3871} to 150"] = "{spell:3871} до 150",
 	-- {spell:3871} Formal White Shirt · {spell:3839} Bolt of Silk Cloth · {item:2324} Bleach · {item:2321} Fine Thread · {item:4306} Silk Cloth · {skill:197} Tailoring
-	["{spell:3871} is orange at 135 (yellow 145, green 150, grey 155): about 17 crafts to 150. Each takes 3 {spell:3839}, 2 {item:2324} and 1 {item:2321}. Make the 51 {spell:3839} first. Silk bolts from here on: {item:4306} drops from humanoids of level 25-45. {item:2324} from tailoring and trade supplies vendors. {skill:197} 150 is a Legacy System milestone."] = "",
+	["{spell:3871} is orange at 135 (yellow 145, green 150, grey 155): about 17 crafts to 150. Each takes 3 {spell:3839}, 2 {item:2324} and 1 {item:2321}. Make the 51 {spell:3839} first. Silk bolts from here on: {item:4306} drops from humanoids of level 25-45. {item:2324} from tailoring and trade supplies vendors. {skill:197} 150 is a Legacy System milestone."] = "{spell:3871}: оранжевый на 135 (желтый 145, зеленый 150, серый 155): около 17 изготовлений до 150. Каждое требует 3 {spell:3839}, 2 {item:2324} и 1 {item:2321}. Сначала сделайте 51 {spell:3839}. Дальше идут шелковые катушки: {item:4306} падает с гуманоидов 25-45 уровня. {item:2324} продается у портных и торговцев припасами. {skill:197} 150 – веха системы Наследия.",
 
 	-- Step 18: Tailoring 150-225: vendor goods
 	-- {skill:197} Tailoring
-	["{skill:197} 150-225: vendor goods"] = "",
+	["{skill:197} 150-225: vendor goods"] = "{skill:197} 150-225: товары торговцев",
 	-- {item:2321} Fine Thread · {item:4291} Silken Thread · {item:6260} Blue Dye · {item:8343} Heavy Silken Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
 	["Buy the whole bracket's share in one go: 44 {item:2321} (44s), 90 {item:4291} (4g 50s), 44 {item:6260} (22s) and 80 {item:8343} (16g); about 21g 16s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "Купите сразу все для этого этапа: 44 {item:2321} (44с), 90 {item:4291} (4з 50с), 44 {item:6260} (22с) и 80 {item:8343} (16з); всего около 21з 16с. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:1347}, {npc:1286} и {npc:5565}; {zone:1454}: {npc:3364}, Фелика и {npc:5817}).",
 
@@ -136,7 +136,8 @@ return {
 	-- {item:7053} Azure Silk Cloak
 	["{item:7053} to 170"] = "{item:7053} до 170",
 	-- {item:7053} Azure Silk Cloak · {spell:3839} Bolt of Silk Cloth · {item:6260} Blue Dye · {item:2321} Fine Thread
-	["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "",
+	-- was: ["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053}: оранжевый на 150 (желтый 160, зеленый 175, серый 190): около 22 изготовлений до 170. Каждое требует 3 {spell:3839}, 2 {item:6260} и 2 {item:2321}. Сначала сделайте 66 {spell:3839}. Это тот самый рецепт, купленный выше; по данным это самый дешевый способ набрать эти очки."
+	["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data. If you got here without learning {spell:3839}, learn it now: an earlier step teaches it."] = "{item:7053}: оранжевый на 150 (желтый 160, зеленый 175, серый 190): около 22 изготовлений до 170. Каждое требует 3 {spell:3839}, 2 {item:6260} и 2 {item:2321}. Сначала сделайте 66 {spell:3839}. Его рецепт – тот, что куплен выше; по данным это самый дешевый путь через эти очки. Если вы дошли сюда, не выучив {spell:3839}, выучите сейчас: его учит один из прошлых шагов.",
 	["from the recipe in your bags"] = "по рецепту из сумки",
 
 	-- Step 25: Tailoring recipes at 170
@@ -149,7 +150,7 @@ return {
 	-- {item:9998} Black Mageweave Vest
 	["{item:9998} to 197"] = "{item:9998} до 197",
 	-- {item:9998} Black Mageweave Vest · {spell:3865} Bolt of Mageweave · {item:4291} Silken Thread
-	["{item:9998} is orange at 170 (yellow 185, green 200, grey 215): about 30 crafts to 197. Each takes 2 {spell:3865} and 3 {item:4291}. Make the 60 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "",
+	["{item:9998} is orange at 170 (yellow 185, green 200, grey 215): about 30 crafts to 197. Each takes 2 {spell:3865} and 3 {item:4291}. Make the 60 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{item:9998}: оранжевый на 170 (желтый 185, зеленый 200, серый 215): около 30 изготовлений до 197. Каждое требует 2 {spell:3865} и 3 {item:4291}. Сначала сделайте 60 {spell:3865}. Этому обучает учитель, и по данным это самый дешевый способ набрать эти очки.",
 
 	-- Step 27: Tailoring recipes at 197
 	-- {skill:197} Tailoring
@@ -161,17 +162,17 @@ return {
 	-- {item:10024} Black Mageweave Headband
 	["{item:10024} to 225"] = "{item:10024} до 225",
 	-- {item:10024} Black Mageweave Headband · {spell:3865} Bolt of Mageweave · {item:8343} Heavy Silken Thread · {skill:197} Tailoring
-	["{item:10024} is orange at 197 (yellow 205, green 220, grey 235): about 40 crafts to 225. Each takes 3 {spell:3865} and 2 {item:8343}. Make the 120 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data. {skill:197} 225 is a Legacy System milestone."] = "",
+	["{item:10024} is orange at 197 (yellow 205, green 220, grey 235): about 40 crafts to 225. Each takes 3 {spell:3865} and 2 {item:8343}. Make the 120 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data. {skill:197} 225 is a Legacy System milestone."] = "{item:10024}: оранжевый на 197 (желтый 205, зеленый 220, серый 235): около 40 изготовлений до 225. Каждое требует 3 {spell:3865} и 2 {item:8343}. Сначала сделайте 120 {spell:3865}. Этому обучает учитель, и по данным это самый дешевый способ набрать эти очки. {skill:197} 225 – веха системы Наследия.",
 
 	-- Step 29: Artisan Tailoring
 	-- {skill:197} Tailoring
 	["Artisan {skill:197}"] = "{skill:197}: Искусник",
 	-- {skill:197} Tailoring · {npc:11052} Timothy Worthington · {zone:1445} Dustwallow Marsh · {npc:2399} Daryl Stack · {zone:1424} Hillsbrad Foothills · {spell:18401} Bolt of Runecloth · {spell:18402} Runecloth Belt · {item:8170} Rugged Leather · {item:14047} Runecloth · {item:14227} Ironweb Spider Silk
-	["Artisan raises the cap from 225 to 300; it needs {skill:197} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}). The arrow picks the nearest of your faction. Learn now: {spell:18401} (from 205) and {spell:18402} (from 210). 225-300 takes about 1g 60s of recipes and 58g of vendor goods, plus 420 {item:8170}, 3195 {item:14047} and 124 {item:14227} to gather or buy."] = "",
+	["Artisan raises the cap from 225 to 300; it needs {skill:197} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}). The arrow picks the nearest of your faction. Learn now: {spell:18401} (from 205) and {spell:18402} (from 210). 225-300 takes about 1g 60s of recipes and 58g of vendor goods, plus 420 {item:8170}, 3195 {item:14047} and 124 {item:14227} to gather or buy."] = "Мастерство поднимает предел с 225 до 300; требуется 200 {skill:197} и 35 уровень персонажа, так что брать его можно на любом визите с 200. Обучают лишь немногие наставники: Альянс — {npc:11052} ({zone:1445}); Орда — {npc:2399} ({zone:1424}). Стрелка укажет ближайшего к вам по фракции. Изучите сразу: {spell:18401} (с 205) и {spell:18402} (с 210). На 225-300 уйдёт примерно 1g 60s рецептов и 58g товаров у продавцов, плюс 420 {item:8170}, 3195 {item:14047} и 124 {item:14227}, которые нужно собрать или купить.",
 
 	-- Step 30: Tailoring 225-300: vendor goods
 	-- {skill:197} Tailoring
-	["{skill:197} 225-300: vendor goods"] = "",
+	["{skill:197} 225-300: vendor goods"] = "{skill:197} 225-300: товары торговцев",
 	-- {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
 	["Buy the whole bracket's share in one go: 116 {item:14341} (58g); about 58g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "Купите сразу все для этого этапа: 116 {item:14341} (58з); всего около 58з. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:1347}, {npc:1286} и {npc:5565}; {zone:1454}: {npc:3364}, Фелика и {npc:5817}).",
 
@@ -195,7 +196,7 @@ return {
 	-- {item:8170} Rugged Leather
 	["{item:8170} (Horde)"] = "{item:8170} (Орда)",
 	-- {item:8170} Rugged Leather · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders · {skill:393} Skinning · {npc:6369} Coralshell Tortoise · {npc:8760} Mosshoof Stag · {npc:6380} Thunderhead Consort · {npc:6379} Thunderhead Patriarch · {npc:6378} Thunderhead Skystormer · {npc:6377} Thunderhead Stagwing
-	["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this."] = "",
+	["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this."] = "{item:8170} 420 для {item:13863} и {item:13867}: {skill:393}: звери 48-60 уровня. Снимайте шкуры с {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} и {npc:6377} здесь (48-60 уровня); маршрут ведет гайд {skill:393}.",
 
 	-- Step 35: Runecloth
 	-- {item:14047} Runecloth · {item:13856} Runecloth Belt · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders
@@ -205,7 +206,7 @@ return {
 	-- {item:14227} Ironweb Spider Silk
 	["{item:14227} (Alliance)"] = "{item:14227} (Альянс)",
 	-- {item:14227} Ironweb Spider Silk · {item:13867} Runecloth Shoulders · {npc:1824} Plague Lurker
-	["124 {item:14227} for {item:13867}: it drops from {npc:1824} (level 54-55) at the marked spot."] = "",
+	["124 {item:14227} for {item:13867}: it drops from {npc:1824} (level 54-55) at the marked spot."] = "{item:14227} 124 для {item:13867}: падает с {npc:1824} (54-55 уровня) в отмеченном месте.",
 
 	-- Step 37: Ironweb Spider Silk (Horde)
 	-- {item:14227} Ironweb Spider Silk
@@ -217,20 +218,20 @@ return {
 	-- {item:13856} Runecloth Belt
 	["{item:13856} to 234"] = "{item:13856} до 234",
 	-- {item:13856} Runecloth Belt · {item:14048} Bolt of Runecloth · {item:14341} Rune Thread
-	["{item:13856} is yellow at 225 (yellow 225, green 240, grey 255): about 11 crafts to 234. Each takes 3 {item:14048} and 1 {item:14341}. Make the 33 {item:14048} first. {item:14341} from tailoring vendors."] = "",
+	["{item:13856} is yellow at 225 (yellow 225, green 240, grey 255): about 11 crafts to 234. Each takes 3 {item:14048} and 1 {item:14341}. Make the 33 {item:14048} first. {item:14341} from tailoring vendors."] = "{item:13856}: желтый на 225 (желтый 225, зеленый 240, серый 255): около 11 изготовлений до 234. Каждое требует 3 {item:14048} и 1 {item:14341}. Сначала сделайте 33 {item:14048}. {item:14341} продается у портных.",
 
 	-- Step 39: Runecloth Gloves to 265
 	-- {item:13863} Runecloth Gloves
 	["{item:13863} to 265"] = "{item:13863} до 265",
 	-- {item:13863} Runecloth Gloves · {item:14048} Bolt of Runecloth · {item:8170} Rugged Leather · {item:14341} Rune Thread · {npc:11189} Qia · {area:2255} Everlook · {area:1769} Timbermaw Hold · {zone:1448} Felwood
-	["{item:13863} is orange at 234 (yellow 245, green 260, grey 275): about 43 crafts to 265. Each takes 4 {item:14048}, 4 {item:8170} and 1 {item:14341}. Make the 172 {item:14048} first. {npc:11189} in {area:2255} keeps one pattern at a time; the {area:1769} tunnel from {zone:1448} is the road in, so never kill Timbermaw furbolgs on the way."] = "",
+	["{item:13863} is orange at 234 (yellow 245, green 260, grey 275): about 43 crafts to 265. Each takes 4 {item:14048}, 4 {item:8170} and 1 {item:14341}. Make the 172 {item:14048} first. {npc:11189} in {area:2255} keeps one pattern at a time; the {area:1769} tunnel from {zone:1448} is the road in, so never kill Timbermaw furbolgs on the way."] = "{item:13863}: оранжевый на 234 (желтый 245, зеленый 260, серый 275): около 43 изготовлений до 265. Каждое требует 4 {item:14048}, 4 {item:8170} и 1 {item:14341}. Сначала сделайте 172 {item:14048}. {npc:11189} в {area:2255} держит по одной выкройке; туннель {area:1769} из {zone:1448} – это вход, так что никогда не убивайте мехосховов по пути.",
 
 	-- Step 40: Runecloth Shoulders to 300
 	-- {item:13867} Runecloth Shoulders
 	["{item:13867} to 300"] = "{item:13867} до 300",
 	-- {item:13867} Runecloth Shoulders · {item:14048} Bolt of Runecloth · {item:14227} Ironweb Spider Silk · {item:8170} Rugged Leather · {item:14341} Rune Thread · {item:14504} Pattern: Runecloth Shoulders · {zone:1422} Western Plaguelands · {zone:1451} Silithus · {item:13863} Runecloth Gloves · {item:13864} Runecloth Boots · {npc:7940} Darnall · {zone:1450} Moonglade · {item:14342} Mooncloth · {npc:11189} Qia · {npc:11188} Evie Whirlbrew · {area:2255} Everlook · {item:14256} Felcloth · {item:279943} Spinning Wheel · {npc:248202} Jim'bek · {npc:256735} Mivin Shadowweave · {npc:246017} Unstable Sentinel · {item:254123} Runecloth Cuffs · {zone:2482} Mount Hyjal · {skill:197} Tailoring
-	["{item:13867} is orange at 265 (yellow 275, green 290, grey 305): about 62 crafts to 300. Each takes 7 {item:14048}, 2 {item:14227}, 4 {item:8170} and 1 {item:14341}. Make the 434 {item:14048} first. Its pattern ({item:14504}) drops from mobs all over the world and does not bind: buy it at the Auction House. Seven bolts, two {item:14227} and four {item:8170} a craft: the dearest stretch. The spiders of {zone:1422} and {zone:1451} drop the silk (the marked spots), or the Auction House. No pattern on the Auction House? {item:13863} still give a point now and then to 275, and {item:13864} ({npc:7940}, {zone:1450}) to 280, at 4 bolts a craft. {item:14342} (pattern from {npc:11189} or {npc:11188} in {area:2255}; 2 {item:14256} at a Moonwell) stays orange to 270 and yellow to 285, but it can be made once every four days. The {item:279943} patterns (Merchant's Favor sandals and waistcords from {npc:248202} or {npc:256735}; the wheel's blueprint drops from the {npc:246017} in the City of Dalaran) and {item:254123} (Pexmit in {zone:2482}, 10g; we could not confirm that vendor yet) are the other ways on. {skill:197} 300 is a Legacy System milestone."] = "",
-	["from the pattern bought at the Auction House"] = "",
+	["{item:13867} is orange at 265 (yellow 275, green 290, grey 305): about 62 crafts to 300. Each takes 7 {item:14048}, 2 {item:14227}, 4 {item:8170} and 1 {item:14341}. Make the 434 {item:14048} first. Its pattern ({item:14504}) drops from mobs all over the world and does not bind: buy it at the Auction House. Seven bolts, two {item:14227} and four {item:8170} a craft: the dearest stretch. The spiders of {zone:1422} and {zone:1451} drop the silk (the marked spots), or the Auction House. No pattern on the Auction House? {item:13863} still give a point now and then to 275, and {item:13864} ({npc:7940}, {zone:1450}) to 280, at 4 bolts a craft. {item:14342} (pattern from {npc:11189} or {npc:11188} in {area:2255}; 2 {item:14256} at a Moonwell) stays orange to 270 and yellow to 285, but it can be made once every four days. The {item:279943} patterns (Merchant's Favor sandals and waistcords from {npc:248202} or {npc:256735}; the wheel's blueprint drops from the {npc:246017} in the City of Dalaran) and {item:254123} (Pexmit in {zone:2482}, 10g; we could not confirm that vendor yet) are the other ways on. {skill:197} 300 is a Legacy System milestone."] = "{item:13867}: оранжевый на 265 (желтый 275, зеленый 290, серый 305): около 62 изготовлений до 300. Каждое требует 7 {item:14048}, 2 {item:14227}, 4 {item:8170} и 1 {item:14341}. Сначала сделайте 434 {item:14048}. Его выкройка ({item:14504}) падает с мобов по всему миру и не становится персональной: купите ее на аукционе. Семь катушек, два {item:14227} и четыре {item:8170} на изготовление: самый дорогой отрезок. Пауки {zone:1422} и {zone:1451} дают шелк (отмеченные места), или аукцион. Выкройки нет на аукционе? {item:13863} еще иногда дает очко до 275, а {item:13864} ({npc:7940}, {zone:1450}) – до 280, по 4 катушки на изготовление. {item:14342} (выкройка у {npc:11189} или {npc:11188} в {area:2255}; 2 {item:14256} у лунного колодца) остается оранжевым до 270 и желтым до 285, но делается раз в четыре дня. Выкройки {item:279943} (сандалии и пояса «Услуга торговца» у {npc:248202} или {npc:256735}; чертеж колеса падает с {npc:246017} в Даларане) и {item:254123} (Пексмит в {zone:2482}, 10з; этого торговца мы пока не подтвердили) – другие пути. {skill:197} 300 – веха системы Наследия.",
+	["from the pattern bought at the Auction House"] = "из выкройки, купленной на аукционе",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Apprentice {skill:197}"] = "{skill:197}: Ученик",
@@ -272,6 +273,7 @@ return {
 	-- ["{item:4338} (Alliance)"] = "{item:4338} (Альянс)",
 	-- ["{item:4338} (Horde)"] = "{item:4338} (Орда)",
 	-- ["{item:7026} to 80"] = "{item:7026} до 80",
+	-- ["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053}: оранжевый на 150 (желтый 160, зеленый 175, серый 190): около 22 изготовлений до 170. Каждое требует 3 {spell:3839}, 2 {item:6260} и 2 {item:2321}. Сначала сделайте 66 {spell:3839}. Это тот самый рецепт, купленный выше; по данным это самый дешевый способ набрать эти очки.",
 	-- ["{item:7062} to 185"] = "{item:7062} до 185",
 	-- ["{npc:11739} (level 57-59) drop it here. The Auction House works too."] = "Добыча здесь: {npc:11739} (уровень 57-59). Подойдет и аукцион.",
 	-- ["{npc:1824} (level 54-55) drop it here. The Auction House works too."] = "Добыча здесь: {npc:1824} (уровень 54-55). Подойдет и аукцион.",

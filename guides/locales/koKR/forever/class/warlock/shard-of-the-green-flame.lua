@@ -13,11 +13,11 @@ return {
 	-- Step 1: Niby the Almighty
 	-- {npc:14469} Niby the Almighty · {npc:14470} Impsy · {zone:1448} Felwood · {area:1997} Bloodvenom Post · {area:1765} Bloodvenom Falls
 	-- plural, as words: Flawless Fel Essences = {quest:7602} Flawless Fel Essence
-	["At 50 {npc:14469} and his imp {npc:14470} wait on a rise in central {zone:1448} just north-east of {area:1997}: coming north over the {area:1765} bridge, they stand off the road to the east, past a few oozes. {npc:14469} sends you to {npc:14470}, beside him, who wants three Flawless Fel Essences from three places."] = "",
+	["At 50 {npc:14469} and his imp {npc:14470} wait on a rise in central {zone:1448} just north-east of {area:1997}: coming north over the {area:1765} bridge, they stand off the road to the east, past a few oozes. {npc:14469} sends you to {npc:14470}, beside him, who wants three Flawless Fel Essences from three places."] = "50레벨에 {npc:14469}과(와) 그의 임프 {npc:14470}이(가) 중부 {zone:1448}의 {area:1997} 바로 북동쪽 언덕에서 기다립니다. {area:1765} 다리를 건너 북쪽으로 오면 도로 동쪽, 점액질 몇 마리 지나 서 있습니다. {npc:14469}은(는) 옆의 {npc:14470}에게 보내고 그는 세 곳에서 완벽한 악마 정수 세 개를 원합니다.",
 
 	-- Step 2: Azshara
 	-- {zone:1447} Azshara
-	["The Legashi satyrs (level 51-53) hold the Legash Encampment on {zone:1447}'s northern coast. Every kind drops the essence three times in four; the satyrs burn mana and the Hellcallers rain fire, so pull them singly."] = "",
+	["The Legashi satyrs (level 51-53) hold the Legash Encampment on {zone:1447}'s northern coast. Every kind drops the essence three times in four; the satyrs burn mana and the Hellcallers rain fire, so pull them singly."] = "레가시 사티로스(51-53레벨)가 {zone:1447} 북부 해안의 레가시 야영지를 지킵니다. 모든 종류가 네 번 중 세 번 정수를 떨어뜨립니다. 마나를 태우고 불을 내리니 하나씩 끌어오세요.",
 
 	-- Step 3: Jaedenar
 	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post · {area:1770} Shadow Hold · {npc:9516} Lord Banehollow
@@ -26,15 +26,15 @@ return {
 
 	-- Step 4: The Dark Portal
 	-- {area:72} The Dark Portal · {zone:1419} Blasted Lands
-	["The Felguard Sentries (level 54) walk around the {area:72} in the south of the {zone:1419}, each with a felhunter. Leave the level 57 Servants of Razelikh alone: they cannot be killed without their own quest."] = "",
+	["The Felguard Sentries (level 54) walk around the {area:72} in the south of the {zone:1419}, each with a felhunter. Leave the level 57 Servants of Razelikh alone: they cannot be killed without their own quest."] = "지옥군단병 감시자(54레벨)가 남부 {zone:1419}의 {area:72} 주변을 돌며 각각 흑마법사 사냥개를 데리고 다닙니다. 57레벨 라젤리히의 하수인은 건드리지 마세요. 자기 퀘스트 없이는 처치할 수 없습니다.",
 
 	-- Step 5: Impsy
 	-- {npc:14470} Impsy · {item:18626} Fel Fire · {npc:14467} Kroshius
-	["Back to {npc:14470}. He hands you the {item:18626}: keep it, it wakes the infernal {npc:14467}."] = "",
+	["Back to {npc:14470}. He hands you the {item:18626}: keep it, it wakes the infernal {npc:14467}."] = "{npc:14470}에게 돌아가세요. 그가 {item:18626}을(를) 줍니다. 보관하세요. 인페르날 {npc:14467}을(를) 깨웁니다.",
 
 	-- Step 6: Kroshius
 	-- {npc:14467} Kroshius · {area:1766} Shatter Scar Vale · {npc:14469} Niby the Almighty · {item:18626} Fel Fire · {npc:14470} Impsy
-	["{npc:14467}' remains lie in {area:1766}, the burnt crater north of {npc:14469}: follow the road north from his camp; the remains lie a little east of it. Use the {item:18626} beside them and wait for him to rise. {npc:14467} is elite (level 55): grouping up is encouraged; a warlock of 55 or more can solo him with Fear and damage over time, or with Enslave Demon, but fire spells do nothing to him and he knocks you back. If you die he heals to full; he rises again three minutes after he dies. An elite infernal patrols the pool south of the remains: pull {npc:14467} away from it. He always drops his core. Lost the {item:18626}? Abandon the quest and take it again from {npc:14470}."] = "",
+	["{npc:14467}' remains lie in {area:1766}, the burnt crater north of {npc:14469}: follow the road north from his camp; the remains lie a little east of it. Use the {item:18626} beside them and wait for him to rise. {npc:14467} is elite (level 55): grouping up is encouraged; a warlock of 55 or more can solo him with Fear and damage over time, or with Enslave Demon, but fire spells do nothing to him and he knocks you back. If you die he heals to full; he rises again three minutes after he dies. An elite infernal patrols the pool south of the remains: pull {npc:14467} away from it. He always drops his core. Lost the {item:18626}? Abandon the quest and take it again from {npc:14470}."] = "{npc:14467}의 유해는 {npc:14469} 북쪽, 불탄 분화구 {area:1766}에 있습니다. 그의 야영지에서 도로를 따라 북쪽으로 가면 길 바로 동쪽에 있습니다. 유해 곁에서 {item:18626}을(를) 쓰고 그가 일어날 때까지 기다리세요. {npc:14467}은(는) 정예(55레벨)입니다. 파티를 권장하지만 55레벨 이상 흑마법사는 공포와 지속 피해나 노예화로 혼자도 가능합니다. 불 주문은 통하지 않고 밀어냅니다. 죽으면 완전히 회복하고 처치하면 3분 후 다시 나옵니다. 유해 남쪽 연못에 정예 인페르날이 순찰하니 {npc:14467}을(를) 그곳에서 멀리 끌어내세요. 핵심은 반드시 떨어집니다. {item:18626}을(를) 잃었나요? 퀘스트를 포기하고 {npc:14470}에게서 다시 받으세요.",
 	-- {item:18626} Fel Fire · {object:179677} Kroshius' Remains (no name in this language: may be words)
 	["{item:18626}, at {object:179677}"] = "{item:18626}, {object:179677}에서",
 

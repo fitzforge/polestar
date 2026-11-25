@@ -26,9 +26,9 @@ return {
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "Vuela a {area:272}",
 	-- {npc:4486} Genavie Callow · {area:340} Kargath
-	["Warriors, Paladins, Rogues, Priests, Mages and Warlocks (not Hunters, Shamans or Druids): {npc:4486} stands beside the flight master. The Dabyrie family's farm lies on the road east through Arathi later in this guide, and your level 40 training brings you back to this flight master from {area:340}: she takes the heads then."] = "",
+	["Warriors, Paladins, Rogues, Priests, Mages and Warlocks (not Hunters, Shamans or Druids): {npc:4486} stands beside the flight master. The Dabyrie family's farm lies on the road east through Arathi later in this guide, and your level 40 training brings you back to this flight master from {area:340}: she takes the heads then."] = "Guerreros, paladines, pícaros, sacerdotes, magos y brujos (no cazadores, chamanes ni druidas): {npc:4486} está junto al maestro de vuelo. La granja de la familia Dabyrie está en el camino al este por Arathi, más adelante en esta guía, y tu entrenamiento de nivel 40 te trae de vuelta a este maestro de vuelo desde {area:340}: entonces recibe las cabezas.",
 	-- {npc:4486} Genavie Callow
-	["{npc:4486}, beside the flight master"] = "",
+	["{npc:4486}, beside the flight master"] = "{npc:4486}, junto al maestro de vuelo",
 	-- {zone:1458} Undercity
 	["{zone:1458} flight master"] = "Maestro de vuelo de {zone:1458}",
 
@@ -123,13 +123,13 @@ return {
 
 	-- Step 20: Dabyrie's Farmstead
 	-- {npc:4481} Marcel Dabyrie · {npc:4479} Fardel Dabyrie · {npc:4480} Kenata Dabyrie
-	["On along the road east: the Dabyrie farm lies just north of it. {npc:4481} (34) and {npc:4479} (33) Dabyrie walk the farm's western yard among their Laborers and Militia (30-32); {npc:4480} (35) stands at the farm's north-eastern edge."] = "",
+	["On along the road east: the Dabyrie farm lies just north of it. {npc:4481} (34) and {npc:4479} (33) Dabyrie walk the farm's western yard among their Laborers and Militia (30-32); {npc:4480} (35) stands at the farm's north-eastern edge."] = "Sigue por el camino al este: la granja Dabyrie está justo al norte de él. {npc:4481} (34) y {npc:4479} (33) Dabyrie recorren el patio oeste de la granja entre sus jornaleros y milicianos (30-32); {npc:4480} (35) está en el borde noreste de la granja.",
 	-- {item:5832} Marcel's Head · {npc:4481} Marcel Dabyrie
-	["{item:5832}, from {npc:4481}"] = "",
+	["{item:5832}, from {npc:4481}"] = "{item:5832}, de {npc:4481}",
 	-- {item:5831} Fardel's Head · {npc:4479} Fardel Dabyrie
-	["{item:5831}, from {npc:4479}"] = "",
+	["{item:5831}, from {npc:4479}"] = "{item:5831}, de {npc:4479}",
 	-- {item:5830} Kenata's Head · {npc:4480} Kenata Dabyrie
-	["{item:5830}, from {npc:4480}"] = "",
+	["{item:5830}, from {npc:4480}"] = "{item:5830}, de {npc:4480}",
 
 	-- Step 21: The Shards of Myzrael
 	-- {object:138492} Shards of Myzrael
@@ -246,7 +246,7 @@ return {
 	-- {area:328} The Drowned Reef
 	["{area:328}: kill these as you meet them"] = "{area:328}: mata a estos según te los encuentres",
 	-- plural, as words: Daggerspine Raiders = {npc:2595} Daggerspine Raider
-	["Careful: west of the cove the Daggerspine Raiders and Sorceresses (38-40) stand close together on the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "",
+	["Careful: west of the cove the Daggerspine Raiders and Sorceresses (38-40) stand close together on the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "Cuidado: al oeste de la cala, los asaltantes y hechiceras Espinadaga (38-40) están muy juntos en la orilla: atráelos de uno en uno. Los dos naufragios están en los bajíos frente a ella, con las cartas y los diarios dentro; las gemas están en el fondo del mar alrededor de los naufragios.\nCuidado: las cartas y los diarios están en lo profundo de los naufragios: vigila tu barra de respiración y sube a respirar entre uno y otro; una poción de respiración acuática lo hace fácil.",
 	["Underwater"] = "Bajo el agua",
 
 	-- Step 43: Faldir's Cove

@@ -269,7 +269,8 @@ return {
 	-- {spell:3176} Lesser Troll's Blood Elixir
 	["{spell:3176} to 160"] = "{spell:3176} jusqu'à 160",
 	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial
-	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176} est jaune à 150 (jaune à 150, vert à 170, gris à 190) : environ 12 fabrications jusqu'à 160. Chacune demande 2 {item:2453}, 2 {item:2450} et 1 {item:3372}. Deux {item:2453} et deux {item:2450} par fabrication ; {item:2453} pousse dans les zones de niveau 15-30.",
+	-- was: ["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176} est jaune à 150 (jaune à 150, vert à 170, gris à 190) : environ 12 fabrications jusqu'à 160. Chacune demande 2 {item:2453}, 2 {item:2450} et 1 {item:3372}. Deux {item:2453} et deux {item:2450} par fabrication ; {item:2453} pousse dans les zones de niveau 15-30."
+	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. If you got here without learning {spell:3176}, learn it now: an earlier step teaches it."] = "{spell:3176} est jaune à 150 (jaune 150, vert 170, gris 190) : environ 12 fabrications jusqu'à 160. Chacune demande 2 {item:2453}, 2 {item:2450} et 1 {item:3372}. Deux {item:2453} et deux {item:2450} par fabrication ; {item:2453} pousse dans les zones 15-30. Si vous êtes arrivé ici sans apprendre {spell:3176}, apprenez-le maintenant : une étape précédente l'enseigne.",
 
 	-- Step 55: Alchemy recipes at 160
 	-- {skill:171} Alchemy
@@ -355,7 +356,8 @@ return {
 	-- {item:8951} Elixir of Defense
 	["{item:8951} to 230"] = "{item:8951} jusqu'à 230",
 	-- {item:8951} Elixir of Defense · {item:3355} Wild Steelbloom · {item:3821} Goldthorn · {item:3372} Leaded Vial · {zone:1418} Badlands
-	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951} est jaune à 225 (jaune à 215, vert à 235, gris à 255) : environ 8 fabrications jusqu'à 230. Chacune demande 1 {item:3355}, 1 {item:3821} et 1 {item:3372}. {item:3355} et {item:3821} sont les herbes des zones de niveau 30-45 (Strangleronce, Arathi, {zone:1418}).",
+	-- was: ["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951} est jaune à 225 (jaune à 215, vert à 235, gris à 255) : environ 8 fabrications jusqu'à 230. Chacune demande 1 {item:3355}, 1 {item:3821} et 1 {item:3372}. {item:3355} et {item:3821} sont les herbes des zones de niveau 30-45 (Strangleronce, Arathi, {zone:1418})."
+	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). If you got here without learning {item:8951}, learn it now: an earlier step teaches it."] = "{item:8951} est jaune à 225 (jaune 215, vert 235, gris 255) : environ 8 fabrications jusqu'à 230. Chacune demande 1 {item:3355}, 1 {item:3821} et 1 {item:3372}. {item:3355} et {item:3821} sont les herbes des zones 30-45 (Strangleronce, Arathi, {zone:1418}). Si vous êtes arrivé ici sans apprendre {item:8951}, apprenez-le maintenant : une étape précédente l'enseigne.",
 
 	-- Step 70: Alchemy recipes at 230
 	-- {skill:171} Alchemy
@@ -462,6 +464,7 @@ return {
 	-- ["{item:765} (Horde)"] = "{item:765} (Horde)",
 	-- ["{item:785} (Alliance)"] = "{item:785} (Alliance)",
 	-- ["{item:785} (Horde)"] = "{item:785} (Horde)",
+	-- ["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951} est jaune à 225 (jaune à 215, vert à 235, gris à 255) : environ 8 fabrications jusqu'à 230. Chacune demande 1 {item:3355}, 1 {item:3821} et 1 {item:3372}. {item:3355} et {item:3821} sont les herbes des zones de niveau 30-45 (Strangleronce, Arathi, {zone:1418}).",
 	-- ["{npc:1958} (level 17-18) drop it here. The Auction House works too."] = "Les {npc:1958} (niveau 17-18) le laissent tomber ici. L'hôtel des ventes convient aussi.",
 	-- ["{npc:513} (level 14-15) drop it here. The Auction House works too."] = "Les {npc:513} (niveau 14-15) le laissent tomber ici. L'hôtel des ventes convient aussi.",
 	-- ["{skill:171} recipes at 165"] = "Recettes d'{skill:171} à 165",
@@ -474,5 +477,6 @@ return {
 	-- ["{skill:171} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 68s in all."] = "L'{skill:171} se monte en parallèle de la progression. Le système d'Héritage de Forever récompense les métiers d'artisanat aux compétences 150, 225 et 300 (plafonds de Compagnon, Expert et Artisan) : chacun de ces paliers compte. Les composants pour 1-75 valent environ 68s au total.",
 	-- ["{spell:11447} to 215"] = "{spell:11447} jusqu'à 215",
 	-- ["{spell:2331} to 85"] = "{spell:2331} jusqu'à 85",
+	-- ["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176} est jaune à 150 (jaune à 150, vert à 170, gris à 190) : environ 12 fabrications jusqu'à 160. Chacune demande 2 {item:2453}, 2 {item:2450} et 1 {item:3372}. Deux {item:2453} et deux {item:2450} par fabrication ; {item:2453} pousse dans les zones de niveau 15-30.",
 	-- ["{spell:7845} to 175"] = "{spell:7845} jusqu'à 175",
 }

@@ -56,7 +56,7 @@ PolestarCharDB = {{ schema = 1, tabs = {{ "test/up" }}, activeTab = 1,
 
 const SCRIPT: &str = r#"
 E = Polestar.Engine
--- The changed step's goals as the earlier release had them (tools/legacy-steps.js).
+-- The changed step's goals as the earlier release had them (forge guide legacy-steps).
 local function h(s) local x = 5381 for i = 1, #s do x = (x * 33 + s:byte(i)) % 4294967296 end return x end
 Polestar.LegacyStepsLoad = function() return { ["test/up"] = { [h("accept:102")] = "accept:102" } } end
 stub.login(); stub.advance(0.25)
@@ -491,4 +491,250 @@ fn what_an_update_added_behind_the_player_that_they_have_done_shows_done() {
 	assert_eq!(out["live"], 8, "{out}");
 	assert_eq!(out["status"][1], "done", "{out}");
 	assert_eq!(out["changed"], json!(["done", "done"]), "{out}");
+}
+
+// #3440 (0.4.1.1 -> 0.4.2, Wetlands 25/50/75%: 8, 51 and 88 steps back): a save keeps the keys of its steps as
+// planned for the character (Own.feederPlan leaves out the quests waiting on a chain no guide here gives, with all
+// their goals), and Core/LegacySteps.lua lists the steps as released. The save's step for 102's accept was released
+// with 111's accept beside it, 111 left out for this character: its key is "accept:102"'s, which no release lists.
+// Read as unknown, 109 (added to that step behind the player) held them there; read as the released step without
+// 111, it passes as in the first test.
+#[test]
+fn a_saved_step_planned_without_a_quest_is_read_from_its_released_step_and_never_holds_the_player_back() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.to_string(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), saved(""))],
+		login: false,
+		script: format!("{TEST_PACK}\n{TEST_SOURCE}\n{GUIDE}\n{}", SCRIPT.replace(r#"{ [h("accept:102")] = "accept:102" }"#, r#"{ [h("accept:102,accept:111")] = "accept:102,accept:111" }"#)),
+	})
+	.remove(0);
+	assert_eq!(out["live"], 8, "at 103's hand-in, where the player was: {out}");
+	assert_eq!(out["changed"], json!(["done", "na"]), "109 passes behind the player: {out}");
+	assert_eq!(out["status"][1], "na", "{out}");
+}
+
+// #3440: the same for a step the update left as released (Ashenvale, Desolace, Arathi Highlands): the guide has
+// it with 112's accept, the save without (112 left out for the character), and the update put a new step (115's
+// accept) right after it, behind the player. Unknown, that stretch held them at 112's accept.
+const KEPT_GUIDE: &str = r#"
+local M = 1429
+local function a(q, x) return { t = "accept", quest = q, title = "Quest " .. q, map = M, x = x or 50, y = 50 } end
+local function t(q, x) return { t = "turnin", quest = q, title = "Quest " .. q, map = M, x = x or 50, y = 50 } end
+Polestar.RegisterGuide({ id = "test/up", pack = "test", title = "Upgraded", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = {
+	{ title = "Start", goals = { a(100) } },
+	{ title = "Hand in 100", goals = { t(100) } },
+	{ title = "Take 102", goals = { a(102), a(112, 45) } },
+	{ title = "New after it", goals = { a(115, 40) } },
+	{ title = "Hand in 102", goals = { t(102) } },
+	{ title = "Take 103", goals = { a(103) } },
+	{ title = "Hand in 103", goals = { t(103) } },
+} })
+"#;
+
+#[test]
+fn a_saved_step_planned_without_a_quest_from_a_step_the_update_kept_never_holds_the_player_back() {
+	let saved = saved("")
+		.replace(
+			r#"local OLD = { "accept:100", "turnin:100", "accept:102", "goto:1429", "turnin:102", "accept:103", "turnin:103" }"#,
+			r#"local OLD = { "accept:100", "turnin:100", "accept:102", "turnin:102", "accept:103", "turnin:103" }"#,
+		)
+		.replace(r#""7-1""#, r#""6-1""#);
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.to_string(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), saved)],
+		login: false,
+		script: format!(
+			r#"{TEST_PACK}
+{TEST_SOURCE}
+{KEPT_GUIDE}
+E = Polestar.Engine
+Polestar.LegacyStepsLoad = function() return {{}} end
+stub.login(); stub.advance(0.25)
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(11)
+emit({{ live = E.GetLiveStep(), took112 = E.GetStepView(3).goals[2].status, new = E.GetStepView(4).status }})"#
+		),
+	})
+	.remove(0);
+	assert_eq!(out["live"], 7, "at 103's hand-in, where the player was: {out}");
+	assert_eq!(json!([out["took112"], out["new"]]), json!(["na", "na"]), "112 and the new step pass behind the player: {out}");
+}
+
+// #3440: the step's key keeps every goal of it, a class's own too (a Mage-only accept in a Warrior's save), and a
+// step can lose more than one quest to the plan: released as 102, 116 (Mages), 111 and 117, saved without 111 and
+// 117.
+#[test]
+fn a_saved_step_with_a_class_goal_and_two_quests_left_out_is_read_from_its_released_step() {
+	let released = "accept:102,accept:116,accept:111,accept:117";
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.to_string(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), saved("").replace(r#""accept:102", "goto:1429""#, r#""accept:102,accept:116", "goto:1429""#))],
+		login: false,
+		script: format!("{TEST_PACK}\n{TEST_SOURCE}\n{GUIDE}\n{}", SCRIPT.replace(r#"{ [h("accept:102")] = "accept:102" }"#, &format!(r#"{{ [h("{released}")] = "{released}" }}"#))),
+	})
+	.remove(0);
+	assert_eq!(out["live"], 8, "at 103's hand-in, where the player was: {out}");
+	assert_eq!(out["changed"], json!(["done", "na"]), "{out}");
+}
+
+// #3464 (0.4.2.2 -> 0.4.3, Duskwood): the update moved The Night Watch's accept to the first Darkshire visit, before
+// Raven Hill's kills, a step 0.4.2.2 had too (kept), which the player had walked past for a quest they had not taken.
+// Those kills read as the player's place, so only what the update added before them passed, and an accept it added
+// after them (Sven's Camp) held the player 18 steps back. Work of a quest whose only accepts the update added is no
+// sign of the player's place: they stay at 103's hand-in, and every added accept behind it passes.
+#[test]
+fn work_of_a_quest_the_update_moved_before_the_player_never_reads_as_their_place_3464() {
+	let saved = saved("")
+		.replace(
+			r#"local OLD = { "accept:100", "turnin:100", "accept:102", "goto:1429", "turnin:102", "accept:103", "turnin:103" }"#,
+			r#"local OLD = { "accept:100", "kill:150", "turnin:100", "accept:102", "turnin:102", "accept:103", "turnin:103", "accept:150", "turnin:150" }"#,
+		)
+		.replace(r#""7-1""#, r#""9-1""#);
+	let guide = r#"
+local M = 1429
+local function a(q, x) return { t = "accept", quest = q, title = "Quest " .. q, map = M, x = x or 50, y = 50 } end
+local function t(q, x) return { t = "turnin", quest = q, title = "Quest " .. q, map = M, x = x or 50, y = 50 } end
+Polestar.RegisterGuide({ id = "test/up", pack = "test", title = "Upgraded", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = {
+	{ title = "Start", goals = { a(100) } },
+	{ title = "The Night Watch, moved here", goals = { a(150, 40) } },
+	{ title = "Raven Hill: kill these as you meet them", goals = { { t = "kill", target = "Skeletal Warrior", npc = 9, count = 3, quest = 150, oi = 1, map = M, x = 40, y = 40 } } },
+	{ title = "Hand in 100", goals = { t(100) } },
+	{ title = "Sven's Camp, new", goals = { a(160, 45) } },
+	{ title = "Take 102", goals = { a(102) } },
+	{ title = "Hand in 102", goals = { t(102) } },
+	{ title = "Take 103", goals = { a(103) } },
+	{ title = "Hand in 103", goals = { t(103) } },
+	{ title = "Hand in 150", goals = { t(150) } },
+	{ title = "Hand in 160", goals = { t(160) } },
+} })"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.to_string(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), saved)],
+		login: false,
+		script: format!(
+			r#"{TEST_PACK}
+{TEST_SOURCE}
+{guide}
+E = Polestar.Engine
+Polestar.LegacyStepsLoad = function() return {{}} end
+stub.login(); stub.advance(0.25)
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(11)
+emit({{ live = E.GetLiveStep(), moved = E.GetStepView(2).status, new = E.GetStepView(5).status }})"#
+		),
+	})
+	.remove(0);
+	assert_eq!(out["live"], 9, "at 103's hand-in, where the player was: {out}");
+	assert_eq!(json!([out["moved"], out["new"]]), json!(["na", "na"]), "the moved and the new accept pass behind the player: {out}");
+}
+
+// 0.4.1.1 -> 0.4.3, Alliance Burning Steppes: the guide's Azshara part moved from the start to the end, and of the
+// Ironforge, Western Plaguelands and Burning Steppes part it came before, some steps changed. The save kept 37 of
+// its 89 steps in order: the guide reads as reworked (Own.reworked) and its tab is placed from the quest log
+// (Own.noteMovedBehind). Read in the new order, the save's done Azshara work, at the end now, was the player's place:
+// everything before it passed, and the guide read as done with no step to go to. Read in the save's order
+// (Own.reworkedOrder), the last of its steps with progress is 300's accept: the player stays on the walk after it,
+// the moved part they did shows done, and what is still to do stays.
+#[test]
+fn a_reworked_tab_is_placed_by_the_save_s_own_order_of_its_steps_burning_steppes_0411() {
+	let saved = saved("")
+		.replace(
+			r#"local OLD = { "accept:100", "turnin:100", "accept:102", "goto:1429", "turnin:102", "accept:103", "turnin:103" }"#,
+			r#"local OLD = { "accept:200", "turnin:200", "accept:201,turnin:201", "accept:300", "goto:1429", "accept:301", "turnin:301", "accept:302", "turnin:300" }"#,
+		)
+		.replace(r#""7-1""#, r#""9-1""#);
+	let guide = r#"
+local M = 1429
+local function a(q, x) return { t = "accept", quest = q, title = "Quest " .. q, map = M, x = x or 50, y = 50 } end
+local function t(q, x) return { t = "turnin", quest = q, title = "Quest " .. q, map = M, x = x or 50, y = 50 } end
+Polestar.RegisterGuide({ id = "test/up", pack = "test", title = "Upgraded", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = {
+	{ title = "Ironforge", goals = { a(300) } },
+	{ title = "Fly on", goals = { { t = "goto", map = M, x = 60, y = 60 } } },
+	{ title = "Chillwind Camp", goals = { a(310, 80) } },
+	{ title = "Hand in 310", goals = { t(310, 80) } },
+	{ title = "Morgan's Vigil", goals = { a(302, 80) } },
+	{ title = "Hand in 300", goals = { t(300) } },
+	{ title = "Azshara", goals = { a(200) } },
+	{ title = "Hand in 200", goals = { t(200) } },
+	{ title = "Take and hand in 201", goals = { a(201), t(201) } },
+} })"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.replace("w.complete({ 100, 102 })\nw.onQuest(103, { { required = 5, fulfilled = 1 } }, \"Quest 103\")", "w.complete({ 200, 201 })\nw.onQuest(300, {}, \"Quest 300\")"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), saved)],
+		login: false,
+		script: format!(
+			r#"{TEST_PACK}
+{TEST_SOURCE}
+{guide}
+E = Polestar.Engine
+local function h(s) local x = 5381 for i = 1, #s do x = (x * 33 + s:byte(i)) % 4294967296 end return x end
+Polestar.LegacyStepsLoad = function() return {{ ["test/up"] = {{ [h("accept:301")] = "accept:301", [h("turnin:301")] = "turnin:301" }} }} end
+stub.login(); stub.advance(0.25)
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(11)
+local status = {{}}
+for i = 1, 9 do status[i] = E.GetStepView(i).goals[1].status end
+emit({{ live = E.GetLiveStep() or false, state = E.GetGuideState("test/up"), status = status }})"#
+		),
+	})
+	.remove(0);
+	assert_eq!(out["live"], 2, "on the walk after 300's accept, where the player was: {out}");
+	assert_eq!(out["state"], "started", "{out}");
+	assert_ne!(out["status"][2], "na", "Chillwind Camp is still to do: {out}");
+	assert_ne!(out["status"][4], "na", "Morgan's Vigil is still to do: {out}");
+	assert_eq!(json!([out["status"][6], out["status"][7], out["status"][8]]), json!(["done", "done", "done"]), "the moved part they did: {out}");
+}
+
+// 0.4.1.1 -> 0.4.3, Horde Thousand Needles: Moktar Krin's step (hand in The Swarm Grows' second part, take the
+// third, `when onquest 1146`) stayed, and the update added a step after it with the third part's accept again, for a
+// player who handed the second in without taking the third. That accept, which the kept step still has, read as
+// moved on past its place (no sign of where the player is, Own.noteAdded's "later"), not as added: a save that had
+// passed it held the player there, 2 and 16 steps back. A kept step's quest goal repeated in a step the update added
+// is the update's: behind the player it passes, and they stay at 103's hand-in.
+#[test]
+fn a_kept_step_s_accept_repeated_in_a_step_the_update_added_behind_the_player_passes_thousand_needles_0411() {
+	let saved = saved("")
+		.replace(
+			r#"local OLD = { "accept:100", "turnin:100", "accept:102", "goto:1429", "turnin:102", "accept:103", "turnin:103" }"#,
+			r#"local OLD = { "accept:100", "turnin:100,accept:102", "accept:103", "turnin:103" }"#,
+		)
+		.replace(r#""7-1""#, r#""4-1""#);
+	let guide = r#"
+local M = 1429
+local function a(q, x) return { t = "accept", quest = q, title = "Quest " .. q, map = M, x = x or 50, y = 50 } end
+local function t(q, x) return { t = "turnin", quest = q, title = "Quest " .. q, map = M, x = x or 50, y = 50 } end
+Polestar.RegisterGuide({ id = "test/up", pack = "test", title = "Upgraded", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = {
+	{ title = "Start", goals = { a(100) } },
+	{ title = "Moktar Krin", when = { { k = "onquest", q = { 100 } } }, goals = { t(100), a(102) } },
+	{ title = "Moktar Krin, the next part", when = { { k = "turnedin", q = 100 } }, goals = { a(102, 40) } },
+	{ title = "Take 103", goals = { a(103) } },
+	{ title = "Hand in 103", goals = { t(103) } },
+} })"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.replace("w.complete({ 100, 102 })", "w.complete({ 100 })"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), saved)],
+		login: false,
+		script: format!(
+			r#"{TEST_PACK}
+{TEST_SOURCE}
+{guide}
+E = Polestar.Engine
+Polestar.LegacyStepsLoad = function() return {{}} end
+stub.login(); stub.advance(0.25)
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(11)
+emit({{ live = E.GetLiveStep() or false, copy = E.GetStepView(3).status }})"#
+		),
+	})
+	.remove(0);
+	assert_eq!(out["live"], 5, "at 103's hand-in, where the player was: {out}");
+	assert_eq!(out["copy"], "na", "the update's repeated accept passes behind the player: {out}");
 }

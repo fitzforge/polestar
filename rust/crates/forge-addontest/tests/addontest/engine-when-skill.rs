@@ -59,10 +59,12 @@ fn run(when: &str, login: &str, script: &str) -> Vec<Value> {
 	})
 }
 
+// A rank not reached yet can still be (#2749): the passed step waits (Own.whenPending), not applying ("na"),
+// instead of being stored as skipped; a negated one (`!skill`) is stored as before.
 #[test]
 fn when_skill_applies_at_the_rank_or_above_not_below_or_unlearned_skill_x_1_applies_while_x_is_not_learned() {
-	assert_eq!(run(COOKING_50, "", "emit(state())")[0], json!({ "live": 3, "status": "skipped" }));
-	assert_eq!(run(COOKING_50, r#"stub.world.learnSkill(185, "Cooking", 49, 75)"#, "emit(state())")[0], json!({ "live": 3, "status": "skipped" }));
+	assert_eq!(run(COOKING_50, "", "emit(state())")[0], json!({ "live": 3, "status": "na" }));
+	assert_eq!(run(COOKING_50, r#"stub.world.learnSkill(185, "Cooking", 49, 75)"#, "emit(state())")[0], json!({ "live": 3, "status": "na" }));
 	assert_eq!(run(COOKING_50, r#"stub.world.learnSkill(185, "Cooking", 50, 75)"#, "emit(state())")[0], json!({ "live": 2, "status": "current" }));
 	assert_eq!(run(NO_HERBALISM, "", "emit(state())")[0], json!({ "live": 2, "status": "current" }));
 	assert_eq!(run(NO_HERBALISM, r#"stub.world.learnSkill(182, "Herbalism", 1, 75)"#, "emit(state())")[0], json!({ "live": 3, "status": "skipped" }));
@@ -83,10 +85,70 @@ fn a_skill_up_re_evaluates_the_guide_before_the_route_has_passed_the_step() {
 }
 
 #[test]
-fn a_step_the_route_has_passed_keeps_its_stored_outcome_when_the_rank_rises_later() {
+fn a_step_the_route_has_passed_waits_and_once_the_rank_rises_behind_the_live_step_is_stored_without_a_jump_back() {
 	let out = run(COOKING_50, r#"stub.world.learnSkill(185, "Cooking", 1, 75)"#, "emit(state()); stub.world.skillUp(185, 50); flush(); emit(state())");
-	assert_eq!(out[0], json!({ "live": 3, "status": "skipped" }));
+	assert_eq!(out[0], json!({ "live": 3, "status": "na" }));
 	assert_eq!(out[1], json!({ "live": 3, "status": "skipped" }));
+}
+
+// #2749 (Liquidor): a start camp's Camping 101 is gated `when skill <Profession> 1`. A profession learned after the
+// route passed the camp never brought the step back: the failed `when skill` was stored as final. It waits now
+// (Own.mayComeTrue, Own.whenPending) and, once the profession is learned behind the live step, is stored as passed
+// without pulling the arrow back; its accept is a While you're here line at its giver, gone once taken.
+const CAMP: &str = r#"
+Polestar.RegisterGuide({
+	id = "test/camp", pack = "test", title = "Camp", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ title = "Deputy Willem", goals = {
+			{ t = "accept", quest = 783, title = "A Threat Within", npc = 823, npcName = "Deputy Willem", map = 1429, x = 48.2, y = 42.0 },
+		} },
+		{ title = "Camping 101", when = { { k = "skill", name = "Mining", skillLine = 186, n = 1 } }, goals = {
+			{ t = "accept", quest = 97923, title = "Camping 101: Mining", npc = 950, npcName = "Sam Sarsaparilla", map = 1429, x = 48.4, y = 42.1 },
+		} },
+		{ title = "Marshal McBride", goals = {
+			{ t = "turnin", quest = 783, title = "A Threat Within", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+	},
+})
+"#;
+
+#[test]
+fn a_profession_learned_after_the_route_passed_its_camping_101_offers_the_pick_up_while_you_re_here_2749() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}stub.world.titles[97923] = \"Camping 101: Mining\"\n"),
+		addons: vec![core()],
+		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/camp" }"#.into())],
+		script: [
+			TEST_PACK,
+			TEST_SOURCE,
+			CAMP,
+			HELPERS,
+			"stub.login()",
+			r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
+			r#"
+			local function now()
+				local rows = {}
+				for _, v in ipairs(E.GetWhileHereList()) do rows[#rows + 1] = v.hereText end
+				return { live = E.GetLiveStep(), status = E.GetStepView(2).status, rows = table.concat(rows, " | ") }
+			end
+			stub.advance(2)
+			emit(now())
+			stub.world.learnSkill(186, "Mining", 1, 75)
+			stub.advance(2)
+			emit(now())
+			stub.world.accept(97923, {}, "Camping 101: Mining")
+			stub.advance(2)
+			emit(now())
+			"#,
+		]
+		.join("\n"),
+		..Default::default()
+	});
+	assert_eq!(out[0], json!({ "live": 3, "status": "na", "rows": "" }), "no Mining: the camp's step is passed, waiting");
+	assert_eq!(out[1]["live"], 3, "learning Mining never pulls the arrow back: {}", out[1]);
+	assert_eq!(out[1]["rows"], "\u{201c}Camping 101: Mining\u{201d} at Sam Sarsaparilla", "{}", out[1]);
+	assert_eq!(out[2]["rows"], "", "taken: the line goes, {}", out[2]);
 }
 
 #[test]

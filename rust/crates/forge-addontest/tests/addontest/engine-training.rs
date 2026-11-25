@@ -443,6 +443,40 @@ fn train_class_is_done_when_the_class_trainer_lists_nothing_to_learn_and_waits_f
 	);
 }
 
+// #3608 (JAKEJ): "Sends me to the trainer when I have things to train. It's common, probably typical to skip
+// things": the guide's `train class` step stayed open while the trainer listed a new rank of a spell he knows and
+// skips. A new rank of a known spell (the spellbook holds one of that name) is nothing new; a new spell still is.
+#[test]
+fn train_class_is_done_when_the_trainer_lists_only_new_ranks_of_known_spells_3608() {
+	let play = |services: &str| {
+		let pre = format!(
+			r#"stub.world.level = 19
+			SERVICES = {services}
+			function GetNumTrainerServices() return #SERVICES end
+			function GetTrainerServiceInfo(i) local s = SERVICES[i] if s then return s[1], s[2] end end
+			C_Spell = C_Spell or {{}}
+			C_Spell.GetSpellName = function(id) return id == 78 and "Heroic Strike" or nil end
+			C_SpellBook.GetNumSpellBookSkillLines = function() return 1 end
+			C_SpellBook.GetSpellBookSkillLineInfo = function() return {{ itemIndexOffset = 0, numSpellBookItems = 1 }} end
+			C_SpellBook.GetSpellBookItemInfo = function(k) return k == 1 and {{ spellID = 78, itemType = 1 }} or nil end"#
+		);
+		run(
+			None,
+			&pre,
+			&format!(
+				r#"{AGAIN} stub.advance(0.5)
+				stub.world.trainer(3353); stub.advance(0.5)
+				stub.world.close(); stub.advance(0.5)
+				emit({{ after = Polestar.Engine.GetStepIndex(), visit = PolestarCharDB.classTrainVisit or false }})"#
+			),
+		)
+	};
+	let rank = r#"{ { "Battle Shout", "used" }, { "Heroic Strike", "available" } }"#;
+	assert_eq!(play(rank), json!({ "after": 2, "visit": 19 }), "only Heroic Strike's next rank: done, closed without training");
+	let new = r#"{ { "Heroic Strike", "available" }, { "Hamstring", "available" } }"#;
+	assert_eq!(play(new), json!({ "after": 1, "visit": false }), "Hamstring is new: still open");
+}
+
 #[test]
 fn a_spell_learned_at_a_class_trainer_records_the_visit_s_level_opening_the_window_or_a_first_sight_does_not() {
 	let out = run(
@@ -487,71 +521,114 @@ fn at_the_crossroads_with_the_guide_training_in_orgrimmar_in_10_steps_the_advice
 	assert_eq!(out["due"], 1, "{out}");
 }
 
+// #2843 (wangcow, a Gnome Warlock at 24 in Darkshore): the reminder sent him to Strahad Farsan in Ratchet while his
+// guide trains him in Ironforge after the Wetlands, past the banner's old 10 steps; on Stormwind's Lookup guide,
+// the leveling guide in another tab. Fitz: the reminder skips the nearest trainer when the guide has its own trainer
+// stop coming up. The guide's stop wins however far ahead, also from the leveling tab while a Lookup guide is
+// active; with none ahead, the planner's trainer, as the reminder names it.
 #[test]
-fn with_no_guide_stop_within_10_steps_the_advice_is_the_planner_s_trainer_the_reminder_names() {
-	let out = run(Some(&on_guide("test/orgrimmar-11", 10)), &trains_at(11), ADVICE);
-	assert_eq!(out["guide"], false, "{out}");
-	assert_eq!(out["steps"], 11);
-	assert_ne!(out["trainer"], false, "{out}");
-	assert_eq!(out["trainer"], out["planner"], "ranked by the travel planner on the guide's way: {out}");
-	assert_eq!(out["trainer"], out["dueNpc"], "the banner's trainer and the advice agree: {out}");
+fn the_guide_s_own_training_stop_ahead_however_far_is_the_advice_and_from_a_lookup_tab_the_leveling_tab_s_2843() {
+	let out = run(Some(&on_guide("test/orgrimmar-40", 10)), &trains_at(40), ADVICE);
+	assert_eq!(out["guide"], true, "{out}");
+	assert_eq!(out["steps"], 40);
+	assert_eq!(out["trainer"], false, "no other trainer named: {out}");
+	let lookup = r#"Polestar.RegisterGuide({ id = "test/lookup", pack = "test", title = "Lookup", category = "Lookup", faction = "Horde", minLevel = 1, maxLevel = 60, steps = {
+		{ goals = { { t = "goto", map = 1413, x = 50, y = 50 } } } } })"#;
+	let tabs = r#"PolestarCharDB = { schema = 1, classTrainLevel = 10, tabs = { "test/orgrimmar-40", "test/lookup" }, activeTab = 2 }"#;
+	let out = run(Some(tabs), &format!("{}\n{lookup}", trains_at(40)), &format!("emit(Polestar.Engine.GetGuide().id)\n{ADVICE}"));
+	assert_eq!(out, json!("test/lookup"));
+	let out = run(Some(tabs), &format!("{}\n{lookup}", trains_at(40)), ADVICE);
+	assert_eq!((&out["guide"], &out["steps"], &out["title"]), (&json!(true), &json!(40), &json!("Orgrimmar")), "{out}");
 	let none = run(Some(&on_guide("test/barrens", 10)), "", ADVICE);
+	assert_eq!(none["guide"], false, "{none}");
 	assert_eq!(none["steps"], false, "{none}");
-	assert_eq!(none["trainer"], none["planner"], "{none}");
+	assert_ne!(none["trainer"], false, "{none}");
+	assert_eq!(none["trainer"], none["planner"], "ranked by the travel planner on the guide's way: {none}");
+	assert_eq!(none["trainer"], none["dueNpc"], "the banner's trainer and the advice agree: {none}");
 }
 
 // Kill stutter (0.4.1): the guide window's training banner asks for the trainer on the guide's way on every
 // repaint (each kill and loot while training is due), and each answer priced up to four trainers with three
-// route plans each. The answer is kept while the player stays put on the same step: ten repaints in a second
-// plan routes once. Walking on in small steps, after a trainer window and at a level-up, it is the same as the
-// uncached answer.
+// route plans each; then (#3451) on every zone change and every few yards walked, its relayout in a step
+// change's frame. The answer is kept per zone for the guide: ten repaints, a walk across the Barrens, a
+// trainer window, a level that is no training level and a flight map that learned nothing plan no route; a
+// new zone is priced once, and coming back to the Barrens plans nothing and gives its pick again. The next
+// training level and a new flight price it afresh.
 #[test]
-fn the_banner_s_trainer_on_the_route_is_priced_once_for_repaints_on_one_spot_and_matches_the_uncached_pick() {
+fn the_banner_s_trainer_on_the_route_is_priced_once_per_zone_until_the_next_training_level_or_a_new_flight_3451() {
 	let out = run(
 		Some(&on_guide("test/route", 10)),
-		"",
+		"KNOWN = { [1] = true }; Polestar.Nav = { GetKnownTaxiNodes = function() return KNOWN end }",
 		r#"
 		stub.advance(0.5)
 		local E, w = Polestar.Engine, stub.world
-		local plans = 0
+		-- Route plans made by the trainer pick only (the reminder's and the banner's, Engine.NearestClassTrainer): a
+		-- zone change or a level-up plans other routes of its own, the candidates' re-pick (pickFor's eight) among
+		-- them, made here before the counted call.
+		local plans, picking = 0, false
 		local cost = Polestar.TravelCost
-		Polestar.TravelCost = function(...) plans = plans + 1; return cost(...) end
-		local first = E.TrainingAdvice().trainer.npc
-		local p0 = plans
-		for _ = 1, 10 do stub.advance(0.1); E.TrainingAdvice() end
-		local repaints = plans - p0
-		-- The cached pick against a fresh one (a trainer window closing drops the cache), walking south-west.
-		local same, n = true, 0
-		local x, y = 51.9, 30.4
-		for k = 1, 30 do
-			x, y = x - 0.3, y + 0.9
-			w.moveTo(1413, x, y)
-			stub.advance(0.1)
-			local kept = E.NearestClassTrainer(true).npc
-			stub.fire("TRAINER_CLOSED")
-			local fresh = E.NearestClassTrainer(true).npc
-			n = n + 1
-			if kept ~= fresh then same = false end
+		Polestar.TravelCost = function(...) if picking then plans = plans + 1 end return cost(...) end
+		local nearest = E.NearestClassTrainer
+		E.NearestClassTrainer = function(...)
+			nearest()
+			picking = true
+			local t = nearest(...)
+			picking = false
+			return t
 		end
-		w.setLevel(14)
-		stub.advance(0.5)
-		local afterLevel = E.NearestClassTrainer(true).npc
-		stub.fire("TRAINER_CLOSED")
-		emit({ first = first ~= nil, repaints = repaints, plans = p0, same = same, n = n, level = afterLevel == E.NearestClassTrainer(true).npc })
+		local out = {}
+		local function priced(fn)
+			local p = plans
+			fn()
+			return plans - p
+		end
+		local first
+		out.first = priced(function() first = E.TrainingAdvice().trainer.npc end)
+		out.repaints = priced(function() for _ = 1, 10 do stub.advance(0.1); E.TrainingAdvice() end end)
+		local same = true
+		out.walk = priced(function()
+			local x, y = 51.9, 30.4
+			for _ = 1, 30 do
+				x, y = x - 0.3, y + 0.9
+				w.moveTo(1413, x, y)
+				stub.advance(0.1)
+				if E.NearestClassTrainer(true).npc ~= first then same = false end
+			end
+		end)
+		out.same = same
+		out.mulgore = priced(function() w.moveTo(1412, 47, 60); stub.fire("ZONE_CHANGED_NEW_AREA"); stub.advance(0.1); E.NearestClassTrainer(true) end)
+		out.back = priced(function()
+			w.moveTo(1413, 45, 58); stub.fire("ZONE_CHANGED_NEW_AREA"); stub.advance(0.1)
+			out.backSame = E.NearestClassTrainer(true).npc == first
+		end)
+		out.trainer = priced(function() stub.fire("TRAINER_CLOSED"); E.NearestClassTrainer(true) end)
+		out.odd = priced(function() w.setLevel(13); stub.advance(0.5); E.NearestClassTrainer(true) end)
+		out.map = priced(function() stub.fire("TAXIMAP_CLOSED"); E.NearestClassTrainer(true) end)
+		out.flight = priced(function() KNOWN[2] = true; stub.fire("TAXIMAP_CLOSED"); E.NearestClassTrainer(true) end)
+		out.even = priced(function() w.setLevel(14); stub.advance(0.5); E.NearestClassTrainer(true) end)
+		emit(out)
 	"#,
 	);
-	assert_eq!(out["first"], true);
-	assert_eq!(out["same"], true, "the kept pick differs from a fresh one on the walk");
-	assert_eq!(out["level"], true);
 	// Measured: 0.4.1 planned 12 routes for each repaint (120 for the ten); kept, none.
-	assert!(out["repaints"].as_u64().unwrap() <= 2, "route plans for ten repaints on one spot: {} (the first answer took {})", out["repaints"], out["plans"]);
+	assert_eq!(out["repaints"], 0, "route plans for ten repaints: {out}");
+	assert_eq!(out["walk"], 0, "route plans walking across the zone: {out}");
+	assert_eq!(out["same"], true, "{out}");
+	assert!(out["mulgore"].as_u64().unwrap() > 0, "a new zone is priced: {out}");
+	assert_eq!(out["back"], 0, "back in the Barrens: {out}");
+	assert_eq!(out["backSame"], true, "{out}");
+	for case in ["trainer", "odd", "map"] {
+		assert_eq!(out[case], 0, "{case}: {out}");
+	}
+	assert!(out["flight"].as_u64().unwrap() > 0, "a new flight prices it afresh: {out}");
+	assert!(out["even"].as_u64().unwrap() > 0, "the next training level prices it afresh: {out}");
 }
 
 // On a flight the player's spot changes every few seconds, and the banner's trainer on the route was priced
 // again at each new spot (up to four trainers with three route plans each: frames of 30 ms and more on a
-// flight). The pick is kept for the whole flight and made afresh once the player lands, as a fresh pick.
+// flight). The pick of the zone the player boarded in stands for the whole flight, whatever it flies over; the
+// zone they land in is priced once they land.
 #[test]
-fn on_a_flight_the_banner_s_trainer_is_priced_once_and_picked_afresh_on_landing() {
+fn on_a_flight_the_banner_s_trainer_is_priced_once_and_picked_for_the_landing_zone() {
 	let out = run(
 		Some(&on_guide("test/route", 10)),
 		"",
@@ -569,27 +646,27 @@ fn on_a_flight_the_banner_s_trainer_is_priced_once_and_picked_afresh_on_landing(
 		E.TrainingAdvice()
 		local p0 = plans
 		local x, y = 51.9, 30.4
-		for _ = 1, 30 do
+		local kept = true
+		for k = 1, 30 do
 			x, y = x - 0.5, y + 1.4
-			w.moveTo(1413, x, y)
+			if k > 20 then w.moveTo(1412, 47, 40 + k) else w.moveTo(1413, x, y) end
 			stub.advance(1)
-			E.TrainingAdvice()
+			if E.TrainingAdvice().trainer.npc ~= before then kept = false end
 		end
 		local flying = plans - p0
-		-- Lands.
+		-- Lands in Mulgore.
 		w.onTaxi = false
 		stub.fire("PLAYER_CONTROL_GAINED")
 		stub.advance(0.5)
 		local p1 = plans
-		local landed = E.NearestClassTrainer(true).npc
+		E.NearestClassTrainer(true)
 		local landPlans = plans - p1
-		stub.fire("TRAINER_CLOSED")
-		emit({ before = before ~= nil, flying = flying, landPlans = landPlans, same = landed == E.NearestClassTrainer(true).npc })
+		emit({ before = before ~= nil, flying = flying, kept = kept, landPlans = landPlans })
 	"#,
 	);
 	assert_eq!(out["before"], true, "{out}");
 	// Measured on 0.4.2-rc1: 300 route plans in the 30 seconds of flight (ten a second); kept, none.
 	assert_eq!(out["flying"], 0, "route plans for the banner's trainer during a flight: {out}");
-	assert!(out["landPlans"].as_u64().unwrap() > 0, "the trainer is not picked afresh on landing: {out}");
-	assert_eq!(out["same"], true, "the pick after landing differs from a fresh one: {out}");
+	assert_eq!(out["kept"], true, "{out}");
+	assert!(out["landPlans"].as_u64().unwrap() > 0, "the landing zone is not priced: {out}");
 }

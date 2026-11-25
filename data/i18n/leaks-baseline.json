@@ -36781,27 +36781,6 @@
 			}
 		},
 		"ruRU": {
-			"npc:235903": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Ekkal"
-			},
-			"npc:255247": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Swarming Imp"
-			},
-			"npc:267097": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Maerion Thaelemaches"
-			},
 			"encounter:3315": {
 				"reason": "no-source",
 				"scenes": [
@@ -37089,6 +37068,27 @@
 				],
 				"english": "Alonso"
 			},
+			"npc:211764": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Gefell"
+			},
+			"npc:211765": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Gemela"
+			},
+			"npc:212159": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Old Serra'kis"
+			},
 			"npc:214101": {
 				"reason": "no-source",
 				"scenes": [
@@ -37155,6 +37155,76 @@
 				],
 				"english": "Zopilote"
 			},
+			"npc:228429": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Lucifron"
+			},
+			"npc:228430": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Magmadar"
+			},
+			"npc:228431": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Gehennas"
+			},
+			"npc:228432": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Garr"
+			},
+			"npc:228433": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Baron Geddon"
+			},
+			"npc:228434": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Shazzrah"
+			},
+			"npc:228435": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Golemagg the Incinerator"
+			},
+			"npc:228436": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Sulfuron Harbinger"
+			},
+			"npc:228437": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Majordomo Executus"
+			},
+			"npc:228438": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Ragnaros"
+			},
 			"npc:228619": {
 				"reason": "no-source",
 				"scenes": [
@@ -37169,12 +37239,54 @@
 				],
 				"english": "Rotting Dwarf Corpse"
 			},
+			"npc:232587": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Nefarian"
+			},
+			"npc:232670": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Majordomo Executus"
+			},
+			"npc:235903": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Ekkal"
+			},
+			"npc:236573": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Gatekeeper Rageroar"
+			},
 			"npc:239822": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
 				"english": "Commander Truesong"
+			},
+			"npc:242499": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Highlord Mograine"
+			},
+			"npc:242867": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "The Will of the Ashbringer"
 			},
 			"npc:246016": {
 				"reason": "no-source",
@@ -37268,9 +37380,17 @@
 				],
 				"english": "Legion Hulk"
 			},
+			"npc:249855": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Unele"
+			},
 			"npc:250034": {
 				"reason": "no-source",
 				"scenes": [
+					"dungeons",
 					"picker",
 					"rares"
 				],
@@ -37352,14 +37472,6 @@
 					"dungeons"
 				],
 				"english": "The Questioner"
-			},
-			"npc:256410": {
-				"reason": "no-source",
-				"scenes": [
-					"picker",
-					"rares"
-				],
-				"english": "Reginald Holmsby"
 			},
 			"npc:256795": {
 				"reason": "no-source",
@@ -37466,7 +37578,8 @@
 			"npc:259256": {
 				"reason": "no-source",
 				"scenes": [
-					"dungeons"
+					"dungeons",
+					"picker"
 				],
 				"english": "Tunk"
 			},
@@ -37484,14 +37597,6 @@
 					"rares"
 				],
 				"english": "Gul'gash"
-			},
-			"npc:259801": {
-				"reason": "no-source",
-				"scenes": [
-					"picker",
-					"rares"
-				],
-				"english": "Mosh'gra"
 			},
 			"npc:260042": {
 				"reason": "no-source",
@@ -37520,6 +37625,13 @@
 					"dungeons"
 				],
 				"english": "Saltseer Coroner"
+			},
+			"npc:260468": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "\"Pyromancer\" Braxton"
 			},
 			"npc:260823": {
 				"reason": "no-source",
@@ -37606,6 +37718,13 @@
 				],
 				"english": "Ardin Grassman"
 			},
+			"npc:262716": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Kroog"
+			},
 			"npc:263141": {
 				"reason": "no-source",
 				"scenes": [
@@ -37656,6 +37775,20 @@
 				],
 				"english": "Gnawed Corpse"
 			},
+			"npc:264172": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Umbra"
+			},
+			"npc:264177": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Gill"
+			},
 			"npc:264770": {
 				"reason": "no-source",
 				"scenes": [
@@ -37677,12 +37810,26 @@
 				],
 				"english": "Captain Truman"
 			},
+			"npc:267097": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Maerion Thaelemaches"
+			},
 			"npc:268423": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
 				"english": "Zalfan Moonshadow"
+			},
+			"npc:269104": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Moontouched Wanderer"
 			},
 			"npc:271181": {
 				"reason": "no-source",
@@ -37839,6 +37986,14 @@
 				],
 				"english": "Abandoned Belongings"
 			},
+			"object:659376": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons",
+					"picker"
+				],
+				"english": "Black Tome"
+			},
 			"object:673378": {
 				"reason": "no-source",
 				"scenes": [
@@ -37853,6 +38008,13 @@
 					"guides"
 				],
 				"english": "Fishing Trap"
+			},
+			"objective:6981": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Speak with someone in Ratchet about the Glowing Shard"
 			},
 			"objective:92753": {
 				"reason": "no-source",
@@ -37874,6 +38036,27 @@
 					"dungeons"
 				],
 				"english": "Farholde Scouts rescued"
+			},
+			"objective:95194": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Find Shaw's Agent in Theramore"
+			},
+			"objective:95198": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Relieve Jaina's guard and eavesdrop"
+			},
+			"objective:96337": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Find Mason Connery's Treasure"
 			},
 			"text:1500 Merchant's Favor": {
 				"reason": "kept-english",
@@ -37989,6 +38172,24 @@
 					"guides"
 				]
 			},
+			"text:Открывает портал от места первого хана во внешних пещерах Мародона к Earth Song Falls во внутреннем Мародоне; группа проходит через него. Селебрас Искупленный создает его, когда Селебрас Проклятый убит внутри.": {
+				"reason": "kept-english",
+				"scenes": [
+					"dungeons"
+				]
+			},
+			"text:Открывает путь в верхнюю часть Крепости Крол'док. Tunk у кузницы рядом с War Handler Ashka роняет Крол'докскую форму; Альфонсо Дюма в Крепости Фархолд кует из нее ключ с 4 Плотная кожа и 12 Железный слиток.": {
+				"reason": "kept-english",
+				"scenes": [
+					"dungeons"
+				]
+			},
+			"text:Призывает Лина Забытого, скрытого босса, у круга призыва в Underbelly Даларана, в маленькой комнате за Атрексием Могильным Рыцарем. Черный фолиант лежит на столе вверх по лестнице за Верховным магом Аругалом в Крепости Темного Клыка; используйте его у Ambermill Leyline Focus, синего кристалла рядом с Верховным магом Атаериком в ратуше Янтарной мельницы, и он станет Фолиантом Даларана.": {
+				"reason": "kept-english",
+				"scenes": [
+					"dungeons"
+				]
+			},
 			"text:Рейды: Barrow Deeps": {
 				"reason": "kept-english",
 				"scenes": [
@@ -37997,20 +38198,6 @@
 			}
 		},
 		"zhCN": {
-			"npc:235903": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Ekkal"
-			},
-			"npc:267097": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Maerion Thaelemaches"
-			},
 			"encounter:3315": {
 				"reason": "no-source",
 				"scenes": [
@@ -38388,6 +38575,20 @@
 				],
 				"english": "Alonso"
 			},
+			"npc:211764": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Gefell"
+			},
+			"npc:211765": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Gemela"
+			},
 			"npc:211951": {
 				"reason": "no-source",
 				"scenes": [
@@ -38404,6 +38605,13 @@
 					"rares"
 				],
 				"english": "Carrodin"
+			},
+			"npc:212159": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Old Serra'kis"
 			},
 			"npc:214101": {
 				"reason": "no-source",
@@ -38426,27 +38634,6 @@
 					"guides"
 				],
 				"english": "Ravaging Tempest"
-			},
-			"npc:217588": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Arbor Tarantula"
-			},
-			"npc:217589": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Hay Weevil"
-			},
-			"npc:217590": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Flesh Picker"
 			},
 			"npc:217836": {
 				"reason": "no-source",
@@ -38496,6 +38683,76 @@
 				],
 				"english": "Pix Xizzix"
 			},
+			"npc:228429": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Lucifron"
+			},
+			"npc:228430": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Magmadar"
+			},
+			"npc:228431": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Gehennas"
+			},
+			"npc:228432": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Garr"
+			},
+			"npc:228433": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Baron Geddon"
+			},
+			"npc:228434": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Shazzrah"
+			},
+			"npc:228435": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Golemagg the Incinerator"
+			},
+			"npc:228436": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Sulfuron Harbinger"
+			},
+			"npc:228437": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Majordomo Executus"
+			},
+			"npc:228438": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Ragnaros"
+			},
 			"npc:228619": {
 				"reason": "no-source",
 				"scenes": [
@@ -38510,12 +38767,40 @@
 				],
 				"english": "Rotting Dwarf Corpse"
 			},
-			"npc:239822": {
+			"npc:232587": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
-				"english": "Commander Truesong"
+				"english": "Nefarian"
+			},
+			"npc:232670": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Majordomo Executus"
+			},
+			"npc:236573": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Gatekeeper Rageroar"
+			},
+			"npc:242499": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Highlord Mograine"
+			},
+			"npc:242867": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "The Will of the Ashbringer"
 			},
 			"npc:243046": {
 				"reason": "no-source",
@@ -38547,30 +38832,10 @@
 				],
 				"english": "Kobold Vermin"
 			},
-			"npc:246600": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Mana Echo"
-			},
-			"npc:247001": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Saturated Remnant"
-			},
-			"npc:247003": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Seeking Remnant"
-			},
 			"npc:247032": {
 				"reason": "no-source",
 				"scenes": [
+					"dungeons",
 					"picker",
 					"rares",
 					"slash"
@@ -38649,30 +38914,6 @@
 				],
 				"english": "Emissary Jacques"
 			},
-			"npc:248242": {
-				"reason": "no-source",
-				"scenes": [
-					"guide",
-					"guides"
-				],
-				"english": "Hamish Bergwort"
-			},
-			"npc:248248": {
-				"reason": "no-source",
-				"scenes": [
-					"guide",
-					"guides"
-				],
-				"english": "Blixie Fitzwink"
-			},
-			"npc:248265": {
-				"reason": "no-source",
-				"scenes": [
-					"guide",
-					"guides"
-				],
-				"english": "Ormin Pelford"
-			},
 			"npc:248266": {
 				"reason": "no-source",
 				"scenes": [
@@ -38680,29 +38921,6 @@
 					"guides"
 				],
 				"english": "Hagar Lowe"
-			},
-			"npc:248278": {
-				"reason": "no-source",
-				"scenes": [
-					"guide"
-				],
-				"english": "Croaky"
-			},
-			"npc:248362": {
-				"reason": "no-source",
-				"scenes": [
-					"guide",
-					"guides"
-				],
-				"english": "Shinyfinder Narf"
-			},
-			"npc:248464": {
-				"reason": "no-source",
-				"scenes": [
-					"guide",
-					"guides"
-				],
-				"english": "Nimsy"
 			},
 			"npc:248474": {
 				"reason": "no-source",
@@ -38728,9 +38946,17 @@
 				],
 				"english": "Legion Hulk"
 			},
+			"npc:249855": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Unele"
+			},
 			"npc:250034": {
 				"reason": "no-source",
 				"scenes": [
+					"dungeons",
 					"picker",
 					"rares"
 				],
@@ -38745,21 +38971,6 @@
 				],
 				"english": "Den'dralass"
 			},
-			"npc:251493": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Captain McManus"
-			},
-			"npc:251507": {
-				"reason": "no-source",
-				"scenes": [
-					"guide",
-					"guides"
-				],
-				"english": "Josephine Carson"
-			},
 			"npc:251676": {
 				"reason": "no-source",
 				"scenes": [
@@ -38773,13 +38984,6 @@
 					"guides"
 				],
 				"english": "Strange Hermit"
-			},
-			"npc:251997": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Norvin Alderman"
 			},
 			"npc:252085": {
 				"reason": "no-source",
@@ -38837,13 +39041,6 @@
 					"guides"
 				],
 				"english": "Fillion Flamebreeze"
-			},
-			"npc:253527": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Kog'thug the Brave"
 			},
 			"npc:253576": {
 				"reason": "no-source",
@@ -38963,27 +39160,12 @@
 				],
 				"english": "The Questioner"
 			},
-			"npc:256247": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Belathaan Brightwish"
-			},
 			"npc:256389": {
 				"reason": "no-source",
 				"scenes": [
 					"guides"
 				],
 				"english": "Tamelyn Aldridge"
-			},
-			"npc:256410": {
-				"reason": "no-source",
-				"scenes": [
-					"picker",
-					"rares"
-				],
-				"english": "Reginald Holmsby"
 			},
 			"npc:256492": {
 				"reason": "no-source",
@@ -39074,35 +39256,6 @@
 				],
 				"english": "Zaal Stormshield"
 			},
-			"npc:257446": {
-				"reason": "no-source",
-				"scenes": [
-					"guide",
-					"guides"
-				],
-				"english": "Teo Hammerstorm"
-			},
-			"npc:257558": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Demar Brant"
-			},
-			"npc:257591": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Ashe Amberhall"
-			},
-			"npc:257808": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Braldir Ashmantle"
-			},
 			"npc:257944": {
 				"reason": "no-source",
 				"scenes": [
@@ -39118,13 +39271,6 @@
 				],
 				"english": "Twilight Forgemaster"
 			},
-			"npc:258043": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Norric Lochthane"
-			},
 			"npc:258130": {
 				"reason": "no-source",
 				"scenes": [
@@ -39138,13 +39284,6 @@
 					"guides"
 				],
 				"english": "Naaleos Leafwhisper"
-			},
-			"npc:258203": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Hervdana Saegrund"
 			},
 			"npc:258905": {
 				"reason": "no-source",
@@ -39210,6 +39349,13 @@
 				],
 				"english": "Alphonse Dumas"
 			},
+			"npc:259256": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Tunk"
+			},
 			"npc:259385": {
 				"reason": "no-source",
 				"scenes": [
@@ -39247,13 +39393,6 @@
 				],
 				"english": "Galemender Delanea"
 			},
-			"npc:259431": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Rudolph Gelhardt"
-			},
 			"npc:259433": {
 				"reason": "no-source",
 				"scenes": [
@@ -39267,22 +39406,6 @@
 					"guides"
 				],
 				"english": "Tarnished Drudge"
-			},
-			"npc:259758": {
-				"reason": "no-source",
-				"scenes": [
-					"picker",
-					"rares"
-				],
-				"english": "Gul'gash"
-			},
-			"npc:259801": {
-				"reason": "no-source",
-				"scenes": [
-					"picker",
-					"rares"
-				],
-				"english": "Mosh'gra"
 			},
 			"npc:260042": {
 				"reason": "no-source",
@@ -39318,6 +39441,13 @@
 					"dungeons"
 				],
 				"english": "Saltseer Coroner"
+			},
+			"npc:260468": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "\"Pyromancer\" Braxton"
 			},
 			"npc:260823": {
 				"reason": "no-source",
@@ -39404,6 +39534,13 @@
 				],
 				"english": "Ardin Grassman"
 			},
+			"npc:262716": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Kroog"
+			},
 			"npc:263141": {
 				"reason": "no-source",
 				"scenes": [
@@ -39412,34 +39549,12 @@
 				],
 				"english": "Scaldaron"
 			},
-			"npc:263399": {
-				"reason": "no-source",
-				"scenes": [
-					"guide",
-					"guides"
-				],
-				"english": "Sam Sarsaparilla"
-			},
 			"npc:263886": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
 				"english": "Primeval Elemental"
-			},
-			"npc:264072": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Yorn Grimtotem"
-			},
-			"npc:264074": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Mazu'kon"
 			},
 			"npc:264079": {
 				"reason": "no-source",
@@ -39455,13 +39570,6 @@
 				],
 				"english": "Gloomrise Spinner"
 			},
-			"npc:264082": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Broodmother Valraxx"
-			},
 			"npc:264083": {
 				"reason": "no-source",
 				"scenes": [
@@ -39469,12 +39577,19 @@
 				],
 				"english": "Gloomrise Soldier"
 			},
-			"npc:264096": {
+			"npc:264172": {
 				"reason": "no-source",
 				"scenes": [
-					"guides"
+					"dungeons"
 				],
-				"english": "Gnawed Corpse"
+				"english": "Umbra"
+			},
+			"npc:264177": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Gill"
 			},
 			"npc:264770": {
 				"reason": "no-source",
@@ -39505,26 +39620,12 @@
 				],
 				"english": "Captain Truman"
 			},
-			"npc:265756": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Genn Fairweather"
-			},
 			"npc:265810": {
 				"reason": "no-source",
 				"scenes": [
 					"guides"
 				],
 				"english": "Kaga Wildhoof"
-			},
-			"npc:266216": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Lord Tomas"
 			},
 			"npc:266901": {
 				"reason": "no-source",
@@ -39543,19 +39644,12 @@
 				],
 				"english": "Leonid Barthalomew the Revered"
 			},
-			"npc:267214": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Va'xug Firefure"
-			},
-			"npc:268423": {
+			"npc:267097": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
-				"english": "Zalfan Moonshadow"
+				"english": "Maerion Thaelemaches"
 			},
 			"npc:268425": {
 				"reason": "no-source",
@@ -39592,12 +39686,12 @@
 				],
 				"english": "Brazier of Offering"
 			},
-			"npc:269075": {
+			"npc:269104": {
 				"reason": "no-source",
 				"scenes": [
-					"guides"
+					"dungeons"
 				],
-				"english": "Snow Leopard Prowler"
+				"english": "Moontouched Wanderer"
 			},
 			"npc:269127": {
 				"reason": "no-source",
@@ -39621,13 +39715,6 @@
 				],
 				"english": "Alfina Nightgaze"
 			},
-			"npc:270637": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Howin Kindfeather"
-			},
 			"npc:270892": {
 				"reason": "no-source",
 				"scenes": [
@@ -39643,13 +39730,6 @@
 					"slash"
 				],
 				"english": "Blightsculler"
-			},
-			"npc:271181": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Eye of Kilrogg"
 			},
 			"npc:271322": {
 				"reason": "no-source",
@@ -39672,13 +39752,6 @@
 				],
 				"english": "Carnage"
 			},
-			"npc:271338": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Ados"
-			},
 			"npc:271373": {
 				"reason": "no-source",
 				"scenes": [
@@ -39686,47 +39759,12 @@
 				],
 				"english": "Subdued Dragonspawn"
 			},
-			"npc:271458": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Neru"
-			},
 			"npc:271460": {
 				"reason": "no-source",
 				"scenes": [
 					"guides"
 				],
 				"english": "Modr"
-			},
-			"npc:271462": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Golm"
-			},
-			"npc:271481": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Captive Fire Elemental"
-			},
-			"npc:271546": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Mountaineer Gretchen"
-			},
-			"npc:272203": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Perith Stormhoof"
 			},
 			"npc:272561": {
 				"reason": "no-source",
@@ -39751,13 +39789,6 @@
 				],
 				"english": "Coldrasp"
 			},
-			"npc:275657": {
-				"reason": "same-as-english",
-				"scenes": [
-					"guides"
-				],
-				"english": "Heglan Shadeeye"
-			},
 			"npc:275662": {
 				"reason": "same-as-english",
 				"scenes": [
@@ -39778,13 +39809,6 @@
 					"guides"
 				],
 				"english": "Lasher Sproutling"
-			},
-			"npc:275744": {
-				"reason": "same-as-english",
-				"scenes": [
-					"guides"
-				],
-				"english": "Sentinel Lynessa Duskblossom"
 			},
 			"npc:275811": {
 				"reason": "same-as-english",
@@ -39926,20 +39950,6 @@
 				],
 				"english": "Scarlet Crusade Forward Camp"
 			},
-			"object:178206": {
-				"reason": "same-as-english",
-				"scenes": [
-					"guides"
-				],
-				"english": "Foulweald Totem Mound"
-			},
-			"object:179677": {
-				"reason": "same-as-english",
-				"scenes": [
-					"guides"
-				],
-				"english": "Kroshius' Remains"
-			},
 			"object:179746": {
 				"reason": "same-as-english",
 				"scenes": [
@@ -39953,20 +39963,6 @@
 					"tooltips"
 				],
 				"english": "Adamantite Bound Chest"
-			},
-			"object:409311": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Spear of Mannoroth"
-			},
-			"object:409315": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Shattered Orb"
 			},
 			"object:424373": {
 				"reason": "no-source",
@@ -40050,13 +40046,6 @@
 				],
 				"english": "Mining Tools"
 			},
-			"object:563442": {
-				"reason": "no-source",
-				"scenes": [
-					"guide"
-				],
-				"english": "Kobold Tracks"
-			},
 			"object:578937": {
 				"reason": "no-source",
 				"scenes": [
@@ -40134,6 +40123,14 @@
 				],
 				"english": "Raider's Battleaxe"
 			},
+			"object:659376": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons",
+					"picker"
+				],
+				"english": "Black Tome"
+			},
 			"object:670774": {
 				"reason": "no-source",
 				"scenes": [
@@ -40154,13 +40151,6 @@
 					"guides"
 				],
 				"english": "Oracle Tree Bark"
-			},
-			"object:673515": {
-				"reason": "no-source",
-				"scenes": [
-					"guides"
-				],
-				"english": "Memory of Valor"
 			},
 			"object:694732": {
 				"reason": "same-as-english",
@@ -40185,14 +40175,6 @@
 				],
 				"english": "Junk Pile"
 			},
-			"object:694855": {
-				"reason": "no-source",
-				"scenes": [
-					"guide",
-					"guides"
-				],
-				"english": "Overgrown Duskweed"
-			},
 			"object:694895": {
 				"reason": "no-source",
 				"scenes": [
@@ -40207,12 +40189,40 @@
 				],
 				"english": "Windstone Formation"
 			},
+			"objective:6981": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Speak with someone in Ratchet about the Glowing Shard"
+			},
 			"objective:93404": {
 				"reason": "no-source",
 				"scenes": [
 					"dungeons"
 				],
 				"english": "Woodwyrd extinguished"
+			},
+			"objective:95194": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Find Shaw's Agent in Theramore"
+			},
+			"objective:95198": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Relieve Jaina's guard and eavesdrop"
+			},
+			"objective:96337": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Find Mason Connery's Treasure"
 			},
 			"text:1,500 Merchant's Favor": {
 				"reason": "kept-english",
@@ -40282,6 +40292,12 @@
 					"picker"
 				]
 			},
+			"text:从玛拉顿外部洞穴中第一位可汗的位置打开一道通往玛拉顿内部 Earth Song Falls 的传送门；全队从中穿过。被诅咒的塞雷布拉斯在里面死后，赎罪的塞雷布拉斯会制作它。": {
+				"reason": "kept-english",
+				"scenes": [
+					"dungeons"
+				]
+			},
 			"text:击败 Barrow Deeps 全部8个首领计1点。Barrow Deeps 是 Forever 新增的团队副本；它的首领不在我们的数据中，所以全部8个都击败后请自行勾选。": {
 				"reason": "kept-english",
 				"scenes": [
@@ -40310,6 +40326,12 @@
 				"reason": "kept-english",
 				"scenes": [
 					"guides"
+				]
+			},
+			"text:在达拉然城 Underbelly 的召唤法阵处召唤隐藏首领 Lyn the Ignored，位于墓穴骑士阿特雷克斯后面的小房间。黑色圣典放在影牙城堡中大法师阿鲁高身后楼梯上方的桌子上；在 Ambermill Leyline Focus（安伯米尔市政厅中大法师阿塔瑞克旁的蓝色水晶）处使用它，它就会变成达拉然巨著。": {
+				"reason": "kept-english",
+				"scenes": [
+					"dungeons"
 				]
 			},
 			"text:把Torch of Dormant Flame带给 中、 西南方Shrine of Flames的Olariaan Swiftburn。": {

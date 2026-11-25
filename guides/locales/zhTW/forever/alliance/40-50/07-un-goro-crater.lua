@@ -7,17 +7,15 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- was: ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56."] = "適合49到50級的角色，但這裡的大多數任務是51-53級：這是刻意安排的，為了它們的經驗值。第一次來只在環形山東半部活動，那裡的野獸為48-52級，所以一次拉一隻；水晶塔、骨頭和蟲巢留到約56級再來安戈洛時處理。"
-	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "",
+	-- {zone:1446} Tanaris · {area:976} Gadgetzan
+	["{zone:1446} first ({area:976} hand-ins), then into Un'Goro. For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "先去{zone:1446}（在{area:976}交任務），再進入安戈洛。適合49到50級的角色，但這裡的大多數任務是51-53級：這是刻意安排的，為了它們的經驗值。第一次來只在環形山東半部活動，那裡的野獸為48-52級，所以一次拉一隻；水晶塔、骨頭和蟲巢留到約54級再來安戈洛時處理。",
 
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "飛往{area:150}",
-	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "{zone:1455}飛行管理員",
 
 	-- Step 3: Theramore
-	["Theramore"] = "",
+	["Theramore"] = "塞拉摩",
 	-- {npc:2616} Privateer Groy
 	["{npc:2616} stands on the docks where the boat lands."] = "{npc:2616}站在船靠岸的碼頭上。",
 
@@ -54,7 +52,7 @@ return {
 	-- {npc:12046} Gor'marok the Ravager
 	["Ride south to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first."] = "向南騎到食人魔營地。裡面滿是蠻兵和執行者（46-48級）；{npc:12046}（49級）站在中間，周圍有守衛：先清掉他們。",
 	-- {npc:12046} Gor'marok the Ravager
-	["{npc:12046}, below ground"] = "",
+	["{npc:12046}, below ground"] = "{npc:12046}，地下",
 
 	-- Step 13: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
@@ -67,7 +65,7 @@ return {
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn
 	["Ride back north-east to {area:976}: {npc:11758} stands on the east side of town."] = "向東北騎回{area:976}：{npc:11758}站在鎮上東側。",
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}，在裡面",
 
 	-- Step 15: Broken Pillar
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {item:10556} Stone Circle
@@ -79,7 +77,7 @@ return {
 	-- {area:1938} Broken Pillar · {area:981} The Gaping Chasm
 	["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "向南騎過{area:1938}前往{area:981}，也就是哈札里的隧道；謝申克的設備在深處。\n小心：有一隻蟲子守著設備。許多蟲子在隧道裡巡邏，有些是50級，所以戰鬥常常會引來額外的怪。",
 	-- {item:8593} Scrimshank's Surveying Gear
-	["{item:8593}; below ground"] = "",
+	["{item:8593}; below ground"] = "{item:8593}；地下",
 
 	-- Step 17: Gadgetzan
 	-- {npc:7740} Gracina Spiritmight · {zone:1457} Darnassus · {zone:1448} Felwood
@@ -179,6 +177,7 @@ return {
 	-- ["Grind to 51"] = "練到51級",
 	-- ["Gryfe"] = "葛萊夫",
 	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "帶{npc:9999}向北前往{area:541}。他昏倒時，對他使用{item:11804}把他叫醒。",
+	-- ["Level 49.79"] = "等級 49.79",
 	-- ["Northern Pylon"] = "北部水晶塔",
 	-- ["Pterrordax"] = "翼手龍",
 	-- ["Ride down the ramp into the crater: {npc:9619} camps at its foot."] = "沿坡道騎下環形山：{npc:9619}在坡道底部紮營。",
@@ -234,4 +233,5 @@ return {
 	-- ["{npc:9998}, at the refuge entrance"] = "{npc:9998}，在避難營入口",
 	-- ["{npc:9998}, at the refuge's entrance"] = "{npc:9998}，在避難營入口",
 	-- ["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999}坐在環形山中央{area:537}的東南坡上。",
+	-- ["{zone:1455} flight master"] = "{zone:1455}飛行管理員",
 }

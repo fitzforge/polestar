@@ -560,6 +560,8 @@ pub struct Merged {
 	pub factions: Obj,
 	pub spells: Obj,
 	pub frames: Obj,
+	/// Each profession's per-rank trainers and its trainerSkill gates (#3784).
+	pub professions: Obj,
 	/// evidence.noPvp, evidence.cut.{drop, rare, treasure} (parity's).
 	pub no_pvp: Vec<f64>,
 	pub cut_drop: Obj,
@@ -670,6 +672,14 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		o.set("instance", V::Null);
 		o.set("roles", V::arr());
 		o.set("spawns", spawns_v(&spawns_of(&n.get("spawns"), zones_in, frames_in, false)));
+		// Seen only by a dead character (npcs.json `ghostOnly`, a correction's: Franclorn Forgewright, #558).
+		if n.get("ghostOnly").truthy() {
+			o.set("ghostOnly", true);
+		}
+		// Sells only once this quest is handed in (npcs.json `vendorAfter`: Zorbin Fandazzle after Zapped Giants, #3138).
+		if let Some(q) = int(&n.get("vendorAfter")).filter(|q| *q > 0.0) {
+			o.set("vendorAfter", q);
+		}
 		npcs.set(&id, V::Obj(o));
 		let mut set = OSet::default();
 		for r in roles.items() {
@@ -770,8 +780,42 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		Some(e) => e.1 = v,
 		None => m.push((name.to_string(), v)),
 	};
+	let professions = Obj::new();
 	for (id, p) in oentries(&fv.professions) {
 		set_skill(&mut skill_line_of, &p.get("name").to_js_string(), str_to_num(&id));
+		// The per-rank trainer lists and trainerSkill (#3784): secondary professions (First Aid, Cooking,
+		// Fishing) have no trainers object on Expert and Artisan, so they get no record.
+		let ranks = p.get("ranks").items();
+		let sided = |r: &V| r.get("trainers").is_obj() && (r.get("trainers").has("Alliance") || r.get("trainers").has("Horde"));
+		if ranks.len() == 4 && ranks.iter().all(sided) {
+			let ids_of = |r: &V, side: &str| {
+				let mut v: Vec<f64> = r.get("trainers").get(side).items().iter().filter_map(int).collect();
+				v.sort_by(|a, b| by_num(*a, *b));
+				v.dedup();
+				V::Arr(forge_guide::js::Arr::from_vec(v.into_iter().map(V::Num).collect()))
+			};
+			let rank_vs: Vec<V> = ranks
+				.iter()
+				.map(|r| {
+					let o = Obj::new();
+					let nn = |v: V| if v.is_nullish() { V::Num(0.0) } else { v };
+					o.set("minSkill", nn(r.get("minSkill")));
+					o.set("max", nn(r.get("max")));
+					let t = Obj::new();
+					t.set("Alliance", ids_of(r, "Alliance"));
+					t.set("Horde", ids_of(r, "Horde"));
+					o.set("trainers", V::Obj(t));
+					V::Obj(o)
+				})
+				.collect();
+			let rec = Obj::new();
+			rec.set("id", str_to_num(&id));
+			rec.set("name", p.get("name"));
+			rec.set("ranks", V::Arr(forge_guide::js::Arr::from_vec(rank_vs)));
+			let gates = p.get("trainerSkill");
+			rec.set("trainerSkill", if gates.is_obj() { gates } else { V::obj() });
+			professions.set(&id, V::Obj(rec));
+		}
 		let mut trainers: Vec<V> = Vec::new();
 		let mut push = |t: V| {
 			if !trainers.iter().any(|x| x.strict_eq(&t)) {
@@ -2038,7 +2082,13 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		if !treasure && !mailbox && !want_objects.contains(&str_to_num(&id).to_bits()) {
 			continue;
 		}
-		let name = o.get("name");
+		let mut name = o.get("name");
+		if !name.truthy() && want_objects.contains(&str_to_num(&id).to_bits()) {
+			// An object an item, quest or boss points at that the data has no name for (QuestieDB 1.1.5's 7983211, a
+			// source of Flintfire's Shipment) keeps its page and pins under a fallback name.
+			warnings.push(format!("object {id} has no name; its page reads \"{}\"", crate::questdb::UNNAMED_OBJECT));
+			name = V::str(crate::questdb::UNNAMED_OBJECT);
+		}
 		if !name.truthy() || junk(&name.to_js_string()) {
 			continue;
 		}
@@ -2230,6 +2280,11 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			// the hand-in guides never take it as an accept.
 			if q.get("direct").truthy() {
 				o.set("direct", true);
+			}
+			// One of a set the game offers one at a time (quests.json `rotation`: Pix's weekly In Demand quests, #3601).
+			let rot = q.get("rotation");
+			if rot.as_str().is_some_and(|s| !s.trim().is_empty()) {
+				o.set("rotation", rot);
 			}
 			if int(&q.get("xp")).is_some_and(|x| x > 0.0) {
 				o.set("xp", int(&q.get("xp")).unwrap());
@@ -2459,7 +2514,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			want(&e.get("map"), &e.get("f"));
 		}
 	}
-	Merged { items, npcs, objects, quests, instances, zones, factions, spells, frames, no_pvp, cut_drop, cut_rare, cut_treasure, warnings }
+	Merged { items, npcs, objects, quests, instances, zones, factions, spells, frames, professions, no_pvp, cut_drop, cut_rare, cut_treasure, warnings }
 }
 
 fn nn_or_null(v: V) -> V {
@@ -2698,5 +2753,19 @@ mod tests {
 		assert!(has_word("use the taming rod to tame a beast", "taming rod to tame"));
 		assert_eq!(standing_of(3000.0), 5.0);
 		assert_eq!(standing_of(-100.0), 3.0);
+	}
+
+	// QuestieDB 1.1.5 lists object 7983211, which has no name, as a source of Flintfire's Shipment: it stays a source
+	// and gets a page with a fallback name, so Lookup can pin it.
+	#[test]
+	fn a_nameless_object_source_reads_a_fallback_name() {
+		let mut i = inputs("{}", "{}");
+		i.forever.items = parse_json(r#"{ "280413": { "id": 280413, "name": "Flintfire's Shipment", "drops": { "npc": {}, "object": { "672508": 100, "7983211": null } }, "vendors": [] } }"#).unwrap();
+		i.forever.objects = parse_json(r#"{ "672508": { "id": 672508, "name": "Flintfire's Shipment", "spawns": {} }, "7983211": { "id": 7983211, "name": null, "spawns": {} } }"#).unwrap();
+		let codex = merge_codex(&i);
+		let objects: Vec<f64> = codex.items.get("280413").get("sources").items().iter().map(|s| s.get("object").num()).collect();
+		assert_eq!(objects, vec![672508.0, 7983211.0]);
+		assert_eq!(codex.objects.get("7983211").get("name").as_str(), Some("Unnamed object"));
+		assert!(codex.warnings.iter().any(|w| w.contains("object 7983211") && w.contains("no name")), "{:?}", codex.warnings);
 	}
 }

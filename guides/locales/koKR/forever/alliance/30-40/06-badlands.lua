@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Into Badlands
 	-- {zone:1418} Badlands
-	["Into {zone:1418}"] = "",
+	["Into {zone:1418}"] = "{zone:1418}(으)로",
 
 	-- Step 2: Dorgaron
 	-- {npc:269577} Dorgaron · {area:346} Hammertoe's Digsite · {area:345} Agmond's End
@@ -23,10 +23,10 @@ return {
 
 	-- Step 5: Hammertoe's Digsite: kill these as you meet them
 	-- {area:346} Hammertoe's Digsite
-	["{area:346}: kill these as you meet them"] = "",
+	["{area:346}: kill these as you meet them"] = "{area:346}: 만나는 대로 처치하세요",
 	-- {npc:269577} Dorgaron
 	-- plural, as words: Crag Coyotes = {npc:2727} Crag Coyote · Shadowforge Ruffians = {npc:4845} Shadowforge Ruffian
-	["The Shadowforge dwarves camp just north of the digsite; the crumpled map and {npc:269577}'s mining helmet lie among their tents. Tunnelers and Darkweavers carry Ryedol's pick and {npc:269577}'s artifacts. Crag Coyotes roam the slopes around it. Careful: Shadowforge Ruffians (36-37, elite) walk among them, most on the slopes between the pass and the camp: pull the Tunnelers and Darkweavers away from them."] = "",
+	["The Shadowforge dwarves camp just north of the digsite; the crumpled map and {npc:269577}'s mining helmet lie among their tents. Tunnelers and Darkweavers carry Ryedol's pick and {npc:269577}'s artifacts. Crag Coyotes roam the slopes around it. Careful: Shadowforge Ruffians (36-37, elite) walk among them, most on the slopes between the pass and the camp: pull the Tunnelers and Darkweavers away from them."] = "그림자대장장이 드워프가 발굴지 바로 북쪽에 야영하며 구겨진 지도와 {npc:269577}의 광부 헬멧이 천막 사이에 있습니다. 굴파는 놈과 어둠직조사가 라이돌의 곡괭이와 {npc:269577}의 유물을 지닙니다. 절벽 코요테가 주변 언덕을 배회합니다. 주의: 그림자대장장이 폭한(36-37레벨, 정예)이 그들 사이를 걷고 대부분은 고개와 야영지 사이 언덕에 있습니다. 굴파는 놈과 어둠직조사를 그들로부터 멀리 끌어내세요.",
 	-- {item:278403} Explorers' League Mining Helmet
 	["{item:278403}, in the Shadowforge camp"] = "{item:278403}, 어둠괴철로단 야영지에 있음",
 	-- {item:7847} Buzzard Gizzard
@@ -51,14 +51,14 @@ return {
 
 	-- Step 10: Agmond's End: kill these as you meet them
 	-- {area:345} Agmond's End
-	["{area:345}: kill these as you meet them"] = "",
+	["{area:345}: kill these as you meet them"] = "{area:345}: 만나는 대로 처치하세요",
 	-- {quest:739} Murdaloc · {spell:5242} Battle Shout · {spell:1160} Demoralizing Shout · {area:340} Kargath
 	-- plural, as words: Dustbelcher Maulers = {npc:2717} Dustbelcher Mauler · Stonevault Bonesnappers = {npc:2893} Stonevault Bonesnapper · Dustbelcher Lords = {npc:2719} Dustbelcher Lord
 	["Buzzards circle the plain to the east. Careful: the Dustbelcher Maulers, Shamans and Wyrmhunters (40-43) camp far to the south-west: leave them.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: the Stonevault Bonesnappers are 39-40 and the Shamans 40-41, a level or two over you here: pull them from the camp's edge, one at a time.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "대머리수리가 동쪽 평원 위를 맴돕니다. 주의: 먼지목도리일족 싸움꾼, 주술사, 용사냥꾼(40-43)이 멀리 남서쪽에 야영하고 있으니 무시하십시오.\n부서진 해골은 바위동굴일족 트로그 야영지 가장자리에 있습니다. 아그몬드를 죽인 {quest:739}은(는) 뼈다귀싸움꾼들 사이를 돌아다닙니다.\n주의: 바위동굴일족 뼈다귀싸움꾼은 39-40, 주술사는 40-41레벨로 지금보다 한두 레벨 높습니다. 야영지 가장자리에서 하나씩 끌어오십시오.\n주의: 먼지목도리일족 우두머리는 44-45레벨입니다. {spell:5242}와(과) {spell:1160}을(를) 사용하며, 생명력이 50% 미만이 되면 15미터 내의 아군에게 도움을 청합니다. {area:340}에서 남쪽으로 약 750미터 거리에 일곱 마리가 서 있습니다.",
 	-- {item:7847} Buzzard Gizzard · {area:345} Agmond's End
 	["{item:7847}, if you still need one: the Buzzards east of {area:345} drop it only rarely"] = "{item:7847}, 아직 필요하다면: {area:345} 동쪽의 대머리수리는 아주 드물게 떨어뜨립니다",
 	-- {quest:739} Murdaloc · {zone:1418} Badlands
-	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "",
+	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "{quest:739} 본인(42레벨)이 뼈부러뜨리기 무리 사이를 걷습니다. 43레벨의 이후 {zone:1418} 가이드를 위해 남겨 두고 지금은 이 퀘스트로 뼈부러뜨리기를 처치하세요.",
 	-- {item:278402} Unstudied Artifact
 	["{item:278402}, from the Shadowforge diggers and the Bonesnappers"] = "{item:278402}, 어둠괴철로단 채굴꾼과 뼈다귀싸움꾼에게서",
 
@@ -87,7 +87,7 @@ return {
 	-- plural, as words: Obsidian Golems = {npc:4872} Obsidian Golem · Shadowforge Diggers = {npc:4846} Shadowforge Digger
 	["Head north to {area:1517}'s entrance, in the north of the {zone:1418}: the chest lies just inside the cave mouth. {npc:2932} and the Obsidian Golems (38) stand beside it and Shadowforge Diggers (35-36) work the tunnel, all elite: keep your group together."] = "{zone:1418} 북부의 {area:1517} 입구로 북쪽으로 가십시오. 상자는 동굴 입구 바로 안쪽에 있습니다. {npc:2932}와(과) 흑요석 골렘(38)이 그 옆에 서 있고 어둠괴철로단 굴착꾼(35-36)이 터널에서 일하며, 모두 정예입니다. 파티와 함께 움직이십시오.",
 	-- {item:4631} Tablet of Ryun'eh
-	["{item:4631}; below ground"] = "",
+	["{item:4631}; below ground"] = "{item:4631}; 지하",
 
 	-- Step 16: Valley of Fangs
 	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:1517} Uldaman · {area:345} Agmond's End
@@ -118,8 +118,7 @@ return {
 
 	-- Step 22: Thelsamar
 	-- {npc:1470} Ghak Healtouch
-	-- was: ["{npc:1470}, in the inn"] = "{npc:1470}, 여관 안"
-	["{npc:1470}, in the inn; below ground"] = "",
+	["{npc:1470}, in the inn; below ground"] = "{npc:1470}, 여관 안; 지하",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "{npc:217590}이(가) {area:596} 주변을 기어다닙니다. {npc:217412}의 곤충학 입문 도구에 든 도구로 하나 잡으세요.",

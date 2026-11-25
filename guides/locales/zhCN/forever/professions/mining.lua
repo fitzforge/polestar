@@ -19,8 +19,8 @@ return {
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
 	["Mine every Copper (1, orange), Poor Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "开采沿途每个铜矿（1，橙色）和贫瘠铜矿（1，橙色）矿点，沿路径点循环，直到 {skill:186} 达到50。背包满时到熔炉旁熔炼：{spell:2657}（25前为橙色，70变灰）也能提升技能。地区等级1—10。提升这49点预计需开采约60个矿点。",
 	["Copper"] = "铜矿",
-	["Copper, Poor Copper"] = "铜矿、贫瘠铜矿",
 	["Poor Copper"] = "贫瘠铜矿",
+	["Copper, Poor Copper"] = "铜矿、贫瘠铜矿",
 
 	-- Step 3: Copper & Poor Copper: Dun Morogh (1-50)
 	-- {zone:1426} Dun Morogh
@@ -163,7 +163,8 @@ return {
 	-- {object:147516} Dark Iron · {zone:1427} Searing Gorge
 	["Mithril & {object:147516}: {zone:1427} (230-245)"] = "秘银与{object:147516}：{zone:1427}（230-245）",
 	-- {object:147516} Dark Iron · {skill:186} Mining · {item:11099} Dark Iron Ore · {object:174824} Black Forge (no name in this language: may be words) · {area:1584} Blackrock Depths
-	["Mine every Gold (155, green), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "开采沿途每个金矿（155，绿色）、秘银矿（175，绿色）、{object:147516}（230，橙色）和真银矿（230，橙色）矿点，沿路径点循环采矿，直到 {skill:186} 245。从这里起，熔炼不再涨点（更高级的熔炼配方学会时就已经是灰色）：熔炼后用于制作或出售，或直接卖矿石。{item:11099} 只能在 {area:1584} 的 {object:174824} 熔炼（8块矿石熔一锭）。地区等级43—50。提升这15点预计需要开采约40个矿点。",
+	-- was: ["Mine every Gold (155, green), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "开采沿途每个金矿（155，绿色）、秘银矿（175，绿色）、{object:147516}（230，橙色）和真银矿（230，橙色）矿点，沿路径点循环采矿，直到 {skill:186} 245。从这里起，熔炼不再涨点（更高级的熔炼配方学会时就已经是灰色）：熔炼后用于制作或出售，或直接卖矿石。{item:11099} 只能在 {area:1584} 的黑熔炉熔炼（8块矿石熔一锭）。地区等级43—50。提升这15点预计需要开采约40个矿点。"
+	["Mine every Gold (155, green, rare), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "开采经过的每个金矿（155，绿色，稀有）、秘银矿（175，绿色）、{object:147516}（230，橙色）、真银矿（230，橙色），并绕着路径点转，直到{skill:186}达到245。从这里开始熔炼不再加点（较高的熔炼学会后就是灰色）：熔炼用于制作或出售，或者直接卖矿石。{item:11099}只能在{area:1584}的{object:174824}熔炼（8个矿石一个锭）。地区等级43-50。这15点大约需要40个矿点。",
 	-- {object:147516} Dark Iron
 	["Mithril, {object:147516}"] = "秘银矿、{object:147516}",
 
@@ -172,18 +173,16 @@ return {
 	["Small Thorium: {zone:1448} (245-275)"] = "小型瑟银矿：{zone:1448}（245—275）",
 	-- {skill:186} Mining · {npc:9528} Arathandris Silversky · {npc:9529} Maybess Riverbreeze
 	["Mine every Gold (155, green, rare), Mithril (175, green), Truesilver (230, orange), Small Thorium (245, orange) node you pass and circle the waypoints until {skill:186} 275. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Quests here that need {skill:186}: Salve via {skill:186} (level 55, {npc:9528}; Alliance), Salve via {skill:186} (level 55, {npc:9529}; Horde). Zone level 48-55. Expect about 50 nodes for these 30 points."] = "开采沿途所有金矿（155，绿色，稀有）、秘银矿（175，绿色）、真银矿（230，橙色）和瑟银矿脉（245，橙色），沿路径点循环，直到{skill:186}275。从此阶段起，熔炼不再涨技能（更高级的熔炼配方学会时就已是灰色）：可熔炼用于制作或出售，也可直接卖矿石。这里需要{skill:186}的任务：“{skill:186}换药膏”（55级，{npc:9528}；联盟）及“{skill:186}换药膏”（55级，{npc:9529}；部落）。地区等级48-55。这30点预计需开采约50处矿点。",
-	["Mithril, Small Thorium"] = "秘银、瑟银矿脉",
 	["Small Thorium, Truesilver"] = "瑟银矿脉、真银矿",
+	["Mithril, Small Thorium"] = "秘银、瑟银矿脉",
 
-	-- Step 30: Small Thorium & Rich Thorium: Winterspring (275-300)
-	-- {zone:1452} Winterspring
-	["Small Thorium & Rich Thorium: {zone:1452} (275-300)"] = "瑟银矿脉和富瑟银矿：{zone:1452}（275-300）",
+	-- Step 30: Small Thorium & Rich Thorium: Eastern Plaguelands (275-300)
+	-- {zone:1423} Eastern Plaguelands
+	["Small Thorium & Rich Thorium: {zone:1423} (275-300)"] = "瑟银矿脉和富瑟银矿：{zone:1423}（275-300）",
 	-- {skill:186} Mining
-	["Mine every Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 55-60. Expect about 40 nodes for these 25 points."] = "开采沿途每个真银矿（230，黄色）、瑟银矿（245，黄色）和富瑟银矿（275，橙色），沿路径点循环，直到{skill:186}300。从这里开始熔炼不再提升技能（更高级的熔炼技能一学会就是灰色）：可熔炼后用于制作或出售，也可直接卖矿石。地区等级55-60。提升这25点预计需要约40个矿点。",
+	-- was: ["Mine every Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 55-60. Expect about 40 nodes for these 25 points."] = "开采沿途每个真银矿（230，黄色）、瑟银矿（245，黄色）和富瑟银矿（275，橙色），沿路径点循环，直到{skill:186}300。从这里开始熔炼不再提升技能（更高级的熔炼技能一学会就是灰色）：可熔炼后用于制作或出售，也可直接卖矿石。地区等级55-60。提升这25点预计需要约40个矿点。"
+	["Mine every Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 53-60. Expect about 30 nodes for these 25 points."] = "开采经过的每个真银矿（230，黄色）、瑟银矿脉（245，黄色）、富瑟银矿（275，橙色），并绕着路径点转，直到{skill:186}达到300。从这里开始熔炼不再加点（较高的熔炼学会后就是灰色）：熔炼用于制作或出售，或者直接卖矿石。地区等级53-60。这25点大约需要30个矿点。",
 	["Rich Thorium, Small Thorium"] = "富瑟银矿、瑟银矿脉",
-	["Rich Thorium, Truesilver"] = "富瑟银、真银",
-	["Rich Thorium"] = "富瑟银矿",
-	["Small Thorium, Rich Thorium"] = "瑟银矿脉、富瑟银矿",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:186} trainer of your faction teaches Apprentice {skill:186} (character level 5); the arrow picks the nearest. Buy a {item:2901} from a trade goods or general vendor: keep it in your bags, you cannot mine without it."] = "本阵营任何{skill:186}训练师都能传授初级{skill:186}（角色等级5）；箭头会指向最近的一位。从商品商人或杂货商处购买一把{item:2901}：放在背包里，没有它就无法采矿。",
@@ -227,14 +226,20 @@ return {
 	-- ["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-20."] = "开采沿途所有铜矿（1，黄色），绕着路径点循环，直到{skill:186}达到65。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级10-20。",
 	-- ["Mine every Gold (155, green), Mithril (175, green), Truesilver (230, orange), Small Thorium (245, orange) node you pass and circle the waypoints until {skill:186} 275. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 45-55."] = "开采沿途所有金矿石（155，绿色）、秘银矿脉（175，绿色）、真银矿石（230，橙色）、瑟银矿脉（245，橙色），绕着路径点循环，直到{skill:186}达到275。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级45-55。",
 	-- ["Mine every Gold (155, green), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 43-50."] = "开采沿途所有金矿石（155，绿色）、秘银矿脉（175，绿色）、{object:147516}（230，橙色）、真银矿石（230，橙色），绕着路径点循环，直到{skill:186}达到245。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级43-50。",
+	-- ["Mine every Gold (155, green), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "开采沿途每个金矿（155，绿色）、秘银矿（175，绿色）、{object:147516}（230，橙色）和真银矿（230，橙色）矿点，沿路径点循环采矿，直到 {skill:186} 245。从这里起，熔炼不再涨点（更高级的熔炼配方学会时就已经是灰色）：熔炼后用于制作或出售，或直接卖矿石。{item:11099} 只能在 {area:1584} 的黑熔炉熔炼（8块矿石熔一锭）。地区等级43—50。提升这15点预计需要开采约40个矿点。",
 	-- ["Mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node you pass and circle the waypoints until {skill:186} 200. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 35-45."] = "开采沿途所有铁矿石（125，绿色）、金矿石（155，橙色）、秘银矿脉（175，橙色），绕着路径点循环，直到{skill:186}达到200。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级35-45。",
 	-- ["Mine every Iron (125, green), Gold (155, yellow), Mithril (175, yellow) node you pass and circle the waypoints until {skill:186} 230. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 35-45."] = "开采沿途所有铁矿石（125，绿色）、金矿石（155，黄色）、秘银矿脉（175，黄色），绕着路径点循环，直到{skill:186}达到230。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级35-45。",
 	-- ["Mine every Silver (75, green), Iron (125, yellow), Gold (155, orange) node you pass and circle the waypoints until {skill:186} 175. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 35-45."] = "开采沿途所有银矿（75，绿色）、铁矿石（125，黄色）、金矿石（155，橙色），绕着路径点循环，直到{skill:186}达到175。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级35-45。",
 	-- ["Mine every Tin (65, green), Silver (75, green), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 18-30."] = "开采沿途所有锡矿（65，绿色）、银矿（75，绿色）、铁矿石（125，橙色），绕着路径点循环，直到{skill:186}达到155。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级18-30。",
 	-- ["Mine every Tin (65, green), Silver (75, green), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 30-40."] = "开采沿途所有锡矿（65，绿色）、银矿（75，绿色）、铁矿石（125，橙色），绕着路径点循环，直到{skill:186}达到155。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级30-40。",
+	-- ["Mine every Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 55-60. Expect about 40 nodes for these 25 points."] = "开采沿途每个真银矿（230，黄色）、瑟银矿（245，黄色）和富瑟银矿（275，橙色），沿路径点循环，直到{skill:186}300。从这里开始熔炼不再提升技能（更高级的熔炼技能一学会就是灰色）：可熔炼后用于制作或出售，也可直接卖矿石。地区等级55-60。提升这25点预计需要约40个矿点。",
 	-- ["Mine every {object:147516} (230, yellow), Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 50-58."] = "开采沿途所有{object:147516}（230，黄色）、真银矿石（230，黄色）、瑟银矿脉（245，黄色）、富瑟银矿（275，橙色），绕着路径点循环，直到{skill:186}达到300。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级50-58。",
+	-- ["Rich Thorium"] = "富瑟银矿",
+	-- ["Rich Thorium, Truesilver"] = "富瑟银、真银",
 	-- ["Rich Thorium: {zone:1428} (275-300)"] = "富瑟银矿：{zone:1428}（275-300）",
 	-- ["Silver, Tin"] = "银矿、锡矿",
+	-- ["Small Thorium & Rich Thorium: {zone:1452} (275-300)"] = "瑟银矿脉和富瑟银矿：{zone:1452}（275-300）",
+	-- ["Small Thorium, Rich Thorium"] = "瑟银矿脉、富瑟银矿",
 	-- ["Tin & Silver: {zone:1413} (65-125)"] = "锡矿和银矿：{zone:1413}（65-125）",
 	-- ["Tin & Silver: {zone:1424} (65-125)"] = "锡矿和银矿：{zone:1424}（65-125）",
 	-- ["Tin & Silver: {zone:1433} (65-125)"] = "锡矿和银矿：{zone:1433}（65-125）",

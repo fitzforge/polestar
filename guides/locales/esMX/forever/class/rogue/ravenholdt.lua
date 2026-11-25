@@ -63,8 +63,6 @@ return {
 	-- Step 9: Ain't No Telling
 	-- {item:275709} Stolen Funds
 	["She will not talk without something to bargain with. Her stash is upstairs in a house close to the keep: take the {item:275709}. If it is already open, wait for it to come back."] = "No va a hablar sin algo con qué negociar. Su escondite está en el piso de arriba de una casa cerca del castillo: toma {item:275709}. Si ya está abierto, espera a que vuelva.",
-	-- {item:275709} Stolen Funds
-	["{item:275709}: Anastasia's Stash"] = "{item:275709}: el escondite de Anastasia",
 
 	-- Step 10: The Syndicate Sting
 	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad · {item:275882} Intercepted Shipment · {item:275706} Syndicate Uniform · {npc:13085} Myrokos Silentform
@@ -83,6 +81,7 @@ return {
 	-- ["Opens {area:3486}, the hidden rogue house in the Alterac hills, and its first jobs."] = "Abre {area:3486}, la casa oculta de los pícaros en las colinas de Alterac, y sus primeros trabajos.",
 	-- ["Rite of Cunning"] = "Rite of Cunning",
 	-- ["{item:275482}: pickpocket Barton"] = "{item:275482}: roba del bolsillo a Barton",
+	-- ["{item:275709}: Anastasia's Stash"] = "{item:275709}: el escondite de Anastasia",
 	-- ["{npc:266216} is inside {area:275}, the Syndicate fortress in eastern {area:287}, south of the manor. Quick and quiet, says {npc:13085}."] = "{npc:266216} está dentro de {area:275}, la fortaleza de la Hermandad en el este de {area:287}, al sur de la mansión. Rápido y en silencio, dice {npc:13085}.",
 	-- ["{npc:6766}: {quest:6701}, repeatable"] = "{npc:6766}: {quest:6701}, repetible",
 }

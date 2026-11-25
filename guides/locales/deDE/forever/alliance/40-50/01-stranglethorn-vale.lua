@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in German words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1445} Dustwallow Marsh · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{zone:1445} first, then {zone:1434} and the {zone:1435}."] = "Zuerst {zone:1445}, dann {zone:1434} und {zone:1435}.",
+
 	-- Step 1: Theramore
 	["Theramore"] = "Theramore",
 	-- {quest:1260} Morgan Stern · {npc:4897} Helenia Olden
@@ -198,7 +202,7 @@ return {
 	["{npc:2624} swims off the north-west coast, on the northern loop"] = "{npc:2624} schwimmt vor der Nordwestküste, auf der nördlichen Runde",
 
 	-- Step 36: Booty Bay
-	["You missed this on the route's earlier visit here: take it now, before the Bloodsail camp. Its gorillas live on the hills just above the camp."] = "",
+	["You missed this on the route's earlier visit here: take it now, before the Bloodsail camp. Its gorillas live on the hills just above the camp."] = "Mistvale-Innereien",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "„Sea Wolf“ MacKinley, im obersten Stockwerk",
 
 	-- Step 37: Bloodsail pirates: kill these as you meet them
@@ -210,7 +214,7 @@ return {
 	-- Step 38: Gorilla hills
 	["Gorilla hills"] = "Gorillahügel",
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
-	["From the Bloodsail camp, climb into the Mistvale hills just east of it: the Elder Mistvale Gorillas (40) there drop the giblets."] = "",
+	["From the Bloodsail camp, climb into the Mistvale hills just east of it: the Elder Mistvale Gorillas (40) there drop the giblets."] = "Suche einzelne Level-40-Älter in diesemselben Lager für Sehnen und Innereien. Lass Level-41-Gorillas allein; bleibe nicht nur extra für Zähne.",
 
 	-- Step 39: Booty Bay
 	-- {npc:2488} Deeg
@@ -263,8 +267,10 @@ return {
 	["{npc:717}, beside the other hunters"] = "",
 
 	-- Step 49: Arbor Tarantula
-	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
-	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s {item:213565}."] = "Eine {npc:217588} kriecht im Dschungel südöstlich von Nesingwarys Lager, auf dem Weg zum {area:99}: Fang eine mit dem Werkzeug aus dem {item:213565} von {npc:217412}.",
+	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
+	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "Ein {npc:217588} krabbelt im Dschungel südöstlich von Nesingwarys Lager, auf dem Weg zu {area:99}: Öffne {item:213565} von {npc:217412} und benutze dessen {item:213562} an einem. Töte ihn nicht.",
+	-- {item:213562} Bug Catching Net · {npc:217588} Arbor Tarantula · {item:213566} Arbor Tarantula Specimen
+	["{item:213562}, on an {npc:217588}: the {item:213566}"] = "{item:213562}, an einem {npc:217588}: {item:213566}",
 
 	-- Step 50: Rebel Camp
 	["Head north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "Geh nach Nordosten an Nesingwarys Lager vorbei und folge der Straße nach Norden zum Lager am oberen Ende des Tals.",
@@ -282,8 +288,7 @@ return {
 	-- {item:216616} Compound Cage Key
 	["{item:216616}, from the Subchiefs (or the Elites)"] = "{item:216616}, von den Stabschefs (oder den Elitesoldaten)",
 	-- {item:216617} Kurzen Fighter's Uniform
-	-- was: ["{item:216617}, in the supply crate"] = "{item:216617}, in der Vorratskiste"
-	["{item:216617}, in the supply crate deep in the cave"] = "",
+	["{item:216617}, in the supply crate deep in the cave"] = "{item:216617}, in der Vorratskiste tief in der Höhle",
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, back at his cage on the way out"] = "{npc:218230}, auf dem Rückweg wieder an seinem Käfig",
 	-- {npc:218229} Captain Aransas · {area:35} Booty Bay
@@ -472,6 +477,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["\"Sea Wolf\" MacKinley: keep it, for the level-48 {area:35} stop, with Zanzil's village"] = "\"Seewolf\" MacKinley: Behalte sie für den Halt in {area:35} auf Stufe 48, zusammen mit Zanzils Dorf",
 	-- ["Alone, you skip Nesingwary's three elite hunts: take their experience from the Skullsplitter trolls of Zul'Mamwe instead, just east of the mine, so every kill also counts for {npc:737}'s tusks. Or, with a group, run the {area:1517} dungeon instead."] = "Allein überspringst du Nesingwarys drei Elite-Jagden: Hol dir ihre Erfahrung stattdessen von den Skullsplitter-Trollen von Zul'Mamwe, direkt östlich der Mine, sodass jeder Kill auch für die Hauer von {npc:737} zählt. Oder lauf mit einer Gruppe stattdessen den Dungeon {area:1517}.",
+	-- ["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s {item:213565}."] = "Eine {npc:217588} kriecht im Dschungel südöstlich von Nesingwarys Lager, auf dem Weg zum {area:99}: Fang eine mit dem Werkzeug aus dem {item:213565} von {npc:217412}.",
 	-- ["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. No Skyborne riding trainer is known; the Forever client files {spell:1285849} under the one Riding skill, so {npc:4732} at {area:88} in eastern {zone:1429}, the nearest trainer to {zone:1453}, should teach it (unconfirmed). The Galestriders are sold by {npc:265756} in {area:16638} on Zephras Isle; Collectibles, Mounts · Level 40 lists them."] = "Mit 40 und 100 Gold kannst du reiten lernen, und dabei erhältst du ein Reittier. Es ist kein Reitlehrer der Himmelsgeborenen bekannt; der Forever-Client führt {spell:1285849} unter der einen Reitfertigkeit, also sollte {npc:4732} in {area:88} im östlichen {zone:1429}, der nächste Lehrer bei {zone:1453}, es lehren (unbestätigt). Die Windschreiter verkauft {npc:265756} in {area:16638} auf der Insel Zephras; Sammelobjekte, Reittiere · Stufe 40 listet sie.",
 	-- ["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4732} teaches Humans at {area:88} in eastern {area:12}, beside {npc:384}'s horses. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour."] = "Mit 40 und 100 Gold kannst du reiten lernen, und dabei erhältst du ein Reittier. {npc:4732} lehrt Menschen in {area:88} im östlichen {area:12}, neben den Pferden von {npc:384}. In Forever kann womöglich jedes Volk bei jedem Reitlehrer lernen (unbestätigt). Sammelobjekte, Reittiere · Stufe 40 listet alle Farben.",
 	-- ["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4753} teaches Night Elves in {zone:1457}, beside {npc:4730}'s sabers: the boat from {area:17203} to {area:442}, then the flight to {area:702}. Forever may let any race learn from any riding trainer (unconfirmed), such as {npc:4732} at {area:88} in {area:12}. Collectibles, Mounts · Level 40 lists every colour."] = "Mit 40 und 100 Gold kannst du reiten lernen, und dabei erhältst du ein Reittier. {npc:4753} lehrt Nachtelfen in {zone:1457}, neben den Säblern von {npc:4730}: das Boot vom {area:17203} nach {area:442}, dann der Flug nach {area:702}. In Forever kann womöglich jedes Volk bei jedem Reitlehrer lernen (unbestätigt), etwa bei {npc:4732} in {area:88} im {area:12}. Sammelobjekte, Reittiere · Stufe 40 listet alle Farben.",

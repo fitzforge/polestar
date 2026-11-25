@@ -1,15 +1,12 @@
 //! The interface strings come from the client's language folder, Polestar_<locale> (#919): Core/Core.xml
 //! lists no translation, Core/Locale.lua loads the one folder of the client's language before any file
 //! reads L at load, and the folder's names and guide texts come in with it. An English client loads no
-//! folder; a missing one leaves the interface in English.
+//! folder; a missing one leaves the interface in English. The Language setting (PolestarLanguage, #3643)
+//! replaces the client's language at ADDON_LOADED with English or another shipped language.
 
-use forge_addontest::run::{toc_files, xml_files};
+use forge_addontest::run::{root, toc_files, xml_files};
 use forge_addontest::{emitted, lua_string, Addon, RunAddon};
 use serde_json::json;
-
-fn root() -> std::path::PathBuf {
-	std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../..").canonicalize().unwrap()
-}
 
 /// Lua for `before`: GetLocale() answers `locale`, the client knows the German language folder as a
 /// load-on-demand addon (stub_packs.lua) when `folder`, and every translation file Lua opens is listed in
@@ -127,8 +124,8 @@ emit({ BINDING_NAME_POLESTAR_NEXT, early, name, L["Previous step"], logged })"#
 }
 
 /// The chat lines at login naming a language folder, for a client in `locale` whose folder is installed
-/// (`folder`), and turned off in the AddOns list with `reason` "DISABLED".
-fn login_lines(locale: &str, folder: bool, reason: Option<&str>) -> serde_json::Value {
+/// (`folder`), and turned off in the AddOns list with `reason` "DISABLED"; `language`: PolestarLanguage.
+fn login_lines(locale: &str, folder: bool, reason: Option<&str>, language: Option<&str>) -> serde_json::Value {
 	let disabled = match reason {
 		Some(r) => format!(
 			r#"
@@ -149,26 +146,105 @@ end"#,
 		stubs: vec!["stub_packs.lua"],
 		before: format!("{}\n{disabled}", client(locale, folder)),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: language.map(|l| ("Polestar".to_string(), format!("PolestarLanguage = {}", lua_string(l)))).into_iter().collect(),
 		login: true,
 		script: r#"
 local out = {}
 for _, m in ipairs(stub.messages) do if m:find("language files", 1, true) then out[#out + 1] = m:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "") end end
 emit(table.concat(out, "\n"))"#
 			.into(),
-		..Default::default()
 	})
 	.remove(0)
 }
 
 #[test]
-fn a_missing_or_turned_off_language_folder_is_named_in_one_english_chat_line_at_login() {
-	let line = "Polestar: the German language files (Polestar_deDE) are missing or turned off in the AddOns list, so Polestar shows in English.";
-	assert_eq!(login_lines("deDE", false, None), json!(line), "not installed");
-	assert_eq!(login_lines("deDE", true, Some("DISABLED")), json!(line), "turned off in the AddOns list");
-	assert_eq!(login_lines("deDE", true, None), json!(""), "loaded: nothing to say");
-	assert_eq!(login_lines("enUS", false, None), json!(""), "an English client has no language folder");
-	assert_eq!(login_lines("itIT", false, None), json!(""), "Polestar ships no Italian, so there is none to miss");
-	assert_eq!(login_lines("zhTW", false, None), json!("Polestar: the Traditional Chinese language files (Polestar_zhTW) are missing or turned off in the AddOns list, so Polestar shows in English."));
+fn a_language_folder_missing_from_disk_is_named_in_one_english_chat_line_at_login_one_turned_off_is_not() {
+	let line = "Polestar: the German language files (Polestar_deDE) are missing, so Polestar shows in English.";
+	assert_eq!(login_lines("deDE", false, None, None), json!(line), "not installed");
+	assert_eq!(login_lines("deDE", true, Some("DISABLED"), None), json!(""), "turned off in the AddOns list: on purpose (#3643)");
+	assert_eq!(login_lines("deDE", true, None, None), json!(""), "loaded: nothing to say");
+	assert_eq!(login_lines("enUS", false, None, None), json!(""), "an English client has no language folder");
+	assert_eq!(login_lines("itIT", false, None, None), json!(""), "Polestar ships no Italian, so there is none to miss");
+	assert_eq!(login_lines("zhTW", false, None, None), json!("Polestar: the Traditional Chinese language files (Polestar_zhTW) are missing, so Polestar shows in English."));
+	assert_eq!(login_lines("deDE", false, None, Some("game")), json!(line), "Follow the game, saved as such");
+	assert_eq!(login_lines("deDE", false, None, Some("enUS")), json!(""), "English chosen: no folder is wanted");
+}
+
+/// A client in `locale` with the German folder installed, PolestarLanguage `language`, logged in: the key
+/// binding's name (read at load), L, our guide texts, a quest's name from the folder, the language shown,
+/// Polestar_deDE's loads and the chat lines about language files.
+fn chosen(locale: &str, language: &str) -> serde_json::Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_packs.lua"],
+		before: client(locale, true),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".into(), format!("PolestarLanguage = {}", lua_string(language)))],
+		login: true,
+		script: r#"
+local L, N, T = Polestar.L, Polestar.Names, Polestar.GuideTexts
+local said = 0
+for _, m in ipairs(stub.messages) do if m:find("language files", 1, true) then said = said + 1 end end
+emit({ BINDING_NAME_POLESTAR_NEXT, L["Previous step"], next(L) == nil, T.PackText("guides", "Polestar Guides"), N.Cached("quest", 7) or false, N.Language(), stub.packLoads.Polestar_deDE or 0, said })"#
+			.into(),
+	})
+	.remove(0)
+}
+
+#[test]
+fn english_chosen_on_a_german_client_empties_l_and_the_guide_texts_and_says_nothing() {
+	assert_eq!(
+		chosen("deDE", "enUS"),
+		json!(["Nächster Schritt", "Previous step", true, "Polestar Guides", false, "enUS", 1, 0]),
+		"the folder loaded while the files did (the key binding's name, read then, stays German until the setting is \
+		 read at ADDON_LOADED); from there on L is empty, the guide texts and names English, and no chat line"
+	);
+}
+
+#[test]
+fn german_chosen_on_an_english_client_loads_the_german_folder_at_addon_loaded() {
+	assert_eq!(
+		chosen("enUS", "deDE"),
+		json!(["Next step", "Vorheriger Schritt", false, "Polestar-Guides", "Säuberung im Koboldlager", "deDE", 1, 0]),
+		"the key binding's name was read in the client's English; the rest is German"
+	);
+	assert_eq!(chosen("deDE", "deDE")[6], json!(1), "the client's own language chosen: the folder loads once");
+	assert_eq!(chosen("deDE", "game")[1], json!("Vorheriger Schritt"), "Follow the game");
+	assert_eq!(chosen("deDE", "xxXX")[1], json!("Vorheriger Schritt"), "an unknown saved value follows the game");
+}
+
+#[test]
+fn the_language_command_sets_the_saved_choice_for_the_next_reload() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_packs.lua"],
+		before: client("deDE", true),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		login: true,
+		script: r#"
+local Lang, L = Polestar.Language, Polestar.L
+local seen = {}
+local function run(arg)
+	local before = #stub.messages
+	SlashCmdList.POLESTAR("language" .. arg)
+	seen[#seen + 1] = { Lang.Get(), PolestarLanguage or false, (stub.messages[#stub.messages] or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "") }
+end
+run(" English")
+run(" frfr")
+run(" klingon")
+run(" game")
+emit({ seen = seen, shown = L["Previous step"], set = Lang.Set("ruRU"), bad = Lang.Set("enGB"), get = Lang.Get() })"#
+			.into(),
+		..Default::default()
+	});
+	let seen = &out[0]["seen"];
+	assert_eq!(seen[0][0], json!("enUS"));
+	assert_eq!(seen[0][1], json!("enUS"), "kept in PolestarLanguage");
+	assert_eq!(seen[1][0], json!("frFR"));
+	assert_eq!(seen[2][0], json!("frFR"), "an unknown name changes nothing");
+	assert!(seen[2][2].as_str().unwrap().contains("klingon"), "{seen}");
+	assert_eq!(seen[3][0], json!("game"));
+	assert_eq!(seen[3][1], json!(false), "Follow the game saves nothing");
+	assert_eq!(out[0]["shown"], json!("Vorheriger Schritt"), "a choice shows from the next /reload, not before");
+	assert_eq!((&out[0]["set"], &out[0]["bad"], &out[0]["get"]), (&json!(true), &json!(false), &json!("ruRU")));
 }
 
 // tools/dev/!PolestarLocaleTest: on an English client, Polestar's own files (and the language folder's) read the
@@ -236,8 +312,8 @@ fn every_shipped_translation_with_positional_arguments_renders_with_its_english_
 local locales, files, count, bad = {{ {locales} }}, {{ {files} }}, 0, {{}}
 for i, loc in ipairs(locales) do
 	local L = {{}}
-	Polestar = {{ L = L }}
 	function GetLocale() return loc end
+	Polestar = {{ L = L, Names = {{ Language = GetLocale }} }}
 	dofile(files[i])
 	for key, text in pairs(L) do
 		if type(text) == "string" and text:find("%%%d+%$") then

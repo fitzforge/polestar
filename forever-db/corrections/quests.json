@@ -449,6 +449,22 @@
 		},
 		"note": "Daily Delivery (Einar Stonegrip, Wetlands) is the optional breadcrumb to Young Crocolisk Skins 484: it ends at James Halloran, who starts 484, and Einar stops offering it once 484 is taken (#615, 2026-10-20: Einar offered nothing after 484 was picked up; the knowledge base's own gotcha for 469 says the same). QuestieDB and pfQuest have no breadcrumb link, only `next` 484."
 	},
+	"472": {
+		"set": {
+			"breadcrumbFor": 304
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#3597 (Tilman, 0.4.2.1): with A Grim Task in the log Harlo Barnaby does not offer Fall of Dun Modr; abandoning A Grim Task brings the offer back"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2563 (Kiber_Mazai, 0.4.0): Harlo Barnaby no longer offers Fall of Dun Modr once A Grim Task is handed in"
+			}
+		],
+		"note": "Fall of Dun Modr (Harlo Barnaby, Menethil Harbor) is the breadcrumb to A Grim Task 304: it ends at Longbraid the Grim, who starts 304, and Harlo stops offering it while 304 is in the log or once it is handed in, as a breadcrumb does. The quest data links the two in no way (no prerequisite, exclusive group or breadcrumb)."
+	},
 	"489": {
 		"set": {
 			"start": {
@@ -2922,6 +2938,29 @@
 		],
 		"note": "Allegiance to the Old Gods (6564) starts from the Damp Note and needs no earlier quest: anyone holding the note can take it. The merged data made it wait for Trouble in the Deeps (6562)."
 	},
+	"6622": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": null,
+					"text": "15 Patients Saved!",
+					"map": 1417,
+					"f": "e",
+					"x": 73.4,
+					"y": 36.8
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#3706: Doctor Gregory Victor (12920) in Hammerfall (1417 73.3,36.9); the wounded soldiers are in the room with him"
+			}
+		],
+		"note": "Triage (6622, Horde): Doctor Gregory Victor and the wounded soldiers are in Hammerfall (Arathi Highlands 73.3,36.9), not at the Alliance clinic in Theramore."
+	},
 	"6641": {
 		"set": {
 			"escort": true
@@ -3951,6 +3990,50 @@
 		],
 		"note": "Lunar Fireworks (8867): the quest log's two lines, \"Lunar Fireworks Fired\" x8 and \"Lunar Fireworks Cluster Fired\" x2, as the game's quest objectives give them, at the Firework Launcher (180771) and the Cluster Launcher (180772) where they are fired. The game's objectives credit the invisible marker NPCs 15893 (\"Lunar Firework Credit Marker\") and 15894 (\"Lunar Cluster Credit Marker\"), whose names no player should read (#2614)."
 	},
+	"8922": {
+		"set": {
+			"preAny": [84147, 84148, 84149, 84150, 84151, 84152, 84153, 84154, 97447]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#3081: a Rogue's quest log holds An Earnest Proposition as quest 84152, with 8910's objectives (15 Winterspring Blood Samples, Shadowcraft Bracers): Forever's version of the quest before A Supernatural Device"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3918: a level 58 Gnome Mage's quest log holds An Earnest Proposition as quest 84149 (1 of 2 objectives) while the Lookup guide waited for 8907"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3765: a level 59 Night Elf Druid's quest log holds An Earnest Proposition as quest 84147 (1 of 2 objectives) while the Lookup guide waited for 8905"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, game build 70959; excluded contributors left out): a Human Paladin was offered An Earnest Proposition 84150 by Deliana (230319) and took it"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): Deliana (230319) gives An Earnest Proposition as 84148-84154 and 97447, each asking for the Winterspring Blood Samples and one class's set bracers, as the Classic copies 8905-8912 did"
+			}
+		],
+		"note": "A Supernatural Device (8922) follows any class's An Earnest Proposition for Deliana in Ironforge: Forever's versions, the Druid's 84147 (#3765), the Mage's 84149 (#3918), the Paladin's 84150 and the Rogue's 84152 (#3081) seen in players' logs and the rest by their bracers. The Classic copies 8905-8912 are removed (their Deliana, 16013, is not on Forever), so only Forever's versions lead here."
+	},
+	"8923": {
+		"set": {
+			"preAny": [84155, 84156, 84157, 84158, 84159, 84160, 84161, 84162, 97411]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, game build 70959; excluded contributors left out): at Mokvar (230317) in Orgrimmar a Troll Shaman took An Earnest Proposition 84160, two Scourge Paladins took 97411 and a Troll Warlock was offered 84161"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): Mokvar (230317) gives An Earnest Proposition as 84155-84162 and 97411, each asking for the Winterspring Blood Samples and one class's set bracers, as the Classic copies 8913-8920 did"
+			}
+		],
+		"note": "A Supernatural Device (8923) follows any class's An Earnest Proposition for Mokvar in Orgrimmar: Forever's versions, the Shaman's 84160, the Warlock's 84161 and the Paladin's 97411 seen in players' logs and the rest by their bracers (#3918, the Horde side of 8922's record). The Classic copies 8913-8920 are removed (their Mokvar, 16012, is not on Forever), so only Forever's versions lead here."
+	},
 	"9015": {
 		"set": {
 			"objectives": [
@@ -4540,32 +4623,412 @@
 		"note": "Venomous Journeys: ends with Owen Thadd (npc 211022) and Garion Wendell (npc 211033); as its ender the merged data lacked Owen Thadd (npc 211022)."
 	},
 	"84147": {
-		"remove": true,
+		"set": {
+			"title": "An Earnest Proposition",
+			"level": 60,
+			"minLevel": 58,
+			"races": 4294967373,
+			"classes": 1024,
+			"zone": 1455,
+			"start": { "npc": [230319], "object": [], "item": [] },
+			"end": { "npc": [230319], "object": [] },
+			"next": 8922,
+			"objectives": [
+				{ "type": "item", "id": 21928, "count": 15, "text": "Winterspring Blood Sample" },
+				{ "type": "item", "id": 16714, "count": 1, "text": "Wildheart Bracers" }
+			]
+		},
 		"source": [
 			{
-				"kind": "tdb",
-				"ref": "Forever server data (world database dump 2026-10-14): the quest table has An Earnest Proposition 8905 and no 84147"
+				"kind": "in-game-check",
+				"ref": "#3765: a level 59 Night Elf Druid's /polestar report has An Earnest Proposition as quest 84147 in the quest log (1 of 2 objectives) while the Lookup guide waited for 8905 at Deliana 16013"
 			},
 			{
 				"kind": "questie",
-				"ref": "QuestieDB (Questie-Forever) is the only source of 84147; pfQuest and the server have 8905 alone, with the same objectives, level and Alliance race mask"
+				"ref": "QuestieDB (Questie-Forever): 84147 asks for 15 Winterspring Blood Samples and a set of Wildheart Bracers for Deliana in Ironforge"
 			}
 		],
-		"note": "An Earnest Proposition 84147 is a second copy of 8905 (the same Deliana quest in Ironforge for Druids: 15 Winterspring Blood Samples and the Wildheart Bracers). Only one source lists it and Forever's server quest table has 8905 alone, so the Dungeons page listed the quest twice. The copy leaves the data."
+		"note": "An Earnest Proposition 84147 is the Druid's version Forever gives now: the 15 Winterspring Blood Samples and the Wildheart Bracers of 8905 for Deliana (230319) in Ironforge, before A Supernatural Device (8922). It left the data as a copy of 8905, which the server dump of 2026-10-14 had alone; then 8905 left too (its Deliana, 16013, is not on Forever), so no Druid version led to A Supernatural Device and a Druid holding 84147 was sent to take 8905 (#3765)."
+	},
+	"84148": {
+		"set": {
+			"classes": 4,
+			"next": 8922,
+			"objectives": [
+				{ "type": "item", "id": 21928, "count": 15, "text": "Winterspring Blood Sample" },
+				{ "type": "item", "id": 16681, "count": 1, "text": "Beaststalker's Bindings" }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): Deliana (230319) did not offer 84148, 84149 or 84154 to a Human Paladin, who took 84150 there"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): 84148 starts and ends at Deliana (230319) in Ironforge and asks for 15 Winterspring Blood Samples and a set of Beaststalker's Bindings"
+			}
+		],
+		"note": "An Earnest Proposition 84148 is the Hunter's version (the Beaststalker's Bindings of 8906) for Deliana in Ironforge, before A Supernatural Device (8922). With no class in the data every Alliance class could take it, and as the first of 8922's versions the Lookup guide sent every class without one in its log to take it; Deliana gives each class only its own (#4016, #3765)."
+	},
+	"84149": {
+		"set": {
+			"classes": 128,
+			"next": 8922,
+			"objectives": [
+				{ "type": "item", "id": 21928, "count": 15, "text": "Winterspring Blood Sample" },
+				{ "type": "item", "id": 16683, "count": 1, "text": "Magister's Bindings" }
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#3918: a level 58 Gnome Mage's /polestar report has An Earnest Proposition as quest 84149 in the quest log (1 of 2 objectives)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, game build 70959; excluded contributors left out): Deliana (230319) did not offer 84148, 84149 or 84154 to a Human Paladin, who took 84150 there"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): 84149 starts and ends at Deliana (230319) in Ironforge and asks for 15 Winterspring Blood Samples and a set of Magister's Bindings"
+			}
+		],
+		"note": "An Earnest Proposition 84149 is the Mage's version Forever gives now: the 15 Winterspring Blood Samples and the Magister's Bindings of 8907 for Deliana in Ironforge, before A Supernatural Device (8922). The data had no class or objectives for it, and 8922 did not follow it, so the Lookup guide for the chain waited for an accept of 8907 the player never saw (#3918)."
+	},
+	"84151": {
+		"set": {
+			"classes": 16,
+			"next": 8922,
+			"objectives": [
+				{ "type": "item", "id": 21928, "count": 15, "text": "Winterspring Blood Sample" },
+				{ "type": "item", "id": 16697, "count": 1, "text": "Devout Bracers" }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): Deliana (230319) gave a Human Paladin only the Paladin's 84150"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): 84151 starts and ends at Deliana (230319) in Ironforge and asks for 15 Winterspring Blood Samples and a set of Devout Bracers"
+			}
+		],
+		"note": "An Earnest Proposition 84151 is the Priest's version (the Devout Bracers of 8909) for Deliana in Ironforge, before A Supernatural Device (8922). The data had no class for it, so every Alliance class could be sent to take it (#4016, #3765)."
 	},
 	"84150": {
-		"remove": true,
+		"set": {
+			"title": "An Earnest Proposition",
+			"level": 60,
+			"minLevel": 58,
+			"races": 4294967373,
+			"classes": 2,
+			"zone": 1455,
+			"start": { "npc": [230319], "object": [], "item": [] },
+			"end": { "npc": [230319], "object": [] },
+			"next": 8922,
+			"objectives": [
+				{ "type": "item", "id": 21928, "count": 15, "text": "Winterspring Blood Sample" },
+				{ "type": "item", "id": 16722, "count": 1, "text": "Lightforge Bracers" }
+			]
+		},
 		"source": [
 			{
-				"kind": "tdb",
-				"ref": "Forever server data (world database dump 2026-10-14): the quest table has An Earnest Proposition 8908 and no 84150"
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, game build 70959; excluded contributors left out): a Human Paladin was offered An Earnest Proposition 84150 by Deliana (230319) twice and took it; the quest log listed two item lines, 15 of one and 1 of the other"
 			},
 			{
 				"kind": "questie",
-				"ref": "QuestieDB (Questie-Forever) is the only source of 84150; pfQuest and the server have 8908 alone, with the same objectives (15 Winterspring Blood Samples, Lightforge Bracers), level and Alliance race mask"
+				"ref": "QuestieDB (Questie-Forever): 84150 asks for 15 Winterspring Blood Samples and a set of Lightforge Bracers for Deliana in Ironforge"
 			}
 		],
-		"note": "An Earnest Proposition 84150 is a second copy of 8908 (the same Deliana quest in Ironforge for Paladins). Only one source lists it and Forever's server quest table has 8908 alone, so Scholomance's Alliance pick-up guide asked Deliana for An Earnest Proposition twice. The copy leaves the data."
+		"note": "An Earnest Proposition 84150 is the Paladin's version Forever gives now: the 15 Winterspring Blood Samples and the Lightforge Bracers of 8908 for Deliana (230319) in Ironforge, before A Supernatural Device (8922). It left the data on 2026-11-15 as a copy of 8908, which the server dump of 2026-10-14 had alone; game build 70959 gives 84150 (#3918)."
+	},
+	"84152": {
+		"set": {
+			"title": "An Earnest Proposition",
+			"level": 60,
+			"minLevel": 58,
+			"races": 4294967373,
+			"classes": 8,
+			"zone": 1455,
+			"start": { "npc": [230319], "object": [], "item": [] },
+			"end": { "npc": [230319], "object": [] },
+			"next": 8922,
+			"objectives": [
+				{ "type": "item", "id": 21928, "count": 15, "text": "Winterspring Blood Sample" },
+				{ "type": "item", "id": 16710, "count": 1, "text": "Shadowcraft Bracers" }
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#3081: a level 60 Gnome Rogue's /polestar report has An Earnest Proposition as quest 84152 in the quest log (1 of 2 objectives), asking for 15 Winterspring Blood Samples and Shadowcraft Bracers"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): Forever's Alliance An Earnest Proposition versions 84148, 84149 and 84154 start and end at Deliana (230319) in Ironforge, who also gives A Supernatural Device (8922)"
+			}
+		],
+		"note": "An Earnest Proposition 84152 is the Rogue's version Forever gives now (the server dump of 2026-10-14 had 8910 only): the same 15 Winterspring Blood Samples and Shadowcraft Bracers for Deliana in Ironforge, before A Supernatural Device. No source had it, so the Darkmantle Tunic guide waited for an accept of 8910 the player never saw and did not notice the 84152 in the log (#3081)."
+	},
+	"84153": {
+		"set": {
+			"classes": 256,
+			"next": 8922,
+			"objectives": [
+				{ "type": "item", "id": 21928, "count": 15, "text": "Winterspring Blood Sample" },
+				{ "type": "item", "id": 16703, "count": 1, "text": "Dreadmist Bracers" }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): Deliana (230319) gave a Human Paladin only the Paladin's 84150"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): 84153 starts and ends at Deliana (230319) in Ironforge and asks for 15 Winterspring Blood Samples and a set of Dreadmist Bracers"
+			}
+		],
+		"note": "An Earnest Proposition 84153 is the Warlock's version (the Dreadmist Bracers of 8911) for Deliana in Ironforge, before A Supernatural Device (8922). The data had no class for it, so every Alliance class could be sent to take it (#4016, #3765)."
+	},
+	"84154": {
+		"set": {
+			"classes": 1,
+			"next": 8922,
+			"objectives": [
+				{ "type": "item", "id": 21928, "count": 15, "text": "Winterspring Blood Sample" },
+				{ "type": "item", "id": 16735, "count": 1, "text": "Bracers of Valor" }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): Deliana (230319) did not offer 84148, 84149 or 84154 to a Human Paladin, who took 84150 there"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): 84154 starts and ends at Deliana (230319) in Ironforge and asks for 15 Winterspring Blood Samples and a set of Bracers of Valor"
+			}
+		],
+		"note": "An Earnest Proposition 84154 is the Warrior's version (the Bracers of Valor of 8912) for Deliana in Ironforge, before A Supernatural Device (8922). The data had no class for it, so every Alliance class could be sent to take it (#4016, #3765)."
+	},
+	"84155": {
+		"set": {
+			"classes": 1024,
+			"next": 8923,
+			"objectives": [
+				{ "type": "item", "id": 22381, "count": 15, "text": "Silithus Venom Sample" },
+				{ "type": "item", "id": 16714, "count": 1, "text": "Wildheart Bracers" }
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#4025: a level 60 Tauren Druid's /polestar report has An Earnest Proposition as quest 84155 in the quest log (0 of 2 objectives)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): Mokvar (230317) in Orgrimmar did not offer 84155 to a Troll Shaman, a Troll Warlock or two Scourge Paladins, who were each offered their own class's version"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): 84155 starts and ends at Mokvar (230317) and asks for 15 Silithus Venom Samples and a set of Wildheart Bracers"
+			}
+		],
+		"note": "An Earnest Proposition 84155 is the Druid's version (the Wildheart Bracers of 8913) for Mokvar in Orgrimmar, before A Supernatural Device (8923). With no class in the data every Horde class could take it, and as the first of 8923's versions the Lookup guide sent every class without one in its log to take it; Mokvar gives each class only its own (#4025)."
+	},
+	"84156": {
+		"set": {
+			"classes": 4,
+			"next": 8923,
+			"objectives": [
+				{ "type": "item", "id": 22381, "count": 15, "text": "Silithus Venom Sample" },
+				{ "type": "item", "id": 16681, "count": 1, "text": "Beaststalker's Bindings" }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): Mokvar (230317) in Orgrimmar did not offer 84156 to a Troll Shaman, a Troll Warlock or two Scourge Paladins, who were each offered their own class's version"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): 84156 starts and ends at Mokvar (230317) and asks for 15 Silithus Venom Samples and a set of Beaststalker's Bindings"
+			}
+		],
+		"note": "An Earnest Proposition 84156 is the Hunter's version (the Beaststalker's Bindings of 8914) for Mokvar in Orgrimmar, before A Supernatural Device (8923). The data had no class for it, so every Horde class could be sent to take it (#4025)."
+	},
+	"84157": {
+		"set": {
+			"classes": 128,
+			"next": 8923,
+			"objectives": [
+				{ "type": "item", "id": 22381, "count": 15, "text": "Silithus Venom Sample" },
+				{ "type": "item", "id": 16683, "count": 1, "text": "Magister's Bindings" }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): Mokvar (230317) in Orgrimmar did not offer 84157 to a Troll Shaman, a Troll Warlock or two Scourge Paladins, who were each offered their own class's version"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): 84157 starts and ends at Mokvar (230317) and asks for 15 Silithus Venom Samples and a set of Magister's Bindings"
+			}
+		],
+		"note": "An Earnest Proposition 84157 is the Mage's version (the Magister's Bindings of 8915) for Mokvar in Orgrimmar, before A Supernatural Device (8923). The data had no class for it, so every Horde class could be sent to take it (#4025)."
+	},
+	"84158": {
+		"set": {
+			"classes": 16,
+			"next": 8923,
+			"objectives": [
+				{ "type": "item", "id": 22381, "count": 15, "text": "Silithus Venom Sample" },
+				{ "type": "item", "id": 16697, "count": 1, "text": "Devout Bracers" }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): Mokvar (230317) in Orgrimmar did not offer 84158 to a Troll Shaman, a Troll Warlock or two Scourge Paladins, who were each offered their own class's version"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): 84158 starts and ends at Mokvar (230317) and asks for 15 Silithus Venom Samples and a set of Devout Bracers"
+			}
+		],
+		"note": "An Earnest Proposition 84158 is the Priest's version (the Devout Bracers of 8916) for Mokvar in Orgrimmar, before A Supernatural Device (8923). The data had no class for it, so every Horde class could be sent to take it (#4025)."
+	},
+	"84159": {
+		"set": {
+			"classes": 8,
+			"next": 8923,
+			"objectives": [
+				{ "type": "item", "id": 22381, "count": 15, "text": "Silithus Venom Sample" },
+				{ "type": "item", "id": 16710, "count": 1, "text": "Shadowcraft Bracers" }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): Mokvar (230317) in Orgrimmar did not offer 84159 to a Troll Shaman, a Troll Warlock or two Scourge Paladins, who were each offered their own class's version"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): 84159 starts and ends at Mokvar (230317) and asks for 15 Silithus Venom Samples and a set of Shadowcraft Bracers"
+			}
+		],
+		"note": "An Earnest Proposition 84159 is the Rogue's version (the Shadowcraft Bracers of 8917) for Mokvar in Orgrimmar, before A Supernatural Device (8923). The data had no class for it, so every Horde class could be sent to take it (#4025)."
+	},
+	"84160": {
+		"set": {
+			"classes": 64,
+			"next": 8923,
+			"objectives": [
+				{ "type": "item", "id": 22381, "count": 15, "text": "Silithus Venom Sample" },
+				{ "type": "item", "id": 16671, "count": 1, "text": "Bindings of Elements" }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, game build 70959; excluded contributors left out): a Troll Shaman was offered An Earnest Proposition 84160 by Mokvar (230317) in Orgrimmar and took it; the quest log listed two item lines, 15 of one and 1 of the other"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): 84160 starts and ends at Mokvar (230317) and asks for 15 Silithus Venom Samples and a set of Bindings of the Elements"
+			}
+		],
+		"note": "An Earnest Proposition 84160 is the Shaman's version Forever gives now: the 15 Silithus Venom Samples and the Bindings of Elements of 8918 for Mokvar in Orgrimmar, before A Supernatural Device (8923). The data had no class or objectives for it (#3918)."
+	},
+	"84161": {
+		"set": {
+			"classes": 256,
+			"next": 8923,
+			"objectives": [
+				{ "type": "item", "id": 22381, "count": 15, "text": "Silithus Venom Sample" },
+				{ "type": "item", "id": 16703, "count": 1, "text": "Dreadmist Bracers" }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, game build 70959; excluded contributors left out): Mokvar (230317) in Orgrimmar offered An Earnest Proposition 84161 to a Troll Warlock"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): 84161 starts and ends at Mokvar (230317) and asks for 15 Silithus Venom Samples and a set of Dreadmist Bracers"
+			}
+		],
+		"note": "An Earnest Proposition 84161 is the Warlock's version Forever gives now: the 15 Silithus Venom Samples and the Dreadmist Bracers of 8919 for Mokvar in Orgrimmar, before A Supernatural Device (8923). The data had no class or objectives for it (#3918)."
+	},
+	"84162": {
+		"set": {
+			"classes": 1,
+			"next": 8923,
+			"objectives": [
+				{ "type": "item", "id": 22381, "count": 15, "text": "Silithus Venom Sample" },
+				{ "type": "item", "id": 16735, "count": 1, "text": "Bracers of Valor" }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): Mokvar (230317) in Orgrimmar did not offer 84162 to a Troll Shaman, a Troll Warlock or two Scourge Paladins, who were each offered their own class's version"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): 84162 starts and ends at Mokvar (230317) and asks for 15 Silithus Venom Samples and a set of Bracers of Valor"
+			}
+		],
+		"note": "An Earnest Proposition 84162 is the Warrior's version (the Bracers of Valor of 8920) for Mokvar in Orgrimmar, before A Supernatural Device (8923). The data had no class for it, so every Horde class could be sent to take it (#4025)."
+	},
+	"97411": {
+		"set": {
+			"classes": 2,
+			"end": { "npc": [230317], "object": [] },
+			"next": 8923,
+			"objectives": [
+				{ "type": "item", "id": 22381, "count": 15, "text": "Silithus Venom Sample" },
+				{ "type": "item", "id": 16722, "count": 1, "text": "Lightforge Bracers" }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20, game build 70959; excluded contributors left out): two Scourge Paladins (2 people) were offered An Earnest Proposition 97411 by Mokvar (230317) in Orgrimmar and took it; the quest log listed 15 of an item and Lightforge Bracers"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): 97411 asks for 15 Silithus Venom Samples and a set of Lightforge Bracers for Mokvar in Orgrimmar"
+			}
+		],
+		"note": "An Earnest Proposition 97411 is the Horde Paladin's version: 15 Silithus Venom Samples and the Lightforge Bracers for Mokvar in Orgrimmar, before A Supernatural Device (8923). The data had no class, objectives or ender; it ends at Mokvar, who gives it, as every version of the chain ends with its giver (#3918)."
+	},
+	"97447": {
+		"set": {
+			"classes": 64,
+			"next": 8922,
+			"objectives": [
+				{ "type": "item", "id": 21928, "count": 15, "text": "Winterspring Blood Sample" },
+				{ "type": "item", "id": 16671, "count": 1, "text": "Bindings of Elements" }
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): Deliana (230319) gave a Human Paladin only the Paladin's 84150"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever): 97447 starts and ends at Deliana (230319) in Ironforge and asks for Winterspring Blood Samples and a set of Bindings of Elements"
+			}
+		],
+		"note": "An Earnest Proposition 97447 is the Alliance Shaman's version (the Bindings of Elements, as the Horde's 84160) for Deliana in Ironforge, before A Supernatural Device (8922). The data had no class for it and no count for the bindings, so every Alliance class could be sent to take it (#4016, #3765)."
 	},
 	"84396": {
 		"set": {
@@ -5253,7 +5716,8 @@
 	},
 	"92752": {
 		"set": {
-			"races": 4294967373
+			"races": 4294967373,
+			"preAll": [92749, 92751]
 		},
 		"source": [
 			{
@@ -5263,9 +5727,17 @@
 			{
 				"kind": "in-game-check",
 				"ref": "Forever dialog captures: a Human paladin handing in Moonbrook Espionage 92747 to Alba Fairmoon and taking Explosive Consultation 92748 and both Detonation at a Distance quests, client 1.60.1.70245"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-24 (Sprite Jumpsprocket's windows, 80 people): 59 people were offered Explosive Consultation; the 47 whose earlier windows show the chain all had the second Detonation at a Distance (92751) and A Dynamite Plan (92749) by then, 13 of them with A Dynamite Plan still in the log; a Night Elf Hunter who had handed 92751 in but never taken 92749 was refused it in 6 windows, Sprite offering A Dynamite Plan instead"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3357: Erik's report: Sprite offered Explosive Consultation only once A Dynamite Plan was taken and handed in"
 			}
 		],
-		"note": "Explosive Consultation (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
+		"note": "Explosive Consultation (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29. Sprite Jumpsprocket offers it once the second Detonation at a Distance (92751) is handed in and A Dynamite Plan (92749) is taken: the recordings show it offered with A Dynamite Plan still in the log and refused without it, and Erik's Deadmines pick-up guide (#3357), built when the data named only the Detonation, sent him to Sprite before A Dynamite Plan. The data has no \"taken\" prerequisite, so both are listed as done: the pick-up guide hands A Dynamite Plan in first, which the game accepts too."
 	},
 	"92753": {
 		"set": {
@@ -6451,6 +6923,28 @@
 		},
 		"note": "Seeking Caitlin (Llana, Astranaar) is the optional breadcrumb to Lost in the Thicket Things 95647 (Excavation Site: Wetlands): it ends at Caitlin Grassman, who starts 95647, and in game Llana stops offering it once 95647 is taken (issue #533). QuestieDB has no breadcrumb link."
 	},
+	"95771": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever server data (world database dump 2026-10-14): the quest table and the NPC and object starter and ender tables have no 95771, while the dump has Forever's new quests around it (95768 My Stuff's Better Than Your Stuff, 95774 Her Name Is Olgra)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.5 (Questie-Forever) has only the title for 95771: no giver, no ender and no objectives"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (13,982 sessions, 4 to 20 November): no one was offered, took or handed in 95771"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link beta quest scans, builds 1.60.1.70009 to 70532: 95771 switches between described and no data; the last one (70532, 22 to 23 October) has no data for it"
+			}
+		],
+		"note": "A Taste of Darkness (95771) is not in the game on Forever: the server's quest tables do not have it, no recorded player ever saw it, and the data has no giver, no ender and no objectives for it, so Lookup offered a quest no one can take. The quest leaves the data."
+	},
 	"95774": {
 		"set": {
 			"pre": [
@@ -7532,7 +8026,10 @@
 				],
 				"object": [],
 				"item": []
-			}
+			},
+			"objectives": [
+				{ "type": "event", "id": null, "count": 1, "text": "Find Mason Connery's Treasure", "map": 1436, "x": 43.4, "y": 67.9 }
+			]
 		},
 		"source": [
 			{
@@ -7546,9 +8043,17 @@
 			{
 				"kind": "questie",
 				"ref": "QuestieDB 1.1.1 Forever: two NPCs named Mason Connery, 264770 and 264845, and no other"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-24 (29 people): the quest log's one line at accept is \"Find Mason Connery's Treasure\" (an object, x1); 21 people ticked it and handed the quest in"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3382: Olivia's report: the treasure is found at a board right behind Connery's Trunk at Moonbrook, then the quest is handed in at the trunk"
 			}
 		],
-		"note": "More Valuable Than Gold (both factions): Mason Connery gives it inside Alcaz Prison once The Man in the Iron Chains is handed in (both of the data's Mason Connerys are listed: the recordings name no NPC id inside); level 48. With a giver it holds State Secrets back until it is done. The merged data had no giver and no minimum (#2560)."
+		"note": "More Valuable Than Gold (both factions): Mason Connery gives it inside Alcaz Prison once The Man in the Iron Chains is handed in (both of the data's Mason Connerys are listed: the recordings name no NPC id inside); level 48. With a giver it holds State Secrets back until it is done. The merged data had no giver and no minimum (#2560). Its one objective, finding Mason Connery's treasure, is done at a board right behind Connery's Trunk by Moonbrook, where it is handed in: placed there, the Alcaz Prison hand-in guide leads to it before the hand-in instead of listing the quest as not finished (#3382)."
 	},
 	"96376": {
 		"set": {
@@ -8021,24 +8526,27 @@
 	},
 	"97225": {
 		"set": {
-			"pre": [
-				805
-			],
-			"preAny": [
+			"pre": [],
+			"preAny": [],
+			"breadcrumbs": [
 				805
 			]
 		},
 		"source": [
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings since launch: 7 of 7 who took Forgotten Loa Idols handed in Report to Sen'jin Village (805) first, then went back to Master Vornal"
+				"ref": "players' in-game recordings to 2026-11-24 (Master Vornal's windows, 116 of them): 64 people were offered Forgotten Loa Idols; 14 people who stood at Vornal with Report to Sen'jin Village (805) in the log were not offered it"
 			},
 			{
 				"kind": "in-game-check",
 				"ref": "#796"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3214: Iriael's Skyborne Warrior held Forgotten Loa Idols, Minshina's Skull and Zalazane with Vile Familiars (1485) and Burning Blade Medallion (794) not done (/run IsQuestFlaggedCompleted: false for both), so never Report to Sen'jin Village, which Zureetha gives only after the Medallion"
 			}
 		],
-		"note": "Forgotten Loa Idols (Sen'jin Village, Master Vornal) is offered once Report to Sen'jin Village 805 is handed in: a Troll Shaman with 805 complete but not handed in was not offered it (#796), and every recorded player took it only after handing 805 in. No quest data names this prerequisite, so the Orc and Troll routes asked for it one goal before the hand-in."
+		"note": "Forgotten Loa Idols (Sen'jin Village, Master Vornal) is held back while Report to Sen'jin Village 805 is in the log: a Troll Shaman with 805 complete but not handed in was not offered it (#796), nor were 14 recorded players with 805 in the log. It does not need 805 done: a Skyborne who never took 805 (#3214) had it. So 805 is its breadcrumb, not a prerequisite. As a prerequisite it made Polestar count 805 and the Burning Blade Medallion before it as done for that character, ticking their lines in the Durotar guide although the game had neither."
 	},
 	"97265": {
 		"set": {
@@ -13082,7 +13590,8 @@
 				"object": [
 					625582
 				]
-			}
+			},
+			"escort": true
 		},
 		"source": [
 			{
@@ -13096,9 +13605,13 @@
 			{
 				"kind": "recording",
 				"ref": "players' recordings to 2026-11-11: 7 people accepted it, 7 handed it in"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3676"
 			}
 		],
-		"note": "Forever's Riverglades quest 94963, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to."
+		"note": "Forever's Riverglades quest 94963, missing from the merged data: created from the game's quest record, the quest log as players recorded it and the NPCs they took it from and handed it to. It is an escort (#3676): you lead Fuzzle out of Sunnyglade to his treasure west of the town and keep the cultists off him, and its one objective is that event, but its text never says escort, so the compiler's escort rule missed it and the step was not marked as one."
 	},
 	"95428": {
 		"set": {
@@ -17554,7 +18067,8 @@
 	},
 	"96076": {
 		"set": {
-			"minLevel": 60
+			"minLevel": 60,
+			"rotation": "pix-weekly"
 		},
 		"source": [
 			{
@@ -20233,52 +20747,58 @@
 		"note": "Rough Wolf Pelts (91751) is a level 8 quest on Forever; the data had 7."
 	},
 	"92847": {
-		"set": { "minLevel": 35 },
+		"set": { "minLevel": 35, "races": null },
 		"source": [
 			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 92847 requiredLevel 35" }
+			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 92847 requiredLevel 35" },
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): taken and handed in by 1 Night Elf player; QuestieDB 1.1.5's requiredRaces is the Horde races" }
 		],
-		"note": "Players can take Corrupting Tears (92847) only from level 35 on Forever; the data had 30."
+		"note": "Players can take Corrupting Tears (92847) only from level 35 on Forever; the data had 30. It has no race limit: an Alliance player took and handed it in, where QuestieDB 1.1.5 limits it to the Horde."
 	},
 	"92873": {
-		"set": { "minLevel": 35 },
+		"set": { "minLevel": 35, "races": null },
 		"source": [
 			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 92873 requiredLevel 35" }
+			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 92873 requiredLevel 35" },
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): taken and handed in by 1 Night Elf player; QuestieDB 1.1.5's requiredRaces is the Horde races" }
 		],
-		"note": "Players can take Proof of Concept (92873) only from level 35 on Forever; the data had 30."
+		"note": "Players can take Proof of Concept (92873) only from level 35 on Forever; the data had 30. It has no race limit: an Alliance player took and handed it in, where QuestieDB 1.1.5 limits it to the Horde."
 	},
 	"92893": {
-		"set": { "minLevel": 35 },
+		"set": { "minLevel": 35, "races": null },
 		"source": [
 			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 92893 requiredLevel 35" }
+			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 92893 requiredLevel 35" },
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): taken and handed in by 1 Night Elf player; QuestieDB 1.1.5's requiredRaces is the Horde races" }
 		],
-		"note": "Players can take No Mercy for the Weak (92893) only from level 35 on Forever; the data had 30."
+		"note": "Players can take No Mercy for the Weak (92893) only from level 35 on Forever; the data had 30. It has no race limit: an Alliance player took and handed it in, where QuestieDB 1.1.5 limits it to the Horde."
 	},
 	"92894": {
-		"set": { "minLevel": 35 },
+		"set": { "minLevel": 35, "races": null },
 		"source": [
 			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 92894 requiredLevel 35" }
+			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 92894 requiredLevel 35" },
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): taken and handed in by 1 Night Elf player; QuestieDB 1.1.5's requiredRaces is the Horde races" }
 		],
-		"note": "Players can take Bone Raising (92894) only from level 35 on Forever; the data had 30."
+		"note": "Players can take Bone Raising (92894) only from level 35 on Forever; the data had 30. It has no race limit: an Alliance player took and handed it in, where QuestieDB 1.1.5 limits it to the Horde."
 	},
 	"93035": {
-		"set": { "minLevel": 35 },
+		"set": { "minLevel": 35, "races": null },
 		"source": [
 			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93035 requiredLevel 35" }
+			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93035 requiredLevel 35" },
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): taken and handed in by 2 Alliance players (a Dwarf and an Alliance Skyborne); QuestieDB 1.1.5's requiredRaces is the Horde races" }
 		],
-		"note": "Players can take Ravaging Ravagers (93035) only from level 35 on Forever; the data had 30."
+		"note": "Players can take Ravaging Ravagers (93035) only from level 35 on Forever; the data had 30. It has no race limit: Alliance players took and handed it in, where QuestieDB 1.1.5 limits it to the Horde."
 	},
 	"93037": {
-		"set": { "minLevel": 35 },
+		"set": { "minLevel": 35, "races": null },
 		"source": [
 			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93037 requiredLevel 35" }
+			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93037 requiredLevel 35" },
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): taken and handed in by 2 Alliance players (a Dwarf and an Alliance Skyborne); QuestieDB 1.1.5's requiredRaces is the Horde races" }
 		],
-		"note": "Players can take Outing Outcasts (93037) only from level 35 on Forever; the data had 30."
+		"note": "Players can take Outing Outcasts (93037) only from level 35 on Forever; the data had 30. It has no race limit: Alliance players took and handed it in, where QuestieDB 1.1.5 limits it to the Horde."
 	},
 	"93041": {
 		"set": { "minLevel": 35 },
@@ -20303,36 +20823,40 @@
 		"note": "Players can take Saving Our Own (93058) only from level 35 on Forever; the data had 30. Its counted line is five Gelkis Captives rescued: one recording had credited the line to a Decrepit Pylon Protector killed nearby, so it stays an event in the quest log's words."
 	},
 	"93062": {
-		"set": { "minLevel": 35 },
+		"set": { "minLevel": 35, "races": null },
 		"source": [
 			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70938: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93062 requiredLevel 35" }
+			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93062 requiredLevel 35" },
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): taken and handed in by 2 Alliance players (a Dwarf and an Alliance Skyborne); QuestieDB 1.1.5's requiredRaces is the Horde races" }
 		],
-		"note": "Players can take Bone Burying (93062) only from level 35 on Forever; the data had 30."
+		"note": "Players can take Bone Burying (93062) only from level 35 on Forever; the data had 30. It has no race limit: Alliance players took and handed it in, where QuestieDB 1.1.5 limits it to the Horde."
 	},
 	"93066": {
-		"set": { "minLevel": 35 },
+		"set": { "minLevel": 35, "races": null },
 		"source": [
 			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93066 requiredLevel 35" }
+			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93066 requiredLevel 35" },
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): taken and handed in by 1 Night Elf player; QuestieDB 1.1.5's requiredRaces is the Horde races" }
 		],
-		"note": "Players can take Bristleback Retreat (93066) only from level 35 on Forever; the data had 30."
+		"note": "Players can take Bristleback Retreat (93066) only from level 35 on Forever; the data had 30. It has no race limit: an Alliance player took and handed it in, where QuestieDB 1.1.5 limits it to the Horde."
 	},
 	"93125": {
-		"set": { "minLevel": 35 },
+		"set": { "minLevel": 35, "races": null },
 		"source": [
 			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93125 requiredLevel 35" }
+			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93125 requiredLevel 35" },
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): no run of Going Home itself; Alliance players took and handed in the other centaur clans' quests (92847, 93035, 93196 and more); QuestieDB 1.1.5's requiredRaces is the Horde races" }
 		],
-		"note": "Players can take Going Home (93125) only from level 35 on Forever; the data had 30."
+		"note": "Players can take Going Home (93125) only from level 35 on Forever; the data had 30. Like the rest of the centaur clans' quests it has no race limit, where QuestieDB 1.1.5 limits it to the Horde."
 	},
 	"93196": {
-		"set": { "minLevel": 35 },
+		"set": { "minLevel": 35, "races": null },
 		"source": [
 			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93196 requiredLevel 35" }
+			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93196 requiredLevel 35" },
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): taken and handed in by 1 Night Elf player; QuestieDB 1.1.5's requiredRaces is the Horde races" }
 		],
-		"note": "Players can take Khan Jehn (93196) only from level 35 on Forever; the data had 30."
+		"note": "Players can take Khan Jehn (93196) only from level 35 on Forever; the data had 30. It has no race limit: an Alliance player took and handed it in, where QuestieDB 1.1.5 limits it to the Horde."
 	},
 	"95189": {
 		"set": { "minLevel": 15 },
@@ -20696,5 +21220,901 @@
 			}
 		],
 		"note": "CLUCK! (3861) is given and taken by any Chicken (620) the player feeds, so its hand-in is wherever chickens are. The 0.4.2 data build's chicken points moved that hand-in more than 200 yards, which is no move of the quest. Reviewed for 0.4.2 (data-diff gate, ender-moved)."
+	},
+	"90750": {
+		"set": {
+			"objectives": [
+				{ "type": "talk", "id": 251320, "count": 1, "text": "Speak with the worker" }
+			]
+		},
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 8 people (6 established) ran More Work?; every accept listed one line, 'Speak with the worker' x1, and it ticked as the Peasant's (251320) window opened (rec.py quest 90750)" },
+			{ "kind": "in-game-check", "ref": "#3486" }
+		],
+		"note": "More Work? (Mount Hyjal, Alliance): one line, speaking with the peasant north of Sefira Everbright; it ticks as his window opens. The data had no objectives, so the guide's talk to him waited for a gossip choice that never comes (#3486)."
+	},
+	"96622": {
+		"set": {
+			"objectives": [
+				{ "type": "talk", "id": 265862, "count": 1, "text": "Poultice Delivered to Enho" },
+				{ "type": "talk", "id": 265895, "count": 1, "text": "Poultice Delivered to Maruke" }
+			]
+		},
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 7 people (7 established) ran A Rest Without Pain; every accept listed two lines, 'Poultice Delivered to Enho' and 'Poultice Delivered to Maruke', each ticking as that NPC's window opened (Enho Runehoof 265862, Maruke 265895; rec.py quest 96622)" }
+		],
+		"note": "A Rest Without Pain (Mount Hyjal, Horde): two lines, one per wounded, each done by opening the NPC's window. The data had no objectives, so the guide's talks to them waited for a gossip choice that never comes (the pattern of #3486)."
+	},
+	"97540": {
+		"set": {
+			"pre": [
+				1560
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20 (excluded contributors left out): 19 people took Oasis from Tooga (5955), every one after handing in Tooga's Quest (1560) at Torta; nobody took it without that hand-in"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3546 (Gindry, German client): at the spot Tooga was missing and only Torta stood there; no quest could be taken without the escort first"
+			}
+		],
+		"note": "Oasis (Tanaris) is given by Tooga once Tooga's Quest is handed in: Tooga is led to Torta first, and only then gives it. The merged data had no prerequisite, so \"While you're here\" and the guide could offer it before the escort (#3546)."
+	},
+	"6804": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 6804, nor build 1.60.1.71037 (6 players' caches, 21-22 November); the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278)"
+			}
+		],
+		"note": "Poisoned Water (Duke Hydraxis, Azshara) is not in the game on Forever for now: the live server describes none of Duke Hydraxis's chain, and two players at level 56 and 60 were offered nothing by him. The chain leads to the Molten Core, which is not among the raids announced for Forever. The quest leaves the data, so the Blackrock Spire pick-up guide stops sending players to him (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"6805": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 6805, nor build 1.60.1.71037 (6 players' caches, 21-22 November); the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278)"
+			}
+		],
+		"note": "Stormers and Rumblers (Duke Hydraxis, Azshara) is not in the game on Forever for now: the live server describes none of Duke Hydraxis's chain, and two players at level 56 and 60 were offered nothing by him. The chain leads to the Molten Core, which is not among the raids announced for Forever. The quest leaves the data, so the Blackrock Spire pick-up guide stops sending players to him (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"6821": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 6821, nor build 1.60.1.71037 (6 players' caches, 21-22 November); the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278)"
+			}
+		],
+		"note": "Eye of the Emberseer (Duke Hydraxis, Azshara) is not in the game on Forever for now: the live server describes none of Duke Hydraxis's chain, and two players at level 56 and 60 were offered nothing by him. The chain leads to the Molten Core, which is not among the raids announced for Forever. The quest leaves the data, so the Blackrock Spire pick-up guide stops sending players to him for it (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"6822": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 6822, nor build 1.60.1.71037 (6 players' caches, 21-22 November); the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278)"
+			}
+		],
+		"note": "The Molten Core (Duke Hydraxis, Azshara) is not in the game on Forever for now: the live server describes none of Duke Hydraxis's chain, and two players at level 56 and 60 were offered nothing by him. The chain leads to the Molten Core, which is not among the raids announced for Forever. The quest leaves the data, so the Blackrock Spire pick-up guide stops sending players to him (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"6823": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 6823; the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278)"
+			}
+		],
+		"note": "Agent of Hydraxis (Duke Hydraxis, Azshara) is not in the game on Forever for now: the live server describes none of Duke Hydraxis's chain, and two players at level 56 and 60 were offered nothing by him. The chain leads to the Molten Core, which is not among the raids announced for Forever. The quest leaves the data, so the Blackrock Spire pick-up guide stops sending players to him (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"6824": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 6824, nor build 1.60.1.71037 (6 players' caches, 21-22 November); the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278)"
+			}
+		],
+		"note": "Hands of the Enemy (Duke Hydraxis, Azshara) is not in the game on Forever for now: the live server describes none of Duke Hydraxis's chain, and two players at level 56 and 60 were offered nothing by him. The chain leads to the Molten Core, which is not among the raids announced for Forever. The quest leaves the data, so the Blackrock Spire pick-up guide stops sending players to him (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"7486": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 7486, nor build 1.60.1.71037 (6 players' caches, 21-22 November); the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278)"
+			}
+		],
+		"note": "A Hero's Reward (Duke Hydraxis, Azshara) is not in the game on Forever for now: the live server describes none of Duke Hydraxis's chain, and two players at level 56 and 60 were offered nothing by him. The chain leads to the Molten Core, which is not among the raids announced for Forever. The quest leaves the data, so the Blackrock Spire pick-up guide stops sending players to him (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"7848": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 7848, nor build 1.60.1.71037 (6 players' caches, 21-22 November); the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278) and no one offered Attunement to the Core"
+			}
+		],
+		"note": "Attunement to the Core (Lothos Riftwaker, Blackrock Mountain) is not in the game on Forever for now: the live server describes neither it nor any quest of Duke Hydraxis's chain, and the Molten Core it opens is not among the raids announced for Forever. The quest leaves the data with the chain (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"9415": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20 (excluded contributors left out): nobody ever saw Scout Bloodfist (17081) or Rifleman Torrig (17082), no window of theirs, and 0 runs of 9415, 9416, 9419 or 9422, while Cenarion Hold's other quests are recorded many times"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3338 (Zack): at Cenarion Hold on two layers, Scout Bloodfist was not there and Report to General Kirika could not be taken"
+			}
+		],
+		"note": "Report to Marshal Bluewall (Alliance, from Rifleman Torrig (17082)) is not offered on Forever: the Silithus scouts who start this pair are not in the world, and no player has done either quest of it. The game still describes the quests, so they may come with later content. The quest leaves the data with its pair, so the Silithus guides and the Cenarion Circle guide stop sending players to it (#3338)."
+	},
+	"9416": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20 (excluded contributors left out): nobody ever saw Scout Bloodfist (17081) or Rifleman Torrig (17082), no window of theirs, and 0 runs of 9415, 9416, 9419 or 9422, while Cenarion Hold's other quests are recorded many times"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3338 (Zack): at Cenarion Hold on two layers, Scout Bloodfist was not there and Report to General Kirika could not be taken"
+			}
+		],
+		"note": "Report to General Kirika (Horde, from Scout Bloodfist (17081)) is not offered on Forever: the Silithus scouts who start this pair are not in the world, and no player has done either quest of it. The game still describes the quests, so they may come with later content. The quest leaves the data with its pair, so the Silithus guides and the Cenarion Circle guide stop sending players to it (#3338)."
+	},
+	"9419": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20 (excluded contributors left out): nobody ever saw Scout Bloodfist (17081) or Rifleman Torrig (17082), no window of theirs, and 0 runs of 9415, 9416, 9419 or 9422, while Cenarion Hold's other quests are recorded many times"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3338 (Zack): at Cenarion Hold on two layers, Scout Bloodfist was not there and Report to General Kirika could not be taken"
+			}
+		],
+		"note": "Scouring the Desert (Alliance, from Marshal Bluewall (17080), after Report to Marshal Bluewall) is not offered on Forever: the Silithus scouts who start this pair are not in the world, and no player has done either quest of it. The game still describes the quests, so they may come with later content. The quest leaves the data with its pair, so the Silithus guides and the Cenarion Circle guide stop sending players to it (#3338)."
+	},
+	"9422": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20 (excluded contributors left out): nobody ever saw Scout Bloodfist (17081) or Rifleman Torrig (17082), no window of theirs, and 0 runs of 9415, 9416, 9419 or 9422, while Cenarion Hold's other quests are recorded many times"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3338 (Zack): at Cenarion Hold on two layers, Scout Bloodfist was not there and Report to General Kirika could not be taken"
+			}
+		],
+		"note": "Scouring the Desert (Horde, from General Kirika (17079), after Report to General Kirika) is not offered on Forever: the Silithus scouts who start this pair are not in the world, and no player has done either quest of it. The game still describes the quests, so they may come with later content. The quest leaves the data with its pair, so the Silithus guides and the Cenarion Circle guide stop sending players to it (#3338)."
+	},
+	"1270": {
+		"set": {
+			"minLevel": 36
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#3192 (PierreAnken, Orc Hunter): at level 35 (80%) Ignatz \"Stinky\" offered nothing with nobody escorting him; at 36, back at the same spot, the quest was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: 41 people took Stinky's Escape (Horde), every run at level 36 or above but one: a character given it at 35 without Ignatz's window (a quest shared in a group); Ignatz's windows offered it to Horde characters from level 36 and to none below"
+			}
+		],
+		"note": "Stinky's Escape (Horde, Ignatz \"Stinky\" in Dustwallow Marsh) is offered from level 36 on Forever. The game's quest record and our data said 30, so the guide and \"While you're here\" sent players at 35 to a giver who offered nothing (#3192). The Alliance version (1222) is offered lower (a level 34 character in the recordings) and keeps 30."
+	},
+	"96075": {
+		"set": {
+			"title": "In Demand - Blackrock Legal Records",
+			"level": 60,
+			"minLevel": 60,
+			"rotation": "pix-weekly",
+			"zone": 1434,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 272017,
+					"count": 1,
+					"text": "Nefarion's Remit"
+				},
+				{
+					"type": "item",
+					"id": 272018,
+					"count": 1,
+					"text": "Overseer's License"
+				},
+				{
+					"type": "item",
+					"id": 272019,
+					"count": 1,
+					"text": "Bronzebeard Wedding Contract"
+				}
+			],
+			"objectiveText": "Acquire Nefarian's Remit from General Drakkisath in Blackrock Spire, Overseer's License from Overlord Wyrmthalak in Blackrock Spire, and Bronzebeard Wedding Contract from Emperor Thaurissan in Blackrock Depths, and bring them to Pix Xizzix in Booty Bay.",
+			"start": {
+				"npc": [
+					227853
+				]
+			},
+			"end": {
+				"npc": [
+					227853
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 96075 (client quest cache, builds 1.60.1.70959 and 1.60.1.71037): title, levels, the three objectives and their text; the live quest scans describe it (open)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: Pix Xizzix offered In Demand - Blackrock Legal Records to 4 people at level 60, 3 of them in windows where In Demand - Ancient Elven Curiosities (96076) was refused; he offered 96076 to 1 other, and no window offered both"
+			}
+		],
+		"note": "In Demand - Blackrock Legal Records, one of the In Demand quests Pix Xizzix (Booty Bay) offers, a different one each week, was missing from the merged data: created from the game's quest record. With it the data holds all four of his rotation (96075, 96076, 96087, 96088), so a pick-up guide can show whichever he offers this week (#3601)."
+	},
+	"96087": {
+		"set": {
+			"title": "In Demand - Plague Records",
+			"level": 60,
+			"minLevel": 60,
+			"rotation": "pix-weekly",
+			"zone": 1434,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 272023,
+					"count": 1,
+					"text": "Headmaster's Records"
+				},
+				{
+					"type": "item",
+					"id": 272024,
+					"count": 1,
+					"text": "Grain Shipment Records"
+				},
+				{
+					"type": "item",
+					"id": 272025,
+					"count": 1,
+					"text": "Dathrohan's Correspondence"
+				}
+			],
+			"objectiveText": "Acquire Headmaster's Records from Darkmaster Gandling, Grain Shipment Orders from Baron Rivendare, and Dathrohan's Correspondence from Grand Crusader Saidan Dathrohan, and bring them to Pix Xizzix in Booty Bay.",
+			"start": {
+				"npc": [
+					227853
+				]
+			},
+			"end": {
+				"npc": [
+					227853
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 96087 (client quest cache, builds 1.60.1.70959 and 1.60.1.71037): title, levels, the three objectives and their text; the live quest scans describe it (open)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no recorded window offered it yet; at level 60 Pix Xizzix offered one In Demand quest at a time (Blackrock Legal Records to 4 people, Ancient Elven Curiosities to 1, never both)"
+			}
+		],
+		"note": "In Demand - Plague Records, one of the In Demand quests Pix Xizzix (Booty Bay) offers, a different one each week, was missing from the merged data: created from the game's quest record. With it the data holds all four of his rotation (96075, 96076, 96087, 96088), so a pick-up guide can show whichever he offers this week (#3601)."
+	},
+	"96088": {
+		"set": {
+			"title": "In Demand - Titan Relics",
+			"level": 60,
+			"minLevel": 60,
+			"rotation": "pix-weekly",
+			"zone": 1434,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 272026,
+					"count": 1,
+					"text": "Ysera's Tear"
+				},
+				{
+					"type": "item",
+					"id": 272027,
+					"count": 1,
+					"text": "Mark of Xavius"
+				},
+				{
+					"type": "item",
+					"id": 272028,
+					"count": 1,
+					"text": "Freya's Sigil"
+				}
+			],
+			"objectiveText": "Acquire Ysera's Tear from the Shade of Eranikus in the Sunken Temple, a Mark of Xavius from Varrox Bleakhoof in Blackmaw Hold, and Freya's Sigil from Nanaya in the Shaper's Terrace, and bring them to Pix Xizzix in Booty Bay.",
+			"start": {
+				"npc": [
+					227853
+				]
+			},
+			"end": {
+				"npc": [
+					227853
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 96088 (client quest cache, builds 1.60.1.70959 and 1.60.1.71037): title, levels, the three objectives and their text; the live quest scans describe it (open)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no recorded window offered it yet; at level 60 Pix Xizzix offered one In Demand quest at a time (Blackrock Legal Records to 4 people, Ancient Elven Curiosities to 1, never both)"
+			}
+		],
+		"note": "In Demand - Titan Relics, one of the In Demand quests Pix Xizzix (Booty Bay) offers, a different one each week, was missing from the merged data: created from the game's quest record. With it the data holds all four of his rotation (96075, 96076, 96087, 96088), so a pick-up guide can show whichever he offers this week (#3601)."
+	},
+	"95042": {
+		"set": {
+			"doneBy": [
+				95111
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#2465 (Juamillas, Forsaken Paladin 25, 0.4.1.1): C_QuestLog.IsQuestFlaggedCompleted gave false for Seeking the Kor Gem (95042) and true for An Underrated Talent (95111), Ott's Masterwork (95125) and The Moonsilver Blade (95126); #2366 and #3296 report the same"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: 11 people handed Seeking the Kor Gem in and took An Underrated Talent after it; nobody took An Underrated Talent without that hand-in"
+			}
+		],
+		"note": "Seeking the Kor Gem (95042, the Forsaken Paladins' Moonsilver Blade chain) is never flagged completed by the game, even once the rest of the chain is done, so the class guide waited at Ulric Frostveil for an accept that could not come. It counts as done once An Underrated Talent (95111), the next quest of the chain, is in the log or handed in (#2465)."
+	},
+	"96959": {
+		"set": {
+			"objectives": [
+				{
+					"type": "object",
+					"id": 656668,
+					"count": 1,
+					"text": "South Bonfire lit"
+				},
+				{
+					"type": "object",
+					"id": 656669,
+					"count": 1,
+					"text": "Southeast Bonfire lit"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest records 96959, builds 1.60.1.70959 and 71037: two game-object objectives, 656668 \"South Bonfire lit\" and 656669 \"Southeast Bonfire lit\""
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: 14 people; the quest log lists South Bonfire lit first, and each line ticks on a cast of spell 1236393 at its bonfire"
+			}
+		],
+		"note": "Blademaster's Bonfires (Mount Hyjal, Dae'gun) is done by lighting two bonfires; our data had no objectives, so the guide could not see them lit and moved on to the hand-in with them still dark (#3531)."
+	},
+	"98903": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Win in Darkspear Islands"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 98903, builds 1.60.1.70840 and 70862: one objective, \"Win in Darkspear Islands\" x1, on the hidden credit NPC 275188"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 and 1.1.4: quest 98903 has one kill objective of NPC 275188, whose name is the placeholder \"Credit\"; 1.1.2 lists no objectives"
+			}
+		],
+		"note": "The Battle for Darkspear Islands! (Alliance, levels 30-39) is done by winning a Darkspear Islands battleground and returning to Brelinda McFarry at Northwatch Hold. QuestieDB 1.1.3 and newer give its one objective the credit NPC's placeholder name, so `forge data build` stopped (#3797); the objective now has the quest log's words."
+	},
+	"98904": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Win in Darkspear Islands"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 98904, build 1.60.1.70862: one objective, \"Win in Darkspear Islands\" x1, on the hidden credit NPC 275188"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 and 1.1.4: quest 98904 has one kill objective of NPC 275188, whose name is the placeholder \"Credit\"; 1.1.2 lists no objectives"
+			}
+		],
+		"note": "The Battle for Darkspear Islands! (Alliance, levels 40-49) is done by winning a Darkspear Islands battleground and returning to Brelinda McFarry at Northwatch Hold. QuestieDB 1.1.3 and newer give its one objective the credit NPC's placeholder name, so `forge data build` stopped (#3797); the objective now has the quest log's words."
+	},
+	"98905": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Win in Darkspear Islands"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link quest record 98905 from players' caches of the beta client, build 1.60.1.70450 (the live scans have none for it yet): one objective, \"Win in Darkspear Islands\" x1, on the hidden credit NPC 275188, as in the live records of 98903 and 98904"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 and 1.1.4: quest 98905 has one kill objective of NPC 275188, whose name is the placeholder \"Credit\"; 1.1.2 lists no objectives"
+			}
+		],
+		"note": "The Battle for Darkspear Islands! (Alliance, levels 50-60) is done by winning a Darkspear Islands battleground and returning to Brelinda McFarry at Northwatch Hold. QuestieDB 1.1.3 and newer give its one objective the credit NPC's placeholder name, so `forge data build` stopped (#3797); the objective now has the quest log's words."
+	},
+	"98906": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Win in Darkspear Islands"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 98906, builds 1.60.1.70840 and 70862: one objective, \"Win in Darkspear Islands\" x1, on the hidden credit NPC 275188"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 and 1.1.4: quest 98906 has one kill objective of NPC 275188, whose name is the placeholder \"Credit\"; 1.1.2 lists no objectives"
+			}
+		],
+		"note": "The Battle for Darkspear Islands! (Horde, levels 30-39) is done by winning a Darkspear Islands battleground and returning to Nizook Boof at The Merchant Coast. QuestieDB 1.1.3 and newer give its one objective the credit NPC's placeholder name, so `forge data build` stopped (#3797); the objective now has the quest log's words."
+	},
+	"98907": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Win in Darkspear Islands"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 98907, build 1.60.1.70862: one objective, \"Win in Darkspear Islands\" x1, on the hidden credit NPC 275188"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 and 1.1.4: quest 98907 has one kill objective of NPC 275188, whose name is the placeholder \"Credit\"; 1.1.2 lists no objectives"
+			}
+		],
+		"note": "The Battle for Darkspear Islands! (Horde, levels 40-49) is done by winning a Darkspear Islands battleground and returning to Nizook Boof at The Merchant Coast. QuestieDB 1.1.3 and newer give its one objective the credit NPC's placeholder name, so `forge data build` stopped (#3797); the objective now has the quest log's words."
+	},
+	"98908": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Win in Darkspear Islands"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link quest record 98908 from players' caches of the beta client, build 1.60.1.70450 (the live scans have none for it yet): one objective, \"Win in Darkspear Islands\" x1, on the hidden credit NPC 275188, as in the live records of 98906 and 98907"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3 and 1.1.4: quest 98908 has one kill objective of NPC 275188, whose name is the placeholder \"Credit\"; 1.1.2 lists no objectives"
+			}
+		],
+		"note": "The Battle for Darkspear Islands! (Horde, levels 50-60) is done by winning a Darkspear Islands battleground and returning to Nizook Boof at The Merchant Coast. QuestieDB 1.1.3 and newer give its one objective the credit NPC's placeholder name, so `forge data build` stopped (#3797); the objective now has the quest log's words."
+	},
+	"94971": {
+		"set": {
+			"pre": [],
+			"preAll": [],
+			"preAny": [],
+			"breadcrumbs": [
+				97022
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-18 (excluded contributors left out): Danitha Morr offered A Paladin's Steed at 40 to an Undead Paladin who had never taken Report to Danitha (97022) and had trained at Bandarion Keep, and 5 people took it right after handing 97022 in to her (game builds 70862 to 70938)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14's Forever quest rows (generated base, 2026-11-11): A Paladin's Steed has no prerequisite"
+			}
+		],
+		"note": "A Paladin's Steed (94971, Danitha Morr at Bandarion Keep, the Forsaken paladins' warhorse) needs no earlier quest: Report to Danitha (97022, from Garen Largo, the Undercity's paladin trainer) only sends the player to her. The merged data had 97022 as its prerequisite, from players taking the two in a row, so a paladin who went straight to Danitha would have been told to fetch the errand first (#2898)."
+	},
+	"95198": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Relieve Jaina's guard and eavesdrop",
+					"map": 1445,
+					"f": "e",
+					"x": 66.3,
+					"y": 49
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-22: 5 characters at levels 49-51 took it from Sully Balloo (260271); at accept their quest log had one line, x1 \"Relieve Jaina's guard and eavesdrop\" (French client: \"Remplacer le garde de Jaina et espionner\"), ticked 1/1 before the hand-in to Sully"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3739"
+			}
+		],
+		"note": "The Return of the King? (Theramore) had no objectives in our data, so the Alcaz Prison pick-up guide sent players straight back to Sully Balloo to hand it in (#3739). Its one quest-log line is the eavesdropping: with Sully's SI:7 Disguise Kit, relieve Jaina's guard at the Theramore Mage Tower and listen in. The objective's place is Lady Jaina Proudmoore's spot in the tower (our NPC data: 1445 66.3,49.0); the quest's own text names the tower."
+	},
+	"4903": {
+		"set": {
+			"pre": [
+				98325
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20 (excluded contributors left out): 63 windows of Warlord Goretooth (9077) by 7 people, Warlord's Command offered in none of them; 5 people at levels 55-57 who could take it were refused it while Blood and Thunder (98325) was not handed in; all 4 people who took it (levels 56-57) took it from an item's window, with no NPC, after handing in Blood and Thunder to him"
+			}
+		],
+		"note": "Warlord's Command (Kargath, Horde Blackrock Spire attunement) opens only after Blood and Thunder: Warlord Goretooth first gives Blood and Thunder, and once it is handed in the player gets his written command and takes Warlord's Command from it. Our data had no prerequisite, so the Blackrock Spire pick-up guide sent players to him for Warlord's Command while he offered only Blood and Thunder; Eitrigg's Wisdom and For The Horde! come after it."
+	},
+	"8929": {
+		"set": {
+			"preAny": [84163, 84164, 84165, 84166, 84167, 84168, 84169, 84170]
+		},
+		"source": { "kind": "questie", "ref": "QuestieDB (Questie-Forever): Deliana (230319) gives Just Compensation as 84163-84170, each asking for the same two set pieces as one of the Classic copies 8926 and 8931-8937" },
+		"note": "In Search of Anthion (Alliance) follows Just Compensation. The Classic copies the data chained it to (8926, 8931-8937) are removed with their giver Deliana (16013), who is not on Forever, so it now follows Forever's versions from Deliana (230319), matched to the Classic ones class by class by the set pieces they ask for; without them it would have no prerequisite at all."
+	},
+	"8930": {
+		"set": {
+			"preAny": [84171, 84172, 84173, 84174, 84175, 84176, 84177, 84178, 97412]
+		},
+		"source": { "kind": "questie", "ref": "QuestieDB (Questie-Forever): Mokvar (230317) gives Just Compensation as 84171-84178 and 97412, each asking for the same two set pieces as one of the Classic copies 8927 and 8938-8944 (97412: the Paladin's, as Alliance 8933)" },
+		"note": "In Search of Anthion (Horde) follows Just Compensation. The Classic copies the data chained it to (8927, 8938-8944) are removed with their giver Mokvar (16012), who is not on Forever, so it now follows Forever's versions from Mokvar (230317), matched class by class by the set pieces they ask for; without them it would have no prerequisite at all."
+	},
+	"8905": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "An Earnest Proposition (Druid): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8906": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "An Earnest Proposition (Hunter): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8907": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "An Earnest Proposition (Mage): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8908": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "An Earnest Proposition (Paladin): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8909": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "An Earnest Proposition (Priest): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8910": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "An Earnest Proposition (Rogue): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8911": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "An Earnest Proposition (Warlock): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8912": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "An Earnest Proposition (Warrior): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8913": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "An Earnest Proposition (Druid): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8914": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "An Earnest Proposition (Hunter): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8915": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "An Earnest Proposition (Mage): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8916": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "An Earnest Proposition (Priest): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8917": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "An Earnest Proposition (Rogue): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8918": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "An Earnest Proposition (Shaman): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8919": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "An Earnest Proposition (Warlock): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8920": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "An Earnest Proposition (Warrior): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8926": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "Just Compensation (Druid): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8927": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "Just Compensation (Druid): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8931": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "Just Compensation (Hunter): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8932": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "Just Compensation (Mage): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8933": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "Just Compensation (Paladin): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8934": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "Just Compensation (Priest): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8935": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "Just Compensation (Rogue): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8936": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "Just Compensation (Warlock): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8937": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Deliana 16013; 147 people passed her spot in Ironforge, 90 of them saw Forever's Deliana (230319) there, who offered only Forever's versions (84150)" },
+		"note": "Just Compensation (Warrior): the Classic copy given by Deliana (16013), who is not on Forever; Forever's Deliana (230319) stands in her place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8938": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "Just Compensation (Hunter): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8939": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "Just Compensation (Mage): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8940": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "Just Compensation (Priest): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8941": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "Just Compensation (Rogue): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8942": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "Just Compensation (Shaman): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8943": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "Just Compensation (Warlock): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"8944": {
+		"remove": true,
+		"source": { "kind": "recording", "ref": "players' in-game recordings to 2026-11-20: nobody ever saw Mokvar 16012; 138 people passed his spot in Orgrimmar, 87 of them saw Forever's Mokvar (230317) there, who offered only Forever's versions (84160, 84161, 97411)" },
+		"note": "Just Compensation (Warrior): the Classic copy given by Mokvar (16012), who is not on Forever; Forever's Mokvar (230317) stands in his place with Forever's own versions. It leaves the data so the Dungeons pages stop listing the step twice."
+	},
+	"92551": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): taken by 23 Horde Skyborne and 18 Alliance Skyborne players"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.5: requiredRaces 4294967296 (Alliance Skyborne only; 1.1.2: none)"
+			}
+		],
+		"note": "Stolen Supplies (Zephras Isle) has no race limit: both Skyborne starts take it from Danarii Bellowveil (23 Horde Skyborne and 18 Alliance Skyborne players in recordings). QuestieDB 1.1.5 narrowed it to Alliance Skyborne, which would close it to the Horde Skyborne who start there."
+	},
+	"95793": {
+		"set": {
+			"races": null
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): taken by 9 Horde players (Orc, Undead, Troll) and 8 Alliance players (Dwarf, Gnome, Human, Night Elf)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.5: requiredRaces 4294967373 (the Alliance races; 1.1.2: none)"
+			}
+		],
+		"note": "Stemming the Demon Tide (Mount Hyjal) is open to both factions: 9 Horde and 8 Alliance players took it in recordings. QuestieDB 1.1.5 limits it to the Alliance, which would take it out of the Horde's Mount Hyjal route."
+	},
+	"87494": {
+		"set": {
+			"start": { "npc": [], "object": [], "item": [280459] }
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): 35 people opened the quest's window with no NPC, at different spots in Un'Goro Crater (the Crystal Infused Scale), and handed it in to Torwa Pathfinder (9619)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.5: startedBy NPC 9619 (1.1.2: no starter)"
+			}
+		],
+		"note": "Microcrystal Contamination starts from the Crystal Infused Scale, not from Torwa Pathfinder: players open it where the scale drops and take it to Torwa, as the quest text says. QuestieDB 1.1.5 lists Torwa as its giver too, which would send players to him for the accept."
+	},
+	"84377": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.5: finishedBy Master Mathias Shaw (332) and General Marcus Jonathan (466), both in Stormwind (1.1.2: no ender); its follow-up of the same name (97883) is Alliance only (requiredRaces 4294967373)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20): nobody took or handed in the quest; the starting item (227911) was seen by one Alliance player"
+			}
+		],
+		"note": "End of the Dark Horde is the Alliance's: it is handed in to Stormwind's Master Mathias Shaw or General Marcus Jonathan and goes on to an Alliance-only follow-up. With no race limit, the Horde's Blackrock Spire hand-in guide sent Horde players to Stormwind."
 	}
 }

@@ -110,7 +110,7 @@ fn along_goals_show_under_the_card_while_the_route_is_past_them_then_and_up_next
 	// Step 1: nothing is along yet; Up next leaves out the along step 3.
 	assert_eq!(login["step"], 1);
 	assert_eq!(login["shown"], false);
-	assert_eq!(login["after"], "Then: Marshal McBride");
+	assert_eq!(login["after"], "Next step: Marshal McBride");
 	assert_eq!(login["upnext"], json!([2, 4, 5]));
 
 	// Taking 7 passes over the along step: step 4, with the kobolds along the way.

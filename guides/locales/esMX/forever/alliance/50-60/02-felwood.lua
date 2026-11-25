@@ -6,15 +6,19 @@
 -- A token marked "no name in this language" would show in English: write that name in Spanish (Latin America) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1448} Felwood · {area:2255} Everlook · {zone:1457} Darnassus · {zone:1444} Feralas
+	["{zone:1448} and a stop in {area:2255}, then {zone:1457} and {zone:1444}."] = "{zone:1448} y una parada en {area:2255}, luego {zone:1457} y {zone:1444}.",
+
 	-- Step 1: Felwood
 	-- {area:3137} Talrendis Point · {area:2358} Forest Song · {zone:1448} Felwood · {area:2479} Emerald Sanctuary · {zone:1440} Ashenvale
-	["From {area:3137} ride west along the road past {area:2358}, then north-west into {zone:1448}: the {area:2479} is the druids' camp on the road just past the {zone:1440} border."] = "",
+	["From {area:3137} ride west along the road past {area:2358}, then north-west into {zone:1448}: the {area:2479} is the druids' camp on the road just past the {zone:1440} border."] = "Desde {area:3137}, cabalga al oeste por el camino pasando {area:2358} y luego al noroeste hacia {zone:1448}: {area:2479} es el campamento de los druidas en el camino, justo pasando el límite de {zone:1440}.",
 	-- {area:2479} Emerald Sanctuary
 	["The {area:2479}"] = "{area:2479}",
 
 	-- Step 2: The Emerald Sanctuary
 	-- {area:2479} Emerald Sanctuary · {zone:1448} Felwood
-	["The {area:2479} is the druids' camp by the road in southern {zone:1448}."] = "",
+	["The {area:2479} is the druids' camp by the road in southern {zone:1448}."] = "{area:2479} es el campamento de los druidas junto al camino en el sur de {zone:1448}.",
 	-- {npc:9528} Arathandris Silversky · {npc:11554} Grazle
 	["{npc:9528}, in the ruins just east of {npc:11554}"] = "{npc:9528}, en las ruinas justo al este de {npc:11554}",
 	-- {npc:9116} Eridan Bluewind
@@ -29,8 +33,7 @@ return {
 	-- Step 4: Deadwood Village
 	-- {npc:11554} Grazle · {npc:15395} Nafien
 	-- plural, as words: Deadwood Headdress Feathers = {item:21377} Deadwood Headdress Feather
-	-- was: ["The Deadwood furbolgs live in the village just south-west of {npc:11554}; keep the Deadwood Headdress Feathers they drop."] = "Los fúrbolgs Muertobosque viven en la aldea justo al suroeste de {npc:11554}; guarda las plumas de penacho de Muertobosque que sueltan."
-	["The Deadwood furbolgs live in the village just south-west of {npc:11554}; keep the Deadwood Headdress Feathers they drop: {npc:11554} and {npc:15395} each take five."] = "",
+	["The Deadwood furbolgs live in the village just south-west of {npc:11554}; keep the Deadwood Headdress Feathers they drop: {npc:11554} and {npc:15395} each take five."] = "Los fúrbolgs Muertobosque viven en la aldea justo al suroeste de {npc:11554}; guarda las plumas de penacho de Muertobosque que sueltan: {npc:11554} y {npc:15395} reciben cinco cada uno.",
 
 	-- Step 5: Grazle
 	-- {npc:15395} Nafien · {zone:1448} Felwood
@@ -47,7 +50,7 @@ return {
 
 	-- Step 8: Jaedenar
 	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge
-	["{area:1763} is the ruined temple north of the glen.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him."] = "",
+	["{area:1763} is the ruined temple north of the glen.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him."] = "{area:1763} es el templo en ruinas al norte de la cañada.\nCuidado: el {npc:11141} (53, élite) ronda el extremo oeste de {area:1763}, alrededor de 35,60: trabaja el sureste, donde marca la flecha, y aleja de él a los sectarios y los canes.",
 	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "{item:11949}: los mocos corruptos se deslizan por las pozas viles de {area:1763}",
@@ -88,9 +91,9 @@ return {
 
 	-- Step 16: The Emerald Sanctuary
 	-- {zone:1457} Darnassus
-	["The vial is filled in {zone:1457}, later in this guide: keep it; inside"] = "",
+	["The vial is filled in {zone:1457}, later in this guide: keep it; inside"] = "El vial se llena en {zone:1457}, más adelante en esta guía: guárdalo; adentro",
 	-- {area:392} Ratchet
-	["Ends in {area:392}, on the next guide: keep it"] = "",
+	["Ends in {area:392}, on the next guide: keep it"] = "Termina en {area:392}, en la siguiente guía: guárdala",
 
 	-- Step 17: Nafien
 	-- {area:1769} Timbermaw Hold · {npc:15395} Nafien
@@ -98,20 +101,19 @@ return {
 
 	-- Step 18: Felpaw Village
 	-- {area:1762} Felpaw Village
-	["The Deadwood furbolgs of {area:1762} fill the hills west of the cave.\nCareful: Den Watchers are level 53-54 and the Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "",
+	["The Deadwood furbolgs of {area:1762} fill the hills west of the cave.\nCareful: Den Watchers are level 53-54 and the Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "Los fúrbolgs Muertobosque de {area:1762} llenan las colinas al oeste de la cueva.\nCuidado: los vigías del cubil son de nivel 53-54 y los vengadores de 54-55; llaman a los aliados cercanos en 25 m al bajar del 50 % de salud y huyen a pedir ayuda por debajo del 15 %.",
 
 	-- Step 19: Deadwood Ritual Totem
 	-- {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
-	["Only if the Timbermaw are already Neutral to you: the Deadwood furbolgs drop a {quest:8470} about one kill in thirty, and {npc:11558} just inside {area:1769} takes it. Below Neutral the quest is refused: it needs Neutral with the Timbermaw; the reputation guide gets you there."] = "",
+	["Only if the Timbermaw are already Neutral to you: the Deadwood furbolgs drop a {quest:8470} about one kill in thirty, and {npc:11558} just inside {area:1769} takes it. Below Neutral the quest is refused: it needs Neutral with the Timbermaw; the reputation guide gets you there."] = "Solo si los Fauces de Madera ya te son neutrales: los fúrbolgs Muertobosque sueltan un {quest:8470} más o menos una vez de cada treinta, y {npc:11558}, justo dentro de {area:1769}, lo recibe. Por debajo de Neutral la misión se rechaza: necesita Neutral con los Fauces de Madera; la guía de reputación te lleva hasta ahí.",
 
 	-- Step 20: Nafien
 	-- {npc:11556} Salfa · {zone:1452} Winterspring
-	-- was: ["Salfa stands at the {zone:1452} end of the tunnel: keep it"] = "Salfa está en el extremo de {zone:1452} del túnel: guárdala"
-	["{npc:11556} stands at the {zone:1452} end of the tunnel"] = "",
+	["{npc:11556} stands at the {zone:1452} end of the tunnel"] = "{npc:11556} está en el extremo de {zone:1452} del túnel",
 
 	-- Step 22: Timbermaw Hold
 	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside. She needs Neutral with the Timbermaw; the reputation guide gets you there."] = "",
+	["Step into the cave: {npc:11558} stands just inside. She needs Neutral with the Timbermaw; the reputation guide gets you there."] = "Entra a la cueva: {npc:11558} está justo en la entrada. Necesita Neutral con los Fauces de Madera; la guía de reputación te lleva hasta ahí.",
 	-- {npc:11558} Kernda
 	["{npc:11558}: walks around here: look inside the circle on the map"] = "{npc:11558}: recorre esta zona: busca dentro del círculo del mapa",
 
@@ -119,7 +121,7 @@ return {
 	-- {zone:1452} Winterspring
 	["Into {zone:1452}"] = "Hacia {zone:1452}",
 	-- {area:1769} Timbermaw Hold · {zone:1452} Winterspring
-	["Walk through {area:1769}'s tunnel to its {zone:1452} end."] = "",
+	["Walk through {area:1769}'s tunnel to its {zone:1452} end."] = "Recorre el túnel de {area:1769} hasta su extremo de {zone:1452}.",
 
 	-- Step 24: Salfa
 	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
@@ -127,94 +129,96 @@ return {
 
 	-- Step 25: Donova Snowden
 	-- {npc:9298} Donova Snowden
-	["Ride south to {npc:9298}'s camp beside the hot springs."] = "",
+	["Ride south to {npc:9298}'s camp beside the hot springs."] = "Cabalga al sur hasta el campamento de {npc:9298}, junto a las aguas termales.",
 	-- {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
-	["Keep it: {npc:7775} in {zone:1444}, later in this guide, brews the elixir"] = "",
+	["Keep it: {npc:7775} in {zone:1444}, later in this guide, brews the elixir"] = "Guárdala: {npc:7775} en {zone:1444}, más adelante en esta guía, prepara el elixir",
 
 	-- Step 26: Everlook
 	-- {area:2255} Everlook
 	["Ride east along the road to {area:2255}."] = "Cabalga al este por el camino hasta {area:2255}.",
 	-- {zone:1452} Winterspring
-	["The Chillwind horns come on the next guide's {zone:1452} loop: keep it"] = "",
+	["The Chillwind horns come on the next guide's {zone:1452} loop: keep it"] = "Los cuernos Viento Gélido vienen en el recorrido por {zone:1452} de la siguiente guía: guárdala",
 
 	-- Step 27: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
 	["Fly to {area:702}"] = "Vuela a {area:702}",
 	-- {npc:11138} Maethrya
-	["{npc:11138}, the Alliance flight master"] = "",
+	["{npc:11138}, the Alliance flight master"] = "{npc:11138}, la maestra de vuelo de la Alianza",
 
 	-- Step 28: Rut'theran Village
 	-- {npc:7916} Erelas Ambersky · {quest:3661} Favored of Elune? · {zone:1425} Hinterlands
-	["{npc:7916}: {quest:3661}, the feathers from the {zone:1425}"] = "",
-	-- {npc:7916} Erelas Ambersky · {zone:1452} Winterspring
-	["{npc:7916}: the wildkin feathers lie along {zone:1452}'s road, on the next guide; {npc:7916} takes them on the Plaguelands guide's way through: keep it"] = "",
+	["{npc:7916}: {quest:3661}, the feathers from the {zone:1425}"] = "{npc:7916}: {quest:3661}, las plumas de {zone:1425}",
 
-	-- Step 29: Daryn Lightwind
+	-- Step 29: Rut'theran Village
+	-- {npc:7916} Erelas Ambersky · {zone:1452} Winterspring
+	["{npc:7916}: the wildkin feathers lie along {zone:1452}'s road, on the next guide; {npc:7916} takes them on the Plaguelands guide's way through: keep it"] = "{npc:7916}: las plumas de los fieras lunares están a lo largo del camino de {zone:1452}, en la siguiente guía; {npc:7916} las recibe cuando pasa la guía de las Tierras de la Peste: guárdala",
+
+	-- Step 30: Daryn Lightwind
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
 	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} está arriba, encima de {npc:7916}: sube por adentro, la flecha no distingue los pisos.",
 
-	-- Step 31: The Temple Gardens
+	-- Step 33: The Temple Gardens
 	-- {item:11682} Eridan's Vial
-	["Fill {item:11682} at the moonwell inside the Temple of the Moon."] = "",
+	["Fill {item:11682} at the moonwell inside the Temple of the Moon."] = "Llena el {item:11682} en el pozo de la luna dentro del Templo de la Luna.",
 
-	-- Step 32: Astarii Starseeker
+	-- Step 34: Astarii Starseeker
 	-- {npc:4090} Astarii Starseeker · {quest:3378} Prayer to Elune · {zone:1427} Searing Gorge
-	["{npc:4090}, in the Temple of the Moon: {quest:3378}, from the {zone:1427}"] = "",
+	["{npc:4090}, in the Temple of the Moon: {quest:3378}, from the {zone:1427}"] = "{npc:4090}, en el Templo de la Luna: {quest:3378}, de {zone:1427}",
 
-	-- Step 33: Gracina Spiritmight
+	-- Step 35: Gracina Spiritmight
 	-- {npc:7740} Gracina Spiritmight
-	["{npc:7740} stands beside Tyrande in the Temple of the Moon."] = "",
+	["{npc:7740} stands beside Tyrande in the Temple of the Moon."] = "{npc:7740} está junto a Tyrande en el Templo de la Luna.",
 	-- {npc:7740} Gracina Spiritmight · {quest:162} Rise of the Silithid · {area:976} Gadgetzan
 	["{npc:7740}: {quest:162}, from {area:976}"] = "{npc:7740}: {quest:162}, desde {area:976}",
 	-- {npc:5594} Alchemist Pestlezugg · {area:976} Gadgetzan · {zone:1446} Tanaris · {zone:1452} Winterspring
-	["For {npc:5594} in {area:976}, on the {zone:1446} and {zone:1452} guide: keep it"] = "",
+	["For {npc:5594} in {area:976}, on the {zone:1446} and {zone:1452} guide: keep it"] = "Para {npc:5594} en {area:976}, en la guía de {zone:1446} y {zone:1452}: guárdala",
 
-	-- Step 34: Jenal
+	-- Step 36: Jenal
 	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave
-	["{npc:9047} waits in the {area:1658}, west of the druids' building."] = "",
+	["{npc:9047} waits in the {area:1658}, west of the druids' building."] = "{npc:9047} espera en {area:1658}, al oeste del edificio de los druidas.",
 	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave · {quest:3764} Un'Goro Soil
-	["{npc:9047}, in the {area:1658}: {quest:3764}"] = "",
+	["{npc:9047}, in the {area:1658}: {quest:3764}"] = "{npc:9047}, en {area:1658}: {quest:3764}",
 
-	-- Step 36: Arch Druid Fandral Staghelm
+	-- Step 38: Arch Druid Fandral Staghelm
 	-- {npc:4217} Mathrengyl Bearwalker
-	["Fandral stands at the top of the druids' building; {npc:4217}, next, is lower down inside it."] = "",
+	["Fandral stands at the top of the druids' building; {npc:4217}, next, is lower down inside it."] = "Fandral está en lo alto del edificio de los druidas; {npc:4217}, a continuación, está más abajo dentro de él.",
 	-- {npc:3516} Arch Druid Fandral Staghelm
-	["{npc:3516}, upstairs"] = "",
+	["{npc:3516}, upstairs"] = "{npc:3516}, en el piso de arriba",
 
-	-- Step 38: Mathrengyl Bearwalker
+	-- Step 40: Mathrengyl Bearwalker
 	-- {npc:4217} Mathrengyl Bearwalker
 	["{npc:4217}, upstairs"] = "{npc:4217}, arriba",
 	-- {npc:4217} Mathrengyl Bearwalker · {item:11040} Morrowgrain
-	["{npc:4217}'s next task grows ten {item:11040} from a pouch over several hours: skip it."] = "",
+	["{npc:4217}'s next task grows ten {item:11040} from a pouch over several hours: skip it."] = "La siguiente tarea de {npc:4217} cultiva diez {item:11040} de una bolsa durante varias horas: omítela.",
 	-- {zone:1455} Ironforge
 	["{zone:1455} has no druid trainer"] = "{zone:1455} no tiene instructor de druidas",
 
-	-- Step 39: Portal to Teldrassil
+	-- Step 41: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "Portal a {zone:1438}",
 
-	-- Step 40: Rut'theran Village flight master
+	-- Step 42: Rut'theran Village flight master
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "Maestro de vuelo de {area:702}",
 
-	-- Step 41: Feathermoon Stronghold
+	-- Step 43: Feathermoon Stronghold
 	-- {area:702} Rut'theran Village · {area:1116} Feathermoon Stronghold
 	["From {area:702}, fly to {area:1116}."] = "Desde {area:702}, vuela a {area:1116}.",
 
-	-- Step 43: Boat to The Forgotten Coast
+	-- Step 45: Boat to The Forgotten Coast
 	-- {area:1108} The Forgotten Coast
 	["Boat to {area:1108}"] = "Barco a {area:1108}",
 
-	-- Step 44: Zorbin Fandazzle
+	-- Step 46: Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle
-	["Take the boat to the mainland: {npc:14637} waits on the dock where it lands."] = "",
+	["Take the boat to the mainland: {npc:14637} waits on the dock where it lands."] = "Toma el barco al continente: {npc:14637} espera en el muelle donde llega.",
 
-	-- Step 45: The Forgotten Coast: kill these as you meet them
+	-- Step 47: The Forgotten Coast: kill these as you meet them
 	-- {area:1108} The Forgotten Coast
 	["{area:1108}: kill these as you meet them"] = "{area:1108}: mata a estos según te los encuentres",
 	-- {item:18904} Zorbin's Ultra-Shrinker · {npc:14637} Zorbin Fandazzle
 	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray · Water Elemental Cores = {item:18958} Water Elemental Core · Sea Elementals = {npc:5461} Sea Elemental · Deep Striders = {npc:5360} Deep Strider
-	["The Sea Sprays (46-47) wash along the shore just south of the dock: they drop the Water Elemental Cores as well as the Sea Elementals (47) do. The Wave and Deep Striders (47) wade in the water off the same beach: zap them with {item:18904} first, and shrunken they lose their elite strength.\nThe Ultra-Shrinker lasts two hours: hand both quests back to {npc:14637} before you leave the coast."] = "",
+	["The Sea Sprays (46-47) wash along the shore just south of the dock: they drop the Water Elemental Cores as well as the Sea Elementals (47) do. The Wave and Deep Striders (47) wade in the water off the same beach: zap them with {item:18904} first, and shrunken they lose their elite strength.\nThe Ultra-Shrinker lasts two hours: hand both quests back to {npc:14637} before you leave the coast."] = "Los rocíos del mar (46-47) recorren la orilla justo al sur del muelle: sueltan los núcleos de elemental de agua, igual que los elementales de mar (47). Los asaltaolas y los zancaprofundas (47) andan en el agua frente a la misma playa: primero dispárales con el {item:18904}, y encogidos pierden su fuerza de élite.\nEl Ultra-reductor dura dos horas: entrega las dos misiones a {npc:14637} antes de dejar la costa.",
 	-- {item:18958} Water Elemental Core
 	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray
 	["{item:18958}, from the Sea Sprays"] = "{item:18958}, de los Rocíos del mar",
@@ -222,38 +226,38 @@ return {
 	-- plural, as words: Deep Striders = {npc:5360} Deep Strider
 	["{item:18904}, on the Wave and Deep Striders in the water"] = "{item:18904}, en los Zancaolas y Zancaprofundas del agua",
 
-	-- Step 46: Zorbin Fandazzle
+	-- Step 48: Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle
 	["Back to {npc:14637} on the dock."] = "Regresa con {npc:14637} en el muelle.",
 
-	-- Step 47: Gregan Brewspewer
+	-- Step 49: Gregan Brewspewer
 	-- {area:1119} Twin Colossals · {npc:7775} Gregan Brewspewer · {item:11243} Videre Elixir · {item:11242} Evoroot
-	["Ride north-east from the dock past the {area:1119} to {npc:7775}'s camp. He brews the {item:11243} from an {item:11242}: take his errand for one."] = "",
+	["Ride north-east from the dock past the {area:1119} to {npc:7775}'s camp. He brews the {item:11243} from an {item:11242}: take his errand for one."] = "Cabalga al noreste desde el muelle pasando {area:1119} hasta el campamento de {npc:7775}. Prepara el {item:11243} con una {item:11242}: acepta su encargo para conseguir una.",
 
-	-- Step 48: Rockbiter
+	-- Step 50: Rockbiter
 	-- {npc:7765} Rockbiter · {npc:7775} Gregan Brewspewer
 	["The giant {npc:7765} sits just north-west of {npc:7775}'s camp."] = "El gigante {npc:7765} está sentado justo al noroeste del campamento de {npc:7775}.",
 
-	-- Step 49: Evoroot
+	-- Step 51: Evoroot
 	-- {item:11242} Evoroot · {npc:7765} Rockbiter
 	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "La {item:11242} crece dentro de un edificio en ruinas al norte de {npc:7765}: entra por la brecha de su muro desde la cornisa de al lado.",
 
-	-- Step 50: Shay Leafrunner
+	-- Step 52: Shay Leafrunner
 	-- {npc:7774} Shay Leafrunner · {item:9189} Shay's Bell
 	["Ride west into the Ravenwind Ruins: {npc:7774} hides in the small round building at the back. Open the chest beside her for {item:9189}: it lasts 15 minutes, like the quest."] = "Cabalga al oeste hacia las Ruinas de Viento Cuervo: {npc:7774} se esconde en el pequeño edificio redondo del fondo. Abre el cofre junto a ella para obtener {item:9189}: dura 15 minutos, igual que la misión.",
 
-	-- Step 51: Wandering Shay
+	-- Step 53: Wandering Shay
 	-- {npc:7774} Shay Leafrunner · {npc:7765} Rockbiter
 	["Lead {npc:7774} back to {npc:7765} at walking pace: she wanders off, so ring the bell to call her back (not in combat), and clear the harpies on the way before she reaches them."] = "Lleva a {npc:7774} de vuelta con {npc:7765} al paso: se aleja, así que toca la campana para llamarla (no en combate), y despeja las arpías del camino antes de que llegue a ellas.",
 
-	-- Step 52: Gregan Brewspewer
+	-- Step 54: Gregan Brewspewer
 	-- {npc:7775} Gregan Brewspewer · {npc:7765} Rockbiter · {item:11242} Evoroot · {npc:9298} Donova Snowden · {area:976} Gadgetzan
 	-- plural, as words: Videre Elixirs = {item:11243} Videre Elixir
-	["Back to {npc:7775}'s camp, just south-east of {npc:7765}: the {item:11242} buys three Videre Elixirs. Keep them: {npc:9298} takes one at the start of the next guide, and Gaeriyan in {area:976} shows himself only to someone who has drunk one."] = "",
+	["Back to {npc:7775}'s camp, just south-east of {npc:7765}: the {item:11242} buys three Videre Elixirs. Keep them: {npc:9298} takes one at the start of the next guide, and Gaeriyan in {area:976} shows himself only to someone who has drunk one."] = "De vuelta al campamento de {npc:7775}, justo al sureste de {npc:7765}: la {item:11242} te da tres elixires de Videre. Guárdalos: {npc:9298} recibe uno al principio de la siguiente guía, y Gaeriyan, en {area:976}, solo se muestra a quien haya bebido uno.",
 
-	-- Step 53: Feralas
+	-- Step 55: Feralas
 	-- {area:489} Thalanaar · {zone:1441} Thousand Needles
-	["Ride east along the road to {area:489}, on the {zone:1441} border: the next guide flies from there."] = "",
+	["Ride east along the road to {area:489}, on the {zone:1441} border: the next guide flies from there."] = "Cabalga al este por el camino hasta {area:489}, en el límite de {zone:1441}: la siguiente guía vuela desde ahí.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Ends in the {zone:1413}: keep it"] = "Termina en {zone:1413}: guárdala",

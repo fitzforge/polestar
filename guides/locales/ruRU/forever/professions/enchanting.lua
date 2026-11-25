@@ -14,9 +14,9 @@ return {
 
 	-- Step 2: Enchanting 1-75: vendor goods
 	-- {skill:333} Enchanting
-	["{skill:333} 1-75: vendor goods"] = "",
+	["{skill:333} 1-75: vendor goods"] = "{skill:333} 1-75: товары торговцев",
 	-- {item:6217} Copper Rod · {item:247786} Mote of Magic · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1318} Jessara Cordell · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3346} Kithas · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "",
+	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "Купите сразу все для этого этапа: {item:6217} 1 (1с 24м) и {item:247786} 32 (3с 20м); всего около 4с 44м. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:1286} и {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} и {npc:5817}).",
 
 	-- Step 3: Enchanting 1-75: Auction House
 	-- {skill:333} Enchanting
@@ -32,7 +32,7 @@ return {
 	-- {spell:7418} Enchant Bracer - Inferior Stamina
 	["{spell:7418} to 25"] = "{spell:7418} до 25",
 	-- {spell:7418} Enchant Bracer - Inferior Stamina · {item:247786} Mote of Magic · {item:6218} Runed Copper Rod
-	["{spell:7418} is orange at 1 (yellow 20, green 22, grey 25): about 31 crafts to 25. Each takes 1 {item:247786}. One {item:247786} (10c) a craft; grey at 25 on Forever. Make the {item:6218} first: the recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:7418} is orange at 1 (yellow 20, green 22, grey 25): about 31 crafts to 25. Each takes 1 {item:247786}. One {item:247786} (10c) a craft; grey at 25 on Forever. Make the {item:6218} first: the recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7418}: оранжевый на 1 (желтый 20, зеленый 22, серый 25): около 31 изготовлений до 25. Каждое требует 1 {item:247786}. По одному {item:247786} (10м) на изготовление; в Forever серый с 25. Сначала сделайте {item:6218}: рецепт требует его в сумках, так что держите его там. Зачаруйте любой предмет для этой ячейки в ваших сумках, даже серый.",
 	["a tool: keep it in your bags"] = "инструмент: держите его в сумке",
 
 	-- Step 6: Enchanting recipes at 25
@@ -45,7 +45,7 @@ return {
 	-- {spell:7420} Enchant Chest - Inferior Stamina
 	["{spell:7420} to 75"] = "{spell:7420} до 75",
 	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption
-	["{spell:7420} is orange at 25 (yellow 70, green 90, grey 110): about 51 crafts to 75. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:7420} is orange at 25 (yellow 70, green 90, grey 110): about 51 crafts to 75. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420}: оранжевый на 25 (желтый 70, зеленый 90, серый 110): около 51 изготовлений до 75. Каждое требует 1 {item:10940}. По одному {item:10940} на изготовление: пыль, в которую чаще всего распадается зеленая добыча 5-20 уровня, в первую очередь броня. {item:10938} (с оружия) делает то же через «Наручи – малое отражение» или «Нагрудник – {spell:7423}», если его у вас больше. Зачаруйте любой предмет для этой ячейки в ваших сумках, даже серый.",
 
 	-- Step 8: Journeyman Enchanting
 	-- {skill:333} Enchanting
@@ -85,13 +85,14 @@ return {
 	-- {spell:7420} Enchant Chest - Inferior Stamina
 	["{spell:7420} to 90"] = "{spell:7420} до 90",
 	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption
-	["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "",
+	-- was: ["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420}: желтый на 75 (желтый 70, зеленый 90, серый 110): около 22 изготовлений до 90. Каждое требует 1 {item:10940}. По одному {item:10940} на изготовление: пыль, в которую чаще всего распадается зеленая добыча 5-20 уровня, в первую очередь броня. {item:10938} (с оружия) делает то же через «Наручи – малое отражение» или «Нагрудник – {spell:7423}», если его у вас больше. Зачаруйте любой предмет для этой ячейки в ваших сумках, даже серый."
+	["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one. If you got here without learning {spell:7420}, learn it now: an earlier step teaches it."] = "{spell:7420}: желтый на 75 (желтый 70, зеленый 90, серый 110): около 22 изготовлений до 90. Каждое требует 1 {item:10940}. По одному {item:10940} на изготовление: эта пыль получается из большинства зеленых предметов 5-20 уровня, прежде всего из доспехов. {item:10938} (из оружия) делает то же самое через «Наручи – слабое отражение» или «Нагрудник – {spell:7423}», если его у вас больше. Зачаровывайте любой предмет для этой ячейки в сумках, даже серый. Если вы дошли сюда, не выучив {spell:7420}, выучите сейчас: его учит один из прошлых шагов.",
 
 	-- Step 16: Enchant Cloak - Minor Protection to 130
 	-- {spell:7771} Enchant Cloak - Minor Protection
-	["{spell:7771} to 130"] = "",
+	["{spell:7771} to 130"] = "{spell:7771} до 130",
 	-- {spell:7771} Enchant Cloak - Minor Protection · {item:10940} Strange Dust
-	["{spell:7771} is orange at 90 (yellow 110, green 130, grey 150): about 48 crafts to 130. Each takes 2 {item:10940}. Two {item:10940} a craft (the trainer teaches it from 70 for 2s); keep disenchanting the greens of the 10-20 zones. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:7771} is orange at 90 (yellow 110, green 130, grey 150): about 48 crafts to 130. Each takes 2 {item:10940}. Two {item:10940} a craft (the trainer teaches it from 70 for 2s); keep disenchanting the greens of the 10-20 zones. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7771}: оранжевый на 90 (желтый 110, зеленый 130, серый 150): около 48 изготовлений до 130. Каждое требует 2 {item:10940}. По два {item:10940} на изготовление (учитель обучает с 70 за 2с); продолжайте распылять зелень зон 10-20 уровня. Зачаруйте любой предмет для этой ячейки в ваших сумках, даже серый.",
 
 	-- Step 17: Enchanting recipes at 130
 	-- {skill:333} Enchanting
@@ -116,7 +117,7 @@ return {
 	["{item:5500} (Alliance)"] = "{item:5500} (Альянс)",
 	-- {item:5500} Iridescent Pearl · {item:11130} Runed Golden Rod
 	-- plural, as words: Giant Clams = {object:2744} Giant Clam
-	["1 {item:5500} for {item:11130}: open the Giant Clams at the marked spot."] = "",
+	["1 {item:5500} for {item:11130}: open the Giant Clams at the marked spot."] = "{item:5500} 1 для {item:11130}: открывайте гигантские моллюски в отмеченном месте.",
 
 	-- Step 21: Iridescent Pearl (Horde)
 	-- {item:5500} Iridescent Pearl
@@ -154,9 +155,10 @@ return {
 
 	-- Step 29: Enchant Bracer - Lesser Stamina to 160
 	-- {spell:13501} Enchant Bracer - Lesser Stamina
-	["{spell:13501} to 160"] = "",
+	["{spell:13501} to 160"] = "{spell:13501} до 160",
 	-- {spell:13501} Enchant Bracer - Lesser Stamina · {item:11083} Soul Dust · {item:11130} Runed Golden Rod
-	["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13501}: оранжевый на 150 (желтый 155, зеленый 175, серый 195): около 11 изготовлений до 160. Каждое требует 1 {item:11083}. Один {item:11083} на изготовление (зеленые предметы 21-30-го уровня). Сделайте {item:11130} сейчас, пока он еще дает очко: более поздний рецепт требует его в сумках, так что держите его там. Зачаровывайте любой предмет для этой ячейки в сумках, даже серый.",
+	-- was: ["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13501}: оранжевый на 150 (желтый 155, зеленый 175, серый 195): около 11 изготовлений до 160. Каждое требует 1 {item:11083}. Один {item:11083} на изготовление (зеленые предметы 21-30-го уровня). Сделайте {item:11130} сейчас, пока он еще дает очко: более поздний рецепт требует его в сумках, так что держите его там. Зачаровывайте любой предмет для этой ячейки в сумках, даже серый."
+	["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one. If you got here without learning {spell:13501}, learn it now: an earlier step teaches it."] = "{spell:13501}: оранжевый на 150 (желтый 155, зеленый 175, серый 195): около 11 изготовлений до 160. Каждое требует 1 {item:11083}. По одному {item:11083} на изготовление (зеленые предметы 21-30 уровня). Сделайте {item:11130} сейчас, пока он еще дает очко: он понадобится в сумках для более позднего рецепта, так что храните его там. Зачаровывайте любой предмет для этой ячейки в сумках, даже серый. Если вы дошли сюда, не выучив {spell:13501}, выучите сейчас: его учит один из прошлых шагов.",
 
 	-- Step 30: Enchanting recipes at 160
 	-- {skill:333} Enchanting
@@ -168,19 +170,19 @@ return {
 	-- {spell:13637} Enchant Boots - Lesser Agility
 	["{spell:13637} to 205"] = "{spell:13637} до 205",
 	-- {spell:13637} Enchant Boots - Lesser Agility · {item:11083} Soul Dust
-	["{spell:13637} is orange at 160 (yellow 180, green 200, grey 220): about 59 crafts to 205. Each takes 1 {item:11083}. {item:11083} again. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:13637} is orange at 160 (yellow 180, green 200, grey 220): about 59 crafts to 205. Each takes 1 {item:11083}. {item:11083} again. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13637}: оранжевый на 160 (желтый 180, зеленый 200, серый 220): около 59 изготовлений до 205. Каждое требует 1 {item:11083}. Снова {item:11083}. Зачаруйте любой предмет для этой ячейки в ваших сумках, даже серый.",
 
 	-- Step 32: Enchanting recipes at 205
 	-- {skill:333} Enchanting
 	["{skill:333} recipes at 205"] = "{skill:333}: рецепты на 205",
 	-- {spell:13702} Runed Truesilver Rod · {spell:13746} Enchant Cloak - Greater Defense
-	["Still at the Expert trainer: {spell:13702} (from 200) and {spell:13746} (from 205)."] = "",
+	["Still at the Expert trainer: {spell:13702} (from 200) and {spell:13746} (from 205)."] = "Вы все еще у учителя ранга «Умелец»: {spell:13702} (с 200) и {spell:13746} (с 205).",
 
 	-- Step 33: Enchant Cloak - Greater Defense to 225
 	-- {spell:13746} Enchant Cloak - Greater Defense
 	["{spell:13746} to 225"] = "{spell:13746} до 225",
 	-- {spell:13746} Enchant Cloak - Greater Defense · {item:11137} Vision Dust · {item:11145} Runed Truesilver Rod · {item:7971} Black Pearl · {skill:333} Enchanting
-	["{spell:13746} is orange at 205 (yellow 225, green 245, grey 265): about 20 crafts to 225, a point every craft. Each takes 1 {item:11137}. One {item:11137} a craft (level 31-40 greens). Make the {item:11145} first: the recipe needs it in your bags, so keep it there. {item:7971} (1 for 150-225): {item:7971} is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find. Enchant any item for that slot in your bags, even a grey one. {skill:333} 225 is a Legacy System milestone."] = "",
+	["{spell:13746} is orange at 205 (yellow 225, green 245, grey 265): about 20 crafts to 225, a point every craft. Each takes 1 {item:11137}. One {item:11137} a craft (level 31-40 greens). Make the {item:11145} first: the recipe needs it in your bags, so keep it there. {item:7971} (1 for 150-225): {item:7971} is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find. Enchant any item for that slot in your bags, even a grey one. {skill:333} 225 is a Legacy System milestone."] = "{spell:13746}: оранжевый на 205 (желтый 225, зеленый 245, серый 265): около 20 изготовлений до 225, по очку за каждое. Каждое требует 1 {item:11137}. По одному {item:11137} на изготовление (зелень 31-40 уровня). Сначала сделайте {item:11145}: рецепт требует его в сумках, так что держите его там. {item:7971} (1 на 150-225): {item:7971} – редкая добыча (ни один моб не дает его чаще одного раза из 50): купите на аукционе или сохраняйте найденные. Зачаруйте любой предмет для этой ячейки в ваших сумках, даже серый. {skill:333} 225 – веха системы Наследия.",
 
 	-- Step 34: Artisan Enchanting
 	-- {skill:333} Enchanting
@@ -190,9 +192,9 @@ return {
 
 	-- Step 35: Enchanting 225-300: vendor goods
 	-- {skill:333} Enchanting
-	["{skill:333} 225-300: vendor goods"] = "",
+	["{skill:333} 225-300: vendor goods"] = "{skill:333} 225-300: товары торговцев",
 	-- {item:8925} Crystal Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 34 {item:8925} (1g 70s); about 1g 70s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 34 {item:8925} (1g 70s); about 1g 70s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "Купите сразу все для этого этапа: {item:8925} 34 (1з 70с); всего около 1з 70с. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:1286}, Элдрейт и {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} и {npc:3334}).",
 
 	-- Step 36: Formula: Lesser Mana Oil
 	-- {item:20754} Formula: Lesser Mana Oil · {item:20747} Lesser Mana Oil · {skill:333} Enchanting · {npc:15419} Kania · {zone:1451} Silithus
@@ -212,13 +214,13 @@ return {
 	-- {item:8831} Purple Lotus
 	["{item:8831} (Alliance)"] = "{item:8831} (Альянс)",
 	-- {item:8831} Purple Lotus · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked."] = "",
+	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked."] = "{item:8831} 34 для {item:20747}: {skill:182}: {item:8831} (навык 210) в {zone:1425} (40-50), {zone:1444} (40-50) и {zone:1447} (45-55). В {zone:1425} отмечено место, где {item:8831} встречается чаще всего.",
 
 	-- Step 40: Purple Lotus (Horde)
 	-- {item:8831} Purple Lotus
 	["{item:8831} (Horde)"] = "{item:8831} (Орда)",
 	-- {item:8831} Purple Lotus · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked."] = "",
+	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked."] = "{item:8831} 34 для {item:20747}: {skill:182}: {item:8831} (навык 210) в {zone:1425} (40-50), {zone:1444} (40-50) и {zone:1447} (45-55). В {zone:1444} отмечено место, где {item:8831} встречается чаще всего.",
 
 	-- Step 41: Vision Dust
 	-- {item:11137} Vision Dust · {spell:13815} Enchant Gloves - Agility · {skill:333} Enchanting
@@ -230,22 +232,22 @@ return {
 
 	-- Step 43: Enchant Gloves - Agility to 253
 	-- {spell:13815} Enchant Gloves - Agility
-	["{spell:13815} to 253"] = "",
+	["{spell:13815} to 253"] = "{spell:13815} до 253",
 	-- {spell:13815} Enchant Gloves - Agility · {item:11137} Vision Dust · {npc:11073} Annora
-	["{spell:13815} is orange at 225 (yellow 230, green 250, grey 270): about 39 crafts to 253. Each takes 1 {item:11137}. {npc:11073} teaches it with Artisan: learn it on that visit. {item:11137} again; bring about 40. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:13815} is orange at 225 (yellow 230, green 250, grey 270): about 39 crafts to 253. Each takes 1 {item:11137}. {npc:11073} teaches it with Artisan: learn it on that visit. {item:11137} again; bring about 40. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13815}: оранжевый на 225 (желтый 230, зеленый 250, серый 270): около 39 изготовлений до 253. Каждое требует 1 {item:11137}. {npc:11073} обучает этому вместе с Искусником: выучите в тот визит. Снова {item:11137}; принесите около 40. Зачаруйте любой предмет для этой ячейки в ваших сумках, даже серый.",
 
 	-- Step 44: Lesser Mana Oil to 275
 	-- {item:20747} Lesser Mana Oil
-	["{item:20747} to 275"] = "",
+	["{item:20747} to 275"] = "{item:20747} до 275",
 	-- {item:20747} Lesser Mana Oil · {item:11176} Dream Dust · {item:8831} Purple Lotus · {item:8925} Crystal Vial · {npc:15419} Kania · {area:3425} Cenarion Hold · {zone:1451} Silithus
-	["{item:20747} is orange at 253 (yellow 260, green 270, grey 280): about 34 crafts to 275. Each takes 1 {item:11176}, 1 {item:8831} and 1 {item:8925}. One {item:11176} (level 41-50 greens) and one {item:8831} (herbalists) a craft; the oil sells well. {npc:15419} sells the formula at the inn of {area:3425} ({zone:1451}): fly there, the mobs around it are level 55 and up."] = "",
+	["{item:20747} is orange at 253 (yellow 260, green 270, grey 280): about 34 crafts to 275. Each takes 1 {item:11176}, 1 {item:8831} and 1 {item:8925}. One {item:11176} (level 41-50 greens) and one {item:8831} (herbalists) a craft; the oil sells well. {npc:15419} sells the formula at the inn of {area:3425} ({zone:1451}): fly there, the mobs around it are level 55 and up."] = "{item:20747}: оранжевый на 253 (желтый 260, зеленый 270, серый 280): около 34 изготовлений до 275. Каждое требует 1 {item:11176}, 1 {item:8831} и 1 {item:8925}. По одному {item:11176} (зелень 41-50 уровня) и {item:8831} (у травников) на изготовление; масло хорошо продается. {npc:15419} продает рецепт в таверне {area:3425} ({zone:1451}): долетите туда, мобы вокруг 55 уровня и выше.",
 	["from the recipe in your bags"] = "по рецепту из сумки",
 
 	-- Step 45: Enchant Shield - Greater Stamina to 300
 	-- {spell:20017} Enchant Shield - Greater Stamina
-	["{spell:20017} to 300"] = "",
+	["{spell:20017} to 300"] = "{spell:20017} до 300",
 	-- {spell:20017} Enchant Shield - Greater Stamina · {item:11176} Dream Dust · {skill:333} Enchanting
-	["{spell:20017} is orange at 275 (yellow 285, green 305, grey 325): about 29 crafts to 300. Each takes 6 {item:11176}. Six {item:11176} a craft: the dearest stretch, so disenchant every level 41-50 green you find. Enchant any item for that slot in your bags, even a grey one. {skill:333} 300 is a Legacy System milestone."] = "",
+	["{spell:20017} is orange at 275 (yellow 285, green 305, grey 325): about 29 crafts to 300. Each takes 6 {item:11176}. Six {item:11176} a craft: the dearest stretch, so disenchant every level 41-50 green you find. Enchant any item for that slot in your bags, even a grey one. {skill:333} 300 is a Legacy System milestone."] = "{spell:20017}: оранжевый на 275 (желтый 285, зеленый 305, серый 325): около 29 изготовлений до 300. Каждое требует 6 {item:11176}. По шесть {item:11176} на изготовление: самый дорогой отрезок, так что распыляйте всю найденную зелень 41-50 уровня. Зачаруйте любой предмет для этой ячейки в ваших сумках, даже серый. {skill:333} 300 – веха системы Наследия.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Apprentice {skill:333}"] = "{skill:333}: Ученик",
@@ -299,9 +301,11 @@ return {
 	-- ["{skill:333} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 4g 3s in all."] = "{skill:333} качается параллельно с уровнем. Система наследия Forever награждает за профессии производства на навыке 150, 225 и 300 (пределы рангов «Подмастерье», «Умелец» и «Искусник»), так что важен каждый рубеж. Материалы на 1-75 стоят всего около 4з 3с.",
 	-- ["{skill:333}: disenchant uncommon (green) gear (or the Auction House)"] = "{skill:333}: распыляйте необычные (зеленые) вещи (или аукцион)",
 	-- ["{spell:13419} to 150"] = "{spell:13419} до 150",
+	-- ["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13501}: оранжевый на 150 (желтый 155, зеленый 175, серый 195): около 11 изготовлений до 160. Каждое требует 1 {item:11083}. Один {item:11083} на изготовление (зеленые предметы 21-30-го уровня). Сделайте {item:11130} сейчас, пока он еще дает очко: более поздний рецепт требует его в сумках, так что держите его там. Зачаровывайте любой предмет для этой ячейки в сумках, даже серый.",
 	-- ["{spell:13661} to 225"] = "{spell:13661} до 225",
 	-- ["{spell:13935} to 292"] = "{spell:13935} до 292",
 	-- ["{spell:13948} to 300"] = "{spell:13948} до 300",
+	-- ["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420}: желтый на 75 (желтый 70, зеленый 90, серый 110): около 22 изготовлений до 90. Каждое требует 1 {item:10940}. По одному {item:10940} на изготовление: пыль, в которую чаще всего распадается зеленая добыча 5-20 уровня, в первую очередь броня. {item:10938} (с оружия) делает то же через «Наручи – малое отражение» или «Нагрудник – {spell:7423}», если его у вас больше. Зачаруйте любой предмет для этой ячейки в ваших сумках, даже серый.",
 	-- ["{spell:7426} to 120"] = "{spell:7426} до 120",
 	-- ["{spell:7428} to 75"] = "{spell:7428} до 75",
 	-- ["{spell:7428} to 90"] = "{spell:7428} до 90",

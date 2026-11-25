@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {zone:1451} Silithus · {area:3425} Cenarion Hold
-	["{zone:1451}: {area:3425}'s quests, to 60."] = "",
+	["{zone:1451}: {area:3425}'s quests, to 60."] = "{zone:1451}：{area:3425}的任務，直到60級。",
 
 	-- Step 1: Innkeeper Vizzie
 	-- {zone:2482} Mount Hyjal · {area:2255} Everlook · {npc:11118} Innkeeper Vizzie
@@ -35,38 +35,34 @@ return {
 	-- {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
 	["{npc:13220} stands at {area:3077}, where the pass comes out."] = "",
 
-	-- Step 8: Cenarion Hold
+	-- Step 9: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
 	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "繼續向西騎到{area:3425}。{npc:15189}在他那棟樓的樓上：從裡面上樓，箭頭分不清樓層。",
-	-- {npc:17082} Rifleman Torrig · {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora
-	["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "{npc:17082}，在聯盟帳篷旁：交給{area:2743}的{npc:17080}",
 	-- {npc:15183} Geologist Larksbane
 	["{npc:15183}: the tablet fragments come from the Twilight dig"] = "{npc:15183}：石碑碎片來自暮光挖掘場",
 	-- {npc:15306} Bor Wildmane
 	["{npc:15306}: his Twilight texts come from the dig"] = "",
 
-	-- Step 9: Silithus: kill these as you meet them
+	-- Step 10: Silithus: kill these as you meet them
 	-- {zone:1451} Silithus
-	-- was: ["{zone:1452}: kill these as you meet them"] = "{zone:1452}：沿途擊殺以下目標"
-	["{zone:1451}: kill these as you meet them"] = "",
+	["{zone:1451}: kill these as you meet them"] = "{zone:1451}：沿途擊殺以下目標",
 	-- {npc:15185} Brood of Nozdormu
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer
 	["Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around.\nCareful: {npc:15185} (62, elite) guard the Caverns of Time's mouth in the south-west, around 21,82: stay out of there."] = "",
 
-	-- Step 10: Cenarion Hold
+	-- Step 11: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
 	["Back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:15189} Beetix Ficklespragg
 	["{npc:15189}, upstairs"] = "{npc:15189}，在樓上",
 
-	-- Step 11: Silithus: kill these as you meet them
+	-- Step 12: Silithus: kill these as you meet them
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher · Stonelash Pincers = {npc:11736} Stonelash Pincer · Rock Stalkers = {npc:11739} Rock Stalker
 	["From the hold, west into the sands: Dredge Crushers dig there; Stonelash Pincers, Flayers and Rock Stalkers hunt the same sands."] = "從要塞向西進入沙地：掘泥摧毀者在那裡挖掘；石鞭巨鉗蠍、剝皮者和石行蜘蛛也在同一片沙地遊蕩。",
 	-- {npc:11741} Dredge Crusher
-	-- was: ["{npc:11558}: walks around here: look inside the circle on the map"] = "{npc:11558}：在這一帶走動：看地圖上的圓圈裡"
-	["{npc:11741} walks around here: look inside the circle on the map"] = "",
+	["{npc:11741} walks around here: look inside the circle on the map"] = "{npc:11741}在這附近走動：看地圖上的圓圈內",
 
-	-- Step 12: Cenarion Hold
+	-- Step 13: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg
 	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189}站在他所在建築的樓上：從室內上樓，箭頭無法區分樓層。",
 	-- {npc:15190} Noggle Ficklespragg · {npc:15189} Beetix Ficklespragg
@@ -74,7 +70,7 @@ return {
 	-- {npc:15181} Commander Mar'alith
 	["{npc:15181} (from level 58): Bronzebeard's Encampment comes later, on the way south"] = "",
 
-	-- Step 13: Hive'Ashi: kill these as you meet them
+	-- Step 14: Hive'Ashi: kill these as you meet them
 	-- {area:2742} Hive'Ashi
 	["{area:2742}: kill these as you meet them"] = "{area:2742}：遇到就殺",
 	-- {item:20404} Encrypted Twilight Text · {npc:15306} Bor Wildmane · {npc:15194} Hermit Ortell · {area:2742} Hive'Ashi · {quest:8308} Brann Bronzebeard's Lost Letter
@@ -86,11 +82,6 @@ return {
 	["Twilight Tablet Fragments"] = "暮光石碑碎片",
 	-- {quest:8323} True Believers
 	["Ten more for {quest:8323}"] = "再十份給{quest:8323}",
-
-	-- Step 14: Hive'Zora
-	-- {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora · {spell:642} Divine Shield · {spell:5384} Feign Death · {spell:17} Power Word: Shield
-	["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp.\nCareful: You lose the Silithyst if you mount, stealth, use {spell:642}, {spell:5384} or Vanish. Blink and {spell:17} do not drop it."] = "{npc:17080}在西邊的蟲巢{area:2743}外紮營。在附近的紅色間歇泉撿起一塊希利塞斯，帶到他營地的聯盟萃取器。\n小心：如果你上坐騎、潛行、使用{spell:642}、{spell:5384}或消失，就會失去希利塞斯。閃現和{spell:17}不會讓它掉落。",
-	["Bring a Silithyst to the Alliance extractor"] = "",
 
 	-- Step 16: Southwind Village
 	["The tortured druids and sentinels haunt the ruined village east of the hold."] = "",
@@ -160,6 +151,7 @@ return {
 	-- ["Boat to {area:150}"] = "搭船前往{area:150}",
 	-- ["Careful: Ancient Irontree Walkers, level 59 elites, stand among the {quest:5086}: work the Horrors at the camp's north-east tip (about 50.6,22.4), one at a time, and look for a walker before each pull."] = "小心：59級精英遠古鐵木行者站在{quest:5086}之間：在營地東北角（約50.6,22.4）一次打一隻恐魔，每次拉怪前先看看附近有沒有行者。",
 	-- ["Careful: the Twilight Keepers are level 60, a level or two over you: clear the cultists around each one first and fight the keeper at full health.\n{npc:11803} holds the cultists' camp in the far south-west."] = "小心：暮光守護者是60級，比你高一兩級：先清掉每個守護者周圍的教徒，再滿血對付守護者。\n{npc:11803}佔據遠在西南方的教徒營地。",
+	-- ["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "爬上{area:190}西側山丘，俯瞰城鎮。\n注意：大門處的哨兵能夠偵測潛行玩家，鎮內也有更多哨兵，附近還有一名精英巡邏。",
 	-- ["Climb {area:537} in the middle of the crater and use the {item:14644} by the lava lake at the top, with two Thorium Bars in your bags. Fill {npc:9616}'s Empty Pure Sample Jars on the Primal Oozes in the pools around the ridge."] = "爬上環形山中央的{area:537}，背包裡帶著兩塊瑟銀錠，在山頂熔岩湖旁使用{item:14644}。在山脊周圍水池中的原生軟泥怪身上裝滿{npc:9616}的純淨樣本瓶。",
 	-- ["Cross the river east of {npc:1855}'s hut into {area:2627}: {npc:11140} stands by Augustus' ruined hut."] = "渡過{npc:1855}小屋東邊的河進入{area:2627}：{npc:11140}站在奧古斯都殘破的小屋旁。",
 	-- ["Dredge Crushers roam the dunes between {area:2743} and {area:3425}, on your way back. {npc:15181} only offers {quest:8304} from level 58."] = "回程路上，掘泥摧毀者在{area:2743}與{area:3425}之間的沙丘上遊蕩。{npc:15181}要到58級才會提供{quest:8304}。",
@@ -197,6 +189,7 @@ return {
 	-- ["Keep the {item:11169}, the claws and the heart he hands back"] = "保留他還給你的{item:11169}、爪子和心臟",
 	-- ["Keep west on the road to {npc:9298}'s camp beside the hot springs."] = "繼續沿路向西，前往溫泉旁{npc:9298}的營地。",
 	-- ["Lead her out of {area:1770} and keep her alive until she is outside the cave: clear the way back first."] = "把她帶出{area:1770}，一直保住她到出洞為止：先清掉回程的路。",
+	-- ["Level 59.85"] = "59.85級",
 	-- ["Lots of flying between zones"] = "需要在地區之間大量飛行",
 	-- ["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby."] = "撿起馬車周圍的補給物資，並從附近的梟獸身上奪回{npc:10301}的護符。",
 	-- ["Portal to {zone:1438}"] = "傳送門前往{zone:1438}",
@@ -239,6 +232,7 @@ return {
 	-- ["Take the {area:2257} to {zone:1455}. {npc:14724} and {npc:14723} each want sixty Wool, sixty Silk and sixty Mageweave, then sixty {item:14047}: 120 of each in all, from your bags or the Auction House."] = "搭乘{area:2257}前往{zone:1455}。{npc:14724}和{npc:14723}各要六十份毛料、六十份絲綢和六十份魔紋布，接著是六十份{item:14047}：每種共120份，從你的背包或拍賣場取得。",
 	-- ["Takes you all the way to 60"] = "一路帶你升到60級",
 	-- ["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then."] = "{area:1762}的死木圖騰，如果當時{npc:11558}沒收的話。",
+	-- ["The Terrordale Spirits haunt the woods around {npc:11140}. Top up here to level 59.85 while you stand in {area:2627}: the hand-ins still to come (the {area:2261}, {area:2298}, {npc:10667} and {area:3197}) take you to level 60. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "恐懼谷的靈魂在{npc:11140}周圍的樹林中遊蕩。趁還在{area:2627}，先在此刷到59.85級：之後還要交的任務（{area:2261}、{area:2298}、{npc:10667}和{area:3197}）交完即可到60級。也可組隊挑戰{area:2057}副本或{area:2279}副本。",
 	-- ["The Twilight's Hammer dig fills the north-west corner: tablet fragments lie on the ground and the Dust Stormers and Desert Rumblers carry them too. Every cultist can drop an {item:20404}: keep twenty, ten for {npc:15306} and ten for {npc:15194} later."] = "暮光之錘的挖掘場佔據西北角：石碑碎片散落在地上，灰塵風暴和沙漠奔行者身上也帶著碎片。每個教徒都可能掉落{item:20404}：保留二十份，十份給{npc:15306}，十份稍後給{npc:15194}。",
 	-- ["The Twilight's Hammer dig fills the north-west corner: tablet fragments lie on the ground and the Dust Stormers and Desert Rumblers carry them too. Every cultist can drop an {item:20404}: keep twenty, ten for {npc:15306} and ten for {npc:15194} later.\nCareful: take the texts from the Twilight Avengers and Geolords; leave the Twilight Flamereavers (60) and stay out of the hive's mouth, where the {area:2742} elites (59-60) wait."] = "暮光之錘的挖掘場佔據西北角：石碑碎片散落在地上，灰塵風暴和沙漠奔行者身上也帶著碎片。每個教徒都可能掉落{item:20404}：保留二十份，十份給{npc:15306}，十份稍後給{npc:15194}。\n小心：從暮光復仇者和地卜師身上取得文件；別碰暮光烈焰搶奪者（60），也不要靠近蟲巢入口，那裡有{area:2742}的精英（59-60）。",
 	-- ["The flight lands in {area:702}. {npc:7916} stands a short walk north-west of the flight master."] = "航班降落在{area:702}。{npc:7916}站在飛行管理員西北不遠處。",
@@ -315,7 +309,9 @@ return {
 	-- ["{npc:15174}, the innkeeper"] = "{npc:15174}，旅店老闆",
 	-- ["{npc:15181}: Bronzebeard's Encampment comes later, on the way south"] = "{npc:15181}：銅鬚營地稍後在往南的路上處理",
 	-- ["{npc:15306}: his Twilight texts come from the dig after the next stop here"] = "{npc:15306}：他要的暮光文件來自下一站之後的挖掘場",
+	-- ["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp.\nCareful: You lose the Silithyst if you mount, stealth, use {spell:642}, {spell:5384} or Vanish. Blink and {spell:17} do not drop it."] = "{npc:17080}在西邊的蟲巢{area:2743}外紮營。在附近的紅色間歇泉撿起一塊希利塞斯，帶到他營地的聯盟萃取器。\n小心：如果你上坐騎、潛行、使用{spell:642}、{spell:5384}或消失，就會失去希利塞斯。閃現和{spell:17}不會讓它掉落。",
 	-- ["{npc:17082}, at the Alliance tents"] = "{npc:17082}，在聯盟帳篷旁",
+	-- ["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "{npc:17082}，在聯盟帳篷旁：交給{area:2743}的{npc:17080}",
 	-- ["{npc:1852} is a level 61 elite"] = "{npc:1852}是61級精英",
 	-- ["{npc:1855} (optional)"] = "{npc:1855}（可選）",
 	-- ["{npc:1855} lives in a small hut on the border river, north-east of the lumber camp. Hand in {quest:5781} if you finished it."] = "{npc:1855}住在伐木場東北方、邊界河畔的小屋裡。如果你已完成{quest:5781}，就交給他。",

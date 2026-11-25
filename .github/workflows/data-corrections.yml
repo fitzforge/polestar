@@ -82,7 +82,7 @@ jobs:
       - name: Public data build
         run: |
           rust/target/release/forge data build --root . --out "$RUNNER_TEMP/public" --offline \
-            --no-questie --no-web-zones --no-web-xp --forever-tables wago
+            --no-questie --no-web-zones --no-web-xp --forever-tables wago --strict-placeholders
 
       # Every entry's shape and source.kind. Ids are not checked here: the CI build has no
       # QuestieDB, so Forever-only quests and NPCs that corrections rightly name are missing from

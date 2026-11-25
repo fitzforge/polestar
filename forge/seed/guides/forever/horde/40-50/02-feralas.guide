@@ -1,9 +1,10 @@
 guide forever/horde/40-50/02-feralas
-title Feralas & Tanaris
+title Stranglethorn Vale, Swamp of Sorrows, Tanaris & Feralas
 faction Horde
 levels 44-47
 zone Feralas
 next forever/40-50/shendralas
+pitch Stranglethorn Vale and Stonard first, then Tanaris and Feralas.
 # Route from the Polestar route simulator's Horde consensus (Tauren export),
 # visits 33-38, levels 42.5-44: Tanaris, Feralas, then the way back east.
 # Checked by lint, not play-tested on Forever yet. Era + known Forever quests
@@ -127,16 +128,14 @@ step Pirate ghosts and Zanzil's camps
   zone Stranglethorn Vale
   tip On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. Maury and Jon-Jon stand together, Chucky further east. Every one of Zanzil's followers can carry the mixture.
   tip Careful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. Zanzil the Outcast (46) himself stands in the southern camp around 39.6,58.6, a few steps from Chucky's ghost: pull Chucky out to the north or east before you fight him.
-  kill 2537 @40.0,58.2
   collect 3926 quest 609.3
-  kill 2535 @35.3,51.3
   collect 3924 quest 609.1
-  kill 2536 @34.9,51.8
   collect 3925 quest 609.2
   collect 4016 quest 621.1
 
 step Witch Doctor Unbagwa
   when onquest 348
+  when group 348
   tip West into Mistvale: Witch Doctor Unbagwa sits among the gorillas. Any gorilla can drop a fang: hand him ten and stay by him, he calls three waves of gorillas, then Mokk.
   tip Careful: three waves of gorillas come one after another with little rest between, then Mokk the Savage. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy.
   collect 2799 x10                    -- Gorilla Fang
@@ -191,21 +190,31 @@ step Privateer Bloads
 
 step Booty Bay
   zone Stranglethorn Vale
-  tip In Booty Bay: Privateer Bloads on the docks, Fin Fizracket by the inn, Crank Fizzlebub inside it, MacKinley, Kebok and Krazek upstairs.
-  turnin 348                          -- Fin Fizracket
+  tip In Booty Bay: Privateer Bloads on the docks, Crank Fizzlebub inside the inn, MacKinley, Kebok and Krazek upstairs.
   turnin 621                          -- Crank Fizzlebub, inside
   turnin 609                          -- "Sea Wolf" MacKinley, on the top floor
+
+step Fin Fizracket
+  when complete 348
+  turnin 348                          -- Fin Fizracket, by the inn
 
 step Whiskey Slim and Fin Fizracket
   when !onquest 348
   when !turnedin 348
-  tip Under 40 on your first Booty Bay visit? Whiskey Slim, in the inn, Fin Fizracket, beside it, and "Sea Wolf" MacKinley, on the top floor, have their quests for you now.
+  tip Under 40 on your first Booty Bay visit? Whiskey Slim, in the inn, and "Sea Wolf" MacKinley, on the top floor, have their quests for you now.
   accept 580                            -- Whiskey Slim, in the inn: his bottles wash up on the Hinterlands coast, around level 48
-  accept 348                            -- Fin Fizracket: Stranglethorn Fever
   accept 2872                           -- MacKinley, on the top floor: Stoley's Debt, for Stoley in Tanaris on this guide
+
+step Fin Fizracket
+  when !onquest 348
+  when !turnedin 348
+  when group 348
+  tip Group quest: Stranglethorn Fever ends at Witch Doctor Unbagwa in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then Mokk the Savage (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along.
+  accept 348                            -- Fin Fizracket, beside the inn: Stranglethorn Fever
 
 step Witch Doctor Unbagwa
   when onquest 348
+  when group 348
   when !complete 348
   tip North into Mistvale, a short ride from Booty Bay: Witch Doctor Unbagwa sits among the gorillas. Hand him ten gorilla fangs and stay by him: three waves of gorillas, then Mokk the Savage. Start at full health and mana.
   collect 2799 x10                    -- Gorilla Fang
@@ -304,6 +313,12 @@ step A Soggy Scroll
   when onquest 624
   tip Ride west along the road; the scroll lies at the water's edge in the swamp's far west.
   turnin 624
+  accept 625 optional                   -- for the Musty Scroll in Dustwallow Marsh, on the Dustwallow guide
+
+step A Soggy Scroll
+  when turnedin 624
+  when available 625
+  tip The scroll lies at the water's edge in the swamp's far west.
   accept 625 optional                   -- for the Musty Scroll in Dustwallow Marsh, on the Dustwallow guide
 
 step Sawtooth crocolisks

@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Prendre un vol pour {area:1637}",
-	-- {area:2408} Shadowprey Village
-	["{area:2408} flight master"] = "Maître de vol de {area:2408}",
 
 	-- Step 2: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
@@ -94,8 +92,7 @@ return {
 	["{zone:1434}: kill these as you meet them"] = "{zone:1434} : tuez-les au passage",
 	-- {area:37} Lake Nazferiti
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal · Venture Co. Agents = {npc:260429} Venture Co. Agent
-	-- was: ["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "Les Tigres de Strangleronce (32) parcourent les collines autour du camp et au sud, les Panthères (32) les clairières à l'ouest et au sud-ouest. Les Géologues de la KapitalRisk (34-36), qui portent les Cristaux réduits, travaillent dans les camps près de {area:37}, au sud-est du camp. Attention : des Agents de la KapitalRisk (39) se tiennent parmi les géologues dans les camps de l'ouest, près de la maison de la KapitalRisk : chassez dans les camps de l'est, loin d'eux."
-	["Stranglethorn Tigers (32) roam the hills west of the camp and east of it toward the lake: the arrow takes the eastern ones, on your way to the geologists. Panthers (32) roam the clearings west and south-west of the camp. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "",
+	["Stranglethorn Tigers (32) roam the hills west of the camp and east of it toward the lake: the arrow takes the eastern ones, on your way to the geologists. Panthers (32) roam the clearings west and south-west of the camp. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "Les Tigres de Strangleronce (32) parcourent les collines à l'ouest du camp et à l'est vers le lac : la flèche mène aux tigres de l'est, sur votre chemin vers les géologues. Les Panthères (32) parcourent les clairières à l'ouest et au sud-ouest du camp. Les Géologues de la KapitalRisk (34-36), qui portent les Cristaux réduits, travaillent dans les camps près de {area:37}, au sud-est du camp. Attention : des Agents de la KapitalRisk (39) se tiennent parmi les géologues dans les camps de l'ouest, près de la maison de la KapitalRisk : chassez dans les camps de l'est, loin d'eux.",
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
 	["Tumbled Crystals, from the geologists of the eastern camps"] = "Cristaux réduits, sur les géologues des camps de l'est",
 
@@ -131,35 +128,42 @@ return {
 	-- Step 20: Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark · {area:102} Ruins of Zul'Kunda · {item:277957} Primitive Key · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment · Bloodscalp Scouts = {npc:588} Bloodscalp Scout · Bloodscalp Berserkers = {npc:597} Bloodscalp Berserker
-	["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}. Then lead him out of the ruins: {npc:4631} in {area:35} takes the news and the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992} est retenu à l'extrémité est des {area:102} ; les Cargaisons volées se trouvent dans les ruines autour de lui. Les Éclaireurs, Chasseurs et Mystiques Bloodscalp (34-35) portent sa {item:277957}. Ensuite, escortez-le hors des ruines : {npc:4631} à {area:35} prend les nouvelles et les cargaisons.\nAttention : les Berserkers et Chasseurs de têtes Bloodscalp (36-37) et les Sorciers-docteurs (37, lanceurs de sorts) tiennent les ruines au nord et à l'ouest de {npc:268992}, près des cargaisons du nord (vers 24.9,9.6) : ramassez d'abord les cargaisons des ruines du sud près de {npc:268992}, et attirez-les un par un si vous allez au nord.",
+	-- was: ["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}. Then lead him out of the ruins: {npc:4631} in {area:35} takes the news and the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992} est retenu à l'extrémité est des {area:102} ; les Cargaisons volées se trouvent dans les ruines autour de lui. Les Éclaireurs, Chasseurs et Mystiques Bloodscalp (34-35) portent sa {item:277957}. Ensuite, escortez-le hors des ruines : {npc:4631} à {area:35} prend les nouvelles et les cargaisons.\nAttention : les Berserkers et Chasseurs de têtes Bloodscalp (36-37) et les Sorciers-docteurs (37, lanceurs de sorts) tiennent les ruines au nord et à l'ouest de {npc:268992}, près des cargaisons du nord (vers 24.9,9.6) : ramassez d'abord les cargaisons des ruines du sud près de {npc:268992}, et attirez-les un par un si vous allez au nord."
+	["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}: {npc:4631} in {area:35} takes the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992} est retenu au bord est de {area:102} ; les cargaisons volées sont dans les ruines autour de lui. Les éclaireurs, chasseurs et mystiques Scalpessang (34-35) qui s'y trouvent portent son {item:277957} : {npc:4631} à {area:35} prend les cargaisons.\nAttention : les berserkers et chasseurs de têtes Scalpessang (36-37) et les sorciers-docteurs (37, lanceurs de sorts) tiennent les ruines au nord et à l'ouest de {npc:268992}, près des cargaisons du nord (vers 24.9,9.6) : prenez d'abord les cargaisons des ruines du sud près de {npc:268992}, et attirez-les un par un si vous allez au nord.",
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
 	["Stolen Shipments, in the ruins"] = "Cargaisons volées, dans les ruines",
 	-- {item:277957} Primitive Key
 	-- plural, as words: Bloodscalp Scouts = {npc:588} Bloodscalp Scout
 	["{item:277957}, from the Bloodscalp Scouts, Hunters and Mystics"] = "{item:277957}, sur les Éclaireurs, Chasseurs et Mystiques Bloodscalp",
+
+	-- Step 21: Escort Zimmix Sputterspark
+	-- {npc:268992} Zimmix Sputterspark
+	["Escort {npc:268992}"] = "Escortez {npc:268992}",
+	-- {npc:268992} Zimmix Sputterspark
+	["Lead {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "Menez {npc:268992} hors des ruines et gardez-le en vie : Lozgil prend la nouvelle une fois qu'il est en sécurité.",
 	-- {npc:268992} Zimmix Sputterspark
 	["Escort {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "Escortez {npc:268992} hors des ruines et gardez-le en vie : Lozgil prend les nouvelles une fois qu'il est en sécurité.",
 
-	-- Step 22: Lashtail Raptors
+	-- Step 23: Lashtail Raptors
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["Lashtail Raptors"] = "Raptors Fouette-queue",
 	-- {object:3202} Grom'gol (no name in this language: may be words) · {npc:2464} Commander Aggro'gosh
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor · Carnivorous Weeds = {npc:269175} Carnivorous Weed
 	["On your way back south to {object:3202}, the Lashtail Raptors (35-36) hunt the jungle between the camp and {object:3202}: they count for Hemet and for {npc:2464}. Careful: the 36s can be two over you: pull them one at a time. Carnivorous Weeds (36-38) are rooted in the jungle south of the raptors: walk around them."] = "En redescendant vers le sud jusqu'à {object:3202}, les Raptors flagellants (35-36) chassent dans la jungle entre le camp et {object:3202} : ils comptent pour Hemet et pour {npc:2464}. Attention : ceux de niveau 36 peuvent avoir deux niveaux de plus que vous : attirez-les un par un. Des Herbes carnivores (36-38) sont enracinées dans la jungle au sud des raptors : contournez-les.",
 
-	-- Step 23: Grom'gol
+	-- Step 24: Grom'gol
 	-- {npc:2464} Commander Aggro'gosh · {object:3202} Grom'gol (no name in this language: may be words) · {npc:2497} Nimboya · {npc:2465} Far Seer Mok'thardin
 	["{npc:2464} stands in the middle of {object:3202}, {npc:2497} near the zeppelin tower, {npc:2465} beside the flight master."] = "{npc:2464} se tient au centre de {object:3202}, {npc:2497} près de la tour du zeppelin, {npc:2465} à côté du maître de vol.",
 	-- {npc:2465} Far Seer Mok'thardin
 	["{npc:2465}: the Shadowmaw claws and the tigress fang come at the end of this guide"] = "{npc:2465} : les griffes d'Ombregueule et le croc de la tigresse viennent à la fin de ce guide",
 
-	-- Step 24: Fly to Booty Bay
+	-- Step 25: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Prendre un vol pour {area:35}",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["{object:3202} flight master"] = "Maître de vol de Grom'gol",
 
-	-- Step 25: Booty Bay
+	-- Step 26: Booty Bay
 	-- {npc:2495} Drizzlik · {npc:2498} Crank Fizzlebub · {npc:2496} Baron Revilgaz · {npc:737} Kebok · {npc:773} Krazek · {npc:4631} Wharfmaster Lozgil
 	["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs beside the flight master. {npc:4631} stands on the pier."] = "La boutique de {npc:2495} est dans le bâtiment à l'est de l'auberge ; {npc:2498} est au rez-de-chaussée de l'auberge, {npc:2496}, {npc:737} et {npc:773} à l'étage, à côté du maître de vol. {npc:4631} se tient sur le quai.",
 	-- {npc:2498} Crank Fizzlebub
@@ -170,13 +174,13 @@ return {
 	-- {npc:4631} Wharfmaster Lozgil · {npc:268992} Zimmix Sputterspark
 	["{npc:4631}: {npc:268992} is safe"] = "{npc:4631} : {npc:268992} est sain et sauf",
 
-	-- Step 26: Fly to Grom'gol
+	-- Step 27: Fly to Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Fly to {object:3202}"] = "Prendre un vol pour {object:3202}",
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "Maître de vol de {area:35}",
 
-	-- Step 27: Level 35
+	-- Step 28: Level 35
 	["Level 35"] = "Niveau 35",
 	-- {quest:629} The Vile Reef · {area:35} Booty Bay · {object:3202} Grom'gol (no name in this language: may be words)
 	-- plural, as words: Bloodscalp Headhunters = {npc:671} Bloodscalp Headhunter · Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger · Lashtail Raptors = {npc:686} Lashtail Raptor
@@ -184,29 +188,29 @@ return {
 	-- {npc:1085} Elder Stranglethorn Tiger
 	["grind on {npc:1085}"] = "tuez en boucle : {npc:1085}",
 
-	-- Step 28: The Vile Reef
+	-- Step 29: The Vile Reef
 	-- {area:104} Vile Reef · {item:4094} Tablet Shard
 	["North-west of Grom'gol the {area:104} lies under the water off the coast. The {item:4094} rests on the sea floor by the sunken ruins; watch your breath and the murlocs."] = "Au nord-ouest de Grom'gol, {area:104} s'étend sous l'eau au large de la côte. L'{item:4094} repose au fond de la mer près des ruines englouties ; surveillez votre souffle et les murlocs.",
 	["Underwater"] = "Sous l'eau",
 
-	-- Step 29: Ruins of Zul'Kunda: kill these as you meet them
+	-- Step 30: Ruins of Zul'Kunda: kill these as you meet them
 	-- {area:102} Ruins of Zul'Kunda
 	["{area:102}: kill these as you meet them"] = "{area:102} : tuez-les au passage",
 	-- {item:3915} Bloody Bone Necklace · {item:2755} Green Hills of Stranglethorn
 	-- plural, as words: Bloodscalp Headhunters = {npc:671} Bloodscalp Headhunter
 	["The Bloodscalp Headhunters (36-37) in the village on the coast carry the shrunken heads. Careful: the 37s can be two over you: pull them one at a time from the village's edge, never into the middle with the Witch Doctors.\nThe Bloodscalp trolls hold the ruins up the coast north of the reef and the village beyond; every one can drop a {item:3915}. Keep looting pages of The {item:2755}."] = "Les Chasseurs de tête Bloodscalp (36-37) du village sur la côte portent les têtes réduites. Attention : ceux de niveau 37 peuvent avoir deux niveaux de plus que vous : attirez-les un par un depuis la lisière du village, jamais au centre avec les Sorciers-docteurs.\nLes trolls Bloodscalp tiennent les ruines plus haut sur la côte, au nord du récif, et le village au-delà ; chacun peut lâcher un {item:3915}. Continuez à ramasser des pages du livre {item:2755}.",
 
-	-- Step 31: Stranglethorn Vale: kill these as you meet them
+	-- Step 32: Stranglethorn Vale: kill these as you meet them
 	-- {npc:2495} Drizzlik
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk · Elder Shadowmaw Panthers = {npc:1713} Elder Shadowmaw Panther
 	["East of the Mosh'Ogg hills, Shadowmaw Panthers (37-38) stalk the jungle towards the lake; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for {npc:2495}. Careful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them; the 38s can be two over you: pull them one at a time and leave the Elders alone."] = "À l'est des collines Mosh'Ogg, les Panthères Ombregueule (37-38) rôdent dans la jungle en direction du lac ; les Tigresses de Strangleronce parcourent le même terrain et lâchent de temps en temps un croc intact. Les Crocilisques Gueule d'acier bordent la rivière juste à l'ouest de la jungle ; gardez leurs peaux pour {npc:2495}. Attention : les Panthères Ombregueule (niveau 37-38) et les Anciennes panthères Ombregueule (niveau 42-43) se camouflent hors combat, elles restent donc cachées jusqu'à ce que vous vous approchiez ; celles de niveau 38 peuvent avoir deux niveaux de plus que vous : attirez-les une par une et laissez les Anciennes tranquilles.",
 
-	-- Step 32: Mosh'Ogg camp
+	-- Step 33: Mosh'Ogg camp
 	["Mosh'Ogg camp"] = "Camp Mosh'Ogg",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["The Mosh'Ogg ogres camp in the hills just east of {object:3202}, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time. Careful: the 37s can be two over you: take them from the camp's western edge, never two together."] = "Les ogres Mosh'Ogg campent dans les collines juste à l'est de {object:3202}, sur votre chemin du retour. Tuez 10 Brutes et 5 Sorciers-docteurs (36-37) ; attirez-les un par un. Attention : ceux de niveau 37 peuvent avoir deux niveaux de plus que vous : prenez-les depuis la lisière ouest du camp, jamais deux à la fois.",
 
-	-- Step 33: Grom'gol
+	-- Step 34: Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Back to {object:3202}."] = "Retour à {object:3202}.",
 	-- {npc:2465} Far Seer Mok'thardin · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
@@ -217,7 +221,7 @@ return {
 	-- was: ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "Le prochain guide prend le zeppelin pour {zone:1454} depuis la tour à l'ouest du campement."
 	["After {npc:729}, back here: the next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "",
 
-	-- Step 34: Level 36
+	-- Step 35: Level 36
 	["Level 36"] = "Niveau 36",
 	-- {npc:729} Sin'Dall · {object:3202} Grom'gol (no name in this language: may be words)
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
@@ -228,12 +232,12 @@ return {
 	-- {npc:1152} Snapjaw Crocolisk
 	["grind on {npc:1152}"] = "tuez en boucle : {npc:1152}",
 
-	-- Step 35: Sin'Dall
+	-- Step 36: Sin'Dall
 	-- {object:3202} Grom'gol (no name in this language: may be words) · {npc:729} Sin'Dall
 	-- plural, as words: Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger
 	["North from {object:3202} to the hilltop just south-west of Nesingwary's camp: {npc:729} prowls there alone.\nCareful: {npc:729} (37) is a level over you: pull him at full health, clear of the Elder Stranglethorn Tigers (34-35) on the hill's slopes."] = "",
 
-	-- Step 36: Nesingwary's camp
+	-- Step 37: Nesingwary's camp
 	-- {npc:717} Ajeck Rouack · {object:3202} Grom'gol (no name in this language: may be words)
 	["North to {npc:717} in Nesingwary's camp, then back south to {object:3202}'s zeppelin tower."] = "",
 
@@ -266,6 +270,7 @@ return {
 	-- ["from {npc:4723}"] = "sur {npc:4723}",
 	-- ["grind on {npc:1142}"] = "tuez en boucle : {npc:1142}",
 	-- ["grind on {npc:686}"] = "tuez en boucle : {npc:686}",
+	-- ["{area:2408} flight master"] = "Maître de vol de {area:2408}",
 	-- ["{area:35}'s and {object:3202}'s next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of {object:3202}: kill them until level 35."] = "Les quêtes suivantes de {area:35} et de {object:3202} sont de niveau 35-38. Toujours en dessous de 35 après avoir rendu la quête d'Aggro'gosh ? Les Raptors Fouette-queue (35) chassent dans la jungle juste au nord de {object:3202} : tuez-les jusqu'au niveau 35.",
 	-- ["{item:5852}, in {object:20691}"] = "{item:5852}, dans {object:20691}",
 	-- ["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2465} : pour forever/horde/40-50/01-stranglethorn-vale",
@@ -273,6 +278,7 @@ return {
 	-- ["{npc:2496}: Cozzle's footlocker is at {area:37}, later in this guide"] = "{npc:2496} : le coffre de Cozzle se trouve à {area:37}, plus loin dans ce guide",
 	-- ["{npc:2496}: for Pozzik at the {area:2240}, on the way to {zone:1446} around level 43"] = "{npc:2496} : pour Pozzik à {area:2240}, en route vers {zone:1446} vers le niveau 43",
 	-- ["{npc:2497}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2497} : pour forever/horde/40-50/01-stranglethorn-vale",
+	-- ["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}. Then lead him out of the ruins: {npc:4631} in {area:35} takes the news and the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992} est retenu à l'extrémité est des {area:102} ; les Cargaisons volées se trouvent dans les ruines autour de lui. Les Éclaireurs, Chasseurs et Mystiques Bloodscalp (34-35) portent sa {item:277957}. Ensuite, escortez-le hors des ruines : {npc:4631} à {area:35} prend les nouvelles et les cargaisons.\nAttention : les Berserkers et Chasseurs de têtes Bloodscalp (36-37) et les Sorciers-docteurs (37, lanceurs de sorts) tiennent les ruines au nord et à l'ouest de {npc:268992}, près des cargaisons du nord (vers 24.9,9.6) : ramassez d'abord les cargaisons des ruines du sud près de {npc:268992}, et attirez-les un par un si vous allez au nord.",
 	-- ["{npc:4723} (38) is inside the Venture Co. house on {area:37}'s west shore, among the geologists: his key opens {object:20691} in the same house, which holds the blueprints for {npc:2496}. Careful: Venture Co. Agents (39) stand in and around the house: clear the doorway before you go in."] = "{npc:4723} (38) est dans la maison de la KapitalRisk sur la rive ouest de {area:37}, parmi les géologues : sa clé ouvre {object:20691} dans la même maison, qui contient les plans pour {npc:2496}. Attention : des Agents de la KapitalRisk (39) se tiennent dans la maison et autour : dégagez l'entrée avant d'entrer.",
 	-- ["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717} : {npc:729} (37) attend votre prochain passage chez Nesingwary, vers le niveau 40 dans forever/horde/40-50/01-stranglethorn-vale",
 	-- ["{npc:773}'s missing hunters' camp is Nesingwary's: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp."] = "Le camp des chasseurs disparus de {npc:773} est celui de Nesingwary : marchez parmi ses tentes et l'enquête est terminée. Des Crocilisques des rivières se trouvent le long de la rivière sous le camp.",

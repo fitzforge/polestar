@@ -468,7 +468,7 @@ N.RegisterTravelData({
 		{a={"Valanaar Skydocks",2991,1953.2,1003.3,2521,58.03,80.98,"l",16628,{wx=1957.3,wy=1003.1,z=663}},ab=147,b={"Mulgore",1,-786.7,371.4,1412,34.25,25.68,"l",215,190},ba=84,faction=2,id="airship-zephras-mulgore",kind="airship",waitA=170,waitB=170},
 		{a={"Stormwind",0,-8346.5,514,1453,69.58,30.27,"l",1519,91.8},ab=74,b={"Ironforge",0,-4840.3,-1330.5,1455,78.02,51.37,"e",1537,501.9},ba=74,faction=1,id="tram-stormwind-ironforge",kind="tram",waitA=68,waitB=68},
 	},
-	-- walk-in portals, one way a -> b: id, destination name and area, ends as transports (with z), seconds (the loading screen), item (one the player must carry, else none)
+	-- walk-in portals, one way a -> b: id, destination name and area, ends as transports (with z), seconds (the loading screen), item (one the player must carry, else none), npc (the NPC who teleports the player who asks, else none)
 	portals = {
 		{a={"Darnassus",1,9947.5,2630,1457,29.13,41.21,"e",1657,1318.7},area=702,b={"Rut'theran Village",1,8785.8,967,1438,55.93,89.74,"e",702,30.2},id="portal-ruttheran",name="Rut'theran Village",seconds=5},
 		{a={"Rut'theran Village",1,8799.4,969.8,1438,55.87,89.34,"e",702,30.4},area=1657,b={"Darnassus",1,9946.3,2613,1457,30.75,41.39,"e",1657,1316.3},id="portal-darnassus",name="Darnassus",seconds=5},
@@ -478,6 +478,7 @@ N.RegisterTravelData({
 		{a={"Gnomeregan",0,-5096.8,750.2,1426,21.36,37.15,"e",133,260.6},area=35,b={"Booty Bay",0,-14460,463.3,1434,27.54,77.37,"e",35,15.2},id="portal-booty-bay",item=9173,name="Booty Bay",seconds=5},
 		{a={"Shrine of Akir",2991,3089.5,584.5,2521,65.56,50.34,"l",16629,844.3},area=16630,b={"Rohashi Spires",2991,3079.8,426.5,2521,68.4,50.6,"l",16630},id="portal-rohashi-spires",name="Rohashi Spires",seconds=5},
 		{a={"Rohashi Spires",2991,2981.6,54.9,2521,75.08,53.25,"l",16630,1181.9},area=16638,b={"Valanaar",2991,2000.7,543.3,2521,66.3,79.7,"l",16638,658.7},id="portal-valanaar",name="Valanaar",seconds=5},
+		{a={"Sanath Lim-yo",1,3648,-4702.7,1447,28.11,50.09,"e",nil,121.1},area=0,b={"Azshara Tower",1,3778,-4612,1447,26.33,46.25,"e",nil,227.3},id="portal-azshara-tower",name="Azshara Tower",npc="Sanath Lim-yo",seconds=5},
 	},
 	-- bind location names (as GetBindLocation reports them), AreaTable area (WoW Forever client build 1.60.1.70888), innkeeper NPC, position
 	inns = {
@@ -1284,6 +1285,7 @@ N.RegisterCrossings({
 		[1456] = { name = "Thunder Bluff", c = 1, top = -850, bottom = -1545.833, left = 516.667, right = -527.083 },
 		[1457] = { name = "Darnassus", c = 1, top = 10238.316, bottom = 9532.587, left = 2938.363, right = 1880.03 },
 		[1458] = { name = "Undercity", c = 0, top = 1877.945, bottom = 1237.841, left = 873.193, right = -86.182 },
+		[2521] = { name = "Zephras Isle", c = 2991, top = 4956.25, bottom = 1247.917, left = 4231.25, right = -1331.25 },
 		[2548] = { name = "Riverglades", c = 0, top = -6466.666, bottom = -9700, left = -1891.666, right = -6741.666 },
 	},
 	-- other zones on these continents (no crossing data: walked as before)
@@ -1499,5 +1501,6 @@ N.RegisterCrossings({
 	areas = {
 		{ id = "rutheran-village", name = "Rut'theran Village", map = 1438, c = 1, top = 9065.3, bottom = 8437.5, left = 1523.3, right = 352.3 },
 		{ id = "wizards-sanctum-chamber", name = "Wizard's Sanctum", map = 1453, c = 0, top = -8975, bottom = -9030, left = 900, right = 840, zmin = 10, zmax = 50 },
+		{ id = "rohashi-spires", name = "Rohashi Spires", map = 2521, c = 2991, top = 3157.7, bottom = 2935.2, left = 448.7, right = -24.1, zmin = 1100, zmax = 1300, subzone = 16630 },
 	},
 })

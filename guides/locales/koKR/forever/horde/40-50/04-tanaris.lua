@@ -9,7 +9,7 @@ return {
 	-- Guide
 	-- {area:976} Gadgetzan · {zone:1427} Searing Gorge · {npc:5955} Tooga · {area:1446} Thorium Point
 	-- was: ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "46-48레벨 {area:976}와(과) {zone:1427}: 황무지유랑단 야영지, {npc:5955} 호위, {area:1446}."
-	["{area:976} and the {zone:1427} at 47-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "",
+	["{area:976} and the {zone:1427} at 47-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "47-49레벨 {area:976}와(과) {zone:1427}: 황무지유랑단 야영지, {npc:5955} 호위, {area:1446}.",
 
 	-- Step 1: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -17,11 +17,7 @@ return {
 	-- {zone:1445} Dustwallow Marsh · {area:496} Brackenwall Village · {area:976} Gadgetzan
 	["Coming from {zone:1445}: {area:496}'s flight master flies you to {area:976}."] = "",
 	-- {area:496} Brackenwall Village
-	["{area:496} flight master"] = "",
-
-	-- Step 2: Fly to Gadgetzan
-	-- {area:1099} Camp Mojache
-	["{area:1099} flight master"] = "{area:1099}의 비행 조련사",
+	["{area:496} flight master"] = "{area:496} 비행 조련사",
 
 	-- Step 3: Gadgetzan
 	-- {npc:7876} Tran'rek · {area:979} Sandsorrow Watch
@@ -90,7 +86,7 @@ return {
 
 	-- Step 17: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
-	["{quest:3362}: kill these as you meet them"] = "",
+	["{quest:3362}: kill these as you meet them"] = "{quest:3362}: 만나는 대로 처치하세요",
 	-- {zone:1446} Tanaris · {quest:2864} Tran'rek · {area:1938} Broken Pillar
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
 	-- was: ["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers for the {area:1938} ride into Un'Goro at about 51."] = "거주지 서쪽 골짜기에는 선인장 괴물이 가득합니다. 이슬먹는 덤불나무괴물(47-48)만 이슬샘을 지니고 있습니다. {zone:1446}의 몬스터 대부분이 드물게 OOX-17/TN 조난 탐지기를 떨어뜨릴 수 있습니다. 얻으면 보관하세요.\n주의: 이 지역의 다른 덤불나무괴물은 48-50레벨이며 많이 돌아다니므로 몹을 더 끌어오기 쉽습니다. 골짜기 가장자리의 이슬먹는 덤불나무괴물을 잡고, {quest:2864}의 옹이진 덤불나무괴물과 뿌리술사는 51레벨쯤 운고로로 가는 길의 {area:1938}을(를) 위해 남겨 두세요."
@@ -98,50 +94,55 @@ return {
 	-- {item:8623} OOX-17/TN Distress Beacon
 	["{item:8623}, a rare drop"] = "드물게 떨어지는 {item:8623}",
 
-	-- Step 18: Tooga's escort
+	-- Step 18: Tooga
+	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
+	["{npc:5955}, a little turtle, wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Leave the Thistleshrubs (48-50) alone."] = "작은 거북 {npc:5955}은(는) {quest:3362} 서쪽 가장자리의 여러 지점을 돌아다닙니다: 찾을 때까지 화살표가 한 지점에서 다음 지점으로 안내합니다. 엉겅퀴덩굴(48-50)은 건드리지 마십시오.",
+
+	-- Step 19: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "{npc:5955} 호위",
 	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port · {npc:8579} Yeh'kinya
-	["{npc:5955} waits in the valley. Walk him all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "{npc:5955}은(는) 골짜기에서 기다립니다. 사막을 가로질러 북동쪽 {area:977}에 있는 그의 아내 {npc:6015}에게까지 데려가세요. 가까이 붙어 그의 속도에 맞추고, 그를 공격하는 적을 물리치세요. 그에게서 멀리 떨어진 채 탈것에 오르거나 귀환석을 쓰지 마세요. {npc:8579}도 항구에 있습니다.",
+	-- was: ["{npc:5955} waits in the valley. Walk him all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "{npc:5955}은(는) 골짜기에서 기다립니다. 사막을 가로질러 북동쪽 {area:977}에 있는 그의 아내 {npc:6015}에게까지 데려가세요. 가까이 붙어 그의 속도에 맞추고, 그를 공격하는 적을 물리치세요. 그에게서 멀리 떨어진 채 탈것에 오르거나 귀환석을 쓰지 마세요. {npc:8579}도 항구에 있습니다."
+	["Walk {npc:5955} all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "{npc:5955}을(를) 북동쪽 사막을 가로질러 {area:977}에 있는 아내 {npc:6015}에게까지 데려가십시오: 가까이 있고, 그에게 맞춰 천천히 가며, 그를 공격하는 것을 물리치십시오. 그가 닿지 않는 곳에서 탈것을 타거나 귀환석을 쓰지 마십시오. {npc:8579}도 항구에 서 있습니다.",
 
-	-- Step 20: Slake That Thirst
+	-- Step 22: Slake That Thirst
 	-- {spell:686} Shadow Bolt
 	["Careful: Shadow Mages (level 42-43) call a Voidwalker while out of combat and attack with Immolate and {spell:686}. Thieves can Disarm you, Rogues move around in Sneak, and Assassins use Execute once you are at 20% health or less."] = "",
 
-	-- Step 21: Gadgetzan
+	-- Step 23: Gadgetzan
 	-- {quest:654} Tanaris Field Sampling
 	["Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts {quest:654}, a two-hour timer, so use it on the way back north from Scrimshank's hive."] = "빌지위즐이 준 4711-FTZ형 동력원은 버리지 말고 보관하세요. 2시간 제한이 있는 {quest:654} 퀘스트를 시작하므로, 스크림섕크의 벌집에서 북쪽으로 돌아오는 길에 사용하세요.",
 
-	-- Step 22: Andi Lynn
+	-- Step 24: Andi Lynn
 	-- {npc:11758} Andi Lynn · {area:983} Dunemaul Compound
 	["{npc:11758} stands a few steps from Bilgewhizzle: the {area:983}."] = "",
 
-	-- Step 23: Gadgetzan
+	-- Step 25: Gadgetzan
 	-- {quest:2864} Tran'rek · {quest:3362} Thistleshrub Valley · {area:1938} Broken Pillar
 	-- was: ["Keep {quest:2864}'s {quest:3362}: its Rootshapers (49-50) come with the {area:983} at the {area:1938}, on the way into Un'Goro at about 51."] = "{quest:2864}의 {quest:3362}을(를) 보관하세요. 뿌리술사(49-50)는 51레벨쯤 운고로로 가는 길에 {area:1938}의 {area:983}와(과) 함께 처리합니다."
 	["Keep {quest:2864}'s {quest:3362}: its Rootshapers (49-50) come at the {area:1938}, on the way into Un'Goro at about 51."] = "",
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
 	["the {item:8526} grows in the {zone:1425}, around level 48"] = "{item:8526}은(는) 48레벨쯤 {zone:1425}에서 자랍니다",
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, 내부",
 
-	-- Step 25: Scrimshank's gear
+	-- Step 27: Scrimshank's gear
 	["Scrimshank's gear"] = "스크림섕크의 장비",
 	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "",
 
-	-- Step 26: OOX-17/TN
+	-- Step 28: OOX-17/TN
 	["OOX-17/TN"] = "OOX-17/TN",
 	-- {area:977} Steamwheedle Port · {area:35} Booty Bay
 	["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}.\nCareful: The escort has two ambushes. Three level 47 scorpids attack near the start. Near the end, by the beach, three Wastewander humans attack: one mage and two assassins, around level 44."] = "조난 탐지기가 있을 때만: OOX-17/TN은 스크림섕크의 벌집 남동쪽에 있습니다. 북쪽 {area:977}까지 호위하세요. 보상은 {area:35}의 오글소프에게서 받습니다.\n주의: 호위 중 두 번 매복이 있습니다. 시작 근처에서 47레벨 전갈 셋이 공격합니다. 끝 무렵 해변 근처에서는 사막유랑단 인간 셋(마법사 하나와 암살자 둘, 44레벨 정도)이 공격합니다.",
 
-	-- Step 27: Tanaris Field Sampling
-	-- {area:976} Gadgetzan · {item:8524} Model 4711-FTZ Power Source
+	-- Step 29: Tanaris Field Sampling
+	-- {area:976} Gadgetzan · {item:8524} Model 4711-FTZ Power Source · {quest:654} Tanaris Field Sampling · {npc:7407} Chief Engineer Bilgewhizzle
 	-- plural, as words: Blisterpaw Hyenas = {npc:5426} Blisterpaw Hyena · Glasshide Basilisks = {npc:5419} Glasshide Basilisk · Scorpid Hunters = {npc:5422} Scorpid Hunter
-	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "북쪽으로 돌아가 {area:976} 바로 남쪽에서 지금 {item:8524}을(를) 사용하세요. 2시간 타이머가 시작됩니다. 이곳 모래언덕에는 물집발 하이에나, 유리가죽 바실리스크, 전갈 사냥꾼이 함께 있습니다. 각각 검사하지 않은 표본을 떨어뜨릴 수 있습니다. 표본을 사용하면 쓸 만한 표본으로 통과하거나 사라집니다. 종류별로 8개씩 모을 때까지 계속 처치하세요.",
+	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon {quest:654} if it is in your log, then take Another Power Source? from {npc:7407}: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of {area:976}."] = "북쪽으로 돌아가 {area:976} 바로 남쪽에서 지금 {item:8524}을(를) 사용하십시오: 2시간 타이머가 시작됩니다. 물집발 하이에나({npc:5426}), 유리가죽 바실리스크({npc:5419}), 전갈 사냥꾼({npc:5422})이 이곳 모래언덕을 함께 씁니다. 각각 검사하지 않은 표본을 떨어뜨릴 수 있습니다: 사용하면 쓸 만한 표본이 되거나 사라집니다. 각각 여덟 개가 될 때까지 계속 처치하십시오. 가방에 동력원이 없거나 두 시간이 지났습니까? {quest:654}이(가) 퀘스트 목록에 있으면 포기한 뒤 {npc:7407}에게 '또 다른 동력원?'을 받으십시오: {area:976} 동쪽 사막유랑단 야영지에서 얻는 사막유랑단 물주머니 열 개로 새것을 줍니다.",
 	-- {item:8524} Model 4711-FTZ Power Source
 	["Use the {item:8524}"] = "{item:8524} 사용하기",
 
-	-- Step 28: Gadgetzan
+	-- Step 30: Gadgetzan
 	-- {npc:5204} Apothecary Zinge · {zone:1458} Undercity
 	["for {npc:5204} in the {zone:1458}, around level 52"] = "",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
@@ -149,19 +150,19 @@ return {
 	-- {item:4306} Silk Cloth · {npc:8661} Auctioneer Beardo · {quest:4449} Caught! · {area:247} Grimesilt Dig Site · {zone:1427} Searing Gorge
 	["{item:4306}: {npc:8661}, for {quest:4449} at the {area:247} in the {zone:1427}"] = "",
 
-	-- Step 29: Boat to Powderfuse Port
+	-- Step 31: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
-	["Boat to {area:16727}"] = "",
+	["Boat to {area:16727}"] = "배를 타고 {area:16727}(으)로",
 
-	-- Step 30: Into Searing Gorge
+	-- Step 32: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
-	["Into {zone:1427}"] = "",
+	["Into {zone:1427}"] = "{zone:1427}(으)로",
 
-	-- Step 31: Searing Gorge
+	-- Step 33: Searing Gorge
 	-- {area:247} Grimesilt Dig Site
 	["The {area:247}"] = "{area:247}",
 
-	-- Step 32: The Grimesilt Dig Site
+	-- Step 34: The Grimesilt Dig Site
 	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth · {area:976} Gadgetzan
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
 	-- was: ["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "{area:16727}에서 동쪽 고갯길로 {zone:1427}에 들어간 뒤 서쪽 발굴지로 가세요. {object:173265}은(는) 발굴지 남쪽 끝에 있고, 검은무쇠단 지질학자는 그 바로 북쪽에서 땅을 팝니다. {item:4306} 15개를 가져오세요(경매장에서 팝니다)."
@@ -169,24 +170,24 @@ return {
 	-- {object:173265} Wooden Outhouse
 	["the {object:173265}"] = "{object:173265}",
 
-	-- Step 34: Thorium Point
+	-- Step 36: Thorium Point
 	-- {area:1446} Thorium Point
 	["Ride north-west across the gorge; {area:1446} is the scaffolded camp in the north-west."] = "북서쪽으로 협곡을 가로지르세요. {area:1446}은(는) 북서쪽의 비계를 두른 야영지입니다.",
 	-- {object:179827} Wanted/Missing/Lost & Found
 	["The {object:179827} board"] = "{object:179827} 게시판",
 
-	-- Step 35: The Cauldron's slavers and golems
+	-- Step 37: The Cauldron's slavers and golems
 	-- {area:246} The Cauldron
 	["{area:246}'s slavers and golems"] = "",
 	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Heavy War Golems = {npc:5854} Heavy War Golem
 	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below {npc:8479}. Careful: the biggest golems are 49: pull them one at a time."] = "{area:1446}에서 남쪽으로 용광로에 들어가세요. 검은무쇠단 감독관과 노예상인이 길에서 노예를 부리고, 육중한 전투골렘이 {npc:8479} 아래 바닥을 순찰합니다. 주의: 가장 큰 골렘은 49레벨이니 하나씩 끌어오세요.",
 
-	-- Step 36: Velarok Windblade
+	-- Step 38: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
 	["{npc:8479} stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "{npc:8479}은(는) {area:1446} 남쪽, 용광로 가장자리에 홀로 서 있습니다. 그의 이야기를 들으세요.",
 
-	-- Step 39: Searing Gorge: kill these as you meet them
+	-- Step 41: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
 	["{zone:1427}: kill these as you meet them"] = "",
 	-- {npc:8479} Velarok Windblade · {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
@@ -197,34 +198,35 @@ return {
 	-- {area:1443} The Slag Pit
 	["Below ground: the plans, on the {area:1443}'s upper ledge"] = "지하: {area:1443} 위쪽 바위턱의 설계도",
 
-	-- Step 41: Thorium Point
+	-- Step 43: Thorium Point
 	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
 	["Ride back north to {area:1446}, just past {npc:8479}."] = "{npc:8479}을(를) 막 지나 북쪽의 {area:1446}(으)로 돌아가세요.",
 
-	-- Step 42: The Steamsmiths' furnaces
+	-- Step 44: The Steamsmiths' furnaces
 	["The Steamsmiths' furnaces"] = "증기기술자의 용광로",
 	-- {item:10551} Thorium Plated Dagger · {item:18959} Smithing Tuyere
 	-- plural, as words: Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith
 	["The Dark Iron Steamsmiths work the furnaces in the middle of the Cauldron; half of them carry a {item:10551}, one in ten the {item:18959}. Slaves, Slavers and Taskmasters carry daggers too."] = "검은무쇠단 증기기술자는 용광로 한가운데의 화로에서 일합니다. 절반은 {item:10551}을(를), 열 명 중 한 명은 {item:18959}을(를) 지니고 있습니다. 노예, 노예상인, 감독관도 단검을 지니고 있습니다.",
 
-	-- Step 43: Velarok Windblade
+	-- Step 45: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {quest:3452} The Flame's Casing
 	["{npc:8479}: {quest:3452}, for the next guide's crossing of the gorge at about 52 (its Twilight cultists, elites 47-50, are at your level now)"] = "",
 	-- {item:10552} Symbol of Ragnaros
 	["His next request needs the {item:10552} from elite cultists: leave it."] = "그의 다음 요청에는 정예 이교도가 지닌 {item:10552}이(가) 필요합니다. 받지 마세요.",
 
-	-- Step 44: Dark Iron Lookouts
+	-- Step 46: Dark Iron Lookouts
 	-- plural, as words: Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
 	["Dark Iron Lookouts"] = "검은무쇠단 망꾼",
 	-- {item:18960} Lookout's Spyglass
 	-- plural, as words: Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
 	["The Dark Iron Lookouts stand on the ridges around the sentry towers south of the Cauldron; about one in ten carries the {item:18960}."] = "검은무쇠단 망꾼은 용광로 남쪽 감시탑 주변 능선에 서 있습니다. 열 명 중 한 명 정도가 {item:18960}을(를) 지니고 있습니다.",
 
-	-- Step 45: The Key to Freedom
+	-- Step 47: The Key to Freedom
 	-- {item:11818} Grimesilt Outhouse Key · {object:173265} Wooden Outhouse
 	["Only with the {item:11818}: back east to the {object:173265} at the dig site."] = "{item:11818}이(가) 있을 때만: 동쪽 발굴지의 {object:173265}(으)로 돌아가세요.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "북쪽으로 돌아가 {area:976} 바로 남쪽에서 지금 {item:8524}을(를) 사용하세요. 2시간 타이머가 시작됩니다. 이곳 모래언덕에는 물집발 하이에나, 유리가죽 바실리스크, 전갈 사냥꾼이 함께 있습니다. 각각 검사하지 않은 표본을 떨어뜨릴 수 있습니다. 표본을 사용하면 쓸 만한 표본으로 통과하거나 사라집니다. 종류별로 8개씩 모을 때까지 계속 처치하세요.",
 	-- ["Boat to {area:35}"] = "{area:35}행 배",
 	-- ["Dark Iron Lookouts"] = "검은무쇠단 망꾼",
 	-- ["Dig up the {quest:3161} ornaments around the {area:1938} and north of the {area:983}. Leave the ogres for now: {npc:12046} is 49 and the Brutes 46-48; the {area:983} comes at the end of 40-50/06, at about 52."] = "{area:1938} 주변과 {area:983} 북쪽에서 {quest:3161} 장신구를 파내세요. 오우거는 지금은 두세요. {npc:12046}은(는) 49레벨, 모래망치 투사는 46-48레벨입니다. {area:983}은(는) 40-50/06 끝, 52레벨쯤에 합니다.",
@@ -255,9 +257,11 @@ return {
 	-- ["West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 49-50 and wander a lot, so you can easily pull extra mobs."] = "거주지 서쪽 골짜기에는 선인장 괴물이 가득합니다. 이슬먹는 덤불나무괴물만 이슬샘을 지니고 있습니다. {zone:1446}의 몬스터 대부분이 드물게 OOX-17/TN 조난 탐지기를 떨어뜨릴 수 있습니다. 얻으면 보관하세요.\n주의: 이 지역의 다른 덤불나무괴물은 49-50레벨이며 많이 돌아다니므로 몹을 더 끌어오기 쉽습니다.",
 	-- ["West, the Centipaar insects swarm around their hives; any of them drops the parts."] = "서쪽에서는 센티파르 곤충이 벌집 주변에 몰려 있습니다. 누구나 부품을 떨어뜨립니다.",
 	-- ["the {object:150075} in the square"] = "광장의 {object:150075}",
+	-- ["{area:1099} flight master"] = "{area:1099}의 비행 조련사",
 	-- ["{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge."] = "{area:1443}은(는) 용광로 북쪽에 있습니다. 인센도사우루스가 용암 웅덩이에서 헤엄칩니다. 가장자리로 끌어오세요. 비밀 설계도는 구덩이 위쪽 바위 턱에 있습니다.",
 	-- ["{area:392} pier"] = "{area:392} 부두",
 	-- ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "46-48레벨 {area:976}와(과) {zone:1427}: 황무지유랑단 야영지, {npc:5955} 호위, {area:1446}.",
 	-- ["{npc:11758}'s {area:983} stays in your log for the {area:1938} at about 52."] = "{npc:11758}의 {area:983}은(는) 52레벨쯤 {area:1938}을(를) 위해 퀘스트 목록에 남겨 두세요.",
 	-- ["{npc:11758}: keep it, the Dunemaul ogres and Gor'marok (49) wait for the {area:1938} at about 52, at the end of 40-50/06"] = "{npc:11758}: 보관하세요. 모래망치 오우거와 고르마로크(49)는 40-50/06 끝, 52레벨쯤 {area:1938}에서 처리합니다",
+	-- ["{npc:5955} waits in the valley. Walk him all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "{npc:5955}은(는) 골짜기에서 기다립니다. 사막을 가로질러 북동쪽 {area:977}에 있는 그의 아내 {npc:6015}에게까지 데려가세요. 가까이 붙어 그의 속도에 맞추고, 그를 공격하는 적을 물리치세요. 그에게서 멀리 떨어진 채 탈것에 오르거나 귀환석을 쓰지 마세요. {npc:8579}도 항구에 있습니다.",
 }

@@ -14,7 +14,7 @@ const { needs } = require('./helpers/data');
 const { DATA_DIR } = require('./helpers/dsl');
 const { findLua } = require('../tools/lib/lua');
 const cmd = require('../tools/commands/playtest');
-const { playtest, playGuide, SIMULATE, luaValue, chainDone, dungeonPicker } = require('../tools/lib/playtest');
+const { playtest, playGuide, buildSimPack, SIMULATE, luaValue, chainDone, dungeonPicker } = require('../tools/lib/playtest');
 const { TEST_PACK, TEST_SOURCE } = require('./helpers/packs');
 const { commandPack } = require('../tools/lib/pack/locate');
 
@@ -237,9 +237,10 @@ test('a stuck step is reported with guide, step, title and class; exit 1', { ski
 
 // The simulated player used to finish a quest at its hand-in, so a guide with no goal for an escort (Kerlonian's,
 // 5321, 2026-11-16) played clean while players were sent to the hand-in with the escort undone. The game takes no
-// hand-in with a line open: a kill, talk, object or event line no goal works holds the play there.
+// hand-in with a line open: a kill, talk, object or event line no goal works holds the play there. An escort is the
+// player's choice (#3439) and the default play skips it with the group quests, so this plays one who does it.
 test('a hand-in whose quest has a line no goal works is stuck there; with the goal it plays through', { skip }, async () => {
-	const { result, out } = await quiet(() => cmd.run(['--pack', path.join(PACKS, 'handin'), '--class', 'Warrior']));
+	const { result, out } = await quiet(() => cmd.run(['--pack', path.join(PACKS, 'handin'), '--class', 'Warrior', '--group', 'do']));
 	assert.equal(result, 1, out);
 	const stuck = lines(out).filter((l) => l.startsWith('stuck '));
 	assert.equal(stuck.length, 1, out);
@@ -279,16 +280,42 @@ test('a hand-over must land on a guide the character can follow: a Human handed 
 	]);
 });
 
-// The recommendation ranks the options by the travel time to each guide's start. The play runs on a client build the
-// walking data is not built for (the stub's), where the travel planner refuses every unmeasured walk and the engine
-// falls back to the straight-line time on one continent and a flat hour across: so the fixture's choice is on one
-// continent (route-choice.guide), where the second option is the nearer one by the walk.
+// The recommendation ranks the options by the travel time to each guide's start. The fixture ends in Brill: The
+// Barrens across the sea, Silverpine Forest a ride south, whose start for an Undead is its first goal for them, not
+// the Orgrimmar flight master of its Orc, Troll and Tauren steps (#3344).
 test('a route choice lands on whichever option the engine recommends, not only the first', { skip }, async () => {
 	const pack = commandPack({ pack: path.join(PACKS, 'handover') });
 	const { results } = await playtest({ dir: pack.dir, manifest: pack.manifest, filter: 'route-choice', contextDir: pack.contextDir, contextDataDir: pack.contextDataDir });
 	assert.equal(results.length, 1);
 	assert.equal(results[0].ok, true, JSON.stringify(results[0]));
-	assert.equal(results[0].landed, 'forever/horde/03-silverpine-forest', 'the recommended option here is the second one, a few steps away');
+	assert.equal(results[0].landed, 'forever/horde/03-silverpine-forest', 'the recommended option here is the second one, a ride away');
+});
+
+// #3344: a guide starts at its first goal for the character (`only`): Silverpine's is the Orgrimmar flight master for
+// an Orc, not for an Undead, in the engine (Guides.Start, the route choice's travel times) and where a play sets the
+// character down. And a play prices a journey over the sea (Brill to the Barrens' start) with the travel planner,
+// not as the flat hour it fell back to while the planner refused walks on the stub's client build.
+test('a guide starts at its first goal for the character, and a play prices a journey over the sea', { skip }, () => {
+	const pack = buildSimPack(['forever/horde/03-silverpine-forest.guide', 'forever/horde/02-the-barrens.guide']);
+	try {
+		const g = pack.guides.find((x) => x.id === 'forever/horde/03-silverpine-forest');
+		const script = `
+			local P = Polestar
+			local G = P.Guides
+			local here = P.PlayerPoint()
+			local sp, bar = G.Get("forever/horde/03-silverpine-forest"), G.Get("forever/horde/02-the-barrens")
+			local undead, orc = G.Start(sp), G.Start(sp, { race = "Orc", class = "WARRIOR", faction = "Horde" })
+			w.moveTo(1420, 61, 52)
+			emit({ undead = undead.map, orc = orc.map, set = here and here.map or false, cost = P.TravelCost(P.PlayerPoint(), G.Start(bar)) or false })`;
+		const [out] = playGuide(pack, g, { race: 'Scourge', faction: 'Horde', cls: 'WARRIOR', script: `local w = stub.world\n${script}` });
+		assert.equal(out.orc, 1454, 'an Orc starts at the Orgrimmar flight master');
+		assert.notEqual(out.undead, 1454, 'an Undead does not');
+		assert.equal(out.set, out.undead, 'the play sets the Undead down at their own start');
+		assert.equal(typeof out.cost, 'number');
+		assert.ok(out.cost > 0 && out.cost < 3600, `a priced journey: ${out.cost}`);
+	} finally {
+		pack.dispose();
+	}
 });
 
 test('a `next` option whose `when` does not hold is no hand-over: the engine goes on to one offered, or the guide ends there', { skip }, async () => {

@@ -49,7 +49,7 @@ return {
 
 	-- Step 8: Kargath
 	-- {area:340} Kargath · {quest:1418} Neeka Bloodscar
-	["{area:340} is the Horde fortress built into the cliffs at the zone's western edge. {quest:1418} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "",
+	["{area:340} is the Horde fortress built into the cliffs at the zone's western edge. {quest:1418} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "{area:340}是建在地區西緣懸崖中的部落要塞。{quest:1418}站在{area:340}的上層，遠高於飛行管理員：沿坡道上去，箭頭無法區分上下層。",
 	-- {area:75} Stonard
 	["for Helgrum in {area:75}, around level 42"] = "給{area:75}的赫格拉姆，約42級時",
 	-- {npc:6868} Jarkal Mossmeld
@@ -75,11 +75,11 @@ return {
 	["Rock Elementals"] = "石元素",
 	-- {area:345} Agmond's End · {npc:6868} Jarkal Mossmeld
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard · Malevolent Mirages = {npc:269756} Malevolent Mirage
-	["South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of {area:345}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards. Careful: Malevolent Mirages (42, elite) drift across these slopes too."] = "",
+	["South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of {area:345}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards. Careful: Malevolent Mirages (42, elite) drift across these slopes too."] = "向東南穿過盆地，較大的石元素（39級）在{area:345}西邊的斜坡上，每隻都會掉落一塊石板。所有石元素都可能掉落{npc:6868}需要的石元素的碎片。小心：惡毒幻象（42級，精英）也會飄過這些斜坡。",
 
 	-- Step 13: Agmond's End
 	-- {area:345} Agmond's End · {area:1517} Uldaman
-	["Theldurin sits among the dwarven ruins at {area:345}, just east of the elementals. His tablet lies just inside {area:1517}'s cave mouth, beside level 38 elites: a quest for a group."] = "",
+	["Theldurin sits among the dwarven ruins at {area:345}, just east of the elementals. His tablet lies just inside {area:1517}'s cave mouth, beside level 38 elites: a quest for a group."] = "塞爾杜林坐在{area:345}的矮人廢墟中，就在石元素東邊。他的石板就在{area:1517}洞口內側不遠處，旁邊有38級精英：這是組隊任務。",
 
 	-- Step 14: Stonevault troggs
 	["Stonevault troggs"] = "石窟穴居人",

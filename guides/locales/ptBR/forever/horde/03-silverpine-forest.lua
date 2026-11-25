@@ -22,73 +22,77 @@ return {
 	-- {quest:829} Neeru Fireblade · {quest:832} Burning Shadows · {item:4903} Eye of Burning Shadow · {zone:1411} Durotar
 	["{quest:829}: {quest:832}, from the {item:4903} in {zone:1411}"] = "{quest:829}: {quest:832}, do {item:4903} em {zone:1411}",
 
-	-- Step 4: The Drag
+	-- Step 4: Neeru Fireblade
+	-- {quest:829} Neeru Fireblade · {object:172960} Cleft of Shadow (no name in this language: may be words) · {object:172982} Valley of Strength (no name in this language: may be words)
+	["{quest:829} stands at the far end of the {object:172960}, the canyon under the {object:172982}."] = "{quest:829} fica no fundo de {object:172960}, o cânion embaixo de {object:172982}.",
+
+	-- Step 5: The Drag
 	-- {npc:3348} Kor'geld · {npc:3347} Yelmak · {npc:11046} Whuut
 	["{npc:3348} and {npc:3347} run the alchemy shop in the Drag; {npc:11046} is next door."] = "{npc:3348} e {npc:3347} cuidam da loja de alquimia no Drag; {npc:11046} fica ao lado.",
 
-	-- Step 5: Jandi
+	-- Step 6: Jandi
 	-- {npc:3404} Jandi
 	["{npc:3404}, the herbalism trainer, keeps her shop in the Drag."] = "{npc:3404}, a instrutora de herborismo, mantém sua loja no Drag.",
 	-- {npc:3404} Jandi · {zone:1411} Durotar
 	["{npc:3404}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:3404}: Acampamento 101, da fogueira de Brakk em {zone:1411}",
 
-	-- Step 6: Jhag
+	-- Step 7: Jhag
 	-- {npc:11066} Jhag
 	["{npc:11066}, the enchanting trainer, works in the Drag."] = "{npc:11066}, o instrutor de encantamento, trabalha no Drag.",
 	-- {npc:11066} Jhag · {zone:1411} Durotar
 	["{npc:11066}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:11066}: Acampamento 101, da fogueira de Brakk em {zone:1411}",
 
-	-- Step 7: Valley of Honor
+	-- Step 8: Valley of Honor
 	-- {object:172958} Valley of Honor (no name in this language: may be words)
 	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "As taboas e o capim-lança crescem junto à água no {object:172958}, a leste do Drag.",
 
-	-- Step 8: Thuwd
+	-- Step 9: Thuwd
 	-- {npc:7088} Thuwd · {object:172958} Valley of Honor (no name in this language: may be words)
 	["{npc:7088}, the skinning trainer, stands in the {object:172958}."] = "{npc:7088}, o instrutor de esfolamento, fica em {object:172958}.",
 	-- {npc:7088} Thuwd · {zone:1411} Durotar
 	["{npc:7088}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:7088}: Acampamento 101, da fogueira de Brakk em {zone:1411}",
 
-	-- Step 9: Karolek
+	-- Step 10: Karolek
 	-- {npc:3365} Karolek · {object:172958} Valley of Honor (no name in this language: may be words)
 	["{npc:3365}, the leatherworking trainer, works in the {object:172958}."] = "{npc:3365}, o instrutor de couraria, trabalha em {object:172958}.",
 	-- {npc:3365} Karolek · {zone:1411} Durotar
 	["{npc:3365}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:3365}: Acampamento 101, da fogueira de Brakk em {zone:1411}",
 
-	-- Step 10: Snang
+	-- Step 11: Snang
 	-- {npc:2855} Snang · {object:172958} Valley of Honor (no name in this language: may be words)
 	["{npc:2855}, the tailoring trainer, is in the {object:172958}."] = "{npc:2855}, o instrutor de alfaiataria, fica em {object:172958}.",
 	-- {npc:2855} Snang · {zone:1411} Durotar
 	["{npc:2855}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:2855}: Acampamento 101, da fogueira de Brakk em {zone:1411}",
 
-	-- Step 11: Class trainer
+	-- Step 12: Class trainer
 	["Class trainer"] = "Instrutor de classe",
 	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits (no name in this language: may be words) · {quest:5654} Hex of Weakness
 	["Train while you are in the city: Druids and Paladins have no trainer here. Troll Priests: train with {npc:6018} in the {object:172961}, who takes {quest:5654}."] = "Treine enquanto estiver na cidade: Druidas e Paladinos não têm instrutor aqui. Sacerdotes Trolls: treine com {npc:6018} em {object:172961}, que recebe {quest:5654}.",
 
-	-- Step 12: Sayoc
+	-- Step 13: Sayoc
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor (no name in this language: may be words)
 	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Warrior fastest."] = "Já que está aqui: aprenda {spell:197} com {npc:11868} ({object:172958}, 10 pratas); arma de duas mãos é o jeito mais rápido de upar Guerreiro.",
 
-	-- Step 13: Hanashi
+	-- Step 14: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor (no name in this language: may be words)
 	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Já que está aqui: aprenda Cajados com {npc:2704} ({object:172958}, 10 pratas); a arma corpo a corpo do Caçador vale pelos atributos, e as de duas mãos são as que mais trazem.",
 
-	-- Step 14: Hanashi
+	-- Step 15: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor (no name in this language: may be words)
 	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Já que está aqui: aprenda Cajados com {npc:2704} ({object:172958}, 10 pratas); enquanto você sobe de nível, um cajado traz mais atributos de feitiço que uma arma de uma mão.",
 
-	-- Step 17: Whuut
+	-- Step 18: Whuut
 	-- {npc:11046} Whuut · {npc:3348} Kor'geld
 	["{npc:11046}, the alchemy trainer, stands next door to {npc:3348}."] = "{npc:11046}, o instrutor de alquimia, fica ao lado de {npc:3348}.",
 	-- {npc:11046} Whuut · {zone:1411} Durotar
 	["{npc:11046}: Camping 101, from Brakk's campfire in {zone:1411}"] = "{npc:11046}: Acampamento 101, da fogueira de Brakk em {zone:1411}",
 
-	-- Step 18: Valley of Wisdom
+	-- Step 19: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom (no name in this language: may be words)
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
 	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them."] = "{npc:268684} e {npc:268682} ficam atrás da Fortaleza Grommash, em {object:172957}; os Pedregulhos Lisos estão em volta deles.",
 
-	-- Step 19: Thrall
+	-- Step 20: Thrall
 	-- {npc:4949} Thrall · {quest:98024} Journey to the Crossroads · {quest:93739} Exploring the Horde · {quest:95350} Welcome to Azeroth
 	["{npc:4949} stands in Grommash Hold. He offers {quest:98024} and {quest:93739} once {quest:95350} is handed in."] = "{npc:4949} fica na Fortaleza Grommash. Ele oferece {quest:98024} e {quest:93739} depois que você entregar {quest:95350}.",
 	-- {npc:4949} Thrall
@@ -106,19 +110,23 @@ return {
 	-- {npc:10540} Vol'jin
 	["Talk to {npc:10540}"] = "Fale com {npc:10540}",
 
-	-- Step 20: Nazgrel
+	-- Step 21: Nazgrel
 	-- {npc:3230} Nazgrel
 	["{npc:3230}, in Grommash Hold"] = "{npc:3230}, na Fortaleza Grommash",
 
-	-- Step 21: Thrall
-	-- {npc:4949} Thrall · {item:14544} Lieutenant's Insignia · {area:817} Skull Rock · {npc:3216} Neeru Fireblade · {zone:1454} Orgrimmar
-	["{npc:4949}, on his throne in Grommash Hold, takes the {item:14544} from {area:817}. His next errand is only a word with {npc:3216}, on this guide's last {zone:1454} walk."] = "",
+	-- Step 22: Thrall
+	-- {npc:4949} Thrall · {item:14544} Lieutenant's Insignia · {area:817} Skull Rock · {quest:829} Neeru Fireblade · {zone:1454} Orgrimmar
+	["{npc:4949}, on his throne in Grommash Hold, takes the {item:14544} from {area:817}. His next errand is only a word with {quest:829}, on this guide's last {zone:1454} walk."] = "{npc:4949}, no trono na Fortaleza Grommash, recebe {item:14544} de {area:817}. A próxima tarefa dele é só uma conversa com {quest:829}, na última volta deste guia por {zone:1454}.",
 
-	-- Step 22: Zeppelin to Undercity
+	-- Step 23: Thrall
+	-- {npc:4949} Thrall · {npc:3216} Neeru Fireblade · {zone:1454} Orgrimmar
+	["{npc:4949} sits on his throne in Grommash Hold. His next errand is only a word with {npc:3216}, on this guide's last {zone:1454} walk."] = "{npc:4949} está sentado no trono na Fortaleza Grommash. A próxima tarefa dele é só uma conversa com {npc:3216}, na última volta deste guia por {zone:1454}.",
+
+	-- Step 24: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "Zepelim para {zone:1458}",
 
-	-- Step 23: Brill
+	-- Step 25: Brill
 	-- {area:159} Brill · {npc:1738} Deathguard Terrence · {npc:1518} Apothecary Johaan · {npc:246152} Shari Stilwell
 	["{area:159} is a short walk north up the road from the zeppelin towers: {npc:1738} stands by the road into town, {npc:1518} in the apothecary's house on the west side of the square; Paladins: {npc:246152} trains you in town."] = "{area:159} fica a uma caminhada curta ao norte pela estrada, saindo das torres do zepelim: {npc:1738} fica junto à estrada de entrada da cidade e {npc:1518}, na casa do boticário, no lado oeste da praça; Paladinos: {npc:246152} treina você na cidade.",
 	-- {npc:1518} Apothecary Johaan
@@ -126,16 +134,16 @@ return {
 	-- {npc:246152} Shari Stilwell · {area:159} Brill
 	["{npc:246152}, in {area:159}"] = "{npc:246152}, em {area:159}",
 
-	-- Step 24: Hadric Harlson
+	-- Step 26: Hadric Harlson
 	-- {npc:1495} Deathguard Linnea · {npc:267009} Hadric Harlson
 	["Back down the road past the zeppelin towers and east to {npc:1495}'s camp: {npc:267009} stands beside her."] = "De volta pela estrada, passando as torres do zepelim, e a leste até o acampamento de {npc:1495}: {npc:267009} fica ao lado dela.",
 
-	-- Step 25: The Cult of the Damned
+	-- Step 27: The Cult of the Damned
 	-- {npc:267009} Hadric Harlson
 	-- plural, as words: Dark Neophytes = {npc:267006} Dark Neophyte · Dark Enforcers = {npc:275437} Dark Enforcer · Necrotic Crystal Fragments = {item:275851} Necrotic Crystal Fragment
 	["The cultists camp a short walk south-east of {npc:267009}. Dark Neophytes and Dark Enforcers drop the Necrotic Crystal Fragments; more fragments, black crystals, lie on the ground among the tents."] = "Os sectários acampam a uma caminhada curta a sudeste de {npc:267009}. Os Neófitos Sombrios e os Impositores Sombrios deixam cair os Fragmentos de Cristal Necrótico; há mais fragmentos, cristais negros, no chão entre as tendas.",
 
-	-- Step 28: The Sepulcher
+	-- Step 30: The Sepulcher
 	-- {area:228} The Sepulcher · {npc:2226} Karos Razok
 	["{area:228} is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; {npc:2226}, the bat handler, is just east of it."] = "{area:228} é a cidade-cripta dos Renegados no meio da floresta. Todos de quem você precisa ficam em volta da entrada da cripta; {npc:2226}, o adestrador de morcegos, fica logo a leste dela.",
 	-- {npc:2226} Karos Razok · {npc:4556} Gordon Wendham · {zone:1458} Undercity
@@ -145,43 +153,43 @@ return {
 	-- {npc:1937} Apothecary Renferrel
 	["{npc:1937}: bear hearts from the Grizzled Bears all over the forest, the spiders' blood in the north-west hills later"] = "",
 
-	-- Step 29: The Sepulcher
+	-- Step 31: The Sepulcher
 	-- {quest:264} Until Death Do Us Part · {object:24776} Yuriv's Tombstone
 	["{quest:264} is handed in at {object:24776}, a grave a few steps south of the crypt entrance, not to a person."] = "{quest:264} é entregue em {object:24776}, um túmulo a poucos passos ao sul da entrada da cripta, e não a uma pessoa.",
 
-	-- Step 30: Border Crossings
+	-- Step 32: Border Crossings
 	-- {object:1627} Dalaran Crate
 	-- plural, as words: Dalaran Apprentices = {npc:1867} Dalaran Apprentice
 	["Follow the road south. The {object:1627} sits beside it, north of Pyrewood. Careful: Dalaran Apprentices (13) stand around the crate: pull them one at a time before you open it."] = "Siga a estrada para o sul. O {object:1627} fica ao lado dela, ao norte de Lenhardente. Cuidado: Aprendizes de Dalaran (13) ficam em volta do caixote: puxe-os um de cada vez antes de abri-lo.",
 
-	-- Step 31: The Dead Field
+	-- Step 33: The Dead Field
 	-- {area:228} The Sepulcher · {npc:1983} Nightlash · {area:240} The Dead Field
 	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health."] = "Ao norte do {area:228}. {npc:1983} assombra o {area:240}: mate-o e depois atravesse o campo. Cuidado: {npc:1983} (14) aparece depois que você mata gnolls Putricouro no campo: enfrente-a com a vida cheia.",
 
-	-- Step 32: Malden's Orchard
+	-- Step 34: Malden's Orchard
 	-- {area:238} Malden's Orchard
 	["Follow the road north-east to the Yoricks' house at {area:238}."] = "Siga a estrada para nordeste até a casa dos Yorick no {area:238}.",
 
-	-- Step 33: Mottled Worgs
+	-- Step 35: Mottled Worgs
 	-- plural, as words: Mottled Worgs = {npc:1766} Mottled Worg
 	["Mottled Worgs"] = "Worgs Mosqueados",
 	-- plural, as words: Mottled Worgs = {npc:1766} Mottled Worg
 	["Mottled Worgs prowl the hills around the house."] = "Worgs Mosqueados rondam as colinas em volta da casa.",
 
-	-- Step 34: Escorting Erland
+	-- Step 36: Escorting Erland
 	-- {npc:1978} Deathstalker Erland · {npc:1950} Rane Yorick
 	["{npc:1978} waits north-east of the house. Escort him back to {npc:1950}; worgs attack on the way."] = "{npc:1978} espera a nordeste da casa. Escolte-o de volta até {npc:1950}; worgs atacam no caminho.",
 	-- {npc:1978} Deathstalker Erland
 	["{npc:1978}, inside"] = "{npc:1978}, lá dentro",
 
-	-- Step 37: The Sepulcher
+	-- Step 39: The Sepulcher
 	-- {npc:1938} Dalar Dawnweaver · {area:227} Valgan's Field
 	["{npc:1938}: his books lie in the {area:227} farmhouse, on the walk north"] = "{npc:1938}: os livros dele ficam na casa da fazenda de {area:227}, na caminhada para o norte",
 	-- {npc:1937} Apothecary Renferrel · {zone:1458} Undercity
 	["{npc:1937}: Zinge in the {zone:1458}, on the way to the zeppelin at the end"] = "{npc:1937}: Zilda em {zone:1458}, no caminho para o zepelim, no fim",
 	["Allister's Ambermill Investigations is for the ride through Silverpine at 22; leave it."] = "Investigações em Moinho Âmbar, de Allister, é para a passagem por Pinhaprata no nível 22; deixe-a.",
 
-	-- Step 38: Valgan's Field farmhouse
+	-- Step 40: Valgan's Field farmhouse
 	-- {area:227} Valgan's Field
 	["{area:227} farmhouse"] = "Casa da fazenda de {area:227}",
 	-- {area:227} Valgan's Field · {object:1571} Dusty Spellbooks · {npc:1770} Moonrage Darkrunner
@@ -189,21 +197,21 @@ return {
 	-- {object:1571} Dusty Spellbooks
 	["{object:1571}; upstairs"] = "{object:1571}; no andar de cima",
 
-	-- Step 39: Quinn Yorick
+	-- Step 41: Quinn Yorick
 	["North again to the Yoricks' house."] = "De novo ao norte até a casa dos Yorick.",
 	-- {npc:1951} Quinn Yorick
 	["{npc:1951}, inside"] = "{npc:1951}, lá dentro",
 
-	-- Step 40: Vile Fin murlocs
+	-- Step 42: Vile Fin murlocs
 	["Vile Fin murlocs"] = "Murlocs Pinavil",
 	-- plural, as words: Vile Fin Shredders = {npc:1767} Vile Fin Shredder
 	["Follow the lake shore south-east from the Yoricks' house: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes."] = "Siga a margem do lago para o sudeste a partir da casa dos Yorick: os Retalhadores Pinavil e os Caçamarés que andam por ela soltam os olhos de murloc.",
 
-	-- Step 41: The Decrepit Ferry
+	-- Step 43: The Decrepit Ferry
 	-- {object:1593} Corpse Laden Boat
 	["Follow the lake shore south from the murlocs: the {object:1593} lies at the ferry landing."] = "Siga a margem do lago para o sul, saindo dos murlocs: {object:1593} fica no embarcadouro da balsa.",
 
-	-- Step 42: The Sepulcher
+	-- Step 44: The Sepulcher
 	-- {area:228} The Sepulcher
 	["From the ferry back west up the road to the {area:228}."] = "Da balsa, volte para oeste pela estrada até {area:228}.",
 	-- {npc:1937} Apothecary Renferrel
@@ -213,7 +221,7 @@ return {
 	-- {npc:1499} Magistrate Sevren · {area:159} Brill
 	["{npc:1499} in {area:159}, on the way to the zeppelin at the end"] = "{npc:1499} em {area:159}, a caminho do zepelim no fim",
 
-	-- Step 43: North-west hills
+	-- Step 45: North-west hills
 	["North-west hills"] = "",
 	-- {area:228} The Sepulcher · {item:3254} Skittering Blood
 	-- plural, as words: Moonrage Gluttons = {npc:1779} Moonrage Glutton · Moss Stalkers = {npc:1780} Moss Stalker · Mist Creepers = {npc:1781} Mist Creeper · Giant Grizzled Bears = {npc:1797} Giant Grizzled Bear
@@ -228,20 +236,20 @@ return {
 	-- plural, as words: Moss Stalkers = {npc:1780} Moss Stalker · Mist Creepers = {npc:1781} Mist Creeper
 	["{item:3254}, from the Moss Stalkers and Mist Creepers"] = "",
 
-	-- Step 44: The Sepulcher
+	-- Step 46: The Sepulcher
 	-- {area:228} The Sepulcher
 	["Back south-east to the {area:228}."] = "",
 
-	-- Step 45: The Ivar Patch
+	-- Step 47: The Ivar Patch
 	-- {zone:1420} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
 	["Take the road north toward {zone:1420}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Pegue a estrada para o norte rumo a {zone:1420}: a casa dos Yorick, em {area:238}, fica no caminho. {quest:425} espreita a uma curta caminhada a oeste dela.",
 	["Inside"] = "Lá dentro",
 
-	-- Step 47: Magistrate Sevren
+	-- Step 49: Magistrate Sevren
 	-- {area:159} Brill · {npc:1499} Magistrate Sevren
 	["{area:159} is a short walk north up the road from the zeppelin towers; {npc:1499} is in the town hall."] = "{area:159} fica a uma curta caminhada para o norte pela estrada, saindo das torres do zepelim; {npc:1499} está na prefeitura.",
 
-	-- Step 49: The Undercity
+	-- Step 51: The Undercity
 	-- {object:1661} The Undercity (no name in this language: may be words) · {area:153} Ruins of Lordaeron · {npc:2050} Raleigh Andrean · {npc:7683} Alessandro Luca · {npc:11044} Doctor Martin Felben · {npc:5204} Apothecary Zinge · {npc:2055} Master Apothecary Faranell
 	["{object:1661} lies under the {area:153}, beside the zeppelin towers. {npc:2050} stands at the inn by the way down; {npc:7683} on the way down to the Apothecarium, where {npc:11044} and {npc:5204} stand beside {npc:2055}."] = "{object:1661} fica sob {area:153}, ao lado das torres dos zepelins. {npc:2050} fica na estalagem, junto à descida; {npc:7683} na descida para o Apothecarium, onde {npc:11044} e {npc:5204} ficam ao lado de {npc:2055}.",
 	-- {npc:4556} Gordon Wendham
@@ -261,25 +269,25 @@ return {
 	-- {npc:260093} Garen Largo · {area:1497} Undercity
 	["{npc:260093}, the {area:1497}'s paladin trainer"] = "{npc:260093}, o treinador de paladinos da {area:1497}",
 
-	-- Step 50: Brom Killian
+	-- Step 52: Brom Killian
 	-- {npc:4598} Brom Killian · {zone:1458} Undercity
 	["{npc:4598}, the mining trainer, works in the {zone:1458}."] = "{npc:4598}, o instrutor de mineração, trabalha em {zone:1458}.",
 	-- {npc:4598} Brom Killian · {npc:265812} Eleanor Shackleton
 	["{npc:4598}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4598}: Acampamento 101, da fogueira de {npc:265812} em Tirisfal",
 
-	-- Step 51: Basil Frye
+	-- Step 53: Basil Frye
 	-- {npc:4605} Basil Frye · {zone:1458} Undercity
 	["{npc:4605}, the blacksmithing trainer, works in the {zone:1458}."] = "{npc:4605}, o instrutor de ferraria, trabalha em {zone:1458}.",
 	-- {npc:4605} Basil Frye · {npc:265812} Eleanor Shackleton
 	["{npc:4605}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4605}: Acampamento 101, da fogueira de {npc:265812} em Tirisfal",
 
-	-- Step 52: Graham Van Talen
+	-- Step 54: Graham Van Talen
 	-- {npc:4586} Graham Van Talen · {zone:1458} Undercity
 	["{npc:4586}, the engineering trainer, works in the {zone:1458}."] = "{npc:4586}, o instrutor de engenharia, trabalha em {zone:1458}.",
 	-- {npc:4586} Graham Van Talen · {npc:265812} Eleanor Shackleton
 	["{npc:4586}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4586}: Acampamento 101, da fogueira de {npc:265812} em Tirisfal",
 
-	-- Step 53: Lady Sylvanas Windrunner
+	-- Step 55: Lady Sylvanas Windrunner
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter (no name in this language: may be words)
 	["{npc:10181} holds court in the {object:36126}."] = "{npc:10181} despacha em {object:36126}.",
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter (no name in this language: may be words) · {quest:93739} Exploring the Horde
@@ -287,50 +295,50 @@ return {
 	-- {npc:10181} Lady Sylvanas Windrunner
 	["Talk to {npc:10181}"] = "Fale com {npc:10181}",
 
-	-- Step 54: Zeppelin to Orgrimmar
+	-- Step 56: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Zepelim para {zone:1454}",
 
-	-- Step 55: Orgrimmar
+	-- Step 57: Orgrimmar
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength (no name in this language: may be words)
 	["{zone:1454}'s {object:172982}"] = "{object:172982} de {zone:1454}",
 
-	-- Step 56: Valley of Strength
+	-- Step 58: Valley of Strength
 	-- {npc:268701} Thatog · {object:172982} Valley of Strength (no name in this language: may be words)
 	["Walk in through the main gate. {npc:268701} stands in the {object:172982}."] = "Entre pelo portão principal. {npc:268701} fica em {object:172982}.",
 
-	-- Step 59: Neeru Fireblade
+	-- Step 61: Neeru Fireblade
 	-- {object:172960} Cleft of Shadow (no name in this language: may be words) · {object:172982} Valley of Strength (no name in this language: may be words) · {npc:3216} Neeru Fireblade · {npc:4949} Thrall
 	["The {object:172960} is the canyon under the {object:172982}; {npc:3216} stands at its far end. Tell him what {npc:4949} found."] = "",
 
-	-- Step 60: Neeru Fireblade
+	-- Step 62: Neeru Fireblade
 	-- {area:2437} Ragefire Chasm · {object:172960} Cleft of Shadow (no name in this language: may be words) · {object:172982} Valley of Strength (no name in this language: may be words) · {npc:3216} Neeru Fireblade
 	["For your {area:2437} run: the {object:172960} is the canyon under the {object:172982}; {npc:3216} stands at its far end, next to the {area:2437} portal."] = "Para a masmorra {area:2437}: o {object:172960} é o cânion sob o {object:172982}; {npc:3216} fica no fundo dele, ao lado do portal de {area:2437}.",
 
-	-- Step 61: Ragefire Chasm
+	-- Step 63: Ragefire Chasm
 	-- {area:2437} Ragefire Chasm · {object:172960} Cleft of Shadow (no name in this language: may be words) · {npc:3216} Neeru Fireblade · {npc:11520} Taragaman the Hungerer · {npc:11518} Jergosh the Invoker · {quest:5726} Hidden Enemies
 	-- was: ["{area:2437} is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the {object:172960}, beside {npc:3216}.\nInside: past Oggleflint and his troggs, {npc:11520} waits in the lava cave and drops his heart. {npc:11518} and Bazzalan, further in, are for {npc:4949}'s Hidden Enemies, which this route leaves out."] = "{area:2437} é uma masmorra para um grupo de cinco, por volta dos níveis 13 a 18, e percorrê-la inteira leva de 30 a 45 minutos. O portal fica no {object:172960}, ao lado de {npc:3216}.\nLá dentro: depois de Oggleflint e seus troggs, {npc:11520} espera na caverna de lava e deixa cair o coração dele. {npc:11518} e Bazzalan, mais adiante, são para Hidden Enemies, de {npc:4949}, que esta rota deixa de fora."
 	["{area:2437} is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the {object:172960}, beside {npc:3216}.\nInside: past Oggleflint and his troggs, {npc:11520} waits in the lava cave and drops his heart. {npc:11518} and Bazzalan, further in, are for {quest:5726}' Ragefire part, which this route leaves out."] = "",
 
-	-- Step 62: Neeru Fireblade
+	-- Step 64: Neeru Fireblade
 	-- {npc:3216} Neeru Fireblade
 	["Back out through the portal: {npc:3216} stands beside it."] = "Saia de volta pelo portal: {npc:3216} fica ao lado dele.",
 
-	-- Step 66: Sayoc
+	-- Step 68: Sayoc
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor (no name in this language: may be words)
 	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "Já que está aqui: aprenda {spell:197} com {npc:11868} ({object:172958}, 10 pratas); arma de duas mãos é o jeito mais rápido de upar Paladino.",
 
-	-- Step 68: Valley of Wisdom
+	-- Step 70: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom (no name in this language: may be words) · {area:362} Razor Hill · {area:379} Far Watch Post
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
 	-- was: ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} e {npc:268682} ficam atrás da Fortaleza Grommash, em {object:172957}; os Pedregulhos Lisos estão em volta deles. O próximo guia vai daqui até {area:379} e a Encruzilhada."
 	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:362}, then {area:379} and the Crossroads."] = "",
 
-	-- Step 69: Thrall
+	-- Step 71: Thrall
 	-- {npc:4949} Thrall · {npc:268684} Thra · {npc:268682} Migi
 	["{npc:4949} waits in Grommash Hold, beside {npc:268684} and {npc:268682}."] = "",
 
-	-- Step 70: Zor Lonetree
+	-- Step 72: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {npc:4049} Seereth Stonebreak
 	["{npc:4047}: {npc:4049}, on the road into Stonetalon in the next guide"] = "{npc:4047}: {npc:4049}, na estrada que entra em Torres de Pedra, no próximo guia",
 

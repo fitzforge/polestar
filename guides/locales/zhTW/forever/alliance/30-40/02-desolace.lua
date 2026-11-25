@@ -53,7 +53,7 @@ return {
 	-- {area:598} Sar'theris Strand · {item:15881} Rackmore's Golden Key
 	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it. Work the Naga, Sorceresses and Warriors (32-34) of the strand's southern half until it drops.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), and Tidehunters (36-37) swim off the northern tip: on the way to the chest, keep to the beach and swim straight across."] = "",
 	-- {item:15881} Rackmore's Golden Key
-	["{item:15881}, from the Slitherblade naga"] = "",
+	["{item:15881}, from the Slitherblade naga"] = "{item:15881}，來自滑刃納迦",
 
 	-- Step 10: Rackmore's Chest
 	-- {area:2406} Ranazjar Isle · {object:177786} Rackmore's Chest · {object:177673} Serpent Statue
@@ -107,37 +107,42 @@ return {
 
 	-- Step 18: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
-	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher · Ancient Kodos = {npc:4702} Ancient Kodo
-	-- was: ["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "對年老的、垂死的或{npc:4702}使用{npc:11596}給的{item:13892}：它會變成一隻被馴服的科多獸跟著你。把它帶回{npc:11596}的營地；在那裡和科多獸對話：這算它一隻，並讓你可以馴服下一隻。五隻科多獸，一次一隻；年老的科多獸也會掉皮，墓地周圍遊蕩的毒蠍鞭笞者帶著毒液。"
-	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom. Careful: the Ancient Kodos (36-37) hit hard: tame them, and fight only the Aged Kodos for the hides."] = "",
+	-- plural, as words: Ancient Kodos = {npc:4702} Ancient Kodo
+	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: the Ancient Kodos (36-37) hit hard: tame them, don't fight them."] = "對年老、垂死或上古的科多獸（{npc:4702}）使用{npc:11596}的{item:13892}：牠會變成跟隨你的馴服科多獸。把牠帶回{npc:11596}的營地；在那裡與科多獸對話：這樣會計數並讓你馴服下一隻。共五隻，一次一隻。小心：上古科多獸（36-37）攻擊很重：馴服牠們，別和牠們戰鬥。",
 	-- {npc:4702} Ancient Kodo
 	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "對墓地裡的年老的、垂死的或{npc:4702}使用；別把它殺了",
 	-- {npc:11596} Smeed Scrabblescrew
 	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "被馴服的科多獸，在{npc:11596}的營地：和它對話，五次",
 
-	-- Step 20: Kolkar Village
+	-- Step 19: Kodo Graveyard: hides and venom
+	-- {area:596} Kodo Graveyard
+	["{area:596}: hides and venom"] = "{area:596}：獸皮和毒液",
+	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher · Ancient Kodos = {npc:4702} Ancient Kodo
+	["The Aged Kodos in the graveyard drop the hides, and the Scorpashi Lashers that hunt around it carry the venom. Careful: the Ancient Kodos (36-37) hit hard: fight only the Aged Kodos."] = "墓地裡的老科多獸（{npc:4700}）掉落獸皮，在周圍狩獵的鞭笞者斯克巴希（{npc:4697}）身上有毒液。小心：上古科多獸（{npc:4702}，36-37）攻擊很重：只打老科多獸。",
+
+	-- Step 21: Kolkar Village
 	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:5752} Corporal Melkins · {quest:93224} Carved Centaur Totems · {npc:5396} Captain Pentigast
 	-- plural, as words: Centaur Ears = {item:6067} Centaur Ear
 	["North-east from {npc:11596}'s camp to {area:609}, on the way back to {area:608}: every Kolkar drops Centaur Ears for {npc:5752} and {quest:93224} for {npc:5396}. The Magram south-east of {npc:11596}'s camp drop them too, but their village holds Necromancers (42-43) and Guardians (39-41): stay with the Kolkar (30-35)."] = "",
 
-	-- Step 21: Kormek's Hut
+	-- Step 22: Kormek's Hut
 	-- {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:11438} Bibbly F'utzbuckle · {area:2407} Kormek's Hut · {area:35} Booty Bay
 	["North-west from {area:609} back along the road to {area:608}: {npc:11438} waits at {area:2407}. He sends you after the robber to {area:35}, where the next guide ends: keep it."] = "",
 	-- {npc:11438} Bibbly F'utzbuckle · {area:35} Booty Bay
 	["{npc:11438}: Tokal waits in {area:35}, at the end of the next guide"] = "",
 
-	-- Step 22: Nijel's Point
+	-- Step 23: Nijel's Point
 	-- {npc:5638} Kreldig Ungor · {zone:1443} Desolace
 	-- was: ["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638}：背包在西北海岸外，位於30-40（06-荒蕪之地）結尾的南線上：先留著"
 	["{npc:5638}: the satchel lies off the north-west coast, on {zone:1443}'s south loop at the end of 30-40: keep it"] = "",
 
-	-- Step 23: Fly to Auberdine
+	-- Step 24: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "飛往{area:442}",
 	-- {area:608} Nijel's Point
 	["{area:608} flight master"] = "{area:608}飛行管理員",
 
-	-- Step 24: Boat to Stormwind Harbor
+	-- Step 25: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
 	["Boat to {area:17203}"] = "乘船前往{area:17203}",
 

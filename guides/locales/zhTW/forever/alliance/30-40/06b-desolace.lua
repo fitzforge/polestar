@@ -18,8 +18,6 @@ return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "飛往{area:150}",
-	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "{area:144}飛行管理員",
 
 	-- Step 3: Theramore flight master
 	["Theramore flight master"] = "塞拉摩飛行管理員",
@@ -48,8 +46,10 @@ return {
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:6134}'s magnets draw the Magrami Spectres a few yards from the Magram Necrokhans and Corpsefeeders (45, elite) in the {area:2657}. Skip it if you are alone."] = "這些是精英怪：建議組隊，找人一起做。{quest:6134}的磁鐵會在{area:2657}把瑪格拉姆幽靈引到離瑪格拉姆死靈可汗和食屍者（45級，精英）只有幾碼的地方。如果你獨自一人就跳過。",
 
 	-- Step 8: Flesh Picker
-	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
-	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s {item:213565}."] = "一隻{npc:217590}在{area:596}爬來爬去：用{npc:217412}給的{item:213565}裡的工具抓一隻。",
+	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
+	["A {npc:217590} crawls about the {area:596}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "{npc:217590}在{area:596}爬行：打開{npc:217412}的{item:213565}，對其中一隻使用裡面的{item:213562}。不要殺死牠。",
+	-- {item:213562} Bug Catching Net · {npc:217590} Flesh Picker · {item:213567} Flesh Picker Specimen
+	["{item:213562}, on a {npc:217590}: the {item:213567}"] = "{item:213562}，用在{npc:217590}上：{item:213567}",
 
 	-- Step 9: Maraudine centaurs
 	["Maraudine centaurs"] = "瑪勞登半人馬",
@@ -58,7 +58,7 @@ return {
 
 	-- Step 10: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}被關在墓地西邊的半人馬營地。救出她，在走出去的路上保護她存活；她會在墓地旁停下。\n小心：劇本中出現的敵人群彼此連動，只會在護送期間出現，所以無法事先清掉，也無法一次拉一隻。不過開始前先清掉路上一般的半人馬會有幫助。",
+	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}被關在墓地以西的半人馬營地裡。救出她，在走出去的路上保護她；她會停在墓地旁。\n小心：護送途中會有六個半人馬來襲，而且無法提前清理：牠們只在護送時出現，並且會一起上。玩家記錄中，接過此任務的30人裡有14人至少失敗過一次。帶個朋友，如果你是單人就跳過。開始前清掉路上的普通半人馬會有幫助。",
 	-- {npc:12277} Melizza Brimbuzzle
 	["escort {npc:12277} back toward the graveyard"] = "護送{npc:12277}回墓地",
 
@@ -91,41 +91,45 @@ return {
 	["Back at the coven on the way west: the Mana Eaters (37-38) on its north edge and the Mage Hunters (38-39) further in drop the brains. {npc:5760} (40, elite) walks among the Mage Hunters: pull them out to you."] = "往西的途中回到巫團：北緣的噬法魔犬（37-38級）和更裡面的法師獵手（38-39級）會掉落腦。{npc:5760}（40級，精英）在法師獵手之間走動：把它們拉出來。",
 
 	-- Step 17: Azore Aldamort
-	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
-	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "沿著道路向西穿過{zone:1443}北部，前往{area:2405}的廢墟。{npc:11863}的塔就在那裡的山丘上，在前往沉船的路上。",
+	-- {npc:11863} Azore Aldamort · {area:2405} Ethel Rethor · {zone:1443} Desolace
+	["{npc:11863}'s tower stands on the hill at the ruins of {area:2405}, west across the north of {zone:1443}."] = "{npc:11863}的塔樓位於{area:2405}廢墟的山上，橫越{zone:1443}北部向西。",
 	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
 	["{npc:11863}, if the first {zone:1443} visit didn't take the sceptre back to him"] = "",
+
+	-- Step 18: Azore Aldamort
+	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
+	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "沿著道路向西穿過{zone:1443}北部，前往{area:2405}的廢墟。{npc:11863}的塔就在那裡的山丘上，在前往沉船的路上。",
 	-- {npc:11863} Azore Aldamort · {quest:93464} The Visiting Mage · {zone:1435} Swamp of Sorrows
 	["{npc:11863}: {quest:93464}, from Magtoor in the {zone:1435}"] = "{npc:11863}：{quest:93464}，來自{zone:1435}的瑪格圖爾",
 	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
 	["{npc:11863}, if the first {zone:1443} visit didn't give it"] = "",
 
-	-- Step 18: Karnitol's Chest
+	-- Step 19: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
 	["The wrecked ship's chest lies just south-west of {npc:11863}'s tower."] = "沉船的箱子就在{npc:11863}塔西南方不遠處。",
 
-	-- Step 19: Claim Rackmore's Treasure!
+	-- Step 20: Claim Rackmore's Treasure!
 	-- {object:177787} Rackmore's Log · {object:35251} Karnitol's Chest · {zone:1443} Desolace
 	["{object:177787} lies beside {object:35251}, if you didn't take it on your first {zone:1443} visit. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787}放在{object:35251}旁邊，如果你第一次來{zone:1443}時沒拿的話。他的銀鑰匙由沉船周圍的乾鉗螃蟹掉落；金鑰匙則來自西北海岸的滑刃納迦，接下來就去。",
 	-- {object:177787} Rackmore's Log · {zone:1443} Desolace
 	["{object:177787}, if the first {zone:1443} visit didn't take it"] = "",
 	["Underwater"] = "在水下",
 
-	-- Step 20: Sar'theris Strand: kill these as you meet them
+	-- Step 21: Sar'theris Strand: kill these as you meet them
 	-- {area:598} Sar'theris Strand
 	["{area:598}: kill these as you meet them"] = "{area:598}：遇到就殺",
 	-- {npc:11863} Azore Aldamort · {spell:131} Water Breathing · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
-	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower, on the shore and out in the water. Karnitol's satchel drops now and then from their Tidehunters and Sea Witches, most of them underwater ({spell:131} helps): take it if it comes, it is optional. Any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "",
+	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower, on the shore and out in the water. Karnitol's satchel drops now and then from their Tidehunters and Sea Witches, most of them underwater ({spell:131} helps): take it if it comes, it is optional. Any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "滑刃納迦控制著{npc:11863}塔北面的西北海岸，在岸上和水裡都有。卡納託的挎包會不時被他們的潮汐獵手和海中女巫掉落，大多在水下（{spell:131}有幫助）：出了就拿，可選的。任何納迦都可能掉落拉克莫的金鑰匙。游到遠處北端的{area:2406}，對{object:177673}使用{item:15766}：{npc:12369}（38級）現身；殺掉他以完成{quest:6027}。",
 	-- {item:15881} Rackmore's Golden Key
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}，來自滑刃納迦",
 	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue
 	["{item:15766}, on the {object:177673}"] = "{item:15766}，對{object:177673}使用",
 
-	-- Step 21: Rackmore's Chest
+	-- Step 22: Rackmore's Chest
 	-- {object:177673} Serpent Statue
 	["Rackmore's chest lies just south-east of the {object:177673}."] = "拉克摩的箱子就在{object:177673}東南方不遠處。",
 
-	-- Step 24: Nijel's Point
+	-- Step 25: Nijel's Point
 	-- {area:608} Nijel's Point · {npc:5396} Captain Pentigast · {npc:5638} Kreldig Ungor · {npc:1182} Brother Anton
 	["Follow the road north to {area:608}: {npc:5396} stands at its south end, {npc:5638} in the middle, {npc:1182} to the north."] = "沿著道路向北前往{area:608}：{npc:5396}站在南端，{npc:5638}在中間，{npc:1182}在北邊。",
 	-- {npc:5637} Roetten Stonehammer · {zone:1455} Ironforge
@@ -133,14 +137,17 @@ return {
 	-- {npc:3980} Raleigh the Devout · {area:271} Southshore
 	["for {npc:3980} in {area:271}: keep it"] = "給{area:271}的{npc:3980}：先留著",
 
-	-- Step 25: Fly to Theramore
+	-- Step 26: Fly to Theramore
 	["Fly to Theramore"] = "飛往塞拉摩",
 	["The next guide starts in Theramore."] = "下一份指南從塞拉摩開始。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s {item:213565}."] = "一隻{npc:217590}在{area:596}爬來爬去：用{npc:217412}給的{item:213565}裡的工具抓一隻。",
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "滑刃納迦佔據{npc:11863}塔北邊的西北海岸；卡尼托的背包在外海的海底，任何納迦都可能掉落拉克摩的金鑰匙。游到最北端外海的{area:2406}，對{object:177673}使用{item:15766}：{npc:12369}（38級）會出現；擊殺他取得{quest:6027}。",
 	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "惡魔聚集在{zone:1443}南部的{area:602}：坑洞周圍有地獄犬（法力吞噬者、法師獵手和魔網獵手）、虛空少女和虛空姐妹，以及末日守衛隊長。\n小心：這裡大部分的怪都有巡邏路線，很容易多拉到怪。",
 	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "不死掠奪者在瑪格拉姆村莊南邊、巫團東邊的骨原上遊蕩：箭頭會帶你到它們的西緣。然後在骨原東側的箭頭處使用{item:15848}，引來瑪格拉姆幽靈。小心：瑪格拉姆死靈可汗和食屍者（45級，精英）與瑪格拉姆死靈法師（42級）在兩個箭頭之間的骨原上走動：把掠奪者和幽靈拉到你這裡，遠離它們。",
+	-- ["{area:144} flight master"] = "{area:144}飛行管理員",
+	-- ["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}被關在墓地西邊的半人馬營地。救出她，在走出去的路上保護她存活；她會在墓地旁停下。\n小心：劇本中出現的敵人群彼此連動，只會在護送期間出現，所以無法事先清掉，也無法一次拉一隻。不過開始前先清掉路上一般的半人馬會有幫助。",
 	-- ["{npc:5396}, if 30-40/02 didn't give it"] = "{npc:5396}，如果30-40/02沒有接到",
 	-- ["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}，如果30-40/02沒接過：沉船在{npc:11863}的塔下方",
 	-- ["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019}站在{area:596}邊緣，{area:2407}西南方；{object:176751}散落在骨架之間。",

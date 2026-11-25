@@ -1,9 +1,10 @@
 guide forever/horde/50-60/03-winterspring
-title Winterspring, Felwood & Thunder Bluff
+title Winterspring & Felwood
 faction Horde
 levels 53-54
 zone Winterspring
 next forever/horde/50-60/04-azshara
+pitch Winterspring and Felwood, then Feralas and Thunder Bluff.
 # Built from the playthrough simulator's consensus route (Horde, visits
 # 74-79) and machine-checked with lint; not play-tested on Forever yet.
 #

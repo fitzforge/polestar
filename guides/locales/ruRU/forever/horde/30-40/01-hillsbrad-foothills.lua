@@ -201,21 +201,21 @@ return {
 	-- {quest:96986} The Grave Knight
 	["{quest:96986}: Atrexis, inside"] = "",
 
-	-- Step 37: Azurelode Mine
+	-- Step 36: Azurelode Mine
 	-- {area:287} Hillsbrad · {area:288} Azurelode Mine · {npc:2305} Foreman Bonds · {npc:2450} Miner Hackett
-	["Head south-west past {area:287} town to the {area:288}. Miners (26-27) work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside. Keep killing Miners until Samsa's thirty skulls are in your bags: most {area:287} humans drop one."] = "",
+	["Head south-west past {area:287} town to the {area:288}. The miners work inside the {area:288}, below the hill: go in at its mouth on the west side, where the arrow leads first. Miners (26-27) work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside. Keep killing Miners until Samsa's thirty skulls are in your bags: most {area:287} humans drop one."] = "Идите на юго-запад мимо городка {area:287} к месту {area:288}. Рудокопы работают внутри ({area:288}), под холмом: войдите через вход на западной стороне, куда стрелка ведет первым делом. Рудокопы (26-27) работают в туннелях; {npc:2305} (30) и {npc:2450} (29) – в глубине. Убивайте рудокопов, пока тридцать черепов для Самсы не окажутся в сумках: череп роняют почти все люди ({area:287}).",
 	-- {area:288} Azurelode Mine
 	["Inside {area:288}"] = "Внутри: {area:288}",
 	-- {item:3692} Hillsbrad Human Skull · {area:287} Hillsbrad
 	["{item:3692}, from the Miners and every {area:287} human"] = "",
 
-	-- Step 38: Finish the Turtle Meat
+	-- Step 37: Finish the Turtle Meat
 	-- {item:3712} Turtle Meat
 	["Finish the {item:3712}"] = "Доберите: {item:3712}",
 	-- {item:3712} Turtle Meat · {area:272} Tarren Mill
 	["Still short of ten {item:3712}? The Snapjaws line the river just east of {area:272}, a short way from town."] = "",
 
-	-- Step 39: Tarren Mill
+	-- Step 38: Tarren Mill
 	-- {area:272} Tarren Mill · {area:271} Southshore
 	["North-east back to {area:272}, passing well north of {area:271} (its guards are 55)."] = "На северо-восток назад сюда: {area:272}, держась далеко к северу от места {area:271} (там стража 55-го уровня).",
 	-- {npc:2215} High Executor Darthalia · {quest:539} Battle of Hillsbrad · {npc:2419} Deathguard Humbert · {area:290} Dun Garok
@@ -225,14 +225,14 @@ return {
 	-- {area:272} Tarren Mill
 	["Keep Infiltration in your log: its Syndicate (32-35) are over you now, and the 38-39 guide (Alterac and Arathi) works it on its first {area:272} loop."] = "Оставьте «Infiltration» в журнале: Синдикат (32-35) пока вам не по силам, а гайд 38-39 (Альтерак и Арати) выполняет его при первом визите сюда ({area:272}).",
 
-	-- Step 40: Level 30
+	-- Step 39: Level 30
 	["Level 30"] = "",
 	-- {npc:2410} Magus Wordeen Voidglare · {zone:1454} Orgrimmar · {area:272} Tarren Mill · {zone:1437} Wetlands
 	["{npc:2410}'s quests in the inn and Alliance Relations in {zone:1454}, the next guide's first stop, are offered from level 30. Still short of 30 after these hand-ins? The Snapjaws (29-31) line the river just east and south of {area:272}: kill them until level 30, then walk back into town. Or, with a group, run the Excavation Site dungeon (in the {zone:1437}) instead."] = "",
 	["Snapjaws"] = "Хрустогрызы",
 	["grind on Snapjaw"] = "",
 
-	-- Step 41: Voidglare, Bel'varil and Tallow
+	-- Step 40: Voidglare, Bel'varil and Tallow
 	-- {npc:2770} Tallow
 	["Voidglare, Bel'varil and {npc:2770}"] = "Сиянье Бездны, Бел'варил и {npc:2770}",
 	-- {npc:2410} Magus Wordeen Voidglare · {npc:2437} Keeper Bel'varil · {npc:2770} Tallow · {area:272} Tarren Mill
@@ -248,55 +248,55 @@ return {
 	-- {area:272} Tarren Mill · {area:321} Hammerfall
 	["Keep these in your log: their camps are two to four levels over you now, and the 38-39 guide works them on its first {area:272} loop and in {area:321}."] = "Оставьте их в журнале: их лагеря сейчас на 2-4 уровня выше вас, а гайд 38-39 проходит их в первом круге через {area:272} и в месте {area:321}.",
 
-	-- Step 42: Melisara
+	-- Step 41: Melisara
 	-- {quest:96986} The Grave Knight · {npc:2278} Melisara · {npc:2410} Magus Wordeen Voidglare
 	["{quest:96986} from your City of Dalaran run: {npc:2278}, a short walk east of {npc:2410}."] = "{quest:96986} из Города Даларан: {npc:2278}, чуть восточнее NPC {npc:2410}.",
 
-	-- Step 43: Battle of Hillsbrad with a group
+	-- Step 42: Battle of Hillsbrad with a group
 	-- {quest:539} Battle of Hillsbrad
 	["{quest:539} with a group"] = "",
 	-- {area:290} Dun Garok · {area:271} Southshore · {npc:2304} Captain Ironhill
 	["Darthalia's last battle is at {area:290}, the dwarven keep south-east of {area:271}: every dwarf there is elite (28-32), {npc:2304} too. Great XP if you have a group for it."] = "",
 
-	-- Step 44: Humbert's Sword with a group
+	-- Step 43: Humbert's Sword with a group
 	-- {quest:547} Humbert's Sword
 	["{quest:547} with a group"] = "",
 	-- {npc:2419} Deathguard Humbert · {area:290} Dun Garok
 	["{npc:2419}'s sword drops from the same {area:290} dwarves (about one in twelve)."] = "",
 
-	-- Step 45: Dun Garok
+	-- Step 44: Dun Garok
 	-- {area:290} Dun Garok
 	["Clear {area:290} from the gate in; the dwarves run for help at 30% health."] = "",
 
-	-- Step 46: Tarren Mill
+	-- Step 45: Tarren Mill
 	-- {npc:2425} Varimathras · {zone:1458} Undercity
 	["for {npc:2425} in the {zone:1458}, at the end of this guide"] = "",
 
-	-- Step 48: Fly to Undercity
+	-- Step 47: Fly to Undercity
 	-- {area:1497} Undercity
 	["Fly to {area:1497}"] = "Летите сюда: {area:1497}",
 	-- {area:272} Tarren Mill
 	["{area:272} flight master"] = "Распорядитель полетов: {area:272}",
 
-	-- Step 49: Master Apothecary Faranell
+	-- Step 48: Master Apothecary Faranell
 	-- {npc:2055} Master Apothecary Faranell · {object:36126} Royal Quarter
 	["{npc:2055} stands in the Apothecarium, in the {object:36126}."] = "{npc:2055} стоит в Районе Фармацевтов, в месте {object:36126}.",
 	-- {quest:513} Elixir of Agony · {item:3388} Lesser Troll's Blood Elixir · {skill:171} Alchemy · {area:287} Hillsbrad
 	["Faranell's next {quest:513} needs a {item:3388} ({skill:171}) and the {area:287} coast: leave it."] = "Следующему заданию Фаранелла {quest:513} нужен предмет {item:3388} ({skill:171}) и побережье ({area:287}): оставьте его.",
 
-	-- Step 50: Varimathras
+	-- Step 49: Varimathras
 	-- {npc:2425} Varimathras · {object:36126} Royal Quarter
 	["{npc:2425} stands beside Sylvanas in the {object:36126}."] = "",
 	-- {npc:2425} Varimathras
 	["{npc:2425}: Darthalia's commendation"] = "",
 
-	-- Step 51: Calder Gray
+	-- Step 50: Calder Gray
 	-- {npc:270038} Calder Gray · {quest:97985} Thundering Hearts · {area:484} Freewind Post · {area:439} Shimmering Flats
 	["{npc:270038} stands in the Apothecarium. His {quest:97985} is for Stormheart, a level 30 elite who walks the canyon east of {area:484}, on the next guide's way to the {area:439}."] = "{npc:270038} стоит в Районе Фармацевтов. Его задание {quest:97985} – на Stormheart, элитного противника 30-го уровня, который ходит по каньону к востоку от места {area:484}, по пути в следующем гайде: {area:439}.",
 	-- {npc:270038} Calder Gray · {zone:1458} Undercity
 	["{npc:270038}: back to him on the next {zone:1458} stop, at about 38"] = "{npc:270038}: вернитесь к нему при следующем визите в город {zone:1458}, примерно на 38-м уровне",
 
-	-- Step 52: Undercity trainers
+	-- Step 51: Undercity trainers
 	-- {zone:1458} Undercity
 	["{zone:1458} trainers"] = "Учителя: {zone:1458}",
 	-- {zone:1458} Undercity · {object:36070} War Quarter · {object:36073} Rogues' Quarter · {object:36082} Magic Quarter · {npc:260093} Garen Largo

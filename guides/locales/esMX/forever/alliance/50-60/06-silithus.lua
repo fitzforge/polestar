@@ -8,94 +8,86 @@
 return {
 	-- Guide
 	-- {zone:1451} Silithus · {area:3425} Cenarion Hold
-	["{zone:1451}: {area:3425}'s quests, to 60."] = "",
+	["{zone:1451}: {area:3425}'s quests, to 60."] = "{zone:1451}: las misiones de {area:3425}, hasta el 60.",
 
 	-- Step 1: Innkeeper Vizzie
 	-- {zone:2482} Mount Hyjal · {area:2255} Everlook · {npc:11118} Innkeeper Vizzie
-	["Back from {zone:2482} in {area:2255}: {npc:11118}'s mail went astray in the hills east of town, where the Ice Thistle yetis carry it off."] = "",
+	["Back from {zone:2482} in {area:2255}: {npc:11118}'s mail went astray in the hills east of town, where the Ice Thistle yetis carry it off."] = "De vuelta de {zone:2482} en {area:2255}: el correo de {npc:11118} se perdió en las colinas al este del pueblo, donde se lo llevan los yetis Cardo Nevado.",
 
 	-- Step 2: Missing Mail
 	-- {area:2255} Everlook · {item:258323} Missing Mail
-	["The Ice Thistle yetis (53-57) in the hills east of {area:2255} carry the {item:258323}: take it from the ones at the edge of the hills."] = "",
+	["The Ice Thistle yetis (53-57) in the hills east of {area:2255} carry the {item:258323}: take it from the ones at the edge of the hills."] = "Los yetis Cardo Nevado (53-57) de las colinas al este de {area:2255} llevan el {item:258323}: tómalo de los del borde de las colinas.",
 
 	-- Step 4: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
 	["Fly to {area:541}"] = "Vuela a {area:541}",
 	-- {area:541} Marshal's Refuge · {zone:1449} Un'Goro Crater · {zone:1451} Silithus
-	["Fly to {area:541} in {zone:1449}, the way into {zone:1451}."] = "",
-	["Maethrya, the Alliance flight master"] = "",
+	["Fly to {area:541} in {zone:1449}, the way into {zone:1451}."] = "Vuela a {area:541} en {zone:1449}, el camino hacia {zone:1451}.",
+	["Maethrya, the Alliance flight master"] = "Maethrya, la maestra de vuelo de la Alianza",
 
 	-- Step 5: Into Silithus
 	-- {zone:1451} Silithus
 	["Into {zone:1451}"] = "Hacia {zone:1451}",
 	-- {area:541} Marshal's Refuge · {zone:1451} Silithus
-	["Ride west from {area:541} to the crater's north-western pass into {zone:1451}."] = "",
+	["Ride west from {area:541} to the crater's north-western pass into {zone:1451}."] = "Cabalga al oeste desde {area:541} hasta el paso noroeste del cráter que sube a {zone:1451}.",
 
 	-- Step 6: Layo Starstrike
 	-- {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
-	["{npc:13220} stands at {area:3077}, where the pass comes out."] = "",
+	["{npc:13220} stands at {area:3077}, where the pass comes out."] = "{npc:13220} está en {area:3077}, donde sale el paso.",
 
-	-- Step 8: Cenarion Hold
+	-- Step 9: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
 	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Sigue cabalgando al oeste hasta {area:3425}. {npc:15189} está en el piso de arriba de su edificio: sube por adentro, la flecha no distingue los pisos.",
-	-- {npc:17082} Rifleman Torrig · {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora
-	["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "{npc:17082}, en las tiendas de la Alianza: para {npc:17080} en {area:2743}",
 	-- {npc:15183} Geologist Larksbane
 	["{npc:15183}: the tablet fragments come from the Twilight dig"] = "{npc:15183}: los fragmentos de tablilla salen de la excavación Crepuscular",
 	-- {npc:15306} Bor Wildmane
-	["{npc:15306}: his Twilight texts come from the dig"] = "",
+	["{npc:15306}: his Twilight texts come from the dig"] = "{npc:15306}: sus textos Crepusculares salen de la excavación",
 
-	-- Step 9: Silithus: kill these as you meet them
+	-- Step 10: Silithus: kill these as you meet them
 	-- {zone:1451} Silithus
 	["{zone:1451}: kill these as you meet them"] = "{zone:1451}: mata a estos según te los encuentres",
 	-- {npc:15185} Brood of Nozdormu
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer
-	["Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around.\nCareful: {npc:15185} (62, elite) guard the Caverns of Time's mouth in the south-west, around 21,82: stay out of there."] = "",
+	["Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around.\nCareful: {npc:15185} (62, elite) guard the Caverns of Time's mouth in the south-west, around 21,82: stay out of there."] = "Los asediadores deslizantes excavan en las dunas al noroeste del bastión; los escórpidos Latipiedra y los arácnidos de arena andan por todas partes.\nCuidado: los {npc:15185} (62, élite) custodian la entrada de las Cavernas del Tiempo en el suroeste, alrededor de 21,82: no te acerques ahí.",
 
-	-- Step 10: Cenarion Hold
+	-- Step 11: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
-	["Back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "De vuelta a {area:3425}. {npc:15189} está en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos.",
 	-- {npc:15189} Beetix Ficklespragg
 	["{npc:15189}, upstairs"] = "{npc:15189}, en el piso de arriba",
 
-	-- Step 11: Silithus: kill these as you meet them
+	-- Step 12: Silithus: kill these as you meet them
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher · Stonelash Pincers = {npc:11736} Stonelash Pincer · Rock Stalkers = {npc:11739} Rock Stalker
 	["From the hold, west into the sands: Dredge Crushers dig there; Stonelash Pincers, Flayers and Rock Stalkers hunt the same sands."] = "Desde el bastión, al oeste hacia las arenas: allí excavan los trituradores deslizantes; los tenazarios latipiedra, desolladores y acecharrocas cazan en las mismas arenas.",
 	-- {npc:11741} Dredge Crusher
 	["{npc:11741} walks around here: look inside the circle on the map"] = "{npc:11741} recorre esta zona: busca dentro del círculo del mapa",
 
-	-- Step 12: Cenarion Hold
+	-- Step 13: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg
 	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} está en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos.",
 	-- {npc:15190} Noggle Ficklespragg · {npc:15189} Beetix Ficklespragg
 	["{npc:15190}, upstairs beside {npc:15189}"] = "{npc:15190}, arriba junto a {npc:15189}",
 	-- {npc:15181} Commander Mar'alith
-	["{npc:15181} (from level 58): Bronzebeard's Encampment comes later, on the way south"] = "",
+	["{npc:15181} (from level 58): Bronzebeard's Encampment comes later, on the way south"] = "{npc:15181} (desde el nivel 58): el campamento de Barbabronce viene después, de camino al sur",
 
-	-- Step 13: Hive'Ashi: kill these as you meet them
+	-- Step 14: Hive'Ashi: kill these as you meet them
 	-- {area:2742} Hive'Ashi
 	["{area:2742}: kill these as you meet them"] = "{area:2742}: mata a estos según te los encuentres",
 	-- {item:20404} Encrypted Twilight Text · {npc:15306} Bor Wildmane · {npc:15194} Hermit Ortell · {area:2742} Hive'Ashi · {quest:8308} Brann Bronzebeard's Lost Letter
 	-- plural, as words: Dust Stormers = {npc:11744} Dust Stormer · Desert Rumblers = {npc:11746} Desert Rumbler · Twilight Avengers = {npc:11880} Twilight Avenger · Twilight Flamereavers = {npc:15201} Twilight Flamereaver
-	-- was: ["The Twilight's Hammer dig fills the north-west corner: tablet fragments lie on the ground and the Dust Stormers and Desert Rumblers carry them too. Every cultist can drop an {item:20404}: keep twenty, ten for {npc:15306} and ten for {npc:15194} later.\nCareful: take the texts from the Twilight Avengers and Geolords; leave the Twilight Flamereavers (60) and stay out of the hive's mouth, where the {area:2742} elites (59-60) wait."] = "La excavación del Martillo Crepuscular ocupa la esquina noroeste: hay fragmentos de tablilla en el suelo, y los agitadores sirocosos y estruendores del desierto también los llevan. Cualquier sectario puede soltar un {item:20404}: guarda veinte, diez para {npc:15306} y diez para {npc:15194} más adelante.\nCuidado: consigue los textos de los vengadores Crepusculares y geoseñores; deja a los flamatracadores Crepusculares (60) y no te acerques a la entrada de la colmena, donde esperan los élites de {area:2742} (59-60)."
-	["The Twilight's Hammer dig fills the north-west corner: tablet fragments lie on the ground and the Dust Stormers and Desert Rumblers carry them too. Every cultist can drop an {item:20404}: keep twenty, ten for {npc:15306} and ten for {npc:15194} later.\nCareful: take the texts from the Twilight Avengers and Geolords; leave the Twilight Flamereavers (60) and stay out of the hive's mouth, where the {area:2742} elites (59-60) wait.\nThe {area:2742} silithids sometimes drop {quest:8308}: keep it for Bronzebeard's Encampment in the south."] = "",
+	["The Twilight's Hammer dig fills the north-west corner: tablet fragments lie on the ground and the Dust Stormers and Desert Rumblers carry them too. Every cultist can drop an {item:20404}: keep twenty, ten for {npc:15306} and ten for {npc:15194} later.\nCareful: take the texts from the Twilight Avengers and Geolords; leave the Twilight Flamereavers (60) and stay out of the hive's mouth, where the {area:2742} elites (59-60) wait.\nThe {area:2742} silithids sometimes drop {quest:8308}: keep it for Bronzebeard's Encampment in the south."] = "La excavación del Martillo Crepuscular ocupa la esquina noroeste: hay fragmentos de tablilla en el suelo, y los agitadores sirocosos y estruendores del desierto también los llevan. Cualquier sectario puede soltar un {item:20404}: guarda veinte, diez para {npc:15306} y diez para {npc:15194} más adelante.\nCuidado: consigue los textos de los vengadores Crepusculares y los geoseñores; deja a los flamatracadores Crepusculares (60) y no te acerques a la entrada de la colmena, donde esperan los élites de {area:2742} (59-60).\nLos silítidos de {area:2742} a veces sueltan {quest:8308}: guárdala para el campamento de Barbabronce en el sur.",
 	["Twilight's Hammer cultists"] = "Sectarios del Martillo Crepuscular",
 	-- plural, as words: Twilight Tablet Fragments = {item:20378} Twilight Tablet Fragment
 	["Twilight Tablet Fragments"] = "{item:20378}",
 	-- {quest:8323} True Believers
 	["Ten more for {quest:8323}"] = "Diez más para {quest:8323}",
 
-	-- Step 14: Hive'Zora
-	-- {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora · {spell:642} Divine Shield · {spell:5384} Feign Death · {spell:17} Power Word: Shield
-	["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp.\nCareful: You lose the Silithyst if you mount, stealth, use {spell:642}, {spell:5384} or Vanish. Blink and {spell:17} do not drop it."] = "{npc:17080} acampa afuera de {area:2743}, la colmena del oeste. Recoge una silitista en uno de los géiseres rojos cercanos y llévala al extractor de la Alianza de su campamento.\nCuidado: Pierdes la silitista si montas, entras en sigilo o usas {spell:642}, {spell:5384} o Desvanecerse. Traslación y {spell:17} no la hacen caer.",
-	["Bring a Silithyst to the Alliance extractor"] = "",
-
 	-- Step 16: Southwind Village
-	["The tortured druids and sentinels haunt the ruined village east of the hold."] = "",
+	["The tortured druids and sentinels haunt the ruined village east of the hold."] = "Los druidas y centinelas torturados rondan el pueblo en ruinas al este del bastión.",
 
 	-- Step 17: Layo Starstrike
 	-- {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
-	["Ride north-east to {npc:13220} at {area:3077}."] = "",
+	["Ride north-east to {npc:13220} at {area:3077}."] = "Cabalga al noreste hasta {npc:13220} en {area:3077}.",
 
 	-- Step 18: The Hive'Ashi tower
 	-- {area:2742} Hive'Ashi
@@ -105,7 +97,7 @@ return {
 
 	-- Step 19: Layo Starstrike
 	-- {npc:13220} Layo Starstrike · {zone:1450} Moonglade
-	["{npc:13220}'s next task goes to {zone:1450}: skip it."] = "",
+	["{npc:13220}'s next task goes to {zone:1450}: skip it."] = "La siguiente tarea de {npc:13220} va a {zone:1450}: omítela.",
 
 	-- Step 20: Hermit Ortell
 	-- {area:2738} Southwind Village
@@ -119,14 +111,13 @@ return {
 
 	-- Step 22: Brann Bronzebeard's Lost Letter
 	-- {area:2742} Hive'Ashi · {npc:15170} Rutgar Glyphshaper
-	["From a {area:2742} silithid: for {npc:15170} at Bronzebeard's Encampment"] = "",
+	["From a {area:2742} silithid: for {npc:15170} at Bronzebeard's Encampment"] = "De un silítido de {area:2742}: para {npc:15170} en el campamento de Barbabronce",
 
 	-- Step 24: The Twilight Post
 	-- {area:3098} Twilight Post
 	["The {area:3098}"] = "{area:3098}",
 	-- {npc:11803} Twilight Keeper Exeter
-	-- was: ["Careful: the Twilight Keepers are level 60, a level or two over you: clear the cultists around each one first and fight the keeper at full health.\n{npc:11803} holds the cultists' camp in the far south-west."] = "Cuidado: los guardianes Crepusculares son de nivel 60, uno o dos niveles por encima de ti: limpia primero a los sectarios alrededor de cada uno y pelea con el guardián con la salud al máximo.\n{npc:11803} ocupa el campamento de los sectarios en el extremo suroeste."
-	["Careful: the Twilight Keepers are level 60: clear the cultists around each one first and fight the keeper at full health.\n{npc:11803} holds the cultists' camp in the far south-west."] = "",
+	["Careful: the Twilight Keepers are level 60: clear the cultists around each one first and fight the keeper at full health.\n{npc:11803} holds the cultists' camp in the far south-west."] = "Cuidado: los guardianes Crepusculares son de nivel 60: limpia primero a los sectarios alrededor de cada uno y pelea con el guardián con la salud llena.\n{npc:11803} ocupa el campamento de los sectarios en el extremo suroeste.",
 
 	-- Step 25: Twilight Keeper Mayna
 	["Ride north along the west side to Mayna's small camp.\nCareful: Mayna is level 60: clear her camp first and fight her at full health."] = "Cabalga al norte por el lado oeste hasta el pequeño campamento de Mayna.\nCuidado: Mayna es de nivel 60: limpia primero su campamento y pelea con ella con la salud al máximo.",
@@ -147,7 +138,7 @@ return {
 	["Level 60"] = "Nivel 60",
 	-- {area:3425} Cenarion Hold · {area:2057} Scholomance · {area:2279} Stratholme · {area:3197} Chillwind Camp · {area:2268} Light's Hope Chapel · {zone:1451} Silithus
 	-- plural, as words: Twilight Avengers = {npc:11880} Twilight Avenger · Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker
-	["{area:3425}'s last hand-ins can leave a player who followed only this route short of 60 (up to about a level for the slowest; most players less).\nWith a group: run the {area:2057} dungeon or the {area:2279} dungeon, in the Plaguelands by {area:3197} and {area:2268}.\nAlone: the Twilight's Hammer camps of {zone:1451}'s north-west (Twilight Avengers 57-59 and Geolords 58-60; leave the Flamereavers, 60) and the Stonelash Flayers and Rock Stalkers (57-59) around {area:3425} are at your level. {area:3425}'s repeatable quests open only at 60."] = "",
+	["{area:3425}'s last hand-ins can leave a player who followed only this route short of 60 (up to about a level for the slowest; most players less).\nWith a group: run the {area:2057} dungeon or the {area:2279} dungeon, in the Plaguelands by {area:3197} and {area:2268}.\nAlone: the Twilight's Hammer camps of {zone:1451}'s north-west (Twilight Avengers 57-59 and Geolords 58-60; leave the Flamereavers, 60) and the Stonelash Flayers and Rock Stalkers (57-59) around {area:3425} are at your level. {area:3425}'s repeatable quests open only at 60."] = "Las últimas entregas de {area:3425} pueden dejar a un jugador que siguió solo esta ruta por debajo de 60 (hasta un nivel para los más lentos; a la mayoría, menos).\nEn grupo: haz la mazmorra {area:2057} o la mazmorra {area:2279}, en las Tierras de la Peste, junto a {area:3197} y {area:2268}.\nSolo: los campamentos del Martillo Crepuscular del noroeste de {zone:1451} (vengadores Crepusculares de 57-59 y geoseñores de 58-60; deja a los flamatracadores, de 60) y los despellejadores Latipiedra y acecharrocas (57-59) alrededor de {area:3425} son de tu nivel. Las misiones repetibles de {area:3425} se abren solo a nivel 60.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Andorhal"] = "Ruinas de Andorhal",
@@ -156,6 +147,7 @@ return {
 	-- ["Back into {area:1770}: {npc:9861} and {npc:9860} guard {npc:9517} in its deepest chamber."] = "De vuelta en {area:1770}: {npc:9861} y {npc:9860} protegen a {npc:9517} en su cámara más profunda.",
 	-- ["Back into {area:1770}: {npc:9861} and {npc:9860} guard {npc:9517} in its deepest chamber. The succubus {npc:9518} waits on the way, with Trey Lightforge's remains beside her.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "De vuelta a {area:1770}: {npc:9861} y {npc:9860} protegen a {npc:9517} en su cámara más profunda. La súcubo {npc:9518} espera por el camino, con los restos de Trey Lightforge a su lado.\nCuidado: Los tres jefes pelean en grupo. Mata primero a los enemigos cercanos para no atraer de más.",
 	-- ["Boat to {area:150}"] = "Barco a {area:150}",
+	-- ["Bring a Silithyst to the Alliance extractor"] = "Lleva un silitista al extractor de la Alianza",
 	-- ["Careful: Ancient Irontree Walkers, level 59 elites, stand among the {quest:5086}: work the Horrors at the camp's north-east tip (about 50.6,22.4), one at a time, and look for a walker before each pull."] = "Cuidado: los Caminantes ancestrales Troncoferro, élites de nivel 59, están entre {quest:5086}: encárgate de los Horrores en la punta noreste del campamento (alrededor de 50.6,22.4), de uno en uno, y busca un caminante antes de cada atracción.",
 	-- ["Careful: the Twilight Keepers are level 60, a level or two over you: clear the cultists around each one first and fight the keeper at full health.\n{npc:11803} holds the cultists' camp in the far south-west."] = "Cuidado: los guardianes Crepusculares son de nivel 60, uno o dos niveles por encima de ti: limpia primero a los sectarios alrededor de cada uno y pelea con el guardián con la salud al máximo.\n{npc:11803} ocupa el campamento de los sectarios en el extremo suroeste.",
 	-- ["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "Sube a la colina al oeste de {area:190} para mirar el pueblo desde arriba.\nCuidado: Los centinelas apostados en la puerta pueden detectar a los jugadores en sigilo. Hay más centinelas dentro del pueblo, y un élite patrulla cerca.",
@@ -326,7 +318,9 @@ return {
 	-- ["{npc:15181}: Bronzebeard's Encampment comes later, on the way south"] = "{npc:15181}: el Campamento de Barbabronce viene después, de camino al sur",
 	-- ["{npc:15306}: his Twilight texts come from the dig after the next stop here"] = "{npc:15306}: sus textos Crepusculares salen de la excavación, después de la siguiente parada aquí",
 	-- ["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp."] = "{npc:17080} acampa fuera de {area:2743}, la colmena del oeste. Recoge una silitista en uno de los géiseres rojos cercanos y llévala al extractor de la Alianza en su campamento.",
+	-- ["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp.\nCareful: You lose the Silithyst if you mount, stealth, use {spell:642}, {spell:5384} or Vanish. Blink and {spell:17} do not drop it."] = "{npc:17080} acampa afuera de {area:2743}, la colmena del oeste. Recoge una silitista en uno de los géiseres rojos cercanos y llévala al extractor de la Alianza de su campamento.\nCuidado: Pierdes la silitista si montas, entras en sigilo o usas {spell:642}, {spell:5384} o Desvanecerse. Traslación y {spell:17} no la hacen caer.",
 	-- ["{npc:17082}, at the Alliance tents"] = "{npc:17082}, en las tiendas de la Alianza",
+	-- ["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "{npc:17082}, en las tiendas de la Alianza: para {npc:17080} en {area:2743}",
 	-- ["{npc:1852} is a level 61 elite"] = "{npc:1852} es un élite de nivel 61",
 	-- ["{npc:1855} (optional)"] = "{npc:1855} (opcional)",
 	-- ["{npc:1855} lives in a small hut on the border river, north-east of the lumber camp. Hand in {quest:5781} if you finished it."] = "{npc:1855} vive en una pequeña choza junto al río fronterizo, al noreste del aserradero. Entrega {quest:5781} si la terminaste.",

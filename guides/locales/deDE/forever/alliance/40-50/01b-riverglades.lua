@@ -188,7 +188,7 @@ return {
 	-- Step 38: WANTED: Blademaster Kaijo
 	-- {npc:263071} Blademaster Kaijo · {area:16743} Rog'mar
 	["{npc:263071} is an elite (level 42) at the Horde's training grounds north of {area:16743}, where this guide goes later: grouping up is advised."] = "{npc:263071} ist ein Elite (Stufe 42) auf dem Übungsgelände der Horde nördlich von {area:16743}, wohin dieser Guide später geht: Eine Gruppe wird empfohlen.",
-	["the Wanted poster"] = "",
+	["the Wanted poster"] = "das Schilder mit der Forderung",
 
 	-- Step 39: Ghostmaw
 	-- {npc:263380} Ghostmaw · {area:16725} Wheeler's Grange · {area:16729} Terral's Watch
@@ -196,71 +196,81 @@ return {
 
 	-- Step 40: Sunnyglade
 	-- {area:16724} Farholde Keep · {area:16729} Terral's Watch · {area:16723} Sunnyglade · {area:16743} Rog'mar · {npc:259158} Fuzzle · {npc:256831} Apprentice Claire · {npc:258697} Farmer Elbrim
-	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge."] = "",
+	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge."] = "Nördlich von {area:16724}, vorbei an {area:16729} und über die Brücke, zu {area:16723}, der Dorfgemeinde, die der Twilight-Kult belegt; halte ab von {area:16743}, der Horden-Festung östlich der Stadt. Die Dabyrie {npc:259158} wartet in einem Käfig am Pfeil, {npc:256831} eingelagsert unterirdisch in einer Höhle am östlichen Staddrand (der Eingang ist bei 50.0,46.0), und {npc:258697} wartet auf seinem Bauernhof am nordöstlichen Rand.",
 	-- {npc:259158} Fuzzle · {quest:94961} Biting the Hand
-	["{npc:259158}: {quest:94961}, in his cage"] = "",
+	["{npc:259158}: {quest:94961}, in his cage"] = "{npc:259158}: {quest:94961}, in seinem Käfig",
+	["the way in: she is below the town"] = "der Weg herein: sie ist unterhalb der Stadt",
+	["Claire's cave"] = "Claires Höhle",
 
 	-- Step 41: The Twilight cult
 	["The Twilight cult"] = "Der Schattenhammerkult",
 	-- {area:16723} Sunnyglade · {item:266148} Farmers' Mementos · {item:4338} Mageweave Cloth · {npc:263613} Brother Lowley · {area:16724} Farholde Keep · {quest:94885} Field Marshal's Log · {npc:256899} Chogg'Zac · {npc:263380} Ghostmaw
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
-	["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "Die Kultisten füllen die Straßen und Felder von {area:16723}. Beginne bei den Ritualkreisen in der Mitte (fülle dort Claires Katalysator), arbeite dich nach Westen durch die verbrannten Häuser bis zum Dorfrand, dann zurück nach Nordosten zur lockeren Erde westlich von Elbrims Hof: Vergrabe dort die {item:266148}, die die Twilight-Räuber fallen lassen. Die Talismane, Seiten und Fingerknochen droppen von den Kultisten.\nBehalte den {item:4338}, den sie fallen lassen: {npc:263613} in der {area:16724} will zwanzig, wenn du zurück bist. Ab und zu droppt ein Kultist {quest:94885}: Rechtsklicke darauf, um die Quest zu starten.\nVorsicht: {npc:256899}, ein Elite-Oger (Stufe 41), läuft durch die westlichen Straßen von {area:16723}, etwa bei 44-47,47-52. Zieh die Kultisten zu dir heraus und lass ihn vorbeiziehen; hier sind mehr Spieler gestorben als irgendwo sonst im Gebiet.\n{npc:263380}, der Elite vom Fluss (Stufe 42), kann von den südwestlichen Feldern heraufwandern: Lass ihn vorbeiziehen.",
+	-- was: ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "Die Kultisten füllen die Straßen und Felder von {area:16723}. Beginne bei den Ritualkreisen in der Mitte (fülle dort Claires Katalysator), arbeite dich nach Westen durch die verbrannten Häuser bis zum Dorfrand, dann zurück nach Nordosten zur lockeren Erde westlich von Elbrims Hof: Vergrabe dort die {item:266148}, die die Twilight-Räuber fallen lassen. Die Talismane, Seiten und Fingerknochen droppen von den Kultisten.\nBehalte den {item:4338}, den sie fallen lassen: {npc:263613} in der {area:16724} will zwanzig, wenn du zurück bist. Ab und zu droppt ein Kultist {quest:94885}: Rechtsklicke darauf, um die Quest zu starten.\nVorsicht: {npc:256899}, ein Elite-Oger (Stufe 41), läuft durch die westlichen Straßen von {area:16723}, etwa bei 44-47,47-52. Zieh die Kultisten zu dir heraus und lass ihn vorbeiziehen; hier sind mehr Spieler gestorben als irgendwo sonst im Gebiet.\n{npc:263380}, der Elite vom Fluss (Stufe 42), kann von den südwestlichen Feldern heraufwandern: Lass ihn vorbeiziehen."
+	["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), then work west through the burnt houses to the edge of town. The charms, pages and finger bones drop from the cultists; keep the {item:266148} the Twilight Raiders drop: five, one for each grave west of Elbrim's farm.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "Die Kultisten füllen die Straßen und Felder von {area:16723}. Fang bei den Ritualkreisen in der Mitte an (füll dort Claires Katalysator), dann arbeite dich nach Westen durch die verbrannten Häuser bis zum Ortsrand. Die Talismane, Seiten und Fingerknochen fallen von den Kultisten; behalte {item:266148}, die die Schattenhammerplünderer fallen lassen: fünf, eins für jedes Grab westlich von Elbrims Hof.\nBehalte {item:4338}, die sie fallen lassen: {npc:263613} in {area:16724} will zwanzig, wenn du wieder dort bist. Ab und zu lässt ein Kultist {quest:94885} fallen: Rechtsklick darauf, um die Quest zu starten.\nVorsicht: {npc:256899}, ein Elite-Oger (Stufe 41), läuft durch die westlichen Straßen von {area:16723}, etwa bei 44-47,47-52. Zieh die Kultisten zu dir heraus und lass ihn vorbeiziehen; hier sind mehr Spieler gestorben als irgendwo sonst im Gebiet.\n{npc:263380}, der Elite des Flusses (Stufe 42), kann von den südwestlichen Feldern heraufkommen: Lass ihn vorbeiziehen.",
 	-- {item:269990} Crystal Catalyst
 	["fill the {item:269990} at the ritual circles"] = "fülle den {item:269990} an den Ritualkreisen",
-	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
+	-- {item:266148} Farmers' Mementos
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
-	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, westlich von Elbrims Farm: Jedes Grab braucht eines der {item:266148}, die die Twilight-Raider fallen lassen, also plündere erst fünf",
+	["{item:266148}, from the Twilight Raiders: one for each grave"] = "{item:266148}, von den Twilight Raiders: eins für jeden Grab",
 	-- {quest:94885} Field Marshal's Log
 	["{quest:94885}: only if a cultist dropped the log"] = "{quest:94885}: nur falls ein Kultist das Logbuch fallen gelassen hat",
 
-	-- Step 42: Apprentice Claire
-	-- {area:16723} Sunnyglade
-	["Claire is in the cave under the eastern edge of {area:16723}: its entrance is at 50.0,46.0."] = "",
+	-- Step 42: Loose Soil
+	-- {item:266148} Farmers' Mementos
+	["Back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} there, one in each grave."] = "Rückwärts nordöstlich zum locker Erdboden westlich von Elbrims Bauernhof: begrabe das {item:266148} dort, eins in jedem Grab.",
+	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
+	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
+	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop"] = "{object:621813}, westlich von Elbrims Bauernhof: jeder Grab nimmt eines der {item:266148}, die die Twilight Raiders fallen lassen",
 
-	-- Step 43: Cut Off the Heads
+	-- Step 43: Apprentice Claire
+	-- {area:16723} Sunnyglade
+	["Claire is in the cave under the eastern edge of {area:16723}: its entrance is at 50.0,46.0."] = "Claire ist in der Höhle unter dem östlichen Rand von {area:16723}: der Eingang ist bei 50.0,46.0.",
+
+	-- Step 44: Cut Off the Heads
 	-- {npc:256899} Chogg'Zac · {area:16723} Sunnyglade · {npc:257591} Ashe Amberhall · {area:16724} Farholde Keep
 	["{npc:256899}, the two-headed ogre, is an elite (level 41) at the western edge of {area:16723}: grouping up is advised. Claire then has the filled catalyst for {npc:257591} in {area:16724}."] = "{npc:256899}, der zweiköpfige Oger, ist ein Elite (Stufe 41) am Westrand von {area:16723}: Eine Gruppe wird empfohlen. Claire hat danach den gefüllten Katalysator für {npc:257591} in der {area:16724}.",
 	-- {quest:94884} An Unsettling Discovery · {npc:257591} Ashe Amberhall · {area:16724} Farholde Keep
 	["{quest:94884}: for {npc:257591} in {area:16724}"] = "{quest:94884}: für {npc:257591} in der {area:16724}",
 
-	-- Step 44: Fuzzle
+	-- Step 45: Fuzzle
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["{npc:259158} wants out of {area:16723}: lead him west to his treasure at the edge of town and keep the cultists off him."] = "{npc:259158} will raus aus {area:16723}: Führ ihn nach Westen zu seinem Schatz am Stadtrand und halte die Kultisten von ihm fern.",
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["lead {npc:259158} out of {area:16723} to his treasure, west of the town"] = "Führ {npc:259158} aus {area:16723} hinaus zu seinem Schatz westlich der Stadt",
 
-	-- Step 45: Farmer Elbrim
+	-- Step 46: Farmer Elbrim
 	["Back east through the town to Elbrim's farm: the doll and the locket are in the burnt farmhouse beside it."] = "Zurück nach Osten durch die Stadt zu Elbrims Hof: Die Puppe und das Medaillon liegen im abgebrannten Bauernhaus daneben.",
 
-	-- Step 46: The Rog'mar training grounds
+	-- Step 47: The Rog'mar training grounds
 	-- {area:16743} Rog'mar
 	["The {area:16743} training grounds"] = "Die Übungsplätze von {area:16743}",
 	-- {area:16743} Rog'mar · {npc:263071} Blademaster Kaijo · {npc:263615} Krek the Noxious
 	-- plural, as words: Rog'mar Grunts = {npc:255996} Rog'mar Grunt
 	["North-east of Elbrim's farm, the Horde drills its trainees in the fields north of {area:16743}. Stay north of the fort: its guards are far above your level. The supply crates lie around the drill grounds. Three elites work this ground: {npc:263071} (42) walks among the trainees, {npc:263615} (42) lurks at the north end, and Komuk (45), a Horde elite, patrols the hills to the east; give each of them room.\nCareful: Rog'mar Grunts (55) guard the fort's north wall, around 59,39 to 61,41. Leave the crates and trainees by the wall and take the ones further north, around 57-61,34-37."] = "Nordöstlich von Elbrims Hof drillt die Horde ihre Rekruten auf den Feldern nördlich von {area:16743}. Bleib nördlich der Festung: Ihre Wachen liegen weit über deiner Stufe. Die Vorratskisten liegen rund um die Übungsplätze. Drei Elites streifen hier umher: {npc:263071} (42) läuft zwischen den Rekruten, {npc:263615} (42) lauert am Nordende, und Komuk (45), ein Elite der Horde, patrouilliert in den Hügeln im Osten; halte Abstand zu allen dreien.\nVorsicht: Grunzer von Rog'mar (55) bewachen die Nordmauer der Festung, etwa bei 59,39 bis 61,41. Lass die Kisten und Rekruten an der Mauer liegen und nimm die weiter nördlich, etwa bei 57-61,34-37.",
 
-	-- Step 47: Blademaster Kaijo
+	-- Step 48: Blademaster Kaijo
 	-- {npc:263071} Blademaster Kaijo
 	["{npc:263071}, the elite, walks the training grounds."] = "{npc:263071}, der Elite, läuft über die Übungsplätze.",
 
-	-- Step 48: Sleebo Fizzlespout's workshop
+	-- Step 49: Sleebo Fizzlespout's workshop
 	-- {npc:263367} Sleebo Fizzlespout
 	["{npc:263367}'s workshop"] = "Werkstatt von {npc:263367}",
 	-- {area:16743} Rog'mar · {npc:263367} Sleebo Fizzlespout · {area:16726} Bolder'ok
 	["South-east, round {area:16743}'s east side, to {npc:263367}'s workshop on the hill. Komuk and the {area:16726} ogres walk the road east of the fort: let them pass before you cross it."] = "Nach Südosten, an der Ostseite von {area:16743} vorbei, zur Werkstatt von {npc:263367} auf dem Hügel. Komuk und die Oger von {area:16726} laufen die Straße östlich der Festung ab: Lass sie vorbeiziehen, bevor du sie überquerst.",
 
-	-- Step 49: The tallstriders and the marsh
+	-- Step 50: The tallstriders and the marsh
 	["The tallstriders and the marsh"] = "Die Weitschreiter und der Sumpf",
 	-- plural, as words: Roving Tallstriders = {npc:263348} Roving Tallstrider
 	["The Roving Tallstriders graze the meadows south-west of the workshop; further south-west the marsh bubbles with gas: fill the vials at the vents."] = "Die Umherstreifenden Weitschreiter grasen auf den Wiesen südwestlich der Werkstatt; weiter südwestlich blubbert Gas im Sumpf: Füll die Phiolen an den Gasquellen.",
 
-	-- Step 50: Terral's Watch
+	-- Step 51: Terral's Watch
 	-- {npc:259352} Watcher Cornelius
 	["{npc:259352}'s tower stands just south-west of the marsh."] = "Der Turm von {npc:259352} steht gleich südwestlich des Sumpfs.",
 	-- {quest:95066} The Rog'mar Situation · {npc:257558} Demar Brant · {area:16724} Farholde Keep
 	["{quest:95066}: for {npc:257558} in {area:16724}, keep it"] = "{quest:95066}: für {npc:257558} in {area:16724}, behalte es",
 
-	-- Step 51: Farholde Keep
+	-- Step 52: Farholde Keep
 	-- {area:16724} Farholde Keep · {npc:257591} Ashe Amberhall · {npc:257558} Demar Brant · {area:16723} Sunnyglade · {npc:263089} Tessa Dawnbright · {npc:263613} Brother Lowley
 	["South across the plains to {area:16724}: {npc:257591} and {npc:257558} stand together in the keep at the east end, {npc:257591} first, her news is what Brant's next orders wait on. With {area:16723} saved, {npc:263089} by the orchard and {npc:263613} by the barracks have work for you too."] = "Nach Süden über die Ebene nach {area:16724}: {npc:257591} und {npc:257558} stehen zusammen in der Burg am Ostende, zuerst {npc:257591}, denn Brants nächste Befehle warten auf ihre Nachrichten. Da {area:16723} gerettet ist, haben auch {npc:263089} beim Obstgarten und {npc:263613} bei der Kaserne Aufgaben für dich.",
 	-- {quest:94907} A Small Favor
@@ -272,30 +282,30 @@ return {
 	-- {npc:263613} Brother Lowley · {item:4338} Mageweave Cloth · {area:16723} Sunnyglade
 	["{npc:263613}: twenty {item:4338}, from {area:16723}'s cultists and the pirates; hand it in when you are back"] = "{npc:263613}: zwanzig {item:4338}, von den Kultisten in {area:16723} und den Piraten; gib die Quest ab, wenn du zurück bist",
 
-	-- Step 52: Tessa Dawnbright
+	-- Step 53: Tessa Dawnbright
 	-- {npc:263089} Tessa Dawnbright
 	["{npc:263089} stands west of the inn, by the orchard: the apples hang on the trees around it."] = "{npc:263089} steht westlich des Gasthauses beim Obstgarten: Die Äpfel hängen an den Bäumen ringsum.",
 
-	-- Step 53: Coyote pelts
+	-- Step 54: Coyote pelts
 	["Coyote pelts"] = "Kojotenfelle",
 	-- {area:16725} Wheeler's Grange
 	-- plural, as words: Plains Coyotes = {npc:259267} Plains Coyote
 	["The Plains Coyotes roam west and south-west of the keep, towards {area:16725}."] = "Die Ebenenkojoten streifen westlich und südwestlich der Burg umher, in Richtung {area:16725}.",
 
-	-- Step 54: Tessa Dawnbright
+	-- Step 55: Tessa Dawnbright
 	-- {quest:95961} Stepped Out · {npc:263120} Gray Dawnbright · {area:16727} Powderfuse Port
 	["{quest:95961}: for {npc:263120} in {area:16727}, keep it"] = "{quest:95961}: für {npc:263120} in {area:16727}, behalte es",
 
-	-- Step 55: King of the Wild Plains
+	-- Step 56: King of the Wild Plains
 	-- {npc:263315} Ombassa · {area:16729} Terral's Watch
 	["{npc:263315}, an elite lion (level 41), prowls the plains north of {area:16729}, on your way back north: grouping up is advised."] = "{npc:263315}, ein Elite-Löwe (Stufe 41), streift durch die Ebenen nördlich von {area:16729}, auf deinem Rückweg nach Norden: Eine Gruppe ist ratsam.",
 
-	-- Step 57: Sleebo Fizzlespout
+	-- Step 58: Sleebo Fizzlespout
 	-- {npc:263367} Sleebo Fizzlespout
 	["North-east to {npc:263367}'s workshop. {npc:263367}'s stress test is a fight with his G45-B4G beside the workshop: hand the quest in once it's beaten."] = "Nach Nordosten zur Werkstatt von {npc:263367}. Der Belastungstest von {npc:263367} ist ein Kampf gegen seinen G45-B4G neben der Werkstatt: Gib die Quest ab, sobald er besiegt ist.",
 	["the stress test: beat G45-B4G beside the workshop"] = "der Belastungstest: Besiege G45-B4G neben der Werkstatt",
 
-	-- Step 58: Powderfuse Port
+	-- Step 59: Powderfuse Port
 	-- {area:16727} Powderfuse Port · {npc:255897} Friz Frazzlespark · {npc:263120} Gray Dawnbright · {npc:255894} Innkeeper Zizplink · {npc:259962} Fimbo Greasemitz · {npc:259961} Wharfmaster Whizzbuzz · {npc:260487} Gritta Chumwater · {npc:260565} Kor'gar · {npc:260560} Krikshank
 	["East down the road to {area:16727}, the goblins' harbour. {npc:255897} keeps a stall at the west end of the docks; {npc:263120}, {npc:255894} and {npc:259962} are at the inn, and {npc:259961} works the north pier. Zizplink's drink needs three things the port's traders sell: the chum from {npc:260487}, the degreaser and the old poison from {npc:260565} and {npc:260560}, by {npc:255897}'s stall."] = "Nach Osten die Straße hinunter nach {area:16727}, dem Hafen der Goblins. {npc:255897} hat einen Stand am Westende der Docks; {npc:263120}, {npc:255894} und {npc:259962} sind im Gasthaus, und {npc:259961} arbeitet am Nordpier. Zizplinks Getränk braucht drei Dinge, die die Händler des Hafens verkaufen: den Köder von {npc:260487}, den Fettlöser und das alte Gift von {npc:260565} und {npc:260560}, neben dem Stand von {npc:255897}.",
 	-- {quest:95059} Frazzlespark's Crate · {npc:257558} Demar Brant · {area:16724} Farholde Keep
@@ -309,35 +319,35 @@ return {
 	-- {object:628948} WANTED! (no name in this language: may be words) · {npc:260235} Trapclaw
 	["The {object:628948} poster by the inn: {npc:260235}"] = "Das Plakat {object:628948} beim Gasthaus: {npc:260235}",
 
-	-- Step 59: WANTED: Old Rot-Chum
+	-- Step 60: WANTED: Old Rot-Chum
 	-- {npc:257001} Old Rot-Chum
 	["{npc:257001} is an elite (level 42) on the south shore: grouping up is advised."] = "{npc:257001} ist ein Elite (Stufe 42) am Südufer: Eine Gruppe ist ratsam.",
 	-- {object:628948} WANTED! (no name in this language: may be words)
 	["The {object:628948} poster by the inn"] = "Das Plakat {object:628948} beim Gasthaus",
 
-	-- Step 60: The murlocs, south-west
+	-- Step 61: The murlocs, south-west
 	["The murlocs, south-west"] = "Die Murlocs im Südwesten",
 	-- {quest:95260} Terrors From the Deep · {npc:260231} Argo Brinewhistle
 	["South-west along the shore from the port: the saltwater murlocs camp on the beaches. On the way, a painted hide is stretched beside the path: it starts {quest:95260} for {npc:260231} at the docks."] = "Vom Hafen nach Südwesten am Ufer entlang: Die Salzwassermurlocs lagern an den Stränden. Unterwegs ist neben dem Pfad eine bemalte Haut aufgespannt: Sie startet {quest:95260} für {npc:260231} an den Docks.",
 
-	-- Step 62: Back through the port
+	-- Step 63: Back through the port
 	["Back through the port"] = "Zurück durch den Hafen",
 	["Back north along the shore: hand in the murlocs and the hide on the docks on your way to the crawlers."] = "Zurück nach Norden am Ufer entlang: Gib die Murlocs und die Haut auf dem Weg zu den Krabblern an den Docks ab.",
 	-- {quest:95261} It Takes Guts
 	["{quest:95261}: the beasts' entrails come as you go; the mushrooms are for later"] = "{quest:95261}: Die Eingeweide der Bestien kommen unterwegs; die Pilze sind für später",
 
-	-- Step 63: The crawlers and Trapclaw
+	-- Step 64: The crawlers and Trapclaw
 	-- {npc:260235} Trapclaw
 	["The crawlers and {npc:260235}"] = "Die Krabbler und {npc:260235}",
 	-- {npc:259962} Fimbo Greasemitz · {npc:260231} Argo Brinewhistle · {npc:260235} Trapclaw · {npc:259758} Gul'gash
 	["North along the beach from the docks: the crawlers drop the meat for {npc:259962} and the spittle for Zizplink, and their entrails count for {npc:260231}. {npc:260235}, a big crab, scuttles along the rocks east of the docks. {npc:259758}, a rare elite of level 49, roams this coast from the docks up to the pirates' camp: if you see him, keep well away."] = "Von den Docks nach Norden den Strand entlang: Die Krabbler droppen das Fleisch für {npc:259962} und den Speichel für Zizplink, und ihre Eingeweide zählen für {npc:260231}. {npc:260235}, eine große Krabbe, huscht über die Felsen östlich der Docks. {npc:259758}, ein Rare-Elite der Stufe 49, streift an dieser Küste von den Docks bis zum Piratenlager umher: Falls du ihn siehst, halte großen Abstand.",
 
-	-- Step 64: The Eastsea pirates
+	-- Step 65: The Eastsea pirates
 	["The Eastsea pirates"] = "Die Ostmeerpiraten",
 	-- {npc:259758} Gul'gash
 	["North-east along the coast to the pirates' camp on the cliffs. The buccaneers and musketeers carry the smuggled goods. {npc:259758} walks the camp too: keep an eye out for him."] = "Nach Nordosten die Küste entlang zum Lager der Piraten auf den Klippen. Die Freibeuter und Musketiere tragen die Schmuggelware. Auch {npc:259758} streift durch das Lager: Halte nach ihm Ausschau.",
 
-	-- Step 65: Powderfuse Port
+	-- Step 66: Powderfuse Port
 	["Back to the port, from the north pier west through the docks."] = "Zurück zum Hafen, vom Nordpier nach Westen durch die Docks.",
 	-- {quest:95122} Unchecked Expansion
 	["{quest:95122}: for later in this guide"] = "{quest:95122}: für später in diesem Guide",
@@ -348,129 +358,134 @@ return {
 	-- {quest:95293} Smuggler's Special · {npc:260390} Captain Bentcoin
 	["{quest:95293}: for {npc:260390} at the pirates' camp"] = "{quest:95293}: für {npc:260390} im Lager der Piraten",
 
-	-- Step 67: Beast Entrails as you go
+	-- Step 68: Beast Entrails as you go
 	-- {item:268632} Beast Entrails
 	["{item:268632} as you go"] = "{item:268632} nebenbei",
 	-- {zone:2548} Riverglades · {item:268632} Beast Entrails · {npc:260231} Argo Brinewhistle · {npc:257001} Old Rot-Chum · {npc:263380} Ghostmaw
 	["Most beasts in the {zone:2548} drop {item:268632} for {npc:260231}: the shore crawlers on this coast and the boars on the ridge west of the pirates.\nCareful: {npc:257001} (elite, 42), Komuk (a Horde elite, 45) and {npc:263380} (elite, 42) range over the zone's wilds: take your beasts away from them."] = "Die meisten Wildtiere in {zone:2548} lassen {item:268632} für {npc:260231} fallen: die Uferkriecher an dieser Küste und die Eber auf dem Kamm westlich der Piraten.\nVorsicht: {npc:257001} (Elite, 42), Komuk (ein Horde-Elite, 45) und {npc:263380} (Elite, 42) streifen durch die Wildnis des Gebiets: Zieh deine Wildtiere von ihnen weg.",
 
-	-- Step 68: Level 44 on the Eastsea pirates
-	["Level 44 on the Eastsea pirates"] = "",
+	-- Step 69: Level 44 on the Eastsea pirates
+	["Level 44 on the Eastsea pirates"] = "Level 44 an den Ostsee-Piraten",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash · {area:1517} Uldaman
 	-- was: ["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "Vor der zweiten Welle: Ihre Plünderer und Bombardiere (43-45) und danach die Schiffe der Piraten sind unter 44.4 eine Stufe über dir. Füll an den Freibeutern und Musketieren (41-43) des ersten Lagers an dessen südwestlichem Ende auf, weg vom Hafen. {npc:259758}, ein Rare-Elite der Stufe 49, streift über diese Klippen: Wenn du ihn siehst, halte dich fern. Oder lauf stattdessen mit einer Gruppe den Dungeon {area:1517}."
 	["Before the second wave: its raiders (44-45), bombardiers (43-44) and {quest:95124}'s ships after them (45) are more than a level over you below 44. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "",
 	-- {npc:257901} Eastsea Buccaneer
 	["grind on {npc:257901}"] = "farme {npc:257901}",
 
-	-- Step 69: The pirates' second wave
+	-- Step 70: The pirates' second wave
 	["The pirates' second wave"] = "Die zweite Welle der Piraten",
 	-- {npc:259758} Gul'gash
 	["North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. They stand close together: pull them one at a time. {npc:259758}, a rare elite of level 49, roams these cliffs and the beach below: if you see him, keep well away."] = "Vom Hafen nach Norden die Küste entlang: Die Plünderer und Bombardiere der Eastsea haben sich an den Hängen westlich des Freibeuterlagers zwischen ihren Pulverfässern verschanzt. Sie stehen dicht beieinander: Zieh sie einzeln. {npc:259758}, ein Rare-Elite der Stufe 49, streift über diese Klippen und den Strand darunter: Wenn du ihn siehst, halte dich fern.",
 
-	-- Step 70: Captain Bentcoin
+	-- Step 71: Captain Bentcoin
 	-- {npc:260390} Captain Bentcoin · {npc:260391} Captain Haynes
 	["East along the cliffs to the far end of the pirates' camp: {npc:260390} waits by the water, {npc:260391} beside him."] = "Nach Osten die Klippen entlang zum hinteren Ende des Piratenlagers: {npc:260390} wartet am Wasser, {npc:260391} neben ihm.",
 
-	-- Step 71: Powderfuse Port
+	-- Step 72: Powderfuse Port
 	["Back to the port."] = "Zurück zum Hafen.",
 
-	-- Step 72: The pirates' ships
+	-- Step 73: The pirates' ships
 	["The pirates' ships"] = "Die Schiffe der Piraten",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
-	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way."] = "",
+	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way."] = "Aus zu den Piratenkliffen noch einmal. Lege Whizzbuzz' Ladungen auf die drei Schiffe, die unter dem Lager in Nord-Süd-Richtung verankert sind. {quest:95124} (Level 45) geht auf dem oberen Decks des mittleren Schiffs; ihr Plünderkistchen liegt unter Deck. Halte Ausschau nach {npc:259758} auf dem Weg.",
+	["on board, at the arrow"] = "an Bord, am Pfeil",
 	-- {item:268505} Remote Explosive Charge
-	["{item:268505}, the southern ship"] = "{item:268505}, das südliche Schiff",
-	["the middle ship"] = "das mittlere Schiff",
-	["the northern ship"] = "das nördliche Schiff",
+	["Plant a {item:268505} on the southern ship"] = "Lege ein {item:268505} aufs südlich Schiffe",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the middle ship"] = "Lege ein {item:268505} aufs mittlere Schiffe",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the northern ship"] = "Lege ein {item:268505} aufs nördlich Schiffe",
 
-	-- Step 73: Rotflesh Mushrooms
+	-- Step 74: Rotflesh Mushrooms
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom
 	["Rotflesh Mushrooms"] = "Faulfleischpilze",
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom · Mature Paletusks = {npc:255851} Mature Paletusk
 	["West from the northern ship, up the ridge: the Rotflesh Mushrooms grow among the rocks, close to the Twilight ogres' camp. The Mature Paletusks on the ridge give entrails too."] = "Westlich vom nördlichen Schiff den Grat hinauf: Die Faulfleischpilze wachsen zwischen den Felsen, nahe dem Lager der Oger des Schattenhammers. Die Ausgewachsenen Bleichhauer auf dem Grat geben ebenfalls Innereien.",
 
-	-- Step 74: Bolder'ok
+	-- Step 75: Bolder'ok
 	-- {area:16726} Bolder'ok · {npc:259057} Dunston Willis
 	["North-west to {area:16726}, the ogres' town. Its ogres side with the Horde and attack you on sight, and Clugfist on his hill in the middle is an elite (level 50): keep to the town's north-eastern edge, where {npc:259057} hides."] = "Nach Nordwesten nach {area:16726}, der Stadt der Oger. Ihre Oger stehen auf der Seite der Horde und greifen dich sofort an, und Clugfist auf seinem Hügel in der Mitte ist Elite (Stufe 50): Halte dich am nordöstlichen Rand der Stadt, wo sich {npc:259057} versteckt.",
 
-	-- Step 75: Gronok's Key
+	-- Step 76: Gronok's Key
 	-- {npc:263749} Gronok the Butcher · {npc:259057} Dunston Willis · {item:275043} Bloodmaster's Ring
 	["{npc:263749} (level 44) carries the key: he paces the lanes south of {npc:259057}'s hut.\nThe {item:275043} lies just west of the lanes: its fighters (elites, 41-45) only fight in a bout, so leave them be."] = "{npc:263749} (Stufe 44) trägt den Schlüssel: Er läuft die Gassen südlich der Hütte von {npc:259057} ab.\nDer {item:275043} liegt gleich westlich der Gassen: Seine Kämpfer (Elite, 41-45) kämpfen nur in einem Duell, also lass sie in Ruhe.",
 
-	-- Step 76: Dunston Willis
+	-- Step 77: Dunston Willis
 	-- {npc:259057} Dunston Willis · {area:16726} Bolder'ok
 	["Free him, then get him out: {npc:259057} fights his way out of {area:16726}, and you keep the ogres off him. If he falls, take the quest from him again."] = "Befreie ihn und bring ihn raus: {npc:259057} kämpft sich aus {area:16726} heraus, und du hältst ihm die Oger vom Leib. Stirbt er, nimm die Quest erneut bei ihm an.",
 	-- {npc:259057} Dunston Willis · {area:16726} Bolder'ok
 	["help {npc:259057} break out of {area:16726}"] = "Hilf {npc:259057}, aus {area:16726} auszubrechen",
 
-	-- Step 77: Finish the Beast Entrails
+	-- Step 78: Finish the Beast Entrails
 	-- {item:268632} Beast Entrails
 	["Finish the {item:268632}"] = "Sammle die restlichen {item:268632}",
 	-- {npc:259758} Gul'gash
 	["South-east out of the hills towards the port: the shore crawlers on the beach north of the docks are the quickest entrails. {npc:259758} wanders down to this beach too."] = "Nach Südosten aus den Hügeln Richtung Hafen: Die Uferkriecher am Strand nördlich der Docks liefern die Innereien am schnellsten. Auch {npc:259758} wandert zu diesem Strand hinunter.",
 
-	-- Step 78: Powderfuse Port
+	-- Step 79: Powderfuse Port
 	["Down to the port."] = "Hinunter zum Hafen.",
 	-- {quest:95267} The Monster Surfaces · {npc:257001} Old Rot-Chum
 	["{quest:95267}: a big beast in the shallows south-west of the port, near {npc:257001}, the elite"] = "{quest:95267}: ein großes Ungeheuer im seichten Wasser südwestlich des Hafens, nahe {npc:257001}, dem Elite",
 
-	-- Step 79: The Monster Surfaces
+	-- Step 80: The Monster Surfaces
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
-	["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244} streift durch das seichte Wasser südwestlich des Hafens, unterhalb der Strände der Murlocs. {npc:257001}, ein Elite, läuft ganz in der Nähe am Ufer entlang: Halte Abstand zu ihm.",
+	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244} kommt auf, wenn du ihn rufst: Rechtsklick auf das Ding, das in der Wasser fließt am Pfeil, in den flachen Gewässern südwestlich des Hafens, und er taucht dort auf. {npc:257001}, ein Elite, patrouilliert die direkt benachbarte Uferseite: gib ihr Raum.",
+	-- {item:268633} Sea Monster's Head
+	["{item:268633}, where the Threshadon surfaces when you call him"] = "{item:268633}, wo der Threshadon auftaucht, wenn du ihn rufst",
 
-	-- Step 81: The meadows
+	-- Step 82: The meadows
 	["The meadows"] = "Die Wiesen",
 	-- {npc:263367} Sleebo Fizzlespout
 	["West of the port, the wildflowers grow in the meadows below {npc:263367}'s workshop."] = "Westlich des Hafens wachsen die Wildblumen auf den Wiesen unterhalb der Werkstatt von {npc:263367}.",
 
-	-- Step 82: Farholde Keep
+	-- Step 83: Farholde Keep
 	-- {area:16724} Farholde Keep · {npc:257558} Demar Brant
 	["South-west across the plains to {area:16724}: {npc:257558} in the keep at the east end."] = "Nach Südwesten über die Ebene nach {area:16724}: {npc:257558} in der Burg am östlichen Ende.",
 
-	-- Step 83: Demar Brant
+	-- Step 84: Demar Brant
 	-- {quest:94887} Saving Marshal Ryan
 	["{quest:94887}: for later in this guide"] = "{quest:94887}: für später in diesem Guide",
 
-	-- Step 86: Brother Lowley
+	-- Step 87: Brother Lowley
 	-- {npc:263613} Brother Lowley · {npc:262031} Sister Rowland
 	["{npc:263613} tends the wounded beside the barracks: bandage three of his soldiers, then he has a note for {npc:262031} in the cathedral."] = "{npc:263613} versorgt die Verwundeten neben der Kaserne: Verbinde drei seiner Soldaten, dann hat er eine Nachricht für {npc:262031} in der Kathedrale.",
 	-- {item:272126} Makeshift Bandages
 	-- plural, as words: Wounded Soldiers = {npc:263614} Wounded Soldier
 	["{item:272126}, on the Wounded Soldiers beside him"] = "{item:272126}, an den Verwundeten Soldaten neben ihm",
 
-	-- Step 87: Farholde Keep, the west side
+	-- Step 88: Farholde Keep, the west side
 	-- {area:16724} Farholde Keep
 	["{area:16724}, the west side"] = "{area:16724}, die Westseite",
 	-- {npc:263089} Tessa Dawnbright · {npc:259859} Wheatley
 	["West through the keep: {npc:263089} by the orchard, then the cathedral and {npc:259859} south of the inn if you have their errands."] = "Nach Westen durch die Burg: {npc:263089} beim Obstgarten, dann die Kathedrale und {npc:259859} südlich des Gasthauses, falls du Aufträge für sie hast.",
 
-	-- Step 88: Sister Rowland
+	-- Step 89: Sister Rowland
 	-- {quest:96084} Something's in the Water
 	["{quest:96084}: for later in this guide"] = "{quest:96084}: für später in diesem Guide",
 
-	-- Step 90: Something's in the Water
+	-- Step 91: Something's in the Water
 	-- {area:16729} Terral's Watch · {npc:262031} Sister Rowland
 	["North past {area:16729}: fill {npc:262031}'s phial in the marsh water north-east of the tower."] = "Nach Norden an {area:16729} vorbei: Füll die Phiole von {npc:262031} im Sumpfwasser nordöstlich des Turms.",
 
-	-- Step 91: Terral's Watch
+	-- Step 92: Terral's Watch
 	-- {npc:259352} Watcher Cornelius
 	["{npc:259352}'s tower."] = "Turm von {npc:259352}.",
 
-	-- Step 93: Turner's Logging Camp
+	-- Step 94: Turner's Logging Camp
 	-- {area:16736} Turner's Logging Camp · {npc:263380} Ghostmaw
 	-- plural, as words: Peasant Woodpiles = {object:645516} Peasant Woodpile
 	["West across the river to {area:16736}: the Peasant Woodpiles around the camp give the wood bundles.\nCareful: {npc:263380}, an elite (level 42), prowls the river by the camp: if he comes your way, back off and let him pass."] = "Nach Westen über den Fluss nach {area:16736}: Die Holzstapel der Bauern rund um das Lager geben die Holzbündel.\nVorsicht: {npc:263380}, ein Elite (Stufe 42), streift am Fluss beim Lager umher: Kommt er in deine Richtung, zieh dich zurück und lass ihn vorbeiziehen.",
 
-	-- Step 94: The Western Front
+	-- Step 95: The Western Front
 	-- {npc:256881} Overlord Kilgar
 	-- plural, as words: Twilight Champions = {npc:256799} Twilight Champion · Twilight Enforcers = {npc:256800} Twilight Enforcer
 	["Careful: the Western Front is written for level 44 and up. Its Twilight Champions are 43-44 and its Thralls 44, Twilight Enforcers (elites, 45) patrol through the camps, and {npc:256881} (46, elite) is for a group only. Below 44, top up on the Eastsea pirates by the port first, or come back with a friend."] = "",
 
-	-- Step 95: Sergeant Riftan
+	-- Step 96: Sergeant Riftan
 	-- {area:16685} Twilight's Shroud · {npc:258023} Sergeant Riftan
 	["North up the long valley towards {area:16685}: {npc:258023} holds a small camp below the Twilight cult's fortress."] = "Nach Norden das lange Tal hinauf Richtung {area:16685}: {npc:258023} hält ein kleines Lager unterhalb der Festung des Schattenhammerkults.",
 
-	-- Step 96: The Twilight camps
+	-- Step 97: The Twilight camps
 	["The Twilight camps"] = "Die Lager des Schattenhammers",
 	-- {npc:258652} Twilight Thrall · {npc:257591} Ashe Amberhall · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg
 	-- plural, as words: Farholde Scouts = {npc:256904} Farholde Scout · Twilight Enforcers = {npc:256800} Twilight Enforcer
@@ -480,7 +495,7 @@ return {
 	-- {npc:258652} Twilight Thrall
 	["kill a {npc:258652}"] = "Töte einen {npc:258652}",
 
-	-- Step 97: Marshal Ryan
+	-- Step 98: Marshal Ryan
 	-- {npc:257250} Marshal Ryan · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg
 	["{npc:257250} lies wounded among the camps at the valley's western edge.\nCareful: {npc:256881} and {npc:256891} (elites, 46) hold the fortress north of him: come at Ryan from the south."] = "{npc:257250} liegt verwundet zwischen den Lagern am Westrand des Tals.\nVorsicht: {npc:256881} und {npc:256891} (Elite, 46) halten die Festung nördlich von ihm: Nähere dich Ryan von Süden.",
 	-- {npc:257250} Marshal Ryan
@@ -488,74 +503,74 @@ return {
 	-- {quest:94892} Dying Wish · {npc:257558} Demar Brant · {area:16724} Farholde Keep
 	["{quest:94892}: for {npc:257558} in {area:16724}"] = "{quest:94892}: für {npc:257558} in {area:16724}",
 
-	-- Step 98: The ogre mine
+	-- Step 99: The ogre mine
 	["The ogre mine"] = "Die Ogermine",
 	-- plural, as words: Twilight Subjugators = {npc:260996} Twilight Subjugator · Twilight Enforcers = {npc:256800} Twilight Enforcer
 	["North of the camps the cult works ogre miners in a mine, driven by the Twilight Subjugators.\nCareful: Twilight Enforcers (elites, level 45) walk past the mine's mouth on their way through the camps. Wait for one to pass before you go in, and pull the miners and Subjugators back out to you."] = "Nördlich der Lager lässt der Kult Ogerminenarbeiter in einer Mine schuften, angetrieben von den Unterwerfern des Schattenhammers.\nVorsicht: Twilight-Vollstrecker (Elite, Stufe 45) laufen auf ihrem Weg durch die Lager am Mineneingang vorbei. Warte, bis einer vorbei ist, bevor du hineingehst, und zieh die Arbeiter und Unterwerfer zu dir nach draußen.",
 
-	-- Step 100: Bring Me His Head
+	-- Step 101: Bring Me His Head
 	-- {npc:256881} Overlord Kilgar
 	["{npc:256881} is an elite (level 46) in the fortress at the head of the valley, with the Enforcers around him: grouping up is advised."] = "{npc:256881} ist ein Elite (Stufe 46) in der Festung am Ende des Tals, umgeben von den Vollstreckern: Eine Gruppe wird empfohlen.",
 	-- {quest:94891} News to Farholde · {npc:257591} Ashe Amberhall
 	["{quest:94891}: for {npc:257591}"] = "{quest:94891}: für {npc:257591}",
 
-	-- Step 101: Back to Farholde Keep
+	-- Step 102: Back to Farholde Keep
 	-- {area:16724} Farholde Keep
 	["Back to {area:16724}"] = "Zurück nach {area:16724}",
 	-- {area:16724} Farholde Keep
 	["Your hearthstone is bound at {area:16724}'s inn: use it, or ride back south to the keep."] = "Dein Ruhestein ist im Gasthaus von {area:16724} gebunden: Benutze ihn oder reite zurück nach Süden zur Burg.",
 
-	-- Step 102: Farholde Keep
+	-- Step 103: Farholde Keep
 	-- {npc:260070} Bertrand Ironbrow · {npc:257558} Demar Brant · {npc:257591} Ashe Amberhall
 	["From the inn: {npc:260070} on the way in, then {npc:257558} and {npc:257591} in the keep."] = "Vom Gasthaus aus: {npc:260070} auf dem Weg hinein, dann {npc:257558} und {npc:257591} in der Burg.",
 
-	-- Step 104: Demar Brant
+	-- Step 105: Demar Brant
 	-- {quest:94893} Delivering Closure · {npc:278088} Abigail Lawson · {zone:1453} Stormwind
 	["{quest:94893}: for {npc:278088} in {zone:1453}"] = "{quest:94893}: für {npc:278088} in {zone:1453}",
 
-	-- Step 105: The Twilight Threat
+	-- Step 106: The Twilight Threat
 	-- {npc:257558} Demar Brant · {npc:1748} Highlord Bolvar Fordragon · {object:2117} Stormwind Keep
 	["{npc:257558}: Kilgar's head for {npc:1748} in {object:2117}"] = "{npc:257558}: Kilgars Kopf für {npc:1748} in {object:2117}",
 
-	-- Step 106: Sister Rowland
+	-- Step 107: Sister Rowland
 	-- {npc:262031} Sister Rowland
 	["{npc:262031}, in the cathedral at the keep's south-west corner."] = "{npc:262031}, in der Kathedrale an der Südwestecke der Festung.",
 
-	-- Step 107: Stormwind
+	-- Step 108: Stormwind
 	-- {npc:257087} Gretchen Mayberry · {zone:1453} Stormwind · {npc:278088} Abigail Lawson · {object:2098} Cathedral Square
 	["{npc:257087} flies to {zone:1453}. {npc:278088} waits in the {object:2098}."] = "{npc:257087} fliegt nach {zone:1453}. {npc:278088} wartet auf dem {object:2098}.",
 
-	-- Step 109: Train before the Badlands
+	-- Step 110: Train before the Badlands
 	-- {zone:1418} Badlands
 	["Train before the {zone:1418}"] = "Vor dem {zone:1418} trainieren",
 	-- {zone:2548} Riverglades · {zone:1418} Badlands · {zone:1425} Hinterlands · {npc:257087} Gretchen Mayberry · {zone:1453} Stormwind
 	["No class trainer stands in the {zone:2548}, and the {zone:1418} & {zone:1425} guide passes none: {npc:257087} flies to {zone:1453}, where you train before you go on."] = "Im {zone:2548} gibt es keinen Klassenlehrer, und der Guide für {zone:1418} & {zone:1425} kommt an keinem vorbei: {npc:257087} fliegt nach {zone:1453}, wo du trainierst, bevor du weiterziehst.",
 
-	-- Step 110: Your class trainer
+	-- Step 111: Your class trainer
 	["Your class trainer"] = "Dein Klassenlehrer",
 	-- {zone:2548} Riverglades · {zone:1453} Stormwind
 	["No class trainer stands in the {zone:2548}: train here in {zone:1453} before you fly on."] = "Im {zone:2548} gibt es keinen Klassenlehrer: Trainiere hier in {zone:1453}, bevor du weiterfliegst.",
 
-	-- Step 111: Stormwind flight master
+	-- Step 112: Stormwind flight master
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "Flugmeister von {zone:1453}",
 
-	-- Step 112: Shaman trainer
+	-- Step 113: Shaman trainer
 	["Shaman trainer"] = "Schamanenlehrer",
 	-- {zone:2548} Riverglades · {zone:1453} Stormwind · {zone:1418} Badlands · {zone:1425} Hinterlands · {area:1537} Ironforge · {area:144} Thelsamar
 	["No shaman trainer stands in the {zone:2548} or in {zone:1453}, and the {zone:1418} & {zone:1425} guide passes none: fly to {area:1537} and train there; {area:144} is a short flight on."] = "Weder im {zone:2548} noch in {zone:1453} gibt es einen Schamanenlehrer, und der Guide für {zone:1418} & {zone:1425} kommt an keinem vorbei: Flieg nach {area:1537} und trainiere dort; {area:144} ist nur ein kurzer Flug weiter.",
 
-	-- Step 113: Leave Stormwind
+	-- Step 114: Leave Stormwind
 	-- {zone:1453} Stormwind
 	["Leave {zone:1453}"] = "{zone:1453} verlassen",
 	-- {zone:1418} Badlands · {zone:1432} Loch Modan · {area:144} Thelsamar · {zone:1453} Stormwind · {object:2096} Trade District
 	["The next guide starts in the {zone:1418}, south of {zone:1432}: fly to {area:144}. {zone:1453}'s gryphon master stands in the {object:2096}."] = "Der nächste Guide beginnt im {zone:1418}, südlich von {zone:1432}: Flieg nach {area:144}. Der Greifenmeister von {zone:1453} steht im Bereich {object:2096}.",
 
-	-- Step 114: Loch Modan
+	-- Step 115: Loch Modan
 	-- {area:144} Thelsamar · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {zone:1453} Stormwind · {zone:1426} Dun Morogh · {zone:1432} Loch Modan
 	["No flight path to {area:144} yet: go to {zone:1455} (by the {area:2257} from {zone:1453}), ride out of its gates east through {zone:1426} and the tunnel into {zone:1432}, and on along the road to {area:144}."] = "Noch keine Flugroute nach {area:144}: Geh nach {zone:1455} (mit der {area:2257} von {zone:1453} aus), reite aus den Toren nach Osten durch {zone:1426} und den Tunnel nach {zone:1432} und weiter die Straße entlang nach {area:144}.",
 
-	-- Step 115: Fly to Thelsamar
+	-- Step 116: Fly to Thelsamar
 	-- {area:144} Thelsamar
 	["Fly to {area:144}"] = "Flieg nach {area:144}",
 	-- {zone:1418} Badlands · {zone:1432} Loch Modan · {area:144} Thelsamar
@@ -566,9 +581,15 @@ return {
 	-- ["Level 44.4 on the Eastsea pirates"] = "Stufe 44.4 an den Ostmeerpiraten",
 	-- ["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold hides in the middle of the town, {npc:256831} at its eastern edge, and {npc:258697} waits at his farm on the north-eastern edge."] = "Von der {area:16724} nach Norden, an {area:16729} vorbei und über den Fluss nach {area:16723}, dem Bauerndorf, das der Schattenhammerkult hält; halte Abstand zu {area:16743}, der Festung der Horde östlich des Dorfes. {npc:259158} der Kobold versteckt sich in der Dorfmitte, {npc:256831} steht am Ostrand, und {npc:258697} wartet auf seinem Hof am Nordostrand.",
 	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "Noch einmal hinaus zu den Klippen der Piraten. Platziere Whizzbuzz' Ladungen an den drei Schiffen, die unterhalb des Lagers vor Anker liegen, von Süden nach Norden; {quest:95124} (Stufe 45) steht beim mittleren, mit ihrer Beutetruhe neben sich. Halte unterwegs nach {npc:259758} Ausschau.",
+	-- ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "Die Kultisten füllen die Straßen und Felder von {area:16723}. Beginne bei den Ritualkreisen in der Mitte (fülle dort Claires Katalysator), arbeite dich nach Westen durch die verbrannten Häuser bis zum Dorfrand, dann zurück nach Nordosten zur lockeren Erde westlich von Elbrims Hof: Vergrabe dort die {item:266148}, die die Twilight-Räuber fallen lassen. Die Talismane, Seiten und Fingerknochen droppen von den Kultisten.\nBehalte den {item:4338}, den sie fallen lassen: {npc:263613} in der {area:16724} will zwanzig, wenn du zurück bist. Ab und zu droppt ein Kultist {quest:94885}: Rechtsklicke darauf, um die Quest zu starten.\nVorsicht: {npc:256899}, ein Elite-Oger (Stufe 41), läuft durch die westlichen Straßen von {area:16723}, etwa bei 44-47,47-52. Zieh die Kultisten zu dir heraus und lass ihn vorbeiziehen; hier sind mehr Spieler gestorben als irgendwo sonst im Gebiet.\n{npc:263380}, der Elite vom Fluss (Stufe 42), kann von den südwestlichen Feldern heraufwandern: Lass ihn vorbeiziehen.",
+	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244} streift durch das seichte Wasser südwestlich des Hafens, unterhalb der Strände der Murlocs. {npc:257001}, ein Elite, läuft ganz in der Nähe am Ufer entlang: Halte Abstand zu ihm.",
+	-- ["the middle ship"] = "das mittlere Schiff",
+	-- ["the northern ship"] = "das nördliche Schiff",
 	-- ["the {object:707245} poster"] = "das Plakat {object:707245}",
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}, von {npc:272437}",
+	-- ["{item:268505}, the southern ship"] = "{item:268505}, das südliche Schiff",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026} wartet neben der Straße östlich des Passes.",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} hütet die alte Kathedrale in der Südwestecke von {area:16724}. Die Fledermäuse nisten im Obergeschoss; {npc:272437} verteilt daneben die heiligen Kerzen; die Gräber liegen auf dem Kapellenfriedhof.\n{npc:271742}, ein Elite der Stufe 53, steht in der Kathedrale: Er lässt dich in Ruhe, also greif ihn nie an und zieh die Fledermäuse von ihm weg.",
+	-- ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, westlich von Elbrims Farm: Jedes Grab braucht eines der {item:266148}, die die Twilight-Raider fallen lassen, also plündere erst fünf",
 	-- ["{object:621813}: bury the mementos"] = "{object:621813}: Vergrabe die Andenken",
 }

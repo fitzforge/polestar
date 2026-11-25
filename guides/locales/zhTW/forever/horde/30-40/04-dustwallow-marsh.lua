@@ -11,6 +11,8 @@ return {
 	["Zeppelin to {zone:1454}"] = "搭飛艇前往{zone:1454}",
 
 	-- Step 2: Orgrimmar
+	-- {zone:1454} Orgrimmar · {zone:1445} Dustwallow Marsh
+	["The {zone:1454} and Crossroads stops are on the way for players coming from the previous guide; opened with none of its quests in the log, the guide starts in {zone:1445}."] = "{zone:1454}和十字路口這兩站是給從上一份指南過來的玩家順路的；如果任務日誌中沒有它的任務就開啟指南，指南從{zone:1445}開始。",
 	-- {zone:1454} Orgrimmar
 	["The middle of {zone:1454}"] = "{zone:1454}中部",
 
@@ -70,7 +72,7 @@ return {
 	-- plural, as words: Darkfang Lurkers = {npc:4411} Darkfang Lurker · Theramore Infiltrators = {npc:4834} Theramore Infiltrator · Darkmist Lurkers = {npc:4377} Darkmist Lurker
 	["Head west back across the marsh. The Darkfang Lurkers (36-37) and Venomspitters (37-38) on the ridges north of Brackenwall drop the venom sacs. Theramore Infiltrators (35-36) sneak through the same woods: they are stealthed, so look closely.\nThe Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes. Work its outer edge, where the Spiders and Recluses (35-37) stand: the Lurkers and Silkspinners (37-39) deeper in are two or three over you.\nCareful: Darkfang Lurkers (level 36-37) use Sneak to stealth while out of combat and cast Poison once fighting.\nCareful: Stealthed spiders in the same area will attack you on sight.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "向西穿過沼澤回去。蕨牆村北邊山脊上的暗牙潛伏者（36-37級）和暗牙毒液噴吐者（37-38級）會掉落毒囊。塞拉摩間諜（35-36級）在同一片樹林裡潛行：牠們處於潛行狀態，要仔細看。\n暗霧蜘蛛聚集在蕨牆村西北方的洞穴口；每一種都會掉落眼睛。在外圍打，那裡是蜘蛛和隱士蛛（35-37級）：更深處的潛伏者和織絲蛛（37-39級）比你高兩三級。\n小心：暗牙潛伏者（36-37級）在非戰鬥時會潛行，戰鬥中會施放毒素。\n小心：同一區域潛行的蜘蛛看到你就會攻擊。\n小心：暗霧潛伏者會潛行移動，戰鬥中會使用毒素。蜘蛛站得很近，很容易引來額外的怪；從外圍單拉可以減少這種情況。",
 	-- plural, as words: Giant Darkfang Spiders = {npc:4415} Giant Darkfang Spider
-	["Every Darkfang spider drops them: Lurkers, Spiders, Venomspitters and the Giant Darkfang Spiders"] = "",
+	["Every Darkfang spider drops them: Lurkers, Spiders, Venomspitters and the Giant Darkfang Spiders"] = "每隻暗牙蜘蛛都會掉落：潛伏者、蜘蛛、噴毒者和巨型暗牙蜘蛛",
 
 	-- Step 16: Questioning Reethe
 	-- {npc:4983} Ogron · {area:2302} Quagmire · {npc:5045} Private Hallan
@@ -158,7 +160,7 @@ return {
 
 	-- Step 30: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}被關在山谷西端的瑪拉多營地；救出她並護送她到山谷以東。\n小心：指令碼刷出的隊伍是仇恨聯動的，而且只在護送期間出現，所以無法事先清掉，也不能一隻只拉。出發前把路上的普通半人馬清掉確實有幫助。",
+	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}被關在山谷西端的瑪勞登營地裡；救出她，護送她向東離開山谷。\n小心：護送途中會有六個半人馬來襲，而且無法提前清理：牠們只在護送時出現，並且會一起上。玩家記錄中，接過此任務的30人裡有14人至少失敗過一次。帶個朋友，如果你是單人就跳過。開始前清掉路上的普通半人馬會有幫助。",
 
 	-- Step 31: Hornizz Brimbuzzle
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard
@@ -170,7 +172,7 @@ return {
 	-- {area:599} Thunder Axe Fortress · {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {item:13542} Demon Box
 	["North up the road to {area:599}. Clear the middle of the largest building, then use the {item:14523} on the red {object:176581} there. A {npc:11876} (37) comes out: kill it for the {item:13542}. The Burning Blade around it are well under you now."] = "沿道路向北前往{area:599}。清掉最大建築物的中央，然後對那裡紅色的{object:176581}使用{item:14523}。會出現一隻{npc:11876}（37級）：殺掉它取得{item:13542}。周圍的燃刃現在等級遠低於你。",
 	-- {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal
-	["{item:14523}, on the {object:176581}"] = "",
+	["{item:14523}, on the {object:176581}"] = "{item:14523}，對{object:176581}使用",
 
 	-- Step 34: Sargeron
 	-- {area:603} Sargeron
@@ -268,6 +270,7 @@ return {
 	-- ["West from the fortress to the coast at {area:598}: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range."] = "從堡壘向西前往海岸的{area:598}：滑刃侍從、納迦和女巫佔據海灘。一次拉一隻；海巫和神諭者（34-36級）會從遠處施法。",
 	-- ["West to Shadowprey."] = "向西前往葬影村。",
 	-- ["{npc:11626}'s caravan stops on the road at the edge of {area:602}. Escort it east past the coven; demons attack it twice."] = "{npc:11626}的商隊停在{area:602}邊緣的道路上。護送商隊向東經過集會所；惡魔會攻擊兩次。",
+	-- ["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}被關在山谷西端的瑪拉多營地；救出她並護送她到山谷以東。\n小心：指令碼刷出的隊伍是仇恨聯動的，而且只在護送期間出現，所以無法事先清掉，也不能一隻只拉。出發前把路上的普通半人馬清掉確實有幫助。",
 	-- ["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391}：交給{area:35}的{npc:4631}，在40-50級第一次前往{area:35}時",
 	-- ["{npc:4983} waits in the {area:2302} east of the village. Follow him to Reethe and keep him alive through the fight that breaks out."] = "{npc:4983}在村莊東邊的{area:2302}等候。跟著他去找雷瑟，在爆發的戰鬥中保住他的性命。",
 	-- ["{npc:5395} and {npc:5412} stand in the post just west of {npc:11596}'s camp."] = "{npc:5395}和{npc:5412}站在{npc:11596}營地西邊的哨站裡。",

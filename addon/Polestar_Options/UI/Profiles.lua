@@ -7,6 +7,9 @@
 --   the choice is this character's own or its class's); then the selected
 --   profile with Use, Copy, Rename and Delete. A click on a card selects it
 --   and Use switches to it, as in the guide menu; Delete takes a second click.
+--   A new profile starts from the settings in use (Start from: Your current
+--   settings) or from the defaults (#3627: players expect New to keep the
+--   setup they spent time on).
 --   Share: a string of a profile to paste anywhere, holding the categories
 --   ticked on its checklist (P.CATEGORIES; every one but Window positions to
 --   start with), and pasting someone's: a checklist of the categories it
@@ -174,7 +177,7 @@ end
 function PV.Edit(mode, subject)
 	local P = Profiles()
 	subject = subject or current()
-	editor, editorError = { mode = mode, subject = subject }, nil
+	editor, editorError = { mode = mode, subject = subject, from = mode == "new" and "current" or nil }, nil
 	local name = ""
 	if mode == "copy" then
 		name = P.FreeName((L["%s (copy)"]):format(subject == P.DEFAULT and L["Default"] or subject)) or ""
@@ -208,7 +211,8 @@ function PV.CommitEdit(name)
 		ok, why = P.Rename(editor.subject, name)
 		made = ok and P.CleanName(name) or nil
 	else
-		made, why = P.New(name, editor.mode == "copy" and editor.subject or nil)
+		local from = editor.mode == "copy" and editor.subject or (editor.from == "current" and P.Active()) or nil
+		made, why = P.New(name, from)
 		if made then ok, why = P.Switch(made) end
 	end
 	if ok then
@@ -1012,6 +1016,32 @@ local function buildProfiles(v)
 	v.NameOK = W.Button(v, "", function() PV.CommitEdit() end, { primary = true, height = 24 })
 	v.NameCancel = W.Button(v, L["Cancel"], function() PV.CancelEdit() end, { height = 24 })
 	v.NameError = text(overlay(v), "note", "warning")
+	-- A new profile's start: the settings in use (the default) or the defaults.
+	v.StartFrom = W.Dropdown(v, L["Start from"], nil, function()
+		return { { value = "current", text = L["Your current settings"] }, { value = "defaults", text = L["Defaults"] } }
+	end, L["Your current settings: the new profile is a copy of the one in use, window positions, skin and all. Defaults: every setting at its default."], nil,
+		{ get = function() return editor and editor.from or "current" end, set = function(from)
+			if editor then editor.from = from end
+			relayout()
+		end })
+	W.CompactRow(v.StartFrom)
+	-- Install and the update notices (UI/Options.lua's Install & updates
+	-- section of this tab): a card of their rows, each the row a search
+	-- result's jump lights (v.cache).
+	v.InstallCard = newCard(v, L["Install & updates"])
+	v.InstallRows = {}
+	local K = O().Kit
+	for _, s in ipairs(v.psTab and v.psTab.sections or {}) do
+		if s.name == L["Install & updates"] then
+			for _, c in ipairs(s.controls) do
+				if K.available(c) then
+					local row = W.CompactRow(O().Control(v, c))
+					v.cache[c] = row
+					v.InstallRows[#v.InstallRows + 1] = row
+				end
+			end
+		end
+	end
 	v.Refresh = function() return layoutProfiles(v) end
 end
 
@@ -1304,7 +1334,14 @@ local function layoutSelected(v, P, x, y, width)
 	v.Changed:SetShown(not editing)
 	if editing then
 		card.Split:Hide()
+		-- A new profile: where it starts from, above its name.
+		v.StartFrom:SetShown(editor.mode == "new")
+		if editor.mode == "new" then
+			setRow(v, v.StartFrom, x, y, width)
+			y = y + ROW
+		end
 	else
+		v.StartFrom:Hide()
 		v.UsedBy.Value:SetText(whoOf(name) or "\226\128\148")
 		local n = changedOf(name)
 		v.Changed.Value:SetText(n > 0 and tostring(n) or L["None"])
@@ -1345,6 +1382,14 @@ function layoutProfiles(v)
 	y = closeCard(card, x, y, width) + GAP
 	-- The selected profile.
 	y = layoutSelected(v, P, x, y, width)
+	-- Install & updates.
+	card = v.InstallCard
+	card:SetShown(#v.InstallRows > 0)
+	if #v.InstallRows > 0 then
+		y = openCard(card, nil, nil, x, y + GAP)
+		y = halves(v, card.Split, v.InstallRows, x, y, width)
+		y = closeCard(card, x, y, width)
+	end
 	return y + 24
 end
 
@@ -1714,6 +1759,7 @@ function PV.Shown()
 		out.actions = actions
 		out.delete = v.Delete.Label:GetText()
 		out.editing = editor and editor.mode or nil
+		out.startFrom = v.StartFrom:IsShown() and v.StartFrom.Button.Label:GetText() or nil
 		out.editorError = v.NameError:IsShown() and v.NameError:GetText() or nil
 	end
 	if s then

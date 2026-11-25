@@ -18,8 +18,6 @@ return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Flieg nach {area:150}",
-	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "Flugmeister in {area:144}",
 
 	-- Step 3: Theramore flight master
 	["Theramore flight master"] = "Flugmeister von Theramore",
@@ -28,15 +26,15 @@ return {
 
 	-- Step 4: Nijel's Point
 	-- {npc:5638} Kreldig Ungor · {zone:1443} Desolace · {npc:11863} Azore Aldamort
-	["{npc:5638}, if the first {zone:1443} visit didn't take it: the wreck lies below {npc:11863}'s tower"] = "",
+	["{npc:5638}, if the first {zone:1443} visit didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}, falls der erste {zone:1443}-Besuch es nicht mitgenommen hat: das Wrack liegt unterhalb von {npc:11863}'s Turm",
 	-- {npc:5396} Captain Pentigast · {zone:1443} Desolace
-	["{npc:5396}, if the first {zone:1443} visit didn't give it"] = "",
+	["{npc:5396}, if the first {zone:1443} visit didn't give it"] = "{npc:5396}, falls der erste {zone:1443}-Besuch es nicht mitgenommen hat",
 
 	-- Step 5: Bibbly F'utzbuckle
 	-- {area:2407} Kormek's Hut
 	["Follow the road south to {area:2407}."] = "Folge der Straße nach Süden zu {area:2407}.",
 	-- {npc:11438} Bibbly F'utzbuckle · {zone:1443} Desolace
-	["{npc:11438}, if the first {zone:1443} visit didn't give it"] = "",
+	["{npc:11438}, if the first {zone:1443} visit didn't give it"] = "{npc:11438}, falls der erste {zone:1443}-Besuch es nicht mitgenommen hat",
 
 	-- Step 6: Kodo Graveyard
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones
@@ -48,8 +46,10 @@ return {
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:6134}'s magnets draw the Magrami Spectres a few yards from the Magram Necrokhans and Corpsefeeders (45, elite) in the {area:2657}. Skip it if you are alone."] = "Das sind Elite-Mobs: Eine Gruppe wird empfohlen, such dir Leute dafür. Die Magneten von {quest:6134} locken die Magrami-Gespenster ein paar Meter von den Nekrokhans und Leichenfressern der Magram (45, Elite) im {area:2657} weg. Überspring sie, wenn du allein bist.",
 
 	-- Step 8: Flesh Picker
-	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
-	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s {item:213565}."] = "Ein {npc:217590} krabbelt im {area:596} herum: Fang einen mit dem Werkzeug aus {item:213565} von {npc:217412}.",
+	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
+	["A {npc:217590} crawls about the {area:596}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "Ein {npc:217590} kriecht um das {area:596}: öffne {npc:217412}'s {item:213565} und benutze dessen {item:213562} auf einen. Töte ihn nicht.",
+	-- {item:213562} Bug Catching Net · {npc:217590} Flesh Picker · {item:213567} Flesh Picker Specimen
+	["{item:213562}, on a {npc:217590}: the {item:213567}"] = "{item:213562}, auf einem {npc:217590}: das {item:213567}",
 
 	-- Step 9: Maraudine centaurs
 	["Maraudine centaurs"] = "Zentauren der Maraudine",
@@ -58,7 +58,7 @@ return {
 
 	-- Step 10: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} wird im Zentaurenlager westlich des Friedhofs festgehalten. Befreie sie und halte sie auf dem Weg hinaus am Leben; sie bleibt am Friedhof stehen.\nVorsicht: Die geskripteten Gruppen sind verbunden und erscheinen nur während der Eskorte, du kannst sie also nicht vorher räumen oder einzeln ziehen. Die normalen Zentauren auf dem Pfad vor dem Start zu räumen hilft dagegen.",
+	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} wird im Zentaurenlager westlich des Friedhofs festgehalten. Befreie sie und halte sie auf dem Weg hinaus am Leben; sie bleibt beim Friedhof stehen.\nVorsicht: Während der Eskorte greifen sechs Zentauren an, und du kannst sie nicht vorher wegräumen: Sie erscheinen nur während der Eskorte und kommen gemeinsam. In den Aufzeichnungen der Spieler sind 14 von 30, die sie angenommen haben, mindestens einmal gescheitert. Nimm einen Freund mit oder überspring sie, wenn du allein bist. Die normalen Zentauren auf dem Weg vorher wegzuräumen hilft.",
 	-- {npc:12277} Melizza Brimbuzzle
 	["escort {npc:12277} back toward the graveyard"] = "eskortiere {npc:12277} zurück zum Friedhof",
 
@@ -91,41 +91,45 @@ return {
 	["Back at the coven on the way west: the Mana Eaters (37-38) on its north edge and the Mage Hunters (38-39) further in drop the brains. {npc:5760} (40, elite) walks among the Mage Hunters: pull them out to you."] = "Zurück am Zirkel auf dem Weg nach Westen: Die Manafresser (37-38) am Nordrand und die Magierjäger (38-39) weiter drinnen lassen die Gehirne fallen. {npc:5760} (40, Elite) läuft zwischen den Magierjägern: Zieh sie zu dir heraus.",
 
 	-- Step 17: Azore Aldamort
+	-- {npc:11863} Azore Aldamort · {area:2405} Ethel Rethor · {zone:1443} Desolace
+	["{npc:11863}'s tower stands on the hill at the ruins of {area:2405}, west across the north of {zone:1443}."] = "{npc:11863}'s Turm steht auf dem Hügel bei den Ruinen von {area:2405}, westwärts über dem Norden von {zone:1443}.",
+	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
+	["{npc:11863}, if the first {zone:1443} visit didn't take the sceptre back to him"] = "{npc:11863}, falls der erste {zone:1443}-Besuch das Retrospective nicht zurückzu dem geholt hat",
+
+	-- Step 18: Azore Aldamort
 	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
 	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "Folge der Straße nach Westen durch den Norden von {zone:1443} zu den Ruinen von {area:2405}. Dort steht {npc:11863}s Turm auf dem Hügel, auf dem Weg zum Wrack.",
-	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
-	["{npc:11863}, if the first {zone:1443} visit didn't take the sceptre back to him"] = "",
 	-- {npc:11863} Azore Aldamort · {quest:93464} The Visiting Mage · {zone:1435} Swamp of Sorrows
 	["{npc:11863}: {quest:93464}, from Magtoor in the {zone:1435}"] = "{npc:11863}: {quest:93464}, von Magtoor in den {zone:1435}",
 	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
-	["{npc:11863}, if the first {zone:1443} visit didn't give it"] = "",
+	["{npc:11863}, if the first {zone:1443} visit didn't give it"] = "{npc:11863}, falls der erste {zone:1443}-Besuch es nicht mitgenommen hat",
 
-	-- Step 18: Karnitol's Chest
+	-- Step 19: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
 	["The wrecked ship's chest lies just south-west of {npc:11863}'s tower."] = "Die Truhe des Schiffswracks liegt gleich südwestlich von {npc:11863}s Turm.",
 
-	-- Step 19: Claim Rackmore's Treasure!
+	-- Step 20: Claim Rackmore's Treasure!
 	-- {object:177787} Rackmore's Log · {object:35251} Karnitol's Chest · {zone:1443} Desolace
 	["{object:177787} lies beside {object:35251}, if you didn't take it on your first {zone:1443} visit. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787} liegt neben {object:35251}, falls du es nicht bei deinem ersten Besuch in {zone:1443} mitgenommen hast. Sein silberner Schlüssel wird von den Trockenschnappkrebsen rund um das Wrack fallen gelassen; der goldene stammt von den Naga der Schlitterklingen an der Nordwestküste, als Nächstes.",
 	-- {object:177787} Rackmore's Log · {zone:1443} Desolace
-	["{object:177787}, if the first {zone:1443} visit didn't take it"] = "",
+	["{object:177787}, if the first {zone:1443} visit didn't take it"] = "{object:177787}, falls der erste {zone:1443}-Besuch es nicht mitgenommen hat",
 	["Underwater"] = "Unter Wasser",
 
-	-- Step 20: Sar'theris Strand: kill these as you meet them
+	-- Step 21: Sar'theris Strand: kill these as you meet them
 	-- {area:598} Sar'theris Strand
 	["{area:598}: kill these as you meet them"] = "{area:598}: Töte diese, sobald sie dir begegnen",
 	-- {npc:11863} Azore Aldamort · {spell:131} Water Breathing · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
-	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower, on the shore and out in the water. Karnitol's satchel drops now and then from their Tidehunters and Sea Witches, most of them underwater ({spell:131} helps): take it if it comes, it is optional. Any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "",
+	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower, on the shore and out in the water. Karnitol's satchel drops now and then from their Tidehunters and Sea Witches, most of them underwater ({spell:131} helps): take it if it comes, it is optional. Any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Die Naga der Schlitterklingen halten die Nordwestküste nördlich des Turms von {npc:11863}, am Ufer und im Wasser. Karnitols Tasche wird hin und wieder von ihren Gezeitenjägern und Meereshexen fallen gelassen, die meisten davon unter Wasser ({spell:131} hilft): Nimm sie, wenn sie kommt, sie ist optional. Jede Naga kann Rackmores goldenen Schlüssel fallen lassen. Schwimme zu {area:2406} vor der weit nördlichen Spitze hinaus und benutze das {item:15766} an der {object:177673}: {npc:12369} (38) erhebt sich; töte ihn für {quest:6027}.",
 	-- {item:15881} Rackmore's Golden Key
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}, von den Naga der Schlitterklingen",
 	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue
 	["{item:15766}, on the {object:177673}"] = "{item:15766}, an {object:177673}",
 
-	-- Step 21: Rackmore's Chest
+	-- Step 22: Rackmore's Chest
 	-- {object:177673} Serpent Statue
 	["Rackmore's chest lies just south-east of the {object:177673}."] = "Rackmores Truhe liegt gleich südöstlich von {object:177673}.",
 
-	-- Step 24: Nijel's Point
+	-- Step 25: Nijel's Point
 	-- {area:608} Nijel's Point · {npc:5396} Captain Pentigast · {npc:5638} Kreldig Ungor · {npc:1182} Brother Anton
 	["Follow the road north to {area:608}: {npc:5396} stands at its south end, {npc:5638} in the middle, {npc:1182} to the north."] = "Folge der Straße nach Norden zu {area:608}: {npc:5396} steht am Südende, {npc:5638} in der Mitte, {npc:1182} im Norden.",
 	-- {npc:5637} Roetten Stonehammer · {zone:1455} Ironforge
@@ -133,14 +137,17 @@ return {
 	-- {npc:3980} Raleigh the Devout · {area:271} Southshore
 	["for {npc:3980} in {area:271}: keep it"] = "für {npc:3980} in {area:271}: behalte sie",
 
-	-- Step 25: Fly to Theramore
+	-- Step 26: Fly to Theramore
 	["Fly to Theramore"] = "Flieg nach Theramore",
 	["The next guide starts in Theramore."] = "Der nächste Guide beginnt in Theramore.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s {item:213565}."] = "Ein {npc:217590} krabbelt im {area:596} herum: Fang einen mit dem Werkzeug aus {item:213565} von {npc:217412}.",
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Die Naga der Schlitterklingen halten die Nordwestküste nördlich des Turms von {npc:11863}; Karnitols Tasche liegt davor auf dem Meeresgrund, und jeder Naga kann Rackmores goldenen Schlüssel fallen lassen. Schwimm hinaus nach {area:2406} vor der äußersten Nordspitze und benutze {item:15766} an {object:177673}: {npc:12369} (38) erscheint; töte ihn für {quest:6027}.",
 	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "Die Dämonen sammeln sich am {area:602} im Süden von {zone:1443}: Höllenhunde (Mana Eaters, Mage und Ley Hunters), Nether Maidens und Sisters sowie Doomwarder Captains rund um die Grube.\nVorsicht: Die meisten Mobs hier laufen Patrouillenrouten, sodass du leicht zusätzliche Mobs ziehst.",
 	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "Untote Verwüster streifen über die Knochenfelder südlich des Dorfes der Magram, östlich des Zirkels: Der Pfeil führt zu ihrem Westrand. Benutze dann {item:15848} an seinem Pfeil, auf der Ostseite der Felder, um die Magrami-Gespenster anzulocken. Vorsicht: Nekrokhane und Leichenfresser der Magram (45, Elite) laufen mit Nekromanten der Magram (42) über die Knochenfelder zwischen den beiden Pfeilen: Zieh die Verwüster und die Gespenster zu dir, weg von ihnen.",
+	-- ["{area:144} flight master"] = "Flugmeister in {area:144}",
+	-- ["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} wird im Zentaurenlager westlich des Friedhofs festgehalten. Befreie sie und halte sie auf dem Weg hinaus am Leben; sie bleibt am Friedhof stehen.\nVorsicht: Die geskripteten Gruppen sind verbunden und erscheinen nur während der Eskorte, du kannst sie also nicht vorher räumen oder einzeln ziehen. Die normalen Zentauren auf dem Pfad vor dem Start zu räumen hilft dagegen.",
 	-- ["{npc:5396}, if 30-40/02 didn't give it"] = "{npc:5396}, falls 30-40/02 sie nicht gegeben hat",
 	-- ["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}, falls 30-40/02 sie nicht angenommen hat: Das Wrack liegt unterhalb von {npc:11863}s Turm",
 	-- ["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019} steht am Rand des {area:596}, südwestlich von {area:2407}; {object:176751} liegen zwischen den Skeletten.",

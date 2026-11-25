@@ -8,7 +8,7 @@
 //! every dungeon in the route, and Shortest Path Forever, so no control waits on something missing. A few live in the
 //! window's own chrome (the Menu scale in its header): those are checked there. A later release's control whose
 //! setting this build does not register yet (its row placed ahead of it on purpose), or whose row this build holds
-//! back (its `needs` says no: "Dungeons in my route", 0.4.3's, while Core/Init.lua's dungeon route switch is off), is
+//! back (its `needs` says no: "Dungeons in my route", 0.4.4's, while Core/Init.lua's dungeon route switch is off), is
 //! pending, not lost, until this build is that release (pending_lua).
 
 use forge_addontest::run::{addons_dir, lua_value};
@@ -115,6 +115,17 @@ function reach(c)
 		end
 		local r1 = restore
 		restore = function() r2(); if r1 then r1() end end
+	end
+	-- A parent's child (c.children) is on screen while its parent is on: turn the parent on.
+	local kidOf = rawget(c, "psChildOf")
+	if kidOf and O.KidsOpen and not O.KidsOpen(kidOf) then
+		local r3 = modeFor(function() return O.KidsOpen(kidOf) end, p)
+		if not r3 then
+			if restore then restore() end
+			return "its parent never opens"
+		end
+		local r1 = restore
+		restore = function() r3(); if r1 then r1() end end
 	end
 	O.Select(p.key, c.tab or "")
 	local v = O.view

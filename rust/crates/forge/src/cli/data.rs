@@ -23,6 +23,9 @@ change is intended. The first build with no last good one is taken.
 options:
   --offline              read the source cache only (fetch nothing)
   --accept               take the build even when its statistics shifted
+  --strict-placeholders  stop on a placeholder name a player would read (#2614), as our own builds
+                         do; without it each is named as a warning and the build goes on (a
+                         QuestieDB newer than the corrections)
   --root DIR             the Polestar checkout (default: the one above the current folder)
   --out DIR              output folder (default: <root>/data/forever)
   --sources DIR          source cache folder (default: <root>/data/sources)
@@ -255,15 +258,29 @@ fn other(cmd: &str, args: Vec<String>) -> Result<(), Fail> {
 			println!("{}", out.summary(&file));
 		}
 		_ => {
-			let kv = pairs(args, &["--root", "--addons", "--wowsims", "--built-at"])?;
+			let offline = args.iter().any(|a| a == "--offline");
+			let args: Vec<String> = args.into_iter().filter(|a| a != "--offline").collect();
+			let kv = pairs(args, &["--root", "--sources", "--data", "--build", "--hotfixes", "--wowsims", "--built-at"])?;
 			let get = |k: &str| kv.iter().rev().find(|(a, _)| a == k).map(|(_, v)| v.clone());
 			let root = get("--root").map(abs).or(root).ok_or_else(|| usage("--root <dir> is required (no checkout above here)"))?;
 			let built_at = match get("--built-at") {
 				Some(b) => build::parse_iso(&b)?,
 				None => build::now_iso(),
 			};
-			let o = forge_data::gear::Options { root: root.clone(), addons: get("--addons").map(abs), wowsims_cache: get("--wowsims").map(abs), built_at };
-			let out = forge_data::gear::build(&o)?;
+			let o = forge_data::gear::Options {
+				root: root.clone(),
+				sources: get("--sources").map(abs),
+				data: get("--data").map(abs),
+				build: get("--build"),
+				hotfixes: get("--hotfixes").map(abs),
+				offline,
+				wowsims_cache: get("--wowsims").map(abs),
+				built_at,
+			};
+			let out = forge_data::gear::build_logged(&o, &|m| eprintln!("{m}"))?;
+			for w in &out.warnings {
+				eprintln!("warning: {w}");
+			}
 			for (rel, text) in &out.files {
 				let f = root.join(rel);
 				std::fs::create_dir_all(f.parent().unwrap()).map_err(|e| e.to_string())?;
@@ -437,7 +454,7 @@ fn run() -> Result<(), Fail> {
 		"--client-tables",
 	];
 	let mut kv: Vec<(String, Option<String>)> = Vec::new();
-	let flags = ["--offline", "--accept", "--no-questie", "--no-forever", "--no-web-xp", "--no-web-zones", "--kb", "--no-client"];
+	let flags = ["--offline", "--accept", "--no-questie", "--no-forever", "--no-web-xp", "--no-web-zones", "--kb", "--no-client", "--strict-placeholders"];
 	while let Some(a) = args.next() {
 		if a == "-h" || a == "--help" {
 			println!("{USAGE}");
@@ -495,6 +512,7 @@ fn run() -> Result<(), Fail> {
 	let defs = get("--defs").map(abs).unwrap_or_else(|| o.sources.join("wowdbdefs"));
 	let (wow, product) = forever_client(get("--product"), get("--wow").map(abs).or_else(forge_gamedata::find_install));
 	o.offline = has("--offline");
+	o.placeholders = if has("--strict-placeholders") { forge_data::Placeholders::Stop } else { forge_data::Placeholders::Warn };
 	if !o.offline {
 		// The sources the build reads, as the JS build fetched them (web XP: inside the build, for
 		// the quests still without any).
@@ -1372,6 +1390,9 @@ options:
                          (default: <root>/data/sources)
   --producer-commit SHA  index.json producerCommit (default: $PRODUCER_COMMIT, else this forge's git HEAD)
   --date YYYY-MM-DD      release date (default: today, or SOURCE_DATE_EPOCH)
+  --release-note FILE    a Markdown paragraph placed under this version's CHANGELOG.md heading, before
+                         the generated lists: what the counts can't say (pass it on every run of that
+                         version; a run without it writes the section without it)
   --zip                  also write forever-db-<version>.zip beside DIR
   --sqlite FILE          also write the tables as one sqlite file
   --lua DIR              also write the in-game library DIR/LibForeverData
@@ -1392,7 +1413,7 @@ fn publish(args: Vec<String>) -> Result<(), Fail> {
 			}
 			"--zip" => kv.push((a, None)),
 			"--out" | "--check" | "--root" | "--kb" | "--public-data" | "--public-drops" | "--provenance" | "--previous" | "--version" | "--factoruide" | "--cmangos" | "--tdb" | "--corrections"
-			| "--producer-commit" | "--date" | "--evidence" | "--sources" | "--sqlite" | "--notes" | "--note-fixes" | "--lua" | "--from" => {
+			| "--producer-commit" | "--date" | "--evidence" | "--sources" | "--sqlite" | "--notes" | "--note-fixes" | "--release-note" | "--lua" | "--from" => {
 				let v = it.next().ok_or_else(|| usage(format!("publish: {a} needs a value")))?;
 				kv.push((a, Some(v)));
 			}
@@ -1477,7 +1498,7 @@ fn publish(args: Vec<String>) -> Result<(), Fail> {
 		o.evidence = Some(abs(v));
 	}
 	o.sqlite = sqlite;
-	for (k, slot) in [("--notes", &mut o.notes), ("--note-fixes", &mut o.note_fixes)] {
+	for (k, slot) in [("--notes", &mut o.notes), ("--note-fixes", &mut o.note_fixes), ("--release-note", &mut o.release_note)] {
 		if let Some(v) = get(k) {
 			let p = abs(v);
 			if !p.is_file() {

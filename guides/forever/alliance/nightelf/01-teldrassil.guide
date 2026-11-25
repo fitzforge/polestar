@@ -40,6 +40,7 @@ step The grells west of the tree
   collect 3297 quest 459.1
 
 step Back at Aldrassil
+  tip Shanda's quest, The Goddess Provides, asks for your two night elf racial spells: open your spellbook (P), cast Elune's Light and Shadowmeld once each, then hand it back to her.
   turnin 459                                  -- Tarindrella
   turnin 97977
   turnin 456                                  -- Conservator Ilthalaine
@@ -136,7 +137,7 @@ step Dolanaar
   accept 96606                                -- Lyreena Duskblade
 
 step The Great Outdoors
-  tip With a profession learned, Lyreena also offers its Camping 101, which its trainer takes: alchemy and herbalism beside Zarrin, First Aid with Byancie in the inn, skinning and leatherworking at the Maneweavers' camp on the road west.
+  tip With a profession learned, Lyreena also offers its Camping 101, which its trainer takes: alchemy and herbalism beside Zarrin, First Aid with Byancie in the inn, skinning and leatherworking at the Maneweavers' camp on the road west, fishing and tailoring in Darnassus, enchanting north of the city, blacksmithing, mining and engineering in Auberdine.
   complete 96606 @57.7,56.7                   -- /sit by Lyreena's campfire until you get Boosted Rest
   turnin 96606
   accept 96634
@@ -170,6 +171,42 @@ step Camping 101: Leatherworking
   when !knows 1229432
   tip Nadyia Maneweaver takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97946                                -- Lyreena Duskblade: for Nadyia Maneweaver, by the road west
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  when !knows 1229745
+  tip Astaia takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97943                                -- Lyreena Duskblade: for Astaia in Darnassus
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  when !knows 1263425
+  tip Trianna takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97950                                -- Lyreena Duskblade: for Trianna in Darnassus
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  when !knows 1230643
+  tip Alanna Raveneye takes it once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97940                                -- Lyreena Duskblade: for Alanna Raveneye north of Darnassus
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  when !knows 1230171
+  tip Elisa Steelhand takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97939                                -- Lyreena Duskblade: for Elisa Steelhand in Auberdine
+
+step Camping 101: Mining
+  when skill Mining 1
+  when !knows 1230161
+  tip Kurdram Stonehammer takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97948                                -- Lyreena Duskblade: for Kurdram Stonehammer in Auberdine
+
+step Camping 101: Engineering
+  when skill Engineering 1
+  when !knows 1230656
+  tip Jenna Lemkenilli takes it once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97941                                -- Lyreena Duskblade: for Jenna Lemkenilli in Auberdine
 
 step Zarrin
   train Cooking npc 6286                      -- Zarrin, south of the inn: Camping 101 asks you to learn it
@@ -623,6 +660,24 @@ step Ilyenia Moonfire
   when !skill "Staves" 1
   tip While you're here: learn Staves from Ilyenia Moonfire (Warrior's Terrace, 10 silver); a staff carries more spell stats than a one-hander while you level.
   train 11866                         -- Ilyenia Moonfire
+
+step Astaia
+  when onquest 97943
+  when complete 97943
+  complete 97943 @47.49,56.97                 -- talk to the trainer
+  turnin 97943                                -- Astaia: Camping 101: Fishing
+
+step Trianna
+  when onquest 97950
+  when complete 97950
+  complete 97950 @63.28,21.55                 -- talk to the trainer
+  turnin 97950                                -- Trianna: Camping 101: Tailoring
+
+step Alanna Raveneye
+  when onquest 97940
+  when complete 97940
+  complete 97940 @36.67,34.24 map 1438        -- talk to the trainer
+  turnin 97940                                -- Alanna Raveneye, north of the city: Camping 101: Enchanting
 
 step Portal to Teldrassil
   zone Darnassus

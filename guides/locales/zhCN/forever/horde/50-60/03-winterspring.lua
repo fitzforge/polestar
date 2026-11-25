@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (simplified) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1452} Winterspring · {zone:1448} Felwood · {zone:1444} Feralas · {zone:1456} Thunder Bluff
+	["{zone:1452} and {zone:1448}, then {zone:1444} and {zone:1456}."] = "{zone:1452}和{zone:1448}，然后是{zone:1444}和{zone:1456}。",
+
 	-- Step 1: Into Winterspring
 	-- {zone:1452} Winterspring
 	["Into {zone:1452}"] = "进入{zone:1452}",
@@ -89,19 +93,23 @@ return {
 	-- {zone:1448} Felwood · {area:1761} Deadwood Village
 	["Ride north-west along the road into {zone:1448}. Ror stands at the far south end of {area:1761}, just inside the border."] = "",
 
-	-- Step 14: Emerald Sanctuary
+	-- Step 14: Taronn Redfeather
 	["North to the druids' camp."] = "",
+
+	-- Step 16: Maybess Riverbreeze
 	-- {npc:9529} Maybess Riverbreeze
 	["{npc:9529}, on the west side of the Sanctuary"] = "{npc:9529}，在翡翠圣地西侧",
+
+	-- Step 18: Emerald Sanctuary
 	-- {quest:5158} Seeking Spiritual Aid · {npc:5901} Islen Waterseer · {area:392} Ratchet
 	["Keep {quest:5158}: {npc:5901} is by {area:392}, on the next guide."] = "",
 
-	-- Step 15: The Jadefire moonwell
+	-- Step 19: The Jadefire moonwell
 	["The Jadefire moonwell"] = "碧火月亮井",
 	-- {area:1763} Jaedenar · {npc:9996} Winna Hazzard
 	["Ride north-west past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "",
 
-	-- Step 16: Bloodvenom Post
+	-- Step 20: Bloodvenom Post
 	-- {area:1997} Bloodvenom Post
 	["North up the road to {area:1997}."] = "",
 	-- {npc:9996} Winna Hazzard · {quest:86612} Stag Lord's Bauble
@@ -110,51 +118,57 @@ return {
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["{npc:10306}'s Moontouched Owlbeasts are 57-58, in {zone:1452}: keep it for the {zone:1423} guide's {zone:1452} stop."] = "",
 
-	-- Step 17: Winna Hazzard's kitten
+	-- Step 21: Winna Hazzard's kitten
 	-- {npc:9996} Winna Hazzard
 	["{npc:9996}'s kitten"] = "{npc:9996}的小猫",
 	-- {item:12565} Winna's Kitten Carrier · {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
 	["Take the kitten back to the Jadefire moonwell and release it there with {item:12565}; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "",
 	-- {item:12565} Winna's Kitten Carrier
 	["{item:12565}, at the Jadefire moonwell"] = "{item:12565}，在碧火月亮井",
+	-- {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard · {area:1997} Bloodvenom Post
+	["Bring the {npc:10042} to {npc:9996} at {area:1997} and click on it to hand it over."] = "把{npc:10042}带到{area:1997}的{npc:9996}那里，点击它来交给她。",
 
-	-- Step 19: Fly to Camp Mojache
+	-- Step 23: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "飞往{area:1099}",
 	-- {area:1997} Bloodvenom Post
 	["{area:1997} flight master"] = "",
 
-	-- Step 21: Evoroot
+	-- Step 25: Evoroot
 	-- {item:11242} Evoroot · {npc:7775} Gregan Brewspewer · {area:1114} Ruins of Ravenwind
 	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall."] = "{item:11242}长在{npc:7775}营地北边、鹰身人的{area:1114}东边的一座废墟建筑里：从墙上破损的地方爬进去。",
 
-	-- Step 22: The Videre Elixir
+	-- Step 26: The Videre Elixir
 	-- {npc:7775} Gregan Brewspewer · {area:976} Gadgetzan
 	["Back south to {npc:7775}. Keep the elixir and don't drink it yet: it kills you, and that is how you meet Gaeriyan by {area:976} later."] = "向南回到{npc:7775}那里。留着药剂，先别喝：它会杀死你，而你之后正是这样在{area:976}旁见到盖瑞恩。",
 	-- {item:11243} Videre Elixir · {npc:7775} Gregan Brewspewer
 	["{item:11243}, {npc:7775}'s reward"] = "{item:11243}，{npc:7775}的奖励",
 
-	-- Step 24: Fly to Thunder Bluff
+	-- Step 28: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "飞往{area:1638}",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "{area:2408}的飞行管理员",
 
-	-- Step 25: Bluff Runner Windstrider
+	-- Step 29: Bluff Runner Windstrider
 	-- {npc:10881} Bluff Runner Windstrider · {npc:14728} Rumstag Proudstrider · {area:1641} Hunter Rise
 	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881}和{npc:14728}站在{area:1641}。拉姆斯塔格的每项捐献都需要背包中六十份毛料、丝绸或魔纹布：带了什么就交什么，其余跳过。",
 
-	-- Step 26: Elder Rise
+	-- Step 30: Ghede
+	-- {npc:9076} Ghede · {area:1639} Elder Rise
+	["{npc:9076} stands on {area:1639}."] = "{npc:9076}站在{area:1639}。",
+
+	-- Step 31: Elder Rise
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{area:1639}的{npc:3033}；{npc:246344}",
 	-- {quest:1123} Rabine Saturna · {zone:1450} Moonglade
 	["{quest:1123} waits in {zone:1450}: keep it for later."] = "{quest:1123}在{zone:1450}等候：留到之后。",
 
-	-- Step 27: Bashana Runetotem
+	-- Step 32: Bashana Runetotem
 	-- {npc:9087} Bashana Runetotem · {item:11040} Morrowgrain · {quest:3761} Un'Goro Soil · {quest:3782} Morrowgrain Research · {item:11020} Evergreen Pouch
 	["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "{npc:9087}收购用{quest:3761}种出的{item:11040}。{quest:3782}需要十份，而{item:11020}每十分钟只能尝试一次：已有足够晨光麦再接。",
 
-	-- Step 29: Magatha Grimtotem
+	-- Step 34: Magatha Grimtotem
 	-- {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise
 	["{npc:4046} stands on {area:1639}."] = "",
 	-- {npc:4046} Magatha Grimtotem · {zone:1447} Azshara

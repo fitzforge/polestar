@@ -127,7 +127,9 @@ The data builders, one at a time (forge build's data stage runs the ones it need
                 --crossings --build --forever-build --json --lua --flight-lua --travel-addon]
   codex         data/forever/codex and the Polestar_Codex pack  [--root --data --sources --addons --build --out --pack
                 --local-extras --recordings <dir> (rewrites data/codex/recorded.json first) --verdicts <verdict.json>]
-  gear          Forever.lua, SpecData.lua and gear/report.json  [--root --addons --wowsims --built-at]
+  gear          Forever.lua, SpecData.lua and gear/report.json, from the Forever client's tables (with the
+                hotfixes under <sources>/hotfix/<build>) and the Codex  [--root --sources --data --build --hotfixes
+                --offline --wowsims --built-at]
   professions   professions.json  [--root --data --sources --build --out]
   sim-inputs    the sources the simulator's world reads (Map, AreaTable, QuestXP, object facts...)  --out <dir>
                 [--root --sources --forever-tables client|wago --wow --product --defs]
@@ -143,6 +145,8 @@ const GUIDE_HELP: &str = "usage: forge guide compile [<dir>] [options]
        forge guide publish --from <out>/guides [--data <dir>] [--checkout <dir>]
        forge guide check-generated [--checkout <dir>]
        forge guide rehash [--checkout <dir>]
+       forge guide legacy-steps --old <addon dir> [--old <addon dir> ...] [--data <dir>] [--out <file>]
+                                [--current <guides dir>] [--root <checkout>]
 
 compile: a pack's .guide files (docs/GUIDE_FORMAT.md) into its community addon folder, as its pack.json
 describes it (TOC, Pack.lua, MapFrames.lua, Guides.lua, LICENSE-DATA.txt, and LICENSE as LICENSE.txt).
@@ -150,8 +154,8 @@ lint: every compile check without writing anything; with a cached simulator worl
 The pack is the one in <dir> (or --pack), else the nearest folder holding a pack.json (this one or a
 parent), else our guides/. Another pack is checked with our guides as context and written to
 <pack>/dist/<folder>/; ours to <checkout>/addon/<folder>/, and so is Polestar's own experimental pack
-(experimental/, checked with our guides as context, into addon/Polestar_Experimental/: load on demand,
-docs/PACK_FORMAT.md \"Polestar's own extra packs\"). Nothing is written when there are errors (unless
+(experimental/, checked with our guides as context, into addon/Polestar/Experimental/: inside Polestar,
+no TOC of its own, docs/PACK_FORMAT.md \"Polestar's own extra packs\"). Nothing is written when there are errors (unless
 --force), nor without reference data: the command then stops with one error, unless --no-data.
 
 options (compile and lint):
@@ -197,6 +201,12 @@ where the fix goes instead.
 rehash: recompute guides/GENERATED.json (every leveling guide with the generated header, legs.json)
 and forge/seed/SEED.json (every seed guide) from the files on disk: after the maintainer's hand edit
 to a generated guide and its seed copy, or for a merge conflict in either (take either side, run it).
+legacy-steps: addon/Polestar/Core/LegacySteps.lua (--out): each leveling guide's steps the earlier
+releases shipped (each --old, a release's addon folder from its tag, in release order: the steps as its
+Polestar_Guides*/Guides.lua have them, never recompiled) that the current guides (--current, default
+guides/, compiled with --data, default data/forever/) no longer have, the quests a release offered in
+another guide, and the titles it gave them: an update mid-guide keeps the player's check-offs and skips
+(docs/RELEASING.md). Run at a release whose leveling guides changed.
 ";
 
 const SIM_HELP: &str = "usage: forge sim <command> [options]

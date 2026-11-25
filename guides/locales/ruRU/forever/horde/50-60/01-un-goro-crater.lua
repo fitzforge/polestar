@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Russian words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:340} Kargath · {zone:1427} Searing Gorge · {zone:1428} Burning Steppes
+	["Un'Goro first, then {area:340}, the {zone:1427} and the {zone:1428}."] = "Сначала Ун'Горо, затем {area:340}, {zone:1427} и {zone:1428}.",
+
 	-- Step 2: Into Un'Goro Crater
 	-- {zone:1449} Un'Goro Crater
 	["Into {zone:1449}"] = "В край {zone:1449}",
@@ -186,81 +190,85 @@ return {
 	-- {area:976} Gadgetzan
 	["To {area:976}"] = "В место {area:976}",
 
-	-- Step 38: Gadgetzan
+	-- Step 38: Andi Lynn
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn · {area:983} Dunemaul Compound
-	["The hearth lands in {area:976}: {npc:11758} takes the {area:983} and Tran'rek Thistleshrub Valley, both done on the way into the crater."] = "Камень возвращения перенесет вас сюда: {area:976}. {npc:11758} принимает задания ({area:983} и долина Колючего Куста Тран'река) – оба выполняются по пути в кратер.",
+	["The hearth lands in {area:976}: {npc:11758} takes the {area:983}."] = "Камень возвращения приводит в место {area:976}: {npc:11758} принимает {area:983}.",
 
-	-- Step 39: Gadgetzan
+	-- Step 39: Tran'rek
+	-- {npc:7876} Tran'rek
+	["{npc:7876} stands beside the wind rider master."] = "{npc:7876} стоит рядом с укротителем ветрокрылов.",
+
+	-- Step 41: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, внутри",
 
-	-- Step 40: Orgrimmar
+	-- Step 42: Orgrimmar
 	-- {area:1637} Orgrimmar · {area:16727} Powderfuse Port · {zone:1458} Undercity
 	["Fly to {area:1637} and train before the boat to {area:16727}: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "Летите сюда: {area:1637} и обучитесь до корабля в {area:16727}: там ({zone:1458}), куда вы попадете позже в этом гайде, нет учителей охотников и шаманов.",
 
-	-- Step 41: Back to Gadgetzan
+	-- Step 43: Back to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Back to {area:976}"] = "Назад: {area:976}",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Распорядитель полетов: {zone:1454}",
 
-	-- Step 42: Boat to Powderfuse Port
+	-- Step 44: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
 	["Boat to {area:16727}"] = "Корабль: {area:16727}",
 	-- {npc:9706} Yorba Screwspigot · {quest:4324} Yuka Screwspigot · {area:251} Flame Crest
 	["{npc:9706}, by the dock: for {quest:4324} at {area:251}, later in this guide"] = "",
 
-	-- Step 43: Badlands
+	-- Step 45: Badlands
 	-- {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {zone:1418} Badlands
 	["Leave {zone:2548} on foot to the north-west, north of {area:16685}, into the {zone:1418}."] = "",
 
-	-- Step 44: Kargath
+	-- Step 46: Kargath
 	-- {area:340} Kargath · {zone:1418} Badlands
 	["{area:340} is built into the cliffs on the {zone:1418}' west edge."] = "{area:340} – крепость в скалах у западного края ({zone:1418}).",
 
-	-- Step 45: Kargath's poster
+	-- Step 47: Kargath's poster
 	-- {area:340} Kargath
 	["{area:340}'s poster"] = "",
 	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {area:340} Kargath
 	-- was: ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Для подземелья {area:1584}, далее, по пути через {area:254}: плакат «{object:164867}» ({area:340}) просит проредить дворфов из клана Гнева Наковальни внутри."
 	["For your {area:1584} run, next, on the way through {area:254}: the WANTED poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "",
 
-	-- Step 46: Thunderheart
+	-- Step 48: Thunderheart
 	-- {npc:9084} Thunderheart · {area:340} Kargath · {quest:3906} Disharmony of Flame · {npc:9026} Overmaster Pyron · {area:1584} Blackrock Depths · {area:254} Blackrock Mountain
 	["{npc:9084} stands in {area:340} beside the Hierophant. His {quest:3906} is {npc:9026} (52, elite), at the {area:1584} portal inside {area:254}, on the way through the mountain: a fight for a group."] = "",
 
-	-- Step 47: Into the Searing Gorge
+	-- Step 49: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
 	["Into the {zone:1427}"] = "В край {zone:1427}",
 	-- {area:340} Kargath · {zone:1427} Searing Gorge · {npc:8479} Velarok Windblade · {area:1446} Thorium Point
 	["Take the pass out of {area:340}'s west side into the {zone:1427} and ride west to {npc:8479}, on the rim of the Cauldron south of {area:1446}."] = "",
 
-	-- Step 49: The Flame's Casing
+	-- Step 51: The Flame's Casing
 	-- {npc:8479} Velarok Windblade · {item:10552} Symbol of Ragnaros
 	["The Twilight's Hammer cultists camp in the hills west of {npc:8479}. The {item:10552} drops from their Dark Shamans (47-48), Fire Guards (48-49) and Geomancers (49-50): elites, but two to five levels under you now, so one at a time is fine. The Idolaters (49-51) at the altar further north drop it too, more rarely: leave them alone."] = "",
 
-	-- Step 51: The Torch of Retribution
+	-- Step 53: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
 	["Listen to {npc:8479}'s story once more."] = "Еще раз выслушайте историю NPC {npc:8479}.",
 
-	-- Step 52: Velarok Windblade
+	-- Step 54: Velarok Windblade
 	-- {quest:3453} The Torch of Retribution · {npc:8479} Velarok Windblade · {quest:3462} Squire Maltrake
 	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "Задание «{quest:3453}» лежит на земле у ног NPC {npc:8479}; задание «{quest:3462}» стоит рядом с ним.",
 
-	-- Step 53: Sentry Braziers
+	-- Step 55: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Sentry Braziers"] = "Сторожевые жаровни",
 	-- {object:149047} Torch of Retribution
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "",
 
-	-- Step 54: Squire Maltrake
+	-- Step 56: Squire Maltrake
 	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade
 	["Back north to {npc:8509} beside {npc:8479}."] = "",
 	-- {object:149502} Hoard of the Black Dragonflight · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous · {zone:1428} Burning Steppes
 	["The {object:149502} holds a {item:10575}: keep it for {npc:9459} in the {zone:1428}"] = "",
 
-	-- Step 55: Into Blackrock Mountain
+	-- Step 57: Into Blackrock Mountain
 	-- {area:254} Blackrock Mountain
 	["Into {area:254}"] = "",
 	-- {area:254} Blackrock Mountain
@@ -269,33 +277,33 @@ return {
 	-- {area:254} Blackrock Mountain
 	["Bridge into {area:254}"] = "Мост: {area:254}",
 
-	-- Step 56: Overmaster Pyron
+	-- Step 58: Overmaster Pyron
 	-- {npc:9026} Overmaster Pyron · {area:1584} Blackrock Depths
 	["With your group: {npc:9026} (52, elite) guards the way to the {area:1584} portal, down the walkways inside the mountain."] = "",
 
-	-- Step 57: Blackrock Depths
+	-- Step 59: Blackrock Depths
 	-- {area:1584} Blackrock Depths · {zone:1428} Burning Steppes
 	["{area:1584} is a dungeon for a group of five from about level 48, the biggest in the mountain: its Anvilrage dwarves are this quest's, and you need not go further in than they are. Its portal is deep inside the mountain, down the chain walkways from the bridge.\nInside: the Anvilrage Guardsmen, Wardens and Footmen. Then back out of the portal and on through the mountain's southern exit to the {zone:1428}."] = "{area:1584} – подземелье для группы из пяти игроков примерно с 48-го уровня, самое большое в горе: его дворфы из клана Гнева Наковальни нужны для этого задания, и дальше них заходить не нужно. Его портал – глубоко внутри горы, вниз по цепным мосткам от моста.\nВнутри: стражники, надзиратели и пехотинцы из клана Гнева Наковальни. Затем назад через портал и дальше через южный выход из горы в зону {zone:1428}.",
 	-- {quest:4081} KILL ON SIGHT: Dark Iron Dwarves
 	["{quest:4081}: the Anvilrage dwarves, inside"] = "{quest:4081}: дворфы из клана Гнева Наковальни, внутри",
 
-	-- Step 58: Flame Crest
+	-- Step 60: Flame Crest
 	-- {area:252} Blackrock Stronghold · {area:251} Flame Crest
 	["The mountain lets you out beside {area:252}, full of 55-57 orcs. Follow the road east along the northern cliffs to the Horde camp at {area:251}."] = "Из горы вы выйдете рядом с местом {area:252}, полным орков 55-57 уровня. Езжайте по дороге на восток вдоль северных скал к лагерю Орды ({area:251}).",
 
-	-- Step 59: Sha'ni Proudtusk
+	-- Step 61: Sha'ni Proudtusk
 	-- {quest:3821} Dreadmaul Rock · {npc:9136} Sha'ni Proudtusk
 	["Follow the cliffs south to {quest:3821}, the Firegut ogres' hill. {npc:9136}'s remains lie at its foot."] = "Идите вдоль скал на юг сюда: {quest:3821} – холм огров клана Огненного Чрева. Останки ({npc:9136}) лежат у подножия.",
 
-	-- Step 60: Sha'ni Proudtusk
+	-- Step 62: Sha'ni Proudtusk
 	-- {quest:3822} Krom'Grul · {quest:3821} Dreadmaul Rock
 	["Only from level 53: her next errand is {quest:3822} (54), who walks the caves of {quest:3821} among ogres of 50-53."] = "Только с 53 уровня: следующее ее поручение – {quest:3822} (54), который бродит по пещерам ({quest:3821}) среди огров 50-53 уровня.",
 
-	-- Step 61: Krom'Grul
+	-- Step 63: Krom'Grul
 	-- {quest:3822} Krom'Grul · {quest:3821} Dreadmaul Rock
 	["{quest:3822} walks the caves and mine tunnels of {quest:3821}; if he isn't home, clear the ogres around the entrances until he comes back."] = "{quest:3822} бродит по пещерам и штольням ({quest:3821}); если его нет, бейте огров у входов, пока он не вернется.",
 
-	-- Step 62: Cyrus Therepentous
+	-- Step 64: Cyrus Therepentous
 	-- {quest:3821} Dreadmaul Rock · {zone:1428} Burning Steppes · {object:149502} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
 	["Ride north-east from {quest:3821} to the small cave in the far east of the {zone:1428}. Open the {object:149502} from the {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight.\nCareful: Volchan (60, a rare fire elemental) roams the hills around {npc:9459}'s cave: if he is about, wait for him to pass."] = "",
 	-- {item:10575} Black Dragonflight Molt
@@ -303,7 +311,7 @@ return {
 	-- {npc:9459} Cyrus Therepentous · {area:1584} Blackrock Depths
 	["{npc:9459}' next errand is in {area:1584}: leave it."] = "",
 
-	-- Step 63: Ruins of Thaurissan: kill these as you meet them
+	-- Step 65: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "{area:250}: убивайте их по пути",
 	-- {quest:4296} Tablet of the Seven · {area:251} Flame Crest · {npc:10267} Tinkee Steamboil · {item:12284} Draco-Incarcinatrix 900 · {npc:7040} Black Dragonspawn · {npc:7044} Black Drake
@@ -311,48 +319,55 @@ return {
 	-- was: ["Ride west to the dig site. The {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence.\nCareful: a {npc:7040} and a {npc:7044}, elites of 50-53, wander the same hills: pull the broodlings away from them, or bring a group."] = "Езжайте на запад к раскопкам. Табличка ({quest:4296}) стоит в центре среди дворфов Тауриссана. Скопируйте ее.\nДетеныши черного дракона гнездятся на холмах чуть восточнее места {area:251}. Используйте {item:12284} (от NPC {npc:10267}) на почти мертвом детеныше, чтобы поймать его сущность.\nОсторожно: по тем же холмам бродят {npc:7040} и {npc:7044} – элита 50-53 уровня. Оттягивайте детенышей подальше от них или возьмите группу."
 	["Ride west to the dig site. The {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence.\nCareful: a {npc:7040} and a {npc:7044}, elites of 50-53, wander the same hills, and Volchan (60, a rare fire elemental) roams them too: pull the broodlings away from them, or bring a group."] = "",
 
-	-- Step 64: Flame Crest
+	-- Step 66: Flame Crest
 	-- {area:251} Flame Crest
 	["Back north-east to {area:251}."] = "Назад на северо-восток сюда: {area:251}.",
 	-- {npc:10267} Tinkee Steamboil · {quest:4808} Felnok Steelspring · {area:2255} Everlook · {zone:1452} Winterspring
 	["Keep {npc:10267}'s letter: {quest:4808} is in {area:2255}, {zone:1452}."] = "Сохраните письмо {npc:10267}: {quest:4808} – здесь: {area:2255}, {zone:1452}.",
 
-	-- Step 68: Warlord Goretooth
+	-- Step 70: Warlord Goretooth
 	-- {area:1584} Blackrock Depths · {npc:9077} Warlord Goretooth · {area:340} Kargath
 	["The Anvilrage dwarves of your {area:1584} run: {npc:9077}, in {area:340}."] = "Дворфы из клана Гнева Наковальни из подземелья {area:1584}: {npc:9077}, здесь: {area:340}.",
 
-	-- Step 69: Fly to Undercity
+	-- Step 71: Fly to Undercity
 	-- {area:1497} Undercity
 	["Fly to {area:1497}"] = "Летите сюда: {area:1497}",
 	-- {area:340} Kargath
 	["{area:340} flight master"] = "Распорядитель полетов: {area:340}",
 
-	-- Step 70: Harbinger Balthazad
+	-- Step 72: Harbinger Balthazad
 	-- {npc:10879} Harbinger Balthazad · {object:36078} Trade Quarter
 	["{npc:10879}, the {object:36078}, beside the bat master"] = "{npc:10879}, {object:36078}, рядом с распорядителем полетов",
 
-	-- Step 71: Oran Snakewrithe
+	-- Step 73: Oran Snakewrithe
 	-- {npc:7825} Oran Snakewrithe · {object:36082} Magic Quarter
 	["{npc:7825} stands in the {object:36082}."] = "{npc:7825} стоит здесь: {object:36082}.",
 
-	-- Step 72: Undercity
+	-- Step 74: Oran Snakewrithe
+	-- {quest:2995} Lines of Communication · {object:144073} Highvale Report · {area:350} Quel'Danil Lodge · {zone:1425} The Hinterlands · {zone:1419} Blasted Lands
+	["{quest:2995}'s work is not in this guide: burn the {object:144073}, Notes and Records in the elves' camps around {area:350}, in {zone:1425} & {zone:1419} (its Highvale step). Load that guide for the arrows."] = "Работа задания {quest:2995} не входит в этот гайд: сожгите {object:144073}, записи и отчеты в лагерях эльфов вокруг места {area:350}, в гайде «{zone:1425} и {zone:1419}» (его шаг «Высокодолье»). Загрузите тот гайд ради стрелок.",
+
+	-- Step 75: Undercity
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
 	["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}, Район Фармацевтов: склянки наполните позже ({zone:1447})",
 	-- {npc:5204} Apothecary Zinge
 	["{npc:5204}, near Cuely in the Apothecarium"] = "",
 
-	-- Step 74: The Bulwark
+	-- Step 77: The Bulwark
 	-- {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {area:152} The Bulwark
 	["Leave the {zone:1458} and ride east along the road through {zone:1420} to the {area:152}, the Forsaken fort on the border."] = "Покиньте город {zone:1458} и езжайте на восток по дороге через край {zone:1420} к {area:152} – форту Отрекшихся на границе.",
-	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5405} Argent Dawn Commission
-	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "Возьмите {object:176092} из ящика рядом с Деррингтоном для задания {quest:5096} – выполните его на обратном пути. Наденьте {quest:5405}: камни Плети падают, только пока он надет.",
+	-- {quest:5405} Argent Dawn Commission
+	["Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "Наденьте {quest:5405}: камни Плети падают, только пока он на вас.",
+	-- {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions
+	["{item:12814}, from the {object:176092} next to Derrington: {quest:5096}, done on the way back"] = "{item:12814}, из места {object:176092} рядом с Деррингтоном: {quest:5096}, выполняется на обратном пути",
 
-	-- Step 75: Scarlet forward camp
+	-- Step 78: Scarlet forward camp
 	["Scarlet forward camp"] = "Передовой лагерь Алого ордена",
-	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
-	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "От места {area:152} езжайте по дороге на восток в край {zone:1422}. Палатки Алого ордена стоят сразу за фермой Фелстоунов, между местами {area:199} и {area:200}. Подожгите командную палатку ({object:176092}) и установите знамя Плети. Осторожно: воины Алого ордена у палаток – до 54 уровня, а заклинатели колдуют: заходите со стороны, ближайшей к командной палатке, и не трогайте остальных.",
+	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
+	-- was: ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "От места {area:152} езжайте по дороге на восток в край {zone:1422}. Палатки Алого ордена стоят сразу за фермой Фелстоунов, между местами {area:199} и {area:200}. Подожгите командную палатку ({object:176092}) и установите знамя Плети. Осторожно: воины Алого ордена у палаток – до 54 уровня, а заклинатели колдуют: заходите со стороны, ближайшей к командной палатке, и не трогайте остальных."
+	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "От места {area:152} езжайте по дороге на восток в зону {zone:1422}. Палатки Алого ордена стоят сразу за фермой Фелстоунов, между местами {area:199} и {area:200}. Подожгите командную палатку с помощью {item:12814} и установите знамя Плети. Осторожно: воины Алого ордена у палаток до 54-го уровня, а заклинатели колдуют: заходите со стороны, ближайшей к командной палатке, и не трогайте остальных.",
 
-	-- Step 76: Janice Felstone
+	-- Step 79: Janice Felstone
 	-- {npc:10778} Janice Felstone
 	["Back a few steps west to Felstone Farm, the first farm along the road; {npc:10778} waits in the house."] = "Вернитесь немного на запад к ферме Фелстоунов – первой ферме у дороги; {npc:10778} ждет в доме.",
 	["Upstairs"] = "Наверху",
@@ -377,6 +392,7 @@ return {
 	-- ["Free Darrowshire Spirits: talk to them"] = "Освободите духов Дарроушира: поговорите с ними",
 	-- ["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "Отсюда собирайте все {npc:271301} (синие, зеленые, красные, желтые) и все кучи земли ({quest:3761}) по пути: всего 25 земли – 20 для Хамуула и 5 для Пестычинса.",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "От места {area:152} езжайте по дороге на восток в край {zone:1422}. Палатки Алого ордена стоят сразу за фермой Фелстоунов, между местами {area:199} и {area:200}. Подожгите командную палатку ({object:176092}) и установите знамя Плети.",
+	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "От места {area:152} езжайте по дороге на восток в край {zone:1422}. Палатки Алого ордена стоят сразу за фермой Фелстоунов, между местами {area:199} и {area:200}. Подожгите командную палатку ({object:176092}) и установите знамя Плети. Осторожно: воины Алого ордена у палаток – до 54 уровня, а заклинатели колдуют: заходите со стороны, ближайшей к командной палатке, и не трогайте остальных.",
 	-- ["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "От места {area:1938} езжайте на запад к длинному извилистому спуску в край {area:490}, затем вдоль северной стены кратера сюда: {area:541} – лагерь в пещерах скалы. Все здесь нейтральны.",
 	-- ["Gorillas"] = "Гориллы",
 	-- ["Inside"] = "Внутри",
@@ -405,6 +421,7 @@ return {
 	-- ["Ride west to the dig site. The {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence.\nCareful: a {npc:7040} and a {npc:7044}, elites of 50-53, wander the same hills: pull the broodlings away from them, or bring a group."] = "Езжайте на запад к раскопкам. Табличка ({quest:4296}) стоит в центре среди дворфов Тауриссана. Скопируйте ее.\nДетеныши черного дракона гнездятся на холмах чуть восточнее места {area:251}. Используйте {item:12284} (от NPC {npc:10267}) на почти мертвом детеныше, чтобы поймать его сущность.\nОсторожно: по тем же холмам бродят {npc:7040} и {npc:7044} – элита 50-53 уровня. Оттягивайте детенышей подальше от них или возьмите группу.",
 	-- ["Ride west to the dig site. {npc:7039} golems (53) stomp around it and drop the shards often; the {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence."] = "Езжайте на запад к раскопкам. Големы ({npc:7039}, 53) топчутся вокруг, осколки с них падают часто; табличка ({quest:4296}) стоит в центре среди дворфов Тауриссана. Скопируйте ее.\nЧерные дракончики гнездятся на холмах чуть восточнее места {area:251}. Используйте {item:12284} (от NPC {npc:10267}) на почти мертвом дракончике, чтобы поймать его сущность.",
 	-- ["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "Возьмите {object:176092} из ящика рядом с Деррингтоном для задания {quest:5096} – выполните его на обратном пути. Наденьте {quest:5401}: камни Плети падают, только пока он надет.",
+	-- ["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "Возьмите {object:176092} из ящика рядом с Деррингтоном для задания {quest:5096} – выполните его на обратном пути. Наденьте {quest:5405}: камни Плети падают, только пока он надет.",
 	-- ["Take the pass out of {area:340}'s west side into the {zone:1427}, then ride south across the gorge to the long bridge into {area:254}. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals."] = "Через перевал на западе ({area:340}) езжайте в край {zone:1427}, затем на юг через ущелье к длинному мосту ({area:254}). Внутри спускайтесь по цепным мосткам и выходите через южный выход; не сворачивайте к порталам подземелий.",
 	-- ["Termite mounds"] = "Термитники",
 	-- ["Thaurissan dig site"] = "Раскопки Тауриссана",
@@ -416,6 +433,7 @@ return {
 	-- ["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "Голова куклы и две ее половины лежат в домах вокруг {npc:10926}; соедините их в сумках.",
 	-- ["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "Ящик экспедиции стоит в заброшенном лагере в восточных джунглях.",
 	-- ["The gorillas live on the north-east plateau. Stay out of the deepest cave: {npc:9622} lives there."] = "Гориллы живут на северо-восточном плато. Не заходите в самую дальнюю пещеру: там живет {npc:9622}.",
+	-- ["The hearth lands in {area:976}: {npc:11758} takes the {area:983} and Tran'rek Thistleshrub Valley, both done on the way into the crater."] = "Камень возвращения перенесет вас сюда: {area:976}. {npc:11758} принимает задания ({area:983} и долина Колючего Куста Тран'река) – оба выполняются по пути в кратер.",
 	-- ["The next guide starts here, at the chapel's flight master."] = "Следующее руководство начинается здесь, у распорядителя полетов часовни.",
 	-- ["The silithid hive fills the south of the crater. Gorishi wasps and workers drop the scent gland; use the Scraping Vial on the egg mass inside the first chamber. The Hive Queen at the bottom is an elite boss: stay out of her chamber. {npc:9166} nest on the cliffs above the hive; their scales are for {npc:9998}."] = "Улей силитидов занимает юг кратера. С ос и рабочих из улья Гориши падает пахучая железа; используйте склянку для соскобов на кладке яиц в первой камере. Матка улья внизу – элитный босс: не заходите в ее камеру. Монстры {npc:9166} гнездятся на скалах над ульем; их чешуя – для персонажа {npc:9998}.",
 	-- ["The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the {item:11834}."] = "Смоляные ямы – чуть к югу от лагеря. {item:11834} падает со смоляных тварей, скрытней и ползунов.",

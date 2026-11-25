@@ -8,13 +8,13 @@
 return {
 	-- Guide
 	-- {zone:1454} Orgrimmar · {area:1099} Camp Mojache · {area:511} Wyrmbog · {area:496} Brackenwall Village
-	["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "",
+	["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "Las entregas de {zone:1454}, la vasija Muisek de {area:1099}, y luego {area:511} y {area:496} de Marjal Revolcafango.",
 	["Takes you to level 47"] = "Te lleva al nivel 47",
 	-- {zone:1446} Tanaris
 	["Then on to {zone:1446}"] = "Luego hacia {zone:1446}",
 	["Stays on the main route"] = "Se mantiene en la ruta principal",
 	-- {zone:2652} Shen'dralas · {zone:1446} Tanaris
-	["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "",
+	["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "Omite {zone:2652}: una docena de misiones menos, y llegas a {zone:1446} con un tercio de nivel menos",
 
 	-- Step 1: Orgrimmar
 	-- {object:172960} Cleft of Shadow · {object:172958} Valley of Honor
@@ -24,14 +24,13 @@ return {
 	-- {npc:6986} Dran Droffers
 	["{npc:6986}, the Drag"] = "{npc:6986}, calle comercial de Orgrimmar",
 	-- {zone:1425} Hinterlands
-	-- was: ["for the {zone:1425}, around level 50"] = "para {zone:1425}, alrededor del nivel 50"
-	["for the {zone:1425}, around level 49"] = "",
+	["for the {zone:1425}, around level 49"] = "para {zone:1425}, alrededor del nivel 49",
 
 	-- Step 3: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Vuela a {area:1638}",
 	-- {area:1638} Thunder Bluff · {area:1099} Camp Mojache
-	["Your trainer is in {area:1638}, on the way to {area:1099}."] = "",
+	["Your trainer is in {area:1638}, on the way to {area:1099}."] = "Tu instructor está en {area:1638}, de camino a {area:1099}.",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
 
@@ -43,18 +42,17 @@ return {
 
 	-- Step 6: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache · {zone:1444} Feralas · {zone:1446} Tanaris
-	["Fly to {area:1099} (or hearth there, if your hearthstone is ready: it is still bound there from the {zone:1444} & {zone:1446} guide)."] = "",
+	["Fly to {area:1099} (or hearth there, if your hearthstone is ready: it is still bound there from the {zone:1444} & {zone:1446} guide)."] = "Vuela a {area:1099} (o usa la piedra de hogar, si está lista: sigue vinculada allí desde la guía de {zone:1444} y {zone:1446}).",
 
 	-- Step 7: Camp Mojache
 	-- {zone:1425} Hinterlands
-	-- was: ["for the {zone:1425} owlbeasts, around level 48"] = "para los lechúcicos de {zone:1425}, alrededor del nivel 48"
-	["for the {zone:1425} owlbeasts, around level 49"] = "",
+	["for the {zone:1425} owlbeasts, around level 49"] = "para las lechubestias de {zone:1425}, alrededor del nivel 49",
 
 	-- Step 8: Fly to Brackenwall Village
 	-- {area:496} Brackenwall Village
 	["Fly to {area:496}"] = "Vuela a {area:496}",
 	-- {zone:1444} Feralas · {zone:1446} Tanaris · {area:496} Brackenwall Village
-	["No Muisek vessel to bring Uzer'i (you didn't take the {zone:1444} & {zone:1446} guide's chain): fly from here straight to {area:496}."] = "",
+	["No Muisek vessel to bring Uzer'i (you didn't take the {zone:1444} & {zone:1446} guide's chain): fly from here straight to {area:496}."] = "¿No tienes la vasija Muisek para llevarle a Uzer'i (no hiciste la cadena de la guía de {zone:1444} y {zone:1446})? Vuela desde aquí directo a {area:496}.",
 
 	-- Step 9: Fly to Brackenwall Village
 	-- {area:1099} Camp Mojache
@@ -78,44 +76,57 @@ return {
 	-- {area:498} Bloodfen Burrow
 	["Inside {area:498}"] = "Dentro de {area:498}",
 
-	-- Step 13: The Dragonmurk: kill these as you meet them
+	-- Step 13: The Musty Scroll
+	-- {object:2555} Musty Scroll
+	["The {object:2555} lies to the south-west."] = "{object:2555} está al suroeste.",
+
+	-- Step 14: Mudsprocket
+	["Mudsprocket"] = "Fangoengranaje",
+	-- {object:2555} Musty Scroll · {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle · {item:280092} Wyrmtail
+	["South-east from the {object:2555} to Mudsprocket, the goblin camp at the {area:511}'s western edge: {npc:270723} and {npc:270727} stand together in the camp. Their whelps, scales and {item:280092} come on the same {area:511} loop as Brackenwall's quests."] = "Al sureste desde {object:2555} hasta Fangoengranaje, el campamento goblin en el borde oeste de {area:511}: {npc:270723} y {npc:270727} están juntos en el campamento. Sus dragonantes, escamas y {item:280092} vienen en la misma vuelta por {area:511} que las misiones de Murohelecho.",
+
+	-- Step 15: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
 	["{area:510}: kill these as you meet them"] = "{area:510}: mata a estos según te los encuentres",
-	-- {area:511} Wyrmbog
-	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "Al este por {area:511}: los exploradores Crin de Fuego y los colas de ceniza recorren su borde norte con las crías y vástagos abrasadores; los pesteescamas custodian las cuevas de los dragones más al sureste. El rapé, el grog y la caja fuerte de Mok'Morokk están en los campamentos de los dragonantes.",
+	-- {area:511} Wyrmbog · {item:280092} Wyrmtail
+	-- was: ["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "Al este por {area:511}: los exploradores Crin de Fuego y los colas de ceniza recorren su borde norte con las crías y vástagos abrasadores; los pesteescamas custodian las cuevas de los dragones más al sureste. El rapé, el grog y la caja fuerte de Mok'Morokk están en los campamentos de los dragonantes."
+	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps. The {item:280092} grows in the bog just east of Mudsprocket."] = "Al este por {area:511}: los exploradores Crin de Fuego y colas de ceniza recorren su borde norte con las crías y dragonantes abrasadores; los rompescamas guardan las cuevas de dragones más al sureste. El rapé, el grog y la caja fuerte de Mok'Morokk están en los campamentos de dracónidos. {item:280092} crece en la ciénaga justo al este de Fangoengranaje.",
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "{npc:4329} da vueltas por {area:510}: búscalo dentro del círculo del mapa",
 	["Below ground"] = "Bajo tierra",
 
-	-- Step 14: Brackenwall Village
+	-- Step 16: Mudsprocket
+	["Back to Mudsprocket before you ride north."] = "Vuelve a Fangoengranaje antes de cabalgar al norte.",
+
+	-- Step 17: Brackenwall Village
 	["Ride back north to Brackenwall."] = "Regresa cabalgando al norte a Poblado Murohelecho.",
 
-	-- Step 15: Onyxia's eggs
+	-- Step 18: Onyxia's eggs
 	["Onyxia's eggs"] = "Huevos de Onyxia",
 	-- {area:511} Wyrmbog
 	["The Eggs of Onyxia lie in the dragon caves in the {area:511}'s south-east, guarded by the scalebanes; smash five."] = "Los Huevos de Onyxia están en las cuevas de dragones del sureste de {area:511}, custodiados por los horrocrustos; destruye cinco.",
 
-	-- Step 16: Muckshell crabs
-	["Muckshell crabs"] = "",
+	-- Step 19: Muckshell crabs
+	["Muckshell crabs"] = "Cangrejos Valvafango",
 	-- plural, as words: Muckshell Razorclaws = {npc:4405} Muckshell Razorclaw
-	["On the way back north from the dragon caves, the Muckshell Razorclaws and Pincers (41-44) crowd the shallows just north of the caves; about one in twenty carries the Jeweled Pendant Marg Speaks asks for."] = "",
+	["On the way back north from the dragon caves, the Muckshell Razorclaws and Pincers (41-44) crowd the shallows just north of the caves; about one in twenty carries the Jeweled Pendant Marg Speaks asks for."] = "De vuelta al norte desde las cuevas de los dragones, los zarpadores y tenazarios Valvafango (41-44) llenan los bajíos justo al norte de las cuevas; más o menos uno de cada veinte lleva el colgante enjoyado que pide Las declaraciones de Marg.",
 
-	-- Step 17: Level 45.37
+	-- Step 20: Level 45.37
 	["Level 45.37"] = "Nivel 45.37",
 	-- {npc:4500} Overlord Mok'Morokk · {area:511} Wyrmbog · {area:978} Zul'Farrak
 	["{npc:4500}'s challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the {area:511}'s northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the {area:978} dungeon instead."] = "El desafío de {npc:4500}, de vuelta en Poblado Murohelecho, requiere un grupo de tres. Si vas solo, mata exploradores Pirocabello aquí, en el borde norte de {area:511}, hasta el nivel 45.37 antes de regresar cabalgando al norte, para no tener que volver por ello. O, con un grupo, haz la mazmorra de {area:978} en su lugar.",
 	-- {npc:4329} Firemane Scout
 	["grind on {npc:4329}"] = "sube de nivel con {npc:4329}",
 
-	-- Step 18: Brackenwall Village
+	-- Step 21: Brackenwall Village
 	-- {npc:4791} Nazeer Bloodpike · {item:5942} Jeweled Pendant
-	["{npc:4791}: the {item:5942}"] = "",
+	["{npc:4791}: the {item:5942}"] = "{npc:4791}: el {item:5942}",
 	-- {npc:4047} Zor Lonetree · {zone:1454} Orgrimmar · {zone:1447} Azshara
-	["for {npc:4047} in {zone:1454}, on the {zone:1447} guide's {zone:1454} stop"] = "",
+	["for {npc:4047} in {zone:1454}, on the {zone:1447} guide's {zone:1454} stop"] = "para {npc:4047} en {zone:1454}, en la parada de {zone:1454} de la guía de {zone:1447}",
 	-- {quest:3128} Natural Materials · {zone:1444} Feralas
-	["Keep {quest:3128} and Improved Quality: {zone:1444}' sprites, hippogryphs, Zorbin's coast and the Rage Scar yetis come on your {zone:1444} loop at about 51, with the Muisek chain."] = "",
+	["Keep {quest:3128} and Improved Quality: {zone:1444}' sprites, hippogryphs, Zorbin's coast and the Rage Scar yetis come on your {zone:1444} loop at about 51, with the Muisek chain."] = "Guarda {quest:3128} y Calidad mejorada: los duendes, los hipogrifos, la costa de Zorbin y los yetis Cicatriz de Rabia de {zone:1444} vienen en tu recorrido por {zone:1444} hacia el nivel 51, con la cadena Muisek.",
 
-	-- Step 19: Challenge Overlord Mok'Morokk
+	-- Step 22: Challenge Overlord Mok'Morokk
 	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:1173} needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\n{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "Son enemigos élite: se recomienda agruparse, busca gente para hacerlo. {quest:1173} necesita un grupo de 3. Omítela si estás solo: la ruta te hace recuperar esa experiencia matando enemigos.\n{npc:4500} es élite: se recomienda agruparse. Golpéalo hasta que se rinda y luego informa a {npc:4501}.",
 
@@ -124,6 +135,7 @@ return {
 	-- ["Back to {npc:14637} on the dock."] = "Regresa con {npc:14637} en el muelle.",
 	-- ["Coming from Stranglethorn, you carry these already. Starting here: {npc:5591} stands inside {area:75}'s great hall and {npc:1443} on its top floor."] = "Si vienes de Tuercespina, ya los llevas. Si empiezas aquí: {npc:5591} está dentro del gran salón de {area:75} y {npc:1443} en su piso superior.",
 	-- ["Dragon caves"] = "Cuevas de dragones",
+	-- ["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "Al este por {area:511}: los exploradores Crin de Fuego y los colas de ceniza recorren su borde norte con las crías y vástagos abrasadores; los pesteescamas custodian las cuevas de los dragones más al sureste. El rapé, el grog y la caja fuerte de Mok'Morokk están en los campamentos de los dragonantes.",
 	-- ["Fly to {area:75}"] = "Vuela a {area:75}",
 	-- ["Fly to {object:3202}"] = "Vuela a {object:3202}",
 	-- ["Follow the road south-east to the small Horde post on the shore. {npc:5592} takes the crocolisk flanks from the last swamp visit."] = "Sigue el camino al sureste hasta el pequeño puesto de la Horda en la orilla. {npc:5592} recibe los flancos de crocolisco de la visita anterior al pantano.",

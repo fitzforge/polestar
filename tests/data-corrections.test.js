@@ -76,6 +76,56 @@ test('Damp Note requires The Essence of Aku\'Mai on the recorded Priestess drop,
 	assert.notEqual(corrections.quests[6564]?.set?.pre?.includes(6563), true, 'accepting the root is enough; it is not a completion prerequisite');
 });
 
+// #3918 (Deadshot): a Gnome Mage held Forever's An Earnest Proposition 84149 while the Lookup guide for the chain
+// waited for the Classic 8907, since 8922 did not follow 84149 and the data gave it no class or objectives. Every
+// version players' quest logs held or Deliana and Mokvar offered (game build 70959) is one of A Supernatural Device's
+// prerequisites on its side, for its class, with the side's samples and the class's bracers, given and taken back by
+// the side's giver.
+test('A Supernatural Device follows every recorded class version of An Earnest Proposition (#3918, #3081)', () => {
+	const SAMPLE = { 8922: 21928, 8923: 22381 };
+	const GIVER = { 8922: 230319, 8923: 230317 };
+	const versions = [
+		[84149, 8922, 128, 16683], // Mage: Magister's Bindings
+		[84150, 8922, 2, 16722], // Paladin: Lightforge Bracers
+		[84152, 8922, 8, 16710], // Rogue: Shadowcraft Bracers
+		[84160, 8923, 64, 16671], // Shaman: Bindings of Elements
+		[84161, 8923, 256, 16703], // Warlock: Dreadmist Bracers
+		[97411, 8923, 2, 16722], // Paladin (Horde): Lightforge Bracers
+	];
+	for (const [id, device, cls, bracers] of versions) {
+		assert.ok(corrections.quests[device].set.preAny.includes(id), `${device} follows ${id}`);
+		const { set, remove } = corrections.quests[id];
+		assert.ok(!remove, `${id} stays in the data`);
+		assert.equal(set.classes, cls, `${id}'s class`);
+		assert.equal(set.next, device, `${id} leads to ${device}`);
+		assert.deepEqual(set.objectives.map((o) => [o.id, o.count]), [[SAMPLE[device], 15], [bracers, 1]], `${id}'s objectives`);
+		for (const end of [set.start, set.end].filter(Boolean)) assert.deepEqual(end.npc, [GIVER[device]], `${id} at its side's giver`);
+	}
+});
+
+// #4025 (Tauren Druid, 84155), #3765 (Night Elf Druid, 84147), #4016: the versions no recording had yet carried no
+// class, so the Lookup chain sent every class without one in its log to the first of them (the Hunter's 84148, the
+// Druid's 84155), which the giver never offers it; and the Alliance Druid's 84147 had left the data. Each side's
+// A Supernatural Device now follows one version per class, and each version names its class and that class's bracers.
+test('A Supernatural Device follows one class-locked An Earnest Proposition per class on each side (#4025, #3765)', () => {
+	const BRACERS = { 1: 16735, 2: 16722, 4: 16681, 8: 16710, 16: 16697, 64: 16671, 128: 16683, 256: 16703, 1024: 16714 };
+	const SAMPLE = { 8922: 21928, 8923: 22381 };
+	for (const device of [8922, 8923]) {
+		const classes = [];
+		for (const id of corrections.quests[device].set.preAny) {
+			const entry = corrections.quests[id];
+			assert.ok(entry && entry.set && !entry.remove, `${id} has a record and stays in the data`);
+			const { classes: cls, next, objectives } = entry.set;
+			assert.ok(BRACERS[cls], `${id} names one class`);
+			classes.push(cls);
+			assert.equal(next, device, `${id} leads to ${device}`);
+			assert.deepEqual(objectives.map((o) => [o.id, o.count]), [[SAMPLE[device], 15], [BRACERS[cls], 1]], `${id}: the samples and its class's bracers`);
+		}
+		assert.deepEqual(classes.slice().sort((a, b) => a - b), Object.keys(BRACERS).map(Number), `${device}: one version per class`);
+	}
+	assert.ok(corrections.quests[8922].set.preAny.includes(84147), 'the Alliance Druid version 84147 leads to 8922');
+});
+
 test('the overlay takes mechanics flat or under quests; mechanics 603 and 1064 stay private', () => {
 	const out = overlayCorrections({ mechanics: {} }, { mechanics: { quests: { 603: { note: 'nested' } }, 1064: { note: 'flat' } } });
 	assert.deepEqual(Object.keys(out.mechanics).sort(), ['1064', '603']);
@@ -160,6 +210,23 @@ test('A Void Path waits for Never Coming Back, handed in to the same giver (#100
 test('Moonbrook Espionage waits for Murloc Gills as well as The State of the Mines (#991)', () => {
 	const { all, any } = blockingPrereqs({ id: 92747, start: { npc: [253092] }, ...corrections.quests[92747].set });
 	assert.deepEqual({ all, any }, { all: [92744], any: [92745] });
+});
+
+test('Explosive Consultation waits for A Dynamite Plan as well as the second Detonation at a Distance (#3357)', () => {
+	const { all } = blockingPrereqs({ id: 92752, start: { npc: [11026] }, preAny: [92751], ...corrections.quests[92752].set });
+	assert.deepEqual(all, [92749, 92751]);
+});
+
+test('Report to Sen\'jin Village is Forgotten Loa Idols\' breadcrumb, not its prerequisite (#3214, #796)', () => {
+	const set = corrections.quests[97225].set;
+	assert.deepEqual(blockingPrereqs({ id: 97225, start: { npc: [3304] }, pre: [805], ...set }), { all: [], any: [] });
+	assert.deepEqual(set.breadcrumbs, [805], 'held back while 805 is in the log');
+});
+
+// The hand-in guide leads to a placed objective with no id before the hand-in (Dungeons/Handin.lua, talksLeft).
+test('More Valuable Than Gold\'s treasure is placed at Connery\'s Trunk, where it is handed in (#3382)', () => {
+	const [o] = corrections.quests[96337].set.objectives;
+	assert.deepEqual([o.type, o.id, o.map, o.x, o.y], ['event', null, 1436, 43.4, 67.9]);
 });
 
 test('The State of the Mines waits for both Testing the Wells and Murloc Gills (dungeon pre-quest sweep)', () => {
@@ -280,6 +347,16 @@ test('quest objects stand where players loot them: Krom\'zar\'s Banner, the coff
 	const box = at(19019, 1436).pts;
 	for (const p of [[43.98, 67.79], [44.9, 71.1], [26.46, 72.78]]) assert.ok(box.some((q) => q[0] === p[0] && q[1] === p[1]), `Box of Assorted Parts at ${p}`);
 	assert.ok(at(19019, 1413).pts.some((q) => q[0] === 61.92 && q[1] === 3.62), 'and in the Barrens where players loot it');
+});
+
+// Merkanex (#2861): the City of Dalaran pick-up guide sent a Horde player up the stairs to the guards for Dalaran
+// Patrols, and to 16,77 for the slaves. Players kill both around the ruins outside the dome, none south of 68.
+test('Dalaran Summoners and Elemental Slaves stand around the ruins outside the dome, none at 10-20,73-81 (#2861)', () => {
+	for (const id of [2358, 2359]) {
+		const pts = corrections.npcs[id].addSpawns[1416].pts;
+		assert.ok(pts.length >= 20, `npc ${id}: the recorded kill spots`);
+		for (const [x, y] of pts) assert.ok(x >= 16 && x <= 28 && y >= 49 && y <= 67, `npc ${id}: ${x},${y} outside the ruins`);
+	}
 });
 
 test('The Glowing Shard\'s one line is to speak with Sputtervalve in Ratchet, so its hand-in guide goes there first (#1326)', () => {
@@ -805,4 +882,93 @@ test('pick-up steps say what the objectives leave out: the Twilight Key (#3266),
 	assert.match(how(93404), /inside Maraudon/);
 	assert.match(how(3801), /ghost only a dead character can see/);
 	assert.match(how(1027), /Rotting Slimes .* leave a Rusty Chest/);
+});
+
+// Rockout (#3545): My Little Friends' specimens are caught with the Bug Catching Net, not looted, so the goal read
+// "Kill Hay Weevil". The public mechanics name the net and the three insects it works on.
+test('My Little Friends: each specimen is a use of the Bug Catching Net on its insect, not a kill (#3545)', () => {
+	const m = require('../data/mechanics-public.json').quests[93176];
+	assert.deepEqual(m.params, [{ kind: 'use-item-on-mob', item: 213562, npcs: [217588, 217589, 217590] }]);
+	assert.deepEqual(m.steps.map((s) => [s.n, s.action, s.target.id, s.item.id]), [[1, 'use-item', 217588, 213562], [2, 'use-item', 217589, 213562], [3, 'use-item', 217590, 213562]]);
+});
+
+// Gindry (#3546): Tooga gives Oasis only once Tooga's Quest is handed in at Torta.
+test('Oasis comes after Tooga\'s Quest (#3546)', () => {
+	assert.deepEqual(corrections.quests[97540].set.pre, [1560]);
+});
+
+// #3171, #3392, #3522: the live server describes none of Duke Hydraxis's chain, nor Attunement to the Core, and two
+// players at 56 and 60 were offered nothing by him: the quests leave the data until the Molten Core opens.
+test('Duke Hydraxis\'s chain and Attunement to the Core leave the data while the Molten Core is closed (#3171, #3392, #3522)', () => {
+	for (const q of [6804, 6805, 6821, 6822, 6823, 6824, 7486, 7848]) {
+		assert.equal(corrections.quests[q].remove, true, `quest ${q}`);
+		assert.ok(corrections.quests[q].source.some((s) => s.kind === 'eg'), `quest ${q}: the live scans`);
+	}
+});
+
+// Zack (#3338): Scout Bloodfist and Rifleman Torrig are not in the world, and nobody has done their quests.
+test('The Silithus scouts\' quests leave the data: 9415, 9416 and the Scouring the Desert pair (#3338)', () => {
+	for (const q of [9415, 9416, 9419, 9422]) assert.equal(corrections.quests[q].remove, true, `quest ${q}`);
+});
+
+// PierreAnken (#3192): Ignatz offers the Horde's Stinky's Escape from level 36; the Alliance's stays at 30.
+test('Stinky\'s Escape (Horde) is offered from level 36 (#3192)', () => {
+	assert.equal(corrections.quests[1270].set.minLevel, 36);
+	assert.equal(corrections.quests[1222], undefined);
+});
+
+// Sugawolf (#3601): Pix Xizzix offers one In Demand quest a week; the data knew only 96076. All four are known now.
+test('Pix Xizzix\'s four In Demand quests are in the data (#3601)', () => {
+	for (const q of [96075, 96087, 96088]) {
+		const s = corrections.quests[q].set;
+		assert.deepEqual([s.start.npc, s.end.npc, s.minLevel, s.objectives.length], [[227853], [227853], 60, 3], `quest ${q}`);
+	}
+});
+
+// #2465, #3138, #3601, #558: what the game hides behind a condition, for the engine (#3658).
+test('Seeking the Kor Gem counts as done by An Underrated Talent; Zorbin sells after Zapped Giants; Pix\'s In Demand quests rotate; Franclorn is a ghost (#2465, #3138, #3601, #558)', () => {
+	assert.deepEqual(corrections.quests[95042].set.doneBy, [95111]);
+	assert.equal(corrections.npcs[14637].set.vendorAfter, 7003);
+	for (const q of [96075, 96076, 96087, 96088]) assert.equal(corrections.quests[q].set.rotation, 'pix-weekly', `quest ${q}`);
+	assert.equal(corrections.npcs[8888].set.ghostOnly, true);
+});
+
+// Everlast (#3301): Melizza offers her escort in the Maraudine camp, not along its path.
+test('Melizza Brimbuzzle stands only in the Maraudine camp (#3301)', () => {
+	for (const [x, y] of corrections.npcs[12277].set.spawns[1443].pts) assert.ok(x < 34.5 && y < 55, `${x},${y}`);
+});
+
+// Stö (#3531): Blademaster's Bonfires is two bonfires lit, with their objects and spots.
+test('Blademaster\'s Bonfires: the south and southeast bonfires are its objectives, placed where players light them (#3531)', () => {
+	assert.deepEqual(corrections.quests[96959].set.objectives.map((o) => [o.type, o.id]), [['object', 656668], ['object', 656669]]);
+	assert.deepEqual(corrections.objects[656668].addSpawns[2482].pts, [[49.1, 36.02]]);
+	assert.deepEqual(corrections.objects[656669].addSpawns[2482].pts, [[54.84, 40.0]]);
+});
+
+// gidi_ (#3676): Biting the Hand's second part, leading Fuzzle out of Sunnyglade, is an escort its text never names.
+test('Biting the Hand (94963) is an escort (#3676)', () => {
+	assert.equal(corrections.quests[94963].set.escort, true);
+});
+
+// cjtylr (#3739): The Return of the King? had no objective, so the pick-up guide sent players straight back to Sully.
+test('The Return of the King? (95198) has its eavesdropping objective at the Theramore Mage Tower (#3739)', () => {
+	const [o, ...rest] = corrections.quests[95198].set.objectives;
+	assert.equal(rest.length, 0, 'one objective');
+	assert.equal(o.text, "Relieve Jaina's guard and eavesdrop");
+	assert.equal(o.map, 1445);
+});
+
+// devanpy (#3773): Twilight Tablet Fragments lie on the ground; the elementals pfQuest lists at 100 never drop them.
+test('Twilight Tablet Fragment (20378) drops from no elemental (#3773)', () => {
+	assert.deepEqual(corrections.items[20378].removeDrops.npc, [11744, 11746, 14455]);
+});
+
+// #3706: Horde Triage (6622) takes place at Doctor Gregory Victor in Hammerfall, Arathi Highlands (1417),
+// not at the Alliance clinic in Theramore Isle (1445).
+test('Horde Triage (6622) is completed at Doctor Gregory Victor in Hammerfall (#3706)', () => {
+	const objs = corrections.quests[6622].set.objectives;
+	assert.ok(objs && objs.length === 1, 'one objective');
+	assert.equal(objs[0].type, 'event');
+	assert.equal(objs[0].map, 1417);
+	assert.deepEqual([objs[0].x, objs[0].y], [73.4, 36.8]);
 });

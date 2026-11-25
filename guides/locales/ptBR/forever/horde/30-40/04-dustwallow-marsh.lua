@@ -11,6 +11,8 @@ return {
 	["Zeppelin to {zone:1454}"] = "Zepelim para {zone:1454}",
 
 	-- Step 2: Orgrimmar
+	-- {zone:1454} Orgrimmar · {zone:1445} Dustwallow Marsh
+	["The {zone:1454} and Crossroads stops are on the way for players coming from the previous guide; opened with none of its quests in the log, the guide starts in {zone:1445}."] = "As paradas de {zone:1454} e da Encruzilhada ficam no caminho para quem vem do guia anterior; aberto sem nenhuma das missões dele no registro, o guia começa em {zone:1445}.",
 	-- {zone:1454} Orgrimmar
 	["The middle of {zone:1454}"] = "O centro de {zone:1454}",
 
@@ -70,7 +72,7 @@ return {
 	-- plural, as words: Darkfang Lurkers = {npc:4411} Darkfang Lurker · Theramore Infiltrators = {npc:4834} Theramore Infiltrator · Darkmist Lurkers = {npc:4377} Darkmist Lurker
 	["Head west back across the marsh. The Darkfang Lurkers (36-37) and Venomspitters (37-38) on the ridges north of Brackenwall drop the venom sacs. Theramore Infiltrators (35-36) sneak through the same woods: they are stealthed, so look closely.\nThe Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes. Work its outer edge, where the Spiders and Recluses (35-37) stand: the Lurkers and Silkspinners (37-39) deeper in are two or three over you.\nCareful: Darkfang Lurkers (level 36-37) use Sneak to stealth while out of combat and cast Poison once fighting.\nCareful: Stealthed spiders in the same area will attack you on sight.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "Atravesse o pântano de volta para oeste. As Tocaieiras Presanegra (36-37) e as Cospeçonhas (37-38) nas cristas ao norte da Muralha Verde deixam cair as bolsas de veneno. Infiltradores de Theramore (35-36) se esgueiram pela mesma mata: estão furtivos, então olhe com atenção.\nAs aranhas Névoa Negra infestam a entrada da caverna a noroeste da Muralha Verde; todo tipo deixa cair olhos. Fique na borda externa, onde estão as Aranhas e as Reclusas (35-37): as Tocaieiras e as Fiadeiras (37-39) mais para dentro estão dois ou três níveis acima de você.\nCuidado: as Tocaieiras Presanegra (nível 36-37) ficam furtivas fora de combate e soltam Veneno quando a luta começa.\nCuidado: aranhas furtivas da mesma área atacam assim que veem você.\nCuidado: as Tocaieiras Névoa Negra andam furtivas e usam veneno no combate. As aranhas ficam bem juntas, então é comum vir monstro a mais; puxar um alvo de cada vez pela borda ajuda.",
 	-- plural, as words: Giant Darkfang Spiders = {npc:4415} Giant Darkfang Spider
-	["Every Darkfang spider drops them: Lurkers, Spiders, Venomspitters and the Giant Darkfang Spiders"] = "",
+	["Every Darkfang spider drops them: Lurkers, Spiders, Venomspitters and the Giant Darkfang Spiders"] = "Toda aranha Presanegra os solta: Rondadores, Aranhas, Cuspidores de Veneno e as Aranhas Presanegra Gigantes",
 
 	-- Step 16: Questioning Reethe
 	-- {npc:4983} Ogron · {area:2302} Quagmire · {npc:5045} Private Hallan
@@ -158,7 +160,7 @@ return {
 
 	-- Step 30: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} está presa no acampamento Maraudino, na ponta oeste do vale; liberte-a e escolte-a para fora, a leste do vale.\nCuidado: os grupos da escolta vêm juntos e só aparecem durante ela, então não dá para limpar antes nem puxar um de cada vez. Limpar os centauros comuns do caminho antes de começar ajuda.",
+	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} está presa no acampamento Maraudino na ponta oeste do vale; liberte-a e escolte-a para fora do vale a leste.\nCuidado: seis centauros atacam durante a escolta, e não dá para limpá-los antes: eles só aparecem durante a escolta e vêm juntos. Nas gravações dos jogadores, 14 das 30 pessoas que a pegaram falharam pelo menos uma vez. Traga um amigo, ou pule se estiver sozinho. Limpar os centauros comuns do caminho antes de começar ajuda.",
 
 	-- Step 31: Hornizz Brimbuzzle
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard
@@ -285,6 +287,7 @@ return {
 	-- ["grind on {npc:4377}"] = "mate {npc:4377} até subir",
 	-- ["{npc:11624} stands in the village."] = "{npc:11624} fica na aldeia.",
 	-- ["{npc:11626}'s caravan stops on the road at the edge of {area:602}. Escort it east past the coven; demons attack it twice."] = "A caravana de {npc:11626} para na estrada na borda do {area:602}. Escolte-a para leste passando o conciliábulo; demônios a atacam duas vezes.",
+	-- ["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} está presa no acampamento Maraudino, na ponta oeste do vale; liberte-a e escolte-a para fora, a leste do vale.\nCuidado: os grupos da escolta vêm juntos e só aparecem durante ela, então não dá para limpar antes nem puxar um de cada vez. Limpar os centauros comuns do caminho antes de começar ajuda.",
 	-- ["{npc:3391} waits upstairs in the house by the flight master; {npc:3446} stands below it, towards the docks."] = "{npc:3391} espera no andar de cima da casa junto ao mestre de voo; {npc:3446} fica no andar de baixo, rumo às docas.",
 	-- ["{npc:3391}'s next errand takes you to {area:35}, off this part of the route: leave it."] = "A próxima tarefa de {npc:3391} leva você a {area:35}, fora desta parte da rota: deixe de lado.",
 	-- ["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391}: para {npc:4631}, em {area:35}, na primeira parada em {area:35} do guia 40-50",

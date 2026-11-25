@@ -134,25 +134,28 @@ return {
 	-- {npc:5471} Dunemaul Ogre
 	["grind on {npc:5471}, at the compound's south end"] = "mate {npc:5471} até subir, no extremo sul do complexo",
 
-	-- Step 26: Tooga's escort
+	-- Step 26: Tooga
+	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
+	["The little turtle {npc:5955} wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Take him from the edge and leave the Thistleshrubs (48-50) alone."] = "A tartaruguinha {npc:5955} vaga pela borda oeste de {quest:3362} entre vários pontos: a seta vai de um para o outro até você encontrá-la. Pegue-a pela borda e deixe os Cardos (48-50) em paz.",
+
+	-- Step 27: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "Escolta de {npc:5955}",
-	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley · {npc:6015} Torta · {area:977} Steamwheedle Port
-	-- was: ["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "A tartaruguinha {npc:5955} se esconde no extremo norte do {quest:3362}: pegue-o pela borda e deixe os Moitagulhas (48-50) em paz. Leve-o para casa, até a esposa {npc:6015}, junto à água logo a leste de {area:977}: ele anda devagar e as feras do deserto vão atrás dele, então mantenha-o vivo."
-	["The little turtle {npc:5955} wanders the west edge of the {quest:3362}, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "",
+	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port
+	["Lead {npc:5955} home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "Leve {npc:5955} para casa até a esposa dele, {npc:6015}, junto à água logo a leste de {area:977}: ele anda devagar e as feras do deserto vão atrás dele, então mantenha-o vivo.",
 	-- {npc:5955} Tooga
 	["{npc:5955}, beside her: Oasis"] = "{npc:5955}, ao lado dela: Oásis",
 
-	-- Step 27: Steamwheedle Port
+	-- Step 28: Steamwheedle Port
 	-- {npc:6015} Torta · {area:977} Steamwheedle Port
 	["From {npc:6015}, {area:977} is just west along the shore."] = "A partir de {npc:6015}, {area:977} fica logo a oeste, pela costa.",
 
-	-- Step 28: Caliph Scorpidsting
+	-- Step 29: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "Cavalgue para sudeste até {area:985}. {npc:7847} fica no meio do acampamento Errante do sul: limpe em volta dele antes.\nCuidado: dois Ladinos Errantes furtivos acompanham o Califa aonde ele for. No acampamento onde ele surge, dois magos das sombras e seus lacaios estão perto o bastante para entrar na luta. Lá perto das torres dá para enfrentá-lo sem eles.",
 
-	-- Step 30: Fly to Auberdine
+	-- Step 31: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "Voe para {area:442}",
 	-- {zone:1457} Darnassus · {npc:7763} Curgle Cranklehop · {area:442} Auberdine · {area:150} Menethil Harbor · {area:348} Aerie Peak
@@ -160,13 +163,13 @@ return {
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "Mestre de voo de {area:976}",
 
-	-- Step 31: Teldrassil
+	-- Step 32: Teldrassil
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:3838} Vesprystus
 	["Take the boat from {area:442}'s dock to {area:702}; {npc:3838}, the hippogryph master, stands on the rise just east of the landing: learn the flight path on the way up to the village."] = "Pegue o barco no cais de {area:442} até {area:702}; {npc:3838}, o mestre de hipogrifos, fica na elevação logo a leste do desembarque: aprenda a rota de voo no caminho de subida até a vila.",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "Mestre de voo de {area:702}",
 
-	-- Step 32: Rut'theran Village
+	-- Step 33: Rut'theran Village
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
 	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} fica no andar de cima, acima de {npc:7916}: suba por dentro, a seta não diferencia os andares.",
 	-- {npc:7907} Daryn Lightwind · {zone:1446} Tanaris
@@ -175,45 +178,45 @@ return {
 	["{npc:7916}: the feathers lie in the {zone:1425}, next"] = "{npc:7916}: as penas ficam em {zone:1425}, em seguida",
 	["the book on her table"] = "o livro na mesa dela",
 
-	-- Step 34: Temple of the Moon
+	-- Step 35: Temple of the Moon
 	["Temple of the Moon"] = "Templo da Lua",
 	-- {zone:1457} Darnassus
 	["Step through the portal into {zone:1457}. The Temple of the Moon is in the south of the city."] = "Atravesse o portal para {zone:1457}. O Templo da Lua fica no sul da cidade.",
 
-	-- Step 38: Cenarion Enclave
+	-- Step 39: Cenarion Enclave
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, at the top of the tree"] = "{npc:3516}, no topo da árvore",
 
-	-- Step 39: Class trainer
+	-- Step 40: Class trainer
 	["Class trainer"] = "Instrutor de classe",
 
-	-- Step 40: Cenarion Enclave
+	-- Step 41: Cenarion Enclave
 	-- {zone:1449} Un'Goro Crater
 	["the soil comes from {zone:1449}, later"] = "o solo vem de {zone:1449}, mais tarde",
 
-	-- Step 41: Portal to Teldrassil
+	-- Step 42: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "Portal para {zone:1438}",
 
-	-- Step 43: Boat to Menethil Harbor
+	-- Step 44: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "Navio para {area:150}",
 
-	-- Step 44: Fly to Aerie Peak
+	-- Step 45: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
 	["Fly to {area:348}"] = "Voe para {area:348}",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "Mestre de voo de {area:150}",
 
-	-- Step 45: Fly to Southshore
+	-- Step 46: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "Voe para {area:271}",
 
-	-- Step 46: Hinterlands
+	-- Step 47: Hinterlands
 	-- {area:348} Aerie Peak · {area:271} Southshore · {zone:1425} Hinterlands
 	["No flight path to {area:348} yet: ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border."] = "Ainda sem rota de voo para {area:348}: cavalgue para nordeste, saindo de {area:271} pela estrada até {zone:1425}; {area:348} fica logo depois da divisa.",
 
-	-- Step 47: Aerie Peak
+	-- Step 48: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, beside the flight master"] = "{npc:5636}, ao lado do mestre de voo",
 	-- {npc:7884} Fraggar Thundermantle

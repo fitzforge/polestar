@@ -86,7 +86,7 @@ step Back to Deathknell
 step The Frightened Paladin
   only Paladin
   tip Coming to Terms: the Frightened Paladin fled into the hills west of the church, on the way to Night Web's Hollow.
-  talk 246143                         -- Offer aid to the Frightened Paladin
+  talk 246143 quest 91208.1           -- Offer aid to the Frightened Paladin
 
 # Night Web's Hollow: players report the cave entrance near 26,60 (quest 380).
 step Night Web's Hollow
@@ -186,7 +186,7 @@ step Dry Branches
   collect 279991 quest 86784.1 @56.5,53.5
 
 step Eleanor Shackleton
-  tip Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in Brill, at Linnea's camp, or in the Undercity in the next guide.
+  tip Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in Brill, east of Brill for fishing, at Linnea's camp, or in the Undercity in the next guide.
   turnin 96656
   accept 96607
   complete 96607 @57.2,55.5           -- /sit by her campfire until you get Boosted Rest
@@ -240,6 +240,12 @@ step Camping 101: Blacksmithing
 step Camping 101: Engineering
   when skill Engineering 1
   accept 97954                        -- Eleanor: for Graham Van Talen
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  when !knows 1229745
+  tip Clyde Kellen takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97956                        -- Eleanor: for Clyde Kellen
 
 step Brill
   tip Apothecary Johaan is in the apothecary's house on the west side of the square, Executor Zygand in front of the inn with the Wanted poster beside him, Magistrate Sevren in the town hall on the square's north side. The inn comes last, in one go.
@@ -588,6 +594,12 @@ step Brill
   turnin 492                          -- The Captured Mountaineer, in the inn's cellar
   turnin 99142                        -- Junior Apothecary Holland walks around Brill: look inside the circle on the map
 
+step Clyde Kellen
+  when onquest 97956
+  when complete 97956
+  complete 97956 @67.06,50.93 map 1420
+  turnin 97956                        -- Clyde Kellen, east of Brill: Camping 101: Fishing
+
 # ---------------------------------------------------------------- Leonid, then on to the Barrens
 
 step Leonid Barthalomew the Revered
@@ -643,9 +655,9 @@ step Paladin: Bandarion Keep
   tip Ephram and Hilda at the forest's edge, Breton Samuels at the gate, Jorin Croge and Ander Solliden nearby, Danitha Morr inside.
   turnin 91285 choose 246164 246165   -- Breton Samuels
   accept 91294
-  talk 246389                         -- Hilda the Breaker
-  talk 246393                         -- Jorin Croge
-  talk 246394                         -- Ander Solliden
+  talk 246389 quest 91294.1           -- Hilda the Breaker
+  talk 246393 quest 91294.2           -- Jorin Croge
+  talk 246394 quest 91294.3           -- Ander Solliden
   turnin 91294                        -- Danitha Morr, inside the keep
 
 # The last Undercity stop comes between the hearth and the Brill hand-ins:

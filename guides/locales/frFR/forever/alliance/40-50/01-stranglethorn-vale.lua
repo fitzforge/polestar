@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in French words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1445} Dustwallow Marsh · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{zone:1445} first, then {zone:1434} and the {zone:1435}."] = "D'abord {zone:1445}, puis {zone:1434} et {zone:1435}.",
+
 	-- Step 1: Theramore
 	["Theramore"] = "Theramore",
 	-- {quest:1260} Morgan Stern · {npc:4897} Helenia Olden
@@ -263,8 +267,10 @@ return {
 	["{npc:717}, beside the other hunters"] = "",
 
 	-- Step 49: Arbor Tarantula
-	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
-	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s {item:213565}."] = "Une {npc:217588} rampe dans la jungle au sud-est du camp de Nesingwary, sur le chemin vers {area:99} : attrapez-en une avec l'outil du {item:213565} de {npc:217412}.",
+	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
+	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "Un {npc:217588} rampe dans la jungle au sud-est du camp de Nesingwary, en route vers {area:99} : ouvrez {item:213565} de {npc:217412} et utilisez son {item:213562} sur l'un d'eux. Ne le tuez pas.",
+	-- {item:213562} Bug Catching Net · {npc:217588} Arbor Tarantula · {item:213566} Arbor Tarantula Specimen
+	["{item:213562}, on an {npc:217588}: the {item:213566}"] = "{item:213562}, sur un {npc:217588} : {item:213566}",
 
 	-- Step 50: Rebel Camp
 	["Head north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "Dirigez-vous vers le nord-est en passant le camp de Nesingwary et suivez la route vers le nord jusqu'au camp en haut de la vallée.",
@@ -282,8 +288,7 @@ return {
 	-- {item:216616} Compound Cage Key
 	["{item:216616}, from the Subchiefs (or the Elites)"] = "{item:216616}, sur les Lieutenants (ou les Élites)",
 	-- {item:216617} Kurzen Fighter's Uniform
-	-- was: ["{item:216617}, in the supply crate"] = "{item:216617}, dans la caisse de ravitaillement"
-	["{item:216617}, in the supply crate deep in the cave"] = "",
+	["{item:216617}, in the supply crate deep in the cave"] = "{item:216617}, dans la caisse de ravitaillement au fond de la grotte",
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, back at his cage on the way out"] = "{npc:218230}, de retour à sa cage en sortant",
 	-- {npc:218229} Captain Aransas · {area:35} Booty Bay
@@ -472,6 +477,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["\"Sea Wolf\" MacKinley: keep it, for the level-48 {area:35} stop, with Zanzil's village"] = "\"Loup de mer\" MacKinley : gardez-la pour l'arrêt à {area:35} au niveau 48, avec le village de Zanzil",
 	-- ["Alone, you skip Nesingwary's three elite hunts: take their experience from the Skullsplitter trolls of Zul'Mamwe instead, just east of the mine, so every kill also counts for {npc:737}'s tusks. Or, with a group, run the {area:1517} dungeon instead."] = "Seul, vous passez les trois chasses d'élites de Nesingwary : prenez plutôt leur expérience sur les trolls Fendcrâne de Zul'Mamwe, juste à l'est de la mine, pour que chaque victime compte aussi pour les défenses de {npc:737}. Ou, en groupe, faites plutôt le donjon {area:1517}.",
+	-- ["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s {item:213565}."] = "Une {npc:217588} rampe dans la jungle au sud-est du camp de Nesingwary, sur le chemin vers {area:99} : attrapez-en une avec l'outil du {item:213565} de {npc:217412}.",
 	-- ["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. No Skyborne riding trainer is known; the Forever client files {spell:1285849} under the one Riding skill, so {npc:4732} at {area:88} in eastern {zone:1429}, the nearest trainer to {zone:1453}, should teach it (unconfirmed). The Galestriders are sold by {npc:265756} in {area:16638} on Zephras Isle; Collectibles, Mounts · Level 40 lists them."] = "Au niveau 40, avec 100 pièces d'or, vous pouvez apprendre la monte, et l'apprendre vous donne une monture. Aucun maître de monte céleste n'est connu ; le client Forever range {spell:1285849} sous la seule compétence de monte, donc {npc:4732} à {area:88}, dans l'est de {zone:1429}, le maître le plus proche de {zone:1453}, devrait l'enseigner (non confirmé). Les trotteurs des trombes sont vendus par {npc:265756} à {area:16638}, sur l'Île de Zéphras ; Collections, Montures · Niveau 40 les liste.",
 	-- ["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4732} teaches Humans at {area:88} in eastern {area:12}, beside {npc:384}'s horses. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour."] = "Au niveau 40, avec 100 pièces d'or, vous pouvez apprendre la monte, ce qui vous donne une monture. {npc:4732} l'enseigne aux Humains au {area:88}, dans l'est de la {area:12}, à côté des chevaux de {npc:384}. Forever permet peut-être à toutes les races d'apprendre auprès de n'importe quel maître de monte (non confirmé). Objets de collection, Montures · Niveau 40 liste toutes les couleurs.",
 	-- ["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4753} teaches Night Elves in {zone:1457}, beside {npc:4730}'s sabers: the boat from {area:17203} to {area:442}, then the flight to {area:702}. Forever may let any race learn from any riding trainer (unconfirmed), such as {npc:4732} at {area:88} in {area:12}. Collectibles, Mounts · Level 40 lists every colour."] = "Au niveau 40, avec 100 pièces d'or, vous pouvez apprendre la monte, ce qui vous donne une monture. {npc:4753} l'enseigne aux Elfes de la nuit à {zone:1457}, à côté des sabres de {npc:4730} : le bateau du {area:17203} pour {area:442}, puis le vol pour le {area:702}. Forever permet peut-être à toutes les races d'apprendre auprès de n'importe quel maître de monte (non confirmé), comme {npc:4732} au {area:88}, dans la {area:12}. Objets de collection, Montures · Niveau 40 liste toutes les couleurs.",

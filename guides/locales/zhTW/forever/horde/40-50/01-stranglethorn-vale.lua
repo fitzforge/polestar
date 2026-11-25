@@ -11,8 +11,6 @@ return {
 	["Fly to the {area:1497}"] = "飛往{area:1497}",
 	-- {area:1497} Undercity · {area:340} Kargath · {object:3202} Grom'gol
 	["Your level 40 training is in the {area:1497}: fly there from {area:340}, train, and take the zeppelin from the towers outside the city to {object:3202}."] = "你的40級訓練在{area:1497}：從{area:340}飛過去，學習技能，然後從城外的飛艇塔搭飛艇前往{object:3202}。",
-	-- {area:340} Kargath
-	["{area:340} flight master"] = "{area:340}飛行管理員",
 
 	-- Step 2: Genavie Callow
 	-- {npc:4486} Genavie Callow · {zone:1417} Arathi Highlands
@@ -40,6 +38,8 @@ return {
 	-- Step 6: Fly to Grom'gol
 	-- {object:3202} Grom'gol
 	["Fly to {object:3202}"] = "飛往{object:3202}",
+	-- {area:340} Kargath
+	["{area:340} flight master"] = "{area:340}飛行管理員",
 
 	-- Step 7: Grom'gol Base Camp
 	-- {npc:2519} Kin'weelay · {npc:1061} Gan'zulah
@@ -64,21 +64,32 @@ return {
 	-- {object:3202} Grom'gol
 	["{object:3202} flight master"] = "{object:3202}飛行管理員",
 
-	-- Step 11: Booty Bay
-	-- {area:35} Booty Bay
-	["Gringer, the flight master, waits on {area:35}'s upper deck. The quest givers stand on the boardwalks around the harbour and in the inn."] = "飛行管理員格林格在{area:35}的上層平台等著。任務給予者站在港口周圍的木棧道上和旅店裡。",
+	-- Step 11: Drizzlik
+	-- {npc:2495} Drizzlik
+	["{npc:2495}'s shop is in the building east of the inn."] = "{npc:2495}的商店在旅店東邊的建築裡。",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}: the Snapjaw skins gathered earlier; inside"] = "{npc:2495}：之前收集的鉗嘴鱷皮；在裡面",
+
+	-- Step 12: Booty Bay
+	-- {area:35} Booty Bay
+	["Gringer, the flight master, waits on {area:35}'s upper deck. The quest givers stand on the boardwalks around the harbour and in the inn."] = "飛行管理員格林格在{area:35}的上層平台等著。任務給予者站在港口周圍的木棧道上和旅店裡。",
 	-- {npc:2495} Drizzlik · {npc:2635} Elder Saltwater Crocolisk · {object:3202} Grom'gol
 	["{npc:2495}: the {npc:2635} suns on the coast between Zul'Kunda and {object:3202}, later on this loop"] = "{npc:2495}：{npc:2635}在祖昆達廢墟和{object:3202}之間的海岸上曬太陽，在這趟路線稍後會遇到",
 
-	-- Step 12: Kebok
+	-- Step 13: Kebok
+	-- {npc:737} Kebok
+	["{npc:737} stands upstairs, beside the flight master."] = "{npc:737}站在樓上，飛行管理員旁邊。",
+	-- {npc:737} Kebok
+	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
+	["{npc:737}: the Tumbled Crystals from the earlier Stranglethorn guide"] = "{npc:737}：上一份荊棘谷指南中的翻滾水晶（{item:4106}）",
+
+	-- Step 14: Kebok
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs, has his next errand now: the Skullsplitter tusks come from the trolls of Zul'Mamwe, later on this loop."] = "樓上的{npc:737}現在有下一個差事：劈顱獠牙來自祖瑪維的食人妖，在這趟路線稍後會去。",
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs"] = "{npc:737}，樓上",
 
-	-- Step 13: Booty Bay
+	-- Step 15: Booty Bay
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the docks: Gazlowe's letter, if you carry it"] = "{npc:4631}，在碼頭上：如果你帶著加茲魯維的信",
 	-- {npc:4631} Wharfmaster Lozgil · {quest:97332} Twice Misplaced Trust · {npc:259961} Wharfmaster Whizzbuzz · {area:16727} Powderfuse Port · {zone:2548} Riverglades
@@ -90,43 +101,46 @@ return {
 	["{npc:2496}: Cozzle's footlocker is in his house by {area:37}, on your way north to Nesingwary"] = "",
 	["Inside"] = "在裡面",
 
-	-- Step 14: Bloodsail Correspondence
+	-- Step 16: Bloodsail Correspondence
 	-- {area:35} Booty Bay
 	["Leave town by the tunnel; the note lies in the pirates' cove just north of {area:35}."] = "從隧道出城；字條在{area:35}北邊不遠的海盜海灣裡。",
 
-	-- Step 16: Mistvale gorillas
+	-- Step 18: Mistvale gorillas
 	["Mistvale gorillas"] = "迷霧谷猩猩",
+	-- {quest:348} Stranglethorn Fever
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
-	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "猩猩在溫巴瓦周圍的山谷遊蕩。老邁的猩猩掉落內臟；任何一隻都可能掉落尖牙：留十顆給溫巴瓦，他的莫克（44級）等你約45級回到荊棘谷時再打。\n小心：老邁的迷霧谷猩猩（40-41級）在山谷中站得很近：一次拉一隻。",
-	["Keep fangs from these same elders for Unbagwa."] = "",
+	-- was: ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "猩猩在溫巴瓦周圍的山谷遊蕩。老邁的猩猩掉落內臟；任何一隻都可能掉落尖牙：留十顆給溫巴瓦，他的莫克（44級）等你約45級回到荊棘谷時再打。\n小心：老邁的迷霧谷猩猩（40-41級）在山谷中站得很近：一次拉一隻。"
+	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: if you will take {quest:348} with a group, keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "大猩猩在安巴格瓦周圍的山谷裡遊蕩。長者掉落內臟；任何一隻都可能掉落獠牙：如果你要和小隊一起接{quest:348}，就為安巴格瓦留十個，他的莫克（44）在你大約45級的荊棘谷那一站等著。\n小心：薄霧谷長者大猩猩（40-41）在山谷裡站得很近：一次拉一隻。",
+	-- {quest:348} Stranglethorn Fever
+	["Keep fangs from these same elders for Unbagwa ({quest:348}, with a group)."] = "從這些長者身上留著獠牙給安巴格瓦（{quest:348}，需要小隊）。",
 
-	-- Step 17: Mistvale giblets
+	-- Step 19: Mistvale giblets
 	["Mistvale giblets"] = "",
 
-	-- Step 18: Mistvale gorillas at 39
+	-- Step 20: Mistvale gorillas at 39
 	["Mistvale gorillas at 39"] = "",
 	["Look for lone level 40 elders in this same camp for the sinew and giblets. Leave level 41 gorillas alone; don't stay just for extra fangs."] = "",
 
-	-- Step 19: Venture Co. mine
+	-- Step 21: Venture Co. mine
 	["Venture Co. mine"] = "風險投資公司礦坑",
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["Further north, the goblins of the Venture Co. dig at the mine east of the road; miners, foremen, surveyors and tinkerers all drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "再往北，風險投資公司的哥布林在道路東邊的礦坑挖掘；礦工、工頭、勘探員和修理工都會掉落水晶。\n小心：潛行中的影喉黑豹和荊棘谷母虎在營地周圍遊蕩。",
 
-	-- Step 20: Shadowmaw Panthers
+	-- Step 22: Shadowmaw Panthers
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
-	["Shadowmaw Panthers"] = "",
+	["Shadowmaw Panthers"] = "深喉獵豹",
 	-- {quest:192} Panther Mastery
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Elder Shadowmaw Panthers = {npc:1713} Elder Shadowmaw Panther
-	["{quest:192} is still open: the Shadowmaw Panthers (37-38) stalk the jungle north of the mine, towards the Mosh'Ogg hills. They use Sneak, so they show only when you are close: pull them one at a time, and leave the Elder Shadowmaw Panthers (42-43) alone."] = "",
+	["{quest:192} is still open: the Shadowmaw Panthers (37-38) stalk the jungle north of the mine, towards the Mosh'Ogg hills. They use Sneak, so they show only when you are close: pull them one at a time, and leave the Elder Shadowmaw Panthers (42-43) alone."] = "{quest:192}仍未完成：深喉獵豹（37-38級）在礦井北邊的叢林中潛行，朝向莫什奧格山丘。它們會潛行，所以只有靠近才會現身：一次只拉一隻，別去惹老年深喉獵豹（42-43級）。",
 
-	-- Step 22: Lashtail Raptors
+	-- Step 24: Lashtail Raptors
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["Lashtail Raptors"] = "鞭尾迅猛龍",
 	-- {quest:195} Raptor Mastery · {object:3202} Grom'gol
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{quest:195} is still open: the Lashtail Raptors (35-36) hunt the jungle between {object:3202} and Nesingwary's camp, on your way north."] = "",
+	["{quest:195} is still open: the Lashtail Raptors (35-36) hunt the jungle between {object:3202} and Nesingwary's camp, on your way north."] = "{quest:195}仍未完成：鞭尾迅猛龍（35-36級）在{object:3202}和奈辛瓦裏營地之間的叢林中狩獵，順路向北。",
 
-	-- Step 23: Foreman Cozzle's house
+	-- Step 25: Foreman Cozzle's house
 	-- {npc:4723} Foreman Cozzle
 	["{npc:4723}'s house"] = "",
 	-- {npc:4723} Foreman Cozzle · {area:37} Lake Nazferiti
@@ -135,49 +149,49 @@ return {
 	-- {object:20691} Cozzle's Footlocker
 	["{object:20691}, inside the house"] = "",
 
-	-- Step 24: Nesingwary's camp
+	-- Step 26: Nesingwary's camp
 	["Nesingwary's camp"] = "奈辛瓦里的營地",
 	["Head north up the road; the hunters camp on the hill above the river."] = "沿道路向北走；獵人在河流上方的山丘上紮營。",
 
-	-- Step 25: Sin'Dall
+	-- Step 27: Sin'Dall
 	-- {npc:729} Sin'Dall · {npc:717} Ajeck Rouack
 	["{npc:729}, the tiger {npc:717} sent you after on your last visit, prowls the hilltop just south-west of the camp."] = "{npc:729}，就是你上次來時{npc:717}派你去追的老虎，在營地西南邊不遠的山頂徘徊。",
 
-	-- Step 28: Nesingwary's camp
+	-- Step 30: Nesingwary's camp
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "你在路線之前來這裡時錯過了這一步：現在先做它。它很快，還會開啟後面的任務。",
 
-	-- Step 29: The Green Hills of Stranglethorn
+	-- Step 31: The Green Hills of Stranglethorn
 	-- {npc:716} Barnil Stonepot · {quest:338} The Green Hills of Stranglethorn
 	["{npc:716} collects the pages of {quest:338}: the trolls of the vale drop them now and then. Take his quest; each chapter he takes once you have all its pages."] = "{npc:716}收集{quest:338}的書頁：谷中的食人妖偶爾會掉落。接下他的任務；每一章在你湊齊所有書頁後交給他。",
 
-	-- Step 30: Chapter I
+	-- Step 32: Chapter I
 	-- {npc:716} Barnil Stonepot
 	["{npc:716}: every page of chapter I is in your bags"] = "{npc:716}：第一章的每一頁都在你的背包裡",
 
-	-- Step 31: Chapter II
+	-- Step 33: Chapter II
 	-- {npc:716} Barnil Stonepot
 	["{npc:716}: every page of chapter II is in your bags"] = "{npc:716}：第二章的每一頁都在你的背包裡",
 
-	-- Step 32: Chapter III
+	-- Step 34: Chapter III
 	-- {npc:716} Barnil Stonepot
 	["{npc:716}: every page of chapter III is in your bags"] = "{npc:716}：第三章的每一頁都在你的背包裡",
 
-	-- Step 33: Chapter IV
+	-- Step 35: Chapter IV
 	-- {npc:716} Barnil Stonepot
 	["{npc:716}: every page of chapter IV is in your bags"] = "{npc:716}：第四章的每一頁都在你的背包裡",
 
-	-- Step 34: The Green Hills of Stranglethorn
+	-- Step 36: The Green Hills of Stranglethorn
 	-- {npc:716} Barnil Stonepot
 	["{npc:716}: the four chapters"] = "{npc:716}：四個章節",
 
-	-- Step 35: Zul'Kunda
+	-- Step 37: Zul'Kunda
 	["Zul'Kunda"] = "祖昆達廢墟",
 	-- {npc:1061} Gan'zulah · {npc:1062} Nezzliok the Dire · {object:3202} Grom'gol · {npc:2635} Elder Saltwater Crocolisk · {npc:2495} Drizzlik
 	["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them.\nOn the coast between Zul'Kunda and {object:3202} an {npc:2635} (level 38 elite) shares the spawns of the ordinary crocolisks: kill it if it is up and take its skin for {npc:2495}."] = "遠征隊營地西邊，血頂酋長{npc:1061}和{npc:1062}一起站在祖昆達廢墟中。先清掉他們的守衛，再把他們拉過來。\n在祖昆達廢墟和{object:3202}之間的海岸上，一隻{npc:2635}（38級精英）與普通鱷魚共用重生點：如果牠在就擊殺牠，並為{npc:2495}取下牠的皮。",
 	-- {object:52} Fall of Gurubashi
 	["from the {object:52}, in the ruins"] = "來自{object:52}，在廢墟裡",
 
-	-- Step 36: Grom'gol
+	-- Step 38: Grom'gol
 	-- {object:2076} Bubbling Cauldron · {npc:2497} Nimboya
 	["the {object:2076}, beside {npc:2497}"] = "{object:2076}，在{npc:2497}旁邊",
 	-- {npc:2519} Kin'weelay
@@ -185,56 +199,56 @@ return {
 	-- {npc:2519} Kin'weelay · {area:104} Vile Reef
 	["{npc:2519}: the cavern entrance under the {area:104}, west of the camp"] = "{npc:2519}：洞穴入口在營地西邊的{area:104}底下",
 
-	-- Step 37: Riding at 40
+	-- Step 39: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {npc:4752} Kildar · {object:172958} Valley of Honor · {npc:3362} Ogunaro Wolfrunner · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454}: {npc:4752} teaches Orcs in the {object:172958}, by {npc:3362}'s kennel (wolves 20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "騎術需要40級，花費100金；學會後會得到一隻坐騎，荊棘谷之後的{zone:2548}沒有坐騎要走很久。從{object:3202}的塔搭飛艇前往{zone:1454}：{npc:4752}在{object:172958}的{npc:3362}狼舍旁教獸人騎術（狼每隻20金）。然後搭飛艇回{object:3202}。金錢不夠？跳過這個步驟：{zone:1444}指南約45級時會再經過{zone:1454}。",
 	-- {npc:4752} Kildar
-	["{npc:4752}, riding trainer"] = "",
+	["{npc:4752}, riding trainer"] = "騎術訓練師{npc:4752}",
 
-	-- Step 38: Riding at 40
+	-- Step 40: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1411} Durotar · {area:367} Sen'jin Village · {npc:7953} Xar'Ti · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454} and go south down the {zone:1411} road to {area:367}: {npc:7953} teaches Trolls there, with Zjolnir's raptors (20 gold each). Then back to the zeppelin for {object:3202}. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "騎術需要40級，花費100金；學會後會得到一隻坐騎，荊棘谷之後的{zone:2548}沒有坐騎要走很久。從{object:3202}的塔搭飛艇前往{zone:1454}，沿{zone:1411}的道路往南到{area:367}：{npc:7953}在那裡教食人妖騎術，旁邊有佐爾尼爾的迅猛龍（每隻20金）。然後回去搭飛艇前往{object:3202}。金錢不夠？跳過這個步驟：{zone:1444}指南約45級時會再經過{zone:1454}。",
 	-- {npc:7953} Xar'Ti
-	["{npc:7953}, riding trainer"] = "",
+	["{npc:7953}, riding trainer"] = "騎術訓練師{npc:7953}",
 
-	-- Step 39: Riding at 40
+	-- Step 41: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {area:222} Bloodhoof Village · {npc:3690} Kar Stormsinger · {npc:3685} Harb Clawhoof · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454}, fly to {zone:1456} and ride down to {area:222}: {npc:3690} teaches Tauren there, with {npc:3685}'s kodos (20 gold each). Then fly back to {zone:1454} for the {object:3202} zeppelin. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1456} again at about 45."] = "騎術需要40級，花費100金；學會後會得到一隻坐騎，荊棘谷之後的{zone:2548}沒有坐騎要走很久。從{object:3202}的塔搭飛艇前往{zone:1454}，飛到{zone:1456}再騎下去到{area:222}：{npc:3690}在那裡教牛頭人騎術，旁邊有{npc:3685}的科多獸（每隻20金）。然後飛回{zone:1454}搭往{object:3202}的飛艇。金錢不夠？跳過這個步驟：{zone:1444}指南約45級時會再經過{zone:1456}。",
 	-- {npc:3690} Kar Stormsinger
-	["{npc:3690}, riding trainer"] = "",
+	["{npc:3690}, riding trainer"] = "騎術訓練師{npc:3690}",
 
-	-- Step 40: Riding at 40
+	-- Step 42: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a Galestrider, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454} and fly to {zone:1456}: the skyboat to {zone:2521} leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes, and {npc:265756} teaches Skyborne at the {area:17684} in {area:16638}. Then back to {zone:1454} for the {object:3202} zeppelin. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "騎術需要40級，花費100金；學會後會得到一隻疾風行者，荊棘谷之後的{zone:2548}沒有坐騎要走很久。從{object:3202}的塔搭飛艇前往{zone:1454}，再飛到{zone:1456}：前往{zone:2521}的天空船從{zone:1456}北邊、{area:17045}南邊的懸崖出發，約每五分鐘一班，{npc:265756}在{area:16638}的{area:17684}教天裔騎術。然後回{zone:1454}搭往{object:3202}的飛艇。金錢不夠？跳過這個步驟：{zone:1444}指南約45級時會再經過{zone:1454}。",
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
 	["{npc:265756}, riding trainer, at the {area:17684} in {area:16638}"] = "{npc:265756}，騎術訓練師，在{area:16638}的{area:17684}",
 
-	-- Step 41: Riding at 40
+	-- Step 43: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1458} Undercity · {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {zone:1444} Feralas · {zone:1446} Tanaris
 	-- was: ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {area:1497}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1435} guide passes the {area:1497} again at about 47."] = "騎術需要40級，花費100金；學會後會得到一隻坐騎，荊棘谷之後的{zone:2548}沒有坐騎要走很久。從{object:3202}的塔搭飛艇前往{area:1497}的飛艇塔：{npc:4773}在往北騎一小段的{area:159}教被遺忘者騎術，旁邊有{npc:4731}的骸骨戰馬（每隻20金）。然後搭飛艇回{object:3202}。金錢不夠？跳過這個步驟：{zone:1435}指南約47級時會再經過{area:1497}。"
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {zone:1458}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} & {zone:1446} guide passes the {zone:1458} again at about 45."] = "",
 
-	-- Step 42: Your mount at 40
+	-- Step 44: Your mount at 40
 	["Your mount at 40"] = "40級的坐騎",
 	-- {zone:1454} Orgrimmar · {object:172960} Cleft of Shadow · {npc:6251} Strahad Farsan · {area:392} Ratchet · {zone:1444} Feralas
 	["Warlocks don't buy riding: your mount is the Felsteed, from your class quest. Zevrost in {zone:1454}'s {object:172960} starts it and {npc:6251} in {area:392} teaches it, both on the {zone:1444} guide's {zone:1454} stop at about 45."] = "術士不用買騎術：你的坐騎是地獄戰馬，來自職業任務。由{zone:1454}{object:172960}的札爾伏斯特開啟，{area:392}的{npc:6251}教你學會，兩者都在{zone:1444}指南約45級的{zone:1454}停留點進行。",
 	-- {zone:1454} Orgrimmar · {npc:6251} Strahad Farsan · {area:392} Ratchet · {zone:1444} Feralas
 	["Felsteed: Zevrost in {zone:1454}, then {npc:6251} in {area:392}, on the {zone:1444} guide's {zone:1454} stop."] = "地獄戰馬：{zone:1454}的札爾伏斯特，接著是{area:392}的{npc:6251}，在{zone:1444}指南的{zone:1454}停留點。",
 
-	-- Step 43: The Vile Reef
+	-- Step 45: The Vile Reef
 	-- {quest:95770} Locating the Lost City · {object:3202} Grom'gol · {area:104} Vile Reef
 	["{quest:95770}: west of {object:3202}, swim out over the {area:104} and dive to the cavern entrance in the reef; the quest completes as you find it. Leave the cavern for now: the jungle stalkers are south along the coast."] = "{quest:95770}：在{object:3202}西邊，游到{area:104}上方，潛到礁石中的洞穴入口；找到時任務就會完成。先別進洞穴：叢林捕獵者在沿海岸往南的地方。",
 	-- {area:16550} Drowned City
 	["the {area:16550}'s entrance, underwater"] = "{area:16550}的入口，在水下",
 
-	-- Step 44: Jungle stalkers
+	-- Step 46: Jungle stalkers
 	["Jungle stalkers"] = "叢林捕獵者",
 	-- {object:3202} Grom'gol
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["The stalker raptors hunt the jungle south of {object:3202}, out towards the west coast.\nCareful: the Jungle Stalkers (40-41) are thick here: pull one at a time and rest between fights."] = "叢林捕獵者迅猛龍在{object:3202}南邊的叢林狩獵，一直延伸到西海岸。\n小心：這裡叢林捕獵者（40-41）很密集：一次拉一隻，戰鬥之間休息。",
 	["The naga explorers on the coast south of here (43-44) are for Bloads and Mok'thardin: keep both quests for your Stranglethorn stop at about 45."] = "這裡南邊海岸上的納迦探險者（43-44）是布洛茲和摩克薩爾丁的任務目標：兩個任務都留著，到約45級的荊棘谷停留點再做。",
 
-	-- Step 45: Booty Bay
+	-- Step 47: Booty Bay
 	-- {area:35} Booty Bay
 	["Head south to {area:35}. Shaky Phillipe waits on the docks."] = "向南前往{area:35}。「病鬼」菲力浦在碼頭上等著。",
 	-- {npc:2496} Baron Revilgaz
@@ -253,73 +267,76 @@ return {
 	-- {npc:2488} Deeg · {area:43} Wild Shore
 	["{npc:2488}, on the top floor: keep it for the {area:43} at about 45"] = "{npc:2488}，在頂樓：留著，約45級時到{area:43}做",
 
-	-- Step 46: Whiskey Slim and Fin Fizracket
+	-- Step 48: Whiskey Slim and Fin Fizracket
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "",
-	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
-	["{npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "",
+	-- {npc:2491} Whiskey Slim · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
+	["{npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "旅店裡的{npc:2491}和頂樓的“海狼”麥金利從40級起提供這些任務：現在就接。不到40級的話，{zone:1444}和{zone:1446}指南的{area:35}那一站會再次提供。",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}，在旅店裡：他的酒瓶衝到{zone:1425}海岸上，大約48級",
-	-- {npc:2486} Fin Fizracket · {quest:348} Stranglethorn Fever · {zone:1444} Feralas · {object:3202} Grom'gol
-	-- was: ["{npc:2486}: {quest:348} (offered from 40), Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}：{quest:348}（40級起可接），溫巴格瓦的部分在{zone:1444}指南的{object:3202}停留點"
-	["{npc:2486}: {quest:348}, Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "",
 	-- {quest:2872} Stoley's Debt · {zone:1446} Tanaris
 	["MacKinley, on the top floor: {quest:2872}, for Stoley in {zone:1446}"] = "",
 
-	-- Step 47: The Bloodsail ships
+	-- Step 49: Fin Fizracket
+	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
+	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "小隊任務：{quest:348}在薄霧山谷的{npc:1449}處結束。交給他十顆大猩猩獠牙，他會召來三波大猩猩（41-42），一波接一波，然後是{npc:1514}（44）。玩家記錄中，開始此任務的27人裡有12人死在那裡。如果有一兩個朋友同行就接。",
+	-- {npc:2486} Fin Fizracket · {zone:1444} Feralas · {object:3202} Grom'gol
+	["{npc:2486}, beside the inn: Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}，在旅店旁邊：安巴格瓦那部分在{zone:1444}指南的{object:3202}那一站",
+
+	-- Step 50: The Bloodsail ships
 	["The Bloodsail ships"] = "血帆海盜船",
 	-- {quest:624} Cortello's Riddle · {area:43} Wild Shore · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh · {zone:1425} Hinterlands
 	["The scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs, with captains of 45-48: take it with a group. Its chain runs on through the {zone:1435}, {zone:1445} and the {zone:1425}."] = "卷軸{quest:624}在{area:43}外海三艘船的甲板上，船員是成對出現的42-45級海盜，船長45-48級：請組小隊去拿。這條任務鏈會延續到{zone:1435}、{zone:1445}和{zone:1425}。",
 	-- {zone:1435} Swamp of Sorrows
 	["for a later stop in the {zone:1435}"] = "留待之後在{zone:1435}的一站",
 
-	-- Step 48: Fly to Grom'gol
+	-- Step 51: Fly to Grom'gol
 	-- {object:3202} Grom'gol
 	["Fly back to {object:3202}: Zul'Mamwe's Skullsplitters are just east of it."] = "飛回{object:3202}：祖瑪維的劈顱巨魔就在它東邊。",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "{area:35}飛行管理員",
 
-	-- Step 49: Zul'Mamwe
+	-- Step 52: Zul'Mamwe
 	["Zul'Mamwe"] = "祖瑪維廢墟",
 	["The warriors in the northern ruins (39-40) drop both tusks and necklaces. Pull from the edge; leave the chief and his two guards to the south alone."] = "",
 
-	-- Step 50: Zul'Mamwe and Balia'mah trophy skulls
+	-- Step 53: Zul'Mamwe and Balia'mah trophy skulls
 	["Zul'Mamwe and Balia'mah trophy skulls"] = "",
 	-- {object:3202} Grom'gol
 	["Look for the trophy skulls in the small ruins north of Zul'Mamwe's warriors.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "",
 
-	-- Step 51: Kin'weelay
+	-- Step 54: Kin'weelay
 	-- {object:3202} Grom'gol
 	["Head west to {object:3202}."] = "向西前往{object:3202}。",
 
-	-- Step 54: Grom'gol Base Camp
+	-- Step 57: Grom'gol Base Camp
 	-- {npc:2464} Commander Aggro'gosh · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {zone:2548} Riverglades
 	["{npc:2464}: for {npc:256418} in {area:16743}, the {zone:2548}' Horde fort, in the next guide"] = "{npc:2464}：交給下一份指南中{zone:2548}部落要塞{area:16743}的{npc:256418}",
 	-- {quest:571} Mok'thardin's Enchantment · {quest:621} Zanzil's Secret · {npc:737} Kebok · {area:35} Booty Bay · {zone:2548} Riverglades
 	["Keep {quest:571}, {quest:621} and {npc:737}'s tusks: the Skullsplitter chief, Zanzil's camps, the naga coast and {area:35} come on your Stranglethorn stop at about 45, after the {zone:2548}."] = "留著{quest:571}、{quest:621}和{npc:737}的獠牙：劈顱首領、贊吉爾的營地、納迦海岸和{area:35}都在{zone:2548}之後、約45級的荊棘谷停留點進行。",
 
-	-- Step 56: Nesingwary's Expedition
+	-- Step 59: Nesingwary's Expedition
 	["Head north up the road to the hunters' camp."] = "沿道路向北走到獵人營地。",
 
-	-- Step 58: Raptor Mastery
+	-- Step 61: Raptor Mastery
 	-- {npc:730} Tethis
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone."] = "這些是精英怪：建議組小隊，找人一起打。{npc:730}是43級精英：大多數職業45級可單刷，但你可能需要幫手。獨自一人就跳過。",
 
-	-- Step 59: Panther Mastery
+	-- Step 62: Panther Mastery
 	-- {npc:728} Bhag'thera
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone."] = "這些是精英怪：建議組小隊，找人一起打。{npc:728}是40級精英：大多數職業42級可單刷，但你可能需要幫手。獨自一人就跳過。",
 
-	-- Step 63: Big Game Hunter
+	-- Step 66: Big Game Hunter
 	-- {npc:731} King Bangalash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "這些是精英怪：建議組小隊，找人一起打。{npc:731}是43級精英：大多數職業45級可單刷，但你可能需要幫手。獨自一人就跳過。\n小心：老虎和潛行中的影喉黑豹在他附近遊蕩。拉他之前先清掉。被拉到時，{npc:731}會呼叫20碼內的生物幫忙。",
 
-	-- Step 68: Into the Swamp of Sorrows
+	-- Step 71: Into the Swamp of Sorrows
 	-- {zone:1435} Swamp of Sorrows
 	["Into the {zone:1435}"] = "進入{zone:1435}",
 	-- {zone:1431} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
 	["Follow the road east from {zone:1431} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "沿道路從{zone:1431}向東穿過{zone:1430}進入沼澤。{npc:1776}在{area:657}等著，那是道路從{zone:1430}進來處旁邊的德萊尼營地。",
 
-	-- Step 69: Stonard
+	-- Step 72: Stonard
 	-- {area:75} Stonard
 	["Head east to {area:75}, in the reeds south of the road."] = "向東前往道路南邊蘆葦叢中的{area:75}。",
 	-- {npc:5591} Dar
@@ -329,51 +346,51 @@ return {
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "{npc:1443}，在頂層",
 
-	-- Step 70: Sawtooth crocolisks
+	-- Step 73: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "鹽齒鱷魚",
 	-- {npc:5391} Galen Goodward · {area:75} Stonard
 	["The crocolisks wallow in the pools around {npc:5391}'s camp and south towards {area:75}; about one in four drops a flank."] = "鹽齒鱷魚在{npc:5391}營地周圍和往南到{area:75}的水池中打滾；約四隻有一隻掉落側腹肉。",
 
-	-- Step 71: Noboru the Cudgel
+	-- Step 74: Noboru the Cudgel
 	-- {area:76} Fallow Sanctuary
 	["Noboru wanders the clearing south-west of the {area:76}; his cudgel starts a quest."] = "木棒諾博魯在{area:76}西南方的空地遊蕩；他的木棒會開啟一個任務。",
 
-	-- Step 72: Draenethyst crystals
+	-- Step 75: Draenethyst crystals
 	["Draenethyst crystals"] = "德萊尼水晶",
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
 	["Head north-east to the {area:76}. The crystals stand along the way up to {npc:5391}'s cage."] = "向東北前往{area:76}。水晶沿著通往{npc:5391}籠子的路分布。",
 
-	-- Step 73: Galen's Escape
+	-- Step 76: Galen's Escape
 	-- {npc:5391} Galen Goodward · {area:76} Fallow Sanctuary
 	["{npc:5391} is held in the {area:76} in the swamp's north-east. Free him and follow him out, fighting off the swamp creatures that chase him."] = "{npc:5391}被關在沼澤東北部的{area:76}。釋放他並跟著他出去，擊退追趕他的沼澤生物。",
 
-	-- Step 74: Galen's Strongbox
+	-- Step 77: Galen's Strongbox
 	-- {area:75} Stonard
 	["His strongbox waits at his old camp north of {area:75}, on the way back west."] = "他的保險箱在{area:75}北邊他的舊營地，就在往西回去的路上。",
 
-	-- Step 75: Harborage
+	-- Step 78: Harborage
 	-- {area:657} Harborage · {zone:1430} Deadwind Pass
 	["Head west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}."] = "",
 
-	-- Step 76: Pool of Tears
+	-- Step 79: Pool of Tears
 	-- {area:75} Stonard · {quest:1424} Pool of Tears
 	["Back east along the road, past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}. Only Sawfin Frenzies (38-40) swim there."] = "",
 
-	-- Step 77: Misty Reed Post
+	-- Step 80: Misty Reed Post
 	-- {npc:5592} Tok'Kar · {npc:5593} Katar
 	["Follow the road south-east to the small Horde post on the shore: {npc:5592} takes the crocolisk flanks, and {npc:5593} stands beside him."] = "",
 
-	-- Step 78: Sawtooth snappers
+	-- Step 81: Sawtooth snappers
 	["Sawtooth snappers"] = "鹽齒鉗嘴鱷",
 	-- {npc:272377} Methuselah Crab
 	-- plural, as words: Sawtooth Snappers = {npc:1087} Sawtooth Snapper
 	["The Sawtooth Snappers (41-42) line the strand south of the post; nearly every one drops a claw. Leave the murlocs further along the shore for your next swamp visit.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "",
 
-	-- Step 79: Misty Reed Post
+	-- Step 82: Misty Reed Post
 	-- {npc:5593} Katar
 	["{npc:5593}: the murlocs (41-44) wait for your next swamp visit"] = "",
 
-	-- Step 80: Stonard
+	-- Step 83: Stonard
 	-- {area:75} Stonard · {npc:1443} Fel'zerul · {quest:1430} Fresh Meat · {npc:5593} Katar
 	["Back north-west along the road to {area:75}: {npc:1443}, on the top floor, takes the artifacts. {quest:1430}'s crawlers and {npc:5593}'s murlocs wait for your next swamp visit."] = "",
 
@@ -406,6 +423,7 @@ return {
 	-- ["The Jungle Stalkers (40-41) hunt the coast south of {object:3202}. They are well above you: pull one at a time and rest between fights."] = "叢林捕獵者（40-41級）在{object:3202}南邊的海岸獵食。牠們比你高很多：一次拉一隻，戰鬥之間休息。",
 	-- ["The boat to {area:35} docks at the end of {area:392}'s pier."] = "前往{area:35}的船停靠在{area:392}碼頭的盡頭。",
 	-- ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang."] = "猩猩在巫醫安巴格瓦周圍的山谷遊蕩。老邁的迷霧谷猩猩會掉落內臟；任何一隻都可能掉落尖牙。",
+	-- ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "猩猩在溫巴瓦周圍的山谷遊蕩。老邁的猩猩掉落內臟；任何一隻都可能掉落尖牙：留十顆給溫巴瓦，他的莫克（44級）等你約45級回到荊棘谷時再打。\n小心：老邁的迷霧谷猩猩（40-41級）在山谷中站得很近：一次拉一隻。",
 	-- ["The last skulls are in the ruins a short ride west, on the way back to {object:3202}."] = "最後一批顱骨堆在往西不遠的廢墟中，就在返回{object:3202}的路上。",
 	-- ["The next guide starts here and takes you to {zone:1446}."] = "下一份指南從這裡開始，帶你前往{zone:1446}。",
 	-- ["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "下一批祖瑪維顱骨堆在劈顱戰士營地北邊不遠的小廢墟中。\n最後一批顱骨在往西走一小段的廢墟裡，就在回{object:3202}的路上。",

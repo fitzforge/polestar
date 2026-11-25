@@ -108,7 +108,7 @@ step Kaylaena's workshop
   accept 92008                          -- Premiere Parts: for Nami in Everlook; you go there from Moonglade at the end of this guide
 
 step The ancients' outpost
-  tip South down the west side of the shrub field to the ancients' outpost: kill the Tainted Shrubbery you pass for Kaylaena. Bluebell, the flight mistress, waits by the outpost; Hyacinth and Thylaen stand with the ancient Fraxinus.
+  tip South down the west side of the shrub field to the ancients' outpost. Leave the Tainted Shrubbery for now: their Verdant Leaves drop only once Hyacinth's Leaves to Ligatures is in your log, and the guide brings you back to the shrub field for the leaves and Kaylaena's kills together. Bluebell, the flight mistress, waits by the outpost; Hyacinth and Thylaen stand with the ancient Fraxinus.
   getfp "Tainted Foothills"             -- Bluebell
   accept 91754                          -- Hyacinth: Rub Some Dirt In It
   accept 91755                          -- Leaves to Ligatures
@@ -344,6 +344,14 @@ step Rabine Saturna
   turnin 6762                           -- Rabine Saturna
   accept 1124                           -- For Layo Starstrike in Silithus, on the next guide: keep it
 
+step Rabine Saturna
+  only Alliance
+  when turnedin 6762
+  when available 1124
+  zone Moonglade
+  tip The letter from Darnassus is already with Rabine Saturna: take Wasteland from her, in her house in Nighthaven.
+  accept 1124                           -- For Layo Starstrike in Silithus, on the next guide: keep it
+
 step Fly to Everlook
   tip South to Moonglade's flight master (the Alliance's at the southern end of the valley, the Horde's at its south-western end) and fly to Everlook for Kaylaena's parts order.
   getfp "Moonglade" npc 10897 only Alliance  -- Sindrayl
@@ -362,7 +370,7 @@ step Fly to the Tainted Foothills
 
 step Kaylaena's workshop
   tip North from Bluebell to the workshop, crate first. Watch for Ghansurok, the elite chimaera (level 61) that prowls around the workshop.
-  complete 92009                        -- deliver the crate before it fizzles
+  talk 249235 quest 92009               -- deliver the crate before it fizzles
   turnin 92009                          -- Kaylaena Springwhisper
   turnin 92594
   accept 92011                          -- Rubble Rummage: in Dae'gun, later in this guide; keep it
@@ -487,8 +495,8 @@ step Barkskin Burrow
   tip Back to Osi, then the two elders at the back of the burrow. Suma Mossmane stands beside Osi, Thobon Sapclaw a little north-west of them, where the recording met him. Suma's moss grows around Elderwild, later in this guide; Thobon's amulets come from the harpies at the Shrine of Aviana, also later in this guide, and you bring both back here then.
   turnin 93831                          -- Osi Mistpaw
   accept 91697                          -- Meet the Elders
-  talk 256650                           -- Elder Pinespeaker
-  talk 256627                           -- Elder Mistpaw
+  talk 256650 quest 91697.1             -- Elder Pinespeaker
+  talk 256627 quest 91697.2             -- Elder Mistpaw
   turnin 91697                          -- Elder Mistpaw
   accept 93826                          -- Deal Dread to Deadwood: on your way back here later; keep it
   accept 93825                          -- Suma Mossmane: Barkbound Blessings
@@ -634,7 +642,7 @@ step To the Summit of Eternity
 step Daythor Brellan and Sefira
   only Alliance
   tip The worker Sefira means is a peasant just north of her; Daythor Brellan stands between them.
-  talk 251320 @15.1,51.5                -- Peasant
+  talk 251320 quest 90750 @15.1,51.5    -- Peasant
   turnin 90750                          -- Daythor Brellan
   accept 95218                          -- More of the Same
   turnin 95218                          -- Sefira Everbright
@@ -655,8 +663,8 @@ step Maruke and Enho
   only Horde
   when onquest 96622
   tip Ortak's poultice is for two of the outpost's wounded: Maruke lies at the north end of Elderwild, Enho Runehoof just south of Ortak.
-  talk 265895 @11.9,48.6                -- Maruke
-  talk 265862 @12.9,53.7                -- Enho Runehoof
+  talk 265895 quest 96622 @11.9,48.6    -- Maruke
+  talk 265862 quest 96622 @12.9,53.7    -- Enho Runehoof
   turnin 96622 @12.9,52.9               -- Ortak Lomgok
 
 step Head Scratcher
@@ -691,7 +699,7 @@ step Jereman
 step The falls and the first kitten
   tip Fill Galvinquam's gourd at the falls beside the bridge. Solstice, one of Shalla'kal's kittens, plays just west of the falls: walk up to her.
   complete 96979 @41.6,44.6             -- fill the gourd
-  talk 255685 @38.5,47.3                -- Solstice
+  talk 255685 quest 93615.1 @38.5,47.3  -- Solstice
 
 step Johun's camp
   only Alliance
@@ -703,7 +711,7 @@ step Johun's camp
 
 step Brie
   tip Brie, the second kitten, plays just west of Johun's camp.
-  talk 255773 @41.4,36.4                -- Brie
+  talk 255773 quest 93615.3 @41.4,36.4  -- Brie
 
 step Foxes
   only Alliance
@@ -782,7 +790,7 @@ step Marrosis
 
 step Whisperfur
   tip The last kitten, Whisperfur, plays at the southern end of Mourning's Rest.
-  talk 255771 @27.0,61.9                -- Whisperfur
+  talk 255771 quest 93615.2 @27.0,61.9  -- Whisperfur
 
 step Shalla'kal and Galvinquam
   tip North to Shalla'kal, then Galvinquam in the ruins south of her.
@@ -927,8 +935,8 @@ step Dae'gun
   collect 250775 x5 quest 92011.1 @51.5,37.0  -- Frayed Wire
   collect 269244 x5 quest 92011.2 @62.5,41.5  -- Calcified Excrement
   collect 269246 x5 quest 92011.3 @56.0,41.2  -- Warped Metal Scrap
-  goto 54.8,40.0 "Southeast Bonfire"
-  goto 49.1,36.1 "South Bonfire"
+  interact 656669 "Southeast Bonfire" quest 96959.2 @54.8,40.0  -- light it
+  interact 656668 "South Bonfire" quest 96959.1 @49.1,36.0  -- light it
   complete 92593 @53.7,33.5 only Alliance  -- scout the Horde tower
   collect 275958 x8 quest 96971.1 @50.2,37.0  -- Abandoned Supplies
   collect 253239 quest 92335.1 @49.5,34.6  -- Azgalor's Ashes
@@ -942,8 +950,7 @@ step Elaena, Witherbeard and Yashiro
   turnin 96959 @49.2,32.7               -- Yashiro
 
 step Drawing Down the Malevolent
-  when group 96003
-  tip A group choice: Bethra'zel and Mazzogore are level 60 elites until Elaena's eye drains them. Drain each one first, then fight it; players in our recordings killed both once drained. Grouping up is advised.
+  tip Bethra'zel and Mazzogore are level 60 elites until Elaena's eye drains them: drain each one first, then fight it. Drained, they are no longer elite and you can take them alone; players in our recordings killed both once drained.
   accept 96003                          -- Elaena Moonwhisper
 
 step Johun "Punchy" Dillas
@@ -951,7 +958,6 @@ step Johun "Punchy" Dillas
   turnin 92593
 
 step Bethra'zel
-  when group 96003
   when onquest 96003
   tip North-east to Bethra'zel. Drain him first: use Elaena's eye on him, and only then fight him. Undrained, he and Mazzogore are level 60 elites. Doomguard Xarkul, an elite (level 61), walks this corner of Dae'gun: keep out of his way.
   tip Careful: Legion Hulks (60, rare elites) stomp through Dae'gun's camps: give them room.
@@ -965,14 +971,12 @@ step Maerion Thaelemaches
   turnin 97009
 
 step Mazzogore
-  when group 96003
   when onquest 96003
   tip South-west to Mazzogore the Weak, in the middle of Dae'gun: drain him with the eye first, as Bethra'zel, then kill him. Undrained, he is a level 60 elite.
   tip Careful: Doomguards (elites, 58-59) stand around him: pull him out to you.
   kill 252457 quest 96003.2             -- Mazzogore the Weak
 
 step Elaena Moonwhisper
-  when group 96003
   when complete 96003
   turnin 96003
   accept 96025                          -- As the Crow Flies: for Thisalee Crow at the Summit

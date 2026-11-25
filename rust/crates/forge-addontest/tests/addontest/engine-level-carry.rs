@@ -80,12 +80,16 @@ stub.fire("QUEST_LOG_UPDATE"); flush()
 "#;
 
 fn run(giver: &str, saved: Option<&str>, script: &str) -> Value {
+	run_guides(GUIDES, giver, saved, script)
+}
+
+fn run_guides(guides: &str, giver: &str, saved: Option<&str>, script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.to_string(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		saved: saved.map(|s| ("Polestar".to_string(), s.to_string())).into_iter().collect(),
-		script: format!("{TEST_PACK}\n{TEST_SOURCE}\nGIVER = {{ {giver} }}\n{GUIDES}\n{HELPERS}\n{script}"),
+		script: format!("{TEST_PACK}\n{TEST_SOURCE}\nGIVER = {{ {giver} }}\n{guides}\n{HELPERS}\n{script}"),
 		..Default::default()
 	})
 	.remove(0)
@@ -172,6 +176,30 @@ fn a_waiting_accept_whose_giver_the_next_guide_never_passes_leaves_it_as_written
 	assert_eq!(out["shape"][0], "Flight master goto", "{out}");
 	assert_eq!(out["shape"].as_array().map(Vec::len), Some(4), "{out}");
 	assert_eq!(out["waits"], json!(["20@12 test/one"]), "{out}");
+}
+
+// Handed off to a guide that names the waiting quest nowhere (its work is in a later guide), "Continue
+// automatically" says it in chat with the quest's title, taken from the guide that passed it, not "Quest 20": the
+// client knows no title for a quest the player never took, and the loaded guide's titles don't have it.
+#[test]
+fn a_waiting_accept_the_next_guide_never_names_keeps_its_title_after_the_hand_off() {
+	let guides = GUIDES.replace("\t{ title = \"Wildkin\", goals = { kill(20, 25, 25) } },\n", "").replace(r#", hand(20, "Moontouched Wildkin", 20, 21)"#, "");
+	assert!(!guides.contains("kill(20,") && !guides.contains("hand(20,"), "Second Zone still names quest 20");
+	let out = run_guides(
+		&guides,
+		ELSEWHERE,
+		None,
+		&format!(
+			r#"{TO_THE_END}
+local titles = {{}}
+for _, q in ipairs(E.WaitingQuests("test/one", "test/two")) do titles[#titles + 1] = q.quest .. " " .. q.title end
+r.titles = titles
+emit(r)"#
+		),
+	);
+	assert_eq!(out["guide"], "test/two", "{out}");
+	assert_eq!(out["waits"], json!(["20@12 test/one"]), "{out}");
+	assert_eq!(out["titles"], json!(["20 Moontouched Wildkin"]), "{out}");
 }
 
 // The audit's `when onquest` case: Krom'Grul (level 12) is passed at 11, and his den with it (`when onquest`). At 12

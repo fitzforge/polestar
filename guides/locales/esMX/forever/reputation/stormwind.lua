@@ -47,13 +47,13 @@ return {
 
 	-- Step 6: Northshire: the Nibbled-On Book
 	-- {quest:91741} Nibbled-On Book
-	["Northshire: the {quest:91741}"] = "",
+	["Northshire: the {quest:91741}"] = "Valle de Villanorte: la {quest:91741}",
 	-- {quest:91741} Nibbled-On Book
-	["Right-click the {quest:91741} a kobold dropped: it starts its quest."] = "",
+	["Right-click the {quest:91741} a kobold dropped: it starts its quest."] = "Haz clic derecho en la {quest:91741} que soltó un kobold: inicia su misión.",
 
 	-- Step 7: Northshire: Brother Paxton's books
 	-- {npc:951} Brother Paxton
-	["Northshire: {npc:951}'s books"] = "",
+	["Northshire: {npc:951}'s books"] = "Valle de Villanorte: los libros de {npc:951}",
 
 	-- Step 8: Northshire: Echo Ridge, Garrick Padfoot and the vineyard
 	-- {npc:103} Garrick Padfoot

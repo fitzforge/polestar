@@ -17,7 +17,7 @@ return {
 
 	-- Step 2: Master Mathias Shaw
 	-- {zone:1453} Stormwind · {object:2100} Old Town
-	["Head north to {zone:1453}. Shaw stands upstairs in the SI:7 building in {object:2100} (the quest says the Barracks; it means SI:7)."] = "",
+	["Head north to {zone:1453}. Shaw stands upstairs in the SI:7 building in {object:2100} (the quest says the Barracks; it means SI:7)."] = "向北前往 {zone:1453}。肖爾在 {object:2100} 的軍情七處建築樓上（任務寫的是兵營，實際指軍情七處）。",
 
 	-- Step 3: Defias Dockmaster
 	-- {npc:6846} Defias Dockmaster · {area:797} Jerod's Landing · {area:87} Goldshire · {spell:921} Pick Pocket · {spell:2070} Sap
@@ -56,7 +56,7 @@ return {
 
 	-- Step 11: Sethir the Ancient
 	-- {npc:6909} Sethir the Ancient · {area:264} Oracle Glade · {spell:2983} Sprint
-	["{npc:6909} (level 12 satyr) lives out on a great branch north of the {area:264}: go through the V-shaped gap in the wall north of the glade and out along the branch. Pick his pocket for the journal; killing him does not give it, and a fight brings out three Minions of Sethir. He walks between the main branch and a side branch: wait stealthed at the far end of the main branch and pick him from behind when he comes back. Then {spell:2983} away. He is back 8 1/2 minutes after a death."] = "",
+	["{npc:6909} (level 12 satyr) lives out on a great branch north of the {area:264}: go through the V-shaped gap in the wall north of the glade and out along the branch. Pick his pocket for the journal; killing him does not give it, and a fight brings out three Minions of Sethir. He walks between the main branch and a side branch: wait stealthed at the far end of the main branch and pick him from behind when he comes back. Then {spell:2983} away. He is back 8 1/2 minutes after a death."] = "{npc:6909} 是12級薩特，住在 {area:264} 北面的巨大樹枝上：穿過林地北側牆上的V形缺口，沿樹枝往外走。對他使用偷竊來取得日記；擊殺不會掉落，開戰還會引來三個塞希爾的爪牙。他會在主樹枝和一根側枝之間走動：潛行到主樹枝遠端等待，等他回來時從背後偷竊，然後用 {spell:2983} 跑開。他死亡後8分半重生。",
 	-- {item:7737} Sethir's Journal
 	["Pick Pocket Sethir the Ancient for {item:7737}"] = "對遠古者塞希爾使用搜尋，獲得{item:7737}",
 

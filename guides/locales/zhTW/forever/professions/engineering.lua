@@ -16,7 +16,7 @@ return {
 	-- {skill:202} Engineering
 	["{skill:202} 1-75: vendor goods"] = "{skill:202} 1-75：商人貨物",
 	-- {item:2880} Weak Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:5514} Brooke Stonebraid · {npc:1286} Edna Mullby
-	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "",
+	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "一次買齊這個技能階段所需的物資：18 個 {item:2880}（18 銀幣）和 {item:5956}（工具：只要一個，放在揹包裡保留，18 銅幣）；總計約 18 銀 18 銅。箭頭會選擇本陣營最近的商人（{zone:1453}：{npc:5519}、{npc:5514} 和 {npc:1286}）。",
 	["a tool, keep it in your bags"] = "一件工具，放在包裡",
 
 	-- Step 3: Engineering 1-75: Auction House
@@ -27,31 +27,31 @@ return {
 
 	-- Step 4: Rough Stone (Elwynn Forest)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1429} Elwynn Forest
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1429} is marked."] = "",
+	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1429} is marked."] = "為 {spell:3918} 準備46個 {item:2835}：{skill:186}：開採 {object:1731}（技能1）。已標出 {zone:1429} 中 {object:1731} 最密集的礦點群。",
 
 	-- Step 5: Rough Stone (Dun Morogh)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1426} Dun Morogh
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1426} is marked."] = "",
+	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1426} is marked."] = "為 {spell:3918} 準備46個 {item:2835}：{skill:186}：開採 {object:1731}（技能1）。已標出 {zone:1426} 中 {object:1731} 最密集的礦點群。",
 
 	-- Step 6: Rough Stone (Darkshore)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1439} Darkshore
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1439} is marked."] = "",
+	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1439} is marked."] = "為 {spell:3918} 準備46個 {item:2835}：{skill:186}：開採 {object:1731}（技能1）。已標出 {zone:1439} 中 {object:1731} 最密集的礦點群。",
 
 	-- Step 7: Rough Stone (Zephras Isle)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:2521} Zephras Isle
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:2521} is marked."] = "",
+	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:2521} is marked."] = "為 {spell:3918} 準備46個 {item:2835}：{skill:186}：開採 {object:1731}（技能1）。已標出 {zone:2521} 中 {object:1731} 最密集的礦點群。",
 
 	-- Step 8: Rough Stone (Durotar)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1411} Durotar
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1411} is marked."] = "",
+	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1411} is marked."] = "為 {spell:3918} 準備46個 {item:2835}：{skill:186}：開採 {object:1731}（技能1）。已標出 {zone:1411} 中 {object:1731} 最密集的礦點群。",
 
 	-- Step 9: Rough Stone (Mulgore)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1412} Mulgore
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1412} is marked."] = "",
+	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1412} is marked."] = "為 {spell:3918} 準備46個 {item:2835}：{skill:186}：開採 {object:1731}（技能1）。已標出 {zone:1412} 中 {object:1731} 最密集的礦點群。",
 
 	-- Step 10: Rough Stone (Tirisfal Glades)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1420} Tirisfal Glades
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1420} is marked."] = "",
+	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1420} is marked."] = "為 {spell:3918} 準備46個 {item:2835}：{skill:186}：開採 {object:1731}（技能1）。已標出 {zone:1420} 中 {object:1731} 最密集的礦點群。",
 
 	-- Step 11: Copper Bar
 	-- {item:2840} Copper Bar · {spell:3922} Handful of Copper Bolts · {item:6219} Arclight Spanner · {spell:3924} Copper Tube · {skill:186} Mining · {item:2770} Copper Ore
@@ -68,14 +68,14 @@ return {
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 35"] = "{skill:202} 35 配方",
 	-- {skill:202} Engineering · {spell:3922} Handful of Copper Bolts · {spell:1230656} Reagent Bot · {spell:3924} Copper Tube
-	["Back to an {skill:202} trainer: {spell:3922} (from 30, 1s 15c). Also learn {spell:1230656} (1s): Forever's {skill:202} camp item, placed at a campsite beside a campfire. It takes a {spell:3922} and a {spell:3924}, which you learn at 30 and 50, so it gives no points. The Camping 101: {skill:202} quest from your starting area's camping guide (after The Great Outdoors) sends you to an engineering trainer who teaches it free."] = "",
+	["Back to an {skill:202} trainer: {spell:3922} (from 30, 1s 15c). Also learn {spell:1230656} (1s): Forever's {skill:202} camp item, placed at a campsite beside a campfire. It takes a {spell:3922} and a {spell:3924}, which you learn at 30 and 50, so it gives no points. The Camping 101: {skill:202} quest from your starting area's camping guide (after The Great Outdoors) sends you to an engineering trainer who teaches it free."] = "返回 {skill:202} 訓練師處：學習 {spell:3922}（技能 30 起可學，1 銀 15 銅）。同時學習 {spell:1230656}（1 銀）：這是無限的 {skill:202} 露營物品，可放在營地的營火旁。它需要一個 {spell:3922} 和一個 {spell:3924}，兩者分別在技能 30 和 50 時學習，因此製作它不會提升技能。起始地區的露營嚮導在“廣闊天地”之後提供的露營 101: {skill:202} 任務，會讓你去找一名工程學訓練師，由其免費教授。",
 
 	-- Step 14: Handful of Copper Bolts to 57
 	-- {spell:3922} Handful of Copper Bolts
 	["{spell:3922} to 57"] = "{spell:3922}練到 57",
 	-- {spell:3922} Handful of Copper Bolts · {item:2840} Copper Bar · {item:5956} Blacksmith Hammer
 	-- plural, as words: Practice Locks = {item:6712} Practice Lock
-	["{spell:3922} is orange at 35 (yellow 45, green 52, grey 60): about 33 crafts to 57. Each takes 1 {item:2840}. One {item:2840} a craft. Keep the bolts: Practice Locks and later gadgets take them. Needs an anvil nearby. {item:5956} is a tool: keep it in your bags."] = "",
+	["{spell:3922} is orange at 35 (yellow 45, green 52, grey 60): about 33 crafts to 57. Each takes 1 {item:2840}. One {item:2840} a craft. Keep the bolts: Practice Locks and later gadgets take them. Needs an anvil nearby. {item:5956} is a tool: keep it in your bags."] = "{spell:3922}在技能35時為橙色（45變黃，52變綠，60變灰）：約製作33次可到57。每次需要1個{item:2840}。也就是每次1個{item:2840}。保留螺栓：練習鎖及之後的裝置會用到。附近需要有鐵砧。{item:5956}是工具：保留在揹包中。",
 
 	-- Step 15: Engineering recipes at 57
 	-- {skill:202} Engineering
@@ -101,7 +101,7 @@ return {
 	-- {skill:202} Engineering
 	["{skill:202} 75-150: vendor goods"] = "{skill:202} 75-150：商人貨物",
 	-- {item:2880} Weak Flux · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:5514} Brooke Stonebraid · {npc:1286} Edna Mullby
-	["Buy the whole bracket's share in one go: 45 {item:2880} (45s); about 45s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "",
+	["Buy the whole bracket's share in one go: 45 {item:2880} (45s); about 45s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "一次買齊整個階段的用量：45個{item:2880}（45銀）；合計約45銀。箭頭會選擇本陣營最近的商人（{zone:1453}：{npc:5519}、{npc:5514}和{npc:1286}）。",
 
 	-- Step 19: Engineering 75-150: Auction House
 	-- {skill:202} Engineering
@@ -111,35 +111,35 @@ return {
 
 	-- Step 20: Coarse Stone (Westfall)
 	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1436} Westfall
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1436} is marked."] = "",
+	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1436} is marked."] = "準備 15 個 {item:2836}，用於 {spell:3930}：透過 {skill:186} 開採 {object:1732}（技能 65）。已標記 {zone:1436} 中 {object:1732} 最密集的區域。",
 
 	-- Step 21: Coarse Stone (Loch Modan)
 	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1432} Loch Modan
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1432} is marked."] = "",
+	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1432} is marked."] = "準備 15 個 {item:2836}，用於 {spell:3930}：透過 {skill:186} 開採 {object:1732}（技能 65）。已標記 {zone:1432} 中 {object:1732} 最密集的區域。",
 
 	-- Step 22: Coarse Stone (Darkshore)
 	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1439} Darkshore
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1439} is marked."] = "",
+	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1439} is marked."] = "準備 15 個 {item:2836}，用於 {spell:3930}：透過 {skill:186} 開採 {object:1732}（技能 65）。已標記 {zone:1439} 中 {object:1732} 最密集的區域。",
 
 	-- Step 23: Coarse Stone (The Barrens)
 	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1413} is marked."] = "",
+	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1413} is marked."] = "準備 15 個 {item:2836}，用於 {spell:3930}：透過 {skill:186} 開採 {object:1732}（技能 65）。已標記 {zone:1413} 中 {object:1732} 最密集的區域。",
 
 	-- Step 24: Coarse Stone (Silverpine Forest)
 	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1421} Silverpine Forest
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1421} is marked."] = "",
+	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1421} is marked."] = "準備 15 個 {item:2836}，用於 {spell:3930}：透過 {skill:186} 開採 {object:1732}（技能 65）。已標記 {zone:1421} 中 {object:1732} 最密集的區域。",
 
 	-- Step 25: Heavy Stone (Arathi Highlands)
 	-- {item:2838} Heavy Stone · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands
-	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1417} is marked."] = "",
+	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1417} is marked."] = "準備 27 個 {item:2838}，用於 {spell:3945}：透過 {skill:186} 開採 {object:1735}（技能 125）。已標記 {zone:1417} 中 {object:1735} 最密集的區域。",
 
 	-- Step 26: Heavy Stone (Ashenvale)
 	-- {item:2838} Heavy Stone · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1440} Ashenvale
-	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1440} is marked."] = "",
+	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1440} is marked."] = "準備 27 個 {item:2838}，用於 {spell:3945}：透過 {skill:186} 開採 {object:1735}（技能 125）。已標記 {zone:1440} 中 {object:1735} 最密集的區域。",
 
 	-- Step 27: Heavy Stone (The Barrens)
 	-- {item:2838} Heavy Stone · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1413} The Barrens
-	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1413} is marked."] = "",
+	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1413} is marked."] = "準備 27 個 {item:2838}，用於 {spell:3945}：透過 {skill:186} 開採 {object:1735}（技能 125）。已標記 {zone:1413} 中 {object:1735} 最密集的區域。",
 
 	-- Step 29: Copper Bar
 	-- {item:2840} Copper Bar · {spell:3930} Crafted Heavy Shot · {spell:3924} Copper Tube · {item:6712} Practice Lock · {skill:186} Mining · {item:2770} Copper Ore
@@ -157,14 +157,15 @@ return {
 	-- {spell:3930} Crafted Heavy Shot
 	["{spell:3930} to 94"] = "{spell:3930} 到94",
 	-- {spell:3930} Crafted Heavy Shot · {spell:3929} Coarse Blasting Powder · {item:2840} Copper Bar
-	["{spell:3930} is orange at 75 (yellow 85, green 90, grey 95): about 15 crafts to 94. Each takes 1 {spell:3929} and 1 {item:2840} and makes 200. Make the 15 {spell:3929} first: it gives points too while not grey. The {spell:3929} in each gives its own point while it is not grey: two chances a craft. Sell the shot to hunters or a vendor."] = "",
+	["{spell:3930} is orange at 75 (yellow 85, green 90, grey 95): about 15 crafts to 94. Each takes 1 {spell:3929} and 1 {item:2840} and makes 200. Make the 15 {spell:3929} first: it gives points too while not grey. The {spell:3929} in each gives its own point while it is not grey: two chances a craft. Sell the shot to hunters or a vendor."] = "{spell:3930} 在技能75時為橙色（85變黃，90變綠，95變灰）：大約製作15次升到94。每次需要1份 {spell:3929} 和1塊 {item:2840}，產出200發。先製作15份 {spell:3929}：只要尚未變灰，製作它也能漲點。每次所用的 {spell:3929} 在未變灰時也有自己的漲點機會：相當於每次有兩次漲點機會。彈藥可賣給獵人或商人。",
 
 	-- Step 33: Copper Tube to 100
 	-- {spell:3924} Copper Tube
 	["{spell:3924} to 100"] = "{spell:3924} 到100",
 	-- {spell:3924} Copper Tube · {item:2840} Copper Bar · {item:2880} Weak Flux
 	-- plural, as words: Copper Bars = {item:2840} Copper Bar
-	["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby."] = "{spell:3924}在94時為黃色（80黃、95綠、110灰）：大約14次製作可到100。每次需要2個{item:2840}和1個{item:2880}。每次兩個銅錠和一個{item:2880}（鍛造和工程學供應商）。附近需要鐵砧。",
+	-- was: ["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby."] = "{spell:3924}在94時為黃色（80黃、95綠、110灰）：大約14次製作可到100。每次需要2個{item:2840}和1個{item:2880}。每次兩個銅錠和一個{item:2880}（鍛造和工程學供應商）。附近需要鐵砧。"
+	["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. If you got here without learning {spell:3924}, learn it now: an earlier step teaches it."] = "{spell:3924}在94時為黃色（黃色80，綠色95，灰色110）：大約製作14次到100。每次需要2個{item:2840}和1個{item:2880}。每次兩個銅錠和一個{item:2880}（鍛造和工程學供應商）。需要附近有鐵砧。如果你到這裡還沒學會{spell:3924}，現在就學：之前的步驟會教。",
 
 	-- Step 34: Engineering recipes at 100
 	-- {skill:202} Engineering
@@ -177,7 +178,8 @@ return {
 	["{item:6712} to 125"] = "{item:6712} 到125",
 	-- {item:6712} Practice Lock · {item:2841} Bronze Bar · {spell:3922} Handful of Copper Bolts · {item:2880} Weak Flux
 	-- plural, as words: Practice Locks = {item:6712} Practice Lock
-	["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby."] = "",
+	-- was: ["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby."] = "{item:6712} 在技能 100 時為橙色（115 變黃、122 變綠、130 變灰）：約製作 31 次可升到 125。每次需要 1 個 {item:2841}、2 個 {spell:3922} 和 1 個 {item:2880}。先製作 29 個 {spell:3922}。同時用上先前製作的 33 個 {spell:3922}；上方材料數量未將它們計入。練習鎖可以賣給潛行者，也可以自己開啟。附近需要有鐵砧。"
+	["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby. If you got here without learning {spell:3922}, learn it now: an earlier step teaches it."] = "{item:6712}在100時為橙色（黃色115，綠色122，灰色130）：大約製作31次到125。每次需要1個{item:2841}、2個{spell:3922}和1個{item:2880}。先做29個{spell:3922}。用上你之前做的33個{spell:3922}；上面的數量不包括它們。練習鎖可以賣給盜賊，或者自己開。需要附近有鐵砧。如果你到這裡還沒學會{spell:3922}，現在就學：之前的步驟會教。",
 
 	-- Step 36: Engineering recipes at 125
 	-- {skill:202} Engineering
@@ -202,7 +204,7 @@ return {
 	-- {spell:3950} Big Bronze Bomb
 	["{spell:3950} to 150"] = "{spell:3950} 到150",
 	-- {spell:3950} Big Bronze Bomb · {item:4377} Heavy Blasting Powder · {item:2841} Bronze Bar · {spell:3973} Silver Contact · {skill:202} Engineering
-	["{spell:3950} is yellow at 140 (yellow 140, green 165, grey 190): about 10 crafts to 150. Each takes 2 {item:4377}, 3 {item:2841} and 1 {spell:3973} and makes 3. Make the 10 {spell:3973} (2 crafts) first. Use the 20 {item:4377} you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. Needs an anvil nearby. {skill:202} 150 is a Legacy System milestone."] = "",
+	["{spell:3950} is yellow at 140 (yellow 140, green 165, grey 190): about 10 crafts to 150. Each takes 2 {item:4377}, 3 {item:2841} and 1 {spell:3973} and makes 3. Make the 10 {spell:3973} (2 crafts) first. Use the 20 {item:4377} you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. Needs an anvil nearby. {skill:202} 150 is a Legacy System milestone."] = "{spell:3950}在技能140時為黃色（140變黃，165變綠，190變灰）：約製作10次可到150。每次需要2個{item:4377}、3個{item:2841}和1個{spell:3973}，產出3個。先製作10個{spell:3973}（製作2次）。用之前做好的20個{item:4377}；上方統計未將其計入。此配方向訓練師學習，是資料中度過這段技能點最便宜的方式。附近需要有鐵砧。{skill:202}150是傳承系統的一個里程碑。",
 
 	-- Step 40: Expert Engineering
 	-- {skill:202} Engineering
@@ -214,7 +216,7 @@ return {
 	-- {skill:202} Engineering
 	["{skill:202} 150-225: vendor goods"] = "{skill:202} 150-225：商人貨物",
 	-- {item:6530} Nightcrawlers · {zone:1453} Stormwind City · {npc:5494} Catherine Leland · {npc:1286} Edna Mullby
-	["Buy the whole bracket's share in one go: 31 {item:6530} (31s); about 31s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5494} and {npc:1286})."] = "",
+	["Buy the whole bracket's share in one go: 31 {item:6530} (31s); about 31s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5494} and {npc:1286})."] = "一次買齊整個階段的用量：31個{item:6530}（31銀）；合計約31銀。箭頭會選擇本陣營最近的商人（{zone:1453}：{npc:5494}和{npc:1286}）。",
 
 	-- Step 42: Engineering 150-225: Auction House
 	-- {skill:202} Engineering
@@ -226,13 +228,13 @@ return {
 	-- {item:2319} Medium Leather
 	["{item:2319} (Alliance)"] = "{item:2319}（聯盟）",
 	-- {item:2319} Medium Leather · {spell:3953} Bronze Framework · {skill:393} Skinning · {npc:2248} Cave Yeti · {npc:2356} Elder Gray Bear · {npc:2385} Feral Mountain Lion · {npc:2351} Gray Bear · {npc:2384} Starving Mountain Lion · {npc:2354} Vicious Gray Bear
-	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "",
+	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "為 {spell:3953} 準備19張 {item:2319}：{skill:393}：剝取18-30級野獸。在這裡剝取 {npc:2248}、{npc:2356}、{npc:2385}、{npc:2351}、鉗嘴龜、{npc:2384} 和 {npc:2354}（18-30級）；{skill:393} 指南提供相應路線。",
 
 	-- Step 44: Medium Leather (Horde)
 	-- {item:2319} Medium Leather
 	["{item:2319} (Horde)"] = "{item:2319}（部落）",
 	-- {item:2319} Medium Leather · {spell:3953} Bronze Framework · {skill:393} Skinning · {npc:3809} Ashenvale Bear · {npc:3810} Elder Ashenvale Bear · {npc:3818} Elder Shadowhorn Stag · {npc:3823} Ghostpaw Runner · {npc:3811} Giant Ashenvale Bear · {npc:3817} Shadowhorn Stag
-	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} here (level 18-30); the {skill:393} guide routes this."] = "",
+	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} here (level 18-30); the {skill:393} guide routes this."] = "為{spell:3953}準備19個{item:2319}：透過{skill:393}剝取18-30級野獸。在這裡剝取{npc:3809}、{npc:3810}、{npc:3818}、{npc:3823}、{npc:3811}和{npc:3817}（18-30級）；{skill:393}指南提供了對應路線。",
 
 	-- Step 45: Wool Cloth
 	-- {item:2592} Wool Cloth · {spell:3953} Bronze Framework
@@ -242,25 +244,26 @@ return {
 	-- {item:2836} Coarse Stone
 	["{item:2836} (Alliance)"] = "{item:2836}（聯盟）",
 	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1432} Loch Modan · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
-	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1432} (10-20), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1432} is marked."] = "",
+	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1432} (10-20), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1432} is marked."] = "為 {item:6533} 準備31個 {item:2836}：{skill:186}：在 {zone:1432}（10-20級）、{zone:1440}（18-30級）和 {zone:1424}（20-30級）開採 {object:1732}（技能65）。已標出 {zone:1432} 中 {object:1732} 最密集的礦點群。",
 
 	-- Step 47: Coarse Stone (Horde)
 	-- {item:2836} Coarse Stone
 	["{item:2836} (Horde)"] = "{item:2836}（部落）",
 	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
-	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "",
+	-- was: ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "為 {item:6533} 準備 31 個 {item:2836}：透過 {skill:186} 開採 {zone:1413}（10-25 級）、{zone:1440}（18-30 級）和 {zone:1424}（20-30 級）的 {object:1732}（需要技能 65）。已標記 {zone:1440} 中 {object:1732} 最密集的位置。"
+	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1413} is marked."] = "31個{item:2836}用於{item:6533}：{skill:186}：{object:1732}（技能65），在{zone:1413}（10-25）、{zone:1440}（18-30）和{zone:1424}（20-30）。{zone:1413}中{object:1732}最密集的區域已標出。",
 
 	-- Step 48: Heavy Stone (Alliance)
 	-- {item:2838} Heavy Stone
 	["{item:2838} (Alliance)"] = "{item:2838}（聯盟）",
 	-- {item:2838} Heavy Stone · {spell:3967} Big Iron Bomb · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {zone:1443} Desolace
-	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked."] = "",
+	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked."] = "為 {spell:3967} 準備 74 個 {item:2838}：透過 {skill:186} 開採 {zone:1417}（30-40 級）、{zone:1434}（30-45 級）和 {zone:1443}（30-40 級）的 {object:1735}（需要技能 125）。已標記 {zone:1417} 中 {object:1735} 最密集的位置。",
 
 	-- Step 49: Heavy Stone (Horde)
 	-- {item:2838} Heavy Stone
 	["{item:2838} (Horde)"] = "{item:2838}（部落）",
 	-- {item:2838} Heavy Stone · {spell:3967} Big Iron Bomb · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1441} Thousand Needles · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
-	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked."] = "",
+	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked."] = "準備 74 個 {item:2838}，用於 {spell:3967}：透過 {skill:186} 開採 {object:1735}（技能 125），產地有 {zone:1441}（25-35 級）、{zone:1417}（30-40 級）和 {zone:1434}（30-45 級）。已標記 {zone:1441} 中 {object:1735} 最密集的區域。",
 
 	-- Step 50: Bronze Bar
 	-- {item:2841} Bronze Bar · {item:6533} Aquadynamic Fish Attractor · {spell:3953} Bronze Framework · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
@@ -282,19 +285,20 @@ return {
 	-- {item:7912} Solid Stone
 	["{item:7912} (Alliance)"] = "{item:7912}（聯盟）",
 	-- {item:7912} Solid Stone · {item:10505} Solid Blasting Powder · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked."] = "",
+	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked."] = "為 {item:10505} 準備62個 {item:7912}：{skill:186}：在 {zone:1434}（30-45級）、{zone:1425}（40-50級）和 {zone:1444}（40-50級）開採 {object:2040}（技能175）。已標出 {zone:1434} 中 {object:2040} 最密集的礦點群。",
 
 	-- Step 55: Solid Stone (Horde)
 	-- {item:7912} Solid Stone
 	["{item:7912} (Horde)"] = "{item:7912}（部落）",
 	-- {item:7912} Solid Stone · {item:10505} Solid Blasting Powder · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "",
+	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "為 {item:10505} 準備62塊 {item:7912}：{skill:186}：開採 {zone:1443}（30-40級）、{zone:1425}（40-50級）和 {zone:1444}（40-50級）的 {object:2040}（技能175）。已標記 {zone:1443} 中 {object:2040} 最密集的區域。",
 
 	-- Step 56: Aquadynamic Fish Attractor to 166
 	-- {item:6533} Aquadynamic Fish Attractor
 	["{item:6533} to 166"] = "{item:6533} 到166",
 	-- {item:6533} Aquadynamic Fish Attractor · {item:2841} Bronze Bar · {item:6530} Nightcrawlers · {spell:3929} Coarse Blasting Powder
-	["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen."] = "",
+	-- was: ["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen."] = "{item:6533} 在技能150時為黃色（150變黃，160變綠，170變灰）：大約製作31次升到166。每次需要2塊 {item:2841}、1個 {item:6530} 和1份 {spell:3929}，產出3個。先製作31份 {spell:3929}。{item:6530} 可向商貿或釣魚供應商購買；製成的誘餌可賣給釣魚玩家。"
+	["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen. If you got here without learning {spell:3929}, learn it now: an earlier step teaches it."] = "{item:6533}在150時為黃色（黃色150，綠色160，灰色170）：大約製作31次到166。每次需要2個{item:2841}、1個{item:6530}和1個{spell:3929}，產出3個。先做31個{spell:3929}。{item:6530}來自商業和釣魚供應商；誘魚器可以賣給釣魚的人。如果你到這裡還沒學會{spell:3929}，現在就學：之前的步驟會教。",
 
 	-- Step 57: Bronze Framework to 175
 	-- {spell:3953} Bronze Framework
@@ -314,7 +318,7 @@ return {
 	["{item:10505} to 191"] = "{item:10505} 到191",
 	-- {item:10505} Solid Blasting Powder · {item:7912} Solid Stone
 	-- plural, as words: Mithril Deposits = {object:2040} Mithril Deposit
-	["{item:10505} is yellow at 175 (yellow 175, green 185, grey 195): about 31 crafts to 191. Each takes 2 {item:7912}. Two {item:7912} a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it."] = "{item:10505}在175時為黃色（175黃、185綠、195灰）：大約31次製作可到191。每次需要2個{item:7912}。每次兩個{item:7912}（秘銀礦脈）。多做些：觸發器、彈丸和陀螺彈都要用它。",
+	["{item:10505} is yellow at 175 (yellow 175, green 185, grey 195): about 31 crafts to 191. Each takes 2 {item:7912}. Two {item:7912} a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it."] = "{item:10505}在175時為黃色（175黃、185綠、195灰）：大約31次製作可到191。每次需要2個{item:7912}。每次兩個{item:7912}（秘銀礦床）。多做些：觸發器、彈丸和陀螺彈都要用它。",
 
 	-- Step 60: Engineering recipes at 191
 	-- {skill:202} Engineering
@@ -327,7 +331,8 @@ return {
 	["{spell:3967} to 210"] = "{spell:3967} 到210",
 	-- {spell:3967} Big Iron Bomb · {item:3575} Iron Bar · {spell:3945} Heavy Blasting Powder · {spell:3973} Silver Contact · {item:2842} Silver Bar · {item:2838} Heavy Stone · {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:5518} Lilliam Sparkspindle · {zone:1453} Stormwind City · {npc:4586} Graham Van Talen · {zone:1458} Undercity · {area:392} Ratchet · {spell:20220} Gnomish Engineering · {npc:7944} Tinkmaster Overspark · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay · {item:4407} Accurate Scope · {npc:8126} Nixx Sprocketspring · {area:976} Gadgetzan · {item:10507} Solid Dynamite · {npc:2675} Explosive Sheep
 	-- plural, as words: Silver Contacts = {spell:3973} Silver Contact · Mithril Tubes = {item:10559} Mithril Tube · Big Iron Bombs = {spell:3967} Big Iron Bomb
-	["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby."] = "",
+	-- was: ["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby."] = "{spell:3967} 在技能 191 時為黃色（190 變黃，210 變綠，230 變灰）：約製作 27 次可到 210。每次需要 3 個 {item:3575}、3 個 {spell:3945} 和 1 個 {spell:3973}，產出 2 個。先製作 74 個 {spell:3945} 和 30 個 {spell:3973}（製作 6 次）。用上之前做好的 7 個 {spell:3945}；上述數量未將它們計入。一個 {item:2842} 可製成五個銀觸媒（此時已變灰，不再加技能點，但也無需再跑商人）；{spell:3945} 用 {item:2838} 製作。每次製作產出兩個炸彈。專精（可選）：技能達到 200 且角色等級 30 時，{npc:5174}（{zone:1455}）、{npc:5518}（{zone:1453}）、{npc:4586}（{zone:1458}）或廷克維斯（{area:392}）會指引你學習 {spell:20220}（找 {zone:1455} 的 {npc:7944}，或 {area:35} 的 {npc:7406}：需要 6 個秘銀管、一個 {item:4407} 和 2 個高階假人）或地精工程學（找 {area:976} 的 {npc:8126}：需要 20 個大鐵炸彈、20 個 {item:10507} 和 5 個 {npc:2675}）。{item:4407} 的設計圖現為拾取後繫結，但任務接受他人製作的瞄準鏡。會員卡有效期為 14 天遊戲時間，續期需 2 金幣。只能選擇一種專精；衝到 300 都不需要它們，而且測試版從未測試過這兩種專精（測試止於 30 級）。附近需要有鐵砧。"
+	["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. If you got here without learning {spell:3945} and {spell:3973}, learn them now: an earlier step teaches them."] = "{spell:3967}在191時為黃色（黃色190，綠色210，灰色230）：大約製作27次到210。每次需要3個{item:3575}、3個{spell:3945}和1個{spell:3973}，產出2個。先做74個{spell:3945}和30個{spell:3973}（6次製作）。用上你之前做的7個{spell:3945}；上面的數量不包括它們。一個{item:2842}可以做五個銀觸媒（此時已是灰色：不加點，但也不用跑商人）；{spell:3945}來自{item:2838}。每次製作產出兩個炸彈。專精（可選）：在200技能和30級角色時，{npc:5174}（{zone:1455}）、{npc:5518}（{zone:1453}）、{npc:4586}（{zone:1458}）或丁克維茲（{area:392}）會把你送到{spell:20220}（{npc:7944}、{zone:1455}，或{npc:7406}、{area:35}：6個秘銀管、一個{item:4407}和2個高級假人）或哥布林工程學（{npc:8126}、{area:976}：20個重磅鐵製炸彈、20個{item:10507}和5個{npc:2675}）。{item:4407}的設計圖現在拾取後綁定，但任務接受別人做的瞄準鏡。會員卡可用14天遊戲時間；續期花費2金。只能選一個；到300都不需要，測試版也從未測試過它們（它停在30級）。需要附近有鐵砧。如果你到這裡還沒學會{spell:3945}和{spell:3973}，現在就學：之前的步驟會教。",
 
 	-- Step 62: Engineering recipes at 210
 	-- {skill:202} Engineering
@@ -339,7 +344,7 @@ return {
 	-- {item:10512} Hi-Impact Mithril Slugs
 	["{item:10512} to 225"] = "{item:10512}練到 225",
 	-- {item:10512} Hi-Impact Mithril Slugs · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder · {skill:202} Engineering
-	["{item:10512} is yellow at 210 (yellow 210, green 230, grey 250): about 19 crafts to 225. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Use the 19 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. {skill:202} 225 is a Legacy System milestone."] = "",
+	["{item:10512} is yellow at 210 (yellow 210, green 230, grey 250): about 19 crafts to 225. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Use the 19 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. {skill:202} 225 is a Legacy System milestone."] = "{item:10512} 在210點時為黃色（210變黃，230變綠，250變灰）：製作約19次可到225。每次需要1塊 {item:3860} 和1份 {item:10505}，產出200發。使用之前做好的19份 {item:10505}；上面的數量未包含它們。每次製作消耗一塊 {item:3860} 和一份 {item:10505}；獵人會購買這些彈頭。附近需要有鐵砧。{skill:202} 達到225是傳承系統的一個里程碑。",
 
 	-- Step 64: Artisan Engineering
 	-- {skill:202} Engineering
@@ -367,11 +372,11 @@ return {
 
 	-- Step 69: Solid Stone (Alliance)
 	-- {item:7912} Solid Stone · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked."] = "",
+	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked."] = "準備 212 個 {item:7912}，用於 {item:10512} 和 {item:10513}：透過 {skill:186} 開採 {object:2040}（技能 175），產地有 {zone:1425}（40-50 級）、{zone:1444}（40-50 級）和 {zone:1447}（45-55 級）。已標記 {zone:1425} 中 {object:2040} 最密集的區域。",
 
 	-- Step 70: Solid Stone (Horde)
 	-- {item:7912} Solid Stone · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "",
+	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "為{item:10512}和{item:10513}準備212個{item:7912}：透過{skill:186}在{zone:1443}（30-40級）、{zone:1425}（40-50級）和{zone:1444}（40-50級）開採{object:2040}（需要技能175）。已標記{zone:1443}中{object:2040}最密集的區域。",
 
 	-- Step 71: Thorium Bar
 	-- {item:12359} Thorium Bar · {item:15994} Thorium Widget · {item:16000} Thorium Tube · {skill:186} Mining · {item:10620} Thorium Ore
@@ -385,7 +390,8 @@ return {
 	-- {item:10512} Hi-Impact Mithril Slugs
 	["{item:10512} to 245"] = "{item:10512}練到 245",
 	-- {item:10512} Hi-Impact Mithril Slugs · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder
-	["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby."] = "",
+	-- was: ["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby."] = "{item:10512} 在225點時為黃色（210變黃，230變綠，250變灰）：製作約62次可到245。每次需要1塊 {item:3860} 和1份 {item:10505}，產出200發。先製作50份 {item:10505}。使用之前做好的12份 {item:10505}；上面的數量未包含它們。每次製作消耗一塊 {item:3860} 和一份 {item:10505}；獵人會購買這些彈頭。附近需要有鐵砧。"
+	["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. If you got here without learning {item:10505} and {item:10512}, learn them now: an earlier step teaches them."] = "{item:10512}在225時為黃色（黃色210，綠色230，灰色250）：大約製作62次到245。每次需要1個{item:3860}和1個{item:10505}，產出200個。先做50個{item:10505}。用上你之前做的12個{item:10505}；上面的數量不包括它們。每次一個{item:3860}和一個{item:10505}；獵人會買子彈。需要附近有鐵砧。如果你到這裡還沒學會{item:10505}和{item:10512}，現在就學：之前的步驟會教。",
 
 	-- Step 74: Engineering recipes at 245
 	-- {skill:202} Engineering
@@ -398,14 +404,15 @@ return {
 	["{item:10513} to 265"] = "{item:10513}練到 265",
 	-- {item:10513} Mithril Gyro-Shot · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder
 	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
-	["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "{item:10513}在245時為黃色（245黃、265綠、285灰）：大約28次製作可到265。每次需要2個{item:3860}和2個{item:10505}，產出200個。先做好那56個{item:10505}。每次兩個秘銀錠和兩個{item:10505}。附近需要鐵砧。",
+	-- was: ["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "{item:10513}在245時為黃色（245黃、265綠、285灰）：大約28次製作可到265。每次需要2個{item:3860}和2個{item:10505}，產出200個。先做好那56個{item:10505}。每次兩個秘銀錠和兩個{item:10505}。附近需要鐵砧。"
+	["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby. If you got here without learning {item:10505}, learn it now: an earlier step teaches it."] = "{item:10513}在245時為黃色（黃色245，綠色265，灰色285）：大約製作28次到265。每次需要2個{item:3860}和2個{item:10505}，產出200個。先做56個{item:10505}。每次兩個秘銀錠和兩個{item:10505}。需要附近有鐵砧。如果你到這裡還沒學會{item:10505}，現在就學：之前的步驟會教。",
 
 	-- Step 76: Thorium Widget to 287
 	-- {item:15994} Thorium Widget
 	["{item:15994} to 287"] = "{item:15994}練到 287",
 	-- {item:15994} Thorium Widget · {item:12359} Thorium Bar · {item:14047} Runecloth
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["{item:15994} is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 {item:12359} and 1 {item:14047}. Three Thorium Bars and a {item:14047} a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby."] = "",
+	["{item:15994} is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 {item:12359} and 1 {item:14047}. Three Thorium Bars and a {item:14047} a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby."] = "{item:15994} 在技能 265 時為橙色（280 變黃、290 變綠、300 變灰）：約製作 24 次可升到 287。每次需要 3 個 {item:12359} 和 1 個 {item:14047}，即三塊瑟銀錠和一個 {item:14047}；這些零件用於後續的瑟銀裝置。附近需要有鐵砧。",
 	["from the recipe in your bags"] = "使用背包中的配方",
 
 	-- Step 77: Thorium Tube to 300
@@ -416,6 +423,7 @@ return {
 	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "{item:16000}在287時為橙色（295黃、305綠、315灰）：大約14次製作可到300。每次需要6個{item:12359}。圖紙拾取即繫結；每次六個瑟銀錠。附近需要鐵砧。{skill:202} 300是傳承系統里程碑。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "為 {item:6533} 準備 31 個 {item:2836}：透過 {skill:186} 開採 {zone:1413}（10-25 級）、{zone:1440}（18-30 級）和 {zone:1424}（20-30 級）的 {object:1732}（需要技能 65）。已標記 {zone:1440} 中 {object:1732} 最密集的位置。",
 	-- ["Apprentice {skill:202}"] = "初級{skill:202}",
 	-- ["Artisan needs character level 35 and {skill:202} 200; it raises the cap to 300. Materials for 225-300 are worth about 67g in all."] = "專家級需要角色等級 35 且{skill:202} 200；上限提高到 300。225-300 的材料總值約 67g。",
 	-- ["Back to an {skill:202} trainer: {spell:12590} is taught from {skill:202} 175."] = "回到{skill:202}訓練師處：{skill:202} 175 起可學{spell:12590}。",
@@ -449,6 +457,8 @@ return {
 	-- ["Yellow until 90, green until 95: not every craft gives a point."] = "黃色到 90，綠色到 95：並非每次製造都會加點。",
 	-- ["Yellow until 95, green until 110: not every craft gives a point. Needs an anvil nearby."] = "黃色到 95，綠色到 110：並非每次製造都會加點。附近需要鐵砧。",
 	-- ["{item:10498} to 210"] = "{item:10498}練到 210",
+	-- ["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby."] = "{item:10512} 在225點時為黃色（210變黃，230變綠，250變灰）：製作約62次可到245。每次需要1塊 {item:3860} 和1份 {item:10505}，產出200發。先製作50份 {item:10505}。使用之前做好的12份 {item:10505}；上面的數量未包含它們。每次製作消耗一塊 {item:3860} 和一份 {item:10505}；獵人會購買這些彈頭。附近需要有鐵砧。",
+	-- ["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "{item:10513}在245時為黃色（245黃、265綠、285灰）：大約28次製作可到265。每次需要2個{item:3860}和2個{item:10505}，產出200個。先做好那56個{item:10505}。每次兩個秘銀錠和兩個{item:10505}。附近需要鐵砧。",
 	-- ["{item:14047} (Alliance)"] = "{item:14047}（聯盟）",
 	-- ["{item:14047} (Horde)"] = "{item:14047}（部落）",
 	-- ["{item:2592} (Alliance)"] = "{item:2592}（聯盟）",
@@ -459,6 +469,8 @@ return {
 	-- ["{item:2836} comes from {object:1732} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:2836}來自{object:1732}（{skill:186}）；這是資料中最密集的區域。也可以在拍賣場購買。",
 	-- ["{item:2838} comes from {object:1735} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:2838}來自{object:1735}（{skill:186}）；這是資料中最密集的區域。也可以在拍賣場購買。",
 	-- ["{item:5956}: a tool, keep it in your bags"] = "{item:5956}：工具，請留在背包中",
+	-- ["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen."] = "{item:6533} 在技能150時為黃色（150變黃，160變綠，170變灰）：大約製作31次升到166。每次需要2塊 {item:2841}、1個 {item:6530} 和1份 {spell:3929}，產出3個。先製作31份 {spell:3929}。{item:6530} 可向商貿或釣魚供應商購買；製成的誘餌可賣給釣魚玩家。",
+	-- ["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby."] = "{item:6712} 在技能 100 時為橙色（115 變黃、122 變綠、130 變灰）：約製作 31 次可升到 125。每次需要 1 個 {item:2841}、2 個 {spell:3922} 和 1 個 {item:2880}。先製作 29 個 {spell:3922}。同時用上先前製作的 33 個 {spell:3922}；上方材料數量未將它們計入。練習鎖可以賣給潛行者，也可以自己開啟。附近需要有鐵砧。",
 	-- ["{item:7912} comes from {object:2040} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:7912}來自{object:2040}（{skill:186}）；這是資料中最密集的區域。也可以在拍賣場購買。",
 	-- ["{npc:3263} (level 19-20) drop it here. The Auction House works too."] = "這裡的{npc:3263}（等級 19-20）會掉落。也可以在拍賣場購買。",
 	-- ["{npc:6189} (level 51-52) drop it here. The Auction House works too."] = "這裡的{npc:6189}（等級 51-52）會掉落。也可以在拍賣場購買。",
@@ -479,8 +491,10 @@ return {
 	-- ["{spell:3920} to 45"] = "{spell:3920}練到 45",
 	-- ["{spell:3923} to 75"] = "{spell:3923}練到 75",
 	-- ["{spell:3923} to 80"] = "{spell:3923}練到 80",
+	-- ["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby."] = "{spell:3924}在94時為黃色（80黃、95綠、110灰）：大約14次製作可到100。每次需要2個{item:2840}和1個{item:2880}。每次兩個銅錠和一個{item:2880}（鍛造和工程學供應商）。附近需要鐵砧。",
 	-- ["{spell:3926} to 111"] = "{spell:3926}練到 111",
 	-- ["{spell:3929} to 95"] = "{spell:3929}練到 95",
 	-- ["{spell:3937} to 125"] = "{spell:3937}練到 125",
 	-- ["{spell:3942} to 150"] = "{spell:3942}練到 150",
+	-- ["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby."] = "{spell:3967} 在技能 191 時為黃色（190 變黃，210 變綠，230 變灰）：約製作 27 次可到 210。每次需要 3 個 {item:3575}、3 個 {spell:3945} 和 1 個 {spell:3973}，產出 2 個。先製作 74 個 {spell:3945} 和 30 個 {spell:3973}（製作 6 次）。用上之前做好的 7 個 {spell:3945}；上述數量未將它們計入。一個 {item:2842} 可製成五個銀觸媒（此時已變灰，不再加技能點，但也無需再跑商人）；{spell:3945} 用 {item:2838} 製作。每次製作產出兩個炸彈。專精（可選）：技能達到 200 且角色等級 30 時，{npc:5174}（{zone:1455}）、{npc:5518}（{zone:1453}）、{npc:4586}（{zone:1458}）或廷克維斯（{area:392}）會指引你學習 {spell:20220}（找 {zone:1455} 的 {npc:7944}，或 {area:35} 的 {npc:7406}：需要 6 個秘銀管、一個 {item:4407} 和 2 個高階假人）或地精工程學（找 {area:976} 的 {npc:8126}：需要 20 個大鐵炸彈、20 個 {item:10507} 和 5 個 {npc:2675}）。{item:4407} 的設計圖現為拾取後繫結，但任務接受他人製作的瞄準鏡。會員卡有效期為 14 天遊戲時間，續期需 2 金幣。只能選擇一種專精；衝到 300 都不需要它們，而且測試版從未測試過這兩種專精（測試止於 30 級）。附近需要有鐵砧。",
 }

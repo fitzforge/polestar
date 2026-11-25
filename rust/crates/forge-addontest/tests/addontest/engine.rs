@@ -400,7 +400,9 @@ emit(out)
 
 #[test]
 fn the_filled_cleansing_bowl_advances_to_xabraxxis_before_the_talisman_is_collected() {
-	let fixes: Value = serde_json::from_str(include_str!("../../../../../data/guide-fixes.json")).unwrap();
+	// Read at run time, not embedded: CI reuses the built test binary while only data changes (docs/CI.md).
+	let path = forge_addontest::run::root().join("data/guide-fixes.json");
+	let fixes: Value = serde_json::from_str(&std::fs::read_to_string(path).unwrap()).unwrap();
 	let note = fixes["fixes"].as_array().unwrap().iter().find(|r| r["id"] == "2107-xabraxxis-demon-bag").unwrap()["goalNote"].as_str().unwrap();
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
@@ -2519,6 +2521,114 @@ fn without_the_quest_database_a_quest_collect_reads_its_quest_log_line_as_before
 	assert_eq!(json!(out), json!([[1, "active"]]));
 }
 
+// #3565 (Qabhal-Oğuz, 0.4.2.1, Eastern Plaguelands): Corin's Crossing collects seven Living Rot (a plain bag count)
+// for To Kill With Purpose (6022), whose objective is the Coagulated Rot they are ground into. A player who had
+// ground them before the step came up was sent to kill for Living Rot with the quest ready. An untied collect of an
+// item a later `complete` or `turnin` of its step uses without asking for it is done once that goal is.
+const ROT: &str = r#"
+Polestar.RegisterGuide({
+	id = "test/rot", pack = "test", title = "Eastern Plaguelands", faction = "Horde", minLevel = 53, maxLevel = 60, zone = 1423,
+	steps = {
+		{ title = "Corin's Crossing", goals = {
+			{ t = "collect", item = 15447, itemName = "Living Rot", count = 7, map = 1423, x = 52.1, y = 61.7 },
+			{ t = "complete", quest = 6022, title = "To Kill With Purpose" },
+		} },
+		{ goals = { { t = "level", level = 60 } } },
+	},
+})
+"#;
+const ROT_DB: &str = r#"
+Polestar.QuestDB.SetMeta({ schema = 2 })
+AddRecords("quests", {
+	[6022] = { "To Kill With Purpose", 58, 54, nil, nil, 2, 11878, 11878, nil, nil, nil, { 2, 15448 }, 1423, nil, nil, nil, nil, 2, 15447 },
+})
+"#;
+
+#[test]
+fn an_untied_collect_of_an_item_its_quest_uses_is_done_once_that_quest_is_ready_3565_living_rot() {
+	let guides = format!("{NORTHSHIRE}{ROT}");
+	let script = r#"
+			local w = stub.world
+			{ROT_DB}
+			E.SetGuide("test/rot"); flush()
+			w.accept(6022, { { text = "Coagulated Rot: 0/1", type = "item" } }); flush()
+			local function state() return { E.GetStepIndex(), E.GetStepView(1).goals[1].status } end
+			emit(state())
+			w.progress(6022, 1, 1); flush()
+			emit(state())
+		"#
+	.replace("{ROT_DB}", &format!("{}{ROT_DB}", forge_addontest::questdb::ADD_RECORDS_LUA));
+	let out = run(Run { guides: &guides, full: true, script: &script, ..Default::default() });
+	assert_eq!(
+		json!(out),
+		json!([
+			// No rot in the bags, the quest not ready: the collect counts the bags.
+			[1, "active"],
+			// The rot ground into the Coagulated Rot, the quest ready: nothing holds the step.
+			[2, "done"],
+		])
+	);
+}
+
+// #3556 (Qabhal-Oğuz, 0.4.1.1, Eastern Plaguelands): the Horde guide's Pamela's Doll step collects the doll's head
+// and two sides (plain bag counts) before the doll itself, Pamela's Doll's objective. With the doll joined, or the
+// quest already handed in, the pieces are gone from the bags and the step still sent him to collect them. An untied
+// collect of an item a later goal's quest uses without asking for it is done once that quest is ready or handed
+// in, whatever kind the later goal is; with no dropper to name, its line says which quest it is for.
+const PAMELA: &str = r#"
+Polestar.RegisterGuide({
+	id = "test/pamela", pack = "test", title = "Eastern Plaguelands", faction = "Horde", minLevel = 53, maxLevel = 60, zone = 1423,
+	steps = {
+		{ title = "Pamela's Doll", goals = {
+			{ t = "collect", item = 12886, itemName = "Pamela's Doll's Head", map = 1423, x = 38.6, y = 90.6 },
+			{ t = "collect", item = 12887, itemName = "Pamela's Doll's Left Side", map = 1423, x = 37.4, y = 90.2 },
+			{ t = "collect", item = 12888, itemName = "Pamela's Doll's Right Side", map = 1423, x = 39.4, y = 92.0 },
+			{ t = "collect", item = 12885, itemName = "Pamela's Doll", count = 1, quest = 5149, oi = 1, title = "Pamela's Doll", map = 1423, x = 38.5, y = 91.4 },
+		} },
+		{ goals = { { t = "level", level = 60 } } },
+	},
+})
+"#;
+const PAMELA_DB: &str = r#"
+Polestar.QuestDB.SetMeta({ schema = 2 })
+AddRecords("quests", {
+	[5149] = { "Pamela's Doll", 55, 52, nil, nil, 2, 10926, 10926, nil, nil, nil, { 2, 12885 }, 1423, nil, nil, nil, nil, nil, { 12886, 12887, 12888 } },
+})
+"#;
+
+#[test]
+fn untied_pieces_of_a_quests_item_are_done_once_the_quest_is_ready_or_handed_in_and_say_what_they_are_for_3556_pamela() {
+	let guides = format!("{NORTHSHIRE}{PAMELA}");
+	let script = r#"
+			local w = stub.world
+			{PAMELA_DB}
+			E.SetGuide("test/pamela"); flush()
+			w.accept(5149, { { text = "Pamela's Doll: 0/1", type = "item" } }); flush()
+			local function state()
+				local g = E.GetStepView(1).goals
+				return { E.GetStepIndex(), g[1].status, g[3].status, g[1].detail or false }
+			end
+			emit(state())
+			w.progress(5149, 1, 1); flush()
+			emit(state())
+			w.complete({ 5149 }); flush()
+			emit(state())
+		"#
+	.replace("{PAMELA_DB}", &format!("{}{PAMELA_DB}", forge_addontest::questdb::ADD_RECORDS_LUA));
+	let out = run(Run { guides: &guides, full: true, script: &script, ..Default::default() });
+	assert_eq!(
+		json!(out),
+		json!([
+			// No pieces in the bags, the doll not joined: the pieces count the bags, and say what they are for.
+			[1, "active", "active", "for “Pamela's Doll”"],
+			// The doll joined from the pieces, the quest ready: nothing holds the step.
+			[2, "done", "done", "for “Pamela's Doll”"],
+			// Handed in (the report: a character who had done it before the step came up).
+			[2, "done", "done", "for “Pamela's Doll”"],
+		])
+	);
+}
+
 #[test]
 fn an_objective_goal_keeps_its_compiled_position_when_no_line_names_its_target() {
 	let guides = format!("{NORTHSHIRE}{MURLOCS}");
@@ -3021,6 +3131,29 @@ fn an_accept_and_hand_in_are_done_once_a_later_quest_of_the_chain_is_in_the_log_
 	assert_eq!(at(BETRAYED_DB, "w.onQuest(9002, {})"), held, "a quest open after 3504 or another lead-in this character can take proves neither");
 	assert_eq!(at(BETRAYED_DB, "w.onQuest(9004, {})"), past, "the other lead-in is the Alliance's: for a Horde character it proves 3504");
 	assert_eq!(at("", "w.onQuest(3505, {})"), held, "no quest database loaded: nothing known, the accept holds as before");
+}
+
+// #2465 (Juamillas, Scourge Paladin, 0.4.1.1): the game never flags Seeking the Kor Gem (95042) completed, even with
+// An Underrated Talent (95111) and the rest of the chain done, and no prerequisite links them, so the paladin guide
+// waited on its accept. The quest database's `doneBy` (field 21) names the quests that prove it done: one of them in
+// the log or done, or one of their follow-ups, and its accept and hand-in are done.
+const KOR_GEM_DB: &str = r#"
+Polestar.QuestDB.SetMeta({ schema = 2 })
+AddRecords("quests", {
+	[3504] = { "Seeking the Kor Gem", 53, 44, 178, nil, 2, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 3505 },
+	[3505] = { "An Underrated Talent", 53, 44, 178, nil, 2 },
+	[3506] = { "Ott's Masterwork", 53, 44, 178, nil, 2, nil, nil, nil, { 3505 } },
+})
+"#;
+
+#[test]
+fn a_quest_the_game_never_flags_is_done_once_a_quest_its_done_by_names_is_taken_2465_kor_gem() {
+	let held = json!({ "index": 1, "accept": "active", "turnin": "pending" });
+	let past = json!({ "index": 3, "accept": "done", "turnin": "done" });
+	assert_eq!(betrayed(KOR_GEM_DB, ""), held, "nothing after it taken: the accept holds");
+	assert_eq!(betrayed(KOR_GEM_DB, "w.complete({ 3505 })"), past, "An Underrated Talent done (Juamillas's state)");
+	assert_eq!(betrayed(KOR_GEM_DB, "w.onQuest(3505, {})"), past, "in the log");
+	assert_eq!(betrayed(KOR_GEM_DB, "w.onQuest(3506, {})"), past, "a follow-up of it in the log");
 }
 
 // #2461 on the shipped guides (addon/Polestar_Guides_Horde): Erisez had Ag'tor's Betrayed (3505) in the log while

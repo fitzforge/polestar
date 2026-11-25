@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {zone:1451} Silithus · {area:3425} Cenarion Hold
-	["{zone:1451}: {area:3425}'s quests, to 60."] = "",
+	["{zone:1451}: {area:3425}'s quests, to 60."] = "{zone:1451} : les quêtes de {area:3425}, jusqu'au niveau 60.",
 
 	-- Step 1: Innkeeper Vizzie
 	-- {zone:2482} Mount Hyjal · {area:2255} Everlook · {npc:11118} Innkeeper Vizzie
@@ -35,36 +35,34 @@ return {
 	-- {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
 	["{npc:13220} stands at {area:3077}, where the pass comes out."] = "",
 
-	-- Step 8: Cenarion Hold
+	-- Step 9: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
 	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Continuez vers l'ouest jusqu'au {area:3425}. {npc:15189} se tient à l'étage de son bâtiment : montez par l'intérieur, la flèche ne distingue pas les étages.",
-	-- {npc:17082} Rifleman Torrig · {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora
-	["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "{npc:17082}, aux tentes de l'Alliance : pour le {npc:17080} à {area:2743}",
 	-- {npc:15183} Geologist Larksbane
 	["{npc:15183}: the tablet fragments come from the Twilight dig"] = "{npc:15183} : les fragments de tablette viennent des fouilles du crépuscule",
 	-- {npc:15306} Bor Wildmane
 	["{npc:15306}: his Twilight texts come from the dig"] = "",
 
-	-- Step 9: Silithus: kill these as you meet them
+	-- Step 10: Silithus: kill these as you meet them
 	-- {zone:1451} Silithus
 	["{zone:1451}: kill these as you meet them"] = "{zone:1451} : tuez-les au passage",
 	-- {npc:15185} Brood of Nozdormu
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer
 	["Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around.\nCareful: {npc:15185} (62, elite) guard the Caverns of Time's mouth in the south-west, around 21,82: stay out of there."] = "",
 
-	-- Step 10: Cenarion Hold
+	-- Step 11: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
 	["Back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:15189} Beetix Ficklespragg
 	["{npc:15189}, upstairs"] = "{npc:15189}, à l'étage",
 
-	-- Step 11: Silithus: kill these as you meet them
+	-- Step 12: Silithus: kill these as you meet them
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher · Stonelash Pincers = {npc:11736} Stonelash Pincer · Rock Stalkers = {npc:11739} Rock Stalker
 	["From the hold, west into the sands: Dredge Crushers dig there; Stonelash Pincers, Flayers and Rock Stalkers hunt the same sands."] = "Depuis le fort, à l'ouest dans les sables : des Ecraseurs térébrants y creusent ; des Pinceurs Cinglepierre, des Écorcheurs et des Traqueuses des rochers chassent dans les mêmes sables.",
 	-- {npc:11741} Dredge Crusher
 	["{npc:11741} walks around here: look inside the circle on the map"] = "{npc:11741} se promène par ici : cherchez dans le cercle sur la carte",
 
-	-- Step 12: Cenarion Hold
+	-- Step 13: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg
 	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} se tient à l'étage de son bâtiment : montez par l'intérieur, la flèche ne distingue pas les étages.",
 	-- {npc:15190} Noggle Ficklespragg · {npc:15189} Beetix Ficklespragg
@@ -72,7 +70,7 @@ return {
 	-- {npc:15181} Commander Mar'alith
 	["{npc:15181} (from level 58): Bronzebeard's Encampment comes later, on the way south"] = "",
 
-	-- Step 13: Hive'Ashi: kill these as you meet them
+	-- Step 14: Hive'Ashi: kill these as you meet them
 	-- {area:2742} Hive'Ashi
 	["{area:2742}: kill these as you meet them"] = "{area:2742} : tuez-les au passage",
 	-- {item:20404} Encrypted Twilight Text · {npc:15306} Bor Wildmane · {npc:15194} Hermit Ortell · {area:2742} Hive'Ashi · {quest:8308} Brann Bronzebeard's Lost Letter
@@ -84,11 +82,6 @@ return {
 	["Twilight Tablet Fragments"] = "Fragments de la Tablette du crépuscule ({item:20378})",
 	-- {quest:8323} True Believers
 	["Ten more for {quest:8323}"] = "Dix de plus pour {quest:8323}",
-
-	-- Step 14: Hive'Zora
-	-- {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora · {spell:642} Divine Shield · {spell:5384} Feign Death · {spell:17} Power Word: Shield
-	["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp.\nCareful: You lose the Silithyst if you mount, stealth, use {spell:642}, {spell:5384} or Vanish. Blink and {spell:17} do not drop it."] = "{npc:17080} campe devant {area:2743}, la ruche ouest. Ramassez de la silithyste à l'un des geysers rouges proches et portez-la jusqu'à l'extracteur de l'Alliance, à son camp.\nAttention : vous perdez la silithyste si vous montez en selle, vous camouflez, utilisez {spell:642}, {spell:5384} ou Disparition. Transfert et {spell:17} ne la font pas tomber.",
-	["Bring a Silithyst to the Alliance extractor"] = "",
 
 	-- Step 16: Southwind Village
 	["The tortured druids and sentinels haunt the ruined village east of the hold."] = "",
@@ -329,7 +322,9 @@ return {
 	-- ["{npc:15181}: Bronzebeard's Encampment comes later, on the way south"] = "{npc:15181} : le campement de Barbe-de-bronze viendra plus tard, en route vers le sud",
 	-- ["{npc:15306}: his Twilight texts come from the dig after the next stop here"] = "{npc:15306} : ses textes du crépuscule viennent des fouilles, après la prochaine étape ici",
 	-- ["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp."] = "{npc:17080} campe devant {area:2743}, la ruche ouest. Ramassez de la Silithyst à l'un des geysers rouges voisins et portez-la à l'extracteur de l'Alliance de son camp.",
+	-- ["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp.\nCareful: You lose the Silithyst if you mount, stealth, use {spell:642}, {spell:5384} or Vanish. Blink and {spell:17} do not drop it."] = "{npc:17080} campe devant {area:2743}, la ruche ouest. Ramassez de la silithyste à l'un des geysers rouges proches et portez-la jusqu'à l'extracteur de l'Alliance, à son camp.\nAttention : vous perdez la silithyste si vous montez en selle, vous camouflez, utilisez {spell:642}, {spell:5384} ou Disparition. Transfert et {spell:17} ne la font pas tomber.",
 	-- ["{npc:17082}, at the Alliance tents"] = "{npc:17082}, aux tentes de l'Alliance",
+	-- ["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "{npc:17082}, aux tentes de l'Alliance : pour le {npc:17080} à {area:2743}",
 	-- ["{npc:1852} is a level 61 elite"] = "{npc:1852} est un élite de niveau 61",
 	-- ["{npc:1855} (optional)"] = "{npc:1855} (facultatif)",
 	-- ["{npc:1855} lives in a small hut on the border river, north-east of the lumber camp. Hand in {quest:5781} if you finished it."] = "{npc:1855} vit dans une petite hutte au bord de la rivière frontalière, au nord-est du camp de bûcherons. Rendez {quest:5781} si vous l'avez terminée.",
