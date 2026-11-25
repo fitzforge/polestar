@@ -6683,6 +6683,11 @@ local function goalView(s, g, goal, stepStatus, group)
 	-- A goal of a quest that left the log, held for the player's answer.
 	local lost = status == "skipped" and not unavail and Own.lostGoal(goal)
 	local text, src = goalText(goal, verb, subject, detail, kind, status == "done" and progress == nil)
+	-- The live travel step's way, as the planner chose it (#3922, Own.travelWay), on the row the arrow leads by.
+	if stepStatus == "current" and (status == "active" or status == "pending") and (goal.t == "fly" or goal.t == "goto") then
+		local way = Own.travelWayFor(s, g)
+		if way then text = way end
+	end
 	local need = player and greyNeed(goal)
 	-- A grey accept "Skip grey quests" keeps: the open accept it leads to.
 	local opens = need or nil
@@ -7206,7 +7211,7 @@ local function findWaypoint()
 		local wp = Own.lostAim() or Own.partyAim(current) or Own.timedAim()
 		if wp then return wp end
 	end
-	local fly = Own.flyAim(current) or Own.flyFromAim(current)
+	local fly = Own.flyAim(current) or Own.flyFromAim(current) or Own.crossAim(current)
 	if fly then return fly end
 	local groups, focus = stepGroups(current)
 	local grp = focus and groups[focus]
@@ -7265,6 +7270,7 @@ local function sameWaypoint(a, b)
 		and a.x == b.x and a.y == b.y and a.f == b.f
 		and a.label == b.label and a.kind == b.kind and a.r == b.r
 		and a.z == b.z and a.area == b.area and a.search == b.search and a.placeGoal == b.placeGoal
+		and a.travel == b.travel and a.keepHearth == b.keepHearth
 end
 
 local worldOf = setmetatable({}, { __mode = "k" }) -- goal -> { c, wx, wy }
@@ -9355,7 +9361,7 @@ end
 -- Stormwind, Grom'gol, Theramore, Feathermoon), with a place; else nil.
 -- The known landing first: the common case asks Nav once.
 function Own.landingNode(goal)
-	local node = (goal.node and ns.Nav and ns.Nav.GetTaxiNode and Own.knownLanding(goal)) or Own.unknownLanding(goal) or Own.maybeLanding(goal)
+	local node = (ns.Nav and ns.Nav.GetTaxiNode and Own.knownLanding(goal)) or Own.unknownLanding(goal) or Own.maybeLanding(goal)
 	return node and node.map and node.x and node.y and node or nil
 end
 Own.LANDING_RADIUS = 30 -- yards around the flight master: where the taxi sets the player down
@@ -12519,22 +12525,37 @@ function Own.flyGoal(s)
 	return nil
 end
 
+-- The taxi node id a `fly` goal lands at for the character: its compiled
+-- `node`, else the one of its town serving their faction (Nav.FindTaxiNode;
+-- #3922: Mount Hyjal's "Fly to Everlook", for both factions, has one flight
+-- master per side and so no compiled node, and led nowhere: no arrow, no
+-- planner, the step as written). nil when none.
+function Own.flyNodeId(goal)
+	if not goal then return nil end
+	if goal.node then return goal.node end
+	local nav = ns.Nav
+	return goal.t == "fly" and nav and nav.FindTaxiNode and nav.FindTaxiNode(goal.location) or nil
+end
+
 -- The taxi node a `fly` goal lands at (Nav/Travel.lua's data), while the
 -- character knows it; else nil.
 function Own.knownLanding(goal)
 	local nav = ns.Nav
-	local node = goal and nav.GetTaxiNode(goal.node)
-	return node and nav.GetKnownTaxiNodes()[goal.node] and node or nil
+	local id = Own.flyNodeId(goal)
+	local node = id and nav.GetTaxiNode(id)
+	return node and nav.GetKnownTaxiNodes()[id] and node or nil
 end
 
 -- The landing node of a `fly` goal the character does not know and may not
 -- have (Nav.TaxiMaybe), while it is led to as travel (Own.travelsToLanding);
 -- else nil.
 function Own.unknownLanding(goal)
-	if not (goal and goal.t == "fly" and goal.node and Own.travelsToLanding()) then return nil end
+	if not (goal and goal.t == "fly" and Own.travelsToLanding()) then return nil end
+	local id = Own.flyNodeId(goal)
+	if not id then return nil end
 	local nav = ns.Nav
-	if nav.GetKnownTaxiNodes()[goal.node] or (nav.TaxiMaybe and nav.TaxiMaybe(goal.node)) then return nil end
-	local node = nav.GetTaxiNode(goal.node)
+	if nav.GetKnownTaxiNodes()[id] or (nav.TaxiMaybe and nav.TaxiMaybe(id)) then return nil end
+	local node = nav.GetTaxiNode(id)
 	return node and node.map and node.x and node.y and node or nil
 end
 
@@ -12542,10 +12563,11 @@ end
 -- doesn't know it (Nav.TaxiMaybe, #1795), while the planner leads; else nil.
 -- Led to and arrived at like a known landing (Own.flyAimed, Own.landingNode).
 function Own.maybeLanding(goal)
-	if not (goal and goal.t == "fly" and goal.node and Own.plannerFlies()) then return nil end
+	if not (goal and goal.t == "fly" and Own.plannerFlies()) then return nil end
+	local id = Own.flyNodeId(goal)
 	local nav = ns.Nav
-	if not (nav.TaxiMaybe and nav.TaxiMaybe(goal.node)) then return nil end
-	local node = nav.GetTaxiNode(goal.node)
+	if not (id and nav.TaxiMaybe and nav.TaxiMaybe(id)) then return nil end
+	local node = nav.GetTaxiNode(id)
 	return node and node.map and node.x and node.y and node or nil
 end
 
@@ -12558,7 +12580,8 @@ Own.ledAsTravel = setmetatable({}, { __mode = "k" })
 function Own.landingReached(goal)
 	if arrived[goal] then return true end
 	local nav = ns.Nav
-	return Own.ledAsTravel[goal] == true and nav and nav.GetKnownTaxiNodes and nav.GetKnownTaxiNodes()[goal.node] and true or false
+	local id = Own.ledAsTravel[goal] == true and Own.flyNodeId(goal)
+	return id and nav and nav.GetKnownTaxiNodes and nav.GetKnownTaxiNodes()[id] and true or false
 end
 
 -- The continent travel step s starts on (its first open goal) or, with
@@ -12569,7 +12592,8 @@ function Own.transitContinent(s, last)
 		if blocks(goal) and goalApplies(goal) and not goalDone(s, g, goal) then
 			local here
 			if goal.t == "fly" then
-				local node = ns.Nav.GetTaxiNode(goal.node)
+				local id = Own.flyNodeId(goal)
+				local node = id and ns.Nav.GetTaxiNode(id)
 				here = node and node.c
 			elseif goal.t == "goto" and goal.map and goal.x and goal.y then
 				here = Compat().MapToWorld(goal.map, goal.x, goal.y, goal.f)
@@ -12784,7 +12808,8 @@ function Own.stepContinent(n)
 	for g, goal in ipairs(guide.steps[n].goals) do
 		if blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(n, g, goal) then
 			if goal.t == "fly" then
-				local node = ns.Nav and ns.Nav.GetTaxiNode and ns.Nav.GetTaxiNode(goal.node)
+				local id = ns.Nav and ns.Nav.GetTaxiNode and Own.flyNodeId(goal)
+				local node = id and ns.Nav.GetTaxiNode(id)
 				if node and node.c then return node.c, node.wx, node.wy end
 			else
 				local map, x, y, f = posOf(goal)
@@ -12940,7 +12965,9 @@ function Own.flyAimed(s)
 	return goal, g, node
 end
 
--- The arrow's waypoint for flight step s (Own.flyAimed), or nil.
+-- The arrow's waypoint for flight step s (Own.flyAimed), or nil: the
+-- landing, for the planner to reach however is quickest (`travel`), the
+-- Hearthstone left out where the route keeps it (Own.keepHearth).
 function Own.flyAim(s)
 	local goal, g, node = Own.flyAimed(s)
 	if not goal then return nil end
@@ -12950,8 +12977,248 @@ function Own.flyAim(s)
 		map = node.map, x = node.x, y = node.y, f = node.f,
 		label = goalText(goal, verb, subject, detail),
 		stepIndex = s, goalIndex = g, kind = goal.t, r = DEFAULT_RADIUS,
+		travel = true, keepHearth = Own.keepHearth(s, node.c, node.wx, node.wy) or nil,
 	}
 end
+
+---------------------------------------------------------------------------
+-- Travel steps defer to the travel planner (#3922, Fitz's decision of 24 Nov
+-- 2026). A step that is only a way somewhere (Own.writtenTravel) says where
+-- to get to; the planner (Nav/Travel.lua) picks how: the Hearthstone, a
+-- flight, a class teleport, a boat, a zeppelin, a portal or the road. Only
+-- while the planner leads on Polestar's own arrow (Own.plannerFlies); with it
+-- off, TomTom's arrow or a hand-off, the step leads as written.
+--   * A flight step leads to its landing (Own.flyAim; its node resolved by
+--     town for a flight written for both factions, Own.flyNodeId).
+--   * A walk to a boat's, a zeppelin's or a tram's end or a portal's mouth
+--     (Own.crossAim) leads to the far end of that crossing: the one nearest
+--     the work after the step. Arriving on that side by any way passes the
+--     step (Own.alreadyAcross), as before.
+--   * The step's title and its travel row read the way the planner chose
+--     for the live step (Own.travelWay): "Hearth to Everlook", "Fly to
+--     Everlook", "Take the zeppelin to Orgrimmar", "Hearth to Camp Taurajo,
+--     then fly to Zoram'gar Outpost"; the written text stays until a route
+--     is planned, and for every other step.
+--   * The Hearthstone stays out of the way to a travel step's end where the
+--     guide wants it later (Own.keepHearth).
+-- The written way stays the fallback: its gotos and flight still finish the
+-- step, and the guides, the legacy step map and the level model are as they
+-- were (no step moves).
+---------------------------------------------------------------------------
+
+-- The far end of a crossing that walk step s ends at, for the work after it
+-- (step n, Own.travelOnto): of the boats, zeppelins and trams with an end
+-- within Own.DOCK_REACH yards of the walk's end, and the portals with their
+-- mouth there, serving the character's faction, the far end nearest that
+-- work, when it is nearer the work than the walk's end is (on another
+-- continent: any far end on the work's continent). Menethil Harbor's dock
+-- serves Theramore and Auberdine; the Undercity's towers Orgrimmar and
+-- Grom'gol. Returns the end (a Nav/Travel.lua point) or nil.
+function Own.crossEnd(s, n)
+	local c, x, y = Own.walkEnd(s)
+	local wc, wx, wy = Own.stepContinent(n)
+	local nav = ns.Nav
+	local d = c and wc and nav and nav.GetTravelData and nav.GetTravelData()
+	if not d then return nil end
+	local reach = Own.DOCK_REACH * Own.DOCK_REACH
+	local mask = player.faction == "Alliance" and 1 or player.faction == "Horde" and 2 or 0
+	local function serves(t)
+		local f = t.faction or 3
+		return mask == 0 or f % (2 * mask) >= mask
+	end
+	local function far(e)
+		if e.c ~= wc then return math.huge end
+		return (e.wx - wx) ^ 2 + (e.wy - wy) ^ 2
+	end
+	local best, bestD = nil, far({ c = c, wx = x, wy = y })
+	local function near(e)
+		return e and e.c == c and e.wx and e.wy and (e.wx - x) ^ 2 + (e.wy - y) ^ 2 <= reach
+	end
+	for _, t in ipairs(d.transports or NONE) do
+		if serves(t) and t.a and t.b then
+			local other = near(t.a) and t.b or near(t.b) and t.a or nil
+			if other and other.wx and other.wy and other.map then
+				local dd = far(other)
+				if dd < bestD then best, bestD = other, dd end
+			end
+		end
+	end
+	for _, t in ipairs(d.portals or NONE) do
+		if serves(t) and near(t.a) and t.b and t.b.wx and t.b.wy and t.b.map then
+			local dd = far(t.b)
+			if dd < bestD then best, bestD = t.b, dd end
+		end
+	end
+	return best
+end
+
+-- The arrow's waypoint for walk step s to a crossing (see above), or nil:
+-- the live step's gotos all open as written, the planner leading.
+function Own.crossAim(s)
+	if not (logReady and Own.plannerFlies()) then return nil end
+	local step = guide.steps[s]
+	if Own.writtenTravel(step) ~= "walk" or Own.transitKind(s) ~= "walk" then return nil end
+	local n = Own.travelOnto(s)
+	local e = n and Own.crossEnd(s, n)
+	if not e then return nil end
+	local g
+	for j, goal in ipairs(step.goals) do
+		if goal.t == "goto" and goalApplies(goal) then g = j end
+	end
+	local name = ns.Nav.travel and ns.Nav.travel.PlaceName and ns.Nav.travel.PlaceName(e) or e.name
+	return {
+		map = e.map, x = e.x, y = e.y, f = e.f,
+		label = L["Go to"] .. " " .. tostring(name),
+		stepIndex = s, goalIndex = g, kind = "goto", r = DEFAULT_RADIUS,
+		travel = true, place = name, keepHearth = Own.keepHearth(s, e.c, e.wx, e.wy) or nil,
+	}
+end
+
+-- Whether the way to travel step s's end (c, wx, wy) leaves the Hearthstone
+-- out (the planner's noHearth): the guide wants it later. Read from the
+-- guide, not marked by hand: the steps after s for the character, up to the
+-- next `sethome` (the bind changes there), in this guide and on into the
+-- guide that follows it, hold
+--   * a `hearth` goal: the route hearths there; or
+--   * work near the bind (within Own.KEEP_NEAR yards of the inn), while the
+--     step's end is not: the route comes back to the inn later, and the
+--     Hearthstone used now only as a way to fly on from there would be on
+--     cooldown then (Shen'dralas's way to Orgrimmar, then the Horde Feralas
+--     guide's way back to Camp Mojache).
+-- A step whose end lies by the inn hearths there (Mount Hyjal's "Fly to
+-- Everlook" with the Hearthstone bound in Everlook, #3922). Up to
+-- Own.KEEP_STEPS steps on. Cached per guide and step for the inn bound.
+Own.KEEP_NEAR, Own.KEEP_STEPS = 400, 60
+Own.keepMemo = setmetatable({}, { __mode = "k" }) -- guide -> { [s] = { inn, keep } }
+function Own.keepHearth(s, c, wx, wy)
+	local nav = ns.Nav
+	local inn = nav and nav.BoundInn and nav.BoundInn()
+	if not (inn and inn.c and inn.wx and inn.wy and c and wx and wy) then return false end
+	local memo = Own.keepMemo[guide]
+	if not memo then
+		memo = {}
+		Own.keepMemo[guide] = memo
+	end
+	local m = memo[s]
+	if m and m.inn == inn and m.c == c and m.wx == wx and m.wy == wy then return m.keep end
+	local reach = Own.KEEP_NEAR * Own.KEEP_NEAR
+	local function byInn(pc, px, py)
+		return pc == inn.c and px and py and (px - inn.wx) ^ 2 + (py - inn.wy) ^ 2 <= reach
+	end
+	local springboard = not byInn(c, wx, wy)
+	local keep, left = false, Own.KEEP_STEPS
+	local C = Compat()
+	local function scan(steps, from)
+		for n = from, #steps do
+			local step = steps[n]
+			if Guides.Matches(step.only, player) and not step.along then
+				for _, goal in ipairs(step.goals) do
+					if Guides.Matches(goal.only, player) then
+						if goal.t == "sethome" then return true end
+						if goal.t == "hearth" then
+							keep = true
+							return true
+						end
+						if springboard and goal.t ~= "note" then
+							local map, x, y, f = posOf(goal)
+							if map and x and y and byInn(C.MapToWorld(map, x, y, f)) then
+								keep = true
+								return true
+							end
+						end
+					end
+				end
+				left = left - 1
+				if left <= 0 then return true end
+			end
+		end
+		return false
+	end
+	if not scan(guide.steps, s + 1) then
+		local nextId = routeNext(guide)
+		if nextId and nextId ~= guide.id then
+			local steps, fresh = Guides.Peek(nextId)
+			if type(steps) == "table" then scan(steps, 1) end
+			Guides.Unpeek(nextId, fresh)
+		end
+	end
+	memo[s] = { inn = inn, c = c, wx = wx, wy = wy, keep = keep }
+	return keep
+end
+
+-- The live travel step s's way as the planner chose it (see above): the
+-- text for its title and its travel row, or nil while the arrow is not on
+-- that step's travel waypoint or no route is planned. `place`: where the
+-- step gets to. The route's first leg that is no walk names the way; a
+-- second (a flight after the Hearthstone) or a long walk after it is said
+-- after it ("then fly to", "then ride to").
+Own.WAY_WALK = 60 -- seconds: a walk after the way's last ride that is said
+Own.WAY_THEN = {
+	fly = L["%s, then fly to %s"],
+	boat = L["%s, then take the boat to %s"],
+	zeppelin = L["%s, then take the zeppelin to %s"],
+	airship = L["%s, then take the airship to %s"],
+	tram = L["%s, then take the tram to %s"],
+	portal = L["%s, then take the portal to %s"],
+}
+function Own.travelWay(s)
+	if s ~= current then return nil end
+	local nav = ns.Nav
+	local t = nav and nav.GetTarget and nav.GetTarget()
+	if not (t and t.travel and t.stepIndex == s and nav.GetRoute) or (nav.IsOverride and nav.IsOverride()) then return nil end
+	local legs, ci = nav.GetRoute()
+	if not (legs and ci and legs[ci]) then return nil end
+	local place = t.place
+	if not place then
+		local goal = guide.steps[s].goals[t.goalIndex]
+		if not goal then return nil end
+		local _, subject = describe(goal, s)
+		place = subject
+	end
+	local main, after, walk = nil, nil, 0
+	for i = ci, #legs do
+		local leg = legs[i]
+		if leg.kind == "walk" or leg.kind == "lift" then
+			if main then walk = walk + (leg.seconds or 0) end
+		elseif not main then
+			main = leg
+		else
+			after = leg
+			walk = 0
+		end
+	end
+	local rides = Own.rides()
+	if not main then return (rides and L["Ride to %s"] or L["Walk to %s"]):format(place) end
+	local first = main.kind == "hearth" and main.name and L["Hearth to %s"]:format(main.name) or main.label
+	if not first then return nil end
+	if after then
+		local more = Own.WAY_THEN[after.kind]
+		if more then return more:format(first, place) end
+		return first
+	end
+	if walk >= Own.WAY_WALK then return (rides and L["%s, then ride to %s"] or L["%s, then walk to %s"]):format(first, place) end
+	return first
+end
+
+-- The way (Own.travelWay) on goal g of the live travel step s: the goal the
+-- arrow leads by. nil for every other goal.
+function Own.travelWayFor(s, g)
+	local t = ns.Nav and ns.Nav.GetTarget and ns.Nav.GetTarget()
+	if not (t and t.travel and t.goalIndex == g) then return nil end
+	return Own.travelWay(s)
+end
+
+-- The route changed: the live travel step reads the new way (STEP_UPDATED
+-- when its text changes).
+Own.wayShown = false
+ns.On("ROUTE_CHANGED", function()
+	if not (guide and current) then return end
+	local way = Own.travelWay(current) or false
+	if way ~= Own.wayShown then
+		Own.wayShown = way
+		ns.Fire("STEP_UPDATED", current)
+	end
+end)
 
 -- With TomTom's arrow leading (Own.plannerFlies is off for it; the travel
 -- route on), a flight step holds as written: its goto leads to the flight
@@ -12968,7 +13235,7 @@ function Own.flyFromAim(s)
 	if not (nav and nav.GetKnownTaxiNodes and nav.GetTaxiNode and nav.UsingTomTomArrow and nav.UsingTomTomArrow()) then return nil end
 	if not ns.Get("nav.travel") or Own.transitKind(s) ~= "fly" then return nil end
 	local goal, g = Own.flyGoal(s)
-	local landing = Own.knownLanding(goal)
+	local landing, landingId = Own.knownLanding(goal), Own.flyNodeId(goal)
 	if not landing then return nil end
 	-- The open goto before the flight: the flight master the guide names.
 	local C, named, ng = Compat(), nil, nil
@@ -12989,7 +13256,7 @@ function Own.flyFromAim(s)
 	local best, bestD
 	for id in pairs(nav.GetKnownTaxiNodes()) do
 		local node = nav.GetTaxiNode(id)
-		if node and id ~= goal.node and node.map and node.x and node.y and (mask == 0 or not node.faction or node.faction % (2 * mask) >= mask)
+		if node and id ~= landingId and node.map and node.x and node.y and (mask == 0 or not node.faction or node.faction % (2 * mask) >= mask)
 			and (not node.class or node.class == player.class) then
 			local d = dist(C.MapToWorld(node.map, node.x, node.y, node.f))
 			if not bestD or d < bestD then best, bestD = node, d end
@@ -13574,9 +13841,10 @@ function Own.stepView(i)
 	-- `image`: the step's picture ({ file, w, h, texture }, Guides.lua);
 	-- `why`: why the step holds nothing for this character now, one line
 	-- (Own.stepWhy); `section`: the skill-range heading it is under
-	-- (Engine.GetSection).
+	-- (Engine.GetSection). The live travel step's title reads the way the
+	-- planner chose (Own.travelWay, #3922).
 	return {
-		index = i, title = step.title, note = step.note, image = step.image, status = status, goals = goals,
+		index = i, title = status == "current" and Own.travelWay(i) or step.title, note = step.note, image = step.image, status = status, goals = goals,
 		groups = outGroups, focus = focus,
 		current = status == "current" and (Own.currentGoal(i, groups, focus)) or nil,
 		skipped = isSkipped(i), live = computed,

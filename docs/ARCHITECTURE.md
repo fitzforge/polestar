@@ -3135,6 +3135,35 @@ that (#1768), landing at the flight's end left nothing to fly on to, the walk
 before it read open again and the arrow sent the player back (Camp Taurajo to
 Thunder Bluff's rise, then the flight to Camp Taurajo again).
 
+#### Travel steps defer to the planner
+
+A travel step says where to get to and the planner picks how (#3922,
+0.4.4). Run time only: the guides, the compiled steps and the legacy step
+map are as written, so no step moves. With the planner leading
+(`Own.plannerFlies`):
+
+- a flight's landing is its `node`, else the node of its town serving the
+  character's faction (`Own.flyNodeId`, `Nav.FindTaxiNode`): a flight for
+  both factions to a town with one flight master per side (Mount Hyjal's
+  "Fly to Everlook") carries no node and had no arrow before;
+- a walk that ends at a boat's, zeppelin's or tram's end or a portal's mouth
+  (`Own.DOCK_REACH`) leads to the far end of that crossing nearest the work
+  after it (`Own.crossEnd`, `Own.crossAim`), when that end is nearer the work
+  than the dock; arriving on that side by any way passes it, as above;
+- the live step's title and its travel row read the route's way
+  (`Own.travelWay`): the first leg that is not a walk ("Hearth to Everlook",
+  "Take the boat to Auberdine"), then a second ride ("..., then fly to X") or
+  a walk of `Own.WAY_WALK` (60 s) or more ("..., then ride to X"); only roads:
+  "Ride to X". `ROUTE_CHANGED` redraws the step when it changes;
+- the travel waypoint carries `keepHearth` (`Own.keepHearth`), which the
+  planner takes as `noHearth`, when the character's steps after it, up to
+  the next `sethome` (this guide, then the next one; at most
+  `Own.KEEP_STEPS`, 60), hold a `hearth` goal, or, for a step whose end is
+  more than `Own.KEEP_NEAR` (400 yd) from the bound inn, work by that inn:
+  the route comes back there and wants the Hearthstone then.
+
+Planner off, TomTom's arrow or a hand-off: the step leads as written.
+
 #### Focus: one person at a time
 
 A step's goals form **groups**, walked in authored order: a goal joins the

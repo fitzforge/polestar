@@ -128,7 +128,7 @@ nearWalk.HOLD = nearWalk.CROSS * nearWalk.SLACK + nearWalk.PAD
 ---------------------------------------------------------------------------
 
 local taxi, taxiList, flights = {}, {}, {}
-local taxiByName -- built on the first flight path reported by name
+local taxiByName -- built on the first flight path reported by name (Travel.TaxiNames)
 local npcClass = {} -- [npc] = class: a class's own flight master (Nighthaven's), from its taxi node
 local transports, inns, innByName, innByNpc, portals = {}, {}, {}, {}, {}
 local pathC, pathX, pathY, pathAdj, pathMap = {}, {}, {}, {}, {}
@@ -214,7 +214,7 @@ end
 
 local function clearData()
 	taxi, taxiList, flights, npcClass = {}, {}, {}, {}
-	taxiByName = nil
+	taxiByName, Travel.taxiByTown = nil, nil
 	transports, inns, innByName, innByNpc, portals = {}, {}, {}, {}, {}
 	pathC, pathX, pathY, pathAdj, pathMap = {}, {}, {}, {}, {}
 	pathCount = 0
@@ -231,7 +231,7 @@ function Nav.RegisterTravelData(d, replace)
 	Travel.dataVersion = Travel.dataVersion + 1
 	if replace then clearData() end
 	Travel.build = d.build
-	if d.taxi and #d.taxi > 0 then taxiByName = nil end
+	if d.taxi and #d.taxi > 0 then taxiByName, Travel.taxiByTown = nil, nil end
 	for _, t in ipairs(d.taxi or {}) do
 		-- x, y on the map's Era frame; t[11] "l": on its live frame (f nil), a map Forever added with
 		-- no Era frame (Rog'mar, Farholde Keep on the Riverglades).
@@ -1870,7 +1870,8 @@ local function planBody(p, S)
 			leg.kind = "hearth"
 			leg.item = 6948 -- the Hearthstone
 			leg.seconds = (p.hearthWait or 0) + HEARTH_SECONDS
-			leg.label = format(L["Hearth to %s"], p.hearthName or Travel.PlaceName(vref[to]))
+			leg.name = p.hearthName or Travel.PlaceName(vref[to])
+			leg.label = format(L["Hearth to %s"], leg.name)
 		end
 		legs[#legs + 1] = leg
 		i = j
@@ -1968,20 +1969,34 @@ local function refreshFaction()
 	playerFaction = f == "Alliance" and 1 or f == "Horde" and 2 or 0
 end
 
--- Marks the nodes named `name` the character may fly from known, and with `seen`
--- their continent seen. -> true when a node was added or a continent newly seen.
-local function markByName(known, name, seen)
-	if not name then return false end
+-- The taxi nodes by name ("everlook, winterspring") and by town, the part before the comma ("everlook"), lower
+-- case: -> byName, byTown ({ [name] = { node id, ... } }). Built on first use, again after new taxi data.
+function Travel.TaxiNames()
 	if not taxiByName then
+		local byTown = {}
 		taxiByName = {}
 		for _, node in ipairs(taxiList) do
 			local key = lower(node.name)
 			local ids = taxiByName[key] or {}
 			taxiByName[key] = ids
 			ids[#ids + 1] = node.id
+			local town = lower(node.short)
+			if town ~= key then
+				ids = byTown[town] or {}
+				byTown[town] = ids
+				ids[#ids + 1] = node.id
+			end
 		end
+		Travel.taxiByTown = byTown
 	end
-	local ids = taxiByName[lower(name)]
+	return taxiByName, Travel.taxiByTown
+end
+
+-- Marks the nodes named `name` the character may fly from known, and with `seen`
+-- their continent seen. -> true when a node was added or a continent newly seen.
+local function markByName(known, name, seen)
+	if not name then return false end
+	local ids = (Travel.TaxiNames())[lower(name)]
 	if not ids then return false end
 	local added = false
 	for _, id in ipairs(ids) do
@@ -1998,6 +2013,29 @@ local function markByName(known, name, seen)
 		end
 	end
 	return added
+end
+
+-- The taxi node a `fly` goal named only by its town lands at for this character (`name`: "Everlook", or the flight
+-- point's full name): the one of that name serving their faction, a class's own (Nighthaven's) only for that class
+-- and after any other. A guide's flight for both factions to a town with one flight master per side carries no node
+-- (the compiler names none: "Everlook" is node 52 for the Alliance and 53 for the Horde), so the Engine asks here.
+-- nil when no such node serves the character.
+function Nav.FindTaxiNode(name)
+	if type(name) ~= "string" then return nil end
+	local key = lower(name)
+	local byName, byTown = Travel.TaxiNames()
+	local ids = byName[key] or byTown[key]
+	if not ids then return nil end
+	refreshFaction()
+	local own
+	for _, id in ipairs(ids) do
+		local node = taxi[id]
+		if allowed(node.faction, playerFaction, node.class) then
+			if not node.class then return id end
+			own = own or id
+		end
+	end
+	return own
 end
 
 -- Known nodes, plus any flight master the Engine recorded by name (flags.fp).
@@ -2697,7 +2735,8 @@ local function plan(target, held)
 		hearthHeld = held or nil,
 		hearthLength = inn and ns.Compat and ns.Compat.GetItemBaseCooldown and ns.Compat.GetItemBaseCooldown(HEARTH_ITEM) or nil,
 		noStone = wait == nil or nil,
-		noHearth = skipped.hearth,
+		-- A guide's travel step that keeps the Hearthstone for later (the Engine's waypoint `keepHearth`).
+		noHearth = skipped.hearth or target.keepHearth or nil,
 		skip = skip,
 		noDirect = direct or nil,
 		nearWalk = reach,
