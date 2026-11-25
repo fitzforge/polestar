@@ -3006,18 +3006,29 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   the shared route it leads to fits every race of the faction.
 - **Farm spots.** `collect <item> xN nearest` (no quest) compiles `candidates` of
   farm spots `{ map, x, y, f, faction, npcName, lvl = { min, max }, rate, spawns }`
-  (clustered item droppers; `faction` is zone safety; no `npc`). Among the
-  spots the character's faction may use, the Engine drops those whose weakest
-  mobs (`lvl.min`) are 3+ levels above the player, unless every spot is: then
-  it keeps them all and ranks the smallest level gap first. Spots rank (after
-  the continent tier, as for other candidates) by travel seconds plus farm
-  seconds `missing / (rate * killsPerMinute) * 60`, where `missing` is `count`
-  minus the items in the bags (at least 1) and killsPerMinute, from the
-  middle mob level, is 1.0 for 1+ levels above, 1.5 for 0 to -4, 2.0 below
-  that, 2.5 for grey, scaled by `min(1, spawns / 8)` (missing `rate` = 1,
-  missing `spawns` = 8). A goal with a usable spot always has a target; the
-  view carries the chosen spot's `map`, `x`, `y`, `f`, `npcName`, `lvl` and
-  `alternatives`, and `CycleCandidate` walks the ranking.
+  (clustered item droppers; `faction` is zone safety; `rate` is the items a
+  looted kill yields; no `npc`). Among the spots the character's faction may
+  use, the Engine drops those whose weakest mobs (`lvl.min`) are 2+ levels
+  above the player (`Own.TOO_HIGH`, the route rule; Polestar 0.4.4, #3661),
+  unless every spot is: then it keeps them all and ranks the smallest level
+  gap first. Spots rank (after the continent tier, as for other candidates)
+  by travel seconds plus farm seconds `missing / (rate * killsPerMinute) * 60`,
+  where `missing` is `count` minus the items in the bags (at least 1) and
+  killsPerMinute, from the middle mob level, is 1.0 for 1+ levels above, 1.5
+  for 0 to -4, 2.0 below that, 2.5 for grey, scaled by `min(1, spawns / 8)`
+  (missing `rate` = 1, missing `spawns` = 8): mobs at or below the player
+  farm faster, then the denser camps and better rates, then the nearer. The
+  pick is made again on zone changes and level-ups (`Own.onContextEvent`). A
+  goal with a usable spot always has a target; the view carries the chosen
+  spot's `map`, `x`, `y`, `f`, `npcName`, `lvl` and `alternatives`, and, for
+  an open goal with items still missing, `farm` (`Own.farmView`): `kills`
+  (missing / rate, rounded up), `minutes` (the farm seconds), `above` (levels
+  the weakest mobs are above the player, when they are) and `second` (the
+  next spot of the ranking on another map, else the next one: `npcName`,
+  `map`, `lvl`). The guide window adds them to the farm line
+  (`UI.FarmLine`: "1 level above you: careful", or "No farm at your level: 3
+  levels above you"; "about 60 kills, 25 min"; "or Riverpaw Gnoll
+  (Westfall)"). `CycleCandidate` walks the ranking.
 
 #### Steps the character has
 

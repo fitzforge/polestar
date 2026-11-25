@@ -1941,6 +1941,12 @@ L["Group, or careful: a group is advised"] = "小隊或小心：建議組隊"
 L["Careful: elites nearby"] = "小心：附近有精英"
 L["Careful: elites, below your level"] = "小心：精英，等級低於你"
 L["%s · kept for %s"] = "%s · 保留給 %s"
+L["No farm at your level: %d levels above you"] = "沒有適合你等級的打怪點：高你%d級"
+L["1 level above you: careful"] = "高你1級：小心"
+L["about %d kills, %d min"] = "約%d次擊殺，%d分鐘"
+L["about %d kills"] = "約%d次擊殺"
+L["or %s (%s)"] = "或%s（%s）"
+L["or %s"] = "或%s"
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
