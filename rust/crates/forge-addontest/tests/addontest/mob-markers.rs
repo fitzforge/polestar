@@ -87,6 +87,54 @@ fn only_the_current_steps_quests_are_marked_until_the_option_is_turned_off() {
 }
 
 #[test]
+fn step_only_refresh_does_not_read_unrelated_quests() {
+	let out = run(r#"
+		local C = Polestar.Compat
+		local Q = C_QuestLog
+		local goals = {}
+		Polestar.Engine.GetStepIndex = function() return 1 end
+		Polestar.Engine.GetStepView = function() return { goals = goals } end
+		local wholeLog, entries, ready = 0, 0, {}
+		local originalCount, originalInfo, originalReady = Q.GetNumQuestLogEntries, Q.GetInfo, C.IsQuestReadyForTurnIn
+		local hidden = false
+		Q.GetNumQuestLogEntries = function() wholeLog = wholeLog + 1; return originalCount() end
+		Q.GetInfo = function(index)
+			entries = entries + 1
+			local info = originalInfo(index)
+			if info and info.questID == 100 then info.isHidden = hidden end
+			return info
+		end
+		C.IsQuestReadyForTurnIn = function(id) ready[#ready + 1] = id; return originalReady(id) end
+		-- Our ordered log is 100, 200, 400. The Forever client can give us the index of just 100.
+		Q.GetLogIndexForQuestID = function(id) if id == 100 and Q.IsOnQuest(id) then return 1 end end
+		local function refresh(palette)
+			wholeLog, entries, ready = 0, 0, {}
+			Polestar.Set("mobMarkers.questPalette", palette)
+			emit({ wholeLog, entries, ready, M.State().spawns })
+		end
+		refresh("vivid") -- no goal needs a log entry
+		goals = { { quest = 100, t = "kill" }, { quest = 200, t = "turnin" }, { quest = 100, t = "collect" } }
+		refresh("safe") -- the same quest is mentioned twice, but is checked once
+		hidden = true
+		refresh("muted") -- a hidden log entry remains excluded even when the index exists
+		hidden = false
+		Q.GetLogIndexForQuestID = nil
+		refresh("mono") -- clients without the index API still only check readiness for 100
+		goals[2].t = "kill"
+		goals[1], goals[2] = goals[2], goals[1]
+		refresh("polestar") -- two quests follow the log order
+		emit(M.State().ids)
+		-- Progress must still refresh the markers when the same quest remains on the step.
+		w.progress(100, 2, 8)
+		stub.advance(0.5)
+		emit(M.State().spawns)
+		w.finish(100)
+		stub.advance(0.5)
+		emit(M.State().ids)"#);
+	assert_eq!(out, vec![json!([0, 0, {}, 0]), json!([0, 1, [100], 5]), json!([0, 1, {}, 0]), json!([1, 3, [100], 5]), json!([1, 3, [100, 200], 6]), json!([100, 200]), json!(4), json!([200])]);
+}
+
+#[test]
 fn a_finished_objectives_mobs_drop_off_matched_by_name_not_by_the_logs_order() {
 	let out = run(r#"
 		open()
