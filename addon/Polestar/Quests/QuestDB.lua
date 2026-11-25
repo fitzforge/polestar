@@ -173,7 +173,8 @@ function Q.TimeLimit(id)
 end
 
 -- Whether quest questID hands over item itemID when it is taken (Bethor's
--- Scroll for Thule Ravenclaw; never a reward). Allocation-free.
+-- Scroll for Thule Ravenclaw, or what comes out of a box it hands over:
+-- Seeping Corruption's vials, #4109; never a reward). Allocation-free.
 function Q.HandsOver(questID, itemID)
 	local r = data.quests[questID]
 	local v = r and r[QUEST_ITEMS]

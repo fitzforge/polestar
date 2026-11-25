@@ -1201,9 +1201,11 @@ end
 -- The open quests of the current step (reused).
 local openQuests, openCount = {}, 0
 
--- First usable quest-class item in the bags that one of the step's open
--- quests handed over (Bethor's Potion, Thule Ravenclaw's reward, is none of
--- them); nil without Polestar.QuestDB, which knows what each quest hands over.
+-- First usable item in the bags that one of the step's open quests handed
+-- over (Bethor's Potion, Thule Ravenclaw's reward, is none of them); nil
+-- without Polestar.QuestDB, which knows what each quest hands over. Any item
+-- class: Seeping Corruption's empty vials, out of the box it hands over, are
+-- consumables (#4109).
 local function bagQuestItem()
 	local QDB = ns.QuestDB
 	if openCount == 0 or not (QDB and QDB.IsLoaded and QDB.IsLoaded() and QDB.HandsOver) then return nil end
@@ -1211,7 +1213,7 @@ local function bagQuestItem()
 		for slot = 1, Client.NumSlots(bag) do
 			local info = Client.SlotInfo(bag, slot)
 			local id = info and info.itemID
-			if id and Client.ItemClass(id) == Client.CLASS_QUEST and Client.ItemSpell(id) then
+			if id and Client.ItemSpell(id) then
 				for i = 1, openCount do
 					if QDB.HandsOver(openQuests[i], id) then return id end
 				end
