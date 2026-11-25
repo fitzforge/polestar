@@ -315,10 +315,13 @@ emit({ core = base, loaded = loaded, opened = opened, peak = peak, shown = Poles
 #[test]
 fn at_login_the_core_holds_at_most_the_0_3_7_base_and_50_kib() {
 	let out = run(r#"
-emit({ core = full(), loaded = C_AddOns.IsAddOnLoaded("Polestar_Options"), loads = count("Polestar_Options") })"#);
+emit({ core = full(), loaded = C_AddOns.IsAddOnLoaded("Polestar_Options"), loads = count("Polestar_Options"),
+	lookupLoaded = C_AddOns.IsAddOnLoaded("Polestar_Lookup"), lookupLoads = count("Polestar_Lookup") })"#);
 	let core = n(&out["core"]);
 	eprintln!("core at login: {core:.0} KiB (the 0.3.7 base {LOGIN_BASE:.0}, budget {LOGIN:.0}, {:+.0} over the base)", core - LOGIN_BASE);
 	assert_eq!(out["loaded"], false, "the settings' addon is not loaded at login");
 	assert_eq!(out["loads"], 0);
+	assert_eq!(out["lookupLoaded"], false, "the Lookup window's addon is not loaded at login");
+	assert_eq!(out["lookupLoads"], 0);
 	assert!(core <= LOGIN, "the core at login: {core:.0} KiB, over the 0.3.7 base ({LOGIN_BASE:.0}) by {:.0} (at most {:.0})", core - LOGIN_BASE, LOGIN - LOGIN_BASE);
 }

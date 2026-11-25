@@ -73,6 +73,7 @@ local kinds, status, search = LK.Kinds, LK.Status, LK.Search
 local makeFolder, makeRow = LK.MakeFolder, LK.MakeRow
 local paintResult, paintAction, subtitleOf = LK.PaintResult, LK.PaintAction, LK.SubtitleOf
 local itemIcon, setGlyph, paintName, paintStatus = LK.ItemIcon, LK.SetGlyph, LK.PaintName, LK.PaintStatus
+local qualityColor = LK.QualityColor
 local localTitle, questMark = LK.LocalTitle, LK.QuestMark
 
 local SOURCE_ICON = {
