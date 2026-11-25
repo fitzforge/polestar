@@ -16,7 +16,8 @@
 -- path) and across continents; without a route, straight to the target (both surfaces).
 -- nav.worldPins / nav.minimapPins switch Nav's layers on each surface; nav.trailDots the trail,
 -- which stands in only while Maps/RouteLines.lua draws no route (nav.routeLines off), and
--- nav.minimapRoute keeps it off the minimap.
+-- nav.minimapRoute keeps it off the minimap. With nav.hidePinsWithGuide on, hiding the
+-- guide window takes them off both surfaces (Nav.PinsHiddenWithGuide).
 
 local ADDON, ns = ...
 local Nav = ns.Nav
@@ -513,6 +514,7 @@ local function updateTrail(world, minimap)
 end
 
 local function surfaces()
+	if Nav.PinsHiddenWithGuide() then return false, false end
 	return ns.Get("nav.worldPins") and true or false, ns.Get("nav.minimapPins") and true or false
 end
 
@@ -552,8 +554,12 @@ ns.On("ROUTE_CHANGED", Layers.Update)
 ns.On("WHILE_HERE_CHANGED", Layers.Update)
 ns.On("POLESTAR_PAUSED", Layers.Update)
 ns.On("SETTING_CHANGED", function(path)
-	if path == "pause.map" or path == "pause" then Layers.Update() end
+	if path == "pause.map" or path == "pause" then Layers.Update()
+	elseif (path == "ui.shown" or path == "ui") and ns.Get("nav.hidePinsWithGuide") then Layers.Update() end
 end)
+-- The guide window shown or hidden (an instance hide too, ns.GuideShown): the
+-- pins go and come back with it while nav.hidePinsWithGuide is on.
+ns.On("GUIDE_SHOWN", function() if ns.Get("nav.hidePinsWithGuide") then Layers.Update() end end)
 ns.On("ROUTE_ADVANCED", onAdvanced)
 ns.On("NAV_ROUTE_GEOMETRY", function()
 	local world, minimap = surfaces()

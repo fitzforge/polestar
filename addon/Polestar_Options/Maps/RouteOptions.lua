@@ -393,7 +393,7 @@ local function buildPreview(view)
 	local map, mm, legendItems = h.Map, h.Minimap, f.Legend
 	local both = { map, mm }
 	for key, parts in pairs({
-		["nav.routeLines"] = both, ["nav.lineStyle"] = both, ["nav.worldRouteAlpha"] = { map }, ["nav.worldRoute"] = { map },
+		["nav.routeLines"] = both, ["nav.hidePinsWithGuide"] = both, ["nav.lineStyle"] = both, ["nav.worldRouteAlpha"] = { map }, ["nav.worldRoute"] = { map },
 		["nav.minimapRouteAlpha"] = { mm }, ["nav.minimapRoute"] = { mm }, ["nav.minimapLineSize"] = { mm }, ["nav.minimapDotsSize"] = { mm },
 		["nav.minimapSparkleSize"] = { mm },
 		["nav.drawIn"] = { walkLeg, flightLeg, boatLeg }, ["nav.laterAlpha"] = { boatLeg }, ["nav.lineOutline"] = { walkLeg, flightLeg },
@@ -500,6 +500,7 @@ register(L["Route lines"], {
 				disabled = function() return off() or not ns.Get("nav.minimapPins") end }),
 		} },
 	minimapSize("line"), minimapSize("dots"), minimapSize("sparkle"),
+	Ref("toggle", "nav.hidePinsWithGuide", { label = L["Hide with guide"], disabled = off }),
 	{ kind = "toggle", key = "nav.drawIn", label = L["Draw-in"], new = NEW,
 		disabled = function() return off() or ns.Get("ui.reduceMotion") end,
 		help = L["A new goal's route grows from you to the goal over a moment. Never with Reduce motion on."],
