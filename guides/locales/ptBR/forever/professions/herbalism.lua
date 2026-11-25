@@ -79,7 +79,6 @@ return {
 
 	-- Step 22: Goldthorn & Khadgar's Whisker: Swamp of Sorrows (185-200)
 	-- {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
-	-- was: ["Pick every {item:3356} (125, green), {item:3357} (150, yellow), {item:3818} (160, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 35-45."] = "Colha todo {item:3356} (125, verde), {item:3357} (150, amarelo), {item:3818} (160, amarelo), {item:3821} (170, laranja), {object:2043} (185, laranja) que encontrar e percorra os pontos de rota até {skill:182} 200. Nível da zona 35-45."
 	["Pick every {item:3356} (125, green), {item:3357} (150, yellow), {item:3818} (160, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 35-45. Expect about 20 herbs for these 15 points."] = "Colha cada {item:3356} (125, verde), {item:3357} (150, amarelo), {item:3818} (160, amarelo), {item:3821} (170, laranja), {object:2043} (185, laranja) pelo caminho e circule pelos pontos de rota até {skill:182} 200. Zona de nível 35-45. Conte com cerca de 20 ervas para estes 15 pontos.",
 
 	-- Step 23: Artisan Herbalism
@@ -90,10 +89,8 @@ return {
 
 	-- Step 24: Goldthorn & Khadgar's Whisker: Swamp of Sorrows (200-210) cont.
 	-- {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {zone:1435} Swamp of Sorrows
-	-- was: ["{object:2043}: {zone:1435} (200-210) cont."] = "{object:2043}: {zone:1435} (200-210) cont."
 	["{item:3821} & {object:2043}: {zone:1435} (200-210) cont."] = "{item:3821} e {object:2043}: {zone:1435} (200-210), continuação",
 	-- {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
-	-- was: ["Pick every {object:1623} (115, green, rare), {item:3356} (125, green), {item:3357} (150, green), {item:3818} (160, yellow), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 35-45. Expect about 20 herbs for these 10 points."] = "Colha {object:1623} (115, verde, raro), {item:3356} (125, verde), {item:3357} (150, verde), {item:3818} (160, amarelo), {item:3821} (170, amarelo) e {object:2043} (185, laranja) por onde passar e percorra os pontos de passagem até {skill:182} 210. Nível da zona 35-45. Espere cerca de 20 ervas para estes 10 pontos."
 	["Pick every {item:3356} (125, green), {item:3357} (150, green), {item:3818} (160, yellow), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 35-45. Expect about 20 herbs for these 10 points."] = "Colha cada {item:3356} (125, verde), {item:3357} (150, verde), {item:3818} (160, amarelo), {item:3821} (170, amarelo), {object:2043} (185, laranja) pelo caminho e circule pelos pontos de rota até {skill:182} 210. Zona de nível 35-45. Conte com cerca de 20 ervas para estes 10 pontos.",
 
 	-- Step 25: Purple Lotus: The Hinterlands (210-230)

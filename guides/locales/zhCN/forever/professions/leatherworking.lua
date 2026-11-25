@@ -26,7 +26,6 @@ return {
 
 	-- Step 4: Light Leather (Elwynn Forest)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1922} Gray Forest Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:822} Young Forest Bear
-	-- was: ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "准备349个{item:2318}制作{spell:2152}、{spell:3756}和{spell:3763}（其中210个用于75-150阶段：现在一次收齐）：{skill:393}：剥取5-20级野兽。在这里剥取{npc:1922}、{npc:525}、觅食的灰狼、{npc:524}、{npc:113}和{npc:822}（5-20级）；{skill:393}指南有对应路线。"
 	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "349个{item:2318}用于{spell:2152}、{spell:3756}和{spell:3763}（其中210个用于75-150：现在全部捡起）：{skill:393}：5-20级野兽。在这里剥{npc:1922}、潜行者、{npc:524}、{npc:113}和{npc:822}的皮（5-20级）；{skill:393}指南会安排路线。",
 
 	-- Step 5: Light Leather (Dun Morogh)
@@ -189,7 +188,6 @@ return {
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 158"] = "{spell:3780}做到158",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread
-	-- was: ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} 在技能 150 时为黄色（145 变黄、155 变绿、165 变灰）：约制作 15 次可到 158。每次需要 5 个 {item:4234} 和 1 个 {item:2321}。即每次五个 {item:4234}（来自 28-40 级野兽）；做出的护甲片可卖给商人。"
 	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "{spell:3780}在150时为黄色（黄色145，绿色155，灰色165）：大约制作15次到158。每次需要5个{item:4234}和1个{item:2321}。每次五个{item:4234}（28-40级野兽）；护甲片可以卖给商人。如果你到这里还没学会{spell:3780}，现在就学：之前的步骤会教。",
 
 	-- Step 39: Barbaric Shoulders to 165

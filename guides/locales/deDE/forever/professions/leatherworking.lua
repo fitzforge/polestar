@@ -26,7 +26,6 @@ return {
 
 	-- Step 4: Light Leather (Elwynn Forest)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1922} Gray Forest Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:822} Young Forest Bear
-	-- was: ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "349 {item:2318} für {spell:2152}, {spell:3756} und {spell:3763} (210 davon für 75-150: Sammle jetzt alle): {skill:393}: Tiere der Stufen 5-20. Häute hier {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} und {npc:822} (Stufe 5-20); der {skill:393}-Guide routet das."
 	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "349 {item:2318} für {spell:2152}, {spell:3756} und {spell:3763} (210 davon für 75-150: sammle jetzt alle): {skill:393}: Wildtiere der Stufe 5-20. Häute hier {npc:1922}, Streuner, {npc:524}, {npc:113} und {npc:822} (Stufe 5-20); der Guide für {skill:393} führt diese Route.",
 
 	-- Step 5: Light Leather (Dun Morogh)
@@ -189,7 +188,6 @@ return {
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 158"] = "{spell:3780} bis 158",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread
-	-- was: ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} ist bei 150 gelb (gelb 145, grün 155, grau 165): etwa 15 Herstellungen bis 158. Jede braucht 5 {item:4234} und 1 {item:2321}. Fünf {item:4234} pro Herstellung (Tiere der Stufen 28-40); die Sets lassen sich an Händler verkaufen."
 	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "{spell:3780} ist gelb bei 150 (gelb 145, grün 155, grau 165): etwa 15 Herstellungen bis 158. Jede braucht 5 {item:4234} und 1 {item:2321}. Fünf {item:4234} pro Herstellung (Wildtiere der Stufe 28-40); die Rüstungssets lassen sich an Händler verkaufen. Wenn du ohne {spell:3780} hierhergekommen bist, lern es jetzt: Ein früherer Schritt bringt es dir bei.",
 
 	-- Step 39: Barbaric Shoulders to 165

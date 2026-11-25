@@ -109,7 +109,6 @@ return {
 	["Mistvale gorillas"] = "안개계곡고릴라",
 	-- {quest:348} Stranglethorn Fever
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
-	-- was: ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "고릴라는 운바그와 주변 골짜기를 돌아다닙니다. 덩치큰 고릴라는 내장을 떨어뜨리고, 모든 고릴라가 송곳니를 떨어뜨릴 수 있습니다. 운바그와를 위해 10개를 챙기세요. 운바그와의 모크(44)는 약 45레벨에 들르는 가시덤불 골짜기에서 기다립니다.\n주의: 덩치큰 안개계곡고릴라(40-41)는 골짜기에 서로 가까이 서 있으니 한 마리씩 끌어오세요."
 	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: if you will take {quest:348} with a group, keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "고릴라들이 운바그와 주변 골짜기를 돌아다닙니다. 장로들이 내장을 떨어뜨리고, 어느 것이든 송곳니를 떨어뜨릴 수 있습니다: 파티와 함께 {quest:348}을(를) 받을 거라면 운바그와를 위해 열 개를 남기십시오. 그의 모크(44)는 약 45레벨의 가시덤불 골짜기 정거장에서 기다립니다.\n주의: 늙은 안개계곡 고릴라(40-41)가 골짜기에 가까이 모여 있습니다: 하나씩 끌어내십시오.",
 	-- {quest:348} Stranglethorn Fever
 	["Keep fangs from these same elders for Unbagwa ({quest:348}, with a group)."] = "같은 장로들에게서 운바그와를 위해 송곳니를 모으십시오({quest:348}, 파티와 함께).",

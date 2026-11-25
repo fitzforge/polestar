@@ -128,7 +128,6 @@ return {
 	-- {spell:3320} Rough Grinding Stone
 	["{spell:3320} to 83"] = "{spell:3320}: 83까지",
 	-- {spell:3320} Rough Grinding Stone · {item:2835} Rough Stone
-	-- was: ["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320}은(는) 75에서 초록색입니다(노란색 45, 초록색 65, 회색 85). 83까지 약 58번 만드세요. 한 번에 {item:2835} 2개. 제작당 {item:2835} 두 개. 숫돌은 이후 제조법의 재료이며, 남는 것은 상인에게 팔립니다."
 	["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors. If you got here without learning {spell:3320}, learn it now: an earlier step teaches it."] = "{spell:3320}은(는) 75에서 초록색입니다(노란색 45, 초록색 65, 회색 85): 83까지 약 58번 제작. 매번 {item:2835} 2개가 필요합니다. 제작마다 {item:2835} 두 개. 연마석은 나중 도면의 재료이고 남는 것은 상인에게 팝니다. {spell:3320}을(를) 배우지 않고 여기까지 왔다면 지금 배우십시오: 앞의 단계에서 가르칩니다.",
 
 	-- Step 28: Runed Copper Belt to 100

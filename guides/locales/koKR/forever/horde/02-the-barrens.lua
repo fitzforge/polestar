@@ -66,7 +66,6 @@ return {
 	["Razormane camp: {npc:3429}'s quilboar"] = "서슬갈기일족 야영지: {npc:3429}의 멧돼지인",
 	-- {npc:3429} Thork
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
-	-- was: ["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "야영지에 있는 동안: {npc:3429}의 풍수사와 가시마술사는 서쪽 절반에, 사냥꾼은 가운데에, 보급품 상자는 동쪽 끝에 있습니다.\n주의: 서슬갈기일족 살점먹보와 광전사(18-19)는 정예이며, 야영지 북동쪽 보급품 상자 옆에 서 있습니다. 가시멧돼지를 그들에게서 하나씩 떼어 끌어오세요."
 	["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, and, if you took his supplies with a group, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "야영지에 있는 동안: {npc:3429}의 물 탐색꾼과 가시덩굴 직조자는 서쪽 절반, 사냥꾼은 가운데, 파티로 그의 보급품을 받았다면 보급품 상자는 동쪽 끝에 있습니다.\n주의: 서리갈기 살점포식자와 광전사(18-19)는 정예입니다. 야영지 북동쪽, 보급품 상자 옆에 서 있습니다: 멧돼지인간들을 하나씩 그들에게서 떨어뜨려 끌어내십시오.",
 
 	-- Step 13: Thork's supply crates
@@ -105,7 +104,6 @@ return {
 
 	-- Step 23: Razormane camp
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
-	-- was: ["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "야영지에서는 풍수사와 가시마술사가 서쪽 절반을, 사냥꾼이 가운데를 차지하고, 보급품 상자는 동쪽 끝에 있습니다.\n여기 초원타조도 부리 수집에 포함됩니다.\n주의: 서슬갈기일족 살점먹보와 광전사(18-19)는 정예이며, 야영지 북동쪽 보급품 상자 옆에 서 있습니다. 가시멧돼지를 그들에게서 하나씩 떼어 끌어오세요."
 	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates (with a group only) sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "야영지에서 물 탐색꾼과 가시덩굴 직조자가 서쪽 절반을, 사냥꾼이 가운데를 차지하고, 보급품 상자(파티로만)는 동쪽 끝에 있습니다.\n이곳의 평원 타조도 부리에 집계됩니다.\n주의: 서리갈기 살점포식자와 광전사(18-19)는 정예입니다. 야영지 북동쪽, 보급품 상자 옆에 서 있습니다: 멧돼지인간들을 하나씩 그들에게서 떨어뜨려 끌어내십시오.",
 
 	-- Step 25: Finish the Plainstrider Beaks

@@ -241,8 +241,8 @@ return {
 	["The giant {npc:7765} sits just north-west of {npc:7775}'s camp."] = "",
 
 	-- Step 51: Evoroot
-	-- {item:11242} Evoroot · {npc:7765} Rockbiter
-	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "{item:11242}은(는) {npc:7765} 북쪽의 무너진 건물 안에서 자랍니다. 옆의 바위턱에서 벽의 갈라진 틈으로 들어가세요.",
+	-- {item:11242} Evoroot · {npc:7765} Rockbiter · {npc:9467} Miblon Snarltooth
+	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it.\nOr the front door: {npc:9467} guards it, and the Bait Gregan sells draws him off when you use it beside him. Half the players in our recordings went in that way, half through the wall."] = "",
 
 	-- Step 52: Shay Leafrunner
 	-- {npc:7774} Shay Leafrunner · {item:9189} Shay's Bell
@@ -281,6 +281,7 @@ return {
 	-- ["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. The Avengers can drop a {quest:8470}."] = "{area:1762}의 마른가지일족 펄볼그가 동굴 서쪽 언덕을 채우고 있습니다. 마른가지일족 복수자가 {quest:8470}을(를) 떨어뜨릴 수 있습니다.",
 	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back."] = "비취불꽃의 사티로스가 길 서쪽 숲을 차지하고 있으며, {npc:9454}은(는) 그 안쪽에 있습니다.",
 	-- ["The vial is filled in {zone:1457}: keep it; inside"] = "유리병은 {zone:1457}에서 채웁니다: 보관하세요. 안",
+	-- ["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "{item:11242}은(는) {npc:7765} 북쪽의 무너진 건물 안에서 자랍니다. 옆의 바위턱에서 벽의 갈라진 틈으로 들어가세요.",
 	-- ["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}. If you freed {npc:11018}, go back into {area:1770} for the succubus {npc:9518}; Trey Lightforge's remains lie beside her."] = "{area:1763} 한가운데의 타락한 달샘에서 {item:12922}을(를) 사용하세요. {npc:11018}을(를) 풀어 주었다면 {area:1770}에 다시 들어가 서큐버스 {npc:9518}을(를) 처치하세요. 트레이 라이트포지의 유해가 그녀 옆에 있습니다.",
 	-- ["grind on {npc:7109}"] = "{npc:7109} 사냥",
 	-- ["grind on {npc:7153}"] = "{npc:7153} 사냥",

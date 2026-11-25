@@ -8,7 +8,6 @@
 return {
 	-- Guide
 	-- {area:976} Gadgetzan · {zone:1427} Searing Gorge · {npc:5955} Tooga · {area:1446} Thorium Point
-	-- was: ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "46-48级的{area:976}和{zone:1427}：废土营地、{npc:5955}的护送任务和{area:1446}。"
 	["{area:976} and the {zone:1427} at 47-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "47-49级的{area:976}和{zone:1427}：废土营地、{npc:5955}的护送任务和{area:1446}。",
 
 	-- Step 1: Fly to Gadgetzan
@@ -102,7 +101,6 @@ return {
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "护送{npc:5955}",
 	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port · {npc:8579} Yeh'kinya
-	-- was: ["{npc:5955} waits in the valley. Walk him all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "{npc:5955}在山谷里等候。一路带他到东北方沙漠另一头{area:977}的妻子{npc:6015}那里：紧跟着他，放慢速度等他，击退攻击他的敌人。别骑上坐骑或用炉石离开他的范围。{npc:8579}也站在港口里。"
 	["Walk {npc:5955} all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "带{npc:5955}一路走到{area:977}他的妻子{npc:6015}那里，向东北穿过沙漠：跟紧，放慢速度等他，打退攻击他的东西。不要在他够不到的地方上坐骑或使用炉石。{npc:8579}也站在港口。",
 
 	-- Step 22: Slake That Thirst
