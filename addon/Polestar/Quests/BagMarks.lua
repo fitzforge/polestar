@@ -179,10 +179,10 @@ local function onItemTooltip(tt, _, itemID)
 	if not (isOn() and Q.IsObsoleteQuestItem(itemID)) then return end
 	ns.Hooks.AddLine(tt, ns.L["Related quests completed (likely safe to delete)"])
 	-- The quests it was for, "[12] <Quest>: Done", in their difficulty colours.
-	local quests = Q.ItemQuestName and Q.ItemQuests(itemID)
+	local quests = Q.TooltipQuestName and Q.ItemQuests(itemID)
 	local dim = quests and Q.Color("textDim")
 	for i = 1, quests and math.min(#quests, LEFTOVER_LINES) or 0 do
-		local name, c = Q.ItemQuestName(quests[i])
+		local name, c = Q.TooltipQuestName(quests[i])
 		ns.Hooks.AddLine(tt, name .. ":", ns.L["Done"], c.r, c.g, c.b, dim.r, dim.g, dim.b)
 	end
 end

@@ -4,9 +4,10 @@ const assert = require('node:assert/strict');
 const path = require('node:path');
 const { runAddon } = require('./helpers/lua');
 
-// Quest items name their quests with the level and difficulty colour: a quest
-// that handed the item over while it is in the log, and a leftover's done quests.
-test('quest item tooltips name the quest with its level, difficulty colour and state', () => {
+// Quest lines on tooltips name the quest with its level and difficulty colour:
+// a mob's objective, a quest that handed an item over while it is in the log,
+// and a leftover item's done quests.
+test('quest tooltips name the quest with its level, difficulty colour and state', () => {
 	const fixture = path.join(__dirname, 'fixtures', 'questdb', 'expected', 'Quests.lua');
 	const out = runAddon({
 		before: `state = { done = {}, log = {}, ready = {} }
@@ -67,6 +68,15 @@ test('quest item tooltips name the quest with its level, difficulty colour and s
 		Polestar.Set("qol.questLevels", true)
 		s.done[33] = true
 		emit(hover(750))
+		Q.ObjectivesForNpc = function(id)
+			if id == 55 then return { { q = 9001, kind = 1, id = 55, name = "Kobold Vermin", cur = 3, max = 10, entry = { title = "Mail Run" } } } end
+		end
+		Q.ObjectivesForTalk = function() return nil end
+		Q.ProgressText = function(o) return o.cur .. "/" .. o.max end
+		Polestar.Set("qol.questTooltipsNpc", false)
+		lines = {}
+		Q.AddUnitLines({}, 55)
+		emit(lines)
 	` }).emitted;
 	assert.deepEqual(out, [
 		0,
@@ -77,5 +87,6 @@ test('quest item tooltips name the quest with its level, difficulty colour and s
 			['Related quests completed (likely safe to delete)', false, false, false, false],
 			['[2] Wolves Across the Border:', 'Done', 0.5, 0.5, 0.5],
 		],
+		[['[12] Mail Run:', 'Kill Kobold Vermin 3/10', 1, 0.82, 0]],
 	]);
 });
