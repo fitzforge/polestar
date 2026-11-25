@@ -136,7 +136,8 @@ return {
 	-- {item:7053} Azure Silk Cloak
 	["{item:7053} to 170"] = "{item:7053} até 170",
 	-- {item:7053} Azure Silk Cloak · {spell:3839} Bolt of Silk Cloth · {item:6260} Blue Dye · {item:2321} Fine Thread
-	["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053} é laranja em 150 (amarelo 160, verde 175, cinza 190): cerca de 22 criações até 170. Cada uma usa 3 {spell:3839}, 2 {item:6260} e 2 {item:2321}. Faça primeiro as 66 {spell:3839}. O padrão é o que foi comprado acima; é o caminho mais barato por esses pontos nos dados.",
+	-- was: ["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053} é laranja em 150 (amarelo 160, verde 175, cinza 190): cerca de 22 criações até 170. Cada uma usa 3 {spell:3839}, 2 {item:6260} e 2 {item:2321}. Faça primeiro as 66 {spell:3839}. O padrão é o que foi comprado acima; é o caminho mais barato por esses pontos nos dados."
+	["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data. If you got here without learning {spell:3839}, learn it now: an earlier step teaches it."] = "{item:7053} está laranja em 150 (amarelo 160, verde 175, cinza 190): cerca de 22 produções até 170. Cada uma leva 3 {spell:3839}, 2 {item:6260} e 2 {item:2321}. Faça primeiro os 66 {spell:3839}. A receita é a comprada acima; pelos dados, é o caminho mais barato por estes pontos. Se chegou aqui sem aprender {spell:3839}, aprenda agora: uma etapa anterior ensina.",
 	["from the recipe in your bags"] = "pela receita nas suas bolsas",
 
 	-- Step 25: Tailoring recipes at 170
@@ -297,6 +298,7 @@ return {
 	-- ["{item:4338} (Alliance)"] = "{item:4338} (Aliança)",
 	-- ["{item:4338} (Horde)"] = "{item:4338} (Horda)",
 	-- ["{item:7026} to 80"] = "{item:7026} até 80",
+	-- ["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053} é laranja em 150 (amarelo 160, verde 175, cinza 190): cerca de 22 criações até 170. Cada uma usa 3 {spell:3839}, 2 {item:6260} e 2 {item:2321}. Faça primeiro as 66 {spell:3839}. O padrão é o que foi comprado acima; é o caminho mais barato por esses pontos nos dados.",
 	-- ["{item:7053} to 180"] = "{item:7053} até 180",
 	-- ["{item:7062} to 185"] = "{item:7062} até 185",
 	-- ["{item:9998} to 205"] = "{item:9998} até 205",

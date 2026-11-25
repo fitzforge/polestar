@@ -116,10 +116,14 @@ pub fn entrance_v(map: f64, x: f64, y: f64, era: bool, approx: bool) -> V {
 
 /// How far the chosen way in may lie from a table entry's point and still take its `z`.
 const DOOR_YARDS: f64 = 30.0;
+/// Inside a capital, how far a recorded way in may lie from a table entry's door and still be that door's (instances.js
+/// TABLE_YARDS).
+const TABLE_YARDS: f64 = 60.0;
 
-/// instances.js `chooseEntrance`: a table entry's `A` (the Alliance's own way in) rides along as entrance.A; its `z`
-/// (the door's floor where floors stack: the Excavation Site's door over Thelgen Rock) as entrance.z when the chosen
-/// point lies within DOOR_YARDS of the entry's on the same map (a recording's point near it too).
+/// instances.js `chooseEntrance`: a table entry's `A` (the Alliance's own way in) rides along as entrance.A, its
+/// `doors` (other ways in open to both sides: Blackrock Mountain's two, #3348) as entrance.doors ([ { map, x, y } ]);
+/// its `z` (the door's floor where floors stack: the Excavation Site's door over Thelgen Rock) as entrance.z when the
+/// chosen point lies within DOOR_YARDS of the entry's on the same map (a recording's point near it too).
 fn choose_entrance(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], corpse: Option<&super::client::Corpse>, zones: &V, frames: &V, prefer: &[f64]) -> V {
 	let e = choose_entrance_point(name, recorded, table, guides, corpse, zones, frames, prefer);
 	let a = table.get("A");
@@ -129,6 +133,18 @@ fn choose_entrance(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], co
 		ao.set("x", round1(a.get("x").num()));
 		ao.set("y", round1(a.get("y").num()));
 		o.set("A", V::Obj(ao));
+	}
+	let doors = table.get("doors");
+	if let (Some(o), true) = (e.as_obj(), table.truthy() && doors.is_arr() && !doors.is_empty()) {
+		let list = V::arr();
+		for d in doors.items() {
+			let dobj = Obj::new();
+			dobj.set("map", d.get("map").num());
+			dobj.set("x", round1(d.get("x").num()));
+			dobj.set("y", round1(d.get("y").num()));
+			list.push(V::Obj(dobj));
+		}
+		o.set("doors", list);
 	}
 	let z = table.get("z");
 	if let (Some(o), true) = (e.as_obj(), table.truthy() && z.is_num() && z.num().is_finite() && e.get("map").num() == table.get("map").num()) {
@@ -170,8 +186,22 @@ fn recorded_point(frames: &V, map: f64, x: f64, y: f64, expected: &[f64]) -> Opt
 /// on Mount Hyjal, came out "in Darnassus" from one such entry). The capitals' own dungeons have many people each.
 /// A recording must fall inside the documented entrance zone (or a known client zone without a table entry).
 /// For caves with no zone map, place the continent recording on that zone's map.
+/// Inside the capitals the most-seen recorded point can lie far from the door: Orgrimmar's south gate for Ragefire
+/// Chasm (86 entries against 57 + 14 in the Cleft of Shadow), Ironforge 15.1,86.0 for the Hall of Thanes (166 against
+/// 80 below the city), where players stood when the game moved them in (#3562, #2447). There a recorded point within
+/// TABLE_YARDS of the table entry's door wins, the most-seen of them; elsewhere the most-seen point anywhere does.
 fn choose_entrance_point(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], corpse: Option<&super::client::Corpse>, zones: &V, frames: &V, prefer: &[f64]) -> V {
-	let rec = recorded.items().into_iter().filter(|r| num0(&r.get("n")) >= 2.0 || !CAPITAL_MAPS.contains(&r.get("map").num())).min_by(|a, b| ord(num0(&b.get("n")) - num0(&a.get("n"))));
+	let items: Vec<V> = recorded.items().into_iter().filter(|r| num0(&r.get("n")) >= 2.0 || !CAPITAL_MAPS.contains(&r.get("map").num())).collect();
+	let most_seen = |a: &&V, b: &&V| ord(num0(&b.get("n")) - num0(&a.get("n")));
+	let door_map = table.get("map").num();
+	let tf = frames.get(&door_map.to_string());
+	let near_door = |r: &&V| {
+		CAPITAL_MAPS.contains(&door_map) && tf.truthy() && r.get("map").num() == door_map && {
+			let (w, h) = (tf.get("left").num() - tf.get("right").num(), tf.get("top").num() - tf.get("bottom").num());
+			((r.get("x").num() - table.get("x").num()) / 100.0 * w).hypot((r.get("y").num() - table.get("y").num()) / 100.0 * h) <= TABLE_YARDS
+		}
+	};
+	let rec = items.iter().filter(near_door).min_by(most_seen).or_else(|| items.iter().min_by(most_seen));
 	if let Some(r) = rec {
 		if r.get("map").truthy() {
 			let era = r.get("f").as_str() == Some("e");
@@ -831,6 +861,25 @@ mod tests {
 	use super::*;
 	use forge_guide::js::parse_json;
 
+	// #3348: Blackrock Mountain has a door on each side, open to both factions; the table's other door rides along as
+	// entrance.doors whichever point wins (the arrow takes the nearer one in the game).
+	#[test]
+	fn a_table_entry_s_other_doors_ride_along_as_entrance_doors_3348() {
+		let brd = parse_json(r#"{ "key": "blackrock-depths", "map": 1427, "x": 34.8, "y": 85.3, "doors": [{ "map": 1428, "x": 29.41, "y": 38.3, "note": "Burning Steppes" }] }"#).unwrap();
+		let none = V::Null;
+		let e = choose_entrance("Blackrock Depths", &none, &brd, &[], None, &none, &none, &[]);
+		assert_eq!(e.get("doors").len(), 1);
+		let d = e.get("doors").at(0);
+		assert_eq!((d.get("map").num(), d.get("x").num(), d.get("y").num()), (1428.0, 29.4, 38.3));
+		assert!(!d.get("note").truthy(), "only the point rides along");
+		let recorded = parse_json(r#"[{ "map": 1427, "x": 34.9, "y": 85.0, "n": 19 }]"#).unwrap();
+		let rec = choose_entrance("Blackrock Depths", &recorded, &brd, &[], None, &none, &none, &[]);
+		assert_eq!(rec.get("x").num(), 34.9, "the recording wins");
+		assert_eq!(rec.get("doors").at(0).get("map").num(), 1428.0, "and keeps the other door");
+		let one = parse_json(r#"{ "key": "deadmines", "map": 1436, "x": 42.5, "y": 71.7 }"#).unwrap();
+		assert!(!choose_entrance("Deadmines", &none, &one, &[], None, &none, &none, &[]).get("doors").truthy(), "one way in: no doors");
+	}
+
 	#[test]
 	fn a_table_entry_s_alliance_way_in_rides_along_as_entrance_a_whichever_point_wins_706() {
 		let dalaran = parse_json(r#"{ "key": "city-of-dalaran", "map": 1416, "x": 8.5, "y": 59.2, "A": { "map": 1416, "x": 14.68, "y": 62.99 } }"#).unwrap();
@@ -877,6 +926,31 @@ mod tests {
 		// A single entry outside the capitals still places a dungeon no other source does.
 		let field = parse_json(r#"[{ "map": 1440, "x": 14.1, "y": 13.9, "n": 1 }]"#).unwrap();
 		assert_eq!(choose_entrance("Blackfathom Deeps", &field, &none, &[], None, &none, &none, &[]).get("map").num(), 1440.0);
+	}
+
+	// #3562, #2447: inside a capital the most-seen recorded point can be far from the door; the most-seen point within
+	// 60 yd of the table's door wins there, and the most-seen point anywhere elsewhere.
+	#[test]
+	fn inside_a_capital_the_recorded_point_at_the_table_s_door_beats_a_bigger_one_elsewhere_in_the_city() {
+		let none = V::Null;
+		let frames = parse_json(
+			r#"{ "1454": { "c": 1, "left": -3680.601, "right": -5083.206, "top": 2273.877, "bottom": 1338.461 },
+			     "1455": { "c": 0, "left": -713.591, "right": -1504.216, "top": -4569.241, "bottom": -5096.846 },
+			     "1437": { "c": 0, "left": -389.583, "right": -4525, "top": -2147.917, "bottom": -4904.167 } }"#,
+		)
+		.unwrap();
+		let xy = |e: &V| (e.get("map").num(), e.get("x").num(), e.get("y").num());
+		let rfc = parse_json(r#"{ "key": "ragefire-chasm", "map": 1454, "x": 52.6, "y": 49 }"#).unwrap();
+		let rec = parse_json(r#"[{ "map": 1454, "x": 49.35, "y": 95.11, "n": 86 }, { "map": 1454, "x": 52.01, "y": 49.46, "n": 57 }, { "map": 1454, "x": 52.13, "y": 49.42, "n": 14 }]"#).unwrap();
+		assert_eq!(xy(&choose_entrance("Ragefire Chasm", &rec, &rfc, &[], None, &none, &frames, &[])), (1454.0, 52.0, 49.5));
+		assert_eq!(xy(&choose_entrance("Ragefire Chasm", &rec, &none, &[], None, &none, &frames, &[])), (1454.0, 49.4, 95.1), "no table entry: the most-seen point");
+		let thanes = parse_json(r#"{ "key": "the-hall-of-thanes", "map": 1455, "x": 28.3, "y": 47.6, "z": 399 }"#).unwrap();
+		let rec = parse_json(r#"[{ "map": 1455, "x": 15.1, "y": 86.01, "n": 166 }, { "map": 1455, "x": 28.37, "y": 47.7, "n": 80 }, { "map": 1455, "x": 32.69, "y": 44.94, "n": 9 }]"#).unwrap();
+		let e = choose_entrance("The Hall of Thanes", &rec, &thanes, &[], None, &none, &frames, &[]);
+		assert_eq!((xy(&e), e.get("z").num()), ((1455.0, 28.4, 47.7), 399.0), "the door below the city, with the table's floor");
+		let field = parse_json(r#"{ "key": "excavation-site-wetlands", "map": 1437, "x": 50.7, "y": 61.1 }"#).unwrap();
+		let rec = parse_json(r#"[{ "map": 1437, "x": 40, "y": 40, "n": 9 }, { "map": 1437, "x": 50.72, "y": 61.12, "n": 3 }]"#).unwrap();
+		assert_eq!(xy(&choose_entrance("x", &rec, &field, &[], None, &none, &frames, &[])), (1437.0, 40.0, 40.0), "outside the capitals: the most-seen point");
 	}
 
 	#[test]
@@ -948,5 +1022,22 @@ mod tests {
 		assert_eq!((a.get("map").num(), a.get("x").num(), a.get("y").num()), (1416.0, 14.7, 63.0));
 		assert!(a.get("source").as_str().is_some_and(|s| s.starts_with("https://")));
 		assert!(a.get("note").truthy());
+	}
+
+	/// #3025 (Logan): the way into Gnomeregan is at the bottom of its lift, 120 yd under the tunnel from Dun Morogh.
+	/// Players' entries (on the Eastern Kingdoms map: no zone map down there) place it on Dun Morogh's map, and the
+	/// curated entry beside them gives it the lift's bottom floor, so the walk ends at the door and rides the lift.
+	#[test]
+	fn gnomeregans_way_in_carries_the_floor_at_the_bottom_of_the_lift_3025() {
+		let text = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../../../data/codex/entrances.json")).unwrap();
+		let table = load_entrance_table(&text).unwrap().get("gnomeregan");
+		let frames = parse_json(
+			r#"{ "1415": { "c": 0, "left": 16000, "right": -19199.9, "top": 7466.6, "bottom": -16000 },
+			     "1426": { "c": 0, "left": 1802.083, "right": -3122.917, "top": -3877.083, "bottom": -7160.417 } }"#,
+		)
+		.unwrap();
+		let rec = parse_json(r#"[{ "map": 1415, "x": 43.41, "y": 53.75, "n": 156 }, { "map": 1426, "x": 42, "y": 47.09, "n": 2 }]"#).unwrap();
+		let e = choose_entrance("Gnomeregan", &rec, &table, &[], None, &V::Null, &frames, &[]);
+		assert_eq!((e.get("map").num(), e.get("x").num(), e.get("y").num(), e.get("z").num()), (1426.0, 22.0, 38.7, 248.0));
 	}
 }

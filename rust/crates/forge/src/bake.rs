@@ -3,7 +3,10 @@
 //! forge_nav::bake, written beside the guides as `legs.json` (schema 1: `grid`, the maps the legs
 //! were routed on; `legs`, per guide id its leg ends' hash and one string per step) and
 //! `legs-qa.txt` (the legs not baked, and why). The compiler puts a guide's legs into the race
-//! parts (forge_guide::project::read_legs_text) while its leg ends still hash the same.
+//! parts (forge_guide::project::read_legs_text) while its leg ends still hash the same. A guide
+//! both factions share (no `faction` header: Shen'dralas, Mount Hyjal) is walked once per faction,
+//! each without the other faction's steps, and its entry is `{ sides: { Horde: { hash, steps },
+//! Alliance: { hash, steps } } }`, each side going into its faction's race parts (#3360).
 //!
 //! A leg runs from the last located goal before a step to the step's first located goal, on one
 //! continent (forge_guide::bake::step_targets), with each goal's spawn height when it has one.
@@ -62,15 +65,6 @@ pub struct Routed {
 	pub stats: Value,
 }
 
-/// The faction a guide is walked as (its `faction` header), or None (no faction: no guide legs).
-fn faction_of(g: &V) -> Option<&'static str> {
-	match g.get("faction").as_str() {
-		Some("Horde") => Some("Horde"),
-		Some("Alliance") => Some("Alliance"),
-		_ => None,
-	}
-}
-
 /// A leveling guide (category Leveling or none): the guides a race part's legs are for.
 fn leveling(g: &V) -> bool {
 	let cat = g.get("category");
@@ -121,7 +115,8 @@ pub fn route_trees(i: &BakeIn, only: Option<&[String]>) -> Result<Routed, String
 	// Every tree's leveling guides and their legs.
 	struct Tree {
 		dir: PathBuf,
-		guides: Vec<(String, String, Vec<(usize, LegKey)>)>, // id, hash, (step, leg)
+		// id, then per side (None: the guide's own faction; Some(faction): a shared guide's side) its hash and (step, leg)
+		guides: Vec<(String, Vec<(Option<&'static str>, String, Vec<(usize, LegKey)>)>)>,
 	}
 	let mut trees = Vec::new();
 	let mut legs: FxHashMap<LegKey, (End, End)> = FxHashMap::default();
@@ -131,17 +126,25 @@ pub fn route_trees(i: &BakeIn, only: Option<&[String]>) -> Result<Routed, String
 		let project = forge_guide::project::compile_project(dir, &manifest, &data, forge_guide::diag::Diagnostics::new(), false, None);
 		let mut guides = Vec::new();
 		for g in project.guides.iter().filter(|g| leveling(g) && only.is_none_or(|o| o.contains(&g.get("id").to_js_string()))) {
-			let Some(faction) = faction_of(g) else { continue };
-			let mut steps = Vec::new();
-			for (s, from, to) in forge_guide::bake::step_targets(g, &data.map_frames) {
-				let (Some(a), Some(b)) = (end_of(&from), end_of(&to)) else { continue };
-				let key = (faction, a.c, a.wx.round() as i64, a.wy.round() as i64, b.wx.round() as i64, b.wy.round() as i64);
-				legs.entry(key).or_insert((a, b));
-				steps.push((s, key));
+			// A guide both factions share (no `faction`: Shen'dralas, Mount Hyjal) is walked once per faction (#3360).
+			let factions = forge_guide::bake::leg_factions(g);
+			let shared = factions.len() > 1;
+			let mut sides = Vec::new();
+			for faction in factions {
+				let side = shared.then_some(faction);
+				let mut steps = Vec::new();
+				for (s, from, to) in forge_guide::bake::step_targets_for(g, &data.map_frames, side) {
+					let (Some(a), Some(b)) = (end_of(&from), end_of(&to)) else { continue };
+					let key = (faction, a.c, a.wx.round() as i64, a.wy.round() as i64, b.wx.round() as i64, b.wy.round() as i64);
+					legs.entry(key).or_insert((a, b));
+					steps.push((s, key));
+				}
+				sides.push((side, forge_guide::bake::guide_hash_for(g, &data.map_frames, side), steps));
 			}
-			guides.push((g.get("id").to_js_string(), forge_guide::bake::guide_hash(g, &data.map_frames), steps));
+			guides.push((g.get("id").to_js_string(), sides));
 		}
-		(i.log)(&format!("  legs: {}: {} leveling guides, {} legs", dir.display(), guides.len(), guides.iter().map(|g| g.2.len()).sum::<usize>()));
+		let count: usize = guides.iter().flat_map(|g| &g.1).map(|s| s.2.len()).sum();
+		(i.log)(&format!("  legs: {}: {} leveling guides, {count} legs", dir.display(), guides.len()));
 		trees.push(Tree { dir: dir.clone(), guides });
 	}
 	// The maps.
@@ -198,17 +201,36 @@ pub fn route_trees(i: &BakeIn, only: Option<&[String]>) -> Result<Routed, String
 	for t in &trees {
 		let mut doc = Map::new();
 		let mut qa = String::new();
-		for (id, hash, steps) in &t.guides {
-			let mut st = Map::new();
-			for (s, k) in steps {
-				match &baked[k] {
-					Baked::Leg { string, .. } => {
-						st.insert(s.to_string(), json!(string));
+		for (id, sides) in &t.guides {
+			let mut by_side = Map::new();
+			let mut own = None;
+			for (side, hash, steps) in sides {
+				let mut st = Map::new();
+				for (s, k) in steps {
+					match &baked[k] {
+						Baked::Leg { string, .. } => {
+							st.insert(s.to_string(), json!(string));
+						}
+						Baked::Qa { reason } => {
+							let who = side.map(|f| format!(" ({f})")).unwrap_or_default();
+							qa.push_str(&format!("{id}{who}\tstep {s}\t{}:{},{}>{},{}\t{reason}\n", k.1, k.2, k.3, k.4, k.5))
+						}
 					}
-					Baked::Qa { reason } => qa.push_str(&format!("{id}\tstep {s}\t{}:{},{}>{},{}\t{reason}\n", k.1, k.2, k.3, k.4, k.5)),
+				}
+				let entry = json!({ "hash": hash, "steps": st });
+				match side {
+					Some(f) => {
+						by_side.insert(f.to_string(), entry);
+					}
+					None => own = Some(entry),
 				}
 			}
-			doc.insert(id.clone(), json!({ "hash": hash, "steps": st }));
+			let entry = own.unwrap_or_else(|| {
+				let mut m = Map::new();
+				m.insert(forge_guide::bake::SIDES.to_string(), Value::Object(by_side));
+				Value::Object(m)
+			});
+			doc.insert(id.clone(), entry);
 		}
 		out.push(TreeLegs { dir: t.dir.clone(), legs: doc, qa });
 	}

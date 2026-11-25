@@ -28,7 +28,7 @@ forge changelog --help
 ## The version
 
 The version lives in `package.json`, in `guides/pack.json` (the compiler writes it into
-`Polestar_Guides.toc`), in `experimental/pack.json` (into `Polestar_Experimental.toc`) and in the
+`Polestar_Guides.toc`), in `experimental/pack.json` (into `Polestar/Experimental/Pack.lua`) and in the
 `## Version` line of every addon TOC.
 
 ```sh
@@ -40,14 +40,14 @@ Versions are `x.y.z`, `x.y.z.hotfix` for an urgent hotfix, or `x.y.z-rc.1` for a
 
 ## The zips
 
-`forge release pack` in the checkout compiles our guides into `addon/Polestar_Guides` (with its race
-parts, and its texts in the language folders `Polestar_<locale>`) and Polestar's experimental pack
-(`experimental/`, with our guides as context) into `addon/Polestar_Experimental`, then writes to
-`dist/`:
+`forge release pack` in the checkout compiles our guides into `addon/Polestar_Guides` (with its faction
+parts, which carry each race's guides and walks, and its texts in the language folders `Polestar_<locale>`)
+and Polestar's experimental pack (`experimental/`, with our guides as context) into
+`addon/Polestar/Experimental`, then writes to `dist/`:
 
 | File | Contents |
 |---|---|
-| `Polestar-<version>.zip` | `Polestar` (with `LICENSE` and the players' `README.txt`), `Polestar_Guides` and its parts, `Polestar_Nav`, `Polestar_Arcade` (Freedoom Arcade by petllama, when there; without its `tools/` scripts, its `curseforge/` images and the standalone addon's `src/FreedoomArcade.toc`: `NOT_SHIPPED` in forge-release's `addons.rs`), `Polestar_Experimental` (Polestar's TOC, `## LoadOnDemand: 1`: off in game until a player chooses one of its guides at a route choice or switches it on; left out without `experimental/pack.json`), `Polestar_QuestDB` and `Polestar_ItemDB` when built, `Polestar_Codex`, the language folders `Polestar_<locale>` (guide texts and names). The old `Polestar_Guides_<locale>` and `Polestar_Names_<locale>` are never shipped: `pack` names any left in `addon/` so they get deleted |
+| `Polestar-<version>.zip` | `Polestar` (with `LICENSE` and the players' `README.txt`; inside it, `Experimental/`, Polestar's experimental pack, which `Polestar.toc` lists: off in game only when a player switches it off; left out without `experimental/pack.json`), `Polestar_Guides` and its faction parts, `Polestar_Nav` and its continent parts, `Polestar_Options`, `Polestar_Skins` (our skins and the Atlas layout), `Polestar_Arcade` (Freedoom Arcade by petllama, when there; without its `tools/` scripts, its `curseforge/` images and the standalone addon's `src/FreedoomArcade.toc`: `NOT_SHIPPED` in forge-release's `addons.rs`), `Polestar_QuestDB` and `Polestar_ItemDB` when built, `Polestar_Codex`, the language folders `Polestar_<locale>` (guide texts and names). The old `Polestar_Guides_<locale>` and `Polestar_Names_<locale>`, and the folders 0.4.3 folded into others (`FOLDED_ADDONS` in forge-release's `addons.rs`: `Polestar_Looks`, `Polestar_SkinAPI`, `Polestar_TabStyles`, `Polestar_Experimental`, `Polestar_Layout_Atlas`, our `Polestar_Skin_*`, the race parts `Polestar_Guides_<Race>`), are never shipped: `pack` names any left in `addon/` so they get deleted |
 | `Polestar_Recorder-<version>.zip` | `Polestar_Recorder` with `LICENSE` |
 | `SHA256SUMS` | both zips' checksums, as `sha256sum -c` reads them |
 

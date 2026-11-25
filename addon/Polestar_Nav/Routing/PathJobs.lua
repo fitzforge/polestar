@@ -99,6 +99,13 @@ local function frameBudget(ms)
 	if type(fps) ~= "number" or fps >= 60 or fps <= 0 then return ms end
 	return math.min(ms * math.min(60 / fps, Path.slowScale), Path.sliceMax)
 end
+-- Every search's and batch's whole budget (pump): Path.jobBudget expansions, then it gives up ("budget"). A search
+-- that can't finish otherwise took 3-4 ms of every frame for as long as it ran (Fitz's 0.4.3-rc probe: one batch,
+-- 571,000 expansions, 3.4 s of slices over 19 s, #3451); the arrow's searches on the route-speed and stretch scenes
+-- take 10,000-60,000, the planner's widest batches 100,000-600,000. Counted in expansions, not milliseconds, so a
+-- slow machine or a cluster's decode never cuts a search a fast one finishes. Path.manyCap (Path.lua) ends a batch
+-- by the same count between its places; this ends any search inside one.
+Path.jobBudget = 1000000
 Path.calmBudget = 1
 Path.calmSeconds = 1
 local calmUntil = 0
@@ -127,6 +134,87 @@ local function rushing(t)
 	if not rushAsked or t - rushAsked > Path.rushHold then return false end
 	rushUntil = rushUntil or t + Path.rushSeconds
 	return t < rushUntil
+end
+-- Frame headroom (#3640): a slice is cut to what the game's own frame leaves of the display's period, so a search
+-- never turns a frame that fits into one that misses. The pump runs once a frame at the same point of it, so the
+-- clock between two pumps (debugprofilestop) is the whole last frame; less the last slice, it is the game's own
+-- (everything else: the game, other addons, Polestar's other handlers). The slice is the period (Path.frameMs, a 60
+-- Hz display's) less that and Path.headroomMargin, at most the budget above (rush, calm or the usual one) and at least
+-- Path.sliceMin: on a loaded machine there are shorter slices, never none. Fitz's 0.4.2.2 report (15.67 ms game
+-- frames, 4.5 ms slices) turned each such frame into a 20 ms one. Two cases the clock can't price so:
+--   - a frame held to the display's period (vsync): every frame that fits takes exactly Path.frameMs, whatever the
+--     game's share, and the formula would shrink the slice to the floor for nothing. Two frames in a row at the
+--     period, apart by less than half the change in the slices they held (the frame did not follow the slice), say
+--     so; two at the period with the same slice can't tell, so the next slice is doubled once to ask (at most once
+--     every Path.lockHold seconds). Held to the period, the slice grows by Path.lockGrow a frame up to the budget
+--     while frames keep fitting, a frame that runs to two periods right after one that fitted (a refresh missed
+--     after a slice) halves it, and it then holds for Path.lockHold seconds before it grows again, so a missed
+--     refresh comes back seconds apart, not every few frames. A frame at neither ends the hold to the period;
+--   - a frame that already misses the period (under 60 fps), two in a row (one is a missed refresh): a shorter slice
+--     wins nothing there, so the budget is frameBudget's, as before: the path work a second stays what it is at 60
+--     fps.
+-- After a pause (the queue empty, combat) the first slice has no last frame to go by: it takes the room the last
+-- slice had, if that was within Path.roomSeconds, else Path.sliceMin (the next frame has a frame to go by).
+Path.frameMs = 1000 / 60
+Path.headroomMargin = 0.5
+Path.sliceMin = 0.5
+Path.lockTolerance = 0.25
+Path.lockGrow = 1.25
+Path.lockHold = 2
+Path.roomSeconds = 30
+-- The previous pump's clock() (nil: no pump last frame), the ms it and the one before spent, the frame before it.
+local lastAt, lastSpent, prevSpent, lastDelta
+local lockSlice, lockHeld = nil, 0 -- the slice while frames are held to the period (nil: not held); GetTime() it holds to
+local probeAt = 0 -- GetTime() before which no slice is doubled to ask whether frames are held to the period
+local room, roomAt = math.huge, -math.huge -- the last frame's room for a slice (ms; huge: no limit) and its GetTime()
+Path.burstEvery, Path.burstBudget = 4, 4.5
+local lastBurst, rushFrames = false, 0 -- the last slice was a rush burst (below); frames sliced in rushes
+local function headroom(budget, now, t)
+	local at, spent, before = lastAt, lastSpent, lastDelta
+	local period, tol, low = Path.frameMs, Path.lockTolerance, Path.sliceMin
+	if not at then
+		lastDelta = nil
+		if t - roomAt > Path.roomSeconds then return math.min(budget, low) end
+		return room == math.huge and budget or math.max(low, math.min(budget, room))
+	end
+	local delta = now - at
+	lastDelta, roomAt = delta, t
+	local abs = math.abs
+	local fitted = before and abs(before - period) <= tol
+	if abs(delta - period) <= tol and (lockSlice or fitted and prevSpent
+		and abs(spent - prevSpent) > 0.2 and abs(delta - before) < abs(spent - prevSpent) / 2) then
+		local slice = lockSlice or math.max(low, spent)
+		if t >= lockHeld then slice = slice * Path.lockGrow end
+		lockSlice = math.min(slice, budget)
+		room = lockSlice
+		return math.max(low, lockSlice)
+	end
+	if lockSlice and abs(delta - 2 * period) <= 2 * tol and spent > 0 then
+		-- A burst's missed refresh was asked for: it says nothing of the slice that fits.
+		if not lastBurst then lockSlice, lockHeld = math.max(low, spent / 2), t + Path.lockHold end
+		room = lockSlice
+		return lockSlice
+	end
+	lockSlice = nil
+	if abs(delta - period) <= tol and fitted and t >= probeAt then
+		probeAt = t + Path.lockHold
+		room = math.max(low, spent) * 2
+		return math.min(budget, room)
+	end
+	local game = delta - spent
+	if game > period and (not before or before > period + tol) then
+		-- Frames held to two periods may be the slice's doing (a vsync'd frame that would fit one without it): the
+		-- floor once, at most every Path.lockHold seconds, to ask.
+		if abs(delta - 2 * period) <= 2 * tol and spent > low and t >= probeAt then
+			probeAt = t + Path.lockHold
+			room = low
+			return low
+		end
+		room = math.huge
+		return frameBudget(budget)
+	end
+	room = period - game - Path.headroomMargin
+	return math.max(low, math.min(budget, room))
 end
 -- With the queue empty the router rests: Search.Rest empties the endpoint trees' pool, Grid.Rest trims the decoded
 -- graph to Path.graphRestKB and keeps Path.restTrees endpoint trees (the newest start's in the pool, for the next
@@ -173,11 +261,25 @@ pump = function()
 			end)
 		end
 		combatWait:RegisterEvent("PLAYER_REGEN_ENABLED")
+		lastAt = nil
 		return
 	end
 	local now = clock()
 	local t = GetTime and GetTime() or 0
-	local budget = frameBudget(rushing(t) and Path.rushBudget or t < calmUntil and Path.calmBudget or Path.budget)
+	local rush = rushing(t)
+	local budget = headroom(rush and Path.rushBudget or t < calmUntil and Path.calmBudget or Path.budget, now, t)
+	-- The rush's burst (#3640): while a new goal has no path yet, at most Path.rushSeconds, one frame in
+	-- Path.burstEvery may take up to Path.burstBudget whatever the headroom. On a loaded machine (15 ms game frames) the
+	-- headroom alone holds ~1.2 ms of path work a frame and a route takes 5-7 s; with the burst about half that, for
+	-- one slower frame in four for at most two seconds. Outside the rush, the headroom only.
+	lastBurst = false
+	if rush then
+		rushFrames = rushFrames + 1
+		if rushFrames % Path.burstEvery == 0 and budget < Path.burstBudget then
+			budget, lastBurst = math.min(Path.burstBudget, Path.rushBudget), true
+		end
+	end
+	Path.lastSlice = budget -- for harnesses and the perf probe
 	local finish = now + budget
 	repeat
 		if #queue == 0 then
@@ -215,6 +317,20 @@ pump = function()
 			if not job.cancelled then
 				notify(job, job.callback, points, cost)
 			end
+		elseif not job.notify and not job.prefetch and (job.expansions or 0) > Path.jobBudget then
+			-- Spent its whole budget (Path.jobBudget): it gives up. A search answers (nil, "budget"), the caller's
+			-- straight estimate (Nav/Walk.lua: the straight arrow, its line dashed, asked again only after a while); a
+			-- batch completes with the places it priced, the rest unpriced (job.capped, as Path.manyCap's). Its
+			-- half-searched scratch is dropped, never the next search's.
+			job.done, job.scratch, job.co, job.reason = true, nil, nil, "budget"
+			if not job.cancelled then
+				if job.targets then
+					job.capped = true
+					notify(job, job.callback, job.costs, nil)
+				else
+					notify(job, job.callback, nil, "budget")
+				end
+			end
 		else
 			if points == "load" then
 				finish = 0
@@ -230,7 +346,11 @@ pump = function()
 		end
 	until clock() >= finish
 	if #queue == 0 then
+		lastAt = nil
 		rest()
+	else
+		prevSpent = lastAt and lastSpent or nil
+		lastAt, lastSpent = now, clock() - now
 	end
 	schedule()
 end
@@ -383,7 +503,9 @@ end
 -- costs[i] is nil until settled, an exact running-yard cost afterwards, or false when unreachable; job.yards[i]
 -- beside it the yards along its cost-best path (equal to costs[i] on a format 1 map). job.radius
 -- bounds every unsettled target, including a popped entrance whose expansion has not finished. Pause/Resume
--- retain the frontier. Missing data or an invalid source completes with all false plus a reason.
+-- retain the frontier. Missing data or an invalid source completes with all false plus a reason. In a strict batch
+-- (opts.walkLevel) a target's `first` and `bound` fields order and bound the work (Path.lua Safe.many); job.unjoined,
+-- job.capped and job.pruned say why targets were left unpriced (nil: the caller's estimate).
 ---@param map number
 ---@param from SPFPoint
 ---@param targets SPFPoint[]

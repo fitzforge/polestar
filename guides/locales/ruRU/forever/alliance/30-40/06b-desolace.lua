@@ -18,8 +18,6 @@ return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Летите сюда: {area:150}",
-	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "Распорядитель полетов: {area:144}",
 
 	-- Step 3: Theramore flight master
 	["Theramore flight master"] = "Распорядитель полетов: Терамор",
@@ -48,8 +46,10 @@ return {
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:6134}'s magnets draw the Magrami Spectres a few yards from the Magram Necrokhans and Corpsefeeders (45, elite) in the {area:2657}. Skip it if you are alone."] = "Это элитные мобы: лучше собрать группу, поищите спутников. Магниты из задания «{quest:6134}» притягивают призраков Маграм в нескольких метрах от некроханов Маграм и трупоедов (45, элита) в месте {area:2657}. Пропустите, если вы один.",
 
 	-- Step 8: Flesh Picker
-	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
-	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s {item:213565}."] = "По месту {area:596} ползает {npc:217590}: поймайте его инструментом из набора {item:213565} (его дает {npc:217412}).",
+	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
+	["A {npc:217590} crawls about the {area:596}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "{npc:217590} ползает в месте {area:596}: откройте {item:213565} от NPC {npc:217412} и используйте {item:213562} на одном из них. Не убивайте его.",
+	-- {item:213562} Bug Catching Net · {npc:217590} Flesh Picker · {item:213567} Flesh Picker Specimen
+	["{item:213562}, on a {npc:217590}: the {item:213567}"] = "{item:213562} на существе {npc:217590}: {item:213567}",
 
 	-- Step 9: Maraudine centaurs
 	["Maraudine centaurs"] = "Кентавры из племени Мародин",
@@ -58,7 +58,7 @@ return {
 
 	-- Step 10: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} держат в лагере кентавров к западу от кладбища. Освободите ее и сохраните ей жизнь по пути наружу; она останавливается у кладбища.\nОсторожно: заскриптованные группы связаны между собой и появляются только во время сопровождения, так что их нельзя зачистить заранее или выманивать по одной. Но зачистка обычных кентавров на пути перед началом помогает.",
+	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} в плену в лагере кентавров к западу от кладбища. Освободите ее и сохраните ей жизнь на обратном пути; она остановится у кладбища.\nОсторожно: во время сопровождения нападают шесть кентавров, и заранее их не зачистить: они появляются только во время сопровождения и нападают вместе. В записях игроков 14 из 30 взявших его проваливали хотя бы раз. Возьмите друга или пропустите, если вы один. Зачистка обычных кентавров на пути перед началом помогает.",
 	-- {npc:12277} Melizza Brimbuzzle
 	["escort {npc:12277} back toward the graveyard"] = "сопроводите NPC {npc:12277} обратно к кладбищу",
 
@@ -91,27 +91,31 @@ return {
 	["Back at the coven on the way west: the Mana Eaters (37-38) on its north edge and the Mage Hunters (38-39) further in drop the brains. {npc:5760} (40, elite) walks among the Mage Hunters: pull them out to you."] = "Снова в Ковене по пути на запад: мозги падают с пожирателей маны (37-38) на его северном краю и с охотников на магов (38-39) дальше внутри. {npc:5760} (40, элита) ходит среди охотников на магов: выманивайте их к себе.",
 
 	-- Step 17: Azore Aldamort
-	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
-	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "Идите по дороге на запад через север зоны {zone:1443} к руинам: {area:2405}. Там на холме стоит башня NPC {npc:11863}, по пути к обломкам корабля.",
+	-- {npc:11863} Azore Aldamort · {area:2405} Ethel Rethor · {zone:1443} Desolace
+	["{npc:11863}'s tower stands on the hill at the ruins of {area:2405}, west across the north of {zone:1443}."] = "Башня NPC {npc:11863} стоит на холме у руин ({area:2405}), на западе, через север зоны {zone:1443}.",
 	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
 	["{npc:11863}, if the first {zone:1443} visit didn't take the sceptre back to him"] = "",
+
+	-- Step 18: Azore Aldamort
+	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
+	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "Идите по дороге на запад через север зоны {zone:1443} к руинам: {area:2405}. Там на холме стоит башня NPC {npc:11863}, по пути к обломкам корабля.",
 	-- {npc:11863} Azore Aldamort · {quest:93464} The Visiting Mage · {zone:1435} Swamp of Sorrows
 	["{npc:11863}: {quest:93464}, from Magtoor in the {zone:1435}"] = "{npc:11863}: {quest:93464}, от Магтура ({zone:1435})",
 	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
 	["{npc:11863}, if the first {zone:1443} visit didn't give it"] = "",
 
-	-- Step 18: Karnitol's Chest
+	-- Step 19: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
 	["The wrecked ship's chest lies just south-west of {npc:11863}'s tower."] = "Сундук разбитого корабля лежит чуть юго-западнее башни NPC {npc:11863}.",
 
-	-- Step 19: Claim Rackmore's Treasure!
+	-- Step 20: Claim Rackmore's Treasure!
 	-- {object:177787} Rackmore's Log · {object:35251} Karnitol's Chest · {zone:1443} Desolace
 	["{object:177787} lies beside {object:35251}, if you didn't take it on your first {zone:1443} visit. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787} лежат рядом с объектом {object:35251}, если вы не взяли их при первом посещении зоны {zone:1443}. Его серебряный ключ падает с крабов Сухого Щелчка вокруг обломков корабля; золотой – с наг Скользящего Клинка на северо-западном побережье, далее.",
 	-- {object:177787} Rackmore's Log · {zone:1443} Desolace
 	["{object:177787}, if the first {zone:1443} visit didn't take it"] = "",
 	["Underwater"] = "Под водой",
 
-	-- Step 20: Sar'theris Strand: kill these as you meet them
+	-- Step 21: Sar'theris Strand: kill these as you meet them
 	-- {area:598} Sar'theris Strand
 	["{area:598}: kill these as you meet them"] = "{area:598}: убивайте их, когда встретите",
 	-- {npc:11863} Azore Aldamort · {spell:131} Water Breathing · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
@@ -121,11 +125,11 @@ return {
 	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue
 	["{item:15766}, on the {object:177673}"] = "{item:15766}, на объекте {object:177673}",
 
-	-- Step 21: Rackmore's Chest
+	-- Step 22: Rackmore's Chest
 	-- {object:177673} Serpent Statue
 	["Rackmore's chest lies just south-east of the {object:177673}."] = "Сундук Ракмора лежит чуть юго-восточнее объекта {object:177673}.",
 
-	-- Step 24: Nijel's Point
+	-- Step 25: Nijel's Point
 	-- {area:608} Nijel's Point · {npc:5396} Captain Pentigast · {npc:5638} Kreldig Ungor · {npc:1182} Brother Anton
 	["Follow the road north to {area:608}: {npc:5396} stands at its south end, {npc:5638} in the middle, {npc:1182} to the north."] = "Идите по дороге на север: {area:608}. {npc:5396} стоит в южной части, {npc:5638} – в центре, {npc:1182} – на севере.",
 	-- {npc:5637} Roetten Stonehammer · {zone:1455} Ironforge
@@ -133,14 +137,17 @@ return {
 	-- {npc:3980} Raleigh the Devout · {area:271} Southshore
 	["for {npc:3980} in {area:271}: keep it"] = "для NPC {npc:3980} ({area:271}): сохраните",
 
-	-- Step 25: Fly to Theramore
+	-- Step 26: Fly to Theramore
 	["Fly to Theramore"] = "Летите на Терамор",
 	["The next guide starts in Theramore."] = "Следующий гайд начинается на Тераморе.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s {item:213565}."] = "По месту {area:596} ползает {npc:217590}: поймайте его инструментом из набора {item:213565} (его дает {npc:217412}).",
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Наги Скользящего Клинка занимают северо-западное побережье к северу от башни NPC {npc:11863}; сумка Карнитола лежит на морском дне напротив, а золотой ключ Ракмора может упасть с любой наги. Доплывите до места {area:2406} у дальней северной оконечности и используйте {item:15766} на объекте {object:177673}: появится {npc:12369} (38); убейте его ради предмета {quest:6027}.",
 	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "Демоны собираются здесь: {area:602}, юг зоны {zone:1443}: гончие Скверны (пожиратели маны, охотники на магов и охотники за магией), девы и сестры Пустоты, а вокруг ямы – капитаны тюремщиков судеб.\nОсторожно: большинство противников здесь ходят патрулями, так что легко привлечь лишних.",
 	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "Опустошители-отрекшиеся бродят по костяным полям к югу от деревни племени Маграм, к востоку от Ковена: стрелка ведет к их западному краю. Затем используйте {item:15848} у его стрелки, на восточной стороне полей, чтобы приманить призраков из племени Маграм. Осторожно: некроханы Маграм и трупоеды (45, элитные) ходят по костяным полям между двумя стрелками вместе с некромантами Маграм (42): подтягивайте опустошителей и призраков к себе, подальше от них.",
+	-- ["{area:144} flight master"] = "Распорядитель полетов: {area:144}",
+	-- ["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} держат в лагере кентавров к западу от кладбища. Освободите ее и сохраните ей жизнь по пути наружу; она останавливается у кладбища.\nОсторожно: заскриптованные группы связаны между собой и появляются только во время сопровождения, так что их нельзя зачистить заранее или выманивать по одной. Но зачистка обычных кентавров на пути перед началом помогает.",
 	-- ["{npc:5396}, if 30-40/02 didn't give it"] = "{npc:5396}, если не получили в 30-40/02",
 	-- ["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}, если гайд 30-40/02 его не взял: обломки корабля лежат под башней NPC {npc:11863}",
 	-- ["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019} стоит на краю места {area:596}, к юго-западу от места {area:2407}; {object:176751} лежат среди скелетов.",

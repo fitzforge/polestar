@@ -11,6 +11,8 @@ return {
 	["Zeppelin to {zone:1454}"] = "Zeppelin nach {zone:1454}",
 
 	-- Step 2: Orgrimmar
+	-- {zone:1454} Orgrimmar · {zone:1445} Dustwallow Marsh
+	["The {zone:1454} and Crossroads stops are on the way for players coming from the previous guide; opened with none of its quests in the log, the guide starts in {zone:1445}."] = "Die Stopps in {zone:1454} und am Crossroads liegen auf dem Weg für Spieler aus dem vorherigen Guide; ohne eine seiner Quests im Questlog geöffnet, beginnt der Guide in {zone:1445}.",
 	-- {zone:1454} Orgrimmar
 	["The middle of {zone:1454}"] = "Die Mitte von {zone:1454}",
 
@@ -158,7 +160,7 @@ return {
 
 	-- Step 30: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} wird im Lager der Maraudine am westlichen Ende des Tals festgehalten; befreie sie und eskortiere sie östlich aus dem Tal.\nVorsicht: Die gescripteten Gruppen sind verbunden und erscheinen nur während der Eskorte, also kannst du sie nicht im Voraus räumen oder einzeln ziehen. Die normalen Zentauren auf dem Weg vor dem Start zu räumen hilft aber.",
+	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} wird im Lager der Maraudine am Westende des Tals festgehalten; befreie sie und eskortiere sie nach Osten aus dem Tal.\nVorsicht: Während der Eskorte greifen sechs Zentauren an, und du kannst sie nicht vorher wegräumen: Sie erscheinen nur während der Eskorte und kommen gemeinsam. In den Aufzeichnungen der Spieler sind 14 von 30, die sie angenommen haben, mindestens einmal gescheitert. Nimm einen Freund mit oder überspring sie, wenn du allein bist. Die normalen Zentauren auf dem Weg vorher wegzuräumen hilft.",
 
 	-- Step 31: Hornizz Brimbuzzle
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard
@@ -294,6 +296,7 @@ return {
 	-- ["grind on {npc:4377}"] = "grinde an {npc:4377}",
 	-- ["{npc:11624} stands in the village."] = "{npc:11624} steht im Dorf.",
 	-- ["{npc:11626}'s caravan stops on the road at the edge of {area:602}. Escort it east past the coven; demons attack it twice."] = "Die Karawane von {npc:11626} hält auf der Straße am Rand von {area:602}. Eskortiere sie nach Osten am Koven vorbei; Dämonen greifen sie zweimal an.",
+	-- ["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} wird im Lager der Maraudine am westlichen Ende des Tals festgehalten; befreie sie und eskortiere sie östlich aus dem Tal.\nVorsicht: Die gescripteten Gruppen sind verbunden und erscheinen nur während der Eskorte, also kannst du sie nicht im Voraus räumen oder einzeln ziehen. Die normalen Zentauren auf dem Weg vor dem Start zu räumen hilft aber.",
 	-- ["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391}: für {npc:4631} in {area:35}, beim ersten Halt in {area:35} in 40-50",
 	-- ["{npc:4983} waits in the {area:2302} east of the village. Follow him to Reethe and keep him alive through the fight that breaks out."] = "{npc:4983} wartet im Morast ({area:2302}) östlich des Dorfs. Folge ihm zu Reethe und halte ihn im ausbrechenden Kampf am Leben.",
 	-- ["{npc:5395} and {npc:5412} stand in the post just west of {npc:11596}'s camp."] = "{npc:5395} und {npc:5412} stehen im Posten gleich westlich von {npc:11596}s Lager.",

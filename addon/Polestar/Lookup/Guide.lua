@@ -36,6 +36,9 @@
 --       (Berard's Bookshelf in Pyrewood Village, #1778). A kill the
 --       Codex marks with `useItem` (an item used on that NPC) is a use of
 --       that item, at the NPC's spawns; a tame stays a tame (#2468)
+--       opts.needed: the guide is there to get the quest done (Dungeons'
+--       attunement guides), so an accept or turn-in at an NPC only the dead
+--       see stays to do (Lookup.GhostOnly)
 --   Lookup.DropQuestSteps(source, player, from, direct?) -> steps | nil, reason, quest
 --       obtain every source.requiresQuests quest not held or completed;
 --       finish its ordinary prerequisites, then only accept the root.
@@ -101,7 +104,7 @@ end
 
 function Lookup.Show(query, kind, id)
 	if not enabled() then
-		ns.Print(L["Lookup is turned off (Options > Discovery > Lookup)."])
+		ns.Print(L["Lookup is turned off (Settings > Discovery > Lookup)."])
 		return
 	end
 	ns.Fire("SHOW_LOOKUP", query, kind, id)
@@ -468,12 +471,18 @@ local function spawnSpots(goal, spawns)
 	if spread then goal.spread = true end
 	return goal
 end
+-- spawnSpots for other guides built from the Codex: a hand-in guide's errand
+-- from a seller who walks a circuit (#3744: Tawny Grisette's 24 places on
+-- the Undercity's Trade Quarter ring, Dungeons/Handin.lua).
+Lookup.SpawnSpots = spawnSpots
 
 -- Quests to do in order to get questId, prerequisites first: every one of
--- `pre`, and of `preAny` (unless one is done) the first this character can
--- take, else the first it can take once it has the level (Fury in the Depths
--- waits on The Dark Iron War, level 25: leaving that out sent a level 23 to
--- a giver who refused, #1076). Done prerequisites are left out. The chain is
+-- `pre`, and of `preAny` (unless one is done) the one in the quest log, else
+-- the first this character can take, else the first it can take once it has
+-- the level (Fury in the Depths waits on The Dark Iron War, level 25: leaving
+-- that out sent a level 23 to a giver who refused, #1076). The one in the log
+-- first: a Rogue holding Forever's An Earnest Proposition (84152) was sent to
+-- take the Classic one (8910) all the same (#3081). Done prerequisites are left out. The chain is
 -- whole however long (Alba Fairmoon's to The State of the Mines is ten
 -- quests): a cut would drop the first quests to do. Each quest is visited
 -- once, so the walk ends. avoid(id), optional: a `preAny` alternative it
@@ -496,6 +505,10 @@ local function questChain(questId, player, avoid)
 				if ns.Compat.IsQuestCompleted(pid) then done = true; break end
 			end
 			if not done then
+				local held
+				for _, pid in ipairs(any) do
+					if ns.Compat.IsOnQuest(pid) and C.Quest(pid) then held = pid; break end
+				end
 				local function choose(skip)
 					local pick, later
 					for _, pid in ipairs(any) do
@@ -506,7 +519,7 @@ local function questChain(questId, player, avoid)
 					end
 					return pick or later
 				end
-				local pick = avoid and choose(true) or choose(false)
+				local pick = held or (avoid and choose(true) or choose(false))
 				if pick then visit(pick, depth + 1) end
 			end
 		end
@@ -561,14 +574,62 @@ function Lookup.AcceptPre(goal, q)
 	return goal
 end
 
-local function endGoal(t, q, e)
+-- An accept or turn-in goal at an NPC only a dead character sees (the Codex's
+-- ghostOnly: Franclorn Forgewright of Dark Iron Legacy, at Forgewright's Tomb)
+-- gets a note on the goal itself, which compact mode shows (the step's tip is
+-- folded away there): #558, the player saw nobody there. It is optional
+-- unless `needed`: a pick-up or hand-in guide's quest can be left, an
+-- attunement's cannot (the Shadowforge Key's guide passed both Dark Iron
+-- Legacy quests by and went straight to Blackrock Depths' entrance).
+-- Returns goal.
+function Lookup.GhostOnly(goal, needed)
+	local C = ns.Codex
+	local npc = goal and goal.npc and C and C.Npc and C.Npc(goal.npc)
+	if not (npc and npc.ghostOnly) then return goal end
+	local text
+	if needed then
+		text = L["Only visible while dead: die nearby and talk to them as a ghost."]
+	else
+		goal.optional = true
+		text = L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."]
+	end
+	goal.note = goal.note and (text .. " " .. goal.note) or text
+	return goal
+end
+
+local function endGoal(t, q, e, needed)
 	local g = { t = t, quest = q.id, title = q.title }
 	if e.npc then
 		g.npc, g.npcName = e.npc, e.name
 	else
 		g.object, g.objName = e.object, e.name
 	end
-	return at(g, e.spawn)
+	return Lookup.GhostOnly(at(g, e.spawn), needed)
+end
+
+-- Every NPC of `ends` the character may talk to (Lookup.SideOK), each at its
+-- spawn nearest `from` -> { { npc, npcName, map, x, y, f, z }, ... } | nil:
+-- an accept's `candidates` (the Engine picks the nearest again on step start,
+-- zone change and landing), so a quest several NPCs give goes to the one by
+-- the player wherever the guide was built. Camp Mojache has a herald in each
+-- Horde capital; the pick-up guide kept Warcaller Gorlach, nearest where it
+-- was built, and sent a Tauren standing beside Bluff Runner Windstrider in
+-- Thunder Bluff to Orgrimmar (#3368, Zack). nil when fewer than two such NPCs
+-- have a place, or an object gives it too (an object is no candidate).
+function Lookup.GiverCandidates(ends, from, direct)
+	if type(ends) ~= "table" or #(ends.object or {}) > 0 then return nil end
+	local C, p = Codex(), Lookup.PlayerInfo()
+	local list = {}
+	for _, id in ipairs(ends.npc or {}) do
+		local npc = C.Npc(id)
+		if npc and Lookup.SideOK(npc.faction, p) then
+			local s = Lookup.Nearest(npc.spawns, from, direct)
+			if s and s.map and s.x and s.y then
+				list[#list + 1] = { npc = npc.id, npcName = npc.name, map = s.map, x = s.x, y = s.y, f = frame(s.f), z = s.z }
+			end
+		end
+	end
+	return #list >= 2 and list or nil
 end
 
 -- The first NPC or object of `ends` that inside(kind, id) places (see
@@ -634,7 +695,7 @@ local function questStep(q, from, isTarget, opts)
 		finish = insideEnd(q["end"], inside)
 		if finish then mark(finish.spawn, finish.name) end
 	end
-	if inside then
+	if inside and not (opts and opts.entrances) then
 		giver = giver or (not startItem and bareEnd(q.start)) or nil
 		finish = finish or bareEnd(q["end"])
 	end
@@ -645,7 +706,8 @@ local function questStep(q, from, isTarget, opts)
 	local goals = {}
 	local accept
 	if giver then
-		accept = endGoal("accept", q, giver)
+		accept = endGoal("accept", q, giver, opts and opts.needed)
+		if giver.npc then accept.candidates = Lookup.GiverCandidates(q.start, from, direct) end
 	else
 		accept = { t = "accept", quest = q.id, title = q.title, item = startItem, itemName = itemName(startItem) }
 	end
@@ -774,7 +836,7 @@ local function questStep(q, from, isTarget, opts)
 	if event then
 		table.insert(goals, eventAt, at({ t = "complete", quest = q.id, title = q.title, text = event.text }, event))
 	end
-	goals[#goals + 1] = endGoal("turnin", q, finish)
+	goals[#goals + 1] = endGoal("turnin", q, finish, opts and opts.needed)
 	local step = { title = q.title, goals = goals }
 	-- How the quest is done beyond its objectives (the Codex's `how`, our
 	-- public words: Powering the Pylons' mana from the rifts, #2714), first.
@@ -811,15 +873,59 @@ local function startItemGoal(q, from)
 	return spawnSpots(at(itemFrom({ t = "collect", item = item, itemName = itemName(item), count = 1, group = eliteGroup(dropper) }, item), s), spawns)
 end
 
+-- The quest whose reward is item `itemId`, for an item objective of quest
+-- `self` that nothing else gives (no drop with a known chance, no object,
+-- vendor, craft or other source): The Videre Elixir's elixir is Gregan
+-- Brewspewer's reward for his own The Videre Elixir (4041, the Evoroot),
+-- #3837. The first such quest the character can take now; nil when the
+-- item has another source, the bags hold enough or none can be taken.
+local function rewardQuestFor(itemId, count, player, self)
+	local C, K = Codex(), ns.Compat
+	if (K.GetItemCount(itemId, true) or 0) >= (count or 1) then return nil end
+	local item = C.Item(itemId)
+	if not item then return nil end
+	local quests = {}
+	for _, src in ipairs(item.sources or {}) do
+		if src.type == "quest" then
+			if src.quest and src.quest ~= self then quests[#quests + 1] = src.quest end
+		elseif src.type ~= "drop" or (src.chance or 0) > 0 then
+			return nil
+		end
+	end
+	for _, id in ipairs(quests) do
+		local q = C.Quest(id)
+		if q and (K.IsOnQuest(id) or not (K.IsQuestCompleted(id) or Lookup.QuestBlock(q, player))) then return id end
+	end
+	return nil
+end
+
 -- Steps for a quest and its unfinished prerequisites; a quest started from an
--- item gets that item first (startItemGoal). -> steps | nil, reason
-local function questSteps(questId, player, from)
+-- item gets that item first (startItemGoal), and an item objective only
+-- another quest's reward gives gets that quest's steps first
+-- (rewardQuestFor). A giver, target or turn-in the
+-- Codex puts inside an instance is at its entrance, the step's note saying
+-- what is inside (Dungeons.InsideEntrance, as the attunement guides do:
+-- What Comes Around...'s Head of Targorr left the arrow beside Guard Berton,
+-- who takes it, #3613); a giver or turn-in with no place at all keeps the
+-- "First do the quest" note (opts.entrances). -> steps | nil, reason
+local function questSteps(questId, player, from, visiting)
 	local C = Codex()
 	if not C.Quest(questId) then return nil, "unknown" end
+	visiting = visiting or {}
+	visiting[questId] = true
 	local chain = questChain(questId, player)
+	local D = ns.Dungeons
+	local opts = D and D.InsideEntrance and { inside = D.InsideEntrance, entrances = true } or nil
 	local steps = {}
 	for i, q in ipairs(chain) do
-		local step, err = questStep(q, from, q.id == questId)
+		for _, o in ipairs(q.objectives or {}) do
+			local reward = o.type == "item" and o.id and rewardQuestFor(o.id, o.count, player, q.id)
+			if reward and not visiting[reward] then
+				local before = questSteps(reward, player, from, visiting)
+				for _, s in ipairs(before or {}) do steps[#steps + 1] = s end
+			end
+		end
+		local step, err = questStep(q, from, q.id == questId, opts)
 		if not step then return nil, err end
 		local first = step.goals[1]
 		local get = first and first.t == "accept" and first.item and startItemGoal(q, from)

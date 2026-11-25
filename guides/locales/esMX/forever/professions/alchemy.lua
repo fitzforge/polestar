@@ -269,7 +269,8 @@ return {
 	-- {spell:3176} Lesser Troll's Blood Elixir
 	["{spell:3176} to 160"] = "{spell:3176} hasta 160",
 	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial
-	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176} es amarillo a 150 (amarillo 150, verde 170, gris 190): unas 12 fabricaciones hasta 160. Cada una lleva 2 {item:2453}, 2 {item:2450} y 1 {item:3372}. Dos {item:2453} y dos {item:2450} por fabricación; {item:2453} crece en las zonas de nivel 15-30.",
+	-- was: ["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176} es amarillo a 150 (amarillo 150, verde 170, gris 190): unas 12 fabricaciones hasta 160. Cada una lleva 2 {item:2453}, 2 {item:2450} y 1 {item:3372}. Dos {item:2453} y dos {item:2450} por fabricación; {item:2453} crece en las zonas de nivel 15-30."
+	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. If you got here without learning {spell:3176}, learn it now: an earlier step teaches it."] = "{spell:3176} es amarillo en 150 (amarillo 150, verde 170, gris 190): unas 12 fabricaciones hasta 160. Cada una lleva 2 {item:2453}, 2 {item:2450} y 1 {item:3372}. Dos {item:2453} y dos {item:2450} por fabricación; {item:2453} crece en las zonas 15-30. Si llegaste aquí sin aprender {spell:3176}, apréndelo ahora: lo enseña un paso anterior.",
 
 	-- Step 55: Alchemy recipes at 160
 	-- {skill:171} Alchemy
@@ -355,7 +356,8 @@ return {
 	-- {item:8951} Elixir of Defense
 	["{item:8951} to 230"] = "{item:8951} hasta 230",
 	-- {item:8951} Elixir of Defense · {item:3355} Wild Steelbloom · {item:3821} Goldthorn · {item:3372} Leaded Vial · {zone:1418} Badlands
-	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951} es amarillo a 225 (amarillo 215, verde 235, gris 255): unas 8 fabricaciones hasta 230. Cada una lleva 1 {item:3355}, 1 {item:3821} y 1 {item:3372}. {item:3355} y {item:3821} son las hierbas de las zonas de nivel 30-45 (Tuercespina, Arathi, {zone:1418}).",
+	-- was: ["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951} es amarillo a 225 (amarillo 215, verde 235, gris 255): unas 8 fabricaciones hasta 230. Cada una lleva 1 {item:3355}, 1 {item:3821} y 1 {item:3372}. {item:3355} y {item:3821} son las hierbas de las zonas de nivel 30-45 (Tuercespina, Arathi, {zone:1418})."
+	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). If you got here without learning {item:8951}, learn it now: an earlier step teaches it."] = "{item:8951} es amarillo en 225 (amarillo 215, verde 235, gris 255): unas 8 fabricaciones hasta 230. Cada una lleva 1 {item:3355}, 1 {item:3821} y 1 {item:3372}. {item:3355} y {item:3821} son las hierbas de las zonas 30-45 (Tuercespina, Arathi, {zone:1418}). Si llegaste aquí sin aprender {item:8951}, apréndelo ahora: lo enseña un paso anterior.",
 
 	-- Step 70: Alchemy recipes at 230
 	-- {skill:171} Alchemy
@@ -460,6 +462,7 @@ return {
 	-- ["{item:765} (Horde)"] = "{item:765} (Horda)",
 	-- ["{item:785} (Alliance)"] = "{item:785} (Alianza)",
 	-- ["{item:785} (Horde)"] = "{item:785} (Horda)",
+	-- ["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951} es amarillo a 225 (amarillo 215, verde 235, gris 255): unas 8 fabricaciones hasta 230. Cada una lleva 1 {item:3355}, 1 {item:3821} y 1 {item:3372}. {item:3355} y {item:3821} son las hierbas de las zonas de nivel 30-45 (Tuercespina, Arathi, {zone:1418}).",
 	-- ["{npc:1958} (level 17-18) drop it here. The Auction House works too."] = "{npc:1958} (nivel 17-18) lo sueltan aquí. También sirve la casa de subastas.",
 	-- ["{npc:513} (level 14-15) drop it here. The Auction House works too."] = "{npc:513} (nivel 14-15) lo sueltan aquí. También sirve la casa de subastas.",
 	-- ["{skill:171} recipes at 165"] = "Recetas de {skill:171} a 165",
@@ -472,5 +475,6 @@ return {
 	-- ["{skill:171} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 68s in all."] = "{skill:171} avanza junto con la subida de nivel. El Sistema de Legado de Forever recompensa las profesiones de fabricación con habilidad 150, 225 y 300 (los límites de Oficial, Experto y Artesano), así que cada uno de esos hitos cuenta. Los materiales para 1-75 valen unos 68s en total.",
 	-- ["{spell:11447} to 215"] = "{spell:11447} hasta 215",
 	-- ["{spell:2331} to 85"] = "{spell:2331} hasta 85",
+	-- ["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176} es amarillo a 150 (amarillo 150, verde 170, gris 190): unas 12 fabricaciones hasta 160. Cada una lleva 2 {item:2453}, 2 {item:2450} y 1 {item:3372}. Dos {item:2453} y dos {item:2450} por fabricación; {item:2453} crece en las zonas de nivel 15-30.",
 	-- ["{spell:7845} to 175"] = "{spell:7845} hasta 175",
 }

@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "{area:150}(으)로 비행",
-	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
 
 	-- Step 2: Red Jack Flint
 	-- {npc:4455} Red Jack Flint · {area:2103} Menethil Keep
@@ -21,7 +19,7 @@ return {
 	-- Step 3: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {npc:4963} Mikhail · {npc:5082} Vincent Hyal
 	["{npc:1217} stands in the {area:2104}, south of the keep, where {npc:4963} and {npc:5082} wait too."] = "{npc:1217}은(는) 성채 남쪽의 {area:2104}에 있으며, {npc:4963}와(과) {npc:5082}도 그곳에서 기다리고 있습니다.",
-	["Inside"] = "",
+	["Inside"] = "내부",
 
 	-- Step 4: Deepwater Tavern
 	-- {quest:1248} The Missing Diplomat · {npc:4963} Mikhail
@@ -76,7 +74,7 @@ return {
 
 	-- Step 12: Into Barrens
 	-- {zone:1413} Barrens
-	["Into {zone:1413}"] = "",
+	["Into {zone:1413}"] = "{zone:1413}(으)로",
 
 	-- Step 13: Takar the Seer
 	-- {zone:1413} Barrens · {npc:6244} Takar the Seer · {area:378} Camp Taurajo
@@ -119,7 +117,7 @@ return {
 
 	-- Step 21: Mirage Raceway: kill these as you meet them
 	-- {area:2240} Mirage Raceway
-	["{area:2240}: kill these as you meet them"] = "",
+	["{area:2240}: kill these as you meet them"] = "{area:2240}: 만나는 대로 처치하세요",
 	-- {object:19868} Rocket Car Rubble · {npc:5935} Ironeye the Invincible
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Gazers = {npc:4150} Saltstone Gazer · Scorpid Terrors = {npc:4139} Scorpid Terror
 	-- was: ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868}은(는) 평원 곳곳에 흩어져 있습니다. 붉은독전갈과 소금 평원 청소부독수리는 북쪽 절반을, 소금껍질거북(30-31)은 평원 중앙을 돌아다닙니다. 등껍질은 소금껍질거북에게서 얻으세요. 주의: 무쇠턱 소금껍질거북(34-35)은 평원 전체를 돌아다니고, 소금바위 큰눈바실리스크(34-35)와 점박이독전갈(33-34)은 남쪽 끝을 차지하고 있습니다. 그쪽은 피하고 북쪽 절반에 머무르세요."
@@ -141,7 +139,7 @@ return {
 
 	-- Step 23: Into Tanaris
 	-- {zone:1446} Tanaris
-	["Into {zone:1446}"] = "",
+	["Into {zone:1446}"] = "{zone:1446}(으)로",
 	-- {area:439} Shimmering Flats · {zone:1446} Tanaris
 	["From the raceway follow the road south out of the {area:439} into {zone:1446}."] = "",
 
@@ -174,7 +172,7 @@ return {
 
 	-- Step 28: Boat to Booty Bay
 	-- {area:35} Booty Bay
-	["Boat to {area:35}"] = "",
+	["Boat to {area:35}"] = "배를 타고 {area:35}(으)로",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back west along the road to the satyr camps of {area:429}."] = "길을 따라 서쪽으로 {area:429}의 사티로스 야영지에 돌아가십시오.",
@@ -210,4 +208,5 @@ return {
 	-- ["{npc:5082}, {npc:4963} and Tapoke Jahn are all at Menethil's inn; {npc:4962} fights you when you talk to {npc:4963}, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn."] = "{npc:5082}, {npc:4963}, {npc:4962}은(는) 모두 메네실 항구 여관에 있습니다. {npc:4963}와(과) 대화하면 타포케가 덤벼들지만, 쓰러뜨리면 포기합니다. {npc:1480}은(는) 여관에서 북동쪽으로 조금 걸어간 곳에 있습니다.",
 	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868}은(는) 평원 곳곳에 흩어져 있습니다. 붉은독전갈과 소금 평원 청소부독수리는 북쪽 절반을, 소금껍질거북(30-31)은 평원 중앙을 돌아다닙니다. 등껍질은 소금껍질거북에게서 얻으세요. 주의: 무쇠턱 소금껍질거북(34-35)은 평원 전체를 돌아다니고, 소금바위 큰눈바실리스크(34-35)와 점박이독전갈(33-34)은 남쪽 끝을 차지하고 있습니다. 그쪽은 피하고 북쪽 절반에 머무르세요.",
 	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: {area:415}의 {npc:3961}에게",
+	-- ["{zone:1453} flight master"] = "{zone:1453} 비행 조련사",
 }

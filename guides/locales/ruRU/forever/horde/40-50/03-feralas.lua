@@ -8,13 +8,13 @@
 return {
 	-- Guide
 	-- {zone:1454} Orgrimmar · {area:1099} Camp Mojache · {area:511} Wyrmbog · {area:496} Brackenwall Village
-	["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "",
+	["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "Сдача заданий в {zone:1454}, сосуд муйсека из места {area:1099}, затем {area:511} и {area:496} в Пылевых топях.",
 	["Takes you to level 47"] = "Доведет вас до 47-го уровня",
 	-- {zone:1446} Tanaris
 	["Then on to {zone:1446}"] = "Затем в зону {zone:1446}",
 	["Stays on the main route"] = "Остается на основном маршруте",
 	-- {zone:2652} Shen'dralas · {zone:1446} Tanaris
-	["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "",
+	["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "Пропускает {zone:2652}: примерно на дюжину заданий меньше, в {zone:1446} – на треть уровня ниже",
 
 	-- Step 1: Orgrimmar
 	-- {object:172960} Cleft of Shadow · {object:172958} Valley of Honor
@@ -78,37 +78,49 @@ return {
 	-- {area:498} Bloodfen Burrow
 	["Inside {area:498}"] = "Внутри: {area:498}",
 
-	-- Step 13: The Dragonmurk: kill these as you meet them
+	-- Step 13: The Musty Scroll
+	-- {object:2555} Musty Scroll
+	["The {object:2555} lies to the south-west."] = "{object:2555} лежит на юго-западе.",
+
+	-- Step 14: Mudsprocket
+	["Mudsprocket"] = "Шестермуть",
+	-- {object:2555} Musty Scroll · {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle · {item:280092} Wyrmtail
+	["South-east from the {object:2555} to Mudsprocket, the goblin camp at the {area:511}'s western edge: {npc:270723} and {npc:270727} stand together in the camp. Their whelps, scales and {item:280092} come on the same {area:511} loop as Brackenwall's quests."] = "На юго-восток от места {object:2555} к Шестермути, гоблинскому лагерю на западном краю места {area:511}: {npc:270723} и {npc:270727} стоят вместе в лагере. Их дракончики, чешуя и {item:280092} – на том же круге по месту {area:511}, что и задания Гиблотопи.",
+
+	-- Step 15: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
 	["{area:510}: kill these as you meet them"] = "{area:510}: убивайте их по пути",
-	-- {area:511} Wyrmbog
+	-- {area:511} Wyrmbog · {item:280092} Wyrmtail
 	-- was: ["Ride south-west to the {object:2555}, then east through the {area:511}. The Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "Езжайте на юго-запад к предмету {object:2555}, затем на восток через место {area:511}. Огнегривые разведчики и пеплохвосты бродят по его северному краю вместе с опаляющими малышами дракона и дракончиками; чешуйчатые губители охраняют драконьи пещеры дальше к юго-востоку. Понюшка, грог и сейф Мок'Морокка лежат в лагерях драконидов."
-	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "",
+	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps. The {item:280092} grows in the bog just east of Mudsprocket."] = "На восток через место {area:511}: огнегривые разведчики и пеплохвосты бродят по его северному краю вместе с опаляющими детенышами и дракончиками; чешуебои охраняют драконьи пещеры дальше на юго-востоке. Табак, грог и сундук Мок'Морокка лежат в лагерях драконидов. {item:280092} растет на болоте чуть к востоку от Шестермути.",
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "{npc:4329} ходит по месту {area:510}: ищите внутри круга на карте",
 	["Below ground"] = "Под землей",
 
-	-- Step 14: Brackenwall Village
+	-- Step 16: Mudsprocket
+	["Back to Mudsprocket before you ride north."] = "Назад в Шестермуть, прежде чем ехать на север.",
+
+	-- Step 17: Brackenwall Village
 	["Ride back north to Brackenwall."] = "Возвращайтесь на север в Гиблотопь.",
 
-	-- Step 15: Onyxia's eggs
+	-- Step 18: Onyxia's eggs
 	["Onyxia's eggs"] = "Яйца Ониксии",
 	-- {area:511} Wyrmbog
 	["The Eggs of Onyxia lie in the dragon caves in the {area:511}'s south-east, guarded by the scalebanes; smash five."] = "Яйца Ониксии лежат в драконьих пещерах на юго-востоке ({area:511}) под охраной чешуйчатых губителей; разбейте пять.",
 
-	-- Step 16: Muckshell crabs
+	-- Step 19: Muckshell crabs
 	["Muckshell crabs"] = "",
 	-- plural, as words: Muckshell Razorclaws = {npc:4405} Muckshell Razorclaw
 	["On the way back north from the dragon caves, the Muckshell Razorclaws and Pincers (41-44) crowd the shallows just north of the caves; about one in twenty carries the Jeweled Pendant Marg Speaks asks for."] = "",
 
-	-- Step 17: Level 45.37
+	-- Step 20: Level 45.37
 	["Level 45.37"] = "Уровень 45.37",
 	-- {npc:4500} Overlord Mok'Morokk · {area:511} Wyrmbog · {area:978} Zul'Farrak
 	["{npc:4500}'s challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the {area:511}'s northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the {area:978} dungeon instead."] = "Для вызова ({npc:4500}) в Гиблотопи нужна группа из трех человек. В одиночку убивайте огнегривых разведчиков здесь, на северном краю ({area:511}), до уровня 45.37, прежде чем ехать обратно на север, чтобы не возвращаться сюда ради этого. Или, если есть группа, пройдите вместо этого подземелье {area:978}.",
 	-- {npc:4329} Firemane Scout
 	["grind on {npc:4329}"] = "убивайте: {npc:4329}",
 
-	-- Step 18: Brackenwall Village
+	-- Step 21: Brackenwall Village
 	-- {npc:4791} Nazeer Bloodpike · {item:5942} Jeweled Pendant
 	["{npc:4791}: the {item:5942}"] = "",
 	-- {npc:4047} Zor Lonetree · {zone:1454} Orgrimmar · {zone:1447} Azshara
@@ -116,7 +128,7 @@ return {
 	-- {quest:3128} Natural Materials · {zone:1444} Feralas
 	["Keep {quest:3128} and Improved Quality: {zone:1444}' sprites, hippogryphs, Zorbin's coast and the Rage Scar yetis come on your {zone:1444} loop at about 51, with the Muisek chain."] = "",
 
-	-- Step 19: Challenge Overlord Mok'Morokk
+	-- Step 22: Challenge Overlord Mok'Morokk
 	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:1173} needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\n{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "",
 

@@ -306,6 +306,9 @@ fn set_v(s: &Set) -> V {
 				pairs.push(("zmin", lo.into()));
 				pairs.push(("zmax", hi.into()));
 			}
+			if let Some(id) = a.subzone {
+				pairs.push(("subzone", id.into()));
+			}
 			obj(pairs)
 		};
 		pairs.push(("areas", s.areas.iter().map(area).collect::<Vec<V>>().into()));
@@ -351,6 +354,7 @@ fn portal_v(p: &Portal) -> V {
 		("b", end_v(&p.b)),
 		("seconds", p.seconds.into()),
 		("item", opt(p.item)),
+		("npc", opt(p.npc.as_deref())),
 		("source", p.source.as_str().into()),
 	])
 }
@@ -576,7 +580,7 @@ fn emit_lua(t: &Emit) -> Result<String, String> {
 		lines.push(format!("\t\t{},", lua_val(&v)?));
 	}
 	lines.push("\t},".into());
-	lines.push("\t-- walk-in portals, one way a -> b: id, destination name and area, ends as transports (with z), seconds (the loading screen), item (one the player must carry, else none)".into());
+	lines.push("\t-- walk-in portals, one way a -> b: id, destination name and area, ends as transports (with z), seconds (the loading screen), item (one the player must carry, else none), npc (the NPC who teleports the player who asks, else none)".into());
 	lines.push("\tportals = {".into());
 	for p in &t.transit.portals {
 		let v = obj(vec![
@@ -587,6 +591,7 @@ fn emit_lua(t: &Emit) -> Result<String, String> {
 			("b", to_lua_end(&p.b, true)),
 			("seconds", p.seconds.into()),
 			("item", opt(p.item)),
+			("npc", opt(p.npc.as_deref())),
 		]);
 		lines.push(format!("\t\t{},", lua_val(&v)?));
 	}

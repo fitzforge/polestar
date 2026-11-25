@@ -1,0 +1,258 @@
+name: Post-merge gates
+
+# The gates that only make sense on the merged tree (docs/CI.md, "After a merge"), on every push to next, on the
+# release data, on the maintainers' self-hosted runner for the gates (labels self-hosted, polestar-gates; docs/CI.md "Reference
+# data"): the whole Node suite, perf.test.js's timing budgets enforced, guide lint, the addon's Lua tests in full,
+# playtest, the route-speed gate, the arrow's corner cadence and the arrow through guide stretches. Two pull requests
+# that each passed alone are tested here as one tree. A failing gate fails the run (the badge in docs/CI.md turns red)
+# and files an issue labelled `next-gates`, or
+# comments on the open one; the next passing run closes it. A gate that cannot run (no data, no harness) fails too:
+# nothing here is skipped quietly.
+# Pushes to next only (and a run started by hand on next): merged code, never a pull request's.
+on:
+  push:
+    branches: [next]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One run at a time, to the end: a run takes longer than the time between merges on a busy day, so cancelling would
+# never finish one. A newer push waits, and replaces an older waiting one: the newest merge holds every earlier one.
+concurrency:
+  group: next-gates
+  cancel-in-progress: false
+
+jobs:
+  gates:
+    name: Gates on the merged tree
+    runs-on: [self-hosted, polestar-gates]
+    timeout-minutes: 180
+    env:
+      POLESTAR_TIMING_BUDGETS: warn
+      # One test file at a time, as ci-release-data.yml: the runner's 6 GB.
+      CI_TEST_CONCURRENCY: "1"
+      GATE_JOBS: "3"
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+
+      - name: Release data
+        run: |
+          test -f "$POLESTAR_DATA/forever/meta.json"
+          rm -rf data/forever && cp -r "$POLESTAR_DATA/forever" data/forever
+          mkdir -p data/sources "$RUNNER_TEMP/gates"
+          for s in "$POLESTAR_DATA"/sources/*; do ln -sfn "$s" "data/sources/$(basename "$s")"; done
+
+      - name: Forge cache key
+        id: forgekey
+        run: echo "key=forge-quick-Linux-${{ hashFiles('rust/**', 'tests/lua/simulate.lua') }}" >> "$GITHUB_OUTPUT"
+
+      - name: Forge (cache)
+        id: forgecache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: rust/target/quick/forge
+          key: ${{ steps.forgekey.outputs.key }}
+
+      - name: Build forge
+        if: steps.forgecache.outputs.cache-hit != 'true'
+        working-directory: rust
+        run: cargo build --profile quick --locked -j 4 -p forge
+
+      - name: Forge path
+        run: echo "FORGE=$GITHUB_WORKSPACE/rust/target/quick/forge" >> "$GITHUB_ENV"
+
+      # Each gate below runs whatever the ones before did, and leaves its verdict for the summary.
+      # The tests that read the data (tools/ci-data-tests.js); ci.yml's push run has every other one. perf.test.js runs
+      # on its own below.
+      - name: Node suite on the release data
+        id: node
+        continue-on-error: true
+        run: tools/ci-tests.sh "" $(node tools/ci-data-tests.js "tests/**/*.test.js" | tr ' ' '\n' | grep -vx tests/perf.test.js) 2>&1 | tee "$RUNNER_TEMP/gates/node.log"
+
+      # perf.test.js with its budgets enforced (docs/CI.md, "Timing budgets"), alone after the suite: in warn mode its
+      # step change, guide open and catch-up stood 3x over budget here for two days (#3730, fixed by #4065).
+      # POLESTAR_PERF_WARN names a figure known to be over with its issue open; it only warns until that is fixed.
+      - name: Perf budgets
+        id: perf
+        continue-on-error: true
+        env:
+          POLESTAR_TIMING_BUDGETS: enforce
+          POLESTAR_PERF_WARN: burst # #4066
+        run: node --test --test-timeout=900000 tests/perf.test.js 2>&1 | tee "$RUNNER_TEMP/gates/perf.log"
+
+      - name: Guide texts
+        id: texts
+        continue-on-error: true
+        run: tools/ci-guide-texts.sh "" all 2>&1 | tee "$RUNNER_TEMP/gates/texts.log"
+
+      - name: Guide lint
+        id: lint
+        continue-on-error: true
+        run: |
+          "$FORGE" guide lint --root . --format github 2>&1 | tee "$RUNNER_TEMP/gates/lint.log"
+          "$FORGE" guide lint experimental --root . --format github 2>&1 | tee -a "$RUNNER_TEMP/gates/lint.log"
+
+      # The addon's Lua tests, all of them, with the test binaries forge.yml caches (built on a miss).
+      - name: Addon test binaries key
+        id: addonkey
+        run: echo "key=addontest-bin-Linux-${{ hashFiles('rust/**', 'tests/lua/simulate.lua') }}" >> "$GITHUB_OUTPUT"
+
+      - name: Addon test binaries (cache)
+        id: addoncache
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: rust/target/addontest-bin
+          key: ${{ steps.addonkey.outputs.key }}
+
+      - name: Addon tests
+        id: addontest
+        continue-on-error: true
+        working-directory: rust
+        env:
+          HIT: ${{ steps.addoncache.outputs.cache-hit }}
+        run: |
+          if [ "$HIT" != true ]; then
+            cargo test --profile quick --locked -j 4 -p forge-addontest --no-run --message-format=json \
+              | jq -r 'select(.reason == "compiler-artifact" and .executable != null) | "\(.target.name)\t\(.executable)"' > "$RUNNER_TEMP/bins.tsv"
+            mkdir -p target/addontest-bin
+            while IFS=$'\t' read -r name exe; do cp "$exe" "target/addontest-bin/$name"; done < "$RUNNER_TEMP/bins.tsv"
+          fi
+          cd crates/forge-addontest
+          rc=0
+          for t in ../../target/addontest-bin/*; do "$t" --test-threads 3 || rc=1; done 2>&1 | tee "$RUNNER_TEMP/gates/addontest.log"
+          grep -qE '^test result: FAILED' "$RUNNER_TEMP/gates/addontest.log" && rc=1
+          exit "$rc"
+
+      - name: Playtest
+        id: playtest
+        continue-on-error: true
+        # The experimental pack is played when it has guides (none since Mount Hyjal joined the route in 0.4.3).
+        run: |
+          node tools/polestar.js playtest 2>&1 | tee "$RUNNER_TEMP/gates/playtest.log"
+          if find experimental -name '*.guide' -print -quit | grep -q .; then
+            node tools/polestar.js playtest experimental 2>&1 | tee -a "$RUNNER_TEMP/gates/playtest.log"
+          else
+            echo "experimental: no guides, nothing to play" | tee -a "$RUNNER_TEMP/gates/playtest.log"
+          fi
+
+      # The release gates whose harness and baselines are not in the repository, from the runner's gate kit
+      # ($POLESTAR_GATES/run.sh <gate> <tree> <out>: exit 0 = pass, <out>/<gate>.md its table).
+      - name: Route speed
+        id: routespeed
+        continue-on-error: true
+        run: |
+          test -x "$POLESTAR_GATES/run.sh"
+          "$POLESTAR_GATES/run.sh" routespeed . "$RUNNER_TEMP/gates"
+
+      - name: Arrow corner cadence
+        id: cadence
+        continue-on-error: true
+        run: |
+          test -x "$POLESTAR_GATES/run.sh"
+          "$POLESTAR_GATES/run.sh" cadence . "$RUNNER_TEMP/gates"
+
+      - name: Arrow stretches
+        id: arrow
+        continue-on-error: true
+        run: |
+          test -x "$POLESTAR_GATES/run.sh"
+          "$POLESTAR_GATES/run.sh" arrow . "$RUNNER_TEMP/gates"
+
+      - name: Summary
+        if: always()
+        env:
+          NODE: ${{ steps.node.outcome }}
+          PERF: ${{ steps.perf.outcome }}
+          TEXTS: ${{ steps.texts.outcome }}
+          LINT: ${{ steps.lint.outcome }}
+          ADDONTEST: ${{ steps.addontest.outcome }}
+          PLAYTEST: ${{ steps.playtest.outcome }}
+          ROUTESPEED: ${{ steps.routespeed.outcome }}
+          CADENCE: ${{ steps.cadence.outcome }}
+          ARROW: ${{ steps.arrow.outcome }}
+          SHA: ${{ github.sha }}
+          RUN: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          g=$RUNNER_TEMP/gates; bad=0
+          tail1() { [ -f "$1" ] && grep -E "$2" "$1" | tail -n 1 | cut -c1-200; }
+          row() {
+            local v=$2; [ "$v" = success ] && v=pass || { v="**FAIL** ($v)"; bad=$((bad + 1)); }
+            echo "| $1 | $v | $3 |"
+          }
+          {
+            echo "## Post-merge gates on ${SHA:0:10}"
+            echo
+            echo "| gate | result | note |"
+            echo "|---|---|---|"
+            row "Node suite (release data)" "$NODE" "$(tail1 "$g/node.log" '^ℹ (pass|fail) ' | tr '\n' ' ')"
+            row "Perf budgets" "$PERF" "$(grep -o 'measured (fastest of 5) {[^}]*' "$g/perf.log" 2>/dev/null | tail -n 1 | cut -c1-200)"
+            row "Guide texts" "$TEXTS" "$(grep -c '^error: ' "$g/texts.log" 2>/dev/null) errors"
+            row "Guide lint" "$LINT" "$(grep -c '^::error' "$g/lint.log" 2>/dev/null) errors"
+            row "Addon tests (all)" "$ADDONTEST" "$(grep -E '^test result' "$g/addontest.log" 2>/dev/null | awk '{p+=$4; f+=$6} END {print p" passed, "f" failed"}')"
+            row "Playtest" "$PLAYTEST" "$(grep -cE '^(stuck|fail) ' "$g/playtest.log" 2>/dev/null) stuck or failed"
+            row "Route speed" "$ROUTESPEED" "$(tail -n 1 "$g/routespeed.md" 2>/dev/null)"
+            row "Arrow corner cadence" "$CADENCE" "$(tail -n 1 "$g/cadence.md" 2>/dev/null)"
+            row "Arrow stretches" "$ARROW" "$(tail -n 1 "$g/arrow.md" 2>/dev/null)"
+            echo
+            echo "Run: $RUN"
+            echo
+            for f in routespeed cadence arrow; do [ -f "$g/$f.md" ] && { cat "$g/$f.md"; echo; }; done
+            if [ -f "$g/playtest.log" ]; then echo '### Playtest: stuck or failed'; echo; echo '```'; grep -E '^(stuck|fail) ' "$g/playtest.log" | head -n 40; echo '```'; fi
+            if [ -f "$g/addontest.log" ]; then echo '### Addon tests: failed'; echo; echo '```'; grep -E ' \.\.\. FAILED$' "$g/addontest.log" | head -n 40; echo '```'; fi
+          } > "$g/summary.md"
+          echo "$bad" > "$g/failed.txt"
+          cat "$g/summary.md" >> "$GITHUB_STEP_SUMMARY"
+          exit $((bad > 0))
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always()
+        with:
+          name: next-gates
+          path: ${{ runner.temp }}/gates/summary.md
+          retention-days: 30
+          if-no-files-found: warn
+
+  # A failing run files an issue (or comments on the open one); a passing run closes it. Nothing from the pull
+  # requests runs here: the job reads the summary the gates job wrote and calls the issues API.
+  report:
+    name: Report
+    needs: gates
+    if: always() && (needs.gates.result == 'success' || needs.gates.result == 'failure')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      issues: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      RESULT: ${{ needs.gates.result }}
+      SHA: ${{ github.sha }}
+      RUN: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        continue-on-error: true
+        with:
+          name: next-gates
+          path: gates
+
+      - name: Issue
+        shell: bash
+        run: |
+          [ -f gates/summary.md ] || printf 'The gates job left no summary: %s\n' "$RUN" > gates/summary.md
+          gh label create next-gates --color B60205 --description "A post-merge gate fails on next" 2>/dev/null || true
+          open=$(gh issue list --label next-gates --state open --json number --jq '.[0].number // empty')
+          if [ "$RESULT" = failure ]; then
+            if [ -n "$open" ]; then
+              gh issue comment "$open" --body-file gates/summary.md
+            else
+              gh issue create --label next-gates --title "next: a post-merge gate fails (${SHA:0:10})" --body-file gates/summary.md
+            fi
+          elif [ -n "$open" ]; then
+            gh issue close "$open" --comment "Every post-merge gate passes again on ${SHA:0:10}: $RUN"
+          fi

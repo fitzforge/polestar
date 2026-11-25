@@ -24,7 +24,7 @@ function GetAppropriateTooltip() return GameTooltip end
 // settings window, not at login).
 function run(script, options) {
 	const addons = [{ name: 'Polestar', files: ['Core/Init.lua', 'Core/Compat.lua', 'Theme/Theme.xml', 'QoL/QoL.xml'] }];
-	if (options) addons.push({ name: 'Polestar_Options', files: ['QoL/Options.lua'] });
+	if (options) addons.push({ name: 'Polestar_Options', files: ['UI/Kit.lua', 'QoL/Options.lua'] });
 	return runAddon({
 		stubs: ['stub_qol.lua'],
 		before,
@@ -244,7 +244,7 @@ emit({ total = P.total, shown = f:IsShown(), marker = f.Rested:IsVisible(), line
 	assert.equal(restored.marker, true);
 	assert.ok(restored.lines.some((line) => line.includes('Pending quest XP')));
 });
-test('registers only one quest XP toggle in Trackers & map / Experience', () => {
+test('registers only one quest XP toggle in Leveling / Experience', () => {
 	const [settings] = run(String.raw`
 dofile("addon/Polestar_Options/QoL/Options.lua")
 local found = {}
@@ -259,7 +259,7 @@ end
 emit(found)
 `, true);
 	assert.deepEqual(settings, {
-		'qol.questXPOverlay': { tab: 'Trackers & map', section: 'Experience', kind: 'toggle', help: true, default: true },
+		'qol.questXPOverlay': { tab: 'Leveling', section: 'Experience', kind: 'toggle', help: true, default: true },
 	});
 });
 

@@ -124,6 +124,7 @@ fn call(x: &Q) -> String {
 		}
 		"cost" => format!("Path.FindCost({MAP}, A, B, function(cost, reason, job) out[{id}] = {{ cost = str(cost or reason), yards = job and str(job.yards) }} end, {o})"),
 		"many" => format!("Path.FindMany({MAP}, A, {{ B }}, function(costs, reason, job) out[{id}] = {{ cost = str(costs[1] or reason), yards = job and job.yards and str(job.yards[1]) }} end, {o})"),
+		"lua" => o.clone(),
 		k => panic!("{k}"),
 	}
 }
@@ -291,6 +292,150 @@ fn format_2_a_horde_player_goes_round_an_alliance_hub_the_alliance_player_and_no
 	// Crossing a hostile hub is still a route when it is the only way: x 20, never closed.
 	let only = route(&map_files(&strip_only(layout(4, cls(8), Cls::default())), true, Opts::default()), &[q("horde", "find", r#"{ profile = "Horde" }"#)]);
 	close(&only["horde"], (20.0 * (S as f64 - 1.0) + 1.0) * CS, "Horde through the only way");
+}
+
+// #3641 (Hillsbrad Fields, Horde, 0.4.2.2): a player's walk (walkLevel set, the strict policy on) that starts or ends
+// inside a town hostile to the player (opts.homeHub, Nav/Walk.lua: Path.HubAt at either end) is priced as for no
+// profile, as 0.4.1.1 priced it: a quest goal in the town is walked to as the town's own people walk, not round its
+// buildings at twenty times the cost (2x the expansions and 164 yd for 126 there). The town is still named in
+// job.hubs, and the walk is still checked under the player's own policy. 0.4.2 dropped homeHub for player walks.
+#[test]
+fn a_player_walk_into_a_hostile_hub_s_ground_is_priced_as_the_town_s_own_people_walk_and_still_names_it() {
+	let mid = at(X0 as f64 + S as f64 / 2.0, Y0 as f64);
+	let hubs = format!("{{\n\t\t{{ id = 11, side = \"Alliance\", name = \"Hillsbrad Fields\", disks = {{ {{ {}, {}, 12 }} }} }},\n\t}}", js(mid.x), js(mid.y));
+	let policy = q("policy", "lua", r#"Polestar = { Nav = { danger = { Blocked = function(map, x, y, X, Y, profile) checked = profile return nil end } } }"#);
+	let got = route_with(
+		ours(),
+		&map_files(&layout(4, cls(8), Cls::default()), true, Opts { hubs: Some(hubs), ..Default::default() }),
+		&[
+			policy,
+			q("horde", "find", r#"{ profile = "Horde", walkLevel = 0 }"#),
+			q("home", "find", r#"{ profile = "Horde", walkLevel = 0, homeHub = true }"#),
+			q("homeMany", "many", r#"{ profile = "Horde", walkLevel = 0, homeHub = true }"#),
+		],
+		from(),
+		to(),
+		"out.checked = checked",
+	);
+	assert!(round(&got["horde"]), "a walk with no end in the town still goes round it: {got}");
+	assert!(straight(&got["home"]), "into the town: through it, as its own people walk: {got}");
+	close(&got["home"], STRAIGHT, "home");
+	close(&got["homeMany"], STRAIGHT, "home, FindMany");
+	assert_eq!(got["home"]["hubs"], json!([{ "id": 11, "name": "Hillsbrad Fields" }]), "the town is still named for the player");
+	assert_eq!(got["checked"], "Horde", "the walk is checked under the player's own policy");
+}
+
+// #3641 (Fitz in Hillsbrad Fields): the player's own steps are evidence the maps' 4-yd cells can miss (an orchard's
+// trees, a fence's gap). Path.SetTrail opens the steps of a walked trail the grid has no short way for, for the
+// map's searches until it is cleared: a walk then goes his way. Here the strip has a hole a cell wide, so the grid's
+// way is round the U; the trail walked along the strip, 2 yd a step, crosses it.
+#[test]
+fn a_walked_trail_opens_the_steps_the_grid_closes_for_the_searches_until_it_is_cleared() {
+	let mut cells = layout(4, Cls::default(), Cls::default());
+	cells.remove(&((X0 + S / 2) * C + Y0));
+	let (a, b) = (from(), to());
+	let n = ((b.x - a.x) / 2.0).ceil() as usize;
+	let samples: Vec<String> = (0..=n).map(|i| format!("{}, {}, false", js(a.x + (b.x - a.x) * i as f64 / n as f64), js(a.y))).collect();
+	let drain = "while #frames > 0 do table.remove(frames, 1)() end";
+	let got = route(
+		&map_files(&cells, true, Opts::default()),
+		&[
+			q("before", "find", r#"{ profile = "Horde" }"#),
+			q("drain1", "lua", drain),
+			q("set", "lua", &format!("out.gaps = {{ Path.SetTrail({MAP}, {{ {} }}) }}", samples.join(", "))),
+			q("with", "find", r#"{ profile = "Horde" }"#),
+			q("withMany", "many", r#"{ profile = "Horde" }"#),
+			q("drain2", "lua", drain),
+			q("again", "lua", &format!("out.again = {{ Path.SetTrail({MAP}, {{ {} }}) }}", samples.join(", "))),
+			q("clear", "lua", &format!("Path.SetTrail({MAP}, nil)")),
+			q("cleared", "find", r#"{ profile = "Horde" }"#),
+		],
+	);
+	assert!(round(&got["before"]), "the grid's way: round the U: {got}");
+	close(&got["before"], round_len(4), "before");
+	assert!(got["gaps"][0].as_f64().unwrap() >= 1.0, "the hole the trail crossed is a gap: {got}");
+	assert!(straight(&got["with"]), "with the trail: along it, through the hole: {got}");
+	close(&got["with"], STRAIGHT, "with");
+	close(&got["withMany"], STRAIGHT, "with, FindMany");
+	assert_eq!(got["again"][0], got["gaps"][0], "the same trail makes the same joins");
+	assert!(round(&got["cleared"]), "cleared: round again: {got}");
+}
+
+// #3451: a walk asked at a step change set the player's trail first, and Path.SetTrail decoded every cluster the
+// last minute of his steps crossed in that frame (dropped at rest while he stood at the goal): 30-60 ms frames in
+// the arrow stretches, most of the step changes' cost. It reads decoded clusters only: on ground no search has
+// decoded it makes no joins and decodes nothing; once the search has decoded it, the same trail opens the hole.
+#[test]
+fn a_walked_trail_reads_decoded_clusters_only_and_decodes_nothing_itself_3451() {
+	let mut cells = layout(4, Cls::default(), Cls::default());
+	cells.remove(&((X0 + S / 2) * C + Y0));
+	let (a, b) = (from(), to());
+	let n = ((b.x - a.x) / 2.0).ceil() as usize;
+	let samples: Vec<String> = (0..=n).map(|i| format!("{}, {}, false", js(a.x + (b.x - a.x) * i as f64 / n as f64), js(a.y))).collect();
+	let set = format!("Path.SetTrail({MAP}, {{ {} }})", samples.join(", "));
+	let got = route(
+		&map_files(&cells, true, Opts::default()),
+		&[
+			q("cold", "lua", &format!("local d = Path.decodes or 0; out.cold = {{ {set} }}; out.coldDecodes = (Path.decodes or 0) - d")),
+			q("before", "find", r#"{ profile = "Horde" }"#),
+			q("drain", "lua", "while #frames > 0 do table.remove(frames, 1)() end"),
+			q("warm", "lua", &format!("local d = Path.decodes or 0; out.warm = {{ {set} }}; out.warmDecodes = (Path.decodes or 0) - d")),
+		],
+	);
+	assert_eq!(got["cold"][0].as_f64(), Some(0.0), "no cluster decoded: no joins: {got}");
+	assert_eq!(got["coldDecodes"].as_f64(), Some(0.0), "and nothing decoded for the trail: {got}");
+	assert!(round(&got["before"]), "the grid's way: round the U: {got}");
+	assert!(got["warm"][0].as_f64().unwrap() >= 1.0, "decoded by the search: the hole the trail crossed is a gap: {got}");
+	assert_eq!(got["warmDecodes"].as_f64(), Some(0.0), "{got}");
+}
+
+// #3451 (0.4.3's arrow audit, Zephras step 52): every walk the arrow asks hands the router the player's last minute
+// of steps again, and Path.SetTrail snapped all of them (up to 300) to the grid in that frame: half of a step
+// change's cost on a kill-as-you-meet tour, where the target changes every few seconds. Between two asks the trail
+// only moves on by a few places, so a place snapped before keeps its node: N new places cost N snaps (and the new
+// first place one more, the height before it gone), and the joins are the ones a fresh trail makes.
+#[test]
+fn a_walked_trail_set_again_snaps_only_its_new_places_and_joins_as_a_fresh_one_3451() {
+	let tmp = TempDir::new("polestar-nav-snaps-");
+	let count = tmp.path().join("count-snaps.lua");
+	std::fs::write(&count, "local _, ns = ...\nstub.navNs = ns\nlocal snap = ns.PathGrid.snap\nstub.snaps = 0\nns.PathGrid.snap = function(...) stub.snaps = stub.snaps + 1 return snap(...) end\n")
+		.unwrap();
+	let mut files: Vec<String> = toc_entries(&addons_dir().join("Polestar_Nav")).unwrap().into_iter().filter(|f| !f.ends_with(".xml")).collect();
+	let at_grid = files.iter().position(|f| f.ends_with("PathGrid.lua")).unwrap();
+	files.insert(at_grid + 1, count.to_string_lossy().into_owned());
+	let mut cells = layout(4, Cls::default(), Cls::default());
+	cells.remove(&((X0 + S / 2) * C + Y0));
+	let (a, b) = (from(), to());
+	let n = ((b.x - a.x) / 2.0).ceil() as usize;
+	let samples: Vec<String> = (0..=n).map(|i| format!("{}, {}, false", js(a.x + (b.x - a.x) * i as f64 / n as f64), js(a.y))).collect();
+	let set = |id: &str, from: usize, to: usize| {
+		q(id, "lua", &format!("local s = stub.snaps; out.{id} = {{ Path.SetTrail({MAP}, {{ {} }}) }}; out.{id}Snaps = stub.snaps - s", samples[from..to].join(", ")))
+	};
+	let got = route_with(
+		Addon::Files("Polestar_Nav".into(), files),
+		&map_files(&cells, true, Opts::default()),
+		&[
+			q("before", "find", r#"{ profile = "Horde" }"#),
+			q("drain", "lua", "while #frames > 0 do table.remove(frames, 1)() end"),
+			set("first", 0, n - 9),
+			set("grown", 0, n - 6),
+			set("moved", 2, n - 4),
+			q("with", "find", r#"{ profile = "Horde" }"#),
+			q("forget", "lua", &format!("stub.navNs.PathGrid.State({MAP}).trailMemo = nil")),
+			set("fresh", 2, n - 4),
+		],
+		a,
+		b,
+		"",
+	);
+	assert!(got["first"][0].as_f64().unwrap() >= 1.0, "the hole the trail crossed is a gap: {got}");
+	assert_eq!(got["firstSnaps"].as_u64(), Some((n - 9) as u64), "a first trail: every place snapped: {got}");
+	assert_eq!(got["grownSnaps"].as_u64(), Some(3), "3 places added: 3 snapped: {got}");
+	assert_eq!(got["movedSnaps"].as_u64(), Some(3), "2 dropped, 2 added: the 2 and the new first place snapped: {got}");
+	assert_eq!(got["freshSnaps"].as_u64(), Some((n - 6) as u64), "{got}");
+	assert_eq!(got["moved"], got["fresh"], "the same joins as a fresh trail's: {got}");
+	assert!(straight(&got["with"]), "with the trail: along it, through the hole: {got}");
+	close(&got["with"], STRAIGHT, "with");
 }
 
 // Two searches queued together, the second marked urgent (Routing/PathJobs.lua: the walk the arrow is on,

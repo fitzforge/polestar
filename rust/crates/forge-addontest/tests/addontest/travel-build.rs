@@ -215,6 +215,48 @@ fn stonard_is_walkable_for_both_factions() {
 	assert_eq!(out, json!([46, 46, 46, 46, 46]));
 }
 
+#[test]
+fn doras_boards_the_offered_flight_to_freewind_without_a_known_connection() {
+	let out = nav_run(
+		r#"
+		local N, nav = Polestar.Nav, stub.nav
+		nav.useGameGround()
+		nav.faction, nav.level = "Horde", 34
+		-- #3062: Orgrimmar 45.44,63.90 to the Silithid Invader at 65.21,85.89 in Thousand Needles.
+		local p = { c = 1, wx = 1676.146, wy = -4317.945, map = 1454, z = 62, faction = 2, level = 34,
+			liveTaxi = true, known = { [23] = true, [30] = true },
+			target = { c = 1, wx = -6486.107, wy = -3302.573, map = 1441 } }
+		nav.place(p.wx, p.wy, p.c)
+		nav.Compat.GetPlayerUnitPosition = function() return p.wx, p.wy, p.z, p.c end
+		local function open(nodes)
+			nav.taxiMap = { mapID = 1414, nodes = nodes }
+			stub.fire("TAXIMAP_OPENED", 1)
+		end
+		local function first()
+			return assert(N.PlanRoute(p))[1]
+		end
+
+		assert(first().kind == "walk", "the stored network needs a ground approach with Crossroads unknown")
+		open({ { 23, 0 }, { 30, 1 } })
+		local leg = first()
+		assert(leg.kind == "fly" and leg.from.id == 23 and leg.to.id == 30 and leg.taxiOffer,
+			"board the selectable Freewind Post flight at Doras")
+		assert(#leg.stops == 2, "the ticket has one selectable destination")
+
+		-- Crossroads is selectable and both stops are known, but the open map doesn't offer Freewind.
+		p.known[25] = true
+		open({ { 23, 0 }, { 25, 1 }, { 30, 2 } })
+		local unoffered = first()
+		assert(not unoffered.taxiOffer or unoffered.to.id == 25, "never extend the live ticket to an unoffered stop")
+		p.known[25] = nil
+		nav.taxiMap = nil
+		stub.fire("TAXIMAP_CLOSED")
+		assert(first().kind == "walk", "closing the map removes the live boarding leg")
+		emit(leg.seconds)"#,
+	);
+	assert_eq!(out, 299, "Orgrimmar to Crossroads to Freewind Post: (3304 + 5532) / 30 plus two 2-second stops");
+}
+
 // A Horde character at Stonard's flight master who knows Rog'mar is flown there (the planner over the committed
 // network), in the 170 s players take.
 #[test]
@@ -373,7 +415,9 @@ fn from_the_valanaar_skydocks_the_skyborne_ride_the_airships_to_dalaran_and_to_n
 // #1674 (Megabite): on the Rohashi Spires after Lorthuna, the next step's turn-in at Elaadrin Evengale in
 // Valanaar said to hearth: the planner knew no way down but walking. The Portal to Valanaar beside her
 // sets the player down beside Elaadrin in five seconds. Zephras Isle (uiMap 2521, continent 2991) on its
-// live frame (data/forever/map-frames.json), the Hearthstone bound to Valanaar and ready.
+// live frame (data/forever/map-frames.json), the Hearthstone bound to Valanaar and ready. The client names
+// the player's subzone there "Rohashi Spires" (AreaTable 16630): with no height, that is how the planner
+// knows the player is up on the spires (#1766).
 #[test]
 fn from_lorthunas_terrace_to_elaadrin_in_valanaar_the_route_takes_the_portal_down_never_the_hearthstone() {
 	let out = emitted(&RunAddon {
@@ -387,6 +431,8 @@ fn from_lorthunas_terrace_to_elaadrin_in_valanaar_the_route_takes_the_portal_dow
 			nav.faction = "Alliance"
 			nav.items[6948] = 1
 			nav.bind = "Valanaar"
+			nav.Compat.GetZoneText = function() return "Zephras Isle", "Rohashi Spires" end
+			nav.Compat.GetAreaName = function(id) return id == 16630 and "Rohashi Spires" or nil end
 			local _, wx, wy = stub.nav.Compat.MapToWorld(2521, 74.87, 53.02, "l")
 			nav.place(wx, wy, 2991)
 			Polestar.Nav.SetTarget(2521, 66.63, 79.94, "Elaadrin Evengale", "l")

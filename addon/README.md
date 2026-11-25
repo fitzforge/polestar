@@ -10,11 +10,10 @@ page says which part is which.
 
 | Folder | What it holds | Built by | In git | Ships |
 |---|---|---|---|---|
-| `Polestar` | The addon: guide engine, waypoint arrow and travel planner, quest markers, gear advice, world map, quality of life, Lookup, Dungeons, Rares, Talents, Characters and every window but the settings window (`Polestar_Options`). | Hand-written, apart from the generated files listed below | yes | yes, in `Polestar-<version>.zip` |
+| `Polestar` | The addon: guide engine, waypoint arrow and travel planner, quest markers, gear advice, world map, quality of life, Lookup, Dungeons, Rares, Talents, Characters and every window but the settings window (`Polestar_Options`); also the game looks and Hearth (`Theme/Looks`), the Skin API's checks (`Theme/SkinCheck.lua`), the guide window's tab styles (`UI/TabStyles`) and Polestar's experimental guides (`Experimental/`), each its own addon before 0.4.3. | Hand-written, apart from the generated files listed below | yes | yes, in `Polestar-<version>.zip` |
 | `Polestar_Guides` | Polestar's own guide pack (pack id `guides`): every guide under `guides/`, compiled to Lua: the factionless guides here, each faction's leveling guides in its faction part. Loads with Polestar. | `compile`, from `guides/` | yes (generated) | yes, in `Polestar-<version>.zip` |
-| `Polestar_Guides_Alliance`, `Polestar_Guides_Horde` | Each faction's guides of `Polestar_Guides` (`Guides.lua`); the player's faction's loads with the pack, on demand. | `forge guide compile` | yes (generated) | yes, in `Polestar-<version>.zip` |
-| `Polestar_Guides_<Race>` (`Human`, `Dwarf`, `Gnome`, `NightElf`, `Skyborne`, `Orc`, `Troll`, `Tauren`, `Scourge`) | The baked walks into every leveling step for that race (`Legs.lua`, `Polestar.RegisterLegs`), loaded on demand for a character of that race. | `forge guide compile`, from `guides/legs.json` (`forge guide bake`) | yes (generated) | yes, in `Polestar-<version>.zip` |
-| `Polestar_Experimental` | Polestar's experimental guides (pack id `polestar-experimental`): guides for Forever's new zones in testing (alpha), from `experimental/`; none at the moment (Mount Hyjal joined both routes in 0.4.3). Loaded at login unless the player switches it off (Options > Guide > Show experimental guides, on by default); listed with Polestar's guides under Leveling with a purple Experimental chip; never suggested, picked or put in a route for the player, though "Choose your path" may offer its zone. | `forge guide compile experimental` and `forge release pack`, from `experimental/` | yes (generated) | yes, in `Polestar-<version>.zip` |
+| `Polestar_Guides_Alliance`, `Polestar_Guides_Horde` | Each faction's guides of `Polestar_Guides` (`Guides.lua`), and for each race of that faction its guides (`Guides_<Race>.lua`) and the baked walks into every leveling step (`Legs_<Race>.lua`, `Polestar.RegisterLegs`), each race's files read only for a character of that race (their own `Polestar_Guides_<Race>` folders before 0.4.3); the player's faction's part loads with the pack, on demand. | `forge guide compile`, the walks from `guides/legs.json` (`forge guide bake`) | yes (generated) | yes, in `Polestar-<version>.zip` |
+| `Polestar/Experimental` (inside `Polestar`) | Polestar's experimental guides (pack id `polestar-experimental`): guides for Forever's new zones in testing (alpha), from `experimental/`; none at the moment (Mount Hyjal joined both routes in 0.4.3). Registered at login, its guides read once shown and out of combat, unless the player switches them off (Options > Guide > Show experimental guides, on by default); listed with Polestar's guides under Leveling with a purple Experimental chip; never suggested, picked or put in a route for the player, though "Choose your path" may offer its zone. `Polestar.toc` lists its files; it has no TOC of its own. | `forge guide compile experimental` and `forge release pack`, from `experimental/` | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar_ItemDB` | Item stats for the gear advice (`Items.lua`) and Forever item stats with quest reward choices (`Forever.lua`). Loaded on demand. | `forge data itemdb`, then `forge data gear` | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar_<locale>` | One language folder per client language (`deDE` … `zhTW`): Polestar's interface strings in that language (`Interface.lua`, kept by translators and `forge i18n sync`), our guides' texts in that language (`Texts.lua`, from `guides/locales/<locale>/`) the quest, NPC, object and item names of Polestar's guides, quest database and Codex in it (`Names.lua`, from the client's tables, DingDB and pfQuest: `LICENSE-DATA.txt`, Ding's `CREDITS.md`) and the walking maps' areas named as the client names the subzone there (`Subzones.lua`, from the client's tables, for the arrow's floor by subzone). Loaded on demand by `Core/Locale.lua` while Polestar loads, only the client's own; none on an English client. Before 0.3.0 these were two folders per language, `Polestar_Guides_<locale>` and `Polestar_Names_<locale>`. | `forge guide compile` (`Texts.lua`), `forge data names` (`Names.lua`) and `forge data subzones` (`Subzones.lua`); each writes the same TOC, which lists `Interface.lua` too | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar_QuestDB` | The quest database behind the quest markers, available-quest markers, tooltips and nameplate icons. Loaded on demand. | `forge data questdb`, from `data/forever` | no (gitignored, built locally) | yes, in `Polestar-<version>.zip` when built |
@@ -23,9 +22,7 @@ page says which part is which.
 | `Polestar_Nav_EK`, `Polestar_Nav_Kalimdor` | Each continent's map parts of Leffe's maps; Polestar_Nav's router loads the player's continent's the first time it searches there (never in combat). | `forge nav pack --leffe` | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar_Travel` | Zone crossings for the travel planner, from the optional local crossings file `data/local/crossings.json`. Loads with Polestar. | `travel build` | no (gitignored, built locally) | no: `install` copies it when built, `pack` never packages it |
 | `Polestar_Options` | The settings window: its pages, the Look pages with their previews and presets, the Profiles page and profile strings, Move frames. Loaded on demand the first time the settings open (`UI/OptionsLoader.lua` in `Polestar` is its door). | Hand-written | yes | yes, in `Polestar-<version>.zip` |
-| `Polestar_Looks` | The game looks (WoW Forever, Blizzard, Classic: `GameSkins.lua`, `GameArt.lua`, `Parts.lua` with their own arrow and map pins) and Hearth's painters (`Hearth.lua`). Loaded on demand the first time one of them is painted. | Hand-written; `GameArt.lua` by `media game-art` | yes | yes, in `Polestar-<version>.zip` |
-| `Polestar_SkinAPI` | The Skin API's checks for a skin or colour scheme from another addon (`SkinCheck.lua`). Loaded on demand the first time another addon registers one. | Hand-written | yes | yes, in `Polestar-<version>.zip` |
-| `Polestar_Skin_<Name>` (`Vellum`, `Lumen`, `Beacon`, `Aurora`, `Hairline`, `Umbra`, `Waymark`, `Lanterns`, `Sheen`) | The nine skins that ship with Polestar, each an addon of its own on the Skin API (`## X-Polestar-Skin` in its TOC), listed under Settings > Look > Theme and loaded only when picked. | Hand-written | yes | yes, in `Polestar-<version>.zip` |
+| `Polestar_Skins` | The ten skins that ship with Polestar (`Skins/<Name>`: Vellum, Lumen, Beacon, Aurora, Hairline, Umbra, Waymark, Lanterns, Sheen, Atlas, named in its TOC's `## X-Polestar-Skin`) and the Atlas layout (`Layouts/Atlas`), each its own addon before 0.4.3. Loaded on demand when one of them is wanted: at login when one is in use, on a pick, and when the settings list the skins. | Hand-written | yes | yes, in `Polestar-<version>.zip` |
 | `Polestar_Recorder` | An optional, standalone recorder (no dependency on Polestar): quests, routes, world data and, while Polestar runs, guide progress, as compact records into `PolestarRecorderDB` (schema 2, [docs/RECORDING.md](../docs/RECORDING.md)). Off until turned on (`/psrec on`, or Polestar Client's share flag: sharing is on by default in the client; `/psrec off` always wins). Polestar Client sends it; `forge record import` reads what it wrote. `Ack.lua` is the client's acknowledgement and share flag, shipped empty. | Hand-written | yes | yes, as its own `Polestar_Recorder-<version>.zip`; `install --recorder` |
 | `Polestar_Skin_Example` | The Skin API's example ([docs/SKINS-API.md](../docs/SKINS-API.md)): "Moonlit", a colour scheme and a skin registered from an addon of its own, for skin authors to copy. Depends on Polestar. | Hand-written | yes | no: never packed or installed; copy it into `Interface/AddOns` by hand to try it |
 
@@ -97,6 +94,7 @@ never in saved variables.
 | `Gather.lua` | `Gather` | While you're here's gathering spots: where each herb, ore vein and fishing pool the character gathers can spawn, the minimap's tracking and the Interact Key's pick |
 | `GatherData.lua` | (registers data) | Generated: each gathering node kind's spots and the skill it asks |
 | `ClassTrainers.lua` | (registers data) | Generated: one class trainer per town and class, for the class-training reminder |
+| `ProfessionTrainers.lua` | `ProfessionTrainers` | Which of a profession's trainers teaches the character's next rank and accepts their skill, from the Codex's rank lists (#3784); Nearby services and Lookup choose by it |
 | `Automation.lua` | `Automation` | Accepts and turns in the quests the guide wants right now |
 | `Closes.lua` | `Closes` | Quests that taking another one closes for good: a breadcrumb once its quest is taken, the rest of an exclusive group |
 | `Unlocks.lua` | `Unlocks` | What doing a quest opens up (the quests that need it, its follow-ups), for the guide window's quest tooltips |
@@ -104,7 +102,7 @@ never in saved variables.
 | `RoutePlan.lua` | `RoutePlan` | Read-only hand-in planning over the guide chains open in tabs: which finished quests a route ahead hands in, which none does |
 | `FieldRoute.lua` | `FieldRoute` | The order to do one field's independent goals in (an open travelling-salesman route, world coordinates only) |
 | `GuideTexts.lua` | `GuideTexts` | A compiled guide's prose in the client's language |
-| `LegacySteps.lua` | `LegacyMovedIn`, `LegacyStepsLoad` | Generated by `tools/legacy-steps.js`: earlier releases' steps, so an update mid-guide keeps your check-offs and skips |
+| `LegacySteps.lua` | `LegacyMovedIn`, `LegacyStepsLoad` | Generated by `forge guide legacy-steps`: earlier releases' steps, so an update mid-guide keeps your check-offs and skips |
 | `LuaChunks.lua` | (local) | Records kept as text in long-string chunks, decoded on first read |
 | `Import.lua` | `Import` | Import strings: a small guide shared as one line of text |
 | `Profiles.lua` | `Profiles` | Named sets of settings, the settings keys' migrations, and profile strings |
@@ -120,7 +118,7 @@ never in saved variables.
 |---|---|---|
 | `Theme.lua` | `Theme` | Resolves every look: colour schemes, fonts, media paths and frame skins |
 | `House.lua` | `House` | Polestar's own look: Polestar gold, the status and subject colours, the colour schemes (Dusk, Night, Graphite), the type ladder |
-| `SkinApi.lua` | `Theme` | The Skin API: other addons' colour schemes and skins ([docs/SKINS-API.md](../docs/SKINS-API.md)); their checks load from `Polestar_SkinAPI` |
+| `SkinApi.lua` | `Theme` | The Skin API: other addons' colour schemes and skins ([docs/SKINS-API.md](../docs/SKINS-API.md)); their checks are `SkinCheck.lua` |
 | `Anim.lua` | `Anim` | Short property tweens (fade, slide, pop, fill) on one driver frame |
 | `Widgets.lua` | `Widgets` | The widget kit: the Polestar shell, setting controls, rows; also defines the options registry `RegisterOptions` |
 
@@ -140,7 +138,7 @@ never in saved variables.
 | `Transit.lua` | `Transit` | When boats, zeppelins, the Deeprun Tram and lifts leave, and which class teleports the character can cast now |
 | `Danger.lua` | `Nav` | How much dearer a walk through a zone far above the character is |
 | `Walk.lua` | `Nav` | Walking paths from `Polestar_Nav`'s router instead of a straight line |
-| `Baked.lua` | `Nav` | Baked legs: the walk into a guide step, routed offline and shipped in the race parts |
+| `Baked.lua` | `Nav` | Baked legs: the walk into a guide step, routed offline and shipped in the faction parts (`Legs_<Race>.lua`) |
 | `Follow.lua` | `Nav` | The arrow's path follower: how far along the path the player is and where the arrow points |
 | `Journey.lua` | `Nav.API` | Going anywhere (Shift- and Alt-click on the maps) and letting other addons steer the arrow |
 | `Handoff.lua` | `Nav` | Hand-off to Shortest Path Forever, so the two never guide at once |
@@ -157,6 +155,7 @@ never in saved variables.
 | `Tracker.lua` | `QuestDB` | Quest markers on the map: objectives, turn-ins and quest givers with quests available now |
 | `Tooltips.lua` | `QuestDB` | Quest lines on unit, item and object tooltips; quest icons on nameplates |
 | `QuestLevels.lua` | (local) | Quest levels before quest titles wherever the client draws a title without one |
+| `KeptFor.lua` | (local) | "Kept for <guide>" after the titles of quests a later guide of the route hands in, in the quest log and the objective tracker |
 | `NewQuestIds.lua`, `NewQuests.lua` | `NewQuests` | Which quests Forever added (the first generated by `forge data newquests`), and their "New in Forever" mark |
 | `Timed.lua` | `Timed` | Timed quests: time left on their goals and the arrow, alerts, the way to the hand-in against the clock |
 | `Party.lua` | `Party` | Party sync: quest progress shared with party members who run Polestar |
@@ -263,7 +262,7 @@ never in saved variables.
 | `ZoneArt.lua` | `UI.ZoneArt` | A zone's world map painting, drawn from the player's own client |
 | `ZoneArtOverlays.lua` | (registers data) | Generated: every world map overlay of every zone map |
 | `GuideFrame.lua` | `UI.GuideFrame` | The guide window |
-| `GuideFrameBanner.lua`, `GuideFrameHere.lua`, `GuideFrameLayout.lua`, `GuideFrameLook.lua`, `GuideFrameMenu.lua`, `GuideFrameStatus.lua`, `GuideFrameTabs.lua`, `GuideFrameWindow.lua` | `UI.GuideFrame` | The guide window's parts: the banner, While you're here, the layout, the transparent style and skins, the menu and Nearby services button, the XP and party lines, the tab strip, where and when it shows |
+| `GuideFrameBanner.lua`, `GuideFrameHere.lua`, `GuideFrameLayout.lua`, `GuideFrameLook.lua`, `GuideFrameMenu.lua`, `GuideFramePlayNext.lua`, `GuideFrameStatus.lua`, `GuideFrameTabs.lua`, `GuideFrameWindow.lua` | `UI.GuideFrame` | The guide window's parts: the banner, While you're here, the layout, the transparent style and skins, the menu and Nearby services button, the Play next card on a finished guide, the XP and party lines, the tab strip, where and when it shows |
 | `StepList.lua` | `UI.StepList` | The step browser: every step of the guide as a card |
 | `JourneyPanel.lua` | `UI.JourneyPanel` | The travel route's steps in the guide window |
 | `WhileHere.lua` | `UI.WhileHereToast` | The "While you're here" toast |
@@ -387,15 +386,14 @@ to rebuild in.
 | `Polestar/Quests/NewQuestIds.lua` | `forge data newquests` |
 | `Polestar/Maps/FlightPaths.lua` | `node tools/polestar.js travel build` |
 | `Polestar/Core/GatherData.lua` | `node tools/polestar.js profession gathering spots` |
-| `Polestar/Core/LegacySteps.lua` | `node tools/legacy-steps.js` |
+| `Polestar/Core/LegacySteps.lua` | `forge guide legacy-steps` |
 | `Polestar/Core/Credits.lua` | `forge release credits` |
 | `Polestar/UI/ClassRewards.lua` | `node tools/polestar.js classrewards build` |
-| `Polestar_Looks/GameArt.lua` | `node tools/polestar.js media game-art` |
+| `Polestar/Theme/Looks/GameArt.lua` | `node tools/polestar.js media game-art` |
 | `Polestar/Media/Nav/*.tga`, `Polestar/Media/UI/*.tga` | `node tools/polestar.js media` |
 | `Polestar_Guides/*` (TOC, `Pack.lua`, `MapFrames.lua`, `Guides.lua`, `LICENSE-DATA.txt`) | `forge guide compile` |
-| `Polestar_Guides_Alliance/*`, `Polestar_Guides_Horde/*` (TOC, `Guides.lua`, `LICENSE-DATA.txt`) | `forge guide compile` |
-| `Polestar_Guides_<Race>/*` (TOC, `Legs.lua`) | `forge guide compile`, from `guides/legs.json` (`forge guide bake`) |
-| `Polestar_Experimental/*` (TOC, `Pack.lua`, `MapFrames.lua`, `Guides.lua`, `LICENSE-DATA.txt`) | `forge guide compile experimental` (and `forge release pack`), from `experimental/` |
+| `Polestar_Guides_Alliance/*`, `Polestar_Guides_Horde/*` (TOC, `Guides.lua`, `Guides_<Race>.lua`, `Legs_<Race>.lua`, `LICENSE-DATA.txt`) | `forge guide compile`, the legs from `guides/legs.json` (`forge guide bake`) |
+| `Polestar/Experimental/*` (`Pack.lua`, `MapFrames.lua`, `Guides.lua`, `LICENSE-DATA.txt`) | `forge guide compile experimental` (and `forge release pack`), from `experimental/` |
 | `Polestar_ItemDB/Items.lua` | `forge data itemdb` |
 | `Polestar_ItemDB/Forever.lua`, `Polestar_ItemDB/LICENSE-DATA.txt` | `forge data gear` |
 | `Polestar_ItemDB/Polestar_ItemDB.toc` | `forge data itemdb`, then `forge data gear` adds `Forever.lua` to it |

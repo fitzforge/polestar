@@ -269,7 +269,8 @@ return {
 	-- {spell:3176} Lesser Troll's Blood Elixir
 	["{spell:3176} to 160"] = "{spell:3176} bis 160",
 	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial
-	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176} ist bei 150 gelb (gelb 150, grün 170, grau 190): etwa 12 Herstellungen bis 160. Jede benötigt 2 {item:2453}, 2 {item:2450} und 1 {item:3372}. Zwei {item:2453} und zwei {item:2450} pro Herstellung; {item:2453} wächst in den Gebieten für Stufe 15-30.",
+	-- was: ["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176} ist bei 150 gelb (gelb 150, grün 170, grau 190): etwa 12 Herstellungen bis 160. Jede benötigt 2 {item:2453}, 2 {item:2450} und 1 {item:3372}. Zwei {item:2453} und zwei {item:2450} pro Herstellung; {item:2453} wächst in den Gebieten für Stufe 15-30."
+	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. If you got here without learning {spell:3176}, learn it now: an earlier step teaches it."] = "{spell:3176} ist gelb bei 150 (gelb 150, grün 170, grau 190): etwa 12 Herstellungen bis 160. Jede braucht 2 {item:2453}, 2 {item:2450} und 1 {item:3372}. Zwei {item:2453} und zwei {item:2450} pro Herstellung; {item:2453} wächst in den Gebieten 15-30. Wenn du ohne {spell:3176} hierhergekommen bist, lern es jetzt: Ein früherer Schritt bringt es dir bei.",
 
 	-- Step 55: Alchemy recipes at 160
 	-- {skill:171} Alchemy
@@ -355,7 +356,8 @@ return {
 	-- {item:8951} Elixir of Defense
 	["{item:8951} to 230"] = "{item:8951} bis 230",
 	-- {item:8951} Elixir of Defense · {item:3355} Wild Steelbloom · {item:3821} Goldthorn · {item:3372} Leaded Vial · {zone:1418} Badlands
-	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951} ist bei 225 gelb (gelb 215, grün 235, grau 255): etwa 8 Herstellungen bis 230. Jede benötigt 1 {item:3355}, 1 {item:3821} und 1 {item:3372}. {item:3355} und {item:3821} sind die Kräuter der Gebiete für Stufe 30-45 (Schlingendorntal, Arathihochland und {zone:1418}).",
+	-- was: ["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951} ist bei 225 gelb (gelb 215, grün 235, grau 255): etwa 8 Herstellungen bis 230. Jede benötigt 1 {item:3355}, 1 {item:3821} und 1 {item:3372}. {item:3355} und {item:3821} sind die Kräuter der Gebiete für Stufe 30-45 (Schlingendorntal, Arathihochland und {zone:1418})."
+	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). If you got here without learning {item:8951}, learn it now: an earlier step teaches it."] = "{item:8951} ist gelb bei 225 (gelb 215, grün 235, grau 255): etwa 8 Herstellungen bis 230. Jede braucht 1 {item:3355}, 1 {item:3821} und 1 {item:3372}. {item:3355} und {item:3821} sind die Kräuter der Gebiete 30-45 (Schlingendorntal, Arathi, {zone:1418}). Wenn du ohne {item:8951} hierhergekommen bist, lern es jetzt: Ein früherer Schritt bringt es dir bei.",
 
 	-- Step 70: Alchemy recipes at 230
 	-- {skill:171} Alchemy
@@ -474,6 +476,7 @@ return {
 	-- ["{item:765} (Horde)"] = "{item:765} (Horde)",
 	-- ["{item:785} (Alliance)"] = "{item:785} (Allianz)",
 	-- ["{item:785} (Horde)"] = "{item:785} (Horde)",
+	-- ["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951} ist bei 225 gelb (gelb 215, grün 235, grau 255): etwa 8 Herstellungen bis 230. Jede benötigt 1 {item:3355}, 1 {item:3821} und 1 {item:3372}. {item:3355} und {item:3821} sind die Kräuter der Gebiete für Stufe 30-45 (Schlingendorntal, Arathihochland und {zone:1418}).",
 	-- ["{npc:1958} (level 17-18) drop it here. The Auction House works too."] = "{npc:1958} (Stufe 17-18) lassen es hier fallen. Im Auktionshaus gibt es sie auch.",
 	-- ["{npc:513} (level 14-15) drop it here. The Auction House works too."] = "{npc:513} (Stufe 14-15) lassen es hier fallen. Im Auktionshaus gibt es sie auch.",
 	-- ["{skill:171} recipes at 165"] = "Rezepte für {skill:171} bei 165",
@@ -494,5 +497,6 @@ return {
 	-- ["{spell:17554} is orange at 265 (yellow 280, green 300, grey 320): about 43 crafts to 300. Each takes 2 {item:13423}, 1 {item:8838} and 1 {item:8925}. Make the 86 {item:13423} (43 crafts) first. {item:13422} comes from the {item:13422} schools on the coasts of the 40-55 zones, or the Auction House (fishers sell them in stacks). {item:8838} grows in the 40-55 zones. {skill:171} 300 is a Legacy System milestone."] = "{spell:17554} ist bei 265 orange (gelb 280, grün 300, grau 320): etwa 43 Herstellungen bis 300. Jede benötigt 2 {item:13423}, 1 {item:8838} und 1 {item:8925}. Stell zuerst die 86 {item:13423} her (43 Herstellungen). {item:13422} kommt aus den Schwärmen von {item:13422} an den Küsten der Gebiete für Stufe 40-55, oder aus dem Auktionshaus (Angler verkaufen sie stapelweise). {item:8838} wächst in den Gebieten für Stufe 40-55. {skill:171} 300 ist ein Meilenstein des Vermächtnissystems.",
 	-- ["{spell:17554} to 300"] = "{spell:17554} bis 300",
 	-- ["{spell:2331} to 85"] = "{spell:2331} bis 85",
+	-- ["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176} ist bei 150 gelb (gelb 150, grün 170, grau 190): etwa 12 Herstellungen bis 160. Jede benötigt 2 {item:2453}, 2 {item:2450} und 1 {item:3372}. Zwei {item:2453} und zwei {item:2450} pro Herstellung; {item:2453} wächst in den Gebieten für Stufe 15-30.",
 	-- ["{spell:7845} to 175"] = "{spell:7845} bis 175",
 }

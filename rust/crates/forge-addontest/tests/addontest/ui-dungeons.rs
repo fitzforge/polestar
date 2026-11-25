@@ -787,7 +787,7 @@ fn a_finished_pick_up_guide_offers_the_hand_in_while_the_dungeons_quests_are_in_
 			"asked": ["wailing-caverns"],
 		})
 	);
-	assert_eq!(out[1]["primary"], "Choose a guide", "nothing in the log: the usual end");
+	assert_eq!(out[1]["primary"], false, "nothing in the log: the usual end, no next guide: only the Other guides link");
 }
 
 #[test]
@@ -1379,6 +1379,60 @@ fn a_level_up_tells_once_that_wailing_caverns_is_open_and_its_button_picks_up_th
 	assert_eq!(out[2], json!({ "sounds": 1, "seen": { "wailing-caverns": true } }));
 	assert_eq!(out[3], json!({ "again": false }), "once per dungeon per character");
 	assert_eq!(out[4], json!({ "shown": true, "asked": ["wailing-caverns"], "after": false, "ui": true }));
+}
+
+// The level-up check prices the quests' givers from where the player stands (Nav.EstimateTravel, a route plan for
+// each answer Nav's cache lacks, and a level-up empties it): Ragefire Chasm's at 15 on the Barrens was 12 plans,
+// 12-21 ms in the one frame 1.5 s after the level-up (Stutter041's kill harness). They come at most two a frame
+// now, and the card is the same. A Nav that counts its plans by frame and keeps its answers, as Nav/Travel.lua's
+// cache does. The fixture's quests each have one giver, placed on the page (Dungeons.Giver prices none), so each
+// plan here prices six places from the player, as a quest several NPCs give and a breadcrumb's detour do on the
+// real data. Before: every plan in the check's frame.
+#[test]
+fn a_level_up_check_makes_at_most_two_route_plans_a_frame_and_shows_the_same_card() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local cache, byFrame, plans = {{}}, {{}}, 0
+		local function key(from, to)
+			local f = from and (from.map .. ":" .. from.x .. ":" .. from.y) or "player"
+			return f .. ">" .. tostring(to.map) .. ":" .. tostring(to.x) .. ":" .. tostring(to.y)
+		end
+		Polestar.Nav = {{
+			EstimateKnown = function(from, to) return cache[key(from, to)] ~= nil end,
+			EstimateTravel = function(from, to)
+				local k = key(from, to)
+				if cache[k] == nil then
+					plans = plans + 1
+					byFrame[stub.now] = (byFrame[stub.now] or 0) + 1
+					cache[k] = Polestar.DirectTravelCost(from, to) or false
+				end
+				return cache[k] or nil
+			end,
+		}}
+		-- The player at the Crossroads, on a flat world.
+		local C = Polestar.Compat
+		C.GetPlayerMapPosition = function() return 1413, 51.5, 30.3 end
+		C.MapToWorld = function(map, x, y) return 1, x * 10, y * 10 end
+		local pickup = Polestar.Dungeons.PickupPlan
+		Polestar.Dungeons.PickupPlan = function(key, offer)
+			local from = Polestar.PlayerPoint()
+			for i = 1, 6 do Polestar.TravelCost(from, {{ map = 1413, x = 40 + i, y = 30 }}) end
+			return pickup(key, offer)
+		end
+		stub.fire("PLAYER_LEVEL_UP", 20)
+		stub.advance(3)
+		local most, frames = 0, 0
+		for _, n in pairs(byFrame) do
+			frames = frames + 1
+			if n > most then most = n end
+		end
+		local c = card()
+		emit({{ plans = plans, most = most, frames = frames, dungeon = c.dungeon or false, line = c.line or false }})"#
+	));
+	let o = &out[0];
+	assert!(o["plans"].as_u64().unwrap() > 2, "the check makes more plans than a frame's share: {o}");
+	assert!(o["most"].as_u64().unwrap() <= 2, "at most two plans a frame: {o}");
+	assert_eq!((&o["dungeon"], &o["line"]), (&json!("wailing-caverns"), &json!("2 quests to pick up  ·  Levels 17–24  ·  The Barrens")), "the same card: {o}");
 }
 
 // The ring wears the dungeon's own picture (Dungeons/Art.lua: Wailing Caverns' loading screen, file 131882, by its
@@ -2397,4 +2451,40 @@ fn of_the_dungeons_with_quests_the_line_prefers_the_one_whose_quest_givers_are_n
 		emit(out)"#
 	));
 	assert_eq!(out[0], json!({ "deadminesNearer": "deadmines:1", "cavernsNearer": "wailing-caverns:2", "onlyQuests": "wailing-caverns:1" }));
+}
+
+// #3063 (Swiftfyre, 0.4.1.1): Maraudon's Corruption of Earth and Seed is given from 45, but the heads-up's "Pick up the
+// quests" held it back until 50 (one level under its quest level): the heads-up opened the pick-up guide by its own
+// offer rule. Since 0.4.3 that rule only decides when the heads-up is due; its button opens the guide the dungeon's
+// page opens, with every quest the game gives now. Here Trouble at the Docks is a level 26 quest the game gives from
+// 14: at 20 the heads-up's rule would hold it back to 25, yet the guide its button opens takes it.
+#[test]
+fn the_heads_up_s_button_picks_up_every_quest_the_game_gives_now_not_one_held_back_to_a_level_under_its_own_3063() {
+	let f = fixture("dungeons.json");
+	let mut codex = f["codex"].clone();
+	codex["quests"]["959"]["level"] = json!(26);
+	let out = run_pack(
+		&format!(
+			r#"{HEADS_UP}
+		local Dg = Polestar.Dungeons
+		Dg.PickUp = pickUp
+		uistub.player.level = 20
+		Dg.Load()
+		local docks = Dg.Quest("wailing-caverns", 959)
+		DT.PickUp("wailing-caverns")
+		local guide = Dg.PickupGuide("wailing-caverns")
+		local quests = {{}}
+		for _, st in ipairs(guide and guide.steps or {{}}) do
+			for _, g in ipairs(st.goals or {{}}) do
+				if g.t == "accept" then quests[#quests + 1] = g.quest end
+			end
+		end
+		table.sort(quests)
+		emit({{ offer = docks and Dg.OfferLevel(docks) or false, accepts = quests }})"#
+		),
+		Some(pack_of(&codex, &f["inputs"])),
+	);
+	let o = &out[0];
+	assert!(o["offer"].as_i64().is_some_and(|l| l > 20), "the heads-up's rule would hold Trouble at the Docks back at 20: {o}");
+	assert_eq!(o["accepts"], json!([959, 1486]), "the guide it opens takes Trouble at the Docks too: {o}");
 }

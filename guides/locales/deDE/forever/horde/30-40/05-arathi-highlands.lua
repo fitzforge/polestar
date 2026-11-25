@@ -28,7 +28,7 @@ return {
 	-- {npc:4486} Genavie Callow · {area:340} Kargath
 	["Warriors, Paladins, Rogues, Priests, Mages and Warlocks (not Hunters, Shamans or Druids): {npc:4486} stands beside the flight master. The Dabyrie family's farm lies on the road east through Arathi later in this guide, and your level 40 training brings you back to this flight master from {area:340}: she takes the heads then."] = "",
 	-- {npc:4486} Genavie Callow
-	["{npc:4486}, beside the flight master"] = "",
+	["{npc:4486}, beside the flight master"] = "{npc:4486}, neben dem Flugmeister",
 	-- {zone:1458} Undercity
 	["{zone:1458} flight master"] = "Flugmeister der {zone:1458}",
 

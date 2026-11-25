@@ -10,8 +10,10 @@
 // districts lie closer than that but a long walk apart, so on a city map
 // (CITY_MAPS) two candidates are one hub only within CITY_HUB_YARDS: each
 // district keeps its own (Stormwind's Alexandra Bolero in the Mage Quarter and
-// Edna Mullby in the Trade District, 235 yards apart, #2018). Every town stays
-// reachable, so the Engine can pick the nearest from wherever the player is;
+// Edna Mullby in the Trade District, 235 yards apart, #2018). Of one hub's
+// NPCs the one most players train with is kept (trainers.json `visits`, #2992:
+// Jocaste, not Jeen'ra Nightrunner at the top of the Cenarion Enclave's tower).
+// Every town stays reachable, so the Engine can pick the nearest from wherever the player is;
 // MAX_PER_GROUP only guards against runaway data. Each candidate carries the
 // height of its NPC's spawn there (`z`, heights.js) when spawnz.json has one.
 
@@ -30,6 +32,13 @@ const SAME_SPOT_YARDS = 100;
 // map, else HUB_YARDS.
 function hubYards(a, b) {
 	return a.cand.map === b.cand.map && CITY_MAPS.has(a.cand.map) ? CITY_HUB_YARDS : HUB_YARDS;
+}
+
+// The players recorded training with a candidate's NPC (trainers.json `visits`, `forge data trainers`), 0 for one
+// it does not list: opts.trainers when given (the table `forge data trainers` is building), else the data's.
+function visits(data, opts, cand) {
+	const v = (((opts && opts.trainers) || data.trainersRaw || {})[cand.npc] || {}).visits;
+	return v > 0 ? v : 0;
 }
 
 function round2(n) {
@@ -171,8 +180,13 @@ function buildCandidates(data, entries, opts) {
 		const hubs = [];
 		for (const a of list) {
 			if (hubs.length >= cap) break;
-			const sameHub = a.w && hubs.some((h) => h.w && h.w.c === a.w.c && Math.hypot(h.w.wx - a.w.wx, h.w.wy - a.w.wy) < hubYards(h, a));
-			if (sameHub) continue;
+			const same = a.w ? hubs.findIndex((h) => h.w && h.w.c === a.w.c && Math.hypot(h.w.wx - a.w.wx, h.w.wy - a.w.wy) < hubYards(h, a)) : -1;
+			if (same >= 0) {
+				// Of one hub's NPCs, the one most players train with (trainers.json `visits`, #2992: Jocaste on the
+				// Cenarion Enclave's floor, not Jeen'ra Nightrunner at the top of its tower, lower in id).
+				if (visits(data, opts, a.cand) > visits(data, opts, hubs[same].cand)) hubs[same] = a;
+				continue;
+			}
 			if (!a.w && hubs.some((h) => !h.w && h.cand.map === a.cand.map)) continue;
 			hubs.push(a);
 		}

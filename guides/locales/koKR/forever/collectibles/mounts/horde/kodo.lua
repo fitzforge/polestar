@@ -18,9 +18,9 @@ return {
 
 	-- Step 2: Kodo Riding for other races
 	-- {spell:18995} Kodo Riding
-	["{spell:18995} for other races"] = "",
+	["{spell:18995} for other races"] = "{spell:18995} (다른 종족)",
 	-- {spell:18995} Kodo Riding · {skill:762} Riding · {npc:3690} Kar Stormsinger · {faction:81} Thunder Bluff
-	["Any Horde race can buy these kodos, but riding one also takes {spell:18995}, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "",
+	["Any Horde race can buy these kodos, but riding one also takes {spell:18995}, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "모든 호드 종족이 이 코도를 살 수 있지만 탑승에는 {spell:18995}도 필요하며 타우렌만 {skill:762}과(와) 함께 받습니다. {faction:81}과(와) 확고한 동맹이 되면 {npc:3690}이(가) 다른 종족에게도 가르칩니다(썬더 블러프 평판 가이드가 안내). 그 전에는 이 캐릭터로 코도를 사지 마세요.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "색상 고르기",

@@ -7,15 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {area:327} Faldir's Cove
-	-- was: ["For characters of 35 to 37. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "35~37레벨 캐릭터용입니다. 나가와 교수의 물의 정령이 38-40레벨인 {area:327}은(는) 파티용이니 혼자라면 건너뛰세요."
-	["For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "",
+	-- {zone:1435} Swamp of Sorrows · {area:271} Southshore · {area:327} Faldir's Cove
+	["{zone:1435} first, then north to {area:271}, Alterac and Arathi. For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "먼저 {zone:1435}, 그다음 북쪽의 {area:271}, 알터랙, 아라시로 갑니다. 36~38레벨 캐릭터용입니다. 나가와 교수의 물의 정령이 38-40레벨인 {area:327}은(는) 파티용 경유지이니 혼자라면 건너뛰세요.",
 
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "{area:42}(으)로 날아가세요",
-	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
 
 	-- Step 2: The Scythe of Elune
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {zone:1430} Deadwind Pass · {npc:661} Jonathan Carevin
@@ -98,7 +95,11 @@ return {
 	-- {npc:1141} Angus Stern · {area:17203} Stormwind Harbor
 	["{npc:1141}, {area:17203} road"] = "{npc:1141}, {area:17203} 길",
 
-	-- Step 18: The Binding
+	-- Step 18: Gakin the Darkbinder
+	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
+	["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}."] = "{npc:6122}은(는) {object:2101}의 {object:2164} 지하실에서 기다립니다.",
+
+	-- Step 19: The Binding
 	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6913} Heartswood Core · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
 	["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}. Use the {item:6913} at the summoning circle there and defeat the succubus it calls. If you took {quest:65602}, hand him the {item:190309} too, place it at the same circle and defeat the incubus."] = "{npc:6122}은(는) {object:2101}에 있는 {object:2164}의 지하실에서 기다립니다. 그곳 소환진에서 {item:6913}을(를) 사용하고 나타나는 서큐버스를 물리치세요. {quest:65602}을(를) 받았다면 그에게 {item:190309}도 건네고, 같은 소환진에 놓은 뒤 인큐버스를 물리치세요.",
 	-- {npc:5677} Summoned Succubus
@@ -110,134 +111,136 @@ return {
 	-- {npc:6122} Gakin the Darkbinder
 	["{npc:6122} binds the incubus to you"] = "{npc:6122}이(가) 인큐버스를 당신에게 귀속시킵니다",
 
-	-- Step 19: Stormwind
+	-- Step 20: Stormwind
 	-- {npc:12336} Brother Crowley
 	["{npc:12336}, Cathedral of Light"] = "{npc:12336}, 빛의 대성당",
 
-	-- Step 21: Stormwind
+	-- Step 22: Stormwind
 	-- {npc:1440} Milton Sheaf
 	["{npc:1440}, the Royal Library in the keep"] = "{npc:1440}, 성채 안 왕실 도서관",
 
-	-- Step 22: Tram to Ironforge
+	-- Step 23: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "지하철을 타고 {zone:1455}(으)로",
 
-	-- Step 23: Fly to Southshore
+	-- Step 24: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "{area:271}(으)로 날아가세요",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "{zone:1455} 비행 조련사",
 
-	-- Step 24: Southshore
+	-- Step 25: Southshore
 	-- {npc:2276} Magistrate Henry Maleb · {zone:1424} Hillsbrad Foothills
 	["{npc:2276}, inside, if the {zone:1424} guide didn't take it: the Syndicate camp is on the way to Arathi"] = "",
 
-	-- Step 25: Shadowy Assassin
+	-- Step 26: Shadowy Assassin
 	-- {npc:2434} Shadowy Assassin · {area:271} Southshore · {npc:2276} Magistrate Henry Maleb
 	["A {npc:2434} (37-38) lurks stealthed on the edge of {area:271}, and few players find him. Careful: he is a level or two over you; fight him only at full health, or leave him. His contract goes to {npc:2276}. Don't wait for him: the rest of this step doesn't need him."] = "{npc:2434}(37-38)이(가) {area:271} 외곽에 은신한 채 숨어 있어 그를 찾는 플레이어는 드뭅니다. 주의: 당신보다 한두 레벨 높습니다. 생명력이 가득할 때만 싸우거나 그냥 두세요. 그의 계약서는 {npc:2276}에게 가져갑니다. 그를 기다리지는 마세요. 이 단계의 나머지는 그가 없어도 됩니다.",
 	-- {npc:2434} Shadowy Assassin
 	["{npc:2434}, if you spot him"] = "{npc:2434}, 발견한 경우",
 	-- {npc:2276} Magistrate Henry Maleb
-	["{npc:2276}, inside"] = "",
+	["{npc:2276}, inside"] = "{npc:2276}, 내부",
 
-	-- Step 27: Alterac Mountains
+	-- Step 28: Alterac Mountains
 	["Syndicate camp"] = "비밀결사대 야영지",
 
-	-- Step 28: Syndicate camp
+	-- Step 29: Syndicate camp
 	-- {area:271} Southshore · {area:272} Tarren Mill
 	-- plural, as words: Syndicate Wizards = {npc:2319} Syndicate Wizard
 	["North out of {area:271} to the Syndicate camp on the Alterac border, west of {area:272} (Horde): its Footpads and Thieves are the Syndicate Maleb wants, and the documents lie in the camp. Then back to the road and east to Arathi.\nCareful: a few Syndicate Wizards (34-35) stand among the tents and cast from range: pull them one at a time."] = "{area:271}에서 북쪽으로 나가 {area:272}(호드) 서쪽, 알터랙 경계의 비밀결사대 야영지로 가세요. 그곳의 노상강도와 도둑이 말레브가 원하는 비밀결사대이며, 문서는 야영지에 있습니다. 그다음 길로 돌아가 동쪽 아라시로 가세요.\n주의: 비밀결사대 마술사(34-35) 몇 명이 천막 사이에 서서 원거리 주문을 시전합니다. 한 번에 하나씩 끌어오세요.",
 
-	-- Step 30: Refuge Pointe
+	-- Step 31: Refuge Pointe
 	-- {area:1057} Thoradin's Wall · {area:320} Refuge Pointe
 	["From the Syndicate camp, follow the road east over {area:1057} to {area:320}."] = "비밀결사대 야영지에서 길을 따라 동쪽으로 {area:1057}을(를) 넘어 {area:320}까지 가세요.",
 	-- {npc:2700} Captain Nials · {npc:1075} Rhag Garmason · {zone:1437} Wetlands
 	["{npc:2700}: {npc:1075}'s plea, from the {zone:1437}"] = "",
 
-	-- Step 31: Northfold Manor
+	-- Step 32: Northfold Manor
 	-- {area:320} Refuge Pointe
 	["The Syndicate hold the farm north-west of {area:320}.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "",
 
-	-- Step 32: Hay Weevil
-	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
+	-- Step 33: Hay Weevil
+	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
 	-- plural, as words: Hay Weevils = {npc:217589} Hay Weevil
-	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s {item:213565}."] = "",
+	["Hay Weevils crawl about the north end of {quest:681}'s farm: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "건초 바구미({npc:217589})가 {quest:681} 농장 북쪽 끝을 기어 다닙니다: {npc:217412}의 {item:213565}을(를) 열어 그 안의 {item:213562}을(를) 한 마리에게 사용하십시오. 죽이지 마십시오.",
+	-- {item:213562} Bug Catching Net · {npc:217589} Hay Weevil · {item:213568} Hay Weevil Specimen
+	["{item:213562}, on a {npc:217589}: the {item:213568}"] = "{item:213562}을(를) {npc:217589}에게: {item:213568}",
 
-	-- Step 33: Shards of Myzrael
+	-- Step 34: Shards of Myzrael
 	-- {quest:681} Northfold Manor · {area:333} Circle of East Binding · {area:314} Go'Shek Farm
 	["East from {quest:681} across the north of the Highlands; the shards glitter on the hill by the {area:333}, north of {area:314}."] = "{quest:681}에서 동쪽으로 고원 북부를 가로지르세요. 파편은 {area:314} 북쪽, {area:333} 옆 언덕에서 반짝입니다.",
 	["Only if Gluggle gave you the pendant in Stranglethorn"] = "가시덤불 골짜기에서 글루글에게 펜던트를 받은 경우에만",
 
-	-- Step 34: Drywhisker Gorge: kill these as you meet them
+	-- Step 35: Drywhisker Gorge: kill these as you meet them
 	-- {area:318} Drywhisker Gorge
-	["{area:318}: kill these as you meet them"] = "",
+	["{area:318}: kill these as you meet them"] = "{area:318}: 만나는 대로 처치하세요",
 	-- {area:321} Hammerfall · {skill:186} Mining
 	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
 	["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop the Motes of Myzrael, not Krazek's ore. Lesser Bloodstone Deposits need {skill:186} 75: mine four ore, buy them at the Auction House, or ask a miner friend. The ore goal is optional; continue with Myzrael if you cannot get it. Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "마른수염 코볼트는 {area:321}(호드) 동쪽 협곡에서 땅을 팝니다. 마을은 북쪽으로 돌아가세요. 이들은 미즈라엘의 결정 파편을 떨어뜨리지만, 크라제크의 광석은 떨어뜨리지 않습니다. 저급 혈석 광맥은 {skill:186} 75가 필요합니다. 광석 4개를 캐거나, 경매장에서 사거나, 채광하는 친구에게 부탁하세요. 광석 목표는 선택 사항입니다. 구할 수 없으면 미즈라엘 퀘스트를 계속하세요. 주의: 모든 코볼트는 생명력이 낮아지면 도움을 청하러 도망가므로(코볼트는 30%, 흙점쟁이와 채굴꾼은 15%) 더 많이 끌려올 수 있습니다.",
 	-- {item:4435} Mote of Myzrael · {npc:2572} Drywhisker Kobold · {npc:2573} Drywhisker Surveyor · {npc:2574} Drywhisker Digger
 	["{item:4435} from {npc:2572}, {npc:2573} and {npc:2574}, by this stop"] = "",
 
-	-- Step 35: Iridescent Shards
+	-- Step 36: Iridescent Shards
 	-- {area:318} Drywhisker Gorge
 	["The shards lie at the far end of {area:318}."] = "파편은 {area:318}의 맨 끝에 있습니다.",
 	["Below ground"] = "지하",
 
-	-- Step 36: Iridescent Shards
+	-- Step 37: Iridescent Shards
 	-- {quest:651} Stones of Binding · {object:2691} Stone of East Binding
 	-- plural, as words: Cresting Exiles = {npc:2761} Cresting Exile
 	["{quest:651} is a group quest at this level: three Cresting Exiles (38-39) guard the {object:2691} and attack together. Grouping up is encouraged, look for people to do it with. Skip it if you are alone."] = "{quest:651}은(는) 이 레벨에서 파티 퀘스트입니다. 떠도는 물의 정령(38-39) 셋이 {object:2691}을(를) 지키며 함께 공격합니다. 파티를 권장하니 함께할 사람을 찾아보세요. 혼자라면 건너뛰세요.",
 
-	-- Step 37: Witherbark Village
-	-- {area:318} Drywhisker Gorge · {area:314} Go'Shek Farm · {area:317} Witherbark Village
+	-- Step 38: Witherbark Village
+	-- {area:318} Drywhisker Gorge · {area:314} Go'Shek Farm · {area:317} Witherbark Village · {npc:2712} Quae
 	-- plural, as words: Witherbark Goliaths = {npc:218032} Witherbark Goliath
-	["South from {area:318}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "",
+	["South from {area:318}, past {area:314}, through {area:317} to the far end of the valley: the Shadow Hunters there drop the knife, and the trolls packed around them give most of the tusks. Then the Witch Doctors among the huts for the pouches, on the way back out towards {npc:2712}. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "{area:318}에서 남쪽으로 {area:314}을(를) 지나 {area:317}을(를) 통과해 골짜기 끝까지 가십시오: 그곳의 어둠사냥꾼이 칼을 떨어뜨리고, 그 주위에 모인 트롤들이 엄니 대부분을 줍니다. 그런 다음 {npc:2712} 쪽으로 돌아나오는 길에 오두막 사이의 주술 의사에게서 주머니를 얻으십시오. 주의: 마른나무껍질 골리앗({npc:218032}, 35, 정예)이 어둠사냥꾼과 함께 골짜기 끝을 돌아다닙니다: 사냥꾼을 하나씩 골리앗에게서 떨어진 곳으로 끌어내십시오.",
 	-- {item:5040} Shadow Hunter Knife
 	["{item:5040}; below ground"] = "",
 
-	-- Step 38: Quae
+	-- Step 39: Quae
 	-- {npc:2712} Quae · {npc:2713} Kinelory · {area:314} Go'Shek Farm
 	["North-west out of the Witherbark valley; {npc:2712} and {npc:2713} camp in the hills just north of {area:314}."] = "마른나무껍질 계곡을 나와 북서쪽으로 가세요. {npc:2712}와(과) {npc:2713}은(는) {area:314} 바로 북쪽 언덕에 진을 치고 있습니다.",
 
-	-- Step 39: Forsaken Courier
+	-- Step 40: Forsaken Courier
 	-- {area:314} Go'Shek Farm
 	["The courier walks the road from {area:314} west across the Highlands, as far as about 24,45, and back, with two guards: the arrow follows the road west until you meet him. Pull them off the road."] = "급사는 경비병 둘과 함께 {area:314}에서 서쪽으로 고원을 가로질러 약 24,45까지 길을 걸었다가 되돌아옵니다. 그를 만날 때까지 화살표가 서쪽으로 길을 따라갑니다. 길에서 끌어내세요.",
 
-	-- Step 41: Quae and Kinelory
+	-- Step 42: Quae and Kinelory
 	-- {npc:2712} Quae · {npc:2713} Kinelory
 	["{npc:2712} and {npc:2713}"] = "{npc:2712}와(과) {npc:2713}",
 
-	-- Step 42: Kinelory's errand
+	-- Step 43: Kinelory's errand
 	-- {npc:2713} Kinelory
 	["{npc:2713}'s errand"] = "{npc:2713}의 심부름",
 	-- {npc:2713} Kinelory · {area:314} Go'Shek Farm
 	["Stay with {npc:2713} while she sneaks into {area:314} and back; Horde orcs jump you on the way.\nCareful: Orcs that drop to low health run away. {npc:2713} follows them and can pull more mobs, so kill or slow runners fast."] = "{npc:2713}이(가) {area:314}에 몰래 들어갔다 나오는 동안 곁에 있으세요. 가는 길에 호드 오크가 덤벼듭니다.\n주의: 생명력이 낮아진 오크는 도망칩니다. {npc:2713}이(가) 그들을 쫓아가 몹을 더 끌어올 수 있으니, 도망치는 적은 빨리 처치하거나 느리게 하세요.",
 
-	-- Step 43: Quae
+	-- Step 44: Quae
 	-- {npc:2711} Phin Odelic · {area:271} Southshore
 	["For {npc:2711} in {area:271}"] = "{area:271}의 {npc:2711}에게",
 
-	-- Step 44: Stones of Binding
+	-- Step 45: Stones of Binding
 	-- {npc:2712} Quae · {object:2691} Stone of East Binding · {area:314} Go'Shek Farm · {object:2702} Stone of Inner Binding · {area:320} Refuge Pointe
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile · Thundering Exiles = {npc:2762} Thundering Exile · Cresting Exiles = {npc:2761} Cresting Exile
 	["From {npc:2712}'s camp, a short way north-east to the {object:2691}, by the shards' hill north of {area:314}. The {object:2702}, where the three keys go, stands west of {area:320}.\nCareful: Each center stone is guarded by around three elementals near level 39 that attack together if you click the stone without clearing them: Burning Exiles at West, Thundering Exiles at Outer, Cresting Exiles at East."] = "{npc:2712}의 야영지에서 북동쪽으로 조금 가면 {area:314} 북쪽 파편 언덕 옆에 {object:2691}이(가) 있습니다. 세 열쇠를 가져갈 {object:2702}은(는) {area:320} 서쪽에 서 있습니다.\n주의: 각 중앙 돌은 39레벨 정도의 정령 셋가량이 지키며, 처치하지 않고 돌을 클릭하면 함께 공격합니다. 서부는 떠도는 불의 정령, 외곽은 떠도는 천둥 정령, 동부는 떠도는 물의 정령입니다.",
 
-	-- Step 45: Refuge Pointe
+	-- Step 46: Refuge Pointe
 	-- {area:320} Refuge Pointe
 	["West along the road to {area:320}."] = "길을 따라 서쪽으로 {area:320}까지 가세요.",
 	-- {npc:2789} Skuerto · {npc:2793} Kor'gresh Coldrage · {object:2689} Stone of West Binding
 	["{npc:2789}: {npc:2793}'s cave, west past the {object:2689}"] = "{npc:2789}: {npc:2793}의 동굴, {object:2689}을(를) 지나 서쪽",
 
-	-- Step 47: Faldir's Cove
+	-- Step 48: Faldir's Cove
 	-- {npc:2768} Professor Phizzlethorpe
 	["A group stop: two level 40 water elementals ambush {npc:2768}'s escort, and the Daggerspine naga in the reef are 38-40, with Sorceresses among them. Grouping up is encouraged, look for people to do it with. Skip it if you are alone.\nSouth along the west coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "파티 구간: 40레벨 물의 정령 둘이 {npc:2768} 호위를 기습하고, 암초의 가시돋친 나가는 38-40이며 마녀도 섞여 있습니다. 파티를 권장하니 함께할 사람을 찾아보세요. 혼자라면 건너뛰세요.\n서해안을 따라 남쪽으로 고블린의 만까지 가세요. 롤로가 그 위 바위에서 망을 봅니다.",
 
-	-- Step 48: Phizzlethorpe
+	-- Step 49: Phizzlethorpe
 	["Phizzlethorpe"] = "피즐솔프",
 	["Escort the professor up the hill to the cave above the cove and guard him while he works. Two level 40 water elementals ambush him there, and they are immune to frost. Hold them at the cave mouth, away from him: if the fight happens inside the cave, he joins in instead of working and more elementals keep coming."] = "",
 
-	-- Step 50: The Drowned Reef: kill these as you meet them
+	-- Step 51: The Drowned Reef: kill these as you meet them
 	-- {area:328} The Drowned Reef
-	["{area:328}: kill these as you meet them"] = "",
+	["{area:328}: kill these as you meet them"] = "{area:328}: 만나는 대로 처치하세요",
 	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "",
 	-- {npc:2595} Daggerspine Raider
 	["{npc:2595}, underwater"] = "",
@@ -254,41 +257,41 @@ return {
 	-- {object:2708} Spirit of Silverpine Charts
 	["{object:2708}; underwater"] = "",
 
-	-- Step 51: Faldir's Cove
+	-- Step 52: Faldir's Cove
 	-- {npc:2487} Fleet Master Seahorn · {area:35} Booty Bay
 	["For {npc:2487} in {area:35}: keep it"] = "{area:35}의 {npc:2487}에게: 보관하세요",
 
-	-- Step 52: Kor'gresh Coldrage
+	-- Step 53: Kor'gresh Coldrage
 	-- {npc:2793} Kor'gresh Coldrage
 	["South-east through the hills: {npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley.\nCareful: {npc:2793} is level 39, a caster, one or two over you here: clear the cave mouth first, then pull him alone at full health."] = "언덕을 지나 남동쪽으로 가세요. 오우거 마법사 {npc:2793}이(가) 마른나무껍질 계곡 남쪽 끝 동굴을 차지하고 있습니다.\n주의: {npc:2793}은(는) 39레벨 주문시전자로, 이 시점의 당신보다 한두 레벨 높습니다. 동굴 입구를 먼저 정리한 뒤, 생명력이 가득할 때 그만 따로 끌어오세요.",
 	-- {item:4525} Trelane's Wand of Invocation
 	["{item:4525}; below ground"] = "",
 
-	-- Step 53: Foggy MacKreel
+	-- Step 54: Foggy MacKreel
 	-- {npc:2793} Kor'gresh Coldrage · {area:880} Thandol Span · {npc:2696} Foggy MacKreel · {quest:647} MacKreel's Moonshine · {npc:2705} Brewmeister Bilger · {area:271} Southshore · {area:320} Refuge Pointe
 	["South-west from {npc:2793}'s cave to the {area:880}: {npc:2696} stands on a broken section of the bridge; jump down to him from its north end. {quest:647} must reach {npc:2705} in {area:271} within 15 minutes: go straight back to {area:320} and fly to {area:271}."] = "",
 
-	-- Step 55: Fly to Southshore
+	-- Step 56: Fly to Southshore
 	-- {area:320} Refuge Pointe
-	["{area:320} flight master"] = "",
+	["{area:320} flight master"] = "{area:320} 비행 조련사",
 
-	-- Step 56: Brewmeister Bilger
+	-- Step 57: Brewmeister Bilger
 	-- {area:271} Southshore · {npc:2276} Magistrate Henry Maleb · {npc:2277} Loremaster Dibbs · {area:280} Strahnbrad
 	["Off the flight, straight to the {area:271} inn. Then {npc:2276} and {npc:2277}, in the town hall, take the Syndicate camp's quests and send you north to {area:280}."] = "비행에서 내리면 곧장 {area:271} 여관으로 가세요. 그다음 마을회관의 {npc:2276}와(과) {npc:2277}이(가) 비밀결사대 야영지 퀘스트를 받고 당신을 북쪽 {area:280}(으)로 보냅니다.",
 	-- {npc:2705} Brewmeister Bilger
-	["{npc:2705}, below ground"] = "",
+	["{npc:2705}, below ground"] = "{npc:2705}, 지하",
 	-- {npc:2276} Magistrate Henry Maleb · {area:280} Strahnbrad
 	["{npc:2276}: the signet rings are in {area:280}"] = "{npc:2276}: 인장 반지는 {area:280}에 있습니다",
 	-- {npc:1356} Prospector Stormpike · {zone:1455} Ironforge
 	["For {npc:1356} in {zone:1455}, at the end of this guide"] = "{zone:1455}의 {npc:1356}에게, 이 가이드 마지막에",
 
-	-- Step 58: Gavin's Naze
+	-- Step 59: Gavin's Naze
 	-- {area:271} Southshore · {area:280} Strahnbrad
 	["Follow the road north out of {area:271} into the mountains. Mountain lions roam the slopes; the Syndicate in {area:280} wear the signet rings."] = "길을 따라 북쪽으로 {area:271}을(를) 나가 산으로 들어가세요. 산사자가 비탈을 돌아다니고, {area:280}의 비밀결사대가 인장 반지를 끼고 있습니다.",
 
-	-- Step 59: Ruins of Alterac: kill these as you meet them
+	-- Step 60: Ruins of Alterac: kill these as you meet them
 	-- {area:281} Ruins of Alterac
-	["{area:281}: kill these as you meet them"] = "",
+	["{area:281}: kill these as you meet them"] = "{area:281}: 만나는 대로 처치하세요",
 	-- {area:280} Strahnbrad
 	-- plural, as words: Argus Shadow Mages = {npc:2318} Argus Shadow Mage · Crushridge Warmongers = {npc:2287} Crushridge Warmonger · Crushridge Maulers = {npc:2254} Crushridge Mauler · Crushridge Ogres = {npc:2252} Crushridge Ogre
 	["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins.\nCareful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and carry the tomes too: pull one at a time, or group up."] = "",
@@ -297,33 +300,33 @@ return {
 	-- {item:3659} Worn Leather Book · {object:1760} Weathered Bookcase · {quest:540} Preserving Knowledge
 	["{item:3659}: the {object:1760}, beside Muckrake (40, elite): get it with a group, or abandon {quest:540}; inside"] = "{item:3659}: Muckrake(40, 정예) 옆의 {object:1760}: 파티와 함께 얻거나 {quest:540}을(를) 포기하십시오; 내부",
 
-	-- Step 60: Ruins of Alterac: kill these as you meet them
+	-- Step 61: Ruins of Alterac: kill these as you meet them
 	-- {npc:2417} Grel'borg the Miser
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.\n{npc:2417} walks from the arrow north-east through the ruins to about 40,47 and back: if he isn't at the arrow, follow his path."] = "정예 몹입니다. 파티를 맺는 것을 권장하니 함께할 사람을 찾아보세요. {npc:2417}은(는) 40레벨 정예입니다. 대부분의 직업은 42레벨에 혼자 처치할 수 있지만, 도움이 필요할 수도 있습니다. 혼자라면 건너뛰세요. 경로에서 사냥으로 경험치를 다시 채우게 됩니다.\n{npc:2417}은(는) 화살표 지점에서 폐허를 지나 북동쪽으로 약 40,47까지 걸었다가 되돌아옵니다. 화살표 지점에 없다면 그의 경로를 따라가세요.",
 
-	-- Step 61: Strahnbrad: kill these as you meet them
+	-- Step 62: Strahnbrad: kill these as you meet them
 	-- {area:280} Strahnbrad
-	["{area:280}: kill these as you meet them"] = "",
+	["{area:280}: kill these as you meet them"] = "{area:280}: 만나는 대로 처치하세요",
 	-- {npc:2306} Baron Vardus · {area:280} Strahnbrad
 	["Careful: Syndicate Spies and Assassins can be stealthed. Assassins also poison you.\nCareful: {npc:2306} (40) turns up in one spot at a time: the cellar of {area:280}'s inn, or one of the Syndicate tent camps north of the village. Leave him be."] = "주의: 비밀결사대 첩자와 암살자는 은신해 있을 수 있습니다. 암살자는 독도 겁니다.\n주의: {npc:2306}(40)은(는) 한 번에 한 곳에만 나타납니다. {area:280} 여관의 지하실, 또는 마을 북쪽의 비밀결사대 천막 야영지 중 한 곳입니다. 그는 내버려 두세요.",
 
-	-- Step 62: Crushridge ogres
+	-- Step 63: Crushridge ogres
 	["Crushridge ogres"] = "산사태 오우거",
 	-- {area:280} Strahnbrad
 	-- plural, as words: Crushridge Maulers = {npc:2254} Crushridge Mauler · Crushridge Ogres = {npc:2252} Crushridge Ogre
 	["The Crushridge ogres hold the hills north of {area:280}. Careful: Nagaz (40) stands far to the north-west by a worn wooden chest, with Syndicate guards: stay with the ogres.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and drop the knucklebones too: pull one at a time, or group up."] = "산사태 오우거는 {area:280} 북쪽 언덕을 차지하고 있습니다. 주의: 나가즈(40)가 멀리 북서쪽의 낡은 나무 상자 옆에 비밀결사대 경비병들과 함께 서 있습니다. 오우거 근처에 머무르십시오.\n산사태일족 싸움꾼, 마법사, 집행자, 전쟁광(36-39)은 정예이고, 산사태 오우거와 산사태 야수(34-35)는 정예가 아니며 손가락뼈도 떨어뜨립니다. 하나씩 끌어오거나 파티를 맺으십시오.",
 
-	-- Step 64: Dalaran
+	-- Step 65: Dalaran
 	-- {area:279} Dalaran · {zone:1421} Silverpine Forest · {npc:269127} Image of Archmage Modera
 	["South-west to the Kirin Tor camp on the lake shore west of {area:279}, just over the border into {zone:1421}: the {npc:269127} stands there. Archmage Ansirem stands south-east of it, by the dome."] = "남서쪽으로 {area:279} 서쪽 호숫가의 키린 토 야영지로 가세요. {zone:1421} 경계를 막 넘은 곳으로, {npc:269127}이(가) 그곳에 서 있습니다. 대마법사 앤자이럼은 그 남동쪽, 돔 옆에 서 있습니다.",
 	-- {npc:2542} Catelyn the Blade · {area:35} Booty Bay
 	["For {npc:2542} in {area:35}: keep it"] = "{area:35}의 {npc:2542}에게: 보관하세요",
 
-	-- Step 65: Image of Archmage Modera
+	-- Step 66: Image of Archmage Modera
 	-- {npc:269127} Image of Archmage Modera · {quest:92458} Heart of Disruption · {item:277507} Dalaran Sewer Key
 	["For your City of Dalaran run, next: the {npc:269127} wants the arcane remnants in the city thinned out and a mote from the heart of the disruption. {quest:92458} brings the {item:277507}, which opens the grate."] = "달라란 시 공략용(다음): {npc:269127}은(는) 도시의 비전 잔재를 줄이고 교란의 중심에서 티끌 하나를 가져오기를 원합니다. {quest:92458}은(는) 창살을 여는 {item:277507}을(를) 줍니다.",
 
-	-- Step 66: City of Dalaran
+	-- Step 67: City of Dalaran
 	["City of Dalaran"] = "달라란 시",
 	-- {quest:92457} Starving Arcane · {item:251961} Arcane Mote · {quest:92458} Heart of Disruption
 	-- plural, as words: Seeking Remnants = {npc:247003} Seeking Remnant · Saturated Remnants = {npc:247001} Saturated Remnant
@@ -331,42 +334,42 @@ return {
 	-- {quest:92457} Starving Arcane
 	["{quest:92457}: the remnants and echoes, inside"] = "{quest:92457}: 잔재와 메아리, 내부",
 	-- {quest:92458} Heart of Disruption · {item:251961} Arcane Mote
-	["{quest:92458}: the {item:251961}, inside"] = "",
+	["{quest:92458}: the {item:251961}, inside"] = "{quest:92458}: {item:251961}, 내부",
 
-	-- Step 67: Image of Archmage Modera
+	-- Step 68: Image of Archmage Modera
 	["Back out of the grate to Modera's camp on the lake shore."] = "창살 밖으로 나와 호숫가의 모데라 야영지로 돌아가십시오.",
 
-	-- Step 70: Southshore
+	-- Step 71: Southshore
 	-- {npc:1440} Milton Sheaf · {zone:1453} Stormwind
 	["For {npc:1440} in {zone:1453}: keep it"] = "{zone:1453}의 {npc:1440}에게: 보관하세요",
 
-	-- Step 71: Bartolo Ginsetti
+	-- Step 72: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {npc:2381} Micha Yance · {item:2321} Fine Thread
 	["{npc:2438} stands between the flight master and the inn; {npc:2381} beside him sells {item:2321} if you have none."] = "",
 	-- {item:2321} Fine Thread · {npc:2381} Micha Yance
-	["{item:2321}, from {npc:2381}"] = "",
+	["{item:2321}, from {npc:2381}"] = "{item:2321}, {npc:2381}에게서",
 
-	-- Step 73: Ironforge
+	-- Step 74: Ironforge
 	-- {npc:1356} Prospector Stormpike · {npc:1344} Prospector Ironband · {zone:1432} Loch Modan
 	["{npc:1356}: for {npc:1344} in {zone:1432}, next"] = "{npc:1356}: {zone:1432}의 {npc:1344}에게, 다음 단계",
 
-	-- Step 74: Fly to Thelsamar
+	-- Step 75: Fly to Thelsamar
 	-- {area:144} Thelsamar
 	["Fly to {area:144}"] = "{area:144}(으)로 비행",
 
-	-- Step 75: To Thelsamar
+	-- Step 76: To Thelsamar
 	-- {area:144} Thelsamar
-	["To {area:144}"] = "",
+	["To {area:144}"] = "{area:144}(으)로",
 	-- {zone:1455} Ironforge · {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar
 	["From {zone:1455} take the tunnel east through {zone:1426} into {zone:1432} and follow the road to {area:144}."] = "{zone:1455}에서 동쪽 굴을 지나 {zone:1426}을(를) 거쳐 {zone:1432}에 들어간 뒤, 길을 따라 {area:144}까지 가세요.",
 
-	-- Step 76: Thelsamar
+	-- Step 77: Thelsamar
 	-- {zone:2548} Riverglades · {zone:1455} Ironforge · {area:69} Lakeshire · {area:2417} Blackrock Pass
 	["Leave the {zone:2548} for about level 41: its Western Front has elite patrols. After Stranglethorn, the {zone:2548} guide takes you from {zone:1455} to {area:69}, then through {area:2417}."] = "",
 	-- {npc:1470} Ghak Healtouch
-	["{npc:1470}, below ground"] = "",
+	["{npc:1470}, below ground"] = "{npc:1470}, 지하",
 
-	-- Step 77: Prospector Ironband
+	-- Step 78: Prospector Ironband
 	["South-east along the loch to the dig site."] = "호수를 따라 남동쪽으로 발굴 현장까지 가세요.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
@@ -408,6 +411,7 @@ return {
 	-- ["The wrecked caravan lies off the road near Biggs."] = "부서진 대상단 마차는 비그스 근처 길가에 있습니다.",
 	-- ["The wrecks"] = "난파선",
 	-- ["Walk back onto the span: Ebenezer lies under its Arathi end."] = "다리 위로 다시 걸어가세요. 에벤에셀은 다리의 아라시 쪽 끝 아래에 쓰러져 있습니다.",
+	-- ["{area:35} flight master"] = "{area:35} 비행 조련사",
 	-- ["{item:2321} for {npc:2438}'s cloak, from {npc:2381}, if you have none"] = "{npc:2438}의 망토용 {item:2321}, 없다면 {npc:2381}에게서",
 	-- ["{item:3659}: the {object:1760}"] = "{item:3659}: {object:1760}",
 	-- ["{npc:217589}: catch it, for {quest:93176}"] = "{npc:217589}: {quest:93176}을(를) 위해 잡으세요",

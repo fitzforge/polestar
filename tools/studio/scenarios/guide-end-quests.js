@@ -11,7 +11,8 @@
 // never uses, Tharil'zun (19) and A Grim Task (304). The shot reads the
 // guide as finished (no live step), as the engine does at its end. Shots:
 // <look>-card, <look>-popup, <look>-offroute, <look>-later (studio
-// guide-end-quests/hearth-card ...).
+// guide-end-quests/hearth-card ...), and <look>-left: the same window for a
+// last step done early with two steps left (GUIDE_STEPS_LEFT, #3517).
 
 const skins = require('./skins');
 
@@ -46,6 +47,9 @@ stub.advance(0.5)`;
 const POPUP = `Polestar.UI.GuideEnd.Show({ guideId = ${JSON.stringify(GUIDE)}, next = Polestar.Engine.GetGuide().next, undone = 0 })
 stub.advance(1)`;
 
+const LEFT = `Polestar.UI.GuideEnd.Show({ guideId = ${JSON.stringify(GUIDE)}, left = 2, live = 37, next = Polestar.Engine.GetGuide().next })
+stub.advance(1)`;
+
 const LIST = (mode) => `Polestar.UI.ShowQuestRoom(${JSON.stringify(mode)}, ${JSON.stringify(GUIDE)})
 stub.advance(0.5)`;
 
@@ -54,6 +58,7 @@ for (const [name, [id, folder, variant]] of Object.entries(LOOKS)) {
 	const base = `${skins.pick(id, folder, variant)}\n${SETUP}`;
 	shots[`${name}-card`] = { title: `${name}: the end card, the two quest lines under "Up next"`, lua: base };
 	shots[`${name}-popup`] = { title: `${name}: the guide-end window, carried and not part of the route`, capture: ['PolestarGuideEnd'], lua: `${base}\n${POPUP}` };
+	shots[`${name}-left`] = { title: `${name}: the last step done early, two steps left`, capture: ['PolestarGuideEnd'], lua: `${base}\n${LEFT}` };
 	shots[`${name}-offroute`] = { title: `${name}: "Not part of your route", each with Abandon`, capture: ['PolestarQuestRoom'], lua: `${base}\n${LIST('offroute')}` };
 	shots[`${name}-later`] = { title: `${name}: "Carried to later guides", each with its guide`, capture: ['PolestarQuestRoom'], lua: `${base}\n${LIST('later')}` };
 }

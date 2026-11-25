@@ -6,104 +6,115 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (simplified) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:35} Booty Bay · {zone:1447} Azshara · {zone:1444} Feralas · {zone:1446} Tanaris
+	["{area:35} first, then {zone:1447}, {zone:1444} and {zone:1446}."] = "先去{area:35}，再去{zone:1447}、{zone:1444}和{zone:1446}。",
+
 	-- Step 2: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "飞往{area:35}",
-	-- {area:75} Stonard
-	["{area:75} flight master"] = "{area:75}的飞行管理员",
 
 	-- Step 3: Booty Bay
 	-- {area:75} Stonard · {area:35} Booty Bay · {npc:7406} Oglethorpe Obnoticus
 	["The flight from {area:75} lands on {area:35}'s upper deck. {npc:7406} has his workshop on the upper ring of the bay."] = "从{area:75}起飞的航班降落在{area:35}的上层平台。{npc:7406}的工作室在海湾的上层环道上。",
 	-- {npc:7406} Oglethorpe Obnoticus
 	["{npc:7406}, inside"] = "{npc:7406}：在屋内",
-	-- {npc:2491} Whiskey Slim
-	["{npc:2491}, in the inn"] = "{npc:2491}，在旅店里",
 	-- {zone:1446} Tanaris
 	["\"Sea Wolf\" MacKinley, on the top floor: Stoley's shipment from {zone:1446}"] = "“海狼”马克基雷，位于最顶层：来自{zone:1446}的斯托利的货物",
 	-- {npc:2487} Fleet Master Seahorn
 	["{npc:2487}, on the balcony of the same building"] = "{npc:2487}在同一栋建筑的阳台上",
 
-	-- Step 4: The Bloodsail ships
+	-- Step 4: Whiskey Slim
+	-- {npc:2491} Whiskey Slim · {area:35} Booty Bay
+	["{npc:2491} sits in the {area:35} inn."] = "{npc:2491}坐在{area:35}旅店里。",
+	-- {npc:2491} Whiskey Slim
+	["{npc:2491}, in the inn"] = "{npc:2491}，在旅店里",
+
+	-- Step 5: The Bloodsail ships
 	["The Bloodsail ships"] = "血帆海盗船",
 	-- {area:43} Wild Shore · {npc:2550} Captain Stillwater · {npc:2548} Captain Keelhaul · {npc:2546} Fleet Master Firallon
 	["South of Booty Bay, three Bloodsail ships lie off the {area:43}: {npc:2550}, {npc:2548} and {npc:2546} each stand on a deck with their crews. Swim out and work from ship to ship."] = "藏宝海湾南边、{area:43}外停着三艘血帆船：{npc:2550}、{npc:2548}和{npc:2546}分别与船员待在各自的甲板上。游过去，逐艘清理。",
 
-	-- Step 6: Monogrammed Sash
+	-- Step 7: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{quest:8552}需要 2 人小队。独自一人时可跳过，路线会安排刷怪补回经验。",
 
-	-- Step 11: Fly to Grom'gol
+	-- Step 12: Fly to Grom'gol
 	-- {object:3202} Grom'gol
 	["Fly to {object:3202}"] = "飞往{object:3202}",
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "{area:35}的飞行管理员",
 
-	-- Step 12: Grom'gol Base Camp
+	-- Step 13: Grom'gol Base Camp
 	-- {area:117} Grom'gol Base Camp · {npc:2497} Nimboya · {object:2076} Bubbling Cauldron
 	["The flight lands at {area:117}; {npc:2497} stands by the {object:2076}."] = "航班降落在{area:117}；{npc:2497}站在{object:2076}旁边。",
 
-	-- Step 13: Back to Grom'gol
+	-- Step 14: Back to Grom'gol
 	-- {object:3202} Grom'gol
 	["Back to {object:3202}"] = "返回{object:3202}",
 
-	-- Step 14: The Mind's Eye
+	-- Step 15: The Mind's Eye
 	-- {npc:818} Mai'Zoth
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:818} (level 47 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\nCareful: Two elite caster guards, around level 45, stand with {npc:818} and join the fight together with him."] = "这些怪物是精英：建议组队，找人一起完成。{npc:818}（47级精英）需要两人小队。独自一人就跳过：路线会安排刷怪补回经验。\n小心：{npc:818} 身边有两名约45级的精英施法守卫，会与他同时加入战斗。",
 	["Below ground"] = "在地下",
 
-	-- Step 18: Zeppelin to Orgrimmar
+	-- Step 17: Saving Yenniku
+	["while he is alive: the gem fills; don't kill him"] = "趁他活着：宝石会充满；不要杀死他",
+	-- {item:3912} Soul Gem
+	["Use the {item:3912} on Yenniku"] = "对耶尼库使用{item:3912}",
+
+	-- Step 19: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "乘飞艇前往{zone:1454}",
 
-	-- Step 19: Zilzibin Drumlore
+	-- Step 20: Zilzibin Drumlore
 	-- {zone:1454} Orgrimmar · {npc:7010} Zilzibin Drumlore · {zone:1446} Tanaris
 	["On the way through {zone:1454} to the flight master, step into the Drag: {npc:7010} takes the insect report from {zone:1446}."] = "在穿过{zone:1454}前往飞行管理员的路上，顺路进暗巷区：{npc:7010}接收来自{zone:1446}的昆虫报告。",
 	-- {npc:7010} Zilzibin Drumlore
 	["{npc:7010}, the Drag"] = "{npc:7010}，在暗巷区",
 
-	-- Step 20: Zilzibin Drumlore
+	-- Step 21: Zilzibin Drumlore
 	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1447} Azshara · {area:1237} Valormok
 	["{quest:4494} needs level 50: {npc:7010}, in the Drag, gives it from then on. Under 50, it waits: if you reach 50 in {zone:1447}, this guide brings you back for it from {area:1237}; else the {zone:1447} guide at 55 offers it again."] = "",
 
-	-- Step 21: Dran Droffers
+	-- Step 22: Dran Droffers
 	["The Droffers' shop is a few steps further into the Drag."] = "德罗弗斯兄弟的商店就在暗巷区里再往前几步。",
 	-- {npc:6986} Dran Droffers
 	["{npc:6986}, the Drag"] = "{npc:6986}，在暗巷区",
 
-	-- Step 22: Orgrimmar
+	-- Step 23: Orgrimmar
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow · {quest:4300} Bone-Bladed Weapons · {zone:1447} Azshara
 	["{npc:8659}, in the {object:172960}, has {quest:4300} for later; then your class trainer before you leave for {zone:1447}."] = "",
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659}, the {object:172960}"] = "{npc:8659}，在{object:172960}",
 
-	-- Step 23: Zor Lonetree
+	-- Step 24: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {object:172957} Valley of Wisdom · {npc:4791} Nazeer Bloodpike · {zone:1445} Dustwallow Marsh
 	["{npc:4047} stands in the {object:172957}: {npc:4791}'s report from {zone:1445}."] = "",
 
-	-- Step 25: Ride into Azshara
+	-- Step 26: Ride into Azshara
 	-- {zone:1447} Azshara
 	["Ride into {zone:1447}"] = "骑马进入{zone:1447}",
 	-- {npc:11548} Loh'atu · {area:1235} Shadowsong Shrine · {area:3137} Talrendis Point
 	-- plural, as words: Azshara Sentinels = {npc:11276} Azshara Sentinel
 	["Ride east along the road out of Splintertree. {npc:11548} waits at the {area:1235} just off the road, a few steps west of the Alliance's {area:3137}: come in from the west and keep clear of the Azshara Sentinels and Jarrodenus (elite)."] = "沿道路向东离开碎木岗哨。{npc:11548}在道路旁的{area:1235}等候，位于联盟{area:3137}西边几步远：从西边过去，避开艾萨拉哨兵和加罗迪努斯（精英）。",
 
-	-- Step 26: Haldarr Encampment: kill these as you meet them
+	-- Step 27: Haldarr Encampment: kill these as you meet them
 	-- {area:1236} Haldarr Encampment
 	["{area:1236}: kill these as you meet them"] = "{area:1236}：沿途遇到就击杀",
 	["The Highborne ghosts haunt the ruins just north of the shrine; the Haldarr satyrs camp a little further north."] = "上层精灵的幽灵在神殿正北的废墟里出没；哈达尔萨特在更北一点的地方扎营。",
 	-- {npc:6117} Highborne Lichling · {area:1235} Shadowsong Shrine
 	["{npc:6117} walks around {area:1235}: look inside the circle on the map"] = "{npc:6117}在{area:1235}附近巡逻，请在地图标出的圆圈内寻找",
 
-	-- Step 27: Loh'atu
+	-- Step 28: Loh'atu
 	-- {npc:11548} Loh'atu · {area:3137} Talrendis Point
 	["Back to {npc:11548} at the shrine; stay west of the {area:3137} guards."] = "回到神殿的{npc:11548}那里；待在{area:3137}守卫的西边。",
 
-	-- Step 28: Valormok
+	-- Step 29: Valormok
 	-- {area:1237} Valormok
 	["Follow the road north to {area:1237}, the Horde camp."] = "沿道路向北前往部落营地{area:1237}。",
 
-	-- Step 29: Fly to Orgrimmar
+	-- Step 30: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "飞往{area:1637}",
 	-- {zone:1447} Azshara · {area:1637} Orgrimmar · {quest:4493} March of the Silithid · {zone:1456} Thunder Bluff
@@ -111,17 +122,17 @@ return {
 	-- {area:1237} Valormok
 	["{area:1237} flight master"] = "{area:1237}的飞行管理员",
 
-	-- Step 30: Zilzibin Drumlore
+	-- Step 31: Zilzibin Drumlore
 	-- {npc:7010} Zilzibin Drumlore
 	["{npc:7010} is in the Drag; your class trainer next."] = "",
 
-	-- Step 31: Fly to Thunder Bluff
+	-- Step 32: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "飞往{area:1638}",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "{zone:1454}飞行管理员",
 
-	-- Step 33: Thunder Bluff
+	-- Step 34: Thunder Bluff
 	-- {zone:1456} Thunder Bluff · {area:1099} Camp Mojache · {area:378} Camp Taurajo · {zone:1412} Mulgore · {area:1639} Elder Rise · {npc:3033} Turak Runetotem · {npc:246344} Alodan the Hopeful
 	["Fly to {zone:1456}; it is on the way to {area:1099}. No flight path there yet? Fly to {area:378} and ride west through {zone:1412}. Hamuul and Magatha are on the {area:1639}; Druids and Paladins train here ({npc:3033}, {npc:246344})."] = "飞往{zone:1456}；它在前往{area:1099}的路上。还没有那里的飞行路线？飞往{area:378}，再向西骑马穿过{zone:1412}。哈缪尔和玛加萨在{area:1639}；德鲁伊和圣骑士在这里训练（{npc:3033}，{npc:246344}）。",
 	-- {npc:6746} Innkeeper Pala
@@ -129,17 +140,17 @@ return {
 	-- {npc:5769} Arch Druid Hamuul Runetotem · {area:1639} Elder Rise
 	["{npc:5769}, on the {area:1639}"] = "{npc:5769}，在{area:1639}",
 
-	-- Step 34: Thunder Bluff
+	-- Step 35: Thunder Bluff
 	-- {quest:3761} Un'Goro Soil
 	["{quest:3761} is gathered in the next guide."] = "{quest:3761}在下一个指南中收集。",
 
-	-- Step 35: Fly to Camp Mojache
+	-- Step 36: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "飞往{area:1099}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "{zone:1456}飞行管理员",
 
-	-- Step 36: Camp Mojache
+	-- Step 38: Camp Mojache
 	-- {npc:8115} Witch Doctor Uzer'i
 	["{npc:8115}, if you don't carry it yet: the materials come on this loop"] = "",
 	-- {npc:7776} Talo Thornhoof · {zone:1448} Felwood
@@ -147,40 +158,40 @@ return {
 	-- {npc:7776} Talo Thornhoof
 	["{npc:7776}: the Northspring harpies, at the far end of this loop"] = "",
 
-	-- Step 37: Talo Thornhoof
+	-- Step 39: Talo Thornhoof
 	-- {quest:3062} Dark Heart · {npc:8075} Edana Hatetalon
 	["{quest:3062}: {npc:8075} (level 50, elite) roosts above the Northspring harpies this loop ends at. Grouping up is advised: skip it if you are alone."] = "",
 
-	-- Step 38: Frayfeather Hippogryphs
+	-- Step 40: Frayfeather Hippogryphs
 	-- plural, as words: Frayfeather Hippogryphs = {npc:5300} Frayfeather Hippogryph
 	["Frayfeather Hippogryphs"] = "乱羽角鹰兽",
 	-- {quest:3128} Natural Materials
 	["The hippogryphs nest on the hills south-west of the camp. Kill one, then use the Muisek Vessel on its body. Nearly every one also drops the sinew and metallic fragments for {quest:3128}."] = "",
 
-	-- Step 39: Hippogryph nests
+	-- Step 41: Hippogryph nests
 	["Hippogryph nests"] = "角鹰兽巢穴",
 	-- {area:2522} Ruins of Isildien · {object:142071} Egg-O-Matic
 	["The hippogryph nests are on the hills to the south, around the {area:2522}; each holds an egg for the {object:142071}."] = "角鹰兽巢穴位于南边的山丘上，在{area:2522}周围；每个巢穴里都有一枚供{object:142071}使用的蛋。",
 
-	-- Step 41: Sprite Darters
+	-- Step 43: Sprite Darters
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
 	["Sprite Darters"] = "小精龙",
 	-- {item:9589} Encrusted Minerals
 	-- was: ["The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill."] = "精灵龙在营地正西的树林里飞来飞去。对你杀死的每一只使用容器。"
 	["The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill; they carry the {item:9589} too."] = "",
 
-	-- Step 43: Wandering Forest Walkers
+	-- Step 45: Wandering Forest Walkers
 	-- plural, as words: Wandering Forest Walkers = {npc:7584} Wandering Forest Walker
 	["Wandering Forest Walkers"] = "森林漫游者",
 	-- {zone:1444} Feralas · {npc:272401} Vale Screamer
 	-- plural, as words: Splintered Logs = {item:9590} Splintered Log
 	["The treants wander the forest roads between the camp and the middle of {zone:1444}; there are only a few, so look along the paths. They carry the Splintered Logs too.\nCareful: a {npc:272401} (level 60) flies over the forest west of the camp: keep clear of it."] = "",
 
-	-- Step 45: Zorbin Fandazzle
+	-- Step 47: Zorbin Fandazzle
 	-- {area:1108} Forgotten Coast · {npc:14637} Zorbin Fandazzle
 	["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "向西北骑往{area:1108}；{npc:14637}在码头上等候。",
 
-	-- Step 46: Forgotten Coast: the water and the shore
+	-- Step 48: Forgotten Coast: the water and the shore
 	-- {area:1108} Forgotten Coast
 	["{area:1108}: the water and the shore"] = "",
 	-- {item:18904} Zorbin's Ultra-Shrinker · {npc:14637} Zorbin Fandazzle
@@ -193,7 +204,7 @@ return {
 	-- plural, as words: Deep Striders = {npc:5360} Deep Strider
 	["{item:18904}, on the Wave and Deep Striders in the water"] = "{item:18904}，对水中的海浪巨人和深海巨人使用",
 
-	-- Step 48: Forgotten Coast: the giants' hills
+	-- Step 50: Forgotten Coast: the giants' hills
 	-- {area:1108} Forgotten Coast
 	["{area:1108}: the giants' hills"] = "",
 	-- {item:18904} Zorbin's Ultra-Shrinker
@@ -201,62 +212,64 @@ return {
 	-- was: ["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "海元素和巨型海元素沿着码头周围的海岸活动。\n大地行者和峭壁巨人在码头北面的山丘游荡。先对每个巨人使用{item:18904}：缩小后，它们就不再是精英。每个被缩小的巨人都会掉落残渣；还要对尸体使用山岭巨人灵魂精华容器。"
 	["The Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too.\nThe Sea Elementals and Sea Sprays along the shore have the last cores."] = "",
 
-	-- Step 50: Northspring harpies
+	-- Step 52: Northspring harpies
 	["Northspring harpies"] = "北泉鹰身人",
 	["The Northspring harpies nest on the ridges in the far north-west, past the giants' hills. The Windcallers heal, so kill them first and pull one at a time."] = "北泉鹰身人在遥远西北的山脊上筑巢，位于巨人山丘的另一边。唤风者会治疗，所以先杀她们，并且一次只拉一只。",
 
-	-- Step 51: Edana Hatetalon
+	-- Step 53: Edana Hatetalon
 	-- {npc:8075} Edana Hatetalon
 	["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests. Clear the harpies around her first."] = "",
 
-	-- Step 52: Rage Scar yetis
+	-- Step 54: Rage Scar yetis
 	["Rage Scar yetis"] = "怒痕雪人",
 	-- {quest:7738} Perfect Yeti Hide
 	["On the way back south-east towards the camp, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "",
 	-- {quest:7738} Perfect Yeti Hide
 	["{quest:7738}, a rare drop"] = "{quest:7738}，稀有掉落",
 
-	-- Step 53: Back to Camp Mojache
+	-- Step 55: Back to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Back to {area:1099}"] = "返回{area:1099}",
 	-- {npc:7854} Jangdor Swiftstrider
 	["{npc:7854}, inside"] = "{npc:7854}：在屋内",
 
-	-- Step 55: Fly to Gadgetzan
+	-- Step 57: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "飞往{area:976}",
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "{area:1099}的飞行管理员",
 
-	-- Step 56: Gadgetzan
+	-- Step 58: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}：在屋内",
 
-	-- Step 58: Gadgetzan
+	-- Step 61: Gadgetzan
+	-- {area:976} Gadgetzan · {npc:9623} A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
+	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} (Chasing {npc:9623}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "{area:976}的拍卖行是安戈洛之前的最后一个。在那里，{npc:9623}（追捕{npc:9623}）会在护送前要一个{item:10561}，这是一件{skill:202}物品：如果你想做这条任务线，就在这里买一个。",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}，在双足飞龙管理员旁边",
 
-	-- Step 59: The Egg-O-Matic
+	-- Step 62: The Egg-O-Matic
 	-- {object:142071} Egg-O-Matic
-	["The {object:142071}"] = "",
+	["The {object:142071}"] = "{object:142071}",
 	-- {object:142071} Egg-O-Matic
 	["The {object:142071}, in the middle of town"] = "{object:142071}，在镇子中央",
 
-	-- Step 60: Marin Noggenfogger
+	-- Step 63: Marin Noggenfogger
 	-- {zone:1449} Un'Goro Crater
 	["Pestlezugg's samples come from {zone:1449}."] = "匹斯特苏格要的样本来自{zone:1449}。",
 
-	-- Step 61: Marvon Rivetseeker
+	-- Step 64: Marvon Rivetseeker
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {zone:1449} Un'Goro Crater
 	["Ride south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts."] = "沿道路向南骑往{area:1938}；{npc:7771}在旁边扎营。从这里向西的道路通往{zone:1449}，下一个指南从那里开始。",
 	-- {quest:3444} The Stone Circle · {npc:7771} Marvon Rivetseeker
 	["Keep {quest:3444}: {npc:7771}'s chest is opened on a later visit."] = "留着{quest:3444}：{npc:7771}的箱子要之后再来时才能打开。",
 
-	-- Step 62: The Dunemaul Compound
+	-- Step 65: The Dunemaul Compound
 	-- {area:1938} Broken Pillar · {npc:12046} Gor'marok the Ravager · {npc:11758} Andi Lynn · {zone:1446} Tanaris
 	["South of the {area:1938} the Dunemaul ogres hold their compound, with {npc:12046} at its eastern end: {npc:11758}'s quest, if you still carry it from {zone:1446}."] = "",
 
-	-- Step 63: Thistleshrub Valley
+	-- Step 66: Thistleshrub Valley
 	-- {quest:3362} Thistleshrub Valley · {npc:7876} Tran'rek · {zone:1446} Tanaris · {area:976} Gadgetzan
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
 	-- was: ["West from the compound, on the way to Un'Goro's ramp: {quest:3362}'s Gnarled Thistleshrubs and Rootshapers (48-50) are {npc:7876}'s, carried from your first {zone:1446} visit. They wander a lot: pull them one at a time. {npc:7876} takes them on the next guide's {area:976} stop, with {npc:11758}'s."] = "从营地向西，前往安戈洛斜坡的路上：{quest:3362}的长瘤的灌木兽和塑根者（48-50）是{npc:7876}的任务，从你第一次来{zone:1446}时就带着。它们到处游荡：一次只拉一只。{npc:7876}会在下一个指南的{area:976}停留时连同{npc:11758}的任务一起交还。"
@@ -308,6 +321,7 @@ return {
 	-- ["grind on {npc:6125}"] = "击杀{npc:6125}刷经验",
 	-- ["{area:1108}: kill these as you meet them"] = "{area:1108}：沿途击杀以下目标",
 	-- ["{area:1221}: kill these as you meet them"] = "{area:1221}：沿途遇到就击杀",
+	-- ["{area:75} flight master"] = "{area:75}的飞行管理员",
 	-- ["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{zone:1456}的{npc:246344}；{zone:1454}没有圣骑士训练师",
 	-- ["{npc:7010}, the Drag: if you still carry it"] = "{npc:7010}，在暗巷区：如果你还带着它",
 	-- ["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}：熊在{zone:1448}",

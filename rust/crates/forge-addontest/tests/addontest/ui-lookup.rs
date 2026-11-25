@@ -611,9 +611,9 @@ fn lookup_turned_off_in_options_guides_only_the_section_says_where_to_turn_it_on
 		Polestar.Lookup.Show(nil, "mount", 8631)
 		emit({ idle = idle, none = none, loads = loads })"#);
 	assert_eq!(out["idle"]["title"], "Lookup is turned off");
-	assert!(is_match(text(&out["idle"]["note"]), r"Options > Discovery > Lookup"));
+	assert!(is_match(text(&out["idle"]["note"]), r"Settings > Discovery > Lookup"));
 	assert_eq!(out["idle"]["codex"], "Lookup is off: searching guides only");
-	assert!(is_match(text(&out["none"]), r"Nothing matches .saber.\. Lookup is turned off in Options > Discovery > Lookup"));
+	assert!(is_match(text(&out["none"]), r"Nothing matches .saber.\. Lookup is turned off in Settings > Discovery > Lookup"));
 	assert_eq!(out["loads"], 0);
 }
 

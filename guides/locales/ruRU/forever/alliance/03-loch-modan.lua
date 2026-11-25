@@ -14,119 +14,119 @@ return {
 
 	-- Step 2: Menethil Harbor
 	-- {zone:1437} Wetlands · {zone:1440} Ashenvale · {zone:1442} Stonetalon Mountains
-	["Off the boat, walk up the pier to the flight master by the inn. Nothing to take here yet: Menethil's quests are for your {zone:1437} visit, after {zone:1440} and the {zone:1442}."] = "",
+	["Off the boat, walk up the pier to the flight master by the inn. Nothing to take here yet: Menethil's quests are for your {zone:1437} visit, after {zone:1440} and the {zone:1442}."] = "С корабля поднимитесь по пирсу к распорядителю полётов у таверны. Здесь пока нечего взять: задания Менетила — для визита в {zone:1437}, уже после {zone:1440} и {zone:1442}.",
 
 	-- Step 3: Into Loch Modan
 	-- {zone:1432} Loch Modan
 	["Into {zone:1432}"] = "В зону {zone:1432}",
 	-- {area:836} Dun Algaz · {zone:1437} Wetlands
-	["Follow the road east out of Menethil and south through the {area:836} pass. Keep to the road: the {zone:1437} crocolisks and raptors beside it are over your level."] = "",
+	["Follow the road east out of Menethil and south through the {area:836} pass. Keep to the road: the {zone:1437} crocolisks and raptors beside it are over your level."] = "Следуйте по дороге на восток от Менетила и на юг через перевал {area:836}. Держитесь дороги: кроколиски и ящеры {zone:1437} рядом с ней — выше вашего уровня.",
 
 	-- Step 4: Algaz Station
 	-- {npc:1343} Mountaineer Stormpike · {area:925} Algaz Station
-	["{npc:1343} stands at the {area:925}, at the south end of the pass."] = "",
+	["{npc:1343} stands at the {area:925}, at the south end of the pass."] = "{npc:1343} стоит на {area:925}, у южного конца перевала.",
 
 	-- Step 5: Mountaineer Stormpike
 	-- {npc:1343} Mountaineer Stormpike · {npc:1416} Grimand Elmore
 	["{npc:1343}: {npc:1416}'s package"] = "{npc:1343}: посылка от {npc:1416}",
 
 	-- Step 6: Silver Stream Mine
-	["East along the hills to the mine: the Miners' League crates sit in its tunnels among the Tunnel Rat kobolds."] = "",
+	["East along the hills to the mine: the Miners' League crates sit in its tunnels among the Tunnel Rat kobolds."] = "На восток вдоль холмов к шахте: ящики Лиги шахтёров лежат в её туннелях среди кобольдов племени Туннельных Крыс.",
 	-- {item:2640} Miners' Gear
-	["{item:2640}, from the crates; below ground"] = "",
+	["{item:2640}, from the crates; below ground"] = "{item:2640}, из ящиков; под землёй",
 
 	-- Step 7: Back to the Algaz Station
 	-- {area:925} Algaz Station
 	["Back to the {area:925}"] = "Назад к месту {area:925}",
 
 	-- Step 8: Stonewrought Dam
-	["Chief Engineer Hinderweir stands on top of the dam, up the ramp at its west end."] = "",
+	["Chief Engineer Hinderweir stands on top of the dam, up the ramp at its west end."] = "Главный инженер Хиндервейр стоит на вершине плотины, по рампе у её западного конца.",
 
 	-- Step 9: The Suspicious Barrel
 	-- {object:257} Suspicious Barrel
 	["The {object:257}"] = "{object:257}",
 	-- plural, as words: Dark Iron Sappers = {npc:1222} Dark Iron Sapper
-	["Walk east along the dam, down its eastern ramp, then back west along the foot of the dam on the land side: two Dark Iron Sappers guard the barrel. Kill them, then open the barrel: it ends this quest and starts the next."] = "",
+	["Walk east along the dam, down its eastern ramp, then back west along the foot of the dam on the land side: two Dark Iron Sappers guard the barrel. Kill them, then open the barrel: it ends this quest and starts the next."] = "Идите на восток вдоль плотины, спуститесь по восточной рампе, затем вернитесь на запад вдоль подошвы плотины со стороны суши: два сапера из клана Черного Железа охраняют бочку. Убейте их, затем откройте бочку: это завершит задание и начнёт следующее.",
 
 	-- Step 11: The loch
-	["The loch"] = "",
+	["The loch"] = "Лох",
 	-- {object:665289} Discarded Fishing Toolbox · {area:144} Thelsamar · {item:278051} Monogrammed Silver Hair Clip
-	["South along the west shore. The {object:665289} lies on the loch bed at one of several places: east of {area:144} (48.1,39.7), a little south-west of there (45.7,43.4), or at the south end of the loch (48.7,54.4 or 50.6,53.3). If it isn't at the arrow, try the next place. Click it for the quest; the {item:278051} comes with it."] = "",
+	["South along the west shore. The {object:665289} lies on the loch bed at one of several places: east of {area:144} (48.1,39.7), a little south-west of there (45.7,43.4), or at the south end of the loch (48.7,54.4 or 50.6,53.3). If it isn't at the arrow, try the next place. Click it for the quest; the {item:278051} comes with it."] = "На юг вдоль западного берега. {object:665289} лежит на дне лоха в одном из нескольких мест: восточнее {area:144} (48.1,39.7), немного юго-западнее оттуда (45.7,43.4) или у южного конца лоха (48.7,54.4 или 50.6,53.3). Если его нет у стрелки, попробуйте следующее место. Щёлкните по нему для задания; {item:278051} приходит вместе с ним.",
 	-- {object:665289} Discarded Fishing Toolbox
-	["{object:665289}; underwater"] = "",
+	["{object:665289}; underwater"] = "{object:665289}; под водой",
 
 	-- Step 12: Thelsamar
 	-- {npc:1684} Khara Deepwater · {npc:1105} Jern Hornhelm
-	["{npc:1684} stands on the shore north-east of town, {npc:1105} by the inn."] = "",
+	["{npc:1684} stands on the shore north-east of town, {npc:1105} by the inn."] = "{npc:1684} стоит на берегу северо-восточнее города, {npc:1105} у таверны.",
 
 	-- Step 13: Ironband's Excavation
 	-- {npc:1345} Magmar Fellhew · {npc:1344} Prospector Ironband
-	["Round the south end of the loch and head east to the dig. {npc:1345} and {npc:1344} stand together at its west edge."] = "",
+	["Round the south end of the loch and head east to the dig. {npc:1345} and {npc:1344} stand together at its west edge."] = "Обогните лох с южного конца и идите на восток к раскопкам. {npc:1345} и {npc:1344} стоят вместе на его западном краю.",
 
 	-- Step 14: The dig site
-	["The dig site"] = "",
+	["The dig site"] = "Место раскопок",
 	-- {item:2636} Carved Stone Idol · {quest:86613} Excavation Tools
 	-- plural, as words: Stonesplinter Diggers = {npc:1167} Stonesplinter Digger · Berserk Troggs = {npc:1393} Berserk Trogg
-	["Stonesplinter Diggers, Geomancers and Berserk Troggs hold the dig east of Ironband; any of them can drop a {item:2636}. Piles of Excavation Tools lie around the dig: open one and right-click the tools to start {quest:86613}, then gather six.\nCareful: Berserk Troggs (19-20) enrage below 40% health."] = "",
+	["Stonesplinter Diggers, Geomancers and Berserk Troggs hold the dig east of Ironband; any of them can drop a {item:2636}. Piles of Excavation Tools lie around the dig: open one and right-click the tools to start {quest:86613}, then gather six.\nCareful: Berserk Troggs (19-20) enrage below 40% health."] = "Землекопы из племени Камнедробов, геоманты и трогги-берсерки держат раскопки восточнее Айронбенда; любой из них может уронить {item:2636}. Кучи инструментов для раскопок разбросаны вокруг: откройте одну и щёлкните правой кнопкой по инструментам, чтобы начать {quest:86613}, затем соберите шесть.\nОсторожно: трогги-берсерки (19–20) впадают в ярость ниже 40% здоровья.",
 	-- {quest:86613} Excavation Tools
-	["{quest:86613}: open a pile at the dig"] = "",
+	["{quest:86613}: open a pile at the dig"] = "{quest:86613}: откройте кучу на раскопках",
 	-- {quest:86613} Excavation Tools
-	["Right-click the {quest:86613}"] = "",
+	["Right-click the {quest:86613}"] = "Щёлкните правой кнопкой по {quest:86613}",
 
 	-- Step 16: The Farstrider Lodge
 	-- {npc:1154} Marek Ironheart · {npc:1187} Daryl the Youngling
-	["North-east to the lodge on the hill. {npc:1154} stands inside, {npc:1187} outside."] = "",
+	["North-east to the lodge on the hill. {npc:1154} stands inside, {npc:1187} outside."] = "На северо-восток к приюту на холме. {npc:1154} стоит внутри, {npc:1187} снаружи.",
 	-- {npc:1154} Marek Ironheart
 	["{npc:1154}, inside"] = "{npc:1154}, внутри",
 	-- {npc:1154} Marek Ironheart
-	["{npc:1154}: the loch crocolisks below the lodge"] = "",
+	["{npc:1154}: the loch crocolisks below the lodge"] = "{npc:1154}: озёрные кроколиски ниже приюта",
 	-- {npc:1187} Daryl the Youngling
-	["{npc:1187}: 15 minutes"] = "",
+	["{npc:1187}: 15 minutes"] = "{npc:1187}: 15 минут",
 
 	-- Step 17: Mountain Buzzards
 	-- plural, as words: Mountain Buzzards = {npc:1194} Mountain Buzzard
-	["Mountain Buzzards"] = "",
+	["Mountain Buzzards"] = "Горные канюки",
 	-- {quest:257} A Hunter's Boast
 	-- plural, as words: Mountain Buzzards = {npc:1194} Mountain Buzzard
-	["Mountain Buzzards circle the hills west and south of the lodge, back toward the dig. {quest:257} runs for 15 minutes."] = "",
+	["Mountain Buzzards circle the hills west and south of the lodge, back toward the dig. {quest:257} runs for 15 minutes."] = "Горные канюки кружат над холмами западнее и южнее приюта, обратно к раскопкам. {quest:257} длится 15 минут.",
 
 	-- Step 18: Daryl the Youngling
-	["12 minutes"] = "",
+	["12 minutes"] = "12 минут",
 
 	-- Step 19: Elder Mountain Boars
 	-- plural, as words: Elder Mountain Boars = {npc:1192} Elder Mountain Boar
 	["Elder Mountain Boars"] = "Старые горные вепри",
 	-- {quest:258} A Hunter's Challenge
 	-- plural, as words: Elder Mountain Boars = {npc:1192} Elder Mountain Boar
-	["The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore. {quest:258} runs for 12 minutes: kill five and go straight back to Daryl; the crocolisks come after."] = "",
+	["The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore. {quest:258} runs for 12 minutes: kill five and go straight back to Daryl; the crocolisks come after."] = "Старые горные вепри бродят по холмам северо-западнее приюта, вдоль восточного берега. {quest:258} длится 12 минут: убейте пять и сразу возвращайтесь к Даррилу; кроколиски придут позже.",
 
 	-- Step 21: Daggerfang and the loch crocolisks
 	-- {npc:270693} Daggerfang
-	["{npc:270693} and the loch crocolisks"] = "",
+	["{npc:270693} and the loch crocolisks"] = "{npc:270693} и озёрные кроколиски",
 	-- {npc:270693} Daggerfang
 	-- plural, as words: Loch Crocolisks = {npc:1693} Loch Crocolisk
 	["Back down to the east shore below the boars' hills: {npc:270693}, a crocolisk, patrols it among the Loch Crocolisks."] = "Назад вниз к восточному берегу под холмами вепрей: {npc:270693}, кроколиск, патрулирует его среди озерных кроколисков.",
 	-- {item:2924} Crocolisk Meat
 	-- plural, as words: Loch Crocolisks = {npc:1693} Loch Crocolisk
-	["{item:2924}: Loch Crocolisks"] = "",
+	["{item:2924}: Loch Crocolisks"] = "{item:2924}: озерные кроколиски",
 
 	-- Step 23: Thelsamar
 	-- {area:144} Thelsamar · {npc:1105} Jern Hornhelm · {npc:1572} Thorgrum Borrelson
-	["Back west along the south shore to {area:144}: {npc:1105} by the inn, then {npc:1572} with the gryphons on the west side of town, on the way south."] = "",
+	["Back west along the south shore to {area:144}: {npc:1105} by the inn, then {npc:1572} with the gryphons on the west side of town, on the way south."] = "Назад на запад вдоль южного берега к {area:144}: {npc:1105} у таверны, затем {npc:1572} с грифонами на западной стороне города, по дороге на юг.",
 	-- {npc:1356} Prospector Stormpike · {zone:1455} Ironforge
-	["For {npc:1356} in {zone:1455}"] = "",
+	["For {npc:1356} in {zone:1455}"] = "Для {npc:1356} в {zone:1455}",
 
 	-- Step 24: Mountaineer Ylva
 	-- {npc:269185} Headsplitter · {zone:1418} Badlands
 	-- plural, as words: Stonevault Cave Hunters = {npc:4856} Stonevault Cave Hunter
-	["South of Thelsamar, Ylva lies dead in the mouth of a trogg cave. Take her banner, raise it beside her and hold the spot: troggs come in waves from both sides, then {npc:269185}.\nCareful: Stonevault Cave Hunters (36, elite) hold the pass just south of Ylva, toward the {zone:1418}: stay by the banner and don't chase troggs south."] = "",
+	["South of Thelsamar, Ylva lies dead in the mouth of a trogg cave. Take her banner, raise it beside her and hold the spot: troggs come in waves from both sides, then {npc:269185}.\nCareful: Stonevault Cave Hunters (36, elite) hold the pass just south of Ylva, toward the {zone:1418}: stay by the banner and don't chase troggs south."] = "Южнее Телсамара Йлва лежит мертвой у входа в троггскую пещеру. Возьмите её знамя, поднимите его рядом с ней и удерживайте точку: трогги идут волнами с обеих сторон, затем {npc:269185}.\nОсторожно: охотники из племени Каменного Свода (36, элита) держат перевал сразу южнее Йлвы, по дороге в {zone:1418}: оставайтесь у знамени и не гонитесь за троггами на юг.",
 	-- {item:253247} Banner of Ironforge · {npc:269185} Headsplitter
 	["{item:253247}: raise it beside Ylva, then hold the spot until {npc:269185} comes"] = "",
 
 	-- Step 25: The tunnel post
 	["The tunnel post"] = "Пост у туннеля",
 	-- {zone:1426} Dun Morogh
-	["West to the dwarven post at the tunnel to {zone:1426}."] = "",
+	["West to the dwarven post at the tunnel to {zone:1426}."] = "На запад к дворфийскому посту у туннеля в {zone:1426}.",
 
 	-- Step 26: Captain Rugelfuss
 	-- {npc:1092} Captain Rugelfuss
@@ -154,7 +154,7 @@ return {
 
 	-- Step 30: Ironforge
 	-- {npc:1573} Gryth Thurden · {object:32372} Great Forge · {npc:1356} Prospector Stormpike · {object:32356} Hall of Explorers · {object:171524} Tinker Town
-	["{npc:1573} keeps the gryphons in the {object:32372}; {npc:1356} is in the {object:32356}, north-east of it, on the way to the tram in {object:171524}."] = "",
+	["{npc:1573} keeps the gryphons in the {object:32372}; {npc:1356} is in the {object:32356}, north-east of it, on the way to the tram in {object:171524}."] = "{npc:1573} держит грифонов в {object:32372}; {npc:1356} в {object:32356}, северо-восточнее от него, по пути к трамваю в {object:171524}.",
 	-- {npc:1573} Gryth Thurden · {object:32372} Great Forge
 	["{npc:1573}, in the {object:32372}"] = "{npc:1573}, {object:32372}",
 
@@ -164,131 +164,138 @@ return {
 
 	-- Step 32: Elwynn Forest
 	-- {zone:1453} Stormwind · {area:87} Goldshire
-	["From the tram, leave {zone:1453} by the main gate and follow the road through {area:87} and east through Elwynn to Redridge."] = "",
-	["The road east to Redridge"] = "",
+	["From the tram, leave {zone:1453} by the main gate and follow the road through {area:87} and east through Elwynn to Redridge."] = "С трамвая выйдите из {zone:1453} через главные ворота и следуйте по дороге через {area:87} и на восток через Элвиннский лес к Красногорью.",
+	["The road east to Redridge"] = "Дорога на восток к Красногорью",
 
 	-- Step 33: Henze Faulk
 	-- {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["From the bridge, head north to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "",
+	["From the bridge, head north to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "От моста идите на север к {area:86}. {npc:6172} лежит южнее озера: используйте на нём {item:6866}. Волшебники-плуты из Братства Справедливости вокруг него несут {item:6846}.",
 	-- {item:6866} Symbol of Life · {npc:6172} Henze Faulk
 	["Use the {item:6866} on {npc:6172}"] = "Используйте {item:6866}. Цель: {npc:6172}",
 	-- {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["{item:6846}: Defias Rogue Wizards"] = "{item:6846}: волшебники-плуты из Братства Справедливости",
 
-	-- Step 34: Three Corners
+	-- Step 34: Henze Faulk
+	-- {npc:6172} Henze Faulk · {quest:1786} The Tome of Divinity · {area:86} Stone Cairn Lake · {item:6846} Defias Script
+	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
+	["{npc:6172} is already raised: take the next part of {quest:1786} from him, south of {area:86}. The Defias Rogue Wizards around him carry the {item:6846}."] = "{npc:6172} уже поднят: возьмите у него следующую часть задания {quest:1786}, к югу от места {area:86}. {item:6846} носят чародеи Братства Справедливости вокруг него ({npc:474}).",
+
+	-- Step 35: Three Corners
 	-- {area:1002} Three Corners · {npc:464} Guard Parker
-	["The road crosses into Redridge at {area:1002}. {npc:464} walks around the crossroads."] = "",
+	["The road crosses into Redridge at {area:1002}. {npc:464} walks around the crossroads."] = "Дорога пересекает Красногорье на {area:1002}. {npc:464} ходит вокруг перекрёстка.",
 	-- {npc:464} Guard Parker · {area:1002} Three Corners
 	["{npc:464} walks around {area:1002}: look inside the circle on the map"] = "{npc:464} ходит по месту {area:1002}: ищите внутри круга на карте",
 
-	-- Step 35: Lakeridge Highway
+	-- Step 36: Lakeridge Highway
 	-- {area:68} Lake Everstill · {npc:1070} Deputy Feldon
 	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:1070} stands by the road next to her."] = "Идите по дороге вдоль южного берега озера ({area:68}) к распорядителю полетов. {npc:1070} стоит у дороги рядом с ней.",
 
-	-- Step 36: Lakeshire
+	-- Step 37: Lakeshire
 	-- {npc:8965} Shawn · {npc:8962} Hilary · {npc:341} Foreman Oslow · {npc:415} Verner Osgood · {npc:344} Magistrate Solomon · {npc:381} Dockmaster Baren · {npc:266} Wiley the Black · {npc:379} Darcy · {npc:343} Chef Breanna
-	["Cross the long bridge north into town: {npc:8965} and {npc:8962} play by the shore at its north end, {npc:341} stands there too, {npc:415} by the smithy, {npc:344} in the town hall, {npc:381} on the docks, {npc:266} upstairs in the inn and {npc:379} and {npc:343} inside it."] = "",
+	["Cross the long bridge north into town: {npc:8965} and {npc:8962} play by the shore at its north end, {npc:341} stands there too, {npc:415} by the smithy, {npc:344} in the town hall, {npc:381} on the docks, {npc:266} upstairs in the inn and {npc:379} and {npc:343} inside it."] = "Перейдите длинный мост на север в город: {npc:8965} и {npc:8962} играют у берега на северном конце, {npc:341} стоит там же, {npc:415} у кузницы, {npc:344} в ратуше, {npc:381} на причале, {npc:266} наверху в таверне, а {npc:379} и {npc:343} внутри неё.",
 	-- {npc:415} Verner Osgood · {npc:514} Smith Argus · {area:87} Goldshire
 	["{npc:415}: for {npc:514} in {area:87}"] = "{npc:415}: для персонажа {npc:514} ({area:87})",
 	-- {npc:344} Magistrate Solomon · {npc:466} General Marcus Jonathan · {zone:1453} Stormwind
-	["{npc:344}, in the town hall: for {npc:466} in {zone:1453}"] = "",
+	["{npc:344}, in the town hall: for {npc:466} in {zone:1453}"] = "{npc:344}, в ратуше: для {npc:466} в {zone:1453}",
 	-- {npc:266} Wiley the Black
-	["{npc:266}, in the inn; upstairs"] = "",
+	["{npc:266}, in the inn; upstairs"] = "{npc:266}, в таверне; наверху",
 	-- {npc:379} Darcy
 	["{npc:379}, inside"] = "{npc:379}, внутри",
 	-- {npc:343} Chef Breanna
 	["{npc:343}, inside"] = "{npc:343}, внутри",
 
-	-- Step 37: Guard Parker
+	-- Step 38: Guard Parker
 	-- {area:1002} Three Corners
-	["West along the road to {area:1002} first; the gnolls are on the way back east."] = "",
+	["West along the road to {area:1002} first; the gnolls are on the way back east."] = "Сначала на запад по дороге к {area:1002}; гноллы — по пути обратно на восток.",
 
-	-- Step 38: Lakeridge Highway: kill these as you meet them
+	-- Step 39: Lakeridge Highway: kill these as you meet them
 	-- {area:1001} Lakeridge Highway
 	["{area:1001}: kill these as you meet them"] = "{area:1001}: убивайте их по пути",
 	-- {area:1002} Three Corners
 	-- plural, as words: Redridge Mongrels = {npc:423} Redridge Mongrel · Great Goretusks = {npc:547} Great Goretusk · Dire Condors = {npc:428} Dire Condor
-	["Redridge Mongrels and Thrashers hold the hills east of {area:1002}, north of the road; Poachers camp south of the road. Great Goretusks root around the same hills and Dire Condors circle south of the lake; Tarantulas crawl round {area:1002}."] = "",
+	["Redridge Mongrels and Thrashers hold the hills east of {area:1002}, north of the road; Poachers camp south of the road. Great Goretusks root around the same hills and Dire Condors circle south of the lake; Tarantulas crawl round {area:1002}."] = "Полукровки и громилы из стаи Красногорья держат холмы восточнее {area:1002}, севернее дороги; браконьеры разбили лагерь южнее дороги. Большие жутевепри роются на тех же холмах, а ужасающие кондоры кружат южнее озера; тарантулы ползают вокруг {area:1002}.",
 	-- {item:280911} Spiked Collar
 	-- plural, as words: Redridge Thrashers = {npc:712} Redridge Thrasher
 	["{item:280911}: Redridge Thrashers"] = "{item:280911}: твердозубы из стаи Красногорья",
 	-- {item:1081} Crisp Spider Meat
-	["{item:1081}: Tarantulas"] = "",
+	["{item:1081}: Tarantulas"] = "{item:1081}: тарантулы",
 
-	-- Step 39: Deputy Feldon
+	-- Step 40: Deputy Feldon
 	-- {npc:1070} Deputy Feldon
-	["East along the road to the gryphon master; {npc:1070} stands beside her."] = "",
+	["East along the road to the gryphon master; {npc:1070} stands beside her."] = "На восток по дороге к распорядителю полётов; {npc:1070} стоит рядом с ней.",
 
-	-- Step 40: Sunken Chest
+	-- Step 41: Sunken Chest
 	-- {area:68} Lake Everstill · {item:1467} Spotted Sunfish
 	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater · Lake Threshers = {npc:14357} Lake Thresher
 	["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}.\nCareful: Lake Threshers, level 25 elites, swim in the lake: keep your distance from them while you dive for the chest."] = "По пути к городу плывите на восток от моста в {area:68}; сундук лежит на дне озера рядом с затонувшей лодкой. Мурлоки-трупоеды и мурлоки-волнозовы занимают южный берег вокруг него: у любого может оказаться {item:1467}.\nОсторожно: в озере плавают Озерные крепкозубы, элита 25 уровня: держитесь от них подальше, когда ныряете за сундуком.",
 	-- {item:1309} Oslow's Toolbox
-	["{item:1309}; underwater"] = "",
+	["{item:1309}; underwater"] = "{item:1309}; под водой",
 
-	-- Step 41: Hilary's Necklace
+	-- Step 42: Hilary's Necklace
 	-- {object:154357} Glinting Mud
-	["Then west under the bridge: a {object:154357} mound on the lake bed beside town holds the necklace. Only one mound shows at a time, anywhere from under the dock to past the bridge."] = "",
+	["Then west under the bridge: a {object:154357} mound on the lake bed beside town holds the necklace. Only one mound shows at a time, anywhere from under the dock to past the bridge."] = "Затем на запад под мост: насыпь {object:154357} на дне озера рядом с городом держит ожерелье. В один момент видна только одна насыпь, где-то от причала до за мостом.",
 	-- {quest:3741} Hilary's Necklace
-	["{quest:3741}; underwater"] = "",
+	["{quest:3741}; underwater"] = "{quest:3741}; под водой",
 
-	-- Step 42: Lakeshire
+	-- Step 43: Lakeshire
 	-- {npc:8962} Hilary · {npc:341} Foreman Oslow · {npc:381} Dockmaster Baren · {npc:342} Martie Jainrose · {npc:379} Darcy · {npc:343} Chef Breanna
-	["Through town east to west: {npc:8962} and {npc:341} at the north end of the bridge, {npc:381} on the docks, then {npc:342}'s garden at the west end; {npc:379} and {npc:343} are in the inn."] = "",
+	["Through town east to west: {npc:8962} and {npc:341} at the north end of the bridge, {npc:381} on the docks, then {npc:342}'s garden at the west end; {npc:379} and {npc:343} are in the inn."] = "Через город с востока на запад: {npc:8962} и {npc:341} у северного конца моста, {npc:381} на причале, затем сад {npc:342} на западном конце; {npc:379} и {npc:343} в таверне.",
 	-- {zone:1436} Westfall
-	["Its pikes and rivets come from the gnolls north of the lake, on the loop after {zone:1436}"] = "",
+	["Its pikes and rivets come from the gnolls north of the lake, on the loop after {zone:1436}"] = "Его пики и заклёпки — от гноллов севернее озера, по петле после {zone:1436}",
 
-	-- Step 43: Dockmaster Baren
+	-- Step 44: Dockmaster Baren
 	-- {npc:381} Dockmaster Baren · {quest:150} Murloc Poachers · {area:69} Lakeshire
-	["From level 20 {npc:381} gives {quest:150}: take it now if he offers it (otherwise on the last {area:69} stop). Its murlocs are for your next Redridge visit, at about 24."] = "",
+	["From level 20 {npc:381} gives {quest:150}: take it now if he offers it (otherwise on the last {area:69} stop). Its murlocs are for your next Redridge visit, at about 24."] = "С 20 уровня {npc:381} даёт {quest:150}: возьмите сейчас, если он предлагает (иначе — на последней остановке {area:69}). Его мурлоки — для следующего визита в Красногорье, примерно на 24.",
 	-- {npc:381} Dockmaster Baren
 	["{npc:381}, on the docks"] = "{npc:381} – на пристани",
 
-	-- Step 44: Goldshire
+	-- Step 45: Goldshire
 	-- {area:1002} Three Corners · {area:87} Goldshire
-	["West out of Redridge by {area:1002} and along the road through Elwynn to {area:87}."] = "",
+	["West out of Redridge by {area:1002} and along the road through Elwynn to {area:87}."] = "На запад из Красногорья через {area:1002} и по дороге через Элвиннский лес к {area:87}.",
 
-	-- Step 45: Smith Argus
+	-- Step 46: Smith Argus
 	-- {npc:514} Smith Argus · {area:87} Goldshire
-	["{npc:514} works at the {area:87} smithy."] = "",
+	["{npc:514} works at the {area:87} smithy."] = "{npc:514} работает в кузнице {area:87}.",
 
-	-- Step 46: Stormwind's gate
+	-- Step 47: Stormwind's gate
 	-- {zone:1453} Stormwind
-	["{zone:1453}'s gate"] = "",
+	["{zone:1453}'s gate"] = "Ворота {zone:1453}",
 	-- {npc:234} Gryan Stoutmantle · {zone:1436} Westfall · {area:87} Goldshire · {zone:1453} Stormwind · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:69} Lakeshire · {area:1617} Valley of Heroes
+	-- was: ["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "Никакого Братства Справедливости от Вайли (оно начинается с письма {npc:234} в {zone:1436}): пропустите {zone:1436}. На север по дороге от {area:87} к {zone:1453}: {npc:466} сидит на коне на дальнем конце моста снаружи главных ворот. Затем грифоны в {object:2096}, назад к {area:69}."
 	["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "",
 	-- {npc:466} General Marcus Jonathan
-	["{npc:466}, outside the main gate"] = "",
+	["{npc:466}, outside the main gate"] = "{npc:466}, снаружи главных ворот",
 
-	-- Step 47: Westfall
+	-- Step 48: Westfall
 	-- {zone:1436} Westfall
-	["West through Westbrook into {zone:1436}."] = "",
+	["West through Westbrook into {zone:1436}."] = "На запад через Вестбрук в {zone:1436}.",
 
-	-- Step 48: Sentinel Hill
+	-- Step 49: Sentinel Hill
 	-- {area:108} Sentinel Hill · {npc:234} Gryan Stoutmantle
-	["Down the road to {area:108}. {npc:234} stands at the top of the stone tower."] = "",
+	["Down the road to {area:108}. {npc:234} stands at the top of the stone tower."] = "Спуститесь по дороге к {area:108}. {npc:234} стоит на вершине каменной башни.",
 	-- {npc:332} Master Mathias Shaw · {zone:1453} Stormwind
-	["For {npc:332} in {zone:1453}"] = "",
+	["For {npc:332} in {zone:1453}"] = "Для {npc:332} в {zone:1453}",
 
-	-- Step 49: Fly to Stormwind
+	-- Step 50: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "Лететь в {zone:1453}",
 	-- {area:108} Sentinel Hill
 	["{area:108} flight master"] = "Распорядитель полетов: {area:108}",
 
-	-- Step 50: Stormwind
+	-- Step 51: Stormwind
 	-- {npc:332} Master Mathias Shaw · {object:2100} Old Town · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:1617} Valley of Heroes
+	-- was: ["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "{npc:332} наверху в здании СИ:7 в {object:2100}: лестницу поначалу трудно заметить. {npc:466} сидит на коне на дальнем конце моста снаружи главных ворот, затем назад к грифонам в {object:2096}."
 	["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "",
 	-- {npc:332} Master Mathias Shaw
-	["{npc:332}, SI:7; upstairs"] = "",
+	["{npc:332}, SI:7; upstairs"] = "{npc:332}, СИ:7; наверху",
 
-	-- Step 51: Sentinel Hill
+	-- Step 52: Sentinel Hill
 	-- {npc:234} Gryan Stoutmantle
 	["{npc:234}, at the top of the tower"] = "{npc:234}, на вершине башни",
 
-	-- Step 52: Moonbrook and the Defias hills
+	-- Step 53: Moonbrook and the Defias hills
 	-- {area:20} Moonbrook
 	["{area:20} and the Defias hills"] = "{area:20} и холмы Братства Справедливости",
 	-- {area:20} Moonbrook · {area:1581} The Deadmines
@@ -297,126 +304,134 @@ return {
 	-- {item:254676} Suspicious Industrial Supplies · {area:20} Moonbrook
 	["{item:254676}, from the crates around {area:20}"] = "{item:254676}: из ящиков вокруг поселения {area:20}",
 
-	-- Step 53: The Defias Messenger
+	-- Step 54: The Defias Messenger
 	-- {npc:550} Defias Messenger
 	["The {npc:550}"] = "{npc:550}",
 	-- {area:20} Moonbrook · {npc:550} Defias Messenger · {area:113} Gold Coast Quarry · {area:111} Jangolode Mine
-	["South along the road to {area:20}. The {npc:550} starts in front of the {area:20} smithy and walks north to the {area:113} and the back of the {area:111}, then back: look along his road. Slow him when he runs at 30% health."] = "",
+	["South along the road to {area:20}. The {npc:550} starts in front of the {area:20} smithy and walks north to the {area:113} and the back of the {area:111}, then back: look along his road. Slow him when he runs at 30% health."] = "На юг по дороге к {area:20}. {npc:550} начинает перед кузницей {area:20} и идёт на север к {area:113} и задней стороне {area:111}, затем обратно: ищите вдоль его дороги. Замедлите его, когда он побежит на 30% здоровья.",
 	-- {item:1381} A Mysterious Message · {npc:550} Defias Messenger
-	["{item:1381}: the {npc:550}"] = "",
+	["{item:1381}: the {npc:550}"] = "{item:1381}: {npc:550}",
 
-	-- Step 54: Half Pendant of Aquatic Endurance
+	-- Step 55: Half Pendant of Aquatic Endurance
 	-- {area:113} Gold Coast Quarry · {object:177790} Strange Lockbox
 	["Druids on Trial of the Sea Lion: from the {area:113}, west to the shore and north along it. The {object:177790} lies on the sea floor off the coast (about 18,33); then back south along the coast to the lighthouse."] = "Друидам на Испытании Морского Льва: от места {area:113} на запад к берегу и вдоль него на север. {object:177790} лежит на морском дне у побережья (примерно 18,33); затем назад на юг вдоль побережья к маяку.",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
 	["{item:15882}: the {object:177790}"] = "{item:15882}: {object:177790}",
 
-	-- Step 55: Westfall Lighthouse
+	-- Step 56: Westfall Lighthouse
 	-- {area:20} Moonbrook · {npc:392} Captain Grayson · {npc:391} Old Murk-Eye
-	["South-west from {area:20} to the lighthouse on the point: {npc:392} waits on its steps. {npc:391} walks the beach and the shallows north-east of it among the murlocs: pull him away from the Oracles."] = "",
+	["South-west from {area:20} to the lighthouse on the point: {npc:392} waits on its steps. {npc:391} walks the beach and the shallows north-east of it among the murlocs: pull him away from the Oracles."] = "На юго-запад от {area:20} к маяку на мысе: {npc:392} ждёт на его ступенях. {npc:391} ходит по пляжу и отмелям северо-восточнее него среди мурлоков: оттащите его от оракулов.",
 	-- {item:3636} Scale of Old Murk-Eye · {npc:391} Old Murk-Eye
-	["{item:3636}: {npc:391}, on the beach north-east of the lighthouse"] = "",
+	["{item:3636}: {npc:391}, on the beach north-east of the lighthouse"] = "{item:3636}: {npc:391}, на пляже северо-восточнее маяка",
 
-	-- Step 56: Captain Grayson
+	-- Step 57: Captain Grayson
 	-- {zone:1436} Westfall · {npc:392} Captain Grayson
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["Kept five Flasks of Oil from {zone:1436}'s Harvest Watchers? {npc:392} takes them for his lighthouse fire."] = "",
+	["Kept five Flasks of Oil from {zone:1436}'s Harvest Watchers? {npc:392} takes them for his lighthouse fire."] = "Сохранили пять фляг масла от дозорных полей {zone:1436}? {npc:392} берёт их для огня своего маяка.",
 
-	-- Step 57: Sentinel Hill
+	-- Step 58: Sentinel Hill
 	-- {area:108} Sentinel Hill · {npc:467} The Defias Traitor
-	["Back north up the road to {area:108}. {npc:467} waits at the foot of the tower ramp; if he is missing, someone is escorting him and he is back within minutes."] = "",
+	["Back north up the road to {area:108}. {npc:467} waits at the foot of the tower ramp; if he is missing, someone is escorting him and he is back within minutes."] = "Назад на север по дороге к {area:108}. {npc:467} ждёт у подножия рампы башни; если его нет, кто-то сопровождает его, и он вернётся через несколько минут.",
 
-	-- Step 58: The Defias Traitor
+	-- Step 59: The Defias Traitor
 	-- {area:20} Moonbrook
-	["Stay with the traitor as he walks south to {area:20}; he does not stop for fights, so clear what follows him. His walk ends at the Defias hideout below {area:20}."] = "",
+	["Stay with the traitor as he walks south to {area:20}; he does not stop for fights, so clear what follows him. His walk ends at the Defias hideout below {area:20}."] = "Оставайтесь с предателем, пока он идёт на юг к {area:20}; он не останавливается ради боёв, так что зачищайте то, что идёт за ним. Его путь заканчивается в логове Братства под {area:20}.",
 	-- {npc:467} The Defias Traitor
-	["{npc:467}, at the foot of the tower ramp"] = "",
+	["{npc:467}, at the foot of the tower ramp"] = "{npc:467}, у подножия рампы башни",
 
-	-- Step 59: Gryan Stoutmantle
+	-- Step 60: Gryan Stoutmantle
 	-- {npc:234} Gryan Stoutmantle · {area:1581} The Deadmines · {npc:639} Edwin VanCleef · {npc:820} Scout Riell · {quest:214} Red Silk Bandanas
 	["Back north to {npc:234}. For your {area:1581} run he then sends you after {npc:639}, and {npc:820}, beside him at the top of the tower, wants {quest:214}. Look for a group now if you have none yet."] = "Назад на север к NPC {npc:234}. Для подземелья {area:1581} он затем отправит вас за NPC {npc:639}, а {npc:820}, рядом с ним на вершине башни, дает задание «{quest:214}». Поищите группу сейчас, если у вас ее еще нет.",
 	-- {npc:820} Scout Riell
 	["{npc:820}, at the top of the tower"] = "{npc:820}, на вершине башни",
 
-	-- Step 60: The Deadmines
+	-- Step 61: The Deadmines
 	-- {area:1581} The Deadmines · {area:20} Moonbrook · {quest:214} Red Silk Bandanas · {npc:639} Edwin VanCleef · {zone:1453} Stormwind
 	["{area:1581} is a dungeon for a group of five, about levels 17 to 24, and a full run takes about an hour. Its door is the mine below {area:20}, where the traitor led you: the portal is at the far end of the mine's tunnels.\nInside: the Defias drop the {quest:214}, and {npc:639} waits on the ship at the end. Open the Unsent Letter he drops: its quest goes to {zone:1453}, where this guide hands it in."] = "{area:1581} – подземелье для группы из пяти игроков, примерно 17-24-й уровень; полное прохождение занимает около часа. Вход – шахта под деревней {area:20}, куда вас привел предатель: портал – в дальнем конце туннелей шахты.\nВнутри: с членов Братства Справедливости падают банданы для задания «{quest:214}», а {npc:639} ждет на корабле в конце. Откройте выпавшее из него неотправленное письмо: его задание ведет в город {zone:1453}, где этот гайд его сдает.",
 	-- {item:915} Red Silk Bandana
 	["{item:915}: the Defias"] = "{item:915}: Братство Справедливости",
 
-	-- Step 61: Gryan Stoutmantle
+	-- Step 62: Gryan Stoutmantle
 	-- {area:108} Sentinel Hill · {npc:234} Gryan Stoutmantle
 	["Out of the mine and north up the road to {area:108}: {npc:234} stands at the top of the tower."] = "Из шахты на север по дороге: {area:108}. {npc:234} стоит на вершине башни.",
 
-	-- Step 62: Scout Riell
+	-- Step 63: Scout Riell
 	-- {npc:820} Scout Riell · {area:108} Sentinel Hill
 	["{npc:820} keeps watch at the top of the {area:108} tower."] = "{npc:820} несет дозор на вершине башни ({area:108}).",
 
-	-- Step 63: Fly to Lakeshire
+	-- Step 64: Fly to Lakeshire
 	-- {area:69} Lakeshire
 	["Fly to {area:69}"] = "Летите сюда: {area:69}",
 
-	-- Step 64: Sentinel Hill
+	-- Step 65: Sentinel Hill
 	-- {npc:234} Gryan Stoutmantle
-	["Back north to {npc:234} and the gryphons."] = "",
+	["Back north to {npc:234} and the gryphons."] = "Назад на север к {npc:234} и грифонам.",
 
-	-- Step 65: Lakeshire
+	-- Step 66: Lakeshire
 	-- {npc:415} Verner Osgood · {npc:344} Magistrate Solomon
-	["From the gryphons, over the bridge into town: {npc:415} by the smithy, {npc:344} in the town hall."] = "",
+	["From the gryphons, over the bridge into town: {npc:415} by the smithy, {npc:344} in the town hall."] = "С грифонов через мост в город: {npc:415} у кузницы, {npc:344} в ратуше.",
 	-- {npc:344} Magistrate Solomon
 	["{npc:344}, in the town hall"] = "{npc:344}, в ратуше",
 
-	-- Step 66: Redridge Canyons
+	-- Step 67: Redridge Canyons
 	-- {spell:133} Fireball
 	-- plural, as words: Redridge Brutes = {npc:426} Redridge Brute · Iron Pikes = {item:2856} Iron Pike · Black Dragon Whelps = {npc:441} Black Dragon Whelp
-	["Redridge Brutes and Mystics hold the hills north and north-west of town; both carry the Iron Pikes and Rivets. Black Dragon Whelps nest in the same hills.\nCareful: The whelps cast {spell:133} from range, and the gnolls run for help at low health."] = "",
+	["Redridge Brutes and Mystics hold the hills north and north-west of town; both carry the Iron Pikes and Rivets. Black Dragon Whelps nest in the same hills.\nCareful: The whelps cast {spell:133} from range, and the gnolls run for help at low health."] = "Громилы из стаи Красногорья и мистики держат холмы севернее и северо-западнее города; те и другие несут железные пики и заклёпки. Детеныши черных драконов гнездятся на тех же холмах.\nОсторожно: детеныши колдуют {spell:133} издалека, а гноллы бегут за помощью при низком здоровье.",
 	-- {item:1221} Underbelly Whelp Scale
 	-- plural, as words: Black Dragon Whelps = {npc:441} Black Dragon Whelp
-	["{item:1221}: Black Dragon Whelps"] = "",
+	["{item:1221}: Black Dragon Whelps"] = "{item:1221}: детеныши черных драконов",
 
-	-- Step 67: Lakeshire
+	-- Step 68: Lakeshire
 	-- {npc:415} Verner Osgood · {npc:341} Foreman Oslow · {npc:381} Dockmaster Baren
-	["Back down into town: {npc:415} by the smithy, {npc:341} at the north end of the bridge, {npc:381} on the docks."] = "",
+	["Back down into town: {npc:415} by the smithy, {npc:341} at the north end of the bridge, {npc:381} on the docks."] = "Назад вниз в город: {npc:415} у кузницы, {npc:341} у северного конца моста, {npc:381} на причале.",
 	-- {npc:381} Dockmaster Baren
-	["{npc:381}, on the docks: the murlocs are for your next Redridge visit"] = "",
+	["{npc:381}, on the docks: the murlocs are for your next Redridge visit"] = "{npc:381}, на причале: мурлоки — для следующего визита в Красногорье",
 
-	-- Step 68: Fly to Stormwind
+	-- Step 69: Fly to Stormwind
 	-- {area:442} Auberdine · {zone:1439} Darkshore · {zone:1453} Stormwind
-	["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. Hearthstone ready (bound in {area:442} since the first {zone:1439} visit)? Use it instead: these steps drop once you are in {zone:1439}."] = "",
+	["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. Hearthstone ready (bound in {area:442} since the first {zone:1439} visit)? Use it instead: these steps drop once you are in {zone:1439}."] = "Назад к {area:442} за южными петлями {zone:1439}: грифон в {zone:1453}, затем корабль из гавани. Камень возврата готов (привязан в {area:442} с первого визита в {zone:1439})? Используйте его: эти шаги сбрасываются, как только вы окажетесь в {zone:1439}.",
 	-- {area:69} Lakeshire
 	["{area:69} flight master"] = "Распорядитель полетов: {area:69}",
 
-	-- Step 70: Baros Alexston
+	-- Step 71: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:28027} Dwarven District
-	["{npc:1646} stands at the east side of {object:2098}, on the way from the {object:28027} to the harbour."] = "",
+	["{npc:1646} stands at the east side of {object:2098}, on the way from the {object:28027} to the harbour."] = "{npc:1646} стоит на восточной стороне {object:2098}, по пути от {object:28027} к гавани.",
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine
 	["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646}: письмо Тандриса из места {area:442}",
 	-- {npc:3649} Thundris Windweaver
-	["For {npc:3649}, where the boat lands"] = "",
+	["For {npc:3649}, where the boat lands"] = "Для {npc:3649}, там, где причаливает корабль",
 
-	-- Step 71: Gazin Tenorm
+	-- Step 72: Baros Alexston
+	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square
+	["Thundris' letter is already with {npc:1646}: his reply waits at the east side of {object:2098}."] = "Письмо Тандриса уже у NPC {npc:1646}: его ответ ждет на восточной стороне места {object:2098}.",
+
+	-- Step 73: Gazin Tenorm
 	-- {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall · {object:2098} Cathedral Square
-	["{npc:6173} and {npc:6171} are in the Cathedral of Light, on {object:2098}, on the way to the harbour."] = "",
+	["{npc:6173} and {npc:6171} are in the Cathedral of Light, on {object:2098}, on the way to the harbour."] = "{npc:6173} и {npc:6171} в Соборе Света, на {object:2098}, по пути к гавани.",
 	["Cathedral of Light"] = "Собор Света",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}: Redemption"] = "{npc:6171}: Искупление",
 
-	-- Step 72: Class trainer
+	-- Step 74: Class trainer
 	["Class trainer"] = "Учитель классовых навыков",
 	-- {object:2100} Old Town · {object:2101} Mage Quarter · {object:28027} Dwarven District
 	["Train on the way to the harbour: {object:2100} (Warriors, Rogues), the Cathedral of Light (Paladins, Priests), the {object:2101} (Mages, Warlocks), the {object:28027} (Hunters)."] = "Обучитесь по пути в гавань: {object:2100} (воины, разбойники), Собор Света (паладины, жрецы), {object:2101} (маги, чернокнижники), {object:28027} (охотники).",
 
-	-- Step 73: Baros Alexston
+	-- Step 75: Baros Alexston
 	-- {npc:1646} Baros Alexston · {quest:389} Bazil Thredd · {area:717} Stockade
 	["{npc:1646}, the city architect, is on your way west to the harbour. His next errand, {quest:389}, leads into the {area:717}: it is for a {area:717} run at about 29, so leave it unless you chose that dungeon."] = "{npc:1646}, городской архитектор, – по пути на запад к гавани. Его следующее поручение, «{quest:389}», ведет в подземелье {area:717}: оно рассчитано на поход туда ({area:717}) примерно на 29-м уровне, так что не берите его, если вы не выбрали это подземелье.",
 
-	-- Step 74: Baros Alexston
+	-- Step 76: Baros Alexston
 	-- {area:717} Stockade · {zone:1453} Stormwind
 	["For your {area:717} run, later in {zone:1453}: keep it until then."] = "Для подземелья {area:717}, позже в городе {zone:1453}: сохраните задание до тех пор.",
 	-- {npc:1646} Baros Alexston · {npc:1719} Warden Thelwater · {area:717} Stockade
 	["{npc:1646}: for {npc:1719}, at the {area:717}'s gate"] = "{npc:1646}: для NPC {npc:1719}, у ворот ({area:717})",
 
-	-- Step 75: Argos Nightwhisper
+	-- Step 77: Argos Nightwhisper
 	-- {npc:4984} Argos Nightwhisper · {npc:8997} Gershala Nightwhisper · {area:442} Auberdine
 	["On the way to the harbour: {npc:4984}'s message goes to {npc:8997} in {area:442}, beside Terenthis, where the boat lands."] = "",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "Никакого Братства Справедливости от Вайли (оно начинается с письма {npc:234} в {zone:1436}): пропустите {zone:1436}. На север по дороге от {area:87} к {zone:1453}: {npc:466} сидит на коне на дальнем конце моста снаружи главных ворот. Затем грифоны в {object:2096}, назад к {area:69}.",
+	-- ["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "{npc:332} наверху в здании СИ:7 в {object:2100}: лестницу поначалу трудно заметить. {npc:466} сидит на коне на дальнем конце моста снаружи главных ворот, затем назад к грифонам в {object:2096}.",
 }

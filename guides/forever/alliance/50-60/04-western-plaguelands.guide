@@ -31,21 +31,26 @@ next forever/50-60/mount-hyjal
 # ---------------------------------------------------------------- Teldrassil, Darnassus and Moonglade
 
 step Fly to Rut'theran Village
+  skipto chillwind when !onquest 978,3461,4512,5216,5245,6028,6030,96812
+  tip The Darnassus, Moonglade and Ironforge stops are for players coming from the previous guides with their quests; opened with none of those quests in the log, the guide starts at Chillwind Camp.
   zone Moonglade
   fly "Rut'theran Village"
   zone Teldrassil
 
 step Rut'theran Village
   zone Teldrassil
+  when complete 978
   tip The flight lands in Rut'theran Village. Erelas Ambersky stands a short walk north-west of the flight master.
   turnin 978                          -- Erelas Ambersky
   note Erelas' next task sends you back to Ranshalla in Winterspring, behind the route now: skip it.
 
 step Portal to Darnassus
+  skipto chillwind when !onquest 978,3461,4512,5216,5245,6028,6030,96812
   zone Teldrassil
   goto 55.9,89.3 "Portal to Darnassus"
 
 step Herald Moonstalker
+  skipto chillwind when !onquest 978,3461,4512,5216,5245,6028,6030,96812
   zone Darnassus
   tip Herald Moonstalker stands by the Temple of the Moon.
   accept 1047
@@ -55,40 +60,48 @@ step Herald Moonstalker
 # (#1338). Before each of them, a goto at the building's door on its south side, 35.8,11.6 (players' recordings walk
 # in there), makes the arrow point straight at him from there.
 step Cenarion Enclave
+  skipto chillwind when !onquest 978,3461,4512,5216,5245,6028,6030,96812
   zone Darnassus
   goto 35.8,11.6 "Cenarion Enclave"
 
 step Arch Druid Fandral Staghelm
+  skipto chillwind when !onquest 978,3461,4512,5216,5245,6028,6030,96812
   zone Darnassus
   tip Fandral stands at the top of the druids' building of the Cenarion Enclave; Mathrengyl, next, is lower down inside it.
   turnin 1047                         -- Arch Druid Fandral Staghelm, upstairs
   accept 6761
 
 step Cenarion Enclave
+  skipto chillwind when !onquest 978,3461,4512,5216,5245,6028,6030,96812
   zone Darnassus
   goto 35.8,11.6 "Cenarion Enclave"
 
 step Mathrengyl Bearwalker
+  skipto chillwind when !onquest 978,3461,4512,5216,5245,6028,6030,96812
   zone Darnassus
   turnin 6761                         -- Mathrengyl Bearwalker, upstairs
   accept 6762                         -- Rabine Saturna in Moonglade: Mount Hyjal's Moonglade errand takes you to her, in the next guide; keep it
   train class only Druid              -- Ironforge has no druid trainer
 
 step Portal to Teldrassil
+  skipto chillwind when !onquest 978,3461,4512,5216,5245,6028,6030,96812
   zone Darnassus
   goto 29.1,41.2 "Portal to Teldrassil"
 
 step Fly to Auberdine
+  skipto chillwind when !onquest 978,3461,4512,5216,5245,6028,6030,96812
   zone Teldrassil
   goto 58.4,93.9 "Rut'theran Village flight master"
   fly "Auberdine"
   zone Darkshore
 
 step Boat to Menethil Harbor
+  skipto chillwind when !onquest 978,3461,4512,5216,5245,6028,6030,96812
   zone Darkshore
   goto 32.4,43.8 "Boat to Menethil Harbor"
 
 step Fly to Ironforge
+  skipto chillwind when !onquest 978,3461,4512,5216,5245,6028,6030,96812
   zone Wetlands
   goto 9.5,59.7 "Menethil Harbor flight master"
   fly "Ironforge"
@@ -96,13 +109,18 @@ step Fly to Ironforge
 
 # ---------------------------------------------------------------- Ironforge
 
+step Laris Geardawdle
+  zone Ironforge
+  when complete 4512
+  turnin 4512                         -- Laris Geardawdle, Hall of Explorers
+  note Laris' next task fills his jars in Un'Goro, behind the route now: skip it.
+
 step Ironforge
+  skipto chillwind when !onquest 978,3461,4512,5216,5245,6028,6030,96812
   zone Ironforge
   tip Bubulo Acerbus and Mistina Steelshield each take sixty Wool, sixty Silk and sixty Mageweave, then sixty Runecloth: hand in what you carry (or buy at the Auction House), skip the rest.
   accept 8275                         -- Cenarion Emissary Jademoon, by the flight master where you land: for Windcaller Proudhorn in Silithus, on the last guide; keep it
   turnin 3461                         -- Tymor, Mystic Ward
-  turnin 4512                         -- Laris Geardawdle, Hall of Explorers
-  note Laris' next task fills his jars in Un'Goro, behind the route now: skip it.
   accept 7261                         -- Lieutenant Rotimer: for Lieutenant Haggerdin, on the way to Chillwind Camp
   collect 2592 x60 optional @24.2,74.7 map 1455 -- Wool Cloth, from your bags
   collect 4306 x60 optional @24.2,74.7 map 1455 -- Silk Cloth, from your bags
@@ -123,12 +141,14 @@ step Ironforge
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 step Courier Hammerfall
+  skipto chillwind when !onquest 978,3461,4512,5216,5245,6028,6030,96812
   when !turnedin 5090
   zone Ironforge
   tip Without the Burning Steppes guide's Chillwind Camp quests: Courier Hammerfall walks the ring of Ironforge and sends you to Commander Ashlam Valorfist, whose camp this guide visits next. Chillwind's chain starts with it.
   accept 5090                         -- Courier Hammerfall
 
 step Fly to Southshore
+  skipto chillwind when !onquest 978,3461,4512,5216,5245,6028,6030,96812
   zone Ironforge
   goto 55.9,47.9 "Ironforge flight master"
   fly "Southshore"
@@ -148,6 +168,7 @@ step Lieutenant Haggerdin
 # ---------------------------------------------------------------- Chillwind Camp
 
 step Chillwind Camp: Clear the Way
+  skipto chillwind when !onquest 978,3461,4512,5216,5245,6028,6030,96812
   when !turnedin 5092
   zone Western Plaguelands
   tip Without the Burning Steppes guide's Chillwind Camp quests: Commander Ashlam Valorfist stands in the middle of the camp. His Clear the Way opens the camp's chain.
@@ -164,6 +185,7 @@ step Sorrow Hill: Clear the Way
   kill 1791 quest 5092.2              -- Slavering Ghoul
 
 step Chillwind Camp: the cauldrons
+  skipto chillwind when !onquest 978,3461,4512,5216,5245,6028,6030,96812
   when !turnedin 5215
   zone Western Plaguelands
   tip Back to the camp: Valorfist, then High Priestess MacDonnell beside him.
@@ -173,6 +195,7 @@ step Chillwind Camp: the cauldrons
   accept 5216                         -- Felstone Field's cauldron, later in this guide
 
 step Chillwind Camp
+  label chillwind
   zone Western Plaguelands
   tip Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master.
   getfp "Chillwind Camp"
@@ -315,14 +338,23 @@ step Chromie
   accept 4971
 
 step Andorhal
-  tip Use the Temporal Displacer by the grain silos to draw out Temporal Parasites. The Annals of Darrowshire is one of the musty tomes in the town hall. Every skeleton in town drops Skeletal Fragments.
-  tip Careful: the Temporal Parasites are 55-57, and Skeletal Warlords and Flesh Golems (57, elites) walk the streets: draw the parasites out by the silos, one at a time, and let the elites pass.
+  tip The Annals of Darrowshire is one of the musty tomes in the town hall. Every skeleton in town drops Skeletal Fragments.
+  tip Careful: Skeletal Warlords and Flesh Golems (57, elites) walk the streets: let them pass.
   tip Araj the Summoner is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal.
   collect 12900 quest 5154.1          -- Annals of Darrowshire
-  use 12627 @45.1,62.3 "Temporal Displacer"
-  kill 10717 quest 4971.1 @45.1,62.3  -- Temporal Parasite
   collect 14619 quest 5537.1          -- Skeletal Fragments
   collect 17114 quest 211.1 optional  -- Araj's Phylactery Shard
+
+step Andorhal's grain silos
+  loop
+  tip Use the Temporal Displacer by each grain silo on the north side of town to draw out Temporal Parasites, one silo after another.
+  tip Careful: the Temporal Parasites are 55-57: draw them out one silo at a time, away from the Skeletal Warlords and Flesh Golems (57, elites) in the streets.
+  goto 45.15,62.28 r 8
+  goto 46.38,62.33 r 8
+  goto 47.83,63.45 r 8
+  goto 48.45,62.81 r 8
+  use 12627 quest 4971.1              -- Temporal Displacer
+  kill 10717 quest 4971.1             -- Temporal Parasite
 
 step Chromie
   turnin 4971                         -- Upstairs
@@ -506,6 +538,7 @@ step Light's Hope Chapel
 # ---------------------------------------------------------------- The Plaguewood and Terrordale
 
 step Aurora Skycaller
+  when complete 5245
   tip Ride north-west to Quel'Lithien Lodge, at the edge of the Plaguewood.
   turnin 5245
 

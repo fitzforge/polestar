@@ -8,13 +8,13 @@
 return {
 	-- Guide
 	-- {zone:1454} Orgrimmar · {area:1099} Camp Mojache · {area:511} Wyrmbog · {area:496} Brackenwall Village
-	["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "",
+	["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "Les quêtes à rendre à {zone:1454}, le récipient muisek de {area:1099}, puis {area:511} et {area:496} dans le Marécage d'Âprefange.",
 	["Takes you to level 47"] = "Vous amène au niveau 47",
 	-- {zone:1446} Tanaris
 	["Then on to {zone:1446}"] = "Puis direction {zone:1446}",
 	["Stays on the main route"] = "Reste sur l'itinéraire principal",
 	-- {zone:2652} Shen'dralas · {zone:1446} Tanaris
-	["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "",
+	["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "Passe {zone:2652} : une douzaine de quêtes en moins, un tiers de niveau plus bas en arrivant en {zone:1446}",
 
 	-- Step 1: Orgrimmar
 	-- {object:172960} Cleft of Shadow · {object:172958} Valley of Honor
@@ -78,36 +78,49 @@ return {
 	-- {area:498} Bloodfen Burrow
 	["Inside {area:498}"] = "Dans {area:498}",
 
-	-- Step 13: The Dragonmurk: kill these as you meet them
+	-- Step 13: The Musty Scroll
+	-- {object:2555} Musty Scroll
+	["The {object:2555} lies to the south-west."] = "{object:2555} se trouve au sud-ouest.",
+
+	-- Step 14: Mudsprocket
+	["Mudsprocket"] = "Gouffrefange",
+	-- {object:2555} Musty Scroll · {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle · {item:280092} Wyrmtail
+	["South-east from the {object:2555} to Mudsprocket, the goblin camp at the {area:511}'s western edge: {npc:270723} and {npc:270727} stand together in the camp. Their whelps, scales and {item:280092} come on the same {area:511} loop as Brackenwall's quests."] = "Vers le sud-est depuis {object:2555} jusqu'à Gouffrefange, le camp gobelin au bord ouest de {area:511} : {npc:270723} et {npc:270727} se tiennent ensemble au camp. Leurs dragonnets, écailles et {item:280092} viennent dans la même boucle de {area:511} que les quêtes de Mur-de-Fougères.",
+
+	-- Step 15: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
 	["{area:510}: kill these as you meet them"] = "{area:510} : tuez-les au passage",
-	-- {area:511} Wyrmbog
-	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "Vers l'est à travers la {area:511} : les éclaireurs et les queues-de-cendre Crins-de-feu parcourent sa lisière nord avec les jeunes dragons et les dragonnets brûlants ; les Fléaux-d'écailles gardent les grottes des dragons plus au sud-est. Le tabac à priser, le grog et le coffre-fort de Mok'Morokk se trouvent dans les camps des draconiens.",
+	-- {area:511} Wyrmbog · {item:280092} Wyrmtail
+	-- was: ["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "Vers l'est à travers la {area:511} : les éclaireurs et les queues-de-cendre Crins-de-feu parcourent sa lisière nord avec les jeunes dragons et les dragonnets brûlants ; les Fléaux-d'écailles gardent les grottes des dragons plus au sud-est. Le tabac à priser, le grog et le coffre-fort de Mok'Morokk se trouvent dans les camps des draconiens."
+	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps. The {item:280092} grows in the bog just east of Mudsprocket."] = "Vers l'est à travers {area:511} : les éclaireurs Crins-de-feu et les queues-de-cendre rôdent sur son bord nord avec les petits et les dragonnets brûlants ; les brise-écailles gardent les grottes des dragons plus au sud-est. Le tabac, le grog et le coffre de Mok'Morokk sont dans les camps de draconiens. {item:280092} pousse dans le marécage juste à l'est de Gouffrefange.",
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "{npc:4329} se promène autour de {area:510} : cherchez dans le cercle sur la carte",
 	["Below ground"] = "Sous terre",
 
-	-- Step 14: Brackenwall Village
+	-- Step 16: Mudsprocket
+	["Back to Mudsprocket before you ride north."] = "Retour à Gouffrefange avant de chevaucher vers le nord.",
+
+	-- Step 17: Brackenwall Village
 	["Ride back north to Brackenwall."] = "Retournez au nord jusqu'à Mur-de-Fougères.",
 
-	-- Step 15: Onyxia's eggs
+	-- Step 18: Onyxia's eggs
 	["Onyxia's eggs"] = "Oeufs d'Onyxia",
 	-- {area:511} Wyrmbog
 	["The Eggs of Onyxia lie in the dragon caves in the {area:511}'s south-east, guarded by the scalebanes; smash five."] = "Les Oeufs d'Onyxia reposent dans les grottes des dragons au sud-est de {area:511}, gardés par les Plaiedécailles Crins-de-feu ; écrasez-en cinq.",
 
-	-- Step 16: Muckshell crabs
+	-- Step 19: Muckshell crabs
 	["Muckshell crabs"] = "",
 	-- plural, as words: Muckshell Razorclaws = {npc:4405} Muckshell Razorclaw
 	["On the way back north from the dragon caves, the Muckshell Razorclaws and Pincers (41-44) crowd the shallows just north of the caves; about one in twenty carries the Jeweled Pendant Marg Speaks asks for."] = "",
 
-	-- Step 17: Level 45.37
+	-- Step 20: Level 45.37
 	["Level 45.37"] = "Niveau 45.37",
 	-- {npc:4500} Overlord Mok'Morokk · {area:511} Wyrmbog · {area:978} Zul'Farrak
 	["{npc:4500}'s challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the {area:511}'s northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the {area:978} dungeon instead."] = "Le défi de {npc:4500}, de retour à Mur-de-Fougères, demande un groupe de trois. Seul, tuez en boucle les Eclaireurs Crins-de-feu ici, sur la lisière nord de {area:511}, jusqu'au niveau 45.37 avant de repartir vers le nord, pour ne pas avoir à redescendre. Ou, en groupe, faites plutôt le donjon {area:978}.",
 	-- {npc:4329} Firemane Scout
 	["grind on {npc:4329}"] = "tuez en boucle : {npc:4329}",
 
-	-- Step 18: Brackenwall Village
+	-- Step 21: Brackenwall Village
 	-- {npc:4791} Nazeer Bloodpike · {item:5942} Jeweled Pendant
 	["{npc:4791}: the {item:5942}"] = "",
 	-- {npc:4047} Zor Lonetree · {zone:1454} Orgrimmar · {zone:1447} Azshara
@@ -115,7 +128,7 @@ return {
 	-- {quest:3128} Natural Materials · {zone:1444} Feralas
 	["Keep {quest:3128} and Improved Quality: {zone:1444}' sprites, hippogryphs, Zorbin's coast and the Rage Scar yetis come on your {zone:1444} loop at about 51, with the Muisek chain."] = "",
 
-	-- Step 19: Challenge Overlord Mok'Morokk
+	-- Step 22: Challenge Overlord Mok'Morokk
 	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:1173} needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\n{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {quest:1173} demande un groupe de 3. Passez-la si vous êtes seul : la route vous fait regagner cette expérience en tuant des monstres.\nLe {npc:4500} est élite : il est conseillé de se grouper. Frappez-le jusqu'à ce qu'il abandonne, puis faites votre rapport à {npc:4501}.",
 
@@ -124,6 +137,7 @@ return {
 	-- ["Back to {npc:14637} on the dock."] = "Retournez voir {npc:14637} sur le quai.",
 	-- ["Coming from Stranglethorn, you carry these already. Starting here: {npc:5591} stands inside {area:75}'s great hall and {npc:1443} on its top floor."] = "Si vous venez de Strangleronce, vous les avez déjà. Si vous commencez ici : {npc:5591} se tient dans la grande salle de {area:75} et {npc:1443} à son dernier étage.",
 	-- ["Dragon caves"] = "Grottes des dragons",
+	-- ["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "Vers l'est à travers la {area:511} : les éclaireurs et les queues-de-cendre Crins-de-feu parcourent sa lisière nord avec les jeunes dragons et les dragonnets brûlants ; les Fléaux-d'écailles gardent les grottes des dragons plus au sud-est. Le tabac à priser, le grog et le coffre-fort de Mok'Morokk se trouvent dans les camps des draconiens.",
 	-- ["Fly to {area:75}"] = "Prendre un vol pour {area:75}",
 	-- ["Fly to {area:976}"] = "Prendre un vol pour {area:976}",
 	-- ["Fly to {object:3202}"] = "Prendre un vol pour {object:3202}",

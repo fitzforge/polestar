@@ -6,11 +6,13 @@
 -- A token marked "no name in this language" would show in English: write that name in Korean words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1425} The Hinterlands · {area:75} Stonard · {zone:1419} Blasted Lands
+	["{zone:1425} first, then {area:75} and the {zone:1419}."] = "먼저 {zone:1425}, 그다음 {area:75}, {zone:1419}.",
+
 	-- Step 1: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "{area:272}(으)로 날아가기",
-	-- {area:1446} Thorium Point
-	["{area:1446} flight master"] = "{area:1446}의 비행 조련사",
 
 	-- Step 2: The Hinterlands
 	-- {npc:7801} Gilveradin Sunchaser
@@ -39,7 +41,7 @@ return {
 
 	-- Step 9: The Overlook Cliffs: kill these as you meet them
 	-- {area:307} The Overlook Cliffs
-	["{area:307}: kill these as you meet them"] = "",
+	["{area:307}: kill these as you meet them"] = "{area:307}: 만나는 대로 처치하세요",
 	-- {npc:2491} Whiskey Slim · {area:307} The Overlook Cliffs
 	-- plural, as words: Saltwater Snapjaws = {npc:2505} Saltwater Snapjaw
 	["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it.\nCareful: the biggest Saltwater Snapjaws are 50: pull them one at a time."] = "큰 거북은 마을 북쪽 해변을 기어다니며, {npc:2491}의 포트와인 병도 같은 해변, 마을에서 {area:307}까지 있습니다. 지나가며 주우세요. 무쇠턱바다거북이 드물게 OOX-09/HL 조난 탐지기를 떨어뜨릴 수 있습니다. 보관하세요.\n주의: 가장 큰 무쇠턱바다거북은 50레벨이니 하나씩 끌어오세요.",
@@ -66,7 +68,7 @@ return {
 
 	-- Step 14: Shaol'watha: kill these as you meet them
 	-- {area:1917} Shaol'watha
-	["{area:1917}: kill these as you meet them"] = "",
+	["{area:1917}: kill these as you meet them"] = "{area:1917}: 만나는 대로 처치하세요",
 	-- {area:1884} Agol'watha · {area:1917} Shaol'watha · {area:351} Skulk Rock · {item:9618} Wildkin Muisek Vessel · {npc:14738} Otho Moji'ko · {spell:7367} Infected Bite · {npc:2925} Silvermane Howler
 	-- plural, as words: Silvermane Stalkers = {npc:2926} Silvermane Stalker · Savage Owlbeasts = {npc:2929} Savage Owlbeast · Razorbeak Skylords = {npc:2659} Razorbeak Skylord · Long Elegant Feathers = {item:4589} Long Elegant Feather
 	["West of the island, the Vilebranch scalpers hold the temples of {area:1884} and {area:1917}. Slagtree's tools lie at one of the temples.\nThe Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and {area:351}. Use the {item:9618} on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for {npc:14738}'s second message.\nCareful: Silvermane Stalkers are level 47-48 and stay stealthed while out of combat. Up close they use {spell:7367}. When a {npc:2925} falls to 50% health or lower, it calls for help from anything within 25 yd."] = "",
@@ -81,7 +83,7 @@ return {
 
 	-- Step 17: The Altar of Zul: kill these as you meet them
 	-- {area:355} The Altar of Zul
-	["{area:355}: kill these as you meet them"] = "",
+	["{area:355}: kill these as you meet them"] = "{area:355}: 만나는 대로 처치하세요",
 	-- {area:355} The Altar of Zul · {npc:8636} Morta'gya the Keeper
 	-- plural, as words: Silvermane Howlers = {npc:2925} Silvermane Howler
 	["South-west of the lake, the Vilebranch soothsayers hold the {area:355}, the troll temple south of the central hills. Qiaga and {npc:8636} (elite, 50) stand at its top: take the soothsayers on the lower steps.\nSouth-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "호수 남서쪽, 중앙 언덕 남쪽의 트롤 사원인 {area:355}을(를) 썩은가지부족 예언자가 차지하고 있습니다. 퀴아가와 {npc:8636}(정예, 50)은(는) 꼭대기에 있습니다. 아래 계단의 예언자를 상대하세요.\n남서쪽에서는 은빛갈기 울음늑대가 마른나무껍질 마을 동쪽 언덕을 돌아다닙니다.",
@@ -109,7 +111,7 @@ return {
 
 	-- Step 22: Revantusk Village
 	-- {npc:14731} Lard
-	["{npc:14731}, inside"] = "",
+	["{npc:14731}, inside"] = "{npc:14731}, 내부",
 
 	-- Step 23: Revantusk Village
 	-- {npc:14736} Primal Torntusk · {npc:14731} Lard
@@ -120,7 +122,7 @@ return {
 	-- {quest:7816} Gammerita, Mon! · {area:354} Jintha'Alor
 	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan."] = "",
 	-- {npc:2505} Saltwater Snapjaw
-	["grind on {npc:2505}"] = "",
+	["grind on {npc:2505}"] = "{npc:2505} 사냥",
 
 	-- Step 26: The Atal'ai Exile
 	-- {area:353} Shadra'Alor
@@ -142,7 +144,7 @@ return {
 	-- {area:75} Stonard
 	["Fly to {area:75}"] = "{area:75}(으)로 날아가기",
 	-- {area:3317} Revantusk Village
-	["{area:3317} flight master"] = "",
+	["{area:3317} flight master"] = "{area:3317} 비행 조련사",
 
 	-- Step 31: To Stonard
 	-- {area:75} Stonard
@@ -151,7 +153,7 @@ return {
 	["No flight path to {area:75} yet: the arrow takes the quickest way there (by the {object:3202} flight and the road through {zone:1431} and {zone:1430}). Learn {area:75}'s flight path when you arrive."] = "아직 {area:75} 비행 경로가 없다면: 화살표가 가장 빠른 길로 안내합니다({object:3202} 비행편과 {zone:1431}, {zone:1430}을(를) 지나는 길). 도착하면 {area:75}의 비행 경로를 익히십시오.",
 
 	-- Step 32: Fel'zerul
-	["On the top floor"] = "",
+	["On the top floor"] = "최상층에",
 
 	-- Step 33: Fallen Hero of the Horde
 	-- {zone:1419} Blasted Lands
@@ -168,7 +170,7 @@ return {
 
 	-- Step 37: Serpent's Coil: kill these as you meet them
 	-- {area:1440} Serpent's Coil
-	["{area:1440}: kill these as you meet them"] = "",
+	["{area:1440}: kill these as you meet them"] = "{area:1440}: 만나는 대로 처치하세요",
 	-- {npc:5982} Black Slayer · {spell:5416} Venom Sting · {npc:8301} Clack the Reaver
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger
 	["The five quests share the same parts: gather them all in one sweep. West of the road the {npc:5982} vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.\nEast of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.\nCareful: Scorpok Stingers (50-51) use {spell:5416}; {npc:8301} adds Knockdown. Pull the Stingers one at a time."] = "퀘스트 다섯 개가 같은 재료를 요구합니다. 한 번에 모두 모으세요. 길 서쪽 언덕에는 {npc:5982}, 굶주린 칼송곳니하이에나, 스콜포크 독침전갈, 죽음의 눈 바실리스크가 함께 있습니다.\n길 동쪽에서는 잿빛갈기 멧돼지와 잿빛갈기 꿀꿀이가 붉은돌 바실리스크 옆 비탈에서 땅을 파헤칩니다. 더 남쪽의 52레벨 지옥멧돼지는 피하세요.\n주의: 스콜포크 독침전갈(50-51)은 {spell:5416}을(를) 사용하고, {npc:8301}은(는) 넘어뜨리기도 사용합니다. 독침전갈은 하나씩 끌어오세요.",
@@ -208,6 +210,7 @@ return {
 	-- ["Vulture hills"] = "대머리수리 언덕",
 	-- ["West of the island, the Vilebranch scalpers hold the temples of {area:1884} and {area:1917}. Slagtree's tools lie at one of the temples."] = "섬 서쪽에서 썩은가지부족 무두장이가 {area:1884}와(과) {area:1917}의 사원을 차지하고 있습니다. 슬래그트리의 도구는 사원 중 한 곳에 있습니다.",
 	-- ["grind on {npc:5982} at the northern hills, {zone:1419}"] = "{zone:1419} 북쪽 언덕에서 {npc:5982} 사냥",
+	-- ["{area:1446} flight master"] = "{area:1446}의 비행 조련사",
 	-- ["{npc:6741}: for {zone:1456}, around level 50"] = "{npc:6741}: 50레벨쯤 {zone:1456}에서",
 	-- ["{npc:7825}, the {object:36126}"] = "{object:36126}의 {npc:7825}",
 }

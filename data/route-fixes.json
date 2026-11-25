@@ -58,19 +58,6 @@
 			{
 				"a": [
 					"accept",
-					9415
-				],
-				"b": [
-					"accept",
-					8304
-				],
-				"faction": "Alliance",
-				"why": "From the Alliance flight master, start with Torrig and the commander, then visit the other quest givers on the way down into the sands.",
-				"issue": "#3144"
-			},
-			{
-				"a": [
-					"accept",
 					8304
 				],
 				"b": [
@@ -6540,7 +6527,10 @@
 			{ "a": ["turnin", 598], "b": ["turnin", 95770], "faction": "Horde", "why": "#3145: give Kin'weelay the necklaces and news of the lost city together on the return from the trophy skulls. If only one is ready, he still takes it." },
 			{ "a": ["turnin", 589], "b": ["turnin", 573], "faction": "Horde", "why": "#3145: pay Kin'weelay and Far Seer Mok'thardin at Grom'gol on the way from the flight master to the Orgrimmar zeppelin. Either ready reward can be taken without waiting for the other." },
 			{ "a": ["task", 209, 0], "b": ["task", 598, 0], "faction": "Horde", "why": "#3124: carry both drop counts at the first Skullsplitter warrior camp (the warriors drop tusks and necklaces). The trophy piles remain on their own route." },
-			{ "a": ["accept", 2987], "b": ["turnin", 2981], "faction": "Horde", "why": "#3023: Camp Mojache is walked once on the first visit: the flight master, Orwin (2987) and the inn (sethome Camp Mojache, Innkeeper Greul) on the camp's south side, then Rok Orhan (2981), Uzer'i and Jangdor, Hadoken and Krueg to the north. The bind was taken between Jangdor and Hadoken, both on the north side, which walked the camp twice (npcs.json: Greul 74.73,45.26, Rok Orhan 73.46,45.86, Jangdor 74.39,42.92, Hadoken 74.87,42.54)." }
+			{ "a": ["accept", 2987], "b": ["turnin", 2981], "faction": "Horde", "why": "#3023: Camp Mojache is walked once on the first visit: the flight master, Orwin (2987) and the inn (sethome Camp Mojache, Innkeeper Greul) on the camp's south side, then Rok Orhan (2981), Uzer'i and Jangdor, Hadoken and Krueg to the north. The bind was taken between Jangdor and Hadoken, both on the north side, which walked the camp twice (npcs.json: Greul 74.73,45.26, Rok Orhan 73.46,45.86, Jangdor 74.39,42.92, Hadoken 74.87,42.54)." },
+			{ "a": ["turnin", 417], "b": ["turnin", 413], "faction": "Alliance", "why": "#3846: the Dun Morogh starts (Dwarf, Gnome) go to Pilot Hammerfoot at the North Gate Outpost (83.8,39.3; the corpse 79.7,36.2) on the road east, then down to the South Gate Outpost (86.3,48.9) and its tunnel into Loch Modan, instead of South Gate, North Gate and back to the South Gate. Nothing at the North Gate needs the Loch Modan side (94466's items come from the Loch Modan steps)." },
+			{ "a": ["accept", 303], "b": ["accept", 87491], "faction": "Alliance", "issue": "#3871", "why": "#3871 (Merkanex): Motley Garmason (The Dark Iron War) stands beside Rhag in the Dun Modr camp, so the group takes his quest on arrival, before Spark of Freedom's escort through the same elite Dark Iron ruins; taken after it, every Dark Iron killed on the escort counted for nothing. Players' recordings: of 49 people who took both, 48 took the war first; 21 Dark Iron kills (npc 1051-1054) fell between the escort's accept and the war's." },
+			{ "a": ["accept", 88756], "b": ["accept", 87491], "faction": "Alliance", "issue": "#3871", "why": "#3871 (Merkanex): Ashlan Stonesmirk (Bring Back a Bang) stands beside Rhag and Motley in the Dun Modr camp, so the group takes his quest on the same arrival, before Spark of Freedom's escort and Modr, rather than walking back into the camp for it afterwards." }
 		],
 		"notes": [
 			"Yendi's report (Herble's Bronze Tube before Look to the Stars) is the quest's own order: its buy is a task of 174, before the turn-in.",
@@ -9220,6 +9210,16 @@
 				"q": 5121,
 				"size": 3,
 				"why": "High Chief Winterfall: a level 59 elite with his guards in the cave at the back of Winterfall Village, at the player's level on 07 (about 59.5): a group choice after Donova's Winterfall Runners, with his log (5123, The Final Piece) and Words of the High Chief (5128) to Kelek Skykeeper at 07's last stop: 16,000 XP for a group (Horde fix pass, 2026-11-20)."
+			},
+			{
+				"q": 5041,
+				"size": 3,
+				"why": "Horde 0.4.3 route round (#3145): Supplies for the Crossroads' three crates lie in the Razormane camp east of the Crossroads among Forever's Razormane Flesheaters and Berserkers (18-19, elite; 62 spawns over 54.8-60.0,21.1-27.4, 7 to 13 of them within a map unit of each crate), at a route level of 15-16. No later Horde visit passes the camp at their level, so Thork's accept is a group choice with the house's elite tip (975 XP, no follow-up)."
+			},
+			{
+				"q": 872,
+				"size": 3,
+				"why": "Horde 0.4.3 route round (#3145): The Disruption Ends sends players of about 16-17 back into the Razormane camp's eastern half, where Kreenig Snarlsnout has 7 elite Flesheater and Berserker (18-19) spawns within a map unit and every Defender and Geomancer spawn is 0.1-1.0 units from an elite. Players' recordings: of 19 people on 0.4.x who handed it in, 5 died in the camp while following the guide (3 of them at 19-20, on the quest's own step). A group choice with the house's elite tip (1050 XP, no follow-up); Disrupt the Attacks (871, the western half) stays solo with its tip."
 			}
 		]
 	},
@@ -11416,15 +11416,6 @@
 				"issue": "#3263"
 			},
 			{
-				"q": 98240,
-				"after": [
-					"turnin",
-					98072
-				],
-				"reason": "Alliance 12-31 fix round (2026-11-20): Crimson Crate Delivery (29, 1,200 XP), offered by James Halloran only once Crocs of the Sky (98072) is handed in (#1134), is taken with that hand-in on 06-wetlands' last Menethil stop and handed to Howin Kindfeather on 30-40/01-hillsbrad-foothills' Wetlands loop, which walks past him (agreed with the Alliance 30-40 band). Before, the route had no visit to Howin after 98072, so it was left out.",
-				"issue": "#3263"
-			},
-			{
 				"q": 3524,
 				"reason": "Catch-up in forever/alliance/nightelf/02-darkshore (#2635): a Night Elf who skipped forever/alliance/nightelf/01-teldrassil arrives without Washed Ashore (3524, 4681), so Beached Sea Turtle and Beached Sea Creature (4722, 4723, 4728) were hidden. The guide's Auberdine and beach steps for 3524 (written for other races, who never follow this guide) now show `when !turnedin 3524`, and Gwennyth takes 3524 and gives 4681 before the skeletal turtle step the guide works anyway: 675 and 975 XP at full rate at 12, on the beach the guide walks. Recordings: 110 players took 3524 at 11-21.",
 				"issue": "#2635"
@@ -11640,6 +11631,33 @@
 				],
 				"reason": "Level tidy 0.4.0 (Alliance 40-50): an at-level quest on a walk the route already makes, so the band levels by questing rather than by the written grinds. Active Ingredient (level 44, 3,750 XP): the Wyrmtail grows in the Wyrmbog east of Mudsprocket (players' recordings at 44-48,74-83), on the same Wyrmbog loop.",
 				"issue": "-"
+			},
+			{
+				"q": 98205,
+				"after": [
+					"accept",
+					1169
+				],
+				"reason": "Horde Dustwallow (40-50/03, #3656): Whelps are the Worst! (level 44, 3,750 XP) from Drazzit Dripvalve in Mudsprocket, south-east of the Musty Scroll on the way into the Dragonmurk. Its Searing Hatchlings and Whelps (41-43) are the ones Draz'Zilb's Searing Tongues and Hearts (1169) come from, on the same Wyrmbog loop; handed back at Mudsprocket before the ride north to Brackenwall. The Alliance guide had it; the Horde route walked past.",
+				"issue": "#3656"
+			},
+			{
+				"q": 98215,
+				"after": [
+					"accept",
+					1169
+				],
+				"reason": "Horde Dustwallow (40-50/03, #3656): Dragon Scales, Post Burnt Tails (level 44, 3,750 XP): the scales drop from the same whelps and the Firemane dragonkin (41-44) the Dragonmurk step kills for Tharg and Draz'Zilb, taken and handed in with Whelps are the Worst!.",
+				"issue": "#3656"
+			},
+			{
+				"q": 98231,
+				"after": [
+					"accept",
+					1169
+				],
+				"reason": "Horde Dustwallow (40-50/03, #3656): Active Ingredient (level 44, 3,750 XP): the Wyrmtail grows in the bog just east of Mudsprocket (players' recordings at 44-48,74-83), on the same Wyrmbog loop as the two quests above.",
+				"issue": "#3656"
 			},
 			{
 				"q": 93585,
@@ -12268,6 +12286,141 @@
 				"after": ["turnin", 3377],
 				"reason": "#2915 (Soggy): Prayer to Elune's second part (5,900 XP), taken from Zamael Lunthistle right after the first part's hand-in, under the same group choice (when group 3377). Its page drops from the Twilight elites of his camp (Dark Shamans, Fire Guards, Geomancers and Idolaters, about one in five), so the group gets it on the same run, and Astarii Starseeker takes it on the 50-60 Felwood guide's Darnassus stop, which walks through the Temple of the Moon anyway. Left out, the guide suggested abandoning it after the group's first part.",
 				"issue": "#2915"
+			},
+			{
+				"q": 97921,
+				"reason": "#2749 (Liquidor): Camping 101: Herbalism (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Elwynn (Sam Sarsaparilla), as a required accept in its own `when skill` step after the campfire's steps, handed to Herbalist Pomeroy, north of Goldshire (a detour back toward Northshire for holders only) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97915,
+				"reason": "#2749 (Liquidor): Camping 101: Alchemy (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Elwynn (Sam Sarsaparilla), as a required accept in its own `when skill` step after the campfire's steps, handed to Alchemist Mallory, beside Herbalist Pomeroy (a detour for holders only) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97925,
+				"reason": "#2749 (Liquidor): Camping 101: Tailoring (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Elwynn (Sam Sarsaparilla), as a required accept in its own `when skill` step after the campfire's steps, handed to Eldrin, on the guide's last Eastvale Logging Camp stop in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97923,
+				"reason": "#2749 (Liquidor): Camping 101: Mining (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Elwynn (Sam Sarsaparilla), as a required accept in its own `when skill` step after the campfire's steps, handed to Gelman Stonehand, in 02-westfall's Stormwind stop (Dwarven District) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97918,
+				"reason": "#2749 (Liquidor): Camping 101: Engineering (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Elwynn (Sam Sarsaparilla), as a required accept in its own `when skill` step after the campfire's steps, handed to Sprite Jumpsprocket, in 02-westfall's Stormwind stop (Dwarven District) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97917,
+				"reason": "#2749 (Liquidor): Camping 101: Enchanting (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Elwynn (Sam Sarsaparilla), as a required accept in its own `when skill` step after the campfire's steps, handed to Betty Quin, in 02-westfall's Stormwind stop in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 96055,
+				"reason": "#2749 (Liquidor): Camping 101: Herbalism (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Dun Morogh (Eric Brighthammer), as a required accept in its own `when skill` step after the campfire's steps, handed to Reyna Stonebranch, on the Ironforge round in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 96056,
+				"reason": "#2749 (Liquidor): Camping 101: Skinning (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Dun Morogh (Eric Brighthammer), as a required accept in its own `when skill` step after the campfire's steps, handed to Balthus Stoneflayer, on the Ironforge round in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 96031,
+				"reason": "#2749 (Liquidor): Camping 101: Leatherworking (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Dun Morogh (Eric Brighthammer), as a required accept in its own `when skill` step after the campfire's steps, handed to Gretta Finespindle, on the Ironforge round in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 96057,
+				"reason": "#2749 (Liquidor): Camping 101: Tailoring (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Dun Morogh (Eric Brighthammer), as a required accept in its own `when skill` step after the campfire's steps, handed to Uthrar Threx, on the Ironforge round in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 96050,
+				"reason": "#2749 (Liquidor): Camping 101: Fishing (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Dun Morogh (Eric Brighthammer), as a required accept in its own `when skill` step after the campfire's steps, handed to Paxton Ganter, after the second Brewnall Village stop (players' recordings: 8 took it, 4 handed it in to him) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 96045,
+				"reason": "#2749 (Liquidor): Camping 101: Alchemy (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Ironforge (Vosur Brakthel, who gives and takes it), as a required accept in its own `when skill` step after the campfire's steps, handed to Vosur Brakthel himself, on the Ironforge round in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 96059,
+				"reason": "#2749 (Liquidor): Camping 101: Enchanting (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Ironforge (Thonys Pillarstone, who gives and takes it), as a required accept in its own `when skill` step after the campfire's steps, handed to Thonys Pillarstone himself, on the Ironforge round in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97943,
+				"reason": "#2749 (Liquidor): Camping 101: Fishing (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Teldrassil (Lyreena Duskblade), as a required accept in its own `when skill` step after the campfire's steps, handed to Astaia, on the Darnassus stop in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97950,
+				"reason": "#2749 (Liquidor): Camping 101: Tailoring (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Teldrassil (Lyreena Duskblade), as a required accept in its own `when skill` step after the campfire's steps, handed to Trianna, on the Darnassus stop in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97940,
+				"reason": "#2749 (Liquidor): Camping 101: Enchanting (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Teldrassil (Lyreena Duskblade), as a required accept in its own `when skill` step after the campfire's steps, handed to Alanna Raveneye, north of Darnassus (a detour for holders only) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97939,
+				"reason": "#2749 (Liquidor): Camping 101: Blacksmithing (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Teldrassil (Lyreena Duskblade), as a required accept in its own `when skill` step after the campfire's steps, handed to Elisa Steelhand, on nightelf/02-darkshore's last Auberdine stop in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97948,
+				"reason": "#2749 (Liquidor): Camping 101: Mining (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Teldrassil (Lyreena Duskblade), as a required accept in its own `when skill` step after the campfire's steps, handed to Kurdram Stonehammer, on nightelf/02-darkshore's last Auberdine stop in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97941,
+				"reason": "#2749 (Liquidor): Camping 101: Engineering (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Teldrassil (Lyreena Duskblade), as a required accept in its own `when skill` step after the campfire's steps, handed to Jenna Lemkenilli, on nightelf/02-darkshore's last Auberdine stop in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97968,
+				"reason": "#2749 (Liquidor): Camping 101: Herbalism (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Zephras Isle (Raan Wildwind), both sides, as a required accept in its own `when skill` step after the campfire's steps, handed to Halassa Fernbreeze in Shen'dar Village (players' recordings: 20 took it; 12 handed it in to her, 5 to Syriel Nightrain at the island's south) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 98285,
+				"reason": "#2749 (Liquidor): Camping 101: Engineering (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Zephras Isle (the Strange Hermit, who gives and takes it), both sides, as a required accept in its own `when skill` step after the campfire's steps, handed to the Strange Hermit on the guide's return to him (players' recordings: 2 handed it in to him) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97972,
+				"reason": "#2749 (Liquidor): Camping 101: Tailoring (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Zephras Isle (Raan Wildwind), Horde, as a required accept in its own `when skill` step after the campfire's steps, handed to Taleen Shimmerthread in Shen'dar Village (the quest data's Horde Tailoring variant; the Alliance's is 97973) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 98284,
+				"reason": "#2749 (Liquidor): Camping 101: Enchanting (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Zephras Isle (Raan Wildwind), Horde, as a required accept in its own `when skill` step after the campfire's steps, handed to Nasalanna Windsinger in Shen'dar Village (the quest data's Horde Enchanting variant; the Alliance's is 98286) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97900,
+				"reason": "#2749 (Liquidor): Camping 101: Blacksmithing (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Durotar (Brakk), as a required accept in its own `when skill` step after the campfire's steps, handed to Dwukk in Razor Hill, after the return from Sen'jin; the accept follows the Cooking hand-in like Tailoring's (players' recordings: 4 took it, 3 handed it in) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97904,
+				"reason": "#2749 (Liquidor): Camping 101: Fishing (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Durotar (Brakk), as a required accept in its own `when skill` step after the campfire's steps, handed to Lau'Tiki on the shore south of Sen'jin, after the last Sen'jin stop (players' recordings: 11 took it, 10 handed it in) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97930,
+				"reason": "#2749 (Liquidor): Camping 101: Engineering (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Mulgore (Kaga Wildhoof), as a required accept in its own `when skill` step after the campfire's steps, handed to Twizwick Sprocketgrind in the western Barrens, after the Camp Taurajo stop (a detour for holders only) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
+			},
+			{
+				"q": 97956,
+				"reason": "#2749 (Liquidor): Camping 101: Fishing (level 6 from 4, 270 XP; needs the profession at accept) from the campfire of Tirisfal (Eleanor), as a required accept in its own `when skill` step after the campfire's steps, handed to Clyde Kellen east of Brill, after the last Brill stop with the class trainers (players' recordings: 11 took it, 10 handed it in) in a `when onquest` step. Every Camping 101 a start's camp gives is in the route now (#2749, decided): a player without the profession never sees either step; one with it gets the trip to its trainer, even off the route.",
+				"issue": "#2749"
 			}
 		],
 		"skip": [
@@ -12959,6 +13112,12 @@
 				"faction": "Alliance",
 				"reason": "0.4.2 danger gate: Jaron's Supplies asks for the Blue-feathered Amulet, which drops only from the owlbeasts around Jaron's wagon at Mazthoril: Crazed 56-57, Moontouched 57-58, Berserk 58-59. The Alliance route stands there at about 54.6 by the level model, two to four levels under them, and players' recordings have 4 people taking it (at 55.2-59.9) and 3 finishing it. Left out; Jaron's crate and wagon (4861, 4863) stay, as they ask for no fight.",
 				"issue": "-"
+			},
+			{
+				"q": 98240,
+				"faction": "Alliance",
+				"reason": "Crimson Crate Delivery (29, 1,200 XP) is James Halloran's breadcrumb to Howin Kindfeather, whose follow-up is Razormaw Needling (98245). Three players on 0.4.2.2 (#3782, #3783, #3786) found Halloran no longer offers it once Needling is done, and the route takes and hands in Needling at Howin on 06-wetlands' east loop before Crocs of the Sky (98072, its prerequisite) is handed in. Taking it before Needling would mean leaving Howin's raptors until after the last Menethil stop and walking back east, so it is left out of 06-wetlands and 30-40/01-hillsbrad-foothills.",
+				"issue": "#3782"
 			}
 		],
 		"revert": [
@@ -17132,19 +17291,6 @@
 				],
 				"faction": "Alliance",
 				"why": "Alliance 40-50 fix round 2 (0.4.0): The Scent of Lar'korwi goes back to Torwa from the raft on the first Un'Goro visit, at about 50, instead of riding the log for 29 hours through five guides to the second visit's Torwa stop.",
-				"source": "Alliance fix round 2 2026-11-16"
-			},
-			{
-				"a": [
-					"accept",
-					8278
-				],
-				"b": [
-					"accept",
-					9415
-				],
-				"faction": "Alliance",
-				"why": "Alliance 50-60 fix round 2 (0.4.0): Report to Marshal Bluewall and The Twilight Mystery are taken on the Silithus guide's first Cenarion Hold stop, where their work and hand-ins are, not on the Western Plaguelands guide's Cenarion Hold stop at about 57, which carried them through Mount Hyjal (quest log 36 there) and the trip back.",
 				"source": "Alliance fix round 2 2026-11-16"
 			},
 			{

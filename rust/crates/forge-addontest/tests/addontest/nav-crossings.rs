@@ -980,6 +980,36 @@ fn a_target_outside_the_zone_the_walking_maps_name_stays_on_its_map_grenka_1918(
 	assert_eq!(out["ungoro"], out["plain"], "Un'Goro's frame ends south of her: the same walk, no Un'Goro leg");
 }
 
+// #3018 (Merkanex): the Damaged Chest in the Splithoof Crag cave (Thousand Needles 43.44,32.61) lies in the Barrens on
+// the walking maps. From Freewind Post, whose walk into the cave the engine measured (1,000 cost, 663 yd: down the
+// lift and through the cave), the plan went by the crossings into the Barrens and walked from the Great Lift's top
+// straight into the cave, unmeasured: the zone lists hold no walk from Thousand Needles to a Barrens target. A walk the
+// engine measured into the target competes whatever zones it crosses.
+#[test]
+fn a_measured_walk_into_the_target_competes_across_a_closed_zone_border_splithoof_3018() {
+	let out = run_raw(
+		r#"
+			local N = Polestar.Nav
+			local chest = { -4923.0, -2345.0 }
+			N.danger.ZoneAt = function(c, x, y)
+				if c ~= 1 then return nil end
+				if math.abs(x - chest[1]) < 60 and math.abs(y - chest[2]) < 60 then return 1413 end
+				return 1441
+			end
+			local function plan(measured)
+				local legs = N.PlanRoute({ c = 1, map = 1441, wx = -5407.8, wy = -2414.2, z = 90, faction = 2, level = 31, speed = 7,
+					target = { c = 1, map = 1441, wx = chest[1], wy = chest[2], z = -49.1, label = "Damaged Chest" },
+					walkCost = measured and function(_, _, _, start) if start then return 1000, 663 end end or nil })
+				local out = {}
+				for _, l in ipairs(legs or {}) do out[#out + 1] = l.kind .. "|" .. l.label end
+				return out
+			end
+			emit({ measured = plan(true), estimate = plan(false) })"#,
+	);
+	assert_eq!(out["measured"], json!(["walk|Damaged Chest"]), "the measured walk from Freewind Post");
+	assert_ne!(out["estimate"], out["measured"], "without a measure the crossings' way stays: the zone lists hold no straight walk");
+}
+
 // #1543's near walk (Nav.PlanRoute's p.nearWalk): a target within that many straight yards over a closed zone border
 // is walked to straight; with p.nearProbe instead the planner only says it would be (nearProbe.yards) and plans the
 // crossing's way. Beyond the reach, without either (an estimate; the live route with no walking engine to ask, as in
@@ -1021,6 +1051,48 @@ fn the_near_walk_over_a_closed_zone_border_goes_only_within_its_reach_and_never_
 	assert_eq!(out["live"], json!(["walk|Through the gate to East Vale", "walk|Through the gate to East Vale", "walk|Kobolds"]), "the live route with no walking engine to ask: through the gate");
 	assert_eq!(out["area"], "no route", "into an area no walk joins: never the near walk (and no other way in here)");
 	assert_eq!(out["areaYards"], false, "nor probed");
+}
+
+// #3532: the cities whose floors only their lifts join are sided by height, as the walking maps side them (forge-nav
+// f4/lifts.rs: below 7.45 in the Undercity, above 102 on Thunder Bluff's bluff, within 400 yd of a shaft), not by the
+// client's map: it names the Undercity (1458) for the Ruins of Lordaeron's courtyard above it, and Thunder Bluff
+// (1456) at the lifts' feet on Mulgore's ground, and the route sent a player at the foot of the north lift "to
+// Mulgore" first. Without a height the map decides, as before; away from the shafts nothing changes. The player is
+// sided only by the client's own height (sideZ), never by a followed floor: up from a lift, a floor seeded at the
+// ground's height sent the plan back down and up the lift again and again.
+#[test]
+fn the_undercity_and_thunder_bluff_are_sided_by_height_near_their_lifts_not_by_the_clients_map_3532() {
+	let out = run_raw(
+		r#"
+		local N = Polestar.Nav
+		N.RegisterCrossings({ complete = true, crossings = {}, zones = {
+			[1458] = { name = "Undercity", c = 0, top = 1877.945, bottom = 1237.841, left = 873.193, right = -86.182 },
+			[1420] = { name = "Tirisfal Glades", c = 0, top = 3837.5, bottom = 825, left = 3033.333, right = -1485.417 },
+			[1456] = { name = "Thunder Bluff", c = 1, top = -850, bottom = -1545.833, left = 516.667, right = -527.083 },
+			[1412] = { name = "Mulgore", c = 1, top = 266.666, bottom = -3835.416, left = 2479.167, right = -3675 },
+		} })
+		local Z = N.travel.ZoneOf
+		emit({
+			courtyard = Z(1458, 0, 1807.5, 230.1, nil, 62),       -- the Ruins' courtyard over the city
+			tradeQuarter = Z(1458, 0, 1559.2, 229.4, nil, -43),   -- down in the city
+			ucNoHeight = Z(1458, 0, 1807.5, 230.1),               -- no height: the map
+			liftFoot = Z(1456, 1, -1036.5, -53.1, nil, 69),       -- the north lift's foot, on Mulgore's ground
+			bluff = Z(1456, 1, -1040.6, -49, nil, 140.7),         -- its top, on the bluff
+			tbNoHeight = Z(1456, 1, -1036.5, -53.1),
+			farMulgore = Z(1412, 1, -2300, -400, nil, 50),        -- far from the shafts: unchanged
+			bluffFollowed = Z(1456, 1, -1040.6, -49, nil, 69, nil, false), -- the bluff, a followed floor of 69: the map
+			footClient = Z(1456, 1, -1036.5, -53.1, nil, 140, nil, 69),   -- the client's 69 at the foot: Mulgore
+		})"#,
+	);
+	assert_eq!(out["courtyard"], 1420, "the courtyard over the Undercity is outside it");
+	assert_eq!(out["tradeQuarter"], 1458);
+	assert_eq!(out["ucNoHeight"], 1458, "no height: the client's map, as before");
+	assert_eq!(out["liftFoot"], 1412, "the lift's foot is on Mulgore's ground");
+	assert_eq!(out["bluff"], 1456);
+	assert_eq!(out["tbNoHeight"], 1456);
+	assert_eq!(out["farMulgore"], 1412);
+	assert_eq!(out["bluffFollowed"], 1456, "a followed floor never sides the player: the client's map");
+	assert_eq!(out["footClient"], 1412, "the client's height sides the player");
 }
 
 // KEPT IN JS:

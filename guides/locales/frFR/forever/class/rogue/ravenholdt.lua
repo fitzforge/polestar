@@ -63,8 +63,6 @@ return {
 	-- Step 9: Ain't No Telling
 	-- {item:275709} Stolen Funds
 	["She will not talk without something to bargain with. Her stash is upstairs in a house close to the keep: take the {item:275709}. If it is already open, wait for it to come back."] = "Elle ne parlera pas sans monnaie d'échange. Sa cachette est à l'étage d'une maison proche du donjon : prenez les {item:275709}. Si elle est déjà ouverte, attendez qu'elle revienne.",
-	-- {item:275709} Stolen Funds
-	["{item:275709}: Anastasia's Stash"] = "{item:275709} : la cachette d'Anastasia",
 
 	-- Step 10: The Syndicate Sting
 	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad · {item:275882} Intercepted Shipment · {item:275706} Syndicate Uniform · {npc:13085} Myrokos Silentform
@@ -85,6 +83,7 @@ return {
 	-- ["{item:17124}, by {spell:921}"] = "{item:17124}, par {spell:921}",
 	-- ["{item:275482}: pickpocket Barton"] = "{item:275482} : faites les poches de Barton",
 	-- ["{item:275482}: {spell:921} on Barton"] = "{item:275482} : {spell:921} sur Barton",
+	-- ["{item:275709}: Anastasia's Stash"] = "{item:275709} : la cachette d'Anastasia",
 	-- ["{npc:266216} is inside {area:275}, the Syndicate fortress in eastern {area:287}, south of the manor. Quick and quiet, says {npc:13085}."] = "{npc:266216} est à l'intérieur de {area:275}, la forteresse du Syndicat dans l'est de {area:287}, au sud du manoir. Vite et sans bruit, dit {npc:13085}.",
 	-- ["{npc:6766}: {quest:6701}, repeatable"] = "{npc:6766} : {quest:6701}, répétable",
 }

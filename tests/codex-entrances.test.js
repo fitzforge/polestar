@@ -9,6 +9,8 @@ const assert = require('node:assert/strict');
 const { instanceFacts, buildInstances, chooseEntrance, loadEntranceTable } = require('../tools/lib/codex/instances');
 const { emitPack } = require('../tools/lib/codex/pack');
 const { isSourceCitation } = require('../tools/lib/codex/web');
+const { writeCodexPack } = require('./helpers/codex');
+const { runAddon } = require('./helpers/lua');
 
 // Westfall's live frame: world x north / y west -> map percent.
 const WESTFALL = { c: 0, left: 2000, right: -1000, top: -9000, bottom: -12000 };
@@ -41,6 +43,27 @@ test("chooseEntrance: a table entry's door floor rides along within 30 yd; the g
 	const { doorsOf } = require('../tools/lib/nav/city/gate');
 	const [d] = doorsOf({ entrances: [door, { key: 'deadmines', map: 1436, x: 42.5, y: 71.7 }] }, { 1437: WETLANDS });
 	assert.deepEqual([d.c, Math.round(d.wx), Math.round(d.wy), d.z], [0, -3832, -2486, 140]);
+});
+
+// #3562, #2447: inside a capital the most-seen recorded point can be far from the door (Orgrimmar's south gate,
+// 86 entries, against 57 + 14 in the Cleft of Shadow; Ironforge 15.1,86.0, 166, against 80 below the city). There
+// the most-seen point within 60 yd of the table's door wins; outside the capitals the most-seen point anywhere does.
+test("chooseEntrance: inside a capital the recorded point at the table's door beats a bigger one elsewhere in the city (#3562, #2447)", () => {
+	const ORGRIMMAR = { c: 1, left: -3680.601, right: -5083.206, top: 2273.877, bottom: 1338.461 };
+	const IRONFORGE = { c: 0, left: -713.591, right: -1504.216, top: -4569.241, bottom: -5096.846 };
+	const rfc = { key: 'ragefire-chasm', map: 1454, x: 52.6, y: 49, source: 'https://example.org' };
+	const rfcRec = [{ map: 1454, x: 49.35, y: 95.11, n: 86 }, { map: 1454, x: 52.01, y: 49.46, n: 57 }, { map: 1454, x: 52.13, y: 49.42, n: 14 }];
+	const at = { name: 'Ragefire Chasm', zones: {}, frames: { 1454: ORGRIMMAR }, prefer: [1454] };
+	assert.deepEqual(chooseEntrance({ ...at, recorded: rfcRec, table: rfc }), { map: 1454, x: 52, y: 49.5, f: null });
+	assert.deepEqual(chooseEntrance({ ...at, recorded: rfcRec }), { map: 1454, x: 49.4, y: 95.1, f: null }, 'no table entry: the most-seen point');
+	const thanes = { key: 'the-hall-of-thanes', map: 1455, x: 28.3, y: 47.6, z: 399, source: 'https://example.org' };
+	const thanesRec = [{ map: 1455, x: 15.1, y: 86.01, n: 166 }, { map: 1455, x: 28.37, y: 47.7, n: 80 }, { map: 1455, x: 32.69, y: 44.94, n: 9 }];
+	const e = chooseEntrance({ name: 'The Hall of Thanes', zones: {}, frames: { 1455: IRONFORGE }, prefer: [1455], recorded: thanesRec, table: thanes });
+	assert.deepEqual(e, { map: 1455, x: 28.4, y: 47.7, f: null, z: 399 }, "the door below the city, with the table's floor");
+	const WETLANDS = { c: 0, left: -389.583, right: -4525, top: -2147.917, bottom: -4904.167 };
+	const field = { key: 'excavation-site-wetlands', map: 1437, x: 50.7, y: 61.1, source: 'https://example.org' };
+	const fieldRec = [{ map: 1437, x: 40, y: 40, n: 9 }, { map: 1437, x: 50.72, y: 61.12, n: 3 }];
+	assert.deepEqual(chooseEntrance({ name: 'x', zones: {}, frames: { 1437: WETLANDS }, prefer: [1437], recorded: fieldRec, table: field }), { map: 1437, x: 40, y: 40, f: null }, 'outside the capitals: the most-seen point');
 });
 
 test('a continent recording must land at the dungeon’s known zone', () => {
@@ -121,6 +144,23 @@ test("chooseEntrance: a table entry's Alliance way in rides along as entrance.A,
 	assert.equal(chooseEntrance({ ...base, table }).A, undefined, 'one way in: no A');
 });
 
+// #3348: Blackrock Mountain has a door on each side, open to both factions; each Blackrock instance lists the other
+// door, which rides along as entrance.doors (the arrow takes the nearer, Polestar/Dungeons' Dungeons.Entrance).
+test("chooseEntrance: a table entry's other doors ride along as entrance.doors, and Blackrock's instances have both", () => {
+	const brd = { key: 'blackrock-depths', map: 1427, x: 34.8, y: 85.3, source: 'https://example.org', doors: [{ map: 1428, x: 29.41, y: 38.3, source: 'https://example.org' }] };
+	assert.deepEqual(chooseEntrance({ name: 'Blackrock Depths', table: brd }).doors, [{ map: 1428, x: 29.4, y: 38.3 }]);
+	assert.deepEqual(chooseEntrance({ name: 'Blackrock Depths', table: brd, recorded: [{ map: 1427, x: 34.9, y: 85, n: 19 }] }).doors, [{ map: 1428, x: 29.4, y: 38.3 }], 'a recording keeps them');
+	assert.equal(chooseEntrance({ ...base, table }).doors, undefined, 'one way in: no doors');
+	const t = loadEntranceTable();
+	const at = (e) => [e.map, e.x, e.y].join(' ');
+	for (const k of ['blackrock-depths', 'blackrock-spire', 'molten-core', 'blackwing-lair']) {
+		const e = t[k];
+		const all = [at(e), ...(e.doors || []).map(at)].sort();
+		assert.deepEqual(all, ['1427 34.8 85.3', '1428 29.4 38.3'], `${k}: the Searing Gorge and Burning Steppes doors`);
+		for (const d of e.doors) assert.ok(/^https:\/\//.test(d.source) && d.note, `${k}: each door has a source and a note`);
+	}
+});
+
 test('the curated table: the City of Dalaran sends the Alliance in through Cantrips & Crows, inside the city', () => {
 	const d = loadEntranceTable()['city-of-dalaran'];
 	assert.ok(d && d.A, 'an Alliance way in');
@@ -136,6 +176,48 @@ test('pack: the Alliance way in follows the entrance', () => {
 	const codex = { meta: { schema: 1 }, items: {}, npcs: {}, objects: {}, quests: {}, instances: { 'city-of-dalaran': inst }, zones: {}, factions: {}, spells: {}, frames: {} };
 	const text = Object.values(emitPack(codex, { version: '0', build: 'test' })).join('\n');
 	assert.match(text, /1416,85,592,,,1416,147,630/);
+});
+
+test('Lookup keeps the underground floor for the Hall of Thanes entrance (#2447)', (t) => {
+	const key = 'the-hall-of-thanes';
+	const map = 1455;
+	const ironforge = { c: 0, left: -713.591, right: -1504.216, top: -4569.241, bottom: -5096.846 };
+	const entrance = chooseEntrance({
+		name: 'The Hall of Thanes', frames: { [map]: ironforge }, table: loadEntranceTable()[key],
+		recorded: [{ map, x: 28.26, y: 47.64, n: 54 }],
+	});
+	const instance = { key, name: 'The Hall of Thanes', kind: 'dungeon', forever: true, map: 3065, entrance, bosses: [] };
+	const npc = { id: 261311, name: 'Plunder', instance: key, spawns: [] };
+	const item = { id: 271098, name: 'Golemguard Chest', kind: 'item', sources: [
+		{ type: 'drop', npc: npc.id, instance: key, from: ['curated'] },
+	] };
+	const pack = writeCodexPack({
+		meta: { schema: 1 }, items: { [item.id]: item }, npcs: { [npc.id]: npc }, objects: {},
+		quests: {}, instances: { [key]: instance }, zones: {}, factions: {}, spells: {}, frames: { [map]: ironforge },
+	});
+	t.after(pack.cleanup);
+	const [result] = runAddon({
+		stubs: ['stub_world.lua'],
+		before: `${pack.stubLua}
+local w = stub.world
+w.addMap(1455, { name = "Ironforge", c = 0, left = -713.591, right = -1504.216, top = -4569.241, bottom = -5096.846 })
+w.level, w.faction = 14, "Alliance"
+w.moveTo(1455, 47.64, 52.51)`,
+		addons: [{ name: 'Polestar', files: ['Core/Core.xml', 'Lookup/Lookup.xml'] }],
+		login: true,
+		script: `
+local key = "the-hall-of-thanes"
+local L, C = Polestar.Lookup, Polestar.Codex
+local item = assert(L.BuildGuide("item", 271098))
+local dungeon = assert(L.BuildGuide("instance", key))
+local function point(p)
+	return { p.map, p.x, p.y, p.z or false }
+end
+emit({ entrance = point(C.Instance(key).entrance), item = point(item.steps[1].goals[1]),
+	dungeon = point(dungeon.steps[1].goals[1]) })`,
+	}).emitted;
+	const door = [1455, 28.3, 47.6, 399];
+	assert.deepEqual(result, { entrance: door, item: door, dungeon: door });
 });
 
 // #1832: The Drowned City's way in is where players' recordings enter it: Sunken Hollow, due west of Grom'gol.

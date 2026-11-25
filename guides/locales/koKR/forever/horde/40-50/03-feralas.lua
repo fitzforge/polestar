@@ -8,13 +8,13 @@
 return {
 	-- Guide
 	-- {zone:1454} Orgrimmar · {area:1099} Camp Mojache · {area:511} Wyrmbog · {area:496} Brackenwall Village
-	["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "",
+	["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "{zone:1454}의 제출, {area:1099}의 무이섹 그릇, 그다음 먼지진흙 습지대의 {area:511}와(과) {area:496}.",
 	["Takes you to level 47"] = "47레벨까지 진행",
 	-- {zone:1446} Tanaris
 	["Then on to {zone:1446}"] = "이어서 {zone:1446}(으)로",
 	["Stays on the main route"] = "주요 경로에 머무름",
 	-- {zone:2652} Shen'dralas · {zone:1446} Tanaris
-	["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "",
+	["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "{zone:2652} 생략: 퀘스트가 열두 개 정도 적고, {zone:1446}에 1/3레벨 낮게 들어갑니다",
 
 	-- Step 1: Orgrimmar
 	-- {object:172960} Cleft of Shadow · {object:172958} Valley of Honor
@@ -39,7 +39,7 @@ return {
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "{area:1099}(으)로 날아가기",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "{zone:1456} 비행 조련사",
 
 	-- Step 6: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache · {zone:1444} Feralas · {zone:1446} Tanaris
@@ -52,7 +52,7 @@ return {
 
 	-- Step 8: Fly to Brackenwall Village
 	-- {area:496} Brackenwall Village
-	["Fly to {area:496}"] = "",
+	["Fly to {area:496}"] = "{area:496}(으)로 날아가기",
 	-- {zone:1444} Feralas · {zone:1446} Tanaris · {area:496} Brackenwall Village
 	["No Muisek vessel to bring Uzer'i (you didn't take the {zone:1444} & {zone:1446} guide's chain): fly from here straight to {area:496}."] = "",
 
@@ -64,11 +64,11 @@ return {
 	-- {npc:4500} Overlord Mok'Morokk · {npc:4502} Tharg · {npc:4501} Draz'Zilb · {area:511} Wyrmbog
 	["{npc:4500}, {npc:4502} and {npc:4501} (below ground) are in the village; their quests are for the {area:511} on this trip."] = "",
 	-- {npc:4501} Draz'Zilb
-	["{npc:4501}, below ground"] = "",
+	["{npc:4501}, below ground"] = "{npc:4501}, 지하",
 
 	-- Step 11: Dustwallow Marsh
 	-- {object:2555} Musty Scroll
-	["The {object:2555}"] = "",
+	["The {object:2555}"] = "{object:2555}",
 
 	-- Step 12: The Musty Scroll
 	-- {object:2555} Musty Scroll
@@ -76,39 +76,51 @@ return {
 	-- {object:2555} Musty Scroll
 	["the {object:2555}"] = "{object:2555}",
 	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "",
+	["Inside {area:498}"] = "{area:498} 안",
 
-	-- Step 13: The Dragonmurk: kill these as you meet them
+	-- Step 13: The Musty Scroll
+	-- {object:2555} Musty Scroll
+	["The {object:2555} lies to the south-west."] = "{object:2555}은(는) 남서쪽에 있습니다.",
+
+	-- Step 14: Mudsprocket
+	["Mudsprocket"] = "진흙톱니",
+	-- {object:2555} Musty Scroll · {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle · {item:280092} Wyrmtail
+	["South-east from the {object:2555} to Mudsprocket, the goblin camp at the {area:511}'s western edge: {npc:270723} and {npc:270727} stand together in the camp. Their whelps, scales and {item:280092} come on the same {area:511} loop as Brackenwall's quests."] = "{object:2555}에서 남동쪽, {area:511} 서쪽 끝의 고블린 야영지 진흙톱니로 가십시오: {npc:270723}과(와) {npc:270727}이(가) 야영지에 함께 서 있습니다. 그들의 새끼 용, 비늘, {item:280092}은(는) 담쟁이 마을 퀘스트와 같은 {area:511} 순회에서 얻습니다.",
+
+	-- Step 15: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
-	["{area:510}: kill these as you meet them"] = "",
-	-- {area:511} Wyrmbog
+	["{area:510}: kill these as you meet them"] = "{area:510}: 만나는 대로 처치하세요",
+	-- {area:511} Wyrmbog · {item:280092} Wyrmtail
 	-- was: ["Ride south-west to the {object:2555}, then east through the {area:511}. The Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "남서쪽의 {object:2555}(으)로 간 뒤, 동쪽으로 {area:511}을(를) 지나가세요. 화염갈기혈족 정찰병과 불꽃술사가 갓 부화한 화염 새끼용, 화염 새끼용과 함께 북쪽 가장자리를 돌아다니고, 맹독전사는 더 남동쪽의 용 동굴을 지킵니다. 모크모로크의 코담배, 그로그주, 금고는 용족 야영지에 있습니다."
-	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "",
+	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps. The {item:280092} grows in the bog just east of Mudsprocket."] = "{area:511}을(를) 지나 동쪽으로: 불갈기 정찰병과 잿빛꼬리가 그 북쪽 가장자리를 이글거리는 새끼용, 새끼 용과 함께 돌아다니고, 비늘칼날이 더 남동쪽의 용 동굴을 지킵니다. 모크모로크의 코담배, 그로그주, 금고는 용족 야영지에 있습니다. {item:280092}은(는) 진흙톱니 바로 동쪽 늪에서 자랍니다.",
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "",
 	["Below ground"] = "지하",
 
-	-- Step 14: Brackenwall Village
+	-- Step 16: Mudsprocket
+	["Back to Mudsprocket before you ride north."] = "북쪽으로 가기 전에 진흙톱니로 돌아가십시오.",
+
+	-- Step 17: Brackenwall Village
 	["Ride back north to Brackenwall."] = "북쪽의 담쟁이 마을로 돌아가세요.",
 
-	-- Step 15: Onyxia's eggs
+	-- Step 18: Onyxia's eggs
 	["Onyxia's eggs"] = "오닉시아의 알",
 	-- {area:511} Wyrmbog
 	["The Eggs of Onyxia lie in the dragon caves in the {area:511}'s south-east, guarded by the scalebanes; smash five."] = "오닉시아의 알은 {area:511} 남동쪽의 용 동굴에 있으며, 맹독전사가 지키고 있습니다. 다섯 개를 깨부수세요.",
 
-	-- Step 16: Muckshell crabs
+	-- Step 19: Muckshell crabs
 	["Muckshell crabs"] = "",
 	-- plural, as words: Muckshell Razorclaws = {npc:4405} Muckshell Razorclaw
 	["On the way back north from the dragon caves, the Muckshell Razorclaws and Pincers (41-44) crowd the shallows just north of the caves; about one in twenty carries the Jeweled Pendant Marg Speaks asks for."] = "",
 
-	-- Step 17: Level 45.37
+	-- Step 20: Level 45.37
 	["Level 45.37"] = "45.37레벨",
 	-- {npc:4500} Overlord Mok'Morokk · {area:511} Wyrmbog · {area:978} Zul'Farrak
 	["{npc:4500}'s challenge, back in Brackenwall, needs a group of three. Alone, grind the Firemane scouts here on the {area:511}'s northern edge to level 45.37 before you ride back north, so you don't come back down for it. Or, with a group, run the {area:978} dungeon instead."] = "담쟁이 마을로 돌아가서 하는 {npc:4500}의 도전에는 3인 파티가 필요합니다. 혼자라면 북쪽으로 돌아가기 전에 이곳 {area:511} 북쪽 가장자리의 화염갈기혈족 정찰병을 사냥해 45.37레벨까지 올리세요. 그러면 다시 내려올 필요가 없습니다. 파티가 있다면 대신 {area:978} 던전을 도세요.",
 	-- {npc:4329} Firemane Scout
-	["grind on {npc:4329}"] = "",
+	["grind on {npc:4329}"] = "{npc:4329} 사냥",
 
-	-- Step 18: Brackenwall Village
+	-- Step 21: Brackenwall Village
 	-- {npc:4791} Nazeer Bloodpike · {item:5942} Jeweled Pendant
 	["{npc:4791}: the {item:5942}"] = "",
 	-- {npc:4047} Zor Lonetree · {zone:1454} Orgrimmar · {zone:1447} Azshara
@@ -116,7 +128,7 @@ return {
 	-- {quest:3128} Natural Materials · {zone:1444} Feralas
 	["Keep {quest:3128} and Improved Quality: {zone:1444}' sprites, hippogryphs, Zorbin's coast and the Rage Scar yetis come on your {zone:1444} loop at about 51, with the Muisek chain."] = "",
 
-	-- Step 19: Challenge Overlord Mok'Morokk
+	-- Step 22: Challenge Overlord Mok'Morokk
 	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:1173} needs a group of 3. Skip it if you are alone: the route has you grind the XP back.\n{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "",
 
@@ -162,6 +174,7 @@ return {
 	-- ["The {area:1108}"] = "{area:1108}",
 	-- ["The {area:511}"] = "{area:511}",
 	-- ["Three zones, lots of travel"] = "세 지역, 이동이 많음",
+	-- ["To {area:1099}"] = "{area:1099}(으)로",
 	-- ["To {area:75}"] = "{area:75}(으)로",
 	-- ["Underwater"] = "물속",
 	-- ["You start in {area:75}. Bind here: you hearth back after the coast."] = "{area:75}에서 시작합니다. 여기에 귀환 지점을 정하세요. 해안 다음에 귀환석으로 돌아옵니다.",
@@ -175,13 +188,18 @@ return {
 	-- ["for the {object:2555} in {zone:1445}, later in this guide"] = "이 가이드 후반에 {zone:1445}의 {object:2555}을(를) 위해",
 	-- ["for the {zone:1425} owlbeasts, around level 48"] = "48레벨쯤 {zone:1425}의 올빼미야수를 위해",
 	-- ["for the {zone:1425}, around level 50"] = "50레벨쯤 {zone:1425}에서",
+	-- ["{area:1108}: kill these as you meet them"] = "{area:1108}: 만나는 대로 처치하세요",
+	-- ["{area:2403}: kill these as you meet them"] = "{area:2403}: 만나는 대로 처치하세요",
+	-- ["{area:496} flight master"] = "{area:496} 비행 조련사",
 	-- ["{item:18904}, on the Wave and Deep Striders in the water"] = "{item:18904}, 물속의 파도 거인과 성큼걸이 바다거인에게 사용",
 	-- ["{item:18958}, from the Sea Sprays"] = "{item:18958}, 바다 물보라 정령에게서",
 	-- ["{npc:2934}, on the way back to Zinge"] = "징에에게 돌아가는 길의 {npc:2934}",
 	-- ["{npc:4500} is elite: grouping up is advised. Beat him down until he gives up, then report to {npc:4501}."] = "{npc:4500}은(는) 정예입니다. 파티를 권장합니다. 그가 항복할 때까지 때린 뒤 {npc:4501}에게 보고하세요.",
 	-- ["{npc:4773}, riding trainer"] = "{npc:4773}, 탈것 상급자",
+	-- ["{npc:5591}, inside"] = "{npc:5591}, 내부",
 	-- ["{npc:7776}'s Northspring harpies (48-50) wait for your {zone:1444} visit at about 51: keep the quest."] = "{npc:7776}의 북녘샘 하피(48-50)는 51레벨쯤 {zone:1444}에 갈 때 처리합니다. 퀘스트를 보관하세요.",
 	-- ["{npc:7825}, the {object:36126}"] = "{object:36126}의 {npc:7825}",
+	-- ["{npc:7854}, inside"] = "{npc:7854}, 내부",
 	-- ["{npc:7875}: for {npc:7010} in {zone:1454}, around level 50"] = "{npc:7875}: 50레벨쯤 {zone:1454}의 {npc:7010}에게",
 	-- ["{object:172958}, then the {object:172960} and the {object:172961}."] = "{object:172958}, 그다음 {object:172960}와(과) {object:172961}.",
 	-- ["{quest:7738}, a rare drop"] = "드물게 떨어지는 {quest:7738}",

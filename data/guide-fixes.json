@@ -2,6 +2,2093 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "3529-calder-gray-when-complete",
+			"faction": "Horde",
+			"at": {
+				"quest": 97985,
+				"goal": "turnin",
+				"guide": "forever/horde/30-40/05-arathi-highlands"
+			},
+			"when": "complete 97985",
+			"note": "#3529: Thundering Hearts is taken in Hillsbrad and worked in Thousand Needles; Calder Gray's step in the Undercity showed while it was in the log, finished or not, and asked for the hand-in with Stormheart (a level 30 elite) not killed. The step shows only with the heart.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "3339-stv-drizzlik-hand-in",
+			"faction": "Horde",
+			"at": {
+				"quest": 577,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/01-stranglethorn-vale"
+			},
+			"split": {
+				"title": "Drizzlik"
+			},
+			"note": "#3339's sweep: Some Assembly Required is taken and worked on the 30-40 Stranglethorn guide; the 40-50 guide's Booty Bay stop hands it in in a step of its own (its `when complete 577`: the next record). Excelsior's accept stays in the stop for a player who handed it in elsewhere.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3339"
+				}
+			],
+			"issue": 3339
+		},
+		{
+			"id": "3339-stv-drizzlik-hand-in-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 577,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/01-stranglethorn-vale"
+			},
+			"when": "complete 577",
+			"note": "#3339's sweep: Drizzlik's hand-in step only with the Snapjaw skins gathered.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3339"
+				}
+			],
+			"issue": 3339
+		},
+		{
+			"id": "3339-stv-kebok-hand-in",
+			"faction": "Horde",
+			"at": {
+				"quest": 213,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/01-stranglethorn-vale"
+			},
+			"split": {
+				"title": "Kebok"
+			},
+			"note": "#3339: Hostile Takeover is taken and its Tumbled Crystals gathered on the 30-40 Stranglethorn guide; the 40-50 guide sent a player who hadn't gathered them to Kebok. The hand-in is a step of its own (its `when complete 213`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3339"
+				}
+			],
+			"issue": 3339
+		},
+		{
+			"id": "3339-stv-kebok-hand-in-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 213,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/01-stranglethorn-vale"
+			},
+			"when": "complete 213",
+			"note": "#3339: Kebok's hand-in step only with the eight Tumbled Crystals.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3339"
+				}
+			],
+			"issue": 3339
+		},
+		{
+			"id": "3337-aerie-peak-walk-with-super-snapper",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2944,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/50-60/01-burning-steppes"
+			},
+			"way": {
+				"when": [
+					"group 2944",
+					"onquest 2944"
+				]
+			},
+			"note": "#3337: the flight to Aerie Peak, Gammerita and the flight on to Southshore are for The Super Snapper FX only; they showed for a \"do it\" group answer without the quest in the log. They need the quest too; without it the guide flies from Ironforge straight to Southshore.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3337"
+				}
+			],
+			"issue": 3337
+		},
+		{
+			"id": "0430-carried-hand-in-1861-02-westfall",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1861,
+				"goal": "turnin",
+				"guide": "forever/alliance/02-westfall"
+			},
+			"split": {
+				"title": "Jennea Cannon"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Mirror Lake is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-1861-02-westfall-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1861,
+				"goal": "turnin",
+				"guide": "forever/alliance/02-westfall"
+			},
+			"when": "complete 1861",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Mirror Lake is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-226-05-duskwood",
+			"faction": "Alliance",
+			"at": {
+				"quest": 226,
+				"goal": "turnin",
+				"guide": "forever/alliance/05-duskwood"
+			},
+			"split": {
+				"title": "Lars"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Wolves at Our Heels is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-226-05-duskwood-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 226,
+				"goal": "turnin",
+				"guide": "forever/alliance/05-duskwood"
+			},
+			"when": "complete 226",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Wolves at Our Heels is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-945-06-ashenvale",
+			"faction": "Alliance",
+			"at": {
+				"quest": 945,
+				"goal": "turnin",
+				"guide": "forever/alliance/06-ashenvale"
+			},
+			"when": "complete 945",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Therylune's Escape is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-994-06-ashenvale",
+			"faction": "Alliance",
+			"at": {
+				"quest": 994,
+				"goal": "turnin",
+				"guide": "forever/alliance/06-ashenvale"
+			},
+			"when": "complete 994",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Escape Through Force is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-994-06-wetlands",
+			"faction": "Alliance",
+			"at": {
+				"quest": 994,
+				"goal": "turnin",
+				"guide": "forever/alliance/06-wetlands"
+			},
+			"when": "complete 994",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Escape Through Force is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-945-06-wetlands",
+			"faction": "Alliance",
+			"at": {
+				"quest": 945,
+				"goal": "turnin",
+				"guide": "forever/alliance/06-wetlands"
+			},
+			"when": "complete 945",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Therylune's Escape is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-57-07-thousand-needles",
+			"faction": "Alliance",
+			"at": {
+				"quest": 57,
+				"goal": "turnin",
+				"guide": "forever/alliance/07-thousand-needles"
+			},
+			"split": {
+				"title": "Commander Althea Ebonlocke"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Night Watch is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-57-07-thousand-needles-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 57,
+				"goal": "turnin",
+				"guide": "forever/alliance/07-thousand-needles"
+			},
+			"when": "complete 57",
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Night Watch is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-1738-05-arathi-highlands",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1738,
+				"goal": "turnin",
+				"guide": "forever/alliance/30-40/05-arathi-highlands"
+			},
+			"split": {
+				"title": "Gakin the Darkbinder"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Heartswood is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-1738-05-arathi-highlands-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1738,
+				"goal": "turnin",
+				"guide": "forever/alliance/30-40/05-arathi-highlands"
+			},
+			"when": "complete 1738",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Heartswood is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5741-06b-desolace",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5741,
+				"goal": "turnin",
+				"guide": "forever/alliance/30-40/06b-desolace"
+			},
+			"split": {
+				"title": "Azore Aldamort"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Sceptre of Light is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5741-06b-desolace-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5741,
+				"goal": "turnin",
+				"guide": "forever/alliance/30-40/06b-desolace"
+			},
+			"when": "complete 5741",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Sceptre of Light is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-543-01-stranglethorn-vale",
+			"faction": "Alliance",
+			"at": {
+				"quest": 543,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/01-stranglethorn-vale"
+			},
+			"when": "complete 543",
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Perenolde Tiara is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-1258-02-badlands",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1258,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/02-badlands"
+			},
+			"split": {
+				"title": "Morgan Stern"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): ... and Bugs is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-1258-02-badlands-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1258,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/02-badlands"
+			},
+			"when": "complete 1258",
+			"note": "Condition sweep (0.4.3, #3529/#3339): ... and Bugs is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3661-02-felwood",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3661,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/02-felwood"
+			},
+			"split": {
+				"title": "Erelas Ambersky"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Favored of Elune? is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3661-02-felwood-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3661,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/02-felwood"
+			},
+			"when": "complete 3661",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Favored of Elune? is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-2944-02-felwood",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2944,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/02-felwood"
+			},
+			"split": {
+				"title": "Daryn Lightwind"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Super Snapper FX is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-2944-02-felwood-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2944,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/02-felwood"
+			},
+			"when": "complete 2944",
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Super Snapper FX is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3764-02-felwood",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3764,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/02-felwood"
+			},
+			"when": "complete 3764",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Un'Goro Soil is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3909-03-winterspring",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3909,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/03-winterspring"
+			},
+			"split": {
+				"title": "Donova Snowden"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Videre Elixir is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3909-03-winterspring-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3909,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/03-winterspring"
+			},
+			"when": "complete 3909",
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Videre Elixir is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-4441-03-winterspring",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4441,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/03-winterspring"
+			},
+			"split": {
+				"title": "Eridan Bluewind"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Felbound Ancients is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-4441-03-winterspring-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4441,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/03-winterspring"
+			},
+			"when": "complete 4441",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Felbound Ancients is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-4512-04-western-plaguelands",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4512,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"split": {
+				"title": "Laris Geardawdle"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): A Little Slime Goes a Long Way is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-4512-04-western-plaguelands-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4512,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"when": "complete 4512",
+			"note": "Condition sweep (0.4.3, #3529/#3339): A Little Slime Goes a Long Way is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-978-04-western-plaguelands",
+			"faction": "Alliance",
+			"at": {
+				"quest": 978,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"when": "complete 978",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Moontouched Wildkin is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5245-04-western-plaguelands",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5245,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"when": "complete 5245",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Troubled Spirits of Kel'Theril is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-99051-02-the-barrens",
+			"faction": "Horde",
+			"at": {
+				"quest": 99051,
+				"goal": "turnin",
+				"guide": "forever/horde/02-the-barrens"
+			},
+			"split": {
+				"title": "Orgnil Soulscar"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Threat from Below is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-99051-02-the-barrens-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 99051,
+				"goal": "turnin",
+				"guide": "forever/horde/02-the-barrens"
+			},
+			"when": "complete 99051",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Threat from Below is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-1498-02-the-barrens",
+			"faction": "Horde",
+			"at": {
+				"quest": 1498,
+				"goal": "turnin",
+				"guide": "forever/horde/02-the-barrens"
+			},
+			"split": {
+				"title": "Uzzek"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Path of Defense is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-1498-02-the-barrens-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 1498,
+				"goal": "turnin",
+				"guide": "forever/horde/02-the-barrens"
+			},
+			"when": "complete 1498",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Path of Defense is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5726-03-silverpine-forest",
+			"faction": "Horde",
+			"at": {
+				"quest": 5726,
+				"goal": "turnin",
+				"guide": "forever/horde/03-silverpine-forest"
+			},
+			"split": {
+				"title": "Thrall"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Hidden Enemies is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5726-03-silverpine-forest-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 5726,
+				"goal": "turnin",
+				"guide": "forever/horde/03-silverpine-forest"
+			},
+			"when": "complete 5726",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Hidden Enemies is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-1536-04-the-barrens",
+			"faction": "Horde",
+			"at": {
+				"quest": 1536,
+				"goal": "turnin",
+				"guide": "forever/horde/04-the-barrens"
+			},
+			"split": {
+				"title": "Brine"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Call of Water is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-1536-04-the-barrens-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 1536,
+				"goal": "turnin",
+				"guide": "forever/horde/04-the-barrens"
+			},
+			"when": "complete 1536",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Call of Water is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-479-06-hillsbrad-foothills",
+			"faction": "Horde",
+			"at": {
+				"quest": 479,
+				"goal": "turnin",
+				"guide": "forever/horde/06-hillsbrad-foothills"
+			},
+			"split": {
+				"title": "Shadow Priest Allister"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Ambermill Investigations is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-479-06-hillsbrad-foothills-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 479,
+				"goal": "turnin",
+				"guide": "forever/horde/06-hillsbrad-foothills"
+			},
+			"when": "complete 479",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Ambermill Investigations is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-95981-06-hillsbrad-foothills",
+			"faction": "Horde",
+			"at": {
+				"quest": 95981,
+				"goal": "turnin",
+				"guide": "forever/horde/06-hillsbrad-foothills"
+			},
+			"split": {
+				"title": "Shadow Priest Allister"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Watching the Roads is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-95981-06-hillsbrad-foothills-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 95981,
+				"goal": "turnin",
+				"guide": "forever/horde/06-hillsbrad-foothills"
+			},
+			"when": "complete 95981",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Watching the Roads is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-1164-01-stranglethorn-vale",
+			"faction": "Horde",
+			"at": {
+				"quest": 1164,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/01-stranglethorn-vale"
+			},
+			"when": "complete 1164",
+			"note": "Condition sweep (0.4.3, #3529/#3339): To Steal From Thieves is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3520-04-tanaris",
+			"faction": "Horde",
+			"at": {
+				"quest": 3520,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/04-tanaris"
+			},
+			"split": {
+				"title": "Yeh'kinya"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Screecher Spirits is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3520-04-tanaris-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 3520,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/04-tanaris"
+			},
+			"when": "complete 3520",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Screecher Spirits is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-2932-06-azshara",
+			"faction": "Horde",
+			"at": {
+				"quest": 2932,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/06-azshara"
+			},
+			"when": "complete 2932",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Grim Message is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-580-06-azshara",
+			"faction": "Horde",
+			"at": {
+				"quest": 580,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/06-azshara"
+			},
+			"split": {
+				"title": "Whiskey Slim"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Whiskey Slim's Lost Grog is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-580-06-azshara-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 580,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/06-azshara"
+			},
+			"when": "complete 580",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Whiskey Slim's Lost Grog is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3123-06-azshara",
+			"faction": "Horde",
+			"at": {
+				"quest": 3123,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/06-azshara"
+			},
+			"split": {
+				"title": "Witch Doctor Uzer'i"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Testing the Vessel is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3123-06-azshara-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 3123,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/06-azshara"
+			},
+			"when": "complete 3123",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Testing the Vessel is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-2641-06-azshara",
+			"faction": "Horde",
+			"at": {
+				"quest": 2641,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/06-azshara"
+			},
+			"split": {
+				"title": "Sprinkle"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Sprinkle's Secret Ingredient is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-2641-06-azshara-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 2641,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/06-azshara"
+			},
+			"when": "complete 2641",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Sprinkle's Secret Ingredient is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3362-01-un-goro-crater",
+			"faction": "Horde",
+			"at": {
+				"quest": 3362,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/01-un-goro-crater"
+			},
+			"split": {
+				"title": "Tran'rek"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Thistleshrub Valley is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3362-01-un-goro-crater-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 3362,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/01-un-goro-crater"
+			},
+			"when": "complete 3362",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Thistleshrub Valley is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5863-01-un-goro-crater",
+			"faction": "Horde",
+			"at": {
+				"quest": 5863,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/01-un-goro-crater"
+			},
+			"split": {
+				"title": "Andi Lynn"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Dunemaul Compound is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5863-01-un-goro-crater-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 5863,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/01-un-goro-crater"
+			},
+			"when": "complete 5863",
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Dunemaul Compound is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-2995-01-un-goro-crater",
+			"faction": "Horde",
+			"at": {
+				"quest": 2995,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/01-un-goro-crater"
+			},
+			"split": {
+				"title": "Oran Snakewrithe"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Lines of Communication is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-2995-01-un-goro-crater-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 2995,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/01-un-goro-crater"
+			},
+			"when": "complete 2995",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Lines of Communication is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-4300-02-felwood",
+			"faction": "Horde",
+			"at": {
+				"quest": 4300,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/02-felwood"
+			},
+			"when": "complete 4300",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Bone-Bladed Weapons is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-4102-03-winterspring",
+			"faction": "Horde",
+			"at": {
+				"quest": 4102,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"split": {
+				"title": "Maybess Riverbreeze"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Cleansing Felwood is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-4102-03-winterspring-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 4102,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"when": "complete 4102",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Cleansing Felwood is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5156-03-winterspring",
+			"faction": "Horde",
+			"at": {
+				"quest": 5156,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"split": {
+				"title": "Taronn Redfeather"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Verifying the Corruption is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5156-03-winterspring-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 5156,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"when": "complete 5156",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Verifying the Corruption is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5157-03-winterspring",
+			"faction": "Horde",
+			"at": {
+				"quest": 5157,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"split": {
+				"title": "Greta Mosshoof"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Collection of the Corrupt Water is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5157-03-winterspring-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 5157,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"when": "complete 5157",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Collection of the Corrupt Water is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-86577-03-winterspring",
+			"faction": "Horde",
+			"at": {
+				"quest": 86577,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"split": {
+				"title": "Kelek Skykeeper"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): A Sampling of Putrescence is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-86577-03-winterspring-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 86577,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"when": "complete 86577",
+			"note": "Condition sweep (0.4.3, #3529/#3339): A Sampling of Putrescence is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-4120-03-winterspring",
+			"faction": "Horde",
+			"at": {
+				"quest": 4120,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"when": "complete 4120",
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Strength of Corruption is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3761-03-winterspring",
+			"faction": "Horde",
+			"at": {
+				"quest": 3761,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"split": {
+				"title": "Ghede"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Un'Goro Soil is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3761-03-winterspring-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 3761,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"when": "complete 3761",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Un'Goro Soil is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3568-04-azshara",
+			"faction": "Horde",
+			"at": {
+				"quest": 3568,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/04-azshara"
+			},
+			"split": {
+				"title": "Chemist Cuely"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Seeping Corruption is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3568-04-azshara-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 3568,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/04-azshara"
+			},
+			"when": "complete 3568",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Seeping Corruption is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-4300-04-azshara",
+			"faction": "Horde",
+			"at": {
+				"quest": 4300,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/04-azshara"
+			},
+			"when": "complete 4300",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Bone-Bladed Weapons is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3909-05-eastern-plaguelands",
+			"faction": "Horde",
+			"at": {
+				"quest": 3909,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"split": {
+				"title": "Donova Snowden"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Videre Elixir is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3909-05-eastern-plaguelands-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 3909,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"when": "complete 3909",
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Videre Elixir is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-3444-06-silithus",
+			"faction": "Horde",
+			"at": {
+				"quest": 3444,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/06-silithus"
+			},
+			"when": "complete 3444",
+			"note": "Condition sweep (0.4.3, #3529/#3339): The Stone Circle is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-5527-07-felwood",
+			"faction": "Horde",
+			"at": {
+				"quest": 5527,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/07-felwood"
+			},
+			"when": "complete 5527",
+			"note": "Condition sweep (0.4.3, #3529/#3339): A Reliquary of Purity is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-4741-07-felwood",
+			"faction": "Horde",
+			"at": {
+				"quest": 4741,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/07-felwood"
+			},
+			"split": {
+				"title": "Trull Failbane"
+			},
+			"note": "Condition sweep (0.4.3, #3529/#3339): Wild Guardians is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. The hand-in is a step of its own (its `when`: the next record).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "0430-carried-hand-in-4741-07-felwood-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 4741,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/07-felwood"
+			},
+			"when": "complete 4741",
+			"note": "Condition sweep (0.4.3, #3529/#3339): Wild Guardians is taken in an earlier guide and worked there; this guide's hand-in showed whether the quest was done or not. Its step shows only with the quest ready.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3529"
+				}
+			],
+			"issue": 3529
+		},
+		{
+			"id": "3192-stinky-from-36",
+			"faction": "Horde",
+			"at": {
+				"quest": 1270,
+				"goal": "accept",
+				"guide": "forever/horde/30-40/04-dustwallow-marsh"
+			},
+			"when": "level>=36",
+			"note": "#3192: Stinky Ignatz offered nothing to a level 35 player (PierreAnken: offered from 36); in players' recordings nobody took Stinky's Escape below 36. The step shows from 36; a lower character's accept waits for the level.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3192"
+				}
+			],
+			"issue": 3192
+		},
+		{
+			"id": "3347-melizza-escort-careful-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 6132,
+				"goal": "accept",
+				"guide": "forever/horde/30-40/04-dustwallow-marsh"
+			},
+			"tip": "Careful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help.",
+			"note": "#3347, #2755: Get Me Out of Here! sends six attackers during the escort; players at 38-39 found it too hard alone, and in the recordings 14 of 30 people who took it failed at least once (7 never finished). The step says so up front until the group choice (#3439, #3580) comes.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 6132: 30 people accepted, 14 failed at least once, 7 never completed"
+				}
+			],
+			"issue": 3347
+		},
+		{
+			"id": "3347-melizza-escort-careful-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6132,
+				"goal": "accept",
+				"guide": "forever/alliance/30-40/06b-desolace"
+			},
+			"tip": "Careful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help.",
+			"note": "#3347, #2755: as the Horde record; the Alliance's Desolace visit takes the same escort.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 6132: 30 people accepted, 14 failed at least once, 7 never completed"
+				}
+			],
+			"issue": 3347
+		},
+		{
+			"id": "3347-hornizz-hand-in-when-complete-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 6132,
+				"goal": "turnin",
+				"guide": "forever/horde/30-40/04-dustwallow-marsh"
+			},
+			"when": "complete 6132",
+			"note": "#3347: a player who skips the escort alone is not sent to Hornizz for its hand-in; the ghost-o-plasm accept after it needs the escort handed in anyway.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3347"
+				}
+			],
+			"issue": 3347
+		},
+		{
+			"id": "3347-hornizz-hand-in-when-complete-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6132,
+				"goal": "turnin",
+				"guide": "forever/alliance/30-40/06b-desolace"
+			},
+			"when": "complete 6132",
+			"note": "#3347: a player who skips the escort alone is not sent to Hornizz for its hand-in.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3347"
+				}
+			],
+			"issue": 3347
+		},
+		{
+			"id": "3036-threshadon-summon-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 95267,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/01b-riverglades"
+			},
+			"tip": "The Monstrous Threshadon comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. Old Rot-Chum, an elite, walks the shore close by: give him room.",
+			"note": "#3036: the step never said that the Threshadon is called up from what floats in the water (place: 3036-riverglades-threshadon-summon).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3036"
+				}
+			],
+			"issue": 3036
+		},
+		{
+			"id": "3036-threshadon-summon-tip-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 95267,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/01b-riverglades"
+			},
+			"tip": "The Monstrous Threshadon comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. Old Rot-Chum, an elite, walks the shore close by: give him room.",
+			"note": "#3036: as the Alliance record.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3036"
+				}
+			],
+			"issue": 3036
+		},
+		{
+			"id": "3550-loose-soil-own-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 94829,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/01b-riverglades"
+			},
+			"split": {
+				"title": "Loose Soil"
+			},
+			"note": "#3550: each Loose Soil grave takes one of the Farmers' Mementos the Twilight Raiders drop, but While you're here offered the soil before the player had any. The graves are a step of their own after the cult (its `when has 266148`: the next record); the cult step collects the five Mementos.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3550"
+				}
+			],
+			"issue": 3550
+		},
+		{
+			"id": "3550-loose-soil-own-step-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 94829,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/01b-riverglades"
+			},
+			"tip": "Back north-east to the loose soil west of Elbrim's farm: bury the Farmers' Mementos there, one in each grave.",
+			"when": "has 266148",
+			"note": "#3550: the Loose Soil step only with a Farmers' Memento in the bags, and its tip.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3550"
+				}
+			],
+			"issue": 3550
+		},
+		{
+			"id": "3346-figurine-torch-on-the-cart",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1738,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/30-40/04-stranglethorn-vale"
+			},
+			"tip": "From Astranaar head north-west into the hills: the Heartswood is a glowing tree north of the road to Maestra's Post. If you took What Is Love?, the Wooden Figurine lies in a house among the trees north of Maestra's Post (26.6,22.0): light the Unlit Torch from the table outside at a campfire and throw it onto the archaeologist's cart outside the house, which draws the figure in the house away so you can take the figurine upstairs. Then take the road west to Stonetalon.",
+			"note": "#3346: the figurine is taken by throwing the lit torch onto the archaeologist's cart outside the house, which draws the figure inside away; the step said only where the figurine lies.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3346 (Bussincider)"
+				}
+			],
+			"issue": 3346
+		},
+		{
+			"id": "3385-kodo-hides-and-venom-own-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1459,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/alliance/30-40/02-desolace"
+			},
+			"split": {
+				"title": "Kodo Graveyard: hides and venom",
+				"tip": "The Aged Kodos in the graveyard drop the hides, and the Scorpashi Lashers that hunt around it carry the venom. Careful: the Ancient Kodos (36-37) hit hard: fight only the Aged Kodos."
+			},
+			"note": "#3385 (Tilman): the Kodo Graveyard step held Kodo Roundup's taming with Reagents for Reclaimers Inc.'s hides and venom; skipping the taming skipped the venom too. The hides and venom are a step of their own after the taming.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-kodo-taming-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5561,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/30-40/02-desolace"
+			},
+			"tip": "Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo: it becomes a tamed kodo that follows you. Walk it back to Smeed's camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: the Ancient Kodos (36-37) hit hard: tame them, don't fight them.",
+			"note": "#3385's sweep: a skip only touches its own quest, so the taming step's tip says only the taming; the hides and venom have their own step (3385-kodo-hides-and-venom-own-step).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-therylune-escort-after-the-tome",
+			"faction": "Alliance",
+			"at": {
+				"quest": 945,
+				"goal": "accept",
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"follows": {
+				"quest": 98042,
+				"goal": "objective",
+				"objective": 1
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so Therylune's escort (945) comes last at the Master's Glaive, after the pelts, the bowl and the tome, and is a step of its own (3385-therylune-escort-own-step).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-therylune-escort-complete-after-accept",
+			"faction": "Alliance",
+			"at": {
+				"quest": 945,
+				"goal": "complete",
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"follows": {
+				"quest": 945,
+				"goal": "accept"
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so the escort's complete goes with its accept.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-therylune-escort-own-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 945,
+				"goal": "accept",
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"split": {
+				"title": "Therylune",
+				"tip": "Therylune stands on the north side of the crater: escort her out of the glaive. Therysil takes the turn-in in Ashenvale."
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so skipping Therylune's escort no longer skips the Master's Glaive's pelts, bowl and tome.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-volcor-deer-before-escort",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6124,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"follows": {
+				"quest": 993,
+				"goal": "turnin"
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so the Sickly Deer stay with Volcor's hand-in, before his escort.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-volcor-escort-own-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 994,
+				"goal": "accept",
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"split": {
+				"title": "Escort Volcor",
+				"tip": "Help Volcor back to the road; he fights on his way out. Terenthis takes the escort in Auberdine on the next visit there."
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so Volcor's escort (994) is a step of its own; skipping it no longer skips Curing the Sick's deer.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-zimmix-escort-last-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97331,
+				"goal": "accept",
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale"
+			},
+			"follows": {
+				"quest": 342,
+				"goal": "complete"
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so Zimmix's escort comes after the Zul'Kunda work (tablets, ears, shipments, pages), a step of its own (3385-zimmix-escort-own-step-alliance).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-zimmix-escort-complete-after-accept-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97331,
+				"goal": "complete",
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale"
+			},
+			"follows": {
+				"quest": 97331,
+				"goal": "accept"
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so the escort's complete goes with its accept.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-zimmix-escort-own-step-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97331,
+				"goal": "accept",
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale"
+			},
+			"split": {
+				"title": "Escort Zimmix",
+				"tip": "Lead Zimmix out of the ruins and keep him alive: Wharfmaster Lozgil in Booty Bay takes the news at the end of this loop."
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so skipping Zimmix's escort no longer skips the Zul'Kunda tablets, ears and shipments.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-zimmix-escort-own-step-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97331,
+				"goal": "accept",
+				"guide": "forever/horde/30-40/03-stranglethorn-vale"
+			},
+			"split": {
+				"title": "Escort Zimmix",
+				"tip": "Lead Zimmix out of the ruins and keep him alive: Lozgil takes the news once he is safe."
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so skipping Zimmix's escort no longer skips the Stolen Shipments and his key.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-ruul-escort-own-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 6482,
+				"goal": "accept",
+				"guide": "forever/horde/07-ashenvale"
+			},
+			"split": {
+				"title": "Ruul Snowhoof",
+				"tip": "Ruul Snowhoof is held deep inside Thistlefur Hold: free him and protect him all the way out, then he runs home to Night Run."
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so Ruul Snowhoof's escort (6482) is a step of its own; skipping it no longer skips the Troll Charms.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-lakota-escort-own-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 4904,
+				"goal": "accept",
+				"guide": "forever/horde/07-ashenvale"
+			},
+			"split": {
+				"title": "Escort Lakota Windsong",
+				"tip": "Lakota Windsong is held captive beside where Arnak stood: free her and protect her on the walk down; Grimtotem ambushers come at you on the way."
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so Lakota Windsong's escort (4904) is a step of its own; skipping it no longer skips Arnak Grimtotem's hoof.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-paoka-escort-own-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 4770,
+				"goal": "accept",
+				"guide": "forever/horde/07-ashenvale"
+			},
+			"split": {
+				"title": "Escort Pao'ka Swiftmountain",
+				"tip": "Pao'ka Swiftmountain waits on the east side of the nesting grounds: free him and keep him alive on the walk back to Whitereach Post."
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so Pao'ka's escort (4770) is a step of its own; skipping it no longer skips the wyvern eggs.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
 			"id": "a40-riverglades-second-wave-level-44",
 			"faction": "Alliance",
 			"at": {
@@ -391,6 +2478,29 @@
 				{ "kind": "recording", "ref": "rec index 2026-11-11: 7 people died within 60 yd of 872's goals (median level 15); foe 267308 recorded as elite" }
 			],
 			"issue": 1575
+		},
+		{
+			"id": "043-barrens-centaur-bracers-kolkar-camp",
+			"faction": "Horde",
+			"at": { "quest": 855, "goal": "objective", "objective": 1 },
+			"tip": "Careful: the Kolkar stand in packs around their camp west of the pools, and the Stormers cast from range: pull them one at a time from the edge. When anyone starts Regthar's Counterattack!, Kolkar Invaders (16-17) and Warlord Krom'zar (20, elite) charge his watch post: keep away from it until the attack is over.",
+			"note": "Centaur Bracers is the Horde 12-30 band's top death spot for players following the guide: the Kolkar (Wranglers 12-13, Stormers 13-14, Marauders 15-16) are at or under the route's level, but they stand in packs, and Counterattack! (4021) sends Kolkar Invaders (16-17) and Warlord Krom'zar (20, elite) at Regthar's post whenever anyone starts it. The deaths cluster at 43-46,23-28, the Kolkar camp west of the pools and around Regthar. A Careful line on the step (0.4.3 route round).",
+			"source": [
+				{ "kind": "recording", "ref": "players' recordings to 2026-11-19: 21 people following the guide died 40 times on Centaur Bracers (median level 16.5), 4 of them on 0.4.x" },
+				{ "kind": "pfquest", "ref": "npcs.json 3272 Kolkar Wrangler 12-13, 3273 Kolkar Stormer 13-14, 3275 Kolkar Marauder 15-16, 9524 Kolkar Invader 16-17, 9456 Warlord Krom'zar 20 elite" }
+			],
+			"pr": 3145
+		},
+		{
+			"id": "043-barrens-840-only-while-carried",
+			"faction": "Horde",
+			"at": { "quest": 840, "goal": "turnin", "guide": "forever/horde/02-the-barrens" },
+			"when": "onquest 840",
+			"note": "Conscript of the Horde (840) is handed to Kargal Battlescar on the Barrens guide's Far Watch Post stop only by characters still carrying it: Warriors and Shamans hand it in at the end of their Durotar guide (h01-840-far-watch-warriors-orc/troll), and the playtest read the hand-in as never accepted for them. Its own step comes first; Crossroads Conscription (842) and the rest of the stop follow for everyone.",
+			"source": [
+				{ "kind": "client", "ref": "quests.json 842 Crossroads Conscription: pre 840; the Durotar guides' Far Watch Post steps (when onquest 840) hand 840 in for Warriors and Shamans" }
+			],
+			"pr": 3145
 		},
 		{
 			"id": "2025-barrens-barrow-dens-terrans",
@@ -3678,14 +5788,14 @@
 				"mention": "Sunscale raptors here count toward the heads.",
 				"finish": {
 					"title": "Finish the Raptor Heads",
-					"tip": "Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from Echeyakee's lair.",
+					"tip": "Still short of twelve? Sunscale Screechers are thickest on the open plains just north of Echeyakee's lair: finish there, then head back south-west to the Crossroads, keeping west of the Razormane camp.",
 					"map": 1413,
-					"x": 55.0,
-					"y": 23.5
+					"x": 56.5,
+					"y": 13.5
 				}
 			},
 			"faction": "Horde",
-			"note": "Raptor Thieves: the heads drop often (about three Sunscale raptors in four), but the raptors are sparse and contested where the route goes: players' recordings show a median 77 s between raptor kills while on the quest, 447 s at p90, and a median 76 minutes from the accept to the twelfth head (up to 697), so it is worked over the stay instead of in a step of its own (Fitz on #1135). Per kill: Screecher 314 heads from 425 kills, Lashtail 73 from 99, Scytheclaw 29 from 82 (level 16-18, in the south). The finish point is the best raptor ground by kills a minute while on the quest (1.0 to 1.3 a minute around 55-57,13-17), which the route already crosses at Samophlange and Echeyakee.",
+			"note": "Raptor Thieves: the heads drop often (about three Sunscale raptors in four), but the raptors are sparse and contested where the route goes: players' recordings show a median 77 s between raptor kills while on the quest, 447 s at p90, and a median 76 minutes from the accept to the twelfth head (up to 697), so it is worked over the stay instead of in a step of its own (Fitz on #1135). Per kill: Screecher 314 heads from 425 kills, Lashtail 73 from 99, Scytheclaw 29 from 82 (level 16-18, in the south). The finish point is the best raptor ground by kills a minute while on the quest (1.0 to 1.3 a minute around 55-57,13-17), which the route already crosses at Samophlange and Echeyakee. 0.4.3: the point was 55.0,23.5, 0.7 map units from the Razormane camp's level 18-19 elite Flesheaters and Berserkers (62 spawns over 54.8-60.0,21.1-27.4) with one Lashtail beside it; it moves to 56.5,13.5, just north of Echeyakee's lair, where 21 Screecher spawns lie within 3 units and the nearest elite is 7.9 units south.",
 			"source": [
 				{
 					"kind": "recording",
@@ -4712,6 +6822,25 @@
 					"ref": "smart_scripts 2768/276802 (summon group 1) and creature_summon_groups: two Vengeful Surge 2776 by the cave"
 				}
 			]
+		},
+		{
+			"id": "3843-alliance-stv-tigers-both-sides-of-nesingwary",
+			"faction": "Alliance",
+			"at": {
+				"quest": 186,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/30-40/04-stranglethorn-vale"
+			},
+			"tip": "The adult tigers prowl the hills on both sides of the camp: west of it, and east of it toward the lake. The arrow takes the eastern group.",
+			"note": "#3843 (nick): the Alliance step's tip sent players south and west of Nesingwary's camp, but about half the Stranglethorn Tigers (682) are east of it: spawns x 28-48, y 8-18 around the camp (35.6,10.6), and players' recordings to 2026-11-17 show two groups of about the same size, west (27-33, 6-18) and east (42-48, 9-21). The step's arrow (43.3,14.8) takes the eastern group, where the reporter found them (46.7,16.4).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3843: the reporter's location line (Stranglethorn Vale 46.73,16.44, tigers there)"
+				}
+			],
+			"issue": 3843
 		},
 		{
 			"id": "horde-stv-tigers-and-panthers-south-and-west-of-nesingwary",
@@ -6397,8 +8526,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "South from Drywhisker Gorge, past Go'Shek Farm, to Witherbark Village in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths.",
-			"note": "Witherbark Village follows Drywhisker Gorge on the way to Quae. The Witch Doctors (2555) stand at 61-68,64-77 and the Shadow Hunters (2557) at 66-69,78-82; elite Witherbark Goliaths patrol the Shadow Hunters' end of the valley.",
+			"tip": "South from Drywhisker Gorge, past Go'Shek Farm, through Witherbark Village to the far end of the valley: the Shadow Hunters there drop the knife, and the trolls packed around them give most of the tusks. Then the Witch Doctors among the huts for the pouches, on the way back out towards Quae. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths.",
+			"note": "Witherbark Village follows Drywhisker Gorge on the way to Quae. The Witch Doctors (2555) stand at 61-68,64-77 and the Shadow Hunters (2557) at 66-69,78-82; elite Witherbark Goliaths patrol the Shadow Hunters' end of the valley. #3681 (MattMaximo): the far end is the dense part: all 16 Shadow Hunters (the knife) are at 66-70,79-82 with about 10 of the 23 Headhunters and 7 of the 10 Zalas Witherbark, every one a tusk dropper, while 17 of the 21 Witch Doctors (the pouches) stand among the huts at 61-74,62-77. The step leads to the far end first for the knife and the tusks, then the huts on the way back out north-west towards Quae.",
 			"source": [
 				{
 					"kind": "questie",
@@ -6785,8 +8914,8 @@
 				"goal": "turnin",
 				"guide": "forever/alliance/05-duskwood"
 			},
-			"when": "onquest 1787,1788",
-			"note": "05-duskwood's Gazin Tenorm step (Stormwind) stays for a Human Paladin still carrying 1787 or 1788; 03-loch-modan's last Stormwind stop does it (tome-of-divinity-loch-modan-gazin). Gated so it no longer walks a finished Paladin to the Cathedral. 0.3.6 hand edit.",
+			"when": "complete 1787",
+			"note": "05-duskwood's Gazin Tenorm step (Stormwind) stays for a Human Paladin still carrying 1787 or 1788; 03-loch-modan's last Stormwind stop does it (tome-of-divinity-loch-modan-gazin). Gated so it no longer walks a finished Paladin to the Cathedral. 0.3.6 hand edit. Condition sweep (0.4.3, #3529): the Defias Script's hand-in only with the script in the bags (`when complete 1787`); a player who handed it in before gets a step of its own for Redemption's accept (`when available 1788`) and one for Duthorian Rall (`when onquest 1788`).",
 			"source": [
 				{
 					"kind": "questie",
@@ -14944,6 +17073,1310 @@
 				}
 			],
 			"issue": 3574
+		},
+		{
+			"id": "3279-lines-of-communication-work-in-the-hinterlands",
+			"faction": "Horde",
+			"at": { "quest": 2995, "goal": "turnin" },
+			"goalNote": "Lines of Communication's work is not in this guide: burn the Highvale Report, Notes and Records in the elves' camps around Quel'Danil Lodge, in The Hinterlands & Blasted Lands (its Highvale step). Load that guide for the arrows.",
+			"note": "#3279: the Un'Goro guide hands Lines of Communication in, but its three Highvale objectives are in the Hinterlands guide (forever/horde/40-50/05-the-hinterlands, step Highvale), which a player who ran the earlier guides has already left. The hand-in alone left beardedoak with an arrow to the Undercity for a quest he could not finish. The next route update brings an unfinished quest's objectives back before its hand-in only when they are close to the route; the Hinterlands are too far from Un'Goro, so the hand-in says where the work is.",
+			"source": { "kind": "in-game-check", "ref": "#3279: beardedoak's report; fitzforge's confirmation naming the Highvale step and its three interact goals" },
+			"issue": 3279
+		},
+		{
+			"id": "3123-blackrock-walk-only-without-flame-crest",
+			"faction": "Horde",
+			"at": { "quest": 4296, "goal": "accept", "guide": "forever/horde/50-60/01-un-goro-crater" },
+			"way": { "when": "!taxi \"Flame Crest\"" },
+			"note": "#3123: the walk into Blackrock Mountain from the Searing Gorge (step Into Blackrock Mountain) is the way to Flame Crest and its flight path on foot. Zack already knew Flame Crest's flight path and was walked through the mountain all the same. It is for a character without that flight path only; one who has it goes on to Flame Crest the way the travel planner finds. Overmaster Pyron and Blackrock Depths keep their own conditions.",
+			"source": { "kind": "in-game-check", "ref": "#3123: Zack's report (sent into Blackrock Mountain for a flight path he had), confirmed by fitzforge" },
+			"issue": 3123
+		},
+		{
+			"id": "3365-corrupted-sabers-winna",
+			"faction": "Horde",
+			"at": { "quest": 4506, "goal": "complete" },
+			"goalNote": "Bring the Corrupted Saber to Winna Hazzard at Bloodvenom Post and click on it to hand it over.",
+			"note": "#3365: Corrupted Sabers' one objective is an event, returning the corrupted cat to Winna Hazzard at Bloodvenom Post; the line read only \"Complete Corrupted Sabers\" while the arrow pointed at Winna, 567 yd off, so the reporter could not tell where to go with the saber. The line names her.",
+			"source": { "kind": "in-game-check", "ref": "#3365: the reporter's /polestar report (arrow at Winna Hazzard, 34.2,52.3) and the quest's objective, Return the corrupted cat to Winna Hazzard" },
+			"issue": 3365
+		},
+		{
+			"id": "3354-mithril-casing-gadgetzan-horde",
+			"faction": "Horde",
+			"at": { "quest": 4504, "goal": "accept", "guide": "forever/horde/40-50/06-azshara" },
+			"tip": "Gadgetzan's Auction House is the last one before Un'Goro. There, A-Me 01 (Chasing A-Me 01) asks for a Mithril Casing, an Engineering item, before her escort: buy one here if you want that chain.",
+			"note": "#3354: Chasing A-Me 01's second part (4244) asks for a Mithril Casing (10561), and the guide said so only at A-Me 01 on Un'Goro's Ironstone Plateau, with no auction house near. Gadgetzan's, on this step, is the last the route passes before the crater: the heads-up goes here.",
+			"source": { "kind": "in-game-check", "ref": "#3354 and #3761: the reporters' /polestar reports at A-Me 01; quest 4244's objective, Mithril Casing" },
+			"issue": 3354
+		},
+		{
+			"id": "3354-mithril-casing-gadgetzan-alliance",
+			"faction": "Alliance",
+			"at": { "quest": 4504, "goal": "accept", "guide": "forever/alliance/50-60/03-winterspring" },
+			"tip": "Gadgetzan's Auction House is the last one before Un'Goro. There, A-Me 01 (Chasing A-Me 01) asks for a Mithril Casing, an Engineering item, before her escort: buy one here if you want that chain.",
+			"note": "#3354 (#3761, Alliance): Chasing A-Me 01's second part (4244) asks for a Mithril Casing (10561); nothing said so before the flight to Marshal's Refuge. Gadgetzan's Auction House, on this step, is the last the route passes before the crater.",
+			"source": { "kind": "in-game-check", "ref": "#3761: Soggy's /polestar report in Winterspring with Chasing A-Me 01 unfinished; quest 4244's objective, Mithril Casing" },
+			"issue": 3354
+		},
+		{
+			"id": "2749-camping-97921-knows",
+			"at": {
+				"quest": 97921,
+				"goal": "accept"
+			},
+			"when": "!knows 1229705",
+			"note": "#2749: Camping 101: Herbalism is not offered once its camp item (1229705) is known (a trainer teaches it from Herbalism 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1229705, learned at Herbalism 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Herbalism"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97921-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97921,
+				"goal": "turnin"
+			},
+			"when": "complete 97921",
+			"note": "#2749: Camping 101: Herbalism asks for Herbalism at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97921-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97921,
+				"goal": "accept"
+			},
+			"tip": "Herbalist Pomeroy takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97915-knows",
+			"at": {
+				"quest": 97915,
+				"goal": "accept"
+			},
+			"when": "!knows 1230564",
+			"note": "#2749: Camping 101: Alchemy is not offered once its camp item (1230564) is known (a trainer teaches it from Alchemy 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230564, learned at Alchemy 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Alchemy"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97915-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97915,
+				"goal": "turnin"
+			},
+			"when": "complete 97915",
+			"note": "#2749: Camping 101: Alchemy asks for Alchemy at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97915-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97915,
+				"goal": "accept"
+			},
+			"tip": "Alchemist Mallory takes it once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97925-knows",
+			"at": {
+				"quest": 97925,
+				"goal": "accept"
+			},
+			"when": "!knows 1263425",
+			"note": "#2749: Camping 101: Tailoring is not offered once its camp item (1263425) is known (a trainer teaches it from Tailoring 20); the step waits only while it is not.",
+			"source": {
+				"kind": "client",
+				"ref": "SpellEffect (1.60.1.70888): the quest's reward spell 1255249 teaches spell 1263425, the Alliance's camp item"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97925-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97925,
+				"goal": "turnin"
+			},
+			"when": "complete 97925",
+			"note": "#2749: Camping 101: Tailoring asks for Tailoring at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97925-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97925,
+				"goal": "accept"
+			},
+			"tip": "Eldrin takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97923-knows",
+			"at": {
+				"quest": 97923,
+				"goal": "accept"
+			},
+			"when": "!knows 1230161",
+			"note": "#2749: Camping 101: Mining is not offered once its camp item (1230161) is known (a trainer teaches it from Mining 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230161, learned at Mining 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Mining"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97923-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97923,
+				"goal": "turnin"
+			},
+			"when": "complete 97923",
+			"note": "#2749: Camping 101: Mining asks for Mining at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97923-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97923,
+				"goal": "accept"
+			},
+			"tip": "Gelman Stonehand takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97918-knows",
+			"at": {
+				"quest": 97918,
+				"goal": "accept"
+			},
+			"when": "!knows 1230656",
+			"note": "#2749: Camping 101: Engineering is not offered once its camp item (1230656) is known (a trainer teaches it from Engineering 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230656, learned at Engineering 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Engineering"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97918-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97918,
+				"goal": "turnin"
+			},
+			"when": "complete 97918",
+			"note": "#2749: Camping 101: Engineering asks for Engineering at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97918-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97918,
+				"goal": "accept"
+			},
+			"tip": "Sprite Jumpsprocket takes it once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97917-knows",
+			"at": {
+				"quest": 97917,
+				"goal": "accept"
+			},
+			"when": "!knows 1230643",
+			"note": "#2749: Camping 101: Enchanting is not offered once its camp item (1230643) is known (a trainer teaches it from Enchanting 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230643, learned at Enchanting 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Enchanting"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97917-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97917,
+				"goal": "turnin"
+			},
+			"when": "complete 97917",
+			"note": "#2749: Camping 101: Enchanting asks for Enchanting at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97917-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97917,
+				"goal": "accept"
+			},
+			"tip": "Betty Quin takes it once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96055-knows",
+			"at": {
+				"quest": 96055,
+				"goal": "accept"
+			},
+			"when": "!knows 1229705",
+			"note": "#2749: Camping 101: Herbalism is not offered once its camp item (1229705) is known (a trainer teaches it from Herbalism 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1229705, learned at Herbalism 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Herbalism"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96055-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96055,
+				"goal": "turnin"
+			},
+			"when": "complete 96055",
+			"note": "#2749: Camping 101: Herbalism asks for Herbalism at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96055-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96055,
+				"goal": "accept"
+			},
+			"tip": "Reyna Stonebranch takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96056-knows",
+			"at": {
+				"quest": 96056,
+				"goal": "accept"
+			},
+			"when": "!knows 1229517",
+			"note": "#2749: Camping 101: Skinning is not offered once its camp item (1229517) is known (a trainer teaches it from Skinning 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1229517, learned at Skinning 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Skinning"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96056-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96056,
+				"goal": "turnin"
+			},
+			"when": "complete 96056",
+			"note": "#2749: Camping 101: Skinning asks for Skinning at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96056-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96056,
+				"goal": "accept"
+			},
+			"tip": "Balthus Stoneflayer takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96031-knows",
+			"at": {
+				"quest": 96031,
+				"goal": "accept"
+			},
+			"when": "!knows 1229432",
+			"note": "#2749: Camping 101: Leatherworking is not offered once its camp item (1229432) is known (a trainer teaches it from Leatherworking 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1229432, learned at Leatherworking 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Leatherworking"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96031-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96031,
+				"goal": "turnin"
+			},
+			"when": "complete 96031",
+			"note": "#2749: Camping 101: Leatherworking asks for Leatherworking at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96031-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96031,
+				"goal": "accept"
+			},
+			"tip": "Gretta Finespindle takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96057-knows",
+			"at": {
+				"quest": 96057,
+				"goal": "accept"
+			},
+			"when": "!knows 1263425",
+			"note": "#2749: Camping 101: Tailoring is not offered once its camp item (1263425) is known (a trainer teaches it from Tailoring 20); the step waits only while it is not.",
+			"source": {
+				"kind": "client",
+				"ref": "SpellEffect (1.60.1.70888): the quest's reward spell 1255249 teaches spell 1263425, the Alliance's camp item"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96057-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96057,
+				"goal": "turnin"
+			},
+			"when": "complete 96057",
+			"note": "#2749: Camping 101: Tailoring asks for Tailoring at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96057-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96057,
+				"goal": "accept"
+			},
+			"tip": "Uthrar Threx takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96050-knows",
+			"at": {
+				"quest": 96050,
+				"goal": "accept"
+			},
+			"when": "!knows 1229745",
+			"note": "#2749: Camping 101: Fishing is not offered once its camp item (1229745) is known (a trainer teaches it from Fishing 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1229745, learned at Fishing 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Fishing"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96050-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96050,
+				"goal": "turnin"
+			},
+			"when": "complete 96050",
+			"note": "#2749: Camping 101: Fishing asks for Fishing at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96050-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96050,
+				"goal": "accept"
+			},
+			"tip": "Paxton Ganter takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96045-knows",
+			"at": {
+				"quest": 96045,
+				"goal": "accept"
+			},
+			"when": "!knows 1230564",
+			"note": "#2749: Camping 101: Alchemy is not offered once its camp item (1230564) is known (a trainer teaches it from Alchemy 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230564, learned at Alchemy 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Alchemy"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96045-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96045,
+				"goal": "turnin"
+			},
+			"when": "complete 96045",
+			"note": "#2749: Camping 101: Alchemy asks for Alchemy at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96045-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96045,
+				"goal": "accept"
+			},
+			"tip": "Vosur Brakthel gives it and takes it back once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96059-knows",
+			"at": {
+				"quest": 96059,
+				"goal": "accept"
+			},
+			"when": "!knows 1230643",
+			"note": "#2749: Camping 101: Enchanting is not offered once its camp item (1230643) is known (a trainer teaches it from Enchanting 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230643, learned at Enchanting 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Enchanting"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96059-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96059,
+				"goal": "turnin"
+			},
+			"when": "complete 96059",
+			"note": "#2749: Camping 101: Enchanting asks for Enchanting at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96059-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96059,
+				"goal": "accept"
+			},
+			"tip": "Thonys Pillarstone gives it and takes it back once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97943-knows",
+			"at": {
+				"quest": 97943,
+				"goal": "accept"
+			},
+			"when": "!knows 1229745",
+			"note": "#2749: Camping 101: Fishing is not offered once its camp item (1229745) is known (a trainer teaches it from Fishing 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1229745, learned at Fishing 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Fishing"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97943-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97943,
+				"goal": "turnin"
+			},
+			"when": "complete 97943",
+			"note": "#2749: Camping 101: Fishing asks for Fishing at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97943-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97943,
+				"goal": "accept"
+			},
+			"tip": "Astaia takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97950-knows",
+			"at": {
+				"quest": 97950,
+				"goal": "accept"
+			},
+			"when": "!knows 1263425",
+			"note": "#2749: Camping 101: Tailoring is not offered once its camp item (1263425) is known (a trainer teaches it from Tailoring 20); the step waits only while it is not.",
+			"source": {
+				"kind": "client",
+				"ref": "SpellEffect (1.60.1.70888): the quest's reward spell 1255249 teaches spell 1263425, the Alliance's camp item"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97950-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97950,
+				"goal": "turnin"
+			},
+			"when": "complete 97950",
+			"note": "#2749: Camping 101: Tailoring asks for Tailoring at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97950-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97950,
+				"goal": "accept"
+			},
+			"tip": "Trianna takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97940-knows",
+			"at": {
+				"quest": 97940,
+				"goal": "accept"
+			},
+			"when": "!knows 1230643",
+			"note": "#2749: Camping 101: Enchanting is not offered once its camp item (1230643) is known (a trainer teaches it from Enchanting 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230643, learned at Enchanting 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Enchanting"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97940-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97940,
+				"goal": "turnin"
+			},
+			"when": "complete 97940",
+			"note": "#2749: Camping 101: Enchanting asks for Enchanting at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97940-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97940,
+				"goal": "accept"
+			},
+			"tip": "Alanna Raveneye takes it once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97939-knows",
+			"at": {
+				"quest": 97939,
+				"goal": "accept"
+			},
+			"when": "!knows 1230171",
+			"note": "#2749: Camping 101: Blacksmithing is not offered once its camp item (1230171) is known (a trainer teaches it from Blacksmithing 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230171, learned at Blacksmithing 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Blacksmithing"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97939-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97939,
+				"goal": "turnin"
+			},
+			"when": "complete 97939",
+			"note": "#2749: Camping 101: Blacksmithing asks for Blacksmithing at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97939-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97939,
+				"goal": "accept"
+			},
+			"tip": "Elisa Steelhand takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97948-knows",
+			"at": {
+				"quest": 97948,
+				"goal": "accept"
+			},
+			"when": "!knows 1230161",
+			"note": "#2749: Camping 101: Mining is not offered once its camp item (1230161) is known (a trainer teaches it from Mining 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230161, learned at Mining 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Mining"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97948-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97948,
+				"goal": "turnin"
+			},
+			"when": "complete 97948",
+			"note": "#2749: Camping 101: Mining asks for Mining at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97948-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97948,
+				"goal": "accept"
+			},
+			"tip": "Kurdram Stonehammer takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97941-knows",
+			"at": {
+				"quest": 97941,
+				"goal": "accept"
+			},
+			"when": "!knows 1230656",
+			"note": "#2749: Camping 101: Engineering is not offered once its camp item (1230656) is known (a trainer teaches it from Engineering 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230656, learned at Engineering 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Engineering"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97941-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97941,
+				"goal": "turnin"
+			},
+			"when": "complete 97941",
+			"note": "#2749: Camping 101: Engineering asks for Engineering at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97941-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97941,
+				"goal": "accept"
+			},
+			"tip": "Jenna Lemkenilli takes it once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97968-knows",
+			"at": {
+				"quest": 97968,
+				"goal": "accept"
+			},
+			"when": "!knows 1229705",
+			"note": "#2749: Camping 101: Herbalism is not offered once its camp item (1229705) is known (a trainer teaches it from Herbalism 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1229705, learned at Herbalism 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Herbalism"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97968-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97968,
+				"goal": "turnin"
+			},
+			"when": "complete 97968",
+			"note": "#2749: Camping 101: Herbalism asks for Herbalism at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97968-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97968,
+				"goal": "accept"
+			},
+			"tip": "Halassa Fernbreeze takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97968-turnin-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97968,
+				"goal": "turnin"
+			},
+			"when": "complete 97968",
+			"note": "#2749: Camping 101: Herbalism asks for Herbalism at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97968-tip-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97968,
+				"goal": "accept"
+			},
+			"tip": "Halassa Fernbreeze takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-98285-knows",
+			"at": {
+				"quest": 98285,
+				"goal": "accept"
+			},
+			"when": "!knows 1230656",
+			"note": "#2749: Camping 101: Engineering is not offered once its camp item (1230656) is known (a trainer teaches it from Engineering 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230656, learned at Engineering 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Engineering"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-98285-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98285,
+				"goal": "turnin"
+			},
+			"when": "complete 98285",
+			"note": "#2749: Camping 101: Engineering asks for Engineering at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-98285-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98285,
+				"goal": "accept"
+			},
+			"tip": "The Strange Hermit has a Camping 101 for engineers too, and takes it back once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-98285-turnin-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 98285,
+				"goal": "turnin"
+			},
+			"when": "complete 98285",
+			"note": "#2749: Camping 101: Engineering asks for Engineering at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-98285-tip-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 98285,
+				"goal": "accept"
+			},
+			"tip": "The Strange Hermit has a Camping 101 for engineers too, and takes it back once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97972-knows",
+			"at": {
+				"quest": 97972,
+				"goal": "accept"
+			},
+			"when": "!knows 1229504",
+			"note": "#2749: Camping 101: Tailoring is not offered once its camp item (1229504) is known (a trainer teaches it from Tailoring 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1229504, learned at Tailoring 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Tailoring"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97972-turnin-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97972,
+				"goal": "turnin"
+			},
+			"when": "complete 97972",
+			"note": "#2749: Camping 101: Tailoring asks for Tailoring at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97972-tip-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97972,
+				"goal": "accept"
+			},
+			"tip": "Taleen Shimmerthread takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-98284-knows",
+			"at": {
+				"quest": 98284,
+				"goal": "accept"
+			},
+			"when": "!knows 1230643",
+			"note": "#2749: Camping 101: Enchanting is not offered once its camp item (1230643) is known (a trainer teaches it from Enchanting 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230643, learned at Enchanting 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Enchanting"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-98284-turnin-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 98284,
+				"goal": "turnin"
+			},
+			"when": "complete 98284",
+			"note": "#2749: Camping 101: Enchanting asks for Enchanting at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-98284-tip-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 98284,
+				"goal": "accept"
+			},
+			"tip": "Nasalanna Windsinger takes it once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97900-knows",
+			"at": {
+				"quest": 97900,
+				"goal": "accept"
+			},
+			"when": "!knows 1230171",
+			"note": "#2749: Camping 101: Blacksmithing is not offered once its camp item (1230171) is known (a trainer teaches it from Blacksmithing 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230171, learned at Blacksmithing 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Blacksmithing"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97900-turnin-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97900,
+				"goal": "turnin"
+			},
+			"when": "complete 97900",
+			"note": "#2749: Camping 101: Blacksmithing asks for Blacksmithing at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97900-tip-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97900,
+				"goal": "accept"
+			},
+			"tip": "Dwukk takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97904-knows",
+			"at": {
+				"quest": 97904,
+				"goal": "accept"
+			},
+			"when": "!knows 1229745",
+			"note": "#2749: Camping 101: Fishing is not offered once its camp item (1229745) is known (a trainer teaches it from Fishing 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1229745, learned at Fishing 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Fishing"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97904-turnin-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97904,
+				"goal": "turnin"
+			},
+			"when": "complete 97904",
+			"note": "#2749: Camping 101: Fishing asks for Fishing at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97904-tip-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97904,
+				"goal": "accept"
+			},
+			"tip": "Lau'Tiki takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97930-knows",
+			"at": {
+				"quest": 97930,
+				"goal": "accept"
+			},
+			"when": "!knows 1230656",
+			"note": "#2749: Camping 101: Engineering is not offered once its camp item (1230656) is known (a trainer teaches it from Engineering 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230656, learned at Engineering 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Engineering"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97930-turnin-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97930,
+				"goal": "turnin"
+			},
+			"when": "complete 97930",
+			"note": "#2749: Camping 101: Engineering asks for Engineering at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97930-tip-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97930,
+				"goal": "accept"
+			},
+			"tip": "Twizwick Sprocketgrind takes it once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97956-knows",
+			"at": {
+				"quest": 97956,
+				"goal": "accept"
+			},
+			"when": "!knows 1229745",
+			"note": "#2749: Camping 101: Fishing is not offered once its camp item (1229745) is known (a trainer teaches it from Fishing 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1229745, learned at Fishing 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Fishing"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97956-turnin-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97956,
+				"goal": "turnin"
+			},
+			"when": "complete 97956",
+			"note": "#2749: Camping 101: Fishing asks for Fishing at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97956-tip-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97956,
+				"goal": "accept"
+			},
+			"tip": "Clyde Kellen takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "races-94373-call-of-earth-dwarf",
+			"faction": "Alliance",
+			"at": { "quest": 94373, "goal": "quest", "guide": "forever/alliance/gnome/01-dun-morogh" },
+			"races": "Dwarf",
+			"note": "Call of Earth (94373, then 94374 and 94375) is the Dwarf shaman's first totem chain: no Gnome shaman among the 173 shamans in players' recordings (71 of them Dwarves, 20 of whom took it), and QuestieDB 1.1.5 limits 94373 to Dwarves. The shared Dun Morogh route gave the Gnome guide its `only Shaman` accept, pendants and Call of Earth step, which no Gnome character can reach: they leave the Gnome guide (an `only` line no character reaches, not a route change). The Dwarf guide keeps the chain.",
+			"source": [
+				{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): 173 shaman players (Dwarf 71, Orc 29, Troll 11, Tauren 35, Horde Skyborne 27), no Gnome; 94373 taken by 20 Dwarf shamans" },
+				{ "kind": "questie", "ref": "QuestieDB 1.1.5: quest 94373 requiredRaces 4 (Dwarf; 1.1.2: the Alliance races)" }
+			]
 		}
 	]
 }

@@ -28,6 +28,9 @@ const MAX_NAMED_SOURCES: usize = 8;
 /// Not needed when the item's only sources are those one or two creatures (no object, no vendor): they are named
 /// whatever their chance (Kron's Amulet, 10% from two crocolisks).
 const FEW_SOURCES_BAR: f64 = 20.0;
+/// A rare that tops an item's droppers gives way to the normal ones (rare_leads) when one of them drops it at this
+/// percentage or more (#3578).
+const COMMON_SOURCE_BAR: f64 = 5.0;
 /// `fromNpcs` on a collect: at most this many names.
 const MAX_SOURCE_NPCS: usize = 5;
 /// Droppers this many levels or more above the quest do not set the likely-dropper bar (levelSplit).
@@ -51,6 +54,10 @@ const STRAY_SHARE: f64 = 0.75;
 /// A goal point this far outside every trusted recorded spot of its objective is elsewhere (recorded_areas):
 /// `forge record learn`'s link distance, the ground one place of a player's ticks spans.
 const RECORDED_MISS_YARDS: f64 = 60.0;
+/// A recorded spot of a collect this near its quest's giver (from the spot's edge) is where players took the quest
+/// with the item already in their bags (recorded_areas): Camp Taurajo's Razormane drops lie 87 yd from Tatternack
+/// Steelforge's spawn.
+const GIVER_YARDS: f64 = 120.0;
 
 const GATHER_ROLES: [&str; 3] = ["mine", "herb", "fishing"];
 const LOOP_RADIUS: f64 = 30.0;
@@ -453,6 +460,75 @@ fn pack_spot_npcs(initial: &[V], mobs: &[(V, String, Vec<V>)], at: &[Vec<(usize,
 	SpotNpcMapping { list, packed, missing_sources }
 }
 
+/// A `loop` collect's target names: the droppers at each of the author's points (#1616), not the map's best
+/// ones the arrow would otherwise pick from (Kolkar Village's search named Gelkis and Magram centaurs from
+/// across Desolace once recorded chances reordered them). The likely droppers on the map (on_map's) that
+/// spawn within a point's radius lead, the most spawns first; a point none of them spawns at names every
+/// dropper spawning there, so a camp whose mobs a better chance elsewhere passed over still has its targets;
+/// a point no dropper spawns at names the loop's others. Points that all name the same mobs, five at most,
+/// share the plain list; otherwise each has its own (`fromNpcsAt`). With no dropper at any point, the goal
+/// keeps the map's. `drops`: { likely, all } (resolve's).
+fn loop_npcs(data: &Data, goal: &V, drops: &V, map: &V, f: &V) {
+	let spots = goal.get("spots").items();
+	if spots.is_empty() || !data.map_size(map).truthy() {
+		return;
+	}
+	let mobs_of = |list: Vec<V>| -> Vec<(V, String, Vec<V>)> {
+		list.iter()
+			.filter(|s| s.get("kind").as_str() == Some("npc"))
+			.filter_map(|s| {
+				let name = name_of(data, "npc", &s.get("id"))?;
+				let pts = spawn_points_of(data, std::slice::from_ref(s), map, f);
+				(!pts.is_empty()).then(|| (s.get("id"), name, pts))
+			})
+			.collect()
+	};
+	let likely = mobs_of(drops.get("likely").items());
+	let every = mobs_of(drops.get("all").items());
+	let at = |mobs: &[(V, String, Vec<V>)], spot: &V| -> Vec<(V, String)> {
+		let (sx, sy, r) = (num(spot, "x"), num(spot, "y"), num(spot, "r"));
+		let mut here: Vec<(usize, &(V, String, Vec<V>))> =
+			mobs.iter().map(|m| (m.2.iter().filter(|p| distance(data, map, px(p), py(p), sx, sy) <= r + 1.0).count(), m)).filter(|(n, _)| *n > 0).collect();
+		here.sort_by_key(|h| std::cmp::Reverse(h.0));
+		here.into_iter().map(|(_, m)| (m.0.clone(), m.1.clone())).collect()
+	};
+	let per: Vec<Vec<(V, String)>> = spots
+		.iter()
+		.map(|spot| {
+			let own = at(&likely, spot);
+			if own.is_empty() {
+				at(&every, spot)
+			} else {
+				own
+			}
+		})
+		.collect();
+	let mut list: Vec<(V, String)> = Vec::new();
+	for m in per.iter().flatten() {
+		if !list.iter().any(|n| n.0.strict_eq(&m.0)) {
+			list.push(m.clone());
+		}
+	}
+	if list.is_empty() {
+		return;
+	}
+	let ids: Vec<Vec<V>> = per.iter().map(|here| if here.is_empty() { list.iter().map(|n| n.0.clone()).collect() } else { here.iter().map(|n| n.0.clone()).collect() }).collect();
+	let names = |l: &[(V, String)]| -> Vec<V> { l.iter().map(|(id, name)| obj! { "npc" => id.clone(), "npcName" => name.clone() }.into()).collect() };
+	goal.as_obj().unwrap().delete("fromNpcsAt");
+	if list.len() <= MAX_SOURCE_NPCS && ids.iter().all(|l| l.len() == list.len()) {
+		goal.set("fromNpcs", names(&list));
+		return;
+	}
+	let kept = &list[..list.len().min(crate::importstring::LIMITS.from_npcs)];
+	let packed = ids.iter().map(|l| l.iter().filter_map(|id| kept.iter().position(|n| n.0.strict_eq(id)).map(|k| (k + 1).to_string())).collect::<Vec<_>>().join(",")).collect::<Vec<_>>().join(";");
+	if packed.len() > crate::importstring::LIMITS.text {
+		goal.set("fromNpcs", names(&list[..list.len().min(MAX_SOURCE_NPCS)]));
+		return;
+	}
+	goal.set("fromNpcs", names(kept));
+	goal.set("fromNpcsAt", packed);
+}
+
 /// The quests that hand item `item` over when taken (their `sourceItem`), by quest id.
 fn quests_handing_over(data: &Data, item: &V) -> Vec<V> {
 	const KEY: &str = "resolve.sourceItemQuests";
@@ -606,7 +682,8 @@ fn elite_split(data: &Data, cands: &[V], sides: &V, rares: bool) -> Option<(Vec<
 	}
 }
 
-/// Droppers near a quest's level crowded out by ones far above it. -> (near, above) | None
+/// Droppers near a quest's level crowded out by ones far above it, or named beside ones far above it (resolve.js
+/// levelSplit, #2744). -> (near, above) | None
 fn level_split(data: &Data, cands: &[V], qlvl: f64) -> Option<(Vec<V>, Vec<V>)> {
 	if !(qlvl > 0.0) || !cands.iter().any(|c| c.get("chance").is_num()) {
 		return None;
@@ -632,14 +709,15 @@ fn level_split(data: &Data, cands: &[V], qlvl: f64) -> Option<(Vec<V>, Vec<V>)> 
 	}
 	let all = likely(cands);
 	let near = likely(&rest);
-	if near.iter().any(|c| !includes(&all, c)) {
+	if near.iter().any(|c| !includes(&all, c)) || above.iter().any(|c| includes(&all, c)) {
 		Some((near, above))
 	} else {
 		None
 	}
 }
 
-/// Whether a rare drops the item at the highest chance while normal sources drop it at 50% or more.
+/// Whether a rare drops the item at the highest chance while normal sources drop it at COMMON_SOURCE_BAR% or more:
+/// the common mobs are where it is farmed, the rare is often away (Alshirr Banebreath and the Jadefire satyrs, #3578).
 fn rare_leads(data: &Data, cands: &[V], sides: &V) -> bool {
 	let mut top: V = if cands.is_empty() { obj! { "chance" => 0 }.into() } else { cands[0].clone() };
 	for b in cands {
@@ -651,7 +729,7 @@ fn rare_leads(data: &Data, cands: &[V], sides: &V) -> bool {
 	if !n.truthy() || !crate::group::is_rare(&n.get("rank"), &n.get("faction"), sides) {
 		return false;
 	}
-	cands.iter().any(|c| c.get("chance").num() >= 50.0 && normal_source(data, c, sides, true))
+	cands.iter().any(|c| c.get("chance").num() >= COMMON_SOURCE_BAR && normal_source(data, c, sides, true))
 }
 
 fn elite_source(data: &Data, cand: &V, sides: &V, rares: bool) -> bool {
@@ -1103,7 +1181,11 @@ fn nearest_first(data: &Data, map: &V, spots: Vec<V>, x: f64, y: f64) -> Vec<V> 
 /// The goal's other spawn areas stay as they were, and so does its point, unless its first open spawn area
 /// (the one the arrow starts with) went and the point lies more than RECORDED_MISS_YARDS outside the spots.
 /// Recorded spots outside the region that no place of the goal overlaps are alternatives: the objective is
-/// done there too.
+/// done there too, except a `collect`'s spot at the quest's giver (within GIVER_YARDS of its spawn) that no
+/// source of the item spawns near (within RECORDED_MISS_YARDS of the spot's edge): there the item was in the
+/// bags already, looted before the quest was taken and ticked where it was taken (the Razormane drops at Camp
+/// Taurajo, 1,500 yd north of the Razormane at Blackthorn Ridge, #3788), and the arrow and While-here sent
+/// players to the giver. A spot far from both stays: our spawn data does not know every place a mob stands.
 ///
 /// With none at its places, the goal stays as it is while the data places its target there and knows a place
 /// players do it at too (a spawn of one of `known` in a recorded spot: the sources the compiler placed the
@@ -1237,8 +1319,34 @@ fn recorded_areas(data: &Data, goal: &V, sources: &[V], known: &[V], map: &V, f:
 	open.extend(still);
 	let mut alts: Vec<V> = rest.iter().map(|s| area(s, true)).collect();
 	alts.extend(other);
+	// The quest's givers on this map, in world yards: their spawns may be in the other frame (Tatternack's are live,
+	// the Razormane goal's era).
+	let quest = data.quest(&goal.get("quest"));
+	let mut givers: Vec<(f64, f64)> = Vec::new();
+	for kind in ["npc", "object"] {
+		for id in quest.get("start").get(kind).items() {
+			for s in data.spawns(kind, &id) {
+				if !s.get("map").strict_eq(map) {
+					continue;
+				}
+				let sf: V = if s.get("f").as_str() == Some("e") { "e".into() } else { V::Undef };
+				for p in s.get("pts").items() {
+					let w = crate::heights::world_point(data, &obj! { "map" => map.clone(), "x" => px(&p), "y" => py(&p), "f" => sf.clone() }.into());
+					if w.truthy() {
+						givers.push((w.get("wx").num(), w.get("wy").num()));
+					}
+				}
+			}
+		}
+	}
+	let at_giver = |r: &Spot| {
+		let w = crate::heights::world_point(data, &obj! { "map" => map.clone(), "x" => r.x, "y" => r.y, "f" => f.clone() }.into());
+		w.truthy() && givers.iter().any(|&(gx, gy)| hypot(w.get("wx").num() - gx, w.get("wy").num() - gy) <= radius(r) + GIVER_YARDS)
+	};
+	let sourced =
+		|r: &Spot| goal.get("t").as_str() != Some("collect") || pts.is_empty() || pts.iter().any(|p| distance(data, map, px(p), py(p), r.x, r.y) <= radius(r) + RECORDED_MISS_YARDS) || !at_giver(r);
 	for (i, r) in rec.iter().enumerate() {
-		if !region.contains(&i) && !had.iter().any(|s| overlaps(r, s)) {
+		if !region.contains(&i) && !had.iter().any(|s| overlaps(r, s)) && sourced(r) {
 			alts.push(area(r, true));
 		}
 	}
@@ -1483,6 +1591,9 @@ fn apply_loop(step: &V, s: &V, r: &mut R) {
 		set_if(goal, "z", crate::heights::goal_height(data, goal).unwrap_or_default());
 		for p in goal.get("spots").items() {
 			set_if(&p, "z", crate::heights::spot_height(data, goal, &p).unwrap_or_default());
+		}
+		if goal.get("t").as_str() == Some("collect") && goal.hidden("_drops").truthy() {
+			loop_npcs(data, goal, &goal.hidden("_drops"), &first.get("map"), &first.get("f"));
 		}
 	}
 	let kept: Vec<V> = goals.into_iter().filter(|g| g.get("t").as_str() != Some("goto")).collect();
@@ -3872,8 +3983,11 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 			}
 			if v == "collect" && goal.get("npc").is_undef() {
 				set_if(&goal, "fromNpcs", source_npcs(data, &c, &picked.get("sources").items()));
-				// A `loop` step's goals take its gotos as their spots (apply_loop).
-				if !ctx.loop_ {
+				// A `loop` step's goals take its gotos as their spots, and the droppers there as their targets
+				// (apply_loop, loop_npcs).
+				if ctx.loop_ {
+					goal.set_hidden("_drops", obj! { "likely" => V::from(srcs.clone()), "all" => V::from(candidates.clone()) });
+				} else {
 					spot_npcs(data, &goal, &srcs, &pmap, &pf, None);
 				}
 			}
@@ -3998,11 +4112,20 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 		set_if(&goal, "preAll", gate.get("preAll"));
 		set_if(&goal, "parent", gate.get("parent"));
 	}
+	// A turn-in of a repeatable quest the log hands in: the client never flags it completed, so the engine
+	// remembers the hand-in itself, one per goal, and the round's accept and work with it (#3334, Zorbin's
+	// Ultra-Shrinker quests in Horde 40-50/06). A `direct` one is remembered already.
+	if v == "turnin" && !g.get("direct").truthy() && !goal.get("quest").is_undef() && data.quest(&goal.get("quest")).get("repeatable").truthy() {
+		goal.set("repeatable", true);
+	}
 	if (v == "kill" || v == "use") && goal.get("fromNpcs").is_undef() {
 		set_if(&goal, "fromNpcs", credit_npcs(data, &goal));
 	}
 	set_if(&goal, "group", crate::group::group_of(&goal, &g.get("group"), &ctx.sides, data));
 	set_if(&goal, "escort", crate::escort::escort_of(&goal, data));
+	let (secs, fail) = crate::escort::recorded_of(&goal, data);
+	set_if(&goal, "escortSecs", secs);
+	set_if(&goal, "escortFail", fail);
 	set_if(&goal, "only", only_of(&g.get("only")));
 	set_if(&goal, "note", g.get("note"));
 	set_if(&goal, "spots", crate::walks::walk_spot(data, &goal).unwrap_or_default());

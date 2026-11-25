@@ -708,7 +708,8 @@ emit({ waited = waited, calm = calm, after = after, askedCalm = askedCalm, done 
 }
 
 // 0.4.2.1: the largest slice a walk takes a frame, at a frame rate, with a new goal's rush (Path.Rush) and/or a fight
-// just over; the clock moves 0.2 ms at each read.
+// just over; the clock moves 0.2 ms at each read, and between two frames by the game's share of a frame at that rate
+// (all of it but 8 ms: the router reads the frame's length since 0.4.3, #3640).
 fn slice_budget(fps: u32, rush: bool, fight: bool) -> Value {
 	run(
 		&format!(
@@ -718,7 +719,8 @@ local frames = {{}}
 Path.after = function(fn) frames[#frames + 1] = fn end
 local now = 0
 Path.clock = function() now = now + 0.2 return now end
-local function frame() local fn = table.remove(frames, 1) if fn then fn() end end
+local game = math.max(0, 1000 / {fps} - 8)
+local function frame() local fn = table.remove(frames, 1) if fn then fn() end now = now + game end
 {fight}
 {rush}
 local job = Path.Find(0, {{ x = -651.7, y = 1270.2 }}, {{ x = 2246.1, y = 239.8, z = 34.3 }}, function() end, {{ profile = "Horde" }})
@@ -768,6 +770,106 @@ fn a_new_goals_rush_comes_before_the_calm_after_a_fight() {
 	assert!(ms(&both30) >= 5.5 && ms(&both30) <= 6.5, "the same at 30 fps, never past Path.sliceMax: {both30}");
 	assert_eq!(rush["rushBudget"], 6, "{rush}");
 	assert_eq!(both30["sliceMax"], 6, "{both30}");
+}
+
+// The router on a machine whose own frame leaves little room (#3640, Fitz's 0.4.2.2 report: 15.67 ms game frames, a
+// 60 Hz display, 4.5 ms slices, so every frame a search ran missed the refresh). `game` ms of the game's own between
+// two frames, the clock 0.05 ms a read; `vsync`: a frame lasts whole periods of 16.67 ms (a missed refresh: two).
+// A walk is asked again whenever one finishes. -> per frame the slice (ms) and the frame's length.
+fn loaded_frames(game: f64, vsync: bool, rush: bool, frames: u32) -> Value {
+	run(
+		&format!(
+			r#"local Path = Polestar_NavEngine
+local queue = {{}}
+Path.after = function(fn) queue[#queue + 1] = fn end
+local now = 0
+Path.clock = function() now = now + 0.05 return now end
+local P = 1000 / 60
+local function ask() return Path.Find(0, {{ x = -651.7, y = 1270.2 }}, {{ x = 2246.1, y = 239.8, z = 34.3 }}, function() end, {{ profile = "Horde" }}) end
+{rush}
+local job = ask()
+local slices, lengths = {{}}, {{}}
+for i = 1, {frames} do
+	local start = now
+	local fn = table.remove(queue, 1)
+	if fn then fn() end
+	local spent = now - start
+	local length = spent + {game}
+	if {vsync} then length = math.ceil(length / P - 1e-9) * P end
+	now = start + length
+	stub.now = stub.now + length / 1000
+	slices[i], lengths[i] = spent, length
+	if job.done then job = ask() end
+end
+emit({{ slices = slices, lengths = lengths, rushBudget = Path.rushBudget, burst = Path.burstBudget, every = Path.burstEvery }})"#,
+			rush = if rush { "Path.Rush(true)" } else { "" },
+			vsync = if vsync { "true" } else { "false" },
+		),
+		"",
+		vec![Addon::name("Polestar_Nav")],
+	)
+}
+fn nums(v: &Value) -> Vec<f64> {
+	v.as_array().unwrap().iter().map(|x| x.as_f64().unwrap()).collect()
+}
+
+// Without vsync a frame is the game's 15 ms plus the slice: no slice takes it past the 16.67 ms period, and every
+// frame still searches (at least Path.sliceMin, never none).
+#[test]
+fn on_a_loaded_machine_no_slice_takes_a_frame_past_the_display_s_period_and_none_is_skipped() {
+	let got = loaded_frames(15.0, false, false, 240);
+	let (slices, lengths) = (nums(&got["slices"]), nums(&got["lengths"]));
+	let over: Vec<usize> = (1..lengths.len()).filter(|&i| lengths[i] > 1000.0 / 60.0).collect();
+	let mean = slices[1..].iter().sum::<f64>() / (slices.len() - 1) as f64;
+	eprintln!("15 ms game frames: {} of {} frames past 16.67 ms, mean slice {mean:.2} ms", over.len(), lengths.len() - 1);
+	assert!(over.is_empty(), "frames past the period (after the first): {over:?} of {lengths:?}");
+	assert!(slices.iter().all(|&s| s >= 0.4), "every frame searches: {slices:?}");
+	assert!(mean >= 0.8, "the room is used, not just the floor: mean {mean:.2} ms");
+}
+
+// With vsync every frame that fits lasts exactly the period, so the length says nothing of the game's share: the
+// slice grows while frames fit, halves on a missed refresh and then holds for Path.lockHold seconds. Over 20 s at 15
+// ms of game a frame a refresh is missed a few times, not every frame (0.4.2.2: every one), and the slices still
+// use most of the 1.67 ms left.
+#[test]
+fn with_vsync_a_loaded_machine_misses_a_refresh_seconds_apart_not_every_frame() {
+	let got = loaded_frames(15.0, true, false, 1200);
+	let (slices, lengths) = (nums(&got["slices"]), nums(&got["lengths"]));
+	let missed = lengths.iter().filter(|&&l| l > 1.5 * 1000.0 / 60.0).count();
+	let mean = slices.iter().sum::<f64>() / slices.len() as f64;
+	eprintln!("vsync, 15 ms game frames: {missed} of {} refreshes missed over 20 s, mean slice {mean:.2} ms", lengths.len());
+	assert!(missed <= 15, "{missed} missed refreshes in 1200 frames");
+	assert!(mean >= 0.8, "mean slice {mean:.2} ms");
+	let light = loaded_frames(5.0, true, false, 120);
+	let big = nums(&light["slices"]).iter().skip(10).cloned().fold(f64::INFINITY, f64::min);
+	assert!(big >= 2.5, "a light game under vsync keeps Path.budget a frame: smallest {big:.2} ms: {light}");
+}
+
+// A new goal's rush on a loaded machine: one frame in Path.burstEvery may take up to Path.burstBudget while the goal
+// has no path and for at most Path.rushSeconds, so the first route comes in about half the time; the other frames and
+// every frame after the rush keep to the period.
+#[test]
+fn a_new_goals_rush_on_a_loaded_machine_takes_one_bigger_slice_in_four_for_two_seconds_at_most() {
+	let got = loaded_frames(15.0, false, true, 360);
+	let (slices, lengths) = (nums(&got["slices"]), nums(&got["lengths"]));
+	let mut t = 0.0;
+	let (mut bursts, mut late) = (0, 0);
+	for i in 1..slices.len() {
+		t += lengths[i - 1];
+		if lengths[i] > 1000.0 / 60.0 {
+			if t <= 2000.0 + 20.0 {
+				bursts += 1
+			} else {
+				late += 1
+			}
+			assert!(slices[i] <= 4.5 + 0.3, "a burst stays within Path.burstBudget: frame {i} {} ms", slices[i]);
+		}
+	}
+	eprintln!("rush, 15 ms game frames: {bursts} bursts in the first 2 s, {late} frames past the period after");
+	assert!((25..=40).contains(&bursts), "about one frame in four for two seconds: {bursts}");
+	assert_eq!(late, 0, "after the rush, the period holds");
+	assert_eq!(got["burst"], 4.5, "{got}");
+	assert_eq!(got["every"], 4, "{got}");
 }
 
 #[test]

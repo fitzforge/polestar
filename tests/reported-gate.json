@@ -1,6 +1,60 @@
 {
 	"about": "The reported-problems gate (npm run test:reported, tools/reported-gate.js): every player-reported problem that was fixed (closed, or labelled fix-merged, with the confirmed label) and the tests that fail if it comes back. The gate runs these tests with the whole of tests/guides-reported.test.js, the judge's player-report seeds (forge judge seed-tests) and the danger-at-the-spot gate (#1575). A fix for a report adds its issue here with the test that pins it; a report with nothing left to check says why (uncheckable). tests/reported-gate.test.js checks that every test named here exists. seedDrift: the judge's seeds that still assert an earlier form of a guides-reported case that has changed since and passes; the gate lists them and fails only on other seeds, until each is brought up to its case.",
 	"issues": {
+		"3782": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "Every route (#3782, #3783, #3786): no quest is accepted after the route has handed in the quest that closes it" }
+		] },
+		"3783": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "Every route (#3782, #3783, #3786): no quest is accepted after the route has handed in the quest that closes it" }
+		] },
+		"3786": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "Every route (#3782, #3783, #3786): no quest is accepted after the route has handed in the quest that closes it" }
+		] },
+		"3771": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "Every leveling guide (#3771): an opening flight sends the player to no fixed flight master" }
+		] },
+		"3712": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "Tanaris (#3712): Tooga's accept searches his places along the valley" }
+		] },
+		"3656": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "Horde Dustwallow (#3656): Mudsprocket's three Wyrmbog quests ride with the Dragonmurk" }
+		] },
+		"3722": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "Culling the Competition: linked surface camps are a group choice, the Slag Pit the Taskmasters' last stop (#3722); solo daggers come from the furnaces" }
+		] },
+		"3676": { "tests": [
+			{ "node": "tests/data-corrections.test.js", "test": "Biting the Hand (94963) is an escort (#3676)" }
+		] },
+		"3739": { "tests": [
+			{ "node": "tests/data-corrections.test.js", "test": "The Return of the King? (95198) has its eavesdropping objective at the Theramore Mage Tower (#3739)" }
+		] },
+		"3773": { "tests": [
+			{ "node": "tests/data-corrections.test.js", "test": "Twilight Tablet Fragment (20378) drops from no elemental (#3773)" }
+		] },
+		"3556": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine.rs", "test": "untied_pieces_of_a_quests_item_are_done_once_the_quest_is_ready_or_handed_in_and_say_what_they_are_for_3556_pamela" }
+		] },
+		"3652": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-ahead-later.rs", "test": "a_pick_up_the_route_takes_right_there_next_claims_no_trip_saved_3652" }
+		] },
+		"3700": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-materials.rs", "test": "in_gamepad_mode_a_search_is_only_the_game_s_browse_query_by_name_3700" }
+		] },
+		"3718": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_quest_an_item_starts_that_drops_outside_is_collected_on_the_way_and_opens_the_quest_after_it_1380_the_damp_note" }
+		] },
+		"3774": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_hand_in_line_to_an_ender_inside_a_dungeon_says_he_is_inside_3774" }
+		] },
+		"3692": {"uncheckable": "a tip's wording (Clubtoe in the cave under Sunnyglade's eastern edge): no route or arrow behaviour to pin"},
+		"3757": {"uncheckable": "a tip's wording (Ruuzel on the islet off the Zoram Strand's tip): no route or arrow behaviour to pin"},
+		"3746": {"uncheckable": "a Careful tip at Egan in Terrordale: no route or arrow behaviour to pin"},
+		"3788": { "tests": [
+			{ "cargo": "forge-guide", "target": "guide", "file": "rust/crates/forge-guide/tests/guide/recorded_areas.rs", "test": "an_item_ticked_far_from_every_place_it_drops_is_no_alternative_place_3788" }
+		] },
+		"3706": { "tests": [
+			{ "node": "tests/data-corrections.test.js", "test": "Horde Triage (6622) is completed at Doctor Gregory Victor in Hammerfall (#3706)" }
+		] },
 		"3514": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Veyric Thunderhame stands only in Arathi Highlands, not at Eldrun Stormbreaker's spot (#2851)" }
 		] },
@@ -998,7 +1052,7 @@
 			{ "node": "tests/guides-reported.test.js", "test": "Alliance Arathi Highlands: the Shadowy Assassin never holds the Southshore step (#1542)" }
 		] },
 		"1544": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "#1544: Alliance: My Little Friends' specimens are collects, shown with the quest in the log" },
+			{ "node": "tests/guides-reported.test.js", "test": "#1544: Alliance: My Little Friends' specimens are caught with the net, shown with the quest in the log" },
 			{ "node": "tests/guides-reported.test.js", "test": "Alliance Desolace south loop: the Flesh Picker is only for players on My Little Friends" }
 		] },
 		"1550": { "tests": [
@@ -1668,11 +1722,26 @@
 		"3232": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "Trek to Ashenvale (#1089, #1811): Sentinel Selarin comes and goes; her quest never holds a step and is offered again after the escort" }
 		] },
+		"3464": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-upgrade.rs", "test": "work_of_a_quest_the_update_moved_before_the_player_never_reads_as_their_place_3464" }
+		] },
+		"3609": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "the_hall_of_thanes_takes_the_dun_morogh_part_first_on_the_way_in_3609" }
+		] },
 		"3268": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "Veyric Thunderhame stands only in Arathi Highlands, not at Eldrun Stormbreaker's spot (#2851)" }
 		] },
 		"3282": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#2825: escort givers are looked for where they wait, not along their escort" }
+		] },
+		"3432": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-sell-repair.rs", "test": "a_rare_merchant_who_wanders_is_never_the_place_to_sell_one_who_stays_put_is_3432" }
+		] },
+		"3879": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-fresh.rs", "test": "the_fresh_start_counts_only_follow_on_quests_not_grey_for_the_character_3879" }
+		] },
+		"3880": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-feeders.rs", "test": "a_left_out_accept_names_the_earlier_guide_s_quest_it_lacks_never_one_of_its_own_guide_3880" }
 		] },
 		"3287": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-feeders.rs", "test": "t_3021_duskwood_only_offers_viktori_while_carrying_the_bronze_tube" }
@@ -1683,6 +1752,65 @@
 		"3438": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/levels.rs", "test": "no_step_says_a_quest_s_level_and_the_pace_line_names_no_hard_quest_3438" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/ui.rs", "test": "a_step_with_a_quest_well_over_your_level_shows_no_quest_level_3438" }
+		] },
+		"3424": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/rares.rs", "test": "the_rares_sidebar_counts_what_the_lists_show_never_a_treasure_with_no_spot_3424" }
+		] },
+		"3428": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol.rs", "test": "issue_3428_a_flight_master_s_own_quest_on_offer_keeps_the_flight_map_closed" }
+		] },
+		"3458": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-unavailable.rs", "test": "a_purchase_for_a_quest_left_out_goes_with_it_3458" }
+		] },
+		"3568": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/stranded.rs", "test": "the_carried_row_follows_a_quest_handed_in_off_the_step_and_agrees_with_its_list_3568" }
+		] },
+		"3608": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-training.rs", "test": "train_class_is_done_when_the_trainer_lists_only_new_ranks_of_known_spells_3608" }
+		] },
+		"3845": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/class-quests.rs", "test": "a_class_quest_stops_being_offered_five_levels_past_its_guide_s_top_unless_its_spell_is_still_missing_3845" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-smart.rs", "test": "a_class_guide_is_outleveled_five_levels_past_its_top_once_its_reward_spell_is_known_3845" }
+		] },
+		"2599": {"uncheckable": "a feature request, not a reported problem: the attunements page in the hub (one card per raid and key with the character's progress and Guide me, #3803, #3888) and every chain checked against Forever's quest data (#3735, #3736, #3737); the page's own tests cover it"},
+		"2944": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "darkcloud_pinnacle_from_the_great_lifts_top_the_route_to_lakota_windsong_walks_on_never_back_down_the_lift_1543" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "darkcloud_pinnacle_the_routes_to_the_document_chest_and_the_grimtotem_camps_keep_to_the_mesas_never_down_a_lift_2391_2292" }
+		] },
+		"3147": {"uncheckable": "no change made, closed as working: from the reporter's spot outside Gadgetzan on the Powderfuse Port step the planner plans the walk to Steamwheedle Port, the boat to Powderfuse Port and the walk to Friz; the missing route never reproduced, so there is no fix to pin"},
+		"3310": {"uncheckable": "CI work (lanes #3666, data in CI #3670 #3741 #3743, post-merge gates #3671, the guide-text check #3675, the route-integrity gate #3705, #3851): the repository's workflows, nothing an addon or tool test can pin"},
+		"3345": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/lookup.rs", "test": "sources_a_crafts_trainer_teaches_the_rank_it_needs_3784" }
+		] },
+		"3359": { "tests": [
+			{ "cargo": "forge-data", "target": "lib", "file": "rust/crates/forge-data/src/learn/tests.rs", "test": "a_learn_over_data_the_build_corrected_keeps_the_not_pre_facts_it_applied" }
+		] },
+		"3384": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/class-quests.rs", "test": "the_card_s_reward_shows_the_game_s_tooltip_of_what_it_names_beside_the_guide_window" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/class-quests.rs", "test": "the_reward_tooltip_is_of_the_spell_or_item_the_line_names" }
+		] },
+		"3423": {"uncheckable": "translation content: the interface texts 0.4.2 added or reworded, translated in eight languages (#3933; esMX in #3475); no test fails on an untranslated text by design (a new English text ships untranslated until the next sync), and forge i18n check counts them per language before a release"},
+		"3444": {"uncheckable": "a regeneration, not a reported problem: the profession guides rebuilt on the 0.4.3 data with a reviewed diff (#3715); the profession guides' own tests (tests/profession.test.js, tests/profession-gathering.test.js) check the result"},
+		"3591": {"uncheckable": "can't recur: 0.4.2 gave this guide's place to a new route and the update carried the old guide's saved progress into the new one, marking steps not done as passed; 0.4.3 replaces no leveling guide that way, so no carried progress is left to pin (Reset guide's progress puts it back)"},
+		"3723": { "tests": [
+			{ "node": "tests/ui-settings-reorg.test.js", "test": "every saved key has exactly one home row; every other appearance is a reference" },
+			{ "node": "tests/ui-settings-reorg.test.js", "test": "the homes match the review" }
+		] },
+		"3790": {"uncheckable": "the Studio site (polestar.guide/studio): its server refused a request with no body (411), so Remove this version failed; fixed and deployed on the site, whose code is not in this repository"},
+		"3793": {"uncheckable": "the Studio site's upload check compared route ids without reading retired.json, so a renamed guide id was refused; fixed and deployed on the site, whose code is not in this repository"},
+		"3812": { "tests": [
+			{ "node": "tests/nav-repack.test.js", "test": "graft: the layers go after the new pack's files, unchanged files keep the base's, the hashes follow" },
+			{ "node": "tests/nav-repack.test.js", "test": "compare: a changed file, a missing one and a file PACK.json does not list" }
+		] },
+		"3980": { "tests": [
+			{ "node": "tests/data-corrections.test.js", "test": "A Reliquary of Purity opens at Rabine Saturna only after a Dire Maul visit (#3104, #3270)" },
+			{ "node": "tests/guides-reported.test.js", "test": "Horde Eastern Plaguelands: Rabine's A Reliquary of Purity is optional and says it needs a Dire Maul visit (#3104)" }
+		] },
+		"3063": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/ui-dungeons.rs", "test": "the_heads_up_s_button_picks_up_every_quest_the_game_gives_now_not_one_held_back_to_a_level_under_its_own_3063" }
+		] },
+		"3644": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "the_walk_to_walton_from_the_ledge_under_his_camp_takes_the_switchback_not_the_face_3644" }
 		] }
 	},
 	"seedDrift": {
@@ -1692,6 +1820,8 @@
 		"forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: Kharanos is done outside first (Eric before Tharek), then the distillery, training last": "The guides-reported case of the same name follows the 0.4.0 Kharanos stop and passes; the seed still asserts the shared guide's bind step.",
 		"forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: The Reports is taken from Senir with Frostmane Hold and handed to the senator on the way to the tram": "The guides-reported case of the same name follows the 0.4.0 way to the tram and passes; the seed still looks for the shared guide's Deeprun Tram step.",
 		"forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: kills on the way are counted on the way and finished after": "The guides-reported case of the same name follows the 0.4.0 steps for Rime's Wrath and Treacherous Cold and passes; the seed still asserts the shared guide's step.",
-		"Phear's report: a kill or collect leads to the camp that holds its mobs, not a stray one or two far from it": "The guides-reported case of the same name lists the Minion's Scourgestones in the guides that take them since 0.4.0 (Eastern Plaguelands for the Horde) and passes; the seed still looks for them in the Alliance Winterspring guide."
+		"Phear's report: a kill or collect leads to the camp that holds its mobs, not a stray one or two far from it": "The guides-reported case of the same name lists the Minion's Scourgestones in the guides that take them since 0.4.0 (Eastern Plaguelands for the Horde) and passes; the seed still looks for them in the Alliance Winterspring guide.",
+		"the cloth the guides tell you to buy leads to the Auction House: the capitals' cloth donations and Grimand's Runecloth": "The guides-reported case of the same name reads the city cloth donations (7793-7811) in the Western Plaguelands guide, where the city stops moved in the 0.4.3 fix round, and passes; the seed still looks for them in the Alliance Silithus guide.",
+		"forever/horde/04-the-barrens.guide: Fitz's report (#274): the Dry Hills step also collects the Raptor Horns, in the Dry Hills, before the Ratchet turn-in": "The guides-reported case (#274) reads the Dry Hills step in forever/horde/02-the-barrens.guide, where the Raptor Horns visit is, and passes; the seed still asserts it in 04-the-barrens."
 	}
 }

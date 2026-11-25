@@ -7,14 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- was: ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56."] = "适合49到50级的角色，但这里的大多数任务是51-53级：这是有意安排的，为了它们的经验值。第一次来只在环形山东半部活动，那里的野兽为48-52级，所以一次拉一只；水晶塔、骨头和虫巢留到约56级再来安戈洛时完成。"
-	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "",
+	-- {zone:1446} Tanaris · {area:976} Gadgetzan
+	["{zone:1446} first ({area:976} hand-ins), then into Un'Goro. For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "先去{zone:1446}（在{area:976}交任务），再进入安戈洛。适合49到50级的角色，但这里的大多数任务是51-53级：这是有意安排的，为了它们的经验值。第一次来只在环形山东半部活动，那里的野兽为48-52级，所以一次拉一只；水晶塔、骨头和虫巢留到约54级再来安戈洛时完成。",
 
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "飞往{area:150}",
-	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "{zone:1455}飞行管理员",
 
 	-- Step 3: Theramore
 	["Theramore"] = "塞拉摩",
@@ -252,4 +250,5 @@ return {
 	-- ["{npc:9998}, at the refuge entrance"] = "{npc:9998}，在避难所入口",
 	-- ["{npc:9998}, at the refuge's entrance"] = "{npc:9998}，在避难所入口",
 	-- ["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999}坐在环形山中央{area:537}的东南坡上。",
+	-- ["{zone:1455} flight master"] = "{zone:1455}飞行管理员",
 }

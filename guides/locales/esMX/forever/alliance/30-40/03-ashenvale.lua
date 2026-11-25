@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Vuela a {area:150}",
-	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 
 	-- Step 2: Red Jack Flint
 	-- {npc:4455} Red Jack Flint · {area:2103} Menethil Keep
@@ -50,7 +48,7 @@ return {
 	-- {npc:4964} Commander Samaul
 	["{npc:4964}, on the top floor"] = "{npc:4964}, en el piso de arriba",
 	-- {npc:4964} Commander Samaul · {area:503} Sentry Point
-	["{npc:4964}: {area:503} is the watchtower on the road west, next"] = "",
+	["{npc:4964}: {area:503} is the watchtower on the road west, next"] = "{npc:4964}: {area:503} es la atalaya del camino al oeste, a continuación",
 	-- {quest:1132} Fiora Longears
 	["{quest:1132}, inside the inn in the north of town"] = "{quest:1132}, dentro de la posada en el norte del pueblo",
 	-- {npc:4456} Fiora Longears · {area:415} Astranaar
@@ -60,19 +58,19 @@ return {
 
 	-- Step 10: Sentry Point
 	-- {area:503} Sentry Point · {area:403} Shady Rest Inn · {npc:4967} Archmage Tervosh
-	["Follow the road north-west out of Theramore to the watchtower at {area:503}, where the road to the {area:403} turns west. Look around the tower: {npc:4967} appears at its foot, and you hand the quest in to him there."] = "",
+	["Follow the road north-west out of Theramore to the watchtower at {area:503}, where the road to the {area:403} turns west. Look around the tower: {npc:4967} appears at its foot, and you hand the quest in to him there."] = "Sigue el camino al noroeste fuera de Theramore hasta la atalaya de {area:503}, donde el camino hacia {area:403} gira al oeste. Mira alrededor de la torre: {npc:4967} aparece a su pie, y ahí le entregas la misión.",
 	-- {npc:4967} Archmage Tervosh
-	["{npc:4967}, at the foot of the tower"] = "",
+	["{npc:4967}, at the foot of the tower"] = "{npc:4967}, al pie de la torre",
 	-- {npc:4967} Archmage Tervosh · {npc:4966} Private Hendel · {area:504} North Point Tower · {zone:1445} Dustwallow Marsh
-	["{npc:4967}: {npc:4966} holds {area:504}, for the {zone:1445} visit at 39"] = "",
+	["{npc:4967}: {npc:4966} holds {area:504}, for the {zone:1445} visit at 39"] = "{npc:4967}: {npc:4966} ocupa {area:504}, para la visita a {zone:1445} a nivel 39",
 	-- {npc:4966} Private Hendel · {zone:1445} Dustwallow Marsh
-	["Take Tervosh's next errand now: he stands here only right after the hand-in. {npc:4966} waits for the next {zone:1445} visit, at about 39."] = "",
+	["Take Tervosh's next errand now: he stands here only right after the hand-in. {npc:4966} waits for the next {zone:1445} visit, at about 39."] = "Acepta ahora el siguiente encargo de Tervosh: solo está aquí justo después de la entrega. {npc:4966} espera a la próxima visita a {zone:1445}, a nivel 39 más o menos.",
 
 	-- Step 11: The Shady Rest Inn
 	-- {zone:1413} Barrens
-	["Follow the road west to the burned inn on the road toward the {zone:1413}: the black shield and Reethe's guard badge lie in the ashes and the hoofprints are in the mud beside the inn."] = "",
+	["Follow the road west to the burned inn on the road toward the {zone:1413}: the black shield and Reethe's guard badge lie in the ashes and the hoofprints are in the mud beside the inn."] = "Sigue el camino al oeste hasta la posada quemada del camino hacia {zone:1413}: el escudo negro y la insignia de guardia de Reethe están entre las cenizas, y las huellas de cascos están en el barro junto a la posada.",
 	-- {object:21042} Theramore Guard Badge
-	["{object:21042}: for Captain Vimes, on the way back through Theramore"] = "",
+	["{object:21042}: for Captain Vimes, on the way back through Theramore"] = "{object:21042}: para el capitán Vimes, de camino de vuelta por Theramore",
 
 	-- Step 12: Into Barrens
 	-- {zone:1413} Barrens
@@ -89,21 +87,21 @@ return {
 	-- Step 14: Myriam Moonsinger
 	-- {npc:12866} Myriam Moonsinger · {area:1316} Razorfen Downs · {area:485} Great Lift
 	-- plural, as words: Razorfen Battleguards = {npc:7873} Razorfen Battleguard · Death's Head Cultists = {npc:7872} Death's Head Cultist
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:12866} stands by the entrance of {area:1316}, a few hundred yards north-east of the top of the {area:485}; the Razorfen Battleguards, Thornweavers and Death's Head Cultists (33-34, elite) hold the thorny slopes around her. Skip it if you are alone."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:12866} stands by the entrance of {area:1316}, a few hundred yards north-east of the top of the {area:485}; the Razorfen Battleguards, Thornweavers and Death's Head Cultists (33-34, elite) hold the thorny slopes around her. Skip it if you are alone."] = "Son enemigos élite: se recomienda ir en grupo; busca gente con quien hacerla. {npc:12866} está junto a la entrada de {area:1316}, a unos cientos de yardas al noreste de lo alto de {area:485}; los guardias de batalla y tejespinas de Rajacieno y los cultores Caramuerte (33-34, élite) ocupan las laderas espinosas a su alrededor. Omítela si vas solo.",
 
 	-- Step 15: Henrig Lonebrow's Journal
 	-- {area:485} Great Lift · {zone:1441} Thousand Needles · {item:5791} Henrig Lonebrow's Journal · {area:2097} Darkcloud Pinnacle
-	["Down the {area:485} into {zone:1441}. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills. {item:5791} lies a couple of hundred yards north-east of the lift's foot, in {area:2097}, where the Grimtotems (25-27) camp."] = "",
+	["Down the {area:485} into {zone:1441}. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills. {item:5791} lies a couple of hundred yards north-east of the lift's foot, in {area:2097}, where the Grimtotems (25-27) camp."] = "Baja por {area:485} hasta {zone:1441}. Cuidado: espera en la plataforma hasta que el elevador esté a su nivel antes de subir, y quédate en él hasta que se detenga; la caída de al lado mata. El {item:5791} está a unas doscientas yardas al noreste del pie del elevador, en {area:2097}, donde acampan los Tótem Siniestro (25-27).",
 	-- {item:5791} Henrig Lonebrow's Journal · {npc:4048} Falfindel Waywarder · {area:482} Highperch
-	["{item:5791}: for {npc:4048}, just past {area:482}"] = "",
+	["{item:5791}: for {npc:4048}, just past {area:482}"] = "{item:5791}: para {npc:4048}, justo pasando {area:482}",
 
 	-- Step 16: Highperch
 	-- {area:482} Highperch
-	["West to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "",
+	["West to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "Al oeste hasta los acantilados de los dracoleones en {area:482}. Cualquier dracoleón de ahí puede soltar una bolsa de veneno.",
 
 	-- Step 17: Falfindel Waywarder
 	-- {npc:4048} Falfindel Waywarder · {area:482} Highperch · {zone:1444} Feralas · {area:489} Thalanaar · {area:1717} Razorfen Kraul
-	["{npc:4048} camps north of {area:482}, just over the border into {zone:1444} on the path up to {area:489}: hand him the journal. His next quest is inside {area:1717}: leave it."] = "",
+	["{npc:4048} camps north of {area:482}, just over the border into {zone:1444} on the path up to {area:489}: hand him the journal. His next quest is inside {area:1717}: leave it."] = "{npc:4048} acampa al norte de {area:482}, justo pasando el límite de {zone:1444}, en el sendero que sube a {area:489}: entrégale el diario. Su siguiente misión es dentro de {area:1717}: déjala.",
 
 	-- Step 18: Thousand Needles
 	-- {area:484} Freewind Post
@@ -122,8 +120,7 @@ return {
 	["{area:2240}: kill these as you meet them"] = "{area:2240}: mata a estos según te los encuentres",
 	-- {object:19868} Rocket Car Rubble · {npc:5935} Ironeye the Invincible
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Gazers = {npc:4150} Saltstone Gazer · Scorpid Terrors = {npc:4139} Scorpid Terror
-	-- was: ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "Hay {object:19868} por todo el desierto. Los atracadores escórpidos y los carroñeros del Desierto de Sal rondan la mitad norte, y las tortugas brillavalva (30-31) el centro del desierto: cázalas para los caparazones. Cuidado: los mordedores brillavalva (34-35) deambulan por todo el desierto, y los observadores Piedra de sal (34-35) y los terrores escórpidos (33-34) ocupan el extremo sur: déjalos y quédate en la mitad norte."
-	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half.\nCareful: {npc:5935} (37, rare) roams the south-east of the flats, around 83-88,71-84: leave it be."] = "",
+	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half.\nCareful: {npc:5935} (37, rare) roams the south-east of the flats, around 83-88,71-84: leave it be."] = "Hay {object:19868} por todo el desierto. Los atracadores escórpidos y los carroñeros del Desierto de Sal rondan la mitad norte, y las tortugas brillavalva (30-31) el centro del desierto: cázalas para los caparazones. Cuidado: los mordedores brillavalva (34-35) deambulan por todo el desierto, y los observadores Piedra de sal (34-35) y los terrores escórpidos (33-34) ocupan el extremo sur: déjalos y quédate en la mitad norte.\nCuidado: {npc:5935} (37, raro) recorre el sureste del desierto, alrededor de 83-88,71-84: déjalo tranquilo.",
 	-- {item:5795} Hardened Tortoise Shell
 	-- plural, as words: Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise
 	["{item:5795}, from the Sparkleshell Tortoises"] = "{item:5795}, de las tortugas brillavalva",
@@ -133,11 +130,11 @@ return {
 
 	-- Step 22: Mirage Raceway
 	-- {npc:4452} Kravel Koalbeard · {quest:1111} Wharfmaster Dizzywig · {area:392} Ratchet
-	["{npc:4452}: for {quest:1111} on {area:392}'s dock, where this guide ends"] = "",
+	["{npc:4452}: for {quest:1111} on {area:392}'s dock, where this guide ends"] = "{npc:4452}: para {quest:1111} en el muelle de {area:392}, donde termina esta guía",
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
 	["{npc:4454}: for Martek in the {zone:1418}, at the end of 30-40"] = "{npc:4454}: para Martek en {zone:1418}, al final de 30-40",
 	-- {npc:4630} Pozzik · {npc:3391} Gazlowe · {area:392} Ratchet
-	["{npc:4630}: for {npc:3391} in {area:392}, on the way to the boat"] = "",
+	["{npc:4630}: for {npc:3391} in {area:392}, on the way to the boat"] = "{npc:4630}: para {npc:3391} en {area:392}, de camino al barco",
 
 	-- Step 23: Into Tanaris
 	-- {zone:1446} Tanaris
@@ -156,21 +153,21 @@ return {
 
 	-- Step 26: Theramore
 	-- {npc:4456} Fiora Longears · {npc:4948} Adjutant Tesoran · {area:514} Foothold Citadel · {npc:4941} Caz Twosprocket
-	["{npc:4456} is in the north of town, Captain Vimes and {npc:4948} on the top floor of {area:514}; {npc:4941} stands in the town."] = "",
+	["{npc:4456} is in the north of town, Captain Vimes and {npc:4948} on the top floor of {area:514}; {npc:4941} stands in the town."] = "{npc:4456} está en el norte del pueblo, el capitán Vimes y {npc:4948}, en el piso superior de {area:514}; {npc:4941} está en el pueblo.",
 	-- {zone:1445} Dustwallow Marsh
-	["Vimes's next errand, The Deserters, is for the {zone:1445} visit at 39: leave it."] = "",
+	["Vimes's next errand, The Deserters, is for the {zone:1445} visit at 39: leave it."] = "El siguiente encargo de Vimes, Los desertores, es para la visita a {zone:1445} a nivel 39: déjalo.",
 
 	-- Step 27: Ratchet
 	-- {zone:1413} Barrens · {area:392} Ratchet · {area:35} Booty Bay · {npc:3391} Gazlowe · {quest:1111} Wharfmaster Dizzywig
-	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock; {npc:3391} is upstairs in the house above it; {quest:1111} waits on the dock by the boat."] = "",
+	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock; {npc:3391} is upstairs in the house above it; {quest:1111} waits on the dock by the boat."] = "Desde Theramore, sigue el camino al noroeste por el pantano hacia {zone:1413} y sube por la costa hasta {area:392}: Tuercespina empieza en {area:35}, al otro lado del mar. El maestro de grifos de {area:392} está sobre el muelle; {npc:3391}, en el piso de arriba de la casa que hay encima; {quest:1111} espera en el muelle junto al barco.",
 	-- {npc:3391} Gazlowe · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
-	["{npc:3391}: for {npc:4631}, on {area:35}'s dock where the boat lands"] = "",
+	["{npc:3391}: for {npc:4631}, on {area:35}'s dock where the boat lands"] = "{npc:3391}: para {npc:4631}, en el muelle de {area:35} donde llega el barco",
 	-- {quest:1111} Wharfmaster Dizzywig · {quest:1039} The Barrens Port · {npc:8026} Thyn'tel Bladeweaver · {zone:1457} Darnassus
-	["{quest:1111}: {quest:1039}, from {npc:8026} in {zone:1457}"] = "",
+	["{quest:1111}: {quest:1039}, from {npc:8026} in {zone:1457}"] = "{quest:1111}: {quest:1039}, de {npc:8026} en {zone:1457}",
 	-- {quest:1111} Wharfmaster Dizzywig · {npc:3945} Caravaneer Ruzzgot · {area:35} Booty Bay
-	["{quest:1111}: for {npc:3945} in {area:35}, where the boat lands"] = "",
+	["{quest:1111}: for {npc:3945} in {area:35}, where the boat lands"] = "{quest:1111}: para {npc:3945} en {area:35}, donde llega el barco",
 	-- {area:2240} Mirage Raceway
-	["Dizzywig's next errand goes back to the {area:2240}, which the route next visits at 45: leave it."] = "",
+	["Dizzywig's next errand goes back to the {area:2240}, which the route next visits at 45: leave it."] = "El siguiente encargo de Dizzywig vuelve a {area:2240}, que la ruta visita a nivel 45: déjalo.",
 
 	-- Step 28: Boat to Booty Bay
 	-- {area:35} Booty Bay
@@ -184,6 +181,7 @@ return {
 	-- ["Follow the road east to the satyr camps of {area:429}; {npc:3920} hides at their edge."] = "Sigue el camino al este hasta los campamentos sátiros de {area:429}; {npc:3920} se esconde en su borde.",
 	-- ["Follow the road west out of Theramore to the burned inn on the road toward the {zone:1413}: the black shield lies in the ashes and the hoofprints are in the mud beside the inn."] = "Sigue el camino al oeste saliendo de Theramore hasta la posada quemada del camino hacia {zone:1413}: el escudo negro está entre las cenizas y las huellas de cascos están en el barro junto a la posada.",
 	-- ["Follow the road west out of {area:415}; {area:413} lies north of it."] = "Sigue el camino al oeste desde {area:415}; {area:413} está al norte de él.",
+	-- ["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock."] = "Desde Theramore sigue el camino al noroeste por el pantano hasta el {zone:1413} y sube por la costa hasta {area:392}: Stranglethorn empieza en {area:35}, al otro lado del mar. El maestro de grifos de {area:392} está sobre el muelle.",
 	-- ["From {area:608}"] = "Desde {area:608}",
 	-- ["Geltharis"] = "Geltharis",
 	-- ["Insane druids"] = "Druidas dementes",
@@ -214,4 +212,5 @@ return {
 	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "{object:19868} está por todas las salinas. Los atracadores escórpidos y los carroñeros de las Salinas recorren la mitad norte, y las tortugas mordedoras brillavalva todas las salinas. Los basiliscos Piedra de sal y los vitropieles ocupan el centro; los observadores (34-35), solo el extremo sur.",
 	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "Hay {object:19868} por todo el desierto. Los atracadores escórpidos y los carroñeros del Desierto de Sal rondan la mitad norte, y las tortugas brillavalva (30-31) el centro del desierto: cázalas para los caparazones. Cuidado: los mordedores brillavalva (34-35) deambulan por todo el desierto, y los observadores Piedra de sal (34-35) y los terrores escórpidos (33-34) ocupan el extremo sur: déjalos y quédate en la mitad norte.",
 	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: para {npc:3961} en {area:415}",
+	-- ["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 }

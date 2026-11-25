@@ -11,88 +11,118 @@ return {
 	["Leave {zone:1454} by the main gate and follow the road south through {zone:1411}. Before it turns west to the {area:814} bridge, step east into {area:362}: {npc:3336} stands on the west side of town, {npc:3142} in the middle."] = "",
 	-- {npc:3336} Takrin Pathseeker · {npc:3337} Kargal Battlescar · {area:379} Far Watch Post
 	["{npc:3336}: {npc:3337} at {area:379}, on the way"] = "",
+
+	-- Step 2: Orgnil Soulscar
+	-- {npc:3142} Orgnil Soulscar · {area:362} Razor Hill
+	["{npc:3142} stands in the middle of {area:362}."] = "{npc:3142}은(는) {area:362} 한가운데에 서 있습니다.",
 	-- {npc:3142} Orgnil Soulscar · {quest:99051} Threat from Below · {zone:1411} Durotar
 	["{npc:3142}: {quest:99051}, from {zone:1411}'s naga beach"] = "",
 
-	-- Step 3: Far Watch Post
+	-- Step 4: Uzzek
+	-- {npc:5810} Uzzek · {area:379} Far Watch Post · {npc:3337} Kargal Battlescar · {quest:809} Ak'Zeloth
+	["{npc:5810} stands at {area:379} with {npc:3337} and {quest:809}."] = "{npc:5810}은(는) {area:379}에 {npc:3337}, {quest:809}와(과) 함께 서 있습니다.",
+
+	-- Step 5: Far Watch Post
 	-- {area:814} Southfury River · {area:379} Far Watch Post · {zone:1413} The Barrens · {npc:3337} Kargal Battlescar · {quest:809} Ak'Zeloth · {npc:5810} Uzzek
 	["Back west to the road and over the {area:814} bridge: {area:379} sits just above it on the {zone:1413} side. {npc:3337}, {quest:809} and {npc:5810} stand together."] = "",
 	-- {quest:809} Ak'Zeloth · {npc:3337} Kargal Battlescar · {npc:3216} Neeru Fireblade · {zone:1454} Orgrimmar
 	["{quest:809}, beside {npc:3337}: from {npc:3216} in {zone:1454}"] = "{npc:3337} 옆의 {quest:809}: {zone:1454}의 {npc:3216}에게서",
 
-	-- Step 4: Far Watch Post
+	-- Step 6: Far Watch Post
 	-- {zone:1454} Orgrimmar · {zone:1411} Durotar · {area:814} Southfury River · {npc:5810} Uzzek · {area:379} Far Watch Post
 	["Leave {zone:1454} by the main gate and follow the road south through {zone:1411}, then west over the {area:814} bridge: {npc:5810} stands at {area:379} just above it, on the road to the Crossroads."] = "정문으로 {zone:1454}을(를) 나가 길을 따라 남쪽 {zone:1411}을(를) 지난 뒤, 서쪽으로 {area:814} 다리를 건너십시오. {npc:5810}은(는) 다리 바로 위 {area:379}, 크로스로드로 가는 길에 서 있습니다.",
 
-	-- Step 5: The Crossroads
+	-- Step 7: Far Watch Post
+	-- {npc:5810} Uzzek · {area:379} Far Watch Post · {area:814} Southfury River
+	["{npc:5810} stands at {area:379}, just above the {area:814} bridge."] = "{npc:5810}은(는) {area:379}, {area:814} 다리 바로 위에 서 있습니다.",
+
+	-- Step 8: The Crossroads
 	-- {area:379} Far Watch Post · {npc:3489} Zargh · {npc:3338} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3615} Devrak · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger
-	["You arrive from {area:379}. {npc:3489} and {npc:3338} stand by the inn, Helbrim and {npc:3464} by the north gate; {npc:3615}, {npc:3429} and {npc:3449} on the tower platform."] = "",
+	["You arrive from {area:379}. {npc:3489} and {npc:3338} stand by the inn, Helbrim and {npc:3464} by the north gate; {npc:3615}, {npc:3429} and {npc:3449} on the tower platform."] = "{area:379}에서 도착합니다. {npc:3489}와(과) {npc:3338}은(는) 여관 옆에, 헬브림과 {npc:3464}은(는) 북문 옆에, {npc:3615}, {npc:3429}, {npc:3449}은(는) 탑 승강장에 있습니다.",
 	-- {npc:3390} Apothecary Helbrim · {quest:1358} Sample for Helbrim
-	["{npc:3390}: {quest:1358}, from Zinge"] = "",
+	["{npc:3390}: {quest:1358}, from Zinge"] = "{npc:3390}: {quest:1358}, 징에에게",
 	-- {npc:3615} Devrak
-	["{npc:3615}, on the tower"] = "",
+	["{npc:3615}, on the tower"] = "{npc:3615}, 탑 승강장에",
 	-- {npc:3449} Darsok Swiftdagger · {area:383} Dry Hills
 	["{npc:3449}: the harpies come later, in the {area:383}"] = "{npc:3449}: 하피는 나중에 {area:383}에서 처리합니다",
 
-	-- Step 6: Thun'grim Firegaze
+	-- Step 9: Thork
+	-- {npc:3429} Thork
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:3429}'s supply crates lie in the Razormane camp's north-east, among the Flesheaters and Berserkers (18-19, elite): it needs a group of 3. Skip it if you are alone."] = "정예 몹입니다: 파티를 권장하니 함께할 사람을 찾으십시오. {npc:3429}의 보급품 상자는 서리갈기 야영지 북동쪽, 살점포식자와 광전사(18-19, 정예) 사이에 있습니다: 3인 파티가 필요합니다. 혼자라면 건너뛰십시오.",
+	-- {npc:3429} Thork
+	["{npc:3429}, on the tower"] = "{npc:3429}, 탑 위",
+
+	-- Step 10: Thun'grim Firegaze
 	-- {npc:5878} Thun'grim Firegaze · {area:392} Ratchet
 	["{npc:5878} camps beside the road east toward {area:392}."] = "{npc:5878}은(는) {area:392}(으)로 가는 동쪽 길 옆에 진을 치고 있습니다.",
 
-	-- Step 7: Razormane camp
+	-- Step 11: Razormane camp
 	["Razormane camp"] = "서슬갈기일족 야영지",
 	-- {object:58369} Stolen Iron Chest · {item:5026} Fire Tar
-	["The Razormane camp lies east of the Crossroads. Warriors: the {object:58369} stands in the camp. Shamans: the quilboar drop the {item:5026}.\nCareful: The chest stands next to a broken wagon, guarded by a pair of Razormanes, including hunters that can pull more quilboar into the fight."] = "",
+	["The Razormane camp lies east of the Crossroads. Warriors: the {object:58369} stands in the camp. Shamans: the quilboar drop the {item:5026}.\nCareful: The chest stands next to a broken wagon, guarded by a pair of Razormanes, including hunters that can pull more quilboar into the fight."] = "서슬갈기일족 야영지는 크로스로드 동쪽에 있습니다. 전사: {object:58369}은(는) 야영지에 있습니다. 주술사: 멧돼지인이 {item:5026}을(를) 떨어뜨립니다.\n주의: 상자는 부서진 수레 옆에 있고, 사냥꾼을 포함한 서슬갈기일족 둘이 지키며, 사냥꾼은 멧돼지인을 더 부를 수 있습니다.",
 
-	-- Step 8: Razormane camp: Thork's quilboar
+	-- Step 12: Razormane camp: Thork's quilboar
 	-- {npc:3429} Thork
-	["Razormane camp: {npc:3429}'s quilboar"] = "",
+	["Razormane camp: {npc:3429}'s quilboar"] = "서슬갈기일족 야영지: {npc:3429}의 멧돼지인",
 	-- {npc:3429} Thork
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
-	["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "야영지에 있는 동안: {npc:3429}의 풍수사와 가시마술사는 서쪽 절반에, 사냥꾼은 가운데에, 보급품 상자는 동쪽 끝에 있습니다.\n주의: 서슬갈기일족 살점먹보와 광전사(18-19)는 정예이며, 야영지 북동쪽 보급품 상자 옆에 서 있습니다. 가시멧돼지를 그들에게서 하나씩 떼어 끌어오세요.",
+	-- was: ["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "야영지에 있는 동안: {npc:3429}의 풍수사와 가시마술사는 서쪽 절반에, 사냥꾼은 가운데에, 보급품 상자는 동쪽 끝에 있습니다.\n주의: 서슬갈기일족 살점먹보와 광전사(18-19)는 정예이며, 야영지 북동쪽 보급품 상자 옆에 서 있습니다. 가시멧돼지를 그들에게서 하나씩 떼어 끌어오세요."
+	["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, and, if you took his supplies with a group, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "야영지에 있는 동안: {npc:3429}의 물 탐색꾼과 가시덩굴 직조자는 서쪽 절반, 사냥꾼은 가운데, 파티로 그의 보급품을 받았다면 보급품 상자는 동쪽 끝에 있습니다.\n주의: 서리갈기 살점포식자와 광전사(18-19)는 정예입니다. 야영지 북동쪽, 보급품 상자 옆에 서 있습니다: 멧돼지인간들을 하나씩 그들에게서 떨어뜨려 끌어내십시오.",
 
-	-- Step 10: Telf Joolam
+	-- Step 13: Thork's supply crates
+	-- {npc:3429} Thork
+	["{npc:3429}'s supply crates"] = "{npc:3429}의 보급품 상자",
+	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
+	["With your group: the supply crates sit at the camp's eastern end. Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand beside the crates."] = "파티와 함께: 보급품 상자는 야영지 동쪽 끝에 있습니다. 주의: 서리갈기 살점포식자({npc:267308})와 광전사(18-19)는 정예이며 상자 옆에 서 있습니다.",
+
+	-- Step 15: Telf Joolam
 	-- {npc:5900} Telf Joolam · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember
 	["Back east over the bridge and up the trail to {npc:5900}'s shrine again. {npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "다리를 건너 다시 동쪽으로 가서 오솔길을 따라 {npc:5900}의 제단으로 올라가세요. {npc:5900}이(가) 타르와 주머니로 {item:6636}을(를) 만들어 줍니다. 그 옆의 화로 곁에서 사용해 {npc:5893}을(를) 드러내고, 처치해 {item:6655}을(를) 얻은 뒤 잉걸불을 화로에 넣으세요.",
 
-	-- Step 12: Kranal Fiss
+	-- Step 17: Kranal Fiss
 	-- {npc:5907} Kranal Fiss · {npc:2523} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
 	["{npc:5907}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:5907}: {npc:2523}, {item:5176}, {item:263412}",
 
-	-- Step 14: The Crossroads
+	-- Step 19: The Crossroads
 	-- {area:380} The Crossroads · {npc:3338} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3615} Devrak · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:3448} Tonga Runetotem
-	["{area:380} is your base for this guide. Everyone you need stands within a few steps of the inn: {npc:3338} by the inn, Helbrim and {npc:3464} by the north gate, then up the tower to {npc:3615}, the wind rider master, {npc:3429} and {npc:3449}, and {npc:3448} at the south gate on the way out."] = "",
+	["{area:380} is your base for this guide. Everyone you need stands within a few steps of the inn: {npc:3338} by the inn, Helbrim and {npc:3464} by the north gate, then up the tower to {npc:3615}, the wind rider master, {npc:3429} and {npc:3449}, and {npc:3448} at the south gate on the way out."] = "{area:380}은(는) 이 가이드의 거점입니다. 필요한 사람은 모두 여관 주변 몇 걸음 안에 있습니다: 여관 옆의 {npc:3338}, 북문 옆의 헬브림과 {npc:3464}, 그 다음 탑으로 올라가 {npc:3615}, 비행 조련사, {npc:3429}, {npc:3449}, 나갈 때 남문에 있는 {npc:3448}.",
 	-- {quest:860} Sergra Darkthorn · {quest:842} Crossroads Conscription · {area:379} Far Watch Post
 	["{quest:860}: {quest:842}, from {area:379}"] = "",
 	-- {npc:3429} Thork
 	["{npc:3429}, at the top of the tower"] = "{npc:3429}, 탑 꼭대기",
 
-	-- Step 15: Raptor Heads as you go
+	-- Step 21: Raptor Heads as you go
 	-- plural, as words: Raptor Heads = {item:5062} Raptor Head
-	["Raptor Heads as you go"] = "",
+	["Raptor Heads as you go"] = "랩터 머리: 가는 길에",
 	-- plural, as words: Sunscale Screechers = {npc:3255} Sunscale Screecher
-	["Sunscale raptors roam the plains north and east of the Crossroads, and about three in four drop a head: kill the ones you pass on the way. Careful: Sunscale Screechers call nearby allies within 30 yd once below 30% health."] = "",
+	["Sunscale raptors roam the plains north and east of the Crossroads, and about three in four drop a head: kill the ones you pass on the way. Careful: Sunscale Screechers call nearby allies within 30 yd once below 30% health."] = "태양비늘 랩터는 크로스로드 북쪽과 동쪽 평원을 돌아다니며, 4마리 중 약 3마리가 머리를 떨어뜨립니다: 가는 길에 지나치는 것들을 처치하세요. 주의: 긴송곳니 열대초원랩터는 체력이 30% 아래로 내려가면 30미터 내의 아군을 부릅니다.",
 
-	-- Step 16: Plainstrider Beaks as you go
+	-- Step 22: Plainstrider Beaks as you go
 	-- plural, as words: Plainstrider Beaks = {item:5087} Plainstrider Beak
-	["Plainstrider Beaks as you go"] = "",
+	["Plainstrider Beaks as you go"] = "초원타조 부리: 가는 길에",
 	-- {zone:1413} The Barrens
-	["Plainstriders roam the plains all over the {zone:1413}, and about one in four drops a beak: kill the ones you pass on the way."] = "",
+	["Plainstriders roam the plains all over the {zone:1413}, and about one in four drops a beak: kill the ones you pass on the way."] = "평원타조는 {zone:1413} 전역의 평원을 돌아다니며, 4마리 중 약 1마리가 부리를 떨어뜨립니다: 가는 길에 지나치는 것들을 처치하세요.",
 
-	-- Step 17: Razormane camp
+	-- Step 23: Razormane camp
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
-	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "야영지에서는 풍수사와 가시마술사가 서쪽 절반을, 사냥꾼이 가운데를 차지하고, 보급품 상자는 동쪽 끝에 있습니다.\n여기 초원타조도 부리 수집에 포함됩니다.\n주의: 서슬갈기일족 살점먹보와 광전사(18-19)는 정예이며, 야영지 북동쪽 보급품 상자 옆에 서 있습니다. 가시멧돼지를 그들에게서 하나씩 떼어 끌어오세요.",
+	-- was: ["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "야영지에서는 풍수사와 가시마술사가 서쪽 절반을, 사냥꾼이 가운데를 차지하고, 보급품 상자는 동쪽 끝에 있습니다.\n여기 초원타조도 부리 수집에 포함됩니다.\n주의: 서슬갈기일족 살점먹보와 광전사(18-19)는 정예이며, 야영지 북동쪽 보급품 상자 옆에 서 있습니다. 가시멧돼지를 그들에게서 하나씩 떼어 끌어오세요."
+	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates (with a group only) sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "야영지에서 물 탐색꾼과 가시덩굴 직조자가 서쪽 절반을, 사냥꾼이 가운데를 차지하고, 보급품 상자(파티로만)는 동쪽 끝에 있습니다.\n이곳의 평원 타조도 부리에 집계됩니다.\n주의: 서리갈기 살점포식자와 광전사(18-19)는 정예입니다. 야영지 북동쪽, 보급품 상자 옆에 서 있습니다: 멧돼지인간들을 하나씩 그들에게서 떨어뜨려 끌어내십시오.",
 
-	-- Step 18: Finish the Plainstrider Beaks
+	-- Step 25: Finish the Plainstrider Beaks
 	-- plural, as words: Plainstrider Beaks = {item:5087} Plainstrider Beak
-	["Finish the Plainstrider Beaks"] = "",
-	["Still short of seven? Plainstriders are thickest on the plains north of the Crossroads, along the road north."] = "",
+	["Finish the Plainstrider Beaks"] = "초원타조 부리 마저 모으기",
+	["Still short of seven? Plainstriders are thickest on the plains north of the Crossroads, along the road north."] = "아직 7개가 부족하다면 크로스로드 북쪽 평원, 북쪽 도로변에 가장 많습니다.",
 
-	-- Step 20: The Zhevra
+	-- Step 28: Thork
+	-- {npc:3438} Kreenig Snarlsnout
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:3438} and the Geomancers and Defenders of The Disruption Ends stand in the camp's eastern half, among the Flesheaters and Berserkers (18-19, elite): it needs a group of 3. Skip it if you are alone."] = "정예 몹입니다: 파티를 권장하니 함께할 사람을 찾으십시오. {npc:3438}과(와) 분열의 끝의 지자기술사, 수호자들이 야영지 동쪽 절반, 살점포식자와 광전사(18-19, 정예) 사이에 서 있습니다: 3인 파티가 필요합니다. 혼자라면 건너뛰십시오.",
+
+	-- Step 29: The Zhevra
 	-- {area:392} Ratchet
 	-- plural, as words: Zhevra Runners = {npc:3242} Zhevra Runner
-	["Zhevra Runners graze along the road east toward {area:392}: take their hooves on the way out."] = "",
+	["Zhevra Runners graze along the road east toward {area:392}: take their hooves on the way out."] = "굶주린 얼룩말은 {area:392}를 향해 동쪽으로 가는 도로변에서 풀을 뜯습니다: 나갈 때 발굽을 모으세요.",
 
-	-- Step 21: Ratchet
+	-- Step 30: Ratchet
 	-- {area:392} Ratchet · {npc:3391} Gazlowe · {npc:7161} Wrenix the Wretched · {npc:3442} Sputtervalve · {npc:16227} Bragok · {npc:3446} Mebok Mizzyrix · {quest:1492} Wharfmaster Dizzywig
 	-- was: ["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "길을 따라 남동쪽 해안의 {area:392}(으)로 가세요. 마을 북쪽 끝의 {npc:3391}와(과) {npc:7161}, {npc:3442}와(과) {npc:16227}, {npc:3446}와(과) {object:3972} 전단을 찾은 다음, 남쪽으로 나가는 길에 부두의 {quest:1492}을(를) 찾으세요."
 	["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the WANTED poster, then {quest:1492} on the dock on the way out south."] = "",
@@ -111,130 +141,130 @@ return {
 	-- {quest:1492} Wharfmaster Dizzywig
 	["{quest:1492}, on the dock"] = "부두의 {quest:1492}",
 	-- {quest:1492} Wharfmaster Dizzywig · {area:381} Boulder Lode Mine
-	["{quest:1492}: the emerald comes from the {area:381}, later"] = "",
+	["{quest:1492}: the emerald comes from the {area:381}, later"] = "{quest:1492}: 에메랄드는 나중에 {area:381}에서",
 	-- {npc:3446} Mebok Mizzyrix · {quest:865} Raptor Horns · {npc:3467} Baron Longshore · {area:392} Ratchet
 	["Keep {npc:3446}'s {quest:865} and {npc:3467} for the next {area:392} stop, at 18: Scytheclaws you meet on the plains before then drop the horns too."] = "{npc:3446}의 {quest:865}와(과) {npc:3467}은(는) 18레벨에 다음 {area:392} 방문 때까지 남겨 두세요. 그 전에 평원에서 만나는 갈퀴발톱 열대초원랩터도 뿔을 떨어뜨립니다.",
 
-	-- Step 22: The Barrens: kill these as you meet them
+	-- Step 31: The Barrens: kill these as you meet them
 	-- {zone:1413} The Barrens
-	["{zone:1413}: kill these as you meet them"] = "",
+	["{zone:1413}: kill these as you meet them"] = "{zone:1413}: 만나는 대로 처치하십시오",
 	-- {area:392} Ratchet · {npc:3467} Baron Longshore
 	["The pirates camp on the beach south of {area:392}: the piles of complicated parts lie in the sand among them. {npc:3467} (16) stands at the camp's southern end: leave him for the next {area:392} stop."] = "해적들은 {area:392} 남쪽 해변에 야영하고 있습니다. 복잡한 부품 더미는 그들 사이의 모래밭에 있습니다. {npc:3467}(16)은(는) 야영지 남쪽 끝에 서 있으니 다음 {area:392} 방문 때까지 남겨 두세요.",
 
-	-- Step 23: Ratchet
+	-- Step 32: Ratchet
 	-- {npc:3391} Gazlowe · {area:392} Ratchet
 	["{npc:3391}: the crates lie at the south end of the beach camp, on the next {area:392} stop at 18"] = "{npc:3391}: 상자는 해변 야영지 남쪽 끝에 있으며, 18레벨에 다음 {area:392} 방문 때 합니다",
 
-	-- Step 24: Fly to Crossroads
-	["Fly to Crossroads"] = "",
+	-- Step 33: Fly to Crossroads
+	["Fly to Crossroads"] = "크로스로드로 비행",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "{area:392} 비행 조련사",
 
-	-- Step 26: Gur'ak
+	-- Step 35: Gur'ak
 	-- {npc:267310} Gur'ak · {quest:97003} Chol'aruk the Ravener · {npc:267307} Chol'aruk · {area:1699} Thorn Hill · {npc:3438} Kreenig Snarlsnout
 	["{npc:267310} stands on the north-east side of the Crossroads. {quest:97003} is a group quest: {npc:267307} is a level 20 elite boar in the Razormane's {area:1699} cave, east of the town, where the route goes back for {npc:3438} later."] = "{npc:267310}은(는) 크로스로드 북동쪽에 서 있습니다. {quest:97003}은(는) 파티 퀘스트입니다. {npc:267307}은(는) 마을 동쪽, 서슬갈기일족의 {area:1699} 동굴에 있는 20레벨 정예 멧돼지이며, 경로는 나중에 {npc:3438} 때문에 그곳으로 돌아갑니다.",
 
-	-- Step 27: Regthar Deathgate
+	-- Step 36: Regthar Deathgate
 	-- {npc:3389} Regthar Deathgate
 	["West to {npc:3389}'s watch post on the Kolkar border."] = "서쪽으로 콜카르일족 경계의 {npc:3389} 감시 초소로 가세요.",
 
-	-- Step 28: The Barrens: kill these as you meet them
-	-- {npc:3389} Regthar Deathgate · {npc:3394} Barak Kodobane
-	-- plural, as words: Laden Mushrooms = {object:3640} Laden Mushroom
-	["The pools lie just north of {npc:3389}. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers. {npc:3394} stands in the Kolkar camp west of the pools."] = "웅덩이는 {npc:3389} 바로 북쪽에 있습니다. 물에 들어가 탐험하세요. 헬브림에게 줄 숙성한 버섯은 그 주변에 자랍니다. 지나가며 만나는 콜카르일족은 모두 처치해 손목보호대를 얻으세요. {npc:3394}은(는) 웅덩이 서쪽의 콜카르일족 야영지에 서 있습니다.",
+	-- Step 37: The Barrens: kill these as you meet them
+	-- {npc:3389} Regthar Deathgate · {npc:3394} Barak Kodobane · {quest:4021} Counterattack! · {npc:9456} Warlord Krom'zar
+	-- plural, as words: Laden Mushrooms = {object:3640} Laden Mushroom · Kolkar Invaders = {npc:9524} Kolkar Invader
+	["The pools lie just north of {npc:3389}. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers. {npc:3394} stands in the Kolkar camp west of the pools.\nCareful: the Kolkar stand in packs around their camp west of the pools, and the Stormers cast from range: pull them one at a time from the edge. When anyone starts {npc:3389}'s {quest:4021}, Kolkar Invaders (16-17) and {npc:9456} (20, elite) charge his watch post: keep away from it until the attack is over."] = "웅덩이는 {npc:3389} 바로 북쪽에 있습니다. 물속으로 들어가 탐험하십시오. 헬브림의 가득 찬 버섯({object:3640})이 주변에 자랍니다. 지나치는 콜카르는 모두 처치해 손목보호구를 모으십시오. {npc:3394}은(는) 웅덩이 서쪽의 콜카르 야영지에 서 있습니다.\n주의: 콜카르는 웅덩이 서쪽 야영지 주변에 무리 지어 있고, 폭풍술사는 멀리서 공격합니다: 가장자리에서 하나씩 끌어내십시오. 누군가 {npc:3389}의 {quest:4021}을(를) 시작하면 콜카르 침략자({npc:9524}, 16-17)와 {npc:9456}(20, 정예)이(가) 그의 감시 초소로 돌격합니다: 공격이 끝날 때까지 멀리 떨어져 있으십시오.",
 
-	-- Step 29: Regthar Deathgate
+	-- Step 38: Regthar Deathgate
 	-- {npc:3389} Regthar Deathgate · {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis
 	["{npc:3389}: {npc:3395} comes out when you kill the Kolkar at the {area:388}, later"] = "{npc:3389}: {npc:3395}은(는) 나중에 {area:388}에서 콜카르일족을 잡으면 나타납니다",
 
-	-- Step 30: Dry Hills
+	-- Step 39: Dry Hills
 	-- {area:383} Dry Hills · {npc:3389} Regthar Deathgate
 	-- plural, as words: Savannah Prowlers = {npc:3425} Savannah Prowler · Witchwing Ambushers = {npc:3279} Witchwing Ambusher
 	["West to the {area:383}. Any Witchwing harpy drops a talon: keep to the eastern slopes, where the Witchwing Harpies and Roguefeathers (14-15) nest; the Slayers and Windcallers (16-17) hold the western hills. Savannah Prowlers hunt the plains between {npc:3389} and the hills: take their claws on the way.\nCareful: There are 2 Witchwing Ambushers (level 17-18). They stay stealthed with Sneak while out of combat."] = "서쪽의 {area:383}(으)로 가세요. 칼날바람일족 하피는 모두 발톱을 떨어뜨립니다. 칼날바람일족 하피와 칼날바람일족 도적깃털(14-15)이 둥지를 튼 동쪽 비탈에 머무르세요. 학살자와 바람술사(16-17)는 서쪽 언덕에 있습니다. 굶주린 사바나 사자는 {npc:3389}와(과) 언덕 사이 평원에서 사냥하니 가는 길에 발톱을 모으세요.\n주의: 칼날바람일족 복병(17-18레벨)이 2마리 있습니다. 전투 중이 아닐 때는 은신 상태로 있습니다.",
 
-	-- Step 31: Samophlange
+	-- Step 40: Samophlange
 	-- {object:4141} Control Console · {area:382} Sludge Fen · {item:5089} Console Key · {npc:3471} Tinkerer Sniggles
 	["The {object:4141} stands at the Venture Co. research site west of the {area:382}. Close the three valves around the drill, use the console again, then take the {item:5089} from {npc:3471} beside it.\nCareful: Several guards stand within aggro range of the valves, respawn in under about 3 minutes, and run at low health to bring back help; nearby mobs also join if you use a valve while they are close."] = "{object:4141}은(는) {area:382} 서쪽의 투자개발회사 연구 현장에 있습니다. 시추기 주변의 밸브 세 개를 잠그고 제어판을 다시 사용한 뒤, 그 옆의 {npc:3471}에게서 {item:5089}을(를) 얻으세요.\n주의: 여러 경비병이 밸브 근처 감지 범위 안에 서 있고, 약 3분 안에 다시 나타나며, 생명력이 낮아지면 도망쳐 도움을 불러옵니다. 근처 몹이 가까이 있을 때 밸브를 사용하면 그들도 합류합니다.",
-	["Inside"] = "",
+	["Inside"] = "내부",
 	-- {npc:3442} Sputtervalve · {area:392} Ratchet
 	["{npc:3442} in {area:392}: on the next {area:392} stop"] = "{area:392}의 {npc:3442}: 다음 {area:392} 방문 때",
 
-	-- Step 32: The Disruption Ends
+	-- Step 41: The Disruption Ends
 	-- {npc:3438} Kreenig Snarlsnout · {npc:267307} Chol'aruk · {area:1699} Thorn Hill
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
 	["Back to the Razormane camp. Geomancers and Defenders hold its eastern half; {npc:3438} walks among them. Careful: Razormane Flesheaters and Berserkers (18-19) are elites in the camp's north-east, near {npc:3438} and the supply crates, and {npc:267307} (20, elite) lies in the cave under {area:1699} beside them: pull {npc:3438} and the quilboar away from them one at a time, and leave the cave alone unless you are in a group."] = "서슬갈기일족 야영지로 돌아가세요. 흙점쟁이와 파수병이 동쪽 절반을 차지하고 있고, {npc:3438}은(는) 그들 사이를 걸어 다닙니다. 주의: 서슬갈기일족 살점먹보와 광전사(18-19)는 야영지 북동쪽, {npc:3438}와(과) 보급품 상자 근처에 있는 정예이고, 그 옆 {area:1699} 아래 동굴에는 {npc:267307}(20, 정예)이(가) 있습니다. {npc:3438}와(과) 가시멧돼지를 그들에게서 하나씩 떼어 끌어오고, 파티가 아니라면 동굴은 건드리지 마세요.",
 
-	-- Step 33: Chol'aruk
+	-- Step 42: Chol'aruk
 	-- {npc:267307} Chol'aruk · {area:1699} Thorn Hill
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:267307} (level 20 elite) needs a group of 3 and sits deep in the cave under {area:1699}, past the Razormane Flesheaters and Berserkers (18-19, elite). Skip it if you are alone."] = "정예 몹입니다. 파티를 권장하니 함께할 사람을 찾아보십시오. {npc:267307}(20레벨 정예)은(는) 3인 파티가 필요하며, 서슬갈기일족 살점먹보와 광전사(18-19, 정예)를 지나 {area:1699} 아래 동굴 깊숙이 있습니다. 혼자라면 건너뛰십시오.",
 
-	-- Step 34: The Crossroads
+	-- Step 43: The Crossroads
 	-- {npc:3338} Sergra Darkthorn · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:3432} Mankrik · {npc:3448} Tonga Runetotem · {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis · {area:383} Dry Hills · {quest:853} Apothecary Zamah · {zone:1456} Thunder Bluff
 	["{npc:3338} by the inn first, then Helbrim by the north gate, {npc:3429} and {npc:3449} on the tower platform, {npc:3432} by the inn, and {npc:3448} at the south gate last. His seed test waits for the {npc:3395} pass at the {area:388}: go straight on north-west to the {area:383}. After the spores Helbrim offers {quest:853}, a delivery to {zone:1456} within 45 minutes: this route doesn't go there, so leave it (Druids take it on the next Crossroads stop, right before their flight to {zone:1456})."] = "먼저 여관 옆의 {npc:3338}, 그다음 북문 옆의 헬브림, 탑 승강장의 {npc:3429}와(과) {npc:3449}, 여관 옆의 {npc:3432}, 마지막으로 남문의 {npc:3448}을(를) 찾아가세요. 그의 씨앗 시험은 {area:388}의 {npc:3395}에게 가는 길까지 기다립니다. 지금은 곧장 북서쪽의 {area:383}(으)로 가세요. 포자를 제출하면 헬브림이 {quest:853}을(를) 주는데, 45분 안에 {zone:1456}까지 배달하는 퀘스트입니다. 이 경로는 그곳에 가지 않으니 받지 마세요(드루이드는 다음 크로스로드 방문 때, {zone:1456}(으)로 날아가기 직전에 받습니다).",
 	-- {npc:3432} Mankrik
-	["{npc:3432}: his wife lies at the north edge of the Bristleback camps, later"] = "",
+	["{npc:3432}: his wife lies at the north edge of the Bristleback camps, later"] = "{npc:3432}: 그의 아내는 나중에 가시덤불 야영지 북쪽 가장자리에",
 	-- {npc:3448} Tonga Runetotem · {area:388} Stagnant Oasis · {npc:3395} Verog the Dervish
 	["{npc:3448}: the bubbling fissure at the {area:388}, on the {npc:3395} pass"] = "{npc:3448}: {npc:3395}에게 가는 길에 {area:388}의 거품이 이는 균열",
 
-	-- Step 36: Harpy Lieutenants
+	-- Step 46: Harpy Lieutenants
 	-- {area:383} Dry Hills
 	-- plural, as words: Witchwing Slayers = {npc:3278} Witchwing Slayer
-	["North-west to the {area:383}: the Witchwing Slayers hold their western end; they wear the rings.\nCareful: Some stealthed harpy ambushers wait in the area and stay hidden until you get close. A level 19 elite harpy also patrols there."] = "",
+	["North-west to the {area:383}: the Witchwing Slayers hold their western end; they wear the rings.\nCareful: Some stealthed harpy ambushers wait in the area and stay hidden until you get close. A level 19 elite harpy also patrols there."] = "북서쪽 {area:383}으로: 칼날바람일족 암살자가 서쪽 끝을 지키고 있으며 반지를 끼고 있습니다.\n주의: 일부 은신한 하피 매복자가 지역에 숨어 있다가 가까이 가야 드러납니다. 19레벨 정예 하피도 순찰합니다.",
 
-	-- Step 38: Vrang Wildgore
+	-- Step 48: Vrang Wildgore
 	-- {quest:881} Echeyakee · {npc:3682} Vrang Wildgore
-	["East from the keg toward {quest:881}: {npc:3682} camps below the hills, and his errands lie in the plains beside his camp."] = "",
+	["East from the keg toward {quest:881}: {npc:3682} camps below the hills, and his errands lie in the plains beside his camp."] = "케그에서 {quest:881} 쪽으로 동쪽: {npc:3682}은(는) 언덕 아래에 야영하고, 그의 심부름은 야영지 옆 평원에 있습니다.",
 
-	-- Step 39: Savannah lions
-	["Savannah lions"] = "",
+	-- Step 49: Savannah lions
+	["Savannah lions"] = "사바나 사자",
 	-- {npc:3682} Vrang Wildgore
 	-- plural, as words: Savannah Patriarchs = {npc:3241} Savannah Patriarch · Sprung Traps = {object:640104} Sprung Trap
-	["Savannah Patriarchs roam the plains east of {npc:3682}'s camp, and the Sprung Traps lie among them."] = "",
+	["Savannah Patriarchs roam the plains east of {npc:3682}'s camp, and the Sprung Traps lie among them."] = "우두머리 사바나 사자는 {npc:3682} 야영지 동쪽 평원을 돌아다니고, 용수철 덫은 그들 사이에 있습니다.",
 
-	-- Step 40: Vrang Wildgore
+	-- Step 50: Vrang Wildgore
 	-- {npc:261366} Walton · {npc:3682} Vrang Wildgore · {area:383} Dry Hills · {npc:3452} Serena Bloodfeather
-	["{npc:261366}, the hermit on the ridge behind {npc:3682}: on the next {area:383} visit, with {npc:3452}"] = "",
+	["{npc:261366}, the hermit on the ridge behind {npc:3682}: on the next {area:383} visit, with {npc:3452}"] = "{npc:3682} 뒤 능선의 은둔자 {npc:261366}: 다음 {area:383} 방문 때 {npc:3452}와 함께",
 
-	-- Step 41: Echeyakee
+	-- Step 51: Echeyakee
 	-- {quest:881} Echeyakee
-	["South-east on the way back to the Crossroads: {quest:881}, a white lion, prowls the plains north of the Razormane camp.\nCareful: Savannah Huntresses roam around the lair. They respawn quickly and often join the fight alongside {quest:881}, so clear them out before you blow the horn.\nSunscale raptors here count toward the heads."] = "",
+	["South-east on the way back to the Crossroads: {quest:881}, a white lion, prowls the plains north of the Razormane camp.\nCareful: Savannah Huntresses roam around the lair. They respawn quickly and often join the fight alongside {quest:881}, so clear them out before you blow the horn.\nSunscale raptors here count toward the heads."] = "크로스로드로 돌아오는 길 남동쪽: {quest:881}, 하얀 사자가 서슬갈기일족 야영지 북쪽 평원을 배회합니다.\n주의: 사바나 사냥꾼이 둥지를 맴돕니다. 빠르게 재생되고 종종 {quest:881}과(와) 함께 싸우니, 뿔을 불기 전에 먼저 정리하세요.\n이곳의 태양비늘 랩터도 머리에 포함됩니다.",
 
-	-- Step 42: Finish the Raptor Heads
+	-- Step 52: Finish the Raptor Heads
 	-- plural, as words: Raptor Heads = {item:5062} Raptor Head
-	["Finish the Raptor Heads"] = "",
+	["Finish the Raptor Heads"] = "랩터 머리 마저 모으기",
 	-- {quest:881} Echeyakee
-	-- plural, as words: Sunscale Lashtails = {npc:3254} Sunscale Lashtail
-	["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "",
+	-- plural, as words: Sunscale Screechers = {npc:3255} Sunscale Screecher
+	["Still short of twelve? Sunscale Screechers are thickest on the open plains just north of {quest:881}'s lair: finish there, then head back south-west to the Crossroads, keeping west of the Razormane camp."] = "아직 열둘이 안 됐습니까? 태양비늘 날개날개({npc:3255})는 {quest:881}의 둥지 바로 북쪽의 탁 트인 평원에 가장 많습니다: 그곳에서 채운 뒤 서리갈기 야영지 서쪽을 지나 남서쪽 크로스로드로 돌아가십시오.",
 
-	-- Step 43: The Crossroads
+	-- Step 53: The Crossroads
 	-- {npc:3464} Gazrog · {npc:3338} Sergra Darkthorn · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork
 	["In from the north gate: {npc:3464} first, {npc:3338} by the inn, then up to {npc:3449} and {npc:3429} on the tower platform, where the flight master stands."] = "북문으로 들어가서 먼저 {npc:3464}, 여관 옆의 {npc:3338}을(를) 찾은 다음, 비행 조련사가 있는 탑 승강장으로 올라가 {npc:3449}와(과) {npc:3429}을(를) 찾으세요.",
 	-- {npc:3464} Gazrog · {quest:3281} Stolen Silver · {area:385} Northwatch Hold
-	["{npc:3464}: the {quest:3281}, in a raptor nest north-west of {area:385}"] = "",
+	["{npc:3464}: the {quest:3281}, in a raptor nest north-west of {area:385}"] = "{npc:3464}: {quest:3281}, {area:385} 북서쪽 랩터 둥지에서",
 	-- {npc:3390} Apothecary Helbrim · {zone:1456} Thunder Bluff
 	["{npc:3390}: 45 minutes, for Zamah on the {zone:1456} step next"] = "{npc:3390}: 45분, 바로 다음 {zone:1456} 단계의 자마에게",
 	-- {npc:3338} Sergra Darkthorn
-	["{npc:3338}: the raptor nests south of the Crossroads"] = "",
+	["{npc:3338}: the raptor nests south of the Crossroads"] = "{npc:3338}: 크로스로드 남쪽 랩터 둥지",
 	-- {npc:3449} Darsok Swiftdagger · {quest:876} Serena Bloodfeather · {area:383} Dry Hills
-	["{npc:3449}, on the tower: {quest:876} leads the harpies in the {area:383}"] = "",
+	["{npc:3449}, on the tower: {quest:876} leads the harpies in the {area:383}"] = "{npc:3449}, 탑 위에서: {quest:876}이(가) {area:383}의 하피를 이끕니다",
 	-- {npc:3429} Thork · {area:1703} Mor'shan Rampart
-	["{npc:3429}, on the tower, from level 17. Keep it: Kadrak at the {area:1703}, next guide"] = "",
+	["{npc:3429}, on the tower, from level 17. Keep it: Kadrak at the {area:1703}, next guide"] = "{npc:3429}, 탑 위에서, 17레벨부터. 보관하세요: 다음 가이드의 {area:1703}에 있는 카드락",
 
-	-- Step 44: Thunder Bluff
+	-- Step 54: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {quest:853} Apothecary Zamah · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
 	["Fly from the Crossroads to {area:1638}. {quest:853} waits in the {area:2197}, the cave under {area:1640}: hand in the spores there first, while their time runs. Then {npc:3033} trains you on {area:1639}."] = "크로스로드에서 {area:1638}(으)로 날아가세요. {quest:853}은(는) {area:1640} 아래 동굴인 {area:2197}에서 기다립니다. 제한 시간이 흐르는 동안 먼저 그곳에 포자를 제출하세요. 그다음 {area:1639}에서 {npc:3033}이(가) 훈련해 줍니다.",
 	-- {quest:853} Apothecary Zamah · {area:2197} Pools of Vision
 	["{quest:853}, in the {area:2197}"] = "{area:2197}의 {quest:853}",
 
-	-- Step 45: Moonglade
+	-- Step 55: Moonglade
 	-- {spell:18960} Teleport: Moonglade
-	["Cast {spell:18960}"] = "",
+	["Cast {spell:18960}"] = "{spell:18960}을(를) 시전하세요",
 
-	-- Step 46: Trial of the Lake
+	-- Step 56: Trial of the Lake
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri · {quest:28} Trial of the Lake
 	-- plural, as words: Shrine Baubles = {item:15877} Shrine Bauble
-	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. The Shrine Baubles lie on the bed of {area:656} and fade within minutes: swim one straight to the {area:2362} on the north-west shore, use it there and speak to {npc:11799}. {quest:28} runs on a timer: no teleport or Hearthstone until {npc:11799} has it."] = "",
+	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. The Shrine Baubles lie on the bed of {area:656} and fade within minutes: swim one straight to the {area:2362} on the north-west shore, use it there and speak to {npc:11799}. {quest:28} runs on a timer: no teleport or Hearthstone until {npc:11799} has it."] = "{npc:11802}은(는) {area:2361}에 있는 자기 건물 위층에 서 있습니다. 건물 안에서 올라가세요. 화살표는 층을 구분하지 못합니다. 제단 구슬는 {area:656} 바닥에 있고 몇 분 안에 사라집니다: 수영해서 북서쪽 기슭의 {area:2362}로 곧장 가 거기서 사용하고 {npc:11799}에게 말을 거세요. {quest:28}은(는) 제한 시간이 있습니다: {npc:11799}이(가) 받기 전에는 순간이동이나 귀환석을 쓰지 마세요.",
 	-- {quest:6127} The Principal Source · {area:384} Dreadmist Peak
 	["{quest:6127}: {area:384}, next guide"] = "{quest:6127}: {area:384}, 다음 가이드",
 	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
@@ -244,157 +274,157 @@ return {
 	-- {npc:11799} Tajarri · {area:2362} Shrine of Remulos
 	["{npc:11799}, at the {area:2362}"] = "{npc:11799}, {area:2362}에서",
 	-- {quest:30} Trial of the Sea Lion · {area:382} Sludge Fen · {area:287} Hillsbrad
-	["{quest:30}, carried: one half pendant in the {area:382} in this guide, the other underwater off Silverpine on the way to {area:287} at 21; the pendant is handed in after {area:287}"] = "",
+	["{quest:30}, carried: one half pendant in the {area:382} in this guide, the other underwater off Silverpine on the way to {area:287} at 21; the pendant is handed in after {area:287}"] = "{quest:30}, 전달됨: 반쪽 펜던트 하나는 이 가이드의 {area:382}에서, 다른 하나는 21레벨에 은빛소나무 숲로 가는 길 {area:287} 앞바다 수중에서; 펜던트는 {area:287} 이후에 제출합니다",
 	-- {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven
 	["{npc:11798} in {area:2361} flies druids there"] = "{area:2361}의 {npc:11798}이(가) 드루이드를 그곳으로 태워 줍니다",
 
-	-- Step 47: Fly to Ratchet
+	-- Step 57: Fly to Ratchet
 	-- {area:392} Ratchet
-	["Fly to {area:392}"] = "",
+	["Fly to {area:392}"] = "{area:392}(으)로 날아가기",
 	-- {zone:1456} Thunder Bluff · {area:392} Ratchet
 	["Fly from {zone:1456} straight on to {area:392}."] = "{zone:1456}에서 곧장 {area:392}(으)로 비행하십시오.",
 
-	-- Step 48: Fly to Ratchet
+	-- Step 58: Fly to Ratchet
 	["Crossroads flight master"] = "크로스로드 비행 조련사",
 
-	-- Step 49: Ratchet
+	-- Step 59: Ratchet
 	["WANTED poster"] = "",
 
-	-- Step 50: Mebok Mizzyrix
+	-- Step 60: Mebok Mizzyrix
 	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {quest:1491} Smart Drinks
 	["For your {area:718} run: {npc:3446}'s next errand, {quest:1491}."] = "{area:718} 공략용: {npc:3446}의 다음 심부름인 {quest:1491}.",
 
-	-- Step 52: Ratchet
+	-- Step 62: Ratchet
 	-- {npc:3442} Sputtervalve · {quest:1483} Ziz Fizziks · {area:1076} Webwinder Path
-	["{npc:3442}: keep it, {quest:1483} is on the {area:1076} in Stonetalon, at the end of this guide"] = "",
+	["{npc:3442}: keep it, {quest:1483} is on the {area:1076} in Stonetalon, at the end of this guide"] = "{npc:3442}: 보관하세요, {quest:1483}은(는) 이 가이드 마지막의 돌발톱 산맥 {area:1076}에 있습니다",
 	-- {npc:3442} Sputtervalve · {npc:9316} Wenikee Boltbucket · {area:382} Sludge Fen
-	["{npc:3442}: {npc:9316} stands on the road north of the Crossroads, on the way to the {area:382}"] = "",
+	["{npc:3442}: {npc:9316} stands on the road north of the Crossroads, on the way to the {area:382}"] = "{npc:3442}: {npc:9316}은(는) 크로스로드 북쪽 도로에 서 있고, {area:382}로 가는 길에 있습니다",
 
-	-- Step 53: Bruuz
+	-- Step 63: Bruuz
 	-- {npc:209797} Bruuz
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:209797} (level 20 elite) needs a group of 2. Skip it if you are alone."] = "정예 몬스터입니다. 파티를 권장하니 함께할 사람을 찾으세요. {npc:209797}(20레벨 정예)은(는) 2인 파티가 필요합니다. 혼자라면 건너뛰세요.",
 
-	-- Step 54: Ratchet
+	-- Step 64: Ratchet
 	-- {npc:3391} Gazlowe
-	["{npc:3391} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:3391} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:3391}은(는) 자기 건물 위층에 서 있습니다. 건물 안에서 올라가세요. 화살표는 층을 구분하지 못합니다.",
 
-	-- Step 55: Raptor nests
+	-- Step 65: Raptor nests
 	["Raptor nests"] = "랩터 둥지",
 	-- {area:392} Ratchet · {area:1697} Raptor Grounds · {item:5165} Sunscale Feather
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
 	["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a {item:5165}: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest."] = "{area:392}에서 남서쪽으로 평원을 가로질러 {area:1697}(으)로 가세요. 둥지 세 개는 오아시스 남서쪽에 모여 있으며, 갈퀴발톱 열대초원랩터가 지키고 있습니다. 둥지마다 {item:5165}이(가) 필요합니다. 열대초원랩터를 처치해(대부분 하나씩 떨어뜨립니다) 세 개를 모은 뒤, 각 둥지에서 깃털을 사용하세요.",
 
-	-- Step 56: Raptor Grounds: kill these as you meet them
+	-- Step 66: Raptor Grounds: kill these as you meet them
 	-- {area:1697} Raptor Grounds
-	["{area:1697}: kill these as you meet them"] = "",
+	["{area:1697}: kill these as you meet them"] = "{area:1697}: 만나는 대로 처치하세요",
 	-- {area:1697} Raptor Grounds · {npc:3446} Mebok Mizzyrix · {area:392} Ratchet · {npc:3682} Vrang Wildgore · {area:385} Northwatch Hold
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
 	["Sunscale Scytheclaws hunt the plains around the {area:1697}; they drop the horns. {npc:3446} takes them back in {area:392}; any still missing come with {npc:3682}'s hills later.\nSouth-east toward the coast: the stolen silver lies in a raptor nest north-west of {area:385}."] = "갈퀴발톱 열대초원랩터는 {area:1697} 주변 평원에서 사냥하며 뿔을 떨어뜨립니다. {npc:3446}이(가) {area:392}에서 받습니다. 모자라는 것은 나중에 {npc:3682}의 언덕에서 채웁니다.\n남동쪽 해안으로 가세요. 도둑맞은 은은 {area:385} 북서쪽의 랩터 둥지에 있습니다.",
 
-	-- Step 57: Stolen Booty
+	-- Step 67: Stolen Booty
 	-- {npc:3467} Baron Longshore
 	["East to the beach, at the south end of the pirate camp: the crate of boots and the fragile crate with the lens sit there, and {npc:3467} (16) stands beside them."] = "동쪽으로 해적 야영지 남쪽 끝의 해변으로 가세요. 장화 상자와 렌즈가 든 깨지기 쉬운 상자가 그곳에 있고, {npc:3467}(16)이(가) 그 옆에 서 있습니다.",
 
-	-- Step 58: Ratchet
+	-- Step 68: Ratchet
 	-- {area:392} Ratchet
 	["Back north along the beach to {area:392}."] = "해변을 따라 북쪽의 {area:392}(으)로 돌아가세요.",
 	-- {npc:3446} Mebok Mizzyrix
 	["{npc:3446}, beside the WANTED poster"] = "",
 
-	-- Step 63: Dreadmist Peak
+	-- Step 73: Dreadmist Peak
 	-- {area:384} Dreadmist Peak · {item:15842} Empty Dreadmist Peak Sampler · {object:19464} Dreadmist Peak Pool (no name in this language: may be words) · {npc:3448} Tonga Runetotem · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
-	["Head north from the Crossroads to {area:384} and fill the {item:15842} at the {object:19464}, then back to {npc:3448} in the Crossroads. No {skill:182}? {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "",
+	["Head north from the Crossroads to {area:384} and fill the {item:15842} at the {object:19464}, then back to {npc:3448} in the Crossroads. No {skill:182}? {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "크로스로드에서 북쪽으로 {area:384}까지 가 {object:19464}에서 {item:15842}을(를) 채운 뒤 크로스로드의 {npc:3448}에게 돌아가세요. {skill:182}가 없나요? 그 옆의 {npc:3490}이(가) {item:2449}을(를) 재고가 찰 때까지 3개씩 팝니다.",
 	-- {item:2449} Earthroot · {npc:3490} Hula'mahi
 	["{item:2449} from {npc:3490}; herbalists pick it on the plains"] = "{npc:3490}에게서 {item:2449}. 약초채집가는 평원에서 채집하십시오",
 
-	-- Step 64: Kolkar camp
+	-- Step 74: Kolkar camp
 	["Kolkar camp"] = "콜카르일족 야영지",
 	-- {npc:3389} Regthar Deathgate · {item:2449} Earthroot
 	-- plural, as words: Lost Barrens Kodos = {npc:3234} Lost Barrens Kodo
-	["Lost Barrens Kodos roam the plains around the Kolkar camp north-west of {npc:3389}; herbalists pick {item:2449} there too."] = "",
+	["Lost Barrens Kodos roam the plains around the Kolkar camp north-west of {npc:3389}; herbalists pick {item:2449} there too."] = "길잃은 황무지 코도는 {npc:3389} 북서쪽 콜카르 야영지 주변 평원을 돌아다니고, 약초채집가도 그곳에서 {item:2449}을(를) 채집합니다.",
 
-	-- Step 65: The Barrens: kill these as you meet them
+	-- Step 75: The Barrens: kill these as you meet them
 	-- {area:383} Dry Hills · {quest:876} Serena Bloodfeather
-	["North to the {area:383}: {quest:876} leads the Witchwing harpies in the hills to the west.\nCareful: The route in passes stealthed Harpy Ambushers and an elite harpy that patrols."] = "",
+	["North to the {area:383}: {quest:876} leads the Witchwing harpies in the hills to the west.\nCareful: The route in passes stealthed Harpy Ambushers and an elite harpy that patrols."] = "북쪽 {area:383}으로: {quest:876}이(가) 서쪽 언덕의 칼날바람일족 하피를 이끕니다.\n주의: 오는 길에 은신한 하피 매복자와 순찰하는 정예 하피가 있습니다.",
 	-- {quest:865} Raptor Horns · {npc:3682} Vrang Wildgore
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
-	["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions below {npc:3682}'s camp"] = "",
+	["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions below {npc:3682}'s camp"] = "{quest:865}, 아직 열려 있다면: 갈퀴발톱 열대초원랩터는 {npc:3682} 야영지 아래 사자들 사이를 배회합니다",
 
-	-- Step 66: Walton
+	-- Step 76: Walton
 	-- {npc:261366} Walton · {npc:3682} Vrang Wildgore
-	["{npc:261366}, the hermit, stands on the ridge behind {npc:3682}'s camp."] = "",
+	["{npc:261366}, the hermit, stands on the ridge behind {npc:3682}'s camp."] = "{npc:261366}, 은둔자는 {npc:3682} 야영지 뒤 능선에 서 있습니다.",
 
-	-- Step 67: Trouble in the Valley
+	-- Step 77: Trouble in the Valley
 	-- {npc:262119} Corporal Adamore · {npc:261366} Walton
-	["{npc:262119} and his marines hold the wrecked caravan south of {npc:261366}. The marines are linked: pulling one calls the rest. Pull from the edge and run; they leash short, so you can thin the camp one at a time before tackling the Corporal."] = "",
+	["{npc:262119} and his marines hold the wrecked caravan south of {npc:261366}. The marines are linked: pulling one calls the rest. Pull from the edge and run; they leash short, so you can thin the camp one at a time before tackling the Corporal."] = "{npc:262119}과(와) 그의 군인들이 {npc:261366} 남쪽의 부서진 상단을 지키고 있습니다. 군인들은 서로 연결되어 있어 하나를 끌면 나머지가 달려옵니다. 가장자리에서 끌고 도망치세요. 리쉬가 짧아 한 번에 하나씩 줄인 뒤 병장을 상대할 수 있습니다.",
 
-	-- Step 68: Walton
+	-- Step 78: Walton
 	-- {npc:261366} Walton · {npc:261367} Terry Longdrink · {area:21} Kul Tiras
 	["Assist {npc:261366}: stay by him when {npc:261367} and the {area:21} marines come up the ridge"] = "{npc:261366} 돕기: {npc:261367}와(과) {area:21} 해병이 능선을 올라오면 그의 곁에 있으세요",
 
-	-- Step 69: Wenikee Boltbucket
+	-- Step 79: Wenikee Boltbucket
 	-- {npc:261366} Walton · {area:382} Sludge Fen · {npc:9316} Wenikee Boltbucket
 	["East from {npc:261366} toward the {area:382}: {npc:9316} stands at the camp on the road north of the Crossroads."] = "{npc:261366}에게서 동쪽 {area:382} 방향으로 가세요. {npc:9316}은(는) 크로스로드 북쪽 길가 야영지에 있습니다.",
 
-	-- Step 70: Ignition
+	-- Step 80: Ignition
 	-- {npc:3439} Wizzlecrank's Shredder · {area:382} Sludge Fen · {npc:3445} Supervisor Lugwizzle
-	["{npc:3439} stands inside the Venture Co. camp in the {area:382}; {npc:3445} carries the key."] = "",
+	["{npc:3439} stands inside the Venture Co. camp in the {area:382}; {npc:3445} carries the key."] = "{npc:3439}은(는) {area:382}에 있는 투자개발회사 야영지 안에 있습니다; {npc:3445}이(가) 열쇠를 지니고 있습니다.",
 
-	-- Step 71: Strange Lockbox
+	-- Step 81: Strange Lockbox
 	-- {object:177794} Strange Lockbox · {area:382} Sludge Fen · {item:15883} Half Pendant of Aquatic Agility · {quest:30} Trial of the Sea Lion
 	["The {object:177794} lies at the north edge of the {area:382}, by the Venture Co. tower. It holds the {item:15883} for {quest:30}."] = "{object:177794}은(는) {area:382} 북쪽 가장자리, 투자개발회사 탑 옆에 있습니다. {quest:30}용 {item:15883}이(가) 들어 있습니다.",
 
-	-- Step 72: The Escape
+	-- Step 82: The Escape
 	-- {npc:3442} Sputtervalve · {area:392} Ratchet
-	["Wizzlecrank drives his shredder out of the camp: stay with him and kill whatever attacks him. {npc:3442} takes it in {area:392}.\nCareful: The route leads west and climbs a ramp. Once you reach the top, two Venture Company mobs ambush you."] = "",
+	["Wizzlecrank drives his shredder out of the camp: stay with him and kill whatever attacks him. {npc:3442} takes it in {area:392}.\nCareful: The route leads west and climbs a ramp. Once you reach the top, two Venture Company mobs ambush you."] = "위즐크랭크가 자기 벌목기를 몰고 야영지를 나갑니다: 그와 함께 가며 공격하는 것을 모두 처치하세요. {npc:3442}이(가) {area:392}에서 맞습니다.\n주의: 길은 서쪽으로 가서 경사로를 오릅니다. 꼭대기에 도착하면 투자개발회사 몹 둘이 매복합니다.",
 
-	-- Step 73: Nugget Slugs
+	-- Step 83: Nugget Slugs
 	-- {area:382} Sludge Fen
 	["The tool buckets with the slugs lie around the Venture Co. drill site in the {area:382}."] = "민달팽이가 든 공구 양동이는 {area:382}의 투자개발회사 시추 현장 주변에 있습니다.",
 
-	-- Step 74: Boulder Lode Mine
+	-- Step 84: Boulder Lode Mine
 	-- {item:5097} Cats Eye Emerald
 	-- plural, as words: Venture Co. Overseers = {npc:3286} Venture Co. Overseer
 	["The Venture Co. Overseers and Enforcers at the mine in the north-east corner of the zone drop the {item:5097}."] = "지역 북동쪽 구석 광산의 투자개발회사 감독과 투자개발회사 집행자가 {item:5097}을(를) 떨어뜨립니다.",
 
-	-- Step 75: Wenikee Boltbucket
+	-- Step 85: Wenikee Boltbucket
 	-- {npc:9316} Wenikee Boltbucket
-	["West from the mine to {npc:9316}'s camp, then south down the road to the Crossroads."] = "",
+	["West from the mine to {npc:9316}'s camp, then south down the road to the Crossroads."] = "광산에서 서쪽으로 {npc:9316} 야영지까지 간 뒤 도로를 따라 남쪽으로 크로스로드까지 가세요.",
 	-- {quest:3923} Rilli Greasygob · {zone:1454} Orgrimmar · {object:172958} Valley of Honor
-	["Keep it: {quest:3923} is in {zone:1454}'s {object:172958}, on the {zone:1454} trip at 20"] = "",
+	["Keep it: {quest:3923} is in {zone:1454}'s {object:172958}, on the {zone:1454} trip at 20"] = "보관하세요: {quest:3923}은(는) 20레벨에 {zone:1454} 여행에서 {zone:1454}의 {object:172958}에 있습니다",
 
-	-- Step 76: the Crossroads
-	["the Crossroads"] = "",
+	-- Step 86: the Crossroads
+	["the Crossroads"] = "크로스로드",
 	-- {npc:3449} Darsok Swiftdagger · {npc:3448} Tonga Runetotem
-	["South down the road to the Crossroads: {npc:3449} stands on the tower platform, {npc:3448} at the south gate."] = "",
+	["South down the road to the Crossroads: {npc:3449} stands on the tower platform, {npc:3448} at the south gate."] = "도로를 따라 남쪽으로 크로스로드까지: {npc:3449}은(는) 탑 승강장에, {npc:3448}은(는) 남문에 있습니다.",
 	-- {item:15826} Curative Animal Salve
 	["He gives you the {item:15826}"] = "그가 {item:15826}을(를) 줍니다",
 
-	-- Step 77: Verog the Dervish
+	-- Step 87: Verog the Dervish
 	-- {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis · {npc:3448} Tonga Runetotem
 	["{npc:3395} doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the {area:388}, south-east of the Crossroads. Keep killing them around the oasis until he appears. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395}은(는) 스스로 돌아다니지 않습니다. 크로스로드 남동쪽 {area:388}에서 콜카르일족 켄타우로스를 잡으면 나타납니다. 나타날 때까지 오아시스 주변에서 계속 잡으세요. 그곳에 있는 동안 오아시스 동쪽 기슭의 부글거리는 균열에서 {npc:3448}의 씨앗을 시험하세요.",
 	["Underwater"] = "물속",
 	-- {npc:12296} Sickly Gazelle · {item:15826} Curative Animal Salve
-	["{npc:12296}: use the {item:15826} on them; they roam the plains all around the Crossroads"] = "",
+	["{npc:12296}: use the {item:15826} on them; they roam the plains all around the Crossroads"] = "{npc:12296}: 그들에게 {item:15826}을(를) 사용하세요. 크로스로드 주변 평원 어디에나 돌아다닙니다",
 	-- {npc:12296} Sickly Gazelle
-	["Cure {npc:12296}"] = "",
+	["Cure {npc:12296}"] = "{npc:12296} 치료",
 
-	-- Step 78: Bristleback camps
+	-- Step 88: Bristleback camps
 	["Bristleback camps"] = "뾰족털일족 야영지",
 	-- {area:378} Camp Taurajo · {area:458} Gold Road · {npc:3432} Mankrik · {npc:3430} Mangletooth · {quest:883} Lakota'mani
 	["The Bristleback quilboar camps spread over the plains north of {area:378}, either side of the {area:458}. {npc:3432}'s wife lies at their north edge, on your way south. Leave the quilboar for now: {npc:3430} in {area:378} wants the same camps cleared. {quest:883}, a grey kodo (level 22), sometimes wanders here: his hoof starts a quest. Leave him alone below level 21."] = "뾰족털일족 멧돼지인간 야영지는 {area:378} 북쪽 평원, {area:458} 양쪽에 퍼져 있습니다. {npc:3432}의 아내는 그 북쪽 끝, 남쪽으로 가는 길에 쓰러져 있습니다. 멧돼지인간은 지금은 놔두세요. {area:378}의 {npc:3430}이(가) 같은 야영지 소탕을 원합니다. 회색 코도인 {quest:883}(22레벨)이(가) 가끔 이곳을 돌아다니며, 그의 발굽으로 퀘스트가 시작됩니다. 21레벨 미만이면 건드리지 마세요.",
 
-	-- Step 79: Camp Taurajo
+	-- Step 89: Camp Taurajo
 	-- {area:458} Gold Road · {area:378} Camp Taurajo
 	["Follow the {area:458} south to {area:378}."] = "{area:458}을(를) 따라 남쪽 {area:378}(으)로 가십시오.",
 	-- {npc:3430} Mangletooth
 	["{npc:3430}, in the cage"] = "{npc:3430}, 우리 안",
 
-	-- Step 80: Bramblescar
+	-- Step 90: Bramblescar
 	-- {npc:3432} Mankrik · {npc:3430} Mangletooth · {item:5075} Blood Shard
-	["Back north into the Bristleback camps. Any Bristleback can drop a tusk for {npc:3432}, so collect them while you kill these for {npc:3430}. Keep one {item:5075}."] = "",
+	["Back north into the Bristleback camps. Any Bristleback can drop a tusk for {npc:3432}, so collect them while you kill these for {npc:3430}. Keep one {item:5075}."] = "가시덤불 야영지로 다시 북쪽에 들어가세요. 가시덤불은 누구나 {npc:3432}를 위한 엄니를 떨어뜨릴 수 있으니, {npc:3430}을(를) 위해 처치하면서 함께 모으세요. {item:5075}은(를) 하나 보관하세요.",
 
-	-- Step 83: Level 20
+	-- Step 93: Level 20
 	["Level 20"] = "20레벨",
 	-- {zone:1454} Orgrimmar · {area:1700} Agama'gor · {area:718} Wailing Caverns
 	-- plural, as words: Bristleback Geomancers = {npc:3263} Bristleback Geomancer
@@ -404,7 +434,7 @@ return {
 	-- {npc:3263} Bristleback Geomancer
 	["grind on {npc:3263}"] = "{npc:3263} 사냥",
 
-	-- Step 84: The Crossroads
+	-- Step 94: The Crossroads
 	-- {area:458} Gold Road · {npc:3448} Tonga Runetotem · {npc:3432} Mankrik · {npc:3428} Korran · {item:5075} Blood Shard · {npc:3430} Mangletooth · {area:378} Camp Taurajo
 	["North up the {area:458} to the Crossroads: {npc:3448} at the south gate, {npc:3432} by the inn, {npc:3428} west of the north gate. Keep the {item:5075}: {npc:3430} takes it on the next stop in {area:378}."] = "{area:458}을(를) 따라 북쪽 십자로로 가십시오. {npc:3448}은(는) 남문에, {npc:3432}은(는) 여관 옆에, {npc:3428}은(는) 북문 서쪽에 있습니다. {item:5075}은(는) 보관하십시오. 다음에 {area:378}에 들를 때 {npc:3430}에게 줍니다.",
 	-- {npc:3448} Tonga Runetotem · {area:387} Lushwater Oasis · {npc:3396} Hezrul Bloodmark · {zone:1454} Orgrimmar
@@ -415,300 +445,299 @@ return {
 	-- {npc:3428} Korran · {quest:868} Egg Hunt · {zone:1413} The Barrens
 	["{npc:3428}'s {quest:868} waits for this guide's last Crossroads stop: its eggs come on the next {zone:1413} guide's walk south, at about 25."] = "{npc:3428}의 {quest:868}은(는) 이 가이드의 마지막 크로스로드 방문까지 기다립니다. 알은 다음 {zone:1413} 가이드에서 25레벨쯤 남쪽으로 내려갈 때 모읍니다.",
 
-	-- Step 85: Fly to Orgrimmar
+	-- Step 95: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "{area:1637}(으)로 날아가기",
 	-- {area:1637} Orgrimmar · {npc:3615} Devrak
-	["Train your level 20 ranks in {area:1637} now: fly from {npc:3615} on the Crossroads' tower."] = "",
+	["Train your level 20 ranks in {area:1637} now: fly from {npc:3615} on the Crossroads' tower."] = "지금 {area:1637}에서 20레벨 등급을 배우세요: 크로스로드 탑의 {npc:3615}에게서 비행하세요.",
 
-	-- Step 86: Orgrimmar
+	-- Step 96: Orgrimmar
 	-- {npc:3354} Sorek · {object:172958} Valley of Honor · {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom
-	["{npc:3354} is in the {object:172958}, {npc:5892} in the {object:172957}."] = "",
+	["{npc:3354} is in the {object:172958}, {npc:5892} in the {object:172957}."] = "{npc:3354}은(는) {object:172958}에, {npc:5892}은(는) {object:172957}에 있습니다.",
 
-	-- Step 87: Valley of Honor
+	-- Step 97: Valley of Honor
 	-- {quest:3923} Rilli Greasygob · {object:172958} Valley of Honor
-	["{quest:3923} stands by the {object:172958}'s water, east of the Drag."] = "",
+	["{quest:3923} stands by the {object:172958}'s water, east of the Drag."] = "{quest:3923}은(는) 드래그 동쪽, {object:172958}의 물가에 서 있습니다.",
 
-	-- Step 88: Shenthul
+	-- Step 98: Shenthul
 	-- {quest:2458} Deep Cover · {npc:7233} Taskmaster Fizzule · {area:382} Sludge Fen
-	["{quest:2458}: {npc:7233}, by the {area:382} on the next guide's walk north"] = "",
+	["{quest:2458}: {npc:7233}, by the {area:382} on the next guide's walk north"] = "{quest:2458}: {npc:7233}, 다음 가이드가 북쪽으로 가는 길 {area:382} 옆에",
 
-	-- Step 89: Orgrimmar class quests
+	-- Step 99: Orgrimmar class quests
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} class quests"] = "{zone:1454} 직업 퀘스트",
 	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits
 	["{npc:6018} stands in the {object:172961} on the city's west side."] = "{npc:6018}은(는) 도시 서쪽의 {object:172961}에 서 있습니다.",
 
-	-- Step 90: Gan'rul Bloodeye
+	-- Step 100: Gan'rul Bloodeye
 	-- {object:172960} Cleft of Shadow · {object:172982} Valley of Strength
 	["The {object:172960} is the canyon under the {object:172982}."] = "{object:172960}은(는) {object:172982} 아래 협곡입니다.",
 	-- {npc:5909} Cazul
 	["{npc:5909}, a few steps away"] = "{npc:5909}, 몇 걸음 떨어진 곳",
 
-	-- Step 91: Ur'kyo
+	-- Step 101: Ur'kyo
 	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits
 	["{npc:6018} stands in the {object:172961}, on the city's west side."] = "{npc:6018}은(는) 도시 서쪽 {object:172961}에 있습니다.",
 	-- {npc:6018} Ur'kyo · {npc:4606} Aelthalyste · {zone:1458} Undercity
 	["{npc:6018}: {npc:4606} in the {zone:1458}, two guides on"] = "{npc:6018}: 두 가이드 뒤 {zone:1458}의 {npc:4606}",
 
-	-- Step 93: Thunder Bluff
+	-- Step 103: Thunder Bluff
 	-- {npc:246344} Alodan the Hopeful · {area:1638} Thunder Bluff · {zone:1454} Orgrimmar · {area:378} Camp Taurajo · {zone:1412} Mulgore · {npc:2995} Tal
-	["Train your level 20 ranks: {npc:246344} teaches Paladins in {area:1638}; {zone:1454} has no Paladin trainer. You have no flight path there yet: fly to {area:378}, head west through {zone:1412} and up a lift, and take the flight path from {npc:2995} on the central rise."] = "",
+	["Train your level 20 ranks: {npc:246344} teaches Paladins in {area:1638}; {zone:1454} has no Paladin trainer. You have no flight path there yet: fly to {area:378}, head west through {zone:1412} and up a lift, and take the flight path from {npc:2995} on the central rise."] = "20레벨 등급을 배우세요: {npc:246344}이(가) {area:1638}에서 성기사를 가르칩니다. {zone:1454}에는 성기사 상급자가 없습니다. 아직 거기 비행 경로가 없습니다: {area:378}로 비행해 {zone:1412}을(를) 관통해 서쪽으로 가 리프트를 타고, 중앙 언덕의 {npc:2995}에게서 비행 경로를 얻으세요.",
 
-	-- Step 95: The Great Cat Spirit
+	-- Step 105: The Great Cat Spirit
 	-- {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:499} Cat Form · {spell:526} Cure Poison · {zone:1450} Moonglade · {npc:11798} Bunthen Plainswind · {area:392} Ratchet
-	["Fly from the Crossroads to {area:1638} and train your level 20 ranks: {npc:3033} is on {area:1639}. {spell:499} and {spell:526} follow in {zone:1450} on the same trip, then {npc:11798} flies you back here and on to {area:392}."] = "",
+	["Fly from the Crossroads to {area:1638} and train your level 20 ranks: {npc:3033} is on {area:1639}. {spell:499} and {spell:526} follow in {zone:1450} on the same trip, then {npc:11798} flies you back here and on to {area:392}."] = "크로스로드에서 {area:1638}로 비행해 20레벨 등급을 배우세요: {npc:3033}은(는) {area:1639}에 있습니다. {spell:499}와(과) {spell:526}은(는) 같은 여행에서 {zone:1450}에 이어지고, {npc:11798}이(가) 여기로 돌려보내고 {area:392}까지 태워줍니다.",
 
-	-- Step 96: Moonglade
+	-- Step 106: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "{spell:18960}을(를) 시전하세요. {npc:11802}은(는) {area:2361}에 있는 자기 건물 위층에 서 있습니다. 건물 안에서 올라가세요. 화살표는 층을 구분하지 못합니다.",
 
-	-- Step 98: Moonglade
+	-- Step 108: Moonglade
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "{npc:11802}은(는) {area:2361}에 있는 자기 건물 위층에 서 있습니다. 건물 안에서 올라가세요. 화살표는 층을 구분하지 못합니다.",
 
-	-- Step 99: Moonglade
+	-- Step 109: Moonglade
 	-- {npc:11802} Dendrite Starblaze · {npc:3033} Turak Runetotem
 	["{npc:11802}: the welcome from {npc:3033}"] = "{npc:11802}: {npc:3033}이(가) 보낸 환영 인사",
 
-	-- Step 100: The Stormrage Barrow Dens
+	-- Step 110: The Stormrage Barrow Dens
 	-- {area:2363} Stormrage Barrow Dens
 	["The {area:2363}"] = "{area:2363}",
 	-- {npc:11957} Great Cat Spirit · {npc:272054} Avatar of Saeyleenan · {item:280680} Relic of the Silent Shadow
 	-- plural, as words: Territorial Terrans = {npc:230558} Territorial Terran
 	["Tauren: the {npc:11957} waits on the southern hill above the bridge. Skyborne: the {npc:272054} stands south of the twin bridges. Then the dens east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue. Careful: the spirits are Territorial Terrans (level 60) that kill whoever they see: stay off their paths, and click the statue again before the stealth runs out."] = "타우렌: {npc:11957}은(는) 다리 위 남쪽 언덕에서 기다립니다. 스카이본: {npc:272054}은(는) 쌍둥이 다리 남쪽에 있습니다. 그다음 호수 동쪽 굴로 가십시오. 변신을 풀고, 입구의 석상을 클릭해 5분간 은신하고, 안의 혼령을 피해 유물을 하나씩 가져가십시오. {item:280680}은(는) 흰 살쾡이 석상 아래에 있습니다. 주의: 혼령은 눈에 띄는 자를 모두 죽이는 영역 수호 테란(60레벨)입니다. 그들의 이동 경로를 피하고, 은신이 끝나기 전에 석상을 다시 클릭하십시오.",
 
-	-- Step 103: Fly to Ratchet
+	-- Step 113: Fly to Ratchet
 	-- {zone:1456} Thunder Bluff · {area:392} Ratchet
-	["Fly from {zone:1456} on to {area:392}."] = "",
+	["Fly from {zone:1456} on to {area:392}."] = "{zone:1456}에서 {area:392}로 이어서 비행하세요.",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "{zone:1456} 비행 조련사",
 
-	-- Step 104: Fly to Ratchet
+	-- Step 114: Fly to Ratchet
 	-- {area:392} Ratchet · {object:172982} Valley of Strength
-	["Fly on to {area:392} from Doras on the tower in the {object:172982}."] = "",
+	["Fly on to {area:392} from Doras on the tower in the {object:172982}."] = "{object:172982}의 탑에 있는 도라스에게서 {area:392}로 이어서 비행하세요.",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "{zone:1454} 비행 조련사",
 
-	-- Step 106: Northwatch Hold: kill these as you meet them
+	-- Step 116: Northwatch Hold: kill these as you meet them
 	-- {area:385} Northwatch Hold
-	["{area:385}: kill these as you meet them"] = "",
+	["{area:385}: kill these as you meet them"] = "{area:385}: 만나는 대로 처치하세요",
 	-- {area:385} Northwatch Hold · {npc:3393} Captain Fairmount
 	-- plural, as words: Theramore Marines = {npc:3385} Theramore Marine
 	["South along the beach past the pirate camp to {area:385}, on the coast. The Theramore Marines and Preservers (15-16) drop the medals; {npc:3393} (20) and the two cannoneers (19) stand in the keep and on its walls.\nCareful: Each named target is linked to a healer and guards, and Fairmount has three extra marines with her. Killing the healer first makes the fight easier."] = "해변을 따라 해적 야영지를 지나 남쪽 해안의 {area:385}(으)로 가세요. 테라모어 해병과 보호자(15-16)가 훈장을 떨어뜨립니다. {npc:3393}(20)와(과) 포수 두 명(19)은 요새 안과 성벽 위에 있습니다.\n주의: 이름 있는 대상마다 치유사와 경비병이 연결되어 있고, 페어마운트에게는 해병 세 명이 더 붙어 있습니다. 치유사를 먼저 처치하면 전투가 쉬워집니다.",
-	["On the top floor"] = "",
+	["On the top floor"] = "최상층에",
 	["Upstairs"] = "위층",
 
-	-- Step 107: Free From the Hold
+	-- Step 117: Free From the Hold
 	-- {npc:3465} Gilthares Firebough · {area:392} Ratchet
 	["{npc:3465} is chained inside the hold. Talk to him to start the escort and stay close: Theramore soldiers attack on the way out. He walks you back to {area:392}."] = "{npc:3465}은(는) 요새 안에 사슬로 묶여 있습니다. 대화해 호위를 시작하고 가까이 있으십시오. 나가는 길에 테라모어 병사가 공격합니다. 그가 {area:392}까지 함께 걸어갑니다.",
 
-	-- Step 110: Ratchet: Wailing Caverns quests
+	-- Step 120: Ratchet: Wailing Caverns quests
 	-- {area:392} Ratchet · {area:718} Wailing Caverns
 	["{area:392}: {area:718} quests"] = "{area:392}: {area:718} 퀘스트",
 	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {npc:3665} Crane Operator Bigglefuzz · {npc:3396} Hezrul Bloodmark
 	-- was: ["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the {object:3972} poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "아직 받지 않은 {area:718} 퀘스트: {object:3972} 전단 옆의 {npc:3446}, 비행 조련사 옆 부두의 {npc:3665}. 공략은 이 가이드 후반, {npc:3396} 다음입니다."
 	["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the WANTED poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "",
 
-	-- Step 111: Islen Waterseer
+	-- Step 121: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
 	["{npc:5901} waits on the hill south of {area:392}, on your way north."] = "{npc:5901}은(는) 북쪽으로 가는 길, {area:392} 남쪽 언덕에서 기다립니다.",
 
-	-- Step 112: Ishamuhale
+	-- Step 122: Ishamuhale
 	-- {quest:882} Ishamuhale · {item:10338} Fresh Zhevra Carcass · {object:147538} Dead Tree (no name in this language: may be words) · {area:392} Ratchet
-	["{quest:882}, a big Sunscale raptor, only comes to a fresh kill: loot a {item:10338} from a zhevra, then use it at the {object:147538} north-west of {area:392}, north of the road to the Crossroads, and be ready when he arrives."] = "",
+	["{quest:882}, a big Sunscale raptor, only comes to a fresh kill: loot a {item:10338} from a zhevra, then use it at the {object:147538} north-west of {area:392}, north of the road to the Crossroads, and be ready when he arrives."] = "{quest:882}, 커다란 태양비늘 랩터는 신선한 사체에만 나타납니다: 제브라에게 {item:10338}을(를) 루팅한 뒤 {area:392} 북서쪽, 크로스로드로 가는 도로 북쪽의 {object:147538}에서 사용하고, 그가 올 때 대비하세요.",
 	-- {item:10338} Fresh Zhevra Carcass
 	-- plural, as words: Zhevra Chargers = {npc:3426} Zhevra Charger
-	["{item:10338}, from any zhevra; Zhevra Chargers graze around the tree"] = "",
+	["{item:10338}, from any zhevra; Zhevra Chargers graze around the tree"] = "{item:10338}, 제브라 누구에게서나; 사나운 얼룩말는 그 나무 주변에서 풀을 뜯습니다",
 	-- {object:147538} Dead Tree (no name in this language: may be words) · {quest:882} Ishamuhale
-	["At the {object:147538}: summons {quest:882}"] = "",
+	["At the {object:147538}: summons {quest:882}"] = "{object:147538}에서: {quest:882}을(를) 소환",
 
-	-- Step 113: Gazrog
+	-- Step 123: Gazrog
 	-- {npc:3464} Gazrog
-	["{npc:3464}, by the Crossroads' north gate"] = "",
+	["{npc:3464}, by the Crossroads' north gate"] = "{npc:3464}, 크로스로드 북문 옆에",
 
-	-- Step 116: Ken'zigla
+	-- Step 126: Ken'zigla
 	-- {npc:4197} Ken'zigla · {area:2539} Malaka'jin · {npc:3389} Regthar Deathgate
 	["{npc:4197} lives in {area:2539}, the troll village just inside Stonetalon at the end of the road west from {npc:3389}."] = "{npc:4197}은(는) {npc:3389}에서 서쪽으로 가는 길 끝, 돌발톱 산맥 입구의 트롤 마을 {area:2539}에 삽니다.",
 
-	-- Step 117: To Regthar Deathgate
+	-- Step 127: To Regthar Deathgate
 	-- {npc:3389} Regthar Deathgate
-	["To {npc:3389}"] = "",
+	["To {npc:3389}"] = "{npc:3389}에게",
 
-	-- Step 119: Hezrul Bloodmark
+	-- Step 129: Hezrul Bloodmark
 	-- {npc:3396} Hezrul Bloodmark · {area:387} Lushwater Oasis · {npc:3389} Regthar Deathgate · {npc:3448} Tonga Runetotem
 	-- plural, as words: Oasis Snapjaws = {npc:3461} Oasis Snapjaw
 	["{npc:3396} leads the Kolkar on the west shore of {area:387}, south of {npc:3389}. He walks that shore, from about 46,36 in the north to 46,42 in the south: if he isn't at the arrow, follow the shore until you meet him. Hand his head to {npc:3389} on your last Crossroads stop. Oasis Snapjaws crawl in the oasis' water there: their shells are for {npc:3448}."] = "{npc:3396}은(는) {npc:3389}의 남쪽, {area:387} 서쪽 기슭에서 콜카르일족을 이끕니다. 그는 북쪽 46,36부터 남쪽 46,42까지 그 기슭을 걸어 다닙니다. 화살표 위치에 없으면 만날 때까지 기슭을 따라가세요. 마지막 크로스로드 방문 때 그의 머리를 {npc:3389}에게 주세요. 그곳 오아시스 물속에는 오아시스 무쇠턱거북이 기어 다닙니다. 그 껍질은 {npc:3448}에게 줄 것입니다.",
 
-	-- Step 120: Nalpak and Ebru
+	-- Step 130: Nalpak and Ebru
 	-- {npc:5767} Nalpak · {npc:5768} Ebru
 	["{npc:5767} and {npc:5768}"] = "{npc:5767}와(과) {npc:5768}",
 	-- {area:718} Wailing Caverns · {npc:5767} Nalpak · {npc:5768} Ebru
 	["For your {area:718} run: {npc:5767} and {npc:5768} stand in a hidden cave in the rocks above the entrance, at the north end of the oasis' west shore: climb up from the west side. Follow the arrow up."] = "{area:718} 공략용: {npc:5767}와(과) {npc:5768}은(는) 오아시스 서쪽 기슭 북쪽 끝, 입구 위 바위 속 숨겨진 동굴에 서 있습니다. 서쪽에서 올라가십시오. 화살표를 따라 올라가십시오.",
 
-	-- Step 121: Wailing Caverns
+	-- Step 131: Wailing Caverns
 	-- {area:718} Wailing Caverns · {npc:3396} Hezrul Bloodmark · {area:387} Lushwater Oasis · {npc:5767} Nalpak · {npc:3655} Mad Magglish · {item:5334} 99-Year-Old Port · {npc:5768} Ebru · {item:6464} Wailing Essence · {npc:3678} Disciple of Naralex · {npc:3654} Mutanus the Devourer · {item:10441} Glowing Shard · {area:392} Ratchet · {npc:8418} Falla Sagewind
 	["{area:718} is a dungeon for a group of five, about levels 17 to 24, and a full run takes about an hour. Its mouth is just north of {npc:3396}'s shore, at the north end of {area:387}, under {npc:5767}'s cave.\nIn the caves before the portal: {npc:3655}, stealthed, with the {item:5334} (he moves between a few spots and comes back slowly: leave him if he's gone). Inside: the Deviates for {npc:5768}, and their hides for {npc:5767} (they drop rarely: one run may not be enough, so leave the rest for another run), {item:6464} from the Ectoplasms. After the four Fanglords, the {npc:3678} at the entrance leads you to Naralex: {npc:3654} drops the {item:10441}: its quest (someone in {area:392}, then {npc:8418} above the caverns) is not on this route; the Dungeons page's hand-in guide takes it."] = "{area:718}은(는) 약 17~24레벨 5인 파티용 던전이며, 전체 공략에 약 1시간이 걸립니다. 입구는 {npc:3396}의 기슭 바로 북쪽, {area:387} 북쪽 끝의 {npc:5767} 동굴 아래에 있습니다.\n차원문 앞 동굴: 은신한 {npc:3655}이(가) {item:5334}을(를) 가지고 있습니다(몇몇 장소를 옮겨 다니며 천천히 돌아옵니다. 없으면 두십시오). 내부: {npc:5768}을(를) 위한 돌연변이, {npc:5767}을(를) 위한 그들의 가죽(드물게 떨어지므로 한 번으로는 부족할 수 있습니다. 나머지는 다음 공략에 맡기십시오), 엑토플라즘에게서 얻는 {item:6464}. 송곳니 군주 넷을 처치한 뒤 입구의 {npc:3678}이(가) 나랄렉스에게 안내합니다. {npc:3654}이(가) {item:10441}을(를) 떨어뜨립니다. 그 퀘스트({area:392}의 누군가, 그다음 동굴 위의 {npc:8418})는 이 경로에 없으며, 던전 페이지의 제출 가이드에서 다룹니다.",
 	-- {item:6464} Wailing Essence
 	["{item:6464}: the Ectoplasms"] = "{item:6464}: 엑토플라즘",
 
-	-- Step 122: Nalpak
+	-- Step 132: Nalpak
 	["Back out of the caverns and up to the cave above the entrance."] = "동굴에서 나와 입구 위의 동굴로 올라가십시오.",
 
-	-- Step 124: Olgra's Adornments
+	-- Step 134: Olgra's Adornments
 	-- {area:458} Gold Road · {area:378} Camp Taurajo · {item:277277} Olgra's Adornments · {npc:3432} Mankrik
 	-- plural, as words: Razormane Raiders = {npc:268624} Razormane Raider
-	["On the way back down the {area:458} to {area:378}: the Razormane Raiders among the Bristleback camps, either side of the road north of the camp, carry {item:277277}. Hand them to {npc:3432} on your last Crossroads stop."] = "",
+	["On the way back down the {area:458} to {area:378}: the Razormane Raiders among the Bristleback camps, either side of the road north of the camp, carry {item:277277}. Hand them to {npc:3432} on your last Crossroads stop."] = "{area:458}을(를) 따라 {area:378}로 남하하는 길에: 야영지 북쪽 도로 양쪽의 가시덤불 야영지에 있는 서슬갈기 침략자가 {item:277277}을(를) 지니고 있습니다. 마지막 크로스로드 정류에서 {npc:3432}에게 전하세요.",
 
-	-- Step 125: Camp Taurajo
+	-- Step 135: Camp Taurajo
 	-- {area:458} Gold Road · {area:378} Camp Taurajo
 	["Down the {area:458} to {area:378} again."] = "{area:458}을(를) 따라 다시 {area:378}(으)로 내려가십시오.",
 	-- {npc:12696} Senani Thunderheart · {zone:1440} Ashenvale
 	["Keep it: {npc:12696} in {zone:1440}, next guide"] = "보관하십시오: 다음 가이드의 {zone:1440}에 있는 {npc:12696}",
 	-- {npc:6394} Ruga Ragetotem
-	["{npc:6394}, inside"] = "",
+	["{npc:6394}, inside"] = "{npc:6394}, 내부",
 
-	-- Step 127: Grunt Dogran
+	-- Step 137: Grunt Dogran
 	["Dogran is chained up in the quilboar camp west of the road."] = "도그란은 길 서쪽 가시멧돼지 야영지에 사슬로 묶여 있습니다.",
 	-- {npc:5875} Gan'rul Bloodeye · {zone:1454} Orgrimmar
-	["Keep it: {npc:5875} in {zone:1454}, on the next guide's {zone:1454} stop"] = "",
+	["Keep it: {npc:5875} in {zone:1454}, on the next guide's {zone:1454} stop"] = "보관하세요: {npc:5875}, 다음 가이드의 {zone:1454} 정류에서 {zone:1454}에",
 
-	-- Step 128: Enraged Thunder Lizards
+	-- Step 138: Enraged Thunder Lizards
 	-- {area:378} Camp Taurajo · {quest:884} Owatanka
-	-- plural, as words: Thunderheads = {npc:3239} Thunderhead
 	["Thunderheads graze on the plains just south of {area:378}. {quest:884}, a blue thunder lizard (level 24), roams among them: his Tailspike starts a quest. Leave him alone below level 23."] = "천둥꼬리도마뱀이 {area:378} 바로 남쪽 평원에서 풀을 뜯습니다. 파란 천둥꼬리도마뱀 {quest:884}(24레벨)이(가) 그 사이를 돌아다니며, 그 꼬리가시로 퀘스트가 시작됩니다. 23레벨 미만이면 건드리지 마세요.",
 
-	-- Step 129: Jorn Skyseer
+	-- Step 139: Jorn Skyseer
 	-- {quest:1824} Trial at the Field of Giants · {npc:6394} Ruga Ragetotem
 	-- plural, as words: Silithid Mounds = {object:3685} Silithid Mound
 	["Warriors: take {quest:1824} from {npc:6394} now: it runs for 30 minutes from the accept. The antennae come first, at the Silithid Mounds south of the camp, then straight back to {npc:6394}; the thunderhawks after."] = "전사: 지금 {npc:6394}에게서 {quest:1824}을(를) 받으십시오. 수락한 때부터 30분 동안 진행됩니다. 야영지 남쪽의 실리시드 흙더미에서 더듬이를 먼저 모은 뒤 곧장 {npc:6394}에게 돌아가고, 천둥매는 그다음입니다.",
 
-	-- Step 130: Twitching Antennae
+	-- Step 140: Twitching Antennae
 	["Twitching Antennae"] = "꿈틀거리는 더듬이",
 	-- {area:390} Field of Giants · {area:378} Camp Taurajo · {npc:6394} Ruga Ragetotem · {npc:4196} Silithid Swarm · {npc:5781} Silithid Creeper Egg · {npc:3253} Silithid Harvester
 	-- plural, as words: Silithid Swarmers = {npc:3252} Silithid Swarmer · Silithid Mounds = {object:3685} Silithid Mound · Silithid Creepers = {npc:3250} Silithid Creeper
 	["The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the Silithid Mounds in the {area:390}, south of {area:378}, until you have five, then take them straight to {npc:6394} in {area:378}, before the thunderhawks. Careful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds; Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds. A {npc:3253} (24, rare) also wanders the mounds: leave it."] = "더듬이는 떨어진 지 15분 뒤에 사라집니다. {area:378} 남쪽 {area:390}의 실리시드 흙더미에서 우두머리 실리시드와 독침 실리시드를 다섯 개가 될 때까지 처치한 뒤, 천둥매보다 먼저 곧장 {area:378}의 {npc:6394}에게 가져가십시오. 주의: 우두머리 실리시드(21-22레벨)는 전투 중에도 전투 밖에서도 {npc:4196}을(를) 시전해 작은 몹 여럿을 불러오고, 독침 실리시드(20-21레벨)는 전투 중 주기적으로 {npc:5781}을(를) 시전해 몹을 추가로 불러냅니다. {npc:3253}(24, 희귀)도 흙더미를 돌아다닙니다. 건드리지 마십시오.",
 	["Twitching Antennae from the silithid"] = "실리시드에게서 꿈틀거리는 더듬이",
 
-	-- Step 131: Ruga Ragetotem
+	-- Step 141: Ruga Ragetotem
 	-- {area:378} Camp Taurajo · {npc:6394} Ruga Ragetotem
 	["Back north into {area:378} before the antennae fade: {npc:6394} is inside."] = "더듬이가 사라지기 전에 북쪽 {area:378}(으)로 돌아가십시오. {npc:6394}은(는) 안에 있습니다.",
 
-	-- Step 132: Cry of the Thunderhawk
+	-- Step 142: Cry of the Thunderhawk
 	-- plural, as words: Thunderhawk Cloudscrapers = {npc:3424} Thunderhawk Cloudscraper
 	["Thunderhawk Cloudscrapers circle over the plains south of the camp."] = "비단천둥매가 야영지 남쪽 평원 위를 맴돕니다.",
 
-	-- Step 133: Brine
+	-- Step 143: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {item:7766} Empty Brown Waterskin
-	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}: fill the {item:7766} at the watering hole below it."] = "",
+	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}: fill the {item:7766} at the watering hole below it."] = "{npc:5899}의 오두막은 {area:378} 남쪽, 멧돼지인 물웅덩이 위 능선에 있습니다: 그 아래 물웅덩이에서 {item:7766}을(를) 채우세요.",
 	-- {item:7766} Empty Brown Waterskin
 	["Fill the {item:7766} at the quilboar watering hole"] = "가시멧돼지 물웅덩이에서 {item:7766} 채우기",
 	-- {object:107045} Spring Well · {area:272} Tarren Mill · {area:287} Hillsbrad
-	["Keep it: the {object:107045} is beside {area:272}, on the {area:287} guide"] = "",
+	["Keep it: the {object:107045} is beside {area:272}, on the {area:287} guide"] = "보관하세요: {object:107045}은(는) {area:287} 가이드에서 {area:272} 옆에 있습니다",
 
-	-- Step 134: Camp Taurajo
+	-- Step 144: Camp Taurajo
 	-- {area:378} Camp Taurajo
-	["Back north into {area:378} on the way to the Crossroads: Jorn takes the thunderhawk wings."] = "",
+	["Back north into {area:378} on the way to the Crossroads: Jorn takes the thunderhawk wings."] = "크로스로드로 가는 길에서 {area:378}로 다시 북쪽에 들어가세요: 조른이 천둥매 날개를 받습니다.",
 
-	-- Step 135: The Crossroads
+	-- Step 145: The Crossroads
 	-- {area:458} Gold Road · {npc:3448} Tonga Runetotem · {npc:3432} Mankrik · {npc:3428} Korran
 	["North up the {area:458} to the Crossroads: {npc:3448} at the south gate, {npc:3432} by the inn, {npc:3428} west of the north gate."] = "{area:458}을(를) 따라 북쪽의 크로스로드로 가세요. {npc:3448}은(는) 남문에, {npc:3432}은(는) 여관 옆에, {npc:3428}은(는) 북문 서쪽에 있습니다.",
 	-- {npc:3428} Korran · {quest:868} Egg Hunt · {zone:1413} The Barrens · {area:378} Camp Taurajo
 	["{npc:3428}, west of the north gate: keep {quest:868}, its eggs lie on the next {zone:1413} guide's walk south from {area:378}, at about 25"] = "북문 서쪽의 {npc:3428}: {quest:868}은(는) 그대로 두세요. 알은 다음 {zone:1413} 가이드에서 25레벨쯤 {area:378}에서 남쪽으로 내려갈 때 모읍니다",
 
-	-- Step 136: Thun'grim Firegaze
+	-- Step 146: Thun'grim Firegaze
 	-- {npc:5878} Thun'grim Firegaze
-	["{npc:5878} camps beside the road east of the Crossroads."] = "",
+	["{npc:5878} camps beside the road east of the Crossroads."] = "{npc:5878}은(는) 크로스로드 동쪽 도로변에 야영합니다.",
 	-- {quest:1838} Brutal Armor · {area:1717} Razorfen Kraul
 	["He offers {quest:1838} next (1838, level 30): it needs {area:1717} and sends you all over Kalimdor and the Eastern Kingdoms. The Warrior class guide {quest:1838} covers it."] = "다음으로 {quest:1838}(1838, 30레벨)을(를) 줍니다. {area:1717}이(가) 필요하며 칼림도어와 동부 왕국 곳곳을 돌아다니게 합니다. 전사 직업 가이드 {quest:1838}에서 다룹니다.",
 
-	-- Step 138: Counterattack!
+	-- Step 148: Counterattack!
 	-- {npc:3389} Regthar Deathgate · {npc:9456} Warlord Krom'zar
-	["Speak to {npc:3389} again to start the attack: the Kolkar charge the bunkers just west of him in waves. Fight beside the grunts until {npc:9456} (elite, 20) arrives with two bodyguards, usually from the south, then click the banner over his body."] = "",
+	["Speak to {npc:3389} again to start the attack: the Kolkar charge the bunkers just west of him in waves. Fight beside the grunts until {npc:9456} (elite, 20) arrives with two bodyguards, usually from the south, then click the banner over his body."] = "{npc:3389}에게 다시 말을 걸어 공격을 시작하세요: 콜카르가 그 서쪽 벙커를 웨이브로 돌진합니다. {npc:9456}(정예, 20)이 호위 둘과 함께, 보통 남쪽에서 도착할 때까지 병사들 옆에서 싸우세요. 그 다음 그의 시체 위의 깃발을 클릭하세요.",
 
-	-- Step 139: Seereth Stonebreak's camp
+	-- Step 149: Seereth Stonebreak's camp
 	-- {npc:4049} Seereth Stonebreak
-	["{npc:4049}'s camp"] = "",
+	["{npc:4049}'s camp"] = "{npc:4049}의 야영지",
 
-	-- Step 140: Seereth Stonebreak
+	-- Step 150: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak · {npc:11857} Makaba Flathoof
-	["{npc:4049} and {npc:11857} share the camp on the road west to Stonetalon."] = "",
+	["{npc:4049} and {npc:11857} share the camp on the road west to Stonetalon."] = "{npc:4049}와(과) {npc:11857}은(는) 돌발톱 산맥으로 서쪽으로 가는 도로의 야영지를 함께 씁니다.",
 	-- {npc:4049} Seereth Stonebreak · {area:461} Windshear Crag
-	["{npc:4049}: the Venture loggers at {area:461}"] = "",
+	["{npc:4049}: the Venture loggers at {area:461}"] = "{npc:4049}: {area:461}의 투자개발회사 나무꾼들",
 
-	-- Step 141: Grimtotem camp
+	-- Step 151: Grimtotem camp
 	["Grimtotem camp"] = "그림토템 야영지",
 	-- {npc:11857} Makaba Flathoof
-	["The Grimtotem camp is just north of {npc:11857}, a short walk off the road: Ruffians and Mercenaries stand among the tents."] = "",
+	["The Grimtotem camp is just north of {npc:11857}, a short walk off the road: Ruffians and Mercenaries stand among the tents."] = "그림토템부족 야영지는 {npc:11857} 바로 북쪽, 도로에서 조금 벗어난 곳에 있습니다: 건달과 용병이 천막 사이에 서 있습니다.",
 
-	-- Step 142: Makaba Flathoof
+	-- Step 152: Makaba Flathoof
 	-- {npc:11857} Makaba Flathoof
-	["Back down to {npc:11857}."] = "",
+	["Back down to {npc:11857}."] = "{npc:11857}에게 다시 남쪽으로 내려가세요.",
 	-- {npc:11858} Grundig Darkcloud · {area:1076} Webwinder Path
-	["{npc:11858} waits up the {area:1076}"] = "",
+	["{npc:11858} waits up the {area:1076}"] = "{npc:11858}은(는) {area:1076} 위에서 기다립니다",
 
-	-- Step 143: To Malaka'jin
+	-- Step 153: To Malaka'jin
 	-- {area:2539} Malaka'jin
-	["To {area:2539}"] = "",
+	["To {area:2539}"] = "{area:2539}(으)로",
 
-	-- Step 144: Malaka'jin
+	-- Step 154: Malaka'jin
 	-- {npc:4049} Seereth Stonebreak · {area:2539} Malaka'jin
-	["Follow the road on west from {npc:4049} into Stonetalon. The troll village of {area:2539} sits at the entrance of the canyon."] = "",
+	["Follow the road on west from {npc:4049} into Stonetalon. The troll village of {area:2539} sits at the entrance of the canyon."] = "{npc:4049}에서 도로를 따라 서쪽으로 돌발톱 산맥까지 가세요. {area:2539} 트롤 마을은 협곡 입구에 자리합니다.",
 	-- {npc:12816} Xen'Zilla · {area:1076} Webwinder Path
-	["{npc:12816}: the spiders along the {area:1076}"] = "",
+	["{npc:12816}: the spiders along the {area:1076}"] = "{npc:12816}: {area:1076}을(를) 따라가는 거미들",
 
-	-- Step 145: Webwinder Path: kill these as you meet them
+	-- Step 155: Webwinder Path: kill these as you meet them
 	-- {area:1076} Webwinder Path
-	["{area:1076}: kill these as you meet them"] = "",
+	["{area:1076}: kill these as you meet them"] = "{area:1076}: 만나는 대로 처치하세요",
 	-- {area:2539} Malaka'jin · {npc:11858} Grundig Darkcloud
 	-- plural, as words: Grimtotem Brutes = {npc:11912} Grimtotem Brute · Deepmoss Creepers = {npc:4005} Deepmoss Creeper
-	["North up the road from {area:2539}: {npc:11858} and his Grimtotem Brutes hold the bend in the road, and the Deepmoss Creepers and Venomspitters lurk in the webs on both sides of the path all the way up."] = "",
+	["North up the road from {area:2539}: {npc:11858} and his Grimtotem Brutes hold the bend in the road, and the Deepmoss Creepers and Venomspitters lurk in the webs on both sides of the path all the way up."] = "{area:2539}에서 도로를 따라 북쪽으로: {npc:11858}과(와) 그의 그림토템부족 투사가 도로의 굴곡을 지키고, 동굴이끼 땅거미와 독침거미가 길 양쪽 거미줄에 계속 숨어 있습니다.",
 
-	-- Step 146: Ziz Fizziks
+	-- Step 156: Ziz Fizziks
 	-- {area:1076} Webwinder Path · {quest:1483} Ziz Fizziks · {area:461} Windshear Crag
 	["The road climbs north as the {area:1076}. {quest:1483} has a hut where the road forks east to {area:461}."] = "길은 {area:1076}(이)라는 이름으로 북쪽으로 올라갑니다. {quest:1483}의 오두막은 길이 동쪽 {area:461}(으)로 갈라지는 곳에 있습니다.",
 	-- {quest:1483} Ziz Fizziks
 	["{quest:1483}, inside"] = "{quest:1483}, 내부",
 
-	-- Step 147: Windshear Crag
+	-- Step 157: Windshear Crag
 	-- {area:461} Windshear Crag
-	["East of Ziz, the Venture Company is clear-cutting {area:461}; one of the Operators carries the blueprints."] = "",
+	["East of Ziz, the Venture Company is clear-cutting {area:461}; one of the Operators carries the blueprints."] = "지즈 동쪽에서 투자개발회사가 {area:461}을(를) 벌목하고 있습니다; 작업반장 중 하나가 설계도를 지니고 있습니다.",
 	-- plural, as words: Venture Co. Loggers = {npc:3989} Venture Co. Logger
-	["Venture Co. Loggers, all over the clear-cut"] = "",
+	["Venture Co. Loggers, all over the clear-cut"] = "투자개발회사 나무꾼, 벌목지 전역에",
 
-	-- Step 148: Piznik
+	-- Step 158: Piznik
 	-- {npc:4276} Piznik · {area:2160} Windshear Mine
-	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} on the east side of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "",
+	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} on the east side of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "{npc:4276}의 방어는 이 레벨에서 혼자 하기 어렵습니다: 파티를 맺는 것을 권장하니 함께할 사람을 찾아보세요. 혼자라면 건너뛰세요.\n{npc:4276}은(는) 협골 동쪽 {area:2160} 맨 아래에서 광산을 캡니다. 그와 대화한 뒤 5분 동안 살려 두세요: 코볼트 열두 마리 이상이 웨이브로 덤벼들고, 근접 전사부터 시작해 시전자가 이어집니다. 광산 코볼트는 싸움 속에 재생됩니다. 그가 죽으면 퀘스트가 실패합니다.",
 	-- {npc:4276} Piznik
-	["{npc:4276}, below ground"] = "",
+	["{npc:4276}, below ground"] = "{npc:4276}, 지하",
 
-	-- Step 149: Ziz Fizziks: Gerenzo's Orders
+	-- Step 159: Ziz Fizziks: Gerenzo's Orders
 	-- {npc:4201} Ziz Fizziks
 	["{npc:4201}, inside"] = "{npc:4201}, 내부",
 
-	-- Step 150: Ziz Fizziks
+	-- Step 160: Ziz Fizziks
 	-- {npc:4201} Ziz Fizziks · {npc:3442} Sputtervalve · {area:392} Ratchet · {zone:1413} The Barrens
 	["{npc:4201}: for {npc:3442}, beside {area:392}'s flight master at the end of the {zone:1413} & Stonetalon guide"] = "{npc:4201}: {zone:1413} & 돌발톱 산맥 가이드 마지막에 {area:392} 비행 조련사 옆의 {npc:3442}에게",
 
-	-- Step 151: Kaya Flathoof
+	-- Step 161: Kaya Flathoof
 	-- {area:1076} Webwinder Path · {npc:11856} Kaya Flathoof · {npc:11858} Grundig Darkcloud · {area:2538} Camp Aparaje
 	["On the way back down the {area:1076}, {npc:11856} is held in {npc:11858}'s hut at the bend in the road. Once you take her quest she walks straight off south-east to {area:2538}, the burned village, without waiting: stay close, or the quest fails.\nCareful: Three Grimtotems ambush her at the burned village and go for her, not you: pull them off her and kill their caster quickly."] = "{area:1076}을(를) 따라 다시 내려가는 길에, {npc:11856}은(는) 길 굽이의 {npc:11858} 오두막에 갇혀 있습니다. 퀘스트를 받으면 그녀는 기다리지 않고 곧장 남동쪽의 불탄 마을 {area:2538}(으)로 걸어갑니다. 가까이 있으십시오. 그렇지 않으면 퀘스트가 실패합니다.\n주의: 불탄 마을에서 그림토템 셋이 매복해 있다가 당신이 아닌 그녀를 공격합니다. 그녀에게서 떼어내고 주문시전자를 빨리 처치하십시오.",
 	-- {npc:11856} Kaya Flathoof · {npc:11858} Grundig Darkcloud
 	["{npc:11856}, inside {npc:11858}'s hut"] = "{npc:11856}, {npc:11858}의 오두막 안",
 
-	-- Step 152: Malaka'jin
+	-- Step 162: Malaka'jin
 	-- {area:2539} Malaka'jin · {npc:12816} Xen'Zilla
 	["West from the burned village to {area:2539}: {npc:12816} stands just outside it, before the village."] = "불탄 마을에서 서쪽 {area:2539}(으)로 가십시오. {npc:12816}은(는) 마을 바로 바깥, 마을 앞에 있습니다.",
 
-	-- Step 154: Seereth Stonebreak
+	-- Step 164: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak · {npc:11857} Makaba Flathoof
-	["East along the road to {npc:4049} and {npc:11857}'s camp, on the way back out of Stonetalon."] = "",
+	["East along the road to {npc:4049} and {npc:11857}'s camp, on the way back out of Stonetalon."] = "도로를 따라 동쪽으로 {npc:4049}와(과) {npc:11857}의 야영지까지, 돌발톱 산맥을 나오는 길에.",
 	-- {npc:4049} Seereth Stonebreak · {quest:1063} The Elder Crone · {zone:1456} Thunder Bluff
 	["{npc:4049}: {quest:1063}, Magatha in {zone:1456}, on the next guide's way back from Zoram'gar"] = "{npc:4049}: {quest:1063}, {zone:1456}의 마가타. 다음 가이드에서 조람가르에서 돌아오는 길에",
 	-- {npc:11857} Makaba Flathoof · {npc:11864} Tammra Windfield · {area:460} Sun Rock Retreat · {zone:1413} The Barrens
 	["{npc:11857}: keep it, {npc:11864} at {area:460} in the {zone:1413} & Stonetalon guide"] = "{npc:11857}: 보관하십시오. {zone:1413} & 돌발톱 산맥 가이드의 {area:460}에 있는 {npc:11864}",
 	-- {zone:1413} The Barrens · {area:1703} Mor'shan Rampart · {zone:1440} Ashenvale
-	["The next guide goes north-east across the {zone:1413} to the {area:1703} and {zone:1440}."] = "",
+	["The next guide goes north-east across the {zone:1413} to the {area:1703} and {zone:1440}."] = "다음 가이드는 {zone:1413}을(를) 가로질러 북동쪽으로 {area:1703}과(와) {zone:1440}으로 갑니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to the Razormane camp. Geomancers and Defenders hold its eastern half; {npc:3438} walks among them."] = "서슬갈기일족 야영지로 돌아가세요. 동쪽 절반은 흙점쟁이와 파수병이 차지하고 있으며, {npc:3438}은(는) 그들 사이를 돌아다닙니다.",
@@ -720,8 +749,10 @@ return {
 	-- ["Follow the road east to the outpost above the {area:814}."] = "길을 따라 동쪽으로 가서 {area:814} 위의 전초기지로 가세요.",
 	-- ["Follow the road south-east to {area:392} on the coast."] = "길을 따라 남동쪽으로 해안의 {area:392}까지 가세요.",
 	-- ["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "길을 따라 남동쪽 해안의 {area:392}(으)로 가세요. 마을 북쪽 끝의 {npc:3391}와(과) {npc:7161}, {npc:3442}와(과) {npc:16227}, {npc:3446}와(과) {object:3972} 전단을 찾은 다음, 남쪽으로 나가는 길에 부두의 {quest:1492}을(를) 찾으세요.",
+	-- ["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "야영지에서는 풍수사와 가시마술사가 서쪽 절반을, 사냥꾼이 가운데를 차지하고, 보급품 상자는 동쪽 끝에 있습니다.\n여기 초원타조도 부리 수집에 포함됩니다.\n주의: 서슬갈기일족 살점먹보와 광전사(18-19)는 정예이며, 야영지 북동쪽 보급품 상자 옆에 서 있습니다. 가시멧돼지를 그들에게서 하나씩 떼어 끌어오세요.",
 	-- ["Keep it: {quest:3923} stands outside {zone:1454}; a later guide hands it in"] = "보관하세요: {quest:3923}은(는) {zone:1454} 밖에 있으며, 나중 가이드에서 완료합니다",
 	-- ["Kolkar Wranglers and Stormers hold the camps south of {npc:3389}."] = "콜카르일족 사냥꾼과 번개술사는 {npc:3389} 남쪽 야영지를 차지하고 있습니다.",
+	-- ["Leave {zone:1454} by the main gate and follow the road south through {zone:1411}, then west over the {area:814} bridge: {area:379} sits just above it on the {zone:1413} side. {npc:3337}, {quest:809} and {npc:5810} stand together."] = "{zone:1454} 정문으로 나가 도로를 따라 {zone:1411}을(를) 관통해 남쪽으로 가다가 {area:814} 다리를 서쪽으로 건너세요: {area:379}은(는) {zone:1413} 쪽, 바로 그 위에 자리합니다. {npc:3337}, {quest:809}, {npc:5810}은(는) 함께 서 있습니다.",
 	-- ["North to the {area:383}. {npc:3682} camps below the hills; {npc:261366}, the hermit on the ridge behind him, has work for you only once {npc:3682} sends you up."] = "북쪽 {area:383}(으)로 가십시오. {npc:3682}은(는) 언덕 아래에 야영하고 있으며, 그 뒤 능선의 은둔자 {npc:261366}은(는) {npc:3682}이 올려 보낸 뒤에만 일을 줍니다.",
 	-- ["Oasis Snapjaws crawl around {area:387}, south-west of the {area:380}, and around the {area:388}."] = "오아시스 무쇠턱거북은 {area:380} 남서쪽의 {area:387}와(과) {area:388} 주변을 기어다닙니다.",
 	-- ["Over the {area:814} bridge below {area:379} and south along the {zone:1411} bank to where a narrow trail climbs the mountain: {npc:5900} keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail."] = "{area:379} 아래 {area:814} 다리를 건너 {zone:1411} 강변을 따라 남쪽으로 가면 좁은 오솔길이 산을 오릅니다. 정상의 성소에 {npc:5900}이(가) 있습니다. 올라가는 길에 낭떠러지를 조심하고, 같은 길로 내려오세요.",
@@ -731,10 +762,12 @@ return {
 	-- ["South-east of the Crossroads. Test the seeds at the bubbling fissure on the oasis' east bank; {npc:3448} takes the result on the next Crossroads stop, so carry on north-west to the {area:383} from here."] = "십자로 남동쪽입니다. 오아시스 동쪽 기슭의 부글거리는 균열에서 씨앗을 시험하세요. 결과는 다음에 십자로에 들를 때 {npc:3448}에게 전달하므로, 여기서 바로 북서쪽 {area:383}(으)로 계속 가세요.",
 	-- ["South-east of the {area:380}. Test the seeds at the bubbling fissure on the oasis' east bank."] = "{area:380} 남동쪽입니다. 오아시스 동쪽 기슭의 부글거리는 균열에서 씨앗을 시험하세요.",
 	-- ["Southsea beach"] = "남쪽바다해적단 해변",
+	-- ["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "아직 12개가 부족하다면 채찍꼬리 열대초원랩터와 긴송곳니 열대초원랩터가 크로스로드 북동쪽 평원, {quest:881} 둥지에서 남쪽으로 돌아오는 길에 있습니다.",
 	-- ["The Savannah Prowlers hunt the plains between town and the Razormane camp to the east. In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end."] = "굶주린 사바나 사자는 마을과 동쪽의 서슬갈기일족 야영지 사이 평원에서 사냥합니다. 야영지 서쪽 절반은 풍수사와 가시마술사가, 가운데는 사냥꾼이 차지하고 있으며, 보급품 상자는 동쪽 끝에 있습니다.",
 	-- ["The Witchwing Slayers hold the western {area:383}; they wear the rings."] = "칼날바람일족 암살자는 {area:383} 서부를 차지하고 있으며, 반지를 끼고 있습니다.",
 	-- ["The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the same mounds until you have five, then take them straight to {npc:6394} in {area:378}, before the thunderhawks. Careful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds; Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds. A {npc:3253} (24, rare) also wanders the mounds: leave it."] = "더듬이는 떨어진 지 15분 뒤에 사라집니다. 같은 둔덕에서 실리시드 무리벌레와 실리시드 포복충을 다섯 개가 될 때까지 처치한 뒤, 천둥매보다 먼저 곧장 {area:378}의 {npc:6394}에게 가져가십시오. 주의: 실리시드 무리벌레(21-22레벨)는 전투 중에도 전투 밖에서도 {npc:4196}을(를) 시전해 작은 몹 여럿을 불러오고, 실리시드 포복충(20-21레벨)은 전투 중 주기적으로 {npc:5781}을(를) 시전해 몹을 추가로 불러냅니다. {npc:3253}(24, 희귀)도 둔덕을 돌아다닙니다. 건드리지 마십시오.",
 	-- ["The pirates camp on the beach south of {area:392}: the piles of complicated parts lie in the sand among them, and {npc:3467} stands at the camp's southern end."] = "해적들은 {area:392} 남쪽 해변에 야영하고 있습니다. 복잡한 부품 더미는 그들 사이의 모래밭에 있고, {npc:3467}은(는) 야영지 남쪽 끝에 서 있습니다.",
+	-- ["The pools lie just north of {npc:3389}. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers. {npc:3394} stands in the Kolkar camp west of the pools."] = "웅덩이는 {npc:3389} 바로 북쪽에 있습니다. 물에 들어가 탐험하세요. 헬브림에게 줄 숙성한 버섯은 그 주변에 자랍니다. 지나가며 만나는 콜카르일족은 모두 처치해 손목보호대를 얻으세요. {npc:3394}은(는) 웅덩이 서쪽의 콜카르일족 야영지에 서 있습니다.",
 	-- ["The three nests sit together in the {area:1697} south-west of the oasis; Sunscale Scytheclaws guard them."] = "둥지 세 개는 오아시스 남서쪽 {area:1697}에 모여 있으며, 갈퀴발톱 열대초원랩터가 지키고 있습니다.",
 	-- ["The {area:383}"] = "{area:383}",
 	-- ["The {object:3972} poster: {npc:3467} comes on the next {area:392} stop too"] = "{object:3972} 전단: {npc:3467}도 다음 {area:392} 방문 때 합니다",
@@ -747,6 +780,7 @@ return {
 	-- ["Walk back west along the road to the {area:380}."] = "길을 따라 서쪽의 {area:380}로 돌아가세요.",
 	-- ["Warriors: take {quest:1824} from {npc:6394} now: it runs for 30 minutes from the accept. The eggs and the antennae come first, at the same mounds, then straight back to {npc:6394}; the thunderhawks after."] = "전사: 지금 {npc:6394}에게서 {quest:1824}을(를) 받으십시오. 수락한 때부터 30분 동안 진행됩니다. 같은 둔덕에서 알과 더듬이를 먼저 모은 뒤 곧장 {npc:6394}에게 돌아가고, 천둥매는 그다음입니다.",
 	-- ["West to the {area:383}. The Witchwing harpies nest all over them; any of them can drop a talon. {quest:819} lies in their hills."] = "서쪽의 {area:383}(으)로 가세요. 칼날바람하피가 곳곳에 둥지를 틀고 있으며, 누구나 발톱을 떨어뜨릴 수 있습니다. {quest:819}은(는) 그 언덕에 있습니다.",
+	-- ["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "야영지에 있는 동안: {npc:3429}의 풍수사와 가시마술사는 서쪽 절반에, 사냥꾼은 가운데에, 보급품 상자는 동쪽 끝에 있습니다.\n주의: 서슬갈기일족 살점먹보와 광전사(18-19)는 정예이며, 야영지 북동쪽 보급품 상자 옆에 서 있습니다. 가시멧돼지를 그들에게서 하나씩 떼어 끌어오세요.",
 	-- ["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the {object:3972} poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "아직 받지 않은 {area:718} 퀘스트: {object:3972} 전단 옆의 {npc:3446}, 비행 조련사 옆 부두의 {npc:3665}. 공략은 이 가이드 후반, {npc:3396} 다음입니다.",
 	-- ["Zhevra"] = "얼룩말",
 	-- ["Zhevra Runners graze north and east of town."] = "굶주린 얼룩말은 마을 북쪽과 동쪽에서 풀을 뜯습니다.",
@@ -756,6 +790,7 @@ return {
 	-- ["{npc:3337}: {quest:840}, from {zone:1411}"] = "{npc:3337}: {zone:1411}에서 받은 {quest:840}",
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Oasis Snapjaws crawl in the water around it: their shells are for {npc:3448}."] = "{npc:3395}은(는) 십자로 남동쪽 {area:388}에서 콜카르일족 사이를 돌아다닙니다. 오아시스 무쇠턱거북이 그 주변 물속을 기어다니며, 그 껍질은 {npc:3448}에게 가져갑니다.",
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395}은(는) 크로스로드 남동쪽 {area:388}의 콜카르일족 사이를 걸어 다닙니다. 그곳에 있는 동안 오아시스 동쪽 기슭의 부글거리는 균열에서 {npc:3448}의 씨앗을 시험하세요.",
+	-- ["{npc:3446}, beside the {object:3972} poster"] = "{npc:3446}, {object:3972} 전단 옆에",
 	-- ["{npc:3446}, beside the {object:3972} poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{object:3972} 전단 옆의 {npc:3446}: 태양비늘 랩터는 18레벨에 다음 {area:392} 방문 때 처리합니다",
 	-- ["{npc:3448}: the Oasis Snapjaws at the {area:388}, with {npc:3395}"] = "{npc:3448}: {area:388}의 오아시스 무쇠턱거북, {npc:3395}와(과) 함께",
 	-- ["{npc:3615}, the wind rider master"] = "윈드라이더 조련사 {npc:3615}",

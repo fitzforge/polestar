@@ -56,7 +56,9 @@ const AUDIT_LUA = path.join(__dirname, 'audit.lua');
 const MEDIA = path.join(ROOT, 'addon', 'Polestar', 'Media');
 
 // The bundled looks: Polestar's own and its built-in ones, the game's looks
-// (Polestar_Looks), and the skins in the download (addon/Polestar_Skin_*).
+// (Polestar/Theme/Looks), and our skins (addon/Polestar_Skins/Skins/<skin>):
+// one folder, loaded whole as the client loads it.
+const OWN_SKINS = 'Polestar_Skins';
 const LOOKS = [
 	{ id: 'polestar', name: 'Polestar' },
 	{ id: 'halo', name: 'Halo' },
@@ -64,15 +66,15 @@ const LOOKS = [
 	{ id: 'forever', name: 'WoW Forever' },
 	{ id: 'blizzard', name: 'Blizzard' },
 	{ id: 'classic', name: 'Classic' },
-	{ id: 'vellum', name: 'Vellum', addon: 'Polestar_Skin_Vellum' },
-	{ id: 'lumen', name: 'Lumen', addon: 'Polestar_Skin_Lumen' },
-	{ id: 'beacon', name: 'Beacon', addon: 'Polestar_Skin_Beacon' },
-	{ id: 'aurora', name: 'Aurora', addon: 'Polestar_Skin_Aurora' },
-	{ id: 'hairline', name: 'Hairline', addon: 'Polestar_Skin_Hairline' },
-	{ id: 'umbra', name: 'Umbra', addon: 'Polestar_Skin_Umbra' },
-	{ id: 'waymark', name: 'Waymark', addon: 'Polestar_Skin_Waymark' },
-	{ id: 'lanterns', name: 'Lanterns', addon: 'Polestar_Skin_Lanterns' },
-	{ id: 'sheen', name: 'Sheen', addon: 'Polestar_Skin_Sheen' },
+	{ id: 'vellum', name: 'Vellum', addon: OWN_SKINS },
+	{ id: 'lumen', name: 'Lumen', addon: OWN_SKINS },
+	{ id: 'beacon', name: 'Beacon', addon: OWN_SKINS },
+	{ id: 'aurora', name: 'Aurora', addon: OWN_SKINS },
+	{ id: 'hairline', name: 'Hairline', addon: OWN_SKINS },
+	{ id: 'umbra', name: 'Umbra', addon: OWN_SKINS },
+	{ id: 'waymark', name: 'Waymark', addon: OWN_SKINS },
+	{ id: 'lanterns', name: 'Lanterns', addon: OWN_SKINS },
+	{ id: 'sheen', name: 'Sheen', addon: OWN_SKINS },
 ];
 
 // The game's UI scale (UIParent's): the rule's three.
@@ -83,7 +85,9 @@ const SCALES = [0.64, 1, 1.5];
 // their own grounds, Theme.LEGIBLE).
 const MIN_CONTRAST = 3;
 
-const GUIDE = ['PolestarGuideFrame'];
+// The guide window and the window of cards a layout stacks above it (Atlas's
+// PolestarGuideFrameCards), each string measured against its own.
+const GUIDE = ['PolestarGuideFrame', 'PolestarGuideFrameCards'];
 const CARD = [...GUIDE, 'PolestarClassToast'];
 const TABS = 'uistub.openTabs({ { uistub.elwynn, 3 }, { uistub.tailoring, 2 }, { uistub.stormwindRep, 2 } }, 1)';
 
@@ -94,7 +98,9 @@ function scene(file, index) {
 	if (!s || !s.panels[index]) throw new Error(`audit: no preview panel ${file}#${index}`);
 	const p = s.panels[index];
 	if (/ui\.skin/.test(p.script || '')) throw new Error(`audit: ${file}#${index} picks a look itself`);
-	return p;
+	// The guide window's cards above it (GUIDE) go with it.
+	const roots = p.roots || [];
+	return roots.includes(GUIDE[0]) ? { ...p, roots: [...roots, ...GUIDE.filter((r) => !roots.includes(r))] } : p;
 }
 
 // The surfaces. `family: 'guide'`: the guide window and what sits on it or
@@ -167,6 +173,12 @@ T.Show({ t = "kill", here = "goal", verb = "Kill", subject = "Kobold Vermin", ya
 assert(Polestar.Arcade.Open(), "the game did not open")`,
 	},
 	{
+		key: 'sky-jewels-window', title: "Sky Jewels' window from Polestar_Arcade (0.4.3)", roots: ['PolestarSkyJewels'], files: P.MODULE_FILES, needs: 'Polestar.Arcade',
+		script: `math.randomseed(1)
+stub.addons[#stub.addons + 1] = { name = "Polestar_Arcade", reason = "DEMAND_LOADED" }
+assert(Polestar.Arcade.Open("skyjewels"), "the game did not open")`,
+	},
+	{
 		key: 'dialog-confirm', title: 'the confirm dialog', roots: ['PolestarModal'],
 		script: `${TABS}
 Polestar.Widgets.Modal({ title = "Reset this guide?", text = "Your check-offs in this guide are cleared.", action = "Reset", danger = true, onAccept = function() end })`,
@@ -199,10 +211,22 @@ ${SHARE.STATES[state]}`,
 
 const q = (s) => JSON.stringify(String(s));
 
-// PolestarDB as a player who picked `look` has it: the look, the welcome and
-// this version's notes seen.
-function savedFor(look) {
-	return `PolestarDB = { schema = 1, welcomeSeen = 99, settings = { ui = { skin = ${q(look.id)} } } }
+// The layouts an audit pass may pick (Theme.RegisterLayout): the id saved as
+// ui.layout and the folder that registers it (our skins' folder), loaded
+// after Polestar and the look.
+const LAYOUTS = { atlas: { id: 'atlas', addon: OWN_SKINS } };
+
+// The guide window's tab styles an audit pass may pick (guideWindow.tabStyle;
+// all but underline are drawn by Polestar/UI/TabStyles).
+const TAB_STYLES = ['underline', 'switcher', 'edge', 'strip'];
+
+// PolestarDB as a player who picked `look` (and `layout`, a LAYOUTS entry, and
+// `tabStyle`) has it: the look, the layout, the tab style, the welcome and this
+// version's notes seen.
+function savedFor(look, layout, tabStyle) {
+	const ui = `skin = ${q(look.id)}${layout ? `, layout = ${q(layout.id)}` : ''}`;
+	const gw = tabStyle ? `, guideWindow = { tabStyle = ${q(tabStyle)} }` : '';
+	return `PolestarDB = { schema = 1, welcomeSeen = 99, settings = { ui = { ${ui} }${gw} } }
 do local WN = Polestar.UI and Polestar.UI.WhatsNew; if WN and WN.LATEST then PolestarDB.whatsNewSeen = WN.LATEST end end`;
 }
 
@@ -227,23 +251,23 @@ function filesFor(look, surface) {
 // login: the addon builds and places everything at that scale, as at a
 // player's login (a later change of scale repaints, and would hide a first
 // paint's mistakes).
-function program(look, surface, prelude, scale) {
+function program(look, surface, prelude, scale, layout, tabStyle) {
 	const missing = surface.needs ? `do local v = _G; for k in (${q(surface.needs)}):gmatch("[^.]+") do v = type(v) == "table" and v[k] or nil end; if v == nil then error(${q(`missing ${surface.needs}`)}, 0) end end\n` : '';
 	return buildProgram({
 		stubs: surface.stubs || ['stub_ui.lua'],
 		before: [P.panelBefore(surface, prelude), `dofile(${q(DRIVER)})`, `dofile(${q(AUDIT_LUA)})`].join('\n'),
-		addons: [{ name: 'Polestar', files: filesFor(look, surface) }, ...(surface.addons || []), ...(look.addon ? [look.addon] : [])],
-		saved: { Polestar: savedFor(look) },
+		addons: [...new Set([{ name: 'Polestar', files: filesFor(look, surface) }, ...(surface.addons || []), ...(look.addon ? [look.addon] : []), ...(layout ? [layout.addon] : [])])],
+		saved: { Polestar: savedFor(look, layout, tabStyle) },
 		script: `UIParent:SetScale(${scale})\n${surface.stubs ? '' : 'uistub.install()\n'}stub.login()\nstub.advance(1)\n${missing}${surface.script}\nstub.advance(1)\naudit.dump(${q(surface.key)}, ${scale})`,
 	});
 }
 
 // One look on one surface at one scale: its dumps (at login, after a
 // repaint), or its error.
-function run(look, surface, prelude, scale) {
+function run(look, surface, prelude, scale, layout, tabStyle) {
 	return new Promise((done) => {
 		const file = path.join(os.tmpdir(), `polestar-audit-${process.pid}-${look.id}-${surface.key}-${scale}-${Math.random().toString(36).slice(2)}.lua`);
-		fs.writeFileSync(file, program(look, surface, prelude, scale));
+		fs.writeFileSync(file, program(look, surface, prelude, scale, layout, tabStyle));
 		const child = spawn(findLua(), [file], { cwd: ROOT, stdio: ['ignore', 'pipe', 'pipe'] });
 		const out = [];
 		let err = '';
@@ -544,7 +568,9 @@ function analyze(dump, surface, fonts) {
 			const h = Math.min(t.y1, ir.y + ir.h) - Math.max(t.y0, ir.y);
 			if (w > 0.5 && h > 0.5) add('close', describe(b), `its mark lies over "${s.plain.trim().slice(0, 30)}"`);
 		}
-		if (!kit || surface.family !== 'guide') continue;
+		// A menu bar's glyph ("Hide window" in the guide window's menu) is drawn
+		// at the bar's size like its neighbours: no window's close to match.
+		if (!kit || surface.family !== 'guide' || b.barIcon) continue;
 		const s = scaleOf(b);
 		const target = b.tabClose ? rects.get(b.id).w / s : ink.art ? look.iconBtn + 2 : look.guideIcon;
 		if (ink.size > target + 0.5) add('close', describe(b), `${ink.size.toFixed(1)} units drawn, the ${b.tabClose ? 'tab close target' : ink.art ? "card's close" : "window's icon glyph"} is ${target}`);
@@ -577,7 +603,12 @@ function merge(look, surface, perScale) {
 	return [...by.values()];
 }
 
-async function audit({ looks = LOOKS, surfaces = SURFACES, scales = SCALES, jobs = Math.max(1, Math.min(4, os.cpus().length - 1)), slack = 1.15, onRun = null } = {}) {
+// `layout`: a LAYOUTS id, picked by the player before login on every run (none: Polestar's own).
+// `tabStyle`: a TAB_STYLES entry, picked the same way (none: the default).
+async function audit({ looks = LOOKS, surfaces = SURFACES, scales = SCALES, layout = null, tabStyle = null, jobs = Math.max(1, Math.min(4, os.cpus().length - 1)), slack = 1.15, onRun = null } = {}) {
+	const lay = layout ? LAYOUTS[layout] : null;
+	if (layout && !lay) throw new Error(`audit: no layout ${layout}`);
+	if (tabStyle && !TAB_STYLES.includes(tabStyle)) throw new Error(`audit: no tab style ${tabStyle}`);
 	const fonts = fit.fontsFor(slack);
 	const prelude = P.metricsLua(fonts);
 	const tasks = [];
@@ -589,12 +620,17 @@ async function audit({ looks = LOOKS, surfaces = SURFACES, scales = SCALES, jobs
 			const task = tasks[next++];
 			const { look, surface, scale } = task;
 			const t0 = Date.now();
-			const r = await run(look, surface, prelude, scale);
+			const r = await run(look, surface, prelude, scale, lay, tabStyle);
 			task.found = r.error ? [{ check: 'shown', where: surface.roots.join(', '), detail: `could not be built: ${r.error}` }] : r.dumps.flatMap((d) => analyze(d, surface, fonts).map((f) => ({ ...f, state: d.extra.state })));
 			// The look itself in use: a look the run fell back from is not checked at all.
 			for (const d of r.dumps || []) {
 				const drawn = d.extra.look && d.extra.look.skin;
 				if (drawn && drawn !== look.id) task.found.push({ check: 'error', where: 'the look', detail: `${look.id} did not apply: ${drawn} drew the surface`, state: d.extra.state });
+				const laid = (d.extra.look && d.extra.look.layout) || null;
+				if (lay && laid !== lay.id) task.found.push({ check: 'error', where: 'the layout', detail: `${lay.id} did not apply: ${laid || "Polestar's own"} laid the surface out`, state: d.extra.state });
+				// The style picked, wherever the window draws tabs in a style (none in compact mode's underline).
+				const style = d.extra.look && d.extra.look.tabStyle;
+				if (tabStyle && style && style !== tabStyle && !(tabStyle === 'strip' && style === 'edge')) task.found.push({ check: 'error', where: 'the tab style', detail: `${tabStyle} did not apply: the tabs were drawn as ${style}`, state: d.extra.state });
 			}
 			const ms = Date.now() - t0;
 			runs.push({ look: look.id, surface: surface.key, scale, ms });
@@ -617,9 +653,9 @@ async function audit({ looks = LOOKS, surfaces = SURFACES, scales = SCALES, jobs
 
 const line = (f) => `${f.look} · ${f.surface} · ${f.check} · ${f.where}: ${f.detail}${f.scales.length < SCALES.length ? ` (at ${f.scales.join(', ')})` : ''}${f.states.length < STATES.length ? ` (${f.states[0] === 'login' ? 'at login' : 'after a repaint'})` : ''}`;
 
-module.exports = { audit, analyze, program, run, LOOKS, SURFACES, SCALES, MIN_CONTRAST, line };
+module.exports = { audit, analyze, program, run, LOOKS, SURFACES, SCALES, LAYOUTS, TAB_STYLES, MIN_CONTRAST, line };
 
-// node tools/preview/audit.js [look ...] [--surface key,...] [--scale s,...] [--jobs n]: the findings, one per line.
+// node tools/preview/audit.js [look ...] [--surface key,...] [--scale s,...] [--layout id] [--tab-style s] [--jobs n]: the findings, one per line.
 if (require.main === module) {
 	const args = process.argv.slice(2);
 	const opt = (k) => {
@@ -629,10 +665,12 @@ if (require.main === module) {
 	const only = opt('--surface');
 	const at = opt('--scale');
 	const jobs = Number(opt('--jobs')) || undefined;
+	const layout = opt('--layout');
+	const tabStyle = opt('--tab-style');
 	const looks = args.length ? LOOKS.filter((l) => args.includes(l.id)) : LOOKS;
 	const surfaces = only ? SURFACES.filter((s) => only.split(',').includes(s.key)) : SURFACES;
 	const scales = at ? at.split(',').map(Number) : SCALES;
-	audit({ looks, surfaces, scales, jobs, onRun: (l, s, scale, ms) => process.stderr.write(`${l.id}/${s.key}@${scale} ${ms} ms\n`) }).then(({ findings }) => {
+	audit({ looks, surfaces, scales, layout, tabStyle, jobs, onRun: (l, s, scale, ms) => process.stderr.write(`${l.id}/${s.key}@${scale} ${ms} ms\n`) }).then(({ findings }) => {
 		for (const f of findings) console.log(line(f));
 		console.log(`${findings.length} findings`);
 	});
