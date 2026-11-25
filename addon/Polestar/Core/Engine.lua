@@ -13196,7 +13196,11 @@ function Own.travelWay(s)
 		if more then return more:format(first, place) end
 		return first
 	end
-	if walk >= Own.WAY_WALK then return (rides and L["%s, then ride to %s"] or L["%s, then walk to %s"]):format(first, place) end
+	-- The walk on is said only for a flight step's landing in another place than the ride's end: a crossing is
+	-- behind the player once across (Own.alreadyAcross), and "Hearth to Everlook, then ride to Everlook" says nothing.
+	if walk >= Own.WAY_WALK and not t.place and main.name ~= place then
+		return (rides and L["%s, then ride to %s"] or L["%s, then walk to %s"]):format(first, place)
+	end
 	return first
 end
 
