@@ -354,6 +354,61 @@ fn target_list_without_a_model_a_close_mob_shows_its_own_portrait_else_the_cross
 	assert_eq!(out[1], json!(["portrait:Kobold Vermin", "green"]));
 }
 
+// RedeemedRiku (#2849): where a Target List model intersects the paper doll,
+// the character's model can lose a rectangle. Use the normal portrait fallback
+// only for that row, while leaving the button and disjoint models in place.
+#[test]
+fn target_list_uses_flat_fallback_only_where_the_character_model_overlaps() {
+	let out = run_with(
+		r#"
+		kobolds()
+		q.target = { name = "Kobold Vermin" }
+		stub.fire("PLAYER_TARGET_CHANGED")
+		stub.runTimers()
+		for i, r in ipairs(B.rows) do
+			r.Face.x, r.Face.y = 120 + 35 * (i - 1), 50
+			r.Face:SetSize(20, 20)
+		end
+		emit(faces())
+		-- The addon may load the Character UI after Polestar. Its model is
+		-- parented to the paper doll, so closing the pane also hides the model.
+		stub.cascadeVisibility = true
+		local pane = CreateFrame("Frame", "PaperDollFrame", UIParent)
+		pane:Hide()
+		local model = CreateFrame("PlayerModel", "CharacterModelFrame", pane)
+		model:SetSize(10, 10)
+		model:SetScale(2)
+		model.x, model.y = 65, 27
+		stub.fire("ADDON_LOADED", "Blizzard_CharacterFrame")
+		q.combat(true)
+		pane:Show()
+		stub.runTimers()
+		emit({ faces(), B.rows[1]:IsShown(), B.rows[1]:GetAttribute("macrotext") })
+		q.combat(false)
+		-- The paper doll can move while shown (e.g. another UI panel opens).
+		model.x = 82
+		stub.RunScript(model, "OnUpdate", 0.05)
+		stub.runTimers()
+		emit(faces())
+		-- Move a third portrait into the model: placement alone repaints it.
+		B.rows[3].Face.x = 172
+		Polestar.Fire("QUEST_BUTTONS_PLACED")
+		stub.runTimers()
+		emit(faces())
+		pane:Hide()
+		stub.runTimers()
+		emit(faces())
+	"#,
+		MODELS,
+	);
+	let restored = json!([[6, "green"], [257, "red"], [80, "red"]]);
+	assert_eq!(out[0], restored);
+	assert_eq!(out[1], json!([[["portrait:Kobold Vermin", "green"], [257, "red"], [80, "red"]], true, VERMIN]));
+	assert_eq!(out[2], json!([[6, "green"], [false, "red"], [80, "red"]]));
+	assert_eq!(out[3], json!([[6, "green"], [false, "red"], [false, "red"]]));
+	assert_eq!(out[4], restored);
+}
+
 // Fitz on the 0.4.0 preview: every row of the Redridge gnolls showed the red crosshair. SetCreature draws a creature
 // only from the client's cache, and the row called it once, before the client had met them: an empty model, never
 // drawn again. The row asks the server for the creature (its unit link's tooltip) and draws the model once it is in.
