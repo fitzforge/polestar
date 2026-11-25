@@ -641,7 +641,7 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	let quest_items = fwago.as_ref().and_then(|f| f.get("Item")).map(|items| extras::quest_items(items)).unwrap_or_default();
 	let mut revision = crate::recordings::Revision::default();
 	let mut unread: Option<String> = None;
-	let rec = apply_recordings(
+	let mut rec = apply_recordings(
 		&crate::recordings::Db {
 			quests: &norm.quests,
 			npcs: &norm.npcs,
@@ -670,8 +670,9 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		&live,
 		sim,
 		// A quest drop's recorded chance, counted on the kills while it was wanted (#2747); any other
-		// drop's still counts loot windows, which read 1.2-3x high: the sources' stands.
-		DropChances::QuestDrops,
+		// drop's still counts loot windows, which read 1.2-3x high: the sources' stands. Written after
+		// the knowledge base, below.
+		DropChances::QuestDropsLater,
 	);
 	if let Some(e) = unread {
 		return Err(e);
@@ -915,6 +916,11 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		}
 		kb = Some(out);
 	}
+	// Players' recorded quest-drop chances (#2747), over every source's figure: the knowledge base adds
+	// the Forever TDB's and eg's above, and an item's sources nobody measured go on the scale of the ones
+	// players did (recordings.rs, RecordedDrops; #285). A dropper a correction removes stays removed.
+	let removed = |item: i64, kind: &str, id: i64| corrections.get("items").get(&item.to_string()).get("removeDrops").get(kind).items().iter().any(|x| x.num() == id as f64);
+	rec.recorded_drop_chances = rec.recorded_drops.apply(&norm.items, &removed);
 
 	// Talks the quest data lists as kills (talk.rs): once the knowledge base has given its counts, and
 	// never on a quest whose objectives a correction sets.
