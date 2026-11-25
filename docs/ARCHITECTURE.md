@@ -8388,7 +8388,9 @@ Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the qu
   kind sorts after matching and filtering, before paging. Results carry
   `statBucket`: known amounts first (descending, with `statAmount`),
   then present with unknown amount, known absent, and unknown coverage.
-  Ties use folded display name and numeric id. Everything keeps
+  Ties use the folded name the row shows (its localised name, or an
+  item's name from the client's item cache, else the pack's) and the
+  numeric id. Everything keeps
   `Search.KINDS` order. Without a supported stat or for other kinds,
   Query uses `baseOrder` (default `"best"`) and Browse uses A to Z.
 - **Lookup controls** (`UI/Lookup.lua`). Items expands to selectable
@@ -8396,16 +8398,23 @@ Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the qu
   Filters drawer holds the two level ranges, class, rarity and availability
   controls. Filter row tooltips show the label and help text on hover.
   Clear all filters uses the default auto-width button below Availability.
+  It clears the category, availability and the drawer filters that apply
+  in the current view. The Filters button counts those same active groups
+  ("Filters (2)").
   Items and Everything also offer the Slot and Stat filters and
   the Most order with a separate stat picker. Mounts, Pets, Recipes and
   Tabards use the base sort for search and A to Z for browse. They omit
   Slot and Stat from both the drawer and the results' filter predicates.
-  Returning to Items or Everything reapplies the stat order and filters.
-  The chip strip shows and removes active filters, and drawer item filters
-  save to `CharState().ui.lookupItemFilters`. Item details show type, levels,
-  rarity, usable classes, slot, category and Stats, with source labels or
-  tooltips where known. Packs without a supported filter column keep the flat
-  sidebar, availability controls and legacy details.
+  Clear all there keeps Slot and Stat, and returning to Items or Everything
+  reapplies the stat order and filters. With Slot or Stat set, the sidebar
+  counts the kinds on the other side of that line with their own view's
+  filters, so each count is the total its row opens. Drawer item filters
+  save to `CharState().ui.lookupItemFilters`. Item details show a summary
+  line (rarity, item level, required level), the game's own tooltip lines
+  (`Compat.ItemTooltipLines`) and the usable classes. An item not yet cached
+  shows only the summary and classes until `GET_ITEM_INFO_RECEIVED`. Details
+  show no source labels. Packs without a supported filter column keep the
+  flat sidebar, availability controls and legacy details.
   Usable by and Slot use stock dropdown choices, including Slot's disabled
   group headings. Filter and sort menus align to the right edge of their
   buttons and widen to fit their labels.
@@ -11191,16 +11200,24 @@ was already built without it.
   display value exists. `levelsSource` is the default source of its
   four facts; one that differs has its own `reqSource`, `itemLevelSource`,
   `qualitySource` or `allowSource` (`none`: no table vouches for it).
-  The `fieldsrc` comment in Forever.lua records what the generator
-  took from Forever's list (`f`), from the Era row (`e`) or from neither
-  (`u`) for the required level, item level, quality and class mask. For
-  older files, a matching Era required level is attributed to Era. Other
-  equal values and possible defaults have no attributed source.
-  The Era client tables alone supply a level and rarity as `era` and
-  no `levelsSource`.
+  The merge sets only two of them. An item the Era client tables alone
+  supply gets `reqSource` and `qualitySource` `era` for the level and
+  rarity they give, and no `levelsSource`. A Forever client item with
+  `levelsSource = "client"` but no rarity gets `qualitySource = "none"`.
+  An ItemDB row that fills the levels group replaces all four facts and
+  removes these per-fact labels, so its facts all take its `levelsSource`.
+  The pack carries them in the per-fact source byte (packed filters,
+  below). `FilterFacts` sets a fact's own source only where it differs
+  from `levelsSource` (`false` for `none`), and `Codex.FactSource`
+  returns it, else `levelsSource`.
 - Item stats (`codex/itemdb.rs`): for `levelsSource = "client"`, the
   Forever client's stat codes determine presence and the selected
-  ItemDB row supplies matching amounts where the units agree. For
+  ItemDB row supplies matching amounts where the units agree. A stat
+  slot whose `StatPercentEditor` allocation is 0 grants nothing and is
+  left out; a missing or blank allocation keeps the code. The caster
+  bits of `ItemSparse` `Flags_4` add spell codes: 0x400 gives healing
+  and spell damage (41, 42), and 0x200 gives spell power (45), or 41 and
+  42 when the ItemDB row states unequal `sp` and `heal`. For
   ItemDB-backed levels, the selected row's mapped stats supply presence
   and amounts. `stats` maps raw codes to signed amounts, with 0 for
   presence only. `statAmountSource` names the selected ItemDB source
