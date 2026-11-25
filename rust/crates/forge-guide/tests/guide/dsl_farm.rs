@@ -20,26 +20,27 @@ fn src(faction: Option<&str>, body: &[&str]) -> String {
 }
 
 #[test]
-fn farm_spots_clustered_droppers_with_zone_safety_level_range_rate_and_spawn_count() {
+fn farm_spots_clustered_droppers_with_zone_safety_level_range_items_per_kill_and_spawn_count() {
 	let spots = plain(&farm_spots(&fixture_data(), &V::from(4306)));
 	let list = spots.as_array().unwrap();
 	let by = |n: &str| list.iter().find(|s| s["npcName"] == n).cloned();
+	// `rate` is items per looted kill: 30% x Silk Cloth's yield 1.56 (cloth drops one to three at a time).
 	assert_eq!(
 		by("Cloth Kobold").unwrap(),
-		json!({ "map": 1429, "x": 65.4, "y": 75.3, "f": "e", "faction": "A", "npc": 95001, "npcName": "Cloth Kobold", "lvl": { "min": 5, "max": 5 }, "rate": 0.3, "spawns": 4 })
+		json!({ "map": 1429, "x": 65.4, "y": 75.3, "f": "e", "faction": "A", "npc": 95001, "npcName": "Cloth Kobold", "lvl": { "min": 5, "max": 5 }, "rate": 0.468, "spawns": 4 })
 	);
 	let harpy = by("Cloth Harpy").unwrap();
 	assert_eq!([&harpy["faction"], &harpy["spawns"]], [&json!("H"), &json!(3)]);
 	let troll = by("Cloth Troll").unwrap();
 	assert_eq!([&troll["faction"], &troll["lvl"]], [&json!("AH"), &json!({ "min": 35, "max": 35 })]);
-	assert_eq!(by("Lone Kobold").unwrap()["spawns"], 1);
-	// Not farm spots: the elite, the rat inside Goldshire, the kobold at the guard post, Kobold Vermin at 1%.
-	for name in ["Elite Kobold", "Goldshire Rat", "Guardpost Kobold", "Kobold Vermin"] {
+	// Not farm spots: the elite, the rat inside Goldshire, the kobold at the guard post, Kobold Vermin at 1%, and the
+	// Lone Kobold (one spawn: no farm while Eastern Kingdoms has camps of 3 or more).
+	for name in ["Elite Kobold", "Goldshire Rat", "Guardpost Kobold", "Kobold Vermin", "Lone Kobold"] {
 		assert!(by(name).is_none(), "{name}");
 	}
-	// Per continent (Kalimdor, then Eastern Kingdoms), best rate x spawns first: the 5-spawn camp at 35% (1.75)
-	// beats the 4-spawn camp at 30% (1.2).
-	assert_eq!(list.iter().map(|s| s["npcName"].as_str().unwrap()).collect::<Vec<_>>(), ["Cloth Harpy", "Ancient Kobold", "Cloth Kobold", "Cloth Troll", "Lone Kobold"]);
+	// Per continent (Kalimdor, then Eastern Kingdoms), best rate x spawns first: the 5-spawn camp at 35% (2.73)
+	// beats the 4-spawn camp at 30% (1.87).
+	assert_eq!(list.iter().map(|s| s["npcName"].as_str().unwrap()).collect::<Vec<_>>(), ["Cloth Harpy", "Ancient Kobold", "Cloth Kobold", "Cloth Troll"]);
 	// Deterministic.
 	assert_eq!(plain(&farm_spots(&fixture_data(), &V::from(4306))), spots);
 }
@@ -53,7 +54,7 @@ fn collect_item_xn_nearest_compiles_to_farm_spot_candidates_for_the_factions_the
 	// Alliance: Elwynn and contested spots, never Durotar.
 	let mut f: Vec<&str> = g["candidates"].as_array().unwrap().iter().map(|c| c["faction"].as_str().unwrap()).collect();
 	f.sort();
-	assert_eq!(f, ["A", "A", "A", "AH"]);
+	assert_eq!(f, ["A", "A", "AH"]);
 	assert!(!g["candidates"].as_array().unwrap().iter().any(|c| c["npcName"] == "Cloth Harpy"));
 	let both = compile(&src(None, &["  collect 4306 x20 nearest"])).steps()[0]["goals"][0].clone();
 	assert!(both["candidates"].as_array().unwrap().iter().any(|c| c["faction"] == "H"));
@@ -131,6 +132,6 @@ fn farm_spots_and_prerequisite_titles_emit_lua_the_engine_reads() {
 	let r = compile_files(&[("test.guide", &text)], &fixture_data(), Some("test"));
 	assert!(r.errors.is_empty(), "{}", r.text);
 	let lua = emit(&r.guides);
-	assert_match(&lua, r#"\{ npc = 95001, npcName = "Cloth Kobold", map = 1429, x = 65\.4, y = 75\.3, f = "e", faction = "A", lvl = \{ min = 5, max = 5 \}, rate = 0\.3, spawns = 4 \}"#);
+	assert_match(&lua, r#"\{ npc = 95001, npcName = "Cloth Kobold", map = 1429, x = 65\.4, y = 75\.3, f = "e", faction = "A", lvl = \{ min = 5, max = 5 \}, rate = 0\.468, spawns = 4 \}"#);
 	assert_match(&lua, r#"pre = \{ 9201, 783 \}, preTitles = \{ \[783\] = "A Threat Within", \[9201\] = "The First Step" \}"#);
 }

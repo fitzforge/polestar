@@ -411,6 +411,35 @@ local function farmSpot(goal)
 	return string.format(L["from %s"], goal.npcName)
 end
 
+-- A farm spot's numbers (the view's `farm`, #3661): a pick above the player
+-- first ("1 level above you: careful"; with no spot at their level, "No farm
+-- at your level: 3 levels above you"), then the kills and minutes the items
+-- still missing take there, then the second choice ("or Riverpaw Gnoll
+-- (Westfall)"). Nil without one.
+function UI.FarmLine(goal)
+	local f = type(goal.farm) == "table" and goal.farm
+	if not f then return nil end
+	local parts = {}
+	local above = tonumber(f.above)
+	if above and above >= 2 then
+		parts[#parts + 1] = string.format(L["No farm at your level: %d levels above you"], above)
+	elseif above and above > 0 then
+		parts[#parts + 1] = L["1 level above you: careful"]
+	end
+	if f.kills and f.minutes then
+		parts[#parts + 1] = string.format(L["about %d kills, %d min"], f.kills, f.minutes)
+	elseif f.kills then
+		parts[#parts + 1] = string.format(L["about %d kills"], f.kills)
+	end
+	local s = f.second
+	if type(s) == "table" and type(s.npcName) == "string" then
+		local zone = s.map and UI.MapName(s.map)
+		parts[#parts + 1] = zone and string.format(L["or %s (%s)"], s.npcName, zone) or string.format(L["or %s"], s.npcName)
+	end
+	if #parts == 0 then return nil end
+	return table.concat(parts, "  \194\183  ")
+end
+
 -- Secondary line. An unavailable quest says why ("Needs level 14"); a farm
 -- spot names its mobs; a chosen candidate (trainer, vendor, inn, farm spot)
 -- adds its zone; then the Engine's detail, the quest a kept grey accept
@@ -432,6 +461,8 @@ function UI.GoalDetail(goal)
 		local zone = UI.MapName(goal.map)
 		if zone and not (d and d:find(zone, 1, true)) then parts[#parts + 1] = zone end
 	end
+	local farmLine = UI.FarmLine(goal)
+	if farmLine then parts[#parts + 1] = farmLine end
 	if goal.keptGreyText then parts[#parts + 1] = goal.keptGreyText end
 	if goal.note then parts[#parts + 1] = goal.note end
 	if #parts == 0 then return nil end
@@ -845,6 +876,8 @@ function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort, noFinder)
 		local zone = UI.MapName(goal.map)
 		if zone then parts[#parts + 1] = zone end
 	end
+	local farmLine = UI.FarmLine(goal)
+	if farmLine then parts[#parts + 1] = farmLine end
 	-- A note that only names the source or the item says nothing new.
 	local note = goal.note
 	if note and source and (note == goal.source.name or note == goal.subject) then note = nil end

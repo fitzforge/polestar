@@ -14,16 +14,21 @@
 //      the sellers in the main trainer's town and the money they take;
 //   3. recipe items sold by vendors (`buy <recipe> nearest`), each with its
 //      sellers by faction and place, price and stock;
-//   4. the Auction House (`auction <item> xN`): every material of the bracket
-//      it sells (no vendor good, nothing that binds when picked up), and the
-//      patterns the route buys there (docs/GUIDE_FORMAT.md, "Materials");
-//   5. gathered and dropped materials with a farming spot (a node, beasts or
-//      humanoids by level, a dropping mob, a clam), per faction where the
-//      spots differ (see farmSpot), each collect marked `gather` with what
-//      gathering it takes; a material with no spot that the player can make
-//      or keep while gathering (disenchanting, another profession's goods, a
-//      rare node find) is a bag count with its profession; the rest (a rare
-//      drop) is bought, named in the first craft step using it;
+//   4. a "Get it" step per gathered or dropped material (#3661): how many the
+//      bracket needs and for what, where they come from, and the Auction
+//      House as the last line and the last goal (`auction <item> xN`, when it
+//      sells the item: no vendor good, nothing that binds when picked up;
+//      docs/GUIDE_FORMAT.md, "Materials"). Mob drops, cloth included, are a
+//      `collect … nearest` the engine resolves for the player's level; nodes,
+//      beasts, clams and the ore of a smelted bar a farming spot per faction or
+//      starting area where the spots differ (see farmSpot), each collect marked
+//      `gather` with what gathering it takes; a material with no spot that the
+//      player can make or keep while gathering (disenchanting, another
+//      profession's goods, a rare node find) is a bag count with its
+//      profession; the rest (a rare drop) is bought, named in the first craft
+//      step using it;
+//   5. the Auction House step for what no Get it step farms, and the patterns
+//      the route buys there;
 //   6. one shared `craft <recipe> until <N>` step per plan segment: colour at
 //      the start, crafts, materials per craft, why this recipe, the specs.js
 //      notes for that skill (specialisations), with `skill` checkpoints at
@@ -85,12 +90,10 @@ const REAL_DROP = 2;
 const TRAINER_NOTES = {
 	Annora: 'Annora teaches Artisan Enchanting inside the Uldaman dungeon (Badlands); bring a group',
 };
-// Hostile mobs whose kill costs reputation a player wants (the world DB's
-// creature_onkill_reputation): every Timbermaw furbolg costs 25 Timbermaw
-// Hold reputation, whose tunnels lead to Moonglade and Everlook (Qia's
-// patterns) and whose quartermaster sells Timbermaw patterns. Never a farm
-// spot (Runecloth went to Timbermaw Ursa in Azshara).
-const PROTECTED_MOBS = new Set([6184, 6185, 6186, 6187, 6188, 6189, 6651, 11516, 11552, 11553, 11555, 11557, 11558]);
+// Mobs whose kill costs reputation a player wants (Timbermaw furbolgs: Qia's
+// patterns lie behind their tunnels) are never a farm spot, here or in the
+// compiler's farm spots (Runecloth went to Timbermaw Ursa in Azshara).
+const { PROTECTED_MOBS } = require('../dsl/farmspots');
 // Cloth comes from humanoids of its band (describe.js CLOTH_LEVELS); a mob
 // this many levels outside it is a different player's farm (Mageweave went
 // to the Shadowsworn Adepts of the Blasted Lands, level 52-53).
@@ -474,6 +477,20 @@ function draftGuide(name, data, opts = {}) {
 		}
 		return null;
 	};
+	// The ore a bar is smelted from: the smelting recipe's reagent that veins
+	// drop (Iron Ore for Iron Bar), or null (Steel Bar is smelted from bars).
+	const oreOf = (item) => {
+		for (const x of (mats[item] || {}).madeBy || []) {
+			const p = profs[x.skillLine];
+			const r = p && (p.recipes || []).find((y) => y.spell === x.spell);
+			const rg = r && (r.reagents || []).find((g) => {
+				const it = (data.items || {})[g.item];
+				return it && it.drops && it.drops.object && Object.keys(it.drops.object).length > 0;
+			});
+			if (rg) return rg.item;
+		}
+		return null;
+	};
 	// Home continent per faction (where its capital trainer stands): farming spots prefer it.
 	const homeOf = (side) => {
 		const main = prof.mainTrainer && prof.mainTrainer[side];
@@ -837,69 +854,88 @@ function draftGuide(name, data, opts = {}) {
 		}
 
 		// 4. The Auction House: what the bracket takes that a player can buy there
-		// (no vendor good, nothing that binds when picked up), for the whole
-		// bracket, and the patterns the route buys there. Each of those materials
-		// is bought here or gathered in the steps below, whose collects carry
-		// `gather`, one way at a time (docs/GUIDE_FORMAT.md, "Materials").
+		// (no vendor good, nothing that binds when picked up). Each material with a
+		// "Get it" step (5) ends that step with its `auction` goal: the farm first,
+		// the Auction House as the last line, one way at a time
+		// (docs/GUIDE_FORMAT.md, "Materials"). The rest, and the patterns the route
+		// buys there, come in one Auction House step after the Get it steps.
 		const market = b.list.filter((t) => SIDES.some((s) => t.src[s].kind !== 'vendor') && !(mats[t.item] || {}).bop);
 		const sold = new Set(market.map((t) => t.item));
 		const patterns = b.recipes.filter((r) => auction[r.spell] && r.recipeItem);
-		if (market.length || patterns.length) {
-			line('');
-			line(`step ${P} ${b.from}-${b.cap}: Auction House`);
-			world();
-			const what = [...market.map((t) => `${t.count} ${matName(t.item)}`), ...patterns.map((r) => D.article(matName(r.recipeItem)))];
-			line(`  tip What ${b.from}-${b.cap} takes that the Auction House sells: ${D.list(what)}. The counts drop by what your bags, bank and mail hold.`);
-			for (const t of market) {
-				const sides = SIDES.filter((s) => t.src[s].kind !== 'vendor');
-				line(`  auction ${t.item} x${t.count}${sides.length === 1 ? ` only ${sides[0]}` : ''}`);
-			}
-			for (const r of patterns) line(`  auction ${r.recipeItem} x1`);
-		}
+		const boughtInStep = new Set(); // items whose `auction` goal ends their Get it step
+		const auctionLine = (t) => {
+			const sides = SIDES.filter((s) => t.src[s].kind !== 'vendor');
+			return `  auction ${t.item} x${t.count}${sides.length === 1 ? ` only ${sides[0]}` : ''}`;
+		};
 
-		// 5. Gathered and dropped materials. Mob drops the compiler can place
-		// (`data.farmable(item)` -> { Alliance, Horde }: a qualifying farm spot
-		// safe for that side) become one `collect … nearest` step that the
-		// engine resolves by level, faction and travel time. Nodes, fish and the
-		// rest keep a farming spot per faction where the spots differ. A material
-		// the Auction House step buys carries `gather` with what Mix asks of the
-		// character: the levels of its mobs, the profession and skill of its node.
+		// 5. Get it: gathered and dropped materials, a step each (per faction or
+		// starting area where the spots differ). Its tip says how many the band
+		// needs and for what, where they come from, and, last, the Auction House;
+		// its last goal is the `auction` one. Mob drops the compiler can place
+		// (`data.farmable(item)` -> { Alliance, Horde }: the lowest mob level of a
+		// qualifying farm spot safe for that side), cloth included, become one
+		// `collect … nearest` that the engine resolves at runtime: mobs at or below
+		// the player's level first, the most items per minute, the nearest, picked
+		// again on level-up (docs/ARCHITECTURE.md, "Farm spots"). Nodes, fish and
+		// the rest keep a farming spot per faction where the spots differ. A
+		// material the Auction House sells carries `gather` with what Mix asks of
+		// the character: the levels of its mobs, the profession and skill of its node.
 		const shared = new Map(); // item -> where it comes from, for materials with no farm spot
+		const capital = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 		for (const t of b.list) {
 			const kinds = SIDES.map((side) => t.src[side].kind);
 			if (kinds.every((k) => k === 'vendor')) continue;
 			const need = SIDES.filter((side, i) => kinds[i] !== 'vendor');
 			const ahead = (t.ahead || []).map((a) => `${a.count} of them for ${a.from}-${a.cap}`);
-			const forWhat = `${t.count} ${matName(t.item)} for ${D.list(t.uses)}${ahead.length ? ` (${D.list(ahead)}: pick them all now)` : ''}`;
-			// The collect's `gather` (with `facts`) when the Auction House step buys the item too; else
-			// its tips name the Auction House themselves (`ahText`).
+			const forWhat = `You need ${t.count} ${matName(t.item)} for ${P} ${b.from}-${b.cap}: ${D.list(t.uses)}${ahead.length ? ` (${D.list(ahead)}: get them all now)` : ''}.`;
+			// The collect's `gather` (with `facts`) when the Auction House sells the item.
 			const mark = (facts = '') => (sold.has(t.item) ? ` gather${facts}` : '');
-			const ahText = !sold.has(t.item);
-			// Cloth: counted in the bags, from humanoids of its band as the character
-			// levels. No farm spot: a trip to a named camp is a long journey for what
-			// the player loots anyway; `anywhere` keeps the compiler from placing the
-			// count at one dropper of hundreds.
-			if (need.every((side) => t.src[side].kind === 'cloth')) {
-				const lv = D.CLOTH_LEVELS[matName(t.item)];
+			const lastLine = sold.has(t.item) ? ` Or buy ${t.count > 1 ? 'them' : 'it'} at the Auction House.` : '';
+			// A Get it step: `head` writes its `zone`/`only` lines.
+			const getIt = (title, head, tip, collect) => {
 				line('');
-				line(`step ${matName(t.item)}`);
+				line(`step Get ${title}`);
+				head();
+				line(`  tip ${forWhat} ${tip}${lastLine}`);
+				line(collect);
+				if (sold.has(t.item)) {
+					line(auctionLine(t));
+					boughtInStep.add(t.item);
+				}
+			};
+			// Mob drops (cloth from the humanoids of its band, meat, spider silk):
+			// a farm the engine picks for the player's level whenever each side the
+			// step serves has a farm spot. A player below every spot still gets the
+			// nearest one, and the guide window says how many levels above them it is.
+			const ok = data.farmable ? data.farmable(t.item) : null;
+			const cloth = need.every((side) => t.src[side].kind === 'cloth');
+			const farmHead = () => {
 				world();
 				if (need.length === 1) line(`  only ${need[0]}`);
-				line(`  tip ${forWhat}: humanoids${lv ? ` of level ${lv[0]}-${lv[1]}` : ''} drop it. Keep what you loot as you level${ahText ? ', take it from your bank, or buy it at the Auction House' : ', or take it from your bank'}.`);
-				line(`  collect ${t.item} x${t.count} anywhere${mark(lv ? ` levels ${lv[0]}-${lv[1]}` : '')}`);
+			};
+			if (ok && need.every((side) => MOB_KINDS.has(t.src[side].kind) && ok[side] != null)) {
+				const lows = need.map((side) => ok[side]);
+				const lv = cloth ? D.CLOTH_LEVELS[matName(t.item)] : null;
+				const levels = lv ? ` levels ${lv[0]}-${lv[1]}` : ` levels ${Math.min(...lows)}-${Math.max(...lows)}`;
+				const from = cloth ? `Humanoids${lv ? ` of level ${lv[0]}-${lv[1]}` : ''} drop it, and what you loot as you level counts` : `${capital(D.sourceText(data, t.item, mats[t.item], t.src[need[0]], need[0], { market: false }))}`;
+				getIt(
+					matName(t.item),
+					farmHead,
+					`${from}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most ${matName(t.item)} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice.`,
+					`  collect ${t.item} x${t.count} nearest${mark(levels)}`,
+				);
 				continue;
 			}
-			// The engine skips spots whose mobs are 3+ levels above the player; the
-			// player is at least at the last `level` gate here.
-			const ok = data.farmable ? data.farmable(t.item) : null;
-			if (ok && need.every((side) => MOB_KINDS.has(t.src[side].kind) && ok[side] != null && ok[side] - gate < 3)) {
-				const lows = need.map((side) => ok[side]);
-				line('');
-				line(`step ${matName(t.item)}`);
-				world();
-				if (need.length === 1) line(`  only ${need[0]}`);
-				line(`  tip ${forWhat}: ${D.sourceText(data, t.item, mats[t.item], t.src[need[0]], need[0], { market: ahText })}. The arrow picks a farm spot for your level and faction.`);
-				line(`  collect ${t.item} x${t.count} nearest${mark(` levels ${Math.min(...lows)}-${Math.max(...lows)}`)}`);
+			// Cloth with no farm spot the player can work yet: counted in the bags
+			// as they level (`anywhere`: no place).
+			if (cloth) {
+				const lv = D.CLOTH_LEVELS[matName(t.item)];
+				getIt(
+					matName(t.item),
+					farmHead,
+					`Humanoids${lv ? ` of level ${lv[0]}-${lv[1]}` : ''} drop it: keep what you loot as you level, or take it from your bank.`,
+					`  collect ${t.item} x${t.count} anywhere${mark(lv ? ` levels ${lv[0]}-${lv[1]}` : '')}`,
+				);
 				continue;
 			}
 			// Droppers a character can farm by the bracket's end (skill 225: level 47 at most).
@@ -981,12 +1017,30 @@ function draftGuide(name, data, opts = {}) {
 							: maker
 								? { tip: D.sourceText(data, t.item, mats[t.item], t.src.Alliance, 'Alliance', { market: false }), facts: ` ${profWord(maker.name)} ${maker.rank}` }
 								: null;
+				// A bar Mining smelts from ore: the ore's densest vein cluster per faction,
+				// in zones a character at the bracket's start works in (Iron Bar: Iron
+				// Deposits), else a bag count.
+				const ore = maker && maker.name === 'Mining' ? oreOf(t.item) : null;
+				const oreSpots = ore ? SIDES.map((side) => ({ side, spot: farmSpot(ore, 'mine', side, homeOf(side), data, 0, { maxZone: maxZoneLevel(b.from) }) })) : [];
+				if (way && oreSpots.length && oreSpots.every((x) => x.spot && !rare(x.spot))) {
+					const one = sameSpot(oreSpots[0].spot, oreSpots[1].spot);
+					for (const x of one ? [{ side: null, spot: oreSpots[0].spot }] : oreSpots) {
+						const s = x.spot;
+						getIt(
+							`${matName(t.item)}${x.side ? ` (${x.side})` : ''}`,
+							() => {
+								if (x.side) line(`  only ${x.side}`);
+								line(`  zone ${zoneName(s.map)}`);
+								curZone = zoneName(s.map);
+							},
+							`Mine ${s.label} (Mining ${D.nodeSkill(s.label) ?? 1}) for ${((data.items || {})[ore] || {}).name || matName(ore)} and smelt it at a forge (Mining ${maker.rank}). The densest cluster of ${s.label} in ${zoneName(s.map)} is marked.`,
+							`  collect ${t.item} x${t.count} @${s.x},${s.y} ${s.frame || 'era'} gather${way.facts}`,
+						);
+					}
+					continue;
+				}
 				if (way) {
-					line('');
-					line(`step ${matName(t.item)}`);
-					world();
-					line(`  tip ${forWhat}: ${way.tip}.`);
-					line(`  collect ${t.item} x${t.count} anywhere gather${way.facts}`);
+					getIt(matName(t.item), world, `${capital(way.tip)}.`, `  collect ${t.item} x${t.count} anywhere gather${way.facts}`);
 					continue;
 				}
 				shared.set(t.item, r0 ? rareText(t.item, r0.spot) : noSpot(t.item, t.src.Alliance, 'Alliance'));
@@ -1002,13 +1056,14 @@ function draftGuide(name, data, opts = {}) {
 					shared.set(t.item, prev ? `${prev}; ${text}` : text);
 					continue;
 				}
-				line('');
-				line(`step ${matName(t.item)}${e.races ? ` (${zoneName(s.map)})` : side ? ` (${side})` : ''}`);
-				if (e.races) line(`  only ${raceCondition(e.races, e.sides)}`);
-				else if (side) line(`  only ${side}`);
-				const about = `${forWhat}: ${D.sourceText(data, t.item, mats[t.item], s0, side || 'Alliance', { zones: !e.races, marked: s.map, market: ahText })}.`;
-				line(`  zone ${zoneName(s.map)}`);
-				curZone = zoneName(s.map);
+				const title = `${matName(t.item)}${e.races ? ` (${zoneName(s.map)})` : side ? ` (${side})` : ''}`;
+				const head = () => {
+					if (e.races) line(`  only ${raceCondition(e.races, e.sides)}`);
+					else if (side) line(`  only ${side}`);
+					line(`  zone ${zoneName(s.map)}`);
+					curZone = zoneName(s.map);
+				};
+				const about = `${capital(D.sourceText(data, t.item, mats[t.item], s0, side || 'Alliance', { zones: !e.races, marked: s.map, market: false }))}.`;
 				const here = {
 					herb: `The densest patch of ${s.label} in ${zoneName(s.map)} is marked`,
 					mine: `The densest cluster of ${s.label} in ${zoneName(s.map)} is marked`,
@@ -1017,8 +1072,7 @@ function draftGuide(name, data, opts = {}) {
 				}[s0.kind] || (s.object ? `Open the ${s.label}s here` : `It drops from ${s.label} (level ${s.level}) here`);
 				// A drop's own note names the first dropper in the data (often a rare or a
 				// raid boss); the spot's mobs are the ones to farm.
-				const dropAbout = s0.kind === 'drop' ? `${forWhat}: ${s.object ? `open the ${s.label}s at the marked spot` : `it drops from ${s.label} (level ${s.level}) at the marked spot`}${ahText ? ', or buy it at the Auction House' : ''}.` : null;
-				line(`  tip ${dropAbout || `${about} ${here}.`}`);
+				const dropAbout = s0.kind === 'drop' ? `${s.object ? `Open the ${s.label}s at the marked spot` : `It drops from ${s.label} (level ${s.level}) at the marked spot`}.` : null;
 				// What Mix asks before it gathers here: the node's skill, Skinning for the
 				// beasts' level, the mobs' levels; fish need no skill (low skill only lets
 				// some get away).
@@ -1028,8 +1082,19 @@ function draftGuide(name, data, opts = {}) {
 					fishing: () => ' Fishing 1',
 					skinning: () => ` Skinning ${skinSkill(s.min != null ? s.min : parseInt(String(s.level), 10) || 1)}`,
 				}[s0.kind];
-				line(`  collect ${t.item} x${t.count} @${s.x},${s.y} ${s.frame || 'era'}${mark(facts ? facts() : s.object ? '' : levelsOf(s.level))}`);
+				getIt(title, head, dropAbout || `${about} ${here}.`, `  collect ${t.item} x${t.count} @${s.x},${s.y} ${s.frame || 'era'}${mark(facts ? facts() : s.object ? '' : levelsOf(s.level))}`);
 			}
+		}
+		// The Auction House, last: what has no Get it step, and the patterns.
+		const rest = market.filter((t) => !boughtInStep.has(t.item));
+		if (rest.length || patterns.length) {
+			line('');
+			line(`step ${P} ${b.from}-${b.cap}: Auction House`);
+			world();
+			const what = [...rest.map((t) => `${t.count} ${matName(t.item)}`), ...patterns.map((r) => D.article(matName(r.recipeItem)))];
+			line(`  tip What ${b.from}-${b.cap} takes that the Auction House sells and no step above farms: ${D.list(what)}. The counts drop by what your bags, bank and mail hold.`);
+			for (const t of rest) line(auctionLine(t));
+			for (const r of patterns) line(`  auction ${r.recipeItem} x1`);
 		}
 		if (oneVisit) {
 			// The held rank step, back on the world map after the farming spots.
