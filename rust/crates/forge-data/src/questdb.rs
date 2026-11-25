@@ -55,6 +55,9 @@ use forge_guide::prereqs::blocking_prereqs;
 pub const ADDON: &str = "Polestar_QuestDB";
 pub const SCHEMA: u32 = 2;
 pub const COMMAND: &str = "forge data questdb";
+/// What an NPC or object the data has no name for reads, in the QuestDB and the Codex.
+pub const UNNAMED_NPC: &str = "Unnamed creature";
+pub const UNNAMED_OBJECT: &str = "Unnamed object";
 const DATA_FILES: [&str; 5] = ["MapFrames.lua", "Quests.lua", "Npcs.lua", "Objects.lua", "Items.lua"];
 
 /// FACTION_RACES (forge-guide races): the Era races' mask bits per side.
@@ -408,30 +411,14 @@ pub fn build(data_dir: &Path, root: &Path, o: &Options) -> Result<Output, String
 
 	// --- items (their sources pull in more NPCs and objects)
 	let mut item_records = BTreeMap::new();
-	// A dropper the data has no name for is no source (QuestieDB 1.1.5's object 7983211 for Flintfire's Shipment): the
-	// addon reads every NPC and object record's name. It leaves the item's sources, with a warning.
-	let nameless = |table: &V, id: f64| {
-		let e = table.get(&num_str(id));
-		e.truthy() && !e.get("name").truthy()
-	};
 	for id in want_item.clone() {
 		let it = items.get(&id.to_string());
 		if !it.truthy() {
 			warnings.push(format!("item {id} referenced by a quest is missing from items.json"));
 			continue;
 		}
-		for (kind, table) in [("npc", &npcs), ("object", &objects)] {
-			let drops = field(&it, "drops", kind);
-			if drops.is_object() {
-				for (d, _) in drops.entries() {
-					if nameless(table, forge_guide::js::str_to_num(&d)) {
-						warnings.push(format!("item {id}: {kind} {d} drops it but has no name, so it is no source"));
-					}
-				}
-			}
-		}
-		let droppers = top_sources(&field(&it, "drops", "npc"), o.max_droppers, |n| !test_creature(&npcs, n) && !nameless(&npcs, n));
-		let obj_sources = top_sources(&field(&it, "drops", "object"), o.max_object_sources, |n| !nameless(&objects, n));
+		let droppers = top_sources(&field(&it, "drops", "npc"), o.max_droppers, |n| !test_creature(&npcs, n));
+		let obj_sources = top_sources(&field(&it, "drops", "object"), o.max_object_sources, |_| true);
 		let mut vendors = list(&it.get("vendors"));
 		vendors.sort_by(|a, b| a.partial_cmp(b).unwrap());
 		vendors.truncate(o.max_vendors);
@@ -460,9 +447,11 @@ pub fn build(data_dir: &Path, root: &Path, o: &Options) -> Result<Output, String
 	// --- NPCs and objects with clustered spawns
 	let mut spawn_points = 0;
 	let mut cluster_count = 0;
-	let mut entity_record = |e: &V, used_maps: &mut BTreeSet<i64>| -> Rec {
+	// An NPC or object the data has no name for (QuestieDB 1.1.5's object 7983211, a source of Flintfire's Shipment)
+	// reads `unnamed`: the addon reads every record's name, and the record keeps its spawns, so its pins stay.
+	let mut entity_record = |e: &V, unnamed: &str, used_maps: &mut BTreeSet<i64>| -> Rec {
 		let name = e.get("name");
-		let mut rec = vec![if name.is_nullish() { Val::Nil } else { Val::Str(name.to_js_string()) }];
+		let mut rec = vec![Val::Str(if name.truthy() { name.to_js_string() } else { unnamed.to_string() })];
 		let spawns = e.get("spawns");
 		let spawns = if spawns.truthy() { spawns } else { V::obj() };
 		for map in ids(&spawns) {
@@ -504,14 +493,20 @@ pub fn build(data_dir: &Path, root: &Path, o: &Options) -> Result<Output, String
 	for id in &want_npc {
 		let n = npcs.get(&id.to_string());
 		if n.truthy() {
-			npc_records.insert(*id, entity_record(&n, &mut used_maps));
+			if !n.get("name").truthy() {
+				warnings.push(format!("npc {id} has no name; it reads \"{UNNAMED_NPC}\""));
+			}
+			npc_records.insert(*id, entity_record(&n, UNNAMED_NPC, &mut used_maps));
 		}
 	}
 	let mut object_records = BTreeMap::new();
 	for id in &want_object {
 		let ob = objects.get(&id.to_string());
 		if ob.truthy() {
-			object_records.insert(*id, entity_record(&ob, &mut used_maps));
+			if !ob.get("name").truthy() {
+				warnings.push(format!("object {id} has no name; it reads \"{UNNAMED_OBJECT}\""));
+			}
+			object_records.insert(*id, entity_record(&ob, UNNAMED_OBJECT, &mut used_maps));
 		}
 	}
 

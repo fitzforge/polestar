@@ -227,9 +227,9 @@ fn a_test_creature_is_no_drop_source() {
 }
 
 // QuestieDB 1.1.5 lists object 7983211, which has no name, as a source of Flintfire's Shipment (quest 98321): the
-// addon reads every NPC and object record's name, so a nameless dropper is no source and gets no record.
+// addon reads every NPC and object record's name, so a nameless one reads a fallback and keeps its spawns (the pin).
 #[test]
-fn a_nameless_dropper_is_no_source() {
+fn a_nameless_dropper_reads_a_fallback_name() {
 	let dir = data_with("nameless-droppers", |raw| {
 		raw.get_mut("npcs.json").unwrap().as_object_mut().unwrap().insert("1982".into(), json!({ "id": 1982, "name": null, "level": 2, "spawns": {} }));
 		raw.get_mut("objects.json").unwrap().as_object_mut().unwrap().insert("7983211".into(), json!({ "id": 7983211, "name": null, "spawns": {} }));
@@ -238,10 +238,11 @@ fn a_nameless_dropper_is_no_source() {
 		drops["object"].as_object_mut().unwrap().insert("7983211".into(), Value::Null);
 	});
 	let out = build(&dir, &root(), &Options::default()).unwrap();
-	assert_eq!(out.db.items[&750], vals(json!(["Tough Wolf Meat", 1, 299, 80, 0])), "the named dropper alone");
-	assert!(!out.db.npcs.contains_key(&1982) && !out.db.objects.contains_key(&7983211), "no nameless record");
+	assert_eq!(out.db.items[&750], vals(json!(["Tough Wolf Meat", 2, 1982, 95, 299, 80, 1, 7983211, 0])), "both stay sources");
+	assert_eq!(out.db.npcs[&1982], vals(json!(["Unnamed creature"])));
+	assert_eq!(out.db.objects[&7983211], vals(json!(["Unnamed object"])));
 	for w in ["npc 1982", "object 7983211"] {
-		assert!(out.warnings.iter().any(|x| x.contains("item 750") && x.contains(w)), "{w}: {:?}", out.warnings);
+		assert!(out.warnings.iter().any(|x| x.contains(w) && x.contains("no name")), "{w}: {:?}", out.warnings);
 	}
 }
 
