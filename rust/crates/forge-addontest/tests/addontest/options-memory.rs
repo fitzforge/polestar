@@ -17,7 +17,8 @@
 //! pages and previews, the settings-only widgets (UI/Controls.lua), every module's rows (<Module>/Options.lua
 //! there), Unlock mode (UI/Movers.lua; core keeps its door), the profile strings (Core/ProfileStrings.lua)
 //! and the skin picker's cards and presets (Theme/SkinPicker.lua); the Skin API's checks went to their own
-//! load-on-demand part (Polestar_SkinAPI), loaded only when another addon brings a skin.
+//! load-on-demand part, loaded only when another addon brought a skin (back in the core since 0.4.3, #3507:
+//! 62 KiB); our own skins and the Atlas layout are one folder of their own, Polestar_Skins, never loaded with it.
 //!
 //! The settings' addon (KiB, Lua 5.1, 64-bit) grew from 2026-11-10's figures (760 loaded, 1,890 opened,
 //! 1,190 peak) by what moved into it from the login, then by the pages' own work (their Essentials tabs and
@@ -89,7 +90,34 @@ const LOGIN_BASE: f64 = 11003.0;
 /// The 0.4.2 Horde route round with LegacySteps regenerated for it (2026-11-20: the quests the round moved into a
 /// guide, Souvenirs of Death into Hillsbrad 30-40 among them, so old-route progress places no one; next with #3291
 /// merged): 13,652 KiB at login. The budget is that and about 5 % (the same rule): 14,335.
-const LOGIN: f64 = LOGIN_BASE + 3332.0;
+/// 0.4.3's fewer folders (#3507): the game looks and Hearth, the Skin API's checks, the guide window's tab styles and
+/// the experimental pack folded into the core, +294 KiB, the only part of this figure that is that change's: 14,531
+/// KiB at login on 2026-11-23, next without it 14,237. The budget is that and CI's runner's few KiB: 14,600 (Fitz).
+/// +28 KiB: DangerHubs for Forever's new zones (#3830): 14,610 KiB at login on 2026-11-24, 14,582 with next's
+/// DangerHubs.lua (CI's runner 14,626). The budget: 14,650 (Main, reported to Fitz).
+/// +44 KiB: the class cards' rewards from recorded turn-ins (#2472) list 1,034 class quests, past the 1,024 slots of
+/// the quests table's hash part, which doubles: 14,669 KiB at login on 2026-11-24, 14,625 with next's ClassRewards.lua
+/// (CI's runner 14,672). The budget: 14,700 (reported to Fitz).
+/// +22 KiB: held quests (#3390), Quests/KeptFor.lua's hooks and the Engine's re-take: 14,717 KiB at login on
+/// 2026-11-24, 14,695 with next (CI's runner 14,711 on the pull request's first run). The budget: 14,750 (reported
+/// to Fitz in the pull request).
+/// +15 KiB: escorts as the player's choice (#3439), the Engine's escort layout, question and note: 14,732 KiB at
+/// login on 2026-11-24, 14,717 with next (CI's runner 14,702 on the pull request's first run, before #3390). The
+/// budget: 14,760 (reported to Fitz in the pull request).
+/// +13 KiB: the guide window's height modes and the class card's room (#1066, #1067): the cap by mode, the grip's
+/// vertical drag and its limit line, the whole-row scroll stops: 14,755 KiB at login on 2026-11-24, 14,742 with next
+/// (CI's runner 14,761 on the pull request's run). The budget: 14,775 (reported to Fitz in the pull request).
+/// +8 KiB: the Engine's target mark, step views, trainer pick and party line, the guide's trainer stop and off-route
+/// work (#3965): 14,774 KiB at login on 2026-11-24, 14,766 with next (CI's runner 14,778 on the pull request's run).
+/// The budget: 14,790 (reported to Fitz).
+/// +24 KiB on the post-merge gates' runner, none of it the addon's: the runner measures 14,806 KiB on the 0.4.3
+/// release data at next 78fa260855 (2026-11-25), a local run of the same tree and data 14,782. The harness loads
+/// every file by its absolute path, and each file's chunk name and the loader's file lists keep that path: the
+/// runner's checkout path is 32 characters longer than the local one. The same build run with the local checkout
+/// mounted at the runner's path measures 14,806. The budget: 14,850, the runner's figure and headroom.
+/// Measured 14,814 KiB locally and 14,833 at the runner's path on next fe1a7484af after #4062, #4078 and #4063 (the
+/// 0.4.3 audit); 0.24 % headroom was too tight for the runner. The budget: 14,900 (Main, reported to Fitz).
+const LOGIN: f64 = LOGIN_BASE + 3897.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile
 /// strings, the preview stage and the skin picker's cards and presets (+400), all out of the login (1,513).
@@ -114,7 +142,12 @@ const LOGIN: f64 = LOGIN_BASE + 3332.0;
 /// client's language, the stems, the label and search-term cover and /polestar ask.
 /// 0.4.0's round 5 merged together: 2,045 on 2026-11-14, 3 under the budget, which CI's runner (a few KiB higher than
 /// a local run) would pass over; the budget is that and about 5 %: 2,148.
-const LOADED: f64 = 2148.0;
+/// Then the settings window's new page (UI/Grouped.lua and the settings-only widgets of UI/Kit.lua, loaded with the
+/// window, off until the player turns it on): 2,248 on 2026-11-19 (2,121 without it, +127); the budget is that and
+/// about 5 %: 2,360. Then the new page's sidebar (its tree of groups, the icon rail and its fly-outs, the pinned
+/// settings and the profile card): 2,376 on 2026-11-19 (2,326 without it, +50); the budget is that and about 5 %:
+/// 2,495.
+const LOADED: f64 = 2495.0;
 /// Opened on its first page, 4,124 KiB (1,890 on 2026-11-10; 3,485 with the Look pages' previews; 3,888 with
 /// the rest moved in, then the pages' +155, then the hero previews' +67, then the Buttons and single-alert
 /// scenes and the Accent lights' +26, to 4,151; then the search's dropdown's code, +41, 4,280 to 4,322 on
@@ -140,7 +173,10 @@ const OPENED: f64 = 5205.0;
 /// 2026-11-13; the budget is that and about 5 %. Then the search answering questions (#2178: +34, the same: 4,228 to
 /// 4,262 on 2026-11-13, on its own base).
 /// 0.4.0's round 5 merged together: 4,594 on 2026-11-14, 1 under the budget; the budget is that and about 5 %: 4,824.
-const PEAK: f64 = 4824.0;
+/// Then the settings window's new page (UI/Grouped.lua and UI/Kit.lua compile with the collector stopped): 5,098 on
+/// 2026-11-19 (4,761 without it, +337); the budget is that and about 5 %: 5,353. Then the new page's sidebar (the
+/// same): 5,439 on 2026-11-19 (5,304 without it, +135); the budget is that and about 5 %: 5,711.
+const PEAK: f64 = 5711.0;
 
 /// What the base itself puts in the opened window, not the overhaul's cost: 0.3.7's three rows on the first
 /// page (Guide: Tell me when a newer Polestar is out, Flight paths you pass, Keep the arrow when hidden),

@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- plural, as words: Library Books = {object:386691} Library Book
+	-- plural, as words: Library Books = {object:386759} Library Book
 	["Library Books"] = "Livros da Biblioteca",
 	["Lost books and scrolls all over the world: each pays experience at the library, and 10, 20 and 25 of them earn a necklace, a ring and an off-hand."] = "Livros e pergaminhos perdidos pelo mundo todo: cada um dá experiência na biblioteca, e 10, 20 e 25 deles rendem um colar, um anel e uma mão secundária.",
 

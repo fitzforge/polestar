@@ -1,5 +1,5 @@
 -- Polestar's settings window, in the Polestar shell (Polestar.Widgets.Shell):
--- big (1300 x 946 screen pixels at the default scale), resizable by its
+-- big (1680 x 946 screen pixels at the default scale), resizable by its
 -- corner grip (ui.optionsSize) and scaled by the Menu scale in its header.
 -- The sidebar is a tree of groups (Guiding, Look, Setup, About), each
 -- folding away (PolestarDB.optionsNav), with its pages; tabs under the
@@ -31,9 +31,9 @@ local floor, max, min, ipairs, pairs, type = math.floor, math.max, math.min, ipa
 
 local SH = W.SHELL
 -- Sizes (one table, so the main chunk stays within the locals budget): GAP between the two columns of the
--- Recorder's and About's tiles, HERO_H the About hero's height, INSTALL_ROOM the main column's width the
--- header's Install button needs beside the page's title; the window's own (BASE_W ... EDGE) with its size below.
-local SIZE = { GAP = 24, HERO_H = 96, INSTALL_ROOM = 780 }
+-- Recorder's and About's tiles, HERO_H the About hero's height, KIDS_X how far a parent's open children
+-- (c.children) stand in from its rows; the window's own (BASE_W ... EDGE) with its size below.
+local SIZE = { GAP = 24, HERO_H = 96, KIDS_X = 24 }
 
 local O = {}
 UI.Options = O
@@ -80,11 +80,11 @@ local function keyOf(name) return (name:lower():gsub("[^%w]+", "")) end
 -- The page model: page -> tabs -> sections -> controls
 ---------------------------------------------------------------------------
 
--- Pages that close the list whatever registers after them: the author's
--- Recorder, then About.
+-- Pages that close the list whatever registers after them: About, Guiding
+-- Stars, then the author's Recorder.
 local pageOf
 do
-	local TAIL = { [L["Recorder"]] = 1, [L["About"]] = 2 }
+	local TAIL = { [L["About"]] = 1, [L["Guiding Stars"]] = 2, [L["Recorder"]] = 3 }
 
 	-- key: the page's stable key (`/polestar options <key>`, O.Select), the
 	-- spec's own or else made from the name. Built-in pages give theirs, so a
@@ -96,7 +96,7 @@ do
 			p = { name = name, key = keyOf(key or name), icon = icon or "gear", order = order or 100, builtin = builtin, seq = seq, tabs = {} }
 			pages[name] = p
 			pageList[#pageList + 1] = p
-			-- By order (built-in pages first on a tie), Recorder and About last.
+			-- By order (built-in pages first on a tie), About, Guiding Stars and Recorder last.
 			table.sort(pageList, function(a, b)
 				local ta, tb = TAIL[a.name] or 0, TAIL[b.name] or 0
 				if ta ~= tb then return ta < tb end
@@ -160,6 +160,9 @@ local function add(spec, builtin)
 	-- preview(host) -> frame with :Layout(width) -> height: the tab's live
 	-- preview, pinned over its rows (W.ShellPreview).
 	if spec.preview then tab.preview = spec.preview end
+	-- link = { text, page, tab, to }: a row over the tab's sections that sends to the page holding the rest of its
+	-- subject (`text`, then `to` as a link to that page's tab).
+	if spec.link then tab.link = spec.link end
 	local s = sectionOf(tab, spec.section)
 	s.psOff = nil
 	-- jump = { tab, section }: a More link in the section's header that opens
@@ -189,6 +192,22 @@ local function add(spec, builtin)
 		-- A child depends on the setting before it that is none.
 		if c.child then c.psParent = s.psLastParent else s.psLastParent = c end
 		s.controls[#s.controls + 1] = c
+		-- Its children (c.children): rows of the section right after it, each
+		-- a setting of its own (search, Reset, the changed marks and the
+		-- grouped layout see them as any row), shown under it while it is on
+		-- (layoutRows).
+		if c.children then
+			c.psKids = c.children
+			local lastKid
+			for _, k in ipairs(c.children) do
+				place(k)
+				-- A child with child = true also waits on the child before it
+				-- that is none (Play a sound over its Sound): nested.
+				k.psChildOf, k.psParent = c, k.child and lastKid or c
+				if not k.child then lastKid = k end
+				s.controls[#s.controls + 1] = k
+			end
+		end
 	end
 	-- A page or tab already on screen picks up late registrations.
 	if win and win:IsShown() then
@@ -204,12 +223,13 @@ end
 ---------------------------------------------------------------------------
 -- Built-in pages
 --
--- The pages follow what the player came to do, not which module owns a
--- setting: follow the guide (Guide), choose what the maps show (Map), quest
--- (Questing), find things (Discovery: Lookup, the dungeon journal, rares,
--- your characters), small conveniences (Quality of Life), other addons
--- Polestar works with (Integrations); the author's Recorder and About close
--- the list. How everything looks has a page per surface in the Look group
+-- The pages follow what the player came to do, in the order a player meets
+-- it, not which module owns a setting: follow the guide (Guide), quest
+-- (Questing), choose what the maps show (Map), small conveniences (Quality
+-- of Life), find things now and then (Discovery: Lookup, the dungeon
+-- journal, rares, your characters), other addons Polestar works with
+-- (Integrations); About, Guiding Stars and the author's Recorder close the
+-- list. How everything looks has a page per surface in the Look group
 -- (Theme, Guide window, Arrow, Map pins, ...), registered by the modules
 -- that draw them. Modules still register their own controls; the pages they
 -- fill are declared here with their tabs and sections in order, and the
@@ -219,6 +239,8 @@ end
 
 local GUIDE, MAP, QUESTING, DISCOVERY, QOL, REC, ABOUT =
 	L["Guide"], L["Map"], L["Questing"], L["Discovery"], L["Quality of Life"], L["Recorder"], L["About"]
+-- Guide's first tab: what Polestar does while you play (Dynamic Questing, pause).
+local WHILE_YOU_PLAY = L["While you play"]
 
 -- Every movable frame back in its place: the Movers' reset of all they hold
 -- (UI/Movers.lua), and the guide window, party panel and arrow whether or
@@ -257,9 +279,8 @@ local function declare(page, key, icon, order, subtitle, tabs)
 	return out
 end
 
--- Guide > Automation's trainer reminders, also on Quality of Life > Vendors >
--- Trainers: one setting, a fresh control per page (the registry keeps
--- per-control state).
+-- The trainer reminders: their home is Quality of Life > Leveling > Trainers;
+-- Guide > Automation shows a reference.
 local function trainReminder()
 	return { kind = "dropdown", key = "behavior.trainReminder", label = L["Trainer reminders"], help = L["A note in the guide window, with the nearest trainer of your class, when new skills are waiting."],
 		search = "train, trainer, new spells, skills, abilities, level up, class trainer",
@@ -267,32 +288,15 @@ local function trainReminder()
 end
 
 local BUILTIN = {
-	-- Following the guide: the window, the arrow and routes, automation.
-	{ page = GUIDE, key = "guide", icon = "window", order = 10, tab = L["Window"], section = L["What it shows"],
-		subtitle = L["The guide window, the arrow and its routes, and what Polestar does for you."], controls = {
-		{ kind = "toggle", key = "ui.shown", label = L["Show the window"], help = L["Also /polestar, or the key binding."], search = "show guide, hide guide, toggle window, open window" },
-		{ kind = "toggle", key = "ui.compact", label = L["Compact mode"], help = L["Only the header and the current step's goals."], search = "minimal, small, smaller window, simple" },
-		{ kind = "toggle", key = "ui.wholeStep", label = L["Show the whole step"],
-			help = L["Every goal of the step at once, finished ones kept, instead of one person at a time with the others on one line each."] },
-		{ kind = "slider", key = "ui.maxHeight", label = L["Maximum height"], min = 0.3, max = 0.9, step = 0.05, format = percent,
-			help = L["How tall the window may grow, as a share of the screen. A longer step scrolls."] },
-		{ kind = "toggle", key = "ui.showNotes", label = L["Step tips"], help = L["The author's tip under the goals, one line until clicked."] },
-		{ kind = "toggle", key = "ui.notesOpen", label = L["Expand step tips"], help = L["Start each step with its tip in full instead of one line."],
-			child = true, disabled = function() return not ns.Get("ui.showNotes") end },
-		{ kind = "slider", key = "ui.upcoming", label = L["Upcoming steps"], min = 0, max = 6, step = 1, format = "%d", help = L["How many steps the Up next list holds; 0 turns it off."] },
-		{ kind = "toggle", key = "ui.upcomingOpen", label = L["Expand Up next"], help = L["Start with the upcoming steps listed instead of collapsed."] },
-		{ kind = "toggle", key = "ui.newInForever", label = L["Mark quests new in Forever"],
-			help = L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."],
-			search = "new in forever, infinity, new quest, forever quest, mark, badge" },
-		-- Core/Update.lua's notices (0.3.7): shown once the setting is registered.
-		{ kind = "toggle", key = "update.card", label = L["Tell me when a newer Polestar is out"],
-			help = L["At login, a card on the guide window says a newer Polestar is out and how to update; Got it keeps it away for a day. A line in the guide window stays until you update. Two or more updates behind, both show even with this off (the card at most once a day)."],
-			search = "update, new version, outdated, old version, release, curseforge, polestar client, upgrade" },
-	} },
 	-- Core/Engine.lua, Dynamic Questing (Own.hereBuild): quick objectives of later steps close by, in the guide
 	-- window's "While you're here" panel. The setting keys keep their behavior.whileHere* names.
-	-- Its switch in the section's header.
-	{ page = GUIDE, tab = L["Window"], section = L["Dynamic Questing"],
+	-- Its switch in the section's header. While you play opens the page (following the guide: what Polestar does
+	-- while you play, automation, the arrow and routes); everything about the guide window itself, showing and
+	-- hiding Polestar and where its frames sit among it, is on Look > Guide window, which its first row links to.
+	{ page = GUIDE, key = "guide", icon = "icon-note", order = 10, tab = WHILE_YOU_PLAY, section = L["Dynamic Questing"],
+		subtitle = L["The guide window, the arrow and its routes, and what Polestar does for you."],
+		link = { text = L["What the window shows, when it hides and where it sits:"], page = "guidewindow", tab = L["Window"],
+			to = L["Look"] .. " \226\128\186 " .. L["Guide window"] },
 		toggle = { kind = "toggle", key = "behavior.whileHere", label = L["Dynamic Questing"],
 			help = L["Suggests objectives from later steps when you are near them, from your quest log and what is around you. They show under the step in a \"While you're here\" panel: click one to point the arrow there; right-click to dismiss it around here (dismissed twice, it stays away for the zone)."],
 			search = "while you're here, nearby objective, grab it now, on the way, later step, opportunistic, detour" },
@@ -303,12 +307,14 @@ local BUILTIN = {
 			disabled = function() return not ns.Get("behavior.whileHere") end },
 		{ kind = "toggle", key = "behavior.whileHereTurnins", label = L["Include nearby hand-ins"],
 			help = L["Also a quest ready to hand in whose NPC is a little out of your way, when the guide hands it in later."],
-			disabled = function() return not ns.Get("behavior.whileHere") end },
-		{ kind = "slider", key = "behavior.whileHereTurninSeconds", label = L["Hand-ins: how far out of your way"], min = 0, max = 60, step = 5,
-			format = function(v) return L["%d s"]:format(v) end,
-			help = L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."],
-			search = "hand in, turn in, detour, out of the way, seconds, nearby hand-ins",
-			child = true, disabled = function() return not (ns.Get("behavior.whileHere") and ns.Get("behavior.whileHereTurnins")) end },
+			disabled = function() return not ns.Get("behavior.whileHere") end,
+			children = {
+				{ kind = "slider", key = "behavior.whileHereTurninSeconds", label = L["Hand-ins: how far out of your way"], min = 0, max = 60, step = 5,
+					format = function(v) return L["%d s"]:format(v) end,
+					help = L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."],
+					search = "hand in, turn in, detour, out of the way, seconds, nearby hand-ins",
+					disabled = function() return not (ns.Get("behavior.whileHere") and ns.Get("behavior.whileHereTurnins")) end },
+			} },
 		-- 0.3.7's flight paths you pass (Engine Own.hereBuild).
 		{ kind = "toggle", key = "behavior.whileHereFlights", label = L["Flight paths you pass"],
 			help = L["Also a friendly flight master near you whose flight path you haven't learned yet. Learning it ticks the guide's later step for it too."],
@@ -323,24 +329,26 @@ local BUILTIN = {
 		{ kind = "toggle", key = "behavior.whileHereVendors", label = L["Sell and repair reminders"], new = "0.4.0",
 			help = L["When the guide is about to head out of town with your bags nearly full or your gear worn, a merchant or repairer on the way, once per visit. Click it to point the arrow there."],
 			search = "sell, repair, vendor, merchant, repairer, durability, broken gear, bags full, bag space, free slots, junk, before heading out",
-			disabled = function() return not ns.Get("behavior.whileHere") end },
-		{ kind = "slider", key = "behavior.whileHereSellSlots", label = L["Sell: fewer free bag slots than"], min = 0, max = 16, step = 1, new = "0.4.0",
-			format = function(v) return string.format(v == 1 and L["%d slot"] or L["%d slots"], math.floor(v + 0.5)) end,
-			help = L["Reminds you to sell when fewer bag slots are free than this, or than the items the next steps collect. 0 counts those items alone."],
-			search = "sell, free slots, bag space, bags full, threshold",
-			child = true, disabled = function() return not (ns.Get("behavior.whileHere") and ns.Get("behavior.whileHereVendors")) end },
-		{ kind = "slider", key = "behavior.whileHereRepairPercent", label = L["Repair: gear worn below"], min = 0, max = 90, step = 5, new = "0.4.0",
-			format = function(v) return v < 1 and L["Off"] or ("%d%%"):format(v) end,
-			help = L["Reminds you to repair when a piece of your gear is below this share of its durability. 0: never."],
-			search = "repair, durability, broken, worn, gear, threshold",
-			child = true, disabled = function() return not (ns.Get("behavior.whileHere") and ns.Get("behavior.whileHereVendors")) end },
+			disabled = function() return not ns.Get("behavior.whileHere") end,
+			children = {
+				{ kind = "slider", key = "behavior.whileHereSellSlots", label = L["Sell: fewer free bag slots than"], min = 0, max = 16, step = 1, new = "0.4.0",
+					format = function(v) return string.format(v == 1 and L["%d slot"] or L["%d slots"], math.floor(v + 0.5)) end,
+					help = L["Reminds you to sell when fewer bag slots are free than this, or than the items the next steps collect. 0 counts those items alone."],
+					search = "sell, free slots, bag space, bags full, threshold",
+					disabled = function() return not (ns.Get("behavior.whileHere") and ns.Get("behavior.whileHereVendors")) end },
+				{ kind = "slider", key = "behavior.whileHereRepairPercent", label = L["Repair: gear worn below"], min = 0, max = 90, step = 5, new = "0.4.0",
+					format = function(v) return v < 1 and L["Off"] or ("%d%%"):format(v) end,
+					help = L["Reminds you to repair when a piece of your gear is below this share of its durability. 0: never."],
+					search = "repair, durability, broken, worn, gear, threshold",
+					disabled = function() return not (ns.Get("behavior.whileHere") and ns.Get("behavior.whileHereVendors")) end },
+			} },
 		{ kind = "toggle", key = "behavior.whileHereSound", label = L["Sound for a new suggestion"],
 			help = L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."],
 			search = "chime, sound, audio, ding, alert",
 			disabled = function() return not ns.Get("behavior.whileHere") end },
 		-- The toast that says a new suggestion while the guide window is hidden (UI/WhileHere.lua): how long it
 		-- stays. It has no look of its own (the theme's, the shared toast style).
-		{ kind = "slider", key = "toasts.whilehere.seconds", label = L["Stays for"], min = 3, max = 30, step = 1, new = "0.3.8", move = "whileHere",
+		{ kind = "slider", key = "toasts.whilehere.seconds", label = L["Suggestion stays for"], min = 3, max = 30, step = 1, new = "0.3.8", move = "whileHere",
 			format = function(v) return L["%d s"]:format(v) end,
 			help = L["How long the toast stays while the guide window is hidden. Hovering it holds it."],
 			search = "duration, how long, seconds, time on screen, stays, timeout, toast, while you're here, dynamic questing",
@@ -350,32 +358,9 @@ local BUILTIN = {
 			search = "step key, target, targetexact, keybind, binding",
 			disabled = function() return not ns.Get("behavior.whileHere") end },
 	} },
-	-- When the window shows (in combat, in dungeons), and the ways to show and
-	-- hide Polestar without typing: UI/Launcher.lua's floating button and the
-	-- minimap button (Maps/MinimapButton.lua; also on Map and Quality of Life),
-	-- which hides everything Polestar shows (0.3.7: the arrow may stay).
-	{ page = GUIDE, tab = L["Window"], section = L["Show and hide"], controls = {
-		{ kind = "dropdown", key = "ui.combat", label = L["In combat"], help = L["What the window does while you fight."], search = "hide in combat, fade in combat, fighting",
-			choices = { { value = "show", label = L["Keep visible"] }, { value = "fade", label = L["Fade out"] }, { value = "hide", label = L["Hide"] } } },
-		{ kind = "dropdown", key = "ui.instance", label = L["In dungeons and battlegrounds"],
-			help = L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. Guide window in the minimap button's menu, the key binding or /polestar opens it there until you leave."],
-			search = "dungeon, raid, battleground, arena, instance, hide, pvp, healer",
-			choices = { { value = "show", label = L["Keep visible"] }, { value = "hide", label = L["Hide"] } } },
-		{ kind = "toggle", key = "ui.launcher", label = L["Floating button"], move = "launcher",
-			help = L["A small Polestar button you can put anywhere on the screen. Click to hide or show Polestar, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."],
-			search = "launcher, floating icon, floating button, show, hide, toggle, open polestar, quick" },
-		{ kind = "toggle", key = "maps.minimapButton", label = L["Minimap button"],
-			help = L["A Polestar button on the edge of the minimap. Click to hide or show Polestar, right-click for a menu, drag to move it."],
-			search = "minimap icon, minimap button, hide button, launcher" },
-		{ kind = "toggle", label = L["Keep the arrow when hidden"],
-			help = L["Hiding Polestar leaves the arrow, its travel button and its arrival sound. This character only."],
-			search = "hide polestar, hidden, arrow only, keep arrow, minimap button, hide all",
-			needs = function() return ns.SetHideKeepsArrow ~= nil end,
-			get = function() return ns.HideKeepsArrow() end, set = function(on) ns.SetHideKeepsArrow(on) end },
-	} },
 	-- Pause (Core/Init.lua, Core/Pause.lua): per character, like hiding; its two extras are
 	-- account settings. A section of its own, so its rows stay together.
-	{ page = GUIDE, tab = L["Window"], section = L["Pause"], controls = {
+	{ page = GUIDE, tab = WHILE_YOU_PLAY, section = L["Pause"], controls = {
 		{ kind = "toggle", label = L["Pause"],
 			help = L["The arrow, the guide window and its nudges step aside. Polestar resumes by itself when you leave a dungeon alive. Your quest progress keeps following your log. This character only."],
 			search = "pause, pause the guide, resume, dungeon, raid, instance, run, group, step aside, hide arrow",
@@ -389,67 +374,39 @@ local BUILTIN = {
 		{ kind = "binding", action = "POLESTAR_PAUSE", label = L["Pause the guide"],
 			help = L["A key or gamepad button that pauses Polestar or resumes it. It also resumes by itself when you leave a dungeon alive."] },
 	} },
-	{ page = GUIDE, tab = L["Window"], section = L["Position"], controls = {
-		{ kind = "toggle", key = "ui.locked", label = L["Lock window"], help = L["Prevents moving and resizing."], search = "lock, move, drag, resize, unlock" },
-		{ kind = "toggle", key = "ui.lockHud", label = L["Lock arrow and buttons"],
-			help = L["Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them."] },
-		{ kind = "toggle", key = "ui.growUp", label = L["Grow upward"], help = L["Keep the bottom edge in place, so longer steps extend the window up."] },
-		{ kind = "toggle", key = "ui.barsBottom", label = L["Bar at the bottom"], help = L["With Grow upward, put the tabs and the step bar at the bottom edge, next to where the window is pinned."],
-			child = true, disabled = function() return not ns.Get("ui.growUp") end },
-		{ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset position"], move = "guide", help = L["Put the guide window back in its corner."], onClick = function() ns.Set("ui.pos", nil) end },
-	} },
-	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Arrow"], controls = {
-		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"], move = "arrow", help = L["Points to the current goal. Its look and colours are on the Arrow page."],
-			search = "arrow, waypoint, pointer, direction, compass, navigation, hud" }),
-		H({ kind = "toggle", key = "nav.hideArrowWithGuide", label = L["Hide the arrow with the guide"], help = L["When the guide window is hidden, hide the arrow too."],
-			child = true, disabled = function() return not ns.Get("nav.arrow") end }),
-		H({ kind = "toggle", key = "nav.arrowEta", label = L["Arrival time"], help = L["Estimated time under the distance."], search = "eta, time left, travel time" }),
-		{ kind = "dropdown", key = "nav.distanceUnit", label = L["Distances"], help = L["How the arrow, map tooltips, rares and the death helper show distances."], search = "units, yards, metres, metric, distance",
-			choices = { { value = "yards", label = L["Yards (the game's unit)"] }, { value = "metres", label = L["Metres"] } } },
-		H({ kind = "toggle", key = "nav.arrivalSound", label = L["Arrival sound"], help = L["A soft chime when you reach a waypoint."], search = "sound, chime, audio, ding" }),
-		H({ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset arrow position"], help = L["Back to the top of the screen. Drag the arrow to move it."],
-			onClick = function() if ns.Nav and ns.Nav.ResetArrowPosition then ns.Nav.ResetArrowPosition() end end,
-			needs = function() return ns.Nav and ns.Nav.ResetArrowPosition end }),
-	} },
-	-- The route: how it is planned and drawn. Nav adds its style and the journey's steps (Nav/Options.lua,
-	-- UI/GuideOptions.lua).
-	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Routes"], controls = {
-		H({ kind = "toggle", key = "nav.travel", label = L["Plan travel routes"], help = L["Flights, boats and your hearthstone when they are faster. Off: the arrow points straight at the goal."],
-			search = "flight, taxi, flight path, boat, zeppelin, hearth, hearthstone, route planning, fastest way, fps, frame rate, performance, lag, stutter, cpu, slow" }),
-		H({ kind = "toggle", key = "nav.teleports", label = L["Class teleports"], help = L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."],
-			search = "teleport, portal, mage, druid, moonglade, shaman, astral recall",
-			child = true, disabled = function() return not ns.Get("nav.travel") end }),
-		H({ kind = "toggle", key = "nav.routeLines", label = L["Route lines"], help = L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."],
-			search = "path line, route on map, sparkles, dots",
-			gear = { tip = L["Line style"], onClick = function() UI.ShowOptions("routelines") end } }),
-		H({ kind = "dropdown", key = "nav.lineStyle", label = L["Line style"],
-			help = L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."],
-			search = "route style, solid line, path line, dots, sparkles, breadcrumbs",
-			choices = ns.RouteLines and ns.RouteLines.STYLE_CHOICES or {},
-			needs = function() return ns.RouteLines end,
-			child = true, disabled = function() return not ns.Get("nav.routeLines") end }),
-		H({ kind = "toggle", key = "nav.navRouting", label = L["Walk real paths"], help = L["The arrow follows paths on the ground around cliffs, water and walls, on Polestar's walking maps, with Shortest Path Forever's router by Cillian Berragan. Off: it points straight at each stop."],
-			search = "pathfinding, pathing, router, walking, avoid cliffs, mountains, fps, frame rate, performance, lag, stutter, cpu, slow" }),
-		-- 0.3.7's detour captions in the journey (Nav/Journey.lua).
-		H({ kind = "toggle", key = "nav.detourCaption", label = L["Detour captions"], help = L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."],
-			search = "detour, enemy town, hostile town, avoid, go round, journey",
-			disabled = function() return not ns.Get("nav.travel") end }),
-	} },
-	-- Filled by Nav's travel button and transport alerts (Nav/Options.lua).
-	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Along the route"], controls = {} },
-	-- Ways round the world beside the arrow: boat times shared, a map click to go
-	-- somewhere, the nearest services (Nav adds those, Nav/Options.lua).
-	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Getting around"], controls = {
-		{ kind = "toggle", key = "nav.shareTransit", label = L["Share boat times"], help = L["Riding a boat, zeppelin, tram or lift times it; your guild and group get those times and you get theirs, so the arrow can say when the next one leaves."],
-			search = "boat, zeppelin, tram, ship, transport, schedule" },
-	} },
-	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Other waypoints"], controls = {
-		H({ kind = "toggle", key = "nav.blizzardWaypoint", label = L["Blizzard waypoint"], help = L["Also set the game's own map pin and tracking."], search = "map pin, waypoint, user waypoint, supertrack" }),
-		H({ kind = "toggle", key = "nav.tomtom", label = L["Mirror to TomTom"], help = L["Adds the target as a TomTom waypoint when TomTom is loaded."], search = "waypoints, tomtom" }),
-		H({ kind = "toggle", key = "nav.useTomTomArrow", label = L["Use TomTom's arrow"], help = L["Hides Polestar's arrow in favour of TomTom's, except on the way to another continent, where TomTom's arrow cannot point."],
-			child = true, disabled = function() return not ns.Get("nav.tomtom") end }),
-		H({ kind = "toggle", key = "nav.arrowToFollower", label = L["Let a following addon show the way"], help = L["Hides Polestar's arrow while another addon shows Polestar's target itself, as Naowh Forever's Waypoint Pin does with Follow Polestar on. That addon also sets the game's map pin then."],
-			search = "naowh, waypoint pin, navigator bar, hide arrow, follow polestar" }),
+	{ page = GUIDE, tab = L["Automation"], section = L["Guides"], controls = {
+		{ kind = "toggle", key = "behavior.autoSelectGuide", label = L["Pick a guide for me"], help = L["Opens the suggested guide when no tab is open."], search = "auto guide, choose guide, suggested guide" },
+		{ kind = "dropdown", key = "behavior.guideEnd", label = L["When a leveling guide ends"], help = L["Ask me: a window says the guide is done and offers the next one. Continue automatically: the next guide loads in the same tab."],
+			choices = { { value = "ask", label = L["Ask me"] }, { value = "continue", label = L["Continue automatically"] } } },
+		-- The guide window's "You have outlevelled this guide" notice (UI/GuideFrameBanner.lua, #3585).
+		{ kind = "toggle", key = "ui.outlevelNotice", label = L["Say when I've outlevelled a guide"], new = "0.4.3",
+			help = L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."],
+			search = "outlevelled, outleveled, too high, level, notice, banner, jump to" },
+		{ kind = "dropdown", key = "behavior.routeChoice", label = L["Where to level next"], help = L["Where a guide offers more than one zone to continue in (/polestar path)."],
+			choices = { { value = "ask", label = L["Let me choose"] }, { value = "recommended", label = L["Take the recommended zone"] } } },
+		-- Polestar's experimental guides (Polestar/Experimental/; Core/Guides.lua, Guides.OWN_EXTRA): on until switched off.
+		-- Mount Hyjal is the one left there: the Riverglades and Shen'dralas are in the leveling route since 0.4.0.
+		{ kind = "toggle", key = "behavior.experimentalGuides", label = L["Show experimental guides"], new = "0.4.0",
+			help = L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."],
+			search = "experimental, alpha, new zones, mount hyjal, polestar experimental" },
+		-- `die` steps (Core/Engine.lua, Own.deathskips): the player's choice, never in Hardcore.
+		{ kind = "toggle", key = "behavior.deathskips", label = L["Use deathskips"], search = "death skip, die on purpose, corpse run, spirit healer",
+			help = L["Where dying on purpose and taking the Spirit Healer's resurrection gets you there sooner, the guide shows a step for it. It costs durability and, from level 11, resurrection sickness. Always off on Hardcore characters."],
+			get = function() return ns.Get("behavior.deathskips") and not O.Hardcore() end,
+			disabled = function() return O.Hardcore() end },
+		W.Ref("dropdown", "behavior.trainReminder"),
+		{ kind = "toggle", key = "behavior.offerClassQuests", label = L["Offer class quests"],
+			help = L["When one of your class's Class guides opens (your level, its first quest), the guide window offers to open it in a tab."] },
+		{ kind = "button", icon = "reset", button = L["Reset"], danger = true, label = L["Reset guide progress"], help = L["Manual check-offs and skips, current guide, from your last quest progress on."], confirm = true,
+			confirmTitle = L["Reset guide progress?"], confirmAction = L["Reset progress"],
+			confirmText = function()
+				local g = ns.Engine and ns.Engine.GetGuide and ns.Engine.GetGuide()
+				local name = g and (g.title or g.id)
+				if name then return string.format(L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."], name) end
+				return L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."]
+			end,
+			onClick = function() if ns.Engine and ns.Engine.ResetProgress then ns.Engine.ResetProgress() end end,
+			needs = function() return ns.Engine and ns.Engine.ResetProgress end },
 	} },
 	{ page = GUIDE, tab = L["Automation"], section = L["Quests"], controls = {
 		{ kind = "toggle", key = "behavior.closeSkipped", label = L["Close offers the guide skips"], help = L["After Polestar accepts or turns in a quest, closes the quest window the NPC opens next when the guide skips its quests. Hold Shift to keep it open."],
@@ -479,40 +436,11 @@ local BUILTIN = {
 			search = "dungeon, dungeons, instance, group, run, deadmines, wailing caverns, zul'farrak, blackrock depths",
 			needs = function() local E = ns.Engine; return ns.dungeonRoute and E and E.GuideDungeons and next(E.GuideDungeons()) ~= nil end },
 	} },
-	{ page = GUIDE, tab = L["Automation"], section = L["Guides"], controls = {
-		{ kind = "toggle", key = "behavior.autoSelectGuide", label = L["Pick a guide for me"], help = L["Opens the suggested guide when no tab is open."], search = "auto guide, choose guide, suggested guide" },
-		{ kind = "dropdown", key = "behavior.guideEnd", label = L["When a leveling guide ends"], help = L["Ask me: a window says the guide is done and offers the next one. Continue automatically: the next guide loads in the same tab."],
-			choices = { { value = "ask", label = L["Ask me"] }, { value = "continue", label = L["Continue automatically"] } } },
-		{ kind = "dropdown", key = "behavior.routeChoice", label = L["Where to level next"], help = L["Where a guide offers more than one zone to continue in (/polestar path)."],
-			choices = { { value = "ask", label = L["Let me choose"] }, { value = "recommended", label = L["Take the recommended zone"] } } },
-		-- Polestar's experimental guides (Polestar_Experimental; Core/Guides.lua, Guides.OWN_EXTRA): on until switched off.
-		-- Mount Hyjal is the one left there: the Riverglades and Shen'dralas are in the leveling route since 0.4.0.
-		{ kind = "toggle", key = "behavior.experimentalGuides", label = L["Show experimental guides"], new = "0.4.0",
-			help = L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."],
-			search = "experimental, alpha, new zones, mount hyjal, polestar experimental" },
-		-- `die` steps (Core/Engine.lua, Own.deathskips): the player's choice, never in Hardcore.
-		{ kind = "toggle", key = "behavior.deathskips", label = L["Use deathskips"], search = "death skip, die on purpose, corpse run, spirit healer",
-			help = L["Where dying on purpose and taking the Spirit Healer's resurrection gets you there sooner, the guide shows a step for it. It costs durability and, from level 11, resurrection sickness. Always off on Hardcore characters."],
-			get = function() return ns.Get("behavior.deathskips") and not O.Hardcore() end,
-			disabled = function() return O.Hardcore() end },
-		trainReminder(),
-		{ kind = "toggle", key = "behavior.offerClassQuests", label = L["Offer class quests"],
-			help = L["When one of your class's Class guides opens (your level, its first quest), the guide window offers to open it in a tab."] },
-		{ kind = "button", icon = "reset", button = L["Reset"], danger = true, label = L["Reset guide progress"], help = L["Manual check-offs and skips, current guide, from your last quest progress on."], confirm = true,
-			confirmTitle = L["Reset guide progress?"], confirmAction = L["Reset progress"],
-			confirmText = function()
-				local g = ns.Engine and ns.Engine.GetGuide and ns.Engine.GetGuide()
-				local name = g and (g.title or g.id)
-				if name then return string.format(L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."], name) end
-				return L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."]
-			end,
-			onClick = function() if ns.Engine and ns.Engine.ResetProgress then ns.Engine.ResetProgress() end end,
-			needs = function() return ns.Engine and ns.Engine.ResetProgress end },
-	} },
 	-- Gather, buy or mix (Core/Materials.lua, UI/Materials.lua): a profession guide's materials. Each guide's own
 	-- answer is the player's, per character (its card, the guide window's menu, the Materials window, which the
 	-- last row opens); this is the way of a guide never answered.
-	{ page = GUIDE, tab = L["Professions"], section = L["Materials"], controls = {
+	-- In Automation, after the leveling guides' own choices (a tab of its own held two keys).
+	{ page = GUIDE, tab = L["Automation"], section = L["Profession guides"], controls = {
 		{ kind = "dropdown", key = "professions.materials", label = L["Materials in profession guides"], new = "0.4.0",
 			help = L["How a profession guide gets a material it can gather or buy, until you answer for that guide. Ask me: a card asks when the guide opens and Mix applies meanwhile. Mix gathers what your level and professions allow and buys the rest at the Auction House. Vendor goods stay vendor steps."],
 			search = "materials, reagents, gather, farm, buy, auction house, mix, crafting, professions, tailoring, shopping",
@@ -526,24 +454,79 @@ local BUILTIN = {
 			onClick = function() ns.UI.Materials.Show() end,
 			needs = function() return ns.UI and ns.UI.Materials end },
 	} },
+	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Arrow"], controls = {
+		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"], move = "arrow", help = L["Points to the current goal. Off hides only the arrow: the route lines have their own switch, under Routes. Its look and colours are on the Arrow page."],
+			search = "arrow, waypoint, pointer, direction, compass, navigation, hud, show arrow, hide arrow",
+			children = {
+				H({ kind = "toggle", key = "nav.hideArrowWithGuide", label = L["Hide the arrow with the guide"], help = L["When the guide window is hidden, hide the arrow too."],
+					search = "hide with guide, guide hidden, window closed" }),
+			} }),
+		H({ kind = "toggle", key = "nav.arrowEta", label = L["Arrival time"], help = L["Estimated time under the distance."], search = "eta, time left, travel time, minutes, show arrival time" }),
+		{ kind = "dropdown", key = "nav.distanceUnit", label = L["Distances"], help = L["How the arrow, map tooltips, rares and the death helper show distances."], search = "units, yards, metres, meters, metric, distance, distances",
+			choices = { { value = "yards", label = L["Yards (the game's unit)"] }, { value = "metres", label = L["Metres"] } } },
+		H({ kind = "toggle", key = "nav.arrivalSound", label = L["Arrival sound"], help = L["A soft chime when you reach a waypoint."], search = "sound, chime, audio, ding, arrival sound" }),
+		H({ kind = "button", button = L["Reset"], label = L["Reset arrow position"], help = L["Back to the top of the screen. Drag the arrow to move it."],
+			onClick = function() if ns.Nav and ns.Nav.ResetArrowPosition then ns.Nav.ResetArrowPosition() end end,
+			needs = function() return ns.Nav and ns.Nav.ResetArrowPosition end }),
+	} },
+	-- The route: how it is planned and drawn. Nav adds its style and the journey's steps (Nav/Options.lua,
+	-- UI/GuideOptions.lua).
+	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Routes"], controls = {
+		H({ kind = "toggle", key = "nav.travel", label = L["Plan travel routes"], help = L["Flights, boats and your hearthstone when they are faster. Off: the arrow points straight at the goal."],
+			search = "flight, taxi, flight path, boat, zeppelin, hearth, hearthstone, route planning, fastest way, fps, frame rate, performance, lag, stutter, cpu, slow",
+			children = {
+				H({ kind = "toggle", key = "nav.teleports", label = L["Class teleports"], help = L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags, unless a talent does away with it (Reagent Economy)."],
+					search = "teleport, portal, mage, druid, moonglade, shaman, astral recall" }),
+				-- 0.3.7's detour captions in the journey (Nav/Journey.lua).
+				H({ kind = "toggle", key = "nav.detourCaption", label = L["Detour captions"], help = L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."],
+					search = "detour, enemy town, hostile town, avoid, go round, journey" }),
+			} }),
+		H({ kind = "toggle", key = "nav.routeLines", label = L["Route lines"], help = L["The way to the goal on the world map and the minimap, with the arrow on or off: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."],
+			search = "path line, route on map, show route, hide route, sparkles, dots, trail",
+			gear = { tip = L["Line style"], onClick = function() UI.ShowOptions("routelines") end },
+			children = {
+				H({ kind = "dropdown", key = "nav.lineStyle", label = L["Line style"],
+					help = L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."],
+					search = "route style, line style, solid line, path line, dots, sparkles, breadcrumbs, look",
+					choices = ns.RouteLines and ns.RouteLines.STYLE_CHOICES or {},
+					needs = function() return ns.RouteLines end }),
+			} }),
+		H({ kind = "toggle", key = "nav.navRouting", label = L["Walk real paths"], help = L["The arrow follows paths on the ground around cliffs, water and walls, on Polestar's walking maps, with Shortest Path Forever's router by Cillian Berragan. Off: it points straight at each stop."],
+			search = "pathfinding, pathing, router, walking, avoid cliffs, mountains, fps, frame rate, performance, lag, stutter, cpu, slow" }),
+	} },
+	-- Filled by Nav's travel button and transport alerts (Nav/Options.lua).
+	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Along the route"], controls = {} },
+	-- Ways round the world beside the arrow: boat times shared, a map click to go
+	-- somewhere, the nearest services (Nav adds those, Nav/Options.lua).
+	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Getting around"], controls = {
+		{ kind = "toggle", key = "nav.shareTransit", label = L["Share boat times"], help = L["Riding a boat, zeppelin, tram or lift times it; your guild and group get those times and you get theirs, so the arrow can say when the next one leaves."],
+			search = "boat, zeppelin, tram, ship, transport, schedule" },
+	} },
+	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Other waypoints"], controls = {
+		H({ kind = "toggle", key = "nav.blizzardWaypoint", label = L["Blizzard waypoint"], help = L["Also set the game's own map pin and tracking."], search = "map pin, waypoint, user waypoint, supertrack" }),
+		H({ kind = "toggle", key = "nav.arrowToFollower", label = L["Let a following addon show the way"], help = L["Hides Polestar's arrow while another addon shows Polestar's target itself, as Naowh Forever's Waypoint Pin does with Follow Polestar on. That addon also sets the game's map pin then."],
+			search = "naowh, waypoint pin, navigator bar, hide arrow, follow polestar" }),
+	} },
 
 	-- Everything Polestar draws on the world map and the minimap, in one
 	-- place. The sections are declared here, in this order; the Quests,
 	-- Rares and Maps modules register their controls into them by name. The
 	-- second tab holds the rest of the map: rares, travel, services and zones.
-	{ page = MAP, key = "map", icon = "icon-explore", order = 30, tab = L["Guide & quests"], section = L["Guide"],
+	{ page = MAP, key = "map", icon = "icon-explore", order = 40, tab = L["Guide & quests"], section = L["Guide"],
 		subtitle = L["What Polestar draws on the world map and the minimap. Quest, rare and travel icons start off."], controls = {
-		{ kind = "toggle", key = "nav.worldPins", label = L["Guide pins on the world map"], search = "map pins, icons, markers, waypoint, world map",
+		{ kind = "toggle", key = "nav.worldPins", label = L["Guide pins on the world map"], search = "map pins, icons, markers, waypoint, world map, guide pins, target, on the world map",
 			help = L["The arrow's target, the stops of its travel route, the step's other goals, the areas their mobs and objects spawn in, and the route lines."] },
-		{ kind = "toggle", key = "nav.minimapPins", label = L["Guide pin on the minimap"], help = L["The arrow's target, the areas it spawns in, and the route line."], search = "map pins, icons, markers, waypoint, minimap" },
+		{ kind = "toggle", key = "nav.minimapPins", label = L["Guide pin on the minimap"], help = L["The arrow's target, the areas it spawns in, and the route line."], search = "map pins, icons, markers, waypoint, minimap, guide pins, target, on the minimap" },
 		H({ kind = "toggle", key = "nav.minimapRoute", label = L["Route line on the minimap"],
 			help = L["The way to the goal on the minimap. Off keeps the guide pin there and the line on the world map. Its colour, opacity and size: the gear beside Guide > Arrow & routes > Route lines."],
-			search = "route line, path, dots, minimap, herbs, gathering, mining, clutter",
+			search = "route line, path, dots, minimap, herbs, gathering, mining, clutter, route on the minimap, radar",
 			disabled = function() return not ns.Get("nav.minimapPins") end }),
 		{ kind = "toggle", key = "nav.upcomingPins", label = L["Numbered pins for the steps ahead"],
+			search = "upcoming, next steps, numbers, numbered pins, step pins, ahead, preview, plan",
 			help = L["A small pin with its step number where each of the next steps takes you, fainter the further ahead. As many as Up next shows, else five."] },
 		-- The trail stands in for route lines: shown while they are off, as on Map pins.
 		H({ kind = "toggle", key = "nav.trailDots", label = L["Trail dots along the travel route"],
+			search = "trail dots, path, route, breadcrumbs",
 			help = L["Moving dots from you to the target on the world map and the minimap, along the travel route, while route lines are off."],
 			needs = function() return not ns.Get("nav.routeLines") end }),
 	} },
@@ -556,25 +539,33 @@ local BUILTIN = {
 
 -- Pages filled by modules alone: Quests, QoL, Gear and Talents on Questing; Lookup,
 -- Alts, Dungeons and Rares on Discovery; QoL, Nav and Maps on Quality of Life.
+-- Each in the order a player meets its settings (docs/superpowers/specs/
+-- 2026-11-17-settings-ia-review.md, section 4).
 for _, list in ipairs({
-	declare(QUESTING, "questing", "icon-accept", 40, L["Quest information, rewards and gear advice, and the quest buttons."], {
-		{ L["Quests"], { L["Faster questing"], L["Quest log and tooltips"], L["Group"], L["Party chat"] } },
+	declare(QUESTING, "questing", "icon-accept", 30, L["Quest information, rewards and gear advice, and the quest buttons."], {
+		-- Quest data: the quest database's switch (Quests/Options.lua), its card folding with it; what it gives tooltips
+		-- and nameplates under it. Quest items: what bags and buying do with quest items.
+		{ L["Quests"], { L["Faster questing"], L["Quest log"], L["Quest data"], L["Quest items"] } },
 		{ L["Rewards & gear"], { L["Quest rewards"], L["Gear advice"] } },
 		-- Talents: { L["Talents"], { L["Talent plan"] } } here once the plans are back (Talents.lua, T.SOON).
 		{ L["Buttons"], { L["Action buttons"], L["Targeting"] } },
+		{ L["Group"], { L["Group"], L["Party chat"] } },
 	}),
-	declare(DISCOVERY, "discovery", "search", 50, L["Lookup, the dungeon journal and rares: finding things in the world."], {
-		{ L["Lookup"], { L["How to get anything"], L["Dungeons and characters"] } },
+	declare(DISCOVERY, "discovery", "search", 60, L["Lookup, the dungeon journal and rares: finding things in the world."], {
+		-- The dungeon journal and the characters, each its module's switch in its card's header.
+		{ L["Lookup"], { L["How to get anything"], ENCOUNTER_JOURNAL or L["Dungeons"], L["Characters"] } },
 		{ L["Dungeons"], { L["Dungeons in leveling guides"] } },
 		{ L["Rares"], { L["When a rare shows up"], L["How rares are noticed"] } },
 	}),
-	declare(QOL, "qualityoflife", "qol-toggles", 60, L["Small conveniences: questing, travel, invitations, merchants, bags, trackers and the map."], {
-		-- Conveniences that also live on their home pages (Questing, Guide, Map): players look for them here (Fitz, 2026-11-05).
+	declare(QOL, "qualityoflife", "qol-toggles", 50, L["Small conveniences: questing, travel, invitations, merchants, bags and trackers."], {
+		-- References to conveniences whose home is Questing: players look for them here (Fitz, 2026-11-05).
 		{ L["Quests"], { L["Faster questing"], L["Rewards, buttons and tracker"] } },
-		{ L["Travel"], { L["Flights"], L["Hearth and travel"], L["Death"] } },
+		{ L["Vendors"], { L["Merchants"], L["Restock"], L["Bags"] } },
+		{ L["Travel"], { L["Flights"], L["Death"], L["Hearth and travel"] } },
+		-- What changes as you level: the XP bar's marks, the XP tracker (its switch in its card's header), the
+		-- trainers and the instance cap.
+		{ L["Leveling"], { L["Experience"], L["XP tracker"], L["Trainers"], L["Instances"] } },
 		{ L["Social"], { L["Requests"], L["Blocking"] } },
-		{ L["Vendors"], { L["Merchants"], L["Restock"], L["Bags"], L["Trainers"] } },
-		{ L["Trackers & map"], { L["Experience"], L["Instances"], L["Minimap and coordinates"] } },
 		-- The game's own options (QoL/Options.lua): image quality, no Polestar setting behind it, and second homes.
 		{ L["Game"], { L["Game options"] } },
 	}),
@@ -583,7 +574,14 @@ for _, list in ipairs({
 end
 
 for _, spec in ipairs(BUILTIN) do add(spec, true) end
-add({ page = QOL, tab = L["Vendors"], section = L["Trainers"], controls = { trainReminder() } }, true)
+-- The quests Forever added (Quests/NewQuests.lua): their mark shows in the guide, the Codex and quest tooltips alike,
+-- so it sits with the quest log.
+add({ page = QUESTING, tab = L["Quests"], section = L["Quest log"], controls = {
+	{ kind = "toggle", key = "ui.newInForever", label = L["Mark quests new in Forever"],
+		help = L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."],
+		search = "new in forever, infinity, new quest, forever quest, mark, badge" },
+} }, true)
+add({ page = QOL, tab = L["Leveling"], section = L["Trainers"], controls = { trainReminder() } }, true)
 
 -- Integrations: a section per supported addon, each registered by its
 -- module with needs = the addon is present (Compat.AddOnPresent), so only
@@ -619,6 +617,10 @@ add({ page = L["Integrations"], section = "Spoken", controls = {
 -- Custom pages: Recorder status and About
 ---------------------------------------------------------------------------
 
+-- The Recorder's state and command stay in here with its page (the main
+-- chunk's locals budget).
+local placePair, buildRecorder
+do
 -- The Recorder's state from its SavedVariables (schema 2, docs/RECORDING.md):
 -- the chunks waiting for the uploader, their size, the last one it confirmed.
 local function recorderState()
@@ -646,7 +648,7 @@ end
 
 -- Two widgets side by side in the body's columns at y, sized by
 -- layout(widget, width) -> height and both as tall as the taller. -> height
-local function placePair(view, pair, y, cw, layout)
+function placePair(view, pair, y, cw, layout)
 	local h = 0
 	for col, w in ipairs(pair) do
 		w:ClearAllPoints()
@@ -658,7 +660,7 @@ local function placePair(view, pair, y, cw, layout)
 	return h
 end
 
-local function buildRecorder(view)
+function buildRecorder(view)
 	local rows = {
 		status = W.InfoRow(view, L["Status"]),
 		chunks = W.InfoRow(view, L["Waiting to upload"], L["Chunks the Polestar Uploader has not sent yet."]),
@@ -718,16 +720,50 @@ local function buildRecorder(view)
 		return y + placePair(view, { window }, y, cw, W.LayoutTile) + 24
 	end
 end
+end
 
 -- Install (UI/Welcome.lua) as a control, so the search finds it ("install",
--- "setup", "wizard", "first run"): at home on About, whose Install tile is its
--- widget there (view.cache), the one a search result's jump lights.
+-- "setup", "wizard", "first run"): at home on Setup > Profiles, in the Install
+-- & updates card (UI/Profiles.lua draws it). About keeps its Install tile.
 -- Held back (ns.dungeonRoute), Install's groups page has no dungeon question, so neither text names dungeons.
 local INSTALL = { kind = "button", icon = "palette", button = L["Install"], label = L["Set Polestar up again"],
 	help = ns.dungeonRoute and L["Install's pages: questing, groups and dungeons, your route and your look, a page at a time. Each choice works at once."]
 		or L["Install's pages: questing, groups, your route and your look, a page at a time. Each choice works at once."],
 	search = "install, setup, set up, wizard, first run, first time, welcome, getting started, start again, onboarding",
 	onClick = function() ns.Fire("SHOW_WELCOME") end }
+
+-- Core/Update.lua's notices (0.3.7), at home on Setup > Profiles beside Install: shown once the setting is
+-- registered.
+local UPDATE = { kind = "toggle", key = "update.card", label = L["Tell me when a newer Polestar is out"],
+	help = L["At login, a card on the guide window says a newer Polestar is out and how to update; Got it keeps it away for a day. A line in the guide window stays until you update. Two or more updates behind, both show even with this off (the card at most once a day)."],
+	search = "update, new version, outdated, old version, release, curseforge, polestar client, upgrade" }
+
+-- The Language setting (#3643; Core/Locale.lua keeps it, account-wide, in
+-- PolestarLanguage): Follow the game, English, or a language Polestar ships,
+-- each named in the language shown now. The strings are read as the files
+-- load, so a change asks for a /reload (Later keeps the choice for the next one).
+local LANGUAGE = { kind = "dropdown", label = L["Language"], new = "0.4.3",
+	help = L["The language of Polestar's windows and guides. Follow the game: your game's language. Takes effect after a /reload."],
+	search = "language, languages, english, german, deutsch, french, spanish, russian, korean, chinese, portuguese, translation, translated, locale",
+	get = function() return ns.Language and ns.Language.Get() or "game" end,
+	set = function(v)
+		local Lang = ns.Language
+		if not Lang then return end
+		v = v or "game"
+		if v == Lang.Get() or not Lang.Set(v) then return end
+		W.Modal({ title = L["Reload now?"], icon = "reload", action = L["Reload UI"], cancel = L["Later"],
+			text = L["Polestar shows the new language after a /reload."], onAccept = function() if ReloadUI then ReloadUI() end end })
+	end,
+	choices = function()
+		local names = {
+			game = L["Follow the game"], enUS = L["English"], deDE = L["German"], esES = L["Spanish (Spain)"], esMX = L["Spanish (Latin America)"],
+			frFR = L["French"], koKR = L["Korean"], ptBR = L["Portuguese (Brazil)"], ruRU = L["Russian"], zhCN = L["Simplified Chinese"],
+			zhTW = L["Traditional Chinese"],
+		}
+		local list = {}
+		for _, code in ipairs(ns.Language and ns.Language.CHOICES or {}) do list[#list + 1] = { value = code, label = names[code] or code } end
+		return list
+	end }
 
 -- The About hero: the sidebar's lockup at full size. The emblem (64, its ink
 -- on the 32 edge, in its glow), then the wordmark (Media/UI/wordmark.tga,
@@ -810,6 +846,8 @@ local function buildAbout(view)
 		.. hex .. "/polestar install|r   " .. L["set Polestar up again, a page at a time"] .. "\n"
 		.. hex .. "/polestar report|r   " .. L["report a problem with a step on the Polestar Discord"] .. "\n"
 		.. hex .. "/polestar arcade|r   " .. L["play Freedoom Arcade by petllama"] .. "\n"
+		.. hex .. "/polestar jewels|r   " .. L["play Sky Jewels by RikyZ90"] .. "\n"
+		.. hex .. "/polestar tetris|r   " .. L["play Tetris by beemerwt"] .. "\n"
 		.. hex .. "/polestar help|r   " .. L["every command"])
 	-- Install (UI/Welcome.lua) and what's new, first under the hero: the
 	-- setup a new character gets, again whenever the player wants it.
@@ -818,7 +856,6 @@ local function buildAbout(view)
 			or L["Set Polestar up again, a page at a time: questing, groups, your route, your look. Each choice works at once."],
 		function() ns.Fire("SHOW_WELCOME") end)
 	view.Install = install
-	view.cache = { [INSTALL] = install }
 	local whatsNew = W.ActionTile(view, "star", L["What's new"], L["What this version of Polestar changed for you."],
 		function() ns.Fire("SHOW_WHATSNEW") end)
 	view.WhatsNew = whatsNew
@@ -829,6 +866,13 @@ local function buildAbout(view)
 		.. L["Discord and its logo are trademarks of Discord Inc.; the logo marks the link to the Polestar Discord."] .. "\n"
 		.. L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."] .. "\n"
 		.. L["Gear scores from Forever Leveling BiS by Timearc when it is installed, through its public API."])
+	-- Special thanks (UI/Thanks.lua), under the credits: one supporter or
+	-- contributor a time the page opens, a link to Guiding Stars.
+	local thanksLead = W.Text(view, "note", "textDim")
+	thanksLead:SetText(L["Special thanks to:"])
+	local thanks = W.Link(view, "", function() O.Select("thanks") end, { role = "note" })
+	thanks.psTip, thanks.psTipLines = L["Guiding Stars"], { L["Everyone who supports Polestar and helps build it."] }
+	view.ThanksLead, view.Thanks = thanksLead, thanks
 	local maintH = W.SectionHeader(view)
 	W.SetSection(maintH, L["Maintenance"])
 	-- The profile in use is what goes back: the dialog says whose it is, and
@@ -900,6 +944,17 @@ local function buildAbout(view)
 			pair[2]:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
 			y = y + pair[2]:GetStringHeight() + 8
 		end
+		local name = UI.Thanks.PickName()
+		thanksLead:SetShown(name ~= nil)
+		thanks:SetShown(name ~= nil)
+		if name then
+			W.SetLinkText(thanks, ns.EscapeText and ns.EscapeText(name) or name)
+			thanksLead:ClearAllPoints()
+			thanksLead:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -(y + 2))
+			thanks:ClearAllPoints()
+			thanks:SetPoint("LEFT", thanksLead, "RIGHT", 4, 0)
+			y = y + 20 + 8
+		end
 		maintH:ClearAllPoints()
 		maintH:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
 		maintH:SetWidth(width)
@@ -908,19 +963,25 @@ local function buildAbout(view)
 	end
 end
 
-add({ page = L["Community guides"], key = "guidepacks", icon = "layers", order = 70, subtitle = L["Guides made by other players: switch them on or off, and choose where suggestions come from."],
+add({ page = L["Community guides"], key = "guidepacks", icon = "guides", order = 70, subtitle = L["Guides made by other players: switch them on or off, and choose where suggestions come from."],
 	custom = UI.Packs.Build, dot = UI.Packs.HasProblems }, true)
 add({ page = L["Guiding Stars"], key = "thanks", icon = "star", order = 80, subtitle = L["Celebrating the supporters, contributors and bug reporters behind Polestar."],
 	custom = UI.Thanks.Build }, true)
 add({ page = REC, key = "recorder", icon = "record", order = 90, subtitle = L["The data recorder for guide authors."], custom = buildRecorder }, true)
 add({ page = ABOUT, key = "about", icon = "info", order = 100, subtitle = L["Why Polestar exists, its commands and its credits."], custom = buildAbout }, true)
-add({ page = ABOUT, section = L["Install"], controls = { INSTALL } }, true)
+-- Setup > General (key "language": the old key "general" still reaches Look > Guide window, ALIASES).
+add({ page = L["General"], key = "language", icon = "icon-talk", order = 63, group = "setup", subtitle = L["The language Polestar shows."],
+	section = L["Language"], controls = { LANGUAGE } }, true)
+-- Install and the update notices: Setup > Profiles' Install & updates card, where a first install and
+-- troubleshooting look (UI/Profiles.lua draws the card; the page's own registration there).
+add({ page = L["Profiles"], key = "profiles", icon = "layers", order = 64, group = "setup", tab = L["Profiles"],
+	section = L["Install & updates"], controls = { INSTALL, UPDATE } }, true)
 
 -- Page keys from before the pages were regrouped (and older section names)
 -- reach the page, and the tab, that holds those settings now. A page's own
 -- key wins: "arrow" and "guidewindow" open the Look pages where those exist.
 local ALIASES = {
-	guidewindow = { "guide", L["Window"] }, general = { "guide", L["Window"] }, window = { "guide", L["Window"] },
+	general = { "guidewindow", L["Window"] }, window = { "guidewindow", L["Window"] },
 	navigation = { "guide", L["Arrow & routes"] }, nav = { "guide", L["Arrow & routes"] }, arrow = { "guide", L["Arrow & routes"] },
 	automation = { "guide", L["Automation"] }, behavior = { "guide", L["Automation"] }, behaviour = { "guide", L["Automation"] },
 	quests = { "questing", L["Quests"] }, gear = { "questing", L["Rewards & gear"] },
@@ -988,12 +1049,9 @@ end
 O.HomeOf = homeOf
 
 -- A reference for a page's spec: kind and key (what RegisterOptions checks),
--- `ref`, and any fields given (a shorter label, other extras).
-function O.Ref(kind, key, fields)
-	local c = { kind = kind, key = key, ref = true }
-	for k, v in pairs(fields or {}) do c[k] = v end
-	return c
-end
+-- `ref`, and any fields given (a shorter label, other extras): W.Ref
+-- (Polestar/Theme/Widgets.lua).
+O.Ref = W.Ref
 
 local function available(c)
 	if rawget(c, "ref") and not homeOf(c) then return false end
@@ -1017,9 +1075,17 @@ local function choicesOf(c)
 	local out = {}
 	local list = c.choices
 	if type(list) == "function" then list = list() end
+	-- limit = n: the first n choices, then the one in use if it is past them (an Essentials reference).
+	local limit = tonumber(c.limit)
+	local cur
+	if limit then
+		if c.get then cur = c.get() elseif c.key then cur = ns.Get(c.key) end
+	end
 	for i, ch in ipairs(list or {}) do
-		out[i] = { value = ch.value, text = ch.text or ch.label or tostring(ch.value), font = ch.font, draw = ch.draw,
-			disabled = ch.disabled, note = ch.note, tip = ch.tip, preview = ch.preview, group = ch.group }
+		if not limit or i <= limit or ch.value == cur then
+			out[#out + 1] = { value = ch.value, text = ch.text or ch.label or tostring(ch.value), font = ch.font, draw = ch.draw,
+				disabled = ch.disabled, note = ch.note, tag = ch.tag, tagTip = ch.tagTip, tip = ch.tip, preview = ch.preview, group = ch.group }
+		end
 	end
 	return out
 end
@@ -1033,7 +1099,7 @@ local function makeControl(parent, c)
 		w = W.Toggle(parent, labelOf(c), c.key, c.help, nil, (c.gear or c.get or c.set) and { gear = c.gear, get = c.get, set = c.set } or nil)
 	elseif c.kind == "slider" then
 		local opts
-		if c.release or c.get or c.set then opts = { release = c.release, get = c.get, set = c.set } end
+		if c.release or c.get or c.set or c.parse then opts = { release = c.release, get = c.get, set = c.set, parse = c.parse } end
 		w = W.Slider(parent, labelOf(c), c.key, c.min or 0, c.max or 1, c.step or 0.1, c.format, c.help, nil, opts)
 	elseif c.kind == "dropdown" or c.kind == "font" then
 		local choices = type(c.choices) == "function" and function() return choicesOf(c) end or choicesOf(c)
@@ -1080,10 +1146,12 @@ end)
 
 ---------------------------------------------------------------------------
 -- New settings. A control's `new` (the release it came in: "0.3.8") puts a
--- New badge on its row, and its page's row in the sidebar counts them until
--- the page is opened. PolestarDB.optionsSeen[page key] holds the newest
+-- quiet accent ring in its row's gutter, and one on its page's row in the
+-- sidebar (no count) until the page is opened. PolestarDB.optionsSeen[page key] holds the newest
 -- release whose settings the player has seen on that page (account-wide,
--- not a setting). The rows keep their badges through the session a page is
+-- not a setting), and ["*"] the newest seen on every page: a fresh install's
+-- (core's UI/OptionsLoader.lua marks it true, the window's first opening
+-- takes it as the newest release among its settings). The rows keep their badges through the session a page is
 -- first opened in: they read the seen state as it was when the window
 -- first opened.
 ---------------------------------------------------------------------------
@@ -1123,6 +1191,16 @@ local seenAtOpen
 local function seenTable()
 	local db = ns.DB()
 	if type(db.optionsSeen) ~= "table" then db.optionsSeen = {} end
+	local seen = db.optionsSeen
+	if seen["*"] == true then
+		local top
+		for _, p in ipairs(pageList) do
+			for _, x in ipairs(Index.newList(p)) do
+				if newer(x.new, top) then top = x.new end
+			end
+		end
+		seen["*"] = top
+	end
 	if not seenAtOpen then
 		seenAtOpen = {}
 		for k, v in pairs(db.optionsSeen) do seenAtOpen[k] = v end
@@ -1133,14 +1211,14 @@ end
 local function rowIsNew(c)
 	if not (c.new and c.page) then return false end
 	seenTable()
-	return newer(c.new, seenAtOpen[c.page.key])
+	return newer(c.new, seenAtOpen[c.page.key]) and newer(c.new, seenAtOpen["*"])
 end
 
 ---------------------------------------------------------------------------
 -- Rows and sections (DESIGN.md "The Row Rule", "Body"). A section is a card
 -- across the body: a 36px header (its title; at the right, right to left,
 -- its on/off (the spec's `toggle`), Reset while a setting in it is off its
--- default, a New pill while it holds new settings) over rows of 36px, each
+-- default) over rows of 36px, each
 -- two halves split by a hairline (one half below HALVES_MIN, `wide` and
 -- picture cards across both). A half is a setting's label and control, its
 -- `extras` inline before the control and its `more` behind a cog; its help is
@@ -1333,6 +1411,29 @@ local function sectionOff(s)
 	return t ~= nil and t.key ~= nil and available(t) and not ns.Get(t.key)
 end
 
+-- Whether a parent's children (c.children) are open: its open() says, else
+-- its switch (get(), else its setting) is on.
+local function kidsOpen(c)
+	local fn = c.open or c.get
+	if fn then
+		local ok, v = pcall(fn)
+		return ok and v and true or false
+	end
+	return c.key ~= nil and ns.Get(c.key) and true or false
+end
+O.KidsOpen = kidsOpen
+
+-- Whether a parent's children, while closed, hold a setting off its default
+-- (its row's hollow ring says so).
+function Index.kidsHidden(c)
+	local kids = rawget(c, "psKids")
+	if not kids or kidsOpen(c) then return false end
+	for _, k in ipairs(kids) do
+		if offDefault(k) and available(k) then return true end
+	end
+	return false
+end
+
 -- Is a section on screen? Its spec's shown() says (none: always).
 local function sectionShown(s)
 	if not s.shown then return true end
@@ -1340,11 +1441,16 @@ local function sectionShown(s)
 	return not ok or v ~= false and v ~= nil
 end
 
--- Which of a tab's sections with a shown() are on screen, as a string.
+-- Which of a tab's sections with a shown() are on screen, and which of its
+-- parents have their children open, as a string: when it moves, the tab lays
+-- out again.
 local function shownSig(t)
 	local sig = ""
 	for _, s in ipairs(t and t.sections or {}) do
 		if s.shown then sig = sig .. (sectionShown(s) and "1" or "0") end
+		for _, c in ipairs(s.controls or {}) do
+			if rawget(c, "psKids") then sig = sig .. (kidsOpen(c) and "+" or "-") end
+		end
 	end
 	return sig
 end
@@ -1354,6 +1460,9 @@ local function disabledOf(c)
 	return function()
 		local s = c.psSection
 		if s and s.toggle ~= c and sectionOff(s) then return true end
+		-- A child, while its parent is off (search results show it so).
+		local parent = rawget(c, "psChildOf")
+		if parent and not kidsOpen(parent) then return true end
 		if c.disabled then
 			local ok, off = pcall(c.disabled)
 			if ok and off then return true end
@@ -1365,8 +1474,15 @@ end
 -- Why a setting is off, for its tooltip: its section's toggle, or the
 -- on/off it depends on (the parent a child follows, the row an extra is on).
 local function whyOff(c)
+	-- A row that says why its own test turns it off (c.offWhy).
+	if c.offWhy and c.disabled then
+		local ok, off = pcall(c.disabled)
+		if ok and off then return type(c.offWhy) == "function" and c.offWhy() or c.offWhy end
+	end
 	local s = c.psSection
 	if s and s.toggle ~= c and sectionOff(s) then return string.format(L["Turn on %s first."], labelOf(s.toggle) or "") end
+	local kidOf = rawget(c, "psChildOf")
+	if kidOf and not kidsOpen(kidOf) then return string.format(L["Turn on %s first."], labelOf(kidOf) or "") end
 	local parent = c.psParent or c.psOwner
 	if parent and parent.kind == "toggle" and parent.key and not ns.Get(parent.key) then
 		return string.format(L["Turn on %s first."], labelOf(parent) or "")
@@ -1399,6 +1515,11 @@ local function tipOf(c, withPath)
 			if why then lines[#lines + 1] = { why, Theme.Color("warning") } end
 		end
 		if on and c.key and W.Modified(c.key) then lines[#lines + 1] = { L["Right-click to reset."], Theme.Color("textMuted") } end
+		-- The ring shows while the setting is at its default: its tooltip says what the ring means.
+		if rowIsNew(c) and not (c.key and W.Modified(c.key)) then
+			lines[#lines + 1] = { string.format(L["New in %s"], c.new), Theme.Color("accent") }
+		end
+		if Index.kidsHidden(c) then lines[#lines + 1] = { L["A setting under it is changed: turn it on to see it."], Theme.Color("textMuted") } end
 		local home = homeOf(c)
 		if withPath or home then lines[#lines + 1] = { pathOf(home or c), Theme.Color("textMuted") } end
 		return lines
@@ -1454,14 +1575,13 @@ do
 	end
 end
 
--- A ghost Move for a row or a section's header whose setting places a frame
--- (`move`, the frame's mover key in UI/Movers.lua): O.MoveFrame. Off while
--- the frame has no box (its feature off) or its setting is.
+-- A row's Move glyph, in its extras' Move column, whose setting places a
+-- frame (`move`, the frame's mover key in UI/Movers.lua): O.MoveFrame. Off
+-- while the frame has no box (its feature off) or its setting is.
 local function moveButton(parent, key, label, offFn, onClick)
-	local b = W.Button(parent, L["Move"], onClick, { ghost = true, height = 22 })
-	b.psTight = true
-	W.SetButtonText(b, L["Move"])
-	b.psTip, b.psTipLines = L["Move"], { string.format(L["Opens Move frames with %s picked; the settings come back when you are done."], label or "") }
+	local b = W.IconButton(parent, "move", W.RowParts.COMPACT_CHIP, L["Move"], onClick, 13)
+	b.psMove, b.psInline, b.psLabel = true, true, L["Move"]
+	b.psTipLines = { string.format(L["Opens Move frames with %s picked; the settings come back when you are done."], label or "") }
 	b.Refresh = inlineRefresh
 	W.SetDisabledWhen(b, function()
 		local M = ns.Movers
@@ -1506,21 +1626,25 @@ local function rowOf(view, c)
 		W.SetDisabledWhen(cog, disabledOf(c))
 		view.cogs[c] = cog
 	end
-	-- Move stands in the cog's column, or left of a cog.
-	local move
+	-- Move: a glyph in the extras' Move column, after the cog's.
 	if c.move and ns.Movers and ns.Movers.Unlock then
-		move = moveButton(w, c.move, labelOf(c), disabledOf(c), function() O.MoveFrame(c.move, w) end)
+		local move = moveButton(w, c.move, labelOf(c), disabledOf(c), function() O.MoveFrame(c.move, w) end)
 		w.MoveButton = move
-		if cog then
-			extras = extras or {}
-			extras[#extras + 1] = move
-		end
+		extras = extras or {}
+		extras[#extras + 1] = move
 	end
 	-- Picture cards named as their section need no label of their own: the
 	-- card's header says it.
 	local bare = c.kind == "cards" and not view.psSearch and labelOf(c) == c.section
-	W.CompactRow(w, { tip = tipOf(c, view.psSearch), info = c.info, extras = extras, cog = cog or move,
+	W.CompactRow(w, { tip = tipOf(c, view.psSearch), info = c.info, extras = extras, cog = cog,
 		height = view.psRowH, bare = bare })
+	-- New to the player: a 6px accent ring in the label's gutter, the changed
+	-- mark's place (markSections shows the one that applies).
+	if rowIsNew(c) and rawget(w, "ModDot") then
+		w.NewRing = W.Tex(w, "ARTWORK", "ring", "accent")
+		w.NewRing:SetSize(6, 6)
+		w.NewRing:SetPoint("CENTER", w.ModDot, "CENTER", 0, 0)
+	end
 	-- The pointer on the row, an extra or the cog: the tab's preview lights
 	-- the parts that setting changes and may show the part it draws
 	-- (f:Focus(key), optional); off them, the lights go out.
@@ -1529,7 +1653,8 @@ local function rowOf(view, c)
 		w:HookScript("OnEnter", function() O.PreviewFocus(c.key) end)
 		w:HookScript("OnLeave", off)
 		for _, x in ipairs(extras or {}) do
-			x:HookScript("OnEnter", function(self) O.PreviewFocus(self.psControl.key) end)
+			-- Move stands for the row's own setting.
+			x:HookScript("OnEnter", function(self) O.PreviewFocus(self.psControl and self.psControl.key or c.key) end)
 			x:HookScript("OnLeave", off)
 		end
 		if cog then
@@ -1559,54 +1684,217 @@ local function midRule(view, n)
 	return t
 end
 
--- A list of controls as rows of halves from y, across `width` at x (all
--- across with `whole`). The view keeps its rows (view.cache). -> height
-local function layoutRows(view, controls, top, x, width, whole)
-	local two = not whole and width >= HALVES_MIN
-	local half = floor(width / 2)
-	local y, left, leftH = top, nil, 0
-	local lineRows = {}
-	local function place(w, px, pw)
+-- A parent's open children stand under its line on a 2px accent rule at
+-- their left (pooled per view, like the halves' hairlines).
+function Index.kidRule(view, n)
+	local pool = rawget(view, "psKidRules")
+	if not pool then
+		pool = {}
+		view.psKidRules = pool
+	end
+	local t = pool[n]
+	if not t then
+		local layer = rawget(view, "MidLayer")
+		if not layer then
+			layer = CreateFrame("Frame", nil, view)
+			layer:SetAllPoints(view)
+			layer:SetFrameLevel(view:GetFrameLevel() + 2)
+			view.MidLayer = layer
+		end
+		t = W.Tex(layer, "ARTWORK", nil, "accent")
+		W.Color(t, "accent", 0.5)
+		pool[n] = t
+	end
+	return t
+end
+
+-- layoutRows' working state, one table per view kept from call to call, and
+-- its steps as functions of it: no closure or table per call (the search
+-- lays out every result's section on each keystroke). S: the view, the grid
+-- (two, x, width, half), the pen (y), the open line's left half and its
+-- height (bl, blH), the top of the run of halves (run), the last line's rows
+-- (lineRows), the rows placed so far (placed, only where children nest) and
+-- the children waiting for their parent's line (waiting).
+local layoutRows
+do
+	local Lay = {}
+
+	-- A new line: the last line's rows are no longer the last.
+	function Lay.newLine(S)
+		local rows = S.lineRows
+		for i = #rows, 1, -1 do rows[i] = nil end
+	end
+
+	function Lay.place(S, w, px, pw, indent)
+		local view = S.view
+		w.psColumns = view.psColumns
+		w.psIndent = indent > 0 and indent or nil
 		w:ClearAllPoints()
-		w:SetPoint("TOPLEFT", view, "TOPLEFT", px, -y)
+		w:SetPoint("TOPLEFT", view, "TOPLEFT", px, -S.y)
 		w:Show()
 		if w.Refresh then w:Refresh() end
-		w.psTop = y
+		w.psTop = S.y
 		if w.Rule then w.Rule:Show() end
-		lineRows[#lineRows + 1] = w
+		S.lineRows[#S.lineRows + 1] = w
 		return W.LayoutRow(w, pw)
 	end
-	for _, c in ipairs(controls) do
-		local w = rowOf(view, c)
-		if not two or c.wide or c.kind == "cards" then
-			if left then y, left = y + leftH, nil end
-			lineRows = {}
-			y = y + place(w, x, width)
-		elseif left then
-			local h = place(w, x + half, width - half)
+
+	-- The hairline down the run of halves that ends at y.
+	function Lay.endRun(S)
+		local run, view = S.run, S.view
+		if run and S.y > run then
 			view.psMid = (view.psMid or 0) + 1
 			local m = midRule(view, view.psMid)
 			m:ClearAllPoints()
-			m:SetPoint("TOPLEFT", view, "TOPLEFT", x + half, -y)
-			m:SetSize(1, max(leftH, h))
+			m:SetPoint("TOPLEFT", view, "TOPLEFT", S.x + S.half, -run)
+			m:SetSize(1, S.y - run)
 			m:Show()
-			left.psPair, w.psPair = w, left
-			y, left = y + max(leftH, h), nil
+		end
+		S.run = nil
+	end
+
+	-- A row in the next half of the grid, `indent` into its column (w.psCol:
+	-- "L" or "R"). -> true when it closed a line
+	function Lay.pair(S, w, indent)
+		local x, half = S.x, S.half
+		if not S.two then
+			Lay.newLine(S)
+			w.psCol = "L"
+			S.y = S.y + Lay.place(S, w, x + indent, S.width - indent, indent)
+		elseif S.bl then
+			local bl = S.bl
+			w.psCol = "R"
+			local h = Lay.place(S, w, x + half + indent, S.width - half - indent, indent)
+			-- The two halves stand as tall as the taller one (a label on two
+			-- lines), so their hairlines meet.
+			local lineH = max(S.blH, h)
+			bl:SetHeight(lineH)
+			w:SetHeight(lineH)
+			bl.psPair, w.psPair = w, bl
+			S.y, S.bl = S.y + lineH, nil
+			return true
 		else
-			lineRows = {}
-			left = w
-			leftH = place(w, x, half)
+			Lay.newLine(S)
+			S.run = S.run or S.y
+			S.bl, w.psCol = w, "L"
+			S.blH = Lay.place(S, w, x + indent, half - indent, indent)
 		end
 	end
-	if left then y = y + leftH end
-	-- The last line's hairline would double the card's edge.
-	for _, w in ipairs(lineRows) do if w.Rule then w.Rule:Hide() end end
-	return y - top
+
+	function Lay.close(S)
+		if S.bl then S.y, S.bl = S.y + S.blH, nil end
+	end
+
+	-- A column's accent rule beside a block of children, from..to.
+	function Lay.kidRule(S, colX, from, to)
+		local view = S.view
+		view.psKidRule = (view.psKidRule or 0) + 1
+		local t = Index.kidRule(view, view.psKidRule)
+		t:ClearAllPoints()
+		t:SetPoint("TOPLEFT", view, "TOPLEFT", colX + SIZE.KIDS_X - 10, -(from + 6))
+		t:SetSize(2, max(1, to - from - 12))
+		t:Show()
+	end
+
+	-- The children waiting for their parent's line to close: a block per
+	-- parent (both halves of a line may be parents), in their order.
+	function Lay.openKids(S)
+		local blocks = S.waiting
+		if not blocks then return end
+		S.waiting = nil
+		Lay.close(S)
+		for _, kids in ipairs(blocks) do
+			local from, rightTo = S.y, nil
+			for _, k in ipairs(kids) do
+				-- A right half closes its line: the right rule reaches its foot.
+				if Lay.pair(S, rowOf(S.view, k), SIZE.KIDS_X) then rightTo = S.y end
+			end
+			Lay.close(S)
+			Lay.kidRule(S, S.x, from, S.y)
+			if rightTo then Lay.kidRule(S, S.x + S.half, from, rightTo) end
+		end
+	end
+
+	-- A list of controls as rows of halves from y, across `width` at x (all
+	-- across with `whole`). The view keeps its rows (view.cache). The halves
+	-- stand on one grid: a left column at x, a right one at x + half, split by
+	-- one hairline down each run of halves (a row across ends a run). A parent's
+	-- children (c.children) follow it: while it is on, they wait for the
+	-- parent's line to close (its half beside it stays), then stand under it in
+	-- halves of their own on the same grid, each SIZE.KIDS_X into its column,
+	-- an accent rule at the same place in each column they use; while it is
+	-- off, they are made but hidden. Search results and filtered lists
+	-- (view.psSearch, view.psFlat) show them as any row, dimmed while their
+	-- parent is off. -> height
+	function layoutRows(view, controls, top, x, width, whole)
+		local S = rawget(view, "psLay")
+		-- Busy (a row's layout laying out this view again): a state of its own.
+		if not S or S.view then
+			S = { lineRows = {}, placed = {} }
+			if not rawget(view, "psLay") then view.psLay = S end
+		end
+		S.view, S.x, S.width = view, x, width
+		S.two = not whole and width >= HALVES_MIN
+		S.half = floor(width / 2)
+		S.y, S.run, S.bl, S.blH, S.waiting = top, nil, nil, 0, nil
+		Lay.newLine(S)
+		local nest = not (rawget(view, "psSearch") or rawget(view, "psFlat"))
+		local placed = S.placed
+		if nest then for c in pairs(placed) do placed[c] = nil end end
+		for _, c in ipairs(controls) do
+			local parent = nest and rawget(c, "psChildOf")
+			if parent and placed[parent] then
+				if kidsOpen(parent) then
+					local waiting = S.waiting or {}
+					S.waiting = waiting
+					local last = waiting[#waiting]
+					if not (last and last.psFor == parent) then
+						last = { psFor = parent }
+						waiting[#waiting + 1] = last
+					end
+					last[#last + 1] = c
+				else
+					-- Made, not placed: hidden until its parent opens.
+					rowOf(view, c):Hide()
+				end
+			else
+				if nest then placed[c] = true end
+				local w = rowOf(view, c)
+				if not S.two or c.wide or c.kind == "cards" then
+					Lay.close(S)
+					Lay.openKids(S)
+					Lay.endRun(S)
+					Lay.newLine(S)
+					w.psCol = nil
+					S.y = S.y + Lay.place(S, w, x, width, 0)
+				else
+					-- A row starting a line: the children before it open first.
+					if not S.bl then Lay.openKids(S) end
+					if Lay.pair(S, w, 0) then Lay.openKids(S) end
+				end
+			end
+		end
+		Lay.close(S)
+		Lay.openKids(S)
+		Lay.endRun(S)
+		-- The last line's hairline would double the card's edge.
+		for _, w in ipairs(S.lineRows) do if w.Rule then w.Rule:Hide() end end
+		S.view = nil
+		return S.y - top
+	end
 end
 
 -- Header widgets, right to left from the 16 edge: the toggle, Move, More,
--- Reset, New.
+-- Reset, New. A Legend card (the new page's, card.psLegend): its title, the
+-- module's pill, "N changed" and Reset in the card's top border.
 local function placeHeader(card)
+	if card.psLegend then
+		-- A group's own count, Reset and lead link (the Changed view's page cards).
+		local count = rawget(card, "psCount") or (card.psSettings and modifiedCount(card.psSettings) or 0)
+		card.Legend:Set({ title = card.psName, count = count, onReset = rawget(card, "psReset") or card.psOnReset,
+			toggle = card.psToggle, extras = { card.Move, card.More, rawget(card, "psLead") } })
+		return
+	end
 	local x = 16
 	local function put(f)
 		f:ClearAllPoints()
@@ -1618,7 +1906,6 @@ local function placeHeader(card)
 	if card.Move:IsShown() then put(card.Move) end
 	if card.More:IsShown() then put(card.More) end
 	if card.Reset:IsShown() then put(card.Reset) end
-	if card.New:IsShown() then put(card.New) end
 end
 
 -- Open a page's tab with a section of it scrolled under the top of the body
@@ -1686,15 +1973,14 @@ local function cardOf(view, n)
 	local card = view.cards[n]
 	if card then return card end
 	card = W.SectionCard(view)
-	card.Reset = W.Button(card.Header, L["Reset"], function() sectionReset(card) end, { ghost = true, icon = "reset", height = 22 })
+	card.Reset = W.Button(card.Header, L["Reset"], function() sectionReset(card) end, { ghost = true, height = 22 })
 	card.Reset.psTight = true
 	W.SetButtonText(card.Reset, L["Reset"])
 	-- A gamepad moves row to row: Y resets a row, the footer's Reset page the page.
 	card.Reset.psPadSkip = true
 	card.Reset:Hide()
-	card.New = W.Chip(card.Header)
-	W.SetChip(card.New, L["New"], "accent")
-	card.New:Hide()
+	-- The Legend header's Reset (the new page) asks as this one does.
+	card.psOnReset = function() sectionReset(card) end
 	card.More = moreLink(card)
 	-- The section's Move (its `move`): the frame the section sets.
 	card.Move = W.Button(card.Header, L["Move"], function()
@@ -1734,11 +2020,25 @@ local function columnsOf(card)
 	return c
 end
 
--- Show each card's Reset and New, and each cog's dot, as the settings stand.
+-- Show each card's Reset, each cog's dot and each row's new ring (none on a
+-- row off its default: its reset stands there), as the settings stand.
 local function markSections(view)
+	for c, w in pairs(view.cache or {}) do
+		local ring = rawget(w, "NewRing")
+		if ring then ring:SetShown(not rawget(w, "psModified")) end
+		-- A parent whose closed children hold a change: a hollow ring in its
+		-- changed dot's place.
+		local hidden = rawget(c, "psKids") and not rawget(w, "psModified") and Index.kidsHidden(c)
+		if hidden and not rawget(w, "KidsRing") and rawget(w, "ModDot") then
+			w.KidsRing = W.Tex(w, "ARTWORK", "ring", "accent")
+			w.KidsRing:SetSize(7, 7)
+			w.KidsRing:SetPoint("CENTER", w.ModDot, "CENTER", 0, 0)
+		end
+		if rawget(w, "KidsRing") then w.KidsRing:SetShown(hidden and true or false) end
+	end
 	for _, card in ipairs(view.cards or {}) do
 		if card:IsShown() and card.psSettings then
-			card.Reset:SetShown(card.psHeader and modifiedCount(card.psSettings) > 0)
+			card.Reset:SetShown(card.psHeader and not card.psLegend and modifiedCount(card.psSettings) > 0)
 			placeHeader(card)
 		end
 	end
@@ -1757,8 +2057,38 @@ local function markSections(view)
 	end
 end
 
--- The header switch of a section's toggle, made once per view.
-local function toggleOf(view, t, card)
+-- A Legend card's module switch (the new page): the pill, made once per view
+-- (view.psPills), in the card's Legend header. Right-click its default.
+local function pillOf(view, t, card)
+	local pills = rawget(view, "psPills")
+	if not pills then
+		pills = {}
+		view.psPills = pills
+	end
+	local p = pills[t]
+	if not p then
+		p = W.PillSwitch(card.Legend, function() return ns.Get(t.key) end, function(v) ns.Set(t.key, v) end, labelOf(t))
+		p.psControl, p.psHeaderSwitch = t, true
+		if type(t.help) == "string" and t.help ~= "" then p.psTipLines = { t.help } end
+		p:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+		local flip = p:GetScript("OnClick")
+		p:SetScript("OnClick", function(self, button)
+			if button ~= "RightButton" then return flip(self, button) end
+			if W.Enabled(self) then W.ResetSetting(t.key) end
+		end)
+		if t.disabled then W.SetDisabledWhen(p, t.disabled) end
+		W.Bind(p, t.key)
+		pills[t] = p
+	end
+	if p:GetParent() ~= card.Legend then p:SetParent(card.Legend) end
+	p:Show()
+	return p
+end
+
+-- The header switch of a section's toggle, made once per view (a Legend
+-- card's: its pill).
+local function toggleOf(view, t, card, legend)
+	if legend then return pillOf(view, t, card) end
 	local sw = view.extras[t]
 	if not sw then
 		sw = W.HeaderSwitch(card.Header, t.key, labelOf(t), tipOf(t, view.psSearch))
@@ -1771,17 +2101,84 @@ local function toggleOf(view, t, card)
 	return sw
 end
 
+-- The extras' columns some row of these sections uses (W.LayoutCompact):
+-- one no row needs takes no room from the labels. -> { swatch, switch, cog, move }
+local function extrasColumns(groups)
+	local cols = {}
+	for _, g in ipairs(groups) do
+		for _, c in ipairs(g.controls) do
+			for _, e in ipairs(c.extras or {}) do
+				if available(e) then cols[e.kind == "color" and "swatch" or "switch"] = true end
+			end
+			if c.more and #c.more > 0 then cols.cog = true end
+			if c.move and ns.Movers and ns.Movers.Unlock then cols.move = true end
+		end
+	end
+	return cols
+end
+
 -- Sections from y, one card each across the body. groups: { { name,
--- controls, section, settings }, ... } (`settings`: what its Reset resets);
+-- controls, section, settings }, ... } (`settings`: what its Reset resets;
+-- a Legend card's group may bring its own `count`, `onReset()` and
+-- `lead(card)`, a widget made once per card for the header's right side);
 -- opts.whole: every row across (search results); opts.gutter: room left of
 -- the rows inside the card (the search results' chevrons). Rows not placed
--- are hidden.
+-- are hidden. opts.legend (the new page): each titled card has the Legend
+-- header (W.LegendHeader), and a card whose module switch is off folds to
+-- that header and one grey line; the rows of it a jump asked for
+-- (view.psReveal: control -> true), or every one in the search results,
+-- stand dimmed under the line.
 -- -> new y
+-- OFF_NOTE_H: the folded card's line's least room (its text's height and 8
+-- either side, when that is more); OFF_ALPHA: a row shown in it, at most.
+local OFF_NOTE_H, OFF_NOTE_PAD, OFF_ALPHA = 32, 8, 0.5
+
+-- A folded Legend card's line: "<Module> is off. Turn it on to change its
+-- settings." Made once per card.
+local Note = {}
+function Note.of(card, field)
+	local note = rawget(card, field)
+	if not note then
+		note = W.Text(card, "note", "textMuted")
+		note:SetWordWrap(true)
+		card[field] = note
+	end
+	return note
+end
+
+-- A card's one muted line in its body (the folded card's, or the help of a
+-- section that is only its header switch): placed under the header, wrapped
+-- to the card. -> the room it takes.
+function Note.place(card, note, text, width, gutter)
+	note:SetText(text)
+	note:ClearAllPoints()
+	note:SetWidth(max(1, width - gutter - 32))
+	-- A wrapped line (a longer translation) takes the room it needs.
+	local textH = math.ceil(note:GetStringHeight() or 0)
+	local room = max(OFF_NOTE_H, textH + 2 * OFF_NOTE_PAD)
+	note:SetPoint("TOPLEFT", card, "TOPLEFT", gutter + 16, -(card.RowsTop + (room - textH) / 2))
+	note:SetHeight(max(1, textH))
+	note:Show()
+	return room
+end
+
 local function layoutSections(view, groups, y, opts)
 	for _, w in pairs(view.cache) do w:Hide() end
 	for _, sw in pairs(view.extras) do if rawget(sw, "psHeaderSwitch") then sw:Hide() end end
+	for _, p in pairs(rawget(view, "psPills") or {}) do p:Hide() end
+	local dimmed = rawget(view, "psDimmed")
+	if dimmed then
+		-- Its own refresh then puts back a disabled row's alpha.
+		for w in pairs(dimmed) do
+			w:SetAlpha(1)
+			if w.Refresh then w:Refresh() end
+		end
+		view.psDimmed = nil
+	end
 	for _, m in ipairs(view.mids) do m:Hide() end
-	view.psMid = 0
+	for _, t in ipairs(rawget(view, "psKidRules") or {}) do t:Hide() end
+	view.psMid, view.psKidRule = 0, 0
+	view.psColumns = extrasColumns(groups)
 	local width = win.BodyWidth
 	local n = 0
 	for _, g in ipairs(groups) do
@@ -1790,35 +2187,85 @@ local function layoutSections(view, groups, y, opts)
 		local s = g.section
 		local t = s and s.toggle and available(s.toggle) and s.toggle or nil
 		local header = g.name ~= "" or t ~= nil
+		local legend = header and opts and opts.legend or false
 		card.psHeader, card.psName, card.psSettings, card.psSection = header, g.name, g.settings, g.section
+		card.psLegend = legend or nil
 		card:SetTitle(g.name)
-		card.Header:SetShown(header)
-		card.Rule:SetShown(header)
+		card.Header:SetShown(header and not legend)
+		card.Rule:SetShown(header and not legend)
 		card.RowsTop = header and W.CARD_HEADER + 1 or 0
-		card.psToggle = t and toggleOf(view, t, card) or nil
-		-- The lead tab (Essentials) shows no New: its rows stand for settings
-		-- whose homes carry it.
-		local lead = s and s.psTab and s.psTab.lead
-		local new = false
-		if not lead then
-			for _, x in ipairs(g.settings or {}) do if rowIsNew(x) then new = true end end
+		local lg = rawget(card, "Legend")
+		if legend then
+			if not lg then
+				lg = W.LegendHeader(card, {})
+				card.Legend = lg
+			end
+			lg:Show()
+			-- The rows start under the border's half of the header, past the
+			-- card's own room inside its border (W.LEGEND.ROOM).
+			card.RowsTop = W.LEGEND.H / 2 + 6 + W.LEGEND.ROOM / 2
+			-- The title stands above the card's top edge: room for it.
+			y = y + W.LEGEND.H / 2
+		elseif lg then
+			lg:Hide()
 		end
-		card.New:SetShown(header and new)
+		-- More and Move stand in whichever header the card has.
+		local hp = legend and lg or card.Header
+		if card.More:GetParent() ~= hp then card.More:SetParent(hp) end
+		if card.Move:GetParent() ~= hp then card.Move:SetParent(hp) end
+		card.psToggle = t and toggleOf(view, t, card, legend) or nil
+		card.psCount, card.psReset = legend and g.count or nil, legend and g.onReset or nil
+		local lead = legend and g.lead and g.lead(card) or nil
+		local was = rawget(card, "psLead")
+		if was and was ~= lead then was:Hide() end
+		if lead and lg then
+			if lead:GetParent() ~= lg then lead:SetParent(lg) end
+			lead:Show()
+		end
+		card.psLead = lead
+		-- A module that is off: the card folds to its header and one line.
+		local folded = legend and t ~= nil and sectionOff(s)
+		local controls = g.controls
+		local noteH = 0
+		if folded then
+			local reveal = view.psSearch or rawget(view, "psReveal")
+			controls = {}
+			if reveal then
+				for _, c in ipairs(g.controls) do
+					if reveal == true or reveal[c] then controls[#controls + 1] = c end
+				end
+			end
+			noteH = Note.place(card, Note.of(card, "OffNote"), string.format(L["%s is off. Turn it on to change its settings."], labelOf(t) or ""),
+				width, (opts.gutter or 0) + (legend and W.LEGEND.ROOM or 0))
+		elseif rawget(card, "OffNote") then
+			card.OffNote:Hide()
+		end
+		-- A section that is only its header switch: the switch's help in the
+		-- body as one muted line, not an empty strip under the header.
+		local lone = t ~= nil and not folded and #g.controls == 0 and type(t.help) == "string" and t.help ~= ""
+		if lone then
+			noteH = Note.place(card, Note.of(card, "HelpNote"), t.help, width, (opts and opts.gutter or 0) + (legend and W.LEGEND.ROOM or 0))
+		elseif rawget(card, "HelpNote") then
+			card.HelpNote:Hide()
+		end
 		card.More:SetShown(header and not view.psSearch and s ~= nil and s.jump ~= nil)
 		card.Move:SetShown(header and not view.psSearch and s ~= nil and s.move ~= nil and ns.Movers ~= nil and ns.Movers.Unlock ~= nil)
 		if card.Move:IsShown() then card.Move:Refresh() end
-		local gutter = opts and opts.gutter or 0
+		-- A Legend card keeps W.LEGEND.ROOM of its ground between its border
+		-- and the rows on the left and right, and under the last row.
+		local room = legend and W.LEGEND.ROOM or 0
+		local gutter = (opts and opts.gutter or 0) + room
 		local whole = opts and opts.whole
 		-- A caption over each half (s.columns), while the rows stand in halves.
 		local capH = 0
 		local cols = s and s.columns
-		if cols and not whole and width - gutter >= HALVES_MIN then
+		if cols and not whole and not folded and width - gutter - room >= HALVES_MIN then
 			capH = COLUMNS_H
 			local c = columnsOf(card)
-			local half = floor((width - gutter) / 2)
+			local half = floor((width - gutter - room) / 2)
 			c:ClearAllPoints()
 			c:SetPoint("TOPLEFT", card, "TOPLEFT", gutter, -card.RowsTop)
-			c:SetSize(width - gutter, COLUMNS_H)
+			c:SetSize(width - gutter - room, COLUMNS_H)
 			c.Left:SetText(cols[1] or "")
 			c.Right:SetText(cols[2] or "")
 			c.Right:ClearAllPoints()
@@ -1827,9 +2274,24 @@ local function layoutSections(view, groups, y, opts)
 		elseif rawget(card, "Columns") then
 			card.Columns:Hide()
 		end
-		local rowsH = layoutRows(view, g.controls, y + card.RowsTop + capH, SH.pad + gutter, width - gutter, whole)
+		local before
+		if folded and #controls > 0 then
+			before = {}
+			for _, w in pairs(view.cache) do if w:IsShown() then before[w] = true end end
+		end
+		local rowsH = layoutRows(view, controls, y + card.RowsTop + capH + noteH, SH.pad + gutter, width - gutter - room, whole)
+		-- The rows of a folded card a jump or the search shows: dimmed.
+		if before then
+			view.psDimmed = rawget(view, "psDimmed") or {}
+			for _, w in pairs(view.cache) do
+				if w:IsShown() and not before[w] then
+					w:SetAlpha(math.min(w:GetAlpha() or 1, OFF_ALPHA))
+					view.psDimmed[w] = true
+				end
+			end
+		end
 		card.psTop = y
-		y = y + card:Place(SH.pad, y, width, rowsH + capH) + SECTION_GAP
+		y = y + card:Place(SH.pad, y, width, rowsH + capH + noteH + room) + SECTION_GAP
 	end
 	for i = n + 1, #view.cards do view.cards[i]:Hide() end
 	markSections(view)
@@ -2032,43 +2494,42 @@ local function placePreview(view, t, fresh)
 	UI.Preview.Place(win, view, t, width, room, fresh)
 end
 
--- The first open's one line under the header: how the rows work (hover,
--- right-click), until its close button dismisses it for good
--- (PolestarDB.optionsIntro). -> the room it takes at the view's top
-local function introRoom(view)
-	local INTRO_H = 28
-	if ns.DB().optionsIntro then
-		if rawget(view, "Intro") then view.Intro:Hide() end
+-- The tab's cross-link row (its spec's `link`): a link glyph, the lead in
+-- Note textMuted, then where the rest is ("Look › Guide window") as a link
+-- that opens that page's tab. -> the room it takes at y
+local LINK_H = 32
+local function linkRoom(view, link, y)
+	local row = rawget(view, "XLink")
+	if not link then
+		if row then row:Hide() end
 		return 0
 	end
-	local bar = rawget(view, "Intro")
-	if not bar then
-		bar = CreateFrame("Frame", nil, view)
-		bar:SetHeight(INTRO_H)
-		bar.Icon = W.Tex(bar, "ARTWORK", "info", "textMuted")
-		bar.Icon:SetSize(12, 12)
-		bar.Icon:SetPoint("LEFT", bar, "LEFT", 16, 0)
-		bar.Text = W.Text(bar, "note", "textMuted")
-		bar.Text:SetText(L["Hover a setting for what it does. Right-click resets it."])
-		bar.Text:SetPoint("LEFT", bar.Icon, "RIGHT", 8, 0)
-		bar.Close = W.IconButton(bar, "close", 20, L["Got it"], function()
-			ns.DB().optionsIntro = true
-			O.Relayout()
-		end, 10)
-		bar.Close:SetPoint("RIGHT", bar, "RIGHT", -12, 0)
-		-- Not a stop for the gamepad: its first stop stays the first setting.
-		bar.Close.psPadSkip = true
-		view.Intro = bar
+	if not row then
+		row = CreateFrame("Frame", nil, view)
+		row:SetHeight(LINK_H)
+		row.Icon = W.Tex(row, "ARTWORK", "link", "textMuted")
+		row.Icon:SetSize(12, 12)
+		row.Icon:SetPoint("LEFT", row, "LEFT", 16, 0)
+		row.Text = W.Text(row, "note", "textMuted")
+		row.Text:SetPoint("LEFT", row.Icon, "RIGHT", 8, 0)
+		row.Link = W.Link(row, "", function() O.Select(link.page, link.tab) end, { role = "note" })
+		row.Link.psTip = nil
+		row.Link:SetPoint("LEFT", row.Text, "RIGHT", 4, 0)
+		view.XLink = row
 	end
-	bar:ClearAllPoints()
-	bar:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -12)
-	bar:SetWidth(win.BodyWidth)
-	bar:Show()
-	return INTRO_H + 4
+	row.Text:SetText(link.text)
+	W.SetLinkText(row.Link, link.to)
+	row:ClearAllPoints()
+	row:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
+	row:SetWidth(win.BodyWidth)
+	row:Show()
+	return LINK_H + 8
 end
 
 -- A view = one page tab rendered into its own frame (built once).
-local function buildView(p, t)
+-- opts (the new page's views): { lead(s) -> a row to put first in section
+-- s, or nil; legend: the Legend card headers }.
+local function buildView(p, t, opts)
 	local view = CreateFrame("Frame", nil, win.Body)
 	view:SetPoint("TOPLEFT", win.Body, "TOPLEFT", 0, 0)
 	view:SetPoint("RIGHT", win.Body, "RIGHT", 0, 0)
@@ -2078,19 +2539,24 @@ local function buildView(p, t)
 		p.custom(view)
 	else
 		view.Refresh = function()
-			local y = 16 + introRoom(view)
+			local y = 16
+			y = y + linkRoom(view, t.link, y)
 			local groups = {}
 			view.psShownSig = shownSig(t)
 			for _, s in ipairs(t.sections) do
 				local list = visible(s)
 				if sectionShown(s) and (#list > 0 or (s.toggle and available(s.toggle))) then
-					groups[#groups + 1] = { name = s.name, controls = list, section = s, settings = sectionSettings(s, list) }
+					local settings = sectionSettings(s, list)
+					local lead = opts and opts.lead and opts.lead(s)
+					if lead then table.insert(list, 1, lead) end
+					groups[#groups + 1] = { name = s.name, controls = list, section = s, settings = settings }
 				end
 			end
 			if #groups == 0 then
 				for _, w in pairs(view.cache) do w:Hide() end
 				for _, card in ipairs(view.cards) do card:Hide() end
 				for _, m in ipairs(view.mids) do m:Hide() end
+				for _, r in ipairs(rawget(view, "psKidRules") or {}) do r:Hide() end
 				if not rawget(view, "Empty") then
 					view.Empty = W.Text(view, "note", "textMuted")
 					view.Empty:SetWordWrap(true)
@@ -2105,7 +2571,7 @@ local function buildView(p, t)
 			end
 			view.empty = false
 			if rawget(view, "Empty") then view.Empty:Hide() end
-			y = layoutSections(view, groups, y)
+			y = layoutSections(view, groups, y, opts and opts.legend and { legend = true } or nil)
 			return y + 24
 		end
 	end
@@ -2137,8 +2603,9 @@ local searchView
 local byte, find = string.byte, string.find
 
 -- Folding: ASCII lower case, Latin accents dropped (é -> e, ß -> ss), Cyrillic capitals lowered.
-local FOLD = {}
+local fold
 do
+	local FOLD = {}
 	local function span(from, to, out)
 		for b = from, to do FOLD[string.char(195, b)] = out end
 	end
@@ -2152,10 +2619,10 @@ do
 	for b = 144, 159 do FOLD[string.char(208, b)] = string.char(208, b + 32) end -- А-П
 	for b = 160, 175 do FOLD[string.char(208, b)] = string.char(209, b - 32) end -- Р-Я
 	FOLD["\208\129"] = "\209\145" -- Ё
-end
 
-local function fold(s)
-	return (s:lower():gsub("[\195\197\208][\128-\191]", FOLD))
+	function fold(s)
+		return (s:lower():gsub("[\195\197\208][\128-\191]", FOLD))
+	end
 end
 
 -- American spellings and short forms, read as the words the labels use.
@@ -2181,6 +2648,8 @@ for w in ("off enable disable toggle stop show"):gmatch("%S+") do FILLER[w] = "s
 -- use for it: a query word that matches nothing of a control's own tries
 -- the others of its group ("bigger pins" finds Numbered pin size; "see
 -- through" finds an opacity). Counted below a word's own match.
+local SYN = {}
+do
 local SYNONYMS = {
 	"bigger big larger large size sizes scale huge tiny smaller small enlarge shrink zoom grow",
 	"colour colours tint hue tone",
@@ -2200,7 +2669,6 @@ local SYNONYMS = {
 	"thickness thick thicker thin width wider",
 	"glow shine light",
 }
-local SYN = {}
 for _, group in ipairs(SYNONYMS) do
 	local words = {}
 	for w in group:gmatch("%S+") do words[#words + 1] = w end
@@ -2209,6 +2677,7 @@ for _, group in ipairs(SYNONYMS) do
 		for _, o in ipairs(words) do if o ~= w then list[#list + 1] = o end end
 		SYN[w] = list
 	end
+end
 end
 -- Phrases read as one hint word. First the punctuation a question carries
 -- outside ASCII (¿ ¡ « » quotes, dashes, the ellipsis, CJK ？！，。、：；
@@ -2264,23 +2733,27 @@ local OPPOSITE = { hide = "show shown", hidden = "shown show", hiding = "show sh
 -- chunk's locals in budget.
 local WEIGHT = { SYN = 0.6, FILLER = 0.1, COVER = 50, SWITCH = 30 }
 
-local LABEL, KEY, TERMS, PLACE, HELP = 1, 2, 3, 4, 5
+-- A searchable word's field (one table, for the main chunk's locals budget).
+local FIELD = { LABEL = 1, KEY = 2, TERMS = 3, PLACE = 4, HELP = 5 }
 -- By field, the score of a match inside a word, a typo off, the word's start, the whole word.
 local SCORE = { { 12, 30, 80, 100 }, { 10, 25, 65, 75 }, { 10, 25, 60, 70 }, { 8, 20, 45, 50 }, { 5, 0, 35, 40 } }
 -- Two query words that are one of the control's joined pairs ("minimap
 -- icon" for a "minimap icon" term) add this, by kind of match.
-local PHRASE = { 0, 10, 20, 40 }
+SCORE.PHRASE = { 0, 10, 20, 40 }
 
 -- Translated text -> its English (the keys of L), built at the first search.
-local english
-local function englishOf(s)
-	if not english then
-		english = {}
-		for en, tr in pairs(L) do
-			if type(en) == "string" and type(tr) == "string" and tr ~= en then english[tr] = en end
+local englishOf
+do
+	local english
+	function englishOf(s)
+		if not english then
+			english = {}
+			for en, tr in pairs(L) do
+				if type(en) == "string" and type(tr) == "string" and tr ~= en then english[tr] = en end
+			end
 		end
+		return s and english[s]
 	end
-	return s and english[s]
 end
 
 -- Neighbours are joined within a comma's part ("tiny text, bigger" joins no
@@ -2306,7 +2779,7 @@ local function searchTokens(c)
 	if s and s.label == label then return s end
 	s = { label = label, words = {}, fields = {}, covers = {} }
 	local w, f = s.words, s.fields
-	addWords(w, f, label, LABEL, true)
+	addWords(w, f, label, FIELD.LABEL, true)
 	-- What names it whole (scoreOf's WEIGHT.COVER): its label's words, its English
 	-- label's and each of its search terms' of two words or more (one word is
 	-- a hint, not a name), filler aside.
@@ -2323,13 +2796,13 @@ local function searchTokens(c)
 	if type(c.search) == "string" then
 		for term in c.search:gmatch("[^,]+") do cover(term, 2) end
 	end
-	addWords(w, f, c.search, TERMS, true)
-	if type(c.key) == "string" then addWords(w, f, (c.key:match("[^.]+$"):gsub("(%l)(%u)", "%1 %2")), KEY, true) end
-	addWords(w, f, englishOf(label), TERMS, true)
-	addWords(w, f, c.section, PLACE, true)
-	addWords(w, f, c.tab, PLACE, true)
-	addWords(w, f, c.page and c.page.name, PLACE, true)
-	addWords(w, f, c.help, HELP, false)
+	addWords(w, f, c.search, FIELD.TERMS, true)
+	if type(c.key) == "string" then addWords(w, f, (c.key:match("[^.]+$"):gsub("(%l)(%u)", "%1 %2")), FIELD.KEY, true) end
+	addWords(w, f, englishOf(label), FIELD.TERMS, true)
+	addWords(w, f, c.section, FIELD.PLACE, true)
+	addWords(w, f, c.tab, FIELD.PLACE, true)
+	addWords(w, f, c.page and c.page.name, FIELD.PLACE, true)
+	addWords(w, f, c.help, FIELD.HELP, false)
 	c.psFind = s
 	Index.search.dirty = true
 	return s
@@ -2454,7 +2927,7 @@ local function synonymScore(list, tw, tf, share)
 	local best = 0
 	for _, sm in ipairs(list) do
 		for j = 1, #tw do
-			if tf[j] ~= HELP then
+			if tf[j] ~= FIELD.HELP then
 				local k = kindOf(sm, tw[j])
 				if k >= 3 then
 					local v = floor(SCORE[tf[j]][k] * share)
@@ -2496,8 +2969,8 @@ local function scoreOf(c, nw)
 				local v = SCORE[tf[j]][k]
 				if v > best then best = v end
 			end
-			if pair and tf[j] ~= HELP then
-				local pk = PHRASE[kindOf(pair, tw[j])] or 0
+			if pair and tf[j] ~= FIELD.HELP then
+				local pk = SCORE.PHRASE[kindOf(pair, tw[j])] or 0
 				if pk > phrase then phrase = pk end
 			end
 		end
@@ -2575,7 +3048,7 @@ local function suggest(nw)
 							if not qfiller[i] and m.n >= 3 then
 								local cap, best = math.max(1, floor(m.n / 2)), 0
 								for j = 1, #s.words do
-									if s.fields[j] ~= HELP then
+									if s.fields[j] ~= FIELD.HELP then
 										local k, v = kindOf(m, s.words[j]), 0
 										if k >= 2 then
 											v = SCORE[s.fields[j]][k]
@@ -2949,6 +3422,20 @@ function O.MatchSpans(text, q)
 	return out
 end
 
+-- `text` with the words `q` matches (O.MatchSpans) in the colour `token`.
+function O.LitText(text, q, token)
+	local spans = O.MatchSpans(text, q)
+	if #spans == 0 then return text end
+	local open, out, at = "|c" .. Theme.Hex(token or "accent"), {}, 1
+	for _, sp in ipairs(spans) do
+		out[#out + 1] = text:sub(at, sp[1] - 1)
+		out[#out + 1] = open .. text:sub(sp[1], sp[2]) .. "|r"
+		at = sp[2] + 1
+	end
+	out[#out + 1] = text:sub(at)
+	return table.concat(out)
+end
+
 local function renderSearch()
 	if not searchView then
 		searchView = CreateFrame("Frame", nil, win.Body)
@@ -2976,7 +3463,19 @@ local function renderSearch()
 		end
 		sections[i] = { name = g.title, controls = g.controls, section = s, settings = sectionSettings(nil, g.controls) }
 	end
-	local y = layoutSections(searchView, sections, 16, { whole = true, gutter = SEARCH_GUTTER })
+	-- The new page: Legend card headers (a module that is off shows its hits
+	-- dimmed under its line), and the typed words lit in each result's label,
+	-- in the accent.
+	local newPage = O.Grouped and O.Grouped.On() or false
+	local y = layoutSections(searchView, sections, 16, { whole = true, gutter = SEARCH_GUTTER, legend = newPage or nil })
+	for c, w in pairs(searchView.cache) do
+		local label = rawget(w, "Label")
+		if label and type(c) == "table" and (newPage or rawget(w, "psLit")) then
+			local text = labelOf(c) or ""
+			w.psLit = newPage or nil
+			label:SetText(newPage and O.LitText(text, query, "accent") or text)
+		end
+	end
 	-- Each result's way to its page: a chevron in the card's gutter left of
 	-- the row opens the page and tab it lives on, the row scrolled into view
 	-- and lit (O.Jump).
@@ -2993,6 +3492,14 @@ local function renderSearch()
 		end
 	end
 	searchView.Empty:SetShown(count == 0)
+	-- The new page's no-hit view: Clear empties the box and goes back.
+	if newPage and count == 0 and not rawget(searchView, "Clear") then
+		searchView.Clear = W.Button(searchView, L["Clear"], function()
+			O.SetQuery("")
+			win.Search:SetText("")
+		end)
+	end
+	if rawget(searchView, "Clear") then searchView.Clear:SetShown(newPage and count == 0) end
 	local links = searchView.Links
 	local shown = count == 0 and suggestions and #suggestions or 0
 	searchView.Hint:SetShown(shown > 0)
@@ -3022,6 +3529,11 @@ local function renderSearch()
 				link:Show()
 			end
 			y = 56 + 24 * shown + 32
+		end
+		if newPage then
+			searchView.Clear:ClearAllPoints()
+			searchView.Clear:SetPoint("TOPLEFT", searchView, "TOPLEFT", SH.pad, -(y - 16))
+			y = y + 40
 		end
 	end
 	for i = shown + 1, #links do links[i]:Hide() end
@@ -3135,10 +3647,11 @@ function Index.newList(p)
 	return list
 end
 local function pageNew(p)
-	local seenNow = seenTable()[p.key]
+	local seen = seenTable()
+	local seenNow, seenAll = seen[p.key], seen["*"]
 	local n = 0
 	for _, x in ipairs(Index.newList(p)) do
-		if newer(x.new, seenNow) and available(x) then n = n + 1 end
+		if newer(x.new, seenNow) and newer(x.new, seenAll) and available(x) then n = n + 1 end
 	end
 	return n
 end
@@ -3171,6 +3684,7 @@ local function pageChanged(p)
 end
 
 local function navItems()
+	if O.Grouped and O.Grouped.On() then return O.Grouped.NavItems() end
 	local folded = navState().folded
 	local byGroup = {}
 	for _, p in ipairs(pageList) do
@@ -3189,9 +3703,13 @@ local function navItems()
 			for _, p in ipairs(list) do
 				-- A folded group still shows the page on screen.
 				if not fold or p == current then
-					local n = pageNew(p)
+					-- One quiet mark a page: a ring while it holds settings new to the player, else a dot while one is off
+					-- its default; no count.
+					local new = pageNew(p) > 0
+					local changed = not new and pageChanged(p)
 					items[#items + 1] = { key = p.key, label = p.name, icon = p.icon, indent = true, dot = p.dot and p.dot() or nil,
-						new = n > 0 and n or nil, changed = pageChanged(p) or nil }
+						new = new or nil, changed = changed or nil,
+						markTip = new and L["New settings on this page"] or changed and L["Settings on this page changed from their default"] or nil }
 				end
 			end
 		end
@@ -3199,8 +3717,10 @@ local function navItems()
 	return items
 end
 
--- A sidebar click: a group's header folds or opens it, a page opens.
+-- A sidebar click: a group's header folds or opens it, a page opens. The
+-- grouped layout's tree takes its own keys (a tab, a pin, the profile).
 local function navSelect(key)
+	if O.Grouped and O.Grouped.NavSelect(key) then return end
 	if type(key) == "string" and key:sub(1, #GROUP_PREFIX) == GROUP_PREFIX then
 		local folded = navState().folded
 		local g = key:sub(#GROUP_PREFIX + 1)
@@ -3212,7 +3732,7 @@ local function navSelect(key)
 end
 
 function O.RefreshNav()
-	if win then W.ShellNav(win, navItems(), query == "" and current and current.key or nil, navSelect) end
+	if win then W.ShellNav(win, navItems(), O.Grouped and O.Grouped.NavKey() or (query == "" and current and current.key or nil), navSelect) end
 end
 
 -- -> page, the tab an old page key points at (nil: the page's first). A
@@ -3240,18 +3760,42 @@ end
 -- its row on screen or not. A row a mode hides keeps its setting all the
 -- same (the trail dots while route lines are on; Dungeons in my route while
 -- no guide has a dungeon), and the page is all at its defaults after, as its
--- dialog says. A reference counts once it has its home; a key with no
--- default (its module not loaded) holds nothing to put back.
-local function pageKeys(p)
-	local keys = {}
-	for _, t in ipairs(p.tabs) do
-		for _, s in ipairs(t.sections) do
-			for _, c in ipairs(allSettings(s)) do
-				if c.key and not (rawget(c, "ref") and not homeOf(c)) and ns.GetDefault(c.key) ~= nil then keys[#keys + 1] = c.key end
+-- dialog says. A reference counts where its home is, on this page or not at
+-- all; a key with no default (its module not loaded) holds nothing to put
+-- back. -> keys, the controls of state that is no setting (toggles,
+-- sliders, dropdowns and cards with no key)
+local pageKeys
+do
+	-- Whether setting spec c, met on page p, is another page's: a reference
+	-- with no home yet or its home on another page, or a home's extra a
+	-- reference shows (Reset page leaves it to that page; a reference to a
+	-- row of its own page, Essentials, counts).
+	local function elsewhere(c, p)
+		if rawget(c, "ref") then
+			local home = homeOf(c)
+			return not home or rawget(home, "page") ~= p
+		end
+		local at = rawget(c, "page")
+		return at ~= nil and at ~= p
+	end
+
+	function pageKeys(p)
+		local keys, state = {}, {}
+		for _, t in ipairs(p.tabs) do
+			for _, s in ipairs(t.sections) do
+				for _, c in ipairs(allSettings(s)) do
+					if not elsewhere(c, p) then
+						if c.key then
+							if ns.GetDefault(c.key) ~= nil then keys[#keys + 1] = c.key end
+						elseif (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and c.set and available(c) then
+							state[#state + 1] = c
+						end
+					end
+				end
 			end
 		end
+		return keys, state
 	end
-	return keys
 end
 
 -- Does the page show a setting now (the footer offers Reset page)? A page
@@ -3332,25 +3876,73 @@ function Undo.same(a, b)
 	return a == b
 end
 
--- The chip, left of the footer's right-hand buttons in place of the thanks
--- line while it shows.
-function Undo.place()
-	local chip = rawget(win, "UndoChip")
-	if not (chip and chip:IsShown()) then return end
-	local anchor
-	for _, fb in ipairs(win.footerButtons.right) do if fb:IsShown() then anchor = fb end end
-	chip:ClearAllPoints()
-	if anchor then chip:SetPoint("RIGHT", anchor, "LEFT", -16, 0) else chip:SetPoint("RIGHT", win.Footer, "RIGHT", -SH.pad, 0) end
-	chip:SetWidth(12 + 6 + math.ceil(chip.Text:GetStringWidth()) + 4 + chip.Undo:GetWidth())
-	local thanks = rawget(win, "ThanksLink")
-	if thanks then thanks:Hide() end
+-- The rows a reset put back (Undo.paths: path -> true), each with an Undo
+-- link after its label while the chip shows on the new page.
+Undo.links = {}
+function Undo.rowLinks(on)
+	for w in pairs(Undo.links) do w.UndoB:Hide() end
+	Undo.links = {}
+	if not (on and Undo.paths) then return end
+	local view = O.view
+	for c, w in pairs(view and view.cache or {}) do
+		if type(c) == "table" and c.key and Undo.paths[c.key] and w:IsShown() and rawget(w, "Label") then
+			local b = rawget(w, "UndoB")
+			if not b then
+				b = W.Link(w, L["Undo"], function() O.Undo() end)
+				b.psTip, b.psTipLines = L["Undo"], { L["Puts back what that reset changed."] }
+				b.Icon = W.Tex(b, "ARTWORK", "reset", "accent")
+				b.Icon:SetSize(10, 10)
+				b.Icon:SetPoint("LEFT", b, "LEFT", 0, 0)
+				b.Label:ClearAllPoints()
+				b.Label:SetPoint("LEFT", b, "LEFT", 14, 0)
+				b:SetWidth(b:GetWidth() + 14)
+				b:SetFrameLevel(w:GetFrameLevel() + 4)
+				w.UndoB = b
+			end
+			b:ClearAllPoints()
+			b:SetPoint("LEFT", w.Label, "LEFT", math.ceil(w.Label:GetStringWidth()) + 8, 0)
+			b:Show()
+			Undo.links[w] = true
+		end
+	end
 end
 
+-- Where the chip stands while it shows: in the footer, left of its
+-- right-hand buttons (the current page); in the header beside the page's
+-- crumb (the new page), and then on each row the reset put back too.
+function O.UndoAnchor(frame)
+	frame = frame or win
+	local chip = frame and rawget(frame, "UndoChip")
+	if not chip then return end
+	local new = O.Grouped and O.Grouped.On() or false
+	local parent = new and frame.Header or frame.Footer
+	if chip:GetParent() ~= parent then
+		chip:SetParent(parent)
+		chip:SetFrameLevel(parent:GetFrameLevel() + 5)
+	end
+	Undo.rowLinks(new and chip:IsShown())
+	if not chip:IsShown() then return end
+	chip:SetWidth(12 + 6 + math.ceil(chip.Text:GetStringWidth()) + 4 + chip.Undo:GetWidth())
+	chip:ClearAllPoints()
+	if new then
+		chip:SetPoint("LEFT", frame.Title, "RIGHT", 16, 0)
+		-- The description after it makes room.
+		if rawget(frame, "HeaderTools") then frame.HeaderTools.Place() end
+		return
+	end
+	local anchor
+	for _, fb in ipairs(frame.footerButtons.right) do if fb:IsShown() then anchor = fb end end
+	if anchor then chip:SetPoint("RIGHT", anchor, "LEFT", -16, 0) else chip:SetPoint("RIGHT", frame.Footer, "RIGHT", -SH.pad, 0) end
+end
+
+function Undo.place() O.UndoAnchor(win) end
+
 function Undo.hide()
+	Undo.rowLinks(false)
 	local chip = rawget(win, "UndoChip")
 	if not (chip and chip:IsShown()) then return end
 	chip:Hide()
-	if rawget(win, "PlaceThanks") then win.PlaceThanks() end
+	if chip:GetParent() == win.Header and rawget(win, "HeaderTools") then win.HeaderTools.Place() end
 end
 
 function Undo.chip()
@@ -3385,6 +3977,8 @@ function Undo.offer(list)
 	end
 	if #kept == 0 then return end
 	Undo.list = kept
+	Undo.paths = {}
+	for _, u in ipairs(kept) do if u.path then Undo.paths[u.path] = true end end
 	Undo.seq = Undo.seq + 1
 	local seq = Undo.seq
 	local chip = Undo.chip()
@@ -3403,7 +3997,7 @@ function Undo.offer(list)
 		if Undo.seq ~= seq or not chip:IsShown() then return end
 		Anim.To(chip, "alpha", 1, 0, Anim.SLOW, "out", function()
 			if Undo.seq == seq then
-				Undo.list = nil
+				Undo.list, Undo.paths = nil, nil
 				Undo.hide()
 			end
 		end)
@@ -3414,7 +4008,7 @@ end
 function O.Undo()
 	local list = Undo.list
 	if not list then return false end
-	Undo.list = nil
+	Undo.list, Undo.paths = nil, nil
 	Undo.seq = Undo.seq + 1
 	Undo.hide()
 	-- State that is no setting first: a preset's cards write the settings they
@@ -3440,22 +4034,23 @@ end
 
 local footerProfile
 local function renderFooter(p)
+	-- The new settings page has no footer (W.ShellSetFooter): Reload UI and
+	-- the resets are in its header.
+	if rawget(win, "psNoFooter") then
+		local _, active = profileNames()
+		footerProfile = active
+		Undo.place()
+		return
+	end
 	local left = {}
 	if p and pageShowsSetting(p) then
-		left[#left + 1] = { label = L["Reset page"], opts = { icon = "reset", ghost = true }, onClick = function()
+		left[#left + 1] = { label = L["Reset page"], opts = { ghost = true }, onClick = function()
 			W.Modal({ title = L["Reset this page?"], icon = "reset", danger = true, action = L["Reset page"],
 				text = string.format(L["Every setting on %s goes back to its default."], p.name),
 				onAccept = function() O.ResetPage(p) end })
 		end }
 	end
 	left[#left + 1] = { label = L["Reload UI"], onClick = function() if ReloadUI then ReloadUI() end end, opts = { icon = "reload", ghost = true } }
-	-- Unlock mode (ns.Movers): every movable frame shows a mover to drag.
-	if ns.Movers and ns.Movers.Unlock then
-		-- Unlocking hides this window and brings it back on Lock (UI/Movers.lua).
-		left[#left + 1] = { label = L["Move frames"], opts = { icon = "lock", ghost = true }, onClick = function()
-			ns.Movers.Unlock()
-		end }
-	end
 	local right = { { label = L["Close"], onClick = function() win:Hide() end } }
 	local names, active = profileNames()
 	footerProfile = active
@@ -3463,7 +4058,6 @@ local function renderFooter(p)
 		right[#right + 1] = { label = string.format(L["Profile: %s"], profileLabel(active)), opts = { icon = "layers", ghost = true }, onClick = profileMenu }
 	end
 	W.ShellFooter(win, left, right)
-	if rawget(win, "PlaceThanks") then win.PlaceThanks() end
 	Undo.place()
 	if Fold.state then win.Footer:Hide() end
 end
@@ -3472,22 +4066,16 @@ function O.ResetPage(p)
 	-- What the page holds, for Undo, before anything changes: a setting's reset
 	-- can move state that is no setting (the guide window shown again resumes
 	-- a pause).
-	local held, state = {}, {}
-	for _, t in ipairs(p.tabs) do
-		for _, s in ipairs(t.sections) do
-			for _, c in ipairs(allSettings(s)) do
-				if (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and not c.key and c.set and available(c) then
-					state[#state + 1] = c
-					if c.get then held[#held + 1] = { get = c.get, set = c.set, value = c.get() } end
-				end
-			end
-		end
+	local held = {}
+	local keys, state = pageKeys(p)
+	for _, c in ipairs(state) do
+		if c.get then held[#held + 1] = { get = c.get, set = c.set, value = c.get() } end
 	end
 	-- One batch: the look, the rows and the preview worked out again once at
 	-- its end (ns.Batch), not once per setting; a setting at its default
 	-- already is left alone.
 	ns.Batch(function()
-		for _, key in ipairs(pageKeys(p)) do
+		for _, key in ipairs(keys) do
 			local was = ns.GetStored(key)
 			if was ~= nil then
 				held[#held + 1] = { path = key, value = was }
@@ -3503,6 +4091,84 @@ function O.ResetPage(p)
 		end
 	end
 	Undo.offer(held)
+end
+
+-- Asked first, naming the page: every setting on it back to its default.
+-- -> whether it asked (a page that shows no setting has nothing to reset)
+function O.AskResetPage(p)
+	if not (p and pageShowsSetting(p)) then return false end
+	W.Modal({ title = L["Reset this page?"], icon = "reset", danger = true, action = L["Reset page"],
+		text = string.format(L["Every setting on %s goes back to its default. Other pages keep theirs."], p.name or ""),
+		onAccept = function() O.ResetPage(p) end })
+	return true
+end
+
+-- What the profile in use holds off its default, as Undo holds it:
+-- { { path, value } } by path. A list (a colour) is one setting; any other
+-- table (a section, a record) is its fields. A value stored equal to
+-- its default is left out.
+local function storedSettings()
+	local out = {}
+	local function walk(t, prefix, depth)
+		for k, v in pairs(t) do
+			if type(k) == "string" then
+				local path = prefix and (prefix .. "." .. k) or k
+				-- Off its default as the Changed filter counts it (offDefault):
+				-- a value stored equal to its default is nothing to reset.
+				local off = ns.GetDefault(path) == nil or W.Modified(path)
+				if type(v) ~= "table" then
+					if off then out[#out + 1] = { path = path, value = v } end
+				elseif next(v) ~= nil then
+					-- A section (its defaults a table of fields too) or a record with no default: its fields.
+					local d = ns.GetDefault(path)
+					if depth < 8 and v[1] == nil and (d == nil or (type(d) == "table" and d[1] == nil)) then
+						walk(v, path, depth + 1)
+					elseif off then
+						out[#out + 1] = { path = path, value = v }
+					end
+				end
+			end
+		end
+	end
+	walk(ns.DB().settings, nil, 0)
+	table.sort(out, function(a, b) return a.path < b.path end)
+	return out
+end
+
+-- Every setting of the profile in use back to its default (other profiles
+-- and the account's window state are kept). -> what it held, for Undo.offer
+function O.ResetAll()
+	local held = storedSettings()
+	if ns.ResetSettings then ns.ResetSettings() end
+	return held
+end
+
+-- Asked first: the profile in use is what goes back, and the dialog says
+-- whose it is; one the whole account or a class uses asks for a word first.
+-- With nothing changed it says so and offers no reset.
+function O.AskResetAll()
+	local P = ns.Profiles
+	local name = P and P.Active and P.Active()
+	local label = name and P.Label and P.Label(name) or ""
+	if #storedSettings() == 0 then
+		W.Modal({ title = L["Reset all settings?"], icon = "reset", text = L["Nothing to reset"], noAction = true, cancel = L["Close"] })
+		return
+	end
+	local account = name ~= nil and P.AccountProfile and P.AccountProfile() == name
+	local classes = 0
+	local map = ns.DB().classProfiles
+	for _, n in pairs(type(map) == "table" and map or {}) do if n == name then classes = classes + 1 end end
+	local text
+	if account then
+		text = string.format(L["Every setting of the profile %s goes back to its default, for every character on the account that uses it. Your guides and progress are kept."], label)
+	elseif classes > 0 then
+		text = string.format(L["Every setting of the profile %s goes back to its default, for every character of the classes that use it. Your guides and progress are kept."], label)
+	else
+		text = string.format(L["Every setting of the profile %s, this character's, goes back to its default. Your guides and progress are kept."], label)
+	end
+	W.Modal({ title = L["Reset all settings?"], icon = "reset", danger = true, action = L["Reset all"], text = text,
+		typeToConfirm = (account or classes > 0) and L["RESET"] or nil,
+		onAccept = function() Undo.offer(O.ResetAll()) end })
 end
 
 -- The tab last opened on each page (PolestarDB.optionsTab, account-wide,
@@ -3662,7 +4328,6 @@ function O.Fold(on)
 		for _, c in ipairs({ win.Sidebar:GetChildren() }) do away(c) end
 		away(win.Status)
 		away(rawget(win, "Grip"))
-		away(rawget(win, "ThanksLink"))
 		O.HideMore()
 		W.HideMenu()
 		win:SetHeight(SH.header + 2)
@@ -3671,7 +4336,6 @@ function O.Fold(on)
 		Fold.state = nil
 		win:SetHeight(f.h)
 		for _, c in ipairs(f.hidden) do c:Show() end
-		if rawget(win, "PlaceThanks") then win.PlaceThanks() end
 	end
 	Fold.paint()
 	return Fold.state ~= nil
@@ -3717,6 +4381,8 @@ function O.Select(key, tabName)
 	if Fold.state then O.Fold(false) end
 	local cue = rawget(win, "psCallout")
 	if cue and cue.psCog then cue:Hide() end
+	-- The grouped layout (UI/Grouped.lua), while the player has it on.
+	if O.Grouped and O.Grouped.Select(key, tabName) then return end
 	local p, aliasTab = pageByKey(key)
 	p = p or pageList[1]
 	tabName = tabName or aliasTab or tabMemory()[p.key]
@@ -3781,6 +4447,7 @@ function O.SetQuery(text)
 	end
 	O.Dropdown.Hide()
 	hideViews()
+	if O.Grouped then O.Grouped.Searching() end
 	W.ShellNav(win, navItems(), nil, navSelect)
 	renderSearch()
 	renderFooter(nil)
@@ -3814,6 +4481,7 @@ end
 function O.Jump(c)
 	local p = c and c.page
 	if not (win and p) then return nil end
+	if O.Grouped and O.Grouped.On() then return O.Grouped.Jump(c) end
 	O.Select(p.key, c.tab or "")
 	local view = O.view
 	if not (view and view.cache) then return nil end
@@ -3821,6 +4489,9 @@ function O.Jump(c)
 	local row = c
 	while row.psOwner do row = row.psOwner end
 	local w, top = view.cache[row], nil
+	-- A child while its parent is off: the parent's row.
+	local kidOf = rawget(row, "psChildOf")
+	if kidOf and not (w and w:IsShown()) and view.cache[kidOf] then w = view.cache[kidOf] end
 	if w then
 		top = w.psTop
 	elseif view.extras[c] then
@@ -3868,6 +4539,7 @@ end
 -- first tab or the previous page's last (LB / RB on a gamepad).
 function O.StepTab(delta)
 	if not win then return end
+	if O.Grouped and O.Grouped.StepTab(delta) then return end
 	local list, at = {}, nil
 	for _, p in ipairs(pageList) do
 		if pageShown(p) then
@@ -4050,23 +4722,18 @@ function O.Go(d)
 end
 
 ---------------------------------------------------------------------------
--- The window's size: 1300 x 946 screen pixels (and more on a screen taller
+-- The window's size: 1680 x 946 screen pixels (and more on a screen taller
 -- than 1440 pixels, in 5 % steps) at the default Menu scale, whatever the UI
 -- scale, until the player drags the grip (ui.optionsSize: { w, h } in the
 -- window's own units; false: the default).
 -- Never past the screen, never under SIZE.MIN_W x SIZE.MIN_H (the screen allowing).
 ---------------------------------------------------------------------------
 
-SIZE.BASE_W, SIZE.BASE_H, SIZE.MIN_W, SIZE.MIN_H, SIZE.EDGE = 1300, 946, 860, 560, 16
+SIZE.MIN_W, SIZE.MIN_H, SIZE.EDGE = W.SHELL_MIN_W, W.SHELL_MIN_H, 16
 
--- -> the default size, in UIParent units
+-- -> the default size, in UIParent units (W.ShellDefaultSize)
 function O.DefaultSize()
-	local _, ph = 0, 0
-	if GetPhysicalScreenSize then _, ph = GetPhysicalScreenSize() end
-	local uh = UIParent:GetHeight()
-	local perUnit = (ph and ph > 0 and uh and uh > 0) and ph / uh or 1
-	local k = max(1, floor((ph or 0) / 1440 * 20 + 0.5) / 20)
-	return floor(SIZE.BASE_W * k / perUnit + 0.5), floor(SIZE.BASE_H * k / perUnit + 0.5)
+	return W.ShellDefaultSize()
 end
 
 -- -> minW, minH, maxW, maxH in the window's units (its Menu scale applied)
@@ -4099,10 +4766,6 @@ local function applySize()
 	if win:GetWidth() == w and win:GetHeight() == h then return false end
 	win:SetSize(w, h)
 	W.ShellLayout(win)
-	-- The footer's thanks and the header's Install for the main column's new
-	-- width (a size change's own hook may run before the shell has measured it).
-	if rawget(win, "PlaceThanks") then win.PlaceThanks() end
-	if rawget(win, "PlaceInstall") then win.PlaceInstall() end
 	return true
 end
 
@@ -4116,6 +4779,7 @@ local function relayout()
 		renderSearch()
 		return
 	end
+	if O.Grouped and O.Grouped.Relayout() then return end
 	local view = O.view
 	if view and view:IsShown() and view.Refresh then
 		local scroll = win.Scroll:GetVerticalScroll()
@@ -4137,14 +4801,17 @@ local function refreshMarks()
 	local items = navItems()
 	local sig = {}
 	for i, it in ipairs(items) do
-		sig[i] = (it.key or "") .. (it.changed and "*" or "") .. (it.new or "") .. (it.dot and "!" or "") .. (it.folded and "-" or "")
+		sig[i] = (it.key or "") .. (it.changed and "*" or "") .. (it.new == true and "+" or tonumber(it.new) or "") .. (it.dot and "!" or "") .. (it.folded and "-" or "")
+			.. (it.count ~= nil and ("#" .. tostring(it.count)) or "") .. (it.label or "")
 	end
 	sig = table.concat(sig, "|")
 	if sig ~= navSig then
 		navSig = sig
-		W.ShellNav(win, items, query == "" and current and current.key or nil, navSelect)
+		W.ShellNav(win, items, O.Grouped and O.Grouped.NavKey() or (query == "" and current and current.key or nil), navSelect)
 	end
-	if query == "" and O.view and O.view:IsShown() and O.view.psTab and O.view.psTab.preview then
+	-- The new page places its tab's preview in its side card (UI/Grouped.lua).
+	local newPage = O.Grouped and O.Grouped.On()
+	if query == "" and not newPage and O.view and O.view:IsShown() and O.view.psTab and O.view.psTab.preview then
 		placePreview(O.view, O.view.psTab, true)
 	end
 	local _, active = profileNames()
@@ -4157,8 +4824,9 @@ end
 local function build()
 	win = W.Shell("PolestarOptions", {
 		-- The box takes a question as well as a word: the longest wording that fits shows.
-		title = GUIDE, tagline = L["Settings"], scalePath = "ui.menuScale",
-		searchPlaceholder = { L["Ask or search: how do I hide the arrow?"], L["Ask or search settings"], L["Search settings"] },
+		title = GUIDE, tagline = L["Settings"], scalePath = "ui.menuScale", scaleBase = W.SETTINGS_SCALE_BASE,
+		scaleLabel = L["Settings scale"], scaleTip = L["The settings window only; applies when you let go. Right-click to reset."],
+		searchPlaceholder = { L["Ask or search: how do I hide the arrow?"], L["Ask or search settings"], L["Search settings"], L["Search"] },
 		headerSearch = true,
 		-- Typing opens the dropdown under the box; the page stays until a row
 		-- is picked, or Enter or See all opens the results page. An emptied
@@ -4181,39 +4849,16 @@ local function build()
 	O.Dropdown.Attach(win)
 	applySize()
 	UI.Report.SidebarLink(win)
-	-- "Special thanks to" sits in the footer, left of its right-hand buttons
-	-- (the header holds the search), while it fits between them and the
-	-- left-hand ones with room to spare; a window too narrow for it (its
-	-- least width, a long translation) leaves it out rather than let it run
-	-- over them. Placed again as the window's size or the buttons change.
-	win.psPlaceThanks = function(b)
-		local anchor, used = nil, 2 * SH.pad
-		for _, side in ipairs({ "left", "right" }) do
-			for _, fb in ipairs(win.footerButtons[side]) do
-				if fb:IsShown() then
-					used = used + fb:GetWidth() + 8
-					if side == "right" then anchor = fb end
-				end
-			end
-		end
-		if anchor then
-			b:SetPoint("RIGHT", anchor, "LEFT", -16, 0)
-		else
-			b:SetPoint("RIGHT", win.Footer, "RIGHT", -SH.pad, 0)
-		end
-		-- The footer runs the main column's width (the shell's own number: the
-		-- footer's anchored rect may not be laid out yet as the window opens).
-		local room = tonumber(rawget(win, "psMainW")) or win.Footer:GetWidth()
-		-- The reset's Undo stands there while it shows.
-		local chip = rawget(win, "UndoChip")
-		b:SetShown((b.Name:GetText() or "") ~= "" and used + 16 + b:GetWidth() <= room and not (chip and chip:IsShown()))
-	end
-	UI.Thanks.HeaderLink(win)
+	-- Special thanks is on About (under the credits), not in the footer, where
+	-- it pulled the eye from the page.
 	-- A row's right-click reset (W.ResetSetting) offers its Undo too.
 	W.OnReset(Undo.offer)
 	-- Peek (held down) and Fold in the header, between the search and the
 	-- scale (W.HeaderScale lays the header's tools out right to left).
-	local peekB = W.IconButton(win.Header, "eye", 24, L["Peek"], nil, 15)
+	-- The header's icon tools: one 24 box, one 16 glyph (W.HEAD_GLYPH, UI/Kit.lua), so
+	-- their ink reads at one size (a 12 or 14 glyph shrinks the 32px art past
+	-- half, and its strokes break up).
+	local peekB = W.IconButton(win.Header, "eye", 24, L["Peek"], nil, W.HEAD_GLYPH)
 	peekB.psTipLines = { L["Hold it down to see what the window covers."] }
 	peekB:HookScript("OnMouseDown", function(_, button) if button == "LeftButton" then O.Peek(true) end end)
 	peekB:HookScript("OnMouseUp", function() O.Peek(false) end)
@@ -4222,12 +4867,22 @@ local function build()
 	-- Peek and Fold a pair, close together.
 	peekB.psHeadGap = 4
 	win.PeekButton = peekB
-	local foldB = W.IconButton(win.Header, "chevron-up", 24, L["Fold"], function() O.Fold(not Fold.state) end, 12)
+	local foldB = W.IconButton(win.Header, "chevron-up", 24, L["Fold"], function() O.Fold(not Fold.state) end, W.HEAD_GLYPH)
 	win.FoldButton = foldB
 	Fold.paint()
 	win.psHeadTools = win.psHeadTools or {}
 	table.insert(win.psHeadTools, 1, foldB)
 	table.insert(win.psHeadTools, 2, peekB)
+	-- Move frames, left of Peek: unlock mode (ns.Movers) with no frame
+	-- picked. The window steps aside and comes back where it was when the
+	-- mode ends (O.MoveFrame).
+	if ns.Movers and ns.Movers.Unlock then
+		local moveB = W.IconButton(win.Header, "move", 24, L["Move frames"], function() O.MoveFrame(nil) end, W.HEAD_GLYPH)
+		moveB.psTipLines = { L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] }
+		moveB.psHeadGap = 4
+		win.MoveButton = moveB
+		table.insert(win.psHeadTools, 3, moveB)
+	end
 	if rawget(win, "HeaderTools") then win.HeaderTools.Place() end
 	win:HookScript("OnHide", function()
 		O.Peek(false)
@@ -4250,27 +4905,8 @@ local function build()
 	nudge:Hide()
 	win.NavMore = nudge
 	win.NavScroll.psOnScroll = function(_, cur, range) nudge:SetShown(range > 0 and cur < range - 1) end
-	-- Install from the header, left of the search: the first run's setup,
-	-- again whenever the player wants it (UI/Welcome.lua over this window).
-	-- A window too narrow for it beside the page's title (under SIZE.INSTALL_ROOM
-	-- of main column) leaves it out: About and the search still have it.
-	win.Install = W.Button(win.Header, L["Install"], function() ns.Fire("SHOW_WELCOME") end, { ghost = true, icon = "palette" })
-	win.Install.psTip = L["Install"]
-	win.Install.psTipLines = { L["Set Polestar up again, a page at a time. Each choice works at once."] }
-	local function placeInstall()
-		local room = tonumber(rawget(win, "psMainW")) or 0
-		win.Install:SetShown(room >= SIZE.INSTALL_ROOM)
-		if rawget(win, "HeaderTools") then win.HeaderTools.Place() end
-	end
-	if rawget(win, "psHeadTools") then
-		win.psHeadTools[#win.psHeadTools + 1] = win.Install
-		win.PlaceInstall = placeInstall
-		placeInstall()
-	end
-	win:HookScript("OnSizeChanged", function()
-		if rawget(win, "psHeadTools") then placeInstall() end
-		win.PlaceThanks()
-	end)
+	-- Install (UI/Welcome.lua) is on About ("Set Polestar up again") and in the
+	-- search, not in the header, where it read as installing the addon.
 	-- After the shell's own scale handler: the size follows the scale's room.
 	ns.On("SETTING_CHANGED", function(path)
 		-- A live change (a slider dragged) settles with a plain one: the marks, the
@@ -4417,6 +5053,29 @@ end
 
 -- Every module's registrations, now and later.
 W.OnOptionsRegistered(function(spec) add(spec, false) end)
+
+-- What the grouped layout (UI/Grouped.lua) draws the same rows with: the
+-- registry and this file's own pieces, so its pages are these rows in
+-- other places, never copies.
+O.Kit = {
+	pages = pageList, pageList = pageList, groups = GROUPS, shownTabs = shownTabs, available = available, labelOf = labelOf, visible = visible, sectionSettings = sectionSettings,
+	sectionShown = sectionShown, shownSig = shownSig, whyOff = whyOff, disabledOf = disabledOf, choicesOf = choicesOf, rowIsNew = rowIsNew, newer = newer,
+	seenTable = seenTable, homeSettings = homeSettings, groupOf = groupOf, viewTables = viewTables,
+	layoutSections = layoutSections, rowOf = rowOf, introRoom = introRoom, buildView = buildView, hideViews = hideViews,
+	renderFooter = renderFooter, pageByKey = function(key) return pageByKey(key) end,
+	window = function() return win end, query = function() return query end,
+	searchView = function() return searchView end,
+	pageShowsSetting = pageShowsSetting,
+	clearQuery = function()
+		if query ~= "" or (win.Search:GetText() or "") ~= "" then
+			query = ""
+			setBoxText("")
+		end
+	end,
+	current = function() return current, currentTab end,
+	profileNames = profileNames, profileLabel = profileLabel, profileMenu = profileMenu,
+	setCurrent = function(p, t) current, currentTab = p, t end,
+}
 
 -- Polestar resumes by itself on the way out (Core/Pause.lua), maybe
 -- with a page open: the toggles of state that is no setting repaint, as

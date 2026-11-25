@@ -5,10 +5,11 @@
 -- "lookup/pickup/<key>", opened in a new tab, rebuilt after /reload.
 --
 --   Dungeons.PickupPlan(key, offer) -> plan | nil, reason
---       offer: the heads-up's rule (UI/DungeonToast.lua; the guide it opens):
---       a quest more than one level above the character (Dungeons.OFFER_MARGIN)
---       waits for its level less one, as `later`; without it (the dungeon's
---       page) every quest the game gives now or by the dungeon's lowest level.
+--       offer: the heads-up's rule (UI/DungeonToast.lua: whether a dungeon
+--       is due): a quest more than one level above the character
+--       (Dungeons.OFFER_MARGIN) waits for its level less one, as `later`;
+--       without it (the pick-up guide, however it is opened) every quest the
+--       game gives now or by the dungeon's lowest level.
 --       plan = { dungeon, take = { { quest, rec, giver, pre = { rec, ... } } }, carried = { quest, ... },
 --         done = n, later = n, waiting = { { quest, level, needs = rec | nil } }, closedBy = { [questId] = { questId } },
 --         breadcrumbs = { { id, targets = { questId }, detour = seconds | nil, far, sea, taken } } | nil }
@@ -68,9 +69,10 @@
 --   Dungeons.OfferLevel(pq, rec) -> level   -- the level the heads-up offers page quest pq from
 --   Dungeons.PreDone(rec) -> bool   -- every prerequisite of Codex quest rec done (all of `pre`, one of `preAny`)
 --   Dungeons.PickupGuide(key) -> def | nil, reason   -- "nothing" when there is nothing to take;
---       the offer rule when the heads-up opened it (CharState().pickupOffer[key])
---   Dungeons.PickUp(key, offer) -> guideId | nil, reason    -- builds, registers and opens it in a new tab
---       (offer: from the heads-up, kept for the rebuild after /reload; the page's button clears it)
+--       every quest the game gives now: a player who opens it chose the run, so
+--       a quest two levels up comes along (Fitz, #3063: Corruption of Earth and
+--       Seed at 49, which the heads-up's rule held back to 50)
+--   Dungeons.PickUp(key) -> guideId | nil, reason    -- builds, registers and opens it in a new tab
 --   Dungeons.PickupLabel(plan) -> text   -- the button: "Pick up the quests", with the quests that
 --       wait "(3 now · 2 at level 16)", none open now "Pick up the quests from level 16"
 --   Dungeons.WaitingLines(plan) -> { text }   -- one per waiting quest: why it waits (its level,
@@ -88,9 +90,11 @@
 --       A Recipe For Death's steps said they were there for the Ruins of
 --       Lordaeron's The New Plague).
 --   The pick-up guide's first goal also says how many of its steps are such
---   prerequisites and about how long they take: "Prerequisite quests: 5 of 10
---   steps, about 1 h 15 min." (Dungeons.PrereqTime of Dungeons.PrereqSeconds
---   summed; rounded to 5 minutes).
+--   prerequisites and about how long they take: "5 of this guide's 10 steps
+--   are prerequisite quests (about 1 h 15 min)." (Dungeons.PrereqTime of
+--   Dungeons.PrereqSeconds summed; rounded to 5 minutes). It once read
+--   "Prerequisite quests: 7 of 10 steps", which players took for their
+--   progress through the guide (#2709).
 --   Dungeons.PrereqSeconds(step, rec, pos) -> seconds   -- a prerequisite step's rough time:
 --       the travel from `pos` through the step's goal points in order (its
 --       giver, the places of its objectives, its turn-in: LK().Travel) times
@@ -866,8 +870,8 @@ function Dungeons.PickupPlan(key, offer)
 				-- never comes to the pick-up guide: it does not wait for it.
 				if Dungeons.Giver(pq, from, rec) or Dungeons.DropPoint(key, pq, from, rec) then wait(pq, (rec and rec.minLevel) or pq.minLevel) end
 			elseif offer and Dungeons.OfferLevel(pq, rec) > (p.level or 1) then
-				-- Offered (the heads-up's guide): one more than a level above
-				-- the character waits for its level less one.
+				-- By the heads-up's rule: one more than a level above the
+				-- character waits for its level less one.
 				if Dungeons.Giver(pq, from, rec) or Dungeons.DropPoint(key, pq, from, rec) then wait(pq, Dungeons.OfferLevel(pq, rec)) end
 			else
 				-- No giver: an item that drops outside starts it, once its
@@ -1029,11 +1033,21 @@ local function acceptGoal(pq, rec, g)
 		goal.candidates = rec and LK().GiverCandidates(rec.start, g) or nil
 	end
 	goal.z = LK().SpawnZ(g.kind == "object" and "object" or "npc", g.id, g)
-	return goal
+	-- One of a set its giver offers one at a time (the Codex's rotation, #3601: Pix Xizzix's weekly In Demand
+	-- quests): optional, so the guide never waits on one not offered this week, and its goal says so.
+	if rec and rec.rotation then
+		goal.optional = true
+		local text = format(L["%s offers one of these a week: take it if it is this week's."], g.name or L["Quest giver"])
+		goal.note = goal.note and (text .. " " .. goal.note) or text
+	end
+	-- A giver only the dead see: optional, and its goal says so (Lookup.GhostOnly, #558).
+	return LK().GhostOnly(goal)
 end
 
 -- Collect the item that starts a quest at drop point d (Dungeons.DropPoint):
--- the mob or object nearest the player that gives it.
+-- the mob or object nearest the player that gives it. A mob is named as the
+-- one to kill, as compiled goals' `from` does (#3718: "Collect Damp Note"
+-- left the Blackfathom Tide Priestesses unsaid).
 local function collectGoal(d)
 	local goal = { t = "collect", item = d.item, itemName = d.itemName, count = 1, map = d.map, x = d.x, y = d.y, f = d.f == "e" and "e" or nil }
 	if d.source == "object" then
@@ -1041,6 +1055,12 @@ local function collectGoal(d)
 	else
 		goal.npc, goal.npcName = d.id, d.name
 		goal.z = LK().SpawnZ("npc", d.id, d)
+		goal.from, goal.fromId, goal.fromKind = d.name, d.id, "npc"
+		local r = ns.Codex and ns.Codex.Npc(d.id)
+		if r then
+			goal.fromRank = (r.boss and 3) or (r.rare and r.elite and 2) or (r.elite and 1) or (r.rare and 4) or nil
+			if r.faction == "A" or r.faction == "H" or r.faction == "AH" then goal.fromFaction = r.faction end
+		end
 	end
 	return goal
 end
@@ -1864,24 +1884,8 @@ local function route(key, plan)
 	return steps, pre
 end
 
--- The dungeons whose pick-up guide the heads-up opened (the offer rule):
--- CharState().pickupOffer[key], kept so a rebuild after /reload matches.
-local function offered(key, set)
-	local st = ns.CharState()
-	if set ~= nil then
-		if set then
-			st.pickupOffer = st.pickupOffer or {}
-			st.pickupOffer[key] = true
-		elseif st.pickupOffer then
-			st.pickupOffer[key] = nil
-			if next(st.pickupOffer) == nil then st.pickupOffer = nil end
-		end
-	end
-	return st.pickupOffer ~= nil and st.pickupOffer[key] == true
-end
-
 function Dungeons.PickupGuide(key)
-	local plan, err = Dungeons.PickupPlan(key, offered(key))
+	local plan, err = Dungeons.PickupPlan(key)
 	if not plan then return nil, err end
 	if #plan.take == 0 then return nil, "nothing" end
 	local d = plan.dungeon
@@ -1929,17 +1933,18 @@ function Dungeons.PickupGuide(key)
 	-- the first goal, the first thing the window says.
 	local first = steps[1] and steps[1].goals and steps[1].goals[1]
 	if pre.n > 0 and first then
-		local head = format(L["Prerequisite quests: %d of %d steps, about %s."], pre.n, #steps, Dungeons.PrereqTime(pre.seconds))
+		local head = format(L["%d of this guide's %d steps are prerequisite quests (about %s)."], pre.n, #steps, Dungeons.PrereqTime(pre.seconds))
 		first.note = first.note and (head .. " " .. first.note) or head
 	end
 	return { title = format(L["%s: pick up the quests"], d.name), steps = steps, dungeon = key }
 end
 
-function Dungeons.PickUp(key, offer)
+function Dungeons.PickUp(key)
 	if not Dungeons.IsEnabled() then return nil, "off" end
 	local Lk = LK()
 	if not (Lk and Lk.Guide) then return nil, "missing" end
-	offered(key, offer and true or false)
+	-- Retired with the heads-up's own pick-up rule (#3063): which guides it had opened.
+	ns.CharState().pickupOffer = nil
 	return Lk.Guide(KIND, key)
 end
 
@@ -1979,7 +1984,7 @@ function Dungeons.LevelReached(level)
 	for _, w in ipairs(list) do
 		if not w.told and w.level <= level and not done(w.id) and not inLog(w.id) then
 			w.told = true
-			ns.Print(format(L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."], level, ns.Quoted(w.title) or ""))
+			ns.Notice(format(L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."], level, ns.Quoted(w.title) or ""))
 			local pt = Dungeons.GiverTarget(key, w.id)
 			if pt and located(pt) then
 				local r, g, b = 1, 0.82, 0

@@ -11,8 +11,8 @@
 ## Notes-frFR: Fait partie de Polestar : la fenêtre des réglages, ses pages d'apparence et leurs aperçus. Chargé à l'ouverture des réglages.
 ## Title-koKR: Polestar 설정
 ## Notes-koKR: Polestar의 일부: 설정 창과 모양 페이지, 그 미리 보기. 설정을 열 때 불러옵니다.
-## Title-ptBR: Polestar: opções
-## Notes-ptBR: Parte do Polestar: a janela de opções, suas páginas de aparência e as prévias delas. Carregado ao abrir as opções.
+## Title-ptBR: Polestar: configurações
+## Notes-ptBR: Parte do Polestar: a janela de configurações, suas páginas de aparência e as prévias delas. Carregado ao abrir as configurações.
 ## Title-ruRU: Polestar: настройки
 ## Notes-ruRU: Часть Polestar: окно настроек, его страницы оформления и их предпросмотр. Загружается при открытии настроек.
 ## Title-zhCN: Polestar 设置
@@ -20,7 +20,7 @@
 ## Title-zhTW: Polestar 設定
 ## Notes-zhTW: Polestar 的一部分：設定視窗、外觀頁面及其預覽。開啟設定時載入。
 ## Author: Polestar
-## Version: 0.4.2.2
+## Version: 0.4.3
 ## Category: Polestar
 ## Group: Polestar
 ## LoadOnDemand: 1
@@ -28,6 +28,7 @@
 ## X-License: GPL-3.0-only
 ## X-Website: https://github.com/fitzforge/polestar
 
+UI\Kit.lua
 UI\Controls.lua
 UI\Preview.lua
 Core\ProfileStrings.lua
@@ -56,3 +57,5 @@ QoL\ButtonsOptions.lua
 UI\Looks\Toasts.lua
 UI\Looks\Trackers.lua
 UI\Movers.lua
+UI\Grouped.lua
+UI\Essentials.lua

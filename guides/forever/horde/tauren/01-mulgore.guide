@@ -117,7 +117,7 @@ step Call of Earth
 # ---------------------------------------------------------------- Bloodhoof Village
 
 step Kaga Wildhoof
-  tip Follow the road north out of Red Cloud Mesa. Kaga Wildhoof waits on the road just south of Bloodhoof Village; /sit by her campfire until you get Boosted Rest. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof or on the Thunder Bluff stop.
+  tip Follow the road north out of Red Cloud Mesa. Kaga Wildhoof waits on the road just south of Bloodhoof Village; /sit by her campfire until you get Boosted Rest. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof, on the Thunder Bluff stop, or in the western Barrens for engineering.
   turnin 96659
   accept 96605
   complete 96605 @46.2,67.3 live      -- /sit by Kaga's campfire until you get Boosted Rest
@@ -183,6 +183,12 @@ step Camping 101: Tailoring
   when !knows 1229504
   tip Vhan takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97937                        -- Kaga Wildhoof: for Vhan
+
+step Camping 101: Engineering
+  when skill Engineering 1
+  when !knows 1230656
+  tip Twizwick Sprocketgrind takes it once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97930                        -- Kaga Wildhoof: for Twizwick Sprocketgrind, in the western Barrens
 
 step Bloodhoof Village
   accept 743                          -- Ruul Eagletalon
@@ -571,6 +577,13 @@ step Kirge Sternhorn
   tip Kirge Sternhorn stands at Camp Taurajo, where the road from Mulgore meets the Gold Road north to the Crossroads.
   accept 854                          -- Kirge Sternhorn: for Thork at the Crossroads
   getfp "Camp Taurajo" npc 10378      -- Omusa Thunderhorn, beside Kirge
+
+step Twizwick Sprocketgrind
+  when onquest 97930
+  when complete 97930
+  zone Mulgore
+  complete 97930 @58.65,39.38 map 1412 live
+  turnin 97930                        -- Twizwick Sprocketgrind: Camping 101: Engineering
 
 step The Crossroads
   zone The Barrens

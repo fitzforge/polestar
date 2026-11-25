@@ -6,16 +6,18 @@
 -- A token marked "no name in this language" would show in English: write that name in Korean words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:392} Ratchet · {zone:1454} Orgrimmar · {zone:1458} Undercity
+	["{area:392}, {zone:1454} and the {zone:1458}, then into the Plaguelands."] = "{area:392}, {zone:1454}, {zone:1458}, 그다음 역병지대로 갑니다.",
+
 	-- Step 1: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "{area:392}(으)로 날아가기",
-	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
 
 	-- Step 2: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
 	["Liv's workshop is at the north end of {area:392}'s docks; {object:149036} stands inside it."] = "리브의 작업장은 {area:392} 부두 북쪽 끝에 있으며, {object:149036}은(는) 그 안에 있습니다.",
-	["Inside"] = "",
+	["Inside"] = "내부",
 
 	-- Step 3: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
@@ -27,7 +29,7 @@ return {
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "{area:1637}(으)로 날아가기",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "{area:392} 비행 조련사",
 
 	-- Step 5: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
@@ -47,70 +49,74 @@ return {
 
 	-- Step 9: Vehena
 	-- {object:172961} Valley of Spirits
-	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
+	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{object:172961} 안. 기부마다 양모, 비단천, 마법천 60개가 필요합니다. 가진 만큼 제출하고 나머지는 건너뛰세요.",
 
 	-- Step 10: Rashona Straglash
 	-- {object:172958} Valley of Honor
 	["In the {object:172958}."] = "{object:172958}에 있습니다.",
 	-- {item:14047} Runecloth
-	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "",
+	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "두 {item:14047} 기부는 경로 뒤쪽에서 제출합니다. 원한다면 각각 {item:14047} 60개를 보관하세요.",
 
 	-- Step 11: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "성기사 상급자",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
-	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344}은(는) {zone:1456}에 있습니다. {zone:1454}에는 성전사 교관이 없습니다.",
 
 	-- Step 12: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["Fly to {zone:1454} and train."] = "",
+	["Fly to {zone:1454} and train."] = "{zone:1454}로 날아가 배우세요.",
 
 	-- Step 13: Into Durotar
 	-- {zone:1411} Durotar
-	["Into {zone:1411}"] = "",
+	["Into {zone:1411}"] = "{zone:1411}(으)로",
 
 	-- Step 14: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "{zone:1458}행 비행선",
 
 	-- Step 15: Chemist Cuely
+	-- {npc:8390} Chemist Cuely
+	["{npc:8390} works in the Apothecarium."] = "{npc:8390}은(는) 연금술 실험실에서 일합니다.",
+
+	-- Step 16: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
-	["{npc:8390} and {npc:8393} work in the Apothecarium."] = "",
+	["{npc:8390} and {npc:8393} work in the Apothecarium."] = "{npc:8390}과(와) {npc:8393}은(는) 연금술사 구역에서 일합니다.",
 	-- {npc:8393} Thersa Windsong
 	["{npc:8393}, beside him"] = "그 옆의 {npc:8393}",
 
-	-- Step 16: Andron Gant
+	-- Step 17: Andron Gant
 	-- {npc:6522} Andron Gant · {object:36073} Rogues' Quarter
 	["{npc:6522} stands in the {object:36073}."] = "{npc:6522}은(는) {object:36073}에 서 있습니다.",
 
-	-- Step 17: The Undercity
+	-- Step 18: The Undercity
 	-- {object:36126} Royal Quarter
 	["Lady Sylvanas holds the {object:36126}."] = "실바나스 여왕은 {object:36126}에 있습니다.",
 
-	-- Step 20: Jeremiah Payson
+	-- Step 21: Jeremiah Payson
 	-- {npc:8403} Jeremiah Payson
 	["{npc:8403}, nearby"] = "근처의 {npc:8403}",
 
-	-- Step 21: Jeremiah Payson
+	-- Step 22: Jeremiah Payson
 	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
 	["{quest:5050} goes back to {npc:10778} in the {zone:1422}: keep it."] = "{quest:5050}은(는) {zone:1422}의 {npc:10778}에게 돌아갑니다. 보관하세요.",
 
-	-- Step 22: Royal Quarter
+	-- Step 23: Royal Quarter
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
-	-- plural, as words: Library Books = {object:386691} Library Book
-	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "",
+	-- plural, as words: Library Books = {object:386759} Library Book
+	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "{area:159}의 연금술 상점에서 {quest:79095}을(를) 가방에 든 경우에만 (도서관 책 가이드)",
 
-	-- Step 24: The Bulwark
+	-- Step 25: The Bulwark
 	-- {zone:1458} Undercity · {area:152} The Bulwark · {zone:1422} Western Plaguelands
-	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "",
+	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "{zone:1458}에서 동쪽 도로를 따라 말을 타고 나가세요. {area:152}이(가) {zone:1422}으로 들어가는 길을 지킵니다.",
 	-- {npc:11615} Mickey Levine · {area:2627} Terrordale
 	["{npc:11615}: the termites are in {area:2627}, on the next guide"] = "{npc:11615}: 흰개미는 다음 가이드의 {area:2627}에 있습니다",
 
-	-- Step 26: Felstone Field
+	-- Step 27: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
-	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "",
+	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "{npc:10778}의 농장은 {area:152} 동쪽 첫 번째 농장입니다. 농장의 수다떨는 구울이 부적의 나머지 절반을 지니고 있고, {npc:11075}이(가) 들판의 가마솥을 지킵니다.\n주의: 보통 언데드 한두 마리가 그와 함께 싸우며, 가마솥을 사용한 뒤 다른 가마솥 군주가 나타날 수 있습니다.",
 
-	-- Step 27: Janice Felstone
+	-- Step 28: Janice Felstone
 	["Upstairs"] = "위층",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
@@ -147,6 +153,8 @@ return {
 	-- ["The zeppelin tower stands just north-east of {zone:1454}'s main gate; take the {zone:1458} zeppelin."] = "비행선 탑은 {zone:1454} 정문 바로 북동쪽에 있습니다. {zone:1458}행 비행선을 타세요.",
 	-- ["Xylem's tower stands on the cliff just north of {area:1237}: {npc:8395}, in {area:1237}, teleports you up for free (talk to him); otherwise the path winds up its north side."] = "자일렘의 탑은 {area:1237} 바로 북쪽 절벽 위에 있습니다. {area:1237}의 {npc:8395}에게 말을 걸면 무료로 순간이동시켜 줍니다. 아니면 북쪽 면의 구불구불한 길로 올라가세요.",
 	-- ["Zeppelin tower"] = "비행선 탑",
+	-- ["{area:1221}: kill these as you meet them"] = "{area:1221}: 만나는 대로 처치하세요",
+	-- ["{area:1237} flight master"] = "{area:1237} 비행 조련사",
 	-- ["{item:246680}, from the Blood Elf Arcanists"] = "블러드 엘프 비전술사에게서 얻는 {item:246680}",
 	-- ["{item:246721}, from {npc:246991}"] = "{npc:246991}에게서 얻는 {item:246721}",
 	-- ["{item:246722}, from {npc:247013}"] = "{npc:247013}에게서 얻는 {item:246722}",
@@ -162,4 +170,5 @@ return {
 	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050}은(는) {area:28}의 {npc:10778}에게 돌아갑니다. 보관하세요.",
 	-- ["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: {area:1237}의 {npc:8587}에게",
 	-- ["{zone:1454} flight master"] = "{zone:1454} 비행 조련사",
+	-- ["{zone:1456} flight master"] = "{zone:1456} 비행 조련사",
 }

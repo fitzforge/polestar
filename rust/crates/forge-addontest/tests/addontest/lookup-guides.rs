@@ -191,7 +191,7 @@ fn play(c: &Ctx, kind: &str, id: &Value, level: i64, setup: &str) -> (Value, Val
 		stubs: vec!["stub_world.lua"],
 		before: world(c, &format!("w.level = {level}\nw.moveTo({}, 50, 50)\n{setup}", c.home)),
 		addons: vec!["Polestar".into()],
-		script: PLAY.replace("@KIND@", &lua_value(&json!(kind))).replace("@ID@", &lua_value(id)).replace("@INDEX@", index) + SIMULATE,
+		script: PLAY.replace("@KIND@", &lua_value(&json!(kind))).replace("@ID@", &lua_value(id)).replace("@INDEX@", index) + SIMULATE.as_str(),
 		..Default::default()
 	});
 	let built = out.remove(0);

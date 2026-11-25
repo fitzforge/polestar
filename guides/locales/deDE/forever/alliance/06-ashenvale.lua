@@ -78,7 +78,7 @@ return {
 
 	-- Step 16: Ruuzel
 	-- {quest:1009} Ruuzel · {area:414} Zoram Strand
-	["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009} streift mit Wachen der Rächerflossen über die Nordspitze des {area:414}s.",
+	["{quest:1009} and his Wrathtail guards stand on the small islet just off the northern tip of the {area:414}: swim across to it."] = "{quest:1009} und seine Zornschwanzwachen stehen auf der kleinen Insel direkt vor der Nordspitze von {area:414}: Schwimm hinüber.",
 
 	-- Step 17: Blackfathom Deeps
 	-- {area:2797} Blackfathom Deeps · {npc:4787} Argent Guard Thaelrid · {zone:1457} Darnassus
@@ -346,7 +346,11 @@ return {
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine · {zone:1437} Wetlands
 	["For {npc:3649}, back in {area:442} (the {zone:1437} guide)"] = "",
 
-	-- Step 62: Cathedral Square
+	-- Step 62: Baros Alexston
+	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square
+	["Thundris' letter is already with {npc:1646}: his reply waits at the east side of {object:2098}."] = "Thundris' Brief ist schon bei {npc:1646}: Seine Antwort wartet auf der Ostseite von {object:2098}.",
+
+	-- Step 63: Cathedral Square
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:376} High Priestess Laurena
 	["The tram comes in at the {object:28027}; walk west to the {object:2098}. {npc:376} is in the Cathedral of Light."] = "Die Tiefenbahn kommt im {object:28027} an; geh nach Westen zum {object:2098}. {npc:376} ist in der Kathedrale des Lichts.",
 	-- {npc:376} High Priestess Laurena · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
@@ -356,19 +360,19 @@ return {
 	-- {npc:376} High Priestess Laurena · {npc:11401} Priestess Alathea · {zone:1457} Darnassus
 	["{npc:376}: {npc:11401} in {zone:1457} takes it, later"] = "{npc:376}: {npc:11401} in {zone:1457} nimmt sie an, später",
 
-	-- Step 63: Master Mathias Shaw
+	-- Step 64: Master Mathias Shaw
 	-- {object:2100} Old Town
 	["Mathias Shaw is at SI:7 in {object:2100}, south of the Keep."] = "Mathias Shaw ist bei SI:7 in {object:2100}, südlich der Burg.",
 	-- {npc:332} Master Mathias Shaw · {npc:7024} Agent Kearnen · {zone:1436} Westfall · {zone:1431} Duskwood
 	["{npc:332}: {npc:7024} in {zone:1436} takes it, at the end of {zone:1431}'s second loop"] = "{npc:332}: {npc:7024} in {zone:1436} nimmt sie an, am Ende der zweiten Runde durch den {zone:1431}",
 
-	-- Step 64: Collin Mauren
+	-- Step 65: Collin Mauren
 	-- {object:2164} The Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6122} Gakin the Darkbinder
 	["{object:2164} is in the {object:2101}. Warlocks: {npc:6122} is in its cellar."] = "{object:2164} ist im {object:2101}. Hexenmeister: {npc:6122} ist in dessen Keller.",
 	-- {npc:6122} Gakin the Darkbinder · {npc:6244} Takar the Seer · {zone:1413} Barrens
 	["{npc:6122}: {npc:6244} in the {zone:1413} takes it, later"] = "{npc:6122}: {npc:6244} in {zone:1413} nimmt sie an, später",
 
-	-- Step 65: Trade District
+	-- Step 66: Trade District
 	-- {zone:1453} Stormwind · {zone:1431} Duskwood
 	["Next: training in {zone:1453}, then the road east through Elwynn and south to {zone:1431}."] = "Als Nächstes: Training in {zone:1453}, dann die Straße nach Osten durch den Wald von Elwynn und nach Süden in den {zone:1431}.",
 
@@ -461,5 +465,6 @@ return {
 	-- ["{npc:4959} and {npc:482}"] = "{npc:4959} und {npc:482}",
 	-- ["{npc:4982}, in the Cathedral of Light"] = "{npc:4982}, in der Kathedrale des Lichts",
 	-- ["{object:2164} is in the {object:2101}."] = "{object:2164} ist in {object:2101}.",
+	-- ["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009} streift mit Wachen der Rächerflossen über die Nordspitze des {area:414}s.",
 	-- ["{zone:1455} priests"] = "Priester in {zone:1455}",
 }

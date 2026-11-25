@@ -3,6 +3,7 @@
  "_retired": {
 		"qol.trainAll": "0.3.7.1 removed trainer bulk purchases (Train All); a saved value is ignored and Polestar never buys at a trainer",
 		"qol.trainAllButton": "0.3.7.1 removed trainer bulk purchases (Train All button)",
+		"maps.flightArcade": "0.4.3 replaced Freedoom Arcade's offer on flights with the flight game picker (arcade.game); a profile that had the offer off offers no game",
 		"ui.pickerFaction": "0.4.0 removed the guide menu's faction filter (#2462): the menu lists the character's own side only; a saved value is ignored"
 	},
 	"0.3.6": [
@@ -89,7 +90,7 @@
   {
    "id": "action:POLESTAR_OPTIONS",
    "kind": "binding",
-   "label": "Open Polestar options",
+   "label": "Open Polestar settings",
    "at": [
     "Gamepad > Key bindings > Windows"
    ]
@@ -246,7 +247,7 @@
    "label": "Trainer reminders",
    "at": [
     "Guide > Automation > Guides",
-    "Quality of Life > Vendors > Trainers"
+    "Quality of Life > Leveling > Trainers"
    ]
   },
   {
@@ -1647,7 +1648,7 @@
    "kind": "toggle",
    "label": "Riding reminder",
    "at": [
-    "Quality of Life > Vendors > Trainers"
+    "Quality of Life > Leveling > Trainers"
    ]
   },
   {
@@ -1713,7 +1714,7 @@
    "kind": "toggle",
    "label": "Learn new spells",
    "at": [
-    "Quality of Life > Vendors > Trainers"
+    "Quality of Life > Leveling > Trainers"
    ]
   },
   {
@@ -2267,7 +2268,7 @@
    "kind": "button",
    "label": "Forget kept ranks",
    "at": [
-    "Quality of Life > Vendors > Trainers"
+    "Quality of Life > Leveling > Trainers"
    ]
   },
   {
@@ -2316,7 +2317,7 @@
    "kind": "toggle",
    "label": "New spells at level-up",
    "at": [
-    "Quality of Life > Vendors > Trainers"
+    "Quality of Life > Leveling > Trainers"
    ]
   },
   {
@@ -2324,7 +2325,7 @@
    "kind": "toggle",
    "label": "Old ranks on your bars",
    "at": [
-    "Quality of Life > Vendors > Trainers"
+    "Quality of Life > Leveling > Trainers"
    ]
   },
   {
@@ -2341,7 +2342,7 @@
    "kind": "toggle",
    "label": "Train all button",
    "at": [
-    "Quality of Life > Vendors > Trainers"
+    "Quality of Life > Leveling > Trainers"
    ]
   },
   {
@@ -2373,6 +2374,24 @@
   }
  ],
  "0.4.3": [
+  {
+   "id": "arcade.game",
+   "kind": "dropdown",
+   "label": "Game on flights",
+   "at": [
+    "Integrations > Flight arcade"
+   ]
+  },
+  {
+   "id": "ui.outlevelNotice",
+   "kind": "toggle",
+   "label": "Say when I've outlevelled a guide",
+   "at": [
+    "Guide > Automation > Guides"
+   ]
+  }
+ ],
+ "0.4.4": [
   {
    "id": "behavior.dungeons",
    "kind": "dropdown",

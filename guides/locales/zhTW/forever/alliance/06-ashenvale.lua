@@ -78,7 +78,7 @@ return {
 
 	-- Step 16: Ruuzel
 	-- {quest:1009} Ruuzel · {area:414} Zoram Strand
-	["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009}帶著怒尾守衛在{area:414}的北端走動。",
+	["{quest:1009} and his Wrathtail guards stand on the small islet just off the northern tip of the {area:414}: swim across to it."] = "{quest:1009}和他的怒尾衛兵站在{area:414}北端外的小島上：游過去。",
 
 	-- Step 17: Blackfathom Deeps
 	-- {area:2797} Blackfathom Deeps · {npc:4787} Argent Guard Thaelrid · {zone:1457} Darnassus
@@ -280,7 +280,7 @@ return {
 	-- Step 51: Rethiel the Greenwarden
 	-- {area:309} Ironbeard's Tomb · {npc:1244} Rethiel the Greenwarden · {zone:1437} Wetlands
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner
-	["Its flint comes from the Mosshide Fenrunners on the way to {area:309}; {npc:1244} takes it on your next {zone:1437} visit"] = "它的燧石出自前往{area:309}途中的苔皮沼奔者；下次{zone:1437}之行時交給{npc:1244}",
+	["Its flint comes from the Mosshide Fenrunners on the way to {area:309}; {npc:1244} takes it on your next {zone:1437} visit"] = "它的燧石出自前往{area:309}途中的蘚皮沼地行者；下次{zone:1437}之行時交給{npc:1244}",
 
 	-- Step 52: Ironbeard's Tomb
 	-- {npc:1244} Rethiel the Greenwarden · {area:309} Ironbeard's Tomb · {area:205} Dun Modr · {item:3349} Sida's Bag · {area:1025} The Green Belt
@@ -346,7 +346,11 @@ return {
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine · {zone:1437} Wetlands
 	["For {npc:3649}, back in {area:442} (the {zone:1437} guide)"] = "",
 
-	-- Step 62: Cathedral Square
+	-- Step 62: Baros Alexston
+	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square
+	["Thundris' letter is already with {npc:1646}: his reply waits at the east side of {object:2098}."] = "桑德里斯的信已經交給{npc:1646}：他的回信在{object:2098}東側等你。",
+
+	-- Step 63: Cathedral Square
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:376} High Priestess Laurena
 	["The tram comes in at the {object:28027}; walk west to the {object:2098}. {npc:376} is in the Cathedral of Light."] = "地鐵停在{object:28027}；向西走到{object:2098}。{npc:376}在光明大教堂裡。",
 	-- {npc:376} High Priestess Laurena · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
@@ -356,19 +360,19 @@ return {
 	-- {npc:376} High Priestess Laurena · {npc:11401} Priestess Alathea · {zone:1457} Darnassus
 	["{npc:376}: {npc:11401} in {zone:1457} takes it, later"] = "{npc:376}：由{zone:1457}的{npc:11401}接收，稍後",
 
-	-- Step 63: Master Mathias Shaw
+	-- Step 64: Master Mathias Shaw
 	-- {object:2100} Old Town
-	["Mathias Shaw is at SI:7 in {object:2100}, south of the Keep."] = "",
+	["Mathias Shaw is at SI:7 in {object:2100}, south of the Keep."] = "馬迪亞斯·肖爾在要塞南邊{object:2100}的軍情7處。",
 	-- {npc:332} Master Mathias Shaw · {npc:7024} Agent Kearnen · {zone:1436} Westfall · {zone:1431} Duskwood
 	["{npc:332}: {npc:7024} in {zone:1436} takes it, at the end of {zone:1431}'s second loop"] = "{npc:332}：{zone:1436}的{npc:7024}會收下它，在{zone:1431}第二趟環線末尾",
 
-	-- Step 64: Collin Mauren
+	-- Step 65: Collin Mauren
 	-- {object:2164} The Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6122} Gakin the Darkbinder
 	["{object:2164} is in the {object:2101}. Warlocks: {npc:6122} is in its cellar."] = "{object:2164}在{object:2101}。術士：{npc:6122}在它的地下室。",
 	-- {npc:6122} Gakin the Darkbinder · {npc:6244} Takar the Seer · {zone:1413} Barrens
 	["{npc:6122}: {npc:6244} in the {zone:1413} takes it, later"] = "{npc:6122}：由{zone:1413}的{npc:6244}接收，稍後",
 
-	-- Step 65: Trade District
+	-- Step 66: Trade District
 	-- {zone:1453} Stormwind · {zone:1431} Duskwood
 	["Next: training in {zone:1453}, then the road east through Elwynn and south to {zone:1431}."] = "下一步：在{zone:1453}訓練，然後沿路向東穿過艾爾文森林，再向南到{zone:1431}。",
 
@@ -401,7 +405,7 @@ return {
 	-- ["Mosshide Fenrunners and Mistweavers roam the riverbanks just west and south of {npc:1244}; almost every one drops flint."] = "蘚皮沼澤行者和蘚皮織霧者在{npc:1244}西邊和南邊不遠的河岸遊蕩；幾乎每一隻都會掉落燧石。",
 	-- ["Mottled Raptors and Screechers roam the hills west of the excavation site."] = "雜斑迅猛龍和雜斑尖嘯龍在挖掘場西邊的丘陵遊蕩。",
 	-- ["Next: fly to {area:42}."] = "下一步：飛往{area:42}。",
-	-- ["North-west from {npc:1244}: Mosshide Fenrunners and Mistweavers roam the riverbanks on the way, and almost every one drops flint. Black, Crimson and Monstrous Oozes fill {area:309}, just west of the road to {area:205} and north of Einar's camp. Any ooze there may hold {npc:2111}'s bag."] = "從{npc:1244}向西北：沿途河岸上有苔皮沼奔者和苔皮織霧者遊蕩，幾乎每隻都掉燧石。黑色、猩紅和巨型軟泥怪遍佈{area:309}，就在通往{area:205}的道路以西、埃納爾營地以北。那裡的任意一隻軟泥怪都可能帶著{npc:2111}的包。",
+	-- ["North-west from {npc:1244}: Mosshide Fenrunners and Mistweavers roam the riverbanks on the way, and almost every one drops flint. Black, Crimson and Monstrous Oozes fill {area:309}, just west of the road to {area:205} and north of Einar's camp. Any ooze there may hold {npc:2111}'s bag."] = "從{npc:1244}向西北：沿途河岸上有蘚皮沼地行者和苔皮織霧者遊蕩，幾乎每隻都掉燧石。黑色、猩紅和巨型軟泥怪遍佈{area:309}，就在通往{area:205}的道路以西、埃納爾營地以北。那裡的任意一隻軟泥怪都可能帶著{npc:2111}的包。",
 	-- ["Only if you looted {quest:337} in {zone:1431}"] = "只有在{zone:1431}拾取了{quest:337}時",
 	-- ["Raptor valley"] = "迅猛龍山谷",
 	-- ["Ride east along the {zone:1437} road, south through {area:836} into {zone:1432} and west through the tunnel into {zone:1426} to {area:1537}."] = "沿{zone:1437}的道路向東騎，向南穿過{area:836}進入{zone:1432}，再向西穿過隧道進入{zone:1426}，前往{area:1537}。",
@@ -423,7 +427,7 @@ return {
 	-- ["Venture Co. loggers"] = "風險投資公司樵夫",
 	-- ["grind on Dragonmaw Raiders and Swamprunners at the Dragonmaw camp, {zone:1437}"] = "在{zone:1437}的龍喉營地刷龍喉襲擊者和龍喉沼澤行者",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}：合成兩半",
-	-- ["{item:2611}: Mosshide Fenrunners and Mistweavers"] = "{item:2611}：苔皮沼奔者和苔皮織霧者",
+	-- ["{item:2611}: Mosshide Fenrunners and Mistweavers"] = "{item:2611}：蘚皮沼地行者和苔皮織霧者",
 	-- ["{npc:1078}: the bigger raptors in the valley west of the dig are for your next {zone:1437} visit, at about 27"] = "{npc:1078}：挖掘場西邊山谷裡更大的迅猛龍留到你下次{zone:1437}之行，大約27級時",
 	-- ["{npc:11406} and {npc:258785} are in the {object:32386}, in the {object:32362}."] = "{npc:11406}和{npc:258785}在{object:32362}的{object:32386}。",
 	-- ["{npc:1242}: for {npc:2104} in the keep"] = "{npc:1242}：給城堡裡的{npc:2104}",
@@ -445,5 +449,6 @@ return {
 	-- ["{npc:482}, the cheese shop in the {object:2096}"] = "{npc:482}，{object:2096}的乳酪店",
 	-- ["{npc:4959} and {npc:482}"] = "{npc:4959}與{npc:482}",
 	-- ["{npc:4982}, in the Cathedral of Light"] = "{npc:4982}，在光明大教堂內",
+	-- ["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009}帶著怒尾守衛在{area:414}的北端走動。",
 	-- ["{zone:1455} priests"] = "{zone:1455}的牧師",
 }

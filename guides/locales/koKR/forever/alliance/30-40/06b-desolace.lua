@@ -18,8 +18,6 @@ return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "{area:150}(으)로 비행",
-	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "{area:144} 비행 조련사",
 
 	-- Step 3: Theramore flight master
 	["Theramore flight master"] = "테라모어 섬 비행 조련사",
@@ -48,8 +46,10 @@ return {
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:6134}'s magnets draw the Magrami Spectres a few yards from the Magram Necrokhans and Corpsefeeders (45, elite) in the {area:2657}. Skip it if you are alone."] = "정예 몹입니다. 파티를 권장하니 함께할 사람을 찾으십시오. {quest:6134}의 자석은 {area:2657}에서 마그람일족 강령왕과 시체먹이(45, 정예)로부터 몇 미터 떨어진 곳으로 마그라미 유령을 끌어냅니다. 혼자라면 건너뛰십시오.",
 
 	-- Step 8: Flesh Picker
-	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
-	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s {item:213565}."] = "{npc:217590}이(가) {area:596}을(를) 기어다닙니다. {npc:217412}의 {item:213565}에 든 도구로 한 마리를 잡으십시오.",
+	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
+	["A {npc:217590} crawls about the {area:596}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "{npc:217590}이(가) {area:596}을(를) 기어 다닙니다: {npc:217412}의 {item:213565}을(를) 열어 그 안의 {item:213562}을(를) 한 마리에게 사용하십시오. 죽이지 마십시오.",
+	-- {item:213562} Bug Catching Net · {npc:217590} Flesh Picker · {item:213567} Flesh Picker Specimen
+	["{item:213562}, on a {npc:217590}: the {item:213567}"] = "{item:213562}을(를) {npc:217590}에게: {item:213567}",
 
 	-- Step 9: Maraudine centaurs
 	["Maraudine centaurs"] = "마라우돈일족 켄타우로스",
@@ -58,7 +58,7 @@ return {
 
 	-- Step 10: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}은(는) 묘지 서쪽 켄타우로스 야영지에 갇혀 있습니다. 풀어 주고 나가는 동안 살려 두십시오. 그녀는 묘지 옆에서 멈춥니다.\n주의: 스크립트로 등장하는 무리는 서로 연결되어 있고 호위 중에만 나타나므로, 미리 처치하거나 하나씩 끌어올 수 없습니다. 시작하기 전에 길의 일반 켄타우로스를 처치해 두면 도움이 됩니다.",
+	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}은(는) 묘지 서쪽의 켄타우로스 야영지에 붙잡혀 있습니다. 풀어 주고 나가는 길에 살려 두십시오. 그녀는 묘지 옆에서 멈춥니다.\n주의: 호위 중에 켄타우로스 여섯이 공격하며 미리 정리할 수 없습니다: 호위 중에만 나타나고 함께 덤빕니다. 플레이어 기록에서 받은 30명 중 14명이 한 번 이상 실패했습니다. 친구를 데려가거나, 혼자라면 건너뛰십시오. 시작 전에 길의 일반 켄타우로스를 정리하면 도움이 됩니다.",
 	-- {npc:12277} Melizza Brimbuzzle
 	["escort {npc:12277} back toward the graveyard"] = "{npc:12277}을(를) 묘지 쪽으로 호위",
 
@@ -91,41 +91,45 @@ return {
 	["Back at the coven on the way west: the Mana Eaters (37-38) on its north edge and the Mage Hunters (38-39) further in drop the brains. {npc:5760} (40, elite) walks among the Mage Hunters: pull them out to you."] = "서쪽으로 가는 길에 다시 마녀단으로: 북쪽 가장자리의 마나먹는 지옥사냥개(37-38)와 더 안쪽의 마법사 사냥개(38-39)가 뇌를 떨어뜨립니다. {npc:5760}(40, 정예)이(가) 마법사 사냥개 사이를 돌아다니니 사냥개를 끌어내십시오.",
 
 	-- Step 17: Azore Aldamort
-	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
-	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "길을 따라 서쪽으로 {zone:1443} 북부를 가로질러 {area:2405} 폐허로 가십시오. 난파선으로 가는 길, 그곳 언덕 위에 {npc:11863}의 탑이 서 있습니다.",
+	-- {npc:11863} Azore Aldamort · {area:2405} Ethel Rethor · {zone:1443} Desolace
+	["{npc:11863}'s tower stands on the hill at the ruins of {area:2405}, west across the north of {zone:1443}."] = "{npc:11863}의 탑은 {area:2405} 폐허의 언덕 위에 있으며, {zone:1443} 북쪽을 가로질러 서쪽에 있습니다.",
 	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
 	["{npc:11863}, if the first {zone:1443} visit didn't take the sceptre back to him"] = "",
+
+	-- Step 18: Azore Aldamort
+	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
+	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "길을 따라 서쪽으로 {zone:1443} 북부를 가로질러 {area:2405} 폐허로 가십시오. 난파선으로 가는 길, 그곳 언덕 위에 {npc:11863}의 탑이 서 있습니다.",
 	-- {npc:11863} Azore Aldamort · {quest:93464} The Visiting Mage · {zone:1435} Swamp of Sorrows
 	["{npc:11863}: {quest:93464}, from Magtoor in the {zone:1435}"] = "{npc:11863}: {quest:93464}, {zone:1435}의 마그투르에게서 받음",
 	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
 	["{npc:11863}, if the first {zone:1443} visit didn't give it"] = "",
 
-	-- Step 18: Karnitol's Chest
+	-- Step 19: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
 	["The wrecked ship's chest lies just south-west of {npc:11863}'s tower."] = "난파선의 상자는 {npc:11863}의 탑 바로 남서쪽에 있습니다.",
 
-	-- Step 19: Claim Rackmore's Treasure!
+	-- Step 20: Claim Rackmore's Treasure!
 	-- {object:177787} Rackmore's Log · {object:35251} Karnitol's Chest · {zone:1443} Desolace
 	["{object:177787} lies beside {object:35251}, if you didn't take it on your first {zone:1443} visit. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "첫 {zone:1443} 방문 때 받지 않았다면, {object:177787}은(는) {object:35251} 옆에 있습니다. 그의 은 열쇠는 난파선 주변의 마른집게 게가 떨어뜨리고, 황금 열쇠는 다음에 갈 북서쪽 해안의 칼날비늘 나가에게서 얻습니다.",
 	-- {object:177787} Rackmore's Log · {zone:1443} Desolace
 	["{object:177787}, if the first {zone:1443} visit didn't take it"] = "",
 	["Underwater"] = "물속",
 
-	-- Step 20: Sar'theris Strand: kill these as you meet them
+	-- Step 21: Sar'theris Strand: kill these as you meet them
 	-- {area:598} Sar'theris Strand
 	["{area:598}: kill these as you meet them"] = "{area:598}: 만나는 대로 처치하십시오",
 	-- {npc:11863} Azore Aldamort · {spell:131} Water Breathing · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
-	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower, on the shore and out in the water. Karnitol's satchel drops now and then from their Tidehunters and Sea Witches, most of them underwater ({spell:131} helps): take it if it comes, it is optional. Any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "",
+	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower, on the shore and out in the water. Karnitol's satchel drops now and then from their Tidehunters and Sea Witches, most of them underwater ({spell:131} helps): take it if it comes, it is optional. Any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "슬리더블레이드 나가가 {npc:11863} 탑 북쪽의 북서부 해안을 쥐고 있습니다. 해변과 물속에 있으며, 카니톨의 주머니는 조류사냥꾼과 바다 마녀가 가끔 떨어뜨립니다. 대부분 물속에 있으니 {spell:131}이(가) 도움이 됩니다. 나오면 가져가세요. 선택 사항입니다. 랙모어의 황금 열쇠는 어떤 나가나 떨어뜨릴 수 있습니다. 최북단 끝바다의 {area:2406}까지 헤엄쳐 가 {object:177673}에 {item:15766}을(를) 사용하세요. {npc:12369}(38레벨)이(가) 나타나니 처치하면 {quest:6027}을(를) 얻습니다.",
 	-- {item:15881} Rackmore's Golden Key
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}, 칼날비늘 나가에게서 획득",
 	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue
 	["{item:15766}, on the {object:177673}"] = "{item:15766}, {object:177673}에 사용",
 
-	-- Step 21: Rackmore's Chest
+	-- Step 22: Rackmore's Chest
 	-- {object:177673} Serpent Statue
 	["Rackmore's chest lies just south-east of the {object:177673}."] = "랙모어의 상자는 {object:177673} 바로 남동쪽에 있습니다.",
 
-	-- Step 24: Nijel's Point
+	-- Step 25: Nijel's Point
 	-- {area:608} Nijel's Point · {npc:5396} Captain Pentigast · {npc:5638} Kreldig Ungor · {npc:1182} Brother Anton
 	["Follow the road north to {area:608}: {npc:5396} stands at its south end, {npc:5638} in the middle, {npc:1182} to the north."] = "길을 따라 북쪽 {area:608}(으)로 가십시오. {npc:5396}은(는) 남쪽 끝에, {npc:5638}은(는) 한가운데에, {npc:1182}은(는) 북쪽에 서 있습니다.",
 	-- {npc:5637} Roetten Stonehammer · {zone:1455} Ironforge
@@ -133,14 +137,17 @@ return {
 	-- {npc:3980} Raleigh the Devout · {area:271} Southshore
 	["for {npc:3980} in {area:271}: keep it"] = "{area:271}의 {npc:3980}에게: 보관하십시오",
 
-	-- Step 25: Fly to Theramore
+	-- Step 26: Fly to Theramore
 	["Fly to Theramore"] = "테라모어 섬으로 비행",
 	["The next guide starts in Theramore."] = "다음 가이드는 테라모어 섬에서 시작합니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s {item:213565}."] = "{npc:217590}이(가) {area:596}을(를) 기어다닙니다. {npc:217412}의 {item:213565}에 든 도구로 한 마리를 잡으십시오.",
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "칼날비늘 나가가 {npc:11863}의 탑 북쪽, 북서쪽 해안을 차지하고 있습니다. 카니톨의 가방은 그 앞바다 해저에 있으며, 어느 나가든 랙모어의 황금 열쇠를 떨어뜨릴 수 있습니다. 맨 북쪽 끝 앞바다의 {area:2406}까지 헤엄쳐 가서 {object:177673}에 {item:15766}을(를) 사용하십시오. {npc:12369}(38)이(가) 솟아오르니 처치해서 {quest:6027}을(를) 얻으십시오.",
 	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "악마들은 {zone:1443} 남부의 {area:602}에 모여 있습니다. 지옥사냥개(마나 포식자, 마법사 사냥개, 지맥 사냥개), 황천의 처녀와 황천의 자매, 그리고 구덩이 주변의 파멸의 수호대장입니다.\n주의: 이곳 몹 대부분은 순찰 경로를 걸으므로 몹을 더 끌어오기 쉽습니다.",
 	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "언데드 약탈자가 마그람일족 마을 남쪽, 마녀단 동쪽의 뼈 들판을 돌아다닙니다. 화살표는 들판 서쪽 가장자리로 안내합니다. 그런 다음 들판 동쪽의 화살표 위치에서 {item:15848}을(를) 사용해 마그람 유령을 끌어내십시오. 주의: 마그람일족 강령왕과 시체먹이(45, 정예)가 마그람일족 강령술사(42)와 함께 두 화살표 사이 뼈 들판을 돌아다닙니다. 약탈자와 유령을 그들에게서 멀리 끌어내십시오.",
+	-- ["{area:144} flight master"] = "{area:144} 비행 조련사",
+	-- ["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}은(는) 묘지 서쪽 켄타우로스 야영지에 갇혀 있습니다. 풀어 주고 나가는 동안 살려 두십시오. 그녀는 묘지 옆에서 멈춥니다.\n주의: 스크립트로 등장하는 무리는 서로 연결되어 있고 호위 중에만 나타나므로, 미리 처치하거나 하나씩 끌어올 수 없습니다. 시작하기 전에 길의 일반 켄타우로스를 처치해 두면 도움이 됩니다.",
 	-- ["{npc:5396}, if 30-40/02 didn't give it"] = "{npc:5396}, 30-40/02에서 받지 않았다면",
 	-- ["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}: 30-40/02에서 받지 않았다면. 난파선은 {npc:11863}의 탑 아래에 있습니다",
 	-- ["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019}은(는) {area:2407} 남서쪽, {area:596} 가장자리에 서 있습니다. {object:176751}은(는) 해골들 사이에 있습니다.",

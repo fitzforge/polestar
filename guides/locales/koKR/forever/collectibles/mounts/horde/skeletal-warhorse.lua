@@ -13,15 +13,15 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "수습 {skill:762}",
 	-- {npc:4773} Velma Warnam · {npc:4731} Zachariah Post · {area:159} Brill · {zone:1420} Tirisfal Glades · {skill:762} Riding · {faction:68} Undercity
-	["{npc:4773} and {npc:4731}'s stable are in {area:159}, {zone:1420}. At 60 {npc:4773} teaches Journeyman {skill:762} to Undead for 1,000g (10% less at Honored with {faction:68}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each skeletal warhorse costs 200g here."] = "",
+	["{npc:4773} and {npc:4731}'s stable are in {area:159}, {zone:1420}. At 60 {npc:4773} teaches Journeyman {skill:762} to Undead for 1,000g (10% less at Honored with {faction:68}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each skeletal warhorse costs 200g here."] = "{npc:4773}과(와) {npc:4731}의 마구간이 {zone:1420}의 {area:159}에 있습니다. 60레벨에 {npc:4773}이(가) 포세이큰에게 수습 {skill:762}을(를) 1,000골드에 가르칩니다({faction:68}과(와) 우호적이면 10% 할인). 블리자드는 탈것이 함께 온다고 합니다. 다른 종족은 각자 종족의 승마 교관에서 배웁니다. 여기서 해골 전마는 마리당 200골드입니다.",
 	-- {npc:4773} Velma Warnam
 	["{npc:4773}, riding trainer"] = "{npc:4773}, 탈것 상급자",
 
 	-- Step 2: Undead Horsemanship for other races
 	-- {spell:10906} Undead Horsemanship
-	["{spell:10906} for other races"] = "",
+	["{spell:10906} for other races"] = "{spell:10906} (다른 종족)",
 	-- {spell:10906} Undead Horsemanship · {skill:762} Riding · {npc:4773} Velma Warnam · {faction:68} Undercity
-	["Any Horde race can buy these skeletal horses, but riding one also takes {spell:10906}, which only Undead get with {skill:762}. {npc:4773} teaches it to other races once they are Exalted with {faction:68} (the Undercity Reputation guide shows the way). Until then, don't buy a skeletal horse for this character."] = "",
+	["Any Horde race can buy these skeletal horses, but riding one also takes {spell:10906}, which only Undead get with {skill:762}. {npc:4773} teaches it to other races once they are Exalted with {faction:68} (the Undercity Reputation guide shows the way). Until then, don't buy a skeletal horse for this character."] = "모든 호드 종족이 이 해골 말을 살 수 있지만 탑승에는 {spell:10906}도 필요하며 포세이큰만 {skill:762}과(와) 함께 받습니다. {faction:68}과(와) 확고한 동맹이 되면 {npc:4773}이(가) 다른 종족에게도 가르칩니다(언더시티 평판 가이드가 안내). 그 전에는 이 캐릭터로 해골 말을 사지 마세요.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "색상 고르기",

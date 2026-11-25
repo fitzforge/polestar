@@ -6,12 +6,16 @@
 -- A token marked "no name in this language" would show in English: write that name in Korean words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1445} Dustwallow Marsh · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{zone:1445} first, then {zone:1434} and the {zone:1435}."] = "먼저 {zone:1445}, 그다음 {zone:1434}, {zone:1435} 순서입니다.",
+
 	-- Step 1: Theramore
 	["Theramore"] = "테라모어",
 	-- {quest:1260} Morgan Stern · {npc:4897} Helenia Olden
 	["{quest:1260} stands near the inn; {npc:4897}, a trade supplier a few steps south, sells the spices Jarl wants."] = "{quest:1260}은(는) 여관 근처에 서 있습니다. 몇 걸음 남쪽의 거래 물품 상인 {npc:4897}이(가) 자를이 원하는 향신료를 팝니다.",
 	-- {quest:1260} Morgan Stern
-	["{quest:1260}, inside"] = "",
+	["{quest:1260}, inside"] = "{quest:1260}, 내부",
 	-- {npc:4964} Commander Samaul · {area:514} Foothold Citadel
 	["{npc:4964}, on the top floor of {area:514}"] = "",
 	-- {npc:271167} Guard Jameson · {quest:98233} Sword in the Slime
@@ -63,11 +67,11 @@ return {
 	-- Step 10: Theramore
 	-- {area:514} Foothold Citadel
 	["Follow the road east back to Theramore. The officers are in {area:514}."] = "길을 따라 동쪽으로 테라모어에 돌아가세요. 장교들은 {area:514}에 있습니다.",
-	["On the top floor"] = "",
+	["On the top floor"] = "최상층에",
 	-- {npc:4948} Adjutant Tesoran
 	["{npc:4948}, on the top floor"] = "",
 	-- {npc:4794} Morgan Stern
-	["{npc:4794}, inside"] = "",
+	["{npc:4794}, inside"] = "{npc:4794}, 내부",
 	-- {npc:4794} Morgan Stern · {zone:1435} Swamp of Sorrows
 	["{npc:4794}: the crawlers are on the {zone:1435} shore, keep it"] = "",
 
@@ -113,7 +117,7 @@ return {
 	-- {area:150} Menethil Harbor
 	["Back to Theramore for the boat to {area:150}."] = "",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "{area:392} 비행 조련사",
 
 	-- Step 22: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -123,7 +127,7 @@ return {
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "{zone:1453}로 비행",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "{area:150} 비행 조련사",
 
 	-- Step 25: Riding at 40
 	["Riding at 40"] = "40레벨 탈것 타기",
@@ -154,11 +158,11 @@ return {
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "{area:35}(으)로 날아가기",
 	-- {area:42} Darkshire
-	["{area:42} flight master"] = "",
+	["{area:42} flight master"] = "{area:42} 비행 조련사",
 
 	-- Step 31: Booty Bay
 	-- {npc:773} Krazek
-	["{npc:773}, upstairs"] = "",
+	["{npc:773}, upstairs"] = "{npc:773}, 위층",
 	-- {npc:770} Corporal Kaleb · {area:99} Rebel Camp
 	["for {npc:770} at the {area:99}, on the northern loop"] = "북쪽 순환 경로에서 {area:99}의 {npc:770}에게",
 	-- {npc:2494} Privateer Bloads · {area:35} Booty Bay
@@ -181,7 +185,7 @@ return {
 
 	-- Step 33: Booty Bay
 	-- {npc:2542} Catelyn the Blade
-	["{npc:2542}, upstairs"] = "",
+	["{npc:2542}, upstairs"] = "{npc:2542}, 위층",
 	["Upstairs"] = "위층",
 
 	-- Step 34: Bloodsail camp
@@ -263,8 +267,10 @@ return {
 	["{npc:717}, beside the other hunters"] = "",
 
 	-- Step 49: Arbor Tarantula
-	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
-	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s {item:213565}."] = "",
+	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
+	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "{npc:217588}이(가) 네싱워리 야영지 남동쪽 정글, {area:99}(으)로 가는 길에 기어 다닙니다: {npc:217412}의 {item:213565}을(를) 열어 그 안의 {item:213562}을(를) 한 마리에게 사용하십시오. 죽이지 마십시오.",
+	-- {item:213562} Bug Catching Net · {npc:217588} Arbor Tarantula · {item:213566} Arbor Tarantula Specimen
+	["{item:213562}, on an {npc:217588}: the {item:213566}"] = "{item:213562}을(를) {npc:217588}에게: {item:213566}",
 
 	-- Step 50: Rebel Camp
 	["Head north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "네싱워리의 야영지를 지나 북동쪽으로 간 뒤 길을 따라 북쪽으로 계곡 위쪽의 야영지까지 가세요.",
@@ -300,7 +306,7 @@ return {
 
 	-- Step 55: Ruins of Zul'Mamwe: kill these as you meet them
 	-- {area:103} Ruins of Zul'Mamwe
-	["{area:103}: kill these as you meet them"] = "",
+	["{area:103}: kill these as you meet them"] = "{area:103}: 만나는 대로 처치하세요",
 	-- {area:310} Crystalvein Mine
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.\nFollow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "",
@@ -319,7 +325,7 @@ return {
 	-- {area:35} Booty Bay
 	["Follow the road south to {area:35}."] = "길을 따라 남쪽으로 {area:35}까지 가세요.",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}, 위층",
 
 	-- Step 63: Kebok
 	-- {area:37} Lake Nazferiti
@@ -335,7 +341,7 @@ return {
 
 	-- Step 66: Fly to Stormwind
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "{area:35} 비행 조련사",
 
 	-- Step 67: Stormwind
 	-- {npc:1141} Angus Stern · {object:2169} Blue Recluse · {npc:5384} Brohann Caskbelly · {object:28027} Dwarven District
@@ -364,9 +370,9 @@ return {
 
 	-- Step 74: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
-	["Fly to {area:702}"] = "",
+	["Fly to {area:702}"] = "{area:702}(으)로 날아가기",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "{area:442} 비행 조련사",
 
 	-- Step 77: Riding at 40
 	-- {npc:4753} Jartsam · {zone:1457} Darnassus · {npc:4730} Lelanai · {area:17203} Stormwind Harbor · {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4732} Randal Hunter · {area:88} Eastvale Logging Camp · {zone:1429} Elwynn Forest
@@ -382,13 +388,13 @@ return {
 
 	-- Step 80: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
-	["Boat to {area:17203}"] = "",
+	["Boat to {area:17203}"] = "배를 타고 {area:17203}(으)로",
 
 	-- Step 81: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "{area:42}(으)로 날아가세요",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "{zone:1453} 비행 조련사",
 
 	-- Step 82: Darkshire
 	-- {npc:5464} Watchmaster Sorigal
@@ -437,11 +443,11 @@ return {
 	-- {npc:5385} Watcher Mahar Ba · {npc:5393} Quartermaster Lungertz
 	["{npc:5385} is upstairs in the keep and {npc:5393} inside it; the gryphon master stands south of the keep."] = "",
 	-- {npc:5385} Watcher Mahar Ba
-	["{npc:5385}, upstairs"] = "",
+	["{npc:5385}, upstairs"] = "{npc:5385}, 위층",
 
 	-- Step 92: Fly to Stormwind
 	-- {area:1438} Nethergarde Keep
-	["{area:1438} flight master"] = "",
+	["{area:1438} flight master"] = "{area:1438} 비행 조련사",
 
 	-- Step 93: Stormwind
 	-- {npc:5635} Falstad Wildhammer · {area:348} Aerie Peak
@@ -449,7 +455,7 @@ return {
 
 	-- Step 94: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "지하철을 타고 {zone:1455}(으)로",
 
 	-- Step 97: Ironforge
 	-- {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers (no name in this language: may be words) · {npc:2786} Gerrig Bonegrip · {object:32383} Forlorn Cavern

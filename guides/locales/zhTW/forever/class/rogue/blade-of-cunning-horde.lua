@@ -21,7 +21,7 @@ return {
 
 	-- Step 3: Tazan
 	-- {npc:6494} Tazan · {area:391} Merchant Coast · {area:392} Ratchet
-	["{npc:6494} (level 13, not elite) is a troll pirate on the {area:391} south of {area:392}: he walks the fenced hill path between the lower pirate camp by the beached ship and the upper camp by a big tree. Fight him at the foot of the hill, away from the camps. He always drops his satchel and is back 4 1/2 minutes after a death; one satchel per kill, so two rogues need two kills. Hand the satchel in unopened: picking its lock now destroys it and you must kill him again."] = "",
+	["{npc:6494} (level 13, not elite) is a troll pirate on the {area:391} south of {area:392}: he walks the fenced hill path between the lower pirate camp by the beached ship and the upper camp by a big tree. Fight him at the foot of the hill, away from the camps. He always drops his satchel and is back 4 1/2 minutes after a death; one satchel per kill, so two rogues need two kills. Hand the satchel in unopened: picking its lock now destroys it and you must kill him again."] = "{npc:6494}（13 級，非精英）是一名巨魔海盜，位於 {area:392} 南側的 {area:391}：他沿著有圍欄的山路，在擱淺船隻旁的下層海盜營地與大樹旁的上層營地之間來回走動。在山腳下遠離營地的地方與他戰鬥。他必定掉落揹包，死亡 4 分半後重生；每次只掉一個揹包，因此兩名潛行者需要擊殺兩次。交還揹包前不要開啟：現在開鎖會毀掉它，你就必須再殺他一次。",
 
 	-- Step 4: Back to Therzok
 	-- {npc:6446} Therzok

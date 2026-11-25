@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Portuguese (Brazil) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1422} Western Plaguelands · {area:152} Bulwark · {zone:1447} Azshara · {zone:1448} Felwood
+	["{zone:1422} and the {area:152} first, then {zone:1447} and {zone:1448}."] = "Primeiro {zone:1422} e {area:152}, depois {zone:1447} e {zone:1448}.",
+
 	-- Step 1: Mulgris Deepriver
 	-- {area:202} Writhing Haunt · {area:200} Dalson's Tears
 	["He camps by the {area:202}, south-east of {area:200}."] = "Ele acampa junto a {area:202}, a sudeste de {area:200}.",
@@ -26,39 +30,47 @@ return {
 	["His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands guide's sweep at about 55."] = "",
 
 	-- Step 6: High Executor Derrington
-	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions
-	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.\nTake a {object:176092} from the crate next to Derrington for {quest:5096}."] = "Você perdeu isto na visita anterior da rota a esta região: vem primeiro agora. É rápido e abre as missões seguintes.\nPegue {object:176092} no caixote ao lado de Arcabuz para {quest:5096}.",
+	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "Você perdeu isto na visita anterior da rota a esta região: vem primeiro agora. É rápido e abre as missões seguintes.",
+	-- {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries
+	["{item:12814}, from the {object:176092} next to Derrington"] = "{item:12814}, de {object:176092} ao lado de Arcabuz",
 
-	-- Step 7: Scarlet forward camp
+	-- Step 7: Box of Incendiaries
+	-- {quest:5096} Scarlet Diversions · {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries · {npc:10837} High Executor Derrington
+	["{quest:5096} needs a {item:12814} to torch the command tent: take one from the {object:176092} next to {npc:10837}."] = "{quest:5096} precisa de uma {item:12814} para incendiar a tenda de comando: pegue uma de {object:176092} ao lado de {npc:10837}.",
+	-- {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries
+	["{item:12814}, from the {object:176092}"] = "{item:12814}, de {object:176092}",
+
+	-- Step 8: Scarlet forward camp
 	["Scarlet forward camp"] = "Acampamento avançado Escarlate",
-	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
-	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "De {area:152}, siga a estrada para leste até {zone:1422}. As barracas da Cruzada Escarlate ficam logo depois da Fazenda Pedravil, entre {area:199} e {area:200}. Incendeie a barraca de comando com a {object:176092} e finque o estandarte do Flagelo. Cuidado: os Escarlates em volta das barracas chegam ao nível 54 e os Invocadores lançam feitiços: chegue pelo lado mais próximo da barraca de comando e deixe os outros em paz.",
+	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
+	-- was: ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "De {area:152}, siga a estrada para leste até {zone:1422}. As barracas da Cruzada Escarlate ficam logo depois da Fazenda Pedravil, entre {area:199} e {area:200}. Incendeie a barraca de comando com a {object:176092} e finque o estandarte do Flagelo. Cuidado: os Escarlates em volta das barracas chegam ao nível 54 e os Invocadores lançam feitiços: chegue pelo lado mais próximo da barraca de comando e deixe os outros em paz."
+	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "De {area:152}, siga a estrada para leste até {zone:1422}. As tendas da Cruzada Escarlate ficam logo depois da fazenda Pedravil, entre {area:199} e {area:200}. Incendeie a tenda de comando com {item:12814} e finque o estandarte do Flagelo. Cuidado: os Escarlates ao redor das tendas chegam a 54 e os invocadores conjuram: chegue pelo lado mais próximo da tenda de comando e deixe os outros em paz.",
 
-	-- Step 8: The Bulwark
-	-- {area:152} The Bulwark
+	-- Step 9: Bulwark
+	-- {area:152} Bulwark
 	["Ride south-west past Felstone Farm and follow the road west back to the {area:152}."] = "Cavalgue para sudoeste, passando pela fazenda Pedravil, e siga a estrada para o oeste de volta a {area:152}.",
 	["Derrington's watchtowers and Vandis' cauldron are done on a later visit: keep them."] = "As torres de vigia de Arcabuz e o caldeirão de Vandis ficam para uma visita posterior: guarde-as.",
 
-	-- Step 10: Paladin trainer
+	-- Step 11: Paladin trainer
 	["Paladin trainer"] = "Instrutor de paladino",
 	-- {npc:246152} Shari Stilwell · {zone:1420} Tirisfal Glades · {zone:1454} Orgrimmar
 	["{npc:246152} in {zone:1420}; {zone:1454} has no paladin trainer"] = "{npc:246152} em {zone:1420}; {zone:1454} não tem instrutor de paladino",
 
-	-- Step 11: Zeppelin to Orgrimmar
+	-- Step 12: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Zepelim para {zone:1454}",
 
-	-- Step 12: Orgrimmar
+	-- Step 13: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["The middle of {zone:1454}"] = "O centro de {zone:1454}",
 
-	-- Step 13: Jes'rimon
+	-- Step 14: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow (no name in this language: may be words)
 	["{npc:8659} takes the ravasaur claws from Un'Goro; he stands in the {object:172960}, a short walk from the middle of the city."] = "{npc:8659} recebe as garras de ravassauro de Un'Goro; ele fica no {object:172960}, a uma curta caminhada do centro da cidade.",
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow (no name in this language: may be words)
 	["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 
-	-- Step 14: Fly to Valormok
+	-- Step 15: Fly to Valormok
 	-- {area:1237} Valormok
 	["Fly to {area:1237}"] = "Voe para {area:1237}",
 	-- {zone:1447} Azshara · {zone:1454} Orgrimmar
@@ -66,39 +78,39 @@ return {
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Mestre de voo de {zone:1454}",
 
-	-- Step 15: Valormok
+	-- Step 16: Valormok
 	-- {npc:247473} Izvi Gildfizz · {quest:91569} Blue Gold
 	["{npc:247473}: {quest:91569}, a wand from the blood elves' arcanists"] = "{npc:247473}: {quest:91569}, uma varinha dos arcanistas elfos sangrentos",
 
-	-- Step 16: Ruins of Eldarath: kill these as you meet them
+	-- Step 17: Ruins of Eldarath: kill these as you meet them
 	-- {area:1221} Ruins of Eldarath
 	["{area:1221}: kill these as you meet them"] = "{area:1221}: vá matando estes pelo caminho",
 	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (52-55): pull them one at a time."] = "Siga para o leste até as ruínas na costa. As quatro tábuas estão entre as ruínas, guardadas por nagas Açoitadores (52-55): puxe um de cada vez.",
 
-	-- Step 17: Ruins of Eldarath
+	-- Step 18: Ruins of Eldarath
 	-- {area:1231} Southridge Beach
 	["Fill Cuely's four vials at the tide pools on the shore, from {area:1231} north up the coast; Spitelash naga patrol between them."] = "",
 	-- {item:10691} Filled Vial Labeled #1 · {area:1231} Southridge Beach
 	["{item:10691}: the tide pool on {area:1231}"] = "",
 	["#2, north along the shore"] = "",
 
-	-- Step 18: Makrinni Burrowers
+	-- Step 19: Makrinni Burrowers
 	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower
 	["Makrinni Burrowers"] = "Escavadores Makrinni",
 	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower · Highborne Treasure Fragments = {item:246684} Highborne Treasure Fragment
 	["The Makrinni Burrowers (50-51) dig in the sands just east of the ruins, on the way north-east; they and the buried caches there give up the Highborne Treasure Fragments."] = "Os Escavadores Makrinni (50-51) cavam nas areias logo a leste das ruínas, no caminho para nordeste; eles e os esconderijos enterrados ali fornecem os Fragmentos de Tesouro Altaneiro.",
 
-	-- Step 19: Ekkal
+	-- Step 20: Ekkal
 	-- {zone:1447} Azshara · {npc:235903} Ekkal
 	["On north-east across the middle of {zone:1447}: {npc:235903} camps by the road."] = "Continue para nordeste pelo centro de {zone:1447}: {npc:235903} acampa junto à estrada.",
 	-- {npc:235903} Ekkal · {quest:86746} The Legashi Threat
 	["{npc:235903}: {quest:86746}, the satyrs north of the blood elves' camp"] = "{npc:235903}: {quest:86746}, os sátiros ao norte do acampamento dos elfos sangrentos",
 
-	-- Step 20: Kim'jael
+	-- Step 21: Kim'jael
 	-- {area:1227} Bay of Storms
 	["Ride north-east to the goblin's camp on the cliffs above the {area:1227}, just north of the blood elves."] = "Siga para nordeste até o acampamento do goblin nos penhascos acima da {area:1227}, logo ao norte dos elfos sangrentos.",
 
-	-- Step 21: Thalassian Base Camp
+	-- Step 22: Thalassian Base Camp
 	-- {area:1227} Bay of Storms · {npc:8420} Kim'jael · {npc:247473} Izvi Gildfizz · {npc:250023} Blackmaw Thrall
 	-- plural, as words: Blood Elf Arcanists = {npc:246920} Blood Elf Arcanist
 	["The blood elves camp on the cliffs in the north-east, by the {area:1227}. {npc:8420}'s four pieces of equipment lie in the crates around the camp; the Blood Elf Arcanists carry {npc:247473}'s wand.\nCareful: a {npc:250023}, a level 55-57 elite, stands at the west edge of the camp: work the blood elves from its east side."] = "Os elfos sangrentos acampam nos penhascos a nordeste, junto à {area:1227}. As quatro peças de equipamento de {npc:8420} estão nos caixotes em volta do acampamento; os Arcanistas Elfos Sangrentos carregam a varinha de {npc:247473}.\nCuidado: um {npc:250023}, elite de nível 55-57, fica na borda oeste do acampamento: enfrente os elfos sangrentos pelo lado leste dele.",
@@ -106,13 +118,13 @@ return {
 	-- plural, as words: Blood Elf Arcanists = {npc:246920} Blood Elf Arcanist
 	["{item:246680}, from the Blood Elf Arcanists"] = "{item:246680}, dos Arcanistas Elfos Sangrentos",
 
-	-- Step 22: Magus Rimtori's camp
+	-- Step 23: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "O acampamento da {npc:8578}",
 	-- {object:151286} Kaldorei Tome of Summoning
 	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers."] = "O acampamento de Rimtori fica no extremo leste do acampamento-base. Leia o {object:151286} lá: no Forever, o Tomo Sin'dorei ao lado pede então os selos dos três oficiais do acampamento.",
 
-	-- Step 23: Seals of the Sin'dorei
+	-- Step 24: Seals of the Sin'dorei
 	-- {npc:247006} Lieutenant Suncrest · {npc:247013} Ranger Lydrea · {npc:246991} Magister Hawkhelm · {npc:250023} Blackmaw Thrall
 	["Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "Cada um dos três oficiais do acampamento (53) carrega um selo: {npc:247006} no centro do acampamento, {npc:247013} no extremo leste e {npc:246991}, que patrulha a metade oeste: enfrente-o no lado leste da patrulha, onde a Seta aponta.\nCuidado: o {npc:250023}, elite de nível 55-57, fica na borda oeste do acampamento, perto do fim da patrulha de Hawkhelm: espere Hawkhelm voltar para o leste.",
 	-- {item:246725} Seal of the Warden · {npc:247006} Lieutenant Suncrest
@@ -122,35 +134,35 @@ return {
 	-- {item:246722} Seal of the Ranger · {npc:247013} Ranger Lydrea
 	["{item:246722}, from {npc:247013}"] = "{item:246722}, de {npc:247013}",
 
-	-- Step 24: Magus Rimtori
+	-- Step 25: Magus Rimtori
 	-- {npc:8578} Magus Rimtori
 	["Back to the Sin'dorei Tome: hand in the seals, then use it to call {npc:8578}.\nCareful: Rimtori is level 55, and which crystal is linked to him is random: each of the other two summons a hostile infernal instead. Start at full health."] = "",
 	-- {quest:91538} Sin'dorei Tome of Summoning · {npc:8587} Jediga · {area:1237} Valormok
 	["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: para {npc:8587} em {area:1237}",
 
-	-- Step 25: The Legashi satyrs
+	-- Step 26: The Legashi satyrs
 	["The Legashi satyrs"] = "Os sátiros Legashi",
 	-- {npc:235903} Ekkal · {npc:235892} Prince Halanox
 	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind.\nCareful: {npc:235892} (55, elite) stands among the satyrs at the north-east end of their hills, around 67,19: take the satyrs nearer the camp and leave him be."] = "",
 
-	-- Step 26: Kim'jael
+	-- Step 27: Kim'jael
 	-- {npc:8420} Kim'jael
 	["Back north-west to {npc:8420}."] = "Volte para noroeste até {npc:8420}.",
 
-	-- Step 27: Ruins of Eldarath: Some Rune
+	-- Step 28: Ruins of Eldarath: Some Rune
 	-- {area:1221} Ruins of Eldarath · {npc:8420} Kim'jael
 	-- plural, as words: Spitelash Sirens = {npc:6195} Spitelash Siren
 	["Ride south to the northern edge of the {area:1221}. The Spitelash Sirens and Myrmidons (50-52) there carry {npc:8420}'s rune; it doesn't drop often, so work your way along the edge until it does."] = "Siga para o sul até a borda norte das {area:1221}. As Sirenas e os Mirmidões Iralisca (50-52) dali carregam a runa de {npc:8420}; ela não cai com frequência, então avance pela borda até conseguir.",
 
-	-- Step 28: Kim'jael
+	-- Step 29: Kim'jael
 	-- {npc:8420} Kim'jael
 	["Back north to {npc:8420} with the rune, then south-west along the road."] = "Volte para o norte até {npc:8420} com a runa e depois siga para sudoeste pela estrada.",
 
-	-- Step 29: Ekkal
+	-- Step 30: Ekkal
 	-- {npc:235903} Ekkal
 	["South-west along the road: {npc:235903} takes the satyrs."] = "Para sudoeste pela estrada: {npc:235903} recebe os sátiros.",
 
-	-- Step 30: Ag'tor Bloodfist
+	-- Step 31: Ag'tor Bloodfist
 	-- {area:1237} Valormok
 	["Ride back west to {area:1237}."] = "Volte para oeste até {area:1237}.",
 	-- {npc:8576} Ag'tor Bloodfist · {quest:91531} Revenge Exacted · {npc:4485} Belgrom Rockmaul · {zone:1454} Orgrimmar
@@ -160,21 +172,21 @@ return {
 	-- {npc:8659} Jes'rimon · {npc:4485} Belgrom Rockmaul · {npc:3326} Zevrost · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {npc:6522} Andron Gant · {zone:1458} Undercity
 	["Keep the deliveries: {npc:8659}, {npc:4485} and {npc:3326} are in {zone:1454} next, Magatha in {zone:1456} and {npc:6522} in the {zone:1458} on the next guides."] = "",
 
-	-- Step 31: Sanath Lim-yo
+	-- Step 32: Sanath Lim-yo
 	-- {area:1237} Valormok · {npc:8379} Archmage Xylem
 	["Ride east from {area:1237} to Sanath's camp at the foot of the cliff and get off your mount: he teleports you up to {npc:8379}'s tower."] = "",
 
-	-- Step 32: Archmage Xylem
+	-- Step 33: Archmage Xylem
 	["The apprentice at the top of the tower sends you back down."] = "O aprendiz no alto da torre manda você de volta para baixo.",
 	["Upstairs"] = "No andar de cima",
 
-	-- Step 34: Fly to Orgrimmar
+	-- Step 35: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Voe para {area:1637}",
 	-- {area:1237} Valormok
 	["{area:1237} flight master"] = "Mestre de voo de {area:1237}",
 
-	-- Step 35: Belgrom Rockmaul
+	-- Step 36: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor (no name in this language: may be words) · {npc:3326} Zevrost · {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow (no name in this language: may be words)
 	["{npc:4485} is in the {object:172958}, {npc:3326} and {npc:8659} in the {object:172960}."] = "",
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow (no name in this language: may be words)
@@ -182,23 +194,23 @@ return {
 	-- {npc:8659} Jes'rimon · {npc:8587} Jediga
 	["{npc:8659}: his payment goes back to {npc:8587}, on the flight out"] = "",
 
-	-- Step 36: Class trainer
+	-- Step 37: Class trainer
 	["Class trainer"] = "Instrutor de classe",
 
-	-- Step 37: Druid trainer
+	-- Step 38: Druid trainer
 	["Druid trainer"] = "Instrutor de druida",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034} em {zone:1412}; {zone:1454} não tem instrutor de druida",
 
-	-- Step 38: Fly to Valormok
+	-- Step 39: Fly to Valormok
 	-- {zone:1448} Felwood · {area:1237} Valormok · {npc:8587} Jediga · {npc:8659} Jes'rimon · {area:431} Splintertree Post
 	["{zone:1448} is next: fly by way of {area:1237}, where {npc:8587} takes {npc:8659}'s payment, then on to {area:431}."] = "",
 
-	-- Step 40: Fly to Splintertree Post
+	-- Step 41: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
 	["Fly to {area:431}"] = "Voe para {area:431}",
 
-	-- Step 42: Emerald Sanctuary
+	-- Step 43: Emerald Sanctuary
 	["The druids' camp is just past the border."] = "O acampamento dos druidas fica logo depois da fronteira.",
 	-- {npc:10920} Kelek Skykeeper · {npc:10921} Taronn Redfeather · {quest:86577} A Sampling of Putrescence · {zone:1448} Felwood
 	["{npc:10920}, beside {npc:10921}: {quest:86577}, the organs of {zone:1448}'s bears and wolves"] = "{npc:10920}, ao lado de {npc:10921}: {quest:86577}, os órgãos dos ursos e lobos de {zone:1448}",
@@ -207,40 +219,40 @@ return {
 	-- {npc:9529} Maybess Riverbreeze
 	["{npc:9529}, on the west side of the camp"] = "{npc:9529}, no lado oeste do acampamento",
 
-	-- Step 43: Deadwood Village
+	-- Step 44: Deadwood Village
 	-- {area:1769} Timbermaw Hold
 	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "A aldeia dos furbolgs Lenha Morta fica logo ao sul do Santuário. Cada morte de Lenha Morta também aumenta sua reputação com {area:1769}; guarde as penas de cocar.",
 
-	-- Step 44: Southern Jaedenar
+	-- Step 45: Southern Jaedenar
 	-- {area:1763} Jaedenar
 	["Southern {area:1763}"] = "Sul de {area:1763}",
 	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge
 	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: pull the cultists and hounds away from him."] = "",
 
-	-- Step 46: The Jaedenar moonwell
+	-- Step 47: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
 	["The {area:1763} moonwell"] = "O poço lunar de {area:1763}",
 	-- {area:1763} Jaedenar
 	["Back north to {area:1763}. Fill Greta's canteen at the corrupted moonwell in the middle of the southern camp."] = "De volta ao norte, até {area:1763}. Encha o cantil de Greta no poço lunar corrompido no meio do acampamento do sul.",
 
-	-- Step 47: Bloodvenom Post
+	-- Step 48: Bloodvenom Post
 	-- {area:1763} Jaedenar
 	["The Horde camp just north of {area:1763}."] = "O acampamento da Horda logo ao norte de {area:1763}.",
 	-- {npc:10306} Trull Failbane · {zone:1452} Winterspring
 	["{npc:10306}: the owlbeasts are in {zone:1452}"] = "{npc:10306}: os corujursos ficam em {zone:1452}",
 
-	-- Step 48: Shatter Scar Vale
+	-- Step 49: Shatter Scar Vale
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
 	["East of Bloodvenom Post, the cratered vale where the Entropic Beasts and Horrors roam. Kill two of each, then walk to each of the three fel-water craters."] = "A leste do Posto Peçonha, o vale de crateras onde vagam as Feras e os Horrores Entrópicos. Mate dois de cada, depois vá até cada uma das três crateras de água vil.",
 	["Southern crater"] = "Cratera do sul",
 	["Western crater"] = "Cratera do oeste",
 	["Northern crater"] = "Cratera do norte",
 
-	-- Step 49: Statue of Malorne
+	-- Step 50: Statue of Malorne
 	-- {object:661778} Statue of Malorne (no name in this language: may be words) · {npc:9996} Winna Hazzard · {area:1997} Bloodvenom Post
 	["The {object:661778} stands just south of the vale, by the road north: its bauble starts a quest for {npc:9996} at {area:1997}."] = "A Estátua de Malorne fica logo ao sul do vale, junto à estrada para o norte: o bibelô dela inicia uma missão para {npc:9996} em {area:1997}.",
 
-	-- Step 50: Irontree Woods
+	-- Step 51: Irontree Woods
 	-- {area:1767} Irontree Woods · {item:11503} Blood Amber · {npc:10920} Kelek Skykeeper
 	-- plural, as words: Warpwood Moss Flayers = {npc:7100} Warpwood Moss Flayer · Felpaw Ravagers = {npc:8961} Felpaw Ravager
 	-- was: ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo."] = "Siga a estrada para nordeste até {area:1767}. Os Rasgamusgos e Retalhadores Lenhatorta do lado leste da mata levam cada um um {item:11503}; Ursos-cinzentos Garraivosos e Assoladores Patavil vagam pela mesma mata para Talo."
@@ -250,31 +262,31 @@ return {
 	-- {item:277959} Putrescent Wolf Organs
 	["{item:277959}, from the Felpaw wolves"] = "{item:277959}, dos lobos Patavil",
 
-	-- Step 51: Irontree Woods
+	-- Step 52: Irontree Woods
 	["Below ground"] = "No subterrâneo",
 
-	-- Step 52: Meilosh
+	-- Step 53: Meilosh
 	-- {npc:11557} Meilosh · {zone:1448} Felwood · {quest:6031} Runecloth · {area:1769} Timbermaw Hold
 	["Only from Friendly with the Timbermaw: {npc:11557}, in the tunnel near its {zone:1448} mouth, gives {quest:6031} then (the {area:1769} reputation guide gets you there)."] = "",
 	-- {npc:11557} Meilosh · {quest:6031} Runecloth
 	["{npc:11557}: keep 30 {quest:6031} for him; below ground"] = "",
 
-	-- Step 53: Nafien
+	-- Step 54: Nafien
 	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold
 	["The road ends at {npc:15395}, outside the {area:1769} tunnel in the far north-east."] = "A estrada termina em {npc:15395}, do lado de fora do túnel de {area:1769}, no extremo nordeste.",
 
-	-- Step 54: Felpaw Village
+	-- Step 55: Felpaw Village
 	-- {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
 	-- plural, as words: Deadwood Avengers = {npc:7157} Deadwood Avenger
 	["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nIf one drops a {quest:8470} (about one kill in thirty), right-click it; don't stay to farm one. {npc:11558} in {area:1769} takes it only from Neutral with the Timbermaw (the {area:1769} reputation guide gets you there): now if they already are, or on the last guide's pass of the cave."] = "",
 	-- {quest:8470} Deadwood Ritual Totem
 	["{quest:8470}, a rare drop from the Deadwood furbolgs"] = "",
 
-	-- Step 55: Nafien
+	-- Step 56: Nafien
 	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
 	["Keep {quest:8465} for {zone:1452}."] = "Guarde {quest:8465} para {zone:1452}.",
 
-	-- Step 56: Timbermaw Hold
+	-- Step 57: Timbermaw Hold
 	-- {npc:11558} Kernda
 	["Step into the cave: {npc:11558} stands just inside. She speaks to you only from Neutral with the Timbermaw."] = "",
 	-- {npc:11558} Kernda
@@ -297,6 +309,7 @@ return {
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo."] = "Siga a estrada para nordeste até {area:1767}. Os Rasgamusgos e Retalhadores Lenhatorta do lado leste da mata levam cada um um {item:11503}; Ursos-cinzentos Garraivosos e Assoladores Patavil vagam pela mesma mata para Talo.",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at {area:1997} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Siga a estrada para nordeste até {area:1767}. Os Rasgamusgo e Retalhadores Lenhatorta do lado leste da mata carregam cada um {item:11503}; Ursos-cinzentos Garraivosos e Assoladores Patavil andam pela mesma mata para Talo. Abaixo do nível 54.21, continue caçando os ursos-cinzentos e os assoladores: as entregas em {area:1997} e em {area:2479} levam você ao nível 55. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1417}.",
 	-- ["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "Siga a estrada para noroeste. O sul de {area:1763}, em volta do poço lunar corrompido, é ocupado por sectários, adeptos, guardas e cães do Shadow Council.",
+	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "De {area:152}, siga a estrada para leste até {zone:1422}. As barracas da Cruzada Escarlate ficam logo depois da Fazenda Pedravil, entre {area:199} e {area:200}. Incendeie a barraca de comando com a {object:176092} e finque o estandarte do Flagelo. Cuidado: os Escarlates em volta das barracas chegam ao nível 54 e os Invocadores lançam feitiços: chegue pelo lado mais próximo da barraca de comando e deixe os outros em paz.",
 	-- ["From {area:2268}'s flight master, fly to the {area:1497}."] = "Do mestre de voo de {area:2268}, voe para {area:1497}.",
 	-- ["His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands visit at about 58."] = "A próxima caçada dele, os Ursos-cinzentos Enfermos (55-56), fica para a visita às Terras Pestilentas por volta do nível 58.",
 	-- ["Jadefire moonwell"] = "Poço lunar Flamejade",
@@ -366,6 +379,7 @@ return {
 	-- ["Top up here to level 54.87 before the hand-ins in {zone:1452}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Complete aqui até o nível 54.87 antes das entregas em {zone:1452}: elas levam você ao nível 55. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1417}.",
 	-- ["Walk into the {area:1769} tunnel beside {npc:15395} and never attack the Timbermaw furbolgs inside. The tunnel opens into {zone:1452}; follow the road east to {area:2255}, the goblin town where the next guide starts."] = "Entre no túnel de {area:1769} ao lado de {npc:15395} e nunca ataque os furbolgs Presamatos lá dentro. O túnel dá em {zone:1452}; siga a estrada para o leste até {area:2255}, a cidade goblin onde o próximo guia começa.",
 	-- ["Walk {npc:11018} out of {area:1770} and keep her alive until she is out of the cave."] = "Leve {npc:11018} para fora de {area:1770} e mantenha-a viva até ela sair da caverna.",
+	-- ["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.\nTake a {object:176092} from the crate next to Derrington for {quest:5096}."] = "Você perdeu isto na visita anterior da rota a esta região: vem primeiro agora. É rápido e abre as missões seguintes.\nPegue {object:176092} no caixote ao lado de Arcabuz para {quest:5096}.",
 	-- ["grind on Deadwood Avengers at {area:1762}, {zone:1448}"] = "mate Vingadores de Lenha Morta em {area:1762}, {zone:1448}",
 	-- ["grind on Scarlet Knights at {area:192}, {zone:1422}"] = "mate Cavaleiros Escarlates em {area:192}, {zone:1422}",
 	-- ["grind on {npc:10605}"] = "mate {npc:10605} até subir",

@@ -52,8 +52,8 @@ fn run(addons: Vec<Addon>, script: &str) -> Value {
 		.remove(0)
 }
 
-// A level 6 character with none of Westfall's four quests gets the whole 60%: 6,000 XP, 55 minutes of same-level
-// kills (75 XP each, 1.5 a minute, in fives). One done and one in the log leave 30%, still a note; three, 15%: none.
+// A level 6 character with none of Westfall's four quests gets the whole 60%. One done and one in the log leave
+// 30%, still a note; three, 15%: none.
 // "Suggested for you" ranks Westfall and Redridge after the others for the level, though Westfall's range is the
 // narrowest; Loch Modan's header names a guide no Human plays, so it gives neither a note nor a lower place. At
 // Redridge's top level, no note.
@@ -75,16 +75,16 @@ fn the_share_left_scales_by_the_quests_done_or_held_and_suggested_ranks_such_a_g
 	"#,
 	);
 	assert_eq!(out["first"][0], json!(["test/darkshore", "test/lochmodan", "test/elwynn", "test/long", "test/westfall", "test/redridge", "test/hillsbrad"]), "{out}");
-	assert_eq!(out["first"][1], json!({ "guideId": "test/westfall", "from": "test/elwynn", "fromTitle": "Elwynn Forest", "share": 60, "minutes": 55 }));
-	assert_eq!(out["first"][2], json!({ "guideId": "test/redridge", "from": "test/elwynn", "fromTitle": "Elwynn Forest", "share": 40, "minutes": 20 }));
+	assert_eq!(out["first"][1], json!({ "guideId": "test/westfall", "from": "test/elwynn", "fromTitle": "Elwynn Forest", "share": 60 }));
+	assert_eq!(out["first"][2], json!({ "guideId": "test/redridge", "from": "test/elwynn", "fromTitle": "Elwynn Forest", "share": 40 }));
 	assert_eq!(out["first"][3], false, "Dun Morogh is a Dwarf's guide");
-	assert_eq!(out["two"], json!({ "guideId": "test/westfall", "from": "test/elwynn", "fromTitle": "Elwynn Forest", "share": 30, "minutes": 25 }));
+	assert_eq!(out["two"], json!({ "guideId": "test/westfall", "from": "test/elwynn", "fromTitle": "Elwynn Forest", "share": 30 }));
 	assert_eq!(out["three"], json!([["test/westfall", "test/darkshore", "test/lochmodan", "test/elwynn", "test/long", "test/redridge", "test/hillsbrad"], false]));
 	assert_eq!(out["top"], false, "at the guide's top level");
 }
 
-// The full addon. Westfall opened fresh: the banner says what the guide's quests follow on from and the grinding
-// it costs, with "Open Elwynn Forest". Dismissed, it is gone for Westfall, even back on its tab, while Redridge
+// The full addon. Westfall opened fresh: the banner offers the guide its quests follow on from, with "Open Elwynn
+// Forest" (no percent, no minutes: #3879). Dismissed, it is gone for Westfall, even back on its tab, while Redridge
 // still has its own; Redridge's link opens Elwynn Forest in a new tab, and taken, Redridge's note is gone too. Past
 // Westfall's first third (step 4 of 6) there is none. A guide's long title in the link is cut short to the text's
 // column; the text names it whole.
@@ -120,30 +120,15 @@ fn the_window_says_it_until_dismissed_for_that_guide_and_its_link_opens_the_earl
 		emit(r)
 	"#,
 	);
-	assert_eq!(
-		out["note"],
-		json!(["Fresh start: about 60% of this guide's quest XP follows on from Elwynn Forest.\nExpect about 55 minutes of extra grinding, or start there.", "Open Elwynn Forest"])
-	);
+	let offer = |from: &str| format!("Some of this guide's quests follow on from {from}. Start there for the full set, or carry on here; the guide fills in with nearby quests.");
+	assert_eq!(out["note"], json!([offer("Elwynn Forest"), "Open Elwynn Forest"]));
 	assert_eq!(out["dismissed"], json!([false, true]), "dismissed, not gone from the Engine");
-	assert_eq!(
-		out["other"],
-		json!(["Fresh start: about 40% of this guide's quest XP follows on from Elwynn Forest.\nExpect about 20 minutes of extra grinding, or start there.", "Open Elwynn Forest"])
-	);
+	assert_eq!(out["other"], json!([offer("Elwynn Forest"), "Open Elwynn Forest"]));
 	assert_eq!(out["opened"], json!({ "tabs": ["test/darkshore", "test/westfall", "test/redridge", "test/elwynn"], "active": 4 }), "after the login's tab");
 	assert_eq!(out["taken"], false);
 	assert_eq!(out["still"], false, "dismissed for Westfall for the session");
 	assert_eq!(out["later"], json!([4, false]));
-	assert_eq!(
-		out["long"],
-		json!([
-			[
-				"Fresh start: about 50% of this guide's quest XP follows on from Loch Modan, Redridge Mountains & Westfall.\nExpect about 20 minutes of extra grinding, or start there.",
-				"Open Loch Modan, Redridge Mountains & Westfall"
-			],
-			true,
-			true
-		])
-	);
+	assert_eq!(out["long"], json!([[offer("Loch Modan, Redridge Mountains & Westfall"), "Open Loch Modan, Redridge Mountains & Westfall"], true, true]));
 }
 
 const WETLANDS: &str = "forever/alliance/06-wetlands";
@@ -154,9 +139,9 @@ const ASHENVALE: &str = "forever/alliance/06-ashenvale";
 // Most of the quest XP its header says follows on from earlier guides hinges on quests Ashenvale, Wetlands &
 // Stonetalon Mountains (22-25) takes, the Wetlands quests its Menethil visit starts. A Human Warrior at 22 who played
 // none of the guides before it opens Wetlands: the window says so (the share scaled by the part of `needs` the
-// guide's plan does not take on the way: on the 0.4.2 route, Young Crocolisk Skins (484) at Menethil, one of the
-// eight, leaves 29.75%, "about 30%"; its XP as level 22 kills: 155 XP each, 1.5 a minute), and the link opens
-// Ashenvale, a guide for their level, in a new tab.
+// guide's plan does not take on the way and that is not grey at 22: on the 0.4.2 route, Young Crocolisk Skins (484)
+// at Menethil, one of the eight, leaves 29.75%, which counts as 30%), and the link opens Ashenvale, a guide for
+// their level, in a new tab.
 #[test]
 fn wetlands_opened_fresh_at_22_points_to_ashenvale_wetlands_and_stonetalon() {
 	use forge_addontest::dsl::{compile_with, our_manifest, plain, write_test_pack};
@@ -218,15 +203,54 @@ w.race, w.raceName, w.class, w.className, w.faction, w.level = "Human", "Human",
 		..Default::default()
 	})
 	.remove(0);
-	let title = "Ashenvale, Wetlands & Stonetalon Mountains";
+	let title = "Ashenvale, Stonetalon Mountains & Wetlands";
 	let taken = |q: i64| out["onWay"].as_array().is_some_and(|a| a.iter().any(|v| v.as_i64() == Some(q)));
 	let on_way = needs.iter().filter(|q| taken(**q)).count();
 	let left = share * (1.0 - on_way as f64 / needs.len() as f64);
 	let shown = (left + 0.5).floor() as i64;
 	assert!(shown >= 30, "the share left reads 30% or more: {left} ({on_way} of {needs:?} on the way): {out}");
-	let minutes = ((xp * left / 100.0 / (155.0 * 1.5) / 5.0 + 0.5).floor() as i64 * 5).max(5);
-	assert_eq!(out["note"], json!({ "guideId": WETLANDS, "from": ASHENVALE, "fromTitle": title, "share": shown, "minutes": minutes }), "{out}");
-	let text = format!("Fresh start: about {shown}% of this guide's quest XP follows on from {title}.\nExpect about {minutes} minutes of extra grinding, or start there.");
+	// Of what is left, the share counts only quests not grey at 22 (#3879): at most the share left.
+	let note = &out["note"];
+	assert_eq!((&note["guideId"], &note["from"], &note["fromTitle"]), (&json!(WETLANDS), &json!(ASHENVALE), &json!(title)), "{out}");
+	let counted = note["share"].as_i64().unwrap_or(0);
+	assert!((30..=shown).contains(&counted), "{counted} of {shown}: {out}");
+	assert!(xp > 0.0);
+	let text = format!("Some of this guide's quests follow on from {title}. Start there for the full set, or carry on here; the guide fills in with nearby quests.");
 	assert_eq!(out["banner"], json!([text, format!("Open {title}")]));
 	assert_eq!(out["opened"], ASHENVALE);
+}
+
+// #3879 (Fitz on preview5): a level 25 with no Barrens history opened The Barrens & Stonetalon Mountains (24-27)
+// and was told 42% of its quest XP follows on from The Barrens, whose quests it counts are level 18-23. The share
+// counts only the quests of `needs` not grey for the character, each by the XP it pays at their level (their level
+// from The Barrens' own accepts): at 25, 959 and 1491 (18) are grey and 1062 (19) pays 80%, so 48% of the header
+// reads 48 x 5.8 / 8 = 35%; at 19 all eight pay in full, 48%. The shipped Horde pack.
+fn barrens_fresh(level: u32) -> Value {
+	let dir = forge_addontest::run::addons_dir();
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("local w = stub.world\nw.race, w.faction, w.class, w.className, w.level = \"Orc\", \"Horde\", \"WARRIOR\", \"WARRIOR\", {level}"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"]), Addon::dir("Polestar_Guides", dir.join("Polestar_Guides")), Addon::dir("Polestar_Guides_Horde", dir.join("Polestar_Guides_Horde"))],
+		script: r#"
+local E, G = Polestar.Engine, Polestar.Guides
+for id, b in pairs(Polestar.MapFrames.era) do stub.world.addMap(id, b) end
+stub.login(); stub.advance(0.25)
+E.SetGuide("forever/horde/04-the-barrens"); stub.advance(0.25)
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.25)
+local g = G.Get("forever/horde/04-the-barrens")
+emit({ header = g.fresh.share, fresh = E.FreshFor(g) or false })"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+#[test]
+fn the_fresh_start_counts_only_follow_on_quests_not_grey_for_the_character_3879() {
+	let at25 = barrens_fresh(25);
+	assert_eq!(at25["header"], 48, "{at25}");
+	assert_eq!(at25["fresh"]["share"], 35, "{at25}");
+	let at19 = barrens_fresh(19);
+	assert_eq!(at19["fresh"]["from"], "forever/horde/02-the-barrens", "{at19}");
+	assert_eq!(at19["fresh"]["share"], 48, "{at19}");
 }

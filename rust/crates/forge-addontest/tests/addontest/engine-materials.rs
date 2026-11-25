@@ -500,3 +500,38 @@ fn search_opens_the_game_s_buy_view_fills_in_the_count_once_the_listings_come_an
 	assert_eq!(out["own"], json!([1, 100]));
 	assert_eq!(out["closed"], json!(false), "only at an open Auction House");
 }
+
+// Bruatel (#3700): in gamepad mode, the Search's buy view and quantity event tainted the game's gamepad managers,
+// and the controller's own actions were then blocked. There a search is the game's browse query for the item's name
+// alone: the Auction House window itself is never driven, and no count is filled in when the listings come.
+#[test]
+fn in_gamepad_mode_a_search_is_only_the_game_s_browse_query_by_name_3700() {
+	let out = run(
+		CORE,
+		"",
+		r#"
+		Polestar.GamepadUI = function() return true end
+		local selected, quantities, queries, known = {}, {}, {}, { [2318] = { isCommodity = true, itemName = "Silk Cloth" } }
+		AuctionHouseFrameMixin = { Event = { CommoditiesQuantitySelectionChanged = 7 } }
+		AuctionHouseFrame = {
+			IsShown = function() return true end,
+			SelectBrowseResult = function(self, result) selected[#selected + 1] = result.itemKey.itemID end,
+			TriggerEvent = function(self, event, n) quantities[#quantities + 1] = { event, n } end,
+		}
+		C_AuctionHouse = {
+			MakeItemKey = function(id) return { itemID = id } end,
+			GetItemKeyInfo = function(key) return known[key.itemID] end,
+			SendBrowseQuery = function(q) queries[#queries + 1] = q.searchString end,
+			GetNumCommoditySearchResults = function() return 1 end,
+			GetCommoditySearchResultInfo = function() return { unitPrice = 100, quantity = 3 } end,
+		}
+		r.searched = M.Search(2318, 10)
+		stub.fire("COMMODITY_SEARCH_RESULTS_UPDATED", 2318); flush()
+		r.queries, r.selected, r.quantities = queries, #selected, #quantities
+		"#,
+	);
+	assert_eq!(out["searched"], json!(true));
+	assert_eq!(out["queries"], json!(["Silk Cloth"]), "the browse query for the item's name");
+	assert_eq!(out["selected"], json!(0), "the window's buy view is not driven");
+	assert_eq!(out["quantities"], json!(0), "no count filled in");
+}

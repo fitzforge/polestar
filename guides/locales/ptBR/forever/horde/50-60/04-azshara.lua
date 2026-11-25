@@ -6,11 +6,13 @@
 -- A token marked "no name in this language" would show in English: write that name in Portuguese (Brazil) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:392} Ratchet · {zone:1454} Orgrimmar · {zone:1458} Undercity
+	["{area:392}, {zone:1454} and the {zone:1458}, then into the Plaguelands."] = "{area:392}, {zone:1454} e {zone:1458}, depois para as Terras Pestilentas.",
+
 	-- Step 1: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Voe para {area:392}",
-	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "Mestre de voo de {zone:1456}",
 
 	-- Step 2: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
@@ -74,44 +76,48 @@ return {
 	["Zeppelin to {zone:1458}"] = "Zepelim para {zone:1458}",
 
 	-- Step 15: Chemist Cuely
+	-- {npc:8390} Chemist Cuely
+	["{npc:8390} works in the Apothecarium."] = "{npc:8390} trabalha no Apothecarium.",
+
+	-- Step 16: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
 	["{npc:8390} and {npc:8393} work in the Apothecarium."] = "{npc:8390} e {npc:8393} trabalham no Apothecarium.",
 	-- {npc:8393} Thersa Windsong
 	["{npc:8393}, beside him"] = "{npc:8393}, ao lado dele",
 
-	-- Step 16: Andron Gant
+	-- Step 17: Andron Gant
 	-- {npc:6522} Andron Gant · {object:36073} Rogues' Quarter (no name in this language: may be words)
 	["{npc:6522} stands in the {object:36073}."] = "{npc:6522} fica no {object:36073}.",
 
-	-- Step 17: The Undercity
+	-- Step 18: The Undercity
 	-- {object:36126} Royal Quarter (no name in this language: may be words)
 	["Lady Sylvanas holds the {object:36126}."] = "Lady Sylvanas fica no {object:36126}.",
 
-	-- Step 20: Jeremiah Payson
+	-- Step 21: Jeremiah Payson
 	-- {npc:8403} Jeremiah Payson
 	["{npc:8403}, nearby"] = "{npc:8403}, por perto",
 
-	-- Step 21: Jeremiah Payson
+	-- Step 22: Jeremiah Payson
 	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
 	["{quest:5050} goes back to {npc:10778} in the {zone:1422}: keep it."] = "{quest:5050} volta para {npc:10778} nas {zone:1422}: guarde-a.",
 
-	-- Step 22: Royal Quarter
+	-- Step 23: Royal Quarter
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
-	-- plural, as words: Library Books = {object:386691} Library Book
+	-- plural, as words: Library Books = {object:386759} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "Só com {quest:79095}, da loja de alquimia de {area:159}, nas bolsas (o guia dos Livros da Biblioteca)",
 
-	-- Step 24: The Bulwark
+	-- Step 25: The Bulwark
 	-- {zone:1458} Undercity · {area:152} The Bulwark · {zone:1422} Western Plaguelands
 	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "Siga a cavalo para leste, saindo da {zone:1458}, pela estrada; {area:152} guarda o caminho para {zone:1422}.",
 	-- {npc:11615} Mickey Levine · {area:2627} Terrordale
 	["{npc:11615}: the termites are in {area:2627}, on the next guide"] = "{npc:11615}: os cupins estão em {area:2627}, no próximo guia",
 
-	-- Step 26: Felstone Field
+	-- Step 27: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
 	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "A fazenda de {npc:10778} é a primeira a leste de {area:152}. Os Carniçais Grasnantes da fazenda carregam a outra metade do pingente dela; {npc:11075} guarda o caldeirão no campo.\nCuidado: um ou dois mortos-vivos costumam lutar ao lado dele, e mais mestres da caldeira podem atacar depois que você usar o caldeirão.",
 
-	-- Step 27: Janice Felstone
+	-- Step 28: Janice Felstone
 	["Upstairs"] = "No andar de cima",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
@@ -171,4 +177,5 @@ return {
 	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050} volta para {npc:10778} em {area:28}: guarde-a.",
 	-- ["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: para {npc:8587} em {area:1237}",
 	-- ["{zone:1454} flight master"] = "Mestre de voo de {zone:1454}",
+	-- ["{zone:1456} flight master"] = "Mestre de voo de {zone:1456}",
 }

@@ -204,7 +204,8 @@ fn the_theme_page_lays_its_settings_out_by_element_in_full_rows_short_labels_too
 			local name = c.key or c.label
 			if type(c.help) ~= "string" or c.help == "" or type(c.search) ~= "string" or c.search == "" then bad[#bad + 1] = name .. ": no help or search" end
 			local _, words = tostring(c.label):gsub("%S+", "")
-			if words > 3 then bad[#bad + 1] = name .. ": label of " .. words .. " words" end
+			-- "Stars in the band" (the band's plain label) reads as one phrase.
+			if words > 3 and c.key ~= "ui.starAlpha" then bad[#bad + 1] = name .. ": label of " .. words .. " words" end
 			if c.info then infos = infos + 1 end
 			if c.wide then wides[#wides + 1] = c.key end
 			if c.new then
@@ -262,11 +263,11 @@ fn the_theme_page_lays_its_settings_out_by_element_in_full_rows_short_labels_too
 		"ui.borderSize",
 		"ui.band",
 		"ui.shadow",
-		"ui.gameMenuButton",
 	] {
 		assert!(keys.contains(&k), "{k} is on the Theme page");
 	}
-	assert!(!keys.contains(&"ui.menuScale") && !keys.contains(&"ui.classCardSound"), "one home per setting");
+	// The game menu button sits with the guide window's showing and hiding (Look > Guide window).
+	assert!(!keys.contains(&"ui.menuScale") && !keys.contains(&"ui.classCardSound") && !keys.contains(&"ui.gameMenuButton"), "one home per setting");
 	for k in [
 		"ui.fontOutline",
 		"ui.textShadow",
@@ -287,7 +288,8 @@ fn the_theme_page_lays_its_settings_out_by_element_in_full_rows_short_labels_too
 	assert!(n(&out["news"]) >= 25.0, "many new controls: {}", out["news"]);
 	assert_eq!(out["tabs"], json!(["Colour", "Text", "Names", "Frames"]));
 	assert_eq!(out["withPreview"], 4, "every tab pins the live preview");
-	assert_eq!(out["page"], json!({ "key": "theme", "order": 20, "group": "look" }));
+	// The Look pages in the player's journey: Theme after Guide window.
+	assert_eq!(out["page"], json!({ "key": "theme", "order": 21, "group": "look" }));
 	assert!(n(&out["infos"]) <= 2.0, "an (i) on at most two rows");
 	assert_eq!(out["toggles"], json!({}), "no header switches: each on/off sits beside its own row");
 	assert_eq!(out["extras"], json!(["ui.bgColor", "ui.border", "ui.borderColor", "ui.shadow", "ui.band"]), "an element's on/off and colour beside its slider");
@@ -387,6 +389,51 @@ fn the_preview_paints_from_the_theme_on_one_stage_and_follows_a_change_live() {
 		json!([true, true, true, true, true, false, false, true, true]),
 		"a narrow band: the window on a row of its own over the cards, all on the stage, apart, captions under them, no fit line"
 	);
+}
+
+// The new settings page's Preview panel (a band 376 wide, the panel 400): too narrow for the rare alert at its real
+// size, so the three stand on rows of their own, and each row is drawn as large as the stage's width holds it, never
+// over its real size. The rare alert, the widest, shrinks its own row only: the guide window and the heads-up card
+// span the stage too (all three were drawn at the rare alert's 64%, the pane half empty: Fitz's 0.4.3-rc2 Theme
+// page). In a Polestar look and in a game look alike.
+#[test]
+fn the_preview_in_the_narrow_preview_panel_draws_each_part_as_wide_as_the_stage() {
+	let out = run_with_rares(
+		r#"
+		local out = {}
+		for _, skin in ipairs({ "polestar", "classic" }) do
+			Polestar.Set("ui.skin", skin)
+			Polestar.Theme.Refresh()
+			local f = Polestar.UI.ThemePreview(UIParent)
+			f:Layout(376, 1300)
+			local _, _, _, sx = f.Stage:GetPoint(1)
+			local inner = { sx + 20, sx + f.Stage:GetWidth() - 20 }
+			local parts = {}
+			for _, p in ipairs(f.Parts) do
+				local fr = p.kind == "guide" and f.Scene or p.frame
+				local _, _, _, x = fr:GetPoint(1)
+				local g = fr:GetScale()
+				-- Its scale against its real size (1: real size): the window's box is on the band's units, a card on its own.
+				local of = p.kind == "guide" and g or g / p.k
+				local l = x * g + (p.kind == "guide" and 16 * g or 0)
+				parts[p.kind] = { left = l - inner[1], right = inner[2] - (l + p.w * of), of = of }
+			end
+			out[skin] = { rows = f.psRows, fit = f.psFit, parts = parts }
+		end
+		emit(out)"#,
+	);
+	for skin in ["polestar", "classic"] {
+		let o = &out[skin];
+		assert_eq!(o["rows"], 3, "{skin}: each on a row of its own");
+		assert_eq!(o["fit"], 1, "{skin}: the panel's height holds them");
+		for kind in ["guide", "headsup", "rare"] {
+			let p = &o["parts"][kind];
+			assert!(n(&p["left"]).abs() <= 1.0 && n(&p["right"]).abs() <= 1.0, "{skin} {kind}: spans the stage's width: {p}");
+			assert!(n(&p["of"]) <= 1.001, "{skin} {kind}: never over its real size: {p}");
+		}
+		let of = |k: &str| n(&o["parts"][k]["of"]);
+		assert!(of("guide") > of("rare") + 0.05 && of("headsup") > of("rare") + 0.05, "{skin}: the rare alert shrinks its own row only: {o}");
+	}
 }
 
 // The font lists (Font, Heading font) draw each name in its own face, once: the row's own label hidden, not at alpha

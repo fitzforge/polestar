@@ -537,6 +537,10 @@
 			"title": "Install flow: an Install button in Settings and a setup in a few pages",
 			"why": "HOLDS (feature): feature shipped in 0.4.0"
 		},
+		"2052": {
+			"title": "Materials in guides: gather, buy or both; fishing recipes; gathering spots in While you're here",
+			"why": "PINNED (sibling): split into #3648, #3649, #3650 and #3651, which carry the rest of the work and their own pins"
+		},
 		"2053": {
 			"title": "Route tools: the format and writer changes the guide audit needs",
 			"why": "HOLDS (feature): feature shipped in 0.4.0"
@@ -552,6 +556,10 @@
 		"2057": {
 			"title": "Performance: the guide window's layout and the remaining speed items",
 			"why": "HOLDS (feature): feature shipped in 0.4.0"
+		},
+		"2058": {
+			"title": "Arrow replays on the new walking maps, and the indoor rule",
+			"why": "PINNED (sibling): the 0.4.1 walking-map round (#2571) that closed it; its zone-border fix is #2048's, pinned by rust/crates/forge-addontest/tests/addontest/nav-e2e.rs following_the_arrow_from_the_riverglades_along_the_zone_line_to_a_redridge_goal_never_flips_and_arrives_2048"
 		},
 		"2061": {
 			"title": "Release gate tools: what the gates need before they can run",
@@ -584,6 +592,10 @@
 		"2144": {
 			"title": "Incorrect guidance on the client",
 			"why": "HOLDS (code): client text fix line present (1/1)"
+		},
+		"2214": {
+			"title": "Sleeping bag questchain",
+			"why": "HOLDS (nav): fixed by the 0.4.2 walking maps (#3210): the walk from the camp's Pocket Litter to the Mound of Dirt goes straight down to the ledge (about 124 yd, was about 640 round the valley); held by the nav eval's acceptance route stonetalon-camp-mound-of-dirt (tools/lib/nav/eval/acceptance.json:81), which runs on the walking maps, not in the test suites"
 		},
 		"2221": {
 			"title": "hearth and astral recall",
@@ -677,6 +689,10 @@
 			"title": "zum'rah's head görevini aldırmıyor. skywatcher platosunda camp gev'rek de",
 			"why": "HOLDS (codex): shipped Codex (Polestar_Codex/Dungeons1.lua): Zum'rah's Head 96775 on the zulfarrak page, start Mazu'kon (264074) map 1412 32.5,20.7"
 		},
+		"2524": {
+			"title": "Mount Hyjal: measure it as part of the Alliance route once players have recorded it",
+			"why": "PINNED (pr-test): an enhancement, built by #3253 (Mount Hyjal in the 50-60 route for both factions); its tests are still present: tests/guides-reported.test.js 'Mount Hyjal: in both routes before the Silithus guides, no route choice for it' and the quest-log check per faction"
+		},
 		"2577": {
 			"title": "Bug: Ruins of Lordaeron guide is incomplete, it leaves the remaining steps for Une...",
 			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
@@ -689,18 +705,6 @@
 			"title": "Wrong location",
 			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
 		},
-		"2058": {
-			"title": "Arrow replays on the new walking maps, and the indoor rule",
-			"why": "PINNED (sibling): the 0.4.1 walking-map round (#2571) that closed it; its zone-border fix is #2048's, pinned by rust/crates/forge-addontest/tests/addontest/nav-e2e.rs following_the_arrow_from_the_riverglades_along_the_zone_line_to_a_redridge_goal_never_flips_and_arrives_2048"
-		},
-		"2214": {
-			"title": "Sleeping bag questchain",
-			"why": "HOLDS (nav): fixed by the 0.4.2 walking maps (#3210): the walk from the camp's Pocket Litter to the Mound of Dirt goes straight down to the ledge (about 124 yd, was about 640 round the valley); held by the nav eval's acceptance route stonetalon-camp-mound-of-dirt (tools/lib/nav/eval/acceptance.json:81), which runs on the walking maps, not in the test suites"
-		},
-		"2524": {
-			"title": "Mount Hyjal: measure it as part of the Alliance route once players have recorded it",
-			"why": "PINNED (pr-test): an enhancement, built by #3253 (Mount Hyjal in the 50-60 route for both factions); its tests are still present: tests/guides-reported.test.js 'Mount Hyjal: in both routes before the Silithus guides, no route choice for it' and the quest-log check per faction"
-		},
 		"2807": {
 			"title": "Feature: see what the recordings say about kill time by class, mob level and elites",
 			"why": "PINNED (pr-test): an enhancement, built by #2798 (forge sim fights); its tests are still present: rust/crates/forge/tests/fights.rs (a_sample_is_the_seconds_between_two_kills_less_the_walk, kills_that_are_no_solo_fight_are_left_out, the_fit_gives_back_the_terms_the_players_were_made_from)"
@@ -708,6 +712,10 @@
 		"2850": {
 			"title": "Wrong step: Riverglades, step 16",
 			"why": "HOLDS (data): fixed by 0.4.1's data build, with no correction record: Goren Grayfellow (272435) has one spot, 37.71,76.15 on map 2548 (data/forever/npcs.json, the 0.4.2 build too), where the sell reminder sends the player"
+		},
+		"2866": {
+			"title": "Bug: community guides on polestar.guide don’t show real installs",
+			"why": "PINNED (linked): fixed in the site's repository (fitzforge/polestar-site#4); nothing in this repository to test"
 		},
 		"3077": {
 			"title": "Bug: You need to go into deadmines to blow up the forge.",
@@ -720,6 +728,10 @@
 		"3169": {
 			"title": "The Experimental Method Quest wrong place marked",
 			"why": "HOLDS (guide): forever/50-60/mount-hyjal.guide:287-288 points the Slime and Alchemy Workstations at 42.5,73.1 and 44.3,68.3, the spots the reporters gave (about 42.4,72.9 and 44.3,68.5), carried in by the 0.4.2 route PRs (#3284, #3285)"
+		},
+		"3203": {
+			"title": "Feature: Freedoom Arcade playable on AZERTY and other keyboard layouts",
+			"why": "PINNED (pr-test): fixed by #3204; its test (maps-arcade.rs) still present"
 		},
 		"3278": {
 			"title": "Feature: changing distance units",
@@ -841,6 +853,7 @@
 		"data/route-fixes.json overrides.skip q=91904 Horde": "no guide has quest 91904 (2026-11-20, #3265: as 91899)",
 		"data/route-fixes.json overrides.skip q=98094 Horde": "no guide has quest 98094 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=98095 Horde": "no guide has quest 98095 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=98240 Alliance": "no guide has quest 98240 (2026-11-23, #3782: Crimson Crate Delivery left out, Halloran stops offering it once Razormaw Needling is done; the skip keeps a build from taking it back)",
 		"data/route-fixes.json overrides.skip q=98297": "no guide has quest 98297 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=98298": "no guide has quest 98298 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=98300": "no guide has quest 98300 (0.4.0)"

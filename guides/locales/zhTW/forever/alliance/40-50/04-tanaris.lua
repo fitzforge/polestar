@@ -134,25 +134,28 @@ return {
 	-- {npc:5471} Dunemaul Ogre
 	["grind on {npc:5471}, at the compound's south end"] = "刷{npc:5471}，在營地南端",
 
-	-- Step 26: Tooga's escort
+	-- Step 26: Tooga
+	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
+	["The little turtle {npc:5955} wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Take him from the edge and leave the Thistleshrubs (48-50) alone."] = "小海龜{npc:5955}在{quest:3362}西緣的幾個地點之間遊蕩：箭頭會從一個點帶到下一個點，直到你找到他。從邊緣帶走他，別去招惹薊草（48-50）。",
+
+	-- Step 27: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "護送{npc:5955}",
-	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley · {npc:6015} Torta · {area:977} Steamwheedle Port
-	-- was: ["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "小烏龜{npc:5955}躲在{quest:3362}北端：從邊緣把他帶走，別去惹薊棘灌木（48-50級）。帶他回家找他的妻子{npc:6015}，她在{area:977}東邊不遠的水邊：他走得很慢，沙漠的野獸會攻擊他，所以要保住他的性命。"
-	["The little turtle {npc:5955} wanders the west edge of the {quest:3362}, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "",
+	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port
+	["Lead {npc:5955} home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "帶{npc:5955}回家找他的妻子{npc:6015}，她在{area:977}東邊的水邊：他走得很慢，沙漠野獸會攻擊他，所以要保護他活著。",
 	-- {npc:5955} Tooga
 	["{npc:5955}, beside her: Oasis"] = "{npc:5955}，在她旁邊：綠洲",
 
-	-- Step 27: Steamwheedle Port
+	-- Step 28: Steamwheedle Port
 	-- {npc:6015} Torta · {area:977} Steamwheedle Port
 	["From {npc:6015}, {area:977} is just west along the shore."] = "從{npc:6015}那裡沿著海岸往西不遠就是{area:977}。",
 
-	-- Step 28: Caliph Scorpidsting
+	-- Step 29: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "騎馬向東南前往{area:985}。{npc:7847}站在廢土營地南部的中央：先清掉他周圍。\n注意：兩名潛行的廢土盜賊跟著他移動。在他出現的營地，兩名暗法師及其僕從距離很近，能加入與他的戰鬥。在塔樓外則可以不受他們干擾地打他。",
 
-	-- Step 30: Fly to Auberdine
+	-- Step 31: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "飛往{area:442}",
 	-- {zone:1457} Darnassus · {npc:7763} Curgle Cranklehop · {area:442} Auberdine · {area:150} Menethil Harbor · {area:348} Aerie Peak
@@ -160,13 +163,13 @@ return {
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "{area:976}飛行管理員",
 
-	-- Step 31: Teldrassil
+	-- Step 32: Teldrassil
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:3838} Vesprystus
 	["Take the boat from {area:442}'s dock to {area:702}; {npc:3838}, the hippogryph master, stands on the rise just east of the landing: learn the flight path on the way up to the village."] = "從{area:442}的碼頭搭船前往{area:702}；角鷹獸管理員{npc:3838}站在碼頭東邊不遠的坡上：上坡前往村莊的路上學會飛行路線。",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "{area:702}飛行管理員",
 
-	-- Step 32: Rut'theran Village
+	-- Step 33: Rut'theran Village
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
 	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907}站在樓上，在{npc:7916}上方：從裡面走上去，箭頭無法分辨樓層。",
 	-- {npc:7907} Daryn Lightwind · {zone:1446} Tanaris
@@ -175,45 +178,45 @@ return {
 	["{npc:7916}: the feathers lie in the {zone:1425}, next"] = "{npc:7916}：羽毛在{zone:1425}，接下來",
 	["the book on her table"] = "她桌上的書",
 
-	-- Step 34: Temple of the Moon
+	-- Step 35: Temple of the Moon
 	["Temple of the Moon"] = "月神殿",
 	-- {zone:1457} Darnassus
 	["Step through the portal into {zone:1457}. The Temple of the Moon is in the south of the city."] = "穿過傳送門進入{zone:1457}。月神殿在城市南部。",
 
-	-- Step 38: Cenarion Enclave
+	-- Step 39: Cenarion Enclave
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, at the top of the tree"] = "{npc:3516}，在樹頂",
 
-	-- Step 39: Class trainer
+	-- Step 40: Class trainer
 	["Class trainer"] = "職業訓練師",
 
-	-- Step 40: Cenarion Enclave
+	-- Step 41: Cenarion Enclave
 	-- {zone:1449} Un'Goro Crater
 	["the soil comes from {zone:1449}, later"] = "土壤來自{zone:1449}，稍後",
 
-	-- Step 41: Portal to Teldrassil
+	-- Step 42: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "前往{zone:1438}的傳送門",
 
-	-- Step 43: Boat to Menethil Harbor
+	-- Step 44: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "搭船前往{area:150}",
 
-	-- Step 44: Fly to Aerie Peak
+	-- Step 45: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
 	["Fly to {area:348}"] = "飛往{area:348}",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "{area:150}飛行管理員",
 
-	-- Step 45: Fly to Southshore
+	-- Step 46: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "飛往{area:271}",
 
-	-- Step 46: Hinterlands
+	-- Step 47: Hinterlands
 	-- {area:348} Aerie Peak · {area:271} Southshore · {zone:1425} Hinterlands
 	["No flight path to {area:348} yet: ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border."] = "還沒有{area:348}的飛行路線：沿道路從{area:271}向東北騎進{zone:1425}；{area:348}就在邊界過去不遠。",
 
-	-- Step 47: Aerie Peak
+	-- Step 48: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, beside the flight master"] = "{npc:5636}，在飛行管理員旁",
 	-- {npc:7884} Fraggar Thundermantle
@@ -241,6 +244,7 @@ return {
 	-- ["The Wanted poster by {npc:7882}"] = "{npc:7882}旁邊的通緝告示",
 	-- ["The little turtle {npc:5955} hides at the north end of the valley. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "小烏龜{npc:5955}躲在山谷北端。帶他回家找他的妻子{npc:6015}，她在{area:977}東邊的水邊：他走得很慢，沙漠的野獸會攻擊他，所以要保住他的性命。",
 	-- ["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "小烏龜{npc:5955}躲在{quest:3362}北端：從邊緣把他帶走，別去惹薊棘灌木（48-50級）。帶他回家找他的妻子{npc:6015}，她在{area:977}東邊不遠的水邊：他走得很慢，沙漠的野獸會攻擊他，所以要保住他的性命。",
+	-- ["The little turtle {npc:5955} wanders the west edge of the {quest:3362}, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "小烏龜{npc:5955}在{quest:3362}西緣遊蕩，大多在箭頭指引處：從邊緣把他帶出來，別去惹灌木谷的薊灌木怪（48-50級）。帶他回家去找他妻子{npc:6015}，她在{area:977}東邊不遠處的水邊：他走得慢，沙漠裡的野獸會攻擊他，保護好他。",
 	-- ["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, Zamek by the goblin camp."] = "{area:2240}位於{zone:1441}東南部的{area:439}：{npc:4454}在賽道旁的地精營地內，札米克在哥布林營地旁。",
 	-- ["Underwater"] = "在水下",
 	-- ["Wastewander bandits"] = "廢土強盜",

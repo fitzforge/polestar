@@ -46,7 +46,7 @@ return {
 	-- {area:154} Deathknell
 	["{area:154}: kill these as you meet them"] = "{area:154}：遇到就殺",
 	-- {area:154} Deathknell · {npc:1661} Novice Elreth
-	-- plural, as words: Rattlecage Skeletons = {npc:1890} Rattlecage Skeleton · Young Scavengers = {npc:1508} Young Scavenger · Duskbats = {npc:1512} Duskbat · Ragged Scavengers = {npc:1509} Ragged Scavenger · Mangy Duskbats = {npc:1513} Mangy Duskbat
+	-- plural, as words: Rattlecage Skeletons = {npc:1890} Rattlecage Skeleton · Young Scavengers = {npc:1508} Young Scavenger · Ragged Scavengers = {npc:1509} Ragged Scavenger · Mangy Duskbats = {npc:1513} Mangy Duskbat
 	["Rattlecage Skeletons wander the ruined houses in the north half of {area:154}. Young Scavengers and Duskbats roam all around the village; the Ragged Scavengers and Mangy Duskbats are on its east side. {npc:1661} wants their paws and wings: kill them as you meet them while you clear the skeletons."] = "斷骨骷髏在{area:154}北半部的廢墟房屋間遊蕩。小食腐狼和夜行蝙蝠在村莊各處遊蕩；蓬毛食腐狼和癩皮夜行蝙蝠在村莊東側。{npc:1661}要牠們的爪子和翅膀：清理骷髏時遇到就殺。",
 
 	-- Step 7: Back to the church
@@ -149,7 +149,8 @@ return {
 
 	-- Step 26: Eleanor Shackleton
 	-- {area:159} Brill · {zone:1458} Undercity
-	["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, at Linnea's camp, or in the {zone:1458} in the next guide."] = "她在城鎮西南方紮營。學會專業技能後，艾莉諾也會提供對應的「露營入門」任務，交給該專業的訓練師：在{area:159}、林奈的營地，或下一份指南中的{zone:1458}。",
+	-- was: ["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, at Linnea's camp, or in the {zone:1458} in the next guide."] = "她在城鎮西南方紮營。學會專業技能後，艾莉諾也會提供對應的「露營入門」任務，交給該專業的訓練師：在{area:159}、林奈的營地，或下一份指南中的{zone:1458}。"
+	["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, east of {area:159} for fishing, at Linnea's camp, or in the {zone:1458} in the next guide."] = "艾莉諾在城鎮西南邊不遠處紮營。學會一項專業後，她還會提供該專業的露營 101，由其訓練師接收：在{area:159}、釣魚在{area:159}東邊、在琳妮婭的營地，或在下一份指南中的{zone:1458}。",
 	-- {spell:1229451} Boosted Rest
 	["/sit by her campfire until you get {spell:1229451}"] = "在她的營火旁/sit，直到獲得{spell:1229451}",
 
@@ -207,7 +208,13 @@ return {
 	-- {npc:4586} Graham Van Talen
 	["Eleanor: for {npc:4586}"] = "艾莉諾：給{npc:4586}",
 
-	-- Step 37: Brill
+	-- Step 37: Camping 101: Fishing
+	-- {npc:5690} Clyde Kellen · {skill:356} Fishing
+	["{npc:5690} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:356}技能達到20時，{npc:5690}會接收它：在此之前採集或製作，指南同時繼續進行。",
+	-- {npc:5690} Clyde Kellen
+	["Eleanor: for {npc:5690}"] = "艾莉諾：交給{npc:5690}",
+
+	-- Step 38: Brill
 	-- {npc:1518} Apothecary Johaan · {npc:1515} Executor Zygand · {npc:1499} Magistrate Sevren
 	["{npc:1518} is in the apothecary's house on the west side of the square, {npc:1515} in front of the inn with the Wanted poster beside him, {npc:1499} in the town hall on the square's north side. The inn comes last, in one go."] = "{npc:1518}在廣場西側的藥劑師房子裡，{npc:1515}在旅店前，旁邊有通緝告示，{npc:1499}在廣場北側的市政廳裡。旅店放在最後，一次完成。",
 	-- {npc:1518} Apothecary Johaan
@@ -219,38 +226,38 @@ return {
 	-- {npc:1499} Magistrate Sevren
 	["{npc:1499}, in the town hall"] = "{npc:1499}，在市政廳裡",
 
-	-- Step 38: Faruza
+	-- Step 39: Faruza
 	-- {npc:2114} Faruza · {quest:97957} Camping 101: Herbalism
 	["{npc:2114}, beside Johaan: {quest:97957}"] = "{npc:2114}，在喬漢旁邊：{quest:97957}",
 
-	-- Step 39: Carolai Anise
+	-- Step 40: Carolai Anise
 	-- {npc:2132} Carolai Anise · {quest:97951} Camping 101: Alchemy
 	["{npc:2132}, beside Johaan: {quest:97951}"] = "{npc:2132}，在喬漢旁邊：{quest:97951}",
 
-	-- Step 40: Carolai Anise
+	-- Step 41: Carolai Anise
 	-- {npc:2132} Carolai Anise · {area:159} Brill
 	["From level 7 {npc:2132}, beside Johaan in the apothecary's house, offers her elixir quest; below 7 it waits for the next {area:159} visit."] = "從7級起，藥劑師屋裡約安身旁的{npc:2132}會給她的藥劑任務；沒到7級就等下次來{area:159}時再接。",
 	-- {npc:2132} Carolai Anise
 	["{npc:2132}, beside Johaan; inside"] = "{npc:2132}，在喬漢旁邊；在裡面",
 
-	-- Step 41: Discipline
+	-- Step 42: Discipline
 	-- {item:286176} Executor's Motivator
 	["Use the {item:286176} on five idle Deathguards around town"] = "對城鎮周圍五名閒置的亡靈衛兵使用{item:286176}",
 
-	-- Step 43: Gallows' End Tavern
+	-- Step 44: Gallows' End Tavern
 	-- {npc:5688} Innkeeper Renee · {npc:265944} William Pickman · {npc:1931} Captured Scarlet Zealot · {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call
 	["Everything here is inside the inn, through its door on the south side: {npc:5688} at the bar, {npc:265944} at the north end of the ground floor, the {npc:1931} in the cellar under that end, and {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) upstairs: take the stairs inside, the arrow cannot tell the floors apart."] = "這裡的一切都在旅店裡，從南側的門進入：{npc:5688}在吧檯，{npc:265944}在一樓北端，{npc:1931}在那一端下方的地窖裡，{npc:2128}（法師）、{npc:2129}（牧師）、{npc:2127}（術士）和{npc:2130}（盜賊）在樓上：從室內樓梯上去，箭頭無法區分樓層。",
 	-- {npc:265944} William Pickman
-	["{npc:265944}, at the inn's north end: Camping 101 asks you to learn it"] = "",
+	["{npc:265944}, at the inn's north end: Camping 101 asks you to learn it"] = "{npc:265944}，在旅店北端：野營入門需要你學會它",
 
-	-- Step 44: The cellar stairs
-	["The cellar stairs"] = "",
+	-- Step 45: The cellar stairs
+	["The cellar stairs"] = "地窖樓梯",
 	-- {npc:1931} Captured Scarlet Zealot
-	["The {npc:1931} is in the cellar under the inn's north end. The stairs down start at the west side of that end: go down them, then turn east to him."] = "",
+	["The {npc:1931} is in the cellar under the inn's north end. The stairs down start at the west side of that end: go down them, then turn east to him."] = "{npc:1931}在旅店北端下方的地窖裡。向下的樓梯從那一端西側開始：走下樓梯，然後向東轉去找他。",
 
-	-- Step 45: Gallows' End Tavern
+	-- Step 46: Gallows' End Tavern
 	-- {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call · {npc:2131} Austil de Mon
-	["Back up from the cellar: {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) are upstairs, {npc:2131} (warriors) on the ground floor; take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["Back up from the cellar: {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) are upstairs, {npc:2131} (warriors) on the ground floor; take the stairs inside, the arrow cannot tell the floors apart."] = "從地窖返回樓上：{npc:2128}（法師）、{npc:2129}（牧師）、{npc:2127}（術士）和{npc:2130}（潛行者）在樓上，{npc:2131}（戰士）在一樓；從室內樓梯上去，箭頭無法區分樓層。",
 	-- {npc:1931} Captured Scarlet Zealot
 	["The {npc:1931}, in the inn's cellar"] = "{npc:1931}，在旅店地下室",
 	-- {area:159} Brill · {npc:2131} Austil de Mon · {npc:246152} Shari Stilwell
@@ -258,11 +265,11 @@ return {
 	-- {npc:2129} Dark Cleric Beryl
 	["{npc:2129}, upstairs"] = "{npc:2129}，在樓上",
 
-	-- Step 46: Nurse Neela
+	-- Step 47: Nurse Neela
 	-- {npc:5759} Nurse Neela · {quest:97955} Camping 101: First Aid
 	["{npc:5759}, by the bar: {quest:97955}"] = "{npc:5759}，在吧台旁：{quest:97955}",
 
-	-- Step 48: Coleman Farthing and Gretchen Dedmar
+	-- Step 49: Coleman Farthing and Gretchen Dedmar
 	-- {npc:1500} Coleman Farthing · {npc:1521} Gretchen Dedmar
 	["{npc:1500} and {npc:1521}"] = "{npc:1500}和{npc:1521}",
 	-- {npc:1500} Coleman Farthing · {npc:1521} Gretchen Dedmar · {area:159} Brill
@@ -272,7 +279,7 @@ return {
 	-- {npc:1521} Gretchen Dedmar
 	["{npc:1521}, upstairs"] = "{npc:1521}，在樓上",
 
-	-- Step 49: Deathguard Linnea's camp
+	-- Step 50: Deathguard Linnea's camp
 	-- {npc:1495} Deathguard Linnea
 	["{npc:1495}'s camp"] = "{npc:1495}的營地",
 	-- {area:159} Brill · {npc:3549} Shelene Rhobart
@@ -280,34 +287,34 @@ return {
 	-- {npc:251001} Deathguard Kristof
 	["Ask {npc:251001} for his report"] = "向{npc:251001}索取報告",
 
-	-- Step 50: Rand Rhobart
+	-- Step 51: Rand Rhobart
 	-- {npc:6289} Rand Rhobart · {npc:3549} Shelene Rhobart · {quest:97960} Camping 101: Skinning
 	["{npc:6289}, beside {npc:3549}: {quest:97960}"] = "{npc:6289}，在{npc:3549}旁邊：{quest:97960}",
 
-	-- Step 52: Deathguard Dillinger
+	-- Step 53: Deathguard Dillinger
 	-- {area:159} Brill
 	["Back up the road and through {area:159} to its west end."] = "沿路回去，穿過{area:159}走到它的西端。",
 	-- {npc:1496} Deathguard Dillinger
 	["Ask {npc:1496} for his report"] = "向{npc:1496}索取報告",
 
-	-- Step 53: Cold Hearth Manor: kill these as you meet them
+	-- Step 54: Cold Hearth Manor: kill these as you meet them
 	-- {area:166} Cold Hearth Manor
 	["{area:166}: kill these as you meet them"] = "{area:166}：遇到就殺",
 	-- {npc:1525} Rotting Dead · {area:159} Brill · {npc:10666} Gordo · {npc:3549} Shelene Rhobart
 	-- plural, as words: Ravaged Corpses = {npc:1526} Ravaged Corpse · Decrepit Darkhounds = {npc:1547} Decrepit Darkhound
 	["{npc:1525} and Ravaged Corpses shamble through the fields just west of {area:159}; Decrepit Darkhounds roam there and on west along the road toward {npc:10666}. Johaan wants their blood, {npc:3549} their hides."] = "{npc:1525}和殘破的屍體在{area:159}以西的田野裡蹣跚；衰老的黑暗獵犬在那裡以及再往西、朝{npc:10666}方向的路上一帶遊蕩。約安要它們的血，{npc:3549}要毛皮。",
 
-	-- Step 54: Bowen Brisboise
+	-- Step 55: Bowen Brisboise
 	-- {npc:3523} Bowen Brisboise · {area:159} Brill · {quest:97961} Camping 101: Tailoring
 	["{npc:3523}, by the road west of {area:159}: {quest:97961}"] = "{npc:3523}，在{area:159}西邊的路旁：{quest:97961}",
 
-	-- Step 55: Gordo
+	-- Step 56: Gordo
 	-- {npc:10666} Gordo · {area:159} Brill · {area:166} Cold Hearth Manor
 	["{npc:10666} walks the long road west of {area:159}, past {area:166}, and back: the arrow follows his road west until you meet him."] = "{npc:10666}沿著{area:159}以西的長路走過{area:166}再折返：箭頭沿他西行的路線，直到你遇見他。",
 	-- {npc:10666} Gordo
 	["Ask {npc:10666} for his report"] = "向{npc:10666}索取報告",
 
-	-- Step 56: Calvin Montague
+	-- Step 57: Calvin Montague
 	-- {npc:6784} Calvin Montague · {area:156} Solliden Farmstead
 	["{npc:6784} stands by the farmhouse at the {area:156}, on the way to the Crusader's Outpost."] = "{npc:6784}站在{area:156}的農舍旁，在去十字軍哨所的路上。",
 	-- {npc:6784} Calvin Montague · {npc:5688} Innkeeper Renee
@@ -315,7 +322,7 @@ return {
 	-- {npc:6784} Calvin Montague
 	["Beat {npc:6784} in the duel"] = "在決鬥中擊敗{npc:6784}",
 
-	-- Step 57: Crusader's Outpost
+	-- Step 58: Crusader's Outpost
 	["Crusader's Outpost"] = "十字軍前哨",
 	-- {npc:275954} Bareth Dawnstone
 	-- plural, as words: Scarlet Warriors = {npc:1535} Scarlet Warrior
@@ -325,19 +332,19 @@ return {
 	-- {npc:275954} Bareth Dawnstone
 	["Escort {npc:275954} out of the outpost"] = "護送{npc:275954}離開前哨",
 
-	-- Step 58: Brill
+	-- Step 59: Brill
 	-- {area:159} Brill · {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call
 	["Back east along the road to {area:159}. {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "沿路向東回到{area:159}。{npc:2128}（法師）、{npc:2129}（牧師）、{npc:2127}（術士）和{npc:2130}（盜賊）在旅店樓上：從裡面走樓梯，箭頭分不清樓層。",
 	-- {item:2320} Coarse Thread · {npc:2118} Abigail Shiel
 	["{item:2320} from {npc:2118}, for Gretchen"] = "向{npc:2118}購買{item:2320}，給格莉絲",
 
-	-- Step 59: Deathguard Kel
+	-- Step 60: Deathguard Kel
 	-- {npc:12428} Deathguard Kel · {area:159} Brill · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude
 	["{npc:12428} kneels by the north gate of {area:159}'s graveyard, on your way north. Cast {spell:613} (Rank 2) on him, then {spell:1243}: Fortitude first does not count."] = "{npc:12428}跪在{area:159}墓地的北門旁，就在你往北的路上。先對他施放{spell:613}（等級2），再施放{spell:1243}：先施放真言術：韌不算數。",
 	-- {npc:12428} Deathguard Kel
 	["Heal and fortify {npc:12428}"] = "治療{npc:12428}並為他施放韌性",
 
-	-- Step 60: Tirisfal Glades: kill these as you meet them
+	-- Step 61: Tirisfal Glades: kill these as you meet them
 	-- {zone:1420} Tirisfal Glades
 	["{zone:1420}: kill these as you meet them"] = "{zone:1420}：沿途遇到就擊殺",
 	-- {area:159} Brill · {npc:3549} Shelene Rhobart · {quest:5482} Doom Weed · {area:164} Garren's Haunt · {npc:1753} Maggot Eye · {area:157} Agamand Mills
@@ -347,7 +354,7 @@ return {
 	-- {npc:1675} Rot Hide Mongrel · {area:164} Garren's Haunt
 	["{npc:1675} walks around {area:164}: look inside the circle on the map"] = "{npc:1675}在{area:164}一帶走動：看地圖圓圈內",
 
-	-- Step 61: Brill
+	-- Step 62: Brill
 	-- {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call
 	["{npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:2128}（法師）、{npc:2129}（牧師）、{npc:2127}（術士）和{npc:2130}（盜賊）在旅店樓上：從室內樓梯上去，箭頭無法區分樓層。",
 	-- {npc:246152} Shari Stilwell · {quest:91282} A Second Home · {quest:96899} Bandarion Keep
@@ -357,24 +364,24 @@ return {
 	-- {npc:2129} Dark Cleric Beryl · {item:16607} Acolyte's Sacrificial Robes
 	["{npc:2129}, upstairs: the {item:16607}"] = "{npc:2129}，在樓上：{item:16607}",
 
-	-- Step 62: Deathguard Terrence
+	-- Step 63: Deathguard Terrence
 	-- {npc:1738} Deathguard Terrence · {quest:96895} The Argent Emissary · {npc:267009} Hadric Harlson · {area:159} Brill · {area:157} Agamand Mills
 	["From level 10 {npc:1738} offers {quest:96895}: {npc:267009} waits at Linnea's camp, the next stop. Below 10 it waits for the {area:159} visit after {area:157}."] = "從10級起，{npc:1738}會給{quest:96895}：{npc:267009}在下一站琳妮婭的營地等你。沒到10級就等去過{area:157}之後再來{area:159}時接。",
 
-	-- Step 63: Deathguard Linnea's camp
+	-- Step 64: Deathguard Linnea's camp
 	-- {area:159} Brill
 	["Follow the road south-east from {area:159} past the zeppelin towers."] = "沿著道路從{area:159}向東南走，經過飛艇塔。",
 
-	-- Step 64: Hadric Harlson
+	-- Step 65: Hadric Harlson
 	-- {npc:267009} Hadric Harlson
 	["{npc:267009} stands at the camp beside Linnea."] = "{npc:267009}站在琳妮婭旁邊的營地裡。",
 
-	-- Step 65: Magistrate Sevren
+	-- Step 66: Magistrate Sevren
 	-- {area:159} Brill · {area:157} Agamand Mills · {npc:1753} Maggot Eye · {npc:1515} Executor Zygand
 	["Back up the road to {area:159}, on the way north-west to {area:157}. The Wanted poster for {npc:1753} stands beside {npc:1515}, in front of the inn."] = "",
 	["The Wanted poster beside Zygand"] = "齊甘德旁的通緝告示",
 
-	-- Step 66: Agamand Mills
+	-- Step 67: Agamand Mills
 	-- {area:157} Agamand Mills · {npc:1657} Devlin Agamand · {npc:1656} Thurman Agamand · {item:2839} A Letter to Yvette
 	-- plural, as words: Cracked Skull Soldiers = {npc:1523} Cracked Skull Soldier · Darkeye Bonecasters = {npc:1522} Darkeye Bonecaster
 	["Follow the road north-west to {area:157}. {npc:1657} walks the graveyard south of the mills; Nissa, Gregor and {npc:1656} haunt the mills themselves. Rattlecage and Cracked Skull Soldiers drop the ribs, Darkeye Bonecasters the skulls, and any of them may drop {item:2839}.\nCareful: Rotting undead and Darkeye Bonecasters near the Agamands can join a fight as adds."] = "沿著道路向西北前往{area:157}。{npc:1657}在磨坊南邊的墓地走動；妮薩、格里高和{npc:1656}則在磨坊內徘徊。斷骨骷髏和碎顱士兵會掉落肋骨，暗眼骷髏法師掉落頭骨，牠們都可能掉落{item:2839}。\n小心：阿加曼德家附近的腐爛不死生物和暗眼骷髏法師可能會加入戰鬥。",
@@ -384,13 +391,13 @@ return {
 	["{item:2839}, a rare drop"] = "{item:2839}，稀有掉落",
 	["Only if the letter dropped"] = "僅限信件有掉落時",
 
-	-- Step 67: Maggot Eye
+	-- Step 68: Maggot Eye
 	-- {area:159} Brill · {area:164} Garren's Haunt · {npc:1753} Maggot Eye
 	["On the way back to {area:159}, {area:164} is the Rot Hide camp on the hill east of the mills, south of the shore. {npc:1753} stands in the hut.\nCareful: {npc:1753} is level 11 and gnoll guards stand outside the hut and can join the fight: clear them one at a time first. If you slip past them and fight him inside, he fights alone."] = "",
 	-- {item:3635} Maggot Eye's Paw
 	["{item:3635}; inside"] = "{item:3635}；在裡面",
 
-	-- Step 68: Brill
+	-- Step 69: Brill
 	-- {npc:1560} Yvette Farthing
 	["{npc:1560}, in the inn"] = "{npc:1560}，在旅店裡",
 	-- {npc:2128} Cain Firesong · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity
@@ -400,11 +407,11 @@ return {
 	-- {npc:1738} Deathguard Terrence · {area:159} Brill
 	["{npc:1738}, if you were below 10 on the last {area:159} visit"] = "{npc:1738}（上次來{area:159}時若還沒到10級）",
 
-	-- Step 69: Ulag the Cleaver
+	-- Step 70: Ulag the Cleaver
 	-- {npc:6390} Ulag the Cleaver
 	["{npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:6390}在城鎮北邊山丘上的陵墓裡等候：打開大門和他戰鬥。",
 
-	-- Step 70: Carendin Halgar
+	-- Step 71: Carendin Halgar
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter
 	["Walk south from {area:159} to the {area:153} and down into the {area:1497}. {npc:5675} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "從{area:159}向南走到{area:153}，再往下進入{area:1497}。{npc:5675}站在{object:36082}。血色十字軍營地就在廢墟西邊。",
 	-- {npc:4551} Michael Garrett
@@ -412,30 +419,30 @@ return {
 	-- {npc:5675} Carendin Halgar · {quest:1473} Creature of the Void
 	["{npc:5675}: he offers {quest:1473} only once this is handed in"] = "{npc:5675}：要先繳交這個任務，他才會提供{quest:1473}",
 
-	-- Step 71: Anastasia Hartwell
+	-- Step 72: Anastasia Hartwell
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter
 	["Walk south from {area:159} to the {area:153} and down into the {area:1497}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "從{area:159}向南走到{area:153}，再往下進入{area:1497}。{npc:4568}站在{object:36082}。血色十字軍營地就在廢墟西邊。",
 
-	-- Step 72: Back to Tirisfal Glades
+	-- Step 73: Back to Tirisfal Glades
 	-- {zone:1420} Tirisfal Glades
 	["Back to {zone:1420}"] = "返回{zone:1420}",
 	["The Scarlet camp"] = "血色十字軍營地",
 
-	-- Step 73: Tirisfal Glades: kill these as you meet them
+	-- Step 74: Tirisfal Glades: kill these as you meet them
 	-- {area:159} Brill · {npc:1662} Captain Perrine
 	["Follow the road south-west from {area:159} to the Scarlet Crusade camp. {npc:1662} stands at its south end; every Scarlet there can drop a ring."] = "沿著道路從{area:159}向西南前往血色十字軍營地。{npc:1662}站在營地南端；那裡的每個血色十字軍都可能掉落戒指。",
 	-- {npc:1537} Scarlet Zealot
 	["{npc:1537} walks around here: look inside the circle on the map"] = "{npc:1537}在這一帶走動：看地圖圓圈內",
 
-	-- Step 74: Perrine's Chest
+	-- Step 75: Perrine's Chest
 	-- {object:37098} Perrine's Chest · {npc:1662} Captain Perrine
 	["{object:37098} stands beside {npc:1662} at the camp's south end."] = "{object:37098}在營地南端的{npc:1662}旁邊。",
 
-	-- Step 76: Hadric Harlson
+	-- Step 77: Hadric Harlson
 	-- {npc:267009} Hadric Harlson · {npc:1495} Deathguard Linnea
 	["{npc:267009} stands at {npc:1495}'s camp, on the road to the cult's farm."] = "{npc:267009}站在{npc:1495}的營地裡，就在前往教派農場的路上。",
 
-	-- Step 77: Balnir Farmstead: kill these as you meet them
+	-- Step 78: Balnir Farmstead: kill these as you meet them
 	-- {area:165} Balnir Farmstead
 	["{area:165}: kill these as you meet them"] = "{area:165}：遇到就殺",
 	-- {quest:99142} Tomb Weed · {npc:1664} Captain Vachon
@@ -444,12 +451,12 @@ return {
 	-- {item:7227} Balnir Snapdragons
 	["{item:7227}, in the farmstead's garden"] = "{item:7227}，在農場的花園裡",
 
-	-- Step 78: Tirisfal Glades: kill these as you meet them
+	-- Step 79: Tirisfal Glades: kill these as you meet them
 	-- {npc:1495} Deathguard Linnea
 	-- plural, as words: Necrotic Crystal Fragments = {item:275851} Necrotic Crystal Fragment
 	["On the way back west, the Cult of the Damned holds the farm just south-east of {npc:1495}'s camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.\nCareful: the cultists (10-12) stand close together and the Neophytes cast: pull one at a time from the edge of the farm."] = "往西回去的路上，詛咒教派佔據{npc:1495}營地東南邊的農場。死靈水晶碎片散落在教徒之間的地上，教徒身上也帶有一些。\n小心：教徒（10-12）站得很近，新信徒會施法：從農場邊緣一次拉一隻。",
 
-	-- Step 80: Brill
+	-- Step 81: Brill
 	-- {area:159} Brill · {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call
 	["Back up the road to {area:159}. {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "沿路回到{area:159}。{npc:2128}（法師）、{npc:2129}（牧師）、{npc:2127}（術士）和{npc:2130}（盜賊）在旅店樓上：從裡面走樓梯，箭頭分不清樓層。",
 	-- {npc:1518} Apothecary Johaan · {area:228} Sepulcher
@@ -457,20 +464,24 @@ return {
 	-- {npc:2211} Captured Mountaineer
 	["The {npc:2211}, in the inn's cellar"] = "{npc:2211}，在旅店的地下室裡",
 
-	-- Step 81: Leonid Barthalomew the Revered
+	-- Step 82: Clyde Kellen
+	-- {npc:5690} Clyde Kellen · {area:159} Brill · {quest:97956} Camping 101: Fishing
+	["{npc:5690}, east of {area:159}: {quest:97956}"] = "{npc:5690}，在{area:159}東邊：{quest:97956}",
+
+	-- Step 83: Leonid Barthalomew the Revered
 	-- {area:159} Brill · {area:157} Agamand Mills · {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {area:16881} Shadowvale
 	-- was: ["West from {area:164} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "從{area:164}向西經過{area:157}前往{area:16616}。李奧尼德站在{npc:246389}營地的北邊。\n{npc:246389}和{npc:259190}在李奧尼德南邊的森林邊緣紮營。繳交{quest:96896}（等級10）後，所有職業都能接受這兩個任務。他們會派你進入{area:16881}底下的地窖，也就是下一站。"
 	["North-west from {area:159} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "",
 	-- {npc:246378} Danitha Morr
 	["Listen to Leonid and {npc:246378}, then talk to him again"] = "聽萊尼德和{npc:246378}交談，然後再和他說話",
 
-	-- Step 82: Paladin: Bandarion Keep
+	-- Step 84: Paladin: Bandarion Keep
 	-- {quest:96899} Bandarion Keep
 	["Paladin: {quest:96899}"] = "聖騎士：{quest:96899}",
 	-- {npc:246349} Breton Samuels
 	["{npc:246349} waits at the keep's gate beside Leonid."] = "{npc:246349}在城堡大門旁、列昂尼德身邊等候。",
 
-	-- Step 83: Paladin: Murlocs at the Gates
+	-- Step 85: Paladin: Murlocs at the Gates
 	-- {quest:91285} Murlocs at the Gates
 	["Paladin: {quest:91285}"] = "聖騎士：{quest:91285}",
 	-- {area:16881} Shadowvale
@@ -480,7 +491,7 @@ return {
 	-- plural, as words: Vile Fin Seers = {npc:250282} Vile Fin Seer
 	["Vile Fin Seers"] = "邪鰭先知",
 
-	-- Step 84: Shadowvale
+	-- Step 86: Shadowvale
 	-- {area:16881} Shadowvale · {area:16616} Whispering Forest
 	-- plural, as words: Shadowvale Lurchers = {npc:260428} Shadowvale Lurcher
 	["{area:16881} is the hollow at the west edge of the glades, south-west of the {area:16616}. Go down into the big basement under the ruined house (only a floor and a few pillars left, not the two-storey house): the bottles lie on its floor among the Shadowvale Lurchers and Mystics."] = "{area:16881}是林地西緣的凹地，在{area:16616}西南。下到廢墟房屋下方的大地窖（只剩地板和幾根柱子，不是那棟兩層樓）：瓶子躺在地窖地板上，周圍是暗谷潛伏者和秘法師。",
@@ -490,23 +501,23 @@ return {
 	-- plural, as words: Shadowvale Lurchers = {npc:260428} Shadowvale Lurcher
 	["the Shadowvale Lurchers and Mystics drop the bones; below ground"] = "暗谷潛伏者和秘法師掉落骨頭；在地下",
 
-	-- Step 85: Hilda the Breaker and Ephram Barbaro
+	-- Step 87: Hilda the Breaker and Ephram Barbaro
 	-- {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro
 	["{npc:246389} and {npc:259190}"] = "{npc:246389}和{npc:259190}",
 	-- {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro
 	["Back up to the forest's edge south of the keep's gate: {npc:246389} and {npc:259190} take the bones and the crystal."] = "回到城堡大門以南的森林邊緣：{npc:246389}和{npc:259190}會收下骨頭和水晶。",
 
-	-- Step 86: Paladin: Bandarion Keep
+	-- Step 88: Paladin: Bandarion Keep
 	-- {npc:259190} Ephram Barbaro · {npc:246389} Hilda the Breaker · {npc:246349} Breton Samuels · {npc:246393} Jorin Croge · {npc:246394} Ander Solliden · {npc:246378} Danitha Morr
 	["{npc:259190} and {npc:246389} at the forest's edge, {npc:246349} at the gate, {npc:246393} and {npc:246394} nearby, {npc:246378} inside."] = "{npc:259190}和{npc:246389}在森林邊緣，{npc:246349}在大門，{npc:246393}和{npc:246394}在附近，{npc:246378}在裡面。",
 	-- {npc:246378} Danitha Morr
 	["{npc:246378}, inside the keep"] = "{npc:246378}，在城堡裡",
 
-	-- Step 87: The Undercity
+	-- Step 89: The Undercity
 	-- {object:1661} The Undercity · {area:153} Ruins of Lordaeron · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter · {item:6284} Runes of Summoning · {npc:4606} Aelthalyste · {object:36070} War Quarter · {npc:4568} Anastasia Hartwell
 	["{object:1661} is under the {area:153}, beside the zeppelin towers. {npc:5675} is in the {object:36082}: use the {item:6284} on the summoning circle beside him and defeat the voidwalker. {npc:4606} is in the {object:36070}. {npc:4568} is in the {object:36082} too."] = "{object:1661}在{area:153}底下，飛艇塔旁邊。{npc:5675}在{object:36082}：在他旁邊的召喚法陣使用{item:6284}，擊敗虛空行者。{npc:4606}在{object:36070}。{npc:4568}也在{object:36082}。",
 
-	-- Step 89: Brill
+	-- Step 91: Brill
 	-- {npc:2132} Carolai Anise
 	["{npc:2132}, inside"] = "{npc:2132}，在裡面",
 	-- {area:159} Brill · {zone:1421} Silverpine Forest
@@ -518,6 +529,7 @@ return {
 	-- ["Balnir graves"] = "巴尼爾墓地",
 	-- ["Duskbats and Darkhounds roam all along the road back west; finish the wings and hides on the way."] = "夜行蝙蝠和黑暗犬在往西的回程道路沿線遊蕩；順路把翅膀和外皮收集完。",
 	-- ["Eleanor camps just south-west of town."] = "她在城鎮西南方紮營。",
+	-- ["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, at Linnea's camp, or in the {zone:1458} in the next guide."] = "她在城鎮西南方紮營。學會專業技能後，艾莉諾也會提供對應的「露營入門」任務，交給該專業的訓練師：在{area:159}、林奈的營地，或下一份指南中的{zone:1458}。",
 	-- ["Fields west of {area:159}"] = "{area:159}西邊的田野",
 	-- ["Follow the road east to {area:159}. {npc:10665} stands at the north-west edge of town; the {area:2119} is the big inn in the middle, with {npc:1515} in front of it."] = "沿著道路向東前往{area:159}。{npc:10665}站在城鎮西北邊緣；{area:2119}是鎮中央的大旅店，{npc:1515}就在門前。",
 	-- ["Follow the road east. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the {quest:99142} grows."] = "沿著道路向東。可怕的血殭屍和遊蕩的幽靈在農場東側的墓地出沒，{quest:99142}就生長在那裡。",

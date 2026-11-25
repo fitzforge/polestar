@@ -50,11 +50,16 @@ return {
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["{item:6846}: Defias Rogue Wizards"] = "{item:6846}：迪菲亞流浪巫師",
 
-	-- Step 9: Three Corners
+	-- Step 9: Henze Faulk
+	-- {npc:6172} Henze Faulk · {quest:1786} The Tome of Divinity · {area:86} Stone Cairn Lake · {item:6846} Defias Script
+	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
+	["{npc:6172} is already raised: take the next part of {quest:1786} from him, south of {area:86}. The Defias Rogue Wizards around him carry the {item:6846}."] = "{npc:6172}已經復活：在{area:86}以南向他接取{quest:1786}的下一部分。他周圍的迪菲亞巫師（{npc:474}）身上帶著{item:6846}。",
+
+	-- Step 10: Three Corners
 	-- {area:1002} Three Corners · {zone:1431} Duskwood
 	["The road east through Elwynn crosses into Redridge at {area:1002}, where the roads to Redridge, {zone:1431} and Elwynn meet: south to {zone:1431} first."] = "向東穿過艾爾文森林的道路在{area:1002}進入赤脊山，通往赤脊山、{zone:1431}和艾爾文森林的道路在那裡交會：先往南前往{zone:1431}。",
 
-	-- Step 11: Darkshire
+	-- Step 12: Darkshire
 	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire
 	["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest."] = "沿著道路從{area:1002}向南進入{zone:1431}；{area:42}位於森林東側。",
 	-- {npc:2409} Felicia Maline
@@ -78,32 +83,32 @@ return {
 	-- {npc:633} Elaine Carevin · {npc:288} Jitters · {quest:163} Raven Hill
 	["{npc:633}: {npc:288}, at {quest:163}"] = "{npc:633}：{npc:288}，在{quest:163}",
 
-	-- Step 12: Viktori Prism'Antras
+	-- Step 13: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras · {quest:174} Look to the Stars · {item:4371} Bronze Tube
 	["{npc:276} is in her house at the east end of town. {quest:174} needs a {item:4371}, so this step shows only while you carry one: without a tube the guide passes {npc:276} and her chain."] = "{npc:276}在城鎮東端她的房子裡。{quest:174}需要一個{item:4371}，所以只有你身上帶著一個時才會顯示這個步驟：沒有銅管的話，指南會略過{npc:276}和她的任務鏈。",
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "{npc:276}，室內",
 
-	-- Step 13: Viktori Prism'Antras
+	-- Step 14: Viktori Prism'Antras
 	-- {npc:302} Blind Mary
 	["For {npc:302}, on the hill south-east of town"] = "交給{npc:302}，在鎮子東南方的山上",
 
-	-- Step 14: Councilman Millstipe
+	-- Step 15: Councilman Millstipe
 	-- {area:717} Stockade · {zone:1453} Stormwind · {npc:270} Councilman Millstipe
 	["For your {area:717} run, in {zone:1453} at about 29: {npc:270} is in the town hall. Keep it until then."] = "為了你約29級時在{zone:1453}的{area:717}之行：{npc:270}在市政廳。在那之前先留著它。",
 
-	-- Step 15: Tranquil Gardens Cemetery: kill these as you meet them
+	-- Step 16: Tranquil Gardens Cemetery: kill these as you meet them
 	-- {area:121} Tranquil Gardens Cemetery
 	["{area:121}: kill these as you meet them"] = "{area:121}：遇到就殺",
 	-- {area:42} Darkshire · {npc:302} Blind Mary · {zone:1431} Duskwood · {item:2378} Skeleton Finger
 	-- plural, as words: Skeletal Warriors = {npc:48} Skeletal Warrior · Skeletal Mages = {npc:203} Skeletal Mage
 	["Skeletal Warriors and Skeletal Mages walk among the graves south-east of {area:42}, below {npc:302}'s house on the hill. Every skeleton in {zone:1431} can drop a {item:2378}.\nCareful: Because the skeletons stand near each other, running straight in tends to pull several at once."] = "骷髏戰士和骷髏法師在{area:42}東南側的墓地遊蕩，就在山丘上{npc:302}房屋的下方。{zone:1431}的所有骷髏都有機率掉落{item:2378}。\n注意：骷髏站位密集，直接衝進去容易同時引到多個敵人。",
 
-	-- Step 16: Watcher Dodds
+	-- Step 17: Watcher Dodds
 	-- {npc:888} Watcher Dodds · {area:245} Yorgen Farmstead
 	["{npc:888} stands south of the road, at the {area:245}."] = "{npc:888}站在道路南邊的{area:245}。",
 
-	-- Step 17: Raven Hill
+	-- Step 18: Raven Hill
 	-- {quest:163} Raven Hill · {object:673515} Memory of Valor · {npc:288} Jitters
 	["Continue west to {quest:163}. The {object:673515} glows by the ruined house south of the road; {npc:288} hides in the house at the west end of the village."] = "繼續向西到{quest:163}。{object:673515}在道路南邊的廢棄房屋旁發光；{npc:288}藏在村子西端的房子裡。",
 	-- {item:281046} Raven Hill Tome · {object:673515} Memory of Valor
@@ -111,11 +116,11 @@ return {
 	-- {npc:272} Chef Grual · {area:42} Darkshire
 	["for {npc:272} in {area:42}"] = "交給{area:42}的{npc:272}",
 
-	-- Step 18: Sven's Camp
+	-- Step 19: Sven's Camp
 	-- {npc:311} Sven Yorgen · {npc:893} Lars
 	["Follow the road north-west past the cemetery to {npc:311}'s camp on the far west edge of the forest. {npc:893} stands beside {npc:311}."] = "沿著道路向西北經過墓地，前往森林最西緣的{npc:311}營地。{npc:893}站在{npc:311}旁邊。",
 
-	-- Step 19: The Hushed Bank: kill these as you meet them
+	-- Step 20: The Hushed Bank: kill these as you meet them
 	-- {area:1097} The Hushed Bank
 	["{area:1097}: kill these as you meet them"] = "{area:1097}：遇到就殺",
 	-- {npc:289} Abercrombie · {area:1097} The Hushed Bank · {quest:163} Raven Hill · {npc:311} Sven Yorgen · {zone:1436} Westfall
@@ -127,25 +132,25 @@ return {
 	-- {item:2251} Gooey Spider Leg · {npc:272} Chef Grual · {area:42} Darkshire
 	["{item:2251}: keep the ones these spiders drop, for {npc:272} in {area:42}"] = "{item:2251}：這些蜘蛛掉的就留著，交給{area:42}的{npc:272}",
 
-	-- Step 20: Abercrombie
+	-- Step 21: Abercrombie
 	-- {area:492} Raven Hill Cemetery
 	["The hermit's shack stands in the woods north-east of the {area:492}."] = "隱士的小屋在{area:492}東北方的樹林裡。",
 
-	-- Step 21: Raven Hill Cemetery: kill these as you meet them
+	-- Step 22: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
 	["{area:492}: kill these as you meet them"] = "{area:492}：遇到就殺",
 	-- {npc:522} Mor'Ladim
 	-- plural, as words: Skeletal Horrors = {npc:202} Skeletal Horror · Skeletal Fiends = {npc:531} Skeletal Fiend · Flesh Eaters = {npc:3} Flesh Eater · Bone Chewers = {npc:210} Bone Chewer · Plague Spreaders = {npc:604} Plague Spreader · Fetid Corpses = {npc:1270} Fetid Corpse
 	["The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends (23-25) walk its southern half and carry the fingers; for the fangs, Flesh Eaters (24-25) drop the most, so leave the Bone Chewers, Plague Spreaders and Fetid Corpses (26-30) further in alone. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: Eliza, a level 31 elite, rises from her grave at the cemetery's north end: keep away from it."] = "墓地在村子北邊。恐怖骷髏和骷髏魔（23-25級）在南半部遊走，身上帶著手指；獠牙則是食腐者（24-25級）掉最多，所以別理會更深處的噬骨者、瘟疫食屍鬼和惡臭的食屍鬼（26-30級）。精英{npc:522}在墳墓間遊蕩：離他遠一點。\n小心：31級精英伊莉莎會從墓地北端的墳墓中出現：離那裡遠一點。",
 
-	-- Step 22: Watcher Dodds
+	-- Step 23: Watcher Dodds
 	-- {area:245} Yorgen Farmstead
 	["Head back east along the road to the {area:245}."] = "沿路向東回到{area:245}。",
 
-	-- Step 23: Yorgen Farmstead
+	-- Step 24: Yorgen Farmstead
 	["The mound of loose dirt lies south of the farmhouse, by the old stump."] = "鬆土堆在農舍南邊的老樹樁旁。",
 
-	-- Step 24: Darkshire
+	-- Step 25: Darkshire
 	-- {npc:268} Sirra Von'Indi
 	["{npc:268}, inside"] = "{npc:268}，室內",
 	-- {npc:272} Chef Grual
@@ -160,22 +165,22 @@ return {
 	-- {npc:663} Calor
 	["{npc:663}, by the town hall"] = "{npc:663}，在市政廳旁",
 
-	-- Step 26: Redridge Mountains
+	-- Step 27: Redridge Mountains
 	-- {area:42} Darkshire · {area:1002} Three Corners
 	["Back north along the road from {area:42} to {area:1002}."] = "沿路向北，從{area:42}回到{area:1002}。",
 
-	-- Step 27: Lakeridge Highway
+	-- Step 28: Lakeridge Highway
 	-- {area:68} Lake Everstill · {npc:903} Guard Howe
 	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "沿著{area:68}南岸的道路前往獅鷲管理員處。{npc:903}站在她旁邊的路旁。",
 
-	-- Step 28: Lake Everstill's murlocs: kill these as you meet them
+	-- Step 29: Lake Everstill's murlocs: kill these as you meet them
 	-- {area:68} Lake Everstill
 	["{area:68}'s murlocs: kill these as you meet them"] = "{area:68}的魚人：遇到就殺",
 	-- {area:68} Lake Everstill
 	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater
 	["Murloc Flesheaters and Tidecallers line the south shore of {area:68}, just east of the gryphons and the bridge. Any of them can carry a fin."] = "魚人食腐者和魚人招潮者分布在{area:68}的南岸，就在獅鷲和橋的東邊。他們每一個都可能帶著魚鰭。",
 
-	-- Step 29: Lakeshire
+	-- Step 30: Lakeshire
 	-- {npc:381} Dockmaster Baren · {npc:900} Bailiff Conacher · {npc:342} Martie Jainrose · {npc:382} Marshal Marris · {npc:341} Foreman Oslow · {quest:98386} Alther's Mill
 	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, {npc:342} in her garden at the west end. {npc:382} and {npc:341} stand at the north end of the bridge: the Blackrock camps' quests and {quest:98386} are worked on this visit's loop east of the lake."] = "向北走過長橋進入城鎮：{npc:381}在碼頭，{npc:900}在市政廳，{npc:342}在西端她的花園裡。{npc:382}和{npc:341}站在橋的北端：黑石營地的任務和{quest:98386}要在這次湖東邊的環線中完成。",
 	-- {npc:415} Verner Osgood
@@ -188,26 +193,26 @@ return {
 	["{npc:900}, in the town hall"] = "{npc:900}，在城鎮大廳裡",
 	["The Wanted poster by the inn"] = "旅店旁的通緝告示",
 
-	-- Step 30: Bellygrub
+	-- Step 31: Bellygrub
 	-- {npc:345} Bellygrub · {area:69} Lakeshire · {npc:342} Martie Jainrose
 	["{npc:345} (level 24) roots around the pen just west of {area:69}, beside {npc:342}'s garden. Pull him away from the other boars and fight at full health."] = "{npc:345}（24級）在{area:69}西邊不遠處的豬圈裡拱土，就在{npc:342}的花園旁。把牠從其他野豬旁拉開，滿血再戰。",
 
-	-- Step 31: Martie Jainrose
+	-- Step 32: Martie Jainrose
 	-- {npc:342} Martie Jainrose
 	["{npc:342}'s garden is at the west end of town."] = "{npc:342}的花園在鎮子西端。",
 
-	-- Step 32: Lakeshire
+	-- Step 33: Lakeshire
 	-- {npc:342} Martie Jainrose
 	["Back east through town from {npc:342}'s garden: two Wanted posters hang on the town hall doorway."] = "從{npc:342}的花園向東穿回鎮上：市政廳門口掛著兩張通緝佈告。",
 	["The Wanted poster on the town hall doorway"] = "市政廳門口的通緝佈告",
 	["The Wanted poster beside it"] = "它旁邊的通緝佈告",
 
-	-- Step 33: Alther's Mill
+	-- Step 34: Alther's Mill
 	-- {quest:98386} Alther's Mill
 	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula · Tarantula Eggs = {object:673101} Tarantula Egg
 	["Greater Tarantulas crawl on the slopes around {quest:98386}, north-east of the lake; their Tarantula Eggs lie on the ground among them: click six."] = "巨型狼蛛在湖東北方{quest:98386}周圍的山坡上爬行；牠們的狼蛛卵散落在牠們之間的地上：點擊六顆。",
 
-	-- Step 34: Blackrock camps
+	-- Step 35: Blackrock camps
 	["Blackrock camps"] = "黑石營地",
 	-- {area:1000} Galardell Valley · {area:2099} Stonewatch Keep
 	["South-east from the mill, west of {area:1000}'s gnolls, to the Blackrock camps east of {area:2099}. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite. Weapon racks and swords lie about the camps; meat haunches, grain sacks and water barrels hold the supplies."] = "從磨坊向東南，到{area:1000}豺狼人以西，再到{area:2099}以東的黑石營地。營地裡滿是叛徒、步兵和先鋒；待在要塞以東，那裡面的獸人是精英。武器架和長劍散落在營地各處；補給放在腿肉、糧袋和水桶裡。",
@@ -216,51 +221,51 @@ return {
 	-- {item:280839} Blackrock Supplies
 	["{item:280839}: meat haunches, grain sacks, water barrels"] = "{item:280839}：腿肉、糧袋、水桶",
 
-	-- Step 35: Incinerator Gar'im
+	-- Step 36: Incinerator Gar'im
 	["Gar'im keeps to the cave at the camps' south end with his imp and two orcs. Elite: group up if you can; solo, pull the orcs at the mouth first and interrupt his fire cast."] = "加里姆待在營地南端的洞穴裡，帶著他的小鬼和兩名獸人。精英：能組隊就組隊；單刷的話，先拉洞口的獸人，並打斷他的火焰施法。",
 
-	-- Step 36: Galardell Valley
+	-- Step 37: Galardell Valley
 	-- {npc:703} Lieutenant Fangore · {area:2099} Stonewatch Keep
 	["North up the valley's east side. Shadowhide gnolls fill it; {npc:703} (26) and his two guards stand at its north end: clear the gnolls around him first and fight at full health. Stay out of {area:2099} to the west until the watch tower: its orcs are elite."] = "沿山谷東側向北。影皮豺狼人遍佈谷中；{npc:703}（26級）和兩名守衛站在谷北端：先清掉他周圍的豺狼人，滿血再打。西邊的{area:2099}在到瞭望塔前別進去：那裡的獸人是精英。",
 	-- {item:1075} Shadowhide Pendant
 	["{item:1075}: any Shadowhide gnoll"] = "{item:1075}：任何暗皮豺狼人",
 
-	-- Step 37: A Watchful Eye
+	-- Step 38: A Watchful Eye
 	-- {object:31} Old Lion Statue
 	["The {object:31} stands at the valley's east edge."] = "{object:31}立在山谷東緣。",
 
-	-- Step 38: Looking Further
+	-- Step 39: Looking Further
 	-- {area:2099} Stonewatch Keep
 	["West to the intact watch tower beside {area:2099}: climb it and leave the Glyph in the empty jar at the top."] = "向西到{area:2099}旁完好的瞭望塔：爬上去，把符文放進塔頂的空罐裡。",
 
-	-- Step 39: Stonewatch Keep
+	-- Step 40: Stonewatch Keep
 	-- {npc:334} Gath'Ilzogg
 	-- plural, as words: Blackrock Shadowcasters = {npc:436} Blackrock Shadowcaster
 	["The keep stands beside the tower. {npc:334} (elite) waits in the keep's top room with two guards and a dragon; Blackrock Shadowcasters (elite) and Sentries stand on its west side, so pull one at a time on the way in, and hug the right wall as you enter his room so you don't pull him at once. Elite: group up if you can."] = "要塞就在塔旁。{npc:334}（精英）帶著兩名守衛和一條龍守在要塞頂層的房間裡；黑石暗影施法者（精英）和哨兵站在要塞西側，進去時一次只拉一隻，進他房間時貼著右牆走，免得一下子把他拉過來。精英：能組隊就組隊。",
 
-	-- Step 40: Yowler
+	-- Step 41: Yowler
 	-- {area:95} Redridge Canyons · {area:997} Render's Valley · {npc:518} Yowler
 	-- plural, as words: Redridge Alphas = {npc:445} Redridge Alpha
 	["From the keep head back west along the lake's north shore and north up the {area:95}. Just south of {area:997}, {npc:518}, a level 25 gnoll, walks among the Redridge Alphas and Mystics."] = "從要塞沿湖的北岸向西回走，再向北走{area:95}。{area:997}正南，25級的豺狼人{npc:518}在赤脊阿爾法和赤脊秘法師中間走動。",
 
-	-- Step 41: Render's Valley
+	-- Step 42: Render's Valley
 	-- {area:95} Redridge Canyons · {area:997} Render's Valley · {area:69} Lakeshire
 	-- plural, as words: Blackrock Champions = {npc:435} Blackrock Champion
 	["From the keep head back west along the lake's north shore and north up the {area:95} to {area:997}; {area:69}'s hand-ins wait for Keeshan's escort, which ends there. Blackrock Champions camp in the valley."] = "從要塞沿湖北岸向西折回，再向北沿{area:95}上行到{area:997}；{area:69}的待交任務要等基沙恩的護送，護送就在那裡結束。黑石勇士在山谷裡紮營。",
 	-- {npc:435} Blackrock Champion
 	["{npc:435}, below ground"] = "{npc:435}，地下",
 
-	-- Step 42: Corporal Keeshan
+	-- Step 43: Corporal Keeshan
 	-- {zone:1428} Burning Steppes · {area:69} Lakeshire
 	["Keeshan hides at the very north end of the valley, by the {zone:1428} border. Escort him down to {area:69}; Blackrock orcs ambush you on the way."] = "基沙恩躲在山谷最北端、{zone:1428}邊界旁。護送他下到{area:69}；途中黑石獸人會伏擊你。",
 	-- {npc:349} Corporal Keeshan
 	["{npc:349}, below ground"] = "{npc:349}，地下",
 
-	-- Step 43: Magistrate Solomon: Gath'Ilzogg
+	-- Step 44: Magistrate Solomon: Gath'Ilzogg
 	-- {npc:344} Magistrate Solomon
 	["{npc:344}, in the town hall"] = "{npc:344}，在市政廳",
 
-	-- Step 45: Back to Lakeshire
+	-- Step 46: Back to Lakeshire
 	-- {area:69} Lakeshire
 	["Back to {area:69}"] = "返回{area:69}",
 	-- {area:69} Lakeshire · {npc:900} Bailiff Conacher · {npc:344} Magistrate Solomon · {npc:382} Marshal Marris · {npc:341} Foreman Oslow · {npc:903} Guard Howe

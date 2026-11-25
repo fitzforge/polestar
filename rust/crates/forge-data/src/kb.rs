@@ -2434,7 +2434,11 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 						drops.set(&ek, rate);
 						kb.change("items", item_id as f64, &format!("drop {kind}"), V::Null, V::Num(rate), "eg");
 						bump(&eg_report, "ratesFilled", 1.0);
-					} else if it.get("questItem").truthy() && has_spawn(if *kind == "npc" { npcs } else { objects }, &ek) && rate >= 1.0 {
+					} else if it.get("questItem").truthy()
+						&& has_spawn(if *kind == "npc" { npcs } else { objects }, &ek)
+						&& rate >= 1.0
+						&& !drop_removed(&inp.corrections, &item_id.to_string(), kind, &ek)
+					{
 						let recs = drops.as_obj().unwrap().spread();
 						recs.set(&ek, rate);
 						it.get("drops").set(kind, sorted_keys(&recs));
@@ -2680,6 +2684,13 @@ fn tdb_rate_fills_unrated(item: &V, row: &V) -> bool {
 	(scale.is_nullish() || scale.as_str() == Some("server")) && row.num_at(0) > 0.0
 }
 
+/// Whether a correction removes `source` (of `kind`) as a dropper of item `item` (`removeDrops`): no
+/// other source brings it back, as the corrections outrank them all (the Forever TDB's Document Chest
+/// 176344 for the Lorgalis Manuscript, whose only container is in Blackfathom Deeps).
+fn drop_removed(corrections: &V, item: &str, kind: &str, source: &str) -> bool {
+	corrections.get("items").get(item).get("removeDrops").get(kind).items().iter().any(|x| x.to_js_string() == source)
+}
+
 /// The quest's time limit from its TDB row: the server's `TimeAllowed` (`time`, whole seconds once the
 /// quest is taken) when it has one and the quest's `limit` differs, else None (nothing to change).
 /// quests.json's `limit` reaches every accept of the quest in the guides (forge-guide resolve.rs), which
@@ -2781,7 +2792,12 @@ fn apply_tdb_world(kb: &mut Kb, tdb: &V, spawnz: Option<&mut (V, V)>) -> Obj {
 						kb.change("items", iid, &format!("drop {kind}"), V::Null, V::Num(v), "tdb.inherited");
 						bump("ratesFilled", 1.0);
 					}
-				} else if it.get("questItem").truthy() && (to_int32(e.num_at(2)) & 1) != 0 && !e.at(1).to_js_string().contains("placeholder") && e.num_at(0) >= 1.0 {
+				} else if it.get("questItem").truthy()
+					&& (to_int32(e.num_at(2)) & 1) != 0
+					&& !e.at(1).to_js_string().contains("placeholder")
+					&& e.num_at(0) >= 1.0
+					&& !drop_removed(&inp.corrections, &item_id, kind, &ent)
+				{
 					let recs = drops.as_obj().unwrap().spread();
 					recs.set_str(ent.clone(), rate(mult));
 					let sorted = sorted_keys(&recs);
@@ -3851,6 +3867,64 @@ mod tests {
 		let count = |id: &str| world.get(id).get("objectives").at(0).get("count").num();
 		assert_eq!(count("93165"), 5.0, "the correction's count stays");
 		assert_eq!(count("900001"), 10.0, "with no higher source, the TDB's count wins");
+	}
+
+	#[test]
+	fn the_tdbs_droppers_never_bring_back_one_a_correction_removed() {
+		// The Lorgalis Manuscript 5359 comes only from the Pitted Iron Chest 13949 in Blackfathom Deeps, and the
+		// Twilight Tablet Fragment 20378 only from the two Silithus objects; corrections remove the Document
+		// Chest 176344 and the Twilight npcs 11744, 11746 and 14455 that the server's loot tables (the Forever
+		// TDB) list beside them. The knowledge base gave them back (the 0.4.3 build). 20379, with no
+		// correction, still gets the TDB's dropper.
+		let items = parse_json(
+			r#"{
+				"5359": { "id": 5359, "name": "Lorgalis Manuscript", "questItem": true, "drops": { "npc": {}, "object": { "13949": 100 } }, "vendors": [] },
+				"20378": { "id": 20378, "name": "Twilight Tablet Fragment", "questItem": true, "drops": { "npc": {}, "object": { "180436": 100, "180501": 100 } }, "vendors": [] },
+				"20379": { "id": 20379, "name": "Other Fragment", "questItem": true, "drops": { "npc": {}, "object": {} }, "vendors": [] }
+			}"#,
+		)
+		.unwrap();
+		let corrections = parse_json(r#"{ "items": { "5359": { "removeDrops": { "object": [176344] } }, "20378": { "removeDrops": { "npc": [11744, 11746, 14455] } } } }"#).unwrap();
+		let row = r#"[100, "vmangos", 5, null, null, 1]"#;
+		let tdb = parse_json(&format!(
+			r#"{{ "schema": 2, "loot": {{ "object": {{ "5359": {{ "13949": {row}, "176344": {row} }} }}, "npc": {{ "20378": {{ "11744": {row}, "11746": {row}, "14455": {row} }}, "20379": {{ "11746": {row} }} }} }} }}"#
+		))
+		.unwrap();
+		let empty = Obj::new();
+		let none = PathBuf::from("/nonexistent");
+		let inp = KbInputs {
+			quests: &empty,
+			npcs: &empty,
+			objects: &empty,
+			items: items.as_obj().unwrap(),
+			frames: V::obj(),
+			zones: &empty,
+			live: FxHashSet::default(),
+			corrections,
+			correction_origins: Vec::new(),
+			npc_hand_ins: FxHashMap::default(),
+			not_pre: FxHashMap::default(),
+			facts_file: None,
+			tdb: Some(tdb),
+			classic: None,
+			factoruide_file: None,
+			quest_xp: None,
+			spawnz: None,
+			training: None,
+			trainers: None,
+			mechanics: MechFiles { quest_mechanics: none.clone(), quest_steps: none.clone(), tdb_layer: none.clone(), web: none.clone(), public: none.clone(), evidence: none },
+			v2_quests: FxHashSet::default(),
+			eg: None,
+			vo: None,
+			client: None,
+			kb_file: None,
+			verify_file: None,
+		};
+		build_kb(&inp, &|_| {}).unwrap();
+		let drops = |id: &str| stringify(&items.get(id).get("drops"), None);
+		assert_eq!(drops("5359"), r#"{"npc":{},"object":{"13949":100}}"#, "the Document Chest stays removed");
+		assert_eq!(drops("20378"), r#"{"npc":{},"object":{"180436":100,"180501":100}}"#, "the Twilight npcs stay removed");
+		assert_eq!(drops("20379"), r#"{"npc":{"11746":100},"object":{}}"#, "no correction: the TDB's dropper joins");
 	}
 
 	#[test]

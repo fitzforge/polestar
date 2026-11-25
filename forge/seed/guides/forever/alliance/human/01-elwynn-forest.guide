@@ -173,7 +173,7 @@ step Goldshire
   accept 91775
 
 step Sam Sarsaparilla
-  tip Sam Sarsaparilla camps north-east of the inn. With a profession learned, he also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing on the lake shore, First Aid and blacksmithing in Goldshire.
+  tip Sam Sarsaparilla camps north-east of the inn. With a profession learned, he also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing on the lake shore, First Aid and blacksmithing in Goldshire, herbalism and alchemy back in Northshire Abbey, tailoring at the Eastvale Logging Camp, mining, engineering and enchanting in Stormwind.
   turnin 96627                                -- Sam Sarsaparilla
   accept 95998
   complete 95998 @44.9,63.2                   -- Sit (/sit) by his campfire until you have Boosted Rest
@@ -204,6 +204,42 @@ step Camping 101: Blacksmithing
   when skill Blacksmithing 1
   tip Smith Argus takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97916                                -- Sam Sarsaparilla: for Smith Argus at the Goldshire smithy
+
+step Camping 101: Herbalism
+  when skill Herbalism 1
+  when !knows 1229705
+  tip Herbalist Pomeroy takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97921                                -- Sam Sarsaparilla: for Herbalist Pomeroy in Northshire Abbey
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  when !knows 1230564
+  tip Alchemist Mallory takes it once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97915                                -- Sam Sarsaparilla: for Alchemist Mallory in Northshire Abbey
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  when !knows 1263425
+  tip Eldrin takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97925                                -- Sam Sarsaparilla: for Eldrin at the Eastvale Logging Camp
+
+step Camping 101: Mining
+  when skill Mining 1
+  when !knows 1230161
+  tip Gelman Stonehand takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97923                                -- Sam Sarsaparilla: for Gelman Stonehand in Stormwind's Dwarven District
+
+step Camping 101: Engineering
+  when skill Engineering 1
+  when !knows 1230656
+  tip Sprite Jumpsprocket takes it once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97918                                -- Sam Sarsaparilla: for Sprite Jumpsprocket in Stormwind's Dwarven District
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  when !knows 1230643
+  tip Betty Quin takes it once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97917                                -- Sam Sarsaparilla: for Betty Quin in Stormwind
 
 step Helene Peltskinner
   when onquest 97924
@@ -275,6 +311,18 @@ step Smith Argus
   when complete 97916
   complete 97916 @41.71,65.54                 -- talk to the trainer
   turnin 97916                                -- Smith Argus, at the smithy across the road
+
+step Herbalist Pomeroy
+  when onquest 97921
+  when complete 97921
+  complete 97921 @39.83,48.41                 -- talk to the trainer
+  turnin 97921                                -- Herbalist Pomeroy, north of Goldshire
+
+step Alchemist Mallory
+  when onquest 97915
+  when complete 97915
+  complete 97915 @39.81,48.38                 -- talk to the trainer
+  turnin 97915                                -- Alchemist Mallory, beside Herbalist Pomeroy
 
 # ---------------------------------------------------------------- The south: Fargodeep and the farms
 
@@ -489,6 +537,12 @@ step Guard Thomas
 step The Eastvale Logging Camp
   turnin 83                           -- Inside
   turnin 91732                                -- Hagar Lowe
+
+step Eldrin
+  when onquest 97925
+  when complete 97925
+  complete 97925 @79.22,69.1                  -- talk to the trainer
+  turnin 97925                                -- Eldrin, at the logging camp
 
 step Stone Cairn Lake
   tip North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake.

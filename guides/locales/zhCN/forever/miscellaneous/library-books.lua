@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- plural, as words: Library Books = {object:386691} Library Book
+	-- plural, as words: Library Books = {object:386759} Library Book
 	["Library Books"] = "图书馆藏书",
 	["Lost books and scrolls all over the world: each pays experience at the library, and 10, 20 and 25 of them earn a necklace, a ring and an off-hand."] = "世界各地散落着书籍和卷轴：每本交给图书馆都可获得经验，交够10本、20本和25本后可分别获得一条项链、一枚戒指和一件副手物品。",
 
@@ -49,7 +49,7 @@ return {
 	["On a barrel in a tent at {area:2537}, in the far south-east of the zone."] = "在该地区最东南方 {area:2537} 的一顶帐篷内，放在桶上。",
 
 	-- Step 11: The Barrens
-	-- {area:382} Sludge Fen · {object:407566} Goblin Tome (no name in this language: may be words) · {area:392} Ratchet
+	-- {area:382} Sludge Fen · {object:407566} Goblin Tome · {area:392} Ratchet
 	["Two books: the manual in the control room at the top of the oil rig at the {area:382}, and the {object:407566} beside Gazlowe in {area:392}."] = "两本书：一本是{area:382}石油平台顶部控制室里的手册，另一本是{area:392}加兹鲁维身旁的{object:407566}。",
 
 	-- Step 12: The Wailing Caverns' cave
@@ -61,7 +61,7 @@ return {
 	["Cave mouth at {area:387}"] = "{area:387} 的洞口",
 
 	-- Step 13: Orgrimmar
-	-- {object:405149} Mural of Ta'zo (no name in this language: may be words) · {object:172961} Valley of Spirits
+	-- {object:405149} Mural of Ta'zo · {object:172961} Valley of Spirits
 	["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "{object:405149}是{object:172961}中斜靠在墙边的石板，就在前往法师训练师的路上。使用它即可拿到书。",
 
 	-- Step 14: The library: first books

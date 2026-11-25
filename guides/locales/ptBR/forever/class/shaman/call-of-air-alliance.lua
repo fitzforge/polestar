@@ -24,7 +24,7 @@ return {
 
 	-- Step 3: Veyric Thunderhame
 	-- {quest:96264} Elemental Aid · {npc:4421} Charlga Razorflank · {area:1717} Razorfen Kraul · {npc:259023} Veyric Thunderhame
-	["{quest:96264} sends you to {npc:4421}, a level 33 elite at the end of {area:1717}: {npc:259023}'s next quest waits for 32."] = "",
+	["{quest:96264} sends you to {npc:4421}, a level 33 elite at the end of {area:1717}: {npc:259023}'s next quest waits for 32."] = "{quest:96264} manda você até {npc:4421}, um elite de nível 33 no fim de {area:1717}: a próxima missão de {npc:259023} vem só no nível 32.",
 
 	-- Step 4: Charlga Razorflank
 	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {npc:4421} Charlga Razorflank · {spell:8292} Chain Bolt · {spell:139} Renew · {item:274463} Tattered Note

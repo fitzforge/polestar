@@ -8,33 +8,35 @@
 return {
 	-- Guide
 	-- {zone:1423} Eastern Plaguelands
-	["Western & {zone:1423}"] = "",
+	["Western & {zone:1423}"] = "Occidentales y {zone:1423}",
 
 	-- Step 1: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
 	["Fly to {area:702}"] = "Vuela a {area:702}",
+	-- {zone:1457} Darnassus · {zone:1450} Moonglade · {zone:1455} Ironforge · {area:3197} Chillwind Camp
+	["The {zone:1457}, {zone:1450} and {zone:1455} stops are for players coming from the previous guides with their quests; opened with none of those quests in the log, the guide starts at {area:3197}."] = "Las paradas de {zone:1457}, {zone:1450} y {zone:1455} son para jugadores que vienen de las guías anteriores con sus misiones; abierta sin ninguna de esas misiones en el registro, la guía empieza en {area:3197}.",
 
 	-- Step 2: Rut'theran Village
 	-- {area:702} Rut'theran Village · {npc:7916} Erelas Ambersky
 	["The flight lands in {area:702}. {npc:7916} stands a short walk north-west of the flight master."] = "El vuelo aterriza en {area:702}. {npc:7916} está a un paseo corto al noroeste del maestro de vuelo.",
 	-- {npc:7916} Erelas Ambersky · {zone:1452} Winterspring
-	["{npc:7916}' next task sends you back to Ranshalla in {zone:1452}, behind the route now: skip it."] = "",
+	["{npc:7916}' next task sends you back to Ranshalla in {zone:1452}, behind the route now: skip it."] = "La siguiente tarea de {npc:7916} te manda de vuelta con Ranshalla en {zone:1452}, ya detrás de la ruta: omítela.",
 
 	-- Step 4: Herald Moonstalker
 	-- {npc:10878} Herald Moonstalker
-	["{npc:10878} stands by the Temple of the Moon."] = "",
+	["{npc:10878} stands by the Temple of the Moon."] = "{npc:10878} está junto al Templo de la Luna.",
 
 	-- Step 6: Arch Druid Fandral Staghelm
 	-- {area:1658} Cenarion Enclave · {npc:4217} Mathrengyl Bearwalker
-	["Fandral stands at the top of the druids' building of the {area:1658}; {npc:4217}, next, is lower down inside it."] = "",
+	["Fandral stands at the top of the druids' building of the {area:1658}; {npc:4217}, next, is lower down inside it."] = "Fandral está en lo alto del edificio de los druidas de {area:1658}; {npc:4217}, a continuación, está más abajo dentro de él.",
 	-- {npc:3516} Arch Druid Fandral Staghelm
-	["{npc:3516}, upstairs"] = "",
+	["{npc:3516}, upstairs"] = "{npc:3516}, en el piso de arriba",
 
 	-- Step 8: Mathrengyl Bearwalker
 	-- {npc:4217} Mathrengyl Bearwalker
 	["{npc:4217}, upstairs"] = "{npc:4217}, arriba",
 	-- {quest:6762} Rabine Saturna · {zone:1450} Moonglade · {zone:2482} Mount Hyjal
-	["{quest:6762} in {zone:1450}: {zone:2482}'s {zone:1450} errand takes you to her, in the next guide; keep it"] = "",
+	["{quest:6762} in {zone:1450}: {zone:2482}'s {zone:1450} errand takes you to her, in the next guide; keep it"] = "{quest:6762} en {zone:1450}: el encargo de {zone:1450} de {zone:2482} te lleva con ella, en la siguiente guía; guárdala",
 	-- {zone:1455} Ironforge
 	["{zone:1455} has no druid trainer"] = "{zone:1455} no tiene instructor de druidas",
 
@@ -58,15 +60,17 @@ return {
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "Maestro de vuelo de {area:150}",
 
-	-- Step 13: Ironforge
-	-- {npc:14724} Bubulo Acerbus · {npc:14723} Mistina Steelshield · {item:14047} Runecloth
-	["{npc:14724} and {npc:14723} each take sixty Wool, sixty Silk and sixty Mageweave, then sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "",
-	-- {npc:15187} Cenarion Emissary Jademoon · {npc:15191} Windcaller Proudhorn · {zone:1451} Silithus
-	["{npc:15187}, by the flight master where you land: for {npc:15191} in {zone:1451}, on the last guide; keep it"] = "",
+	-- Step 13: Laris Geardawdle
 	-- {npc:9616} Laris Geardawdle
-	["{npc:9616}' next task fills his jars in Un'Goro, behind the route now: skip it."] = "",
+	["{npc:9616}' next task fills his jars in Un'Goro, behind the route now: skip it."] = "La siguiente tarea de {npc:9616} llena sus frascos en Un'Goro, ya detrás de la ruta: omítela.",
+
+	-- Step 14: Ironforge
+	-- {npc:14724} Bubulo Acerbus · {npc:14723} Mistina Steelshield · {item:14047} Runecloth
+	["{npc:14724} and {npc:14723} each take sixty Wool, sixty Silk and sixty Mageweave, then sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "{npc:14724} y {npc:14723} reciben cada uno sesenta de lana, sesenta de seda y sesenta de tejido mágico, y luego sesenta de {item:14047}: entrega lo que lleves (o cómpralo en la casa de subastas) y omite el resto.",
+	-- {npc:15187} Cenarion Emissary Jademoon · {npc:15191} Windcaller Proudhorn · {zone:1451} Silithus
+	["{npc:15187}, by the flight master where you land: for {npc:15191} in {zone:1451}, on the last guide; keep it"] = "{npc:15187}, junto al maestro de vuelo donde aterrizas: para {npc:15191} en {zone:1451}, en la última guía; guárdala",
 	-- {npc:13843} Lieutenant Rotimer · {npc:13841} Lieutenant Haggerdin · {area:3197} Chillwind Camp
-	["{npc:13843}: for {npc:13841}, on the way to {area:3197}"] = "",
+	["{npc:13843}: for {npc:13841}, on the way to {area:3197}"] = "{npc:13843}: para {npc:13841}, de camino a {area:3197}",
 	-- {item:2592} Wool Cloth
 	["{item:2592}, from your bags"] = "{item:2592}, de tus bolsas",
 	-- {item:4306} Silk Cloth
@@ -76,58 +80,56 @@ return {
 	-- {item:14047} Runecloth
 	["{item:14047}, from your bags"] = "{item:14047}, de tus bolsas",
 
-	-- Step 14: Courier Hammerfall
+	-- Step 15: Courier Hammerfall
 	-- {zone:1428} Burning Steppes · {area:3197} Chillwind Camp · {npc:10877} Courier Hammerfall · {zone:1455} Ironforge · {npc:10838} Commander Ashlam Valorfist
-	["Without the {zone:1428} guide's {area:3197} quests: {npc:10877} walks the ring of {zone:1455} and sends you to {npc:10838}, whose camp this guide visits next. Chillwind's chain starts with it."] = "",
+	["Without the {zone:1428} guide's {area:3197} quests: {npc:10877} walks the ring of {zone:1455} and sends you to {npc:10838}, whose camp this guide visits next. Chillwind's chain starts with it."] = "Sin las misiones de {area:3197} de la guía de {zone:1428}: {npc:10877} recorre el anillo de {zone:1455} y te manda con {npc:10838}, cuyo campamento visita esta guía a continuación. La cadena de Vientofrío empieza con ella.",
 
-	-- Step 15: Fly to Southshore
+	-- Step 16: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "Vuela a {area:271}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "Maestro de vuelo de {zone:1455}",
 
-	-- Step 16: Orphan Matron Aria
+	-- Step 17: Orphan Matron Aria
 	-- {area:271} Southshore · {area:279} Dalaran · {npc:34365} Orphan Matron Aria
-	["Ride north from {area:271} into Alterac and west to the walls of {area:279}: {npc:34365} stands outside them."] = "",
+	["Ride north from {area:271} into Alterac and west to the walls of {area:279}: {npc:34365} stands outside them."] = "Cabalga al norte desde {area:271} hacia Alterac y al oeste hasta las murallas de {area:279}: {npc:34365} está fuera de ellas.",
 
-	-- Step 17: Lieutenant Haggerdin
+	-- Step 18: Lieutenant Haggerdin
 	-- {npc:13841} Lieutenant Haggerdin · {area:3197} Chillwind Camp
-	["{npc:13841} camps beside the road north to {area:3197}."] = "",
+	["{npc:13841} camps beside the road north to {area:3197}."] = "{npc:13841} acampa junto al camino al norte hacia {area:3197}.",
 
-	-- Step 18: Chillwind Camp: Clear the Way
+	-- Step 19: Chillwind Camp: Clear the Way
 	-- {zone:1428} Burning Steppes · {area:3197} Chillwind Camp · {npc:10838} Commander Ashlam Valorfist · {quest:5092} Clear the Way
-	["Without the {zone:1428} guide's {area:3197} quests: {npc:10838} stands in the middle of the camp. His {quest:5092} opens the camp's chain."] = "",
+	["Without the {zone:1428} guide's {area:3197} quests: {npc:10838} stands in the middle of the camp. His {quest:5092} opens the camp's chain."] = "Sin las misiones de {area:3197} de la guía de {zone:1428}: {npc:10838} está en el centro del campamento. Su {quest:5092} abre la cadena del campamento.",
 
-	-- Step 19: Sorrow Hill: Clear the Way
+	-- Step 20: Sorrow Hill: Clear the Way
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul
-	["Skeletal Flayers and Slavering Ghouls (50) roam the fields just north of the camp.\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled."] = "",
+	["Skeletal Flayers and Slavering Ghouls (50) roam the fields just north of the camp.\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled."] = "Los despellejadores esqueléticos y los necrófagos esclavizantes (50) rondan los campos justo al norte del campamento.\nCuidado: estos no-muertos te detectan desde lejos, y otros no-muertos cercanos se suman a la pelea cuando atraes a uno.",
 
-	-- Step 20: Chillwind Camp: the cauldrons
+	-- Step 21: Chillwind Camp: the cauldrons
 	-- {area:3197} Chillwind Camp
-	["{area:3197}: the cauldrons"] = "",
+	["{area:3197}: the cauldrons"] = "{area:3197}: los calderos",
 	-- {npc:11053} High Priestess MacDonnell
-	["Back to the camp: Valorfist, then {npc:11053} beside him."] = "",
+	["Back to the camp: Valorfist, then {npc:11053} beside him."] = "De vuelta al campamento: Valorfist, y luego {npc:11053} a su lado.",
 	-- {area:199} Felstone Field
-	["{area:199}'s cauldron, later in this guide"] = "",
+	["{area:199}'s cauldron, later in this guide"] = "El caldero de {area:199}, más adelante en esta guía",
 
-	-- Step 21: Chillwind Camp
+	-- Step 22: Chillwind Camp
 	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "Puricorazón, Dumah, Puño de Valor y MacDonnell están en el centro del campamento, junto al maestro de vuelo.",
 	-- {npc:11616} Nathaniel Dumah · {area:2277} Plaguewood
-	-- was: ["{npc:11616}: the termites come later, in {area:2627}"] = "{npc:11616}: las termitas vienen después, en {area:2627}"
-	["{npc:11616}: the termites come later, in the {area:2277}"] = "",
+	["{npc:11616}: the termites come later, in the {area:2277}"] = "{npc:11616}: las termitas vienen después, en {area:2277}",
 	-- {npc:10838} Commander Ashlam Valorfist · {area:199} Felstone Field
-	["{npc:10838}: the watchtowers stand around Andorhal, on the way to {area:199}"] = "",
+	["{npc:10838}: the watchtowers stand around Andorhal, on the way to {area:199}"] = "{npc:10838}: las atalayas están alrededor de Andorhal, de camino a {area:199}",
 
-	-- Step 22: Argent Officer Pureheart
+	-- Step 23: Argent Officer Pureheart
 	-- {quest:5401} Argent Dawn Commission
-	["No {quest:5401} yet? Pureheart gives you one here: the scourgestone quests need it."] = "",
+	["No {quest:5401} yet? Pureheart gives you one here: the scourgestone quests need it."] = "¿Todavía sin {quest:5401}? Pureheart te da una aquí: las misiones de piedras de la Plaga la necesitan.",
 
-	-- Step 23: The Andorhal watchtowers
+	-- Step 24: The Andorhal watchtowers
 	["The Andorhal watchtowers"] = "Las atalayas de Andorhal",
 	-- {item:12815} Beacon Torch · {area:199} Felstone Field · {npc:7572} Fallen Hero of the Horde
 	-- plural, as words: Skeletal Warlords = {npc:1788} Skeletal Warlord · Flesh Golems = {npc:1805} Flesh Golem
-	-- was: ["Use the {item:12815} at the foot of each of the four watchtowers around the edge of Andorhal, north of the camp.\nCareful: Skeletal Warlords and Flesh Golems (57, elites) walk Andorhal's streets, and the {npc:7572} (59, elite) wanders between Andorhal and Northridge: keep to the towers at the town's edge and let them pass."] = "Usa la {item:12815} al pie de cada una de las cuatro atalayas del borde de Andorhal, al norte del campamento.\nCuidado: Señores de la guerra esqueléticos y Gólems de carne (57, élites) recorren las calles de Andorhal, y el {npc:7572} (59, élite) deambula entre Andorhal y Cresta Norte: quédate en las torres del borde del pueblo y déjalos pasar."
-	["Use the {item:12815} at the foot of each of the four watchtowers around the edge of Andorhal, north of the camp, on the way to {area:199}.\nCareful: Skeletal Warlords and Flesh Golems (57, elites) walk Andorhal's streets, and the {npc:7572} (59, elite) wanders between Andorhal and Northridge: keep to the towers at the town's edge and let them pass."] = "",
+	["Use the {item:12815} at the foot of each of the four watchtowers around the edge of Andorhal, north of the camp, on the way to {area:199}.\nCareful: Skeletal Warlords and Flesh Golems (57, elites) walk Andorhal's streets, and the {npc:7572} (59, elite) wanders between Andorhal and Northridge: keep to the towers at the town's edge and let them pass."] = "Usa la {item:12815} al pie de cada una de las cuatro atalayas del borde de Andorhal, al norte del campamento, de camino a {area:199}.\nCuidado: los señores de la guerra esqueléticos y los gólems de carne (57, élites) recorren las calles de Andorhal, y el {npc:7572} (59, élite) deambula entre Andorhal y Cresta Norte: quédate en las torres del borde del pueblo y déjalos pasar.",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
 	["Mark {npc:10902} with the {item:12815}"] = "Marca {npc:10902} con la {item:12815}",
 	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch
@@ -137,51 +139,51 @@ return {
 	-- {npc:10905} Andorhal Tower Four · {item:12815} Beacon Torch
 	["Mark {npc:10905} with the {item:12815}"] = "Marca {npc:10905} con la {item:12815}",
 
-	-- Step 24: Felstone Field cauldron
+	-- Step 25: Felstone Field cauldron
 	-- {area:199} Felstone Field
 	["{area:199} cauldron"] = "Caldero de {area:199}",
 	-- {area:199} Felstone Field · {npc:11075} Cauldron Lord Bilemaw · {npc:10778} Janice Felstone · {zone:1453} Stormwind
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
-	["West of Andorhal to {area:199}: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54).\n{npc:10778}'s ghost wanders by the farmhouse at the field's edge, upstairs; her parcel lies inside the house: take it for {zone:1453}, at the end of this guide."] = "",
+	["West of Andorhal to {area:199}: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54).\n{npc:10778}'s ghost wanders by the farmhouse at the field's edge, upstairs; her parcel lies inside the house: take it for {zone:1453}, at the end of this guide."] = "Al oeste de Andorhal hasta {area:199}: {npc:11075} (53) custodia el caldero entre los necrófagos farfullantes (54).\nEl fantasma de {npc:10778} ronda la casa de la granja en el borde del campo, en el piso de arriba; su paquete está dentro de la casa: tómalo para {zone:1453}, al final de esta guía.",
 	-- {npc:10778} Janice Felstone
-	["{npc:10778}, upstairs in the farmhouse"] = "",
+	["{npc:10778}, upstairs in the farmhouse"] = "{npc:10778}, en el piso de arriba de la granja",
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, inside"] = "{object:175894}, adentro",
 	-- {zone:1453} Stormwind
 	["For {zone:1453}: keep it"] = "Para {zone:1453}: guárdala",
 
-	-- Step 25: Chillwind Camp
+	-- Step 26: Chillwind Camp
 	-- {area:3197} Chillwind Camp
-	["Back to {area:3197}."] = "",
+	["Back to {area:3197}."] = "De vuelta a {area:3197}.",
 	-- {area:200} Dalson's Tears
-	["The cauldron is at {area:200}"] = "",
+	["The cauldron is at {area:200}"] = "El caldero está en {area:200}",
 	-- {npc:1852} Araj the Summoner
 	["{npc:1852} is a level 61 elite"] = "{npc:1852} es élite de nivel 61",
 
-	-- Step 26: Sorrow Hill: kill these as you meet them
+	-- Step 27: Sorrow Hill: kill these as you meet them
 	-- {area:197} Sorrow Hill
 	["{area:197}: kill these as you meet them"] = "{area:197}: mata a estos según te los encuentres",
 	-- {quest:5401} Argent Dawn Commission · {npc:10411} Eye of Naxxramas
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul · Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
 	["Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones while you wear the {quest:5401} (equip it as a trinket first).\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "Los Despellejadores esqueléticos y Necrófagos esclavizantes rondan los campos al norte del campamento; toda la Plaga de aquí suelta piedras de la Plaga mientras lleves la {quest:5401} (equípala primero como abalorio).\nCuidado: Estos no-muertos te detectan desde lejos, y otros no-muertos cercanos se suman a la pelea cuando atraes a uno.\nCuidado: {npc:10411} (3 apariciones, reaparece en 15 min) se vuelve invisible fuera de combate y llama a Gárgolas Ventorroca en cuanto empieza una pelea.",
 
-	-- Step 27: Marlene Redpath
+	-- Step 28: Marlene Redpath
 	-- {area:3197} Chillwind Camp · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {quest:5142} Little Pamela · {area:2262} Darrowshire
-	["On the road east out of {area:3197}, {npc:10927}'s farmhouse stands on {area:197}: her {quest:5142} goes to the ghost in {area:2262}, the next stop."] = "",
+	["On the road east out of {area:3197}, {npc:10927}'s farmhouse stands on {area:197}: her {quest:5142} goes to the ghost in {area:2262}, the next stop."] = "En el camino al este que sale de {area:3197}, la granja de {npc:10927} está en {area:197}: su {quest:5142} va al fantasma de {area:2262}, la siguiente parada.",
 	-- {npc:10927} Marlene Redpath · {area:2262} Darrowshire
 	["{npc:10927}: keep it for {area:2262}"] = "{npc:10927}: guárdala para {area:2262}",
 
-	-- Step 28: Into Eastern Plaguelands
+	-- Step 29: Into Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
 	["Into {zone:1423}"] = "Hacia {zone:1423}",
 	-- {zone:1422} Western Plaguelands
-	["Follow the southern road east out of the {zone:1422}."] = "",
+	["Follow the southern road east out of the {zone:1422}."] = "Sigue el camino del sur al este fuera de {zone:1422}.",
 
-	-- Step 29: Pamela Redpath
+	-- Step 30: Pamela Redpath
 	-- {area:2262} Darrowshire · {npc:10926} Pamela Redpath
-	["The ruins of {area:2262} lie south of the road. {npc:10926}'s ghost plays by the ruined house at the south end."] = "",
+	["The ruins of {area:2262} lie south of the road. {npc:10926}'s ghost plays by the ruined house at the south end."] = "Las ruinas de {area:2262} están al sur del camino. El fantasma de {npc:10926} juega junto a la casa en ruinas del extremo sur.",
 
-	-- Step 30: Pamela Redpath's doll
+	-- Step 31: Pamela Redpath's doll
 	-- {npc:10926} Pamela Redpath
 	["{npc:10926}'s doll"] = "La muñeca de {npc:10926}",
 	-- {area:2262} Darrowshire
@@ -191,290 +193,292 @@ return {
 	-- {item:12888} Pamela's Doll's Right Side
 	["{item:12888}; inside"] = "{item:12888}; adentro",
 
-	-- Step 31: Pamela Redpath
+	-- Step 32: Pamela Redpath
 	-- {quest:5152} Auntie Marlene · {zone:1422} Western Plaguelands
-	["{quest:5152}, back in the {zone:1422}: keep it"] = "",
+	["{quest:5152}, back in the {zone:1422}: keep it"] = "{quest:5152}, de vuelta en {zone:1422}: guárdala",
 	-- {npc:11063} Carlin Redpath · {area:2268} Light's Hope Chapel
-	["{npc:11063} at {area:2268}, on this guide's second ride east: keep it"] = "",
+	["{npc:11063} at {area:2268}, on this guide's second ride east: keep it"] = "{npc:11063} en {area:2268}, en la segunda cabalgata al este de esta guía: guárdala",
 
-	-- Step 32: Marlene Redpath
+	-- Step 33: Marlene Redpath
 	-- {npc:10927} Marlene Redpath · {npc:10936} Joseph Redpath
-	["Ride back west along the road to {npc:10927}'s farmhouse; {npc:10936}'s monument is just north of it."] = "",
+	["Ride back west along the road to {npc:10927}'s farmhouse; {npc:10936}'s monument is just north of it."] = "Cabalga de vuelta al oeste por el camino hasta la granja de {npc:10927}; el monumento de {npc:10936} está justo al norte.",
 	["Upstairs"] = "Arriba",
 	-- {npc:10667} Chromie
-	["{npc:10667} in Andorhal, later on this loop: keep it"] = "",
+	["{npc:10667} in Andorhal, later on this loop: keep it"] = "{npc:10667} en Andorhal, más adelante en este recorrido: guárdala",
 	-- {item:12894} Joseph's Wedding Ring
 	["{item:12894}, at the monument"] = "{item:12894}, en el monumento",
 
-	-- Step 33: Mulgris Deepriver
+	-- Step 34: Mulgris Deepriver
 	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {npc:10927} Marlene Redpath
-	["{npc:10739} stands by the farm at the {area:202}, north of {npc:10927}."] = "",
+	["{npc:10739} stands by the farm at the {area:202}, north of {npc:10927}."] = "{npc:10739} está junto a la granja de {area:202}, al norte de {npc:10927}.",
 	["Inside"] = "Adentro",
 
-	-- Step 34: Writhing Haunt: kill these as you meet them
+	-- Step 35: Writhing Haunt: kill these as you meet them
 	-- {area:202} Writhing Haunt
 	["{area:202}: kill these as you meet them"] = "{area:202}: mata a estos según te los encuentres",
 	-- {item:12841} Invader's Scourgestone · {quest:5401} Argent Dawn Commission
 	["{item:12841}: wear the {quest:5401} while you kill"] = "{item:12841}: lleva puesta la {quest:5401} mientras matas",
 
-	-- Step 36: Diseased Grizzlies
+	-- Step 37: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Osos pardos malsanos",
 	-- {area:202} Writhing Haunt · {npc:10739} Mulgris Deepriver
-	["The Diseased Grizzlies (55-56) roam the woods around the {area:202}, east and north of {npc:10739}."] = "",
+	["The Diseased Grizzlies (55-56) roam the woods around the {area:202}, east and north of {npc:10739}."] = "Los osos pardos malsanos (55-56) recorren el bosque alrededor de {area:202}, al este y al norte de {npc:10739}.",
 
-	-- Step 37: Mulgris Deepriver
+	-- Step 38: Mulgris Deepriver
 	-- {npc:10739} Mulgris Deepriver · {zone:1457} Darnassus
-	["{npc:10739}' next task goes to the druids of {zone:1457}, behind the route now: skip it."] = "",
+	["{npc:10739}' next task goes to the druids of {zone:1457}, behind the route now: skip it."] = "La siguiente tarea de {npc:10739} va a los druidas de {zone:1457}, ya detrás de la ruta: omítela.",
 
-	-- Step 38: Dalson's Tears
+	-- Step 39: Dalson's Tears
 	-- {npc:10836} Farmer Dalson · {npc:11152} The Scourge Cauldron
-	["Ride north-west to the Dalson farm. The diary lies in the barn; a wandering skeleton carries the outhouse key, and {npc:10836} waits in the outhouse with the cabinet key. {npc:11152} stands just south-west of the farmhouse, and its Cauldron Lord beside it carries the key."] = "",
+	["Ride north-west to the Dalson farm. The diary lies in the barn; a wandering skeleton carries the outhouse key, and {npc:10836} waits in the outhouse with the cabinet key. {npc:11152} stands just south-west of the farmhouse, and its Cauldron Lord beside it carries the key."] = "Cabalga al noroeste hasta la granja Dalson. El diario está en el granero; un esqueleto errante lleva la llave de la letrina, y {npc:10836} espera en la letrina con la llave del armario. {npc:11152} está justo al suroeste de la casa, y su Señor del caldero, a su lado, lleva la llave.",
 	-- {object:175924} Locked Cabinet
 	["{object:175924}, in the farmhouse; inside"] = "{object:175924}, en la casa de la granja; adentro",
 
-	-- Step 39: Argent Officer Pureheart
+	-- Step 40: Argent Officer Pureheart
 	-- {area:3197} Chillwind Camp
-	["Ride back south to {area:3197}."] = "",
+	["Ride back south to {area:3197}."] = "Cabalga de vuelta al sur hasta {area:3197}.",
 
-	-- Step 41: Chillwind Camp
+	-- Step 42: Chillwind Camp
 	-- {area:200} Dalson's Tears
-	["Ride back south from {area:200} to the camp."] = "",
+	["Ride back south from {area:200} to the camp."] = "Cabalga de vuelta al sur desde {area:200} hasta el campamento.",
 	-- {npc:10838} Commander Ashlam Valorfist
-	["{npc:10838} (from level 55)"] = "",
-	["The skeletons of Andorhal, next on this guide"] = "",
+	["{npc:10838} (from level 55)"] = "{npc:10838} (desde el nivel 55)",
+	["The skeletons of Andorhal, next on this guide"] = "Los esqueletos de Andorhal, a continuación en esta guía",
 
-	-- Step 42: Chromie
+	-- Step 43: Chromie
 	-- {npc:10667} Chromie
-	["North to {npc:10667} in the ruined inn on the west side of Andorhal."] = "",
+	["North to {npc:10667} in the ruined inn on the west side of Andorhal."] = "Al norte, hasta {npc:10667} en la posada en ruinas del lado oeste de Andorhal.",
 
-	-- Step 43: Andorhal
+	-- Step 44: Andorhal
 	["Andorhal"] = "Andorhal",
-	-- {item:12627} Temporal Displacer · {quest:5154} The Annals of Darrowshire · {quest:5537} Skeletal Fragments · {npc:1852} Araj the Summoner
-	-- plural, as words: Temporal Parasites = {npc:10717} Temporal Parasite · Skeletal Warlords = {npc:1788} Skeletal Warlord · Flesh Golems = {npc:1805} Flesh Golem
-	-- was: ["Use the {item:12627} by the grain silos to draw out Temporal Parasites. {quest:5154} is one of the musty tomes in the town hall. Every skeleton in town drops {quest:5537}.\nCareful: the Temporal Parasites are 55-57, and Skeletal Warlords and Flesh Golems (57, elites) walk the streets: draw the parasites out by the silos, one at a time, and let the elites pass."] = "Usa el {item:12627} junto a los silos de grano para hacer salir Parásitos temporales. {quest:5154} es uno de los tomos mohosos del ayuntamiento. Todos los esqueletos del pueblo sueltan {quest:5537}.\nCuidado: los Parásitos temporales son de nivel 55-57, y Señores de la guerra esqueléticos y Gólems de carne (57, élites) recorren las calles: haz salir a los parásitos junto a los silos, de uno en uno, y deja pasar a los élites."
-	["Use the {item:12627} by the grain silos to draw out Temporal Parasites. {quest:5154} is one of the musty tomes in the town hall. Every skeleton in town drops {quest:5537}.\nCareful: the Temporal Parasites are 55-57, and Skeletal Warlords and Flesh Golems (57, elites) walk the streets: draw the parasites out by the silos, one at a time, and let the elites pass.\n{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal."] = "",
+	-- {quest:5154} The Annals of Darrowshire · {quest:5537} Skeletal Fragments · {npc:1852} Araj the Summoner
+	-- plural, as words: Skeletal Warlords = {npc:1788} Skeletal Warlord · Flesh Golems = {npc:1805} Flesh Golem
+	["{quest:5154} is one of the musty tomes in the town hall. Every skeleton in town drops {quest:5537}.\nCareful: Skeletal Warlords and Flesh Golems (57, elites) walk the streets: let them pass.\n{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal."] = "{quest:5154} es uno de los tomos mohosos del ayuntamiento. Cada esqueleto del pueblo suelta {quest:5537}.\nCuidado: los señores de la guerra esqueléticos ({npc:1788}) y los gólems de carne ({npc:1805}) (57, élite) recorren las calles: déjalos pasar.\n{npc:1852} es élite: se recomienda ir en grupo. Guarda su filacteria en el centro de Andorhal.",
 
-	-- Step 44: Chromie
+	-- Step 45: Andorhal's grain silos
+	["Andorhal's grain silos"] = "Los silos de grano de Andorhal",
+	-- {item:12627} Temporal Displacer
+	-- plural, as words: Temporal Parasites = {npc:10717} Temporal Parasite · Skeletal Warlords = {npc:1788} Skeletal Warlord · Flesh Golems = {npc:1805} Flesh Golem
+	["Use the {item:12627} by each grain silo on the north side of town to draw out Temporal Parasites, one silo after another.\nCareful: the Temporal Parasites are 55-57: draw them out one silo at a time, away from the Skeletal Warlords and Flesh Golems (57, elites) in the streets."] = "Usa {item:12627} junto a cada silo de grano del norte del pueblo para sacar a los parásitos temporales ({npc:10717}), un silo tras otro.\nCuidado: los parásitos temporales son 55-57: sácalos de silo en silo, lejos de los señores de la guerra esqueléticos ({npc:1788}) y los gólems de carne ({npc:1805}) (57, élite) de las calles.",
+
+	-- Step 46: Chromie
 	-- {quest:5210} Brother Carlin · {area:2268} Light's Hope Chapel
 	["{quest:5210}, at {area:2268}: keep it"] = "{quest:5210}, en {area:2268}: guárdala",
 
-	-- Step 45: Sorrow Hill: kill these as you meet them
-	-- was: ["{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal.\nSmall lockboxes lie in the rubble all over Andorhal; each holds a watch.\nCareful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "{npc:1852} es élite: se recomienda agruparse. Vigila su filacteria en el centro de Andorhal.\nHay cajas fuertes pequeñas entre los escombros por todo Andorhal; cada una tiene un reloj.\nCuidado: Suele haber necrófagos y esqueletos junto a las cajas, que atacan cuando te acercas. Los necrófagos abrasadores además dañan a quien esté cerca y rompen el sigilo."
-	["Small lockboxes lie in the rubble all over Andorhal; each holds a watch.\nCareful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "",
+	-- Step 47: Sorrow Hill: kill these as you meet them
+	["Small lockboxes lie in the rubble all over Andorhal; each holds a watch.\nCareful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "Hay pequeños cofres entre los escombros por todo Andorhal; cada uno guarda un reloj.\nCuidado: casi siempre hay necrófagos y esqueletos junto a los cofres, que atacan cuando te acercas. Los necrófagos abrasadores además dañan a todos los que están cerca y rompen el sigilo.",
 
-	-- Step 47: Writhing Haunt cauldron
+	-- Step 49: Writhing Haunt cauldron
 	-- {area:202} Writhing Haunt
 	["{area:202} cauldron"] = "Caldero de {area:202}",
 	-- {area:202} Writhing Haunt · {npc:10739} Mulgris Deepriver
-	-- was: ["The cauldron sits at the {area:202}, by {npc:10739}' farm."] = "El caldero está en {area:202}, junto a la granja de {npc:10739}."
-	["The cauldron sits at the {area:202}, by {npc:10739}' farm, east of Andorhal."] = "",
+	["The cauldron sits at the {area:202}, by {npc:10739}' farm, east of Andorhal."] = "El caldero está en {area:202}, junto a la granja de {npc:10739}, al este de Andorhal.",
 
-	-- Step 48: Chillwind Camp
+	-- Step 50: Chillwind Camp
 	-- {area:201} Gahrron's Withering
-	["{area:201}'s cauldron, on this guide's ride north-east"] = "",
+	["{area:201}'s cauldron, on this guide's ride north-east"] = "El caldero de {area:201}, en la cabalgata al noreste de esta guía",
 	-- {area:976} Gadgetzan
-	["Arbington's next task goes to {area:976}, behind the route now: skip it."] = "",
+	["Arbington's next task goes to {area:976}, behind the route now: skip it."] = "La siguiente tarea de Arbington va a {area:976}, ya detrás de la ruta: omítela.",
 
-	-- Step 49: Fly to Stormwind
+	-- Step 51: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "Vuela a {zone:1453}",
 	-- {zone:1453} Stormwind · {npc:10778} Janice Felstone
-	["Fly to {zone:1453} for Highlord Bolvar's errand for SI:7 and {npc:10778}'s parcel, then straight back."] = "",
+	["Fly to {zone:1453} for Highlord Bolvar's errand for SI:7 and {npc:10778}'s parcel, then straight back."] = "Vuela a {zone:1453} por el encargo del alto señor Bolvar para el IV:7 y el paquete de {npc:10778}, y luego vuelve directo.",
 	-- {area:3197} Chillwind Camp
 	["{area:3197} flight master"] = "Maestro de vuelo de {area:3197}",
 
-	-- Step 50: Stormwind Keep
+	-- Step 52: Stormwind Keep
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}, in SI:7"] = "{npc:332}, en el IV:7",
 	-- {quest:6184} Flint Shadowmore · {area:3197} Chillwind Camp
-	["{quest:6184} at {area:3197}, on the flight back"] = "",
+	["{quest:6184} at {area:3197}, on the flight back"] = "{quest:6184} en {area:3197}, en el vuelo de vuelta",
 
-	-- Step 51: Stormwind
+	-- Step 53: Stormwind
 	-- {npc:14722} Clavicus Knavingham · {item:14047} Runecloth
 	["{npc:14722} takes sixty Silk, sixty Mageweave and sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "{npc:14722} acepta sesenta de paño de seda, sesenta de tejido mágico y sesenta de {item:14047}: entrega lo que tengas (o cómpralo en la casa de subastas) y sáltate el resto.",
 	-- {npc:3520} Ol' Emma
 	["{npc:3520}, who walks the canals"] = "{npc:3520}, que recorre los canales",
 	-- {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
-	["Emma's charm goes back to {npc:10778} in the {zone:1422}, out of the way now: skip it."] = "",
+	["Emma's charm goes back to {npc:10778} in the {zone:1422}, out of the way now: skip it."] = "El amuleto de Emma vuelve a {npc:10778} en {zone:1422}, fuera del camino ahora: omítela.",
 	-- {npc:14722} Clavicus Knavingham · {object:2096} Trade District
 	["{npc:14722}, in the {object:2096}"] = "{npc:14722}, en {object:2096}",
 
-	-- Step 52: Fly to Chillwind Camp
+	-- Step 54: Fly to Chillwind Camp
 	-- {area:3197} Chillwind Camp
 	["Fly to {area:3197}"] = "Vuela a {area:3197}",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 
-	-- Step 53: Flint Shadowmore
+	-- Step 55: Flint Shadowmore
 	-- {area:2260} Marris Stead · {zone:1423} Eastern Plaguelands
-	["The agents' remains lie at the {area:2260} in the {zone:1423}, on this guide's ride east"] = "",
+	["The agents' remains lie at the {area:2260} in the {zone:1423}, on this guide's ride east"] = "Los restos de los agentes están en {area:2260} de {zone:1423}, en la cabalgata al este de esta guía",
 
-	-- Step 54: Kirsta Deepshadow
+	-- Step 56: Kirsta Deepshadow
 	-- {npc:11610} Kirsta Deepshadow
 	["Ride north up the road to the Northridge lumber mill; {npc:11610} hides at the camp's edge."] = "Sigue el camino al norte hasta el Aserradero Crestanorte; {npc:11610} se esconde en el borde del campamento.",
 
-	-- Step 55: The Scarlet Crusade
+	-- Step 57: The Scarlet Crusade
 	["The Scarlet Crusade"] = "La Cruzada Escarlata",
 	-- {area:190} Hearthglen
 	-- plural, as words: Scarlet Medics = {npc:10605} Scarlet Medic
 	["The Scarlet Medics, Hunters, Knights and Mages patrol the lumber camp and the road toward {area:190}."] = "Los Médicos, Cazadores, Caballeros y Magos Escarlata patrullan el aserradero y el camino hacia {area:190}.",
 
-	-- Step 57: Radley and Durgen
+	-- Step 59: Radley and Durgen
 	["Radley and Durgen"] = "Radley y Durgen",
 	-- {npc:11613} Huntsman Radley · {npc:11610} Kirsta Deepshadow · {npc:11611} Cavalier Durgen · {area:190} Hearthglen
-	-- was: ["{npc:11613} walks the Northridge camp east of {npc:11610}; {npc:11611} guards the tower at {area:190}'s southern approach.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "{npc:11613} recorre el campamento de Crestanorte al este de {npc:11610}; {npc:11611} vigila la torre del acceso sur a {area:190}.\nCuidado: Hay guardias en la base de la torre y uno más da vueltas a su alrededor patrullando. Despéjalos antes de enfrentar a Durgen para que no se sumen."
-	["{npc:11613} (56) walks the Northridge camp east of {npc:11610}; {npc:11611} (57) guards the tower at {area:190}'s southern approach.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "",
+	["{npc:11613} (56) walks the Northridge camp east of {npc:11610}; {npc:11611} (57) guards the tower at {area:190}'s southern approach.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "{npc:11613} (56) recorre el campamento de Cresta Norte al este de {npc:11610}; {npc:11611} (57) vigila la torre del acceso sur a {area:190}.\nCuidado: hay guardias en la base de la torre y uno más da vueltas a su alrededor patrullando. Despéjalos antes de enfrentar a Durgen para que no se sumen a la pelea.",
 
-	-- Step 58: Kirsta Deepshadow
+	-- Step 60: Kirsta Deepshadow
 	-- {npc:11610} Kirsta Deepshadow
 	["{npc:11610} hides at the lumber camp's edge."] = "{npc:11610} se esconde en el borde del campamento maderero.",
 
-	-- Step 59: Hearthglen overlook
+	-- Step 61: Hearthglen overlook
 	-- {area:190} Hearthglen
 	["{area:190} overlook"] = "Mirador de {area:190}",
 	-- {area:190} Hearthglen
 	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "Sube a la colina al oeste de {area:190} para mirar el pueblo desde arriba.\nCuidado: Los centinelas apostados en la puerta pueden detectar a los jugadores en sigilo. Hay más centinelas dentro del pueblo, y un élite patrulla cerca.",
 
-	-- Step 61: Tirion Fordring
+	-- Step 63: Tirion Fordring
 	-- {npc:1855} Tirion Fordring · {area:2277} Plaguewood · {area:2627} Terrordale
-	["Ride east to the border river: {npc:1855} lives in a small hut on the bank. His hunts are in the {area:2277} and {area:2627}, at the end of this guide's ride east."] = "",
+	["Ride east to the border river: {npc:1855} lives in a small hut on the bank. His hunts are in the {area:2277} and {area:2627}, at the end of this guide's ride east."] = "Cabalga al este hasta el río fronterizo: {npc:1855} vive en una pequeña choza en la orilla. Sus cacerías están en {area:2277} y {area:2627}, al final de la cabalgata al este de esta guía.",
 
-	-- Step 62: Gahrron's Withering
+	-- Step 64: Gahrron's Withering
 	-- {npc:1855} Tirion Fordring · {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath
-	["Ride south from {npc:1855}'s hut to {area:201}. {npc:11078} (58) guards the cauldron.\nCareful: Soulwrath is level 58, a level over you here: clear the ghouls around the cauldron first and pull him alone."] = "",
+	["Ride south from {npc:1855}'s hut to {area:201}. {npc:11078} (58) guards the cauldron.\nCareful: Soulwrath is level 58, a level over you here: clear the ghouls around the cauldron first and pull him alone."] = "Cabalga al sur desde la choza de {npc:1855} hasta {area:201}. {npc:11078} (58) custodia el caldero.\nCuidado: Soulwrath es de nivel 58, uno por encima de ti aquí: limpia primero a los necrófagos alrededor del caldero y atráelo solo.",
 	-- {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp
 	["For {npc:11053} at {area:3197}, at the end of this guide"] = "Para {npc:11053} en {area:3197}, al final de esta guía",
 
-	-- Step 63: Marris Stead
+	-- Step 65: Marris Stead
 	-- {zone:1423} Eastern Plaguelands · {area:2260} Marris Stead · {area:2262} Darrowshire · {npc:11878} Nathanos Blightcaller
-	["Ride east into the {zone:1423}: the {area:2260} is the farm north of the southern road, north-west of {area:2262}. The three agents' remains are bone outlines on the ground: one by the road south of the farm, one on the hill east of the house, one on the mound in front of it.\nCareful: {npc:11878} (level 62 elite) and his elite hounds stand in front of the house: take the remains on the mound from the side and do not pull him. You don't have to fight him."] = "",
-	["Close enough to see the Blightcaller in front of the house"] = "",
+	["Ride east into the {zone:1423}: the {area:2260} is the farm north of the southern road, north-west of {area:2262}. The three agents' remains are bone outlines on the ground: one by the road south of the farm, one on the hill east of the house, one on the mound in front of it.\nCareful: {npc:11878} (level 62 elite) and his elite hounds stand in front of the house: take the remains on the mound from the side and do not pull him. You don't have to fight him."] = "Cabalga al este hacia {zone:1423}: {area:2260} es la granja al norte del camino del sur, al noroeste de {area:2262}. Los restos de los tres agentes son siluetas de huesos en el suelo: uno junto al camino al sur de la granja, uno en la colina al este de la casa y uno en el montículo frente a ella.\nCuidado: {npc:11878} (élite de nivel 62) y sus canes élite están frente a la casa: toma los restos del montículo desde un costado y no lo atraigas. No tienes que pelear con él.",
+	["Close enough to see the Blightcaller in front of the house"] = "Lo bastante cerca para ver al Clamañublo frente a la casa",
 
-	-- Step 64: Eastern Plaguelands: kill these as you meet them
+	-- Step 66: Eastern Plaguelands: kill these as you meet them
 	-- {zone:1423} Eastern Plaguelands
 	["{zone:1423}: kill these as you meet them"] = "{zone:1423}: mata a estos según te los encuentres",
 	-- {zone:1423} Eastern Plaguelands · {area:2268} Light's Hope Chapel
 	-- plural, as words: Plaguehound Runts = {npc:8596} Plaguehound Runt · Plaguebats = {npc:8600} Plaguebat · Gargantuan Plaguebats = {npc:272342} Gargantuan Plaguebat
-	["Ride east along the southern road across the {zone:1423} to {area:2268}: Plaguehound Runts and Plaguebats roam beside it.\nCareful: Gargantuan Plaguebats (60) fly among the smaller bats near the western border: take the Plaguebats of your level."] = "",
+	["Ride east along the southern road across the {zone:1423} to {area:2268}: Plaguehound Runts and Plaguebats roam beside it.\nCareful: Gargantuan Plaguebats (60) fly among the smaller bats near the western border: take the Plaguebats of your level."] = "Cabalga al este por el camino del sur cruzando {zone:1423} hasta {area:2268}: los cachorros de can de peste y los murcipestes andan a su lado.\nCuidado: los Gargantuan Plaguebats (60) vuelan entre los murciélagos más pequeños cerca del límite oeste: ve por los murcipestes de tu nivel.",
 
-	-- Step 65: Light's Hope Chapel
+	-- Step 67: Light's Hope Chapel
 	-- {npc:11063} Carlin Redpath · {area:2264} Corin's Crossing
 	["{npc:11063}'s next task, at {area:2264}, is among Scourge of 57-60: skip it."] = "La siguiente tarea de {npc:11063}, en {area:2264}, transcurre entre la Plaga de nivel 57-60: omítela.",
 	-- {npc:11038} Caretaker Alen · {npc:11140} Egan · {area:2627} Terrordale
-	["{npc:11038}, by the graves south of the chapel: {npc:11140} is in {area:2627}, at the end of this ride: keep it"] = "",
+	["{npc:11038}, by the graves south of the chapel: {npc:11140} is in {area:2627}, at the end of this ride: keep it"] = "{npc:11038}, junto a las tumbas al sur de la capilla: {npc:11140} está en {area:2627}, al final de esta cabalgata: guárdala",
 	-- {npc:11038} Caretaker Alen · {npc:12250} Zaeldarr the Outcast · {area:2261} Undercroft
-	["{npc:11038}'s {npc:12250} is a group quest in the {area:2261} (a level 54 elite)."] = "",
+	["{npc:11038}'s {npc:12250} is a group quest in the {area:2261} (a level 54 elite)."] = "{npc:12250} de {npc:11038} es una misión de grupo en {area:2261} (un élite de nivel 54).",
 
-	-- Step 66: Carlin Redpath: Heroes of Darrowshire
+	-- Step 68: Carlin Redpath: Heroes of Darrowshire
 	-- {area:190} Hearthglen · {item:12955} Redpath's Shield · {area:201} Gahrron's Withering
 	-- plural, as words: Haunting Visions = {npc:4472} Haunting Vision
-	["The libram is inside {area:190} among elite Scarlet guards, and {item:12955} among Haunting Visions at {area:201}: a group quest."] = "",
+	["The libram is inside {area:190} among elite Scarlet guards, and {item:12955} among Haunting Visions at {area:201}: a group quest."] = "El libram está dentro de {area:190} entre guardias Escarlata élite, y el {item:12955}, entre visiones encantadas en {area:201}: una misión de grupo.",
 
-	-- Step 67: Villains of Darrowshire
+	-- Step 69: Villains of Darrowshire
 	-- {area:2623} Infectis Scar · {area:2624} Blackwood Lake
 	-- plural, as words: Plaguehounds = {npc:8597} Plaguehound
-	["West into the middle of the zone: Marduk's sword lies in the {area:2623} and Horgus' skull at {area:2624}, north of it, each where ghosts fight; grown Plaguehounds hunt the plains between."] = "",
+	["West into the middle of the zone: Marduk's sword lies in the {area:2623} and Horgus' skull at {area:2624}, north of it, each where ghosts fight; grown Plaguehounds hunt the plains between."] = "Al oeste, hacia el centro de la zona: la espada de Marduk está en {area:2623} y el cráneo de Horgus en {area:2624}, al norte, cada uno donde pelean los fantasmas; los canes de peste adultos cazan en las llanuras entre ambos.",
 	-- {item:12956} Skull of Horgus
 	["{item:12956}; underwater"] = "{item:12956}; bajo el agua",
 
-	-- Step 68: Light's Hope Chapel
+	-- Step 70: Light's Hope Chapel
 	-- {npc:11063} Carlin Redpath
-	["Back east to {npc:11063} at the chapel."] = "",
+	["Back east to {npc:11063} at the chapel."] = "De vuelta al este con {npc:11063} en la capilla.",
 
-	-- Step 69: Aurora Skycaller
+	-- Step 71: Aurora Skycaller
 	-- {area:2276} Quel'Lithien Lodge · {area:2277} Plaguewood
 	["Ride north-west to {area:2276}, at the edge of the {area:2277}."] = "Cabalga al noroeste hasta {area:2276}, en el borde de {area:2277}.",
 
-	-- Step 70: Plaguewood: kill these as you meet them
+	-- Step 72: Plaguewood: kill these as you meet them
 	-- {area:2277} Plaguewood
 	["{area:2277}: kill these as you meet them"] = "{area:2277}: mata a estos según te los encuentres",
 	-- {area:2277} Plaguewood · {area:2627} Terrordale · {item:15042} Empty Termite Jar
 	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound · Carrion Devourers = {npc:8605} Carrion Devourer
-	["West through the {area:2277} to {area:2627}: fill the {item:15042} at the big termite mounds, and kill the Frenzied Plaguehounds and the Carrion Devourers on the way.\nCareful: the Frenzied Plaguehounds are 57-58: pull them one at a time."] = "",
+	["West through the {area:2277} to {area:2627}: fill the {item:15042} at the big termite mounds, and kill the Frenzied Plaguehounds and the Carrion Devourers on the way.\nCareful: the Frenzied Plaguehounds are 57-58: pull them one at a time."] = "Al oeste cruzando {area:2277} hasta {area:2627}: llena el {item:15042} en los grandes termiteros y mata a los canes de peste demenciados y a los devoradores carroñeros en el camino.\nCuidado: los canes de peste demenciados son de nivel 57-58: atráelos de uno en uno.",
 
-	-- Step 71: Augustus the Touched
+	-- Step 73: Augustus the Touched
 	-- {npc:12384} Augustus the Touched · {area:2627} Terrordale · {npc:11140} Egan
-	["{npc:12384} lives in the ruined hut in {area:2627}, and his receipt book lies in the ruined inn nearby. {npc:11140} stands by {npc:12384}' hut."] = "",
-
-	-- Step 73: Tirion Fordring
-	-- {npc:1855} Tirion Fordring · {area:2627} Terrordale · {area:2626} Terrorweb Tunnel
-	-- plural, as words: Crypt Fiends = {npc:8555} Crypt Fiend
-	["Cross the river west to {npc:1855}'s hut.\nCareful: the short way from {area:2627} to {npc:1855} is the {area:2626}, whose south mouth opens by his hut: Crypt Fiends, Walkers, Horrors and Slayers (53-58) stand close together inside. Pull them one at a time, or ride round by the road outside it."] = "",
+	["{npc:12384} lives in the ruined hut in {area:2627}, and his receipt book lies in the ruined inn nearby. {npc:11140} stands by {npc:12384}' hut."] = "{npc:12384} vive en la choza en ruinas de {area:2627}, y su libro de recibos está en la posada en ruinas cercana. {npc:11140} está junto a la choza de {npc:12384}.",
 
 	-- Step 75: Tirion Fordring
+	-- {npc:1855} Tirion Fordring · {area:2627} Terrordale · {area:2626} Terrorweb Tunnel
+	-- plural, as words: Crypt Fiends = {npc:8555} Crypt Fiend
+	["Cross the river west to {npc:1855}'s hut.\nCareful: the short way from {area:2627} to {npc:1855} is the {area:2626}, whose south mouth opens by his hut: Crypt Fiends, Walkers, Horrors and Slayers (53-58) stand close together inside. Pull them one at a time, or ride round by the road outside it."] = "Cruza el río al oeste hasta la choza de {npc:1855}.\nCuidado: el camino corto de {area:2627} a {npc:1855} es {area:2626}, cuya entrada sur da a su choza: adentro hay mefistos, caminantes, horrores y destripadores de la cripta (53-58) muy juntos. Atráelos de uno en uno, o rodea por el camino de afuera.",
+
+	-- Step 77: Tirion Fordring
 	["Listen to his story"] = "Escucha su historia",
 
-	-- Step 76: Tirion Fordring: Of Forgotten Memories
+	-- Step 78: Tirion Fordring: Of Forgotten Memories
 	-- {quest:5781} Of Forgotten Memories · {npc:11886} Mercutio Filthgorger · {area:2261} Undercroft
-	["{quest:5781} is a group quest: {npc:11886} (57, elite) and his adds in the {area:2261}."] = "",
+	["{quest:5781} is a group quest: {npc:11886} (57, elite) and his adds in the {area:2261}."] = "{quest:5781} es una misión de grupo: {npc:11886} (57, élite) y sus esbirros en {area:2261}.",
 
-	-- Step 77: Undercroft
+	-- Step 79: Undercroft
 	-- {area:2261} Undercroft
-	["Cross the river south-east to the {area:2261}, the crypt in the south-west of the zone.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "",
+	["Cross the river south-east to the {area:2261}, the crypt in the south-west of the zone.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "Cruza el río al sureste hasta {area:2261}, la cripta del suroeste de la zona.\nCuidado: con Mercutio vienen unos cuatro esbirros que no son élite. Caminan hasta la tumba en vez de aparecer en el lugar.",
 	-- {item:14613} Taelan's Hammer · {npc:11886} Mercutio Filthgorger
-	["{item:14613}, from {npc:11886} (57, elite)"] = "",
+	["{item:14613}, from {npc:11886} (57, elite)"] = "{item:14613}, de {npc:11886} (57, élite)",
 
-	-- Step 78: Tirion Fordring
+	-- Step 80: Tirion Fordring
 	-- {quest:5845} Of Lost Honor · {area:2277} Plaguewood · {area:3197} Chillwind Camp
-	["{quest:5845}'s symbol lies in the lake south of the {area:2277}: your group fetches it before the ride back to {area:3197}."] = "",
+	["{quest:5845}'s symbol lies in the lake south of the {area:2277}: your group fetches it before the ride back to {area:3197}."] = "El símbolo de {quest:5845} está en el lago al sur de {area:2277}: tu grupo lo busca antes de la cabalgata de vuelta a {area:3197}.",
 
-	-- Step 79: Davil's Libram
+	-- Step 81: Davil's Libram
 	-- {item:12954} Davil's Libram · {area:190} Hearthglen · {npc:1839} Scarlet High Clerist
 	-- plural, as words: Scarlet Paladins = {npc:1834} Scarlet Paladin
-	["Careful: Scarlet Paladins (55-56) and priests guard {item:12954} inside {area:190}'s town hall. They are elite, and a {npc:1839} (63, elite) stands near the book. Go in with your group; stay out of the Clerist's reach."] = "",
+	["Careful: Scarlet Paladins (55-56) and priests guard {item:12954} inside {area:190}'s town hall. They are elite, and a {npc:1839} (63, elite) stands near the book. Go in with your group; stay out of the Clerist's reach."] = "Cuidado: los paladines Escarlata (55-56) y los sacerdotes custodian el {item:12954} dentro del ayuntamiento de {area:190}. Son élites, y un {npc:1839} (63, élite) está cerca del libro. Entra con tu grupo; mantente fuera del alcance del clérigo.",
 	-- {item:12954} Davil's Libram
 	["{item:12954}; inside"] = "{item:12954}; adentro",
 
-	-- Step 80: Redpath's Shield
+	-- Step 82: Redpath's Shield
 	-- {area:201} Gahrron's Withering
-	["The shield lies east of the barn at {area:201}. Take your group around the barn to reach it."] = "",
+	["The shield lies east of the barn at {area:201}. Take your group around the barn to reach it."] = "El escudo está al este del granero de {area:201}. Lleva a tu grupo alrededor del granero para llegar a él.",
 
-	-- Step 81: Carlin Redpath
+	-- Step 83: Carlin Redpath
 	-- {npc:11063} Carlin Redpath · {area:2268} Light's Hope Chapel
-	["Back to {npc:11063} at {area:2268} with your group."] = "",
+	["Back to {npc:11063} at {area:2268} with your group."] = "De vuelta con {npc:11063} en {area:2268}, con tu grupo.",
 
-	-- Step 82: Eastern Plaguelands
+	-- Step 84: Eastern Plaguelands
 	-- {area:2277} Plaguewood · {area:2268} Light's Hope Chapel
-	["Ride to the lake south of the {area:2277}, north-west of {area:2268}."] = "",
+	["Ride to the lake south of the {area:2277}, north-west of {area:2268}."] = "Cabalga hasta el lago al sur de {area:2277}, al noroeste de {area:2268}.",
 	-- {quest:5845} Of Lost Honor
 	["The lake for {quest:5845}"] = "El lago para {quest:5845}",
 
-	-- Step 83: Of Lost Honor
+	-- Step 85: Of Lost Honor
 	["Underwater"] = "Bajo el agua",
 
-	-- Step 84: Tirion Fordring
+	-- Step 86: Tirion Fordring
 	-- {npc:1855} Tirion Fordring · {area:3197} Chillwind Camp
-	["West across the zone to {npc:1855}'s hut on the way back to {area:3197}."] = "",
+	["West across the zone to {npc:1855}'s hut on the way back to {area:3197}."] = "Al oeste cruzando la zona hasta la choza de {npc:1855}, de camino de vuelta a {area:3197}.",
 
-	-- Step 85: Western Plaguelands
+	-- Step 87: Western Plaguelands
 	-- {zone:1422} Western Plaguelands · {area:3197} Chillwind Camp
-	["Ride south-west through the {zone:1422} to {area:3197}."] = "",
+	["Ride south-west through the {zone:1422} to {area:3197}."] = "Cabalga al suroeste cruzando {zone:1422} hasta {area:3197}.",
 
-	-- Step 86: Chillwind Camp
-	["Dumah's next task sets a barrel down at Northridge, behind you now: skip it."] = "",
+	-- Step 88: Chillwind Camp
+	["Dumah's next task sets a barrel down at Northridge, behind you now: skip it."] = "La siguiente tarea de Dumah deja un barril en Cresta Norte, ya detrás de ti: omítela.",
 
-	-- Step 87: Flint Shadowmore
+	-- Step 89: Flint Shadowmore
 	-- {zone:1453} Stormwind
-	["Highlord Bolvar in {zone:1453}, on the way out of this guide"] = "",
+	["Highlord Bolvar in {zone:1453}, on the way out of this guide"] = "El alto señor Bolvar en {zone:1453}, de salida de esta guía",
 
-	-- Step 89: Stormwind City
+	-- Step 91: Stormwind City
 	["Stormwind City"] = "Ciudad de Ventormenta",
 	-- {npc:1748} Highlord Bolvar Fordragon · {object:2117} Stormwind Keep
-	["{npc:1748}, in {object:2117}"] = "",
+	["{npc:1748}, in {object:2117}"] = "{npc:1748}, en el {object:2117}",
 
-	-- Step 90: Stormwind
+	-- Step 92: Stormwind
 	-- {zone:1453} Stormwind · {npc:10778} Janice Felstone · {npc:10782} Royal Factor Bathrilor · {object:2096} Trade District · {npc:3520} Ol' Emma · {npc:14722} Clavicus Knavingham · {item:14047} Runecloth
-	["Without the flight to {zone:1453} at 56 earlier in this guide: {npc:10778}'s parcel goes to {npc:10782} in the {object:2096}, then {npc:3520} takes her own errand on the canals. {npc:14722} takes sixty Silk, sixty Mageweave and sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "",
+	["Without the flight to {zone:1453} at 56 earlier in this guide: {npc:10778}'s parcel goes to {npc:10782} in the {object:2096}, then {npc:3520} takes her own errand on the canals. {npc:14722} takes sixty Silk, sixty Mageweave and sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "Si antes en esta guía no volaste a {zone:1453} a nivel 56: el paquete de {npc:10778} va a {npc:10782} en el {object:2096}, y luego {npc:3520} recibe su propio encargo en los canales. {npc:14722} recibe sesenta de seda, sesenta de tejido mágico y sesenta de {item:14047}: entrega lo que lleves (o cómpralo en la casa de subastas) y omite el resto.",
 	-- {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
-	["Emma's charm goes back to {npc:10778} in the {zone:1422}, behind you now: skip it."] = "",
+	["Emma's charm goes back to {npc:10778} in the {zone:1422}, behind you now: skip it."] = "El amuleto de Emma vuelve a {npc:10778} en {zone:1422}, ya detrás de ti: omítela.",
 
-	-- Step 91: Fly to Menethil Harbor
+	-- Step 93: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Vuela a {area:150}",
 
-	-- Step 92: Boat to Theramore
+	-- Step 94: Boat to Theramore
 	-- {zone:2482} Mount Hyjal · {area:2255} Everlook
-	["Take the boat to Theramore: {zone:2482}, the next guide, starts with the flight to {area:2255}."] = "",
+	["Take the boat to Theramore: {zone:2482}, the next guide, starts with the flight to {area:2255}."] = "Toma el barco a Theramore: {zone:2482}, la siguiente guía, empieza con el vuelo a {area:2255}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["After the farm's keys: the {object:177289} stands just south-west of the farmhouse, and its Cauldron Lord beside it carries the key."] = "Después de las llaves de la granja: {object:177289} está justo al suroeste de la casa de la granja, y su Señor del caldero, a su lado, lleva la llave.",
@@ -586,6 +590,7 @@ return {
 	-- ["Umber in {zone:1450}: keep it"] = "Umber en {zone:1450}: guárdala",
 	-- ["Use the {item:12627} by the grain silos to draw out Temporal Parasites. {quest:5154} is one of the musty tomes in the town hall. Every skeleton in town drops {quest:5537}."] = "Usa el {item:12627} junto a los silos de grano para hacer salir Parásitos temporales. {quest:5154} es uno de los tomos mohosos del ayuntamiento. Todos los esqueletos del pueblo sueltan {quest:5537}.",
 	-- ["Use the {item:12627} by the grain silos to draw out Temporal Parasites. {quest:5154} is one of the musty tomes in the town hall. Every skeleton in town drops {quest:5537}.\nCareful: the Temporal Parasites are 55-57, and Skeletal Warlords and Flesh Golems (57, elites) walk the streets: draw the parasites out by the silos, one at a time, and let the elites pass."] = "Usa el {item:12627} junto a los silos de grano para hacer salir Parásitos temporales. {quest:5154} es uno de los tomos mohosos del ayuntamiento. Todos los esqueletos del pueblo sueltan {quest:5537}.\nCuidado: los Parásitos temporales son de nivel 55-57, y Señores de la guerra esqueléticos y Gólems de carne (57, élites) recorren las calles: haz salir a los parásitos junto a los silos, de uno en uno, y deja pasar a los élites.",
+	-- ["Use the {item:12627} by the grain silos to draw out Temporal Parasites. {quest:5154} is one of the musty tomes in the town hall. Every skeleton in town drops {quest:5537}.\nCareful: the Temporal Parasites are 55-57, and Skeletal Warlords and Flesh Golems (57, elites) walk the streets: draw the parasites out by the silos, one at a time, and let the elites pass.\n{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal."] = "Usa el {item:12627} junto a los silos de grano para hacer salir parásitos temporales. {quest:5154} es uno de los tomos mohosos del ayuntamiento. Todos los esqueletos del pueblo sueltan {quest:5537}.\nCuidado: los parásitos temporales son de nivel 55-57, y los señores de la guerra esqueléticos y los gólems de carne (57, élites) recorren las calles: haz salir a los parásitos junto a los silos, de uno en uno, y deja pasar a los élites.\n{npc:1852} es élite: se recomienda ir en grupo. Custodia su filacteria en el centro de Andorhal.",
 	-- ["Use the {item:12815} at the foot of each of the four watchtowers around the edge of Andorhal, north of the camp."] = "Usa la {item:12815} al pie de cada una de las cuatro atalayas en el borde de Andorhal, al norte del campamento.",
 	-- ["Use the {item:12815} at the foot of each of the four watchtowers around the edge of Andorhal, north of the camp.\nCareful: Skeletal Warlords and Flesh Golems (57, elites) walk Andorhal's streets, and the {npc:7572} (59, elite) wanders between Andorhal and Northridge: keep to the towers at the town's edge and let them pass."] = "Usa la {item:12815} al pie de cada una de las cuatro atalayas del borde de Andorhal, al norte del campamento.\nCuidado: Señores de la guerra esqueléticos y Gólems de carne (57, élites) recorren las calles de Andorhal, y el {npc:7572} (59, élite) deambula entre Andorhal y Cresta Norte: quédate en las torres del borde del pueblo y déjalos pasar.",
 	-- ["Walk into {area:1769} and take the {area:493} branch of the tunnel to {area:2361}."] = "Entra en {area:1769} y toma el ramal del túnel hacia {area:493} hasta {area:2361}.",

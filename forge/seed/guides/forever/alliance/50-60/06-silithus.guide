@@ -58,6 +58,13 @@ step Layo Starstrike
   turnin 1124
   accept 1125
 
+step Layo Starstrike
+  zone Silithus
+  when turnedin 1124
+  when available 1125
+  tip Layo Starstrike stands at Valor's Rest, where the pass comes out.
+  accept 1125
+
 step Silithus
   zone Silithus
   goto 51.6,38.6 "Cenarion Hold"
@@ -71,7 +78,6 @@ step Cenarion Hold
   accept 8277                         -- Beetix Ficklespragg
   turnin 8275                         -- Windcaller Proudhorn
   accept 8280                         -- Windcaller Proudhorn
-  accept 9415                         -- Rifleman Torrig, at the Alliance tents: for Marshal Bluewall at Hive'Zora
   accept 8284                         -- Geologist Larksbane: the tablet fragments come from the Twilight dig
   accept 8318                         -- Bor Wildmane: his Twilight texts come from the dig
 
@@ -117,14 +123,6 @@ step Hive'Ashi: kill these as you meet them
   collect 20404 quest 8318.1          -- Twilight's Hammer cultists
   collect 20378 quest 8284.1 @22.0,14.5 -- Twilight Tablet Fragments
   collect 20404 x20 optional          -- Ten more for True Believers
-
-step Hive'Zora
-  tip Marshal Bluewall camps outside Hive'Zora, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp.
-  tip Careful: You lose the Silithyst if you mount, stealth, use Divine Shield, Feign Death or Vanish. Blink and Power Word: Shield do not drop it.
-  turnin 9415                         -- Marshal Bluewall
-  accept 9419
-  kill 17090 quest 9419.1 @32.95,50.81 "Bring a Silithyst to the Alliance extractor"
-  turnin 9419
 
 step Cenarion Hold
   turnin 8318                         -- Bor Wildmane

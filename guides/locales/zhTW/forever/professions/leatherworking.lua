@@ -25,32 +25,33 @@ return {
 	["What 1-75 takes that the Auction House sells: 349 {item:2318}. The counts drop by what your bags, bank and mail hold."] = "1-75階段所需的材料中，拍賣場有賣的：349個{item:2318}。數量會扣除你背包、銀行和郵件中已有的。",
 
 	-- Step 4: Light Leather (Elwynn Forest)
-	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1922} Gray Forest Wolf · {npc:525} Mangy Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:822} Young Forest Bear
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "",
+	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1922} Gray Forest Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:822} Young Forest Bear
+	-- was: ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "準備349個{item:2318}製作{spell:2152}、{spell:3756}和{spell:3763}（其中210個用於75-150階段：現在一次收齊）：{skill:393}：剝取5-20級野獸。在這裡剝取{npc:1922}、{npc:525}、覓食的灰狼、{npc:524}、{npc:113}和{npc:822}（5-20級）；{skill:393}指南有對應路線。"
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "349個{item:2318}用於{spell:2152}、{spell:3756}和{spell:3763}（其中210個用於75-150：現在全部撿起）：{skill:393}：5-20級野獸。在這裡剝{npc:1922}、潛行者、{npc:524}、{npc:113}和{npc:822}的皮（5-20級）；{skill:393}指南會安排路線。",
 
 	-- Step 5: Light Leather (Dun Morogh)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1125} Crag Boar · {npc:1127} Elder Crag Boar · {npc:1196} Ice Claw Bear · {npc:1199} Juvenile Snow Leopard · {npc:1126} Large Crag Boar · {npc:1689} Scarred Crag Boar · {npc:1201} Snow Leopard · {npc:1138} Snow Tracker Wolf · {npc:1131} Winter Wolf · {npc:1128} Young Black Bear
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1125}, {npc:1127}, {npc:1196}, {npc:1199}, {npc:1126}, {npc:1689}, {npc:1201}, {npc:1138}, {npc:1131} and {npc:1128} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1125}, {npc:1127}, {npc:1196}, {npc:1199}, {npc:1126}, {npc:1689}, {npc:1201}, {npc:1138}, {npc:1131} and {npc:1128} here (level 5-20); the {skill:393} guide routes this."] = "為 {spell:2152}、{spell:3756} 和 {spell:3763} 準備349張 {item:2318}（其中210張用於75-150階段：現在就全部採好）：{skill:393}：剝取5-20級野獸。在這裡剝取 {npc:1125}、{npc:1127}、{npc:1196}、{npc:1199}、{npc:1126}、{npc:1689}、{npc:1201}、{npc:1138}、{npc:1131} 和 {npc:1128}（5-20級）；{skill:393} 指南會安排相應路線。",
 
 	-- Step 6: Light Leather (Teldrassil)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:2033} Elder Nightsaber · {npc:2043} Nightsaber Stalker
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:2033}, Nightsaber and {npc:2043} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:2033}, Nightsaber and {npc:2043} here (level 5-20); the {skill:393} guide routes this."] = "為 {spell:2152}、{spell:3756} 和 {spell:3763} 準備349張 {item:2318}（其中210張用於75-150階段：現在一次收齊）：{skill:393}：剝取5-20級野獸。在這裡剝取 {npc:2033}、夜刃豹和 {npc:2043}（5-20級）；{skill:393} 指南提供相應路線。",
 
 	-- Step 7: Light Leather (Zephras Isle)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:250928} Highlands Ursera · {npc:251284} Hippogryph Protector · {npc:251291} Hippogryph Youth · {npc:251707} Ornery Galestrider · {npc:256092} Shadowgale Shriekling · {npc:253282} Shriekling Fledgling · {npc:250874} Vuldren Alpha · {npc:254588} Windsong Crawler
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin Cloudrunner, Galestrider, {npc:250928}, {npc:251284}, {npc:251291}, {npc:251707}, Prideclaw, {npc:256092}, {npc:253282}, Vuldren, {npc:250874} and {npc:254588} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin Cloudrunner, Galestrider, {npc:250928}, {npc:251284}, {npc:251291}, {npc:251707}, Prideclaw, {npc:256092}, {npc:253282}, Vuldren, {npc:250874} and {npc:254588} here (level 5-20); the {skill:393} guide routes this."] = "為{spell:2152}、{spell:3756}和{spell:3763}準備349個{item:2318}（其中210個用於75-150階段：現在一次收齊）：透過{skill:393}剝取5-20級野獸。在這裡剝取踏雲獸、疾風陸行鳥、{npc:250928}、{npc:251284}、{npc:251291}、{npc:251707}、傲爪、{npc:256092}、{npc:253282}、瓦爾德倫、{npc:250874}和{npc:254588}（5-20級）；{skill:393}指南提供了對應路線。",
 
 	-- Step 8: Light Leather (Durotar)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:3126} Armored Scorpid · {npc:3123} Bloodtalon Scythemaw · {npc:3122} Bloodtalon Taillasher · {npc:3125} Clattering Scorpid · {npc:3099} Dire Mottled Boar · {npc:3110} Dreadmaw Crocolisk · {npc:3121} Durotar Tiger · {npc:3100} Elder Mottled Boar · {npc:3130} Thunder Lizard · {npc:3127} Venomtail Scorpid
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:3126}, {npc:3123}, {npc:3122}, {npc:3125}, {npc:3099}, {npc:3110}, {npc:3121}, {npc:3100}, {npc:3130} and {npc:3127} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:3126}, {npc:3123}, {npc:3122}, {npc:3125}, {npc:3099}, {npc:3110}, {npc:3121}, {npc:3100}, {npc:3130} and {npc:3127} here (level 5-20); the {skill:393} guide routes this."] = "為 {spell:2152}、{spell:3756} 和 {spell:3763} 準備349張 {item:2318}（其中210張用於75-150階段：現在就全部採好）：{skill:393}：剝取5-20級野獸。在這裡剝取 {npc:3126}、{npc:3123}、{npc:3122}、{npc:3125}、{npc:3099}、{npc:3110}、{npc:3121}、{npc:3100}、{npc:3130} 和 {npc:3127}（5-20級）；{skill:393} 指南會安排相應路線。",
 
 	-- Step 9: Light Leather (Mulgore)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:2956} Adult Plainstrider · {npc:2957} Elder Plainstrider · {npc:3035} Flatland Cougar · {npc:3566} Flatland Prowler · {npc:2972} Kodo Calf · {npc:2959} Prairie Stalker · {npc:2958} Prairie Wolf · {npc:2960} Prairie Wolf Alpha
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:2956}, {npc:2957}, {npc:3035}, {npc:3566}, {npc:2972}, {npc:2959}, {npc:2958} and {npc:2960} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:2956}, {npc:2957}, {npc:3035}, {npc:3566}, {npc:2972}, {npc:2959}, {npc:2958} and {npc:2960} here (level 5-20); the {skill:393} guide routes this."] = "為 {spell:2152}、{spell:3756} 和 {spell:3763} 準備 349 個 {item:2318}（其中 210 個用於 75-150 階段：現在一起收集）：透過 {skill:393} 從 5-20 級野獸身上獲取。在這裡剝取 {npc:2956}、{npc:2957}、{npc:3035}、{npc:3566}、{npc:2972}、{npc:2959}、{npc:2958} 和 {npc:2960}（5-20 級）的皮；{skill:393} 指南會提供路線。",
 
 	-- Step 10: Light Leather (Tirisfal Glades)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1548} Cursed Darkhound · {npc:1547} Decrepit Darkhound · {npc:1553} Greater Duskbat · {npc:1549} Ravenous Darkhound · {npc:1554} Vampiric Duskbat
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1548}, {npc:1547}, {npc:1553}, {npc:1549} and {npc:1554} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1548}, {npc:1547}, {npc:1553}, {npc:1549} and {npc:1554} here (level 5-20); the {skill:393} guide routes this."] = "為 {spell:2152}、{spell:3756} 和 {spell:3763} 準備349張 {item:2318}（其中210張用於75-150階段：現在就全部採好）：{skill:393}：剝取5-20級野獸。在這裡剝取 {npc:1548}、{npc:1547}、{npc:1553}、{npc:1549} 和 {npc:1554}（5-20級）；{skill:393} 指南會安排相應路線。",
 
 	-- Step 11: Light Armor Kit to 51
 	-- {spell:2152} Light Armor Kit
@@ -62,7 +63,7 @@ return {
 	-- {skill:165} Leatherworking
 	["{skill:165} recipes at 51"] = "{skill:165}51點的配方",
 	-- {skill:165} Leatherworking · {spell:3756} Embossed Leather Gloves · {spell:1229432} Camp Tent · {item:2318} Light Leather
-	["Back to a {skill:165} trainer: {spell:3756} (from 40, 1s 50c). Also learn {spell:1229432} (1s): Forever's {skill:165} camp item, 5 {item:2318}, placed at a campsite beside a campfire. The Camping 101: {skill:165} quest from your starting area's camping guide (after The Great Outdoors) sends you to a leatherworking trainer who teaches it free."] = "",
+	["Back to a {skill:165} trainer: {spell:3756} (from 40, 1s 50c). Also learn {spell:1229432} (1s): Forever's {skill:165} camp item, 5 {item:2318}, placed at a campsite beside a campfire. The Camping 101: {skill:165} quest from your starting area's camping guide (after The Great Outdoors) sends you to a leatherworking trainer who teaches it free."] = "返回 {skill:165} 訓練師處：學習 {spell:3756}（40起，1銀50銅）。同時學習 {spell:1229432}（1銀幣）：這是無限服的 {skill:165} 露營物品，需要5張 {item:2318}，放置在營地的營火旁。起始地區露營指南中的“露營 101：{skill:165}”任務（在“廣闊天地”之後）會派你去找制皮訓練師，可免費學會它。",
 
 	-- Step 13: Embossed Leather Gloves to 75
 	-- {spell:3756} Embossed Leather Gloves
@@ -90,15 +91,15 @@ return {
 
 	-- Step 17: Medium Leather (Hillsbrad Foothills)
 	-- {item:2319} Medium Leather · {item:7285} Nimble Leather Gloves · {skill:393} Skinning · {npc:2248} Cave Yeti · {npc:2356} Elder Gray Bear · {npc:2385} Feral Mountain Lion · {npc:2351} Gray Bear · {npc:2384} Starving Mountain Lion · {npc:2354} Vicious Gray Bear
-	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "",
+	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "準備 144 個 {item:2319}，用於 {item:7285}：透過 {skill:393} 剝取 18-30 級野獸。在這裡剝取 {npc:2248}、{npc:2356}、{npc:2385}、{npc:2351}、鉗嘴龜、{npc:2384} 和 {npc:2354}（18-30 級）；{skill:393} 指南提供對應路線。",
 
 	-- Step 18: Medium Leather (Darkshore)
 	-- {item:2319} Medium Leather · {item:7285} Nimble Leather Gloves · {skill:393} Skinning · {npc:3823} Ghostpaw Runner · {npc:2071} Moonstalker Matriarch
-	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30. Skin {npc:3823} and {npc:2071} here (level 18-30); the {skill:393} guide routes this."] = "",
+	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30. Skin {npc:3823} and {npc:2071} here (level 18-30); the {skill:393} guide routes this."] = "準備144個{item:2319}製作{item:7285}：{skill:393}：剝取18-30級野獸。在這裡剝取{npc:3823}和{npc:2071}（18-30級）；{skill:393}指南有對應路線。",
 
 	-- Step 19: Medium Leather (The Barrens)
 	-- {item:2319} Medium Leather · {item:7285} Nimble Leather Gloves · {skill:393} Skinning · {npc:3236} Barrens Kodo
-	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30. Skin {npc:3236} and Thunderhead here (level 18-30); the {skill:393} guide routes this."] = "",
+	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30. Skin {npc:3236} and Thunderhead here (level 18-30); the {skill:393} guide routes this."] = "為 {item:7285} 準備 144 個 {item:2319}：透過 {skill:393} 從 18-30 級野獸身上獲取。在這裡剝取 {npc:3236} 和雷角蜥蜴（18-30 級）的皮；{skill:393} 指南會提供路線。",
 
 	-- Step 21: Elixir of Minor Agility
 	-- {item:2457} Elixir of Minor Agility · {item:7285} Nimble Leather Gloves · {skill:171} Alchemy
@@ -128,7 +129,7 @@ return {
 	-- {item:7285} Nimble Leather Gloves
 	["{item:7285} to 125"] = "{item:7285}練到125",
 	-- {item:7285} Nimble Leather Gloves · {item:2457} Elixir of Minor Agility · {item:2319} Medium Leather · {item:2321} Fine Thread · {item:2452} Swiftthistle · {item:765} Silverleaf · {spell:3763} Fine Leather Belt · {item:2316} Dark Leather Cloak · {item:4340} Gray Dye
-	["{item:7285} is orange at 102 (yellow 120, green 132, grey 145): about 24 crafts to 125. Each takes 1 {item:2457}, 6 {item:2319} and 1 {item:2321}. Each takes an {item:2457}: an alchemist makes it from a {item:2452} and a {item:765}, and the Auction House has it cheap. With no elixirs, take {spell:3763} on to 105 and {item:2316} (from 85: 8 {item:2319}, a {item:4340} and a {item:2321}) to 125: about 28 cloaks, 224 {item:2319} in all."] = "",
+	["{item:7285} is orange at 102 (yellow 120, green 132, grey 145): about 24 crafts to 125. Each takes 1 {item:2457}, 6 {item:2319} and 1 {item:2321}. Each takes an {item:2457}: an alchemist makes it from a {item:2452} and a {item:765}, and the Auction House has it cheap. With no elixirs, take {spell:3763} on to 105 and {item:2316} (from 85: 8 {item:2319}, a {item:4340} and a {item:2321}) to 125: about 28 cloaks, 224 {item:2319} in all."] = "{item:7285} 在技能102時為橙色（120變黃，132變綠，145變灰）：大約製作24次升到125。每次需要1瓶 {item:2457}、6張 {item:2319} 和1根 {item:2321}。每次需要一瓶 {item:2457}：鍊金師用一份 {item:2452} 和一份 {item:765} 製作，拍賣行也很便宜。如果沒有藥劑，就用 {spell:3763} 升到105，再用 {item:2316}（85起：8張 {item:2319}、一份 {item:4340} 和一根 {item:2321}）升到125：大約28件披風，共224張 {item:2319}。",
 
 	-- Step 29: Leatherworking recipes at 125
 	-- {skill:165} Leatherworking
@@ -188,7 +189,8 @@ return {
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 158"] = "{spell:3780}練到158",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread
-	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}在技能150時為黃色（145變黃、155變綠、165變灰）：約製作15次可到158。每次需要5個{item:4234}和1個{item:2321}。每次五個{item:4234}（來自28-40級野獸）；做出的護甲片可以賣給商人。",
+	-- was: ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}在技能150時為黃色（145變黃、155變綠、165變灰）：約製作15次可到158。每次需要5個{item:4234}和1個{item:2321}。每次五個{item:4234}（來自28-40級野獸）；做出的護甲片可以賣給商人。"
+	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "{spell:3780}在150時為黃色（黃色145，綠色155，灰色165）：大約製作15次到158。每次需要5個{item:4234}和1個{item:2321}。每次五個{item:4234}（28-40級野獸）；護甲片可以賣給商人。如果你到這裡還沒學會{spell:3780}，現在就學：之前的步驟會教。",
 
 	-- Step 39: Barbaric Shoulders to 165
 	-- {item:5964} Barbaric Shoulders
@@ -292,9 +294,10 @@ return {
 	-- {item:15094} Runic Leather Headband
 	["{item:15094} to 300"] = "{item:15094}練到300",
 	-- {item:15094} Runic Leather Headband · {item:8170} Rugged Leather · {item:14047} Runecloth · {item:14341} Rune Thread · {skill:165} Leatherworking
-	["{item:15094} is orange at 269 (yellow 285, green 295, grey 305): about 43 crafts to 300. Each takes 14 {item:8170}, 10 {item:14047} and 1 {item:14341}. 14 {item:8170} and 10 {item:14047} a craft: the dearest stretch. {skill:165} 300 is a Legacy System milestone."] = "",
+	["{item:15094} is orange at 269 (yellow 285, green 295, grey 305): about 43 crafts to 300. Each takes 14 {item:8170}, 10 {item:14047} and 1 {item:14341}. 14 {item:8170} and 10 {item:14047} a craft: the dearest stretch. {skill:165} 300 is a Legacy System milestone."] = "{item:15094} 在技能 269 時為橙色（285 變黃、295 變綠、305 變灰）：約製作 43 次可升到 300。每次需要 14 個 {item:8170}、10 個 {item:14047} 和 1 個 {item:14341}。每次製作消耗 14 個 {item:8170} 和 10 個 {item:14047}：這是最貴的一段。{skill:165} 達到 300 是傳承系統的一個里程碑。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "準備349個{item:2318}製作{spell:2152}、{spell:3756}和{spell:3763}（其中210個用於75-150階段：現在一次收齊）：{skill:393}：剝取5-20級野獸。在這裡剝取{npc:1922}、{npc:525}、覓食的灰狼、{npc:524}、{npc:113}和{npc:822}（5-20級）；{skill:393}指南有對應路線。",
 	-- ["Artisan needs character level 35 and {skill:165} 200; it raises the cap to 300. Materials for 225-300 are worth about 312g in all."] = "專家級需要角色等級35且{skill:165}200點；上限提高到300。225-300所需材料總價約312金。",
 	-- ["Back to a {skill:165} trainer: {spell:10482}, {spell:14932} are taught from {skill:165} 220."] = "回到{skill:165}訓練師那裡：{spell:10482}、{spell:14932}在{skill:165}220點時可學。",
 	-- ["Back to a {skill:165} trainer: {spell:10487} is taught from {skill:165} 195."] = "回到{skill:165}訓練師那裡：{spell:10487}在{skill:165}195點時可學。",
@@ -383,4 +386,5 @@ return {
 	-- ["{skill:333}: disenchant uncommon (green) gear (or the Auction House)"] = "{skill:333}：分解優秀（綠色）裝備（或拍賣場）",
 	-- ["{spell:3768} to 150"] = "{spell:3768}練到150",
 	-- ["{spell:3776} to 185"] = "{spell:3776}練到185",
+	-- ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}在技能150時為黃色（145變黃、155變綠、165變灰）：約製作15次可到158。每次需要5個{item:4234}和1個{item:2321}。每次五個{item:4234}（來自28-40級野獸）；做出的護甲片可以賣給商人。",
 }

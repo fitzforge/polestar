@@ -696,6 +696,25 @@ const OBJECT_PORTALS: [ObjectPortalDef; 2] = [
 	},
 ];
 
+/// A teleport an NPC casts on the player who asks (a gossip option): one way, from where the NPC stands (its spawn)
+/// to its spell's target (classic-db spell_target_position). Planned as a portal whose ride is the talk; the arrow
+/// names the NPC (Portal.npc).
+struct NpcPortalDef {
+	npc: i64,
+	/// The NPC's name, its end's name.
+	name: &'static str,
+	id: &'static str,
+	/// The NPC's spawn: continent, x, y, z (classic-db creature, the same in Forever's world DB).
+	at: (f64, f64, f64, f64),
+	spell: i64,
+	to: &'static str,
+}
+
+// #3691: Sanath Lim-yo, camped below Archmage Xylem's tower in Azshara, teleports a player who asks up the tower
+// ("Teleport to Azshara Tower", spell 12510); without it the arrow walked the player round to the tower's foot. The
+// way back down is the attendant's at the top (spell 12520, which lands beside Sanath).
+const NPC_PORTALS: [NpcPortalDef; 1] = [NpcPortalDef { npc: 8395, name: "Sanath Lim-yo", id: "portal-azshara-tower", at: (1.0, 3648.01, -4702.71, 121.06), spell: 12510, to: "Azshara Tower" }];
+
 /// An object portal's end on its map (live frame first, as spawn_points reads a live spawn), or None
 /// when the data has no frame for the map.
 fn map_end(name: &str, area: f64, (map, x, y, _): (i64, f64, f64, Option<f64>), frames: &Frames, live: &LiveFrames) -> Option<End> {
@@ -759,6 +778,8 @@ pub struct Portal {
 	pub seconds: f64,
 	/// The item the player must carry for the portal to take them (PortalDef.item).
 	pub item: Option<f64>,
+	/// The NPC who casts the teleport (NpcPortalDef), None for a portal the player walks into.
+	pub npc: Option<String>,
 	pub source: String,
 }
 
@@ -800,6 +821,7 @@ fn build_portals(area_triggers: &Rows, db: &V, frames: &Frames, live: &LiveFrame
 			b,
 			seconds: PORTAL_SECONDS,
 			item: p.item,
+			npc: None,
 			source: format!("AreaTrigger {} -> classic-db areatrigger_teleport {}", p.trigger, p.trigger),
 		});
 	}
@@ -827,7 +849,41 @@ fn build_portals(area_triggers: &Rows, db: &V, frames: &Frames, live: &LiveFrame
 			b,
 			seconds: PORTAL_SECONDS,
 			item: None,
+			npc: None,
 			source: format!("gameobject {} spawn (Forever world DB) -> {}", p.object, p.landing),
+		});
+	}
+	for p in &NPC_PORTALS {
+		let pos = db.get("positions").get(&p.spell.to_string());
+		if !pos.truthy() {
+			warnings.push(format!("{}: classic-db spell_target_position {} missing, skipped", p.id, p.spell));
+			continue;
+		}
+		let (c, x, y, z) = p.at;
+		let mut a = place(p.name, c, x, y, frames, live, None);
+		let mut b = place(p.to, pos.get("map").num(), pos.get("x").num(), pos.get("y").num(), frames, live, None);
+		if let (Some(a), Some(b), Some(nav)) = (a.as_mut(), b.as_mut(), nav) {
+			for (e, z) in [(a, z), (b, pos.get("z").as_num().unwrap_or(f64::NAN))] {
+				match end_height(nav, e.c, e.wx, e.wy, Some(z)) {
+					Some(h) => e.z = Some(h),
+					None => warnings.push(format!("{}: the {} end has no walkable surface near its height {}", p.id, e.name, num_str(round(z, 1)))),
+				}
+			}
+		}
+		let (Some(a), Some(b)) = (a, b) else {
+			warnings.push(format!("{}: an end is on no map, skipped", p.id));
+			continue;
+		};
+		out.push(Portal {
+			id: p.id.to_string(),
+			name: p.to.to_string(),
+			area: 0.0,
+			a,
+			b,
+			seconds: PORTAL_SECONDS,
+			item: None,
+			npc: Some(p.name.to_string()),
+			source: format!("creature {} spawn (classic-db) -> spell_target_position {}", p.npc, p.spell),
 		});
 	}
 	out

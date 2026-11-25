@@ -245,7 +245,8 @@
 		"sources": [
 			"curated",
 			"record"
-		]
+		],
+		"visits": 1
 	},
 	"5880": {
 		"id": 5880,
@@ -285,7 +286,8 @@
 		],
 		"sources": [
 			"curated"
-		]
+		],
+		"visits": 1
 	},
 	"5885": {
 		"id": 5885,

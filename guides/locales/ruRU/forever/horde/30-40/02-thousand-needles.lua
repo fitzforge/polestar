@@ -129,13 +129,17 @@ return {
 	-- {npc:4483} Moktar Krin
 	["Take the lift down and follow the canyon east. {npc:4483} camps on the north-western edge of the salt flats."] = "",
 
-	-- Step 24: Mirage Raceway
+	-- Step 24: Moktar Krin
+	-- {quest:1146} The Swarm Grows · {npc:4483} Moktar Krin
+	["{quest:1146}' second part is already handed in: take the third part from {npc:4483}, on the north-western edge of the salt flats."] = "Вторая часть задания {quest:1146} уже сдана: возьмите третью часть у NPC {npc:4483}, на северо-западном краю соляных равнин.",
+
+	-- Step 25: Mirage Raceway
 	-- {area:2240} Mirage Raceway
 	["The goblins and gnomes of the {area:2240} are neutral and give quests to both factions."] = "",
 	-- {npc:4452} Kravel Koalbeard · {quest:5762} Hemet Nesingwary
 	["{npc:4452}'s crate for {quest:5762} in Stranglethorn, later on the route"] = "",
 
-	-- Step 25: Shimmering Flats: kill these as you meet them
+	-- Step 26: Shimmering Flats: kill these as you meet them
 	-- {area:439} Shimmering Flats
 	["{area:439}: kill these as you meet them"] = "{area:439}: убивайте их по пути",
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Scorpid Terrors = {npc:4139} Scorpid Terror
@@ -149,7 +153,7 @@ return {
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver
 	["{quest:1104}, from the Scorpid Reavers of the north half"] = "",
 
-	-- Step 26: Mirage Raceway
+	-- Step 27: Mirage Raceway
 	["South-west back to the raceway."] = "",
 	-- {npc:4452} Kravel Koalbeard · {quest:1111} Wharfmaster Dizzywig · {area:392} Ratchet
 	["{npc:4452}: his parts order goes to {quest:1111} in {area:392}, later on the route"] = "",
@@ -158,7 +162,7 @@ return {
 	-- {npc:4630} Pozzik · {area:392} Ratchet
 	["{npc:4630}: for Gazlowe in {area:392}, later on the route"] = "",
 
-	-- Step 27: Level 32
+	-- Step 28: Level 32
 	["Level 32"] = "Уровень 32",
 	-- {zone:1443} Desolace · {area:1717} Razorfen Kraul
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Scorpid Terrors = {npc:4139} Scorpid Terror
@@ -168,76 +172,76 @@ return {
 	-- {npc:4140} Scorpid Reaver
 	["grind on {npc:4140}"] = "убивайте цель {npc:4140}",
 
-	-- Step 28: The southern flats
+	-- Step 29: The southern flats
 	["The southern flats"] = "",
 	-- plural, as words: Saltstone Crystalhides = {npc:4151} Saltstone Crystalhide
 	["South of the raceway, the Saltstone Crystalhides (32-33) and Gazers (34-35) roam the far end of the flats.\nCareful: the level 35 Gazers can still be two over you: pull them one at a time from the camp's edge, never two together."] = "К югу от трассы, в дальнем конце равнины, бродят просоленные хрусталиски (32-33) и созерцатели (34-35).\nОсторожно: созерцатели 35-го уровня могут быть на два уровня выше вас: выманивайте их по одному с края лагеря, никогда по двое.",
 
-	-- Step 29: The Rustmaul Dig Site
+	-- Step 30: The Rustmaul Dig Site
 	-- {item:5877} Cracked Silithid Carapace · {npc:4132} Silithid Ravager
 	["West of them the silithid swarm the dig site. Searchers and Hive Drones walk among the mounds; the Invaders (34-35) stay inside the hive cave. The first silithid you kill drops a {item:5877}: open it.\nCareful: Hive Drones call for help when they fall to 20% health, and the {npc:4132} (37, rare) walks the dig: take the Searchers and Drones (32-34) outside first, then pull the Invaders (34-35) one at a time from the cave mouth."] = "К западу от них силитиды кишат на раскопках. Искатели и трутни улья бродят среди холмов, а захватчики (34-35) остаются в пещере улья. Первый убитый силитид дает {item:5877}: откройте его.\nОсторожно: трутни улья зовут на помощь при 20% здоровья, а по раскопкам ходит {npc:4132} (37, редкий). Сначала перебейте искателей и трутней (32-34) снаружи, затем выманивайте захватчиков (34-35) по одному от входа в пещеру.",
 
-	-- Step 30: Parts of the Swarm
+	-- Step 31: Parts of the Swarm
 	["Keep killing silithid at the dig site for the heart, the talons and the carapaces."] = "",
 
-	-- Step 31: Moktar Krin
+	-- Step 32: Moktar Krin
 	-- {npc:4483} Moktar Krin
 	["North from the dig to {npc:4483}'s camp on the western edge of the flats."] = "",
 
-	-- Step 32: Mirage Raceway
+	-- Step 33: Mirage Raceway
 	-- {area:976} Gadgetzan
 	["East to the raceway, on the way south to {area:976}."] = "На восток к трассе, по пути на юг сюда: {area:976}.",
 
-	-- Step 33: Gadgetzan
+	-- Step 34: Gadgetzan
 	-- {zone:1446} Tanaris · {area:976} Gadgetzan · {area:484} Freewind Post
 	["South from the raceway over the {zone:1446} border to {area:976}, the walled goblin town: learn its flight path and fly back to {area:484} from there, which is quicker than the walk west across the flats, and the next guides fly straight to {area:976}."] = "На юг от трассы через границу зоны {zone:1446}: {area:976}, гоблинский город за стенами. Откройте там маршрут полета и летите обратно сюда: {area:484}. Это быстрее, чем идти на запад через равнину, а следующие гайды летят прямо в {area:976}.",
 
-	-- Step 35: Freewind Post
+	-- Step 36: Freewind Post
 	-- {npc:10537} Cliffwatcher Longhorn
 	["{npc:10537} stands in the middle of the post, on the way to the flight master."] = "",
 	-- {npc:10537} Cliffwatcher Longhorn · {npc:11259} Nataka Longhorn · {zone:1443} Desolace
 	["{npc:10537}: for {npc:11259} in {zone:1443}, next"] = "{npc:10537}: для NPC {npc:11259} ({zone:1443}), далее",
 
-	-- Step 36: Fly to Sun Rock Retreat
+	-- Step 37: Fly to Sun Rock Retreat
 	-- {area:460} Sun Rock Retreat
 	["Fly to {area:460}"] = "Летите сюда: {area:460}",
 	-- {area:484} Freewind Post
 	["{area:484} flight master"] = "Распорядитель полетов: {area:484}",
 
-	-- Step 38: Scrabblescrew's Camp
+	-- Step 39: Scrabblescrew's Camp
 	-- {zone:1443} Desolace · {npc:11596} Smeed Scrabblescrew
 	["Head south out of Stonetalon into {zone:1443} and follow the road south to {npc:11596}'s camp."] = "",
 
-	-- Step 39: Ghost Walker Post
+	-- Step 40: Ghost Walker Post
 	-- {npc:5395} Felgur Twocuts · {npc:11259} Nataka Longhorn · {npc:5641} Takata Steelblade · {npc:4498} Maurin Bonesplitter · {area:596} Kodo Graveyard
 	["{npc:5395} stands in the post, {npc:11259} up on its rise; {npc:5641} and {npc:4498} wait on the rise west of it, above the {area:596}."] = "",
 	-- {npc:11259} Nataka Longhorn
 	["{npc:11259}, up on the rise"] = "",
 
-	-- Step 41: Takata Steelblade and Maurin Bonesplitter
+	-- Step 42: Takata Steelblade and Maurin Bonesplitter
 	-- {npc:5641} Takata Steelblade · {npc:4498} Maurin Bonesplitter
 	["{npc:5641} and {npc:4498}"] = "{npc:5641} и {npc:4498}",
 
-	-- Step 42: Ethel Rethor
+	-- Step 43: Ethel Rethor
 	-- {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
 	["From the rise, north-west across the plain to the ruined tower of {area:2405}: {npc:11863} waits inside. His errand is in {area:599}, the next stop; he takes it back on the walk up the coast later in this guide."] = "",
 
-	-- Step 43: Thunder Axe Fortress
+	-- Step 44: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {zone:1443} Desolace
 	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. Leave the red {object:176581} for now: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "Идите на восток: {area:599}. Избейте культиста Пылающего Клинка и, пока он не умер, используйте на нем {item:6436}, чтобы получить {item:6435}. {npc:13019} стоит на верхнем этаже крепости со Скипетром. Культисты иногда роняют {item:20310} (1-5%); если выпадет, прочитайте. Красный {object:176581} пока не трогайте: {npc:11876} там 37-го уровня, к нему вернетесь во второй визит в зону {zone:1443}.",
-	["On the top floor"] = "",
+	["On the top floor"] = "На верхнем этаже",
 
-	-- Step 44: Sargeron
+	-- Step 45: Sargeron
 	-- {area:603} Sargeron
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue
 	["East from the fortress along the northern hills to the satyrs' ruins of {area:603}. The Shadowstalkers walk unseen.\nCareful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them."] = "",
 
-	-- Step 45: Khan Dez'hepah
+	-- Step 46: Khan Dez'hepah
 	-- {area:609} Kolkar Village · {quest:1365} Khan Dez'hepah
 	-- plural, as words: Kolkar Battle Lords = {npc:4636} Kolkar Battle Lord
 	["South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: {quest:1365} is level 35, about two levels over you here, and Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "",
 
-	-- Step 46: Ghost Walker Post
+	-- Step 47: Ghost Walker Post
 	-- {npc:5641} Takata Steelblade · {npc:4498} Maurin Bonesplitter · {npc:5395} Felgur Twocuts · {npc:5412} Gurda Wildmane
 	["South-west down the road to the post: {npc:5641} and {npc:4498} on the rise west of it, {npc:5395} and {npc:5412} side by side in the post."] = "",
 	-- {npc:5641} Takata Steelblade · {npc:5640} Keldran · {zone:1454} Orgrimmar
@@ -249,7 +253,7 @@ return {
 	-- {npc:5412} Gurda Wildmane
 	["{npc:5412}: her totems drop from the same Magram centaurs"] = "",
 
-	-- Step 47: Kodo Graveyard
+	-- Step 48: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo · {npc:11521} Kodo Apparition
 	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702} in the graveyard and walk the tamed kodo back to {npc:11596}. At his camp, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: leave the kodo skulls on the ground alone: opening one raises a {npc:11521} (37-38) that hits hard."] = "Используйте {item:13892} (от NPC {npc:11596}) на старом, умирающем кодо или на этом: {npc:4702} – на кладбище, и приведите прирученного кодо обратно к NPC {npc:11596}. В его лагере поговорите с кодо: это засчитает его и позволит приручить следующего. Пять кодо, по одному. Осторожно: не трогайте черепа кодо на земле: открыв один, вы поднимете NPC {npc:11521} (37-38), который сильно бьет.",
 	-- {npc:4702} Ancient Kodo
@@ -257,7 +261,7 @@ return {
 	-- {npc:11596} Smeed Scrabblescrew
 	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "",
 
-	-- Step 49: Magram Village
+	-- Step 50: Magram Village
 	-- {npc:5395} Felgur Twocuts · {item:254432} Carved Centaur Totem
 	-- plural, as words: Dread Rippers = {npc:4694} Dread Ripper
 	["South-east of Smeed's camp, the Magram centaurs camp in the hills. The Scouts and Outrunners (32-33) and the Wranglers (33-34) hold the camp's north-western edge; any centaur can drop an ear for {npc:5395} and a {item:254432} for Gurda. Careful on the way: Scorpashi Venomlashes (38-39) and Dread Rippers (39-40) roam the ground just west of the camp's edge: give them room.\nCareful: the Stormers and Pack Runners (34-35), Marauders and Maulers (35-36) and the Bonepaws (37-38) hold the middle and south of the camp: stay on its north-western edge and pull one at a time."] = "",
@@ -267,10 +271,10 @@ return {
 	-- {item:254432} Carved Centaur Totem
 	["{item:254432}, from the same centaurs"] = "",
 
-	-- Step 50: Ghost Walker Post
+	-- Step 51: Ghost Walker Post
 	["Back north-west to the post, on your way west."] = "",
 
-	-- Step 51: Shadowprey Village
+	-- Step 52: Shadowprey Village
 	-- {area:606} Gelkis Village
 	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way."] = "",
 	-- {npc:11877} Roon Wildmane · {quest:5762} Hemet Nesingwary
@@ -278,21 +282,21 @@ return {
 	-- {npc:6726} Thalon
 	["{npc:6726}, at the village's south-west end"] = "",
 
-	-- Step 52: Drulzegar Skraghook
+	-- Step 53: Drulzegar Skraghook
 	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii · {quest:6143} Other Fish to Fry · {area:598} Sar'theris Strand
 	["{npc:12340} stands at the village's south end, near {npc:12031}. At your level his {quest:6143} fits the walk north along the coast: the southern half of {area:598}, from level 34."] = "",
 
-	-- Step 53: Ethel Rethor
+	-- Step 54: Ethel Rethor
 	-- {npc:11863} Azore Aldamort · {area:2406} Ranazjar Isle
 	["North along the coast, then inland to {npc:11863}'s tower. The coast's clams and naga come next, on one walk north to {area:2406}."] = "",
 	-- {npc:11863} Azore Aldamort · {item:15803} Book of the Ancients · {npc:12369} Lord Kragaru · {area:2406} Ranazjar Isle
 	["{npc:11863}'s next errand, the {item:15803}, needs {npc:12369} (38) out on {area:2406}: leave it, he is over your level."] = "Следующее поручение NPC {npc:11863} – {item:15803} – требует убить NPC {npc:12369} (38) здесь: {area:2406}. Пропустите его: он выше вашего уровня.",
 
-	-- Step 54: Rackmore's Log
+	-- Step 55: Rackmore's Log
 	-- {object:177787} Rackmore's Log · {npc:11863} Azore Aldamort
 	["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore: read it. Its two keys drop only while you have the quest."] = "{object:177787} лежит на земле к юго-западу от башни, где ждет {npc:11863}, по пути вниз к берегу: прочитайте его. Оба ключа выпадают, только пока у вас есть задание.",
 
-	-- Step 55: Clam beds
+	-- Step 56: Clam beds
 	["Clam beds"] = "Отмели с моллюсками",
 	-- {item:15874} Soft-shelled Clam · {item:15878} Rackmore's Silver Key
 	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam · Enraged Reef Crawlers = {npc:12347} Enraged Reef Crawler · Drysnap Crawlers = {npc:11562} Drysnap Crawler
@@ -305,28 +309,28 @@ return {
 	-- {item:15878} Rackmore's Silver Key
 	["{item:15878}, from the Drysnap crabs"] = "{item:15878} – с сухощелких крабов",
 
-	-- Step 56: Sar'theris Strand
+	-- Step 57: Sar'theris Strand
 	-- {area:598} Sar'theris Strand · {item:15881} Rackmore's Golden Key · {zone:1443} Desolace
 	-- was: ["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at 38."] = "Идите дальше на север ({area:598}) за предметом {item:15881}: он может выпасть с любой наги Скользящего Клинка.\nОсторожно: мирмидоны (34-35) держат северную половину пляжа вместе с морскими ведьмами и оракулами (34-36, заклинатели) – до двух уровней выше вас на 33-м. Бейте наг и колдуний (32-33) южной половины, пока не выпадет ключ, а север оставьте на второй визит в зону {zone:1443}, на 38-м уровне."
 	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at about 37."] = "",
 	-- {item:15881} Rackmore's Golden Key
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881} – с наг Скользящего Клинка",
 
-	-- Step 57: Sar'theris Strand: Other Fish to Fry
+	-- Step 58: Sar'theris Strand: Other Fish to Fry
 	["Stay in the southern half of the strand, where Rackmore's key drops: eight Myrmidons (34-35) walk there among the Naga, Sorceresses and Warriors (32-34).\nCareful: the northern half belongs to the Sea Witches (35-36, casters) and, at its tip, the Tidehunters (36-37): keep south of the middle of the beach."] = "",
 	-- {npc:4714} Slitherblade Myrmidon
 	["{npc:4714}, in the strand's southern half"] = "",
 
-	-- Step 58: Rackmore's Chest
+	-- Step 59: Rackmore's Chest
 	-- {area:2406} Ranazjar Isle · {object:177786} Rackmore's Chest · {object:177673} Serpent Statue
 	["Swim out to {area:2406} off the far northern tip: {object:177786} stands on the shore beside the {object:177673}. Open it with both keys; leave the statue alone."] = "Плывите к острову ({area:2406}) у северной оконечности: {object:177786} стоит на берегу рядом с объектом {object:177673}. Откройте его обоими ключами; статую не трогайте.",
 
-	-- Step 59: Shadowprey Village
+	-- Step 60: Shadowprey Village
 	["Hearth to Shadowprey (you bound it on the way in), or walk back south along the coast."] = "",
 	-- {item:14547} Hand of Iruxos · {npc:12340} Drulzegar Skraghook · {quest:6143} Other Fish to Fry · {zone:1443} Desolace · {zone:1454} Orgrimmar · {zone:1434} Stranglethorn Vale
 	["Taiga's {item:14547}, {npc:12340}'s {quest:6143} (unless you did it on the strand) and {zone:1443}'s other 37-40 quests wait for the second visit, at about 37: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "",
 
-	-- Step 60: Drulzegar Skraghook
+	-- Step 61: Drulzegar Skraghook
 	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii
 	["{npc:12340}, near {npc:12031}"] = "",
 

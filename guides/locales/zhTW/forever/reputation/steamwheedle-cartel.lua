@@ -83,13 +83,13 @@ return {
 	-- {npc:10267} Tinkee Steamboil
 	["Back to {npc:10267}"] = "返回{npc:10267}",
 	-- {quest:4810} Return to Tinkee
-	["{quest:4810} gives 50 to every town. Her later quests, Egg Freezing (150 to every town) and Egg Collection (200), are done in the Rookery of Upper Blackrock Spire, a ten-player dungeon: take them up with your group."] = "",
+	["{quest:4810} gives 50 to every town. Her later quests, Egg Freezing (150 to every town) and Egg Collection (200), are done in the Rookery of Upper Blackrock Spire, a ten-player dungeon: take them up with your group."] = "{quest:4810} 給每座城鎮50聲望。她後續的“冷凍龍蛋”（每座城鎮150）和“收集龍蛋”（200）在十人地下城黑石塔上層的孵化間完成：隨小隊一起上去時做。",
 
 	-- Step 9: Dire Maul North: Knot Thimblejack
 	-- {npc:14338} Knot Thimblejack
 	["Dire Maul North: {npc:14338}"] = "厄運之槌北區：{npc:14338}",
 	-- {npc:14338} Knot Thimblejack · {item:18250} Gordok Shackle Key · {npc:14321} Guard Fengus · {item:18258} Gordok Ogre Suit · {item:8170} Rugged Leather · {item:14341} Rune Thread · {item:18240} Ogre Tannin
-	["{npc:14338} sits shackled in Dire Maul North, the Gordok ogres' wing (a five-player dungeon from level 57: group up). Every {item:18250} frees him once: 150 to every town, and he is shackled again on your next run. Gordok ogres drop the keys (about one in fifteen; {npc:14321} one in seven): a full run of the wing usually brings one. His {item:18258} pays 100 the first time and 50 after, for 4 Bolts of Runecloth, 8 {item:8170}, 2 {item:14341} and the {item:18240} from the basket in the wing. Under 57 when you get here? Unskip this step later."] = "",
+	["{npc:14338} sits shackled in Dire Maul North, the Gordok ogres' wing (a five-player dungeon from level 57: group up). Every {item:18250} frees him once: 150 to every town, and he is shackled again on your next run. Gordok ogres drop the keys (about one in fifteen; {npc:14321} one in seven): a full run of the wing usually brings one. His {item:18258} pays 100 the first time and 50 after, for 4 Bolts of Runecloth, 8 {item:8170}, 2 {item:14341} and the {item:18240} from the basket in the wing. Under 57 when you get here? Unskip this step later."] = "{npc:14338}被鎖在厄運之槌北區，也就是戈多克食人魔所在區域（57級起的五人地下城：請組隊）。每把{item:18250}可釋放他一次：所有城鎮各150聲望，下次進本他又會被鎖住。戈多克食人魔掉落鑰匙（約十五分之一；{npc:14321}約七分之一）：完整打通該區通常能獲得一把。他的{item:18258}首次獎勵100，之後50，需要4卷符文布卷、8個{item:8170}、2個{item:14341}，以及本區籃子裡的{item:18240}。來到這裡時還沒到57級？以後再取消跳過此步驟。",
 	-- {item:18250} Gordok Shackle Key
 	["{item:18250}, Gordok ogres"] = "{item:18250}，戈多克食人魔",
 	-- {quest:5525} Free Knot! · {npc:14338} Knot Thimblejack

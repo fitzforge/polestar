@@ -62,6 +62,54 @@ fn zone_only_layers_hide_on_continent_and_world_maps_return_in_narrower_views_an
 	assert_eq!(out, json!({ "world": [2, 1, 1, 2, 1, 2], "minimap": 1 }));
 }
 
+// #2973: on a continent's map the quest layers' pins (summary layers) are one pin per zone, its badge their count and
+// its tooltip each layer's; a cave's pins count for its zone, areas wait for the zone's map, a layer without a
+// summary keeps its pins, and a click opens the zone's map. On the zone's map every pin is back.
+#[test]
+fn summary_layers_show_one_pin_per_zone_on_a_continent_map_and_every_pin_on_the_zone_map_2973() {
+	let out = run(r#"
+		nav.maps[9010]={ c=0, top=3000, bottom=-3000, left=3000, right=-3000, name="Mainland" }
+		nav.maps[9003]={ c=0, top=1000, bottom=-1000, left=-1000, right=-3000, name="Eastvale" }
+		nav.maps[9004]={ c=0, top=200, bottom=-200, left=200, right=-200, name="Cave" }
+		local info={ [9010]={mapType=2,name="Mainland"}, [9000]={mapType=3,parentMapID=9010,name="Testshire"},
+			[9003]={mapType=3,parentMapID=9010,name="Eastvale"}, [9004]={mapType=4,parentMapID=9000,name="Cave"} }
+		C_Map.GetMapInfo=function(map) return info[map] end
+		local opened
+		WorldMapFrame.SetMapID=function(_, map) opened=map end
+		Pins.SetLayer("quests.turnin", { at(100,100,{icon="map:quest-turnin"}), at(-100,100,{icon="map:quest-turnin"}),
+			{map=9004,x=50,y=50,icon="map:quest-turnin"} }, {summary="Hand-ins", minimap=false})
+		Pins.SetLayer("quests.objectives", { at(300,300,{icon="map:kill",area=40}), at(300,-300,{icon="map:kill"}),
+			at(-300,0,{icon="map:loot"}), {map=9003,x=50,y=50,icon="map:kill"} }, {summary="Objectives", minimap=false})
+		Pins.SetLayer("guide", {at(0,50)}, {minimap=false})
+		nav.showWorldMap(9010)
+		local r={ continent={}, areas=#nav.pins("areas") }
+		local home
+		for _,f in ipairs(nav.pins()) do
+			local p=f.data.pin
+			r.continent[#r.continent+1]=(f.data.layer.name).."|"..tostring(p.zone or "-").."|"..tostring(p.badge or "-")
+			if p.zone==9000 then home=p end
+		end
+		table.sort(r.continent)
+		local lines={}
+		home.tooltip({SetText=function(_,s) lines[#lines+1]=s end, AddLine=function(_,s) lines[#lines+1]=s end})
+		r.lines=lines
+		r.stack=#(home.stack or {})
+		home.onClick("LeftButton")
+		r.opened=opened
+		nav.showWorldMap(9000)
+		r.zone=#nav.pins()
+		r.zoneAreas=#nav.pins("areas")
+		emit(r)
+	"#);
+	assert_eq!(out["continent"], json!(["guide|-|-", "summary|9000|6", "summary|9003|1"]));
+	assert_eq!(out["areas"], 0, "areas wait for the zone's map");
+	assert_eq!(out["lines"], json!(["Testshire", "Hand-ins: 3", "Objectives: 3", "Click to open the zone's map"]));
+	assert_eq!(out["stack"], 2, "one glyph per layer");
+	assert_eq!(out["opened"], 9000);
+	assert_eq!(out["zone"], 7, "every pin on the zone's map");
+	assert_eq!(out["zoneAreas"], 1);
+}
+
 #[test]
 fn a_500_pin_layer_costs_nothing_per_frame_while_the_player_stands_still() {
 	let out = run(r#"

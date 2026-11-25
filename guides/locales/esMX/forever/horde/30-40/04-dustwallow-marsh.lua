@@ -11,6 +11,8 @@ return {
 	["Zeppelin to {zone:1454}"] = "Zepelín a {zone:1454}",
 
 	-- Step 2: Orgrimmar
+	-- {zone:1454} Orgrimmar · {zone:1445} Dustwallow Marsh
+	["The {zone:1454} and Crossroads stops are on the way for players coming from the previous guide; opened with none of its quests in the log, the guide starts in {zone:1445}."] = "Las paradas de {zone:1454} y El Cruce quedan de camino para los jugadores que vienen de la guía anterior; abierta sin ninguna de sus misiones en el registro, la guía empieza en {zone:1445}.",
 	-- {zone:1454} Orgrimmar
 	["The middle of {zone:1454}"] = "El centro de {zone:1454}",
 
@@ -70,12 +72,12 @@ return {
 	-- plural, as words: Darkfang Lurkers = {npc:4411} Darkfang Lurker · Theramore Infiltrators = {npc:4834} Theramore Infiltrator · Darkmist Lurkers = {npc:4377} Darkmist Lurker
 	["Head west back across the marsh. The Darkfang Lurkers (36-37) and Venomspitters (37-38) on the ridges north of Brackenwall drop the venom sacs. Theramore Infiltrators (35-36) sneak through the same woods: they are stealthed, so look closely.\nThe Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes. Work its outer edge, where the Spiders and Recluses (35-37) stand: the Lurkers and Silkspinners (37-39) deeper in are two or three over you.\nCareful: Darkfang Lurkers (level 36-37) use Sneak to stealth while out of combat and cast Poison once fighting.\nCareful: Stealthed spiders in the same area will attack you on sight.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "Regresa al oeste cruzando el pantano. Los Rondadores Colmiumbrío (36-37) y los Escupetósigos (37-38) de las lomas al norte de Poblado Murohelecho sueltan las bolsas de veneno. Los Infiltrados de Theramore (35-36) se mueven a escondidas por el mismo bosque: van en sigilo, así que mira con atención.\nLas arañas Niebla Negra pululan en la entrada de la cueva al noroeste de Poblado Murohelecho; todos los tipos sueltan ojos. Trabaja el borde exterior, donde están las Arañas y las Reclusas (35-37): los Rondadores y las Tejesedas (37-39) del interior están dos o tres niveles por encima de ti.\nCuidado: Los Rondadores Colmiumbrío (nivel 36-37) usan Sigilo para ocultarse fuera de combate y lanzan Veneno una vez en pelea.\nCuidado: Las arañas en sigilo de la misma zona te atacan en cuanto te ven.\nCuidado: Los Rondadores Niebla Negra se mueven en sigilo y usan veneno una vez en combate. Las arañas están muy juntas, así que es común que se sumen más; atraer objetivos sueltos desde el borde exterior lo reduce.",
 	-- plural, as words: Giant Darkfang Spiders = {npc:4415} Giant Darkfang Spider
-	["Every Darkfang spider drops them: Lurkers, Spiders, Venomspitters and the Giant Darkfang Spiders"] = "Todas las arañas Colmiumbrío las sueltan: Rondadores, Arañas, Escupetósigos y Arañas Colmiumbrío gigantes",
+	["Every Darkfang spider drops them: Lurkers, Spiders, Venomspitters and the Giant Darkfang Spiders"] = "Todas las arañas Colmillo Oscuro las sueltan: Acechadoras, Arañas, Escupeveneno y las Arañas Colmiumbrío gigantes",
 
 	-- Step 16: Questioning Reethe
 	-- {npc:4983} Ogron · {area:2302} Quagmire · {npc:5045} Private Hallan
 	-- plural, as words: Theramore Skirmishers = {npc:5044} Theramore Skirmisher
-	["On the way east, {npc:4983} waits in the {area:2302} east of the village. Follow him to Reethe and keep him alive through the fight that breaks out: {npc:5045} and Theramore Skirmishers (36) join it."] = "De camino al este, {npc:4983} espera en {area:2302}, al este del poblado. Síguelo hasta Reethe y mantenlo con vida durante la pelea que se desata: se unen {npc:5045} y Tramadores de Theramonte (36).",
+	["On the way east, {npc:4983} waits in the {area:2302} east of the village. Follow him to Reethe and keep him alive through the fight that breaks out: {npc:5045} and Theramore Skirmishers (36) join it."] = "De camino al este, {npc:4983} espera en {area:2302}, al este del poblado. Síguelo hasta Reethe y mantenlo con vida durante la pelea que se desata: se unen {npc:5045} y Escaramuzadores de Theramonte (36).",
 
 	-- Step 17: Swamp Eye Jarl
 	-- {area:497} Swamplight Manor
@@ -95,7 +97,7 @@ return {
 	-- {npc:4503} Mudcrush Durtfeet · {npc:4791} Nazeer Bloodpike · {npc:4926} Krog
 	["Head back west to Brackenwall with the head: {npc:4503} stands at the south edge of the village where the road comes in, {npc:4791} and {npc:4926} in the village."] = "Regresa al oeste a Poblado Murohelecho con la cabeza: {npc:4503} está en el borde sur del poblado, donde entra el camino, y {npc:4791} y {npc:4926} en el poblado.",
 	-- {npc:2519} Kin'weelay · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
-	["For {npc:2519} at {object:3202}, in the {zone:1434} & {zone:1435} guide"] = "",
+	["For {npc:2519} at {object:3202}, in the {zone:1434} & {zone:1435} guide"] = "Para {npc:2519} en Grom'gol, en la guía de {zone:1434} y {zone:1435}",
 
 	-- Step 20: Level 36
 	["Level 36"] = "Nivel 36",
@@ -143,7 +145,7 @@ return {
 
 	-- Step 27: Aka'rai
 	-- {npc:268705} Aka'rai · {area:2408} Shadowprey Village · {area:603} Sargeron · {area:599} Thunder Axe Fortress
-	["{npc:268705} stands by the path out of {area:2408}, on your way east: her Hatefury satyrs are at {area:603}, past {area:599} later on this visit."] = "",
+	["{npc:268705} stands by the path out of {area:2408}, on your way east: her Hatefury satyrs are at {area:603}, past {area:599} later on this visit."] = "{npc:268705} está junto al sendero que sale de {area:2408}, de camino al este: sus sátiros Odio Feroz están en {area:603}, pasando {area:599}, más adelante en esta visita.",
 
 	-- Step 28: Ghost Walker Post
 	-- {area:597} Ghost Walker Post · {npc:5412} Gurda Wildmane · {npc:5395} Felgur Twocuts
@@ -158,7 +160,7 @@ return {
 
 	-- Step 30: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} está cautiva en el campamento Maraudine del extremo oeste del valle; libérala y escóltala fuera del valle por el este.\nCuidado: Los grupos programados están vinculados y solo aparecen durante la escolta, así que no puedes despejarlos antes ni atraerlos de uno en uno. Sí ayuda despejar a los centauros normales del camino antes de empezar.",
+	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} está retenida en el campamento Maraudine del extremo oeste del valle; libérala y escóltala fuera del valle por el este.\nCuidado: seis centauros atacan durante la escolta, y no puedes limpiarlos antes: solo aparecen durante la escolta y vienen vinculados. En las grabaciones de los jugadores, 14 de las 30 personas que la aceptaron fallaron al menos una vez. Lleva a un amigo, o sáltala si vas solo. Limpiar antes los centauros normales del camino ayuda.",
 
 	-- Step 31: Hornizz Brimbuzzle
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard
@@ -174,18 +176,16 @@ return {
 
 	-- Step 34: Sargeron
 	-- {area:603} Sargeron
-	["East from the fortress to {area:603}, the Hatefury satyrs' ruins in the north-east (32-33, well under you now): two of each kind."] = "",
+	["East from the fortress to {area:603}, the Hatefury satyrs' ruins in the north-east (32-33, well under you now): two of each kind."] = "Al este de la fortaleza hasta {area:603}, las ruinas de los sátiros Odio Feroz en el noreste (32-33, muy por debajo de ti ahora): dos de cada tipo.",
 
 	-- Step 35: Sar'theris Strand
 	-- {area:598} Sar'theris Strand
 	-- plural, as words: Slitherblade Myrmidons = {npc:4714} Slitherblade Myrmidon
-	-- was: ["West from the fortress to the coast at {area:598}: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range."] = "Al oeste de la fortaleza, hasta la costa en {area:598}: los mirmidones Filozante, las nagas y las hechiceras ocupan la playa. Atráelos de uno en uno; las brujas del mar y los oráculos (34-36) lanzan hechizos a distancia."
-	["West past the fortress to the coast at {area:598}: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range."] = "",
+	["West past the fortress to the coast at {area:598}: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range."] = "Al oeste de la fortaleza, hasta la costa en {area:598}: los mirmidones Filozante, las nagas y las hechiceras ocupan la playa. Atráelos de uno en uno; las brujas del mar y los oráculos (34-36) lanzan hechizos a distancia.",
 
 	-- Step 36: Shadowprey Village
 	-- {npc:268705} Aka'rai · {npc:11624} Taiga Wisemane · {area:602} Mannoroc Coven · {npc:12340} Drulzegar Skraghook
-	-- was: ["South down the coast to Shadowprey: {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga."] = "Al sur por la costa hasta Shadowprey: {npc:11624} toma la caja y te envía con ella a {area:602}; {npc:12340} recibe lo de las nagas."
-	["South down the coast to Shadowprey: {npc:268705} first, on the path into the village; {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga."] = "",
+	["South down the coast to Shadowprey: {npc:268705} first, on the path into the village; {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga."] = "Al sur por la costa hasta Cazasombras: primero {npc:268705}, en el sendero que entra a la aldea; {npc:11624} toma la caja y te envía con ella a {area:602}; {npc:12340} recibe lo de las nagas.",
 
 	-- Step 37: Portals of the Legion
 	-- {area:602} Mannoroc Coven · {quest:5381} Hand of Iruxos · {npc:11624} Taiga Wisemane · {npc:11937} Demon Portal Guardian
@@ -277,6 +277,7 @@ return {
 	-- ["grind on {npc:4377}"] = "farmea {npc:4377}",
 	-- ["{npc:11624} stands in the village."] = "{npc:11624} está en la aldea.",
 	-- ["{npc:11626}'s caravan stops on the road at the edge of {area:602}. Escort it east past the coven; demons attack it twice."] = "La caravana de {npc:11626} se detiene en el camino, al borde de {area:602}. Escóltala al este pasando el aquelarre; los demonios la atacan dos veces.",
+	-- ["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} está cautiva en el campamento Maraudine del extremo oeste del valle; libérala y escóltala fuera del valle por el este.\nCuidado: Los grupos programados están vinculados y solo aparecen durante la escolta, así que no puedes despejarlos antes ni atraerlos de uno en uno. Sí ayuda despejar a los centauros normales del camino antes de empezar.",
 	-- ["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391}: para {npc:4631} en {area:35}, en la primera parada en {area:35} de 40-50",
 	-- ["{npc:4983} waits in the {area:2302} east of the village. Follow him to Reethe and keep him alive through the fight that breaks out."] = "{npc:4983} espera en {area:2302}, al este del poblado. Síguelo hasta Reethe y mantenlo con vida durante la pelea que se desata.",
 	-- ["{npc:5395} and {npc:5412} stand in the post just west of {npc:11596}'s camp."] = "{npc:5395} y {npc:5412} están en el poblado justo al oeste del campamento de {npc:11596}.",

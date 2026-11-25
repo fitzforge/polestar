@@ -38,7 +38,7 @@ return {
 	["The {area:91}"] = "{area:91}",
 
 	-- Step 7: Theocritus
-	["On the top floor"] = "",
+	["On the top floor"] = "На верхнем этаже",
 
 	-- Step 8: Henze Faulk
 	-- {area:91} Tower of Azora · {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
@@ -50,11 +50,16 @@ return {
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["{item:6846}: Defias Rogue Wizards"] = "{item:6846}: волшебники-плуты из Братства Справедливости",
 
-	-- Step 9: Three Corners
+	-- Step 9: Henze Faulk
+	-- {npc:6172} Henze Faulk · {quest:1786} The Tome of Divinity · {area:86} Stone Cairn Lake · {item:6846} Defias Script
+	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
+	["{npc:6172} is already raised: take the next part of {quest:1786} from him, south of {area:86}. The Defias Rogue Wizards around him carry the {item:6846}."] = "{npc:6172} уже поднят: возьмите у него следующую часть задания {quest:1786}, к югу от места {area:86}. {item:6846} носят чародеи Братства Справедливости вокруг него ({npc:474}).",
+
+	-- Step 10: Three Corners
 	-- {area:1002} Three Corners · {zone:1431} Duskwood
 	["The road east through Elwynn crosses into Redridge at {area:1002}, where the roads to Redridge, {zone:1431} and Elwynn meet: south to {zone:1431} first."] = "Дорога на восток через Элвиннский лес входит в Красногорье здесь: {area:1002}, где сходятся дороги в Красногорье, в зону {zone:1431} и в Элвиннский лес: сначала на юг, в зону {zone:1431}.",
 
-	-- Step 11: Darkshire
+	-- Step 12: Darkshire
 	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire
 	["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest."] = "Идите по дороге на юг от места {area:1002} в зону {zone:1431}; {area:42} – в восточной части леса.",
 	-- {npc:2409} Felicia Maline
@@ -78,32 +83,32 @@ return {
 	-- {npc:633} Elaine Carevin · {npc:288} Jitters · {quest:163} Raven Hill
 	["{npc:633}: {npc:288}, at {quest:163}"] = "",
 
-	-- Step 12: Viktori Prism'Antras
+	-- Step 13: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras · {quest:174} Look to the Stars · {item:4371} Bronze Tube
 	["{npc:276} is in her house at the east end of town. {quest:174} needs a {item:4371}, so this step shows only while you carry one: without a tube the guide passes {npc:276} and her chain."] = "{npc:276} – в своем доме в восточной части города. Для задания «{quest:174}» нужен предмет {item:4371}, поэтому этот шаг показывается, только пока он у вас есть: без трубы гайд пропускает NPC {npc:276} и ее цепочку.",
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "{npc:276}, внутри",
 
-	-- Step 13: Viktori Prism'Antras
+	-- Step 14: Viktori Prism'Antras
 	-- {npc:302} Blind Mary
 	["For {npc:302}, on the hill south-east of town"] = "Для NPC {npc:302} – на холме к юго-востоку от города",
 
-	-- Step 14: Councilman Millstipe
+	-- Step 15: Councilman Millstipe
 	-- {area:717} Stockade · {zone:1453} Stormwind · {npc:270} Councilman Millstipe
 	["For your {area:717} run, in {zone:1453} at about 29: {npc:270} is in the town hall. Keep it until then."] = "Для подземелья {area:717} в городе {zone:1453}, примерно на 29-м уровне: {npc:270} – в ратуше. Сохраните задание до тех пор.",
 
-	-- Step 15: Tranquil Gardens Cemetery: kill these as you meet them
+	-- Step 16: Tranquil Gardens Cemetery: kill these as you meet them
 	-- {area:121} Tranquil Gardens Cemetery
 	["{area:121}: kill these as you meet them"] = "{area:121}: убивайте их по пути",
 	-- {area:42} Darkshire · {npc:302} Blind Mary · {zone:1431} Duskwood · {item:2378} Skeleton Finger
 	-- plural, as words: Skeletal Warriors = {npc:48} Skeletal Warrior · Skeletal Mages = {npc:203} Skeletal Mage
 	["Skeletal Warriors and Skeletal Mages walk among the graves south-east of {area:42}, below {npc:302}'s house on the hill. Every skeleton in {zone:1431} can drop a {item:2378}.\nCareful: Because the skeletons stand near each other, running straight in tends to pull several at once."] = "",
 
-	-- Step 16: Watcher Dodds
+	-- Step 17: Watcher Dodds
 	-- {npc:888} Watcher Dodds · {area:245} Yorgen Farmstead
 	["{npc:888} stands south of the road, at the {area:245}."] = "{npc:888} стоит к югу от дороги: {area:245}.",
 
-	-- Step 17: Raven Hill
+	-- Step 18: Raven Hill
 	-- {quest:163} Raven Hill · {object:673515} Memory of Valor · {npc:288} Jitters
 	["Continue west to {quest:163}. The {object:673515} glows by the ruined house south of the road; {npc:288} hides in the house at the west end of the village."] = "",
 	-- {item:281046} Raven Hill Tome · {object:673515} Memory of Valor
@@ -111,11 +116,11 @@ return {
 	-- {npc:272} Chef Grual · {area:42} Darkshire
 	["for {npc:272} in {area:42}"] = "",
 
-	-- Step 18: Sven's Camp
+	-- Step 19: Sven's Camp
 	-- {npc:311} Sven Yorgen · {npc:893} Lars
 	["Follow the road north-west past the cemetery to {npc:311}'s camp on the far west edge of the forest. {npc:893} stands beside {npc:311}."] = "Идите по дороге на северо-запад мимо кладбища к лагерю {npc:311} на дальнем западном краю леса. {npc:893} стоит рядом со {npc:311}.",
 
-	-- Step 19: The Hushed Bank: kill these as you meet them
+	-- Step 20: The Hushed Bank: kill these as you meet them
 	-- {area:1097} The Hushed Bank
 	["{area:1097}: kill these as you meet them"] = "{area:1097}: убивайте их по пути",
 	-- {npc:289} Abercrombie · {area:1097} The Hushed Bank · {quest:163} Raven Hill · {npc:311} Sven Yorgen · {zone:1436} Westfall
@@ -127,25 +132,25 @@ return {
 	-- {item:2251} Gooey Spider Leg · {npc:272} Chef Grual · {area:42} Darkshire
 	["{item:2251}: keep the ones these spiders drop, for {npc:272} in {area:42}"] = "",
 
-	-- Step 20: Abercrombie
+	-- Step 21: Abercrombie
 	-- {area:492} Raven Hill Cemetery
 	["The hermit's shack stands in the woods north-east of the {area:492}."] = "Хижина отшельника стоит в лесу к северо-востоку от кладбища (ориентир: {area:492}).",
 
-	-- Step 21: Raven Hill Cemetery: kill these as you meet them
+	-- Step 22: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
 	["{area:492}: kill these as you meet them"] = "{area:492}: убивайте их по пути",
 	-- {npc:522} Mor'Ladim
 	-- plural, as words: Skeletal Horrors = {npc:202} Skeletal Horror · Skeletal Fiends = {npc:531} Skeletal Fiend · Flesh Eaters = {npc:3} Flesh Eater · Bone Chewers = {npc:210} Bone Chewer · Plague Spreaders = {npc:604} Plague Spreader · Fetid Corpses = {npc:1270} Fetid Corpse
 	["The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends (23-25) walk its southern half and carry the fingers; for the fangs, Flesh Eaters (24-25) drop the most, so leave the Bone Chewers, Plague Spreaders and Fetid Corpses (26-30) further in alone. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: Eliza, a level 31 elite, rises from her grave at the cemetery's north end: keep away from it."] = "Кладбище лежит к северу от деревни. Ужасные скелеты и Скелеты-губители (23-25) ходят по его южной половине, с них падают пальцы; клыки чаще всего падают с плотоядов (24-25), так что костеглодов, распространителей чумы и зловонных трупов (26-30) дальше не трогайте. Среди могил бродит {npc:522}, элита: держитесь от него подальше.\nОсторожно: Элиза, элита 31 уровня, поднимается из могилы в северном конце кладбища: держитесь от нее подальше.",
 
-	-- Step 22: Watcher Dodds
+	-- Step 23: Watcher Dodds
 	-- {area:245} Yorgen Farmstead
 	["Head back east along the road to the {area:245}."] = "",
 
-	-- Step 23: Yorgen Farmstead
+	-- Step 24: Yorgen Farmstead
 	["The mound of loose dirt lies south of the farmhouse, by the old stump."] = "Холмик рыхлой земли – к югу от фермерского дома, у старого пня.",
 
-	-- Step 24: Darkshire
+	-- Step 25: Darkshire
 	-- {npc:268} Sirra Von'Indi
 	["{npc:268}, inside"] = "{npc:268}, внутри",
 	-- {npc:272} Chef Grual
@@ -160,22 +165,22 @@ return {
 	-- {npc:663} Calor
 	["{npc:663}, by the town hall"] = "{npc:663} – у ратуши",
 
-	-- Step 26: Redridge Mountains
+	-- Step 27: Redridge Mountains
 	-- {area:42} Darkshire · {area:1002} Three Corners
 	["Back north along the road from {area:42} to {area:1002}."] = "",
 
-	-- Step 27: Lakeridge Highway
+	-- Step 28: Lakeridge Highway
 	-- {area:68} Lake Everstill · {npc:903} Guard Howe
 	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:903} stands by the road next to her."] = "Идите по дороге вдоль южного берега озера ({area:68}) к распорядителю полетов. {npc:903} стоит у дороги рядом с ней.",
 
-	-- Step 28: Lake Everstill's murlocs: kill these as you meet them
+	-- Step 29: Lake Everstill's murlocs: kill these as you meet them
 	-- {area:68} Lake Everstill
 	["{area:68}'s murlocs: kill these as you meet them"] = "",
 	-- {area:68} Lake Everstill
 	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater
 	["Murloc Flesheaters and Tidecallers line the south shore of {area:68}, just east of the gryphons and the bridge. Any of them can carry a fin."] = "Мурлоки-трупоеды и мурлоки-волномуты стоят вдоль южного берега ({area:68}), чуть восточнее грифонов и моста. У любого из них может оказаться плавник.",
 
-	-- Step 29: Lakeshire
+	-- Step 30: Lakeshire
 	-- {npc:381} Dockmaster Baren · {npc:900} Bailiff Conacher · {npc:342} Martie Jainrose · {npc:382} Marshal Marris · {npc:341} Foreman Oslow · {quest:98386} Alther's Mill
 	["Cross the long bridge north into town: {npc:381} on the docks, {npc:900} in the town hall, {npc:342} in her garden at the west end. {npc:382} and {npc:341} stand at the north end of the bridge: the Blackrock camps' quests and {quest:98386} are worked on this visit's loop east of the lake."] = "Перейдите по длинному мосту на север в город: {npc:381} – на пристани, {npc:900} – в ратуше, {npc:342} – в своем огороде в западной части. {npc:382} и {npc:341} стоят у северного конца моста: задания о лагерях клана Черной Горы и задание {quest:98386} выполняются на маршруте этого посещения к востоку от озера.",
 	-- {npc:415} Verner Osgood
@@ -188,26 +193,26 @@ return {
 	["{npc:900}, in the town hall"] = "{npc:900} – в ратуше",
 	["The Wanted poster by the inn"] = "Плакат «Разыскивается» у таверны",
 
-	-- Step 30: Bellygrub
+	-- Step 31: Bellygrub
 	-- {npc:345} Bellygrub · {area:69} Lakeshire · {npc:342} Martie Jainrose
 	["{npc:345} (level 24) roots around the pen just west of {area:69}, beside {npc:342}'s garden. Pull him away from the other boars and fight at full health."] = "{npc:345} (уровень 24) роется в загоне чуть западнее места {area:69}, рядом с огородом NPC {npc:342}. Выманите его от других кабанов и сражайтесь с полным здоровьем.",
 
-	-- Step 31: Martie Jainrose
+	-- Step 32: Martie Jainrose
 	-- {npc:342} Martie Jainrose
 	["{npc:342}'s garden is at the west end of town."] = "",
 
-	-- Step 32: Lakeshire
+	-- Step 33: Lakeshire
 	-- {npc:342} Martie Jainrose
 	["Back east through town from {npc:342}'s garden: two Wanted posters hang on the town hall doorway."] = "",
 	["The Wanted poster on the town hall doorway"] = "",
 	["The Wanted poster beside it"] = "",
 
-	-- Step 33: Alther's Mill
+	-- Step 34: Alther's Mill
 	-- {quest:98386} Alther's Mill
 	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula · Tarantula Eggs = {object:673101} Tarantula Egg
 	["Greater Tarantulas crawl on the slopes around {quest:98386}, north-east of the lake; their Tarantula Eggs lie on the ground among them: click six."] = "Крупные тарантулы ползают по склонам ({quest:98386}) к северо-востоку от озера; их яйца лежат на земле среди них: соберите шесть.",
 
-	-- Step 34: Blackrock camps
+	-- Step 35: Blackrock camps
 	["Blackrock camps"] = "",
 	-- {area:1000} Galardell Valley · {area:2099} Stonewatch Keep
 	["South-east from the mill, west of {area:1000}'s gnolls, to the Blackrock camps east of {area:2099}. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite. Weapon racks and swords lie about the camps; meat haunches, grain sacks and water barrels hold the supplies."] = "",
@@ -216,51 +221,51 @@ return {
 	-- {item:280839} Blackrock Supplies
 	["{item:280839}: meat haunches, grain sacks, water barrels"] = "",
 
-	-- Step 35: Incinerator Gar'im
+	-- Step 36: Incinerator Gar'im
 	["Gar'im keeps to the cave at the camps' south end with his imp and two orcs. Elite: group up if you can; solo, pull the orcs at the mouth first and interrupt his fire cast."] = "",
 
-	-- Step 36: Galardell Valley
+	-- Step 37: Galardell Valley
 	-- {npc:703} Lieutenant Fangore · {area:2099} Stonewatch Keep
 	["North up the valley's east side. Shadowhide gnolls fill it; {npc:703} (26) and his two guards stand at its north end: clear the gnolls around him first and fight at full health. Stay out of {area:2099} to the west until the watch tower: its orcs are elite."] = "",
 	-- {item:1075} Shadowhide Pendant
 	["{item:1075}: any Shadowhide gnoll"] = "{item:1075}: любой гнолл из стаи Темношкуров",
 
-	-- Step 37: A Watchful Eye
+	-- Step 38: A Watchful Eye
 	-- {object:31} Old Lion Statue
 	["The {object:31} stands at the valley's east edge."] = "",
 
-	-- Step 38: Looking Further
+	-- Step 39: Looking Further
 	-- {area:2099} Stonewatch Keep
 	["West to the intact watch tower beside {area:2099}: climb it and leave the Glyph in the empty jar at the top."] = "",
 
-	-- Step 39: Stonewatch Keep
+	-- Step 40: Stonewatch Keep
 	-- {npc:334} Gath'Ilzogg
 	-- plural, as words: Blackrock Shadowcasters = {npc:436} Blackrock Shadowcaster
 	["The keep stands beside the tower. {npc:334} (elite) waits in the keep's top room with two guards and a dragon; Blackrock Shadowcasters (elite) and Sentries stand on its west side, so pull one at a time on the way in, and hug the right wall as you enter his room so you don't pull him at once. Elite: group up if you can."] = "",
 
-	-- Step 40: Yowler
+	-- Step 41: Yowler
 	-- {area:95} Redridge Canyons · {area:997} Render's Valley · {npc:518} Yowler
 	-- plural, as words: Redridge Alphas = {npc:445} Redridge Alpha
 	["From the keep head back west along the lake's north shore and north up the {area:95}. Just south of {area:997}, {npc:518}, a level 25 gnoll, walks among the Redridge Alphas and Mystics."] = "",
 
-	-- Step 41: Render's Valley
+	-- Step 42: Render's Valley
 	-- {area:95} Redridge Canyons · {area:997} Render's Valley · {area:69} Lakeshire
 	-- plural, as words: Blackrock Champions = {npc:435} Blackrock Champion
 	["From the keep head back west along the lake's north shore and north up the {area:95} to {area:997}; {area:69}'s hand-ins wait for Keeshan's escort, which ends there. Blackrock Champions camp in the valley."] = "",
 	-- {npc:435} Blackrock Champion
 	["{npc:435}, below ground"] = "{npc:435}, под землей",
 
-	-- Step 42: Corporal Keeshan
+	-- Step 43: Corporal Keeshan
 	-- {zone:1428} Burning Steppes · {area:69} Lakeshire
 	["Keeshan hides at the very north end of the valley, by the {zone:1428} border. Escort him down to {area:69}; Blackrock orcs ambush you on the way."] = "Кеешан прячется в самом северном конце долины, у границы зоны {zone:1428}. Проводите его вниз до места {area:69}; по пути на вас нападут орки клана Черной Горы.",
 	-- {npc:349} Corporal Keeshan
 	["{npc:349}, below ground"] = "{npc:349}, под землей",
 
-	-- Step 43: Magistrate Solomon: Gath'Ilzogg
+	-- Step 44: Magistrate Solomon: Gath'Ilzogg
 	-- {npc:344} Magistrate Solomon
 	["{npc:344}, in the town hall"] = "{npc:344}, в ратуше",
 
-	-- Step 45: Back to Lakeshire
+	-- Step 46: Back to Lakeshire
 	-- {area:69} Lakeshire
 	["Back to {area:69}"] = "Обратно: {area:69}",
 	-- {area:69} Lakeshire · {npc:900} Bailiff Conacher · {npc:344} Magistrate Solomon · {npc:382} Marshal Marris · {npc:341} Foreman Oslow · {npc:903} Guard Howe

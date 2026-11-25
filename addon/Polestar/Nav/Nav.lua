@@ -340,6 +340,15 @@ local function engineTarget()
 	return engineWp
 end
 
+-- The Engine's waypoint for the same area goal at another of its spawn areas (Spots: the nearest one, or the next
+-- after a dwell), not a search: no new target for the arrival (#3828). A search (an area objective spread over its
+-- spots) moves on to the next spot on purpose, and the arrow leads there.
+local function sameAreaGoal(a, b)
+	return a ~= nil and b ~= nil and a.stepIndex ~= nil and a.stepIndex == b.stepIndex and a.goalIndex ~= nil
+		and a.goalIndex == b.goalIndex and a.kind == b.kind and a.quest == b.quest and not b.search
+		and (tonumber(a.area) or 0) > 0 and (tonumber(b.area) or 0) > 0
+end
+
 local function apply(shouldAnnounce)
 	local new = hold or override or engineTarget() or nil
 	if new == NOTHING then new = nil end
@@ -348,8 +357,10 @@ local function apply(shouldAnnounce)
 	if hold and new == target then return end
 	if pointAnnounced and not (new and number(new.x) and number(new.y) and number(new.map) and number(new.z) and not (issecretvalue and issecretvalue(new.r))
 		and samePoint(target, new) and target.z == new.z and target.kind == new.kind and target.f == new.f and target.r == new.r) then pointAnnounced = false end
+	-- Arrived in an area goal's spawn area, the goal moving on to another of its areas: still arrived while the
+	-- player is near it (Nav.Sample), no second chime.
+	arrived = arrived and sameAreaGoal(target, new) or false
 	target = new
-	arrived = false
 	resolve()
 	updateTicker()
 	-- Plan before the arrow and pins hear about the new target.
@@ -585,7 +596,9 @@ end
 
 local function playArrival()
 	if not ns.Get("nav.arrivalSound") or (Nav.HandedOff and Nav.HandedOff()) then return end
-	-- The arrow's own sound: it plays while hiding Polestar keeps the arrow.
+	-- The arrow's own sound: it plays while hiding Polestar keeps the arrow, not while the arrow is off or hidden
+	-- with the guide (the route lines sample then, Nav/Journey.lua: #3828).
+	if not ns.Get("nav.arrow") or (Nav.HiddenWithGuide and Nav.HiddenWithGuide()) then return end
 	ns.PlaySound((SOUNDKIT and SOUNDKIT.MAP_PING) or 3175, "SFX", true)
 end
 
@@ -832,10 +845,15 @@ local function sample()
 			end
 		end
 	elseif arrived then
-		if dist > r + max(5, r * 0.5) or floorHint then
+		local leave = r + max(5, r * 0.5)
+		-- In an area target (a kill step's spawn area), the arrival holds while the player stays within
+		-- Nav.NEAR_LINE yards of it on open ground, where no route line is drawn either (Nav.NearOpenArea): the
+		-- arrow no longer comes back each time the fight moves a few yards out of the area (#3828, flep).
+		if area and area > 0 and not (IsIndoors and IsIndoors()) then leave = max(leave, Nav.NEAR_LINE) end
+		if dist > leave or floorHint then
 			arrived = false
 			-- Without a height, a departure on the map is the real one (re-arms the chime).
-			if flat and dist > r + max(5, r * 0.5) then pointAnnounced = false end
+			if flat and dist > leave then pointAnnounced = false end
 		end
 	elseif dist <= r and not floorHint then
 		arrived = true
@@ -917,8 +935,24 @@ local function groundLeg()
 	return T and T.Active() and T.CurrentLeg() or nil
 end
 
+-- An area objective (a kill's or a collect's spawn area: target.search) within Nav.NEAR_LINE yards on open ground,
+-- its walk no longer than Nav.NEAR_BEND times the straight way: the arrow alone, no route line (#3641 E: in Hillsbrad
+-- Fields a line looped round the farm for a 79 yd target the player was already walking to through the field).
+Nav.NEAR_LINE, Nav.NEAR_BEND = 60, 1.25
+function Nav.NearOpenArea()
+	if not (target and target.search and tC) or (IsIndoors and IsIndoors()) then return false end
+	local C = ns.Compat
+	local pc, px, py = C.GetPlayerWorldPosition()
+	if pc ~= tC then return false end
+	local d = math.sqrt((tX - px) ^ 2 + (tY - py) ^ 2)
+	if d > Nav.NEAR_LINE then return false end
+	local W = Nav.walk
+	local left = W and W.LiveLeft and W.LiveLeft(tC, tX, tY)
+	return left ~= nil and left <= d * Nav.NEAR_BEND + 5
+end
 function Nav.CanDrawGroundApproach(c, x, y, gx, gy)
 	if not target then return false end
+	if Nav.NearOpenArea() then return false end
 	if refusedTarget == target and refusedLeg == groundLeg() then return false end
 	local W = Nav.walk
 	local T = Nav.travel
@@ -1134,7 +1168,7 @@ function Nav.SayHandedOff()
 	if H and H.Yielding and H.Yielding() then
 		ns.Print(L["Shortest Path Forever is guiding a journey of its own. Polestar's arrow comes back when it ends."])
 	else
-		ns.Print(L["Shortest Path Forever is guiding. Turn off \"Hand guiding to Shortest Path Forever\" (Options, Integrations) to use Polestar's arrow."])
+		ns.Print(L["Shortest Path Forever is guiding. Turn off \"Hand guiding to Shortest Path Forever\" (Settings, Integrations) to use Polestar's arrow."])
 	end
 	return true
 end

@@ -107,36 +107,42 @@ return {
 
 	-- Step 18: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
-	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher · Ancient Kodos = {npc:4702} Ancient Kodo
-	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom. Careful: the Ancient Kodos (36-37) hit hard: tame them, and fight only the Aged Kodos for the hides."] = "",
+	-- plural, as words: Ancient Kodos = {npc:4702} Ancient Kodo
+	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: the Ancient Kodos (36-37) hit hard: tame them, don't fight them."] = "Используйте {item:13892} от NPC {npc:11596} на старом, умирающем или древнем кодо ({npc:4702}): он станет прирученным кодо и пойдет за вами. Отведите его в лагерь NPC {npc:11596}; там поговорите с кодо: это засчитает его и позволит приручить следующего. Пять кодо, по одному. Осторожно: древние кодо (36-37) бьют сильно: приручайте их, не сражайтесь с ними.",
 	-- {npc:4702} Ancient Kodo
 	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "",
 	-- {npc:11596} Smeed Scrabblescrew
 	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "",
 
-	-- Step 20: Kolkar Village
+	-- Step 19: Kodo Graveyard: hides and venom
+	-- {area:596} Kodo Graveyard
+	["{area:596}: hides and venom"] = "{area:596}: шкуры и яд",
+	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher · Ancient Kodos = {npc:4702} Ancient Kodo
+	["The Aged Kodos in the graveyard drop the hides, and the Scorpashi Lashers that hunt around it carry the venom. Careful: the Ancient Kodos (36-37) hit hard: fight only the Aged Kodos."] = "Старые кодо ({npc:4700}) на кладбище роняют шкуры, а скорпаши-хлестуны ({npc:4697}) вокруг него носят яд. Осторожно: древние кодо ({npc:4702}, 36-37) бьют сильно: сражайтесь только со старыми кодо.",
+
+	-- Step 21: Kolkar Village
 	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:5752} Corporal Melkins · {quest:93224} Carved Centaur Totems · {npc:5396} Captain Pentigast
 	-- plural, as words: Centaur Ears = {item:6067} Centaur Ear
 	["North-east from {npc:11596}'s camp to {area:609}, on the way back to {area:608}: every Kolkar drops Centaur Ears for {npc:5752} and {quest:93224} for {npc:5396}. The Magram south-east of {npc:11596}'s camp drop them too, but their village holds Necromancers (42-43) and Guardians (39-41): stay with the Kolkar (30-35)."] = "",
 
-	-- Step 21: Kormek's Hut
+	-- Step 22: Kormek's Hut
 	-- {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:11438} Bibbly F'utzbuckle · {area:2407} Kormek's Hut · {area:35} Booty Bay
 	["North-west from {area:609} back along the road to {area:608}: {npc:11438} waits at {area:2407}. He sends you after the robber to {area:35}, where the next guide ends: keep it."] = "",
 	-- {npc:11438} Bibbly F'utzbuckle · {area:35} Booty Bay
 	["{npc:11438}: Tokal waits in {area:35}, at the end of the next guide"] = "",
 
-	-- Step 22: Nijel's Point
+	-- Step 23: Nijel's Point
 	-- {npc:5638} Kreldig Ungor · {zone:1443} Desolace
 	-- was: ["{npc:5638}: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it"] = "{npc:5638}: сумка лежит у северо-западного побережья, на южном круге в конце 30-40 (06-badlands): сохраните ее"
 	["{npc:5638}: the satchel lies off the north-west coast, on {zone:1443}'s south loop at the end of 30-40: keep it"] = "",
 
-	-- Step 23: Fly to Auberdine
+	-- Step 24: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "Летите сюда: {area:442}",
 	-- {area:608} Nijel's Point
 	["{area:608} flight master"] = "Распорядитель полетов: {area:608}",
 
-	-- Step 24: Boat to Stormwind Harbor
+	-- Step 25: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
 	["Boat to {area:17203}"] = "Корабль: {area:17203}",
 

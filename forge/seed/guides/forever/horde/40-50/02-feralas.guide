@@ -1,9 +1,10 @@
 guide forever/horde/40-50/02-feralas
-title Feralas & Tanaris
+title Stranglethorn Vale, Swamp of Sorrows, Tanaris & Feralas
 faction Horde
 levels 44-47
 zone Feralas
 next forever/40-50/shendralas
+pitch Stranglethorn Vale and Stonard first, then Tanaris and Feralas.
 # Route from the Polestar route simulator's Horde consensus (Tauren export),
 # visits 33-38, levels 42.5-44: Tanaris, Feralas, then the way back east.
 # Checked by lint, not play-tested on Forever yet. Era + known Forever quests
@@ -312,6 +313,12 @@ step A Soggy Scroll
   when onquest 624
   tip Ride west along the road; the scroll lies at the water's edge in the swamp's far west.
   turnin 624
+  accept 625 optional                   -- for the Musty Scroll in Dustwallow Marsh, on the Dustwallow guide
+
+step A Soggy Scroll
+  when turnedin 624
+  when available 625
+  tip The scroll lies at the water's edge in the swamp's far west.
   accept 625 optional                   -- for the Musty Scroll in Dustwallow Marsh, on the Dustwallow guide
 
 step Sawtooth crocolisks

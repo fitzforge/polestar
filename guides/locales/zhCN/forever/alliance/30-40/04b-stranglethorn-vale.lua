@@ -25,17 +25,21 @@ return {
 	-- {npc:661} Jonathan Carevin · {area:121} Tranquil Gardens Cemetery · {zone:1435} Swamp of Sorrows
 	["{npc:661}: the evidence lies in the {area:121}, on the next guide's way to the {zone:1435}: keep it"] = "",
 
-	-- Step 4: Stranglethorn Vale
+	-- Step 4: Clerk Daltry
+	-- {npc:267} Clerk Daltry · {area:42} Darkshire · {npc:661} Jonathan Carevin
+	["{npc:267} works in {area:42}'s town hall; {npc:661} stands just east of it."] = "{npc:267}在{area:42}的市政厅里工作；{npc:661}就站在它东边。",
+
+	-- Step 5: Stranglethorn Vale
 	-- {zone:1434} Stranglethorn Vale
 	["Into {zone:1434}"] = "进入{zone:1434}",
 
-	-- Step 5: Rebel Camp
+	-- Step 6: Rebel Camp
 	-- {zone:1431} Duskwood
 	["From {zone:1431} take the road south; the camp sits in the hills west of the road."] = "从{zone:1431}沿路向南；营地在道路西边的山丘中。",
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
 	["{npc:770}, if the first Stranglethorn loop didn't give it: for {npc:773} in {area:35}"] = "",
 
-	-- Step 6: Nesingwary's Expedition
+	-- Step 7: Nesingwary's Expedition
 	-- {npc:717} Ajeck Rouack
 	["South along the road: the hunters' tents stand just west of it. {npc:717} and Hemet gave you these on the first loop: take them now only if you didn't."] = "沿道路向南：猎人的帐篷就在道路西边。{npc:717}和赫米特在第一轮已给过这些任务：只有当时没接才现在接取。",
 	-- {npc:717} Ajeck Rouack · {npc:729} Sin'Dall
@@ -44,13 +48,17 @@ return {
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["{npc:715}, if the first Stranglethorn loop didn't give it: the Lashtail Raptors, after the jungle ruins"] = "",
 
-	-- Step 7: Bookie Herod
+	-- Step 8: Bookie Herod
 	-- {area:101} Kurzen's Compound
 	["East to {area:101}: Herod's records lie in a hut on its west side."] = "向东前往{area:101}：赫罗德的档案在其西侧的一间小屋中。",
 	-- {object:287} Bookie Herod's Records
 	["{object:287}, upstairs"] = "{object:287}：在楼上",
 
-	-- Step 8: Kurzen's Compound
+	-- Step 9: Bookie Herod
+	-- {area:101} Kurzen's Compound · {quest:328} The Hidden Key
+	["Herod's records lie in a hut on the west side of {area:101}: take {quest:328} there."] = "赫洛德的记录在{area:101}西侧的一间小屋里：在那里接取{quest:328}。",
+
+	-- Step 10: Kurzen's Compound
 	-- {npc:218230} Wendel Mathers · {spell:7964} Smoke Bomb · {npc:813} Colonel Kurzen
 	-- plural, as words: Kurzen Commandos = {npc:938} Kurzen Commando
 	["{npc:218230}, a cook, is caged at the compound's western edge: take his quest now and keep it, his cage key and the fighter's uniform come on the 40-50 Stranglethorn guide, when the Subchiefs and Elites are your level. Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use {spell:7964}. {npc:813}, an elite of 39-40, stands at the compound's north end: leave him be."] = "{npc:218230}是个厨师，被关在营地西边缘的笼子里：现在就接受他的任务并保留，他的笼子钥匙和斗士制服要等到40-50级荆棘谷指南、副酋长和精英与你等级相当时再做。库尔森精神医师在营地深处；库尔森特种兵潜行在营地周围及洞内，赫罗德的保险箱在洞口旁。掉落《荆棘谷的青山》书页时记得拾取。\n小心：库尔森特种兵为34-35级，非精英，出现时经常处于潜行状态；濒死时会使用{spell:7964}。{npc:813}是39-40级精英，站在营地北端：别去惹他。",
@@ -61,30 +69,37 @@ return {
 	-- {object:288} Bookie Herod's Strongbox
 	["{object:288}, below ground"] = "{object:288}：在地下",
 
-	-- Step 9: The jungle ruins
+	-- Step 11: The jungle ruins
 	["The jungle ruins"] = "丛林废墟",
 	["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west.\nCareful: the Saltscale murlocs on the shore near the second tablet are elite (35-37): swim to the tablet from the water and keep clear of them."] = "向西穿过丛林前往巨魔废墟：每处都有一块记载巨魔传说的石板，前两块在奈辛瓦里营地西南的废墟中，后两块在西北的山丘上。\n小心：第二块石板附近岸边的盐鳞鱼人是精英（35-37级）：从水中游到石板处，远离它们。",
 	-- {item:2006} The Second Troll Legend · {object:58} Gri'lek the Wanderer
 	["{item:2006}: {object:58}; underwater"] = "{item:2006}：在水下的{object:58}中寻找",
 
-	-- Step 10: Water Elementals
+	-- Step 12: Water Elementals
 	-- plural, as words: Lesser Water Elementals = {npc:691} Lesser Water Elemental
 	["The haunted island lies just off the shore west of the second tablet: the Lesser Water Elementals rise from the water around it."] = "闹鬼岛屿就在第二块石板以西的近海：次级水元素在周围水中出现。",
 
-	-- Step 11: The Ruins of Zul'Kunda
+	-- Step 13: The Ruins of Zul'Kunda
 	-- {area:102} Ruins of Zul'Kunda
 	["The {area:102}"] = "{area:102}",
 	-- {npc:268992} Zimmix Sputterspark · {item:277957} Primitive Key
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment · Bloodscalp Berserkers = {npc:597} Bloodscalp Berserker
-	["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}, then lead him out of the ruins. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "沿海岸向北前往山丘上的废墟：最后两块石板在那里。地精{npc:268992}被关在第三块石板旁的笼子里：任何血顶巨魔都可能掉落他的{item:277957}，之后护送他离开废墟。被盗的货物在废墟东边缘。掉落《荆棘谷的青山》书页时记得拾取。\n小心：血顶狂战士、猎头者和巫医（36-37级）占据废墟中心：一次拉一个。",
+	-- was: ["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}, then lead him out of the ruins. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "沿海岸向北前往山丘上的废墟：最后两块石板在那里。地精{npc:268992}被关在第三块石板旁的笼子里：任何血顶巨魔都可能掉落他的{item:277957}，之后护送他离开废墟。被盗的货物在废墟东边缘。掉落《荆棘谷的青山》书页时记得拾取。\n小心：血顶狂战士、猎头者和巫医（36-37级）占据废墟中心：一次拉一个。"
+	["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "沿海岸向北到山上的废墟：最后两块石板在那里。地精{npc:268992}被关在第三块石板旁的笼子里：任何血顶巨魔都可能掉落他的{item:277957}。被盗的货物在废墟东缘。掉落的绿色山谷书页随手捡起。\n小心：血顶狂战士、猎头者和巫医（36-37）占据废墟中心：一次拉一只。",
 	-- {npc:268992} Zimmix Sputterspark
 	["{npc:268992}, in his cage beside the third tablet"] = "{npc:268992}，在第三块石板旁的笼子里",
 	-- {item:277957} Primitive Key
 	["{item:277957}, from the Bloodscalp trolls"] = "{item:277957}：血顶巨魔掉落",
+
+	-- Step 14: Escort Zimmix Sputterspark
+	-- {npc:268992} Zimmix Sputterspark
+	["Escort {npc:268992}"] = "护送{npc:268992}",
+	-- {npc:268992} Zimmix Sputterspark · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
+	["Lead {npc:268992} out of the ruins and keep him alive: {npc:4631} in {area:35} takes the news at the end of this loop."] = "带{npc:268992}离开废墟并保护他活着：{area:35}的{npc:4631}会在这一轮结束时接收消息。",
 	-- {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	["For {npc:4631} in {area:35}, at the end of this loop"] = "交给{area:35}的{npc:4631}，在这一圈结束时",
 
-	-- Step 12: Sin'Dall on the raptor hill
+	-- Step 15: Sin'Dall on the raptor hill
 	-- {npc:729} Sin'Dall
 	["{npc:729} on the raptor hill"] = "",
 	-- {npc:729} Sin'Dall · {npc:717} Ajeck Rouack
@@ -94,22 +109,22 @@ return {
 	-- {npc:729} Sin'Dall
 	["{npc:729} (37) prowls the hilltop."] = "",
 
-	-- Step 13: The Lashtail raptors
+	-- Step 16: The Lashtail raptors
 	["The Lashtail raptors"] = "鞭尾迅猛龙",
 	-- {quest:187} Tiger Mastery · {npc:729} Sin'Dall
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you have {quest:187}, are at least 36 and see {npc:729} (37) alone, you can take her paw here or leave the hunt for your next visit."] = "",
 
-	-- Step 14: Ajeck Rouack
+	-- Step 17: Ajeck Rouack
 	-- {npc:717} Ajeck Rouack
 	["Hand the paw to {npc:717} beside Hemet."] = "",
 
-	-- Step 15: Nesingwary's Expedition
+	-- Step 18: Nesingwary's Expedition
 	-- {npc:715} Hemet Nesingwary
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["{npc:715}: the Jungle Stalkers come in 40-50"] = "{npc:715}：丛林捕猎者留到40-50级",
 
-	-- Step 16: Rebel Camp
+	-- Step 19: Rebel Camp
 	-- {area:99} Rebel Camp
 	["North-east up the road to the {area:99}, then back south through the jungle."] = "沿路向东北前往{area:99}，然后穿过丛林返回南边。",
 	-- {npc:733} Sergeant Yohwa
@@ -117,20 +132,20 @@ return {
 	-- plural, as words: Skullsplitter Witch Doctors = {npc:670} Skullsplitter Witch Doctor
 	["keep it: the Skullsplitter Witch Doctors (41-42) wait for the 40-50 Stranglethorn guide"] = "保留它：劈颅巫医（41-42级）留给40-50级荆棘谷指南",
 
-	-- Step 17: Snapjaw Crocolisks
+	-- Step 20: Snapjaw Crocolisks
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "钳嘴鳄鱼",
 	-- {area:35} Booty Bay
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}."] = "钳嘴鳄鱼在丛林中央河流两侧晒太阳，向南前往{area:35}时会经过。",
 
-	-- Step 18: Tokal
+	-- Step 21: Tokal
 	-- {npc:215643} Tokal · {object:56910} Salty Sailor Tavern · {item:4600} Cherry Grog · {npc:2832} Nixxrax Fillamug
 	["{npc:215643}, whom Bibbly sent you to find, waits by the {object:56910}. He asks for a {item:4600}: {npc:2832} sells it in the tavern, a few steps away."] = "",
 	-- {item:4600} Cherry Grog · {npc:2832} Nixxrax Fillamug
 	["{item:4600}, from {npc:2832}"] = "",
 
-	-- Step 19: Booty Bay
+	-- Step 22: Booty Bay
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, inside"] = "{npc:2495}：在屋内",
 	-- {npc:2496} Baron Revilgaz
@@ -161,6 +176,7 @@ return {
 	-- ["Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on {area:37} carries the Tumbled Crystals."] = "绕行北部和中部的巨魔废墟：每处都有一块记载巨魔传说的石板。深喉猎豹潜行在周围的丛林中；{area:37}的风险投资公司营地携带打磨过的水晶。",
 	-- ["Mauren, from Stonetalon"] = "Mauren，从石爪山脉来的任务",
 	-- ["North along the coast to the ruins on the hill: the last two tablets lie there. Pick up Green Hills pages as they drop."] = "沿海岸向北前往山丘上的废墟：最后两块石板就在那里。掉落《荆棘谷的青山》书页时记得拾取。",
+	-- ["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}, then lead him out of the ruins. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "沿海岸向北前往山丘上的废墟：最后两块石板在那里。地精{npc:268992}被关在第三块石板旁的笼子里：任何血顶巨魔都可能掉落他的{item:277957}，之后护送他离开废墟。被盗的货物在废墟东边缘。掉落《荆棘谷的青山》书页时记得拾取。\n小心：血顶狂战士、猎头者和巫医（36-37级）占据废墟中心：一次拉一个。",
 	-- ["Skullsplitter trolls"] = "劈颅巨魔",
 	-- ["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to the Skullsplitter ruins."] = "钳嘴鳄鱼在丛林中央河流两侧晒太阳，向南前往劈颅废墟时会经过。",
 	-- ["South along the road: the hunters' tents stand just west of it."] = "沿路向南：猎人的帐篷就在道路西侧。",

@@ -104,9 +104,7 @@ next forever/alliance/06-wetlands
 # Theramore: after 1243 it is off this route, and the Stormwind part alone is a detour through the Keep for 230 XP a part.
 
 step Fly to Darkshire
-  zone Redridge Mountains
-  tip Back to the Lakeshire gryphon master: fly to Darkshire for Duskwood's second loop.
-  goto 25.5,59.4 "Lakeshire flight master" live
+  tip Fly to Darkshire for Duskwood's second loop: from Lakeshire's gryphon master if you come from the Redridge guide.
   fly "Darkshire"
 
 step Blind Mary
@@ -150,8 +148,11 @@ step Gooey Spider Legs
   tip Carrion Recluses lurk in the woods on the way west, and Venom Web Spiders, Pygmy Venom Web Spiders and Green Recluses crawl just south of Sven's camp: each can drop a leg.
   collect 2251 quest 93 @10.5,41.5            -- Gooey Spider Leg
 
+step Lars
+  when complete 226
+  turnin 226                              -- Lars, at Sven's camp
+
 step Sven's Camp
-  turnin 226                              -- Lars
   turnin 230                              -- Sven Yorgen
   accept 262
 
@@ -160,6 +161,13 @@ step Moonbrook
   when onquest 67
   tip The Legend of Stalvan: west from Sven's camp over the border into Westfall and on to Moonbrook, where the Old Footlocker stands among the Defias (15-18). Then hearth back to Darkshire.
   turnin 67                               -- Old Footlocker
+  accept 68
+
+step Moonbrook
+  zone Westfall
+  when turnedin 67
+  when available 68
+  tip The Legend of Stalvan: the Old Footlocker in Moonbrook, among the Defias (15-18), holds the next part. Then hearth back to Darkshire.
   accept 68
 
 step Back to Darkshire
@@ -185,6 +193,12 @@ step Chef Grual
   when onquest 93
   tip Chef Grual is in the Scarlet Raven Tavern too.
   turnin 93
+  accept 240                              -- For Jitters, at Raven Hill on the way west
+
+step Chef Grual
+  when turnedin 93
+  when available 240
+  tip Chef Grual is in the Scarlet Raven Tavern.
   accept 240                              -- For Jitters, at Raven Hill on the way west
 
 step Rot Blossoms
@@ -315,11 +329,27 @@ step Bishop Farthing
 step Gazin Tenorm
   only Human,Paladin
   zone Stormwind City
-  when onquest 1787,1788
+  when complete 1787
   tip On into Stormwind: Gazin Tenorm and Duthorian Rall are in the Cathedral of Light, on the way to the gryphon master.
   goto 50.5,47.5 "Cathedral of Light" live
   turnin 1787 only Human -- Gazin Tenorm
   accept 1788 only Human
+
+step Gazin Tenorm
+  only Human,Paladin
+  zone Stormwind City
+  when turnedin 1787
+  when available 1788
+  tip The Defias Script is already with Gazin Tenorm: take the last part of The Tome of Divinity from him, in the Cathedral of Light.
+  goto 50.5,47.5 "Cathedral of Light" live
+  accept 1788 only Human
+
+step Duthorian Rall
+  only Human,Paladin
+  zone Stormwind City
+  when onquest 1788
+  tip Duthorian Rall stands in the Cathedral of Light, beside Gazin Tenorm.
+  goto 50.5,47.5 "Cathedral of Light" live
   turnin 1788 only Human -- Duthorian Rall: Redemption
 
 step Stormwind City

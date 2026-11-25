@@ -64,11 +64,13 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- both are off, at max level, or before there is anything to show.
 	-- The XP row's height at `width`: its line, on a second line when the row
 	-- can't hold it ("On pace for level 24.9 by s…" read cut at the window's
-	-- default width in every look), and Boosted Rest's line under it.
+	-- default width in every look), and Boosted Rest's line under it. Its
+	-- one line's height is GF.Space "xpRow"; the room its line has, GF.Space
+	-- "xpRoom" (a layout that sets the text elsewhere or adds to it).
 	function GF.XPHeight(width)
 		local xp = GF.xp
-		local h = GF.XPROW.h + (xp.psRest and GF.XPROW.restH or 0)
-		local room = (width or 0) - PAD * 2 - 11 - 7
+		local h = GF.Space("xpRow", GF.XPROW.h) + (xp.psRest and GF.XPROW.restH or 0)
+		local room = GF.Space("xpRoom", (width or 0) - PAD * 2 - 11 - 7, width or 0)
 		if xp.psLine and room > 0 and W.TextWidth(xp.Text, xp.psLine) > room then
 			h = h + math.floor(xp.Text:GetLineHeight() + 0.5)
 		end
@@ -80,7 +82,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		local d, Q = Derived(), ns.QoL
 		if stats == nil and d.XPStats then stats = d.XPStats() end
 		local parts = {}
-		if type(stats) == "table" and not stats.maxed and Q then
+		-- The XP line (XP an hour, time to level, the pace) unless turned off
+		-- (guideWindow.xpLine, #3304); Boosted Rest keeps its own line.
+		local xpLine = GF.On("xpLine")
+		if xpLine and type(stats) == "table" and not stats.maxed and Q then
 			local short = Q.XP and Q.XP.Short
 			if type(stats.rate) == "number" and stats.rate > 0 and short then
 				parts[#parts + 1] = string.format(L["%s XP/h"], short(stats.rate))
@@ -92,7 +97,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local restLine
 		if not (type(stats) == "table" and stats.maxed) then
 			-- The pace line, unless turned off (guideWindow.pace, #2371, #2379).
-			local pace = GF.On("pace") and GF.PaceText(stats)
+			local pace = xpLine and GF.On("pace") and GF.PaceText(stats)
 			if pace then parts[#parts + 1] = pace end
 			-- Boosted Rest and the sleeping bag (QoL/Rest.lua): empty while its
 			-- setting is off or there is nothing to say.

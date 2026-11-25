@@ -29,8 +29,6 @@ con A long trip out to Kalimdor
 # ---------------------------------------------------------------- To Theramore
 
 step Fly to Menethil Harbor
-  zone Loch Modan
-  goto 33.9,50.8 "Thelsamar flight master"
   fly "Menethil Harbor"
   zone Wetlands
 
@@ -71,8 +69,8 @@ step Hornizz Brimbuzzle
 
 step Flesh Picker
   when onquest 93176
-  tip A Flesh Picker crawls about the Kodo Graveyard: catch one with the tool from Amaryllis Webb's Entomology Starter Kit.
-  collect 213567 "Flesh Picker Specimen" @48.1,57.1
+  tip A Flesh Picker crawls about the Kodo Graveyard: open Amaryllis Webb's Entomology Starter Kit and use its Bug Catching Net on one. Don't kill it.
+  use 213562 quest 93176.3 @48.1,57.1   -- Bug Catching Net, on a Flesh Picker: the Flesh Picker Specimen
 
 step Maraudine centaurs
   tip The Maraudine centaurs hold the Valley of Spears west of the graveyard; every kind drops the totems.
@@ -80,7 +78,7 @@ step Maraudine centaurs
 
 step Melizza Brimbuzzle
   tip Melizza is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.
-  tip Careful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help.
+  tip Careful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help.
   accept 6132 @33.9,53.5 map 1443
   complete 6132 @40.1,61.6            -- escort Melizza back toward the graveyard
 
@@ -105,6 +103,7 @@ step Mannoroc Coven
   collect 6250 quest 1466 @52.2,68.1 map 1443 -- Felhound Brain
 
 step Hornizz Brimbuzzle
+  when complete 6132
   turnin 6132
 
 step Hornizz Brimbuzzle
@@ -112,7 +111,11 @@ step Hornizz Brimbuzzle
   turnin 6134                         -- Hornizz Brimbuzzle
 
 step Azore Aldamort
+  when complete 5741
+  tip Azore's tower stands on the hill at the ruins of Ethel Rethor, west across the north of Desolace.
   turnin 5741                         -- Azore Aldamort, if the first Desolace visit didn't take the sceptre back to him
+
+step Azore Aldamort
   turnin 93464                        -- Azore Aldamort: The Visiting Mage, from Magtoor in the Swamp of Sorrows
   tip Follow the road west across the north of Desolace to the ruins of Ethel Rethor. Azore's tower stands on the hill there, on the way to the wreck.
   accept 6027                         -- Azore Aldamort, if the first Desolace visit didn't give it

@@ -55,8 +55,9 @@ return {
 	["{npc:12717}: take it last, his escort starts at once"] = "{npc:12717}: Nimm sie zuletzt an, seine Eskorte startet sofort",
 
 	-- Step 10: Vorsha the Lasher
-	-- {npc:12717} Muglash · {npc:12719} Marukai
-	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} läuft die Küste nach Norden zu einem Nagabecken. Lösche das Becken, dann bewache ihn durch die Nagawellen, bis Vorsha tot ist; die Naga der Wrathtail lassen die Köpfe fallen, die {npc:12719} will.",
+	-- {npc:12717} Muglash · {npc:12940} Vorsha the Lasher · {npc:12719} Marukai
+	-- was: ["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} läuft die Küste nach Norden zu einem Nagabecken. Lösche das Becken, dann bewache ihn durch die Nagawellen, bis Vorsha tot ist; die Naga der Wrathtail lassen die Köpfe fallen, die {npc:12719} will."
+	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until {npc:12940} is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} geht den Strand hinauf nach Norden zu einer Nagakohlenpfanne. Lösch die Kohlenpfanne, dann beschütze ihn durch die Nagawellen, bis {npc:12940} tot ist; die Zornschwanznaga lassen die Köpfe fallen, die {npc:12719} will.",
 	["Naga brazier"] = "Nagakohlenpfanne",
 
 	-- Step 11: Naga heads
@@ -94,60 +95,68 @@ return {
 	-- {npc:3419} Apothecary Zamah · {npc:2216} Apothecary Lydon · {area:272} Tarren Mill
 	["{npc:3419}: her note is for {npc:2216} in {area:272}, next guide"] = "{npc:3419}: Ihre Notiz ist für {npc:2216} in {area:272}, nächster Guide",
 
-	-- Step 17: Fly to Orgrimmar
+	-- Step 17: Magatha Grimtotem
+	-- {quest:1063} The Elder Crone · {npc:4046} Magatha Grimtotem · {quest:1064} Forsaken Aid · {area:1639} Elder Rise · {npc:3419} Apothecary Zamah · {area:2197} Pools of Vision · {area:1640} Spirit Rise
+	["{quest:1063}'s errand is already with {npc:4046}: take {quest:1064} from her on {area:1639}, for {npc:3419} in the {area:2197}, under {area:1640}."] = "Der Auftrag von {quest:1063} ist schon bei {npc:4046}: Nimm bei ihr {quest:1064} auf {area:1639} an, für {npc:3419} in {area:2197}, unterhalb von {area:1640}.",
+
+	-- Step 18: Apothecary Zamah
+	-- {quest:1064} Forsaken Aid · {npc:3419} Apothecary Zamah · {area:272} Tarren Mill · {area:2197} Pools of Vision · {area:1640} Spirit Rise
+	["{quest:1064} is already with {npc:3419}: take her note for {area:272} in the {area:2197}, under {area:1640}."] = "{quest:1064} ist schon bei {npc:3419}: Hol dir ihre Notiz für {area:272} in {area:2197}, unterhalb von {area:1640}.",
+
+	-- Step 19: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Flieg nach {area:1637}",
 	-- {npc:2995} Tal · {area:1637} Orgrimmar
 	["Back up to {npc:2995} on the central rise and fly to {area:1637}."] = "Zurück hinauf zu {npc:2995} auf der zentralen Anhöhe und flieg nach {area:1637}.",
 
-	-- Step 18: Fly to Orgrimmar
+	-- Step 20: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar · {area:2897} Zoram'gar Outpost
 	["Fly to {area:1637} from the {area:2897} flight master."] = "Flieg vom Flugmeister in {area:2897} nach {area:1637}.",
 
-	-- Step 19: Druid trainer
+	-- Step 21: Druid trainer
 	["Druid trainer"] = "Druidenlehrer",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034} in {zone:1412}; {zone:1454} hat keinen Druidenlehrer",
 
-	-- Step 21: The Binding
+	-- Step 23: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {item:6626} Dogran's Pendant
 	["{npc:5875} stands in the {object:172960}. Use {item:6626} on the summoning circle there and defeat the succubus to bind her."] = "{npc:5875} steht in {object:172960}. Benutze dort {item:6626} am Beschwörungskreis und besiege die Sukkubus, um sie zu binden.",
 
-	-- Step 22: Shenthul
+	-- Step 24: Shenthul
 	-- {quest:2478} Mission: Possible But Not Probable · {npc:3401} Shenthul · {object:172960} Cleft of Shadow
 	["If you did {quest:2478} with a group, {npc:3401} in the {object:172960} takes it now."] = "Wenn du {quest:2478} mit einer Gruppe gemacht hast, nimmt {npc:3401} im {object:172960} sie jetzt an.",
 	-- {npc:2391} Serge Hinott · {area:272} Tarren Mill
 	["{npc:2391} in {area:272} teaches Poisons: keep it"] = "{npc:2391} in {area:272} lehrt Gifte: behalte sie",
 
-	-- Step 23: Zeppelin to Undercity
+	-- Step 25: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "Zeppelin nach {zone:1458}",
 
-	-- Step 24: Brill
+	-- Step 26: Brill
 	-- {npc:246152} Shari Stilwell · {area:159} Brill
 	["{npc:246152} trains Paladins in {area:159}, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine."] = "{npc:246152} bildet in {area:159} Paladine aus, ein kurzer Weg die Straße hinauf nach Norden von den Zeppelintürmen. Für den Silberwald kommst du dieselbe Straße zurück.",
 
-	-- Step 25: Morbin Lightbane
+	-- Step 27: Morbin Lightbane
 	-- {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {object:36126} Royal Quarter · {npc:266484} Morbin Lightbane · {npc:10181} Lady Sylvanas Windrunner
 	["For your {area:153} run: the zeppelin lands beside the ruins. Walk into the {zone:1458} through them and down to the {object:36126}: {npc:266484} stands there, near {npc:10181}."] = "Für deinen Run durch {area:153}: Der Zeppelin landet neben den Ruinen. Geh durch sie hinein nach {zone:1458} und hinunter ins {object:36126}: {npc:266484} steht dort, in der Nähe von {npc:10181}.",
 
-	-- Step 26: Ruins of Lordaeron
+	-- Step 28: Ruins of Lordaeron
 	-- {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {item:268580} Intact Limbs · {npc:266484} Morbin Lightbane · {npc:250660} The Baron · {item:280438} Abominable Head · {npc:2055} Master Apothecary Faranell · {npc:256102} Crest of Lordaeron · {npc:7825} Oran Snakewrithe
 	["The {area:153} is a dungeon for a group of five, about levels 15 to 22, in the ruined city above the {zone:1458}: its portal is in the ruins you walked through.\nInside: every undead can drop {item:268580} for {npc:266484}, so clear as you go. {npc:250660} can drop an {item:280438}, which starts a quest for {npc:2055}, and a {npc:256102} found inside starts one for {npc:7825}: both are in the {zone:1458}, on this route's next stop there."] = "{area:153} ist ein Dungeon für eine Gruppe aus fünf Spielern, etwa Stufe 15 bis 22, in der zerstörten Stadt über {zone:1458}: Das Portal liegt in den Ruinen, durch die du gegangen bist.\nDrinnen: Jeder Untote kann {item:268580} für {npc:266484} fallen lassen, also räum auf dem Weg alles ab. {npc:250660} kann {item:280438} fallen lassen; damit beginnt eine Quest für {npc:2055}, und mit {npc:256102} (drinnen zu finden) eine für {npc:7825}: Beide sind in {zone:1458}, beim nächsten Halt dieser Route dort.",
 	-- {quest:92421} Light's Justice · {item:268580} Intact Limbs
 	["{quest:92421}: the {item:268580}, inside"] = "{quest:92421}: {item:268580}, drinnen",
 
-	-- Step 27: The Sepulcher
+	-- Step 29: The Sepulcher
 	-- {zone:1421} Silverpine Forest · {area:228} The Sepulcher
 	["Out of the ruins, take the road south through Tirisfal into {zone:1421} and on to the {area:228}."] = "Nimm aus den Ruinen die Straße nach Süden durch Tirisfal in den {zone:1421} und weiter zum {area:228}.",
 
-	-- Step 28: Strange Lockbox
+	-- Step 30: Strange Lockbox
 	-- {area:240} Dead Field · {object:177844} Strange Lockbox · {item:15882} Half Pendant of Aquatic Endurance · {area:228} The Sepulcher
 	["From the zeppelin towers, run south into Silverpine and west past the {area:240} to the coast: the {object:177844} lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the {item:15882} for Trial of the Sea Lion. Then on to the {area:228}."] = "Lauf von den Zeppelintürmen nach Süden nach Silberwald und westlich am {area:240} vorbei bis zur Küste: Die {object:177844} liegt dort am Grund sehr tiefen Wassers, neben einer Luftspalte, in der du atmen kannst. Achte auf deinen Atem auf dem Weg nach unten. Sie enthält die {item:15882} für Trial of the Sea Lion. Dann weiter zu {area:228}.",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177844} Strange Lockbox
 	["{item:15882}, from the {object:177844}"] = "{item:15882}, aus {object:177844}",
 
-	-- Step 29: The Sepulcher
+	-- Step 31: The Sepulcher
 	-- {area:228} The Sepulcher · {object:177844} Strange Lockbox · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
 	["Down the road through Silverpine to the {area:228}: from the zeppelin towers, south through Tirisfal; from the {object:177844}, south-east from the coast to the road. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "Die Straße durch den Silberwald hinunter zum {area:228}: von den Zeppelintürmen nach Süden durch Tirisfal; von {object:177844} nach Südosten von der Küste zur Straße. {npc:2121} und {npc:1937} stehen am Eingang der Gruft.",
 	-- {npc:1937} Apothecary Renferrel · {area:272} Tarren Mill
@@ -157,17 +166,17 @@ return {
 	-- {npc:2121} Shadow Priest Allister · {area:233} Ambermill
 	["{npc:2121}: {area:233}'s pendants, on the same roads"] = "{npc:2121}: die Anhänger aus {area:233}, auf denselben Straßen",
 
-	-- Step 30: Deathguard Podrig
+	-- Step 32: Deathguard Podrig
 	-- {npc:6389} Deathguard Podrig · {item:16210} Gordon's Crate · {zone:1458} Undercity
 	["{npc:6389} stands just west of the crypt entrance: hand him {item:16210} from the {zone:1458}."] = "{npc:6389} steht gleich westlich des Eingangs der Gruft: Übergib ihm {item:16210} aus {zone:1458}.",
 
-	-- Step 31: High Executor Hadrec
+	-- Step 33: High Executor Hadrec
 	-- {area:236} Shadowfang Keep · {area:287} Hillsbrad · {npc:1952} High Executor Hadrec
 	["For your {area:236} run, at the end of the {area:287} guide: {npc:1952} stands below ground in the crypt."] = "Für deinen Run durch {area:236}, am Ende des Guides für {area:287}: {npc:1952} steht unter der Erde in der Gruft.",
 	-- {npc:1952} High Executor Hadrec
 	["{npc:1952}, below ground"] = "{npc:1952}, unter der Erde",
 
-	-- Step 32: Silverpine Forest: kill these as you meet them
+	-- Step 34: Silverpine Forest: kill these as you meet them
 	-- {zone:1421} Silverpine Forest
 	["{zone:1421}: kill these as you meet them"] = "{zone:1421}: Töte diese, wenn sie dir begegnen",
 	-- {area:233} Ambermill · {quest:516} Beren's Peril
@@ -175,11 +184,11 @@ return {
 	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest. Careful: High Order Mages (30) walk the same roads among the Watchers and Wizards: leave them."] = "Südlich die Straße hinunter an Pyrewood vorbei: Dalaran-Wächter und -Zauberer patrouillieren auf den Straßen um {area:233}, und südwestlich der Stadt suchen die Ravenclaw-Knechte und -Wächter von Ravenclaw die Ruinen von {quest:516} im Südosten des Waldes heim. Vorsicht: Magier des Hohen Ordens (30) laufen zwischen den Wächtern und Zauberern dieselben Straßen ab: Lass sie in Ruhe.",
 	["Below ground"] = "Unter der Erde",
 
-	-- Step 33: Ambermill
+	-- Step 35: Ambermill
 	-- {area:233} Ambermill · {npc:2540} Dalaran Serpent · {npc:2120} Archmage Ataeric
 	["On the roads around {area:233}, step into the town's outskirts: Protectors guard them and Mages the town; both drop pendants. Careful: each Mage (15) fights with a {npc:2540} (15) beside it: pull one Mage at a time from the outskirts. Stay out of the middle, where {npc:2120} (22) stands."] = "Geh auf den Straßen um {area:233} an den Stadtrand: Beschützer bewachen ihn und Magier die Stadt; beide lassen Anhänger fallen. Vorsicht: Jeder Magier (15) kämpft mit einer {npc:2540} (15) an seiner Seite: Pull vom Stadtrand aus immer nur einen Magier. Halte dich von der Mitte fern, wo {npc:2120} (22) steht.",
 
-	-- Step 34: Beren's Peril
+	-- Step 36: Beren's Peril
 	-- {quest:516} Beren's Peril · {npc:1973} Ravenclaw Guardian · {item:271343} Note Scrap · {object:645153} Offering Stone
 	["The Ravenclaw undead haunt the ruins of {quest:516}, east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}.\nAn elite spirit (20) often stands beside the {object:645153}: pull the Ravenclaws away from the stone before you fight them."] = "Die Untoten von Ravenclaw suchen die Ruinen von {quest:516} heim, östlich der Straße im Südosten des Waldes; ein {npc:1973} lässt das {item:271343} fallen, das zum {object:645153} führt.\nEin Elite-Geist (20) steht oft neben dem {object:645153}: Zieh die Ravenclawn vom Stein weg, bevor du sie bekämpfst.",
 	-- {item:271343} Note Scrap · {npc:1973} Ravenclaw Guardian
@@ -190,19 +199,19 @@ return {
 	-- plural, as words: Tortured Souls = {item:271350} Tortured Soul
 	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "{item:271350}, von den Gequälten Seelen zwischen den Ruinen; unter Tage",
 
-	-- Step 35: The Offering of Blood
+	-- Step 37: The Offering of Blood
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone · {quest:95883} The Tortured Soul
 	["The quest hands you a {item:210713}: use it beside the {object:645153} to offer your blood, then kill the elite spirit that answers.\n{quest:95883} is elite: grouping up is advised."] = "Die Quest gibt dir einen {item:210713}: Benutze ihn neben dem {object:645153}, um dein Blut zu opfern, und töte dann den Elite-Geist, der antwortet.\n{quest:95883} ist Elite: Eine Gruppe wird empfohlen.",
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone
 	["{item:210713}, beside the {object:645153}: summons the elite spirit"] = "{item:210713}, neben dem {object:645153}: beschwört den Elite-Geist",
 
-	-- Step 36: Into Hillsbrad
+	-- Step 38: Into Hillsbrad
 	-- {area:287} Hillsbrad
 	["Into {area:287}"] = "Nach {area:287}",
 	-- {area:285} Southpoint Tower
 	["The road east to {area:285}"] = "Die Straße nach Osten zu {area:285}",
 
-	-- Step 37: Southpoint Tower
+	-- Step 39: Southpoint Tower
 	-- {area:287} Hillsbrad · {npc:2214} Deathstalker Lesh · {area:285} Southpoint Tower
 	["Back on the road south. Where it turns east into {area:287}, {npc:2214} waits at {area:285}."] = "Zurück auf die Straße nach Süden. Wo sie nach Osten nach {area:287} abbiegt, wartet {npc:2214} am {area:285}.",
 	-- {npc:2214} Deathstalker Lesh · {area:272} Tarren Mill
@@ -261,6 +270,7 @@ return {
 	-- ["{npc:12696} stands at {area:428}, the Warsong camp just north-east of Splintertree, beside the hunt board."] = "{npc:12696} steht bei {area:428}, dem Lager der Warsong gleich nordöstlich von Splintertree, neben dem Jagdbrett.",
 	-- ["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 26."] = "Die Jagdziele von {npc:12696} (Ursangous, Shadumbra, Sharptalon) sind für den nächsten Besuch in {zone:1440}, bei 26.",
 	-- ["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 27."] = "{npc:12696}s Jagdziele (Ursangus, Schattumbra, Scharfkralle) sind für den nächsten Besuch in {zone:1440}, mit 27.",
+	-- ["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} läuft die Küste nach Norden zu einem Nagabecken. Lösche das Becken, dann bewache ihn durch die Nagawellen, bis Vorsha tot ist; die Naga der Wrathtail lassen die Köpfe fallen, die {npc:12719} will.",
 	-- ["{npc:12721}: the troll charms are in Thistlefur Hold, east of the outpost"] = "{npc:12721}: Die Trollamulette sind in der Feste Thistlefur, östlich des Außenpostens",
 	-- ["{npc:12736} at Zoram'gar, at 27"] = "{npc:12736} in Zoram'gar, mit 27",
 	-- ["{npc:12818}, below ground"] = "{npc:12818}, unter Tage",

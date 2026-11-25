@@ -244,9 +244,9 @@ Fights and loot
 
 | Kind | Fields | When |
 |---|---|---|
-| `kill` | npcId, level, cls, P, xp, rested, tapped, q | a creature the player or pet killed (`PARTY_KILL`, `UNIT_DIED` when readable, else the XP line). `cls` `n` normal, `e` elite, `r` rare, `R` rare elite, `b` boss; `xp`/`rested` from the XP message (client format strings, any language); `tapped` 1 when another player had the tag; `q` = `questId:index` when an objective ticked within 3 s |
+| `kill` | npcId, level, cls, P, xp, rested, tapped, q | a creature the player or pet killed (`PARTY_KILL`, `UNIT_DIED` when readable, else the XP line), written 3 s after the death with the death's time, so it can come after the death's loot window and ticks. `cls` `n` normal, `e` elite, `r` rare, `R` rare elite, `b` boss; `xp`/`rested` from the XP message (client format strings, any language); `tapped` 1 when the creature read as another player's when last seen, or its corpse as not the player's to loot a second after the death (that marks as many of the player's own kills, which gave them XP and a loot window, as any other, so the data build reads nothing from it); `q` = `questId:index` when an objective ticked within 3 s |
 | `spawn` | npcId, spawnUid, P | right after a `kill`, when the creature's GUID has one: `spawnUid` is the GUID's last part only (`Creature-0-…-<npcId>-<spawnUid>`, 1–16 hex digits), never the server, instance or zone parts. The same spawn killed again tells how long it takes to come back |
-| `loot` | srcKind, srcId, P, gather, items, wanted | a loot window, one per source. `gather` `h` herb, `m` mine, `s` skin, `f` fish (a catch from a fishing pool has the pool as `o`/srcId; from open water the bobber is left out and `srcKind`/`srcId` are empty), empty corpse/chest; `items` = `itemId:count` (empty = nothing); `wanted` = `questId:index` of every item objective open at that moment (the drop-chance denominator) |
+| `loot` | srcKind, srcId, P, gather, items, wanted | a loot window, one per source. `gather` `h` herb, `m` mine, `s` skin, `f` fish (a catch from a fishing pool has the pool as `o`/srcId; from open water the bobber is left out and `srcKind`/`srcId` are empty), empty corpse/chest; `items` = `itemId:count` (empty = nothing); `wanted` = `questId:index` of every item objective open at that moment (when a quest drop's chance counts its kills and windows) |
 | `gather` | objectId, P, how, skillLineId, rank | a world object gathered with a skill, right after its `loot` (which has the items): `how` `h` herb (Herbalism 182), `m` ore (Mining 186), `f` fishing pool (Fishing 356), `l` lock picked (Lockpicking 633); `rank` = the player's rank in that skill then (the node needs at most that). Once per object per 5 minutes (a pool gives many catches), at most 20 a minute |
 | `unit` | npcId, level, cls, react, P, src | a creature seen on a nameplate, target or mouseover: once per (npcId, level) per session, and once per 100 yd per npcId per session. `react` `h` hostile, `n` neutral, `f` friendly; `src` `p` plate, `t` target, `m` mouseover |
 | `rare` | npcId, level, cls, P, src | a rare or rare elite sighted (`src` `v` vignette, `p` plate, `t` target, `m` mouseover); P is the player's position for a plate, target or mouseover, the rare's own for a vignette |
@@ -436,9 +436,18 @@ their own client, so nothing trusts a single upload.
   NPC's name, rank or level, a spawn, a learned path, a trainer's list, a
   drop chance) changes only on the evidence of 3 distinct counted voters
   (for a drop chance, each with 10 loot windows of their own: a recorded
-  kill may be a death the player only saw, so kills are no samples; an item
-  that drops only for a quest counts only the windows its objective was
-  open for, `wanted`), or of `local` or
+  kill may be a death the player only saw; an item that drops only for a
+  quest counts only while its objective was open, and a creature's on the
+  kills the player could loot then, solo, not the windows, since a corpse
+  with nothing on it can't be opened and many are left; a kill dropped it
+  when its loot window held it or, with no window read, the objective
+  ticked; and since a player stops when the objective is done, so that the
+  players with many kills are the unlucky ones, a quest drop's chance pools
+  every voter's drops and kills, 3 voters with 30 kills between them
+  (#2747); the data build takes only those quest drops' chances, any other
+  drop keeps its sources', and an item's sources no player measured are
+  scaled by the median ratio of its measured chances to the sources' figures
+  for them, so the guide compares its droppers on one scale), or of `local` or
   `sent-*`; one counted voter fills only gaps no other source has. Nothing
   a recording says overrides one of Polestar's own corrections
   (`forever-db/corrections`): the build keeps the corrected value and lists

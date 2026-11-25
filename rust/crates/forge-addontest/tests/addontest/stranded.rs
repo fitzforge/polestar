@@ -54,11 +54,23 @@ function plain(t) return t and (t:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""))
 local X = Polestar.Codex
 X.Load = function() return true end
 X.IsLoaded = function() return true end
+-- AT_DUGHAN (set in `before`): more quests Marshal Dughan takes in.
 X.Quest = function(id)
-	return { id = id, title = "Quest " .. id, faction = "A", level = id == 40 and 5 or 10, xp = 1000, ["end"] = (id == 40 or id == 46) and { npc = { 240 } } or nil }
+	local dughan = id == 40 or id == 46 or (AT_DUGHAN or {})[id]
+	return { id = id, title = "Quest " .. id, faction = "A", level = id == 40 and 5 or 10, xp = 1000,
+		["end"] = dughan and { npc = { 240 } } or id == 47 and { npc = { 241 } } or nil }
+end
+-- Nikova (241) walks a round the Codex has as four spawns 34 yd from their middle, 44.8,39.2 (#3019).
+local WALK = { { map = 1429, x = 44.0, y = 38.0 }, { map = 1429, x = 45.6, y = 38.0 }, { map = 1429, x = 45.6, y = 40.4 }, { map = 1429, x = 44.0, y = 40.4 } }
+X.Npc = function(id)
+	if id == 241 then return { id = 241, name = "Nikova", faction = "A", roles = {}, spawns = WALK } end
+	if id == 240 then return { id = 240, name = "Marshal Dughan", faction = "A", roles = {}, spawns = { { map = 1429, x = 42.0, y = 35.1 } } } end
+	return nil
 end
 Polestar.Lookup.QuestEnd = function(ends)
 	if ends and ends.npc and ends.npc[1] == 240 then return { npc = 240, name = "Marshal Dughan", spawn = { map = 1429, x = 42.0, y = 35.1 } } end
+	-- Her spawn nearest the player.
+	if ends and ends.npc and ends.npc[1] == 241 then return { npc = 241, name = "Nikova", spawn = WALK[1] } end
 	return nil
 end
 C_QuestLog.GetQuestDifficultyLevel = function(q) return q == 40 and 5 or 10 end
@@ -125,6 +137,75 @@ fn a_finished_quest_no_route_hands_in_is_listed_with_its_ender_and_handed_in_whi
 		"{out}"
 	);
 	assert_eq!(out["guide"], json!(["lookup/carried/log", "Marshal Dughan", "turnin", 40, 1]), "{out}");
+}
+
+// #3019 (Shuurajou): a finished quest's ender who walks about. Nikova Raskol walks a round of Old Town, which the
+// Codex has as several spawns; the line pointed at the one nearest the player as if she stood there. Her walk is
+// now the hand-in's one spot, its point in the middle: the line measures to it, the maps circle it (the line's
+// layer, then the arrow's once the arrow leads there), and the line says she walks. The arrow leads to the middle
+// and says Arrived within the goal's radius of it, as at any NPC (Own.onePlace), not anywhere in the circle.
+// Marshal Dughan, at one spawn, keeps his point.
+#[test]
+fn a_stranded_hand_in_to_an_npc_who_walks_about_circles_her_walk_and_says_so_3019() {
+	let out = run_before(
+		&format!("{WORLD}w.onQuest(47, {{}}, \"The Color of Blood\")\n"),
+		r#"
+		local r = { here = {} }
+		for _, v in ipairs(E.GetWhileHereList()) do r.here[#r.here + 1] = { v.index, v.hereText } end
+		table.sort(r.here, function(a, b) return a[1] < b[1] end)
+		local g = E.AlongGoal(-2, 47)
+		r.goal = { g.x, g.y, #g.spots, g.spots[1].x, g.spots[1].y, g.spots[1].r, g.note }
+		local d = E.AlongGoal(-2, 40)
+		r.dughan = { d.x, d.y, d.spots == nil }
+		-- The maps' circle: one area at her walk's middle, in the While-here layer, then in the arrow's once it leads there.
+		local _, cx, cy = Polestar.Compat.MapToWorld(1429, 44.8, 39.2)
+		local function circles(layer)
+			local out = {}
+			for _, p in ipairs(Polestar.Pins.GetLayer(layer) or {}) do
+				if p.areaOnly then out[#out + 1] = { math.floor(p.wx - cx + 0.5), math.floor(p.wy - cy + 0.5) } end
+			end
+			return out
+		end
+		flush()
+		r.mapBefore = circles("nav.hereAreas")
+		E.DismissWhileHere(1)
+		flush()
+		for i, v in ipairs(E.GetWhileHereList()) do
+			if v.index == 47 then E.AimWhileHere(i) end
+		end
+		flush()
+		r.mapAimed = circles("nav.areas")
+		local wp = E.GetWaypoint()
+		r.waypoint = { wp.x, wp.y, wp.area or false }
+		emit(r)
+	"#,
+	);
+	assert_eq!(
+		out["here"],
+		json!([[40, "Hand in “A Fishy Peril” to Marshal Dughan"], [47, "Hand in “The Color of Blood” to Nikova, who walks around here: look inside the circle on the map"]]),
+		"{out}"
+	);
+	assert_eq!(out["goal"], json!([44.8, 39.2, 1, 44.8, 39.2, 34, "Nikova walks around here: look inside the circle on the map"]), "{out}");
+	assert_eq!(out["dughan"], json!([42, 35.1, true]), "{out}");
+	assert_eq!(out["mapBefore"], json!([[0, 0]]), "{out}");
+	assert_eq!(out["mapAimed"], json!([[0, 0]]), "{out}");
+	assert_eq!(out["waypoint"], json!([44.8, 39.2, false]), "{out}");
+}
+
+// #3390: a finished quest a later guide of the route hands in (test/b's 44, its ender Marshal Dughan here) says
+// which guide keeps it on its While-here line, not "Handed in later on the route".
+#[test]
+fn a_stranded_hand_in_kept_for_a_later_guide_names_that_guide_3390() {
+	let out = run_before(
+		&format!("{WORLD}AT_DUGHAN = {{ [44] = true }}\n"),
+		r#"
+		local r = {}
+		for _, v in ipairs(E.GetWhileHereList()) do r[#r + 1] = { v.index, v.hereSub or false } end
+		table.sort(r, function(a, b) return a[1] < b[1] end)
+		emit(r)
+	"#,
+	);
+	assert_eq!(out, json!([[40, "Not handed in on the route ahead"], [44, "Kept for B"]]));
 }
 
 // #2918 (Chm137): Auto turn-in hands in the guide's quests. A finished quest's stranded line is handed in by
@@ -235,6 +316,65 @@ fn the_guide_window_lists_the_finished_quests_no_route_hands_in_in_one_row_that_
 	assert_eq!(out["room"], json!([true, "Finished quests you're still carrying", "A Fishy Peril"]), "{out}");
 }
 
+// #3303: the Still to do rows have their own switch (guideWindow.stillToDo, on by default): off, neither the finished
+// quests' row nor a quest an update left behind shows, and with no other row the card goes; the finished quests are
+// still the guide menu's (RoutePlan.Carried, its Hand in finished quests); on again, both rows are back.
+#[test]
+fn the_still_to_do_rows_turn_off_with_their_switch_and_come_back_on() {
+	let out = run(r#"
+		local GF = Polestar.UI.GuideFrame
+		E.GetBehind = function() return { { quest = 33, title = "Wolves Across the Border", zone = "Elwynn Forest", yards = 240 } } end
+		local function card()
+			GF.Render(); flush()
+			local rows = {}
+			for _, x in ipairs(GF.alongRows) do
+				if x:IsShown() then rows[#rows + 1] = plain(x.Text:GetText()) end
+			end
+			return { rows = rows, n = #rows, shown = GF.parts.along:IsShown(), header = plain(GF.parts.along.Label:GetText()) }
+		end
+		local r = { default = Polestar.Get("guideWindow.stillToDo"), on = card() }
+		Polestar.Set("guideWindow.stillToDo", false)
+		r.off = card()
+		r.carried = #Polestar.RoutePlan.Carried()
+		Polestar.Set("guideWindow.stillToDo", true)
+		r.back = card()
+		emit(r)
+	"#);
+	assert_eq!(out["default"], true, "{out}");
+	assert_eq!(out["on"]["shown"], true, "{out}");
+	assert_eq!(out["on"]["header"], "Still to do", "{out}");
+	let rows = out["on"]["rows"].as_array().unwrap();
+	assert_eq!(rows.len(), 2, "{out}");
+	assert!(is_match(text(&rows[0]), r"^Still to do: .Wolves Across the Border., back in Elwynn Forest, "), "{out}");
+	assert_eq!(rows[1], "1 finished quest to hand in elsewhere (800 XP)", "{out}");
+	assert_eq!(out["off"]["shown"], false, "{out}");
+	assert_eq!(out["off"]["n"], 0, "{out}");
+	assert_eq!(out["carried"], 1, "the menu's list keeps them: {out}");
+	assert_eq!(out["back"], out["on"], "{out}");
+}
+
+// #3568 (LaboredGuineaPig), #3410 (Megabite): the row said 2 finished quests to hand in elsewhere while the list it
+// opened said the route hands in every one. The row was drawn with the step only, so a quest handed in off the step
+// (A Fishy Peril at Marshal Dughan) left it counting. RoutePlan says CARRIED_CHANGED and the row follows the list.
+#[test]
+fn the_carried_row_follows_a_quest_handed_in_off_the_step_and_agrees_with_its_list_3568() {
+	let out = run(r#"
+		local GF = Polestar.UI.GuideFrame
+		GF.Render(); flush()
+		local function row()
+			for _, x in ipairs(GF.alongRows) do
+				if x:IsShown() and x.psCarried then return plain(x.Text:GetText()) end
+			end
+			return false
+		end
+		local r = { before = row() }
+		w.turnIn(40); stub.fire("QUEST_LOG_UPDATE"); flush(); stub.advance(1.2)
+		r.after, r.list = row(), #Polestar.RoutePlan.Carried()
+		emit(r)
+	"#);
+	assert_eq!(out, json!({ "before": "1 finished quest to hand in elsewhere (800 XP)", "after": false, "list": 0 }));
+}
+
 // A kill that ticks an objective (#2555): the client's burst (the quest log three times, the objective, XP, loot)
 // is one evaluation, one step update and one tab update, and the row above is drawn again from the route plan as
 // it stands: the plan is not rebuilt, so no walk over every registered guide (Guides.List from RoutePlan). A quest
@@ -321,4 +461,38 @@ fn outlevelled_the_banner_says_the_finished_quests_left_here_and_its_jump_asks_o
 		"{out}"
 	);
 	assert_eq!(out["jumped"], "test/b", "{out}");
+}
+
+// #2652: a held quest the route neither works nor hands in (42, Not Done Yet: one Prowler to kill, taken off the
+// route) showed nothing until it was finished. With the quest database loaded, While you're here lists its work at
+// the database's places on the player's map, its sub-line saying the route does not hand it in; none once the
+// line is done. Without the database, nothing (it is never loaded for this).
+#[test]
+fn a_held_quest_the_route_does_not_work_shows_its_work_while_here_from_the_quest_database_2652() {
+	let out = run(r#"
+		local r = {}
+		local function rows()
+			local out = {}
+			for _, v in ipairs(E.GetWhileHereList()) do
+				if v.quest == 42 then out[#out + 1] = { v.step, v.hereText, v.hereSub or false } end
+			end
+			return out
+		end
+		r.unloaded = rows()
+		local QDB = Polestar.QuestDB
+		QDB.IsLoaded = function() return true end
+		QDB.GetQuest = function(q) if q == 42 then return { title = "Not Done Yet", objectives = { { kind = "kill", id = 300 } } } end end
+		QDB.GetNpc = function(id)
+			if id == 300 then return { name = "Prowler", spawns = { { map = 1429, x = 43.0, y = 36.5 }, { map = 1429, x = 43.4, y = 36.8 } } } end
+		end
+		stub.fire("QUEST_LOG_UPDATE"); flush(); flush()
+		r.loaded = rows()
+		w.progress(42, 1, 1); flush(); flush()
+		r.done = rows()
+		emit(r)
+	"#);
+	// An empty Lua list is emitted as `{}`.
+	assert_eq!(out["unloaded"], json!({}), "{out}");
+	assert_eq!(out["loaded"], json!([[-4, "Kill Prowler, 1 more", "Not handed in on the route ahead"]]), "{out}");
+	assert_eq!(out["done"], json!({}), "{out}");
 }

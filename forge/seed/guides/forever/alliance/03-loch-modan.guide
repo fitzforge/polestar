@@ -256,6 +256,15 @@ step Henze Faulk
   accept 1787 only Human
   collect 6846 quest 1787.1 only Human -- Defias Script: Defias Rogue Wizards
 
+step Henze Faulk
+  only Human,Paladin
+  zone Elwynn Forest
+  when turnedin 1786
+  when available 1787
+  tip Henze Faulk is already raised: take the next part of The Tome of Divinity from him, south of Stone Cairn Lake. The Defias Rogue Wizards around him carry the Defias Script.
+  accept 1787 only Human
+  collect 6846 quest 1787.1 only Human -- Defias Script: Defias Rogue Wizards
+
 step Three Corners
   zone Redridge Mountains
   tip The road crosses into Redridge at Three Corners. Guard Parker walks around the crossroads.
@@ -491,6 +500,14 @@ step Baros Alexston
   zone Stormwind City
   tip Baros Alexston stands at the east side of Cathedral Square, on the way from the Dwarven District to the harbour.
   turnin 97914                                -- Baros Alexston: Thundris' letter from Auberdine
+  accept 97926 optional                       -- For Thundris Windweaver, where the boat lands
+
+step Baros Alexston
+  when turnedin 97914
+  when available 97926
+  when !zone "Darkshore"
+  zone Stormwind City
+  tip Thundris' letter is already with Baros Alexston: his reply waits at the east side of Cathedral Square.
   accept 97926 optional                       -- For Thundris Windweaver, where the boat lands
 
 step Gazin Tenorm

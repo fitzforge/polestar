@@ -242,6 +242,7 @@ local ASK_EVERY = 2         -- seconds between asks for the same goal
 local ASK_FAR, ASK_FAR_EVERY = 2000, 10 -- yards left along the path past which a stray is asked again at most this often
 local GOAL_MOVED = 1        -- yards: the goal is another one
 local FAIL_RETRY, FAIL_MOVED, FAIL_AGAIN = 15, 5, 2 -- a failed search is asked again this late, this far away; a refusal for no policy reason once this soon
+Walk.budgetHold = 60       -- seconds a search that spent its whole budget (Path.jobBudget) holds its goal unasked
 local Z_OFF = 30            -- yards: a path ending this far above or below the goal's height missed its floor
 
 ---------------------------------------------------------------------------
@@ -304,15 +305,25 @@ end
 -- goal (tx, ty) on map; nil for either leaves no zone out there), so each
 -- step is priced for them: roads cheaper, slopes and indoors dearer, the
 -- other faction's towns twenty times over, a zone far above the player three
--- or twenty times. The separate hard policy applies to the whole walk,
--- including its start, goal and connectors; being inside a hub never waives it.
-local function opts(water, map, sx, sy, tx, ty)
+-- or twenty times. A walk that starts or ends in a town of the other faction
+-- (Path.HubAt at its start, its goal, or (hx, hy): the player's place in a
+-- measure) is priced as for no faction (opts.homeHub, as 0.4.1.1 did): the
+-- player is going in (a quest goal in Hillsbrad Fields, #3641) or coming out,
+-- so it goes by the town's own streets and gate, not round its buildings at
+-- twenty times the cost or over its walls; the towns its line enters are
+-- still named ("Hostile town"), and the walk's policy is still the faction's.
+local function opts(water, map, sx, sy, tx, ty, hx, hy)
 	local C = ns.Compat
 	local profile = C and C.GetPlayerFaction and C.GetPlayerFaction() or nil
 	local D = Nav.danger
 	local level = D and D.Level()
 	local danger = level and D.Table(level, D.ZoneAt(map, sx, sy), D.ZoneAt(map, tx, ty)) or nil
-	return { waterWalking = water and true or false, profile = profile, style = ns.Get("nav.routeStyle"), danger = danger, walkLevel = level or 0 }
+	local P = engine()
+	local home
+	if profile and P and P.HubAt then
+		home = (sx and P.HubAt(map, sx, sy, profile)) or (tx and P.HubAt(map, tx, ty, profile)) or (hx and P.HubAt(map, hx, hy, profile)) or nil
+	end
+	return { waterWalking = water and true or false, profile = profile, style = ns.Get("nav.routeStyle"), danger = danger, walkLevel = level or 0, homeHub = home and true or nil }
 end
 
 ---------------------------------------------------------------------------
@@ -407,13 +418,73 @@ local function restore(c, x, y)
 	if c and T and T.RestoreWalk then T.RestoreWalk(c, x, y) end
 end
 
+-- The player's own steps (#3641, Fitz in Hillsbrad Fields: he walked round the left of the farmhouse while the line,
+-- and every walk asked again, went round its right: the maps' 4-yd cells close the gaps he walked through). His places
+-- of the last SECONDS, SPACING yards apart, kept per continent: every walk the arrow asks takes the steps the grid
+-- has no way for as open (Path.SetTrail, before each ask: the router holds only the last SECONDS of them, never
+-- stored), so a walk from where he has been goes his way. Clear drops them from the router. The gaps found are kept
+-- for /polestar report (Walk.WalkedGaps): where players walk that the maps close. (A table, not locals: the main chunk's locals are near Lua 5.1's 200.)
+local walked = { SPACING = 2, SECONDS = 60, MAX = 300, x = {}, y = {}, t = {}, n = 0, gaps = {}, GAPS = 5 }
+function walked.Note(pc, px, py)
+	-- Outdoors only: indoors (a cave, a barrow, a city's halls) floors stack, and a place without its height (Forever's
+	-- client gives none) can't say which one the player stands on.
+	if IsIndoors and IsIndoors() then return end
+	local n = walked.n
+	if walked.c ~= pc then
+		walked.c, n = pc, 0
+	elseif n > 0 then
+		local dx, dy = px - walked.x[n], py - walked.y[n]
+		if dx * dx + dy * dy < walked.SPACING * walked.SPACING then return end
+	end
+	local now = GetTime()
+	local x, y, t = walked.x, walked.y, walked.t
+	if n >= walked.MAX or (n > 0 and now - t[1] > walked.SECONDS) then
+		local drop = 0
+		while drop < n and (n - drop >= walked.MAX or now - t[drop + 1] > walked.SECONDS) do drop = drop + 1 end
+		for i = 1, n - drop do x[i], y[i], t[i] = x[i + drop], y[i + drop], t[i + drop] end
+		n = n - drop
+	end
+	n = n + 1
+	x[n], y[n], t[n] = px, py, now
+	walked.n = n
+end
+-- Before a walk is asked: his steps (the last SECONDS, whatever goal they were for: where he walked is open either
+-- way) to the router.
+function walked.Use(P, pc)
+	if not (P and P.SetTrail) or walked.c ~= pc then return end
+	local s, x, y = {}, walked.x, walked.y
+	for i = 1, walked.n do
+		s[#s + 1], s[#s + 2], s[#s + 3] = x[i], y[i], false
+	end
+	if #s < 6 then return end
+	local ok, n, gx, gy = pcall(P.SetTrail, pc, s)
+	walked.set = pc
+	if ok and type(n) == "number" and n > 0 then
+		local g = walked.gaps
+		local last = g[#g]
+		if last and last.c == pc and (last.x - gx) ^ 2 + (last.y - gy) ^ 2 < 400 then
+			last.n = math.max(last.n, n)
+		else
+			if #g >= walked.GAPS then table.remove(g, 1) end
+			g[#g + 1] = { c = pc, x = gx, y = gy, n = n }
+		end
+	end
+end
+function walked.Drop(P)
+	if walked.set and P and P.SetTrail then pcall(P.SetTrail, walked.set, nil) end
+	walked.set = nil
+end
+-- Where this session's walks went through what the maps close: { { c, x, y, n }, ... } (n steps), oldest first.
+function Walk.WalkedGaps() return walked.gaps end
+
 function Walk.Clear()
 	local had, c, x, y = gc ~= nil, gc, gx, gy
 	cancel()
+	walked.Drop(engine())
 	gc, gx, gy, gzFor, gz, count, idx, wanted, failed, hubs, shape = nil, nil, nil, nil, nil, 0, 1, false, false, nil, nil
 	Walk.blockedReason = nil
 	Walk.checkedOnly, ptsX.checkedPolicy = nil, nil
-	city.goal, city.dropped = nil, nil
+	city.goal, city.dropped, city.flat = nil, nil, nil
 	city.Note(false)
 	landX, landY = nil, nil
 	for k in pairs(Walk.dropped) do Walk.dropped[k] = nil end
@@ -529,7 +600,7 @@ local REASK = 5           -- seconds after a flat ask within which a floor found
 --     target (Walk.Measure) takes the same reach and, finding nothing, keeps the straight estimates. Elsewhere none
 --     is asked once more without the height (city.dropped: said too), as are the measure and the later legs.
 city = { CAPITAL = { [1453] = true, [1454] = true, [1455] = true, [1456] = true, [1457] = true, [1458] = true },
-	TRAIL = 4, GOAL = 10, MOVE = 20, MOVE_HINT = 1, noteVersion = 0 }
+	TRAIL = 4, GOAL = 10, MOVE = 20, MOVE_HINT = 1, FLAT = 2, SLACK = 40, noteVersion = 0 }
 
 -- (The Undercity lies under Tirisfal Glades: the zone a point there reads is Tirisfal's, 1420, so a point in the
 -- Undercity's own map frame, Compat.WorldToMap on 1458, counts too. CityLifts2, 2026-11-18: none of the rules ran
@@ -1296,7 +1367,7 @@ end
 -- floor beside it (Ironforge's vendors), and none at all starts on the
 -- mountain over the city.
 local function ask(P, pc, px, py, flat, terminal)
-	wanted = true
+	wanted, Walk.failHold = true, nil
 	if inCombat() then return end -- after combat, on the next sample
 	-- Carried (Transit.Carried: the skycutter to Dalaran): no walk from a point the ride leaves at once; on the
 	-- first sample after it.
@@ -1305,6 +1376,7 @@ local function ask(P, pc, px, py, flat, terminal)
 	wanted = false
 	askedAt, failed = GetTime(), false
 	cancel()
+	walked.Use(P, pc)
 	if P.Available and not P.Available(pc) then
 		-- Routing is on but this continent has no walking map. A clear
 		-- faction/level check alone cannot establish a line across it.
@@ -1351,6 +1423,17 @@ local function ask(P, pc, px, py, flat, terminal)
 			-- partial or a walk found on a substitute floor as its live path.
 			got, reason = false, "no safe walking route"
 		end
+		-- A search that spent its whole budget (Routing/PathJobs.lua, Path.jobBudget): asked again at once it would
+		-- run as long again, so the walk is the straight arrow (its line dashed, #3418) and the goal is not asked
+		-- again for Walk.budgetHold seconds (Walk.failHold), and then only once the player has moved (FAIL_MOVED).
+		if not got and reason == "budget" and not terminal then
+			failed, failAt, failX, failY, Walk.failHold = true, GetTime(), px, py, Walk.budgetHold
+			count, hubs, shape = 0, nil, nil
+			restore(gc, gx, gy)
+			changed()
+			pumpLegs()
+			return
+		end
 		-- A goal's floor no walk reaches though no policy said no (Foggy MacKreel on a broken section of the Thandol
 		-- Span, #3553): asked once more without its height, as before strict searches, and the arrow says the last
 		-- steps aren't mapped (city.dropped). A policy refusal stays final; so does a capital's goal at its height
@@ -1362,6 +1445,29 @@ local function ask(P, pc, px, py, flat, terminal)
 			gz, city.dropped = nil, true
 			ask(P, pc, px, py, flat)
 			return
+		end
+		-- A capital's goal whose floor no walk reaches (#2143, Rilli Greasygob in the Valley of Honor: the floor
+		-- players walk there, 29 yd up, is one the maps don't join; 0.4.1.1 walked it, 766 yd, and 0.4.2 drew 617 yd
+		-- straight across Orgrimmar): after the start's own retries, asked once more without its height (city.flat:
+		-- the straight yards then), and
+		-- that walk kept only when it is no detour, at most city.FLAT times the straight way plus city.SLACK yards.
+		-- Ironforge's walk to a Great Forge floor without its height went out of the gate and over the mountain,
+		-- 3,515 yd for 356: that stays the straight arrow, saying the last steps aren't mapped.
+		-- Only for the target itself: a walk to a route's leg end (a lift's landing, a portal) keeps its floor, the
+		-- leg's way being on it (the Undercity's lower lift landing, nav-e2e).
+		local tc, tx, ty = Nav.GetTargetWorld()
+		if not got and z and inCity and not city.flat and not terminal and not Walk.checkedOnly
+			and tc == gc and tx and (tx - gx) ^ 2 + (ty - gy) ^ 2 <= GOAL_MOVED * GOAL_MOVED
+			and (reason == "no safe walking route" or not tracked) and not (type(answer) == "table" and answer.blockedReason) then
+			city.flat = sqrt((gx - px) * (gx - px) + (gy - py) * (gy - py))
+			gz, city.dropped = nil, true
+			ask(P, pc, px, py, flat)
+			return
+		end
+		if got and city.flat and z == nil and type(answer) == "table" and type(answer.yards) == "number"
+			and answer.yards > city.FLAT * city.flat + city.SLACK then
+			got, reason = false, "no safe walking route"
+			city.Note(true)
 		end
 		if not got and reason == "no safe walking route" then
 			if terminal and count > 0 then return end
@@ -1476,7 +1582,18 @@ function Walk.Probe(pc, px, py, gx, gy, gz, callback, place, originZ)
 		local ok, handle = pcall(P.Find, pc, from, to, function(points, reason, answer)
 			if job.cancelled then return end
 			job.handle = nil
-			if reason == "no safe walking route" or (type(answer) == "table" and answer.reached) then return callback(false) end
+			if reason == "no safe walking route" or (type(answer) == "table" and answer.reached) then
+				-- A goal's floor no walk reaches though no policy said no (#2270, #3018: the Damaged Chest on the
+				-- Splithoof Crag cave's floor, 49 yd down): asked once more without its height, as the arrow's own
+				-- walk is (not in a capital: city). Without it the near walk was never offered, and the planner sent
+				-- the player 111 yd from the chest up the Great Lift and round through the Barrens (0.4.1.1: 24 s).
+				if to.z ~= nil and reason == "no safe walking route" and not (type(answer) == "table" and answer.blockedReason)
+					and not city.At(pc, gx, gy) then
+					to = { x = gx, y = gy }
+					return find(from, again)
+				end
+				return callback(false)
+			end
 			local water = Nav.travel and Nav.travel.IsGhost and Nav.travel.IsGhost() or false
 			if water ~= ghost or o.style ~= ns.Get("nav.routeStyle") or o.profile ~= ns.Compat.GetPlayerFaction()
 				or o.walkLevel ~= (Nav.danger.Level() or 0) then return callback(false) end
@@ -1487,7 +1604,7 @@ function Walk.Probe(pc, px, py, gx, gy, gz, callback, place, originZ)
 			-- measure prices this walk; only a live XYZ reading can mark a visit.
 			if type(first) ~= "table" or type(last) ~= "table"
 				or (sz and (type(first.z) ~= "number" or not (abs(first.z - sz) <= 1)))
-				or (gz and (type(last.z) ~= "number" or not (abs(last.z - gz) <= 1))) then return callback(false) end
+				or (to.z and (type(last.z) ~= "number" or not (abs(last.z - to.z) <= 1))) then return callback(false) end
 			if floors then
 				local matches = false
 				for i = 1, #floors do
@@ -1604,6 +1721,7 @@ end
 function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checkedOnly)
 	local P = engine()
 	if P and P.SurfacesAt and pc then track(P, pc, px, py) end
+	if pc then walked.Note(pc, px, py) end
 	-- With no observed deck, a flat search can start on any floor under the
 	-- shaft. Drop even an old walk; Travel owns the separate ride instruction.
 	if P and pc and pc == goalC and city.Lift(pc, px, py) and playerZ(pc) == nil then
@@ -1633,7 +1751,7 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checke
 		Nav.follow.Reset(fstate)
 		-- In a capital a goal without a height ends on the trail floor at it (city.GoalZ) and is never asked again
 		-- without its height (city.goal); a goal with a height keeps it.
-		city.goal, city.dropped = city.At(goalC, goalX, goalY), nil
+		city.goal, city.dropped, city.flat = city.At(goalC, goalX, goalY), nil, nil
 		gzFor, gz = tz, tz or (city.goal and city.GoalZ(P, goalC, goalX, goalY)) or nil
 		city.Note(false)
 		askedAt = -huge
@@ -1653,7 +1771,7 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checke
 		if failAgain and wait >= FAIL_AGAIN then
 			failAgain = nil
 			ask(P, pc, px, py)
-		elseif wait >= FAIL_RETRY and dx * dx + dy * dy > FAIL_MOVED * FAIL_MOVED then ask(P, pc, px, py) end
+		elseif wait >= (Walk.failHold or FAIL_RETRY) and dx * dx + dy * dy > FAIL_MOVED * FAIL_MOVED then ask(P, pc, px, py) end
 	elseif wanted then
 		ask(P, pc, px, py)
 	elseif token ~= nil and ns.Transit and ns.Transit.Carried and ns.Transit.Carried() then
@@ -1749,6 +1867,9 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checke
 	-- On a long walk (ASK_FAR yards left) a stray asks again at most every ASK_FAR_EVERY seconds: each ask searches the
 	-- whole walk again, and a mounted player cutting corners strayed every few seconds (a search every 4-5 s, ~1 MB of
 	-- garbage a second). A stray that long after the last ask still asks at once.
+	-- Asked again from where the player stands, his own steps open (walked.Use). (0.4.3 asked again too when a wall
+	-- stood between him and the aim within STRAY; that kept Oben Rageclaw's way out of Ban'ethil Barrow Den from
+	-- leading out, #3449, and is left out until it can tell a barrow's levels apart.)
 	local every = lastLeft > ASK_FAR and ASK_FAR_EVERY or ASK_EVERY
 	if fstate.off > STRAY and not fstate.sighted and token == nil and not wanted and GetTime() - askedAt >= every then ask(P, pc, px, py) end
 	return pc, ax, ay, lastLeft
@@ -1880,7 +2001,9 @@ end
 --   Places: those on the target's continent within Walk.measureRange of it, the
 --     nearest MEASURE_MAX, the player among them. Farther ones keep their
 --     straight estimate. With no place but the player nothing is measured (a
---     lone walk is the arrow's own search, above).
+--     lone walk is the arrow's own search, above). The player's walk bounds
+--     the batch (its `bound`, Routing/Path.lua Safe.many): a place whose walk
+--     can't cost less than it keeps its estimate unsearched (e.pruned).
 --   A settled refusal rules out the walk from that start. Unmeasured places
 --     keep their policy-checked estimate. A player's measure is valid only
 --     at the measured position and floor, never shortened by the yards they
@@ -1966,9 +2089,11 @@ end
 -- place's cost only once that walk is checked (Routing/Path.lua Safe.many). A
 -- place the batch left unpriced because the target's floor joins no walk
 -- (e.unjoined) or because the batch spent its expansions (e.capped,
--- Path.manyCap, #3605), or one still unpriced when the planner stopped holding
--- its route for it (e.gaveUp, Walk.GiveUp), keeps its estimate, as a place
--- beyond the measure's reach does (#3553).
+-- Path.manyCap, #3605), or one the batch left because its walk could not
+-- beat the player's own (e.pruned, Path.lua Safe.many's `bound`), or one still
+-- unpriced when the planner stopped holding its route for it (e.gaveUp,
+-- Walk.GiveUp), keeps its estimate, as a place beyond the measure's reach does
+-- (#3553).
 function Walk.UnpricedTransfer(c, x, y, water, goalZ, from)
 	water = water or false
 	local e = measuring
@@ -1976,7 +2101,7 @@ function Walk.UnpricedTransfer(c, x, y, water, goalZ, from)
 	local i = e and placeIndex(e, from.wx, from.wy, from.z)
 	if i == nil then return false end
 	local costs = e.costs or e.partial
-	if (e.unjoined or e.capped or (e.gaveUp and not e.costs)) and e.z == goalZ and (not costs or costs[i] == nil) then return false end
+	if (e.unjoined or e.capped or e.pruned or (e.gaveUp and not e.costs)) and e.z == goalZ and (not costs or costs[i] == nil) then return false end
 	return not (e.checked or (not e.costs and e.partial)) or (goalZ and e.z ~= goalZ) or not costs or type(costs[i]) ~= "number"
 end
 
@@ -2057,8 +2182,8 @@ end
 -- its places their estimates and is not asked again (#3553, #3605).
 local function batch(P, mine, z)
 	local pts, water = mine.pts, mine.water
-	mine.z, mine.o = z, mine.o or opts(water, mine.c, nil, nil, mine.x, mine.y)
-	mine.partial, mine.firstPriced, mine.unjoined, mine.capped = nil, false, nil, nil
+	mine.z, mine.o = z, mine.o or opts(water, mine.c, nil, nil, mine.x, mine.y, mine.sx, mine.sy)
+	mine.partial, mine.firstPriced, mine.unjoined, mine.capped, mine.pruned = nil, false, nil, nil, nil
 	local inCity = z ~= nil and mine.city
 	local first
 	for i = 1, #pts do
@@ -2083,6 +2208,10 @@ local function batch(P, mine, z)
 		mine.yards = type(answer) == "table" and type(answer.yards) == "table" and answer.yards or nil
 		mine.checked = type(answer) == "table" and answer.walkChecked == true
 		mine.unjoined, mine.capped = type(answer) == "table" and answer.unjoined or nil, type(answer) == "table" and answer.capped or nil
+		-- Places left unpriced because their walk can't beat the player's (answer.pruned): mine.bound is the player's
+		-- cost they were compared with (remeasureStart).
+		mine.pruned = type(answer) == "table" and answer.pruned or nil
+		mine.bound = mine.pruned and mine.si and type(costs[mine.si]) == "number" and costs[mine.si] or nil
 		local found, refused = false, false
 		for i = 1, #pts do
 			if type(costs[i]) == "number" then found = true
@@ -2104,7 +2233,7 @@ end
 
 -- Two batches' opts alike (Walk's opts: the danger table compared by its entries).
 local function sameOpts(a, b)
-	if not (a and b) or a.waterWalking ~= b.waterWalking or a.profile ~= b.profile or a.style ~= b.style or a.walkLevel ~= b.walkLevel then return false end
+	if not (a and b) or a.waterWalking ~= b.waterWalking or a.profile ~= b.profile or a.style ~= b.style or a.walkLevel ~= b.walkLevel or a.homeHub ~= b.homeHub then return false end
 	local da, db = a.danger, b.danger
 	if da == db then return true end
 	if type(da) ~= "table" or type(db) ~= "table" then return false end
@@ -2124,7 +2253,11 @@ end
 -- the player's move changes none of theirs, and the 16-place batch measured
 -- again cost 20-70 MB of garbage per replan near the target. Only when another
 -- place's walk was found (the batch measured again would then find walks at the
--- same height, not ask once more without it). -> started.
+-- same height, not ask once more without it). A measure that left places
+-- unpriced against the player's walk (e.pruned) keeps them so while the
+-- player's new walk costs no more than the one they were compared with
+-- (e.bound); a dearer one (or none) leaves it stale, and the next plan
+-- measures the whole batch again. -> started.
 local function remeasureStart(P, e, c, x, y, water, p)
 	if not (e.lookup and e.costs and e.pts) or e.z ~= city.MeasureZ(P, c, x, y, e.goalZ) then return false end
 	local other = false
@@ -2132,7 +2265,7 @@ local function remeasureStart(P, e, c, x, y, water, p)
 		if i ~= e.si and type(e.costs[i]) == "number" then other = true end
 	end
 	if not other then return false end
-	local o = opts(water, c, nil, nil, x, y)
+	local o = opts(water, c, nil, nil, x, y, p.wx, p.wy)
 	if not sameOpts(o, e.o) then return false end
 	local pt = { x = p.wx, y = p.wy, z = p.z, floors = p.z == nil and startFloors(c, p.wx, p.wy) or nil }
 	local pts, costs, yards = {}, {}, e.yards and {} or nil
@@ -2143,7 +2276,8 @@ local function remeasureStart(P, e, c, x, y, water, p)
 	local si = e.si or #pts + 1
 	pts[si], costs[si] = pt, nil
 	if yards then yards[si] = nil end
-	local mine = { c = c, x = x, y = y, water = water, pts = pts, si = si, sx = pt.x, sy = pt.y, z = e.z, goalZ = e.goalZ, o = o, costs = costs, yards = yards, city = e.city }
+	local mine = { c = c, x = x, y = y, water = water, pts = pts, si = si, sx = pt.x, sy = pt.y, z = e.z, goalZ = e.goalZ, o = o, costs = costs, yards = yards, city = e.city,
+		pruned = e.pruned, bound = e.bound }
 	measuring = mine
 	local ok, handle = pcall(P.FindMany, c, { x = x, y = y, z = e.z, reach = e.z and city.GOAL or nil }, { pt }, function(got, _, answer)
 		if measuring ~= mine then return end
@@ -2156,6 +2290,7 @@ local function remeasureStart(P, e, c, x, y, water, p)
 		mine.checked = e.checked
 		if priced or m == false then costs[si] = m end
 		if yards and priced and type(answer.yards) == "table" then yards[si] = answer.yards[1] end
+		if e.pruned and not (priced and e.bound and m <= e.bound) then mine.stale = true end
 		measured(mine, priced or m == false)
 	end, o, true)
 	if not ok then
@@ -2249,14 +2384,15 @@ function Walk.Measure(c, x, y, water, places, goalZ)
 				break
 			end
 		end
-		if not (start or other) then return false end
-		if start and not other and remeasureStart(P, e, c, x, y, water, start) then return true end
+		if not (start or other or e.stale) then return false end
+		if start and not other and not e.stale and remeasureStart(P, e, c, x, y, water, start) then return true end
 	end
 	-- The places picked, the player's walk, and those the last measure had.
 	local pts, si = {}, nil
 	for _, p in ipairs(pick) do
+		-- The player's own walk bounds the batch (Path.lua Safe.many): a place whose walk can't beat it stays unpriced.
 		pts[#pts + 1] = { x = p.wx, y = p.wy, z = p.z, floors = p.start and p.z == nil and startFloors(c, p.wx, p.wy) or nil,
-			first = p.chosen and not p.start or nil }
+			first = p.chosen and not p.start or nil, bound = p.start or nil }
 		if p.start then si = #pts end
 	end
 	if e then
@@ -2613,10 +2749,16 @@ local function climbs(a)
 end
 
 -- Whether the path rides a lift at segment a: its height changes DZ.RIDE yards or more from the point before the
--- segment to the one after it (the walking engine's path steps from one landing to the other).
-local function rides(a)
+-- segment to the one after it (the walking engine's path steps from one landing to the other). With the landings'
+-- heights (z1, z2), those points reach both: a walk from the top landing up a ramp climbs as much and rides
+-- nothing (#3734: Gnomeregan's and Thunder Bluff's lifts, "Ride the elevator up" again after the ride).
+local function rides(a, z1, z2)
 	local before, after = ptsZ[a > 1 and a - 1 or 1], ptsZ[a + 2 <= count and a + 2 or count]
-	return type(before) == "number" and type(after) == "number" and abs(after - before) >= DZ.RIDE
+	if not (type(before) == "number" and type(after) == "number" and abs(after - before) >= DZ.RIDE) then return false end
+	if not (type(z1) == "number" and type(z2) == "number") then return true end
+	local tol = DZ.RIDE / 2
+	local lo, hi = before < after and before or after, before < after and after or before
+	return lo <= (z1 < z2 and z1 or z2) + tol and hi >= (z1 < z2 and z2 or z1) - tol
 end
 
 local function liftId(c, wx, wy)
@@ -2660,8 +2802,14 @@ function Walk.Stops(pc, px, py)
 		local d, a, sx, sy, along, t = project(e.wx, e.wy)
 		along = along - here
 		-- A lift the path rides is a step however near the walk's ends (the Great Lift's
-		-- bottom landing a few yards from the Thousand Needles crossing).
-		local ridden = kind == "lift" and rides(a)
+		-- bottom landing a few yards from the Thousand Needles crossing). The landings' heights: a packed
+		-- chokepoint's and its pair's, else Transit's lift's top and bottom.
+		local ridden = false
+		if kind == "lift" then
+			local P = _G.PolestarNavChokepoints
+			local o = e.pair and type(P) == "table" and type(P[gc]) == "table" and P[gc][e.pair]
+			if type(o) == "table" then ridden = rides(a, tonumber(e.z), tonumber(o.z)) else ridden = rides(a, tonumber(e.top), tonumber(e.bottom)) end
+		end
 		if d > r then return end
 		if ridden then
 			if along < -r then return end
@@ -2817,6 +2965,8 @@ local WAY_IN_YD = 500
 -- same NPC, an optional turn-in before the accept): no waypoint of its own, so
 -- the way in before it still leads to the target (#1338)
 local SAME_SPOT_YD = 3
+-- The goals whose target is one NPC or object the player goes up to (Walk.FollowsGoto, #3488).
+city.NPC_KIND = { accept = true, turnin = true, talk = true, interact = true }
 
 -- The goal's point in world yards: c, wx, wy | nil.
 local function worldOf(t)
@@ -2832,7 +2982,13 @@ end
 -- hill above the cave (#914). Only a goto on the target's continent within
 -- WAY_IN_YD of it is a way in. Goals at the target's own spot (SAME_SPOT_YD)
 -- are looked past. The goto is found once per target; its state is asked
--- every time.
+-- every time. Since the towns have walking maps, the straight line from there
+-- went through houses (#3488: Northshire Abbey): for an NPC or object the
+-- player talks to (city.NPC_KIND, one spot), it is kept only while the line from
+-- the player's floor to the target crosses no wall, cliff or floor change
+-- (city.GotoClear); a blocked one is walked like any other target. A kill or
+-- collect goal's spots stay straight: walked round, the nearest spot changes
+-- under the player and the arrow flips between two (the Elwynn stretch).
 function Walk.FollowsGoto(target)
 	if target ~= gotoTarget then
 		gotoTarget, gotoStep, gotoGoal = target, nil, nil
@@ -2865,7 +3021,33 @@ function Walk.FollowsGoto(target)
 	end
 	if not gotoStep then return false end
 	local E = ns.Engine
-	return E and E.GoalDone and E.GoalDone(gotoStep, gotoGoal) == true or false
+	if not (E and E.GoalDone and E.GoalDone(gotoStep, gotoGoal) == true) then return false end
+	if not city.NPC_KIND[target.kind] or target.spots or target.spot or target.area or target.search then return true end
+	return city.GotoClear(target)
+end
+
+-- (Walk.FollowsGoto) Whether the straight line from the player to the target crosses no wall, cliff or floor change
+-- (Path.Sight's walls), from the player's floor. True (straight, as before) while the floor is unknown (a search from
+-- no height could start on the hill above the cave, #914) or the grid cannot tell (a cluster not decoded, too long a
+-- line). Read again after MOVE yd or EVERY s; once blocked, the target is walked to its end (never back to the
+-- straight line halfway round the wall).
+function city.GotoClear(target)
+	local C, P = ns.Compat, Nav.Path
+	if not (C and C.GetPlayerWorldPosition and P and P.Sight) then return true end
+	local pc, px, py = C.GetPlayerWorldPosition()
+	local tc, tx, ty = worldOf(target)
+	if not (pc and px and tc == pc and tx) then return true end
+	local now, k = GetTime(), city.gotoSight
+	if k and k.target == target and (k.clear == false or (now - k.at < EVERY and (px - k.x) ^ 2 + (py - k.y) ^ 2 < MOVE * MOVE)) then return k.clear end
+	local z, clear = startZ(pc, px, py), true
+	if z ~= nil then
+		local profile = C.GetPlayerFaction and C.GetPlayerFaction() or nil
+		local ok, s = pcall(P.Sight, pc, px, py, z, tx, ty, tonumber(target.z), profile, true)
+		clear = not (ok and s == false)
+	end
+	if not k then k = {}; city.gotoSight = k end
+	k.target, k.at, k.x, k.y, k.clear = target, now, px, py, clear
+	return clear
 end
 
 ---------------------------------------------------------------------------

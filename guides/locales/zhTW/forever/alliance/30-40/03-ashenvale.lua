@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "飛往{area:150}",
-	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "{zone:1453}飛行管理員",
 
 	-- Step 2: Red Jack Flint
 	-- {npc:4455} Red Jack Flint · {area:2103} Menethil Keep
@@ -162,6 +160,7 @@ return {
 
 	-- Step 27: Ratchet
 	-- {zone:1413} Barrens · {area:392} Ratchet · {area:35} Booty Bay · {npc:3391} Gazlowe · {quest:1111} Wharfmaster Dizzywig
+	-- was: ["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock."] = "從塞拉摩沿路向西北穿過沼澤進入{zone:1413}，再沿海岸北上到{area:392}：荊棘谷從海對面的{area:35}開始。{area:392}的獅鷲管理員站在碼頭上方。"
 	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock; {npc:3391} is upstairs in the house above it; {quest:1111} waits on the dock by the boat."] = "",
 	-- {npc:3391} Gazlowe · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	["{npc:3391}: for {npc:4631}, on {area:35}'s dock where the boat lands"] = "",
@@ -180,9 +179,11 @@ return {
 	-- ["Back west along the road to the satyr camps of {area:429}."] = "沿著道路向西回到{area:429}的薩特營地。",
 	-- ["Boat to {area:150}"] = "搭船前往{area:150}",
 	-- ["Dartol's Rod"] = "達圖爾的變形魔棒",
+	-- ["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills."] = "乘{area:485}下到{zone:1441}，再向西前往{area:482}的雙足飛龍懸崖。那裡所有雙足飛龍都可能掉落毒囊。小心：在平臺上等升降梯與平臺齊平後再踏上去，並一直站到它停下；旁邊的落差會摔死人。",
 	-- ["Follow the road east to the satyr camps of {area:429}; {npc:3920} hides at their edge."] = "沿著道路向東前往{area:429}的薩特營地；{npc:3920}躲在營地邊緣。",
 	-- ["Follow the road west out of Theramore to the burned inn on the road toward the {zone:1413}: the black shield lies in the ashes and the hoofprints are in the mud beside the inn."] = "從塞拉摩沿路向西，到通往{zone:1413}路上的燒燬旅店：黑盾躺在灰燼裡，蹄印在旅店旁的泥地裡。",
 	-- ["Follow the road west out of {area:415}; {area:413} lies north of it."] = "沿著道路向西離開{area:415}；{area:413}在道路北邊。",
+	-- ["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock."] = "從塞拉摩沿路向西北穿過沼澤進入{zone:1413}，再沿海岸北上到{area:392}：荊棘谷從海對面的{area:35}開始。{area:392}的獅鷲管理員站在碼頭上方。",
 	-- ["From {area:608}"] = "從{area:608}出發",
 	-- ["Geltharis"] = "加薩里斯",
 	-- ["Insane druids"] = "發狂的德魯伊",
@@ -212,4 +213,5 @@ return {
 	-- ["{npc:5082}, {npc:4963} and Tapoke Jahn are all at Menethil's inn; {npc:4962} fights you when you talk to {npc:4963}, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn."] = "{npc:5082}、{npc:4963}和{npc:4962}·賈恩都在米奈希爾的旅店；你和{npc:4963}說話時塔伯克會攻擊你，但被打敗後就會投降。{npc:1480}站在旅店東北方不遠處。",
 	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868}散布在整片鹽湖上。恐蠍搶奪者和鹽湖食腐鷲在北半部遊蕩，鹽殼龜（30-31）在鹽湖中部：獵殺牠們取得龜殼。注意：鹽殼鉗嘴龜（34-35）在整片鹽湖遊蕩，鹽石凝視者（34-35）和恐蠍（33-34）佔據最南端：別理牠們，待在北半部。",
 	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}：交給{area:415}的{npc:3961}",
+	-- ["{zone:1453} flight master"] = "{zone:1453}飛行管理員",
 }

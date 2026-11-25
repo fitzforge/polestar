@@ -11,8 +11,10 @@ return {
 	["Zeppelin to {zone:1454}"] = "Zepelín a {zone:1454}",
 
 	-- Step 2: Orgrimmar
+	-- {zone:1454} Orgrimmar · {zone:1445} Dustwallow Marsh
+	["The {zone:1454} and Crossroads stops are on the way for players coming from the previous guide; opened with none of its quests in the log, the guide starts in {zone:1445}."] = "Las paradas de {zone:1454} y El Cruce quedan de camino para los jugadores que vienen de la guía anterior; abierta sin ninguna de sus misiones en el registro, la guía empieza en {zone:1445}.",
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "El centro de {zone:1454}",
 
 	-- Step 3: Orgrimmar
 	-- {item:3713} Soothing Spices
@@ -21,13 +23,13 @@ return {
 	["{npc:3354}, {object:172958}: for {area:720}, later in this guide (offered from level 30)"] = "",
 
 	-- Step 4: Fly to the Crossroads
-	["Fly to the Crossroads"] = "",
+	["Fly to the Crossroads"] = "Vuela al Cruce",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
 
 	-- Step 5: Korran
 	-- {npc:3428} Korran
-	["{npc:3428} stands beside the Crossroads flight master."] = "",
+	["{npc:3428} stands beside the Crossroads flight master."] = "{npc:3428} está junto al maestro de vuelo del Cruce.",
 	-- {npc:4485} Belgrom Rockmaul · {zone:1454} Orgrimmar
 	["for {npc:4485} in {zone:1454}, at the end of this guide"] = "",
 
@@ -66,7 +68,7 @@ return {
 
 	-- Step 14: Brackenwall Village: kill these as you meet them
 	-- {area:496} Brackenwall Village
-	["{area:496}: kill these as you meet them"] = "",
+	["{area:496}: kill these as you meet them"] = "{area:496}: mátalos según te los encuentres",
 	-- plural, as words: Darkfang Lurkers = {npc:4411} Darkfang Lurker · Theramore Infiltrators = {npc:4834} Theramore Infiltrator · Darkmist Lurkers = {npc:4377} Darkmist Lurker
 	["Head west back across the marsh. The Darkfang Lurkers (36-37) and Venomspitters (37-38) on the ridges north of Brackenwall drop the venom sacs. Theramore Infiltrators (35-36) sneak through the same woods: they are stealthed, so look closely.\nThe Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes. Work its outer edge, where the Spiders and Recluses (35-37) stand: the Lurkers and Silkspinners (37-39) deeper in are two or three over you.\nCareful: Darkfang Lurkers (level 36-37) use Sneak to stealth while out of combat and cast Poison once fighting.\nCareful: Stealthed spiders in the same area will attack you on sight.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "Vuelve al oeste cruzando el pantano. Los rondadores Colmilloumbrío (36-37) y los escupevenenos (37-38) de las crestas al norte de Murohelecho sueltan las bolsas de veneno. Los infiltradores de Theramore (35-36) se mueven sigilosos por el mismo bosque: van en sigilo, así que fíjate bien.\nLas arañas Niebla Negra abarrotan la entrada de la cueva al noroeste de Murohelecho; todas sueltan ojos. Ve por el borde exterior, donde están las arañas y las reclusas (35-37): las rondadoras y tejesedas (37-39) del interior están dos o tres niveles por encima de ti.\nCuidado: los rondadores Colmilloumbrío (nivel 36-37) usan Acechar fuera de combate y lanzan Veneno al luchar.\nCuidado: las arañas en sigilo de la zona te atacarán en cuanto te vean.\nCuidado: las rondadoras Niebla Negra se mueven en sigilo y usan veneno en combate. Las arañas están muy juntas, así que es fácil que se unan más; atraer objetivos sueltos desde el borde exterior lo reduce.",
 	-- plural, as words: Giant Darkfang Spiders = {npc:4415} Giant Darkfang Spider
@@ -98,7 +100,7 @@ return {
 	["For {npc:2519} at {object:3202}, in the {zone:1434} & {zone:1435} guide"] = "",
 
 	-- Step 20: Level 36
-	["Level 36"] = "",
+	["Level 36"] = "Nivel 36",
 	-- {zone:1443} Desolace
 	-- plural, as words: Drywallow Crocolisks = {npc:4341} Drywallow Crocolisk
 	["{zone:1443}'s last quests are 36-39. Still below 36 after Brackenwall's hand-ins? The Drywallow Crocolisks (35-36) along the river east of the village are the closest at your level: kill them until level 36."] = "Las últimas misiones de {zone:1443} son de nivel 36-39. ¿Sigues por debajo del 36 tras las entregas de Murohelecho? Los crocoliscos secorrones (35-36) del río al este del poblado son los más cercanos a tu nivel: mátalos hasta el nivel 36.",
@@ -111,7 +113,7 @@ return {
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Vuela a {area:392}",
 	-- {area:496} Brackenwall Village
-	["{area:496} flight master"] = "",
+	["{area:496} flight master"] = "Maestro de vuelo de {area:496}",
 
 	-- Step 22: Ratchet
 	-- {npc:3446} Mebok Mizzyrix
@@ -123,13 +125,13 @@ return {
 
 	-- Step 24: Ratchet flight master
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 	-- {area:392} Ratchet
 	["Back north along the coast to {area:392}'s flight master."] = "Vuelve al norte por la costa hasta el maestro de vuelo de {area:392}.",
 
 	-- Step 25: Fly to Shadowprey Village
 	-- {area:2408} Shadowprey Village
-	["Fly to {area:2408}"] = "",
+	["Fly to {area:2408}"] = "Vuela a {area:2408}",
 	-- {area:2408} Shadowprey Village · {area:392} Ratchet
 	["Fly to {area:2408} from the flight master you are next to: {area:392}'s, or Brackenwall's if you had no errand in {area:392}."] = "Vuela a {area:2408} desde el maestro de vuelo que tengas al lado: el de {area:392}, o el de Murohelecho si no tenías nada que hacer en {area:392}.",
 
@@ -158,7 +160,7 @@ return {
 
 	-- Step 30: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "",
+	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} está retenida en el campamento Maraudine del extremo oeste del valle; libérala y escóltala fuera del valle por el este.\nCuidado: seis centauros atacan durante la escolta, y no puedes limpiarlos antes: solo aparecen durante la escolta y vienen vinculados. En las grabaciones de los jugadores, 14 de las 30 personas que la aceptaron fallaron al menos una vez. Lleva a un amigo, o sáltala si vas solo. Limpiar antes los centauros normales del camino ayuda.",
 
 	-- Step 31: Hornizz Brimbuzzle
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard
@@ -170,7 +172,7 @@ return {
 	-- {area:599} Thunder Axe Fortress · {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {item:13542} Demon Box
 	["North up the road to {area:599}. Clear the middle of the largest building, then use the {item:14523} on the red {object:176581} there. A {npc:11876} (37) comes out: kill it for the {item:13542}. The Burning Blade around it are well under you now."] = "Ve al norte por el camino hasta {area:599}. Despeja el centro del edificio más grande y usa el {item:14523} en el {object:176581} rojo que hay allí. Sale un {npc:11876} (37): mátalo para conseguir la {item:13542}. Los Filo Ardiente de alrededor ya están muy por debajo de tu nivel.",
 	-- {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal
-	["{item:14523}, on the {object:176581}"] = "",
+	["{item:14523}, on the {object:176581}"] = "{item:14523}, en la {object:176581}",
 
 	-- Step 34: Sargeron
 	-- {area:603} Sargeron
@@ -209,7 +211,7 @@ return {
 
 	-- Step 41: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
-	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "",
+	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "Vuela de {area:2408} a {area:1638} y entrena con {npc:3033} en {area:1639}; desde allí, sigue volando a {zone:1454}.",
 
 	-- Step 42: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -219,13 +221,13 @@ return {
 
 	-- Step 43: Back to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Back to {area:1637}"] = "",
+	["Back to {area:1637}"] = "Vuelve a {area:1637}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
 	-- Step 44: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor
-	["{npc:4485} stands in the {object:172958}."] = "",
+	["{npc:4485} stands in the {object:172958}."] = "{npc:4485} está en {object:172958}.",
 
 	-- Step 45: Nogg
 	-- {npc:3412} Nogg · {object:172958} Valley of Honor · {npc:4485} Belgrom Rockmaul · {quest:2841} Rig Wars · {area:133} Gnomeregan
@@ -233,7 +235,7 @@ return {
 
 	-- Step 46: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} trainers"] = "",
+	["{zone:1454} trainers"] = "Instructores de {zone:1454}",
 	-- {zone:1458} Undercity
 	["Train while you are in the city; everyone else trains in the {zone:1458}, next."] = "",
 	-- {zone:1458} Undercity

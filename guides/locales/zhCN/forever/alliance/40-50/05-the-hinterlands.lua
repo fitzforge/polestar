@@ -16,8 +16,7 @@ return {
 	["Vilebranch Soothsayers"] = "邪枝占卜者",
 	-- {area:355} Altar of Zul · {npc:7996} Qiaga the Keeper · {npc:8636} Morta'gya the Keeper
 	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer · Vilebranch Totems = {item:279225} Vilebranch Totem
-	-- was: ["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "邪枝占卜者（46-47）在{area:355}山脚周围游荡：他们的图腾交给先知玛雷特·火心。小心：{npc:7996}和{npc:8636}（50级，精英）站在祭坛东南侧：去祭坛西侧打占卜者，远离她们，别上祭坛。"
-	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "",
+	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "邪枝占卜者（46-47）在{area:355}山脚周围游荡：他们的图腾交给先知玛雷特·火心，还有更多邪枝图腾散落在他们中间的地上：也把它们捡起来。小心：{npc:7996}和{npc:8636}（50级，精英）站在祭坛东南侧：去祭坛西侧打占卜者，远离她们，别上祭坛。",
 
 	-- Step 3: Skulk Rock
 	-- {area:351} Skulk Rock · {zone:1425} The Hinterlands
@@ -88,9 +87,9 @@ return {
 
 	-- Step 16: Fin Fizracket
 	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
-	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "",
+	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "小队任务：{quest:348}在薄雾山谷的{npc:1449}处结束。交给他十颗大猩猩獠牙，他会召来三波大猩猩（41-42），一波接一波，然后是{npc:1514}（44）。玩家记录中，开始此任务的27人里有12人死在那里。如果有一两个朋友同行就接。",
 	-- {npc:2486} Fin Fizracket
-	["{npc:2486}, beside the inn"] = "",
+	["{npc:2486}, beside the inn"] = "{npc:2486}，在旅店旁边",
 
 	-- Step 17: Oglethorpe Obnoticus
 	-- {zone:1444} Feralas · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay
@@ -161,14 +160,14 @@ return {
 
 	-- Step 35: Negolash's bait
 	-- {npc:1494} Negolash
-	["{npc:1494}'s bait"] = "",
+	["{npc:1494}'s bait"] = "{npc:1494}的诱饵",
 	-- {npc:1494} Negolash · {quest:619} Enticing Negolash · {area:35} Booty Bay · {item:4595} Junglevine Wine · {npc:2832} Nixxrax Fillamug
 	-- plural, as words: Barbecued Buzzard Wings = {item:4457} Barbecued Buzzard Wing
-	["{npc:1494} comes only for his food: hand in {quest:619} at Captain Smotts' ruined lifeboat on the shore south-east of {area:35}, with 10 Barbecued Buzzard Wings and 5 {item:4595}, and he comes to the boat. {npc:2832}, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House."] = "",
+	["{npc:1494} comes only for his food: hand in {quest:619} at Captain Smotts' ruined lifeboat on the shore south-east of {area:35}, with 10 Barbecued Buzzard Wings and 5 {item:4595}, and he comes to the boat. {npc:2832}, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House."] = "{npc:1494}只为食物而来：在{area:35}东南海岸斯莫茨船长那艘破损的救生艇处交还{quest:619}，需要10块烧烤秃鹰翅膀和5个{item:4595}，他就会来到船上。旅店里的饮食商人{npc:2832}卖酒。这些翅膀是烹饪菜品：如果你不会烹饪，就从拍卖行买。",
 	-- {item:4457} Barbecued Buzzard Wing
-	["{item:4457}: in your bags already if you cook"] = "",
+	["{item:4457}: in your bags already if you cook"] = "{item:4457}：如果你会烹饪，背包里已经有了",
 	-- {object:2289} Ruined Lifeboat · {npc:1494} Negolash
-	["{object:2289}: the food goes in, {npc:1494} comes"] = "",
+	["{object:2289}: the food goes in, {npc:1494} comes"] = "{object:2289}：把食物放进去，{npc:1494}就会来",
 
 	-- Step 36: Facing Negolash
 	-- {npc:1494} Negolash

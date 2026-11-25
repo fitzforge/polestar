@@ -127,7 +127,7 @@ step Windshaper Boro
 # ---------------------------------------------------------------- Shen'dar Village
 
 step Shen'dar Village
-  tip Follow the road south to Shen'dar Village, in the middle of the isle. Constable Aonda stands on its east side, Illaya Amberwind in the middle, Coriella just north-west of her, Raan Wildwind by the campfire on the west side. With a profession learned, Raan also offers its Camping 101: its trainer stands in the village.
+  tip Follow the road south to Shen'dar Village, in the middle of the isle. Constable Aonda stands on its east side, Illaya Amberwind in the middle, Coriella just north-west of her, Raan Wildwind by the campfire on the west side. With a profession learned, Raan also offers its Camping 101: its trainer stands in the village. The Strange Hermit has his own for engineers.
   turnin 92472                        -- Constable Aonda
   accept 92514                        -- Constable Aonda
   accept 92595                        -- Illaya Amberwind
@@ -176,6 +176,24 @@ step Camping 101: Fishing
   when skill Fishing 1
   tip Fenn Fairweather takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97967                        -- Raan Wildwind
+
+step Camping 101: Herbalism
+  when skill Herbalism 1
+  when !knows 1229705
+  tip Halassa Fernbreeze takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97968                        -- Raan Wildwind
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  when !knows 1229504
+  tip Taleen Shimmerthread takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97972                        -- Raan Wildwind
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  when !knows 1230643
+  tip Nasalanna Windsinger takes it once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 98284                        -- Raan Wildwind
 
 step Shen'dar Village
   turnin 92514                        -- Constable Aonda
@@ -230,6 +248,24 @@ step Fenn Fairweather
   when complete 97967
   complete 97967 @45.02,48.44 map 2521 live
   turnin 97967                        -- Fenn Fairweather
+
+step Halassa Fernbreeze
+  when onquest 97968
+  when complete 97968
+  complete 97968 @42.97,43.54 map 2521 live
+  turnin 97968 npc 257021             -- Halassa Fernbreeze
+
+step Taleen Shimmerthread
+  when onquest 97972
+  when complete 97972
+  complete 97972 @44.8,44.25 map 2521 live
+  turnin 97972                        -- Taleen Shimmerthread
+
+step Nasalanna Windsinger
+  when onquest 98284
+  when complete 98284
+  complete 98284 @43.2,43.24 map 2521 live
+  turnin 98284                        -- Nasalanna Windsinger
 
 step Shen'dar Village: kill these as you meet them
   zone Zephras Isle
@@ -628,6 +664,12 @@ step The Strange Hermit
   accept 93160
   accept 93172
 
+step Camping 101: Engineering
+  when skill Engineering 1
+  when !knows 1230656
+  tip The Strange Hermit has a Camping 101 for engineers too, and takes it back once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 98285                        -- Strange Hermit
+
 step Windsong Lake
   tip Zephyrseed cones grow south of the hermit; the Wind Hollows drift east of the lake and also drop the Wind Hollow Essences for Endaria's Unwelcome Spirits. The refugees' belongings lie along the north shore of Windsong Lake; Resaan Nimbuswalker is at its north-west end.
   collect 257128 quest 93160.1
@@ -639,6 +681,12 @@ step Windsong Lake
 step The Strange Hermit
   turnin 93160
   turnin 93172
+
+step Strange Hermit
+  when onquest 98285
+  when complete 98285
+  complete 98285 @53.96,38.9 map 2521 live -- talk to the Strange Hermit
+  turnin 98285                        -- Strange Hermit: Camping 101: Engineering
 
 # ---------------------------------------------------------------- Shrine of Akir
 

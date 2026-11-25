@@ -1,11 +1,15 @@
-Forever.lua holds facts derived from ForeverLevelingBiS by Thunder:
+Polestar_ItemDB: Items.lua and Forever.lua hold game data (c) Blizzard Entertainment, read from
+the Classic Era and Forever client tables and used as facts for interoperability. Forever.lua's
+quest rewards and item sources come from Polestar's Codex (`forge data codex`), built from
+release-safe sources only: the client tables, QuestieDB facts (credited, used with the Questie
+maintainers' agreement), pfQuest (MIT), the web quest database's per-entity Forever facts, and
+Polestar's own recordings and guides. See THIRD_PARTY.md.
+
+pfQuest:
 
 MIT License
 
-Copyright (c) 2026 Polestar contributors
-
-Synthetic test data written by hand for Polestar's golden tests. It follows ForeverLevelingBiS's
-file layout, but no value in it is copied from that addon.
+Copyright (c) 2017-2021 Eric Mauser (Shagu)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

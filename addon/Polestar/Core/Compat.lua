@@ -467,11 +467,25 @@ function Compat.IsOnQuest(questID)
 	return false
 end
 
+-- Whether questID is in the log and ready to hand in: the game's flag, and
+-- no counted item or kill line short of its count. The flag alone has been
+-- seen set with a line still at 0/1 (The Witch Doctor's Head with no
+-- Zum'rah's Head, #3639), which counted it among the hand-ins waiting
+-- elsewhere. Only those lines: their counts are the bag's and the kills';
+-- other kinds the client reports oddly (a skill line, #1952; an event the
+-- game ticks without a count), and there the flag stays the word. A quest
+-- with no lines (talk to someone, deliver an item) has only the flag.
+local COUNTED = { item = true, monster = true }
 function Compat.IsQuestReadyForTurnIn(questID)
 	if not (C_QuestLog and C_QuestLog.IsOnQuest and C_QuestLog.IsOnQuest(questID)) then return false end
-	if C_QuestLog.ReadyForTurnIn and C_QuestLog.ReadyForTurnIn(questID) then return true end
-	if C_QuestLog.IsComplete and C_QuestLog.IsComplete(questID) then return true end
-	return false
+	if not ((C_QuestLog.ReadyForTurnIn and C_QuestLog.ReadyForTurnIn(questID))
+		or (C_QuestLog.IsComplete and C_QuestLog.IsComplete(questID))) then return false end
+	local objs = Compat.GetQuestObjectives(questID)
+	for i = 1, objs and #objs or 0 do
+		local o = objs[i]
+		if COUNTED[o.type] and not o.finished and o.numFulfilled < o.numRequired then return false end
+	end
+	return true
 end
 
 -- Whether questID is in the log and failed (an escort lost, a timer run out,
@@ -1402,6 +1416,18 @@ function Compat.IsPlayerSpell(spellID)
 	return known and true or false
 end
 
+-- Whether the game lets the character cast the spell, its reagents and power
+-- included (a talent can do away with a reagent: a mage's Reagent Economy,
+-- #3815): true, false, or nil when the client cannot tell; then true when it
+-- is only the mana that is short.
+function Compat.IsSpellUsable(spellID)
+	local fn = (C_Spell and C_Spell.IsSpellUsable) or IsUsableSpell
+	if not (spellID and fn) then return nil end
+	local ok, usable, noMana = pcall(fn, spellID)
+	if not ok or (issecretvalue and (issecretvalue(usable) or issecretvalue(noMana))) then return nil end
+	return usable and true or false, noMana and true or false
+end
+
 -- Spells in the spellbook, and profession recipes (which are not).
 function Compat.IsSpellKnown(spellID)
 	if not spellID then return false end
@@ -1461,6 +1487,17 @@ if ns.RegisterEvent then
 	for _, event in ipairs({ "SPELLS_CHANGED", "LEARNED_SPELL_IN_TAB", "PLAYER_ENTERING_WORLD" }) do
 		ns.RegisterEvent(event, function() bookNames = nil end)
 	end
+end
+
+-- Whether the character knows spell `id`: by its id, else by its name in the
+-- spellbook (KnowsSpellNamed: another race's chain teaches the same ability
+-- under another id). `english`: the name to look for when the client has none
+-- for the id.
+function Compat.KnowsSpell(id, english)
+	if Compat.IsSpellKnown(id) then return true end
+	local name = C_Spell and C_Spell.GetSpellName and readable(C_Spell.GetSpellName(id))
+	if type(name) ~= "string" or name == "" then name = english end
+	return Compat.KnowsSpellNamed(name)
 end
 
 -- A skill line's name in the client's language (C_SkillInfo by ID, else the

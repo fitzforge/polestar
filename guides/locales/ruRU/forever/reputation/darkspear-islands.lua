@@ -14,6 +14,8 @@ return {
 	-- Step 1: Merchant Coast
 	-- {zone:2524} Darkspear Islands · {zone:1445} Dustwallow Marsh · {area:391} Merchant Coast · {area:392} Ratchet · {npc:275276} Nizook Boof
 	["The {zone:2524} lie off the coast of {zone:1445}: 15 against 15, from level 30. Hold the four capture points to gain points, faster the more you hold, and carry the flag from the middle to a base your team holds for more; the first team to 2000 points wins. The sea kills: cross on the bridges. Queue at any battlemaster or step through the portal here at the {area:391}, north of {area:392}. {npc:275276} pays 200 reputation for your first win. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide."] = "",
+	-- {zone:2524} Darkspear Islands
+	["win a {zone:2524} battleground"] = "победите на поле боя «{zone:2524}»",
 	["after a win"] = "",
 
 	-- Step 4: Horde Warbringer
@@ -49,7 +51,7 @@ return {
 	-- {npc:263570} Creeg Bothunk
 	["{npc:263570}: Friendly rewards"] = "",
 	-- {npc:15350} Horde Warbringer
-	["{npc:15350}: 100 for 3 marks"] = "",
+	["{npc:15350}: 100 for 3 marks"] = "{npc:15350}: 100 за 3 знака",
 
 	-- Step 10: Darkspear Raiders to Revered
 	-- {faction:2798} Darkspear Raiders
@@ -109,7 +111,7 @@ return {
 	-- {npc:263569} Bryanna Embreeze
 	["{npc:263569}: Friendly rewards"] = "",
 	-- {npc:15351} Alliance Brigadier General
-	["{npc:15351}: 100 for 3 marks"] = "",
+	["{npc:15351}: 100 for 3 marks"] = "{npc:15351}: 100 за 3 знака",
 
 	-- Step 22: Theramore Expeditionary Force to Revered
 	-- {faction:2799} Theramore Expeditionary Force

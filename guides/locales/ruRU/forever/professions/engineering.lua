@@ -14,11 +14,10 @@ return {
 
 	-- Step 2: Engineering 1-75: vendor goods
 	-- {skill:202} Engineering
-	["{skill:202} 1-75: vendor goods"] = "",
+	["{skill:202} 1-75: vendor goods"] = "{skill:202} 1-75: товары торговцев",
 	-- {item:2880} Weak Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:5514} Brooke Stonebraid · {npc:1286} Edna Mullby
-	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "",
-	-- was: ["{item:5956}: a tool, keep it in your bags"] = "{item:5956}: инструмент, держите его в сумке"
-	["a tool, keep it in your bags"] = "",
+	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "Купите сразу все для этого этапа: {item:2880} 18 (18с) и {item:5956} (инструмент: один, держите в сумках, 18м); всего около 18с 18м. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:5519}, {npc:5514} и {npc:1286}).",
+	["a tool, keep it in your bags"] = "инструмент, держите его в сумках",
 
 	-- Step 3: Engineering 1-75: Auction House
 	-- {skill:202} Engineering
@@ -28,31 +27,31 @@ return {
 
 	-- Step 4: Rough Stone (Elwynn Forest)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1429} Elwynn Forest
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1429} is marked."] = "",
+	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1429} is marked."] = "{item:2835} 46 для {spell:3918}: {skill:186}: {object:1731} (навык 1). В {zone:1429} отмечено место, где {object:1731} встречается чаще всего.",
 
 	-- Step 5: Rough Stone (Dun Morogh)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1426} Dun Morogh
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1426} is marked."] = "",
+	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1426} is marked."] = "{item:2835} 46 для {spell:3918}: {skill:186}: {object:1731} (навык 1). В {zone:1426} отмечено место, где {object:1731} встречается чаще всего.",
 
 	-- Step 6: Rough Stone (Darkshore)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1439} Darkshore
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1439} is marked."] = "",
+	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1439} is marked."] = "{item:2835} 46 для {spell:3918}: {skill:186}: {object:1731} (навык 1). В {zone:1439} отмечено место, где {object:1731} встречается чаще всего.",
 
 	-- Step 7: Rough Stone (Zephras Isle)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:2521} Zephras Isle
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:2521} is marked."] = "",
+	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:2521} is marked."] = "{item:2835} 46 для {spell:3918}: {skill:186}: {object:1731} (навык 1). В {zone:2521} отмечено место, где {object:1731} встречается чаще всего.",
 
 	-- Step 8: Rough Stone (Durotar)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1411} Durotar
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1411} is marked."] = "",
+	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1411} is marked."] = "{item:2835} 46 для {spell:3918}: {skill:186}: {object:1731} (навык 1). В {zone:1411} отмечено место, где {object:1731} встречается чаще всего.",
 
 	-- Step 9: Rough Stone (Mulgore)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1412} Mulgore
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1412} is marked."] = "",
+	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1412} is marked."] = "{item:2835} 46 для {spell:3918}: {skill:186}: {object:1731} (навык 1). В {zone:1412} отмечено место, где {object:1731} встречается чаще всего.",
 
 	-- Step 10: Rough Stone (Tirisfal Glades)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1420} Tirisfal Glades
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1420} is marked."] = "",
+	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1420} is marked."] = "{item:2835} 46 для {spell:3918}: {skill:186}: {object:1731} (навык 1). В {zone:1420} отмечено место, где {object:1731} встречается чаще всего.",
 
 	-- Step 11: Copper Bar
 	-- {item:2840} Copper Bar · {spell:3922} Handful of Copper Bolts · {item:6219} Arclight Spanner · {spell:3924} Copper Tube · {skill:186} Mining · {item:2770} Copper Ore
@@ -63,7 +62,7 @@ return {
 	["{spell:3918} to 35"] = "{spell:3918} до 35",
 	-- {spell:3918} Rough Blasting Powder · {item:2835} Rough Stone · {item:2770} Copper Ore
 	-- plural, as words: Copper Veins = {object:1731} Copper Vein
-	["{spell:3918} is orange at 1 (yellow 20, green 30, grey 40): about 46 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft; {item:2835} comes with the {item:2770} from Copper Veins."] = "",
+	["{spell:3918} is orange at 1 (yellow 20, green 30, grey 40): about 46 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft; {item:2835} comes with the {item:2770} from Copper Veins."] = "{spell:3918}: оранжевый на 1 (желтый 20, зеленый 30, серый 40): около 46 изготовлений до 35. Каждое требует 1 {item:2835}. По одному {item:2835} на изготовление; {item:2835} добывается вместе с {item:2770} из медных жил.",
 
 	-- Step 13: Engineering recipes at 35
 	-- {skill:202} Engineering
@@ -76,7 +75,7 @@ return {
 	["{spell:3922} to 57"] = "{spell:3922} до 57",
 	-- {spell:3922} Handful of Copper Bolts · {item:2840} Copper Bar · {item:5956} Blacksmith Hammer
 	-- plural, as words: Practice Locks = {item:6712} Practice Lock
-	["{spell:3922} is orange at 35 (yellow 45, green 52, grey 60): about 33 crafts to 57. Each takes 1 {item:2840}. One {item:2840} a craft. Keep the bolts: Practice Locks and later gadgets take them. Needs an anvil nearby. {item:5956} is a tool: keep it in your bags."] = "",
+	["{spell:3922} is orange at 35 (yellow 45, green 52, grey 60): about 33 crafts to 57. Each takes 1 {item:2840}. One {item:2840} a craft. Keep the bolts: Practice Locks and later gadgets take them. Needs an anvil nearby. {item:5956} is a tool: keep it in your bags."] = "{spell:3922}: оранжевый на 35 (желтый 45, зеленый 52, серый 60): около 33 изготовлений до 57. Каждое требует 1 {item:2840}. По одному {item:2840} на изготовление. Сохраняйте болты: учебные замки и поздние устройства их требуют. Нужна наковальня рядом. {item:5956} – инструмент: держите его в сумках.",
 
 	-- Step 15: Engineering recipes at 57
 	-- {skill:202} Engineering
@@ -89,7 +88,7 @@ return {
 	["{spell:3924} to 75"] = "{spell:3924} до 75",
 	-- {spell:3924} Copper Tube · {item:2840} Copper Bar · {item:2880} Weak Flux · {item:6219} Arclight Spanner
 	-- plural, as words: Copper Bars = {item:2840} Copper Bar
-	["{spell:3924} is orange at 57 (yellow 80, green 95, grey 110): about 18 crafts to 75, a point every craft. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. Make the {item:6219} now, while it still gives a point: a later recipe needs it in your bags, so keep it there."] = "",
+	["{spell:3924} is orange at 57 (yellow 80, green 95, grey 110): about 18 crafts to 75, a point every craft. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. Make the {item:6219} now, while it still gives a point: a later recipe needs it in your bags, so keep it there."] = "{spell:3924}: оранжевый на 57 (желтый 80, зеленый 95, серый 110): около 18 изготовлений до 75, по очку за каждое. Каждое требует 2 {item:2840} и 1 {item:2880}. Два медных слитка и {item:2880} на изготовление (у кузнецов и инженеров). Нужна наковальня рядом. Сделайте {item:6219} сейчас, пока он еще дает очко: более поздний рецепт требует его в сумках, так что держите его там.",
 	["a tool: keep it in your bags"] = "инструмент: держите его в сумке",
 
 	-- Step 17: Journeyman Engineering
@@ -102,7 +101,7 @@ return {
 	-- {skill:202} Engineering
 	["{skill:202} 75-150: vendor goods"] = "{skill:202} 75-150: товары торговцев",
 	-- {item:2880} Weak Flux · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:5514} Brooke Stonebraid · {npc:1286} Edna Mullby
-	["Buy the whole bracket's share in one go: 45 {item:2880} (45s); about 45s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "",
+	["Buy the whole bracket's share in one go: 45 {item:2880} (45s); about 45s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "Купите сразу все для этого этапа: {item:2880} 45 (45с); всего около 45с. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:5519}, {npc:5514} и {npc:1286}).",
 
 	-- Step 19: Engineering 75-150: Auction House
 	-- {skill:202} Engineering
@@ -112,35 +111,35 @@ return {
 
 	-- Step 20: Coarse Stone (Westfall)
 	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1436} Westfall
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1436} is marked."] = "",
+	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1436} is marked."] = "{item:2836} 15 для {spell:3930}: {skill:186}: {object:1732} (навык 65). В {zone:1436} отмечено место, где {object:1732} встречается чаще всего.",
 
 	-- Step 21: Coarse Stone (Loch Modan)
 	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1432} Loch Modan
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1432} is marked."] = "",
+	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1432} is marked."] = "{item:2836} 15 для {spell:3930}: {skill:186}: {object:1732} (навык 65). В {zone:1432} отмечено место, где {object:1732} встречается чаще всего.",
 
 	-- Step 22: Coarse Stone (Darkshore)
 	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1439} Darkshore
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1439} is marked."] = "",
+	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1439} is marked."] = "{item:2836} 15 для {spell:3930}: {skill:186}: {object:1732} (навык 65). В {zone:1439} отмечено место, где {object:1732} встречается чаще всего.",
 
 	-- Step 23: Coarse Stone (The Barrens)
 	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1413} is marked."] = "",
+	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1413} is marked."] = "{item:2836} 15 для {spell:3930}: {skill:186}: {object:1732} (навык 65). В {zone:1413} отмечено место, где {object:1732} встречается чаще всего.",
 
 	-- Step 24: Coarse Stone (Silverpine Forest)
 	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1421} Silverpine Forest
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1421} is marked."] = "",
+	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1421} is marked."] = "{item:2836} 15 для {spell:3930}: {skill:186}: {object:1732} (навык 65). В {zone:1421} отмечено место, где {object:1732} встречается чаще всего.",
 
 	-- Step 25: Heavy Stone (Arathi Highlands)
 	-- {item:2838} Heavy Stone · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands
-	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1417} is marked."] = "",
+	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1417} is marked."] = "{item:2838} 27 для {spell:3945}: {skill:186}: {object:1735} (навык 125). В {zone:1417} отмечено место, где {object:1735} встречается чаще всего.",
 
 	-- Step 26: Heavy Stone (Ashenvale)
 	-- {item:2838} Heavy Stone · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1440} Ashenvale
-	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1440} is marked."] = "",
+	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1440} is marked."] = "{item:2838} 27 для {spell:3945}: {skill:186}: {object:1735} (навык 125). В {zone:1440} отмечено место, где {object:1735} встречается чаще всего.",
 
 	-- Step 27: Heavy Stone (The Barrens)
 	-- {item:2838} Heavy Stone · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1413} The Barrens
-	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1413} is marked."] = "",
+	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1413} is marked."] = "{item:2838} 27 для {spell:3945}: {skill:186}: {object:1735} (навык 125). В {zone:1413} отмечено место, где {object:1735} встречается чаще всего.",
 
 	-- Step 29: Copper Bar
 	-- {item:2840} Copper Bar · {spell:3930} Crafted Heavy Shot · {spell:3924} Copper Tube · {item:6712} Practice Lock · {skill:186} Mining · {item:2770} Copper Ore
@@ -156,16 +155,17 @@ return {
 
 	-- Step 32: Crafted Heavy Shot to 94
 	-- {spell:3930} Crafted Heavy Shot
-	["{spell:3930} to 94"] = "",
+	["{spell:3930} to 94"] = "{spell:3930} до 94",
 	-- {spell:3930} Crafted Heavy Shot · {spell:3929} Coarse Blasting Powder · {item:2840} Copper Bar
-	["{spell:3930} is orange at 75 (yellow 85, green 90, grey 95): about 15 crafts to 94. Each takes 1 {spell:3929} and 1 {item:2840} and makes 200. Make the 15 {spell:3929} first: it gives points too while not grey. The {spell:3929} in each gives its own point while it is not grey: two chances a craft. Sell the shot to hunters or a vendor."] = "",
+	["{spell:3930} is orange at 75 (yellow 85, green 90, grey 95): about 15 crafts to 94. Each takes 1 {spell:3929} and 1 {item:2840} and makes 200. Make the 15 {spell:3929} first: it gives points too while not grey. The {spell:3929} in each gives its own point while it is not grey: two chances a craft. Sell the shot to hunters or a vendor."] = "{spell:3930}: оранжевый на 75 (желтый 85, зеленый 90, серый 95): около 15 изготовлений до 94. Каждое требует 1 {spell:3929} и 1 {item:2840} и makes 200. Сначала сделайте 15 {spell:3929}: пока не серый, он тоже дает очки. {spell:3929} в каждой единице дает свое очко, пока не серый: два шанса на изготовление. Продавайте дробь охотникам или торговцу.",
 
 	-- Step 33: Copper Tube to 100
 	-- {spell:3924} Copper Tube
 	["{spell:3924} to 100"] = "{spell:3924} до 100",
 	-- {spell:3924} Copper Tube · {item:2840} Copper Bar · {item:2880} Weak Flux
 	-- plural, as words: Copper Bars = {item:2840} Copper Bar
-	["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby."] = "",
+	-- was: ["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby."] = "{spell:3924}: желтый на 94 (желтый 80, зеленый 95, серый 110): около 14 изготовлений до 100. Каждое требует 2 {item:2840} и 1 {item:2880}. Два медных слитка и {item:2880} на изготовление (у кузнецов и инженеров). Нужна наковальня рядом."
+	["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. If you got here without learning {spell:3924}, learn it now: an earlier step teaches it."] = "{spell:3924}: желтый на 94 (желтый 80, зеленый 95, серый 110): около 14 изготовлений до 100. Каждое требует 2 {item:2840} и 1 {item:2880}. Два медных слитка и {item:2880} на изготовление (у поставщиков кузнецов и инженеров). Нужна наковальня рядом. Если вы дошли сюда, не выучив {spell:3924}, выучите сейчас: его учит один из прошлых шагов.",
 
 	-- Step 34: Engineering recipes at 100
 	-- {skill:202} Engineering
@@ -178,7 +178,8 @@ return {
 	["{item:6712} to 125"] = "{item:6712} до 125",
 	-- {item:6712} Practice Lock · {item:2841} Bronze Bar · {spell:3922} Handful of Copper Bolts · {item:2880} Weak Flux
 	-- plural, as words: Practice Locks = {item:6712} Practice Lock
-	["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby."] = "",
+	-- was: ["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby."] = "{item:6712}: оранжевый на 100 (желтый 115, зеленый 122, серый 130): около 31 изготовлений до 125. Каждое требует 1 {item:2841}, 2 {spell:3922} и 1 {item:2880}. Сначала сделайте 29 {spell:3922}. Используйте 33 {spell:3922}, сделанных ранее; в подсчете выше они не учтены. Учебные замки продаются разбойникам, или вскрывайте их сами. Нужна наковальня рядом."
+	["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby. If you got here without learning {spell:3922}, learn it now: an earlier step teaches it."] = "{item:6712}: оранжевый на 100 (желтый 115, зеленый 122, серый 130): около 31 изготовления до 125. Каждое требует 1 {item:2841}, 2 {spell:3922} и 1 {item:2880}. Сначала сделайте 29 {spell:3922}. Используйте 33 {spell:3922}, сделанных раньше; в подсчете выше они не учтены. Учебные замки покупают разбойники, или вскрывайте их сами. Нужна наковальня рядом. Если вы дошли сюда, не выучив {spell:3922}, выучите сейчас: его учит один из прошлых шагов.",
 
 	-- Step 36: Engineering recipes at 125
 	-- {skill:202} Engineering
@@ -191,7 +192,7 @@ return {
 	["{spell:3945} to 140"] = "{spell:3945} до 140",
 	-- {spell:3945} Heavy Blasting Powder · {item:2838} Heavy Stone
 	-- plural, as words: Iron Deposits = {object:1735} Iron Deposit · Iron Grenades = {item:4390} Iron Grenade
-	["{spell:3945} is yellow at 125 (yellow 125, green 135, grey 145): about 27 crafts to 140. Each takes 1 {item:2838}. One {item:2838} a craft (Iron Deposits). Keep some: Iron Grenades take one each."] = "",
+	["{spell:3945} is yellow at 125 (yellow 125, green 135, grey 145): about 27 crafts to 140. Each takes 1 {item:2838}. One {item:2838} a craft (Iron Deposits). Keep some: Iron Grenades take one each."] = "{spell:3945}: желтый на 125 (желтый 125, зеленый 135, серый 145): около 27 изготовлений до 140. Каждое требует 1 {item:2838}. По одному {item:2838} на изготовление (залежи железа). Оставьте несколько: железные гранаты требуют по одному.",
 
 	-- Step 38: Engineering recipes at 140
 	-- {skill:202} Engineering
@@ -203,7 +204,7 @@ return {
 	-- {spell:3950} Big Bronze Bomb
 	["{spell:3950} to 150"] = "{spell:3950} до 150",
 	-- {spell:3950} Big Bronze Bomb · {item:4377} Heavy Blasting Powder · {item:2841} Bronze Bar · {spell:3973} Silver Contact · {skill:202} Engineering
-	["{spell:3950} is yellow at 140 (yellow 140, green 165, grey 190): about 10 crafts to 150. Each takes 2 {item:4377}, 3 {item:2841} and 1 {spell:3973} and makes 3. Make the 10 {spell:3973} (2 crafts) first. Use the 20 {item:4377} you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. Needs an anvil nearby. {skill:202} 150 is a Legacy System milestone."] = "",
+	["{spell:3950} is yellow at 140 (yellow 140, green 165, grey 190): about 10 crafts to 150. Each takes 2 {item:4377}, 3 {item:2841} and 1 {spell:3973} and makes 3. Make the 10 {spell:3973} (2 crafts) first. Use the 20 {item:4377} you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. Needs an anvil nearby. {skill:202} 150 is a Legacy System milestone."] = "{spell:3950}: желтый на 140 (желтый 140, зеленый 165, серый 190): около 10 изготовлений до 150. Каждое требует 2 {item:4377}, 3 {item:2841} и 1 {spell:3973} и makes 3. Сначала сделайте 10 {spell:3973} (2 изготовления). Используйте 20 {item:4377}, сделанных ранее; в подсчете выше они не учтены. Этому обучает учитель, и по данным это самый дешевый способ набрать эти очки. Нужна наковальня рядом. {skill:202} 150 – веха системы Наследия.",
 
 	-- Step 40: Expert Engineering
 	-- {skill:202} Engineering
@@ -213,9 +214,9 @@ return {
 
 	-- Step 41: Engineering 150-225: vendor goods
 	-- {skill:202} Engineering
-	["{skill:202} 150-225: vendor goods"] = "",
+	["{skill:202} 150-225: vendor goods"] = "{skill:202} 150-225: товары торговцев",
 	-- {item:6530} Nightcrawlers · {zone:1453} Stormwind City · {npc:5494} Catherine Leland · {npc:1286} Edna Mullby
-	["Buy the whole bracket's share in one go: 31 {item:6530} (31s); about 31s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5494} and {npc:1286})."] = "",
+	["Buy the whole bracket's share in one go: 31 {item:6530} (31s); about 31s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5494} and {npc:1286})."] = "Купите сразу все для этого этапа: {item:6530} 31 (31с); всего около 31с. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:5494} и {npc:1286}).",
 
 	-- Step 42: Engineering 150-225: Auction House
 	-- {skill:202} Engineering
@@ -227,13 +228,13 @@ return {
 	-- {item:2319} Medium Leather
 	["{item:2319} (Alliance)"] = "{item:2319} (Альянс)",
 	-- {item:2319} Medium Leather · {spell:3953} Bronze Framework · {skill:393} Skinning · {npc:2248} Cave Yeti · {npc:2356} Elder Gray Bear · {npc:2385} Feral Mountain Lion · {npc:2351} Gray Bear · {npc:2384} Starving Mountain Lion · {npc:2354} Vicious Gray Bear
-	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "",
+	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "{item:2319} 19 для {spell:3953}: {skill:393}: звери 18-30 уровня. Снимайте шкуры с {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} и {npc:2354} здесь (18-30 уровня); маршрут ведет гайд {skill:393}.",
 
 	-- Step 44: Medium Leather (Horde)
 	-- {item:2319} Medium Leather
 	["{item:2319} (Horde)"] = "{item:2319} (Орда)",
 	-- {item:2319} Medium Leather · {spell:3953} Bronze Framework · {skill:393} Skinning · {npc:3809} Ashenvale Bear · {npc:3810} Elder Ashenvale Bear · {npc:3818} Elder Shadowhorn Stag · {npc:3823} Ghostpaw Runner · {npc:3811} Giant Ashenvale Bear · {npc:3817} Shadowhorn Stag
-	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} here (level 18-30); the {skill:393} guide routes this."] = "",
+	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} here (level 18-30); the {skill:393} guide routes this."] = "{item:2319} 19 для {spell:3953}: {skill:393}: звери 18-30 уровня. Снимайте шкуры с {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} и {npc:3817} здесь (18-30 уровня); маршрут ведет гайд {skill:393}.",
 
 	-- Step 45: Wool Cloth
 	-- {item:2592} Wool Cloth · {spell:3953} Bronze Framework
@@ -243,25 +244,26 @@ return {
 	-- {item:2836} Coarse Stone
 	["{item:2836} (Alliance)"] = "{item:2836} (Альянс)",
 	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1432} Loch Modan · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
-	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1432} (10-20), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1432} is marked."] = "",
+	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1432} (10-20), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1432} is marked."] = "{item:2836} 31 для {item:6533}: {skill:186}: {object:1732} (навык 65) в {zone:1432} (10-20), {zone:1440} (18-30) и {zone:1424} (20-30). В {zone:1432} отмечено место, где {object:1732} встречается чаще всего.",
 
 	-- Step 47: Coarse Stone (Horde)
 	-- {item:2836} Coarse Stone
 	["{item:2836} (Horde)"] = "{item:2836} (Орда)",
 	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
-	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "",
+	-- was: ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "{item:2836} 31 для {item:6533}: {skill:186}: {object:1732} (навык 65) в {zone:1413} (10-25), {zone:1440} (18-30) и {zone:1424} (20-30). В {zone:1440} отмечено место, где {object:1732} встречается чаще всего."
+	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1413} is marked."] = "31 {item:2836} для {item:6533}: {skill:186}: {object:1732} (навык 65) в зонах {zone:1413} (10-25), {zone:1440} (18-30) и {zone:1424} (20-30). Самое плотное скопление {object:1732} в зоне {zone:1413} отмечено.",
 
 	-- Step 48: Heavy Stone (Alliance)
 	-- {item:2838} Heavy Stone
 	["{item:2838} (Alliance)"] = "{item:2838} (Альянс)",
 	-- {item:2838} Heavy Stone · {spell:3967} Big Iron Bomb · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {zone:1443} Desolace
-	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked."] = "",
+	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked."] = "{item:2838} 74 для {spell:3967}: {skill:186}: {object:1735} (навык 125) в {zone:1417} (30-40), {zone:1434} (30-45) и {zone:1443} (30-40). В {zone:1417} отмечено место, где {object:1735} встречается чаще всего.",
 
 	-- Step 49: Heavy Stone (Horde)
 	-- {item:2838} Heavy Stone
 	["{item:2838} (Horde)"] = "{item:2838} (Орда)",
 	-- {item:2838} Heavy Stone · {spell:3967} Big Iron Bomb · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1441} Thousand Needles · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
-	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked."] = "",
+	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked."] = "{item:2838} 74 для {spell:3967}: {skill:186}: {object:1735} (навык 125) в {zone:1441} (25-35), {zone:1417} (30-40) и {zone:1434} (30-45). В {zone:1441} отмечено место, где {object:1735} встречается чаще всего.",
 
 	-- Step 50: Bronze Bar
 	-- {item:2841} Bronze Bar · {item:6533} Aquadynamic Fish Attractor · {spell:3953} Bronze Framework · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
@@ -283,26 +285,27 @@ return {
 	-- {item:7912} Solid Stone
 	["{item:7912} (Alliance)"] = "{item:7912} (Альянс)",
 	-- {item:7912} Solid Stone · {item:10505} Solid Blasting Powder · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked."] = "",
+	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked."] = "{item:7912} 62 для {item:10505}: {skill:186}: {object:2040} (навык 175) в {zone:1434} (30-45), {zone:1425} (40-50) и {zone:1444} (40-50). В {zone:1434} отмечено место, где {object:2040} встречается чаще всего.",
 
 	-- Step 55: Solid Stone (Horde)
 	-- {item:7912} Solid Stone
 	["{item:7912} (Horde)"] = "{item:7912} (Орда)",
 	-- {item:7912} Solid Stone · {item:10505} Solid Blasting Powder · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "",
+	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "{item:7912} 62 для {item:10505}: {skill:186}: {object:2040} (навык 175) в {zone:1443} (30-40), {zone:1425} (40-50) и {zone:1444} (40-50). В {zone:1443} отмечено место, где {object:2040} встречается чаще всего.",
 
 	-- Step 56: Aquadynamic Fish Attractor to 166
 	-- {item:6533} Aquadynamic Fish Attractor
-	["{item:6533} to 166"] = "",
+	["{item:6533} to 166"] = "{item:6533} до 166",
 	-- {item:6533} Aquadynamic Fish Attractor · {item:2841} Bronze Bar · {item:6530} Nightcrawlers · {spell:3929} Coarse Blasting Powder
-	["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen."] = "",
+	-- was: ["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen."] = "{item:6533}: желтый на 150 (желтый 150, зеленый 160, серый 170): около 31 изготовлений до 166. Каждое требует 2 {item:2841}, 1 {item:6530} и 1 {spell:3929} и makes 3. Сначала сделайте 31 {spell:3929}. {item:6530} продается у торговцев и рыболовных поставщиков; приманки продаются рыбакам."
+	["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen. If you got here without learning {spell:3929}, learn it now: an earlier step teaches it."] = "{item:6533}: желтый на 150 (желтый 150, зеленый 160, серый 170): около 31 изготовления до 166. Каждое требует 2 {item:2841}, 1 {item:6530} и 1 {spell:3929} и дает 3. Сначала сделайте 31 {spell:3929}. {item:6530} продается у торговцев товарами и рыболовными принадлежностями; приманки покупают рыбаки. Если вы дошли сюда, не выучив {spell:3929}, выучите сейчас: его учит один из прошлых шагов.",
 
 	-- Step 57: Bronze Framework to 175
 	-- {spell:3953} Bronze Framework
 	["{spell:3953} to 175"] = "{spell:3953} до 175",
 	-- {spell:3953} Bronze Framework · {item:2841} Bronze Bar · {item:2319} Medium Leather · {item:2592} Wool Cloth
 	-- plural, as words: Bronze Frameworks = {spell:3953} Bronze Framework
-	["{spell:3953} is yellow at 166 (yellow 145, green 170, grey 195): about 19 crafts to 175. Each takes 2 {item:2841}, 1 {item:2319} and 1 {item:2592}. Bronze Frameworks are parts for later gadgets; the extras sell to vendors."] = "",
+	["{spell:3953} is yellow at 166 (yellow 145, green 170, grey 195): about 19 crafts to 175. Each takes 2 {item:2841}, 1 {item:2319} and 1 {item:2592}. Bronze Frameworks are parts for later gadgets; the extras sell to vendors."] = "{spell:3953}: желтый на 166 (желтый 145, зеленый 170, серый 195): около 19 изготовлений до 175. Каждое требует 2 {item:2841}, 1 {item:2319} и 1 {item:2592}. Бронзовые каркасы – детали для поздних устройств; лишние продаются торговцам.",
 
 	-- Step 58: Engineering recipes at 175
 	-- {skill:202} Engineering
@@ -312,10 +315,10 @@ return {
 
 	-- Step 59: Solid Blasting Powder to 191
 	-- {item:10505} Solid Blasting Powder
-	["{item:10505} to 191"] = "",
+	["{item:10505} to 191"] = "{item:10505} до 191",
 	-- {item:10505} Solid Blasting Powder · {item:7912} Solid Stone
 	-- plural, as words: Mithril Deposits = {object:2040} Mithril Deposit
-	["{item:10505} is yellow at 175 (yellow 175, green 185, grey 195): about 31 crafts to 191. Each takes 2 {item:7912}. Two {item:7912} a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it."] = "",
+	["{item:10505} is yellow at 175 (yellow 175, green 185, grey 195): about 31 crafts to 191. Each takes 2 {item:7912}. Two {item:7912} a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it."] = "{item:10505}: желтый на 175 (желтый 175, зеленый 185, серый 195): около 31 изготовлений до 191. Каждое требует 2 {item:7912}. По два {item:7912} на изготовление (мифриловые залежи). Сделайте с запасом: курки, пули и гирострел используют его.",
 
 	-- Step 60: Engineering recipes at 191
 	-- {skill:202} Engineering
@@ -325,10 +328,11 @@ return {
 
 	-- Step 61: Big Iron Bomb to 210
 	-- {spell:3967} Big Iron Bomb
-	["{spell:3967} to 210"] = "",
+	["{spell:3967} to 210"] = "{spell:3967} до 210",
 	-- {spell:3967} Big Iron Bomb · {item:3575} Iron Bar · {spell:3945} Heavy Blasting Powder · {spell:3973} Silver Contact · {item:2842} Silver Bar · {item:2838} Heavy Stone · {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:5518} Lilliam Sparkspindle · {zone:1453} Stormwind City · {npc:4586} Graham Van Talen · {zone:1458} Undercity · {area:392} Ratchet · {spell:20220} Gnomish Engineering · {npc:7944} Tinkmaster Overspark · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay · {item:4407} Accurate Scope · {npc:8126} Nixx Sprocketspring · {area:976} Gadgetzan · {item:10507} Solid Dynamite · {npc:2675} Explosive Sheep
 	-- plural, as words: Silver Contacts = {spell:3973} Silver Contact · Mithril Tubes = {item:10559} Mithril Tube · Big Iron Bombs = {spell:3967} Big Iron Bomb
-	["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby."] = "{spell:3967}: желтый на 191 (желтый 190, зеленый 210, серый 230): около 27 изготовлений до 210. Каждое требует 3 {item:3575}, 3 {spell:3945} и 1 {spell:3973} и дает 2 шт. Сначала сделайте 74 {spell:3945} и 30 {spell:3973} (6 изготовлений). Используйте 7 {spell:3945}, сделанных ранее; в подсчете выше они не учтены. Из {item:2842} выходит пять серебряных контактов (уже серые: очков нет, зато не нужно идти к торговцу); {spell:3945} делается из {item:2838}. Каждое изготовление дает две бомбы. Специализация (необязательно): на 200 и уровне персонажа 30 {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) или Оловень ({area:392}) направит вас к {spell:20220} ({npc:7944}, {zone:1455}, или {npc:7406}, {area:35}: 6 мифриловых трубок, {item:4407} и 2 улучшенных тренировочных манекена) или к гоблинской инженерии ({npc:8126}, {area:976}: 20 больших железных бомб, 20 {item:10507} и 5 {npc:2675}). Схема {item:4407} теперь становится персональной при получении, но для задания годится прицел, сделанный другим игроком. Членская карта действует 14 дней игрового времени; продление стоит 2з. Можно выбрать только одну; ни одна не нужна для 300, и на бете их не проверяли (она заканчивалась на уровне 30). Нужна наковальня рядом.",
+	-- was: ["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby."] = "{spell:3967}: желтый на 191 (желтый 190, зеленый 210, серый 230): около 27 изготовлений до 210. Каждое требует 3 {item:3575}, 3 {spell:3945} и 1 {spell:3973} и дает 2 шт. Сначала сделайте 74 {spell:3945} и 30 {spell:3973} (6 изготовлений). Используйте 7 {spell:3945}, сделанных ранее; в подсчете выше они не учтены. Из {item:2842} выходит пять серебряных контактов (уже серые: очков нет, зато не нужно идти к торговцу); {spell:3945} делается из {item:2838}. Каждое изготовление дает две бомбы. Специализация (необязательно): на 200 и уровне персонажа 30 {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) или Оловень ({area:392}) направит вас к {spell:20220} ({npc:7944}, {zone:1455}, или {npc:7406}, {area:35}: 6 мифриловых трубок, {item:4407} и 2 улучшенных тренировочных манекена) или к гоблинской инженерии ({npc:8126}, {area:976}: 20 больших железных бомб, 20 {item:10507} и 5 {npc:2675}). Схема {item:4407} теперь становится персональной при получении, но для задания годится прицел, сделанный другим игроком. Членская карта действует 14 дней игрового времени; продление стоит 2з. Можно выбрать только одну; ни одна не нужна для 300, и на бете их не проверяли (она заканчивалась на уровне 30). Нужна наковальня рядом."
+	["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. If you got here without learning {spell:3945} and {spell:3973}, learn them now: an earlier step teaches them."] = "{spell:3967}: желтый на 191 (желтый 190, зеленый 210, серый 230): около 27 изготовлений до 210. Каждое требует 3 {item:3575}, 3 {spell:3945} и 1 {spell:3973} и дает 2. Сначала сделайте 74 {spell:3945} и 30 {spell:3973} (6 изготовлений). Используйте 7 {spell:3945}, сделанных раньше; в подсчете выше они не учтены. {item:2842} дает пять серебряных контактов (уже серые: очков нет, но и к торговцу идти не нужно); {spell:3945} делается из {item:2838}. Каждое изготовление дает две бомбы. Специализация (по желанию): на 200 и 30-м уровне персонажа {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) или Тинкервиз ({area:392}) отправляет вас к {spell:20220} ({npc:7944}, {zone:1455}, или {npc:7406}, {area:35}: 6 мифриловых труб, {item:4407} и 2 усовершенствованных манекена-мишени) или в гоблинскую инженерию ({npc:8126}, {area:976}: 20 больших железных бомб, 20 {item:10507} и 5 {npc:2675}). Схема {item:4407} теперь становится персональной при получении, но задание принимает прицел, сделанный кем-то другим. Членская карта действует 14 дней игры; продление стоит 2з. Можно выбрать только одну; ни одна не нужна для 300, и бета их никогда не проверяла (она остановилась на 30-м уровне). Нужна наковальня рядом. Если вы дошли сюда, не выучив {spell:3945} и {spell:3973}, выучите их сейчас: их учит один из прошлых шагов.",
 
 	-- Step 62: Engineering recipes at 210
 	-- {skill:202} Engineering
@@ -340,7 +344,7 @@ return {
 	-- {item:10512} Hi-Impact Mithril Slugs
 	["{item:10512} to 225"] = "{item:10512} до 225",
 	-- {item:10512} Hi-Impact Mithril Slugs · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder · {skill:202} Engineering
-	["{item:10512} is yellow at 210 (yellow 210, green 230, grey 250): about 19 crafts to 225. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Use the 19 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. {skill:202} 225 is a Legacy System milestone."] = "",
+	["{item:10512} is yellow at 210 (yellow 210, green 230, grey 250): about 19 crafts to 225. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Use the 19 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. {skill:202} 225 is a Legacy System milestone."] = "{item:10512}: желтый на 210 (желтый 210, зеленый 230, серый 250): около 19 изготовлений до 225. Каждое требует 1 {item:3860} и 1 {item:10505} и makes 200. Используйте 19 {item:10505}, сделанных ранее; в подсчете выше они не учтены. По одному {item:3860} и {item:10505} на изготовление; пули покупают охотники. Нужна наковальня рядом. {skill:202} 225 – веха системы Наследия.",
 
 	-- Step 64: Artisan Engineering
 	-- {skill:202} Engineering
@@ -368,11 +372,11 @@ return {
 
 	-- Step 69: Solid Stone (Alliance)
 	-- {item:7912} Solid Stone · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked."] = "",
+	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked."] = "{item:7912} 212 для {item:10512} и {item:10513}: {skill:186}: {object:2040} (навык 175) в {zone:1425} (40-50), {zone:1444} (40-50) и {zone:1447} (45-55). В {zone:1425} отмечено место, где {object:2040} встречается чаще всего.",
 
 	-- Step 70: Solid Stone (Horde)
 	-- {item:7912} Solid Stone · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "",
+	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "{item:7912} 212 для {item:10512} и {item:10513}: {skill:186}: {object:2040} (навык 175) в {zone:1443} (30-40), {zone:1425} (40-50) и {zone:1444} (40-50). В {zone:1443} отмечено место, где {object:2040} встречается чаще всего.",
 
 	-- Step 71: Thorium Bar
 	-- {item:12359} Thorium Bar · {item:15994} Thorium Widget · {item:16000} Thorium Tube · {skill:186} Mining · {item:10620} Thorium Ore
@@ -386,7 +390,8 @@ return {
 	-- {item:10512} Hi-Impact Mithril Slugs
 	["{item:10512} to 245"] = "{item:10512} до 245",
 	-- {item:10512} Hi-Impact Mithril Slugs · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder
-	["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby."] = "",
+	-- was: ["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby."] = "{item:10512}: желтый на 225 (желтый 210, зеленый 230, серый 250): около 62 изготовлений до 245. Каждое требует 1 {item:3860} и 1 {item:10505} и makes 200. Сначала сделайте 50 {item:10505}. Используйте 12 {item:10505}, сделанных ранее; в подсчете выше они не учтены. По одному {item:3860} и {item:10505} на изготовление; пули покупают охотники. Нужна наковальня рядом."
+	["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. If you got here without learning {item:10505} and {item:10512}, learn them now: an earlier step teaches them."] = "{item:10512}: желтый на 225 (желтый 210, зеленый 230, серый 250): около 62 изготовлений до 245. Каждое требует 1 {item:3860} и 1 {item:10505} и дает 200. Сначала сделайте 50 {item:10505}. Используйте 12 {item:10505}, сделанных раньше; в подсчете выше они не учтены. По одному {item:3860} и {item:10505} на изготовление; пули покупают охотники. Нужна наковальня рядом. Если вы дошли сюда, не выучив {item:10505} и {item:10512}, выучите их сейчас: их учит один из прошлых шагов.",
 
 	-- Step 74: Engineering recipes at 245
 	-- {skill:202} Engineering
@@ -399,14 +404,15 @@ return {
 	["{item:10513} to 265"] = "{item:10513} до 265",
 	-- {item:10513} Mithril Gyro-Shot · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder
 	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
-	["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "",
+	-- was: ["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "{item:10513}: желтый на 245 (желтый 245, зеленый 265, серый 285): около 28 изготовлений до 265. Каждое требует 2 {item:3860} и 2 {item:10505} и makes 200. Сначала сделайте 56 {item:10505}. Два мифриловых слитка и два {item:10505} на изготовление. Нужна наковальня рядом."
+	["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby. If you got here without learning {item:10505}, learn it now: an earlier step teaches it."] = "{item:10513}: желтый на 245 (желтый 245, зеленый 265, серый 285): около 28 изготовлений до 265. Каждое требует 2 {item:3860} и 2 {item:10505} и дает 200. Сначала сделайте 56 {item:10505}. Два мифриловых слитка и два {item:10505} на изготовление. Нужна наковальня рядом. Если вы дошли сюда, не выучив {item:10505}, выучите сейчас: его учит один из прошлых шагов.",
 
 	-- Step 76: Thorium Widget to 287
 	-- {item:15994} Thorium Widget
 	["{item:15994} to 287"] = "{item:15994} до 287",
 	-- {item:15994} Thorium Widget · {item:12359} Thorium Bar · {item:14047} Runecloth
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["{item:15994} is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 {item:12359} and 1 {item:14047}. Three Thorium Bars and a {item:14047} a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby."] = "",
+	["{item:15994} is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 {item:12359} and 1 {item:14047}. Three Thorium Bars and a {item:14047} a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby."] = "{item:15994}: оранжевый на 265 (желтый 280, зеленый 290, серый 300): около 24 изготовлений до 287. Каждое требует 3 {item:12359} и 1 {item:14047}. Три ториевых слитка и {item:14047} на изготовление; детальки идут в поздние ториевые устройства. Нужна наковальня рядом.",
 	["from the recipe in your bags"] = "по рецепту из сумки",
 
 	-- Step 77: Thorium Tube to 300
@@ -414,9 +420,10 @@ return {
 	["{item:16000} to 300"] = "{item:16000} до 300",
 	-- {item:16000} Thorium Tube · {item:12359} Thorium Bar · {skill:202} Engineering
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "",
+	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "{item:16000}: оранжевый на 287 (желтый 295, зеленый 305, серый 315): около 14 изготовлений до 300. Каждое требует 6 {item:12359}. Схема становится персональной при получении; шесть ториевых слитков на изготовление. Нужна наковальня рядом. {skill:202} 300 – веха системы Наследия.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "{item:2836} 31 для {item:6533}: {skill:186}: {object:1732} (навык 65) в {zone:1413} (10-25), {zone:1440} (18-30) и {zone:1424} (20-30). В {zone:1440} отмечено место, где {object:1732} встречается чаще всего.",
 	-- ["Apprentice {skill:202}"] = "{skill:202}: Ученик",
 	-- ["Artisan needs character level 35 and {skill:202} 200; it raises the cap to 300. Materials for 225-300 are worth about 67g in all."] = "Ранг «Искусник» требует уровня персонажа 35 и навыка {skill:202} 200; предел становится 300. Материалы на 225-300 стоят всего около 67з.",
 	-- ["Back to an {skill:202} trainer: {spell:12590} is taught from {skill:202} 175."] = "Вернитесь к учителю ({skill:202}): {spell:12590} – с навыка {skill:202} 175.",
@@ -452,6 +459,8 @@ return {
 	-- ["Yellow until 90, green until 95: not every craft gives a point."] = "Желтый до 90, зеленый до 95: не каждое изготовление дает очко.",
 	-- ["Yellow until 95, green until 110: not every craft gives a point. Needs an anvil nearby."] = "Желтый до 95, зеленый до 110: не каждое изготовление дает очко. Нужна наковальня рядом.",
 	-- ["{item:10498} to 210"] = "{item:10498} до 210",
+	-- ["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby."] = "{item:10512}: желтый на 225 (желтый 210, зеленый 230, серый 250): около 62 изготовлений до 245. Каждое требует 1 {item:3860} и 1 {item:10505} и makes 200. Сначала сделайте 50 {item:10505}. Используйте 12 {item:10505}, сделанных ранее; в подсчете выше они не учтены. По одному {item:3860} и {item:10505} на изготовление; пули покупают охотники. Нужна наковальня рядом.",
+	-- ["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "{item:10513}: желтый на 245 (желтый 245, зеленый 265, серый 285): около 28 изготовлений до 265. Каждое требует 2 {item:3860} и 2 {item:10505} и makes 200. Сначала сделайте 56 {item:10505}. Два мифриловых слитка и два {item:10505} на изготовление. Нужна наковальня рядом.",
 	-- ["{item:14047} (Alliance)"] = "{item:14047} (Альянс)",
 	-- ["{item:14047} (Horde)"] = "{item:14047} (Орда)",
 	-- ["{item:2592} (Alliance)"] = "{item:2592} (Альянс)",
@@ -462,6 +471,8 @@ return {
 	-- ["{item:2836} comes from {object:1732} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:2836} добывается из: {object:1732} ({skill:186}) – по данным, здесь их больше всего. Подойдет и аукцион.",
 	-- ["{item:2838} comes from {object:1735} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:2838} добывается из: {object:1735} ({skill:186}) – по данным, здесь их больше всего. Подойдет и аукцион.",
 	-- ["{item:5956}: a tool, keep it in your bags"] = "{item:5956}: инструмент, держите его в сумке",
+	-- ["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen."] = "{item:6533}: желтый на 150 (желтый 150, зеленый 160, серый 170): около 31 изготовлений до 166. Каждое требует 2 {item:2841}, 1 {item:6530} и 1 {spell:3929} и makes 3. Сначала сделайте 31 {spell:3929}. {item:6530} продается у торговцев и рыболовных поставщиков; приманки продаются рыбакам.",
+	-- ["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby."] = "{item:6712}: оранжевый на 100 (желтый 115, зеленый 122, серый 130): около 31 изготовлений до 125. Каждое требует 1 {item:2841}, 2 {spell:3922} и 1 {item:2880}. Сначала сделайте 29 {spell:3922}. Используйте 33 {spell:3922}, сделанных ранее; в подсчете выше они не учтены. Учебные замки продаются разбойникам, или вскрывайте их сами. Нужна наковальня рядом.",
 	-- ["{item:7912} comes from {object:2040} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:7912} добывается из: {object:2040} ({skill:186}) – по данным, здесь их больше всего. Подойдет и аукцион.",
 	-- ["{npc:3263} (level 19-20) drop it here. The Auction House works too."] = "Добыча здесь: {npc:3263} (уровень 19-20). Подойдет и аукцион.",
 	-- ["{npc:6189} (level 51-52) drop it here. The Auction House works too."] = "Добыча здесь: {npc:6189} (уровень 51-52). Подойдет и аукцион.",
@@ -482,8 +493,10 @@ return {
 	-- ["{spell:3920} to 45"] = "{spell:3920} до 45",
 	-- ["{spell:3923} to 75"] = "{spell:3923} до 75",
 	-- ["{spell:3923} to 80"] = "{spell:3923} до 80",
+	-- ["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby."] = "{spell:3924}: желтый на 94 (желтый 80, зеленый 95, серый 110): около 14 изготовлений до 100. Каждое требует 2 {item:2840} и 1 {item:2880}. Два медных слитка и {item:2880} на изготовление (у кузнецов и инженеров). Нужна наковальня рядом.",
 	-- ["{spell:3926} to 111"] = "{spell:3926} до 111",
 	-- ["{spell:3929} to 95"] = "{spell:3929} до 95",
 	-- ["{spell:3937} to 125"] = "{spell:3937} до 125",
 	-- ["{spell:3942} to 150"] = "{spell:3942} до 150",
+	-- ["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby."] = "{spell:3967}: желтый на 191 (желтый 190, зеленый 210, серый 230): около 27 изготовлений до 210. Каждое требует 3 {item:3575}, 3 {spell:3945} и 1 {spell:3973} и дает 2 шт. Сначала сделайте 74 {spell:3945} и 30 {spell:3973} (6 изготовлений). Используйте 7 {spell:3945}, сделанных ранее; в подсчете выше они не учтены. Из {item:2842} выходит пять серебряных контактов (уже серые: очков нет, зато не нужно идти к торговцу); {spell:3945} делается из {item:2838}. Каждое изготовление дает две бомбы. Специализация (необязательно): на 200 и уровне персонажа 30 {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) или Оловень ({area:392}) направит вас к {spell:20220} ({npc:7944}, {zone:1455}, или {npc:7406}, {area:35}: 6 мифриловых трубок, {item:4407} и 2 улучшенных тренировочных манекена) или к гоблинской инженерии ({npc:8126}, {area:976}: 20 больших железных бомб, 20 {item:10507} и 5 {npc:2675}). Схема {item:4407} теперь становится персональной при получении, но для задания годится прицел, сделанный другим игроком. Членская карта действует 14 дней игрового времени; продление стоит 2з. Можно выбрать только одну; ни одна не нужна для 300, и на бете их не проверяли (она заканчивалась на уровне 30). Нужна наковальня рядом.",
 }

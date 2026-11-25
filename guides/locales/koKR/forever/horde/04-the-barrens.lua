@@ -18,7 +18,11 @@ return {
 	-- {npc:3419} Apothecary Zamah · {item:5638} Toxic Fogger · {object:19594} Venture Co. Copter Pad · {area:461} Windshear Crag
 	["{npc:3419}: the {item:5638} goes on the {object:19594} at {area:461}, on this guide's Windshear trip"] = "{npc:3419}: {item:5638}은(는) 이 가이드의 바람가름 바위산 방문 때 {area:461}의 {object:19594}에 사용합니다",
 
-	-- Step 3: Thunder Bluff
+	-- Step 3: Apothecary Zamah
+	-- {npc:3419} Apothecary Zamah · {quest:1086} The Flying Machine Airport · {area:2197} Pools of Vision · {area:1640} Spirit Rise
+	["The toxin is already with {npc:3419}: take {quest:1086} from her in the {area:2197}, under {area:1640}."] = "독소는 이미 {npc:3419}에게 있습니다: {area:1640} 아래 {area:2197}에서 그녀에게 {quest:1086}을(를) 받으십시오.",
+
+	-- Step 4: Thunder Bluff
 	-- {npc:2995} Tal · {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof
 	["{npc:2995}, the wind rider master, stands on the central rise: take his flight path if you don't have it. {npc:3024} and {npc:4721} stand a short walk east of him."] = "와이번 조련사 {npc:2995}은(는) 중앙 언덕에 있습니다. 비행 경로가 없다면 얻으세요. {npc:3024}와(과) {npc:4721}은(는) 그의 동쪽으로 조금 걸어간 곳에 있습니다.",
 	-- {npc:3024} Tah Winterhoof · {object:667362} Mirkweed · {area:464} Mirkfallon Lake
@@ -26,13 +30,13 @@ return {
 	-- {npc:4721} Zangen Stonehoof · {zone:1440} Ashenvale
 	["{npc:4721}: the phial comes from {zone:1440}, next guide"] = "{npc:4721}: 약병은 다음 가이드에서 {zone:1440}에서 얻습니다",
 
-	-- Step 4: Fly to Camp Taurajo
+	-- Step 5: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo
 	["Fly to {area:378}"] = "{area:378}(으)로 비행",
 	-- {area:378} Camp Taurajo · {npc:2995} Tal · {zone:1456} Thunder Bluff
 	["Fly to {area:378}: {npc:2995} on {zone:1456}'s central rise, or the Crossroads' wind rider master if you start this guide there."] = "{area:378}(으)로 비행하세요. {zone:1456} 중앙 언덕의 {npc:2995}, 또는 이 가이드를 크로스로드에서 시작한다면 크로스로드의 와이번 조련사입니다.",
 
-	-- Step 5: Camp Taurajo
+	-- Step 6: Camp Taurajo
 	-- {area:378} Camp Taurajo · {npc:3433} Tatternack Steelforge · {npc:3387} Jorn Skyseer · {npc:3430} Mangletooth
 	["The flight lands at {area:378}'s wind rider master. {npc:3433} stands at the north edge of the camp, {npc:3387} and {npc:3430} (in the cage) in the middle."] = "비행편은 {area:378}의 와이번 조련사에게 도착합니다. {npc:3433}은(는) 야영지 북쪽 가장자리에, {npc:3387}와(과) {npc:3430}(우리 안)은(는) 한가운데에 있습니다.",
 	-- {npc:3433} Tatternack Steelforge
@@ -40,27 +44,29 @@ return {
 	-- {npc:3430} Mangletooth
 	["{npc:3430}, in the cage"] = "{npc:3430}, 우리 안",
 
-	-- Step 6: Grunt Logmar
+	-- Step 7: Grunt Logmar
 	-- {npc:5911} Grunt Logmar · {npc:268623} Outraged Pillager
 	-- plural, as words: Encroaching Soldiers = {npc:268622} Encroaching Soldier
 	["{npc:5911} stands by the flight master. His {npc:268623} (23) is elite: grouping up is advised; the two Encroaching Soldiers are not."] = "",
 	-- {npc:5911} Grunt Logmar · {npc:3341} Gann Stonespire
 	["{npc:5911}: the soldiers and the pillager camp just east of {npc:3341}, on the way south"] = "",
 
-	-- Step 7: Field of Giants
+	-- Step 8: Field of Giants
 	-- {npc:3341} Gann Stonespire · {area:390} Field of Giants
 	-- plural, as words: Silithid Mounds = {object:3685} Silithid Mound · Silithid Swarmers = {npc:3252} Silithid Swarmer
 	["South of Camp Taurajo, on the road to {npc:3341}, the Silithid Mounds dot the {area:390}; the eggs lie in them, and Silithid Swarmers come out to defend them.\nCareful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit."] = "타우라조 야영지 남쪽, {npc:3341}에게 가는 길의 {area:390}에 실리시드 흙더미가 흩어져 있습니다. 알은 그 안에 있으며, 우두머리 실리시드가 나와 지킵니다.\n주의: 이 지역의 우두머리 실리시드는 주문을 방해하는 작은 몹을 여럿 풀어놓습니다. 가시 같은 피해 보호막이면 한 방에 죽습니다.",
 
-	-- Step 9: Brine
+	-- Step 10: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {area:359} Bael Modan
 	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}, on the way to {area:359}."] = "{npc:5899}의 오두막은 {area:378} 남쪽, {area:359}(으)로 가는 길에 있는 가시멧돼지 물웅덩이 위 능선에 있습니다.",
 	-- {npc:5899} Brine · {area:272} Tarren Mill
 	["{npc:5899}: the red waterskin from {area:272}"] = "{npc:5899}: {area:272}에서 채운 빨간 물주머니",
+
+	-- Step 11: Brine
 	-- {npc:5899} Brine · {zone:1440} Ashenvale
 	["{npc:5899}: the blue waterskin is filled in {zone:1440}, next guide"] = "{npc:5899}: 파란 물주머니는 다음 가이드에서 {zone:1440}에서 채웁니다",
 
-	-- Step 10: Gann Stonespire
+	-- Step 12: Gann Stonespire
 	-- {npc:3341} Gann Stonespire · {area:359} Bael Modan · {npc:14242} Sulhasa
 	["{npc:3341} walks the road south toward {area:359}, between about 46,75 and 46,81: if he isn't at the arrow, follow the road until you meet him. {npc:14242} sits up in the tree just east of the road at 47.9,77.5."] = "",
 	-- {npc:3341} Gann Stonespire · {area:1701} Blackthorn Ridge
@@ -68,67 +74,67 @@ return {
 	-- {npc:14242} Sulhasa · {npc:3341} Gann Stonespire
 	["{npc:14242}, up in the tree just east of {npc:3341}"] = "{npc:14242}, {npc:3341} 바로 동쪽 나무 위",
 
-	-- Step 11: Wrongly Blamed, Justly Corrected
+	-- Step 13: Wrongly Blamed, Justly Corrected
 	-- {npc:14242} Sulhasa · {npc:268623} Outraged Pillager
 	-- plural, as words: Encroaching Soldiers = {npc:268622} Encroaching Soldier
 	["A few steps east of {npc:14242}'s tree, a small camp: two Encroaching Soldiers and the {npc:268623} for Logmar. The {npc:268623} is elite: grouping up is advised."] = "",
 
-	-- Step 12: Bael Modan
+	-- Step 14: Bael Modan
 	-- {area:359} Bael Modan · {npc:3392} Prospector Khazgorm
 	["South of Gann, the Bael'dun dwarves dig at {area:359}. Excavators and Foremen work the pit; {npc:3392} (26) carries the journal: pull him alone.\nCareful: Excavators (level 21-22) and Foremen (level 22-23) run off for help once they fall to 15% health, so more dwarves can join the fight."] = "갠 남쪽 {area:359}에서 바엘던 드워프들이 발굴하고 있습니다. 바엘던 발굴인부와 현장감독이 구덩이에서 일하며, {npc:3392}(26)이(가) 일지를 가지고 있으니 그만 따로 끌어오십시오.\n주의: 발굴인부(21-22레벨)와 현장감독(22-23레벨)은 생명력이 15%로 떨어지면 도움을 청하러 달아나므로 드워프가 더 합류할 수 있습니다.",
 	-- {npc:3375} Bael'dun Foreman · {area:359} Bael Modan
 	["{npc:3375} walks around {area:359}: look inside the circle on the map"] = "",
 
-	-- Step 13: Blackthorn Ridge
+	-- Step 15: Blackthorn Ridge
 	-- {area:1701} Blackthorn Ridge · {npc:3436} Kuz · {npc:3434} Nak · {npc:3435} Lok Orcbane · {npc:5859} Hagg Taurenbane · {quest:885} Washte Pawne · {spell:1752} Sinister Strike
 	-- plural, as words: Razormane Stalkers = {npc:3457} Razormane Stalker
 	["West of Gann, the Razormane hold {area:1701}. {npc:3436} is on the east side, {npc:3434} to the south, {npc:3435} at the west end. Lok (25) and the Warfrenzies (24-25) are a few levels above you; {npc:5859}, a rare elite, sometimes walks the ridge: leave him. Pathfinders and Stalkers drop the Backstabber, Seers the Wand, Warfrenzies the War Shield. {quest:885}, a rare red wind serpent, flies over the ridge: its feather starts a quest.\nCareful: Razormane Stalkers move around in stealth and hit with {spell:1752}, so they can join a fight without warning."] = "갠 서쪽의 {area:1701}은(는) 서슬갈기일족이 차지하고 있습니다. {npc:3436}은(는) 동쪽에, {npc:3434}은(는) 남쪽에, {npc:3435}은(는) 서쪽 끝에 있습니다. 로크(25)와 서슬갈기일족 광전사(24-25)는 몇 레벨 높습니다. 희귀 정예 {npc:5859}이(가) 가끔 능선을 걸으니 피하십시오. 서슬갈기일족 길잡이와 정찰꾼이 기습용 단검을, 점쟁이가 마법봉을, 광전사가 전투용 방패를 떨어뜨립니다. 희귀한 붉은 바람뱀 {quest:885}이(가) 능선 위를 날며, 그 깃털로 퀘스트가 시작됩니다.\n주의: 서슬갈기일족 정찰꾼은 은신한 채 돌아다니며 {spell:1752}(으)로 공격하므로, 예고 없이 싸움에 합류할 수 있습니다.",
 
-	-- Step 14: Field to Clear
+	-- Step 16: Field to Clear
 	-- {npc:3341} Gann Stonespire · {npc:3238} Stormhide
 	-- plural, as words: Hecklefang Stalkers = {npc:4128} Hecklefang Stalker · Qiraji Lieutenants = {npc:15806} Qiraji Lieutenant
 	["On the way back east to {npc:3341}: Hecklefang Stalkers and {npc:3238} lizards roam the plain between the ridge and his camp. Careful: Qiraji Lieutenants (28, elite) sometimes stand on that plain: give them a wide berth."] = "",
 	-- {npc:4128} Hecklefang Stalker · {area:1156} Southern Barrens
 	["{npc:4128} walks around {area:1156}: look inside the circle on the map"] = "",
 
-	-- Step 16: Bael'dun fortress
+	-- Step 18: Bael'dun fortress
 	["Bael'dun fortress"] = "바엘던 요새",
 	-- {npc:3414} General Twinbraid
 	-- plural, as words: Bael'dun Soldiers = {npc:3376} Bael'dun Soldier
 	["The Bael'dun Soldiers, Riflemen and Officers guard the fortress on the east side of the dig; all three items drop from them. {npc:3414} (30) and his Officers stand on the bottom floor: work the soldiers and riflemen on the upper levels and keep away from him.\nCareful: Riflemen (level 24-25) Shoot from 5-30 yd, so nearby ones can join a fight from range."] = "",
 
-	-- Step 18: The flying machine
+	-- Step 20: The flying machine
 	["The flying machine"] = "비행 기계",
 	-- {item:5021} Explosive Stick of Gann · {npc:3341} Gann Stonespire
 	["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "드워프의 비행 기계는 발굴 현장 안 발판 위에 있습니다. {npc:3341}이(가) 준 {item:5021}을(를) 그 위에 사용하세요.",
 
-	-- Step 20: To Camp Taurajo
+	-- Step 22: To Camp Taurajo
 	-- {area:378} Camp Taurajo
-	["To {area:378}"] = "",
+	["To {area:378}"] = "{area:378}(으)로",
 	-- {area:378} Camp Taurajo
 	["North up the road to {area:378}: your hearthstone takes you there if it is ready."] = "길을 따라 북쪽 {area:378}(으)로 가십시오. 귀환석이 준비되었다면 그곳으로 데려다줍니다.",
 
-	-- Step 22: Grunt Logmar
+	-- Step 24: Grunt Logmar
 	-- {npc:5911} Grunt Logmar
 	["{npc:5911}, beside the flight master"] = "",
 
-	-- Step 23: Fly to Crossroads
-	["Fly to Crossroads"] = "",
+	-- Step 25: Fly to Crossroads
+	["Fly to Crossroads"] = "크로스로드로 비행",
 	-- {area:378} Camp Taurajo
-	["{area:378} flight master"] = "",
+	["{area:378} flight master"] = "{area:378} 비행 조련사",
 
-	-- Step 24: The Crossroads
+	-- Step 26: The Crossroads
 	-- {npc:3429} Thork
 	["{npc:3429}, at the top of the tower"] = "{npc:3429}, 탑 꼭대기",
 	-- {npc:3428} Korran
 	["{npc:3428}, west of the north gate"] = "북문 서쪽의 {npc:3428}",
 
-	-- Step 25: Fly to Ratchet
+	-- Step 27: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "{area:392}(으)로 비행",
 	["Crossroads flight master"] = "크로스로드 비행 조련사",
 
-	-- Step 26: Sputtervalve
+	-- Step 28: Sputtervalve
 	-- {npc:3442} Sputtervalve · {npc:4201} Ziz Fizziks · {area:1076} Webwinder Path
 	["{npc:3442} stands beside the flight master you land at. His new orders go back to {npc:4201} on the {area:1076}, later in this guide."] = "{npc:3442}은(는) 착륙하는 곳의 비행 조련사 옆에 있습니다. 그의 새 명령서는 이 가이드 후반에 {area:1076}의 {npc:4201}에게 다시 가져갑니다.",
 	-- {npc:3442} Sputtervalve · {quest:1094} Further Instructions · {npc:4201} Ziz Fizziks
@@ -136,40 +142,44 @@ return {
 	-- {npc:3442} Sputtervalve · {npc:4201} Ziz Fizziks · {area:1076} Webwinder Path
 	["{npc:3442}: for {npc:4201}, on the way up the {area:1076}"] = "{npc:3442}: {area:1076}을(를) 오르는 길의 {npc:4201}에게",
 
-	-- Step 27: Mebok Mizzyrix
+	-- Step 29: Sputtervalve
+	-- {npc:3442} Sputtervalve · {npc:4201} Ziz Fizziks · {area:1076} Webwinder Path
+	["{npc:3442} stands beside the flight master. His new orders go back to {npc:4201} on the {area:1076}, later in this guide."] = "{npc:3442}은(는) 비행 조련사 옆에 서 있습니다. 그의 새 명령은 이 가이드 후반에 {area:1076}의 {npc:4201}에게 돌아갑니다.",
+
+	-- Step 30: Mebok Mizzyrix
 	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix
 	["{area:718} quests still in your log: {npc:3446} stands beside the WANTED poster, Bigglefuzz on the dock by the flight master."] = "아직 퀘스트 목록에 있는 {area:718} 퀘스트: {npc:3446}은(는) 현상수배 전단 옆에, 비글퍼즈는 비행 조련사 옆 부두에 서 있습니다.",
 
-	-- Step 28: Crane Operator Bigglefuzz
+	-- Step 31: Crane Operator Bigglefuzz
 	-- {npc:3665} Crane Operator Bigglefuzz
 	["{npc:3665}, on the dock"] = "부두의 {npc:3665}",
 
-	-- Step 29: Merchant Coast
+	-- Step 32: Merchant Coast
 	-- {quest:874} Mahren Skyseer · {area:392} Ratchet
 	["{quest:874} camps on the shore just north of {area:392}'s flight master."] = "",
 
-	-- Step 30: Isha Awak
+	-- Step 33: Isha Awak
 	-- {quest:873} Isha Awak · {area:391} Merchant Coast · {npc:3388} Mahren Skyseer
 	["{quest:873}, a big threshadon, swims in the shallows off the {area:391}, east of {npc:3388}."] = "큰 쓰레샤돈인 {quest:873}은(는) {npc:3388} 동쪽, {area:391} 앞바다 얕은 곳에서 헤엄칩니다.",
 
-	-- Step 32: Seereth Stonebreak
+	-- Step 35: Seereth Stonebreak
 	-- {npc:4049} Seereth Stonebreak
 	["Follow the road west past Regthar's bunkers: {npc:4049} camps beside it at the edge of Stonetalon."] = "길을 따라 서쪽으로 레그타르의 벙커를 지나가세요. {npc:4049}은(는) 돌발톱 산맥 가장자리의 길가에 야영하고 있습니다.",
 	-- {npc:4049} Seereth Stonebreak · {npc:4074} XT:9 · {npc:4073} XT:4 · {npc:4201} Ziz Fizziks
 	["{npc:4049}: {npc:4074} and {npc:4073} roam east of {npc:4201}, on the way back down from Sun Rock"] = "{npc:4049}: {npc:4074}와(과) {npc:4073}은(는) {npc:4201} 동쪽을 돌아다닙니다. 태양바위 은신처에서 내려오는 길에",
 
-	-- Step 33: The road west
+	-- Step 36: The road west
 	["The road west"] = "",
 	-- {npc:4049} Seereth Stonebreak
 	["The road west past {npc:4049}'s camp"] = "{npc:4049}의 야영지를 지나 서쪽으로 가는 길",
 
-	-- Step 34: Malaka'jin
+	-- Step 37: Malaka'jin
 	-- {npc:4049} Seereth Stonebreak · {npc:3995} Witch Doctor Jin'Zil · {area:2539} Malaka'jin · {area:1076} Webwinder Path
 	["Follow the road on west past {npc:4049}'s camp into Stonetalon: {npc:3995} waits below ground in {area:2539}, at the foot of the {area:1076}."] = "길을 따라 계속 서쪽으로 {npc:4049}의 야영지를 지나 돌발톱 산맥으로 들어가세요. {npc:3995}은(는) {area:1076} 아래쪽, {area:2539}의 지하에서 기다립니다.",
 	-- {npc:3995} Witch Doctor Jin'Zil
-	["{npc:3995}, below ground"] = "",
+	["{npc:3995}, below ground"] = "{npc:3995}, 지하",
 
-	-- Step 35: Ziz Fizziks
+	-- Step 38: Ziz Fizziks
 	-- {area:1076} Webwinder Path · {npc:4201} Ziz Fizziks · {area:461} Windshear Crag · {npc:3442} Sputtervalve
 	["Up the {area:1076} to {npc:4201}' hut, where the road forks east to {area:461}: {npc:3442}'s orders are for him."] = "{area:1076}을(를) 따라 {npc:4201}의 오두막으로 올라가십시오. 그곳에서 길이 동쪽 {area:461}(으)로 갈라집니다. {npc:3442}의 지시는 그에게 가는 것입니다.",
 	-- {npc:4201} Ziz Fizziks
@@ -179,7 +189,7 @@ return {
 	-- {npc:4202} Gerenzo Wrenchwhistle · {npc:4049} Seereth Stonebreak · {area:461} Windshear Crag
 	["Keep {npc:4202} (27) and {npc:4049}'s robots: {area:461} comes in one trip on the way back down from Sun Rock."] = "{npc:4202}(27)와(과) {npc:4049}의 로봇은 그대로 두세요. {area:461}은(는) 태양바위 은신처에서 내려오는 길에 한 번에 처리합니다.",
 
-	-- Step 36: Sun Rock Retreat
+	-- Step 39: Sun Rock Retreat
 	-- {area:1076} Webwinder Path · {npc:4201} Ziz Fizziks · {area:460} Sun Rock Retreat
 	["On up the {area:1076} from {npc:4201}' hut to {area:460}."] = "{npc:4201}의 오두막에서 {area:1076}을(를) 따라 {area:460}까지 계속 올라가세요.",
 	-- {npc:11862} Tsunaman · {npc:12736} Je'neu Sancrea
@@ -192,36 +202,36 @@ return {
 	-- {npc:4198} Braelyn Firehand
 	["{npc:4198}, outside the gate"] = "정문 밖의 {npc:4198}",
 
-	-- Step 37: Tammra Windfield
+	-- Step 40: Tammra Windfield
 	-- {npc:11864} Tammra Windfield
 	["{npc:11864} stands by the bonfire inside Sun Rock: Makaba's news that Kaya is alive is for her."] = "{npc:11864}은(는) 해바위 야영지 안의 모닥불 옆에 있습니다. 카야가 살아 있다는 마카바의 소식은 그녀에게 전할 것입니다.",
 
-	-- Step 38: Gaea Seeds
+	-- Step 41: Gaea Seeds
 	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed
 	["Gaea Seeds"] = "가이아 씨앗",
 	-- {area:464} Mirkfallon Lake
 	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed
 	["The Gaea Seeds lie in the grass around the southern shore of {area:464}, north of Sun Rock.\nCareful: Pridewings around the lake can aggro as a linked group."] = "",
 
-	-- Step 39: Mirkweed
+	-- Step 42: Mirkweed
 	-- {object:667362} Mirkweed · {area:464} Mirkfallon Lake
 	-- plural, as words: Dried Mirkweed Piles = {object:667364} Dried Mirkweed Pile
 	["The {object:667362} grows on the bottom of {area:464}, off the same southern shore: dive to the plants and the Dried Mirkweed Piles; both give pods. Watch your breath."] = "{object:667362}은(는) 같은 남쪽 기슭 앞, {area:464} 바닥에서 자랍니다. 물속으로 들어가 식물과 마른 수렁풀 더미를 찾으세요. 둘 다 꼬투리를 줍니다. 호흡에 주의하세요.",
 
-	-- Step 40: Stonetalon Mountains: kill these as you meet them
+	-- Step 43: Stonetalon Mountains: kill these as you meet them
 	-- {zone:1442} Stonetalon Mountains
 	["{zone:1442}: kill these as you meet them"] = "",
 	-- {area:467} Stonetalon Peak
 	-- plural, as words: Antlered Coursers = {npc:4018} Antlered Courser · Sap Beasts = {npc:4020} Sap Beast · Twilight Runners = {npc:4067} Twilight Runner · Fey Dragons = {npc:4016} Fey Dragon
 	["Follow the road north toward {area:467}. Antlered Coursers graze along the way; the Sap Beasts, Twilight Runners and Fey Dragons roam the woods below the Peak, and the Cenarion druids hold the grove there."] = "길을 따라 북쪽의 {area:467}(으)로 가세요. 가는 길에 순록이 풀을 뜯고, 수액괴물, 황혼의 흑표범, 마룡은 봉우리 아래 숲을 돌아다니며, 세나리온 드루이드가 그곳 숲을 차지하고 있습니다.",
 
-	-- Step 41: Sun Rock Retreat
+	-- Step 44: Sun Rock Retreat
 	-- {npc:4198} Braelyn Firehand · {zone:1440} Ashenvale
 	["{npc:4198}'s next quest, Ordanus, is on the Alliance side of {zone:1440}. Skip it."] = "{npc:4198}의 다음 퀘스트인 오르다누스는 {zone:1440}의 얼라이언스 지역에 있습니다. 건너뛰세요.",
 
-	-- Step 42: The Charred Vale: kill these as you meet them
+	-- Step 45: The Charred Vale: kill these as you meet them
 	-- {area:465} The Charred Vale
-	["{area:465}: kill these as you meet them"] = "",
+	["{area:465}: kill these as you meet them"] = "{area:465}: 만나는 대로 처치하세요",
 	-- {area:465} The Charred Vale · {item:16312} Incendrites
 	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed · Burning Destroyers = {npc:4038} Burning Destroyer · Scorched Basilisks = {npc:4041} Scorched Basilisk
 	["South-west of Sun Rock lies the burned {area:465}. Plant the Gaea Seeds in the dirt mounds on the valley floor; the fire elementals drop {item:16312}. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south. Careful: the Burning Destroyers, Scorched Basilisks and Bloodfury Storm Witches here are level 27 and the valley floor is crowded: pull one at a time and keep to its edges."] = "해바위 야영지 남서쪽에 불타 버린 {area:465}이(가) 있습니다. 골짜기 바닥의 흙더미에 가이아 씨앗을 심으세요. 불의 정령은 {item:16312}을(를) 떨어뜨립니다. 혈폭풍하피와 복병은 북쪽에, 암살자와 약탈자는 남쪽에 둥지를 틀고 있습니다. 주의: 이곳의 불타는 파괴자, 그을린 바실리스크, 혈폭풍 폭풍마녀는 27레벨이고 골짜기 바닥은 붐빕니다. 하나씩 끌어오고 가장자리로 다니세요.",
@@ -230,37 +240,37 @@ return {
 	-- plural, as words: Gaea Dirt Mounds = {object:177929} Gaea Dirt Mound
 	["Gaea Dirt Mounds"] = "가이아 흙더미",
 
-	-- Step 43: Sun Rock Retreat
+	-- Step 46: Sun Rock Retreat
 	-- {npc:11861} Mor'rogal · {npc:11862} Tsunaman
 	["{npc:11861}, beside {npc:11862}"] = "{npc:11862} 옆의 {npc:11861}",
 	-- {npc:11862} Tsunaman
 	["{npc:11862}, up on the ledge"] = "바위 턱 위의 {npc:11862}",
 
-	-- Step 44: Shredding Machines
+	-- Step 47: Shredding Machines
 	-- {area:1076} Webwinder Path · {npc:4201} Ziz Fizziks · {area:461} Windshear Crag · {npc:4074} XT:9 · {npc:4073} XT:4
 	["Back down the {area:1076} to {npc:4201}' hut, then east along the road toward {area:461}: {npc:4074} patrols the road just east of the fork, {npc:4073} the slopes further north-east below the crag. Both are lone shredder robots; they roam, so follow the road until you meet them."] = "{area:1076}을(를) 따라 {npc:4201}의 오두막으로 내려간 뒤, 길을 따라 동쪽 {area:461} 방향으로 가세요. {npc:4074}은(는) 갈림길 바로 동쪽 길을, {npc:4073}은(는) 더 북동쪽의 바위산 아래 비탈을 순찰합니다. 둘 다 홀로 다니는 벌목기 로봇이며 돌아다니니, 만날 때까지 길을 따라가세요.",
 
-	-- Step 45: Gerenzo Wrenchwhistle
+	-- Step 48: Gerenzo Wrenchwhistle
 	-- {area:461} Windshear Crag · {npc:4073} XT:4 · {quest:1096} Gerenzo Wrenchwhistle
 	["On east to {area:461}, past where {npc:4073} roams: {quest:1096} (27) stands at the top of the Venture Co. tower. Clear the Venture Co. on the way up. His Mechanical Arm is for Ziz."] = "{npc:4073}이(가) 돌아다니는 곳을 지나 동쪽 {area:461}(으)로 계속 가세요. {quest:1096}(27)은(는) 투자개발회사 탑 꼭대기에 서 있습니다. 올라가는 길의 투자개발회사 일꾼들을 처치하십시오. 그의 기계 팔은 지즈에게 가져갑니다.",
 	-- {item:5736} Gerenzo's Mechanical Arm · {quest:1096} Gerenzo Wrenchwhistle
 	["{item:5736}, from {quest:1096}"] = "{item:5736}: {quest:1096}에게서",
 
-	-- Step 46: The Flying Machine Airport
+	-- Step 49: The Flying Machine Airport
 	-- {object:19594} Venture Co. Copter Pad · {npc:4202} Gerenzo Wrenchwhistle · {item:5638} Toxic Fogger · {zone:1456} Thunder Bluff
 	["The {object:19594} is the platform just south-east of {npc:4202}'s tower: place Zamah's {item:5638} on it. Zamah takes it back on the next guide's {zone:1456} stop."] = "{object:19594}은(는) {npc:4202}의 탑 바로 남동쪽에 있는 발판입니다. 자마의 {item:5638}을(를) 그 위에 놓으세요. 자마의 퀘스트는 다음 가이드에서 {zone:1456}에 들를 때 제출합니다.",
 	-- {item:5638} Toxic Fogger · {object:19594} Venture Co. Copter Pad
 	["Place the {item:5638} on the {object:19594}"] = "{object:19594}에 {item:5638} 놓기",
 
-	-- Step 47: Ziz Fizziks
+	-- Step 50: Ziz Fizziks
 	-- {npc:4201} Ziz Fizziks · {area:2539} Malaka'jin
 	["Back west to {npc:4201}' hut, on the way down to {area:2539}."] = "{area:2539}(으)로 내려가는 길에 서쪽 {npc:4201}의 오두막으로 돌아가십시오.",
 
-	-- Step 48: Malaka'jin
+	-- Step 51: Malaka'jin
 	-- {area:1076} Webwinder Path · {area:2539} Malaka'jin
 	["On down the {area:1076} to {area:2539}."] = "{area:1076}을(를) 따라 계속 {area:2539}(으)로 내려가십시오.",
 
-	-- Step 49: Seereth Stonebreak
+	-- Step 52: Seereth Stonebreak
 	-- {area:2539} Malaka'jin · {npc:4049} Seereth Stonebreak
 	["East along the road from {area:2539} to {npc:4049}'s camp."] = "{area:2539}에서 길을 따라 동쪽으로 {npc:4049}의 야영지까지 가세요.",
 	-- {area:2897} Zoram'gar Outpost · {area:378} Camp Taurajo
