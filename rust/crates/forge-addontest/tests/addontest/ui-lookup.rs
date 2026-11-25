@@ -2156,6 +2156,51 @@ fn lookup_gear_sort_and_filters_suspend_outside_items_and_all() {
 }
 
 #[test]
+fn lookup_clear_all_keeps_slot_and_stat_suspended_outside_gear_views() {
+	let out = run_packed_lookup(
+		&json!({ "items": {
+			"71": { "name": "Trial Axe", "quality": 3, "slot": 13, "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 1, "31": 0 } },
+			"72": { "name": "Trial Sword", "quality": 3, "slot": 13, "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 10, "31": 0 } },
+			"73": { "name": "Trial Mace", "quality": 3, "slot": 13, "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 100 } },
+			"74": { "name": "Trial Shield", "quality": 3, "slot": 14, "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 100, "31": 0 } },
+			"75": { "name": "Trial A Steed", "kind": "mount", "quality": 3, "slot": 0, "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 1 } },
+			"76": { "name": "Trial Z Steed", "kind": "mount", "quality": 3, "slot": 0, "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 100 } },
+			"77": { "name": "Trial B Steed", "kind": "mount", "quality": 4, "slot": 0 }
+		} }),
+		r#"
+		LK.SetItemFilters({ quality = { 3 }, slot = 13, stat = 31 })
+		UI.ShowLookup({ query = "trial" })
+		LK.SetKind("item")
+		local filters = LK.root.Visibility
+		filters:Click()
+		local drawer = LK.root.FilterDrawer
+		assert(filters.Label:GetText() == "Filters (3)" and LK.shown.rows == 2, filters.Label:GetText())
+
+		LK.SetKind("mount")
+		assert(filters.Label:GetText() == "Filters (1)" and LK.shown.rows == 2, filters.Label:GetText())
+		drawer.Clear:Click()
+		assert(filters.Label:GetText() == "Filters" and LK.shown.rows == 3,
+			string.format("Mounts after Clear all: %s, %d rows", filters.Label:GetText(), LK.shown.rows))
+		local saved = Polestar.CharState().ui.lookupItemFilters
+		assert(saved and saved.quality == nil and saved.slot == 13 and saved.stat == 31, "the suspended Slot and Stat stay saved")
+
+		LK.SetKind("item")
+		local item = drawer.Item
+		assert(item.Slot.Label:GetText() == "One-hand" and item.Stat.Label:GetText() == "Hit")
+		assert(filters.Label:GetText() == "Filters (2)" and LK.shown.rows == 2,
+			string.format("Items after Clear all in Mounts: %s, %d rows", filters.Label:GetText(), LK.shown.rows))
+
+		drawer.Clear:Click()
+		assert(next(LK.ItemFilters()) == nil and Polestar.CharState().ui.lookupItemFilters == nil, "Clear all in Items clears Slot and Stat")
+		assert(filters.Label:GetText() == "Filters" and LK.shown.rows == 4,
+			string.format("Items after Clear all: %s, %d rows", filters.Label:GetText(), LK.shown.rows))
+		emit(true)
+		"#,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
 fn lookup_sidebar_counts_use_each_destinations_gear_filters() {
 	let out = run_packed_lookup(
 		&json!({ "items": {

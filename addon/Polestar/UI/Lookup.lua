@@ -577,14 +577,25 @@ local function gearKind(k)
 	return k == "item" or k == "all"
 end
 
+-- Slot and Stat apply only in gear views; elsewhere they stay saved but are
+-- suspended: not searched, not shown, not counted and not cleared.
+local GEAR_ONLY_FILTERS = { slot = true, stat = true }
+
+-- Whether the saved item filter key applies in viewKind (nil: every view).
+local function filterApplies(key, viewKind)
+	return not GEAR_ONLY_FILTERS[key] or viewKind == nil or gearKind(viewKind)
+end
+
 -- Adapt the normalized saved shape to Search's predicates.
 function LK.SearchFilters(saved, category, viewKind)
 	if type(saved) ~= "table" then saved = {} end
-	local gear = viewKind == nil or gearKind(viewKind)
 	local filters = {
 		reqMin = saved.reqMin, reqMax = saved.reqMax, ilvlMin = saved.ilvlMin, ilvlMax = saved.ilvlMax,
-		slot = gear and saved.slot or nil, class = saved.class, stat = gear and saved.stat or nil, category = category,
+		class = saved.class, category = category,
 	}
+	for key in pairs(GEAR_ONLY_FILTERS) do
+		if filterApplies(key, viewKind) then filters[key] = saved[key] end
+	end
 	if saved.quality and #saved.quality > 0 then
 		filters.quality = {}
 		for _, id in ipairs(saved.quality) do filters.quality[id] = true end
@@ -2881,7 +2892,12 @@ local function installFilterChrome()
 		-- Use the view's displayed controls, even if the flushed query changes
 		-- which kinds have matches.
 		if itemControls(cache) then
-			LK.ClearItemFilters()
+			-- Keep the suspended filters this view neither shows nor counts.
+			local kept = {}
+			for key, value in pairs(LK.ItemFilters()) do
+				if not filterApplies(key, kind) then kept[key] = value end
+			end
+			LK.SetItemFilters(kept)
 			category = nil
 		end
 		clearAvailability()
@@ -2905,9 +2921,8 @@ local function installFilterChrome()
 		local height = 0
 		if showItems then
 			item = item or makeItemControls(drawer)
-			local showGear = gearKind(kind)
-			item.Slot:GetParent():SetShown(showGear)
-			item.Stat:GetParent():SetShown(showGear)
+			item.Slot:GetParent():SetShown(filterApplies("slot", kind))
+			item.Stat:GetParent():SetShown(filterApplies("stat", kind))
 			paintRange(item.Required, c.saved)
 			paintRange(item.Level, c.saved)
 			for _, button in ipairs(item.Dropdowns) do button:GetParent():Refresh() end
@@ -2943,7 +2958,9 @@ local function installFilterChrome()
 			local saved = c.saved
 			count = count + ((saved.reqMin or saved.reqMax) and 1 or 0) + ((saved.ilvlMin or saved.ilvlMax) and 1 or 0)
 				+ (saved.class and 1 or 0) + (saved.quality and 1 or 0)
-			if gearKind(kind) then count = count + (saved.slot and 1 or 0) + (saved.stat and 1 or 0) end
+			for key in pairs(GEAR_ONLY_FILTERS) do
+				if saved[key] and filterApplies(key, kind) then count = count + 1 end
+			end
 		end
 		for _, choice in ipairs(VISIBILITY_CHOICES) do
 			if ns.Get(choice.path) then count = count + 1 end
