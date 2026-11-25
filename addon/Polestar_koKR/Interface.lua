@@ -1840,7 +1840,7 @@ L["Opens a portal from the first khan's spot in Maraudon's outer caves to Earth 
 L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Alphonse Dumas in Farholde Keep forges the key from it with 4 Thick Leather and 12 Iron Bars."] = "크롤도크 보루의 위쪽 구역으로 가는 길을 엽니다. War Handler Ashka 근처 대장간 옆의 Tunk가 크롤도크 거푸집을 떨어뜨립니다. 파홀드 성채의 Alphonse Dumas가 그것과 두꺼운 가죽 4개, 철 주괴 12개로 열쇠를 만들어 줍니다."
 L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = "크롤도크 보루의 위쪽 구역으로 가는 길을 엽니다. War Handler Ashka 근처 대장간 옆의 Tunk가 크롤도크 거푸집을 떨어뜨립니다. 로그마의 Kreza Darkthorn이 그것과 두꺼운 가죽 4개, 철 주괴 12개로 열쇠를 만들어 줍니다."
 L["Use %s beside %s: it becomes %s."] = "%s을(를) %s 옆에서 사용하면 %s이(가) 됩니다."
-L["Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back."] = "안에 들어갈 때까지 %s 퀘스트를 목록에 두십시오: 수락하면 %s을(를) 받고, 퀘스트를 포기하면 회수됩니다."
+L["Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back."] = "안에 들어갈 때까지 %s 퀘스트를 퀘스트 목록에 두십시오: 수락하면 %s을(를) 받고, 퀘스트를 포기하면 회수됩니다."
 L["Not open on Forever yet: the attunement is ready for when it opens."] = "Forever에서 아직 열리지 않음: 열릴 때를 위해 입장 조건은 준비되어 있습니다."
 
 -- UI/UI.lua

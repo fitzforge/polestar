@@ -4881,7 +4881,7 @@ L["Under the last goal"] = "Abaixo do último objetivo"
 L["On the window's edge"] = "Na borda da janela"
 L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = "Linhas abaixo da etapa para missões que você ainda precisa concluir ou entregar fora da rota: as que uma atualização do guia deixou para trás e as missões concluídas que nenhum guia à frente entrega. Desligado, o menu da janela do guia ainda lista as concluídas em Entregar missões concluídas."
 L["XP line"] = "Linha de EXP"
-L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "A linha abaixo das etapas: EXP por hora, tempo para subir e seu ritmo. O Descanso Melhorado mantém a própria linha."
+L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "A linha abaixo das etapas: EXP por hora, tempo para subir de nível e seu ritmo. O Descanso Melhorado mantém a própria linha."
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "Fila de alertas"
