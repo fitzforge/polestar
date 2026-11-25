@@ -23,7 +23,7 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
-const { MINING_NODES, HERB_NODES, bandWeight } = require('./tables');
+const { MINING_NODES, HERB_NODES, ZONES, bandWeight } = require('./tables');
 const { poolOdds, nodeGrid, nearestMap } = require('./abundance');
 const { peopleOf } = require('./waters');
 const { dist } = require('../../route/geo');
@@ -52,7 +52,7 @@ function spawnTable(db, objects, project, frames) {
 	for (const r of rows) {
 		if (!names.has(r.name) || r.respawn >= DAY) continue;
 		const map = nearestMap(grid, r.map, r.x, r.y);
-		if (map === null) continue;
+		if (map === null || !ZONES[map]) continue;
 		const b = project.bounds(map);
 		if (b.c !== r.map) continue;
 		const u = odds(r.guid);
@@ -140,8 +140,22 @@ function perNode(records) {
 	return out;
 }
 
-// Kinds the world database lacks in a zone but players gather there: their objects.json spawns.
+// Kinds the world database lacks in a zone but players gather there: their objects.json spawns, a
+// point within DEDUPE_YARDS of one already taken left out. Each is up as often as the kind's spawns are
+// elsewhere in the database (their median), else as one of the kinds listed at its point.
+const DEDUPE_YARDS = 5;
 function fill(maps, records, objects, project, frames) {
+	const upOf = new Map();
+	for (const z of Object.values(maps)) {
+		for (const [name, k] of Object.entries(z.kinds)) {
+			if (!upOf.has(name)) upOf.set(name, []);
+			for (const s of k.pts.split(' ')) upOf.get(name).push(Number(s.split(',')[2]));
+		}
+	}
+	const median = (list) => {
+		const s = list.slice().sort((a, b) => a - b);
+		return s[s.length >> 1];
+	};
 	const seen = new Map();
 	for (const r of records) {
 		if (r.kind === 'skin') continue;
@@ -164,18 +178,22 @@ function fill(maps, records, objects, project, frames) {
 	}
 	const add = new Map();
 	for (const { map, pt, kinds } of listed.values()) {
+		if (!ZONES[map]) continue;
 		for (const name of kinds) {
 			const z = maps[map];
 			if ((z && z.kinds[name]) || (seen.get(`${map}|${name}`) || new Set()).size < MIN_PEOPLE) continue;
 			const k = `${map}|${name}`;
 			if (!add.has(k)) add.set(k, []);
-			add.get(k).push([round(pt.x, 1), round(pt.y, 1), round(1 / kinds.size, 2)]);
+			const taken = add.get(k);
+			if (taken.some((t) => dist(t.pt, pt) < DEDUPE_YARDS)) continue;
+			const u = upOf.has(name) ? median(upOf.get(name)) : 1 / kinds.size;
+			taken.push({ pt, row: [round(pt.x, 1), round(pt.y, 1), round(u, 2)] });
 		}
 	}
 	for (const k of [...add.keys()].sort()) {
 		const [map, name] = k.split('|');
 		if (!maps[map]) maps[map] = frames.era && frames.era[map] ? { kinds: {} } : { f: 'l', kinds: {} };
-		const pts = add.get(k).sort((a, b) => a[0] - b[0] || a[1] - b[1] || a[2] - b[2]);
+		const pts = add.get(k).map((t) => t.row).sort((a, b) => a[0] - b[0] || a[1] - b[1] || a[2] - b[2]);
 		maps[map].kinds[name] = { src: 'objects', pts: pts.map((p) => p.join(',')).join(' ') };
 		maps[map].kinds = Object.fromEntries(Object.entries(maps[map].kinds).sort(([a], [b]) => a.localeCompare(b)));
 	}
@@ -262,7 +280,7 @@ function nodePoints(project, { table, map, from, to, nodes = null }) {
 // Seconds a kind takes to come back on `map` (the median spawn's), or null.
 function respawnOf(map, name, nodes = null) {
 	const z = (nodes || load()).maps[String(map)];
-	return z && z.kinds[name] ? z.kinds[name].respawn : null;
+	return (z && z.kinds[name] && z.kinds[name].respawn) || null;
 }
 
 module.exports = { FILE, ABOUT, DAY, MIN_NODES, MIN_PEOPLE, spawnTable, readGathers, perNode, fill, derive, render, load, nodePoints, respawnOf };

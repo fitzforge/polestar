@@ -47,6 +47,48 @@ const D = require('./describe');
 const { SPECS } = require('./specs');
 
 const SIDES = ['Alliance', 'Horde'];
+
+// The gathering guides' farming loops that give `item` (gathering/build.js gatherLoops), as `loop` lines
+// for a Get it step's collect (docs/GUIDE_FORMAT.md, "Farming loops"): `per` of the material from one of
+// the item (a bar from its ore: the bars one ore makes), for each faction the best loop of each zone and
+// of those the LOOPS best by items a second, one line for a loop both sides share. -> { lines, skill } or
+// null: no loop gives it, or no reference data on disk (`data.dir`, draftData) to plan the loops from.
+const LOOPS = 4;
+let loopsCache = null;
+function itemLoops(data, item, per = 1) {
+	if (!data.dir) return null;
+	if (!loopsCache || loopsCache.dir !== data.dir) {
+		const { context, zoneName, fmt } = require('./gathering/common');
+		const { gatherLoops } = require('./gathering/build');
+		const ctx = context(data.dir);
+		loopsCache = { dir: data.dir, all: gatherLoops(ctx), zone: (m) => zoneName(ctx, m), fmt };
+	}
+	const { all, zone, fmt } = loopsCache;
+	const mine = all.filter((l) => l.item === item);
+	const picked = new Map();
+	for (const side of SIDES) {
+		const best = mine
+			.filter((l) => l.factions.includes(side))
+			.sort((a, b) => b.yield / b.lap - a.yield / a.lap || a.map - b.map)
+			.filter((l, i, list) => list.findIndex((o) => o.map === l.map) === i)
+			.slice(0, LOOPS);
+		for (const l of best) {
+			const key = `${l.map}|${l.pts.join(' ')}`;
+			if (!picked.has(key)) picked.set(key, { l, sides: new Set() });
+			picked.get(key).sides.add(side);
+		}
+	}
+	if (!picked.size) return null;
+	const lines = [...picked.values()].map(({ l, sides }) => {
+		const words = [`  loop ${zone(l.map)}`, `lvl ${l.lvl}`, `lap ${l.lap}`, `yield ${fmt(l.yield * per)}`];
+		if (sides.size === 1) words.push(`only ${[...sides][0]}`);
+		if (l.live) words.push('live');
+		words.push(`r ${l.r}`, 'at', ...l.pts.map(([x, y]) => `${fmt(x)},${fmt(y)}`));
+		return words.join(' ');
+	});
+	return { lines, skill: Math.min(...[...picked.values()].map(({ l }) => l.skill[0])) };
+}
+
 const RANK_NAMES = ['Apprentice', 'Journeyman', 'Expert', 'Artisan'];
 const CRAFTING = new Set([171, 164, 333, 202, 165, 197]);
 // Professions whose sniffed Forever trainer list has the Journeyman rank (level 10): Blacksmithing,
@@ -919,6 +961,30 @@ function draftGuide(name, data, opts = {}) {
 				);
 				continue;
 			}
+			// Herbs and ore, and a bar smelted from ore: the farming loops of the Herbalism and Mining guides
+			// that give it, the engine picking one where the player is (itemLoops). A gem a vein gives one time
+			// in a hundred has none.
+			// A bar that chests or mobs drop too (Silver Bar) stays a bag count, as below.
+			const drops = (((data.items || {})[t.item] || {}).drops) || {};
+			const smelt = need.every((side) => t.src[side].kind === 'crafted') && !Object.keys(drops.npc || {}).length && !Object.keys(drops.object || {}).length ? madeBy(t.item) : null;
+			const ore = smelt && smelt.name === 'Mining' ? oreOf(t.item) : null;
+			const smeltRecipe = ore ? ((profs[186] || {}).recipes || []).find((r) => r.item === t.item && (r.reagents || []).some((g) => g.item === ore)) : null;
+			const orePer = smeltRecipe ? (smeltRecipe.itemCount || 1) / smeltRecipe.reagents.find((g) => g.item === ore).count : 0;
+			const loops = need.every((side) => NODE_KINDS.has(t.src[side].kind)) ? itemLoops(data, t.item) : orePer ? itemLoops(data, ore, orePer) : null;
+			if (loops) {
+				const skill = need.some((side) => t.src[side].kind === 'herb') ? 'Herbalism' : 'Mining';
+				const facts = ore ? ` Mining ${Math.max(loops.skill, smelt.rank)}` : ` ${skill} ${loops.skill}`;
+				const about = ore
+					? `Mine ${((data.items || {})[ore] || {}).name || matName(ore)} and smelt it at a forge (Mining ${smelt.rank}).`
+					: `${capital(D.sourceText(data, t.item, mats[t.item], t.src[need[0]], need[0], { market: false }))}.`;
+				getIt(
+					matName(t.item),
+					farmHead,
+					`${about} The arrow takes the ${skill} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left.`,
+					`  collect ${t.item} x${t.count}${mark(facts)}\n${loops.lines.join('\n')}`,
+				);
+				continue;
+			}
 			// Droppers a character can farm by the bracket's end (skill 225: level 47 at most).
 			const maxLevel = maxZoneLevel(b.cap);
 			const spotFor = (side, maps = null, minPts = 0, minUp = 0) => {
@@ -1269,6 +1335,7 @@ function draftData(dataDir) {
 			best: [...new Set([...spots].sort((a, b) => b.rate * b.spawns - a.rate * a.spawns).map((s) => s.npcName))].slice(0, 3),
 		};
 	};
+	data.dir = dataDir;
 	return data;
 }
 

@@ -11,7 +11,7 @@ const { GATHERING_NOTE } = require('./notes');
 const fishing = require('./fishing');
 const fishingCooking = require('./fishing-cooking');
 const secondary = require('./secondary');
-const { money } = require('./common');
+const { money, zoneName } = require('./common');
 
 // "Smelt Copper (orange to 25, grey at 70)".
 function colours(r) {
@@ -31,25 +31,21 @@ function manualTip(book) {
 	return `The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's Cactus Apple Surprise, A Humble Task, Marla's Last Wish) offers ${book} as a reward: reading it gives 2 skill, up to 15.`;
 }
 
-// Quests in a band's zone that need the profession (quests.json `skill`) and
-// that a side of the step can take, on the band's first step: " A quest here
-// needs Skinning: Rough Wolf Pelts (level 7, Helene Peltskinner; Alliance)."
-// Camping 101 has its own tip.
-const RACE_SIDE = { Human: 'A', Dwarf: 'A', Gnome: 'A', NightElf: 'A', Orc: 'H', Troll: 'H', Tauren: 'H', Undead: 'H' };
+// Quests in a range's loop zones that need the profession (quests.json
+// `skill`), on the range's first step: " Quests in these zones need
+// Skinning: Rough Wolf Pelts (level 7, Helene Peltskinner, Elwynn Forest;
+// Alliance)." Camping 101 has its own tip.
 function skillQuests(ctx, skillLine, e) {
 	if (e.cont) return '';
-	const words = e.cond ? e.cond.split(',') : [];
-	const sides = new Set(e.cond ? words.map((w) => (w === 'Alliance' ? 'A' : w === 'Horde' ? 'H' : RACE_SIDE[w])).filter(Boolean) : ['A', 'H']);
-	if (!sides.size) ['A', 'H'].forEach((s) => sides.add(s));
+	const zones = new Set(e.loops.map((l) => l.zone));
 	const seen = new Set();
 	const out = [];
 	for (const q of Object.values(ctx.data.quests || {})) {
-		if (!q || q.skill !== skillLine || q.zone !== e.zone || /^Camping 101/.test(q.title)) continue;
+		if (!q || q.skill !== skillLine || !zones.has(q.zone) || /^Camping 101/.test(q.title)) continue;
 		const races = q.races ? BigInt(q.races) : null;
 		const side = races === null ? null : races & 1n && !(races & 2n) ? 'A' : races & 2n && !(races & 1n) ? 'H' : null;
-		if (side && !sides.has(side)) continue;
 		const giver = q.start && q.start.npc && q.start.npc.length ? (ctx.data.npc(q.start.npc[0]) || {}).name : null;
-		const text = `${q.title} (level ${q.level}${giver ? `, ${giver}` : ''}${side && sides.size > 1 ? `; ${side === 'A' ? 'Alliance' : 'Horde'}` : ''})`;
+		const text = `${q.title} (level ${q.level}${giver ? `, ${giver}` : ''}, ${zoneName(ctx, q.zone)}${side ? `; ${side === 'A' ? 'Alliance' : 'Horde'}` : ''})`;
 		if (seen.has(text)) continue;
 		seen.add(text);
 		out.push({ level: q.level, text });
@@ -57,7 +53,7 @@ function skillQuests(ctx, skillLine, e) {
 	if (!out.length) return '';
 	out.sort((a, b) => a.level - b.level || a.text.localeCompare(b.text));
 	const skill = { 182: 'Herbalism', 186: 'Mining', 393: 'Skinning' }[skillLine];
-	return out.length > 1 ? ` Quests here that need ${skill}: ${out.map((q) => q.text).join(', ')}.` : ` A quest here needs ${skill}: ${out[0].text}.`;
+	return out.length > 1 ? ` Quests in these zones need ${skill}: ${out.map((q) => q.text).join(', ')}.` : ` A quest in these zones needs ${skill}: ${out[0].text}.`;
 }
 
 // Tier-1 camping item learned at skill 20 (Forever's camps: placed beside a

@@ -28,8 +28,10 @@ const { segDist } = require('../../route/geo');
 const { buildLoop, pointLevels, roundLevel } = require('./loop');
 const { weightedClusters } = require('./route');
 
-const SPANS = [250, 400, 600, 900];
-const MAX_STOPS = 8;
+// Loop sizes tried: a camp's worth up to most of a zone (sparse veins: a lap shorter than their respawn
+// only waits for them).
+const SPANS = [250, 400, 600, 900, 1400, 2000];
+const MAX_STOPS = 12;
 // Running speed, yards per second.
 const RUN = 7;
 // Worth kept per level a loop asks above the band's planned character level: a loop two levels above
@@ -91,7 +93,7 @@ function farm(ctx, prof, map, points, { faction = null, respawn = 300, level: pl
 			if (loop.stops.length < 2) continue;
 			const walk = roundLevel(ctx, map, loop.stops, faction);
 			if (walk === null) continue;
-			found.push({ ...loop, ...worth(loop, open, opts), level: Math.max(level, walk), span });
+			found.push({ ...loop, ...worth(loop, open, opts), level: Math.max(level, walk), span, respawn });
 		}
 	}
 	const long = found.filter((f) => f.stops.length >= MIN_STOPS);

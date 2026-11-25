@@ -111,16 +111,15 @@ test('farm: a loop through the densest ground a character of the band\'s level c
 	assert.ok(high.on.length >= 30 && high.lap > 0);
 });
 
-test('a zone\'s rare kind (under a twentieth of the nodes) never names a waypoint beside common ones', () => {
-	const { rareKinds, label } = require('../tools/lib/professions/gathering/build');
+test('a zone\'s rare kind (under a twentieth of the nodes) opens no part of a range and is left out of its title', () => {
+	const { rareKinds, startParts } = require('../tools/lib/professions/gathering/build');
 	const pts = [];
-	for (let i = 0; i < 20; i++) pts.push({ name: 'Peacebloom', up: 0.1 }, { name: 'Silverleaf', up: 0.1 });
-	pts.push({ name: 'Stunted Silverleaf', up: 0.05 });
+	for (let i = 0; i < 20; i++) pts.push({ name: 'Peacebloom', req: 1, up: 0.1 }, { name: 'Silverleaf', req: 1, up: 0.1 });
+	pts.push({ name: 'Stranglekelp', req: 85, up: 0.05 });
 	const rare = rareKinds({}, pts);
-	assert.deepEqual([...rare], ['Stunted Silverleaf']);
-	assert.equal(rareKinds({ rareLeads: true }, pts).size, 0, 'skinning: a rare beast may lead');
-	assert.equal(label({}, { counts: { 'Stunted Silverleaf': 3, Peacebloom: 1 } }, rare), 'Peacebloom');
-	assert.equal(label({}, { counts: { 'Stunted Silverleaf': 3 } }, rare), 'Stunted Silverleaf', 'alone, it names its waypoint');
+	assert.deepEqual([...rare], ['Stranglekelp']);
+	assert.equal(rareKinds({ rareLeads: true }, pts).size, 0, 'skinning: every beast counts');
+	assert.deepEqual(startParts({}, pts, 50, 100), [{ from: 50, to: 100 }]);
 });
 
 test('a zone whose nodes all turn grey inside a band is never picked for it: Teldrassil\'s Amber for Mining 65-125', () => {
@@ -132,30 +131,34 @@ test('a zone whose nodes all turn grey inside a band is never picked for it: Tel
 	assert.equal(coversTop([{ name: 'Iron Deposit', req: 125 }], { from: 65, to: 125 }), false, 'nor a zone of nodes the band cannot reach yet');
 });
 
-test('a band\'s zone is workable from its first point: Hillsbrad Foothills\' beasts (105 and up) split Skinning 100-125 at 105 (#3355)', () => {
-	const { coversStart, pickZones } = require('../tools/lib/professions/gathering/build');
-	// Gray Bear (21) needs 105, Vicious Gray Bear (22) 110, Starving Mountain Lion (23) 115.
-	const reqs = { 1: [105, 105, 105, 105, 110, 110, 115, 115], 2: [60, 60, 60, 60, 60, 60, 20, 20] };
-	const ctx = stubCtx();
-	const zonePoints = (id) => reqs[id].map((req, i) => ({ name: `beast ${req}`, req, pt: ctx.project.point(id, 10 + i * 3, 10, 'e') }));
-	assert.equal(coversStart(zonePoints(1), { from: 100, to: 125 }, 4), false, 'nothing in Hillsbrad at 100-104');
-	assert.equal(coversStart(zonePoints(1), { from: 105, to: 125 }, 4), true, 'four Gray Bears at 105');
-	assert.equal(coversStart(zonePoints(2), { from: 100, to: 125 }, 4), true);
-	assert.equal(coversStart([{ req: 1 }, { req: 1 }, { req: 1 }, { req: 1 }], { from: 101, to: 125 }, 4), false, 'grey nodes do not count');
-	const prof = {
-		skill: 'Skinning',
-		minPoints: 4,
-		points: (ctx, id, from, to) => zonePoints(id).map((p) => ({ ...p, w: T.bandWeight(p.req, from, to) })).filter((p) => p.w > 0),
-	};
-	const band = { from: 100, to: 125, zones: { Horde: [1, 2] } };
-	// Hillsbrad (1) scores best over the band; Silverpine (2) is the zone workable at 100.
-	const parts = pickZones(ctx, prof, band, 'Horde', { key: 'undead' }).map((p) => [p.zone, p.from, p.to]);
-	assert.deepEqual(parts, [
-		[2, 100, 105],
-		[1, 105, 125],
-	]);
-	assert.deepEqual(pickZones(ctx, prof, { ...band, from: 105 }, 'Horde', { key: 'undead' }).map((p) => [p.zone, p.from, p.to]), [[1, 105, 125]]);
-	assert.throws(() => pickZones(ctx, prof, { ...band, zones: { Horde: [1] } }, 'Horde', { key: 'undead' }), /no zone workable from 100/);
+test('a range\'s loops take only what its starting skill can skin, mine or pick: no beast that needs 105 at Skinning 100 (#3355)', () => {
+	const { partPoints } = require('../tools/lib/professions/gathering/build');
+	// Gray Bear (21) needs 105, Vicious Gray Bear (22) 110; a level-12 beast (20) is green at 100, a level-5 one
+	// (1) green too, grey from 101.
+	const pts = [105, 105, 110, 20, 1].map((req, i) => ({ name: `beast ${req}`, req, up: 1, w: 1, pt: { c: 0, wx: i * 30, wy: 0 } }));
+	assert.deepEqual(partPoints(pts, 100, 125).map((p) => p.req), [20, 1], 'not yet skinnable (105, 110) left out');
+	assert.deepEqual(partPoints(pts, 105, 125).map((p) => p.req), [105, 105, 20], 'from 105 the bears; the level-5 beast is grey');
+	assert.equal(partPoints(pts, 105, 125), partPoints(pts, 105, 125), 'one array per part: the loops are memoised on it');
+});
+
+test('a range offers the loops of several zones for both factions, one loop once when both sides share it', () => {
+	const { partLoops } = require('../tools/lib/professions/gathering/build');
+	const ctx = stubCtx([[200, 'Guard', 30, 'H', 90, 90], [201, 'Vendor', 30, 'H', 91, 90], [202, 'Innkeeper', 30, 'H', 90, 91]]);
+	const line = (zone, x0) => Array.from({ length: 12 }, (_, i) => ({ name: 'Copper Vein', req: 1, up: 1, w: 1, pt: ctx.project.point(zone, x0 + (i % 4) * 4, 10 + Math.floor(i / 4) * 4, 'e') }));
+	const zones = { 1: line(1, 10), 2: line(2, 80) };
+	// Zone 2's ground lies by a Horde town: no Alliance loop there.
+	ctx.data.npcs[200].spawns[2] = { f: 'e', pts: [[86, 14]] };
+	ctx.data.npcs[201].spawns[2] = { f: 'e', pts: [[87, 14]] };
+	ctx.data.npcs[202].spawns[2] = { f: 'e', pts: [[86, 15]] };
+	const prof = { skill: 'Mining', radius: 40, points: (c, zone) => zones[zone] };
+	const loops = partLoops(ctx, prof, { Alliance: [1, 2], Horde: [1, 2] }, { from: 1, to: 50, band: { from: 1, to: 50 } });
+	assert.deepEqual(
+		loops.map((l) => [l.zone, l.factions.join(',')]).sort(),
+		[
+			[1, 'Alliance,Horde'],
+			[2, 'Horde'],
+		],
+	);
 });
 
 test('every generated gathering band lists something the band\'s starting skill can gather (#3355)', () => {
@@ -174,8 +177,8 @@ test('every generated gathering band lists something the band\'s starting skill 
 	assert.deepEqual(bad, []);
 });
 
-test('a step splits where a common kind first becomes gatherable, and no part leads to one it cannot gather yet: Loch Modan\'s Briarthorn (70) in Herbalism 50-100 (#2892)', () => {
-	const { startParts } = require('../tools/lib/professions/gathering/build');
+test('a step splits where a common kind first becomes gatherable: Loch Modan\'s Briarthorn (70) in Herbalism 50-100 (#2892)', () => {
+	const { startParts, partPoints } = require('../tools/lib/professions/gathering/build');
 	const pts = [];
 	const at = (name, req, n) => {
 		for (let i = 0; i < n; i++) pts.push({ name, req, up: 1, w: 1, pt: { c: 0, wx: pts.length * 30, wy: 0 } });
@@ -186,18 +189,18 @@ test('a step splits where a common kind first becomes gatherable, and no part le
 	at('Stranglekelp', 85, 10);
 	// Under a twentieth: it opens no part of its own and joins at the next split.
 	at('Wild Steelbloom', 75, 1);
-	const parts = startParts({}, pts, 50, 100).map((p) => [p.from, p.to, [...new Set(p.points.map((q) => q.name))].sort().join(', ')]);
+	const parts = startParts({}, pts, 50, 100).map((p) => [p.from, p.to, [...new Set(partPoints(pts, p.from, p.to).map((q) => q.name))].sort().join(', ')]);
 	assert.deepEqual(parts, [
 		[50, 70, 'Earthroot, Mageroyal'],
 		[70, 85, 'Briarthorn, Earthroot, Mageroyal'],
 		[85, 100, 'Briarthorn, Earthroot, Mageroyal, Stranglekelp, Wild Steelbloom'],
 	]);
 	assert.deepEqual(startParts({}, pts, 85, 100).length, 1, 'nothing new inside 85-100');
-	assert.deepEqual(startParts({ rareLeads: true }, pts, 50, 100).map((p) => [p.from, p.to, p.points.length]), [[50, 100, pts.length]], 'skinning: one part, every beast (coversStart splits its bands)');
+	assert.deepEqual(startParts({ rareLeads: true }, pts, 50, 100), [{ from: 50, to: 100 }], 'skinning: one part');
 });
 
-test('a rare herb that becomes common after a split cannot lead a waypoint before its skill (#2892)', () => {
-	const { startParts, rareKinds, label } = require('../tools/lib/professions/gathering/build');
+test('a rare herb that becomes common after a split is on no loop before its skill (#2892)', () => {
+	const { startParts, partPoints, rareKinds } = require('../tools/lib/professions/gathering/build');
 	const { farm } = require('../tools/lib/professions/gathering/farm');
 	const ctx = stubCtx();
 	const points = [];
@@ -213,31 +216,21 @@ test('a rare herb that becomes common after a split cannot lead a waypoint befor
 	add('Stranglekelp', 1, 15, 15);
 	assert.ok(rareKinds({}, points).has('Stranglekelp'));
 	const [early] = startParts({}, points, 50, 100);
-	const rare = rareKinds({}, early.points);
-	const f = farm(ctx, { radius: 40 }, 1432, early.points, { level: 10 });
-	assert.deepEqual([...new Set(f.stops.map((cluster) => label({}, cluster, rare)))], ['Mageroyal']);
-	assert.ok(f.on.every((p) => p.req <= 50), 'nothing on the loop needs more than 50');
+	const f = farm(ctx, { radius: 40 }, 1432, partPoints(points, early.from, early.to), { level: 10 });
+	assert.ok(f.on.length > 0 && f.on.every((p) => p.req <= 50), 'nothing on the loop needs more than 50');
+	assert.ok(f.stops.every((s) => Object.keys(s.counts).every((k) => k === 'Mageroyal')));
 });
 
-test('no Herbalism waypoint names a herb the step\'s starting skill cannot pick (#2892)', () => {
+test('no Herbalism loop holds a herb its range\'s starting skill cannot pick (#2892)', { skip: hasData ? false : 'data/forever not built' }, () => {
+	const { plan } = require('../tools/lib/professions/gathering/build');
+	const { context } = require('../tools/lib/professions/gathering/common');
+	const { SPECS } = require('../tools/lib/professions/gathering/specs');
 	const bad = [];
-	let step = null;
-	let from = null;
-	for (const line of fs.readFileSync(path.join(ROOT, 'guides', 'forever', 'professions', 'herbalism.guide'), 'utf8').split('\n')) {
-		if (line.startsWith('step ')) {
-			const m = line.match(/\((\d+)-\d+\)( cont\.)?$/);
-			step = m ? line : null;
-			from = m ? Number(m[1]) : null;
-		} else if (step && line.startsWith('  goto ')) {
-			const label = (line.match(/"([^"]*)"/) || [])[1] || '';
-			for (const name of label.split(', ')) {
-				const req = T.HERB_NODES[name];
-				assert.ok(req !== undefined, `${step}: "${name}" is no herb`);
-				if (req > from) bad.push(`${step}: ${name} (${req})`);
-			}
-		}
+	for (const e of plan(context(DATA), SPECS.find((s) => s.file === 'herbalism'))) {
+		if (e.kind !== 'band') continue;
+		for (const l of e.loops) for (const p of l.farm.on) if (p.req > e.from) bad.push(`${e.from}-${e.to} ${l.zone}: ${p.name} (${p.req})`);
 	}
-	assert.deepEqual(bad, []);
+	assert.deepEqual([...new Set(bad)], []);
 });
 
 test('live-frame spawns come out in the Era frame, so loops on redrawn maps match `coords era`', () => {
@@ -362,27 +355,11 @@ test('each gathering spec teaches its own camping recipe and sells its own bag',
 	assert.match(by.skinning.learnTip, /Skinning Satchel/);
 });
 
-test('Skyborne play on both sides: an `only` with them names the side, and a side whose twin went elsewhere gets its own step', () => {
+test('Skyborne play on both sides: an `only` with them names the side', () => {
 	const { raceCondition } = require('../tools/lib/professions/gathering/groups');
 	assert.equal(raceCondition(['Human', 'Skyborne'], ['Alliance']), 'Human,Skyborne,Alliance');
 	assert.equal(raceCondition(['Skyborne', 'Skyborne'], ['Alliance', 'Horde']), 'Skyborne');
 	assert.equal(raceCondition(['Orc', 'Troll'], ['Horde']), 'Orc,Troll');
-	const { mergePicks } = require('../tools/lib/professions/gathering/build');
-	const pick = (faction, races, zone) => ({ faction, zone, points: [], group: { races } });
-	const merged = mergePicks([pick('Alliance', ['NightElf'], 1440), pick('Alliance', ['Human', 'Skyborne'], 1436), pick('Horde', ['Orc', 'Skyborne'], 1440)]);
-	assert.deepEqual(merged.map((m) => [m.zone, m.cond]), [
-		[1440, 'NightElf'],
-		[1436, 'Human,Skyborne,Alliance'],
-		[1440, 'Orc,Skyborne,Horde'],
-	]);
-	// Same-side groups on the Skyborne's map share their step.
-	const westfall = mergePicks([pick('Alliance', ['Human'], 1436), pick('Alliance', ['Skyborne'], 1436), pick('Horde', ['Skyborne'], 1413)]);
-	assert.deepEqual(westfall.map((m) => [m.zone, m.cond]), [
-		[1436, 'Human,Skyborne,Alliance'],
-		[1413, 'Skyborne,Horde'],
-	]);
-	// Both sides' Skyborne on one map (Zephras Isle): one step for both.
-	assert.deepEqual(mergePicks([pick('Alliance', ['Skyborne'], 2521), pick('Horde', ['Skyborne'], 2521)]).map((m) => m.cond), ['Skyborne']);
 });
 
 test('an ingredient held in a container (clam meat in clams) is farmed as the container when its droppers weigh more', () => {
@@ -491,59 +468,28 @@ test('the Fishing guide\'s coast spots lie by sea pools, never a lake\'s Sagefis
 	}
 });
 
-test('a band keeps the zone its group worked before when another scores within 3% (no trip for a near tie)', () => {
-	const { pickZones } = require('../tools/lib/professions/gathering/build');
-	const project = makeProjector({ era: { 1: { c: 0, left: 0, right: -1000, top: 0, bottom: -1000 } } });
-	// The same 20 nodes in both zones; zone 1's are worth `w1` each, so its score is w1 times zone 2's.
-	const line = (w) => Array.from({ length: 20 }, (_, i) => ({ name: 'Node', req: 1, w, pt: project.point(1, 10 + i, 10, 'e') }));
-	let w1 = 1.02;
-	const prof = { skill: 'Test', minPoints: 4, points: (ctx, zone) => line(zone === 1 ? w1 : 1) };
-	const band = { from: 1, to: 25, zones: { Alliance: [1, 2] } };
-	// A fresh context per pick: the generator keeps a zone's points per context.
-	const ctx = () => ({ project, data: { npcs: {}, items: {} } });
-	assert.equal(pickZones(ctx(), prof, band, 'Alliance', { key: 'a' })[0].zone, 1, 'the better zone with no zone before');
-	assert.equal(pickZones(ctx(), prof, band, 'Alliance', { key: 'a' }, new Set([2]))[0].zone, 2, 'the zone worked before, 2% behind');
-	w1 = 1.05;
-	assert.equal(pickZones(ctx(), prof, band, 'Alliance', { key: 'a' }, new Set([2]))[0].zone, 1, 'a zone 5% better still wins');
-});
-
-test('Skinning 125-150 stays in Ashenvale for Night Elves and the Horde (a near tie with Thousand Needles)', { skip: hasData ? false : 'data/forever not built' }, () => {
-	const text = fs.readFileSync(path.join(__dirname, '..', 'guides', 'forever', 'professions', 'skinning.guide'), 'utf8');
-	const steps = text.split('\nstep ').slice(1).filter((s) => /\(125-150\)/.test(s.split('\n')[0]));
-	const night = steps.filter((s) => /\n {2}only NightElf\n/.test(s) || /\n {2}only Orc,Troll,Tauren/.test(s));
-	assert.equal(night.length, 2);
-	for (const s of night) assert.match(s, /\n {2}zone Ashenvale\n/, s.split('\n')[0]);
-});
-
-// Every Herbalism, Mining and Skinning band is a `loop` whose `level` covers its whole walk: no
-// creature within aggro range more than a level above it, and never within reach of a town of the
-// other faction (loop.js roundLevel), for every faction its `only` lets in. Catches a hand edit or a
-// generator change that sends a player at creatures 2+ levels above them.
-test('every gathering loop asks the level its whole walk needs and keeps clear of the other faction\'s towns', { skip: hasData ? false : 'data/forever not built' }, () => {
-	const { context } = require('../tools/lib/professions/gathering/common');
+// Every Herbalism, Mining and Skinning farming loop (`loop <zone> lvl <n> … at …`) names the strongest
+// creature along its whole walk (`lvl`; loop.js roundLevel: the engine's level rule reads it) and never
+// passes a town of the other faction, for every faction it is for. Catches a hand edit or a generator
+// change that sends a player at creatures 2+ levels above them.
+test('every gathering loop names the strongest creature along its walk and keeps clear of the other faction\'s towns', { skip: hasData ? false : 'data/forever not built' }, () => {
+	const { context, zoneName } = require('../tools/lib/professions/gathering/common');
 	const { roundLevel } = require('../tools/lib/professions/gathering/loop');
 	const ctx = context(DATA);
-	const byName = Object.fromEntries(Object.entries(T.ZONES).map(([id, z]) => [z.name, Number(id)]));
-	const side = { Human: 'Alliance', Dwarf: 'Alliance', Gnome: 'Alliance', NightElf: 'Alliance', Orc: 'Horde', Troll: 'Horde', Tauren: 'Horde', Undead: 'Horde', Alliance: 'Alliance', Horde: 'Horde' };
+	const byName = Object.fromEntries(Object.keys(T.ZONES).map((id) => [zoneName(ctx, Number(id)), Number(id)]));
 	const bad = [];
 	let loops = 0;
 	for (const file of ['herbalism.guide', 'mining.guide', 'skinning.guide']) {
-		for (const block of fs.readFileSync(path.join(ROOT, 'guides', 'forever', 'professions', file), 'utf8').split('\nstep ').slice(1)) {
-			const lines = block.split('\n');
-			if (!lines.includes('  loop')) continue;
+		for (const line of fs.readFileSync(path.join(ROOT, 'guides', 'forever', 'professions', file), 'utf8').split('\n')) {
+			const m = line.match(/^ {2}loop (.+?) lvl (\d+) .*?(?: only (Alliance|Horde))?( live)? r \d+ at (.+)$/);
+			if (!m) continue;
 			loops++;
-			const zone = byName[(lines.find((l) => l.startsWith('  zone ')) || '').slice(7)];
-			const only = (lines.find((l) => l.startsWith('  only ')) || '').slice(7);
-			const words = only ? only.split(',') : [];
-			const factions = words.length && !words.includes('Skyborne') ? [...new Set(words.map((w) => side[w]))] : words.includes('Alliance') ? ['Alliance'] : words.includes('Horde') ? ['Horde'] : ['Alliance', 'Horde'];
-			const level = Number((lines.find((l) => l.startsWith('  level ')) || '  level 1').slice(8));
-			const stops = lines
-				.map((l) => l.match(/^ {2}goto ([\d.]+),([\d.]+)( live)?/))
-				.filter(Boolean)
-				.map((m) => ({ pt: ctx.project.point(zone, Number(m[1]), Number(m[2]), m[3] ? 'l' : 'e') }));
-			for (const f of factions) {
+			const zone = byName[m[1]];
+			assert.ok(zone, `${file}: unknown zone in ${line}`);
+			const stops = m[5].split(' ').map((p) => ({ pt: ctx.project.point(zone, ...p.split(',').map(Number), m[4] ? 'l' : 'e') }));
+			for (const f of m[3] ? [m[3]] : ['Alliance', 'Horde']) {
 				const need = roundLevel(ctx, zone, stops, f);
-				if (need === null || need > level) bad.push(`${file} ${lines[0]} (${f}): level ${level}, the walk asks ${need === null ? 'a path clear of the other faction\'s town' : need}`);
+				if (need === null || need + 1 > Number(m[2])) bad.push(`${file} ${m[1]} (${f}): lvl ${m[2]}, the walk has ${need === null ? 'a town of the other faction' : `level ${need + 1}`}`);
 			}
 		}
 	}
@@ -551,15 +497,15 @@ test('every gathering loop asks the level its whole walk needs and keeps clear o
 	assert.deepEqual(bad, []);
 });
 
-test('the gathering loops as data for the crafting guides: one entry per item a band\'s loop gives, in the fishing loops\' shape', { skip: hasData ? false : 'data/forever not built' }, () => {
+test('the gathering loops as data for the crafting guides: one entry per loop and item it gives', { skip: hasData ? false : 'data/forever not built' }, () => {
 	const { gatherLoops } = require('../tools/lib/professions/gathering/build');
 	const { context } = require('../tools/lib/professions/gathering/common');
 	const loops = gatherLoops(context(DATA));
-	const keys = ['item', 'kind', 'skill', 'side', 'races', 'map', 'levels', 'guide', 'title', 'pts', 'perLap', 'lapMinutes'];
+	const keys = ['item', 'kind', 'skill', 'factions', 'map', 'lvl', 'lap', 'yield', 'r', 'live', 'pts'];
 	for (const l of loops) assert.deepEqual(Object.keys(l), keys);
 	assert.deepEqual([...new Set(loops.map((l) => l.kind))].sort(), ['herb', 'hide', 'ore']);
 	// Briarthorn (2450) comes from loops that start at 70 or later (#2892).
 	const briar = loops.filter((l) => l.item === 2450);
 	assert.ok(briar.length > 0 && briar.every((l) => l.skill[0] >= 70), JSON.stringify(briar.map((l) => l.skill)));
-	for (const l of loops) assert.ok(l.pts.length >= 2 && l.perLap > 0 && l.lapMinutes > 0 && l.levels[1] === l.levels[0] + 1, l.title);
+	for (const l of loops) assert.ok(l.pts.length >= 2 && l.yield > 0 && l.lap > 0 && l.lvl >= 1, JSON.stringify(l));
 });
