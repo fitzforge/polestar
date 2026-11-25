@@ -84,94 +84,103 @@ step Alchemy 1-75: vendor goods
   tip Buy the whole bracket's share in one go: 82 Empty Vial (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction (Stormwind City: Edna Mullby, Eldraeith and Jasper Fel; Orgrimmar: Felika, Kor'geld and Rekkul).
   buy 3371 x82 nearest
 
-step Alchemy 1-75: Auction House
-  tip What 1-75 takes that the Auction House sells: 82 Silverleaf and 110 Peacebloom. The counts drop by what your bags, bank and mail hold.
+step Get Silverleaf (Elwynn Forest)
+  only Human
+  zone Elwynn Forest
+  tip You need 82 Silverleaf for Alchemy 1-75: Elixir of Minor Defense. Herbalism: Silverleaf (skill 1). The densest patch of Silverleaf in Elwynn Forest is marked. Or buy them at the Auction House.
+  collect 765 x82 @23.3,77.7 era gather Herbalism 1
   auction 765 x82
+
+step Get Silverleaf (Dun Morogh)
+  only Dwarf,Gnome
+  zone Dun Morogh
+  tip You need 82 Silverleaf for Alchemy 1-75: Elixir of Minor Defense. Herbalism: Silverleaf (skill 1). The densest patch of Silverleaf in Dun Morogh is marked. Or buy them at the Auction House.
+  collect 765 x82 @30.7,43.4 era gather Herbalism 1
+  auction 765 x82
+
+step Get Silverleaf (Teldrassil)
+  only NightElf
+  zone Teldrassil
+  tip You need 82 Silverleaf for Alchemy 1-75: Elixir of Minor Defense. Herbalism: Silverleaf (skill 1). The densest patch of Silverleaf in Teldrassil is marked. Or buy them at the Auction House.
+  collect 765 x82 @49.3,73 era gather Herbalism 1
+  auction 765 x82
+
+step Get Silverleaf (Zephras Isle)
+  only Skyborne
+  zone Zephras Isle
+  tip You need 82 Silverleaf for Alchemy 1-75: Elixir of Minor Defense. Herbalism: Silverleaf (skill 1). The densest patch of Silverleaf in Zephras Isle is marked. Or buy them at the Auction House.
+  collect 765 x82 @40.3,53.5 live gather Herbalism 1
+  auction 765 x82
+
+step Get Silverleaf (Durotar)
+  only Orc,Troll
+  zone Durotar
+  tip You need 82 Silverleaf for Alchemy 1-75: Elixir of Minor Defense. Herbalism: Silverleaf (skill 1). The densest patch of Silverleaf in Durotar is marked. Or buy them at the Auction House.
+  collect 765 x82 @51.4,73.9 era gather Herbalism 1
+  auction 765 x82
+
+step Get Silverleaf (Mulgore)
+  only Tauren
+  zone Mulgore
+  tip You need 82 Silverleaf for Alchemy 1-75: Elixir of Minor Defense. Herbalism: Silverleaf (skill 1). The densest patch of Silverleaf in Mulgore is marked. Or buy them at the Auction House.
+  collect 765 x82 @55.2,67 live gather Herbalism 1
+  auction 765 x82
+
+step Get Silverleaf (Tirisfal Glades)
+  only Undead
+  zone Tirisfal Glades
+  tip You need 82 Silverleaf for Alchemy 1-75: Elixir of Minor Defense. Herbalism: Silverleaf (skill 1). The densest patch of Silverleaf in Tirisfal Glades is marked. Or buy them at the Auction House.
+  collect 765 x82 @48.2,37.1 era gather Herbalism 1
+  auction 765 x82
+
+step Get Peacebloom (Elwynn Forest)
+  only Human
+  zone Elwynn Forest
+  tip You need 110 Peacebloom for Alchemy 1-75: Elixir of Minor Defense and Minor Mana Potion (28 of them for 75-150: get them all now). Herbalism: Peacebloom (skill 1). The densest patch of Peacebloom in Elwynn Forest is marked. Or buy them at the Auction House.
+  collect 2447 x110 @26.2,81.6 era gather Herbalism 1
   auction 2447 x110
 
-step Silverleaf (Elwynn Forest)
-  only Human
-  zone Elwynn Forest
-  tip 82 Silverleaf for Elixir of Minor Defense: Herbalism: Silverleaf (skill 1). The densest patch of Silverleaf in Elwynn Forest is marked.
-  collect 765 x82 @23.3,77.7 era gather Herbalism 1
-
-step Silverleaf (Dun Morogh)
+step Get Peacebloom (Dun Morogh)
   only Dwarf,Gnome
   zone Dun Morogh
-  tip 82 Silverleaf for Elixir of Minor Defense: Herbalism: Silverleaf (skill 1). The densest patch of Silverleaf in Dun Morogh is marked.
-  collect 765 x82 @30.7,43.4 era gather Herbalism 1
-
-step Silverleaf (Teldrassil)
-  only NightElf
-  zone Teldrassil
-  tip 82 Silverleaf for Elixir of Minor Defense: Herbalism: Silverleaf (skill 1). The densest patch of Silverleaf in Teldrassil is marked.
-  collect 765 x82 @49.3,73 era gather Herbalism 1
-
-step Silverleaf (Zephras Isle)
-  only Skyborne
-  zone Zephras Isle
-  tip 82 Silverleaf for Elixir of Minor Defense: Herbalism: Silverleaf (skill 1). The densest patch of Silverleaf in Zephras Isle is marked.
-  collect 765 x82 @40.3,53.5 live gather Herbalism 1
-
-step Silverleaf (Durotar)
-  only Orc,Troll
-  zone Durotar
-  tip 82 Silverleaf for Elixir of Minor Defense: Herbalism: Silverleaf (skill 1). The densest patch of Silverleaf in Durotar is marked.
-  collect 765 x82 @51.4,73.9 era gather Herbalism 1
-
-step Silverleaf (Mulgore)
-  only Tauren
-  zone Mulgore
-  tip 82 Silverleaf for Elixir of Minor Defense: Herbalism: Silverleaf (skill 1). The densest patch of Silverleaf in Mulgore is marked.
-  collect 765 x82 @55.2,67 live gather Herbalism 1
-
-step Silverleaf (Tirisfal Glades)
-  only Undead
-  zone Tirisfal Glades
-  tip 82 Silverleaf for Elixir of Minor Defense: Herbalism: Silverleaf (skill 1). The densest patch of Silverleaf in Tirisfal Glades is marked.
-  collect 765 x82 @48.2,37.1 era gather Herbalism 1
-
-step Peacebloom (Elwynn Forest)
-  only Human
-  zone Elwynn Forest
-  tip 110 Peacebloom for Elixir of Minor Defense and Minor Mana Potion (28 of them for 75-150: pick them all now): Herbalism: Peacebloom (skill 1). The densest patch of Peacebloom in Elwynn Forest is marked.
-  collect 2447 x110 @26.2,81.6 era gather Herbalism 1
-
-step Peacebloom (Dun Morogh)
-  only Dwarf,Gnome
-  zone Dun Morogh
-  tip 110 Peacebloom for Elixir of Minor Defense and Minor Mana Potion (28 of them for 75-150: pick them all now): Herbalism: Peacebloom (skill 1). The densest patch of Peacebloom in Dun Morogh is marked.
+  tip You need 110 Peacebloom for Alchemy 1-75: Elixir of Minor Defense and Minor Mana Potion (28 of them for 75-150: get them all now). Herbalism: Peacebloom (skill 1). The densest patch of Peacebloom in Dun Morogh is marked. Or buy them at the Auction House.
   collect 2447 x110 @48,55.6 era gather Herbalism 1
+  auction 2447 x110
 
-step Peacebloom (Teldrassil)
+step Get Peacebloom (Teldrassil)
   only NightElf
   zone Teldrassil
-  tip 110 Peacebloom for Elixir of Minor Defense and Minor Mana Potion (28 of them for 75-150: pick them all now): Herbalism: Peacebloom (skill 1). The densest patch of Peacebloom in Teldrassil is marked.
+  tip You need 110 Peacebloom for Alchemy 1-75: Elixir of Minor Defense and Minor Mana Potion (28 of them for 75-150: get them all now). Herbalism: Peacebloom (skill 1). The densest patch of Peacebloom in Teldrassil is marked. Or buy them at the Auction House.
   collect 2447 x110 @55.3,66.8 era gather Herbalism 1
+  auction 2447 x110
 
-step Peacebloom (Zephras Isle)
+step Get Peacebloom (Zephras Isle)
   only Skyborne
   zone Zephras Isle
-  tip 110 Peacebloom for Elixir of Minor Defense and Minor Mana Potion (28 of them for 75-150: pick them all now): Herbalism: Peacebloom (skill 1). The densest patch of Peacebloom in Zephras Isle is marked.
+  tip You need 110 Peacebloom for Alchemy 1-75: Elixir of Minor Defense and Minor Mana Potion (28 of them for 75-150: get them all now). Herbalism: Peacebloom (skill 1). The densest patch of Peacebloom in Zephras Isle is marked. Or buy them at the Auction House.
   collect 2447 x110 @51,75.1 live gather Herbalism 1
+  auction 2447 x110
 
-step Peacebloom (Durotar)
+step Get Peacebloom (Durotar)
   only Orc,Troll
   zone Durotar
-  tip 110 Peacebloom for Elixir of Minor Defense and Minor Mana Potion (28 of them for 75-150: pick them all now): Herbalism: Peacebloom (skill 1). The densest patch of Peacebloom in Durotar is marked.
+  tip You need 110 Peacebloom for Alchemy 1-75: Elixir of Minor Defense and Minor Mana Potion (28 of them for 75-150: get them all now). Herbalism: Peacebloom (skill 1). The densest patch of Peacebloom in Durotar is marked. Or buy them at the Auction House.
   collect 2447 x110 @42.7,39.7 era gather Herbalism 1
+  auction 2447 x110
 
-step Peacebloom (Mulgore)
+step Get Peacebloom (Mulgore)
   only Tauren
   zone Mulgore
-  tip 110 Peacebloom for Elixir of Minor Defense and Minor Mana Potion (28 of them for 75-150: pick them all now): Herbalism: Peacebloom (skill 1). The densest patch of Peacebloom in Mulgore is marked.
+  tip You need 110 Peacebloom for Alchemy 1-75: Elixir of Minor Defense and Minor Mana Potion (28 of them for 75-150: get them all now). Herbalism: Peacebloom (skill 1). The densest patch of Peacebloom in Mulgore is marked. Or buy them at the Auction House.
   collect 2447 x110 @44.9,43.5 live gather Herbalism 1
+  auction 2447 x110
 
-step Peacebloom (Tirisfal Glades)
+step Get Peacebloom (Tirisfal Glades)
   only Undead
   zone Tirisfal Glades
-  tip 110 Peacebloom for Elixir of Minor Defense and Minor Mana Potion (28 of them for 75-150: pick them all now): Herbalism: Peacebloom (skill 1). The densest patch of Peacebloom in Tirisfal Glades is marked.
+  tip You need 110 Peacebloom for Alchemy 1-75: Elixir of Minor Defense and Minor Mana Potion (28 of them for 75-150: get them all now). Herbalism: Peacebloom (skill 1). The densest patch of Peacebloom in Tirisfal Glades is marked. Or buy them at the Auction House.
   collect 2447 x110 @49.8,37.4 era gather Herbalism 1
+  auction 2447 x110
 
 step Elixir of Minor Defense to 75
   zone Azeroth
@@ -194,107 +203,117 @@ step Alchemy 75-150: vendor goods
   buy 3371 x77 nearest
   buy 3372 x15 nearest
 
-step Alchemy 75-150: Auction House
-  tip What 75-150 takes that the Auction House sells: 77 Mageroyal, 152 Briarthorn and 54 Bruiseweed. The counts drop by what your bags, bank and mail hold.
-  auction 785 x77
-  auction 2450 x152
-  auction 2453 x54
-
-step Mageroyal (Westfall)
+step Get Mageroyal (Westfall)
   only Human
   zone Westfall
-  tip 77 Mageroyal for Minor Mana Potion and Elixir of Wisdom: Herbalism: Mageroyal (skill 50). The densest patch of Mageroyal in Westfall is marked.
+  tip You need 77 Mageroyal for Alchemy 75-150: Minor Mana Potion and Elixir of Wisdom. Herbalism: Mageroyal (skill 50). The densest patch of Mageroyal in Westfall is marked. Or buy them at the Auction House.
   collect 785 x77 @27.2,50.1 era gather Herbalism 50
+  auction 785 x77
 
-step Mageroyal (Loch Modan)
+step Get Mageroyal (Loch Modan)
   only Dwarf,Gnome
   zone Loch Modan
-  tip 77 Mageroyal for Minor Mana Potion and Elixir of Wisdom: Herbalism: Mageroyal (skill 50). The densest patch of Mageroyal in Loch Modan is marked.
+  tip You need 77 Mageroyal for Alchemy 75-150: Minor Mana Potion and Elixir of Wisdom. Herbalism: Mageroyal (skill 50). The densest patch of Mageroyal in Loch Modan is marked. Or buy them at the Auction House.
   collect 785 x77 @62.4,25.6 era gather Herbalism 50
+  auction 785 x77
 
-step Mageroyal (Teldrassil)
+step Get Mageroyal (Teldrassil)
   only NightElf
   zone Teldrassil
-  tip 77 Mageroyal for Minor Mana Potion and Elixir of Wisdom: Herbalism: Mageroyal (skill 50). The densest patch of Mageroyal in Teldrassil is marked.
+  tip You need 77 Mageroyal for Alchemy 75-150: Minor Mana Potion and Elixir of Wisdom. Herbalism: Mageroyal (skill 50). The densest patch of Mageroyal in Teldrassil is marked. Or buy them at the Auction House.
   collect 785 x77 @49.1,78 era gather Herbalism 50
+  auction 785 x77
 
-step Mageroyal (Zephras Isle)
+step Get Mageroyal (Zephras Isle)
   only Skyborne
   zone Zephras Isle
-  tip 77 Mageroyal for Minor Mana Potion and Elixir of Wisdom: Herbalism: Mageroyal (skill 50). The densest patch of Mageroyal in Zephras Isle is marked.
+  tip You need 77 Mageroyal for Alchemy 75-150: Minor Mana Potion and Elixir of Wisdom. Herbalism: Mageroyal (skill 50). The densest patch of Mageroyal in Zephras Isle is marked. Or buy them at the Auction House.
   collect 785 x77 @59.7,41.9 live gather Herbalism 50
+  auction 785 x77
 
-step Mageroyal (The Barrens)
+step Get Mageroyal (The Barrens)
   only Orc,Troll,Tauren
   zone The Barrens
-  tip 77 Mageroyal for Minor Mana Potion and Elixir of Wisdom: Herbalism: Mageroyal (skill 50). The densest patch of Mageroyal in The Barrens is marked.
+  tip You need 77 Mageroyal for Alchemy 75-150: Minor Mana Potion and Elixir of Wisdom. Herbalism: Mageroyal (skill 50). The densest patch of Mageroyal in The Barrens is marked. Or buy them at the Auction House.
   collect 785 x77 @42.8,21.2 era gather Herbalism 50
+  auction 785 x77
 
-step Mageroyal (Silverpine Forest)
+step Get Mageroyal (Silverpine Forest)
   only Undead
   zone Silverpine Forest
-  tip 77 Mageroyal for Minor Mana Potion and Elixir of Wisdom: Herbalism: Mageroyal (skill 50). The densest patch of Mageroyal in Silverpine Forest is marked.
+  tip You need 77 Mageroyal for Alchemy 75-150: Minor Mana Potion and Elixir of Wisdom. Herbalism: Mageroyal (skill 50). The densest patch of Mageroyal in Silverpine Forest is marked. Or buy them at the Auction House.
   collect 785 x77 @52.6,29.1 era gather Herbalism 50
+  auction 785 x77
 
-step Briarthorn (Westfall)
+step Get Briarthorn (Westfall)
   only Human,Skyborne,Alliance
   zone Westfall
-  tip 152 Briarthorn for Elixir of Wisdom and Lesser Troll's Blood Elixir (24 of them for 150-225: pick them all now): Herbalism: Briarthorn (skill 70). The densest patch of Briarthorn in Westfall is marked.
+  tip You need 152 Briarthorn for Alchemy 75-150: Elixir of Wisdom and Lesser Troll's Blood Elixir (24 of them for 150-225: get them all now). Herbalism: Briarthorn (skill 70). The densest patch of Briarthorn in Westfall is marked. Or buy them at the Auction House.
   collect 2450 x152 @52,70.8 era gather Herbalism 70
+  auction 2450 x152
 
-step Briarthorn (Loch Modan)
+step Get Briarthorn (Loch Modan)
   only Dwarf,Gnome
   zone Loch Modan
-  tip 152 Briarthorn for Elixir of Wisdom and Lesser Troll's Blood Elixir (24 of them for 150-225: pick them all now): Herbalism: Briarthorn (skill 70). The densest patch of Briarthorn in Loch Modan is marked.
+  tip You need 152 Briarthorn for Alchemy 75-150: Elixir of Wisdom and Lesser Troll's Blood Elixir (24 of them for 150-225: get them all now). Herbalism: Briarthorn (skill 70). The densest patch of Briarthorn in Loch Modan is marked. Or buy them at the Auction House.
   collect 2450 x152 @66.6,48.4 era gather Herbalism 70
+  auction 2450 x152
 
-step Briarthorn (Darkshore)
+step Get Briarthorn (Darkshore)
   only NightElf
   zone Darkshore
-  tip 152 Briarthorn for Elixir of Wisdom and Lesser Troll's Blood Elixir (24 of them for 150-225: pick them all now): Herbalism: Briarthorn (skill 70). The densest patch of Briarthorn in Darkshore is marked.
+  tip You need 152 Briarthorn for Alchemy 75-150: Elixir of Wisdom and Lesser Troll's Blood Elixir (24 of them for 150-225: get them all now). Herbalism: Briarthorn (skill 70). The densest patch of Briarthorn in Darkshore is marked. Or buy them at the Auction House.
   collect 2450 x152 @42.6,33.7 era gather Herbalism 70
+  auction 2450 x152
 
-step Briarthorn (The Barrens)
+step Get Briarthorn (The Barrens)
   only Orc,Troll,Tauren,Skyborne,Horde
   zone The Barrens
-  tip 152 Briarthorn for Elixir of Wisdom and Lesser Troll's Blood Elixir (24 of them for 150-225: pick them all now): Herbalism: Briarthorn (skill 70). The densest patch of Briarthorn in The Barrens is marked.
+  tip You need 152 Briarthorn for Alchemy 75-150: Elixir of Wisdom and Lesser Troll's Blood Elixir (24 of them for 150-225: get them all now). Herbalism: Briarthorn (skill 70). The densest patch of Briarthorn in The Barrens is marked. Or buy them at the Auction House.
   collect 2450 x152 @45.6,15.6 era gather Herbalism 70
+  auction 2450 x152
 
-step Briarthorn (Silverpine Forest)
+step Get Briarthorn (Silverpine Forest)
   only Undead
   zone Silverpine Forest
-  tip 152 Briarthorn for Elixir of Wisdom and Lesser Troll's Blood Elixir (24 of them for 150-225: pick them all now): Herbalism: Briarthorn (skill 70). The densest patch of Briarthorn in Silverpine Forest is marked.
+  tip You need 152 Briarthorn for Alchemy 75-150: Elixir of Wisdom and Lesser Troll's Blood Elixir (24 of them for 150-225: get them all now). Herbalism: Briarthorn (skill 70). The densest patch of Briarthorn in Silverpine Forest is marked. Or buy them at the Auction House.
   collect 2450 x152 @55.3,73.8 era gather Herbalism 70
+  auction 2450 x152
 
-step Bruiseweed (Westfall)
+step Get Bruiseweed (Westfall)
   only Human,Skyborne,Alliance
   zone Westfall
-  tip 54 Bruiseweed for Lesser Troll's Blood Elixir (24 of them for 150-225: pick them all now): Herbalism: Bruiseweed (skill 100). The densest patch of Bruiseweed in Westfall is marked.
+  tip You need 54 Bruiseweed for Alchemy 75-150: Lesser Troll's Blood Elixir (24 of them for 150-225: get them all now). Herbalism: Bruiseweed (skill 100). The densest patch of Bruiseweed in Westfall is marked. Or buy them at the Auction House.
   collect 2453 x54 @43.6,54.7 era gather Herbalism 100
+  auction 2453 x54
 
-step Bruiseweed (Loch Modan)
+step Get Bruiseweed (Loch Modan)
   only Dwarf,Gnome
   zone Loch Modan
-  tip 54 Bruiseweed for Lesser Troll's Blood Elixir (24 of them for 150-225: pick them all now): Herbalism: Bruiseweed (skill 100). The densest patch of Bruiseweed in Loch Modan is marked.
+  tip You need 54 Bruiseweed for Alchemy 75-150: Lesser Troll's Blood Elixir (24 of them for 150-225: get them all now). Herbalism: Bruiseweed (skill 100). The densest patch of Bruiseweed in Loch Modan is marked. Or buy them at the Auction House.
   collect 2453 x54 @68.4,26.2 era gather Herbalism 100
+  auction 2453 x54
 
-step Bruiseweed (Darkshore)
+step Get Bruiseweed (Darkshore)
   only NightElf
   zone Darkshore
-  tip 54 Bruiseweed for Lesser Troll's Blood Elixir (24 of them for 150-225: pick them all now): Herbalism: Bruiseweed (skill 100). The densest patch of Bruiseweed in Darkshore is marked.
+  tip You need 54 Bruiseweed for Alchemy 75-150: Lesser Troll's Blood Elixir (24 of them for 150-225: get them all now). Herbalism: Bruiseweed (skill 100). The densest patch of Bruiseweed in Darkshore is marked. Or buy them at the Auction House.
   collect 2453 x54 @56.2,21.7 era gather Herbalism 100
+  auction 2453 x54
 
-step Bruiseweed (The Barrens)
+step Get Bruiseweed (The Barrens)
   only Orc,Troll,Tauren,Skyborne,Horde
   zone The Barrens
-  tip 54 Bruiseweed for Lesser Troll's Blood Elixir (24 of them for 150-225: pick them all now): Herbalism: Bruiseweed (skill 100). The densest patch of Bruiseweed in The Barrens is marked.
+  tip You need 54 Bruiseweed for Alchemy 75-150: Lesser Troll's Blood Elixir (24 of them for 150-225: get them all now). Herbalism: Bruiseweed (skill 100). The densest patch of Bruiseweed in The Barrens is marked. Or buy them at the Auction House.
   collect 2453 x54 @57.5,54.3 era gather Herbalism 100
+  auction 2453 x54
 
-step Bruiseweed (Silverpine Forest)
+step Get Bruiseweed (Silverpine Forest)
   only Undead
   zone Silverpine Forest
-  tip 54 Bruiseweed for Lesser Troll's Blood Elixir (24 of them for 150-225: pick them all now): Herbalism: Bruiseweed (skill 100). The densest patch of Bruiseweed in Silverpine Forest is marked.
+  tip You need 54 Bruiseweed for Alchemy 75-150: Lesser Troll's Blood Elixir (24 of them for 150-225: get them all now). Herbalism: Bruiseweed (skill 100). The densest patch of Bruiseweed in Silverpine Forest is marked. Or buy them at the Auction House.
   collect 2453 x54 @60.9,62 era gather Herbalism 100
+  auction 2453 x54
 
 step Minor Mana Potion to 90
   zone Azeroth
@@ -325,60 +344,61 @@ step Alchemy 150-225: vendor goods
   tip Buy the whole bracket's share in one go: 83 Leaded Vial (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction (Stormwind City: Edna Mullby, Eldraeith and Jasper Fel; Orgrimmar: Felika, Kor'geld and Rekkul).
   buy 3372 x83 nearest
 
-step Alchemy 150-225: Auction House
-  tip What 150-225 takes that the Auction House sells: 40 Wild Steelbloom, 39 Kingsblood, 39 Stranglekelp and 40 Goldthorn. The counts drop by what your bags, bank and mail hold.
-  auction 3355 x40
-  auction 3356 x39
-  auction 3820 x39
-  auction 3821 x40
-
-step Wild Steelbloom (Alliance)
+step Get Wild Steelbloom (Alliance)
   only Alliance
   zone Stranglethorn Vale
-  tip 40 Wild Steelbloom for Elixir of Defense (8 of them for 225-300: pick them all now): Herbalism: Wild Steelbloom (skill 115) in Stonetalon Mountains (15-27), Arathi Highlands (30-40) and Stranglethorn Vale (30-45). The densest patch of Wild Steelbloom in Stranglethorn Vale is marked.
+  tip You need 40 Wild Steelbloom for Alchemy 150-225: Elixir of Defense (8 of them for 225-300: get them all now). Herbalism: Wild Steelbloom (skill 115) in Stonetalon Mountains (15-27), Arathi Highlands (30-40) and Stranglethorn Vale (30-45). The densest patch of Wild Steelbloom in Stranglethorn Vale is marked. Or buy them at the Auction House.
   collect 3355 x40 @26.6,9.9 era gather Herbalism 115
+  auction 3355 x40
 
-step Wild Steelbloom (Horde)
+step Get Wild Steelbloom (Horde)
   only Horde
   zone Stonetalon Mountains
-  tip 40 Wild Steelbloom for Elixir of Defense (8 of them for 225-300: pick them all now): Herbalism: Wild Steelbloom (skill 115) in Stonetalon Mountains (15-27), Arathi Highlands (30-40) and Stranglethorn Vale (30-45). The densest patch of Wild Steelbloom in Stonetalon Mountains is marked.
+  tip You need 40 Wild Steelbloom for Alchemy 150-225: Elixir of Defense (8 of them for 225-300: get them all now). Herbalism: Wild Steelbloom (skill 115) in Stonetalon Mountains (15-27), Arathi Highlands (30-40) and Stranglethorn Vale (30-45). The densest patch of Wild Steelbloom in Stonetalon Mountains is marked. Or buy them at the Auction House.
   collect 3355 x40 @58.6,84.2 era gather Herbalism 115
+  auction 3355 x40
 
-step Kingsblood (Alliance)
+step Get Kingsblood (Alliance)
   only Alliance
   zone Stranglethorn Vale
-  tip 39 Kingsblood for Mana Potion: Herbalism: Kingsblood (skill 125) in Ashenvale (18-30), Wetlands (20-30) and Stranglethorn Vale (30-45). The densest patch of Kingsblood in Stranglethorn Vale is marked.
+  tip You need 39 Kingsblood for Alchemy 150-225: Mana Potion. Herbalism: Kingsblood (skill 125) in Ashenvale (18-30), Wetlands (20-30) and Stranglethorn Vale (30-45). The densest patch of Kingsblood in Stranglethorn Vale is marked. Or buy them at the Auction House.
   collect 3356 x39 @38.2,34.2 era gather Herbalism 125
+  auction 3356 x39
 
-step Kingsblood (Horde)
+step Get Kingsblood (Horde)
   only Horde
   zone The Barrens
-  tip 39 Kingsblood for Mana Potion: Herbalism: Kingsblood (skill 125) in The Barrens (10-25), Ashenvale (18-30) and Stranglethorn Vale (30-45). The densest patch of Kingsblood in The Barrens is marked.
+  tip You need 39 Kingsblood for Alchemy 150-225: Mana Potion. Herbalism: Kingsblood (skill 125) in The Barrens (10-25), Ashenvale (18-30) and Stranglethorn Vale (30-45). The densest patch of Kingsblood in The Barrens is marked. Or buy them at the Auction House.
   collect 3356 x39 @44.5,75 era gather Herbalism 125
+  auction 3356 x39
 
-step Stranglekelp (Alliance)
+step Get Stranglekelp (Alliance)
   only Alliance
   zone Stranglethorn Vale
-  tip 39 Stranglekelp for Mana Potion: Herbalism: Stranglekelp (skill 85) in Wetlands (20-30), Stranglethorn Vale (30-45) and The Hinterlands (40-50). The densest patch of Stranglekelp in Stranglethorn Vale is marked.
+  tip You need 39 Stranglekelp for Alchemy 150-225: Mana Potion. Herbalism: Stranglekelp (skill 85) in Wetlands (20-30), Stranglethorn Vale (30-45) and The Hinterlands (40-50). The densest patch of Stranglekelp in Stranglethorn Vale is marked. Or buy them at the Auction House.
   collect 3820 x39 @22.9,62.5 era gather Herbalism 85
+  auction 3820 x39
 
-step Stranglekelp (Horde)
+step Get Stranglekelp (Horde)
   only Horde
   zone The Barrens
-  tip 39 Stranglekelp for Mana Potion: Herbalism: Stranglekelp (skill 85) in The Barrens (10-25), Stranglethorn Vale (30-45) and The Hinterlands (40-50). The densest patch of Stranglekelp in The Barrens is marked.
+  tip You need 39 Stranglekelp for Alchemy 150-225: Mana Potion. Herbalism: Stranglekelp (skill 85) in The Barrens (10-25), Stranglethorn Vale (30-45) and The Hinterlands (40-50). The densest patch of Stranglekelp in The Barrens is marked. Or buy them at the Auction House.
   collect 3820 x39 @65.9,44.6 era gather Herbalism 85
+  auction 3820 x39
 
-step Goldthorn (Alliance)
+step Get Goldthorn (Alliance)
   only Alliance
   zone Arathi Highlands
-  tip 40 Goldthorn for Elixir of Defense (8 of them for 225-300: pick them all now): Herbalism: Goldthorn (skill 170) in Arathi Highlands (30-40), The Hinterlands (40-50) and Feralas (40-50). The densest patch of Goldthorn in Arathi Highlands is marked.
+  tip You need 40 Goldthorn for Alchemy 150-225: Elixir of Defense (8 of them for 225-300: get them all now). Herbalism: Goldthorn (skill 170) in Arathi Highlands (30-40), The Hinterlands (40-50) and Feralas (40-50). The densest patch of Goldthorn in Arathi Highlands is marked. Or buy them at the Auction House.
   collect 3821 x40 @49.1,71.5 era gather Herbalism 170
+  auction 3821 x40
 
-step Goldthorn (Horde)
+step Get Goldthorn (Horde)
   only Horde
   zone Feralas
-  tip 40 Goldthorn for Elixir of Defense (8 of them for 225-300: pick them all now): Herbalism: Goldthorn (skill 170) in Arathi Highlands (30-40), The Hinterlands (40-50) and Feralas (40-50). The densest patch of Goldthorn in Feralas is marked.
+  tip You need 40 Goldthorn for Alchemy 150-225: Elixir of Defense (8 of them for 225-300: get them all now). Herbalism: Goldthorn (skill 170) in Arathi Highlands (30-40), The Hinterlands (40-50) and Feralas (40-50). The densest patch of Goldthorn in Feralas is marked. Or buy them at the Auction House.
   collect 3821 x40 @45,26.1 era gather Herbalism 170
+  auction 3821 x40
 
 step Expert Alchemy
   zone Azeroth
@@ -420,47 +440,47 @@ step Recipe: Elixir of Superior Defense
   tip Recipe: Elixir of Superior Defense teaches Elixir of Greater Defense (Alchemy 265) for 1g 30s. Sold by Alliance: Soolie Berryfizz (Ironforge), limited stock; Horde: Kor'geld (Orgrimmar), limited stock. Its sellers keep one or two in stock that come back some time after a sale; the Auction House often has it too.
   buy 13478 nearest
 
-step Alchemy 225-300: Auction House
-  tip What 225-300 takes that the Auction House sells: 43 Arthas' Tears, 43 Sungrass and 43 Stonescale Eel. The counts drop by what your bags, bank and mail hold.
-  auction 8836 x43
-  auction 8838 x43
-  auction 13422 x43
-
-step Arthas' Tears (Alliance)
+step Get Arthas' Tears (Alliance)
   only Alliance
   zone Western Plaguelands
-  tip 43 Arthas' Tears for Draught of Detect Undead: Herbalism: Arthas' Tears (skill 220) in Felwood (48-55), Western Plaguelands (51-58) and Eastern Plaguelands (53-60). The densest patch of Arthas' Tears in Western Plaguelands is marked.
+  tip You need 43 Arthas' Tears for Alchemy 225-300: Draught of Detect Undead. Herbalism: Arthas' Tears (skill 220) in Felwood (48-55), Western Plaguelands (51-58) and Eastern Plaguelands (53-60). The densest patch of Arthas' Tears in Western Plaguelands is marked. Or buy them at the Auction House.
   collect 8836 x43 @45.5,67.5 era gather Herbalism 220
+  auction 8836 x43
 
-step Arthas' Tears (Horde)
+step Get Arthas' Tears (Horde)
   only Horde
   zone Felwood
-  tip 43 Arthas' Tears for Draught of Detect Undead: Herbalism: Arthas' Tears (skill 220) in Felwood (48-55), Western Plaguelands (51-58) and Eastern Plaguelands (53-60). The densest patch of Arthas' Tears in Felwood is marked.
+  tip You need 43 Arthas' Tears for Alchemy 225-300: Draught of Detect Undead. Herbalism: Arthas' Tears (skill 220) in Felwood (48-55), Western Plaguelands (51-58) and Eastern Plaguelands (53-60). The densest patch of Arthas' Tears in Felwood is marked. Or buy them at the Auction House.
   collect 8836 x43 @37.8,45.1 era gather Herbalism 220
+  auction 8836 x43
 
-step Sungrass (Alliance)
+step Get Sungrass (Alliance)
   only Alliance
   zone The Hinterlands
-  tip 43 Sungrass for Elixir of Greater Defense: Herbalism: Sungrass (skill 230) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The densest patch of Sungrass in The Hinterlands is marked.
+  tip You need 43 Sungrass for Alchemy 225-300: Elixir of Greater Defense. Herbalism: Sungrass (skill 230) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The densest patch of Sungrass in The Hinterlands is marked. Or buy them at the Auction House.
   collect 8838 x43 @22.9,52.9 era gather Herbalism 230
+  auction 8838 x43
 
-step Sungrass (Horde)
+step Get Sungrass (Horde)
   only Horde
   zone Feralas
-  tip 43 Sungrass for Elixir of Greater Defense: Herbalism: Sungrass (skill 230) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The densest patch of Sungrass in Feralas is marked.
+  tip You need 43 Sungrass for Alchemy 225-300: Elixir of Greater Defense. Herbalism: Sungrass (skill 230) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The densest patch of Sungrass in Feralas is marked. Or buy them at the Auction House.
   collect 8838 x43 @56.1,55 era gather Herbalism 230
+  auction 8838 x43
 
-step Stonescale Eel (Alliance)
+step Get Stonescale Eel (Alliance)
   only Alliance
   zone Stranglethorn Vale
-  tip 43 Stonescale Eel for Elixir of Greater Defense: Fishing. Fish Stonescale Eel Swarm here.
+  tip You need 43 Stonescale Eel for Alchemy 225-300: Elixir of Greater Defense. Fish them from the Stonescale Eel Swarm pools at the marked spot. Or buy them at the Auction House.
   collect 13422 x43 @27.5,76.5 era gather Fishing 1
+  auction 13422 x43
 
-step Stonescale Eel (Horde)
+step Get Stonescale Eel (Horde)
   only Horde
   zone Feralas
-  tip 43 Stonescale Eel for Elixir of Greater Defense: Fishing. Fish Stonescale Eel Swarm here.
+  tip You need 43 Stonescale Eel for Alchemy 225-300: Elixir of Greater Defense. Fish them from the Stonescale Eel Swarm pools at the marked spot. Or buy them at the Auction House.
   collect 13422 x43 @44.2,46.5 era gather Fishing 1
+  auction 13422 x43
 
 step Artisan Alchemy
   zone Azeroth

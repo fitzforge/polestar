@@ -174,17 +174,18 @@ function priceOf(P, item, count) {
 	return money(Math.ceil(count / (m.buyCount || 1)) * m.buy);
 }
 
-// A segment's steps: shopping (vendor goods), the Auction House (what the
-// segment gathers that the Auction House sells: a meat, not a clam to open; the
-// gather collect then carries `gather` with its mobs' levels, docs/GUIDE_FORMAT.md
-// "Materials"), the ingredients and the crafting.
+// A segment's steps: shopping (vendor goods), a "Get it" step per gathered
+// ingredient (how many the segment needs, who drops it in the planned zone,
+// the farm the arrow picks for the player's level, and the Auction House as
+// the last line: its `auction` goal ends the step when the Auction House sells
+// it, a meat, not a clam to open; the gather collect then carries `gather`
+// with its mobs' levels, docs/GUIDE_FORMAT.md "Materials"), and the crafting.
 function renderSegment(ctx, P, seg, L) {
 	const recipe = recipeOf(ctx, seg.spell);
 	const crafts = expectedCrafts(recipe, seg.from, seg.to);
 	const shop = [];
 	const bought = [];
-	const gather = [];
-	const market = [];
+	const gets = [];
 	if (seg.learn === 'vendor') {
 		if (!factionsOf(seg.who).every((f) => vendorSpawns(ctx, recipe.recipeItem, f).length)) throw new Error(`${recipe.name}: recipe ${recipe.recipeItem} not sold to ${factionsOf(seg.who)}`);
 		shop.push(`buy ${recipe.recipeItem} x1 nearest`);
@@ -192,6 +193,7 @@ function renderSegment(ctx, P, seg, L) {
 	// A later segment's recipe sold beside this one's vendor: bought now, so the
 	// later shopping step is done when the player gets there.
 	for (const item of seg.alsoBuy || []) shop.push(`buy ${item} x1 nearest`);
+	const zone = zoneName(ctx, seg.zone);
 	for (const rg of recipe.reagents) {
 		const need = crafts * rg.count;
 		const name = itemName(ctx, rg.item);
@@ -200,13 +202,20 @@ function renderSegment(ctx, P, seg, L) {
 			const price = priceOf(P, rg.item, need);
 			if (price) bought.push(`${need} ${name} (${price})`);
 		} else {
-			// Smart farm spot; the planned zone's best droppers go in the note.
+			// Smart farm spot; the planned zone's best droppers go in the tip.
 			const d = dropSpot(ctx, rg.item, seg.zone);
-			const open = d.via ? `; open each ${itemName(ctx, d.via)} for its ${name}` : '';
 			const sells = !d.via && !((P.materials[rg.item] || {}).bop);
-			if (sells) market.push({ item: rg.item, need, name });
 			const facts = sells ? ` gather${d.levels ? ` levels ${d.levels[0]}-${d.levels[1]}` : ''}` : '';
-			gather.push(`collect ${d.via || rg.item} x${need} nearest${facts}     -- ${d.mobs.join(', ')} in ${zoneName(ctx, seg.zone)}, or wherever the arrow points${open}`);
+			const who = d.mobs.length ? d.mobs.join(', ') : 'mobs';
+			const where = d.via ? `It comes in ${itemName(ctx, d.via)}s, which ${who} in ${zone} drop: open each one` : `It drops from ${who} in ${zone}`;
+			gets.push({
+				name,
+				lines: [
+					`tip You need ${need} ${name} for ${recipe.name} (${seg.from}-${seg.to}). ${where}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice.${sells ? ` Or buy ${need > 1 ? 'them' : 'it'} at the Auction House.` : ''}`,
+					`collect ${d.via || rg.item} x${need} nearest${facts}`,
+					...(sells ? [`auction ${rg.item} x${need}`] : []),
+				],
+			});
 		}
 	}
 	const only = onlyLines(seg.who);
@@ -214,13 +223,7 @@ function renderSegment(ctx, P, seg, L) {
 		const list = bought.length ? ` You need ${bought.join(', ')}.` : '';
 		step(L, `${recipe.name}: shopping`, [...only, `tip The arrow picks the nearest vendor of your faction for each item.${list}`, ...shop]);
 	}
-	if (market.length) {
-		const what = market.map((m) => `${m.need} ${m.name}`).join(' and ');
-		step(L, `${recipe.name}: Auction House`, [...only, `tip What ${recipe.name} takes that the Auction House sells: ${what}. The counts drop by what your bags, bank and mail hold.`, ...market.map((m) => `auction ${m.item} x${m.need}`)]);
-	}
-	if (gather.length) {
-		step(L, `${recipe.name}: ingredients`, [...only, `zone ${zoneName(ctx, seg.zone)}`, ...gather]);
-	}
+	for (const g of gets) step(L, `Get ${g.name}`, [...only, `zone ${zone}`, ...g.lines]);
 	const learn = seg.learn === 'trainer' || seg.learn === 'vendor' || seg.learn === 'item' ? [`learn ${seg.spell}`] : [];
 	const extra = [learnNote(ctx, P, recipe, seg), seg.tip].filter(Boolean).join(' ');
 	step(L, `${recipe.name} (${seg.from}-${seg.to})`, [
@@ -274,10 +277,10 @@ function renderGuide(ctx, P) {
 // ------------------------------------------------------------------ First Aid
 
 // Cloth level bands are general game knowledge (humanoids drop the cloth of
-// their level). What the bags (and bank) hold counts; the rest drops as the
-// character levels, or comes from the Auction House. No farm trip by default:
-// a named farm spot can be a long journey for a few pieces the player picks
-// up anyway.
+// their level). What the bags (and bank) hold counts, and what drops as the
+// character levels; the farm the arrow picks (`collect … nearest`, the
+// engine's farm spots) suits the player's level, and the Auction House is the
+// last line.
 const CLOTH = {
 	2589: 'Linen Cloth drops from humanoids of level 5-20',
 	2592: 'Wool Cloth drops from humanoids of level 15-30',
@@ -286,18 +289,22 @@ const CLOTH = {
 	14047: 'Runecloth drops from humanoids of level 45-60',
 };
 
-// Bandages: crafted anywhere, so one gathering step (the cloth, counted in the
-// bags with no place: `anywhere`, with `gather` and the levels of the humanoids
-// that drop it) after the Auction House step that buys it instead, and one
-// crafting step for everyone.
+// Bandages: crafted anywhere, so a "Get it" step per cloth (the farm for the
+// player's level, `gather` with the levels of the humanoids that drop it, and
+// the Auction House `auction` goal last), and one crafting step for everyone.
 function renderBandage(ctx, P, e, L) {
 	const recipe = recipeOf(ctx, e.spell);
 	const crafts = expectedCrafts(recipe, e.from, e.to);
-	const tip = recipe.reagents.map((rg) => `${CLOTH[rg.item]}: keep what you loot as you level, or take it from your bank.`).join(' ');
-	const what = recipe.reagents.map((rg) => `${crafts * rg.count} ${itemName(ctx, rg.item)}`).join(' and ');
-	step(L, `${recipe.name}: Auction House`, [`tip What ${recipe.name} takes that the Auction House sells: ${what}. The counts drop by what your bags, bank and mail hold.`, ...recipe.reagents.map((rg) => `auction ${rg.item} x${crafts * rg.count}`)]);
 	const levels = (rg) => (CLOTH_LEVELS[itemName(ctx, rg.item)] ? ` levels ${CLOTH_LEVELS[itemName(ctx, rg.item)].join('-')}` : '');
-	step(L, `${recipe.name}: cloth`, [`tip ${tip}`, ...recipe.reagents.map((rg) => `collect ${rg.item} x${crafts * rg.count} anywhere gather${levels(rg)}`)]);
+	for (const rg of recipe.reagents) {
+		const need = crafts * rg.count;
+		const name = itemName(ctx, rg.item);
+		step(L, `Get ${name}`, [
+			`tip You need ${need} ${name} for ${recipe.name} (${e.from}-${e.to}). ${CLOTH[rg.item]}, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most ${name} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy ${need > 1 ? 'them' : 'it'} at the Auction House.`,
+			`collect ${rg.item} x${need} nearest gather${levels(rg)}`,
+			`auction ${rg.item} x${need}`,
+		]);
+	}
 	// A recipe learned in this step: where and what it costs (sniffed trainer lists), or, for a manual the Expert
 	// step had the player buy (Heavy Silk and Mageweave Bandage), that it is read from the bags (#3405: the learn
 	// line has no place to point to, and nothing said where the recipe comes from). A band that goes on with a

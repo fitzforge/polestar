@@ -55,12 +55,6 @@ function fail(msg) {
 	return 2;
 }
 
-function loadJson(dir, name) {
-	const file = path.join(dir, `${name}.json`);
-	if (!fs.existsSync(file)) throw new Error(`${path.relative(process.cwd(), file)} missing (${name === 'professions' ? 'forge data professions' : 'forge data build'})`);
-	return JSON.parse(fs.readFileSync(file, 'utf8'));
-}
-
 async function runDraft(rest) {
 	let values;
 	let positionals;
@@ -83,32 +77,8 @@ async function runDraft(rest) {
 		return fail(err.message);
 	}
 	if (positionals.length !== 1) return fail('draft needs one profession name');
-	const { draftGuide } = require('../lib/professions/guide');
-	const dataDir = path.resolve(values.data || DATA);
-	const data = {
-		professions: loadJson(dataDir, 'professions'),
-		npcs: loadJson(dataDir, 'npcs'),
-		objects: loadJson(dataDir, 'objects'),
-		zones: loadJson(dataDir, 'zones'),
-		items: loadJson(dataDir, 'items'),
-		quests: loadJson(dataDir, 'quests'),
-		mapFrames: loadJson(dataDir, 'map-frames'),
-	};
-	// Where the compiler can place `collect <item> nearest`: the same farm spots
-	// it compiles (tools/lib/dsl/farmspots.js), so a drafted step never fails
-	// lint for want of a qualifying dropper. -> { Alliance, Horde }: the lowest
-	// mob level among the spots that side may use, or null when there is none.
-	const { loadData } = require('../lib/dsl/data');
-	const { farmSpots } = require('../lib/dsl/farmspots');
-	const compiled = loadData(dataDir);
-	const lowest = (list) => (list.length ? Math.min(...list.map((s) => s.lvl.min)) : null);
-	data.farmable = (item) => {
-		const spots = farmSpots(compiled, item);
-		return {
-			Alliance: lowest(spots.filter((s) => s.faction === 'A' || s.faction === 'AH')),
-			Horde: lowest(spots.filter((s) => s.faction === 'H' || s.faction === 'AH')),
-		};
-	};
+	const { draftGuide, draftData } = require('../lib/professions/guide');
+	const data = draftData(path.resolve(values.data || DATA));
 	const { text, plan } = draftGuide(positionals[0], data);
 	if (!values.quiet) {
 		console.error(`${plan.profession.name}: ${plan.segments.length} segments, about ${(plan.total / 10000).toFixed(1)}g of materials (heuristic)`);
