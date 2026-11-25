@@ -26,7 +26,6 @@ return {
 
 	-- Step 4: Light Leather (Elwynn Forest)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1922} Gray Forest Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:822} Young Forest Bear
-	-- was: ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "349 {item:2318} para {spell:2152}, {spell:3756} y {spell:3763} (210 de ellos para 75-150: recógelos todos ahora): {skill:393}: bestias de nivel 5-20. Despelleja aquí a {npc:1922}, {npc:525}, Merodeador, {npc:524}, {npc:113} y {npc:822} (nivel 5-20); la guía de {skill:393} traza esta ruta."
 	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "349 {item:2318} para {spell:2152}, {spell:3756} y {spell:3763} (210 de ellos para 75-150: recógelos todos ahora): {skill:393}: bestias de nivel 5-20. Desuella {npc:1922}, merodeadores, {npc:524}, {npc:113} y {npc:822} aquí (nivel 5-20); la guía de {skill:393} traza esta ruta.",
 
 	-- Step 5: Light Leather (Dun Morogh)
@@ -146,8 +145,9 @@ return {
 	-- Step 31: Leatherworking 150-225: vendor goods
 	-- {skill:165} Leatherworking
 	["{skill:165} 150-225: vendor goods"] = "{skill:165} 150-225: artículos de mercader",
-	-- {item:2321} Fine Thread · {item:4291} Silken Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 29 {item:2321} (29s), 66 Salt (33s) and 145 {item:4291} (7g 25s); about 7g 87s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Compra de una vez todo lo de este tramo: 29 {item:2321} (29s), 66 de Sal (33s) y 145 {item:4291} (7g 25s); unos 7g 87s en total. La flecha elige el vendedor más cercano de tu facción ({zone:1453}: {npc:1347}, {npc:1286} y {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} y {npc:5817}).",
+	-- {item:2321} Fine Thread · {item:4291} Silken Thread · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:5817} Shimra · {npc:3366} Tamar
+	-- was: ["Buy the whole bracket's share in one go: 29 {item:2321} (29s), 66 Salt (33s) and 145 {item:4291} (7g 25s); about 7g 87s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Compra de una vez todo lo de este tramo: 29 {item:2321} (29s), 66 de Sal (33s) y 145 {item:4291} (7g 25s); unos 7g 87s en total. La flecha elige el vendedor más cercano de tu facción ({zone:1453}: {npc:1347}, {npc:1286} y {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} y {npc:5817})."
+	["Buy the whole bracket's share in one go: 29 {item:2321} (29s), 66 Salt (33s) and 145 {item:4291} (7g 25s); about 7g 87s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:5565}; {zone:1454}: {npc:3367}, {npc:5817} and {npc:3366})."] = "",
 
 	-- Step 32: Leatherworking 150-225: Auction House
 	-- {skill:165} Leatherworking
@@ -189,7 +189,6 @@ return {
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 158"] = "{spell:3780} hasta 158",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread
-	-- was: ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} es amarillo a 150 (amarillo 145, verde 155, gris 165): unas 15 fabricaciones hasta 158. Cada una lleva 5 {item:4234} y 1 {item:2321}. Cinco {item:4234} por fabricación (bestias de nivel 28-40); los kits se venden a los mercaderes."
 	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "{spell:3780} es amarillo en 150 (amarillo 145, verde 155, gris 165): unas 15 fabricaciones hasta 158. Cada una lleva 5 {item:4234} y 1 {item:2321}. Cinco {item:4234} por fabricación (bestias de nivel 28-40); los kits se venden a mercaderes. Si llegaste aquí sin aprender {spell:3780}, apréndelo ahora: lo enseña un paso anterior.",
 
 	-- Step 39: Barbaric Shoulders to 165
@@ -243,8 +242,9 @@ return {
 	-- Step 47: Leatherworking 225-300: vendor goods
 	-- {skill:165} Leatherworking
 	["{skill:165} 225-300: vendor goods"] = "{skill:165} 225-300: artículos de mercader",
-	-- {item:2325} Black Dye · {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Compra de una vez todo lo de este tramo: 39 {item:2325} (3g 90s) y 82 {item:14341} (41g); unos 44g 90s en total. La flecha elige el vendedor más cercano de tu facción ({zone:1453}: {npc:1347}, {npc:1286} y {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} y {npc:5817}).",
+	-- {item:2325} Black Dye · {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3366} Tamar
+	-- was: ["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Compra de una vez todo lo de este tramo: 39 {item:2325} (3g 90s) y 82 {item:14341} (41g); unos 44g 90s en total. La flecha elige el vendedor más cercano de tu facción ({zone:1453}: {npc:1347}, {npc:1286} y {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} y {npc:5817})."
+	["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:5565}; {zone:1454}: {npc:3364} and {npc:3366})."] = "",
 
 	-- Step 48: Pattern: Wicked Leather Gauntlets
 	-- {item:15725} Pattern: Wicked Leather Gauntlets · {item:15083} Wicked Leather Gauntlets · {skill:165} Leatherworking · {npc:12942} Leonard Porter · {zone:1422} Western Plaguelands · {npc:12943} Werg Thickblade
@@ -310,6 +310,8 @@ return {
 	-- ["Back to a {skill:165} trainer: {spell:9062} is taught from {skill:165} 55."] = "Vuelve con un instructor de {skill:165}: {spell:9062} se enseña a partir de {skill:165} 55.",
 	-- ["Back to a {skill:165} trainer: {spell:9068} is taught from {skill:165} 100."] = "Vuelve con un instructor de {skill:165}: {spell:9068} se enseña a partir de {skill:165} 100.",
 	-- ["Back to a {skill:165} trainer: {spell:9074} is taught from {skill:165} 120."] = "Vuelve con un instructor de {skill:165}: {spell:9074} se enseña a partir de {skill:165} 120.",
+	-- ["Buy the whole bracket's share in one go: 29 {item:2321} (29s), 66 Salt (33s) and 145 {item:4291} (7g 25s); about 7g 87s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Compra de una vez todo lo de este tramo: 29 {item:2321} (29s), 66 de Sal (33s) y 145 {item:4291} (7g 25s); unos 7g 87s en total. La flecha elige el vendedor más cercano de tu facción ({zone:1453}: {npc:1347}, {npc:1286} y {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} y {npc:5817}).",
+	-- ["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Compra de una vez todo lo de este tramo: 39 {item:2325} (3g 90s) y 82 {item:14341} (41g); unos 44g 90s en total. La flecha elige el vendedor más cercano de tu facción ({zone:1453}: {npc:1347}, {npc:1286} y {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} y {npc:5817}).",
 	-- ["Expert needs character level 20 and {skill:165} 125; it raises the cap to 225. Materials for 150-225 are worth about 61g in all."] = "Experto requiere nivel de personaje 20 y {skill:165} 125; sube el límite a 225. Los materiales para 150-225 valen unos 61g en total.",
 	-- ["Journeyman needs character level 10 and {skill:165} 50; it raises the cap to 150. Materials for 75-150 are worth about 11g in all."] = "Oficial requiere nivel de personaje 10 y {skill:165} 50; sube el límite a 150. Los materiales para 75-150 valen unos 11g en total.",
 	-- ["Orange (a point every craft) until 155, yellow until 165, green until 175."] = "Naranja (un punto por creación) hasta 155, amarillo hasta 165, verde hasta 175.",
