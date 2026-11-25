@@ -587,29 +587,39 @@ fn wear_uses_the_clients_required_level_when_itemdb_is_out_of_date() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_qol.lua"],
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Gear/Gear.xml", "QoL/QoL.xml"])],
-		before: r#"UnitClass = function() return "Warrior", "WARRIOR", 1 end"#.into(),
+		before: r#"
+		stub.qol.level = 37
+		UnitClass = function() return "Warlock", "WARLOCK", 9 end
+		"#
+		.into(),
 		login: true,
 		script: format!(
 			"{PRELUDE}{}",
 			r#"
-		Polestar.ItemDB.Register({ schema = 1, build = "test" }, { [14] = "1 15 0 2 4 3 str10" })
-		q.items[14] = { name = "Ridge Helm", equipLoc = "INVTYPE_HEAD", minLevel = 11 }
-		q.addItem(0, 1, 14, 1); bagsChanged()
+		Polestar.ItemDB.Register({ schema = 1, build = "test" }, {
+			[5608] = "1 40 35 2 4 1 sta11 spi10 armor43",
+			[4491] = "1 1 20 1 12 0 uniq1", -- Simulate a stale positive requirement for the goggles.
+		})
+		q.items[5608] = { name = "Living Cowl", equipLoc = "INVTYPE_HEAD", minLevel = 39 }
+		q.items[4491] = { name = "Goggles of Gem Hunting", equipLoc = "INVTYPE_HEAD", minLevel = 0 }
+		q.addItem(0, 1, 5608, 1); bagsChanged()
 		local link = C_Container.GetContainerItemInfo(0, 1).hyperlink
 		emit({ Polestar.Gear.CompareToEquipped(link).minLevel, QoL.Wear.Offer() ~= nil })
 
 		q.bags[0].slots[1] = nil; bagsChanged()
-		q.gainXP(q.xpMax)
+		q.level = 39
 		stub.fire("PLAYER_LEVEL_UP", q.level)
-		q.addItem(0, 1, 14, 1); bagsChanged()
+		q.addItem(0, 1, 5608, 1); bagsChanged()
 		local offer = QoL.Wear.Offer()
 		emit(offer and offer.id or false)
+		emit(Polestar.Gear.GetItemInfo(4491).req)
 	"#
 		),
 		..Default::default()
 	});
-	assert_eq!(out[0], json!([11, false]), "the client requires level 11 and the player is level 10");
-	assert_eq!(out[1], 14, "a fresh copy is offered at the required level");
+	assert_eq!(out[0], json!([39, false]), "the client requires level 39 and the player is level 37");
+	assert_eq!(out[1], 5608, "a fresh copy is offered at the required level");
+	assert_eq!(out[2], 0, "a client requirement of zero still wins over ItemDB");
 }
 
 // A level 20 character with a gun: water at three levels, bread, shot, arrows and a reagent for sale.
