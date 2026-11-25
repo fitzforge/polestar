@@ -18632,6 +18632,22 @@ test('forever/horde/50-60/02-felwood.guide: Cuely\'s four vials, each at its tid
 	assert.deepEqual(idx, [...idx].sort((a, b) => a - b), 'in order, south to north');
 });
 
+// #3707 (fekz) and #3857: the pools are spell-focus objects, so clicking one does nothing; each Empty Vial Labeled #N
+// (10687-10690, from the Box of Empty Vials the quest hands over) is used at its own pool. The accept says to open the
+// box, and each pool has the vial's `use` right before its collect, in the same step.
+test('Seeping Corruption: the box at the accept, and each empty vial used at its own pool (#3707, #3857)', { skip }, () => {
+	const un = goals('forever/horde/50-60/01-un-goro-crater.guide');
+	assert.match(un[at(un, 'accept 3568', is('accept', 3568))].goal.note || '', /Box of Empty Vials/, 'the accept names the box');
+	const list = goals('forever/horde/50-60/02-felwood.guide');
+	[10687, 10688, 10689, 10690].forEach((item, n) => {
+		const use = at(list, `use vial ${n + 1}`, (g) => g.t === 'use' && g.item === item && g.quest === 3568);
+		const fill = at(list, `vial ${n + 1}`, (g) => g.t === 'collect' && g.item === 10691 + n && g.quest === 3568);
+		assert.equal(use, fill - 1, `vial ${n + 1}: used right before its collect`);
+		assert.equal(list[use].s, list[fill].s, `vial ${n + 1}: in the same step`);
+		assert.ok(Math.hypot(list[use].goal.x - list[fill].goal.x, list[use].goal.y - list[fill].goal.y) <= 0.1, `vial ${n + 1}: at its pool`);
+	});
+});
+
 // #3172 (Yunra, 0.4.1.1): Admiral Lamora walks the middle ship's top deck and her loot chest is below deck (players'
 // recordings: 40 of 40 Lamora's Loot ticks indoors); both sides' steps said the chest stands beside her.
 for (const guide of ['forever/alliance/40-50/01b-riverglades.guide', 'forever/horde/40-50/01b-riverglades.guide']) {

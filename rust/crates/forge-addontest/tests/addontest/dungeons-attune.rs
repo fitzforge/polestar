@@ -1143,6 +1143,41 @@ emit(Polestar.UI.Attunements.StepWords(step, "open"))"#,
 	assert_eq!(out, vec![json!("Black Tome da Black Tome"), json!("Black Tome da Tomo nero")]);
 }
 
+#[test]
+fn the_next_step_uses_client_names_for_quest_givers_items_and_their_sources() {
+	let f = Fx::new();
+	let out = f.run_ui(
+		r#"
+local stepWords, names = Polestar.UI.Attunements.StepWords, Polestar.Names
+local npc = { kind = "npc", id = 31, name = "Elizabeth" }
+local item = { id = 42, name = "Key" }
+local object = { kind = "object", id = 53, name = "Door" }
+local quest = { kind = "quest", id = 64, title = "The quest", start = npc }
+local function lines()
+	return {
+		stepWords(quest, "open"),
+		stepWords({ kind = "drop", item = item, npc = npc }, "open"),
+		stepWords({ kind = "gift", item = item, npc = npc }, "open"),
+		stepWords({ kind = "use", from = item, at = object }, "open"),
+	}
+end
+emit(lines())
+names.AddChunk("itIT", "npc", 31, 31, "\n31\tElisabetta\n")
+names.AddChunk("itIT", "item", 42, 42, "\n42\tChiave\n")
+names.AddChunk("itIT", "object", 53, 53, "\n53\tPorta\n")
+names.AddChunk("itIT", "quest", 64, 64, "\n64\tLa missione\n")
+emit(lines())"#,
+		&fake_locale("itIT", &[("Pick up %s from %s", "Accetta %s da %s"), ("%s from %s", "%s da %s"), ("%s gives you %s", "%s ti dà %s"), ("Use %s beside %s", "Usa %s accanto a %s")]),
+	);
+	assert_eq!(
+		out,
+		vec![
+			json!(["Accetta The quest da Elizabeth", "Key da Elizabeth", "Elizabeth ti dà Key", "Usa Key accanto a Door"]),
+			json!(["Accetta La missione da Elisabetta", "Chiave da Elisabetta", "Elisabetta ti dà Chiave", "Usa Chiave accanto a Porta"]),
+		]
+	);
+}
+
 // ---------------------------------------------------------------------------
 // The Attunements section (UI/Attunements.lua, #3695)
 // ---------------------------------------------------------------------------

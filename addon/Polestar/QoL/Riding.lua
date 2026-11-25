@@ -47,6 +47,7 @@
 --   Riding.Check(level)              called on PLAYER_LEVEL_UP / PLAYER_ENTERING_WORLD
 --   Riding.HasRiding(tier)           pure predicate, for tests
 --   Riding.EffectiveCost(tier, fID)  cost after Honored discount (copper)
+--   Riding.TrainerFor(race, faction)  destination for learning the racial riding skill
 --   Riding.OnResolve(tier)           called by GuideFrame on banner dismiss
 
 local ADDON, ns = ...
@@ -107,7 +108,7 @@ local GRAYSON = { map = 1453, x = 48.43, y = 50.22, npc = 928, npcName = "Lord G
 local GAREN   = { map = 1458, x = 47.12, y = 15.49, npc = 260093, npcName = "Garen Largo" }
 local DANITHA = { map = 1420, x = 22.0,  y = 44.66, npc = 246378, npcName = "Danitha Morr" }
 
-local function trainerFor(race, faction)
+function Riding.TrainerFor(race, faction)
 	if race == "Skyborne" then return TRAINERS_SKYBORNE[faction] end
 	return TRAINERS[race]
 end
@@ -284,7 +285,7 @@ function Riding.Check(level)
 	local faction = info and info.faction or ""
 
 	local classNpc, classFaction, classKind, classGuide = classRoute(class, faction, tier, race)
-	local trainer   = classNpc or trainerFor(race, faction)
+	local trainer   = classNpc or Riding.TrainerFor(race, faction)
 	local factionID = classNpc and classFaction or (trainer and trainer.faction)
 
 	-- Fire RIDING_DUE once per tier to bring up the banner.

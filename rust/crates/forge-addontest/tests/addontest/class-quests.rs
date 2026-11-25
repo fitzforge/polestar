@@ -1156,6 +1156,9 @@ w.complete({ 78261, 78270, 78307 })
 		script: r#"
 local G, CQ = Polestar.Guides, Polestar.QoL.ClassQuests
 local id = "forever/class/rogue/the-eye-of-bhossca"
+-- An optional chain since #3925 (an item off the worth-it list) is never offered; the compiled quest level is what
+-- this test reads, so it lists the chain as alerted.
+Polestar.ClassQuestList.OptionalGuide = function() return false end
 local function ready()
 	for _, g in ipairs(CQ.Ready()) do if g.id == id then return true end end
 	return false
@@ -1183,7 +1186,8 @@ fn a_guide_the_engine_calls_outgrown_is_never_offered_3845() {
 // NoThink's report (#3845): a level-25 Human mage in Duskwood was offered the level-15 class quest (Manaweave Robe,
 // levels 15-17), and the guide it opened called itself outgrown at once. Fitz, 23 Nov: a class quest stops being
 // offered 5 levels past its guide's top, unless it rewards a spell the character still lacks (Bear Form, 10-12).
-// The shipped pack, the real Engine.Outgrown.
+// The shipped pack, the real Engine.Outgrown. The robe is optional since #3925 (never offered at all); the cap still
+// holds for an alerted chain, so the test lists it as one.
 #[test]
 fn a_class_quest_stops_being_offered_five_levels_past_its_guide_s_top_unless_its_spell_is_still_missing_3845() {
 	let out = emitted(&RunAddon {
@@ -1201,6 +1205,7 @@ w.moveTo(1431, 50, 50)
 		script: r#"
 local G, E, CQ = Polestar.Guides, Polestar.Engine, Polestar.QoL.ClassQuests
 local robe = "forever/class/mage/manaweave-robe"
+Polestar.ClassQuestList.OptionalGuide = function() return false end
 local function ready(id)
 	for _, g in ipairs(CQ.Ready()) do if g.id == id then return true end end
 	return false

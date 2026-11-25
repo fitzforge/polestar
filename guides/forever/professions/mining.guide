@@ -297,73 +297,73 @@ step Smelt Bronze & Smelt Tin
 step Incendicite & Tin: Wetlands (65-125)
   only Human,Dwarf,Gnome,Skyborne,Alliance
   zone Wetlands
-  tip Mine every Copper (1, green), Incendicite (65, orange), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until Mining 125. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70), Smelt Tin (grey at 75), Smelt Bronze (grey at 115) give points too. Smelt Bronze takes a Copper Bar and a Tin Bar each: keep bars from the smelts before it. Zone level 20-30. Expect about 130 nodes for these 60 points. Smelt Silver (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a Mining trainer, it is not worth a trip of its own.
+  tip Mine every Copper (1, green), Incendicite (65, orange), Tin (65, orange) node you pass and circle the waypoints until Mining 125. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70), Smelt Tin (grey at 75), Smelt Bronze (grey at 115) give points too. Smelt Bronze takes a Copper Bar and a Tin Bar each: keep bars from the smelts before it. Zone level 20-30. Expect about 130 nodes for these 60 points. Smelt Silver (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a Mining trainer, it is not worth a trip of its own.
   goto 32.6,47.9 "Copper, Tin" r 30
-  goto 36.9,45.2 "Tin, Copper" r 30
+  goto 36.9,45.3 "Tin, Copper" r 30
   goto 43.6,45.3 "Copper, Tin" r 30
-  goto 66.3,30.6 "Copper, Tin" r 30
-  goto 69.0,31.7 "Tin, Copper" r 30
+  goto 66.3,30.7 "Copper, Tin" r 30
+  goto 69.0,31.8 "Tin, Copper" r 30
   goto 67.3,57.3 "Tin, Copper" r 30
-  goto 67.3,72.9 "Tin, Copper" r 30
-  goto 61.1,79.4 "Tin, Copper" r 30
-  goto 54.3,77.7 "Tin, Copper" r 30
+  goto 67.2,73.1 "Tin, Copper" r 30
+  goto 61.2,79.3 "Tin, Copper" r 30
+  goto 54.3,77.6 "Tin, Copper" r 30
   goto 49.5,71.6 "Copper, Tin" r 30
-  goto 49.4,61.0 "Incendicite, Tin" r 30
+  goto 49.4,61.1 "Incendicite, Tin" r 30
   goto 46.2,63.7 "Incendicite, Tin" r 30
   skill Mining 125
 
 step Tin: Ashenvale (65-125)
   only NightElf
   zone Ashenvale
-  tip Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until Mining 125. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70), Smelt Tin (grey at 75), Smelt Bronze (grey at 115) give points too. Smelt Bronze takes a Copper Bar and a Tin Bar each: keep bars from the smelts before it. Zone level 18-30. Expect about 130 nodes for these 60 points. Smelt Silver (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a Mining trainer, it is not worth a trip of its own.
-  goto 26.8,54.6 "Copper, Tin" r 30
-  goto 21.7,43.5 "Tin, Copper" r 30
-  goto 8.0,14.9 "Tin" r 30
+  tip Mine every Copper (1, green), Tin (65, orange) node you pass and circle the waypoints until Mining 125. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70), Smelt Tin (grey at 75), Smelt Bronze (grey at 115) give points too. Smelt Bronze takes a Copper Bar and a Tin Bar each: keep bars from the smelts before it. Zone level 18-30. Expect about 140 nodes for these 60 points. Smelt Silver (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a Mining trainer, it is not worth a trip of its own.
+  goto 27.2,54.7 "Copper, Tin" r 30
+  goto 21.3,43.9 "Tin, Copper" r 30
+  goto 8.0,14.5 "Tin" r 30
   goto 26.1,17.9 "Copper, Tin" r 30
-  goto 23.4,34.7 "Tin" r 30
-  goto 29.3,33.4 "Tin, Copper" r 30
-  goto 33.1,26.9 "Copper, Tin" r 30
+  goto 23.1,35.1 "Tin" r 30
+  goto 29.2,33.7 "Tin, Copper" r 30
+  goto 33.0,26.6 "Copper, Tin" r 30
   goto 39.5,31.5 "Tin" r 30
-  goto 40.6,36.2 "Tin" r 30
-  goto 45.4,43.8 "Tin" r 30
-  goto 48.7,53.3 "Copper, Tin" r 30
+  goto 41.5,36.0 "Tin" r 30
+  goto 45.6,43.5 "Tin" r 30
+  goto 48.8,53.8 "Copper, Tin" r 30
   goto 89.5,86.2 "Tin" r 30
   skill Mining 125
 
 step Tin: Ashenvale (65-125)
   only Orc,Troll,Tauren,Skyborne,Horde
   zone Ashenvale
-  tip Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until Mining 125. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70), Smelt Tin (grey at 75), Smelt Bronze (grey at 115) give points too. Smelt Bronze takes a Copper Bar and a Tin Bar each: keep bars from the smelts before it. Zone level 18-30. Expect about 130 nodes for these 60 points. Smelt Silver (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a Mining trainer, it is not worth a trip of its own.
-  goto 23.4,34.7 "Tin" r 30
-  goto 8.0,14.9 "Tin" r 30
+  tip Mine every Copper (1, green), Tin (65, orange) node you pass and circle the waypoints until Mining 125. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70), Smelt Tin (grey at 75), Smelt Bronze (grey at 115) give points too. Smelt Bronze takes a Copper Bar and a Tin Bar each: keep bars from the smelts before it. Zone level 18-30. Expect about 140 nodes for these 60 points. Smelt Silver (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a Mining trainer, it is not worth a trip of its own.
+  goto 23.1,35.1 "Tin" r 30
+  goto 8.0,14.5 "Tin" r 30
   goto 26.1,17.9 "Copper, Tin" r 30
-  goto 33.1,26.9 "Copper, Tin" r 30
+  goto 33.0,26.6 "Copper, Tin" r 30
   goto 39.5,31.5 "Tin" r 30
-  goto 40.6,36.2 "Tin" r 30
-  goto 45.4,43.8 "Tin" r 30
-  goto 48.7,53.3 "Copper, Tin" r 30
+  goto 41.5,36.0 "Tin" r 30
+  goto 45.6,43.5 "Tin" r 30
+  goto 48.8,53.8 "Copper, Tin" r 30
   goto 89.5,86.2 "Tin" r 30
-  goto 26.8,54.6 "Copper, Tin" r 30
-  goto 21.7,43.5 "Tin, Copper" r 30
-  goto 29.3,33.4 "Tin, Copper" r 30
+  goto 27.2,54.7 "Copper, Tin" r 30
+  goto 21.3,43.9 "Tin, Copper" r 30
+  goto 29.2,33.7 "Tin, Copper" r 30
   skill Mining 125
 
 step Tin: Hillsbrad Foothills (65-125)
   only Undead
   zone Hillsbrad Foothills
-  tip Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until Mining 125. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70), Smelt Tin (grey at 75), Smelt Bronze (grey at 115) give points too. Smelt Bronze takes a Copper Bar and a Tin Bar each: keep bars from the smelts before it. Zone level 20-30. Expect about 140 nodes for these 60 points. Smelt Silver (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a Mining trainer, it is not worth a trip of its own.
-  goto 64.7,12.3 "Tin, Copper" r 30
+  tip Mine every Copper (1, green), Tin (65, orange) node you pass and circle the waypoints until Mining 125. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70), Smelt Tin (grey at 75), Smelt Bronze (grey at 115) give points too. Smelt Bronze takes a Copper Bar and a Tin Bar each: keep bars from the smelts before it. Zone level 20-30. Expect about 140 nodes for these 60 points. Smelt Silver (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a Mining trainer, it is not worth a trip of its own.
+  goto 57.9,10.9 "Tin, Copper" r 30
   goto 53.7,16.6 "Copper, Tin" r 30
   goto 51.2,27.9 "Copper, Tin" r 30
-  goto 42.6,33.1 "Tin, Copper" r 30
   goto 17.1,53.0 "Copper, Tin" r 30
   goto 29.9,55.4 "Tin, Copper" r 30
-  goto 61.2,72.3 "Tin, Copper" r 30
-  goto 68.3,66.7 "Tin, Copper" r 30
+  goto 61.2,72.2 "Tin, Copper" r 30
+  goto 68.3,66.5 "Tin, Copper" r 30
   goto 64.4,51.6 "Copper, Tin" r 30
-  goto 69.7,40.3 "Tin, Copper" r 30
+  goto 69.7,40.1 "Tin, Copper" r 30
   goto 85.1,43.3 "Copper, Tin" r 30
   goto 69.9,31.3 "Copper, Tin" r 30
+  goto 64.8,12.3 "Tin, Copper" r 30
   skill Mining 125
 
 # ---------------------------------------------------------------- Mining 125-155
