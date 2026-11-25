@@ -2436,7 +2436,8 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 						bump(&eg_report, "ratesFilled", 1.0);
 					} else if it.get("questItem").truthy()
 						&& has_spawn(if *kind == "npc" { npcs } else { objects }, &ek)
-						&& rate >= 1.0 && !drop_removed(&inp.corrections, &item_id.to_string(), kind, &ek)
+						&& rate >= 1.0
+						&& !drop_removed(&inp.corrections, &item_id.to_string(), kind, &ek)
 					{
 						let recs = drops.as_obj().unwrap().spread();
 						recs.set(&ek, rate);
