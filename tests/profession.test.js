@@ -701,6 +701,9 @@ test('draft: cloth is a Get it step: what the band needs, the farm the arrow pic
 	);
 	// The Auction House is the Get it step's last line: no Auction House step of its own for the cloth.
 	assert.doesNotMatch(text, /^step Tailoring 1-75: Auction House$/m);
+	// What the Get it steps ask for, per bracket, for the gathering guides' band tips.
+	const { materials } = draftGuide('Tailoring', { ...data, farmable: () => ({ Alliance: 9, Horde: 9 }) }, { to: 75, spec: {} });
+	assert.deepEqual(materials, [{ from: 1, cap: 75, items: [{ item: 2589, name: 'Linen Cloth', count: Number(get.match(/x(\d+)/)[1]), uses: ['R1'] }] }]);
 	// No farm spot in the data: the cloth is counted in the bags as you level, the Auction House still last.
 	const bare = draftGuide('Tailoring', data, { to: 75, spec: {} }).text;
 	assert.match(bare, /\n {2}tip You need \d+ Linen Cloth for Tailoring 1-75: R1\. Humanoids of level 5-20 drop it: keep what you loot as you level, or take it from your bank\. Or buy them at the Auction House\.\n {2}collect 2589 x\d+ anywhere gather levels 5-20\n {2}auction 2589 x\d+\n/);
