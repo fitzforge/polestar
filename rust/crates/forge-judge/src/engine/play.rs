@@ -510,7 +510,7 @@ impl<'a> Sim<'a> {
 			let open = (1..=view.len()).find(|&g| {
 				let v = &view[g - 1];
 				let goal = self.gd().goal(i, g);
-				v.status != Status::Done && v.status != Status::Na && !goal.optional && !v.side && goal.t != T::Note
+				matches!(v.status, Status::Active | Status::Pending) && !goal.optional && !v.side && goal.t != T::Note
 			});
 			if need > self.w.level {
 				self.w_set_level(need);

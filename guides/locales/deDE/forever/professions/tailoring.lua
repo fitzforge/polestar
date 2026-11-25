@@ -136,7 +136,7 @@ return {
 	-- {item:7053} Azure Silk Cloak
 	["{item:7053} to 170"] = "{item:7053} bis 170",
 	-- {item:7053} Azure Silk Cloak · {spell:3839} Bolt of Silk Cloth · {item:6260} Blue Dye · {item:2321} Fine Thread
-	["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053} ist bei 150 orange (gelb 160, grün 175, grau 190): etwa 22 Herstellungen bis 170. Jede braucht 3 {spell:3839}, 2 {item:6260} und 2 {item:2321}. Stelle zuerst die 66 {spell:3839} her. Sein Rezept ist das oben gekaufte; es ist der günstigste Weg durch diese Punkte laut den Daten.",
+	["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data. If you got here without learning {spell:3839}, learn it now: an earlier step teaches it."] = "{item:7053} ist bei 150 orange (gelb 160, grün 175, grau 190): etwa 22 Herstellungen bis 170. Jede braucht 3 {spell:3839}, 2 {item:6260} und 2 {item:2321}. Stelle zuerst die 66 {spell:3839} her. Sein Rezept ist das oben gekaufte; es ist der günstigste Weg durch diese Punkte in den Daten. Falls du hierher gekommen bist, ohne {spell:3839} gelernt zu haben, lerne es jetzt: ein früherer Schritt lehrt es.",
 	["from the recipe in your bags"] = "aus dem Rezept in deinen Taschen",
 
 	-- Step 25: Tailoring recipes at 170
@@ -298,6 +298,7 @@ return {
 	-- ["{item:4338} (Alliance)"] = "{item:4338} (Allianz)",
 	-- ["{item:4338} (Horde)"] = "{item:4338} (Horde)",
 	-- ["{item:7026} to 80"] = "{item:7026} bis 80",
+	-- ["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053} ist bei 150 orange (gelb 160, grün 175, grau 190): etwa 22 Herstellungen bis 170. Jede braucht 3 {spell:3839}, 2 {item:6260} und 2 {item:2321}. Stelle zuerst die 66 {spell:3839} her. Sein Rezept ist das oben gekaufte; es ist der günstigste Weg durch diese Punkte laut den Daten.",
 	-- ["{item:7053} to 180"] = "{item:7053} bis 180",
 	-- ["{item:7062} to 185"] = "{item:7062} bis 185",
 	-- ["{item:9998} to 205"] = "{item:9998} bis 205",

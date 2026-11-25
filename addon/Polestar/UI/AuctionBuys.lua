@@ -95,7 +95,7 @@ end
 
 local function turnOff()
 	ns.Set("qol.auctionBuys", false)
-	ns.Print(L["Auction house buys are off. Turn them back on under Options > Questing > Quests."])
+	ns.Print(L["Auction house buys are off. Turn them back on under Settings > Questing > Quests."])
 end
 
 -- The heads-up card for `list` (AuctionBuys.List): kind "guide" (the guide's
@@ -388,7 +388,7 @@ function AU.Layout()
 	if #list == 0 and #mats > 0 then
 		hint = L["Your profession guide buys these at the Auction House: what is still to get after your bags, bank and mail."]
 	elseif not on() then
-		hint = L["Auction house buys are off. Turn them back on under Options > Questing > Quests."]
+		hint = L["Auction house buys are off. Turn them back on under Settings > Questing > Quests."]
 	elseif #list == 0 then
 		hint = L["Nothing to buy at the auction house: the quests ahead get what they need on the way."]
 	else
@@ -407,7 +407,7 @@ function AU.Layout()
 		-- Its price for that many, once a search showed it (the materials' prices: Materials.Price).
 		local M = ns.Materials
 		local price = M and M.Price and M.Price(e.item, e.need)
-		if price then parts[#parts + 1] = format(L["≈ %s"], ns.MoneyText(price)) end
+		if price then parts[#parts + 1] = Theme.Approx() .. " " .. ns.MoneyText(price) end
 		fill(r, e.item, e.need, format(L["%d %s"], e.need, e.name), concat(parts, DOT), open)
 		r:Show()
 		y = y + ROW_H + 6
@@ -428,7 +428,7 @@ function AU.Layout()
 		r:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -y)
 		r:SetPoint("TOPRIGHT", F, "TOPRIGHT", -PAD, -y)
 		local parts = { e.section }
-		if e.price then parts[#parts + 1] = format(L["≈ %s"], ns.MoneyText(e.price)) end
+		if e.price then parts[#parts + 1] = Theme.Approx() .. " " .. ns.MoneyText(e.price) end
 		if e.have > 0 then parts[#parts + 1] = format(L["%s held"], e.have) end
 		fill(r, e.item, e.toBuy, format(L["%d %s"], e.toBuy, ns.Compat.GetItemName(e.item) or e.name), concat(parts, DOT), open)
 		r:Show()

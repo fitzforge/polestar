@@ -131,8 +131,15 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- Polestar set last (GF.scale), not the window's own: another addon may hold
 	-- the window out of sight at a scale far below a pixel (ns.OutOfSight), and a
 	-- place worked out from that would land in the corner of the screen.
+	-- ui.scale kept inside UI.MIN_SCALE..UI.MAX_SCALE: a tiny or huge stored
+	-- number (an imported profile) never leaves the window unreadable.
+	local function scaleSetting()
+		return min(UI.MAX_SCALE, max(UI.MIN_SCALE, tonumber(ns.Get("ui.scale")) or 1))
+	end
+	GF.ScaleSetting = scaleSetting
+
 	function GF.ApplyScale()
-		local new = ns.Get("ui.scale") or 1
+		local new = scaleSetting()
 		local old = GF.scale or F:GetScale()
 		if old == new then return end
 		local l = F:GetLeft()
@@ -169,7 +176,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		["ui.compact"] = function() GF.ApplyCompact() end,
 		["ui.width"] = function() GF.ApplyWidth() end,
 		-- With Grow upward the room above the bottom edge sets the window's height.
-		["ui.pos"] = function() GF.ApplyPosition(); if ns.Get("ui.growUp") then GF.Layout() end end,
+		["ui.pos"] = function() GF.ApplyPosition(); if ns.Get("ui.growUp") or ns.Get("ui.heightMode") == "auto" then GF.Layout() end end,
 		-- Re-pin by the other corner where the window stands now, so it does not jump.
 		["ui.growUp"] = function() GF.SavePosition(); GF.Layout() end,
 		["ui.barsBottom"] = function() GF.Layout() end,
@@ -178,7 +185,12 @@ ns.UI.GuideFrame.Part(function(GF)
 		["ui.showNotes"] = function() GF.Render() end,
 		["ui.notesOpen"] = function() GF.SetTipOpen(ns.Get("ui.notesOpen") and true or false); GF.Render() end,
 		["ui.newInForever"] = function() GF.Render() end,
-		["ui.maxHeight"] = function() GF.Layout() end,
+		-- The class quest card full, compact or off (UI/ClassCard.lua).
+		["toasts.classcard.mode"] = function() GF.Render() end,
+		-- Setting a height while Automatic switches to Fixed: the player asked for that height.
+		["ui.maxHeight"] = function() if ns.Get("ui.heightMode") == "auto" then ns.Set("ui.heightMode", "fixed") else GF.Layout() end end,
+		["ui.heightMode"] = function() GF.Layout() end,
+		["ui.footAt"] = function() GF.Layout() end,
 		-- Another way of reading the card: nothing kept from the one before.
 		["ui.wholeStep"] = function() resetModel(); GF.Render() end,
 		["ui.combat"] = function() GF.ApplyVisibility(); GF.ApplyAlpha(false) end,
@@ -201,7 +213,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	local function applyAll()
 		GF.ApplySkin()
 		if GF.live then
-			GF.scale = ns.Get("ui.scale") or 1
+			GF.scale = scaleSetting()
 			F:SetScale(GF.scale)
 			GF.ApplyPosition()
 		end
@@ -251,8 +263,40 @@ ns.UI.GuideFrame.Part(function(GF)
 	local function resizeUpdate(self)
 		local x = GetCursorPosition() / F:GetEffectiveScale()
 		local w = min(UI.MAX_WIDTH, max(UI.MIN_WIDTH, floor(self.psStartW + (x - self.psStartX) + 0.5)))
-		if w ~= floor(F:GetWidth() + 0.5) then
+		-- The step browser open: the grip drags its height too, away from the
+		-- pinned edge (down, or up with Grow upward).
+		local SL = UI.StepList
+		local h = self.psStartH
+		if h and SL and SL.open then
+			local y = select(2, GetCursorPosition()) / F:GetEffectiveScale()
+			local dy = ns.Get("ui.growUp") and y - self.psStartY or self.psStartY - y
+			h = max(120, floor(h + dy + 0.5))
+		else
+			h = nil
+			-- Vertical, under Fixed or Automatic (ui.heightMode): the height follows
+			-- the mouse by how far it moved, down with the top edge pinned, up with
+			-- Grow upward. Under Automatic, a few px of it switch to Fixed; under
+			-- Follows the step the grip sets the width alone.
+			local mode = ns.Get("ui.heightMode")
+			local y = select(2, GetCursorPosition()) / F:GetEffectiveScale()
+			local dy = (self.psStartY - y) * (ns.Get("ui.growUp") and -1 or 1)
+			if (mode == "fixed" or mode == "auto") and self.psStartCap and (self.psSized or math.abs(dy) >= 3) then
+				self.psSized = true
+				-- The screen's own pixels (GetPhysicalScreenSize), whatever the UI scale, as the Options row reads them.
+				local screen = UIParent:GetHeight() * Theme.PixelsPerUnit(UIParent)
+				local px = floor((self.psStartCap + dy) * Theme.PixelsPerUnit(F) + 0.5)
+				local share = min(1, max(0.3, px / screen))
+				if mode == "auto" then ns.Set("ui.heightMode", "fixed") end
+				if share ~= GF.dragShare then
+					GF.dragShare = share
+					GF.Layout()
+				end
+				GF.ShowLimit(true)
+			end
+		end
+		if w ~= floor(F:GetWidth() + 0.5) or (h and h ~= SL.height) then
 			F:SetWidth(w)
+			if h then SL.height = h end
 			GF.Layout()
 		end
 	end
@@ -268,13 +312,25 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		self.psStartX = GetCursorPosition() / F:GetEffectiveScale()
 		self.psStartW = F:GetWidth()
+		local SL = UI.StepList
+		self.psStartH = SL and SL.open and (SL.height or F:GetHeight()) or nil
+		self.psStartY = select(2, GetCursorPosition()) / F:GetEffectiveScale()
+		self.psStartCap = GF.CapHeight and GF.CapHeight() or nil
+		self.psSized = false
 		self:SetScript("OnUpdate", ns.Safe(resizeUpdate))
 	end
 
 	local function resizeStop(self)
 		if not self:GetScript("OnUpdate") then return end
 		self:SetScript("OnUpdate", nil)
+		GF.ShowLimit(false)
+		local share = GF.dragShare
+		GF.dragShare = nil
+		if share then ns.Set("ui.maxHeight", share) end
 		ns.Set("ui.width", floor(F:GetWidth() + 0.5))
+		local SL = UI.StepList
+		if self.psStartH and SL and SL.open and SL.height then ns.Set("ui.stepListHeight", SL.height) end
+		self.psStartH = nil
 		savePosition()
 	end
 
@@ -380,7 +436,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local howTo = GF.HowToShow()
 		local alerts = ns.Nav and ns.Nav.alerts
 		if alerts and alerts.ShowNotice then alerts.ShowNotice(L["Polestar is hidden here"], howTo, 12) end
-		ns.Print(L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."]:format(howTo))
+		ns.Print(L["The guide window hides in dungeons and battlegrounds. %s Change it in Settings > Guide window."]:format(howTo))
 	end
 
 	-- The notice goes as soon as the window is back.
@@ -409,6 +465,21 @@ ns.UI.GuideFrame.Part(function(GF)
 		ns.RegisterEvent("ZONE_CHANGED_NEW_AREA", checkInstance)
 		-- Paused or resumed: the window goes or comes back as it was.
 		ns.On("POLESTAR_PAUSED", function() GF.ApplyVisibility() end)
+	end
+
+	-- The window's size back to its defaults (the guide menu's Reset window
+	-- size): width, scale and height cap, each to its default. Its place stays.
+	GF.WINDOW_SIZE_KEYS = { "ui.width", "ui.scale", "ui.maxHeight" }
+	function GF.SizeChanged()
+		for _, path in ipairs(GF.WINDOW_SIZE_KEYS) do
+			if ns.GetStored(path) ~= nil then return true end
+		end
+		return false
+	end
+	function GF.ResetSize()
+		ns.Batch(function()
+			for _, path in ipairs(GF.WINDOW_SIZE_KEYS) do ns.Set(path, ns.GetDefault(path)) end
+		end)
 	end
 
 	GF.ApplyAll = applyAll

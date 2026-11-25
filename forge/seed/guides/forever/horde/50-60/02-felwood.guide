@@ -1,9 +1,10 @@
 guide forever/horde/50-60/02-felwood
-title Felwood & Western Plaguelands
+title Azshara & Felwood
 faction Horde
-levels 52-55
+levels 53-54
 zone Felwood
 next forever/horde/50-60/03-winterspring
+pitch Western Plaguelands and the Bulwark first, then Azshara and Felwood.
 # Built from the playthrough simulator's consensus route (Horde, visits
 # 70-73) and machine-checked with lint; not play-tested on Forever yet.
 #
@@ -244,6 +245,7 @@ step Emerald Sanctuary
 
 step Southern Jaedenar
   tip Follow the road north-west. The south of Jaedenar, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds.
+  tip Careful: the Spirit of Trey Lightforge (53, elite) haunts the west end of Jaedenar, around 35,60: pull the cultists and hounds away from him.
   kill 7125 quest 5155.1
   kill 7115 quest 5155.3
   kill 7112 quest 5155.4
@@ -306,7 +308,7 @@ step Winna Hazzard
 step Winna's kitten
   tip Take the kitten to the same moonwell and release it there with Winna's Kitten Carrier; once it has turned into a Corrupted Saber, bring it back to Winna and click on it to hand it over.
   use 12565 quest 4506.1 @32.3,66.6 map 1448 -- Winna's Kitten Carrier, at the Jadefire moonwell
-  complete 4506
+  complete 4506 -- Bring the Corrupted Saber to Winna Hazzard at Bloodvenom Post and click on it to hand it over.
 
 step Winna Hazzard
   turnin 4506

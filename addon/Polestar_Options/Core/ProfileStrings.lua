@@ -22,7 +22,7 @@ local concat, sort, floor, huge, abs = table.concat, table.sort, math.floor, mat
 local Q = P.Parts
 local LIMITS, PREFIX, FORMAT, NOT_SHARED = P.LIMITS, Q.PREFIX, Q.FORMAT, Q.NOT_SHARED
 local store, data, deepCopy, missing, cleanName = Q.store, Q.data, Q.deepCopy, Q.missing, P.CleanName
-local migrations, migrationOrder = Q.migrations, Q.migrationOrder
+local migrations, migrationOrder, savedOnly = Q.migrations, Q.migrationOrder, Q.savedOnly
 
 local function finite(v) return type(v) == "number" and v == v and v ~= huge and v ~= -huge end
 
@@ -141,7 +141,9 @@ for i, c in ipairs(P.CATEGORIES) do CATEGORY[c.id] = i end
 -- tab's over its page's), the names as the pages register them.
 local PAGES = {
 	guide = { "window", tabs = { [L["Arrow & routes"]] = "routes", [L["Automation"]] = "quests" },
-		sections = { [L["Dynamic Questing"]] = "quests", [L["Arrow"]] = "arrow", [L["Other waypoints"]] = "arrow" } },
+		sections = { [L["Dynamic Questing"]] = "quests", [L["Arrow"]] = "arrow", [L["Other waypoints"]] = "arrow",
+			-- The profession guides' materials kept their part when their tab joined Automation.
+			[L["Profession guides"]] = "window" } },
 	theme = { "skin", tabs = { [L["Text"]] = "fonts" } },
 	guidewindow = "window",
 	arrow = "arrow",
@@ -153,16 +155,22 @@ local PAGES = {
 	map = "arrow",
 	questing = { "quests", tabs = { [L["Rewards & gear"]] = "gear", [L["Talents"]] = "gear", [L["Buttons"]] = "hud" } },
 	discovery = { "dungeons", tabs = { [L["Rares"]] = "hud" } },
-	qualityoflife = { "quests", tabs = { [L["Travel"]] = "routes", [L["Vendors"]] = "gear", [L["Trackers & map"]] = "hud" } },
+	qualityoflife = { "quests", tabs = { [L["Travel"]] = "routes", [L["Vendors"]] = "gear", [L["Leveling"]] = "hud" },
+		-- The trainers kept their part when they joined Leveling.
+		sections = { [L["Trainers"]] = "gear" } },
 	-- A section per addon Polestar works with.
 	integrations = { "quests", sections = { EllesmereUI = "skin", TomTom = "arrow", ["Shortest Path Forever"] = "routes" } },
 	gamepad = "window",
+	-- The update notices' switch (Install & updates), the guide window's.
+	profiles = "window",
 }
 
 -- Settings that go with another part than the section they sit in.
 local OWN = {
 	movers = "positions", dungeons = "dungeons", ["behavior.dungeons"] = "dungeons", ["behavior.groupQuests"] = "dungeons",
 	["ui.matchFont"] = "fonts",
+	-- The game menu's button kept its part when it joined Show and hide.
+	["ui.gameMenuButton"] = "skin",
 }
 
 -- Settings no page shows (state kept as the player uses a window).
@@ -224,7 +232,10 @@ local function index()
 			if type(spec) == "table" and type(spec.page) == "string" and type(spec.controls) == "table" then
 				local page = keyOf[spec.page] or gsub(lower(spec.page), "[^%w]+", "")
 				if spec.toggle then add(spec.toggle, page, spec.tab, spec.section) end
-				for _, c in ipairs(spec.controls) do add(c, page, spec.tab, spec.section) end
+				for _, c in ipairs(spec.controls) do
+					add(c, page, spec.tab, spec.section)
+					for _, k in ipairs(type(c.children) == "table" and c.children or {}) do add(k, page, spec.tab, spec.section) end
+				end
 			end
 		end
 	end
@@ -637,7 +648,7 @@ function P.Import(text)
 		end
 	end
 	for _, id in ipairs(migrationOrder) do
-		if not applied[id] then ns.SafeCall(migrations[id], nested) end
+		if not applied[id] and not savedOnly[id] then ns.SafeCall(migrations[id], nested, applied) end
 	end
 	local ix = index()
 	local preview = { settings = {}, keys = {}, labels = {}, category = {}, held = {}, holds = {}, order = {}, dropped = dropped }

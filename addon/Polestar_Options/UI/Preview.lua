@@ -427,6 +427,23 @@ local function shownIn(region, f)
 	return true
 end
 
+-- A band laid out again (h: its new height): its host takes that height
+-- where it stands. The settings window's slot resizes with it while the slot
+-- holds it (slot: true; a setting's change leaves that to the window's own
+-- refresh); a host held elsewhere (the new page's Preview panel) keeps its
+-- place and only takes the height.
+local function hostHeight(f, h, slot)
+	local host, O = hostOf(f), UI.Options
+	if not (host and O and O.frame) then return end
+	h = P.Snap(host, tonumber(h) or 0)
+	local s = rawget(O.frame, "PreviewSlot")
+	if s and rawget(s, "psHost") == host then
+		if slot then W.ShellPreview(O.frame, host, h) end
+	else
+		host:SetHeight(max(1, h))
+	end
+end
+
 -- The band laid out again where it is, the settings window's slot taking
 -- its new height while it holds it; while hidden, on its next show (P.Again:
 -- a page whose band shows another element now, its dropdown's pick changed
@@ -437,9 +454,7 @@ local function bandAgain(f)
 		return
 	end
 	if not f.psWidth then return end
-	local h = f:Layout(f.psWidth, f.psRoom)
-	local host, O = hostOf(f), UI.Options
-	if host and O and O.frame then W.ShellPreview(O.frame, host, P.Snap(host, tonumber(h) or 0)) end
+	hostHeight(f, f:Layout(f.psWidth, f.psRoom), true)
 end
 P.Again = bandAgain
 
@@ -544,7 +559,7 @@ function P.Band(parent, opts)
 	-- repaints its parts' colours where they stand and leaves the layout to
 	-- the full refresh the change settles with.
 	W.Painter(f.Ground, function()
-		if f:IsVisible() and f.psWidth then f:Layout(f.psWidth, f.psRoom) else f.psDirty = true end
+		if f:IsVisible() and f.psWidth then hostHeight(f, f:Layout(f.psWidth, f.psRoom)) else f.psDirty = true end
 	end, true)
 
 	function f:Layout(width, room)
@@ -660,7 +675,7 @@ ns.On("SETTING_CHANGED", function(path)
 				if scene == "ground" then copy.ApplyGround() else copy.ApplyAlpha(false) end
 				f.psDirty = true
 			elseif f:IsVisible() and f.psWidth then
-				f:Layout(f.psWidth, f.psRoom)
+				hostHeight(f, f:Layout(f.psWidth, f.psRoom))
 			else
 				f.psDirty = true
 			end

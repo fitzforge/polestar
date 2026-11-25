@@ -65,7 +65,7 @@ flowchart LR
    without his maps), kept as its corners with each
    stretch's move and floor and the ground's height every 2 yards, and written beside each start's
    guides as `legs.json` (`legs-qa.txt` lists the walks it left out, and why). Compiling the guides
-   puts them into the race parts, and the arrow follows them in game instead of searching
+   puts them into each race's file of its faction part (`Legs_<Race>.lua`), and the arrow follows them in game instead of searching
    (docs/PACK_FORMAT.md, "Format 7"). `forge guide bake --guides <dir>` does the same for one
    written guides folder.
 9. **report**: the written guides played the way a player follows them, compared with the seed's
@@ -448,11 +448,19 @@ A fix goes into a record the next build applies, whoever builds:
 | whether the route takes a quest; an order players asked for | `data/route-fixes.json` (`overrides`, `deliberate`) |
 | the check that pins it | `tests/guides-reported.test.js`, and the report's entry in `tests/reported-gate.json` (`npm run test:reported`) |
 | an arrow point: where an objective is done, or where a giver or ender stands; a road the target walks; an objective that needs its own goal line | `data/places.json` |
-| a step's tip, a goal's note (`goalNote`), an optional goal (`optional: true`), a `level` gate before a goal, or a `when` (`level>=N`: the goal's step shows only from that level; `onquest Q,...`: only while one of the quests is in the log; `!knows S`: only while the character does not know spell S; `complete Q` / `turnedin Q` (either with `!`): only while quest Q is ready to hand in / handed in; on a flight step with `at: { guide, goal: "fly", fly }`) | `data/guide-fixes.json` |
+| a step's tip, a goal's note (`goalNote`), an optional goal (`optional: true`), a `level` gate before a goal, or a `when` condition on the goal's step (also on a flight step with `at: { guide, goal: "fly", fly }`) | `data/guide-fixes.json` |
 | who a goal is for by race (`races`: `"all"` drops a stale race filter, a list sets one), on one goal or on every goal of the quest (`at.goal: "quest"`) | `data/guide-fixes.json` |
 | where a goal or a step goes: right after another goal (`follows`), a step split before a goal (`split`), a whole step moved or copied after another goal's step, into another guide too (`step`) | `data/guide-fixes.json` |
 | where the walk to a step ends (`way`): off a town of the other faction, or at a camp's edge; who makes the walk (`way.when`): only whoever carries the quest it leads to | `data/guide-fixes.json` |
 | a guide's top level in its header (`levels`, on `at: { goal: "levels", guide }`): where players leave it, when that is above where the route ends it | `data/guide-fixes.json` |
+
+`forge data check-corrections` checks a guide-fix record's top-level `when` even when the record
+also sets a `tip`. For example, `group 7729` gates the Searing Gorge bounty on the player's group
+choice for quest 7729. Use `has I` for an item in the bags or `has I xN` for a required count.
+Both `group` and `has` may be prefixed with `!`.
+The other forms are `level>=N` (levels 2 to 60, including fractional progress such as `level>=14.5`),
+`onquest Q[,Q...]`, `[!]complete Q`, `[!]turnedin Q` and `[!]knows S`. Here `Q` is a quest ID,
+`I` an item ID and `S` a spell ID. An optional `!` reverses the condition.
 
 Places and guide fixes are anchored on a quest's goal (a `when` on a flight step and `levels` on a
 guide's header name the guide instead), never on a line or a step, and the writer applies them to
@@ -643,6 +651,7 @@ print the forge command to run):
 |---|---|
 | `forge guide compile`, `lint`, `check` | compile and lint a guide pack; read written guides as a player would |
 | `forge guide seed`, `publish`, `check-generated`, `rehash` | the seed, the generated leveling guides, their CI check, their manifests recomputed from the files |
+| `forge guide legacy-steps` | Core/LegacySteps.lua: earlier releases' steps as they shipped (each tag's `addon/Polestar_Guides*/Guides.lua`), so an update mid-guide keeps the player's check-offs (docs/RELEASING.md) |
 | `forge data build`, `sources`, `check`, `check-corrections` | the reference data, its sources and its gates |
 | `forge data questdb`, `names`, `itemdb`, `codex`, `gear`, `talents`, `maps`, `trainers`, `travel`, `professions`, `dungeons` | the data addons and the generated Lua |
 | `forge data pack`, `fetch`, `publish` | the data pack for contributors, and the open Forever database |

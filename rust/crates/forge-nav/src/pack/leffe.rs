@@ -7,7 +7,7 @@
 //! few steps his flags leave open past the walkable slope (his reader closes them; ours reads only the flags), which
 //! are closed here, the floors no walk can use, which are dropped (`isolated`), and, given the fixed places, the
 //! ground no walk from one reaches (pack/reach.rs: its floors dropped, its base cells without a surface, the entrances
-//! on it gone). What changes:
+//! on it gone), and the class's hub bits, which are ours (`our_hubs`, #3830). What changes:
 //! - **floor**: his records as format 5's columns (`floor_columns`): half the bytes after zlib.
 //! - **arc**: at the in-game cell size every arc of his motion stream is a step inside one surface, a step his cells
 //!   already make, a jump (kind 1), or a drop or climb (kind 0 rising or falling past the walkable slope), each to the
@@ -21,10 +21,11 @@
 use super::cells::{CellGrid, ZQ};
 use super::drops;
 use super::encode::{encode_areas, encode_heights, run_length, Maps, COST_MAX, YARDS_MAX};
+use super::ingame::{self, cost_value, Row, HERE};
 use super::joins::{Geo, JoinStats, JoinWay};
 use super::reach::{self, Place};
 use super::spawns;
-use super::{b32, enc, js_round, zigzag, B64, NONE};
+use super::{b32, enc, js_round, zigzag, B64, HUB_ALLIANCE, HUB_HORDE, NONE};
 use crate::f4::pack::{self, Assembly, Cluster, Graph, Meta, Span, TILE, WALK_TAN};
 use crate::f4::{NavDir, PackSource};
 use rayon::prelude::*;
@@ -68,6 +69,10 @@ pub struct LeffeStats {
 	pub ledge_drops: usize,
 	/// Spawns given a height in the spawn field (pack/spawns.rs).
 	pub spawn_heights: usize,
+	/// Nodes whose hub bits ours changed (our_hubs), in how many clusters, and the entrance edges priced again there.
+	pub hub_nodes: usize,
+	pub hub_clusters: usize,
+	pub hub_edges: usize,
 }
 
 /// What the walking maps take from the fixed places and from our grid besides his maps.
@@ -76,6 +81,9 @@ pub struct Extras<'a> {
 	/// The fixed places (pack/reach.rs fixed_places, every map's): only the ground a walk from one of this map's
 	/// reaches is kept. None: all of it.
 	pub places: Option<&'a [Place]>,
+	/// With the places: where (world x, y of this map) ground no walk from one reaches is dropped; elsewhere all of it
+	/// stays (`forge nav pack --ground cities`: the capitals only). None: everywhere.
+	pub only: Option<&'a (dyn Fn(f64, f64) -> bool + Sync)>,
 	/// Our grid's ledge drops of this map, by cluster (pack/drops.rs): one-way arcs. None: his drops only.
 	pub drops: Option<&'a FxHashMap<u32, Vec<drops::GridDrop>>>,
 	/// The NPC and quest object spawns (pack/spawns.rs spawn_points, every map's): the spawn field holds the heights of
@@ -768,6 +776,25 @@ fn geometry(meta: &Meta, k: u32, c: &Cluster, node: usize) -> [f64; 3] {
 	[meta.x0 + ((k as i64 / meta.ny * cc + lc / cc) as f64 + 0.5) * meta.cs, meta.y0 + ((k as i64 % meta.ny * cc + lc % cc) as f64 + 0.5) * meta.cs, c.z[o] as f64]
 }
 
+/// Marks every surface outside `only` (a cell's centre, world x and y) as reached, so the reach rule drops ground
+/// inside it alone: `seen` is reach::reached's, per cluster of `keys` (and `locals`), base cells first, then floors.
+fn keep_outside(frame: &reach::Frame, keys: &[u32], locals: &[reach::Local], seen: &mut [Vec<bool>], only: &(dyn Fn(f64, f64) -> bool + Sync)) {
+	keys.par_iter().zip(locals).zip(seen.par_iter_mut()).for_each(|((&k, l), s)| {
+		let (c, ki) = (l.c, k as i64);
+		let (kx, ky) = (ki / frame.ny, ki % frame.ny);
+		let inside: Vec<bool> = (0..c * c)
+			.map(|lc| {
+				let (gx, gy) = (kx * frame.c + (lc / c) as i64, ky * frame.c + (lc % c) as i64);
+				only(frame.x0 + (gx as f64 + 0.5) * frame.cs, frame.y0 + (gy as f64 + 0.5) * frame.cs)
+			})
+			.collect();
+		for (n, r) in s.iter_mut().enumerate() {
+			let lc = if n < c * c { n } else { l.at[n - c * c] as usize };
+			*r |= !inside[lc];
+		}
+	});
+}
+
 /// Map `map` of Leffe's Nav folder `dir` as the in-game fields (maps format 5), with `cg` (our grid's cells, the same
 /// frame and cells) for the areas, `extras`: our grid's ledge drops as one-way arcs, and, given the fixed places,
 /// only the ground a walk from one of this map's reaches (the ends of the map's grid joins with a height among
@@ -835,7 +862,10 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid, extras: &Extras, ways: &[
 			if starts.is_empty() && !mine.is_empty() {
 				return Err(format!("leffe: map {map}: none of its {} fixed places stands on a surface (is the grid the same client build?)", mine.len()));
 			}
-			let seen = reach::reached(&locals, &starts);
+			let mut seen = reach::reached(&locals, &starts);
+			if let Some(only) = extras.only {
+				keep_outside(&frame, &keys, &locals, &mut seen, only);
+			}
 			let rows_map: FxHashMap<u32, Vec<u32>> = keys.iter().zip(&locals).zip(&seen).map(|((&k, l), s)| (k, reach::row_map(l, s))).collect();
 			let seen: FxHashMap<u32, Vec<bool>> = keys.iter().copied().zip(seen).collect();
 			// A map with no fixed place keeps all its ground (a crop, a map Polestar has no places on yet).
@@ -867,6 +897,7 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid, extras: &Extras, ways: &[
 	let geo = Geo { c: meta.c as usize, cs: meta.cs, zstep: meta.zstep, x0: meta.x0, y0: meta.y0, ny: meta.ny, swim: meta.swim };
 	let (mut joined, join_areas) = super::joins::apply(&geo, &mut outs, ways, cg, log)?;
 	joined.cuts = super::cuts::apply(&geo, &mut outs, map, log)?;
+	let hubbed = our_hubs(&geo, &mut outs, cg)?;
 	let mut maps = Maps {
 		class: Some(BTreeMap::new()),
 		zone: Some(BTreeMap::new()),
@@ -917,6 +948,7 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid, extras: &Extras, ways: &[
 		st.spawn_heights += s.spawn_heights;
 	}
 	(st.places, st.unplaced) = placed;
+	(st.hub_nodes, st.hub_clusters, st.hub_edges) = hubbed;
 	// zone: his, as stored
 	if let Some(z) = &meta.zone {
 		for (k, s) in z.iter().enumerate() {
@@ -943,9 +975,90 @@ pub fn leffe_maps(dir: &Path, map: u32, cg: &CellGrid, extras: &Extras, ways: &[
 	Ok((maps, used, st, joined))
 }
 
+/// #3830: the hub bits of his class field (8 inside an Alliance town, 16 inside a Horde one: Costs.lua prices them for
+/// the other side's walks) are ours, from the ground layers' hubs.json (cells.rs mark_hubs: every cell a hub's disk
+/// touches, every surface of it), so the walk keeps out of the towns hubs.json lists, Forever's new ones among them,
+/// and no longer out of a town it no longer lists. In a cluster whose bits change, each entrance edge inside it is
+/// priced again for the two sides' profiles by what the change adds to or takes off its walk (the profile-free cost and
+/// the yards stay). -> (nodes changed, clusters, entrance edges priced again).
+fn our_hubs(g: &Geo, outs: &mut [(u32, Out)], cg: &CellGrid) -> Result<(usize, usize, usize), String> {
+	const BITS: u8 = HUB_ALLIANCE | HUB_HORDE;
+	let per: Vec<(usize, usize)> = outs
+		.par_iter_mut()
+		.map(|(k, o)| -> Result<(usize, usize), String> {
+			let (Some(grid), Some(height)) = (o.grid.as_deref(), o.height.as_deref()) else { return Ok((0, 0)) };
+			let before = ingame::Cluster::decode(g.c, g.cs, g.zstep, grid, height, o.floor.as_deref(), o.class.as_deref(), o.area.as_deref(), o.arc.as_deref())
+				.map_err(|e| format!("leffe: hubs: cluster {k}: {e}"))?;
+			let (kx, ky) = ((*k as i64 / g.ny) as usize, (*k as i64 % g.ny) as usize);
+			let mut after = before.clone();
+			let mut nodes = 0;
+			for u in 0..after.t() {
+				let lc = after.cell(u);
+				let cell = ((kx * g.c + lc / g.c) * cg.gh + ky * g.c + lc % g.c) as u32;
+				let cls = (after.cls[u] & !BITS) | cg.hub_cells.get(&cell).copied().unwrap_or(0);
+				if cls != after.cls[u] {
+					after.cls[u] = cls;
+					nodes += 1;
+				}
+			}
+			if nodes == 0 {
+				return Ok((0, 0));
+			}
+			o.class = Some(after.class_field());
+			let mut edges = 0;
+			if let Some(s) = o.graph.as_deref() {
+				let mut rows = ingame::decode_graph(s).map_err(|e| format!("leffe: hubs: cluster {k}: {e}"))?;
+				edges = reprice_hubs(&before, &after, &mut rows, g.swim);
+				o.graph = Some(ingame::encode_graph(&rows)?);
+			}
+			Ok((nodes, edges))
+		})
+		.collect::<Result<_, String>>()?;
+	Ok(per.iter().fold((0, 0, 0), |(n, c, e), &(dn, de)| (n + dn, c + usize::from(dn > 0), e + de)))
+}
+
+/// Each entrance edge inside the cluster whose walk the hub bits changed for a side's profile (Alliance, Horde: the
+/// profile-free walk prices no hub), its cost moved by the change (cuts.rs reprice's way, both ways). -> edges changed.
+fn reprice_hubs(before: &ingame::Cluster, after: &ingame::Cluster, rows: &mut [Row], swim: f64) -> usize {
+	let ends: Vec<Option<usize>> = rows.iter().map(|r| before.surface(r.cell as usize, r.layer as i32, 0.0)).collect();
+	let mut changed = 0;
+	for (r, row) in rows.iter_mut().enumerate() {
+		let Some(s) = ends[r] else { continue };
+		if !row.edges.iter().any(|e| e.off == HERE) {
+			continue;
+		}
+		let costs: Vec<(Vec<f64>, Vec<f64>)> = (0..NONE).map(|p| (before.dijkstra(&[(s, 0.0, 0.0)], p, swim, false).0, after.dijkstra(&[(s, 0.0, 0.0)], p, swim, false).0)).collect();
+		for e in &mut row.edges {
+			let Some(Some(t)) = (e.off == HERE).then(|| ends.get(e.ent as usize).copied().flatten()) else { continue };
+			let mut moved = false;
+			for (p, (b, a)) in costs.iter().enumerate() {
+				let add = a[t] - b[t];
+				if add.is_finite() && add.abs() > 1.0 {
+					e.cost[p] = cost_value(e.cost[p] as f64 + add);
+					moved = true;
+				}
+			}
+			changed += usize::from(moved);
+		}
+	}
+	changed
+}
+
 #[cfg(test)]
 mod tests {
 	use super::*;
+
+	/// `--ground cities`: ground no walk reaches is dropped inside the capitals only. A cluster of 2x2 cells whose first
+	/// column lies in a capital (world x under 1) and second outside, with a floor in an outside cell: nothing was
+	/// reached; the outside cells' surfaces and the floor count as reached (kept), the capital's do not.
+	#[test]
+	fn ground_outside_the_capitals_is_kept_whatever_the_walks_reach() {
+		let frame = reach::Frame { x0: 0.0, y0: 0.0, cs: 1.0, ny: 1, c: 2, gx: 2, gy: 2 };
+		let local = reach::Local { c: 2, val: vec![1; 5], z: vec![0.0; 5], first: vec![-1, -1, -1, 4], at: vec![3], ..Default::default() };
+		let mut seen = vec![vec![false; 5]];
+		keep_outside(&frame, &[0], &[local], &mut seen, &|x, _| x < 1.0);
+		assert_eq!(seen[0], vec![false, false, true, true, true], "cells 0, 1 (x 0.5) in the capital; 2, 3 (x 1.5) and the floor out");
+	}
 
 	/// A record's values as PathGrid.lua's edgeValue reads them: offset(1), entrance(2), the costs (3 each), yards(2).
 	fn values(rec: &str) -> Vec<u64> {
@@ -996,5 +1109,41 @@ mod tests {
 		let c = crate::pack::ingame::Cluster::decode(CC, TILE / 128.0, 2.0, &grid, &height, Some(&field), None, None, None).unwrap();
 		assert_eq!(c.t(), CC * CC + 1, "the floor at height 10 stays");
 		assert_eq!(c.links, vec![(64, 0, 0)], "its link stays, the dropped floor's goes");
+	}
+
+	/// #3830: his class's hub bits are ours. A flat 8x8 cluster with an entrance on x-row 0 and one on x-row 7; his
+	/// class has a Horde town across x-row 2 that hubs.json no longer lists, ours an Alliance one across x-row 4.
+	/// Afterwards x-row 4 is the Alliance's and x-row 2 no one's, and the edge between the entrances costs the Horde
+	/// more (its walk crosses an enemy town now), the Alliance less (no longer), the profile-free walk the same.
+	#[test]
+	fn issue_3830_his_hub_bits_are_ours_and_the_edges_inside_follow() {
+		const C: usize = 8;
+		let cs = TILE / 128.0;
+		let geo = Geo { c: C, cs, zstep: 2.0, x0: 0.0, y0: 0.0, ny: 1, swim: 3.0 };
+		let val = vec![1u8; C * C];
+		let his: Vec<u8> = (0..C * C).map(|a| if a / C == 2 { HUB_HORDE } else { 0 }).collect();
+		let edge = |ent: u32| ingame::Edge { off: HERE, ent, cost: [100; 3], yards: 30 };
+		let rows = vec![Row { cell: 3, layer: 0, comp: 1, edges: vec![edge(1)] }, Row { cell: (7 * C + 3) as u32, layer: 0, comp: 1, edges: vec![edge(0)] }];
+		let out = Out {
+			grid: Some(run_length(&val.iter().map(|v| v * 16).collect::<Vec<u8>>())),
+			height: Some(encode_heights(&val, &[0; C * C], C).unwrap()),
+			class: Some(run_length(&his)),
+			graph: Some(ingame::encode_graph(&rows).unwrap()),
+			..Default::default()
+		};
+		let mut cg = CellGrid::new(C, 1, 1, 0, 0);
+		for y in 0..C {
+			cg.hub_cells.insert((4 * cg.gh + y) as u32, HUB_ALLIANCE);
+		}
+		let mut outs = vec![(0u32, out)];
+		assert_eq!(our_hubs(&geo, &mut outs, &cg).unwrap(), (2 * C, 1, 2), "x-rows 2 and 4 changed, both edges priced again");
+		let o = &outs[0].1;
+		let c = ingame::Cluster::decode(C, cs, 2.0, o.grid.as_deref().unwrap(), o.height.as_deref().unwrap(), None, o.class.as_deref(), None, None).unwrap();
+		assert_eq!((c.cls[2 * C + 3], c.cls[4 * C + 3], c.cls[3]), (0, HUB_ALLIANCE, 0));
+		for r in ingame::decode_graph(o.graph.as_deref().unwrap()).unwrap() {
+			let e = &r.edges[0];
+			assert!(e.cost[0] < 100 && e.cost[1] > 100 && e.cost[NONE] == 100 && e.yards == 30, "row at cell {}: costs {:?}, yards {}", r.cell, e.cost, e.yards);
+		}
+		assert_eq!(our_hubs(&geo, &mut outs, &cg).unwrap(), (0, 0, 0), "a second pass finds them ours already");
 	}
 }

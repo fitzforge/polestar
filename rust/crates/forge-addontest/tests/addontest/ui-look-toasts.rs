@@ -334,10 +334,11 @@ fn the_look_pages_list_their_tabs_and_the_settings_they_hold() {
 		for _, p in ipairs(O.Pages()) do if p.key == "alerts" or p.key == "trackers" then pages[p.key] = p.tabs end end
 		emit(pages)
 	"#);
+	// The tabs in the player's journey: the heads-up card before the transport banner.
 	assert_eq!(
 		out[0],
 		json!({
-			"alerts": ["Essentials", "Rare alert", "Transport alert", "Heads-up card", "Class quest card"],
+			"alerts": ["Essentials", "Rare alert", "Heads-up card", "Transport alert", "Class quest card"],
 			"trackers": ["Essentials", "Travel", "Instances & XP", "Party panel"]
 		})
 	);
@@ -346,19 +347,32 @@ fn the_look_pages_list_their_tabs_and_the_settings_they_hold() {
 // Layout v2: each section is one element; its on/off sits in its header; a colour rides on its slider's row and
 // secondary knobs behind the cog; row labels are short; every control, extra and cog row keeps its tooltip
 // (help), its search words and its "New" mark; and nothing a player could set before is gone from the pages
-// (0.3.8: the While you're here toast's look went; its switches are on Guide > Window's Dynamic Questing).
+// (0.3.8: the While you're here toast's look went; its switches are on Guide > While you play's Dynamic Questing).
 #[test]
 fn the_look_pages_put_switches_in_section_headers_colours_beside_their_sliders_and_keep_every_setting() {
 	let out = run(r#"
 		local toggles, extras, more, missing, long, keys, thin, crowded, count = {}, {}, {}, {}, {}, {}, {}, {}, {}
 		local function check(c, row)
 			if c.key then keys[c.key] = true end
-			if not (c.help and c.help ~= "") or not (c.search and c.search ~= "") then missing[#missing + 1] = c.key or c.label end
-			if row and select(2, c.label:gsub("%S+", "")) > 3 then long[#long + 1] = c.label end
+			-- A reference (W.Ref) takes its help and search words from its home row.
+			if not c.ref and (not (c.help and c.help ~= "") or not (c.search and c.search ~= "")) then missing[#missing + 1] = c.key or c.label end
+			-- A reference without a label of its own shows its home row's.
+			if row and c.label and select(2, c.label:gsub("%S+", "")) > 3 then long[#long + 1] = c.label end
 		end
-		-- The deep tabs' registrations (Essentials stands for their rows: settings-essentials.rs).
+		-- The deep tabs' registrations (Essentials stands for their rows: settings-essentials.rs). The rows homed on
+		-- Essentials (the alerts' line, All alerts) are checked and kept too.
 		Polestar.Widgets.OnOptionsRegistered(function(spec)
-			if (spec.key ~= "alerts" and spec.key ~= "trackers") or spec.tab == "Essentials" then return end
+			if spec.key ~= "alerts" and spec.key ~= "trackers" then return end
+			if spec.tab == "Essentials" then
+				for _, c in ipairs(spec.controls or {}) do
+					if c.key and not c.ref then
+						check(c, true)
+						for _, e in ipairs(c.extras or {}) do extras[c.key] = e.key; check(e, false) end
+						for _, m in ipairs(c.more or {}) do more[c.key] = m.key; check(m, false) end
+					end
+				end
+				return
+			end
 			local where = spec.key .. "/" .. spec.tab .. "/" .. spec.section
 			if spec.toggle then
 				toggles[where] = spec.toggle.key
@@ -481,7 +495,9 @@ fn on_the_rare_alert_tab_the_header_switch_the_inline_swatch_and_the_cog_are_the
 		Polestar.Set("toasts.rare.bg", { 0.2, 0.1, 0.3 })
 		c["toasts.rare.bg"]:Click("RightButton")
 		local bg = Polestar.Get("toasts.rare.bg")
-		c["toasts.stack"].Cog:Click()
+		-- The alerts' line has its home on Essentials (All alerts): its cog is there.
+		O.Select("alerts", "Essentials")
+		O.Controls("alerts", "Essentials")["toasts.stack"].Cog:Click()
 		local more = O.MoreControls()
 		emit({ found = found, off = off, on = Polestar.Get("rares.alerts"), bg = bg, speed = more["toasts.spacing"] ~= nil })
 	"#);

@@ -121,3 +121,49 @@ test('workflows: the defaults reader finds job-level blocks only, and their shel
 		{ job: 'flow', line: 27, shell: '(inline)' },
 	]);
 });
+
+// The `run: |` script of the step named `name` in a workflow's text, unindented.
+function stepScript(text, name) {
+	const lines = text.split('\n');
+	const at = lines.findIndex((l) => l.trim() === `- name: ${name}`);
+	assert.ok(at >= 0, `a step named ${name}`);
+	const run = lines.findIndex((l, i) => i > at && /^\s+run: \|\s*$/.test(l));
+	const body = [];
+	const inner = indent(lines[run]) + 2;
+	for (let i = run + 1; i < lines.length && (lines[i].trim() === '' || indent(lines[i]) >= inner); i++) body.push(lines[i].slice(inner));
+	return body.join('\n');
+}
+
+// #3826: the first weekly run's flow check failed (the release's guides did not compile on today's data), and the
+// summary said "no flow diff", which reads as "the route's flow did not change". A flow check that wrote no table
+// did not run, and the summary says so; one that ran shows its table.
+test('route-health: the summary says the flow check did not run when it wrote no table, never "no flow diff"', () => {
+	const { spawnSync } = require('node:child_process');
+	const os = require('node:os');
+	const text = fs.readFileSync(path.join(DIR, 'route-health.yml'), 'utf8');
+	assert.match(text, /--base-data "\$rel"/, 'the release plays on its own data');
+	const script = stepScript(text, 'Summary');
+	const summary = (flowMd, flow) => {
+		const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'route-health-'));
+		try {
+			fs.mkdirSync(path.join(tmp, 'health'));
+			fs.writeFileSync(path.join(tmp, 'health', 'flow.log'), 'flow-diff failed: base: the guides don\'t compile');
+			if (flowMd) fs.writeFileSync(path.join(tmp, 'health', 'flow.md'), flowMd);
+			const env = { ...process.env, RUNNER_TEMP: tmp, GITHUB_STEP_SUMMARY: path.join(tmp, 'step.md'), TAG: 'v1', PLAYTEST: 'success', LEVELS: 'success', FLOW: flow, SHA: '0123456789abcdef' };
+			const r = spawnSync('bash', ['-eo', 'pipefail', '-c', script], { env, encoding: 'utf8' });
+			assert.equal(r.status, 0, r.stderr);
+			return fs.readFileSync(path.join(tmp, 'health', 'summary.md'), 'utf8');
+		} finally {
+			fs.rmSync(tmp, { recursive: true, force: true });
+		}
+	};
+	const failed = summary(null, 'failure');
+	assert.match(failed, /\| flow against v1 \| flow check did not run \|/);
+	assert.match(failed, /The flow check did not run/);
+	assert.match(failed, /the guides don't compile/, 'with the reason from its output');
+	assert.doesNotMatch(failed, /no flow diff/);
+	const ran = summary('| guide | zone visits |\n', 'success');
+	assert.match(ran, /\| flow against v1 \| success \|/);
+	assert.match(ran, /\| guide \| zone visits \|/);
+	assert.doesNotMatch(ran, /did not run/);
+});

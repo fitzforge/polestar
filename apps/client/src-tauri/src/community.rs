@@ -513,6 +513,19 @@ impl Engine {
 		if matches!(action, "restore" | "discard") {
 			return self.pulled_action(id, action).await;
 		}
+		let (title, version) = self.pack_run(id, action, confirm).await?;
+		Ok(match version {
+			None => format!("{title} removed."),
+			Some(version) => crate::manager::installed(&[format!("{title} {version}")]),
+		})
+	}
+
+	/// `pack_action`'s install, update or removal. Returns the pack's title and the version
+	/// installed (none for a removal).
+	pub(crate) async fn pack_run(self: &Arc<Self>, id: &str, action: &'static str, confirm: bool) -> Result<(String, Option<String>), String> {
+		if !packs::valid_id(id) {
+			return Err("No such guide.".to_owned());
+		}
 		let (dir, entry, title, before) = {
 			let mut state = self.lock();
 			let dir = state.install.as_ref().map(|i| i.addons_dir()).ok_or("Find the game folder first (Settings > Game).")?;
@@ -614,10 +627,7 @@ impl Engine {
 			}
 		}
 		self.publish();
-		result.map(|_| match &entry {
-			None => format!("{title} removed."),
-			Some(e) => format!("{title} {} installed. Restart the game (or /reload) to load it.", e.version),
-		})
+		result.map(|_| (title, entry.map(|e| e.version)))
 	}
 
 	/// `restore` puts a turned-off pack back (refused while the site still pulls it); `discard`

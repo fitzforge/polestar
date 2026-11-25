@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Durotar Supply and Logistics
 	-- {zone:1413} Barrens · {npc:256400} Okamache · {npc:10636} Pack Kodo · {faction:2587} Durotar Supply and Logistics · {item:280179} Shipping Label
-	["The camp stands just outside the west gate of the Crossroads in the {zone:1413}. {npc:256400} sells the {npc:10636} only once you are Exalted with {faction:2587}, and it costs 6,000 Merchant's Favor. Crates pay only Favor (about 15 a crate return); the reputation comes from Craftsman's Writs and the one-time {item:280179}, so follow the Supply Factions Reputation guide and keep 6,000 Favor aside."] = "",
+	["The camp stands just outside the west gate of the Crossroads in the {zone:1413}. {npc:256400} sells the {npc:10636} only once you are Exalted with {faction:2587}, and it costs 6,000 Merchant's Favor. Crates pay only Favor (about 15 a crate return); the reputation comes from Craftsman's Writs and the one-time {item:280179}, so follow the Supply Factions Reputation guide and keep 6,000 Favor aside."] = "야영지는 불모의 땅 {zone:1413}의 크로스로드 서문 바로 바깥에 있습니다. {npc:256400}은(는) {faction:2587}과(와) 확고한 동맹이 되어야 {npc:10636}을(를) 팔며 상인의 호의 6,000이 필요합니다. 상자는 호의만 줍니다(상자당 약 15 반환). 평판은 장인의 서면과 일회성 {item:280179}에서 오니 자원 분파 평판 가이드를 따라가며 호의 6,000을 남겨 두세요.",
 	-- {faction:2587} Durotar Supply and Logistics
 	["{faction:2587} camp"] = "{faction:2587} 야영지",
 

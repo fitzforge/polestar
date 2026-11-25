@@ -63,8 +63,6 @@ return {
 	-- Step 9: Ain't No Telling
 	-- {item:275709} Stolen Funds
 	["She will not talk without something to bargain with. Her stash is upstairs in a house close to the keep: take the {item:275709}. If it is already open, wait for it to come back."] = "Sie redet nicht ohne etwas zum Verhandeln. Ihr Versteck liegt oben in einem Haus nahe der Festung: Nimm {item:275709}. Wenn es schon geöffnet ist, warte, bis es wieder da ist.",
-	-- {item:275709} Stolen Funds
-	["{item:275709}: Anastasia's Stash"] = "{item:275709}: Anastasias Versteck",
 
 	-- Step 10: The Syndicate Sting
 	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad · {item:275882} Intercepted Shipment · {item:275706} Syndicate Uniform · {npc:13085} Myrokos Silentform
@@ -87,6 +85,7 @@ return {
 	-- ["Rite of Cunning"] = "Rite of Cunning",
 	-- ["Rite of Cunning: Detect Traps beside the tunnel chest"] = "Rite of Cunning: Fallen entdecken neben der Tunneltruhe",
 	-- ["{item:275482}: pickpocket Barton"] = "{item:275482}: Barton bestehlen",
+	-- ["{item:275709}: Anastasia's Stash"] = "{item:275709}: Anastasias Versteck",
 	-- ["{npc:266216} is inside {area:275}, the Syndicate fortress in eastern {area:287}, south of the manor. Quick and quiet, says {npc:13085}."] = "{npc:266216} ist in {area:275}, der Festung des Syndikats im Osten von {area:287}, südlich des Anwesens. Schnell und leise, sagt {npc:13085}.",
 	-- ["{npc:6766}: {quest:6701}, repeatable"] = "{npc:6766}: {quest:6701}, wiederholbar",
 	-- ["{npc:6766}: {quest:6701}, repeatable; take it now, the emblems are quest items"] = "{npc:6766}: {quest:6701}, wiederholbar; nimm sie jetzt an, die Embleme sind Questgegenstände",

@@ -36,16 +36,21 @@ zone Stormwind City
 # A Forever class-quest database lists Apprentice Riding as a reward of The
 # Tome of Nobility as well. The client's MountCapability for its mount type asks
 # for Riding 0 (60% speed), and PlayerCondition 151683 only for the quest (1661).
-# Horde paladins: the Forever client has a Forsaken Summon Warhorse (spell
-# 1279399, Mount 2923) and a Summon Forsaken Charger (1296534, Mount 3001);
-# news reports name their quests "A Trusty Steed" and "Justice and
-# Retribution", but Forever's quest data has no quest, giver or step for
-# either yet (searched 2026-10-29), so there is no Horde guide.
+# Horde paladins: Forsaken paladins learn the Forsaken Summon Warhorse
+# (spell 1279399, Mount 2923) from A Paladin's Steed (94971) at Bandarion
+# Keep: forever/collectibles/mounts/horde/paladin-warhorse. The client also
+# has a Summon Forsaken Charger (1296534, Mount 3001), whose level 60 chain has
+# no guide yet.
+# Dwarves take the Ironforge breadcrumb only while in Ironforge (#2778): Duthorian
+# Rall offers The Tome of Nobility without it (players' recordings: a Dwarf
+# Paladin at 40 was offered 1661 with neither breadcrumb taken), so a Dwarf
+# already in Stormwind is not sent to Ironforge and back for 320 XP.
 
 step The Tome of Nobility (Ironforge)
   only Dwarf
   zone Ironforge
   when available 4485
+  when zone "Ironforge"
   tip At 40 Tiza Battleforge, upstairs in the Hall of Mysteries, sends you to Duthorian Rall in Stormwind (Brandur Ironhammer downstairs gives the same errand; take one). Take the Deeprun Tram to Stormwind.
   level 40
   accept 4485                         -- Tiza Battleforge

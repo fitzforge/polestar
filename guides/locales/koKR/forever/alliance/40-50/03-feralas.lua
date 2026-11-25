@@ -17,19 +17,19 @@ return {
 
 	-- Step 1: Into The Barrens
 	-- {zone:1413} The Barrens
-	["Into {zone:1413}"] = "",
+	["Into {zone:1413}"] = "{zone:1413}(으)로",
 
 	-- Step 2: Thalanaar flight master
 	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "",
+	["{area:489} flight master"] = "{area:489} 비행 조련사",
 
 	-- Step 3: Boat to Feathermoon Stronghold
 	-- {area:1116} Feathermoon Stronghold
-	["Boat to {area:1116}"] = "",
+	["Boat to {area:1116}"] = "배를 타고 {area:1116}(으)로",
 
 	-- Step 4: Feathermoon Stronghold
 	-- {area:1116} Feathermoon Stronghold · {area:1120} Sardor Isle · {area:1108} Forgotten Coast · {npc:7880} Ginro Hearthkindle
-	["{area:1116} stands on {area:1120}, off the {area:1108}: the boat from the coast's dock crosses to it. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{area:1116} stands on {area:1120}, off the {area:1108}: the boat from the coast's dock crosses to it. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{area:1116}은(는) {area:1108}에서 떨어진 {area:1120}에 있습니다. 해안 부두에서 배가 오갑니다. {npc:7880}은(는) 자기 건물 위층에 서 있습니다. 건물 안에서 올라가세요. 화살표는 층을 구분하지 못합니다.",
 	-- {npc:3936} Shandris Feathermoon
 	["{npc:3936}, beside him"] = "{npc:3936}, 그의 옆",
 	-- {npc:7877} Latronicus Moonspear
@@ -51,7 +51,7 @@ return {
 
 	-- Step 9: Boat to Forgotten Coast
 	-- {area:1108} Forgotten Coast
-	["Boat to {area:1108}"] = "",
+	["Boat to {area:1108}"] = "배를 타고 {area:1108}(으)로",
 
 	-- Step 10: Feralas
 	["The courier's boat"] = "전령의 배",
@@ -74,20 +74,20 @@ return {
 	-- plural, as words: Hatecrest Serpent Guards = {npc:5333} Hatecrest Serpent Guard
 	["The {area:1121} is the island just south of {area:1120}: swim over. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "{area:1121}은(는) {area:1120} 바로 남쪽의 섬입니다. 헤엄쳐 건너십시오. 증오의갈기일족 수호병과 증오의갈기일족 여마법사가 지키고 있으며, {npc:8136}(47레벨)은(는) 남쪽 끝 동굴에 있습니다. 경비병부터 끌어내십시오.",
 	-- {item:9248} Mysterious Relic
-	["{item:9248}; below ground"] = "",
+	["{item:9248}; below ground"] = "{item:9248}; 지하",
 
 	-- Step 15: Feathermoon Stronghold
 	-- {npc:7877} Latronicus Moonspear · {npc:7878} Vestia Moonspear · {npc:7900} Angelas Moonbreeze · {npc:7880} Ginro Hearthkindle · {npc:7852} Pratt McGrubben
-	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "",
+	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "남쪽에서 오면 {npc:7877}와(과) {npc:7878}을(를) 먼저 만나고, 그다음 {npc:7880} 건물 옆의 {npc:7900}, 그다음 계단입니다. {npc:7880}은(는) 건물 위층에 서 있습니다. 건물 안에서 올라가세요. 화살표는 층을 구분하지 못합니다. {npc:7852}은(는) 나가는 길 비행 조련사 옆에 있습니다.",
 	-- {npc:7879} Quintis Jonespyre
-	["{npc:7879}, upstairs"] = "",
+	["{npc:7879}, upstairs"] = "{npc:7879}, 위층",
 	-- {npc:7852} Pratt McGrubben
 	["{npc:7852}'s next order, Improved Quality, wants Rage Scar hides from yetis of 46-49: skip it."] = "{npc:7852}의 다음 주문인 '품질 향상'은 46-49레벨 설인의 성난상처 가죽을 요구합니다: 건너뛰십시오.",
 
 	-- Step 16: Fly to Thalanaar
 	-- {area:489} Thalanaar
-	["Fly to {area:489}"] = "",
-	["Feathermoon flight master"] = "",
+	["Fly to {area:489}"] = "{area:489}(으)로 날아가기",
+	["Feathermoon flight master"] = "페더문 비행 조련사",
 
 	-- Step 17: Back to the coast
 	["Back to the coast"] = "해안으로 돌아가기",
@@ -117,7 +117,7 @@ return {
 	-- {item:11463} Undelivered Parcel
 	["{item:11463}, from the backpacks"] = "{item:11463}, 배낭에서",
 	-- {object:164954} Zukk'ash Pod
-	["{object:164954}, inside"] = "",
+	["{object:164954}, inside"] = "{object:164954}, 던전 안",
 
 	-- Step 23: Grind to 45
 	["Grind to 45"] = "45레벨까지 사냥",
@@ -132,25 +132,37 @@ return {
 	-- plural, as words: Ironfur Bears = {npc:5268} Ironfur Bear · Ironfur Patriarchs = {npc:5274} Ironfur Patriarch
 	["Ride north out of {area:1105}: the Ironfur Bears (41-42) at the foot of the {area:1136} drop Rhapsody's last liver.\nCareful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge."] = "{area:1105}에서 북쪽으로 나가십시오. {area:1136} 기슭의 무쇠가죽곰(41-42레벨)이 랩소디의 마지막 간을 떨어뜨립니다.\n주의: 더 북쪽 언덕에는 우두머리 무쇠가죽곰(48-49레벨)과 성난상처 설인(46-49레벨)이 돌아다닙니다. 가장자리에 머무르십시오.",
 
-	-- Step 25: Feathermoon Stronghold
+	-- Step 25: OOX-22/FE Distress Beacon
+	-- {zone:1444} Feralas
+	["Only with the distress beacon, a rare drop in {zone:1444}: it starts a quest to find the robot it calls for."] = "",
+
+	-- Step 26: Homing Robot OOX-22/FE
+	-- {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay · {zone:1425} Hinterlands
+	["The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}, where the boat to Feathermoon leaves; its reward waits with {npc:7406} in {area:35}, on the {zone:1425} guide's {area:35} stop.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "",
+
+	-- Step 27: Feathermoon Stronghold
 	-- {npc:7880} Ginro Hearthkindle
-	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880}은(는) 자기 건물 위층에 서 있습니다. 건물 안에서 올라가세요. 화살표는 층을 구분하지 못합니다.",
+	-- {npc:3936} Shandris Feathermoon · {quest:4267} Rise of the Silithid · {npc:7740} Gracina Spiritmight · {zone:1446} Tanaris · {zone:1457} Darnassus
+	["{npc:3936}: {quest:4267}, for {npc:7740} on the {zone:1446} guide's {zone:1457} stop: keep it"] = "",
 
-	-- Step 26: Feathermoon Stronghold
-	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
-	["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "이어서 {npc:3936}이(가) {zone:1457}에 소식을 전해 달라고 합니다: 건너뛰십시오. 대신 {area:976}에서 그곳으로 보내 줍니다.",
+	-- Step 28: Angelas Moonbreeze
+	-- {npc:7900} Angelas Moonbreeze · {area:1116} Feathermoon Stronghold · {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {zone:1446} Tanaris
+	["{npc:7900} in {area:1116} sends you to {npc:7771} at the {area:1938} in {zone:1446}, where the {zone:1446} guide stops for his dig."] = "",
+	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {zone:1446} Tanaris
+	["for {npc:7771} at the {area:1938} in {zone:1446}: keep it"] = "",
 
-	-- Step 28: Ride to Thalanaar
+	-- Step 30: Ride to Thalanaar
 	-- {area:489} Thalanaar
 	["Ride to {area:489}"] = "{area:489}까지 이동",
 	-- {area:489} Thalanaar · {zone:1441} Thousand Needles
 	["No flight path to {area:489} yet: take the boat back to the coast and ride east along the road to {area:489}, on the {zone:1441} border."] = "아직 {area:489} 비행 경로가 없습니다. 배를 타고 해안으로 돌아가 길을 따라 동쪽으로, {zone:1441} 경계의 {area:489}까지 가십시오.",
 
-	-- Step 29: Thalanaar
+	-- Step 31: Thalanaar
 	-- {zone:1441} Thousand Needles
 	["Ride north-east to the night elf outpost on the {zone:1441} border."] = "북동쪽으로 {zone:1441} 경계의 나이트 엘프 전초기지까지 가십시오.",
 	-- {npc:4048} Falfindel Waywarder · {area:489} Thalanaar
-	["{npc:4048} walks around {area:489}: look inside the circle on the map"] = "",
+	["{npc:4048} walks around {area:489}: look inside the circle on the map"] = "{npc:4048}은(는) {area:489}을(를) 돌아다닙니다. 지도 원 안을 살펴보세요.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Boat to the {area:1108} and ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45."] = "배를 타고 {area:1108}(으)로 가서 동쪽 {area:1105}(으)로 가십시오. 해안에 있는 {npc:14637}의 퀘스트는 45레벨이 필요합니다.",
@@ -171,6 +183,7 @@ return {
 	-- ["if you carry {quest:1100} from {zone:1441}"] = "{zone:1441}에서 {quest:1100}을(를) 가져왔다면",
 	-- ["{area:978} instead of grinding"] = "사냥 대신 {area:978}",
 	-- ["{npc:14637}'s refills are level 55: skip them."] = "{npc:14637}의 재충전 퀘스트는 55레벨입니다: 건너뛰십시오.",
+	-- ["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "이어서 {npc:3936}이(가) {zone:1457}에 소식을 전해 달라고 합니다: 건너뛰십시오. 대신 {area:976}에서 그곳으로 보내 줍니다.",
 	-- ["{npc:7774} wanders the hills north of {npc:7765}, among the Northspring harpies; her bell is in the chest beside her."] = "{npc:7774}은(는) {npc:7765} 북쪽 언덕의 바람계곡일족 하피 사이를 떠돕니다. 샤이의 종은 그녀 옆 상자에 있습니다.",
 	-- ["{npc:7774}'s escort"] = "{npc:7774} 호위",
 }

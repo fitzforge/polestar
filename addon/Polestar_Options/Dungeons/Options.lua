@@ -1,6 +1,6 @@
 -- The Dungeons rows on the Discovery page (docs/ARCHITECTURE.md, "Options
--- registry"): the dungeon pages and their heads-up, on the Lookup tab beside
--- the Characters page's switch (Alts/Options.lua); the dungeons a leveling
+-- registry"): the dungeon pages' switch heading their card on the Lookup tab,
+-- with their heads-up, before the Characters page's (Alts/Options.lua); the dungeons a leveling
 -- guide's `when dungeon` steps can be for; the group quests of this
 -- character's guides. Part of the settings' addon: none of it is in memory
 -- before the settings open.
@@ -11,12 +11,15 @@ local L = ns.L
 
 if not (Dungeons and ns.RegisterOptions) then return end
 
+-- The module's switch in its card's header (the card folds while it is off).
+local JOURNAL = ENCOUNTER_JOURNAL or L["Dungeons"]
 local ok, err = ns.RegisterOptions({
-	page = L["Discovery"], tab = L["Lookup"], section = L["Dungeons and characters"],
+	page = L["Discovery"], tab = L["Lookup"], section = JOURNAL,
+	toggle = { kind = "toggle", key = "dungeons.enabled", label = JOURNAL,
+		help = L["A page per dungeon and raid: every quest with where to get it, its chain and rewards, the bosses and the entrance."] },
 	controls = {
-		{ kind = "toggle", key = "dungeons.enabled", label = ENCOUNTER_JOURNAL or L["Dungeons"],
-			help = L["A page per dungeon and raid: every quest with where to get it, its chain and rewards, the bosses and the entrance."] },
-		{ kind = "toggle", key = "dungeons.headsUp", label = L["Tell me when a dungeon opens up"], child = true, disabled = function() return not ns.Get("dungeons.enabled") end,
+		{ kind = "toggle", key = "dungeons.headsUp", label = L["Tell me when a dungeon opens up"], disabled = function() return not ns.Get("dungeons.enabled") end,
+			search = "dungeon, heads up, notification, card",
 			help = L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab. On a step that grinds to a level, a line under it names a dungeon at your level and its quests."] },
 	},
 })

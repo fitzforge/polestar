@@ -1,0 +1,18 @@
+{
+	"note": [
+		"`nav city world-sample --set reported`: the places players reported (open walking-map issues), each with the held-out recorded walks that pass within r yd of it (or, with end, finish there). World yards: at [x, y] on continent c; zone = the uiMap whose recordings hold the walks.",
+		"Each case is its own row in the world gate. Add a case when a walking-map issue is confirmed; drop it when the issue closes and its row has passed twice."
+	],
+	"cases": [
+		{"id": "mound-of-dirt-ledge", "issue": "#2214", "title": "Stonetalon: the Mound of Dirt on the ledge below the camp", "zone": 1442, "c": 1, "at": [1293.1, 1311.1], "r": 30},
+		{"id": "booty-bay-seahorn", "issue": "#2215", "title": "Booty Bay: up from the docks to Fleet Master Seahorn", "zone": 1434, "c": 0, "at": [-14444.8, 486.8], "r": 12, "end": true},
+		{"id": "booty-bay-levels", "issue": "#2215", "title": "Booty Bay: any walk between its levels (docks, bridges, the inn, Seahorn's)", "zone": 1434, "c": 0, "at": [-14423.2, 466], "r": 70},
+		{"id": "silver-stream-mine", "issue": "#2027", "title": "Loch Modan: in and out of the Silver Stream Mine (the Miners' League crates)", "zone": 1432, "c": 0, "at": [-4936, -2967.3], "r": 70},
+		{"id": "jasperlode-mine", "issue": "#2027", "title": "Elwynn: Jasperlode Mine's deep level", "zone": 1429, "c": 0, "at": [-9078.9, -582.3], "r": 60},
+		{"id": "stormrage-barrow-dens", "issue": "#2027", "title": "Moonglade: the Stormrage Barrow Dens (#1919, #2005)", "zone": 1450, "c": 1, "at": [7337, -2639.3], "r": 90},
+		{"id": "banethil-barrow-den", "issue": "#2027", "title": "Teldrassil: Ban'ethil Barrow Den (#1341)", "zone": 1438, "c": 1, "at": [9772.6, 1553.9], "r": 70},
+		{"id": "grizzled-den", "issue": "#2027", "title": "Dun Morogh: Grizzled Den, the wendigo cave under Shimmer Ridge (#2679)", "zone": 1426, "c": 0, "at": [-5502.3, -231.9], "r": 110},
+		{"id": "freewind-bridges", "issue": "#2027", "title": "Thousand Needles: Freewind Post's rope bridges between the mesas (#1936)", "zone": 1441, "c": 1, "at": [-5430, -2440], "r": 90},
+		{"id": "cinderscale-hollow", "issue": "#2889", "title": "Riverglades: from Gelinda Coppergleam into the Cinderscale hollow (137 yd, planned 1:50 round the mountain)", "zone": 2548, "c": 0, "at": [-8768.8, -3351.5], "r": 70}
+	]
+}

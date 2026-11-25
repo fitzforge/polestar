@@ -409,6 +409,12 @@ pub fn build_trainers(data: &Data, guides: Option<&Path>, recordings: &Recording
 		if top.num() > 0.0 {
 			o.set("top", top);
 		}
+		// The counted players recorded training with it, of any class: of a town's trainers of one class standing
+		// together, smart targets keep the one most of them use (forge-guide candidates.rs, #2992).
+		let n = seen.get(&id).map_or(0, |(_, by)| by.values().flatten().collect::<IndexSet<_>>().len());
+		if n > 0 {
+			o.set("visits", n as f64);
+		}
 		out.set(&id.to_string(), o);
 	}
 	(out, Report { curated, guide, record, unverified })
@@ -435,6 +441,8 @@ pub fn class_trainers_lua(data: &Data, trainers: &Obj) -> (String, usize, usize)
 	let opts = Obj::new();
 	opts.set("sides", V::from(vec![V::str("Alliance"), V::str("Horde")]));
 	opts.set("ref", V::Null);
+	// Their recorded visits pick each hub's trainer (#2992), from the table being built, not data/forever's last one.
+	opts.set("trainers", V::Obj(trainers.clone()));
 	let res = forge_guide::candidates::build_candidates(data, &entries, &V::Obj(opts));
 	let candidates = res.get("candidates").items();
 	let frames = Obj::new();

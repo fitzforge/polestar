@@ -1,11 +1,16 @@
-//! Guide titles, on the guides as written: a leveling guide's title names the zones it quests in.
-//! The seed's title is a list of places ("Wetlands, Hillsbrad Foothills, Ironforge & Stormwind
-//! City"); the writer keeps its order and its words and leaves out the places the guide does not
-//! really quest in:
+//! Guide titles, on the guides as written: a leveling guide's title names the zones it quests in,
+//! in the order the route walks them. The seed's title is a list of places ("Wetlands, Hillsbrad
+//! Foothills, Ironforge & Stormwind City"); the writer keeps its words, never adds a place, and
+//! leaves out the places the guide does not really quest in:
 //! - the capitals, unless the guide is only a capital;
 //! - a zone with few of the guide's quest goals: under `SMALL_SHARE_PCT`% of them and at most
 //!   `SMALL_MAX` ("Arathi Highlands, Badlands & The Barrens", one goal in the Barrens: "Arathi
 //!   Highlands & Badlands"). Never every zone: then the one with most goals stays.
+//!
+//! The places it keeps go in walking order: each zone where the guide's first quest goal in it is
+//! ("Stranglethorn Vale, Dustwallow Marsh & Swamp of Sorrows" opening in Theramore: "Dustwallow
+//! Marsh, Stranglethorn Vale & Swamp of Sorrows"). A part that is no zone ("Western" of "Western &
+//! Eastern Plaguelands") goes with the zone after it; a zone with no quest goal goes last.
 
 use std::collections::BTreeMap;
 
@@ -58,14 +63,14 @@ fn header_value<'a>(text: &'a str, key: &str) -> Option<&'a str> {
 	header(text).find_map(|l| l.strip_prefix(key).and_then(|r| r.strip_prefix(' '))).map(trim)
 }
 
-/// `title`'s places less the capitals and the zones the guide has few quest goals in.
+/// `title`'s places less the capitals and the zones the guide has few quest goals in, in walking order.
 fn zone_title(title: &str, text: &str, is_zone: &dyn Fn(&str) -> bool) -> String {
 	let parts: Vec<&str> = re!(r", | & ").split(title).collect();
 	let mut keep: Vec<&str> = parts.iter().copied().filter(|p| !CAPITALS.contains(p)).collect();
 	if keep.is_empty() {
 		keep = parts.clone();
 	}
-	let (by_zone, total) = quest_goals(text);
+	let (by_zone, total, first) = quest_goals(text);
 	let n = |p: &str| by_zone.get(p).copied().unwrap_or(0);
 	let small = |p: &str| n(p) * 100 < SMALL_SHARE_PCT * total && n(p) <= SMALL_MAX;
 	let zones: Vec<&str> = keep.iter().copied().filter(|p| is_zone(p)).collect();
@@ -75,6 +80,7 @@ fn zone_title(title: &str, text: &str, is_zone: &dyn Fn(&str) -> bool) -> String
 		let best = zones.iter().copied().rev().max_by_key(|p| n(p)).unwrap();
 		out = keep.iter().copied().filter(|p| !is_zone(p) || *p == best).collect();
 	}
+	let out = walking_order(&out, &first, is_zone);
 	if out == parts {
 		return title.to_string();
 	}
@@ -85,11 +91,34 @@ fn zone_title(title: &str, text: &str, is_zone: &dyn Fn(&str) -> bool) -> String
 	}
 }
 
+/// `parts` in the order of `first` (the zones by their first quest goal). A part that is no zone
+/// goes with the zone after it (the last ones with the zone before them); a zone not in `first`
+/// goes last; ties keep the title's order.
+fn walking_order<'a>(parts: &[&'a str], first: &[String], is_zone: &dyn Fn(&str) -> bool) -> Vec<&'a str> {
+	let mut groups: Vec<(usize, Vec<&'a str>)> = Vec::new();
+	let mut pending: Vec<&'a str> = Vec::new();
+	for &p in parts {
+		pending.push(p);
+		if is_zone(p) {
+			let at = first.iter().position(|z| z == p).unwrap_or(usize::MAX);
+			groups.push((at, std::mem::take(&mut pending)));
+		}
+	}
+	match groups.last_mut() {
+		Some(last) => last.1.append(&mut pending),
+		None => return parts.to_vec(),
+	}
+	groups.sort_by_key(|g| g.0);
+	groups.into_iter().flat_map(|g| g.1).collect()
+}
+
 /// The guide's quest goals (lines that accept, hand in or work a quest) by the zone they are in
-/// (the header's `zone`, then each step's), and their number.
-fn quest_goals(text: &str) -> (BTreeMap<String, usize>, usize) {
+/// (the header's `zone`, then each step's), their number, and the zones in the order of their
+/// first quest goal.
+fn quest_goals(text: &str) -> (BTreeMap<String, usize>, usize, Vec<String>) {
 	let mut zone: Option<String> = None;
 	let mut by_zone: BTreeMap<String, usize> = BTreeMap::new();
+	let mut first: Vec<String> = Vec::new();
 	let mut total = 0;
 	for l in text.split('\n') {
 		let code = split_comment(l).0;
@@ -101,10 +130,13 @@ fn quest_goals(text: &str) -> (BTreeMap<String, usize>, usize) {
 			total += 1;
 			if let Some(z) = &zone {
 				*by_zone.entry(z.clone()).or_default() += 1;
+				if !first.contains(z) {
+					first.push(z.clone());
+				}
 			}
 		}
 	}
-	(by_zone, total)
+	(by_zone, total, first)
 }
 
 #[cfg(test)]
@@ -191,6 +223,18 @@ mod tests {
 		assert_eq!(one("Silithus & Un'Goro Crater", &[("Stormwind City", 60), ("Un'Goro Crater", 1)]), "Un'Goro Crater");
 		assert_eq!(one("Silithus, Feralas & the Plaguelands", &[("Silithus", 60), ("Feralas", 1)]), "Silithus & the Plaguelands");
 		// (Nothing left out: the title as it was.)
+		assert_eq!(one("Badlands, Feralas", &[("Badlands", 10), ("Feralas", 10)]), "Badlands, Feralas");
+	}
+
+	#[test]
+	fn a_title_names_its_zones_in_the_order_the_route_walks_them() {
+		// (The Alliance's 39-41 opens in Theramore: "Stranglethorn Vale, Dustwallow Marsh & Swamp of Sorrows" came out
+		// as "Dustwallow Marsh, Stranglethorn Vale & Swamp of Sorrows".)
+		assert_eq!(one("Arathi Highlands, Badlands & Wetlands", &[("Wetlands", 20), ("Badlands", 12), ("Arathi Highlands", 30)]), "Wetlands, Badlands & Arathi Highlands");
+		// A part that is no zone goes with the zone after it.
+		assert_eq!(one("Western & Eastern Plaguelands & Feralas", &[("Feralas", 10), ("Eastern Plaguelands", 30)]), "Feralas, Western & Eastern Plaguelands");
+		// A capital or a small zone first does not move the rest; a title in walking order is kept as written.
+		assert_eq!(one("Azshara & Feralas", &[("Orgrimmar", 8), ("The Barrens", 1), ("Azshara", 20), ("Feralas", 20)]), "Azshara & Feralas");
 		assert_eq!(one("Badlands, Feralas", &[("Badlands", 10), ("Feralas", 10)]), "Badlands, Feralas");
 	}
 }

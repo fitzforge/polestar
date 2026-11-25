@@ -1,0 +1,17 @@
+# Fixture: a route choice into two of ours (tests/playtest.test.js): the
+# engine takes the recommended option, which need not be the first. It ends
+# in Brill: The Barrens across the sea, Silverpine Forest a ride south. The
+# choice turns on pricing the zeppelin crossing against the ride (the play
+# runs on the walking maps' client build, #3344), and on where Silverpine
+# starts for an Undead: its first goal for them, not the Orgrimmar flight
+# master its Orc, Troll and Tauren steps begin at.
+guide handover/route-choice
+title Route Choice
+faction Horde
+race Undead
+levels 11-12
+zone Tirisfal Glades
+next forever/horde/02-the-barrens, forever/horde/03-silverpine-forest
+
+step Brill
+  goto 38.0,50.0 "Brill"

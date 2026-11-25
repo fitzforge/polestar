@@ -133,6 +133,14 @@ fn ctx() -> Ctx {
 			{ "type": "event", "count": 1, "text": "Western pylon repaired", "map": home, "x": 40, "y": 40, "f": "e" },
 			{ "type": "event", "count": 1, "text": "Eastern pylon repaired", "map": home, "x": 70, "y": 30, "f": "e" }
 		], "pre": [], "preAny": [], "zone": home, "rewards": [], "choices": [] });
+	// #3054: an event with no place before a named objective (Brewer's Trade: the bottles delivered to Dun Garok, then
+	// the hops sack).
+	codex["quests"]["7014"] = json!({ "id": 7014, "title": "Brewer's Trade", "level": 18, "minLevel": 15, "faction": "A", "races": null, "classes": null,
+		"start": { "npc": [5008], "object": [], "item": [] }, "end": { "npc": [5008], "object": [] },
+		"objectives": [
+			{ "type": "event", "count": 1, "text": "Bottles delivered" },
+			{ "type": "kill", "id": 5014, "count": 1, "text": "Marsh Creeper" }
+		], "pre": [], "preAny": [], "zone": home, "rewards": [], "choices": [] });
 	let mut frames: Vec<(i64, Value)> = codex["frames"].as_object().unwrap().iter().map(|(k, f)| (k.parse::<i64>().unwrap(), f.clone())).collect();
 	frames.sort_by_key(|(id, _)| *id);
 	let maps = frames
@@ -363,6 +371,28 @@ fn a_quest_s_how_is_its_step_s_note_2714() {
 	})
 	.remove(0);
 	assert_eq!(got["note"], json!("Gather mana with the Mana Sieve first; then use Repair and Recharge Pylon at the pylon."));
+}
+
+// #3054 (H1ghSyst3m, Brewer's Trade): the bottles are delivered to Dun Garok first, then the hops sack is had, but the
+// page put the delivery (an event objective with no place) after the sack. The shared `complete` keeps the first
+// event's order among the objectives.
+#[test]
+fn an_unplaced_event_keeps_its_order_among_the_objectives_3054() {
+	let c = ctx();
+	let got = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: world(&c, &format!("w.level = 20\nw.moveTo({}, 50, 50)\n", c.home)),
+		addons: vec!["Polestar".into()],
+		script: r#"stub.login()
+			local id = Polestar.Lookup.Guide("quest", 7014)
+			local kinds = {}
+			for _, g in ipairs(Polestar.Guides.Get(id).steps[1].goals) do kinds[#kinds + 1] = g.t end
+			emit({ kinds = table.concat(kinds, " ") })"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(got["kinds"], json!("accept complete kill turnin"), "the delivery before the kill");
 }
 
 // #2833 (Shizo, Powering the Pylons): the quest's two pylons are event objectives, which shared one `complete` at the

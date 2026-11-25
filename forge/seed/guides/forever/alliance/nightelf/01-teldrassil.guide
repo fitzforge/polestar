@@ -40,6 +40,7 @@ step The grells west of the tree
   collect 3297 quest 459.1
 
 step Back at Aldrassil
+  tip Shanda's quest, The Goddess Provides, asks for your two night elf racial spells: open your spellbook (P), cast Elune's Light and Shadowmeld once each, then hand it back to her.
   turnin 459                                  -- Tarindrella
   turnin 97977
   turnin 456                                  -- Conservator Ilthalaine
@@ -136,7 +137,7 @@ step Dolanaar
   accept 96606                                -- Lyreena Duskblade
 
 step The Great Outdoors
-  tip With a profession learned, Lyreena also offers its Camping 101, which its trainer takes: alchemy and herbalism beside Zarrin, First Aid with Byancie in the inn, skinning and leatherworking at the Maneweavers' camp on the road west.
+  tip With a profession learned, Lyreena also offers its Camping 101, which its trainer takes: alchemy and herbalism beside Zarrin, First Aid with Byancie in the inn, skinning and leatherworking at the Maneweavers' camp on the road west, fishing and tailoring in Darnassus, enchanting north of the city, blacksmithing, mining and engineering in Auberdine.
   complete 96606 @57.7,56.7                   -- /sit by Lyreena's campfire until you get Boosted Rest
   turnin 96606
   accept 96634
@@ -165,6 +166,42 @@ step Camping 101: Leatherworking
   when skill Leatherworking 1
   tip Nadyia Maneweaver takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97946                                -- Lyreena Duskblade: for Nadyia Maneweaver, by the road west
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  when !knows 1229745
+  tip Astaia takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97943                                -- Lyreena Duskblade: for Astaia in Darnassus
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  when !knows 1263425
+  tip Trianna takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97950                                -- Lyreena Duskblade: for Trianna in Darnassus
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  when !knows 1230643
+  tip Alanna Raveneye takes it once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97940                                -- Lyreena Duskblade: for Alanna Raveneye north of Darnassus
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  when !knows 1230171
+  tip Elisa Steelhand takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97939                                -- Lyreena Duskblade: for Elisa Steelhand in Auberdine
+
+step Camping 101: Mining
+  when skill Mining 1
+  when !knows 1230161
+  tip Kurdram Stonehammer takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97948                                -- Lyreena Duskblade: for Kurdram Stonehammer in Auberdine
+
+step Camping 101: Engineering
+  when skill Engineering 1
+  when !knows 1230656
+  tip Jenna Lemkenilli takes it once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97941                                -- Lyreena Duskblade: for Jenna Lemkenilli in Auberdine
 
 step Zarrin
   train Cooking npc 6286                      -- Zarrin, south of the inn: Camping 101 asks you to learn it
@@ -215,6 +252,7 @@ step Dolanaar
 step Teldrassil: kill these as you meet them
   zone Teldrassil
   tip Nightsabers, Strigid Owls and Webwood Lurkers roam all around Dolanaar and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of Starbreeze Village.
+  tip Careful: the Befouled Webwoods (10-11) in the woods north-west of Dolanaar, around 47-52,34-56, are over you now: take the silk from the Webwood Lurkers and leave the webwoods for Tallonkai's quest later. Duskstalker (9, a rare nightsaber) and Oakenscowl (9, elite) roam the woods south of Dolanaar, around 54-62,73-77: leave them be.
   collect 3409 quest 488.1                    -- Nightsaber Fang
   collect 280087 quest 87288.1                -- Nightsabers
   collect 3411 quest 488.2                    -- Strigid Owl Feather
@@ -300,6 +338,7 @@ step Sentinel Shayla Nightbreeze
 step Darnassus
   zone Darnassus
   tip Into the city through the gate. Rellian Greenspyre is just south of the Cenarion Enclave at the north end, Sister Aquinne in the west, Priestess A'moora and Sentinel Dalia Sunblade in the Temple of the Moon at the south end. On the way back out, use Dalia's Lunar Pendant at the bank and at the city gate; the other two owls wait for your last visit.
+  enter "Darnassus" @89.14,34.76
   turnin 922                                  -- Rellian Greenspyre
   accept 923
   turnin 98391                                -- Sister Aquinne
@@ -503,6 +542,7 @@ step Sentinel Eralya Leafshadow
 step Into Darnassus
   only Warrior
   zone Darnassus
+  enter "Darnassus" @89.14,34.76
   accept 6344                                 -- Mydrannul, on the Craftsmen's Terrace just inside the city
 
 step Darnassus
@@ -523,6 +563,7 @@ step Vorlus Vilehoof
   only Warrior
   zone Teldrassil
   tip Back out of the city gate and east along the road: Vorlus Vilehoof stands south of it, by Ban'ethil Hollow. Bring his horn back to Elanaria.
+  goto 47.2,63.6 "East from the city gate to Ban'ethil Hollow"
   collect 6805 quest 1683.1 @47.2,63.6        -- Horn of Vorlus
 
 step Back to Darnassus
@@ -533,6 +574,7 @@ step Back to Darnassus
 step Darnassus
   zone Darnassus
   tip Follow the road west into Darnassus and use the Lunar Pendant at the inn on the Craftsmen's Terrace and at the tunnel mouth below Cenarion Hold for the last two owls. Mydrannul stands on the Craftsmen's Terrace just inside the city. Arch Druid Fandral Staghelm is in the Cenarion Enclave at the north end of the city, Rellian Greenspyre just south of it; Lariia, Tyrande Whisperwind, Priestess A'moora and Sentinel Dalia Sunblade are in the Temple of the Moon at the south end.
+  enter "Darnassus" @89.14,34.76 only !Warrior
   turnin 1683 only Warrior                    -- Elanaria, on the Warrior's Terrace: Defensive Stance
   accept 6344 only !Warrior                   -- Mydrannul
   use 279378 quest 98067.3 @66.46,15.35       -- Lunar Pendant: the inn on the Craftsmen's Terrace
@@ -614,6 +656,24 @@ step Ilyenia Moonfire
   tip While you're here: learn Staves from Ilyenia Moonfire (Warrior's Terrace, 10 silver); a staff carries more spell stats than a one-hander while you level.
   train 11866                         -- Ilyenia Moonfire
 
+step Astaia
+  when onquest 97943
+  when complete 97943
+  complete 97943 @47.49,56.97                 -- talk to the trainer
+  turnin 97943                                -- Astaia: Camping 101: Fishing
+
+step Trianna
+  when onquest 97950
+  when complete 97950
+  complete 97950 @63.28,21.55                 -- talk to the trainer
+  turnin 97950                                -- Trianna: Camping 101: Tailoring
+
+step Alanna Raveneye
+  when onquest 97940
+  when complete 97940
+  complete 97940 @36.67,34.24 map 1438        -- talk to the trainer
+  turnin 97940                                -- Alanna Raveneye, north of the city: Camping 101: Enchanting
+
 step Portal to Teldrassil
   zone Darnassus
   goto 29.1,41.2 "Portal to Teldrassil"
@@ -657,6 +717,7 @@ step The Long Wash
   collect 12242 quest 3524 @36.4,50.9 map 1439 -- Sea Creature Bones
   collect 5385 quest 983 @35.6,47.1           -- Crawler Legs: the Tide Crawlers
   turnin 983                                  -- Buzzbox 827
+  accept 1001                                 -- Buzzbox 827: Thresher Eyes, on the Darkshore guide's first beach stop
 
 step Auberdine
   zone Darkshore
@@ -678,6 +739,7 @@ step Moonglade
   zone Darkshore
   tip Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven; the Great Bear Spirit sits in the woods to the north-west. Learn Moonglade's flight path from Sindrayl, south of the lake, for later trips. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village from her gossip: hers is no flight path to learn. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   zone Moonglade
+  goto 56.3,32.5 "Cast Teleport: Moonglade"
   turnin 5921                                 -- Dendrite Starblaze
   accept 5929
   complete 5929 @39.1,27.5                    -- Speak with the Great Bear Spirit
@@ -703,6 +765,12 @@ step Back to Darnassus
   turnin 5931                                 -- Mathrengyl Bearwalker
   accept 6001
 
+step Rut'theran Village flight master
+  only Druid
+  zone Teldrassil
+  tip Take the portal down from Darnassus to the hippogryphs.
+  goto 58.4,93.9 "Rut'theran Village flight master"
+
 step The Moonkin Stone
   only Druid
   zone Darkshore
@@ -711,6 +779,11 @@ step The Moonkin Stone
   use 15208 @43.5,46.0                        -- Cenarion Moondust
   complete 6001
 
+step Auberdine flight master
+  only Druid
+  zone Darkshore
+  goto 36.4,45.6 "Auberdine flight master"
+
 step Body and Heart
   only Druid
   zone Darnassus
@@ -718,4 +791,10 @@ step Body and Heart
   fly "Rut'theran Village"
   goto 35.8,11.6 "Cenarion Enclave"
   turnin 6001                                 -- Mathrengyl Bearwalker: Bear Form
+
+step Back to Auberdine
+  only Druid
+  zone Teldrassil
+  tip Take the portal down to the hippogryphs at Rut'theran Village.
+  goto 58.4,93.9 "Rut'theran Village flight master"
   fly "Auberdine"

@@ -36,6 +36,11 @@ sha2 = { version = "0.10", optional = true }
 workspace = true
 
 [[example]]
+name = "occupied_floor"
+required-features = ["native"]
+test = true
+
+[[example]]
 name = "trail_walks"
 required-features = ["world"]
 

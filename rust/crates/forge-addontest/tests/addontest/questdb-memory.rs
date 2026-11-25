@@ -14,6 +14,13 @@
 //! records the cache had piled up between its cycles (its emptied hash keeps that size), and that pace
 //! follows the whole addon's heap: a few lines more in Nav/Travel.lua moved `read` from 1,555 to 1,811 KiB
 //! with the quest database unchanged.
+//!
+//! The id list is built and its garbage collected before the collector stops (the list stays: Polestar.QuestDB
+//! keeps it). Lua 5.1's string table doubles its slots (8 bytes each) once it holds as many strings as slots,
+//! dead ones counted, and halves them only when fewer than a quarter are live; the addon's strings sit 2,000 to
+//! 3,000 below a doubling. Built with the collector stopped, the id list's throwaway strings crossed it and
+//! `read` kept 32,768 slots more, 256 KiB exactly (2026-11-20: 1,779 KiB, and 1,770 with 0.4.1.1's own QuestDB;
+//! 1,523 and 1,514 with the list built first). The 1,555 -> 1,811 above was the same 256 KiB.
 
 use forge_addontest::questdb::build_db;
 use forge_addontest::run::root;
@@ -26,7 +33,13 @@ use forge_addontest::{emitted, Addon, RunAddon};
 // Raised for 0.3.8 (Fitz, 2026-11-12: "raise memory budgets, it's fine; we can always compress and review
 // later"): QuestieDB 1.0.16, EG Link and the recordings bring +658 quests (Riverglades, Mount Hyjal,
 // Shen'dralas); measured resident 1334, peak 1385, read 1474 KiB; about 5 % headroom on each.
-const BUDGET: [(&str, f64); 3] = [("resident", 1400.0), ("peak", 1450.0), ("read", 1550.0)];
+// `read` raised by the string table's one doubling (256 KiB, the module comment) for 0.4.3 (Main, 2026-11-23):
+// the settings set (#3730) adds enough interface strings that the reads' strings cross a doubling even with
+// the id list built first: next read 1,523, #3730 1,778 on the 0.4.3 data (resident 1,382 and peak 1,434,
+// within theirs). The table is the whole addon's, not the quest database's: measuring the pack alone is #3762.
+// Raised for the 0.4.3 data build on QuestieDB 1.1.5 (Main, 2026-11-24, reported to Fitz): +163 quests; measured
+// resident 1,422, peak 1,473, read 1,813 KiB (1,382 / 1,433 / 1,778 on the data before); about 1 % headroom on each.
+const BUDGET: [(&str, f64); 3] = [("resident", 1440.0), ("peak", 1490.0), ("read", 1850.0)];
 
 /// Records read between full collects while `read` is measured.
 const READ_BATCH: usize = 256;
@@ -50,9 +63,11 @@ for _, f in ipairs(files) do assert(loadfile(f))("Polestar_QuestDB", {{}}) end
 local peak = collectgarbage("count") - base
 collectgarbage("restart")
 local resident = full() - base
+local ids = Q.QuestIds()
+full()
 local n = 0
 collectgarbage("stop")
-for i, q in ipairs(Q.QuestIds()) do
+for i, q in ipairs(ids) do
 	if Q.QuestRecord(q) then n = n + 1 end
 	if i % {batch} == 0 then collectgarbage("collect") end
 end
