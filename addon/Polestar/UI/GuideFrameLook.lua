@@ -46,7 +46,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- The cursor left: the transparent chrome fades, and the window to
 	-- guideWindow.idleAlpha when the player set one.
 	local function watch()
-		-- With Grow upward the grip stands just over the window (GF.PlaceGrip): over it is over the window.
+		-- Fixed or Automatic with Grow upward: the grip stands just over the window (GF.PlaceGrip); over it is over the window.
 		if F:IsMouseOver(4, -4, -4, 4) or (GF.grip and GF.grip:IsMouseOver()) then return end
 		hovering = false
 		watcher:SetScript("OnUpdate", nil)

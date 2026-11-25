@@ -9551,7 +9551,10 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   "fit" (Follows the step, the default) as above; "fixed" keeps the window
   at that height for a short step too (the progress bar under the last goal
   or, `ui.footAt` "edge", on the window's edge), resized by the grip; "auto"
-  takes all the room on screen from the pinned edge, less a margin. Past the
+  takes all the room on screen from the pinned edge, less a margin. Under
+  "fixed" and "auto" the grip drags the height too and sits on the edge that
+  moves (`GF.PlaceGrip`: just over the top right with Grow upward); under
+  "fit" it sets the width alone and keeps the bottom-right corner. Past the
   cap the goals area ends on a whole goal or line, never inside one (a
   wrapped goal's second line was cut in half under the tip): the bottom of
   the last one that fits from which the wheel's last stop is a goal's top
