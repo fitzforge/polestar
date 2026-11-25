@@ -7859,6 +7859,16 @@
 				"objective": 1
 			},
 			"way": {
+				"insert": "before",
+				"at": {
+					"map": 1417,
+					"x": 89.52,
+					"y": 77.86,
+					"frame": "era"
+				},
+				"title": "Portal to The Forbidding Sea",
+				"label": "Arathi coast landing",
+				"tip": "Click the Rowboat at Wetlands 58.2, 6.9. It teleports you to the Arathi coast.",
 				"when": "onquest 79242"
 			},
 			"note": "Players who missed Tokal's pickup can skip the walk to the rowboat and the ride out to the coast.",
@@ -7891,6 +7901,32 @@
 			},
 			"when": "onquest 79242",
 			"note": "Send only players carrying No Honor Among Thieves to Illari's Loot Cache.",
+			"source": {
+				"kind": "recording",
+				"ref": "cameronmoten's Forever 1.60.1.71037 recording, quest 79242"
+			}
+		},
+		{
+			"id": "arathi-no-honor-among-thieves-return-rowboat",
+			"faction": "Alliance",
+			"at": {
+				"quest": 79242,
+				"goal": "turnin"
+			},
+			"way": {
+				"insert": "after",
+				"at": {
+					"map": 1417,
+					"x": 53.62,
+					"y": 91.64,
+					"frame": "era"
+				},
+				"title": "Portal to Thandol Span",
+				"label": "Thandol Span landing",
+				"tip": "Click the Rowboat on the Arathi coast at 89.6, 78.0 to return to Thandol Span.",
+				"when": "subzone \"The Forbidding Sea\""
+			},
+			"note": "The return boat takes players back to Thandol Span after they hand in the quest. It remains available while on the coast.",
 			"source": {
 				"kind": "recording",
 				"ref": "cameronmoten's Forever 1.60.1.71037 recording, quest 79242"

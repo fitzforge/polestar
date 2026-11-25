@@ -1762,8 +1762,18 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 				}
 				(true, true) if !r.get("way").is_undef() => {
 					let w = r.get("way");
-					ck.keys(&format!("{at}.way"), &w, &["at", "label", "title", "when"]);
+					ck.keys(&format!("{at}.way"), &w, &["at", "label", "title", "when", "insert", "tip"]);
 					let p = w.get("at");
+					if !w.get("insert").is_undef() {
+						if !matches!(w.get("insert").as_str(), Some("before" | "after")) {
+							ck.err(format!("{at}.way.insert"), "`before` or `after` the anchored step");
+						}
+						if !p.is_obj() || !has_text(&w.get("title")) || !has_text(&w.get("tip")) {
+							ck.err(format!("{at}.way"), "an inserted travel step needs `at`, `title` and `tip`");
+						}
+					} else if !w.get("tip").is_undef() {
+						ck.err(format!("{at}.way.tip"), "a new travel step's tip requires `insert`");
+					}
 					if p.is_undef() && w.get("when").is_undef() {
 						ck.err(format!("{at}.way"), "a way fix moves the walk's end (`at`) or holds it (`when`)");
 					}
@@ -1778,7 +1788,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 							}
 						}
 					}
-					for k in ["label", "title"] {
+					for k in ["label", "title", "tip"] {
 						let v = w.get(k);
 						if !v.is_undef() && (!has_text(&v) || v.as_str().is_some_and(|t| t.contains('\n'))) {
 							ck.err(format!("{at}.way.{k}"), "one line of text");

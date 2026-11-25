@@ -1166,7 +1166,43 @@ fn apply_way(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> 
 	let mut changed = Vec::new();
 	for st in steps {
 		let walks = ways_before(lines, st);
-		if let (Some(at), Some(&walk)) = (&at, walks.last()) {
+		if let Some(side) = w["insert"].as_str() {
+			let (Some(at), Some(title), Some(tip)) = (&at, w["title"].as_str(), w["tip"].as_str()) else { continue };
+			let title = format!("step {title}");
+			let only = step_only_line(lines, st);
+			let before = side == "before";
+			let already_written = if before {
+				walks.iter().any(|&(s, _)| lines[s] == title)
+			} else {
+				lines[st.1..]
+					.iter()
+					.enumerate()
+					.filter(|(_, line)| is_step(line))
+					.filter_map(|(offset, _)| step_body(lines, st.1 + offset))
+					.take_while(|&step| travel_only(lines, step) && step_only_line(lines, step) == only)
+					.any(|(s, _)| lines[s] == title)
+			};
+			if !already_written {
+				let mut step = vec![title];
+				step.extend(only.into_iter().map(|line| format!("  {line}")));
+				step.extend(when.iter().map(|cond| format!("  when {cond}")));
+				step.push(format!("  tip {tip}"));
+				let goto = placed("  goto 0,0", at);
+				step.push(w["label"].as_str().map_or_else(|| goto.clone(), |label| format!("{goto} {}", serde_json::json!(label))));
+				let index = if before {
+					step.push(String::new());
+					st.0
+				} else {
+					step.insert(0, String::new());
+					st.1
+				};
+				lines.splice(index..index, step);
+				changed.push(index);
+			}
+			if !before {
+				continue;
+			}
+		} else if let (Some(at), Some(&walk)) = (&at, walks.last()) {
 			if let Some(g) = (walk.0 + 1..walk.1).rev().find(|&k| re!(r"^\s+goto\s").is_match(&lines[k])) {
 				let mut line = lines[g].clone();
 				if !(typed_point(&line).is_some_and(|p| close(p, (at.x, at.y))) && typed_map(&line) == Some(at.map)) {
@@ -1439,7 +1475,7 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			if goal_anchor(&x.r["follows"]).is_some_and(|a| anchor_lines(&lines, &a).is_empty()) {
 				found.clear();
 			}
-			if x.r.get("way").is_some() && !found.iter().any(|&i| step_body(&lines, i).is_some_and(|st| !ways_before(&lines, st).is_empty())) {
+			if x.r.get("way").is_some() && x.r["way"]["insert"].is_null() && !found.iter().any(|&i| step_body(&lines, i).is_some_and(|st| !ways_before(&lines, st).is_empty())) {
 				found.clear();
 			}
 			if found.is_empty() {
