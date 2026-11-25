@@ -128,13 +128,15 @@ function SL.Place(parent, steps)
 end
 
 -- What the player set aside in the open guide that is still undone: steps
--- skipped, quests skipped and goals dismissed, each counted once. -> n
+-- skipped, quests skipped and goals dismissed, each counted once. Only the
+-- steps holding a skip are read (Engine.SetAsideSteps): a finished guide's
+-- page asks on every draw, and a view of every step cost 20 ms there. -> n
 function SL.Skips()
 	local E = ns.Engine
-	if not (E and E.GetStepCount and E.GetStepView and E.GetGuide and E.GetGuide()) then return 0 end
+	if not (E and E.SetAsideSteps and E.GetStepView and E.GetGuide and E.GetGuide()) then return 0 end
 	local n, seen = 0, {}
-	for i = 1, E.GetStepCount() do
-		local v = E.GetStepView(i)
+	for _, i in ipairs(E.SetAsideSteps()) do
+		local v = E.GetStepView(i, true)
 		if v and v.skipped == true then
 			n = n + 1
 		elseif v and v.goals then

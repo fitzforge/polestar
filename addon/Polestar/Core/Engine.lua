@@ -17789,6 +17789,36 @@ function Engine.IsQuestSkipped(questID)
 	return Own.questSkipped(questID)
 end
 
+-- The steps of the open guide holding something the player set aside: the
+-- step skipped (Engine.Skip), a goal dismissed (Engine.SkipGoal) or a goal
+-- of a quest skipped (Engine.SkipQuest). Read off the saved skips alone, no
+-- step's view built: a reader that counts what was set aside (UI/StepList.lua,
+-- SL.Skips, on every draw of a finished guide's page) builds the views of
+-- these steps only, the rest having nothing to count. -> { step, ... }
+-- ascending, empty with nothing set aside
+function Engine.SetAsideSteps()
+	local out = {}
+	if not guide then return out end
+	local sk = skippedFor(guide.id)
+	local quests = ns.CharState().skippedQuests
+	if sk and next(sk) == nil then sk = nil end
+	if type(quests) ~= "table" or next(quests) == nil then quests = nil end
+	if not (sk or quests) then return out end
+	for s, step in ipairs(guide.steps) do
+		local held = sk and sk[s]
+		if not held then
+			for g, goal in ipairs(step.goals) do
+				if (quests and goal.quest and quests[goal.quest] == true) or (sk and sk[Own.key(s, g)]) then
+					held = true
+					break
+				end
+			end
+		end
+		if held then out[#out + 1] = s end
+	end
+	return out
+end
+
 -- The accepts of this guide a skip would leave out with it: skipping quest q
 -- (Engine.SkipQuest), or with q nil the live step (Engine.Skip). The skip is
 -- tried on the saved state and put straight back: nothing is evaluated or
