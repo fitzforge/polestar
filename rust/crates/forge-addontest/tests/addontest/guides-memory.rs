@@ -105,8 +105,12 @@ fn pack_files(name: &str) -> String {
 /// Alliance resident 19,678, peak 42,006, read 27,492; Horde resident 18,412, peak 38,946, read 26,563 (the same data
 /// with the stale legs: Alliance 19,017 / 40,573 / 26,830, Horde 17,719 / 37,502 / 25,871). Budgets: those plus ~1%,
 /// reported to Fitz (Main, 2026-11-24).
+/// 0.4.3 side shelves (#1863, 2026-11-25, the pack compiled with them on next 78fa260855, the 0.4.3 data on
+/// QuestieDB 1.1.5): every guide that is not a leveling guide keeps its steps as source until it is opened. Alliance
+/// resident 13,938, peak 27,341, read 19,838; Horde resident 13,004, peak 24,903, read 19,095 (next without them:
+/// 19,674 / 42,018 / 27,580 and 18,393 / 38,940 / 26,648). Budgets: those plus ~1%.
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 19900.0), ("peak", 42450.0), ("read", 27800.0)]), ("Horde", "Orc", [("resident", 18600.0), ("peak", 39350.0), ("read", 26850.0)])];
+	[("Alliance", "Human", [("resident", 14080.0), ("peak", 27620.0), ("read", 20040.0)]), ("Horde", "Orc", [("resident", 13140.0), ("peak", 25160.0), ("read", 19290.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {
