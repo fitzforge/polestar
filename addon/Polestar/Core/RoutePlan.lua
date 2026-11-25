@@ -8,6 +8,7 @@ ns.RoutePlan = Plan
 local plans = {} -- guide -> its route (build), until Plan.Invalidate
 local others -- the other tabs' routes and the open dungeons' quests (elsewhere), until Plan.Invalidate
 local uses = {} -- guide id -> its chain's quests (chainQuests; false: it can't say), until Plan.Invalidate
+local chainQuests -- all quests a guide's chain uses, including every unchosen option
 
 local function nextGuide(g, player)
 	local G = ns.Guides
@@ -157,6 +158,13 @@ local function turnIn(plan, questId, step)
 		local later = ns.Guides.Get(to)
 		return { status = "later", guide = to, title = later and later.title or nil, carried = true }
 	end
+	-- A choice can only hold a quest an option takes, works, hands in or
+	-- names. A quest no option uses is off-route whichever way is chosen
+	-- (ttik3r's #3766); an unloaded chain still cannot say.
+	if plan.pending and not plan.missing then
+		local all = chainQuests(plan.active)
+		if all and not all[questId] then return { status = "unplanned" } end
+	end
 	return { status = plan.pending and "choice" or plan.missing and "unloaded" or "unplanned" }
 end
 
@@ -248,6 +256,10 @@ function Plan.GetTurnIn(questId)
 	return r
 end
 
+local function keptFor(r)
+	if r.status == "later" and type(r.guide) == "string" then return r.guide, r.title or r.guide end
+end
+
 -- The later guide quest q, in the log, is kept for (#3390): a guide of the
 -- route after the active one hands it in (GetTurnIn's "later"). The Booty
 -- Bay quests the Stranglethorn guide takes for the next one's Wild Shore
@@ -256,9 +268,7 @@ end
 function Plan.KeptFor(q)
 	local C = ns.Compat
 	if not (q and C and C.IsOnQuest and C.IsOnQuest(q)) then return nil end
-	local r = Plan.GetTurnIn(q)
-	if r.status == "later" and type(r.guide) == "string" then return r.guide, r.title or r.guide end
-	return nil
+	return keptFor(Plan.GetTurnIn(q))
 end
 
 -- Whether the route still hands quest q in ahead (this guide's live step on,
@@ -317,8 +327,9 @@ end
 
 -- The quests in the log no open route needs: { { quest, title, status
 -- = "missed" | "skipped" | "unplanned" | "grey" }, ... } in log order; nil
--- while the plan cannot say (no guide, a route choice to make, a guide not
--- loaded). Those it never hands in, and the grey ones it doesn't hand in
+-- while the plan cannot say (no guide, a log quest used by an unchosen
+-- route option, or a guide not loaded). Quests no option uses can be listed
+-- while a choice is ahead. Those it never hands in, and the grey ones it doesn't hand in
 -- in this chapter (one it does is still worth its reward or its chain);
 -- "grey" wins over the other three. A grey quest a later guide hands in
 -- is listed only when that guide leaves it out too (Skip grey quests on and
@@ -482,36 +493,42 @@ local function xpNow(C, q, level)
 	return math.floor(rec.xp * Lv.Share(level or 1, qlvl) + 0.5)
 end
 
--- What Plan.Carried() last answered (its quest ids, "?" when it could not
--- say; nil: never asked), for CARRIED_CHANGED below. Reading every ready
--- quest with Carried(true) must not replace this off-route row's answer.
+-- What Plan.Carried() last answered (its quest ids and count waiting on a
+-- route choice, "?" when it could not say; nil: never asked), for
+-- CARRIED_CHANGED below. Reading every ready quest with Carried(true) must
+-- not replace this off-route row's answer.
 local carriedSig
 
 -- The finished quests in the log (ready to hand in) no open route hands in
 -- (GetTurnIn "missed", "skipped" or "unplanned"; a later guide's `carriedTo`
 -- quest is "later" and another tab's or an open dungeon's is "other", so
 -- neither is here, but for a dungeon's page quest only its pick-up guide has
--- open: that guide hands nothing in, so a finished one is here): { { quest, title, status, grey, xp }, ... } in log order
--- (xp nil when unknown); nil while the plan cannot say (no guide, a route
--- choice to make, a guide not loaded). With all=true, every ready quest is
--- listed regardless of routes; always a table, with no route status.
+-- open: that guide hands nothing in, so a finished one is here):
+-- { { quest, title, status, grey, xp, keptFor }, ... } in log order
+-- (xp nil when unknown), followed by the count waiting on a route choice.
+-- nil while the plan cannot say (no guide or a guide not loaded). With
+-- all=true, every ready quest is listed with its route status, including
+-- quests kept for a later guide or waiting on a choice; always a table.
 function Plan.Carried(all)
-	local C, out, ids = ns.Compat, {}, {}
+	local C, out, ids, waiting = ns.Compat, {}, {}, 0
 	local level = (C.GetPlayerInfo() or {}).level
 	for _, q in ipairs(Plan.Ready()) do
-		local r = not all and Plan.GetTurnIn(q) or nil
-		local status = r and r.status
-		if not all and (status == "noGuide" or status == "choice" or status == "unloaded") then
+		local r = Plan.GetTurnIn(q)
+		local status = r.status
+		if not all and (status == "noGuide" or status == "unloaded") then
 			carriedSig = "?"
 			return nil
 		end
-		if all or NEVER[status] or r.pickupOnly then
-			out[#out + 1] = { quest = q, title = C.GetQuestTitle(q), status = status, grey = grey(C, q, level), xp = xpNow(C, q, level) }
+		if not all and status == "choice" then
+			waiting = waiting + 1
+		elseif all or NEVER[status] or r.pickupOnly then
+			local _, kept = keptFor(r)
+			out[#out + 1] = { quest = q, title = C.GetQuestTitle(q), status = status, keptFor = kept, grey = grey(C, q, level), xp = xpNow(C, q, level) }
 			ids[#ids + 1] = q
 		end
 	end
-	if not all then carriedSig = table.concat(ids, ",") end
-	return out
+	if not all then carriedSig = table.concat(ids, ",") .. "/" .. waiting end
+	return out, waiting
 end
 
 -- Why a quest the route leaves is worth dropping or keeping, in plain words,
@@ -602,6 +619,8 @@ function Plan.Ender(q)
 	if e and e.hostile then return nil end
 	local s = e and e.spawn
 	if not (s and s.map and s.x and s.y) then return rec and insideEnder(rec["end"]) or nil end
+	-- Guide goals use "e" for Era and no f for live coordinates; the Codex's
+	-- explicit "l" is the same live frame, but is not a valid guide-goal value.
 	return { npc = e.npc, object = e.object, name = e.name, map = s.map, x = s.x, y = s.y,
 		f = s.f == "e" and "e" or nil, z = s.z, zone = ns.Compat.MapName(s.map) }
 end
@@ -636,7 +655,7 @@ end
 -- it or hands it in, names it in a `when`, or needs it before an accept
 -- (`pre`, `preAll`, `crumbs`). nil when it can't say: a guide of the chain
 -- not loaded.
-local function chainQuests(g)
+function chainQuests(g)
 	local set = uses[g.id]
 	if set ~= nil then return set or nil end
 	local G, E, player = ns.Guides, ns.Engine, ns.Compat.GetPlayerInfo() or {}

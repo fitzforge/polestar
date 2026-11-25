@@ -16,6 +16,8 @@
 -- guide for all of them (Lookup/Handins.lua, planner kind "carried", id
 -- "log": grouped enders in an estimated travel order, unknown locations
 -- kept for manual hand-in).
+-- A quest kept for a later guide says so; choosing Guide me still includes
+-- it, because this is the player's explicit all-finished-quests route.
 -- UI.ShowQuestRoom("elsewhere"): the same list for only the finished quests
 -- no open route hands in (RoutePlan.Carried), matching the guide window's
 -- "to hand in elsewhere" row. Guide me still opens the all-ready guide.
@@ -107,6 +109,8 @@ local function build()
 	F.GuideMe = W.Button(F, L["Guide me"], function()
 		if UI.GuideCarried() then F:Hide() end
 	end, { height = 28 })
+	F.GuideMe.psTip = L["Hand in your finished quests"]
+	F.GuideMe.psTipLines = { L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] }
 	F.GuideMe:Hide()
 	-- Between the two lists: the finished quests while Make room is shown, and back.
 	F.Switch = W.Button(F, "", function()
@@ -217,12 +221,13 @@ function UI.LayoutQuestRoom()
 		F.Hint:SetText(hint)
 	elseif carried then
 		F.Title:SetText(L["Finished quests you're still carrying"])
-		list = ns.RoutePlan.Carried(not elsewhere)
-		if list == nil then
+		local waiting
+		list, waiting = ns.RoutePlan.Carried(not elsewhere)
+		if list == nil or (#list == 0 and (waiting or 0) > 0) then
 			F.Hint:SetText(L["The route ahead isn't settled yet (a guide to choose or load), so it can't say which quests it leaves behind."])
 		elseif elsewhere then
 			F.Hint:SetText(#list == 0 and L["The route hands in every finished quest in your log."]
-				or L["Finished quests not handed in on your route. Guide me opens a travel order for all finished quests in your log."])
+				or L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."])
 		elseif #list == 0 then
 			F.Hint:SetText(L["No quests in your log are ready to hand in."])
 		else
@@ -259,7 +264,14 @@ function UI.LayoutQuestRoom()
 			r.Why:SetText(why)
 			r.Abandon:Show()
 		elseif carried then
-			r.Why:SetText(carriedWhy(u))
+			local where = carriedWhy(u)
+			if u.keptFor then
+				local why = L["Kept for %s: the route hands it in there."]:format(u.keptFor)
+				r.Why:SetText(why)
+				r.psTip = { why, where }
+			else
+				r.Why:SetText(where)
+			end
 			r.Abandon:SetShown(u.grey)
 		else
 			local why

@@ -346,6 +346,7 @@ fn the_guide_window_lists_the_finished_quests_no_route_hands_in_in_one_row_that_
 			return out
 		end
 		r.elsewhere, r.hint = shownQuests(), plain(F.Hint:GetText())
+		r.guideTip = table.concat(F.GuideMe.psTipLines or {}, " ")
 		F.GuideMe:Click(); flush()
 		local quests = {}
 		for _, step in ipairs(E.GetGuide().steps) do
@@ -359,7 +360,8 @@ fn the_guide_window_lists_the_finished_quests_no_route_hands_in_in_one_row_that_
 	assert_eq!(out["header"], "Still to do", "{out}");
 	assert_eq!(out["room"], json!([true, "Finished quests you're still carrying", "A Fishy Peril"]), "{out}");
 	assert_eq!(out["elsewhere"], json!([40]), "the row's list must contain exactly the off-route subset");
-	assert!(text(&out["hint"]).contains("all finished quests"), "the subset must explain Guide me's broader route: {out}");
+	assert!(text(&out["hint"]).contains("the route ahead never hands these in"), "the hint describes the off-route subset: {out}");
+	assert!(text(&out["guideTip"]).contains("all finished quests"), "Guide me explains its broader route: {out}");
 	assert_eq!(out["guided"], json!([40, 41, 44, 45]), "Guide me opens the shared all-ready route");
 	assert_eq!(out["all"], json!([40, 41, 44, 45]), "the ordinary carried view still includes on-route quests");
 }
