@@ -184,7 +184,7 @@ return {
 	["Mosshide gnolls"] = "藓皮豺狼人",
 	-- {quest:277} Fire Taboo · {item:2611} Crude Flint · {area:309} Ironbeard's Tomb · {area:1025} Green Belt · {npc:1244} Rethiel the Greenwarden
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner · Maddened Rotclaws = {npc:271334} Maddened Rotclaw · Mosshide Brutes = {npc:1012} Mosshide Brute
-	["{quest:277} is still short of its nine {item:2611}: the Mosshide Fenrunners and Trappers (22-24) along the river north-west of the Angerfang camp, south-west of {area:309}, drop them. Almost every one carries some.\nCareful: Maddened Rotclaws (25-26) roam the {area:1025} around {npc:1244}; Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp."] = "",
+	["{quest:277} is still short of its nine {item:2611}: the Mosshide Fenrunners and Trappers (22-24) along the river north-west of the Angerfang camp, south-west of {area:309}, drop them. Almost every one carries some.\nCareful: Maddened Rotclaws (25-26) roam the {area:1025} around {npc:1244}; Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp."] = "如果{quest:277}还没凑齐9块{item:2611}，就去怒牙营地西北方、{area:309}西南方的河边，击杀藓皮沼泽行者和藓皮捕兽者（22–24级）。几乎每只都会掉落。\n小心，疯狂的腐爪（25–26级）在{npc:1244}附近的{area:1025}游荡。藓皮蛮兵、藓皮秘法师和藓皮突击队员（24–27级）占据了藓皮沼泽行者营地西北方的山丘。",
 
 	-- Step 35: Rethiel the Greenwarden
 	-- {area:1025} Green Belt · {npc:1244} Rethiel the Greenwarden · {quest:277} Fire Taboo · {zone:1437} Wetlands
@@ -378,15 +378,15 @@ return {
 
 	-- Step 67: Raene Wolfrunner
 	-- {npc:3691} Raene Wolfrunner
-	["{npc:3691}, at the inn, if you missed her first visit"] = "",
+	["{npc:3691}, at the inn, if you missed her first visit"] = "第一次来时若漏掉了她，就去旅店找{npc:3691}",
 
 	-- Step 68: Teronis' Corpse
 	-- {area:415} Astranaar · {area:441} Lake Falathim
-	["Go west from {area:415} to {area:441}. Teronis lies on the shore among the Saltspittle murlocs."] = "",
+	["Go west from {area:415} to {area:441}. Teronis lies on the shore among the Saltspittle murlocs."] = "从{area:415}往西走到{area:441}。泰洛尼斯的尸体就在岸边的盐沫鱼人中间。",
 
 	-- Step 69: Glowing Gem
 	-- {area:441} Lake Falathim · {item:5463} Glowing Gem
-	["The Saltspittle murlocs around Teronis at {area:441} drop the {item:5463}."] = "",
+	["The Saltspittle murlocs around Teronis at {area:441} drop the {item:5463}."] = "{area:441}泰洛尼斯周围的盐沫鱼人会掉落{item:5463}。",
 
 	-- Step 70: Melyria and Illiyana
 	-- {npc:3901} Illiyana
@@ -402,19 +402,19 @@ return {
 
 	-- Step 72: Raene Wolfrunner
 	-- {npc:3691} Raene Wolfrunner · {area:415} Astranaar
-	["{npc:3691}, at the {area:415} inn"] = "",
+	["{npc:3691}, at the {area:415} inn"] = "{npc:3691}，在{area:415}的旅店里",
 
 	-- Step 73: Raene Wolfrunner's delivery
 	-- {npc:3691} Raene Wolfrunner
-	["{npc:3691}'s delivery"] = "",
+	["{npc:3691}'s delivery"] = "接下{npc:3691}的送信任务",
 	-- {npc:3916} Shael'dryn
-	["Take her message to {npc:3916} on the way east"] = "",
+	["Take her message to {npc:3916} on the way east"] = "往东走时，顺路把她的口信带给{npc:3916}",
 
 	-- Step 74: Raene Wolfrunner's message
 	-- {npc:3691} Raene Wolfrunner
-	["{npc:3691}'s message"] = "",
+	["{npc:3691}'s message"] = "转达{npc:3691}的口信",
 	-- {area:419} Howling Vale · {npc:3916} Shael'dryn
-	["Follow the road east to the {area:419}. {npc:3916} stands by the moonwell."] = "",
+	["Follow the road east to the {area:419}. {npc:3916} stands by the moonwell."] = "沿路往东走到{area:419}，{npc:3916}就在月亮井旁。",
 
 	-- Step 75: Shael'dryn
 	-- {area:419} Howling Vale · {npc:3916} Shael'dryn

@@ -46,8 +46,8 @@ return {
 	["The {object:179827} board"] = "{object:179827}布告板",
 
 	-- Step 9: Culling the Competition
-	["Culling the Competition"] = "",
-	["Take the bounty from the board only if you want to hunt the linked dwarf packs with a group."] = "",
+	["Culling the Competition"] = "工作机会：肃清竞争对手",
+	["Take the bounty from the board only if you want to hunt the linked dwarf packs with a group."] = "打算组队对付这些会一起引到的矮人时，才从告示牌接下这项悬赏。",
 
 	-- Step 11: Zamael Lunthistle
 	-- {npc:8436} Zamael Lunthistle · {area:1442} Firewatch Ridge · {area:1446} Thorium Point · {npc:8282} Highlord Mastrogonde · {quest:3377} Prayer to Elune
@@ -78,26 +78,26 @@ return {
 
 	-- Step 21: Dark Iron Taskmasters
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster
-	["Dark Iron Taskmasters"] = "",
+	["Dark Iron Taskmasters"] = "黑铁工头",
 	-- {area:1443} Slag Pit
-	["With your group, look for Taskmasters on the open ledges first. Last stop, if you still need some: take the lift (the scaffold cars) down into the {area:1443} below, where four more stand."] = "和你的队伍一起，先在开阔的岩架上找监工。最后一站，如果还需要：坐升降梯（脚手架矿车）下到下面的{area:1443}，那里还有四个。",
+	["With your group, look for Taskmasters on the open ledges first. Last stop, if you still need some: take the lift (the scaffold cars) down into the {area:1443} below, where four more stand."] = "和队友先在露天岩架上找黑铁工头。如果数量还不够，最后乘脚手架上的升降平台下到{area:1443}，那里还有四个。",
 
 	-- Step 22: Dark Iron Slavers
 	-- plural, as words: Dark Iron Slavers = {npc:5844} Dark Iron Slaver
-	["Dark Iron Slavers"] = "",
-	["Careful: Slavers can net you and call allies within 15 yards. A Taskmaster or Steamsmith may be standing beside one. Wait for a clear pull or leave the pack; don't descend into the Cauldron for this bounty."] = "",
+	["Dark Iron Slavers"] = "黑铁奴隶贩子",
+	["Careful: Slavers can net you and call allies within 15 yards. A Taskmaster or Steamsmith may be standing beside one. Wait for a clear pull or leave the pack; don't descend into the Cauldron for this bounty."] = "注意：黑铁奴隶贩子会用网困住你，还会呼叫15码内的同伴。旁边可能站着黑铁工头或黑铁锻造师。等能安全拉怪时再动手，否则就绕开。做这项悬赏时别下到大熔炉。",
 
 	-- Step 23: The furnaces and southern ridges
-	["The furnaces and southern ridges"] = "",
+	["The furnaces and southern ridges"] = "熔炉与南侧山脊",
 	-- {item:18959} Smithing Tuyere · {item:11818} Grimesilt Outhouse Key
-	["The Steamsmiths at the furnaces carry the {item:18959}; the Lookouts on the southern ridges carry the Spyglass. Keep the {item:11818} if a dwarf drops it."] = "",
+	["The Steamsmiths at the furnaces carry the {item:18959}; the Lookouts on the southern ridges carry the Spyglass. Keep the {item:11818} if a dwarf drops it."] = "熔炉旁的黑铁锻造师带着{item:18959}，南侧山脊的黑铁哨兵带着侦查员的望远镜。如果矮人掉了{item:11818}，记得留着。",
 
 	-- Step 24: Thorium Plated Daggers
 	-- plural, as words: Thorium Plated Daggers = {item:10551} Thorium Plated Dagger
-	["Thorium Plated Daggers"] = "",
+	["Thorium Plated Daggers"] = "瑟银匕首",
 	-- {item:18959} Smithing Tuyere
 	-- plural, as words: Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith · Thorium Plated Daggers = {item:10551} Thorium Plated Dagger
-	["Dark Iron Steamsmiths at the surface furnaces carry Thorium Plated Daggers as well as the {item:18959}. Pull from the outside of the camp."] = "",
+	["Dark Iron Steamsmiths at the surface furnaces carry Thorium Plated Daggers as well as the {item:18959}. Pull from the outside of the camp."] = "地面熔炉旁的黑铁锻造师会掉落瑟银匕首和{item:18959}。从营地外围拉怪。",
 
 	-- Step 28: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge

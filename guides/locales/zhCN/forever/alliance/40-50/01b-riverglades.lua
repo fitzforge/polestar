@@ -27,7 +27,7 @@ return {
 	-- Step 3: Scout Bolain
 	-- {npc:260026} Scout Bolain · {zone:1434} Stranglethorn Vale · {npc:256881} Overlord Kilgar
 	-- plural, as words: Twilight Enforcers = {npc:256800} Twilight Enforcer
-	["{npc:260026} waits beside the road east of the pass.\nThis guide is written for levels 41-45: the route comes here at about 41, after {zone:1434}. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and {npc:256881} (46, elite) for groups only: below 41, do Stranglethorn first."] = "",
+	["{npc:260026} waits beside the road east of the pass.\nThis guide is written for levels 41-45: the route comes here at about 41, after {zone:1434}. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and {npc:256881} (46, elite) for groups only: below 41, do Stranglethorn first."] = "{npc:260026}在山口东边的路旁等候。\n本指南适合41–45级。跑完{zone:1434}后，大约41级时来这里。港口的第二批任务和位于北边的西部前线营地都是43–45级的内容。暮光执行者（45级精英）会巡逻，{npc:256881}（46级精英）只在组队时打。不到41级就先做荆棘谷。",
 
 	-- Step 4: Southern Watch
 	-- {area:16744} Southern Watch
@@ -206,7 +206,6 @@ return {
 	["The Twilight cult"] = "暮光教派",
 	-- {area:16723} Sunnyglade · {item:266148} Farmers' Mementos · {item:4338} Mageweave Cloth · {npc:263613} Brother Lowley · {area:16724} Farholde Keep · {quest:94885} Field Marshal's Log · {npc:256899} Chogg'Zac · {npc:263380} Ghostmaw
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
-	-- was: ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "{area:16723}的街道和田地里到处是邪教徒。先从中央的仪式法阵开始（在那里装满克莱尔的催化剂），向西穿过烧毁的房屋到镇子边缘，再折回东北到埃尔布林牧庄西边的松软泥土：把暮光袭击者掉落的{item:266148}埋在那里。护符、书页和指骨都从邪教徒身上掉落。\n留着他们掉落的{item:4338}：回到{area:16724}时，{npc:263613}要二十块。邪教徒偶尔会掉落{quest:94885}：右键点击它接受任务。\n小心：精英食人魔{npc:256899}（41级）在{area:16723}西侧街道巡逻，大约在44-47,47-52。把邪教徒拉到你这边，等他走过去；这里是本地区玩家死得最多的地方。\n河边的精英{npc:263380}（42级）可能从西南的田地游荡过来：让他过去。"
 	["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), then work west through the burnt houses to the edge of town. The charms, pages and finger bones drop from the cultists; keep the {item:266148} the Twilight Raiders drop: five, one for each grave west of Elbrim's farm.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "邪教徒遍布{area:16723}的街道和田野。从中间的仪式法阵开始（在那里装满克莱尔的催化剂），然后向西穿过烧毁的房屋到镇子边缘。护符、书页和指骨从邪教徒身上掉落；留着暮光掠夺者掉落的{item:266148}：五个，埃尔布里姆农场以西每个坟墓一个。\n留着他们掉落的{item:4338}：回到{area:16724}时，{npc:263613}会要二十个。邪教徒偶尔会掉落{quest:94885}：右键点击它开始任务。\n小心：精英食人魔{npc:256899}（41级）在{area:16723}西边的街道上走动，大约在44-47,47-52。把邪教徒拉到你这边，让他过去；这里死亡的玩家比本地区其他任何地方都多。\n河里的精英{npc:263380}（42级）可能会从西南的田野游荡过来：让他过去。",
 	-- {item:269990} Crystal Catalyst
 	["fill the {item:269990} at the ritual circles"] = "在仪式法阵装满{item:269990}",
@@ -221,7 +220,6 @@ return {
 	["Back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} there, one in each grave."] = "回到东北方埃尔布里姆农场以西的松软土地：把{item:266148}埋在那里，每个坟墓一个。",
 	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
-	-- was: ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}，在埃尔布林牧庄西边：每座墓需要一个暮光袭击者掉落的{item:266148}，所以先拾取五个"
 	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop"] = "{object:621813}，在埃尔布里姆农场以西：每个坟墓需要一个暮光掠夺者（{npc:256952}）掉落的{item:266148}",
 
 	-- Step 43: Apprentice Claire
@@ -480,7 +478,7 @@ return {
 	-- Step 95: The Western Front
 	-- {npc:256881} Overlord Kilgar
 	-- plural, as words: Twilight Champions = {npc:256799} Twilight Champion · Twilight Enforcers = {npc:256800} Twilight Enforcer
-	["Careful: the Western Front is written for level 44 and up. Its Twilight Champions are 43-44 and its Thralls 44, Twilight Enforcers (elites, 45) patrol through the camps, and {npc:256881} (46, elite) is for a group only. Below 44, top up on the Eastsea pirates by the port first, or come back with a friend."] = "",
+	["Careful: the Western Front is written for level 44 and up. Its Twilight Champions are 43-44 and its Thralls 44, Twilight Enforcers (elites, 45) patrol through the camps, and {npc:256881} (46, elite) is for a group only. Below 44, top up on the Eastsea pirates by the port first, or come back with a friend."] = "注意：西部前线建议44级及以上再来。这里的暮光勇士为43–44级，暮光奴隶为44级，45级的精英暮光执行者在营地里巡逻。{npc:256881}是46级精英，须组队。还没到44级的话，先到港口附近打东海海盗补经验，或找个朋友再来。",
 
 	-- Step 96: Sergeant Riftan
 	-- {area:16685} Twilight's Shroud · {npc:258023} Sergeant Riftan
