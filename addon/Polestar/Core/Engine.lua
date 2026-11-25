@@ -2364,7 +2364,9 @@ end
 -- no quest goal left goes.
 -- -> { steps, feeders (steps put in), hidden = { [quest] = { title, need,
 -- needTitle, from (guide title) } }, cost, fromBase (g's step -> new step),
--- legs (g's step -> true where its baked leg still leads in) }
+-- legs (g's step -> true where its baked leg still leads in), leftOut (new
+-- step -> true where a step of g for the character went right before it, all
+-- of its quests left out) }
 function Own.feederPlan(g)
 	local C = Compat()
 	local level = player.level or 1
@@ -2755,7 +2757,7 @@ function Own.feederPlan(g)
 		return { title = src.title, note = src.note, image = src.image, label = src.label, only = src.only,
 			when = src.when, goals = goals, feeder = st.id, feederStep = st.s }
 	end
-	local steps, fromBase, legs, feeders = {}, {}, {}, 0
+	local steps, fromBase, legs, feeders, leftOut = {}, {}, {}, 0, {}
 	local prevOwn = 0 -- g's step just before, when nothing came in between
 	local function addStep(st)
 		if st.emitted then return end
@@ -2796,13 +2798,23 @@ function Own.feederPlan(g)
 			prevOwn = s
 		else
 			prevOwn = nil
+			-- A stop the character had here, gone with its quests: the walk to it
+			-- may pass (Own.stopEmpty, #4013).
+			if Guides.Matches(step.only, player) and Own.whenMayHold(step) then
+				for _, goal in ipairs(step.goals) do
+					if goal.t ~= "note" and Guides.Matches(goal.only, player) then
+						leftOut[#steps + 1] = true
+						break
+					end
+				end
+			end
 		end
 		add(gaps[s])
 	end
 	for _, id in ipairs(read or NONE) do
 		if not Engine.TabIds()[id] then Guides.Release(id) end
 	end
-	return { steps = steps, feeders = feeders, hidden = hidden, cost = cost, fromBase = fromBase, legs = legs, onWay = onWay }
+	return { steps = steps, feeders = feeders, hidden = hidden, cost = cost, fromBase = fromBase, legs = legs, onWay = onWay, leftOut = leftOut }
 end
 
 -- A hand-in of a quest the player carries that g never works (no goal of g
@@ -2908,8 +2920,8 @@ end
 
 -- Guide g with the plan's steps: a new guide table with g's fields (a fresh
 -- table, so every per-guide cache starts over), `feeders` (steps put in),
--- `hidden`, `feedCost`, `fromBase`, `base` = g, and g's baked legs into the
--- steps whose way in is unchanged.
+-- `hidden`, `feedCost`, `fromBase`, `leftOut`, `base` = g, and g's baked legs
+-- into the steps whose way in is unchanged.
 function Own.rebuilt(g, plan)
 	local g2 = {}
 	for key, v in pairs(g) do
@@ -2917,6 +2929,7 @@ function Own.rebuilt(g, plan)
 	end
 	g2.steps, g2.feeders, g2.hidden, g2.feedCost, g2.fromBase, g2.base = plan.steps, plan.feeders, plan.hidden, plan.cost, plan.fromBase, g
 	g2.onWay = next(plan.onWay) and plan.onWay or nil
+	g2.leftOut = next(plan.leftOut) and plan.leftOut or nil
 	local legs = rawget(g, "legs")
 	if type(legs) ~= "table" then legs = Guides.Legs(g.id) end
 	if type(legs) == "table" then
@@ -12664,7 +12677,11 @@ end
 -- continent, is a stop of its own (Own.stopFar): when the stop before it
 -- had a step for the character, all done, the walk passes (#2154: Alterac's
 -- walk to Strahnbrad for Gol'dir held for a character who had no Gol'dir to
--- do, since the Dalaran crater's kills came next). Steps whose `when` fails
+-- do, since the Dalaran crater's kills came next). A step of the character's
+-- the feeder plan left out with all its quests (the guide's `leftOut`) is
+-- such a stop, all done: a character without The Rescue from Hillsbrad has
+-- no Gol'dir step at all (Infiltration, Gol'dir and Blackmoore's Legacy left
+-- out), and the walk to Strahnbrad held again (#4013). Steps whose `when` fails
 -- are no such stop, and a walk to a boat's, zeppelin's or tram's end is the
 -- way on whatever comes after it. With the planner leading
 -- (Own.plannerFlies: the next leg may be a boat or a zeppelin), once the
@@ -12674,7 +12691,9 @@ function Own.stopEmpty(s)
 	local steps = guide.steps
 	if Own.writtenTravel(steps[s]) ~= "walk" or Own.transitKind(s) ~= "walk" then return false end
 	local stop, real, last = false, false, s
+	local leftOut = guide.leftOut
 	for n = s + 1, #steps do
+		if leftOut and leftOut[n] then stop, real = true, true end
 		local step = steps[n]
 		if not Own.hiddenStep(step) then
 			local kind = Own.writtenTravel(step)
