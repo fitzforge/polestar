@@ -38,9 +38,9 @@
 //!   step goes with it): `follows: { quest, goal, objective? }` puts the anchored goal line right
 //!   after that goal's line in the guide (in-step order); `split: { title, tip? }` makes the anchored
 //!   goal and the lines after it in its step a step of their own (a town stop split in walking
-//!   order, or hand-ins cut off a later stop); `step: { after: { quest, goal, objective? }, guide?,
-//!   copy?, way?, tip? }` moves the anchored goal's whole step, or a copy of it (`copy: true`), to
-//!   right after `after`'s step in the guide `guide` names ([`apply_step`]). `way: { at: { map, x, y,
+//!   order, or hand-ins cut off a later stop). A `step` moves the anchored goal's whole step, or a
+//!   copy (`copy: true`), to `after`'s step or before `before`'s approach in the guide `guide` names
+//!   ([`apply_step`]). `way: { at: { map, x, y,
 //!   frame? }, label?, title? }`, applied after those, moves the end of the walk right before the
 //!   anchored goal's step (a travel-only step for the same players): off a town of the other faction,
 //!   which the writer warns about (travel::hostile_town_ways), or to a camp's edge. `at.guide` narrows
@@ -1049,17 +1049,19 @@ fn apply_split(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize
 }
 
 /// A `step` record: the anchored goal's whole step goes right after the step of `step.after`'s goal
-/// in the guide `step.guide` (its id; with none, the step's own guide), with `step.tip` its tip; with
+/// or before the travel to `step.before`'s goal, in the guide `step.guide` (its id; with none, the
+/// step's own guide), with `step.tip` its tip; with
 /// `copy: true` a copy goes and the step stays (a Paladin's class step on an earlier walk that passes
 /// the same NPC, the later one kept for whoever still carries the quest). The source is the first
 /// anchored step, in the guide `at.guide` when the record names one; a copy is not taken from the
 /// guide it goes to. The travel-only steps right before it for the same players (the walk to it) go
 /// with it with `way: true`; else they go when it moves (they led to where it was). Where the step
-/// already follows `after`'s step (past such walks), only its tip is set. -> (found, changed, guide
+/// already stands there (past such walks), only its tip is set. -> (found, changed, guide
 /// here).
 fn apply_step(tree: &mut BTreeMap<String, String>, files: &[String], r: &Value, anchor: &Anchor) -> (bool, bool, bool) {
 	let sp = &r["step"];
-	let Some(after) = goal_anchor(&sp["after"]) else { return (false, false, false) };
+	let before = !sp["before"].is_null();
+	let Some(relative) = goal_anchor(&sp[if before { "before" } else { "after" }]) else { return (false, false, false) };
 	let (copy, way, tip) = (sp["copy"] == true, sp["way"] == true, sp["tip"].as_str());
 	let split = |f: &String| -> Vec<String> { tree[f].split('\n').map(str::to_string).collect() };
 	let has_id = |f: &String, id: &str| tree.get(f).is_some_and(|t| t.lines().any(|l| l.trim_end().strip_prefix("guide ").is_some_and(|g| g.trim() == id)));
@@ -1083,15 +1085,22 @@ fn apply_step(tree: &mut BTreeMap<String, String>, files: &[String], r: &Value, 
 	let mut tl = split(&tf);
 	let Some(src) = step_body(&sl, si) else { return (false, false, guide_here) };
 	let only = step_only_line(&sl, src);
-	// (`after` in the step that would move is no place for it.)
-	let afters = anchor_lines(&tl, &after);
-	if afters.is_empty() || (sf == tf && !copy && afters.iter().all(|&a| (src.0..src.1).contains(&a))) {
+	// An anchor in the step that would move is no place for it.
+	let relatives = anchor_lines(&tl, &relative);
+	if relatives.is_empty() || (sf == tf && !copy && relatives.iter().all(|&a| (src.0..src.1).contains(&a))) {
 		return (false, false, guide_here);
 	}
-	// Already there: the step after `after`'s step, past walks for the same players, holds the anchor.
+	let approach = |lines: &[String], st: (usize, usize)| ways_before(lines, st).first().map_or(st.0, |w| w.0);
+	// Already there: look beside the placement anchor, past the travel to it or to the copied step.
 	let there = |lines: &[String]| -> Option<(usize, usize)> {
-		let a = *anchor_lines(lines, &after).first()?;
-		let mut k = step_body(lines, a)?.1;
+		let a = *anchor_lines(lines, &relative).first()?;
+		let target = step_body(lines, a)?;
+		if before {
+			let prev = (0..approach(lines, target)).rev().find(|&k| is_step(&lines[k]))?;
+			let st = step_body(lines, prev)?;
+			return (!anchor_lines(&lines[st.0..st.1], anchor).is_empty()).then_some(st);
+		}
+		let mut k = target.1;
 		loop {
 			let st = step_body(lines, (k..lines.len()).find(|&j| is_step(&lines[j]))?)?;
 			if !anchor_lines(&lines[st.0..st.1], anchor).is_empty() {
@@ -1136,8 +1145,14 @@ fn apply_step(tree: &mut BTreeMap<String, String>, files: &[String], r: &Value, 
 			tree.insert(sf, one_blank(sl).join("\n"));
 		}
 	}
-	let Some(a) = anchor_lines(&tl, &after).first().copied() else { return (false, false, guide_here) };
-	let Some(at) = step_body(&tl, a).map(|s| s.1) else { return (false, false, guide_here) };
+	let Some(a) = anchor_lines(&tl, &relative).first().copied() else { return (false, false, guide_here) };
+	let Some(st) = step_body(&tl, a) else { return (false, false, guide_here) };
+	let at = if before {
+		block.push(String::new());
+		approach(&tl, st)
+	} else {
+		st.1
+	};
 	tl.splice(at..at, block);
 	tree.insert(tf, one_blank(tl).join("\n"));
 	(true, true, true)
@@ -2253,6 +2268,27 @@ mod tests {
 		let (again, states) = fix_all(&files2, &fixes);
 		assert_eq!(again, out);
 		assert_eq!(states, ["redundant"; 6]);
+	}
+
+	#[test]
+	fn badlands_direct_start_gets_find_agmond_before_the_pass() {
+		let arathi = include_str!("../../../../guides/forever/alliance/30-40/05-arathi-highlands.guide");
+		let badlands = include_str!("../../../../guides/forever/alliance/30-40/06-badlands.guide");
+		let all: Value = serde_json::from_str(include_str!("../../../../data/guide-fixes.json")).unwrap();
+		let fix = all["fixes"].as_array().unwrap().iter().find(|r| r["id"] == "alliance-badlands-find-agmond-on-entry").unwrap();
+		let fixes = json!({ "fixes": [fix] });
+		let files = [("forever/alliance/30-40/05-arathi-highlands.guide", arathi), ("forever/alliance/30-40/06-badlands.guide", badlands)];
+		let (out, states) = fix_all(&files, &fixes);
+		assert!(matches!(states[0].as_str(), "applied" | "redundant"));
+		assert_eq!(out[0], arathi, "the continuous route still picks up Find Agmond on its original stop");
+		let breadcrumb = out[1].find("  turnin 707\n").unwrap();
+		let pickup = out[1].find("  accept 738 ").unwrap();
+		let crossing = out[1].find("step Into Badlands\n").unwrap();
+		let dorgaron = out[1].find("  accept 97617 ").unwrap();
+		assert!(breadcrumb < pickup && pickup < crossing && crossing < dorgaron, "Ironband's pickup and any held breadcrumb come before the pass");
+		let (again, states) = fix_all(&[(files[0].0, &out[0]), (files[1].0, &out[1])], &fixes);
+		assert_eq!(again, out);
+		assert_eq!(states, ["redundant"]);
 	}
 
 	#[test]

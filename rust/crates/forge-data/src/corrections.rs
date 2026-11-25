@@ -1824,8 +1824,13 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 				}
 				(true, true) if !r.get("step").is_undef() => {
 					let s = r.get("step");
-					ck.keys(&format!("{at}.step"), &s, &["after", "guide", "copy", "way", "tip"]);
-					check_goal_ref(ck, &format!("{at}.step.after"), &s.get("after"));
+					ck.keys(&format!("{at}.step"), &s, &["after", "before", "guide", "copy", "way", "tip"]);
+					let (after, before) = (s.get("after"), s.get("before"));
+					match (after.is_undef(), before.is_undef()) {
+						(false, true) => check_goal_ref(ck, &format!("{at}.step.after"), &after),
+						(true, false) => check_goal_ref(ck, &format!("{at}.step.before"), &before),
+						_ => ck.err(format!("{at}.step"), "name one placement goal with `after` or `before`"),
+					}
 					for k in ["copy", "way"] {
 						if !s.get(k).is_undef() && !matches!(s.get(k), V::Bool(true)) {
 							ck.err(format!("{at}.step.{k}"), format!("`{k}` is true, or left out"));
