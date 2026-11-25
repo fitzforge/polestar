@@ -19149,6 +19149,15 @@ test('forever/50-60/mount-hyjal.guide: Blademaster\'s Bonfires are lit before th
 	assert.deepEqual([list[south].goal.quest, list[east].goal.quest], [96959, 96959]);
 });
 
+// #3894 (fekz, 0.4.2.2): "Fly to Everlook" in Moonglade had no arrow. Everlook and Moonglade have a flight master per
+// faction, so a `fly` written for both factions got no taxi node and the arrow had nowhere to lead once the flight
+// path was known. Each flight is written per faction now and carries its own side's node.
+test('forever/50-60/mount-hyjal.guide: every flight carries its taxi node (#3894)', { skip }, () => {
+	const flights = goals('forever/50-60/mount-hyjal.guide').filter(({ goal }) => goal.t === 'fly');
+	assert.ok(flights.length >= 10);
+	for (const { goal, step } of flights) assert.ok(goal.node > 0, `"${step.title}": fly ${goal.location} has a taxi node`);
+});
+
 // #4003 (as210558, 0.4.2.2): Fraxinus offers Fine Feathered Friend only once Celastrus the Bitter (a group choice) is
 // handed in as well as Bark Bite (players' recordings: 19 of 19 took it after both). The accept had sat with Bark
 // Bite's hand-in, before Thylaen's, and held a player who skipped Celastrus there. Its own step waits for Celastrus.
