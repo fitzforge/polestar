@@ -472,12 +472,6 @@ const cooking = {
 		const omeletCrafts = expectedCrafts(omelet, 225, 300);
 		const skyborne = { races: ['Skyborne'] };
 		const westfall = { races: ['Human', 'Skyborne'], side: 'Alliance' };
-		const clamlette = (f, zone, giver) => ({
-			title: 'Dirge Quikcleave',
-			raw: [`only ${f}`, `zone ${zone}`, `tip Artisan Cooking comes from Dirge Quikcleave in Gadgetzan (Tanaris). The cooking trainer in ${zone} sends you; it needs skill 225 and level ${ctx.data.quest(6610).minLevel}.`, 'skill Cooking 225', `level ${ctx.data.quest(6610).minLevel}`, giver],
-		});
-		const egg = dropSpot(ctx, 12207, 1425);
-		const muckshells = npcCluster(ctx, 1445, 'Muckshell Scrabbler');
 		const raptors = 'Arathi Highlands: Hammon Karwn at Refuge Pointe (Alliance) and Keena at Hammerfall (Horde) sell the recipe and Hot Spices beside the raptors.';
 		return [
 			{ section: 'Apprentice' },
@@ -509,33 +503,48 @@ const cooking = {
 			{ section: 'Cooking 175-225' },
 			{ who: ALL, zone: 1417, spell: 15855, from: 175, to: 225, learn: 'vendor', tip: `${raptors} Spider Sausage (any trainer from 200, 40s) is the alternative, but it takes two White Spider Meat a craft and Dustwallow's spiders drop one about two kills in five.` },
 			{ section: 'Artisan Cooking: Clamlette Surprise' },
-			clamlette('Alliance', 'Ironforge', 'accept 6612                             -- Daryl Riknussun, Ironforge'),
-			clamlette('Horde', 'Orgrimmar', 'accept 6611                             -- Zamja, Orgrimmar'),
-			{
-				title: 'Giant Eggs',
-				raw: ['zone The Hinterlands', `tip Clamlette Surprise asks for 12 Giant Eggs, 10 Zesty Clam Meat and 20 Alterac Swiss: bring all three before you go to Tanaris, so you make the trip once. Giant Eggs drop from the owlbeasts of The Hinterlands: ${egg.mobs.join(', ')}. Monster Omelet takes about ${omeletCrafts} more after Artisan: farm them now too if you like.`, 'collect 12207 x12'],
-			},
-			{
-				title: 'Alterac Swiss',
-				raw: ['tip Innkeepers and food vendors sell Alterac Swiss; the arrow picks the nearest.', 'buy 8932 x20 nearest'],
-			},
-			{
-				title: 'Zesty Clam Meat',
-				raw: [
-					'zone Dustwallow Marsh',
-					"tip Zesty Clam Meat comes from Big-mouth Clams: open each one, every clam holds one. The Muckshell crabs on the Dustwallow Marsh coast south-west of Theramore drop a clam about seven kills in ten, so ten clams take about fifteen kills, on your way to Tanaris. The Steeljaw Snappers on Tanaris's east coast drop them about one kill in three.",
-					`collect 7974 x10 @${fmt(muckshells.x)},${fmt(muckshells.y)}`,
-				],
-			},
-			{
-				title: 'Clamlette Surprise',
-				raw: ['zone Tanaris', 'turnin 6612 only Alliance', 'turnin 6611 only Horde', 'accept 6610', 'turnin 6610                             -- Artisan Cooking'],
-			},
+			...clamletteSteps(ctx, `Monster Omelet takes about ${omeletCrafts} more after Artisan: farm them now too if you like.`),
 			{ section: 'Cooking 225-300' },
 			{ who: ALL, zone: 1425, spell: 15933, from: 225, to: 300, learn: 'vendor', tip: `Monster Omelet is orange to ${omelet.yellow} and green from ${omelet.green}, yet it still carries you to 300. Fishers can finish on Nightfin Soup (Gikkix, Steamwheedle Port; yellow to 310) instead; Poached Sunscale Salmon needs an Iron Oven on Forever.` },
 		];
 	},
 };
+
+// Artisan Cooking: Clamlette Surprise (6610), from the capital cooking trainer's quest to the hand-in in
+// Gadgetzan, with its three ingredients on the way. `eggNote`: what the Giant Eggs step adds.
+function clamletteSteps(ctx, eggNote = '') {
+	const level = ctx.data.quest(6610).minLevel;
+	const clamlette = (f, zone, giver) => ({
+		title: 'Dirge Quikcleave',
+		raw: [`only ${f}`, `zone ${zone}`, `tip Artisan Cooking comes from Dirge Quikcleave in Gadgetzan (Tanaris). The cooking trainer in ${zone} sends you; it needs skill 225 and level ${level}.`, 'skill Cooking 225', `level ${level}`, giver],
+	});
+	const egg = dropSpot(ctx, 12207, 1425);
+	const muckshells = npcCluster(ctx, 1445, 'Muckshell Scrabbler');
+	return [
+		clamlette('Alliance', 'Ironforge', 'accept 6612                             -- Daryl Riknussun, Ironforge'),
+		clamlette('Horde', 'Orgrimmar', 'accept 6611                             -- Zamja, Orgrimmar'),
+		{
+			title: 'Giant Eggs',
+			raw: ['zone The Hinterlands', `tip Clamlette Surprise asks for 12 Giant Eggs, 10 Zesty Clam Meat and 20 Alterac Swiss: bring all three before you go to Tanaris, so you make the trip once. Giant Eggs drop from the owlbeasts of The Hinterlands: ${egg.mobs.join(', ')}.${eggNote ? ` ${eggNote}` : ''}`, 'collect 12207 x12'],
+		},
+		{
+			title: 'Alterac Swiss',
+			raw: ['tip Innkeepers and food vendors sell Alterac Swiss; the arrow picks the nearest.', 'buy 8932 x20 nearest'],
+		},
+		{
+			title: 'Zesty Clam Meat',
+			raw: [
+				'zone Dustwallow Marsh',
+				"tip Zesty Clam Meat comes from Big-mouth Clams: open each one, every clam holds one. The Muckshell crabs on the Dustwallow Marsh coast south-west of Theramore drop a clam about seven kills in ten, so ten clams take about fifteen kills, on your way to Tanaris. The Steeljaw Snappers on Tanaris's east coast drop them about one kill in three.",
+				`collect 7974 x10 @${fmt(muckshells.x)},${fmt(muckshells.y)}`,
+			],
+		},
+		{
+			title: 'Clamlette Surprise',
+			raw: ['zone Tanaris', 'turnin 6612 only Alliance', 'turnin 6611 only Horde', 'accept 6610', 'turnin 6610                             -- Artisan Cooking'],
+		},
+	];
+}
 
 module.exports = {
 	firstAid: { file: firstAid.file, skill: firstAid.skill, render: (ctx) => renderGuide(ctx, firstAid) },
@@ -543,4 +552,7 @@ module.exports = {
 	expectedCrafts,
 	dropSpot,
 	learnNote,
+	clamletteSteps,
+	recipeOf,
+	step,
 };

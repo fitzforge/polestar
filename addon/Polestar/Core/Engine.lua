@@ -7628,6 +7628,11 @@ function Own.workedNear(goal, place, now, inside)
 	return latest
 end
 
+-- Whether the player is channelling a spell (Fishing, a channelled cast).
+function Own.channelling()
+	return UnitChannelInfo ~= nil and UnitChannelInfo("player") ~= nil
+end
+
 -- The dwell (Spots, "Dwell"): true once the player has stood within the
 -- arrival radius of field goal g's place for Spots.DWELL seconds, moving no
 -- more than Spots.STILL yards, out of combat, with its work unchanged
@@ -7639,7 +7644,10 @@ end
 -- goal the note was made for: the drink or the walk to the next pull at a camp
 -- being cleared never moves the arrow (the arrow's replay of recorded sessions: 13.75 moves per
 -- 10 h off camps still worked with no such guard). Coming in, a fight or
--- progress starts the count again.
+-- progress starts the count again. So does a channelled spell (Own.channelling):
+-- fishing is one, and a catch that raises no skill is no progress on a
+-- `skill` goal, so a player fishing at a round's stand would otherwise see the
+-- arrow walk off after Spots.DWELL seconds.
 function Own.dwelt(s, g, goal, c, px, py)
 	local place, d = Own.dwellPlace(goal, c, px, py)
 	local st = Spots.stay[goal]
@@ -7657,7 +7665,7 @@ function Own.dwelt(s, g, goal, c, px, py)
 		st.place, st.since, st.sign, st.x, st.y = place, now, sign, px, py
 		return false
 	end
-	if (UnitAffectingCombat and UnitAffectingCombat("player")) or st.sign ~= sign then
+	if (UnitAffectingCombat and UnitAffectingCombat("player")) or Own.channelling() or st.sign ~= sign then
 		Spots.noteWork(c, px, py, now)
 		st.since, st.sign = now, sign
 		return false

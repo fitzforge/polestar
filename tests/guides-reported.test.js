@@ -5326,6 +5326,9 @@ const AWAY_FROM_ITS_OBJECTS = new Set([
 	'forever/professions/fishing.guide 16968',
 	'forever/professions/fishing.guide 16969',
 	'forever/professions/fishing.guide 16970',
+	'forever/professions/fishing-cooking.guide 16968',
+	'forever/professions/fishing-cooking.guide 16969',
+	'forever/professions/fishing-cooking.guide 16970',
 ]);
 test("#289: a quest item picked up from objects is collected at one of the objects' spawns", { skip }, () => {
 	data = data || loadData(DATA);
