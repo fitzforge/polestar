@@ -1632,7 +1632,8 @@ Warnings:
 - a `craft` before any `learn` of that spell earlier in the chain (free starter
   recipes excepted); `until <N>` past the recipe's grey skill
 - a coordinate on a map other than the step's zone that the guide never sets as
-  a zone (catches a target resolved onto another continent)
+  a zone (catches a target resolved onto another continent); a step on the
+  world map (`zone Azeroth`) spans every zone and never warns
 - coordinates without `map` on a zone set in a step for some characters only,
   when the other characters who see them are in another zone (a class trip's
   `zone Moonglade` holding for the rest of Darkshore)

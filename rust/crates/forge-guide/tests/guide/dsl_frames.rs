@@ -57,6 +57,9 @@ fn a_coordinate_on_a_map_the_guide_never_sets_as_zone_warns() {
 	// Setting the zone anywhere in the guide silences it.
 	let ok = compile(&dun_morogh(&["step S", "  kill 69", "step T", "  zone Elwynn Forest", "  level 3"], &[]));
 	assert!(only(&ok.warnings, "never sets zone").is_empty());
+	// So does a step on the world map: it spans every zone (a profession guide's trainer pinned per faction).
+	let world = compile(&dun_morogh(&["step S", "  zone Azeroth", "  talk 823"], &[]));
+	assert!(only(&world.warnings, "never sets zone").is_empty(), "{:?}", world.warnings);
 }
 
 #[test]
