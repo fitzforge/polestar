@@ -1532,7 +1532,8 @@ end
 -- in this guide (Own.mayComeTrue) waits in Own.whenPending instead, unless
 -- `final` (the guide's end, Own.endPending): then it is stored as skipped.
 -- A level-gated step stored as skipped leaves its accepts waiting for the
--- guides after this one (Own.waitsOf).
+-- guides after this one (Own.waitsOf). True when the step was stored as
+-- skipped (what follows it may be left out with it: evaluateLoaded).
 function Own.latchWhen(s, final)
 	local step = guide.steps[s]
 	if not logReady or not (step and step.when) or not Guides.Matches(step.only, player) then return end
@@ -1553,7 +1554,10 @@ function Own.latchWhen(s, final)
 		state[field][guide.id] = t
 	end
 	t[s] = true
-	if field == "skipped" then Own.waitsOf(step) end
+	if field == "skipped" then
+		Own.waitsOf(step)
+		return true
+	end
 end
 
 -- The steps of guide table g passed with a `when` that can still turn
@@ -1645,12 +1649,15 @@ function Own.waitsOf(step)
 end
 
 -- Once per loaded guide, after the quest log can be read: store the
--- outcomes of steps 1..passed the route moved past before it could.
+-- outcomes of steps 1..passed the route moved past before it could. True
+-- when one was stored as skipped (Own.latchWhen).
 Own.caughtUp = setmetatable({}, { __mode = "k" })
 function Own.latchCaughtUp(passed)
-	if not logReady or Own.caughtUp[guide] then return end
+	if not logReady or Own.caughtUp[guide] then return false end
 	Own.caughtUp[guide] = true
-	for s = 1, passed do Own.latchWhen(s) end
+	local stored = false
+	for s = 1, passed do stored = Own.latchWhen(s) or stored end
+	return stored
 end
 
 -- The player stands in a hearth's or flight's place: the zone or subzone
@@ -5087,7 +5094,12 @@ end
 -- After an update (`added`, Own.noteAdded), only what the save's guide had
 -- in place counts (Own.goalMoved). In a tab an update reworked (`fromTab`,
 -- Own.logPlaced), a quest an earlier release offered in another guide counts
--- too: the tab's old guide is where the player took it.
+-- too: the tab's old guide is where the player took it. Its steps the save
+-- had are read in the save's order first (Own.reworkedOrder): the last of
+-- them with progress, where the player's own route had got (0.4.1.1 -> 0.4.3,
+-- Alliance Burning Steppes: Azshara, played first, moved to the end; read in
+-- the new order, its done work put the player at the end and everything
+-- before passed, the guide read as done).
 local function anchorStep(added, fromTab)
 	local steps = guide.steps
 	-- Progress counts only on a quest the guide offers before (or at) that
@@ -5109,20 +5121,44 @@ local function anchorStep(added, fromTab)
 		end
 	end
 	local moved = not fromTab and Own.movedIn(guide.id) or NONE
-	for s = #steps, 1, -1 do
+	local function progress(s)
 		local step = steps[s]
-		if not step.only then
-			for g, goal in ipairs(step.goals) do
-				if not goal.only and not goal.optional and isQuestGoal(goal) and goalApplies(goal)
-					and (goal.direct or (goal.quest and offered[goal.quest] and offered[goal.quest] <= s and not moved[goal.quest]))
-					and not (added and Own.goalMoved(added, s, goal)) then
-					local done, cur = Own.ownDone(s, g, goal)
-					if done or (goal.oi and (cur or 0) > 0) then return s end
-				end
+		if step.only then return false end
+		for g, goal in ipairs(step.goals) do
+			if not goal.only and not goal.optional and isQuestGoal(goal) and goalApplies(goal)
+				and (goal.direct or (goal.quest and offered[goal.quest] and offered[goal.quest] <= s and not moved[goal.quest]))
+				and not (added and Own.goalMoved(added, s, goal)) then
+				local done, cur = Own.ownDone(s, g, goal)
+				if done or (goal.oi and (cur or 0) > 0) then return true end
 			end
 		end
+		return false
+	end
+	for _, s in ipairs(fromTab and Own.savedOrder() or NONE) do
+		if progress(s) then return s end
+	end
+	for s = #steps, 1, -1 do
+		if progress(s) then return s end
 	end
 	return 0
+end
+
+-- The loaded guide's steps that a reworked tab's save had (Own.reworkedOrder,
+-- noted by checkShape), last first in the save's order, in the loaded guide's
+-- numbers (a plan made since, Own.feedTabs, matched by step keys); {} without.
+Own.reworkedOrder = {}
+function Own.savedOrder()
+	local o = Own.reworkedOrder[guide.id]
+	if not o then return {} end
+	local m
+	if o.guide ~= guide then m = Own.matchSteps(Own.stepKeys(o.guide), Own.stepKeys(guide)) end
+	local out = {}
+	for i = #o.at, 1, -1 do
+		local j = o.at[i]
+		if m then j = m[j] end
+		if j then out[#out + 1] = j end
+	end
+	return out
 end
 
 -- The catch-up (#2620): what Forever pays for a quest at the character's
@@ -5475,7 +5511,7 @@ local function place()
 	local fromTab = logReady and Own.logPlaced[guide.id]
 	local anchor = anchorStep(added, fromTab)
 	if fromTab then
-		Own.logPlaced[guide.id] = nil
+		Own.logPlaced[guide.id], Own.reworkedOrder[guide.id] = nil, nil
 		added = Own.noteMovedBehind(anchor) or added
 	end
 	if catchUp then Own.leftOut[guide.id], Own.leftOutWhy[guide.id] = Own.catchUp(anchor, level) end
@@ -5643,7 +5679,8 @@ end
 -- itself when the predicate turns false later; Unskip brings a step back. A
 -- step skipped already keeps its skip. Not before the quest log
 -- can be read (a `!turnedin` would hold on an empty log), nor for a step the
--- player brought back (Own.keep). True if the route jumped.
+-- player brought back (Own.keep), nor once the player went into the block
+-- (Own.jumpEntered). True if the route jumped.
 function Own.jump(s)
 	local step = guide.steps[s]
 	if not (step.skipto and logReady) then return false end
@@ -5651,12 +5688,40 @@ function Own.jump(s)
 	if kept and kept[s] then return false end
 	for _, k in ipairs(step.skipto) do
 		local to = Own.marksOf().labels[k.to]
-		if to and to > s and Own.predicateHolds(k.when) then
+		if to and to > s and not Own.jumpEntered(s, k.to) and Own.predicateHolds(k.when) then
 			local sk = skippedFor(guide.id, true)
 			for t = s, to - 1 do
 				if not sk[t] then sk[t] = "jump" end
 			end
 			return true
+		end
+	end
+	return false
+end
+
+-- Whether the player went into the block a jump to label `to` passes, so it
+-- is no longer theirs to take: a step before s with a jump to that label is
+-- done (passed without jumping), or one up to s has quest work of theirs (a
+-- quest goal done), neither skipped. A jump asks at the block's door whether
+-- the player comes fresh, once; a save from a release without it is often
+-- already inside (0.4.2.2 -> 0.4.3: Burning Steppes, a player who took Courier
+-- Hammerfall and The Smoldering Ruins of Thaurissan in Ironforge, carrying
+-- none of the quests the jump asks for, was jumped past Chillwind Camp, where
+-- Courier Hammerfall's hand-in is, to Morgan's Vigil; Un'Goro Crater, one on
+-- the flight to Gadgetzan, past Tanaris).
+function Own.jumpEntered(s, to)
+	local sk = skippedFor(guide.id)
+	for t = 1, s do
+		local step = guide.steps[t]
+		local same = false
+		for _, k in ipairs(step.skipto or NONE) do
+			if k.to == to then same = true end
+		end
+		if same and stepApplies(step) and not (sk and sk[t]) then
+			if t < s and stepDone(t) then return true end
+			for g, goal in ipairs(step.goals) do
+				if isQuestGoal(goal) and not goal.optional and goalApplies(goal) and goalDone(t, g, goal) then return true end
+			end
 		end
 	end
 	return false
@@ -5836,12 +5901,14 @@ end
 -- moves on, even after that flight lands and nothing flies on any more
 -- (#1768: the walk up to Thunder Bluff opened again on landing in Camp
 -- Taurajo, and the flight to Camp Taurajo again back in Thunder Bluff). Its
--- accepts waiting for a level are noted (Own.noteWaits).
+-- accepts waiting for a level are noted (Own.noteWaits). True when a step's
+-- `when` was stored as skipped (Own.latchWhen).
 local function latchPassed(from, to)
 	local steps = guide.steps
+	local stored = false
 	for s = from, to do
 		local step = steps[s]
-		Own.latchWhen(s)
+		stored = Own.latchWhen(s) or stored
 		if stepApplies(step) then
 			Own.noteWaits(s)
 			local flown = not Own.goalsDone(s) and (Own.flightPassed(s) or Own.alreadyAcross(s))
@@ -5853,6 +5920,7 @@ local function latchPassed(from, to)
 			end
 		end
 	end
+	return stored
 end
 
 -- isBagCount: see computeCurrent above.
@@ -8330,8 +8398,13 @@ local function checkShape(g)
 			Own.plannedOld[g.id] = Own.plannedSteps(g, map, old)
 			-- A guide the update reworked keeps few of the save's steps, so
 			-- nearly all of it would read as added and pass: its tab is placed
-			-- from the quest log instead (Own.followReworked, Own.noteMovedBehind).
-			if not Own.reworkedTabs[g.id] then Own.noteAdded(g, map, old) end
+			-- from the quest log instead (Own.followReworked, Own.noteMovedBehind),
+			-- by the save's own order of the steps it still has (Own.oldOrder).
+			if Own.reworkedTabs[g.id] then
+				Own.reworkedOrder[g.id] = Own.oldOrder(g, map, old)
+			else
+				Own.noteAdded(g, map, old)
+			end
 			Own.remap(g.id, map, old, g)
 		end) then
 			if snap then Own.snapRestore(g.id, snap) end
@@ -8390,7 +8463,7 @@ function Own.noteAdded(g, map, old)
 	for j, key in ipairs(Own.stepKeys(g)) do
 		if not kept[j] and not hereAt[key] then hereAt[key] = j end
 	end
-	local had, upTo, prev, changed, unknown = {}, {}, 0, {}, {}
+	local had, upTo, prev, changed, unknown, keptHas, inChanged = {}, {}, 0, {}, {}, {}, {}
 	for k = 1, #old do
 		local list, at, last
 		if map[k] then
@@ -8422,7 +8495,27 @@ function Own.noteAdded(g, map, old)
 		for _, x in ipairs(list or NONE) do
 			if not had[x] or at < had[x] then had[x] = at end
 			if not upTo[x] or last > upTo[x] then upTo[x] = last end
+			if map[k] then
+				keptHas[x] = true
+			else
+				inChanged[x] = inChanged[x] or {}
+				table.insert(inChanged[x], { at, last })
+			end
 		end
+	end
+	-- A quest goal a kept step still has, again in a step the update added
+	-- outside the stretches of the save's changed steps that had it: a copy
+	-- the update added, not the goal moved on (0.4.1.1 -> 0.4.3, Horde
+	-- Thousand Needles: Moktar Krin's accept of The Swarm Grows, kept on his
+	-- hand-in step, again on a new step for a player who handed the part
+	-- before in without taking it, held the player there, 2 and 16 steps
+	-- back).
+	local function copied(x, j)
+		if not keptHas[x] then return false end
+		for _, r in ipairs(inChanged[x] or NONE) do
+			if j >= r[1] and j <= r[2] then return false end
+		end
+		return true
 	end
 	local s = ns.CharState()
 	if type(s.added) ~= "table" then s.added = {} end
@@ -8471,6 +8564,9 @@ function Own.noteAdded(g, map, old)
 						if had[x] then moved = true end
 					elseif became[x] and not goal.optional then
 						ids[x] = "req"
+					elseif copied(x, j) then
+						fresh = fresh + 1
+						ids[x] = true
 					elseif j > upTo[x] then
 						-- Moved on past a step it came before: no sign of how far
 						-- the player got (Own.goalMoved), though not added.
@@ -8938,6 +9034,28 @@ function Own.reworked(g)
 		if ok and not map[k] and now[key] then kept = kept + 1 end
 	end
 	return kept * 2 < #old
+end
+
+-- The steps of guide g that the save's steps are, in the save's order
+-- (`map`: those kept, old index -> new; then those the update moved whole,
+-- out of the kept order, each step of g once): { guide = g, at = { new
+-- index, ... } } for Own.logPlaced's anchor (anchorStep), noted by
+-- checkShape for a tab an update reworked.
+function Own.oldOrder(g, map, old)
+	local keys, keptNew, free = Own.stepKeys(g), {}, {}
+	for _, j in pairs(map) do keptNew[j] = true end
+	for j, key in ipairs(keys) do
+		if not keptNew[j] then
+			free[key] = free[key] or {}
+			table.insert(free[key], j)
+		end
+	end
+	local at = {}
+	for k, key in ipairs(old) do
+		local j = map[k] or (free[key] and table.remove(free[key], 1))
+		if j then at[#at + 1] = j end
+	end
+	return { guide = g, at = at }
 end
 
 -- Tabs of guides that are not there (pack missing or switched off), oldest
@@ -10897,14 +11015,26 @@ local function evaluateLoaded(active)
 		computed = computeCurrent()
 		lastSig = nil
 	end
+	-- Storing the `when` of the steps the route moves past (latchPassed,
+	-- Own.latchCaughtUp) can leave out work after them: a step stored as
+	-- skipped hands in no prerequisite any more (Own.coming), so an accept
+	-- waiting on it is passed too. The live step is worked out again, with
+	-- the steps that passes stored in turn, until nothing more is stored:
+	-- never a step left with nothing to do, held until some event comes.
+	local passed = (computed or #guide.steps + 1) - 1
+	local stored = passed > passedUpTo and latchPassed(passedUpTo + 1, passed)
+	stored = Own.latchCaughtUp(passed) or stored
+	passedUpTo = passed
+	while stored and not gate do
+		computed = computeCurrent()
+		passed = (computed or #guide.steps + 1) - 1
+		stored = passed > passedUpTo and latchPassed(passedUpTo + 1, passed)
+		passedUpTo = passed
+	end
 	if computed then
 		sawIncomplete = true
 		Own.startWaits(computed)
 	end
-	local passed = (computed or #guide.steps + 1) - 1
-	if passed > passedUpTo then latchPassed(passedUpTo + 1, passed) end
-	Own.latchCaughtUp(passed)
-	passedUpTo = passed
 
 	-- The view of another step: released once it is the live step (or no
 	-- longer applies); while the step looked at gets done it follows forward,
@@ -17679,6 +17809,36 @@ end
 
 function Engine.IsQuestSkipped(questID)
 	return Own.questSkipped(questID)
+end
+
+-- The steps of the open guide holding something the player set aside: the
+-- step skipped (Engine.Skip), a goal dismissed (Engine.SkipGoal) or a goal
+-- of a quest skipped (Engine.SkipQuest). Read off the saved skips alone, no
+-- step's view built: a reader that counts what was set aside (UI/StepList.lua,
+-- SL.Skips, on every draw of a finished guide's page) builds the views of
+-- these steps only, the rest having nothing to count. -> { step, ... }
+-- ascending, empty with nothing set aside
+function Engine.SetAsideSteps()
+	local out = {}
+	if not guide then return out end
+	local sk = skippedFor(guide.id)
+	local quests = ns.CharState().skippedQuests
+	if sk and next(sk) == nil then sk = nil end
+	if type(quests) ~= "table" or next(quests) == nil then quests = nil end
+	if not (sk or quests) then return out end
+	for s, step in ipairs(guide.steps) do
+		local held = sk and sk[s]
+		if not held then
+			for g, goal in ipairs(step.goals) do
+				if (quests and goal.quest and quests[goal.quest] == true) or (sk and sk[Own.key(s, g)]) then
+					held = true
+					break
+				end
+			end
+		end
+		if held then out[#out + 1] = s end
+	end
+	return out
 end
 
 -- The accepts of this guide a skip would leave out with it: skipping quest q

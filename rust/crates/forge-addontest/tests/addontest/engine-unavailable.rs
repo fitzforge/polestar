@@ -606,6 +606,37 @@ fn t_1661_a_child_quest_whose_parent_is_not_in_the_log_and_that_the_route_no_lon
 }
 
 #[test]
+fn an_accept_whose_prerequisite_a_passed_when_step_no_longer_hands_in_is_passed_in_the_same_evaluation() {
+	// The Barrens' Brine (5899): Call of Water's red waterskin (1536) is handed in only `when complete 1536`, then
+	// the blue one (1534, which needs 1536) is taken. A character without 1536 walks to the Crossroads: the route
+	// moves past the hand-in, whose `when` is stored as skipped, and that leaves the accept without its
+	// prerequisite. The route goes past it at once, never holding the player at an accept nothing can open (the
+	// persona playtest's fresh players were held there until some event came).
+	let guide = r#"
+	Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Brine", faction = "Horde", minLevel = 10, maxLevel = 30, steps = {
+		{ title = "Crossroads", goals = { { t = "goto", map = 1413, x = 51.5, y = 30.3 } } },
+		{ title = "Brine", when = { { k = "complete", q = 1536 } }, goals = {
+			{ t = "turnin", quest = 1536, title = "Call of Water", npc = 5899, npcName = "Brine", map = 1413, x = 43.41, y = 77.46 },
+		} },
+		{ title = "Brine", goals = {
+			{ t = "accept", quest = 1534, title = "Call of Water", npc = 5899, npcName = "Brine", pre = { 1536 }, preTitles = { [1536] = "Call of Water" }, map = 1413, x = 43.41, y = 77.46 },
+		} },
+		{ goals = { { t = "level", level = 30 } } },
+	} })"#;
+	let out = run(
+		"",
+		guide,
+		r#"
+			stub.fire("QUEST_LOG_UPDATE"); flush()
+			local r = { start = E.GetStepIndex() }
+			stub.world.moveTo(1413, 51.5, 30.3); flush(); flush(); flush()
+			r.at, r.brine = E.GetStepIndex(), brief(3)[1]:match("^[^:]+:[^:]+")
+			emit(r)"#,
+	);
+	assert_eq!(out, json!({ "start": 1, "at": 4, "brine": "skipped:pre" }));
+}
+
+#[test]
 fn when_a_mark_moves_the_guide_on_the_guide_window_says_which_quest_was_skipped_and_why_a_normal_completion_says_nothing() {
 	let guide = r#"
 	Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Crossroads", faction = "Horde", minLevel = 10, maxLevel = 30, steps = {

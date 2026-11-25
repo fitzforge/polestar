@@ -4050,6 +4050,44 @@ fn darkcloud_pinnacle_the_routes_to_the_document_chest_and_the_grimtotem_camps_k
 	assert!(f(&out["chest"]["low"]) > 70.0, "the arrow's walk to the chest stays on the pinnacle (lowest {})", out["chest"]["low"]);
 }
 
+// #3644 (0.4.2.2, the Barrens, Horde): from the ledge under Walton's camp (39.95,12.37) the walk to Walton
+// (41.97,11.44) climbed the face under the camp, 44 yd up in 52 yd, which players can't climb. Players' recordings
+// go south to 39.5,14.3 and up the switchback north-east by 40.5,12.9. The walking maps cut the face and join the
+// switchback, so the walk turns south first: it reaches 13.0 or further south before it climbs to the camp.
+#[test]
+fn the_walk_to_walton_from_the_ledge_under_his_camp_takes_the_switchback_not_the_face_3644() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.setLevel(26)
+		w.faction = "Horde"
+		w.moveTo(1413, 39.95, 12.37)
+		w.z = nil
+		for _ = 1, 10 do aim(); stub.advance(0.05) end
+		for i = #finds, 1, -1 do finds[i] = nil end
+		N.SetTarget(1413, 41.97, 11.44, "Walton", "e")
+		for _ = 1, 300 do aim(); stub.advance(0.05) end
+		local c = C_Map.GetWorldPosFromMapPos(1413, CreateVector2D(0.5, 0.5))
+		-- The southmost point of the arrow's own walks, in the Barrens' map percent.
+		local south, n = false, 0
+		for _, rec in ipairs(finds) do
+			for _, pt in ipairs(rec.points or {}) do
+				local _, y = C.WorldToMap(c, pt.x, pt.y, 1413)
+				n = n + 1
+				if y and (not south or y > south) then south = y end
+			end
+		end
+		local legs, L, ci = {}, N.GetRoute()
+		for i = ci or 1, #(L or {}) do legs[#legs + 1] = L[i].kind .. "|" .. tostring(L[i].label) end
+		emit({ south = south, points = n, legs = legs })"#,
+		true,
+	);
+	let legs = strs(&out["legs"]);
+	assert!(legs.last().is_some_and(|x| x == "walk|Walton"), "the route ends with the walk to Walton ({legs:?})");
+	assert!(f(&out["points"]) > 0.0, "the arrow searched its walk");
+	assert!(f(&out["south"]) >= 13.0, "the walk turns south to the switchback first (southmost {})", out["south"]);
+}
+
 // #1543's near walk where the walking engine finds it long or none (the 0.3.7 border sweep's worst pairs): the route
 // keeps the crossing's way, as before #1543. A Horde player at level 30 on Alterac's ridge, 395 yd above a goal in the
 // Undercity (no walk joins them: the unchecked near walk flipped the arrow 127 times between itself and the crossing),
