@@ -1803,7 +1803,7 @@ T.Register({
 				[15] = L["Unbridled Wrath means more rage from every swing, which matters most with two fast weapons."],
 				[20] = L["Piercing Howl stops runners and lets you walk away from a bad pull."],
 				[25] = L["Enrage raises your physical damage after you are hit, so it is often up while you take hits."],
-				[30] = L["Death Wish is a big cooldown for elites and a fear breaker; it also opens Flurry."],
+				[30] = L["Death Wish is a big cooldown for elites and a fear breaker. It also opens Bloodthirst."],
 				[31] = L["Dual Wield Specialization: more off-hand damage and rage now that you carry two weapons."],
 				[41] = L["Bloodthirst is the capstone: a strong instant attack and a little run speed between mobs."],
 				[42] = L["Gore Drinker turns your rage cooldowns into self-healing, so you rest less."],
