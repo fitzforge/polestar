@@ -424,4 +424,25 @@ mod tests {
 		assert_eq!(checkout_root(&crate_dir), Some(other.path().canonicalize().unwrap()));
 		assert_eq!(checkout_root(other.path().parent().unwrap()), None);
 	}
+
+	/// The crate's own sources never reach the checkout through the folder they were built in (the manifest
+	/// folder cargo hands the compiler): a test binary built in one checkout and run in another would read the
+	/// first one's files. Everything goes through `root()`.
+	#[test]
+	fn no_source_reads_the_checkout_through_the_folder_it_was_built_in() {
+		let needle = concat!("CARGO_", "MANIFEST_DIR");
+		let crate_dir = super::root().join("rust/crates/forge-addontest");
+		let (mut dirs, mut hits) = (vec![crate_dir.join("src"), crate_dir.join("tests")], Vec::new());
+		while let Some(dir) = dirs.pop() {
+			for path in std::fs::read_dir(&dir).unwrap().map(|e| e.unwrap().path()) {
+				if path.is_dir() {
+					dirs.push(path);
+				} else if path.extension().is_some_and(|x| x == "rs") && std::fs::read_to_string(&path).unwrap().contains(needle) {
+					hits.push(path.strip_prefix(&crate_dir).unwrap().display().to_string());
+				}
+			}
+		}
+		hits.sort();
+		assert!(hits.is_empty(), "read the checkout through run::root(), not the build-time manifest folder: {hits:?}");
+	}
 }
