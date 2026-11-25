@@ -700,15 +700,21 @@ pub fn publish(checkout: &Path, from: &Path, data: &Path) -> Result<Published, S
 		}
 	}
 	// The ids the races' copies replaced and the lead-ins merged away, for saved tabs
-	// (docs/PACK_FORMAT.md, "Retired guides").
+	// (docs/PACK_FORMAT.md, "Retired guides"). An entry with `{ "id", "to" }` (where a guide went) is kept as written.
 	let retired_file = guides.join("retired.json");
-	let mut retired: std::collections::BTreeSet<String> =
-		if retired_file.is_file() { serde_json::from_slice(&read(&retired_file)?).map_err(|e| format!("{}: {e}", retired_file.display()))? } else { Default::default() };
-	retired.extend(published.split.iter().map(|(id, _)| id.clone()));
-	retired.extend(published.merged.iter().flat_map(|(_, ids)| ids.iter().cloned()));
-	retired.retain(|id| !out.contains_key(&format!("{id}.guide")));
+	let old: Vec<Value> = if retired_file.is_file() { serde_json::from_slice(&read(&retired_file)?).map_err(|e| format!("{}: {e}", retired_file.display()))? } else { Default::default() };
+	let mut retired: BTreeMap<String, Value> = BTreeMap::new();
+	for e in old {
+		let id = e.as_str().or_else(|| e.get("id").and_then(Value::as_str)).ok_or_else(|| format!("{}: an entry is not a guide id", retired_file.display()))?.to_string();
+		retired.insert(id, e);
+	}
+	for id in published.split.iter().map(|(id, _)| id).chain(published.merged.iter().flat_map(|(_, ids)| ids.iter())) {
+		retired.entry(id.clone()).or_insert_with(|| Value::String(id.clone()));
+	}
+	retired.retain(|id, _| !out.contains_key(&format!("{id}.guide")));
 	if !retired.is_empty() {
-		write(&retired_file, (serde_json::to_string_pretty(&retired).map_err(|e| e.to_string())? + "\n").as_bytes())?;
+		let list: Vec<&Value> = retired.values().collect();
+		write(&retired_file, (serde_json::to_string_pretty(&list).map_err(|e| e.to_string())? + "\n").as_bytes())?;
 	}
 	let doc = json!({
 		"about": "Guides written by forge build (`forge guide publish`), each with its SHA-256. Never edit them, or this file: CI fails a pull request that does (tests/generated-guides.test.js). docs/FORGE.md, \"Fixing a generated guide\", says where a fix goes.",

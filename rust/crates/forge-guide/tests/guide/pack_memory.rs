@@ -35,7 +35,7 @@ fn our_pack_ships_each_faction_s_guides_in_a_part_and_packs_spawn_spots_in_forma
 	let files = pack_files(&guides(), &manifest("guides", "Polestar_Guides"), &fixture_data());
 	let main = &files["Guides.lua"];
 	assert_match(main, r#"id = "forever/class/any""#);
-	assert_no_match(main, "forever/alliance/elwynn|forever/horde/durotar");
+	assert_no_match(main, r#"id = "forever/(alliance/elwynn|horde/durotar)""#);
 	assert_match(&files["../Polestar_Guides_Alliance/Guides.lua"], r#"id = "forever/alliance/elwynn""#);
 	assert_no_match(&files["../Polestar_Guides_Alliance/Guides.lua"], "forever/horde|forever/class");
 	assert_match(&files["../Polestar_Guides_Horde/Guides.lua"], r#"id = "forever/horde/durotar""#);
@@ -52,6 +52,26 @@ fn our_pack_ships_each_faction_s_guides_in_a_part_and_packs_spawn_spots_in_forma
 	assert_eq!(needs(PACKED_FORMAT), Some("0.3.0"));
 	assert_match(&files["Polestar_Guides.toc"], r"## X-Polestar-Format: 8\n## X-Polestar-Needs: 0\.3\.0\n");
 	assert_match(&files["Pack.lua"], r"format = 8,");
+}
+
+// The ids each faction part registers are listed in the pack's Guides.lua (Polestar.PartGuides), per faction
+// and per faction and race, so a saved tab loads the other faction's part only for a guide it has (#3924). A
+// community pack has no faction part and no index.
+#[test]
+fn our_pack_lists_each_faction_part_s_guide_ids_in_its_guides_lua_3924() {
+	let mut list = guides();
+	let warrior = guide("forever/alliance/human-warrior", Some("Alliance"));
+	warrior.set("races", v(&json!(["Human"])));
+	warrior.set("classes", v(&json!(["Warrior"])));
+	list.push(warrior);
+	let files = pack_files(&list, &manifest("guides", "Polestar_Guides"), &fixture_data());
+	assert_match(
+		&files["Guides.lua"],
+		r#"\nif Polestar\.PartGuides then Polestar\.PartGuides\("guides", \{\n\t\["Alliance"\] = "\\nforever/alliance/elwynn\\n",\n\t\["Alliance_Human"\] = "\\nforever/alliance/human-warrior\\n",\n\t\["Horde"\] = "\\nforever/horde/durotar\\n",\n\}\) end\n"#,
+	);
+	assert_match(&files["../Polestar_Guides_Alliance/Guides_Human.lua"], r#"id = "forever/alliance/human-warrior""#);
+	let community = pack_files(&list, &manifest("joe-routes", "PolestarPack_JoesRoutes"), &fixture_data());
+	assert_no_match(&community["Guides.lua"], "PartGuides");
 }
 
 #[test]
