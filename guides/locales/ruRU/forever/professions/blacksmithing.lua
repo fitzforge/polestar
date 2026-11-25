@@ -128,7 +128,6 @@ return {
 	-- {spell:3320} Rough Grinding Stone
 	["{spell:3320} to 83"] = "{spell:3320} до 83",
 	-- {spell:3320} Rough Grinding Stone · {item:2835} Rough Stone
-	-- was: ["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320}: зеленый на 75 (желтый 45, зеленый 65, серый 85): около 58 изготовлений до 83. Каждое требует 2 {item:2835}. По два {item:2835} на изготовление. Точильные камни – детали для более поздних планов; лишние продаются торговцам."
 	["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors. If you got here without learning {spell:3320}, learn it now: an earlier step teaches it."] = "{spell:3320}: зеленый на 75 (желтый 45, зеленый 65, серый 85): около 58 изготовлений до 83. Каждое требует 2 {item:2835}. По два {item:2835} на изготовление. Точильные камни – детали для более поздних чертежей; лишние продаются торговцам. Если вы дошли сюда, не выучив {spell:3320}, выучите сейчас: его учит один из прошлых шагов.",
 
 	-- Step 28: Runed Copper Belt to 100

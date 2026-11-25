@@ -269,7 +269,6 @@ return {
 	-- {spell:3176} Lesser Troll's Blood Elixir
 	["{spell:3176} to 160"] = "{spell:3176} 到160",
 	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial
-	-- was: ["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176}在150時為黃色（150黃、170綠、190灰）：大約12次製作可到160。每次需要2個{item:2453}、2個{item:2450}和1個{item:3372}。每次兩個{item:2453}和兩個{item:2450}；{item:2453}生長在15-30地區。"
 	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. If you got here without learning {spell:3176}, learn it now: an earlier step teaches it."] = "{spell:3176}在150時為黃色（黃色150，綠色170，灰色190）：大約製作12次到160。每次需要2個{item:2453}、2個{item:2450}和1個{item:3372}。每次兩個{item:2453}和兩個{item:2450}；{item:2453}生長在15-30級地區。如果你到這裡還沒學會{spell:3176}，現在就學：之前的步驟會教。",
 
 	-- Step 55: Alchemy recipes at 160
@@ -356,7 +355,6 @@ return {
 	-- {item:8951} Elixir of Defense
 	["{item:8951} to 230"] = "{item:8951}練到230",
 	-- {item:8951} Elixir of Defense · {item:3355} Wild Steelbloom · {item:3821} Goldthorn · {item:3372} Leaded Vial · {zone:1418} Badlands
-	-- was: ["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951}在225時為黃色（215黃、235綠、255灰）：大約8次製作可到230。每次需要1個{item:3355}、1個{item:3821}和1個{item:3372}。{item:3355}和{item:3821}是30-45地區的草藥（荊棘谷、阿拉希、{zone:1418}）。"
 	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). If you got here without learning {item:8951}, learn it now: an earlier step teaches it."] = "{item:8951}在225時為黃色（黃色215，綠色235，灰色255）：大約製作8次到230。每次需要1個{item:3355}、1個{item:3821}和1個{item:3372}。{item:3355}和{item:3821}是30-45級地區的草藥（荊棘谷、阿拉希、{zone:1418}）。如果你到這裡還沒學會{item:8951}，現在就學：之前的步驟會教。",
 
 	-- Step 70: Alchemy recipes at 230

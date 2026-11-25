@@ -66,7 +66,6 @@ return {
 	["Razormane camp: {npc:3429}'s quilboar"] = "钢鬃营地：{npc:3429}的野猪人",
 	-- {npc:3429} Thork
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
-	-- was: ["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "既然在营地里：{npc:3429}要的钢鬃寻水者和钢鬃织棘者在西半部，钢鬃猎手在中部，补给箱在营地东端。\n小心：钢鬃食肉者和钢鬃狂战士（18-19级）是精英；它们站在营地东北部的补给箱旁：把野猪人一只一只地从它们身边引开。"
 	["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, and, if you took his supplies with a group, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "你在营地里时：{npc:3429}要的觅水者和织棘者在西半边，猎手在中间；如果你和队伍接了他的补给任务，补给箱在东端。\n小心：钢鬃食肉者和狂战士（18-19）是精英；它们站在营地东北部的补给箱旁：把野猪人一只只拉离它们。",
 
 	-- Step 13: Thork's supply crates
@@ -105,7 +104,6 @@ return {
 
 	-- Step 23: Razormane camp
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
-	-- was: ["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "营地里，钢鬃寻水者和钢鬃织棘者占据西半部，钢鬃猎手在中部；补给箱在营地东端。\n这里的陆行鸟也算在喙的数量里。\n小心：钢鬃食肉者和钢鬃狂战士（18-19级）是精英；它们站在营地东北部的补给箱旁：把野猪人一只一只地从它们身边引开。"
 	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates (with a group only) sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "营地里，觅水者和织棘者占据西半边，猎手在中间；补给箱（仅限组队）在东端。\n这里的平原陆行鸟也算在鸟喙里。\n小心：钢鬃食肉者和狂战士（18-19）是精英；它们站在营地东北部的补给箱旁：把野猪人一只只拉离它们。",
 
 	-- Step 25: Finish the Plainstrider Beaks
