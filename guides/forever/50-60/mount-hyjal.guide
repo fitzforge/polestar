@@ -28,8 +28,10 @@ next forever/alliance/50-60/06-silithus
 # where the Hearthstone is bound) with the parts order from Everlook on the way back.
 # Offered only after another quest is handed in (the recordings): Violence Into
 # Verdure after Seeds for a New Season, The Bounty of Nature after Hope for Hatchlings, Rites of Respect after The
-# Bounty of Nature, Ancient Allies after Rites of Respect; Bark Bite after Leaves to Ligatures; Fine Feathered
-# Friend and The Dying Ancients after Bark Bite; Felflick's chain one quest at a time; A Revenge Now Bitter after
+# Bounty of Nature, Ancient Allies after Rites of Respect; Bark Bite after Leaves to Ligatures; The Dying Ancients
+# after Bark Bite; Fine Feathered Friend after Bark Bite and Celastrus the Bitter (#4003: 19 of 19 recorded players
+# took it only once Celastrus was handed in, and Fraxinus offered The Dying Ancients but not it before that, so a
+# player who skips Celastrus's group choice never gets it); Felflick's chain one quest at a time; A Revenge Now Bitter after
 # Amalgamated Marrow; A Prolific Source and Prickly Pinecones after Notation, Notation, Notation; The Experimental
 # Method after A Prolific Source; The Western Post after The Experimental Method; An Oldstone But An Old Friend
 # after The Dying God; Rubble Rummage after Crate Expectations; The Capricious Corvid and Taking to New Heights
@@ -168,11 +170,15 @@ step The ancients' outpost
   accept 91770                          -- Bark Bite
   complete 91770 @53.4,84.3             -- put the poultice on Fraxinus
   turnin 91770
-  accept 95766                          -- Fine Feathered Friend
 
 step Thylaen
   when onquest 91923
   turnin 91923
+
+step Fine Feathered Friend
+  when turnedin 91923
+  tip With Celastrus the Bitter handed in, Fraxinus offers Fine Feathered Friend: the Curious Crow at Felblood Scar takes it later in this guide.
+  accept 95766                          -- Fine Feathered Friend
 
 step The Dying Ancients
   when group 92959

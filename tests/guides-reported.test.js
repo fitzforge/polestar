@@ -19149,6 +19149,17 @@ test('forever/50-60/mount-hyjal.guide: Blademaster\'s Bonfires are lit before th
 	assert.deepEqual([list[south].goal.quest, list[east].goal.quest], [96959, 96959]);
 });
 
+// #4003 (as210558, 0.4.2.2): Fraxinus offers Fine Feathered Friend only once Celastrus the Bitter (a group choice) is
+// handed in as well as Bark Bite (players' recordings: 19 of 19 took it after both). The accept had sat with Bark
+// Bite's hand-in, before Thylaen's, and held a player who skipped Celastrus there. Its own step waits for Celastrus.
+test('forever/50-60/mount-hyjal.guide: Fine Feathered Friend waits for Celastrus the Bitter (#4003)', { skip }, () => {
+	const list = goals('forever/50-60/mount-hyjal.guide');
+	const { step, s } = list[at(list, 'accept 95766', is('accept', 95766))];
+	assert.ok((step.when || []).some((p) => p.k === 'turnedin' && !p.neg && [].concat(p.q).includes(91923)), '`when turnedin 91923`');
+	assert.ok(list[at(list, 'turnin 91923', is('turnin', 91923))].s < s, 'after Thylaen takes Celastrus');
+	assert.ok(list[at(list, 'turnin 91770', is('turnin', 91770))].s < s, 'after Bark Bite');
+});
+
 // #3192 (PierreAnken): Stinky Ignatz offered nothing at 35; nobody took Stinky's Escape below 36 in the recordings.
 // #3347 (Cobra), #2755 (Gindry): Get Me Out of Here!'s six attackers are said up front, and a player who skips the
 // escort is not sent to Hornizz for its hand-in.
