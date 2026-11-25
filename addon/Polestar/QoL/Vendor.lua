@@ -6,8 +6,10 @@
 -- swapped in the meantime is never sold: only Poor-quality items with a
 -- vendor price ever are, and the items the player marked as junk
 -- (QoL/Marks.lua), of any quality; never one marked to keep, one the
--- guide keeps for a later step (QoL.Kept, QoL/Keep.lua) or one a quest
--- still needs (QuestDB.IsItemNeeded). Repair runs after
+-- guide keeps for a later step (QoL.Kept, QoL/Keep.lua), a grey one a
+-- guide ahead on the route uses (Engine.ItemGuides: the tooltip's "Don't
+-- sell, used in guides"; #3979, ten Singing Blue Crystals sold while another
+-- tab was open) or one a quest still needs (QuestDB.IsItemNeeded). Repair runs after
 -- the selling (the sale pays for it);
 -- with qol.repairGuild and a rank that may (CanGuildBankRepair), it repairs the
 -- way the merchant's guild repair button does: RepairAllItems(true), the
@@ -54,6 +56,9 @@ local function junkAt(bag, slot)
 	if Q and Q.IsItemNeeded and Q.IsItemNeeded(id) then return nil end -- a quest still needs it
 	if Client.SlotQuest(bag, slot) then return nil end -- a quest's item or a quest starter (#1557)
 	if info.quality ~= Client.QUALITY_POOR and not Marks.Junk(id) then return nil end
+	-- A grey item a guide ahead uses is kept; one the player marked as junk goes.
+	local E = ns.Engine
+	if not Marks.Junk(id) and E and E.ItemGuides and E.ItemGuides(id) then return nil end
 	local price = Client.SellPrice(id)
 	if not price or price <= 0 then return nil end
 	return id, info.stackCount or 1, price
