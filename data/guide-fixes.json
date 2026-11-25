@@ -18994,6 +18994,18 @@
 				{ "kind": "in-game-check", "ref": "#4013 (asdmasa): /polestar report at step 12 'Go to Gol'dir' with 503 hidden (needs The Rescue) and 557 Bracers of Binding in the log" }
 			],
 			"issue": 4013
+		},
+		{
+			"id": "3983-shadowprey-drulzegar-first",
+			"faction": "Horde",
+			"at": { "quest": 5381, "goal": "accept", "guide": "forever/horde/30-40/04-dustwallow-marsh" },
+			"follows": { "quest": 6143, "goal": "accept" },
+			"note": "#3983: off the Shadowprey flight master (21.6,74) the stop took Taiga Wisemane (25.7,68.2) first, then Drulzegar Skraghook on the docks (23.2,72.9), then Aka'rai beside Taiga (25.3,67.2) on the way out east: the village crossed three times, about 300 yards more than Drulzegar, Taiga, Aka'rai. Drulzegar first.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#3983 (EmberVixen): docks, far side, docks, far side again" },
+				{ "kind": "client", "ref": "TaxiNodes: Shadowprey Village flight master at 21.6,74 (map 1443)" }
+			],
+			"issue": 3983
 		}
 	]
 }

@@ -19763,3 +19763,15 @@ test("forever/horde/30-40/05-arathi-highlands.guide: asdmasa's report: the walk 
 	assert.ok(walk.goals.length && walk.goals.every((g) => g.t === 'goto'), `the step before Gol'dir is the walk there (${walk.title})`);
 	assert.ok(holdsQuest(walk, 503), 'the walk shows only with Gol\'dir in the log');
 });
+
+// #3983 (EmberVixen, 0.4.2.2): off the Shadowprey flight master the stop took Taiga Wisemane at the village's far
+// end, back to Drulzegar Skraghook on the docks, then out past Taiga again to Aka'rai. Drulzegar, by the flight
+// master, comes first; Taiga and Aka'rai, side by side, on the way out east (guide-fixes 3983).
+test("forever/horde/30-40/04-dustwallow-marsh.guide: EmberVixen's report: Shadowprey is walked docks first, then Taiga and Aka'rai (#3983)", { skip }, () => {
+	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
+	const drulzegar = at(list, 'accept 6143 (Drulzegar Skraghook)', is('accept', 6143));
+	const taiga = at(list, 'accept 5381 (Taiga Wisemane)', is('accept', 5381));
+	const akarai = at(list, 'accept 97265 (Aka\'rai)', is('accept', 97265));
+	assert.ok(drulzegar < taiga && taiga < akarai, 'Drulzegar, then Taiga, then Aka\'rai');
+	assert.ok(yards(list[taiga].goal, list[akarai].goal) < yards(list[drulzegar].goal, list[akarai].goal), 'Taiga stands nearer Aka\'rai than the docks do');
+});
