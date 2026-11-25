@@ -123,12 +123,16 @@ fn sunken_treasure_escort_is_independent_of_the_reef_group_choice() {
 	for goal in ["accept 663", "turnin 663", "accept 665", "complete 665", "turnin 665"] {
 		assert!(!step_with(goal).contains("when group"), "{goal} is available on the solo route");
 	}
-	assert!(step_with("complete 665").contains("goto 33.9,80.6"));
+	let escort = step_with("complete 665");
+	assert!(escort.contains("goto 33.9,80.6"));
+	assert!(escort.contains("Two frost-immune level 40 water elementals") && escort.contains("at the cave mouth"));
 	for goal in ["accept 662", "accept 664", "accept 666", "turnin 662", "turnin 664", "turnin 666", "accept 669"] {
 		assert!(step_with(goal).contains("when group 664"), "{goal} stays with the reef");
 	}
 	assert!(!text.contains("when group 665"));
-	assert!(!text.contains("is a group stop: skip it if you are alone"));
+	assert!(text.contains("you can escort the professor solo. Group up for the naga"));
+	let route_fixes = document("data/route-fixes.json");
+	assert!(!route_fixes["deliberate"]["group"].as_array().unwrap().iter().any(|row| row["q"] == 665));
 	let once = tree.clone();
 	assert!(apply_fixes(&mut tree).iter().all(|r| r.state == "redundant"));
 	assert_eq!(tree, once);
