@@ -1205,7 +1205,10 @@ gets no `spots`, except an NPC who walks around:
   ```
 
   Standing at a point for a few seconds with nothing found moves the arrow to
-  the next, for these goals as for a kill.
+  the next, for these goals as for a kill. Channelling a spell there (Fishing
+  is one) counts as working the point, like a fight: a round of fishing stands
+  holds the arrow at the stand while you fish, though most catches raise no
+  skill, and moves on once you walk to the next.
 
 See docs/ARCHITECTURE.md, Smart logic, "Spawn areas".
 

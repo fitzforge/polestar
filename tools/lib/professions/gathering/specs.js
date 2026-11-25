@@ -9,6 +9,7 @@ const abundance = require('./abundance');
 const { SKINNING_POINTS } = require('./skinning');
 const { GATHERING_NOTE } = require('./notes');
 const fishing = require('./fishing');
+const fishingCooking = require('./fishing-cooking');
 const secondary = require('./secondary');
 const R = require('./route');
 const { money } = require('./common');
@@ -274,6 +275,6 @@ const skinning = {
 	],
 };
 
-const SPECS = [mining, herbalism, skinning, fishing, secondary.cooking, secondary.firstAid];
+const SPECS = [mining, herbalism, skinning, fishing, secondary.cooking, secondary.firstAid, fishingCooking];
 
 module.exports = { SPECS };
