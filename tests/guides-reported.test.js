@@ -19095,12 +19095,29 @@ test('What Is Love?: the figurine steps say to throw the lit torch onto the cart
 	}
 });
 
+// The committed guides predate the fix until Forge is run. Apply the checkout's record in memory if needed,
+// as the writer test does against the seed, then compile the hand-in the player will see.
 test('Riverglades (#3960): Old Rot-Chum is only handed in once the bounty is complete', { skip }, () => {
-	for (const side of ['alliance', 'horde']) {
-		const handIns = goals(`forever/${side}/40-50/01b-riverglades.guide`)
-			.filter(({ goal }) => goal.t === 'turnin' && goal.quest === 95120);
+	const { fixes } = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8'));
+	data = data || loadData(DATA);
+	for (const faction of ['Alliance', 'Horde']) {
+		const side = faction.toLowerCase();
+		const guide = `forever/${side}/40-50/01b-riverglades`;
+		const record = fixes.find((f) => f.faction === faction && f.at?.guide === guide &&
+			f.at.quest === 95120 && f.at.goal === 'turnin' && f.when === 'complete 95120');
+		assert.ok(record, `${side}: the hand-in has a completion record`);
+		const file = path.join(OFFICIAL_DIR, `${guide}.guide`);
+		const source = fs.readFileSync(file, 'utf8').replace(/\r\n/g, '\n');
+		const gate = `  when ${record.when}`;
+		const text = source.split(/(?=^step )/m).map((step) => {
+			if (!/^  turnin 95120(?:\s|$)/m.test(step) || step.split('\n').includes(gate)) return step;
+			return step.replace(/^step [^\n]*\n(?:  (?:only|zone|when) [^\n]*\n)*/, (header) => `${header}${gate}\n`);
+		}).join('');
+		const { guides } = compileSources([{ file, text }], data);
+		assert.equal(guides.length, 1, `${side}: the guide compiles`);
+		const handIns = guides[0].steps.filter((step) => step.goals.some(is('turnin', 95120)));
 		assert.ok(handIns.length, `${side}: the hand-in is still on the route`);
-		for (const { step } of handIns) {
+		for (const step of handIns) {
 			for (const kind of ['onquest', 'complete']) {
 				assert.ok((step.when || []).some((p) => p.k === kind && !p.neg && [].concat(p.q).includes(95120)),
 					`${side}: the hand-in requires ${kind} 95120`);
