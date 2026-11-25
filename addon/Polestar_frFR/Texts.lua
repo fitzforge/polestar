@@ -8058,7 +8058,6 @@ t.guides["forever/horde/50-60/01-un-goro-crater"] = (function() return {
 		["{npc:5594}, inside"] = "{npc:5594}, à l'intérieur",
 		["{npc:7825} stands in the {object:36082}."] = "{npc:7825} se tient dans le {object:36082}.",
 		["{npc:7876} stands beside the wind rider master."] = "{npc:7876} se tient à côté du maître des coursiers du vent.",
-		["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}, l'Apothicarium : les fioles se remplissent plus tard en {zone:1447}",
 		["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}, au fond de la grotte ; sous terre",
 		["{npc:9117}, below ground"] = "{npc:9117}, sous terre",
 		["{npc:9166} (50-52) fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for {npc:9998}, and {npc:9997}'s sign wants ten of them. Leave the {npc:9167} over the west for the pylon loop."] = "Les {npc:9166} (50-52) survolent l'est du cratère, des pentes sous le refuge jusqu'au sud ; leurs écailles palmées sont pour {npc:9998}, et le panneau de {npc:9997} en veut dix. Laissez les {npc:9167} de l'ouest pour la boucle des pylônes.",

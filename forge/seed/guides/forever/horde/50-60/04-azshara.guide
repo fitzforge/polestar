@@ -100,10 +100,14 @@ step Valormok
   accept 3505
 
 step Ruins of Eldarath
-  tip Fill Cuely's four vials at the tide pools on the shore, from Southridge Beach north up the coast; Spitelash naga patrol between them.
+  tip Open Cuely's Box of Empty Vials in your bags for the four labelled vials. The tide pools cannot be clicked: stand in each pool and use its own vial from your bags, from Southridge Beach north up the coast; Spitelash naga patrol between them. No vials? Abandon the quest and take it again from Chemist Cuely in the Undercity.
+  use 10687 quest 3568.1 @48.0,60.6 map 1447
   collect 10691 quest 3568.1 @48.0,60.6 map 1447 -- Filled Vial Labeled #1: the tide pool on Southridge Beach
+  use 10688 quest 3568.2 @48.0,51.2 map 1447
   collect 10692 quest 3568.2 @48.0,51.2 map 1447 -- #2, north along the shore
+  use 10689 quest 3568.3 @48.7,48.4 map 1447
   collect 10693 quest 3568.3 @48.7,48.4 map 1447 -- #3
+  use 10690 quest 3568.4 @47.4,46.3 map 1447
   collect 10694 quest 3568.4 @47.4,46.3 map 1447 -- #4
 
 step Thalassian Base Camp
