@@ -417,6 +417,11 @@ your request matches it; to be sure, name it: "use polestar-triage on #123".
 
 - Base branch: see [Branches](#branches).
 - One change per commit.
+- Each commit's author and committer email is your GitHub noreply address
+  (GitHub Settings, Emails, "Keep my email addresses private" shows it; set it
+  in your clone with `git config user.email`). A pushed commit's email is
+  public for good, and the *Base branch* check fails a pull request with any
+  other address (commits made on GitHub's website are fine).
 - Plain messages that describe the change for the players or authors it
   affects (for example "Westfall: turn in at Sentinel Hill before the farms"), not
   how it was made.

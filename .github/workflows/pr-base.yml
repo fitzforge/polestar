@@ -9,7 +9,8 @@ name: PR base
 #
 # This runs on pull_request_target so it is a required check for forks too.
 # It never checks out or runs the pull request's code: the public-text job
-# runs the base branch's own check.
+# runs the base branch's own check, and the commit authors are read through
+# the API.
 
 on:
   pull_request_target:
@@ -24,12 +25,53 @@ concurrency:
 
 jobs:
   base:
+    # Base branch is a check next requires, so the commit authors' check sits in this job: a failure stops a
+    # merge, an automatic one included.
     name: Base branch
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    permissions:
+      pull-requests: read
     env:
       BASE: ${{ github.event.pull_request.base.ref }}
     steps:
+      # Every commit's author and committer email is a GitHub noreply address (<id>+<name>@users.noreply.github.com,
+      # GitHub's "Keep my email addresses private"; noreply@github.com commits made on the website). A pushed
+      # commit's email is public for good. The failure names the commit and which email, never the address.
+      - name: Commit authors
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          list=$RUNNER_TEMP/emails.tsv
+          gh api --paginate "repos/$REPO/pulls/$PR/commits" \
+            --jq '.[] | [.sha[0:12], (.commit.author.email // ""), (.commit.committer.email // "")] | @tsv' > "$list"
+          bad=$(awk -F'\t' '{
+            for (i = 2; i <= 3; i++) {
+              e = tolower($i)
+              if (e !~ /@users\.noreply\.github\.com$/ && e != "noreply@github.com") print $1 " " (i == 2 ? "author" : "committer")
+            }
+          }' "$list")
+          if [ -n "$bad" ]; then
+            msg="Every commit's author and committer email must be a GitHub noreply address (GitHub Settings, Emails, \"Keep my email addresses private\" shows yours). Set it with git config user.email, rewrite the branch's commits (git rebase --exec 'git commit --amend --no-edit --reset-author' followed by the branch it merges into) and force-push (CONTRIBUTING.md, \"Commits and pull requests\")."
+            while read -r sha who; do echo "::error::Commit $sha: the $who email is not a GitHub noreply address."; done <<< "$bad"
+            echo "::error::$msg"
+            {
+              echo '## Commit authors'
+              echo
+              echo "$msg"
+              echo
+              sed 's/^/- /' <<< "$bad"
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+          {
+            echo '## Commit authors'
+            echo
+            echo "All $(wc -l < "$list") commit(s) have GitHub noreply author and committer emails."
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Not main
         if: github.event.pull_request.base.ref == 'main'
         run: |
