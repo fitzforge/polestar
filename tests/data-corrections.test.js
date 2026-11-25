@@ -176,6 +176,39 @@ test('the Horde Paladin charger chain and the Alliance Darkreaver Menace have th
 	assert.equal(corrections.quests[97169].set.classes, 64, 'The Darkreaver Menace 97169 is the Shaman\'s');
 });
 
+// #4169's hotfix build: the corrections removed the Classic Saving the Best for Last copies (8999, 9000, 9004,
+// 9006, 9007, 9011, 9013) that the Legacy Challenges guide still accepted, and the guide no longer compiled
+// ("quest 8999 is not in data"). No guide (guides/, experimental/) may accept, turn in or name in a `quest N`
+// objective a quest the corrections remove.
+test('no guide accepts, turns in or works on a quest the corrections remove (#4169)', () => {
+	const removed = new Set(Object.entries(corrections.quests).filter(([, e]) => e && e.remove).map(([id]) => Number(id)));
+	const root = path.join(__dirname, '..');
+	const files = [];
+	const walk = (dir) => {
+		if (!fs.existsSync(dir)) return;
+		for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+			const p = path.join(dir, e.name);
+			if (e.isDirectory()) walk(p);
+			else if (e.name.endsWith('.guide')) files.push(p);
+		}
+	};
+	walk(path.join(root, 'guides'));
+	walk(path.join(root, 'experimental'));
+	const bad = [];
+	for (const file of files) {
+		fs.readFileSync(file, 'utf8').split('\n').forEach((line, i) => {
+			const code = line.split('--')[0];
+			if (code.trimStart().startsWith('#')) return;
+			for (const m of code.matchAll(/^\s*(?:accept|turnin)\s+(\d+)|\bquest\s+(\d+)/g)) {
+				const id = Number(m[1] || m[2]);
+				if (removed.has(id)) bad.push(`${path.relative(root, file)}:${i + 1}: ${id}`);
+			}
+		});
+	}
+	assert.ok(files.length > 100, 'the guides are read');
+	assert.deepEqual(bad, []);
+});
+
 test('the overlay takes mechanics flat or under quests; mechanics 603 and 1064 stay private', () => {
 	const out = overlayCorrections({ mechanics: {} }, { mechanics: { quests: { 603: { note: 'nested' } }, 1064: { note: 'flat' } } });
 	assert.deepEqual(Object.keys(out.mechanics).sort(), ['1064', '603']);
