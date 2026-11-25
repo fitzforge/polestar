@@ -1867,13 +1867,28 @@ local function current()
 		and (cache.reason ~= "combat" or ns.Compat.InCombat()) then return cache end
 	local saved = normalizeItemFilters(savedState)
 	local opts = listOptions(saved)
+	-- Slot and Stat hold only in gear views (Items, Everything). With either
+	-- set, the item-backed kinds across that line are counted once more with
+	-- the filters their own view uses, so each sidebar count is the total its
+	-- row opens. Everything's total and the Items tree count as gear views.
+	local gear, otherOpts, otherCounts, otherKinds = gearKind(kind), nil, nil, nil
+	if saved.slot or saved.stat then
+		otherOpts, otherCounts, otherKinds = {}, {}, {}
+		for key, value in pairs(opts) do otherOpts[key] = value end
+		otherOpts.filters = LK.SearchFilters(saved, category, gear and "mount" or "item")
+		for _, k in ipairs(kinds()) do
+			local spec = KIND[k.key]
+			if spec and spec.item and gearKind(k.key) ~= gear then otherKinds[k.key] = true end
+		end
+	end
 	local counts, before, list = {}, {}, {}
 	local filterData, classDormant, categoryTotals, syntaxError
-	local function mergeInfo(info)
+	-- gearSide: the info was counted with Slot and Stat applied.
+	local function mergeInfo(info, gearSide)
 		if not info then return end
 		filterData = filterData or info.filtersAvailable
 		classDormant = classDormant or info.classFilterDormant
-		categoryTotals = info.categoryTotals or categoryTotals
+		if gearSide or not otherOpts then categoryTotals = info.categoryTotals or categoryTotals end
 		for k, n in pairs(info.preFilterCounts or {}) do before[k] = n end
 	end
 	if query ~= "" then
@@ -1884,21 +1899,37 @@ local function current()
 		end
 		local info
 		list, counts, info, syntaxError = search(query, nil, opts)
-		mergeInfo(info)
+		mergeInfo(info, gear)
+		if otherOpts and not syntaxError then
+			-- One counting pass for the other side. Outside gear views it
+			-- covers every item-backed kind: Everything's total needs them all.
+			local only = {}
+			for _, k in ipairs(kinds()) do
+				local spec = KIND[k.key]
+				if spec and spec.item and (not gear or otherKinds[k.key]) then only[k.key] = true end
+			end
+			otherOpts.limit = 0
+			local _, other, otherInfo = search(query, only, otherOpts)
+			mergeInfo(otherInfo, not gear)
+			for k in pairs(only) do otherCounts[k] = other[k] or 0 end
+		end
 	else
 		local S = ns.Search
 		if kind ~= "all" and S and S.Browse then
 			opts.limit = PAGE
 			local info
 			list, counts[kind], info = S.Browse(kind, opts)
-			mergeInfo(info)
+			mergeInfo(info, gear)
 		end
 		if S and S.BrowseCount then
 			for _, k in ipairs(kinds()) do
-				if counts[k.key] == nil then
-					local info
+				local info
+				if otherKinds and otherKinds[k.key] then
+					otherCounts[k.key], info = S.BrowseCount(k.key, otherOpts)
+					mergeInfo(info, not gear)
+				elseif counts[k.key] == nil then
 					counts[k.key], info = S.BrowseCount(k.key, opts)
-					mergeInfo(info)
+					mergeInfo(info, gear)
 				end
 			end
 		end
@@ -1910,13 +1941,19 @@ local function current()
 	end
 	local waiting = reason == "loading" or reason == "notloaded" or reason == "combat"
 	if not loaded and query == "" and kind ~= "guide" then counts[kind] = nil end
+	-- The sidebar's counts: each kind with the filters of its own view.
+	local navCounts = {}
+	for k, n in pairs(counts) do navCounts[k] = n end
+	if otherKinds then
+		for k in pairs(otherKinds) do navCounts[k] = otherCounts[k] end
+	end
 	-- Search's pre-filter counts include the visibility switches. For a kind
 	-- they might have emptied, also ask for its candidates with both off.
 	if loaded and not syntaxError and (opts.hideRetired or opts.hideNoSource) then
 		local missing = {}
 		for _, k in ipairs(kinds()) do
 			local spec = KIND[k.key]
-			if spec and spec.item and (before[k.key] or counts[k.key] or 0) == 0 then missing[k.key] = true end
+			if spec and spec.item and (before[k.key] or navCounts[k.key] or 0) == 0 then missing[k.key] = true end
 		end
 		if next(missing) then
 			opts.hideRetired, opts.hideNoSource, opts.categoryTotals = false, false, false
@@ -1942,11 +1979,18 @@ local function current()
 	if not tree then category = nil end
 	local total = 0
 	if query ~= "" then
-		for _, n in pairs(counts) do total = total + n end
-		if categoryTotals then total = total - (counts.item or 0) + categoryTotals.root end
+		-- Everything's total counts with Slot and Stat, as Everything lists.
+		local gearCounts = counts
+		if otherCounts and not gear then
+			gearCounts = {}
+			for k, n in pairs(counts) do gearCounts[k] = n end
+			for k, n in pairs(otherCounts) do gearCounts[k] = n > 0 and n or nil end
+		end
+		for _, n in pairs(gearCounts) do total = total + n end
+		if categoryTotals then total = total - (gearCounts.item or 0) + categoryTotals.root end
 	end
 	cache = { query = query, kind = kind, category = category, gen = LK.gen, list = list, counts = counts,
-		total = total, tree = tree, categoryTotals = categoryTotals, loaded = loaded, reason = reason, waiting = waiting,
+		navCounts = navCounts, total = total, tree = tree, categoryTotals = categoryTotals, loaded = loaded, reason = reason, waiting = waiting,
 		before = before, filterData = loaded and filterData, classDormant = classDormant, saved = saved, savedState = savedState,
 		syntaxError = syntaxError }
 	return cache
@@ -2008,7 +2052,7 @@ function LK.Nav()
 	local tree, totals = c.tree, c.categoryTotals
 	local items = { { key = "all", label = L["Everything"], icon = "search", count = query ~= "" and c.total or nil } }
 	for _, k in ipairs(kinds()) do
-		local n, show = c.counts[k.key], false
+		local n, show = c.navCounts[k.key], false
 		if query ~= "" then
 			n = n or 0
 			show = n > 0 or (c.before[k.key] or 0) > 0 or k.key == kind

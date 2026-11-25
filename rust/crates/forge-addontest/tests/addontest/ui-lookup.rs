@@ -2156,6 +2156,52 @@ fn lookup_gear_sort_and_filters_suspend_outside_items_and_all() {
 }
 
 #[test]
+fn lookup_sidebar_counts_use_each_destinations_gear_filters() {
+	let out = run_packed_lookup(
+		&json!({ "items": {
+			"71": { "name": "Trial Axe", "quality": 3, "slot": 13, "levelsSource": "client", "statAmountSource": "client", "stats": { "31": 0 } },
+			"72": { "name": "Trial Sword", "quality": 3, "slot": 13, "levelsSource": "client", "statAmountSource": "client", "stats": { "31": 0 } },
+			"73": { "name": "Trial Mace", "quality": 3, "slot": 13, "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 100 } },
+			"74": { "name": "Trial Shield", "quality": 3, "slot": 14, "levelsSource": "client", "statAmountSource": "client", "stats": { "31": 0 } },
+			"75": { "name": "Trial A Steed", "kind": "mount", "quality": 3, "slot": 0, "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 1 } },
+			"76": { "name": "Trial Z Steed", "kind": "mount", "quality": 3, "slot": 0, "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 100 } },
+			"77": { "name": "Trial B Steed", "kind": "mount", "quality": 4, "slot": 0 }
+		} }),
+		r#"
+		LK.SetItemFilters({ quality = { 3 }, slot = 13, stat = 31 })
+		UI.ShowLookup({ query = "trial" })
+		local function navCount(key)
+			for _, row in ipairs((LK.Nav())) do if row.key == key then return row.count end end
+		end
+		local function shown() return tonumber(PolestarPicker.Subtitle:GetText():match("^(%d+)")) end
+		local function check(from, to, want, label)
+			LK.SetKind(from)
+			local count = navCount(to)
+			LK.SetKind(to)
+			assert(count == want and shown() == want,
+				string.format("%s: %s count from %s is %s, %s shows %s", label, to, from, tostring(count), to, tostring(shown())))
+		end
+		for _, q in ipairs({ "trial", "" }) do
+			type_(q); stub.advance(0.3)
+			local label = q == "" and "browse" or "query"
+			check("item", "mount", 2, label)
+			check("mount", "item", 2, label)
+			check("all", "mount", 2, label)
+			check("pet", "item", 2, label)
+		end
+		type_("trial"); stub.advance(0.3)
+		LK.SetKind("all")
+		local everything = shown()
+		LK.SetKind("mount")
+		assert(everything == 2 and navCount("all") == everything,
+			string.format("Everything shows %s, its count from Mounts is %s", tostring(everything), tostring(navCount("all"))))
+		emit(true)
+		"#,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
 fn lookup_exact_ids_and_most_order_lifetime() {
 	let out = run_packed_lookup(
 		&json!({ "items": {
