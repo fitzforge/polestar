@@ -15933,6 +15933,13 @@
 	},
 	"94893": {
 		"set": {
+			"start": {
+				"npc": [
+					257558
+				],
+				"object": [],
+				"item": []
+			},
 			"end": {
 				"npc": [
 					278088
@@ -15947,9 +15954,17 @@
 			{
 				"kind": "recording",
 				"ref": "players' recordings to 2026-11-11: 2 people accepted it, 2 handed it in"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-25: 32 of 41 people took it at Demar Brant (257558), who takes Dying Wish (94892), its prerequisite; the other accepts have no giver window recorded"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#4054 (SumnDaiy): the step's accept read 'item 266428' with no place, and the arrow had nothing to lead to"
 			}
 		],
-		"note": "Delivering Closure (94893), a Forever quest of the Riverglades: its ender, Abigail Lawson (278088), where players handed it in (the quest's own text names it)."
+		"note": "Delivering Closure (94893), a Forever quest of the Riverglades: Demar Brant (257558) in Farholde Keep gives it once Dying Wish is handed in. QuestieDB lists Marshal Ryan's Crest (266428), the item the quest delivers, as its starter, so the guide's accept had no giver to lead to (#4054). Its ender is Abigail Lawson (278088), where players handed it in (the quest's own text names it)."
 	},
 	"94894": {
 		"set": {
