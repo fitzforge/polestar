@@ -484,6 +484,7 @@ step Oran Snakewrithe
 
 step Undercity
   zone Undercity
+  tip Andron Gant stands just outside the Apothecarium, on the way to the Royal Quarter.
   accept 3568                         -- Chemist Cuely, the Apothecarium: the vials fill in Azshara later
   turnin 864                          -- Apothecary Zinge, near Cuely in the Apothecarium
   train class only Warrior,Paladin,Rogue,Priest,Mage,Warlock

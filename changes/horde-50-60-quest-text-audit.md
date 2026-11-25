@@ -7,4 +7,4 @@ section: players
   Pouch, the two halves of the Good Luck Charm), and put Jes'rimon in The Drag,
   Islen south of Ratchet, Andron Gant by the Apothecarium, Bauhaus in the Trade
   Quarter, Ortell south-east of Cenarion Hold, the Twilight Texts with the
-  cultists and Rakaiah inside Shadow Hold.
+  cultists and Rakaiah inside Shadow Hold (thanks FurkanZhlp, #3884).

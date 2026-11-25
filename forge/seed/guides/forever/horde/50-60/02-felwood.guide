@@ -141,6 +141,7 @@ step Level 53
   level 53 grind 1821                  -- grind on Carrion Lurker
 
 step Mulgris Deepriver
+  tip Mulgris waits inside the farmhouse at the Writhing Haunt, by the cauldron; his bears roam the hills north and east of it, towards the Eastern Plaguelands.
   turnin 4984
   accept 4985
 
@@ -252,7 +253,7 @@ step Southern Jaedenar
   kill 7113 quest 5155.2
 
 step A Strange Red Key
-  tip Only if a Blood Red Key dropped: use it to start the quest, then free Arko'narin in her cage in Shadow Hold, the cave at the north end of Jaedenar, and escort her out.
+  tip Escort Arko'narin: she first goes to where Lightforge and her gear are held, then out through the cave. Keep her alive: she fights beside you, and the cultists you didn't clear on the way in come at you both. Jessir Moonbow takes her report at the Emerald Sanctuary, next.
   accept 5202 optional
   turnin 5202 optional                -- Captured Arko'narin
   accept 5203 optional
@@ -285,7 +286,7 @@ step The Jaedenar moonwell
   collect 12907 quest 5157 @35.2,59.8
 
 step Rakaiah
-  tip Only if you rescued Arko'narin: the succubus Rakaiah waits in the middle of Jaedenar, beside the Remains of Trey Lightforge.
+  tip Only if Jessir Moonbow sent you after Rakaiah (the Blood Red Key's chain): on the ride north, turn west into Jaedenar and go into Shadow Hold, the cave at the back of the camp. Rakaiah (56) and the remains of Trey Lightforge are inside: kill her first, then the remains take her quest and give the next, which goes back to Jessir at the end of this guide.
   kill 9518 quest 5204 optional
   turnin 5204 optional                -- Remains of Trey Lightforge
   accept 5385 optional
@@ -323,8 +324,8 @@ step Shatter Scar Vale
   complete 5156
 
 step Irontree Woods
-  tip Follow the road north-east to Irontree Woods. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a Blood Amber; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at Bloodvenom Post and the Emerald Sanctuary take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
-  collect 11503 quest 4102
+  tip Follow the road north-east to Irontree Woods: Angerclaw Grizzlies and Felpaw Ravagers roam the woods for Talo, and their organs are Kelek's. Maybess's Blood Amber comes from the Warpwood elementals inside Irontree Cavern, next.
+  collect 11503 quest 4102 -- Below ground: from the Warpwood elementals inside Irontree Cavern
   kill 8957 quest 4120.1
   kill 8961 quest 4120.2
 

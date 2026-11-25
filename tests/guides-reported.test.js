@@ -19545,3 +19545,23 @@ test('#3927 Mount Hyjal: the Tainted Shrubbery are killed after Leaves to Ligatu
 		assert.doesNotMatch(tip, /\bkill[^.:;]*Tainted Shrubbery/i, `${step.title}: no shrub kills before the accept`);
 	}
 });
+
+// #3884 (FurkanZhlp): the Horde 50-60 steps checked against the quests: where the NPCs stand (our spawn data) and the
+// items the quests hand over. A sample of the records, as the compiled guides show them.
+test('Horde 50-60 (#3884): NPC places and quest items as the data has them', { skip }, () => {
+	const text = (list, i) => [list[i].step.note, list[i].step.tip, list[i].goal.note].flat().filter(Boolean).join(' ');
+	const felwood = goals('forever/horde/50-60/02-felwood.guide');
+	for (const q of [4300, 3541]) {
+		const t = text(felwood, at(felwood, `turnin ${q}`, is('turnin', q)));
+		assert.match(t, /The Drag/, `${q}: Jes'rimon is in The Drag`);
+		assert.doesNotMatch(t, /Jes'rimon[^.;]*Cleft of Shadow/, `${q}: not in the Cleft of Shadow`);
+	}
+	assert.match(text(felwood, at(felwood, 'Head of Magus Rimtori', (g) => g.t === 'collect' && g.item === 10597)), /Seals of the Sin'dorei[^.]*crystal/, 'Rimtori comes to the seals at a crystal');
+	const azshara = goals('forever/horde/50-60/04-azshara.guide');
+	assert.match(text(azshara, at(azshara, 'turnin 5158', is('turnin', 5158))), /south of Ratchet/, 'Islen is south of Ratchet');
+	assert.match(text(azshara, at(azshara, 'turnin 3542', is('turnin', 3542))), /Apothecarium/, 'Andron Gant is by the Apothecarium');
+	const epl = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	assert.match(text(epl, at(epl, 'brazier', (g) => g.t === 'interact' && g.quest === 5165)), /Purified Moonwell Water/, 'the braziers take the Purified Moonwell Water');
+	const silithus = goals('forever/horde/50-60/06-silithus.guide');
+	assert.match(text(silithus, at(silithus, 'turnin 3913', is('turnin', 3913))), /Conspicuous Gravestone/, 'A Grave Situation ends at the gravestone');
+});

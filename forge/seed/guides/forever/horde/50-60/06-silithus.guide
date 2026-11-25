@@ -139,7 +139,7 @@ step Wanted: Deathclasp
   accept 8283 object 180448            -- Wanted Poster: Deathclasp
 
 step Hermit Ortell
-  tip Ride north-east to Ortell's Hideout.
+  tip Ride south-east to Ortell's Hideout, in the mountains south of Southwind Village.
   turnin 8279                         -- Below ground
   accept 8287
   accept 8323
@@ -164,7 +164,7 @@ step Dearest Natalia
 
 step Twilight Base Camp
   when onquest 8318
-  tip Collect twenty Encrypted Twilight Texts from the cultists here, ten for Bor Wildmane and ten for Ortell.
+  tip Collect twenty Encrypted Twilight Texts, ten for Bor Wildmane and ten for Ortell. The Twilight Base Camp holds only elementals: the texts drop from the Twilight's Hammer cultists of the Vanguard in the far south-west, the Post in the west and the Outpost west of Cenarion Hold. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60).
   collect 20404 quest 8318.1
   collect 20404 x20                   -- ten for each quest: Bor Wildmane takes his ten before Ortell
 
@@ -233,7 +233,7 @@ step Torwa Pathfinder
   accept 4289
 
 step Lar'korwi
-  tip Lar'korwi's lair is just south of the pylon. Use Torwa's bait there; Lar'korwi is level 56 and hits hard, so start at full health.
+  tip Open Torwa's Pouch: it holds the meat and the pheromone mixture. Lar'korwi's lair is the bone-strewn valley just south of the pylon: place the meat among the bones, then use the mixture on it to call Lar'korwi. He is level 56 and hits hard, so start at full health.
   collect 11510 quest 4292
 
 step Un'Goro Crater: kill these as you meet them
@@ -328,7 +328,7 @@ step Radley and Durgen
   kill 11611 quest 6023
 
 step Northridge Lumber Camp
-  tip The lumber mill is right beside Radley: set Mickey's termite barrel down in the middle of it.
+  tip Back north-east to the Northridge Lumber Camp: knights and magi work the camp, the medics and hunters camp south of it. In the middle of the lumber mill, stand by the crate and use Mickey's Barrel of Plagueland Termites from your bags to set it on top; then click the Termite Barrel that appears: it finishes A Plague Upon Thee and gives the next part for Mickey. Careful: a Fallen Hero, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the Western Plaguelands: give it room.
   turnin 5902
   accept 6390
 

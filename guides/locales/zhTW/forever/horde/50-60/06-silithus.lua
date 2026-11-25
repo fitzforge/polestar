@@ -44,6 +44,8 @@ return {
 	["Inside"] = "在裡面",
 
 	-- Step 9: Gaeriyan
+	-- {object:148504} A Conspicuous Gravestone · {area:976} Gadgetzan · {npc:8737} Linken
+	["Alive again, go to {object:148504} in the graveyard just east of {area:976} and use it: it takes the quest. {npc:8737}'s sword goes back to {npc:8737} in Un'Goro: keep it."] = "",
 	-- {quest:3914} Linken's Sword · {npc:8737} Linken
 	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914}要交回安戈洛環形山的{npc:8737}：先留著。",
 
@@ -168,8 +170,8 @@ return {
 	["{npc:15196}, Terror of the Sands, is a level 59 elite scorpid patrolling the mountains by {npc:15190}'s satchel, at your level: a group choice. The wanted poster stands in the middle of the Hold; {npc:15182} pays out."] = "",
 
 	-- Step 34: Hermit Ortell
-	-- {area:3447} Ortell's Hideout
-	["Ride north-east to {area:3447}."] = "往東北騎到{area:3447}。",
+	-- {area:3447} Ortell's Hideout · {area:2738} Southwind Village
+	["Ride south-east to {area:3447}, in the mountains south of {area:2738}."] = "",
 
 	-- Step 35: Noggle's Lost Satchel
 	-- {npc:15196} Deathclasp
@@ -187,9 +189,9 @@ return {
 	["{npc:15170}, if Brann's letter dropped for you"] = "",
 
 	-- Step 38: Twilight Base Camp
-	-- {npc:15306} Bor Wildmane
+	-- {npc:15306} Bor Wildmane · {area:2739} Twilight Base Camp · {area:3425} Cenarion Hold
 	-- plural, as words: Encrypted Twilight Texts = {item:20404} Encrypted Twilight Text · Twilight Avengers = {npc:11880} Twilight Avenger
-	["Collect twenty Encrypted Twilight Texts from the cultists here, ten for {npc:15306} and ten for Ortell. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60)."] = "從這裡的信徒身上收集二十份暮光加密文件，十份給{npc:15306}，十份給奧泰爾。從暮光復仇者和暮光地卜師身上拿；別碰奪焰者和喚石者（59-60級）。",
+	["Collect twenty Encrypted Twilight Texts, ten for {npc:15306} and ten for Ortell. The {area:2739} holds only elementals: the texts drop from the Twilight's Hammer cultists of the Vanguard in the far south-west, the Post in the west and the Outpost west of {area:3425}. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60)."] = "",
 	-- {npc:15306} Bor Wildmane
 	["ten for each quest: {npc:15306} takes his ten before Ortell"] = "每個任務十個：{npc:15306}的那十個先於奧泰爾交",
 
@@ -244,8 +246,8 @@ return {
 	["Keep the bait for {npc:9684}'s lair, next (he is level 56)."] = "",
 
 	-- Step 52: Lar'korwi
-	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder
-	["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "{npc:9684}的巢穴就在水晶塔南邊。在那裡使用{npc:9619}的誘餌；{npc:9684}是56級且攻擊力強，滿血再開始。",
+	-- {item:11568} Torwa's Pouch · {npc:9684} Lar'korwi
+	["Open {item:11568}: it holds the meat and the pheromone mixture. {npc:9684}'s lair is the bone-strewn valley just south of the pylon: place the meat among the bones, then use the mixture on it to call {npc:9684}. He is level 56 and hits hard, so start at full health."] = "",
 
 	-- Step 53: Ringo
 	-- {npc:9999} Ringo
@@ -286,6 +288,7 @@ return {
 	-- ["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "一張撕破的卷軸在{area:2260}南邊的地穴{area:2261}入口。",
 	-- ["Andorhal watchtowers and silos"] = "安多哈爾的哨塔與穀倉",
 	-- ["Back east past the {area:202} to {area:201}, the farm under the eastern hills: {npc:11078} guards its cauldron. Kill him for the key, then use the cauldron."] = "向東經過{area:202}回到{area:201}，那是東邊丘陵下的農場：{npc:11078}守著它的大鍋。殺他拿鑰匙，然後使用大鍋。",
+	-- ["Collect twenty Encrypted Twilight Texts from the cultists here, ten for {npc:15306} and ten for Ortell. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60)."] = "從這裡的信徒身上收集二十份暮光加密文件，十份給{npc:15306}，十份給奧泰爾。從暮光復仇者和暮光地卜師身上拿；別碰奪焰者和喚石者（59-60級）。",
 	-- ["Diseased Grizzlies"] = "生病的灰熊",
 	-- ["Dithers offers {item:14619} ({quest:838}). Skip it."] = "迪瑟斯提供{item:14619}（{quest:838}）。跳過。",
 	-- ["Dredge Strikers"] = "掘泥打擊者",
@@ -316,6 +319,7 @@ return {
 	-- ["Ride east along the road to the {area:152} on the border."] = "沿著道路往東騎到邊界上的{area:152}。",
 	-- ["Ride east to {npc:1855}'s hut by the {area:2619} and hear him out."] = "往東騎到{area:2619}旁{npc:1855}的小屋，聽他把話說完。",
 	-- ["Ride north-east to {area:2276} by {area:2275}: the high elf Rangers, Pathstriders and Woodsmen guard it and the Registry lies inside. Careful: the Pathstriders are 57-58 but the Rangers reach 60: pull one at a time and take the Rangers last."] = "往東北騎到{area:2275}旁的{area:2276}：高等精靈遊俠、巡路者和樵夫守著那裡，登記簿就在裡面。小心：巡路者是57-58級，但遊俠可達60級：一次拉一隻，最後再打遊俠。",
+	-- ["Ride north-east to {area:3447}."] = "往東北騎到{area:3447}。",
 	-- ["Ride north-west to {npc:1855}'s hut."] = "往西北騎到{npc:1855}的小屋。",
 	-- ["Ride south into Andorhal. {npc:10667} waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the {item:12815} to mark it; keep to the edges of town. Use the {item:12627} by the silos in the middle of town to bring out Temporal Parasites."] = "往南騎進安多哈爾。{npc:10667}在鎮西側的旅店廢墟裡等著。帶著{item:12815}站在四座哨塔各自的門口來標記；沿著鎮的外緣走。在鎮中央的穀倉旁使用{item:12627}，引出時光寄生蟲。",
 	-- ["Ride south-east from {npc:1855} to the {area:2260} farmhouse."] = "從{npc:1855}往東南騎到{area:2260}的農舍。",
@@ -376,5 +380,6 @@ return {
 	-- ["{npc:8565} walks around {area:2276}: look inside the circle on the map"] = "{npc:8565}在{area:2276}一帶走動：檢視地圖上的圓圈範圍",
 	-- ["{npc:9117} is inside the cave."] = "{npc:9117}在洞穴裡面。",
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "{npc:9619}現在要{npc:9622}的毛皮，在東北方的洞穴裡：跳過。",
+	-- ["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "{npc:9684}的巢穴就在水晶塔南邊。在那裡使用{npc:9619}的誘餌；{npc:9684}是56級且攻擊力強，滿血再開始。",
 	-- ["{quest:105}'s shard lies at {npc:1852}'s feet, in the middle of Andorhal: he is a level 61 elite with elite Skeletal Warlords about him, a fight for a group."] = "{quest:105}的碎片就在安多哈爾中央{npc:1852}的腳邊：他是61級精英，身邊有精英骷髏督軍，需要組隊戰鬥。",
 }

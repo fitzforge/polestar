@@ -43,7 +43,6 @@ return {
 	-- Step 8: Scarlet forward camp
 	["Scarlet forward camp"] = "Campamento avanzado Escarlata",
 	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
-	-- was: ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Desde {area:152}, sigue el camino hacia el este hasta {zone:1422}. Las tiendas de la Cruzada Escarlata están justo pasada la Granja Piedra Vil, entre {area:199} y {area:200}. Incendia la tienda de mando con la {object:176092} y planta el estandarte de la Plaga. Cuidado: los Escarlata de las tiendas llegan al nivel 54 y los Invocadores lanzan hechizos; entra por el lado más cercano a la tienda de mando y deja en paz a los demás."
 	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Desde {area:152}, sigue el camino al este hacia {zone:1422}. Las tiendas de la Cruzada Escarlata están justo pasada la granja de Piedramácula, entre {area:199} y {area:200}. Quema la tienda de mando con {item:12814} y planta el estandarte de la Plaga. Cuidado: los Escarlatas alrededor de las tiendas llegan a 54 y los invocadores lanzan hechizos: entra por el lado más cercano a la tienda de mando y deja en paz a los demás.",
 
 	-- Step 9: Bulwark
@@ -65,10 +64,10 @@ return {
 	["The middle of {zone:1454}"] = "El centro de {zone:1454}",
 
 	-- Step 14: Jes'rimon
-	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
-	["{npc:8659} takes the ravasaur claws from Un'Goro; he stands in the {object:172960}, a short walk from the middle of the city."] = "{npc:8659} recoge las garras de ravasaurio de Un'Goro; está en {object:172960}, a poca distancia del centro de la ciudad.",
-	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
-	["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
+	-- {npc:8659} Jes'rimon · {object:172959} The Drag
+	["{npc:8659} takes the ravasaur claws from Un'Goro; he is in {object:172959}, upstairs in one of its tallest buildings."] = "",
+	-- {npc:8659} Jes'rimon · {object:172959} The Drag
+	["{npc:8659}, upstairs in {object:172959}"] = "",
 
 	-- Step 15: Fly to Valormok
 	-- {area:1237} Valormok
@@ -97,8 +96,9 @@ return {
 	-- Step 19: Makrinni Burrowers
 	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower
 	["Makrinni Burrowers"] = "Excavadores Makrinni",
-	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower · Highborne Treasure Fragments = {item:246684} Highborne Treasure Fragment
-	["The Makrinni Burrowers (50-51) dig in the sands just east of the ruins, on the way north-east; they and the buried caches there give up the Highborne Treasure Fragments."] = "Los Excavadores Makrinni (50-51) cavan en la arena justo al este de las ruinas, de camino al noreste; ellos y los alijos enterrados allí dan los Fragmentos de tesoro de los Altonato.",
+	-- {npc:247473} Izvi Gildfizz · {item:246683} Treasure Trowel 3000
+	-- plural, as words: Highborne Treasure Fragments = {item:246684} Highborne Treasure Fragment · Makrinni Burrowers = {npc:247470} Makrinni Burrower
+	["{npc:247473}'s {item:246683}, in your bags, digs up the Highborne Treasure Fragments: use it on the sands just east of the ruins, where the Makrinni Burrowers (50-51) dig, on the way north-east. The Burrowers and the buried caches there give fragments too."] = "",
 
 	-- Step 20: Ekkal
 	-- {zone:1447} Azshara · {npc:235903} Ekkal
@@ -135,8 +135,10 @@ return {
 	["{item:246722}, from {npc:247013}"] = "{item:246722}, de {npc:247013}",
 
 	-- Step 25: Magus Rimtori
-	-- {npc:8578} Magus Rimtori
-	["Back to the Sin'dorei Tome: hand in the seals, then use it to call {npc:8578}.\nCareful: Rimtori is level 55, and which crystal is linked to him is random: each of the other two summons a hostile infernal instead. Start at full health."] = "",
+	-- {quest:91500} An Explosive Gambit · {quest:91497} Seals of the Sin'dorei
+	["Back to the Sin'dorei Tome: hand in the seals and take {quest:91500}, which gives you the {quest:91497}. Rimtori does not come from the Tome: stand beside one of the camp's tall crystals and use the {quest:91497} from your bags; its crystal explodes and draws her. Which crystal is linked to her is random: each of the other two summons a hostile infernal instead. She is level 55: start at full health."] = "",
+	-- {quest:91497} Seals of the Sin'dorei · {npc:8578} Magus Rimtori
+	["Use the {quest:91497} from your bags beside a crystal: {npc:8578} (55) comes to the explosion and drops her head"] = "",
 	-- {quest:91538} Sin'dorei Tome of Summoning · {npc:8587} Jediga · {area:1237} Valormok
 	["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: para {npc:8587} en {area:1237}",
 
@@ -187,8 +189,8 @@ return {
 	["{area:1237} flight master"] = "Maestro de vuelo de {area:1237}",
 
 	-- Step 36: Belgrom Rockmaul
-	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {npc:3326} Zevrost · {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
-	["{npc:4485} is in the {object:172958}, {npc:3326} and {npc:8659} in the {object:172960}."] = "",
+	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:8659} Jes'rimon · {object:172959} The Drag
+	["{npc:4485} is in the {object:172958}, {npc:3326} in the {object:172960}, and {npc:8659} in {object:172959}, upstairs in one of its tallest buildings."] = "",
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow
 	["{npc:3326}, the {object:172960}"] = "{npc:3326}, {object:172960}",
 	-- {npc:8659} Jes'rimon · {npc:8587} Jediga
@@ -253,16 +255,17 @@ return {
 	["The {object:661778} stands just south of the vale, by the road north: its bauble starts a quest for {npc:9996} at {area:1997}."] = "{object:661778} está justo al sur del valle, junto al camino del norte: su chuchería inicia una misión para {npc:9996} en {area:1997}.",
 
 	-- Step 51: Irontree Woods
-	-- {area:1767} Irontree Woods · {item:11503} Blood Amber · {npc:10920} Kelek Skykeeper
-	-- plural, as words: Warpwood Moss Flayers = {npc:7100} Warpwood Moss Flayer · Felpaw Ravagers = {npc:8961} Felpaw Ravager
-	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s."] = "",
+	-- {area:1767} Irontree Woods · {npc:10920} Kelek Skykeeper · {npc:9529} Maybess Riverbreeze · {item:11503} Blood Amber · {area:1768} Irontree Cavern
+	-- plural, as words: Felpaw Ravagers = {npc:8961} Felpaw Ravager
+	["Follow the road north-east to {area:1767}: Angerclaw Grizzlies and Felpaw Ravagers roam the woods for Talo, and their organs are {npc:10920}'s. {npc:9529}'s {item:11503} comes from the Warpwood elementals inside {area:1768}, next."] = "",
 	-- {item:277958} Putrescent Bear Organs
 	["{item:277958}, from the Angerclaw bears"] = "{item:277958}, de los osos Zarpira",
 	-- {item:277959} Putrescent Wolf Organs
 	["{item:277959}, from the Felpaw wolves"] = "{item:277959}, de los lobos Zarpayel",
 
 	-- Step 52: Irontree Woods
-	["Below ground"] = "Bajo tierra",
+	-- {area:1768} Irontree Cavern
+	["Below ground: from the Warpwood elementals inside {area:1768}"] = "",
 
 	-- Step 53: Meilosh
 	-- {npc:11557} Meilosh · {zone:1448} Felwood · {quest:6031} Runecloth · {area:1769} Timbermaw Hold
@@ -294,6 +297,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "Cayó una {item:13140}: úsala para iniciar la misión y luego libera a {npc:11018} de su jaula en {area:1770}, la cueva al norte de {area:1763}.",
 	-- ["Back at {area:1762}, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation."] = "De vuelta en {area:1762}, los fúrbolgs Muertobosque (53-54) están cerca del túnel y cada muerte sube tu reputación con los Fauces de Madera.",
+	-- ["Below ground"] = "Bajo tierra",
 	-- ["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "Cuidado: los Vigías del cubil son de nivel 53-54 y los Vengadores Muertobosque de 54-55; por debajo del 50% de salud llaman a los aliados en 25 m y por debajo del 15% huyen a pedir ayuda.\nSigue matándolos hasta que uno suelte {quest:8470}, más o menos uno de cada treinta, y haz clic derecho sobre él: {npc:11558}, en {area:1769}, lo acepta cuando los Fauces de Madera te sean neutrales; ahora si ya lo son, o cuando la última guía vuelva a pasar por la cueva al 59.",
 	-- ["Cross the river east into {area:2627}, the ruined town in the north-west of the {zone:1423}. {npc:12384} sits in a hut at its edge."] = "Cruza el río al este hasta {area:2627}, el pueblo en ruinas del noroeste de {zone:1423}. {npc:12384} está sentado en una choza en sus afueras.",
 	-- ["Derrington's watchtowers, Vandis' cauldron and {npc:11615}'s barrel are done on a later visit: keep them."] = "Las atalayas de Derrington, el caldero de Vandis y el barril de {npc:11615} se hacen en una visita posterior: guárdalas.",
@@ -341,6 +345,7 @@ return {
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "El poblado de los fúrbolgs Muertobosque está justo al sur del Santuario. Cada Muertobosque que mates también sube tu reputación con {area:1769}; guarda las plumas de penacho. Sigue matándolos hasta el nivel 53.92: las siguientes entregas del Santuario y {area:1763} lo piden. O, con un grupo, haz en su lugar la mazmorra {area:1417} o la mazmorra {area:1584}.",
 	-- ["The Jadefire moonwell"] = "La poza de la luna Fuego de Jade",
 	-- ["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind."] = "Los sátiros Legashi (51-52) ocupan las colinas al norte del campamento de los elfos de sangre: {npc:235903} quiere cinco de cada tipo.",
+	-- ["The Makrinni Burrowers (50-51) dig in the sands just east of the ruins, on the way north-east; they and the buried caches there give up the Highborne Treasure Fragments."] = "Los Excavadores Makrinni (50-51) cavan en la arena justo al este de las ruinas, de camino al noreste; ellos y los alijos enterrados allí dan los Fragmentos de tesoro de los Altonato.",
 	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Las tiendas de la Cruzada Escarlata están entre {area:199} y {area:200}. Incendia la tienda de mando con la {object:176092} y planta el estandarte de la Plaga.",
 	-- ["The bears roam the hills north and east of the {area:202}."] = "Los osos deambulan por las colinas al norte y al este de {area:202}.",
 	-- ["The book lies in the ruined inn of {area:2627}; the undead in the town are 54-56, so pull them one at a time.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "El libro está en la posada en ruinas de {area:2627}; los no-muertos del pueblo son de nivel 54-56, así que atráelos de uno en uno.\nLos Montículos de termitas grandes están por todas las colinas al este de {area:2627}. Usa el {item:15042} en cada montículo que encuentres.",
@@ -368,6 +373,8 @@ return {
 	-- ["{npc:11610}'s last task needs level 53. The Scarlet Knights and Magi (54-55) working the lumber camp just south-west of her are the closest camp."] = "La última tarea de {npc:11610} requiere nivel 53. Los Caballeros Escarlata y magos (54-55) del aserradero justo al suroeste de ella son el campamento más cercano.",
 	-- ["{npc:11613} stands east of the lumber camp; {npc:11611} guards the road north-east of {npc:11610}, toward {area:190}."] = "{npc:11613} está al este del aserradero; {npc:11611} vigila el camino al noreste de {npc:11610}, hacia {area:190}.",
 	-- ["{npc:1855}'s hunts are in the {zone:1423}: keep them for later."] = "Las cacerías de {npc:1855} están en {zone:1423}: guárdalas para más tarde.",
+	-- ["{npc:8659} takes the ravasaur claws from Un'Goro; he stands in the {object:172960}, a short walk from the middle of the city."] = "{npc:8659} recoge las garras de ravasaurio de Un'Goro; está en {object:172960}, a poca distancia del centro de la ciudad.",
+	-- ["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 	-- ["{npc:9529}, just west of the camp"] = "{npc:9529}, justo al oeste del campamento",
 	-- ["{npc:9529}, on the west side of the Sanctuary"] = "{npc:9529}, en el lado oeste del Santuario",
 	-- ["{npc:9996}'s kitten"] = "El gatito de {npc:9996}",

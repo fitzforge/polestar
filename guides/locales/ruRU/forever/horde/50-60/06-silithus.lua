@@ -44,6 +44,8 @@ return {
 	["Inside"] = "Внутри",
 
 	-- Step 9: Gaeriyan
+	-- {object:148504} A Conspicuous Gravestone · {area:976} Gadgetzan · {npc:8737} Linken
+	["Alive again, go to {object:148504} in the graveyard just east of {area:976} and use it: it takes the quest. {npc:8737}'s sword goes back to {npc:8737} in Un'Goro: keep it."] = "",
 	-- {quest:3914} Linken's Sword · {npc:8737} Linken
 	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914} сдается {npc:8737}у в Ун'Горо: сохраните задание.",
 
@@ -168,8 +170,8 @@ return {
 	["{npc:15196}, Terror of the Sands, is a level 59 elite scorpid patrolling the mountains by {npc:15190}'s satchel, at your level: a group choice. The wanted poster stands in the middle of the Hold; {npc:15182} pays out."] = "",
 
 	-- Step 34: Hermit Ortell
-	-- {area:3447} Ortell's Hideout
-	["Ride north-east to {area:3447}."] = "Езжайте на северо-восток сюда: {area:3447}.",
+	-- {area:3447} Ortell's Hideout · {area:2738} Southwind Village
+	["Ride south-east to {area:3447}, in the mountains south of {area:2738}."] = "",
 
 	-- Step 35: Noggle's Lost Satchel
 	-- {npc:15196} Deathclasp
@@ -187,9 +189,9 @@ return {
 	["{npc:15170}, if Brann's letter dropped for you"] = "",
 
 	-- Step 38: Twilight Base Camp
-	-- {npc:15306} Bor Wildmane
+	-- {npc:15306} Bor Wildmane · {area:2739} Twilight Base Camp · {area:3425} Cenarion Hold
 	-- plural, as words: Encrypted Twilight Texts = {item:20404} Encrypted Twilight Text · Twilight Avengers = {npc:11880} Twilight Avenger
-	["Collect twenty Encrypted Twilight Texts from the cultists here, ten for {npc:15306} and ten for Ortell. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60)."] = "Соберите двадцать зашифрованных Сумеречных текстов с культистов здесь: десять для NPC {npc:15306} и десять для Ортелла. Берите их с мстителей из культа Сумеречного Молота и геомантов; огненных жнецов и призывателей камня (59-60) не трогайте.",
+	["Collect twenty Encrypted Twilight Texts, ten for {npc:15306} and ten for Ortell. The {area:2739} holds only elementals: the texts drop from the Twilight's Hammer cultists of the Vanguard in the far south-west, the Post in the west and the Outpost west of {area:3425}. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60)."] = "",
 	-- {npc:15306} Bor Wildmane
 	["ten for each quest: {npc:15306} takes his ten before Ortell"] = "",
 
@@ -244,8 +246,8 @@ return {
 	["Keep the bait for {npc:9684}'s lair, next (he is level 56)."] = "",
 
 	-- Step 52: Lar'korwi
-	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder
-	["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "Логово ({npc:9684}) – чуть к югу от пилона. Используйте там приманку {npc:9619}; {npc:9684} – 56-го уровня и бьет сильно, начинайте с полным здоровьем.",
+	-- {item:11568} Torwa's Pouch · {npc:9684} Lar'korwi
+	["Open {item:11568}: it holds the meat and the pheromone mixture. {npc:9684}'s lair is the bone-strewn valley just south of the pylon: place the meat among the bones, then use the mixture on it to call {npc:9684}. He is level 56 and hits hard, so start at full health."] = "",
 
 	-- Step 53: Ringo
 	-- {npc:9999} Ringo
@@ -285,6 +287,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "Рваный свиток лежит у входа сюда: {area:2261} – склеп к югу от места {area:2260}.",
 	-- ["Andorhal watchtowers and silos"] = "Сторожевые башни и силосы Андорала",
+	-- ["Collect twenty Encrypted Twilight Texts from the cultists here, ten for {npc:15306} and ten for Ortell. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60)."] = "Соберите двадцать зашифрованных Сумеречных текстов с культистов здесь: десять для NPC {npc:15306} и десять для Ортелла. Берите их с мстителей из культа Сумеречного Молота и геомантов; огненных жнецов и призывателей камня (59-60) не трогайте.",
 	-- ["Diseased Grizzlies"] = "Болезненные гризли",
 	-- ["Dithers offers {item:14619} ({quest:838}). Skip it."] = "Дитерс предлагает {item:14619} ({quest:838}). Пропустите.",
 	-- ["Dredge Strikers"] = "Землечерпы",
@@ -313,6 +316,7 @@ return {
 	-- ["Ride east along the road to the {area:152} on the border."] = "Езжайте на восток по дороге к {area:152} на границе.",
 	-- ["Ride east to {npc:1855}'s hut by the {area:2619} and hear him out."] = "Езжайте на восток к хижине {npc:1855} у места {area:2619} и выслушайте его.",
 	-- ["Ride north-east to {area:2276} by {area:2275}: the high elf Rangers, Pathstriders and Woodsmen guard it and the Registry lies inside. Careful: the Pathstriders are 57-58 but the Rangers reach 60: pull one at a time and take the Rangers last."] = "Езжайте на северо-восток сюда: {area:2276}, у места {area:2275}. Его охраняют высшие эльфы – следопыты, разведчицы дорог и лесники, а реестр лежит внутри. Осторожно: разведчицы 57-58-го уровня, но следопыты доходят до 60-го: притягивайте по одному, следопытов оставьте напоследок.",
+	-- ["Ride north-east to {area:3447}."] = "Езжайте на северо-восток сюда: {area:3447}.",
 	-- ["Ride north-west to {npc:1855}'s hut."] = "Езжайте на северо-запад к хижине {npc:1855}.",
 	-- ["Ride south into Andorhal. {npc:10667} waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the {item:12815} to mark it; keep to the edges of town. Use the {item:12627} by the silos in the middle of town to bring out Temporal Parasites."] = "Езжайте на юг в Андорал. {npc:10667} ждет в разрушенной таверне в западной части города. Встаньте в дверях каждой из четырех башен с предметом {item:12815}, чтобы отметить ее; держитесь окраин города. Используйте предмет {item:12627} у силосов в центре города, чтобы выманить временных паразитов.",
 	-- ["Ride south-east from {npc:1855} to the {area:2260} farmhouse."] = "Езжайте на юго-восток от NPC {npc:1855} к ферме: {area:2260}.",
@@ -367,5 +371,6 @@ return {
 	-- ["{npc:1855}'s next task, Of Lost Honor, is not on this route. Skip it."] = "Следующее задание {npc:1855}, о потерянной чести, не входит в маршрут. Пропустите.",
 	-- ["{npc:8565} walks around {area:2276}: look inside the circle on the map"] = "{npc:8565} ходит по месту {area:2276}: ищите внутри круга на карте",
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "Теперь {npc:9619} просит шкуру ({npc:9622}) из северо-восточной пещеры: пропустите.",
+	-- ["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "Логово ({npc:9684}) – чуть к югу от пилона. Используйте там приманку {npc:9619}; {npc:9684} – 56-го уровня и бьет сильно, начинайте с полным здоровьем.",
 	-- ["{quest:105}'s shard lies at {npc:1852}'s feet, in the middle of Andorhal: he is a level 61 elite with elite Skeletal Warlords about him, a fight for a group."] = "Осколок для задания {quest:105} лежит у ног NPC {npc:1852} в центре Андорала: это элитный противник 61-го уровня, вокруг него элитные скелеты-полководцы – бой для группы.",
 }
