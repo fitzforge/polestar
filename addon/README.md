@@ -286,7 +286,7 @@ never in saved variables.
 | `GearScales.lua` | `UI.ShowScales` | The custom stat weights window |
 | `GearAdjust.lua` | `UI.ShowAdjust` | The Adjust weights window |
 | `Picker.lua` | `UI.Picker` | The hub: its section rail, sidebar and search, and its built-in Guides section (the guide menu); defines `UI.RegisterSection` |
-| `QuestLinks.lua` | (local) | Quest log and objective tracker menu entries: open the guide search at that quest, with its matching steps |
+| `QuestLinks.lua` | (local) | Quest log and objective tracker actions: open guide search or start a quest guide, falling back to search if needed |
 | `Lookup.lua` | `UI.Lookup` | The hub's Lookup section |
 | `Dungeons.lua` | `UI.DungeonsSection` | The hub's Dungeons section |
 | `RouteChoice.lua` | `UI.RouteChoice` | "Choose your path": one card per zone where a guide offers several next guides |

@@ -87,10 +87,14 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- The finished quests no open route hands in (RoutePlan.Carried): one
 		-- click opens their hand-in guide (UI.GuideCarried). Both rows are
 		-- always here: with none, or while the plan cannot say (nil, as with
-		-- no guide, a route choice to make or a guide not loaded), disabled.
-		local carried = ns.RoutePlan and ns.RoutePlan.Carried() or nil
+		-- no guide or a guide not loaded), disabled. None listed while some
+		-- wait on a route choice ahead (Carried's second value): it says so.
+		local carried, waiting
+		if ns.RoutePlan then carried, waiting = ns.RoutePlan.Carried() end
 		if carried and #carried > 0 then
 			add({ text = L["Hand in finished quests (%d)"]:format(#carried), icon = "icon-turnin", onClick = function() UI.GuideCarried() end })
+		elseif carried and (waiting or 0) > 0 then
+			add({ text = L["Turn-in plan depends on your next route choice"], icon = "icon-turnin", disabled = true })
 		else
 			add({ text = L["None to hand in"], icon = "icon-turnin", disabled = true })
 		end

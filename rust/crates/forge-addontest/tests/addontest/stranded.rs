@@ -353,6 +353,67 @@ fn the_still_to_do_rows_turn_off_with_their_switch_and_come_back_on() {
 	assert_eq!(out["back"], out["on"], "{out}");
 }
 
+// #4112: the quest log notices have one switch (guideWindow.questLogNotices, on by default). Stray Errand (50, not
+// finished, on no guide) makes three quests off the route with 40 and 42: the card's cleanup line shows, and 40 is
+// the finished quests' row. Off, neither shows, read as the setting changes (no render of the test's own), and the
+// quest an update left behind keeps its Still to do row; the guide menu still has Hand in finished quests and Clean
+// up quest log, both enabled; on again, both lines are back. A quest taken while off (51, on no guide) is counted
+// once the switch is on again.
+#[test]
+fn the_quest_log_notices_switch_hides_the_cleanup_line_and_the_finished_quests_row_and_keeps_the_menu_entries() {
+	let out = run_before(
+		&[WORLD, "w.onQuest(50, { 1 }, \"Stray Errand\")\n"].concat(),
+		r#"
+		local GF = Polestar.UI.GuideFrame
+		E.GetBehind = function() return { { quest = 33, step = 1, goal = 1, title = "Wolves Across the Border", zone = "Elwynn Forest" } } end
+		GF.Render(); flush()
+		local function shown()
+			local r = { off = false, carried = false, behind = false }
+			for _, l in ipairs(GF.lines) do
+				if l:IsShown() and l.psRoom then r.off = plain(l.Text:GetText()) end
+			end
+			for _, x in ipairs(GF.alongRows) do
+				if x:IsShown() and x.psCarried then r.carried = plain(x.Text:GetText()) end
+				if x:IsShown() and x.psBehind then r.behind = plain(x.Text:GetText()) end
+			end
+			return r
+		end
+		local function menu()
+			GF.menuButton:Click()
+			local out = {}
+			for _, m in ipairs(PolestarMenu.rows) do
+				if m:IsShown() and m.psItem and not m.psItem.disabled then out[#out + 1] = plain(m.Text:GetText()) end
+			end
+			GF.menuButton:Click()
+			return out
+		end
+		local r = { default = Polestar.Get("guideWindow.questLogNotices"), on = shown(), menuOn = menu() }
+		Polestar.Set("guideWindow.questLogNotices", false); flush()
+		r.off = shown()
+		r.menuOff = menu()
+		Polestar.Set("guideWindow.questLogNotices", true); flush()
+		r.back = shown()
+		Polestar.Set("guideWindow.questLogNotices", false); flush()
+		w.onQuest(51, { 1 }, "Second Stray")
+		stub.fire("QUEST_LOG_UPDATE"); flush()
+		Polestar.Set("guideWindow.questLogNotices", true); flush()
+		r.taken = shown()
+		emit(r)
+	"#,
+	);
+	assert_eq!(out["default"], true, "{out}");
+	let behind = "Still to do: \u{201c}Wolves Across the Border\u{201d}, back in Elwynn Forest";
+	assert_eq!(out["on"], json!({ "off": "3 quests aren't part of your route", "carried": "1 finished quest to hand in elsewhere (800 XP)", "behind": behind }), "{out}");
+	assert_eq!(out["off"], json!({ "off": false, "carried": false, "behind": behind }), "{out}");
+	for key in ["menuOn", "menuOff"] {
+		let items = out[key].as_array().unwrap_or_else(|| panic!("{out}"));
+		assert!(items.iter().any(|s| s == "Hand in finished quests (1)"), "{key}: {out}");
+		assert!(items.iter().any(|s| is_match(text(s), r"^Clean up quest log \(\d+\)$")), "{key}: {out}");
+	}
+	assert_eq!(out["back"], out["on"], "{out}");
+	assert_eq!(out["taken"]["off"], "4 quests aren't part of your route", "{out}");
+}
+
 // #3568 (LaboredGuineaPig), #3410 (Megabite): the row said 2 finished quests to hand in elsewhere while the list it
 // opened said the route hands in every one. The row was drawn with the step only, so a quest handed in off the step
 // (A Fishy Peril at Marshal Dughan) left it counting. RoutePlan says CARRIED_CHANGED and the row follows the list.

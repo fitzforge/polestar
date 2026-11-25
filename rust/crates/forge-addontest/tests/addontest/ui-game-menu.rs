@@ -228,7 +228,7 @@ guardFrame(GameMenuFrame, "GameMenuFrame")
 -- The top of a frame: its layout place, or below the frame its TOP is anchored to.
 function stub.top(f)
 	local p, rel, rp, _, y = f:GetPoint(1)
-	if p == "TOP" and rel and rp == "BOTTOM" then return stub.top(rel) - rel:GetHeight() + (y or 0) end
+	if rel and ((p == "TOP" and rp == "BOTTOM") or (p == "TOPLEFT" and rp == "BOTTOMLEFT")) then return stub.top(rel) - rel:GetHeight() + (y or 0) end
 	return f.layoutY
 end
 -- The shown buttons, top to bottom, with the gap above each.
@@ -523,6 +523,93 @@ emit({ first = first, again = again, order = stub.order(), touched = table.conca
 	assert_eq!(out["first"]["order"], order, "laid out at the skin's size on the first opening");
 	assert_eq!(out["order"], order, "and on the next");
 	assert_eq!(out["touched"], "", "nothing of the menu's is laid out or restyled from addon code");
+	assert_eq!(out["kept"], true);
+}
+
+/// ElvUI's game menu, as its code does it (ElvUI/Game/Shared/General/API.lua, E:SetupGameMenu and
+/// E:PositionGameMenuButton; ElvUI/Game/Shared/Skins/Misc.lua, GameMenuInitButtons; read for this test, not
+/// copied): its own button from MainMenuFrameButtonTemplate, 200 by 35 on Forever; after each layout it anchors that
+/// button below Macros, moves Log Out, Exit Game and Return to Game down by 25 and the other pooled buttons up by 10.
+/// Its skin (S:HandleButton with a backdrop, then the backdrop 1px inside) hides each pooled button's slices and
+/// clears its state textures, on its own button too, in combat as well.
+const ELVUI_LIKE: &str = r#"
+MACROS, LOGOUT, EXIT_GAME, RETURN_TO_GAME = "Macros", "Log Out", "Exit Game", "Return to Game"
+local S = { skinned = {} }
+function S:HandleButton(button, strip, isDecline, noStyle, createBackdrop)
+	if rawget(button, "IsSkinned") then return end -- (a field: the stub answers any method name)
+	button:SetNormalTexture("") button:SetHighlightTexture("") button:SetPushedTexture("")
+	for _, k in ipairs({ "Left", "Middle", "Right", "Center" }) do if rawget(button, k) then button[k]:Hide() end end
+	local bd = CreateFrame("Frame", nil, button)
+	bd:SetAllPoints(button)
+	bd:CreateTexture(nil, "BACKGROUND"):SetColorTexture(0.1, 0.1, 0.1, 0.8)
+	function bd:SetInside(anchor, x, y) self.inside = { x, y } end
+	button.backdrop = bd
+	button.IsSkinned = true
+	self.skinned[#self.skinned + 1] = button
+end
+local E = { modules = { Skins = S } }
+function E:GetModule(name) return self.modules[name] end
+ElvUI = { E, {}, {}, {}, {} }
+local elv = CreateFrame("Button", "ElvUI_GameMenuButton", GameMenuFrame, "MainMenuFrameButtonTemplate")
+elv:SetSize(200, 35)
+elv:SetText("ElvUI")
+hooksecurefunc(GameMenuFrame, "InitButtons", function(menu)
+	for b in menu.buttonPool:EnumerateActive() do
+		if not rawget(b, "IsSkinned") then S:HandleButton(b, nil, nil, nil, true) b.backdrop:SetInside(nil, 1, 1) end
+	end
+	if not rawget(elv, "IsSkinned") then S:HandleButton(elv, nil, nil, nil, true) elv.backdrop:SetInside(nil, 1, 1) end
+end)
+hooksecurefunc(GameMenuFrame, "Layout", function(self)
+	for b in self.buttonPool:EnumerateActive() do
+		local text = b:GetText()
+		if text == LOGOUT or text == EXIT_GAME or text == RETURN_TO_GAME then
+			b.layoutY = b.layoutY - 25
+		else
+			if text == MACROS then elv:ClearAllPoints() elv:SetPoint("TOPLEFT", b, "BOTTOMLEFT") end
+			b.layoutY = b.layoutY + 10
+		end
+	end
+end)
+"#;
+
+// Commando (#3942, with ElvUI): ours sat on top of AddOns, ElvUI moving its neighbours after the layout and not
+// ours, and kept the red slices among ElvUI's flat buttons. Now it is a row of its own right under ElvUI's button
+// (in combat too, as ElvUI's stays), skinned by ElvUI's own button skin as Shop is; the menu's buttons are only read.
+#[test]
+fn with_elvui_polestar_comes_right_under_its_button_skinned_as_its_neighbours_3942() {
+	let out = run_look(
+		ELVUI_LIKE,
+		r#"
+local function look(b)
+	local slices = {}
+	for _, k in ipairs({ "Left", "Middle", "Right" }) do slices[#slices + 1] = b[k] and (b[k]:IsShown() and b[k]:GetAlpha() > 0) and "shown" or "hidden" end
+	local bd = b.backdrop
+	local fs = b:GetFontString()
+	local path, size = fs:GetFont()
+	return { slices = table.concat(slices, " "), backdrop = bd ~= nil and bd:IsShown(), inside = bd and bd.inside or false,
+		font = path:match("[^\\]+$") .. " " .. size, size = { b:GetWidth(), b:GetHeight() } }
+end
+local function shop()
+	for b in GameMenuFrame.buttonPool:EnumerateActive() do if b:GetText() == "Shop" then return b end end
+end
+GameMenuFrame:Show()
+local open = { polestar = look(PolestarGameMenuButton), shop = look(shop()), order = stub.order() }
+stub.inCombat = true
+GameMenuFrame:Hide() GameMenuFrame:Show()
+local combat = { polestar = look(PolestarGameMenuButton), order = stub.order() }
+stub.inCombat = false
+emit({ open = open, combat = combat, touched = table.concat(stub.menuTouched, " "), under = table.concat(stub.underGameFrames, " "), kept = stub.pooledKept() })
+"#,
+	);
+	let order = "Options, Shop, AddOns +20, Edit Mode, Support, Macros, ElvUI, Polestar, Log Out +20, Exit Game, Return to Game +20";
+	assert_eq!(out["open"]["order"], order, "a row of its own right under ElvUI's button");
+	assert_eq!(out["combat"]["order"], order, "the same in combat");
+	let want = json!({ "slices": "hidden hidden hidden", "backdrop": true, "inside": [1, 1], "font": "FRIZQT__.TTF 16", "size": [200, 35] });
+	assert_eq!(out["open"]["shop"], want, "the stub skinned Shop");
+	assert_eq!(out["open"]["polestar"], want, "ours skinned as Shop is");
+	assert_eq!(out["combat"]["polestar"], want, "in combat too");
+	assert_eq!(out["touched"], "", "nothing of the menu's is laid out or restyled from addon code");
+	assert_eq!(out["under"], "");
 	assert_eq!(out["kept"], true);
 }
 

@@ -230,6 +230,32 @@ fn a_grey_quest_starter_or_quest_item_is_never_sold() {
 	assert_eq!(out[0], json!({ "cudgel": 0, "bone": 0, "fangs": 1, "shell": 1 }), "the quest items stay, the other greys sell");
 }
 
+// #3997 (Liquidor): a worn Frayed Robe sells for 2c, not its 4c vendor price, as its tooltip says. Bag space priced
+// it at 4c, so the shell (3c) was the cheapest junk, and the merchant's line counted 4c for it.
+#[test]
+fn a_damaged_item_is_priced_at_what_the_merchant_pays_for_it_3997() {
+	let out = run(&[
+		BAGS,
+		r#"
+		local S = QoL.Space
+		q.items[6] = { name = "Frayed Robe", quality = 0, price = 4 }
+		fill(3)
+		q.addItem(0, 14, 6, 1)
+		q.bags[0].slots[14].worn = 2
+		bagsChanged()
+		local j = S.Junk()
+		emit({ junk = j and j.id or false, value = j and j.value or false })
+		q.money = 0
+		q.openMerchant()
+		stub.advance(3)
+		emit({ money = q.money, said = printed("Sold 4 grey items for 19c") })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "junk": 6, "value": 2 }), "the worn robe (2c) is cheaper than the shell (3c)");
+	assert_eq!(out[1], json!({ "money": 19, "said": true }), "two fangs (14c), the shell (3c) and the worn robe (2c)");
+}
+
 #[test]
 fn marks_ctrl_alt_click_cycles_junk_keep_and_clear_junk_is_sold_kept_greys_are_not_and_never_deleted() {
 	let out = run(&[
