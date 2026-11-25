@@ -12,7 +12,8 @@
 //      there are `maxStops`.
 //   4. Order: a closed tour from the stop nearest `entry` (else the heaviest): nearest neighbour, then
 //      2-opt (route/tour.js planTour).
-//   `lap` is the closed tour's length in yards.
+//   `lap` is the closed tour's length in yards. `clusters`: step 2's clusters of these points, when the
+//   caller already has them (several spans over one ground); `avoid` is then not applied.
 //
 // hazards(ctx, map, { level, faction }) -> avoid list: every spawn on `map` of a hostile creature more
 // than ABOVE levels above `level` (MOB_YARDS of aggro ground: Polestar's level bar, never a solo player at
@@ -28,10 +29,10 @@ const MOB_YARDS = 30;
 const ENEMY_YARDS = 150;
 const SIDE = { Alliance: 'A', Horde: 'H' };
 
-function buildLoop(points, project, { radius = 30, span = 250, cover = 0.9, maxStops = 6, entry = null, avoid = [] } = {}) {
-	const open = points.filter((p) => !avoid.some((a) => dist(a.pt, p.pt) < a.yards));
+function buildLoop(points, project, { radius = 30, span = 250, cover = 0.9, maxStops = 6, entry = null, avoid = [], clusters = null } = {}) {
+	const open = clusters ? points : points.filter((p) => !avoid.some((a) => dist(a.pt, p.pt) < a.yards));
 	if (!open.length) return { stops: [], lap: 0 };
-	const cl = weightedClusters(open, radius, project);
+	const cl = clusters || weightedClusters(open, radius, project);
 	const head = cl[0];
 	const ground = cl.filter((c) => dist(head.pt, c.pt) <= span);
 	const total = ground.reduce((s, c) => s + c.w, 0);
@@ -108,20 +109,67 @@ function hazards(ctx, map, { level = 60, faction = null } = {}) {
 	return out;
 }
 
+// The spawns of `map` by ENEMY_YARDS grid cell (every spawn within ENEMY_YARDS of a point lies in its
+// cell or the eight around it).
+const gridCache = new WeakMap();
+function spawnGrid(ctx, map) {
+	let byMap = gridCache.get(ctx.data);
+	if (!byMap) gridCache.set(ctx.data, (byMap = new Map()));
+	if (!byMap.has(map)) {
+		const grid = new Map();
+		for (const s of mapSpawns(ctx, map)) {
+			const k = `${s.pt.c}|${Math.floor(s.pt.wx / ENEMY_YARDS)}|${Math.floor(s.pt.wy / ENEMY_YARDS)}`;
+			if (!grid.has(k)) grid.set(k, []);
+			grid.get(k).push(s);
+		}
+		byMap.set(map, grid);
+	}
+	return byMap.get(map);
+}
+
+// The level a place asks (pointLevels) from the map's spawn grid.
+function levelAt(grid, pt, other) {
+	let top = 0;
+	const gx = Math.floor(pt.wx / ENEMY_YARDS);
+	const gy = Math.floor(pt.wy / ENEMY_YARDS);
+	for (let dx = -1; dx <= 1; dx++) {
+		for (let dy = -1; dy <= 1; dy++) {
+			for (const s of grid.get(`${pt.c}|${gx + dx}|${gy + dy}`) || []) {
+				const d = dist(s.pt, pt);
+				if (other && s.faction === other && s.town && d < ENEMY_YARDS) return null;
+				if (!s.faction && d < MOB_YARDS && s.level > top) top = s.level;
+			}
+		}
+	}
+	return Math.max(1, top - ABOVE);
+}
+
 // The level each point asks: the highest hostile creature within MOB_YARDS minus ABOVE (at least 1), or
 // null for a point within ENEMY_YARDS of the other faction (never safe).
 function pointLevels(ctx, map, points, faction = null) {
 	const other = faction ? (SIDE[faction] === 'A' ? 'H' : 'A') : null;
-	const spawns = mapSpawns(ctx, map);
-	return points.map((p) => {
-		let top = 0;
-		for (const s of spawns) {
-			const d = dist(s.pt, p.pt);
-			if (other && s.faction === other && s.town && d < ENEMY_YARDS) return null;
-			if (!s.faction && d < MOB_YARDS && s.level > top) top = s.level;
+	const grid = spawnGrid(ctx, map);
+	return points.map((p) => levelAt(grid, p.pt, other));
+}
+
+// The level a closed round through `stops` asks along its whole walk, sampled every `step` yards
+// (pointLevels' rule), or null when it passes within ENEMY_YARDS of the other faction's town.
+function roundLevel(ctx, map, stops, faction = null, step = 15) {
+	const other = faction ? (SIDE[faction] === 'A' ? 'H' : 'A') : null;
+	const grid = spawnGrid(ctx, map);
+	let top = 1;
+	for (let i = 0; i < stops.length; i++) {
+		const a = stops[i].pt;
+		const b = stops[(i + 1) % stops.length].pt;
+		const n = Math.max(1, Math.ceil(dist(a, b) / step));
+		for (let k = 0; k < n; k++) {
+			const t = k / n;
+			const l = levelAt(grid, { c: a.c, wx: a.wx + (b.wx - a.wx) * t, wy: a.wy + (b.wy - a.wy) * t }, other);
+			if (l === null) return null;
+			if (l > top) top = l;
 		}
-		return Math.max(1, top - ABOVE);
-	});
+	}
+	return top;
 }
 
 // The lowest character level, at least `min`, at which `need` of `points` are safe (pointLevels), or
@@ -133,4 +181,4 @@ function levelFor(ctx, map, points, { faction = null, min = 1, need = 1 } = {}) 
 	return lv.length >= need ? Math.max(min, lv[need - 1]) : null;
 }
 
-module.exports = { buildLoop, hazards, pointLevels, levelFor, ABOVE, MOB_YARDS, ENEMY_YARDS };
+module.exports = { buildLoop, hazards, pointLevels, roundLevel, levelFor, ABOVE, MOB_YARDS, ENEMY_YARDS };

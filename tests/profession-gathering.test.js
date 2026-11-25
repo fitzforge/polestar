@@ -67,52 +67,60 @@ test('fishing catches: one per point below 75, then (skill - 50) / 25 per point;
 	assert.ok(Math.abs(catches(1, 300) - 1300) < 20);
 });
 
-test('loop: clusters ordered as a tour starting near the entry point', () => {
-	const project = makeProjector({ era: { 1: { c: 0, left: 0, right: -1000, top: 0, bottom: -1000 } } });
+// A test context: map 1 is 1000 x 1000 yards (a map percent is 10 yards), with these creatures on it.
+// npc: [id, name, level, faction, x, y] (faction null = hostile; items.json makes them drop something).
+function stubCtx(npcs = []) {
+	const project = makeProjector({ era: { 1: { c: 0, left: 0, right: -1000, top: 0, bottom: -1000 }, 2: { c: 1, left: 0, right: -1000, top: 0, bottom: -1000 }, 1432: { c: 2, left: 0, right: -1000, top: 0, bottom: -1000 } } });
+	const data = { npcs: {}, items: { 900: { drops: { npc: {} } } } };
+	for (const [id, name, level, faction, x, y] of npcs) {
+		data.npcs[id] = data.npcs[id] || { id, name, level, rank: 0, faction, spawns: { 1: { f: 'e', pts: [] } } };
+		data.npcs[id].spawns[1].pts.push([x, y]);
+		if (!faction) data.items[900].drops.npc[id] = 10;
+	}
+	return { project, data };
+}
+
+test('farm: a loop through the densest ground a character of the band\'s level can work, never by the other faction\'s town', () => {
+	const { farm, skillLevel } = require('../tools/lib/professions/gathering/farm');
+	const mobs = [];
+	// Level 30 creatures stand over the dense ground at 70,70; a Horde town (three kinds of NPC) at 15,42.
+	for (let x = 68; x <= 74; x += 2) for (let y = 68; y <= 80; y += 2) mobs.push([100, 'Ogre', 30, null, x, y]);
+	mobs.push([200, 'Guard', 30, 'H', 15, 42], [201, 'Vendor', 30, 'H', 16, 42], [202, 'Innkeeper', 30, 'H', 15, 43]);
+	const ctx = stubCtx(mobs);
 	const pts = [];
 	const at = (x, y, n) => {
-		for (let i = 0; i < n; i++) pts.push({ name: 'Copper Vein', w: 1, pt: project.point(1, x + i * 0.5, y, 'e') });
+		for (let i = 0; i < n; i++) pts.push({ name: 'Mageroyal', req: 50, up: 1, w: 1, pt: ctx.project.point(1, x + (i % 3) * 0.6, y + Math.floor(i / 3) * 0.6, 'e') });
 	};
-	at(10, 10, 4);
-	at(80, 10, 3);
-	at(80, 80, 5);
-	at(10, 80, 2);
-	const loop = R.loop(pts, project, { radius: 40, cover: 1, entry: project.point(1, 12, 78, 'e') });
-	assert.equal(loop.length, 4);
-	assert.ok(loop[0].pt.x < 20 && loop[0].pt.y > 70, 'starts at the cluster nearest the entry');
-	const score = R.scorePoints(pts);
-	assert.ok(score.gain === 14 && score.score > 0);
+	at(20, 20, 6);
+	at(30, 20, 6);
+	at(30, 30, 6);
+	at(22, 31, 9);
+	at(70, 70, 40);
+	const prof = { radius: 40, stopYards: 35 };
+	const near = (f, x, y, yards) => f.stops.some((s) => Math.hypot(s.pt.x - x, s.pt.y - y) * 10 < yards);
+	const low = farm(ctx, prof, 1, pts, { faction: 'Alliance', level: skillLevel(50) });
+	assert.equal(skillLevel(50), 10);
+	assert.ok(!near(low, 70, 70, 100), 'the guarded ground is left out at level 10');
+	assert.ok(low.level <= 10 && low.stops.length >= 3, `level ${low.level}, ${low.stops.length} stops`);
+	assert.ok(!near(low, 22.6, 31.6, 40), 'no stop by the Horde town');
+	const horde = farm(ctx, prof, 1, pts, { faction: 'Horde', level: skillLevel(50) });
+	assert.ok(near(horde, 22, 31, 50), 'the Horde may work by its own town');
+	const high = farm(ctx, prof, 1, pts, { faction: 'Alliance', level: skillLevel(150) });
+	assert.ok(near(high, 70, 70, 50), 'at level 30 the dense ground wins');
+	assert.equal(high.level, 29, 'a level-30 creature on the loop: it asks 29');
+	assert.ok(high.on.length >= 30 && high.lap > 0);
 });
 
-test('a zone\'s rare kind (under a twentieth of the nodes) never leads or names a waypoint, but still counts beside common ones', () => {
+test('a zone\'s rare kind (under a twentieth of the nodes) never names a waypoint beside common ones', () => {
 	const { rareKinds, label } = require('../tools/lib/professions/gathering/build');
-	const project = makeProjector({ era: { 1: { c: 0, left: 0, right: -1000, top: 0, bottom: -1000 } } });
 	const pts = [];
-	const at = (name, x, y, n, up) => {
-		for (let i = 0; i < n; i++) pts.push({ name, up, w: up, pt: project.point(1, x + i * 0.2, y, 'e') });
-	};
-	at('Peacebloom', 10, 10, 20, 0.1);
-	at('Silverleaf', 80, 10, 20, 0.1);
-	at('Peacebloom', 80, 80, 20, 0.1);
-	// Beside a common herb: counts there, never names it.
-	at('Stunted Silverleaf', 81, 80, 1, 0.05);
-	// Mulgore's case: a Forever node a few spots carry, beside one common herb far from the rest.
-	at('Stunted Silverleaf', 40, 60, 3, 0.05);
-	at('Silverleaf', 41, 60, 1, 0.1);
+	for (let i = 0; i < 20; i++) pts.push({ name: 'Peacebloom', up: 0.1 }, { name: 'Silverleaf', up: 0.1 });
+	pts.push({ name: 'Stunted Silverleaf', up: 0.05 });
 	const rare = rareKinds({}, pts);
-	assert.equal(rareKinds({ rareLeads: true }, pts).size, 0, 'skinning: a rare beast may lead');
 	assert.deepEqual([...rare], ['Stunted Silverleaf']);
-	const atRareSpot = (loop) => loop.some((c) => Math.abs(c.pt.x - 40) < 5 && Math.abs(c.pt.y - 60) < 5);
-	assert.ok(atRareSpot(R.loop(pts, project, { radius: 40, cover: 1 })), 'without `rare` the rare spot is a waypoint');
-	const loop = R.loop(pts, project, { radius: 40, cover: 1, rare });
-	assert.equal(loop.length, 3);
-	assert.ok(!atRareSpot(loop), 'the rare spot leads no waypoint');
-	const beside = loop.find((c) => c.counts['Stunted Silverleaf']);
-	assert.ok(beside, 'a rare node beside common ones still counts in their waypoint');
-	assert.equal(label({}, beside, rare), 'Peacebloom');
-	// With fewer than three waypoints left every cluster counts.
-	const few = pts.filter((p) => !(p.name === 'Peacebloom' && p.pt.x < 20));
-	assert.ok(atRareSpot(R.loop(few, project, { radius: 40, cover: 1, rare: rareKinds({}, few) })));
+	assert.equal(rareKinds({ rareLeads: true }, pts).size, 0, 'skinning: a rare beast may lead');
+	assert.equal(label({}, { counts: { 'Stunted Silverleaf': 3, Peacebloom: 1 } }, rare), 'Peacebloom');
+	assert.equal(label({}, { counts: { 'Stunted Silverleaf': 3 } }, rare), 'Stunted Silverleaf', 'alone, it names its waypoint');
 });
 
 test('a zone whose nodes all turn grey inside a band is never picked for it: Teldrassil\'s Amber for Mining 65-125', () => {
@@ -128,7 +136,8 @@ test('a band\'s zone is workable from its first point: Hillsbrad Foothills\' bea
 	const { coversStart, pickZones } = require('../tools/lib/professions/gathering/build');
 	// Gray Bear (21) needs 105, Vicious Gray Bear (22) 110, Starving Mountain Lion (23) 115.
 	const reqs = { 1: [105, 105, 105, 105, 110, 110, 115, 115], 2: [60, 60, 60, 60, 60, 60, 20, 20] };
-	const zonePoints = (id) => reqs[id].map((req, i) => ({ name: `beast ${req}`, req, pt: { c: 0, wx: id * 5000 + i * 30, wy: 0 } }));
+	const ctx = stubCtx();
+	const zonePoints = (id) => reqs[id].map((req, i) => ({ name: `beast ${req}`, req, pt: ctx.project.point(id, 10 + i * 3, 10, 'e') }));
 	assert.equal(coversStart(zonePoints(1), { from: 100, to: 125 }, 4), false, 'nothing in Hillsbrad at 100-104');
 	assert.equal(coversStart(zonePoints(1), { from: 105, to: 125 }, 4), true, 'four Gray Bears at 105');
 	assert.equal(coversStart(zonePoints(2), { from: 100, to: 125 }, 4), true);
@@ -140,13 +149,13 @@ test('a band\'s zone is workable from its first point: Hillsbrad Foothills\' bea
 	};
 	const band = { from: 100, to: 125, zones: { Horde: [1, 2] } };
 	// Hillsbrad (1) scores best over the band; Silverpine (2) is the zone workable at 100.
-	const parts = pickZones({}, prof, band, 'Horde', { key: 'undead' }).map((p) => [p.zone, p.from, p.to]);
+	const parts = pickZones(ctx, prof, band, 'Horde', { key: 'undead' }).map((p) => [p.zone, p.from, p.to]);
 	assert.deepEqual(parts, [
 		[2, 100, 105],
 		[1, 105, 125],
 	]);
-	assert.deepEqual(pickZones({}, prof, { ...band, from: 105 }, 'Horde', { key: 'undead' }).map((p) => [p.zone, p.from, p.to]), [[1, 105, 125]]);
-	assert.throws(() => pickZones({}, prof, { ...band, zones: { Horde: [1] } }, 'Horde', { key: 'undead' }), /no zone workable from 100/);
+	assert.deepEqual(pickZones(ctx, prof, { ...band, from: 105 }, 'Horde', { key: 'undead' }).map((p) => [p.zone, p.from, p.to]), [[1, 105, 125]]);
+	assert.throws(() => pickZones(ctx, prof, { ...band, zones: { Horde: [1] } }, 'Horde', { key: 'undead' }), /no zone workable from 100/);
 });
 
 test('every generated gathering band lists something the band\'s starting skill can gather (#3355)', () => {
@@ -189,21 +198,25 @@ test('a step splits where a common kind first becomes gatherable, and no part le
 
 test('a rare herb that becomes common after a split cannot lead a waypoint before its skill (#2892)', () => {
 	const { startParts, rareKinds, label } = require('../tools/lib/professions/gathering/build');
-	const project = makeProjector({ era: { 1432: { c: 0, left: 0, right: -1000, top: 0, bottom: -1000 } } });
+	const { farm } = require('../tools/lib/professions/gathering/farm');
+	const ctx = stubCtx();
 	const points = [];
 	const add = (name, count, x, y) => {
 		for (let i = 0; i < count; i++) {
-			points.push({ name, req: T.HERB_NODES[name], w: 1, up: 1, pt: project.point(1432, x + i * 0.15, y, 'e') });
+			points.push({ name, req: T.HERB_NODES[name], w: 1, up: 1, pt: ctx.project.point(1432, x + i * 0.15, y, 'e') });
 		}
 	};
 	add('Mageroyal', 6, 10, 10);
+	add('Mageroyal', 6, 20, 10);
+	add('Mageroyal', 6, 15, 20);
 	add('Briarthorn', 40, 80, 80);
-	add('Stranglekelp', 1, 50, 50);
+	add('Stranglekelp', 1, 15, 15);
 	assert.ok(rareKinds({}, points).has('Stranglekelp'));
 	const [early] = startParts({}, points, 50, 100);
 	const rare = rareKinds({}, early.points);
-	const waypoints = R.loop(early.points, project, { rare }).map((cluster) => label({}, cluster, rare));
-	assert.deepEqual(waypoints, ['Mageroyal']);
+	const f = farm(ctx, { radius: 40 }, 1432, early.points, { level: 10 });
+	assert.deepEqual([...new Set(f.stops.map((cluster) => label({}, cluster, rare)))], ['Mageroyal']);
+	assert.ok(f.on.every((p) => p.req <= 50), 'nothing on the loop needs more than 50');
 });
 
 test('no Herbalism waypoint names a herb the step\'s starting skill cannot pick (#2892)', () => {
@@ -253,43 +266,68 @@ test('live-frame spawns come out in the Era frame, so loops on redrawn maps matc
 	assert.deepEqual([only.x, only.y, only.f, only.wx, only.wy], [50, 50, 'l', -200, -300]);
 });
 
-test('node routes read every spawn (`pts` and `more`) and Forever\'s starting-area nodes, which carry no role', () => {
+test('node points are the server\'s spawns, each counting for the chance its pool keeps it up', () => {
+	const N = require('../tools/lib/professions/gathering/nodes');
 	const project = makeProjector({ era: { 1: { c: 0, left: 0, right: -1000, top: 0, bottom: -1000 } } });
-	const objects = {
-		1: { id: 1, name: 'Copper Vein', roles: ['mine'], spawns: { 1: { f: 'e', pts: [[10, 10]], more: [[60, 60]] } } },
-		2: { id: 2, name: 'Poor Copper Vein', spawns: { 1: { f: 'e', pts: [[30, 30]] } } },
-		3: { id: 3, name: 'Copper Vein', spawns: { 1: { f: 'e', pts: [[90, 90]] } } }, // no role, not a Forever node: left out
-	};
-	const pts = R.nodePoints(objects, project, { table: T.MINING_NODES, role: 'mine', map: 1, from: 1, to: 50 });
-	assert.deepEqual(pts.map((p) => [p.name, p.pt.x, p.pt.y]), [
-		['Copper Vein', 10, 10],
-		['Copper Vein', 60, 60],
-		['Poor Copper Vein', 30, 30],
+	// Two vein spots, each a pool of Iron (90%) and Gold (10%); a herb the Mining table does not know.
+	const nodes = { maps: { 1: { kinds: { 'Gold Vein': { respawn: 600, pts: '10,10,0.1 50,50,0.1' }, 'Iron Deposit': { respawn: 600, pts: '10,10,0.9 50,50,0.9' }, Peacebloom: { respawn: 300, pts: '30,30,1' } } } } };
+	const pts = N.nodePoints(project, { table: T.MINING_NODES, map: 1, from: 155, to: 175, nodes });
+	assert.deepEqual(pts.map((p) => [p.name, p.up, p.pt.x, p.pt.y]), [
+		['Gold Vein', 0.1, 10, 10],
+		['Gold Vein', 0.1, 50, 50],
+		['Iron Deposit', 0.9, 10, 10],
+		['Iron Deposit', 0.9, 50, 50],
 	]);
+	assert.ok(pts[2].w > pts[0].w * 4, 'yellow Iron outweighs rare orange Gold');
+	assert.deepEqual(N.nodePoints(project, { table: T.MINING_NODES, map: 1, from: 300, to: 301, nodes }), [], 'grey for the band: nothing');
+	assert.equal(N.respawnOf(1, 'Iron Deposit', nodes), 600);
+	assert.equal(N.respawnOf(2, 'Iron Deposit', nodes), null);
 });
 
-test('pooled node points count for the nodes the server keeps up: a point listed for several kinds is one node, a rare kind weighs little', () => {
-	const project = makeProjector({ era: { 1: { c: 0, left: 0, right: -1000, top: 0, bottom: -1000 } } });
-	// Two vein points, each listed as Iron and Gold (one pool picks one of them).
+test('a kind the world database lacks in a zone takes its objects.json spawns once three players gathered it there: Teldrassil\'s Amber', () => {
+	const N = require('../tools/lib/professions/gathering/nodes');
+	const project = makeProjector({ era: { 1438: { c: 1, left: 0, right: -1000, top: 0, bottom: -1000 } } });
 	const objects = {
-		1: { id: 1, name: 'Iron Deposit', roles: ['mine'], spawns: { 1: { f: 'e', pts: [[10, 10], [50, 50]] } } },
-		2: { id: 2, name: 'Gold Vein', roles: ['mine'], spawns: { 1: { f: 'e', pts: [[10, 10], [50, 50]] } } },
+		1: { id: 1, name: 'Chunk of Amber', spawns: { 1438: { f: 'e', pts: [[20, 20]], more: [[40, 40]] } } },
+		2: { id: 2, name: 'Large Chunk of Amber', spawns: { 1438: { f: 'e', pts: [[40, 40]] } } },
+		3: { id: 3, name: 'Peacebloom', spawns: { 1438: { f: 'e', pts: [[60, 60]] } } },
 	};
-	// Without a pool table each point splits between its two kinds.
-	const split = R.nodePoints(objects, project, { table: T.MINING_NODES, role: 'mine', map: 1, from: 155, to: 175 });
-	assert.deepEqual(split.map((p) => [p.name, p.up]), [['Iron Deposit', 0.5], ['Iron Deposit', 0.5], ['Gold Vein', 0.5], ['Gold Vein', 0.5]]);
-	// The zone keeps 1.8 Iron and 0.2 Gold up: each point carries its kind's share.
-	const abundance = { 'Iron Deposit': { up: 1.8 }, 'Gold Vein': { up: 0.2 } };
-	const pooled = R.nodePoints(objects, project, { table: T.MINING_NODES, role: 'mine', map: 1, from: 155, to: 175, abundance });
-	assert.deepEqual(pooled.map((p) => [p.name, p.up]), [['Iron Deposit', 0.9], ['Iron Deposit', 0.9], ['Gold Vein', 0.1], ['Gold Vein', 0.1]]);
-	assert.ok(pooled[0].w > pooled[2].w * 4, 'yellow Iron outweighs rare orange Gold');
-	// A kind the zone's table does not have counts nothing.
-	assert.equal(R.nodePoints(objects, project, { table: T.MINING_NODES, role: 'mine', map: 1, from: 155, to: 175, abundance: { 'Iron Deposit': { up: 2 } } }).length, 2);
-	// A zone whose table holds none of the profession's kinds (Teldrassil lists its herbs, not its Amber)
-	// splits points as a zone without a table does: Forever's Chunks of Amber are mined there from skill 1.
-	const amber = { 4: { id: 4, name: 'Chunk of Amber', spawns: { 1: { f: 'e', pts: [[20, 20]] } } }, 5: { id: 5, name: 'Large Chunk of Amber', spawns: { 1: { f: 'e', pts: [[40, 40]] } } } };
-	const herbsOnly = { Peacebloom: { up: 20 } };
-	assert.deepEqual(R.nodePoints(amber, project, { table: T.MINING_NODES, role: 'mine', map: 1, from: 1, to: 50, abundance: herbsOnly }).map((p) => [p.name, p.up]), [['Chunk of Amber', 1], ['Large Chunk of Amber', 1]]);
+	const maps = { 1438: { kinds: { Peacebloom: { respawn: 300, pts: '60,60,1' } } } };
+	const rec = (name, person) => ({ kind: 'mine', name, map: 1438, person, items: {} });
+	const records = [rec('Chunk of Amber', 'a'), rec('Chunk of Amber', 'b'), rec('Chunk of Amber', 'c'), rec('Large Chunk of Amber', 'a'), rec('Large Chunk of Amber', 'b')];
+	const out = N.fill(maps, records, objects, project, { era: { 1438: {} } });
+	assert.deepEqual(Object.keys(out[1438].kinds), ['Chunk of Amber', 'Peacebloom'], 'two gatherers are not enough for the Large Chunk');
+	// 40,40 carries two kinds: half a node of each.
+	assert.deepEqual(out[1438].kinds['Chunk of Amber'], { src: 'objects', pts: '20,20,1 40,40,0.5' });
+	assert.deepEqual(out[1438].kinds.Peacebloom, { respawn: 300, pts: '60,60,1' }, 'a kind the database has keeps its spawns');
+});
+
+test('what a node gives: a vein\'s loot windows in one session at one spot are one node', () => {
+	const N = require('../tools/lib/professions/gathering/nodes');
+	const os = require('node:os');
+	const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'gather-'));
+	try {
+		const project = makeProjector({ era: {}, forever: { 1: { c: 0, left: 0, right: -1000, top: 0, bottom: -1000 } } });
+		const events = [];
+		for (let i = 0; i < N.MIN_NODES; i++) {
+			const t = i * 600;
+			// Two windows at one vein (ore, then ore and stone), then a herb.
+			events.push({ t, e: 'drop', object: 10, gather: 'mine', map: 1, x: 10 + i, y: 10, items: [{ item: 2771, count: 1 }] });
+			events.push({ t: t + 5, e: 'drop', object: 10, gather: 'mine', map: 1, x: 10 + i, y: 10.2, items: [{ item: 2771, count: 1 }, { item: 2836, count: 1 }] });
+			events.push({ t: t + 60, e: 'drop', object: 20, gather: 'herb', map: 1, x: 50, y: 50, items: [{ item: 785, count: 2 }] });
+			events.push({ t: t + 90, e: 'drop', npc: 30, gather: 'skin', map: 1, x: 50, y: 50, items: [{ item: 2318, count: 1 }] });
+		}
+		fs.writeFileSync(path.join(dir, '20261101T000000Z-c1-i1-h1.json'), JSON.stringify({ contributor: 'c1', events }));
+		const objects = { 10: { name: 'Tin Vein' }, 20: { name: 'Mageroyal' } };
+		const npcs = { 30: { level: 12 } };
+		const records = N.readGathers(dir, objects, npcs, project);
+		const yields = N.perNode(records.filter((r) => r.kind !== 'skin'));
+		assert.deepEqual(yields['Tin Vein'], { nodes: N.MIN_NODES, people: 1, items: { 2771: 2, 2836: 1 } });
+		assert.deepEqual(yields.Mageroyal.items, { 785: 2 });
+		assert.deepEqual(N.perNode(records.filter((r) => r.kind === 'skin'))['12'].items, { 2318: 1 });
+	} finally {
+		fs.rmSync(dir, { recursive: true, force: true });
+	}
 });
 
 test('pool odds: a member holds its share of the pool\'s slots, scaled by how often its parent pool picks it', () => {
@@ -461,11 +499,12 @@ test('a band keeps the zone its group worked before when another scores within 3
 	let w1 = 1.02;
 	const prof = { skill: 'Test', minPoints: 4, points: (ctx, zone) => line(zone === 1 ? w1 : 1) };
 	const band = { from: 1, to: 25, zones: { Alliance: [1, 2] } };
-	const ctx = { project, data: {} };
-	assert.equal(pickZones(ctx, prof, band, 'Alliance', { key: 'a' })[0].zone, 1, 'the better zone with no zone before');
-	assert.equal(pickZones(ctx, prof, band, 'Alliance', { key: 'a' }, new Set([2]))[0].zone, 2, 'the zone worked before, 2% behind');
+	// A fresh context per pick: the generator keeps a zone's points per context.
+	const ctx = () => ({ project, data: { npcs: {}, items: {} } });
+	assert.equal(pickZones(ctx(), prof, band, 'Alliance', { key: 'a' })[0].zone, 1, 'the better zone with no zone before');
+	assert.equal(pickZones(ctx(), prof, band, 'Alliance', { key: 'a' }, new Set([2]))[0].zone, 2, 'the zone worked before, 2% behind');
 	w1 = 1.05;
-	assert.equal(pickZones(ctx, prof, band, 'Alliance', { key: 'a' }, new Set([2]))[0].zone, 1, 'a zone 5% better still wins');
+	assert.equal(pickZones(ctx(), prof, band, 'Alliance', { key: 'a' }, new Set([2]))[0].zone, 1, 'a zone 5% better still wins');
 });
 
 test('Skinning 125-150 stays in Ashenvale for Night Elves and the Horde (a near tie with Thousand Needles)', { skip: hasData ? false : 'data/forever not built' }, () => {
@@ -474,4 +513,53 @@ test('Skinning 125-150 stays in Ashenvale for Night Elves and the Horde (a near 
 	const night = steps.filter((s) => /\n {2}only NightElf\n/.test(s) || /\n {2}only Orc,Troll,Tauren/.test(s));
 	assert.equal(night.length, 2);
 	for (const s of night) assert.match(s, /\n {2}zone Ashenvale\n/, s.split('\n')[0]);
+});
+
+// Every Herbalism, Mining and Skinning band is a `loop` whose `level` covers its whole walk: no
+// creature within aggro range more than a level above it, and never within reach of a town of the
+// other faction (loop.js roundLevel), for every faction its `only` lets in. Catches a hand edit or a
+// generator change that sends a player at creatures 2+ levels above them.
+test('every gathering loop asks the level its whole walk needs and keeps clear of the other faction\'s towns', { skip: hasData ? false : 'data/forever not built' }, () => {
+	const { context } = require('../tools/lib/professions/gathering/common');
+	const { roundLevel } = require('../tools/lib/professions/gathering/loop');
+	const ctx = context(DATA);
+	const byName = Object.fromEntries(Object.entries(T.ZONES).map(([id, z]) => [z.name, Number(id)]));
+	const side = { Human: 'Alliance', Dwarf: 'Alliance', Gnome: 'Alliance', NightElf: 'Alliance', Orc: 'Horde', Troll: 'Horde', Tauren: 'Horde', Undead: 'Horde', Alliance: 'Alliance', Horde: 'Horde' };
+	const bad = [];
+	let loops = 0;
+	for (const file of ['herbalism.guide', 'mining.guide', 'skinning.guide']) {
+		for (const block of fs.readFileSync(path.join(ROOT, 'guides', 'forever', 'professions', file), 'utf8').split('\nstep ').slice(1)) {
+			const lines = block.split('\n');
+			if (!lines.includes('  loop')) continue;
+			loops++;
+			const zone = byName[(lines.find((l) => l.startsWith('  zone ')) || '').slice(7)];
+			const only = (lines.find((l) => l.startsWith('  only ')) || '').slice(7);
+			const words = only ? only.split(',') : [];
+			const factions = words.length && !words.includes('Skyborne') ? [...new Set(words.map((w) => side[w]))] : words.includes('Alliance') ? ['Alliance'] : words.includes('Horde') ? ['Horde'] : ['Alliance', 'Horde'];
+			const level = Number((lines.find((l) => l.startsWith('  level ')) || '  level 1').slice(8));
+			const stops = lines
+				.map((l) => l.match(/^ {2}goto ([\d.]+),([\d.]+)( live)?/))
+				.filter(Boolean)
+				.map((m) => ({ pt: ctx.project.point(zone, Number(m[1]), Number(m[2]), m[3] ? 'l' : 'e') }));
+			for (const f of factions) {
+				const need = roundLevel(ctx, zone, stops, f);
+				if (need === null || need > level) bad.push(`${file} ${lines[0]} (${f}): level ${level}, the walk asks ${need === null ? 'a path clear of the other faction\'s town' : need}`);
+			}
+		}
+	}
+	assert.ok(loops > 80, `${loops} loops`);
+	assert.deepEqual(bad, []);
+});
+
+test('the gathering loops as data for the crafting guides: one entry per item a band\'s loop gives, in the fishing loops\' shape', { skip: hasData ? false : 'data/forever not built' }, () => {
+	const { gatherLoops } = require('../tools/lib/professions/gathering/build');
+	const { context } = require('../tools/lib/professions/gathering/common');
+	const loops = gatherLoops(context(DATA));
+	const keys = ['item', 'kind', 'skill', 'side', 'races', 'map', 'levels', 'guide', 'title', 'pts', 'perLap', 'lapMinutes'];
+	for (const l of loops) assert.deepEqual(Object.keys(l), keys);
+	assert.deepEqual([...new Set(loops.map((l) => l.kind))].sort(), ['herb', 'hide', 'ore']);
+	// Briarthorn (2450) comes from loops that start at 70 or later (#2892).
+	const briar = loops.filter((l) => l.item === 2450);
+	assert.ok(briar.length > 0 && briar.every((l) => l.skill[0] >= 70), JSON.stringify(briar.map((l) => l.skill)));
+	for (const l of loops) assert.ok(l.pts.length >= 2 && l.perLap > 0 && l.lapMinutes > 0 && l.levels[1] === l.levels[0] + 1, l.title);
 });
