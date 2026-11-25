@@ -8320,17 +8320,6 @@ test(`${ARATHI}: Fyurie's report (#1319): MacKreel's Moonshine is taken after Ko
 	assert.ok([list[accept].step.note, list[accept].step.tip].flat().filter(Boolean).join(' ').includes('within 15 minutes'), 'the step names the time limit');
 });
 
-test(`${ARATHI}: MacKreel's Moonshine pickup is for Hunters and Druids, with a hand-in for anyone carrying it`, { skip }, () => {
-	const list = goals(ARATHI);
-	const accept = list[at(list, 'accept 647', is('accept', 647))];
-	const turnin = list[at(list, 'turnin 647', is('turnin', 647))];
-	const maleb = list[at(list, 'turnin 505', is('turnin', 505))];
-	assert.deepEqual([...(accept.goal.only?.classes || accept.step.only?.classes || [])].sort(), ['DRUID', 'HUNTER']);
-	assert.ok(turnin.step.when?.some((p) => p.k === 'onquest' && p.q === 647 && !p.neg), 'the hand-in requires the quest in the log');
-	assert.ok(!turnin.goal.only?.classes && !turnin.step.only?.classes, 'other classes can hand in the quest if they took it');
-	assert.notEqual(maleb.step, turnin.step, 'the Moonshine hand-in does not hold the town-hall quests');
-});
-
 // --- Timed-quest check (2026-11-08, #1319's pattern): A Meal Served Cold (212) must be back with Angus Stern in Stormwind
 // within 30 minutes. The route took it in Stormwind in 30-40/05 and handed it in two guides later: it always ran out. Left out.
 test('A Meal Served Cold (30-minute limit) is in no leveling guide', { skip }, () => {

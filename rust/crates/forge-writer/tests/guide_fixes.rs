@@ -115,6 +115,7 @@ fn mackreels_moonshine_limits_pickup_and_keeps_the_rest_of_the_southshore_stop()
 	let after = tree[ARATHI].clone();
 	let gap = after.split("step Foggy MacKreel\n").nth(1).unwrap().split("\nstep ").next().unwrap();
 	assert!(gap.lines().any(|l| l.trim() == "accept 647 only Hunter,Druid"), "{gap}");
+	assert!(gap.lines().any(|l| l.contains("Aspect of the Cheetah (Hunter)") && l.contains("Travel Form (Druid)")), "{gap}");
 	let (_, southshore) = after.split_once("step Brewmeister Bilger\n").unwrap();
 	let (hand_in, other_quests) = southshore.split_once("step Southshore town hall\n").unwrap();
 	assert!(hand_in.contains("when onquest 647") && hand_in.contains("turnin 647"), "{hand_in}");
