@@ -389,6 +389,54 @@ fn a_walked_trail_reads_decoded_clusters_only_and_decodes_nothing_itself_3451() 
 	assert_eq!(got["warmDecodes"].as_f64(), Some(0.0), "{got}");
 }
 
+// #3451 (0.4.3's arrow audit, Zephras step 52): every walk the arrow asks hands the router the player's last minute
+// of steps again, and Path.SetTrail snapped all of them (up to 300) to the grid in that frame: half of a step
+// change's cost on a kill-as-you-meet tour, where the target changes every few seconds. Between two asks the trail
+// only moves on by a few places, so a place snapped before keeps its node: N new places cost N snaps (and the new
+// first place one more, the height before it gone), and the joins are the ones a fresh trail makes.
+#[test]
+fn a_walked_trail_set_again_snaps_only_its_new_places_and_joins_as_a_fresh_one_3451() {
+	let tmp = TempDir::new("polestar-nav-snaps-");
+	let count = tmp.path().join("count-snaps.lua");
+	std::fs::write(&count, "local _, ns = ...\nstub.navNs = ns\nlocal snap = ns.PathGrid.snap\nstub.snaps = 0\nns.PathGrid.snap = function(...) stub.snaps = stub.snaps + 1 return snap(...) end\n").unwrap();
+	let mut files: Vec<String> = toc_entries(&addons_dir().join("Polestar_Nav")).unwrap().into_iter().filter(|f| !f.ends_with(".xml")).collect();
+	let at_grid = files.iter().position(|f| f.ends_with("PathGrid.lua")).unwrap();
+	files.insert(at_grid + 1, count.to_string_lossy().into_owned());
+	let mut cells = layout(4, Cls::default(), Cls::default());
+	cells.remove(&((X0 + S / 2) * C + Y0));
+	let (a, b) = (from(), to());
+	let n = ((b.x - a.x) / 2.0).ceil() as usize;
+	let samples: Vec<String> = (0..=n).map(|i| format!("{}, {}, false", js(a.x + (b.x - a.x) * i as f64 / n as f64), js(a.y))).collect();
+	let set = |id: &str, from: usize, to: usize| {
+		q(id, "lua", &format!("local s = stub.snaps; out.{id} = {{ Path.SetTrail({MAP}, {{ {} }}) }}; out.{id}Snaps = stub.snaps - s", samples[from..to].join(", ")))
+	};
+	let got = route_with(
+		Addon::Files("Polestar_Nav".into(), files),
+		&map_files(&cells, true, Opts::default()),
+		&[
+			q("before", "find", r#"{ profile = "Horde" }"#),
+			q("drain", "lua", "while #frames > 0 do table.remove(frames, 1)() end"),
+			set("first", 0, n - 9),
+			set("grown", 0, n - 6),
+			set("moved", 2, n - 4),
+			q("with", "find", r#"{ profile = "Horde" }"#),
+			q("forget", "lua", &format!("stub.navNs.PathGrid.State({MAP}).trailMemo = nil")),
+			set("fresh", 2, n - 4),
+		],
+		a,
+		b,
+		"",
+	);
+	assert!(got["first"][0].as_f64().unwrap() >= 1.0, "the hole the trail crossed is a gap: {got}");
+	assert_eq!(got["firstSnaps"].as_u64(), Some((n - 9) as u64), "a first trail: every place snapped: {got}");
+	assert_eq!(got["grownSnaps"].as_u64(), Some(3), "3 places added: 3 snapped: {got}");
+	assert_eq!(got["movedSnaps"].as_u64(), Some(3), "2 dropped, 2 added: the 2 and the new first place snapped: {got}");
+	assert_eq!(got["freshSnaps"].as_u64(), Some((n - 6) as u64), "{got}");
+	assert_eq!(got["moved"], got["fresh"], "the same joins as a fresh trail's: {got}");
+	assert!(straight(&got["with"]), "with the trail: along it, through the hole: {got}");
+	close(&got["with"], STRAIGHT, "with");
+}
+
 // Two searches queued together, the second marked urgent (Routing/PathJobs.lua: the walk the arrow is on,
 // Nav/Walk.lua), one slice a frame (a zero budget): which one answers first, and the frames each took.
 fn urgent_order(urgent: bool) -> Value {
