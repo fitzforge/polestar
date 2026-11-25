@@ -1409,6 +1409,7 @@ L["Chain: finished, %d skipped"] = "Cadena: terminada, %d saltadas"
 L["Chain: all %d done"] = "Cadena: las %d hechas"
 L["Chain: %d of %d"] = "Cadena: %d de %d"
 L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."] = "Solo visible estando muerto: muere cerca y háblale como espíritu, o sáltate esta misión."
+-- L["Only visible while dead: die nearby and talk to them as a ghost."] = ""
 
 -- Lookup/Spotter.lua
 L["From"] = "De"
