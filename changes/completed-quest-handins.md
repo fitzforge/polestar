@@ -8,4 +8,4 @@ section: players
   Quests at the same ender share a stop, plain deliveries are included,
   and the order accounts for estimated travel time. Known destinations keep
   their waypoints without a travel estimate; unknown locations are named
-  (thanks Swatto).
+  (thanks Swatto, #2486).
