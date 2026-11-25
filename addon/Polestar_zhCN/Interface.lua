@@ -1014,8 +1014,8 @@ L["Right-click for its settings. Shift-drag to move."] = "右键点击打开设�
 L["Right-click for its settings. Drag to move."] = "右键点击打开设置。拖动以移动。"
 L["Targets the first name in the list that is close. Click a name to target that one."] = "选中列表中附近的第一个名字。点击名字即可选中该目标。"
 L["Dragging the Polestar mark in combat places the buttons after the fight."] = "战斗中拖动 Polestar 标记，按钮会在战斗结束后移到新位置。"
-L["Press to equip"] = "按键装备"
-L["Press to equip it."] = "点击装备"
+L["Press to equip"] = "按下装备"
+L["Press to equip it."] = "按下即可装备"
 
 -- QoL/XP.lua
 L["Level %d"] = "等级 %d"
