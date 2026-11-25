@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {zone:1451} Silithus
-	["About 100 quests in Forever's new endgame zone, 57 to 59, then on to {zone:1451}."] = "",
+	["About 100 quests in Forever's new endgame zone, 57 to 59, then on to {zone:1451}."] = "Около 100 заданий в новой зоне Forever для последних уровней, с 57 по 59, затем дальше: {zone:1451}.",
 
 	-- Step 1: Into Mount Hyjal
 	-- {area:616} Mount Hyjal

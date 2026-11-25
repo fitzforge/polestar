@@ -66,6 +66,7 @@ t.guides["forever/40-50/shendralas"] = (function() return {
 		["{zone:2652} is done. Your {zone:1444} guide picks up from here: ride back north through the {area:2657}, west along {area:405}'s southern edge and south into {zone:1444}, to the dock on the {area:1108} where the boat crosses to {area:1116}."] = "{zone:2652} 완료. 여기서부터 {zone:1444} 가이드가 이어집니다. {area:2657}을(를) 지나 다시 북쪽으로, {area:405}의 남쪽 가장자리를 따라 서쪽으로 간 뒤 남쪽 {zone:1444}(으)로 들어가, {area:1116}(으)로 가는 배가 출발하는 {area:1108}의 부두로 가십시오.",
 } end)()
 t.guides["forever/50-60/mount-hyjal"] = (function() return {
+		["About 100 quests in Forever's new endgame zone, 57 to 59, then on to {zone:1451}."] = "Forever의 새 최종 지역에서 57-59레벨에 퀘스트 약 100개, 그다음 {zone:1451}(으)로.",
 		["Fly to {area:2255}"] = "{area:2255}(으)로 날아가기",
 		["South down the west side of the shrub field to the ancients' outpost. Leave the {npc:248395} for now: their {item:247892} drop only once {npc:248367}'s {quest:91755} is in your log, and the guide brings you back to the shrub field for the leaves and {npc:249235}'s kills together. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "관목 들판 서쪽을 따라 남쪽의 고대정령 전초기지로 가십시오. {npc:248395}은(는) 지금은 두십시오: {npc:248367}의 {quest:91755}이(가) 퀘스트 목록에 있어야만 {item:247892}을(를) 떨어뜨리며, 가이드가 나중에 잎과 {npc:249235}의 처치를 함께 하러 관목 들판으로 다시 데려옵니다. 비행 조련사 {npc:260626}이(가) 전초기지 옆에서 기다리고, {npc:248367}과(와) {npc:265586}은(는) 고대정령 {npc:248366}과(와) 함께 서 있습니다.",
 		["The letter from {zone:1457} is already with {quest:1123}: take {quest:1124} from her, in her house in {area:2361}."] = "{zone:1457}에서 온 편지는 이미 {quest:1123}에게 있습니다: {area:2361}에 있는 그녀의 집에서 {quest:1124}을(를) 받으십시오.",
@@ -2011,6 +2012,7 @@ t.guides["forever/alliance/50-60/06-silithus"] = (function() return {
 		["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190}은(는) 자기 건물 위층에 서 있습니다: 안쪽으로 올라가세요. 화살표는 층을 구분하지 못합니다.",
 		["{npc:15190}, upstairs beside {npc:15189}"] = "{npc:15190}, {npc:15189} 옆 위층",
 		["{zone:1451}: kill these as you meet them"] = "{zone:1451}: 길에서 만나는 대로 잡으세요",
+		["{zone:1451}: {area:3425}'s quests, to 60."] = "{zone:1451}: {area:3425} 퀘스트, 60레벨까지.",
 } end)()
 t.guides["forever/alliance/dwarf/01-dun-morogh"] = (function() return {
 		["Back east through {area:131}: {npc:1252} by Eric's campfire takes the {quest:287} report, and {npc:1269} the cogs and gears. The Shaman quest here waits for level 10: a Shaman still short of it finishes on the Ice Claw Bears (7-8), Snow Leopards and Large Crag Boars in the fields just south of {area:131}."] = "{area:131}을(를) 지나 동쪽으로 돌아가세요. 에릭의 모닥불 옆 {npc:1252}에게 {quest:287} 보고를, {npc:1269}에게 톱니와 기어를 제출합니다. 이곳의 주술사 퀘스트는 10레벨이 필요합니다. 아직 모자라는 주술사는 {area:131} 바로 남쪽 들판의 얼음발톱흰곰(7-8), 눈표범, 큰 멧돼지를 잡아 채우세요.",
@@ -5914,6 +5916,7 @@ t.guides["forever/horde/40-50/03-feralas"] = (function() return {
 		["Mudsprocket"] = "진흙톱니",
 		["Onyxia's eggs"] = "오닉시아의 알",
 		["Ride back north to Brackenwall."] = "북쪽의 담쟁이 마을로 돌아가세요.",
+		["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "{zone:2652} 생략: 퀘스트가 열두 개 정도 적고, {zone:1446}에 1/3레벨 낮게 들어갑니다",
 		["South-east from the {object:2555} to Mudsprocket, the goblin camp at the {area:511}'s western edge: {npc:270723} and {npc:270727} stand together in the camp. Their whelps, scales and {item:280092} come on the same {area:511} loop as Brackenwall's quests."] = "{object:2555}에서 남동쪽, {area:511} 서쪽 끝의 고블린 야영지 진흙톱니로 가십시오: {npc:270723}과(와) {npc:270727}이(가) 야영지에 함께 서 있습니다. 그들의 새끼 용, 비늘, {item:280092}은(는) 담쟁이 마을 퀘스트와 같은 {area:511} 순회에서 얻습니다.",
 		["Stays on the main route"] = "주요 경로에 머무름",
 		["Takes you to level 47"] = "47레벨까지 진행",
@@ -5930,6 +5933,7 @@ t.guides["forever/horde/40-50/03-feralas"] = (function() return {
 		["{npc:6986}, the Drag"] = "골목길의 {npc:6986}",
 		["{npc:7010}, the Drag"] = "{npc:7010}, 골목길",
 		["{zone:1454} flight master"] = "{zone:1454} 비행 조련사",
+		["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "{zone:1454}의 제출, {area:1099}의 무이섹 그릇, 그다음 먼지진흙 습지대의 {area:511}와(과) {area:496}.",
 		["{zone:1456} flight master"] = "{zone:1456} 비행 조련사",
 } end)()
 t.guides["forever/horde/40-50/04-tanaris"] = (function() return {

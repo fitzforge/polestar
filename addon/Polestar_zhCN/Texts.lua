@@ -66,6 +66,7 @@ t.guides["forever/40-50/shendralas"] = (function() return {
 		["{zone:2652} is done. Your {zone:1444} guide picks up from here: ride back north through the {area:2657}, west along {area:405}'s southern edge and south into {zone:1444}, to the dock on the {area:1108} where the boat crosses to {area:1116}."] = "{zone:2652}已完成。你的{zone:1444}指南从这里继续：骑马向北穿过{area:2657}，沿{area:405}南缘向西，再向南进入{zone:1444}，前往{area:1108}的码头，从那里坐船去{area:1116}。",
 } end)()
 t.guides["forever/50-60/mount-hyjal"] = (function() return {
+		["About 100 quests in Forever's new endgame zone, 57 to 59, then on to {zone:1451}."] = "在Forever新的终局区域完成约100个任务，57到59级，然后前往{zone:1451}。",
 		["Fly to {area:2255}"] = "飞往{area:2255}",
 		["South down the west side of the shrub field to the ancients' outpost. Leave the {npc:248395} for now: their {item:247892} drop only once {npc:248367}'s {quest:91755} is in your log, and the guide brings you back to the shrub field for the leaves and {npc:249235}'s kills together. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "沿灌木田西侧向南前往古树的前哨。先别管{npc:248395}：只有当{npc:248367}的{quest:91755}在你的任务日志中时，它们才会掉落{item:247892}，指南稍后会带你回到灌木田，一并收集叶子和完成{npc:249235}的击杀。飞行管理员{npc:260626}在前哨旁等候；{npc:248367}和{npc:265586}与古树{npc:248366}站在一起。",
 		["The letter from {zone:1457} is already with {quest:1123}: take {quest:1124} from her, in her house in {area:2361}."] = "来自{zone:1457}的信已经交给{quest:1123}：在她位于{area:2361}的家中接取{quest:1124}。",
@@ -2341,6 +2342,7 @@ t.guides["forever/alliance/50-60/06-silithus"] = (function() return {
 		["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190}站在他所在建筑的楼上：从室内上楼，箭头无法区分楼层。",
 		["{npc:15190}, upstairs beside {npc:15189}"] = "{npc:15190}，在楼上{npc:15189}旁边",
 		["{zone:1451}: kill these as you meet them"] = "{zone:1451}：沿途击杀以下目标",
+		["{zone:1451}: {area:3425}'s quests, to 60."] = "{zone:1451}：{area:3425}的任务，直到60级。",
 } end)()
 t.guides["forever/alliance/dwarf/01-dun-morogh"] = (function() return {
 		["Back east through {area:131}: {npc:1252} by Eric's campfire takes the {quest:287} report, and {npc:1269} the cogs and gears. The Shaman quest here waits for level 10: a Shaman still short of it finishes on the Ice Claw Bears (7-8), Snow Leopards and Large Crag Boars in the fields just south of {area:131}."] = "向东返回{area:131}：把{quest:287}的报告交给埃里克篝火旁的{npc:1252}，齿轮交给{npc:1269}。这里的萨满任务需要10级：还差一点的萨满可以在{area:131}南边田野里击杀冰爪熊（7-8级）、雪豹和大峭壁野猪补足经验。",
@@ -7586,6 +7588,7 @@ t.guides["forever/horde/40-50/03-feralas"] = (function() return {
 		["Onyxia's eggs"] = "奥妮克希亚的蛋",
 		["Ride back north to Brackenwall."] = "向北骑回蕨墙村。",
 		["Ride south-west to the {object:2555}."] = "向西南骑行到{object:2555}处。",
+		["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "跳过{zone:2652}：少做大约十几个任务，进入{zone:1446}时低约三分之一级",
 		["South-east from the {object:2555} to Mudsprocket, the goblin camp at the {area:511}'s western edge: {npc:270723} and {npc:270727} stand together in the camp. Their whelps, scales and {item:280092} come on the same {area:511} loop as Brackenwall's quests."] = "从{object:2555}向东南前往{area:511}西缘的地精营地泥链营地：{npc:270723}和{npc:270727}一起站在营地里。他们要的雏龙、鳞片和{item:280092}在与蕨墙村任务相同的{area:511}路线上。",
 		["Stays on the main route"] = "位于主线路线上",
 		["Takes you to level 47"] = "带你升到47级",
@@ -7604,6 +7607,7 @@ t.guides["forever/horde/40-50/03-feralas"] = (function() return {
 		["{npc:4501}, below ground"] = "{npc:4501}：在地下",
 		["{npc:6986}, the Drag"] = "{npc:6986}，在暗巷区",
 		["{npc:7010}, the Drag"] = "{npc:7010}，在暗巷区",
+		["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "{zone:1454}的交还任务、{area:1099}的枭兽穆西克之瓶，然后是尘泥沼泽的{area:511}和{area:496}。",
 		["{zone:1456} flight master"] = "{zone:1456}飞行管理员",
 } end)()
 t.guides["forever/horde/40-50/04-tanaris"] = (function() return {

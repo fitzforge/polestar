@@ -66,6 +66,7 @@ t.guides["forever/40-50/shendralas"] = (function() return {
 		["{zone:2652} is done. Your {zone:1444} guide picks up from here: ride back north through the {area:2657}, west along {area:405}'s southern edge and south into {zone:1444}, to the dock on the {area:1108} where the boat crosses to {area:1116}."] = "{zone:2652} concluída. Seu guia de {zone:1444} continua daqui: volte para o norte pelo {area:2657}, para oeste pela borda sul de {area:405} e para o sul até {zone:1444}, até o cais na {area:1108}, de onde o barco atravessa para {area:1116}.",
 } end)()
 t.guides["forever/50-60/mount-hyjal"] = (function() return {
+		["About 100 quests in Forever's new endgame zone, 57 to 59, then on to {zone:1451}."] = "Cerca de 100 missões na nova zona de fim de jogo do Forever, do 57 ao 59, depois seguindo para {zone:1451}.",
 		["Fly to {area:2255}"] = "Voe para {area:2255}",
 		["South down the west side of the shrub field to the ancients' outpost. Leave the {npc:248395} for now: their {item:247892} drop only once {npc:248367}'s {quest:91755} is in your log, and the guide brings you back to the shrub field for the leaves and {npc:249235}'s kills together. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "Para o sul pelo lado oeste do campo de arbustos até o posto dos anciões. Deixe os {npc:248395} por enquanto: as {item:247892} deles só caem quando {quest:91755} de {npc:248367} está no seu registro, e o guia traz você de volta ao campo de arbustos para as folhas e as mortes de {npc:249235} juntas. {npc:260626}, a mestra de voo, espera junto ao posto; {npc:248367} e {npc:265586} ficam com o ancião {npc:248366}.",
 		["The letter from {zone:1457} is already with {quest:1123}: take {quest:1124} from her, in her house in {area:2361}."] = "A carta de {zone:1457} já está com {quest:1123}: pegue {quest:1124} com ela, na casa dela em {area:2361}.",
@@ -2326,6 +2327,7 @@ t.guides["forever/alliance/50-60/06-silithus"] = (function() return {
 		["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
 		["{npc:15190}, upstairs beside {npc:15189}"] = "{npc:15190}, no andar de cima, ao lado de {npc:15189}",
 		["{zone:1451}: kill these as you meet them"] = "{zone:1451}: vá matando estes pelo caminho",
+		["{zone:1451}: {area:3425}'s quests, to 60."] = "{zone:1451}: as missões de {area:3425}, até o 60.",
 } end)()
 t.guides["forever/alliance/dwarf/01-dun-morogh"] = (function() return {
 		["Back east through {area:131}: {npc:1252} by Eric's campfire takes the {quest:287} report, and {npc:1269} the cogs and gears. The Shaman quest here waits for level 10: a Shaman still short of it finishes on the Ice Claw Bears (7-8), Snow Leopards and Large Crag Boars in the fields just south of {area:131}."] = "De volta para o leste por {area:131}: {npc:1252}, perto da fogueira do Eric, recebe o relatório de {quest:287}, e {npc:1269} as engrenagens. A missão de Xamã daqui espera o nível 10: um Xamã que ainda não chegou nele termina nos Ursos Garra de Gelo (7-8), Leopardos da Neve e Rochetuscos Grandes nos campos logo ao sul de {area:131}.",
@@ -7566,6 +7568,7 @@ t.guides["forever/horde/40-50/03-feralas"] = (function() return {
 		["Onyxia's eggs"] = "Ovos de Onyxia",
 		["Ride back north to Brackenwall."] = "Volte para o norte até Muralha Verde.",
 		["Ride south-west to the {object:2555}."] = "Cavalgue para o sudoeste até o {object:2555}.",
+		["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "Pula {zone:2652}: cerca de uma dúzia de missões a menos, um terço de nível mais baixo ao entrar em {zone:1446}",
 		["South-east from the {object:2555} to Mudsprocket, the goblin camp at the {area:511}'s western edge: {npc:270723} and {npc:270727} stand together in the camp. Their whelps, scales and {item:280092} come on the same {area:511} loop as Brackenwall's quests."] = "Para sudeste a partir de {object:2555} até Lamaroda, o acampamento goblin na borda oeste de {area:511}: {npc:270723} e {npc:270727} ficam juntos no acampamento. Os dragonetes, escamas e {item:280092} deles vêm na mesma volta por {area:511} que as missões da Aldeia Muralha Verde.",
 		["Stays on the main route"] = "Fica na rota principal",
 		["Takes you to level 47"] = "Leva você ao nível 47",
@@ -7585,6 +7588,7 @@ t.guides["forever/horde/40-50/03-feralas"] = (function() return {
 		["{npc:6986}, the Drag"] = "{npc:6986}, no Drag",
 		["{npc:7010}, the Drag"] = "{npc:7010}, no Drag",
 		["{zone:1454} flight master"] = "Mestre de voo de {zone:1454}",
+		["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "As entregas de {zone:1454}, o recipiente Muisek de {area:1099}, depois {area:511} e {area:496} no Pântano Vadeoso.",
 		["{zone:1456} flight master"] = "Mestre de voo de {zone:1456}",
 } end)()
 t.guides["forever/horde/40-50/04-tanaris"] = (function() return {

@@ -2530,6 +2530,7 @@ t.guides["forever/alliance/50-60/06-silithus"] = (function() return {
 		["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190} está en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos.",
 		["{npc:15190}, upstairs beside {npc:15189}"] = "{npc:15190}, arriba junto a {npc:15189}",
 		["{zone:1451}: kill these as you meet them"] = "{zone:1451}: mata a estos según te los encuentres",
+		["{zone:1451}: {area:3425}'s quests, to 60."] = "{zone:1451}: las misiones de {area:3425}, hasta el 60.",
 } end)()
 t.guides["forever/alliance/dwarf/01-dun-morogh"] = (function() return {
 		["Back east through {area:131}: {npc:1252} by Eric's campfire takes the {quest:287} report, and {npc:1269} the cogs and gears. The Shaman quest here waits for level 10: a Shaman still short of it finishes on the Ice Claw Bears (7-8), Snow Leopards and Large Crag Boars in the fields just south of {area:131}."] = "Vuelve al este por {area:131}: {npc:1252}, junto a la hoguera de Eric, recoge el informe de {quest:287}, y {npc:1269}, los engranajes. La misión de chamán de aquí requiere nivel 10: si a un chamán aún le falta, que termine con los Osos zarpahelada (7-8), Leopardos de la nieve y Grandes jabalíes del risco en los campos justo al sur de {area:131}.",
@@ -7586,6 +7587,7 @@ t.guides["forever/horde/40-50/03-feralas"] = (function() return {
 		["Mudsprocket"] = "Barroñuela",
 		["Onyxia's eggs"] = "Huevos de Onyxia",
 		["Ride back north to Brackenwall."] = "Vuelve cabalgando al norte, a Murohelecho.",
+		["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "Se salta {zone:2652}: una docena de misiones menos, un tercio de nivel más bajo al llegar a {zone:1446}",
 		["South-east from the {object:2555} to Mudsprocket, the goblin camp at the {area:511}'s western edge: {npc:270723} and {npc:270727} stand together in the camp. Their whelps, scales and {item:280092} come on the same {area:511} loop as Brackenwall's quests."] = "Al sureste desde {object:2555} hasta Barroñuela, el campamento goblin en el borde oeste de {area:511}: {npc:270723} y {npc:270727} están juntos en el campamento. Sus dragonantes, escamas y {item:280092} vienen en la misma vuelta por {area:511} que las misiones de Murohelecho.",
 		["Stays on the main route"] = "Sigue en la ruta principal",
 		["Takes you to level 47"] = "Te lleva al nivel 47",
@@ -7602,6 +7604,7 @@ t.guides["forever/horde/40-50/03-feralas"] = (function() return {
 		["{npc:6986}, the Drag"] = "{npc:6986}, La Calle Mayor",
 		["{npc:7010}, the Drag"] = "{npc:7010}, La Calada",
 		["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
+		["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "Las entregas de {zone:1454}, la vasija muisek de {area:1099} y luego {area:511} y {area:496} en el Marjal Revolcafango.",
 		["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 } end)()
 t.guides["forever/horde/40-50/04-tanaris"] = (function() return {

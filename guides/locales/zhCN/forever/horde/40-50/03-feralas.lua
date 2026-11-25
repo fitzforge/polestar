@@ -8,13 +8,13 @@
 return {
 	-- Guide
 	-- {zone:1454} Orgrimmar · {area:1099} Camp Mojache · {area:511} Wyrmbog · {area:496} Brackenwall Village
-	["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "",
+	["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "{zone:1454}的交还任务、{area:1099}的枭兽穆西克之瓶，然后是尘泥沼泽的{area:511}和{area:496}。",
 	["Takes you to level 47"] = "带你升到47级",
 	-- {zone:1446} Tanaris
 	["Then on to {zone:1446}"] = "然后前往{zone:1446}",
 	["Stays on the main route"] = "位于主线路线上",
 	-- {zone:2652} Shen'dralas · {zone:1446} Tanaris
-	["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "",
+	["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "跳过{zone:2652}：少做大约十几个任务，进入{zone:1446}时低约三分之一级",
 
 	-- Step 1: Orgrimmar
 	-- {object:172960} Cleft of Shadow · {object:172958} Valley of Honor

@@ -8,13 +8,13 @@
 return {
 	-- Guide
 	-- {zone:1454} Orgrimmar · {area:1099} Camp Mojache · {area:511} Wyrmbog · {area:496} Brackenwall Village
-	["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "",
+	["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "As entregas de {zone:1454}, o recipiente Muisek de {area:1099}, depois {area:511} e {area:496} no Pântano Vadeoso.",
 	["Takes you to level 47"] = "Leva você ao nível 47",
 	-- {zone:1446} Tanaris
 	["Then on to {zone:1446}"] = "Depois, rumo a {zone:1446}",
 	["Stays on the main route"] = "Fica na rota principal",
 	-- {zone:2652} Shen'dralas · {zone:1446} Tanaris
-	["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "",
+	["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "Pula {zone:2652}: cerca de uma dúzia de missões a menos, um terço de nível mais baixo ao entrar em {zone:1446}",
 
 	-- Step 1: Orgrimmar
 	-- {object:172960} Cleft of Shadow (no name in this language: may be words) · {object:172958} Valley of Honor (no name in this language: may be words)

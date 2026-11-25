@@ -8,13 +8,13 @@
 return {
 	-- Guide
 	-- {zone:1454} Orgrimmar · {area:1099} Camp Mojache · {area:511} Wyrmbog · {area:496} Brackenwall Village
-	["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "",
+	["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "{zone:1454}의 제출, {area:1099}의 무이섹 그릇, 그다음 먼지진흙 습지대의 {area:511}와(과) {area:496}.",
 	["Takes you to level 47"] = "47레벨까지 진행",
 	-- {zone:1446} Tanaris
 	["Then on to {zone:1446}"] = "이어서 {zone:1446}(으)로",
 	["Stays on the main route"] = "주요 경로에 머무름",
 	-- {zone:2652} Shen'dralas · {zone:1446} Tanaris
-	["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "",
+	["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "{zone:2652} 생략: 퀘스트가 열두 개 정도 적고, {zone:1446}에 1/3레벨 낮게 들어갑니다",
 
 	-- Step 1: Orgrimmar
 	-- {object:172960} Cleft of Shadow · {object:172958} Valley of Honor

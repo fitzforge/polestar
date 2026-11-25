@@ -2533,6 +2533,7 @@ t.guides["forever/alliance/50-60/06-silithus"] = (function() return {
 		["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190} se tient à l'étage de son bâtiment : montez par l'intérieur, la flèche ne distingue pas les étages.",
 		["{npc:15190}, upstairs beside {npc:15189}"] = "{npc:15190}, à l'étage à côté de {npc:15189}",
 		["{zone:1451}: kill these as you meet them"] = "{zone:1451} : tuez-les au passage",
+		["{zone:1451}: {area:3425}'s quests, to 60."] = "{zone:1451} : les quêtes de {area:3425}, jusqu'au niveau 60.",
 } end)()
 t.guides["forever/alliance/dwarf/01-dun-morogh"] = (function() return {
 		["Back east through {area:131}: {npc:1252} by Eric's campfire takes the {quest:287} report, and {npc:1269} the cogs and gears. The Shaman quest here waits for level 10: a Shaman still short of it finishes on the Ice Claw Bears (7-8), Snow Leopards and Large Crag Boars in the fields just south of {area:131}."] = "Retour vers l'est par {area:131} : {npc:1252}, près du feu de camp d'Eric, reçoit le rapport de {quest:287}, et {npc:1269} les rouages et engrenages. La quête de chaman ici demande le niveau 10 : un chaman qui ne l'a pas encore le termine sur les Ours Griffeglace (7-8), Léopards des neiges et Grands sangliers des rochers dans les champs juste au sud de {area:131}.",
@@ -7772,6 +7773,7 @@ t.guides["forever/horde/40-50/03-feralas"] = (function() return {
 		["Onyxia's eggs"] = "Oeufs d'Onyxia",
 		["Ride back north to Brackenwall."] = "Retournez au nord jusqu'à Mur-de-Fougères.",
 		["Ride south-west to the {object:2555}."] = "Allez au sud-ouest jusqu'au {object:2555}.",
+		["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "Passe {zone:2652} : une douzaine de quêtes en moins, un tiers de niveau plus bas en arrivant en {zone:1446}",
 		["South-east from the {object:2555} to Mudsprocket, the goblin camp at the {area:511}'s western edge: {npc:270723} and {npc:270727} stand together in the camp. Their whelps, scales and {item:280092} come on the same {area:511} loop as Brackenwall's quests."] = "Vers le sud-est depuis {object:2555} jusqu'à Gouffrefange, le camp gobelin au bord ouest de {area:511} : {npc:270723} et {npc:270727} se tiennent ensemble au camp. Leurs dragonnets, écailles et {item:280092} viennent dans la même boucle de {area:511} que les quêtes de Mur-de-Fougères.",
 		["Stays on the main route"] = "Reste sur l'itinéraire principal",
 		["Takes you to level 47"] = "Vous amène au niveau 47",
@@ -7791,6 +7793,7 @@ t.guides["forever/horde/40-50/03-feralas"] = (function() return {
 		["{npc:6986}, the Drag"] = "{npc:6986}, la Herse",
 		["{npc:7010}, the Drag"] = "{npc:7010}, la Herse",
 		["{zone:1454} flight master"] = "Maître de vol d'{zone:1454}",
+		["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "Les quêtes à rendre à {zone:1454}, le récipient muisek de {area:1099}, puis {area:511} et {area:496} dans le Marécage d'Âprefange.",
 } end)()
 t.guides["forever/horde/40-50/04-tanaris"] = (function() return {
 		["Back east to Fizzledowser on the west side of {area:976}; {npc:7771} is south from there."] = "Retournez vers l'est voir Fizzledowser, du côté ouest de {area:976} ; {npc:7771} est au sud de là.",
