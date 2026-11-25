@@ -37,6 +37,9 @@ test('finished quests no route hands in: one row with their count opens the hand
 	assert.deepEqual(run('{ { quest = 1 }, { quest = 2 } }'), { text: 'Hand in finished quests (2)', disabled: false, guided: 'carried/log' });
 	assert.deepEqual(run('{}'), { text: 'None to hand in', disabled: true, guided: false });
 	assert.deepEqual(run('nil'), { text: 'None to hand in', disabled: true, guided: false }, 'the row stays, disabled, while the plan cannot say');
+	assert.deepEqual(run('{}, 2'), { text: 'Turn-in plan depends on your next route choice', disabled: true, guided: false },
+		'none listed while some wait on a route choice ahead (Carried\'s second value): it says so');
+	assert.equal(run('{ { quest = 1 } }, 2').text, 'Hand in finished quests (1)', 'the listed ones still open the hand-in guide');
 });
 
 test('the quest log cleanup row is always there: with quests it opens the Quest room; none or no plan, it says the log is clean', () => {
