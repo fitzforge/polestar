@@ -8,13 +8,13 @@
 return {
 	-- Guide
 	-- {zone:1423} Eastern Plaguelands
-	["Western & {zone:1423}"] = "",
+	["Western & {zone:1423}"] = "Terras Pestilentas Ocidentais & {zone:1423}",
 
 	-- Step 1: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
 	["Fly to {area:702}"] = "Voe para {area:702}",
 	-- {zone:1457} Darnassus · {zone:1450} Moonglade · {zone:1455} Ironforge · {area:3197} Chillwind Camp
-	["The {zone:1457}, {zone:1450} and {zone:1455} stops are for players coming from the previous guides with their quests; opened with none of those quests in the log, the guide starts at {area:3197}."] = "",
+	["The {zone:1457}, {zone:1450} and {zone:1455} stops are for players coming from the previous guides with their quests; opened with none of those quests in the log, the guide starts at {area:3197}."] = "As paradas de {zone:1457}, {zone:1450} e {zone:1455} são para jogadores que vêm dos guias anteriores com as missões deles; aberto sem nenhuma dessas missões no registro, o guia começa em {area:3197}.",
 
 	-- Step 2: Rut'theran Village
 	-- {area:702} Rut'theran Village · {npc:7916} Erelas Ambersky
@@ -255,13 +255,13 @@ return {
 	["Andorhal"] = "Andorhal",
 	-- {quest:5154} The Annals of Darrowshire · {quest:5537} Skeletal Fragments · {npc:1852} Araj the Summoner
 	-- plural, as words: Skeletal Warlords = {npc:1788} Skeletal Warlord · Flesh Golems = {npc:1805} Flesh Golem
-	["{quest:5154} is one of the musty tomes in the town hall. Every skeleton in town drops {quest:5537}.\nCareful: Skeletal Warlords and Flesh Golems (57, elites) walk the streets: let them pass.\n{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal."] = "",
+	["{quest:5154} is one of the musty tomes in the town hall. Every skeleton in town drops {quest:5537}.\nCareful: Skeletal Warlords and Flesh Golems (57, elites) walk the streets: let them pass.\n{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal."] = "{quest:5154} é um dos tomos mofados na prefeitura. Todo esqueleto da cidade solta {quest:5537}.\nCuidado: Senhores da Guerra Esqueletos ({npc:1788}) e Golens de Carne ({npc:1805}) (57, elites) andam pelas ruas: deixe-os passar.\n{npc:1852} é elite: recomenda-se formar um grupo. Ele guarda o filactério no centro de Andorhal.",
 
 	-- Step 45: Andorhal's grain silos
-	["Andorhal's grain silos"] = "",
+	["Andorhal's grain silos"] = "Os silos de grãos de Andorhal",
 	-- {item:12627} Temporal Displacer
 	-- plural, as words: Temporal Parasites = {npc:10717} Temporal Parasite · Skeletal Warlords = {npc:1788} Skeletal Warlord · Flesh Golems = {npc:1805} Flesh Golem
-	["Use the {item:12627} by each grain silo on the north side of town to draw out Temporal Parasites, one silo after another.\nCareful: the Temporal Parasites are 55-57: draw them out one silo at a time, away from the Skeletal Warlords and Flesh Golems (57, elites) in the streets."] = "",
+	["Use the {item:12627} by each grain silo on the north side of town to draw out Temporal Parasites, one silo after another.\nCareful: the Temporal Parasites are 55-57: draw them out one silo at a time, away from the Skeletal Warlords and Flesh Golems (57, elites) in the streets."] = "Use {item:12627} junto a cada silo de grãos no lado norte da cidade para atrair os Parasitas Temporais ({npc:10717}), um silo depois do outro.\nCuidado: os Parasitas Temporais são 55-57: atraia-os um silo de cada vez, longe dos Senhores da Guerra Esqueletos ({npc:1788}) e dos Golens de Carne ({npc:1805}) (57, elites) nas ruas.",
 
 	-- Step 46: Chromie
 	-- {quest:5210} Brother Carlin · {area:2268} Light's Hope Chapel

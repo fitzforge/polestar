@@ -4762,10 +4762,10 @@ end
 -- The guides window keeps the skin's size in UI units (UI/Picker.lua).
 W.SHELL_BASE_W, W.SHELL_BASE_H = 1680, 946
 W.SHELL_MIN_W, W.SHELL_MIN_H = 860, 560 -- the least either window is, the screen allowing
--- The settings window draws at this share of its scale setting (ui.menuScale): 100 % is what
--- 115 % was before 0.4.3 (#3789: 0.8 drew it too small; a saved scale moved with it, the
--- migration "menuScale092" in Theme.lua). The guides window (ui.pickerScale) draws at its
--- setting as it is.
+-- The settings window draws at this share of its scale setting (ui.menuScale): a release
+-- drew it at 1 x, the 0.4.3 previews at 0.8 x (#3789: too small). A saved scale moved
+-- with it, so the window keeps the size its player chose (the migration "menuScale092"
+-- in Theme.lua). The guides window (ui.pickerScale) draws at its setting as it is.
 W.SETTINGS_SCALE_BASE = 0.92
 function W.ShellDefaultSize()
 	local ph = GetPhysicalScreenSize and select(2, GetPhysicalScreenSize()) or 0

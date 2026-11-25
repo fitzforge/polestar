@@ -164,7 +164,7 @@ return {
 	["Mithril & {object:147516}: {zone:1427} (230-245)"] = "Мифриловые залежи и {object:147516}: {zone:1427} (230-245)",
 	-- {object:147516} Dark Iron · {skill:186} Mining · {item:11099} Dark Iron Ore · {object:174824} Black Forge (no name in this language: may be words) · {area:1584} Blackrock Depths
 	-- was: ["Mine every Gold (155, green), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "Промышляйте каждой жилой по пути (Золото (155, зеленый), Мифрил (175, зеленый), {object:147516} (230, оранжевый), Истинное серебро (230, оранжевый)) и обойдите точки до навыка {skill:186} 245. {item:11099} плавится только в {object:174824} в {area:1584} (8 руды на слиток). Уровень зоны 43-50. На эти 15 очков нужно около 40 жил."
-	["Mine every Gold (155, green, rare), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "",
+	["Mine every Gold (155, green, rare), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "Добывайте каждую жилу по пути: золото (155, зеленая, редкая), мифрил (175, зеленая), {object:147516} (230, оранжевая), истинное серебро (230, оранжевая) – и обходите точки маршрута, пока {skill:186} не достигнет 245. Выплавка отсюда очков не дает (высокие рецепты выплавки сразу серые): выплавляйте для ремесла или продажи, или продавайте руду. {item:11099} выплавляется только у места {object:174824} ({area:1584}) (8 руды на слиток). Уровень зоны 43-50. Ожидайте около 40 жил на эти 15 очков.",
 	-- {object:147516} Dark Iron
 	["Mithril, {object:147516}"] = "Мифрил, {object:147516}",
 
@@ -178,9 +178,9 @@ return {
 
 	-- Step 30: Small Thorium & Rich Thorium: Eastern Plaguelands (275-300)
 	-- {zone:1423} Eastern Plaguelands
-	["Small Thorium & Rich Thorium: {zone:1423} (275-300)"] = "",
+	["Small Thorium & Rich Thorium: {zone:1423} (275-300)"] = "Малая и богатая ториевые жилы: {zone:1423} (275-300)",
 	-- {skill:186} Mining
-	["Mine every Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 53-60. Expect about 30 nodes for these 25 points."] = "",
+	["Mine every Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 53-60. Expect about 30 nodes for these 25 points."] = "Добывайте каждую жилу по пути: истинное серебро (230, желтая), малая ториевая (245, желтая), богатая ториевая (275, оранжевая) – и обходите точки маршрута, пока {skill:186} не достигнет 300. Выплавка отсюда очков не дает (высокие рецепты выплавки сразу серые): выплавляйте для ремесла или продажи, или продавайте руду. Уровень зоны 53-60. Ожидайте около 30 жил на эти 25 очков.",
 	["Rich Thorium, Small Thorium"] = "Богатая ториевая жила, малая ториевая жила",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

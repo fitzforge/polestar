@@ -48,6 +48,14 @@ test('only the data\'s class limit makes a class quest: a class guide\'s errand 
 	assert.deepEqual(starts.map((s) => s.q), [397]);
 });
 
+test('a quest that asks for a profession\'s skill is no class quest, whatever classes the data limits it to', () => {
+	// QuestieDB 1.1.5 limits the Horde's The Art of the Armorsmith (5301, Blacksmithing 200) to Warriors and Paladins.
+	const quests = { 5301: { ...quest(5301, -121, 40, BRACERS), classes: 1 | 2, skill: 164, skillLevel: 200 }, 10: quest(10, -61, 20, ROBE) };
+	const { starts, quests: out } = buildClassRewards({ quests, tdb: null, table, guides: [], npcs: { 1: giver }, objects: {}, races });
+	assert.deepEqual(out.map((e) => e.q), [10]);
+	assert.deepEqual(starts.map((s) => s.q), [10]);
+});
+
 // #2462 (TAKODACHI): a class guide holds each step to the player's level (Fitz's level rule, 0.4.0), so the heads-up
 // waits for the level the guide takes the chain's first quest at, not the quest's own minimum: a card never says
 // "ready" at a level the guide then holds you back from. A level 1 start stays at 1 (no heads-up at all).

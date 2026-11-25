@@ -97,7 +97,7 @@ return {
 	-- Step 14: Shen'dar Village
 	-- {area:16624} Shen'dar Village · {npc:251523} Constable Aonda · {npc:251902} Illaya Amberwind · {npc:254089} Coriella Calmbreeze · {npc:263664} Raan Wildwind · {quest:93159} The Strange Hermit
 	-- was: ["Follow the road south to {area:16624}, in the middle of the isle. {npc:251523} stands on its east side, {npc:251902} in the middle, {npc:254089} just north-west of her, {npc:263664} by the campfire on the west side. With a profession learned, {npc:263664} also offers its Camping 101: its trainer stands in the village."] = "길을 따라 남쪽으로 섬 한가운데의 {area:16624}에 가세요. {npc:251523}은(는) 마을 동쪽에, {npc:251902}은(는) 한가운데에, {npc:254089}은(는) 그녀 바로 북서쪽에, {npc:263664}은(는) 서쪽 모닥불 옆에 있습니다. 전문 기술을 배우면 {npc:263664}이(가) 해당 야영 101 퀘스트도 줍니다. 그 기술의 상급자는 마을에 있습니다."
-	["Follow the road south to {area:16624}, in the middle of the isle. {npc:251523} stands on its east side, {npc:251902} in the middle, {npc:254089} just north-west of her, {npc:263664} by the campfire on the west side. With a profession learned, {npc:263664} also offers its Camping 101: its trainer stands in the village. {quest:93159} has his own for engineers."] = "",
+	["Follow the road south to {area:16624}, in the middle of the isle. {npc:251523} stands on its east side, {npc:251902} in the middle, {npc:254089} just north-west of her, {npc:263664} by the campfire on the west side. With a profession learned, {npc:263664} also offers its Camping 101: its trainer stands in the village. {quest:93159} has his own for engineers."] = "길을 따라 남쪽, 섬 한가운데의 {area:16624}(으)로 가십시오. {npc:251523}은(는) 동쪽에, {npc:251902}은(는) 가운데에, {npc:254089}은(는) 그녀의 바로 북서쪽에, {npc:263664}은(는) 서쪽 모닥불 옆에 서 있습니다. 전문 기술을 배웠다면 {npc:263664}도 해당 야영 101을 줍니다: 그 상급자는 마을에 있습니다. {quest:93159}에게는 기계공학자를 위한 퀘스트가 따로 있습니다.",
 	-- {npc:251902} Illaya Amberwind
 	["talk to {npc:251902}"] = "{npc:251902}와(과) 대화하세요",
 	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
@@ -133,7 +133,7 @@ return {
 
 	-- Step 22: Camping 101: Herbalism
 	-- {npc:257021} Halassa Fernbreeze · {skill:182} Herbalism
-	["{npc:257021} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:257021} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:182} 숙련도가 20이 되면 {npc:257021}이(가) 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 
 	-- Step 23: Camping 101: Tailoring
 	-- {npc:251991} Taleen Shimmerthread · {skill:197} Tailoring
@@ -416,7 +416,7 @@ return {
 
 	-- Step 92: Camping 101: Engineering
 	-- {quest:93159} The Strange Hermit · {skill:202} Engineering
-	["{quest:93159} has a Camping 101 for engineers too, and takes it back once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{quest:93159} has a Camping 101 for engineers too, and takes it back once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{quest:93159}에게도 기계공학자를 위한 야영 101이 있으며, {skill:202} 숙련도가 20이 되면 다시 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 
 	-- Step 93: Windsong Lake
 	-- {item:257128} Zephyrseed · {npc:254344} Endaria Mistgaze · {quest:93736} Unwelcome Spirits · {area:16625} Windsong Lake · {npc:259013} Resaan Nimbuswalker
@@ -425,7 +425,7 @@ return {
 
 	-- Step 95: Strange Hermit
 	-- {npc:251684} Strange Hermit
-	["talk to the {npc:251684}"] = "",
+	["talk to the {npc:251684}"] = "{npc:251684}와(과) 대화",
 
 	-- Step 96: The Shrine of Akir
 	-- {area:16629} Shrine of Akir

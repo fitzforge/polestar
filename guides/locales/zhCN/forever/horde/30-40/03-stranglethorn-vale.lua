@@ -129,7 +129,7 @@ return {
 	-- {npc:268992} Zimmix Sputterspark · {area:102} Ruins of Zul'Kunda · {item:277957} Primitive Key · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment · Bloodscalp Scouts = {npc:588} Bloodscalp Scout · Bloodscalp Berserkers = {npc:597} Bloodscalp Berserker
 	-- was: ["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}. Then lead him out of the ruins: {npc:4631} in {area:35} takes the news and the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992}被关在{area:102}东边缘；被盗的货物散落在他周围的废墟中。那里的血顶斥候、猎手和秘法师（34-35级）身上带着他的{item:277957}。然后护送他走出废墟：{area:35}的{npc:4631}会接收消息和货物。\n小心：{npc:268992}北边和西边的废墟里有血顶狂战士、猎头者（36-37级）和巫医（37级，施法者），离北边的货物（约24.9,9.6）很近：先拾取{npc:268992}附近南边废墟的货物，如果去北边，一次引一只。"
-	["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}: {npc:4631} in {area:35} takes the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "",
+	["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}: {npc:4631} in {area:35} takes the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992}被关在{area:102}的东缘；被盗的货物散落在他周围的废墟中。那里的血顶斥候、猎手和秘法师（34-35）身上有他的{item:277957}：{area:35}的{npc:4631}接收货物。\n小心：血顶狂战士、猎头者（36-37）和巫医（37，施法者）占据{npc:268992}以北和以西的废墟，靠近北边的货物（大约24.9,9.6）：先拿{npc:268992}旁南边废墟里的货物，如果往北走就一次拉一只。",
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
 	["Stolen Shipments, in the ruins"] = "被盗的货物，在废墟中",
 	-- {item:277957} Primitive Key
@@ -138,9 +138,9 @@ return {
 
 	-- Step 21: Escort Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark
-	["Escort {npc:268992}"] = "",
+	["Escort {npc:268992}"] = "护送{npc:268992}",
 	-- {npc:268992} Zimmix Sputterspark
-	["Lead {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "",
+	["Lead {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "带{npc:268992}离开废墟并保护他活着：他安全后，洛兹吉尔会接收消息。",
 	-- {npc:268992} Zimmix Sputterspark
 	["Escort {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "护送{npc:268992}走出废墟并保证他存活：他安全后，罗兹基尔会接收消息。",
 

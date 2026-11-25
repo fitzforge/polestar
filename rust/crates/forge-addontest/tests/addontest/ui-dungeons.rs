@@ -2452,3 +2452,39 @@ fn of_the_dungeons_with_quests_the_line_prefers_the_one_whose_quest_givers_are_n
 	));
 	assert_eq!(out[0], json!({ "deadminesNearer": "deadmines:1", "cavernsNearer": "wailing-caverns:2", "onlyQuests": "wailing-caverns:1" }));
 }
+
+// #3063 (Swiftfyre, 0.4.1.1): Maraudon's Corruption of Earth and Seed is given from 45, but the heads-up's "Pick up the
+// quests" held it back until 50 (one level under its quest level): the heads-up opened the pick-up guide by its own
+// offer rule. Since 0.4.3 that rule only decides when the heads-up is due; its button opens the guide the dungeon's
+// page opens, with every quest the game gives now. Here Trouble at the Docks is a level 26 quest the game gives from
+// 14: at 20 the heads-up's rule would hold it back to 25, yet the guide its button opens takes it.
+#[test]
+fn the_heads_up_s_button_picks_up_every_quest_the_game_gives_now_not_one_held_back_to_a_level_under_its_own_3063() {
+	let f = fixture("dungeons.json");
+	let mut codex = f["codex"].clone();
+	codex["quests"]["959"]["level"] = json!(26);
+	let out = run_pack(
+		&format!(
+			r#"{HEADS_UP}
+		local Dg = Polestar.Dungeons
+		Dg.PickUp = pickUp
+		uistub.player.level = 20
+		Dg.Load()
+		local docks = Dg.Quest("wailing-caverns", 959)
+		DT.PickUp("wailing-caverns")
+		local guide = Dg.PickupGuide("wailing-caverns")
+		local quests = {{}}
+		for _, st in ipairs(guide and guide.steps or {{}}) do
+			for _, g in ipairs(st.goals or {{}}) do
+				if g.t == "accept" then quests[#quests + 1] = g.quest end
+			end
+		end
+		table.sort(quests)
+		emit({{ offer = docks and Dg.OfferLevel(docks) or false, accepts = quests }})"#
+		),
+		Some(pack_of(&codex, &f["inputs"])),
+	);
+	let o = &out[0];
+	assert!(o["offer"].as_i64().is_some_and(|l| l > 20), "the heads-up's rule would hold Trouble at the Docks back at 20: {o}");
+	assert_eq!(o["accepts"], json!([959, 1486]), "the guide it opens takes Trouble at the Docks too: {o}");
+}

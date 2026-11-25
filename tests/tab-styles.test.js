@@ -244,3 +244,76 @@ emit({ n = strip.psCount, tabs = tabs })`);
 		if (t.range) assert.ok(t.title >= Math.min(t.full, 30), `a range shows only beside a few letters of the title: ${JSON.stringify(t)}`);
 	}
 });
+
+// A game look leaves its frame open on the window's side of the side strip
+// (Theme.KitOpen), and in Classic stretches its tile there. In the
+// transparent style the tabs are bare like the window, in every skin: no
+// ground, no frame, on the strip, its unlit tabs and the edge tabs; the lit
+// tab keeps only its mark.
+test('transparent: the side strip and edge tabs draw no ground or frame in any skin', () => {
+	const fs = require('node:fs');
+	const path = require('node:path');
+	// Our skins are folders of Polestar_Skins since 0.4.3 (#3507): one add-on, every skin inside.
+	const ownSkins = fs.readdirSync(path.join(__dirname, '..', 'addon', 'Polestar_Skins', 'Skins')).sort();
+	const script = SCRIPT.replace(/Polestar\.Set\("guideWindow\.tabStyle", "edge"\)[\s\S]*$/, `
+Polestar.RegisterGuide({ id = "test/tabs2", pack = "test", title = "Tabs two", minLevel = 1, maxLevel = 20,
+	steps = { { goals = { { t = "accept", quest = 33, title = "Wolves Across the Border" } } } } })
+Polestar.Engine.OpenTab("test/tabs2", false)
+stub.advance(0.6)
+Polestar.Theme._testShowHidden = true
+-- Every texture under f that would draw: shown up the chain, not clear.
+local function painted(f, out, name)
+	if not f:IsShown() then return end
+	for _, r in ipairs({ f:GetRegions() }) do
+		if r:GetObjectType() == "Texture" and r:IsShown() and (r:GetDrawLayer() == "BACKGROUND" or r:GetDrawLayer() == "BORDER") then
+			local a = r:GetAlpha() * (select(4, r:GetVertexColor()) or 1)
+			if a > 0.01 then out[#out + 1] = name .. ":" .. tostring(r:GetTexture()) end
+		end
+	end
+	-- The lit tab keeps its mark (the accent bar, or a skin's own: Lanterns' pill).
+	for i, c in ipairs({ f:GetChildren() }) do if not c.psActive then painted(c, out, name .. "." .. i) end end
+end
+local res = {}
+for _, c in ipairs(Polestar.Theme.SkinChoices()) do
+	Polestar.Set("ui.skin", c.value)
+	for _, style in ipairs({ "standard", "transparent" }) do
+		Polestar.Set("ui.style", style)
+		for _, tabs in ipairs({ "strip", "edge" }) do
+			Polestar.Set("guideWindow.tabStyle", tabs); draw(); draw()
+			local fr = GF.TabStyleFrames()
+			local f = tabs == "strip" and fr.side or fr.edge
+			local out, own = {}, {}
+			painted(f, out, tabs)
+			-- What the window itself still draws (a skin's marks of its
+			-- extent while transparent: Lumen's corner ticks): the tabs may
+			-- draw that too, nothing else.
+			local win = {}
+			for _, r in ipairs({ F:GetRegions() }) do
+				if r:GetObjectType() == "Texture" and r:IsShown() and (r:GetDrawLayer() == "BACKGROUND" or r:GetDrawLayer() == "BORDER") then
+					local a = r:GetAlpha() * (select(4, r:GetVertexColor()) or 1)
+					if a > 0.01 then win[tostring(r:GetTexture())] = true end
+				end
+			end
+			for _, k in ipairs(out) do
+				if not win[k:match(":(.*)$")] then own[#own + 1] = k end
+			end
+			res[#res + 1] = { skin = c.value, style = style, tabs = tabs, shown = f:IsShown(), bare = F.psBare and true or false, painted = out, own = own }
+		end
+	end
+end
+emit(res)`);
+	const [out] = runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar', 'Polestar_Skins'], script }).emitted;
+	const skins = new Set(out.map((r) => r.skin));
+	for (const k of ['polestar', 'classic', 'forever']) assert.ok(skins.has(k), `${k} among the skins: ${[...skins]}`);
+	assert.ok(skins.size >= 4 + ownSkins.length, `every skin of Polestar_Skins: ${[...skins]}`);
+	for (const r of out) {
+		const at = `${r.skin} ${r.style} ${r.tabs}`;
+		assert.equal(r.shown, true, `${at}: shown`);
+		if (r.style === 'transparent') {
+			assert.equal(r.bare, true, at);
+			assert.deepEqual(Object.values(r.own), [], `${at}: nothing painted under the tabs the window does not paint`);
+		}
+	}
+	// The opaque look has its ground (the check sees a painted ground).
+	assert.ok(out.some((r) => r.style === 'standard' && Object.values(r.painted).length > 0), 'an opaque strip draws its ground');
+});

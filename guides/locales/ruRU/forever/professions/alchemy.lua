@@ -270,7 +270,7 @@ return {
 	["{spell:3176} to 160"] = "{spell:3176} до 160",
 	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial
 	-- was: ["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176}: желтый на 150 (желтый 150, зеленый 170, серый 190): около 12 изготовлений до 160. Каждое требует 2 {item:2453}, 2 {item:2450} и 1 {item:3372}. Два {item:2453} и два {item:2450} на изготовление; {item:2453} растет в зонах 15-30 уровня."
-	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. If you got here without learning {spell:3176}, learn it now: an earlier step teaches it."] = "",
+	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. If you got here without learning {spell:3176}, learn it now: an earlier step teaches it."] = "{spell:3176}: желтый на 150 (желтый 150, зеленый 170, серый 190): около 12 изготовлений до 160. Каждое требует 2 {item:2453}, 2 {item:2450} и 1 {item:3372}. Два {item:2453} и два {item:2450} на изготовление; {item:2453} растет в зонах 15-30 уровня. Если вы дошли сюда, не выучив {spell:3176}, выучите сейчас: его учит один из прошлых шагов.",
 
 	-- Step 55: Alchemy recipes at 160
 	-- {skill:171} Alchemy
@@ -357,7 +357,7 @@ return {
 	["{item:8951} to 230"] = "{item:8951} до 230",
 	-- {item:8951} Elixir of Defense · {item:3355} Wild Steelbloom · {item:3821} Goldthorn · {item:3372} Leaded Vial · {zone:1418} Badlands
 	-- was: ["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951}: желтый на 225 (желтый 215, зеленый 235, серый 255): около 8 изготовлений до 230. Каждое требует 1 {item:3355}, 1 {item:3821} и 1 {item:3372}. {item:3355} и {item:3821} – травы зон 30-45 уровня (Тернистая долина, Арати, {zone:1418})."
-	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). If you got here without learning {item:8951}, learn it now: an earlier step teaches it."] = "",
+	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). If you got here without learning {item:8951}, learn it now: an earlier step teaches it."] = "{item:8951}: желтый на 225 (желтый 215, зеленый 235, серый 255): около 8 изготовлений до 230. Каждое требует 1 {item:3355}, 1 {item:3821} и 1 {item:3372}. {item:3355} и {item:3821} – травы зон 30-45 уровня (Тернистая долина, Арати, {zone:1418}). Если вы дошли сюда, не выучив {item:8951}, выучите сейчас: его учит один из прошлых шагов.",
 
 	-- Step 70: Alchemy recipes at 230
 	-- {skill:171} Alchemy

@@ -41,7 +41,7 @@ return {
 	-- {object:12666} Twilight Tome · {quest:948} Onu · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
 	-- was: ["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater; {npc:3584} stands on its north side. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "月夜雄虎在月刃周圍的樹林中徘徊。{object:12666}在坑底；{npc:3584}站在北側。進行{quest:948}的任務時，在坑底使用{item:5251}：它會變出{object:10076}，然後把任務交給這個碗。"
-	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "",
+	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "月夜獵豹雄獸在月刃周圍的樹林中遊蕩。{object:12666}在彈坑底部。為了{quest:948}的任務，在彈坑底部使用{item:5251}：它會產生{object:10076}，你把任務繳交給這個碗。",
 	-- plural, as words: Fine Moonstalker Pelts = {item:5386} Fine Moonstalker Pelt
 	["Fine Moonstalker Pelts"] = "優質月夜猛虎毛皮",
 	-- {item:5352} Book: The Powers Below
@@ -58,7 +58,7 @@ return {
 
 	-- Step 7: Therylune
 	-- {npc:3584} Therylune · {zone:1440} Ashenvale
-	["{npc:3584} stands on the north side of the crater: escort her out of the glaive. Therysil takes the turn-in in {zone:1440}."] = "",
+	["{npc:3584} stands on the north side of the crater: escort her out of the glaive. Therysil takes the turn-in in {zone:1440}."] = "{npc:3584}站在彈坑北側：護送她離開月刃。瑟瑞希爾在{zone:1440}接受繳交。",
 	-- {zone:1440} Ashenvale
 	["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "護送她離開月刃；瑟瑞希爾在{zone:1440}接受繳交",
 
@@ -120,7 +120,7 @@ return {
 
 	-- Step 21: Volcor
 	-- {npc:3692} Volcor · {area:449} Master's Glaive · {area:455} Blackwood Den
-	["{npc:3692} hides in the hills east of the {area:449}, inside {area:455}."] = "",
+	["{npc:3692} hides in the hills east of the {area:449}, inside {area:455}."] = "{npc:3692}躲在{area:449}以東的山丘中，在{area:455}裡面。",
 	-- {npc:3692} Volcor · {area:455} Blackwood Den
 	["{npc:3692}, inside {area:455}"] = "{npc:3692}，{area:455}內",
 	-- {npc:12298} Sickly Deer · {item:15826} Curative Animal Salve · {zone:1439} Darkshore
@@ -130,9 +130,9 @@ return {
 
 	-- Step 22: Escort Volcor
 	-- {npc:3692} Volcor
-	["Escort {npc:3692}"] = "",
+	["Escort {npc:3692}"] = "護送{npc:3692}",
 	-- {npc:3692} Volcor · {npc:3693} Terenthis · {area:442} Auberdine
-	["Help {npc:3692} back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "",
+	["Help {npc:3692} back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "幫{npc:3692}回到大路上；他會一路戰鬥著離開。下次去{area:442}時，{npc:3693}會接受這次護送。",
 	["His walk ends at the road, where Grimclaw waits"] = "他的巡視在道路處結束，怒爪在那裡等候",
 
 	-- Step 23: Auberdine
@@ -178,7 +178,7 @@ return {
 
 	-- Step 34: Dendrite Starblaze
 	-- {item:15885} Pendant of the Sea Lion · {npc:11802} Dendrite Starblaze · {quest:5061} Aquatic Form
-	["The {item:15885} is already with {npc:11802}: take {quest:5061} from him, upstairs in his building."] = "",
+	["The {item:15885} is already with {npc:11802}: take {quest:5061} from him, upstairs in his building."] = "{item:15885}已經交給{npc:11802}：在他建築的樓上向他接取{quest:5061}。",
 
 	-- Step 35: Back to Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze

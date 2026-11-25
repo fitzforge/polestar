@@ -41,7 +41,7 @@ return {
 	-- {object:12666} Twilight Tome · {quest:948} Onu · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
 	-- was: ["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater; {npc:3584} stands on its north side. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "Взрослые лунопарды рыщут в лесу вокруг глефы. {object:12666} – на дне кратера; {npc:3584} стоит на его северной стороне. Для задания {quest:948} примените {item:5251} на дне кратера: так появится {object:10076}, и задание сдается чаше."
-	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "",
+	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "Взрослые лунопарды рыщут в лесу вокруг глефы. {object:12666} – на дне кратера. Для задания {quest:948} используйте {item:5251} на дне кратера: появится {object:10076}, и задание сдается чаше.",
 	-- plural, as words: Fine Moonstalker Pelts = {item:5386} Fine Moonstalker Pelt
 	["Fine Moonstalker Pelts"] = "Прекрасные шкуры лунопарда",
 	-- {item:5352} Book: The Powers Below
@@ -58,7 +58,7 @@ return {
 
 	-- Step 7: Therylune
 	-- {npc:3584} Therylune · {zone:1440} Ashenvale
-	["{npc:3584} stands on the north side of the crater: escort her out of the glaive. Therysil takes the turn-in in {zone:1440}."] = "",
+	["{npc:3584} stands on the north side of the crater: escort her out of the glaive. Therysil takes the turn-in in {zone:1440}."] = "{npc:3584} стоит на северной стороне кратера: выведите ее из глефы. Задание сдается Тересиль ({zone:1440}).",
 	-- {zone:1440} Ashenvale
 	["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "Выведите ее из глефы; задание сдается Тересиль ({zone:1440})",
 
@@ -120,7 +120,7 @@ return {
 
 	-- Step 21: Volcor
 	-- {npc:3692} Volcor · {area:449} Master's Glaive · {area:455} Blackwood Den
-	["{npc:3692} hides in the hills east of the {area:449}, inside {area:455}."] = "",
+	["{npc:3692} hides in the hills east of the {area:449}, inside {area:455}."] = "{npc:3692} прячется в холмах к востоку от места {area:449}, внутри: {area:455}.",
 	-- {npc:3692} Volcor · {area:455} Blackwood Den
 	["{npc:3692}, inside {area:455}"] = "{npc:3692}, внутри: {area:455}",
 	-- {npc:12298} Sickly Deer · {item:15826} Curative Animal Salve · {zone:1439} Darkshore
@@ -130,9 +130,9 @@ return {
 
 	-- Step 22: Escort Volcor
 	-- {npc:3692} Volcor
-	["Escort {npc:3692}"] = "",
+	["Escort {npc:3692}"] = "Сопроводите: {npc:3692}",
 	-- {npc:3692} Volcor · {npc:3693} Terenthis · {area:442} Auberdine
-	["Help {npc:3692} back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "",
+	["Help {npc:3692} back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "Помогите NPC {npc:3692} выбраться к дороге; он сражается по пути. {npc:3693} принимает сопровождение в месте {area:442} при следующем визите туда.",
 	["His walk ends at the road, where Grimclaw waits"] = "",
 
 	-- Step 23: Auberdine
@@ -178,7 +178,7 @@ return {
 
 	-- Step 34: Dendrite Starblaze
 	-- {item:15885} Pendant of the Sea Lion · {npc:11802} Dendrite Starblaze · {quest:5061} Aquatic Form
-	["The {item:15885} is already with {npc:11802}: take {quest:5061} from him, upstairs in his building."] = "",
+	["The {item:15885} is already with {npc:11802}: take {quest:5061} from him, upstairs in his building."] = "{item:15885} уже у NPC {npc:11802}: возьмите у него задание {quest:5061} на втором этаже его здания.",
 
 	-- Step 35: Back to Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze

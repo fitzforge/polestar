@@ -894,7 +894,11 @@ as skipped.
 **The jump is checked once and kept.** Unlike `when`, which keeps
 checking a step until the route passes it, `skipto` is checked when the route
 arrives at its step (once the quest log can be read after login). A step
-passed some other way, done ahead of time, never jumps. The jumped steps are
+passed some other way, done ahead of time, never jumps. Nor does any step of
+the block once the player went into it: a step before it with a jump to the
+same label done without jumping, or quest work of theirs (an accept, a
+hand-in, an objective) done in one up to it. The jump is the block's door: a
+save from a release without the jump is often inside already. The jumped steps are
 saved for the character with the steps the player skipped, so the jump does
 not undo itself when the predicate stops holding. The player can unskip any
 of them like a skipped step; the step carrying the `skipto` then takes no
@@ -1110,7 +1114,12 @@ gets no `spots`, except an NPC who walks around:
   after another as in an area objective. Compile-time
   only: the compiled step has no `loop`. It is an error when the step has
   fewer than two gotos, gotos on different maps or frames, an `optional` or
-  `only` goto, or no goal to place.
+  `only` goto, or no goal to place. A `collect`'s target button names the
+  droppers at the points, not the map's best ones elsewhere: at each point the
+  likely droppers (as for `fromNpcs`) spawning within its radius, most spawns
+  first, or, where none of those spawns, every dropper that does; a point no
+  dropper spawns at names the others. Points that all name the same five or
+  fewer share `fromNpcs`; otherwise `fromNpcsAt` lists each point's (#1616).
 
   ```
   step Kobold camps

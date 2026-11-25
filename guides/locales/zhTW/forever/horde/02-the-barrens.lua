@@ -14,13 +14,13 @@ return {
 
 	-- Step 2: Orgnil Soulscar
 	-- {npc:3142} Orgnil Soulscar · {area:362} Razor Hill
-	["{npc:3142} stands in the middle of {area:362}."] = "",
+	["{npc:3142} stands in the middle of {area:362}."] = "{npc:3142}站在{area:362}中央。",
 	-- {npc:3142} Orgnil Soulscar · {quest:99051} Threat from Below · {zone:1411} Durotar
 	["{npc:3142}: {quest:99051}, from {zone:1411}'s naga beach"] = "",
 
 	-- Step 4: Uzzek
 	-- {npc:5810} Uzzek · {area:379} Far Watch Post · {npc:3337} Kargal Battlescar · {quest:809} Ak'Zeloth
-	["{npc:5810} stands at {area:379} with {npc:3337} and {quest:809}."] = "",
+	["{npc:5810} stands at {area:379} with {npc:3337} and {quest:809}."] = "{npc:5810}和{npc:3337}、{quest:809}一起站在{area:379}。",
 
 	-- Step 5: Far Watch Post
 	-- {area:814} Southfury River · {area:379} Far Watch Post · {zone:1413} The Barrens · {npc:3337} Kargal Battlescar · {quest:809} Ak'Zeloth · {npc:5810} Uzzek
@@ -34,7 +34,7 @@ return {
 
 	-- Step 7: Far Watch Post
 	-- {npc:5810} Uzzek · {area:379} Far Watch Post · {area:814} Southfury River
-	["{npc:5810} stands at {area:379}, just above the {area:814} bridge."] = "",
+	["{npc:5810} stands at {area:379}, just above the {area:814} bridge."] = "{npc:5810}站在{area:379}，就在{area:814}的橋上方。",
 
 	-- Step 8: The Crossroads
 	-- {area:379} Far Watch Post · {npc:3489} Zargh · {npc:3338} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3615} Devrak · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger
@@ -48,9 +48,9 @@ return {
 
 	-- Step 9: Thork
 	-- {npc:3429} Thork
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:3429}'s supply crates lie in the Razormane camp's north-east, among the Flesheaters and Berserkers (18-19, elite): it needs a group of 3. Skip it if you are alone."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:3429}'s supply crates lie in the Razormane camp's north-east, among the Flesheaters and Berserkers (18-19, elite): it needs a group of 3. Skip it if you are alone."] = "這些是精英怪物：鼓勵組隊，找人一起做。{npc:3429}的補給箱在鋼鬃營地東北部，在食肉者和狂戰士（18-19，精英）中間：需要3人小隊。如果你是單人，就跳過。",
 	-- {npc:3429} Thork
-	["{npc:3429}, on the tower"] = "",
+	["{npc:3429}, on the tower"] = "{npc:3429}，在塔上",
 
 	-- Step 10: Thun'grim Firegaze
 	-- {npc:5878} Thun'grim Firegaze · {area:392} Ratchet
@@ -67,13 +67,13 @@ return {
 	-- {npc:3429} Thork
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
 	-- was: ["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "既然在營地裡：{npc:3429}要的鋼鬃尋水者和鋼鬃織棘者在西半部，鋼鬃獵手在中間，補給箱在營地東端。\n小心：{npc:267308}和狂戰士（18-19級）是精英；牠們站在營地東北部的補給箱旁：把野豬人一隻一隻地從牠們身邊引開。"
-	["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, and, if you took his supplies with a group, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "",
+	["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, and, if you took his supplies with a group, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "你在營地裡時：{npc:3429}要的覓水者和織棘者在西半邊，獵手在中間；如果你和小隊接了他的補給任務，補給箱在東端。\n小心：鋼鬃食肉者和狂戰士（18-19）是精英；牠們站在營地東北部的補給箱旁：把野豬人一隻隻拉離牠們。",
 
 	-- Step 13: Thork's supply crates
 	-- {npc:3429} Thork
-	["{npc:3429}'s supply crates"] = "",
+	["{npc:3429}'s supply crates"] = "{npc:3429}的補給箱",
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
-	["With your group: the supply crates sit at the camp's eastern end. Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand beside the crates."] = "",
+	["With your group: the supply crates sit at the camp's eastern end. Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand beside the crates."] = "和你的小隊一起：補給箱在營地東端。小心：鋼鬃食肉者（{npc:267308}）和狂戰士（18-19）是精英；牠們站在箱子旁邊。",
 
 	-- Step 15: Telf Joolam
 	-- {npc:5900} Telf Joolam · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember
@@ -106,7 +106,7 @@ return {
 	-- Step 23: Razormane camp
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
 	-- was: ["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "營地裡，鋼鬃尋水者和鋼鬃織棘者占據西半部，鋼鬃獵手在中間；補給箱在營地東端。\n這裡的陸行鳥也算在鳥喙的數量裡。\n小心：{npc:267308}和狂戰士（18-19級）是精英；牠們站在營地東北部的補給箱旁：把野豬人一隻一隻地從牠們身邊引開。"
-	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates (with a group only) sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "",
+	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates (with a group only) sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "營地裡，覓水者和織棘者佔據西半邊，獵手在中間；補給箱（僅限組隊）在東端。\n這裡的平原陸行鳥也算在鳥喙裡。\n小心：鋼鬃食肉者和狂戰士（18-19）是精英；牠們站在營地東北部的補給箱旁：把野豬人一隻隻拉離牠們。",
 
 	-- Step 25: Finish the Plainstrider Beaks
 	-- plural, as words: Plainstrider Beaks = {item:5087} Plainstrider Beak
@@ -115,7 +115,7 @@ return {
 
 	-- Step 28: Thork
 	-- {npc:3438} Kreenig Snarlsnout
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:3438} and the Geomancers and Defenders of The Disruption Ends stand in the camp's eastern half, among the Flesheaters and Berserkers (18-19, elite): it needs a group of 3. Skip it if you are alone."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:3438} and the Geomancers and Defenders of The Disruption Ends stand in the camp's eastern half, among the Flesheaters and Berserkers (18-19, elite): it needs a group of 3. Skip it if you are alone."] = "這些是精英怪物：鼓勵組隊，找人一起做。{npc:3438}以及動亂之末的地卜師和防禦者站在營地東半邊，在食肉者和狂戰士（18-19，精英）中間：需要3人小隊。如果你是單人，就跳過。",
 
 	-- Step 29: The Zhevra
 	-- {area:392} Ratchet
@@ -171,7 +171,7 @@ return {
 	-- Step 37: The Barrens: kill these as you meet them
 	-- {npc:3389} Regthar Deathgate · {npc:3394} Barak Kodobane · {quest:4021} Counterattack! · {npc:9456} Warlord Krom'zar
 	-- plural, as words: Laden Mushrooms = {object:3640} Laden Mushroom · Kolkar Invaders = {npc:9524} Kolkar Invader
-	["The pools lie just north of {npc:3389}. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers. {npc:3394} stands in the Kolkar camp west of the pools.\nCareful: the Kolkar stand in packs around their camp west of the pools, and the Stormers cast from range: pull them one at a time from the edge. When anyone starts {npc:3389}'s {quest:4021}, Kolkar Invaders (16-17) and {npc:9456} (20, elite) charge his watch post: keep away from it until the attack is over."] = "",
+	["The pools lie just north of {npc:3389}. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers. {npc:3394} stands in the Kolkar camp west of the pools.\nCareful: the Kolkar stand in packs around their camp west of the pools, and the Stormers cast from range: pull them one at a time from the edge. When anyone starts {npc:3389}'s {quest:4021}, Kolkar Invaders (16-17) and {npc:9456} (20, elite) charge his watch post: keep away from it until the attack is over."] = "水池就在{npc:3389}以北。走進水裡探索它們；赫布瑞姆要的飽滿的蘑菇（{object:3640}）長在周圍。經過的每個科卡爾都殺掉，收集護腕。{npc:3394}站在水池以西的科卡爾營地裡。\n小心：科卡爾成群站在水池以西的營地周圍，風暴召喚者會遠程施法：從邊緣一次拉一隻。當有人開始{npc:3389}的{quest:4021}時，科卡爾入侵者（{npc:9524}，16-17）和{npc:9456}（20，精英）會衝向他的哨所：攻擊結束前離遠點。",
 
 	-- Step 38: Regthar Deathgate
 	-- {npc:3389} Regthar Deathgate · {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis
@@ -235,7 +235,7 @@ return {
 	["Finish the Raptor Heads"] = "收集完迅猛龍頭",
 	-- {quest:881} Echeyakee
 	-- plural, as words: Sunscale Screechers = {npc:3255} Sunscale Screecher
-	["Still short of twelve? Sunscale Screechers are thickest on the open plains just north of {quest:881}'s lair: finish there, then head back south-west to the Crossroads, keeping west of the Razormane camp."] = "",
+	["Still short of twelve? Sunscale Screechers are thickest on the open plains just north of {quest:881}'s lair: finish there, then head back south-west to the Crossroads, keeping west of the Razormane camp."] = "還差十二個？日鱗尖嘯者（{npc:3255}）在{quest:881}巢穴以北的開闊平原上最多：在那裡補齊，然後向西南回到十字路口，保持在鋼鬃營地以西。",
 
 	-- Step 53: The Crossroads
 	-- {npc:3464} Gazrog · {npc:3338} Sergra Darkthorn · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork
@@ -605,7 +605,6 @@ return {
 
 	-- Step 138: Enraged Thunder Lizards
 	-- {area:378} Camp Taurajo · {quest:884} Owatanka
-	-- plural, as words: Thunderheads = {npc:3239} Thunderhead
 	["Thunderheads graze on the plains just south of {area:378}. {quest:884}, a blue thunder lizard (level 24), roams among them: his Tailspike starts a quest. Leave him alone below level 23."] = "雷首蜥蜴在{area:378}南邊不遠的平原吃草。藍色雷霆蜥蜴{quest:884}（24級）在牠們之間遊蕩：牠的尾刺會開啟任務。23級以下別惹牠。",
 
 	-- Step 139: Jorn Skyseer

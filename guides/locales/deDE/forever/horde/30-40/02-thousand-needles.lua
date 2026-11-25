@@ -93,7 +93,7 @@ return {
 
 	-- Step 18: Jandia
 	-- {npc:4877} Jandia · {area:484} Freewind Post
-	["{npc:4877}, the trade supplies vendor, stands inside {area:484}'s inn. The previous guide works her harpies; this is for a character who arrives without them."] = "",
+	["{npc:4877}, the trade supplies vendor, stands inside {area:484}'s inn. The previous guide works her harpies; this is for a character who arrives without them."] = "{npc:4877}, der Handelsware-Lieferant, steht im Gasthaus von {area:484}. Der vorherige Guide kümmert sich um seine Harpies; das ist für einen Charakter, der diese ohne sie ankommt.",
 	-- {npc:4877} Jandia · {area:487} Roguefeather Den
 	["{npc:4877}: the Screeching harpies of {area:487}"] = "{npc:4877}: die Kreischenden Harpyien vom {area:487}",
 	-- {npc:4877} Jandia
@@ -131,7 +131,7 @@ return {
 
 	-- Step 24: Moktar Krin
 	-- {quest:1146} The Swarm Grows · {npc:4483} Moktar Krin
-	["{quest:1146}' second part is already handed in: take the third part from {npc:4483}, on the north-western edge of the salt flats."] = "",
+	["{quest:1146}' second part is already handed in: take the third part from {npc:4483}, on the north-western edge of the salt flats."] = "{quest:1146}'s zweiter Teil ist bereits abgegeben: nimm den dritten Teil von {npc:4483} am nordwestlichen Rand der Salzwüste.",
 
 	-- Step 25: Mirage Raceway
 	-- {area:2240} Mirage Raceway
@@ -224,7 +224,7 @@ return {
 
 	-- Step 43: Ethel Rethor
 	-- {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
-	["From the rise, north-west across the plain to the ruined tower of {area:2405}: {npc:11863} waits inside. His errand is in {area:599}, the next stop; he takes it back on the walk up the coast later in this guide."] = "",
+	["From the rise, north-west across the plain to the ruined tower of {area:2405}: {npc:11863} waits inside. His errand is in {area:599}, the next stop; he takes it back on the walk up the coast later in this guide."] = "Vom Aufschlag nordwestlich über die Ebene zum Ruinen-Turm von {area:2405}: {npc:11863} wartet drin. Sein Auftrag ist in {area:599}, dem nächsten Stop; er nimmt ihn auf dem Weg entlang der Küste später in diesem Guide ab.",
 
 	-- Step 44: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {zone:1443} Desolace
@@ -244,15 +244,15 @@ return {
 
 	-- Step 47: Ghost Walker Post
 	-- {npc:5641} Takata Steelblade · {npc:4498} Maurin Bonesplitter · {npc:5395} Felgur Twocuts · {npc:5412} Gurda Wildmane
-	["South-west down the road to the post: {npc:5641} and {npc:4498} on the rise west of it, {npc:5395} and {npc:5412} side by side in the post."] = "",
+	["South-west down the road to the post: {npc:5641} and {npc:4498} on the rise west of it, {npc:5395} and {npc:5412} side by side in the post."] = "Südwestlich entlang der Straße zum Posten: {npc:5641} und {npc:4498} auf der Anhebung westlich davon, {npc:5395} und {npc:5412} nebeneinander im Posten.",
 	-- {npc:5641} Takata Steelblade · {npc:5640} Keldran · {zone:1454} Orgrimmar
 	["{npc:5641}: for {npc:5640} in {zone:1454}, next guide"] = "{npc:5641}: für {npc:5640} in {zone:1454}, nächster Guide",
 	-- {npc:5641} Takata Steelblade · {npc:4498} Maurin Bonesplitter · {area:603} Sargeron
-	["{npc:5641}'s next errand sends you after a demon lord with an elite guard, and {npc:4498}'s next Corrupter errand back to {area:603}: leave them."] = "",
+	["{npc:5641}'s next errand sends you after a demon lord with an elite guard, and {npc:4498}'s next Corrupter errand back to {area:603}: leave them."] = "{npc:5641}'s nächster Auftrag schickt dich auf eine Dämonenkönigs mit Elite-Begleitung, und {npc:4498}'s nächster Corrupter-Auftrag zurück zu {area:603}: lasse sie.",
 	-- {npc:5395} Felgur Twocuts · {npc:11596} Smeed Scrabblescrew
-	["{npc:5395}: the Magram centaurs south-east of the post, after {npc:11596}'s kodos"] = "",
+	["{npc:5395}: the Magram centaurs south-east of the post, after {npc:11596}'s kodos"] = "{npc:5395}: die Magram-Kentaur-Osten des Postens, nach {npc:11596}'s Kodos",
 	-- {npc:5412} Gurda Wildmane
-	["{npc:5412}: her totems drop from the same Magram centaurs"] = "",
+	["{npc:5412}: her totems drop from the same Magram centaurs"] = "{npc:5412}: ihre Totems fallen von denselben Magram-Kentauren",
 
 	-- Step 48: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo · {npc:11521} Kodo Apparition
@@ -268,16 +268,16 @@ return {
 	["South-east of Smeed's camp, the Magram centaurs camp in the hills. The Scouts and Outrunners (32-33) and the Wranglers (33-34) hold the camp's north-western edge; any centaur can drop an ear for {npc:5395} and a {item:254432} for Gurda. Careful on the way: Scorpashi Venomlashes (38-39) and Dread Rippers (39-40) roam the ground just west of the camp's edge: give them room.\nCareful: the Stormers and Pack Runners (34-35), Marauders and Maulers (35-36) and the Bonepaws (37-38) hold the middle and south of the camp: stay on its north-western edge and pull one at a time."] = "",
 	-- {item:6067} Centaur Ear
 	-- plural, as words: Magram Scouts = {npc:4638} Magram Scout
-	["{item:6067}, from the Magram Scouts, Outrunners and Wranglers"] = "",
+	["{item:6067}, from the Magram Scouts, Outrunners and Wranglers"] = "{item:6067}, von den Magram-Aufklärern, Ausläufern und Konditionierern",
 	-- {item:254432} Carved Centaur Totem
-	["{item:254432}, from the same centaurs"] = "",
+	["{item:254432}, from the same centaurs"] = "{item:254432}, von denselben Kentauren",
 
 	-- Step 51: Ghost Walker Post
-	["Back north-west to the post, on your way west."] = "",
+	["Back north-west to the post, on your way west."] = "Wieder nordwestlich zurück zum Posten, auf dem Weg nach Westen.",
 
 	-- Step 52: Shadowprey Village
 	-- {area:606} Gelkis Village
-	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way."] = "",
+	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way."] = "Fahre nach Westen zum Küsten-Troll-Dorf, halte dich auf dem Weg von {area:606} fern.",
 	-- {npc:11877} Roon Wildmane · {quest:5762} Hemet Nesingwary
 	["{npc:11877}: for {quest:5762} in Stranglethorn, next guide"] = "{npc:11877}: für {quest:5762} im Schlingendorntal, nächster Guide",
 	-- {npc:6726} Thalon
@@ -289,7 +289,7 @@ return {
 
 	-- Step 54: Ethel Rethor
 	-- {npc:11863} Azore Aldamort · {area:2406} Ranazjar Isle
-	["North along the coast, then inland to {npc:11863}'s tower. The coast's clams and naga come next, on one walk north to {area:2406}."] = "",
+	["North along the coast, then inland to {npc:11863}'s tower. The coast's clams and naga come next, on one walk north to {area:2406}."] = "Nördlich entlang der Küste, dann ins Land zu {npc:11863}'s Turm. Die Küsse und Naga der Küste folgen als nächstes, auf einem Spaziergang nach Norden zu {area:2406}.",
 	-- {npc:11863} Azore Aldamort · {item:15803} Book of the Ancients · {npc:12369} Lord Kragaru · {area:2406} Ranazjar Isle
 	["{npc:11863}'s next errand, the {item:15803}, needs {npc:12369} (38) out on {area:2406}: leave it, he is over your level."] = "Der nächste Auftrag von {npc:11863}, das {item:15803}, braucht {npc:12369} (38) draußen auf {area:2406}: Lass es, er ist über deiner Stufe.",
 
@@ -327,7 +327,7 @@ return {
 	["Swim out to {area:2406} off the far northern tip: {object:177786} stands on the shore beside the {object:177673}. Open it with both keys; leave the statue alone."] = "Schwimm hinaus nach {area:2406} vor der äußersten Nordspitze: {object:177786} steht am Ufer neben der {object:177673}. Öffne sie mit beiden Schlüsseln; lass die Statue in Ruhe.",
 
 	-- Step 60: Shadowprey Village
-	["Hearth to Shadowprey (you bound it on the way in), or walk back south along the coast."] = "",
+	["Hearth to Shadowprey (you bound it on the way in), or walk back south along the coast."] = "Ruhestein zu Shadowprey (gebunden auf dem Weg herein), oder laufe südlich entlang der Küste zurück.",
 	-- {item:14547} Hand of Iruxos · {npc:12340} Drulzegar Skraghook · {quest:6143} Other Fish to Fry · {zone:1443} Desolace · {zone:1454} Orgrimmar · {zone:1434} Stranglethorn Vale
 	["Taiga's {item:14547}, {npc:12340}'s {quest:6143} (unless you did it on the strand) and {zone:1443}'s other 37-40 quests wait for the second visit, at about 37: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "",
 

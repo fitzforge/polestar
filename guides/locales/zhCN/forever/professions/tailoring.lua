@@ -137,7 +137,7 @@ return {
 	["{item:7053} to 170"] = "制作{item:7053}，提升至 170",
 	-- {item:7053} Azure Silk Cloak · {spell:3839} Bolt of Silk Cloth · {item:6260} Blue Dye · {item:2321} Fine Thread
 	-- was: ["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053} 在技能150时为橙色（160变黄，175变绿，190变灰）：大约制作22次升到170。每次需要3卷 {spell:3839}、2份 {item:6260} 和2根 {item:2321}。先制作66卷 {spell:3839}。配方就是上面买的那张；按数据，这是这一阶段最省钱的冲点方式。"
-	["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data. If you got here without learning {spell:3839}, learn it now: an earlier step teaches it."] = "",
+	["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data. If you got here without learning {spell:3839}, learn it now: an earlier step teaches it."] = "{item:7053}在150时为橙色（黄色160，绿色175，灰色190）：大约制作22次到170。每次需要3个{spell:3839}、2个{item:6260}和2个{item:2321}。先做66个{spell:3839}。它的配方就是上面买的那个；按数据来看这是过这几点最便宜的方法。如果你到这里还没学会{spell:3839}，现在就学：之前的步骤会教。",
 	["from the recipe in your bags"] = "使用背包里的配方",
 
 	-- Step 25: Tailoring recipes at 170

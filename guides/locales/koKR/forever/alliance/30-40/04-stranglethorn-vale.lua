@@ -70,7 +70,7 @@ return {
 	-- Step 10: Stranglethorn Tigers
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger
 	["Stranglethorn Tigers"] = "{npc:682}",
-	["The adult tigers prowl the hills on both sides of the camp: west of it, and east of it toward the lake. The arrow takes the eastern group."] = "",
+	["The adult tigers prowl the hills on both sides of the camp: west of it, and east of it toward the lake. The arrow takes the eastern group."] = "다 자란 호랑이들이 야영지 양쪽 언덕을 돌아다닙니다: 서쪽, 그리고 호수 쪽 동쪽. 화살표는 동쪽 무리로 안내합니다.",
 
 	-- Step 11: Ajeck Rouack
 	-- {area:99} Rebel Camp
@@ -198,7 +198,7 @@ return {
 
 	-- Step 30: Heartswood
 	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {item:190307} Unlit Torch
-	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0): light the {item:190307} from the table outside at a campfire and throw it onto the archaeologist's cart outside the house, which draws the figure in the house away so you can take the figurine upstairs. Then take the road west to Stonetalon."] = "",
+	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0): light the {item:190307} from the table outside at a campfire and throw it onto the archaeologist's cart outside the house, which draws the figure in the house away so you can take the figurine upstairs. Then take the road west to Stonetalon."] = "{area:415}에서 북서쪽 언덕으로 가십시오: {quest:1738}은(는) {area:413}(으)로 가는 길 북쪽의 빛나는 나무입니다. {quest:65602}을(를) 받았다면 {item:190309}은(는) {area:413} 북쪽 숲속 집에 있습니다(26.6,22.0): 바깥 탁자의 {item:190307}을(를) 모닥불에 붙여 집 밖 고고학자의 수레에 던지면 집 안의 형체가 끌려 나가 위층의 조각상을 가져갈 수 있습니다. 그런 다음 서쪽 길로 돌발톱 산맥으로 가십시오.",
 	-- {item:190309} Wooden Figurine · {area:413} Maestra's Post
 	["{item:190309}, north of {area:413}"] = "{item:190309}, {area:413} 북쪽",
 

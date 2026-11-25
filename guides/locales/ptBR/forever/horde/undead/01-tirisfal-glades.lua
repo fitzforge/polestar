@@ -46,7 +46,7 @@ return {
 	-- {area:154} Deathknell
 	["{area:154}: kill these as you meet them"] = "{area:154}: vá matando estes pelo caminho",
 	-- {area:154} Deathknell · {npc:1661} Novice Elreth
-	-- plural, as words: Rattlecage Skeletons = {npc:1890} Rattlecage Skeleton · Young Scavengers = {npc:1508} Young Scavenger · Duskbats = {npc:1512} Duskbat · Ragged Scavengers = {npc:1509} Ragged Scavenger · Mangy Duskbats = {npc:1513} Mangy Duskbat
+	-- plural, as words: Rattlecage Skeletons = {npc:1890} Rattlecage Skeleton · Young Scavengers = {npc:1508} Young Scavenger · Ragged Scavengers = {npc:1509} Ragged Scavenger · Mangy Duskbats = {npc:1513} Mangy Duskbat
 	["Rattlecage Skeletons wander the ruined houses in the north half of {area:154}. Young Scavengers and Duskbats roam all around the village; the Ragged Scavengers and Mangy Duskbats are on its east side. {npc:1661} wants their paws and wings: kill them as you meet them while you clear the skeletons."] = "Esqueletos Range-ossos vagam pelas casas em ruínas na metade norte de {area:154}. Carniceiros Jovens e Quiropúsculos rondam toda a vila; os Carniceiros Rotos e Quiropúsculos Sarnentos ficam no lado leste. {npc:1661} quer as patas e as asas deles: mate-os conforme os encontrar enquanto limpa os esqueletos.",
 
 	-- Step 7: Back to the church
@@ -150,7 +150,7 @@ return {
 	-- Step 26: Eleanor Shackleton
 	-- {area:159} Brill · {zone:1458} Undercity
 	-- was: ["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, at Linnea's camp, or in the {zone:1458} in the next guide."] = "Eleonora acampa logo a sudoeste da cidade. Com uma profissão aprendida, ela também oferece a Introdução ao acampamento dessa profissão, que o instrutor dela recebe: em {area:159}, no acampamento de Lina ou em {zone:1458}, no próximo guia."
-	["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, east of {area:159} for fishing, at Linnea's camp, or in the {zone:1458} in the next guide."] = "",
+	["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, east of {area:159} for fishing, at Linnea's camp, or in the {zone:1458} in the next guide."] = "Eleonora acampa logo a sudoeste da cidade. Com uma profissão aprendida, ela também oferece a Introdução ao acampamento dela, que o instrutor recebe: em {area:159}, a leste de {area:159} para pesca, no acampamento de Lina, ou em {zone:1458} no próximo guia.",
 	-- {spell:1229451} Boosted Rest
 	["/sit by her campfire until you get {spell:1229451}"] = "Use /sit junto à fogueira dela até receber {spell:1229451}",
 
@@ -210,9 +210,9 @@ return {
 
 	-- Step 37: Camping 101: Fishing
 	-- {npc:5690} Clyde Kellen · {skill:356} Fishing
-	["{npc:5690} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:5690} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5690} recebe a missão quando sua habilidade em {skill:356} chegar a 20: colete ou produza até lá; o guia continua enquanto isso.",
 	-- {npc:5690} Clyde Kellen
-	["Eleanor: for {npc:5690}"] = "",
+	["Eleanor: for {npc:5690}"] = "Eleonora: para {npc:5690}",
 
 	-- Step 38: Brill
 	-- {npc:1518} Apothecary Johaan · {npc:1515} Executor Zygand · {npc:1499} Magistrate Sevren
@@ -466,7 +466,7 @@ return {
 
 	-- Step 82: Clyde Kellen
 	-- {npc:5690} Clyde Kellen · {area:159} Brill · {quest:97956} Camping 101: Fishing
-	["{npc:5690}, east of {area:159}: {quest:97956}"] = "",
+	["{npc:5690}, east of {area:159}: {quest:97956}"] = "{npc:5690}, a leste de {area:159}: {quest:97956}",
 
 	-- Step 83: Leonid Barthalomew the Revered
 	-- {area:159} Brill · {area:157} Agamand Mills · {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {area:16881} Shadowvale

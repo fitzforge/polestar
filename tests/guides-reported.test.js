@@ -3368,17 +3368,19 @@ test('forever/horde/30-40/01-hillsbrad-foothills.guide: the Defiler\'s Basic Car
 // Craftsman's Writs of the Supply Factions Reputation guide named old item names the same way (one, Elixir of Greater
 // Defense, is now another item).
 test("DexeeXI's report (#1322): the guides name the elixirs the quests take by their names in the game", { skip }, () => {
+	data = data || loadData(DATA);
 	assert.equal(data.items[3388].name, "Lesser Troll's Blood Elixir");
 	assert.ok(data.quests[515].objectives.some((o) => o.type === 'item' && o.id === 3388), 'Elixir of Agony takes item 3388');
 	for (const file of ['forever/horde/06-hillsbrad-foothills.guide', 'forever/horde/30-40/01-hillsbrad-foothills.guide']) {
 		const said = goals(file).map(({ step }) => [step.tip, step.note, ...step.goals.map((g) => g.text)].flat().filter(Boolean).join(' ')).join(' ');
 		assert.doesNotMatch(said, /Strong Troll's Blood Potion/, `${file}: never the old name`);
 	}
-	// Each writ's hand-in says which item it takes: one of the quest's item objectives, by the game's name.
+	// Each writ's hand-in says which item it takes: one of the quest's item objectives, by the game's name (a note may
+	// write it as an {item:ID} token, which the game shows as that item's name).
 	const writs = goals('forever/reputation/merchants-favor.guide').filter(({ goal }) => goal.t === 'turnin' && /^Craftsman's Writ/.test(data.quests[goal.quest]?.title || ''));
 	assert.ok(writs.length > 0, 'the writ hand-ins');
 	for (const { goal } of writs) {
-		const item = (goal.note || '').replace(/, \d+ reputation$/, '');
+		const item = (goal.note || '').replace(/, \d+ reputation$/, '').replace(/^\{item:(\d+)\}$/, (_, id) => data.items[id]?.name ?? `item ${id} unknown`);
 		const takes = data.quests[goal.quest].objectives.filter((o) => o.type === 'item').map((o) => data.items[o.id]?.name);
 		assert.ok(takes.includes(item), `writ ${goal.quest}: "${item}" is one of ${takes.join(', ')}`);
 	}

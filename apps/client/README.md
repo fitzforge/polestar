@@ -96,8 +96,12 @@ the upload API, and the public list of what is never collected.
   touches its own folders: Polestar's are `Polestar` and the `Polestar_*`
   folders whose .toc says `## Author: Polestar`, plus Polestar 0.4.2's
   walking-map folders `Polestar_Nav_R<map>_<row>_<col>` whose .toc title
-  starts with `Polestar Nav [` (they had no author line); an update also
-  removes the ones its new release no longer has; never another addon. Updates are
+  starts with `Polestar Nav [` (they had no author line), plus the 24
+  folders Polestar 0.4.3 folded into others, by name whatever their .toc
+  says (docs/client/sweep-0.4.3.md). Other `Polestar_Skin_*` and
+  `Polestar_Layout_*` folders are skins and layouts, the example included,
+  and never Polestar's. An update also removes the ones its new release no
+  longer has; never another addon. Updates are
   looked for every 6 hours (off in Settings) and announced in the tray;
   they install by themselves only if you turn that on, and never while the
   game is running. The Stable channel offers releases, Beta pre-releases too.
@@ -157,10 +161,11 @@ the upload API, and the public list of what is never collected.
   pin them on the first check). A different uid under the same id means the
   guide was replaced by another one: it shows as replaced and is only
   installed after you confirm. An update whose publisher or folders changed
-  also asks first, naming what changed. Guide updates count in the Addons
-  badge; Update all takes only the routine ones. They install by
-  themselves only with their own setting, "Update guides automatically"
-  (off by default), and then only with the game closed, a day after the
+  also asks first, naming what changed. Guide updates count in the Community
+  Guides badge; Update all takes only the routine ones, and its tooltip says
+  so. They install by themselves only with their own setting, "Update guides
+  automatically" (off by default), and then only with the game closed, a day
+  after the
   version was published, and with the same uid, publisher and folders;
   anything else is announced in
   the tray and waits for you. With any guide installed, the 6-hourly check
