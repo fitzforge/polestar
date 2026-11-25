@@ -153,12 +153,17 @@ local function directTravelCost(from, to)
 end
 ns.DirectTravelCost = directTravelCost
 
+-- `from` nil: the player where they stand, the way the arrow would take them:
+-- flights they know from here and the Hearthstone or a teleport when it pays
+-- (Nav.EstimateTravel's own player estimate); a point never counts those.
 function ns.TravelCost(from, to)
 	local nav = ns.Nav
 	if nav and nav.EstimateTravel then
 		local ok, s = pcall(nav.EstimateTravel, from, to)
 		if ok and type(s) == "number" then return s end
 	end
+	from = from or ns.PlayerPoint()
+	if not from then return nil end
 	return directTravelCost(from, to)
 end
 

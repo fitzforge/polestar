@@ -3164,8 +3164,10 @@ local picks = setmetatable({}, { __mode = "k" }) -- goal -> { list = { candidate
 -- even when frames are missing and travel cannot be measured; candidates in a
 -- zone far above the character (ZoneLevels) come after both. Within a
 -- tier: travel cost. Only the PLANNED nearest by straight line get the travel
--- planner's estimate (a set can hold one vendor per town in the world); the
--- rest count their straight-line running time. An unplaceable candidate counts
+-- planner's estimate (a set can hold one vendor per town in the world): the
+-- player's own trip from where they stand, the flights they know and the
+-- Hearthstone or a teleport when it pays counted (#3661); the rest count their
+-- straight-line running time. An unplaceable candidate counts
 -- as right here when it is on the player's own map, else after every placed one.
 -- A `train class` goal carries its step's zone (`zone`, a uiMapID): when that
 -- map has a trainer of the character's class, the others come after all of
@@ -3302,7 +3304,7 @@ local function pickFor(goal)
 	if here then
 		for k = 1, math.min(Own.PLANNED, #list) do
 			local c = list[k]
-			local s = ns.TravelCost(here, c)
+			local s = ns.TravelCost(nil, c) -- from where the player stands: flights, the Hearthstone
 			if s then cost[c] = s end
 		end
 		table.sort(list, better)
