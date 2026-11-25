@@ -129,7 +129,7 @@ return {
 
 	-- Step 27: High Priestess Laurena
 	-- {npc:376} High Priestess Laurena · {object:2098} Cathedral Square · {npc:1646} Baros Alexston
-	["{npc:376} is in the Cathedral of Light, across {object:2098} from {npc:1646}."] = "",
+	["{npc:376} is in the Cathedral of Light, across {object:2098} from {npc:1646}."] = "{npc:376} – в Соборе Света, через место {object:2098} от NPC {npc:1646}.",
 
 	-- Step 28: Dungar Longdrink
 	-- {npc:352} Dungar Longdrink
@@ -241,7 +241,7 @@ return {
 	-- Step 46: Jangolode Mine
 	-- {area:918} Molsen Farm · {area:111} Jangolode Mine
 	-- plural, as words: Kobold Diggers = {npc:1236} Kobold Digger
-	["Back north past {area:918} to the mine.\nCareful: pull the four Kobold Diggers from the mouth of {area:111}, one at a time. There is no need to go deeper."] = "",
+	["Back north past {area:918} to the mine.\nCareful: pull the four Kobold Diggers from the mouth of {area:111}, one at a time. There is no need to go deeper."] = "Назад на север мимо места {area:918} к руднику.\nОсторожно: выманивайте четырех кобольдов-копателей ({npc:1236}) от входа в {area:111} по одному. Глубже заходить не нужно.",
 	-- plural, as words: Kobold Diggers = {npc:1236} Kobold Digger
 	["Kobold Diggers"] = "Кобольды-землекопы",
 
@@ -250,7 +250,7 @@ return {
 	["The {area:113}"] = "{area:113}",
 	-- {area:918} Molsen Farm
 	-- plural, as words: Riverpaw Miners = {npc:1426} Riverpaw Miner
-	["South-west to the coast, west of {area:918}. Riverpaw Miners work the quarry.\nCareful: pull the Riverpaw Miners away from the quarry mouth. The Defias stand close together inside the cave."] = "",
+	["South-west to the coast, west of {area:918}. Riverpaw Miners work the quarry.\nCareful: pull the Riverpaw Miners away from the quarry mouth. The Defias stand close together inside the cave."] = "На юго-запад к побережью, к западу от места {area:918}. В каменоломне работают рудокопы-гноллы Речной Лапы ({npc:1426}).\nОсторожно: выманивайте рудокопов подальше от входа в каменоломню. Бойцы Братства Справедливости в пещере стоят тесно.",
 	-- plural, as words: Riverpaw Miners = {npc:1426} Riverpaw Miner
 	["Riverpaw Miners"] = "Шахтеры из стаи Речной Лапы",
 
@@ -259,7 +259,7 @@ return {
 	["{area:20}: kill these as you meet them"] = "{area:20}: убивайте этих по пути",
 	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {object:1166} Alexston's Chest · {area:219} Alexston Farmstead · {npc:1646} Baros Alexston
 	-- plural, as words: Defias Pillagers = {npc:589} Defias Pillager
-	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: the Pillagers and Looters crowd the Alexston farm and the quarry entrance. Pull one out into the open before fighting it."] = "",
+	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: the Pillagers and Looters crowd the Alexston farm and the quarry entrance. Pull one out into the open before fighting it."] = "Бандиты и мародеры Братства Справедливости ({npc:589}) держат фермы к западу от места {area:108}, между прибрежной дорогой и местом {area:20}. {object:1166} стоит в фермерском доме ({area:219}) среди них: внутри компас NPC {npc:1646}.\nОсторожно: бандиты и мародеры толпятся на ферме Алекстона и у входа в каменоломню. Выманивайте их по одному на открытое место, прежде чем сражаться.",
 	-- {item:2998} A Simple Compass · {object:1166} Alexston's Chest
 	["{item:2998}, from {object:1166}"] = "{item:2998} – из объекта {object:1166}",
 

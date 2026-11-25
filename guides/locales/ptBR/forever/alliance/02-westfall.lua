@@ -241,7 +241,7 @@ return {
 	-- Step 46: Jangolode Mine
 	-- {area:918} Molsen Farm · {area:111} Jangolode Mine
 	-- plural, as words: Kobold Diggers = {npc:1236} Kobold Digger
-	["Back north past {area:918} to the mine.\nCareful: pull the four Kobold Diggers from the mouth of {area:111}, one at a time. There is no need to go deeper."] = "",
+	["Back north past {area:918} to the mine.\nCareful: pull the four Kobold Diggers from the mouth of {area:111}, one at a time. There is no need to go deeper."] = "Volte para o norte passando por {area:918} até a mina.\nCuidado: puxe os quatro Escavadores Kobold ({npc:1236}) da boca de {area:111}, um de cada vez. Não precisa ir mais fundo.",
 	-- plural, as words: Kobold Diggers = {npc:1236} Kobold Digger
 	["Kobold Diggers"] = "Escavadores Kobold",
 
@@ -250,7 +250,7 @@ return {
 	["The {area:113}"] = "{area:113}",
 	-- {area:918} Molsen Farm
 	-- plural, as words: Riverpaw Miners = {npc:1426} Riverpaw Miner
-	["South-west to the coast, west of {area:918}. Riverpaw Miners work the quarry.\nCareful: pull the Riverpaw Miners away from the quarry mouth. The Defias stand close together inside the cave."] = "",
+	["South-west to the coast, west of {area:918}. Riverpaw Miners work the quarry.\nCareful: pull the Riverpaw Miners away from the quarry mouth. The Defias stand close together inside the cave."] = "Para sudoeste até a costa, a oeste de {area:918}. Mineiros Pata-do-rio ({npc:1426}) trabalham na pedreira.\nCuidado: puxe os Mineiros Pata-do-rio para longe da boca da pedreira. Os Defias ficam bem juntos dentro da caverna.",
 	-- plural, as words: Riverpaw Miners = {npc:1426} Riverpaw Miner
 	["Riverpaw Miners"] = "Mineradores Pata Molhada",
 
@@ -259,7 +259,7 @@ return {
 	["{area:20}: kill these as you meet them"] = "{area:20}: vá matando estes pelo caminho",
 	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {object:1166} Alexston's Chest · {area:219} Alexston Farmstead · {npc:1646} Baros Alexston
 	-- plural, as words: Defias Pillagers = {npc:589} Defias Pillager
-	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: the Pillagers and Looters crowd the Alexston farm and the quarry entrance. Pull one out into the open before fighting it."] = "",
+	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: the Pillagers and Looters crowd the Alexston farm and the quarry entrance. Pull one out into the open before fighting it."] = "Pilhadores Defias ({npc:589}) e saqueadores ocupam as fazendas a oeste de {area:108}, entre a estrada costeira e {area:20}. {object:1166} fica na casa da fazenda de {area:219}, entre eles: a bússola de {npc:1646} está lá dentro.\nCuidado: os pilhadores e saqueadores se amontoam na fazenda Alexston e na entrada da pedreira. Puxe um para o descampado antes de lutar.",
 	-- {item:2998} A Simple Compass · {object:1166} Alexston's Chest
 	["{item:2998}, from {object:1166}"] = "{item:2998}, do {object:1166}",
 

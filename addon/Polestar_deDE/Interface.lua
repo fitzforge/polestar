@@ -258,6 +258,7 @@
 --   forever/horde/undead/01-tirisfal-glades
 --   forever/professions/alchemy
 --   forever/professions/enchanting
+--   forever/professions/first-aid
 --   forever/professions/herbalism
 --   forever/professions/leatherworking
 --   forever/professions/skinning

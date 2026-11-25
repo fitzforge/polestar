@@ -132,7 +132,7 @@ return {
 
 	-- Step 27: Heavy Silk Bandage (180-210)
 	-- {item:6451} Heavy Silk Bandage · {item:16112} Manual: Heavy Silk Bandage · {skill:129} First Aid
-	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere. Read the {item:16112} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "",
+	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere. Read the {item:16112} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "{item:6451}从180起为黄色（180黄色，210绿色，240灰色）：大约制作42次到210。绷带不需要火：随处都能做。阅读你随专家级{skill:129}一起买的{item:16112}来学会它；如果没有，卖书给你的商人也卖它。",
 
 	-- Step 28: Mageweave Bandage: Auction House
 	-- {item:8544} Mageweave Bandage
@@ -148,7 +148,7 @@ return {
 
 	-- Step 30: Mageweave Bandage (210-225)
 	-- {item:8544} Mageweave Bandage · {item:16113} Manual: Mageweave Bandage · {skill:129} First Aid
-	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere. Read the {item:16113} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "",
+	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere. Read the {item:16113} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "{item:8544}从210起为黄色（210黄色，240绿色，270灰色）：大约制作18次到225。绷带不需要火：随处都能做。阅读你随专家级{skill:129}一起买的{item:16113}来学会它；如果没有，卖书给你的商人也卖它。",
 
 	-- Step 31: Trauma
 	["Trauma"] = "创伤",

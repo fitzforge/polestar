@@ -129,7 +129,7 @@ return {
 
 	-- Step 27: High Priestess Laurena
 	-- {npc:376} High Priestess Laurena · {object:2098} Cathedral Square · {npc:1646} Baros Alexston
-	["{npc:376} is in the Cathedral of Light, across {object:2098} from {npc:1646}."] = "",
+	["{npc:376} is in the Cathedral of Light, across {object:2098} from {npc:1646}."] = "{npc:376}은(는) 빛의 대성당에 있으며, {object:2098} 건너편에 {npc:1646}이(가) 있습니다.",
 
 	-- Step 28: Dungar Longdrink
 	-- {npc:352} Dungar Longdrink
@@ -241,7 +241,7 @@ return {
 	-- Step 46: Jangolode Mine
 	-- {area:918} Molsen Farm · {area:111} Jangolode Mine
 	-- plural, as words: Kobold Diggers = {npc:1236} Kobold Digger
-	["Back north past {area:918} to the mine.\nCareful: pull the four Kobold Diggers from the mouth of {area:111}, one at a time. There is no need to go deeper."] = "",
+	["Back north past {area:918} to the mine.\nCareful: pull the four Kobold Diggers from the mouth of {area:111}, one at a time. There is no need to go deeper."] = "{area:918}을(를) 지나 북쪽 광산으로 돌아가십시오.\n주의: {area:111} 입구의 코볼트 땅굴꾼({npc:1236}) 넷을 하나씩 끌어내십시오. 더 깊이 들어갈 필요는 없습니다.",
 	-- plural, as words: Kobold Diggers = {npc:1236} Kobold Digger
 	["Kobold Diggers"] = "코볼트 채굴꾼",
 
@@ -250,7 +250,7 @@ return {
 	["The {area:113}"] = "{area:113}",
 	-- {area:918} Molsen Farm
 	-- plural, as words: Riverpaw Miners = {npc:1426} Riverpaw Miner
-	["South-west to the coast, west of {area:918}. Riverpaw Miners work the quarry.\nCareful: pull the Riverpaw Miners away from the quarry mouth. The Defias stand close together inside the cave."] = "",
+	["South-west to the coast, west of {area:918}. Riverpaw Miners work the quarry.\nCareful: pull the Riverpaw Miners away from the quarry mouth. The Defias stand close together inside the cave."] = "{area:918} 서쪽 해안으로 남서쪽으로 가십시오. 채석장에서 강발톱 광부({npc:1426})가 일합니다.\n주의: 강발톱 광부를 채석장 입구에서 떨어진 곳으로 끌어내십시오. 동굴 안의 데피아즈단은 서로 가까이 서 있습니다.",
 	-- plural, as words: Riverpaw Miners = {npc:1426} Riverpaw Miner
 	["Riverpaw Miners"] = "갈퀴발일족 광부",
 
@@ -259,7 +259,7 @@ return {
 	["{area:20}: kill these as you meet them"] = "{area:20}: 만나는 대로 처치하세요",
 	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {object:1166} Alexston's Chest · {area:219} Alexston Farmstead · {npc:1646} Baros Alexston
 	-- plural, as words: Defias Pillagers = {npc:589} Defias Pillager
-	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: the Pillagers and Looters crowd the Alexston farm and the quarry entrance. Pull one out into the open before fighting it."] = "",
+	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: the Pillagers and Looters crowd the Alexston farm and the quarry entrance. Pull one out into the open before fighting it."] = "데피아즈단 약탈자({npc:589})와 강도들이 {area:108} 서쪽, 해안 도로와 {area:20} 사이의 농장을 차지하고 있습니다. {object:1166}은(는) 그들 사이 {area:219}의 농가 안에 있습니다: 안에 {npc:1646}의 나침반이 있습니다.\n주의: 약탈자와 강도가 알렉스턴 농장과 채석장 입구에 몰려 있습니다. 싸우기 전에 하나씩 트인 곳으로 끌어내십시오.",
 	-- {item:2998} A Simple Compass · {object:1166} Alexston's Chest
 	["{item:2998}, from {object:1166}"] = "{item:2998}, {object:1166}에서",
 

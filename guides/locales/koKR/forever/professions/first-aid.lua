@@ -132,7 +132,7 @@ return {
 
 	-- Step 27: Heavy Silk Bandage (180-210)
 	-- {item:6451} Heavy Silk Bandage · {item:16112} Manual: Heavy Silk Bandage · {skill:129} First Aid
-	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere. Read the {item:16112} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "",
+	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere. Read the {item:16112} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "{item:6451}은(는) 180부터 노란색입니다(180 노란색, 210 초록색, 240 회색): 210까지 약 42번 제작. 붕대는 불이 필요 없습니다: 어디서나 만드십시오. 전문가 {skill:129}와(과) 함께 산 {item:16112}을(를) 읽어 배우십시오. 없으면 책을 판 상인이 그것도 팝니다.",
 
 	-- Step 28: Mageweave Bandage: Auction House
 	-- {item:8544} Mageweave Bandage
@@ -148,7 +148,7 @@ return {
 
 	-- Step 30: Mageweave Bandage (210-225)
 	-- {item:8544} Mageweave Bandage · {item:16113} Manual: Mageweave Bandage · {skill:129} First Aid
-	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere. Read the {item:16113} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "",
+	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere. Read the {item:16113} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "{item:8544}은(는) 210부터 노란색입니다(210 노란색, 240 초록색, 270 회색): 225까지 약 18번 제작. 붕대는 불이 필요 없습니다: 어디서나 만드십시오. 전문가 {skill:129}와(과) 함께 산 {item:16113}을(를) 읽어 배우십시오. 없으면 책을 판 상인이 그것도 팝니다.",
 
 	-- Step 31: Trauma
 	["Trauma"] = "외상 치료",

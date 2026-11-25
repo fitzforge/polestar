@@ -132,7 +132,7 @@ return {
 
 	-- Step 27: Heavy Silk Bandage (180-210)
 	-- {item:6451} Heavy Silk Bandage · {item:16112} Manual: Heavy Silk Bandage · {skill:129} First Aid
-	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere. Read the {item:16112} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "",
+	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere. Read the {item:16112} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "{item:6451}: желтые с 180 (желтые на 180, зеленые на 210, серые на 240): около 42 изготовлений до 210. Бинтам не нужен огонь: делайте их где угодно. Прочтите {item:16112}, купленное вместе с книгой эксперта по навыку «{skill:129}», чтобы выучить их; если его нет, его продает тот же торговец, что продал вам книгу.",
 
 	-- Step 28: Mageweave Bandage: Auction House
 	-- {item:8544} Mageweave Bandage
@@ -148,7 +148,7 @@ return {
 
 	-- Step 30: Mageweave Bandage (210-225)
 	-- {item:8544} Mageweave Bandage · {item:16113} Manual: Mageweave Bandage · {skill:129} First Aid
-	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere. Read the {item:16113} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "",
+	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere. Read the {item:16113} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "{item:8544}: желтые с 210 (желтые на 210, зеленые на 240, серые на 270): около 18 изготовлений до 225. Бинтам не нужен огонь: делайте их где угодно. Прочтите {item:16113}, купленное вместе с книгой эксперта по навыку «{skill:129}», чтобы выучить их; если его нет, его продает тот же торговец, что продал вам книгу.",
 
 	-- Step 31: Trauma
 	["Trauma"] = "Травма",
