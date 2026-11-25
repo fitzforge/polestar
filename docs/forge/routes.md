@@ -912,7 +912,8 @@ is part of the routes stage's cache key, so changing it rebuilds the routes.
 
 - **`include`**: the quest goes into the route and stays. Its accept goes right after the `after` step
   (kind and quest) when given, else after the stop nearest its giver. Its tasks and turn-in go at
-  their cheapest places within 300 steps after it.
+  their cheapest places within 300 steps after it. An optional `faction` applies the include to
+  that side's routes only.
 - **`skip`**: the quest is never in the route, never inserted and never picked up. An optional `faction`
   (`Alliance` or `Horde`) holds the skip for that side's routes only, as for `pairs`.
 - **`revert`** undoes one edit. Copy the `revert` line from the edit ledger:

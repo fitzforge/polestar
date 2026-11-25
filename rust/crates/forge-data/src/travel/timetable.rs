@@ -671,7 +671,7 @@ struct ObjectPortalDef {
 // Zephras Isle (#1674): the shrine's portal up to the Rohashi Spires, and the portal beside
 // Lorthuna's terrace back down to Valanaar. Without them the planner walked or hearthed off the
 // heights the portal leaves in five seconds. Zephras Isle (2521) is a Forever-only map: live frame.
-const OBJECT_PORTALS: [ObjectPortalDef; 2] = [
+const OBJECT_PORTALS: [ObjectPortalDef; 4] = [
 	ObjectPortalDef {
 		object: 586726,
 		id: "portal-rohashi-spires",
@@ -693,6 +693,29 @@ const OBJECT_PORTALS: [ObjectPortalDef; 2] = [
 		to_area: 16638.0,
 		b: (2521, 66.3, 79.7, Some(658.0)),
 		landing: "recorded arrivals at 2521:66.3,79.7 beside Elaadrin Evengale (3 people)",
+	},
+	// No Honor Among Thieves: click the Rowboat below the Thandol Span and use the one on the coast to return.
+	ObjectPortalDef {
+		object: 420054,
+		id: "portal-rowboat-arathi-coast",
+		from: "Rowboat at Thandol Span",
+		from_area: 330.0,
+		a: (1437, 58.2, 6.9, None),
+		to: "The Forbidding Sea",
+		to_area: 308.0,
+		b: (1417, 89.52, 77.86, None),
+		landing: "cameronmoten's Forever recording for quest 79242: from Wetlands to 1417:89.52,77.86",
+	},
+	ObjectPortalDef {
+		object: 420054,
+		id: "portal-rowboat-thandol-span",
+		from: "Rowboat on the Arathi coast",
+		from_area: 308.0,
+		a: (1417, 89.6, 78.0, None),
+		to: "Thandol Span",
+		to_area: 330.0,
+		b: (1417, 53.62, 91.64, None),
+		landing: "cameronmoten's Forever recording for quest 79242: from the coast to 1417:53.62,91.64",
 	},
 ];
 
@@ -1067,4 +1090,24 @@ pub fn build_timetables(
 	routes.sort_by(|a, _, b, _| cmp_utf16(a, b));
 	services.sort_by(|a, _, b, _| cmp_utf16(a, b));
 	Timetables { routes, services, portals, teleports, warnings }
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+
+	#[test]
+	fn thandol_span_rowboat_connects_both_recorded_landings() {
+		let era =
+			forge_guide::js::parse_json(r#"{"1417":{"c":0,"left":-866.7,"right":-4466.7,"top":-133.3,"bottom":-2533.3},"1437":{"c":0,"left":-389.6,"right":-4525,"top":-2147.9,"bottom":-4904.2}}"#)
+				.unwrap();
+		let frames = Frames::new(&era, &V::obj());
+		let portals = build_portals(&Rows::new(), &V::obj(), &frames, &LiveFrames::default(), &mut Vec::new(), None);
+		let outward = portals.iter().find(|p| p.id == "portal-rowboat-arathi-coast").unwrap();
+		let back = portals.iter().find(|p| p.id == "portal-rowboat-thandol-span").unwrap();
+		assert_eq!((outward.a.map, outward.a.x, outward.a.y), (1437, 58.2, 6.9));
+		assert_eq!((outward.b.map, outward.b.x, outward.b.y), (1417, 89.52, 77.86));
+		assert_eq!((back.a.map, back.a.x, back.a.y), (1417, 89.6, 78.0));
+		assert_eq!((back.b.map, back.b.x, back.b.y), (1417, 53.62, 91.64));
+	}
 }

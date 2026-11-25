@@ -8322,6 +8322,18 @@ test(`${ARATHI}: Fyurie's report (#1319): MacKreel's Moonshine is taken after Ko
 	for (const i of [accept, turnin]) assert.ok(!list[i].goal.only?.races, `${list[i].goal.t} 647 is open to every Alliance race`);
 });
 
+test(`${ARATHI}: No Honor Among Thieves uses the Rowboat and finishes before the Moonshine timer starts`, { skip }, () => {
+	const boot = goals('forever/alliance/30-40/04b-stranglethorn-vale.guide');
+	assert.ok(at(boot, 'accept 79242', is('accept', 79242)) > at(boot, 'turnin 79236', is('turnin', 79236)));
+	const list = goals(ARATHI);
+	const boat = at(list, 'the Wetlands Rowboat', (g) => g.t === 'goto' && g.map === 1437 && Math.abs(g.x - 58.2) < 0.15 && Math.abs(g.y - 6.9) < 0.15);
+	const talk = at(list, 'talk to Illari Duskfeather', (g) => g.t === 'talk' && g.quest === 79242 && g.npc === 215655);
+	const key = at(list, "collect Illari's Key", (g) => g.t === 'collect' && g.quest === 79242 && g.item === 212347);
+	const cache = at(list, "turnin at Illari's Loot Cache", is('turnin', 79242));
+	const moonshine = at(list, 'accept 647', is('accept', 647));
+	assert.ok(boat < talk && talk < key && key < cache && cache < moonshine);
+});
+
 // --- Timed-quest check (2026-11-08, #1319's pattern): A Meal Served Cold (212) must be back with Angus Stern in Stormwind
 // within 30 minutes. The route took it in Stormwind in 30-40/05 and handed it in two guides later: it always ran out. Left out.
 test('A Meal Served Cold (30-minute limit) is in no leveling guide', { skip }, () => {

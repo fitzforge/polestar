@@ -1052,7 +1052,7 @@ pub fn overrides_for(run: &Run, doc: &Value) -> Overrides {
 		let issue = r["issue"].as_str().map(String::from).or_else(|| r["issue"].as_u64().map(|n| format!("#{n}"))).unwrap_or_default();
 		o.why.insert(id, (format!("{what}: {reason}"), issue));
 	};
-	for r in doc["include"].as_array().into_iter().flatten() {
+	for r in doc["include"].as_array().into_iter().flatten().filter(|r| pair_for(run, r)) {
 		let Some(id) = r["q"].as_u64().map(|x| x as u32) else { continue };
 		note(&mut o, id, r, "include");
 		let Some(q) = run.q(id) else {

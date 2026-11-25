@@ -7806,6 +7806,67 @@
 			]
 		},
 		{
+			"id": "arathi-no-honor-among-thieves-pickup",
+			"faction": "Alliance",
+			"at": {
+				"quest": 79242,
+				"goal": "accept"
+			},
+			"tip": "Take No Honor Among Thieves from Tokal. Before picking up MacKreel's Moonshine, click the Rowboat at Wetlands 58.2, 6.9 to reach Illari Duskfeather on the Arathi coast.",
+			"note": "Tokal offered this follow-up after Cherry for Your Thoughts? in Booty Bay. The boat takes the player from Wetlands to the Arathi coast.",
+			"source": {
+				"kind": "recording",
+				"ref": "cameronmoten's Forever 1.60.1.71037 recording, quest 79242"
+			}
+		},
+		{
+			"id": "arathi-no-honor-among-thieves-illari",
+			"faction": "Alliance",
+			"at": {
+				"quest": 79242,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Speak to Illari Duskfeather and challenge her. Defeat her, then loot Illari's Key from the Dropped Pouch she leaves behind. Use the key at Illari's Loot Cache and take the Rowboat back to Thandol Span.",
+			"note": "The recording shows 27.9 seconds in combat, then the key from Dropped Pouch (423569) and 4,017 XP at the cache hand-in (418855). The base quest reward is 3,900 XP. The recording has no separate combat XP award.",
+			"source": {
+				"kind": "recording",
+				"ref": "cameronmoten's Forever 1.60.1.71037 recording, quest 79242"
+			}
+		},
+		{
+			"id": "arathi-no-honor-among-thieves-key",
+			"faction": "Alliance",
+			"at": {
+				"quest": 79242,
+				"goal": "collect",
+				"item": 212347
+			},
+			"goalNote": "Challenge Illari through her dialogue and defeat her. Then loot the Dropped Pouch for Illari's Key.",
+			"note": "Speaking to Illari awards the first objective before the fight. Keep the fight and pouch instructions on the key goal until the player loots it.",
+			"source": {
+				"kind": "recording",
+				"ref": "cameronmoten's Forever 1.60.1.71037 recording, quest 79242"
+			}
+		},
+		{
+			"id": "arathi-no-honor-among-thieves-walk-to-rowboat",
+			"faction": "Alliance",
+			"at": {
+				"quest": 79242,
+				"goal": "objective",
+				"objective": 1
+			},
+			"way": {
+				"when": "onquest 79242"
+			},
+			"note": "Players who missed Tokal's pickup can skip the walk to the rowboat and the ride out to the coast.",
+			"source": {
+				"kind": "recording",
+				"ref": "cameronmoten's Forever 1.60.1.71037 recording, quest 79242"
+			}
+		},
+		{
 			"id": "1319-mackreels-moonshine-time-limit",
 			"at": {
 				"quest": 647,

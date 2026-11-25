@@ -4615,6 +4615,19 @@
 		},
 		"note": "The Horn of Xelthos (C's payment, from the same Dead Drop near Pyrewood Village: the Pyrewood Signet Ring) is a Rogue quest on Forever: Forever limits it to Rogues (class mask 8). The merged data had no class, so the class-quest card knew it only from the Rogue guide that takes it."
 	},
+	"79242": {
+		"set": {
+			"objectives": [
+				{ "type": "talk", "id": 215655, "count": 1, "text": "Found Illari Duskfeather" },
+				{ "type": "item", "id": 212347, "count": 1, "text": "Illari's Key" }
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "cameronmoten's Forever 1.60.1.71037 recording: quest 79242 progressed after speaking to Illari, then completed when her key was looted from Dropped Pouch (423569) after combat"
+		},
+		"note": "The route needs both the conversation credit and the key from Illari's Dropped Pouch. The cache is the quest hand-in."
+	},
 	"79358": {
 		"set": {
 			"level": 43,

@@ -46,7 +46,7 @@ use std::time::Instant;
 /// Bump a stage's version when its code changes what it writes.
 /// data-4: Forever transmogrifier NPC flag adds a service role.
 /// data-5: travel crossing areas can identify a named subzone.
-pub const DATA_VERSION: &str = "data-5";
+pub const DATA_VERSION: &str = "data-6";
 pub const GRID_VERSION: &str = "grid-1";
 pub const PREPARE_VERSION: &str = "prepare-2";
 /// world-6: vendor buys for item objectives; world-7: the graveyard table (World::graveyards, the
