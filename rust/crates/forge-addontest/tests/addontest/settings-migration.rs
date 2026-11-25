@@ -13,12 +13,12 @@ use serde_json::{json, Value};
 const FIXTURE: &str = include_str!("settings-0.3.6.lua");
 
 // Lua: movedTo(path, saved) -> what a saved setting reads back as. One moves on purpose: the settings window draws at
-// 0.92 x ui.menuScale since 0.4.3 (0.8 before), so a saved scale is divided by 1.15 once (Theme.lua's migration
-// "menuScale092", #3789) and the window keeps its size; the stored 100 % is the default.
+// 0.92 x ui.menuScale since 0.4.3 (1 x in a release), so a release's saved scale is divided by 0.92 once, within the
+// slider's 70-140 % (Theme.lua's migration "menuScale092", #3789), and the window keeps its size.
 const MOVED: &str = r#"
 local function movedTo(path, v)
 	if path == "ui.menuScale" and type(v) == "number" then
-		return math.min(1.4, math.max(0.7, math.floor(v / 1.15 * 100 + 0.5) / 100))
+		return math.min(1.4, math.max(0.7, v / 0.92))
 	end
 	return v
 end

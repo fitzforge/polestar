@@ -18903,6 +18903,17 @@
 				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
 			},
 			"issue": 2749
+		},
+		{
+			"id": "races-94373-call-of-earth-dwarf",
+			"faction": "Alliance",
+			"at": { "quest": 94373, "goal": "quest", "guide": "forever/alliance/gnome/01-dun-morogh" },
+			"races": "Dwarf",
+			"note": "Call of Earth (94373, then 94374 and 94375) is the Dwarf shaman's first totem chain: no Gnome shaman among the 173 shamans in players' recordings (71 of them Dwarves, 20 of whom took it), and QuestieDB 1.1.5 limits 94373 to Dwarves. The shared Dun Morogh route gave the Gnome guide its `only Shaman` accept, pendants and Call of Earth step, which no Gnome character can reach: they leave the Gnome guide (an `only` line no character reaches, not a route change). The Dwarf guide keeps the chain.",
+			"source": [
+				{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): 173 shaman players (Dwarf 71, Orc 29, Troll 11, Tauren 35, Horde Skyborne 27), no Gnome; 94373 taken by 20 Dwarf shamans" },
+				{ "kind": "questie", "ref": "QuestieDB 1.1.5: quest 94373 requiredRaces 4 (Dwarf; 1.1.2: the Alliance races)" }
+			]
 		}
 	]
 }

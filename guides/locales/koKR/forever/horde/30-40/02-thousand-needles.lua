@@ -131,7 +131,7 @@ return {
 
 	-- Step 24: Moktar Krin
 	-- {quest:1146} The Swarm Grows · {npc:4483} Moktar Krin
-	["{quest:1146}' second part is already handed in: take the third part from {npc:4483}, on the north-western edge of the salt flats."] = "",
+	["{quest:1146}' second part is already handed in: take the third part from {npc:4483}, on the north-western edge of the salt flats."] = "{quest:1146}의 두 번째 부분은 이미 제출했습니다: 소금 평원 북서쪽 끝의 {npc:4483}에게 세 번째 부분을 받으십시오.",
 
 	-- Step 25: Mirage Raceway
 	-- {area:2240} Mirage Raceway

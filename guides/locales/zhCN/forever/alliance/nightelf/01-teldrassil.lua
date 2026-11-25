@@ -31,7 +31,7 @@ return {
 	-- {area:256} Aldrassil
 	["Back at {area:256}"] = "回到{area:256}",
 	-- {npc:3595} Shanda · {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light
-	["{npc:3595}'s quest, {quest:97979}, asks for your two night elf racial spells: open your spellbook (P), cast {spell:1259799} and Shadowmeld once each, then hand it back to her."] = "",
+	["{npc:3595}'s quest, {quest:97979}, asks for your two night elf racial spells: open your spellbook (P), cast {spell:1259799} and Shadowmeld once each, then hand it back to her."] = "{npc:3595}的任务{quest:97979}要求你使用两个暗夜精灵种族法术：打开法术书（P），各施放一次{spell:1259799}和影遁，然后把任务交还给她。",
 	-- {npc:2079} Conservator Ilthalaine · {npc:3596} Ayanna Everstride
 	["{npc:2079}: a sigil for {npc:3596}"] = "{npc:2079}：给{npc:3596}的印记",
 	-- {npc:2082} Gilshalan Windwalker
@@ -119,7 +119,7 @@ return {
 	-- Step 17: The Great Outdoors
 	-- {npc:265811} Lyreena Duskblade · {npc:6286} Zarrin · {skill:129} First Aid · {npc:6094} Byancie · {zone:1457} Darnassus · {area:442} Auberdine
 	-- was: ["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west."] = "学会一项专业后，{npc:265811}还会提供对应的露营 101 任务，交给该专业的训练师：炼金术和草药学在{npc:6286}旁边，{skill:129}找旅店里的{npc:6094}，剥皮和制皮在西边路旁织鬃家族的营地。"
-	["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west, fishing and tailoring in {zone:1457}, enchanting north of the city, blacksmithing, mining and engineering in {area:442}."] = "",
+	["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west, fishing and tailoring in {zone:1457}, enchanting north of the city, blacksmithing, mining and engineering in {area:442}."] = "学会一项专业后，{npc:265811}还会提供该专业的露营 101，由其训练师接收：炼金术和草药学在{npc:6286}旁边，{skill:129}找旅店里的{npc:6094}，剥皮和制皮在西边路上的鬃织营地，钓鱼和裁缝在{zone:1457}，附魔在城市北边，锻造、采矿和工程学在{area:442}。",
 	-- {npc:265811} Lyreena Duskblade · {spell:1229451} Boosted Rest
 	["/sit by {npc:265811}'s campfire until you get {spell:1229451}"] = "在{npc:265811}的篝火旁 /sit，直到获得{spell:1229451}",
 
@@ -155,39 +155,39 @@ return {
 
 	-- Step 23: Camping 101: Fishing
 	-- {npc:4156} Astaia · {skill:356} Fishing
-	["{npc:4156} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:4156} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:356}技能达到20时，{npc:4156}会接收它：在此之前采集或制作，指南同时继续进行。",
 	-- {npc:265811} Lyreena Duskblade · {npc:4156} Astaia · {zone:1457} Darnassus
-	["{npc:265811}: for {npc:4156} in {zone:1457}"] = "",
+	["{npc:265811}: for {npc:4156} in {zone:1457}"] = "{npc:265811}：交给{zone:1457}的{npc:4156}",
 
 	-- Step 24: Camping 101: Tailoring
 	-- {npc:11050} Trianna · {skill:197} Tailoring
-	["{npc:11050} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:11050} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:197}技能达到20时，{npc:11050}会接收它：在此之前采集或制作，指南同时继续进行。",
 	-- {npc:265811} Lyreena Duskblade · {npc:11050} Trianna · {zone:1457} Darnassus
-	["{npc:265811}: for {npc:11050} in {zone:1457}"] = "",
+	["{npc:265811}: for {npc:11050} in {zone:1457}"] = "{npc:265811}：交给{zone:1457}的{npc:11050}",
 
 	-- Step 25: Camping 101: Enchanting
 	-- {npc:3606} Alanna Raveneye · {skill:333} Enchanting
-	["{npc:3606} takes it once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:3606} takes it once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:333}技能达到20时，{npc:3606}会接收它：在此之前采集或制作，指南同时继续进行。",
 	-- {npc:265811} Lyreena Duskblade · {npc:3606} Alanna Raveneye · {zone:1457} Darnassus
-	["{npc:265811}: for {npc:3606} north of {zone:1457}"] = "",
+	["{npc:265811}: for {npc:3606} north of {zone:1457}"] = "{npc:265811}：交给{zone:1457}北边的{npc:3606}",
 
 	-- Step 26: Camping 101: Blacksmithing
 	-- {npc:6300} Elisa Steelhand · {skill:164} Blacksmithing
-	["{npc:6300} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:6300} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:164}技能达到20时，{npc:6300}会接收它：在此之前采集或制作，指南同时继续进行。",
 	-- {npc:265811} Lyreena Duskblade · {npc:6300} Elisa Steelhand · {area:442} Auberdine
-	["{npc:265811}: for {npc:6300} in {area:442}"] = "",
+	["{npc:265811}: for {npc:6300} in {area:442}"] = "{npc:265811}：交给{area:442}的{npc:6300}",
 
 	-- Step 27: Camping 101: Mining
 	-- {npc:6297} Kurdram Stonehammer · {skill:186} Mining
-	["{npc:6297} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:6297} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:186}技能达到20时，{npc:6297}会接收它：在此之前采集或制作，指南同时继续进行。",
 	-- {npc:265811} Lyreena Duskblade · {npc:6297} Kurdram Stonehammer · {area:442} Auberdine
-	["{npc:265811}: for {npc:6297} in {area:442}"] = "",
+	["{npc:265811}: for {npc:6297} in {area:442}"] = "{npc:265811}：交给{area:442}的{npc:6297}",
 
 	-- Step 28: Camping 101: Engineering
 	-- {npc:11037} Jenna Lemkenilli · {skill:202} Engineering
-	["{npc:11037} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:11037} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:202}技能达到20时，{npc:11037}会接收它：在此之前采集或制作，指南同时继续进行。",
 	-- {npc:265811} Lyreena Duskblade · {npc:11037} Jenna Lemkenilli · {area:442} Auberdine
-	["{npc:265811}: for {npc:11037} in {area:442}"] = "",
+	["{npc:265811}: for {npc:11037} in {area:442}"] = "{npc:265811}：交给{area:442}的{npc:11037}",
 
 	-- Step 29: Zarrin
 	-- {npc:6286} Zarrin
@@ -550,7 +550,7 @@ return {
 
 	-- Step 94: Alanna Raveneye
 	-- {npc:3606} Alanna Raveneye · {quest:97940} Camping 101: Enchanting
-	["{npc:3606}, north of the city: {quest:97940}"] = "",
+	["{npc:3606}, north of the city: {quest:97940}"] = "{npc:3606}，在城市北边：{quest:97940}",
 
 	-- Step 95: Portal to Teldrassil
 	-- {quest:940} Teldrassil

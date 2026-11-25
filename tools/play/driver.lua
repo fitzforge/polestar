@@ -288,8 +288,12 @@ play.rectOf = rectOf
 
 -- A shown frame entirely outside a clipping ancestor (a scroll frame's rows
 -- scrolled out of view) draws nothing and takes no mouse: left out of the dump.
+-- A frame with no area has no place to judge it by (a bare container whose
+-- regions are anchored to another frame, ZoneArt's Canvas on the picture
+-- path): it stays, and its regions are clipped by the ancestor as drawn.
 local function clippedOut(f)
 	local x, y, w, h = rectOf(f)
+	if w <= 0 or h <= 0 then return false end
 	local p = f.parent
 	while p do
 		if p.clips or p.kind == "ScrollFrame" then

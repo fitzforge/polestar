@@ -196,7 +196,7 @@ return {
 	-- Step 44: Clubtoe
 	-- {area:16723} Sunnyglade · {npc:260931} Clubtoe · {npc:256710} Tran'gul
 	-- was: ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Para o oeste até {area:16723} de novo: {npc:260931}, um mineiro do Crepúsculo que quer sair, espera na borda leste da cidade. Convença-o e depois entregue a Missão de {npc:256710}; um dos ogros desaparecidos fica a alguns passos a oeste."
-	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits inside the cave under the town's eastern edge, a floor below the street. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "",
+	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits inside the cave under the town's eastern edge, a floor below the street. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Para oeste de novo até {area:16723}: {npc:260931}, um mineiro do Crepúsculo que quer sair, espera dentro da caverna embaixo da borda leste da cidade, um andar abaixo da rua. Convença-o e depois entregue a missão de {npc:256710}; um dos ogros desaparecidos fica a poucos passos a oeste.",
 	-- {npc:260931} Clubtoe
 	["talk {npc:260931} round"] = "convença {npc:260931}",
 	-- {npc:261208} Twilight Brute
@@ -385,13 +385,13 @@ return {
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
 	-- was: ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "Volte mais uma vez aos penhascos dos piratas. Plante as cargas de Whizzbuzz nos três navios atracados abaixo do acampamento, de sul para norte; {quest:95124} fica junto ao do meio, com seu baú de saque ao lado. Fique de olho em {npc:259758} no caminho.\nCuidado: {quest:95124} é de nível 45, um ou dois níveis acima de você aqui: limpe o convés ao redor dela primeiro e chegue com a vida cheia."
 	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "",
-	["on board, at the arrow"] = "",
+	["on board, at the arrow"] = "a bordo, na seta",
 	-- {item:268505} Remote Explosive Charge
-	["Plant a {item:268505} on the southern ship"] = "",
+	["Plant a {item:268505} on the southern ship"] = "Coloque uma {item:268505} no navio do sul",
 	-- {item:268505} Remote Explosive Charge
-	["Plant a {item:268505} on the middle ship"] = "",
+	["Plant a {item:268505} on the middle ship"] = "Coloque uma {item:268505} no navio do meio",
 	-- {item:268505} Remote Explosive Charge
-	["Plant a {item:268505} on the northern ship"] = "",
+	["Plant a {item:268505} on the northern ship"] = "Coloque uma {item:268505} no navio do norte",
 
 	-- Step 82: Rotflesh Mushrooms
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom
@@ -412,9 +412,9 @@ return {
 
 	-- Step 85: The Monster Surfaces
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
-	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "",
+	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244} sobe quando você o chama: clique com o botão direito na coisa que boia na água onde a seta indica, no raso a sudoeste do porto, e ele emerge ali. {npc:257001}, um elite, anda pela margem perto: dê espaço a ele.",
 	-- {item:268633} Sea Monster's Head
-	["{item:268633}, where the Threshadon surfaces when you call him"] = "",
+	["{item:268633}, where the Threshadon surfaces when you call him"] = "{item:268633}, onde o Threshadon emerge quando você o chama",
 
 	-- Step 87: The river: Riverweed
 	-- {item:265806} Riverweed

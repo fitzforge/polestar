@@ -111,7 +111,8 @@ return {
 	["From the quest data: back west to {npc:5397} in {area:606}. She needs Tears of Theradras: {npc:253713}, the Voice of Theradras, keeps them in the cave in the south of the village, past {npc:253140}. Ask her for them on {npc:5397}'s behalf and bring three back. {npc:253140} takes {quest:92812} on the way."] = "Según los datos de la misión: de vuelta al oeste con {npc:5397} en {area:606}. Necesita Lágrimas de Theradras: {npc:253713}, la Voz de Theradras, las guarda en la cueva del sur de la aldea, pasando a {npc:253140}. Pídeselas en nombre de {npc:5397} y trae tres. {npc:253140} recibe {quest:92812} de paso.",
 	-- {npc:253713} Mulara
 	["{npc:253713}, in the cave"] = "{npc:253713}, en la cueva",
-	["three Tears of Theradras"] = "tres Lágrimas de Theradras",
+	-- {npc:253713} Mulara
+	["three Tears of Theradras, in {npc:253713}'s cave"] = "tres Lágrimas de Theradras, en la cueva de {npc:253713}",
 
 	-- Step 15: Gelkis: Test Your Theory
 	-- {quest:93045} Test Your Theory
@@ -323,5 +324,6 @@ return {
 	-- ["Gelkis: the {quest:93034}"] = "Gelkis: {quest:93034}",
 	-- ["Magram: the {quest:92841}"] = "Magram: {quest:92841}",
 	-- ["The ritual site is a tent by the lake in the middle of {area:604}. {npc:253136} pays 6,000, a title, and your pick of three rare level 35 weapons: {item:271800} (polearm: Stamina, attack power, Agility), {item:271803} (staff: Intellect, Stamina, Spirit) or {item:271804} (main-hand mace: Intellect, Stamina, Spirit)."] = "El lugar del ritual es una tienda junto al lago, en medio de {area:604}. {npc:253136} paga 6.000, un título y a elegir entre tres armas raras de nivel 35: {item:271800} (arma de asta: Aguante, poder de ataque, Agilidad), {item:271803} (bastón: Intelecto, Aguante, Espíritu) o {item:271804} (maza de mano derecha: Intelecto, Aguante, Espíritu).",
+	-- ["three Tears of Theradras"] = "tres Lágrimas de Theradras",
 	-- ["{npc:5601} (level 37) leads the Magram from the west side of {area:604}, with his bodyguards. The kill costs the Magram 500. {npc:5397} pays 6,000, a title, and your pick of three rare level 35 weapons: {item:271801} (two-handed axe: Strength, Stamina, Agility), {item:271802} (one-handed mace: Strength, Stamina, Agility) or {item:271805} (off-hand: Spirit, Intellect, Stamina)."] = "{npc:5601} (nivel 37) dirige a los Magram desde el lado oeste de {area:604}, con sus guardaespaldas. Matarlo cuesta 500 con los Magram. {npc:5397} paga 6.000, un título y a elegir entre tres armas raras de nivel 35: {item:271801} (hacha a dos manos: Fuerza, Aguante, Agilidad), {item:271802} (maza a una mano: Fuerza, Aguante, Agilidad) o {item:271805} (mano izquierda: Espíritu, Intelecto, Aguante).",
 }

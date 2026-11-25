@@ -63,8 +63,6 @@ return {
 	-- Step 9: Ain't No Telling
 	-- {item:275709} Stolen Funds
 	["She will not talk without something to bargain with. Her stash is upstairs in a house close to the keep: take the {item:275709}. If it is already open, wait for it to come back."] = "没有可供交换的东西，她就不愿交谈。她藏的东西在城堡附近一座房子的楼上：拿走 {item:275709}。如果已经被打开，就等它刷新。",
-	-- {item:275709} Stolen Funds
-	["{item:275709}: Anastasia's Stash"] = "{item:275709}：她的藏匿处",
 
 	-- Step 10: The Syndicate Sting
 	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad · {item:275882} Intercepted Shipment · {item:275706} Syndicate Uniform · {npc:13085} Myrokos Silentform
@@ -84,6 +82,7 @@ return {
 	-- ["Rite of Cunning"] = "狡诈仪式",
 	-- ["one emblem each time, 100 reputation"] = "每次一枚徽记，100点声望",
 	-- ["{item:275482}: pickpocket Barton"] = "{item:275482}：对巴顿搜索",
+	-- ["{item:275709}: Anastasia's Stash"] = "{item:275709}：她的藏匿处",
 	-- ["{npc:266216} is inside {area:275}, the Syndicate fortress in eastern {area:287}, south of the manor. Quick and quiet, says {npc:13085}."] = "{npc:266216}在{area:275}内，即{area:287}东部、庄园南边的辛迪加要塞。{npc:13085}说：要快，要安静。",
 	-- ["{npc:6766}: {quest:6701}, repeatable"] = "{npc:6766}：{quest:6701}，可重复",
 }

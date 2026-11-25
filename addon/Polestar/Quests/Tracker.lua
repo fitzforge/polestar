@@ -443,7 +443,9 @@ local function rebuildIndex()
 						local obj = r[j + 2 * k - 1]
 						push(index.object, obj, o)
 						-- Matched against the object tooltip's name: the client's language.
-						if Q.ObjectRecord(obj) then push(index.objectName, Q.EntityName(-obj), o) end
+						-- A record can have no name (QuestieDB lacks some): nothing to match.
+						local name = Q.EntityName(-obj)
+						if name then push(index.objectName, name, o) end
 					end
 				end
 			end

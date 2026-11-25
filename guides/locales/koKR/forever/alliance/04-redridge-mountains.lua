@@ -53,7 +53,7 @@ return {
 	-- Step 9: Henze Faulk
 	-- {npc:6172} Henze Faulk · {quest:1786} The Tome of Divinity · {area:86} Stone Cairn Lake · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["{npc:6172} is already raised: take the next part of {quest:1786} from him, south of {area:86}. The Defias Rogue Wizards around him carry the {item:6846}."] = "",
+	["{npc:6172} is already raised: take the next part of {quest:1786} from him, south of {area:86}. The Defias Rogue Wizards around him carry the {item:6846}."] = "{npc:6172}은(는) 이미 되살아났습니다: {area:86} 남쪽에서 그에게 {quest:1786}의 다음 부분을 받으십시오. 그 주변의 데피아즈단 마법사({npc:474})들이 {item:6846}을(를) 지니고 있습니다.",
 
 	-- Step 10: Three Corners
 	-- {area:1002} Three Corners · {zone:1431} Duskwood

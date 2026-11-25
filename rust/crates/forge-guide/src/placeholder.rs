@@ -1,7 +1,8 @@
 //! The game's internal placeholder names (#2614). Forever's quest data names some invisible targets with
 //! developer tags: a "[DNT] Kill Credit" (DNT: do not translate) a quest counts instead of the creature or deed,
 //! a bare "Credit", the battlegrounds' "PvP Tower Credit Marker" and Alterac Valley's "Trigger Ichman", and it
-//! keeps unused and test quests ("<UNUSED>", "<TEST> HEY MISTER WILSON!"). No player should read one: the data
+//! keeps unused, test and unfinished quests ("<UNUSED>", "<TEST> HEY MISTER WILSON!", "<NYI> Flirting With
+//! Darkness"). No player should read one: the data
 //! build turns objectives on such targets into events with the quest log's own words (forge-data's
 //! `credit.rs`) and fails on any it leaves; the compiler words a goal on one by its objective; lint fails on
 //! any in a compiled guide; and Lookup's search leaves the unused quests and the placeholder NPCs out.
@@ -9,11 +10,12 @@
 /// Tags anywhere in a text that mark it as a placeholder.
 const TAGS: [&str; 8] = ["[DNT]", "(DNT)", "[PH]", "(DND)", "<UNUSED>", "<TEST>", "Credit Marker", "Kill Credit"];
 
-/// Whether `text` is one of the game's placeholder names: a tag of [`TAGS`], a bare "Credit", or an
-/// Alterac Valley trigger ("Trigger Ichman"; "Mulgore Trigger" and "EZ-Thro Tru-Trigger" are not).
+/// Whether `text` is one of the game's placeholder names: a tag of [`TAGS`], "<NYI>" (not yet implemented,
+/// in any case: "<nyi> <TXT> Course of Action"), a bare "Credit", or an Alterac Valley trigger ("Trigger
+/// Ichman"; "Mulgore Trigger" and "EZ-Thro Tru-Trigger" are not).
 pub fn marked(text: &str) -> bool {
 	let t = text.trim();
-	TAGS.iter().any(|tag| t.contains(tag)) || t == "Credit" || t.starts_with("Trigger ") || t.starts_with("DND FLAG")
+	TAGS.iter().any(|tag| t.contains(tag)) || t.as_bytes().windows(5).any(|w| w.eq_ignore_ascii_case(b"<NYI>")) || t == "Credit" || t.starts_with("Trigger ") || t.starts_with("DND FLAG")
 }
 
 /// The real name a placeholder carries, when it carries one: "[DNT] Kill Credit: Twilight Thrall" and
@@ -61,12 +63,12 @@ pub fn shown(text: &str) -> Option<String> {
 
 /// Titles of quests that are not in the game: the client keeps them as unused ("<UNUSED>", "<UNUSED>Infused
 /// Bandages"), test ("<TEST> HEY MISTER WILSON!", "Hunter test quest", "Test Kill Quest", "Lee's Ultimate Test
-/// Quest... of Doom!"), flag ("DND FLAG The Dread Citadel - Naxxramas") or free ("REUSE", "REUSE ME") records.
-/// Lookup never offers them.
+/// Quest... of Doom!"), unfinished ("<NYI> Flirting With Darkness"), flag ("DND FLAG The Dread Citadel -
+/// Naxxramas") or free ("REUSE", "REUSE ME", "REUSEME") records. Lookup never offers them.
 pub fn unused_quest(title: &str) -> bool {
 	let t = title.trim();
 	let lower = t.to_ascii_lowercase();
-	marked(t) || lower == "reuse" || lower == "reuse me" || lower.starts_with("hunter test quest") || lower == "test kill quest" || lower.contains("ultimate test quest")
+	marked(t) || matches!(lower.as_str(), "reuse" | "reuse me" | "reuseme") || lower.starts_with("hunter test quest") || lower == "test kill quest" || lower.contains("ultimate test quest")
 }
 
 #[cfg(test)]
@@ -88,6 +90,9 @@ mod tests {
 			"<TEST> HEY MISTER WILSON!",
 			"[PH] Silithus PvP Dust [DEP]",
 			"DND FLAG The Dread Citadel - Naxxramas",
+			"<NYI> Flirting With Darkness",
+			"<NYI> <TXT> Flirting With Darkness",
+			"<nyi> <TXT> The Centaur Hoofprints",
 		] {
 			assert!(marked(t), "{t}");
 		}
@@ -127,6 +132,9 @@ mod tests {
 			"reuse",
 			"REUSE ME",
 			"Lee's Ultimate Test Quest... of Doom!",
+			"REUSEME",
+			"<NYI> Flirting With Darkness",
+			"<nyi> <TXT> Course of Action",
 		] {
 			assert!(unused_quest(t), "{t}");
 		}

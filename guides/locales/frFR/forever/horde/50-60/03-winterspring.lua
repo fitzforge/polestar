@@ -126,7 +126,7 @@ return {
 	-- {item:12565} Winna's Kitten Carrier
 	["{item:12565}, at the Jadefire moonwell"] = "{item:12565}, au puits de lune des Jadefeu",
 	-- {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard · {area:1997} Bloodvenom Post
-	["Bring the {npc:10042} to {npc:9996} at {area:1997} and click on it to hand it over."] = "",
+	["Bring the {npc:10042} to {npc:9996} at {area:1997} and click on it to hand it over."] = "Amenez {npc:10042} à {npc:9996} à {area:1997} et cliquez dessus pour le lui remettre.",
 
 	-- Step 23: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
@@ -156,7 +156,7 @@ return {
 
 	-- Step 30: Ghede
 	-- {npc:9076} Ghede · {area:1639} Elder Rise
-	["{npc:9076} stands on {area:1639}."] = "",
+	["{npc:9076} stands on {area:1639}."] = "{npc:9076} se tient sur {area:1639}.",
 
 	-- Step 31: Elder Rise
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful

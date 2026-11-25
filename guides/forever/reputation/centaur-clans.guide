@@ -171,7 +171,7 @@ step Gelkis: Uthek and Mulara
   turnin 93041                        -- Uthek the Wise: 500
   accept 93044
   talk 253713                         -- Mulara, in the cave
-  complete 93044                      -- three Tears of Theradras
+  collect 255878 quest 93044.1        -- three Tears of Theradras, in Mulara's cave
   accept 92812 @35.6,92.0 optional    -- Economic Warfare
   turnin 92812 @35.6,92.0 optional    -- Molkar: 750
 

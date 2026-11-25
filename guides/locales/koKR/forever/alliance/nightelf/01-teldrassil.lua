@@ -31,7 +31,7 @@ return {
 	-- {area:256} Aldrassil
 	["Back at {area:256}"] = "{area:256}(으)로 돌아가기",
 	-- {npc:3595} Shanda · {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light
-	["{npc:3595}'s quest, {quest:97979}, asks for your two night elf racial spells: open your spellbook (P), cast {spell:1259799} and Shadowmeld once each, then hand it back to her."] = "",
+	["{npc:3595}'s quest, {quest:97979}, asks for your two night elf racial spells: open your spellbook (P), cast {spell:1259799} and Shadowmeld once each, then hand it back to her."] = "{npc:3595}의 퀘스트 {quest:97979}은(는) 나이트 엘프 종족 주문 두 개를 요구합니다: 주문책(P)을 열고 {spell:1259799}과(와) 그림자 숨기를 한 번씩 시전한 뒤 그녀에게 제출하십시오.",
 	-- {npc:2079} Conservator Ilthalaine · {npc:3596} Ayanna Everstride
 	["{npc:2079}: a sigil for {npc:3596}"] = "{npc:2079}: {npc:3596}에게 줄 문장",
 	-- {npc:2082} Gilshalan Windwalker
@@ -119,7 +119,7 @@ return {
 	-- Step 17: The Great Outdoors
 	-- {npc:265811} Lyreena Duskblade · {npc:6286} Zarrin · {skill:129} First Aid · {npc:6094} Byancie · {zone:1457} Darnassus · {area:442} Auberdine
 	-- was: ["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west."] = "전문 기술을 배웠다면 {npc:265811}에게서 야영 기초 퀘스트도 받을 수 있으며, 해당 기술의 상급자에게 가져가면 됩니다: 연금술과 약초채집은 {npc:6286} 옆, {skill:129}은(는) 여관의 {npc:6094}, 무두질과 가죽세공은 서쪽 길가의 메인위버 야영지입니다."
-	["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west, fishing and tailoring in {zone:1457}, enchanting north of the city, blacksmithing, mining and engineering in {area:442}."] = "",
+	["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west, fishing and tailoring in {zone:1457}, enchanting north of the city, blacksmithing, mining and engineering in {area:442}."] = "전문 기술을 배웠다면 {npc:265811}도 해당 야영 101을 주며, 그 상급자가 받습니다: 연금술과 약초채집은 {npc:6286} 옆, {skill:129}은(는) 여관의 {npc:6094}, 무두질과 가죽세공은 서쪽 길의 갈기잣기 야영지, 낚시와 재봉술은 {zone:1457}, 마법부여는 도시 북쪽, 대장기술, 채광, 기계공학은 {area:442}.",
 	-- {npc:265811} Lyreena Duskblade · {spell:1229451} Boosted Rest
 	["/sit by {npc:265811}'s campfire until you get {spell:1229451}"] = "{spell:1229451}을(를) 얻을 때까지 {npc:265811}의 모닥불 옆에서 /앉기 하세요",
 
@@ -155,39 +155,39 @@ return {
 
 	-- Step 23: Camping 101: Fishing
 	-- {npc:4156} Astaia · {skill:356} Fishing
-	["{npc:4156} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:4156} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:356} 숙련도가 20이 되면 {npc:4156}이(가) 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 	-- {npc:265811} Lyreena Duskblade · {npc:4156} Astaia · {zone:1457} Darnassus
-	["{npc:265811}: for {npc:4156} in {zone:1457}"] = "",
+	["{npc:265811}: for {npc:4156} in {zone:1457}"] = "{npc:265811}: {zone:1457}의 {npc:4156}에게",
 
 	-- Step 24: Camping 101: Tailoring
 	-- {npc:11050} Trianna · {skill:197} Tailoring
-	["{npc:11050} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:11050} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:197} 숙련도가 20이 되면 {npc:11050}이(가) 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 	-- {npc:265811} Lyreena Duskblade · {npc:11050} Trianna · {zone:1457} Darnassus
-	["{npc:265811}: for {npc:11050} in {zone:1457}"] = "",
+	["{npc:265811}: for {npc:11050} in {zone:1457}"] = "{npc:265811}: {zone:1457}의 {npc:11050}에게",
 
 	-- Step 25: Camping 101: Enchanting
 	-- {npc:3606} Alanna Raveneye · {skill:333} Enchanting
-	["{npc:3606} takes it once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:3606} takes it once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:333} 숙련도가 20이 되면 {npc:3606}이(가) 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 	-- {npc:265811} Lyreena Duskblade · {npc:3606} Alanna Raveneye · {zone:1457} Darnassus
-	["{npc:265811}: for {npc:3606} north of {zone:1457}"] = "",
+	["{npc:265811}: for {npc:3606} north of {zone:1457}"] = "{npc:265811}: {zone:1457} 북쪽의 {npc:3606}에게",
 
 	-- Step 26: Camping 101: Blacksmithing
 	-- {npc:6300} Elisa Steelhand · {skill:164} Blacksmithing
-	["{npc:6300} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:6300} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:164} 숙련도가 20이 되면 {npc:6300}이(가) 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 	-- {npc:265811} Lyreena Duskblade · {npc:6300} Elisa Steelhand · {area:442} Auberdine
-	["{npc:265811}: for {npc:6300} in {area:442}"] = "",
+	["{npc:265811}: for {npc:6300} in {area:442}"] = "{npc:265811}: {area:442}의 {npc:6300}에게",
 
 	-- Step 27: Camping 101: Mining
 	-- {npc:6297} Kurdram Stonehammer · {skill:186} Mining
-	["{npc:6297} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:6297} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:186} 숙련도가 20이 되면 {npc:6297}이(가) 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 	-- {npc:265811} Lyreena Duskblade · {npc:6297} Kurdram Stonehammer · {area:442} Auberdine
-	["{npc:265811}: for {npc:6297} in {area:442}"] = "",
+	["{npc:265811}: for {npc:6297} in {area:442}"] = "{npc:265811}: {area:442}의 {npc:6297}에게",
 
 	-- Step 28: Camping 101: Engineering
 	-- {npc:11037} Jenna Lemkenilli · {skill:202} Engineering
-	["{npc:11037} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:11037} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:202} 숙련도가 20이 되면 {npc:11037}이(가) 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 	-- {npc:265811} Lyreena Duskblade · {npc:11037} Jenna Lemkenilli · {area:442} Auberdine
-	["{npc:265811}: for {npc:11037} in {area:442}"] = "",
+	["{npc:265811}: for {npc:11037} in {area:442}"] = "{npc:265811}: {area:442}의 {npc:11037}에게",
 
 	-- Step 29: Zarrin
 	-- {npc:6286} Zarrin
@@ -549,7 +549,7 @@ return {
 
 	-- Step 94: Alanna Raveneye
 	-- {npc:3606} Alanna Raveneye · {quest:97940} Camping 101: Enchanting
-	["{npc:3606}, north of the city: {quest:97940}"] = "",
+	["{npc:3606}, north of the city: {quest:97940}"] = "{npc:3606}, 도시 북쪽: {quest:97940}",
 
 	-- Step 95: Portal to Teldrassil
 	-- {quest:940} Teldrassil

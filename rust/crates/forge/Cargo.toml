@@ -21,6 +21,8 @@ ureq = "3"
 rayon = "1"
 regex = "1"
 rustc-hash.workspace = true
+# Earlier releases' shipped Guides.lua (legacy_steps).
+mlua = { version = "0.11", features = ["lua51", "vendored"] }
 forge-core = { path = "../forge-core" }
 forge-data = { path = "../forge-data" }
 forge-gamedata = { path = "../forge-gamedata" }

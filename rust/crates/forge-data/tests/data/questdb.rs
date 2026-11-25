@@ -226,6 +226,26 @@ fn a_test_creature_is_no_drop_source() {
 	assert!(!out.db.npcs.contains_key(&1979) && !out.db.npcs.contains_key(&1980) && !out.db.npcs.contains_key(&1981), "no test creature pulled in");
 }
 
+// QuestieDB 1.1.5 lists object 7983211, which has no name, as a source of Flintfire's Shipment (quest 98321): the
+// addon reads every NPC and object record's name, so a nameless one reads a fallback and keeps its spawns (the pin).
+#[test]
+fn a_nameless_dropper_reads_a_fallback_name() {
+	let dir = data_with("nameless-droppers", |raw| {
+		raw.get_mut("npcs.json").unwrap().as_object_mut().unwrap().insert("1982".into(), json!({ "id": 1982, "name": null, "level": 2, "spawns": {} }));
+		raw.get_mut("objects.json").unwrap().as_object_mut().unwrap().insert("7983211".into(), json!({ "id": 7983211, "name": null, "spawns": {} }));
+		let drops = raw.get_mut("items.json").unwrap()["750"]["drops"].as_object_mut().unwrap();
+		drops["npc"].as_object_mut().unwrap().insert("1982".into(), json!(95));
+		drops["object"].as_object_mut().unwrap().insert("7983211".into(), Value::Null);
+	});
+	let out = build(&dir, &root(), &Options::default()).unwrap();
+	assert_eq!(out.db.items[&750], vals(json!(["Tough Wolf Meat", 2, 1982, 95, 299, 80, 1, 7983211, 0])), "both stay sources");
+	assert_eq!(out.db.npcs[&1982], vals(json!(["Unnamed creature"])));
+	assert_eq!(out.db.objects[&7983211], vals(json!(["Unnamed object"])));
+	for w in ["npc 1982", "object 7983211"] {
+		assert!(out.warnings.iter().any(|x| x.contains(w) && x.contains("no name")), "{w}: {:?}", out.warnings);
+	}
+}
+
 #[test]
 fn every_known_spawn_of_an_entity_lies_in_one_of_its_clusters_no_cap_and_the_points_the_data_cap_left_out_count() {
 	// Kobold Vermin: its camps, plus ten lone spawns 240 yd apart that the data's cap left out.

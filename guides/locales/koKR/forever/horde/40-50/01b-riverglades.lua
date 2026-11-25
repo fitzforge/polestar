@@ -196,7 +196,7 @@ return {
 	-- Step 44: Clubtoe
 	-- {area:16723} Sunnyglade · {npc:260931} Clubtoe · {npc:256710} Tran'gul
 	-- was: ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "다시 서쪽 {area:16723}(으)로 가세요. 빠져나가고 싶어 하는 황혼의 망치단 광부 {npc:260931}이(가) 마을 동쪽 끝에서 기다립니다. 그를 설득한 뒤 {npc:256710}의 퀘스트를 제출하세요. 실종된 오우거 중 하나가 조금 서쪽에 있습니다."
-	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits inside the cave under the town's eastern edge, a floor below the street. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "",
+	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits inside the cave under the town's eastern edge, a floor below the street. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "다시 서쪽 {area:16723}(으)로: 빠져나가고 싶어 하는 황혼의 광부 {npc:260931}이(가) 마을 동쪽 끝 아래 동굴, 거리보다 한 층 아래에서 기다립니다. 그를 설득한 뒤 {npc:256710}의 퀘스트를 제출하십시오. 실종된 오우거 하나가 몇 걸음 서쪽에 서 있습니다.",
 	-- {npc:260931} Clubtoe
 	["talk {npc:260931} round"] = "{npc:260931} 설득",
 	-- {npc:261208} Twilight Brute
@@ -385,13 +385,13 @@ return {
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
 	-- was: ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "다시 해적 절벽으로 가세요. 야영지 아래 정박한 배 세 척에 남쪽부터 북쪽 순으로 위즈버즈의 폭약을 설치하세요. {quest:95124}은(는) 가운데 배 옆에 있고, 그 옆에 전리품 상자가 있습니다. 가는 길에 {npc:259758}을(를) 조심하세요.\n주의: {quest:95124}은(는) 45레벨로 여러분보다 한두 레벨 높습니다. 주변 갑판을 먼저 정리하고 생명력을 가득 채운 뒤 덤비세요."
 	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "",
-	["on board, at the arrow"] = "",
+	["on board, at the arrow"] = "배 위, 화살표 위치",
 	-- {item:268505} Remote Explosive Charge
-	["Plant a {item:268505} on the southern ship"] = "",
+	["Plant a {item:268505} on the southern ship"] = "남쪽 배에 {item:268505} 설치",
 	-- {item:268505} Remote Explosive Charge
-	["Plant a {item:268505} on the middle ship"] = "",
+	["Plant a {item:268505} on the middle ship"] = "가운데 배에 {item:268505} 설치",
 	-- {item:268505} Remote Explosive Charge
-	["Plant a {item:268505} on the northern ship"] = "",
+	["Plant a {item:268505} on the northern ship"] = "북쪽 배에 {item:268505} 설치",
 
 	-- Step 82: Rotflesh Mushrooms
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom
@@ -412,9 +412,9 @@ return {
 
 	-- Step 85: The Monster Surfaces
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
-	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "",
+	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}은(는) 부르면 떠오릅니다: 항구 남서쪽 얕은 물, 화살표가 가리키는 곳에 떠 있는 것을 오른쪽 클릭하면 그곳에 떠오릅니다. 정예 {npc:257001}이(가) 근처 해안을 걷습니다: 거리를 두십시오.",
 	-- {item:268633} Sea Monster's Head
-	["{item:268633}, where the Threshadon surfaces when you call him"] = "",
+	["{item:268633}, where the Threshadon surfaces when you call him"] = "{item:268633}, 부르면 트레샤돈이 떠오르는 곳",
 
 	-- Step 87: The river: Riverweed
 	-- {item:265806} Riverweed

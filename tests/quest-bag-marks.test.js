@@ -27,6 +27,9 @@ test('obsolete quest item marks require every known quest to be turned in and no
 		Q.IsItemNeededAhead = function() return false end
 		Polestar.QoL = { Client = { CLASS_QUEST = 12, ItemClass = function(id) return q.items[id] end }, Kept = function() return nil end }
 		for _, id in ipairs({ 750, 1972, 772, 901, 999 }) do q.items[id] = 12 end
+		-- The index is built over the next frames (Q.ITEM_SLICE quests each).
+		Q.ItemQuests(750)
+		stub.advance(0.5)
 		emit({ Q.ItemQuests(750), Q.ItemQuests(1972), Q.ItemQuests(772), Q.ItemQuests(901) or false, Q.ItemQuests(999) or false })
 		q.done[33] = true
 		emit(Q.IsObsoleteQuestItem(750))
@@ -91,4 +94,27 @@ test('obsolete quest item marks require every known quest to be turned in and no
 		[[33], [17], [19, 60], [9000], false], true, false, false, false, false, true, true, false, false, false, false, true, false,
 		['Related quests completed (likely safe to delete)'], true,
 	]);
+});
+
+// Fitz's 0.4.3-rc probe: the bags' first paint after login read every quest record for the leftover borders' index
+// (Q.ItemQuests) in one 130 ms frame. The index is built Q.ITEM_SLICE quests a frame; until it is in, an item has no
+// quests (no border), and once it is the bags repaint (QUESTDB_ITEM_QUESTS).
+test('the item-to-quests index is built a slice of quests a frame and the bags repaint once it is in', () => {
+	const fixture = path.join(__dirname, 'fixtures', 'questdb', 'expected', 'Quests.lua');
+	const out = runAddon({
+		addons: [{ name: 'Polestar', files: ['Core/Init.lua', 'Core/LuaChunks.lua', 'Core/BagSlots.lua', 'Quests/QuestDB.lua', 'Quests/BagMarks.lua'] }],
+		script: `
+		local Q = Polestar.QuestDB
+		dofile(${JSON.stringify(fixture.replace(/\\/g, '/'))})
+		Q.SetMeta({})
+		local n = #Q.QuestIds()
+		Q.ITEM_SLICE = 1
+		local redraws = 0
+		Polestar.On("QUESTDB_ITEM_QUESTS", function() redraws = redraws + 1 end)
+		local first = Q.ItemQuests(772)
+		local frames = 0
+		while Q.ItemQuests(772) == nil and frames < n + 5 do stub.advance(0.05); frames = frames + 1 end
+		emit({ first = first or false, frames = frames >= n - 1 and frames <= n + 1, quests = Q.ItemQuests(772), redraws = redraws })
+	` }).emitted;
+	assert.deepEqual(out, [{ first: false, frames: true, quests: [19, 60], redraws: 1 }]);
 });

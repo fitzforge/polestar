@@ -18,7 +18,6 @@ const { Diagnostics } = require('../tools/lib/dsl/diag');
 const { OFFICIAL_DIR } = require('../tools/lib/dsl/project');
 const { DATA, needs } = require('./helpers/data');
 
-const MOUNTS = ['alliance/paladin-warhorse', 'alliance/paladin-charger', 'neutral/warlock-felsteed', 'neutral/warlock-dreadsteed'].map((m) => `forever/collectibles/mounts/${m}.guide`);
 const DREADSTEED = 'forever/collectibles/mounts/neutral/warlock-dreadsteed.guide';
 const CHARGER = 'forever/collectibles/mounts/alliance/paladin-charger.guide';
 
@@ -26,8 +25,12 @@ function walk(dir) {
 	return fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(path.join(dir, e.name)) : e.name.endsWith('.guide') ? [path.join(dir, e.name)] : []));
 }
 
+// The class mounts are Class guides kept with the collectibles (the Paladin and Warlock mounts, the Forsaken
+// Paladin's warhorse among them): every guide there whose header says `category Class`.
+const MOUNTS = walk(path.join(OFFICIAL_DIR, 'forever', 'collectibles', 'mounts')).filter((f) => /^category Class$/m.test(fs.readFileSync(f, 'utf8')));
+
 // Every Class guide, parsed: { rel, ast, quests: the quest ids it accepts, turns in or completes }.
-const GUIDES = [...walk(path.join(OFFICIAL_DIR, 'forever', 'class')), ...MOUNTS.map((m) => path.join(OFFICIAL_DIR, m))].map((file) => {
+const GUIDES = [...walk(path.join(OFFICIAL_DIR, 'forever', 'class')), ...MOUNTS].map((file) => {
 	const diag = new Diagnostics();
 	const ast = parseGuide(fs.readFileSync(file, 'utf8'), file, diag);
 	const quests = new Set();
