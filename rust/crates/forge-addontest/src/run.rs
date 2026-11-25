@@ -6,10 +6,19 @@ use std::path::{Path, PathBuf};
 use std::rc::Rc;
 use std::sync::LazyLock;
 
-/// The repository root (the checkout this crate is in).
+/// The repository root: the checkout the tests run in (cargo test runs them from the crate's folder), found when
+/// they run, not when they are built, so a target folder shared by two checkouts never tests the other one's addon.
 pub fn root() -> &'static Path {
-	static ROOT: LazyLock<PathBuf> = LazyLock::new(|| Path::new(env!("CARGO_MANIFEST_DIR")).join("../../..").canonicalize().expect("repository root"));
+	static ROOT: LazyLock<PathBuf> = LazyLock::new(|| {
+		let cwd = std::env::current_dir().expect("working directory");
+		checkout_root(&cwd).unwrap_or_else(|| panic!("no Polestar checkout (tests/lua/wow_stub.lua) at or above {}", cwd.display()))
+	});
 	&ROOT
+}
+
+/// The nearest folder at or above `from` holding the client stub, canonical.
+fn checkout_root(from: &Path) -> Option<PathBuf> {
+	from.ancestors().find(|d| d.join("tests/lua/wow_stub.lua").is_file()).and_then(|d| d.canonicalize().ok())
 }
 
 /// addon/: the addons tests load by name.
@@ -398,4 +407,21 @@ fn thread_cpu_seconds() -> f64 {
 fn thread_cpu_seconds() -> f64 {
 	thread_local!(static START: std::time::Instant = std::time::Instant::now());
 	START.with(|s| s.elapsed().as_secs_f64())
+}
+
+#[cfg(test)]
+mod tests {
+	use super::checkout_root;
+	use crate::tmp::TempDir;
+
+	#[test]
+	fn the_root_is_the_checkout_the_tests_run_in_not_the_one_they_were_built_in() {
+		let other = TempDir::new("polestar-checkout-");
+		std::fs::create_dir_all(other.path().join("tests/lua")).unwrap();
+		std::fs::write(other.path().join("tests/lua/wow_stub.lua"), "").unwrap();
+		let crate_dir = other.path().join("rust/crates/forge-addontest");
+		std::fs::create_dir_all(&crate_dir).unwrap();
+		assert_eq!(checkout_root(&crate_dir), Some(other.path().canonicalize().unwrap()));
+		assert_eq!(checkout_root(other.path().parent().unwrap()), None);
+	}
 }
