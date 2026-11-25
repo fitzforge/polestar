@@ -15,9 +15,9 @@ checks `next` requires, report on every pull request; the other workflows
 start only on their paths. A newer push to a pull request cancels the runs
 of the older one (`tests/ci-lane.test.js` holds every pull request workflow
 to it). None of them runs on the maintainers' machine: a pull request never
-waits on it. `Base branch` also holds every commit's author and committer
-email to a GitHub noreply address (CONTRIBUTING.md, "Commits and pull
-requests"), read through the API.
+waits on it. `Base branch` also fails a commit made as the maintainers'
+account whose author or committer email is not the account's GitHub noreply
+address (read through the API; contributors' own addresses are not checked).
 
 `Tests` picks its lane from the files the pull request changes
 (`tools/ci-lane.js`, run from the base branch's copy so a pull request cannot
