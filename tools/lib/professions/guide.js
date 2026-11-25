@@ -779,8 +779,16 @@ function draftGuide(name, data, opts = {}) {
 				const unit = m.buy > 0 ? m.buy / (m.buyCount || 1) : 0;
 				return tool ? `${matName(t.item)} (a tool: one, kept in your bags${unit ? `, ${D.money(m.buy)}` : ''})` : `${t.count} ${matName(t.item)}${unit ? ` (${D.money(unit * t.count)})` : ''}`;
 			});
+			// The town's sellers of the step's goods: those who sell all of them (one stop), else the most of
+			// them first. A seller of only one item is no stop for the rest (#4040: Edna Mullby sells Black Dye,
+			// never Rune Thread).
 			const town = SIDES.map((s) => {
-				const names = [...new Set(buys.flatMap((t) => D.townVendors(data, prof, t.item, mats[t.item], s)))];
+				const per = buys.map((t) => D.townVendors(data, prof, t.item, mats[t.item], s)).filter((l) => l.length);
+				const count = new Map();
+				for (const l of per) for (const n of l) count.set(n, (count.get(n) || 0) + 1);
+				const ranked = [...count.keys()].sort((a, c) => count.get(c) - count.get(a) || (a < c ? -1 : a > c ? 1 : 0));
+				const all = ranked.filter((n) => count.get(n) === per.length);
+				const names = all.length ? all : ranked;
 				const at = D.mainTown(data, prof, s);
 				return names.length && at ? `${at}: ${D.list(names.slice(0, 3))}` : null;
 			}).filter(Boolean);

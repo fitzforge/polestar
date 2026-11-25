@@ -459,6 +459,24 @@ test('draft: a recipe only the Artisan trainers teach is learned from Artisan\'s
 	assert.equal(prof.recipes[2].learnedAt, 190);
 });
 
+// Type1Insulin (#4040): Leatherworking's 225-300 shopping (Black Dye and Rune Thread) named Edna Mullby, who sells the
+// dye but never the thread. The tip names the town's sellers of every item of the step, else the most of them first.
+test('draft: the shopping tip names the town\'s sellers of all the step\'s goods, not a seller of only one (#4040)', () => {
+	const R = rec(1, 1, 70, 90, 10);
+	R.reagents = [{ item: 10, count: 1 }, { item: 20, count: 1 }];
+	const { prof, data } = smallProfession([R]);
+	const sw = (x) => ({ 1453: { f: 'e', pts: [[x, 50]] } });
+	const og = (x) => ({ 1454: { f: 'e', pts: [[x, 50]] } });
+	data.npcs = { 1: { id: 1, name: 'Alexandra', faction: 'A', spawns: sw(40) }, 3: { id: 3, name: 'Edna', faction: 'A', spawns: sw(60) }, 2: { id: 2, name: 'Borya', faction: 'H', spawns: og(40) }, 4: { id: 4, name: 'Felika', faction: 'H', spawns: og(60) }, 7: { id: 7, name: 'Trainer', faction: 'A', spawns: sw(50) }, 8: { id: 8, name: 'Trainer', faction: 'H', spawns: og(50) } };
+	data.zones = { 1453: { name: 'Stormwind City' }, 1454: { name: 'Orgrimmar' } };
+	prof.mainTrainer = { Alliance: 7, Horde: 8 };
+	// Cheap Thread (10) from all four; Pricey Thread (20) only from Alexandra and Borya.
+	prof.materials[10].vendors = { Alliance: [1, 3], Horde: [2, 4] };
+	prof.materials[20].vendors = { Alliance: [1], Horde: [2] };
+	const { text } = draftGuide('Tailoring', data, { to: 75, spec: {} });
+	assert.match(text, /The arrow picks the nearest seller of your faction \(Stormwind City: Alexandra; Orgrimmar: Borya\)\./);
+});
+
 test('planner: a recipe held back to a skill neither levels nor makes an intermediate before it (Tailoring\'s Runecloth to Artisan)', () => {
 	// R2 makes item 902, R3 takes it; both wait for 50.
 	const R3 = rec(3, 1, 70, 90, 902);

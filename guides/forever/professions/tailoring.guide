@@ -107,7 +107,7 @@ step Journeyman Tailoring
   learn 1229504 only Horde
 
 step Tailoring 75-150: vendor goods
-  tip Buy the whole bracket's share in one go: 108 Fine Thread (1g 8s), 34 Bleach (8s 50c) and 98 Red Dye (49s); about 1g 65s 50c in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero, Edna Mullby and Jillian Tanner; Orgrimmar: Borya, Felika and Shimra).
+  tip Buy the whole bracket's share in one go: 108 Fine Thread (1g 8s), 34 Bleach (8s 50c) and 98 Red Dye (49s); about 1g 65s 50c in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero and Edna Mullby; Orgrimmar: Borya, Felika and Shimra).
   buy 2321 x108 nearest
   buy 2324 x34 nearest
   buy 2604 x98 nearest
@@ -224,7 +224,7 @@ step Artisan Tailoring
   learn 18402 npc 2399 only Horde map 1424
 
 step Tailoring 225-300: vendor goods
-  tip Buy the whole bracket's share in one go: 116 Rune Thread (58g); about 58g in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero, Edna Mullby and Jillian Tanner; Orgrimmar: Borya, Felika and Shimra).
+  tip Buy the whole bracket's share in one go: 116 Rune Thread (58g); about 58g in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero and Jillian Tanner; Orgrimmar: Borya and Tamar).
   buy 14341 x116 nearest
 
 step Pattern: Runecloth Gloves
