@@ -390,12 +390,30 @@ function reagentList(r, matName) {
 	return D.list(r.reagents.map((g) => `${g.count} ${matName(g.item)}`));
 }
 
+// A recipe only a later rank's trainers teach (spec.taughtBy) is learned from that rank's skill at the
+// earliest, whatever its own learn skill says: those trainers teach nothing below it (#3708, #3923: Timothy
+// Worthington turned tailors of 197 away; players learned his and Daryl Stack's recipes from 200, never
+// below). Black Mageweave Headband's 190 was Classic's trainer list moved.
+function taughtFloor(prof, taughtBy = {}) {
+	let raised = false;
+	const recipes = prof.recipes.map((r) => {
+		const rank = (prof.ranks || []).find((x) => x && x.name === taughtBy[r.spell]);
+		if (!rank || !(rank.minSkill > r.learnedAt)) return r;
+		raised = true;
+		const out = { ...r, learnedAt: rank.minSkill };
+		delete out.learnedAtEstimated;
+		return out;
+	});
+	return raised ? { ...prof, recipes } : prof;
+}
+
 function draftGuide(name, data, opts = {}) {
 	const profs = data.professions || {};
-	const prof = Object.values(profs).find((p) => p && String(p.name).toLowerCase() === String(name).toLowerCase());
-	if (!prof) throw new Error(`unknown profession "${name}"`);
-	if (!CRAFTING.has(prof.id)) throw new Error(`${prof.name} is not a crafting profession (Alchemy, Blacksmithing, Enchanting, Engineering, Leatherworking, Tailoring)`);
-	const spec = opts.spec || SPECS[prof.name] || {};
+	const found = Object.values(profs).find((p) => p && String(p.name).toLowerCase() === String(name).toLowerCase());
+	if (!found) throw new Error(`unknown profession "${name}"`);
+	if (!CRAFTING.has(found.id)) throw new Error(`${found.name} is not a crafting profession (Alchemy, Blacksmithing, Enchanting, Engineering, Leatherworking, Tailoring)`);
+	const spec = opts.spec || SPECS[found.name] || {};
+	const prof = taughtFloor(found, spec.taughtBy);
 	// spec.to: the plan stops there and the last step explains the rest (the
 	// recipes past it cost far more per point than anything a player would do).
 	const planTo = Math.min(opts.to || 300, spec.to || 300);
