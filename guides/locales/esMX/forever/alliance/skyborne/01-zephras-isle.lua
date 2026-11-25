@@ -86,7 +86,6 @@ return {
 
 	-- Step 14: Raan Wildwind
 	-- {npc:263664} Raan Wildwind · {area:16624} Shen'dar Village · {quest:93159} The Strange Hermit
-	-- was: ["With a profession learned, {npc:263664} also offers its Camping 101, which its trainer in {area:16624} takes on the village round."] = "Con una profesión aprendida, {npc:263664} también ofrece su Campismo 101, que su instructor en {area:16624} acepta durante la ronda por el pueblo."
 	["With a profession learned, {npc:263664} also offers its Camping 101, which its trainer in {area:16624} takes on the village round. {quest:93159} has his own for engineers."] = "Con una profesión aprendida, {npc:263664} también ofrece su Campamento 101, que su instructor de {area:16624} retoma en la vuelta del poblado. {quest:93159} tiene el suyo para ingenieros.",
 	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
 	["/sit by {npc:263664}'s campfire until you get {spell:1229451}"] = "Usa /sit junto a la fogata de {npc:263664} hasta obtener {spell:1229451}",
@@ -324,7 +323,7 @@ return {
 	["{area:16626}: kill these as you meet them"] = "{area:16626}: mata a estos según te los encuentres",
 	-- {quest:92683} Flutterfly Dust · {npc:250929} Malfunctioning Cyclone Construct
 	-- plural, as words: Ripe Stormapples = {item:253591} Ripe Stormapple · Hungry Bandits = {npc:252802} Hungry Bandit · Ornery Galestriders = {npc:251707} Ornery Galestrider
-	["Ripe Stormapples and Hungry Bandits are in the orchard by the farm, {quest:92683} in the fields north-east of it, Ornery Galestriders all around. The {npc:250929} stands in the field north-east of the farm."] = "Las Tormanzanas maduras y los Hungry Bandits están en el huerto junto a la granja, {quest:92683} en los campos al noreste, y Ornery Galestriders por todas partes. {npc:250929} está en el campo al noreste de la granja.",
+	["Ripe Stormapples and Hungry Bandits are in the orchard by the farm, {quest:92683} in the fields north-east of it, Ornery Galestriders all around. The {npc:250929} stands in the field north-east of the farm."] = "Las Tormanzanas maduras y los Hungry Bandits están en el huerto junto a la granja, {quest:92683} en los campos al noreste, y Ornery Zancavientos por todas partes. {npc:250929} está en el campo al noreste de la granja.",
 
 	-- Step 69: Aamelia Windfield again
 	-- {npc:252800} Aamelia Windfield
@@ -356,7 +355,7 @@ return {
 	-- Step 74: Taming the Beast
 	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod · {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
 	-- plural, as words: Ornery Galestriders = {npc:251707} Ornery Galestrider · Vuldren Alphas = {npc:250874} Vuldren Alpha
-	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "{npc:252389} recupera la primera {item:15908} y te da dos más, de a una: los Galestriders malhumorados y los alfas Vuldren recorren los campos justo al norte de ella. Doma a cada uno con su vara y devuélvele la vara. {npc:254411}, a su lado, enseña {spell:5149}.",
+	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "{npc:252389} recupera la primera {item:15908} y te da dos más, de a una: los Zancavientos malhumorados y los alfas Vuldren recorren los campos justo al norte de ella. Doma a cada uno con su vara y devuélvele la vara. {npc:254411}, a su lado, enseña {spell:5149}.",
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "Domestícalo con la {item:15908}",
 	-- {npc:251707} Ornery Galestrider
@@ -366,9 +365,9 @@ return {
 
 	-- Step 75: The Windstone Formations
 	-- plural, as words: Windstone Formations = {object:697118} Windstone Formation
-	["The Windstone Formations"] = "Las Windstone Formations",
+	["The Windstone Formations"] = "Las formaciones de piedras de viento",
 	-- plural, as words: Windstone Formations = {object:697118} Windstone Formation
-	["The Windstone Formations stand on the rise west of Fillion's camp."] = "Las Windstone Formations están en la loma al oeste del campamento de Fillion.",
+	["The Windstone Formations stand on the rise west of Fillion's camp."] = "Las formaciones de piedras de viento están en la loma al oeste del campamento de Fillion.",
 	-- {item:262668} Wind-Infused Bough
 	["{item:262668}: by the formations"] = "{item:262668}: junto a las formaciones",
 

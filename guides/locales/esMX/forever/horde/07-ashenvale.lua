@@ -49,7 +49,6 @@ return {
 
 	-- Step 9: Ruul Snowhoof
 	-- {npc:12818} Ruul Snowhoof · {area:428} Night Run · {npc:3987} Dal Bloodclaw
-	-- was: ["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "Dentro del bastión, hay Cofres trol a lo largo de los túneles. {npc:12818} está retenido en lo más profundo: libéralo y protégelo hasta la salida; después corre a casa, a {area:428}.\nCuidado: Hay dos emboscadas preparadas, cada una de tres Cardopelo (un chamán, un rastreador y un vengador, ursa o vigía de la guarida): la primera al volver a la bifurcación del túnel dentro de la cueva, la segunda justo pasando la puerta donde ronda {npc:3987}."
 	["{npc:12818} is held deep inside Thistlefur Hold: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "{npc:12818} está retenido en lo profundo del Bastión Piel de Cardo: libéralo y protégelo hasta la salida, y luego corre a casa, a {area:428}.\nCuidado: hay dos emboscadas programadas, cada una de tres Piel de Cardo (un chamán, un explorador y un vengador, ursa o vigía de la guarida): la primera al volver a la bifurcación del túnel dentro de la cueva, la segunda justo pasada la puerta por donde ronda {npc:3987}.",
 	-- {npc:12818} Ruul Snowhoof
 	["{npc:12818}, below ground"] = "{npc:12818}, bajo tierra",
@@ -117,10 +116,10 @@ return {
 
 	-- Step 27: Laughing Sisters
 	-- plural, as words: Laughing Sisters = {npc:4054} Laughing Sister
-	["Laughing Sisters"] = "Hermanas risueñas",
+	["Laughing Sisters"] = "Hermanas sonrientes",
 	-- {area:426} Raynewood Retreat · {npc:12677} Shadumbra · {npc:4721} Zangen Stonehoof · {item:5867} Etched Phial
 	-- plural, as words: Laughing Sisters = {npc:4054} Laughing Sister
-	["The Laughing Sisters, dryads, wander {area:426} around {npc:12677}'s woods; one of them drops {npc:4721}'s {item:5867}, which can take several kills."] = "Las Hermanas risueñas, dríades, deambulan por {area:426} alrededor del bosque de {npc:12677}; una de ellas suelta {item:5867} de {npc:4721}, lo que puede requerir varias muertes.",
+	["The Laughing Sisters, dryads, wander {area:426} around {npc:12677}'s woods; one of them drops {npc:4721}'s {item:5867}, which can take several kills."] = "Las Hermanas sonrientes, dríades, deambulan por {area:426} alrededor del bosque de {npc:12677}; una de ellas suelta {item:5867} de {npc:4721}, lo que puede requerir varias muertes.",
 	-- {item:5867} Etched Phial · {npc:4054} Laughing Sister
 	["{item:5867}, from a {npc:4054}"] = "{item:5867}, de una {npc:4054}",
 
@@ -136,7 +135,7 @@ return {
 
 	-- Step 30: Mystral Lake
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
-	["Befouled Water Elementals drift around the lake's shores; the gazebo stands on the island, overlooking the Alliance outpost."] = "Los elementales de agua contaminados flotan por las orillas del lago; el mirador está en la isla, frente al puesto de la Alianza.",
+	["Befouled Water Elementals drift around the lake's shores; the gazebo stands on the island, overlooking the Alliance outpost."] = "Los elementales de agua podrida flotan por las orillas del lago; el mirador está en la isla, frente al puesto de la Alianza.",
 	["Underwater"] = "Bajo el agua",
 	["Gazebo"] = "Mirador",
 
@@ -351,7 +350,6 @@ return {
 	-- Step 76: Highperch
 	-- {area:482} Highperch
 	-- plural, as words: Highperch Patriarchs = {npc:4110} Highperch Patriarch
-	-- was: ["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "Al oeste de Alcance Blanco, los dracoleones anidan en los acantilados de {area:482}; los huevos están en los nidos. {npc:10427} espera en el lado este de la zona de nidos: libéralo y mantenlo con vida en el camino de vuelta a {area:2237}.\nCuidado: Dracoleones de nivel 28-29 vuelan por encima y se pueden atraer sin aviso. Un grupo de tres dracoleones puede emboscarte cuando pasas el primer pilar de abajo. Los patriarcas Nido Alto (30-31) y la rara Cortacorazones (32) también anidan aquí: rodéalos al atraer enemigos."
 	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "Al oeste del Tramo Blanco los dracoleones anidan en los acantilados de {area:482}; los huevos están en los nidos.\nCuidado: los dracoleones de nivel 28-29 vuelan por encima y pueden atraerse sin aviso. Un grupo de tres dracoleones puede emboscarte al pasar el primer pilar de abajo. Los patriarcas (30-31) y el raro Rajacorazones (32) anidan aquí también: rodéalos.",
 
 	-- Step 77: Escort Pao'ka Swiftmountain

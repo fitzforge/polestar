@@ -113,7 +113,7 @@ return {
 
 	-- Step 21: Sen'jin Village
 	-- {area:362} Razor Hill
-	["Careful: Ukorsbane (8) is elite and walks among the Ridgeshade spiders in the camp south of {area:362}: pull the spiders away from him."] = "Cuidado: Ukorsbane (8) es élite y anda entre las arañas Sombracresta en el campamento al sur de {area:362}: atrae a las arañas lejos de él.",
+	["Careful: Ukorsbane (8) is elite and walks among the Ridgeshade spiders in the camp south of {area:362}: pull the spiders away from him."] = "Cuidado: Ukorterror (8) es élite y anda entre las arañas Sombracresta en el campamento al sur de {area:362}: atrae a las arañas lejos de él.",
 	-- {npc:266881} Pa'zula
 	-- plural, as words: Hexed Pendants = {item:275724} Hexed Pendant
 	["{npc:266881}: enchanters only, the residue is disenchanted from Hexed Pendants"] = "{npc:266881}: solo encantadores; el residuo se obtiene desencantando Colgantes embrujados ({item:275724})",
@@ -124,7 +124,6 @@ return {
 	-- {npc:265809} Brakk
 	["{npc:265809}'s campfire"] = "La fogata de {npc:265809}",
 	-- {npc:265809} Brakk · {area:362} Razor Hill · {spell:1229451} Boosted Rest · {area:367} Sen'jin Village · {zone:1454} Orgrimmar
-	-- was: ["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362} or in {zone:1454} at the start of the next guide."] = "{npc:265809} acampa justo al sur de {area:362}. Siéntate junto a su fogata (/sit) hasta que aparezca el beneficio {spell:1229451}. Si aprendiste una profesión, {npc:265809} también ofrece su Campismo 101, que se entrega a su instructor: en {area:362} o en {zone:1454} al inicio de la siguiente guía."
 	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362}, by {area:367} for fishing, or in {zone:1454} at the start of the next guide."] = "{npc:265809} acampa justo al sur de {area:362}. Siéntate junto a su hoguera (/sit) hasta que aparezca el beneficio {spell:1229451}. Con una profesión aprendida, {npc:265809} también ofrece su Campamento 101, que retoma su instructor: en {area:362}, junto a {area:367} para la pesca, o en {zone:1454} al principio de la siguiente guía.",
 
 	-- Step 23: Camping 101: Mining
@@ -294,7 +293,7 @@ return {
 	-- Step 67: Drygulch Ravine
 	-- {area:370} Drygulch Ravine · {npc:3293} Rezlak · {item:277661} Dull Storm Orb · {area:371} Dustwind Cave · {item:6652} Reagent Pouch
 	-- plural, as words: Burning Blade Cultists = {npc:3199} Burning Blade Cultist
-	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}. Shamans: the Burning Blade Cultists by {area:371}, at the ravine's south end, drop the {item:6652}."] = "Los salvajes y las brujas de la tormenta anidan en {area:370}, al este de {npc:3293}. Una bruja de la tormenta suelta {item:277661}. Chamanes: los sectarios del Filo Ardiente junto a {area:371}, en el extremo sur del barranco, sueltan {item:6652}.",
+	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}. Shamans: the Burning Blade Cultists by {area:371}, at the ravine's south end, drop the {item:6652}."] = "Los salvajes y las brujas de la tormenta anidan en {area:370}, al este de {npc:3293}. Una bruja de la tormenta suelta {item:277661}. Chamanes: los cultores del Filo Ardiente junto a {area:371}, en el extremo sur del barranco, sueltan {item:6652}.",
 
 	-- Step 68: Deathskip to Northern Durotar
 	["Deathskip to Northern Durotar"] = "Muere para volver rápido al norte de Durotar",
@@ -352,7 +351,7 @@ return {
 	["Spitelash naga"] = "Nagas Látigo de Ira",
 	-- {area:370} Drygulch Ravine · {npc:275657} Heglan Shadeeye · {npc:3107} Surf Crawler
 	-- plural, as words: Spitelash Scouts = {npc:275662} Spitelash Scout
-	["North-east to the beach below {area:370}, north of {npc:275657}: Spitelash Scouts and Attendants hold it. Hunters: tame a {npc:3107} on the beach."] = "Al noreste, hasta la playa debajo de {area:370}, al norte de {npc:275657}: la ocupan exploradores y asistentes Latigosaña. Cazadores: domen un {npc:3107} en la playa.",
+	["North-east to the beach below {area:370}, north of {npc:275657}: Spitelash Scouts and Attendants hold it. Hunters: tame a {npc:3107} on the beach."] = "Al noreste, hasta la playa debajo de {area:370}, al norte de {npc:275657}: la ocupan exploradores y asistentes Látigo de Ira. Cazadores: domen un {npc:3107} en la playa.",
 
 	-- Step 82: Margoz
 	-- {quest:828} Margoz · {quest:827} Skull Rock

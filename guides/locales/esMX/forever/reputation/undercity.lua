@@ -80,7 +80,7 @@ return {
 	["{area:157} again"] = "{area:157} otra vez",
 	-- {area:157} Agamand Mills
 	-- plural, as words: Darkeye Bonecasters = {npc:1522} Darkeye Bonecaster
-	["The skeletons of {area:157} drop the ribs; the Darkeye Bonecasters the skulls."] = "Los esqueletos de {area:157} sueltan las costillas; los lanzahuesos Ojo Oscuro, los cráneos.",
+	["The skeletons of {area:157} drop the ribs; the Darkeye Bonecasters the skulls."] = "Los esqueletos de {area:157} sueltan las costillas; los tirahuesos Ojosombra, los cráneos.",
 
 	-- Step 13: Ralston Farnsley: A Donation of Wool
 	-- {npc:14729} Ralston Farnsley · {item:14047} Runecloth · {quest:7819} Additional Runecloth
@@ -90,9 +90,9 @@ return {
 
 	-- Step 14: A Donation of Silk
 	-- {area:287} Hillsbrad
-	["Silk: the Syndicate in {area:287} and Alterac drop it about one kill in three, or buy it."] = "Seda: el Sindicato en {area:287} y Alterac la suelta más o menos una de cada tres muertes, o cómprala.",
+	["Silk: the Syndicate in {area:287} and Alterac drop it about one kill in three, or buy it."] = "Seda: la Hermandad en {area:287} y Alterac la suelta más o menos una de cada tres muertes, o cómprala.",
 	-- {item:4306} Silk Cloth
-	["{item:4306}: the Syndicate"] = "{item:4306}: el Sindicato",
+	["{item:4306}: the Syndicate"] = "{item:4306}: la Hermandad",
 
 	-- Step 15: A Donation of Mageweave
 	-- {zone:1448} Felwood · {zone:1446} Tanaris
@@ -176,10 +176,10 @@ return {
 
 	-- Step 29: Plaguebats, Quel'Lithien Lodge and Corin's Crossing
 	-- {area:2276} Quel'Lithien Lodge · {area:2264} Corin's Crossing
-	["Plaguebats, {area:2276} and {area:2264}"] = "Murciélagos de la peste, {area:2276} y {area:2264}",
+	["Plaguebats, {area:2276} and {area:2264}"] = "Murcipestes, {area:2276} y {area:2264}",
 	-- {area:2276} Quel'Lithien Lodge · {area:2268} Light's Hope Chapel · {item:15847} Quel'Thalas Registry · {area:2264} Corin's Crossing · {item:15447} Living Rot · {item:15454} Mortar and Pestle · {item:15448} Coagulated Rot
 	-- plural, as words: Noxious Plaguebats = {npc:8601} Noxious Plaguebat · Monstrous Plaguebats = {npc:8602} Monstrous Plaguebat
-	["The Noxious Plaguebats fly in the south of the zone, the Monstrous Plaguebats further north-west. {area:2276} is north-west of {area:2268}; the {item:15847} lies inside. Do {area:2264} last: its Scourge drop {item:15447}, which lasts only 10 minutes. With 7 in your bags, use the {item:15454} at once for the {item:15448}."] = "Los murciélagos de la peste nocivos vuelan en el sur de la zona, los murciélagos de la peste monstruosos más al noroeste. {area:2276} está al noroeste de {area:2268}; el {item:15847} está adentro. Haz {area:2264} al final: su Plaga suelta {item:15447}, que dura solo 10 minutos. Con 7 en tus bolsas, usa el {item:15454} enseguida para la {item:15448}.",
+	["The Noxious Plaguebats fly in the south of the zone, the Monstrous Plaguebats further north-west. {area:2276} is north-west of {area:2268}; the {item:15847} lies inside. Do {area:2264} last: its Scourge drop {item:15447}, which lasts only 10 minutes. With 7 in your bags, use the {item:15454} at once for the {item:15448}."] = "Los murcipestes nocivos vuelan en el sur de la zona, los murcipestes monstruosos más al noroeste. {area:2276} está al noroeste de {area:2268}; el {item:15847} está adentro. Haz {area:2264} al final: su Plaga suelta {item:15447}, que dura solo 10 minutos. Con 7 en tus bolsas, usa el {item:15454} enseguida para la {item:15448}.",
 	-- {item:15448} Coagulated Rot · {item:15447} Living Rot · {item:15454} Mortar and Pestle
 	["{item:15448}: 7 {item:15447} and the {item:15454}"] = "{item:15448}: 7 {item:15447} y el {item:15454}",
 
@@ -206,10 +206,10 @@ return {
 	["{area:353}: an {quest:2934}"] = "{area:353}: una {quest:2934}",
 	-- {area:353} Shadra'Alor · {zone:1425} Hinterlands
 	-- plural, as words: Witherbark Broodguards = {npc:2686} Witherbark Broodguard
-	["The Witherbark Broodguards crawl around {area:353} in the south-west of the {zone:1425}; about one in ten carries an undamaged sac."] = "Los guardacrías Secacorteza se arrastran alrededor de {area:353}, en el suroeste de {zone:1425}; más o menos uno de cada diez lleva una glándula intacta.",
+	["The Witherbark Broodguards crawl around {area:353} in the south-west of the {zone:1425}; about one in ten carries an undamaged sac."] = "Los guardias del linaje Secacorteza se arrastran alrededor de {area:353}, en el suroeste de {zone:1425}; más o menos uno de cada diez lleva una glándula intacta.",
 	-- {quest:2934} Undamaged Venom Sac
 	-- plural, as words: Witherbark Broodguards = {npc:2686} Witherbark Broodguard
-	["{quest:2934}, from Witherbark Broodguards"] = "{quest:2934}, de los guardacrías Secacorteza",
+	["{quest:2934}, from Witherbark Broodguards"] = "{quest:2934}, de los guardias del linaje Secacorteza",
 
 	-- Step 35: Tarren Mill, then Sen'jin Village
 	-- {area:272} Tarren Mill · {area:367} Sen'jin Village

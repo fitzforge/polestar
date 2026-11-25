@@ -20,7 +20,7 @@ return {
 	-- Step 3: Sargeron
 	-- {area:603} Sargeron · {area:608} Nijel's Point
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue · Hatefury Tricksters = {npc:4671} Hatefury Trickster
-	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "Los sátiros Odio Feroz ocupan las ruinas de {area:603}, al este de {area:608}.\nCuidado: Los pícaros Odio Feroz aparecen en sigilo, y los embaucadores Odio Feroz envenenan con sus ataques.",
+	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "Los sátiros Odio Feroz ocupan las ruinas de {area:603}, al este de {area:608}.\nCuidado: Los pícaros Odio Feroz aparecen en sigilo, y los tramposos Odio Feroz envenenan con sus ataques.",
 
 	-- Step 5: Nijel's Point
 	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress

@@ -26,7 +26,7 @@ return {
 	-- {area:431} Splintertree Post · {npc:12696} Senani Thunderheart · {area:428} Night Run · {npc:12867} Kuray'bin · {quest:6503} Ashenvale Outrunners · {zone:1440} Ashenvale
 	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers {quest:6503}: leave it for the next {zone:1440} visit, at 26."] = "{area:431} está justo al norte por el camino. Al llegar desde el sur, primero están el maestro de vuelo y el tablón de caza de {npc:12696} en {area:428}, y después los vendedores. {npc:12867}, en el campamento maderero, ofrece {quest:6503}: déjala para la próxima visita a {zone:1440}, al nivel 26.",
 	-- {npc:12696} Senani Thunderheart · {zone:1440} Ashenvale
-	["{npc:12696}'s hunt targets Ursangous and Shadumbra are for the next {zone:1440} visit, at 26; Sharptalon (31) only from level 30."] = "Las presas de caza de {npc:12696}, Ursangous y Shadumbra, son para la próxima visita a {zone:1440}, a nivel 26; Garrafilada (31), solo a partir del nivel 30.",
+	["{npc:12696}'s hunt targets Ursangous and Shadumbra are for the next {zone:1440} visit, at 26; Sharptalon (31) only from level 30."] = "Las presas de caza de {npc:12696}, Ursangous y Shadumbra, son para la próxima visita a {zone:1440}, a nivel 26; Garfafilada (31), solo a partir del nivel 30.",
 
 	-- Step 5: Ashenvale Outrunners
 	-- {quest:6503} Ashenvale Outrunners
@@ -40,7 +40,7 @@ return {
 	-- Step 7: Va'xug Firefure
 	-- {npc:267214} Va'xug Firefure · {area:415} Astranaar
 	-- plural, as words: Shadowhorn Stags = {npc:3817} Shadowhorn Stag · Ashenvale Bears = {npc:3809} Ashenvale Bear
-	["On the way west, {npc:267214} is stuck in a ravine south of the main road, south-east of {area:415}. Shadowhorn Stags and Ashenvale Bears roam the woods all around it."] = "De camino al oeste, {npc:267214} está atrapado en un barranco al sur del camino principal, al sureste de {area:415}. Los ciervos cuernosombra y los osos de Vallefresno recorren el bosque a su alrededor.",
+	["On the way west, {npc:267214} is stuck in a ravine south of the main road, south-east of {area:415}. Shadowhorn Stags and Ashenvale Bears roam the woods all around it."] = "De camino al oeste, {npc:267214} está atrapado en un barranco al sur del camino principal, al sureste de {area:415}. Los venados Necraste y los osos de Vallefresno recorren el bosque a su alrededor.",
 
 	-- Step 8: A Void Path
 	-- {npc:267214} Va'xug Firefure · {npc:271181} Eye of Kilrogg
@@ -56,7 +56,6 @@ return {
 
 	-- Step 10: Vorsha the Lasher
 	-- {npc:12717} Muglash · {npc:12940} Vorsha the Lasher · {npc:12719} Marukai
-	-- was: ["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} camina al norte por la playa hasta un brasero naga. Apaga el brasero y protégelo durante las oleadas de nagas hasta que Vorsha muera; los nagas Colafuria sueltan las cabezas que quiere {npc:12719}."
 	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until {npc:12940} is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} camina al norte por la playa hasta un brasero naga. Apaga el brasero y protégelo durante las oleadas de nagas hasta que {npc:12940} muera; los nagas Cola Rabiosa sueltan las cabezas que quiere {npc:12719}.",
 	["Naga brazier"] = "Brasero naga",
 
@@ -181,7 +180,7 @@ return {
 	["{zone:1421}: kill these as you meet them"] = "{zone:1421}: mata a estos según te los encuentres",
 	-- {area:233} Ambermill · {quest:516} Beren's Peril
 	-- plural, as words: Dalaran Watchers = {npc:1888} Dalaran Watcher · Ravenclaw Drudgers = {npc:1974} Ravenclaw Drudger · High Order Mages = {npc:254294} High Order Mage
-	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest. Careful: High Order Mages (30) walk the same roads among the Watchers and Wizards: leave them."] = "Al sur por el camino pasando Piroleña: los vigías y magos de Dalaran patrullan los caminos alrededor de {area:233}, y al suroeste del pueblo los braceros y guardianes Garracuervo rondan las ruinas de {quest:516} en el sureste del bosque. Cuidado: los magos de la Alta Orden (30) recorren los mismos caminos entre los vigías y magos: déjalos en paz.",
+	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest. Careful: High Order Mages (30) walk the same roads among the Watchers and Wizards: leave them."] = "Al sur por el camino pasando Piroleña: los vigías y magos de Dalaran patrullan los caminos alrededor de {area:233}, y al suroeste del pueblo los esclavos y guardianes Corvozarpa rondan las ruinas de {quest:516} en el sureste del bosque. Cuidado: los magos de la Alta Orden (30) recorren los mismos caminos entre los vigías y magos: déjalos en paz.",
 	["Below ground"] = "Bajo tierra",
 
 	-- Step 35: Ambermill

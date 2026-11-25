@@ -116,7 +116,6 @@ return {
 
 	-- Step 22: Thrall
 	-- {npc:4949} Thrall · {item:14544} Lieutenant's Insignia · {area:817} Skull Rock · {quest:829} Neeru Fireblade · {zone:1454} Orgrimmar
-	-- was: ["{npc:4949}, on his throne in Grommash Hold, takes the {item:14544} from {area:817}. His next errand is only a word with {npc:3216}, on this guide's last {zone:1454} walk."] = "{npc:4949}, en su trono de Grommash Hold, recibe la {item:14544} de {area:817}. Su siguiente encargo es solo hablar con {npc:3216}, en la última caminata por {zone:1454} de esta guía."
 	["{npc:4949}, on his throne in Grommash Hold, takes the {item:14544} from {area:817}. His next errand is only a word with {quest:829}, on this guide's last {zone:1454} walk."] = "{npc:4949}, en su trono en la fortaleza de Thrall, recibe {item:14544} de {area:817}. Su siguiente recado es solo una palabra con {quest:829}, en el último paseo de esta guía por {zone:1454}.",
 
 	-- Step 23: Thrall
@@ -142,7 +141,7 @@ return {
 	-- Step 27: The Cult of the Damned
 	-- {npc:267009} Hadric Harlson
 	-- plural, as words: Dark Neophytes = {npc:267006} Dark Neophyte · Dark Enforcers = {npc:275437} Dark Enforcer · Necrotic Crystal Fragments = {item:275851} Necrotic Crystal Fragment
-	["The cultists camp a short walk south-east of {npc:267009}. Dark Neophytes and Dark Enforcers drop the Necrotic Crystal Fragments; more fragments, black crystals, lie on the ground among the tents."] = "Los sectarios acampan a poca distancia al sureste de {npc:267009}. Los neófitos oscuros y los ejecutores oscuros sueltan los Fragmentos de cristal necrótico; hay más fragmentos, cristales negros, en el suelo entre las tiendas.",
+	["The cultists camp a short walk south-east of {npc:267009}. Dark Neophytes and Dark Enforcers drop the Necrotic Crystal Fragments; more fragments, black crystals, lie on the ground among the tents."] = "Los sectarios acampan a poca distancia al sureste de {npc:267009}. Los neófitos oscuros y los déspotas oscuros sueltan los Trozos de cristal necrótico; hay más fragmentos, cristales negros, en el suelo entre las tiendas.",
 
 	-- Step 30: The Sepulcher
 	-- {area:228} The Sepulcher · {npc:2226} Karos Razok

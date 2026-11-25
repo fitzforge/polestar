@@ -118,7 +118,6 @@ return {
 
 	-- Step 17: The Great Outdoors
 	-- {npc:265811} Lyreena Duskblade · {npc:6286} Zarrin · {skill:129} First Aid · {npc:6094} Byancie · {zone:1457} Darnassus · {area:442} Auberdine
-	-- was: ["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west."] = "Con una profesión aprendida, {npc:265811} también ofrece su Campamento 101, que recibe su instructor: alquimia y herboristería junto a {npc:6286}, {skill:129} con {npc:6094} en la posada, desuello y peletería en el campamento de los Tejecrín en el camino al oeste."
 	["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west, fishing and tailoring in {zone:1457}, enchanting north of the city, blacksmithing, mining and engineering in {area:442}."] = "Con una profesión aprendida, {npc:265811} también ofrece su Campamento 101, que retoma su instructor: alquimia y herboristería junto a {npc:6286}, {skill:129} con {npc:6094} en la posada, desuello y peletería en el campamento de los Tejecrines en el camino del oeste, pesca y sastrería en {zone:1457}, encantamiento al norte de la ciudad, herrería, minería e ingeniería en {area:442}.",
 	-- {npc:265811} Lyreena Duskblade · {spell:1229451} Boosted Rest
 	["/sit by {npc:265811}'s campfire until you get {spell:1229451}"] = "/sit junto a la fogata de {npc:265811} hasta obtener {spell:1229451}",
@@ -249,7 +248,7 @@ return {
 	-- Step 38: Lake Al'Ameth
 	-- {npc:2150} Zenn Foulhoof · {npc:2080} Denalan · {quest:919} Timberling Sprouts
 	-- plural, as words: Lasher Sproutlings = {npc:275703} Lasher Sproutling
-	["South-west of Starbreeze, south of {npc:2150}. {npc:2080} tends his saplings on the shore; Lasher Sproutlings and Timberlings wander around him, and the {quest:919} grow among them."] = "Al suroeste de Brisa Estelar, al sur de {npc:2150}. {npc:2080} cuida sus retoños en la orilla; los brotes de azotador y los arbolitos deambulan a su alrededor, y {quest:919} crecen entre ellos.",
+	["South-west of Starbreeze, south of {npc:2150}. {npc:2080} tends his saplings on the shore; Lasher Sproutlings and Timberlings wander around him, and the {quest:919} grow among them."] = "Al suroeste de Brisa Estelar, al sur de {npc:2150}. {npc:2080} cuida sus retoños en la orilla; los brotes de azotador y los brezomaderas deambulan a su alrededor, y {quest:919} crecen entre ellos.",
 	-- {npc:2080} Denalan · {quest:922} Rellian Greenspyre · {zone:1457} Darnassus
 	["{npc:2080}: {quest:922} in {zone:1457} takes it"] = "{npc:2080}: {quest:922} en {zone:1457} la recibe",
 
@@ -342,7 +341,7 @@ return {
 	-- Step 55: Seek Redemption!
 	-- {area:186} Dolanaar · {npc:2150} Zenn Foulhoof · {npc:7234} Ferocitas the Dream Eater
 	-- plural, as words: Fel Cones = {object:1673} Fel Cone
-	["Fel Cones lie under the trees all around {area:186} and {npc:2150}: pick them up on the road east and hand them to {npc:2150} on the way to {npc:7234}."] = "Las piñas viles están bajo los árboles por todo {area:186} y alrededor de {npc:2150}: recógelas por el camino al este y dáselas a {npc:2150} de camino a {npc:7234}.",
+	["Fel Cones lie under the trees all around {area:186} and {npc:2150}: pick them up on the road east and hand them to {npc:2150} on the way to {npc:7234}."] = "Las bellotas viles están bajo los árboles por todo {area:186} y alrededor de {npc:2150}: recógelas por el camino al este y dáselas a {npc:2150} de camino a {npc:7234}.",
 
 	-- Step 56: Ferocitas the Dream Eater
 	-- {npc:7234} Ferocitas the Dream Eater · {area:260} Starbreeze Village · {item:8049} Gnarlpine Necklace
@@ -358,14 +357,14 @@ return {
 	-- Step 58: Tallonkai Swiftroot
 	-- {npc:3567} Tallonkai Swiftroot · {quest:932} Twisted Hatred · {npc:272116} Xethorr the Wicked · {area:264} Oracle Glade
 	-- plural, as words: Befouled Webwoods = {npc:272096} Befouled Webwood
-	["{npc:3567}: {quest:932}'s Befouled Webwoods and the elite {npc:272116}'s moss, on the walk to the {area:264}"] = "{npc:3567}: las Tejemadera corrompidas de {quest:932} y el musgo del élite {npc:272116}, de camino a {area:264}",
+	["{npc:3567}: {quest:932}'s Befouled Webwoods and the elite {npc:272116}'s moss, on the walk to the {area:264}"] = "{npc:3567}: las Tejemadera contaminadas de {quest:932} y el musgo del élite {npc:272116}, de camino a {area:264}",
 
 	-- Step 59: Befouled Webwoods
 	-- plural, as words: Befouled Webwoods = {npc:272096} Befouled Webwood
-	["Befouled Webwoods"] = "Tejemadera corrompidas",
+	["Befouled Webwoods"] = "Tejemadera contaminadas",
 	-- {area:264} Oracle Glade · {npc:272116} Xethorr the Wicked · {item:281023} Mature Fel Moss
 	-- plural, as words: Befouled Webwoods = {npc:272096} Befouled Webwood
-	["North-west of Dolanaar, on the way to the {area:264}, Befouled Webwoods creep through the woods; {npc:272116} prowls at their east edge and carries the {item:281023}.\n{npc:272116} is elite (level 12): grouping up is advised. Clear the webwoods around him first and pull him on his own."] = "Al noroeste de Dolanaar, de camino a {area:264}, las Tejemadera corrompidas se arrastran por el bosque; {npc:272116} merodea por su borde este y lleva {item:281023}.\n{npc:272116} es élite (nivel 12): se recomienda ir en grupo. Primero limpia las Tejemadera a su alrededor y atráelo solo.",
+	["North-west of Dolanaar, on the way to the {area:264}, Befouled Webwoods creep through the woods; {npc:272116} prowls at their east edge and carries the {item:281023}.\n{npc:272116} is elite (level 12): grouping up is advised. Clear the webwoods around him first and pull him on his own."] = "Al noroeste de Dolanaar, de camino a {area:264}, las Tejemadera contaminadas se arrastran por el bosque; {npc:272116} merodea por su borde este y lleva {item:281023}.\n{npc:272116} es élite (nivel 12): se recomienda ir en grupo. Primero limpia las Tejemadera a su alrededor y atráelo solo.",
 
 	-- Step 60: The Wellspring River
 	-- {area:265} Wellspring River

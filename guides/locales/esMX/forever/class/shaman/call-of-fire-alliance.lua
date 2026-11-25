@@ -29,12 +29,12 @@ return {
 	-- Step 4: Reagent Pouch
 	-- {area:923} Stonesplinter Valley · {area:144} Thelsamar · {spell:1245113} Lightning Bolts
 	-- plural, as words: Stonesplinter Seers = {npc:1166} Stonesplinter Seer
-	["The Stonesplinter Seers (level 13-14) stand among the troggs of {area:923} in the south of the loch, and in the trogg camps north-east of {area:144}. They throw {spell:1245113} from 40 yards and run for help when hurt: pull one at a time. Respawn about five minutes."] = "Los videntes Rompepiedras (nivel 13-14) están entre los troggs de {area:923}, en el sur del lago, y en los campamentos de troggs al noreste de {area:144}. Lanzan {spell:1245113} desde 40 m y huyen a pedir ayuda cuando están heridos: atráelos de a uno. Reaparecen en unos cinco minutos.",
+	["The Stonesplinter Seers (level 13-14) stand among the troggs of {area:923} in the south of the loch, and in the trogg camps north-east of {area:144}. They throw {spell:1245113} from 40 yards and run for help when hurt: pull one at a time. Respawn about five minutes."] = "Los videntes Rompecantos (nivel 13-14) están entre los troggs de {area:923}, en el sur del lago, y en los campamentos de troggs al noreste de {area:144}. Lanzan {spell:1245113} desde 40 m y huyen a pedir ayuda cuando están heridos: atráelos de a uno. Reaparecen en unos cinco minutos.",
 
 	-- Step 5: Fire Tar
 	-- {area:149} Silver Stream Mine · {area:144} Thelsamar · {spell:2136} Fire Blast · {spell:134} Fire Shield
 	-- plural, as words: Tunnel Rat Geomancers = {npc:1174} Tunnel Rat Geomancer
-	["The Tunnel Rat Geomancers (level 12-13) work only inside the {area:149} at the north end of the loch, past {area:144}. They cast {spell:2136} behind a {spell:134} and run for help at low health."] = "Los geomantes rata de túnel (nivel 12-13) trabajan solo dentro de {area:149}, en el extremo norte del lago, pasando {area:144}. Lanzan {spell:2136} detrás de un {spell:134} y huyen a pedir ayuda con poca salud.",
+	["The Tunnel Rat Geomancers (level 12-13) work only inside the {area:149} at the north end of the loch, past {area:144}. They cast {spell:2136} behind a {spell:134} and run for help at low health."] = "Los geománticos Ratatúnel (nivel 12-13) trabajan solo dentro de {area:149}, en el extremo norte del lago, pasando {area:144}. Lanzan {spell:2136} detrás de un {spell:134} y huyen a pedir ayuda con poca salud.",
 
 	-- Step 6: Braldir Ashmantle
 	-- {npc:257808} Braldir Ashmantle · {item:6636} Fire Sapta

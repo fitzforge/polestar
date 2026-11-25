@@ -114,7 +114,7 @@ return {
 	-- Step 27: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
-	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "La granja de {npc:10778} es la primera al este de {area:152}. Los necrófagos parlanchines de la granja llevan la otra mitad de su amuleto; {npc:11075} custodia el caldero del campo.\nCuidado: Uno o dos no-muertos suelen pelear a su lado, y más señores del caldero pueden atacar después de que usas el caldero.",
+	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "La granja de {npc:10778} es la primera al este de {area:152}. Los necrófagos farfullantes de la granja llevan la otra mitad de su amuleto; {npc:11075} custodia el caldero del campo.\nCuidado: Uno o dos no-muertos suelen pelear a su lado, y más señores del caldero pueden atacar después de que usas el caldero.",
 
 	-- Step 28: Janice Felstone
 	["Upstairs"] = "Arriba",

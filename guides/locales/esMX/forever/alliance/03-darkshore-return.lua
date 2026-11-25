@@ -40,7 +40,6 @@ return {
 	-- Step 6: The Master's Glaive
 	-- {object:12666} Twilight Tome · {quest:948} Onu · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	-- was: ["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater; {npc:3584} stands on its north side. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "Los patriarcas Acechalunas merodean por el bosque alrededor de la guja. {object:12666} está en el fondo del cráter; {npc:3584} está en su lado norte. Para la misión de {quest:948}, usa {item:5251} en el fondo del cráter: así aparece {object:10076}, y la misión se entrega al cuenco."
 	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "Los Grandes acechalunas merodean por el bosque alrededor de la guja. {object:12666} está en el fondo del cráter. Para la misión de {quest:948}, usa {item:5251} en el fondo del cráter: crea {object:10076}, y entregas la misión al cuenco.",
 	-- plural, as words: Fine Moonstalker Pelts = {item:5386} Fine Moonstalker Pelt
 	["Fine Moonstalker Pelts"] = "Pelambres de Acechalunas refinadas",
@@ -133,7 +132,7 @@ return {
 	["Escort {npc:3692}"] = "Escolta a {npc:3692}",
 	-- {npc:3692} Volcor · {npc:3693} Terenthis · {area:442} Auberdine
 	["Help {npc:3692} back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "Ayuda a {npc:3692} a volver al camino; lucha mientras sale. {npc:3693} se encarga de la escolta en {area:442} en la próxima visita.",
-	["His walk ends at the road, where Grimclaw waits"] = "Su caminata termina en el camino, donde espera Garrasucia",
+	["His walk ends at the road, where Grimclaw waits"] = "Su caminata termina en el camino, donde espera Zarpadura",
 
 	-- Step 23: Auberdine
 	-- {quest:990} Trek to Ashenvale · {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3692} Volcor

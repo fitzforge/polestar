@@ -46,7 +46,7 @@ return {
 	-- Step 9: Lethlor Ravine
 	-- {npc:2888} Garek · {item:4612} Black Drake's Heart
 	-- plural, as words: Scalding Whelps = {npc:2725} Scalding Whelp · Scorched Guardians = {npc:2726} Scorched Guardian
-	["The Scalding Whelps nest in the ravine east of {npc:2888}; leave the Scorched Guardians (elite) alone. The {item:4612} drops rarely: take it if it comes while you grind."] = "Las Crías hirvientes anidan en el barranco al este de {npc:2888}; deja en paz a los Guardianes abrasados (élite). {item:4612} cae rara vez: tómalo si aparece mientras cazas.",
+	["The Scalding Whelps nest in the ravine east of {npc:2888}; leave the Scorched Guardians (elite) alone. The {item:4612} drops rarely: take it if it comes while you grind."] = "Las estirpes hirvientes anidan en el barranco al este de {npc:2888}; deja en paz a los Guardianes agostados (élite). {item:4612} cae rara vez: tómalo si aparece mientras cazas.",
 
 	-- Step 11: Dorgaron
 	-- {npc:269577} Dorgaron · {zone:1432} Loch Modan

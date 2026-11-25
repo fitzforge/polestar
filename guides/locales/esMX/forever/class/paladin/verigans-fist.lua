@@ -54,7 +54,7 @@ return {
 	-- Step 9: Whitestone Oak Lumber
 	-- {area:1581} Deadmines · {area:20} Moonbrook
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
-	["{area:1581} is a group of five under {area:20}; the instance portal is at the bottom of the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in the mast room with Sneed drop the lumber every time."] = "{area:1581} es para un grupo de cinco, debajo de {area:20}; el portal de la instancia está al fondo de la mina de {area:20}. Los tallistas goblin (élite, nivel 18-19) de la sala del mástil con Sneed sueltan la madera siempre.",
+	["{area:1581} is a group of five under {area:20}; the instance portal is at the bottom of the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in the mast room with Sneed drop the lumber every time."] = "{area:1581} es para un grupo de cinco, debajo de {area:20}; el portal de la instancia está al fondo de la mina de {area:20}. Los talladores de madera goblin (élite, nivel 18-19) de la sala del mástil con Sneed sueltan la madera siempre.",
 	-- {area:1581} Deadmines · {area:20} Moonbrook
 	["{area:1581}, in the {area:20} mine"] = "{area:1581}, en la mina de {area:20}",
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver

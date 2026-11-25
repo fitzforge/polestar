@@ -66,7 +66,6 @@ return {
 	["Razormane camp: {npc:3429}'s quilboar"] = "Campamento Crines de Acero: los jabaespines de {npc:3429}",
 	-- {npc:3429} Thork
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
-	-- was: ["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "Mientras estés en el campamento: los Buscaqua y Tejespinas de {npc:3429} en su mitad oeste, los Cazadores en el centro y las cajas de suministros en su extremo este.\nCuidado: los Comecarnes y Rabiosos Crines de Acero (18-19) son élites; están en el noreste del campamento, junto a las cajas de suministros: atrae a los jabaespines lejos de ellos de uno en uno."
 	["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, and, if you took his supplies with a group, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "Mientras estés en el campamento: los Buscaaguas y Tejespinas de {npc:3429} en su mitad oeste, los Cazadores en el centro y, si aceptaste sus suministros con un grupo, las cajas en su extremo este.\nCuidado: los Comecarne y Rabiosos Crines de Acero (18-19) son élite; están en el noreste del campamento, junto a las cajas: aleja a los jabaespines de ellos de uno en uno.",
 
 	-- Step 13: Thork's supply crates
@@ -95,7 +94,7 @@ return {
 	-- plural, as words: Raptor Heads = {item:5062} Raptor Head
 	["Raptor Heads as you go"] = "Cabezas de raptor sobre la marcha",
 	-- plural, as words: Sunscale Screechers = {npc:3255} Sunscale Screecher
-	["Sunscale raptors roam the plains north and east of the Crossroads, and about three in four drop a head: kill the ones you pass on the way. Careful: Sunscale Screechers call nearby allies within 30 yd once below 30% health."] = "Los raptores Solescama recorren las llanuras al norte y al este del Cruce, y unos tres de cada cuatro sueltan una cabeza: mata a los que encuentres en el camino. Cuidado: los chilladores Solescama llaman a los aliados cercanos en 30 m cuando bajan del 30 % de salud.",
+	["Sunscale raptors roam the plains north and east of the Crossroads, and about three in four drop a head: kill the ones you pass on the way. Careful: Sunscale Screechers call nearby allies within 30 yd once below 30% health."] = "Los raptores Solescama recorren las llanuras al norte y al este del Cruce, y unos tres de cada cuatro sueltan una cabeza: mata a los que encuentres en el camino. Cuidado: los estridadores Solescama llaman a los aliados cercanos en 30 m cuando bajan del 30 % de salud.",
 
 	-- Step 22: Plainstrider Beaks as you go
 	-- plural, as words: Plainstrider Beaks = {item:5087} Plainstrider Beak
@@ -105,7 +104,6 @@ return {
 
 	-- Step 23: Razormane camp
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
-	-- was: ["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "En el campamento, los Buscaqua y Tejespinas ocupan la mitad oeste, y los Cazadores, el centro; las cajas de suministros están en su extremo este.\nLos Zancudos de llanura de aquí cuentan para los picos.\nCuidado: los Comecarnes y Rabiosos Crines de Acero (18-19) son élites; están en el noreste del campamento, junto a las cajas de suministros: atrae a los jabaespines lejos de ellos de uno en uno."
 	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates (with a group only) sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "En el campamento, los Buscaaguas y Tejespinas ocupan la mitad oeste, los Cazadores el centro; las cajas de suministros (solo en grupo) están en su extremo este.\nLos zancudos de las llanuras de aquí cuentan para los picos.\nCuidado: los Comecarne y Rabiosos Crines de Acero (18-19) son élite; están en el noreste del campamento, junto a las cajas: aleja a los jabaespines de ellos de uno en uno.",
 
 	-- Step 25: Finish the Plainstrider Beaks
@@ -545,7 +543,7 @@ return {
 	["{quest:882}, a big Sunscale raptor, only comes to a fresh kill: loot a {item:10338} from a zhevra, then use it at the {object:147538} north-west of {area:392}, north of the road to the Crossroads, and be ready when he arrives."] = "{quest:882}, un gran raptor Solescama, solo acude a una presa fresca: saquea {item:10338} de una zhebra y úsalo en {object:147538}, al noroeste de {area:392} y al norte del camino al Cruce, y prepárate para cuando llegue.",
 	-- {item:10338} Fresh Zhevra Carcass
 	-- plural, as words: Zhevra Chargers = {npc:3426} Zhevra Charger
-	["{item:10338}, from any zhevra; Zhevra Chargers graze around the tree"] = "{item:10338}, de cualquier zhebra; los embestidores zhebra pastan alrededor del árbol",
+	["{item:10338}, from any zhevra; Zhevra Chargers graze around the tree"] = "{item:10338}, de cualquier zhebra; los destreros zhebra pastan alrededor del árbol",
 	-- {object:147538} Dead Tree · {quest:882} Ishamuhale
 	["At the {object:147538}: summons {quest:882}"] = "En {object:147538}: invoca a {quest:882}",
 
@@ -687,7 +685,7 @@ return {
 	["{area:1076}: kill these as you meet them"] = "{area:1076}: mata a estos según te los encuentres",
 	-- {area:2539} Malaka'jin · {npc:11858} Grundig Darkcloud
 	-- plural, as words: Grimtotem Brutes = {npc:11912} Grimtotem Brute · Deepmoss Creepers = {npc:4005} Deepmoss Creeper
-	["North up the road from {area:2539}: {npc:11858} and his Grimtotem Brutes hold the bend in the road, and the Deepmoss Creepers and Venomspitters lurk in the webs on both sides of the path all the way up."] = "Al norte por el camino desde {area:2539}: {npc:11858} y sus brutos Tótem Siniestro ocupan la curva del camino, y los reptadores y escupevenenos Musgondo acechan en las telarañas a ambos lados del sendero hasta arriba.",
+	["North up the road from {area:2539}: {npc:11858} and his Grimtotem Brutes hold the bend in the road, and the Deepmoss Creepers and Venomspitters lurk in the webs on both sides of the path all the way up."] = "Al norte por el camino desde {area:2539}: {npc:11858} y sus brutos Tótem Siniestro ocupan la curva del camino, y los trepadores y escupevenenos Musgondo acechan en las telarañas a ambos lados del sendero hasta arriba.",
 
 	-- Step 156: Ziz Fizziks
 	-- {area:1076} Webwinder Path · {quest:1483} Ziz Fizziks · {area:461} Windshear Crag
@@ -699,7 +697,7 @@ return {
 	-- {area:461} Windshear Crag
 	["East of Ziz, the Venture Company is clear-cutting {area:461}; one of the Operators carries the blueprints."] = "Al este de Ziz, Ventura y Cía. está talando {area:461}; uno de los operarios lleva los planos.",
 	-- plural, as words: Venture Co. Loggers = {npc:3989} Venture Co. Logger
-	["Venture Co. Loggers, all over the clear-cut"] = "Leñadores de Ventura y Cía., por toda la zona talada",
+	["Venture Co. Loggers, all over the clear-cut"] = "Madereros de Ventura y Cía., por toda la zona talada",
 
 	-- Step 158: Piznik
 	-- {npc:4276} Piznik · {area:2160} Windshear Mine
@@ -769,7 +767,7 @@ return {
 	-- ["South-east of the Crossroads. Test the seeds at the bubbling fissure on the oasis' east bank; {npc:3448} takes the result on the next Crossroads stop, so carry on north-west to the {area:383} from here."] = "Al sureste del Cruce. Prueba las semillas en la fisura burbujeante de la orilla este del oasis; {npc:3448} recibe el resultado en la próxima parada en el Cruce, así que sigue desde aquí al noroeste hasta {area:383}.",
 	-- ["South-east of the {area:380}. Test the seeds at the bubbling fissure on the oasis' east bank."] = "Al sureste de {area:380}. Prueba las semillas en la fisura burbujeante de la orilla este del oasis.",
 	-- ["Southsea beach"] = "Playa de los Mares del Sur",
-	-- ["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "¿Aún te faltan para doce? Los colazotes y chilladores Solescama recorren las llanuras al noreste del Cruce, de regreso al sur desde la guarida de {quest:881}.",
+	-- ["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "¿Aún te faltan para doce? Los colazotes y estridadores Solescama recorren las llanuras al noreste del Cruce, de regreso al sur desde la guarida de {quest:881}.",
 	-- ["Sunscale Scytheclaws hunt the plains around the {area:1697}; they drop the horns. {npc:3446} takes them when the escort brings you back to {area:392}.\nSouth-east toward the coast: the stolen silver lies in a raptor nest north-west of {area:385}."] = "Los segadores Solescama cazan en las llanuras alrededor de {area:1697}; sueltan los cuernos. {npc:3446} los recibe cuando la escolta te lleva de vuelta a {area:392}.\nAl sureste, hacia la costa: la plata robada está en un nido de raptor al noroeste de {area:385}.",
 	-- ["Sunscale raptors here count toward the heads."] = "Los raptores Solescama de aquí cuentan para las cabezas.",
 	-- ["The Bristleback quilboar camps spread over the plains north of {area:378}, either side of the {area:458}. {npc:3432}'s wife lies at their north edge, on your way south. Leave the quilboar for now: {npc:3430} in {area:378} wants the same camps cleared. {quest:883}, a grey kodo, sometimes wanders here: his hoof starts a quest."] = "Los campamentos de jabaespines Lomopelo se extienden por las llanuras al norte de {area:378}, a ambos lados de {area:458}. La esposa de {npc:3432} yace en su borde norte, de camino al sur. Deja a los jabaespines por ahora: {npc:3430} en {area:378} quiere que despejes los mismos campamentos. {quest:883}, un kodo gris, a veces deambula por aquí: su pezuña inicia una misión.",

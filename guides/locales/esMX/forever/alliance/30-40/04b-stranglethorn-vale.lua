@@ -77,14 +77,13 @@ return {
 
 	-- Step 12: Water Elementals
 	-- plural, as words: Lesser Water Elementals = {npc:691} Lesser Water Elemental
-	["The haunted island lies just off the shore west of the second tablet: the Lesser Water Elementals rise from the water around it."] = "La isla embrujada está justo frente a la costa, al oeste de la segunda tablilla: los elementales de agua menores surgen del agua a su alrededor.",
+	["The haunted island lies just off the shore west of the second tablet: the Lesser Water Elementals rise from the water around it."] = "La isla embrujada está justo frente a la costa, al oeste de la segunda tablilla: los elementales de agua inferiores surgen del agua a su alrededor.",
 
 	-- Step 13: The Ruins of Zul'Kunda
 	-- {area:102} Ruins of Zul'Kunda
 	["The {area:102}"] = "Las {area:102}",
 	-- {npc:268992} Zimmix Sputterspark · {item:277957} Primitive Key
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment · Bloodscalp Berserkers = {npc:597} Bloodscalp Berserker
-	-- was: ["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}, then lead him out of the ruins. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "Al norte por la costa hasta las ruinas de la colina: allí están las dos últimas tablillas. {npc:268992}, un goblin, está enjaulado junto a la tercera tablilla: cualquier Sangrapellejo puede soltar su {item:277957}; luego guíalo fuera de las ruinas. Los envíos robados están en el borde este de las ruinas. Recoge las páginas de Colinas Verdes a medida que caigan.\nCuidado: los rabiosos, cazadores de cabezas y médicos brujos Sangrapellejo (36-37) ocupan el centro de las ruinas: atráelos de uno en uno."
 	["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "Al norte por la costa hasta las ruinas de la colina: allí están las dos últimas tablillas. {npc:268992}, un goblin, está enjaulado junto a la tercera tablilla: cualquier Cabellera Sangrienta puede soltar su {item:277957}. Los cargamentos robados están en el borde este de las ruinas. Retoma las páginas de las Colinas Verdes cuando caigan.\nCuidado: los rabiosos, cazacabezas y médicos brujos Cabellera Sangrienta (36-37) ocupan el centro de las ruinas: atráelos de uno en uno.",
 	-- {npc:268992} Zimmix Sputterspark
 	["{npc:268992}, in his cage beside the third tablet"] = "{npc:268992}, en su jaula junto a la tercera tablilla",

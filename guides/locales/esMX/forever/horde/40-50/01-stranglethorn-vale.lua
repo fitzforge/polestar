@@ -68,7 +68,7 @@ return {
 	-- {npc:2495} Drizzlik
 	["{npc:2495}'s shop is in the building east of the inn."] = "La tienda de {npc:2495} está en el edificio al este de la posada.",
 	-- {npc:2495} Drizzlik
-	["{npc:2495}: the Snapjaw skins gathered earlier; inside"] = "{npc:2495}: las pieles Bocaquebrada que juntaste antes; adentro",
+	["{npc:2495}: the Snapjaw skins gathered earlier; inside"] = "{npc:2495}: las pieles de Quijaforte que juntaste antes; adentro",
 
 	-- Step 12: Booty Bay
 	-- {area:35} Booty Bay
@@ -109,7 +109,6 @@ return {
 	["Mistvale gorillas"] = "Gorilas Velo de Bruma",
 	-- {quest:348} Stranglethorn Fever
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
-	-- was: ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "Los gorilas recorren el valle alrededor de Unbagwa. Los ancianos sueltan las menudencias; cualquiera puede soltar un colmillo: guarda diez para Unbagwa, cuyo Mokk (44) espera a tu paso por Tuercespina hacia el nivel 45.\nCuidado: los gorilas Velo de Bruma ancianos (40-41) están muy juntos en el valle: atráelos de uno en uno."
 	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: if you will take {quest:348} with a group, keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "Los gorilas recorren el valle alrededor de Unbagwa. Los ancianos sueltan las asaduras; cualquiera puede soltar un colmillo: si vas a aceptar {quest:348} con un grupo, guarda diez para Unbagwa, cuyo Mokk (44) espera tu parada en Tuercespina hacia el nivel 45.\nCuidado: los gorilas ancianos del Velo de Bruma (40-41) están muy juntos en el valle: atráelos de uno en uno.",
 	-- {quest:348} Stranglethorn Fever
 	["Keep fangs from these same elders for Unbagwa ({quest:348}, with a group)."] = "Guarda colmillos de estos mismos ancianos para Unbagwa ({quest:348}, en grupo).",
@@ -124,7 +123,7 @@ return {
 	-- Step 21: Venture Co. mine
 	["Venture Co. mine"] = "Mina de Ventura y Cía.",
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
-	["Further north, the goblins of the Venture Co. dig at the mine east of the road; miners, foremen, surveyors and tinkerers all drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "Más al norte, los goblins de Ventura y Cía. excavan en la mina al este del camino; mineros, capataces, topógrafos y manitas sueltan los cristales.\nCuidado: Panteras Fauceumbría y tigresas de Tuercespina en sigilo rondan la zona alrededor del campamento.",
+	["Further north, the goblins of the Venture Co. dig at the mine east of the road; miners, foremen, surveyors and tinkerers all drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "Más al norte, los goblins de Ventura y Cía. excavan en la mina al este del camino; mineros, capataces, topógrafos y manitas sueltan los cristales.\nCuidado: Panteras Faucesombría y tigresas de Tuercespina en sigilo rondan la zona alrededor del campamento.",
 
 	-- Step 22: Shadowmaw Panthers
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
@@ -219,7 +218,7 @@ return {
 
 	-- Step 42: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {zone:1444} Feralas
-	["Riding needs level 40 and costs 100 gold; learning it gives you a Galestrider, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454} and fly to {zone:1456}: the skyboat to {zone:2521} leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes, and {npc:265756} teaches Skyborne at the {area:17684} in {area:16638}. Then back to {zone:1454} for the {object:3202} zeppelin. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "Equitación requiere nivel 40 y cuesta 100 de oro; al aprenderla obtienes un Zancavientos, y {zone:2548} después de Tuercespina son una larga caminata sin él. Toma el zepelín desde la torre de {object:3202} a {zone:1454} y vuela a {zone:1456}: la nave aérea a {zone:2521} sale de los acantilados al sur de {area:17045}, al norte de {zone:1456}, más o menos cada cinco minutos, y {npc:265756} enseña a los Celestes en {area:17684} de {area:16638}. Luego vuelve a {zone:1454} para el zepelín de {object:3202}. ¿Te falta oro? Omite este paso: la guía de {zone:1444} vuelve a pasar por {zone:1454} hacia el nivel 45.",
+	["Riding needs level 40 and costs 100 gold; learning it gives you a Galestrider, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454} and fly to {zone:1456}: the skyboat to {zone:2521} leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes, and {npc:265756} teaches Skyborne at the {area:17684} in {area:16638}. Then back to {zone:1454} for the {object:3202} zeppelin. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "Equitación requiere nivel 40 y cuesta 100 de oro; al aprenderla obtienes un Zancavientos, y {zone:2548} después de Tuercespina son una larga caminata sin él. Toma el zepelín desde la torre de {object:3202} a {zone:1454} y vuela a {zone:1456}: el barco celeste a {zone:2521} sale de los acantilados al sur de {area:17045}, al norte de {zone:1456}, más o menos cada cinco minutos, y {npc:265756} enseña a los Celestes en {area:17684} de {area:16638}. Luego vuelve a {zone:1454} para el zepelín de {object:3202}. ¿Te falta oro? Omite este paso: la guía de {zone:1444} vuelve a pasar por {zone:1454} hacia el nivel 45.",
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
 	["{npc:265756}, riding trainer, at the {area:17684} in {area:16638}"] = "{npc:265756}, Instructor de equitación, en {area:17684} de {area:16638}",
 
@@ -255,7 +254,7 @@ return {
 	-- {npc:2496} Baron Revilgaz · {area:2240} Mirage Raceway · {zone:1444} Feralas · {zone:1446} Tanaris
 	["{npc:2496}: for Pozzik at the {area:2240}, on the {zone:1444} & {zone:1446} guide's way"] = "{npc:2496}: para Pozzik en {area:2240}, de camino en la guía de {zone:1444} y {zone:1446}",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs: the tusks come from the Skullsplitters, later on this loop"] = "{npc:737}, en el piso de arriba: los colmillos los sueltan los Partecráneos, más adelante en este recorrido",
+	["{npc:737}, upstairs: the tusks come from the Skullsplitters, later on this loop"] = "{npc:737}, en el piso de arriba: los colmillos los sueltan los Machacacráneos, más adelante en este recorrido",
 	["MacKinley: keep it, the ghost pirates (43-44) wait for your Stranglethorn stop at about 45"] = "MacKinley: guárdala, los piratas fantasma (43-44) esperan tu parada en Tuercespina alrededor del nivel 45",
 	-- {npc:2495} Drizzlik · {item:4105} Elder Crocolisk Skin
 	["{npc:2495}, inside: the {item:4105}"] = "{npc:2495}, adentro: {item:4105}",
@@ -270,7 +269,6 @@ return {
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "{npc:2491} y {npc:2486}",
 	-- {npc:2491} Whiskey Slim · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
-	-- was: ["{npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "{npc:2491}, en la posada, {npc:2486}, al lado, y MacKinley \"Lobo de Mar\", en el piso superior, ofrecen estas misiones desde el nivel 40: tómalas ahora. Si tienes menos de 40, la parada en {area:35} de la guía de {zone:1444} y {zone:1446} las vuelve a ofrecer."
 	["{npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "{npc:2491}, en la posada, y MacKinley «Lobo de Mar», en el piso de arriba, ofrecen estas misiones desde el nivel 40: acéptalas ahora. Por debajo de 40, la parada de {area:35} de la guía de {zone:1444} y {zone:1446} las vuelve a ofrecer.",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}, en la posada: sus botellas llegan a la costa de {zone:1425}, alrededor del nivel 48",
@@ -292,7 +290,7 @@ return {
 
 	-- Step 51: Fly to Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["Fly back to {object:3202}: Zul'Mamwe's Skullsplitters are just east of it."] = "Vuela de vuelta a {object:3202}: los Partecráneos de Zul'Mamwe están justo al este.",
+	["Fly back to {object:3202}: Zul'Mamwe's Skullsplitters are just east of it."] = "Vuela de vuelta a {object:3202}: los Machacacráneos de Zul'Mamwe están justo al este.",
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "Maestro de vuelo de {area:35}",
 
@@ -313,7 +311,7 @@ return {
 	-- {npc:2464} Commander Aggro'gosh · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {zone:2548} Riverglades
 	["{npc:2464}: for {npc:256418} in {area:16743}, the {zone:2548}' Horde fort, in the next guide"] = "{npc:2464}: para {npc:256418} en {area:16743}, el fuerte de la Horda de {zone:2548}, en la próxima guía",
 	-- {quest:571} Mok'thardin's Enchantment · {quest:621} Zanzil's Secret · {npc:737} Kebok · {area:35} Booty Bay · {zone:2548} Riverglades
-	["Keep {quest:571}, {quest:621} and {npc:737}'s tusks: the Skullsplitter chief, Zanzil's camps, the naga coast and {area:35} come on your Stranglethorn stop at about 45, after the {zone:2548}."] = "Guarda {quest:571}, {quest:621} y los colmillos de {npc:737}: el jefe Partecráneos, los campamentos de Zanzil, la costa naga y {area:35} llegan en tu parada en Tuercespina alrededor del nivel 45, después de {zone:2548}.",
+	["Keep {quest:571}, {quest:621} and {npc:737}'s tusks: the Skullsplitter chief, Zanzil's camps, the naga coast and {area:35} come on your Stranglethorn stop at about 45, after the {zone:2548}."] = "Guarda {quest:571}, {quest:621} y los colmillos de {npc:737}: el jefe Machacacráneos, los campamentos de Zanzil, la costa naga y {area:35} llegan en tu parada en Tuercespina alrededor del nivel 45, después de {zone:2548}.",
 
 	-- Step 59: Nesingwary's Expedition
 	["Head north up the road to the hunters' camp."] = "Sube al norte por el camino hasta el campamento de los cazadores.",

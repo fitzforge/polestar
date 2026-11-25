@@ -60,14 +60,14 @@ return {
 	-- Step 10: Unfriendly to Neutral
 	["Unfriendly to Neutral"] = "De Adverso a Neutral",
 	-- {zone:1448} Felwood · {area:2246} Frostfire Hot Springs · {area:2243} Timbermaw Post · {npc:11556} Salfa · {area:2244} Winterfall Village
-	["Unfriendly to Neutral is 3,000: about 540 more kills after these quests. Three camps: the northern Deadwood by the {zone:1448} mouth of the tunnel; the Winterfall camps around {area:2246} and {area:2243}, just south and south-east of {npc:11556} (Pathfinders give 6 a kill, Den Watchers and Totemics 5, the shortest walk to a turn-in); and {area:2244} in the east. Pick the least crowded. Keep all feathers and beads."] = "De Adverso a Neutral son 3.000: unas 540 muertes más después de estas misiones. Tres campamentos: los Muertobosque del norte junto a la boca del túnel del lado de {zone:1448}; los campamentos Nevada alrededor de {area:2246} y {area:2243}, justo al sur y sureste de {npc:11556} (los exploradores dan 6 por muerte, los vigías del cubil y los totémicos 5, la caminata más corta hasta una entrega); y {area:2244} en el este. Elige el menos concurrido. Guarda todas las plumas y cuentas.",
+	["Unfriendly to Neutral is 3,000: about 540 more kills after these quests. Three camps: the northern Deadwood by the {zone:1448} mouth of the tunnel; the Winterfall camps around {area:2246} and {area:2243}, just south and south-east of {npc:11556} (Pathfinders give 6 a kill, Den Watchers and Totemics 5, the shortest walk to a turn-in); and {area:2244} in the east. Pick the least crowded. Keep all feathers and beads."] = "De Adverso a Neutral son 3.000: unas 540 muertes más después de estas misiones. Tres campamentos: los Muertobosque del norte junto a la boca del túnel del lado de {zone:1448}; los campamentos Nevada alrededor de {area:2246} y {area:2243}, justo al sur y sureste de {npc:11556} (los abrecaminos dan 6 por muerte, los vigías del cubil y los totémicos 5, la caminata más corta hasta una entrega); y {area:2244} en el este. Elige el menos concurrido. Guarda todas las plumas y cuentas.",
 	-- plural, as words: Deadwood Headdress Feathers = {item:21377} Deadwood Headdress Feather
-	["Deadwood Headdress Feathers: keep them"] = "Plumas de tocado Muertobosque: guárdalas",
+	["Deadwood Headdress Feathers: keep them"] = "Plumas de penacho de Muertobosque: guárdalas",
 	-- {item:21383} Winterfall Spirit Beads
 	["{item:21383}: keep them"] = "{item:21383}: guárdalas",
 	-- {area:2246} Frostfire Hot Springs
 	-- plural, as words: Winterfall Pathfinders = {npc:7442} Winterfall Pathfinder
-	["Winterfall Pathfinders, {area:2246}"] = "Exploradores Nevada, {area:2246}",
+	["Winterfall Pathfinders, {area:2246}"] = "Abrecaminos Nevada, {area:2246}",
 
 	-- Step 11: Deadwood Ritual Totem
 	-- {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {zone:1448} Felwood
