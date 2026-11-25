@@ -5034,5 +5034,245 @@
 			{ "kind": "questie", "ref": "QuestieDB 1.1.5 makes him Horde (1.1.2: no faction)" }
 		],
 		"note": "Orgrul, the Magram centaur in Desolace, gives his quests by the Magram's standing, not the player's faction: an Alliance player took four of them from him. QuestieDB 1.1.5 makes him Horde, which would take the Magram chain away from the Alliance."
+	},
+	"205382": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Mokwa (npc 205382); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 4 (1.1.2: none)" }
+		],
+		"note": "Mokwa is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"208842": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met The Gardener (npc 208842); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "The Gardener is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"208843": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Abominable Snowman (npc 208843); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 4 (1.1.2: none)" }
+		],
+		"note": "Abominable Snowman is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"208844": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Scarlet Revenant (npc 208844); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 4 (1.1.2: none)" }
+		],
+		"note": "Scarlet Revenant is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"216670": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Caverndeep Looter (npc 216670); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Caverndeep Looter is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"228673": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Wandering Swordsman (npc 228673); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Wandering Swordsman is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"231661": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Rahuz (npc 231661); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Rahuz is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"232215": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Rahuz (npc 232215); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Rahuz is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"232216": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Rahuz (npc 232216); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Rahuz is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"232556": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Drake (npc 232556); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Drake is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"232557": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Drake (npc 232557); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Drake is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"277981": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met npc 277981, a test creature; the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 4 (1.1.2: none)" }
+		],
+		"note": "NPC 277981, a test creature, is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"251507": {
+		"set": { "subName": "Hunter Trainer" },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20): 26 hunters opened Josephine Carson's trainer window (npc 251507); no player of another class did" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: subName Paladin Trainer (1.1.2: Hunter Trainer)" }
+		],
+		"note": "Josephine Carson trains hunters: QuestieDB 1.1.5's title would add her to the paladin trainer pins as well."
+	},
+	"260093": {
+		"set": { "subName": "Paladin Trainer" },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20): 48 paladins opened Garen Largo's trainer window (npc 260093); no player of another class did" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: subName Warrior Trainer (1.1.2: Paladin Trainer)" }
+		],
+		"note": "Garen Largo trains paladins: QuestieDB 1.1.5's title would add him to the warrior trainer pins as well."
+	},
+	"205729": {
+		"set": { "subName": "Rogue Trainer" },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20): 3 rogues opened Boarton Shadetotem's trainer window (npc 205729); nobody bought from him" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: subName Bag Vendor (1.1.2: Rogue Trainer?)" }
+		],
+		"note": "Boarton Shadetotem trains rogues and sells nothing: QuestieDB 1.1.5's title would take him off the rogue trainer pins."
+	},
+	"240797": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Scarlet Executioner (npc 240797); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Scarlet Executioner is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"242577": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Devouring Hunger (npc 242577); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Devouring Hunger is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"242827": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Captain Bloodcoin (npc 242827); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Captain Bloodcoin is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"243893": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met High General Abbendis (npc 243893); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "High General Abbendis is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"247412": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Mopes (npc 247412); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Mopes is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"249231": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Varkharn the Vigilant (npc 249231); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Varkharn the Vigilant is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"249232": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Ganoloth the Tireless (npc 249232); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Ganoloth the Tireless is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"249233": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Unyielding Eye (npc 249233); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Unyielding Eye is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"249473": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Sarinnia Wormwing (npc 249473); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 4 (1.1.2: none)" }
+		],
+		"note": "Sarinnia Wormwing is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"250352": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Old Thornpaw (npc 250352); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 4 (1.1.2: none)" }
+		],
+		"note": "Old Thornpaw is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"250355": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Defias Vintner (npc 250355); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 4 (1.1.2: none)" }
+		],
+		"note": "Defias Vintner is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"251494": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Boulupulo (npc 251494); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 4 (1.1.2: none)" }
+		],
+		"note": "Boulupulo is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"261662": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Old Ironfang (npc 261662); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 4 (1.1.2: none)" }
+		],
+		"note": "Old Ironfang is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"269111": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Gortek the Apprentice (npc 269111); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Gortek the Apprentice is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
+	},
+	"269151": {
+		"set": { "rank": 0 },
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, 13,982 sessions): nobody met Sabella No-Eyes (npc 269151); the data has no place for it" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.5: rank 2 (1.1.2: none)" }
+		],
+		"note": "Sabella No-Eyes is not a rare players meet on Forever: no recorded player saw it, the data has no place for it, and only QuestieDB 1.1.5 ranks it rare, so it stays out of the Codex's rare list."
 	}
 }
