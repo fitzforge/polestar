@@ -54,7 +54,8 @@ step Into Mount Hyjal
   tip New in Forever: this guide follows what players did on Mount Hyjal. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip Mount Hyjal lies south of Winterspring. Fly to Everlook (from Theramore on the Alliance route; the Horde route already ends there), bind your Hearthstone at the inn (partway through this guide Ketharas sends you to Moonglade, and the way there starts in Everlook), then ride south down the road through Frostwhisper Gorge and on through Darkwhisper Gorge, which leads up into Mount Hyjal.
   tip Careful: elites stand along the whole way in. Frostmaul Giants and Preservers (59-60) flank the road through Frostwhisper Gorge, and Hederine Slayers, Initiates and Manastalkers (57-58) line Darkwhisper Gorge from its mouth to the zone line, with Lady Hederine (61) on its east side. Follow the arrows' line at full speed, never stop or fight on the way, and don't turn off it.
-  fly "Everlook"
+  fly "Everlook" only Alliance
+  fly "Everlook" only Horde
   zone Winterspring
   sethome "Everlook" npc 11118          -- Innkeeper Vizzie
   goto 62.3,67.0 "The road through Frostwhisper Gorge"
@@ -318,12 +319,14 @@ step Fly to Moonglade
   when zone "Mount Hyjal"
   tip Back west to Bluebell at the ancients' outpost and fly to Moonglade. Druids: Teleport: Moonglade is quicker. (No flight path to Moonglade yet? The road in is Timbermaw Hold's tunnel, from Winterspring or Felwood.)
   goto 55.1,82.6 "Bluebell, the flight mistress"
-  fly "Moonglade"
+  fly "Moonglade" only Alliance
+  fly "Moonglade" only Horde
 
 step Fly to Moonglade
   when zone "Winterspring"
   tip Fly to Moonglade from Everlook's flight master. No flight path to Moonglade yet? The way in is the tunnel through Timbermaw Hold, at the western end of Winterspring.
-  fly "Moonglade"
+  fly "Moonglade" only Alliance
+  fly "Moonglade" only Horde
   zone Moonglade
 
 step Dendrite Starblaze
@@ -362,7 +365,8 @@ step Fly to Everlook
   tip South to Moonglade's flight master (the Alliance's at the southern end of the valley, the Horde's at its south-western end) and fly to Everlook for Kaylaena's parts order.
   getfp "Moonglade" npc 10897 only Alliance  -- Sindrayl
   getfp "Moonglade" npc 12740 only Horde  -- Faustron
-  fly "Everlook"
+  fly "Everlook" only Alliance
+  fly "Everlook" only Horde
   zone Winterspring
 
 step Nami
@@ -1157,7 +1161,8 @@ step The Summit of Eternity
 
 step Fly to Everlook
   tip Fayran Elthas flies you to Everlook.
-  fly "Everlook"
+  fly "Everlook" only Alliance
+  fly "Everlook" only Horde
   zone Winterspring
 
 step Innkeeper Vizzie
