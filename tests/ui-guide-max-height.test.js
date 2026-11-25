@@ -420,6 +420,59 @@ test('another slider reads a typed value as before, on its own terms and step', 
 	assert.equal(c.width, 400, 'on the width slider\'s 10 px step');
 });
 
+// The client's own coordinates (#1067's pixels): UIParent is 768 / uiScale units high at effective scale uiScale
+// on every screen, so its height times its scale is always 768; the screen's pixels are GetPhysicalScreenSize's.
+// The stub's UIParent (1080 high at scale 1 on a 1080 px screen) is a world where the two agree.
+function onScreen(w, h, uiScale, script) {
+	return runAddon({
+		stubs: ['stub_ui.lua'],
+		addons: [{ name: 'Polestar', files: ['Core/Core.xml', 'Theme/Theme.xml', 'UI/UI.xml'] }],
+		script: `function GetPhysicalScreenSize() return ${w}, ${h} end
+UIParent.height = 768 / ${uiScale}; UIParent.width = 768 / ${uiScale} * ${w / h}; UIParent:SetScale(${uiScale})
+${PRE}
+F.GetTop = function() return UIParent:GetHeight() end
+-- The window's height in the screen's pixels.
+local function capPx() return GF.CapHeight() * F:GetEffectiveScale() * select(2, GetPhysicalScreenSize()) / 768 end
+${script}`,
+	}).emitted;
+}
+
+test('the height reads and types the screen\'s own pixels at any UI scale: 432 px is 40% of 1080p, 540 px draws 540 on 1080p and 1440p', () => {
+	for (const [w, h] of [[1920, 1080], [2560, 1440]]) {
+		for (const ui of [1, 0.64, 768 / h]) {
+			const what = `${w}x${h} at UI scale ${ui}`;
+			const [start, typed] = onScreen(w, h, ui, `${ROWS}
+				emit({ label = slider.Value:GetText(), px = capPx() })
+				typeIn("540")
+				stub.advance(1)
+				emit({ label = slider.Value:GetText(), max = Polestar.Get("ui.maxHeight"), px = capPx() })`);
+			assert.ok(Math.abs(start.px - 0.4 * h) < 1e-6, `${what}: 40% draws ${start.px}`);
+			assert.match(start.label, new RegExp(`^${Math.round(0.4 * h)} px .* 40%$`), `${what}: ${start.label}`);
+			assert.ok(Math.abs(typed.max - 540 / h) < 1e-9, `${what}: ${typed.max}`);
+			assert.ok(Math.abs(typed.px - 540) < 1e-6, `${what}: typing 540 draws ${typed.px}`);
+			assert.match(typed.label, /^540 px/, `${what}: ${typed.label}`);
+		}
+	}
+});
+
+test('the grip\'s line names the screen\'s pixels at any UI scale, and the height it leaves reads the same', () => {
+	for (const [w, h, ui] of [[1920, 1080, 0.64], [2560, 1440, 768 / 1440]]) {
+		const what = `${w}x${h} at UI scale ${ui}`;
+		const [mid, done] = onScreen(w, h, ui, `${DRAG}${ROWS}
+			Polestar.Set("ui.heightMode", "fixed")
+			drag(500, 600, 500, 500)
+			emit({ text = GF.limitLine.Text:GetText(), px = capPx() })
+			drop()
+			stub.advance(1)
+			emit({ label = slider.Value:GetText(), max = Polestar.Get("ui.maxHeight"), px = capPx() })`);
+		const px = Number(mid.text.match(/^(\d+) px$/)[1]);
+		assert.ok(Math.abs(mid.px - px) <= 0.5, `${what}: the line says ${mid.text}, the window is ${mid.px}`);
+		assert.ok(px > 0.4 * h, `${what}: the drag grew it: ${mid.text}`);
+		assert.ok(Math.abs(done.max - px / h) < 1e-9, `${what}: ${done.max}`);
+		assert.match(done.label, new RegExp(`^${px} px`), `${what}: ${done.label}`);
+	}
+});
+
 // Fixed with the progress bar under the last goal (ui.footAt "goals", the default) or on the edge.
 const ANCHORS = `
 local foot, body = GF.parts.foot, GF.parts.body
