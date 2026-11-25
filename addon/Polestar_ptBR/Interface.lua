@@ -394,6 +394,23 @@
 --   forever/reputation/darkspear-islands
 --   forever/reputation/hydraxian-waterlords
 --   forever/reputation/ravenholdt
+-- Machine-translated, to be reviewed (0.4.3 What's new notes, 25 Nov 2026): translated by an AI model
+-- (Claude Sonnet 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing
+-- one: keep or fix it, and take it off this list:
+--   A smarter arrow
+--   Walks that follow your own trail, boats and lifts it understands, flights it remembers, enemy towns it goes round.
+--   Guides named for their zones
+--   Titles name the zones you quest in, in walking order. Camping 101 is in for every start-zone profession.
+--   Escorts are your choice
+--   Do it or Skip it, with how long other players' runs take and how often they fail.
+--   Windows your way
+--   Atlas or Standard layout; Settings and Guides have their own scale; switches for chat messages and the XP line.
+--   Every attunement and key for your faction in the guide menu, with a progress bar and %s.
+--   Polestar in your language
+--   Settings > General > Language shows Polestar in another language than the game's.
+--   Fewer folders
+--   Quit the game fully and start it again: Polestar is 22 folders now, not 45.
+--   Steps fixed in dozens of zones. Found something off? Type %s.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "ptBR") then return end
@@ -4175,6 +4192,20 @@ L["Small helpers"] = "Pequenas ajudas"
 L["Sell and repair reminders before you leave town; compact mode now has tabs."] = "Lembretes de venda e reparo antes de sair da cidade; o modo compacto agora tem abas."
 L["In 9 languages, now with German and Latin American Spanish guides. Thanks, translators!"] = "Em 9 idiomas, agora com guias em alemão e em espanhol da América Latina. Obrigado, tradutores!"
 L["Caves, cities, flights and more. Found something off? Type %s."] = "Cavernas, cidades, voos e mais. Achou algo errado? Digite %s."
+L["A smarter arrow"] = "Uma seta mais esperta"
+L["Walks that follow your own trail, boats and lifts it understands, flights it remembers, enemy towns it goes round."] = "Trajetos que seguem o seu próprio rastro; entende barcos e elevadores, lembra seus voos e contorna cidades inimigas."
+L["Guides named for their zones"] = "Guias com o nome das suas zonas"
+L["Titles name the zones you quest in, in walking order. Camping 101 is in for every start-zone profession."] = "Os títulos citam as zonas com missões, na ordem do trajeto. Camping 101 incluído para cada profissão inicial."
+L["Escorts are your choice"] = "Escoltas são escolha sua"
+L["Do it or Skip it, with how long other players' runs take and how often they fail."] = "Fazer ou Pular, com o tempo que as de outros jogadores levam e com que frequência falham."
+L["Windows your way"] = "Janelas do seu jeito"
+L["Atlas or Standard layout; Settings and Guides have their own scale; switches for chat messages and the XP line."] = "Layout Atlas ou Padrão; Configurações e Guias têm cada uma sua escala; opções para mensagens do chat e a linha de XP."
+L["Every attunement and key for your faction in the guide menu, with a progress bar and %s."] = "Cada sintonização e chave da sua facção no menu de guias, com barra de progresso e %s."
+L["Polestar in your language"] = "Polestar no seu idioma"
+L["Settings > General > Language shows Polestar in another language than the game's."] = "Configurações > Geral > Idioma mostra o Polestar em outro idioma além do do jogo."
+L["Fewer folders"] = "Menos pastas"
+L["Quit the game fully and start it again: Polestar is 22 folders now, not 45."] = "Feche o jogo por completo e abra de novo: o Polestar agora são 22 pastas, não 45."
+L["Steps fixed in dozens of zones. Found something off? Type %s."] = "Passos corrigidos em dezenas de zonas. Achou algo errado? Digite %s."
 
 -- QoL/ClassQuests.lua
 L["Long chain: %d quests across %d zones on %d continents"] = "Cadeia longa: %d missões em %d zonas de %d continentes"

@@ -110,12 +110,11 @@ const LOGIN_BASE: f64 = 11003.0;
 /// +8 KiB: the Engine's target mark, step views, trainer pick and party line, the guide's trainer stop and off-route
 /// work (#3965): 14,774 KiB at login on 2026-11-24, 14,766 with next (CI's runner 14,778 on the pull request's run).
 /// The budget: 14,790 (reported to Fitz).
-/// +24 KiB on the post-merge gates' runner, none of it the addon's: the runner measures 14,806 KiB on final-data-043q
-/// at next 78fa260855 (2026-11-25), a local run of the same tree and data 14,782. The harness loads every file by its
-/// absolute path, and each file's chunk name and the loader's file lists keep that path: the runner's checkout
-/// (/home/fitz/work/ci-runner/polestar-gates/work/polestar/polestar) is 32 characters longer than the local one
-/// (/home/fitz/work/FreezeFix043/wt). The same build run with the local checkout mounted at the runner's path measures
-/// 14,806. The budget: 14,850, the runner's figure and headroom (reported to Main).
+/// +24 KiB on the post-merge gates' runner, none of it the addon's: the runner measures 14,806 KiB on the 0.4.3
+/// release data at next 78fa260855 (2026-11-25), a local run of the same tree and data 14,782. The harness loads
+/// every file by its absolute path, and each file's chunk name and the loader's file lists keep that path: the
+/// runner's checkout path is 32 characters longer than the local one. The same build run with the local checkout
+/// mounted at the runner's path measures 14,806. The budget: 14,850, the runner's figure and headroom.
 const LOGIN: f64 = LOGIN_BASE + 3847.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile

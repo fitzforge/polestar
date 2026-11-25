@@ -240,8 +240,7 @@ return {
 
 	-- Step 39: Dun Morogh: kill these as you meet them
 	-- {area:1} Dun Morogh
-	-- was: ["{zone:1426}: kill these as you meet them"] = "{zone:1426}: Töte sie, wenn du ihnen begegnest"
-	["{area:1}: kill these as you meet them"] = "",
+	["{area:1}: kill these as you meet them"] = "{area:1}: töte diese, wo du sie triffst",
 	-- {area:131} Kharanos
 	-- plural, as words: Crag Boars = {npc:1125} Crag Boar · Young Black Bears = {npc:1128} Young Black Bear
 	["Crag Boars and Young Black Bears roam the fields from Rumbleshot's camp north-east to {area:131} and the depot: kill them on the walk back."] = "Crag Boars und Young Black Bears streifen über die Felder von Rumbleshots Lager nach Nordosten bis {area:131} und zum Depot: Töte sie auf dem Rückweg.",
@@ -348,8 +347,7 @@ return {
 
 	-- Step 56: Steelgrill's Depot
 	-- {area:131} Kharanos · {area:1} Dun Morogh
-	-- was: ["Follow the road north-east from {area:131} to the depot: the whole east of {zone:1426} is one sweep from here."] = "Folge der Straße von {area:131} nach Nordosten zum Depot: Der ganze Osten von {zone:1426} ist von hier aus ein einziger Streifzug."
-	["Follow the road north-east from {area:131} to the depot: the whole east of {area:1} is one sweep from here."] = "",
+	["Follow the road north-east from {area:131} to the depot: the whole east of {area:1} is one sweep from here."] = "Fahre nordöstlich der Straße von {area:131} zum Depot: das ganze Osten von {area:1} ist von hier aus ein einziger Durchmarsch.",
 	-- {npc:1377} Pilot Stonegear
 	["{npc:1377}, beside him"] = "{npc:1377}, neben ihm",
 
@@ -424,8 +422,7 @@ return {
 
 	-- Step 81: Protecting the Herd
 	-- {npc:1388} Vagash · {area:38} Loch Modan
-	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {zone:1432} quests ahead make up the experience."] = "Das sind Elite-Mobs: Gruppenspiel wird empfohlen, such dir Mitspieler. {npc:1388} ist ein Elite der Stufe 12: Geh ihn mit einer Gruppe an. Allein überspringst du das: Die Quests in {zone:1432} gleichen die Erfahrung aus."
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {area:38} quests ahead make up the experience."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {area:38} quests ahead make up the experience."] = "Das sind Eliten: Gruppierung wird empfohlen, suche Fellow. {npc:1388} ist ein Level-12-Elite: übernehme ihn mit einer Gruppe. Allein, überspringe es: die {area:38}-Quests danach liefern den Erfahrungsumschlag.",
 	["Below ground"] = "Unter der Erde",
 
 	-- Step 82: Amberstill Ranch
@@ -434,11 +431,11 @@ return {
 
 	-- Step 84: North Gate Outpost
 	-- {area:808} North Gate Outpost · {npc:1960} Pilot Hammerfoot · {area:38} Loch Modan
-	["Follow the road east and take its northern fork to the {area:808}: {npc:1960} waits there, and the dwarven corpse lies up the pass to the west of him. The South Gate and its tunnel into {area:38} come next, down the road to the south."] = "",
+	["Follow the road east and take its northern fork to the {area:808}: {npc:1960} waits there, and the dwarven corpse lies up the pass to the west of him. The South Gate and its tunnel into {area:38} come next, down the road to the south."] = "Fahre die Straße ostwärts und nimm den nördlichen Abzweig zu {area:808}: {npc:1960} wartet dort, und der Zwergskraut liegt über der Passstraße westlich von ihm. Das Sürtor und dessen Tunnel in {area:38} folgen als nächstes, die Straße nach Süden hinab.",
 
 	-- Step 85: South Gate Outpost
 	-- {area:806} South Gate Outpost · {area:38} Loch Modan
-	["Back south down the road to the {area:806} at the {area:38} tunnel."] = "",
+	["Back south down the road to the {area:806} at the {area:38} tunnel."] = "Fahre südlich der Straße zu {area:806} am {area:38}-Tunnel.",
 
 	-- Step 86: Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn · {area:806} South Gate Outpost
@@ -446,14 +443,12 @@ return {
 
 	-- Step 88: Braldir Ashmantle
 	-- {area:38} Loch Modan · {npc:257808} Braldir Ashmantle
-	-- was: ["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "Geh durch den Tunnel nach {zone:1432}. Gleich dahinter führt ein mit Steinen markierter Pfad die Hügel rechts der Straße nach Norden hinauf zum Lager von {npc:257808}."
-	["Go through the tunnel into {area:38}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "",
+	["Go through the tunnel into {area:38}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "Geh durch das Tunnel in {area:38}. Direkt danach klettert ein von Steinen markierter Pfad die Hügel rechts von der Straße nördlich zu {npc:257808}'s Lager.",
 
 	-- Step 89: The tunnel post
 	["The tunnel post"] = "Der Tunnelposten",
 	-- {area:38} Loch Modan · {npc:1089} Mountaineer Cobbleflint · {npc:1092} Captain Rugelfuss
-	-- was: ["East through the South Gate tunnel into {zone:1432}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "Östlich durch den Tunnel am Südtor nach {zone:1432}. {npc:1089} und {npc:1092} stehen am Zwergenposten gleich dahinter."
-	["East through the South Gate tunnel into {area:38}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "",
+	["East through the South Gate tunnel into {area:38}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "Osten durch das Sürtor-Tunnel in {area:38}. {npc:1089} und {npc:1092} stehen am Zwergenposten direkt hinter dem.",
 
 	-- Step 90: Stonesplinter troggs
 	["Stonesplinter troggs"] = "Stonesplinter-Troggs",
@@ -462,10 +457,10 @@ return {
 
 	-- Step 91: Linen for John Turner
 	-- {npc:6175} John Turner
-	["Linen for {npc:6175}"] = "",
+	["Linen for {npc:6175}"] = "Linnen für {npc:6175}",
 	-- {item:2589} Linen Cloth · {npc:6175} John Turner · {zone:1455} Ironforge
 	-- plural, as words: Stonesplinter Troggs = {npc:1161} Stonesplinter Trogg
-	["Keep ten {item:2589} for {npc:6175} in {zone:1455}. Finish your stack here on the same Stonesplinter Troggs and Scouts; stay in the north camps."] = "",
+	["Keep ten {item:2589} for {npc:6175} in {zone:1455}. Finish your stack here on the same Stonesplinter Troggs and Scouts; stay in the north camps."] = "Behalte zehn {item:2589} für {npc:6175} in {zone:1455}. Vollende deine Stapel hier an denselben Steinsplitter-Troggs und Jägern; bleibe in den Nordlägern.",
 
 	-- Step 92: Back to the tunnel post
 	["Back to the tunnel post"] = "Zurück zum Tunnelposten",
@@ -584,24 +579,24 @@ return {
 	-- Step 112: The Tome of Divinity
 	-- {object:32383} Forlorn Cavern · {object:32362} Mystic Ward (no name in this language: may be words) · {npc:5149} Brandur Ironhammer · {npc:6179} Tiza Battleforge · {npc:6178} Muiredon Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6175} John Turner · {item:2589} Linen Cloth
 	-- plural, as words: Rockjaw Skullthumpers = {npc:1115} Rockjaw Skullthumper
-	["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, {npc:6179} and {npc:6178} on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. John needs ten {item:2589}. Bring what you have; if you’re short, Rockjaw Skullthumpers at Gol’Bolar Quarry drop it."] = "",
+	["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, {npc:6179} and {npc:6178} on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. John needs ten {item:2589}. Bring what you have; if you’re short, Rockjaw Skullthumpers at Gol’Bolar Quarry drop it."] = "Westlich vom {object:32383} in das {object:32362}: {npc:5149}, {npc:6179} und {npc:6178} sind in dem {object:32386}, {npc:6179} und {npc:6178} auf dessen Obergeschoss: die Treppe nach oben beginnt direkt nordöstlich von {npc:5149}. {npc:6175}, ein Almuth, patrouilliert in der Stadt. John benötigt zehn {item:2589}. Brings, was du hast; fehlt es, fallen Rockjaw-Schildkrötenkopf-Zerrener in der Gol'Bolar-Schanze.",
 	-- {quest:2997} Tome of Divinity
 	["From the {quest:2997} she gives you"] = "Aus {quest:2997}, den sie dir gibt",
 
 	-- Step 113: Linen for The Tome of Divinity
 	-- {quest:1648} The Tome of Divinity
-	["Linen for {quest:1648}"] = "",
+	["Linen for {quest:1648}"] = "Linnen für {quest:1648}",
 	-- {zone:1455} Ironforge · {area:134} Gol'Bolar Quarry
 	-- plural, as words: Rockjaw Skullthumpers = {npc:1115} Rockjaw Skullthumper
-	["If you're short on cloth, leave {zone:1455} through the Commons and follow the road down the mountain, then east to {area:134}. Kill Rockjaw Skullthumpers on the quarry's western edge. If the missing cloth is affordable at the Auction House, you can buy it instead."] = "",
+	["If you're short on cloth, leave {zone:1455} through the Commons and follow the road down the mountain, then east to {area:134}. Kill Rockjaw Skullthumpers on the quarry's western edge. If the missing cloth is affordable at the Auction House, you can buy it instead."] = "Wenn du an Stoff kurz bist, verlasse {zone:1455} durch das Gemeinschaftsgelände und folge der Straße hinab dem Berg, dann östlich zu {area:134}. Töte Rockjaw-Schatthupfer an der Westseite der Keste. Wenn der fehlende Stoff am Auktionshaus bezahlbar ist, kannst du ihn stattdessen kaufen.",
 
 	-- Step 114: John Turner
 	-- {area:1537} Ironforge · {npc:6175} John Turner
-	["Follow the road back to {area:1537} if you left the city. {npc:6175} walks through the Commons."] = "",
+	["Follow the road back to {area:1537} if you left the city. {npc:6175} walks through the Commons."] = "Fahre die Straße zurück zu {area:1537}, falls du die Stadt verlassen hast. {npc:6175} patrouilliert durch das Gemeinschaftsgelände.",
 
 	-- Step 115: Tiza Battleforge and Muiredon Battleforge
 	-- {npc:6179} Tiza Battleforge · {npc:6178} Muiredon Battleforge
-	["{npc:6179} and {npc:6178}"] = "",
+	["{npc:6179} and {npc:6178}"] = "{npc:6179} und {npc:6178}",
 
 	-- Step 116: Narm Faulk
 	-- {zone:1455} Ironforge · {area:212} Helm's Bed Lake · {npc:6177} Narm Faulk · {item:6866} Symbol of Life
@@ -646,7 +641,7 @@ return {
 	-- Step 125: Druid trainer
 	["Druid trainer"] = "Druidenlehrer",
 	-- {npc:5505} Theridran · {zone:1453} Stormwind · {area:1} Dun Morogh
-	["{npc:5505} in {zone:1453}; {area:1} has no druid trainer"] = "",
+	["{npc:5505} in {zone:1453}; {area:1} has no druid trainer"] = "{npc:5505} in {zone:1453}; {area:1} hat keinen Druiden-Trainer",
 
 	-- Step 126: The Deeprun Tram
 	-- {area:2257} Deeprun Tram
@@ -659,8 +654,7 @@ return {
 	["Tram to {zone:1453}"] = "Tiefenbahn nach {zone:1453}",
 	-- {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:12997} Monty · {item:17117} Rat Catcher's Flute · {npc:13018} Nipsy · {zone:1453} Stormwind
 	-- plural, as words: Deeprun Rats = {npc:13016} Deeprun Rat
-	-- was: ["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end."] = "Auf dem Bahnsteig von {zone:1455} an der {area:2257} bittet {npc:12997} um Hilfe mit den Ratten: Benutze seine {item:17117} an den Deeprun Rats rund um den Bahnsteig, gib sie ab und bring dann seinen Brief zu seinem Bruder {npc:13018} am Ende in {zone:1453}."
-	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end. The tram has no map inside. The city markers show the entrances, not the two brothers."] = "",
+	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end. The tram has no map inside. The city markers show the entrances, not the two brothers."] = "Auf der Platform von {zone:1455} von {area:2257} bittet {npc:12997} um Hilfe bei den Ratten: nutze sein {item:17117} auf den Tiefenrodent-Ratten rund um die Platform, lege sie ab, dann nimm seinen Brief zu seinem Bruder {npc:13018} am {zone:1453}-Ende. Das Tram hat im Inneren kein Kartenblatt. Die Stadt-Marker zeigen die Eingänge, nicht die beiden Brüder.",
 	-- {npc:12997} Monty · {zone:1455} Ironforge
 	["{npc:12997}, on the {zone:1455} platform"] = "{npc:12997}, auf dem Bahnsteig von {zone:1455}",
 	-- {npc:13016} Deeprun Rat · {item:17117} Rat Catcher's Flute
@@ -676,7 +670,7 @@ return {
 
 	-- Step 129: From the tram to Stormwind
 	-- {area:1519} Stormwind
-	["From the tram to {area:1519}"] = "",
+	["From the tram to {area:1519}"] = "Vom Tram zu {area:1519}",
 
 	-- Step 130: Baros Alexston
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston · {zone:1436} Westfall · {object:2096} Trade District
