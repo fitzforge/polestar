@@ -15,8 +15,9 @@ return {
 	-- Step 2: Enchanting 1-75: vendor goods
 	-- {skill:333} Enchanting
 	["{skill:333} 1-75: vendor goods"] = "{skill:333} 1-75: 상인 재료",
-	-- {item:6217} Copper Rod · {item:247786} Mote of Magic · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1318} Jessara Cordell · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3346} Kithas · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:6217} 1개(1실버 24코퍼)와(과) {item:247786} 32개(3실버 20코퍼). 모두 약 4실버 44코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1286}, {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346}, {npc:5817}).",
+	-- {item:6217} Copper Rod · {item:247786} Mote of Magic · {zone:1453} Stormwind City · {npc:1318} Jessara Cordell · {zone:1454} Orgrimmar · {npc:3346} Kithas
+	-- was: ["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:6217} 1개(1실버 24코퍼)와(과) {item:247786} 32개(3실버 20코퍼). 모두 약 4실버 44코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1286}, {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346}, {npc:5817})."
+	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1318}; {zone:1454}: {npc:3346})."] = "",
 
 	-- Step 3: Enchanting 1-75: Auction House
 	-- {skill:333} Enchanting
@@ -85,7 +86,6 @@ return {
 	-- {spell:7420} Enchant Chest - Inferior Stamina
 	["{spell:7420} to 90"] = "{spell:7420}: 90까지",
 	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption
-	-- was: ["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420}은(는) 75에서 노란색입니다(노란색 70, 초록색 90, 회색 110). 90까지 약 22번 만드세요. 한 번에 {item:10940} 1개. 제작당 {item:10940} 한 개. 5-20레벨 녹색 아이템이 주로 부서져 나오는 가루이며, 방어구가 가장 많습니다. {item:10938}(무기에서)은(는) 더 많이 가졌다면 팔찌 - 작은 회피이나 가슴보호구 - {spell:7423}으로 같은 일을 합니다. 가방 안의 그 칸에 맞는 아이템이면 어떤 것이든, 회색이라도 부여할 수 있습니다."
 	["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one. If you got here without learning {spell:7420}, learn it now: an earlier step teaches it."] = "{spell:7420}은(는) 75에서 노란색입니다(노란색 70, 초록색 90, 회색 110): 90까지 약 22번 제작. 매번 {item:10940} 1개가 필요합니다. 제작마다 {item:10940} 하나: 5-20레벨 초록색 아이템 대부분, 특히 방어구에서 나오는 가루입니다. {item:10938}(무기에서)이 더 많다면 손목 - 하급 방어 또는 가슴 - {spell:7423}(으)로 같은 역할을 합니다. 가방에 있는 해당 부위 아이템이면 회색이라도 마법부여하십시오. {spell:7420}을(를) 배우지 않고 여기까지 왔다면 지금 배우십시오: 앞의 단계에서 가르칩니다.",
 
 	-- Step 16: Enchant Cloak - Minor Protection to 130
@@ -157,7 +157,6 @@ return {
 	-- {spell:13501} Enchant Bracer - Lesser Stamina
 	["{spell:13501} to 160"] = "{spell:13501}: 160까지",
 	-- {spell:13501} Enchant Bracer - Lesser Stamina · {item:11083} Soul Dust · {item:11130} Runed Golden Rod
-	-- was: ["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13501}은(는) 150에 주황색입니다(노란색 155, 초록색 175, 회색 195). 160까지 약 11번 만드십시오. 하나에 {item:11083} 1개가 듭니다. 제작마다 {item:11083} 하나(21-30레벨 녹색 아이템). 아직 점수를 주는 지금 {item:11130}을(를) 만드십시오. 이후 제조법에 가방 안의 그것이 필요하니 가방에 두십시오. 가방에 있는 해당 부위 아이템이면 회색이라도 아무것에나 마법을 부여하십시오."
 	["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one. If you got here without learning {spell:13501}, learn it now: an earlier step teaches it."] = "{spell:13501}은(는) 150에서 주황색입니다(노란색 155, 초록색 175, 회색 195): 160까지 약 11번 제작. 매번 {item:11083} 1개가 필요합니다. 제작마다 {item:11083} 하나(21-30레벨 초록색 아이템). 아직 숙련도가 오를 때 지금 {item:11130}을(를) 만드십시오: 나중 제조법이 가방에 있어야 하니 보관하십시오. 가방에 있는 해당 부위 아이템이면 회색이라도 마법부여하십시오. {spell:13501}을(를) 배우지 않고 여기까지 왔다면 지금 배우십시오: 앞의 단계에서 가르칩니다.",
 
 	-- Step 30: Enchanting recipes at 160
@@ -258,6 +257,7 @@ return {
 	-- ["Back to an {skill:333} trainer: {spell:13948} is taught from {skill:333} 270."] = "{skill:333} 상급자에게 돌아가세요. {spell:13948}은(는) {skill:333} 270부터 배울 수 있습니다.",
 	-- ["Back to an {skill:333} trainer: {spell:7426} is taught from {skill:333} 90."] = "{skill:333} 상급자에게 돌아가세요. {spell:7426}은(는) {skill:333} 90부터 배울 수 있습니다.",
 	-- ["Back to an {skill:333} trainer: {spell:7788} is taught from {skill:333} 120."] = "{skill:333} 상급자에게 돌아가세요. {spell:7788}은(는) {skill:333} 120부터 배울 수 있습니다.",
+	-- ["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:6217} 1개(1실버 24코퍼)와(과) {item:247786} 32개(3실버 20코퍼). 모두 약 4실버 44코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1286}, {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346}, {npc:5817}).",
 	-- ["Expert needs character level 20 and {skill:333} 125; it raises the cap to 225. Materials for 150-225 are worth about 13s in all."] = "숙련은(는) 캐릭터 레벨 20, {skill:333} 125이(가) 필요하며 최대 숙련도를 225(으)로 올립니다. 150-225 재료는 모두 약 13실버입니다.",
 	-- ["Journeyman needs character level 10 and {skill:333} 50; it raises the cap to 150. Materials for 75-150 are worth about 7g 51s in all."] = "수습은(는) 캐릭터 레벨 10, {skill:333} 50이(가) 필요하며 최대 숙련도를 150(으)로 올립니다. 75-150 재료는 모두 약 7골드 51실버입니다.",
 	-- ["Open Giant Clams here. The Auction House works too."] = "이곳에서 {object:2744}을(를) 여세요. 경매장도 됩니다.",

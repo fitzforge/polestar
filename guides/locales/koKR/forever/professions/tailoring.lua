@@ -55,8 +55,9 @@ return {
 	-- Step 9: Tailoring 75-150: vendor goods
 	-- {skill:197} Tailoring
 	["{skill:197} 75-150: vendor goods"] = "{skill:197} 75-150: 상인 재료",
-	-- {item:2321} Fine Thread · {item:2324} Bleach · {item:2604} Red Dye · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 108 {item:2321} (1g 8s), 34 {item:2324} (8s 50c) and 98 {item:2604} (49s); about 1g 65s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:2321} 108개(1골드 8실버), {item:2324} 34개(8실버 50코퍼), {item:2604} 98개(49실버), 모두 약 1골드 65실버 50코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1347}, {npc:1286}, {npc:5565}, {zone:1454}: {npc:3364}, 펠리카, {npc:5817}).",
+	-- {item:2321} Fine Thread · {item:2324} Bleach · {item:2604} Red Dye · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
+	-- was: ["Buy the whole bracket's share in one go: 108 {item:2321} (1g 8s), 34 {item:2324} (8s 50c) and 98 {item:2604} (49s); about 1g 65s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:2321} 108개(1골드 8실버), {item:2324} 34개(8실버 50코퍼), {item:2604} 98개(49실버), 모두 약 1골드 65실버 50코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1347}, {npc:1286}, {npc:5565}, {zone:1454}: {npc:3364}, 펠리카, {npc:5817})."
+	["Buy the whole bracket's share in one go: 108 {item:2321} (1g 8s), 34 {item:2324} (8s 50c) and 98 {item:2604} (49s); about 1g 65s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:1286}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "",
 
 	-- Step 10: Tailoring 75-150: Auction House
 	-- {skill:197} Tailoring
@@ -106,7 +107,7 @@ return {
 	-- {skill:197} Tailoring
 	["{skill:197} 150-225: vendor goods"] = "{skill:197} 150-225: 상인 재료",
 	-- {item:2321} Fine Thread · {item:4291} Silken Thread · {item:6260} Blue Dye · {item:8343} Heavy Silken Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 44 {item:2321} (44s), 90 {item:4291} (4g 50s), 44 {item:6260} (22s) and 80 {item:8343} (16g); about 21g 16s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:2321} 44개(44실버), {item:4291} 90개(4골드 50실버), {item:6260} 44개(22실버), {item:8343} 80개(16골드), 모두 약 21골드 16실버. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1347}, {npc:1286}, {npc:5565}, {zone:1454}: {npc:3364}, 펠리카, {npc:5817}).",
+	["Buy the whole bracket's share in one go: 44 {item:2321} (44s), 108 {item:4291} (5g 40s), 44 {item:6260} (22s) and 74 {item:8343} (14g 80s); about 20g 86s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "",
 
 	-- Step 19: Pattern: Azure Silk Cloak
 	-- {item:7089} Pattern: Azure Silk Cloak · {item:7053} Azure Silk Cloak · {skill:197} Tailoring · {npc:6576} Brienna Starglow · {zone:1444} Feralas · {npc:251997} Norvin Alderman · {zone:1416} Alterac Mountains · {npc:6574} Jun'ha · {zone:1417} Arathi Highlands
@@ -116,7 +117,8 @@ return {
 	-- {skill:197} Tailoring
 	["{skill:197} 150-225: Auction House"] = "{skill:197} 150-225: 경매장",
 	-- {item:4306} Silk Cloth · {item:4338} Mageweave Cloth
-	["What 150-225 takes that the Auction House sells: 264 {item:4306} and 900 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "150-225 구간에 필요한 것 중 경매장에서 파는 것: {item:4306} 264개, {item:4338} 900개. 가방, 은행, 우편함에 있는 만큼 수량이 줄어듭니다.",
+	-- was: ["What 150-225 takes that the Auction House sells: 264 {item:4306} and 900 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "150-225 구간에 필요한 것 중 경매장에서 파는 것: {item:4306} 264개, {item:4338} 900개. 가방, 은행, 우편함에 있는 만큼 수량이 줄어듭니다."
+	["What 150-225 takes that the Auction House sells: 264 {item:4306} and 915 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "",
 
 	-- Step 21: Silk Cloth
 	-- {item:4306} Silk Cloth · {item:7053} Azure Silk Cloak
@@ -124,19 +126,20 @@ return {
 
 	-- Step 22: Mageweave Cloth
 	-- {item:4338} Mageweave Cloth · {item:9998} Black Mageweave Vest · {item:10024} Black Mageweave Headband
-	["900 {item:4338} for {item:9998} and {item:10024}: humanoids of level 35-50 drop it. Keep what you loot as you level, or take it from your bank."] = "{item:9998}와(과) {item:10024}에 쓸 {item:4338} 900개: 35-50레벨 인간형 몹이 떨어뜨립니다. 레벨을 올리며 얻은 것을 모아 두거나 은행에서 꺼내세요.",
+	-- was: ["900 {item:4338} for {item:9998} and {item:10024}: humanoids of level 35-50 drop it. Keep what you loot as you level, or take it from your bank."] = "{item:9998}와(과) {item:10024}에 쓸 {item:4338} 900개: 35-50레벨 인간형 몹이 떨어뜨립니다. 레벨을 올리며 얻은 것을 모아 두거나 은행에서 꺼내세요."
+	["915 {item:4338} for {item:9998} and {item:10024}: humanoids of level 35-50 drop it. Keep what you loot as you level, or take it from your bank."] = "",
 
 	-- Step 23: Expert Tailoring
 	-- {skill:197} Tailoring
 	["Expert {skill:197}"] = "숙련 {skill:197}",
 	-- {skill:197} Tailoring · {npc:1346} Georgio Bolero · {zone:1453} Stormwind City · {npc:4576} Josef Gregorian · {zone:1458} Undercity · {spell:3865} Bolt of Mageweave · {item:4306} Silk Cloth · {item:4338} Mageweave Cloth · {item:9998} Black Mageweave Vest · {item:10024} Black Mageweave Headband
-	["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 {item:4306} and 900 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 2. {item:10024} (from 190) takes a second trip, to other trainers (below)."] = "숙련 단계는 최대 숙련도를 150에서 225로 올립니다. {skill:197} 125와 캐릭터 레벨 20이 필요하므로, 125가 되면 언제 들러도 배울 수 있습니다. 가르치는 상급자는 몇 명뿐입니다: 얼라이언스는 {npc:1346}({zone:1453}), 호드는 {npc:4576}({zone:1458})입니다. 화살표가 진영의 가장 가까운 상급자를 가리킵니다. 지금 배우세요: {spell:3865}(140부터). 150-225에는 제조법 약 15실버와 상인 재료 약 21골드 16실버, 그리고 채집하거나 살 {item:4306} 264개, {item:4338} 900개가 듭니다. 모든 재료를 가방에 챙겨서 오세요(위 단계에서 모으고, 나머지는 경매장에서). 이 상급자들은 {item:9998}(170부터)도 가르치며, 제작에 작업대가 필요 없으므로 바로 여기서 만들고 숙련도에 도달할 때마다 제조법을 배우세요. 두 번 올 것을 한 번에 끝냅니다. {item:10024}(190부터)은(는) 다른 상급자에게 두 번째로 가야 합니다(아래 참조).",
+	-- was: ["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 {item:4306} and 900 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 2. {item:10024} (from 190) takes a second trip, to other trainers (below)."] = "숙련 단계는 최대 숙련도를 150에서 225로 올립니다. {skill:197} 125와 캐릭터 레벨 20이 필요하므로, 125가 되면 언제 들러도 배울 수 있습니다. 가르치는 상급자는 몇 명뿐입니다: 얼라이언스는 {npc:1346}({zone:1453}), 호드는 {npc:4576}({zone:1458})입니다. 화살표가 진영의 가장 가까운 상급자를 가리킵니다. 지금 배우세요: {spell:3865}(140부터). 150-225에는 제조법 약 15실버와 상인 재료 약 21골드 16실버, 그리고 채집하거나 살 {item:4306} 264개, {item:4338} 900개가 듭니다. 모든 재료를 가방에 챙겨서 오세요(위 단계에서 모으고, 나머지는 경매장에서). 이 상급자들은 {item:9998}(170부터)도 가르치며, 제작에 작업대가 필요 없으므로 바로 여기서 만들고 숙련도에 도달할 때마다 제조법을 배우세요. 두 번 올 것을 한 번에 끝냅니다. {item:10024}(190부터)은(는) 다른 상급자에게 두 번째로 가야 합니다(아래 참조)."
+	["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 20g 86s of vendor goods, plus 264 {item:4306} and 915 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 2. {item:10024} (from 200) takes a second trip, to other trainers (below)."] = "",
 
 	-- Step 24: Azure Silk Cloak to 170
 	-- {item:7053} Azure Silk Cloak
 	["{item:7053} to 170"] = "{item:7053}: 170까지",
 	-- {item:7053} Azure Silk Cloak · {spell:3839} Bolt of Silk Cloth · {item:6260} Blue Dye · {item:2321} Fine Thread
-	-- was: ["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053}은(는) 150에 주황색입니다(노란색 160, 초록색 175, 회색 190). 170까지 약 22번 만드세요. 한 번에 {spell:3839} 3개, {item:6260} 2개, {item:2321} 2개. 먼저 {spell:3839} 66개를 만드세요. 제조법은 위에서 산 것이며, 데이터에서 이 포인트를 지나는 가장 싼 방법입니다."
 	["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data. If you got here without learning {spell:3839}, learn it now: an earlier step teaches it."] = "{item:7053}은(는) 150에서 주황색입니다(노란색 160, 초록색 175, 회색 190): 170까지 약 22번 제작. 매번 {spell:3839} 3개, {item:6260} 2개, {item:2321} 2개가 필요합니다. 먼저 {spell:3839} 66개를 만드십시오. 그 제조법은 위에서 산 것이며, 데이터상 이 구간을 지나는 가장 싼 방법입니다. {spell:3839}을(를) 배우지 않고 여기까지 왔다면 지금 배우십시오: 앞의 단계에서 가르칩니다.",
 	["from the recipe in your bags"] = "가방에 있는 제조법으로",
 
@@ -146,23 +149,25 @@ return {
 	-- {spell:12048} Black Mageweave Vest
 	["Still at the Expert trainer: {spell:12048} (from 170)."] = "계속 숙련 상급자에게서: {spell:12048}(170부터).",
 
-	-- Step 26: Black Mageweave Vest to 197
+	-- Step 26: Black Mageweave Vest to 200
 	-- {item:9998} Black Mageweave Vest
-	["{item:9998} to 197"] = "{item:9998}: 197까지",
+	["{item:9998} to 200"] = "",
 	-- {item:9998} Black Mageweave Vest · {spell:3865} Bolt of Mageweave · {item:4291} Silken Thread
-	["{item:9998} is orange at 170 (yellow 185, green 200, grey 215): about 30 crafts to 197. Each takes 2 {spell:3865} and 3 {item:4291}. Make the 60 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{item:9998}은(는) 170에 주황색입니다(노란색 185, 초록색 200, 회색 215). 197까지 약 30번 만드세요. 한 번에 {spell:3865} 2개, {item:4291} 3개. 먼저 {spell:3865} 60개를 만드세요. 상급자가 가르치며, 데이터에서 이 포인트를 지나는 가장 싼 방법입니다.",
+	-- was: ["{item:9998} is orange at 170 (yellow 185, green 200, grey 215): about 30 crafts to 197. Each takes 2 {spell:3865} and 3 {item:4291}. Make the 60 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{item:9998}은(는) 170에 주황색입니다(노란색 185, 초록색 200, 회색 215). 197까지 약 30번 만드세요. 한 번에 {spell:3865} 2개, {item:4291} 3개. 먼저 {spell:3865} 60개를 만드세요. 상급자가 가르치며, 데이터에서 이 포인트를 지나는 가장 싼 방법입니다."
+	["{item:9998} is orange at 170 (yellow 185, green 200, grey 215): about 36 crafts to 200. Each takes 2 {spell:3865} and 3 {item:4291}. Make the 72 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "",
 
-	-- Step 27: Tailoring recipes at 197
+	-- Step 27: Tailoring recipes at 200
 	-- {skill:197} Tailoring
-	["{skill:197} recipes at 197"] = "197에서 {skill:197} 제조법",
-	-- {spell:12072} Black Mageweave Headband · {npc:11052} Timothy Worthington · {zone:1445} Dustwallow Marsh · {npc:2399} Daryl Stack · {zone:1424} Hillsbrad Foothills
-	["{spell:12072} (from 190) is taught only by the Artisan trainers: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424})."] = "{spell:12072}(190부터)은(는) 전문 상급자만 가르칩니다: 얼라이언스 {npc:11052}({zone:1445}), 호드 {npc:2399}({zone:1424}).",
+	["{skill:197} recipes at 200"] = "",
+	-- {spell:12072} Black Mageweave Headband · {npc:11052} Timothy Worthington · {zone:1445} Dustwallow Marsh · {npc:2399} Daryl Stack · {zone:1424} Hillsbrad Foothills · {skill:197} Tailoring
+	["{spell:12072} (from 200) is taught only by the Artisan trainers: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}). You can train Artisan there now if you are level 35 (it needs {skill:197} 200), which saves the trip at 225."] = "",
 
 	-- Step 28: Black Mageweave Headband to 225
 	-- {item:10024} Black Mageweave Headband
 	["{item:10024} to 225"] = "{item:10024}: 225까지",
 	-- {item:10024} Black Mageweave Headband · {spell:3865} Bolt of Mageweave · {item:8343} Heavy Silken Thread · {skill:197} Tailoring
-	["{item:10024} is orange at 197 (yellow 205, green 220, grey 235): about 40 crafts to 225. Each takes 3 {spell:3865} and 2 {item:8343}. Make the 120 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data. {skill:197} 225 is a Legacy System milestone."] = "{item:10024}은(는) 197에 주황색입니다(노란색 205, 초록색 220, 회색 235). 225까지 약 40번 만드세요. 한 번에 {spell:3865} 3개, {item:8343} 2개. 먼저 {spell:3865} 120개를 만드세요. 상급자가 가르치며, 데이터에서 이 포인트를 지나는 가장 싼 방법입니다. {skill:197} 225은(는) 유산 시스템 이정표입니다.",
+	-- was: ["{item:10024} is orange at 197 (yellow 205, green 220, grey 235): about 40 crafts to 225. Each takes 3 {spell:3865} and 2 {item:8343}. Make the 120 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data. {skill:197} 225 is a Legacy System milestone."] = "{item:10024}은(는) 197에 주황색입니다(노란색 205, 초록색 220, 회색 235). 225까지 약 40번 만드세요. 한 번에 {spell:3865} 3개, {item:8343} 2개. 먼저 {spell:3865} 120개를 만드세요. 상급자가 가르치며, 데이터에서 이 포인트를 지나는 가장 싼 방법입니다. {skill:197} 225은(는) 유산 시스템 이정표입니다."
+	["{item:10024} is orange at 200 (yellow 205, green 220, grey 235): about 37 crafts to 225. Each takes 3 {spell:3865} and 2 {item:8343}. Make the 111 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data. {skill:197} 225 is a Legacy System milestone."] = "",
 
 	-- Step 29: Artisan Tailoring
 	-- {skill:197} Tailoring
@@ -173,8 +178,9 @@ return {
 	-- Step 30: Tailoring 225-300: vendor goods
 	-- {skill:197} Tailoring
 	["{skill:197} 225-300: vendor goods"] = "{skill:197} 225-300: 상인 재료",
-	-- {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 116 {item:14341} (58g); about 58g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:14341} 116개(58골드), 모두 약 58골드. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1347}, {npc:1286}, {npc:5565}, {zone:1454}: {npc:3364}, 펠리카, {npc:5817}).",
+	-- {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya
+	-- was: ["Buy the whole bracket's share in one go: 116 {item:14341} (58g); about 58g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:14341} 116개(58골드), 모두 약 58골드. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1347}, {npc:1286}, {npc:5565}, {zone:1454}: {npc:3364}, 펠리카, {npc:5817})."
+	["Buy the whole bracket's share in one go: 116 {item:14341} (58g); about 58g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:5565}; {zone:1454}: {npc:3364} and Tamar)."] = "",
 
 	-- Step 31: Pattern: Runecloth Gloves
 	-- {item:14481} Pattern: Runecloth Gloves · {item:13863} Runecloth Gloves · {skill:197} Tailoring · {npc:11189} Qia · {zone:1452} Winterspring
@@ -234,13 +240,18 @@ return {
 	["from the pattern bought at the Auction House"] = "경매장에서 산 제조법에서",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["900 {item:4338} for {item:9998} and {item:10024}: humanoids of level 35-50 drop it. Keep what you loot as you level, or take it from your bank."] = "{item:9998}와(과) {item:10024}에 쓸 {item:4338} 900개: 35-50레벨 인간형 몹이 떨어뜨립니다. 레벨을 올리며 얻은 것을 모아 두거나 은행에서 꺼내세요.",
 	-- ["Apprentice {skill:197}"] = "초급 {skill:197}",
 	-- ["Artisan needs character level 35 and {skill:197} 200; it raises the cap to 300. Materials for 225-300 are worth about 845g in all."] = "전문은(는) 캐릭터 레벨 35, {skill:197} 200이(가) 필요하며 최대 숙련도를 300(으)로 올립니다. 225-300 재료는 모두 약 845골드입니다.",
 	-- ["Back to a {skill:197} trainer: {spell:12072} is taught from {skill:197} 205."] = "{skill:197} 상급자에게 돌아가세요. {spell:12072}은(는) {skill:197} 205부터 배울 수 있습니다.",
 	-- ["Back to a {skill:197} trainer: {spell:2402} is taught from {skill:197} 80."] = "{skill:197} 상급자에게 돌아가세요. {spell:2402}은(는) {skill:197} 80부터 배울 수 있습니다.",
 	-- ["Back to a {skill:197} trainer: {spell:3848} is taught from {skill:197} 110."] = "{skill:197} 상급자에게 돌아가세요. {spell:3848}은(는) {skill:197} 110부터 배울 수 있습니다.",
 	-- ["Back to a {skill:197} trainer: {spell:8799} is taught from {skill:197} 180."] = "{skill:197} 상급자에게 돌아가세요. {spell:8799}은(는) {skill:197} 180부터 배울 수 있습니다.",
+	-- ["Buy the whole bracket's share in one go: 108 {item:2321} (1g 8s), 34 {item:2324} (8s 50c) and 98 {item:2604} (49s); about 1g 65s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:2321} 108개(1골드 8실버), {item:2324} 34개(8실버 50코퍼), {item:2604} 98개(49실버), 모두 약 1골드 65실버 50코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1347}, {npc:1286}, {npc:5565}, {zone:1454}: {npc:3364}, 펠리카, {npc:5817}).",
+	-- ["Buy the whole bracket's share in one go: 116 {item:14341} (58g); about 58g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:14341} 116개(58골드), 모두 약 58골드. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1347}, {npc:1286}, {npc:5565}, {zone:1454}: {npc:3364}, 펠리카, {npc:5817}).",
+	-- ["Buy the whole bracket's share in one go: 44 {item:2321} (44s), 90 {item:4291} (4g 50s), 44 {item:6260} (22s) and 80 {item:8343} (16g); about 21g 16s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:2321} 44개(44실버), {item:4291} 90개(4골드 50실버), {item:6260} 44개(22실버), {item:8343} 80개(16골드), 모두 약 21골드 16실버. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1347}, {npc:1286}, {npc:5565}, {zone:1454}: {npc:3364}, 펠리카, {npc:5817}).",
 	-- ["Expert needs character level 20 and {skill:197} 125; it raises the cap to 225. Materials for 150-225 are worth about 135g in all."] = "숙련은(는) 캐릭터 레벨 20, {skill:197} 125이(가) 필요하며 최대 숙련도를 225(으)로 올립니다. 150-225 재료는 모두 약 135골드입니다.",
+	-- ["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 {item:4306} and 900 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 2. {item:10024} (from 190) takes a second trip, to other trainers (below)."] = "숙련 단계는 최대 숙련도를 150에서 225로 올립니다. {skill:197} 125와 캐릭터 레벨 20이 필요하므로, 125가 되면 언제 들러도 배울 수 있습니다. 가르치는 상급자는 몇 명뿐입니다: 얼라이언스는 {npc:1346}({zone:1453}), 호드는 {npc:4576}({zone:1458})입니다. 화살표가 진영의 가장 가까운 상급자를 가리킵니다. 지금 배우세요: {spell:3865}(140부터). 150-225에는 제조법 약 15실버와 상인 재료 약 21골드 16실버, 그리고 채집하거나 살 {item:4306} 264개, {item:4338} 900개가 듭니다. 모든 재료를 가방에 챙겨서 오세요(위 단계에서 모으고, 나머지는 경매장에서). 이 상급자들은 {item:9998}(170부터)도 가르치며, 제작에 작업대가 필요 없으므로 바로 여기서 만들고 숙련도에 도달할 때마다 제조법을 배우세요. 두 번 올 것을 한 번에 끝냅니다. {item:10024}(190부터)은(는) 다른 상급자에게 두 번째로 가야 합니다(아래 참조).",
 	-- ["Journeyman needs character level 10 and {skill:197} 50; it raises the cap to 150. Materials for 75-150 are worth about 17g in all."] = "수습은(는) 캐릭터 레벨 10, {skill:197} 50이(가) 필요하며 최대 숙련도를 150(으)로 올립니다. 75-150 재료는 모두 약 17골드입니다.",
 	-- ["Kill the mobs that drop it at the farm spot Polestar picks for your level and faction. The Auction House works too."] = "Polestar가 레벨과 진영에 맞춰 고른 사냥터에서 이것을 떨어뜨리는 몹을 처치하세요. 경매장도 됩니다.",
 	-- ["On Forever no recipe a trainer teaches or both factions' vendors sell gives {skill:197} points past 295, so Polestar has no route for the last points. Recipes that still do: {item:14342} (needs a Moonwell), {item:14137} (needs a {item:279943}), {item:14155} (recipe is a drop), {item:14128} (recipe is a drop), {item:19047} (needs a {item:279943})."] = "Forever에서는 상급자가 가르치거나 양 진영 상인이 파는 제조법 중 295 이후 {skill:197} 점수를 주는 것이 없어, Polestar에는 마지막 점수를 위한 경로가 없습니다. 아직 점수를 주는 제조법: {item:14342}(달샘 필요), {item:14137}({item:279943} 필요), {item:14155}(제조법은 획득), {item:14128}(제조법은 획득), {item:19047}({item:279943} 필요).",
@@ -254,6 +265,7 @@ return {
 	-- ["Teaches {item:13863} (needs {skill:197} 230). Vendors sell it in limited stock that restocks."] = "{item:13863}을(를) 배웁니다({skill:197} 230 필요). 상인이 한정 수량으로 팔며 재입고됩니다.",
 	-- ["Teaches {item:254123} (needs {skill:197} 250)."] = "{item:254123}을(를) 배웁니다({skill:197} 250 필요).",
 	-- ["Teaches {item:7053} (needs {skill:197} 140). Vendors sell it in limited stock that restocks."] = "{item:7053}을(를) 배웁니다({skill:197} 140 필요). 상인이 한정 수량으로 팔며 재입고됩니다.",
+	-- ["What 150-225 takes that the Auction House sells: 264 {item:4306} and 900 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "150-225 구간에 필요한 것 중 경매장에서 파는 것: {item:4306} 264개, {item:4338} 900개. 가방, 은행, 우편함에 있는 만큼 수량이 줄어듭니다.",
 	-- ["Yellow until 127, green until 145: not every craft gives a point."] = "127까지 노란색, 145까지 초록색입니다. 만들 때마다 점수가 오르지는 않습니다.",
 	-- ["Yellow until 140, green until 155: not every craft gives a point. {skill:197} 150 is a Legacy System milestone."] = "140까지 노란색, 155까지 초록색입니다. 만들 때마다 점수가 오르지는 않습니다. {skill:197} 150은(는) 유산 시스템 단계입니다.",
 	-- ["Yellow until 190, green until 200: not every craft gives a point."] = "190까지 노란색, 200까지 초록색입니다. 만들 때마다 점수가 오르지는 않습니다.",
@@ -263,6 +275,7 @@ return {
 	-- ["Yellow until 67, green until 85: not every craft gives a point."] = "67까지 노란색, 85까지 초록색입니다. 만들 때마다 점수가 오르지는 않습니다.",
 	-- ["Yellow until 67, green until 85: not every craft gives a point. 75 is the Apprentice cap."] = "67까지 노란색, 85까지 초록색입니다. 만들 때마다 점수가 오르지는 않습니다. 75은(는) 초급 최대치입니다.",
 	-- ["Yellow until 97, green until 115: not every craft gives a point."] = "97까지 노란색, 115까지 초록색입니다. 만들 때마다 점수가 오르지는 않습니다.",
+	-- ["{item:10024} is orange at 197 (yellow 205, green 220, grey 235): about 40 crafts to 225. Each takes 3 {spell:3865} and 2 {item:8343}. Make the 120 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data. {skill:197} 225 is a Legacy System milestone."] = "{item:10024}은(는) 197에 주황색입니다(노란색 205, 초록색 220, 회색 235). 225까지 약 40번 만드세요. 한 번에 {spell:3865} 3개, {item:8343} 2개. 먼저 {spell:3865} 120개를 만드세요. 상급자가 가르치며, 데이터에서 이 포인트를 지나는 가장 싼 방법입니다. {skill:197} 225은(는) 유산 시스템 이정표입니다.",
 	-- ["{item:10045} to 50"] = "{item:10045}: 50까지",
 	-- ["{item:14047} (Alliance)"] = "{item:14047} (얼라이언스)",
 	-- ["{item:14047} (Horde)"] = "{item:14047} (호드)",
@@ -274,6 +287,8 @@ return {
 	-- ["{item:7026} to 80"] = "{item:7026}: 80까지",
 	-- ["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053}은(는) 150에 주황색입니다(노란색 160, 초록색 175, 회색 190). 170까지 약 22번 만드세요. 한 번에 {spell:3839} 3개, {item:6260} 2개, {item:2321} 2개. 먼저 {spell:3839} 66개를 만드세요. 제조법은 위에서 산 것이며, 데이터에서 이 포인트를 지나는 가장 싼 방법입니다.",
 	-- ["{item:7062} to 185"] = "{item:7062}: 185까지",
+	-- ["{item:9998} is orange at 170 (yellow 185, green 200, grey 215): about 30 crafts to 197. Each takes 2 {spell:3865} and 3 {item:4291}. Make the 60 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{item:9998}은(는) 170에 주황색입니다(노란색 185, 초록색 200, 회색 215). 197까지 약 30번 만드세요. 한 번에 {spell:3865} 2개, {item:4291} 3개. 먼저 {spell:3865} 60개를 만드세요. 상급자가 가르치며, 데이터에서 이 포인트를 지나는 가장 싼 방법입니다.",
+	-- ["{item:9998} to 197"] = "{item:9998}: 197까지",
 	-- ["{npc:11739} (level 57-59) drop it here. The Auction House works too."] = "이곳의 {npc:11739}(57-59레벨)이(가) 떨어뜨립니다. 경매장도 됩니다.",
 	-- ["{npc:1824} (level 54-55) drop it here. The Auction House works too."] = "이곳의 {npc:1824}(54-55레벨)이(가) 떨어뜨립니다. 경매장도 됩니다.",
 	-- ["{npc:3263} (level 19-20) drop it here. The Auction House works too."] = "이곳의 {npc:3263}(19-20레벨)이(가) 떨어뜨립니다. 경매장도 됩니다.",
@@ -284,9 +299,11 @@ return {
 	-- ["{npc:98} (level 17-18) drop it here. The Auction House works too."] = "이곳의 {npc:98}(17-18레벨)이(가) 떨어뜨립니다. 경매장도 됩니다.",
 	-- ["{skill:171}: {item:3383} (or the Auction House)"] = "{skill:171}: {item:3383} (또는 경매장)",
 	-- ["{skill:197} materials for 75-150"] = "{skill:197} 재료(75-150)",
+	-- ["{skill:197} recipes at 197"] = "197에서 {skill:197} 제조법",
 	-- ["{skill:197} recipes at 205"] = "205에서 {skill:197} 제조법",
 	-- ["{skill:197} recipes at 80"] = "80에서 {skill:197} 제조법",
 	-- ["{skill:197} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 1g 8s in all."] = "{skill:197}은(는) 레벨업과 함께 진행합니다. Forever의 유산 시스템은 제작 전문 기술 숙련도 150, 225, 300(수습, 숙련, 전문 최대치)에 보상을 주므로, 각 단계가 중요합니다. 1-75 재료는 모두 약 1골드 8실버입니다.",
+	-- ["{spell:12072} (from 190) is taught only by the Artisan trainers: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424})."] = "{spell:12072}(190부터)은(는) 전문 상급자만 가르칩니다: 얼라이언스 {npc:11052}({zone:1445}), 호드 {npc:2399}({zone:1424}).",
 	-- ["{spell:3848} to 125"] = "{spell:3848}: 125까지",
 	-- ["{spell:3852} to 150"] = "{spell:3852}: 150까지",
 }
