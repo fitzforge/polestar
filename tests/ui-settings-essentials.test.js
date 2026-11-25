@@ -43,6 +43,7 @@ function run(script, saved) {
 			local O = Polestar.UI.Options
 			local G = O.Grouped
 			local K = O.Kit
+			local W = Polestar.Widgets
 			local L = Polestar.L
 			-- The folder tabs on screen: their labels and icons.
 			local function bar()
@@ -209,6 +210,30 @@ test('Quality of Life\'s Essentials gathers the tooltip settings in a Tooltips c
 	assert.deepEqual(out.rows, expected, 'a reference for each tooltip setting registered, in order');
 	assert.equal(out.link, 'Questing \u203a Rewards & gear', 'each row names its home');
 	assert.equal(out.flipped, true, 'the card\'s row sets the setting itself');
+});
+
+test('a label too long to share its line with the path keeps the column, the path under it', () => {
+	const [out] = run(`
+		Polestar.UI.ShowOptions()
+		O.Select("qualityoflife")
+		local function look(key)
+			local row = essentialsRow(key)
+			local link = rawget(row, "psAfter")
+			local label = row.Label
+			local _, rel, relPoint = link:GetPoint(1)
+			return { whole = label:GetWidth() + 0.5 >= W.TextWidth(label), under = rel == label and relPoint == "BOTTOMLEFT",
+				tall = row:GetHeight() >= math.ceil(label:GetStringHeight() + link.Label:GetStringHeight()) }
+		end
+		-- A short label still has its path beside it.
+		local short = essentialsRow("qol.sellJunk")
+		local _, rel, relPoint = rawget(short, "psAfter"):GetPoint(1)
+		emit({ long = look("lookup.tooltip"), gear = look("gear.pickTooltip"), beside = rel == short.Label and relPoint == "LEFT" })`);
+	for (const k of ['long', 'gear']) {
+		assert.equal(out[k].whole, true, `${k}: the whole label`);
+		assert.equal(out[k].under, true, `${k}: the path under the label`);
+		assert.equal(out[k].tall, true, `${k}: the row holds both lines`);
+	}
+	assert.equal(out.beside, true, 'a label that leaves room keeps its path beside it');
 });
 
 test('LB / RB step on from Essentials after the tab is built again', () => {
