@@ -1235,10 +1235,10 @@ them as warnings. That is expected after a rewrite.
 
 ### Guide titles
 
-A leveling guide's `title` names the zones it quests in (`src/titles.rs`, on the
-guides as written, after riding at 40). v1's title is a list of places
-("Wetlands, Hillsbrad Foothills, Ironforge & Stormwind City"); the writer keeps
-its order and words and leaves places out, never adds one:
+A leveling guide's `title` names the zones it quests in, in the order the route
+walks them (`src/titles.rs`, on the guides as written, after riding at 40). v1's
+title is a list of places ("Wetlands, Hillsbrad Foothills, Ironforge & Stormwind
+City"); the writer keeps its words, leaves places out and never adds one:
 
 - **No capitals**: Orgrimmar, Undercity, Thunder Bluff, Stormwind City, Ironforge
   and Darnassus are stops for training and hand-ins, not where a guide quests.
@@ -1255,12 +1255,21 @@ its order and words and leaves places out, never adds one:
   leaves out every zone: then the one with most goals stays. A part that is no
   zone ("the Plaguelands") stays.
 
-With nothing left out, the title stays exactly as written. The thresholds
-reproduce every zone list shipped by hand on 2026-11-04 from the titles before
-it, and change no other one. A changed title has no translation until one is
-added, like any changed line. A race's lead-in to the shared guide of its zone
-(the Orcs' and Trolls' Barrens) gets no title of its own: `forge guide publish`
-merges it into that guide ([routes.md](routes.md#publishing-every-start)).
+**Walking order**: the places kept go in the order of each zone's first quest
+goal ("Stranglethorn Vale, Dustwallow Marsh & Swamp of Sorrows", opening in
+Theramore: "Dustwallow Marsh, Stranglethorn Vale & Swamp of Sorrows"). A part
+that is no zone goes with the zone after it ("Western & Eastern Plaguelands"
+stays together); a zone with no quest goal goes last. The guide's `pitch`, in
+its seed, says the order in a sentence ("Dustwallow Marsh first, then
+Stranglethorn Vale and the Swamp of Sorrows.").
+
+With nothing left out and nothing moved, the title stays exactly as written. A
+changed title has no translation until one is added, like any changed line. A
+race's lead-in to the shared guide of its zone (the Orcs' and Trolls' Barrens)
+gets no title of its own: `forge guide publish` merges it into that guide
+([routes.md](routes.md#publishing-every-start)).
+`tests/published_titles.rs` holds every generated guide's published title to the
+writer's, from its seed's title.
 
 ## Running it
 

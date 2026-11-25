@@ -19,7 +19,9 @@
 //!
 //! Forever's own NPCs, the ones classic-db lacks (add_forever: forever-db's npc and spawn tables), join them: a guard
 //! by its name alone (no ExtraFlags), a service NPC by its codex roles and quests (#1961: Forever's Dalaran, its Kirin
-//! Tor guards hostile to the Horde, was no hub).
+//! Tor guards hostile to the Horde, was no hub). One with no faction template (most of Forever's new zones' NPCs)
+//! takes its side from the codex's friendliness, friendly to one side only (#3830: Riverglades' Rog'mar and Farholde
+//! Keep, Mount Hyjal's camps were no hubs).
 //!
 //! hubs.json: { 0: [hub], 1: [hub], 2991: [hub], build, rev, maps, rules }; hub = { id, side, name, areaId,
 //! guards, services, disks: [[x, y, r]] } (x north, y west).
@@ -48,6 +50,8 @@ const LINK: f64 = 60.0;
 const JOIN: f64 = 100.0;
 const MIN_GUARDS: usize = 1;
 const MIN_SERVICES: usize = 4;
+/// The other side's guards and service NPCs within LINK yd that make a cluster a shared camp, no hub.
+const SHARED: usize = 2;
 
 /// CSV text -> rows (header names -> fields).
 pub fn csv_rows(text: &str) -> Vec<FxHashMap<String, String>> {
@@ -150,7 +154,8 @@ pub fn guard_name(name: &str) -> bool {
 	})
 }
 
-/// A creature template -> (side, guard) or None (hubs.js roleOf).
+/// A creature template -> (side, guard) or None (hubs.js roleOf). A template with a `side` (add_forever: a Forever NPC
+/// with no faction template) is that side's; any other is judged by its faction template.
 pub fn role_of(t: &Value, h: &Hostility) -> Option<(&'static str, bool)> {
 	if !t.is_object() {
 		return None;
@@ -160,11 +165,22 @@ pub fn role_of(t: &Value, h: &Hostility) -> Option<(&'static str, bool)> {
 	if extra & EXTRA_INVISIBLE != 0 {
 		return None;
 	}
-	let (a, hh) = h.of(n("faction") as u32)?;
-	if a == hh {
-		return None;
-	}
-	let side = if hh { "Alliance" } else { "Horde" };
+	let side = match t["side"].as_str() {
+		Some("Alliance") => "Alliance",
+		Some("Horde") => "Horde",
+		Some(_) => return None,
+		None => {
+			let (a, hh) = h.of(n("faction") as u32)?;
+			if a == hh {
+				return None;
+			}
+			if hh {
+				"Alliance"
+			} else {
+				"Horde"
+			}
+		}
+	};
 	let min = n("minLevel");
 	let guard = if extra & EXTRA_GUARD != 0 { min >= MIN_GUARD_LEVEL } else { guard_name(t["name"].as_str().unwrap_or("")) && min >= MIN_NAMED_GUARD_LEVEL };
 	if guard {
@@ -228,10 +244,14 @@ fn near(a: &[Pt], b: &[Pt], r: f64) -> bool {
 	a.iter().any(|p| b.iter().any(|q| js_hypot(p.x - q.x, p.y - q.y) <= r))
 }
 
-fn side_hubs(points: &[Pt]) -> Vec<Vec<Pt>> {
+/// One side's hubs on a map (`other`: the other side's guards and service NPCs there). A cluster with SHARED or more of
+/// the other side's within JOIN yd of its members is a camp both sides share (Mount Hyjal's Elderwild: the Alliance and
+/// Horde outposts side by side, their quest givers 64 yd apart), no enemy town.
+fn side_hubs(points: &[Pt], other: &[Pt]) -> Vec<Vec<Pt>> {
 	let is_hub = |g: &Vec<Pt>| {
 		let guards = g.iter().filter(|p| p.guard).count();
-		guards >= MIN_GUARDS || g.len() - guards >= MIN_SERVICES
+		let shared = other.iter().filter(|q| g.iter().any(|p| js_hypot(p.x - q.x, p.y - q.y) <= JOIN)).count();
+		(guards >= MIN_GUARDS || g.len() - guards >= MIN_SERVICES) && shared < SHARED
 	};
 	let mut hubs: Vec<Vec<Pt>> = clusters(points, LINK).into_iter().filter(is_hub).collect();
 	loop {
@@ -372,7 +392,7 @@ pub fn build_hubs(i: &HubsIn) -> Result<Vec<(u32, Vec<Value>)>, String> {
 	for &c in i.maps {
 		let mut hubs: Vec<(String, String, u32, usize, usize, Vec<[f64; 3]>)> = Vec::new();
 		for (si, side) in ["Alliance", "Horde"].into_iter().enumerate() {
-			for members in side_hubs(&points[&c][si]) {
+			for members in side_hubs(&points[&c][si], &points[&c][1 - si]) {
 				let (area_id, name) = name_of(c, &members, i, &areas);
 				let guards = members.iter().filter(|p| p.guard).count();
 				let mut seen = rustc_hash::FxHashSet::default();
@@ -499,20 +519,40 @@ pub fn forever_flags(npcs: &Value, quests: &Value) -> FxHashMap<u64, i64> {
 	out
 }
 
+/// The side of each Forever NPC the codex has friendly to one side only (data/forever npcs.json `faction`: "A" the
+/// Alliance's, "H" the Horde's; "AH" and none are no side's): { npc id: side }.
+pub fn forever_sides(npcs: &Value) -> FxHashMap<u64, &'static str> {
+	let mut out = FxHashMap::default();
+	for (id, n) in npcs.as_object().into_iter().flatten() {
+		let Ok(id) = id.parse::<u64>() else { continue };
+		match n["faction"].as_str() {
+			Some("A") => out.insert(id, "Alliance"),
+			Some("H") => out.insert(id, "Horde"),
+			_ => None,
+		};
+	}
+	out
+}
+
 /// Forever's own NPCs for build_hubs: each row of forever-db's npc table (`npcs`: id, name, level_min, faction_template,
-/// rank) whose id classic-db's templates lack, with a faction template and a level, gets a template in
-/// creature_template.json's shape (`flags` its NpcFlags, forever_flags; no ExtraFlags, so a guard by its name and
-/// MIN_NAMED_GUARD_LEVEL), and its spawns from forever-db's spawn table (`spawn_rows`: kind "npc", id, map, x, y) in
-/// spawnz.json's. -> how many NPCs it added.
-pub fn add_forever(templates: &mut Value, spawns: &mut Value, npcs: &[Value], spawn_rows: &[Value], flags: &FxHashMap<u64, i64>) -> usize {
+/// rank) whose id classic-db's templates lack, with a level and a faction template or a side (`sides`, forever_sides),
+/// gets a template in creature_template.json's shape (`flags` its NpcFlags, forever_flags; no ExtraFlags, so a guard by
+/// its name and MIN_NAMED_GUARD_LEVEL; `side` when it has no faction template), and its spawns from forever-db's spawn
+/// table (`spawn_rows`: kind "npc", id, map, x, y) in spawnz.json's. -> how many NPCs it added.
+pub fn add_forever(templates: &mut Value, spawns: &mut Value, npcs: &[Value], spawn_rows: &[Value], flags: &FxHashMap<u64, i64>, sides: &FxHashMap<u64, &'static str>) -> usize {
 	let mut added: FxHashMap<u64, Vec<Value>> = FxHashMap::default();
 	for r in npcs {
-		let (Some(id), Some(faction), true) = (r["id"].as_u64(), r["faction_template"].as_u64(), r["level_min"].is_number()) else { continue };
+		let (Some(id), true) = (r["id"].as_u64(), r["level_min"].is_number()) else { continue };
 		let key = id.to_string();
 		if templates.get(&key).is_some_and(Value::is_object) {
 			continue;
 		}
-		let t = json!({ "name": r["name"].as_str().unwrap_or(""), "faction": faction, "npcFlags": flags.get(&id).copied().unwrap_or(0), "extraFlags": 0, "rank": r["rank"].as_u64().unwrap_or(0), "minLevel": r["level_min"] });
+		let mut t = json!({ "name": r["name"].as_str().unwrap_or(""), "faction": 0, "npcFlags": flags.get(&id).copied().unwrap_or(0), "extraFlags": 0, "rank": r["rank"].as_u64().unwrap_or(0), "minLevel": r["level_min"] });
+		match (r["faction_template"].as_u64(), sides.get(&id)) {
+			(Some(faction), _) => t["faction"] = json!(faction),
+			(None, Some(side)) => t["side"] = json!(side),
+			(None, None) => continue,
+		}
 		if let Some(m) = templates.as_object_mut() {
 			m.insert(key, t);
 			added.insert(id, Vec::new());
@@ -538,10 +578,10 @@ pub fn rules() -> Value {
 	json!({
 		"guard": format!("one side's (hostile to the other side's players only) with ExtraFlags & 0x{EXTRA_GUARD:x} and MinLevel >= {MIN_GUARD_LEVEL}, or named /\\b({names})\\b/ and MinLevel >= {MIN_NAMED_GUARD_LEVEL}"),
 		"service": format!("one side's, not a guard, NpcFlags & 0x{SERVICE_FLAGS:x} (quest giver, vendor, flight master, trainer, innkeeper, banker, repair)"),
-		"hub": format!("single linkage at {LINK} yd; a cluster with >= {MIN_GUARDS} guard or >= {MIN_SERVICES} service NPCs is a hub; hubs of one side within {JOIN} yd are listed as one (a naming merge: their disks unchanged, none added)"),
+		"hub": format!("single linkage at {LINK} yd; a cluster with >= {MIN_GUARDS} guard or >= {MIN_SERVICES} service NPCs is a hub, unless >= {SHARED} of the other side's guards and service NPCs stand within {JOIN} yd of it (a camp both sides share); hubs of one side within {JOIN} yd are listed as one (a naming merge: their disks unchanged, none added)"),
 		"name": "AreaTable: the capital (Flags_0 & 0x100) at least half the spawns stand in (chunk area or zone map), else the subzone under the centroid, else the most common subzone, else the zone",
 		"disks": format!("{GUARD_RADIUS} yd around a guard, {SERVICE_RADIUS} yd around a service NPC"),
-		"forever": "Forever's own NPCs (forever-db's npc and spawn tables, the ids classic-db lacks): a guard by its name, a service NPC by its codex roles (vendor, flight master, trainer, innkeeper, banker, repair) or as a quest's giver",
+		"forever": "Forever's own NPCs (forever-db's npc and spawn tables, the ids classic-db lacks): a guard by its name, a service NPC by its codex roles (vendor, flight master, trainer, innkeeper, banker, repair) or as a quest's giver; one with no faction template is the side the codex has it friendly to, when only one",
 	})
 }
 

@@ -46,8 +46,9 @@ return {
 	["Stromgarde: {npc:266847}"] = "Stromgarde: {npc:266847}",
 	-- {item:275706} Syndicate Uniform · {npc:266847} Anastasia Miller
 	["Put on the {item:275706} and go into Stromgarde. {npc:266847} waits on a ledge just outside the castle; players reach her by jumping from the roof of the house beside the ledge. Her stash is upstairs in a house near the keep."] = "Zieh die {item:275706} an und geh nach Stromgarde. {npc:266847} wartet auf einem Felsvorsprung direkt vor der Burg; Spieler erreichen sie, indem sie vom Dach des Hauses neben dem Vorsprung springen. Ihr Versteck ist oben in einem Haus nahe der Festung.",
-	-- {item:275709} Stolen Funds
-	["{item:275709}, in Anastasia's Stash upstairs"] = "{item:275709}, in Anastasias Versteck im Obergeschoss",
+	-- {item:275709} Stolen Funds · {object:656405} Anastasia's Stash (no name in this language: may be words)
+	-- was: ["{item:275709}, in Anastasia's Stash upstairs"] = "{item:275709}, in Anastasias Versteck im Obergeschoss"
+	["{item:275709}, in {object:656405} upstairs"] = "{item:275709}, in {object:656405} im Obergeschoss",
 
 	-- Step 7: Thoradin's Wall: the shipment
 	-- {area:1057} Thoradin's Wall
@@ -121,5 +122,6 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["a {npc:6766}: 100 per emblem"] = "ein {npc:6766}: 100 pro Emblem",
 	-- ["{area:280}: Barton"] = "{area:280}: Barton",
+	-- ["{item:275709}, in Anastasia's Stash upstairs"] = "{item:275709}, in Anastasias Versteck im Obergeschoss",
 	-- ["{npc:6707}: 50 per five boxes"] = "{npc:6707}: 50 pro fünf Kisten",
 }

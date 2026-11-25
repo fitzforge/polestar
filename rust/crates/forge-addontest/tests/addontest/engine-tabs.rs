@@ -376,6 +376,93 @@ fn a_reload_with_no_update_never_moves_a_tab_however_its_planned_steps_differ() 
 	assert_eq!(json!([out["tabs"], out["said"]]), json!([["test/zone05"], ""]), "{out}");
 }
 
+// #3440 tabs: a save's steps as planned for the character (Own.feederPlan's left-out quests taken out of them)
+// against the guide as released, and an update that reworked a guide for real.
+fn run_update(guides: &str, log: &str, saved: &str, legacy: &str) -> Value {
+	let legacy = format!("Polestar.LegacyStepsLoad = function() return {legacy} end");
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}{log}"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), saved.to_string())],
+		script: [
+			TEST_PACK,
+			TEST_SOURCE,
+			GUIDES,
+			guides,
+			HELPERS,
+			legacy.as_str(),
+			"stub.login(); flush()",
+			r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(11)
+			local said = {}
+			for _, m in ipairs(stub.messages) do if m:find("changed in this update", 1, true) then said[#said + 1] = m:gsub("^.-|r: ", "") end end
+			emit({ tabs = ids().tabs, said = table.concat(said, "\n"), live = E.GetLiveStep() or false })"#,
+		]
+		.join("\n"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+const H: &str = r#"local function h(s) local x = 5381 for i = 1, #s do x = (x * 33 + s:byte(i)) % 4294967296 end return x end"#;
+
+// 0.4.1.1 -> 0.4.2, Horde Winterspring: the save had 15 of the guide's 22 steps, 5 of them with quests left out
+// for the character, so only 10 matched the guide as released and the tab "reworked" moved to the Plaguelands'
+// first step. Here three of four steps lost 400's goals in the save: the guide is the same, and the tab stays.
+#[test]
+fn a_save_s_steps_planned_without_a_quest_are_the_guide_s_own_and_never_read_as_reworked() {
+	let guides = r#"
+local function g(t, q, extra) local x = { t = t, quest = q, title = "Quest " .. q, map = 1429, x = 50, y = 50 } for k, v in pairs(extra or {}) do x[k] = v end return x end
+Polestar.RegisterGuide({ id = "test/plan", pack = "test", title = "Ashenvale", minLevel = 1, maxLevel = 60, steps = {
+	{ goals = { g("accept", 216), g("accept", 400) } },
+	{ goals = { g("kill", 216, { target = "Wolf", npc = 299, count = 5, oi = 1 }), g("kill", 400, { target = "Bear", npc = 298, count = 5, oi = 1 }) } },
+	{ goals = { g("turnin", 216), g("turnin", 400) } },
+	{ goals = { g("turnin", 6462) } },
+} })
+Polestar.RegisterGuide({ id = "test/zone04", pack = "test", title = "The Barrens & Stonetalon Mountains", minLevel = 1, maxLevel = 60, steps = {
+	{ goals = { g("turnin", 1087) } }, { goals = { g("turnin", 6282) } }, { goals = { g("turnin", 6393) } },
+} })"#;
+	let saved = format!(
+		r#"{H}
+PolestarCharDB = {{ schema = 1, tabs = {{ "test/plan" }}, activeTab = 1, shapes = {{ ["test/plan"] = "4-1" }},
+	stepKeys = {{ ["test/plan"] = {{ h("accept:216"), h("kill:216"), h("turnin:216"), h("turnin:6462") }} }} }}"#
+	);
+	let log = "stub.world.onQuest(1087, { 1 })\nstub.world.onQuest(6282, { 1 })\nstub.world.onQuest(216, { 1 })\n";
+	let out = run_update(guides, log, &saved, "{}");
+	assert_eq!(json!([out["tabs"], out["said"]]), json!([["test/plan"], ""]), "{out}");
+}
+
+// 0.4.1.1 -> 0.4.2, reworked for real (Alliance Silithus, Horde Azshara and Feralas): the tab moved to the guide
+// with the log's quests opened at that guide's first step, wherever the player was in it, and the chat line named
+// the tab by the reworked guide's new title, one the player never saw on it. The line names the guide as the save
+// knew it (Core/LegacySteps.lua `titles`, by the version of the guides the save was made with), and the guide it
+// moved to opens at the work of the log's quests, its steps before passing behind the player.
+#[test]
+fn a_tab_an_update_moved_names_the_guide_the_player_had_and_opens_at_the_log_s_work() {
+	let guides = r#"
+local function g(t, q, extra) local x = { t = t, quest = q, title = "Quest " .. q, map = 1429, x = 50, y = 50 } for k, v in pairs(extra or {}) do x[k] = v end return x end
+Polestar.RegisterGuide({ id = "test/rw", pack = "test", title = "Ashenvale & Silverpine Forest", minLevel = 1, maxLevel = 60, steps = {
+	{ goals = { g("accept", 216, { x = 40, y = 40 }) } }, { goals = { g("turnin", 216) } }, { goals = { g("turnin", 6462) } },
+} })
+Polestar.RegisterGuide({ id = "test/to", pack = "test", title = "The Barrens & Stonetalon Mountains", minLevel = 1, maxLevel = 60, steps = {
+	{ goals = { g("accept", 300, { x = 30, y = 30 }) } },
+	{ goals = { { t = "goto", map = 1429, x = 60, y = 60 } } },
+	{ goals = { g("kill", 1087, { target = "Wolf", npc = 299, count = 5, oi = 1, x = 70, y = 70 }) } },
+	{ goals = { g("turnin", 1087) } },
+	{ goals = { g("turnin", 6282) } },
+} })"#;
+	let saved = r#"PolestarCharDB = { schema = 1, tabs = { "test/rw" }, activeTab = 1, shapes = { ["test/rw"] = "4-1" },
+	shapeVersions = { ["test/rw"] = "0.9" }, stepKeys = { ["test/rw"] = { 1, 2, 3, 4 } } }"#;
+	let log = "stub.world.onQuest(1087, { { required = 5, fulfilled = 2 } })\nstub.world.onQuest(6282, { 1 })\nstub.world.onQuest(216, { 1 })\n";
+	let out = run_update(guides, log, saved, r#"{ ["test/rw"] = { titles = { ["0.9"] = "Stonetalon Mountains & Ashenvale" } } }"#);
+	assert_eq!(out["tabs"], json!(["test/to"]), "{out}");
+	assert_eq!(
+		out["said"],
+		"Stonetalon Mountains & Ashenvale changed in this update and holds other quests now. Its tab moved to The Barrens & Stonetalon Mountains, which has the quests in your log."
+	);
+	assert_eq!(out["live"], 3, "at 1087's kills, not 300's accept at the guide's start: {out}");
+}
+
 // A report: after a relog the guide list forgot which guides were finished (Darkshore 21-23 read "Started"
 // until it was opened again): completion was only remembered for the session. A guide finished in play is
 // recorded in CharState().guideDone, so its check stays after a reload.
@@ -451,4 +538,45 @@ fn a_leveling_guide_with_a_saved_end_is_done_after_a_reload() {
 	let saved = r#"PolestarCharDB = { schema = 1, tabs = { "test/cook" }, activeTab = 1, guideEndsV = 2, guideEnds = { ["test/lvl"] = true } }"#;
 	let out = run("", Some(saved), r#"flush(); emit({ state = E.GetGuideState("test/lvl"), done = PolestarCharDB.guideDone["test/lvl"] or false })"#);
 	assert_eq!(out, json!({ "state": "done", "done": false }));
+}
+
+// Fitz (preview5): the arrow seemed to stay on the other tab's goal after a switch (not reproduced: the walking-map
+// harness switched at once too, with tab 2's walk still being planned). With the whole addon (Nav too) and two tabs
+// whose goals lie in different zones, SelectTab(1) gives tab 1's waypoint and the arrow's target in the same frame, and
+// never tab 2's again. (The walk's hold for a measure, #3594, is for the target it was planned for only.)
+#[test]
+fn switching_tabs_retargets_the_arrow_at_once_and_never_back_to_the_other_tab_s_goal() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}\nstub.world.addMap(1433, {{ name = \"Redridge Mountains\", c = 0, left = -1500, right = -4500, top = 500, bottom = -1500 }})\n"),
+		addons: vec![Addon::name("Polestar")],
+		script: [
+			TEST_PACK,
+			TEST_SOURCE,
+			GUIDES,
+			r#"Polestar.RegisterGuide({ id = "test/far", pack = "test", title = "Redridge", category = "Exploration", minLevel = 1, maxLevel = 60, steps = {
+	{ goals = { { t = "goto", label = "Lakeshire", map = 1433, x = 30, y = 60 } } },
+} })"#,
+			HELPERS,
+			"stub.login()",
+			r#"
+			local N = Polestar.Nav
+			local function target() local t = N.GetTarget(); return t and t.map or false end
+			flush()
+			local r = { one = target() }
+			E.OpenTab("test/far", true)
+			N.Sample()
+			r.two = target()
+			E.SelectTab(1)
+			r.back = { E.GetWaypoint().map, target() }
+			local seen = 0
+			for i = 1, 30 do N.Sample(); stub.advance(1 / 30); if target() == 1433 then seen = seen + 1 end end
+			r.seen = seen
+			emit(r)"#,
+		]
+		.join("\n"),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out, json!({ "one": 1429, "two": 1433, "back": [1429, 1429], "seen": 0 }));
 }

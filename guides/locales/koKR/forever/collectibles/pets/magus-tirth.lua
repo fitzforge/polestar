@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Magus Tirth
 	-- {npc:6548} Magus Tirth · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {item:11023} Ancona Chicken · {area:484} Freewind Post · {area:976} Gadgetzan · {zone:1446} Tanaris
-	["{npc:6548} at the {area:2240}, the goblin and gnome racetrack in the {area:439} of south-eastern {zone:1441}, sells the {item:11023} (1g) to both sides. The nearest flight paths are {area:484} (Horde) and {area:976} in {zone:1446} (both sides); from {area:976}, ride north into the {area:439}. Each pet item teaches its companion when you use it; the goal stays ticked afterwards."] = "",
+	["{npc:6548} at the {area:2240}, the goblin and gnome racetrack in the {area:439} of south-eastern {zone:1441}, sells the {item:11023} (1g) to both sides. The nearest flight paths are {area:484} (Horde) and {area:976} in {zone:1446} (both sides); from {area:976}, ride north into the {area:439}. Each pet item teaches its companion when you use it; the goal stays ticked afterwards."] = "{npc:6548}은(는) 남동부 {zone:1441}의 {area:439}에 있는 고블린·노움 경주로 {area:2240}에서 {item:11023}(1골드)을 양 진영에 팝니다. 가장 가까운 비행 경로는 {area:484}(호드)와 {zone:1446}의 {area:976}(양 진영)이며 {area:976}에서 {area:439}으로 말을 타고 북쪽으로 가세요. 애완동물 아이템을 사용하면 동료를 배우고 목표는 이후에도 체크된 상태로 남습니다.",
 	-- {item:11023} Ancona Chicken
 	["{item:11023}, 1g"] = "{item:11023}, 1골드",
 

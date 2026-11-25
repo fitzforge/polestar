@@ -92,8 +92,6 @@ step Silithus quests at Cenarion Hold
   accept 8304                         -- Commander Mar'alith
   accept 8283 optional                -- Wanted poster: Deathclasp, elite
   accept 8307 optional                -- Calandrath, for Cooks
-  accept 9415 optional only Alliance  -- Rifleman Torrig: Report to Marshal Bluewall
-  accept 9416 optional only Horde     -- Scout Bloodfist: Report to General Kirika
 
 step Around Cenarion Hold
   tip Stonelash Scorpids and Sand Skitterers roam the sands around the Hold; Dredge Strikers dig north-east of it. The Sandy Cookbook lies in the cultist camp south-west of the Hold.
@@ -269,17 +267,6 @@ step Field Duty, level 60
   turnin 9338 direct optional         -- Allegiance: one Combat, Logistics and Tactical badge, 200
   accept 8800 optional                -- Cenarion Battlegear: Vargus's badge gear
   turnin 8800
-
-step Silithyst
-  tip Optional, 100 reputation once: Scouring the Desert. Your side's camp sits by a hive: Marshal Bluewall's by Hive'Zora (Alliance), General Kirika's by Hive'Regal (Horde). Silithyst rises from glowing geysers around the desert: walk through one, carry the Silithyst to your camp's Silithyst Extractor, then talk to the camp's leader. It is a world PvP objective: players of the other side can take it from you.
-  turnin 9415 only Alliance @33.3,51.1 -- Marshal Bluewall
-  accept 9419 optional only Alliance
-  complete 9419 optional only Alliance @33.0,50.8 -- deliver Silithyst at the extractor
-  turnin 9419 optional only Alliance  -- 100
-  turnin 9416 only Horde @50.8,69.5 -- General Kirika
-  accept 9422 optional only Horde
-  complete 9422 optional only Horde @50.9,69.3 -- deliver Silithyst at the extractor
-  turnin 9422 optional only Horde     -- 100
 
 step Templars and the Abyssal Council
   tip Wearing a full set of Twilight Trappings (cultist Cowl, Mantle and Robe, about 8%, 8% and 6% per cultist) lets you use a Lesser Wind Stone: two stand in each of the three western camps. A random Abyssal Templar appears: a level 60 elite for 1 to 3 players, 5 reputation until the top of Honored and an Abyssal Crest 93% of the time. The summon uses up the set (and later the medallion and ring too), and if the elemental gets away they are gone: summon only when you can win. Abyssal Contacts pays 100 for the first crest; after that Bor takes 3 crests for 50. From Friendly, Huum Wildmane sends you to Aurel Goldleaf: 3 crests and a Large Brilliant Shard buy the Medallion of Station that, worn with a set, opens the larger Wind Stone for a Duke (level 62 elite, group of 5; 25 reputation, Abyssal Signet 85%).

@@ -17,9 +17,11 @@ const XP_TO_LEVEL = [0, 400, 900, 1400, 2100, 2800, 3600, 4500, 5400, 6500, 7600
 // Extra mobs on the way and drop-rate kills (calibrated against players' recordings).
 const KILL_XP_FACTOR = 1.6;
 
-// The guides and legs of an addon folder: every Polestar_Guides* part and Polestar_Experimental (the route choices'
-// experimental guides). Compiled guides call only Polestar.RegisterGuide, RegisterExperimental, RetireGuides and
-// RegisterLegs; the rest are no-ops here.
+// The guides and legs of an addon folder: every Polestar_Guides* part (the faction parts carry their races' files,
+// Guides_<race>.lua and Legs_<race>.lua, since 0.4.3) and Polestar/Experimental (the route choices' experimental
+// guides). Compiled guides call only Polestar.RegisterGuide, RegisterExperimental, RetireGuides, RegisterLegs,
+// IsPlayerRace (every race's files are read here) and DeferGuides (the experimental guides, run at once); the
+// rest are no-ops here.
 const LOADER = `
 __guides, __legs = {}, {}
 Polestar = setmetatable({
@@ -30,18 +32,19 @@ Polestar = setmetatable({
       for k, v in pairs(steps) do __legs[id][tostring(k)] = v end
     end
   end,
+  IsPlayerRace = function() return true end,
+  DeferGuides = function(_, fn) fn() end,
 }, { __index = function() return function() end end })
 `;
 
 function compiledFiles(addon) {
 	const files = [];
+	const lua = (dir) => fs.readdirSync(dir).filter((f) => /^(Guides|Legs)(_\w+)?\.lua$/.test(f)).sort().map((f) => path.join(dir, f));
 	for (const d of fs.readdirSync(addon).sort()) {
-		if (!d.startsWith('Polestar_Guides') && d !== 'Polestar_Experimental') continue;
-		for (const f of ['Guides.lua', 'Legs.lua']) {
-			const p = path.join(addon, d, f);
-			if (fs.existsSync(p)) files.push(p);
-		}
+		if (d.startsWith('Polestar_Guides')) files.push(...lua(path.join(addon, d)));
 	}
+	const experimental = path.join(addon, 'Polestar', 'Experimental');
+	if (fs.existsSync(experimental)) files.push(...lua(experimental));
 	return files;
 }
 

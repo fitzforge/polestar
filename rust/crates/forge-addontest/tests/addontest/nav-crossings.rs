@@ -50,13 +50,17 @@ end
 
 // The character has opened a flight map on both continents (flags.taxiSeen): a flight master Polestar doesn't know is
 // one it lacks, as these walks were written for (#1795's flights to ones it may have are in travel.rs).
-fn run_raw(script: &str) -> Value {
+fn run_script(script: &str) -> Value {
 	let script = format!("Polestar.CharState().flags.taxiSeen = {{ [0] = true, [1] = true }}\n{script}");
 	emitted(&RunAddon { stubs: vec!["stub_nav.lua"], addons: vec![nav()], login: true, script, ..Default::default() }).remove(0)
 }
 
+fn run_raw(script: &str) -> Value {
+	run_script(&format!("stub.nav.useGameGround()\n{script}"))
+}
+
 fn run(script: &str) -> Value {
-	run_raw(&format!("{PRELUDE}\nnav.faction = \"Alliance\"\nnav.useTravelWorld()\n{script}"))
+	run_script(&format!("{PRELUDE}\nnav.faction = \"Alliance\"\nnav.useTravelWorld()\n{script}"))
 }
 
 #[test]
@@ -449,6 +453,7 @@ fn a_crossing_set_that_is_not_complete_recorded_crossings_leaves_walking_as_befo
 #[test]
 fn the_arrow_shows_the_leg_caption_aims_at_the_waypoint_advances_inside_its_radius_and_re_plans_there() {
 	let out = run(r#"
+		Polestar.Set("nav.navRouting", false) -- test the compass to each authored crossing waypoint
 		local r, changes, advanced = {}, 0, 0
 		Polestar.On("ROUTE_CHANGED", function() changes = changes + 1 end)
 		Polestar.On("ROUTE_ADVANCED", function() advanced = advanced + 1 end)
@@ -579,10 +584,10 @@ fn the_local_crossings_route_real_trips_through_their_gates_within_the_planner_b
 		})
 	};
 	let trips = json!([
-		["Horde", world(1411, 52.0, 43.0), world(1454, 50.0, 60.0)],
-		["Horde", world(1413, 52.0, 30.0), world(1441, 40.0, 40.0)],
-		["Alliance", world(1429, 42.0, 65.0), world(1453, 60.0, 60.0)],
-		["Alliance", world(1426, 47.0, 52.0), world(1432, 35.0, 47.0)],
+		["Horde", world(1411, 52.0, 43.0), world(1454, 50.0, 60.0), 10],
+		["Horde", world(1413, 52.0, 30.0), world(1441, 40.0, 40.0), 30],
+		["Alliance", world(1429, 42.0, 65.0), world(1453, 60.0, 60.0), 10],
+		["Alliance", world(1426, 47.0, 52.0), world(1432, 35.0, 47.0), 18],
 	]);
 	let script = r#"
 			assert(loadfile(__LOCAL__))("Polestar_Travel", {})
@@ -593,7 +598,7 @@ fn the_local_crossings_route_real_trips_through_their_gates_within_the_planner_b
 			local t0 = os.clock()
 			for i, t in ipairs(trips) do
 				local legs = N.PlanRoute({ c = t[2].c, wx = t[2].wx, wy = t[2].wy, map = t[2].map, faction = t[1] == "Horde" and 2 or 1,
-					known = {}, target = { c = t[3].c, wx = t[3].wx, wy = t[3].wy, map = t[3].map, label = "Target" } })
+					level = t[4], known = {}, target = { c = t[3].c, wx = t[3].wx, wy = t[3].wy, map = t[3].map, label = "Target" } })
 				local r = {}
 				for _, l in ipairs(legs or {}) do r[#r + 1] = l.label end
 				out.routes[i] = r
@@ -691,7 +696,7 @@ fn thunder_bluff_to_camp_taurajo_walks_to_the_nearby_flight_master_without_leavi
 					wx = 1612.5 + (-5143.75 - 1612.5) * 0.5926,
 					wy = 2622.917 + (-7510.417 - 2622.917) * 0.4455,
 				},
-				faction = 2, known = { [22] = true, [77] = true },
+				faction = 2, level = 25, known = { [22] = true, [77] = true },
 			})
 			emit(legs)"#,
 	);
@@ -711,7 +716,7 @@ fn the_barrens_to_ashenvale_road_plans_made_between_the_crossing_s_ends_keep_hea
 	let out = run_raw(
 		r#"
 			local N, nav = Polestar.Nav, stub.nav
-			nav.faction = "Horde"
+			nav.faction, nav.level = "Horde", 25
 			nav.maps[1413] = { name = "The Barrens", c = 1, top = 1612.5, bottom = -5143.75, left = 2622.917, right = -7510.417 }
 			nav.maps[1440] = { name = "Ashenvale", c = 1, top = 4672.917, bottom = 829.167, left = 1700, right = -4066.667 }
 			-- The client calls everything here the Barrens until the player is through.
@@ -764,7 +769,7 @@ fn a_player_the_client_puts_on_the_continent_map_walks_in_the_zone_it_stands_in_
 	let out = run_raw(
 		r#"
 			local N, nav = Polestar.Nav, stub.nav
-			nav.faction = "Horde"
+			nav.faction, nav.level = "Horde", 28
 			nav.maps[1414] = { name = "Kalimdor", c = 1, top = 12799.9, bottom = -11733.3, left = 17066.6, right = -19733.2 }
 			nav.maps[1440] = { name = "Ashenvale", c = 1, top = 4672.917, bottom = 829.167, left = 1700, right = -4066.667 }
 			function nav.Compat.GetPlayerMapPosition()
@@ -819,13 +824,13 @@ fn cave_and_dungeon_spots_on_the_continent_map_walk_to_a_goal_40_yd_away_1359_sw
 			nav.maps[1414] = { name = "Kalimdor", c = 1, top = 12799.9, bottom = -11733.3, left = 17066.6, right = -19733.2 }
 			local CASES = {
 				-- the Den Mother's cave, Darkshore (frames: Felwood)
-				{ "Alliance", "Darnassus", 1439, 55.04, 33.34, { top = 8333.333, bottom = 3966.667, left = 2941.667, right = -3608.333 } },
+				{ "Alliance", "Darnassus", 1439, 55.04, 33.34, { top = 8333.333, bottom = 3966.667, left = 2941.667, right = -3608.333 }, 20 },
 				-- Dire Maul's entrance, Feralas (frames: Mulgore)
-				{ "Horde", "Orgrimmar", 1444, 60.3, 30.2, { top = -2366.667, bottom = -7000, left = 5441.667, right = -1508.333 } },
+				{ "Horde", "Orgrimmar", 1444, 60.3, 30.2, { top = -2366.667, bottom = -7000, left = 5441.667, right = -1508.333 }, 60 },
 				-- the Venture Co. mine by the centaurs, Mulgore (frames: Dustwallow Marsh)
-				{ "Horde", "Orgrimmar", 1412, 61.19, 62.89, { top = -272.917, bottom = -3697.917, left = 2047.917, right = -3089.583 } },
+				{ "Horde", "Orgrimmar", 1412, 61.19, 62.89, { top = -272.917, bottom = -3697.917, left = 2047.917, right = -3089.583 }, 12 },
 				-- Zul'Farrak's entrance, Tanaris (frames: Un'Goro Crater)
-				{ "Horde", "Orgrimmar", 1446, 38.7, 20, { top = -5875, bottom = -10475, left = -218.75, right = -7118.75 } },
+				{ "Horde", "Orgrimmar", 1446, 38.7, 20, { top = -5875, bottom = -10475, left = -218.75, right = -7118.75 }, 48 },
 			}
 			function nav.Compat.GetPlayerMapPosition()
 				local p, b = nav.player, nav.maps[1414]
@@ -843,7 +848,7 @@ fn cave_and_dungeon_spots_on_the_continent_map_walk_to_a_goal_40_yd_away_1359_sw
 			local r = {}
 			for i, k in ipairs(CASES) do
 				local faction, bind, map, x, y, f = k[1], k[2], k[3], k[4], k[5], k[6]
-				nav.faction, nav.items[6948], nav.bind = faction, 1, bind
+				nav.faction, nav.items[6948], nav.bind, nav.level = faction, 1, bind, k[7]
 				local bit = faction == "Alliance" and 1 or 2
 				local taxi = {}
 				for _, n in ipairs(N.GetTravelData().taxi) do
@@ -885,7 +890,7 @@ fn a_walk_never_stops_at_a_crossing_s_end_it_does_not_cross_kargath_from_the_bad
 		r#"
 			local N = Polestar.Nav
 			local function plan(map, wx, wy, label)
-				local legs = N.PlanRoute({ c = 0, map = 1418, wx = -6718.75, wy = -3322.9, faction = 2, speed = 7,
+				local legs = N.PlanRoute({ c = 0, map = 1418, wx = -6718.75, wy = -3322.9, faction = 2, level = 50, speed = 7,
 					target = { c = 0, map = map, wx = wx, wy = wy, label = label },
 					walkCost = function(_, _, _, start) if start then return 2188, 2188 end end })
 				local out = {}
@@ -915,7 +920,7 @@ fn a_target_on_the_next_zone_s_map_is_in_the_zone_the_walking_maps_put_it_in_a_c
 			local zone
 			N.danger.ZoneAt = function(c) return c == 0 and zone or nil end
 			local function plan(from, map, wx, wy, label, cost)
-				local legs = N.PlanRoute({ c = 0, map = from[1], wx = from[2], wy = from[3], faction = 2, speed = 7,
+				local legs = N.PlanRoute({ c = 0, map = from[1], wx = from[2], wy = from[3], faction = 2, level = 50, speed = 7,
 					target = { c = 0, map = map, wx = wx, wy = wy, label = label },
 					walkCost = cost and function(_, _, _, start) if start then return cost, cost end end or nil })
 				local out = {}
@@ -958,7 +963,7 @@ fn a_target_outside_the_zone_the_walking_maps_name_stays_on_its_map_grenka_1918(
 				return 1441
 			end
 			local function plan()
-				local legs = N.PlanRoute({ c = 1, map = 1441, wx = -5433.3, wy = -2457.3, faction = 2, speed = 7,
+				local legs = N.PlanRoute({ c = 1, map = 1441, wx = -5433.3, wy = -2457.3, faction = 2, level = 40, speed = 7,
 					target = { c = 1, map = 1441, wx = grenka[1], wy = grenka[2], label = "Grenka Bloodscreech" } })
 				local out = {}
 				for _, l in ipairs(legs or {}) do out[#out + 1] = l.kind .. "|" .. l.label .. (l.crossing and ("|" .. l.crossing) or "") end
@@ -975,6 +980,36 @@ fn a_target_outside_the_zone_the_walking_maps_name_stays_on_its_map_grenka_1918(
 	assert_eq!(out["ungoro"], out["plain"], "Un'Goro's frame ends south of her: the same walk, no Un'Goro leg");
 }
 
+// #3018 (Merkanex): the Damaged Chest in the Splithoof Crag cave (Thousand Needles 43.44,32.61) lies in the Barrens on
+// the walking maps. From Freewind Post, whose walk into the cave the engine measured (1,000 cost, 663 yd: down the
+// lift and through the cave), the plan went by the crossings into the Barrens and walked from the Great Lift's top
+// straight into the cave, unmeasured: the zone lists hold no walk from Thousand Needles to a Barrens target. A walk the
+// engine measured into the target competes whatever zones it crosses.
+#[test]
+fn a_measured_walk_into_the_target_competes_across_a_closed_zone_border_splithoof_3018() {
+	let out = run_raw(
+		r#"
+			local N = Polestar.Nav
+			local chest = { -4923.0, -2345.0 }
+			N.danger.ZoneAt = function(c, x, y)
+				if c ~= 1 then return nil end
+				if math.abs(x - chest[1]) < 60 and math.abs(y - chest[2]) < 60 then return 1413 end
+				return 1441
+			end
+			local function plan(measured)
+				local legs = N.PlanRoute({ c = 1, map = 1441, wx = -5407.8, wy = -2414.2, z = 90, faction = 2, level = 31, speed = 7,
+					target = { c = 1, map = 1441, wx = chest[1], wy = chest[2], z = -49.1, label = "Damaged Chest" },
+					walkCost = measured and function(_, _, _, start) if start then return 1000, 663 end end or nil })
+				local out = {}
+				for _, l in ipairs(legs or {}) do out[#out + 1] = l.kind .. "|" .. l.label end
+				return out
+			end
+			emit({ measured = plan(true), estimate = plan(false) })"#,
+	);
+	assert_eq!(out["measured"], json!(["walk|Damaged Chest"]), "the measured walk from Freewind Post");
+	assert_ne!(out["estimate"], out["measured"], "without a measure the crossings' way stays: the zone lists hold no straight walk");
+}
+
 // #1543's near walk (Nav.PlanRoute's p.nearWalk): a target within that many straight yards over a closed zone border
 // is walked to straight; with p.nearProbe instead the planner only says it would be (nearProbe.yards) and plans the
 // crossing's way. Beyond the reach, without either (an estimate; the live route with no walking engine to ask, as in
@@ -984,7 +1019,7 @@ fn a_target_outside_the_zone_the_walking_maps_name_stays_on_its_map_grenka_1918(
 fn the_near_walk_over_a_closed_zone_border_goes_only_within_its_reach_and_never_without_a_walking_engine_1543() {
 	let out = run(r#"
 		local function plan(nearWalk, probe)
-			local legs = N.PlanRoute({ c = 0, wx = -500, wy = 100, map = 9002, faction = 1, known = {}, nearWalk = nearWalk,
+			local legs = N.PlanRoute({ c = 0, wx = -500, wy = 100, map = 9002, faction = 1, level = nav.level, known = {}, nearWalk = nearWalk,
 				nearProbe = probe, target = { c = 0, wx = -500, wy = -100, label = "Kobolds", map = 9003 } })
 			if not legs then return "no route" end
 			local out = {}
@@ -1016,6 +1051,48 @@ fn the_near_walk_over_a_closed_zone_border_goes_only_within_its_reach_and_never_
 	assert_eq!(out["live"], json!(["walk|Through the gate to East Vale", "walk|Through the gate to East Vale", "walk|Kobolds"]), "the live route with no walking engine to ask: through the gate");
 	assert_eq!(out["area"], "no route", "into an area no walk joins: never the near walk (and no other way in here)");
 	assert_eq!(out["areaYards"], false, "nor probed");
+}
+
+// #3532: the cities whose floors only their lifts join are sided by height, as the walking maps side them (forge-nav
+// f4/lifts.rs: below 7.45 in the Undercity, above 102 on Thunder Bluff's bluff, within 400 yd of a shaft), not by the
+// client's map: it names the Undercity (1458) for the Ruins of Lordaeron's courtyard above it, and Thunder Bluff
+// (1456) at the lifts' feet on Mulgore's ground, and the route sent a player at the foot of the north lift "to
+// Mulgore" first. Without a height the map decides, as before; away from the shafts nothing changes. The player is
+// sided only by the client's own height (sideZ), never by a followed floor: up from a lift, a floor seeded at the
+// ground's height sent the plan back down and up the lift again and again.
+#[test]
+fn the_undercity_and_thunder_bluff_are_sided_by_height_near_their_lifts_not_by_the_clients_map_3532() {
+	let out = run_raw(
+		r#"
+		local N = Polestar.Nav
+		N.RegisterCrossings({ complete = true, crossings = {}, zones = {
+			[1458] = { name = "Undercity", c = 0, top = 1877.945, bottom = 1237.841, left = 873.193, right = -86.182 },
+			[1420] = { name = "Tirisfal Glades", c = 0, top = 3837.5, bottom = 825, left = 3033.333, right = -1485.417 },
+			[1456] = { name = "Thunder Bluff", c = 1, top = -850, bottom = -1545.833, left = 516.667, right = -527.083 },
+			[1412] = { name = "Mulgore", c = 1, top = 266.666, bottom = -3835.416, left = 2479.167, right = -3675 },
+		} })
+		local Z = N.travel.ZoneOf
+		emit({
+			courtyard = Z(1458, 0, 1807.5, 230.1, nil, 62),       -- the Ruins' courtyard over the city
+			tradeQuarter = Z(1458, 0, 1559.2, 229.4, nil, -43),   -- down in the city
+			ucNoHeight = Z(1458, 0, 1807.5, 230.1),               -- no height: the map
+			liftFoot = Z(1456, 1, -1036.5, -53.1, nil, 69),       -- the north lift's foot, on Mulgore's ground
+			bluff = Z(1456, 1, -1040.6, -49, nil, 140.7),         -- its top, on the bluff
+			tbNoHeight = Z(1456, 1, -1036.5, -53.1),
+			farMulgore = Z(1412, 1, -2300, -400, nil, 50),        -- far from the shafts: unchanged
+			bluffFollowed = Z(1456, 1, -1040.6, -49, nil, 69, nil, false), -- the bluff, a followed floor of 69: the map
+			footClient = Z(1456, 1, -1036.5, -53.1, nil, 140, nil, 69),   -- the client's 69 at the foot: Mulgore
+		})"#,
+	);
+	assert_eq!(out["courtyard"], 1420, "the courtyard over the Undercity is outside it");
+	assert_eq!(out["tradeQuarter"], 1458);
+	assert_eq!(out["ucNoHeight"], 1458, "no height: the client's map, as before");
+	assert_eq!(out["liftFoot"], 1412, "the lift's foot is on Mulgore's ground");
+	assert_eq!(out["bluff"], 1456);
+	assert_eq!(out["tbNoHeight"], 1456);
+	assert_eq!(out["farMulgore"], 1412);
+	assert_eq!(out["bluffFollowed"], 1456, "a followed floor never sides the player: the client's map");
+	assert_eq!(out["footClient"], 1412, "the client's height sides the player");
 }
 
 // KEPT IN JS:

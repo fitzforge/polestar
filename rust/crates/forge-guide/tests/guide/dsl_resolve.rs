@@ -371,7 +371,7 @@ fn a_collect_that_common_mobs_drop_leads_to_them_not_to_the_rare_beside_them_tha
 }
 
 #[test]
-fn a_quest_collect_leads_to_the_droppers_near_the_quests_level_not_to_ones_3_or_more_levels_above_that_drop_it_at_more_than_twice_their_chance() {
+fn a_quest_collect_leads_to_the_droppers_near_the_quests_level_not_to_ones_3_or_more_levels_above_that_drop_it_likely_beside_or_over_them() {
 	// Two groves: level 5 Grove Saplings at 70,70 and level 10 Grove Elders at 30,30. 95116 drops from the Elder
 	// at 100% and the Sapling at 37%, 95117 from the Elder at 40% and the Sapling at 37%; quests 95300 and
 	// 95301 (level 7) ask for them.
@@ -405,11 +405,11 @@ fn a_quest_collect_leads_to_the_droppers_near_the_quests_level_not_to_ones_3_or_
 	let loose = last_goal(&data, &["  collect 95116 x8"]);
 	assert!(near(&loose, 30.0, 30.0), "{loose}");
 	assert_eq!(loose["from"], "Grove Elder");
-	// An Elder that crowds nobody out stays a source: 40% and 37% are both likely.
+	// An Elder likely beside the Saplings (40% and 37%) is passed over too (#2744: the Elder Timberling named on
+	// Timberling Seeds): the goal names and spots the Saplings only.
 	let bark = last_goal(&data, &["  accept 95301", "  collect 95117 quest 95301"]);
-	let mut ids: Vec<u64> = bark["fromNpcs"].as_array().unwrap().iter().map(|n| n["npc"].as_u64().unwrap()).collect();
-	ids.sort();
-	assert_eq!(ids, [95060, 95061]);
+	assert_eq!(bark["fromNpcs"], json!([{ "npc": 95061, "npcName": "Grove Sapling" }]));
+	assert!(spot_list(&bark).iter().all(|s| near(s, 70.0, 70.0)), "{bark}");
 }
 
 #[test]
@@ -662,6 +662,119 @@ fn a_collect_whose_spots_hold_more_sources_than_its_point_names_lists_each_spots
 	}
 	// A goal whose point names every source at its spots carries none (Tough Wolf Meat).
 	assert!(goals_of(&["step One", "  collect 750 x4"]).0[0].get("fromNpcsAt").is_none());
+}
+
+fn spot_source_ids(goal: &Value, spot: usize) -> Vec<u64> {
+	let from = goal["fromNpcs"].as_array().unwrap();
+	goal["fromNpcsAt"]
+		.as_str()
+		.expect("the spots name their sources")
+		.split(';')
+		.nth(spot)
+		.unwrap()
+		.split(',')
+		.filter(|s| !s.is_empty())
+		.map(|s| from[s.parse::<usize>().unwrap() - 1]["npc"].as_u64().unwrap())
+		.collect()
+}
+
+/// The goal of `collect 95930 x5 <pin>` where each creature drops item 95930 (80%) at its points on Elwynn
+/// (1429), every point a camp of two spawns 0.5 apart in x (17 yd: one camp, not two exact points, #1944).
+fn token_goal(name: &str, camps: &[(u64, Vec<(f64, f64)>)], pin: &str) -> Value {
+	let dir = data_dir_with(name, &data_dir(), |raw| {
+		let drops: Map<String, Value> = camps.iter().map(|(id, _)| (id.to_string(), json!(80))).collect();
+		raw.get_mut("items.json").unwrap()["95930"] = json!({ "id": 95930, "name": "Wild Token", "drops": { "npc": drops, "object": {} }, "vendors": [] });
+		for (id, at) in camps {
+			let pts: Vec<Value> = at.iter().flat_map(|&(x, y)| [json!([x, y]), json!([x + 0.5, y])]).collect();
+			raw.get_mut("npcs.json").unwrap()[id.to_string()] = json!({ "id": id, "name": format!("Creature {id}"), "level": 5, "faction": null, "spawns": { "1429": { "f": "e", "pts": pts } } });
+		}
+	});
+	let r = compile_with(&guide_text(&["step One", &format!("  collect 95930 x5 {pin}")]), &forge_guide::data::load_data(&dir).unwrap());
+	assert!(r.errors.is_empty(), "{}", r.text);
+	r.steps()[0]["goals"][0].clone()
+}
+
+fn spot_xs(goal: &Value) -> Vec<f64> {
+	goal["spots"].as_array().unwrap().iter().map(|s| s["x"].as_f64().unwrap().round()).collect()
+}
+
+fn from_npc_ids(goal: &Value) -> Vec<u64> {
+	goal["fromNpcs"].as_array().unwrap().iter().map(|n| n["npc"].as_u64().unwrap()).collect()
+}
+
+#[test]
+fn a_hand_pin_names_its_droppers_across_their_areas_never_one_only_a_chain_of_spawns_reaches_1869_1695() {
+	// B, 209 yd from the pin, is at the point (#1869's Gray Bears); C, 417 yd away and linked to the pin only
+	// through B, is not (#1695's 32-34 yetis beside the Foothill Caverns); E spawns only in A's far camp.
+	let (a, b, c, e) = (95931, 95932, 95933, 95935);
+	let goal = token_goal("hand-pin-spot-npcs", &[(a, vec![(20.0, 20.0), (70.0, 20.0)]), (b, vec![(26.0, 20.0), (76.0, 20.0)]), (c, vec![(32.0, 20.0)]), (e, vec![(70.3, 20.0)])], "@20,20");
+	assert_eq!(spot_xs(&goal), [20.0, 26.0, 70.0, 76.0]);
+	assert_eq!(from_npc_ids(&goal), [a, b, e], "C, linked to the pin only through B, is not a target");
+	let at: Vec<Vec<u64>> = (0..4).map(|i| spot_source_ids(&goal, i)).collect();
+	assert_eq!(at, [vec![a, b], vec![b, a], vec![a, e, b], vec![b, a]], "local targets first, then the droppers at the point in the same area; E only where it spawns");
+}
+
+#[test]
+fn a_picked_camp_keeps_linking_all_its_sources_through_a_chain_of_small_spawn_areas_1869() {
+	// Five more droppers in the first camp leave the goal's own names short of the chain.
+	let (a, b, c) = (95931, 95932, 95933);
+	let more: Vec<u64> = (95941..=95945).collect();
+	let mut camps = vec![(a, vec![(20.0, 20.0)]), (b, vec![(26.0, 20.0)]), (c, vec![(32.0, 20.0)])];
+	camps.extend(more.iter().enumerate().map(|(k, &id)| (id, vec![(20.0, 20.0 + 0.02 * (k + 1) as f64)])));
+	let goal = token_goal("picked-chain-spot-npcs", &camps, "");
+	assert_eq!(spot_xs(&goal), [20.0, 26.0, 32.0]);
+	assert_eq!(spot_source_ids(&goal, 0), [vec![a], more, vec![b, c]].concat(), "C, two links away, is a target at the first camp");
+}
+
+#[test]
+fn a_source_spawning_in_two_distant_areas_does_not_join_their_target_lists_1869() {
+	let (a, b, c, e) = (95931, 95932, 95933, 95935);
+	let goal = token_goal("separate-spot-npcs", &[(a, vec![(20.0, 20.0), (70.0, 20.0)]), (b, vec![(26.0, 20.0)]), (c, vec![(76.0, 20.0)]), (e, vec![(70.3, 20.0)])], "@20,20");
+	assert_eq!(from_npc_ids(&goal), [a, b, e]);
+	let at: Vec<Vec<u64>> = (0..3).map(|i| spot_source_ids(&goal, i)).collect();
+	assert_eq!(at, [vec![a, b], vec![b, a], vec![a, e]], "B is not a target at A's far camp");
+}
+
+#[test]
+fn an_unlikely_dropper_cannot_bridge_separate_target_areas_1869() {
+	let dir = data_dir_with("excluded-spot-npc", &data_dir(), |raw| {
+		raw.get_mut("items.json").unwrap()["95930"] = json!({ "id": 95930, "name": "Wild Token", "drops": { "npc": { "95931": 80, "95932": 1, "95933": 80 }, "object": {} }, "vendors": [] });
+		for (id, xs) in [(95931, vec![20.0, 70.0]), (95932, vec![26.0]), (95933, vec![32.0])] {
+			let pts: Vec<Value> = xs.iter().flat_map(|x| [json!([x, 20]), json!([x + 0.1, 20])]).collect();
+			raw.get_mut("npcs.json").unwrap()[id.to_string()] = json!({ "id": id, "name": format!("Creature {id}"), "level": 5, "faction": null, "spawns": { "1429": { "f": "e", "pts": pts } } });
+		}
+	});
+	let r = compile_with(&guide_text(&["step One", "  collect 95930 x5 @20,20"]), &forge_guide::data::load_data(&dir).unwrap());
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let goal = &r.steps()[0]["goals"][0];
+	assert_eq!(goal["fromNpcs"], json!([{ "npc": 95931, "npcName": "Creature 95931" }]));
+	assert!(goal.get("fromNpcsAt").is_none(), "nothing eligible connected adds a name");
+}
+
+#[test]
+fn oversized_connected_target_lists_keep_the_existing_local_mapping_1869() {
+	let points: Vec<(u32, f64, f64)> = (0..64).map(|cell| (95940 + cell % 32, 10.0 + 6.0 * (cell % 8) as f64, 10.0 + 8.0 * (cell / 8) as f64)).collect();
+	let dir = data_dir_with("large-connected-spot-npcs", &data_dir(), |raw| {
+		let drops: Map<String, Value> = (95940..95972).map(|id| (id.to_string(), json!(80))).collect();
+		raw.get_mut("items.json").unwrap()["95930"] = json!({ "id": 95930, "name": "Wild Token", "drops": { "npc": drops, "object": {} }, "vendors": [] });
+		for id in 95940..95972 {
+			let pts: Vec<Value> = points.iter().filter(|p| p.0 == id).flat_map(|(_, x, y)| [json!([x, y]), json!([x + 0.1, y])]).collect();
+			raw.get_mut("npcs.json").unwrap()[id.to_string()] = json!({ "id": id, "name": format!("Creature {id}"), "level": 5, "faction": null, "spawns": { "1429": { "f": "e", "pts": pts } } });
+		}
+	});
+	let r = compile_with(&guide_text(&["step One", "  collect 95930 x5"]), &forge_guide::data::load_data(&dir).unwrap());
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let goal = &r.steps()[0]["goals"][0];
+	let spots = goal["spots"].as_array().unwrap();
+	assert_eq!(spots.len(), 64);
+	assert_eq!(goal["fromNpcs"].as_array().unwrap().iter().map(|n| n["npc"].as_u64().unwrap()).collect::<Vec<_>>(), (95940..95972).collect::<Vec<_>>());
+	// All 32 names at all 64 spots would need 5567 bytes; the original local mapping fits.
+	assert!(goal["fromNpcsAt"].as_str().unwrap().len() <= 4096);
+	for (i, spot) in spots.iter().enumerate() {
+		let (x, y) = (spot["x"].as_f64().unwrap(), spot["y"].as_f64().unwrap());
+		let nearest = points.iter().min_by(|a, b| (a.1 - x).hypot(a.2 - y).total_cmp(&(b.1 - x).hypot(b.2 - y))).unwrap();
+		assert_eq!(spot_source_ids(goal, i), [nearest.0 as u64], "retain the local camp instead of dropping all per-spot targeting");
+	}
 }
 
 // #1614: Kodo Roundup counts a tamed Aged, Dying or Ancient Kodo, and the Kodo Kombobulator it hands over works on

@@ -25,3 +25,7 @@ When the Rust builder gained the Wizard's Sanctum's two walk-in portals (area tr
 When the Wizard's Sanctum's portal ends lost their AreaTable area (1519, Stormwind City: no area names the Sanctum, so the arrow said "Take the portal to Stormwind City"; #1970), expected/TravelData.lua and travel.json lost it from the two portals' ends (area 0 on the portals) from the Rust builder (FORGE_GOLDEN_BLESS); nothing else changed.
 
 Test: rust/crates/forge-data/tests/travel.rs (byte compare of every file in expected/). Regenerate only when the JS is the reference; CI never runs the generator.
+
+When the Zephras Isle airships' ends away from the isle were placed at the NPC on each dock (Arcanist Laurain at the Kirin Tor camp, Brix Xizzix in Mulgore; #2830: the Mulgore stop hangs off the cliff beside its dock), expected/travel.json's warnings gained their two "npc ... not found" lines from the Rust builder (FORGE_GOLDEN_BLESS; the slice has neither NPC, so both ends stay at their stops); nothing else changed.
+
+When the Rust builder gained the teleport an NPC casts (Sanath Lim-yo up Archmage Xylem's tower in Azshara, spell 12510; #3691: TravelData's portals gain `npc`), expected/TravelData.lua and travel.json gained that portal and the portals comment's `npc` from the Rust builder (FORGE_GOLDEN_BLESS; the slice's transit.json already held spell 12510's target); nothing else changed. The JS builder does not know it.

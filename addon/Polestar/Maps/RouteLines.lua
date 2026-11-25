@@ -198,6 +198,7 @@ ns.OnInit(keepDots)
 ---------------------------------------------------------------------------
 
 local paths = {}          -- Strokes.Path per drawable leg, in travel order
+local guesses = {}        -- those of them drawn straight, no walking path known (dashed in every style, #3418)
 local marks = {}          -- world map stop marks: c, wx, wy, radius (px), ...
 local markCount = 0
 local goalC, goalX, goalY -- the route's end
@@ -237,6 +238,7 @@ end
 
 local function rebuild()
 	for i = #paths, 1, -1 do paths[i] = nil end
+	for i = #guesses, 1, -1 do guesses[i] = nil end
 	markCount, goalC, live = 0, nil, nil
 	local geometry = Nav and Nav.GetRouteGeometry and Nav.GetRouteGeometry()
 	local legs = type(geometry) == "table" and geometry.legs or nil
@@ -264,6 +266,7 @@ local function rebuild()
 		end
 	end
 	if markCount > 0 then marks[markCount * 4] = GOAL_MARK end
+	for _, p in ipairs(paths) do if p.guess then guesses[#guesses + 1] = p end end
 end
 
 -- The player's world position, or nil when unknown or unreadable (secret:
@@ -385,6 +388,14 @@ function RouteLines.Drawable(leg)
 	return false
 end
 
+-- Whether the lines draw anywhere (the world map or the minimap): their own
+-- switch, whatever the arrow's (Nav/Journey.lua samples for them while the
+-- arrow is hidden, #3828).
+function RouteLines.Shown()
+	local world, minimap = surfaces()
+	return world or minimap
+end
+
 -- Whether the lines stand in for the trail: on, and a leg they can draw.
 function RouteLines.Active()
 	if not ns.Get("nav.routeLines") then return false end
@@ -423,6 +434,8 @@ local function texture(owner, index, dot, soft)
 		line:SetColorTexture(1, 1, 1, 1)
 		if soft then outline:SetTexture(SOFT_TEXTURE) else outline:SetColorTexture(1, 1, 1, 1) end
 	end
+	-- Changing the texture invalidates the applied vertex colour.
+	line.psRouteAlpha, outline.psRouteAlpha = nil, nil
 	line:SetTexCoord(0, 1, 0, 1)
 	outline:SetTexCoord(0, 1, 0, 1)
 end
@@ -457,12 +470,41 @@ local function startDrawIn()
 	if goalC and not sparkling and not ns.Get("ui.reduceMotion") and ns.Get("nav.drawIn") ~= false then drawInAt = sparkleClock() end
 end
 
+-- Position changes every frame; the appearance normally doesn't. Keep the
+-- actual colour components: a theme can change a palette table in place.
+local function strokeLook(region, color, alpha, width, shadow)
+	local r, g, b = color[1], color[2], color[3]
+	if r ~= region.psRouteR or g ~= region.psRouteG or b ~= region.psRouteB or alpha ~= region.psRouteAlpha then
+		region.psRouteR, region.psRouteG, region.psRouteB, region.psRouteAlpha = r, g, b, alpha
+		if shadow then region:SetAlpha(alpha) end
+		region:SetVertexColor(r, g, b)
+		if not shadow then region:SetAlpha(alpha) end
+	end
+	if width ~= region.psRouteWidth then
+		region.psRouteWidth = width
+		region:SetThickness(width)
+	end
+end
+
+-- A skin can write directly to pooled lines. On an explicit theme refresh,
+-- reapply their appearance even if the theme returned the same RGB values.
+local themeRevision = 0
+
 -- owner.opacity (nav.worldRouteAlpha, nav.minimapRouteAlpha) fades every
 -- stroke; nav.lineOutline sets how strongly the outline (or the line's soft
 -- shadow) shows under it, none at 0. count: the strokes to show (default:
 -- the draw-in's share of them).
 local function paint(owner, strokes, count)
 	local lines, outlines, opacity = owner.lines, owner.outlines, owner.opacity or 1
+	local themeChanged = owner.psRouteTheme ~= themeRevision
+	if themeChanged then
+		owner.psRouteTheme = themeRevision
+		for i = 1, #lines do
+			local line, outline = lines[i], outlines[i]
+			line.psRouteAlpha, line.psRouteWidth = nil, nil
+			outline.psRouteAlpha, outline.psRouteWidth, outline.psRouteVisible = nil, nil, nil
+		end
+	end
 	local n = count or drawInto(strokes.n)
 	for index = 1, n do
 		local line, outline = lines[index], outlines[index]
@@ -478,27 +520,27 @@ local function paint(owner, strokes, count)
 		local thickness = strokes.under[index]
 		if thickness > 0 and outlineK > 0 then
 			local k = (soft and SOFT_ALPHA or UNDER_ALPHA) * outlineK
-			outline:SetAlpha(alpha * (k < 1 and k or 1))
-			outline:SetThickness(thickness)
+			strokeLook(outline, under, alpha * (k < 1 and k or 1), thickness, true)
 			outline:SetStartPoint("TOPLEFT", owner, x1 - ux, y1 - uy)
 			outline:SetEndPoint("TOPLEFT", owner, x2 + ux, y2 + uy)
-			outline:SetVertexColor(under[1], under[2], under[3]) -- the theme's scrim, re-read on every paint
-			outline:Show()
-		else
+			if not outline.psRouteVisible then
+				outline:Show()
+				outline.psRouteVisible = true
+			end
+		elseif outline.psRouteVisible ~= false then
 			-- A joint or a chevron: no outline of its own.
 			outline:Hide()
+			outline.psRouteVisible = false
 		end
-		local c = strokes.color[index]
-		line:SetVertexColor(c[1], c[2], c[3])
-		line:SetAlpha(alpha)
-		line:SetThickness(strokes.width[index])
+		strokeLook(line, strokes.color[index], alpha, strokes.width[index], false)
 		line:SetStartPoint("TOPLEFT", owner, x1, y1)
 		line:SetEndPoint("TOPLEFT", owner, x2, y2)
-		line:Show()
+		if themeChanged or index > owner.used then line:Show() end
 	end
 	for index = n + 1, owner.used do
 		lines[index]:Hide()
 		outlines[index]:Hide()
+		outlines[index].psRouteVisible = false
 	end
 	owner.used = n
 end
@@ -802,16 +844,20 @@ end
 
 local function drawWorld(pin)
 	local view, worldStrokes = pin.view, pin.strokes
+	-- The sparkles: no line but a walk with no walking path known, drawn dashed over them (#3418).
 	if sparkling then
-		if pin.used > 0 then
-			worldStrokes.n = 0
-			paint(pin, worldStrokes)
-		end
 		drawWorldSparkles(pin)
-		pin.revision = revision
-		return
+		if #guesses == 0 then
+			if pin.used > 0 then
+				worldStrokes.n = 0
+				paint(pin, worldStrokes)
+			end
+			pin.revision = revision
+			return
+		end
+	else
+		finishSparkles(pin, 0)
 	end
-	finishSparkles(pin, 0)
 	local mapID = view.mapID
 	local b = mapID and boundsOf(mapID)
 	if not b then
@@ -836,14 +882,15 @@ local function drawWorld(pin)
 			n = n + 1
 		end
 	end
-	v.markCount = n
+	v.markCount = sparkling and 0 or n
 	-- The walk being walked starts at the player, with or without the minimap.
 	local pc, px, py = playerPosition()
 	advance(pc, px, py)
 	pin.drawnX, pin.drawnY = px, py
-	v.from, v.fromIndex, v.fromC, v.fromX, v.fromY = live ~= nil, live, liveC, liveX, liveY
-	Strokes.Map(worldStrokes, paths, v)
-	paint(pin, worldStrokes)
+	v.from, v.fromIndex, v.fromC, v.fromX, v.fromY = live ~= nil and (not sparkling or guesses[1] == paths[1]), live, liveC, liveX, liveY
+	Strokes.Map(worldStrokes, sparkling and guesses or paths, v)
+	-- (Among the sparkles the dashes are drawn whole: the draw-in belongs to the lines' own styles.)
+	paint(pin, worldStrokes, sparkling and worldStrokes.n or nil)
 	pin.revision = revision
 end
 
@@ -1040,16 +1087,20 @@ local function drawMinimap(force, given, pc, px, py, radius, facing, square)
 	end
 	-- mm covers the minimap (SetAllPoints): its size is the minimap's.
 	local width, height, scale = Minimap:GetWidth(), Minimap:GetHeight(), mm:GetEffectiveScale()
+	-- The sparkles: no line but a walk with no walking path known, drawn dashed over them (#3418).
 	if sparkling then
-		if minimapStrokes.n > 0 then
-			minimapStrokes.n = 0
-			paint(mm, minimapStrokes)
-		end
-		last.revision = nil
 		drawMinimapSparkles(pc, px, py, radius, facing, square, width, height)
-		return
+		if #guesses == 0 then
+			if minimapStrokes.n > 0 then
+				minimapStrokes.n = 0
+				paint(mm, minimapStrokes)
+			end
+			last.revision = nil
+			return
+		end
+	else
+		finishSparkles(mm, 0)
 	end
-	finishSparkles(mm, 0)
 	local phase = trailPhase()
 	if not force and last.c == pc and last.x == px and last.y == py and last.radius == radius and last.facing == facing
 		and last.square == square and last.width == width and last.height == height and last.scale == scale
@@ -1067,11 +1118,11 @@ local function drawMinimap(force, given, pc, px, py, radius, facing, square)
 	v.c, v.x, v.y, v.radius, v.facing, v.square = pc, px, py, radius, facing, square
 	v.width, v.height = width, height
 	mm.opacity = look(v, "minimap", scale)
-	v.goalC, v.goalX, v.goalY, v.goalRadius = goalC, goalX, goalY, MINIMAP_GOAL
+	v.goalC, v.goalX, v.goalY, v.goalRadius = not sparkling and goalC or nil, goalX, goalY, MINIMAP_GOAL
 	v.phase = phase
-	v.from, v.fromIndex, v.fromC, v.fromX, v.fromY = live ~= nil, live, liveC, liveX, liveY
-	Strokes.Minimap(minimapStrokes, paths, v)
-	paint(mm, minimapStrokes)
+	v.from, v.fromIndex, v.fromC, v.fromX, v.fromY = live ~= nil and (not sparkling or guesses[1] == paths[1]), live, liveC, liveX, liveY
+	Strokes.Minimap(minimapStrokes, sparkling and guesses or paths, v)
+	paint(mm, minimapStrokes, sparkling and minimapStrokes.n or nil)
 end
 
 local function tick(_, elapsed)
@@ -1299,6 +1350,7 @@ ns.OnLogin(function()
 	local T = ns.Theme
 	if T and T.OnChanged then
 		T.OnChanged(function()
+			themeRevision = themeRevision + 1
 			recolor()
 			revision = revision + 1
 			refreshWorld()

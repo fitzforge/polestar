@@ -27,13 +27,13 @@ return {
 	-- plural, as words: Darkshore Threshers = {npc:2185} Darkshore Thresher
 	["Fly from {area:2361} to {area:442}. The {object:177792} lies far out on the sea floor off the north coast, between tall rocks west of where the {area:456} reaches the sea: it cannot be seen from the east side of the rocks. Watch your breath and the Darkshore Threshers; fight above water."] = "",
 	-- {item:15883} Half Pendant of Aquatic Agility · {object:177792} Strange Lockbox
-	["{item:15883}, from the {object:177792}"] = "",
+	["{item:15883}, from the {object:177792}"] = "{item:15883}, из ящика ({object:177792})",
 
 	-- Step 5: Half Pendant of Aquatic Endurance
 	-- {area:442} Auberdine · {zone:1453} Stormwind · {area:108} Sentinel Hill · {object:177790} Strange Lockbox
 	["Take the boat from {area:442} to {zone:1453} and fly to {area:108}. Head west to the coast: the {object:177790} lies far out on the sea floor beside a bubbling fissure (air), west of a sunken anchor. Sharks roam here; do not swim on past the wreck beyond it, the deep water brings fatigue."] = "",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
-	["{item:15882}, from the {object:177790}"] = "",
+	["{item:15882}, from the {object:177790}"] = "{item:15882}, из ящика ({object:177790})",
 
 	-- Step 6: Pendant of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {item:15883} Half Pendant of Aquatic Agility · {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village
@@ -47,7 +47,7 @@ return {
 
 	-- Step 8: Aquatic Form
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {quest:5061} Aquatic Form
-	["Take the portal up to {npc:4217} in the {area:1658}. {quest:5061}: swim fast and breathe underwater."] = "",
+	["Take the portal up to {npc:4217} in the {area:1658}. {quest:5061}: swim fast and breathe underwater."] = "Поднимитесь через портал к {npc:4217}. Локация: {area:1658}. {quest:5061}: быстро плавайте и дышите под водой.",
 
 	-- Step 9: A Lesson to Learn
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise

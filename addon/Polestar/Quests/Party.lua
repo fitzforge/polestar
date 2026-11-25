@@ -958,7 +958,7 @@ local function tellOnce()
 	local db = ns.DB()
 	if db.partySyncTold or not (ns.Get("party.share") and ns.Get("party.show")) then return end
 	db.partySyncTold = true
-	ns.Print(ns.L["Party sync is on: you and your party see each other's quest progress. Turn it off in Options."])
+	ns.Print(ns.L["Party sync is on: you and your party see each other's quest progress. Turn it off in Settings."])
 end
 
 -- The member under roster key `key`, whose progress the guide is about to
@@ -1927,34 +1927,69 @@ end
 -- Member m as Engine.StepHiddenFor takes them (memberWho).
 local function whoOf(m) return memberWho(m.key) end
 
+-- A goal's quest work as the step line compares it ("kill:7:1"), or nil.
+local function workOf(goal)
+	local q = type(goal) == "table" and goal.quest
+	return q and ((goal.t or "") .. ":" .. q .. ":" .. (goal.oi or "")) or nil
+end
+
+-- Whether member m's live step holds quest work your live step still has open
+-- (`open`: workOf -> true): their step in your guide g (`theirs`), else
+-- their "2P|" key in the guide they are on, when you have it.
+local function sameWork(m, g, theirs, open)
+	if not next(open) then return false end
+	local step = theirs and g.steps[theirs]
+	if not step then
+		local at, G = m.at, ns.Guides
+		local tg = at and at.guide and G and G.Get and G.Get(at.guide)
+		local i = tg and Party.StepAt(tg, at.key)
+		step = i and tg.steps[i]
+	end
+	for _, goal in ipairs(step and step.goals or {}) do
+		local w = workOf(goal)
+		if w and open[w] then return true end
+	end
+	return false
+end
+
 -- The guide window's party line for the live step, and whether the group
--- waits on it (the line then offers "Go on without them"), or nil. Where
--- members are on your guide: "Ana: 3 steps ahead", "Ben: 1 step behind",
--- "Cy: on this step", counting only the steps you both have (a step for one
--- of you alone never puts either ahead); "Dee: other guide" on another;
--- then the wait ("Waiting on Ana", "Everyone's ready"), or with nobody
--- holding the step, a soft hint when you are done with its objectives and
--- a member is not ("Still at it: Ben").
+-- waits on it (the line then offers "Go on without them"), or nil. Who is
+-- with you first: "With Ana, Cy", a member on your step, or on another step
+-- or guide whose live step holds quest work yours still has open (#2897:
+-- classes and races have steps of their own, so the step numbers of two
+-- players on one quest differ; the line says they are together). Then
+-- where the others are on your guide: "Ana: 3 steps ahead", "Ben: 1 step
+-- behind", counting only the steps you both have (a step for one of you
+-- alone never puts either ahead); "Dee: other guide" on another; then the
+-- wait ("Waiting on Ana", "Everyone's ready"), or with nobody holding the
+-- step, a soft hint when you are done with its objectives and a member is
+-- not ("Still at it: Ben").
 function Party.StepLine()
 	if not ns.Get("party.show") or not grouped() then return nil end
 	local mine = Party.MyPos()
 	local E = ns.Engine
 	local g = mine and mine.step and E.GetGuide and E.GetGuide()
-	local parts, list = {}, Party.Members()
+	local parts, list, with, open = {}, Party.Members(), {}, {}
+	local view = g and E.GetStepView(mine.step, true)
+	for _, goal in ipairs(view and view.goals or {}) do
+		local w = goal.status ~= "done" and goal.status ~= "skipped" and workOf(goal)
+		if w then open[w] = true end
+	end
 	for _, m in ipairs(list) do
 		local p = m.pos
 		local theirs = g and theirStep(m, g, mine)
-		if theirs then
-			local d = Party.SharedSteps(g, mine.step, theirs, whoOf(m))
-			if d == 1 then parts[#parts + 1] = L["%s: 1 step ahead"]:format(m.name)
-			elseif d > 1 then parts[#parts + 1] = L["%s: %d steps ahead"]:format(m.name, d)
-			elseif d == -1 then parts[#parts + 1] = L["%s: 1 step behind"]:format(m.name)
-			elseif d < -1 then parts[#parts + 1] = L["%s: %d steps behind"]:format(m.name, -d)
-			else parts[#parts + 1] = L["%s: on this step"]:format(m.name) end
+		local d = theirs and Party.SharedSteps(g, mine.step, theirs, whoOf(m))
+		if d == 0 or (g and sameWork(m, g, theirs, open)) then
+			with[#with + 1] = m.name
+		elseif d == 1 then parts[#parts + 1] = L["%s: 1 step ahead"]:format(m.name)
+		elseif d and d > 1 then parts[#parts + 1] = L["%s: %d steps ahead"]:format(m.name, d)
+		elseif d == -1 then parts[#parts + 1] = L["%s: 1 step behind"]:format(m.name)
+		elseif d and d < -1 then parts[#parts + 1] = L["%s: %d steps behind"]:format(m.name, -d)
 		elseif p and p.guide ~= (mine and mine.guide) then
 			parts[#parts + 1] = L["%s: other guide"]:format(m.name)
 		end
 	end
+	if #with > 0 then table.insert(parts, 1, L["With %s"]:format(concat(with, ", "))) end
 	local names, ready = Party.StepWait()
 	local holding = names ~= nil and #names > 0
 	if holding then

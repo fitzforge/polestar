@@ -606,6 +606,37 @@ fn t_1661_a_child_quest_whose_parent_is_not_in_the_log_and_that_the_route_no_lon
 }
 
 #[test]
+fn an_accept_whose_prerequisite_a_passed_when_step_no_longer_hands_in_is_passed_in_the_same_evaluation() {
+	// The Barrens' Brine (5899): Call of Water's red waterskin (1536) is handed in only `when complete 1536`, then
+	// the blue one (1534, which needs 1536) is taken. A character without 1536 walks to the Crossroads: the route
+	// moves past the hand-in, whose `when` is stored as skipped, and that leaves the accept without its
+	// prerequisite. The route goes past it at once, never holding the player at an accept nothing can open (the
+	// persona playtest's fresh players were held there until some event came).
+	let guide = r#"
+	Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Brine", faction = "Horde", minLevel = 10, maxLevel = 30, steps = {
+		{ title = "Crossroads", goals = { { t = "goto", map = 1413, x = 51.5, y = 30.3 } } },
+		{ title = "Brine", when = { { k = "complete", q = 1536 } }, goals = {
+			{ t = "turnin", quest = 1536, title = "Call of Water", npc = 5899, npcName = "Brine", map = 1413, x = 43.41, y = 77.46 },
+		} },
+		{ title = "Brine", goals = {
+			{ t = "accept", quest = 1534, title = "Call of Water", npc = 5899, npcName = "Brine", pre = { 1536 }, preTitles = { [1536] = "Call of Water" }, map = 1413, x = 43.41, y = 77.46 },
+		} },
+		{ goals = { { t = "level", level = 30 } } },
+	} })"#;
+	let out = run(
+		"",
+		guide,
+		r#"
+			stub.fire("QUEST_LOG_UPDATE"); flush()
+			local r = { start = E.GetStepIndex() }
+			stub.world.moveTo(1413, 51.5, 30.3); flush(); flush(); flush()
+			r.at, r.brine = E.GetStepIndex(), brief(3)[1]:match("^[^:]+:[^:]+")
+			emit(r)"#,
+	);
+	assert_eq!(out, json!({ "start": 1, "at": 4, "brine": "skipped:pre" }));
+}
+
+#[test]
 fn when_a_mark_moves_the_guide_on_the_guide_window_says_which_quest_was_skipped_and_why_a_normal_completion_says_nothing() {
 	let guide = r#"
 	Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Crossroads", faction = "Horde", minLevel = 10, maxLevel = 30, steps = {
@@ -1029,6 +1060,54 @@ Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Arathi", factio
 	assert_eq!(out["events"], json!([{ "from": 1, "to": 2, "quests": ["522:Assassin's Plot:closed"] }]), "{out}");
 }
 
+// #2670 (Night Elf Druid 15, 0.4.0.1): Darkshore's Moonglade step lists "accept Trial of the Lake" (29, level 16),
+// then "collect Shrine Bauble" and "use Shrine Bauble" with no quest of their own. The accept waited for level 16,
+// but the arrow sent the druid into the lake for a bauble only that quest can loot. A plain collect or use of an
+// item that an accept before it in its step works with (the quest database's handed-over items) waits with that
+// quest, as a quest's starting item does (#1531), and comes back with the level-up.
+#[test]
+fn an_item_a_quest_works_with_waits_with_a_quest_the_character_cannot_take_yet_2670() {
+	let guide = r#"
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Darkshore", faction = "Horde", minLevel = 10, maxLevel = 20, steps = {
+	{ title = "Trial of the Lake", goals = {
+		{ t = "accept", quest = 29, title = "Trial of the Lake", npc = 11802, npcName = "Dendrite Starblaze", minLevel = 16, map = 1413, x = 56, y = 30 },
+		{ t = "collect", item = 15877, itemName = "Shrine Bauble", count = 1, map = 1413, x = 54, y = 55 },
+		{ t = "use", item = 15877, itemName = "Shrine Bauble", map = 1413, x = 36, y = 41 },
+		{ t = "turnin", quest = 29, title = "Trial of the Lake", npc = 11799, npcName = "Tajarri", map = 1413, x = 36, y = 40 },
+	} },
+	{ title = "Trainer", goals = { { t = "train", npc = 3353, npcName = "Trainer", map = 1413, x = 52, y = 31 } } },
+} })
+"#;
+	let script = r#"
+			local w = stub.world
+			-- Layout: title, level, minLevel, races, classes, faction, start, finish, ... field 19: the items it hands over or works with.
+			AddRecords("quests", {
+				[29] = { "Trial of the Lake", 16, 16, nil, nil, nil, { 11802 }, { 11799 }, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 15877 },
+			})
+			Polestar.QuestDB.SetMeta({})
+			stub.fire("QUEST_LOG_UPDATE"); flush()
+			local r = { live = E.GetLiveStep(), lake = brief(1) }
+			w.setLevel(16); flush()
+			r.liveAt16, r.lakeAt16 = E.GetLiveStep(), brief(1)
+			emit(r)
+		"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.to_string(),
+		addons: vec![Addon::name("Polestar")],
+		script: format!("{}\n{TEST_PACK}\n{TEST_SOURCE}\n{guide}\n{HELPERS}{script}", forge_addontest::questdb::ADD_RECORDS_LUA),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["live"], 2, "nothing in the lake for a level 12 character: {out}");
+	let lake = out["lake"].as_array().unwrap();
+	assert_eq!(lake[0], "na:nil:nil", "{out}");
+	assert_eq!(lake[1], "na:nil:nil", "the bauble waits with Trial of the Lake: {out}");
+	assert_eq!(lake[2], "na:nil:nil", "{out}");
+	assert_eq!(out["liveAt16"], 1, "level 16: back to Dendrite: {out}");
+	assert_eq!(out["lakeAt16"], json!(["active:nil:nil", "active:nil:nil", "active:nil:nil", "active:nil:nil"]), "{out}");
+}
+
 // Players' recordings: the game holds a breadcrumb's target back while the breadcrumb is in the log (The Forgotten
 // Pools 870 was refused to 12 people while The Barrens Oases 886 was in their log, and offered to 30 who never had
 // it). An accept whose breadcrumb (`crumbs`) is in the log, when the guide no longer hands that breadcrumb in (its
@@ -1330,4 +1409,49 @@ fn a_direct_progress_window_does_not_complete_missing_items_or_unlock_quests_wit
 		assert_eq!(out["other"], json!(["na", false]), "{window}: another quest stays unavailable");
 		assert_eq!(out["calls"], 0, "an incomplete or unidentified window cannot be handed in");
 	}
+}
+
+// #3458 (imp, 0.4.1.1): with Skip grey quests on, Riverglades left Keeping the Light On (95613) out with its
+// turn-in, but its "buy 17028 x5" (Holy Candles from Marla Bell) stayed: the step asked for the candles and the bags
+// kept them. A `buy` of no quest whose item a quest the guide accepts asks for (the quest database's objectives)
+// goes with that quest; a buy no quest here asks for stays.
+#[test]
+fn a_purchase_for_a_quest_left_out_goes_with_it_3458() {
+	let guide = r#"
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Riverglades", faction = "Horde", minLevel = 40, maxLevel = 50, steps = {
+	{ title = "The cathedral", goals = {
+		{ t = "accept", quest = 95613, title = "Keeping the Light On", qlvl = 38, npc = 262031, npcName = "Sister Rowland", map = 1413, x = 51, y = 30 },
+		{ t = "buy", item = 17028, itemName = "Holy Candle", count = 5, npc = 272437, npcName = "Marla Bell", map = 1413, x = 52, y = 30 },
+		{ t = "buy", item = 159, itemName = "Refreshing Spring Water", count = 5, npc = 272437, npcName = "Marla Bell", map = 1413, x = 52, y = 30 },
+		{ t = "turnin", quest = 95613, title = "Keeping the Light On", npc = 262031, npcName = "Sister Rowland", map = 1413, x = 51, y = 30 },
+	} },
+	{ title = "Current", goals = { { t = "accept", quest = 99, title = "Current", qlvl = 50, npc = 3353, npcName = "Giver", map = 1413, x = 52, y = 31 } } },
+} })
+"#;
+	let script = r#"
+			local w = stub.world
+			-- field 12: the objectives (kind, id, count; kind 2 an item).
+			AddRecords("quests", { [95613] = { "Keeping the Light On", 38, 36, nil, nil, nil, { 262031 }, { 262031 }, nil, nil, nil, { 2, 17028, 5 } } })
+			Polestar.QuestDB.SetMeta({})
+			stub.fire("QUEST_LOG_UPDATE"); flush()
+			local function kept() return { candles = E.KeptItems()[17028] ~= nil, water = E.KeptItems()[159] ~= nil } end
+			local r = { on = brief(1), keptOn = kept() }
+			Polestar.Set("behavior.skipGrey", false); stub.fire("QUEST_LOG_UPDATE"); flush()
+			r.off, r.keptOff = brief(1), kept()
+			emit(r)
+		"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}\nw.level = 50"),
+		addons: vec![Addon::name("Polestar")],
+		saved: vec![("Polestar".into(), "PolestarDB = { schema = 1, settings = { behavior = { skipGrey = true } } }".into())],
+		script: format!("{}\n{TEST_PACK}\n{TEST_SOURCE}\n{guide}\n{HELPERS}{script}", forge_addontest::questdb::ADD_RECORDS_LUA),
+		..Default::default()
+	})
+	.remove(0);
+	let status = |k: &str| -> Vec<String> { out[k].as_array().unwrap().iter().map(|v| v.as_str().unwrap().split(':').next().unwrap().to_string()).collect() };
+	assert_eq!(status("on"), ["na", "na", "active", "na"], "the candles go with the grey quest, the water stays: {out}");
+	assert_eq!(out["keptOn"], json!({ "candles": false, "water": true }), "{out}");
+	assert_eq!(status("off")[1], "active", "Skip grey quests off: the candles are back: {out}");
+	assert_eq!(out["keptOff"], json!({ "candles": true, "water": true }), "{out}");
 }

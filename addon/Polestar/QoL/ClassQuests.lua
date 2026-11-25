@@ -11,8 +11,10 @@
 -- highest of them (the elites' `group.lvl`). Every chain waits for one level
 -- below its first quest's level (Fitz, 2026-11-10): the game often offers a
 -- class quest 3-5 levels before its level (The Eye of Bhossca, level 35, at
--- 30), and cards stacked up there. The guide still opens early from the
--- guide list, as soon as Engine.StartGate allows.
+-- 30), and cards stacked up there. A chain the character has outgrown
+-- (Engine.Outgrown: 5 levels past its guide's top, and every spell it rewards
+-- known; Fitz, 2026-11-23, #3845) is no longer offered. The guide still opens
+-- early from the guide list, as soon as Engine.StartGate allows.
 --
 -- Per-character state in CharState().flags.classOffered (guide id ->):
 --   true    offered and taken, or dismissed: never again
@@ -43,6 +45,9 @@ ClassQuests.QUEST_MARGIN = 1
 local LONG_QUESTS, LONG_ZONES = 5, 3
 -- Non-elite mobs this many levels above the chain's start are named.
 local MOBS_ABOVE = 5
+-- A level above this is no real level (9999: a mob the game shows as "??"),
+-- never a level to name (#2947: "mobs up to level 9999").
+local MAX_LEVEL = 63
 
 local function offered()
 	local flags = ns.CharState().flags
@@ -64,17 +69,20 @@ end
 
 -- The highest level of a goal's spawn areas: its `lvl` and each area's own
 -- (packed "x,y,z,r,n,alt,lvl" or tables), read raw so no spot table is built.
+-- Levels above MAX_LEVEL are left out.
+local function real(lvl) return lvl and lvl <= MAX_LEVEL and lvl or nil end
 local function spotLevel(goal)
-	local top = tonumber(rawget(goal, "lvl")) or 0
+	local top = real(tonumber(rawget(goal, "lvl"))) or 0
 	local packed = rawget(goal, "spotsPacked")
 	if type(packed) == "string" then
 		for spot in gmatch(packed, "[^;]+") do
-			local lvl = tonumber(match(spot, "^[^,]*,[^,]*,[^,]*,[^,]*,[^,]*,[^,]*,([^,]*)"))
+			local lvl = real(tonumber(match(spot, "^[^,]*,[^,]*,[^,]*,[^,]*,[^,]*,[^,]*,([^,]*)")))
 			if lvl and lvl > top then top = lvl end
 		end
 	elseif type(rawget(goal, "spots")) == "table" then
 		for _, spot in ipairs(goal.spots) do
-			if tonumber(spot.lvl) and spot.lvl > top then top = spot.lvl end
+			local lvl = real(tonumber(spot.lvl))
+			if lvl and lvl > top then top = lvl end
 		end
 	end
 	return top
@@ -174,7 +182,7 @@ local pending
 
 function ClassQuests.Ready()
 	local G, E, C = ns.Guides, ns.Engine, ns.Compat
-	if not (G and G.List and G.Get and G.GuideMatches and E and E.StartGate and E.GetGuideState) then return {} end
+	if not (G and G.List and G.Get and G.GuideMatches and E and E.StartGate and E.GetGuideState and E.Outgrown) then return {} end
 	local ok, player = pcall(C.GetPlayerInfo)
 	if not (ok and type(player) == "table") then return {} end
 	local level = player.level or 1
@@ -184,8 +192,11 @@ function ClassQuests.Ready()
 		local v = seen[h.id]
 		local due = v == nil or (type(v) == "number" and level > v)
 		if h.category == "Class" and due and G.GuideMatches(h, player) and E.GetGuideState(h.id) == "new" then
+			-- A side-shelf guide's steps are read in for the check, then given back (Guides.Peek).
+			local _, fresh = G.Peek(h.id)
 			local g = G.Get(h.id)
-			if g and not E.StartGate(h.id) and not underWay(g) and not tooHard(ClassQuests.Heads(g, player), level) then out[#out + 1] = g end
+			if g and not E.StartGate(h.id) and not underWay(g) and not tooHard(ClassQuests.Heads(g, player), level) and not E.Outgrown(g, player) then out[#out + 1] = g end
+			G.Unpeek(h.id, fresh)
 		end
 	end
 	return out
@@ -197,7 +208,9 @@ function ClassQuests.Check()
 	if not g then return end
 	pending = g.id
 	local ok, player = pcall(ns.Compat.GetPlayerInfo)
+	local _, fresh = ns.Guides.Peek(g.id)
 	local heads = ClassQuests.HeadsLine(ClassQuests.Heads(g, ok and type(player) == "table" and player or {}), g)
+	ns.Guides.Unpeek(g.id, fresh)
 	ns.Fire("CLASS_QUEST_READY", { guideId = g.id, title = g.title or g.id, heads = heads, why = g.why })
 end
 

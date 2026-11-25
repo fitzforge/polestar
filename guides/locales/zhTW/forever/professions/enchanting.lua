@@ -39,13 +39,13 @@ return {
 	-- {skill:333} Enchanting
 	["{skill:333} recipes at 25"] = "{skill:333}25點的配方",
 	-- {skill:333} Enchanting · {spell:7420} Enchant Chest - Inferior Stamina · {spell:1230643} Enchanted Lute · {item:4470} Simple Wood · {item:10940} Strange Dust
-	["Back to an {skill:333} trainer: {spell:7420} (from 15, 50c). Also learn {spell:1230643} (1s): Forever's {skill:333} camp item, 1 {item:4470} and 1 {item:10940}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:333} quest from your starting area's camping guide (after The Great Outdoors) sends you to an enchanting trainer who teaches it free."] = "",
+	["Back to an {skill:333} trainer: {spell:7420} (from 15, 50c). Also learn {spell:1230643} (1s): Forever's {skill:333} camp item, 1 {item:4470} and 1 {item:10940}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:333} quest from your starting area's camping guide (after The Great Outdoors) sends you to an enchanting trainer who teaches it free."] = "回去找 {skill:333} 訓練師：學習 {spell:7420}（15點起可學，50銅幣）。同時學習 {spell:1230643}（1銀幣）：這是無限服的 {skill:333} 露營物品，需要1根 {item:4470} 和1份 {item:10940}，放在營地的營火旁可獲得增益效果。起始地區的露營嚮導在“廣闊天地”之後提供的“露營基礎：{skill:333}”任務，會指引你找附魔訓練師免費學習它。",
 
 	-- Step 7: Enchant Chest - Inferior Stamina to 75
 	-- {spell:7420} Enchant Chest - Inferior Stamina
 	["{spell:7420} to 75"] = "{spell:7420} 到75",
 	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption
-	["{spell:7420} is orange at 25 (yellow 70, green 90, grey 110): about 51 crafts to 75. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:7420} is orange at 25 (yellow 70, green 90, grey 110): about 51 crafts to 75. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420}在25時為橙色（70變黃，90變綠，110變灰）：約製作51次可升至75。每次需要1個{item:10940}。每次一個{item:10940}：多數物品等級5-20的綠色裝備都能分解出這種粉塵，尤其是護甲。如果{item:10938}（主要來自武器）更多，也可用護腕 - 初級偏斜或胸甲 - {spell:7423}完成這一階段。揹包裡對應部位的任意物品都能附魔，即使是灰色物品。",
 
 	-- Step 8: Journeyman Enchanting
 	-- {skill:333} Enchanting
@@ -85,7 +85,8 @@ return {
 	-- {spell:7420} Enchant Chest - Inferior Stamina
 	["{spell:7420} to 90"] = "{spell:7420} 到90",
 	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption
-	["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "",
+	-- was: ["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420} 在技能 75 時為黃色（70 變黃、90 變綠、110 變灰）：約製作 22 次可到 90。每次需要 1 個 {item:10940}。每次只用一個 {item:10940}：多數 5-20 級綠色物品，尤其是護甲，分解後都會獲得這種塵。如果手頭 {item:10938}（來自武器）更多，也可以透過“附魔護腕 - 初級偏斜”或“附魔胸甲 - {spell:7423}”達到同樣目的。對揹包中對應部位的任意裝備附魔即可，灰色品質也行。"
+	["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one. If you got here without learning {spell:7420}, learn it now: an earlier step teaches it."] = "{spell:7420}在75時為黃色（黃色70，綠色90，灰色110）：大約製作22次到90。每次需要1個{item:10940}。每次一個{item:10940}：大部分5-20級綠色物品分解出的粉塵，尤其是護甲。{item:10938}（來自武器）透過護腕 - 初級偏斜或胸甲 - {spell:7423}也能起同樣作用，如果你這種更多的話。給背包裡該部位的任何物品附魔，灰色的也行。如果你到這裡還沒學會{spell:7420}，現在就學：之前的步驟會教。",
 
 	-- Step 16: Enchant Cloak - Minor Protection to 130
 	-- {spell:7771} Enchant Cloak - Minor Protection
@@ -116,7 +117,7 @@ return {
 	["{item:5500} (Alliance)"] = "{item:5500}（聯盟）",
 	-- {item:5500} Iridescent Pearl · {item:11130} Runed Golden Rod
 	-- plural, as words: Giant Clams = {object:2744} Giant Clam
-	["1 {item:5500} for {item:11130}: open the Giant Clams at the marked spot."] = "",
+	["1 {item:5500} for {item:11130}: open the Giant Clams at the marked spot."] = "為 {item:11130} 準備 1 個 {item:5500}：開啟標記位置的巨型蚌殼獲取。",
 
 	-- Step 21: Iridescent Pearl (Horde)
 	-- {item:5500} Iridescent Pearl
@@ -150,13 +151,14 @@ return {
 	-- {skill:333} Enchanting
 	["Expert {skill:333}"] = "高級{skill:333}",
 	-- {skill:333} Enchanting · {npc:11072} Kitta Firewind · {zone:1429} Elwynn Forest · {npc:11074} Hgarth · {zone:1442} Stonetalon Mountains · {spell:13628} Runed Golden Rod · {item:5500} Iridescent Pearl · {item:7971} Black Pearl · {item:11082} Greater Astral Essence · {item:11083} Soul Dust · {item:11128} Golden Rod · {item:11135} Greater Mystic Essence · {item:11137} Vision Dust · {item:11144} Truesilver Rod · {spell:13637} Enchant Boots - Lesser Agility · {item:11145} Runed Truesilver Rod · {spell:13746} Enchant Cloak - Greater Defense
-	["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:333} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:11072} ({zone:1429}); Horde {npc:11074} ({zone:1442}). The arrow picks the nearest of your faction. Learn now: {spell:13628} (from 150). 150-225 takes 1 {item:5500}, 1 {item:7971}, 1 {item:11082}, 71 {item:11083}, 1 {item:11128}, 1 {item:11135}, 21 {item:11137} and 1 {item:11144} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {spell:13637} (from 160), {item:11145} (from 200) and {spell:13746} (from 205), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "",
+	["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:333} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:11072} ({zone:1429}); Horde {npc:11074} ({zone:1442}). The arrow picks the nearest of your faction. Learn now: {spell:13628} (from 150). 150-225 takes 1 {item:5500}, 1 {item:7971}, 1 {item:11082}, 71 {item:11083}, 1 {item:11128}, 1 {item:11135}, 21 {item:11137} and 1 {item:11144} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {spell:13637} (from 160), {item:11145} (from 200) and {spell:13746} (from 205), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "高階可將技能上限從150提高到225，費用50銀幣（經典舊世價格；資料中沒有無限價格）；需要{skill:333}125和角色20級，因此技能125後任何一次經過時都可學習。只有少數訓練師能教：聯盟{npc:11072}（{zone:1429}）；部落{npc:11074}（{zone:1442}）。箭頭指向本陣營最近的一位。現在學習：{spell:13628}（需要技能150）。150-225需收集或購買1個{item:5500}、1個{item:7971}、1個{item:11082}、71個{item:11083}、1個{item:11128}、1個{item:11135}、21個{item:11137}和1個{item:11144}。帶齊材料再來（按上方步驟準備，其餘從拍賣行購買）：這些訓練師還教授{spell:13637}（需要160）、{item:11145}（需要200）及{spell:13746}（需要205），而製作無需工作臺，所以可就在這裡製作，技能達標就學習對應配方。這樣只需跑1趟，不用3趟。",
 
 	-- Step 29: Enchant Bracer - Lesser Stamina to 160
 	-- {spell:13501} Enchant Bracer - Lesser Stamina
 	["{spell:13501} to 160"] = "{spell:13501} 到160",
 	-- {spell:13501} Enchant Bracer - Lesser Stamina · {item:11083} Soul Dust · {item:11130} Runed Golden Rod
-	["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13501}在技能150時為橙色（155變黃、175變綠、195變灰）：約製作11次可到160。每次需要1個{item:11083}。每次一個{item:11083}（21-30級的綠色物品）。趁現在還能加點時做好{item:11130}：之後的配方需要它放在背包裡，所以一直帶著。對背包中任何該部位的物品附魔都可以，灰色物品也行。",
+	-- was: ["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13501}在技能150時為橙色（155變黃、175變綠、195變灰）：約製作11次可到160。每次需要1個{item:11083}。每次一個{item:11083}（21-30級的綠色物品）。趁現在還能加點時做好{item:11130}：之後的配方需要它放在背包裡，所以一直帶著。對背包中任何該部位的物品附魔都可以，灰色物品也行。"
+	["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one. If you got here without learning {spell:13501}, learn it now: an earlier step teaches it."] = "{spell:13501}在150時為橙色（黃色155，綠色175，灰色195）：大約製作11次到160。每次需要1個{item:11083}。每次一個{item:11083}（21-30級綠色物品）。現在就做{item:11130}，趁它還能加點：後面的配方需要它在你的背包裡，所以留著。給背包裡該部位的任何物品附魔，灰色的也行。如果你到這裡還沒學會{spell:13501}，現在就學：之前的步驟會教。",
 
 	-- Step 30: Enchanting recipes at 160
 	-- {skill:333} Enchanting
@@ -180,7 +182,7 @@ return {
 	-- {spell:13746} Enchant Cloak - Greater Defense
 	["{spell:13746} to 225"] = "{spell:13746}練到225",
 	-- {spell:13746} Enchant Cloak - Greater Defense · {item:11137} Vision Dust · {item:11145} Runed Truesilver Rod · {item:7971} Black Pearl · {skill:333} Enchanting
-	["{spell:13746} is orange at 205 (yellow 225, green 245, grey 265): about 20 crafts to 225, a point every craft. Each takes 1 {item:11137}. One {item:11137} a craft (level 31-40 greens). Make the {item:11145} first: the recipe needs it in your bags, so keep it there. {item:7971} (1 for 150-225): {item:7971} is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find. Enchant any item for that slot in your bags, even a grey one. {skill:333} 225 is a Legacy System milestone."] = "",
+	["{spell:13746} is orange at 205 (yellow 225, green 245, grey 265): about 20 crafts to 225, a point every craft. Each takes 1 {item:11137}. One {item:11137} a craft (level 31-40 greens). Make the {item:11145} first: the recipe needs it in your bags, so keep it there. {item:7971} (1 for 150-225): {item:7971} is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find. Enchant any item for that slot in your bags, even a grey one. {skill:333} 225 is a Legacy System milestone."] = "{spell:13746}在技能205時為橙色（225變黃，245變綠，265變灰）：約製作20次可到225，每次漲一點。每次需要1個{item:11137}。也就是每次1個{item:11137}（來自31-40級綠色物品）。先製作{item:11145}：使用此配方時需將它保留在揹包中。{item:7971}（150-225需1個）：{item:7971}掉落稀有（沒有怪物的掉率達到五十分之一），可從拍賣行購買，或保留途中找到的。揹包中對應裝備欄位的任意物品均可用於附魔，灰色物品也行。{skill:333}225是傳承系統的一個里程碑。",
 
 	-- Step 34: Artisan Enchanting
 	-- {skill:333} Enchanting
@@ -212,13 +214,13 @@ return {
 	-- {item:8831} Purple Lotus
 	["{item:8831} (Alliance)"] = "{item:8831}（聯盟）",
 	-- {item:8831} Purple Lotus · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked."] = "",
+	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked."] = "為{item:20747}準備34個{item:8831}：透過{skill:182}在{zone:1425}（40-50級）、{zone:1444}（40-50級）和{zone:1447}（45-55級）採集{item:8831}（需要技能210）。已標記{zone:1425}中{item:8831}最密集的區域。",
 
 	-- Step 40: Purple Lotus (Horde)
 	-- {item:8831} Purple Lotus
 	["{item:8831} (Horde)"] = "{item:8831}（部落）",
 	-- {item:8831} Purple Lotus · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked."] = "",
+	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked."] = "準備34個{item:8831}製作{item:20747}：{skill:182}：在{zone:1425}（40-50級）、{zone:1444}（40-50級）和{zone:1447}（45-55級）採集{item:8831}（技能210）。已標記{zone:1444}中{item:8831}最密集的位置。",
 
 	-- Step 41: Vision Dust
 	-- {item:11137} Vision Dust · {spell:13815} Enchant Gloves - Agility · {skill:333} Enchanting
@@ -232,13 +234,13 @@ return {
 	-- {spell:13815} Enchant Gloves - Agility
 	["{spell:13815} to 253"] = "{spell:13815} 到253",
 	-- {spell:13815} Enchant Gloves - Agility · {item:11137} Vision Dust · {npc:11073} Annora
-	["{spell:13815} is orange at 225 (yellow 230, green 250, grey 270): about 39 crafts to 253. Each takes 1 {item:11137}. {npc:11073} teaches it with Artisan: learn it on that visit. {item:11137} again; bring about 40. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:13815} is orange at 225 (yellow 230, green 250, grey 270): about 39 crafts to 253. Each takes 1 {item:11137}. {npc:11073} teaches it with Artisan: learn it on that visit. {item:11137} again; bring about 40. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13815}在225時為橙色（230變黃，250變綠，270變灰）：約製作39次可升至253。每次需要1個{item:11137}。{npc:11073}在教授大師級時也會教這個配方：那次就一起學。繼續使用{item:11137}，帶約40個。揹包裡對應部位的任意物品都能附魔，即使是灰色物品。",
 
 	-- Step 44: Lesser Mana Oil to 275
 	-- {item:20747} Lesser Mana Oil
 	["{item:20747} to 275"] = "{item:20747} 到275",
 	-- {item:20747} Lesser Mana Oil · {item:11176} Dream Dust · {item:8831} Purple Lotus · {item:8925} Crystal Vial · {npc:15419} Kania · {area:3425} Cenarion Hold · {zone:1451} Silithus
-	["{item:20747} is orange at 253 (yellow 260, green 270, grey 280): about 34 crafts to 275. Each takes 1 {item:11176}, 1 {item:8831} and 1 {item:8925}. One {item:11176} (level 41-50 greens) and one {item:8831} (herbalists) a craft; the oil sells well. {npc:15419} sells the formula at the inn of {area:3425} ({zone:1451}): fly there, the mobs around it are level 55 and up."] = "",
+	["{item:20747} is orange at 253 (yellow 260, green 270, grey 280): about 34 crafts to 275. Each takes 1 {item:11176}, 1 {item:8831} and 1 {item:8925}. One {item:11176} (level 41-50 greens) and one {item:8831} (herbalists) a craft; the oil sells well. {npc:15419} sells the formula at the inn of {area:3425} ({zone:1451}): fly there, the mobs around it are level 55 and up."] = "{item:20747}在技能253時為橙色（260變黃，270變綠，280變灰）：約製作34次可到275。每次需要1個{item:11176}、1個{item:8831}和1個{item:8925}。也就是每次1個{item:11176}（來自41-50級綠色物品）及1個{item:8831}（草藥師採集）；這種油很好賣。{npc:15419}在{area:3425}（{zone:1451}）的旅店出售公式：飛過去，周圍怪物為55級及以上。",
 	["from the recipe in your bags"] = "使用背包裡的配方",
 
 	-- Step 45: Enchant Shield - Greater Stamina to 300
@@ -299,9 +301,11 @@ return {
 	-- ["{skill:333} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 4g 3s in all."] = "{skill:333}可以邊升級邊練。永恆的傳承系統會在專業技能150、225和300（中級、高級和專家級的上限）時給予製造專業獎勵，所以每個階段都很重要。1-75所需材料總價約4金3銀。",
 	-- ["{skill:333}: disenchant uncommon (green) gear (or the Auction House)"] = "{skill:333}：分解優秀（綠色）裝備（或在拍賣場購買）",
 	-- ["{spell:13419} to 150"] = "{spell:13419}練到150",
+	-- ["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13501}在技能150時為橙色（155變黃、175變綠、195變灰）：約製作11次可到160。每次需要1個{item:11083}。每次一個{item:11083}（21-30級的綠色物品）。趁現在還能加點時做好{item:11130}：之後的配方需要它放在背包裡，所以一直帶著。對背包中任何該部位的物品附魔都可以，灰色物品也行。",
 	-- ["{spell:13661} to 225"] = "{spell:13661}練到225",
 	-- ["{spell:13935} to 292"] = "{spell:13935}練到292",
 	-- ["{spell:13948} to 300"] = "{spell:13948}練到300",
+	-- ["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420} 在技能 75 時為黃色（70 變黃、90 變綠、110 變灰）：約製作 22 次可到 90。每次需要 1 個 {item:10940}。每次只用一個 {item:10940}：多數 5-20 級綠色物品，尤其是護甲，分解後都會獲得這種塵。如果手頭 {item:10938}（來自武器）更多，也可以透過“附魔護腕 - 初級偏斜”或“附魔胸甲 - {spell:7423}”達到同樣目的。對揹包中對應部位的任意裝備附魔即可，灰色品質也行。",
 	-- ["{spell:7426} to 120"] = "{spell:7426}練到120",
 	-- ["{spell:7428} to 75"] = "{spell:7428}練到75",
 	-- ["{spell:7428} to 90"] = "{spell:7428}練到90",

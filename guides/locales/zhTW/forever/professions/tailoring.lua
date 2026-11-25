@@ -136,7 +136,8 @@ return {
 	-- {item:7053} Azure Silk Cloak
 	["{item:7053} to 170"] = "{item:7053}練到 170",
 	-- {item:7053} Azure Silk Cloak · {spell:3839} Bolt of Silk Cloth · {item:6260} Blue Dye · {item:2321} Fine Thread
-	["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053}在150時為橙色（160黃、175綠、190灰）：大約22次製作可到170。每次需要3個{spell:3839}、2個{item:6260}和2個{item:2321}。先做好那66個{spell:3839}。它的配方就是上面買的那個；按資料這是透過這些點數最便宜的辦法。",
+	-- was: ["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053}在150時為橙色（160黃、175綠、190灰）：大約22次製作可到170。每次需要3個{spell:3839}、2個{item:6260}和2個{item:2321}。先做好那66個{spell:3839}。它的配方就是上面買的那個；按資料這是透過這些點數最便宜的辦法。"
+	["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data. If you got here without learning {spell:3839}, learn it now: an earlier step teaches it."] = "{item:7053}在150時為橙色（黃色160，綠色175，灰色190）：大約製作22次到170。每次需要3個{spell:3839}、2個{item:6260}和2個{item:2321}。先做66個{spell:3839}。它的配方就是上面買的那個；按資料來看這是過這幾點最便宜的方法。如果你到這裡還沒學會{spell:3839}，現在就學：之前的步驟會教。",
 	["from the recipe in your bags"] = "使用背包中的配方",
 
 	-- Step 25: Tailoring recipes at 170
@@ -195,7 +196,7 @@ return {
 	-- {item:8170} Rugged Leather
 	["{item:8170} (Horde)"] = "{item:8170}（部落）",
 	-- {item:8170} Rugged Leather · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders · {skill:393} Skinning · {npc:6369} Coralshell Tortoise · {npc:8760} Mosshoof Stag · {npc:6380} Thunderhead Consort · {npc:6379} Thunderhead Patriarch · {npc:6378} Thunderhead Skystormer · {npc:6377} Thunderhead Stagwing
-	["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this."] = "",
+	["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this."] = "為 {item:13863} 和 {item:13867} 準備420張 {item:8170}：{skill:393}：剝取48-60級野獸。在這裡剝取 {npc:6369}、{npc:8760}、{npc:6380}、{npc:6379}、{npc:6378} 和 {npc:6377}（48-60級）；{skill:393} 指南會安排相應路線。",
 
 	-- Step 35: Runecloth
 	-- {item:14047} Runecloth · {item:13856} Runecloth Belt · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders
@@ -205,7 +206,7 @@ return {
 	-- {item:14227} Ironweb Spider Silk
 	["{item:14227} (Alliance)"] = "{item:14227}（聯盟）",
 	-- {item:14227} Ironweb Spider Silk · {item:13867} Runecloth Shoulders · {npc:1824} Plague Lurker
-	["124 {item:14227} for {item:13867}: it drops from {npc:1824} (level 54-55) at the marked spot."] = "",
+	["124 {item:14227} for {item:13867}: it drops from {npc:1824} (level 54-55) at the marked spot."] = "準備124個{item:14227}製作{item:13867}：標記位置的{npc:1824}（54-55級）會掉落。",
 
 	-- Step 37: Ironweb Spider Silk (Horde)
 	-- {item:14227} Ironweb Spider Silk
@@ -271,6 +272,7 @@ return {
 	-- ["{item:4338} (Alliance)"] = "{item:4338}（聯盟）",
 	-- ["{item:4338} (Horde)"] = "{item:4338}（部落）",
 	-- ["{item:7026} to 80"] = "{item:7026}練到 80",
+	-- ["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053}在150時為橙色（160黃、175綠、190灰）：大約22次製作可到170。每次需要3個{spell:3839}、2個{item:6260}和2個{item:2321}。先做好那66個{spell:3839}。它的配方就是上面買的那個；按資料這是透過這些點數最便宜的辦法。",
 	-- ["{item:7062} to 185"] = "{item:7062}練到 185",
 	-- ["{npc:11739} (level 57-59) drop it here. The Auction House works too."] = "這裡的{npc:11739}（等級 57-59）會掉落。也可以在拍賣場購買。",
 	-- ["{npc:1824} (level 54-55) drop it here. The Auction House works too."] = "這裡的{npc:1824}（等級 54-55）會掉落。也可以在拍賣場購買。",

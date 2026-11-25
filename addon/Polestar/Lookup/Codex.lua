@@ -22,6 +22,8 @@
 --       spawn there, nil when not known or the pack predates it)
 --   Codex.FollowUps(questId) -> { quest, ... }   -- the quests whose pre or preAny names it
 --   Codex.Spell(spellId) -> { id, kind, item, name, class } | nil
+--   Codex.Profession(skillLine) -> { id, name, ranks = { { minSkill, max, A = { npc, ... }, H = { ... } } x4 },
+--       trainerSkill = { [npc] = skill } } | nil   -- nil for a profession without rank lists, or a pack from before #3784
 --   Codex.RecipeItems(spellId) -> { itemId, ... } | nil   -- the recipe items that teach a craft
 --       (each recipe item's record names its spell), in pack order; built on the first ask (#2505)
 --   Codex.Name(kind, id) -> name | nil   -- no decoding; "item" spans every item kind,
@@ -33,7 +35,9 @@
 --       "\2" .. folded .. "\1" .. id .. "," .. quality .. "," .. status .. "," .. #name .. "\n"
 --       (folded = Search.Fold(name) without its leading space; status r|n|'')
 --   Codex.WithRole(role) -> { npcId, ... } sorted (role as in npc.roles: "vendor",
---       "trainer:164" profession trainers by skillLine, "class:MAGE" class trainers)
+--       "trainer:164" profession trainers by skillLine, "class:MAGE" class trainers); "vendor" and
+--       "repair" leave out an NPC whose selling waits on a quest not handed in yet (npc.vendorAfter, #3138:
+--       Zorbin Fandazzle after Zapped Giants), read again after each hand-in
 --   Codex.Loot(kind, id) -> { itemId, ... }   -- kind "rare" | "npc" (npc + rare) | "treasure" |
 --       "object" (object + treasure); what rares and treasures drop, best-known first
 --       (capped); empty table when unknown
@@ -65,7 +69,9 @@ local chunks = {}
 local indexes = {} -- kind -> search blob
 local cache = {} -- group -> { [id] = record | false } (weak values)
 local roleCache = {} -- role -> { npcId, ... }
-local followUps = {} -- questId -> { follow-up questId, ... }
+-- "\n" .. questId .. "\t" .. follow-up ids, comma-separated, in pack order .. "\n" .. ...,
+-- lines in questId order (fieldAt finds one); built on the first FollowUps.
+local followIndex
 local meta
 local announced = false
 local WEAK = { __mode = "v" }
@@ -260,6 +266,12 @@ local function decodeSource(field)
 	if (src.type == "drop" or src.type == "object") and requires and requires ~= "" then
 		src.requiresQuests = numbers(unesc(requires))
 	end
+	-- After it, an object's instance (#2883): the dungeon players loot it in,
+	-- an object no other source places (Maraudon's vial).
+	if src.type == "object" then
+		local inst = parts[#fields + 3]
+		if inst and inst ~= "" then src.instance = unesc(inst) end
+	end
 	if src.type == "craft" and src.skillLine then
 		src.profession = nameOf("skill", src.skillLine)
 	end
@@ -315,8 +327,13 @@ local function decodeItem(group, id, s)
 	return rec
 end
 
+-- An NPC record: level;levelMax;faction;flags;instance;roles;loot;spawn groups...[;z<heights>][;t<subName>]
+-- [;v<quest>]. flags: r rare, e elite, b boss, g seen only by a dead character (#558: Franclorn Forgewright);
+-- v: the quest after which it sells (#3138: Zorbin Fandazzle after Zapped Giants).
 local function decodeNpc(group, id, s)
 	local t, n = split(s, ";")
+	local vendorAfter
+	if n >= 8 and sub(t[n], 1, 1) == "v" then vendorAfter, n = tonumber(sub(t[n], 2)), n - 1 end
 	local title
 	if n >= 8 and sub(t[n], 1, 1) == "t" then title, n = unesc(sub(t[n], 2)), n - 1 end
 	local heights
@@ -334,6 +351,8 @@ local function decodeNpc(group, id, s)
 		rare = find(flags, "r", 1, true) ~= nil,
 		elite = find(flags, "e", 1, true) ~= nil,
 		boss = find(flags, "b", 1, true) ~= nil,
+		ghostOnly = find(flags, "g", 1, true) ~= nil or nil,
+		vendorAfter = vendorAfter,
 		instance = unesc(t[5]),
 		roles = roles,
 		subName = title,
@@ -397,9 +416,18 @@ local function decodeQuest(group, id, s)
 		elseif lead == "h" then
 			-- How it is done beyond its objectives, in our words (#2714): h<text>.
 			rec.how = unesc(sub(f, 2))
+		elseif lead == "l" then
+			-- The profession it needs (#1913): l<skill line>,<rank>, the rank
+			-- empty when the data names none (Snakestone of the Shadow
+			-- Huntress: Blacksmithing 250, #2752).
+			local _, _, line, rank = find(f, "^l(%d+),(%d*)$")
+			rec.skill, rec.skillRank = tonumber(line), tonumber(rank)
 		elseif f == "d" then
 			-- Handed in at one talk, never in the log (#2686: Bloodpetal Sprouts).
 			rec.direct = true
+		elseif lead == "v" then
+			-- One of a set its giver offers one at a time (#3601: Pix's weekly In Demand quests): v<set name>.
+			rec.rotation = unesc(sub(f, 2))
 		elseif f == "t" then
 			-- The kill objective before it is a beast to tame (Taming the Beast).
 			local o = rec.objectives[#rec.objectives]
@@ -462,7 +490,9 @@ local function decodeInstance(group, id, s)
 	if t[5] and t[5] ~= "" then
 		local e = split(t[5], ",")
 		-- approx: the client's corpse point (where a ghost returns), not the way in.
-		rec.entrance = { map = tonumber(e[1]), x = tonumber(e[2]) / 10, y = tonumber(e[3]) / 10, f = e[4] ~= "" and e[4] or nil, approx = e[5] == "a" or nil }
+		-- The main door's optional height follows the Alliance triplet when present.
+		local z = tonumber(e[e[8] and 9 or 6])
+		rec.entrance = { map = tonumber(e[1]), x = tonumber(e[2]) / 10, y = tonumber(e[3]) / 10, f = e[4] ~= "" and e[4] or nil, approx = e[5] == "a" or nil, z = z }
 		-- The Alliance's own way in (the City of Dalaran): an Alliance character's entrance.
 		if e[8] and ns.Compat.GetPlayerFaction() == "Alliance" then
 			rec.entrance = { map = tonumber(e[6]), x = tonumber(e[7]) / 10, y = tonumber(e[8]) / 10 }
@@ -499,11 +529,30 @@ local function decodeSpell(group, id, s)
 	return { id = id, name = (N and N.Spell(id)) or nameOf(group, id), kind = unesc(t[1]), item = tonumber(t[2]), class = unesc(t[3]) }
 end
 
+local function ids(s)
+	local out = {}
+	for v in gmatch(s or "", "%d+") do out[#out + 1] = tonumber(v) end
+	return out
+end
+
+local function decodeProfession(group, id, s)
+	local t, n = split(s, ";")
+	local ranks = {}
+	for i = 1, n - 1 do
+		local f = split(t[i], ",")
+		ranks[i] = { minSkill = tonumber(f[1]) or 0, max = tonumber(f[2]) or 0, A = ids(f[3]), H = ids(f[4]) }
+	end
+	local gates, g = {}, numbers(t[n])
+	for i = 1, #g - 1, 2 do gates[g[i]] = g[i + 1] end
+	return { id = id, name = nameOf(group, id), ranks = ranks, trainerSkill = gates }
+end
+
 local DECODE = {
 	item = decodeItem, mount = decodeItem, pet = decodeItem, recipe = decodeItem, tabard = decodeItem,
 	npc = decodeNpc, rare = decodeNpc,
 	object = decodeObject, treasure = decodeObject,
 	quest = decodeQuest, instance = decodeInstance, faction = decodeFaction, spell = decodeSpell,
+	profession = decodeProfession,
 }
 
 ---------------------------------------------------------------------------
@@ -529,7 +578,7 @@ function Codex.Register(group, names, recs, lo, hi)
 	}
 	cache[group] = nil
 	if group == "role" then roleCache = {} end
-	if group == "quest" then followUps = {} end
+	if group == "quest" then followIndex = nil end
 	if group == "recipe" then Codex.recipeIndex = nil end
 end
 
@@ -636,35 +685,57 @@ function Codex.Quest(id)
 	return get("quest", id)
 end
 
+-- Read only the prerequisite fields, not the names, objectives or reward text.
+-- Older records can end after pre (field 12), before preAny (field 15).
+local PRE = "\n(%d+)\t" .. string.rep("[^;\n]*;", 11) .. "([^;\n]*)()"
+local ANY = "^;[^;\n]*;[^;\n]*;([^;\n]*)"
+
+local function buildFollowIndex()
+	local byParent, parents = {}, {}
+	local function add(parent, child)
+		local prev = byParent[parent]
+		if not prev then
+			parents[#parents + 1] = parent
+			byParent[parent] = child
+		elseif type(prev) == "string" then
+			if prev ~= child then byParent[parent] = { prev, child } end
+		elseif prev[#prev] ~= child then
+			prev[#prev + 1] = child
+		end
+	end
+	local function links(field, child)
+		for token in gmatch(field, "[^,]+") do
+			local parent = tonumber(token)
+			if parent then add(parent, child) end
+		end
+	end
+	for _, c in ipairs(chunks.quest or {}) do
+		local recs = c.recs or ""
+		for child, pre, at in gmatch(recs, PRE) do
+			if pre ~= "" then links(pre, child) end
+			local any = recs:match(ANY, at)
+			if any and any ~= "" then links(any, child) end
+		end
+	end
+	table.sort(parents)
+	for i, parent in ipairs(parents) do
+		local children = byParent[parent]
+		parents[i] = "\n" .. parent .. "\t" .. (type(children) == "table" and table.concat(children, ",") or children)
+	end
+	return table.concat(parents)
+end
+
 -- questId -> { quest, ... }: the quests whose `pre` or `preAny` names it, in
--- pack order. One pass over the quest records per quest asked (the ids found
--- are kept until the quest chunks change).
+-- pack order, each once. The first ask reads the quest records once into
+-- followIndex (until the quest chunks change); each ask then halves it.
 function Codex.FollowUps(id)
 	id = tonumber(id)
 	if not (id and ready()) then return {} end
-	local ids = followUps[id]
-	if not ids then
-		ids = {}
-		local needle = tostring(id)
-		for _, c in ipairs(chunks.quest or {}) do
-			if c.recs then
-				for qid, s in gmatch(c.recs, "\n([^\t\n]*)\t([^\n]*)") do
-					if find(s, needle, 1, true) then
-						local t = split(s, ";")
-						local hit = false
-						for _, f in ipairs({ t[12], t[15] }) do
-							for _, p in ipairs(numbers(f)) do hit = hit or p == id end
-						end
-						if hit then ids[#ids + 1] = key(qid) end
-					end
-				end
-			end
-		end
-		followUps[id] = ids
-	end
+	if not followIndex then followIndex = buildFollowIndex() end
 	local out = {}
-	for _, qid in ipairs(ids) do
-		local q = get("quest", qid)
+	local at = fieldAt(followIndex, id)
+	for qid in gmatch(at and lineFrom(followIndex, at) or "", "%d+") do
+		local q = get("quest", tonumber(qid))
 		if q then out[#out + 1] = q end
 	end
 	return out
@@ -691,6 +762,12 @@ function Codex.Spell(id)
 	id = tonumber(id)
 	if not (id and ready()) then return nil end
 	return get("spell", id)
+end
+
+function Codex.Profession(line)
+	line = tonumber(line)
+	if not (line and ready()) then return nil end
+	return get("profession", line)
 end
 
 -- spellId -> the recipe items whose record names it (field 3 of an item record:
@@ -771,13 +848,43 @@ function Codex.Loot(kind, id)
 	return rec and rec.loot or EMPTY
 end
 
+-- The NPCs of the "vendorAfter" index whose quest (npc.vendorAfter) is not
+-- handed in yet: they don't sell yet, so "vendor" and "repair" leave them out.
+local SELLS = { vendor = true, repair = true }
+local function notSelling()
+	local out
+	for _, id in ipairs(numbers(nameOf("role", "vendorAfter"))) do
+		local npc = Codex.Npc(id)
+		local q = npc and npc.vendorAfter
+		if q and not ns.Compat.IsQuestCompleted(q) then
+			out = out or {}
+			out[id] = true
+		end
+	end
+	return out
+end
+
 function Codex.WithRole(role)
 	if role == nil or not ready() then return {} end
 	local hit = roleCache[role]
 	if hit then return hit end
 	hit = numbers(nameOf("role", role))
+	local skip = SELLS[role] and notSelling()
+	if skip then
+		local kept = {}
+		for _, id in ipairs(hit) do
+			if not skip[id] then kept[#kept + 1] = id end
+		end
+		hit = kept
+	end
 	roleCache[role] = hit
 	return hit
+end
+-- A hand-in may open a shop (vendorAfter): the vendor lists are read again.
+if ns.RegisterEvent then
+	ns.RegisterEvent("QUEST_TURNED_IN", function()
+		roleCache.vendor, roleCache.repair = nil, nil
+	end)
 end
 
 -- flags ("" or quality digit, then status letter) -> quality, status

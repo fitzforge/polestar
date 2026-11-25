@@ -254,7 +254,6 @@ end
 local function choose(b, on)
 	if (b.psPrimary and true or false) == on then return end
 	b.psPrimary = on or nil
-	Theme.Repaint(b)
 	W.RepaintButton(b)
 end
 
@@ -397,7 +396,7 @@ function MA.RowText(row)
 		parts[#parts + 1] = L["You have them all"]
 	end
 	if row.held > 0 and row.toGet > 0 then parts[#parts + 1] = format(L["%s held"], thousands(row.held)) end
-	if row.way == "buy" and row.price then parts[#parts + 1] = format(L["≈ %s"], ns.MoneyText(row.price)) end
+	if row.way == "buy" and row.price then parts[#parts + 1] = Theme.Approx() .. " " .. ns.MoneyText(row.price) end
 	parts[#parts + 1] = MA.Why(row)
 	return concat(parts, DOT)
 end

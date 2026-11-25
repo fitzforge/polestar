@@ -8,17 +8,16 @@
 return {
 	-- Step 1: Learn Engineering
 	-- {skill:202} Engineering
-	["Learn {skill:202}"] = "",
+	["Learn {skill:202}"] = "{skill:202} 배우기",
 	-- {skill:202} Engineering · {item:5956} Blacksmith Hammer · {skill:186} Mining · {item:2835} Rough Stone · {item:2770} Copper Ore · {item:2840} Copper Bar
-	["Apprentice {skill:202} lets you craft up to 75 for 10c, at any character level. Any {skill:202} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} and pair it with {skill:186}: {item:2835} and {item:2770} are the first parts. 1-75 takes about 4s 15c of recipes and 18s 18c of vendor goods, plus 46 {item:2835} and 75 {item:2840} to gather or buy."] = "",
+	["Apprentice {skill:202} lets you craft up to 75 for 10c, at any character level. Any {skill:202} trainer of your faction teaches it; the arrow picks the nearest. Buy a {item:5956} and pair it with {skill:186}: {item:2835} and {item:2770} are the first parts. 1-75 takes about 4s 15c of recipes and 18s 18c of vendor goods, plus 46 {item:2835} and 75 {item:2840} to gather or buy."] = "{skill:202} 초급 단계는 10코퍼로 75까지 제작할 수 있게 해 주며, 캐릭터 레벨 제한이 없습니다. 당신 진영의 어떤 {skill:202} 상급자든 가르치며, 화살표가 가장 가까운 이를 가리킵니다. {item:5956}을(를) 사서 {skill:186}과(와) 함께 쓰세요. {item:2835}과(와) {item:2770}이(가) 첫 재료입니다. 1-75에는 제조법 약 4실버 15코퍼와 상인 재료 18실버 18코퍼, 그리고 {item:2835} 46개와(과) {item:2840} 75개를 채집하거나 구매해야 합니다.",
 
 	-- Step 2: Engineering 1-75: vendor goods
 	-- {skill:202} Engineering
-	["{skill:202} 1-75: vendor goods"] = "",
+	["{skill:202} 1-75: vendor goods"] = "{skill:202} 1-75: 상인 재료",
 	-- {item:2880} Weak Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:5514} Brooke Stonebraid · {npc:1286} Edna Mullby
-	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "",
-	-- was: ["{item:5956}: a tool, keep it in your bags"] = "{item:5956}: 도구이니 가방에 넣어 두세요"
-	["a tool, keep it in your bags"] = "",
+	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:2880} 18개(18실버)와(과) {item:5956}(도구: 하나를 사서 가방에 두세요, 18코퍼). 모두 약 18실버 18코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:5519}, {npc:5514}, {npc:1286}).",
+	["a tool, keep it in your bags"] = "도구이니 가방에 두세요",
 
 	-- Step 3: Engineering 1-75: Auction House
 	-- {skill:202} Engineering
@@ -28,31 +27,31 @@ return {
 
 	-- Step 4: Rough Stone (Elwynn Forest)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1429} Elwynn Forest
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1429} is marked."] = "",
+	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1429} is marked."] = "{spell:3918}에 필요한 {item:2835} 46개: {skill:186}: {object:1731}(숙련도 1). {zone:1429}에서 가장 많이 나는 {object:1731} 지점이 표시됩니다.",
 
 	-- Step 5: Rough Stone (Dun Morogh)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1426} Dun Morogh
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1426} is marked."] = "",
+	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1426} is marked."] = "{spell:3918}에 필요한 {item:2835} 46개: {skill:186}: {object:1731}(숙련도 1). {zone:1426}에서 가장 많이 나는 {object:1731} 지점이 표시됩니다.",
 
 	-- Step 6: Rough Stone (Darkshore)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1439} Darkshore
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1439} is marked."] = "",
+	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1439} is marked."] = "{spell:3918}에 필요한 {item:2835} 46개: {skill:186}: {object:1731}(숙련도 1). {zone:1439}에서 가장 많이 나는 {object:1731} 지점이 표시됩니다.",
 
 	-- Step 7: Rough Stone (Zephras Isle)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:2521} Zephras Isle
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:2521} is marked."] = "",
+	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:2521} is marked."] = "{spell:3918}에 필요한 {item:2835} 46개: {skill:186}: {object:1731}(숙련도 1). {zone:2521}에서 가장 많이 나는 {object:1731} 지점이 표시됩니다.",
 
 	-- Step 8: Rough Stone (Durotar)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1411} Durotar
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1411} is marked."] = "",
+	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1411} is marked."] = "{spell:3918}에 필요한 {item:2835} 46개: {skill:186}: {object:1731}(숙련도 1). {zone:1411}에서 가장 많이 나는 {object:1731} 지점이 표시됩니다.",
 
 	-- Step 9: Rough Stone (Mulgore)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1412} Mulgore
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1412} is marked."] = "",
+	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1412} is marked."] = "{spell:3918}에 필요한 {item:2835} 46개: {skill:186}: {object:1731}(숙련도 1). {zone:1412}에서 가장 많이 나는 {object:1731} 지점이 표시됩니다.",
 
 	-- Step 10: Rough Stone (Tirisfal Glades)
 	-- {item:2835} Rough Stone · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1420} Tirisfal Glades
-	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1420} is marked."] = "",
+	["46 {item:2835} for {spell:3918}: {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1420} is marked."] = "{spell:3918}에 필요한 {item:2835} 46개: {skill:186}: {object:1731}(숙련도 1). {zone:1420}에서 가장 많이 나는 {object:1731} 지점이 표시됩니다.",
 
 	-- Step 11: Copper Bar
 	-- {item:2840} Copper Bar · {spell:3922} Handful of Copper Bolts · {item:6219} Arclight Spanner · {spell:3924} Copper Tube · {skill:186} Mining · {item:2770} Copper Ore
@@ -63,33 +62,33 @@ return {
 	["{spell:3918} to 35"] = "{spell:3918}: 35까지",
 	-- {spell:3918} Rough Blasting Powder · {item:2835} Rough Stone · {item:2770} Copper Ore
 	-- plural, as words: Copper Veins = {object:1731} Copper Vein
-	["{spell:3918} is orange at 1 (yellow 20, green 30, grey 40): about 46 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft; {item:2835} comes with the {item:2770} from Copper Veins."] = "",
+	["{spell:3918} is orange at 1 (yellow 20, green 30, grey 40): about 46 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft; {item:2835} comes with the {item:2770} from Copper Veins."] = "{spell:3918}은(는) 1에 주황색입니다(노란색 20, 초록색 30, 회색 40). 35까지 약 46번 만드세요. 한 번에 {item:2835} 1개. 제작당 {item:2835} 한 개. {item:2835}은(는) 구리 광맥의 {item:2770}과(와) 함께 나옵니다.",
 
 	-- Step 13: Engineering recipes at 35
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 35"] = "35에서 {skill:202} 제조법",
 	-- {skill:202} Engineering · {spell:3922} Handful of Copper Bolts · {spell:1230656} Reagent Bot · {spell:3924} Copper Tube
-	["Back to an {skill:202} trainer: {spell:3922} (from 30, 1s 15c). Also learn {spell:1230656} (1s): Forever's {skill:202} camp item, placed at a campsite beside a campfire. It takes a {spell:3922} and a {spell:3924}, which you learn at 30 and 50, so it gives no points. The Camping 101: {skill:202} quest from your starting area's camping guide (after The Great Outdoors) sends you to an engineering trainer who teaches it free."] = "",
+	["Back to an {skill:202} trainer: {spell:3922} (from 30, 1s 15c). Also learn {spell:1230656} (1s): Forever's {skill:202} camp item, placed at a campsite beside a campfire. It takes a {spell:3922} and a {spell:3924}, which you learn at 30 and 50, so it gives no points. The Camping 101: {skill:202} quest from your starting area's camping guide (after The Great Outdoors) sends you to an engineering trainer who teaches it free."] = "{skill:202} 상급자에게 돌아가세요: {spell:3922}(30부터, 1s 15c). {spell:1230656}(1s)도 배우세요. Forever의 {skill:202} 야영 아이템으로, 들고 모닥불 옆 야영지에 설치하면 됩니다. {spell:3922}와 {spell:3924}가 필요하며 각각 30과 50에 배우므로 숙련도를 주지 않습니다. 시작 지역의 야영 가이드에 있는 야영 기초 101: {skill:202} 퀘스트(위대한 야외 다음)가 상급자에게 보내며, 거기서 무료로 가르칩니다.",
 
 	-- Step 14: Handful of Copper Bolts to 57
 	-- {spell:3922} Handful of Copper Bolts
 	["{spell:3922} to 57"] = "{spell:3922}: 57까지",
 	-- {spell:3922} Handful of Copper Bolts · {item:2840} Copper Bar · {item:5956} Blacksmith Hammer
 	-- plural, as words: Practice Locks = {item:6712} Practice Lock
-	["{spell:3922} is orange at 35 (yellow 45, green 52, grey 60): about 33 crafts to 57. Each takes 1 {item:2840}. One {item:2840} a craft. Keep the bolts: Practice Locks and later gadgets take them. Needs an anvil nearby. {item:5956} is a tool: keep it in your bags."] = "",
+	["{spell:3922} is orange at 35 (yellow 45, green 52, grey 60): about 33 crafts to 57. Each takes 1 {item:2840}. One {item:2840} a craft. Keep the bolts: Practice Locks and later gadgets take them. Needs an anvil nearby. {item:5956} is a tool: keep it in your bags."] = "{spell:3922}은(는) 35에 주황색입니다(노란색 45, 초록색 52, 회색 60). 57까지 약 33번 만드세요. 한 번에 {item:2840} 1개. 제작당 {item:2840} 한 개. 볼트는 간직하세요. 연습용 자물쇠와 이후 도구가 씁니다. 근처에 모루가 필요합니다. {item:5956}은(는) 도구이니 가방에 두세요.",
 
 	-- Step 15: Engineering recipes at 57
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 57"] = "57에서 {skill:202} 제조법",
 	-- {skill:202} Engineering · {spell:7430} Arclight Spanner · {spell:3924} Copper Tube
-	["Back to an {skill:202} trainer: {spell:7430} (from 50, 1s 50c) and {spell:3924} (from 50, 1s 50c)."] = "",
+	["Back to an {skill:202} trainer: {spell:7430} (from 50, 1s 50c) and {spell:3924} (from 50, 1s 50c)."] = "{skill:202} 상급자에게 돌아가세요: {spell:7430}(50부터, 1실버 50코퍼)과(와) {spell:3924}(50부터, 1실버 50코퍼).",
 
 	-- Step 16: Copper Tube to 75
 	-- {spell:3924} Copper Tube
 	["{spell:3924} to 75"] = "{spell:3924}: 75까지",
 	-- {spell:3924} Copper Tube · {item:2840} Copper Bar · {item:2880} Weak Flux · {item:6219} Arclight Spanner
 	-- plural, as words: Copper Bars = {item:2840} Copper Bar
-	["{spell:3924} is orange at 57 (yellow 80, green 95, grey 110): about 18 crafts to 75, a point every craft. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. Make the {item:6219} now, while it still gives a point: a later recipe needs it in your bags, so keep it there."] = "",
+	["{spell:3924} is orange at 57 (yellow 80, green 95, grey 110): about 18 crafts to 75, a point every craft. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. Make the {item:6219} now, while it still gives a point: a later recipe needs it in your bags, so keep it there."] = "{spell:3924}은(는) 57에 주황색입니다(노란색 80, 초록색 95, 회색 110). 75까지 약 18번 만드세요, 매번 포인트가 오릅니다. 한 번에 {item:2840} 2개, {item:2880} 1개. 제작당 구리 주괴 두 개와(과) {item:2880} 한 개(대장기술 및 기술기술 용품 상인). 근처에 모루가 필요합니다. {item:6219}은(는) 지금 만드세요. 아직 포인트를 주고, 이후 제조법이 가방에 그것을 요구하니 거기 두세요.",
 	["a tool: keep it in your bags"] = "도구: 가방에 넣어 두세요",
 
 	-- Step 17: Journeyman Engineering
@@ -100,9 +99,9 @@ return {
 
 	-- Step 18: Engineering 75-150: vendor goods
 	-- {skill:202} Engineering
-	["{skill:202} 75-150: vendor goods"] = "",
+	["{skill:202} 75-150: vendor goods"] = "{skill:202} 75-150: 상인 재료",
 	-- {item:2880} Weak Flux · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:5514} Brooke Stonebraid · {npc:1286} Edna Mullby
-	["Buy the whole bracket's share in one go: 45 {item:2880} (45s); about 45s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "",
+	["Buy the whole bracket's share in one go: 45 {item:2880} (45s); about 45s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:2880} 45개(45실버). 모두 약 45실버. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:5519}, {npc:5514}, {npc:1286}).",
 
 	-- Step 19: Engineering 75-150: Auction House
 	-- {skill:202} Engineering
@@ -112,35 +111,35 @@ return {
 
 	-- Step 20: Coarse Stone (Westfall)
 	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1436} Westfall
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1436} is marked."] = "",
+	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1436} is marked."] = "{spell:3930}에 필요한 {item:2836} 15개: {skill:186}: {object:1732}(숙련도 65). {zone:1436}에서 가장 많이 나는 {object:1732} 지점이 표시됩니다.",
 
 	-- Step 21: Coarse Stone (Loch Modan)
 	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1432} Loch Modan
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1432} is marked."] = "",
+	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1432} is marked."] = "{spell:3930}에 필요한 {item:2836} 15개: {skill:186}: {object:1732}(숙련도 65). {zone:1432}에서 가장 많이 나는 {object:1732} 지점이 표시됩니다.",
 
 	-- Step 22: Coarse Stone (Darkshore)
 	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1439} Darkshore
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1439} is marked."] = "",
+	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1439} is marked."] = "{spell:3930}에 필요한 {item:2836} 15개: {skill:186}: {object:1732}(숙련도 65). {zone:1439}에서 가장 많이 나는 {object:1732} 지점이 표시됩니다.",
 
 	-- Step 23: Coarse Stone (The Barrens)
 	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1413} is marked."] = "",
+	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1413} is marked."] = "{spell:3930}에 필요한 {item:2836} 15개: {skill:186}: {object:1732}(숙련도 65). {zone:1413}에서 가장 많이 나는 {object:1732} 지점이 표시됩니다.",
 
 	-- Step 24: Coarse Stone (Silverpine Forest)
 	-- {item:2836} Coarse Stone · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1421} Silverpine Forest
-	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1421} is marked."] = "",
+	["15 {item:2836} for {spell:3930}: {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1421} is marked."] = "{spell:3930}에 필요한 {item:2836} 15개: {skill:186}: {object:1732}(숙련도 65). {zone:1421}에서 가장 많이 나는 {object:1732} 지점이 표시됩니다.",
 
 	-- Step 25: Heavy Stone (Arathi Highlands)
 	-- {item:2838} Heavy Stone · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands
-	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1417} is marked."] = "",
+	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1417} is marked."] = "{spell:3945}에 필요한 {item:2838} 27개: {skill:186}: {object:1735}(숙련도 125). {zone:1417}에서 가장 많이 나는 {object:1735} 지점이 표시됩니다.",
 
 	-- Step 26: Heavy Stone (Ashenvale)
 	-- {item:2838} Heavy Stone · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1440} Ashenvale
-	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1440} is marked."] = "",
+	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1440} is marked."] = "{spell:3945}에 필요한 {item:2838} 27개: {skill:186}: {object:1735}(숙련도 125). {zone:1440}에서 가장 많이 나는 {object:1735} 지점이 표시됩니다.",
 
 	-- Step 27: Heavy Stone (The Barrens)
 	-- {item:2838} Heavy Stone · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1413} The Barrens
-	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1413} is marked."] = "",
+	["27 {item:2838} for {spell:3945}: {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1413} is marked."] = "{spell:3945}에 필요한 {item:2838} 27개: {skill:186}: {object:1735}(숙련도 125). {zone:1413}에서 가장 많이 나는 {object:1735} 지점이 표시됩니다.",
 
 	-- Step 29: Copper Bar
 	-- {item:2840} Copper Bar · {spell:3930} Crafted Heavy Shot · {spell:3924} Copper Tube · {item:6712} Practice Lock · {skill:186} Mining · {item:2770} Copper Ore
@@ -156,16 +155,17 @@ return {
 
 	-- Step 32: Crafted Heavy Shot to 94
 	-- {spell:3930} Crafted Heavy Shot
-	["{spell:3930} to 94"] = "",
+	["{spell:3930} to 94"] = "{spell:3930}: 94까지",
 	-- {spell:3930} Crafted Heavy Shot · {spell:3929} Coarse Blasting Powder · {item:2840} Copper Bar
-	["{spell:3930} is orange at 75 (yellow 85, green 90, grey 95): about 15 crafts to 94. Each takes 1 {spell:3929} and 1 {item:2840} and makes 200. Make the 15 {spell:3929} first: it gives points too while not grey. The {spell:3929} in each gives its own point while it is not grey: two chances a craft. Sell the shot to hunters or a vendor."] = "",
+	["{spell:3930} is orange at 75 (yellow 85, green 90, grey 95): about 15 crafts to 94. Each takes 1 {spell:3929} and 1 {item:2840} and makes 200. Make the 15 {spell:3929} first: it gives points too while not grey. The {spell:3929} in each gives its own point while it is not grey: two chances a craft. Sell the shot to hunters or a vendor."] = "{spell:3930}은(는) 75에 주황색입니다(노란색 85, 초록색 90, 회색 95). 94까지 약 15번 만드세요. 한 번에 {spell:3929} 1개, {item:2840} 1개. 200개를 만듭니다. 먼저 {spell:3929} 15개를 만드세요. 회색이 아닐 때도 포인트를 줍니다. 각탄에 든 {spell:3929}은(는) 회색이 아니면 자기 포인트를 줍니다. 제작당 두 번의 기회입니다. 탄환은 사냥꾼이나 상인에게 팔으세요.",
 
 	-- Step 33: Copper Tube to 100
 	-- {spell:3924} Copper Tube
-	["{spell:3924} to 100"] = "",
+	["{spell:3924} to 100"] = "{spell:3924}: 100까지",
 	-- {spell:3924} Copper Tube · {item:2840} Copper Bar · {item:2880} Weak Flux
 	-- plural, as words: Copper Bars = {item:2840} Copper Bar
-	["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby."] = "",
+	-- was: ["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby."] = "{spell:3924}은(는) 94에서 노란색입니다(노란색 80, 초록색 95, 회색 110). 100까지 약 14번 만드세요. 한 번에 {item:2840} 2개, {item:2880} 1개. 제작당 구리 주괴 두 개와(과) {item:2880} 한 개(대장기술 및 기술기술 용품 상인). 근처에 모루가 필요합니다."
+	["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. If you got here without learning {spell:3924}, learn it now: an earlier step teaches it."] = "{spell:3924}은(는) 94에서 노란색입니다(노란색 80, 초록색 95, 회색 110): 100까지 약 14번 제작. 매번 {item:2840} 2개와 {item:2880} 1개가 필요합니다. 제작마다 구리 주괴 두 개와 {item:2880} 하나(대장기술 및 기계공학 재료 상인). 근처에 모루가 필요합니다. {spell:3924}을(를) 배우지 않고 여기까지 왔다면 지금 배우십시오: 앞의 단계에서 가르칩니다.",
 
 	-- Step 34: Engineering recipes at 100
 	-- {skill:202} Engineering
@@ -175,10 +175,11 @@ return {
 
 	-- Step 35: Practice Lock to 125
 	-- {item:6712} Practice Lock
-	["{item:6712} to 125"] = "",
+	["{item:6712} to 125"] = "{item:6712}: 125까지",
 	-- {item:6712} Practice Lock · {item:2841} Bronze Bar · {spell:3922} Handful of Copper Bolts · {item:2880} Weak Flux
 	-- plural, as words: Practice Locks = {item:6712} Practice Lock
-	["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby."] = "",
+	-- was: ["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby."] = "{item:6712}은(는) 100에 주황색입니다(노란색 115, 초록색 122, 회색 130). 125까지 약 31번 만드세요. 한 번에 {item:2841} 1개, {spell:3922} 2개, {item:2880} 1개. 먼저 {spell:3922} 29개를 만드세요. 앞서 만든 {spell:3922} 33개를 쓰세요. 위 수량에는 포함되지 않습니다. 연습용 자물쇠는 도적에게 팔거나 직접 여세요. 근처에 모루가 필요합니다."
+	["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby. If you got here without learning {spell:3922}, learn it now: an earlier step teaches it."] = "{item:6712}은(는) 100에서 주황색입니다(노란색 115, 초록색 122, 회색 130): 125까지 약 31번 제작. 매번 {item:2841} 1개, {spell:3922} 2개, {item:2880} 1개가 필요합니다. 먼저 {spell:3922} 29개를 만드십시오. 앞서 만든 {spell:3922} 33개를 쓰십시오. 위의 수량에는 빠져 있습니다. 연습용 자물쇠는 도적에게 팔거나 직접 여십시오. 근처에 모루가 필요합니다. {spell:3922}을(를) 배우지 않고 여기까지 왔다면 지금 배우십시오: 앞의 단계에서 가르칩니다.",
 
 	-- Step 36: Engineering recipes at 125
 	-- {skill:202} Engineering
@@ -191,7 +192,7 @@ return {
 	["{spell:3945} to 140"] = "{spell:3945}: 140까지",
 	-- {spell:3945} Heavy Blasting Powder · {item:2838} Heavy Stone
 	-- plural, as words: Iron Deposits = {object:1735} Iron Deposit · Iron Grenades = {item:4390} Iron Grenade
-	["{spell:3945} is yellow at 125 (yellow 125, green 135, grey 145): about 27 crafts to 140. Each takes 1 {item:2838}. One {item:2838} a craft (Iron Deposits). Keep some: Iron Grenades take one each."] = "",
+	["{spell:3945} is yellow at 125 (yellow 125, green 135, grey 145): about 27 crafts to 140. Each takes 1 {item:2838}. One {item:2838} a craft (Iron Deposits). Keep some: Iron Grenades take one each."] = "{spell:3945}은(는) 125에서 노란색입니다(노란색 125, 초록색 135, 회색 145). 140까지 약 27번 만드세요. 한 번에 {item:2838} 1개. 제작당 {item:2838} 한 개(철 광맥). 일부는 간직하세요. 철제 수류탄이 하나씩 씁니다.",
 
 	-- Step 38: Engineering recipes at 140
 	-- {skill:202} Engineering
@@ -201,9 +202,9 @@ return {
 
 	-- Step 39: Big Bronze Bomb to 150
 	-- {spell:3950} Big Bronze Bomb
-	["{spell:3950} to 150"] = "",
+	["{spell:3950} to 150"] = "{spell:3950}: 150까지",
 	-- {spell:3950} Big Bronze Bomb · {item:4377} Heavy Blasting Powder · {item:2841} Bronze Bar · {spell:3973} Silver Contact · {skill:202} Engineering
-	["{spell:3950} is yellow at 140 (yellow 140, green 165, grey 190): about 10 crafts to 150. Each takes 2 {item:4377}, 3 {item:2841} and 1 {spell:3973} and makes 3. Make the 10 {spell:3973} (2 crafts) first. Use the 20 {item:4377} you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. Needs an anvil nearby. {skill:202} 150 is a Legacy System milestone."] = "",
+	["{spell:3950} is yellow at 140 (yellow 140, green 165, grey 190): about 10 crafts to 150. Each takes 2 {item:4377}, 3 {item:2841} and 1 {spell:3973} and makes 3. Make the 10 {spell:3973} (2 crafts) first. Use the 20 {item:4377} you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. Needs an anvil nearby. {skill:202} 150 is a Legacy System milestone."] = "{spell:3950}은(는) 140에서 노란색입니다(노란색 140, 초록색 165, 회색 190). 150까지 약 10번 만드세요. 한 번에 {item:4377} 2개, {item:2841} 3개, {spell:3973} 1개. 3개를 만듭니다. 먼저 {spell:3973} 10개를 만드세요(2번 제작). 앞서 만든 {item:4377} 20개를 쓰세요. 위 수량에는 포함되지 않습니다. 상급자가 가르치며, 데이터에서 이 포인트를 지나는 가장 싼 방법입니다. 근처에 모루가 필요합니다. {skill:202} 150은(는) 유산 시스템 이정표입니다.",
 
 	-- Step 40: Expert Engineering
 	-- {skill:202} Engineering
@@ -213,9 +214,9 @@ return {
 
 	-- Step 41: Engineering 150-225: vendor goods
 	-- {skill:202} Engineering
-	["{skill:202} 150-225: vendor goods"] = "",
+	["{skill:202} 150-225: vendor goods"] = "{skill:202} 150-225: 상인 재료",
 	-- {item:6530} Nightcrawlers · {zone:1453} Stormwind City · {npc:5494} Catherine Leland · {npc:1286} Edna Mullby
-	["Buy the whole bracket's share in one go: 31 {item:6530} (31s); about 31s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5494} and {npc:1286})."] = "",
+	["Buy the whole bracket's share in one go: 31 {item:6530} (31s); about 31s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5494} and {npc:1286})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:6530} 31개(31실버). 모두 약 31실버. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:5494}, {npc:1286}).",
 
 	-- Step 42: Engineering 150-225: Auction House
 	-- {skill:202} Engineering
@@ -227,13 +228,13 @@ return {
 	-- {item:2319} Medium Leather
 	["{item:2319} (Alliance)"] = "{item:2319} (얼라이언스)",
 	-- {item:2319} Medium Leather · {spell:3953} Bronze Framework · {skill:393} Skinning · {npc:2248} Cave Yeti · {npc:2356} Elder Gray Bear · {npc:2385} Feral Mountain Lion · {npc:2351} Gray Bear · {npc:2384} Starving Mountain Lion · {npc:2354} Vicious Gray Bear
-	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "",
+	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "{spell:3953}에 필요한 {item:2319} 19개: {skill:393}: 18-30레벨 야수. 여기서 {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384}와(과) {npc:2354}을(를) 무두질하세요(레벨 18-30). {skill:393} 가이드가 이 루트를 안내합니다.",
 
 	-- Step 44: Medium Leather (Horde)
 	-- {item:2319} Medium Leather
 	["{item:2319} (Horde)"] = "{item:2319} (호드)",
 	-- {item:2319} Medium Leather · {spell:3953} Bronze Framework · {skill:393} Skinning · {npc:3809} Ashenvale Bear · {npc:3810} Elder Ashenvale Bear · {npc:3818} Elder Shadowhorn Stag · {npc:3823} Ghostpaw Runner · {npc:3811} Giant Ashenvale Bear · {npc:3817} Shadowhorn Stag
-	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} here (level 18-30); the {skill:393} guide routes this."] = "",
+	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} here (level 18-30); the {skill:393} guide routes this."] = "{spell:3953}에 필요한 {item:2319} 19개: {skill:393}: 18-30레벨 야수. 여기서 {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811}와(과) {npc:3817}을(를) 무두질하세요(레벨 18-30). {skill:393} 가이드가 이 루트를 안내합니다.",
 
 	-- Step 45: Wool Cloth
 	-- {item:2592} Wool Cloth · {spell:3953} Bronze Framework
@@ -243,25 +244,26 @@ return {
 	-- {item:2836} Coarse Stone
 	["{item:2836} (Alliance)"] = "{item:2836} (얼라이언스)",
 	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1432} Loch Modan · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
-	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1432} (10-20), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1432} is marked."] = "",
+	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1432} (10-20), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1432} is marked."] = "{item:6533}에 필요한 {item:2836} 31개: {skill:186}: {object:1732}(숙련도 65) {zone:1432}(10-20), {zone:1440}(18-30)와(과) {zone:1424}(20-30). {zone:1432}(10-20)에서 가장 많이 나는 {object:1732} 지점이 표시됩니다.",
 
 	-- Step 47: Coarse Stone (Horde)
 	-- {item:2836} Coarse Stone
 	["{item:2836} (Horde)"] = "{item:2836} (호드)",
 	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
-	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "",
+	-- was: ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "{item:6533}에 필요한 {item:2836} 31개: {skill:186}: {object:1732}(숙련도 65) {zone:1413}(10-25), {zone:1440}(18-30)와(과) {zone:1424}(20-30). {zone:1440}(18-30)에서 가장 많이 나는 {object:1732} 지점이 표시됩니다."
+	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1413} is marked."] = "{item:6533}에 필요한 {item:2836} 31개: {skill:186}: {object:1732}(숙련도 65), {zone:1413}(10-25), {zone:1440}(18-30), {zone:1424}(20-30). {zone:1413}에서 {object:1732}이(가) 가장 많은 곳이 표시되어 있습니다.",
 
 	-- Step 48: Heavy Stone (Alliance)
 	-- {item:2838} Heavy Stone
 	["{item:2838} (Alliance)"] = "{item:2838} (얼라이언스)",
 	-- {item:2838} Heavy Stone · {spell:3967} Big Iron Bomb · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {zone:1443} Desolace
-	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked."] = "",
+	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked."] = "{spell:3967}에 필요한 {item:2838} 74개: {skill:186}: {object:1735}(숙련도 125) {zone:1417}(30-40), {zone:1434}(30-45)와(과) {zone:1443}(30-40). {zone:1417}(30-40)에서 가장 많이 나는 {object:1735} 지점이 표시됩니다.",
 
 	-- Step 49: Heavy Stone (Horde)
 	-- {item:2838} Heavy Stone
 	["{item:2838} (Horde)"] = "{item:2838} (호드)",
 	-- {item:2838} Heavy Stone · {spell:3967} Big Iron Bomb · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1441} Thousand Needles · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
-	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked."] = "",
+	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked."] = "{spell:3967}에 필요한 {item:2838} 74개: {skill:186}: {object:1735}(숙련도 125) {zone:1441}(25-35), {zone:1417}(30-40)와(과) {zone:1434}(30-45). {zone:1441}(25-35)에서 가장 많이 나는 {object:1735} 지점이 표시됩니다.",
 
 	-- Step 50: Bronze Bar
 	-- {item:2841} Bronze Bar · {item:6533} Aquadynamic Fish Attractor · {spell:3953} Bronze Framework · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
@@ -283,26 +285,27 @@ return {
 	-- {item:7912} Solid Stone
 	["{item:7912} (Alliance)"] = "{item:7912} (얼라이언스)",
 	-- {item:7912} Solid Stone · {item:10505} Solid Blasting Powder · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked."] = "",
+	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked."] = "{item:10505}에 필요한 {item:7912} 62개: {skill:186}: {object:2040}(숙련도 175) {zone:1434}(30-45), {zone:1425}(40-50)와(과) {zone:1444}(40-50). {zone:1434}(30-45)에서 가장 많이 나는 {object:2040} 지점이 표시됩니다.",
 
 	-- Step 55: Solid Stone (Horde)
 	-- {item:7912} Solid Stone
 	["{item:7912} (Horde)"] = "{item:7912} (호드)",
 	-- {item:7912} Solid Stone · {item:10505} Solid Blasting Powder · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "",
+	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "{item:10505}에 필요한 {item:7912} 62개: {skill:186}: {object:2040}(숙련도 175) {zone:1443}(30-40), {zone:1425}(40-50)와(과) {zone:1444}(40-50). {zone:1443}(30-40)에서 가장 많이 나는 {object:2040} 지점이 표시됩니다.",
 
 	-- Step 56: Aquadynamic Fish Attractor to 166
 	-- {item:6533} Aquadynamic Fish Attractor
-	["{item:6533} to 166"] = "",
+	["{item:6533} to 166"] = "{item:6533}: 166까지",
 	-- {item:6533} Aquadynamic Fish Attractor · {item:2841} Bronze Bar · {item:6530} Nightcrawlers · {spell:3929} Coarse Blasting Powder
-	["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen."] = "",
+	-- was: ["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen."] = "{item:6533}은(는) 150에서 노란색입니다(노란색 150, 초록색 160, 회색 170). 166까지 약 31번 만드세요. 한 번에 {item:2841} 2개, {item:6530} 1개, {spell:3929} 1개. 3개를 만듭니다. 먼저 {spell:3929} 31개를 만드세요. {item:6530}은(는) 무역 및 낚시 용품 상인에게서. 끌어당김 장치는 낚시꾼에게 팔립니다."
+	["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen. If you got here without learning {spell:3929}, learn it now: an earlier step teaches it."] = "{item:6533}은(는) 150에서 노란색입니다(노란색 150, 초록색 160, 회색 170): 166까지 약 31번 제작. 매번 {item:2841} 2개, {item:6530} 1개, {spell:3929} 1개가 필요하고 3개를 만듭니다. 먼저 {spell:3929} 31개를 만드십시오. {item:6530}은(는) 잡화 상인과 낚시 용품 상인에게서 삽니다. 미끼는 낚시꾼에게 팝니다. {spell:3929}을(를) 배우지 않고 여기까지 왔다면 지금 배우십시오: 앞의 단계에서 가르칩니다.",
 
 	-- Step 57: Bronze Framework to 175
 	-- {spell:3953} Bronze Framework
 	["{spell:3953} to 175"] = "{spell:3953}: 175까지",
 	-- {spell:3953} Bronze Framework · {item:2841} Bronze Bar · {item:2319} Medium Leather · {item:2592} Wool Cloth
 	-- plural, as words: Bronze Frameworks = {spell:3953} Bronze Framework
-	["{spell:3953} is yellow at 166 (yellow 145, green 170, grey 195): about 19 crafts to 175. Each takes 2 {item:2841}, 1 {item:2319} and 1 {item:2592}. Bronze Frameworks are parts for later gadgets; the extras sell to vendors."] = "",
+	["{spell:3953} is yellow at 166 (yellow 145, green 170, grey 195): about 19 crafts to 175. Each takes 2 {item:2841}, 1 {item:2319} and 1 {item:2592}. Bronze Frameworks are parts for later gadgets; the extras sell to vendors."] = "{spell:3953}은(는) 166에서 노란색입니다(노란색 145, 초록색 170, 회색 195). 175까지 약 19번 만드세요. 한 번에 {item:2841} 2개, {item:2319} 1개, {item:2592} 1개. 청동 골격은 이후 도구의 재료이며, 남는 것은 상인에게 팔립니다.",
 
 	-- Step 58: Engineering recipes at 175
 	-- {skill:202} Engineering
@@ -312,10 +315,10 @@ return {
 
 	-- Step 59: Solid Blasting Powder to 191
 	-- {item:10505} Solid Blasting Powder
-	["{item:10505} to 191"] = "",
+	["{item:10505} to 191"] = "{item:10505}: 191까지",
 	-- {item:10505} Solid Blasting Powder · {item:7912} Solid Stone
 	-- plural, as words: Mithril Deposits = {object:2040} Mithril Deposit
-	["{item:10505} is yellow at 175 (yellow 175, green 185, grey 195): about 31 crafts to 191. Each takes 2 {item:7912}. Two {item:7912} a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it."] = "",
+	["{item:10505} is yellow at 175 (yellow 175, green 185, grey 195): about 31 crafts to 191. Each takes 2 {item:7912}. Two {item:7912} a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it."] = "{item:10505}은(는) 175에서 노란색입니다(노란색 175, 초록색 185, 회색 195). 191까지 약 31번 만드세요. 한 번에 {item:7912} 2개. 제작당 {item:7912} 두 개(미스릴 광맥). 넉넉히 만드세요. 방아쇠, 탄환, 회전 사격 장치가 모두 씁니다.",
 
 	-- Step 60: Engineering recipes at 191
 	-- {skill:202} Engineering
@@ -325,10 +328,11 @@ return {
 
 	-- Step 61: Big Iron Bomb to 210
 	-- {spell:3967} Big Iron Bomb
-	["{spell:3967} to 210"] = "",
+	["{spell:3967} to 210"] = "{spell:3967}: 210까지",
 	-- {spell:3967} Big Iron Bomb · {item:3575} Iron Bar · {spell:3945} Heavy Blasting Powder · {spell:3973} Silver Contact · {item:2842} Silver Bar · {item:2838} Heavy Stone · {npc:5174} Springspindle Fizzlegear · {zone:1455} Ironforge · {npc:5518} Lilliam Sparkspindle · {zone:1453} Stormwind City · {npc:4586} Graham Van Talen · {zone:1458} Undercity · {area:392} Ratchet · {spell:20220} Gnomish Engineering · {npc:7944} Tinkmaster Overspark · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay · {item:4407} Accurate Scope · {npc:8126} Nixx Sprocketspring · {area:976} Gadgetzan · {item:10507} Solid Dynamite · {npc:2675} Explosive Sheep
 	-- plural, as words: Silver Contacts = {spell:3973} Silver Contact · Mithril Tubes = {item:10559} Mithril Tube · Big Iron Bombs = {spell:3967} Big Iron Bomb
-	["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby."] = "",
+	-- was: ["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby."] = "{spell:3967}은(는) 191에서 노란색입니다(노란색 190, 초록색 210, 회색 230). 210까지 약 27번 만드세요. 한 번에 {item:3575} 3개, {spell:3945} 3개, {spell:3973} 1개. 2개를 만듭니다. 먼저 {spell:3945} 74개와(과) {spell:3973} 30개를 만드세요(6번 제작). 앞서 만든 {spell:3945} 7개를 쓰세요. 위 수량에는 포함되지 않습니다. {item:2842} 하나로 은 접점 다섯 개를 만듭니다(지금은 회색: 포인트는 없지만 상인에 갈 일도 없습니다). {spell:3945}은(는) {item:2838}에서 나옵니다. 제작당 수류탄 두 개입니다. 전문화(선택): 200과 캐릭터 레벨 30에서 {npc:5174}({zone:1455}), {npc:5518}({zone:1453}), {npc:4586}({zone:1458}) 또는 틴커위즈({area:392})가 {spell:20220}({npc:7944}, {zone:1455}, 또는 {npc:7406}, {area:35}: 미스릴 관 6개, {item:4407}, 고급 표적 인형 2개)이나(나) 고블린 기술기술({npc:8126}, {area:976}: 대형 철 폭탄 20개, {item:10507} 20개, {npc:2675} 5개)로 보냅니다. {item:4407} 도면은 이제 주울 때 귀속되지만, 퀘스트는 다른 사람이 만든 조준경을 요구합니다. 회원권은 14일간 유지되고 갱신에 2골드입니다. 하나만 고를 수 있고, 300에는 둘 다 필요하지 않으며, 베타는 레벨 30에서 멈춰 검증되지 않았습니다. 근처에 모루가 필요합니다."
+	["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby. If you got here without learning {spell:3945} and {spell:3973}, learn them now: an earlier step teaches them."] = "{spell:3967}은(는) 191에서 노란색입니다(노란색 190, 초록색 210, 회색 230): 210까지 약 27번 제작. 매번 {item:3575} 3개, {spell:3945} 3개, {spell:3973} 1개가 필요하고 2개를 만듭니다. 먼저 {spell:3945} 74개와 {spell:3973} 30개(6번 제작)를 만드십시오. 앞서 만든 {spell:3945} 7개를 쓰십시오. 위의 수량에는 빠져 있습니다. {item:2842} 하나로 은 접지 다섯 개를 만듭니다(이제 회색: 숙련도는 오르지 않지만 상인에게 갈 필요도 없습니다). {spell:3945}은(는) {item:2838}(으)로 만듭니다. 제작마다 폭탄 두 개. 전문화(선택): 숙련도 200과 캐릭터 30레벨에 {npc:5174}({zone:1455}), {npc:5518}({zone:1453}), {npc:4586}({zone:1458}) 또는 팅커위즈({area:392})가 {spell:20220}({npc:7944}, {zone:1455}, 또는 {npc:7406}, {area:35}: 미스릴관 6개, {item:4407} 하나, 고급 표적 허수아비 2개) 또는 고블린 기계공학({npc:8126}, {area:976}: 대형 철제 폭탄 20개, {item:10507} 20개, {npc:2675} 5개)(으)로 보냅니다. {item:4407} 설계도는 이제 획득 시 귀속되지만, 퀘스트는 다른 사람이 만든 조준경도 받습니다. 회원 카드는 플레이 시간 14일 동안 유효하며 갱신에 2골드가 듭니다. 하나만 고를 수 있고, 300까지 둘 다 필요 없으며, 베타에서는 시험되지 않았습니다(30레벨에서 멈췄습니다). 근처에 모루가 필요합니다. {spell:3945}와(과) {spell:3973}을(를) 배우지 않고 여기까지 왔다면 지금 배우십시오: 앞의 단계에서 가르칩니다.",
 
 	-- Step 62: Engineering recipes at 210
 	-- {skill:202} Engineering
@@ -340,17 +344,17 @@ return {
 	-- {item:10512} Hi-Impact Mithril Slugs
 	["{item:10512} to 225"] = "{item:10512}: 225까지",
 	-- {item:10512} Hi-Impact Mithril Slugs · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder · {skill:202} Engineering
-	["{item:10512} is yellow at 210 (yellow 210, green 230, grey 250): about 19 crafts to 225. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Use the 19 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. {skill:202} 225 is a Legacy System milestone."] = "",
+	["{item:10512} is yellow at 210 (yellow 210, green 230, grey 250): about 19 crafts to 225. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Use the 19 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. {skill:202} 225 is a Legacy System milestone."] = "{item:10512}은(는) 210에서 노란색입니다(노란색 210, 초록색 230, 회색 250). 225까지 약 19번 만드세요. 한 번에 {item:3860} 1개, {item:10505} 1개. 200개를 만듭니다. 앞서 만든 {item:10505} 19개를 쓰세요. 위 수량에는 포함되지 않습니다. 제작당 {item:3860} 한 개와(과) {item:10505} 한 개. 사냥꾼이 탄환을 삽니다. 근처에 모루가 필요합니다. {skill:202} 225은(는) 유산 시스템 이정표입니다.",
 
 	-- Step 64: Artisan Engineering
 	-- {skill:202} Engineering
 	["Artisan {skill:202}"] = "전문 {skill:202}",
 	-- {skill:202} Engineering · {npc:8736} Buzzek Bracketswing · {zone:1446} Tanaris · {item:3860} Mithril Bar · {item:7912} Solid Stone · {item:12359} Thorium Bar · {item:14047} Runecloth
-	["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:8736} ({zone:1446}); Horde {npc:8736} ({zone:1446}). The arrow picks the nearest of your faction. 225-300 takes about 2g 80s of recipes, plus 118 {item:3860}, 212 {item:7912}, 156 {item:12359} and 24 {item:14047} to gather or buy."] = "",
+	["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:202} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:8736} ({zone:1446}); Horde {npc:8736} ({zone:1446}). The arrow picks the nearest of your faction. 225-300 takes about 2g 80s of recipes, plus 118 {item:3860}, 212 {item:7912}, 156 {item:12359} and 24 {item:14047} to gather or buy."] = "전문 단계는 4골드 50실버(클래식 가격이며, Forever 가격은 데이터에 없습니다)로 최대 숙련도를 225에서 300으로 올립니다. {skill:202} 200과 캐릭터 레벨 35가 필요하므로, 200부터 언제 들러도 배울 수 있습니다. 가르치는 상급자는 몇 명뿐입니다: 얼라이언스 {npc:8736}({zone:1446}), 호드 {npc:8736}({zone:1446}). 화살표가 진영의 가장 가까운 상급자를 가리킵니다. 225-300에는 제조법 약 2골드 80실버와 {item:3860} 118개, {item:7912} 212개, {item:12359} 156개, {item:14047} 24개를 채집하거나 구매해야 합니다.",
 
 	-- Step 65: Schematic: Thorium Widget
 	-- {item:16042} Schematic: Thorium Widget · {item:15994} Thorium Widget · {skill:202} Engineering · {npc:5175} Gearcutter Cogspinner · {zone:1455} Ironforge · {npc:3413} Sovik · {zone:1454} Orgrimmar
-	["{item:16042} teaches {item:15994} ({skill:202} 260) for 1g 20s. Sold by Alliance: {npc:5175} ({zone:1455}), limited stock; Horde: {npc:3413} ({zone:1454}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; the Auction House often has it too."] = "",
+	["{item:16042} teaches {item:15994} ({skill:202} 260) for 1g 20s. Sold by Alliance: {npc:5175} ({zone:1455}), limited stock; Horde: {npc:3413} ({zone:1454}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; the Auction House often has it too."] = "{item:16042}은(는) 1골드 20실버에 {item:15994}({skill:202} 260)을(를) 가르칩니다. 얼라이언스 판매: {npc:5175}({zone:1455}), 수량 제한; 호드 판매: {npc:3413}({zone:1454}), 수량 제한. 판매자는 한두 개를 재고로 두고 판매 후 얼마 지나면 다시 들여놓으며, 경매장에도 자주 있습니다.",
 
 	-- Step 66: Schematic: Thorium Tube
 	-- {item:16047} Schematic: Thorium Tube · {item:16000} Thorium Tube · {skill:202} Engineering · {npc:260565} Kor'gar · {zone:2548} Riverglades · {npc:11185} Xizzer Fizzbolt · {zone:1452} Winterspring
@@ -368,11 +372,11 @@ return {
 
 	-- Step 69: Solid Stone (Alliance)
 	-- {item:7912} Solid Stone · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked."] = "",
+	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked."] = "{item:10512} 및 {item:10513}에 필요한 {item:7912} 212개: {skill:186}: {object:2040}(숙련도 175) {zone:1425}(40-50), {zone:1444}(40-50)와(과) {zone:1447}(45-55). {zone:1425}(40-50)에서 가장 많이 나는 {object:2040} 지점이 표시됩니다.",
 
 	-- Step 70: Solid Stone (Horde)
 	-- {item:7912} Solid Stone · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "",
+	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "{item:10512} 및 {item:10513}에 필요한 {item:7912} 212개: {skill:186}: {object:2040}(숙련도 175) {zone:1443}(30-40), {zone:1425}(40-50)와(과) {zone:1444}(40-50). {zone:1443}(30-40)에서 가장 많이 나는 {object:2040} 지점이 표시됩니다.",
 
 	-- Step 71: Thorium Bar
 	-- {item:12359} Thorium Bar · {item:15994} Thorium Widget · {item:16000} Thorium Tube · {skill:186} Mining · {item:10620} Thorium Ore
@@ -386,7 +390,8 @@ return {
 	-- {item:10512} Hi-Impact Mithril Slugs
 	["{item:10512} to 245"] = "{item:10512}: 245까지",
 	-- {item:10512} Hi-Impact Mithril Slugs · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder
-	["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby."] = "",
+	-- was: ["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby."] = "{item:10512}은(는) 225에서 노란색입니다(노란색 210, 초록색 230, 회색 250). 245까지 약 62번 만드세요. 한 번에 {item:3860} 1개, {item:10505} 1개. 200개를 만듭니다. 먼저 {item:10505} 50개를 만드세요. 앞서 만든 {item:10505} 12개를 쓰세요. 위 수량에는 포함되지 않습니다. 제작당 {item:3860} 한 개와(과) {item:10505} 한 개. 사냥꾼이 탄환을 삽니다. 근처에 모루가 필요합니다."
+	["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby. If you got here without learning {item:10505} and {item:10512}, learn them now: an earlier step teaches them."] = "{item:10512}은(는) 225에서 노란색입니다(노란색 210, 초록색 230, 회색 250): 245까지 약 62번 제작. 매번 {item:3860} 1개와 {item:10505} 1개가 필요하고 200개를 만듭니다. 먼저 {item:10505} 50개를 만드십시오. 앞서 만든 {item:10505} 12개를 쓰십시오. 위의 수량에는 빠져 있습니다. 제작마다 {item:3860} 하나와 {item:10505} 하나. 탄환은 사냥꾼이 삽니다. 근처에 모루가 필요합니다. {item:10505}와(과) {item:10512}을(를) 배우지 않고 여기까지 왔다면 지금 배우십시오: 앞의 단계에서 가르칩니다.",
 
 	-- Step 74: Engineering recipes at 245
 	-- {skill:202} Engineering
@@ -399,14 +404,15 @@ return {
 	["{item:10513} to 265"] = "{item:10513}: 265까지",
 	-- {item:10513} Mithril Gyro-Shot · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder
 	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
-	["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "",
+	-- was: ["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "{item:10513}은(는) 245에서 노란색입니다(노란색 245, 초록색 265, 회색 285). 265까지 약 28번 만드세요. 한 번에 {item:3860} 2개, {item:10505} 2개. 200개를 만듭니다. 먼저 {item:10505} 56개를 만드세요. 제작당 미스릴 주괴 두 개와(과) {item:10505} 두 개. 근처에 모루가 필요합니다."
+	["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby. If you got here without learning {item:10505}, learn it now: an earlier step teaches it."] = "{item:10513}은(는) 245에서 노란색입니다(노란색 245, 초록색 265, 회색 285): 265까지 약 28번 제작. 매번 {item:3860} 2개와 {item:10505} 2개가 필요하고 200개를 만듭니다. 먼저 {item:10505} 56개를 만드십시오. 제작마다 미스릴 주괴 두 개와 {item:10505} 두 개. 근처에 모루가 필요합니다. {item:10505}을(를) 배우지 않고 여기까지 왔다면 지금 배우십시오: 앞의 단계에서 가르칩니다.",
 
 	-- Step 76: Thorium Widget to 287
 	-- {item:15994} Thorium Widget
 	["{item:15994} to 287"] = "{item:15994}: 287까지",
 	-- {item:15994} Thorium Widget · {item:12359} Thorium Bar · {item:14047} Runecloth
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["{item:15994} is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 {item:12359} and 1 {item:14047}. Three Thorium Bars and a {item:14047} a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby."] = "",
+	["{item:15994} is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 {item:12359} and 1 {item:14047}. Three Thorium Bars and a {item:14047} a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby."] = "{item:15994}은(는) 265에 주황색입니다(노란색 280, 초록색 290, 회색 300). 287까지 약 24번 만드세요. 한 번에 {item:12359} 3개, {item:14047} 1개. 제작당 토륨 주괴 세 개와(과) {item:14047} 한 개. 부품은 이후 토륨 도구의 재료입니다. 근처에 모루가 필요합니다.",
 	["from the recipe in your bags"] = "가방에 있는 제조법으로",
 
 	-- Step 77: Thorium Tube to 300
@@ -414,9 +420,10 @@ return {
 	["{item:16000} to 300"] = "{item:16000}: 300까지",
 	-- {item:16000} Thorium Tube · {item:12359} Thorium Bar · {skill:202} Engineering
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "",
+	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "{item:16000}은(는) 287에 주황색입니다(노란색 295, 초록색 305, 회색 315). 300까지 약 14번 만드세요. 한 번에 {item:12359} 6개. 도면은 주울 때 귀속됩니다. 제작당 토륨 주괴 여섯 개. 근처에 모루가 필요합니다. {skill:202} 300은(는) 유산 시스템 이정표입니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "{item:6533}에 필요한 {item:2836} 31개: {skill:186}: {object:1732}(숙련도 65) {zone:1413}(10-25), {zone:1440}(18-30)와(과) {zone:1424}(20-30). {zone:1440}(18-30)에서 가장 많이 나는 {object:1732} 지점이 표시됩니다.",
 	-- ["Apprentice {skill:202}"] = "초급 {skill:202}",
 	-- ["Artisan needs character level 35 and {skill:202} 200; it raises the cap to 300. Materials for 225-300 are worth about 67g in all."] = "전문은(는) 캐릭터 레벨 35, {skill:202} 200이(가) 필요하며 최대 숙련도를 300(으)로 올립니다. 225-300 재료는 모두 약 67골드입니다.",
 	-- ["Back to an {skill:202} trainer: {spell:12590} is taught from {skill:202} 175."] = "{skill:202} 상급자에게 돌아가세요. {spell:12590}은(는) {skill:202} 175부터 배울 수 있습니다.",
@@ -450,6 +457,8 @@ return {
 	-- ["Yellow until 90, green until 95: not every craft gives a point."] = "90까지 노란색, 95까지 초록색입니다. 만들 때마다 점수가 오르지는 않습니다.",
 	-- ["Yellow until 95, green until 110: not every craft gives a point. Needs an anvil nearby."] = "95까지 노란색, 110까지 초록색입니다. 만들 때마다 점수가 오르지는 않습니다. 근처에 모루가 필요합니다.",
 	-- ["{item:10498} to 210"] = "{item:10498}: 210까지",
+	-- ["{item:10512} is yellow at 225 (yellow 210, green 230, grey 250): about 62 crafts to 245. Each takes 1 {item:3860} and 1 {item:10505} and makes 200. Make the 50 {item:10505} first. Use the 12 {item:10505} you made earlier; the counts above leave them out. One {item:3860} and one {item:10505} a craft; hunters buy the slugs. Needs an anvil nearby."] = "{item:10512}은(는) 225에서 노란색입니다(노란색 210, 초록색 230, 회색 250). 245까지 약 62번 만드세요. 한 번에 {item:3860} 1개, {item:10505} 1개. 200개를 만듭니다. 먼저 {item:10505} 50개를 만드세요. 앞서 만든 {item:10505} 12개를 쓰세요. 위 수량에는 포함되지 않습니다. 제작당 {item:3860} 한 개와(과) {item:10505} 한 개. 사냥꾼이 탄환을 삽니다. 근처에 모루가 필요합니다.",
+	-- ["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "{item:10513}은(는) 245에서 노란색입니다(노란색 245, 초록색 265, 회색 285). 265까지 약 28번 만드세요. 한 번에 {item:3860} 2개, {item:10505} 2개. 200개를 만듭니다. 먼저 {item:10505} 56개를 만드세요. 제작당 미스릴 주괴 두 개와(과) {item:10505} 두 개. 근처에 모루가 필요합니다.",
 	-- ["{item:14047} (Alliance)"] = "{item:14047} (얼라이언스)",
 	-- ["{item:14047} (Horde)"] = "{item:14047} (호드)",
 	-- ["{item:2592} (Alliance)"] = "{item:2592} (얼라이언스)",
@@ -460,6 +469,8 @@ return {
 	-- ["{item:2836} comes from {object:1732} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:2836}은(는) {object:1732} 채집지에서 나옵니다({skill:186}). 데이터상 가장 밀집된 곳입니다. 경매장도 됩니다.",
 	-- ["{item:2838} comes from {object:1735} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:2838}은(는) {object:1735} 채집지에서 나옵니다({skill:186}). 데이터상 가장 밀집된 곳입니다. 경매장도 됩니다.",
 	-- ["{item:5956}: a tool, keep it in your bags"] = "{item:5956}: 도구이니 가방에 넣어 두세요",
+	-- ["{item:6533} is yellow at 150 (yellow 150, green 160, grey 170): about 31 crafts to 166. Each takes 2 {item:2841}, 1 {item:6530} and 1 {spell:3929} and makes 3. Make the 31 {spell:3929} first. {item:6530} come from trade and fishing suppliers; the attractors sell to fishermen."] = "{item:6533}은(는) 150에서 노란색입니다(노란색 150, 초록색 160, 회색 170). 166까지 약 31번 만드세요. 한 번에 {item:2841} 2개, {item:6530} 1개, {spell:3929} 1개. 3개를 만듭니다. 먼저 {spell:3929} 31개를 만드세요. {item:6530}은(는) 무역 및 낚시 용품 상인에게서. 끌어당김 장치는 낚시꾼에게 팔립니다.",
+	-- ["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby."] = "{item:6712}은(는) 100에 주황색입니다(노란색 115, 초록색 122, 회색 130). 125까지 약 31번 만드세요. 한 번에 {item:2841} 1개, {spell:3922} 2개, {item:2880} 1개. 먼저 {spell:3922} 29개를 만드세요. 앞서 만든 {spell:3922} 33개를 쓰세요. 위 수량에는 포함되지 않습니다. 연습용 자물쇠는 도적에게 팔거나 직접 여세요. 근처에 모루가 필요합니다.",
 	-- ["{item:7912} comes from {object:2040} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:7912}은(는) {object:2040} 채집지에서 나옵니다({skill:186}). 데이터상 가장 밀집된 곳입니다. 경매장도 됩니다.",
 	-- ["{npc:3263} (level 19-20) drop it here. The Auction House works too."] = "이곳의 {npc:3263}(19-20레벨)이(가) 떨어뜨립니다. 경매장도 됩니다.",
 	-- ["{npc:6189} (level 51-52) drop it here. The Auction House works too."] = "이곳의 {npc:6189}(51-52레벨)이(가) 떨어뜨립니다. 경매장도 됩니다.",
@@ -480,8 +491,10 @@ return {
 	-- ["{spell:3920} to 45"] = "{spell:3920}: 45까지",
 	-- ["{spell:3923} to 75"] = "{spell:3923}: 75까지",
 	-- ["{spell:3923} to 80"] = "{spell:3923}: 80까지",
+	-- ["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby."] = "{spell:3924}은(는) 94에서 노란색입니다(노란색 80, 초록색 95, 회색 110). 100까지 약 14번 만드세요. 한 번에 {item:2840} 2개, {item:2880} 1개. 제작당 구리 주괴 두 개와(과) {item:2880} 한 개(대장기술 및 기술기술 용품 상인). 근처에 모루가 필요합니다.",
 	-- ["{spell:3926} to 111"] = "{spell:3926}: 111까지",
 	-- ["{spell:3929} to 95"] = "{spell:3929}: 95까지",
 	-- ["{spell:3937} to 125"] = "{spell:3937}: 125까지",
 	-- ["{spell:3942} to 150"] = "{spell:3942}: 150까지",
+	-- ["{spell:3967} is yellow at 191 (yellow 190, green 210, grey 230): about 27 crafts to 210. Each takes 3 {item:3575}, 3 {spell:3945} and 1 {spell:3973} and makes 2. Make the 74 {spell:3945} and 30 {spell:3973} (6 crafts) first. Use the 7 {spell:3945} you made earlier; the counts above leave them out. A {item:2842} makes five Silver Contacts (grey by now: no points, but no trip to a vendor either); the {spell:3945} comes from {item:2838}. Each craft makes two bombs. Specialisation (optional): at 200 and character level 30, {npc:5174} ({zone:1455}), {npc:5518} ({zone:1453}), {npc:4586} ({zone:1458}) or Tinkerwiz ({area:392}) sends you to {spell:20220} ({npc:7944}, {zone:1455}, or {npc:7406}, {area:35}: 6 Mithril Tubes, an {item:4407} and 2 Advanced Target Dummies) or Goblin Engineering ({npc:8126}, {area:976}: 20 Big Iron Bombs, 20 {item:10507} and 5 {npc:2675}). The {item:4407} schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30). Needs an anvil nearby."] = "{spell:3967}은(는) 191에서 노란색입니다(노란색 190, 초록색 210, 회색 230). 210까지 약 27번 만드세요. 한 번에 {item:3575} 3개, {spell:3945} 3개, {spell:3973} 1개. 2개를 만듭니다. 먼저 {spell:3945} 74개와(과) {spell:3973} 30개를 만드세요(6번 제작). 앞서 만든 {spell:3945} 7개를 쓰세요. 위 수량에는 포함되지 않습니다. {item:2842} 하나로 은 접점 다섯 개를 만듭니다(지금은 회색: 포인트는 없지만 상인에 갈 일도 없습니다). {spell:3945}은(는) {item:2838}에서 나옵니다. 제작당 수류탄 두 개입니다. 전문화(선택): 200과 캐릭터 레벨 30에서 {npc:5174}({zone:1455}), {npc:5518}({zone:1453}), {npc:4586}({zone:1458}) 또는 틴커위즈({area:392})가 {spell:20220}({npc:7944}, {zone:1455}, 또는 {npc:7406}, {area:35}: 미스릴 관 6개, {item:4407}, 고급 표적 인형 2개)이나(나) 고블린 기술기술({npc:8126}, {area:976}: 대형 철 폭탄 20개, {item:10507} 20개, {npc:2675} 5개)로 보냅니다. {item:4407} 도면은 이제 주울 때 귀속되지만, 퀘스트는 다른 사람이 만든 조준경을 요구합니다. 회원권은 14일간 유지되고 갱신에 2골드입니다. 하나만 고를 수 있고, 300에는 둘 다 필요하지 않으며, 베타는 레벨 30에서 멈춰 검증되지 않았습니다. 근처에 모루가 필요합니다.",
 }
