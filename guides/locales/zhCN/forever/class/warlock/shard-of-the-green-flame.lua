@@ -36,7 +36,7 @@ return {
 	-- {npc:14467} Kroshius · {area:1766} Shatter Scar Vale · {npc:14469} Niby the Almighty · {item:18626} Fel Fire · {npc:14470} Impsy
 	["{npc:14467}' remains lie in {area:1766}, the burnt crater north of {npc:14469}: follow the road north from his camp; the remains lie a little east of it. Use the {item:18626} beside them and wait for him to rise. {npc:14467} is elite (level 55): grouping up is encouraged; a warlock of 55 or more can solo him with Fear and damage over time, or with Enslave Demon, but fire spells do nothing to him and he knocks you back. If you die he heals to full; he rises again three minutes after he dies. An elite infernal patrols the pool south of the remains: pull {npc:14467} away from it. He always drops his core. Lost the {item:18626}? Abandon the quest and take it again from {npc:14470}."] = "{npc:14467} 的遗骸位于 {npc:14469} 北面的焦黑陨坑 {area:1766}：从他的营地沿道路北上，遗骸就在道路稍东侧。在遗骸旁使用 {item:18626}，等待他起身。{npc:14467} 是55级精英：建议组队；55级及以上的术士可以用恐惧配合持续伤害，或用奴役恶魔单独击败他，但火焰法术对他无效，而且他会击退你。如果你死亡，他会回满生命；他死后三分钟会再次出现。遗骸南面的水池附近有精英地狱火巡逻：把 {npc:14467} 拉远再打。他必定掉落核心。弄丢了 {item:18626}？放弃任务，再向 {npc:14470} 重新接受。",
 	-- {item:18626} Fel Fire · {object:179677} Kroshius' Remains (no name in this language: may be words)
-	["{item:18626}, at {object:179677}"] = "{item:18626}，在{object:179677}",
+	["{item:18626}, at {object:179677}"] = "{item:18626}，在克罗苏斯的遗骸",
 
 	-- Step 7: Back to Niby the Almighty
 	-- {npc:14469} Niby the Almighty

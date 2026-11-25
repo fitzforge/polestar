@@ -243,7 +243,7 @@ local GOAL = rec({
 		lvl = rec({ min = N, max = N }), rate = N, spawns = N })),
 	rewards = rec({ choices = list(REWARD_ITEM), items = list(REWARD_ITEM), xp = N, money = N }),
 	group = rec({ kind = S, rank = N, name = S, size = N, map = N, lvl = N }),
-	direct = B, escort = B, gossip = N, seconds = N, either = B, off = B, points = N, upto = N,
+	direct = B, repeatable = B, escort = B, escortSecs = N, escortFail = N, gossip = N, seconds = N, either = B, off = B, points = N, upto = N,
 	objs = list(rec({ text = S, count = N })), startItem = N, startItemName = S, carriedTo = S,
 })
 -- A step's `when` predicates and a `next` option's (format 4; Guides.Validate checks each kind's keys).

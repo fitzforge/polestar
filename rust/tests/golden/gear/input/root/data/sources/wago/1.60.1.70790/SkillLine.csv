@@ -1,0 +1,10 @@
+DisplayName_lang,AlternateVerb_lang,Description_lang,HordeDisplayName_lang,NeutralDisplayName,ID,CategoryID,SpellIconFileID,CanLink,ParentSkillLineID,ParentTierIndex,Flags,SpellBookSpellID,ExpansionNameSharedStringID,HordeExpansionNameSharedStringID
+Dwarven Racial,,,,,101,9,136235,0,0,0,146,0,0,0
+Tauren Racial,,,,,124,9,136235,0,0,0,146,0,0,0
+Orc Racial,,,,,125,9,136235,0,0,0,146,0,0,0
+Night Elf Racial,,,,,126,9,136235,0,0,0,146,0,0,0
+Racial - Undead,,,,,220,9,136235,0,0,0,146,0,0,0
+Racial - Troll,,,,,733,9,0,0,0,0,146,0,0,0
+Racial - Gnome,,,,,753,9,0,0,0,0,146,0,0,0
+Racial - Human,,,,,754,9,0,0,0,0,146,0,0,0
+Skyborne Racial,,,,,2980,9,136235,0,0,0,146,0,0,0

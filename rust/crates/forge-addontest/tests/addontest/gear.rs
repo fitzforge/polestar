@@ -96,6 +96,20 @@ fn itemdb_parses_entries_header_fields_stat_tokens_weapon_dps_class_mask_unique_
 	assert_eq!(*missing, true);
 }
 
+// Forever's crit, hit, dodge, parry and block come from ratings: forge data gear converts them to percent, so a
+// Forever.lua record can say crit0.5 (7 crit rating).
+#[test]
+fn itemdb_reads_decimal_stats_from_converted_ratings() {
+	let out = run(
+		r#"
+		Polestar.ItemDB.Register(nil, { [9900] = "1 51 46 3 4 2 agi9 armor120 crit0.5 spellCrit0.5 hit0.7 spellHit0.7" })
+		emit(Polestar.ItemDB.Get(9900).stats)
+	"#,
+		Opts::default(),
+	);
+	assert_eq!(out[0], json!({ "agi": 9, "armor": 120, "crit": 0.5, "spellCrit": 0.5, "hit": 0.7, "spellHit": 0.7 }));
+}
+
 #[test]
 fn client_stats_win_over_itemdb_for_base_stats_itemdb_fills_equip_bonuses_the_client_left_out() {
 	let out = run(
@@ -406,6 +420,28 @@ fn a_rogue_can_upgrade_to_a_one_handed_axe_after_learning_the_skill() {
 		Opts { cls: "ROGUE", class_name: "Rogue", class_id: 4, ..Default::default() },
 	);
 	assert_eq!(out, vec![json!(false), json!(true), json!("weapon")]);
+}
+
+// #2855: In WoW Forever, Druids can train and use Polearms (subclass 6, skill line 229).
+#[test]
+fn a_druid_can_use_polearms_after_learning_the_weapon_skill_2855() {
+	let out = run(
+		r#"
+		g.defineItem("item:7301", { equipLoc = "INVTYPE_2HWEAPON", classID = 2, subclassID = 6, minLevel = 20, stats = { ITEM_MOD_ATTACK_POWER_SHORT = 20 } })
+		w.learnSkill(54, "Maces", 1, 150)
+		local before = G.CompareToEquipped("item:7301")
+		local b = { usable = before.usable, reason = before.reason }
+		w.learnSkill(229, "Polearms", 1, 150)
+		local after = G.CompareToEquipped("item:7301")
+		emit({ before = b, after = { usable = after.usable, reason = after.reason, up = G.IsUpgrade("item:7301") } })
+	"#,
+		Opts { cls: "DRUID", class_name: "Druid", class_id: 11, level: 20, ..Default::default() },
+	);
+	let r = &out[0];
+	assert_eq!(r["before"], json!({ "usable": false, "reason": "skill" }));
+	assert_eq!(r["after"]["usable"], true);
+	assert_eq!(r["after"]["up"], true);
+	assert!(r["after"]["reason"].is_null());
 }
 
 #[test]
@@ -1048,7 +1084,7 @@ fn the_guide_window_s_reward_pick_opens_stat_weights_on_a_click() {
 fn the_reward_pick_s_click_hint_reads_on_the_game_s_tooltip_in_a_light_look() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua", "stub_gear.lua"],
-		addons: vec![Addon::name("Polestar"), Addon::name("Polestar_Skin_Vellum")],
+		addons: vec![Addon::name("Polestar"), Addon::files("Polestar_Skins", &["Skins/Vellum/Vellum.lua"])],
 		login: true,
 		script: r#"
 		stub.advance(1)
@@ -1282,8 +1318,11 @@ fn a_feral_druid_takes_the_harder_hitting_mace_over_a_caster_staff_with_more_sta
 // #833: an Orc Hunter at 13 with Rusty Hatchet (2.9 DPS, no stats) was told Jagged Dagger (6.0 DPS, +1 Strength)
 // is a big downgrade. Axe Specialization's 1% crit was worth the Hunter's whole crit weight (10, the bow's) on the
 // axe, against 0.5 per melee DPS: the axe scored 11.45, the dagger 3.1. A melee weapon's racial crit now counts
-// by the spec's melee share (0.5 of 6.5); an Orc Warrior's axe keeps it whole. The items are Polestar_ItemDB's.
+// by the spec's melee share (0.5 of 6.5); an Orc Warrior's axe keeps it whole. The items are Polestar_ItemDB's;
+// the trait is the one the Forever client had then (Forever's racials change between builds).
 const AXE_AND_DAGGER: &str = r#"
+		G.RACIALS[2] = { { name = "Axe Specialization", weaponCrit = { pct = 1, subclasses = { [0] = true, [1] = true } } } }
+		G.RefreshPlayer()
 		Polestar.ItemDB.Register(nil, {
 			[1416] = "21 9 4 0 2 0 dmin4 dmax8 speed2100",
 			[4947] = "13 11 0 2 2 15 str1 dmin6 dmax12 speed1500",

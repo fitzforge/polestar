@@ -69,8 +69,7 @@ return {
 
 	-- Step 13: Charred Wolf Meat: ingredients
 	-- {npc:250873} Juvenile Vuldren
-	-- was: ["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "澤弗拉斯島的弗德飛狐、{npc:250874}，或箭頭指向的地方"
-	["{npc:250873} in Zephras Isle, or wherever the arrow points"] = "",
+	["{npc:250873} in Zephras Isle, or wherever the arrow points"] = "微風島的 {npc:250873}，或箭頭指向的地點。",
 
 	-- Step 14: Charred Wolf Meat (1-50)
 	-- {spell:2538} Charred Wolf Meat · {object:29784} Basic Campfire · {item:2672} Stringy Wolf Meat

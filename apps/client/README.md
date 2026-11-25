@@ -94,8 +94,14 @@ the upload API, and the public list of what is never collected.
   `AddOns/.polestar-client-backup-<time>` and the message names it; it is
   never wiped by a later install. A product only
   touches its own folders: Polestar's are `Polestar` and the `Polestar_*`
-  folders whose .toc says `## Author: Polestar` (an update also removes the
-  ones its new release no longer has); never another addon. Updates are
+  folders whose .toc says `## Author: Polestar`, plus Polestar 0.4.2's
+  walking-map folders `Polestar_Nav_R<map>_<row>_<col>` whose .toc title
+  starts with `Polestar Nav [` (they had no author line), plus the 24
+  folders Polestar 0.4.3 folded into others, by name whatever their .toc
+  says (docs/client/sweep-0.4.3.md). Other `Polestar_Skin_*` and
+  `Polestar_Layout_*` folders are skins and layouts, the example included,
+  and never Polestar's. An update also removes the ones its new release no
+  longer has; never another addon. Updates are
   looked for every 6 hours (off in Settings) and announced in the tray;
   they install by themselves only if you turn that on, and never while the
   game is running. The Stable channel offers releases, Beta pre-releases too.
@@ -155,10 +161,11 @@ the upload API, and the public list of what is never collected.
   pin them on the first check). A different uid under the same id means the
   guide was replaced by another one: it shows as replaced and is only
   installed after you confirm. An update whose publisher or folders changed
-  also asks first, naming what changed. Guide updates count in the Addons
-  badge; Update all takes only the routine ones. They install by
-  themselves only with their own setting, "Update guides automatically"
-  (off by default), and then only with the game closed, a day after the
+  also asks first, naming what changed. Guide updates count in the Community
+  Guides badge; Update all takes only the routine ones, and its tooltip says
+  so. They install by themselves only with their own setting, "Update guides
+  automatically" (off by default), and then only with the game closed, a day
+  after the
   version was published, and with the same uid, publisher and folders;
   anything else is announced in
   the tray and waits for you. With any guide installed, the 6-hourly check
@@ -358,7 +365,8 @@ Before publishing the draft:
 - The launch test passed in the release run (and in the pull request's
   `Client launch test (Linux)` check).
 - Download the draft's Linux AppImage and open it once on a desktop; for
-  Windows and macOS, ask a tester to open the draft's installer once. A
+  Windows and macOS, ask a tester to open the draft's installer once (on
+  Windows, a signed build on a PC with Smart App Control on). A
   build that opens on an error screen cannot reach its own update button,
   so its players have to download the next one by hand (0.1.1 did, on some
   Linux desktops).
@@ -367,15 +375,31 @@ Before publishing the draft:
   of the addon's (after 0.1.1 the addon's v0.2.6 had to be set back as
   latest).
 
-The Linux and Windows builds hold no secrets. The signing secrets live only
-in the GitHub environment `release`, used by two jobs: the macOS build (the
-`APPLE_*` secrets, because signing and notarizing happen during the build)
-and the release job, which runs no build code: it signs the updater files
+The Linux builds hold no secrets. The signing secrets live only
+in the GitHub environment `release`, used by three jobs: the macOS build (the
+`APPLE_*` secrets) and the Windows build (the `ES_*` secrets), because their
+signing happens during the build, and the release job, which runs no build
+code: it signs the updater files
 with `tauri signer sign`, writes `latest.json` and creates the draft. The
 environment must be set up in the repository's settings (Settings >
 Environments > `release`): a required reviewer, and deployment limited to
 tags matching `client-v*`. Without that, anyone who can push a tag gets a
 signed build.
+
+The Windows app and installer are Authenticode-signed through SSL.com's
+eSigner cloud signing once the `release` environment has its four secrets:
+`ES_USERNAME` and `ES_PASSWORD` (the SSL.com account), `ES_CREDENTIAL_ID` (the
+code-signing certificate's eSigner credential) and `ES_TOTP_SECRET` (the
+secret behind the eSigner two-factor QR code, so CI signs without a phone).
+Without them the msi is built unsigned, as before, and Windows 11's Smart App
+Control refuses to run it (#3397); with only some of them the build fails.
+With all four, the Windows job merges `src-tauri/tauri.windows-sign.conf.json`, whose
+`bundle.windows.signCommand` runs `release/sign-windows.ps1` (SSL.com's
+CodeSignTool, pinned by checksum in the workflow) on the app's `.exe` before
+it goes into the installer and on the `.msi`, and checks both signatures
+afterwards. The release notes must match: the job fails on notes that say
+"now code-signed" for an unsigned build, or keep the "isn't code-signed"
+first-launch line on a signed one.
 
 The updater's private key is not in the repository; its public half is
 `plugins.updater.pubkey` in `src-tauri/tauri.conf.json`. CI reads the private

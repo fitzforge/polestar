@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Fire Hardened Armor"] = "불에 달궈 만든 갑옷",
-	["Starts now at 20 with a shield; a hauberk at 28, then a coif, leggings and gauntlets from three smiths."] = "",
+	["Starts now at 20 with a shield; a hauberk at 28, then a coif, leggings and gauntlets from three smiths."] = "20레벨에 방패로 시작하고 28레벨에 상의를 받으며, 그다음 세 대장장이에게 투구, 다리갑, 장갑을 받습니다.",
 
 	-- Step 1: Yorus Barleybrew (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {quest:1698} Yorus Barleybrew
@@ -28,7 +28,7 @@ return {
 
 	-- Step 5: The Rethban Gauntlet
 	-- {npc:6166} Yorus Barleybrew · {spell:8553} Barleybrew Scalder · {area:98} Rethban Caverns · {area:69} Lakeshire
-	["You have one hour, and {npc:6166}'s {spell:8553} leaves you drunk for 8-10 minutes. Run north-west into the {area:98}, keeping close to the cliff wall to miss most gnoll packs, and go in as far as the first fork; then come back to {npc:6166} (from the ridge you can jump down into {area:69}). Dying and releasing your spirit fails the quest: abandon it and {npc:6166} gives it again."] = "",
+	["You have one hour, and {npc:6166}'s {spell:8553} leaves you drunk for 8-10 minutes. Run north-west into the {area:98}, keeping close to the cliff wall to miss most gnoll packs, and go in as far as the first fork; then come back to {npc:6166} (from the ridge you can jump down into {area:69}). Dying and releasing your spirit fails the quest: abandon it and {npc:6166} gives it again."] = "1시간이 주어지며 {npc:6166}의 {spell:8553}은 8~10분간 취하게 합니다. {area:98} 북서쪽으로 달려 절벽 벽 가까이 유지해 그놀 무리를 대부분 피하고 첫 갈림길까지 간 뒤 {npc:6166}에게 돌아오세요(능선에서 {area:69}로 뛰어내릴 수 있습니다). 죽어서 영혼을 풀면 퀘스트가 실패하니 포기하고 {npc:6166}에게 다시 받으세요.",
 	-- {area:98} Rethban Caverns
 	["The {area:98}"] = "{area:98}",
 	-- {area:98} Rethban Caverns
@@ -74,7 +74,7 @@ return {
 
 	-- Step 12: Grimand Elmore
 	-- {npc:1416} Grimand Elmore · {object:28027} Dwarven District · {npc:5413} Furen Longbeard · {quest:1705} Burning Blood · {item:6845} Burning Rock
-	["{npc:1416} keeps the weapon shop in the north-west of the {object:28027}, a short walk from {npc:5413}. He wants 20 {quest:1705} and the {item:6845}."] = "",
+	["{npc:1416} keeps the weapon shop in the north-west of the {object:28027}, a short walk from {npc:5413}. He wants 20 {quest:1705} and the {item:6845}."] = "{npc:1416}은(는) {object:28027} 북서부 무기점 주인이며 {npc:5413}에서 걸어서 금방입니다. {quest:1705} 20개와 {item:6845}을(를) 원합니다.",
 
 	-- Step 13: Burning Blood
 	-- {zone:1431} Duskwood · {area:42} Darkshire · {quest:1705} Burning Blood · {spell:3427} Infected Wound
@@ -90,7 +90,7 @@ return {
 
 	-- Step 16: Mathiel
 	-- {quest:1703} Mathiel · {area:1660} Warrior's Terrace · {zone:1457} Darnassus · {quest:1710} Sunscorched Shells
-	["{quest:1703} works on the south side of the {area:1660} in {zone:1457}. He wants 20 {quest:1710}."] = "",
+	["{quest:1703} works on the south side of the {area:1660} in {zone:1457}. He wants 20 {quest:1710}."] = "{quest:1703}은(는) {zone:1457} {area:1660} 남쪽에서 일합니다. {quest:1710} 20개를 원합니다.",
 
 	-- Step 17: Sunscorched Shells
 	-- {area:482} Highperch · {zone:1441} Thousand Needles
@@ -99,13 +99,13 @@ return {
 
 	-- Step 19: Klockmort Spannerspan
 	-- {area:2257} Deeprun Tram · {zone:1453} Stormwind · {zone:1455} Ironforge · {quest:1704} Klockmort Spannerspan · {object:171524} Tinker Town · {item:6848} Searing Coral
-	["Ride the {area:2257} from {zone:1453} to {zone:1455}. {quest:1704}, a gnome smith, works in {object:171524} near the engineering trainers. He wants 20 {item:6848}."] = "",
+	["Ride the {area:2257} from {zone:1453} to {zone:1455}. {quest:1704}, a gnome smith, works in {object:171524} near the engineering trainers. He wants 20 {item:6848}."] = "{area:2257}을(를) 타고 {zone:1453}에서 {zone:1455}로 가세요. {quest:1704}은(는) 공학 교관 근처 {object:171524}에서 일하는 노움 대장장이입니다. {item:6848} 20개를 원합니다.",
 
 	-- Step 20: Iron Coral
 	-- {quest:1708} Iron Coral · {area:150} Menethil Harbor · {item:5996} Draught of Water Breathing
-	["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and a {item:5996} removes the risk."] = "",
+	["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and a {item:5996} removes the risk."] = "{quest:1708}은(는) {area:150} 바로 남쪽 해저, 멀록 오두막과 난파선 옆에 자랍니다. 그곳에 8개, 항구 남동쪽에 2개가 있고 각각 3분 만에 다시 자라니 20개를 모으려면 리스폰을 기다려야 합니다. 멀록이 물속에서 그물을 던질 수 있으니 숨에 주의하고 {item:5996}을(를) 쓰면 위험이 없습니다.",
 	-- {item:6848} Searing Coral · {quest:1708} Iron Coral
-	["{item:6848}, from {quest:1708}"] = "",
+	["{item:6848}, from {quest:1708}"] = "{item:6848}, {quest:1708}에게서",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A hauberk at 28, a coif, leggings or gauntlets by race, and a shield on the way."] = "28레벨에 사슬 갑옷, 종족에 따라 사슬 두건, 다리보호구 또는 건틀릿, 그리고 도중에 방패.",

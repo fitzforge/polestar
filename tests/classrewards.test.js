@@ -48,6 +48,14 @@ test('only the data\'s class limit makes a class quest: a class guide\'s errand 
 	assert.deepEqual(starts.map((s) => s.q), [397]);
 });
 
+test('a quest that asks for a profession\'s skill is no class quest, whatever classes the data limits it to', () => {
+	// QuestieDB 1.1.5 limits the Horde's The Art of the Armorsmith (5301, Blacksmithing 200) to Warriors and Paladins.
+	const quests = { 5301: { ...quest(5301, -121, 40, BRACERS), classes: 1 | 2, skill: 164, skillLevel: 200 }, 10: quest(10, -61, 20, ROBE) };
+	const { starts, quests: out } = buildClassRewards({ quests, tdb: null, table, guides: [], npcs: { 1: giver }, objects: {}, races });
+	assert.deepEqual(out.map((e) => e.q), [10]);
+	assert.deepEqual(starts.map((s) => s.q), [10]);
+});
+
 // #2462 (TAKODACHI): a class guide holds each step to the player's level (Fitz's level rule, 0.4.0), so the heads-up
 // waits for the level the guide takes the chain's first quest at, not the quest's own minimum: a card never says
 // "ready" at a level the guide then holds you back from. A level 1 start stays at 1 (no heads-up at all).
@@ -95,4 +103,47 @@ test('a buff the turn-in casts with another class\'s spell is no reward: the pri
 	assert.equal(of(8257).spell, undefined, 'no Mark of the Wild on the priest card');
 	assert.deepEqual(of(8257).items, [ROBE]);
 	assert.equal(of(20).spell, CAT, 'a druid still learns Cat Form');
+});
+
+// #2472: the quest data no longer carries the web quest database's rewards, so the card takes what players were
+// handed at the turn-in in their recordings (data/codex/recorded.json `rewards`), where enough of them agree.
+test('a class quest\'s item reward comes from the recorded turn-ins when the quest data has none (#2472)', () => {
+	const quests = { 10: { ...quest(10, -61, 20, ROBE), web: undefined }, 11: { ...quest(11, -61, 20, ROBE), web: undefined } };
+	const recorded = { 10: { items: [BRACERS], choices: [], voters: 6, trusted: true }, 11: { items: [BLADE], choices: [], voters: 1, trusted: false } };
+	const { rewards, quests: out } = buildClassRewards({ quests, tdb: null, table, guides: [], npcs: { 1: giver }, objects: {}, races, recorded });
+	const of = (q) => out.find((e) => e.q === q).reward;
+	assert.deepEqual(rewards[of(10) - 1].items, [BRACERS]);
+	assert.equal(of(11), 0, 'one untrusted recording is no reward');
+});
+
+// #2472: The Tempest's Weapons lists both factions' Heed My Call as `pre`; the Alliance's Call of Air chain must not
+// take the Horde chain's reward through it.
+test('a quest both factions\' chains lead to joins neither chain to the other (#2472)', () => {
+	const A = 4294967373, H = 8589934770;
+	const q = (id, races, item, extra) => ({ ...quest(id, -82, 30, item), classes: 64, races, web: item ? { zone: -82, items: [[item, 1]], choices: [] } : { zone: -82, items: [], choices: [] }, ...extra });
+	const quests = {
+		94789: q(94789, A, ROBE, { next: 96264 }), // Alliance Call of Air: its totem
+		96264: q(96264, A, null, { pre: [94789] }),
+		79366: q(79366, H, null, {}),
+		79442: q(79442, H, BLADE, { pre: [79366, 96264] }), // Horde's weapon, listing the Alliance's quest too
+	};
+	const { rewards, quests: out } = buildClassRewards({ quests, tdb: null, table, guides: [], npcs: { 1: giver }, objects: {}, races });
+	const of = (id) => out.find((e) => e.q === id);
+	assert.notEqual(of(96264).chain, of(79442).chain, 'two chains');
+	const reward = of(96264).reward;
+	assert.ok(!reward || !(rewards[reward - 1].items || []).includes(BLADE), "the Alliance quest never shows the Horde chain's weapon");
+});
+
+// The 0.4.3 data knows many class trainers only on the client's live frame (Mathrengyl Bearwalker in Darnassus):
+// the card's point is an Era one, so the live point is carried onto the Era map, and the card still says where.
+test('a giver known only on the live frame gets the same place on the Era map', () => {
+	const live = { name: 'Live', faction: 'AH', spawns: { 1429: { f: 'l', pts: [[40, 60]] } } };
+	const frames = {
+		era: { 1429: { c: 0, left: 0, right: 1000, top: 0, bottom: 1000 } },
+		forever: { 1429: { c: 0, left: 100, right: 900, top: 100, bottom: 900 } },
+	};
+	const quests = { 10: quest(10, -61, 20, ROBE) };
+	const at = (f) => buildClassRewards({ quests, tdb: null, table, guides: [], npcs: { 1: live }, objects: {}, races, frames: f }).starts[0].givers[0];
+	assert.deepEqual([at(frames).map, at(frames).x, at(frames).y], [1429, 42, 58]);
+	assert.equal(at(null).map, undefined, 'without the frames: no point, as before');
 });

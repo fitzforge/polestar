@@ -102,6 +102,43 @@ fn guides_sync_writes_every_text_with_its_names_and_check_fails_on_a_lost_token_
 	let _ = std::fs::remove_dir_all(&dir);
 }
 
+/// Which objects have a name in a language comes from the names addon of the checkout `--root` names
+/// (addon/Polestar_<locale>/Names.lua), not of the checkout forge was built in: the post-merge gates'
+/// runner runs a forge built elsewhere, found no names, and failed every translation that writes an
+/// unnamed object as words. Here the checkout's frFR names only the Kobold Crate, where the repository's
+/// names the Battered Chest too: the chest may be words, the crate keeps its token.
+#[test]
+fn guides_check_takes_the_named_objects_from_the_checkout_it_is_given() {
+	let dir = Path::new(env!("CARGO_TARGET_TMPDIR")).join(format!("i18n-named-{}", std::process::id()));
+	let _ = std::fs::remove_dir_all(&dir);
+	let (checkout, pack) = (dir.join("checkout"), dir.join("pack"));
+	std::fs::create_dir_all(checkout.join("addon/Polestar_frFR")).unwrap();
+	std::fs::write(checkout.join("addon/Polestar_frFR/Names.lua"), "R(\"object\", 1617, 1617, [[\n1617\tCaisse kobolde\n]])\n").unwrap();
+	std::fs::create_dir_all(pack.join("guides")).unwrap();
+	std::fs::write(pack.join("pack.json"), r#"{"id":"texts","title":"Texts Pack","author":"Ann","version":"1.0.0","license":"CC0-1.0","folder":"PolestarPack_Texts"}"#).unwrap();
+	let tip = "  tip Marshal McBride stands at the abbey door; Brother Danil sells food inside. Kobold Vermin crowd the camp to the north.\n";
+	std::fs::write(pack.join("guides/main.guide"), GUIDE.replace(tip, "  tip The Battered Chest stands by the Kobold Crate.\n")).unwrap();
+	let data = root().join("tests/fixtures/dsl/data");
+	let i18n = |cmd: &str| {
+		let r = Command::new(env!("CARGO_BIN_EXE_forge")).args(["i18n", "guides", cmd, "frFR", "--pack"]).arg(&pack).arg("--data").arg(&data).arg("--root").arg(&checkout).output().unwrap();
+		(r.status.code().unwrap_or(-1), String::from_utf8_lossy(&r.stderr).into_owned())
+	};
+	assert_eq!(i18n("sync").0, 0);
+	let file = pack.join("locales/frFR/guides/main.lua");
+	let text = std::fs::read_to_string(&file).unwrap();
+	let key = "[\"The {object:2843} stands by the {object:1617}.\"] = \"\",";
+	assert!(text.contains("{object:2843} Battered Chest (no name in this language: may be words)"), "{text}");
+	assert!(text.contains(key), "{text}");
+	std::fs::write(&file, text.replace(key, "[\"The {object:2843} stands by the {object:1617}.\"] = \"Le coffre cabossé est près de la {object:1617}.\",")).unwrap();
+	let (code, err) = i18n("check");
+	assert_eq!(code, 0, "the unnamed chest is words: {err}");
+	std::fs::write(&file, std::fs::read_to_string(&file).unwrap().replace("près de la {object:1617}", "près de la caisse kobolde")).unwrap();
+	let (code, err) = i18n("check");
+	assert_eq!(code, 1);
+	assert!(err.contains("leaves out {object:1617}"), "the named crate keeps its token: {err}");
+	let _ = std::fs::remove_dir_all(&dir);
+}
+
 /// #1315 (Saulo's idea): a text whose English changed starts from its old translation. The tip's
 /// name {npc:6} became words ("The kobolds"), so its tokens differ and the old translation would only
 /// sit in the retired block; sync writes it as a `-- was:` comment right above the new, empty line,

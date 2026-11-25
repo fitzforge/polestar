@@ -677,10 +677,8 @@ fn packs_lua(root: &Path, locale: &str, scene: &Scene) -> Result<String, String>
 	if scene.recorder {
 		return Ok(String::new());
 	}
-	// The settings window (Polestar_Options) loads on its first opening, the Skin API's checks
-	// (Polestar_SkinAPI) with the first skin another addon registers and the game's looks with Hearth
-	// (Polestar_Looks) the first time one is painted, as in the client.
-	let mut names: Vec<String> = ["Polestar_QuestDB", "Polestar_Codex", "Polestar_ItemDB", "Polestar_Options", "Polestar_SkinAPI", "Polestar_Looks"].iter().map(|x| x.to_string()).collect();
+	// The settings window (Polestar_Options) loads on its first opening, as in the client.
+	let mut names: Vec<String> = ["Polestar_QuestDB", "Polestar_Codex", "Polestar_ItemDB", "Polestar_Options"].iter().map(|x| x.to_string()).collect();
 	// The walking map (Polestar_Nav) plans paths in the background, seconds of Lua each step: only the
 	// scenes about travel load it.
 	if scene.nav {
@@ -844,13 +842,19 @@ impl DataNames {
 				}
 			}
 		} else if kind == "objective" {
-			// The event objectives' lines (no id: what Dungeons.ObjectiveText falls back to).
+			// The lines the page shows as events (no id: what Dungeons.ObjectiveText falls back to): events, those
+			// with no id, and a talk whose text is not its NPC's name (codex/journal.rs, #3426).
+			let npcs = self.table("npc");
 			for (id, q) in doc.entries() {
 				let lines: Vec<String> = q
 					.get("objectives")
 					.items()
 					.iter()
-					.filter(|o| (o.get("type").as_str() == Some("event") || !o.get("id").truthy()) && o.get("text").truthy())
+					.filter(|o| {
+						let text = o.get("text");
+						let npc = npcs.get(&o.get("id").to_js_string());
+						text.truthy() && (o.get("type").as_str() == Some("event") || !o.get("id").truthy() || (o.get("type").as_str() == Some("talk") && npc.truthy() && npc.as_str() != text.as_str()))
+					})
 					.map(|o| o.get("text").to_js_string())
 					.collect();
 				if !lines.is_empty() {

@@ -49,6 +49,35 @@ end
 -- (`setting`, a settings key: the note opens the settings on it).
 local NOTES = {
 	{
+		version = "0.4.3",
+		notes = {
+			{ glyph = "dart", color = "accent", head = L["A smarter arrow"], text = function()
+				return L["Walks that follow your own trail, boats and lifts it understands, flights it remembers, enemy towns it goes round."]
+			end },
+			{ glyph = "guides", color = "accent", head = L["Guides named for their zones"], text = function()
+				return L["Titles name the zones you quest in, in walking order. Camping 101 is in for every start-zone profession."]
+			end },
+			{ glyph = "icon-group", color = "accent", head = L["Escorts are your choice"], text = function()
+				return L["Do it or Skip it, with how long other players' runs take and how often they fail."]
+			end },
+			{ glyph = "window", color = "accent", head = L["Windows your way"], text = function()
+				return L["Atlas or Standard layout; Settings and Guides have their own scale; switches for chat messages and the XP line."]
+			end },
+			{ glyph = "key", color = "accent", head = L["Attunements"], text = function()
+				return L["Every attunement and key for your faction in the guide menu, with a progress bar and %s."]:format(L["Guide me"])
+			end },
+			{ glyph = "icon-talk", color = "accent", head = L["Polestar in your language"], text = function()
+				return L["Settings > General > Language shows Polestar in another language than the game's."]
+			end },
+			{ glyph = "reload", color = "accent", head = L["Fewer folders"], text = function()
+				return L["Quit the game fully and start it again: Polestar is 22 folders now, not 45."]
+			end },
+			{ glyph = "check", color = "success", head = L["Fixes from your reports"], text = function()
+				return L["Steps fixed in dozens of zones. Found something off? Type %s."]:format(cmd("/polestar report"))
+			end },
+		},
+	},
+	{
 		version = "0.4.0",
 		notes = {
 			{ glyph = "icon-forever", color = "accent", head = L["Two new zones in your route"], text = function()
@@ -159,14 +188,21 @@ WN.LATEST = NOTES[1].version
 
 local DELAY = 3 -- seconds after login: after the welcome's own delay, so a due welcome goes first
 local MAX_H = 440 -- the window's height at most (its size with five notes); more notes scroll
+local NOTES_WITH_SECTION = 200 -- the notes' view at most under the layout section (UI/LayoutCard.lua)
 local SITE = "polestar.guide"
 
 local F
 local pending -- nil | "login" | "asked": waiting for the moment it may open
 local hookedRC
+local section -- the layout section is in this showing (UI/LayoutCard.lua)
+local kept -- closed by one of the footer's buttons, not the ✕ or Escape
 
+local function LC() return UI.LayoutCard end
+
+-- Seen: the newest notes shown, and the 0.4.3 layout choice not due (LC.Due).
 local function seen()
-	return ns.DB().whatsNewSeen == WN.LATEST
+	local lc = LC()
+	return ns.DB().whatsNewSeen == WN.LATEST and not (lc and lc.Due())
 end
 
 local function inCinematic()
@@ -187,9 +223,15 @@ local function close()
 	if F then F:Hide() end
 end
 
+-- Got it / Keep this: what the layout section shows stays.
+local function keep()
+	kept = true
+	close()
+end
+
 -- The guide list on its home view: the open tabs, then "Suggested for you".
 local function openGuideList()
-	close()
+	keep()
 	UI.ShowPicker()
 	if UI.Picker and UI.Picker.SetView then UI.Picker.SetView("home") end
 end
@@ -253,7 +295,7 @@ local function build()
 	F.Foot = foot
 	F.Site = W.Text(foot, "note", "textMuted")
 	F.Site:SetPoint("LEFT", foot, "LEFT", K.FOOT_PAD, 0)
-	F.GotIt = W.Button(foot, L["Got it"], close, { primary = true })
+	F.GotIt = W.Button(foot, L["Got it"], keep, { primary = true })
 	F.GotIt:SetPoint("RIGHT", foot, "RIGHT", -K.FOOT_PAD, 0)
 	F.GuideList = W.Button(foot, L["Open the guide list"], openGuideList)
 	F.GuideList:SetPoint("RIGHT", F.GotIt, "LEFT", -8, 0)
@@ -266,6 +308,16 @@ local function build()
 		Anim.To(h, "offset", -8, 0, Anim.BASE, "out")
 	end)
 	ns.CloseOnEscape("PolestarWhatsNew")
+	-- Closed (not hidden with the rest of Polestar): the layout section's
+	-- setup goes back unless a footer button closed it (LC.End), and what
+	-- waits on What's new may open.
+	F:HookScript("OnHide", function(self)
+		if self:IsShown() then return end
+		local lc = LC()
+		if section and lc then lc.End(kept) end
+		section, kept = nil, nil
+		ns.Fire("WHATSNEW_CLOSED")
+	end)
 	WN.frame = F
 	if ns.Gamepad and ns.Gamepad.Register then
 		ns.Gamepad.Register(F, {
@@ -346,8 +398,13 @@ local function render()
 		end
 	end
 	local bodyH = max(1, y - 10)
+	-- The layout section (UI/LayoutCard.lua) under the notes, outside their
+	-- scroll so it is always in view: the notes' view a little shorter then.
+	local lc = LC()
+	local S = section and lc and lc.Section(F)
+	local sectionH = S and (lc.LayoutSection(K.CW) + 8) or 0
 	local fixed = 1 + heroH + K.BOTTOM + K.FOOT_H + 1
-	local viewH = math.min(bodyH, MAX_H - fixed)
+	local viewH = math.min(bodyH, S and NOTES_WITH_SECTION or (MAX_H - fixed))
 	local sf = F.Scroll
 	sf:ClearAllPoints()
 	sf:SetPoint("TOPLEFT", F, "TOPLEFT", 1 + K.EDGE, -(1 + heroH))
@@ -355,9 +412,20 @@ local function render()
 	sf:SetHeight(viewH)
 	W.SetScrollContent(sf, viewH < bodyH and y or bodyH, viewH) -- scrolled to the end, the last note keeps its margin
 	W.ScrollTo(sf, 0)
+	if S then
+		S:ClearAllPoints()
+		S:SetPoint("TOPLEFT", F, "TOPLEFT", 1 + K.EDGE, -(1 + heroH + viewH + 8))
+		S:Show()
+	end
+	W.SetButtonText(F.GotIt, S and L["Keep this"] or L["Got it"])
 	F.Site:SetText(L["Full notes: %s"]:format(SITE))
-	F:SetHeight(math.ceil(fixed + viewH))
+	F:SetHeight(math.ceil(fixed + viewH + sectionH))
 	if F.Rim and W.LayoutRim then W.LayoutRim(F) end
+end
+
+-- Laid out again (the layout section's buttons changed their words).
+function WN.Relayout()
+	if F and F:IsShown() then render() end
 end
 
 local try -- forward
@@ -393,6 +461,16 @@ local function open(why)
 	pending = nil
 	ns.DB().whatsNewSeen = WN.LATEST -- shown: a reload or logout from here does not repeat it
 	if not F then build() end
+	-- The layout section with Atlas installed (UI/LayoutCard.lua): its setup
+	-- saved as the window opens, put back by the ✕ or Escape.
+	if not F:IsShown() then
+		local lc = LC()
+		section, kept = lc ~= nil and lc.Offered(), nil
+		if section then
+			lc.Section(F)
+			lc.Begin()
+		end
+	end
 	render()
 	F:Show()
 	F:Raise()

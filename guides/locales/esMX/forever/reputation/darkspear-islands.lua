@@ -14,6 +14,8 @@ return {
 	-- Step 1: Merchant Coast
 	-- {zone:2524} Darkspear Islands · {zone:1445} Dustwallow Marsh · {area:391} Merchant Coast · {area:392} Ratchet · {npc:275276} Nizook Boof
 	["The {zone:2524} lie off the coast of {zone:1445}: 15 against 15, from level 30. Hold the four capture points to gain points, faster the more you hold, and carry the flag from the middle to a base your team holds for more; the first team to 2000 points wins. The sea kills: cross on the bridges. Queue at any battlemaster or step through the portal here at the {area:391}, north of {area:392}. {npc:275276} pays 200 reputation for your first win. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide."] = "{zone:2524} están frente a la costa de {zone:1445}: 15 contra 15, desde el nivel 30. Mantén los cuatro puntos de captura para ganar puntos, más rápido cuantos más tengas, y lleva la bandera del centro a una base de tu equipo para sumar más; el primer equipo en llegar a 2000 puntos gana. El mar mata: cruza por los puentes. Haz cola con cualquier maestro de batalla o cruza el portal aquí, en {area:391}, al norte de {area:392}. {npc:275276} paga 200 de reputación por tu primera victoria. La ventaja Diplomático del Legado de Forever suma hasta un 10% a cada número de esta guía.",
+	-- {zone:2524} Darkspear Islands
+	["win a {zone:2524} battleground"] = "gana un campo de batalla de {zone:2524}",
 	["after a win"] = "después de una victoria",
 
 	-- Step 4: Horde Warbringer

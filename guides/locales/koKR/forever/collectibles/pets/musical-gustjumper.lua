@@ -23,7 +23,7 @@ return {
 	-- Step 3: Sing to the frogs
 	["Sing to the frogs"] = "개구리에게 노래하기",
 	-- {area:16635} Thendal Village · {item:268109} Musical Gustjumper
-	["From {area:16635} follow the road south, then cut across the field to the top of the waterfall: five frogs sit together on a rock there, by a log. Mobs patrol nearby, so a level 1 character should watch its back. Stand by the rock, target a frog and type /sing. The frogs sing back, the group disappears and one frog hops onto the log beside you: click it to take the {item:268109}, then use it to learn the pet. The item is not bound until you use it, so a friend on the island can sing again and trade you one."] = "",
+	["From {area:16635} follow the road south, then cut across the field to the top of the waterfall: five frogs sit together on a rock there, by a log. Mobs patrol nearby, so a level 1 character should watch its back. Stand by the rock, target a frog and type /sing. The frogs sing back, the group disappears and one frog hops onto the log beside you: click it to take the {item:268109}, then use it to learn the pet. The item is not bound until you use it, so a friend on the island can sing again and trade you one."] = "{area:16635}에서 남쪽 도로를 따라간 뒤 들판을 가로질러 폭포 꼭대기로 가세요. 통나무 곁 바위에 개구리 다섯 마리가 나란히 앉아 있습니다. 주변에 몹이 순찰하니 1레벨 캐릭터는 뒤를 살피세요. 바위 곁에 서서 개구리를 대상으로 /sing을 입력하세요. 개구리들이 따라 노래하고 무리가 사라진 뒤 한 마리가 곁 통나무로 뛰어옵니다. 클릭해 {item:268109}을(를) 가져가고 사용해 애완동물을 배우세요. 사용 전에는 귀속되지 않으니 섬에 있는 친구가 다시 노래해 하나를 줄 수 있습니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Target one of the frogs here and type /sing; a {item:268109} appears. Interact with it to get the pet."] = "여기 있는 개구리 하나를 대상으로 지정하고 /sing을 입력하면 {item:268109}이(가) 나타납니다. 그것과 상호작용하여 애완동물을 얻으십시오.",

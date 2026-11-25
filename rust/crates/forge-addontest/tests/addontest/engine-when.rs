@@ -437,3 +437,129 @@ fn an_unskipped_step_whose_when_fails_only_on_complete_waits_for_the_quest_to_be
 		assert_eq!(out[2], json!({ "live2": true, "status": "current" }), "the quest done: the hand-in step is back ({order})");
 	}
 }
+
+// #2610 (Malifax, 0.4.0, Horde Thousand Needles): Moktar Krin's step is shown only while The Swarm Grows' second part
+// is in the log (`when onquest 1146`); it hands that in and takes the third part (1147). Here step 3, `when onquest
+// 783`, hands 783 in and takes 7; step 2 is elsewhere. The hand-in at the step itself, a few seconds of reading
+// the follow-up's text, then the accept; and the hand-in done on the way while the route is still at step 2 (While
+// you're here, or a stop at the NPC in passing). Both keep the step for the follow-up (its `when` stored as held).
+const SWARM: &str = r#"Polestar.RegisterGuide({
+	id = "test/swarm", pack = "test", title = "Swarm", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ title = "Deputy Willem", goals = {
+			{ t = "accept", quest = 783, title = "A Threat Within", npc = 823, npcName = "Deputy Willem", map = 1429, x = 48.2, y = 42.0 },
+		} },
+		{ title = "Elsewhere", goals = {
+			{ t = "accept", quest = 33, title = "Wolves Across the Border", npc = 196, npcName = "Eagan Peltskinner", map = 1429, x = 48.9, y = 40.1 },
+		} },
+		{ title = "Moktar", when = { { k = "onquest", q = { 783 } } }, goals = {
+			{ t = "turnin", quest = 783, title = "A Threat Within", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+			{ t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+		{ title = "Kobolds", goals = {
+			{ t = "turnin", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+	},
+})"#;
+
+fn swarm(before: &str, script: &str) -> Vec<Value> {
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}w.titles[33] = \"Wolves Across the Border\"\n{before}"),
+		addons: vec![core()],
+		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/swarm" }"#.into())],
+		script: [
+			TEST_PACK,
+			TEST_SOURCE,
+			SWARM,
+			HELPERS,
+			"function state3() local v = E.GetStepView(3); return { live = E.GetLiveStep(), status = v.status } end",
+			"stub.login()",
+			r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
+			script,
+		]
+		.join("\n"),
+		..Default::default()
+	})
+}
+
+#[test]
+fn a_step_when_onquest_that_hands_the_quest_in_waits_for_its_follow_up_2610() {
+	let out = swarm(
+		"w.onQuest(783, {}); w.onQuest(33, {})",
+		r#"
+			emit(state3())
+			stub.world.turnIn(783); flush()
+			emit(state3())
+			stub.advance(5)
+			emit(state3())
+			stub.world.accept(7, { 1 }); flush()
+			emit(state3())
+		"#,
+	);
+	assert_eq!(out[0], json!({ "live": 3, "status": "current" }));
+	assert_eq!(out[1], json!({ "live": 3, "status": "current" }), "handed in, the follow-up still to take");
+	assert_eq!(out[2], json!({ "live": 3, "status": "current" }), "a few seconds on, the follow-up still to take");
+	assert_eq!(out[3], json!({ "live": 4, "status": "done" }), "the follow-up taken");
+}
+
+#[test]
+fn a_step_when_onquest_whose_quest_is_handed_in_on_the_way_keeps_its_follow_up_2610() {
+	let out = swarm(
+		"w.onQuest(783, {})",
+		r#"
+			emit(state3())
+			stub.world.turnIn(783); flush()
+			emit(state3())
+			stub.world.accept(33, {}); flush()
+			emit(state3())
+			stub.world.accept(7, { 1 }); flush()
+			emit(state3())
+		"#,
+	);
+	assert_eq!(out[0], json!({ "live": 2, "status": "upcoming" }));
+	assert_eq!(out[1]["live"], json!(2), "handed in on the way: the route still at step 2: {:?}", out[1]);
+	assert_eq!(out[2], json!({ "live": 3, "status": "current" }), "the route reaches Moktar: the follow-up still to take");
+	assert_eq!(out[3], json!({ "live": 4, "status": "done" }), "the follow-up taken");
+}
+
+// #2847: Hillsbrad's Razormaw nests (`when onquest` Trying Times) were passed without the quest and stored as
+// skipped; the window said "You skipped this step" and offered an unskip that brought back nothing, its one goal
+// still for a quest not in the log. The step's `why` names the condition that fails instead.
+#[test]
+fn a_step_passed_because_its_quest_is_not_in_the_log_says_so_unskipped_it_still_holds_nothing_2847() {
+	let g = r#"
+Polestar.RegisterGuide({
+	id = "test/when", pack = "test", title = "When", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ title = "Deputy Willem", goals = {
+			{ t = "accept", quest = 783, title = "A Threat Within", npc = 823, npcName = "Deputy Willem", map = 1429, x = 48.2, y = 42.0 },
+		} },
+		{ title = "Nests", when = { { k = "onquest", q = { 7 } } }, goals = {
+			{ t = "collect", item = 159, itemName = "Egg", title = "Kobold Camp Cleanup", count = 1, quest = 7, oi = 1, map = 1429, x = 40, y = 40 },
+		} },
+		{ title = "Marshal McBride", goals = {
+			{ t = "turnin", quest = 783, title = "A Threat Within", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+	},
+})
+"#;
+	let script = r#"
+		local function st() local v = E.GetStepView(2); return { live = E.GetLiveStep(), skipped = v.skipped, why = v.why or false } end
+		local before = st()
+		E.Unskip(2); flush()
+		emit({ before = before, after = st() })
+	"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}{TAKEN}"),
+		addons: vec![core()],
+		saved: vec![("Polestar".into(), DEFAULT_SAVED.into())],
+		script: [TEST_PACK, TEST_SOURCE, g, HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, script].join("\n"),
+		..Default::default()
+	})
+	.remove(0);
+	let why = "Only with \u{201c}Kobold Camp Cleanup\u{201d} in your quest log";
+	assert_eq!(out["before"], json!({ "live": 3, "skipped": true, "why": why }), "passed and stored as skipped: the condition says why");
+	assert_eq!(out["after"], json!({ "live": 3, "skipped": false, "why": why }), "unskipped, it still holds nothing");
+}

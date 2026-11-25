@@ -109,11 +109,11 @@ fn every_control_changed_on_its_own_page_of_the_open_settings_window() {
 }
 
 // Every look (the game looks and Hearth, each skin in the download, each variant): every control of the Look pages to
-// another value and back, the guide window, the arrow, an alert and the settings window on the Theme page shown.
+// another value and back, the guide window, the arrow, an alert and the settings window on the Theme page shown. Our
+// skins are one folder (Polestar_Skins, since 0.4.3).
 #[test]
 fn every_look_page_control_in_every_look_and_variant() {
-	let mut addons = vec![Addon::name("Polestar")];
-	addons.extend(forge_release::addons::SKIN_ADDONS.iter().map(|s| Addon::name(s)));
+	let addons = vec![Addon::name("Polestar"), Addon::name("Polestar_Skins")];
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: BEFORE.into(),

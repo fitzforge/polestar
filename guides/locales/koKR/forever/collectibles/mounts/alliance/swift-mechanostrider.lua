@@ -13,15 +13,15 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "수습 {skill:762}",
 	-- {area:189} Steelgrill's Depot · {area:131} Kharanos · {npc:7954} Binjy Featherwhistle · {npc:7955} Milli Featherwhistle · {skill:762} Riding · {faction:54} Gnomeregan Exiles
-	["{area:189} is just east of {area:131}; {npc:7954} stands beside {npc:7955}'s mechanostriders. At 60 {npc:7954} teaches Journeyman {skill:762} to Gnomes for 1,000g (10% less at Honored with {faction:54}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift mechanostrider costs 200g here."] = "",
+	["{area:189} is just east of {area:131}; {npc:7954} stands beside {npc:7955}'s mechanostriders. At 60 {npc:7954} teaches Journeyman {skill:762} to Gnomes for 1,000g (10% less at Honored with {faction:54}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift mechanostrider costs 200g here."] = "{area:189}은(는) {area:131} 바로 동쪽에 있고 {npc:7954}이(가) {npc:7955}의 기계산책로 곁에 서 있습니다. 60레벨에 {npc:7954}이(가) 노움에게 수습 {skill:762}을(를) 1,000골드에 가르칩니다({faction:54}과(와) 우호적이면 10% 할인). 블리자드는 탈것이 함께 온다고 합니다. 다른 종족은 각자 종족의 승마 교관에서 배웁니다. 여기서 빠른 기계산책로는 대당 200골드입니다.",
 	-- {npc:7954} Binjy Featherwhistle
 	["{npc:7954}, riding trainer"] = "{npc:7954}, 탈것 상급자",
 
 	-- Step 2: Mechanostrider Piloting for other races
 	-- {spell:10907} Mechanostrider Piloting
-	["{spell:10907} for other races"] = "",
+	["{spell:10907} for other races"] = "{spell:10907} (다른 종족)",
 	-- {spell:10907} Mechanostrider Piloting · {skill:762} Riding · {npc:7954} Binjy Featherwhistle · {faction:54} Gnomeregan Exiles
-	["Any Alliance race can buy these mechanostriders, but riding one also takes {spell:10907}, which only Gnomes get with {skill:762}. {npc:7954} teaches it to other races once they are Exalted with {faction:54} (the Gnomeregan Exiles Reputation guide shows the way). Until then, don't buy a mechanostrider for this character."] = "",
+	["Any Alliance race can buy these mechanostriders, but riding one also takes {spell:10907}, which only Gnomes get with {skill:762}. {npc:7954} teaches it to other races once they are Exalted with {faction:54} (the Gnomeregan Exiles Reputation guide shows the way). Until then, don't buy a mechanostrider for this character."] = "모든 얼라이언스 종족이 이 기계산책로를 살 수 있지만 탑승에는 {spell:10907}도 필요하며 노움만 {skill:762}과(와) 함께 받습니다. {faction:54}과(와) 확고한 동맹이 되면 {npc:7954}이(가) 다른 종족에게도 가르칩니다(그노모간 추방자 평판 가이드가 안내). 그 전에는 이 캐릭터로 기계산책로를 사지 마세요.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "색상 고르기",

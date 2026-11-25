@@ -389,3 +389,37 @@ fn the_heads_up_card_takes_a_side_clear_of_a_moved_target_list_2629() {
 	assert_eq!(out["before"], serde_json::json!({ "side": "above", "covered": 0 }), "at the default places: above the window");
 	assert_eq!(out["dragged"]["covered"], 0, "the buttons dragged onto the card: it moves aside: {}", out["dragged"]);
 }
+
+// A fight's end shows, hides and places the quest buttons in one frame (QoL.Secure's queue at
+// PLAYER_REGEN_ENABLED), and each of those had the card measure the window, its look and the screen again
+// (#2772: 0.4.1's hitch on kills). They say so once a frame at most, and the card takes its side again only when
+// what the buttons cover changed. Before: a burst of 8 shows and hides and a placing fired 9 times and placed the
+// card 9 times.
+#[test]
+fn buttons_coming_and_going_in_one_frame_place_the_heads_up_card_once_and_only_when_they_moved_2772() {
+	let out = run_on_screen(
+		r#"
+		screen(1)
+		w:SetHeight(300)
+		CT.Place(false)
+		stub.advance(1)
+		local fired, placed, real = 0, 0, CT.Place
+		Polestar.On("QUEST_BUTTONS_PLACED", function() fired = fired + 1 end)
+		CT.Place = function(...) placed = placed + 1 return real(...) end
+		local function burst(spot)
+			fired, placed = 0, 0
+			for _, b in ipairs({ B.item, B.hearth, B.rare, B.bag }) do
+				if b:IsShown() then b:Hide(); b:Show() else b:Show(); b:Hide() end
+			end
+			B.SetPosition(spot)
+			stub.advance(1)
+			return { fired = fired, placed = placed, side = CT.side, covered = covered() }
+		end
+		local same = burst(nil)
+		local moved = burst({ "CENTER", "CENTER", 260, 140 })
+		emit({ same = same, moved = moved })"#,
+	);
+	assert_eq!((&out["same"]["fired"], &out["same"]["placed"]), (&Value::from(1), &Value::from(0)), "nothing moved: {}", out["same"]);
+	assert_eq!((&out["moved"]["fired"], &out["moved"]["placed"]), (&Value::from(1), &Value::from(1)), "the buttons moved: {}", out["moved"]);
+	assert_eq!(out["moved"]["covered"], 0, "the card clear of the moved buttons: {}", out["moved"]);
+}

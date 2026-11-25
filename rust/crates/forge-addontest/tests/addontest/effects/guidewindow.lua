@@ -85,6 +85,11 @@ return {
 		["ui.width"] = one("width"),
 		-- A tall step (the biggest goals and spacing, six steps up next): the cap on the window's height.
 		["ui.maxHeight"] = { value = 0.3, with = { ["guideWindow.goalSize"] = 1.8, ["guideWindow.rowSpacing"] = 12, ["ui.upcoming"] = 6 }, probe = one("height") },
+		-- Fixed: the window is the height for a short step too (#1067); the progress bar under the last goal or on
+		-- the window's edge.
+		["ui.heightMode"] = { value = "fixed", probe = one("height") },
+		["ui.footAt"] = { value = "edge", with = { ["ui.heightMode"] = "fixed" },
+			probe = function() local p, rel, rp, _, y = P.foot:GetPoint(1); return { p, rp, rel == F, y } end },
 		["guideWindow.padding"] = one("rowTextX"),
 		["ui.compact"] = function() return { snapshot().person, snapshot().height } end,
 		["guideWindow.bgOpacity"] = function() return { snapshot().bgAlpha, rgba(F.psSkin.bg) } end,
@@ -107,13 +112,33 @@ return {
 		["guideWindow.animSpeed"] = function() return slide().dur end,
 		["guideWindow.tabHeight"] = one("strip"),
 		["guideWindow.tabs"] = one("strip"),
+		["guideWindow.tabStyle"] = { with = { ["guideWindow.tabs"] = true }, probe = function()
+			local function shown(f) return f and f:IsShown() or false end
+			return { P.strip:IsShown(), shown(P.tabSwitch), shown(P.tabEdge), shown(P.tabSide) }
+		end },
 		["guideWindow.navHeight"] = one("nav"),
+		-- Another tab's step 10 yd off: its card shows, or not (the tab's place and the player's are given for the
+		-- look, then put back).
+		["guideWindow.otherTabNear"] = function()
+			local E, C, OT = Polestar.Engine, Polestar.Compat, Polestar.UI.OtherTabCard
+			local places, here, world = E.OtherTabPlaces, C.GetPlayerWorldPosition, C.MapToWorld
+			E.OtherTabPlaces = function() return { { index = 2, guideId = "Effects/other", title = "Other", step = 1, stepNumber = 1, map = 1, x = 10, y = 0 } } end
+			C.GetPlayerWorldPosition = function() return 1, 0, 0 end
+			C.MapToWorld = function(_, x, y) return 1, x, y end
+			OT.Check()
+			local shown = OT.Shown() ~= nil
+			E.OtherTabPlaces, C.GetPlayerWorldPosition, C.MapToWorld = places, here, world
+			OT.Check()
+			return shown
+		end,
 		["guideWindow.barTextSize"] = one("count"),
 		["guideWindow.stepCount"] = one("steps"),
 		["guideWindow.guideTitle"] = { with = { ["guideWindow.stepCount"] = false }, probe = one("title") },
 		["guideWindow.skipButton"] = one("skip"),
 		["guideWindow.reportButton"] = one("report"),
+		["guideWindow.allStepsButton"] = function() return P.nav.AllSteps:IsShown() end,
 		["guideWindow.titleSize"] = one("name"),
+		["guideWindow.lastSteps"] = function() return { P.last.psCount, snapshot().height } end,
 		["guideWindow.goalSize"] = one("rowText"),
 		["guideWindow.detailSize"] = function() return size(P.person.Where) end,
 		["guideWindow.glyphSize"] = one("icon"),
@@ -146,6 +171,36 @@ return {
 			cleanup = function()
 				GF.PaceText, GF.psPaceText = GF.psPaceText, nil
 				GF.UpdateXP()
+			end },
+		-- The XP row's own line (#3304): XP an hour, time to level and the pace go; with nothing else to say the row
+		-- goes too.
+		["guideWindow.xpLine"] = {
+			prepare = function()
+				GF.psPaceText = GF.PaceText
+				GF.PaceText = function() return "On pace for level 6 by step 12" end
+				GF.UpdateXP()
+			end,
+			probe = function() return GF.xp.psHas and GF.xp.Text:GetText() or false end,
+			cleanup = function()
+				GF.PaceText, GF.psPaceText = GF.psPaceText, nil
+				GF.UpdateXP()
+			end },
+		-- The Still to do rows (#3303): a quest an update left behind the player (Engine.GetBehind, the fake
+		-- Engine's answer) as a row under the step.
+		["guideWindow.stillToDo"] = {
+			prepare = function()
+				Polestar.Engine.GetBehind = function() return { { quest = 1, title = "Left behind", zone = "Elwynn Forest" } } end
+				uistub.update()
+			end,
+			probe = function()
+				for _, r in ipairs(GF.alongRows) do
+					if r:IsShown() and r.psBehind then return r.Text:GetText() end
+				end
+				return false
+			end,
+			cleanup = function()
+				Polestar.Engine.GetBehind = nil
+				uistub.update()
 			end },
 		["guideWindow.foldAnim"] = fold,
 		-- The step's "N left out here" line (Engine.LeftOutHere, the fake Engine's answer for the step).

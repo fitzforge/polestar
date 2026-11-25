@@ -1,0 +1,175 @@
+{
+  "_about": "Every attunement and key our pipeline builds from the Codex (tools/lib/codex/attunements.js, forge_data::codex::attune), one line per step, reviewed in the 0.4.3 audit. The dungeons-attune addontest compares the build with it; POLESTAR_WRITE_GOLDEN=1 rewrites it after a reviewed change.",
+  "attunements": {
+    "onyxias-lair:drakefire-h": {
+      "head": "key each faction=\"H\" level=55 item=16309",
+      "steps": [
+        "quest 98325 Blood and Thunder after=[] any=[] start=npc:9077 finish=npc:9077 minLevel=55",
+        "quest 4903 Warlord's Command after=[] any=[98325] start=npc:9077 finish=npc:9077 minLevel=55",
+        "quest 4941 Eitrigg's Wisdom after=[] any=[4903] start=npc:9077 finish=npc:4949 minLevel=55",
+        "quest 4974 For The Horde! after=[] any=[4941] start=npc:4949 finish=npc:4949 minLevel=55",
+        "quest 6566 What the Wind Carries after=[] any=[4974] start=npc:4949 finish=npc:4949 minLevel=55",
+        "quest 6567 The Champion of the Horde after=[] any=[6566] start=npc:4949 finish=npc:10182 minLevel=55",
+        "quest 6568 The Testament of Rexxar after=[] any=[6567] start=npc:10182 finish=npc:11872 minLevel=55",
+        "quest 6569 Oculus Illusions after=[] any=[6568] start=npc:11872 finish=npc:11872 minLevel=55",
+        "quest 6570 Emberstrife after=[] any=[6569] start=npc:11872 finish=npc:10321 minLevel=55",
+        "quest 6582 The Test of Skulls, Scryer after=[] any=[6570] start=npc:10321 finish=npc:10321 minLevel=55",
+        "quest 6583 The Test of Skulls, Somnus after=[] any=[6570] start=npc:10321 finish=npc:10321 minLevel=55",
+        "quest 6584 The Test of Skulls, Chronalis after=[] any=[6570] start=npc:10321 finish=npc:10321 minLevel=55",
+        "quest 6585 The Test of Skulls, Axtroz after=[6582,6583,6584] any=[] start=npc:10321 finish=npc:10321 minLevel=55",
+        "quest 6601 Ascension... after=[] any=[6585] start=npc:10321 finish=npc:10182 minLevel=55",
+        "quest 6602 Blood of the Black Dragon Champion *goal after=[] any=[6601] start=npc:10182 finish=npc:10182 minLevel=55"
+      ]
+    },
+    "onyxias-lair:drakefire-a": {
+      "head": "key each faction=\"A\" level=50 item=16309",
+      "steps": [
+        "quest 4182 Dragonkin Menace after=[] any=[] start=npc:9562 finish=npc:9562 minLevel=48",
+        "quest 4183 The True Masters after=[] any=[4182] start=npc:9562 finish=npc:344 minLevel=48",
+        "quest 4184 The True Masters after=[] any=[4183] start=npc:344 finish=npc:1748 minLevel=48",
+        "quest 4185 The True Masters after=[] any=[4184] start=npc:1748 finish=npc:1748 minLevel=48",
+        "quest 4186 The True Masters after=[] any=[4185] start=npc:1748 finish=npc:344 minLevel=48",
+        "quest 4223 The True Masters after=[] any=[4186] start=npc:344 finish=npc:9560 minLevel=48",
+        "quest 4224 The True Masters after=[] any=[4223] start=npc:9560 finish=npc:9560 minLevel=48",
+        "quest 4241 Marshal Windsor after=[] any=[4224] start=npc:9560 finish=npc:9023 minLevel=48",
+        "quest 4242 Abandoned Hope after=[] any=[4241] start=npc:9023 finish=npc:9560 minLevel=48",
+        "drop 11446 A Crumpled Up Note npc:9437 inside=blackrock-depths",
+        "drop 11446 A Crumpled Up Note npc:8891 inside=blackrock-depths",
+        "drop 11446 A Crumpled Up Note npc:8892 inside=blackrock-depths",
+        "quest 4264 A Crumpled Up Note after=[] any=[4242] start=- finish=npc:9023 minLevel=50 startItem=11446",
+        "quest 4282 A Shred of Hope after=[] any=[4264] start=npc:9023 finish=npc:9023 minLevel=50",
+        "quest 4322 Jail Break! after=[] any=[4282] start=npc:9023 finish=npc:9560 minLevel=50",
+        "quest 6402 Stormwind Rendezvous after=[] any=[4322] start=npc:9560 finish=npc:12580 minLevel=50",
+        "quest 6403 The Great Masquerade after=[] any=[6402] start=npc:12580 finish=npc:1748 minLevel=50",
+        "quest 6501 The Dragon's Eye after=[] any=[6403] start=npc:1748 finish=npc:10929 minLevel=50",
+        "quest 6502 Drakefire Amulet *goal after=[] any=[6501] start=npc:10929 finish=npc:10929 minLevel=50"
+      ]
+    },
+    "blackwing-lair:blackhand": {
+      "head": "attunement each faction=null level=55 item=null",
+      "steps": [
+        "drop 18987 Blackhand's Command npc:9046",
+        "quest 7761 Blackhand's Command *goal after=[] any=[] start=- finish=object:179880 minLevel=55 startItem=18987"
+      ]
+    },
+    "naxxramas:dread-citadel": {
+      "head": "attunement each faction=null level=60 item=null",
+      "steps": [
+        "quest 9121 The Dread Citadel - Naxxramas *goal after=[] any=[] start=npc:16116 finish=npc:16116 minLevel=60 rep=529:6",
+        "quest 9122 The Dread Citadel - Naxxramas *goal after=[] any=[] start=npc:16116 finish=npc:16116 minLevel=60 rep=529:7",
+        "quest 9123 The Dread Citadel - Naxxramas *goal after=[] any=[] start=npc:16116 finish=npc:16116 minLevel=60 rep=529:8"
+      ]
+    },
+    "scholomance:skeleton-key-h": {
+      "head": "key one faction=\"H\" level=55 item=13704",
+      "steps": [
+        "quest 5096 Scarlet Diversions after=[] any=[] start=npc:10837 finish=npc:10837 minLevel=50",
+        "quest 5098 All Along the Watchtowers after=[] any=[5096] start=npc:10837 finish=npc:10837 minLevel=50",
+        "quest 838 Scholomance after=[] any=[5098] start=npc:10837 finish=npc:11057 minLevel=55",
+        "quest 964 Skeletal Fragments after=[] any=[838] start=npc:11057 finish=npc:11057 minLevel=55",
+        "quest 5514 Mold Rhymes With... after=[] any=[964] start=npc:11057 finish=npc:5411 minLevel=55",
+        "quest 5802 Fire Plume Forged after=[] any=[5514] start=npc:5411 finish=npc:11057 minLevel=55",
+        "quest 5804 Araj's Scarab after=[] any=[5802] start=npc:11057 finish=npc:11057 minLevel=55",
+        "quest 5511 The Key to Scholomance *goal after=[] any=[5804] start=npc:11057 finish=npc:11057 minLevel=55"
+      ]
+    },
+    "scholomance:skeleton-key-a": {
+      "head": "key one faction=\"A\" level=55 item=13704",
+      "steps": [
+        "quest 5092 Clear the Way after=[] any=[] start=npc:10838 finish=npc:10838 minLevel=50",
+        "quest 5097 All Along the Watchtowers after=[] any=[5092] start=npc:10838 finish=npc:10838 minLevel=50",
+        "quest 5533 Scholomance after=[] any=[5097] start=npc:10838 finish=npc:11056 minLevel=55",
+        "quest 5537 Skeletal Fragments after=[] any=[5533] start=npc:11056 finish=npc:11056 minLevel=55",
+        "quest 5538 Mold Rhymes With... after=[] any=[5537] start=npc:11056 finish=npc:5411 minLevel=55",
+        "quest 5801 Fire Plume Forged after=[] any=[5538] start=npc:5411 finish=npc:11056 minLevel=55",
+        "quest 5803 Araj's Scarab after=[] any=[5801] start=npc:11056 finish=npc:11056 minLevel=55",
+        "quest 5505 The Key to Scholomance *goal after=[] any=[5803] start=npc:11056 finish=npc:11056 minLevel=55"
+      ]
+    },
+    "blackrock-depths:shadowforge-key": {
+      "head": "key one faction=null level=48 item=11000",
+      "steps": [
+        "quest 3801 Dark Iron Legacy after=[] any=[] start=npc:8888 finish=npc:8888 minLevel=48",
+        "quest 3802 Dark Iron Legacy *goal after=[] any=[3801] start=npc:8888 finish=object:164689 minLevel=48"
+      ]
+    },
+    "blackrock-depths:prison-cell-key": {
+      "head": "key one faction=null level=null item=11140",
+      "steps": [
+        "drop 11140 Prison Cell Key npc:9018 inside=blackrock-depths"
+      ]
+    },
+    "stratholme:key-to-the-city": {
+      "head": "key one faction=null level=null item=12382",
+      "steps": [
+        "drop 12382 Key to the City npc:10435 inside=stratholme"
+      ]
+    },
+    "dire-maul:crescent-key": {
+      "head": "key one faction=null level=null item=18249",
+      "steps": [
+        "drop 18249 Crescent Key npc:14354 inside=dire-maul"
+      ]
+    },
+    "gnomeregan:workshop-key": {
+      "head": "key one faction=null level=null item=6893",
+      "steps": [
+        "drop 6893 Workshop Key npc:6235 inside=gnomeregan"
+      ]
+    },
+    "scarlet-monastery:scarlet-key": {
+      "head": "key one faction=null level=null item=7146",
+      "steps": [
+        "object 7146 The Scarlet Key object:103821 inside=scarlet-monastery",
+        "drop 7146 The Scarlet Key npc:4291 inside=scarlet-monastery",
+        "drop 7146 The Scarlet Key npc:4299 inside=scarlet-monastery"
+      ]
+    },
+    "city-of-dalaran:sewer-key": {
+      "head": "key one faction=\"H\" level=30 item=277507",
+      "steps": [
+        "quest 544 Prison Break In after=[] any=[] start=npc:2410 finish=npc:2410 minLevel=30",
+        "quest 93680 Key to the City after=[] any=[] start=npc:2410 finish=npc:2410 minLevel=30",
+        "quest 545 Dalaran Patrols after=[544,93680] any=[] start=npc:2410 finish=npc:2410 minLevel=30",
+        "quest 92434 Blood in the Streets after=[545,93680] any=[] start=npc:2410 finish=npc:269127 minLevel=30",
+        "quest 96984 Heart of Disruption *goal (at its accept) after=[] any=[92434] start=npc:269127 finish=npc:2410 minLevel=24"
+      ]
+    },
+    "city-of-dalaran:tome-of-dalaran": {
+      "head": "item one faction=null level=null item=275989",
+      "steps": [
+        "object 276561 Black Tome object:659376 inside=shadowfang-keep",
+        "use 276561 Black Tome > 275989 Tome of Dalaran at npc:2120"
+      ]
+    },
+    "maraudon:scepter-of-celebras": {
+      "head": "key one faction=null level=41 item=17191",
+      "steps": [
+        "quest 7044 Legends of Maraudon after=[] any=[] start=npc:13697 finish=npc:13716 minLevel=41",
+        "quest 7046 The Scepter of Celebras *goal after=[] any=[7044] start=npc:13716 finish=npc:13716 minLevel=41"
+      ]
+    },
+    "kroldok-stronghold:compound-key-a": {
+      "head": "key one faction=\"A\" level=38 item=267089",
+      "steps": [
+        "drop 267138 Krol'dok Moulding npc:259256 inside=kroldok-stronghold",
+        "quest 94980 Krol'dok Moulding after=[] any=[] start=- finish=npc:259250 minLevel=38 startItem=267138",
+        "quest 94981 Key Ingredients *goal after=[] any=[94980] start=npc:259250 finish=npc:259250 minLevel=38"
+      ]
+    },
+    "kroldok-stronghold:compound-key-h": {
+      "head": "key one faction=\"H\" level=38 item=267089",
+      "steps": [
+        "drop 267137 Krol'dok Moulding npc:259256 inside=kroldok-stronghold",
+        "quest 94973 Krol'dok Moulding after=[] any=[] start=- finish=npc:256657 minLevel=38 startItem=267137",
+        "quest 94974 Key Ingredients *goal after=[] any=[94973] start=npc:256657 finish=npc:256657 minLevel=38"
+      ]
+    },
+    "zulfarrak:mallet": {
+      "head": "item one faction=null level=null item=9240",
+      "steps": [
+        "drop 9241 Sacred Mallet npc:7996"
+      ]
+    }
+  }
+}

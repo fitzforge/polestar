@@ -30,11 +30,11 @@ return {
 	-- Step 3: Searing Gorge
 	["7 areas to discover here, levels 43-56."] = "이곳에서 발견할 지역 7곳, 레벨 43-56.",
 	-- {zone:1418} Badlands · {area:340} Kargath · {zone:1427} Searing Gorge
-	["The way in on foot is from the western {zone:1418}: the path by {area:340} climbs west into the {zone:1427}."] = "",
+	["The way in on foot is from the western {zone:1418}: the path by {area:340} climbs west into the {zone:1427}."] = "걸어서 들어가는 길은 서부 {zone:1418}에서 나옵니다. {area:340} 옆 길이 서쪽으로 올라가 {zone:1427}(으)로 들어갑니다.",
 	-- {area:144} Thelsamar · {zone:1432} Loch Modan · {zone:1418} Badlands · {area:340} Kargath
-	["Fly to {area:144} and ride south through {zone:1432} into the {zone:1418}, then west to {area:340} (Horde guards)."] = "",
+	["Fly to {area:144} and ride south through {zone:1432} into the {zone:1418}, then west to {area:340} (Horde guards)."] = "{area:144}(으)로 날아가 남쪽으로 달려 {zone:1432}를(을) 지나 {zone:1418}(으)로 들어간 뒤 서쪽으로 {area:340}(으)로 가세요(호드 경비병).",
 	-- {area:340} Kargath · {zone:1418} Badlands
-	["Fly to {area:340} in the {zone:1418}."] = "",
+	["Fly to {area:340} in the {zone:1418}."] = "{zone:1418}의 {area:340}(으)로 날아가세요.",
 	-- {area:1446} Thorium Point · {npc:2941} Lanie Reed
 	["Flight path here: {area:1446} ({npc:2941})."] = "이곳의 비행 경로: {area:1446}({npc:2941}).",
 	-- {area:1446} Thorium Point
@@ -53,13 +53,13 @@ return {
 	-- Step 6: Deadwind Pass
 	["3 areas to discover here, levels 50-60."] = "이곳에서 발견할 지역 3곳, 레벨 50-60.",
 	-- {zone:1428} Burning Steppes · {zone:1433} Redridge Mountains · {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire · {zone:1430} Deadwind Pass
-	["Take the pass south from the {zone:1428} into the {zone:1433}, follow the road south-west through {area:1002} into {zone:1431} and east past {area:42} into {zone:1430}."] = "",
+	["Take the pass south from the {zone:1428} into the {zone:1433}, follow the road south-west through {area:1002} into {zone:1431} and east past {area:42} into {zone:1430}."] = "{zone:1428} 남쪽 고개로 들어가 {zone:1433}(으)로 가세요. 길을 따라 남서쪽으로 {area:1002}를(을) 지나 {zone:1431}(으)로 들어가고, {area:42} 동쪽을 지나 {zone:1430}(으)로 가세요.",
 	["high-level undead around the tower: discover it from the road"] = "탑 주변에 고레벨 언데드가 있습니다: 길에서 발견하십시오",
 
 	-- Step 7: Blasted Lands (1/2)
 	["9 areas to discover here, levels 46-63."] = "이곳에서 발견할 지역 9곳, 레벨 46-63.",
 	-- {zone:1430} Deadwind Pass · {zone:1435} Swamp of Sorrows · {zone:1419} Blasted Lands · {area:1438} Nethergarde Keep
-	["Ride east out of {zone:1430} into the {zone:1435} and take the road south into the {zone:1419}; {area:1438} (Alliance) stands just inside."] = "",
+	["Ride east out of {zone:1430} into the {zone:1435} and take the road south into the {zone:1419}; {area:1438} (Alliance) stands just inside."] = "{zone:1430}에서 동쪽으로 나와 {zone:1435}(으)로 들어가 남쪽 길로 들어가 {zone:1419}(으)로 가세요. {area:1438}(얼라이언스)이(가) 바로 안쪽에 서 있습니다.",
 	-- {area:1438} Nethergarde Keep · {npc:8609} Alexandra Constantine
 	["Flight path here: {area:1438} ({npc:8609})."] = "이곳의 비행 경로: {area:1438}({npc:8609}).",
 	["level 63 area, well above this guide's range"] = "레벨 63 지역으로, 이 가이드의 범위보다 훨씬 높습니다",

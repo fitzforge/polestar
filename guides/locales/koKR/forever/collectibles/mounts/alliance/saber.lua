@@ -18,9 +18,9 @@ return {
 
 	-- Step 2: Tiger Riding for other races
 	-- {spell:828} Tiger Riding
-	["{spell:828} for other races"] = "",
+	["{spell:828} for other races"] = "{spell:828} (다른 종족)",
 	-- {spell:828} Tiger Riding · {skill:762} Riding · {npc:4753} Jartsam · {faction:69} Darnassus
-	["Any Alliance race can buy these sabers, but riding one also takes {spell:828}, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "",
+	["Any Alliance race can buy these sabers, but riding one also takes {spell:828}, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "모든 얼라이언스 종족이 이 호랑이를 살 수 있지만 탑승에는 {spell:828}도 필요하며 나이트엘프만 {skill:762}과(와) 함께 받습니다. {faction:69}과(와) 확고한 동맹이 되면 {npc:4753}이(가) 다른 종족에게도 가르칩니다(다르나서스 평판 가이드가 안내). 그 전에는 이 캐릭터로 호랑이를 사지 마세요.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "색상 고르기",

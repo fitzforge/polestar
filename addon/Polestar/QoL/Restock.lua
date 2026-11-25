@@ -300,7 +300,7 @@ function Restock.Command(rest)
 			ns.Print(format(L["Restock: %s to %d"], link, v))
 			any = true
 		end
-		if not any then ns.Print(L["Nothing to restock. Set amounts on the options page, or: /polestar restock <item> <amount>."]) end
+		if not any then ns.Print(L["Nothing to restock. Set amounts on the settings page, or: /polestar restock <item> <amount>."]) end
 		return
 	end
 	local kind = WORDS[what:lower()]

@@ -57,7 +57,7 @@ every goal in it that is not `optional` is; its goals are open together.
 | `background` | On an `along until` step: its goals are slow, zone-wide collections (a low drop rate, the mobs all along the route) worked over the whole stay; each quest objective needs a finish step, a plain step working it, before the step that hands its quest in |
 | `label <name>` | Names the step for an `along until` or `skipto` before it, or a `when done` (letters, digits, `-`, `_`; once per guide) |
 | `skipto <label> when <predicate>` | If the predicate (as for `when`) holds when the route reaches the step, this step and the ones up to the labelled later step are skipped for good; several lines, the first that holds decides |
-| `loop` | The step's `goto` points, in order, are the places to search for its kill, collect, interact and skill goals without `@x,y`, or with none of those for the NPC of its accept, turnin and talk goals (at least two, one map) |
+| `loop` | Search the step's `goto` points in order for kill, collect, interact, skill and `use <item> quest Q.O` goals without `@x,y`. With none of those, search for the NPC of its accept, turnin and talk goals. Use at least two points on one map. |
 
 ## Goals
 
@@ -93,7 +93,7 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 | `money <amount>` | Hold that much money (`1g50s`, `7s`, `25c` or copper); stays done for the rest of the step (Polestar 0.3.0) | no place modifiers, no `group` |
 | `task "<text>"` | Something Polestar cannot see; the player ticks it, and it holds the step until then unless `optional` (Polestar 0.3.0). With modifiers, quote the text | no `"text"`, no `group` |
 | `note <text>` | A line of information; never holds the step. With `only`, quote the text | no `"text"`, no `group`, no `either` |
-| `skill <Profession> <N>` | Reach skill N (`"First Aid"` quoted) | |
+| `skill <Profession> <N>` | Reach skill N (`"First Aid"` quoted). With `nearest`, the step's `goto` points (two or more) are the places to do it and the arrow takes the nearest | `nearest` |
 | `learn <spell> ["Name"]` | Learn a recipe or spell | `npc`, `item`, `nearest` |
 | `cast <spellId> ["Name"]` | Cast that spell while the goal is open (Polestar 0.3.0); name it unless it is a recipe in the data | coordinates |
 | `buff <spellId> ["Name"]` | Have that aura (a buff or a debuff) on the character; kept once the step had it. With `off`: done while it is gone. Name it unless the client's spell tables know it (Polestar 0.4.1) | `off` |

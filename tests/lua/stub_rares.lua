@@ -3,7 +3,8 @@
 --   local R = stub.rares
 --   R.unit("nameplate1", { npc = 61, name = "Thuros Lightfingers", level = 11, class = "rare" })
 --     -- options: guid (instead of npc), dead, player, controlled, secret (UnitGUID returns a secret),
---     --   surname (UnitName's second return, as Forever gives a player's), faction (UnitFactionGroup)
+--     --   surname (UnitName's second return, as Forever gives a player's), faction (UnitFactionGroup),
+--     --   friendly (UnitCanAttack("player", unit) is false: an NPC on the player's side)
 --   R.me = { "Fitz", "Polestar" }  -- UnitName("player") on a Forever client: first name, surname
 --   R.clear("nameplate1")
 --   R.vignette("Vignette-1", { npc = 61 | object = 2843, name, dead, onMinimap = true, map, x, y })
@@ -93,6 +94,12 @@ end
 function UnitIsDead(unit)
 	local u = R.units[unit]
 	return u and u.dead or false
+end
+
+function UnitCanAttack(a, b)
+	local u = R.units[b]
+	if a == "player" and u then return not u.friendly end
+	return false
 end
 
 C_VignetteInfo = {}

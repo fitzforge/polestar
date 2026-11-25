@@ -31,7 +31,7 @@ CHOICES = {
 	badlands = { from = "badlands", fromTitle = "Badlands", recommended = "stv", options = {
 		{ id = "stv", title = "Stranglethorn Vale & Swamp of Sorrows", zoneName = "Stranglethorn Vale", minLevel = 39, maxLevel = 43, recommended = true,
 			seconds = 720, quests = 41, pitch = "Nesingwary's hunts.", pros = { "Quick to reach" }, cons = { "Busy" },
-			thenId = "feralas", thenGuideTitle = "Feralas & Tanaris", thenLevel = 43 },
+			thenId = "feralas", thenGuideTitle = "Stranglethorn Vale, Swamp of Sorrows, Tanaris & Feralas", thenLevel = 43 },
 		{ id = "riverglades", title = "Riverglades", zoneName = "Riverglades", minLevel = 37, maxLevel = 43, seconds = 540, quests = 69,
 			experimental = true, newInForever = true, pitch = "A new Forever zone.", pros = { "All in one zone" }, cons = { "New guide" },
 			thenId = "stv", thenGuideTitle = "Stranglethorn Vale & Swamp of Sorrows", thenLevel = 43 },

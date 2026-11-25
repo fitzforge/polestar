@@ -13,6 +13,8 @@
 --   Lookup.QuestFor(quest) -> { classes, races } | nil   -- who a quest's masks
 --       are for (class and race files); nil: anyone of its side
 --   Lookup.QuestForText(quest) -> "Warlock only" | nil   -- the same in words
+--   Lookup.Walk(goal) -> goal   -- a goal at an NPC who walks about gets her walk as its one
+--       spot (see "Walkers" below; #3019)
 --
 -- Ranking: available rows first (faction, race, class, level, professions,
 -- reputation), then cost = travel + effort in seconds. Travel is
@@ -214,11 +216,32 @@ local function travel(from, to, direct)
 end
 Lookup.Travel = travel
 
+-- An Era-frame spawn on one map that is the same place as a live spawn on
+-- another map is that live spawn: the Classic data put Tirion Fordring's hut
+-- on Western Plaguelands' map, Forever's data on Eastern Plaguelands', the
+-- zone he stands in, and a pick-up guide built from the west sent the arrow
+-- through Western Plaguelands to him (#2943).
+local SAME_PLACE = 30 -- yards
+local function liveTwin(spawns, s)
+	if not (s and s.f == "e") then return s end
+	local toWorld = ns.Compat.MapToWorld
+	local c0, x0, y0 = toWorld(s.map, s.x, s.y, "e")
+	if not c0 then return s end
+	for i = 1, #spawns do
+		local o = spawns[i]
+		if o.f ~= "e" and o.map ~= s.map and o.x and o.y then
+			local c, x, y = toWorld(o.map, o.x, o.y)
+			if c == c0 and (x - x0) ^ 2 + (y - y0) ^ 2 <= SAME_PLACE * SAME_PLACE then return o end
+		end
+	end
+	return s
+end
+
 -- The spawn the player reaches soonest -> spawn, travel | nil. Without a
 -- player position (instances, loading) the first spawn, travel nil.
 local function nearest(spawns, from, direct)
 	if type(spawns) ~= "table" or #spawns == 0 then return nil end
-	if not from then return spawns[1], nil end
+	if not from then return liveTwin(spawns, spawns[1]), nil end
 	local best, bestT
 	for i = 1, #spawns do
 		local s = spawns[i]
@@ -227,8 +250,10 @@ local function nearest(spawns, from, direct)
 			if t and (not bestT or t < bestT) then best, bestT = s, t end
 		end
 	end
-	if best then return best, bestT end
-	return spawns[1], nil
+	if not best then return liveTwin(spawns, spawns[1]), nil end
+	local twin = liveTwin(spawns, best)
+	if twin ~= best then return twin, travel(from, twin, direct) or bestT end
+	return best, bestT
 end
 Lookup.Nearest = nearest
 
@@ -279,6 +304,59 @@ local function questEnd(ends, from, p, direct)
 end
 Lookup.QuestEnd = questEnd
 Lookup.SideOK = sideOK
+
+-- Walkers: an NPC who walks about (docs/GUIDE_FORMAT.md, "Spawn areas", walkers),
+-- read from the Codex's spawns, as the game has no movement data: two or
+-- more of its spawns on the goal's map and frame, every one within
+-- WALK.PLACE yards of their middle (one place, as the compiler groups spawns)
+-- and the farthest WALK.YARDS or more from it (a walk, as forge-guide's
+-- walks.rs counts one). Nikova Raskol's round of Old Town is four such spawns
+-- (#3019): she is met anywhere on it, not at the one nearest the player. A
+-- goal at such an NPC, with no spots of its own, gets that ground as its one
+-- spot { x, y, r, n = 1 } (r in yards, at least WALK.MIN_R), as compiled
+-- guides give a walker's goal, and its point moves to the middle: the maps
+-- circle it, the arrow leads to the middle (Arrived within the goal's radius
+-- of it, as at any NPC: Engine's Own.onePlace), While you're here measures to
+-- it. `walks` marks it; `note` (when it has none) says so, as the guides do.
+-- -> goal, changed or not.
+local WALK = { YARDS = 20, PLACE = 70, MIN_R = 15 }
+function Lookup.Walk(goal)
+	if type(goal) ~= "table" or not (goal.npc and goal.map and goal.x and goal.y) or goal.spots then return goal end
+	local C = Codex()
+	local npc = C and C.Npc and C.Npc(goal.npc)
+	local toWorld = ns.Compat.MapToWorld
+	if not (npc and type(npc.spawns) == "table" and toWorld) then return goal end
+	local era = goal.f == "e"
+	local pts, sx, sy = {}, 0, 0
+	for _, s in ipairs(npc.spawns) do
+		if s.map == goal.map and (s.f == "e") == era and s.x and s.y then
+			local c, wx, wy = toWorld(s.map, s.x, s.y, goal.f)
+			if not c then return goal end
+			pts[#pts + 1] = { c = c, wx = wx, wy = wy }
+			sx, sy = sx + s.x, sy + s.y
+		end
+	end
+	local n = #pts
+	if n < 2 then return goal end
+	local x, y = floor(sx / n * 100 + 0.5) / 100, floor(sy / n * 100 + 0.5) / 100
+	local c0, cx, cy = toWorld(goal.map, x, y, goal.f)
+	if not c0 then return goal end
+	local far = 0
+	for i = 1, n do
+		local p = pts[i]
+		if p.c ~= c0 then return goal end
+		local d = ((p.wx - cx) ^ 2 + (p.wy - cy) ^ 2) ^ 0.5
+		if d > WALK.PLACE then return goal end
+		if d > far then far = d end
+	end
+	if far < WALK.YARDS then return goal end
+	goal.spots = { { x = x, y = y, r = math.max(WALK.MIN_R, math.ceil(far)), n = 1 } }
+	goal.x, goal.y, goal.walks = x, y, true
+	if not goal.note then
+		goal.note = format(L["%s walks around here: look inside the circle on the map"], goal.npcName or npc.name or "")
+	end
+	return goal
+end
 
 ---------------------------------------------------------------------------
 -- Effort
@@ -355,31 +433,44 @@ local function questSide(q)
 end
 Lookup.QuestSide = questSide
 
--- The profession quest q asks for (the quest database's skill line: Badlands
--- Reagent Run II is for alchemists, #2118) when the character has none of it:
--- that skill line, else nil. Nil too while the database is not loaded or the
--- client does not tell skills.
+-- The profession quest q asks for when the character cannot take it yet:
+-- skill line, rank needed (nil when the data names none) | nil. The line is
+-- the Codex's (`l<line>,<rank>`), else the quest database's (Badlands
+-- Reagent Run II is for alchemists, #2118); the rank is the Codex's (Kilram
+-- gives Snakestone of the Shadow Huntress only at Blacksmithing 250,
+-- #2752). Blocked when the character has not learned the profession, or has
+-- it below that rank. Nil too while no source tells the line, or the client
+-- does not tell skills.
 local function missingProfession(q)
-	local Q, C = ns.QuestDB, ns.Compat
-	if not (Q and q.id and Q.IsLoaded() and C.Supports and C.Supports("skill")) then return nil end
-	local r = Q.QuestRecord(q.id)
-	local line = r and r[Q.F.SKILL]
+	local C = ns.Compat
+	if not (q.id and C.Supports and C.Supports("skill")) then return nil end
+	local line, need = q.skill, q.skillRank
+	if not line then
+		local Q = ns.QuestDB
+		local r = Q and Q.IsLoaded() and Q.QuestRecord(q.id)
+		line = r and r[Q.F.SKILL]
+	end
 	if type(line) ~= "number" or line <= 0 then return nil end
-	return not C.GetSkillRank(line) and line or nil
+	local rank = C.GetSkillRank(line)
+	if rank and not (need and rank < need) then return nil end
+	return line, need
 end
 
 -- Quest availability for this character: why, text | nil. A race or class
 -- lock says who it is for ("Warlock only", Lookup.QuestForText, #1730); a
--- profession it has not learned, which one ("Requires Alchemy").
+-- profession it has not learned or not to the rank, which one and the rank
+-- when the data names it ("Requires Alchemy", "Requires Blacksmithing 250").
 local function questBlock(q, p)
 	local side = questSide(q)
 	if side and not sideOK(side, p) then return "faction", sideText(side) end
 	if maskBlocks(q.races, RACE_BIT, p.race) then return "race", Lookup.QuestForText(q) or L["Not for your race"] end
 	if maskBlocks(q.classes, CLASS_BIT, p.class) then return "class", Lookup.QuestForText(q) or L["Not for your class"] end
-	local line = missingProfession(q)
+	local line, need = missingProfession(q)
 	if line then
 		local name = Lookup.ProfessionName(line)
-		return "profession", L["Requires"] .. " " .. (name and L[name] or L["Profession"])
+		local text = L["Requires"] .. " " .. (name and L[name] or L["Profession"])
+		if need and need > 1 then text = text .. " " .. need end
+		return "profession", text
 	end
 	if q.minLevel and q.minLevel > p.level then return "level", levelText(q.minLevel) end
 	if ns.Compat.IsQuestCompleted(q.id) then return "done", L["Already done"] end
@@ -467,6 +558,7 @@ builders.drop = function(src, p, from, direct)
 		if inst.entrance then
 			local t = travel(from, inst.entrance, direct)
 			place(r, inst.entrance, t)
+			r.z = inst.entrance.z
 		end
 		r.instance = inst.key
 		r.detail = detail(L["Drop"], inst.name)
@@ -547,7 +639,8 @@ builders.craft = function(src, p, from, direct)
 	r.detail = L["Crafted"]
 	local effort = CRAFT_BASE
 	if src.spell and not ns.Compat.IsSpellKnown(src.spell) then effort = effort + CRAFT_LEARN end
-	local rank = line and ns.Compat.GetSkillRank(line)
+	local rank, maxRank
+	if line then rank, maxRank = ns.Compat.GetSkillRank(line) end
 	if rank then
 		if src.skill and rank < src.skill then effort = effort + (src.skill - rank) * SKILL_POINT end
 	elseif not name then
@@ -558,13 +651,20 @@ builders.craft = function(src, p, from, direct)
 		block(r, "profession", L["Requires"] .. " " .. L[name])
 	end
 	r.effort = effort
-	-- The nearest trainer of the profession, when the Codex lists them.
+	-- The nearest trainer of the profession, when the Codex lists them. A recipe needing a rank
+	-- the character doesn't hold yet goes to a trainer who teaches that rank and accepts the
+	-- character's skill (#3784).
 	local C = Codex()
 	if line and C.WithRole then
+		local PT = ns.ProfessionTrainers
+		local want, cap
+		if PT then want, cap = PT.RankFor(line, src.skill or 1) end
+		local needRank = want and cap and (maxRank or 0) < cap and want or nil
+		local ok = PT and PT.Accepts(line, p.code, rank or 0, needRank)
 		local best, bestT, bestNpc
 		for _, id in ipairs(C.WithRole("trainer:" .. line) or {}) do
 			local npc, s, t = npcSpawn(id, from, direct)
-			if npc and s and sideOK(npc.faction, p) and (not best or (t and (not bestT or t < bestT))) then
+			if npc and s and sideOK(npc.faction, p) and (not ok or ok(id)) and (not best or (t and (not bestT or t < bestT))) then
 				best, bestT, bestNpc = s, t, npc
 			end
 		end
@@ -912,7 +1012,13 @@ local function zoneRows(zone, p, from, direct)
 	return list
 end
 
-local cache = {} -- "kind:id:direct|route" -> { at, level, list, entity }
+-- Rankings are useful for five seconds. Drop whole generations rather than scanning
+-- every result on hover; after the last query the timer runs at most twice more.
+local cache, previous, scheduled
+local function expire()
+	previous, cache = cache, nil
+	if previous then ns.After(CACHE_SECONDS, expire) else scheduled = false end
+end
 
 local function now() return GetTime and GetTime() or 0 end
 
@@ -922,7 +1028,7 @@ function Lookup.Sources(kind, id, direct)
 	if not C.IsLoaded() and not C.Load() then return {}, nil end
 	local p = playerInfo()
 	local key = kind .. ":" .. tostring(id) .. (direct and ":direct" or ":route")
-	local hit = cache[key]
+	local hit = (cache and cache[key]) or (previous and previous[key])
 	if hit and now() - hit.at < CACHE_SECONDS and hit.level == p.level then return hit.list, hit.entity end
 	local from = ns.PlayerPoint()
 	local list, entity = {}, nil
@@ -943,6 +1049,7 @@ function Lookup.Sources(kind, id, direct)
 			local r = newRow(nil, "entrance")
 			r.label = entity.name
 			place(r, entity.entrance, travel(from, entity.entrance, direct))
+			r.z = entity.entrance.z
 			r.detail = detail(L["Entrance"], r.zone)
 			local need = entity.levels and entity.levels[1]
 			if need and need > p.level then block(r, "level", levelText(need)) end
@@ -954,7 +1061,12 @@ function Lookup.Sources(kind, id, direct)
 		if entity then list = zoneRows(entity, p, from, direct) end
 	end
 	rank(list)
+	if not cache then cache = {} end
 	cache[key] = { at = now(), level = p.level, list = list, entity = entity }
+	if not scheduled then
+		scheduled = true
+		ns.After(CACHE_SECONDS, expire)
+	end
 	return list, entity
 end
 
@@ -999,6 +1111,11 @@ local function sourceLine(src)
 	return nil
 end
 
+-- A Codex entity's one line under its name (a Lookup row, its page's
+-- header). A quest offered only from a level above the character's says
+-- from which ("Level 27 · From level 18 · Silverpine Forest"; "From level
+-- 60 · Stranglethorn Vale" when that is its level too): #3370, a level 57
+-- went to Pix Xizzix for In Demand, offered from level 60.
 function Lookup.Subtitle(kind, id)
 	local C = Codex()
 	if not (C and C.IsLoaded and C.IsLoaded()) then return nil end
@@ -1010,7 +1127,12 @@ function Lookup.Subtitle(kind, id)
 		local q = C.Quest(id)
 		if not q then return nil end
 		local zone = q.zone and zoneName(q.zone)
-		if q.level then return detail(L["Level"] .. " " .. q.level, zone) end
+		local level = q.level and (L["Level"] .. " " .. q.level)
+		if q.minLevel and q.minLevel > playerInfo().level then
+			local from = format(L["From level %d"], q.minLevel)
+			level = (level and q.level > q.minLevel) and (level .. SEP .. from) or from
+		end
+		if level then return detail(level, zone) end
 		return zone
 	elseif kind == "npc" or kind == "rare" then
 		local npc = C.Npc(id)
@@ -1034,7 +1156,7 @@ end
 
 -- Forget cached rankings (a quest turned in, a profession learned...).
 function Lookup.ResetSources()
-	cache = {}
+	cache, previous = nil, nil
 end
 
 if ns.RegisterEvent then

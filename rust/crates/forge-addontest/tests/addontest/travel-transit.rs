@@ -340,6 +340,25 @@ fn a_walk_in_portal_goes_one_way_only() {
 	assert_eq!(out["back"][0], "walk|Walk to the boat", "never back through it");
 }
 
+// #3691: Sanath Lim-yo teleports a player who asks up Archmage Xylem's tower in Azshara; the arrow walked them round
+// instead. An NPC's teleport (TravelData's portal with `npc`) is taken like a portal, one way, and the arrow names
+// the NPC: walk to them, ask them.
+#[test]
+fn an_npc_s_teleport_is_planned_as_a_portal_walk_to_the_npc_and_ask_them_3691() {
+	let out = run(r#"
+		local r = {}
+		N.RegisterTravelData({ portals = { { id = "portal-tower", name = "The Tower", seconds = 5, npc = "Sanath Lim-yo",
+			a = { "Sanath Lim-yo", 0, 0, 900, 9000, 5, 50 }, b = { "The Tower", 1, 0, -400, 9001, 90, 50 } } } })
+		nav.place(0, 850)
+		N.SetTarget(9001, 80, 60, "Archmage Xylem")
+		r.route = route()
+		nav.place(0, 899)
+		r.mode = N.Sample()
+		emit(r)"#);
+	assert_eq!(out["route"], json!(["walk|Walk to Sanath Lim-yo", "portal|Ask Sanath Lim-yo to teleport you to The Tower", "walk|Archmage Xylem"]));
+	assert_eq!(out["mode"], "instruction");
+}
+
 // #2156: a portal that asks for an item (the Transpolyporter from Booty Bay to Gnomeregan's Train Depot opens only
 // for a player carrying the Goblin Transponder) is taken while the item is in the bags, never without it.
 #[test]
@@ -378,10 +397,12 @@ fn portal_turn_in_mirrored(waypoint_ui: bool) -> Value {
 	};
 	run(&format!(
 		r#"
+		Polestar.Set("nav.navRouting", false) -- mirror the compass on the two fictional streets
 		local calls, current, tracked = {{}}, nil, 0
 		{api}
 		C_QuestLog = C_QuestLog or {{}}
 		C_QuestLog.IsOnQuest = function(q) return q == 376 end
+		C_QuestLog.GetNextWaypoint = function() return 9001, 0.8, 0.6 end
 		C_SuperTrack.SetSuperTrackedQuestID = function(q) tracked = q; calls[#calls + 1] = {{ "quest", q }} end
 		C_SuperTrack.GetSuperTrackedQuestID = function() return tracked end
 		Polestar.Set("nav.blizzardWaypoint", true)
@@ -414,12 +435,12 @@ fn issue_1741_with_waypoint_ui_the_pin_is_the_current_leg_s_stop_then_the_goal()
 	assert_eq!(out["native"], json!({}), "Waypoint UI sets the game's pin itself");
 }
 
-// Without Waypoint UI nothing changes: the game's plain pin stays on the target the whole way.
+// The map destination stays put. It becomes a tracked bearing only after the portal.
 #[test]
 fn issue_1741_without_waypoint_ui_the_game_s_pin_stays_on_the_target() {
 	let out = portal_turn_in_mirrored(false);
 	assert_eq!(out["calls"], json!({}));
-	assert_eq!(out["native"], json!([["set", 9001, 0.8, 0.6], ["track", true]]));
+	assert_eq!(out["native"], json!([["set", 9001, 0.8, 0.6], ["track", false], ["track", true]]));
 }
 
 // #1834: the same walk through the portal with TomTom's arrow guiding (nav.useTomTomArrow, the target's continent):
@@ -428,6 +449,7 @@ fn issue_1741_without_waypoint_ui_the_game_s_pin_stays_on_the_target() {
 fn portal_turn_in_with_tomtom(arrow: bool) -> Value {
 	run(&format!(
 		r#"
+		Polestar.Set("nav.navRouting", false)
 		nav.withTomTom()
 		Polestar.Set("nav.useTomTomArrow", {arrow})
 		N.RegisterTravelData({{ portals = {{ {{ id = "gate", name = "Far Gate portal", seconds = 5,
