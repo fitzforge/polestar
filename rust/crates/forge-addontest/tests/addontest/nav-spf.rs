@@ -6197,3 +6197,74 @@ fn world_outside_the_capitals_the_npc_talked_to_seeds_an_unknown_floor_a_namepla
 	.concat());
 	assert_eq!(out, json!({ "plate": "none", "talked": 25 }));
 }
+
+// #3451's open half (Fitz's 0.4.3-rc probe): a search that can't finish took 3-4 ms of every frame for as long as it
+// ran. Every search and batch has a whole budget (Path.jobBudget, expansions): past it, a search answers
+// (nil, "budget") and a batch completes with what it priced, the rest unpriced (capped), never refused.
+#[test]
+fn a_search_or_batch_past_its_whole_budget_gives_up_a_batch_keeping_what_it_priced() {
+	let out = run_priced(
+		r#"
+		local o = { profile = Polestar.Compat.GetPlayerFaction(), walkLevel = N.danger.Level() or 1 }
+		-- Corner to corner of the tile: a search of many slices at the smallest slice.
+		local from, to = { x = -1060, y = -390, z = 5.9 }, { x = -540, y = 120 }
+		local function run(fn)
+			local got
+			fn(function(...) got = { ... } end)
+			local n = 0
+			while not got and #frames > 0 and n < 10000 do n = n + 1; table.remove(frames, 1)() end
+			return got, n
+		end
+		local function find(budget, slices)
+			solver.jobBudget, solver.budget, solver.sliceMin = budget, slices, slices
+			local got = run(function(cb) solver.Find(0, from, to, cb, o) end)
+			return got and { type(got[1]) == "table" and "path" or tostring(got[1]), tostring(got[2]) } or "none"
+		end
+		local function many(budget, slices)
+			solver.jobBudget, solver.budget, solver.sliceMin = budget, slices, slices
+			local got = run(function(cb) solver.FindMany(0, from, { { x = -1050, y = -380 }, to }, cb, o, true) end)
+			if not got then return "none" end
+			local c = {}
+			for i = 1, 2 do c[i] = type(got[1][i]) == "number" and "priced" or tostring(got[1][i]) end
+			return { c, tostring(got[2]), got[3].capped == true }
+		end
+		local budget, slice, sliceMin = solver.jobBudget, solver.budget, solver.sliceMin
+		local r = { whole = find(1e9, slice), over = find(-1, -1), manyWhole = many(1e9, slice), manyOver = many(-1, -1) }
+		solver.jobBudget, solver.budget, solver.sliceMin = budget, slice, sliceMin
+		r.budget = type(budget) == "number" and budget >= 500000 and budget <= 2000000
+		emit(r)"#,
+	);
+	assert_eq!(out["budget"], true, "a budget in expansions, over what ordinary searches take: {out}");
+	assert_eq!(out["whole"][0], "path", "within it: the path: {out}");
+	assert_eq!(out["over"], json!(["nil", "budget"]), "past it: no path, the reason why: {out}");
+	assert_eq!(out["manyWhole"][0], json!(["priced", "priced"]), "{out}");
+	assert_eq!(out["manyWhole"][2], false, "{out}");
+	assert_eq!(out["manyOver"][1], "nil", "a batch past it is no refusal: {out}");
+	assert_eq!(out["manyOver"][2], true, "and says it was capped: {out}");
+	assert!(out["manyOver"][0].as_array().unwrap().iter().all(|v| v != "false"), "its unpriced places never refused: {out}");
+}
+
+// The arrow's walk past its budget: the straight arrow (its line dashed, #3418), and the goal held unasked for
+// Walk.budgetHold seconds even as the player walks on (a failure for any other reason is asked again after 15 s and 5
+// yards): the same search never restarts every frame or every few seconds.
+#[test]
+fn a_walk_past_its_budget_points_straight_and_is_not_asked_again_for_a_minute() {
+	let out = run(r#"
+		local r = {}
+		nav.place(0, 0)
+		target(0, -500)
+		aim()
+		fake.fail("budget")
+		r.straight = aim()
+		nav.place(0, -40)
+		stub.advance(20); aim(); r.at20 = calls()
+		stub.advance(30); aim(); r.at50 = calls()
+		stub.advance(15); aim(); r.at65 = calls()
+		r.hold = Polestar.Nav.walk.budgetHold
+		emit(r)"#);
+	assert_eq!(out["straight"], json!(["travel", 500, 0, -500]), "the straight arrow: {out}");
+	assert_eq!(out["hold"], 60);
+	assert_eq!(out["at20"], 1, "not asked again after 20 s: {out}");
+	assert_eq!(out["at50"], 1, "nor after 50 s: {out}");
+	assert_eq!(out["at65"], 2, "asked again once the hold is over and the player has moved: {out}");
+}

@@ -99,6 +99,13 @@ local function frameBudget(ms)
 	if type(fps) ~= "number" or fps >= 60 or fps <= 0 then return ms end
 	return math.min(ms * math.min(60 / fps, Path.slowScale), Path.sliceMax)
 end
+-- Every search's and batch's whole budget (pump): Path.jobBudget expansions, then it gives up ("budget"). A search
+-- that can't finish otherwise took 3-4 ms of every frame for as long as it ran (Fitz's 0.4.3-rc probe: one batch,
+-- 571,000 expansions, 3.4 s of slices over 19 s, #3451); the arrow's searches on the route-speed and stretch scenes
+-- take 10,000-60,000, the planner's widest batches 100,000-600,000. Counted in expansions, not milliseconds, so a
+-- slow machine or a cluster's decode never cuts a search a fast one finishes. Path.manyCap (Path.lua) ends a batch
+-- by the same count between its places; this ends any search inside one.
+Path.jobBudget = 1000000
 Path.calmBudget = 1
 Path.calmSeconds = 1
 local calmUntil = 0
@@ -309,6 +316,20 @@ pump = function()
 			job.reason = type(cost) == "string" and cost or nil
 			if not job.cancelled then
 				notify(job, job.callback, points, cost)
+			end
+		elseif not job.notify and not job.prefetch and (job.expansions or 0) > Path.jobBudget then
+			-- Spent its whole budget (Path.jobBudget): it gives up. A search answers (nil, "budget"), the caller's
+			-- straight estimate (Nav/Walk.lua: the straight arrow, its line dashed, asked again only after a while); a
+			-- batch completes with the places it priced, the rest unpriced (job.capped, as Path.manyCap's). Its
+			-- half-searched scratch is dropped, never the next search's.
+			job.done, job.scratch, job.co, job.reason = true, nil, nil, "budget"
+			if not job.cancelled then
+				if job.targets then
+					job.capped = true
+					notify(job, job.callback, job.costs, nil)
+				else
+					notify(job, job.callback, nil, "budget")
+				end
 			end
 		else
 			if points == "load" then
