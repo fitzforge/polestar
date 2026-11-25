@@ -17,7 +17,7 @@
 -- are the player's (Options > Alerts & toasts, UI/Looks/Toasts.lua), and so
 -- is where it goes (toasts.headsup.place: "above" the window, the default;
 -- "below" it, flipping above when the screen has no room below; or "free",
--- a spot of its own, toasts.headsup.pos, moved with Move frames) and its
+-- a spot of its own, toasts.headsup.pos, moved with Move frames or by dragging the card) and its
 -- compact style (toasts.headsup.compact, off by default: one line, its icon,
 -- its title and its action, the rest in a tooltip and a menu). The class
 -- quest card is one of the heads-ups this card carries (CT.ShowCard): the
@@ -514,6 +514,18 @@ end
 local function build()
 	f = newCard(ns.UIParent, "PolestarClassToast")
 	f:Hide()
+	f:SetMovable(true)
+	ns.DragWindow(f, f, {
+		locked = function() return ns.DragLocked() end,
+		onStop = function(self)
+			local p = ns.Get("toasts.headsup.pos")
+			local point = type(p) == "table" and type(p[1]) == "string" and p[1] or CT.FREE_AT[1]
+			local x, y = ns.PointOffsets(self, point)
+			ns.Set("toasts.headsup.place", "free")
+			ns.Set("toasts.headsup.pos", { point, floor(x + 0.5), floor(y + 0.5) })
+			CT.Place(false)
+		end,
+	})
 	CT.frame = f
 
 	local w = window()
@@ -1079,6 +1091,7 @@ function CT.CompactTip(c)
 	if m.badge then lines[#lines + 1] = { m.badge, Theme.Accent() } end
 	if m.giver then lines[#lines + 1] = m.giver end
 	if m.route then lines[#lines + 1] = m.route end
+	lines[#lines + 1] = ns.Get("ui.lockHud") and L["Shift-drag to move."] or L["Drag to move."]
 	W.Tooltip(c, CT.side == "below" and "ANCHOR_BOTTOM" or "ANCHOR_TOP", m.title or "", lines)
 end
 
