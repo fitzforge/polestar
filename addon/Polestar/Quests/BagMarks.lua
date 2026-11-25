@@ -174,9 +174,16 @@ if Slots then
 end
 
 local tooltipOn = false
+local LEFTOVER_LINES = 5 -- at most this many of a leftover's quests are named
 local function onItemTooltip(tt, _, itemID)
-	if isOn() and Q.IsObsoleteQuestItem(itemID) then
-		ns.Hooks.AddLine(tt, ns.L["Related quests completed (likely safe to delete)"])
+	if not (isOn() and Q.IsObsoleteQuestItem(itemID)) then return end
+	ns.Hooks.AddLine(tt, ns.L["Related quests completed (likely safe to delete)"])
+	-- The quests it was for, "[12] <Quest>: Done", in their difficulty colours.
+	local quests = Q.ItemQuestName and Q.ItemQuests(itemID)
+	local dim = quests and Q.Color("textDim")
+	for i = 1, quests and math.min(#quests, LEFTOVER_LINES) or 0 do
+		local name, c = Q.ItemQuestName(quests[i])
+		ns.Hooks.AddLine(tt, name .. ":", ns.L["Done"], c.r, c.g, c.b, dim.r, dim.g, dim.b)
 	end
 end
 

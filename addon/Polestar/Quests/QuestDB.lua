@@ -339,6 +339,13 @@ function Q.GetQuestTitle(id)
 	return r and named("Quest", id, r[QUEST_TITLE]) or nil
 end
 
+-- A quest's level from the database (nil for none or a scaling quest's -1).
+function Q.GetQuestLevel(id)
+	local r = data.quests[id]
+	local level = r and r[QUEST_LEVEL]
+	return type(level) == "number" and level > 0 and level or nil
+end
+
 local function spawnRow(list, _, map, f, x, y, r)
 	list[#list + 1] = { map = map, f = f, x = x, y = y, r = r }
 end

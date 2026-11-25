@@ -37,6 +37,40 @@ local function mark(q)
 	return NQ and NQ.Mark(q) or ""
 end
 
+-- The client's difficulty colour for a quest level, as the quest log draws
+-- it (GetQuestDifficultyColor, else QuestDifficultyColors by level gap), or
+-- nil without a level or a player level.
+function Q.DifficultyColor(level)
+	local C = ns.Compat
+	local plevel = C.GetPlayerLevel and C.GetPlayerLevel()
+	if type(level) ~= "number" or not plevel then return nil end
+	if GetQuestDifficultyColor then
+		local ok, c = pcall(GetQuestDifficultyColor, level)
+		if ok and type(c) == "table" and type(c.r) == "number" and not C.IsSecret(c.r) then return c end
+	end
+	local t = QuestDifficultyColors
+	if type(t) ~= "table" then return nil end
+	local d = level - plevel
+	local key
+	if d >= 5 then key = "impossible"
+	elseif d >= 3 then key = "verydifficult"
+	elseif d >= -4 then key = "difficult"
+	else key = (C.IsQuestTrivial and C.IsQuestTrivial(level, plevel)) and "trivial" or "standard" end
+	local c = t[key]
+	return type(c) == "table" and type(c.r) == "number" and c or nil
+end
+
+-- A quest's name on an item tooltip and its colour: "[12] Kobold Camp
+-- Cleanup" (the level with qol.questLevels; the game's level for a quest in
+-- the log, else the database's) in the difficulty colour, else the quest colour.
+function Q.ItemQuestName(q, title)
+	local C = ns.Compat
+	local level = C.GetQuestLevel and C.GetQuestLevel(q) or Q.GetQuestLevel(q)
+	local name = title or Q.GetQuestTitle(q) or tostring(q)
+	if level and ns.Get("qol.questLevels") then name = "[" .. level .. "] " .. name end
+	return name .. mark(q), Q.DifficultyColor(level) or Q.Color("quest")
+end
+
 -- A drop chance in percent as text, written as the Lookup window writes its
 -- sources' chances (UI/Lookup.lua, Percent): "66%", "4.5%", "0.25%".
 local function chanceText(chance)
@@ -66,7 +100,9 @@ local function addObjectiveLines(tt, list, selfKind, selfID, selfName)
 			local chance = selfKind == 1 and Q.GetDropChance(o.id, selfID) or selfKind == 3 and Q.GetObjectDropChance(o.id, selfID)
 			if chance and chance > 0 then what = what .. "  " .. chanceText(chance) end
 		end
-		addLine(tt, (e.title or ("Quest " .. o.q)) .. mark(o.q) .. ":", what, qc, (o.done or e.ready) and ok or dim)
+		local name, nc = (e.title or ("Quest " .. o.q)) .. mark(o.q), qc
+		if selfKind == 2 then name, nc = Q.ItemQuestName(o.q, e.title) end
+		addLine(tt, name .. ":", what, nc, (o.done or e.ready) and ok or dim)
 		added = added + 1
 	end
 	return added
@@ -75,12 +111,13 @@ end
 local function addStartLines(tt, itemID)
 	local list = Q.StartedBy(itemID)
 	if not list then return 0 end
-	local qc, tc = Q.Color("quest"), Q.Color("text")
+	local qc = Q.Color("quest")
 	local added = 0
 	for i = 1, #list do
 		local q = list[i]
 		if not ns.Compat.IsQuestCompleted(q) and not ns.Compat.IsOnQuest(q) then
-			addLine(tt, L["Starts a quest"] .. ":", (Q.GetQuestTitle(q) or tostring(q)) .. mark(q), qc, tc)
+			local name, nc = Q.ItemQuestName(q)
+			addLine(tt, L["Starts a quest"] .. ":", name, qc, nc)
 			added = added + 1
 		end
 	end
@@ -139,13 +176,39 @@ end
 local function addAheadLines(tt, itemID)
 	local list = questsAhead()[itemID]
 	if not list then return 0 end
-	local qc, dim = Q.Color("quest"), Q.Color("textDim")
+	local dim = Q.Color("textDim")
 	for i = 1, #list do
 		local e = list[i]
 		local have = ns.Compat.GetItemCount and ns.Compat.GetItemCount(itemID) or 0
-		addLine(tt, (Q.GetQuestTitle(e.q) or tostring(e.q)) .. mark(e.q) .. ":", L["%d/%d (not accepted)"]:format(math.min(have, e.n), e.n), qc, dim)
+		local name, nc = Q.ItemQuestName(e.q)
+		addLine(tt, name .. ":", L["%d/%d (not accepted)"]:format(math.min(have, e.n), e.n), nc, dim)
 	end
 	return #list
+end
+
+-- Quests in the log that handed the item over when taken (a letter to
+-- deliver, a rod to use) and are not already named by an objective line:
+-- "<Quest>: In your quest log", or "Turn in" once ready.
+local function addHandedLines(tt, itemID, objectives)
+	local list = Q.ItemQuests and Q.ItemQuests(itemID)
+	if not list then return 0 end
+	local C = ns.Compat
+	local dim, ok = Q.Color("textDim"), Q.Color("success")
+	local added = 0
+	for i = 1, #list do
+		local q = list[i]
+		local listed = false
+		for j = 1, objectives and #objectives or 0 do
+			if objectives[j].q == q then listed = true break end
+		end
+		if not listed and Q.HandsOver(q, itemID) and C.IsOnQuest(q) then
+			local name, nc = Q.ItemQuestName(q)
+			local ready = C.IsQuestReadyForTurnIn and C.IsQuestReadyForTurnIn(q)
+			addLine(tt, name .. ":", ready and L["Turn in"] or L["In your quest log"], nc, ready and ok or dim)
+			added = added + 1
+		end
+	end
+	return added
 end
 
 ns.On("STEP_CHANGED", function() ahead = nil end)
@@ -185,7 +248,9 @@ end
 
 function Q.AddItemLines(tt, itemID)
 	if not (itemID and tooltipsOn()) then return 0 end
-	return addObjectiveLines(tt, Q.ObjectivesForItem(itemID), 2, itemID) + addAheadLines(tt, itemID) + addStartLines(tt, itemID)
+	local objectives = Q.ObjectivesForItem(itemID)
+	return addObjectiveLines(tt, objectives, 2, itemID) + addHandedLines(tt, itemID, objectives)
+		+ addAheadLines(tt, itemID) + addStartLines(tt, itemID)
 end
 
 function Q.AddObjectLines(tt, objectID, name)
