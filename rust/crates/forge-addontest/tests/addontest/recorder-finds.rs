@@ -197,15 +197,7 @@ fn a_solo_kill_that_gave_xp_or_opened_its_loot_window_is_never_marked_as_someone
 		logout()
 		emit({ kills = recs("kill"), bad = malformed() })"#
 	));
-	assert_eq!(
-		out["kills"],
-		json!([
-			"kill|299|3|n|1429|5000|5000|45||0|",
-			"kill|299|3|n|1429|5000|5000|||0|",
-			"kill|299|3|n|1429|5000|5000|||1|",
-			"kill|113|5|n|1429|5000|5000|40||0|",
-		])
-	);
+	assert_eq!(out["kills"], json!(["kill|299|3|n|1429|5000|5000|45||0|", "kill|299|3|n|1429|5000|5000|||0|", "kill|299|3|n|1429|5000|5000|||1|", "kill|113|5|n|1429|5000|5000|40||0|",]));
 	assert_eq!(out["bad"], json!({}));
 }
 
@@ -258,13 +250,7 @@ fn only_the_kill_s_own_corpse_window_read_before_the_kill_is_written_clears_its_
 	));
 	assert_eq!(
 		out["kills"],
-		json!([
-			"kill|299|3|n|1429|5000|5000|||1|",
-			"kill|113|5|n|1429|5000|5000|||1|",
-			"kill|299|3|n|1429|5000|5000|||0|",
-			"kill|299|3|n|1429|5000|5000|||0|",
-			"kill|299|3|n|1429|5000|5000|||1|",
-		])
+		json!(["kill|299|3|n|1429|5000|5000|||1|", "kill|113|5|n|1429|5000|5000|||1|", "kill|299|3|n|1429|5000|5000|||0|", "kill|299|3|n|1429|5000|5000|||0|", "kill|299|3|n|1429|5000|5000|||1|",])
 	);
 	assert_eq!(out["bad"], json!({}));
 }
