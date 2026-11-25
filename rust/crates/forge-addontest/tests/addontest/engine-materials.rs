@@ -253,6 +253,30 @@ fn an_item_no_profession_guide_has_counts_its_mail_its_purchases_and_the_bank_th
 }
 
 #[test]
+fn live_material_totals_use_one_bag_read_per_item_and_pick_up_the_next_inventory_change() {
+	let out = run(
+		CORE,
+		"",
+		r#"
+		local bag, bank = 3, 7
+		local reads, inclusive = 0, 0
+		local count = C_Item.GetItemCount
+		C_Item.GetItemCount = function(id, withBank)
+			if id ~= 2589 then return count(id, withBank) end
+			if withBank then inclusive = inclusive + 1; return bank + bag end
+			reads = reads + 1; return bag
+		end
+		local total, parts = M.Have(2589)
+		r.guide = { total, parts.bags, parts.bank, reads, inclusive }
+		bag, reads, inclusive = 0, 0, 0
+		r.character = { M.OwnCounts()[2589], reads, inclusive }
+		"#,
+	);
+	assert_eq!(out["guide"], json!([10, 3, 7, 1, 1]));
+	assert_eq!(out["character"], json!([7, 1, 1]), "the next read keeps bank-only materials, not the previous bag count");
+}
+
+#[test]
 fn the_materials_counted_are_every_profession_guide_s_and_the_tabs_items_without_indexing_the_guides_nobody_runs() {
 	// Materials.Tracked reads the items alone of a guide whose ways nobody asks (any character holds every
 	// profession guide); the per-goal index comes with Materials.Way. Tabs, a replacement and a release follow.
@@ -475,4 +499,39 @@ fn search_opens_the_game_s_buy_view_fills_in_the_count_once_the_listings_come_an
 	assert_eq!(out["price"], json!([1350, { "each": 100, "age": 0, "source": "search" }]));
 	assert_eq!(out["own"], json!([1, 100]));
 	assert_eq!(out["closed"], json!(false), "only at an open Auction House");
+}
+
+// Bruatel (#3700): in gamepad mode, the Search's buy view and quantity event tainted the game's gamepad managers,
+// and the controller's own actions were then blocked. There a search is the game's browse query for the item's name
+// alone: the Auction House window itself is never driven, and no count is filled in when the listings come.
+#[test]
+fn in_gamepad_mode_a_search_is_only_the_game_s_browse_query_by_name_3700() {
+	let out = run(
+		CORE,
+		"",
+		r#"
+		Polestar.GamepadUI = function() return true end
+		local selected, quantities, queries, known = {}, {}, {}, { [2318] = { isCommodity = true, itemName = "Silk Cloth" } }
+		AuctionHouseFrameMixin = { Event = { CommoditiesQuantitySelectionChanged = 7 } }
+		AuctionHouseFrame = {
+			IsShown = function() return true end,
+			SelectBrowseResult = function(self, result) selected[#selected + 1] = result.itemKey.itemID end,
+			TriggerEvent = function(self, event, n) quantities[#quantities + 1] = { event, n } end,
+		}
+		C_AuctionHouse = {
+			MakeItemKey = function(id) return { itemID = id } end,
+			GetItemKeyInfo = function(key) return known[key.itemID] end,
+			SendBrowseQuery = function(q) queries[#queries + 1] = q.searchString end,
+			GetNumCommoditySearchResults = function() return 1 end,
+			GetCommoditySearchResultInfo = function() return { unitPrice = 100, quantity = 3 } end,
+		}
+		r.searched = M.Search(2318, 10)
+		stub.fire("COMMODITY_SEARCH_RESULTS_UPDATED", 2318); flush()
+		r.queries, r.selected, r.quantities = queries, #selected, #quantities
+		"#,
+	);
+	assert_eq!(out["searched"], json!(true));
+	assert_eq!(out["queries"], json!(["Silk Cloth"]), "the browse query for the item's name");
+	assert_eq!(out["selected"], json!(0), "the window's buy view is not driven");
+	assert_eq!(out["quantities"], json!(0), "no count filled in");
 }

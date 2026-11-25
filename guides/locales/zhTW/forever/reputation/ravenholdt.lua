@@ -31,7 +31,7 @@ return {
 
 	-- Step 4: Strahnbrad: Barton
 	-- {npc:266357} Barton · {area:280} Strahnbrad
-	["{npc:266357} hides in a house in {area:280}, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level."] = "",
+	["{npc:266357} hides in a house in {area:280}, among stealthed Syndicate. Pick his pocket for the report; Distract turns him around if you are under his level."] = "{npc:266357} 藏在 {area:280} 的一棟房屋裡，周圍是潛行的辛迪加成員。對他使用偷竊取得報告；如果等級比他低，可用擾亂讓他轉身。",
 	-- {item:275482} Barton's Scouting Report · {npc:266357} Barton
 	["{item:275482}: pickpocket {npc:266357}"] = "{item:275482}：對{npc:266357}偷竊",
 
@@ -46,8 +46,9 @@ return {
 	["Stromgarde: {npc:266847}"] = "激流堡：{npc:266847}",
 	-- {item:275706} Syndicate Uniform · {npc:266847} Anastasia Miller
 	["Put on the {item:275706} and go into Stromgarde. {npc:266847} waits on a ledge just outside the castle; players reach her by jumping from the roof of the house beside the ledge. Her stash is upstairs in a house near the keep."] = "穿上{item:275706}，進入激流堡。{npc:266847}在城堡外的一處壁架上等候；玩家從壁架旁那棟房子的屋頂跳過去找她。她的藏匿物在城堡主樓附近一棟房子的樓上。",
-	-- {item:275709} Stolen Funds
-	["{item:275709}, in Anastasia's Stash upstairs"] = "{item:275709}，在樓上阿納斯塔西婭的藏匿物中",
+	-- {item:275709} Stolen Funds · {object:656405} Anastasia's Stash (no name in this language: may be words)
+	-- was: ["{item:275709}, in Anastasia's Stash upstairs"] = "{item:275709}，在樓上阿納斯塔西婭的藏匿物中"
+	["{item:275709}, in {object:656405} upstairs"] = "{item:275709}，在樓上的{object:656405}裡",
 
 	-- Step 7: Thoradin's Wall: the shipment
 	-- {area:1057} Thoradin's Wall
@@ -99,7 +100,7 @@ return {
 	["{quest:8233}, rogues 50+"] = "{quest:8233}，盜賊50級以上",
 	-- {npc:6768} Lord Jorach Ravenholdt · {quest:8234} Sealed Azure Bag · {zone:1447} Azshara · {quest:8235} Encoded Fragments · {quest:8236} The Azure Key · {area:1477} Temple of Atal'Hakkar
 	-- plural, as words: Timbermaw Shamans = {npc:6188} Timbermaw Shaman · Forest Oozes = {npc:8766} Forest Ooze
-	["At level 50 your class trainer has another letter for you, and {npc:6768} a short chain: 360 reputation in all. The {quest:8234} drops from Timbermaw Shamans in northern {zone:1447} (about 1 in 27, or pick their pockets); the {quest:8235} from Forest Oozes in {zone:1447} (4 in 5). {quest:8236} comes from Morphaz, an elite drake deep in the {area:1477}: a five-player dungeon, group up."] = "",
+	["At level 50 your class trainer has another letter for you, and {npc:6768} a short chain: 360 reputation in all. The {quest:8234} drops from Timbermaw Shamans in northern {zone:1447} (about 1 in 27, or pick their pockets); the {quest:8235} from Forest Oozes in {zone:1447} (4 in 5). {quest:8236} comes from Morphaz, an elite drake deep in the {area:1477}: a five-player dungeon, group up."] = "50 級時，職業訓練師會再給你一封信，{npc:6768} 也有一條簡短任務鏈：總共 360 點聲望。{quest:8234} 由 {zone:1447} 北部的木喉薩滿祭司掉落（約二十七分之一，也可以偷竊）；{quest:8235} 由 {zone:1447} 的森林軟泥怪掉落（五分之四）。{quest:8236} 來自 {area:1477} 深處的精英幼龍摩弗拉斯：這是五人地下城，要組隊。",
 	-- {quest:8234} Sealed Azure Bag
 	-- plural, as words: Timbermaw Shamans = {npc:6188} Timbermaw Shaman
 	["{quest:8234}: Timbermaw Shamans"] = "{quest:8234}：木喉薩滿",
@@ -117,4 +118,7 @@ return {
 	["{item:16885}: pickpocket level 50+ humanoids, {area:1445}"] = "{item:16885}：扒50級以上人形生物的口袋，{area:1445}",
 	-- {npc:6707} Fahrad
 	["{npc:6707}: 50 per five boxes, handed in from his window"] = "{npc:6707}：每五個箱子換50點聲望，在他的視窗中直接繳交",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{item:275709}, in Anastasia's Stash upstairs"] = "{item:275709}，在樓上阿納斯塔西婭的藏匿物中",
 }

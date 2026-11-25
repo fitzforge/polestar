@@ -298,8 +298,17 @@ function renderBandage(ctx, P, e, L) {
 	step(L, `${recipe.name}: Auction House`, [`tip What ${recipe.name} takes that the Auction House sells: ${what}. The counts drop by what your bags, bank and mail hold.`, ...recipe.reagents.map((rg) => `auction ${rg.item} x${crafts * rg.count}`)]);
 	const levels = (rg) => (CLOTH_LEVELS[itemName(ctx, rg.item)] ? ` levels ${CLOTH_LEVELS[itemName(ctx, rg.item)].join('-')}` : '');
 	step(L, `${recipe.name}: cloth`, [`tip ${tip}`, ...recipe.reagents.map((rg) => `collect ${rg.item} x${crafts * rg.count} anywhere gather${levels(rg)}`)]);
-	// A recipe learned in this step: where and what it costs (sniffed trainer lists).
-	const learnTip = e.learn && e.learn.some((l) => l.startsWith(`learn ${e.spell}`) && !l.includes(' npc ')) && recipe.source === 'trainer' ? `Any ${P.skill} trainer of your faction teaches it from skill ${recipe.learnedAt} for ${money(recipe.cost)}; the arrow picks the nearest.` : '';
+	// A recipe learned in this step: where and what it costs (sniffed trainer lists), or, for a manual the Expert
+	// step had the player buy (Heavy Silk and Mageweave Bandage), that it is read from the bags (#3405: the learn
+	// line has no place to point to, and nothing said where the recipe comes from). A band that goes on with a
+	// recipe an earlier band's step taught repeats its learn (`again`: who teaches it): a player whose skill came
+	// past that step another way never saw it (#3401: Heavy Wool Bandage at 125 after reaching 125 on Wool).
+	const learnsHere = !e.again && e.learn && e.learn.some((l) => l.startsWith(`learn ${e.spell}`) && !l.includes(' npc '));
+	const learnTip = e.again ? `If you got here without learning it, learn it now: ${e.again}`
+		: !learnsHere ? ''
+		: recipe.source === 'trainer' ? `Any ${P.skill} trainer of your faction teaches it from skill ${recipe.learnedAt} for ${money(recipe.cost)}; the arrow picks the nearest.`
+		: recipe.source === 'vendor' && recipe.recipeItem ? `Read the ${itemName(ctx, recipe.recipeItem)} you bought with Expert ${P.skill} to learn it; without one, the vendor who sold you the book sells it too.`
+		: '';
 	const lines = [craftTip(P, recipe, e.from, e.to, crafts, [learnTip, e.tip].filter(Boolean).join(' '))];
 	if (e.learn) lines.push(...e.learn);
 	lines.push(`craft ${e.spell} until ${e.to}`);
@@ -327,9 +336,11 @@ const firstAid = {
 	],
 	apprenticeTip: 'Forever teaches Minor Healing Potion with it: Peacebloom, Mild Spices and an Empty Vial, orange to 55. With Herbalism it can replace the Linen Bandages below.',
 	route(ctx) {
-		const band = (spell, from, to, learn, tip) => ({ bandage: true, spell, from, to, learn, tip });
+		// `again`: the learn repeats a recipe an earlier band's step taught (renderBandage), saying who teaches it.
+		const band = (spell, from, to, learn, tip, again) => ({ bandage: true, spell, from, to, learn, tip, again });
 		const triage = ctx.data.quest(6624).minLevel;
 		const recipe = (spell) => recipeOf(ctx, spell);
+		const trainerAgain = (spell) => `any First Aid trainer of your faction teaches it for ${money(recipe(spell).cost)}; the arrow picks the nearest.`;
 		const kit = recipe(1230117);
 		const lesser = recipe(1244432);
 		const healing = recipe(1244433);
@@ -355,13 +366,13 @@ const firstAid = {
 			band(3275, 1, 40, null, `At ${kit.learnedAt} the trainer also teaches ${kit.name} (${money(kit.cost)}; the Camping 101: First Aid quest at your starting area's camp teaches it free), Forever's camping item for First Aid: three Linen Bandages and a Refreshing Spring Water; it gives a few points until ${kit.grey}.`),
 			band(3276, 40, 50, ['learn 3276']),
 			{ rank: 'Journeyman' },
-			band(3276, 50, 80, null, `Herbalists: ${lesser.name} (from ${lesser.learnedAt}, ${money(lesser.cost)}; Briarthorn, two Mild Spices and an Empty Vial) is orange to ${lesser.yellow}.`),
+			band(3276, 50, 80, ['learn 3276'], `Herbalists: ${lesser.name} (from ${lesser.learnedAt}, ${money(lesser.cost)}; Briarthorn, two Mild Spices and an Empty Vial) is orange to ${lesser.yellow}.`, trainerAgain(3276)),
 			band(3277, 80, 115, ['learn 3277'], 'Anti-Venom (Small Venom Sac, from spiders) is taught at 80 too: Rogues need it for Touch of Zanzil, and it sells.'),
 			band(3278, 115, 125, ['learn 3278'], `Herbalists: ${healing.name} (from ${healing.learnedAt}, ${money(healing.cost)}; Bruiseweed, Hot Spices and a Leaded Vial) is orange to ${healing.yellow}.`),
 			{ section: 'Expert First Aid' },
 			{ rank: 'Expert', alsoBuy: [16112, 16113], tip: `The same vendor sells the Heavy Silk and Mageweave Bandage manuals (${money((this.materials[16112] || {}).buy)} and ${money((this.materials[16113] || {}).buy)}): buy both now, you read them at 180 and 210.` },
 			{ section: 'First Aid 125-225' },
-			band(3278, 125, 150, null),
+			band(3278, 125, 150, ['learn 3278'], null, trainerAgain(3278)),
 			band(7928, 150, 180, ['learn 7928']),
 			band(7929, 180, 210, ['learn 7929']),
 			band(10840, 210, 225, ['learn 10840']),
@@ -413,11 +424,11 @@ const firstAid = {
 				],
 			},
 			{ section: 'First Aid 225-300' },
-			band(10840, 225, hmw.learnedAt, null, `Mageweave Bandage turns green at ${mw.green}: switch to Heavy Mageweave there, which costs less cloth than green Mageweave Bandages to ${rune.learnedAt}.`),
+			band(10840, 225, hmw.learnedAt, ['learn 10840'], `Mageweave Bandage turns green at ${mw.green}: switch to Heavy Mageweave there, which costs less cloth than green Mageweave Bandages to ${rune.learnedAt}.`, `read the ${itemName(ctx, mw.recipeItem)} (the vendor who sold you the Expert First Aid book sells it).`),
 			doctorLearn(10841),
-			band(10841, hmw.learnedAt, rune.learnedAt, null),
+			band(10841, hmw.learnedAt, rune.learnedAt, doctorLearn(10841).raw.filter((l) => l.startsWith('learn ')), null, 'only the Triage doctor teaches it (Doctor Gustaf VanHowzen in Theramore, Doctor Gregory Victor in Hammerfall).'),
 			doctorLearn(18629),
-			band(18629, rune.learnedAt, 300, null, `Runecloth Bandage turns green at ${rune.green}, yet to 300 it takes about the same Runecloth as switching to Heavy Runecloth Bandage (the doctor teaches it at ${recipe(18630).learnedAt}): one recipe is enough.`),
+			band(18629, rune.learnedAt, 300, doctorLearn(18629).raw.filter((l) => l.startsWith('learn ')), `Runecloth Bandage turns green at ${rune.green}, yet to 300 it takes about the same Runecloth as switching to Heavy Runecloth Bandage (the doctor teaches it at ${recipe(18630).learnedAt}): one recipe is enough.`, 'only the Triage doctor teaches it (Doctor Gustaf VanHowzen in Theramore, Doctor Gregory Victor in Hammerfall).'),
 		];
 	},
 };

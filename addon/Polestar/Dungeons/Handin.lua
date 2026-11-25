@@ -10,13 +10,15 @@
 --       plan = { dungeon, hand = { { quest, rec, ender, talks, direct } }, unfinished = { quest, ... },
 --         inside = { quest, ... }, unplaced = { quest, ... }, errands = { { quest, rec } } }
 --       the page's quests in the log: hand (objectives done, or only talks
---       left, turned in outside at `ender`, a point { kind, id, name, map,
---       x, y, f }: Dungeons.Ender, the page's own place when it is the
---       character's side's, else the Codex's ender of that side nearest the
---       player; talks: nil, or the open quest-log lines when each is a talk
---       objective at an NPC outside this character may speak to, each a
---       point with its line `oi`: The Glowing Shard's Sputtervalve in
---       Ratchet before Falla Sagewind, #1326), unfinished (other objectives
+--       or placed events left, turned in outside at `ender`, a point { kind,
+--       id, name, map, x, y, f }: Dungeons.Ender, the page's own place when
+--       it is the character's side's, else the Codex's ender of that side
+--       nearest the player; talks: nil, or the open quest-log lines when each
+--       is a talk objective at an NPC outside this character may speak to
+--       (The Glowing Shard's Sputtervalve in Ratchet before Falla Sagewind,
+--       #1326) or an event the Codex places on the continent of the quest's
+--       turn-in (Rot and Regret's Woodwyrd extinguished, #3084: kind "event"),
+--       each a point with its line `oi`), unfinished (other objectives
 --       still open), inside (done, turned in inside the dungeon), unplaced
 --       (done, nowhere known). A page quest handed in at one talk and never
 --       in the log (`direct`: Pozzik's Indurium Ore, #2241) is in `hand`
@@ -38,7 +40,9 @@
 --       nothing is left to do once it is taken (no objectives: Earthen Echo,
 --       #1748; only items the bags hold: Prehistoric Prism, #1817), or once
 --       its errand is done, this character's side's, on the giver's
---       continent; errand: for one of this dungeon's own page quests done
+--       continent or on one a `hand` quest is turned in on (Sen'jin
+--       Village's Master Gadrin while Mazu'kon in Mulgore takes the idol,
+--       #2841); errand: for one of this dungeon's own page quests done
 --       outside it, the collect goals of its objectives when every one is an
 --       errand item, one to be had out in the world: no instance's NPC or
 --       object gives it, and an NPC or object spawned outside does at least
@@ -92,12 +96,15 @@ local function endPoint(e)
 	return { kind = e.npc and "npc" or "object", id = e.npc or e.object, name = e.name, map = s.map, x = s.x, y = s.y, f = s.f }
 end
 
--- Where the route starts: where the player stands, else (inside the dungeon,
--- where the client gives no position) its entrance, this character's side's,
--- where the player comes out after the run. Without it the stops kept the
+-- Where the route starts: where the player stands outside; inside an
+-- instance (or where the client gives no position) the dungeon's entrance,
+-- this character's side's, where the player comes out after the run. A
+-- position inside is on the instance's own map, which no travel reaches: every
+-- stop cost the same from there, and the City of Dalaran's Image of Archmage
+-- Modera, at the door, came last (#3314). Without either the stops kept the
 -- page's quest order (Fitz, 2026-11-15: the givers nearest the way out first).
 local function startPoint(key)
-	local here = ns.PlayerPoint()
+	local here = not ns.Compat.IsInInstance() and ns.PlayerPoint()
 	if here then return here end
 	local map, x, y, f = Dungeons.Entrance(key)
 	if map then return { map = map, x = x, y = y, f = f } end
@@ -129,27 +136,85 @@ local function carried(rec)
 	return true
 end
 
+-- The client's quest-log lines of quest record `rec`'s objectives `objs`, as
+-- { [oi] = line }: the line labelled with the objective's words (its text, or
+-- its item's, NPC's or object's name in the client's language: Polestar.Names)
+-- first, else the one at the objective's place when free, else the first free
+-- one. The client need not list them in the Codex's order (#3703: Rot and
+-- Regret's open "Woodwyrd extinguished" line read as its vial's, done, by
+-- place alone, left the quest out of Maraudon's hand-in guide). extra: true
+-- when a line no objective takes is open (the Codex does not know it).
+local LINE_NAME = { item = "Item", kill = "Npc", talk = "Npc", object = "Object" }
+local function linesOf(objs, lines)
+	local bound = {}
+	if not lines then return bound, false end
+	local label, N = ns.Compat.ObjectiveLabel, ns.Names
+	local taken = {}
+	for oi, o in ipairs(objs) do
+		local kind = LINE_NAME[o.type]
+		local name = kind and o.id and N and N[kind] and N[kind](o.id) or nil
+		for k = 1, #lines do
+			local l = not taken[k] and label(lines[k].text) or ""
+			if l ~= "" and (l == o.text or l == name) then
+				bound[oi], taken[k] = lines[k], true
+				break
+			end
+		end
+	end
+	for oi = 1, #objs do
+		if not bound[oi] then
+			local k = lines[oi] and not taken[oi] and oi or nil
+			for j = 1, #lines do
+				if k then break end
+				if not taken[j] then k = j end
+			end
+			if k then bound[oi], taken[k] = lines[k], true end
+		end
+	end
+	for k = 1, #lines do
+		if not taken[k] and not lines[k].finished then return bound, true end
+	end
+	return bound, false
+end
+
 -- The talks left before quest `id` can be handed in: its open quest-log
 -- lines when each is a talk objective of the Codex quest at an NPC with a
--- place this character may speak to (Lookup.QuestEnd), as points with the
--- line's `oi`; nil when a line is anything else (a kill, an item, an event,
--- one the Codex does not know) or none is open. The client's lines decide
--- which are open; without them, every line of the Codex quest is.
+-- place this character may speak to (Lookup.QuestEnd), or an event the Codex
+-- places on the continent of the quest's turn-in (#3084: Rot and Regret's
+-- "Woodwyrd extinguished" in Shen'dralas, after Maraudon gave the vial), as
+-- points with the line's `oi` (an event's: kind "event", its text as the
+-- name); nil when a line is anything else (a kill, an item, an unplaced
+-- event, one the Codex does not know) or none is open. The client's lines
+-- decide which are open (each read as linesOf binds it to its objective);
+-- without them, every line of the Codex quest is.
 local function talksLeft(id, rec, from, p)
 	local objs = rec and rec.objectives
 	if type(objs) ~= "table" or #objs == 0 then return nil end
 	local lines = ns.Compat.GetQuestObjectives(id)
+	local bound, extra = linesOf(objs, lines)
+	if extra then return nil end
 	local Lk, out = LK(), {}
-	for oi = 1, math.max(#objs, lines and #lines or 0) do
-		local line = lines and lines[oi]
+	local endC
+	for oi = 1, #objs do
+		local line = bound[oi]
 		if not (line and line.finished) then
 			local o = objs[oi]
-			if not (o and o.type == "talk" and o.id) then return nil end
-			local e = Lk.QuestEnd({ npc = { o.id } }, from, p)
-			local at = e and not e.hostile and endPoint(e)
-			if not at then return nil end
-			at.oi = oi
-			out[#out + 1] = at
+			if o and o.type == "talk" and o.id then
+				local e = Lk.QuestEnd({ npc = { o.id } }, from, p)
+				local at = e and not e.hostile and endPoint(e)
+				if not at then return nil end
+				at.oi = oi
+				out[#out + 1] = at
+			elseif o and not o.id and o.map and o.x and o.y then
+				if endC == nil then
+					local e = rec["end"] and Lk.QuestEnd(rec["end"], from, p)
+					endC = continentOf(endPoint(e)) or false
+				end
+				if not endC or continentOf(o) ~= endC then return nil end
+				out[#out + 1] = { kind = "event", id = id * 100 + oi, name = o.text or rec.title, map = o.map, x = o.x, y = o.y, f = o.f, oi = oi, event = true }
+			else
+				return nil
+			end
 		end
 	end
 	return #out > 0 and out or nil
@@ -269,6 +334,8 @@ local function errandGoals(key, rec, from, p, direct)
 				goal.fromFaction = "AH"
 			end
 		end
+		-- A source with several places, a walker's circuit among them (#3744: Tawny Grisette's 24 on the Undercity's ring).
+		if src and src.spawns and LK().SpawnSpots then LK().SpawnSpots(goal, src.spawns) end
 		goals[#goals + 1] = goal
 		at = spot
 	end
@@ -324,8 +391,12 @@ function Dungeons.HandinFollowUps(plan)
 	local out = {}
 	if not (Lk and C and C.FollowUps and #plan.hand > 0) then return out end
 	local p = Lk.PlayerInfo()
-	local handed = {}
-	for _, h in ipairs(plan.hand) do handed[h.quest.id] = h end
+	local handed, visited = {}, {}
+	for _, h in ipairs(plan.hand) do
+		handed[h.quest.id] = h
+		local c = continentOf(h.ender)
+		if c then visited[c] = true end
+	end
 	local function behind(id) return done(id) or handed[id] ~= nil end
 	local seen = {}
 	for _, h in ipairs(plan.hand) do
@@ -363,12 +434,17 @@ function Dungeons.HandinFollowUps(plan)
 					-- Prospector Whelgar to High Explorer Magellas, #1817), or
 					-- once its errand out in the world is done (Unending
 					-- Torment's three Undercity items, #2173), and its ender is
-					-- on the giver's continent (no trip across the sea).
+					-- on the giver's continent (no trip across the sea), or on
+					-- one a turn-in of the plan takes the player to anyway (The
+					-- Drowned City's A Tale Spun Around the Fire, from Kin'weelay
+					-- in Grom'gol to Master Gadrin in Sen'jin Village, while
+					-- Ancient Gurubashi Idol goes to Mazu'kon in Mulgore, #2841).
 					local errand = not carried(f) and errandGoals(plan.dungeon.key, f, giver, p, f.direct) or nil
 					local last = errand and errand[#errand]
 					local e = (carried(f) or errand) and Lk.QuestEnd(f["end"], last or giver, p) or nil
 					local ender = e and not e.hostile and endPoint(e) or nil
-					if ender and continentOf(ender) ~= continentOf(giver) then ender = nil end
+					local land = ender and continentOf(ender)
+					if ender and land ~= continentOf(giver) and not visited[land] then ender = nil end
 					-- An errand stays on the giver's continent and ends where
 					-- its quest is handed in.
 					for _, g in ipairs(errand or {}) do
@@ -398,7 +474,10 @@ local function questGoal(t, id, title, at)
 		goal.npc, goal.npcName = at.id, at.name
 	end
 	goal.z = LK().SpawnZ(at.kind == "object" and "object" or "npc", at.id, at)
-	return goal
+	-- An NPC who walks about: her walk as the goal's one spot, not one point of it
+	-- (Lookup.Walk: Nikova Raskol in Old Town, #3041); an NPC only the dead see:
+	-- optional, and its goal says so (Lookup.GhostOnly, #558).
+	return LK().GhostOnly(LK().Walk(goal))
 end
 
 -- plan, follow-ups -> stops: one per place a quest is turned in, the
@@ -536,8 +615,15 @@ function Dungeons.HandinGuide(key)
 			steps[#steps + 1] = step
 		end
 		-- A talk line: the engine ticks it by the quest's objective line (Lookup.QuestStep's talk goal).
+		-- An event line: a goal at its place read by that line, as Lookup.QuestStep's placed events (#2833, #3084).
 		for _, t in ipairs(s.talks) do
-			local goal = questGoal("talk", t.quest.id, titleOf(t.quest, t.rec), t.at)
+			local goal
+			if t.at.event then
+				goal = { t = "kill", logLine = true, target = t.at.name, quest = t.quest.id, title = titleOf(t.quest, t.rec), count = 1,
+					map = t.at.map, x = t.at.x, y = t.at.y, f = t.at.f == "e" and "e" or nil }
+			else
+				goal = questGoal("talk", t.quest.id, titleOf(t.quest, t.rec), t.at)
+			end
 			goal.oi = t.at.oi
 			step.goals[#step.goals + 1] = goal
 		end

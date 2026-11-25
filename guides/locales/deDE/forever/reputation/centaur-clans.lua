@@ -111,7 +111,8 @@ return {
 	["From the quest data: back west to {npc:5397} in {area:606}. She needs Tears of Theradras: {npc:253713}, the Voice of Theradras, keeps them in the cave in the south of the village, past {npc:253140}. Ask her for them on {npc:5397}'s behalf and bring three back. {npc:253140} takes {quest:92812} on the way."] = "Aus den Questdaten: zurück nach Westen zu {npc:5397} in {area:606}. Sie braucht Tears of Theradras: {npc:253713}, die Stimme von Theradras, verwahrt sie in der Höhle im Süden des Dorfes, hinter {npc:253140}. Bitte sie im Namen von {npc:5397} darum und bring drei zurück. {npc:253140} nimmt unterwegs {quest:92812} an.",
 	-- {npc:253713} Mulara
 	["{npc:253713}, in the cave"] = "{npc:253713}, in der Höhle",
-	["three Tears of Theradras"] = "drei Tears of Theradras",
+	-- {npc:253713} Mulara
+	["three Tears of Theradras, in {npc:253713}'s cave"] = "drei Tränen von Theradras, in der Höhle von {npc:253713}",
 
 	-- Step 15: Gelkis: Test Your Theory
 	-- {quest:93045} Test Your Theory
@@ -327,4 +328,5 @@ return {
 	-- ["Gelkis: the {quest:93034}"] = "Gelkis: das {quest:93034}",
 	-- ["Magram: the {quest:92841}"] = "Magram: das {quest:92841}",
 	-- ["The Gelkis (south-west {zone:1443}) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now, and the choice quests no longer cost the other clan anything. Alliance: {npc:5396} at {area:608} offers {quest:1382} (Gelkis) and {quest:1385} (Magram). Horde: {npc:5412}, east of Shadowprey, offers {quest:1368} and {quest:1367}. Take the one of your clan and its Buying Friendship (3,000 for carrying a tote of totems), then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it jumps to the Magram half. Forever pays these quests in full at any level."] = "Die Gelkis (im Südwesten von {zone:1443}) und die Magram (im Südosten) sind im Krieg: Jeder Kill an einem Clan gibt dem anderen 20 und kostet den eigenen Clan 100, du kannst also nur bei einem aufsteigen. Beide beginnen bei Neutral. Forevers Quests sind jetzt weit mehr wert als Kills, und die Wahl-Quests kosten den anderen Clan nichts mehr. Allianz: {npc:5396} in {area:608} bietet {quest:1382} (Gelkis) und {quest:1385} (Magram) an. Horde: {npc:5412}, östlich von Shadowprey, bietet {quest:1368} und {quest:1367} an. Nimm die Quest deines Clans und dessen Buying Friendship (3.000 fürs Liefern eines Beutels voller Totems), dann hake die Aufgabe ab. Der Guide geht bei den Gelkis weiter; nimmst du stattdessen die Quests der Magram, springt er in die Magram-Hälfte. Forever zahlt diese Quests auf jeder Stufe voll aus.",
+	-- ["three Tears of Theradras"] = "drei Tears of Theradras",
 }

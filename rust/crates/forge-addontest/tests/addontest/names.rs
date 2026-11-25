@@ -305,7 +305,7 @@ fn the_language_folder_is_optional_never_reported_missing_named_when_it_is_from_
 	let check = |addons: &str| {
 		run(Opts {
 			before: format!(
-				r#"stub.addons = {{ {{ name = "Polestar" }}, {{ name = "Polestar_Guides" }}, {{ name = "Polestar_Guides_Alliance" }}, {{ name = "Polestar_Codex" }}, {{ name = "Polestar_Options" }}, {{ name = "Polestar_Looks" }}{addons} }}"#
+				r#"stub.addons = {{ {{ name = "Polestar" }}, {{ name = "Polestar_Guides" }}, {{ name = "Polestar_Guides_Alliance" }}, {{ name = "Polestar_Codex" }}, {{ name = "Polestar_Options" }}{addons} }}"#
 			),
 			script: script.into(),
 			..Default::default()
@@ -315,7 +315,7 @@ fn the_language_folder_is_optional_never_reported_missing_named_when_it_is_from_
 	assert_eq!(check(""), json!(["", ""]));
 	assert_eq!(check(r#", { name = "Polestar_frFR" }"#), json!(["", ""]));
 	let stale = run(Opts {
-		before: "stub.addons = { { name = \"Polestar\" }, { name = \"Polestar_Guides\" }, { name = \"Polestar_Guides_Alliance\" }, { name = \"Polestar_Codex\" }, { name = \"Polestar_Options\" }, { name = \"Polestar_Looks\" }, { name = \"Polestar_frFR\" } }\nstub.addonMeta[\"Polestar_frFR\"] = { Version = \"0.0.1\" }".into(),
+		before: "stub.addons = { { name = \"Polestar\" }, { name = \"Polestar_Guides\" }, { name = \"Polestar_Guides_Alliance\" }, { name = \"Polestar_Codex\" }, { name = \"Polestar_Options\" }, { name = \"Polestar_frFR\" } }\nstub.addonMeta[\"Polestar_frFR\"] = { Version = \"0.0.1\" }".into(),
 		script: script.into(),
 		..Default::default()
 	});
@@ -421,10 +421,13 @@ emit(out)"#;
 fn the_target_button_s_macro_targets_the_french_name_an_english_client_s_the_english_one() {
 	let script = "local B = Polestar.QoL.Buttons; emit(B.TargetMacro(B.TargetNames(), 1))";
 	let before = r#"stub.world.accept(7, { { text = "Kobold Vermin slain: 0/10", required = 10 }, { text = "Handful of Oats: 0/8", required = 8 } })"#;
-	assert_eq!(run(Opts { guide: guide(), before: before.into(), script: script.into(), ..Default::default() }), [json!("/cleartarget [nocombat]\n/targetexact Vermine kobold\n/cleartarget [dead]")]);
+	assert_eq!(
+		run(Opts { guide: guide(), before: before.into(), script: script.into(), ..Default::default() }),
+		[json!("/cleartarget [nocombat][dead]\n/targetexact Vermine kobold\n/cleartarget [dead]")]
+	);
 	assert_eq!(
 		run(Opts { locale: None, guide: guide(), before: before.into(), script: script.into(), ..Default::default() }),
-		[json!("/cleartarget [nocombat]\n/targetexact Kobold Vermin\n/cleartarget [dead]")]
+		[json!("/cleartarget [nocombat][dead]\n/targetexact Kobold Vermin\n/cleartarget [dead]")]
 	);
 }
 

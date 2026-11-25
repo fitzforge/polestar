@@ -13,6 +13,7 @@ pub mod cmangos;
 pub mod codex;
 pub mod corrections;
 pub mod credit;
+pub mod diff;
 pub mod dungeons;
 pub mod extras;
 pub mod factions;
@@ -50,4 +51,4 @@ pub mod trainers;
 pub mod travel;
 pub mod worldmap;
 
-pub use build::{quest_drop, run, write, Options, Output, MAX_QUEST_DROP, VERSION};
+pub use build::{quest_drop, run, write, Options, Output, Placeholders, MAX_QUEST_DROP, VERSION};

@@ -78,7 +78,7 @@ Theme.HexColor = hex
 --               accent, drawn in Polestar's own art (no client textures)
 --   "forever", "blizzard", "classic"   the client's own art: WoW Forever's,
 --               the retail art (Blizzard Style) and the vanilla files
---               (Polestar_Looks/GameSkins.lua draws them)
+--               (Theme/Looks/GameSkins.lua draws them)
 -- A skin brings its whole palette, its fonts, its frame paints and its sizes.
 -- The colour scheme, ground colour and brightness belong to the house style;
 -- the player's own accent, window border and arrow colours win in every skin.
@@ -90,7 +90,7 @@ local SKIN_PALETTES = {
 		bg = hex("080604", 0.84), panel = hex("120E0A", 0.97), panelAlt = hex("FFFFFF", 0.06),
 		sidebar = hex("080604", 0), footer = hex("080604", 0), sky = hex("080604", 0),
 		text = hex("F4EFE6"), textDim = hex("C2B9A9"), textMuted = hex("8F8778"), textOff = hex("6E675C"),
-		title = hex("F4EFE6"), ink = hex("FFFFFF"), star = hex("FFFFFF", 0), shade = hex("000000"),
+		cardTitle = hex("FFFFFF"), title = hex("F4EFE6"), ink = hex("FFFFFF"), star = hex("FFFFFF", 0), shade = hex("000000"),
 		scrim = hex("080604"), onAccent = hex("17130E"), shadow = hex("080604", 0.72),
 		accent = hex("FFD100"),
 		veil = hex("080604", 0.6), veilWindow = hex("080604", 0.84), menuBg = hex("120E0A"),
@@ -118,7 +118,7 @@ local SKIN_PALETTES = {
 		-- Parchment: the text ladder is cream, not white; headings, the
 		-- person's name and the active tab take the firelit gold.
 		text = hex("F5E9D3"), textDim = hex("D2BE9C"), textMuted = hex("B39D79"), textOff = hex("85705A"),
-		title = hex("FFD9A0"), ink = hex("FFF4E0"), star = hex("FFFFFF", 0), shade = hex("140A04"),
+		title = hex("FFD9A0"), cardTitle = hex("FFD9A0"), ink = hex("FFF4E0"), star = hex("FFFFFF", 0), shade = hex("140A04"),
 		scrim = hex("1A0F08"), onAccent = hex("1F120A"), shadow = hex("0D0704", 0.7),
 		-- Ember: the accent (controls, the lit goal, the progress bar) and the
 		-- light that falls on every window's top edge (SKIN_PAINT.hearth).
@@ -151,7 +151,7 @@ do
 		bg = hex("1E170D", 0.95), bgBottom = hex("090704", 0.95), panel = hex("000000", 0.92), panelAlt = hex("000000"),
 		sidebar = hex("000000", 0.3), footer = hex("000000", 0), sky = hex("2C200C"), skyBottom = hex("150F06"),
 		text = hex("FFFFFF"), textDim = hex("CCCCCC"), textMuted = hex("9D9D9D"), textOff = hex("808080"),
-		title = hex("FFD100"), ink = hex("FFFFFF"), star = hex("FFFFFF", 0), shade = hex("000000"),
+		cardTitle = hex("FFFFFF"), title = hex("FFD100"), ink = hex("FFFFFF"), star = hex("FFFFFF", 0), shade = hex("000000"),
 		scrim = hex("000000"), onAccent = hex("17130E"), shadow = hex("000000", 0.7),
 		accent = hex("FFD100"),
 		veil = hex("000000", 0), veilWindow = hex("000000", 0), menuBg = hex("000000"),
@@ -182,7 +182,7 @@ SKIN_PALETTES.forever = gamePalette({
 	bg = hex("000000", 0.96), bgBottom = hex("000000", 0.96), sidebar = hex("000000", 0.25),
 	textDim = hex("AE9D81"), tabRest = hex("FFD100"), icon = hex("CEB282"), iconHover = hex("F2D199"),
 	-- The Settings panel's labels and its list's rows: GameFontNormal, gold.
-	rowLabel = hex("FFD100"), navRest = hex("FFD100"),
+	rowLabel = hex("FFD100"), navRest = hex("FFD100"), cardTitle = hex("FFD100"),
 	separator = hex("AE9D81", 0.35), divider = hex("AE9D81", 0.35), accentLine = hex("AE9D81", 0.5),
 	border = hex("5C4A30"), windowEdge = hex("5C4A30"), hover = hex("FFD100", 0.1), selected = hex("FFD100", 0.14),
 	-- A mechanic's violet (an escort's line) a step lighter, to read on the
@@ -201,6 +201,7 @@ SKIN_PALETTES.blizzard = gamePalette({
 	accent = hex("D9D9D9"), accentLine = hex("D9D9D9", 0.45), padSelect = hex("FFFFFF", 0.1), chipAccent = hex("FFFFFF", 0.12),
 	mover = hex("FFFFFF", 0.08),
 	icon = hex("E8E8E8"), iconHover = hex("FFFFFF"), tabRest = hex("A8A8A8"), rowLabel = hex("FFD100"), navRest = hex("FFD100"),
+	cardTitle = hex("FFD100"),
 	separator = hex("3A3A3A"), divider = hex("3A3A3A"),
 	border = hex("404040"), windowEdge = hex("404040"), hover = hex("FFFFFF", 0.08), selected = hex("FFFFFF", 0.1),
 })
@@ -212,6 +213,7 @@ SKIN_PALETTES.blizzard = gamePalette({
 SKIN_PALETTES.classic = gamePalette({
 	bg = hex("0D0D1C", 0.92), bgBottom = hex("0D0D1C", 0.92), panel = hex("171730", 0.95), menuBg = hex("171730"), sidebar = hex("000000", 0),
 	icon = hex("FFD100"), iconHover = hex("FFFFFF"), tabRest = hex("B8A14F"), rowLabel = hex("FFD100"), navRest = hex("FFD100"),
+	cardTitle = hex("FFD100"),
 	separator = hex("969696", 0.35), divider = hex("969696", 0.25), accentLine = hex("969696", 0.6),
 	border = hex("696969"), windowEdge = hex("696969"), hover = hex("FFD100", 0.1), selected = hex("FFD100", 0.14),
 	control = hex("000000", 0.4), inputBg = hex("000000", 0.6), chip = hex("000000", 0.5),
@@ -227,7 +229,7 @@ Theme.SKIN_ORDER = { "polestar", "halo", "hearth", "forever", "blizzard", "class
 local HIDDEN_SKINS = {}
 -- Tests may set Theme._testShowHidden = true to render hidden skins directly.
 Theme._testShowHidden = false
--- The skins drawn in the game's own colours and controls (Polestar_Looks/GameSkins.lua:
+-- The skins drawn in the game's own colours and controls (Theme/Looks/GameSkins.lua:
 -- the client's check boxes, sliders, red buttons, its font and hard shadow).
 local GAME_SKINS = { forever = true, blizzard = true, classic = true }
 -- The Skin API's registries (Theme.RegisterSkin / Theme.RegisterScheme at the
@@ -326,6 +328,13 @@ end
 -- `c` with its OKLab lightness moved by dL, for the modules' own skin
 -- paints (Hearth's lit tab in UI/GuideFrame.lua). -> { r, g, b, a }
 Theme.Shifted = shifted
+
+-- A text colour taken all the way to the light end (white on a dark look,
+-- black on a light one): a skin's cardTitle unless it names its own.
+local function brightText(c)
+	local to = (c[1] + c[2] + c[3]) / 3 > 0.5 and 1 or 0
+	return { to, to, to, c[4] or 1 }
+end
 
 -- Grounds around one colour (a custom ground, EllesmereUI's panel colour):
 -- the same lightness steps Dusk takes around its window ground.
@@ -749,16 +758,12 @@ end
 
 -- The built-in look the skin in use is drawn from: the skin itself for the
 -- six built in, the look a registered skin extends (its base, or its
--- variant's). Modules that vary their own art by skin key it by this. The
--- game's looks and Hearth are drawn by their part (Polestar_Looks): with the
--- part missing or disabled, Polestar's own look stands in, whole (not the
--- look's sizes and controls on Polestar's frames).
+-- variant's). Modules that vary their own art by skin key it by this.
 function Theme.SkinKey()
 	local m = not drawing.id and skinMemo
 	if m and m.key then return m.key end
 	local s = SKINS[Theme.SkinId()]
 	local key = s and baseOf(s) or "polestar"
-	if (GAME_SKINS[key] or key == "hearth") and Theme.LoadLooks and not Theme.LoadLooks(key) then key = "polestar" end
 	if m then m.key = key end
 	return key
 end
@@ -923,6 +928,7 @@ local function resolveSkin(skin)
 	for _, name in ipairs(SKIN_EXTRA) do
 		if not out[name] then out[name] = copy(out[HOUSE_EXTRA[name]] or out.text) end
 	end
+	if not out.cardTitle then out.cardTitle = brightText(out.text) end
 	solidMenu(out, true)
 	-- The second accent (a duotone skin's; else the accent) and the arrival
 	-- glow (its glow token; else the arrival colour).
@@ -1041,6 +1047,7 @@ local function resolve(id, schemeKey)
 	for name, from in pairs(HOUSE_EXTRA) do
 		if not out[name] then out[name] = copy(out[from]) end
 	end
+	if not (stoks and stoks.cardTitle) then out.cardTitle = brightText(out.text) end
 	solidMenu(out, stoks ~= nil and stoks.menuBg ~= nil)
 	-- Derived from the accent and the shade unless a skin gives its own.
 	local function derived(name, c) if not (stoks and stoks[name]) then out[name] = c end end
@@ -1294,7 +1301,7 @@ end
 -- A texture the skin in use brings in place of Polestar's (its media, or
 -- its variant's: "band", "bandStars", "medallion", the arrow's and the
 -- pins' parts), or nil for Polestar's own. The game's looks bring their
--- arrow and map pins from the client's own art (Polestar_Looks/Parts.lua;
+-- arrow and map pins from the client's own art (Theme/Looks/Parts.lua;
 -- their "dartArt": the dart in its own colours, without Polestar's edge).
 function Theme.SkinMedia(name)
 	local s = SKINS[Theme.SkinId()]
@@ -1489,7 +1496,7 @@ local METRICS = {
 	},
 }
 -- The game's looks bring their own sizes and type ladder with their part
--- (Polestar_Looks/Parts.lua), which loads before Theme.SkinKey names one.
+-- (Theme/Looks/Parts.lua), which loads with Polestar.
 Theme.METRICS = METRICS
 
 function Theme.Metric(key, house)
@@ -1568,7 +1575,12 @@ do
 	end
 	-- The children as GetChildren returns them, with no table made: a lookup
 	-- that misses walks every scoped window, and the settings window's rows miss
-	-- often as they are built.
+	-- often as they are built. Within a pass over every string (Fonts.pass:
+	-- false until its walk, true after it) the frames stand still, so the pass
+	-- walks once and a parent the walk did not reach is outside: a look
+	-- setting changed with the settings window open walked the scoped windows
+	-- once for each of its hundreds of rows' parents (Fitz's 0.4.3-rc probe,
+	-- 427 ms frames).
 	function markChildren(key, ...)
 		for i = 1, select("#", ...) do markScope((select(i, ...)), key) end
 	end
@@ -1578,7 +1590,10 @@ do
 		local key = Fonts.frames[p]
 		if key ~= nil then return key or nil end
 		if Fonts.outside[p] then return nil end
-		for frame, k in pairs(Fonts.scopes) do markScope(frame, k) end
+		if Fonts.pass ~= true then
+			for frame, k in pairs(Fonts.scopes) do markScope(frame, k) end
+			if Fonts.pass == false then Fonts.pass = true end
+		end
 		key = Fonts.frames[p]
 		if key == nil then Fonts.outside[p] = true end
 		return key or nil
@@ -1587,7 +1602,7 @@ end
 
 -- The roles each size nudge moves (ui.headingSize, ui.smallSize, on top of
 -- ui.textSize), and the roles drawn in the heading face (ui.headingFont).
-local HEADING_ROLES = { hero = true, display = true, title = true, heading = true }
+local HEADING_ROLES = { hero = true, display = true, title = true, heading = true, cardTitle = true }
 local SMALL_ROLES = { small = true, caption = true, number = true }
 
 local function nudge(key)
@@ -1597,9 +1612,11 @@ end
 
 -- The outline every Polestar string is drawn with (ui.fontOutline: "none",
 -- "outline", "thick") as font flags: "" | "OUTLINE" | "THICKOUTLINE".
-local OUTLINE_FLAGS = { outline = "OUTLINE", thick = "THICKOUTLINE" }
-function Theme.OutlineFlags()
-	return OUTLINE_FLAGS[get("ui.fontOutline")] or ""
+do
+	local OUTLINE_FLAGS = { outline = "OUTLINE", thick = "THICKOUTLINE" }
+	function Theme.OutlineFlags()
+		return OUTLINE_FLAGS[get("ui.fontOutline")] or ""
+	end
 end
 
 -- A face key as a setting holds it ("skin" or unknown: the skin's own).
@@ -1638,10 +1655,13 @@ end
 -- `scale` (optional): the text size to use instead of ui.textSize's.
 function Theme.FontSpec(role, scale)
 	local own, base = SKIN_ROLES[Theme.SkinId()], SKIN_ROLES[Theme.SkinKey()]
-	local spec = (own and own[role]) or (base and base[role]) or ROLES[role] or ROLES.body
+	-- A settings card's title: its skin's heading, 1px larger (no face has a bold to set it apart).
+	local r = role == "cardTitle" and "heading" or role
+	local spec = (own and own[r]) or (base and base[r]) or ROLES[r] or ROLES.body
+	local bump = r ~= role and 1 or 0
 	local k = scale or Theme.TextScale()
 	if HEADING_ROLES[role] then k = k * nudge("ui.headingSize") elseif SMALL_ROLES[role] then k = k * nudge("ui.smallSize") end
-	local size = math.floor(spec[2] * k * 2 + 0.5) / 2
+	local size = math.floor((spec[2] + bump) * k * 2 + 0.5) / 2
 	local outline = Theme.OutlineFlags()
 	-- Headings may take a face of their own; "body" (the default) is the
 	-- body's, EllesmereUI's included.
@@ -2344,7 +2364,7 @@ local function clearSkin(f)
 	-- The house look's window edges (Theme/House.lua).
 	if d.edge then hideAll(d.edge) end
 	if d.hover then d.hover:SetVertexColor(1, 1, 1, 0) end
-	-- The game's looks (Polestar_Looks/GameSkins.lua) keep their pieces here.
+	-- The game's looks (Theme/Looks/GameSkins.lua) keep their pieces here.
 	if d.kit then hideAll(d.kit) end
 end
 
@@ -2371,45 +2391,9 @@ local function veilAlpha(f, token)
 end
 
 -- The game's looks (WoW Forever, Blizzard, Classic: their kits and painters)
--- and Hearth's painters live in their own part, Polestar_Looks (load on
--- demand), loaded the first time one of them is painted: a player on the
--- house look never pays for them at login. Until then Theme.Kit is nil and
--- the Theme.Kit* calls draw nothing; the part replaces them as it loads
--- (Polestar_Looks/GameSkins.lua, Hearth.lua).
-local loadLooks
-do
-	local LOOKS, BASES = "Polestar_Looks", { hearth = true, forever = true, blizzard = true, classic = true }
-	local tried = false
-	-- Loads the part when `base` is one of its looks (once: a part that is
-	-- missing or disabled leaves the house look standing). -> whether it is in
-	function loadLooks(base)
-		if Theme.KITS then return true end
-		if not BASES[base] or tried then return false end
-		tried = true
-		local A = C_AddOns
-		local load = A and A.LoadAddOn or LoadAddOn
-		if load then pcall(load, LOOKS) end
-		return Theme.KITS ~= nil
-	end
-	Theme.LoadLooks = loadLooks
-	-- The kit of the skin in use, or nil (the house style, Halo, Hearth).
-	function Theme.Kit()
-		local key = Theme.SkinKey()
-		if not GAME_SKINS[key] or not loadLooks(key) then return nil end
-		return Theme.KITS[key]
-	end
-	-- The kit calls the guide window and the widgets make, in the house
-	-- look: nothing drawn, until a game look brings the part in.
-	for _, name in ipairs({ "KitTab", "KitRowLit", "KitHeader", "KitStrip", "KitStatus", "KitCheck", "KitSlider",
-		"KitDropArrow", "KitIconButton", "KitHide" }) do
-		local standIn
-		standIn = function(...)
-			if loadLooks(Theme.SkinKey()) and Theme[name] ~= standIn then return Theme[name](...) end
-			return false
-		end
-		Theme[name] = standIn
-	end
-end
+-- and Hearth's painters are in Theme/Looks/ (GameSkins.lua, Hearth.lua),
+-- loaded after this file: they set Theme.Kit, the Theme.Kit* calls and their
+-- entries in Theme.SKIN_PAINT (in their own folder before 0.4.3, #3507).
 
 local SKIN_PAINT = {
 	halo = {
@@ -2468,7 +2452,7 @@ local SKIN_PAINT = {
 	},
 }
 Theme.SKIN_PAINT = SKIN_PAINT
--- The paint helpers the game's looks and Hearth build from (Polestar_Looks).
+-- The paint helpers the game's looks and Hearth build from (Theme/Looks/).
 Theme.Paint = { fill = fill, hoverWash = hoverWash, bare = bare, hideBorder = hideBorder, redButton = redButton, house = HOUSE_PAINT }
 
 -- What a registered skin's painters and hooks may build with
@@ -2678,7 +2662,7 @@ local function kitCrossfade(tex, file, seconds)
 	end)
 end
 
--- kit.tintArt: the game art a base look drew on the frame (Polestar_Looks/GameSkins.lua:
+-- kit.tintArt: the game art a base look drew on the frame (Theme/Looks/GameSkins.lua:
 -- its nine-slices, plates and the red buttons), desaturated (0-1), brighter
 -- or darker (brightness -1..1) and tinted. What the base sets again on its
 -- next paint is tinted again from there; another skin puts it all back.
@@ -2784,7 +2768,7 @@ end
 -- A piece of the base look's art in colour r, g, b, a (white when nil), with
 -- the skin in use's artTint over it (spec.artTint: tinted, brighter or
 -- darker, desaturated); without one, as given and fully saturated. The game
--- looks draw every piece of their art through this (Polestar_Looks/GameSkins.lua), so
+-- looks draw every piece of their art through this (Theme/Looks/GameSkins.lua), so
 -- the tint reaches it all and goes when the skin does.
 function Theme.TintArt(t, r, g, b, a)
 	r, g, b, a = r or 1, g or 1, b or 1, a or 1
@@ -2830,10 +2814,15 @@ local function paint(frame, kind)
 	-- A skin, and the look it is drawn from (a variant may change it).
 	local look = id == base and id or (id .. "/" .. base)
 	if frame.psSkin.skin ~= look then
-		if frame.psSkin.skin then clearSkin(frame) end
+		if frame.psSkin.skin then
+			clearSkin(frame)
+			-- A frame painted but not skinned (a picker card's miniature,
+			-- Polestar_Options/Theme/SkinPicker.lua) keeps its kit pieces in
+			-- hookKits: the look drawn before takes them off too.
+			if hookKits[frame] then hideAll(hookKits[frame]) end
+		end
 		frame.psSkin.skin = look
 	end
-	if not SKIN_PAINT[base] then loadLooks(base) end
 	local own = SKIN_PAINT[base]
 	local fn = (own and own[kind]) or HOUSE_PAINT[kind] or HOUSE_PAINT.panel
 	local registered = s and not s.builtin
@@ -3010,7 +2999,10 @@ do
 		walked = nil
 		if not ok then error(err, 0) end
 		if Fonts.moved() then
-			for fs, role in pairs(fonted) do paintFont(fs, role) end
+			Fonts.pass = false
+			local ok2, err2 = pcall(function() for fs, role in pairs(fonted) do paintFont(fs, role) end end)
+			Fonts.pass = nil
+			if not ok2 then error(err2, 0) end
 		end
 	end
 end
@@ -3318,6 +3310,33 @@ if ns.RegisterMigration then
 	ns.RegisterMigration("guideTextSize", function(s)
 		local ui = s.ui
 		if type(ui) == "table" and ui.guideTextSize == nil and tonumber(ui.textSize) then ui.guideTextSize = ui.textSize end
+	end)
+end
+
+-- The guides window had the settings window's scale (ui.menuScale): each
+-- profile keeps that number for it until the player sets its own.
+if ns.RegisterMigration then
+	ns.RegisterMigration("pickerScale", function(s)
+		local ui = s.ui
+		if type(ui) == "table" and ui.pickerScale == nil and tonumber(ui.menuScale) and tonumber(ui.menuScale) ~= 1 then ui.pickerScale = ui.menuScale end
+	end)
+end
+
+-- The settings window draws at 0.92 x ui.menuScale now (W.SETTINGS_SCALE_BASE).
+-- A release (0.4.2 and before) drew it at 1 x the setting, so a scale saved
+-- there is divided by 0.92; a 0.4.3 preview drew it at 0.8 x (a profile that
+-- ran "pickerScale" before this pass is one), so its scale is divided by 1.15.
+-- Either way the window draws at the scale its player chose, within the
+-- slider's 70-140 % (a release's 130 % and 140 % draw at 0.92 x 140 %, the
+-- most there is). Runs after "pickerScale", which copies the old number to
+-- the guides window.
+if ns.RegisterMigration then
+	ns.RegisterMigration("menuScale092", function(s, ran)
+		local ui = s.ui
+		local v = type(ui) == "table" and tonumber(ui.menuScale)
+		if not v then return end
+		v = math.min(1.4, math.max(0.7, v / (ran.pickerScale and 1.15 or 0.92)))
+		ui.menuScale = v ~= 1 and v or nil
 	end)
 end
 

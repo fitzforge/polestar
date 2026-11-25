@@ -14,9 +14,9 @@ return {
 
 	-- Step 2: Leatherworking 1-75: vendor goods
 	-- {skill:165} Leatherworking
-	["{skill:165} 1-75: vendor goods"] = "",
+	["{skill:165} 1-75: vendor goods"] = "{skill:165} 1-75: товары торговцев",
 	-- {item:2320} Coarse Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 50 {item:2320} (5s); about 5s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "",
+	["Buy the whole bracket's share in one go: 50 {item:2320} (5s); about 5s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Купите сразу все для этого этапа: {item:2320} 50 (5с); всего около 5с. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:1347}, {npc:1286} и {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} и {npc:5817}).",
 
 	-- Step 3: Leatherworking 1-75: Auction House
 	-- {skill:165} Leatherworking
@@ -25,38 +25,39 @@ return {
 	["What 1-75 takes that the Auction House sells: 349 {item:2318}. The counts drop by what your bags, bank and mail hold."] = "Что нужно на 1-75 и продается на аукционе: 349 {item:2318}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 4: Light Leather (Elwynn Forest)
-	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1922} Gray Forest Wolf · {npc:525} Mangy Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:822} Young Forest Bear
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "",
+	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1922} Gray Forest Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:822} Young Forest Bear
+	-- was: ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "{item:2318} 349 для {spell:2152}, {spell:3756} и {spell:3763} (210 из них на 75-150: соберите все сейчас): {skill:393}: звери 5-20 уровня. Снимайте шкуры с {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} и {npc:822} здесь (5-20 уровня); маршрут ведет гайд {skill:393}."
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "349 {item:2318} для {spell:2152}, {spell:3756} и {spell:3763} (210 из них на 75-150: соберите все сейчас): {skill:393}: звери 5-20 уровня. Снимайте шкуры с {npc:1922}, крадущихся хищников, {npc:524}, {npc:113} и {npc:822} здесь (5-20 уровня); маршрут ведет гайд «{skill:393}».",
 
 	-- Step 5: Light Leather (Dun Morogh)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1125} Crag Boar · {npc:1127} Elder Crag Boar · {npc:1196} Ice Claw Bear · {npc:1199} Juvenile Snow Leopard · {npc:1126} Large Crag Boar · {npc:1689} Scarred Crag Boar · {npc:1201} Snow Leopard · {npc:1138} Snow Tracker Wolf · {npc:1131} Winter Wolf · {npc:1128} Young Black Bear
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1125}, {npc:1127}, {npc:1196}, {npc:1199}, {npc:1126}, {npc:1689}, {npc:1201}, {npc:1138}, {npc:1131} and {npc:1128} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1125}, {npc:1127}, {npc:1196}, {npc:1199}, {npc:1126}, {npc:1689}, {npc:1201}, {npc:1138}, {npc:1131} and {npc:1128} here (level 5-20); the {skill:393} guide routes this."] = "{item:2318} 349 для {spell:2152}, {spell:3756} и {spell:3763} (210 из них на 75-150: соберите все сейчас): {skill:393}: звери 5-20 уровня. Снимайте шкуры с {npc:1125}, {npc:1127}, {npc:1196}, {npc:1199}, {npc:1126}, {npc:1689}, {npc:1201}, {npc:1138}, {npc:1131} и {npc:1128} здесь (5-20 уровня); маршрут ведет гайд {skill:393}.",
 
 	-- Step 6: Light Leather (Teldrassil)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:2033} Elder Nightsaber · {npc:2043} Nightsaber Stalker
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:2033}, Nightsaber and {npc:2043} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:2033}, Nightsaber and {npc:2043} here (level 5-20); the {skill:393} guide routes this."] = "{item:2318} 349 для {spell:2152}, {spell:3756} и {spell:3763} (210 из них на 75-150: соберите все сейчас): {skill:393}: звери 5-20 уровня. Снимайте шкуры с {npc:2033}, Nightsaber и {npc:2043} здесь (5-20 уровня); маршрут ведет гайд {skill:393}.",
 
 	-- Step 7: Light Leather (Zephras Isle)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:250928} Highlands Ursera · {npc:251284} Hippogryph Protector · {npc:251291} Hippogryph Youth · {npc:251707} Ornery Galestrider · {npc:256092} Shadowgale Shriekling · {npc:253282} Shriekling Fledgling · {npc:250874} Vuldren Alpha · {npc:254588} Windsong Crawler
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin Cloudrunner, Galestrider, {npc:250928}, {npc:251284}, {npc:251291}, {npc:251707}, Prideclaw, {npc:256092}, {npc:253282}, Vuldren, {npc:250874} and {npc:254588} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin Cloudrunner, Galestrider, {npc:250928}, {npc:251284}, {npc:251291}, {npc:251707}, Prideclaw, {npc:256092}, {npc:253282}, Vuldren, {npc:250874} and {npc:254588} here (level 5-20); the {skill:393} guide routes this."] = "{item:2318} 349 для {spell:2152}, {spell:3756} и {spell:3763} (210 из них на 75-150: соберите все сейчас): {skill:393}: звери 5-20 уровня. Снимайте шкуры с Cloudrunner, Galestrider, {npc:250928}, {npc:251284}, {npc:251291}, {npc:251707}, Prideclaw, {npc:256092}, {npc:253282}, Vuldren, {npc:250874} и {npc:254588} здесь (5-20 уровня); маршрут ведет гайд {skill:393}.",
 
 	-- Step 8: Light Leather (Durotar)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:3126} Armored Scorpid · {npc:3123} Bloodtalon Scythemaw · {npc:3122} Bloodtalon Taillasher · {npc:3125} Clattering Scorpid · {npc:3099} Dire Mottled Boar · {npc:3110} Dreadmaw Crocolisk · {npc:3121} Durotar Tiger · {npc:3100} Elder Mottled Boar · {npc:3130} Thunder Lizard · {npc:3127} Venomtail Scorpid
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:3126}, {npc:3123}, {npc:3122}, {npc:3125}, {npc:3099}, {npc:3110}, {npc:3121}, {npc:3100}, {npc:3130} and {npc:3127} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:3126}, {npc:3123}, {npc:3122}, {npc:3125}, {npc:3099}, {npc:3110}, {npc:3121}, {npc:3100}, {npc:3130} and {npc:3127} here (level 5-20); the {skill:393} guide routes this."] = "{item:2318} 349 для {spell:2152}, {spell:3756} и {spell:3763} (210 из них на 75-150: соберите все сейчас): {skill:393}: звери 5-20 уровня. Снимайте шкуры с {npc:3126}, {npc:3123}, {npc:3122}, {npc:3125}, {npc:3099}, {npc:3110}, {npc:3121}, {npc:3100}, {npc:3130} и {npc:3127} здесь (5-20 уровня); маршрут ведет гайд {skill:393}.",
 
 	-- Step 9: Light Leather (Mulgore)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:2956} Adult Plainstrider · {npc:2957} Elder Plainstrider · {npc:3035} Flatland Cougar · {npc:3566} Flatland Prowler · {npc:2972} Kodo Calf · {npc:2959} Prairie Stalker · {npc:2958} Prairie Wolf · {npc:2960} Prairie Wolf Alpha
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:2956}, {npc:2957}, {npc:3035}, {npc:3566}, {npc:2972}, {npc:2959}, {npc:2958} and {npc:2960} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:2956}, {npc:2957}, {npc:3035}, {npc:3566}, {npc:2972}, {npc:2959}, {npc:2958} and {npc:2960} here (level 5-20); the {skill:393} guide routes this."] = "{item:2318} 349 для {spell:2152}, {spell:3756} и {spell:3763} (210 из них на 75-150: соберите все сейчас): {skill:393}: звери 5-20 уровня. Снимайте шкуры с {npc:2956}, {npc:2957}, {npc:3035}, {npc:3566}, {npc:2972}, {npc:2959}, {npc:2958} и {npc:2960} здесь (5-20 уровня); маршрут ведет гайд {skill:393}.",
 
 	-- Step 10: Light Leather (Tirisfal Glades)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1548} Cursed Darkhound · {npc:1547} Decrepit Darkhound · {npc:1553} Greater Duskbat · {npc:1549} Ravenous Darkhound · {npc:1554} Vampiric Duskbat
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1548}, {npc:1547}, {npc:1553}, {npc:1549} and {npc:1554} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1548}, {npc:1547}, {npc:1553}, {npc:1549} and {npc:1554} here (level 5-20); the {skill:393} guide routes this."] = "{item:2318} 349 для {spell:2152}, {spell:3756} и {spell:3763} (210 из них на 75-150: соберите все сейчас): {skill:393}: звери 5-20 уровня. Снимайте шкуры с {npc:1548}, {npc:1547}, {npc:1553}, {npc:1549} и {npc:1554} здесь (5-20 уровня); маршрут ведет гайд {skill:393}.",
 
 	-- Step 11: Light Armor Kit to 51
 	-- {spell:2152} Light Armor Kit
 	["{spell:2152} to 51"] = "{spell:2152} до 51",
 	-- {spell:2152} Light Armor Kit · {item:2318} Light Leather
-	["{spell:2152} is orange at 1 (yellow 30, green 45, grey 60): about 64 crafts to 51. Each takes 1 {item:2318}. One {item:2318} a craft; the kits sell to vendors."] = "",
+	["{spell:2152} is orange at 1 (yellow 30, green 45, grey 60): about 64 crafts to 51. Each takes 1 {item:2318}. One {item:2318} a craft; the kits sell to vendors."] = "{spell:2152}: оранжевый на 1 (желтый 30, зеленый 45, серый 60): около 64 изготовлений до 51. Каждое требует 1 {item:2318}. По одному {item:2318} на изготовление; наборы продаются торговцам.",
 
 	-- Step 12: Leatherworking recipes at 51
 	-- {skill:165} Leatherworking
@@ -68,7 +69,7 @@ return {
 	-- {spell:3756} Embossed Leather Gloves
 	["{spell:3756} to 75"] = "{spell:3756} до 75",
 	-- {spell:3756} Embossed Leather Gloves · {item:2318} Light Leather · {item:2320} Coarse Thread
-	["{spell:3756} is orange at 51 (yellow 70, green 85, grey 100): about 25 crafts to 75. Each takes 3 {item:2318} and 2 {item:2320}. Forever teaches {spell:3756} from 40."] = "",
+	["{spell:3756} is orange at 51 (yellow 70, green 85, grey 100): about 25 crafts to 75. Each takes 3 {item:2318} and 2 {item:2320}. Forever teaches {spell:3756} from 40."] = "{spell:3756}: оранжевый на 51 (желтый 70, зеленый 85, серый 100): около 25 изготовлений до 75. Каждое требует 3 {item:2318} и 2 {item:2320}. Forever обучает {spell:3756} с 40.",
 
 	-- Step 14: Journeyman Leatherworking
 	-- {skill:165} Leatherworking
@@ -80,7 +81,7 @@ return {
 	-- {skill:165} Leatherworking
 	["{skill:165} 75-150: vendor goods"] = "{skill:165} 75-150: товары торговцев",
 	-- {item:2320} Coarse Thread · {item:2321} Fine Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 70 {item:2320} (7s) and 50 {item:2321} (50s); about 57s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "",
+	["Buy the whole bracket's share in one go: 70 {item:2320} (7s) and 50 {item:2321} (50s); about 57s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Купите сразу все для этого этапа: {item:2320} 70 (7с) и {item:2321} 50 (50с); всего около 57с. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:1347}, {npc:1286} и {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} и {npc:5817}).",
 
 	-- Step 16: Leatherworking 75-150: Auction House
 	-- {skill:165} Leatherworking
@@ -90,15 +91,15 @@ return {
 
 	-- Step 17: Medium Leather (Hillsbrad Foothills)
 	-- {item:2319} Medium Leather · {item:7285} Nimble Leather Gloves · {skill:393} Skinning · {npc:2248} Cave Yeti · {npc:2356} Elder Gray Bear · {npc:2385} Feral Mountain Lion · {npc:2351} Gray Bear · {npc:2384} Starving Mountain Lion · {npc:2354} Vicious Gray Bear
-	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "",
+	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "{item:2319} 144 для {item:7285}: {skill:393}: звери 18-30 уровня. Снимайте шкуры с {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} и {npc:2354} здесь (18-30 уровня); маршрут ведет гайд {skill:393}.",
 
 	-- Step 18: Medium Leather (Darkshore)
 	-- {item:2319} Medium Leather · {item:7285} Nimble Leather Gloves · {skill:393} Skinning · {npc:3823} Ghostpaw Runner · {npc:2071} Moonstalker Matriarch
-	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30. Skin {npc:3823} and {npc:2071} here (level 18-30); the {skill:393} guide routes this."] = "",
+	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30. Skin {npc:3823} and {npc:2071} here (level 18-30); the {skill:393} guide routes this."] = "{item:2319} 144 для {item:7285}: {skill:393}: звери 18-30 уровня. Снимайте шкуры с {npc:3823} и {npc:2071} здесь (18-30 уровня); маршрут ведет гайд {skill:393}.",
 
 	-- Step 19: Medium Leather (The Barrens)
 	-- {item:2319} Medium Leather · {item:7285} Nimble Leather Gloves · {skill:393} Skinning · {npc:3236} Barrens Kodo
-	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30. Skin {npc:3236} and Thunderhead here (level 18-30); the {skill:393} guide routes this."] = "",
+	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30. Skin {npc:3236} and Thunderhead here (level 18-30); the {skill:393} guide routes this."] = "{item:2319} 144 для {item:7285}: {skill:393}: звери 18-30 уровня. Снимайте шкуры с {npc:3236} и Thunderhead здесь (18-30 уровня); маршрут ведет гайд {skill:393}.",
 
 	-- Step 21: Elixir of Minor Agility
 	-- {item:2457} Elixir of Minor Agility · {item:7285} Nimble Leather Gloves · {skill:171} Alchemy
@@ -116,7 +117,7 @@ return {
 	-- {spell:3763} Fine Leather Belt
 	["{spell:3763} to 102"] = "{spell:3763} до 102",
 	-- {spell:3763} Fine Leather Belt · {item:2318} Light Leather · {item:2320} Coarse Thread
-	["{spell:3763} is orange at 75 (yellow 85, green 100, grey 115): about 35 crafts to 102. Each takes 6 {item:2318} and 2 {item:2320}. Forever teaches {spell:3763} from 55."] = "",
+	["{spell:3763} is orange at 75 (yellow 85, green 100, grey 115): about 35 crafts to 102. Each takes 6 {item:2318} and 2 {item:2320}. Forever teaches {spell:3763} from 55."] = "{spell:3763}: оранжевый на 75 (желтый 85, зеленый 100, серый 115): около 35 изготовлений до 102. Каждое требует 6 {item:2318} и 2 {item:2320}. Forever обучает {spell:3763} с 55.",
 
 	-- Step 27: Leatherworking recipes at 102
 	-- {skill:165} Leatherworking
@@ -128,7 +129,7 @@ return {
 	-- {item:7285} Nimble Leather Gloves
 	["{item:7285} to 125"] = "{item:7285} до 125",
 	-- {item:7285} Nimble Leather Gloves · {item:2457} Elixir of Minor Agility · {item:2319} Medium Leather · {item:2321} Fine Thread · {item:2452} Swiftthistle · {item:765} Silverleaf · {spell:3763} Fine Leather Belt · {item:2316} Dark Leather Cloak · {item:4340} Gray Dye
-	["{item:7285} is orange at 102 (yellow 120, green 132, grey 145): about 24 crafts to 125. Each takes 1 {item:2457}, 6 {item:2319} and 1 {item:2321}. Each takes an {item:2457}: an alchemist makes it from a {item:2452} and a {item:765}, and the Auction House has it cheap. With no elixirs, take {spell:3763} on to 105 and {item:2316} (from 85: 8 {item:2319}, a {item:4340} and a {item:2321}) to 125: about 28 cloaks, 224 {item:2319} in all."] = "",
+	["{item:7285} is orange at 102 (yellow 120, green 132, grey 145): about 24 crafts to 125. Each takes 1 {item:2457}, 6 {item:2319} and 1 {item:2321}. Each takes an {item:2457}: an alchemist makes it from a {item:2452} and a {item:765}, and the Auction House has it cheap. With no elixirs, take {spell:3763} on to 105 and {item:2316} (from 85: 8 {item:2319}, a {item:4340} and a {item:2321}) to 125: about 28 cloaks, 224 {item:2319} in all."] = "{item:7285}: оранжевый на 102 (желтый 120, зеленый 132, серый 145): около 24 изготовлений до 125. Каждое требует 1 {item:2457}, 6 {item:2319} и 1 {item:2321}. Каждому нужен {item:2457}: алхимик делает его из {item:2452} и {item:765}, а на аукционе он дешев. Без эликсиров поднимите {spell:3763} до 105 и {item:2316} (с 85: 8 {item:2319}, {item:4340} и {item:2321}) до 125: около 28 плащей, всего 224 {item:2319}.",
 
 	-- Step 29: Leatherworking recipes at 125
 	-- {skill:165} Leatherworking
@@ -140,11 +141,11 @@ return {
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 150"] = "{spell:3780} до 150",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread · {skill:165} Leatherworking
-	["{spell:3780} is orange at 125 (yellow 145, green 155, grey 165): about 26 crafts to 150. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. {skill:165} 150 is a Legacy System milestone."] = "",
+	["{spell:3780} is orange at 125 (yellow 145, green 155, grey 165): about 26 crafts to 150. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. {skill:165} 150 is a Legacy System milestone."] = "{spell:3780}: оранжевый на 125 (желтый 145, зеленый 155, серый 165): около 26 изготовлений до 150. Каждое требует 5 {item:4234} и 1 {item:2321}. По пять {item:4234} на изготовление (звери 28-40 уровня); наборы продаются торговцам. {skill:165} 150 – веха системы Наследия.",
 
 	-- Step 31: Leatherworking 150-225: vendor goods
 	-- {skill:165} Leatherworking
-	["{skill:165} 150-225: vendor goods"] = "",
+	["{skill:165} 150-225: vendor goods"] = "{skill:165} 150-225: товары торговцев",
 	-- {item:2321} Fine Thread · {item:4291} Silken Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
 	["Buy the whole bracket's share in one go: 29 {item:2321} (29s), 66 Salt (33s) and 145 {item:4291} (7g 25s); about 7g 87s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Купите сразу все для этого этапа: 29 {item:2321} (29с), 66 соли (33с) и 145 {item:4291} (7з 25с); всего около 7з 87с. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:1347}, {npc:1286} и {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} и {npc:5817}).",
 
@@ -188,7 +189,8 @@ return {
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 158"] = "{spell:3780} до 158",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread
-	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}: желтый на 150 (желтый 145, зеленый 155, серый 165): около 15 изготовлений до 158. Каждое требует 5 {item:4234} и 1 {item:2321}. По пять {item:4234} на изготовление (звери 28-40 уровня); наборы можно продать торговцам.",
+	-- was: ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}: желтый на 150 (желтый 145, зеленый 155, серый 165): около 15 изготовлений до 158. Каждое требует 5 {item:4234} и 1 {item:2321}. По пять {item:4234} на изготовление (звери 28-40 уровня); наборы можно продать торговцам."
+	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "{spell:3780}: желтый на 150 (желтый 145, зеленый 155, серый 165): около 15 изготовлений до 158. Каждое требует 5 {item:4234} и 1 {item:2321}. По пять {item:4234} на изготовление (звери 28-40 уровня); наборы можно продать торговцам. Если вы дошли сюда, не выучив {spell:3780}, выучите сейчас: его учит один из прошлых шагов.",
 
 	-- Step 39: Barbaric Shoulders to 165
 	-- {item:5964} Barbaric Shoulders
@@ -240,9 +242,9 @@ return {
 
 	-- Step 47: Leatherworking 225-300: vendor goods
 	-- {skill:165} Leatherworking
-	["{skill:165} 225-300: vendor goods"] = "",
+	["{skill:165} 225-300: vendor goods"] = "{skill:165} 225-300: товары торговцев",
 	-- {item:2325} Black Dye · {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "",
+	["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Купите сразу все для этого этапа: {item:2325} 39 (3з 90с) и {item:14341} 82 (41з); всего около 44з 90с. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:1347}, {npc:1286} и {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} и {npc:5817}).",
 
 	-- Step 48: Pattern: Wicked Leather Gauntlets
 	-- {item:15725} Pattern: Wicked Leather Gauntlets · {item:15083} Wicked Leather Gauntlets · {skill:165} Leatherworking · {npc:12942} Leonard Porter · {zone:1422} Western Plaguelands · {npc:12943} Werg Thickblade
@@ -285,16 +287,17 @@ return {
 	-- {item:15083} Wicked Leather Gauntlets
 	["{item:15083} to 269"] = "{item:15083} до 269",
 	-- {item:15083} Wicked Leather Gauntlets · {item:8170} Rugged Leather · {item:2325} Black Dye · {item:14341} Rune Thread
-	["{item:15083} is orange at 239 (yellow 255, green 265, grey 275): about 39 crafts to 269. Each takes 8 {item:8170}, 1 {item:2325} and 1 {item:14341}. Eight {item:8170} a craft; {item:2325} and {item:14341} from leatherworking or tailoring vendors."] = "",
+	["{item:15083} is orange at 239 (yellow 255, green 265, grey 275): about 39 crafts to 269. Each takes 8 {item:8170}, 1 {item:2325} and 1 {item:14341}. Eight {item:8170} a craft; {item:2325} and {item:14341} from leatherworking or tailoring vendors."] = "{item:15083}: оранжевый на 239 (желтый 255, зеленый 265, серый 275): около 39 изготовлений до 269. Каждое требует 8 {item:8170}, 1 {item:2325} и 1 {item:14341}. По восемь {item:8170} на изготовление; {item:2325} и {item:14341} продаются у кожевников и портных.",
 	["from the recipe in your bags"] = "по рецепту из сумки",
 
 	-- Step 56: Runic Leather Headband to 300
 	-- {item:15094} Runic Leather Headband
 	["{item:15094} to 300"] = "{item:15094} до 300",
 	-- {item:15094} Runic Leather Headband · {item:8170} Rugged Leather · {item:14047} Runecloth · {item:14341} Rune Thread · {skill:165} Leatherworking
-	["{item:15094} is orange at 269 (yellow 285, green 295, grey 305): about 43 crafts to 300. Each takes 14 {item:8170}, 10 {item:14047} and 1 {item:14341}. 14 {item:8170} and 10 {item:14047} a craft: the dearest stretch. {skill:165} 300 is a Legacy System milestone."] = "",
+	["{item:15094} is orange at 269 (yellow 285, green 295, grey 305): about 43 crafts to 300. Each takes 14 {item:8170}, 10 {item:14047} and 1 {item:14341}. 14 {item:8170} and 10 {item:14047} a craft: the dearest stretch. {skill:165} 300 is a Legacy System milestone."] = "{item:15094}: оранжевый на 269 (желтый 285, зеленый 295, серый 305): около 43 изготовлений до 300. Каждое требует 14 {item:8170}, 10 {item:14047} и 1 {item:14341}. 14 {item:8170} и 10 {item:14047} на изготовление: самый дорогой отрезок. {skill:165} 300 – веха системы Наследия.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "{item:2318} 349 для {spell:2152}, {spell:3756} и {spell:3763} (210 из них на 75-150: соберите все сейчас): {skill:393}: звери 5-20 уровня. Снимайте шкуры с {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} и {npc:822} здесь (5-20 уровня); маршрут ведет гайд {skill:393}.",
 	-- ["Artisan needs character level 35 and {skill:165} 200; it raises the cap to 300. Materials for 225-300 are worth about 312g in all."] = "Ранг «Искусник» требует уровня персонажа 35 и навыка {skill:165} 200; предел становится 300. Материалы на 225-300 стоят всего около 312з.",
 	-- ["Back to a {skill:165} trainer: {spell:10482}, {spell:14932} are taught from {skill:165} 220."] = "Вернитесь к учителю ({skill:165}): {spell:10482}, {spell:14932} – с навыка {skill:165} 220.",
 	-- ["Back to a {skill:165} trainer: {spell:10487} is taught from {skill:165} 195."] = "Вернитесь к учителю ({skill:165}): {spell:10487} – с навыка {skill:165} 195.",
@@ -383,4 +386,5 @@ return {
 	-- ["{skill:333}: disenchant uncommon (green) gear (or the Auction House)"] = "{skill:333}: распыляйте необычные (зеленые) вещи (или аукцион)",
 	-- ["{spell:3768} to 150"] = "{spell:3768} до 150",
 	-- ["{spell:3776} to 185"] = "{spell:3776} до 185",
+	-- ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}: желтый на 150 (желтый 145, зеленый 155, серый 165): около 15 изготовлений до 158. Каждое требует 5 {item:4234} и 1 {item:2321}. По пять {item:4234} на изготовление (звери 28-40 уровня); наборы можно продать торговцам.",
 }

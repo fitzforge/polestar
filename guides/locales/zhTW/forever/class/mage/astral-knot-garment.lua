@@ -19,9 +19,9 @@ return {
 
 	-- Step 3: High Sorcerer Andromath (Skyborne)
 	-- {quest:1939} High Sorcerer Andromath
-	["{quest:1939} (Skyborne)"] = "",
+	["{quest:1939} (Skyborne)"] = "{quest:1939}（天裔）",
 	-- {zone:1453} Stormwind · {object:2101} Mage Quarter · {quest:1939} High Sorcerer Andromath · {npc:5497} Jennea Cannon
-	["You do not need a letter: at 26 climb the Wizard's Sanctum, the violet tower of {zone:1453}'s {object:2101}. {quest:1939} waits on the spiral walkway, just past the door of the portal room near the top, and has the quest for you. ({npc:5497} may also offer you {quest:1939}, the pointer quest; it is only a pointer and you can skip it.)"] = "",
+	["You do not need a letter: at 26 climb the Wizard's Sanctum, the violet tower of {zone:1453}'s {object:2101}. {quest:1939} waits on the spiral walkway, just past the door of the portal room near the top, and has the quest for you. ({npc:5497} may also offer you {quest:1939}, the pointer quest; it is only a pointer and you can skip it.)"] = "無需介紹信。26 級時前往{zone:1453}的{object:2101}，登上紫色高塔巫師聖殿。{quest:1939}在接近頂部的螺旋走道、剛經過傳送門房間門口的位置，會直接提供任務。{npc:5497}也可能提供指向{quest:1939}的介紹任務，它只用於引路，可跳過。",
 
 	-- Step 4: High Sorcerer Andromath
 	-- {quest:1939} High Sorcerer Andromath

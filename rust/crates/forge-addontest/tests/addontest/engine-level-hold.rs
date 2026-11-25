@@ -200,6 +200,84 @@ fn the_level_hold_reads_the_same_with_each_quest_worked_out_once_per_pass() {
 	assert!(holds.iter().any(|h| h.is_number()) && holds.iter().any(|h| h == &Value::Bool(false)), "{holds:?}");
 }
 
+// #2827: every step's view read at one moment (the step list, the route plan, the picker's progress, search)
+// followed each prerequisite chain again from every step: Krol'dok's 30 steps, 19,352 Own.coming calls and 129 ms
+// at once on 0.4.1. Own.coming is kept for the views of one moment now (Own.momentComing). Every state below is
+// read with it and again with every quest followed on its own (Own.comingSeen false), and once more after a skip
+// asked in the same frame (an evaluation of its own, a new moment): the same step, goal statuses, reasons and why.
+const VIEWS: &str = r#"
+local w = stub.world
+local function views()
+	local out, G = {}, E.GetGuide()
+	for s = 1, #G.steps do
+		local v = E.GetStepView(s)
+		local row = { tostring(v.status), tostring(v.why), tostring(v.skipped) }
+		for _, gv in ipairs(v.goals) do row[#row + 1] = gv.status .. ":" .. tostring(gv.unavailable) .. ":" .. tostring(gv.unavailableText) end
+		out[s] = table.concat(row, "|")
+	end
+	return out
+end
+local function both()
+	CALLS = 0
+	local memo = views()
+	local m = CALLS
+	Own.comingSeen = false
+	CALLS = 0
+	local plain = views()
+	local p = CALLS
+	Own.comingSeen = nil
+	return { memo = memo, plain = plain, mcalls = m, pcalls = p, at = E.GetStepIndex() }
+end
+local G = Polestar.Guides.Get("GUIDE_ID")
+local accepts = {}
+for _, st in ipairs(G.steps) do
+	for _, g in ipairs(st.goals) do if g.t == "accept" then accepts[#accepts + 1] = g.quest end end
+end
+local function level(l) w.level = l; stub.fire("PLAYER_LEVEL_UP", l) end
+local states = {
+	{ "level 35", function() end },
+	{ "level 43", function() level(43) end },
+	{ "the first three done, the fourth in the log", function()
+		w.complete({ accepts[1], accepts[2], accepts[3] })
+		w.accept(accepts[4], { 6, 6, 6 })
+	end },
+	{ "the sixth skipped", function() E.SkipQuest(accepts[6], true) end },
+	{ "the tenth done out of order", function() w.complete({ accepts[10] }) end },
+}
+E.SetGuide("GUIDE_ID")
+settle()
+local out = {}
+for _, st in ipairs(states) do
+	st[2]()
+	stub.fire("QUEST_LOG_UPDATE")
+	settle()
+	out[#out + 1] = { state = st[1], r = both() }
+end
+-- Read at a moment, then a skip in the same frame: its evaluation starts the memo again.
+views()
+E.SkipQuest(accepts[5], true)
+out[#out + 1] = { state = "the fifth skipped in the same frame", r = both() }
+emit(out)
+"#;
+
+#[test]
+fn every_step_s_view_at_one_moment_reads_the_same_with_each_quest_worked_out_once_2827() {
+	for guide in ["test/kroldok", "test/kroldok-dungeon", "test/class"] {
+		let out = run(&VIEWS.replace("GUIDE_ID", guide), false, 35);
+		let list = out.as_array().expect("cases");
+		assert_eq!(list.len(), 6, "{guide}");
+		for case in list {
+			let (state, r) = (&case["state"], &case["r"]);
+			assert_eq!(r["memo"], r["plain"], "{guide} {state}: the views differ with the memo");
+			let (m, p) = (r["mcalls"].as_u64().unwrap(), r["pcalls"].as_u64().unwrap());
+			assert!(m <= p, "{guide} {state}: the memo never works out more ({m} > {p})");
+			if guide == "test/kroldok" {
+				assert!(m * 5 <= p, "{guide} {state}: the memo saves most of the chains ({m} against {p})");
+			}
+		}
+	}
+}
+
 // The reference's fastest timing where the budget was set (i7-10700K, Linux, the harness's Lua 5.1), as
 // settings-perf.rs: the budget scales by max(1, reference / REF_BASELINE).
 const REF_BASELINE: f64 = 6.95;

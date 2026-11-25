@@ -93,23 +93,29 @@ return {
 	-- {npc:255853} Urs'endris
 	["Back to {npc:255853} by the falls."] = "Volte a {npc:255853}, junto às cachoeiras.",
 
-	-- Step 25: Child of Nature
+	-- Step 25: Skycutter to Mulgore
+	-- {zone:1412} Mulgore
+	["Skycutter to {zone:1412}"] = "Corta-céu para {zone:1412}",
+	-- {npc:259118} Muln Earthfury · {zone:1412} Mulgore · {zone:2521} Zephras Isle · {area:16628} Valanaar Skydocks · {area:16638} Valanaar
+	["{npc:259118} is in {zone:1412}, where the skycutter from {zone:2521} lands. Board it at the {area:16628} on the village's south-west edge: go down through {area:16638} on its paths, not over the cliffs around it, which drop off the isle."] = "{npc:259118} está em {zone:1412}, onde pousa o corta-céu vindo de {zone:2521}. Embarque em {area:16628}, na borda sudoeste da aldeia: desça por {area:16638} pelas trilhas, não pelos penhascos ao redor, que caem da ilha.",
+
+	-- Step 26: Child of Nature
 	-- {npc:259118} Muln Earthfury · {zone:2521} Zephras Isle · {zone:1412} Mulgore · {zone:1456} Thunder Bluff
 	["{npc:259118} waits where the airship from {zone:2521} lands, in northern {zone:1412} beside {zone:1456}."] = "{npc:259118} espera onde a aeronave vinda da {zone:2521} pousa, no norte de {zone:1412}, junto a {zone:1456}.",
 
-	-- Step 26: Turak Runetotem
+	-- Step 27: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade
 	["{npc:3033} trains druids in the druids' hut on {area:1639}, over the rope bridges east of the lifts. He teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "{npc:3033} treina druidas na cabana dos druidas em {area:1639}, depois das pontes de corda a leste dos elevadores. Ele ensina {spell:18960} junto com a próxima missão (fica no seu grimório, aba Equilíbrio).",
 
-	-- Step 27: Child of Nature
+	-- Step 28: Child of Nature
 	-- {npc:270459} Alfina Nightgaze · {npc:259084} Denaaris Stargale · {area:279} Dalaran · {zone:2521} Zephras Isle · {npc:2543} Archmage Ansirem Runeweaver
 	["{npc:270459} stands beside {npc:259084} and the Skyborne Portal, west of {area:279}, where the skycutter from {zone:2521} lands. {npc:2543} offers the same quest."] = "{npc:270459} fica ao lado de {npc:259084} e do Portal Celonato, a oeste de {area:279}, onde pousa o barco celeste vindo da {zone:2521}. {npc:2543} oferece a mesma missão.",
 
-	-- Step 28: Sheldras Moontree
+	-- Step 29: Sheldras Moontree
 	-- {zone:1453} Stormwind · {npc:5504} Sheldras Moontree · {spell:18960} Teleport: Moonglade
 	["The Skyborne Portal takes you to {zone:1453}. {npc:5504} is the city's druid trainer (the arrow points at him); he teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "O Portal Celonato leva você a {zone:1453}. {npc:5504} é o instrutor de druida da cidade (a seta aponta para ele); ele ensina {spell:18960} junto com a próxima missão (fica no seu grimório, aba Equilíbrio).",
 
-	-- Step 29: Dendrite Starblaze
+	-- Step 30: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade · {npc:12740} Faustron · {npc:10897} Sindrayl
 	["Cast {spell:18960}: it lands you beside the building where {npc:11802} stands upstairs, in {area:2361}. Learn the {area:493} flight path while you are here ({npc:12740} for the Horde, south-west of the lake; {npc:10897} for the Alliance, south of it)."] = "Use {spell:18960}: você pousa ao lado do prédio onde {npc:11802} fica no andar de cima, em {area:2361}. Aprenda a rota de voo de {area:493} já que está aqui ({npc:12740} para a Horda, a sudoeste do lago; {npc:10897} para a Aliança, ao sul dele).",
 

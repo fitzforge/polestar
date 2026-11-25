@@ -40,6 +40,7 @@
 				"https://wago.tools/db2/ItemSparse/csv?build=1.60.1.70450",
 				"https://wago.tools/db2/Item/csv?build=1.60.1.70450",
 				"https://wago.tools/db2/SpellName/csv?build=1.60.1.70450",
+				"https://wago.tools/db2/SkillLineAbility/csv?build=1.60.1.70450",
 				"https://wago.tools/db2/SpellEffect/csv?build=1.60.1.70450"
 			]
 		},
@@ -228,7 +229,7 @@
 		"moves.json": 13516,
 		"training.json": 91048,
 		"mechanics.json": 2587,
-		"trainers.json": 4156
+		"trainers.json": 4186
 	},
 	"warnings": [
 		"pfQuest: <data>/pfQuest is not a git checkout; revision unknown",

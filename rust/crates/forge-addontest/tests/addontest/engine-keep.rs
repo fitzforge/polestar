@@ -37,6 +37,10 @@ Polestar.RegisterGuide({
 "#;
 
 fn run(script: &str) -> Vec<Value> {
+	run_guide(GUIDE, script)
+}
+
+fn run_guide(guide: &str, script: &str) -> Vec<Value> {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.into(),
@@ -45,7 +49,7 @@ fn run(script: &str) -> Vec<Value> {
 		script: format!(
 			r#"{TEST_PACK}
 {TEST_SOURCE}
-{GUIDE}
+{guide}
 E = Polestar.Engine
 w = stub.world
 function flush() stub.advance(1.1) end
@@ -71,4 +75,43 @@ fn later_steps_keep_their_items_and_a_quest_s_collected_items_stay_kept_until_th
 	assert_eq!(out[0], json!({ "step": 1, "kept": { "772": 1, "1972": 3, "2589": 4, "159": 4 } }), "the Hearthstone `use` is a Mage's");
 	assert_eq!(out[1], json!({ "step": 2, "kept": { "772": 2, "1972": 3, "2589": 4, "159": 4 } }), "the candles, for the hand-in");
 	assert_eq!(out[2]["kept"], later, "handed in: the candles are free to go");
+}
+
+// The quest log's bursts (fifty QUEST_LOG_UPDATE at a time) each run an evaluation, and the bag glow reads the kept
+// items after it: a goal that can add no item (a goto, a kill, an accept with no item, a turn-in of a quest not
+// collected earlier) is not asked whether it applies, nor is its step.
+const ROAD: &str = r#"
+local steps = {}
+for i = 1, 20 do
+	steps[i] = { title = "Road " .. i, goals = {
+		{ t = "goto", map = 1429, x = 40 + i, y = 50 },
+		{ t = "kill", target = "Kobold Vermin", quest = 7, npc = 6, map = 1429, x = 40, y = 80 },
+		{ t = "accept", quest = 100 + i, title = "Errand " .. i, npc = 197, map = 1429, x = 48.2, y = 42.1 },
+		{ t = "turnin", quest = 100 + i, title = "Errand " .. i, npc = 197, map = 1429, x = 48.2, y = 42.1 },
+	} }
+end
+steps[21] = { title = "Water", goals = {
+	{ t = "buy", item = 159, itemName = "Refreshing Spring Water", count = 5, npc = 1, map = 1429, x = 43, y = 65 },
+} }
+Polestar.RegisterGuide({ id = "test/keep", pack = "test", title = "Keep", minLevel = 1, maxLevel = 10, steps = steps })
+"#;
+
+#[test]
+fn the_kept_items_ask_only_the_goals_that_can_add_an_item_whether_they_apply() {
+	let script = r#"
+		local G, n, counting = Polestar.Guides, 0, false
+		local matches = G.Matches
+		G.Matches = function(...) if counting then n = n + 1 end return matches(...) end
+		E.RequestUpdate(); flush()
+		counting = true
+		local k = kept()
+		counting = false
+		G.Matches = matches
+		emit({ step = E.GetLiveStep(), kept = k, asked = n })
+	"#;
+	let out = run_guide(ROAD, script);
+	assert_eq!(out[0]["step"], json!(1));
+	assert_eq!(out[0]["kept"], json!({ "159": 21 }), "the water a later step buys");
+	// The Water step and its buy goal; before, every step and goal from the live one on: 142 reads.
+	assert_eq!(out[0]["asked"], json!(2), "only the buy goal and its step are asked");
 }

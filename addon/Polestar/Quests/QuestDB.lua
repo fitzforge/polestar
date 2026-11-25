@@ -144,13 +144,15 @@ end
 local QUEST_TITLE, QUEST_LEVEL, QUEST_MIN, QUEST_RACES, QUEST_CLASSES, QUEST_FACTION = 1, 2, 3, 4, 5, 6
 local QUEST_START, QUEST_FINISH, QUEST_START_ITEM, QUEST_PRE, QUEST_EXCL, QUEST_OBJ = 7, 8, 9, 10, 11, 12
 local QUEST_ZONE, QUEST_EVENTS, QUEST_SKILL, QUEST_HOLIDAY, QUEST_PRE_ALL, QUEST_RACE_HIGH = 13, 14, 15, 16, 17, 18
-local QUEST_ITEMS, QUEST_LIMIT = 19, 20
+-- QUEST_DONE_BY: quests whose being in the log or handed in proves this one done, for a quest the game never
+-- flags completed (Seeking the Kor Gem once An Underrated Talent is taken, #2465); one id or a list.
+local QUEST_ITEMS, QUEST_LIMIT, QUEST_DONE_BY = 19, 20, 21
 Q.F = {
 	TITLE = QUEST_TITLE, LEVEL = QUEST_LEVEL, MIN = QUEST_MIN, RACES = QUEST_RACES, CLASSES = QUEST_CLASSES,
 	FACTION = QUEST_FACTION, START = QUEST_START, FINISH = QUEST_FINISH, START_ITEM = QUEST_START_ITEM,
 	PRE = QUEST_PRE, EXCL = QUEST_EXCL, OBJ = QUEST_OBJ, ZONE = QUEST_ZONE, EVENTS = QUEST_EVENTS,
 	SKILL = QUEST_SKILL, HOLIDAY = QUEST_HOLIDAY, PRE_ALL = QUEST_PRE_ALL, RACE_HIGH = QUEST_RACE_HIGH,
-	ITEMS = QUEST_ITEMS, LIMIT = QUEST_LIMIT,
+	ITEMS = QUEST_ITEMS, LIMIT = QUEST_LIMIT, DONE_BY = QUEST_DONE_BY,
 }
 -- Objective kinds by their packed number; 5: a talk to an NPC (a story to hear, an item to show).
 Q.KIND = { "kill", "item", "object", "event", "talk" }
@@ -184,20 +186,27 @@ function Q.HandsOver(questID, itemID)
 	return false
 end
 
+-- Whether quest questID asks for item itemID: one of its objectives is that
+-- item (Holy Candles for Keeping the Light On). False while the database is
+-- not loaded. Allocation-free.
+function Q.Asks(questID, itemID)
+	local r = data.quests[questID]
+	local obj = r and r[QUEST_OBJ]
+	if obj then
+		for i = 1, #obj, 3 do
+			if obj[i] == 2 and obj[i + 1] == itemID then return true end
+		end
+	end
+	return false
+end
+
 -- Whether quest questID uses item itemID without asking for it: the item is
 -- in its handed-over field, which also holds the items its work needs (the
 -- Sunscale Feather for the Scytheclaw nests, the Fresh Zhevra Carcass that
 -- lures Ishamuhale), and no objective of it is that item, so no quest-log
 -- line counts it. False while the database is not loaded. Allocation-free.
 function Q.UsesOnly(questID, itemID)
-	if not Q.HandsOver(questID, itemID) then return false end
-	local obj = data.quests[questID][QUEST_OBJ]
-	if obj then
-		for i = 1, #obj, 3 do
-			if obj[i] == 2 and obj[i + 1] == itemID then return false end
-		end
-	end
-	return true
+	return Q.HandsOver(questID, itemID) and not Q.Asks(questID, itemID)
 end
 
 -- A ref is an NPC id (> 0) or an object id (< 0), as in start/finish lists.
@@ -683,29 +692,49 @@ function Q.StartedBy(itemID)
 	return startedBy[itemID]
 end
 
--- All known quests that start from, request, or use an item. Built only when
--- bag marks ask, and rebuilt if more quest chunks arrive.
-local itemQuests, itemQuestsOf
+-- All known quests that start from, request, or use an item. Built when bag
+-- marks first ask, and again once more quest chunks arrived, Q.ITEM_SLICE
+-- quests a frame: reading every quest's record at once took one frame 130 ms
+-- (Fitz's 0.4.3-rc probe, the bags painted 25 s after login; 6,214 quests).
+-- Until it is in an item has none (nil), and QUESTDB_ITEM_QUESTS says it is.
+Q.ITEM_SLICE = 100
+local itemQuests, itemQuestsOf, itemNext -- the index, the ids it is built from, the next id's place while building
+local function itemSlice()
+	local ids, from = itemQuestsOf, itemNext
+	if not from then return end
+	local function add(item, quest)
+		if not item then return end
+		local list = itemQuests[item]
+		if not list then list = {}; itemQuests[item] = list end
+		if list[#list] ~= quest then list[#list + 1] = quest end
+	end
+	local last = math.min(#ids, from + Q.ITEM_SLICE - 1)
+	for k = from, last do
+		local q = ids[k]
+		local rec = data.quests[q]
+		for _, item in Each(rec and rec[QUEST_START_ITEM]) do add(item, q) end
+		for _, item in Each(rec and rec[QUEST_ITEMS]) do add(item, q) end
+		local obj = rec and rec[QUEST_OBJ]
+		if type(obj) == "table" then
+			for i, kind in pairs(obj) do if i % 3 == 1 and kind == 2 then add(obj[i + 1], q) end end
+		end
+	end
+	if last < #ids then
+		itemNext = last + 1
+		ns.After(0, itemSlice)
+		return
+	end
+	itemNext = nil
+	ns.Fire("QUESTDB_ITEM_QUESTS")
+end
 function Q.ItemQuests(itemID)
 	local ids = Q.QuestIds()
 	if itemQuestsOf ~= ids then
-		itemQuests, itemQuestsOf = {}, ids
-		local function add(item, quest)
-			if not item then return end
-			local list = itemQuests[item]
-			if not list then list = {}; itemQuests[item] = list end
-			if list[#list] ~= quest then list[#list + 1] = quest end
-		end
-		for _, q in ipairs(ids) do
-			local rec = data.quests[q]
-			for _, item in Each(rec and rec[QUEST_START_ITEM]) do add(item, q) end
-			for _, item in Each(rec and rec[QUEST_ITEMS]) do add(item, q) end
-			local obj = rec and rec[QUEST_OBJ]
-			if type(obj) == "table" then
-				for i, kind in pairs(obj) do if i % 3 == 1 and kind == 2 then add(obj[i + 1], q) end end
-			end
-		end
+		local building = itemNext ~= nil
+		itemQuests, itemQuestsOf, itemNext = {}, ids, 1
+		if not building then ns.After(0, itemSlice) end
 	end
+	if itemNext then return nil end
 	return itemQuests[itemID]
 end
 

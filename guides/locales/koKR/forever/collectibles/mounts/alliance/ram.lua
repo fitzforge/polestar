@@ -12,15 +12,15 @@ return {
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "탈것 타기 배우기",
 	-- {area:803} Amberstill Ranch · {area:131} Kharanos · {zone:1432} Loch Modan · {npc:4772} Ultham Ironhorn · {npc:1261} Veron Amberstill · {skill:762} Riding · {faction:47} Ironforge
-	["{area:803} is east of {area:131} on the road to {zone:1432}; {npc:4772} stands beside {npc:1261}'s rams. At 40 {npc:4772} teaches {skill:762} to Dwarves for 100g (10% less at Honored with {faction:47}), and it comes with a ram. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
+	["{area:803} is east of {area:131} on the road to {zone:1432}; {npc:4772} stands beside {npc:1261}'s rams. At 40 {npc:4772} teaches {skill:762} to Dwarves for 100g (10% less at Honored with {faction:47}), and it comes with a ram. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "{area:803}은(는) {area:131} 동쪽 {zone:1432}으로 가는 도로에 있고 {npc:4772}이(가) {npc:1261}의 숫양 곁에 서 있습니다. 40레벨에 {npc:4772}이(가) 드워프에게 {skill:762}을(를) 100골드에 가르칩니다({faction:47}과(와) 우호적이면 10% 할인). 첫 탈것도 함께 줍니다. 다른 종족은 각자 종족의 승마 교관에게서 {skill:762}과(와) 첫 탈것을 배웁니다.",
 	-- {npc:4772} Ultham Ironhorn
 	["{npc:4772}, riding trainer"] = "{npc:4772}, 탈것 상급자",
 
 	-- Step 2: Ram Riding for other races
 	-- {spell:826} Ram Riding
-	["{spell:826} for other races"] = "",
+	["{spell:826} for other races"] = "{spell:826} (다른 종족)",
 	-- {spell:826} Ram Riding · {skill:762} Riding · {npc:4772} Ultham Ironhorn · {faction:47} Ironforge
-	["Any Alliance race can buy these rams, but riding one also takes {spell:826}, which only Dwarves get with {skill:762}. {npc:4772} teaches it to other races once they are Exalted with {faction:47} (the Ironforge Reputation guide shows the way). Until then, don't buy a ram for this character."] = "",
+	["Any Alliance race can buy these rams, but riding one also takes {spell:826}, which only Dwarves get with {skill:762}. {npc:4772} teaches it to other races once they are Exalted with {faction:47} (the Ironforge Reputation guide shows the way). Until then, don't buy a ram for this character."] = "모든 얼라이언스 종족이 이 숫양을 살 수 있지만 탑승에는 {spell:826}도 필요하며 드워프만 {skill:762}과(와) 함께 받습니다. {faction:47}과(와) 확고한 동맹이 되면 {npc:4772}이(가) 다른 종족에게도 가르칩니다(아이언포지 평판 가이드가 안내). 그 전에는 이 캐릭터로 숫양을 사지 마세요.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "색상 고르기",

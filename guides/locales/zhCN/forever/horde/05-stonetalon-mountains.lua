@@ -24,8 +24,7 @@ return {
 
 	-- Step 4: Splintertree Post
 	-- {area:431} Splintertree Post · {npc:12696} Senani Thunderheart · {area:428} Night Run · {npc:12867} Kuray'bin · {quest:6503} Ashenvale Outrunners · {zone:1440} Ashenvale
-	-- was: ["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers Ashenvale Outrunners: leave it for the next {zone:1440} visit, at 26."] = "沿路向北不远就是{area:431}。从南边进入时，先经过飞行管理员和{area:428}的{npc:12696}狩猎告示板，再到商人处。伐木营地的{npc:12867}提供“灰谷先驱者”：留到下次26级来{zone:1440}时再做。"
-	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers {quest:6503}: leave it for the next {zone:1440} visit, at 26."] = "",
+	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers {quest:6503}: leave it for the next {zone:1440} visit, at 26."] = "沿路向北不远就是{area:431}。从南边进入时，先经过飞行管理员和{area:428}的{npc:12696}狩猎告示板，再到商人处。伐木营地的{npc:12867}提供{quest:6503}：留到下次26级来{zone:1440}时再做。",
 	-- {npc:12696} Senani Thunderheart · {zone:1440} Ashenvale
 	["{npc:12696}'s hunt targets Ursangous and Shadumbra are for the next {zone:1440} visit, at 26; Sharptalon (31) only from level 30."] = "{npc:12696}的狩猎目标乌萨苟斯和萨杜布拉留到26级下次来{zone:1440}时再做；沙普塔隆（31级）要到30级才能做。",
 
@@ -56,8 +55,9 @@ return {
 	["{npc:12717}: take it last, his escort starts at once"] = "{npc:12717}：最后再接，他的护送任务会立即开始",
 
 	-- Step 10: Vorsha the Lasher
-	-- {npc:12717} Muglash · {npc:12719} Marukai
-	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717}沿海滩向北走到一座纳迦火盆。熄灭火盆，再保护他抵挡一波波纳迦，直到沃尔沙被击杀；怒尾纳迦掉落{npc:12719}要的头颅。",
+	-- {npc:12717} Muglash · {npc:12940} Vorsha the Lasher · {npc:12719} Marukai
+	-- was: ["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717}沿海滩向北走到一座纳迦火盆。熄灭火盆，再保护他抵挡一波波纳迦，直到沃尔沙被击杀；怒尾纳迦掉落{npc:12719}要的头颅。"
+	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until {npc:12940} is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717}沿着海滩向北走到一个纳迦火盆。熄灭火盆，然后在纳迦一波波来袭时保护他，直到{npc:12940}死亡；怒尾纳迦会掉落{npc:12719}要的头颅。",
 	["Naga brazier"] = "纳迦火盆",
 
 	-- Step 11: Naga heads
@@ -95,60 +95,68 @@ return {
 	-- {npc:3419} Apothecary Zamah · {npc:2216} Apothecary Lydon · {area:272} Tarren Mill
 	["{npc:3419}: her note is for {npc:2216} in {area:272}, next guide"] = "{npc:3419}：她的便条交给{area:272}的{npc:2216}，见下一篇指南",
 
-	-- Step 17: Fly to Orgrimmar
+	-- Step 17: Magatha Grimtotem
+	-- {quest:1063} The Elder Crone · {npc:4046} Magatha Grimtotem · {quest:1064} Forsaken Aid · {area:1639} Elder Rise · {npc:3419} Apothecary Zamah · {area:2197} Pools of Vision · {area:1640} Spirit Rise
+	["{quest:1063}'s errand is already with {npc:4046}: take {quest:1064} from her on {area:1639}, for {npc:3419} in the {area:2197}, under {area:1640}."] = "{quest:1063}的差事已经交给{npc:4046}：在{area:1639}从她那里接取{quest:1064}，交给{area:1640}下方{area:2197}里的{npc:3419}。",
+
+	-- Step 18: Apothecary Zamah
+	-- {quest:1064} Forsaken Aid · {npc:3419} Apothecary Zamah · {area:272} Tarren Mill · {area:2197} Pools of Vision · {area:1640} Spirit Rise
+	["{quest:1064} is already with {npc:3419}: take her note for {area:272} in the {area:2197}, under {area:1640}."] = "{quest:1064}已经交给{npc:3419}：在{area:1640}下方的{area:2197}里拿取她给{area:272}的便条。",
+
+	-- Step 19: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "飞往{area:1637}",
 	-- {npc:2995} Tal · {area:1637} Orgrimmar
 	["Back up to {npc:2995} on the central rise and fly to {area:1637}."] = "返回中央高台找{npc:2995}，飞往{area:1637}。",
 
-	-- Step 18: Fly to Orgrimmar
+	-- Step 20: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar · {area:2897} Zoram'gar Outpost
 	["Fly to {area:1637} from the {area:2897} flight master."] = "在{area:2897}的飞行管理员处飞往{area:1637}。",
 
-	-- Step 19: Druid trainer
+	-- Step 21: Druid trainer
 	["Druid trainer"] = "德鲁伊训练师",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034} 在 {zone:1412}；{zone:1454} 没有德鲁伊训练师",
 
-	-- Step 21: The Binding
+	-- Step 23: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {item:6626} Dogran's Pendant
 	["{npc:5875} stands in the {object:172960}. Use {item:6626} on the summoning circle there and defeat the succubus to bind her."] = "{npc:5875}站在{object:172960}。在那里的召唤法阵上使用{item:6626}，击败魅魔来束缚她。",
 
-	-- Step 22: Shenthul
+	-- Step 24: Shenthul
 	-- {quest:2478} Mission: Possible But Not Probable · {npc:3401} Shenthul · {object:172960} Cleft of Shadow
 	["If you did {quest:2478} with a group, {npc:3401} in the {object:172960} takes it now."] = "如果已经组队完成{quest:2478}，现在可交给{object:172960}的{npc:3401}。",
 	-- {npc:2391} Serge Hinott · {area:272} Tarren Mill
 	["{npc:2391} in {area:272} teaches Poisons: keep it"] = "{area:272}的{npc:2391}教授毒药：留着它",
 
-	-- Step 23: Zeppelin to Undercity
+	-- Step 25: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "乘飞艇前往{zone:1458}",
 
-	-- Step 24: Brill
+	-- Step 26: Brill
 	-- {npc:246152} Shari Stilwell · {area:159} Brill
 	["{npc:246152} trains Paladins in {area:159}, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine."] = "{npc:246152}在{area:159}训练圣骑士，从飞艇塔沿道路向北步行不远即到。之后沿同一条路回来，前往银松森林。",
 
-	-- Step 25: Morbin Lightbane
+	-- Step 27: Morbin Lightbane
 	-- {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {object:36126} Royal Quarter · {npc:266484} Morbin Lightbane · {npc:10181} Lady Sylvanas Windrunner
 	["For your {area:153} run: the zeppelin lands beside the ruins. Walk into the {zone:1458} through them and down to the {object:36126}: {npc:266484} stands there, near {npc:10181}."] = "为{area:153}之行做准备：飞艇在废墟旁降落。穿过废墟进入{zone:1458}，下到{object:36126}：{npc:266484}站在那里，靠近{npc:10181}。",
 
-	-- Step 26: Ruins of Lordaeron
+	-- Step 28: Ruins of Lordaeron
 	-- {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {item:268580} Intact Limbs · {npc:266484} Morbin Lightbane · {npc:250660} The Baron · {item:280438} Abominable Head · {npc:2055} Master Apothecary Faranell · {npc:256102} Crest of Lordaeron · {npc:7825} Oran Snakewrithe
 	["The {area:153} is a dungeon for a group of five, about levels 15 to 22, in the ruined city above the {zone:1458}: its portal is in the ruins you walked through.\nInside: every undead can drop {item:268580} for {npc:266484}, so clear as you go. {npc:250660} can drop an {item:280438}, which starts a quest for {npc:2055}, and a {npc:256102} found inside starts one for {npc:7825}: both are in the {zone:1458}, on this route's next stop there."] = "{area:153}是适合15-22级左右五人小队的地下城，位于{zone:1458}上方的废城中：传送门就在你刚穿过的废墟里。\n副本内：每个亡灵都可能掉落{npc:266484}要的{item:268580}，所以边走边清。{npc:250660}可能掉落{item:280438}，它会开启一个交给{npc:2055}的任务；副本内找到的{npc:256102}会开启一个交给{npc:7825}的任务：两人都在{zone:1458}，本路线下次去那里时交还。",
 	-- {quest:92421} Light's Justice · {item:268580} Intact Limbs
 	["{quest:92421}: the {item:268580}, inside"] = "{quest:92421}：{item:268580}，在副本内",
 
-	-- Step 27: The Sepulcher
+	-- Step 29: The Sepulcher
 	-- {zone:1421} Silverpine Forest · {area:228} The Sepulcher
 	["Out of the ruins, take the road south through Tirisfal into {zone:1421} and on to the {area:228}."] = "出了废墟，沿道路向南穿过提瑞斯法进入{zone:1421}，再前往{area:228}。",
 
-	-- Step 28: Strange Lockbox
+	-- Step 30: Strange Lockbox
 	-- {area:240} Dead Field · {object:177844} Strange Lockbox · {item:15882} Half Pendant of Aquatic Endurance · {area:228} The Sepulcher
 	["From the zeppelin towers, run south into Silverpine and west past the {area:240} to the coast: the {object:177844} lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the {item:15882} for Trial of the Sea Lion. Then on to the {area:228}."] = "从飞艇塔出发，向南进入银松森林，再向西经过 {area:240} 到达海岸：{object:177844} 位于那里的深水海底，旁边有可以呼吸的空气裂隙。下潜时注意剩余呼吸时间。里面有海狮试炼所需的 {item:15882}。然后前往 {area:228}。",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177844} Strange Lockbox
 	["{item:15882}, from the {object:177844}"] = "{item:15882}，来自{object:177844}",
 
-	-- Step 29: The Sepulcher
+	-- Step 31: The Sepulcher
 	-- {area:228} The Sepulcher · {object:177844} Strange Lockbox · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
 	["Down the road through Silverpine to the {area:228}: from the zeppelin towers, south through Tirisfal; from the {object:177844}, south-east from the coast to the road. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "沿道路穿过银松森林前往{area:228}：从飞艇塔出发的，向南穿过提瑞斯法；从{object:177844}出发的，从海岸向东南走到道路上。{npc:2121}和{npc:1937}站在墓穴入口旁。",
 	-- {npc:1937} Apothecary Renferrel · {area:272} Tarren Mill
@@ -158,17 +166,17 @@ return {
 	-- {npc:2121} Shadow Priest Allister · {area:233} Ambermill
 	["{npc:2121}: {area:233}'s pendants, on the same roads"] = "{npc:2121}：{area:233}的坠饰，在同样的道路上",
 
-	-- Step 30: Deathguard Podrig
+	-- Step 32: Deathguard Podrig
 	-- {npc:6389} Deathguard Podrig · {item:16210} Gordon's Crate · {zone:1458} Undercity
 	["{npc:6389} stands just west of the crypt entrance: hand him {item:16210} from the {zone:1458}."] = "{npc:6389}站在墓穴入口西边不远处：把从{zone:1458}带来的{item:16210}交给他。",
 
-	-- Step 31: High Executor Hadrec
+	-- Step 33: High Executor Hadrec
 	-- {area:236} Shadowfang Keep · {area:287} Hillsbrad · {npc:1952} High Executor Hadrec
 	["For your {area:236} run, at the end of the {area:287} guide: {npc:1952} stands below ground in the crypt."] = "为{area:287}指南末尾的{area:236}之行做准备：{npc:1952}站在墓穴的地下。",
 	-- {npc:1952} High Executor Hadrec
 	["{npc:1952}, below ground"] = "{npc:1952}：在地下",
 
-	-- Step 32: Silverpine Forest: kill these as you meet them
+	-- Step 34: Silverpine Forest: kill these as you meet them
 	-- {zone:1421} Silverpine Forest
 	["{zone:1421}: kill these as you meet them"] = "{zone:1421}：沿途遇到就击杀",
 	-- {area:233} Ambermill · {quest:516} Beren's Peril
@@ -176,11 +184,11 @@ return {
 	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest. Careful: High Order Mages (30) walk the same roads among the Watchers and Wizards: leave them."] = "沿路向南经过焚木村：达拉然卫士和达拉然巫师在{area:233}周围的道路上巡逻；镇子西南方、森林东南部的{quest:516}废墟中，鸦爪苦工和鸦爪守护者出没。小心：高天盟法师（30级）也在同样的道路上，混在卫士和巫师之中：别去惹它们。",
 	["Below ground"] = "在地下",
 
-	-- Step 33: Ambermill
+	-- Step 35: Ambermill
 	-- {area:233} Ambermill · {npc:2540} Dalaran Serpent · {npc:2120} Archmage Ataeric
 	["On the roads around {area:233}, step into the town's outskirts: Protectors guard them and Mages the town; both drop pendants. Careful: each Mage (15) fights with a {npc:2540} (15) beside it: pull one Mage at a time from the outskirts. Stay out of the middle, where {npc:2120} (22) stands."] = "在{area:233}周围的道路上，进入镇子外围：护卫守着外围，法师守着镇内，两者都会掉落坠饰。注意：每个法师（15级）身边都有一条{npc:2540}（15级）一起战斗：从外围一次只拉一个法师。别进入中央，{npc:2120}（22级）站在那里。",
 
-	-- Step 34: Beren's Peril
+	-- Step 36: Beren's Peril
 	-- {quest:516} Beren's Peril · {npc:1973} Ravenclaw Guardian · {item:271343} Note Scrap · {object:645153} Offering Stone
 	["The Ravenclaw undead haunt the ruins of {quest:516}, east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}.\nAn elite spirit (20) often stands beside the {object:645153}: pull the Ravenclaws away from the stone before you fight them."] = "鸦爪亡灵在森林东南部、道路东边的 {quest:516} 废墟中游荡；{npc:1973} 掉落 {item:271343}，指引你找到 {object:645153}。\n{object:645153} 旁常有一个20级精英灵魂：先把鸦爪亡灵引离石头，再与它们战斗。",
 	-- {item:271343} Note Scrap · {npc:1973} Ravenclaw Guardian
@@ -191,19 +199,19 @@ return {
 	-- plural, as words: Tortured Souls = {item:271350} Tortured Soul
 	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "{item:271350}，从废墟地下的被折磨的灵魂身上获得",
 
-	-- Step 35: The Offering of Blood
+	-- Step 37: The Offering of Blood
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone · {quest:95883} The Tortured Soul
 	["The quest hands you a {item:210713}: use it beside the {object:645153} to offer your blood, then kill the elite spirit that answers.\n{quest:95883} is elite: grouping up is advised."] = "任务会给你一个 {item:210713}：在 {object:645153} 旁使用它献出你的血，然后击杀回应的精英灵魂。\n{quest:95883} 是精英任务：建议组队。",
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone
 	["{item:210713}, beside the {object:645153}: summons the elite spirit"] = "{item:210713}，在{object:645153}旁使用：召唤精英灵魂",
 
-	-- Step 36: Into Hillsbrad
+	-- Step 38: Into Hillsbrad
 	-- {area:287} Hillsbrad
 	["Into {area:287}"] = "进入{area:287}",
 	-- {area:285} Southpoint Tower
 	["The road east to {area:285}"] = "向东通往{area:285}的道路",
 
-	-- Step 37: Southpoint Tower
+	-- Step 39: Southpoint Tower
 	-- {area:287} Hillsbrad · {npc:2214} Deathstalker Lesh · {area:285} Southpoint Tower
 	["Back on the road south. Where it turns east into {area:287}, {npc:2214} waits at {area:285}."] = "回到向南的道路。在道路向东转入{area:287}的地方，{npc:2214}在{area:285}等候。",
 	-- {npc:2214} Deathstalker Lesh · {area:272} Tarren Mill
@@ -263,6 +271,7 @@ return {
 	-- ["{npc:12696} stands at {area:428}, the Warsong camp just north-east of Splintertree, beside the hunt board."] = "{npc:12696}站在{area:428}的狩猎告示板旁，那是碎木岗哨东北方不远的战歌营地。",
 	-- ["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 26."] = "{npc:12696}的狩猎目标（乌萨苟斯、萨杜布拉、沙普塔隆）留到26级下次来{zone:1440}时再做。",
 	-- ["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 27."] = "{npc:12696}的狩猎目标（乌萨苟斯、萨杜布拉、沙普塔隆）留到27级下次来{zone:1440}时。",
+	-- ["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717}沿海滩向北走到一座纳迦火盆。熄灭火盆，再保护他抵挡一波波纳迦，直到沃尔沙被击杀；怒尾纳迦掉落{npc:12719}要的头颅。",
 	-- ["{npc:12721}: the troll charms are in Thistlefur Hold, east of the outpost"] = "{npc:12721}：巨魔符咒在前哨站东边的蓟皮熊怪的巢穴",
 	-- ["{npc:12736} at Zoram'gar, at 27"] = "佐拉姆加的{npc:12736}，27级时",
 	-- ["{npc:12818}, below ground"] = "{npc:12818}：在地下",
