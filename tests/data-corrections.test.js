@@ -103,6 +103,29 @@ test('A Supernatural Device follows every recorded class version of An Earnest P
 	}
 });
 
+// #4025 (Tauren Druid, 84155), #3765 (Night Elf Druid, 84147), #4016: the versions no recording had yet carried no
+// class, so the Lookup chain sent every class without one in its log to the first of them (the Hunter's 84148, the
+// Druid's 84155), which the giver never offers it; and the Alliance Druid's 84147 had left the data. Each side's
+// A Supernatural Device now follows one version per class, and each version names its class and that class's bracers.
+test('A Supernatural Device follows one class-locked An Earnest Proposition per class on each side (#4025, #3765)', () => {
+	const BRACERS = { 1: 16735, 2: 16722, 4: 16681, 8: 16710, 16: 16697, 64: 16671, 128: 16683, 256: 16703, 1024: 16714 };
+	const SAMPLE = { 8922: 21928, 8923: 22381 };
+	for (const device of [8922, 8923]) {
+		const classes = [];
+		for (const id of corrections.quests[device].set.preAny) {
+			const entry = corrections.quests[id];
+			assert.ok(entry && entry.set && !entry.remove, `${id} has a record and stays in the data`);
+			const { classes: cls, next, objectives } = entry.set;
+			assert.ok(BRACERS[cls], `${id} names one class`);
+			classes.push(cls);
+			assert.equal(next, device, `${id} leads to ${device}`);
+			assert.deepEqual(objectives.map((o) => [o.id, o.count]), [[SAMPLE[device], 15], [BRACERS[cls], 1]], `${id}: the samples and its class's bracers`);
+		}
+		assert.deepEqual(classes.slice().sort((a, b) => a - b), Object.keys(BRACERS).map(Number), `${device}: one version per class`);
+	}
+	assert.ok(corrections.quests[8922].set.preAny.includes(84147), 'the Alliance Druid version 84147 leads to 8922');
+});
+
 test('the overlay takes mechanics flat or under quests; mechanics 603 and 1064 stay private', () => {
 	const out = overlayCorrections({ mechanics: {} }, { mechanics: { quests: { 603: { note: 'nested' } }, 1064: { note: 'flat' } } });
 	assert.deepEqual(Object.keys(out.mechanics).sort(), ['1064', '603']);
