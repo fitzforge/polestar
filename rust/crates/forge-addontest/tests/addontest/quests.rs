@@ -1121,6 +1121,38 @@ emit(sq.hoverObject(78, "Candle Crate"))
 	assert_eq!(out[1], json!(["?", "Kobold Candles: | Large Candle 0/8"]));
 }
 
+// Object 7983211 (Flintfire's Shipment, 98321) has no name in QuestieDB: the record's name is nil, and the
+// objective index keyed it by that name, a Lua error at login for anyone holding the quest.
+#[test]
+fn a_nameless_object_or_mob_record_costs_the_tracker_no_error_and_the_quest_still_shows() {
+	let data = data_with(|raw| {
+		raw.get_mut("objects.json").unwrap()["77"]["name"] = Value::Null;
+		raw.get_mut("npcs.json").unwrap()["6"]["name"] = Value::Null;
+	});
+	let db = build_db(data.path());
+	let out = run(
+		&db,
+		r#"
+w.accept(7, { { text = "Kobold Vermin slain: 0/10", type = "monster", required = 10 } })
+w.accept(60, { { text = "Large Candle: 0/8", type = "item", required = 8 } })
+stub.advance(0.3)
+emit({ Q.EntityName(-77), Q.EntityName(6) })
+emit(sq.hoverItem(772))
+emit(sq.hoverObject(77, "Candle Crate"))
+emit(sq.hoverObject(nil, "Candle Crate"))
+emit(sq.hoverUnit(6))
+emit(#layer("quests.objectives") > 0)
+"#,
+		"",
+	);
+	assert_eq!(out[0], json!({}), "the database has no name for either");
+	assert_eq!(out[1], json!(["?", "Kobold Candles: | 0/8"]), "the item's tooltip still lists the quest");
+	assert_eq!(out[2], json!(["?", "Kobold Candles: | Large Candle 0/8"]), "the object's own tooltip, by its id");
+	assert_eq!(out[3], json!(["?"]), "a name the database does not know indexes nothing");
+	assert_eq!(out[4], json!(["?", "Kobold Camp Cleanup: | 0/10", "Kobold Candles: | Large Candle 0/8"]), "the mob's tooltip: its kill line unnamed, the candle it drops still named");
+	assert_eq!(out[5], json!(true), "the map markers are drawn");
+}
+
 #[test]
 fn an_unchanged_quest_log_costs_no_rebuild_and_no_pins_call() {
 	let db = fixture();
