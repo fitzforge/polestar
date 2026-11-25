@@ -1301,6 +1301,52 @@ return s(5200) .. ' ' .. s(932) .. ' ' .. s(6948)"#,
 		assert_eq!(plain(r#"{"levelsSource":"forever","reqSource":"era","qualitySource":"none","allowSource":"client"}"#), 0x4B);
 	}
 
+	// Rockslicer (#872) has an Era client row (level 16, rarity 2) and a Forever ItemDB row (level 18,
+	// rarity 3). After the ItemDB fill, the addon names Forever for the level and rarity it shows.
+	#[test]
+	fn an_itemdb_fill_packs_its_own_source_for_the_facts_it_replaced() {
+		let db = super::super::itemdb::ItemDb::load(&std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../.."), &mut Vec::new()).unwrap();
+		let items = parse_json(
+			r#"{
+				"872":{"id":872,"name":"Rockslicer","reqLevel":16,"quality":2,"reqSource":"era","qualitySource":"era"},
+				"932":{"id":932,"name":"Fel Steed Saddlebags","reqLevel":25,"quality":3,"reqSource":"era","qualitySource":"era"}
+			}"#,
+		)
+		.unwrap();
+		db.fill(items.as_obj().unwrap(), None);
+		let empty = V::obj();
+		let pack = PackCodex {
+			items: &items,
+			npcs: &empty,
+			objects: &empty,
+			quests: &empty,
+			instances: &empty,
+			zones: &empty,
+			factions: &empty,
+			spells: &empty,
+			professions: &empty,
+			meta: &empty,
+			frames: &empty,
+		};
+		let files = emit_pack(&pack, "1", &V::Null, &[]).unwrap();
+		let (lua, _) = filter_lua();
+		lua.load(&files.iter().find(|(name, _)| name == "Index.lua").unwrap().1).exec().unwrap();
+		let shown: String = lua
+			.load(
+				r#"
+local C = Polestar.Codex
+local function s(id)
+	local f = C.FilterFacts('item', id)
+	return table.concat({ f.reqLevel or '-', tostring(C.FactSource(f, 'req')), tostring(C.FactSource(f, 'quality')) }, ',')
+end
+return s(872) .. ' ' .. s(932)"#,
+			)
+			.eval()
+			.unwrap();
+		assert_eq!(shown, "18,forever,forever 25,era,era");
+		assert_eq!(items.get("872").get("quality").as_num(), Some(3.0));
+	}
+
 	#[test]
 	fn stat_postings_round_trip_signed_amounts_and_every_source() {
 		let (lua, _) = filter_lua();

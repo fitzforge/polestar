@@ -184,11 +184,17 @@ fn the_era_csv_alone_supplies_a_labelled_level_and_rarity() {
 	let line = csv.lines().find(|l| l.starts_with("1041,")).expect("an Era row to copy").to_string();
 	let row = line.replacen("1041,", "932,", 1).replace("\"Horn of the Black Wolf\"", "\"Fel Steed Saddlebags\"");
 	let row = row.strip_suffix(",1,0,40").expect("the row ends with quality 1, no ammunition, level 40").to_string() + ",3,0,25";
-	fs::write(&file, format!("{}\n{row}\n", csv.trim_end())).unwrap();
+	// Rockslicer (#872) also has an Era row, but a Forever ItemDB row replaces its level and rarity.
+	let rockslicer = row.replacen("932,", "872,", 1).replace("\"Fel Steed Saddlebags\"", "\"Rockslicer\"").replace(",3,0,25", ",2,0,16");
+	fs::write(&file, format!("{}\n{row}\n{rockslicer}\n", csv.trim_end())).unwrap();
+	let itemdb = root.join("addon/Polestar_ItemDB");
+	fs::create_dir_all(&itemdb).unwrap();
+	fs::write(itemdb.join("Forever.lua"), "DB.Register(nil, {\n[872]=\"17 23 18 3 2 1\",\n})\n").unwrap();
 
 	let file = data.join("items.json");
 	let mut items: Value = serde_json::from_str(&fs::read_to_string(&file).unwrap()).unwrap();
 	items["932"] = json!({ "id": 932, "name": "Fel Steed Saddlebags" });
+	items["872"] = json!({ "id": 872, "name": "Rockslicer" });
 	fs::write(file, items.to_string()).unwrap();
 
 	let out = codex::build_logged(&opts, &|_| {}).unwrap();
@@ -197,6 +203,9 @@ fn the_era_csv_alone_supplies_a_labelled_level_and_rarity() {
 	assert_eq!((bags["reqLevel"].clone(), bags["quality"].clone()), (json!(25), json!(3)));
 	assert_eq!((bags["reqSource"].clone(), bags["qualitySource"].clone()), (json!("era"), json!("era")));
 	assert!(bags.get("levelsSource").is_none() && bags.get("itemLevelSource").is_none() && bags.get("allowSource").is_none(), "{bags}");
+	let rockslicer = &items["872"];
+	assert_eq!((rockslicer["levelsSource"].clone(), rockslicer["reqLevel"].clone(), rockslicer["quality"].clone()), (json!("forever"), json!(18), json!(3)));
+	assert!(["reqSource", "itemLevelSource", "qualitySource", "allowSource"].iter().all(|field| rockslicer.get(field).is_none()), "{rockslicer}");
 	let pack: String = out.pack.iter().map(|(_, text)| text.as_str()).collect();
 	let record = pack.match_indices(r"\n932\t").map(|(at, found)| &pack[at + found.len()..]).filter_map(|rest| rest.split(r"\n").next()).find(|record| record.contains(';')).expect("932's record");
 	let fields: Vec<&str> = record.split(';').collect();

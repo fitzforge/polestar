@@ -100,8 +100,14 @@ impl ItemDb {
 					item.set("quality", rec.quality.clone());
 					let mask = rec.allow.num();
 					item.set("allowClass", if mask == 0.0 { ALL_CLASSES } else { to_int32(mask) & ALL_CLASSES });
-					// Each ItemDB file states all four facts of a row, so they share levelsSource
-					// (no reqSource and the like).
+					// Each ItemDB file states all four facts of a row, so they share levelsSource.
+					// A label the merge gave a replaced value (the Era client's reqSource and
+					// qualitySource) goes with it.
+					if let Some(obj) = item.as_obj() {
+						for field in ["reqSource", "itemLevelSource", "qualitySource", "allowSource"] {
+							obj.delete(field);
+						}
+					}
 				}
 				if !item.has("typeSource") {
 					item.set("typeSource", source);
@@ -309,6 +315,31 @@ mod tests {
 		for field in ["reqSource", "itemLevelSource", "qualitySource", "allowSource"] {
 			assert!(!item.has(field), "{field}");
 		}
+	}
+
+	// An item the Era client tables alone knew carries their level and rarity as Era's. A Forever
+	// row replaces both, so the Era labels go with the old values; an item no row covers keeps them.
+	#[test]
+	fn an_itemdb_row_takes_over_the_era_labels_of_the_facts_it_replaces() {
+		let db = ItemDb { forever: [(872, crate::gear::leveling::decode(872.0, "17 23 18 3 2 1").unwrap())].into_iter().collect(), era: FxHashMap::default() };
+		let items = parse_json(
+			r#"{
+				"872":{"id":872,"reqLevel":16,"quality":2,"reqSource":"era","qualitySource":"era"},
+				"932":{"id":932,"reqLevel":25,"quality":3,"reqSource":"era","qualitySource":"era"}
+			}"#,
+		)
+		.unwrap();
+		db.fill(items.as_obj().unwrap(), None);
+		let filled = items.get("872");
+		assert_eq!(filled.get("levelsSource").as_str(), Some("forever"));
+		assert_eq!((filled.get("reqLevel").as_num(), filled.get("quality").as_num()), (Some(18.0), Some(3.0)));
+		for field in ["reqSource", "itemLevelSource", "qualitySource", "allowSource"] {
+			assert!(!filled.has(field), "{field}");
+		}
+		let era_only = items.get("932");
+		assert!(!era_only.has("levelsSource"));
+		assert_eq!((era_only.get("reqLevel").as_num(), era_only.get("quality").as_num()), (Some(25.0), Some(3.0)));
+		assert_eq!((era_only.get("reqSource").as_str(), era_only.get("qualitySource").as_str()), (Some("era"), Some("era")));
 	}
 
 	#[test]
