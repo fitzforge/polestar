@@ -145,6 +145,24 @@
 --   forever/horde/50-60/04-azshara
 --   forever/horde/50-60/05-eastern-plaguelands
 --   forever/horde/50-60/06-silithus
+--
+-- Machine-translated, to be reviewed (0.4.3 What's new notes, 25 Nov 2026): translated by an AI model
+-- (Claude Sonnet 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing
+-- one: keep or fix it, and take it off this list:
+--   A smarter arrow
+--   Walks that follow your own trail, boats and lifts it understands, flights it remembers, enemy towns it goes round.
+--   Guides named for their zones
+--   Titles name the zones you quest in, in walking order. Camping 101 is in for every start-zone profession.
+--   Escorts are your choice
+--   Do it or Skip it, with how long other players' runs take and how often they fail.
+--   Windows your way
+--   Atlas or Standard layout; Settings and Guides have their own scale; switches for chat messages and the XP line.
+--   Every attunement and key for your faction in the guide menu, with a progress bar and %s.
+--   Polestar in your language
+--   Settings > General > Language shows Polestar in another language than the game's.
+--   Fewer folders
+--   Quit the game fully and start it again: Polestar is 22 folders now, not 45.
+--   Steps fixed in dozens of zones. Found something off? Type %s.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "deDE") then return end
@@ -3895,6 +3913,20 @@ L["Small helpers"] = "Kleine Helfer"
 L["Sell and repair reminders before you leave town; compact mode now has tabs."] = "Erinnert ans Verkaufen und Reparieren, bevor du die Stadt verlässt; der Kompaktmodus hat jetzt Tabs."
 L["In 9 languages, now with German and Latin American Spanish guides. Thanks, translators!"] = "In 9 Sprachen, jetzt mit Guides auf Deutsch und lateinamerikanischem Spanisch. Danke, Übersetzer!"
 L["Caves, cities, flights and more. Found something off? Type %s."] = "Höhlen, Städte, Flüge und mehr. Etwas falsch? Gib %s ein."
+L["A smarter arrow"] = "Ein klügerer Pfeil"
+L["Walks that follow your own trail, boats and lifts it understands, flights it remembers, enemy towns it goes round."] = "Wege, die deiner eigenen Spur folgen; Boote und Aufzüge kennt er, Flüge merkt er sich, Feindstädte umgeht er."
+L["Guides named for their zones"] = "Guides nach ihren Gebieten benannt"
+L["Titles name the zones you quest in, in walking order. Camping 101 is in for every start-zone profession."] = "Titel nennen die Gebiete, in denen du questest, in Laufreihenfolge. Camping 101 gibt es für jeden Startgebiets-Beruf."
+L["Escorts are your choice"] = "Eskorten sind deine Wahl"
+L["Do it or Skip it, with how long other players' runs take and how often they fail."] = "Machen oder Überspringen, mit der Dauer der Läufe anderer Spieler und wie oft sie scheitern."
+L["Windows your way"] = "Fenster nach deinem Geschmack"
+L["Atlas or Standard layout; Settings and Guides have their own scale; switches for chat messages and the XP line."] = "Atlas- oder Standard-Layout; Einstellungen und Guides haben je eine eigene Skalierung; Schalter für Chatmeldungen und die EP-Zeile."
+L["Every attunement and key for your faction in the guide menu, with a progress bar and %s."] = "Jede Einstimmung und jeder Schlüssel deiner Fraktion im Guide-Menü, mit Fortschrittsbalken und %s."
+L["Polestar in your language"] = "Polestar in deiner Sprache"
+L["Settings > General > Language shows Polestar in another language than the game's."] = "Einstellungen > Allgemein > Sprache zeigt Polestar in einer anderen Sprache als der des Spiels."
+L["Fewer folders"] = "Weniger Ordner"
+L["Quit the game fully and start it again: Polestar is 22 folders now, not 45."] = "Spiel ganz beenden und neu starten: Polestar besteht jetzt aus 22 Ordnern statt 45."
+L["Steps fixed in dozens of zones. Found something off? Type %s."] = "Schritte in Dutzenden Gebieten korrigiert. Etwas falsch? Gib %s ein."
 
 -- QoL/ClassQuests.lua
 L["Long chain: %d quests across %d zones on %d continents"] = "Lange Kette: %d Quests in %d Gebieten auf %d Kontinenten"

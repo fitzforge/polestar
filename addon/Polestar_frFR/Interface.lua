@@ -147,6 +147,24 @@
 --   forever/horde/50-60/04-azshara
 --   forever/horde/50-60/05-eastern-plaguelands
 --   forever/horde/50-60/06-silithus
+--
+-- Machine-translated, to be reviewed (0.4.3 What's new notes, 25 Nov 2026): translated by an AI model
+-- (Claude Sonnet 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing
+-- one: keep or fix it, and take it off this list:
+--   A smarter arrow
+--   Walks that follow your own trail, boats and lifts it understands, flights it remembers, enemy towns it goes round.
+--   Guides named for their zones
+--   Titles name the zones you quest in, in walking order. Camping 101 is in for every start-zone profession.
+--   Escorts are your choice
+--   Do it or Skip it, with how long other players' runs take and how often they fail.
+--   Windows your way
+--   Atlas or Standard layout; Settings and Guides have their own scale; switches for chat messages and the XP line.
+--   Every attunement and key for your faction in the guide menu, with a progress bar and %s.
+--   Polestar in your language
+--   Settings > General > Language shows Polestar in another language than the game's.
+--   Fewer folders
+--   Quit the game fully and start it again: Polestar is 22 folders now, not 45.
+--   Steps fixed in dozens of zones. Found something off? Type %s.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "frFR") then return end
@@ -3927,6 +3945,20 @@ L["Small helpers"] = "Petits coups de main"
 L["Sell and repair reminders before you leave town; compact mode now has tabs."] = "Rappels de vente et de réparation avant de quitter la ville ; le mode compact a maintenant des onglets."
 L["In 9 languages, now with German and Latin American Spanish guides. Thanks, translators!"] = "En 9 langues, avec désormais des guides en allemand et en espagnol d'Amérique latine. Merci aux traducteurs !"
 L["Caves, cities, flights and more. Found something off? Type %s."] = "Grottes, villes, vols et plus. Un souci ? Tapez %s."
+L["A smarter arrow"] = "Une flèche plus maligne"
+L["Walks that follow your own trail, boats and lifts it understands, flights it remembers, enemy towns it goes round."] = "Des trajets qui suivent votre propre piste ; elle comprend bateaux et ascenseurs, retient vos vols et contourne les villes ennemies."
+L["Guides named for their zones"] = "Des guides nommés d'après leurs zones"
+L["Titles name the zones you quest in, in walking order. Camping 101 is in for every start-zone profession."] = "Les titres nomment les zones où vous faites des quêtes, dans l'ordre du trajet. Camping 101 y est pour chaque métier de départ."
+L["Escorts are your choice"] = "Les escortes, c'est votre choix"
+L["Do it or Skip it, with how long other players' runs take and how often they fail."] = "La faire ou la passer, avec la durée des parcours des autres joueurs et la fréquence des échecs."
+L["Windows your way"] = "Des fenêtres à votre façon"
+L["Atlas or Standard layout; Settings and Guides have their own scale; switches for chat messages and the XP line."] = "Disposition Atlas ou Standard ; Réglages et Guides ont chacun leur échelle ; options pour les messages du chat et la ligne d'XP."
+L["Every attunement and key for your faction in the guide menu, with a progress bar and %s."] = "Chaque accès et chaque clé de votre faction dans le menu des guides, avec barre de progression et %s."
+L["Polestar in your language"] = "Polestar dans votre langue"
+L["Settings > General > Language shows Polestar in another language than the game's."] = "Réglages > Général > Langue affiche Polestar dans une autre langue que celle du jeu."
+L["Fewer folders"] = "Moins de dossiers"
+L["Quit the game fully and start it again: Polestar is 22 folders now, not 45."] = "Quittez complètement le jeu et relancez-le : Polestar compte maintenant 22 dossiers, au lieu de 45."
+L["Steps fixed in dozens of zones. Found something off? Type %s."] = "Étapes corrigées dans des dizaines de zones. Un souci ? Tapez %s."
 
 -- QoL/ClassQuests.lua
 L["Long chain: %d quests across %d zones on %d continents"] = "Longue chaîne : %d quêtes dans %d zones sur %d continents"
