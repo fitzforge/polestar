@@ -538,12 +538,16 @@ ns.UI.GuideFrame.Part(function(GF)
 		return top * uiScale / scale - bottom
 	end
 
-	-- The grip sits on the edge that moves: the bottom-right corner, or with Grow
-	-- upward just over the top-right one, clear of the header's menu button.
+	-- The grip sits on the edge that moves while it drags the height (Fixed or
+	-- Automatic): the bottom-right corner, or with Grow upward just over the
+	-- top-right one, clear of the header's menu button. Under Follows the step
+	-- it sets the width alone and keeps the corner, Grow upward or not: over
+	-- the top it was where no one looks for it, and the corner moved the window.
 	function GF.PlaceGrip()
 		local grip = GF.grip
 		if not grip then return end
-		local up = ns.Get("ui.growUp")
+		local mode = ns.Get("ui.heightMode")
+		local up = ns.Get("ui.growUp") and (mode == "fixed" or mode == "auto")
 		grip:ClearAllPoints()
 		grip:SetPoint("BOTTOMRIGHT", F, up and "TOPRIGHT" or "BOTTOMRIGHT", -1, 1)
 		grip.Icon:SetTexCoord(0, 1, up and 1 or 0, up and 0 or 1)

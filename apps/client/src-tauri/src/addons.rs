@@ -237,8 +237,49 @@ pub(crate) fn toc_file(folder: &Path) -> Option<PathBuf> {
 	tocs.into_iter().next()
 }
 
-/// Is `name` one of Polestar's own addon folders (by name and its .toc's author, or a walking-map region folder)?
+/// The folders Polestar 0.4.3 folded into `Polestar`, `Polestar_Guides_Alliance`, `Polestar_Guides_Horde` and
+/// `Polestar_Skins` (docs/client/sweep-0.4.3.md; the same list as FOLDED_ADDONS in
+/// rust/crates/forge-release/src/addons.rs). Polestar's by name, whatever their .toc says: the 0.4.3 previews'
+/// Atlas folders name the skin's author, and every one of them must go on an update.
+const FOLDED: [&str; 24] = [
+	"Polestar_Looks",
+	"Polestar_SkinAPI",
+	"Polestar_TabStyles",
+	"Polestar_Experimental",
+	"Polestar_Layout_Atlas",
+	"Polestar_Skin_Vellum",
+	"Polestar_Skin_Lumen",
+	"Polestar_Skin_Beacon",
+	"Polestar_Skin_Aurora",
+	"Polestar_Skin_Hairline",
+	"Polestar_Skin_Umbra",
+	"Polestar_Skin_Waymark",
+	"Polestar_Skin_Lanterns",
+	"Polestar_Skin_Sheen",
+	"Polestar_Skin_Atlas",
+	"Polestar_Guides_Human",
+	"Polestar_Guides_Orc",
+	"Polestar_Guides_Dwarf",
+	"Polestar_Guides_NightElf",
+	"Polestar_Guides_Scourge",
+	"Polestar_Guides_Tauren",
+	"Polestar_Guides_Gnome",
+	"Polestar_Guides_Troll",
+	"Polestar_Guides_Skyborne",
+];
+
+/// Is `name` one of Polestar's own addon folders (a folded one, or by name and its .toc's author, or a
+/// walking-map region folder)? Other `Polestar_Skin_*` and `Polestar_Layout_*` folders are skins and layouts
+/// (the Skin API's names, docs/skins/publishing.md), the example included, never Polestar's whatever their
+/// .toc says or how the name is cased (Windows and macOS find `Polestar_skin_Joes` all the same).
 fn polestar_folder(addons: &Path, name: &str) -> bool {
+	if FOLDED.contains(&name) {
+		return true;
+	}
+	let lower = name.to_ascii_lowercase();
+	if lower.starts_with("polestar_skin_") || lower.starts_with("polestar_layout_") {
+		return false;
+	}
 	(name == "Polestar" || (name.starts_with("Polestar_") && name != "Polestar_Recorder"))
 		&& (toc_field(&addons.join(name), "Author").is_some_and(|a| a == "Polestar" || a.starts_with("Polestar;")) || nav_region_folder(addons, name))
 }
@@ -670,6 +711,73 @@ mod tests {
 			assert!(addons.join(keep).is_dir(), "{keep} must stay");
 		}
 		let _ = fs::remove_dir_all(&addons);
+	}
+
+	#[test]
+	fn an_update_to_0_4_3_clears_the_folded_folders_whatever_their_author_3818() {
+		let addons = temp("folded");
+		let toc = |dir: &str, author: &str| {
+			fs::create_dir_all(addons.join(dir)).unwrap();
+			fs::write(addons.join(dir).join(format!("{dir}.toc")), format!("## Version: 0.4.2.2\n## Author: {author}\n")).unwrap();
+		};
+		// A 0.4.2.2 install, plus a 0.4.3 preview's Atlas folders (their TOCs name the skin's author).
+		toc("Polestar", "Polestar");
+		toc("Polestar_Guides_Alliance", "Polestar");
+		for name in FOLDED {
+			toc(name, if name.ends_with("_Atlas") { "TTik3r" } else { "Polestar" });
+		}
+		// A folded folder whose .toc is gone still goes.
+		fs::remove_file(addons.join("Polestar_Looks").join("Polestar_Looks.toc")).unwrap();
+		let staging = fresh_dir(&addons, STAGING).unwrap();
+		let zip = zip_of(&[
+			("Polestar/Polestar.toc", "## Version: 0.4.3\n## Author: Polestar\n"),
+			("Polestar_Guides_Alliance/Polestar_Guides_Alliance.toc", "## Author: Polestar\n"),
+			("Polestar_Guides_Horde/Polestar_Guides_Horde.toc", "## Author: Polestar\n"),
+			("Polestar_Skins/Polestar_Skins.toc", "## Author: Polestar\n"),
+		]);
+		let folders = unpack(&zip, &staging).unwrap();
+		let product = product("polestar").unwrap();
+		check(&staging, product, &folders).unwrap();
+		let obsolete: Vec<String> = installed_folders(&addons, product).into_iter().filter(|f| !folders.contains(f)).collect();
+		let mut folded: Vec<String> = FOLDED.iter().map(|s| s.to_string()).collect();
+		folded.sort();
+		assert_eq!(obsolete, folded);
+		swap(&addons, &staging, &folders, &obsolete).unwrap();
+		for gone in FOLDED {
+			assert!(!addons.join(gone).exists(), "{gone} must be cleared");
+		}
+		assert_eq!(installed_version(&addons, product).as_deref(), Some("0.4.3"));
+		assert!(addons.join("Polestar_Skins").is_dir());
+		let _ = fs::remove_dir_all(&addons);
+	}
+
+	#[test]
+	fn skins_and_layouts_by_others_stay_whatever_their_author_3818() {
+		let addons = temp("skins");
+		for dir in ["Polestar", "Polestar_Skin_Example", "Polestar_Skin_Joes", "Polestar_Layout_Joes", "Polestar_skin_Ann"] {
+			fs::create_dir_all(addons.join(dir)).unwrap();
+			fs::write(addons.join(dir).join(format!("{dir}.toc")), "## Version: 0.4.2.2\n## Author: Polestar\n").unwrap();
+		}
+		let product = product("polestar").unwrap();
+		// Not Polestar's: neither an update nor an uninstall touches them.
+		assert_eq!(installed_folders(&addons, product), ["Polestar"]);
+		let staging = fresh_dir(&addons, STAGING).unwrap();
+		let folders = unpack(&zip_of(&[("Polestar/Polestar.toc", "## Version: 0.4.3\n## Author: Polestar\n")]), &staging).unwrap();
+		let obsolete: Vec<String> = installed_folders(&addons, product).into_iter().filter(|f| !folders.contains(f)).collect();
+		assert!(obsolete.is_empty(), "{obsolete:?}");
+		swap(&addons, &staging, &folders, &obsolete).unwrap();
+		for keep in ["Polestar_Skin_Example", "Polestar_Skin_Joes", "Polestar_Layout_Joes", "Polestar_skin_Ann"] {
+			assert!(addons.join(keep).is_dir(), "{keep} must stay");
+		}
+		let _ = fs::remove_dir_all(&addons);
+	}
+
+	#[test]
+	fn the_folded_list_is_the_release_tools() {
+		let source = include_str!("../../../../rust/crates/forge-release/src/addons.rs");
+		let list = source.split("pub const FOLDED_ADDONS: &[&str] = &[").nth(1).and_then(|rest| rest.split("];").next()).expect("FOLDED_ADDONS in forge-release");
+		let names: Vec<&str> = list.lines().map(|l| l.trim().trim_end_matches(',').trim_matches('"')).filter(|l| !l.is_empty()).collect();
+		assert_eq!(names, FOLDED);
 	}
 
 	#[test]

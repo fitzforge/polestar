@@ -3,11 +3,8 @@
 //! item data addon is loaded on the first lookup, once, never in combat; ZoneLevels.lua registers the
 //! ranges and the world map colours them for the player.
 
+use forge_addontest::run::root;
 use forge_addontest::{emitted, Addon, RunAddon};
-
-fn root() -> std::path::PathBuf {
-	std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../..").canonicalize().unwrap()
-}
 use serde_json::{json, Value};
 
 fn item_files() -> Addon {

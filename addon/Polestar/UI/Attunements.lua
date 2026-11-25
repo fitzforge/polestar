@@ -129,6 +129,8 @@ function AT.List()
 		local rx, ry = rank(x), rank(y)
 		if rx ~= ry then return rx < ry end
 		if x.level ~= y.level then return x.level < y.level end
+		local dx, dy = tostring(x.dungeon or x.a.name), tostring(y.dungeon or y.a.name)
+		if dx ~= dy then return dx < dy end
 		return tostring(x.a.name) < tostring(y.a.name)
 	end)
 	return out
@@ -219,7 +221,7 @@ local function paint(c, e, width, index)
 		c.psArtKind = paintArt(c.Art, e.key, index)
 		c.psArtFor, c.psArtW = e.key, width
 	end
-	c.Title:SetText(a.name or "")
+	c.Title:SetText(e.dungeon or a.name or "")
 	c.Title:SetWidth(inner - 22)
 	-- The key, in the colour of where it stands: done, not open yet, to do.
 	c.Glyph:SetTexture(Theme.Media(e.done and "check" or "key"))
@@ -235,7 +237,7 @@ local function paint(c, e, width, index)
 	c.Guide:SetShown(can)
 	c.Guide:ClearAllPoints()
 	c.Guide:SetPoint("TOPRIGHT", c, "TOPRIGHT", -12, -(ART_H + 12))
-	local facts = { format(L["Opens %s"], e.dungeon or e.key), KIND[a.kind] or KIND.attunement }
+	local facts = { a.name or "", KIND[a.kind] or KIND.attunement }
 	facts[#facts + 1] = a.need == "one" and L["One in the group is enough"] or L["Everyone entering needs it"]
 	if a.level then facts[#facts + 1] = format(L["From level %d"], a.level) end
 	c.Meta:SetText(concat(facts, DOT))

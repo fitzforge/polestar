@@ -4,13 +4,9 @@
 //! folder; a missing one leaves the interface in English. The Language setting (PolestarLanguage, #3643)
 //! replaces the client's language at ADDON_LOADED with English or another shipped language.
 
-use forge_addontest::run::{toc_files, xml_files};
+use forge_addontest::run::{root, toc_files, xml_files};
 use forge_addontest::{emitted, lua_string, Addon, RunAddon};
 use serde_json::json;
-
-fn root() -> std::path::PathBuf {
-	std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../..").canonicalize().unwrap()
-}
 
 /// Lua for `before`: GetLocale() answers `locale`, the client knows the German language folder as a
 /// load-on-demand addon (stub_packs.lua) when `folder`, and every translation file Lua opens is listed in

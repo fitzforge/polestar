@@ -6696,7 +6696,9 @@ needs it is (`QuestDB.IsWanted()`: map/minimap objectives, available quests,
 turn-ins, tooltips, nameplates); turning the first one on later loads it then,
 and a load refused in combat is retried when combat ends. It fires
 `QUESTDB_LOADED`, then `QUESTDB_STARTED`; `QUESTDB_UPDATED` follows every
-change to the tracked quest log. Record layouts: `rust/crates/forge-data/src/questdb.rs`;
+change to the tracked quest log; `QUESTDB_ITEM_QUESTS` once the item-to-quests
+index the bags' leftover borders read (`QuestDB.ItemQuests`, built over frames,
+`QuestDB.ITEM_SLICE` quests a frame) is in. Record layouts: `rust/crates/forge-data/src/questdb.rs`;
 the records stay LuaChunks text (`Core/LuaChunks.lua`) and are decoded when read, so the
 loaded database costs about 1.2 MiB, not the 6.6 MiB of tables it took (#693).
 An entity's spawn clusters (70 yd) cover every known spawn on each map (the
@@ -9551,7 +9553,10 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   "fit" (Follows the step, the default) as above; "fixed" keeps the window
   at that height for a short step too (the progress bar under the last goal
   or, `ui.footAt` "edge", on the window's edge), resized by the grip; "auto"
-  takes all the room on screen from the pinned edge, less a margin. Past the
+  takes all the room on screen from the pinned edge, less a margin. Under
+  "fixed" and "auto" the grip drags the height too and sits on the edge that
+  moves (`GF.PlaceGrip`: just over the top right with Grow upward); under
+  "fit" it sets the width alone and keeps the bottom-right corner. Past the
   cap the goals area ends on a whole goal or line, never inside one (a
   wrapped goal's second line was cut in half under the tip): the bottom of
   the last one that fits from which the wheel's last stop is a goal's top
