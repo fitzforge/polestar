@@ -332,8 +332,9 @@ quest log's words, from players' recordings or the game's quest objectives. The 
 Fireworks and The Challenge have such records too: the public build has no source for the quest log's words and
 would otherwise read only the markers' names. Then any placeholder name a player could read that is left is named,
 one line each: a title, an objective's words, or the name of an NPC, object or item an objective, giver, ender or
-starting item points at, in every quest but the game's unused and test ones ("<UNUSED>", "<TEST> HEY MISTER
-WILSON!", "REUSE"), which Lookup's search leaves out, as it does NPCs and items with a placeholder name. `forge
+starting item points at, in every quest but the game's unused, test and unfinished ones ("<UNUSED>", "<TEST> HEY
+MISTER WILSON!", "<NYI> Flirting With Darkness", "REUSE", "REUSEME"), which Lookup's search leaves out, as it does
+NPCs and items with a placeholder name. `forge
 build` and `forge data build --strict-placeholders` (our release builds and CI) stop on them; a plain `forge data
 build`, a guide author's, names them as a warning and goes on, so a QuestieDB newer than the corrections still
 builds (#3797); `forge data publish`'s public builds only count them.
