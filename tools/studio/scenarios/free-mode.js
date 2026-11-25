@@ -10,7 +10,8 @@
 // People's Militia (6/15, 2/15), Patrolling Westfall (3/8), Goretusk Liver Pie
 // (8/8, ready) and The Forgotten Heirloom.
 // Shots: <look>-<surface>-<scale> (studio free-mode/hearth-list-0.64 ...),
-// surface list | empty | hint | menu.
+// surface list | empty | hint | menu | settings (Questing > Quests, its Free
+// mode section).
 
 const skins = require('./skins');
 
@@ -70,6 +71,17 @@ if row then stub.RunScript(row, "OnClick", "RightButton") end
 stub.advance(0.3)
 return row and row.psGoal.text`;
 
+// The settings: Questing > Quests scrolled to its Free mode section, Free mode on.
+const SETTINGS = `${LOG}
+${START.replace(/\nreturn .*$/, '')}
+if PolestarNavArrow then PolestarNavArrow:Hide() end
+if PolestarGuideFrame then PolestarGuideFrame:Hide() end
+Polestar.UI.ShowOptions("questing")
+stub.advance(0.5)
+local card = Polestar.UI.Options.ShowSection("questing", "Quests", "Free mode")
+stub.advance(1)
+return card and card.psName`;
+
 const shots = {};
 for (const [name, [id, folder, variant]] of Object.entries(LOOKS)) {
 	const base = skins.pick(id, folder, variant);
@@ -78,11 +90,12 @@ for (const [name, [id, folder, variant]] of Object.entries(LOOKS)) {
 		shots[`${name}-empty-${scale}`] = { title: `${name} at UI scale ${scale}: no guide open, Free mode under the buttons`, lua: `${base}\n${SCALE(scale)}\n${EMPTY}` };
 		shots[`${name}-hint-${scale}`] = { title: `${name} at UI scale ${scale}: an empty quest log's zone hint`, lua: `${base}\n${SCALE(scale)}\n${HINT}` };
 		shots[`${name}-menu-${scale}`] = { title: `${name} at UI scale ${scale}: a quest line's right-click menu`, capture: ['PolestarGuideFrame', 'PolestarMenu'], lua: `${base}\n${SCALE(scale)}\n${MENU}` };
+		shots[`${name}-settings-${scale}`] = { title: `${name} at UI scale ${scale}: Settings, Questing > Quests, Free mode`, capture: ['PolestarOptions'], lua: `${base}\n${SCALE(scale)}\n${SETTINGS}` };
 	}
 }
 
 module.exports = {
-	title: 'Free mode: its tab and banner, the empty window\'s link, the zone hint and the quest menu, in every look at UI scales 0.64, 1.0 and 1.5',
+	title: 'Free mode: its tab and banner, the empty window\'s link, the zone hint, the quest menu and its settings, in every look at UI scales 0.64, 1.0 and 1.5',
 	character: { race: 'Human', cls: 'WARRIOR', faction: 'Alliance', level: 12, money: 5200 },
 	place: { map: 1436, x: 56.4, y: 47.6, zone: 'Westfall', subzone: 'Sentinel Hill' },
 	guide: { id: 'forever/alliance/02-westfall' },

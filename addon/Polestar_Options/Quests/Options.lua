@@ -129,13 +129,14 @@ end
 if ns.Free then
 	local F = ns.Free
 	local SEARCH = "free mode, no guide, own quests, quest log, nearest quest, xp per minute"
-	ns.RegisterOptions({
+	-- Its switch is a row (the tab is the character's, no setting holds it).
+	local ok, err = ns.RegisterOptions({
 		page = L["Questing"], tab = L["Quests"], section = L["Free mode"],
-		toggle = { kind = "toggle", label = L["Free mode"], search = SEARCH,
-			help = L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."],
-			get = function() return F.IsOn() end,
-			set = function(on) if on then F.Start() else F.Stop() end end },
 		controls = {
+			{ kind = "toggle", label = L["Free mode"], search = SEARCH,
+				help = L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."],
+				get = function() return F.IsOn() end,
+				set = function(on) if on then F.Start() else F.Stop() end end },
 			{ kind = "dropdown", key = "free.pick", label = L["Which quest first"], search = SEARCH,
 				choices = { { value = "near", label = L["Nearest first"] }, { value = "xp", label = L["Most XP a minute first"] } },
 				help = L["Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes."] },
@@ -145,6 +146,7 @@ if ns.Free then
 				help = L["The XP each hand-in pays, and a collect whose items rarely drop says so."] },
 		},
 	})
+	if not ok and geterrorhandler then geterrorhandler()(err) end
 end
 
 -- The Group and Party chat sections of the Questing page, its Group tab. `search`: more words the settings search finds

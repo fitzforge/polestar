@@ -437,3 +437,38 @@ emit({ xp = xp, on = on, first = first, pick = Polestar.Get("free.pick"), off = 
 	assert_eq!(text(&out[0]["pick"]), "near");
 	assert!(!truthy(&out[0]["off"]));
 }
+
+#[test]
+fn the_settings_switch_starts_and_stops_it_beside_its_order_and_details() {
+	// Settings > Questing > Quests > Free mode (Polestar_Options/Quests/Options.lua): the switch is a row (the tab
+	// is the character's), then the order, zone hints and XP and drop rates.
+	let out = run_with(
+		r#"
+take(7001)
+Polestar.Fire("SHOW_OPTIONS")
+stub.advance(0.3)
+local O = Polestar.UI.Options
+local c = O.ControlByKey("free.pick")
+O.Select(c.page.key, c.tab)
+stub.advance(0.2)
+local rows = O.Controls(c.page.key, c.tab)
+local switch = rows["Free mode"]
+local before = switch.psGet()
+switch.psSet(true)
+stub.advance(1)
+local on, guide = F.IsOn(), E.GetGuide().id
+switch.psSet(false)
+stub.advance(1)
+emit({ page = c.page.key, tab = c.tab, hints = rows["free.hints"] ~= nil, details = rows["free.details"] ~= nil, before = before, on = on, guide = guide, after = F.IsOn() })
+"#,
+		&Opts { files: None, ..Default::default() },
+	);
+	let o = &out[0];
+	assert_eq!(text(&o["page"]), "questing");
+	assert_eq!(text(&o["tab"]), "Quests");
+	assert!(truthy(&o["hints"]) && truthy(&o["details"]));
+	assert!(!truthy(&o["before"]));
+	assert!(truthy(&o["on"]));
+	assert_eq!(text(&o["guide"]), "lookup/free/log");
+	assert!(!truthy(&o["after"]));
+}
