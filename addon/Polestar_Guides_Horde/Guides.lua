@@ -10024,7 +10024,7 @@ do
 					goals = {
 						{ t = "collect", quest = 617, title = "Akiris by the Bundle", item = 4029, itemName = "Akiris Reed", count = 10, oi = 1, map = 1434, x = 27.92, y = 61.59, z = 92, f = "e", spotsPacked = "27.9,62,90.9,18,2;26.8,60.5,60.7,40,5;28,64,,38,3;26.6,63,,61,5;25.1,61.1,,38,3;25.3,59.3,,35,3;24.5,63.4,,54,5", lvl = 44, from = "Naga Explorer", fromKind = "npc", fromId = 1907, fromNpcs = { { npc = 1907, npcName = "Naga Explorer" } } },
 						{ t = "kill", quest = 573, title = "Mok'thardin's Enchantment", target = "Naga Explorer", npc = 1907, count = 10, oi = 1, map = 1434, x = 27.92, y = 61.59, z = 92, f = "e", spotsPacked = "27.9,62,90.9,18,2;26.8,60.5,60.7,40,5;28,64,,38,3;26.6,63,,61,5;25.1,61.1,,38,3;25.3,59.3,,35,3;24.5,63.4,,54,5", lvl = 44 },
-						{ t = "collect", quest = 573, title = "Mok'thardin's Enchantment", item = 737, itemName = "Holy Spring Water", count = 1, oi = 2, map = 1434, x = 29, y = 61.9, z = 93.7, f = "e", from = "The Holy Spring", fromKind = "object", fromId = 759 },
+						{ t = "collect", quest = 573, title = "Mok'thardin's Enchantment", item = 737, itemName = "Holy Spring Water", count = 1, oi = 2, map = 1434, x = 28.9, y = 61.96, z = 93.7, f = "e", from = "The Holy Spring", fromKind = "object", fromId = 759 },
 					},
 				},
 				{
