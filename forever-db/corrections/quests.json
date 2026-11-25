@@ -4295,6 +4295,12 @@
 	"97169": { "set": {"classes": 64, "preAny": [97168]},
 		"source": [{"kind": "factoruide", "ref": "Factoruide (QuestieDB and EG Link rows): 97169 The Darkreaver Menace comes after 97168 Material Assistance (pre_all [97168]); both from Eldrun Stormbreaker (258098)"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Horde's The Darkreaver Menace (7668) is locked to Shamans and follows Material Assistance (7667)"}],
 		"note": "The Darkreaver Menace 97169 is the Alliance Shaman's version (Eldrun Stormbreaker, after Material Assistance 97168, a Shaman quest), as the Horde's 7668 is the Shaman's after 7667. Without a class or prerequisite every Alliance class saw it on the Scholomance pick-up guide (#4169)." },
+	"8960": { "set": {"pre": [], "preAny": [84179, 84180, 84181, 84182, 84183, 84184, 84186, 8958]},
+		"source": [{"kind": "factoruide", "ref": "Factoruide (QuestieDB rows): 8960 Bodley's Unfortunate Fate comes after any class's Anthion's Parting Words (pre_any 8951-8956, 8958, 8959)"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Alliance Anthion's Parting Words are 84179-84184 and 84186, the same items per class as 8951-8956 and 8959"}],
+		"note": "Bodley's Unfortunate Fate 8960 (Alliance) follows any class's Anthion's Parting Words. Its Classic copies left the data (#4169), which left the Warlock's 8958 as its one prerequisite for every class; Forever's copies for the other classes stand in their place." },
+	"9032": { "set": {"pre": [], "preAny": [84187, 84188, 84189, 84190, 84191, 84192, 84193, 84194]},
+		"source": [{"kind": "factoruide", "ref": "Factoruide (QuestieDB rows): 9032 Bodley's Unfortunate Fate comes after any class's Anthion's Parting Words (pre_any 8957, 9016-9022)"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Horde Anthion's Parting Words are 84187-84194, the same items per class as 8957 and 9016-9022"}],
+		"note": "Bodley's Unfortunate Fate 9032 (Horde) follows any class's Anthion's Parting Words. Its Classic copies left the data (#4169), which left it with no prerequisite at all; Forever's copies stand in their place." },
 	"9015": {
 		"set": {
 			"objectives": [

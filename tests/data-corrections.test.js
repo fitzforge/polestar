@@ -176,6 +176,35 @@ test('the Horde Paladin charger chain and the Alliance Darkreaver Menace have th
 	assert.equal(corrections.quests[97169].set.classes, 64, 'The Darkreaver Menace 97169 is the Shaman\'s');
 });
 
+// #4169's hotfix build: removing the Classic Anthion's Parting Words copies took Bodley's Unfortunate Fate's
+// prerequisites with them (the Horde's 9032 had none left, the Alliance's 8960 only the Warlock's 8958). It
+// follows any class's Forever copy now.
+test('Bodley\'s Unfortunate Fate follows Forever\'s Anthion\'s Parting Words on each side (#4169)', () => {
+	assert.deepEqual(corrections.quests[8960].set.preAny, [84179, 84180, 84181, 84182, 84183, 84184, 84186, 8958]);
+	assert.deepEqual(corrections.quests[9032].set.preAny, [84187, 84188, 84189, 84190, 84191, 84192, 84193, 84194]);
+	for (const id of [8960, 9032]) assert.deepEqual(corrections.quests[id].set.pre, [], `${id}: no all-of prerequisite left over`);
+});
+
+// The check behind it: a quest whose prerequisite the corrections remove keeps a prerequisite the corrections
+// give it, unless another of its prerequisites stays. Reads the built data (skips without it).
+test('no quest loses all its prerequisites to a removal without a record that gives it new ones (#4169)', { skip: require('./helpers/data').needs('quests.json') }, () => {
+	const built = JSON.parse(fs.readFileSync(path.join(require('./helpers/data').DATA, 'quests.json'), 'utf8'));
+	const removed = new Set(Object.entries(corrections.quests).filter(([, e]) => e && e.remove).map(([id]) => Number(id)));
+	const bad = [];
+	for (const [id, q] of Object.entries(built)) {
+		if (removed.has(Number(id))) continue;
+		const set = (corrections.quests[id] && corrections.quests[id].set) || {};
+		for (const f of ['pre', 'preAny', 'preAll']) {
+			const v = Array.isArray(q[f]) ? q[f] : [];
+			if (!v.some((x) => removed.has(x))) continue;
+			const left = v.filter((x) => !removed.has(x));
+			const given = ['pre', 'preAny', 'preAll'].some((k) => Array.isArray(set[k]) && set[k].length && !set[k].some((x) => removed.has(x)));
+			if (!given && (left.length === 0 || left.length < v.length / 2)) bad.push(`${id} ${f}: ${v.join(',')} -> ${left.join(',') || 'none'}`);
+		}
+	}
+	assert.deepEqual(bad, []);
+});
+
 // #4169's hotfix build: the corrections removed the Classic Saving the Best for Last copies (8999, 9000, 9004,
 // 9006, 9007, 9011, 9013) that the Legacy Challenges guide still accepted, and the guide no longer compiled
 // ("quest 8999 is not in data"). No guide (guides/, experimental/) may accept, turn in or name in a `quest N`
