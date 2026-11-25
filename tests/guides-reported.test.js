@@ -4549,6 +4549,17 @@ test("forever/horde/50-60/03-winterspring.guide: Gripps's report: Corrupted Sabe
 	assert.ok(yards(use.goal, complete.goal) > 300, 'the moonwell is not where the saber goes');
 });
 
+// The same shape found by #4095's sweep: The Master's Glaive's complete ("Enter the Master's Glaive", at the
+// bottom of the crater where the Scrying Bowl appears) had no place, so its arrow led to the Moonstalker pelts'
+// spot in the same step, about 240 yards north.
+test("forever/alliance/03-darkshore-return.guide: The Master's Glaive's complete leads into the crater, not to the pelts (#4095)", { skip }, () => {
+	const list = goals('forever/alliance/03-darkshore-return.guide');
+	const complete = list[at(list, "complete 944 (The Master's Glaive)", is('complete', 944))];
+	assert.ok(located(complete), 'the complete has a place of its own');
+	const glaive = data.quests[944].objectives.find((o) => o.type === 'event');
+	assert.ok(yards(complete.goal, glaive) < 30, `the complete leads to the bottom of the crater (${complete.goal.x},${complete.goal.y})`);
+});
+
 // The Blackwood Corrupted's only objective is the Talisman of Corruption, but
 // Xabraxxis' Demon Bag holds it only once the satyr is summoned: the Empty
 // Cleansing Bowl filled at the Auberdine Moonwell, a sample from each of the

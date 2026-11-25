@@ -3218,6 +3218,18 @@
 				{ "kind": "recording", "ref": "quest 4506: 9 of 10 recorded players completed it and handed it in to Winna Hazzard (npc 9996) right after" }
 			],
 			"issue": 4095
+		},
+		{
+			"id": "4095-944-glaive",
+			"faction": "Alliance",
+			"quest": 944,
+			"objective": 1,
+			"at": { "map": 1439, "x": 38.48, "y": 86.45, "frame": "era" },
+			"note": "The Master's Glaive: entering the glaive is done at the bottom of the crater, where the Scrying Bowl appears. With no place of its own the complete line's arrow led to the Moonstalker pelts' spot in the same step, about 240 yards north (found in #4095's sweep of complete lines without a place).",
+			"source": [
+				{ "kind": "questie", "ref": "quest 944 objective 1 (event, Enter the Master's Glaive) at 1439 38.48,86.45; the Scrying Bowl 10076 spawns at 38.35-39.5,85.45-87.61 live" }
+			],
+			"issue": 4095
 		}
 	]
 }
