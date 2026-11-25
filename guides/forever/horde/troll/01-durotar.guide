@@ -188,7 +188,7 @@ step Sen'jin Village
   kill 266849 quest 96821.2
 
 step Brakk's campfire
-  tip Brakk camps just south of Razor Hill. Sit by his campfire (/sit) until the Boosted Rest buff appears. With a profession learned, Brakk also offers its Camping 101, which its trainer takes: in Razor Hill or in Orgrimmar at the start of the next guide.
+  tip Brakk camps just south of Razor Hill. Sit by his campfire (/sit) until the Boosted Rest buff appears. With a profession learned, Brakk also offers its Camping 101, which its trainer takes: in Razor Hill, by Sen'jin Village for fishing, or in Orgrimmar at the start of the next guide.
   turnin 96652                        -- Brakk
   accept 96604
   complete 96604 @52.1,47.4
@@ -238,6 +238,12 @@ step Camping 101: Alchemy
   when !knows 1230564
   accept 97899                        -- Brakk: for Whuut
 
+step Camping 101: Fishing
+  when skill Fishing 1
+  when !knows 1229745
+  tip Lau'Tiki takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97904                        -- Brakk: for Lau'Tiki, on the shore south of Sen'jin
+
 step Razor Hill
   accept 96822                        -- Turroc, on the east side of town; inside
   turnin 5649 only Troll,Priest       -- Tai'jin, in the barracks beside Turroc
@@ -279,6 +285,12 @@ step Camping 101: Tailoring
   when skill Tailoring 1
   when !knows 1229504
   accept 96102                        -- Brakk: for Snang
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  when !knows 1230171
+  tip Dwukk takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97900                        -- Brakk: for Dwukk
 
 step Grunt Kor'ja
   only Troll,Priest
@@ -382,6 +394,12 @@ step Sen'jin Village
   turnin 97223                        -- Xar'Ti
   train class only Mage               -- Un'Thuwa, the mage trainer in Sen'jin
 
+step Lau'Tiki
+  when onquest 97904
+  when complete 97904
+  complete 97904 @53.21,81.45 map 1411
+  turnin 97904                        -- Lau'Tiki: Camping 101: Fishing
+
 step Razor Hill
   accept 99048
   accept 837                          -- Gar'Thok
@@ -389,20 +407,36 @@ step Razor Hill
   turnin 815                          -- Cook Torka
   accept 96825                        -- Cook Torka
 
+step Dwukk
+  when onquest 97900
+  when complete 97900
+  complete 97900 @51.97,40.65 map 1411
+  turnin 97900                        -- Dwukk: Camping 101: Blacksmithing
+
+step Class trainer
+  only Rogue
+  when level>=10
+  train class only Rogue
+
+# Hunters and Shamans take their level-10 class quests at Razor Hill and work them before the next Razor Hill
+# stop (the boar to tame, Kranal Fiss), so they top up to 10 by the huts and come back into town. Warriors,
+# Priests and Warlocks only carry a letter to somewhere the route goes later (Uzzek at Far Watch Post, Ur'kyo and
+# Gan'rul in Orgrimmar): they take it on the next Razor Hill stop, after Fizzle, with their training. Everyone else
+# goes straight on to the Razormane Grounds and trains at 10 or on that stop, where Takrin's Conscript of the Horde
+# is taken for everyone but Shamans (who take it at 10 on their way to Kranal Fiss).
 step Level 10
+  only Hunter,Shaman
   when level<10
-  tip Top up here to level 10: Conscript of the Horde, at Razor Hill, needs level 10.
+  tip Top up here to level 10: your class quest at Razor Hill needs level 10.
   tip The prickly pears for This Fruit Could Bite Back grow by these huts: pick them while you grind.
   goto 50.1,49.0 map 1411 "Razormane Quilboar"
   level 10 grind 3111               -- grind on Razormane Quilboar
 
 step Razor Hill
-  train class only Warrior,Hunter,Rogue,Priest,Shaman,Warlock
-  accept 840                          -- Takrin Pathseeker
-  accept 1505 only Warrior            -- Tarshaw Jaggedscar, inside
+  only Hunter,Shaman
+  train class only Hunter,Shaman
+  accept 840 only Shaman              -- Takrin Pathseeker: Kargal is on the way to Kranal Fiss
   accept 6062 only Hunter             -- Thotar
-  accept 1506 only Warlock            -- Ophek, by the inn
-  accept 5654 only Troll,Priest       -- Tai'jin, for Ur'kyo in Orgrimmar: keep it
   accept 2983 only Shaman -- Swart
 
 step Far Watch Post
@@ -547,11 +581,15 @@ step Razor Hill
   turnin 837                          -- Gar'Thok
   turnin 96825                        -- Cook Torka
   turnin 6062 only Hunter             -- Thotar
+  accept 1505 only Warrior            -- Tarshaw Jaggedscar, inside: for Uzzek at Far Watch Post, on the way out
+  accept 1506 only Warlock            -- Ophek, by the inn: for Gan'rul in Orgrimmar
+  accept 5654 only Troll,Priest       -- Tai'jin, for Ur'kyo in Orgrimmar: keep it
   accept 6083 only Hunter
   turnin 806                          -- Orgnil Soulscar
   accept 828
   turnin 99049                        -- Orgnil Soulscar
   accept 99051
+  accept 840 only !Shaman             -- Takrin Pathseeker: Kargal stands at Far Watch Post, on the Barrens guide's road
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Warlock
 
 step Spitelash naga
@@ -584,8 +622,52 @@ step Hanashi
   tip While you're here: learn Staves from Hanashi (Valley of Honor, 10 silver); a staff carries more spell stats than a one-hander while you level.
   train 2704                          -- Hanashi
 
+# Hidden Enemies (5726): Thrall gives it in Grommash Hold on a walk into Orgrimmar from Margoz before Skull
+# Rock (its gate is next door), its Lieutenant's Insignia drops from the same Burning Blade cultists as
+# the collars, and Thrall takes it on the Silverpine guide's Orgrimmar walk, which passes Grommash Hold;
+# Threat from Below goes to Orgnil when the Barrens guide steps into Razor Hill on its way out (0.4.2 route round).
+# The walk to Grommash Hold passes the city's own givers: Thatog and Borstan in the Valley of Strength,
+# Kor'geld in the Drag (his reeds grow in the Valley of Honor next door), Thra and Migi behind the hold.
+# Their quests are done on the way.
+step Valley of Strength
+  zone Orgrimmar
+  tip Orgrimmar's main gate is just west of Skull Rock. Thatog stands by the bank in the Valley of Strength; Borstan's Firepit is a few steps north.
+  accept 97246                        -- Thatog
+  turnin 97246                        -- Borstan
+  accept 97249
+
+step The Drag
+  zone Orgrimmar
+  tip On through the Drag: Kor'geld and Yelmak run the alchemy shop; Whuut is next door.
+  accept 97242                        -- Kor'geld
+
+step Valley of Honor
+  zone Orgrimmar
+  tip The cattails and speargrass grow along the water in the Valley of Honor, east of the Drag.
+  collect 277278 quest 97242.1
+  collect 277279 quest 97242.2
+
+step Kor'geld
+  zone Orgrimmar
+  turnin 97242
+  accept 97275                        -- Yelmak
+  turnin 97275                        -- Whuut
+
+step Thrall
+  zone Orgrimmar
+  tip Grommash Hold stands in the Valley of Wisdom at the end of the Drag: Thrall sits on his throne, Nazgrel stands beside the door.
+  accept 5726                         -- Thrall
+  turnin 831                          -- Nazgrel, in Grommash Hold: The Admiral's Orders
+
+step Valley of Wisdom
+  zone Orgrimmar
+  tip Thra and Migi sit behind Grommash Hold; the Smooth Boulders lie around them.
+  turnin 97249                        -- Migi
+  accept 97326                        -- Thra
+  collect 277952 quest 97326.1
+  turnin 97326
+
 step Back to Durotar
-  only Warlock
   zone Durotar
   goto 53.1,9.4 "Skull Rock"
 
@@ -599,6 +681,7 @@ step Skull Rock
   tip Burning Blade cultists hold the caves of Skull Rock; any of them drops a Searing Collar. Gazz'uz, a level 14 warlock, stands deep inside and drops the Eye of Burning Shadow.
   tip Careful: voidwalkers fight beside the Burning Blade cultists in Skull Rock and Gazz'uz (14) waits at the back with his own: pull one cultist at a time near the entrance for the collars. The Eye of Burning Shadow is optional: leave Gazz'uz unless you are 13 or have a friend.
   collect 4871 quest 827.1            -- Below ground
+  collect 14544 quest 5726.1          -- Lieutenant's Insignia, from the same cultists; below ground
   collect 4903 "Eye of Burning Shadow" optional -- Below ground
   accept 832 optional
 
@@ -613,13 +696,15 @@ step Margoz
   accept 829
 
 step Razor Hill
-  tip Back to Razor Hill.
+  only Hunter,Warrior
+  tip Back to Razor Hill: Thotar's next beast and Uzzek's road to Far Watch Post start here. Everyone else hands Threat from Below to Orgnil when the Barrens guide passes Razor Hill on its way out.
   turnin 99051                        -- Orgnil Soulscar
   turnin 6083 only Hunter             -- Thotar
   accept 6082 only Hunter
 
 step Razor Hill
   when group 99052
+  turnin 99051                        -- Orgnil Soulscar: Threat from Below, if not handed in yet
   accept 99052                        -- Orgnil Soulscar: Aggor the Young, an elite sea giant
 
 step Aggor the Young
@@ -636,7 +721,7 @@ step Armored Scorpid
   accept 6081                         -- Thotar: Ormak Grimshot in Orgrimmar teaches Beast Training
 
 step Far Watch Post
-  when onquest 840
+  only Warrior
   when onquest 1505
   zone The Barrens
   tip West from Razor Hill over the Southfury River bridge: Kargal Battlescar and Uzzek stand together at Far Watch Post above it. From there the road north through Durotar leads to Orgrimmar.
@@ -659,7 +744,7 @@ step Orgrimmar
 step Ormak Grimshot
   only Hunter
   zone Orgrimmar
-  tip Follow the road north from Far Watch Post to Orgrimmar's main gate, just west of Skull Rock. Ormak Grimshot stands with the hunter trainers in the Valley of Honor.
+  tip Head to Orgrimmar's main gate, just west of Skull Rock. Ormak Grimshot stands with the hunter trainers in the Valley of Honor.
   turnin 6081                         -- Ormak Grimshot: Beast Training
 
 step Hanashi
@@ -672,7 +757,7 @@ step Hanashi
 
 step To Orgrimmar
   zone Orgrimmar
-  tip Follow the road north from Far Watch Post to Orgrimmar's main gate. The next guide starts in Orgrimmar: Neeru Fireblade takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for Tirisfal Glades and Silverpine Forest. The Barrens come after Silverpine.
+  tip Head to Orgrimmar's main gate, just west of Skull Rock (Warriors: north along the road from Far Watch Post). The next guide starts in Orgrimmar: Neeru Fireblade takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for Tirisfal Glades and Silverpine Forest. The Barrens come after Silverpine.
   goto 55.6,72.3 "Orgrimmar's Valley of Strength"
 
 # Warlocks bind the voidwalker on this arrival in Orgrimmar, with Neeru Fireblade in the same Cleft of

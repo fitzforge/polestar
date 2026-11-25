@@ -17,9 +17,9 @@ return {
 
 	-- Step 2: The Venture Co. Mine
 	-- {zone:1412} Mulgore · {area:360} The Venture Co. Mine · {object:403041} Blasting Supplies (no name in this language: may be words)
-	["Ride down the lift and south-east across {zone:1412} to the {area:360}. Put on the disguise, then open the carts of {object:403041} inside the mine and on the slope outside it; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "乘升降梯下去，向东南穿过{zone:1412}前往{area:360}。穿上伪装，打开矿洞内以及洞外斜坡上的{object:403041}物资车；尽量留在上层，下层隧道怪物密集。共需五份炸药。",
+	["Ride down the lift and south-east across {zone:1412} to the {area:360}. Put on the disguise, then open the carts of {object:403041} inside the mine and on the slope outside it; stay on the upper levels where you can, the lower tunnels are packed. Five charges."] = "乘升降梯下去，向东南穿过{zone:1412}前往{area:360}。穿上伪装，打开矿洞内以及洞外斜坡上的爆破物资车；尽量留在上层，下层隧道怪物密集。共需五份炸药。",
 	-- {item:206157} Seaforium Mining Charge · {object:403041} Blasting Supplies (no name in this language: may be words)
-	["{item:206157}, from the {object:403041}"] = "{item:206157}，从{object:403041}取得",
+	["{item:206157}, from the {object:403041}"] = "{item:206157}，从爆破物资车取得",
 
 	-- Step 3: Boarton Shadetotem
 	-- {npc:205729} Boarton Shadetotem · {zone:1456} Thunder Bluff · {item:206176} Mortar and Pestle

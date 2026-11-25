@@ -13,15 +13,15 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "{skill:762} de oficial",
 	-- {npc:3690} Kar Stormsinger · {npc:3685} Harb Clawhoof · {area:222} Bloodhoof Village · {zone:1412} Mulgore · {skill:762} Riding · {faction:81} Thunder Bluff
-	["{npc:3690} and {npc:3685}'s kodos are in {area:222}, {zone:1412}. At 60 {npc:3690} teaches Journeyman {skill:762} to Tauren for 1,000g (10% less at Honored with {faction:81}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each great kodo costs 200g here."] = "",
+	["{npc:3690} and {npc:3685}'s kodos are in {area:222}, {zone:1412}. At 60 {npc:3690} teaches Journeyman {skill:762} to Tauren for 1,000g (10% less at Honored with {faction:81}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each great kodo costs 200g here."] = "Los kodos de {npc:3690} y {npc:3685} están en {area:222}, {zone:1412}. A nivel 60 {npc:3690} enseña {skill:762} de oficial a los tauren por 1000 de oro (un 10% menos con {faction:81} en Honor); Blizzard dice que viene con una montura. Las demás razas lo entrenan con el instructor de equitación de su raza. Cada kodo grande cuesta 200 de oro aquí.",
 	-- {npc:3690} Kar Stormsinger
 	["{npc:3690}, riding trainer"] = "{npc:3690}, instructor de equitación",
 
 	-- Step 2: Kodo Riding for other races
 	-- {spell:18995} Kodo Riding
-	["{spell:18995} for other races"] = "",
+	["{spell:18995} for other races"] = "{spell:18995} para otras razas",
 	-- {spell:18995} Kodo Riding · {skill:762} Riding · {npc:3690} Kar Stormsinger · {faction:81} Thunder Bluff
-	["Any Horde race can buy these kodos, but riding one also takes {spell:18995}, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "",
+	["Any Horde race can buy these kodos, but riding one also takes {spell:18995}, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "Cualquier raza de la Horda puede comprar estos kodos, pero montar uno también requiere {spell:18995}, que solo los tauren obtienen con {skill:762}. {npc:3690} lo enseña a las demás razas cuando son Exaltadas con {faction:81} (la guía de reputación de Cima del Trueno marca el camino). Hasta entonces, no compres un kodo para este personaje.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Elige un color",

@@ -76,6 +76,11 @@ the rules of the offer audit that fixed #1132 (`learn/offers.rs`):
   explains it handed in, same level), an unlock within 5 s of that hand-in, or present in every
   same-level unlock of two characters. Offered without it contradicts it: with that unlock evidence
   too, the prerequisite is a conflict.
+- "Our data's prerequisites" include those the last snapshot's trusted `notPre` and `notPreAny`
+  took out (`--data` is often a build that applied them): they are judged again on the recordings,
+  so learning over corrected data keeps the facts the build applied instead of dropping them (and
+  letting the next build put the prerequisites back, #3359). A quest whose prerequisites a
+  correction sets keeps the correction's.
 - Minimum level: the lowest offered level bounds it from above, the highest level refused with every
   required quest done (below that) from below. It is learned when the two meet; when the bounds only
   show our data's level is wrong, the report lists it with the bounds. A quest that also needs a
@@ -117,6 +122,15 @@ fact: `value`, `voters` (all players who recorded it, EG Link's as one), `counte
 behind it), `status`, `builds` (first and last client build it was seen on), `beats` (the source it
 agreed with or replaced). `list` is the game's own objective list. No contributor, cohort or
 character id is in it: counts only.
+
+`data/recorded/escorts.json` (commit it), one quest per line: how players' runs of an escort or
+event quest went, from the Recorder's `escort` records (on to off) and the quest's `complete` or
+`fail` from its start to 15 s after it ended. `seconds`: the median time a completed run took (each
+counted voter's median, then the median of those); `failed`: the share of the counted voters' runs
+whose end is known that failed; `runs`, `voters`, `counted`, `builds` as above; `status` trusted from
+`minVoters` counted voters with a completed run, else gap. `forge guide compile` puts a trusted
+one's time and failures on the escort's accept (`escortSecs`, `escortFail`: the Do it / Skip question,
+GUIDE_FORMAT.md, "Escort quests", #3439).
 
 `data/recorded/meta.json`: the run's `scope`, the archive's revision (a hash of its session files),
 sessions used and left out, voters and counted voters, people merged, the verdicts' date, the data

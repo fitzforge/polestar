@@ -55,8 +55,8 @@ return {
 	["What {item:2581} takes that the Auction House sells: 92 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {item:2581} и продается на аукционе: 92 {item:2589}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 11: Heavy Linen Bandage (50-80)
-	-- {item:2581} Heavy Linen Bandage · {item:858} Lesser Healing Potion · {item:2450} Briarthorn · {item:2678} Mild Spices · {item:3371} Empty Vial
-	["{item:2581} is yellow from 50 (yellow at 50, green at 75, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere. Herbalists: {item:858} (from 55, 1s 50c; {item:2450}, two {item:2678} and an {item:3371}) is orange to 85."] = "{item:2581} — желтый с 50 (желтый с 50, зеленый с 75, серый с 100): около 46 изготовлений до 80. Бинтам не нужен огонь: делайте их где угодно. Травникам: {item:858} (с 55, 1с 50м; {item:2450}, два {item:2678} и {item:3371}) — оранжевый до 85.",
+	-- {item:2581} Heavy Linen Bandage · {skill:129} First Aid · {item:858} Lesser Healing Potion · {item:2450} Briarthorn · {item:2678} Mild Spices · {item:3371} Empty Vial
+	["{item:2581} is yellow from 50 (yellow at 50, green at 75, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: any {skill:129} trainer of your faction teaches it for 1s; the arrow picks the nearest. Herbalists: {item:858} (from 55, 1s 50c; {item:2450}, two {item:2678} and an {item:3371}) is orange to 85."] = "{item:2581}: желтые с 50 (желтые на 50, зеленые на 75, серые на 100): около 46 изготовлений до 80. Бинтам не нужен огонь: делайте их где угодно. Если вы дошли сюда, не выучив их, выучите сейчас: любой учитель навыка «{skill:129}» вашей фракции учит за 1с; стрелка выбирает ближайшего. Травникам: {item:858} (с 55, 1с 50м; {item:2450}, два {item:2678} и {item:3371}) оранжевое до 85.",
 
 	-- Step 12: Wool Bandage: Auction House
 	-- {spell:3277} Wool Bandage
@@ -101,8 +101,8 @@ return {
 	["What {spell:3278} takes that the Auction House sells: 76 {item:2592}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {spell:3278} и продается на аукционе: 76 {item:2592}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 21: Heavy Wool Bandage (125-150)
-	-- {spell:3278} Heavy Wool Bandage
-	["{spell:3278} is yellow from 125 (yellow at 115, green at 150, grey at 185): about 38 crafts to 150. Bandages need no fire: craft them anywhere."] = "{spell:3278} — желтый с 125 (желтый с 115, зеленый с 150, серый с 185): около 38 изготовлений до 150. Бинтам не нужен огонь: делайте их где угодно.",
+	-- {spell:3278} Heavy Wool Bandage · {skill:129} First Aid
+	["{spell:3278} is yellow from 125 (yellow at 115, green at 150, grey at 185): about 38 crafts to 150. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: any {skill:129} trainer of your faction teaches it for 10s; the arrow picks the nearest."] = "{spell:3278}: желтые с 125 (желтые на 115, зеленые на 150, серые на 185): около 38 изготовлений до 150. Бинтам не нужен огонь: делайте их где угодно. Если вы дошли сюда, не выучив их, выучите сейчас: любой учитель навыка «{skill:129}» вашей фракции учит за 10с; стрелка выбирает ближайшего.",
 
 	-- Step 22: Silk Bandage: Auction House
 	-- {item:6450} Silk Bandage
@@ -131,8 +131,8 @@ return {
 	["{item:6451}: cloth"] = "{item:6451}: ткань",
 
 	-- Step 27: Heavy Silk Bandage (180-210)
-	-- {item:6451} Heavy Silk Bandage
-	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere."] = "{item:6451} — желтый с 180 (желтый с 180, зеленый с 210, серый с 240): около 42 изготовлений до 210. Бинтам не нужен огонь: делайте их где угодно.",
+	-- {item:6451} Heavy Silk Bandage · {item:16112} Manual: Heavy Silk Bandage · {skill:129} First Aid
+	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere. Read the {item:16112} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "{item:6451}: желтые с 180 (желтые на 180, зеленые на 210, серые на 240): около 42 изготовлений до 210. Бинтам не нужен огонь: делайте их где угодно. Прочтите {item:16112}, купленное вместе с книгой эксперта по навыку «{skill:129}», чтобы выучить их; если его нет, его продает тот же торговец, что продал вам книгу.",
 
 	-- Step 28: Mageweave Bandage: Auction House
 	-- {item:8544} Mageweave Bandage
@@ -147,8 +147,8 @@ return {
 	["{item:4338} drops from humanoids of level 35-50: keep what you loot as you level, or take it from your bank."] = "{item:4338} падает с гуманоидов 35-50 уровня: сохраняйте то, что добываете при прокачке или берите из банка.",
 
 	-- Step 30: Mageweave Bandage (210-225)
-	-- {item:8544} Mageweave Bandage
-	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere."] = "{item:8544} — желтый с 210 (желтый с 210, зеленый с 240, серый с 270): около 18 изготовлений до 225. Бинтам не нужен огонь: делайте их где угодно.",
+	-- {item:8544} Mageweave Bandage · {item:16113} Manual: Mageweave Bandage · {skill:129} First Aid
+	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere. Read the {item:16113} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "{item:8544}: желтые с 210 (желтые на 210, зеленые на 240, серые на 270): около 18 изготовлений до 225. Бинтам не нужен огонь: делайте их где угодно. Прочтите {item:16113}, купленное вместе с книгой эксперта по навыку «{skill:129}», чтобы выучить их; если его нет, его продает тот же торговец, что продал вам книгу.",
 
 	-- Step 31: Trauma
 	["Trauma"] = "Травма",
@@ -176,9 +176,9 @@ return {
 	["What {item:8544} takes that the Auction House sells: 24 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {item:8544} и продается на аукционе: 24 {item:4338}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 37: Mageweave Bandage (225-240)
-	-- {item:8544} Mageweave Bandage
+	-- {item:8544} Mageweave Bandage · {item:16113} Manual: Mageweave Bandage · {skill:129} First Aid
 	-- plural, as words: Mageweave Bandages = {item:8544} Mageweave Bandage
-	["{item:8544} is yellow from 225 (yellow at 210, green at 240, grey at 270): about 24 crafts to 240. Bandages need no fire: craft them anywhere. {item:8544} turns green at 240: switch to Heavy Mageweave there, which costs less cloth than green Mageweave Bandages to 260."] = "{item:8544} — желтый с 225 (желтый с 210, зеленый с 240, серый с 270): около 24 изготовлений до 240. Бинтам не нужен огонь: делайте их где угодно. {item:8544} зеленеет на 240: переходите на плотные бинты из магической ткани — до 260 они требуют меньше ткани, чем зеленые бинты из магической ткани.",
+	["{item:8544} is yellow from 225 (yellow at 210, green at 240, grey at 270): about 24 crafts to 240. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: read the {item:16113} (the vendor who sold you the Expert {skill:129} book sells it). {item:8544} turns green at 240: switch to Heavy Mageweave there, which costs less cloth than green Mageweave Bandages to 260."] = "{item:8544}: желтые с 225 (желтые на 210, зеленые на 240, серые на 270): около 24 изготовлений до 240. Бинтам не нужен огонь: делайте их где угодно. Если вы дошли сюда, не выучив их, выучите сейчас: прочтите {item:16113} (его продает тот же торговец, что продал вам книгу эксперта по навыку «{skill:129}»). {item:8544} зеленеют на 240: там переходите на «Плотные бинты из магической ткани», которые до 260 требуют меньше ткани, чем зеленые бинты из магической ткани.",
 
 	-- Step 38: Heavy Mageweave Bandage
 	-- {spell:10841} Heavy Mageweave Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall
@@ -195,8 +195,8 @@ return {
 	["{item:8545}: cloth"] = "{item:8545}: ткань",
 
 	-- Step 41: Heavy Mageweave Bandage (240-260)
-	-- {item:8545} Heavy Mageweave Bandage
-	["{item:8545} is yellow from 240 (yellow at 240, green at 270, grey at 300): about 25 crafts to 260. Bandages need no fire: craft them anywhere."] = "{item:8545} — желтый с 240 (желтый с 240, зеленый с 270, серый с 300): около 25 изготовлений до 260. Бинтам не нужен огонь: делайте их где угодно.",
+	-- {item:8545} Heavy Mageweave Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall
+	["{item:8545} is yellow from 240 (yellow at 240, green at 270, grey at 300): about 25 crafts to 260. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "{item:8545}: желтые с 240 (желтые на 240, зеленые на 270, серые на 300): около 25 изготовлений до 260. Бинтам не нужен огонь: делайте их где угодно. Если вы дошли сюда, не выучив их, выучите сейчас: учит только врач из задания {quest:6622} ({npc:12939} на Тераморе, {npc:12920} в месте {area:321}).",
 
 	-- Step 42: Runecloth Bandage
 	-- {spell:18629} Runecloth Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall
@@ -215,8 +215,8 @@ return {
 	["{item:14047} drops from humanoids of level 45-60: keep what you loot as you level, or take it from your bank."] = "{item:14047} падает с гуманоидов 45-60 уровня: сохраняйте то, что добываете при прокачке или берите из банка.",
 
 	-- Step 45: Runecloth Bandage (260-300)
-	-- {item:14529} Runecloth Bandage · {item:14047} Runecloth · {item:14530} Heavy Runecloth Bandage
-	["{item:14529} is yellow from 260 (yellow at 260, green at 290, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. {item:14529} turns green at 290, yet to 300 it takes about the same {item:14047} as switching to {item:14530} (the doctor teaches it at 290): one recipe is enough."] = "{item:14529} — желтый с 260 (желтый с 260, зеленый с 290, серый с 320): около 65 изготовлений до 300. Бинтам не нужен огонь: делайте их где угодно. {item:14529} зеленеет на 290, но до 300 уходит примерно столько же ткани ({item:14047}), сколько при переходе на {item:14530} (доктор обучает на 290): хватит одного рецепта.",
+	-- {item:14529} Runecloth Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall · {item:14047} Runecloth · {item:14530} Heavy Runecloth Bandage
+	["{item:14529} is yellow from 260 (yellow at 260, green at 290, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321}). {item:14529} turns green at 290, yet to 300 it takes about the same {item:14047} as switching to {item:14530} (the doctor teaches it at 290): one recipe is enough."] = "{item:14529}: желтые с 260 (желтые на 260, зеленые на 290, серые на 320): около 65 изготовлений до 300. Бинтам не нужен огонь: делайте их где угодно. Если вы дошли сюда, не выучив их, выучите сейчас: учит только врач из задания {quest:6622} ({npc:12939} на Тераморе, {npc:12920} в месте {area:321}). {item:14529} зеленеют на 290, но до 300 они требуют примерно столько же {item:14047}, сколько переход на {item:14530} (врач учит их на 290): достаточно одного рецепта.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (character level 5); the arrow picks the nearest."] = "Любой учитель профессии «{skill:129}» вашей фракции обучает уровню «Ученик» ({skill:129}; 5-й уровень персонажа); стрелка выбирает ближайшего.",
@@ -232,15 +232,22 @@ return {
 	-- ["humanoids of level 45-60 drop {item:14047} (or buy it at the Auction House)."] = "с гуманоидов 45-60 уровня падает {item:14047} (или купите на аукционе).",
 	-- ["humanoids of level 5-20 drop {item:2589} (or buy it at the Auction House)."] = "с гуманоидов 5-20 уровня падает {item:2589} (или купите на аукционе).",
 	-- ["{item:1251} is orange from 1 (yellow at 30, grey at 60): about 61 crafts to 50. Bandages need no fire: craft them anywhere."] = "{item:1251} — оранжевый с 1 (желтый с 30, серый с 60): примерно 61 изготовление до 50. Для бинтов не нужен огонь: делайте их где угодно.",
+	-- ["{item:14529} is yellow from 260 (yellow at 260, green at 290, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. {item:14529} turns green at 290, yet to 300 it takes about the same {item:14047} as switching to {item:14530} (the doctor teaches it at 290): one recipe is enough."] = "{item:14529} — желтый с 260 (желтый с 260, зеленый с 290, серый с 320): около 65 изготовлений до 300. Бинтам не нужен огонь: делайте их где угодно. {item:14529} зеленеет на 290, но до 300 уходит примерно столько же ткани ({item:14047}), сколько при переходе на {item:14530} (доктор обучает на 290): хватит одного рецепта.",
 	-- ["{item:14529} is yellow from 260 (yellow at 260, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. {item:14529} stays yellow to 320, so it carries you to 300 without a trip for Heavy Runecloth."] = "{item:14529}: желтый с 260 (желтый с 260, серый с 320) – около 65 изготовлений до 300. Бинтам не нужен огонь: делайте их где угодно. {item:14529} остается желтым до 320, так что доведет вас до 300 без похода за плотными бинтами из рунной ткани.",
+	-- ["{item:2581} is yellow from 50 (yellow at 50, green at 75, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere. Herbalists: {item:858} (from 55, 1s 50c; {item:2450}, two {item:2678} and an {item:3371}) is orange to 85."] = "{item:2581} — желтый с 50 (желтый с 50, зеленый с 75, серый с 100): около 46 изготовлений до 80. Бинтам не нужен огонь: делайте их где угодно. Травникам: {item:858} (с 55, 1с 50м; {item:2450}, два {item:2678} и {item:3371}) — оранжевый до 85.",
 	-- ["{item:2581} is yellow from 50 (yellow at 50, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere."] = "{item:2581} — желтый с 50 (желтый с 50, серый с 100): примерно 46 изготовлений до 80. Для бинтов не нужен огонь: делайте их где угодно.",
 	-- ["{item:6450} is yellow from 150 (yellow at 150, grey at 210): about 42 crafts to 180. Bandages need no fire: craft them anywhere."] = "{item:6450} — желтый с 150 (желтый с 150, серый с 210): примерно 42 изготовлений до 180. Для бинтов не нужен огонь: делайте их где угодно.",
+	-- ["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere."] = "{item:6451} — желтый с 180 (желтый с 180, зеленый с 210, серый с 240): около 42 изготовлений до 210. Бинтам не нужен огонь: делайте их где угодно.",
 	-- ["{item:6451} is yellow from 180 (yellow at 180, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere."] = "{item:6451} — желтый с 180 (желтый с 180, серый с 240): примерно 42 изготовлений до 210. Для бинтов не нужен огонь: делайте их где угодно.",
+	-- ["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere."] = "{item:8544} — желтый с 210 (желтый с 210, зеленый с 240, серый с 270): около 18 изготовлений до 225. Бинтам не нужен огонь: делайте их где угодно.",
 	-- ["{item:8544} is yellow from 210 (yellow at 210, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere."] = "{item:8544} — желтый с 210 (желтый с 210, серый с 270): примерно 18 изготовлений до 225. Для бинтов не нужен огонь: делайте их где угодно.",
+	-- ["{item:8544} is yellow from 225 (yellow at 210, green at 240, grey at 270): about 24 crafts to 240. Bandages need no fire: craft them anywhere. {item:8544} turns green at 240: switch to Heavy Mageweave there, which costs less cloth than green Mageweave Bandages to 260."] = "{item:8544} — желтый с 225 (желтый с 210, зеленый с 240, серый с 270): около 24 изготовлений до 240. Бинтам не нужен огонь: делайте их где угодно. {item:8544} зеленеет на 240: переходите на плотные бинты из магической ткани — до 260 они требуют меньше ткани, чем зеленые бинты из магической ткани.",
 	-- ["{item:8544} is yellow from 225 (yellow at 210, grey at 270): about 88 crafts to 260. Bandages need no fire: craft them anywhere. {item:8544} stays yellow to 270; one recipe to 260 saves two trips to the doctor."] = "{item:8544} — желтый с 225 (желтый с 210, серый с 270): примерно 88 изготовлений до 260. Для бинтов не нужен огонь: делайте их где угодно. {item:8544} остается желтым до 270; одного рецепта до 260 хватает, чтобы не ездить к доктору дважды.",
+	-- ["{item:8545} is yellow from 240 (yellow at 240, green at 270, grey at 300): about 25 crafts to 260. Bandages need no fire: craft them anywhere."] = "{item:8545} — желтый с 240 (желтый с 240, зеленый с 270, серый с 300): около 25 изготовлений до 260. Бинтам не нужен огонь: делайте их где угодно.",
 	-- ["{quest:6622}: treat the wounded soldiers in the doctor's tent with the bandages the doctor gives you, the most critical first, before any of them die."] = "{quest:6622}: лечите раненых солдат в палатке доктора выданными бинтами, сначала самых тяжелых, пока никто не умер.",
 	-- ["{quest:6624}: treat the wounded soldiers in the doctor's tent with the bandages the doctor gives you, the most critical first, before any of them die."] = "{quest:6624}: лечите раненых солдат в палатке доктора выданными бинтами, сначала самых тяжелых, пока никто не умер.",
 	-- ["{spell:3277} is yellow from 80 (yellow at 80, grey at 150): about 49 crafts to 115. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it; the arrow picks the nearest."] = "{spell:3277} — желтый с 80 (желтый с 80, серый с 150): примерно 49 изготовлений до 115. Для бинтов не нужен огонь: делайте их где угодно. Ему обучает любой учитель профессии «{skill:129}» вашей фракции; стрелка выбирает ближайшего.",
 	-- ["{spell:3278} is yellow from 115 (yellow at 115, grey at 185): about 11 crafts to 125. Bandages need no fire: craft them anywhere."] = "{spell:3278} — желтый с 115 (желтый с 115, серый с 185): примерно 11 изготовлений до 125. Для бинтов не нужен огонь: делайте их где угодно.",
+	-- ["{spell:3278} is yellow from 125 (yellow at 115, green at 150, grey at 185): about 38 crafts to 150. Bandages need no fire: craft them anywhere."] = "{spell:3278} — желтый с 125 (желтый с 115, зеленый с 150, серый с 185): около 38 изготовлений до 150. Бинтам не нужен огонь: делайте их где угодно.",
 	-- ["{spell:3278} is yellow from 125 (yellow at 115, grey at 185): about 38 crafts to 150. Bandages need no fire: craft them anywhere."] = "{spell:3278} — желтый с 125 (желтый с 115, серый с 185): примерно 38 изготовлений до 150. Для бинтов не нужен огонь: делайте их где угодно.",
 }

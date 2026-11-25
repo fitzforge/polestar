@@ -17,7 +17,7 @@ return {
 	-- {skill:171} Alchemy
 	["{skill:171} 1-75: vendor goods"] = "{skill:171} 1-75：商人貨物",
 	-- {item:3371} Empty Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "一次買齊本階段的用量：82個 {item:3371}（3銀28銅）；總計約3銀28銅。箭頭會指向本陣營最近的商人（{zone:1453}：{npc:1286}、{npc:5503} 和 {npc:1325}；{zone:1454}：{npc:3367}、{npc:3348} 和 {npc:3334}）。",
 
 	-- Step 3: Alchemy 1-75: Auction House
 	-- {skill:171} Alchemy
@@ -27,59 +27,59 @@ return {
 
 	-- Step 4: Silverleaf (Elwynn Forest)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1429} Elwynn Forest
-	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1429} is marked."] = "",
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1429} is marked."] = "準備82個{item:765}製作{item:5997}：{skill:182}：採集{item:765}（技能1）。已標記{zone:1429}中{item:765}最密集的位置。",
 
 	-- Step 5: Silverleaf (Dun Morogh)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1426} Dun Morogh
-	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1426} is marked."] = "",
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1426} is marked."] = "準備82個{item:765}製作{item:5997}：{skill:182}：採集{item:765}（技能1）。已標記{zone:1426}中{item:765}最密集的位置。",
 
 	-- Step 6: Silverleaf (Teldrassil)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1438} Teldrassil
-	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1438} is marked."] = "",
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1438} is marked."] = "準備82個{item:765}製作{item:5997}：{skill:182}：採集{item:765}（技能1）。已標記{zone:1438}中{item:765}最密集的位置。",
 
 	-- Step 7: Silverleaf (Zephras Isle)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:2521} Zephras Isle
-	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:2521} is marked."] = "",
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:2521} is marked."] = "準備82個{item:765}製作{item:5997}：{skill:182}：採集{item:765}（技能1）。已標記{zone:2521}中{item:765}最密集的位置。",
 
 	-- Step 8: Silverleaf (Durotar)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1411} Durotar
-	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1411} is marked."] = "",
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1411} is marked."] = "準備82個{item:765}製作{item:5997}：{skill:182}：採集{item:765}（技能1）。已標記{zone:1411}中{item:765}最密集的位置。",
 
 	-- Step 9: Silverleaf (Mulgore)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1412} Mulgore
-	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1412} is marked."] = "",
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1412} is marked."] = "準備82個{item:765}製作{item:5997}：{skill:182}：採集{item:765}（技能1）。已標記{zone:1412}中{item:765}最密集的位置。",
 
 	-- Step 10: Silverleaf (Tirisfal Glades)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1420} Tirisfal Glades
-	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1420} is marked."] = "",
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1420} is marked."] = "準備82個{item:765}製作{item:5997}：{skill:182}：採集{item:765}（技能1）。已標記{zone:1420}中{item:765}最密集的位置。",
 
 	-- Step 11: Peacebloom (Elwynn Forest)
 	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1429} Elwynn Forest
-	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1429} is marked."] = "",
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1429} is marked."] = "準備 110 個 {item:2447}，用於 {item:5997} 和 {spell:2331}（75-150 階段需要其中 28 個，現在一併採齊）：透過 {skill:182} 採集 {item:2447}（技能 1）。已標記 {zone:1429} 中 {item:2447} 最密集的區域。",
 
 	-- Step 12: Peacebloom (Dun Morogh)
 	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1426} Dun Morogh
-	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1426} is marked."] = "",
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1426} is marked."] = "準備 110 個 {item:2447}，用於 {item:5997} 和 {spell:2331}（75-150 階段需要其中 28 個，現在一併採齊）：透過 {skill:182} 採集 {item:2447}（技能 1）。已標記 {zone:1426} 中 {item:2447} 最密集的區域。",
 
 	-- Step 13: Peacebloom (Teldrassil)
 	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1438} Teldrassil
-	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1438} is marked."] = "",
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1438} is marked."] = "準備 110 個 {item:2447}，用於 {item:5997} 和 {spell:2331}（75-150 階段需要其中 28 個，現在一併採齊）：透過 {skill:182} 採集 {item:2447}（技能 1）。已標記 {zone:1438} 中 {item:2447} 最密集的區域。",
 
 	-- Step 14: Peacebloom (Zephras Isle)
 	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:2521} Zephras Isle
-	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:2521} is marked."] = "",
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:2521} is marked."] = "準備 110 個 {item:2447}，用於 {item:5997} 和 {spell:2331}（75-150 階段需要其中 28 個，現在一併採齊）：透過 {skill:182} 採集 {item:2447}（技能 1）。已標記 {zone:2521} 中 {item:2447} 最密集的區域。",
 
 	-- Step 15: Peacebloom (Durotar)
 	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1411} Durotar
-	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1411} is marked."] = "",
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1411} is marked."] = "準備 110 個 {item:2447}，用於 {item:5997} 和 {spell:2331}（75-150 階段需要其中 28 個，現在一併採齊）：透過 {skill:182} 採集 {item:2447}（技能 1）。已標記 {zone:1411} 中 {item:2447} 最密集的區域。",
 
 	-- Step 16: Peacebloom (Mulgore)
 	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1412} Mulgore
-	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1412} is marked."] = "",
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1412} is marked."] = "準備 110 個 {item:2447}，用於 {item:5997} 和 {spell:2331}（75-150 階段需要其中 28 個，現在一併採齊）：透過 {skill:182} 採集 {item:2447}（技能 1）。已標記 {zone:1412} 中 {item:2447} 最密集的區域。",
 
 	-- Step 17: Peacebloom (Tirisfal Glades)
 	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1420} Tirisfal Glades
-	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1420} is marked."] = "",
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1420} is marked."] = "準備 110 個 {item:2447}，用於 {item:5997} 和 {spell:2331}（75-150 階段需要其中 28 個，現在一併採齊）：透過 {skill:182} 採集 {item:2447}（技能 1）。已標記 {zone:1420} 中 {item:2447} 最密集的區域。",
 
 	-- Step 18: Elixir of Minor Defense to 75
 	-- {item:5997} Elixir of Minor Defense
@@ -97,7 +97,7 @@ return {
 	-- {skill:171} Alchemy
 	["{skill:171} 75-150: vendor goods"] = "{skill:171} 75-150：商人貨物",
 	-- {item:3371} Empty Vial · {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 77 {item:3371} (3s 8c) and 15 {item:3372} (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 77 {item:3371} (3s 8c) and 15 {item:3372} (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "一次買齊整個技能階段所需的份量：77 個 {item:3371}（3 銀 8 銅）和 15 個 {item:3372}（6 銀）；合計約 9 銀 8 銅。箭頭會選擇離你最近的本陣營商人（{zone:1453}：{npc:1286}、{npc:5503} 和 {npc:1325}；{zone:1454}：{npc:3367}、{npc:3348} 和 {npc:3334}）。",
 
 	-- Step 21: Alchemy 75-150: Auction House
 	-- {skill:171} Alchemy
@@ -107,67 +107,67 @@ return {
 
 	-- Step 22: Mageroyal (Westfall)
 	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1436} Westfall
-	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1436} is marked."] = "",
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1436} is marked."] = "為 {spell:2331} 和 {spell:3171} 準備77份 {item:785}：{skill:182}：採集 {item:785}（技能50）。已標記 {zone:1436} 中 {item:785} 最密集的區域。",
 
 	-- Step 23: Mageroyal (Loch Modan)
 	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1432} Loch Modan
-	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1432} is marked."] = "",
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1432} is marked."] = "為 {spell:2331} 和 {spell:3171} 準備77份 {item:785}：{skill:182}：採集 {item:785}（技能50）。已標記 {zone:1432} 中 {item:785} 最密集的區域。",
 
 	-- Step 24: Mageroyal (Teldrassil)
 	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1438} Teldrassil
-	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1438} is marked."] = "",
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1438} is marked."] = "為 {spell:2331} 和 {spell:3171} 準備77份 {item:785}：{skill:182}：採集 {item:785}（技能50）。已標記 {zone:1438} 中 {item:785} 最密集的區域。",
 
 	-- Step 25: Mageroyal (Zephras Isle)
 	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:2521} Zephras Isle
-	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:2521} is marked."] = "",
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:2521} is marked."] = "為 {spell:2331} 和 {spell:3171} 準備77份 {item:785}：{skill:182}：採集 {item:785}（技能50）。已標記 {zone:2521} 中 {item:785} 最密集的區域。",
 
 	-- Step 26: Mageroyal (The Barrens)
 	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1413} The Barrens
-	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1413} is marked."] = "",
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1413} is marked."] = "為 {spell:2331} 和 {spell:3171} 準備77份 {item:785}：{skill:182}：採集 {item:785}（技能50）。已標記 {zone:1413} 中 {item:785} 最密集的區域。",
 
 	-- Step 27: Mageroyal (Silverpine Forest)
 	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1421} Silverpine Forest
-	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1421} is marked."] = "",
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1421} is marked."] = "為 {spell:2331} 和 {spell:3171} 準備77份 {item:785}：{skill:182}：採集 {item:785}（技能50）。已標記 {zone:1421} 中 {item:785} 最密集的區域。",
 
 	-- Step 28: Briarthorn (Westfall)
 	-- {item:2450} Briarthorn · {spell:3171} Elixir of Wisdom · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1436} Westfall
-	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1436} is marked."] = "",
+	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1436} is marked."] = "為{spell:3171}和{spell:3176}準備152個{item:2450}（其中24個用於150-225階段：現在一次採齊）：透過{skill:182}採集{item:2450}（需要技能70）。已標記{zone:1436}中{item:2450}最密集的區域。",
 
 	-- Step 29: Briarthorn (Loch Modan)
 	-- {item:2450} Briarthorn · {spell:3171} Elixir of Wisdom · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1432} Loch Modan
-	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1432} is marked."] = "",
+	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1432} is marked."] = "為{spell:3171}和{spell:3176}準備152個{item:2450}（其中24個用於150-225階段：現在一次採齊）：透過{skill:182}採集{item:2450}（需要技能70）。已標記{zone:1432}中{item:2450}最密集的區域。",
 
 	-- Step 30: Briarthorn (Darkshore)
 	-- {item:2450} Briarthorn · {spell:3171} Elixir of Wisdom · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1439} Darkshore
-	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1439} is marked."] = "",
+	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1439} is marked."] = "為{spell:3171}和{spell:3176}準備152個{item:2450}（其中24個用於150-225階段：現在一次採齊）：透過{skill:182}採集{item:2450}（需要技能70）。已標記{zone:1439}中{item:2450}最密集的區域。",
 
 	-- Step 31: Briarthorn (The Barrens)
 	-- {item:2450} Briarthorn · {spell:3171} Elixir of Wisdom · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1413} The Barrens
-	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1413} is marked."] = "",
+	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1413} is marked."] = "為{spell:3171}和{spell:3176}準備152個{item:2450}（其中24個用於150-225階段：現在一次採齊）：透過{skill:182}採集{item:2450}（需要技能70）。已標記{zone:1413}中{item:2450}最密集的區域。",
 
 	-- Step 32: Briarthorn (Silverpine Forest)
 	-- {item:2450} Briarthorn · {spell:3171} Elixir of Wisdom · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1421} Silverpine Forest
-	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1421} is marked."] = "",
+	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1421} is marked."] = "為{spell:3171}和{spell:3176}準備152個{item:2450}（其中24個用於150-225階段：現在一次採齊）：透過{skill:182}採集{item:2450}（需要技能70）。已標記{zone:1421}中{item:2450}最密集的區域。",
 
 	-- Step 33: Bruiseweed (Westfall)
 	-- {item:2453} Bruiseweed · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1436} Westfall
-	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1436} is marked."] = "",
+	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1436} is marked."] = "為 {spell:3176} 準備54株 {item:2453}（其中24株用於150-225階段：現在就全部採好）：{skill:182}：採集 {item:2453}（技能100）。已標出 {zone:1436} 中 {item:2453} 最密集的區域。",
 
 	-- Step 34: Bruiseweed (Loch Modan)
 	-- {item:2453} Bruiseweed · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1432} Loch Modan
-	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1432} is marked."] = "",
+	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1432} is marked."] = "為 {spell:3176} 準備54株 {item:2453}（其中24株用於150-225階段：現在就全部採好）：{skill:182}：採集 {item:2453}（技能100）。已標出 {zone:1432} 中 {item:2453} 最密集的區域。",
 
 	-- Step 35: Bruiseweed (Darkshore)
 	-- {item:2453} Bruiseweed · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1439} Darkshore
-	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1439} is marked."] = "",
+	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1439} is marked."] = "為 {spell:3176} 準備54株 {item:2453}（其中24株用於150-225階段：現在就全部採好）：{skill:182}：採集 {item:2453}（技能100）。已標出 {zone:1439} 中 {item:2453} 最密集的區域。",
 
 	-- Step 36: Bruiseweed (The Barrens)
 	-- {item:2453} Bruiseweed · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1413} The Barrens
-	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1413} is marked."] = "",
+	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1413} is marked."] = "為 {spell:3176} 準備54株 {item:2453}（其中24株用於150-225階段：現在就全部採好）：{skill:182}：採集 {item:2453}（技能100）。已標出 {zone:1413} 中 {item:2453} 最密集的區域。",
 
 	-- Step 37: Bruiseweed (Silverpine Forest)
 	-- {item:2453} Bruiseweed · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1421} Silverpine Forest
-	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1421} is marked."] = "",
+	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1421} is marked."] = "為 {spell:3176} 準備54株 {item:2453}（其中24株用於150-225階段：現在就全部採好）：{skill:182}：採集 {item:2453}（技能100）。已標出 {zone:1421} 中 {item:2453} 最密集的區域。",
 
 	-- Step 38: Minor Mana Potion to 90
 	-- {spell:2331} Minor Mana Potion
@@ -203,7 +203,7 @@ return {
 	-- {skill:171} Alchemy
 	["{skill:171} 150-225: vendor goods"] = "{skill:171} 150-225：商人貨物",
 	-- {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "一次買齊本階段所需：83個{item:3372}（33銀20銅）；總計約33銀20銅。箭頭指向本陣營最近的出售者（{zone:1453}：{npc:1286}、{npc:5503}和{npc:1325}；{zone:1454}：{npc:3367}、{npc:3348}和{npc:3334}）。",
 
 	-- Step 44: Alchemy 150-225: Auction House
 	-- {skill:171} Alchemy
@@ -215,49 +215,49 @@ return {
 	-- {object:1623} Wild Steelbloom
 	["{object:1623} (Alliance)"] = "{object:1623}（聯盟）",
 	-- {object:1623} Wild Steelbloom · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1442} Stonetalon Mountains · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
-	["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1434} is marked."] = "",
+	["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1434} is marked."] = "為 {item:8951} 準備 40 個 {object:1623}（其中 8 個用於 225-300 階段：現在一併採齊）：透過 {skill:182} 在 {zone:1442}（15-27 級）、{zone:1417}（30-40 級）和 {zone:1434}（30-45 級）採集 {object:1623}（技能 115）。已標記 {zone:1434} 中 {object:1623} 最密集的區域。",
 
 	-- Step 46: Wild Steelbloom (Horde)
 	-- {object:1623} Wild Steelbloom
 	["{object:1623} (Horde)"] = "{object:1623}（部落）",
 	-- {object:1623} Wild Steelbloom · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1442} Stonetalon Mountains · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
-	["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1442} is marked."] = "",
+	["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1442} is marked."] = "為 {item:8951} 準備 40 個 {object:1623}（其中 8 個用於 225-300 階段：現在一併採齊）：透過 {skill:182} 在 {zone:1442}（15-27 級）、{zone:1417}（30-40 級）和 {zone:1434}（30-45 級）採集 {object:1623}（技能 115）。已標記 {zone:1442} 中 {object:1623} 最密集的區域。",
 
 	-- Step 47: Kingsblood (Alliance)
 	-- {item:3356} Kingsblood
 	["{item:3356} (Alliance)"] = "{item:3356}（聯盟）",
 	-- {item:3356} Kingsblood · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1440} Ashenvale · {zone:1437} Wetlands · {zone:1434} Stranglethorn Vale
-	["39 {item:3356} for {spell:3452}: {skill:182}: {item:3356} (skill 125) in {zone:1440} (18-30), {zone:1437} (20-30) and {zone:1434} (30-45). The densest patch of {item:3356} in {zone:1434} is marked."] = "",
+	["39 {item:3356} for {spell:3452}: {skill:182}: {item:3356} (skill 125) in {zone:1440} (18-30), {zone:1437} (20-30) and {zone:1434} (30-45). The densest patch of {item:3356} in {zone:1434} is marked."] = "為 {spell:3452} 準備 39 個 {item:3356}：透過 {skill:182} 採集 {zone:1440}（18-30 級）、{zone:1437}（20-30 級）和 {zone:1434}（30-45 級）的 {item:3356}（需要技能 125）。已標記 {zone:1434} 中 {item:3356} 最密集的區域。",
 
 	-- Step 48: Kingsblood (Horde)
 	-- {item:3356} Kingsblood
 	["{item:3356} (Horde)"] = "{item:3356}（部落）",
 	-- {item:3356} Kingsblood · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1434} Stranglethorn Vale
-	["39 {item:3356} for {spell:3452}: {skill:182}: {item:3356} (skill 125) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1434} (30-45). The densest patch of {item:3356} in {zone:1413} is marked."] = "",
+	["39 {item:3356} for {spell:3452}: {skill:182}: {item:3356} (skill 125) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1434} (30-45). The densest patch of {item:3356} in {zone:1413} is marked."] = "準備 39 個 {item:3356}，用於 {spell:3452}：透過 {skill:182} 採集 {item:3356}（技能 125），產地有 {zone:1413}（10-25 級）、{zone:1440}（18-30 級）和 {zone:1434}（30-45 級）。已標記 {zone:1413} 中 {item:3356} 最密集的區域。",
 
 	-- Step 49: Stranglekelp (Alliance)
 	-- {object:2045} Stranglekelp
 	["{object:2045} (Alliance)"] = "{object:2045}（聯盟）",
 	-- {object:2045} Stranglekelp · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1437} Wetlands · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands
-	["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1437} (20-30), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1434} is marked."] = "",
+	["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1437} (20-30), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1434} is marked."] = "準備 39 個 {object:2045}，用於 {spell:3452}：透過 {skill:182} 採集 {object:2045}（技能 85），產地有 {zone:1437}（20-30 級）、{zone:1434}（30-45 級）和 {zone:1425}（40-50 級）。已標記 {zone:1434} 中 {object:2045} 最密集的區域。",
 
 	-- Step 50: Stranglekelp (Horde)
 	-- {object:2045} Stranglekelp
 	["{object:2045} (Horde)"] = "{object:2045}（部落）",
 	-- {object:2045} Stranglekelp · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1413} The Barrens · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands
-	["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1413} (10-25), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1413} is marked."] = "",
+	["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1413} (10-25), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1413} is marked."] = "為 {spell:3452} 準備39株 {object:2045}：{skill:182}：在 {zone:1413}（10-25級）、{zone:1434}（30-45級）和 {zone:1425}（40-50級）採集 {object:2045}（技能85）。已標出 {zone:1413} 中 {object:2045} 最密集的區域。",
 
 	-- Step 51: Goldthorn (Alliance)
 	-- {object:2046} Goldthorn
 	["{object:2046} (Alliance)"] = "{object:2046}（聯盟）",
 	-- {object:2046} Goldthorn · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1417} Arathi Highlands · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["40 {object:2046} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:2046} (skill 170) in {zone:1417} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest patch of {object:2046} in {zone:1417} is marked."] = "",
+	["40 {object:2046} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:2046} (skill 170) in {zone:1417} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest patch of {object:2046} in {zone:1417} is marked."] = "為 {item:8951} 準備 40 個 {object:2046}（其中 8 個用於 225-300 階段：現在一併採齊）：透過 {skill:182} 在 {zone:1417}（30-40 級）、{zone:1425}（40-50 級）和 {zone:1444}（40-50 級）採集 {object:2046}（技能 170）。已標記 {zone:1417} 中 {object:2046} 最密集的區域。",
 
 	-- Step 52: Goldthorn (Horde)
 	-- {object:2046} Goldthorn
 	["{object:2046} (Horde)"] = "{object:2046}（部落）",
 	-- {object:2046} Goldthorn · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1417} Arathi Highlands · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["40 {object:2046} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:2046} (skill 170) in {zone:1417} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest patch of {object:2046} in {zone:1444} is marked."] = "",
+	["40 {object:2046} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:2046} (skill 170) in {zone:1417} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest patch of {object:2046} in {zone:1444} is marked."] = "為 {item:8951} 準備 40 個 {object:2046}（其中 8 個用於 225-300 階段：現在一併採齊）：透過 {skill:182} 在 {zone:1417}（30-40 級）、{zone:1425}（40-50 級）和 {zone:1444}（40-50 級）採集 {object:2046}（技能 170）。已標記 {zone:1444} 中 {object:2046} 最密集的區域。",
 
 	-- Step 53: Expert Alchemy
 	-- {skill:171} Alchemy
@@ -269,7 +269,8 @@ return {
 	-- {spell:3176} Lesser Troll's Blood Elixir
 	["{spell:3176} to 160"] = "{spell:3176} 到160",
 	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial
-	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176}在150時為黃色（150黃、170綠、190灰）：大約12次製作可到160。每次需要2個{item:2453}、2個{item:2450}和1個{item:3372}。每次兩個{item:2453}和兩個{item:2450}；{item:2453}生長在15-30地區。",
+	-- was: ["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176}在150時為黃色（150黃、170綠、190灰）：大約12次製作可到160。每次需要2個{item:2453}、2個{item:2450}和1個{item:3372}。每次兩個{item:2453}和兩個{item:2450}；{item:2453}生長在15-30地區。"
+	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. If you got here without learning {spell:3176}, learn it now: an earlier step teaches it."] = "{spell:3176}在150時為黃色（黃色150，綠色170，灰色190）：大約製作12次到160。每次需要2個{item:2453}、2個{item:2450}和1個{item:3372}。每次兩個{item:2453}和兩個{item:2450}；{item:2453}生長在15-30級地區。如果你到這裡還沒學會{spell:3176}，現在就學：之前的步驟會教。",
 
 	-- Step 55: Alchemy recipes at 160
 	-- {skill:171} Alchemy
@@ -299,7 +300,7 @@ return {
 	-- {skill:171} Alchemy
 	["{skill:171} 225-300: vendor goods"] = "{skill:171} 225-300：商人貨物",
 	-- {item:3372} Leaded Vial · {item:8925} Crystal Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "一次買齊整個階段的用量：51個{item:3372}（20銀40銅）和86個{item:8925}（4金30銀）；合計約4金50銀40銅。箭頭會選擇本陣營最近的商人（{zone:1453}：{npc:1286}、{npc:5503}和{npc:1325}；{zone:1454}：{npc:3367}、{npc:3348}和{npc:3334}）。",
 
 	-- Step 60: Recipe: Elixir of Superior Defense
 	-- {item:13478} Recipe: Elixir of Superior Defense · {item:13445} Elixir of Greater Defense · {skill:171} Alchemy · {npc:5178} Soolie Berryfizz · {zone:1455} Ironforge · {npc:3348} Kor'geld · {zone:1454} Orgrimmar
@@ -315,31 +316,31 @@ return {
 	-- {item:8836} Arthas' Tears
 	["{item:8836} (Alliance)"] = "{item:8836}（聯盟）",
 	-- {item:8836} Arthas' Tears · {item:9154} Draught of Detect Undead · {skill:182} Herbalism · {zone:1448} Felwood · {zone:1422} Western Plaguelands · {zone:1423} Eastern Plaguelands
-	["43 {item:8836} for {item:9154}: {skill:182}: {item:8836} (skill 220) in {zone:1448} (48-55), {zone:1422} (51-58) and {zone:1423} (53-60). The densest patch of {item:8836} in {zone:1422} is marked."] = "",
+	["43 {item:8836} for {item:9154}: {skill:182}: {item:8836} (skill 220) in {zone:1448} (48-55), {zone:1422} (51-58) and {zone:1423} (53-60). The densest patch of {item:8836} in {zone:1422} is marked."] = "為 {item:9154} 準備 43 個 {item:8836}：透過 {skill:182} 在 {zone:1448}（48-55 級）、{zone:1422}（51-58 級）和 {zone:1423}（53-60 級）採集 {item:8836}（技能 220）。已標記 {zone:1422} 中 {item:8836} 最密集的區域。",
 
 	-- Step 63: Arthas' Tears (Horde)
 	-- {item:8836} Arthas' Tears
 	["{item:8836} (Horde)"] = "{item:8836}（部落）",
 	-- {item:8836} Arthas' Tears · {item:9154} Draught of Detect Undead · {skill:182} Herbalism · {zone:1448} Felwood · {zone:1422} Western Plaguelands · {zone:1423} Eastern Plaguelands
-	["43 {item:8836} for {item:9154}: {skill:182}: {item:8836} (skill 220) in {zone:1448} (48-55), {zone:1422} (51-58) and {zone:1423} (53-60). The densest patch of {item:8836} in {zone:1448} is marked."] = "",
+	["43 {item:8836} for {item:9154}: {skill:182}: {item:8836} (skill 220) in {zone:1448} (48-55), {zone:1422} (51-58) and {zone:1423} (53-60). The densest patch of {item:8836} in {zone:1448} is marked."] = "為 {item:9154} 準備 43 個 {item:8836}：透過 {skill:182} 在 {zone:1448}（48-55 級）、{zone:1422}（51-58 級）和 {zone:1423}（53-60 級）採集 {item:8836}（技能 220）。已標記 {zone:1448} 中 {item:8836} 最密集的區域。",
 
 	-- Step 64: Sungrass (Alliance)
 	-- {item:8838} Sungrass
 	["{item:8838} (Alliance)"] = "{item:8838}（聯盟）",
 	-- {item:8838} Sungrass · {item:13445} Elixir of Greater Defense · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["43 {item:8838} for {item:13445}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8838} in {zone:1425} is marked."] = "",
+	["43 {item:8838} for {item:13445}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8838} in {zone:1425} is marked."] = "為 {item:13445} 準備 43 個 {item:8838}：透過 {skill:182} 在 {zone:1425}（40-50 級）、{zone:1444}（40-50 級）和 {zone:1447}（45-55 級）採集 {item:8838}（技能 230）。已標記 {zone:1425} 中 {item:8838} 最密集的區域。",
 
 	-- Step 65: Sungrass (Horde)
 	-- {item:8838} Sungrass
 	["{item:8838} (Horde)"] = "{item:8838}（部落）",
 	-- {item:8838} Sungrass · {item:13445} Elixir of Greater Defense · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["43 {item:8838} for {item:13445}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8838} in {zone:1444} is marked."] = "",
+	["43 {item:8838} for {item:13445}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8838} in {zone:1444} is marked."] = "為 {item:13445} 準備 43 個 {item:8838}：透過 {skill:182} 在 {zone:1425}（40-50 級）、{zone:1444}（40-50 級）和 {zone:1447}（45-55 級）採集 {item:8838}（技能 230）。已標記 {zone:1444} 中 {item:8838} 最密集的區域。",
 
 	-- Step 66: Stonescale Eel (Alliance)
 	-- {item:13422} Stonescale Eel
 	["{item:13422} (Alliance)"] = "{item:13422}（聯盟）",
 	-- {item:13422} Stonescale Eel · {item:13445} Elixir of Greater Defense · {skill:356} Fishing · {object:180712} Stonescale Eel Swarm
-	["43 {item:13422} for {item:13445}: {skill:356}. Fish {object:180712} here."] = "",
+	["43 {item:13422} for {item:13445}: {skill:356}. Fish {object:180712} here."] = "為 {item:13445} 準備 43 個 {item:13422}：透過 {skill:356} 獲取。在此處的 {object:180712} 中垂釣。",
 
 	-- Step 67: Stonescale Eel (Horde)
 	-- {item:13422} Stonescale Eel
@@ -349,13 +350,14 @@ return {
 	-- {skill:171} Alchemy
 	["Artisan {skill:171}"] = "專家級{skill:171}",
 	-- {skill:171} Alchemy · {npc:7948} Kylanna Windwhisper · {zone:1444} Feralas · {npc:1386} Rogvar · {zone:1435} Swamp of Sorrows · {item:8836} Arthas' Tears · {item:8838} Sungrass · {item:13422} Stonescale Eel · {item:9154} Draught of Detect Undead · {item:13423} Stonescale Oil
-	["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:171} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:7948} ({zone:1444}); Horde {npc:1386} ({zone:1435}). The arrow picks the nearest of your faction. 225-300 takes about 1g 30s of recipes and 4g 50s 40c of vendor goods, plus 43 {item:8836}, 43 {item:8838} and 43 {item:13422} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9154} (from 230) and {item:13423} (from 250), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "",
+	["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:171} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:7948} ({zone:1444}); Horde {npc:1386} ({zone:1435}). The arrow picks the nearest of your faction. 225-300 takes about 1g 30s of recipes and 4g 50s 40c of vendor goods, plus 43 {item:8836}, 43 {item:8838} and 43 {item:13422} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9154} (from 230) and {item:13423} (from 250), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "大師級將技能上限從 225 提高到 300，費用為 4 金幣 50 銀幣（經典舊世價格；資料中沒有無限服的價格）；需要 {skill:171} 200 和角色等級 35，因此達到 200 後，任意一次來訪都可學習。只有少數訓練師教授：聯盟為 {npc:7948}（{zone:1444}）；部落為 {npc:1386}（{zone:1435}）。箭頭會指向你所屬陣營最近的一位。225-300 階段約需 1 金幣 30 銀幣的配方和 4 金幣 50 銀幣 40 銅幣的商人材料，另需採集或購買 43 個 {item:8836}、43 個 {item:8838} 和 43 個 {item:13422}。來之前把材料全部備齊放進揹包（按上方步驟收集，其餘從拍賣行購買）：這些訓練師還教授 {item:9154}（技能 230 起）和 {item:13423}（技能 250 起），且製作無需工作臺，可直接在此製作，達到相應技能點就學習配方。這樣只需跑一趟，無需跑 3 趟。",
 
 	-- Step 69: Elixir of Defense to 230
 	-- {item:8951} Elixir of Defense
 	["{item:8951} to 230"] = "{item:8951}練到230",
 	-- {item:8951} Elixir of Defense · {item:3355} Wild Steelbloom · {item:3821} Goldthorn · {item:3372} Leaded Vial · {zone:1418} Badlands
-	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951}在225時為黃色（215黃、235綠、255灰）：大約8次製作可到230。每次需要1個{item:3355}、1個{item:3821}和1個{item:3372}。{item:3355}和{item:3821}是30-45地區的草藥（荊棘谷、阿拉希、{zone:1418}）。",
+	-- was: ["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951}在225時為黃色（215黃、235綠、255灰）：大約8次製作可到230。每次需要1個{item:3355}、1個{item:3821}和1個{item:3372}。{item:3355}和{item:3821}是30-45地區的草藥（荊棘谷、阿拉希、{zone:1418}）。"
+	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). If you got here without learning {item:8951}, learn it now: an earlier step teaches it."] = "{item:8951}在225時為黃色（黃色215，綠色235，灰色255）：大約製作8次到230。每次需要1個{item:3355}、1個{item:3821}和1個{item:3372}。{item:3355}和{item:3821}是30-45級地區的草藥（荊棘谷、阿拉希、{zone:1418}）。如果你到這裡還沒學會{item:8951}，現在就學：之前的步驟會教。",
 
 	-- Step 70: Alchemy recipes at 230
 	-- {skill:171} Alchemy
@@ -457,11 +459,13 @@ return {
 	-- ["{item:765} (Horde)"] = "{item:765}（部落）",
 	-- ["{item:785} (Alliance)"] = "{item:785}（聯盟）",
 	-- ["{item:785} (Horde)"] = "{item:785}（部落）",
+	-- ["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951}在225時為黃色（215黃、235綠、255灰）：大約8次製作可到230。每次需要1個{item:3355}、1個{item:3821}和1個{item:3372}。{item:3355}和{item:3821}是30-45地區的草藥（荊棘谷、阿拉希、{zone:1418}）。",
 	-- ["{npc:1958} (level 17-18) drop it here. The Auction House works too."] = "{npc:1958}（等級17-18）在這裡掉落。拍賣場也買得到。",
 	-- ["{npc:513} (level 14-15) drop it here. The Auction House works too."] = "{npc:513}（等級14-15）在這裡掉落。拍賣場也買得到。",
 	-- ["{skill:171} recipes at 259"] = "{skill:171}259的配方",
 	-- ["{skill:171} recipes at 85"] = "{skill:171}85的配方",
 	-- ["{skill:171} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 68s in all."] = "{skill:171}可以邊升級邊練。Forever的傳承系統會在技能150、225和300（中級、高級和專家級的上限）獎勵製造專業，所以每個關卡都很重要。1-75的材料總價約68銀。",
 	-- ["{spell:11447} to 215"] = "{spell:11447}練到215",
+	-- ["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176}在150時為黃色（150黃、170綠、190灰）：大約12次製作可到160。每次需要2個{item:2453}、2個{item:2450}和1個{item:3372}。每次兩個{item:2453}和兩個{item:2450}；{item:2453}生長在15-30地區。",
 	-- ["{spell:7845} to 175"] = "{spell:7845}練到175",
 }

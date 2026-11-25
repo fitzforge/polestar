@@ -49,7 +49,7 @@ return {
 	-- {area:608} Nijel's Point · {item:6079} Crude Charm
 	["The Kolkar centaurs (level 30-33) hold the camps south of {area:608}, along the eastern road. About one in four drops a {item:6079}."] = "",
 	-- {item:6079} Crude Charm
-	["{item:6079}: Kolkar centaurs"] = "",
+	["{item:6079}: Kolkar centaurs"] = "{item:6079}: 콜카르 켄타우로스",
 
 	-- Step 7: Gelkis: Magram Village
 	-- {area:604} Magram Village
@@ -65,7 +65,7 @@ return {
 
 	-- Step 8: Gelkis: Ongeku
 	-- {quest:1373} Ongeku
-	["Gelkis: {quest:1373}"] = "",
+	["Gelkis: {quest:1373}"] = "겔키스일족: {quest:1373}",
 	-- {npc:5397} Uthek the Wise · {zone:1435} Swamp of Sorrows · {quest:1373} Ongeku · {area:76} Fallow Sanctuary · {area:75} Stonard
 	["Back to {npc:5397}, then east to the {zone:1435}: {quest:1373} (level 37) waits by a black cauldron in {area:76}, north-east of {area:75}."] = "",
 
@@ -111,7 +111,8 @@ return {
 	["From the quest data: back west to {npc:5397} in {area:606}. She needs Tears of Theradras: {npc:253713}, the Voice of Theradras, keeps them in the cave in the south of the village, past {npc:253140}. Ask her for them on {npc:5397}'s behalf and bring three back. {npc:253140} takes {quest:92812} on the way."] = "퀘스트 데이터 기준: 서쪽 {area:606}의 {npc:5397}에게 돌아가십시오. 그녀는 테라드라스의 눈물이 필요합니다. 테라드라스의 목소리 {npc:253713}이(가) {npc:253140}을(를) 지나 마을 남쪽 동굴에 보관하고 있습니다. {npc:5397}을(를) 대신해 부탁하고 세 개를 가져오십시오. 가는 길에 {npc:253140}이(가) {quest:92812}을(를) 받습니다.",
 	-- {npc:253713} Mulara
 	["{npc:253713}, in the cave"] = "{npc:253713}, 동굴 안",
-	["three Tears of Theradras"] = "테라드라스의 눈물 세 개",
+	-- {npc:253713} Mulara
+	["three Tears of Theradras, in {npc:253713}'s cave"] = "테라드라스의 눈물 세 개, {npc:253713}의 동굴에서",
 
 	-- Step 15: Gelkis: Test Your Theory
 	-- {quest:93045} Test Your Theory
@@ -160,7 +161,7 @@ return {
 
 	-- Step 21: Gelkis: Khan Jehn
 	-- {npc:5601} Khan Jehn
-	["Gelkis: {npc:5601}"] = "",
+	["Gelkis: {npc:5601}"] = "겔키스일족: {npc:5601}",
 	-- {npc:5601} Khan Jehn · {area:604} Magram Village · {npc:253177} Nerlokh · {npc:5397} Uthek the Wise · {item:271801} Abandoned Ferocity · {item:271802} Bludgeon of Betrayed Virtues · {item:271805} Thrice-Damned Effigy
 	-- plural, as words: Magram Necrokhans = {npc:253274} Magram Necrokhan
 	["From the quest data: {npc:5601} (level 37) leads the Magram from the west side of {area:604}, north-east of {npc:253177}. The village is hostile to a friend of the Gelkis, and two Magram Necrokhans, elite and level 45, stand a little west of the khan. {npc:5397} pays 6,000, a title, and your pick of three rare level 35 weapons: {item:271801} (two-handed axe: Strength, Stamina, Agility), {item:271802} (one-handed mace: Strength, Stamina, Agility) or {item:271805} (off-hand: Spirit, Intellect, Stamina). The quest costs the Magram 30,000."] = "",
@@ -187,7 +188,7 @@ return {
 
 	-- Step 26: Magram: Broken Tears
 	-- {quest:1369} Broken Tears
-	["Magram: {quest:1369}"] = "",
+	["Magram: {quest:1369}"] = "마그람일족: {quest:1369}",
 	-- {area:606} Gelkis Village
 	["The Tears of Theradras are crystals in the cave behind {area:606}, in the south-west. Every Gelkis you kill on the way pays the Magram 20."] = "",
 	-- {quest:1369} Broken Tears · {object:22246} Tear of Theradras
@@ -199,7 +200,7 @@ return {
 
 	-- Step 27: Magram: Gizmo for Warug
 	-- {quest:1371} Gizmo for Warug
-	["Magram: {quest:1371}"] = "",
+	["Magram: {quest:1371}"] = "마그람일족: {quest:1371}",
 	-- {npc:5398} Warug · {item:4392} Advanced Target Dummy · {item:4234} Heavy Leather · {item:4389} Gyrochronatom · {item:4382} Bronze Framework · {item:4387} Iron Strut · {item:269900} Centaur Banner Deployment Device · {item:269902} Hoof-Shaped Foot Pedal
 	["{npc:5398} wants an {item:4392}: engineers make it (4 {item:4234}, a {item:4389}, a {item:4382} and an {item:4387}); others buy one. It pays 1,000 and a choice of two engineering schematics, the {item:269900} or the {item:269902}."] = "",
 	-- {item:4392} Advanced Target Dummy
@@ -301,7 +302,7 @@ return {
 
 	-- Step 42: Magram: Khan Jehn
 	-- {quest:93196} Khan Jehn
-	["Magram: {quest:93196}"] = "",
+	["Magram: {quest:93196}"] = "마그람일족: {quest:93196}",
 	-- {item:257517} Ultimate Necromancy Staff · {area:604} Magram Village · {quest:93196} Khan Jehn · {item:271800} Scavenged Magram Armament · {item:271803} Greatstaff of the Necrokhans · {item:271804} Soulsplatter Mace
 	["From the quest data: take the {item:257517} to the ritual site, a tent by the lake in the middle of {area:604}, and raise {quest:93196}. The risen khan takes the quest: 6,000, a title, and your pick of three rare level 35 weapons: {item:271800} (polearm: Stamina, attack power, Agility), {item:271803} (staff: Intellect, Stamina, Spirit) or {item:271804} (main-hand mace: Intellect, Stamina, Spirit). The quest costs the Gelkis 30,000."] = "",
 	-- {quest:93196} Khan Jehn
@@ -316,4 +317,7 @@ return {
 	["The totem recipes"] = "",
 	-- {quest:93224} Carved Centaur Totems · {item:273613} Enchant Bracer - Lesser Agility · {item:250941} Greater Frenzy Potion · {item:250538} Hard Gold Gauntlet · {item:250606} Iron Morningstar · {item:252462} Mystic Thick Armor Kit · {item:253973} Silk Reagent Bag · {item:10011} Stormcloth Gloves · {item:274490} Centaur Hoofwarmers · {item:269900} Centaur Banner Deployment Device · {item:269902} Hoof-Shaped Foot Pedal
 	["Both quartermasters sell the same 12 recipes for {quest:93224}, no standing needed: {item:273613} and - Lesser Healing Power; Greater Spellblasting and {item:250941}; {item:250538} and {item:250606} plans; {item:252462}, {item:253973}, {item:10011} and {item:274490} patterns; the {item:269900} and {item:269902} schematics. Keep the totems you need for them before you hand the rest in."] = "두 병참장교 모두 같은 제조법 12개를 {quest:93224}(으)로 팔며, 평판 조건이 없습니다: {item:273613}와(과) 손목보호구 마법부여 - 하급 치유력, 상급 주문 작렬 물약과 {item:250941}, {item:250538}와(과) {item:250606} 설계도, {item:252462}, {item:253973}, {item:10011}, {item:274490} 도안, {item:269900}와(과) {item:269902} 설계도. 나머지를 제출하기 전에 이 제조법에 필요한 토템은 남겨 두세요.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["three Tears of Theradras"] = "테라드라스의 눈물 세 개",
 }

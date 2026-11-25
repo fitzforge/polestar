@@ -118,9 +118,9 @@ const FOLDER_RE = /^[A-Za-z0-9_-]{1,64}$/;
 // Core/Guides.lua's Guides.RESERVED have them.
 const RESERVED_IDS = new Set(['guides', 'forever', 'lookup', 'draft', 'polestar', 'imported', 'polestar-experimental']);
 // Polestar's own extra packs (forge-guide's project.rs OWN_EXTRAS): built from
-// their folder in the checkout into an addon of Polestar's that ships in the
-// release zip. Read as another pack's, each may give its reserved id.
-const OWN_EXTRAS = [{ source: 'experimental', id: 'polestar-experimental', folder: 'Polestar_Experimental' }];
+// their folder in the checkout into a folder inside Polestar's own addon
+// (dir, under addon/). Read as another pack's, each may give its reserved id.
+const OWN_EXTRAS = [{ source: 'experimental', id: 'polestar-experimental', folder: 'Polestar_Experimental', dir: 'Polestar/Experimental' }];
 
 // A folder we generated says so in its TOC (and the old layout in Pack.xml):
 // only such a folder is ever replaced by compile, install or dev.

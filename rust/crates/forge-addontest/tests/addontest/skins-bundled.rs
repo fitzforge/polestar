@@ -1,24 +1,35 @@
-//! The skins in the download (addon/Polestar_Skin_*, forge_release::addons::SKIN_ADDONS): each registers
+//! The skins in the download (addon/Polestar_Skins/Skins, one folder since 0.4.3): each registers
 //! through the Skin API with nothing refused and nothing corrected (its
-//! colours legible as given), is listed in the picker with its addon, and paints the whole addon (the guide
+//! colours legible as given), is listed in the picker as Polestar's, and paints the whole addon (the guide
 //! window, its progress and title, the arrow, the pins, the toasts) in every variant it has without its
 //! painters or hooks raising: a skin that raised would be switched off for the session.
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::Value;
 
-// Each skin's id, its addon, and its variants (none: the skin alone). Also read by ui-switch.rs.
+// Each skin's id, the addon the picker names (Polestar: ours, all in Polestar_Skins/Skins), and its variants
+// (none: the skin alone). Also read by ui-switch.rs.
 pub(crate) const SKINS: &[(&str, &str, &[&str])] = &[
-	("vellum", "Polestar_Skin_Vellum", &[]),
-	("lumen", "Polestar_Skin_Lumen", &[]),
-	("beacon", "Polestar_Skin_Beacon", &[]),
-	("aurora", "Polestar_Skin_Aurora", &[]),
-	("hairline", "Polestar_Skin_Hairline", &[]),
-	("umbra", "Polestar_Skin_Umbra", &["flat", "forever", "blizzard", "classic"]),
-	("waymark", "Polestar_Skin_Waymark", &[]),
-	("lanterns", "Polestar_Skin_Lanterns", &["forge", "tidepool", "glade", "hoarfrost", "duskrose", "starfall", "ashen", "highsun", "gloam", "plain"]),
-	("sheen", "Polestar_Skin_Sheen", &[]),
+	("vellum", "Polestar", &[]),
+	("lumen", "Polestar", &[]),
+	("beacon", "Polestar", &[]),
+	("aurora", "Polestar", &[]),
+	("hairline", "Polestar", &[]),
+	("umbra", "Polestar", &["flat", "forever", "blizzard", "classic"]),
+	("waymark", "Polestar", &[]),
+	("lanterns", "Polestar", &["forge", "tidepool", "glade", "hoarfrost", "duskrose", "starfall", "ashen", "highsun", "gloam", "plain"]),
+	("sheen", "Polestar", &[]),
 ];
+
+/// Polestar and the folder that holds our skins.
+pub(crate) fn with_skins() -> Vec<Addon> {
+	vec![Addon::name("Polestar"), Addon::name("Polestar_Skins")]
+}
+
+/// Polestar and one of our skins' files alone (its folder in Polestar_Skins/Skins).
+fn with_skin(skin: &str) -> Vec<Addon> {
+	vec![Addon::name("Polestar"), Addon::Files("Polestar_Skins".into(), vec![format!("Skins/{skin}/{skin}.lua")])]
+}
 
 fn run() -> Value {
 	let list = SKINS
@@ -36,7 +47,7 @@ local SKINS = {{ {list} }}
 local out = {{ notes = {{}}, skins = {{}} }}
 -- What the registrations said: a refusal, or grounds corrected for legibility.
 for _, l in ipairs(Polestar.DebugLog(800)) do
-	if tostring(l):find("(Polestar_Skin_", 1, true) then out.notes[#out.notes + 1] = tostring(l) end
+	if tostring(l):find("(Polestar)", 1, true) then out.notes[#out.notes + 1] = tostring(l) end
 end
 local listed = {{}}
 for _, c in ipairs(T.SkinChoices()) do listed[c.value] = c.addon or false end
@@ -67,8 +78,7 @@ end
 emit(out)
 "#
 	);
-	let mut addons = vec![Addon::name("Polestar")];
-	addons.extend(SKINS.iter().map(|(_, addon, _)| Addon::name(addon)));
+	let addons = with_skins();
 	emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script, ..Default::default() }).remove(0)
 }
 
@@ -92,7 +102,7 @@ fn every_bundled_skin_registers_as_given_and_paints_polestar_in_each_variant_wit
 	}
 }
 
-// Aurora's own light (Polestar_Skin_Aurora/Media): the aurora over the guide window's band, flipped when the bars
+// Aurora's own light (Polestar_Skins/Skins/Aurora/Media): the aurora over the guide window's band, flipped when the bars
 // sit at the window's foot, the veil on a window with no band (the transport banner), and both put away by the
 // transparent style and by another skin.
 #[test]
@@ -133,7 +143,7 @@ layout()
 out.other = { curtain = on(own.curtain), veil = on(own.veil), toast = on(a.veil) }
 emit(out)
 "#;
-	let addons = vec![Addon::name("Polestar"), Addon::name("Polestar_Skin_Aurora")];
+	let addons = with_skin("Aurora");
 	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script: script.into(), ..Default::default() }).remove(0);
 	assert_eq!(out["inUse"], true);
 	assert_eq!(out["band"], serde_json::json!({ "curtain": true, "tex": "curtain", "veil": false, "top": 0 }), "the aurora over the band, not the veil");
@@ -171,8 +181,7 @@ end
 emit(out)
 "#
 	);
-	let mut addons = vec![Addon::name("Polestar")];
-	addons.extend(SKINS.iter().map(|(_, addon, _)| Addon::name(addon)));
+	let addons = with_skins();
 	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script, ..Default::default() }).remove(0);
 	for id in std::iter::once("polestar").chain(SKINS.iter().map(|(id, _, _)| *id)) {
 		let s = &out[id];
@@ -270,8 +279,7 @@ end
 emit(out)
 "#
 	);
-	let mut addons = vec![Addon::name("Polestar")];
-	addons.extend(SKINS.iter().map(|(_, addon, _)| Addon::name(addon)));
+	let addons = with_skins();
 	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script, ..Default::default() }).remove(0);
 	let looks = out.as_array().unwrap();
 	let runs: usize = SKINS.iter().map(|(_, _, v)| v.len().max(1)).sum();
@@ -301,7 +309,7 @@ local function piece(t) local r, g, b, a = t:GetVertexColor(); return { hex(r, g
 emit({ inUse = T.SkinId() == "vellum", fill = piece(box.psSkin.bg)[2], edge = piece(box.psBorder[1]), tick = piece(c.psSkin.check),
 	accent = hex(T.Accent()) })
 "#;
-	let addons = vec![Addon::name("Polestar"), Addon::name("Polestar_Skin_Vellum")];
+	let addons = with_skin("Vellum");
 	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script: script.into(), ..Default::default() }).remove(0);
 	assert_eq!(out["inUse"], true);
 	assert_eq!(out["fill"], 0, "nothing over the tick inside the box");
@@ -337,7 +345,7 @@ T.SkinHook("guideTab", b, parts, true)
 out.noBand = hex(parts.selected)
 emit(out)
 "#;
-	let addons = vec![Addon::name("Polestar"), Addon::name("Polestar_Skin_Aurora")];
+	let addons = with_skin("Aurora");
 	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script: script.into(), ..Default::default() }).remove(0);
 	assert_eq!(out["inUse"], true);
 	assert_eq!(out["selected"][0], out["sky"][0], "the band's night over the aurora behind the tab");
@@ -394,11 +402,11 @@ for _, c in ipairs(T.SkinChoices()) do
 end
 emit(out)
 "#;
-	let mut addons = vec![Addon::name("Polestar"), Addon::name("Polestar_Looks")];
-	addons.extend(SKINS.iter().map(|(_, addon, _)| Addon::name(addon)));
+	let addons = with_skins();
 	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script: script.to_string(), ..Default::default() }).remove(0);
 	let looks = out.as_array().unwrap();
-	let runs: usize = 6 + SKINS.iter().map(|(_, _, v)| v.len().max(1)).sum::<usize>();
+	// The six built in, Atlas (the layout's skin, in the same folder) and each skin above in each variant.
+	let runs: usize = 7 + SKINS.iter().map(|(_, _, v)| v.len().max(1)).sum::<usize>();
 	assert_eq!(looks.len(), runs, "every look and variant: {out}");
 	for l in looks {
 		let key = l["key"].as_str().unwrap();
@@ -412,9 +420,10 @@ emit(out)
 	}
 }
 
-// The guide list's star on the zone painting keeps a dark ground under its glyphs: the star and the window's close in
-// the house look and Halo (68 wide), the star alone in the game looks, whose close is the frame's own on its corner
-// (36 wide, on the star): the ground used to run on under nothing where the close had been.
+// The guide list's star on the zone painting keeps a dark ground under its glyphs: the Guides scale's size button, the
+// star and the window's close in the house look and Halo (68 wide, 32 more for the size button), the size button and
+// the star in the game looks, whose close is the frame's own on its corner (36 wide and the 32, on the star): the
+// ground used to run on under nothing where the close had been.
 #[test]
 fn the_guide_list_s_star_ground_holds_only_the_glyphs_it_backs() {
 	let script = r#"
@@ -430,13 +439,13 @@ for _, id in ipairs({ "polestar", "halo", "forever", "blizzard", "classic" }) do
 end
 emit(out)
 "#;
-	let addons = vec![Addon::name("Polestar"), Addon::name("Polestar_Looks")];
+	let addons = vec![Addon::name("Polestar")];
 	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script: script.into(), ..Default::default() }).remove(0);
 	for id in ["polestar", "halo"] {
-		assert_eq!(out[id], serde_json::json!({ "width": 68, "on": "close", "close": true }), "{id}: the star and the close: {out}");
+		assert_eq!(out[id], serde_json::json!({ "width": 100, "on": "close", "close": true }), "{id}: the size button, the star and the close: {out}");
 	}
 	for id in ["forever", "blizzard", "classic"] {
-		assert_eq!(out[id], serde_json::json!({ "width": 36, "on": "star", "close": false }), "{id}: the star alone: {out}");
+		assert_eq!(out[id], serde_json::json!({ "width": 68, "on": "star", "close": false }), "{id}: the size button and the star: {out}");
 	}
 }
 
@@ -507,8 +516,7 @@ out.oneCompact = GF.parts.strip:IsVisible()
 emit(out)
 "#
 	);
-	let mut addons = vec![Addon::name("Polestar")];
-	addons.extend(SKINS.iter().map(|(_, addon, _)| Addon::name(addon)));
+	let addons = with_skins();
 	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script, ..Default::default() }).remove(0);
 	let looks = out["looks"].as_array().unwrap();
 	let runs: usize = SKINS.iter().map(|(_, _, v)| v.len().max(1)).sum();
@@ -524,4 +532,40 @@ emit(out)
 		assert!(tabs.iter().all(|t| t["h"].as_f64().unwrap() >= 16.0), "{key}: tabs a readable height: {l}");
 	}
 	assert_eq!(out["oneCompact"], false, "one guide in compact mode: no strip");
+}
+
+// #3881: loading Polestar_Skins builds none of its ten skins; applying Atlas (skin and layout) builds Atlas alone, the
+// nine others still waiting; the settings' list builds the rest. Fitz's preview5 froze 1.2 s while the folder built
+// all ten at once.
+#[test]
+fn applying_atlas_builds_atlas_alone_and_the_settings_list_builds_the_rest() {
+	let mut ids: Vec<String> = SKINS.iter().map(|(id, _, _)| format!("{id:?}")).collect();
+	ids.push("\"atlas\"".to_string());
+	let script = format!(
+		r#"
+local T = Polestar.Theme
+local IDS = {{ {} }}
+local function waiting()
+	local out = {{}}
+	for _, id in ipairs(IDS) do if T.SkinWaits(id) then out[#out + 1] = id end end
+	return out
+end
+local atLoad = #waiting()
+Polestar.Set("ui.skin", "atlas")
+T.SetLayout("atlas")
+local afterAtlas = waiting()
+local inUse = T.SkinId()
+T.SkinChoices()
+emit({{ atLoad = atLoad, afterAtlas = afterAtlas, inUse = inUse, afterList = #waiting(), atlasInfo = T.SkinInfo("atlas") ~= nil }})
+"#,
+		ids.join(", ")
+	);
+	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons: with_skins(), login: true, script, ..Default::default() }).remove(0);
+	assert_eq!(out["atLoad"], ids.len(), "loading the folder builds none: {out}");
+	assert_eq!(out["inUse"], "atlas", "{out}");
+	assert_eq!(out["atlasInfo"], true);
+	let after: Vec<&str> = out["afterAtlas"].as_array().unwrap().iter().map(|v| v.as_str().unwrap()).collect();
+	assert_eq!(after.len(), ids.len() - 1, "Atlas built alone: {out}");
+	assert!(!after.contains(&"atlas"), "{out}");
+	assert_eq!(out["afterList"], 0, "the settings' list builds the rest: {out}");
 }

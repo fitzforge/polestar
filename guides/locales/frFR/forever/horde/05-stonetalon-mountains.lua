@@ -55,8 +55,9 @@ return {
 	["{npc:12717}: take it last, his escort starts at once"] = "{npc:12717} : prenez-la en dernier, son escorte commence aussitôt",
 
 	-- Step 10: Vorsha the Lasher
-	-- {npc:12717} Muglash · {npc:12719} Marukai
-	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} remonte la grève vers le nord jusqu'à un brasero naga. Éteignez le brasero, puis protégez-le pendant les vagues de nagas jusqu'à la mort de Vorsha ; les nagas Irequeue lâchent les têtes que veut {npc:12719}.",
+	-- {npc:12717} Muglash · {npc:12940} Vorsha the Lasher · {npc:12719} Marukai
+	-- was: ["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} remonte la grève vers le nord jusqu'à un brasero naga. Éteignez le brasero, puis protégez-le pendant les vagues de nagas jusqu'à la mort de Vorsha ; les nagas Irequeue lâchent les têtes que veut {npc:12719}."
+	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until {npc:12940} is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} remonte la grève vers le nord jusqu'à un brasero naga. Éteignez le brasero, puis protégez-le pendant les vagues de nagas jusqu'à la mort de {npc:12940} ; les nagas Queue-hargneuse lâchent les têtes que veut {npc:12719}.",
 	["Naga brazier"] = "Brasero naga",
 
 	-- Step 11: Naga heads
@@ -94,60 +95,68 @@ return {
 	-- {npc:3419} Apothecary Zamah · {npc:2216} Apothecary Lydon · {area:272} Tarren Mill
 	["{npc:3419}: her note is for {npc:2216} in {area:272}, next guide"] = "{npc:3419} : sa note est pour l'{npc:2216} à {area:272}, guide suivant",
 
-	-- Step 17: Fly to Orgrimmar
+	-- Step 17: Magatha Grimtotem
+	-- {quest:1063} The Elder Crone · {npc:4046} Magatha Grimtotem · {quest:1064} Forsaken Aid · {area:1639} Elder Rise · {npc:3419} Apothecary Zamah · {area:2197} Pools of Vision · {area:1640} Spirit Rise
+	["{quest:1063}'s errand is already with {npc:4046}: take {quest:1064} from her on {area:1639}, for {npc:3419} in the {area:2197}, under {area:1640}."] = "La course de {quest:1063} est déjà chez {npc:4046} : prenez {quest:1064} auprès d'elle sur {area:1639}, pour {npc:3419} dans {area:2197}, sous {area:1640}.",
+
+	-- Step 18: Apothecary Zamah
+	-- {quest:1064} Forsaken Aid · {npc:3419} Apothecary Zamah · {area:272} Tarren Mill · {area:2197} Pools of Vision · {area:1640} Spirit Rise
+	["{quest:1064} is already with {npc:3419}: take her note for {area:272} in the {area:2197}, under {area:1640}."] = "{quest:1064} est déjà chez {npc:3419} : prenez sa note pour {area:272} dans {area:2197}, sous {area:1640}.",
+
+	-- Step 19: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Prendre un vol pour {area:1637}",
 	-- {npc:2995} Tal · {area:1637} Orgrimmar
 	["Back up to {npc:2995} on the central rise and fly to {area:1637}."] = "Remontez voir {npc:2995} sur la butte centrale et volez jusqu'à {area:1637}.",
 
-	-- Step 18: Fly to Orgrimmar
+	-- Step 20: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar · {area:2897} Zoram'gar Outpost
 	["Fly to {area:1637} from the {area:2897} flight master."] = "Volez jusqu'à {area:1637} depuis le maître de vol de {area:2897}.",
 
-	-- Step 19: Druid trainer
+	-- Step 21: Druid trainer
 	["Druid trainer"] = "Maître des druides",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034} en {zone:1412} ; {zone:1454} n'a pas de maître des druides",
 
-	-- Step 21: The Binding
+	-- Step 23: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {item:6626} Dogran's Pendant
 	["{npc:5875} stands in the {object:172960}. Use {item:6626} on the summoning circle there and defeat the succubus to bind her."] = "{npc:5875} se tient dans {object:172960}. Utilisez le {item:6626} sur le cercle d'invocation qui s'y trouve et vainquez la succube pour la lier.",
 
-	-- Step 22: Shenthul
+	-- Step 24: Shenthul
 	-- {quest:2478} Mission: Possible But Not Probable · {npc:3401} Shenthul · {object:172960} Cleft of Shadow
 	["If you did {quest:2478} with a group, {npc:3401} in the {object:172960} takes it now."] = "Si vous avez fait {quest:2478} en groupe, {npc:3401}, dans {object:172960}, la prend maintenant.",
 	-- {npc:2391} Serge Hinott · {area:272} Tarren Mill
 	["{npc:2391} in {area:272} teaches Poisons: keep it"] = "{npc:2391}, à {area:272}, enseigne les Poisons : gardez la quête",
 
-	-- Step 23: Zeppelin to Undercity
+	-- Step 25: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "Zeppelin pour {zone:1458}",
 
-	-- Step 24: Brill
+	-- Step 26: Brill
 	-- {npc:246152} Shari Stilwell · {area:159} Brill
 	["{npc:246152} trains Paladins in {area:159}, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine."] = "{npc:246152} entraîne les paladins à {area:159}, à courte distance au nord par la route depuis les tours des zeppelins. Redescendez la même route pour la forêt des Pins argentés.",
 
-	-- Step 25: Morbin Lightbane
+	-- Step 27: Morbin Lightbane
 	-- {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {object:36126} Royal Quarter · {npc:266484} Morbin Lightbane · {npc:10181} Lady Sylvanas Windrunner
 	["For your {area:153} run: the zeppelin lands beside the ruins. Walk into the {zone:1458} through them and down to the {object:36126}: {npc:266484} stands there, near {npc:10181}."] = "Pour votre expédition dans {area:153} : le zeppelin atterrit à côté des ruines. Entrez dans {zone:1458} en les traversant et descendez jusqu'au {object:36126} : {npc:266484} s'y tient, près de {npc:10181}.",
 
-	-- Step 26: Ruins of Lordaeron
+	-- Step 28: Ruins of Lordaeron
 	-- {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {item:268580} Intact Limbs · {npc:266484} Morbin Lightbane · {npc:250660} The Baron · {item:280438} Abominable Head · {npc:2055} Master Apothecary Faranell · {npc:256102} Crest of Lordaeron · {npc:7825} Oran Snakewrithe
 	["The {area:153} is a dungeon for a group of five, about levels 15 to 22, in the ruined city above the {zone:1458}: its portal is in the ruins you walked through.\nInside: every undead can drop {item:268580} for {npc:266484}, so clear as you go. {npc:250660} can drop an {item:280438}, which starts a quest for {npc:2055}, and a {npc:256102} found inside starts one for {npc:7825}: both are in the {zone:1458}, on this route's next stop there."] = "{area:153} est un donjon pour un groupe de cinq, vers les niveaux 15 à 22, dans la ville en ruine au-dessus de {zone:1458} : son portail se trouve dans les ruines que vous avez traversées.\nÀ l'intérieur : chaque mort-vivant peut lâcher des {item:268580} pour {npc:266484}, alors nettoyez au fur et à mesure. {npc:250660} peut lâcher une {item:280438}, qui lance une quête pour {npc:2055}, et un {npc:256102} trouvé à l'intérieur en lance une pour {npc:7825} : tous deux sont à {zone:1458}, lors de la prochaine étape de cet itinéraire là-bas.",
 	-- {quest:92421} Light's Justice · {item:268580} Intact Limbs
 	["{quest:92421}: the {item:268580}, inside"] = "{quest:92421} : les {item:268580}, à l'intérieur",
 
-	-- Step 27: The Sepulcher
+	-- Step 29: The Sepulcher
 	-- {zone:1421} Silverpine Forest · {area:228} The Sepulcher
 	["Out of the ruins, take the road south through Tirisfal into {zone:1421} and on to the {area:228}."] = "En sortant des ruines, prenez la route vers le sud à travers Tirisfal jusqu'à {zone:1421} et continuez jusqu'au {area:228}.",
 
-	-- Step 28: Strange Lockbox
+	-- Step 30: Strange Lockbox
 	-- {area:240} Dead Field · {object:177844} Strange Lockbox · {item:15882} Half Pendant of Aquatic Endurance · {area:228} The Sepulcher
 	["From the zeppelin towers, run south into Silverpine and west past the {area:240} to the coast: the {object:177844} lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the {item:15882} for Trial of the Sea Lion. Then on to the {area:228}."] = "Depuis les tours du zeppelin, courez vers le sud jusque dans la forêt des Pins argentés et vers l'ouest après le {area:240} jusqu'à la côte : le {object:177844} repose au fond d'une eau très profonde, à côté d'une fissure d'air où vous pouvez respirer. Surveillez votre souffle en descendant. Il contient la {item:15882} pour l'Épreuve du lion de mer. Puis continuez jusqu'au {area:228}.",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177844} Strange Lockbox
 	["{item:15882}, from the {object:177844}"] = "{item:15882}, dans le {object:177844}",
 
-	-- Step 29: The Sepulcher
+	-- Step 31: The Sepulcher
 	-- {area:228} The Sepulcher · {object:177844} Strange Lockbox · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
 	["Down the road through Silverpine to the {area:228}: from the zeppelin towers, south through Tirisfal; from the {object:177844}, south-east from the coast to the road. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "Descendez la route à travers la forêt des Pins argentés jusqu'au {area:228} : depuis les tours des zeppelins, vers le sud à travers Tirisfal ; depuis le {object:177844}, vers le sud-est depuis la côte jusqu'à la route. {npc:2121} et {npc:1937} se tiennent près de l'entrée de la crypte.",
 	-- {npc:1937} Apothecary Renferrel · {area:272} Tarren Mill
@@ -157,17 +166,17 @@ return {
 	-- {npc:2121} Shadow Priest Allister · {area:233} Ambermill
 	["{npc:2121}: {area:233}'s pendants, on the same roads"] = "{npc:2121} : les pendentifs de {area:233}, sur les mêmes routes",
 
-	-- Step 30: Deathguard Podrig
+	-- Step 32: Deathguard Podrig
 	-- {npc:6389} Deathguard Podrig · {item:16210} Gordon's Crate · {zone:1458} Undercity
 	["{npc:6389} stands just west of the crypt entrance: hand him {item:16210} from the {zone:1458}."] = "{npc:6389} se tient juste à l'ouest de l'entrée de la crypte : remettez-lui {item:16210} venant de {zone:1458}.",
 
-	-- Step 31: High Executor Hadrec
+	-- Step 33: High Executor Hadrec
 	-- {area:236} Shadowfang Keep · {area:287} Hillsbrad · {npc:1952} High Executor Hadrec
 	["For your {area:236} run, at the end of the {area:287} guide: {npc:1952} stands below ground in the crypt."] = "Pour votre expédition dans {area:236}, à la fin du guide de {area:287} : {npc:1952} se tient sous terre, dans la crypte.",
 	-- {npc:1952} High Executor Hadrec
 	["{npc:1952}, below ground"] = "{npc:1952}, sous terre",
 
-	-- Step 32: Silverpine Forest: kill these as you meet them
+	-- Step 34: Silverpine Forest: kill these as you meet them
 	-- {zone:1421} Silverpine Forest
 	["{zone:1421}: kill these as you meet them"] = "{zone:1421} : tuez-les au passage",
 	-- {area:233} Ambermill · {quest:516} Beren's Peril
@@ -175,11 +184,11 @@ return {
 	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest. Careful: High Order Mages (30) walk the same roads among the Watchers and Wizards: leave them."] = "Descendez la route vers le sud en passant Bois-du-Bûcher : des Guetteurs et des Sorciers de Dalaran patrouillent sur les routes autour d'{area:233}, et au sud-ouest de la ville les Drudgers et les Gardiens Ravenclaw hantent les ruines de {quest:516}, dans le sud-est de la forêt. Attention : des Mages du Haut ordre (30) parcourent les mêmes routes parmi les Guetteurs et les Sorciers : laissez-les.",
 	["Below ground"] = "Sous terre",
 
-	-- Step 33: Ambermill
+	-- Step 35: Ambermill
 	-- {area:233} Ambermill · {npc:2540} Dalaran Serpent · {npc:2120} Archmage Ataeric
 	["On the roads around {area:233}, step into the town's outskirts: Protectors guard them and Mages the town; both drop pendants. Careful: each Mage (15) fights with a {npc:2540} (15) beside it: pull one Mage at a time from the outskirts. Stay out of the middle, where {npc:2120} (22) stands."] = "Sur les routes autour de {area:233}, avancez jusqu'aux abords du village : les Protecteurs gardent les abords et les Mages le village ; tous deux lâchent des pendentifs. Attention : chaque Mage (15) combat avec un {npc:2540} (15) à ses côtés : attirez un Mage à la fois depuis les abords. Évitez le centre, où se tient l'{npc:2120} (22).",
 
-	-- Step 34: Beren's Peril
+	-- Step 36: Beren's Peril
 	-- {quest:516} Beren's Peril · {npc:1973} Ravenclaw Guardian · {item:271343} Note Scrap · {object:645153} Offering Stone
 	["The Ravenclaw undead haunt the ruins of {quest:516}, east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}.\nAn elite spirit (20) often stands beside the {object:645153}: pull the Ravenclaws away from the stone before you fight them."] = "Les morts-vivants Ravenclaw hantent les ruines de {quest:516}, à l'est de la route, dans le sud-est de la forêt ; un {npc:1973} lâche le {item:271343} qui mène à la {object:645153}.\nUn esprit élite (20) se tient souvent à côté de la {object:645153} : attirez les Ravenclaw loin de la pierre avant de les combattre.",
 	-- {item:271343} Note Scrap · {npc:1973} Ravenclaw Guardian
@@ -190,19 +199,19 @@ return {
 	-- plural, as words: Tortured Souls = {item:271350} Tortured Soul
 	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "{item:271350}, sur les Âmes torturées parmi les ruines ; sous terre",
 
-	-- Step 35: The Offering of Blood
+	-- Step 37: The Offering of Blood
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone · {quest:95883} The Tortured Soul
 	["The quest hands you a {item:210713}: use it beside the {object:645153} to offer your blood, then kill the elite spirit that answers.\n{quest:95883} is elite: grouping up is advised."] = "La quête vous remet un {item:210713} : utilisez-le à côté de {object:645153} pour offrir votre sang, puis tuez l'esprit élite qui répond.\n{quest:95883} est élite : il est conseillé de se grouper.",
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone
 	["{item:210713}, beside the {object:645153}: summons the elite spirit"] = "{item:210713}, à côté de {object:645153} : invoque l'esprit élite",
 
-	-- Step 36: Into Hillsbrad
+	-- Step 38: Into Hillsbrad
 	-- {area:287} Hillsbrad
 	["Into {area:287}"] = "Vers {area:287}",
 	-- {area:285} Southpoint Tower
 	["The road east to {area:285}"] = "La route de l'est vers {area:285}",
 
-	-- Step 37: Southpoint Tower
+	-- Step 39: Southpoint Tower
 	-- {area:287} Hillsbrad · {npc:2214} Deathstalker Lesh · {area:285} Southpoint Tower
 	["Back on the road south. Where it turns east into {area:287}, {npc:2214} waits at {area:285}."] = "De nouveau sur la route vers le sud. Là où elle tourne vers l'est dans {area:287}, {npc:2214} attend à {area:285}.",
 	-- {npc:2214} Deathstalker Lesh · {area:272} Tarren Mill
@@ -266,6 +275,7 @@ return {
 	-- ["{npc:12696} stands at {area:428}, the Warsong camp just north-east of Splintertree, beside the hunt board.\nNorth up the road to {area:431} and {area:428} beside it."] = "{npc:12696} se tient à {area:428}, le camp Chanteguerre juste au nord-est de Bois-Brisé, à côté du tableau de chasse.\nRemontez la route vers le nord jusqu'à {area:431} et {area:428}, juste à côté.",
 	-- ["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {area:331} visit, at 27."] = "Les cibles de chasse de {npc:12696} (Ursangous, Shadumbra, Serres-tranchantes) sont pour la prochaine visite en {area:331}, au niveau 27.",
 	-- ["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 26."] = "Les cibles de chasse de {npc:12696} (Ursangous, Shadumbra, Serres-tranchantes) sont pour la prochaine visite en {zone:1440}, au niveau 26.",
+	-- ["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} remonte la grève vers le nord jusqu'à un brasero naga. Éteignez le brasero, puis protégez-le pendant les vagues de nagas jusqu'à la mort de Vorsha ; les nagas Irequeue lâchent les têtes que veut {npc:12719}.",
 	-- ["{npc:12721}: the troll charms are in Thistlefur Hold, east of the outpost"] = "{npc:12721} : les charmes trolls sont dans l'Antre des Crins-de-Chardon, à l'est de l'avant-poste",
 	-- ["{npc:12736} at Zoram'gar, at 27"] = "{npc:12736} à Zoram'gar, au niveau 27",
 	-- ["{npc:12818}, below ground"] = "{npc:12818}, sous terre",

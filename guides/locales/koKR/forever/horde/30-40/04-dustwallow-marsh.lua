@@ -11,8 +11,10 @@ return {
 	["Zeppelin to {zone:1454}"] = "{zone:1454}행 비행선",
 
 	-- Step 2: Orgrimmar
+	-- {zone:1454} Orgrimmar · {zone:1445} Dustwallow Marsh
+	["The {zone:1454} and Crossroads stops are on the way for players coming from the previous guide; opened with none of its quests in the log, the guide starts in {zone:1445}."] = "{zone:1454}과(와) 크로스로드 정거장은 이전 가이드에서 오는 플레이어가 가는 길에 있습니다. 그 퀘스트 없이 가이드를 열면 {zone:1445}에서 시작합니다.",
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "{zone:1454} 중앙",
 
 	-- Step 3: Orgrimmar
 	-- {item:3713} Soothing Spices
@@ -66,7 +68,7 @@ return {
 
 	-- Step 14: Brackenwall Village: kill these as you meet them
 	-- {area:496} Brackenwall Village
-	["{area:496}: kill these as you meet them"] = "",
+	["{area:496}: kill these as you meet them"] = "{area:496}: 만나는 대로 처치하세요",
 	-- plural, as words: Darkfang Lurkers = {npc:4411} Darkfang Lurker · Theramore Infiltrators = {npc:4834} Theramore Infiltrator · Darkmist Lurkers = {npc:4377} Darkmist Lurker
 	["Head west back across the marsh. The Darkfang Lurkers (36-37) and Venomspitters (37-38) on the ridges north of Brackenwall drop the venom sacs. Theramore Infiltrators (35-36) sneak through the same woods: they are stealthed, so look closely.\nThe Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes. Work its outer edge, where the Spiders and Recluses (35-37) stand: the Lurkers and Silkspinners (37-39) deeper in are two or three over you.\nCareful: Darkfang Lurkers (level 36-37) use Sneak to stealth while out of combat and cast Poison once fighting.\nCareful: Stealthed spiders in the same area will attack you on sight.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "늪지대를 가로질러 서쪽으로 돌아가세요. 담쟁이 마을 북쪽 능선의 검은송곳니 늑대거미(36-37)와 독침거미(37-38)가 독주머니를 떨어뜨립니다. 같은 숲에 테라모어 첩보원(35-36)이 숨어 다니니 잘 살펴보세요.\n담쟁이 마을 북서쪽 동굴 입구에 암흑안개 거미가 득실거립니다. 모든 종류가 눈을 떨어뜨립니다. 거미와 은둔거미(35-37)가 있는 바깥쪽에서 잡으세요. 안쪽의 늑대거미와 비단거미(37-39)는 나보다 2-3레벨 높습니다.\n주의: 검은송곳니 늑대거미(36-37 레벨)는 비전투 중 은신하고 전투가 시작되면 독을 사용합니다.\n주의: 같은 지역의 은신한 거미는 보는 즉시 공격합니다.\n주의: 암흑안개 늑대거미는 은신한 채 돌아다니며 전투 중 독을 사용합니다. 거미들이 가까이 붙어 있어 추가로 끌려오기 쉬우니, 바깥쪽에서 한 마리씩 끌어오세요.",
 	-- plural, as words: Giant Darkfang Spiders = {npc:4415} Giant Darkfang Spider
@@ -94,8 +96,8 @@ return {
 	-- Step 19: Brackenwall Village
 	-- {npc:4503} Mudcrush Durtfeet · {npc:4791} Nazeer Bloodpike · {npc:4926} Krog
 	["Head back west to Brackenwall with the head: {npc:4503} stands at the south edge of the village where the road comes in, {npc:4791} and {npc:4926} in the village."] = "머리를 가지고 서쪽 담쟁이 마을로 돌아가세요. {npc:4503}은(는) 길이 들어오는 마을 남쪽 가장자리에, {npc:4791}와(과) {npc:4926}은(는) 마을 안에 있습니다.",
-	-- {npc:2519} Kin'weelay · {object:3202} Grom'gol
-	["For {npc:2519} at {object:3202}, in forever/horde/40-50/01-stranglethorn-vale"] = "",
+	-- {npc:2519} Kin'weelay · {object:3202} Grom'gol · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["For {npc:2519} at {object:3202}, in the {zone:1434} & {zone:1435} guide"] = "",
 
 	-- Step 20: Level 36
 	["Level 36"] = "",
@@ -109,9 +111,9 @@ return {
 
 	-- Step 21: Fly to Ratchet
 	-- {area:392} Ratchet
-	["Fly to {area:392}"] = "",
+	["Fly to {area:392}"] = "{area:392}(으)로 날아가기",
 	-- {area:496} Brackenwall Village
-	["{area:496} flight master"] = "",
+	["{area:496} flight master"] = "{area:496} 비행 조련사",
 
 	-- Step 22: Ratchet
 	-- {npc:3446} Mebok Mizzyrix
@@ -123,13 +125,13 @@ return {
 
 	-- Step 24: Ratchet flight master
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "{area:392} 비행 조련사",
 	-- {area:392} Ratchet
 	["Back north along the coast to {area:392}'s flight master."] = "해안을 따라 북쪽으로 {area:392}의 비행 조련사에게 돌아가세요.",
 
 	-- Step 25: Fly to Shadowprey Village
 	-- {area:2408} Shadowprey Village
-	["Fly to {area:2408}"] = "",
+	["Fly to {area:2408}"] = "{area:2408}(으)로 날아가기",
 	-- {area:2408} Shadowprey Village · {area:392} Ratchet
 	["Fly to {area:2408} from the flight master you are next to: {area:392}'s, or Brackenwall's if you had no errand in {area:392}."] = "지금 옆에 있는 비행 조련사에게서 {area:2408}(으)로 날아가세요. {area:392}의 비행 조련사, {area:392}에 볼일이 없었다면 담쟁이 마을의 비행 조련사입니다.",
 
@@ -141,89 +143,99 @@ return {
 	-- {npc:12340} Drulzegar Skraghook · {area:599} Thunder Axe Fortress
 	["{npc:12340}: the Slitherblade of Sar'theris Strand, on the way back from {area:599}"] = "{npc:12340}: 살테리스 해안의 미끈비늘, {area:599}에서 돌아오는 길에",
 
-	-- Step 27: Ghost Walker Post
+	-- Step 27: Aka'rai
+	-- {npc:268705} Aka'rai · {area:2408} Shadowprey Village · {area:603} Sargeron · {area:599} Thunder Axe Fortress
+	["{npc:268705} stands by the path out of {area:2408}, on your way east: her Hatefury satyrs are at {area:603}, past {area:599} later on this visit."] = "",
+
+	-- Step 28: Ghost Walker Post
 	-- {area:597} Ghost Walker Post · {npc:5412} Gurda Wildmane · {npc:5395} Felgur Twocuts
 	["East along the road to {area:597}; {npc:5412} stands beside {npc:5395}."] = "길을 따라 동쪽의 {area:597}(으)로 가세요. {npc:5412}은(는) {npc:5395} 옆에 서 있습니다.",
 	-- {npc:5395} Felgur Twocuts · {quest:1366} Centaur Bounty
 	["{npc:5395}: his {quest:1366}, from the same Maraudine as Gurda's totems"] = "{npc:5395}: 구르다의 토템과 같은 마라우딘에게서 얻는 그의 {quest:1366}",
 
-	-- Step 28: Valley of Spears
+	-- Step 29: Valley of Spears
 	-- {area:607} Valley of Spears · {item:254432} Carved Centaur Totem · {npc:5395} Felgur Twocuts · {quest:1366} Centaur Bounty · {npc:5402} Khan Hratha
 	-- plural, as words: Rock Worms = {npc:11788} Rock Worm
 	["West of the post, the Maraudine centaurs hold the {area:607}; every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}. Stay with the Scouts and Wranglers (36-38) at the valley's eastern edge; the Maulers and Windchasers (38-39) a little further in are up to two over you at 37: pull them one at a time.\nCareful: {npc:5402} and the Rock Worms (41-42, elite) hold the valley's north-western end with the Khan Guards and Marauders (39-40), and the Magram's village in the south-east has Necromancers (42-43): keep east of the arrow."] = "초소 서쪽의 {area:607}은(는) 마라우딘 켄타우로스가 차지하고 있습니다. 모든 마라우딘이 {item:254432}와(과) {npc:5395}의 {quest:1366}에 쓸 귀를 떨어뜨릴 수 있습니다. 골짜기 동쪽 가장자리의 정찰병과 조련사(36-38)만 상대하세요. 조금 더 안쪽의 난폭꾼과 바람추적자(38-39)는 37레벨인 당신보다 최대 2레벨 높습니다. 한 번에 한 마리씩 끌어오세요.\n주의: {npc:5402}와(과) 바위미늘벌레(41-42, 정예)가 칸 경비병, 약탈자(39-40)와 함께 골짜기 북서쪽 끝을 차지하고 있으며, 남동쪽의 마그람 마을에는 강령술사(42-43)가 있습니다. 화살표 동쪽에 머무르세요.",
 
-	-- Step 29: Melizza Brimbuzzle
+	-- Step 30: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "",
+	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}은(는) 골짜기 서쪽 끝의 마라우돈일족 야영지에 붙잡혀 있습니다. 풀어 주고 골짜기 동쪽 밖으로 호위하십시오.\n주의: 호위 중에 켄타우로스 여섯이 공격하며 미리 정리할 수 없습니다: 호위 중에만 나타나고 함께 덤빕니다. 플레이어 기록에서 받은 30명 중 14명이 한 번 이상 실패했습니다. 친구를 데려가거나, 혼자라면 건너뛰십시오. 시작 전에 길의 일반 켄타우로스를 정리하면 도움이 됩니다.",
 
-	-- Step 30: Hornizz Brimbuzzle
+	-- Step 31: Hornizz Brimbuzzle
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard
 	["{npc:6019} waits at the goblin camp on the west side of the {area:596}."] = "{npc:6019}은(는) {area:596} 서쪽의 고블린 야영지에서 기다립니다.",
 	-- {npc:6019} Hornizz Brimbuzzle · {area:602} Mannoroc Coven
 	["{npc:6019}: the ghost-o-plasm, after {area:602} at the end of this visit"] = "{npc:6019}: 이번 방문 마지막에 {area:602}을(를) 마친 뒤 유령 원형질",
 
-	-- Step 32: Thunder Axe Fortress
+	-- Step 33: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {item:13542} Demon Box
 	["North up the road to {area:599}. Clear the middle of the largest building, then use the {item:14523} on the red {object:176581} there. A {npc:11876} (37) comes out: kill it for the {item:13542}. The Burning Blade around it are well under you now."] = "길을 따라 북쪽의 {area:599}(으)로 가세요. 가장 큰 건물 가운데를 정리한 뒤, 그곳의 붉은 {object:176581}에 {item:14523}을(를) 사용하세요. {npc:11876}(37)이(가) 나타납니다. 처치하고 {item:13542}을(를) 얻으세요. 주변의 불타는 칼날단은 이제 당신보다 훨씬 낮습니다.",
 	-- {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal
-	["{item:14523}, on the {object:176581}"] = "",
+	["{item:14523}, on the {object:176581}"] = "{item:14523}, {object:176581}에 사용",
 
-	-- Step 33: Sar'theris Strand
+	-- Step 34: Sargeron
+	-- {area:603} Sargeron
+	["East from the fortress to {area:603}, the Hatefury satyrs' ruins in the north-east (32-33, well under you now): two of each kind."] = "",
+
+	-- Step 35: Sar'theris Strand
 	-- {area:598} Sar'theris Strand
 	-- plural, as words: Slitherblade Myrmidons = {npc:4714} Slitherblade Myrmidon
-	["West from the fortress to the coast at {area:598}: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range."] = "요새에서 서쪽으로 {area:598} 해안으로 가세요. 뱀갈퀴일족 미르미돈, 나가, 여마법사가 해변을 차지하고 있습니다. 한 번에 한 마리씩 끌어오세요. 바다 마녀와 예언자(34-36)는 원거리에서 주문을 겁니다.",
+	-- was: ["West from the fortress to the coast at {area:598}: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range."] = "요새에서 서쪽으로 {area:598} 해안으로 가세요. 뱀갈퀴일족 미르미돈, 나가, 여마법사가 해변을 차지하고 있습니다. 한 번에 한 마리씩 끌어오세요. 바다 마녀와 예언자(34-36)는 원거리에서 주문을 겁니다."
+	["West past the fortress to the coast at {area:598}: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range."] = "",
 
-	-- Step 34: Shadowprey Village
-	-- {npc:11624} Taiga Wisemane · {area:602} Mannoroc Coven · {npc:12340} Drulzegar Skraghook
-	["South down the coast to Shadowprey: {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga."] = "해안을 따라 남쪽의 그림자약탈 마을로 가세요. {npc:11624}이(가) 상자를 받고 그것을 들고 {area:602}(으)로 보냅니다. {npc:12340}은(는) 나가 퀘스트를 받습니다.",
+	-- Step 36: Shadowprey Village
+	-- {npc:268705} Aka'rai · {npc:11624} Taiga Wisemane · {area:602} Mannoroc Coven · {npc:12340} Drulzegar Skraghook
+	-- was: ["South down the coast to Shadowprey: {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga."] = "해안을 따라 남쪽의 그림자약탈 마을로 가세요. {npc:11624}이(가) 상자를 받고 그것을 들고 {area:602}(으)로 보냅니다. {npc:12340}은(는) 나가 퀘스트를 받습니다."
+	["South down the coast to Shadowprey: {npc:268705} first, on the path into the village; {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga."] = "",
 
-	-- Step 35: Portals of the Legion
+	-- Step 37: Portals of the Legion
 	-- {area:602} Mannoroc Coven · {quest:5381} Hand of Iruxos · {npc:11624} Taiga Wisemane · {npc:11937} Demon Portal Guardian
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner
 	["Head east to {area:602}. With the {quest:5381} from {npc:11624} in your bags, open a demon portal's ring: a {npc:11937} (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "",
 
-	-- Step 36: The Valley of Bones
+	-- Step 38: The Valley of Bones
 	-- {area:2657} Valley of Bones
 	["The {area:2657}"] = "{area:2657}",
 	-- {area:2657} Valley of Bones · {zone:1443} Desolace · {item:15848} Crate of Ghost Magnets
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan
 	["South-east of the coven, the bone fields of the {area:2657}, where Undead Ravagers roam, at {zone:1443}'s southern edge: keep south of the Magram's village on the way. Use the {item:15848} at the arrow to draw the Magrami Spectres (38-39): they come in numbers, so fight them with your back to the valley's edge. They drop the ghost-o-plasm.\nCareful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them."] = "집회장 남동쪽, {zone:1443} 남쪽 끝에 언데드 약탈자가 배회하는 {area:2657}의 뼈 들판이 있습니다. 가는 길에 마그람 마을 남쪽으로 지나가세요. 화살표 지점에서 {item:15848}을(를) 사용해 마그라미 망령(38-39)을 끌어내세요. 여러 마리가 몰려오니 골짜기 가장자리를 등지고 싸우세요. 망령이 유령 원형질을 떨어뜨립니다.\n주의: 마그람 강령칸과 시체먹이(45, 정예)가 화살표 바로 서쪽 뼈 들판을 돌아다니며, 당신보다 훨씬 강합니다. 골짜기 동쪽의 화살표 지점에서 상자를 사용하고 망령을 그들에게서 떨어진 곳으로 끌어오세요.",
 
-	-- Step 37: Hornizz Brimbuzzle
+	-- Step 39: Hornizz Brimbuzzle
 	-- {area:596} Kodo Graveyard · {area:602} Mannoroc Coven
 	["North-west to the goblin camp on the west side of the {area:596}, back past {area:602}: keep west of the Magram's village."] = "{area:602}을(를) 다시 지나 북서쪽으로 {area:596} 서쪽의 고블린 야영지로 가세요. 마그람 마을 서쪽으로 지나가세요.",
 
-	-- Step 38: Shadowprey
+	-- Step 40: Shadowprey
 	["Shadowprey"] = "",
 	["Hearth to Shadowprey: your hearthstone is still bound there."] = "그림자약탈 마을로 귀환석을 사용하세요. 귀환석은 아직 그곳에 설정되어 있습니다.",
 
-	-- Step 39: Thunder Bluff
+	-- Step 41: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
 	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "",
 
-	-- Step 40: Fly to Orgrimmar
+	-- Step 42: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "{area:1637}(으)로 날아가기",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "{area:2408} 비행 조련사",
 
-	-- Step 41: Back to Orgrimmar
+	-- Step 43: Back to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Back to {area:1637}"] = "",
+	["Back to {area:1637}"] = "{area:1637}(으)로 돌아가기",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "{zone:1456} 비행 조련사",
 
-	-- Step 42: Belgrom Rockmaul
+	-- Step 44: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor
-	["{npc:4485} stands in the {object:172958}."] = "",
+	["{npc:4485} stands in the {object:172958}."] = "{npc:4485}은(는) {object:172958}에 서 있습니다.",
 
-	-- Step 43: Nogg
+	-- Step 45: Nogg
 	-- {npc:3412} Nogg · {object:172958} Valley of Honor · {npc:4485} Belgrom Rockmaul · {quest:2841} Rig Wars · {area:133} Gnomeregan
 	["{npc:3412}'s workshop is in the {object:172958} beside {npc:4485}: hand in {quest:2841} if you ran {area:133}."] = "",
 
-	-- Step 44: Orgrimmar trainers
+	-- Step 46: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} trainers"] = "",
+	["{zone:1454} trainers"] = "{zone:1454} 상급자",
 	-- {zone:1458} Undercity
 	["Train while you are in the city; everyone else trains in the {zone:1458}, next."] = "",
 	-- {zone:1458} Undercity
@@ -248,11 +260,13 @@ return {
 	-- ["Ride west back across the marsh. The Darkfang Venomspitters on the ridges north of Brackenwall drop the venom sacs. Theramore Infiltrators (35-36) sneak through the same woods: they are stealthed, so look closely."] = "서쪽으로 늪지대를 가로질러 돌아가세요. 담쟁이 마을 북쪽 능선의 검은송곳니 독거미가 독주머니를 떨어뜨립니다. 테라모어 첩보원(35-36)이 같은 숲에 숨어 다닙니다. 은신 중이니 잘 살피세요.",
 	-- ["Ride west to {npc:11863}'s tower at {area:2405} on the north-west coast."] = "서쪽으로 북서쪽 해안 {area:2405}에 있는 {npc:11863}의 탑으로 가세요.",
 	-- ["Slitherblade coast"] = "뱀갈퀴일족 해안",
+	-- ["South down the coast to Shadowprey: {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga."] = "해안을 따라 남쪽의 그림자약탈 마을로 가세요. {npc:11624}이(가) 상자를 받고 그것을 들고 {area:602}(으)로 보냅니다. {npc:12340}은(는) 나가 퀘스트를 받습니다.",
 	-- ["South-east from the manor to {area:513}: the {object:20925} lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57, and a death here is a long run back from the spirit healer."] = "저택에서 남동쪽으로 {area:513}까지 가세요. {object:20925}은(는) 섬 동쪽 부두 앞바다 해저에 있습니다. 헤엄쳐 들어갔다 나오고 부두와 마을은 피하세요. 테라모어 경비병은 53-57 레벨이며, 여기서 죽으면 영혼의 치유사에게서 먼 길을 달려와야 합니다.",
 	-- ["The Burning Blade hold the fortress north-west of {area:2407}. Use the {item:14523} on the {npc:11876} in the fortress to get the {item:13542}."] = "불타는 칼날단이(가) {area:2407} 북서쪽 요새를 차지하고 있습니다. 요새 안의 {npc:11876}에게 {item:14523}을(를) 사용해 {item:13542}을(를) 얻으세요.",
 	-- ["The Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes."] = "암흑안개 거미는 담쟁이 마을 북서쪽 동굴 입구에 몰려 있습니다. 모든 종류가 눈알을 떨어뜨립니다.",
 	-- ["The Slitherblade naga hold the coast north of {area:2405}, up to {area:598}. {npc:12369} guards the {quest:6027} at the far northern tip."] = "뱀갈퀴일족 나가는 {area:2405} 북쪽부터 {area:598}까지 해안을 차지하고 있습니다. {npc:12369}이(가) 북쪽 맨 끝에서 {quest:6027}을(를) 지키고 있습니다.",
 	-- ["The next guide takes you back to {zone:1434}."] = "다음 가이드는 다시 {zone:1434}(으)로 안내합니다.",
+	-- ["West from the fortress to the coast at {area:598}: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range."] = "요새에서 서쪽으로 {area:598} 해안으로 가세요. 뱀갈퀴일족 미르미돈, 나가, 여마법사가 해변을 차지하고 있습니다. 한 번에 한 마리씩 끌어오세요. 바다 마녀와 예언자(34-36)는 원거리에서 주문을 겁니다.",
 	-- ["West to Shadowprey."] = "서쪽 그늘수렵 마을로",
 	-- ["{npc:11626}'s caravan stops on the road at the edge of {area:602}. Escort it east past the coven; demons attack it twice."] = "{npc:11626}의 대상단은 {area:602} 가장자리 길에 멈춰 있습니다. 동쪽으로 소굴을 지날 때까지 호위하세요. 악마가 두 번 습격합니다.",
 	-- ["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391}: 40-50 가이드에서 처음 {area:35}에 들를 때 {area:35}의 {npc:4631}에게",

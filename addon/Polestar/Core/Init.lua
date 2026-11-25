@@ -18,8 +18,8 @@ ns.stage = "Beta"
 -- The leveling routes are planned and played in the simulator but not yet
 -- followed through the live game: the welcome (UI/Welcome.lua) says so on
 -- its own page while this is true. The owner turns it off once they have
--- been.
-ns.routesBeta = true
+-- been: off since 0.4.2.1, players have played them.
+ns.routesBeta = false
 -- Dungeons in the leveling routes (`when dungeon` steps, the
 -- behavior.dungeons setting "Dungeons in my route", the per-character answers
 -- in CharState().dungeons): built, held back for a later release. While
@@ -166,10 +166,11 @@ end
 -- status "ai"; tests/i18n.test.js keeps the two lists equal).
 ns.AI_LOCALES = { koKR = true, ptBR = true, ruRU = true, zhCN = true, zhTW = true }
 
--- True when this client reads an AI-made translation: its locale is one of
--- AI_LOCALES and its file filled L. Options' About then says so.
+-- True when Polestar shows an AI-made translation: the language it shows
+-- (Polestar.Names.Language) is one of AI_LOCALES and its file filled L.
+-- Options' About then says so.
 function ns.AITranslation()
-	return (GetLocale and ns.AI_LOCALES[GetLocale()] == true and next(L) ~= nil) or false
+	return (ns.AI_LOCALES[ns.Names.Language()] == true and next(L) ~= nil) or false
 end
 
 -- Game terms in the client's own words, so they read as the game writes them
@@ -404,8 +405,20 @@ local run = call
 -- fn wrapped so its errors are caught, noted and passed on like an event
 -- handler's (nil stays nil): for OnUpdate scripts and timer callbacks, which
 -- the client would otherwise run bare.
+-- Until login is done, and for every ticker and timer, where fn was made is
+-- noted for the perf probe (ns.NoteMadeAt): the OnUpdate scripts and tickers
+-- made as the addon loads run for the whole session, and the probe, turned on
+-- later, could not name them ("timer ?" in a report, #3640). Once logged in a
+-- plain ns.Safe/ns.After (made often, gone soon) notes nothing; the probe
+-- notes those itself while it is on.
+local noteMaking = true
+local INIT = ADDON .. "/Core/Init.lua"
+local function noteMade(fn)
+	if madeAt[fn] == nil then ns.NoteMadeAt(fn, INIT) end
+end
 function ns.Safe(fn)
 	if fn == nil then return nil end
+	if noteMaking then noteMade(fn) end
 	return function(...)
 		serial = serial + 1
 		run(fn, ...)
@@ -414,8 +427,14 @@ end
 
 -- C_Timer's After, NewTicker and NewTimer with the callback through ns.Safe.
 function ns.After(seconds, fn) return C_Timer.After(seconds, ns.Safe(fn)) end
-function ns.NewTicker(seconds, fn, n) return C_Timer.NewTicker(seconds, ns.Safe(fn), n) end
-function ns.NewTimer(seconds, fn) return C_Timer.NewTimer(seconds, ns.Safe(fn)) end
+function ns.NewTicker(seconds, fn, n)
+	if fn ~= nil then noteMade(fn) end
+	return C_Timer.NewTicker(seconds, ns.Safe(fn), n)
+end
+function ns.NewTimer(seconds, fn)
+	if fn ~= nil then noteMade(fn) end
+	return C_Timer.NewTimer(seconds, ns.Safe(fn))
+end
 
 -- A frame of Polestar's that goes under the game's own UI (the world map's
 -- canvas, the minimap, a quest reward or talent button): made with no parent,
@@ -754,34 +773,83 @@ end
 function ns.Dispatching() return busDepth > 0 end
 
 ---------------------------------------------------------------------------
--- Game events, all through one hidden frame.
+-- Game events, all through one hidden frame, and one more per unit that a
+-- unit event is asked for alone (RegisterUnitEvent): the client sends
+-- UNIT_AURA and UNIT_SPELLCAST_SUCCEEDED for every nameplate in a fight,
+-- dozens a second, and each one Polestar hears is a new moment (the
+-- per-moment memos start over) for handlers that only want the player's.
 ---------------------------------------------------------------------------
 
-local eventFrame = CreateFrame("Frame")
-local gameHandlers = {} -- event -> { { fn, live }, ... }
+local buses = {} -- unit or "" -> { frame, handlers = { event -> { { fn, live }, ... } } }
 local eventDepth, eventsDirty = 0, false
 
-local function settle(event)
-	local list = gameHandlers[event]
+local function settle(bus, event)
+	local list = bus.handlers[event]
 	if not list then return end
 	compact(list)
 	if #list == 0 then
-		gameHandlers[event] = nil
-		eventFrame:UnregisterEvent(event)
+		bus.handlers[event] = nil
+		bus.frame:UnregisterEvent(event)
 	end
 end
 
+-- Each game event's handler runs through eventRun: `call`, or the perf
+-- probe's timing while /polestar perf is on (ns.SetProbe).
+local eventRun = call
+
+local function dispatch(bus, event, ...)
+	serial = serial + 1
+	local list = bus.handlers[event]
+	if not list then return end
+	eventDepth = eventDepth + 1
+	for i = 1, #list do
+		local h = list[i]
+		if h.live then eventRun(h.fn, event, ...) end
+	end
+	eventDepth = eventDepth - 1
+	if eventDepth == 0 and eventsDirty then
+		eventsDirty = false
+		for _, b in pairs(buses) do
+			local events = {}
+			for ev in pairs(b.handlers) do events[#events + 1] = ev end
+			for i = 1, #events do settle(b, events[i]) end
+		end
+	end
+end
+
+local function busOf(unit)
+	local key = unit or ""
+	local bus = buses[key]
+	if not bus then
+		bus = { frame = CreateFrame("Frame"), handlers = {}, unit = unit }
+		bus.frame:SetScript("OnEvent", function(_, event, ...) dispatch(bus, event, ...) end)
+		buses[key] = bus
+	end
+	return bus
+end
+busOf(nil)
+
 -- Returns false for an event this client does not know (modern clients throw
 -- on RegisterEvent for unknown names; Forever is not Era or Retail).
-function ns.RegisterEvent(event, fn)
-	local list = gameHandlers[event]
+-- unit: only that unit's (a unit event, e.g. "player"); fn still checks its
+-- unit where a client without RegisterUnitEvent sends every unit's.
+function ns.RegisterEvent(event, fn, unit)
+	local bus = busOf(unit)
+	local list = bus.handlers[event]
 	if not list then
-		if not pcall(eventFrame.RegisterEvent, eventFrame, event) then
+		local f = bus.frame
+		local ok
+		if unit and f.RegisterUnitEvent then
+			ok = pcall(f.RegisterUnitEvent, f, event, unit)
+		else
+			ok = pcall(f.RegisterEvent, f, event)
+		end
+		if not ok then
 			if ns.Debug then ns.Debug("unknown event", event) end
 			return false
 		end
 		list = {}
-		gameHandlers[event] = list
+		bus.handlers[event] = list
 	end
 	for i = 1, #list do
 		if list[i].fn == fn and list[i].live then return true end
@@ -790,8 +858,9 @@ function ns.RegisterEvent(event, fn)
 	return true
 end
 
-function ns.UnregisterEvent(event, fn)
-	local list = gameHandlers[event]
+function ns.UnregisterEvent(event, fn, unit)
+	local bus = buses[unit or ""]
+	local list = bus and bus.handlers[event]
 	if not list then return end
 	for i = 1, #list do
 		if list[i].fn == fn then list[i].live = false end
@@ -799,59 +868,27 @@ function ns.UnregisterEvent(event, fn)
 	if eventDepth > 0 then
 		eventsDirty = true
 	else
-		settle(event)
+		settle(bus, event)
 	end
 end
-
-local function eventsDone()
-	eventDepth = eventDepth - 1
-	if eventDepth == 0 and eventsDirty then
-		eventsDirty = false
-		local events = {}
-		for ev in pairs(gameHandlers) do events[#events + 1] = ev end
-		for i = 1, #events do settle(events[i]) end
-	end
-end
-
-local function onEvent(_, event, ...)
-	serial = serial + 1
-	local list = gameHandlers[event]
-	if not list then return end
-	eventDepth = eventDepth + 1
-	for i = 1, #list do
-		local h = list[i]
-		if h.live then call(h.fn, event, ...) end
-	end
-	eventsDone()
-end
-eventFrame:SetScript("OnEvent", onEvent)
 
 ---------------------------------------------------------------------------
 -- The perf probe's way in (Core/Perf.lua, /polestar perf). Off, none of it
--- runs: the event frame keeps onEvent, the bus its Fire, ns.Safe's
--- callbacks and ns.SafeCall run `call`. ns.SetProbe(timed) hands every
+-- runs: game events' handlers, ns.Safe's callbacks and ns.SafeCall run
+-- `call`, and ns.Fire is the plain one. ns.SetProbe(timed) hands every
 -- handler Polestar runs to timed(fn, kind, where, ...), which runs
--- call(fn, ...) and times it: a game event's (kind PROBE.EVENT, where the
--- event), a message's (PROBE.MESSAGE, the message), an OnUpdate script's
--- or timer's made with ns.Safe (PROBE.SAFE) and ns.SafeCall's (PROBE.CALL),
--- the last two with where nil. ns.SetProbe(nil) puts the plain ones back.
+-- call(fn, ...) and times it: a game event's on any bus (kind PROBE.EVENT,
+-- where the event), a message's (PROBE.MESSAGE, the message), an OnUpdate
+-- script's or timer's made with ns.Safe (PROBE.SAFE) and ns.SafeCall's
+-- (PROBE.CALL), the last two with where nil. ns.SetProbe(nil) puts the plain
+-- ones back.
 ---------------------------------------------------------------------------
 
 ns.PROBE = { EVENT = 1, MESSAGE = 2, SAFE = 3, CALL = 4 }
 local probe
 local plainFire = ns.Fire
 
-local function probedEvent(_, event, ...)
-	serial = serial + 1
-	local list = gameHandlers[event]
-	if not list then return end
-	eventDepth = eventDepth + 1
-	for i = 1, #list do
-		local h = list[i]
-		if h.live then probe(h.fn, 1, event, event, ...) end
-	end
-	eventsDone()
-end
+local function probedEvent(fn, event, ...) probe(fn, 1, event, event, ...) end
 
 local function probedFire(msg, ...)
 	serial = serial + 1
@@ -870,25 +907,32 @@ local function probedCall(fn, ...) probe(fn, 4, nil, ...) end
 
 function ns.SetProbe(timed)
 	probe = timed
-	eventFrame:SetScript("OnEvent", timed and probedEvent or onEvent)
+	eventRun = timed and probedEvent or call
 	ns.Fire = timed and probedFire or plainFire
 	ns.SafeCall = timed and probedCall or call
 	run = timed and probedSafe or call
 end
 
 -- For the probe's labels: where fn stands among the live handlers of an
--- event (kind PROBE.EVENT) or a message (PROBE.MESSAGE), and how many there
--- are: 3, 14 for the third of 14; nil when it is not one of them.
-function ns.HandlerPlace(kind, where, fn)
-	local list = (kind == 1 and gameHandlers or listeners)[where]
-	if not list then return nil end
-	local n, at = 0, nil
-	for i = 1, #list do
+-- event (kind PROBE.EVENT, over every bus) or a message (PROBE.MESSAGE), and
+-- how many there are: 3, 14 for the third of 14; nil when it is not one of
+-- them.
+local function place(list, fn, n, at)
+	for i = 1, #(list or {}) do
 		local h = list[i]
 		if h.live then
 			n = n + 1
 			if h.fn == fn and not at then at = n end
 		end
+	end
+	return n, at
+end
+function ns.HandlerPlace(kind, where, fn)
+	local n, at = 0, nil
+	if kind == 1 then
+		for _, b in pairs(buses) do n, at = place(b.handlers[where], fn, n, at) end
+	else
+		n, at = place(listeners[where], fn, n, at)
 	end
 	if at then return at, n end
 	return nil
@@ -961,16 +1005,32 @@ function ns.RegisterDefaults(section, tbl)
 	for k, v in pairs(tbl) do d[k] = v end
 end
 
+-- The layout in use's defaults (Theme.RegisterLayout's spec.defaults, set
+-- by Theme/SkinApi.lua): "guideWindow.tabs" -> value. A setting reads the
+-- player's saved value, else the layout's default, else Polestar's.
+local layered = {}
+local function defaultOf(path, keys)
+	local v = layered[path]
+	if v == nil then v = lookup(defaults, keys) end
+	return v
+end
+
 -- Values are shared, not copied: treat returned tables as read-only and Set a
 -- new table to change one.
 function ns.Get(path)
 	local keys = keysOf(path)
 	local v = lookup(DB().settings, keys)
-	if v == nil then v = lookup(defaults, keys) end
+	if v == nil then v = defaultOf(path, keys) end
 	return v
 end
 
+-- The default a setting goes back to on reset: the layout's, else Polestar's.
 function ns.GetDefault(path)
+	return defaultOf(path, keysOf(path))
+end
+
+-- Polestar's own default, whatever the layout.
+function ns.GetBaseDefault(path)
 	return lookup(defaults, keysOf(path))
 end
 
@@ -978,6 +1038,12 @@ end
 -- Set(path, value) puts back exactly: undo, a frame's place before a move).
 function ns.GetStored(path)
 	return lookup(DB().settings, keysOf(path))
+end
+
+-- Put the layout's defaults in place (t: path -> value, or nil for none).
+function ns.SetLayoutDefaults(t)
+	layered = {}
+	for p, v in pairs(t or {}) do layered[p] = v end
 end
 
 ---------------------------------------------------------------------------
@@ -1007,7 +1073,7 @@ function ns.Set(path, value)
 		if type(node[k]) ~= "table" then node[k] = {} end
 		node = node[k]
 	end
-	if value == lookup(defaults, keys) then value = nil end
+	if value == defaultOf(path, keys) then value = nil end
 	node[keys[#keys]] = value
 	if liveDepth > 0 then
 		if not livePaths[path] then
@@ -1351,8 +1417,15 @@ function ns.CharState()
 	if type(s.pinnedQuests) ~= "table" then s.pinnedQuests = {} end
 	-- Guide id -> true: the leveling guides whose end the player reached (Engine.lua, Own.noteEnd), told once; it stands only while that end holds, and is forgotten by a reset or when a pack update changes the guide's steps (checkShape).
 	-- Those saved before 0.3.6 (guideEndsV unset) are dropped once: 0.3.5 reused guide ids for other parts of the route, and ended guides by where the player stood (the Undercity at the start of Hillsbrad), so any of them can be false; one without a live step shows nothing either way.
-	if type(s.guideEnds) ~= "table" or s.guideEndsV ~= 2 then
-		s.guideEnds, s.guideEndsV = {}, 2
+	-- Those saved by 0.3.6 up to 0.4.2.2 (guideEndsV 2) could be told with steps still open before the last one:
+	-- kept, and listed in guideEndsOld for the Engine to look at once (Own.noteEnd: forgotten with steps left, #3517).
+	if type(s.guideEnds) == "table" and s.guideEndsV == 2 then
+		s.guideEndsOld = {}
+		for id in pairs(s.guideEnds) do s.guideEndsOld[id] = true end
+		s.guideEndsV = 3
+	end
+	if type(s.guideEnds) ~= "table" or s.guideEndsV ~= 3 then
+		s.guideEnds, s.guideEndsV, s.guideEndsOld = {}, 3, nil
 	end
 	-- Guide id -> true: the guides the player finished, every step done (Engine.lua, the completion in
 	-- evaluateLoaded), kept over a reload or relog for the guide list's check (Engine.GetGuideState); a
@@ -1418,6 +1491,7 @@ local function onLogin()
 	local queue = loginQueue
 	loginQueue = nil
 	for i = 1, #queue do call(queue[i]) end
+	noteMaking = false
 end
 
 ns.RegisterEvent("ADDON_LOADED", onAddonLoaded)
@@ -1437,6 +1511,16 @@ function ns.Print(...)
 	local parts = {}
 	for i = 1, n do parts[i] = tostring((select(i, ...))) end
 	DEFAULT_CHAT_FRAME:AddMessage(PREFIX .. table.concat(parts, " "))
+end
+
+-- A line telling what Polestar did or wants by itself (a turn-in waiting on a
+-- reward, buttons upgraded, junk sold): silent with Settings > Guide >
+-- Window > Show and hide > Chat messages off (#2527). Errors and command replies use
+-- ns.Print.
+ns.RegisterDefaults("ui", { chatMessages = true })
+function ns.Notice(...)
+	if ns.Get("ui.chatMessages") == false then return end
+	ns.Print(...)
 end
 
 ns.debug = false

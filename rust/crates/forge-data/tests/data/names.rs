@@ -115,17 +115,22 @@ fn the_ids_kept_are_the_ones_the_guides_the_quest_database_and_the_codex_name() 
 }
 
 // Polestar's own pack carries the experimental index (Polestar.RegisterExperimental) since 0.4.0, and Polestar
-// Experimental's guides sit in their own folder beside it: the index loads, and those guides' ids are kept too.
+// Experimental's guides sit inside Polestar's own folder (Polestar/Experimental, since 0.4.3): the index loads,
+// and those guides' ids are kept too.
 #[test]
 fn the_experimental_index_loads_and_polestar_experimental_s_guides_count() {
 	let f = fix();
 	let tmp = scratch("names-experimental");
-	for d in ["Polestar_Guides", "Polestar_Experimental"] {
+	for d in ["Polestar_Guides", "Polestar/Experimental"] {
 		std::fs::create_dir_all(tmp.join(d)).unwrap();
 	}
 	let ours = std::fs::read_to_string(f.join("Guides.lua")).unwrap();
 	std::fs::write(tmp.join("Polestar_Guides/Guides.lua"), format!("{ours}\nPolestar.RegisterExperimental({{ {{ id = \"polestar-experimental/x\", faction = \"Horde\" }} }})\n")).unwrap();
-	std::fs::write(tmp.join("Polestar_Experimental/Guides.lua"), "Polestar.RegisterGuide({ id = \"x\", steps = { { goals = { { t = \"accept\", quest = 93407, npc = 243815 } } } } })\n").unwrap();
+	std::fs::write(
+		tmp.join("Polestar/Experimental/Guides.lua"),
+		"Polestar.DeferGuides(\"polestar-experimental\", function()\nPolestar.RegisterGuide({ id = \"x\", steps = { { goals = { { t = \"accept\", quest = 93407, npc = 243815 } } } } })\nend)\n",
+	)
+	.unwrap();
 	let u = names::used_ids(&tmp.join("Polestar_Guides/Guides.lua"), &f.join("questdb"), &f.join("codex")).unwrap();
 	assert!(u.ids[0].contains(&93407) && u.ids[1].contains(&243815), "the experimental guide's quest and NPC: {:?} {:?}", u.ids[0], u.ids[1]);
 	assert_eq!(u.counts[0], ("guides", [5, 5, 1, 3]));
@@ -305,6 +310,29 @@ fn cached_web_lists_and_tooltips_bracketed_names_are_none_objectives_read() {
 	assert!(none.names.iter().all(|m| m.is_empty()) && none.objective.is_empty() && none.fetched.is_none());
 }
 
+#[test]
+fn quest_tooltip_title_level_is_excluded_from_the_objective() {
+	use serde_json::json;
+	let s = scratch("names-web-level");
+	let summaries = [
+		(92753, r#"<th><b class="q0">Level 18</b></th>"#, "Place the explosives."),
+		(92401, r#"<th align="right"><b class="q0">Niveau 22</b></th>"#, "Investigate the ruins."),
+		(94748, "", "Rescue five scouts."),
+		(94888, "", "Level 18 is the signal to proceed."),
+	];
+	for (id, level_cell, objective) in summaries {
+		let tooltip = format!(
+			r#"<table><tr><td><table width="100%"><tr><td><b class="q">Quest</b></td>{level_cell}</tr></table></td></tr></table><table><tr><td><br />{objective}<br /><br /><span class="q">Requirements:</span><br /> - Trigger</td></tr></table>"#
+		);
+		write_json(&s.join(format!("web/names/frFR/quest/{id}.json")), json!({ "id": id, "name": "Quête", "tooltip": tooltip }));
+	}
+	let web = src::load_web_names(&s, "frFR").unwrap();
+	assert_eq!(web.objective.len(), summaries.len());
+	for (id, _, objective) in summaries {
+		assert_eq!(web.objective.get(&id).map(String::as_str), Some(objective), "quest {id}");
+	}
+}
+
 fn m(pairs: &[(i64, &str)]) -> Names {
 	pairs.iter().map(|(k, v)| (*k, v.to_string())).collect()
 }
@@ -471,7 +499,7 @@ fn the_shipped_names_the_client_showed_load_and_each_language_file_is_its_own() 
 		src::load_observed_names(&dir, l).unwrap_or_else(|e| panic!("{e}"));
 	}
 	let zh = src::load_observed_names(&dir, "zhCN").unwrap();
-	assert_eq!(zh.refs.iter().copied().collect::<Vec<_>>(), [1448]);
+	assert_eq!(zh.refs.iter().copied().collect::<Vec<_>>(), [1448, 3005, 3133, 3162, 3226, 3236, 3237]);
 	// The client's own names where the web's differ (#1448): Forever renamed both quests "Chastise".
 	assert_eq!(zh.names[0].get(&5641).map(String::as_str), Some("惩击"));
 	assert_eq!(zh.names[0].get(&5645).map(String::as_str), Some("惩击"));
@@ -486,11 +514,16 @@ fn the_extra_ids_instances_factions_flight_points_lifts_and_event_objectives() {
 	let codex = dir.join("codex");
 	write_json(&codex.join("instances.json"), json!({ "deadmines": { "map": 36 }, "brd": { "map": 230 } }));
 	write_json(&codex.join("factions.json"), json!({ "72": { "id": 72 }, "76": { "id": 76 } }));
+	// A talk whose text is the quest log's own line (The Glowing Shard's "Speak with someone in Ratchet about the
+	// Glowing Shard", Sputtervalve) shows on the page as an event's line; one that is its NPC's name does not.
 	write_json(
 		&codex.join("quests.json"),
-		json!({ "155": { "objectives": [{ "type": "event", "id": 78 }] }, "166": { "objectives": [{ "type": "monster", "id": 639 }] }, "200": { "objectives": [{ "type": "event", "id": 1 }] } }),
+		json!({ "155": { "objectives": [{ "type": "event", "id": 78 }] }, "166": { "objectives": [{ "type": "monster", "id": 639 }] }, "200": { "objectives": [{ "type": "event", "id": 1 }] },
+			"6981": { "objectives": [{ "type": "talk", "id": 3442, "text": "Speak with someone in Ratchet about the Glowing Shard" }] },
+			"6982": { "objectives": [{ "type": "talk", "id": 3442, "text": "Sputtervalve" }] } }),
 	);
-	write_json(&codex.join("journal.json"), json!({ "dungeons": { "deadmines": { "bosses": [{ "quests": [{ "id": 155 }, { "id": 166 }] }] } } }));
+	write_json(&codex.join("npcs.json"), json!({ "3442": { "id": 3442, "name": "Sputtervalve" } }));
+	write_json(&codex.join("journal.json"), json!({ "dungeons": { "deadmines": { "bosses": [{ "quests": [{ "id": 155 }, { "id": 166 }, { "id": 6981 }, { "id": 6982 }] }] } } }));
 	let travel = dir.join("TravelData.lua");
 	std::fs::write(
 		&travel,
@@ -501,7 +534,7 @@ fn the_extra_ids_instances_factions_flight_points_lifts_and_event_objectives() {
 	std::fs::write(&choke, "{ kind = \"lift\", liftObject = 4170 },\n{ kind = \"lift\", liftObject = 20649 },\n").unwrap();
 	let e = names::extra_ids(&codex, &travel, &choke).unwrap();
 	let v = |s: &BTreeSet<i64>| s.iter().copied().collect::<Vec<_>>();
-	assert_eq!([v(&e.map), v(&e.faction), v(&e.taxi), v(&e.lift_object), v(&e.objective)], [vec![36, 230], vec![72, 76], vec![2, 4], vec![4170, 20649], vec![155]]);
+	assert_eq!([v(&e.map), v(&e.faction), v(&e.taxi), v(&e.lift_object), v(&e.objective)], [vec![36, 230], vec![72, 76], vec![2, 4], vec![4170, 20649], vec![155, 6981]]);
 	assert!(names::extra_ids(&dir.join("none"), &dir.join("none.lua"), &choke).unwrap().map.is_empty());
 }
 

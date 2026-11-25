@@ -16,7 +16,7 @@ return {
 	-- {npc:3171} Thotar · {area:362} Razor Hill
 	["{npc:3171} in {area:362}"] = "{npc:3171}，在{area:362}",
 	-- {npc:3171} Thotar · {area:362} Razor Hill · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:11814} Kali Remik · {area:367} Sen'jin Village · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff · {quest:6068} The Hunter's Path
-	["At 10 go to {npc:3171}, the hunter trainer inside the barracks in {area:362}. If {npc:3407} in {zone:1454}, {npc:11814} in {area:367} or {npc:3038} in {zone:1456} hands you {quest:6068}, take it and hand it to {npc:3171} for a little experience; it is only a pointer, and you can take the first rod without it."] = "",
+	["At 10 go to {npc:3171}, the hunter trainer inside the barracks in {area:362}. If {npc:3407} in {zone:1454}, {npc:11814} in {area:367} or {npc:3038} in {zone:1456} hands you {quest:6068}, take it and hand it to {npc:3171} for a little experience; it is only a pointer, and you can take the first rod without it."] = "10級時，找 {area:362} 兵營裡的獵人訓練師 {npc:3171}。如果 {zone:1454} 的 {npc:3407}、{area:367} 的 {npc:11814} 或 {zone:1456} 的 {npc:3038} 給你{quest:6068}，就接下並交給 {npc:3171}，獲得少量經驗；這只是引導任務，不做也能拿到第一根馴獸棒。",
 	-- {npc:3171} Thotar · {item:15908} Taming Rod
 	["{npc:3171}: the first {item:15908}"] = "{npc:3171}：第一根{item:15908}",
 
@@ -51,7 +51,7 @@ return {
 	-- {npc:3065} Yaw Sharpmane
 	["{npc:3065} at Bloodhoof"] = "{npc:3065}，在血蹄村",
 	-- {npc:3065} Yaw Sharpmane · {area:222} Bloodhoof Village · {quest:6065} The Hunter's Path · {npc:3038} Kary Thunderhorn · {zone:1456} Thunder Bluff · {npc:3407} Sian'dur · {zone:1454} Orgrimmar · {npc:3171} Thotar · {area:362} Razor Hill
-	["At 10 go to {npc:3065}, who stands at the north edge of {area:222}. {quest:6065} from {npc:3038} in {zone:1456}, {npc:3407} in {zone:1454} or {npc:3171} in {area:362} also leads here, for a little experience; it is only a pointer."] = "",
+	["At 10 go to {npc:3065}, who stands at the north edge of {area:222}. {quest:6065} from {npc:3038} in {zone:1456}, {npc:3407} in {zone:1454} or {npc:3171} in {area:362} also leads here, for a little experience; it is only a pointer."] = "10級時，找站在 {area:222} 北緣的 {npc:3065}。{zone:1456} 的 {npc:3038}、{zone:1454} 的 {npc:3407} 或 {area:362} 的 {npc:3171} 提供的{quest:6065}也會指引你來這裡，並獎勵少量經驗；它只是引導任務。",
 	-- {npc:3065} Yaw Sharpmane · {item:15908} Taming Rod
 	["{npc:3065}: the first {item:15908}"] = "{npc:3065}：第一根{item:15908}",
 

@@ -65,15 +65,37 @@ function Compat.GetPlayerFaction()
 	return nil
 end
 
+-- Unlike the display fallback in GetPlayerInfo, nil is not a level-one player.
+function Compat.GetPlayerLevel()
+	local level = readable(UnitLevel and UnitLevel("player"))
+	if type(level) == "number" and level >= 1 and level < math.huge and level == math.floor(level) then return level end
+end
+
+-- The realm's name, or nil when the client does not give it. Forever's
+-- client stopped telling addons the realm in 1.60.1 (a hotfix in November
+-- 2026): GetRealmName and GetNormalizedRealmName read "", GetRealmID 0.
+-- Compat's one reader of them. Saved data filed by realm (the Characters
+-- page, Materials' prices, Instances, Transit, Rares) then falls back to a
+-- realm-less key and takes over the entry filed under the old realm once
+-- (docs/ARCHITECTURE.md, "Unknown realm").
+local function realmText(fn)
+	local v = fn and readable(fn())
+	if type(v) == "string" and v ~= "" then return v end
+	return nil
+end
+
+function Compat.RealmName() return realmText(GetRealmName) end
+function Compat.NormalizedRealmName() return realmText(GetNormalizedRealmName) end
+
 function Compat.GetPlayerInfo()
 	local _, race = UnitRace("player")
 	local _, class = UnitClass("player")
 	local faction = Compat.GetPlayerFaction() or "Neutral"
 	return {
 		name = readable(UnitName("player")),
-		realm = GetRealmName and GetRealmName() or nil,
+		realm = Compat.RealmName(),
 		guid = readable(UnitGUID and UnitGUID("player")),
-		level = readable(UnitLevel("player")) or 1,
+		level = Compat.GetPlayerLevel() or 1,
 		xp = readable(UnitXP and UnitXP("player")) or 0,
 		xpMax = readable(UnitXPMax and UnitXPMax("player")) or 0,
 		race = readable(race),
@@ -192,18 +214,69 @@ function Compat.IsOnTaxi()
 	return readable(UnitOnTaxi and UnitOnTaxi("player")) and true or false
 end
 
+-- How the client gives the player's height this session (Compat.PlayerHeight):
+-- "real", or why there is none to use: "none" (no height, or a secret one),
+-- "zero" (exactly 0: Forever's client has given a height of 0 where the ground
+-- is at 12 yd, Ratchet; a real height is never exactly 0) or "fixed" (the same
+-- height to the last digit at FIXED_COUNT readings in a row, each FIXED_STEP
+-- yards or more from the one before it and taken on foot, 200 yd in all: a
+-- placeholder, not where the player stands; a different height ends it. A
+-- level floor may keep one height to the last digit along a street or a hall,
+-- hence the long run).
+-- Swimming at the water's level or carried on a deck, the height stays
+-- put for real: such readings neither count nor end it. nil before the first
+-- reading.
+local FIXED_STEP, FIXED_COUNT = 5, 40
+local heightMode
+local hInstance, hX, hY, hZ, hSame = nil, nil, nil, nil, 0
+
+-- Whether the player moves by their own speed and is not swimming. Unknown counts as on foot.
+local function onFoot()
+	if IsSwimming then
+		local ok, swimming = pcall(IsSwimming)
+		if not ok or isSecret(swimming) or swimming then return false end
+	end
+	if GetUnitSpeed then
+		local ok, speed = pcall(GetUnitSpeed, "player")
+		if not ok or isSecret(speed) or (type(speed) == "number" and speed <= 0) then return false end
+	end
+	return true
+end
+
+-- z as a height to use (nil when it is none of use), noting what the client gives.
+local function usableHeight(x, y, z, instance)
+	if type(z) ~= "number" then heightMode = "none"; return nil end
+	if z == 0 then heightMode = "zero"; return nil end
+	if hInstance ~= instance or hX == nil then
+		hInstance, hX, hY, hZ, hSame = instance, x, y, z, 0
+	elseif z ~= hZ then
+		hX, hY, hZ, hSame = x, y, z, 0
+	elseif (x - hX) * (x - hX) + (y - hY) * (y - hY) >= FIXED_STEP * FIXED_STEP then
+		hX, hY = x, y
+		if onFoot() then hSame = hSame + 1 end
+	end
+	if hSame >= FIXED_COUNT then heightMode = "fixed"; return nil end
+	heightMode = "real"
+	return z
+end
+
 -- The player's world position from UnitPosition: wx (north), wy (west), z
--- (nil when unread) and the instance map id, or nil while the client keeps it
--- secret or hides it. The one place UnitPosition is read. Forever's client
--- has given a height of exactly 0 where the ground is at 12 yd (Ratchet); a
--- real height is never exactly 0, so that one is unread too.
+-- (nil when there is no height to use: see heightMode above) and the instance
+-- map id, or nil while the client keeps it secret or hides it. The one place
+-- UnitPosition is read.
 function Compat.GetPlayerUnitPosition()
 	if not UnitPosition then return nil end
 	local ok, x, y, z, instance = pcall(UnitPosition, "player")
 	if not ok then return nil end
 	x, y, z, instance = readable(x), readable(y), readable(z), readable(instance)
 	if type(x) ~= "number" or type(y) ~= "number" or instance == nil then return nil end
-	return x, y, type(z) == "number" and z ~= 0 and z or nil, instance
+	return x, y, usableHeight(x, y, z, instance), instance
+end
+
+-- What the last UnitPosition reading gave for the height: "real", "none",
+-- "zero" or "fixed" (above); nil before any reading.
+function Compat.PlayerHeight()
+	return heightMode
 end
 
 -- The player's run speed in yd/s (GetUnitSpeed's second value), or nil while
@@ -297,9 +370,8 @@ function Compat.IsIndoors()
 	return inside and true or false
 end
 
--- Whether the player is swimming (IsSwimming): true or false, nil when the
--- client lacks it, it errors, or keeps it secret. Nav/Walk.lua seeds the
--- walking floor with it: out of the water, a pier's water below is no floor.
+-- The client's swimming state: true swimming, false not, nil when the client lacks IsSwimming, it errors, or keeps it
+-- secret. Nav/Walk.lua's floor follow takes a water surface for the floor only while swimming.
 function Compat.IsSwimming()
 	if not IsSwimming then return nil end
 	local ok, swimming = pcall(IsSwimming)
@@ -395,11 +467,25 @@ function Compat.IsOnQuest(questID)
 	return false
 end
 
+-- Whether questID is in the log and ready to hand in: the game's flag, and
+-- no counted item or kill line short of its count. The flag alone has been
+-- seen set with a line still at 0/1 (The Witch Doctor's Head with no
+-- Zum'rah's Head, #3639), which counted it among the hand-ins waiting
+-- elsewhere. Only those lines: their counts are the bag's and the kills';
+-- other kinds the client reports oddly (a skill line, #1952; an event the
+-- game ticks without a count), and there the flag stays the word. A quest
+-- with no lines (talk to someone, deliver an item) has only the flag.
+local COUNTED = { item = true, monster = true }
 function Compat.IsQuestReadyForTurnIn(questID)
 	if not (C_QuestLog and C_QuestLog.IsOnQuest and C_QuestLog.IsOnQuest(questID)) then return false end
-	if C_QuestLog.ReadyForTurnIn and C_QuestLog.ReadyForTurnIn(questID) then return true end
-	if C_QuestLog.IsComplete and C_QuestLog.IsComplete(questID) then return true end
-	return false
+	if not ((C_QuestLog.ReadyForTurnIn and C_QuestLog.ReadyForTurnIn(questID))
+		or (C_QuestLog.IsComplete and C_QuestLog.IsComplete(questID))) then return false end
+	local objs = Compat.GetQuestObjectives(questID)
+	for i = 1, objs and #objs or 0 do
+		local o = objs[i]
+		if COUNTED[o.type] and not o.finished and o.numFulfilled < o.numRequired then return false end
+	end
+	return true
 end
 
 -- Whether questID is in the log and failed (an escort lost, a timer run out,
@@ -433,6 +519,19 @@ end
 -- for the same quest once per goal on its line. The lines are read-only for
 -- every caller (one table per quest per moment, no longer one per call).
 local objMemo, objAt, objMoment = {}, nil, nil
+-- Whether an objective line's text names a placeholder (ObjectiveLabel, then
+-- Placeholder: some 15 string operations), kept per text: a line's text
+-- changes only with its count. Started over past PLACEHOLDER_KEEP texts.
+local placeholderOf, placeholderN, PLACEHOLDER_KEEP = {}, 0, 512
+local function placeholderText(text)
+	local hit = placeholderOf[text]
+	if hit == nil then
+		hit = Compat.Placeholder(Compat.ObjectiveLabel(text))
+		if placeholderN >= PLACEHOLDER_KEEP then placeholderOf, placeholderN = {}, 0 end
+		placeholderOf[text], placeholderN = hit, placeholderN + 1
+	end
+	return hit
+end
 function Compat.GetQuestObjectives(questID)
 	if not (C_QuestLog and C_QuestLog.GetQuestObjectives) then return nil end
 	local now, moment = GetTime and GetTime(), ns.Moment and ns.Moment()
@@ -463,7 +562,7 @@ function Compat.GetQuestObjectives(questID)
 			cur = req - 1
 		end
 		local text = o.text or ""
-		if Compat.Placeholder(Compat.ObjectiveLabel(text)) then text = "" end
+		if placeholderText(text) then text = "" end
 		out[i] = { text = text, type = o.type or "", finished = finished, numFulfilled = cur, numRequired = req }
 	end
 	if memo then objMemo[questID] = out end
@@ -1317,6 +1416,18 @@ function Compat.IsPlayerSpell(spellID)
 	return known and true or false
 end
 
+-- Whether the game lets the character cast the spell, its reagents and power
+-- included (a talent can do away with a reagent: a mage's Reagent Economy,
+-- #3815): true, false, or nil when the client cannot tell; then true when it
+-- is only the mana that is short.
+function Compat.IsSpellUsable(spellID)
+	local fn = (C_Spell and C_Spell.IsSpellUsable) or IsUsableSpell
+	if not (spellID and fn) then return nil end
+	local ok, usable, noMana = pcall(fn, spellID)
+	if not ok or (issecretvalue and (issecretvalue(usable) or issecretvalue(noMana))) then return nil end
+	return usable and true or false, noMana and true or false
+end
+
 -- Spells in the spellbook, and profession recipes (which are not).
 function Compat.IsSpellKnown(spellID)
 	if not spellID then return false end
@@ -1332,6 +1443,61 @@ function Compat.IsSpellKnown(spellID)
 		if recipe and recipe.learned then return true end
 	end
 	return false
+end
+
+-- Whether the spellbook holds a spell named `name` (the client's language),
+-- whatever its id: one ability can come under several ids (#3020: Tame Beast
+-- from a Highborne hunter's own chain; #1935: Bear Form from Zephras Isle's
+-- Strength and Mercy). The names are read once per spellbook change
+-- (SPELLS_CHANGED, LEARNED_SPELL_IN_TAB). False when the client lists none.
+local bookNames -- name -> true; nil: read again
+function Compat.KnowsSpellNamed(name)
+	if type(name) ~= "string" or name == "" then return false end
+	if not bookNames then
+		bookNames = {}
+		local SB = C_SpellBook
+		local spellName = (C_Spell and C_Spell.GetSpellName) or (GetSpellInfo and function(id) return (GetSpellInfo(id)) end)
+		local function add(id)
+			local n = id and spellName and readable(spellName(id))
+			if type(n) == "string" then bookNames[n] = true end
+		end
+		if SB and SB.GetNumSpellBookSkillLines and SB.GetSpellBookSkillLineInfo and SB.GetSpellBookItemInfo then
+			local bank = Enum and Enum.SpellBookSpellBank and Enum.SpellBookSpellBank.Player or 0
+			for i = 1, SB.GetNumSpellBookSkillLines() or 0 do
+				local line = SB.GetSpellBookSkillLineInfo(i)
+				local off = line and line.itemIndexOffset or 0
+				for k = off + 1, off + (line and line.numSpellBookItems or 0) do
+					local info = SB.GetSpellBookItemInfo(k, bank)
+					if info then add(info.spellID) end
+				end
+			end
+		elseif GetNumSpellTabs and GetSpellTabInfo and GetSpellBookItemInfo then
+			for i = 1, GetNumSpellTabs() or 0 do
+				local _, _, off, n = GetSpellTabInfo(i)
+				for k = (off or 0) + 1, (off or 0) + (n or 0) do
+					local kind, id = GetSpellBookItemInfo(k, "spell")
+					if kind == "SPELL" then add(id) end
+				end
+			end
+		end
+	end
+	return bookNames[name] == true
+end
+if ns.RegisterEvent then
+	for _, event in ipairs({ "SPELLS_CHANGED", "LEARNED_SPELL_IN_TAB", "PLAYER_ENTERING_WORLD" }) do
+		ns.RegisterEvent(event, function() bookNames = nil end)
+	end
+end
+
+-- Whether the character knows spell `id`: by its id, else by its name in the
+-- spellbook (KnowsSpellNamed: another race's chain teaches the same ability
+-- under another id). `english`: the name to look for when the client has none
+-- for the id.
+function Compat.KnowsSpell(id, english)
+	if Compat.IsSpellKnown(id) then return true end
+	local name = C_Spell and C_Spell.GetSpellName and readable(C_Spell.GetSpellName(id))
+	if type(name) ~= "string" or name == "" then name = english end
+	return Compat.KnowsSpellNamed(name)
 end
 
 -- A skill line's name in the client's language (C_SkillInfo by ID, else the

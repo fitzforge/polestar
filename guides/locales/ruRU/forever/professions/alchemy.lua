@@ -11,13 +11,13 @@ return {
 	["Learn {skill:171}"] = "Изучите: {skill:171}",
 	-- {skill:171} Alchemy · {skill:182} Herbalism · {item:2447} Peacebloom · {item:765} Silverleaf
 	-- plural, as words: Empty Vials = {item:3371} Empty Vial
-	["Apprentice {skill:171} lets you craft up to 75 for 10c, at any character level. Any {skill:171} trainer of your faction teaches it; the arrow picks the nearest. Pair it with {skill:182}: {item:2447} and {item:765} grow in every starting zone, and Empty Vials cost 4c at any alchemy or trade supplies vendor. 1-75 takes about 3s 28c of vendor goods, plus 82 {item:765} and 110 {item:2447} to gather or buy."] = "",
+	["Apprentice {skill:171} lets you craft up to 75 for 10c, at any character level. Any {skill:171} trainer of your faction teaches it; the arrow picks the nearest. Pair it with {skill:182}: {item:2447} and {item:765} grow in every starting zone, and Empty Vials cost 4c at any alchemy or trade supplies vendor. 1-75 takes about 3s 28c of vendor goods, plus 82 {item:765} and 110 {item:2447} to gather or buy."] = "Подмастерье по {skill:171} позволяет создавать предметы до 75 навыка за 10c на любом уровне персонажа; обучит любой наставник {skill:171} вашей фракции, а стрелка укажет ближайшего. Начните с {skill:182}: {item:2447} и {item:765} растут в каждой стартовой зоне, а пустые колбы стоят 4c у любого продавца алхимии или торговых товаров. На 1-75 уйдёт примерно 3s 28c товаров у продавцов, плюс 82 {item:765} и 110 {item:2447}, которые нужно собрать или купить.",
 
 	-- Step 2: Alchemy 1-75: vendor goods
 	-- {skill:171} Alchemy
-	["{skill:171} 1-75: vendor goods"] = "",
+	["{skill:171} 1-75: vendor goods"] = "{skill:171} 1-75: товары торговцев",
 	-- {item:3371} Empty Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "Купите сразу все для этого этапа: {item:3371} 82 (3с 28м); всего около 3с 28м. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:1286}, {npc:5503} и {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} и {npc:3334}).",
 
 	-- Step 3: Alchemy 1-75: Auction House
 	-- {skill:171} Alchemy
@@ -27,65 +27,65 @@ return {
 
 	-- Step 4: Silverleaf (Elwynn Forest)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1429} Elwynn Forest
-	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1429} is marked."] = "",
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1429} is marked."] = "{item:765} 82 для {item:5997}: {skill:182}: {item:765} (навык 1). В {zone:1429} отмечено место, где {item:765} встречается чаще всего.",
 
 	-- Step 5: Silverleaf (Dun Morogh)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1426} Dun Morogh
-	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1426} is marked."] = "",
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1426} is marked."] = "{item:765} 82 для {item:5997}: {skill:182}: {item:765} (навык 1). В {zone:1426} отмечено место, где {item:765} встречается чаще всего.",
 
 	-- Step 6: Silverleaf (Teldrassil)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1438} Teldrassil
-	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1438} is marked."] = "",
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1438} is marked."] = "{item:765} 82 для {item:5997}: {skill:182}: {item:765} (навык 1). В {zone:1438} отмечено место, где {item:765} встречается чаще всего.",
 
 	-- Step 7: Silverleaf (Zephras Isle)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:2521} Zephras Isle
-	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:2521} is marked."] = "",
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:2521} is marked."] = "{item:765} 82 для {item:5997}: {skill:182}: {item:765} (навык 1). В {zone:2521} отмечено место, где {item:765} встречается чаще всего.",
 
 	-- Step 8: Silverleaf (Durotar)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1411} Durotar
-	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1411} is marked."] = "",
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1411} is marked."] = "{item:765} 82 для {item:5997}: {skill:182}: {item:765} (навык 1). В {zone:1411} отмечено место, где {item:765} встречается чаще всего.",
 
 	-- Step 9: Silverleaf (Mulgore)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1412} Mulgore
-	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1412} is marked."] = "",
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1412} is marked."] = "{item:765} 82 для {item:5997}: {skill:182}: {item:765} (навык 1). В {zone:1412} отмечено место, где {item:765} встречается чаще всего.",
 
 	-- Step 10: Silverleaf (Tirisfal Glades)
 	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1420} Tirisfal Glades
-	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1420} is marked."] = "",
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1). The densest patch of {item:765} in {zone:1420} is marked."] = "{item:765} 82 для {item:5997}: {skill:182}: {item:765} (навык 1). В {zone:1420} отмечено место, где {item:765} встречается чаще всего.",
 
 	-- Step 11: Peacebloom (Elwynn Forest)
 	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1429} Elwynn Forest
-	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1429} is marked."] = "",
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1429} is marked."] = "{item:2447} 110 для {item:5997} и {spell:2331} (28 из них на 75-150: соберите все сейчас): {skill:182}: {item:2447} (навык 1). В {zone:1429} отмечено место, где {item:2447} встречается чаще всего.",
 
 	-- Step 12: Peacebloom (Dun Morogh)
 	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1426} Dun Morogh
-	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1426} is marked."] = "",
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1426} is marked."] = "{item:2447} 110 для {item:5997} и {spell:2331} (28 из них на 75-150: соберите все сейчас): {skill:182}: {item:2447} (навык 1). В {zone:1426} отмечено место, где {item:2447} встречается чаще всего.",
 
 	-- Step 13: Peacebloom (Teldrassil)
 	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1438} Teldrassil
-	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1438} is marked."] = "",
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1438} is marked."] = "{item:2447} 110 для {item:5997} и {spell:2331} (28 из них на 75-150: соберите все сейчас): {skill:182}: {item:2447} (навык 1). В {zone:1438} отмечено место, где {item:2447} встречается чаще всего.",
 
 	-- Step 14: Peacebloom (Zephras Isle)
 	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:2521} Zephras Isle
-	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:2521} is marked."] = "",
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:2521} is marked."] = "{item:2447} 110 для {item:5997} и {spell:2331} (28 из них на 75-150: соберите все сейчас): {skill:182}: {item:2447} (навык 1). В {zone:2521} отмечено место, где {item:2447} встречается чаще всего.",
 
 	-- Step 15: Peacebloom (Durotar)
 	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1411} Durotar
-	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1411} is marked."] = "",
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1411} is marked."] = "{item:2447} 110 для {item:5997} и {spell:2331} (28 из них на 75-150: соберите все сейчас): {skill:182}: {item:2447} (навык 1). В {zone:1411} отмечено место, где {item:2447} встречается чаще всего.",
 
 	-- Step 16: Peacebloom (Mulgore)
 	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1412} Mulgore
-	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1412} is marked."] = "",
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1412} is marked."] = "{item:2447} 110 для {item:5997} и {spell:2331} (28 из них на 75-150: соберите все сейчас): {skill:182}: {item:2447} (навык 1). В {zone:1412} отмечено место, где {item:2447} встречается чаще всего.",
 
 	-- Step 17: Peacebloom (Tirisfal Glades)
 	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1420} Tirisfal Glades
-	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1420} is marked."] = "",
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1420} is marked."] = "{item:2447} 110 для {item:5997} и {spell:2331} (28 из них на 75-150: соберите все сейчас): {skill:182}: {item:2447} (навык 1). В {zone:1420} отмечено место, где {item:2447} встречается чаще всего.",
 
 	-- Step 18: Elixir of Minor Defense to 75
 	-- {item:5997} Elixir of Minor Defense
 	["{item:5997} to 75"] = "{item:5997} до 75",
 	-- {item:5997} Elixir of Minor Defense · {item:765} Silverleaf · {item:2447} Peacebloom · {item:3371} Empty Vial
-	["{item:5997} is orange at 1 (yellow 55, green 75, grey 95): about 82 crafts to 75. Each takes 1 {item:765}, 1 {item:2447} and 1 {item:3371}. Known from the start and the cheapest way through the Apprentice range. Keep the elixirs (armour while you level) or sell them."] = "",
+	["{item:5997} is orange at 1 (yellow 55, green 75, grey 95): about 82 crafts to 75. Each takes 1 {item:765}, 1 {item:2447} and 1 {item:3371}. Known from the start and the cheapest way through the Apprentice range. Keep the elixirs (armour while you level) or sell them."] = "{item:5997}: оранжевый на 1 (желтый 55, зеленый 75, серый 95): около 82 изготовлений до 75. Каждое требует 1 {item:765}, 1 {item:2447} и 1 {item:3371}. Известно с самого начала и это самый дешевый способ пройти диапазон Подмастерья. Оставьте эликсиры (броня на прокачке) или продавайте их.",
 
 	-- Step 19: Journeyman Alchemy
 	-- {skill:171} Alchemy
@@ -97,7 +97,7 @@ return {
 	-- {skill:171} Alchemy
 	["{skill:171} 75-150: vendor goods"] = "{skill:171} 75-150: товары торговцев",
 	-- {item:3371} Empty Vial · {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 77 {item:3371} (3s 8c) and 15 {item:3372} (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 77 {item:3371} (3s 8c) and 15 {item:3372} (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "Купите сразу все для этого этапа: {item:3371} 77 (3с 8м) и {item:3372} 15 (6с); всего около 9с 8м. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:1286}, {npc:5503} и {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} и {npc:3334}).",
 
 	-- Step 21: Alchemy 75-150: Auction House
 	-- {skill:171} Alchemy
@@ -107,73 +107,73 @@ return {
 
 	-- Step 22: Mageroyal (Westfall)
 	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1436} Westfall
-	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1436} is marked."] = "",
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1436} is marked."] = "{item:785} 77 для {spell:2331} и {spell:3171}: {skill:182}: {item:785} (навык 50). В {zone:1436} отмечено место, где {item:785} встречается чаще всего.",
 
 	-- Step 23: Mageroyal (Loch Modan)
 	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1432} Loch Modan
-	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1432} is marked."] = "",
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1432} is marked."] = "{item:785} 77 для {spell:2331} и {spell:3171}: {skill:182}: {item:785} (навык 50). В {zone:1432} отмечено место, где {item:785} встречается чаще всего.",
 
 	-- Step 24: Mageroyal (Teldrassil)
 	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1438} Teldrassil
-	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1438} is marked."] = "",
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1438} is marked."] = "{item:785} 77 для {spell:2331} и {spell:3171}: {skill:182}: {item:785} (навык 50). В {zone:1438} отмечено место, где {item:785} встречается чаще всего.",
 
 	-- Step 25: Mageroyal (Zephras Isle)
 	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:2521} Zephras Isle
-	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:2521} is marked."] = "",
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:2521} is marked."] = "{item:785} 77 для {spell:2331} и {spell:3171}: {skill:182}: {item:785} (навык 50). В {zone:2521} отмечено место, где {item:785} встречается чаще всего.",
 
 	-- Step 26: Mageroyal (The Barrens)
 	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1413} The Barrens
-	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1413} is marked."] = "",
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1413} is marked."] = "{item:785} 77 для {spell:2331} и {spell:3171}: {skill:182}: {item:785} (навык 50). В {zone:1413} отмечено место, где {item:785} встречается чаще всего.",
 
 	-- Step 27: Mageroyal (Silverpine Forest)
 	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1421} Silverpine Forest
-	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1421} is marked."] = "",
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50). The densest patch of {item:785} in {zone:1421} is marked."] = "{item:785} 77 для {spell:2331} и {spell:3171}: {skill:182}: {item:785} (навык 50). В {zone:1421} отмечено место, где {item:785} встречается чаще всего.",
 
 	-- Step 28: Briarthorn (Westfall)
 	-- {item:2450} Briarthorn · {spell:3171} Elixir of Wisdom · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1436} Westfall
-	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1436} is marked."] = "",
+	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1436} is marked."] = "{item:2450} 152 для {spell:3171} и {spell:3176} (24 из них на 150-225: соберите все сейчас): {skill:182}: {item:2450} (навык 70). В {zone:1436} отмечено место, где {item:2450} встречается чаще всего.",
 
 	-- Step 29: Briarthorn (Loch Modan)
 	-- {item:2450} Briarthorn · {spell:3171} Elixir of Wisdom · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1432} Loch Modan
-	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1432} is marked."] = "",
+	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1432} is marked."] = "{item:2450} 152 для {spell:3171} и {spell:3176} (24 из них на 150-225: соберите все сейчас): {skill:182}: {item:2450} (навык 70). В {zone:1432} отмечено место, где {item:2450} встречается чаще всего.",
 
 	-- Step 30: Briarthorn (Darkshore)
 	-- {item:2450} Briarthorn · {spell:3171} Elixir of Wisdom · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1439} Darkshore
-	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1439} is marked."] = "",
+	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1439} is marked."] = "{item:2450} 152 для {spell:3171} и {spell:3176} (24 из них на 150-225: соберите все сейчас): {skill:182}: {item:2450} (навык 70). В {zone:1439} отмечено место, где {item:2450} встречается чаще всего.",
 
 	-- Step 31: Briarthorn (The Barrens)
 	-- {item:2450} Briarthorn · {spell:3171} Elixir of Wisdom · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1413} The Barrens
-	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1413} is marked."] = "",
+	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1413} is marked."] = "{item:2450} 152 для {spell:3171} и {spell:3176} (24 из них на 150-225: соберите все сейчас): {skill:182}: {item:2450} (навык 70). В {zone:1413} отмечено место, где {item:2450} встречается чаще всего.",
 
 	-- Step 32: Briarthorn (Silverpine Forest)
 	-- {item:2450} Briarthorn · {spell:3171} Elixir of Wisdom · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1421} Silverpine Forest
-	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1421} is marked."] = "",
+	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70). The densest patch of {item:2450} in {zone:1421} is marked."] = "{item:2450} 152 для {spell:3171} и {spell:3176} (24 из них на 150-225: соберите все сейчас): {skill:182}: {item:2450} (навык 70). В {zone:1421} отмечено место, где {item:2450} встречается чаще всего.",
 
 	-- Step 33: Bruiseweed (Westfall)
 	-- {item:2453} Bruiseweed · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1436} Westfall
-	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1436} is marked."] = "",
+	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1436} is marked."] = "{item:2453} 54 для {spell:3176} (24 из них на 150-225: соберите все сейчас): {skill:182}: {item:2453} (навык 100). В {zone:1436} отмечено место, где {item:2453} встречается чаще всего.",
 
 	-- Step 34: Bruiseweed (Loch Modan)
 	-- {item:2453} Bruiseweed · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1432} Loch Modan
-	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1432} is marked."] = "",
+	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1432} is marked."] = "{item:2453} 54 для {spell:3176} (24 из них на 150-225: соберите все сейчас): {skill:182}: {item:2453} (навык 100). В {zone:1432} отмечено место, где {item:2453} встречается чаще всего.",
 
 	-- Step 35: Bruiseweed (Darkshore)
 	-- {item:2453} Bruiseweed · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1439} Darkshore
-	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1439} is marked."] = "",
+	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1439} is marked."] = "{item:2453} 54 для {spell:3176} (24 из них на 150-225: соберите все сейчас): {skill:182}: {item:2453} (навык 100). В {zone:1439} отмечено место, где {item:2453} встречается чаще всего.",
 
 	-- Step 36: Bruiseweed (The Barrens)
 	-- {item:2453} Bruiseweed · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1413} The Barrens
-	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1413} is marked."] = "",
+	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1413} is marked."] = "{item:2453} 54 для {spell:3176} (24 из них на 150-225: соберите все сейчас): {skill:182}: {item:2453} (навык 100). В {zone:1413} отмечено место, где {item:2453} встречается чаще всего.",
 
 	-- Step 37: Bruiseweed (Silverpine Forest)
 	-- {item:2453} Bruiseweed · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1421} Silverpine Forest
-	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1421} is marked."] = "",
+	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100). The densest patch of {item:2453} in {zone:1421} is marked."] = "{item:2453} 54 для {spell:3176} (24 из них на 150-225: соберите все сейчас): {skill:182}: {item:2453} (навык 100). В {zone:1421} отмечено место, где {item:2453} встречается чаще всего.",
 
 	-- Step 38: Minor Mana Potion to 90
 	-- {spell:2331} Minor Mana Potion
 	["{spell:2331} to 90"] = "{spell:2331} до 90",
 	-- {spell:2331} Minor Mana Potion · {item:785} Mageroyal · {item:2447} Peacebloom · {item:3371} Empty Vial · {spell:3171} Elixir of Wisdom
-	["{spell:2331} is yellow at 75 (yellow 65, green 85, grey 105): about 28 crafts to 90. Each takes 1 {item:785}, 1 {item:2447} and 1 {item:3371}. The trainer teaches it from 25. It is yellow already, so count on about two crafts a point until {spell:3171} takes over at 90. {item:785} grows in the 10-25 zones."] = "",
+	["{spell:2331} is yellow at 75 (yellow 65, green 85, grey 105): about 28 crafts to 90. Each takes 1 {item:785}, 1 {item:2447} and 1 {item:3371}. The trainer teaches it from 25. It is yellow already, so count on about two crafts a point until {spell:3171} takes over at 90. {item:785} grows in the 10-25 zones."] = "{spell:2331}: желтый на 75 (желтый 65, зеленый 85, серый 105): около 28 изготовлений до 90. Каждое требует 1 {item:785}, 1 {item:2447} и 1 {item:3371}. Этому обучает учитель с 25. Уже желтый, так что рассчитывайте примерно на два изготовления на очко, пока на 90 не придет {spell:3171}. {item:785} растет в зонах 10-25 уровня.",
 
 	-- Step 39: Alchemy recipes at 90
 	-- {skill:171} Alchemy
@@ -183,9 +183,9 @@ return {
 
 	-- Step 40: Elixir of Wisdom to 135
 	-- {spell:3171} Elixir of Wisdom
-	["{spell:3171} to 135"] = "",
+	["{spell:3171} to 135"] = "{spell:3171} до 135",
 	-- {spell:3171} Elixir of Wisdom · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3371} Empty Vial
-	["{spell:3171} is orange at 90 (yellow 120, green 140, grey 160): about 49 crafts to 135. Each takes 1 {item:785}, 2 {item:2450} and 1 {item:3371}. Two {item:2450} and a {item:785} a craft, both from the 10-25 zones; orange to 120."] = "",
+	["{spell:3171} is orange at 90 (yellow 120, green 140, grey 160): about 49 crafts to 135. Each takes 1 {item:785}, 2 {item:2450} and 1 {item:3371}. Two {item:2450} and a {item:785} a craft, both from the 10-25 zones; orange to 120."] = "{spell:3171}: оранжевый на 90 (желтый 120, зеленый 140, серый 160): около 49 изготовлений до 135. Каждое требует 1 {item:785}, 2 {item:2450} и 1 {item:3371}. Два {item:2450} и {item:785} на изготовление, оба из зон 10-25 уровня; оранжевый до 120.",
 
 	-- Step 41: Alchemy recipes at 135
 	-- {skill:171} Alchemy
@@ -197,13 +197,13 @@ return {
 	-- {spell:3176} Lesser Troll's Blood Elixir
 	["{spell:3176} to 150"] = "{spell:3176} до 150",
 	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial · {skill:171} Alchemy
-	["{spell:3176} is orange at 135 (yellow 150, green 170, grey 190): about 15 crafts to 150, a point every craft. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. {skill:171} 150 is a Legacy System milestone."] = "",
+	["{spell:3176} is orange at 135 (yellow 150, green 170, grey 190): about 15 crafts to 150, a point every craft. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. {skill:171} 150 is a Legacy System milestone."] = "{spell:3176}: оранжевый на 135 (желтый 150, зеленый 170, серый 190): около 15 изготовлений до 150, по очку за каждое. Каждое требует 2 {item:2453}, 2 {item:2450} и 1 {item:3372}. Два {item:2453} и два {item:2450} на изготовление; {item:2453} растет в зонах 15-30 уровня. {skill:171} 150 – веха системы Наследия.",
 
 	-- Step 43: Alchemy 150-225: vendor goods
 	-- {skill:171} Alchemy
-	["{skill:171} 150-225: vendor goods"] = "",
+	["{skill:171} 150-225: vendor goods"] = "{skill:171} 150-225: товары торговцев",
 	-- {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "Купите сразу все для этого этапа: {item:3372} 83 (33с 20м); всего около 33с 20м. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:1286}, {npc:5503} и {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} и {npc:3334}).",
 
 	-- Step 44: Alchemy 150-225: Auction House
 	-- {skill:171} Alchemy
@@ -215,49 +215,49 @@ return {
 	-- {object:1623} Wild Steelbloom
 	["{object:1623} (Alliance)"] = "{object:1623} (Альянс)",
 	-- {object:1623} Wild Steelbloom · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1442} Stonetalon Mountains · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
-	["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1434} is marked."] = "",
+	["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1434} is marked."] = "{object:1623} 40 для {item:8951} (8 из них на 225-300: соберите все сейчас): {skill:182}: {object:1623} (навык 115) в {zone:1442} (15-27), {zone:1417} (30-40) и {zone:1434} (30-45). В {zone:1434} отмечено место, где {object:1623} встречается чаще всего.",
 
 	-- Step 46: Wild Steelbloom (Horde)
 	-- {object:1623} Wild Steelbloom
 	["{object:1623} (Horde)"] = "{object:1623} (Орда)",
 	-- {object:1623} Wild Steelbloom · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1442} Stonetalon Mountains · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
-	["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1442} is marked."] = "",
+	["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1442} is marked."] = "{object:1623} 40 для {item:8951} (8 из них на 225-300: соберите все сейчас): {skill:182}: {object:1623} (навык 115) в {zone:1442} (15-27), {zone:1417} (30-40) и {zone:1434} (30-45). В {zone:1442} отмечено место, где {object:1623} встречается чаще всего.",
 
 	-- Step 47: Kingsblood (Alliance)
 	-- {item:3356} Kingsblood
 	["{item:3356} (Alliance)"] = "{item:3356} (Альянс)",
 	-- {item:3356} Kingsblood · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1440} Ashenvale · {zone:1437} Wetlands · {zone:1434} Stranglethorn Vale
-	["39 {item:3356} for {spell:3452}: {skill:182}: {item:3356} (skill 125) in {zone:1440} (18-30), {zone:1437} (20-30) and {zone:1434} (30-45). The densest patch of {item:3356} in {zone:1434} is marked."] = "",
+	["39 {item:3356} for {spell:3452}: {skill:182}: {item:3356} (skill 125) in {zone:1440} (18-30), {zone:1437} (20-30) and {zone:1434} (30-45). The densest patch of {item:3356} in {zone:1434} is marked."] = "{item:3356} 39 для {spell:3452}: {skill:182}: {item:3356} (навык 125) в {zone:1440} (18-30), {zone:1437} (20-30) и {zone:1434} (30-45). В {zone:1434} отмечено место, где {item:3356} встречается чаще всего.",
 
 	-- Step 48: Kingsblood (Horde)
 	-- {item:3356} Kingsblood
 	["{item:3356} (Horde)"] = "{item:3356} (Орда)",
 	-- {item:3356} Kingsblood · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1434} Stranglethorn Vale
-	["39 {item:3356} for {spell:3452}: {skill:182}: {item:3356} (skill 125) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1434} (30-45). The densest patch of {item:3356} in {zone:1413} is marked."] = "",
+	["39 {item:3356} for {spell:3452}: {skill:182}: {item:3356} (skill 125) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1434} (30-45). The densest patch of {item:3356} in {zone:1413} is marked."] = "{item:3356} 39 для {spell:3452}: {skill:182}: {item:3356} (навык 125) в {zone:1413} (10-25), {zone:1440} (18-30) и {zone:1434} (30-45). В {zone:1413} отмечено место, где {item:3356} встречается чаще всего.",
 
 	-- Step 49: Stranglekelp (Alliance)
 	-- {object:2045} Stranglekelp
 	["{object:2045} (Alliance)"] = "{object:2045} (Альянс)",
 	-- {object:2045} Stranglekelp · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1437} Wetlands · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands
-	["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1437} (20-30), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1434} is marked."] = "",
+	["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1437} (20-30), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1434} is marked."] = "{object:2045} 39 для {spell:3452}: {skill:182}: {object:2045} (навык 85) в {zone:1437} (20-30), {zone:1434} (30-45) и {zone:1425} (40-50). В {zone:1434} отмечено место, где {object:2045} встречается чаще всего.",
 
 	-- Step 50: Stranglekelp (Horde)
 	-- {object:2045} Stranglekelp
 	["{object:2045} (Horde)"] = "{object:2045} (Орда)",
 	-- {object:2045} Stranglekelp · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1413} The Barrens · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands
-	["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1413} (10-25), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1413} is marked."] = "",
+	["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1413} (10-25), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1413} is marked."] = "{object:2045} 39 для {spell:3452}: {skill:182}: {object:2045} (навык 85) в {zone:1413} (10-25), {zone:1434} (30-45) и {zone:1425} (40-50). В {zone:1413} отмечено место, где {object:2045} встречается чаще всего.",
 
 	-- Step 51: Goldthorn (Alliance)
 	-- {object:2046} Goldthorn
 	["{object:2046} (Alliance)"] = "{object:2046} (Альянс)",
 	-- {object:2046} Goldthorn · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1417} Arathi Highlands · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["40 {object:2046} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:2046} (skill 170) in {zone:1417} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest patch of {object:2046} in {zone:1417} is marked."] = "",
+	["40 {object:2046} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:2046} (skill 170) in {zone:1417} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest patch of {object:2046} in {zone:1417} is marked."] = "{object:2046} 40 для {item:8951} (8 из них на 225-300: соберите все сейчас): {skill:182}: {object:2046} (навык 170) в {zone:1417} (30-40), {zone:1425} (40-50) и {zone:1444} (40-50). В {zone:1417} отмечено место, где {object:2046} встречается чаще всего.",
 
 	-- Step 52: Goldthorn (Horde)
 	-- {object:2046} Goldthorn
 	["{object:2046} (Horde)"] = "{object:2046} (Орда)",
 	-- {object:2046} Goldthorn · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1417} Arathi Highlands · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["40 {object:2046} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:2046} (skill 170) in {zone:1417} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest patch of {object:2046} in {zone:1444} is marked."] = "",
+	["40 {object:2046} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:2046} (skill 170) in {zone:1417} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest patch of {object:2046} in {zone:1444} is marked."] = "{object:2046} 40 для {item:8951} (8 из них на 225-300: соберите все сейчас): {skill:182}: {object:2046} (навык 170) в {zone:1417} (30-40), {zone:1425} (40-50) и {zone:1444} (40-50). В {zone:1444} отмечено место, где {object:2046} встречается чаще всего.",
 
 	-- Step 53: Expert Alchemy
 	-- {skill:171} Alchemy
@@ -267,9 +267,10 @@ return {
 
 	-- Step 54: Lesser Troll's Blood Elixir to 160
 	-- {spell:3176} Lesser Troll's Blood Elixir
-	["{spell:3176} to 160"] = "",
+	["{spell:3176} to 160"] = "{spell:3176} до 160",
 	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial
-	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "",
+	-- was: ["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176}: желтый на 150 (желтый 150, зеленый 170, серый 190): около 12 изготовлений до 160. Каждое требует 2 {item:2453}, 2 {item:2450} и 1 {item:3372}. Два {item:2453} и два {item:2450} на изготовление; {item:2453} растет в зонах 15-30 уровня."
+	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. If you got here without learning {spell:3176}, learn it now: an earlier step teaches it."] = "{spell:3176}: желтый на 150 (желтый 150, зеленый 170, серый 190): около 12 изготовлений до 160. Каждое требует 2 {item:2453}, 2 {item:2450} и 1 {item:3372}. Два {item:2453} и два {item:2450} на изготовление; {item:2453} растет в зонах 15-30 уровня. Если вы дошли сюда, не выучив {spell:3176}, выучите сейчас: его учит один из прошлых шагов.",
 
 	-- Step 55: Alchemy recipes at 160
 	-- {skill:171} Alchemy
@@ -279,27 +280,27 @@ return {
 
 	-- Step 56: Mana Potion to 195
 	-- {spell:3452} Mana Potion
-	["{spell:3452} to 195"] = "",
+	["{spell:3452} to 195"] = "{spell:3452} до 195",
 	-- {spell:3452} Mana Potion · {item:3820} Stranglekelp · {item:3356} Kingsblood · {item:3372} Leaded Vial
-	["{spell:3452} is orange at 160 (yellow 180, green 200, grey 220): about 39 crafts to 195. Each takes 1 {item:3820}, 1 {item:3356} and 1 {item:3372}. {item:3820} grows under water along the coasts: bring a water breathing elixir or come up for air. {item:3356} grows in the 20-40 zones."] = "",
+	["{spell:3452} is orange at 160 (yellow 180, green 200, grey 220): about 39 crafts to 195. Each takes 1 {item:3820}, 1 {item:3356} and 1 {item:3372}. {item:3820} grows under water along the coasts: bring a water breathing elixir or come up for air. {item:3356} grows in the 20-40 zones."] = "{spell:3452}: оранжевый на 160 (желтый 180, зеленый 200, серый 220): около 39 изготовлений до 195. Каждое требует 1 {item:3820}, 1 {item:3356} и 1 {item:3372}. {item:3820} растет под водой вдоль побережий: возьмите эликсир водного дыхания или поднимайтесь за воздухом. {item:3356} растет в зонах 20-40 уровня.",
 
 	-- Step 57: Alchemy recipes at 195
 	-- {skill:171} Alchemy
 	["{skill:171} recipes at 195"] = "{skill:171}: рецепты на 195",
 	-- {spell:11450} Elixir of Defense
-	["Still at the Expert trainer: {spell:11450} (from 195)."] = "",
+	["Still at the Expert trainer: {spell:11450} (from 195)."] = "Вы все еще у учителя ранга «Умелец»: {spell:11450} (с 195).",
 
 	-- Step 58: Elixir of Defense to 225
 	-- {item:8951} Elixir of Defense
 	["{item:8951} to 225"] = "{item:8951} до 225",
 	-- {item:8951} Elixir of Defense · {item:3355} Wild Steelbloom · {item:3821} Goldthorn · {item:3372} Leaded Vial · {zone:1418} Badlands · {skill:171} Alchemy
-	["{item:8951} is orange at 195 (yellow 215, green 235, grey 255): about 32 crafts to 225. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). {skill:171} 225 is a Legacy System milestone."] = "",
+	["{item:8951} is orange at 195 (yellow 215, green 235, grey 255): about 32 crafts to 225. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). {skill:171} 225 is a Legacy System milestone."] = "{item:8951}: оранжевый на 195 (желтый 215, зеленый 235, серый 255): около 32 изготовлений до 225. Каждое требует 1 {item:3355}, 1 {item:3821} и 1 {item:3372}. {item:3355} и {item:3821} – травы зон 30-45 уровня (Тернистая долина, Арати, {zone:1418}). {skill:171} 225 – веха системы Наследия.",
 
 	-- Step 59: Alchemy 225-300: vendor goods
 	-- {skill:171} Alchemy
-	["{skill:171} 225-300: vendor goods"] = "",
+	["{skill:171} 225-300: vendor goods"] = "{skill:171} 225-300: товары торговцев",
 	-- {item:3372} Leaded Vial · {item:8925} Crystal Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "Купите сразу все для этого этапа: {item:3372} 51 (20с 40м) и {item:8925} 86 (4з 30с); всего около 4з 50с 40м. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:1286}, {npc:5503} и {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} и {npc:3334}).",
 
 	-- Step 60: Recipe: Elixir of Superior Defense
 	-- {item:13478} Recipe: Elixir of Superior Defense · {item:13445} Elixir of Greater Defense · {skill:171} Alchemy · {npc:5178} Soolie Berryfizz · {zone:1455} Ironforge · {npc:3348} Kor'geld · {zone:1454} Orgrimmar
@@ -315,31 +316,31 @@ return {
 	-- {item:8836} Arthas' Tears
 	["{item:8836} (Alliance)"] = "{item:8836} (Альянс)",
 	-- {item:8836} Arthas' Tears · {item:9154} Draught of Detect Undead · {skill:182} Herbalism · {zone:1448} Felwood · {zone:1422} Western Plaguelands · {zone:1423} Eastern Plaguelands
-	["43 {item:8836} for {item:9154}: {skill:182}: {item:8836} (skill 220) in {zone:1448} (48-55), {zone:1422} (51-58) and {zone:1423} (53-60). The densest patch of {item:8836} in {zone:1422} is marked."] = "",
+	["43 {item:8836} for {item:9154}: {skill:182}: {item:8836} (skill 220) in {zone:1448} (48-55), {zone:1422} (51-58) and {zone:1423} (53-60). The densest patch of {item:8836} in {zone:1422} is marked."] = "{item:8836} 43 для {item:9154}: {skill:182}: {item:8836} (навык 220) в {zone:1448} (48-55), {zone:1422} (51-58) и {zone:1423} (53-60). В {zone:1422} отмечено место, где {item:8836} встречается чаще всего.",
 
 	-- Step 63: Arthas' Tears (Horde)
 	-- {item:8836} Arthas' Tears
 	["{item:8836} (Horde)"] = "{item:8836} (Орда)",
 	-- {item:8836} Arthas' Tears · {item:9154} Draught of Detect Undead · {skill:182} Herbalism · {zone:1448} Felwood · {zone:1422} Western Plaguelands · {zone:1423} Eastern Plaguelands
-	["43 {item:8836} for {item:9154}: {skill:182}: {item:8836} (skill 220) in {zone:1448} (48-55), {zone:1422} (51-58) and {zone:1423} (53-60). The densest patch of {item:8836} in {zone:1448} is marked."] = "",
+	["43 {item:8836} for {item:9154}: {skill:182}: {item:8836} (skill 220) in {zone:1448} (48-55), {zone:1422} (51-58) and {zone:1423} (53-60). The densest patch of {item:8836} in {zone:1448} is marked."] = "{item:8836} 43 для {item:9154}: {skill:182}: {item:8836} (навык 220) в {zone:1448} (48-55), {zone:1422} (51-58) и {zone:1423} (53-60). В {zone:1448} отмечено место, где {item:8836} встречается чаще всего.",
 
 	-- Step 64: Sungrass (Alliance)
 	-- {item:8838} Sungrass
 	["{item:8838} (Alliance)"] = "{item:8838} (Альянс)",
 	-- {item:8838} Sungrass · {item:13445} Elixir of Greater Defense · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["43 {item:8838} for {item:13445}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8838} in {zone:1425} is marked."] = "",
+	["43 {item:8838} for {item:13445}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8838} in {zone:1425} is marked."] = "{item:8838} 43 для {item:13445}: {skill:182}: {item:8838} (навык 230) в {zone:1425} (40-50), {zone:1444} (40-50) и {zone:1447} (45-55). В {zone:1425} отмечено место, где {item:8838} встречается чаще всего.",
 
 	-- Step 65: Sungrass (Horde)
 	-- {item:8838} Sungrass
 	["{item:8838} (Horde)"] = "{item:8838} (Орда)",
 	-- {item:8838} Sungrass · {item:13445} Elixir of Greater Defense · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["43 {item:8838} for {item:13445}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8838} in {zone:1444} is marked."] = "",
+	["43 {item:8838} for {item:13445}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8838} in {zone:1444} is marked."] = "{item:8838} 43 для {item:13445}: {skill:182}: {item:8838} (навык 230) в {zone:1425} (40-50), {zone:1444} (40-50) и {zone:1447} (45-55). В {zone:1444} отмечено место, где {item:8838} встречается чаще всего.",
 
 	-- Step 66: Stonescale Eel (Alliance)
 	-- {item:13422} Stonescale Eel
 	["{item:13422} (Alliance)"] = "{item:13422} (Альянс)",
 	-- {item:13422} Stonescale Eel · {item:13445} Elixir of Greater Defense · {skill:356} Fishing · {object:180712} Stonescale Eel Swarm
-	["43 {item:13422} for {item:13445}: {skill:356}. Fish {object:180712} here."] = "",
+	["43 {item:13422} for {item:13445}: {skill:356}. Fish {object:180712} here."] = "{item:13422} 43 для {item:13445}: {skill:356}. Рыбачьте здесь: {object:180712} here.",
 
 	-- Step 67: Stonescale Eel (Horde)
 	-- {item:13422} Stonescale Eel
@@ -349,13 +350,14 @@ return {
 	-- {skill:171} Alchemy
 	["Artisan {skill:171}"] = "{skill:171}: Искусник",
 	-- {skill:171} Alchemy · {npc:7948} Kylanna Windwhisper · {zone:1444} Feralas · {npc:1386} Rogvar · {zone:1435} Swamp of Sorrows · {item:8836} Arthas' Tears · {item:8838} Sungrass · {item:13422} Stonescale Eel · {item:9154} Draught of Detect Undead · {item:13423} Stonescale Oil
-	["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:171} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:7948} ({zone:1444}); Horde {npc:1386} ({zone:1435}). The arrow picks the nearest of your faction. 225-300 takes about 1g 30s of recipes and 4g 50s 40c of vendor goods, plus 43 {item:8836}, 43 {item:8838} and 43 {item:13422} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9154} (from 230) and {item:13423} (from 250), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "",
+	["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:171} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:7948} ({zone:1444}); Horde {npc:1386} ({zone:1435}). The arrow picks the nearest of your faction. 225-300 takes about 1g 30s of recipes and 4g 50s 40c of vendor goods, plus 43 {item:8836}, 43 {item:8838} and 43 {item:13422} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9154} (from 230) and {item:13423} (from 250), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "Мастерство поднимает предел с 225 до 300 за 4g 50s (цена Classic; цена Forever в данных отсутствует); требуется 200 {skill:171} и 35 уровень персонажа, так что брать его можно на любом визите с 200. Обучают лишь немногие наставники: Альянс — {npc:7948} ({zone:1444}); Орда — {npc:1386} ({zone:1435}). Стрелка укажет ближайшего к вам по фракции. На 225-300 уйдёт примерно 1g 30s рецептов и 4g 50s 40c товаров у продавцов, плюс 43 {item:8836}, 43 {item:8838} и 43 {item:13422}, которые нужно собрать или купить. Приходите со всем в сумках (шаги выше, остальное с аукциона): эти же наставники обучают {item:9154} (с 230) и {item:13423} (с 250), а для создания не нужен станок — делайте прямо здесь и учите каждый рецепт, достигнув его навыка. Один визит вместо трёх.",
 
 	-- Step 69: Elixir of Defense to 230
 	-- {item:8951} Elixir of Defense
 	["{item:8951} to 230"] = "{item:8951} до 230",
 	-- {item:8951} Elixir of Defense · {item:3355} Wild Steelbloom · {item:3821} Goldthorn · {item:3372} Leaded Vial · {zone:1418} Badlands
-	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "",
+	-- was: ["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951}: желтый на 225 (желтый 215, зеленый 235, серый 255): около 8 изготовлений до 230. Каждое требует 1 {item:3355}, 1 {item:3821} и 1 {item:3372}. {item:3355} и {item:3821} – травы зон 30-45 уровня (Тернистая долина, Арати, {zone:1418})."
+	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). If you got here without learning {item:8951}, learn it now: an earlier step teaches it."] = "{item:8951}: желтый на 225 (желтый 215, зеленый 235, серый 255): около 8 изготовлений до 230. Каждое требует 1 {item:3355}, 1 {item:3821} и 1 {item:3372}. {item:3355} и {item:3821} – травы зон 30-45 уровня (Тернистая долина, Арати, {zone:1418}). Если вы дошли сюда, не выучив {item:8951}, выучите сейчас: его учит один из прошлых шагов.",
 
 	-- Step 70: Alchemy recipes at 230
 	-- {skill:171} Alchemy
@@ -368,7 +370,7 @@ return {
 	["{item:9154} to 265"] = "{item:9154} до 265",
 	-- {item:9154} Draught of Detect Undead · {item:8836} Arthas' Tears · {item:8925} Crystal Vial · {zone:1448} Felwood · {skill:182} Herbalism
 	-- plural, as words: Crystal Vials = {item:8925} Crystal Vial
-	["{item:9154} is orange at 230 (yellow 245, green 265, grey 285): about 43 crafts to 265. Each takes 1 {item:8836} and 1 {item:8925}. {item:8836} grow in the Plaguelands and {zone:1448} ({skill:182} 220); Crystal Vials come from alchemy vendors."] = "",
+	["{item:9154} is orange at 230 (yellow 245, green 265, grey 285): about 43 crafts to 265. Each takes 1 {item:8836} and 1 {item:8925}. {item:8836} grow in the Plaguelands and {zone:1448} ({skill:182} 220); Crystal Vials come from alchemy vendors."] = "{item:9154}: оранжевый на 230 (желтый 245, зеленый 265, серый 285): около 43 изготовлений до 265. Каждое требует 1 {item:8836} и 1 {item:8925}. {item:8836} растет в Чумных землях и {zone:1448} ({skill:182} 220); хрустальные колбы продаются у алхимиков.",
 
 	-- Step 72: Alchemy recipes at 265
 	-- {skill:171} Alchemy
@@ -380,7 +382,7 @@ return {
 	-- {item:13445} Elixir of Greater Defense
 	["{item:13445} to 300"] = "{item:13445} до 300",
 	-- {item:13445} Elixir of Greater Defense · {item:13423} Stonescale Oil · {item:8838} Sungrass · {item:8925} Crystal Vial · {item:13422} Stonescale Eel · {skill:171} Alchemy
-	["{item:13445} is orange at 265 (yellow 280, green 300, grey 320): about 43 crafts to 300. Each takes 2 {item:13423}, 1 {item:8838} and 1 {item:8925}. Make the 86 {item:13423} (43 crafts) first. {item:13422} comes from the {item:13422} schools on the coasts of the 40-55 zones, or the Auction House (fishers sell them in stacks). {item:8838} grows in the 40-55 zones. {skill:171} 300 is a Legacy System milestone."] = "",
+	["{item:13445} is orange at 265 (yellow 280, green 300, grey 320): about 43 crafts to 300. Each takes 2 {item:13423}, 1 {item:8838} and 1 {item:8925}. Make the 86 {item:13423} (43 crafts) first. {item:13422} comes from the {item:13422} schools on the coasts of the 40-55 zones, or the Auction House (fishers sell them in stacks). {item:8838} grows in the 40-55 zones. {skill:171} 300 is a Legacy System milestone."] = "{item:13445}: оранжевый на 265 (желтый 280, зеленый 300, серый 320): около 43 изготовлений до 300. Каждое требует 2 {item:13423}, 1 {item:8838} и 1 {item:8925}. Сначала сделайте 86 {item:13423} (43 изготовления). {item:13422} попадается в косяках {item:13422} на побережьях зон 40-55 уровня или на аукционе (рыбаки продают их стопками). {item:8838} растет в зонах 40-55 уровня. {skill:171} 300 – веха системы Наследия.",
 	["from the recipe in your bags"] = "по рецепту из сумки",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
@@ -457,11 +459,13 @@ return {
 	-- ["{item:765} (Horde)"] = "{item:765} (Орда)",
 	-- ["{item:785} (Alliance)"] = "{item:785} (Альянс)",
 	-- ["{item:785} (Horde)"] = "{item:785} (Орда)",
+	-- ["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951}: желтый на 225 (желтый 215, зеленый 235, серый 255): около 8 изготовлений до 230. Каждое требует 1 {item:3355}, 1 {item:3821} и 1 {item:3372}. {item:3355} и {item:3821} – травы зон 30-45 уровня (Тернистая долина, Арати, {zone:1418}).",
 	-- ["{npc:1958} (level 17-18) drop it here. The Auction House works too."] = "Добыча здесь: {npc:1958} (уровень 17-18). Подойдет и аукцион.",
 	-- ["{npc:513} (level 14-15) drop it here. The Auction House works too."] = "Добыча здесь: {npc:513} (уровень 14-15). Подойдет и аукцион.",
 	-- ["{skill:171} recipes at 259"] = "{skill:171}: рецепты на 259",
 	-- ["{skill:171} recipes at 85"] = "{skill:171}: рецепты на 85",
 	-- ["{skill:171} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 68s in all."] = "{skill:171} качается параллельно с уровнем. Система наследия Forever награждает за профессии производства на навыке 150, 225 и 300 (пределы рангов «Подмастерье», «Умелец» и «Искусник»), так что важен каждый рубеж. Материалы на 1-75 стоят всего около 68с.",
 	-- ["{spell:11447} to 215"] = "{spell:11447} до 215",
+	-- ["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176}: желтый на 150 (желтый 150, зеленый 170, серый 190): около 12 изготовлений до 160. Каждое требует 2 {item:2453}, 2 {item:2450} и 1 {item:3372}. Два {item:2453} и два {item:2450} на изготовление; {item:2453} растет в зонах 15-30 уровня.",
 	-- ["{spell:7845} to 175"] = "{spell:7845} до 175",
 }

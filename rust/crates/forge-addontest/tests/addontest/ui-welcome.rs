@@ -5,8 +5,7 @@
 //! the welcome, Questing, Groups and dungeons, Your route, Your look and the last page, with "Install · Step 2
 //! of 6", the step dots, Skip install, Back, Next and Finish; each choice writing its real setting at once, its
 //! default picked on a fresh account; Enter, Backspace and Escape; scaled down to fit a small screen; opened by
-//! /polestar install (and /polestar welcome), About's Install tile, the settings window's Install button and its
-//! search.
+//! /polestar install (and /polestar welcome), About's Install tile and the settings window's search.
 
 use std::collections::HashSet;
 
@@ -208,16 +207,22 @@ fn the_first_page_greets_the_character_by_name_says_what_polestar_does_shows_its
 		end
 		local line = said(body.Line)
 		local ahead = plain(body.Ahead:GetText())
+		local follow = { said(body.Follow), plain(body.Follow:GetText()), select(5, body.Follow:GetPoint(1)) > select(5, body.Ahead:GetPoint(1)) }
 		F:Hide()
 		uistub.player = {}
 		Wel.Show()
-		emit({ named = named, line = line, cards = parts, anonymous = title(), ahead = ahead })"#);
+		emit({ named = named, line = line, cards = parts, anonymous = title(), ahead = ahead, follow = follow })"#);
 	assert_eq!(out["named"], "Hello, Testchar");
 	assert_eq!(out["anonymous"], "Welcome to Polestar", "without a name");
 	assert_eq!(out["line"], true, "a line on what Polestar does");
 	let part = json!({ "shown": true, "title": true, "line": true, "media": true });
 	assert_eq!(out["cards"], json!([part, part, part]), "three parts, each a card with its miniature, title and line");
 	assert_eq!(out["ahead"], "The next pages set Polestar up for how you play. Each choice works at once, and Skip install keeps everything as it is.");
+	assert_eq!(
+		out["follow"],
+		json!([true, "The arrow follows the route step you're on; to go to a quest you already have, open it in Lookup.", true]),
+		"what the arrow follows, over the line on the next pages (#3701)"
+	);
 }
 
 #[test]
@@ -465,9 +470,9 @@ fn every_choice_page_says_skip_install_keeps_its_settings_and_skipping_keeps_the
 		emit({ keep = keep, before = before, skipped = skipped, kept = get("behavior.skipGrey") })"#);
 	let line = json!("Skip install keeps these as they are.");
 	assert_eq!(out["keep"], json!([line, line, line]), "Questing, Your route, Your look");
-	assert_eq!(out["before"], json!([true, true, false, true, "dusk", "balanced"]), "the defaults, picked on a fresh account");
+	assert_eq!(out["before"], json!([true, true, true, true, "dusk", "balanced"]), "the defaults, picked on a fresh account");
 	assert_eq!(out["skipped"], json!({ "now": out["before"].clone(), "closed": true, "stored": true }), "nothing written");
-	assert_eq!(out["kept"], true);
+	assert_eq!(out["kept"], false, "Skip grey quests turned off on the page stays off");
 }
 
 #[test]
@@ -498,11 +503,11 @@ fn the_questing_page_writes_quest_automation_both_ways_grey_quests_the_login_gui
 		local custom = cards(F.Gear)
 		emit({ start = start, off = off, on = on, partly = partly, grey = get("behavior.skipGrey"), guide = get("behavior.autoSelectGuide"),
 			gear = gear, fury = fury, reset = reset, custom = custom })"#);
-	assert_eq!(out["start"], json!({ "title": "Questing", "on": true, "grey": false, "guide": true, "desc": true, "login": true, "greyDesc": true }), "the defaults picked, descriptions shown inline");
+	assert_eq!(out["start"], json!({ "title": "Questing", "on": true, "grey": true, "guide": true, "desc": true, "login": true, "greyDesc": true }), "the defaults picked, descriptions shown inline");
 	assert_eq!(out["off"], json!([false, false, false]), "one switch turns both accepting and turning in off");
 	assert_eq!(out["on"], json!([true, true, true]));
 	assert_eq!(out["partly"], false, "on only while both are on");
-	assert_eq!(out["grey"], true);
+	assert_eq!(out["grey"], false);
 	assert_eq!(out["guide"], false);
 	assert_eq!(out["gear"], json!({ "names": ["Automatic (talents)", "Arms", "Fury", "Protection (tank)"], "picked": "Automatic (talents)", "shown": true }));
 	assert_eq!(out["fury"], json!(["fury", "Fury", "auto"]), "the class's own weights, at once; other classes keep theirs");
@@ -1018,6 +1023,8 @@ fn the_last_page_says_where_to_change_it_all_later_and_points_to_the_recorder_ea
 	assert_eq!(out["rec"], json!({ "closed": true, "page": "recorder", "enabled": true }), "its page in Settings, nothing switched on");
 }
 
+// 0.4.2.1: players have played the routes, so the Install no longer calls them beta; the note comes back only
+// while ns.routesBeta is set again.
 #[test]
 fn the_beta_callout_on_the_last_page_follows_ns_routesbeta() {
 	let out = run(r#"
@@ -1025,13 +1032,13 @@ fn the_beta_callout_on_the_last_page_follows_ns_routesbeta() {
 		local F = PolestarWelcome
 		local n = F.pages.finish.Body.Beta
 		local function note() return { chip = n.Chip:IsShown(), head = n.Head:IsShown(), text = n.Text:IsShown() and (n.Text:GetText() or "") ~= "" } end
-		local beta = note()
+		local proven = note()
 		F:Hide()
-		Polestar.routesBeta = false
+		Polestar.routesBeta = true
 		Wel.Show("finish")
-		emit({ beta = beta, proven = note() })"#);
+		emit({ proven = proven, beta = note() })"#);
+	assert_eq!(out["proven"], json!({ "chip": false, "head": false, "text": false }), "no beta note by default");
 	assert_eq!(out["beta"], json!({ "chip": true, "head": true, "text": true }), "the note and its Beta chip while the routes are in beta");
-	assert_eq!(out["proven"], json!({ "chip": false, "head": false, "text": false }));
 }
 
 #[test]
@@ -1179,20 +1186,17 @@ fn polestar_install_its_welcome_alias_and_abouts_install_tile_reopen_it_on_its_f
 }
 
 #[test]
-fn the_settings_windows_header_has_an_install_button_and_its_search_finds_install_by_install_setup_wizard_and_first_run() {
+// The settings window's header has no Install button (it read as installing the addon): About's tile and the
+// search have it.
+fn the_settings_windows_header_has_no_install_button_and_its_search_finds_install_by_install_setup_wizard_and_first_run() {
 	let out = run(r#"
 		Polestar.UI.ShowOptions("guide")
 		local win = PolestarOptions
-		local b = win.Install
-		local header = { shown = b ~= nil and b:IsShown(), label = b and b.Label:GetText(), inHeader = b and b:GetParent() == win.Header }
-		b:Click()
-		header.opens = shown() and title() == "Hello, Testchar"
-		PolestarWelcome:Hide()
-		-- Too narrow a window for it beside the page's title: left out, back with the room.
-		Polestar.Set("ui.optionsSize", { 860, 600 })
-		header.narrow = b:IsShown()
-		Polestar.Set("ui.optionsSize", nil)
-		header.wide = b:IsShown()
+		local inHeader = false
+		for _, f in ipairs({ win.Header:GetChildren() }) do
+			if rawget(f, "Label") and f.Label.GetText and f.Label:GetText() == "Install" and f:IsShown() then inHeader = true end
+		end
+		local header = { button = rawget(win, "Install") ~= nil, inHeader = inHeader }
 		local O = Polestar.UI.Options
 		local found = {}
 		for _, q in ipairs({ "install", "setup", "wizard", "first run" }) do
@@ -1207,8 +1211,9 @@ fn the_settings_windows_header_has_an_install_button_and_its_search_finds_instal
 			for _, c in ipairs(g.controls) do if c.button == "Install" then c.onClick() end end
 		end
 		emit({ header = header, found = found, opened = shown() and step() })"#);
-	assert_eq!(out["header"], json!({ "shown": true, "label": "Install", "inHeader": true, "opens": true, "narrow": false, "wide": true }));
-	let hit = json!({ "title": "About  \u{b7}  Install", "label": "Set Polestar up again" });
+	assert_eq!(out["header"], json!({ "button": false, "inHeader": false }), "no Install in the header");
+	// Install sits on Setup > Profiles' Install & updates card, where a first install and troubleshooting look.
+	let hit = json!({ "title": "Profiles  \u{b7}  Profiles  \u{b7}  Install & updates", "label": "Set Polestar up again" });
 	assert_eq!(out["found"], json!({ "install": hit.clone(), "setup": hit.clone(), "wizard": hit.clone(), "first run": hit }));
 	assert_eq!(out["opened"], "1 of 5", "the result opens it, every page");
 }

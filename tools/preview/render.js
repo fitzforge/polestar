@@ -154,15 +154,30 @@ class TextureCache {
 // ---------------------------------------------------------------------------
 // Layout
 
+// An inline texture (`|T<path>:<h>:<w>:...|t`, the client's escape) stands as
+// one INLINE character in plain text, one em wide (its height 0: the line's),
+// and is drawn as its texture (drawText).
+const INLINE = '\uE000';
+const INLINE_RE = /\|T([^|:]+)((?::[^|:]*)*)\|t/g;
+
 function measure(fonts, font, text) {
 	const f = fonts[font[0]];
 	let w = 0;
-	for (const ch of text) w += f.advanceEm(ch.codePointAt(0));
+	for (const ch of text) w += ch === INLINE ? 1 : f.advanceEm(ch.codePointAt(0));
 	return w * font[1];
 }
 
 function plain(s) {
-	return String(s ?? '').replace(/\|\|/g, '\u0001').replace(/\|c[0-9a-fA-F]{8}/g, '').replace(/\|r/g, '').replace(/\u0001/g, '|');
+	return String(s ?? '').replace(/\|\|/g, '\u0001').replace(INLINE_RE, INLINE).replace(/\|c[0-9a-fA-F]{8}/g, '').replace(/\|r/g, '').replace(/\u0001/g, '|');
+}
+
+// An inline texture's escape -> { name, tint, tc } (its colour fields, 0-255, the tint; white without them).
+function inlineTexture(pathText, fields) {
+	const f = fields.split(':').slice(1).map(Number);
+	const [, , , , tw, th, l, r, t, b, R, G, B] = f;
+	const tc = tw > 0 && th > 0 && [l, r, t, b].every(Number.isFinite) ? [l / tw, r / tw, t / th, b / th] : null;
+	const tint = [R, G, B].every(Number.isFinite) ? [R / 255, G / 255, B / 255, 1] : [1, 1, 1, 1];
+	return { name: textureName(pathText), tint, tc };
 }
 
 // Greedy wrap, same rule as stub.lua: at spaces, and between any two CJK
@@ -338,6 +353,19 @@ function runs(line, base) {
 			const hex = s.slice(i + 4, i + 10);
 			color = [parseInt(hex.slice(0, 2), 16) / 255, parseInt(hex.slice(2, 4), 16) / 255, parseInt(hex.slice(4, 6), 16) / 255, base[3]];
 			i += 10;
+		} else if (s[i] === '|' && s[i + 1] === 'T') {
+			// An inline texture: one INLINE run carrying it.
+			INLINE_RE.lastIndex = i;
+			const m = INLINE_RE.exec(s);
+			if (m && m.index === i) {
+				if (buf) out.push({ text: buf, color });
+				buf = '';
+				out.push({ text: INLINE, color, tex: inlineTexture(m[1], m[2]) });
+				i += m[0].length;
+			} else {
+				buf += s[i];
+				i += 1;
+			}
 		} else if (s[i] === '|' && s[i + 1] === 'r') {
 			if (buf) out.push({ text: buf, color });
 			buf = '';
@@ -357,7 +385,7 @@ function runs(line, base) {
 function colouredLines(src, lines, base) {
 	const all = runs(String(src ?? '').replace(/\n/g, ' \n '), base);
 	const chars = [];
-	for (const r of all) for (const ch of r.text) chars.push({ ch, color: r.color });
+	for (const r of all) for (const ch of r.text) chars.push({ ch, color: r.color, tex: r.tex });
 	const out = [];
 	let k = 0;
 	for (const line of lines) {
@@ -365,9 +393,10 @@ function colouredLines(src, lines, base) {
 		for (const ch of line) {
 			while (k < chars.length && chars[k].ch !== ch) k++;
 			const c = k < chars.length ? chars[k].color : base;
+			const tex = k < chars.length ? chars[k].tex : undefined;
 			const last = lr[lr.length - 1];
-			if (last && last.color === c) last.text += ch;
-			else lr.push({ text: ch, color: c });
+			if (last && last.color === c && !tex && !last.tex) last.text += ch;
+			else lr.push({ text: ch, color: c, tex });
 			k++;
 		}
 		out.push(lr);
@@ -727,6 +756,18 @@ function svg(dump, { fonts, textures, roots, margin = 28, prefix = 'p', shared, 
 				else if (t.justifyH === 'RIGHT') x = r.x + r.w - lineW;
 				const baseline = y0 + i * (lineH + spacing) + lineH * 0.86;
 				for (const run of lr) {
+					// An inline texture: drawn on the text's pass only (no shadow), its own tint,
+					// a line high and centred on the line.
+					if (run.tex) {
+						const uri = !pass && run.tex.name && textures.uri(run.tex.name, run.tex.tint, run.tex.tc);
+						if (uri) {
+							const top = y0 + i * (lineH + spacing);
+							const img = `<image x="${f2(x - ox)}" y="${f2(top - oy)}" width="${f2(lineH)}" height="${f2(lineH)}" preserveAspectRatio="none" opacity="${f2(alpha)}" href="${uri}"/>`;
+							body.push(clip ? `<g${clip}>${img}</g>` : img);
+						}
+						x += measure(fonts, t.font, run.text) * s;
+						continue;
+					}
 					const c = pass ? pass.color : run.color;
 					const { fill, opacity } = rgba(c, alpha * (pass ? (c[3] ?? 1) * (run.color[3] ?? 1) : 1));
 					if (opacity > 0.001) {
