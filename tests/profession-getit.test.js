@@ -190,24 +190,8 @@ test('re-picked on level-up: a Linen Cloth farm for level 6 gives way once the p
 
 // The profession guides as `profession draft` writes them from data/forever.
 function draft(name) {
-	const { draftGuide } = require('../tools/lib/professions/guide');
-	const { farmSpots } = require('../tools/lib/dsl/farmspots');
-	const raw = (f) => JSON.parse(fs.readFileSync(path.join(DATA, `${f}.json`), 'utf8'));
-	const lowest = (list) => (list.length ? Math.min(...list.map((s) => s.lvl.min)) : null);
-	const data = {
-		professions: raw('professions'),
-		npcs: raw('npcs'),
-		objects: raw('objects'),
-		zones: raw('zones'),
-		items: raw('items'),
-		quests: raw('quests'),
-		mapFrames: raw('map-frames'),
-		farmable: (item) => {
-			const spots = farmSpots(world().data, item);
-			return { Alliance: lowest(spots.filter((s) => s.faction !== 'H')), Horde: lowest(spots.filter((s) => s.faction !== 'A')) };
-		},
-	};
-	return draftGuide(name, data).text;
+	const { draftGuide, draftData } = require('../tools/lib/professions/guide');
+	return draftGuide(name, draftData(DATA)).text;
 }
 
 // A guide's Get it steps for a material: [{ title, only, zone, lines }].
