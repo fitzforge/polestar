@@ -1255,4 +1255,47 @@ function draftGuide(name, data, opts = {}) {
 	return { text: `${byBanners(out.join('\n'), P)}\n`, plan, materials };
 }
 
-module.exports = { draftGuide, farmSpot, skinSpot, money: D.money, slug };
+// The data `draftGuide` reads, from a data/forever folder: the JSON files, and
+// `farmable(item)`, where the compiler can place `collect <item> nearest`: the
+// same farm spots it compiles (tools/lib/dsl/farmspots.js), so a drafted step
+// never fails lint for want of a qualifying dropper. -> { Alliance, Horde, top,
+// best, camps }: the lowest mob level among the spots that side may use (null
+// when there is none), the highest mob level of any spot, the names of the
+// three best spots' mobs (items per kill x spawns) for the step's tip, and
+// whether any spot is a camp of MIN_SPAWNS or more (only lone mobs, a named
+// turtle for Iridescent Pearl, are no camp to farm).
+function draftData(dataDir) {
+	const fs = require('node:fs');
+	const path = require('node:path');
+	const loadJson = (name) => {
+		const file = path.join(dataDir, `${name}.json`);
+		if (!fs.existsSync(file)) throw new Error(`${path.relative(process.cwd(), file)} missing (${name === 'professions' ? 'forge data professions' : 'forge data build'})`);
+		return JSON.parse(fs.readFileSync(file, 'utf8'));
+	};
+	const data = {
+		professions: loadJson('professions'),
+		npcs: loadJson('npcs'),
+		objects: loadJson('objects'),
+		zones: loadJson('zones'),
+		items: loadJson('items'),
+		quests: loadJson('quests'),
+		mapFrames: loadJson('map-frames'),
+	};
+	const { loadData } = require('../dsl/data');
+	const { farmSpots, MIN_SPAWNS } = require('../dsl/farmspots');
+	const compiled = loadData(dataDir);
+	const lowest = (list) => (list.length ? Math.min(...list.map((s) => s.lvl.min)) : null);
+	data.farmable = (item) => {
+		const spots = farmSpots(compiled, item);
+		return {
+			Alliance: lowest(spots.filter((s) => s.faction === 'A' || s.faction === 'AH')),
+			Horde: lowest(spots.filter((s) => s.faction === 'H' || s.faction === 'AH')),
+			top: spots.length ? Math.max(...spots.map((s) => s.lvl.max)) : null,
+			camps: spots.some((s) => s.spawns >= MIN_SPAWNS),
+			best: [...new Set([...spots].sort((a, b) => b.rate * b.spawns - a.rate * a.spawns).map((s) => s.npcName))].slice(0, 3),
+		};
+	};
+	return data;
+}
+
+module.exports = { draftGuide, draftData, farmSpot, skinSpot, money: D.money, slug };
