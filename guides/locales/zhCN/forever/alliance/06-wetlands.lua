@@ -77,7 +77,7 @@ return {
 
 	-- Step 17: Glorin Steelbrow
 	-- {quest:270} The Doomed Fleet · {npc:1217} Glorin Steelbrow · {quest:321} Lightforge Iron · {area:2104} Deepwater Tavern
-	["{quest:270} is already with {npc:1217}: take {quest:321} from him in the {area:2104}, south of the keep."] = "",
+	["{quest:270} is already with {npc:1217}: take {quest:321} from him in the {area:2104}, south of the keep."] = "{quest:270}已经交给{npc:1217}：在要塞以南的{area:2104}里从他那里接取{quest:321}。",
 
 	-- Step 18: James Halloran
 	-- {area:17732} Excavation Site: Wetlands · {npc:2094} James Halloran
@@ -215,7 +215,7 @@ return {
 
 	-- Step 39: Rethiel the Greenwarden
 	-- {quest:98283} Carnage · {npc:271334} Maddened Rotclaw · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
-	["{quest:98283}, an elite raptor called out with a {npc:271334}'s flesh, on the {zone:1437} loop of the {zone:1424} guide"] = "",
+	["{quest:98283}, an elite raptor called out with a {npc:271334}'s flesh, on the {zone:1437} loop of the {zone:1424} guide"] = "{quest:98283}，一只用{npc:271334}的肉召唤出的精英迅猛龙，在{zone:1424}指南的{zone:1437}一轮中",
 
 	-- Step 40: Dragonmaw Gates: kill these as you meet them
 	-- {area:1038} Dragonmaw Gates
@@ -291,7 +291,7 @@ return {
 
 	-- Step 52: Prospector Whelgar
 	-- {item:287959} Titan Relic · {npc:1077} Prospector Whelgar · {quest:98824} Prehistoric Prism
-	["The {item:287959} is already with {npc:1077}: take {quest:98824} from him, below ground in his dig."] = "",
+	["The {item:287959} is already with {npc:1077}: take {quest:98824} from him, below ground in his dig."] = "{item:287959}已经交给{npc:1077}：在他地下的挖掘场里从他那里接取{quest:98824}。",
 
 	-- Step 53: Captain Stoutfist
 	-- {area:150} Menethil Harbor · {area:2104} Deepwater Tavern · {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep · {npc:2094} James Halloran

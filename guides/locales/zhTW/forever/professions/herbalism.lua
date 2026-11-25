@@ -80,7 +80,7 @@ return {
 	-- Step 22: Goldthorn & Khadgar's Whisker: Swamp of Sorrows (185-200)
 	-- {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
 	-- was: ["Pick every {item:2453} (100, green, rare), {object:1623} (115, green, rare), {item:3356} (125, green), {item:3357} (150, yellow), {item:3818} (160, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 35-45. Expect about 20 herbs for these 15 points."] = "採集沿途經過的每一株{item:2453}（100，綠色，稀有）、{object:1623}（115，綠色，稀有）、{item:3356}（125，綠色）、{item:3357}（150，黃色）、{item:3818}（160，黃色）、{item:3821}（170，橙色）、{object:2043}（185，橙色），並繞著路徑點循環，直到{skill:182}200。地區等級35-45。這15點預計需要採集約20株草藥。"
-	["Pick every {item:3356} (125, green), {item:3357} (150, yellow), {item:3818} (160, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 35-45. Expect about 20 herbs for these 15 points."] = "",
+	["Pick every {item:3356} (125, green), {item:3357} (150, yellow), {item:3818} (160, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 35-45. Expect about 20 herbs for these 15 points."] = "採集經過的每一株{item:3356}（125，綠色）、{item:3357}（150，黃色）、{item:3818}（160，黃色）、{item:3821}（170，橙色）、{object:2043}（185，橙色），並繞著路徑點轉，直到{skill:182}達到200。地區等級35-45。這15點大約需要20株草藥。",
 
 	-- Step 23: Artisan Herbalism
 	-- {skill:182} Herbalism
@@ -90,10 +90,10 @@ return {
 
 	-- Step 24: Goldthorn & Khadgar's Whisker: Swamp of Sorrows (200-210) cont.
 	-- {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {zone:1435} Swamp of Sorrows
-	["{item:3821} & {object:2043}: {zone:1435} (200-210) cont."] = "",
+	["{item:3821} & {object:2043}: {zone:1435} (200-210) cont."] = "{item:3821}和{object:2043}：{zone:1435}（200-210）續",
 	-- {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
 	-- was: ["Pick every {object:1623} (115, green, rare), {item:3356} (125, green), {item:3357} (150, green), {item:3818} (160, yellow), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 35-45. Expect about 20 herbs for these 10 points."] = "採集沿途經過的每一株{object:1623}（115，綠色，稀有）、{item:3356}（125，綠色）、{item:3357}（150，綠色）、{item:3818}（160，黃色）、{item:3821}（170，黃色）、{object:2043}（185，橙色），並繞著路徑點循環，直到{skill:182}210。地區等級35-45。這10點預計需要採集約20株草藥。"
-	["Pick every {item:3356} (125, green), {item:3357} (150, green), {item:3818} (160, yellow), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 35-45. Expect about 20 herbs for these 10 points."] = "",
+	["Pick every {item:3356} (125, green), {item:3357} (150, green), {item:3818} (160, yellow), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 35-45. Expect about 20 herbs for these 10 points."] = "採集經過的每一株{item:3356}（125，綠色）、{item:3357}（150，綠色）、{item:3818}（160，黃色）、{item:3821}（170，黃色）、{object:2043}（185，橙色），並繞著路徑點轉，直到{skill:182}達到210。地區等級35-45。這10點大約需要20株草藥。",
 
 	-- Step 25: Purple Lotus: The Hinterlands (210-230)
 	-- {object:1623} Wild Steelbloom · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {item:8831} Purple Lotus · {skill:182} Herbalism · {item:8153} Wildvine
@@ -109,7 +109,7 @@ return {
 
 	-- Step 28: Dreamfoil & Plaguebloom: Felwood (285-300)
 	-- {item:8836} Arthas' Tears · {item:8838} Sungrass · {item:8846} Gromsblood · {item:13464} Golden Sansam · {item:13463} Dreamfoil · {item:13465} Mountain Silversage · {item:13466} Plaguebloom · {skill:182} Herbalism · {npc:9528} Arathandris Silversky · {npc:9529} Maybess Riverbreeze
-	["Pick every {item:8836} (220, green), {item:8838} (230, green), {item:8846} (250, yellow), {item:13464} (260, yellow), {item:13463} (270, orange), {item:13465} (280, orange), {item:13466} (285, orange) you pass and circle the waypoints until {skill:182} 300. {item:8846} grows near demon and satyr camps: pull carefully. Quests here that need {skill:182}: Salve via Gathering (level 55, {npc:9528}; Alliance), Salve via Gathering (level 55, {npc:9529}; Horde). Zone level 48-55. Expect about 20 herbs for these 15 points."] = "",
+	["Pick every {item:8836} (220, green), {item:8838} (230, green), {item:8846} (250, yellow), {item:13464} (260, yellow), {item:13463} (270, orange), {item:13465} (280, orange), {item:13466} (285, orange) you pass and circle the waypoints until {skill:182} 300. {item:8846} grows near demon and satyr camps: pull carefully. Quests here that need {skill:182}: Salve via Gathering (level 55, {npc:9528}; Alliance), Salve via Gathering (level 55, {npc:9529}; Horde). Zone level 48-55. Expect about 20 herbs for these 15 points."] = "採集經過的每一株{item:8836}（220，綠色）、{item:8838}（230，綠色）、{item:8846}（250，黃色）、{item:13464}（260，黃色）、{item:13463}（270，橙色）、{item:13465}（280，橙色）、{item:13466}（285，橙色），並繞著路徑點轉，直到{skill:182}達到300。{item:8846}生長在惡魔和薩特營地附近：小心拉怪。這裡需要{skill:182}的任務：採集藥膏（55級，{npc:9528}；聯盟），採集藥膏（55級，{npc:9529}；部落）。地區等級48-55。這15點大約需要20株草藥。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:182} trainer of your faction teaches Apprentice {skill:182} (character level 5); the arrow picks the nearest."] = "你陣營的任何{skill:182}訓練師都能教初級{skill:182}（角色等級5）；箭頭會指向最近的一位。",

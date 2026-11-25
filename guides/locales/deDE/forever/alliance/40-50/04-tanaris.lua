@@ -136,7 +136,7 @@ return {
 
 	-- Step 26: Tooga
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
-	["The little turtle {npc:5955} wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Take him from the edge and leave the Thistleshrubs (48-50) alone."] = "",
+	["The little turtle {npc:5955} wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Take him from the edge and leave the Thistleshrubs (48-50) alone."] = "Die kleine Schildkröte {npc:5955} wandert am Westrand von {quest:3362} zwischen mehreren Stellen umher: Der Pfeil führt von einer zur nächsten, bis du sie findest. Nimm sie vom Rand aus mit und lass die Distelsträucher (48-50) in Ruhe.",
 
 	-- Step 27: Tooga's escort
 	-- {npc:5955} Tooga

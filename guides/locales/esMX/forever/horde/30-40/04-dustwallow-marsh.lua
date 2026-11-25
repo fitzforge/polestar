@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Orgrimmar
 	-- {zone:1454} Orgrimmar · {zone:1445} Dustwallow Marsh
-	["The {zone:1454} and Crossroads stops are on the way for players coming from the previous guide; opened with none of its quests in the log, the guide starts in {zone:1445}."] = "",
+	["The {zone:1454} and Crossroads stops are on the way for players coming from the previous guide; opened with none of its quests in the log, the guide starts in {zone:1445}."] = "Las paradas de {zone:1454} y El Cruce quedan de camino para los jugadores que vienen de la guía anterior; abierta sin ninguna de sus misiones en el registro, la guía empieza en {zone:1445}.",
 	-- {zone:1454} Orgrimmar
 	["The middle of {zone:1454}"] = "El centro de {zone:1454}",
 
@@ -160,7 +160,7 @@ return {
 
 	-- Step 30: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "",
+	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} está retenida en el campamento Maraudine del extremo oeste del valle; libérala y escóltala fuera del valle por el este.\nCuidado: seis centauros atacan durante la escolta, y no puedes limpiarlos antes: solo aparecen durante la escolta y vienen vinculados. En las grabaciones de los jugadores, 14 de las 30 personas que la aceptaron fallaron al menos una vez. Lleva a un amigo, o sáltala si vas solo. Limpiar antes los centauros normales del camino ayuda.",
 
 	-- Step 31: Hornizz Brimbuzzle
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard

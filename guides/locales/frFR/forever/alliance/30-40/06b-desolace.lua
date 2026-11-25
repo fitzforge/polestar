@@ -47,9 +47,9 @@ return {
 
 	-- Step 8: Flesh Picker
 	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
-	["A {npc:217590} crawls about the {area:596}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "",
+	["A {npc:217590} crawls about the {area:596}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "Un {npc:217590} rampe dans {area:596} : ouvrez {item:213565} de {npc:217412} et utilisez son {item:213562} sur l'un d'eux. Ne le tuez pas.",
 	-- {item:213562} Bug Catching Net · {npc:217590} Flesh Picker · {item:213567} Flesh Picker Specimen
-	["{item:213562}, on a {npc:217590}: the {item:213567}"] = "",
+	["{item:213562}, on a {npc:217590}: the {item:213567}"] = "{item:213562}, sur un {npc:217590} : {item:213567}",
 
 	-- Step 9: Maraudine centaurs
 	["Maraudine centaurs"] = "Centaures maraudine",
@@ -58,7 +58,7 @@ return {
 
 	-- Step 10: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "",
+	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} est retenue au camp de centaures à l'ouest du cimetière. Libérez-la et gardez-la en vie à la sortie ; elle s'arrête près du cimetière.\nAttention : six centaures attaquent pendant l'escorte, et vous ne pouvez pas les éliminer avant : ils n'apparaissent que pendant l'escorte et arrivent liés. Dans les enregistrements des joueurs, 14 des 30 personnes qui l'ont prise ont échoué au moins une fois. Venez avec un ami, ou passez-la si vous êtes seul. Éliminer les centaures normaux sur le chemin avant de commencer aide.",
 	-- {npc:12277} Melizza Brimbuzzle
 	["escort {npc:12277} back toward the graveyard"] = "escortez {npc:12277} jusqu'au cimetière",
 
@@ -92,7 +92,7 @@ return {
 
 	-- Step 17: Azore Aldamort
 	-- {npc:11863} Azore Aldamort · {area:2405} Ethel Rethor · {zone:1443} Desolace
-	["{npc:11863}'s tower stands on the hill at the ruins of {area:2405}, west across the north of {zone:1443}."] = "",
+	["{npc:11863}'s tower stands on the hill at the ruins of {area:2405}, west across the north of {zone:1443}."] = "La tour de {npc:11863} se dresse sur la colline aux ruines d'{area:2405}, à l'ouest en traversant le nord de {zone:1443}.",
 	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
 	["{npc:11863}, if the first {zone:1443} visit didn't take the sceptre back to him"] = "",
 

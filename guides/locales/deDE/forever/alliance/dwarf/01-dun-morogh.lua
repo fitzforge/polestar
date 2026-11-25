@@ -133,7 +133,7 @@ return {
 
 	-- Step 20: The Great Outdoors
 	-- {npc:1241} Tognus Flintfire · {skill:129} First Aid · {npc:2326} Thamner Pol · {area:131} Kharanos · {area:189} Steelgrill's Depot · {npc:1700} Paxton Ganter · {area:137} Brewnall Village · {zone:1455} Ironforge
-	["Sit by Eric's campfire (type /sit) and wait for the buff. With a profession learned, Eric also offers its Camping 101, which its trainer takes: blacksmithing with {npc:1241} and {skill:129} with {npc:2326} in {area:131}, mining and engineering at {area:189}, fishing with {npc:1700} by {area:137}, herbalism, skinning, leatherworking and tailoring in {zone:1455}. In {zone:1455} the alchemy and enchanting trainers give their own."] = "",
+	["Sit by Eric's campfire (type /sit) and wait for the buff. With a profession learned, Eric also offers its Camping 101, which its trainer takes: blacksmithing with {npc:1241} and {skill:129} with {npc:2326} in {area:131}, mining and engineering at {area:189}, fishing with {npc:1700} by {area:137}, herbalism, skinning, leatherworking and tailoring in {zone:1455}. In {zone:1455} the alchemy and enchanting trainers give their own."] = "Setz dich an Erics Lagerfeuer (tippe /sit) und warte auf den Buff. Mit einem erlernten Beruf bietet Eric auch dessen Camping 101 an, das sein Lehrer annimmt: Schmiedekunst bei {npc:1241} und {skill:129} bei {npc:2326} in {area:131}, Bergbau und Ingenieurskunst in {area:189}, Angeln bei {npc:1700} bei {area:137}, Kräuterkunde, Kürschnerei, Lederverarbeitung und Schneiderei in {zone:1455}. In {zone:1455} geben die Lehrer für Alchemie und Verzauberkunst ihr eigenes.",
 
 	-- Step 21: Camping 101: First Aid
 	-- {npc:2326} Thamner Pol · {skill:129} First Aid
@@ -155,33 +155,33 @@ return {
 
 	-- Step 24: Camping 101: Herbalism
 	-- {npc:5137} Reyna Stonebranch · {skill:182} Herbalism
-	["{npc:5137} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:5137} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5137} nimmt sie an, sobald deine Fertigkeit in {skill:182} 20 erreicht: Sammle oder stelle bis dahin her, der Guide läuft so lange weiter.",
 	-- {npc:265813} Eric Brighthammer · {npc:5137} Reyna Stonebranch · {zone:1455} Ironforge
-	["{npc:265813}: for {npc:5137} in {zone:1455}"] = "",
+	["{npc:265813}: for {npc:5137} in {zone:1455}"] = "{npc:265813}: für {npc:5137} in {zone:1455}",
 
 	-- Step 25: Camping 101: Skinning
 	-- {npc:6291} Balthus Stoneflayer · {skill:393} Skinning
-	["{npc:6291} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:6291} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:6291} nimmt sie an, sobald deine Fertigkeit in {skill:393} 20 erreicht: Sammle oder stelle bis dahin her, der Guide läuft so lange weiter.",
 	-- {npc:265813} Eric Brighthammer · {npc:6291} Balthus Stoneflayer · {zone:1455} Ironforge
-	["{npc:265813}: for {npc:6291} in {zone:1455}"] = "",
+	["{npc:265813}: for {npc:6291} in {zone:1455}"] = "{npc:265813}: für {npc:6291} in {zone:1455}",
 
 	-- Step 26: Camping 101: Leatherworking
 	-- {npc:1466} Gretta Finespindle · {skill:165} Leatherworking
-	["{npc:1466} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:1466} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1466} nimmt sie an, sobald deine Fertigkeit in {skill:165} 20 erreicht: Sammle oder stelle bis dahin her, der Guide läuft so lange weiter.",
 	-- {npc:265813} Eric Brighthammer · {npc:1466} Gretta Finespindle · {zone:1455} Ironforge
-	["{npc:265813}: for {npc:1466} in {zone:1455}"] = "",
+	["{npc:265813}: for {npc:1466} in {zone:1455}"] = "{npc:265813}: für {npc:1466} in {zone:1455}",
 
 	-- Step 27: Camping 101: Tailoring
 	-- {npc:1703} Uthrar Threx · {skill:197} Tailoring
-	["{npc:1703} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:1703} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1703} nimmt sie an, sobald deine Fertigkeit in {skill:197} 20 erreicht: Sammle oder stelle bis dahin her, der Guide läuft so lange weiter.",
 	-- {npc:265813} Eric Brighthammer · {npc:1703} Uthrar Threx · {zone:1455} Ironforge
-	["{npc:265813}: for {npc:1703} in {zone:1455}"] = "",
+	["{npc:265813}: for {npc:1703} in {zone:1455}"] = "{npc:265813}: für {npc:1703} in {zone:1455}",
 
 	-- Step 28: Camping 101: Fishing
 	-- {npc:1700} Paxton Ganter · {skill:356} Fishing
-	["{npc:1700} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:1700} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1700} nimmt sie an, sobald deine Fertigkeit in {skill:356} 20 erreicht: Sammle oder stelle bis dahin her, der Guide läuft so lange weiter.",
 	-- {npc:265813} Eric Brighthammer · {npc:1700} Paxton Ganter · {area:137} Brewnall Village
-	["{npc:265813}: for {npc:1700} by {area:137}"] = "",
+	["{npc:265813}: for {npc:1700} by {area:137}"] = "{npc:265813}: für {npc:1700} bei {area:137}",
 
 	-- Step 29: Kharanos
 	-- {npc:1872} Tharek Blackstone · {npc:6806} Tannok Frosthammer · {npc:1226} Maxan Anvol · {npc:1267} Ragnar Thunderbrew · {npc:1699} Gremlock Pilsnor · {skill:185} Cooking
@@ -546,23 +546,23 @@ return {
 
 	-- Step 104: Gretta Finespindle
 	-- {npc:1466} Gretta Finespindle · {npc:6291} Balthus Stoneflayer · {quest:96031} Camping 101: Leatherworking
-	["{npc:1466}, beside {npc:6291}: {quest:96031}"] = "",
+	["{npc:1466}, beside {npc:6291}: {quest:96031}"] = "{npc:1466}, neben {npc:6291}: {quest:96031}",
 
 	-- Step 106: Camping 101: Alchemy
 	-- {npc:1246} Vosur Brakthel · {skill:171} Alchemy
-	["{npc:1246} gives it and takes it back once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:1246} gives it and takes it back once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1246} gibt sie aus und nimmt sie zurück, sobald deine Fertigkeit in {skill:171} 20 erreicht: Sammle oder stelle bis dahin her, der Guide läuft so lange weiter.",
 
 	-- Step 107: Vosur Brakthel
 	-- {npc:1246} Vosur Brakthel
-	["{npc:1246}, who gave it"] = "",
+	["{npc:1246}, who gave it"] = "{npc:1246}, der sie ausgegeben hat",
 
 	-- Step 108: Camping 101: Enchanting
 	-- {npc:11065} Thonys Pillarstone · {skill:333} Enchanting
-	["{npc:11065} gives it and takes it back once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:11065} gives it and takes it back once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:11065} gibt sie aus und nimmt sie zurück, sobald deine Fertigkeit in {skill:333} 20 erreicht: Sammle oder stelle bis dahin her, der Guide läuft so lange weiter.",
 
 	-- Step 109: Thonys Pillarstone
 	-- {npc:11065} Thonys Pillarstone
-	["{npc:11065}, who gave it"] = "",
+	["{npc:11065}, who gave it"] = "{npc:11065}, der sie ausgegeben hat",
 
 	-- Step 110: Tinker Town
 	-- {object:32372} Great Forge (no name in this language: may be words) · {object:171524} Tinker Town · {object:660964} Misplaced Packages · {object:32383} Forlorn Cavern · {object:32362} Mystic Ward (no name in this language: may be words) · {object:171709} High Seat · {object:32359} Military Ward (no name in this language: may be words)

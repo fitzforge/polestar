@@ -191,11 +191,11 @@ return {
 
 	-- Step 38: Andi Lynn
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn · {area:983} Dunemaul Compound
-	["The hearth lands in {area:976}: {npc:11758} takes the {area:983}."] = "",
+	["The hearth lands in {area:976}: {npc:11758} takes the {area:983}."] = "귀환석은 {area:976}에 도착합니다: {npc:11758}이(가) {area:983}을(를) 받습니다.",
 
 	-- Step 39: Tran'rek
 	-- {npc:7876} Tran'rek
-	["{npc:7876} stands beside the wind rider master."] = "",
+	["{npc:7876} stands beside the wind rider master."] = "{npc:7876}은(는) 와이번 조련사 옆에 서 있습니다.",
 
 	-- Step 41: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
@@ -344,7 +344,7 @@ return {
 
 	-- Step 74: Oran Snakewrithe
 	-- {quest:2995} Lines of Communication · {object:144073} Highvale Report · {area:350} Quel'Danil Lodge · {zone:1425} The Hinterlands · {zone:1419} Blasted Lands
-	["{quest:2995}'s work is not in this guide: burn the {object:144073}, Notes and Records in the elves' camps around {area:350}, in {zone:1425} & {zone:1419} (its Highvale step). Load that guide for the arrows."] = "",
+	["{quest:2995}'s work is not in this guide: burn the {object:144073}, Notes and Records in the elves' camps around {area:350}, in {zone:1425} & {zone:1419} (its Highvale step). Load that guide for the arrows."] = "{quest:2995}의 일은 이 가이드에 없습니다: {zone:1425} & {zone:1419} 가이드(깊은골짜기 단계)에서 {area:350} 주변 엘프 야영지의 {object:144073}, 쪽지, 기록을 태우십시오. 화살표가 필요하면 그 가이드를 불러오십시오.",
 
 	-- Step 75: Undercity
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
@@ -356,15 +356,15 @@ return {
 	-- {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {area:152} The Bulwark
 	["Leave the {zone:1458} and ride east along the road through {zone:1420} to the {area:152}, the Forsaken fort on the border."] = "{zone:1458}을(를) 나와 길을 따라 동쪽으로 {zone:1420}을(를) 지나 경계의 포세이큰 요새인 {area:152}로 가세요.",
 	-- {quest:5405} Argent Dawn Commission
-	["Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "",
+	["Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "{quest:5405} 장착: 착용 중일 때만 스컬지석이 떨어집니다.",
 	-- {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions
-	["{item:12814}, from the {object:176092} next to Derrington: {quest:5096}, done on the way back"] = "",
+	["{item:12814}, from the {object:176092} next to Derrington: {quest:5096}, done on the way back"] = "{item:12814}, 데링턴 옆의 {object:176092}에서: {quest:5096}, 돌아오는 길에 완료",
 
 	-- Step 78: Scarlet forward camp
 	["Scarlet forward camp"] = "붉은십자군 전진 야영지",
 	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
 	-- was: ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "{area:152}에서 길을 따라 동쪽으로 {zone:1422}(으)로 가세요. 붉은십자군의 천막은 펠스톤 농장을 막 지나 {area:199}와(과) {area:200} 사이에 있습니다. {object:176092}(으)로 지휘 천막을 불태우고 스컬지 깃발을 꽂으세요. 주의: 천막 주변 붉은십자군은 54레벨까지 있고 기원사는 주문을 시전합니다. 지휘 천막에 가장 가까운 쪽으로 접근하고 나머지는 건드리지 마세요."
-	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "",
+	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "{area:152}에서 길을 따라 동쪽 {zone:1422}(으)로 가십시오. 붉은십자군의 천막은 펠스톤 농장 바로 너머, {area:199}과(와) {area:200} 사이에 있습니다. {item:12814}(으)로 지휘 천막에 불을 붙이고 스컬지 깃발을 꽂으십시오. 주의: 천막 주변 붉은십자군은 54레벨까지이고 기원사가 주문을 겁니다: 지휘 천막에 가장 가까운 쪽으로 들어가고 나머지는 두십시오.",
 
 	-- Step 79: Janice Felstone
 	-- {npc:10778} Janice Felstone

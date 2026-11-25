@@ -111,7 +111,7 @@ return {
 
 	-- Step 18: The Great Outdoors
 	-- {npc:1241} Tognus Flintfire · {skill:129} First Aid · {npc:2326} Thamner Pol · {area:131} Kharanos · {area:189} Steelgrill's Depot · {npc:1700} Paxton Ganter · {area:137} Brewnall Village · {zone:1455} Ironforge
-	["Sit by Eric's campfire (type /sit) and wait for the buff. With a profession learned, Eric also offers its Camping 101, which its trainer takes: blacksmithing with {npc:1241} and {skill:129} with {npc:2326} in {area:131}, mining and engineering at {area:189}, fishing with {npc:1700} by {area:137}, herbalism, skinning, leatherworking and tailoring in {zone:1455}. In {zone:1455} the alchemy and enchanting trainers give their own."] = "",
+	["Sit by Eric's campfire (type /sit) and wait for the buff. With a profession learned, Eric also offers its Camping 101, which its trainer takes: blacksmithing with {npc:1241} and {skill:129} with {npc:2326} in {area:131}, mining and engineering at {area:189}, fishing with {npc:1700} by {area:137}, herbalism, skinning, leatherworking and tailoring in {zone:1455}. In {zone:1455} the alchemy and enchanting trainers give their own."] = "Сядьте у костра Эрика (введите /sit) и дождитесь эффекта. Если вы изучили профессию, Эрик также предлагает ее задание «Основы походной жизни», которое принимает учитель: кузнечное дело – {npc:1241}, {skill:129} – {npc:2326} в месте {area:131}, горное дело и инженерное дело – {area:189}, рыбная ловля – {npc:1700} у места {area:137}, травничество, снятие шкур, кожевничество и портняжное дело – {zone:1455}. В {zone:1455} учителя алхимии и наложения чар дают свои задания.",
 
 	-- Step 19: Camping 101: First Aid
 	-- {npc:2326} Thamner Pol · {skill:129} First Aid
@@ -133,33 +133,33 @@ return {
 
 	-- Step 22: Camping 101: Herbalism
 	-- {npc:5137} Reyna Stonebranch · {skill:182} Herbalism
-	["{npc:5137} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:5137} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5137} принимает его, когда навык «{skill:182}» достигнет 20: собирайте или создавайте предметы до тех пор, гайд пока продолжается.",
 	-- {npc:265813} Eric Brighthammer · {npc:5137} Reyna Stonebranch · {zone:1455} Ironforge
-	["{npc:265813}: for {npc:5137} in {zone:1455}"] = "",
+	["{npc:265813}: for {npc:5137} in {zone:1455}"] = "{npc:265813}: для NPC {npc:5137} ({zone:1455})",
 
 	-- Step 23: Camping 101: Skinning
 	-- {npc:6291} Balthus Stoneflayer · {skill:393} Skinning
-	["{npc:6291} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:6291} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:6291} принимает его, когда навык «{skill:393}» достигнет 20: собирайте или создавайте предметы до тех пор, гайд пока продолжается.",
 	-- {npc:265813} Eric Brighthammer · {npc:6291} Balthus Stoneflayer · {zone:1455} Ironforge
-	["{npc:265813}: for {npc:6291} in {zone:1455}"] = "",
+	["{npc:265813}: for {npc:6291} in {zone:1455}"] = "{npc:265813}: для NPC {npc:6291} ({zone:1455})",
 
 	-- Step 24: Camping 101: Leatherworking
 	-- {npc:1466} Gretta Finespindle · {skill:165} Leatherworking
-	["{npc:1466} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:1466} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1466} принимает его, когда навык «{skill:165}» достигнет 20: собирайте или создавайте предметы до тех пор, гайд пока продолжается.",
 	-- {npc:265813} Eric Brighthammer · {npc:1466} Gretta Finespindle · {zone:1455} Ironforge
-	["{npc:265813}: for {npc:1466} in {zone:1455}"] = "",
+	["{npc:265813}: for {npc:1466} in {zone:1455}"] = "{npc:265813}: для NPC {npc:1466} ({zone:1455})",
 
 	-- Step 25: Camping 101: Tailoring
 	-- {npc:1703} Uthrar Threx · {skill:197} Tailoring
-	["{npc:1703} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:1703} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1703} принимает его, когда навык «{skill:197}» достигнет 20: собирайте или создавайте предметы до тех пор, гайд пока продолжается.",
 	-- {npc:265813} Eric Brighthammer · {npc:1703} Uthrar Threx · {zone:1455} Ironforge
-	["{npc:265813}: for {npc:1703} in {zone:1455}"] = "",
+	["{npc:265813}: for {npc:1703} in {zone:1455}"] = "{npc:265813}: для NPC {npc:1703} ({zone:1455})",
 
 	-- Step 26: Camping 101: Fishing
 	-- {npc:1700} Paxton Ganter · {skill:356} Fishing
-	["{npc:1700} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:1700} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1700} принимает его, когда навык «{skill:356}» достигнет 20: собирайте или создавайте предметы до тех пор, гайд пока продолжается.",
 	-- {npc:265813} Eric Brighthammer · {npc:1700} Paxton Ganter · {area:137} Brewnall Village
-	["{npc:265813}: for {npc:1700} by {area:137}"] = "",
+	["{npc:265813}: for {npc:1700} by {area:137}"] = "{npc:265813}: для NPC {npc:1700} у места {area:137}",
 
 	-- Step 27: Kharanos
 	-- {area:131} Kharanos · {npc:1252} Senir Whitebeard · {area:2102} Thunderbrew Distillery · {npc:1872} Tharek Blackstone · {npc:6806} Tannok Frosthammer · {npc:1226} Maxan Anvol · {npc:1267} Ragnar Thunderbrew · {npc:1699} Gremlock Pilsnor · {skill:185} Cooking
@@ -397,11 +397,11 @@ return {
 
 	-- Step 81: North Gate Outpost
 	-- {area:808} North Gate Outpost · {npc:1960} Pilot Hammerfoot · {area:38} Loch Modan
-	["Follow the road east and take its northern fork to the {area:808}: {npc:1960} waits there, and the dwarven corpse lies up the pass to the west of him. The South Gate and its tunnel into {area:38} come next, down the road to the south."] = "",
+	["Follow the road east and take its northern fork to the {area:808}: {npc:1960} waits there, and the dwarven corpse lies up the pass to the west of him. The South Gate and its tunnel into {area:38} come next, down the road to the south."] = "Идите по дороге на восток и сверните на северную развилку к месту {area:808}: там ждет {npc:1960}, а тело дворфа лежит выше по перевалу к западу от него. Южные ворота и их туннель в {area:38} – дальше, по дороге на юг.",
 
 	-- Step 82: South Gate Outpost
 	-- {area:806} South Gate Outpost · {area:38} Loch Modan
-	["Back south down the road to the {area:806} at the {area:38} tunnel."] = "",
+	["Back south down the road to the {area:806} at the {area:38} tunnel."] = "Назад на юг по дороге к месту {area:806} у туннеля в {area:38}.",
 
 	-- Step 83: Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn · {area:806} South Gate Outpost
@@ -507,23 +507,23 @@ return {
 
 	-- Step 100: Gretta Finespindle
 	-- {npc:1466} Gretta Finespindle · {npc:6291} Balthus Stoneflayer · {quest:96031} Camping 101: Leatherworking
-	["{npc:1466}, beside {npc:6291}: {quest:96031}"] = "",
+	["{npc:1466}, beside {npc:6291}: {quest:96031}"] = "{npc:1466}, рядом с NPC {npc:6291}: {quest:96031}",
 
 	-- Step 102: Camping 101: Alchemy
 	-- {npc:1246} Vosur Brakthel · {skill:171} Alchemy
-	["{npc:1246} gives it and takes it back once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:1246} gives it and takes it back once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1246} выдает его и принимает обратно, когда навык «{skill:171}» достигнет 20: собирайте или создавайте предметы до тех пор, гайд пока продолжается.",
 
 	-- Step 103: Vosur Brakthel
 	-- {npc:1246} Vosur Brakthel
-	["{npc:1246}, who gave it"] = "",
+	["{npc:1246}, who gave it"] = "{npc:1246}, выдавший задание",
 
 	-- Step 104: Camping 101: Enchanting
 	-- {npc:11065} Thonys Pillarstone · {skill:333} Enchanting
-	["{npc:11065} gives it and takes it back once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:11065} gives it and takes it back once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:11065} выдает его и принимает обратно, когда навык «{skill:333}» достигнет 20: собирайте или создавайте предметы до тех пор, гайд пока продолжается.",
 
 	-- Step 105: Thonys Pillarstone
 	-- {npc:11065} Thonys Pillarstone
-	["{npc:11065}, who gave it"] = "",
+	["{npc:11065}, who gave it"] = "{npc:11065}, выдавший задание",
 
 	-- Step 106: Tinker Town
 	-- {object:32372} Great Forge · {object:171524} Tinker Town · {object:660964} Misplaced Packages · {object:32383} Forlorn Cavern · {object:32362} Mystic Ward · {object:171709} High Seat · {object:32359} Military Ward

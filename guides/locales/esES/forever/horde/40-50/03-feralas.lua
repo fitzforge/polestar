@@ -8,13 +8,13 @@
 return {
 	-- Guide
 	-- {zone:1454} Orgrimmar · {area:1099} Camp Mojache · {area:511} Wyrmbog · {area:496} Brackenwall Village
-	["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "",
+	["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "Las entregas de {zone:1454}, la vasija muisek de {area:1099} y luego {area:511} y {area:496} en el Marjal Revolcafango.",
 	["Takes you to level 47"] = "Te lleva al nivel 47",
 	-- {zone:1446} Tanaris
 	["Then on to {zone:1446}"] = "Después, a {zone:1446}",
 	["Stays on the main route"] = "Sigue en la ruta principal",
 	-- {zone:2652} Shen'dralas · {zone:1446} Tanaris
-	["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "",
+	["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "Se salta {zone:2652}: una docena de misiones menos, un tercio de nivel más bajo al llegar a {zone:1446}",
 
 	-- Step 1: Orgrimmar
 	-- {object:172960} Cleft of Shadow · {object:172958} Valley of Honor
@@ -80,25 +80,25 @@ return {
 
 	-- Step 13: The Musty Scroll
 	-- {object:2555} Musty Scroll
-	["The {object:2555} lies to the south-west."] = "",
+	["The {object:2555} lies to the south-west."] = "{object:2555} está al suroeste.",
 
 	-- Step 14: Mudsprocket
 	["Mudsprocket"] = "Barroñuela",
 	-- {object:2555} Musty Scroll · {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle · {item:280092} Wyrmtail
-	["South-east from the {object:2555} to Mudsprocket, the goblin camp at the {area:511}'s western edge: {npc:270723} and {npc:270727} stand together in the camp. Their whelps, scales and {item:280092} come on the same {area:511} loop as Brackenwall's quests."] = "",
+	["South-east from the {object:2555} to Mudsprocket, the goblin camp at the {area:511}'s western edge: {npc:270723} and {npc:270727} stand together in the camp. Their whelps, scales and {item:280092} come on the same {area:511} loop as Brackenwall's quests."] = "Al sureste desde {object:2555} hasta Barroñuela, el campamento goblin en el borde oeste de {area:511}: {npc:270723} y {npc:270727} están juntos en el campamento. Sus dragonantes, escamas y {item:280092} vienen en la misma vuelta por {area:511} que las misiones de Murohelecho.",
 
 	-- Step 15: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
 	["{area:510}: kill these as you meet them"] = "{area:510}: mátalos según te los encuentres",
 	-- {area:511} Wyrmbog · {item:280092} Wyrmtail
 	-- was: ["Ride south-west to the {object:2555}, then east through the {area:511}. The Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "Cabalga hacia el suroeste hasta {object:2555} y luego al este por {area:511}. Los Exploradores y Ceniazotes Pirocabello recorren su borde norte con las Proles y Crías abrasadoras; los Horrocrustos guardan las cuevas de dragones más al sureste. El rapé, el grog y la caja fuerte de Mok'Morokk están en los campamentos de los dragonantes."
-	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps. The {item:280092} grows in the bog just east of Mudsprocket."] = "",
+	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps. The {item:280092} grows in the bog just east of Mudsprocket."] = "Al este por {area:511}: los exploradores Crin de Fuego y colas de ceniza recorren su borde norte con las crías y dragonantes abrasadores; los rompescamas guardan las cuevas de dragones más al sureste. El rapé, el grog y la caja fuerte de Mok'Morokk están en los campamentos de dracónidos. {item:280092} crece en la ciénaga justo al este de Barroñuela.",
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "",
 	["Below ground"] = "Bajo tierra",
 
 	-- Step 16: Mudsprocket
-	["Back to Mudsprocket before you ride north."] = "",
+	["Back to Mudsprocket before you ride north."] = "Vuelve a Barroñuela antes de cabalgar al norte.",
 
 	-- Step 17: Brackenwall Village
 	["Ride back north to Brackenwall."] = "Vuelve cabalgando al norte, a Murohelecho.",

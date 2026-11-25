@@ -44,12 +44,12 @@ return {
 	-- Step 8: Thistlefur Hold
 	["Thistlefur Hold"] = "Логово Колючего Меха",
 	-- plural, as words: Troll Chests = {object:178144} Troll Chest
-	["Inside the hold, Troll Chests lie along the tunnels."] = "",
+	["Inside the hold, Troll Chests lie along the tunnels."] = "Внутри логова вдоль туннелей стоят сундуки троллей ({object:178144}).",
 	["Below ground"] = "Под землей",
 
 	-- Step 9: Ruul Snowhoof
 	-- {npc:12818} Ruul Snowhoof · {area:428} Night Run · {npc:3987} Dal Bloodclaw
-	["{npc:12818} is held deep inside Thistlefur Hold: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "",
+	["{npc:12818} is held deep inside Thistlefur Hold: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "{npc:12818} в плену глубоко внутри Логова Колючего Меха: освободите его и защищайте всю дорогу наружу, затем он побежит домой ({area:428}).\nОсторожно: будет две засады по сценарию, по три фурболга Колючего Меха (шаман, следопыт и мститель, урса или страж логова): первая – когда вернетесь к развилке туннеля в пещере, вторая – сразу за воротами, где бродит {npc:3987}.",
 	-- {npc:12818} Ruul Snowhoof
 	["{npc:12818}, below ground"] = "{npc:12818}, под землей",
 
@@ -224,7 +224,7 @@ return {
 
 	-- Step 55: Zangen Stonehoof
 	-- {npc:4721} Zangen Stonehoof · {quest:1195} The Sacred Flame · {npc:2995} Tal
-	["The phial is already with {npc:4721}: take {quest:1195} from him, a short walk east of {npc:2995}."] = "",
+	["The phial is already with {npc:4721}: take {quest:1195} from him, a short walk east of {npc:2995}."] = "Флакон уже у NPC {npc:4721}: возьмите у него задание {quest:1195}, немного к востоку от NPC {npc:2995}.",
 
 	-- Step 56: Tah Winterhoof
 	-- {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof · {npc:2995} Tal
@@ -339,25 +339,25 @@ return {
 
 	-- Step 74: Lakota Windsong
 	-- {area:485} Great Lift · {area:2097} Darkcloud Pinnacle · {npc:10896} Arnak Grimtotem
-	["{area:485} detour warning: the arrow may miss the path up {area:2097}. If you are on the canyon floor, follow the path and rope bridges up {area:2097}. {npc:10896} (29) stands among his guards there: clear the guards, then {npc:10896}."] = "",
+	["{area:485} detour warning: the arrow may miss the path up {area:2097}. If you are on the canyon floor, follow the path and rope bridges up {area:2097}. {npc:10896} (29) stands among his guards there: clear the guards, then {npc:10896}."] = "Предупреждение об обходе ({area:485}): стрелка может пропустить тропу наверх ({area:2097}). Если вы на дне каньона, идите по тропе и веревочным мостам наверх ({area:2097}). {npc:10896} (29) стоит среди стражей: зачистите стражей, затем {npc:10896}.",
 
 	-- Step 75: Escort Lakota Windsong
 	-- {npc:10646} Lakota Windsong
-	["Escort {npc:10646}"] = "",
+	["Escort {npc:10646}"] = "Сопроводите: {npc:10646}",
 	-- {npc:10646} Lakota Windsong · {npc:10896} Arnak Grimtotem
-	["{npc:10646} is held captive beside where {npc:10896} stood: free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "",
+	["{npc:10646} is held captive beside where {npc:10896} stood: free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "{npc:10646} в плену рядом с тем местом, где стоял {npc:10896}: освободите ее и защищайте на пути вниз; по дороге нападут засадники Зловещего Тотема.",
 
 	-- Step 76: Highperch
 	-- {area:482} Highperch
 	-- plural, as words: Highperch Patriarchs = {npc:4110} Highperch Patriarch
 	-- was: ["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "К западу от заставы Белого Плеса виверны гнездятся на утесах ({area:482}); яйца лежат в гнездах. {npc:10427} ждет на восточной стороне гнездовий: освободите его и сохраните ему жизнь на пути обратно в {area:2237}.\nОсторожно: над головой летают виверны 28-29-го уровня, которых можно привлечь без предупреждения. Когда вы минуете первую колонну внизу, на вас может напасть группа из трех виверн. Здесь же гнездятся патриархи Скального гнездовья (30-31) и редкий Сердцерез (32): обходите их."
-	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "",
+	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "К западу от заставы Белого Плеса виверны гнездятся на утесах ({area:482}); яйца лежат в гнездах.\nОсторожно: виверны 28-29 уровня летают над головой, и их можно случайно привлечь. Группа из трех виверн может напасть, как только вы минуете первый столб внизу. Там же гнездятся патриархи (30-31) и редкий Сердцерез (32): обходите их.",
 
 	-- Step 77: Escort Pao'ka Swiftmountain
 	-- {npc:10427} Pao'ka Swiftmountain
-	["Escort {npc:10427}"] = "",
+	["Escort {npc:10427}"] = "Сопроводите: {npc:10427}",
 	-- {npc:10427} Pao'ka Swiftmountain · {area:2237} Whitereach Post
-	["{npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}."] = "",
+	["{npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}."] = "{npc:10427} ждет на восточной стороне гнездовья: освободите его и сохраните ему жизнь на обратном пути к месту {area:2237}.",
 
 	-- Step 78: Whitereach Post
 	-- {npc:10428} Motega Firemane · {item:12732} Incendia Agave · {area:2097} Darkcloud Pinnacle

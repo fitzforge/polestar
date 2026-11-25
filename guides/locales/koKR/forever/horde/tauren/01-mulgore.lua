@@ -89,7 +89,7 @@ return {
 	-- Step 15: Kaga Wildhoof
 	-- {area:220} Red Cloud Mesa · {npc:265810} Kaga Wildhoof · {area:222} Bloodhoof Village · {spell:1229451} Boosted Rest · {zone:1456} Thunder Bluff · {zone:1413} Barrens
 	-- was: ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof or on the {zone:1456} stop."] = "길을 따라 {area:220}에서 북쪽으로 나가세요. {npc:265810}은(는) {area:222} 바로 남쪽 길에서 기다립니다. {spell:1229451}을(를) 얻을 때까지 그녀의 모닥불 옆에서 /앉기 하세요. 전문 기술을 배웠다면 카가가 야영 기초 퀘스트도 주며, 해당 전문 기술 상급자에게 완료합니다. 상급자는 블러드후프 마을이나 {zone:1456}에 있습니다."
-	["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof, on the {zone:1456} stop, or in the western {zone:1413} for engineering."] = "",
+	["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof, on the {zone:1456} stop, or in the western {zone:1413} for engineering."] = "길을 따라 {area:220}에서 북쪽으로 나가십시오. {npc:265810}이(가) {area:222} 바로 남쪽 길에서 기다립니다. {spell:1229451}을(를) 얻을 때까지 그녀의 모닥불 옆에서 /sit 하십시오. 전문 기술을 배웠다면 카가도 해당 야영 101을 주며, 그 상급자가 받습니다: 블러드후프 마을, {zone:1456} 정거장, 또는 기계공학은 {zone:1413} 서부에서.",
 	-- {spell:1229451} Boosted Rest
 	["/sit by Kaga's campfire until you get {spell:1229451}"] = "{spell:1229451}을(를) 얻을 때까지 카가의 모닥불 옆에서 /앉기",
 
@@ -155,9 +155,9 @@ return {
 
 	-- Step 26: Camping 101: Engineering
 	-- {npc:10993} Twizwick Sprocketgrind · {skill:202} Engineering
-	["{npc:10993} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:10993} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:202} 숙련도가 20이 되면 {npc:10993}이(가) 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 	-- {npc:265810} Kaga Wildhoof · {npc:10993} Twizwick Sprocketgrind · {zone:1413} Barrens
-	["{npc:265810}: for {npc:10993}, in the western {zone:1413}"] = "",
+	["{npc:265810}: for {npc:10993}, in the western {zone:1413}"] = "{npc:265810}: {zone:1413} 서부의 {npc:10993}에게",
 
 	-- Step 27: Bloodhoof Village
 	-- {npc:3063} Krang Stonehoof

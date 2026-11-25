@@ -87,7 +87,7 @@ return {
 	-- Step 14: Raan Wildwind
 	-- {npc:263664} Raan Wildwind · {area:16624} Shen'dar Village · {quest:93159} The Strange Hermit
 	-- was: ["With a profession learned, {npc:263664} also offers its Camping 101, which its trainer in {area:16624} takes on the village round."] = "學會一項專業技能後，{npc:263664}也會提供該專業的「露營入門」任務，由{area:16624}的專業訓練師在繞村途中接手。"
-	["With a profession learned, {npc:263664} also offers its Camping 101, which its trainer in {area:16624} takes on the village round. {quest:93159} has his own for engineers."] = "",
+	["With a profession learned, {npc:263664} also offers its Camping 101, which its trainer in {area:16624} takes on the village round. {quest:93159} has his own for engineers."] = "學會一項專業後，{npc:263664}還會提供該專業的露營 101，由其在{area:16624}的訓練師在村裡那一輪接收。{quest:93159}為工程師準備了自己的任務。",
 	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
 	["/sit by {npc:263664}'s campfire until you get {spell:1229451}"] = "在{npc:263664}的營火旁 /sit，直到獲得{spell:1229451}",
 
@@ -147,9 +147,9 @@ return {
 
 	-- Step 24: Camping 101: Herbalism
 	-- {npc:257021} Halassa Fernbreeze · {skill:182} Herbalism
-	["{npc:257021} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:257021} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:182}技能達到20時，{npc:257021}會接收它：在此之前採集或製作，指南同時繼續進行。",
 	-- {npc:263664} Raan Wildwind · {npc:257021} Halassa Fernbreeze
-	["{npc:263664}: for {npc:257021}"] = "",
+	["{npc:263664}: for {npc:257021}"] = "{npc:263664}：交給{npc:257021}",
 
 	-- Step 25: Zerril Softbreeze
 	-- {npc:251905} Zerril Softbreeze
@@ -180,7 +180,7 @@ return {
 
 	-- Step 38: Halassa Fernbreeze
 	-- {npc:257021} Halassa Fernbreeze
-	["{npc:257021}, in the village"] = "",
+	["{npc:257021}, in the village"] = "{npc:257021}，在村子裡",
 
 	-- Step 39: Prideclaws and Galestriders
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
@@ -455,7 +455,7 @@ return {
 
 	-- Step 95: Camping 101: Engineering
 	-- {quest:93159} The Strange Hermit · {skill:202} Engineering
-	["{quest:93159} has a Camping 101 for engineers too, and takes it back once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{quest:93159} has a Camping 101 for engineers too, and takes it back once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{quest:93159}也為工程師準備了露營 101，並在你的{skill:202}技能達到20時收回：在此之前採集或製作，指南同時繼續進行。",
 
 	-- Step 96: Ruins of Ban'aethal: kill these as you meet them
 	-- {area:16833} Ruins of Ban'aethal
@@ -469,7 +469,7 @@ return {
 
 	-- Step 98: Strange Hermit
 	-- {npc:251684} Strange Hermit
-	["talk to the {npc:251684}"] = "",
+	["talk to the {npc:251684}"] = "與{npc:251684}對話",
 
 	-- Step 99: The Shrine of Akir
 	-- {area:16629} Shrine of Akir

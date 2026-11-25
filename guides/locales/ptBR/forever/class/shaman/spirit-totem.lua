@@ -25,7 +25,7 @@ return {
 	["The four elements"] = "Os quatro elementos",
 	-- {item:7069} Elemental Air · {zone:1417} Arathi Highlands · {area:320} Refuge Pointe · {area:333} Circle of East Binding · {npc:2794} Summoned Guardian · {zone:1447} Azshara · {npc:14269} Seeker Aqualon · {area:69} Lakeshire
 	-- plural, as words: Thundering Exiles = {npc:2762} Thundering Exile · Rumbling Exiles = {npc:2592} Rumbling Exile · Burning Exiles = {npc:2760} Burning Exile · Cresting Exiles = {npc:2761} Cresting Exile
-	["One each of {item:7069}, Fire, Earth and Water; all four trade, so the auction house is quickest. To farm them, {zone:1417} has the exiles at its stone circles (level 38-39, respawn under seven minutes): Thundering Exiles south-east of {area:320} (air), Rumbling Exiles south-west of it (earth) and Burning Exiles far to the north-west (fire), about one kill in eight to ten each, and Cresting Exiles at the {area:333} in the north-east (water, in about one in five of the corpses you can loot). Leave the {npc:2794} in the south-west alone: it is elite. Water also comes from the Patches of Elemental Water in {zone:1447} (two in five) or {npc:14269} by {area:69} in Redridge."] = "",
+	["One each of {item:7069}, Fire, Earth and Water; all four trade, so the auction house is quickest. To farm them, {zone:1417} has the exiles at its stone circles (level 38-39, respawn under seven minutes): Thundering Exiles south-east of {area:320} (air), Rumbling Exiles south-west of it (earth) and Burning Exiles far to the north-west (fire), about one kill in eight to ten each, and Cresting Exiles at the {area:333} in the north-east (water, in about one in five of the corpses you can loot). Leave the {npc:2794} in the south-west alone: it is elite. Water also comes from the Patches of Elemental Water in {zone:1447} (two in five) or {npc:14269} by {area:69} in Redridge."] = "Um de cada: {item:7069}, Fogo, Terra e Água; os quatro são negociáveis, então a Casa de Leilões é o mais rápido. Para farmar, {zone:1417} tem os exilados nos círculos de pedra (nível 38-39, reaparecem em menos de sete minutos): Exilados Trovejantes ({npc:2762}) a sudeste de {area:320} (ar), Exilados Retumbantes ({npc:2592}) a sudoeste dele (terra) e Exilados Ardentes ({npc:2760}) bem a noroeste (fogo), cerca de um a cada oito a dez abates cada, e Exilados Encrespados ({npc:2761}) em {area:333} a nordeste (água, em cerca de um a cada cinco corpos saqueáveis). Deixe {npc:2794} a sudoeste em paz: é elite. A água também vem das Poças de Água Elemental em {zone:1447} (duas em cinco) ou de {npc:14269} perto de {area:69} em Cristarrubra.",
 	-- {item:7069} Elemental Air
 	-- plural, as words: Thundering Exiles = {npc:2762} Thundering Exile
 	["{item:7069}: Thundering Exiles"] = "{item:7069}: Exilados Trovejantes",
@@ -37,7 +37,7 @@ return {
 	["{item:7067}: Rumbling Exiles"] = "{item:7067}: Exilados Tonitruantes",
 	-- {item:7070} Elemental Water · {zone:1447} Azshara
 	-- plural, as words: Cresting Exiles = {npc:2761} Cresting Exile
-	["{item:7070}: Cresting Exiles, or {zone:1447}'s water patches"] = "",
+	["{item:7070}: Cresting Exiles, or {zone:1447}'s water patches"] = "{item:7070}: Exilados Encrespados ({npc:2761}), ou as poças de água de {zone:1447}",
 
 	-- Step 4: Bath'rah the Windwatcher
 	-- {npc:6176} Bath'rah the Windwatcher · {zone:1416} Alterac Mountains · {area:272} Tarren Mill

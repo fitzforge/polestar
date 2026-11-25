@@ -58,7 +58,7 @@ return {
 
 	-- Step 10: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "",
+	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} wird im Zentaurenlager westlich des Friedhofs festgehalten. Befreie sie und halte sie auf dem Weg hinaus am Leben; sie bleibt beim Friedhof stehen.\nVorsicht: Während der Eskorte greifen sechs Zentauren an, und du kannst sie nicht vorher wegräumen: Sie erscheinen nur während der Eskorte und kommen gemeinsam. In den Aufzeichnungen der Spieler sind 14 von 30, die sie angenommen haben, mindestens einmal gescheitert. Nimm einen Freund mit oder überspring sie, wenn du allein bist. Die normalen Zentauren auf dem Weg vorher wegzuräumen hilft.",
 	-- {npc:12277} Melizza Brimbuzzle
 	["escort {npc:12277} back toward the graveyard"] = "eskortiere {npc:12277} zurück zum Friedhof",
 

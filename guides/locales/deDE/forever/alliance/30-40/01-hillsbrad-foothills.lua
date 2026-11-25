@@ -31,7 +31,7 @@ return {
 	["{area:1038}: kill these as you meet them"] = "{area:1038}: Töte diese, sobald sie dir begegnen",
 	-- {area:1036} Angerfang Encampment · {area:205} Dun Modr · {area:1025} Green Belt · {item:280331} Malignant Rotclaw Flesh · {quest:98283} Carnage
 	-- plural, as words: Maddened Rotclaws = {npc:271334} Maddened Rotclaw
-	["The whelps nest in the hills north-east of the {area:1036}, and the Razormaw raptors hunt the highlands on the way north to {area:205}. The Maddened Rotclaws that roam these hills and the {area:1025} drop the {item:280331} that calls {quest:98283} out.\n{quest:98283} is elite: grouping up is advised."] = "",
+	["The whelps nest in the hills north-east of the {area:1036}, and the Razormaw raptors hunt the highlands on the way north to {area:205}. The Maddened Rotclaws that roam these hills and the {area:1025} drop the {item:280331} that calls {quest:98283} out.\n{quest:98283} is elite: grouping up is advised."] = "Die Welpen nisten in den Hügeln nordöstlich von {area:1036}, und die Klingenmaulraptoren jagen im Hochland auf dem Weg nach Norden zu {area:205}. Die Wahnsinnigen Faulklauen ({npc:271334}), die durch diese Hügel und {area:1025} streifen, lassen {item:280331} fallen, das {quest:98283} hervorlockt.\n{quest:98283} ist Elite: Eine Gruppe wird empfohlen.",
 	-- {item:280331} Malignant Rotclaw Flesh · {quest:98283} Carnage
 	["{item:280331}, for {quest:98283}"] = "{item:280331}, für {quest:98283}",
 
@@ -77,7 +77,7 @@ return {
 	-- Step 15: Captive Fire Elemental
 	-- {npc:275049} Captive Fire Elemental · {object:147516} Dark Iron · {npc:1364} Balgaras the Foul · {npc:1072} Roggo Harlbarrow
 	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "Das sind Elite-Mobs: Eine Gruppe wird empfohlen, such dir Mitspieler dafür. Der {npc:271481} wird am äußersten Westende der Ruinen von {object:147516} festgehalten, hinter Elite-Zwergen der Stufe 27-30, und {npc:1364} (34, Elite) kann unter ihnen sein. Führ ihn nach Osten aus den Ruinen und gib ihn dann bei {npc:1072} im Lager ab. Überspring ihn, wenn du allein bist."
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:275049} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:275049} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "Das sind Elite-Gegner: Eine Gruppe wird empfohlen, such dir Leute dafür. {npc:275049} wird am äußersten Westende der Ruinen von {object:147516} festgehalten, hinter Elite-Zwergen der Stufe 27-30, und {npc:1364} (34, Elite) kann unter ihnen sein. Führe ihn nach Osten aus den Ruinen und gib ihn dann bei {npc:1072} im Lager ab. Überspring es, wenn du allein bist.",
 
 	-- Step 16: Modr
 	-- {npc:271460} Modr · {area:205} Dun Modr · {item:279996} Goaz Stone

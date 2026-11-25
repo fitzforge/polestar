@@ -20,7 +20,7 @@ return {
 
 	-- Step 3: Apothecary Zamah
 	-- {npc:3419} Apothecary Zamah · {quest:1086} The Flying Machine Airport · {area:2197} Pools of Vision · {area:1640} Spirit Rise
-	["The toxin is already with {npc:3419}: take {quest:1086} from her in the {area:2197}, under {area:1640}."] = "",
+	["The toxin is already with {npc:3419}: take {quest:1086} from her in the {area:2197}, under {area:1640}."] = "A toxina já está com {npc:3419}: pegue {quest:1086} com ela em {area:2197}, embaixo de {area:1640}.",
 
 	-- Step 4: Thunder Bluff
 	-- {npc:2995} Tal · {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof
@@ -144,7 +144,7 @@ return {
 
 	-- Step 29: Sputtervalve
 	-- {npc:3442} Sputtervalve · {npc:4201} Ziz Fizziks · {area:1076} Webwinder Path
-	["{npc:3442} stands beside the flight master. His new orders go back to {npc:4201} on the {area:1076}, later in this guide."] = "",
+	["{npc:3442} stands beside the flight master. His new orders go back to {npc:4201} on the {area:1076}, later in this guide."] = "{npc:3442} fica ao lado do mestre de voo. As novas ordens dele voltam para {npc:4201} em {area:1076}, mais adiante neste guia.",
 
 	-- Step 30: Mebok Mizzyrix
 	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix
