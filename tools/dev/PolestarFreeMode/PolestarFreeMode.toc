@@ -1,0 +1,17 @@
+## Interface: 16001
+## Title: Polestar Free Mode
+## Title-zhTW: Polestar 自由任務規劃器
+## Title-zhCN: Polestar 自由任务规划器
+## Notes: Route the quests you already hold.
+## Notes-zhTW: 規劃已接任務，可暫時接管 Polestar 箭頭。
+## Notes-zhCN: 规划已接任务，可暂时接管 Polestar 箭头。
+## Version: 0.3.1
+## Dependencies: Polestar
+## SavedVariablesPerCharacter: PolestarFreeModeCharDB
+## Category: Polestar
+## IconTexture: Interface\AddOns\Polestar\Media\UI\logo
+Planner.lua
+Appearance.lua
+Targets.lua
+Main.lua
+LevelHint.lua
