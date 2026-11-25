@@ -54,6 +54,18 @@ G.ESSENTIALS = {
 	},
 }
 
+-- More cards after Most used, by page key: each a name and its references'
+-- keys, in order. Quality of Life's Tooltips: every setting that adds a line
+-- to a game tooltip, wherever its home is (each row names it).
+G.ESSENTIALS_CARDS = {
+	qualityoflife = {
+		{ name = L["Tooltips"], keys = {
+			"qol.questTooltips", "gear.tooltip", "gear.pickTooltip", "lookup.tooltip", "lookup.mounts",
+			"talents.tooltip", "qol.itemMarks",
+		} },
+	},
+}
+
 -- The tabs built, by page key; built again after a registration.
 local built = {}
 local invalidate = G.Invalidate
@@ -96,16 +108,21 @@ function G.EssentialsTab(p)
 			end
 		end
 	end
-	local s = { name = L["Most used"], controls = {}, psTab = t }
-	for _, key in ipairs(keys) do
-		local home = O.HomeControl(key)
-		if home then
-			local c = O.Ref(home.kind, key, { essentials = true })
-			c.page, c.tab, c.section, c.psSection = p, name, s.name, s
-			s.controls[#s.controls + 1] = c
+	-- A card of references to the settings keys registered.
+	local function card(title, list)
+		local s = { name = title, controls = {}, psTab = t }
+		for _, key in ipairs(list) do
+			local home = O.HomeControl(key)
+			if home then
+				local c = O.Ref(home.kind, key, { essentials = true })
+				c.page, c.tab, c.section, c.psSection = p, name, s.name, s
+				s.controls[#s.controls + 1] = c
+			end
 		end
+		if #s.controls > 0 then t.sections[#t.sections + 1] = s end
 	end
-	t.sections[#t.sections + 1] = s
+	card(L["Most used"], keys)
+	for _, more in ipairs(G.ESSENTIALS_CARDS[p.key] or {}) do card(more.name, more.keys) end
 	built[p.key] = t
 	return t
 end

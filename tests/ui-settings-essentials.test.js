@@ -96,7 +96,7 @@ test('the five pages open on Essentials, the review\'s picks, each a registered 
 			local rows, sections = {}, {}
 			for _, sec in ipairs(t.sections) do
 				sections[#sections + 1] = sec.name
-				for _, c in ipairs(sec.controls) do
+				for _, c in ipairs(sec.name == L["Most used"] and sec.controls or {}) do
 					if rawget(c, "ref") and rawget(c, "essentials") and K.available(c) then rows[#rows + 1] = c.key end
 				end
 			end
@@ -172,6 +172,43 @@ test('an Essentials row is a live reference to its home row, with a muted tab na
 	assert.equal(out.tab, 'Window');
 	assert.equal(out.crumb, 'Look > Guide window');
 	assert.equal(out.other, 'Guide window \u203a Window', 'a home on another page: "Page › Tab"');
+});
+
+// Every setting that adds a line to a game tooltip, from wherever its home is.
+const TOOLTIPS = ['qol.questTooltips', 'gear.tooltip', 'gear.pickTooltip', 'lookup.tooltip', 'lookup.mounts',
+	'talents.tooltip', 'qol.itemMarks'];
+
+test('Quality of Life\'s Essentials gathers the tooltip settings in a Tooltips card after Most used', () => {
+	const [out] = run(`
+		Polestar.UI.ShowOptions()
+		O.Select("qualityoflife")
+		local _, t = G.Current()
+		local sections, rows, links = {}, {}, {}
+		for _, sec in ipairs(t.sections) do
+			sections[#sections + 1] = sec.name
+			if sec.name == L["Tooltips"] then
+				for _, c in ipairs(sec.controls) do
+					if rawget(c, "ref") and rawget(c, "essentials") then rows[#rows + 1] = c.key end
+				end
+			end
+		end
+		local row = essentialsRow("gear.tooltip")
+		local link = row and rawget(row, "psAfter")
+		-- Set through the card, read at home.
+		local before = Polestar.Get("lookup.tooltip")
+		local mark = essentialsRow("lookup.tooltip")
+		if mark then stub.RunScript(mark, "OnClick") end
+		local soon = Polestar.Talents and Polestar.Talents.SOON or not Polestar.Talents
+		emit({ sections = sections, rows = rows, link = link and link.Label:GetText(),
+			flipped = Polestar.Get("lookup.tooltip") ~= before, soon = soon })`);
+	const most = out.sections.indexOf('Most used');
+	assert.ok(most >= 0, out.sections.join(', '));
+	assert.equal(out.sections[most + 1], 'Tooltips', 'the Tooltips card right after Most used');
+	// Talent plans are coming soon (Talents.lua, T.SOON): no setting, no row, until they are there.
+	const expected = out.soon ? TOOLTIPS.filter((k) => k !== 'talents.tooltip') : TOOLTIPS;
+	assert.deepEqual(out.rows, expected, 'a reference for each tooltip setting registered, in order');
+	assert.equal(out.link, 'Questing \u203a Rewards & gear', 'each row names its home');
+	assert.equal(out.flipped, true, 'the card\'s row sets the setting itself');
 });
 
 test('LB / RB step on from Essentials after the tab is built again', () => {
