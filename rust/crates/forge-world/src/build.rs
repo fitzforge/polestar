@@ -1178,7 +1178,9 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 		if present(p.get("faction")) && !fac_ok(p.get("faction")) {
 			continue;
 		}
-		if !own_end(&p["a"]) || !own_end(&p["b"]) {
+		// No Honor Among Thieves uses rowboats far from inns and flight masters.
+		let arathi_rowboat = faction == Faction::Alliance && matches!(p.get("id").and_then(Value::as_str), Some("portal-rowboat-arathi-coast" | "portal-rowboat-thandol-span"));
+		if !arathi_rowboat && (!own_end(&p["a"]) || !own_end(&p["b"])) {
 			continue;
 		}
 		let (pa_, pb_) = (&p["a"], &p["b"]);

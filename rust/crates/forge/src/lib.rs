@@ -51,7 +51,7 @@ pub const GRID_VERSION: &str = "grid-1";
 pub const PREPARE_VERSION: &str = "prepare-2";
 /// world-6: vendor buys for item objectives; world-7: the graveyard table (World::graveyards, the
 /// deathskips').
-pub const WORLD_VERSION: &str = "world-7";
+pub const WORLD_VERSION: &str = "world-8";
 /// walks-4: keyed by the worlds' walk inputs (World::walks_key) and the walkers' answer versions, not
 /// the world stage's key; the extra walk pairs by their places (schema 2).
 pub const WALKS_VERSION: &str = "walks-4";

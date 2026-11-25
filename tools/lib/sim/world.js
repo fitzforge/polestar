@@ -869,7 +869,8 @@ function buildWorld(data, opts = {}) {
 	};
 	for (const p of transit.portals || []) {
 		if (p.faction != null && !(p.faction & fbit)) continue;
-		if (!ownEnd(p.a) || !ownEnd(p.b)) continue;
+		const arathiRowboat = faction === 'Alliance' && (p.id === 'portal-rowboat-arathi-coast' || p.id === 'portal-rowboat-thandol-span');
+		if (!arathiRowboat && (!ownEnd(p.a) || !ownEnd(p.b))) continue;
 		const a = nodes.length;
 		nodes.push({ kind: 'portal', name: p.id, pt: addPoint(p.a.c, p.a.wx, p.a.wy, p.a.map, endZ(p.a)) });
 		const b = nodes.length;

@@ -43,6 +43,27 @@ fn synthetic_worlds_equal_js() {
 	}
 }
 
+#[test]
+fn the_alliance_world_keeps_both_arathi_rowboats_without_nearby_inns_or_flight_masters() {
+	let span = serde_json::json!({"c": 0, "map": 1437, "wx": -2338.1, "wy": -2796.4});
+	let coast = serde_json::json!({"c": 0, "map": 1417, "wx": -2002, "wy": -4089.4});
+	let data = GameData {
+		travel: Some(serde_json::json!({"transit": {"portals": [
+			{"id": "portal-rowboat-arathi-coast", "a": span, "b": coast, "seconds": 5},
+			{"id": "portal-rowboat-thandol-span", "a": coast, "b": span, "seconds": 5},
+			{"id": "portal-unanchored", "a": span, "b": coast, "seconds": 5}
+		]}})),
+		..GameData::default()
+	};
+	let (alliance, _) = build_world(&data, &BuildOptions::new(Faction::Alliance), &NoFloors).unwrap();
+	assert_eq!(
+		alliance.rides.iter().filter_map(|ride| ride.id.as_str()).filter(|id| id.starts_with("portal-") && *id != "portal-skyborne-stormwind").collect::<Vec<_>>(),
+		["portal-rowboat-arathi-coast", "portal-rowboat-thandol-span"]
+	);
+	let (horde, _) = build_world(&data, &BuildOptions::new(Faction::Horde), &NoFloors).unwrap();
+	assert!(horde.rides.iter().filter_map(|ride| ride.id.as_str()).all(|id| !id.starts_with("portal-rowboat-")));
+}
+
 fn repo() -> PathBuf {
 	manifest().join("../../..").canonicalize().unwrap()
 }
