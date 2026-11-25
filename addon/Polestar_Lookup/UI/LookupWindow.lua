@@ -1920,8 +1920,8 @@ end
 local ORDER_LABELS = { best = L["Best match"], az = L["A to Z"] }
 local HISTORY_TIP = { L["Recent lookups show your history."] }
 local VISIBILITY_CHOICES = {
-	{ path = "lookup.hideRetired", text = L["Hide no longer obtainable"], desc = L["Hides items that can't be obtained any more."] },
-	{ path = "lookup.hideNoSource", text = L["Hide no known source"], desc = L["Hides items with no known source."] },
+	{ path = "lookup.hideRetired", text = L["Hide no longer obtainable"], desc = L["Hides entries that can't be obtained any more."] },
+	{ path = "lookup.hideNoSource", text = L["Hide no known source"], desc = L["Hides entries with no known source."] },
 }
 
 local function mostLabel(code)

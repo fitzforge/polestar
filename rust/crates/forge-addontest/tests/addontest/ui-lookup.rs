@@ -871,8 +871,8 @@ fn lookup_filter_rows_show_help_on_hover() {
 			{ item.Rarity:GetParent(), "Rarity", "Uses the item's quality, from Poor to Legendary." },
 			{ item.Slot:GetParent(), "Slot", "Uses where the item is worn; items that aren't worn have no slot." },
 			{ item.Stat:GetParent(), "Stat", "Uses the item's listed stats." },
-			{ drawer.Availability[1], "Hide no longer obtainable", "Hides items that can't be obtained any more." },
-			{ drawer.Availability[2], "Hide no known source", "Hides items with no known source." },
+			{ drawer.Availability[1], "Hide no longer obtainable", "Hides entries that can't be obtained any more." },
+			{ drawer.Availability[2], "Hide no known source", "Hides entries with no known source." },
 		}
 		for _, entry in ipairs(rows) do
 			local row, label, help = unpack(entry)
