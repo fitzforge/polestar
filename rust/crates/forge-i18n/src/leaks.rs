@@ -853,10 +853,7 @@ impl DataNames {
 					.filter(|o| {
 						let text = o.get("text");
 						let npc = npcs.get(&o.get("id").to_js_string());
-						text.truthy()
-							&& (o.get("type").as_str() == Some("event")
-								|| !o.get("id").truthy()
-								|| (o.get("type").as_str() == Some("talk") && npc.truthy() && npc.as_str() != text.as_str()))
+						text.truthy() && (o.get("type").as_str() == Some("event") || !o.get("id").truthy() || (o.get("type").as_str() == Some("talk") && npc.truthy() && npc.as_str() != text.as_str()))
 					})
 					.map(|o| o.get("text").to_js_string())
 					.collect();
