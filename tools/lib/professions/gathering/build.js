@@ -172,15 +172,11 @@ function rareKinds(prof, points) {
 	return new Set([...byKind].filter(([, n]) => n < total / 20).map(([k]) => k));
 }
 
-// A step's parts by what its starting skill can gather (#2892): a kind no rare
-// one (rareKinds) first gathered inside [from, to) splits the step there, and
-// each part leaves out the points of the kinds it cannot gather yet, so no
-// waypoint leads to a herb the player cannot pick. Herbalism 50-100 in Loch
-// Modan: Mageroyal to 70, then with Briarthorn to 85, then with Stranglekelp.
-// A rare kind stays in every part (it never leads a waypoint). Not for a
-// profession whose rare kinds lead (skinning: a beast's requirement follows
-// its level, and the zone pick starts each band where its beasts can be
-// skinned, coversStart). -> [{ from, to, points }]
+// A common kind first gathered inside [from, to) splits the step there
+// (#2892). Each part clusters only points its starting skill can gather.
+// Rare kinds add no split, but count in parts that can gather them.
+// Skinning already picks zones and bands around the levels of their beasts
+// (coversStart). -> [{ from, to, points }]
 function startParts(prof, points, from, to) {
 	if (prof.rareLeads) return [{ from, to, points }];
 	const rare = rareKinds(prof, points);
@@ -188,7 +184,7 @@ function startParts(prof, points, from, to) {
 	const parts = [];
 	let at = from;
 	for (const next of [...cuts, to]) {
-		parts.push({ from: at, to: next, points: points.filter((p) => rare.has(p.name) || p.req <= at) });
+		parts.push({ from: at, to: next, points: points.filter((p) => p.req <= at) });
 		at = next;
 	}
 	return parts;

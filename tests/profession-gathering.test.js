@@ -175,16 +175,35 @@ test('a step splits where a common kind first becomes gatherable, and no part le
 	at('Mageroyal', 50, 20);
 	at('Briarthorn', 70, 20);
 	at('Stranglekelp', 85, 10);
-	// Under a twentieth: never leads a waypoint, so it splits nothing and stays in every part.
+	// Under a twentieth: it opens no part of its own and joins at the next split.
 	at('Wild Steelbloom', 75, 1);
 	const parts = startParts({}, pts, 50, 100).map((p) => [p.from, p.to, [...new Set(p.points.map((q) => q.name))].sort().join(', ')]);
 	assert.deepEqual(parts, [
-		[50, 70, 'Earthroot, Mageroyal, Wild Steelbloom'],
-		[70, 85, 'Briarthorn, Earthroot, Mageroyal, Wild Steelbloom'],
+		[50, 70, 'Earthroot, Mageroyal'],
+		[70, 85, 'Briarthorn, Earthroot, Mageroyal'],
 		[85, 100, 'Briarthorn, Earthroot, Mageroyal, Stranglekelp, Wild Steelbloom'],
 	]);
 	assert.deepEqual(startParts({}, pts, 85, 100).length, 1, 'nothing new inside 85-100');
 	assert.deepEqual(startParts({ rareLeads: true }, pts, 50, 100).map((p) => [p.from, p.to, p.points.length]), [[50, 100, pts.length]], 'skinning: one part, every beast (coversStart splits its bands)');
+});
+
+test('a rare herb that becomes common after a split cannot lead a waypoint before its skill (#2892)', () => {
+	const { startParts, rareKinds, label } = require('../tools/lib/professions/gathering/build');
+	const project = makeProjector({ era: { 1432: { c: 0, left: 0, right: -1000, top: 0, bottom: -1000 } } });
+	const points = [];
+	const add = (name, count, x, y) => {
+		for (let i = 0; i < count; i++) {
+			points.push({ name, req: T.HERB_NODES[name], w: 1, up: 1, pt: project.point(1432, x + i * 0.15, y, 'e') });
+		}
+	};
+	add('Mageroyal', 6, 10, 10);
+	add('Briarthorn', 40, 80, 80);
+	add('Stranglekelp', 1, 50, 50);
+	assert.ok(rareKinds({}, points).has('Stranglekelp'));
+	const [early] = startParts({}, points, 50, 100);
+	const rare = rareKinds({}, early.points);
+	const waypoints = R.loop(early.points, project, { rare }).map((cluster) => label({}, cluster, rare));
+	assert.deepEqual(waypoints, ['Mageroyal']);
 });
 
 test('no Herbalism waypoint names a herb the step\'s starting skill cannot pick (#2892)', () => {
