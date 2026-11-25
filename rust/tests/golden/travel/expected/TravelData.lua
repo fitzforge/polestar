@@ -216,6 +216,8 @@ N.RegisterTravelData({
 		{a={"Gnomeregan",0,-5096.8,750.2,1426,21.36,37.15,"e",133},area=35,b={"Booty Bay",0,-14460,463.3,1434,27.54,77.37,"e",35},id="portal-booty-bay",item=9173,name="Booty Bay",seconds=5},
 		{a={"Shrine of Akir",2991,3089.5,584.5,2521,65.56,50.34,"l",16629},area=16630,b={"Rohashi Spires",2991,3079.8,426.5,2521,68.4,50.6,"l",16630},id="portal-rohashi-spires",name="Rohashi Spires",seconds=5},
 		{a={"Rohashi Spires",2991,2981.6,54.9,2521,75.08,53.25,"l",16630},area=16638,b={"Valanaar",2991,2000.7,543.3,2521,66.3,79.7,"l",16638},id="portal-valanaar",name="Valanaar",seconds=5},
+		{a={"Rowboat at Thandol Span",0,-2338.1,-2796.4,1437,58.2,6.9,"l",330},area=308,b={"The Forbidding Sea",0,-2002,-4089.4,1417,89.52,77.86,"l",308},id="portal-rowboat-arathi-coast",name="The Forbidding Sea",seconds=5},
+		{a={"Rowboat on the Arathi coast",0,-2005.3,-4092.3,1417,89.6,78,"l",308},area=330,b={"Thandol Span",0,-2332.7,-2797,1417,53.62,91.64,"l",330},id="portal-rowboat-thandol-span",name="Thandol Span",seconds=5},
 		{a={"Sanath Lim-yo",1,3648,-4702.7,1447,28.11,50.09,"e",nil},area=0,b={"Azshara Tower",1,3778,-4612,1447,26.33,46.25,"e",nil},id="portal-azshara-tower",name="Azshara Tower",npc="Sanath Lim-yo",seconds=5},
 	},
 	-- bind location names (as GetBindLocation reports them), AreaTable area (WoW Forever client build 1.60.1.70450), innkeeper NPC, position

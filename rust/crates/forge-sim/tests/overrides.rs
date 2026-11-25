@@ -70,6 +70,47 @@ fn a_skip_with_a_faction_holds_for_that_side_only() {
 	assert!(skip("Alliance").is_empty(), "the Alliance's skip does not");
 }
 
+#[test]
+fn illaris_detour_is_an_alliance_followup_before_the_moonshine_timer() {
+	use forge_core::Faction;
+	use forge_sim::order::{broken_pairs, keep_pairs, Order};
+	use forge_sim::run::{K_TASK, K_TURNIN};
+	use forge_sim::seq::quest_steps;
+
+	let route: serde_json::Value = serde_json::from_str(include_str!("../../../../data/route-fixes.json")).unwrap();
+	let include = route["overrides"]["include"].as_array().unwrap().iter().find(|r| r["q"] == 79242).unwrap();
+	let pairs: Vec<_> = route["deliberate"]["pairs"].as_array().unwrap().iter().filter(|r| r["a"][1] == 79242 || r["b"][1] == 79242).collect();
+	let doc = json!({ "include": [include], "pairs": pairs });
+	let mut run = common::orc().model(&[]).run;
+	let indices: Vec<_> = (0..run.n_quests() as u32)
+		.filter(|&q| {
+			let i = q as usize;
+			run.q_pre[i].is_empty() && run.q_all[i].is_empty() && run.q_parent[i] < 0 && run.q_task0[i] < run.q_task1[i]
+		})
+		.take(4)
+		.collect();
+	let [cherry, cave, moonshine, illari]: [u32; 4] = indices.try_into().unwrap();
+	for (id, index) in [(79236, cherry), (693, cave), (647, moonshine), (79242, illari)] {
+		run.q_id[index as usize] = id;
+		run.q_index.insert(id, index);
+	}
+
+	assert!(overrides_for(&run, &doc).include.is_empty(), "Horde should not get the detour");
+	run.faction = Faction::Alliance;
+	let overrides = overrides_for(&run, &doc);
+	assert_eq!(overrides.include, [(illari, Some((K_TURNIN, cherry)))]);
+	assert_eq!(overrides.pairs.len(), 2);
+	let steps: Vec<_> = [cherry, cave, moonshine].into_iter().flat_map(|q| quest_steps(&run, q)).collect();
+	let seed = Order { origin: (0..steps.len() as i64).collect(), steps };
+	let inserted = apply_overrides(&run, &seed, &overrides);
+	let written = keep_pairs(&inserted, &overrides.pairs, &|_, _| false);
+	let position = |kind, q| written.steps.iter().position(|s| s.kind == kind && s.q == q).unwrap();
+	assert_eq!(position(K_ACCEPT, illari), position(K_TURNIN, cherry) + 1);
+	assert!(position(K_TASK, illari) > position(K_TASK, cave));
+	assert!(position(K_TURNIN, illari) < position(K_ACCEPT, moonshine));
+	assert!(broken_pairs(&written.steps, &overrides.pairs).is_empty());
+}
+
 /// A `pairs` override v1's order breaks: keep_pairs moves b's steps (and its quest's later ones)
 /// after a's last step, and the checker then passes it. No data needed.
 #[test]

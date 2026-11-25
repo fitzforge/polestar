@@ -26,6 +26,30 @@ test('no data record matches nothing beyond the known ones, and none of those ma
 	assert.deepEqual(r.closedRecords, [], 'they match a guide again, or the record is gone: `node tools/pin-coverage.js --offline --prune` drops them from tests/pin-coverage.json');
 });
 
+test('scheduled includes pin published quests with a live route anchor before guide regeneration', () => {
+	const root = tmpdir();
+	for (const dir of ['data', 'guides', 'forever-db/data']) fs.mkdirSync(path.join(root, dir), { recursive: true });
+	const write = (file, value) => fs.writeFileSync(path.join(root, file), JSON.stringify(value) + '\n');
+	fs.writeFileSync(path.join(root, 'guides', 'test.guide'), 'faction Alliance\nstep Tokal\n  turnin 1\n');
+	fs.writeFileSync(path.join(root, 'forever-db', 'data', 'quest.jsonl'), '{"id":2}\n{"id":3}\n{"id":5}\n');
+	write('data/route-fixes.json', { overrides: { include: [
+		{ q: 2, faction: 'Alliance', after: ['turnin', 1] },
+		{ q: 3, faction: 'Alliance', after: ['accept', 1] },
+		{ q: 4, faction: 'Alliance', after: ['turnin', 1] },
+		{ q: 5, faction: 'Horde', after: ['turnin', 1] },
+	] } });
+	write('data/guide-fixes.json', { fixes: [2, 3, 4, 5].map((quest) => ({ id: `note-${quest}`, at: { quest, goal: 'accept' } })) });
+	write('data/places.json', { places: [] });
+	assert.deepEqual(deadRecords(root).map((r) => r.key), [
+		'data/guide-fixes.json fixes note-3',
+		'data/guide-fixes.json fixes note-4',
+		'data/guide-fixes.json fixes note-5',
+		'data/route-fixes.json overrides.include q=3 Alliance',
+		'data/route-fixes.json overrides.include q=4 Alliance',
+		'data/route-fixes.json overrides.include q=5 Horde',
+	]);
+});
+
 test('every known unpinned issue is still unpinned (a pinned one leaves the list), and says why', () => {
 	const pinned = pinnedIssues();
 	assert.deepEqual(Object.keys(baseline.issues).filter((n) => pinned.has(Number(n))), [], 'a test names them now: `node tools/pin-coverage.js --offline --prune` drops them from tests/pin-coverage.json');
