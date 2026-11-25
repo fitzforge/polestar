@@ -163,6 +163,108 @@
 --   Fewer folders
 --   Quit the game fully and start it again: Polestar is 22 folders now, not 45.
 --   Steps fixed in dozens of zones. Found something off? Type %s.
+--
+-- Machine-translated, to be reviewed (0.4.3, 25 Nov 2026): the interface and guide texts 0.4.3 added
+-- or reworded that this file still showed in English, translated by an AI model (Claude Opus 5.5)
+-- in this file's own wording, and waiting for a native speaker's check. Reviewing one: keep or fix
+-- it, and take it off this list. The interface texts:
+--   Took %s now for %s, later on your route: this saves a trip back.
+--   For %s, later on your route.
+--   Escort, about %d min
+--   Escort
+--   %s; 1 in %d runs fails
+--   %s. Optional: the route doesn't need it.
+--   Kept for %s
+--   Hand in %s to %s, who walks around here: look inside the circle on the map
+--   A quest you carry that the route does not work here: its work is nearby.
+--   %s at %s
+--   Only visible while dead: die nearby and talk to them as a ghost.
+--   Under water nearby: swim down to it
+--   %d yd below you: swim down
+--   Ask %s to teleport you to %s
+--   Riding the boat to %s
+--   Riding the zeppelin to %s
+--   Riding the airship to %s
+--   Riding the tram to %s
+--   %s · kept for %s
+--   Say when I've outlevelled a guide
+--   A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is.
+--   %s walks around here: look inside the circle on the map
+--   With %s
+--   Click to open the zone's map
+--   %d steps left in %s
+--   1 step left in %s
+--   Do or skip what's left, and you choose where to go next.
+--   Do or skip what's left, and the next guide follows.
+--   Do or skip what's left, and the guide ends.
+--   Window height
+--   Fixed: the window is always the height below; drag its grip to resize it like any window. Follows the step: it grows with the step up to that height. Automatic: it grows into all the free room on screen.
+--   Fixed
+--   Follows the step
+--   Height
+--   In pixels and as a share of the screen: click the number to type the pixels, or drag the grip at the window's corner. Changing it under Automatic switches to Fixed. A longer step scrolls.
+--   With a Fixed height: right under the last goal, the free room past it (above the goals with Grow upward), or on the window's edge.
+--   Under the last goal
+--   On the window's edge
+--   Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests.
+--   XP line
+--   The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line.
+--   You are past this class quest's levels.
+--   Escort: %s
+--   Do it
+--   New settings in this group
+--   (your current)
+--   Hand-ins
+--   Objectives
+--   kept for %s
+--   kept
+--   Kept for %s: the route hands it in there.
+-- and, in this language's folder of guides/locales/, the texts these guides still showed in English:
+--   forever/50-60/mount-hyjal
+--   forever/alliance/02-westfall
+--   forever/alliance/03-loch-modan
+--   forever/alliance/05-duskwood
+--   forever/alliance/06-ashenvale
+--   forever/alliance/07-thousand-needles
+--   forever/alliance/30-40/01-hillsbrad-foothills
+--   forever/alliance/30-40/02-desolace
+--   forever/alliance/30-40/04-stranglethorn-vale
+--   forever/alliance/30-40/04b-stranglethorn-vale
+--   forever/alliance/30-40/06b-desolace
+--   forever/alliance/40-50/01-stranglethorn-vale
+--   forever/alliance/40-50/01b-riverglades
+--   forever/alliance/40-50/04-tanaris
+--   forever/alliance/50-60/04-western-plaguelands
+--   forever/alliance/dwarf/01-dun-morogh
+--   forever/alliance/human/01-elwynn-forest
+--   forever/alliance/nightelf/01-teldrassil
+--   forever/alliance/nightelf/02-darkshore
+--   forever/alliance/skyborne/01-zephras-isle
+--   forever/class/rogue/the-eye-of-bhossca
+--   forever/class/shaman/spirit-totem
+--   forever/class/warlock/incubus-alliance
+--   forever/horde/02-the-barrens
+--   forever/horde/05-stonetalon-mountains
+--   forever/horde/07-ashenvale
+--   forever/horde/30-40/01-hillsbrad-foothills
+--   forever/horde/30-40/03-stranglethorn-vale
+--   forever/horde/30-40/04-dustwallow-marsh
+--   forever/horde/40-50/01-stranglethorn-vale
+--   forever/horde/40-50/04-tanaris
+--   forever/horde/50-60/06-silithus
+--   forever/horde/orc/01-durotar
+--   forever/horde/skyborne/01-zephras-isle
+--   forever/horde/tauren/01-mulgore
+--   forever/horde/undead/01-tirisfal-glades
+--   forever/professions/alchemy
+--   forever/professions/enchanting
+--   forever/professions/herbalism
+--   forever/professions/leatherworking
+--   forever/professions/skinning
+--   forever/reputation/centaur-clans
+--   forever/reputation/darkspear-islands
+--   forever/reputation/hydraxian-waterlords
+--   forever/reputation/ravenholdt
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "deDE") then return end
@@ -171,7 +273,7 @@ local L = ns.L
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Wähle eine Belohnung, um die Abgabe abzuschließen."
 L["%s is an escort: it starts as soon as it is taken. Accept it yourself when your group is ready."] = "%s ist eine Eskortquest: Sie beginnt, sobald sie angenommen wird. Nimm sie selbst an, wenn deine Gruppe bereit ist."
--- L["Took %s now for %s, later on your route: this saves a trip back."] = ""
+L["Took %s now for %s, later on your route: this saves a trip back."] = "%s jetzt für %s angenommen, später auf deiner Route: Das spart einen Rückweg."
 
 -- Core/Commands.lua
 L["Toggle guide window"] = "Guide-Fenster ein-/ausblenden"
@@ -402,16 +504,16 @@ L["Ride to the flight master"] = "Reite zum Flugmeister"
 L["Requires level %d: the guide comes back for it then"] = "Erfordert Stufe %d: Der Guide kommt dann darauf zurück"
 L["Requires level %d: kept for a later guide"] = "Erfordert Stufe %d: für einen späteren Guide aufgehoben"
 L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = "Ein späterer Guide auf deiner Route nimmt diese Quest hier an: Nimmst du sie jetzt an, ist sein Schritt erledigt, wenn du dort ankommst."
--- L["For %s, later on your route."] = ""
+L["For %s, later on your route."] = "Für %s, später auf deiner Route."
 L["kill %s as you meet them"] = "töte %s nebenbei, wenn du ihnen begegnest"
--- L["Escort, about %d min"] = ""
--- L["Escort"] = ""
--- L["%s; 1 in %d runs fails"] = ""
--- L["%s. Optional: the route doesn't need it."] = ""
--- L["Kept for %s"] = ""
--- L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = ""
--- L["A quest you carry that the route does not work here: its work is nearby."] = ""
--- L["%s at %s"] = ""
+L["Escort, about %d min"] = "Eskorte, etwa %d Min."
+L["Escort"] = "Eskorte"
+L["%s; 1 in %d runs fails"] = "%s; 1 von %d Versuchen scheitert"
+L["%s. Optional: the route doesn't need it."] = "%s. Optional: Die Route braucht sie nicht."
+L["Kept for %s"] = "Aufgehoben für %s"
+L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "Gib %s bei %s ab (läuft hier umher): Schau im Kreis auf der Karte nach"
+L["A quest you carry that the route does not work here: its work is nearby."] = "Eine Quest aus deinem Questlog, an der die Route hier nicht arbeitet: Ihre Aufgabe ist in der Nähe."
+L["%s at %s"] = "%s bei %s"
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Benötigt Polestar %s oder neuer."
@@ -481,7 +583,7 @@ L["Chain: finished, %d skipped"] = "Questreihe: abgeschlossen, %d übersprungen"
 L["Chain: all %d done"] = "Questreihe: alle %d erledigt"
 L["Chain: %d of %d"] = "Questreihe: %d von %d"
 L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."] = "Nur als Toter sichtbar: Stirb in der Nähe und sprich als Geist mit ihm, oder überspringe diese Quest."
--- L["Only visible while dead: die nearby and talk to them as a ghost."] = ""
+L["Only visible while dead: die nearby and talk to them as a ghost."] = "Nur als Toter sichtbar: Stirb in der Nähe und sprich als Geist mit ihm."
 
 -- Lookup/Sources.lua
 L["Reputation"] = "Ruf"
@@ -506,8 +608,8 @@ L["Click for the next spot."] = "Klicken für den nächsten Punkt."
 L["Shift-drag to move."] = "Halte Umschalt gedrückt und zieh, um es zu verschieben."
 L["No waypoint"] = "Kein Wegpunkt"
 L["Arrived underwater"] = "Unter Wasser angekommen"
--- L["Under water nearby: swim down to it"] = ""
--- L["%d yd below you: swim down"] = ""
+L["Under water nearby: swim down to it"] = "Unter Wasser in der Nähe: Tauch hinab"
+L["%d yd below you: swim down"] = "%d yd unter dir: Tauch hinab"
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "Punkt %d von %d"
@@ -591,11 +693,11 @@ L["No flight paths known yet: open a flight map to record them."] = "Noch keine 
 L["Known flight paths (%d): %s"] = "Bekannte Flugrouten (%d): %s"
 L["List the flight paths Polestar knows you have (reset: forget them)"] = "Flugrouten auflisten, die Polestar bei dir kennt (reset: vergessen)"
 L["Faster if you have the flight path at %s"] = "Schneller, wenn du die Flugroute bei %s hast"
--- L["Ask %s to teleport you to %s"] = ""
--- L["Riding the boat to %s"] = ""
--- L["Riding the zeppelin to %s"] = ""
--- L["Riding the airship to %s"] = ""
--- L["Riding the tram to %s"] = ""
+L["Ask %s to teleport you to %s"] = "Lass dich von %s nach %s teleportieren"
+L["Riding the boat to %s"] = "Mit dem Boot nach %s"
+L["Riding the zeppelin to %s"] = "Mit dem Zeppelin nach %s"
+L["Riding the airship to %s"] = "Mit dem Luftschiff nach %s"
+L["Riding the tram to %s"] = "Mit der Bahn nach %s"
 
 -- QoL/Options.lua
 L["Experience"] = "Erfahrung"
@@ -1099,7 +1201,7 @@ L["Group, or careful: elites at your level or above"] = "Gruppe oder Vorsicht: E
 L["Group, or careful: a group is advised"] = "Gruppe oder Vorsicht: Eine Gruppe wird empfohlen"
 L["Careful: elites nearby"] = "Vorsicht: Elite in der Nähe"
 L["Careful: elites, below your level"] = "Vorsicht: Elite, unter deiner Stufe"
--- L["%s · kept for %s"] = ""
+L["%s · kept for %s"] = "%s · aufgehoben für %s"
 
 -- UI/Welcome.lua
 L["level %d %s"] = "Stufe %d, %s"
@@ -1791,8 +1893,8 @@ L["Simplified Chinese"] = "Vereinfachtes Chinesisch"
 L["Traditional Chinese"] = "Traditionelles Chinesisch"
 L["General"] = "Allgemein"
 L["The language Polestar shows."] = "Die Sprache, die Polestar anzeigt."
--- L["Say when I've outlevelled a guide"] = ""
--- L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."] = ""
+L["Say when I've outlevelled a guide"] = "Melden, wenn ich über einen Guide hinaus bin"
+L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."] = "Ein Hinweis im Guide-Fenster, einmal pro Guide und Sitzung, wenn deine Stufe über der des Guides liegt, mit einem Guide, der zu deiner Stufe passt. Aus: kein Hinweis; der Guide bleibt, wie er ist."
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"
@@ -2489,7 +2591,7 @@ L["Profession"] = "Beruf"
 L["Class mount"] = "Klassenreittier"
 L["Starts the quest"] = "Beginnt die Quest"
 L["Ends the quest"] = "Beendet die Quest"
--- L["%s walks around here: look inside the circle on the map"] = ""
+L["%s walks around here: look inside the circle on the map"] = "%s läuft hier umher: Schau im Kreis auf der Karte nach"
 
 -- Gear/Options.lua
 L["Automatic (talents)"] = "Automatisch (Talente)"
@@ -2828,7 +2930,7 @@ L["%s is on Polestar %s: your guides can differ."] = "%s nutzt Polestar %s: Eure
 L["Party sync is on: you and your party see each other's quest progress. Turn it off in Settings."] = "Der Gruppenabgleich ist an: Du und deine Gruppe seht gegenseitig euren Questfortschritt. Ausschalten kannst du ihn in den Einstellungen."
 L["Up to 10 hidden addon whispers a session, to players of your faction you target or mouse over outside cities, combat and dungeons, and an answer to theirs: only the version number, so Polestar can tell you when a newer one is out. Off: none sent or answered."] = "Bis zu 10 versteckte Addon-Flüsternachrichten pro Sitzung an Spieler deiner Fraktion, die du außerhalb von Städten, Kämpfen und Dungeons anvisierst oder mit der Maus berührst, und eine Antwort auf ihre: nur die Versionsnummer, damit Polestar dir sagen kann, wenn eine neuere erschienen ist. Aus: Es wird nichts gesendet oder beantwortet."
 L["You asked a moment ago: wait 1 second."] = "Du hast gerade erst gefragt: Warte 1 Sekunde."
--- L["With %s"] = ""
+L["With %s"] = "Mit %s"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Aufzug nach %s"
@@ -3355,7 +3457,7 @@ L["The licence differs from the stored guide's."] = "Die Lizenz weicht von der d
 
 -- Nav/Pins.lua
 L["Polestar trail dots"] = "Polestar-Spurpunkte"
--- L["Click to open the zone's map"] = ""
+L["Click to open the zone's map"] = "Klicken, um die Karte des Gebiets zu öffnen"
 
 -- UI/LineStyle.lua
 L["Dots"] = "Punkte"
@@ -3778,11 +3880,11 @@ L["Not part of your route"] = "Nicht Teil deiner Route"
 L["Keep or abandon them"] = "Behalten oder abbrechen"
 L["Each with its Abandon button, which asks in the game's own window first."] = "Jede mit ihrer Abbrechen-Schaltfläche, die zuerst im eigenen Fenster des Spiels fragt."
 L["%s · at level %d"] = "%s · auf Stufe %d"
--- L["%d steps left in %s"] = ""
--- L["1 step left in %s"] = ""
--- L["Do or skip what's left, and you choose where to go next."] = ""
--- L["Do or skip what's left, and the next guide follows."] = ""
--- L["Do or skip what's left, and the guide ends."] = ""
+L["%d steps left in %s"] = "Noch %d Schritte in %s"
+L["1 step left in %s"] = "Noch 1 Schritt in %s"
+L["Do or skip what's left, and you choose where to go next."] = "Erledige oder überspringe den Rest, dann wählst du, wohin es weitergeht."
+L["Do or skip what's left, and the next guide follows."] = "Erledige oder überspringe den Rest, dann folgt der nächste Guide."
+L["Do or skip what's left, and the guide ends."] = "Erledige oder überspringe den Rest, dann endet der Guide."
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "Klicken, um %s anzuvisieren und zu markieren (außerhalb des Kampfes)."
@@ -4638,18 +4740,18 @@ L["Under the window"] = "Unter dem Fenster"
 L["Under the window, folded"] = "Unter dem Fenster, eingeklappt"
 L["On the timeline"] = "Auf der Zeitleiste"
 L["In the foot"] = "Im Fußbereich"
--- L["Window height"] = ""
--- L["Fixed: the window is always the height below; drag its grip to resize it like any window. Follows the step: it grows with the step up to that height. Automatic: it grows into all the free room on screen."] = ""
--- L["Fixed"] = ""
--- L["Follows the step"] = ""
--- L["Height"] = ""
--- L["In pixels and as a share of the screen: click the number to type the pixels, or drag the grip at the window's corner. Changing it under Automatic switches to Fixed. A longer step scrolls."] = ""
--- L["With a Fixed height: right under the last goal, the free room past it (above the goals with Grow upward), or on the window's edge."] = ""
--- L["Under the last goal"] = ""
--- L["On the window's edge"] = ""
--- L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = ""
--- L["XP line"] = ""
--- L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = ""
+L["Window height"] = "Fensterhöhe"
+L["Fixed: the window is always the height below; drag its grip to resize it like any window. Follows the step: it grows with the step up to that height. Automatic: it grows into all the free room on screen."] = "Fest: Das Fenster hat immer die Höhe darunter; zieh an seinem Griff, um es wie jedes Fenster zu vergrößern. Folgt dem Schritt: Es wächst mit dem Schritt bis zu dieser Höhe. Automatisch: Es wächst in den ganzen freien Platz auf dem Bildschirm."
+L["Fixed"] = "Fest"
+L["Follows the step"] = "Folgt dem Schritt"
+L["Height"] = "Höhe"
+L["In pixels and as a share of the screen: click the number to type the pixels, or drag the grip at the window's corner. Changing it under Automatic switches to Fixed. A longer step scrolls."] = "In Pixeln und als Anteil des Bildschirms: Klick auf die Zahl, um die Pixel einzugeben, oder zieh den Griff an der Fensterecke. Eine Änderung unter „Automatisch“ schaltet auf „Fest“ um. Ein längerer Schritt scrollt."
+L["With a Fixed height: right under the last goal, the free room past it (above the goals with Grow upward), or on the window's edge."] = "Bei fester Höhe: direkt unter dem letzten Ziel, im freien Platz dahinter (über den Zielen bei „Nach oben wachsen“) oder am Fensterrand."
+L["Under the last goal"] = "Unter dem letzten Ziel"
+L["On the window's edge"] = "Am Fensterrand"
+L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = "Zeilen unter dem Schritt für Quests, die du abseits der Route noch abschließen oder abgeben musst: solche, die ein Guide-Update hinter dir gelassen hat, und abgeschlossene Quests, die kein späterer Guide abgibt. Aus: Das Menü des Guide-Fensters listet die abgeschlossenen weiter unter „Erledigte Quests abgeben“."
+L["XP line"] = "EP-Zeile"
+L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "Die Zeile unter den Schritten: EP pro Stunde, Zeit bis zur nächsten Stufe und dein Tempo. Verbesserter Ruhebonus behält seine eigene Zeile."
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "Alarmreihe"
@@ -4956,9 +5058,9 @@ L["Looking ahead."] = "Blick voraus."
 L["Looking back."] = "Blick zurück."
 L["On the way to your map point (%s)."] = "Auf dem Weg zu deinem Kartenpunkt (%s)."
 L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."] = "Einige Quests dieses Guides schließen an %s an. Starte dort für alle Quests, oder mach hier weiter; der Guide füllt mit nahen Quests auf."
--- L["You are past this class quest's levels."] = ""
--- L["Escort: %s"] = ""
--- L["Do it"] = ""
+L["You are past this class quest's levels."] = "Du bist über die Stufen dieser Klassenquest hinaus."
+L["Escort: %s"] = "Eskorte: %s"
+L["Do it"] = "Machen"
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "Drück %s zum Fortsetzen oder öffne das Guide-Fenster."
@@ -5194,7 +5296,7 @@ L["Reload to finish?"] = "Neu laden zum Abschließen?"
 L["Some guide window and look changes only show in full after a reload. Recommended."] = "Manche Änderungen an Anleitungsfenster und Aussehen zeigen sich erst nach einem Neuladen ganz. Empfohlen."
 L["New settings page"] = "Neue Einstellungsseite"
 L["A preview of the settings in groups, with tabs, a filter and a preview beside the rows. The same settings; switch it off for the current page."] = "Eine Vorschau der Einstellungen in Gruppen, mit Tabs, einem Filter und einer Vorschau neben den Zeilen. Dieselben Einstellungen; schalte es aus für die aktuelle Seite."
--- L["New settings in this group"] = ""
+L["New settings in this group"] = "Neue Einstellungen in dieser Gruppe"
 
 -- UI/Essentials.lua
 L["Most used"] = "Am häufigsten genutzt"
@@ -5292,16 +5394,16 @@ L["Your current setup is saved; you can go back to it any time in Settings > Gui
 L["The guide window is hidden: open it to see each choice on your guide."] = "Das Guide-Fenster ist ausgeblendet: Öffne es, um jede Auswahl an deinem Guide zu sehen."
 L["Atlas layout and tab styles by %s"] = "Atlas-Layout und Tab-Stile von %s"
 L["Keep this"] = "Dies behalten"
--- L["(your current)"] = ""
+L["(your current)"] = "(dein aktuelles)"
 
 -- Quests/Tracker.lua
--- L["Hand-ins"] = ""
--- L["Objectives"] = ""
+L["Hand-ins"] = "Abgaben"
+L["Objectives"] = "Ziele"
 
 -- Quests/KeptFor.lua
--- L["kept for %s"] = ""
--- L["kept"] = ""
--- L["Kept for %s: the route hands it in there."] = ""
+L["kept for %s"] = "aufgehoben für %s"
+L["kept"] = "aufgehoben"
+L["Kept for %s: the route hands it in there."] = "Aufgehoben für %s: Die Route gibt sie dort ab."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar neu einrichten, eine Seite nach der anderen. Jede Wahl wirkt sofort."

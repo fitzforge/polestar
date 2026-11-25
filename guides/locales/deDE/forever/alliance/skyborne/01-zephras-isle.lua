@@ -87,7 +87,7 @@ return {
 	-- Step 14: Raan Wildwind
 	-- {npc:263664} Raan Wildwind · {area:16624} Shen'dar Village · {quest:93159} The Strange Hermit
 	-- was: ["With a profession learned, {npc:263664} also offers its Camping 101, which its trainer in {area:16624} takes on the village round."] = "Hast du einen Beruf erlernt, bietet {npc:263664} auch das zugehörige Camping 101 an, das du bei seinem Lehrer in {area:16624} auf der Dorfrunde abgibst."
-	["With a profession learned, {npc:263664} also offers its Camping 101, which its trainer in {area:16624} takes on the village round. {quest:93159} has his own for engineers."] = "",
+	["With a profession learned, {npc:263664} also offers its Camping 101, which its trainer in {area:16624} takes on the village round. {quest:93159} has his own for engineers."] = "Mit einem erlernten Beruf bietet {npc:263664} auch dessen Camping 101 an, das sein Lehrer in {area:16624} auf der Dorfrunde annimmt. {quest:93159} hat sein eigenes für Ingenieure.",
 	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
 	["/sit by {npc:263664}'s campfire until you get {spell:1229451}"] = "/sit an {npc:263664}s Lagerfeuer, bis du {spell:1229451} bekommst",
 
@@ -147,9 +147,9 @@ return {
 
 	-- Step 24: Camping 101: Herbalism
 	-- {npc:257021} Halassa Fernbreeze · {skill:182} Herbalism
-	["{npc:257021} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:257021} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257021} nimmt sie an, sobald deine Fertigkeit in {skill:182} 20 erreicht: Sammle oder stelle bis dahin her, der Guide läuft so lange weiter.",
 	-- {npc:263664} Raan Wildwind · {npc:257021} Halassa Fernbreeze
-	["{npc:263664}: for {npc:257021}"] = "",
+	["{npc:263664}: for {npc:257021}"] = "{npc:263664}: für {npc:257021}",
 
 	-- Step 25: Zerril Softbreeze
 	-- {npc:251905} Zerril Softbreeze
@@ -180,7 +180,7 @@ return {
 
 	-- Step 38: Halassa Fernbreeze
 	-- {npc:257021} Halassa Fernbreeze
-	["{npc:257021}, in the village"] = "",
+	["{npc:257021}, in the village"] = "{npc:257021}, im Dorf",
 
 	-- Step 39: Prideclaws and Galestriders
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
@@ -455,7 +455,7 @@ return {
 
 	-- Step 95: Camping 101: Engineering
 	-- {quest:93159} The Strange Hermit · {skill:202} Engineering
-	["{quest:93159} has a Camping 101 for engineers too, and takes it back once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{quest:93159} has a Camping 101 for engineers too, and takes it back once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{quest:93159} hat auch ein Camping 101 für Ingenieure und nimmt es zurück, sobald deine Fertigkeit in {skill:202} 20 erreicht: Sammle oder stelle bis dahin her, der Guide läuft so lange weiter.",
 
 	-- Step 96: Ruins of Ban'aethal: kill these as you meet them
 	-- {area:16833} Ruins of Ban'aethal
@@ -469,7 +469,7 @@ return {
 
 	-- Step 98: Strange Hermit
 	-- {npc:251684} Strange Hermit
-	["talk to the {npc:251684}"] = "",
+	["talk to the {npc:251684}"] = "sprich mit {npc:251684}",
 
 	-- Step 99: The Shrine of Akir
 	-- {area:16629} Shrine of Akir

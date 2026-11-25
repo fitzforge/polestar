@@ -108,7 +108,7 @@ return {
 	-- Step 18: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
 	-- plural, as words: Ancient Kodos = {npc:4702} Ancient Kodo
-	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: the Ancient Kodos (36-37) hit hard: tame them, don't fight them."] = "",
+	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: the Ancient Kodos (36-37) hit hard: tame them, don't fight them."] = "Benutze {item:13892} von {npc:11596} an einem alten, sterbenden oder {npc:4702}: Er wird zu einem gezähmten Kodo, der dir folgt. Bring ihn zurück zum Lager von {npc:11596}; sprich dort mit dem Kodo: Das zählt ihn, und du kannst den nächsten zähmen. Fünf Kodos, einer nach dem anderen. Vorsicht: Die uralten Kodos (36-37) schlagen hart zu: Zähme sie, kämpf nicht mit ihnen.",
 	-- {npc:4702} Ancient Kodo
 	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "an einem Aged Kodo, Dying Kodo oder {npc:4702} auf dem Friedhof; töte es nicht",
 	-- {npc:11596} Smeed Scrabblescrew

@@ -62,7 +62,7 @@ return {
 
 	-- Step 12: Moonbrook
 	-- {quest:67} The Legend of Stalvan · {object:3643} Old Footlocker · {area:20} Moonbrook · {area:42} Darkshire
-	["{quest:67}: the {object:3643} in {area:20}, among the Defias (15-18), holds the next part. Then hearth back to {area:42}."] = "",
+	["{quest:67}: the {object:3643} in {area:20}, among the Defias (15-18), holds the next part. Then hearth back to {area:42}."] = "{quest:67}: {object:3643} in {area:20}, zwischen den Defias (15-18), enthält den nächsten Teil. Dann mit dem Ruhestein zurück nach {area:42}.",
 
 	-- Step 13: Back to Darkshire
 	-- {area:42} Darkshire
