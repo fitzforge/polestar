@@ -1915,6 +1915,10 @@ end
 -- the rows last took (applyRows).
 local target = { list = {}, verbs = {}, ids = {}, marks = {}, sig = nil, namesSig = "", cycle = 1, info = {}, foldFirst = nil }
 
+function TL.externalSource()
+	return TL.source and not ns.Hidden() and not ns.PauseHides("window") and TL.source or nil
+end
+
 -- The mark and ping the target button's name i (default: the one the next
 -- click tries first) takes: "npc" for an NPC goal's name, else "mob".
 local function targetKind(i)
@@ -3087,7 +3091,7 @@ do
 	applyTarget = function(b)
 		-- The Polestar mark is not secure: hidden with Polestar (or the guide) at
 		-- once, in a fight too; the rows follow once it ends.
-		if TL.anchor and not ns.GuideShown() then TL.anchor:Hide() end
+		if TL.anchor and not TL.externalSource() and not ns.GuideShown() then TL.anchor:Hide() end
 		QoL.Secure("target", function()
 			local list = target.list
 			-- The list keeps its order: only the single button cycles.
@@ -3571,26 +3575,30 @@ end
 local FAR_POLL = 1
 local farTicker, farWatched
 
-local function refresh()
-	if not itemButton then return end
-	-- One view of the current step for all three buttons.
-	local view, raw = QoL.CurrentStep()
-	farWatch = nil
-	local guideShown = ns.GuideShown()
-	-- The step's item first; with none, a quest starter from the bags, glowing.
-	-- Never on a taxi: the client refuses item spells there (#1583).
-	local itemOn = QoL.On("itemButton") and guideShown and not onTaxi()
-	local item = itemOn and view and Buttons.ChooseQuestItem(view, raw) or nil
-	local QL = QoL.QuestLoot
-	local loot = itemOn and not item and QL and QL.Current() or nil
-	applyItem(itemButton, item or loot, loot)
-	applyItem(hearthButton, QoL.On("hearthButton") and guideShown and view and Buttons.WantsHearth(view) and Client.HEARTHSTONE or nil)
-
+function TL.refreshTarget(view, raw, guideShown)
 	-- The list shows qol.targetRows names; the single button, the step key
 	-- and the interact stage keep MAX_NAMES.
 	local cap = not simple() and ns.Get("qol.targetRows") or MAX_NAMES
-	local list, verbs, ids, marks
-	if QoL.On("targetButton") and guideShown and view then list, verbs, ids, marks = Buttons.TargetNames(view, raw, true, true, cap, true) else list = {} end
+	local list, verbs, ids, marks = {}
+	local readInfo = Buttons.TargetInfo
+	local source = TL.externalSource()
+	if QoL.On("targetButton") and source then
+		local supplied = {}
+		list, verbs, ids, marks = {}, {}, {}, {}
+		cap = math.max(1, math.min(TL.MAX, math.floor(tonumber(cap) or MAX_NAMES)))
+		for _, entry in ipairs(source) do
+			local name = entry.name
+			if Buttons.MacroSafeName(name) and not supplied[name] then
+				local i = #list + 1
+				list[i], verbs[i], ids[i], marks[i] = name, entry.verb, entry.id, entry.elite
+				supplied[name] = { npc = entry.id, item = entry.item, chance = entry.chance, progress = entry.progress }
+				if i == cap then break end
+			end
+		end
+		readInfo = function(name) return supplied[name] end
+	elseif QoL.On("targetButton") and guideShown and view then
+		list, verbs, ids, marks = Buttons.TargetNames(view, raw, true, true, cap, true)
+	end
 	-- The mark settings and who may mark (Buttons.MarkRight) are part of both
 	-- signatures, so changing one re-applies.
 	local mark = QoL.On("markTarget") and (markSetting("mob") .. " " .. markSetting("npc") .. " " .. tostring(Buttons.MarkRight()) .. "\n") or ""
@@ -3599,8 +3607,9 @@ local function refresh()
 	local namesSig = concat(list, "\n")
 	-- The list's portraits and notes too, so new data re-applies.
 	local parts = { simple() and "simple" or "list", mark }
+	if source then parts[#parts + 1] = "external" end
 	for i = 1, #list do
-		local info = Buttons.TargetInfo(list[i])
+		local info = readInfo(list[i])
 		-- Its verb, mark and id too: a name that turns from an NPC goal's into a
 		-- mob's (or an elite) takes the other mark, ping and colour.
 		parts[#parts + 1] = list[i] .. "\t" .. tostring(info and info.npc) .. "\t" .. tostring(TL.rowNote(info))
@@ -3612,7 +3621,7 @@ local function refresh()
 		local copy, cv, ci, cm, info = {}, {}, {}, {}, {}
 		for i = 1, #list do
 			copy[i], cv[i], ci[i], cm[i] = list[i], verbs[i], ids[i], marks[i]
-			info[list[i]] = Buttons.TargetInfo(list[i])
+			info[list[i]] = readInfo(list[i])
 		end
 		target.list, target.verbs, target.ids, target.marks, target.info = copy, cv, ci, cm, info
 		target.cycle = 1
@@ -3631,10 +3640,29 @@ local function refresh()
 	-- this list (applyRows), and keeps an older one while a fight holds it on
 	-- an earlier step, so that one is left as it was.
 	for name, info in pairs(target.info) do
-		local fresh = Buttons.TargetInfo(name)
+		local fresh = readInfo(name)
 		if fresh then info.progress, info.chance = fresh.progress, fresh.chance end
 	end
 	TL.paintCountsChanged()
+	return mark
+end
+
+local function refresh()
+	if not itemButton then return end
+	-- One view of the current step for all three buttons.
+	local view, raw = QoL.CurrentStep()
+	farWatch = nil
+	local guideShown = ns.GuideShown()
+	-- The step's item first; with none, a quest starter from the bags, glowing.
+	-- Never on a taxi: the client refuses item spells there (#1583).
+	local itemOn = QoL.On("itemButton") and guideShown and not onTaxi()
+	local item = itemOn and view and Buttons.ChooseQuestItem(view, raw) or nil
+	local QL = QoL.QuestLoot
+	local loot = itemOn and not item and QL and QL.Current() or nil
+	applyItem(itemButton, item or loot, loot)
+	applyItem(hearthButton, QoL.On("hearthButton") and guideShown and view and Buttons.WantsHearth(view) and Client.HEARTHSTONE or nil)
+
+	local mark = TL.refreshTarget(view, raw, guideShown)
 
 	-- Not tied to the step: a rare can turn up on any of them.
 	local R = ns.Rares
@@ -3680,6 +3708,20 @@ local function refresh()
 end
 local refreshSoon, refreshOnLog = QoL.Coalesce(refresh)
 Buttons.Refresh = refresh
+
+-- An active planner may supply the native target button and list with its own
+-- ordered entries: { name, verb, id, elite, item, chance, progress }. An empty
+-- list clears the targets, nil releases the source owned by this caller.
+-- The quest item, step binding and other convenience buttons keep the guide.
+function Buttons.SetTargetSource(owner, entries)
+	if owner == nil or (entries == nil and TL.sourceOwner ~= owner) then return end
+	TL.sourceOwner, TL.source = entries and owner or nil, entries
+	if not entries then
+		refresh()
+	elseif itemButton then
+		TL.refreshTarget(nil, nil, ns.GuideShown())
+	end
+end
 
 local function repaintItems()
 	if not itemButton then return end
