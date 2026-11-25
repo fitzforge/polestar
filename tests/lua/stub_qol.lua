@@ -266,9 +266,16 @@ function C_UnitAuras.GetPlayerAuraBySpellID(id) return q.auras[id] end
 ---------------------------------------------------------------------------
 
 -- q.items[id] = { name, quality = 0..5, price (sell, copper), classID, spell, noValue, icon, questID (begins that
--- quest), questItem (an item for a quest) }
+-- quest), questItem (an item for a quest) }. A slot's `worn` is what the merchant pays for a damaged item in it
+-- (less than its price), as the slot's tooltip says (C_TooltipInfo.GetBagItem's SellPrice line) and a sale pays.
 function q.addItem(bag, slot, id, count)
 	q.bags[bag].slots[slot] = { itemID = id, stackCount = count or 1 }
+end
+
+-- What a merchant pays for the slot's stack.
+local function slotPrice(s)
+	local it = q.items[s.itemID] or {}
+	return s.worn or (it.price or 0) * s.stackCount
 end
 
 local function slotInfo(bag, slot)
@@ -297,12 +304,21 @@ function C_Container.UseContainerItem(bag, slot)
 	call("UseContainerItem", bag, slot)
 	local s = q.bags[bag].slots[slot]
 	if s and q.merchantOpen then
-		local it = q.items[s.itemID] or {}
-		q.money = q.money + (it.price or 0) * s.stackCount
+		q.money = q.money + slotPrice(s)
 		q.sold = q.sold or {}
 		table.insert(q.sold, s.itemID)
 		q.bags[bag].slots[slot] = nil
 	end
+end
+-- The slot's tooltip: its sell price line (TooltipDataLineType 11) for an item with a price.
+function C_TooltipInfo.GetBagItem(bag, slot)
+	local b = q.bags[bag]
+	local s = b and b.slots[slot]
+	if not s then return nil end
+	local it = q.items[s.itemID] or {}
+	local lines = { { type = 0, leftText = it.name or "?" } }
+	if not it.noValue and (it.price or 0) > 0 then lines[#lines + 1] = { type = 11, price = slotPrice(s) } end
+	return { lines = lines }
 end
 -- Free slots per bag; q.bags[bag].family marks a quiver or other special bag.
 function C_Container.GetContainerNumFreeSlots(bag)

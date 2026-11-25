@@ -93,6 +93,7 @@ Nav.HEARTH_SECONDS, Nav.HEARTH_MARGIN, Nav.HEARTH_MIN_TRIP = HEARTH_SECONDS, HEA
 -- weights; planRoute's fifth) (#1823: Teleport: Stormwind won by a few seconds
 -- over a flight to Darkshire).
 local TELEPORT_MARGIN, TELEPORT_SHARE = 60, 0.2
+Travel.TELEPORT_MARGIN, Travel.TELEPORT_SHARE = TELEPORT_MARGIN, TELEPORT_SHARE -- Nav/RuneStop.lua weighs its stop the same way
 local GCD = 1.5
 local REACH = 12             -- yards: a walk leg's end is reached
 local SKIP_WALK = 15         -- yards: a leading walk this short is dropped
@@ -2580,6 +2581,7 @@ local function plan(target, held)
 	local ghost = isGhost()
 	local field = Travel.AtField(target, pc, px, py)
 	local teleports = not ghost and not questTimed and not field and teleportList() or nil
+	Travel.teleportsBarred = (ghost or questTimed or field) and true or false -- Nav/RuneStop.lua offers no teleport then either
 	-- The bind point: for the Hearthstone, or a teleport there (Astral Recall) without one in the bags.
 	local recall = false
 	if teleports then
@@ -2933,6 +2935,39 @@ end
 -- Checkpoints are outside protected callbacks, so yielding is legal in 5.1.
 function Nav.EstimateTravelCooperative(from, to, work)
 	return Nav.EstimateTravel(from, to, false, false, work)
+end
+
+-- Whether the planner, starting at `from` with teleport t castable, would cast it on the way to `to`: its own rule
+-- (TELEPORT_MARGIN and TELEPORT_SHARE, in its weighted cost), for a stop that offers the reagent (Nav/RuneStop.lua).
+function Nav.WouldCastTeleport(from, to, t)
+	local tc, twx, twy = pointWorld(to)
+	local fc, fwx, fwy = pointWorld(from)
+	if not (tc and fc) then return false end
+	refreshFaction()
+	local wait = hearthWait()
+	local inn, bindName
+	if wait then inn, bindName = bindInn() end
+	local plan = Nav.PlanRoute({
+		c = fc, wx = fwx, wy = fwy, z = from.z, map = from.map,
+		target = { c = tc, wx = twx, wy = twy, z = to.z, map = to.map },
+		faction = playerFaction,
+		known = knownNodes(),
+		seen = seenSet(), level = Nav.danger and Nav.danger.Level(), maybe = maybeTaxi,
+		speed = RUN_SPEED,
+		hearth = inn,
+		hearthName = bindName,
+		hearthWait = inn and wait and wait > 0 and wait or nil,
+		hearthLength = inn and ns.Compat and ns.Compat.GetItemBaseCooldown and ns.Compat.GetItemBaseCooldown(HEARTH_ITEM) or nil,
+		noStone = wait == nil or nil,
+		teleports = { { spell = t.spell, name = t.name, cast = t.cast, to = t.to, ready = 0 } },
+		items = Travel.PortalItems(),
+		departure = departureFn(),
+		walkDanger = walkDanger(fc, fwx, fwy, tc, twx, twy),
+	})
+	for _, leg in ipairs(plan or {}) do
+		if leg.kind == "teleport" and leg.spell == t.spell then return true end
+	end
+	return false
 end
 
 -- A route worth following: more than one leg. A lone walk is the direct arrow.

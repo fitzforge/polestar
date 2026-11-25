@@ -333,7 +333,7 @@ test('pages and sections follow the player journey order', () => {
 	assert.deepEqual(tabsOf(out, 'guidewindow'), ['Essentials', 'Window', 'Parts']);
 	assert.deepEqual(sectionsOf(out, 'guidewindow', 'Window'), ['Window', 'Behaviour', 'Show and hide', 'Position', 'Background']);
 	assert.deepEqual(sectionsOf(out, 'guidewindow', 'Parts'),
-		['Bars', 'Step text', 'Step spacing', 'Target bar', 'Step tips', 'Up next', 'Still to do', 'Progress & pace']);
+		['Bars', 'Step text', 'Step spacing', 'Target bar', 'Step tips', 'Up next', 'Still to do', 'Quest log notices', 'Progress & pace']);
 
 	assert.deepEqual(tabsOf(out, 'alerts'), ['Essentials', 'Rare alert', 'Heads-up card', 'Transport alert', 'Class quest card']);
 	assert.deepEqual(sectionsOf(out, 'alerts', 'Essentials'), ['Presets', 'All alerts', 'Alerts', 'Sound']);
