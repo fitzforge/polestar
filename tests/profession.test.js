@@ -398,8 +398,8 @@ test('draft: the first recipes at a rank visit use their own trainers (#3136)', 
 
 test('draft: a learn pinned to a later rank\'s trainers keeps its own trip after a one-visit bracket (Rugged Leather at Drakk Stonehand)', () => {
 	// Expert Leatherworking: Telonis or Una teach Thick Leather (160) too, so
-	// one visit; Rugged Leather (195) only Drakk or Hahrana teach.
-	const { prof, data } = smallProfession([rec(1, 1, 140, 170, 10), rec(2, 160, 190, 200, 10), rec(3, 195, 220, 240, 10)]);
+	// one visit; Rugged Leather (200 here) only Drakk or Hahrana teach.
+	const { prof, data } = smallProfession([rec(1, 1, 140, 170, 10), rec(2, 160, 190, 200, 10), rec(3, 200, 220, 240, 10)]);
 	const at = (map, x) => ({ [map]: { f: 'e', pts: [[x, 50]] } });
 	data.npcs = { 3: { id: 3, name: 'Jay', faction: 'A', spawns: at(1453, 40) }, 4: { id: 4, name: 'Kay', faction: 'H', spawns: at(1454, 40) }, 5: { id: 5, name: 'Telonis', faction: 'A', spawns: at(1457, 40) }, 6: { id: 6, name: 'Una', faction: 'H', spawns: at(1456, 40) }, 7: { id: 7, name: 'Drakk', faction: 'A', spawns: at(1425, 40) }, 8: { id: 8, name: 'Hahrana', faction: 'H', spawns: at(1444, 40) } };
 	data.zones = { 1453: { name: 'Stormwind City' }, 1454: { name: 'Orgrimmar' }, 1457: { name: 'Darnassus' }, 1456: { name: 'Thunder Bluff' }, 1425: { name: 'The Hinterlands' }, 1444: { name: 'Feralas' } };
@@ -410,14 +410,14 @@ test('draft: a learn pinned to a later rank\'s trainers keeps its own trip after
 		{ name: 'Artisan', max: 300, minSkill: 200, minLevel: 35, trainers: { Alliance: [7], Horde: [8] } },
 	];
 	const { text } = draftGuide('Tailoring', data, { to: 225, spec: { taughtBy: { 3: 'Artisan' } } });
-	assert.match(text, /these trainers also teach R2 \(from 160\), and the crafts need no station, so craft right here and learn each recipe as you reach its skill\. One trip instead of 2\. R3 \(from 195\) takes a second trip, to other trainers \(below\)\./);
+	assert.match(text, /these trainers also teach R2 \(from 160\), and the crafts need no station, so craft right here and learn each recipe as you reach its skill\. One trip instead of 2\. R3 \(from 200\) takes a second trip, to other trainers \(below\)\./);
 	assert.match(text, /\n {2}tip Still at the Expert trainer: R2 \(from 160\)\.\n {2}learn 2\n/);
-	assert.match(text, /R3 \(from 195\) is taught only by the Artisan trainers: Alliance Drakk \(The Hinterlands\); Horde Hahrana \(Feralas\)\./);
+	assert.match(text, /R3 \(from 200\) is taught only by the Artisan trainers: Alliance Drakk \(The Hinterlands\); Horde Hahrana \(Feralas\)\./);
 	assert.match(text, /\n {2}learn 3 npc 7 only Alliance\n {2}learn 3 npc 8 only Horde\n/);
 });
 
 test('draft: a pinned trainer the data spawns at one spot on two maps is pinned to the map the tip names (Drakk Stonehand, also on Hillsbrad\'s corner)', () => {
-	const { prof, data } = smallProfession([rec(1, 1, 140, 170, 10), rec(2, 160, 190, 200, 10), rec(3, 195, 220, 240, 10)]);
+	const { prof, data } = smallProfession([rec(1, 1, 140, 170, 10), rec(2, 160, 190, 200, 10), rec(3, 200, 220, 240, 10)]);
 	const at = (map, x) => ({ [map]: { f: 'e', pts: [[x, 50]] } });
 	data.npcs = { 3: { id: 3, name: 'Jay', faction: 'A', spawns: at(1453, 40) }, 4: { id: 4, name: 'Kay', faction: 'H', spawns: at(1454, 40) }, 5: { id: 5, name: 'Telonis', faction: 'A', spawns: at(1457, 40) }, 6: { id: 6, name: 'Una', faction: 'H', spawns: at(1456, 40) }, 8: { id: 8, name: 'Hahrana', faction: 'H', spawns: at(1444, 40) } };
 	// Aerie Peak, and the same spot on Hillsbrad Foothills' map, whose lower map id the compiler would take.
@@ -430,8 +430,33 @@ test('draft: a pinned trainer the data spawns at one spot on two maps is pinned 
 		{ name: 'Artisan', max: 300, minSkill: 200, minLevel: 35, trainers: { Alliance: [7], Horde: [8] } },
 	];
 	const { text } = draftGuide('Tailoring', data, { to: 225, spec: { taughtBy: { 3: 'Artisan' } } });
-	assert.match(text, /R3 \(from 195\) is taught only by the Artisan trainers: Alliance Drakk \(The Hinterlands\); Horde Hahrana \(Feralas\)\./);
+	assert.match(text, /R3 \(from 200\) is taught only by the Artisan trainers: Alliance Drakk \(The Hinterlands\); Horde Hahrana \(Feralas\)\./);
 	assert.match(text, /\n {2}learn 3 npc 7 only Alliance map 1425\n {2}learn 3 npc 8 only Horde\n/);
+});
+
+// Dima (#3923) and divo2000 (#3708): the Tailoring guide sent players to Timothy Worthington or Daryl Stack for Black
+// Mageweave Headband at 197, its learn skill by Classic's list (190); the Artisan trainers teach nothing below 200.
+// A recipe only a rank's trainers teach is learned, and crafted, from that rank's skill at the earliest.
+test('draft: a recipe only the Artisan trainers teach is learned from Artisan\'s skill, not its own lower one (#3708, #3923)', () => {
+	const { prof, data } = smallProfession([rec(1, 1, 140, 170, 10), rec(2, 160, 190, 215, 10), rec(3, 190, 205, 235, 10)]);
+	const at = (map, x) => ({ [map]: { f: 'e', pts: [[x, 50]] } });
+	data.npcs = { 5: { id: 5, name: 'Georgio', faction: 'A', spawns: at(1453, 40) }, 6: { id: 6, name: 'Josef', faction: 'H', spawns: at(1458, 40) }, 7: { id: 7, name: 'Timothy', faction: 'A', spawns: at(1445, 40) }, 8: { id: 8, name: 'Daryl', faction: 'H', spawns: at(1424, 40) } };
+	data.zones = { 1453: { name: 'Stormwind City' }, 1458: { name: 'Undercity' }, 1445: { name: 'Dustwallow Marsh' }, 1424: { name: 'Hillsbrad Foothills' } };
+	prof.ranks = [
+		{ name: 'Apprentice', max: 75, minSkill: 0, minLevel: 1, trainers: { Alliance: [5, 7], Horde: [6, 8] } },
+		{ name: 'Journeyman', max: 150, minSkill: 50, minLevel: 10, trainers: { Alliance: [5, 7], Horde: [6, 8] } },
+		{ name: 'Expert', max: 225, minSkill: 125, minLevel: 20, trainers: { Alliance: [5, 7], Horde: [6, 8] } },
+		{ name: 'Artisan', max: 300, minSkill: 200, minLevel: 35, trainers: { Alliance: [7], Horde: [8] } },
+	];
+	const { text } = draftGuide('Tailoring', data, { to: 225, spec: { taughtBy: { 3: 'Artisan' } } });
+	assert.match(text, /R3 \(from 200\) is taught only by the Artisan trainers: Alliance Timothy \(Dustwallow Marsh\); Horde Daryl \(Hillsbrad Foothills\)\./);
+	assert.doesNotMatch(text, /from 190/);
+	const craft = text.match(/\nstep R3 to 225\n {2}tip R3 is \w+ at (\d+) /);
+	assert.ok(craft, 'R3 levels to 225');
+	assert.ok(Number(craft[1]) >= 200, `R3 is crafted from ${craft[1]}, not before 200`);
+	assert.ok(/\nstep R2 to 200\n/.test(text), 'R2 carries the skill to 200');
+	// The data's recipe is left as it was: only the guide's plan reads the floor.
+	assert.equal(prof.recipes[2].learnedAt, 190);
 });
 
 test('planner: a recipe held back to a skill neither levels nor makes an intermediate before it (Tailoring\'s Runecloth to Artisan)', () => {

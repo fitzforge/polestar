@@ -19716,3 +19716,28 @@ test('#3927 Mount Hyjal: the Tainted Shrubbery are killed after Leaves to Ligatu
 		assert.doesNotMatch(tip, /\bkill[^.:;]*Tainted Shrubbery/i, `${step.title}: no shrub kills before the accept`);
 	}
 });
+
+// Dima (#3923) and divo2000 (#3708): the Tailoring guide sent players to Timothy Worthington or Daryl Stack for Black
+// Mageweave Headband at 197; they teach nothing below 200 (players' recordings: every recipe learned from them at 200 or
+// more). Every profession guide: a recipe only a later rank's trainers teach is learned once the skill reaches that rank's.
+test('#3708, #3923: profession guides learn a recipe only the Artisan trainers teach from their skill on', { skip }, () => {
+	const { SPECS } = require('../tools/lib/professions/specs');
+	const profs = JSON.parse(fs.readFileSync(path.join(DATA, 'professions.json'), 'utf8'));
+	let checked = 0;
+	for (const [name, spec] of Object.entries(SPECS)) {
+		const prof = Object.values(profs).find((p) => p && p.name === name);
+		if (!prof || !spec.taughtBy) continue;
+		const text = fs.readFileSync(path.join(OFFICIAL_DIR, `forever/professions/${name.toLowerCase()}.guide`), 'utf8');
+		let skill = 1;
+		for (const line of text.split('\n')) {
+			const reach = line.match(/^ {2}(?:craft \d+ until|skill \S+) (\d+)/);
+			if (reach) skill = Math.max(skill, Number(reach[1]));
+			const learn = line.match(/^ {2}learn (\d+)/);
+			const rank = learn && prof.ranks.find((r) => r.name === spec.taughtBy[learn[1]]);
+			if (!rank) continue;
+			checked++;
+			assert.ok(skill >= rank.minSkill, `${name}: learn ${learn[1]} at ${skill}, below ${rank.name}'s ${rank.minSkill}`);
+		}
+	}
+	assert.ok(checked > 0, 'the Artisan-only recipes the guides learn');
+});
