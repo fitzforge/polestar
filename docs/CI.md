@@ -14,7 +14,10 @@ What a pull request starts depends on what it changes. `Tests` (`ci.yml`),
 checks `next` requires, report on every pull request; the other workflows
 start only on their paths. A newer push to a pull request cancels the runs
 of the older one (`tests/ci-lane.test.js` holds every pull request workflow
-to it).
+to it). None of them runs on the maintainers' machine: a pull request never
+waits on it. `Base branch` also fails a commit made as the maintainers'
+account whose author or committer email is not the account's GitHub noreply
+address (read through the API; contributors' own addresses are not checked).
 
 `Tests` picks its lane from the files the pull request changes
 (`tools/ci-lane.js`, run from the base branch's copy so a pull request cannot
@@ -156,7 +159,7 @@ every pull request's tests run with reference data, in two places:
 | Where | Data | Who | Fails on |
 |---|---|---|---|
 | `Tests` (`ci.yml`, GitHub's runners) | the public data `ci-data.yml` built on `next` | every pull request, forks too | a failure next's run on the same data does not have |
-| `Release data` (`ci-release-data.yml`, the maintainers' self-hosted runner) | the release data | pull requests from this repository's own branches, not drafts | any failure |
+| `Release data` (`ci-release-data.yml`, the maintainers' self-hosted runner) | the release data | pull requests from this repository's own branches that change the data (`data/`, `forever-db/`), not drafts; each push to a `release/` branch (the freeze); a run started by hand | any failure |
 
 **Public data.** On every push to `next`, `ci-data.yml` builds the public
 data (below), runs the whole Node suite on it and saves both in the Actions
@@ -177,8 +180,9 @@ again in the base checkout on the same data: one that fails there too is
 `next`'s, and passes the job; one that passes there is a new failure. Only a
 failing test the base does not have either (one the pull request adds or
 renames) has nothing to be held to: for this repository's own branches it
-is a warning, since their `Release data` job runs it on the release data;
-for a fork it fails.
+is a warning, since the release data's runs check it (`Release data` when the
+pull request changes the data, the post-merge gates after the merge); for a
+fork it fails.
 
 **Release data.** The release data is built from recordings and private
 sources and is never published: it stays on the maintainers' machine, where
@@ -187,9 +191,13 @@ two self-hosted runners hold a read-only copy: one for pull requests
 tree (`polestar-gates`: [After a merge](#after-a-merge) and the weekly
 route run), so the gates never queue behind pull requests. Only code from
 this repository's own branches runs there: the `Release data` job runs for
-a pull request whose head branch is in this repository once it is not a
-draft (marking a draft ready starts it; a newer push cancels the older
-run), and the gates on pushes to `next`. Each runner checks every job
+a pull request whose head branch is in this repository and that changes
+the data (`data/`, `forever-db/`) once it is not a draft (marking a draft
+ready starts it; a newer push cancels the older run), on each push to a
+`release/` branch (the cut at freeze and any fix on the frozen tree: the
+whole suite) and when started by hand; the gates run on pushes to `next`.
+Every other pull request gets the release data's tests after the merge, in
+the post-merge gates. Each runner checks every job
 before it starts and refuses anything else (a fork's pull request, a push to a branch
 other than `next`, `main`, `release/*` or `hotfix/*`, any other event), each
 job runs in a fresh sandbox (the data and toolchains
@@ -259,7 +267,7 @@ it runs where the data is:
 | Where | Languages | Fails on |
 |---|---|---|
 | `Tests` (public data) | those whose texts the pull request changes; every language when it changes a guide | an error the base's own texts do not have on the same data (`tools/ci-guide-texts.sh`) |
-| `Release data` | the same | any error |
+| `Release data` | the same, for a pull request that changes the data; every language at freeze | any error |
 | Post-merge gates | every language | any error |
 
 The public-text rule (CONTRIBUTING.md, "Commits and pull requests") holds
@@ -275,8 +283,9 @@ and commit messages (`Public text`).
 
 Triage after triage must not leave a route broken by something a fix took
 out (#3654). A pull request from this repository's own branches that edits
-a leveling guide gets these checks in its `Release data` job, against the
-branch it merges into, on the release data (`tools/ci-route-gate.sh`):
+a leveling guide and changes the data (its records in `data/`: route fixes,
+guide fixes, places) gets these checks in its `Release data` job, against
+the branch it merges into, on the release data (`tools/ci-route-gate.sh`):
 
 | Check | Fails on |
 |---|---|
@@ -289,8 +298,8 @@ The headers against `data/route-levels.json` (`tests/route-levels.test.js`)
 and the prerequisite order (`tests/prereq-order.test.js`) run with the
 tests a guide change selects. The table goes to the run's summary and to
 one comment on the pull request, kept up to date as it is pushed again. A
-fork's guide change gets the playtest and the levels after the merge (the
-post-merge gates and the weekly run below).
+guide change without data records, and a fork's, gets the playtest and the
+levels after the merge (the post-merge gates and the weekly run below).
 
 Every Monday `route-health.yml` runs the whole route on the release data:
 every leveling guide played, the level model for every race and class on
