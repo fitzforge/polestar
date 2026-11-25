@@ -90,113 +90,117 @@ return {
 	-- Step 15: To Azshara
 	-- {zone:1447} Azshara
 	["To {zone:1447}"] = "",
-	-- {area:1225} Ursolan · {zone:1447} Azshara · {npc:11555} Gorn One Eye · {faction:576} Timbermaw Hold
-	["Neutral opens {area:1225}, the camp of the Blackmaw furbolgs in northern {zone:1447}: their quests and {npc:11555}'s in {faction:576} are levels 53-55, about 50,000 experience below level 60, all outdoors. Below Neutral the Blackmaw attack you."] = "",
+	-- {area:1225} Ursolan · {zone:1447} Azshara · {npc:11555} Gorn One Eye · {faction:576} Timbermaw Hold · {area:1237} Valormok · {area:3137} Talrendis Point · {npc:235903} Ekkal
+	["Neutral opens {area:1225}, the camp of the Blackmaw furbolgs in northern {zone:1447}: their quests and {npc:11555}'s in {faction:576} are levels 53-55, about 50,000 experience below level 60, all outdoors. Below Neutral the Blackmaw attack you. The nearest flight masters are {area:1237} (Horde) and {area:3137} (Alliance); {npc:235903} camps by the road between them and {area:1225}."] = "",
+	-- {npc:235903} Ekkal
+	["{npc:235903}'s camp"] = "",
 
-	-- Step 17: Ekkal
+	-- Step 16: Ekkal
 	-- {npc:235903} Ekkal · {zone:1447} Azshara · {area:1219} Legashi Encampment
 	-- plural, as words: Legashi Satyrs = {npc:6200} Legashi Satyr
 	["{npc:235903} camps by the road in the middle of {zone:1447}. His satyrs come first: the Legashi Satyrs, Rogues and Hellcallers (51-53) of the {area:1219}, north-east of him."] = "",
 
-	-- Step 18: The Legashi Encampment
+	-- Step 17: The Legashi Encampment
 	-- {area:1219} Legashi Encampment
 	["The {area:1219}"] = "",
 
-	-- Step 21: Ursolan
+	-- Step 20: Ursolan
 	-- {area:1225} Ursolan · {npc:235909} Furze · {npc:236573} Gatekeeper Rageroar · {npc:235906} Elder Bramblesnap
 	["Ride north up the road to {area:1225}. {npc:235909} sits on the camp's south-east side; {npc:236573} and {npc:235906} stand together on its west side."] = "",
 
-	-- Step 22: The Legashi Cauldron
+	-- Step 21: The Legashi Cauldron
 	-- {object:506307} Legashi Cauldron (no name in this language: may be words)
 	["The {object:506307}"] = "",
 	-- {area:1219} Legashi Encampment
 	["Ride east to the {area:1219}: the satyrs' cauldron stands in the middle of their camp."] = "",
 
-	-- Step 23: The Legashi Encampment
+	-- Step 22: The Legashi Encampment
 	["Any of the encampment's satyrs may carry the recipe."] = "",
 
-	-- Step 25: Satyrweed
+	-- Step 24: Satyrweed
 	-- plural, as words: Satyrweed Brambles = {object:507746} Satyrweed Bramble
 	["The Satyrweed Brambles grow all around the encampment."] = "",
 
-	-- Step 26: Korsa
+	-- Step 25: Korsa
 	-- {area:16234} Legashi Stronghold · {npc:236770} Korsa
 	["East to the {area:16234}: {npc:236770}, the missing Blackmaw scout, waits outside it."] = "",
 
-	-- Step 27: Graal
+	-- Step 26: Graal
 	-- {npc:237007} Graal · {npc:235892} Prince Halanox
 	["{npc:237007} is held at the north end of the stronghold: free {npc:237007} and see the breakout through. Careful: {npc:235892} (55, elite) stands just south of there, around 67,19."] = "",
 
-	-- Step 28: The Legashi Stronghold: kill these as you meet them
+	-- Step 27: The Legashi Stronghold: kill these as you meet them
 	-- {area:16234} Legashi Stronghold
 	["The {area:16234}: kill these as you meet them"] = "",
 	-- {npc:235892} Prince Halanox
 	["The Hellraisers, Soulstealers and Blackguards (53-54) hold the stronghold. Careful: {npc:235892} (55, elite) stands at its north-east end, around 67,19: leave him be."] = "",
 
-	-- Step 29: Master Feardred
+	-- Step 28: Master Feardred
 	-- {quest:86777} Master Feardred · {item:235471} Fel Mote
 	["{quest:86777} (53) walks the stronghold's south side; the {item:235471} floats nearby."] = "",
 
-	-- Step 31: The Legashi Cauldron
+	-- Step 30: The Legashi Cauldron
 	["Back west to the cauldron."] = "",
 
-	-- Step 32: Ursolan
+	-- Step 31: Ursolan
 	-- {area:1225} Ursolan
 	["Back west to {area:1225}."] = "",
 	-- {npc:11555} Gorn One Eye · {faction:576} Timbermaw Hold
 	["For {npc:11555} in {faction:576}, at the end of this part"] = "",
 
-	-- Step 33: Mosshoof Coursers
+	-- Step 32: Mosshoof Coursers
 	-- plural, as words: Mosshoof Coursers = {npc:8761} Mosshoof Courser
 	["Mosshoof Coursers"] = "",
 	-- {area:1225} Ursolan · {item:221199} Satyrweed Tincture
 	-- plural, as words: Mosshoof Coursers = {npc:8761} Mosshoof Courser · Thunderhead Skystormers = {npc:6378} Thunderhead Skystormer
 	["The Mosshoof Coursers (52-53) and Thunderhead Skystormers (50-52) graze just east of {area:1225}: bring one low, then use the {item:221199} on it. Three times."] = "",
 
-	-- Step 35: Furze
+	-- Step 34: Furze
 	-- {npc:235909} Furze
 	["Give {npc:235909} the panacea."] = "",
 
-	-- Step 37: To Timbermaw Hold
-	-- {faction:576} Timbermaw Hold
-	["To {faction:576}"] = "",
+	-- Step 36: To Timbermaw Hold
+	-- {area:1769} Timbermaw Hold
+	["To {area:1769}"] = "",
+	-- {zone:1448} Felwood · {area:1997} Bloodvenom Post · {area:1998} Talonbranch Glade
+	["Back to {zone:1448}: fly to {area:1997} (Horde) or {area:1998} (Alliance) and ride north up the road to the {zone:1448} mouth of the tunnel."] = "",
 
-	-- Step 39: Gorn One Eye
-	-- {zone:1448} Felwood · {npc:11555} Gorn One Eye · {npc:11558} Kernda · {npc:11557} Meilosh
-	["Ride north up the road to the {zone:1448} mouth of the tunnel: {npc:11555} stands just inside, by {npc:11558} and {npc:11557}."] = "",
+	-- Step 37: Gorn One Eye
+	-- {npc:11555} Gorn One Eye · {npc:11558} Kernda · {npc:11557} Meilosh
+	["{npc:11555} stands just inside the tunnel, by {npc:11558} and {npc:11557}."] = "",
 
-	-- Step 40: Chieftain Bloodmaw
+	-- Step 38: Chieftain Bloodmaw
 	-- {npc:9462} Chieftain Bloodmaw
 	["{npc:9462} (55-56) leads the Deadwood of Felpaw Village, just west of the tunnel."] = "",
 
-	-- Step 41: Gorn One Eye
+	-- Step 39: Gorn One Eye
 	-- {zone:1447} Azshara · {npc:235892} Prince Halanox
 	["His next task, Blackmaw Counter-Offensive, sends you back to {zone:1447} against {npc:235892}, a level 55 elite: bring a friend."] = "",
 
-	-- Step 42: Neutral to Friendly
+	-- Step 40: Neutral to Friendly
 	["Neutral to Friendly"] = "Neutral bis Freundlich",
 	["Neutral to Friendly is 3,000: 600 kills. Keep all feathers and beads."] = "Von Neutral bis Freundlich sind es 3.000: 600 Kills. Behalte alle Federn und Perlen.",
 
-	-- Step 43: Meilosh
+	-- Step 41: Meilosh
 	-- {npc:11557} Meilosh · {zone:1448} Felwood · {item:13484} Recipe: Transmute Earth to Water · {item:22392} Formula: Enchant 2H Weapon - Agility · {item:20253} Pattern: Warbear Harness · {item:15065} Warbear Woolies · {quest:6031} Runecloth · {item:14342} Mooncloth · {item:15802} Mooncloth Boots
 	["{npc:11557} stands in the tunnel, near its {zone:1448} mouth. From Friendly he sells: {item:13484} (1 gold 50 silver), {item:22392} (2 gold 50 silver), {item:20253} (1 gold 60 silver) and {item:15065} (2 gold). He also takes 30 {quest:6031} once for 100 reputation and a choice of shoulders or gauntlets, and Tailors with skill 290 can bring him 2 {item:14342} for 100 more and the {item:15802} pattern."] = "{npc:11557} steht im Tunnel, nahe der Mündung bei {zone:1448}. Ab Freundlich verkauft er: {item:13484} (1 Gold 50 Silber), {item:22392} (2 Gold 50 Silber), {item:20253} (1 Gold 60 Silber) und {item:15065} (2 Gold). Er nimmt außerdem einmalig 30 {quest:6031} für 100 Ruf und die Wahl zwischen Schultern oder Handschuhen, und Schneider mit Fertigkeit 290 können ihm 2 {item:14342} für 100 mehr und das Muster {item:15802} bringen.",
 
-	-- Step 44: Runecloth for Meilosh
+	-- Step 42: Runecloth for Meilosh
 	-- {quest:6031} Runecloth · {npc:11557} Meilosh
 	["{quest:6031} for {npc:11557}"] = "{quest:6031} für {npc:11557}",
 	-- {quest:6031} Runecloth
 	["{quest:6031} drops from the humanoids of the level 50-60 zones, the Deadwood and Winterfall furbolgs among them."] = "{quest:6031} fällt von den Humanoiden der Zonen der Stufen 50-60, darunter die Deadwood- und Winterquell-Furbolgs.",
 
-	-- Step 45: Sacred Cloth
+	-- Step 43: Sacred Cloth
 	-- {npc:11557} Meilosh · {item:14342} Mooncloth · {item:15802} Mooncloth Boots
 	["Tailors with skill 290: {npc:11557} takes 2 {item:14342} once for 100 reputation and teaches the {item:15802}."] = "Schneider mit Fertigkeit 290: {npc:11557} nimmt einmalig 2 {item:14342} für 100 Ruf an und lehrt das {item:15802}.",
 
-	-- Step 46: Friendly to Honored
+	-- Step 44: Friendly to Honored
 	["Friendly to Honored"] = "Freundlich bis Wohlwollend",
 	-- {npc:11557} Meilosh · {item:19445} Formula: Enchant Weapon - Agility · {item:19202} Pattern: Heavy Timbermaw Belt · {item:19044} Might of the Timbermaw · {skill:165} Leatherworking · {item:19047} Wisdom of the Timbermaw · {skill:197} Tailoring
 	["Friendly to Honored is 6,000: 1,200 kills. Keep all feathers and beads. Honored opens at {npc:11557}: {item:19445} (3 gold), and for 2 gold 20 silver each {item:19202} and {item:19044} ({skill:165}) and {item:19047} ({skill:197})."] = "Von Freundlich bis Wohlwollend sind es 6.000: 1.200 Kills. Behalte alle Federn und Perlen. Wohlwollend öffnet bei {npc:11557}: {item:19445} (3 Gold), und für je 2 Gold 20 Silber {item:19202} und {item:19044} ({skill:165}) und {item:19047} ({skill:197}).",
 
-	-- Step 47: Honored to Revered
+	-- Step 45: Honored to Revered
 	["Honored to Revered"] = "Wohlwollend bis Respektvoll",
 	["Honored to Revered is 12,000: 2,400 kills, the last ones that count. Kills stop at 11,999 of 12,000 Honored and never tip you into Revered: when they stop, hand in one set of 5 feathers or beads to cross over. Saving every feather and bead pays off now: about 4,800 kills from the start to the end of Honored leave you with about 2,100 feathers and beads, and that is all of Revered to Exalted. Turning them in early would cost you about 2,400 more kills."] = "Von Wohlwollend bis Respektvoll sind es 12.000: 2.400 Kills, die letzten, die zählen. Kills hören bei 11.999 von 12.000 Wohlwollend auf und kippen dich nie in Respektvoll: Wenn sie aufhören, gib einen Satz von 5 Federn oder Perlen ab, um hinüberzukommen. Jetzt zahlt es sich aus, jede Feder und jede Perle aufgehoben zu haben: etwa 4.800 Kills vom Start bis zum Ende von Wohlwollend lassen dir etwa 2.100 Federn und Perlen, und das ist ganz Respektvoll bis Ehrfürchtig. Sie früh abzugeben würde dich etwa 2.400 Kills mehr kosten.",
 	-- {item:19445} Formula: Enchant Weapon - Agility · {skill:333} Enchanting
@@ -206,7 +210,7 @@ return {
 	-- {quest:8469} Beads for Salfa
 	["{quest:8469}: or 5 beads"] = "{quest:8469}: oder 5 Perlen",
 
-	-- Step 48: Revered to Exalted
+	-- Step 46: Revered to Exalted
 	["Revered to Exalted"] = "Respektvoll bis Ehrfürchtig",
 	-- {npc:15395} Nafien · {npc:11554} Grazle · {npc:11556} Salfa · {npc:14342} Ragepaw · {npc:10199} Grizzle Snowpaw · {npc:10738} High Chief Winterfall · {npc:11557} Meilosh · {item:19204} Pattern: Heavy Timbermaw Boots · {item:19049} Timbermaw Brawlers · {skill:165} Leatherworking · {item:19050} Mantle of the Timbermaw · {skill:197} Tailoring
 	["Kills stopped at the end of Honored. Revered to Exalted is 21,000: 420 turn-ins, 2,100 feathers and beads. Hand in the feathers to {npc:15395} at the tunnel or {npc:11554} in the south, the beads to {npc:11556}, five at a time. The named furbolgs (Ror, Bloodmaw, {npc:14342}, {npc:10199}, {npc:10738}) still count. Revered opens at {npc:11557}, for 4 gold each: {item:19204} and {item:19049} ({skill:165}) and {item:19050} ({skill:197})."] = "Die Kills haben am Ende von Wohlwollend aufgehört. Von Respektvoll bis Ehrfürchtig sind es 21.000: 420 Abgaben, 2.100 Federn und Perlen. Gib die Federn bei {npc:15395} am Tunnel oder {npc:11554} im Süden ab, die Perlen bei {npc:11556}, je fünf auf einmal. Die benannten Furbolgs (Ror, Bloodmaw, {npc:14342}, {npc:10199}, {npc:10738}) zählen weiter. Respektvoll öffnet bei {npc:11557}, für je 4 Gold: {item:19204} und {item:19049} ({skill:165}) und {item:19050} ({skill:197}).",
@@ -217,11 +221,11 @@ return {
 	-- {quest:8469} Beads for Salfa
 	["{quest:8469}: 5 beads, 50 reputation"] = "{quest:8469}: 5 Perlen, 50 Ruf",
 
-	-- Step 49: The Root of All Evil
+	-- Step 47: The Root of All Evil
 	-- {npc:11555} Gorn One Eye · {npc:11557} Meilosh · {quest:8481} The Root of All Evil · {item:21144} Demon Summoning Torch · {npc:10738} High Chief Winterfall · {npc:15623} Xandivious · {item:21326} Defender of the Timbermaw
 	["At Exalted, {npc:11555}, in the tunnel by {npc:11557}, gives {quest:8481}: plant his {item:21144} in the mouth of {npc:10738}'s cave and defeat the demon {npc:15623} (level 62, elite: bring a group). The reward is {item:21326}, a trinket that calls a Timbermaw ally, and 200 reputation."] = "Bei Ehrfürchtig gibt dir {npc:11555}, im Tunnel bei {npc:11557}, {quest:8481}: Pflanze seine {item:21144} in die Mündung der Höhle von {npc:10738} und besiege den Dämon {npc:15623} (Stufe 62, Elite: bring eine Gruppe mit). Die Belohnung ist {item:21326}, ein Schmuckstück, das einen Verbündeten der Holzschlunds ruft, und 200 Ruf.",
 
-	-- Step 50: Xandivious
+	-- Step 48: Xandivious
 	-- {area:2244} Winterfall Village · {npc:15623} Xandivious
 	["{area:2244}, the cave at the back. Clear the furbolgs around the mouth first, plant the torch, kill {npc:15623} and loot the Essence from his Demon Bag."] = "{area:2244}, die Höhle im hinteren Teil. Räume zuerst die Furbolgs um die Mündung, pflanze die Fackel, töte {npc:15623} und plündere die Essenz aus seinem Dämonenbeutel.",
 	-- {npc:15623} Xandivious
