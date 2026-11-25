@@ -18440,6 +18440,17 @@
 				{ "kind": "in-game-check", "ref": "#3992" }
 			],
 			"issue": 3992
+		},
+		{
+			"id": "4013-goldir-walk-with-the-quest",
+			"faction": "Horde",
+			"at": { "quest": 503, "goal": "turnin", "guide": "forever/horde/30-40/05-arathi-highlands" },
+			"way": { "when": "onquest 503" },
+			"note": "#4013: the walk from Tarren Mill to Gol'dir in Strahnbrad showed to a player without Gol'dir (503), whose stop was hidden because its feeder The Rescue (533) comes from the Hillsbrad guide; the next work, the Bracers of Binding at the Dalaran ruins, lies the other way. The walk is for whoever carries the quest, as the stop already was.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#4013 (asdmasa): /polestar report at step 12 'Go to Gol'dir' with 503 hidden (needs The Rescue) and 557 Bracers of Binding in the log" }
+			],
+			"issue": 4013
 		}
 	]
 }
