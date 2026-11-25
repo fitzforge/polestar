@@ -10946,6 +10946,7 @@ t.guides["forever/professions/skinning"] = (function() return {
 		["Beasts 48-54: {zone:1449} (250-275)"] = "Bestias 48-54: {zone:1449} (250-275)",
 		["Beasts 51-55: {zone:1422} (275-300)"] = "Bestias 51-55: {zone:1422} (275-300)",
 		["Beasts 8-19: {zone:1413} (50-100)"] = "Bestias 8-19: {zone:1413} (50-100)",
+		["Cloudrunner, Galestrider"] = "Correnubes, Trancaventos",
 		["Diemetradon"] = "Diemetradón",
 		["Expert {skill:393}"] = "Experto de {skill:393}",
 		["Expert {skill:393} raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest {skill:393} trainer of your faction."] = "Experto de {skill:393} sube el límite a 225; requiere habilidad 125 y ningún nivel de personaje, y cuesta 50s: apréndelo en cuanto llegues a 125. La flecha elige el instructor de {skill:393} más cercano de tu facción.",

@@ -7883,6 +7883,7 @@ t.guides["forever/professions/skinning"] = (function() return {
 		["Beasts 48-54: {zone:1449} (250-275)"] = "야수 48-54: {zone:1449} (250-275)",
 		["Beasts 51-55: {zone:1422} (275-300)"] = "야수 51-55: {zone:1422} (275-300)",
 		["Beasts 8-19: {zone:1413} (50-100)"] = "야수 8-19: {zone:1413} (50-100)",
+		["Cloudrunner, Galestrider"] = "구름달리기, 바람걸음",
 		["Diemetradon"] = "디메트로돈",
 		["Expert {skill:393}"] = "숙련 {skill:393}",
 		["Expert {skill:393} raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest {skill:393} trainer of your faction."] = "숙련 {skill:393}은(는) 최대 숙련도를 225(으)로 올립니다. 숙련도 125가 필요하고 캐릭터 레벨 제한은 없으며, 50실버가 듭니다. 125가 되면 바로 배우세요. 화살표가 진영의 가장 가까운 {skill:393} 상급자를 가리킵니다.",

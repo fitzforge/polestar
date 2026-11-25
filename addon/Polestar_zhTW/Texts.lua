@@ -9667,6 +9667,7 @@ t.guides["forever/professions/skinning"] = (function() return {
 		["Beasts 48-54: {zone:1449} (250-275)"] = "野獸 48-54：{zone:1449}（250-275）",
 		["Beasts 51-55: {zone:1422} (275-300)"] = "野獸51-55級：{zone:1422}（275-300）",
 		["Beasts 8-19: {zone:1413} (50-100)"] = "野獸 8-19：{zone:1413}（50-100）",
+		["Cloudrunner, Galestrider"] = "雲行者、疾風行者",
 		["Diemetradon"] = "雙帆龍",
 		["Expert {skill:393}"] = "高級{skill:393}",
 		["Expert {skill:393} raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest {skill:393} trainer of your faction."] = "高級{skill:393}將上限提高至 225；需要技能 125，沒有角色等級要求，費用 50銀：一到 125 就去學。箭頭會指向你陣營最近的{skill:393}訓練師。",

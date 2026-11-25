@@ -44,8 +44,7 @@ return {
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}、群爪",
 	["Prideclaw, Galestrider"] = "傲爪獸、風行者",
-	-- was: ["Cloudrunner, Galestrider"] = "雲行者、疾風行者"
-	["Cloudrunner, Galestrider"] = "",
+	["Cloudrunner, Galestrider"] = "雲行者、疾風行者",
 	["Prideclaw, Vuldren"] = "傲爪獸、鷲龍",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)

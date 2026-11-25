@@ -44,8 +44,7 @@ return {
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}, Leozarpa",
 	["Prideclaw, Galestrider"] = "Leozarpa, Zancavientos",
-	-- was: ["Cloudrunner, Galestrider"] = "Correnubes, Trancaventos"
-	["Cloudrunner, Galestrider"] = "",
+	["Cloudrunner, Galestrider"] = "Correnubes, Trancaventos",
 	["Prideclaw, Vuldren"] = "Leozarpa, Vuldren",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)

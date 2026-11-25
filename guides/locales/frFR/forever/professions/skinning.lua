@@ -44,8 +44,7 @@ return {
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}, Fièregriffe",
 	["Prideclaw, Galestrider"] = "Fièregriffe, Trotteur des trombes",
-	-- was: ["Cloudrunner, Galestrider"] = "Coureur des nuages, Trotteur des trombes"
-	["Cloudrunner, Galestrider"] = "",
+	["Cloudrunner, Galestrider"] = "Coureur des nuages, Trotteur des trombes",
 	["Prideclaw, Vuldren"] = "Fièregriffe, Vuldrène",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)

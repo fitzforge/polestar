@@ -44,8 +44,7 @@ return {
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}, Коготь прайда",
 	["Prideclaw, Galestrider"] = "Гордый коготь, ветроног",
-	-- was: ["Cloudrunner, Galestrider"] = "Облачный бегун, Бурный странник"
-	["Cloudrunner, Galestrider"] = "",
+	["Cloudrunner, Galestrider"] = "Облачный бегун, Бурный странник",
 	["Prideclaw, Vuldren"] = "Гордый коготь, вульдрен",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)

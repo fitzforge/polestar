@@ -7651,6 +7651,7 @@ t.guides["forever/professions/skinning"] = (function() return {
 		["Beasts 48-54: {zone:1449} (250-275)"] = "Звери 48-54: {zone:1449} (250-275)",
 		["Beasts 51-55: {zone:1422} (275-300)"] = "Звери 51-55: {zone:1422} (275-300)",
 		["Beasts 8-19: {zone:1413} (50-100)"] = "Звери 8-19: {zone:1413} (50-100)",
+		["Cloudrunner, Galestrider"] = "Облачный бегун, Бурный странник",
 		["Diemetradon"] = "Деметродон",
 		["Expert {skill:393}"] = "{skill:393}: Умелец",
 		["Expert {skill:393} raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest {skill:393} trainer of your faction."] = "{skill:393}, ранг «Умелец»: предел 225; нужен навык 125, уровень персонажа не важен, стоит 50 с: обучитесь, как только достигнете 125. Стрелка ведет к ближайшему учителю вашей фракции ({skill:393}).",
