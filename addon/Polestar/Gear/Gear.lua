@@ -669,7 +669,7 @@ local function buildInfo(link)
 	end
 	return {
 		id = id, link = link, inv = inv, quality = (rec and rec.quality) or quality,
-		-- The client knows the current requirement even when ItemDB is out of date.
+		-- The client's required level wins whenever it answers, including 0.
 		req = minLevel or (rec and rec.req) or 0,
 		class = (rec and rec.class) or class, subclass = (rec and rec.subclass) or subclass,
 		allow = rec and rec.allow or 0, unique = rec and rec.unique or false,
