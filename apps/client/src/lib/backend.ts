@@ -60,7 +60,7 @@ export const api = {
 	openLink: (url: string) => call<void>('open_link', { url }),
 	checkUpdate: () => call<string | null>('check_update'),
 	installUpdate: () => call<void>('install_update'),
-	diagnostics: () => call<{ renderer: string; frameMeter: boolean }>('diagnostics'),
+	diagnostics: () => call<{ renderer: string; frameMeter: boolean; os: string }>('diagnostics'),
 	windowReady: () => call<boolean>('window_ready'),
 	clientLog: (line: string) => call<void>('client_log', { line }),
 	/** The fault page is up: ends the launch test (POLESTAR_SMOKE) as failed; nothing otherwise. */
