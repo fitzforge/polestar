@@ -1989,7 +1989,9 @@ end
 --   Places: those on the target's continent within Walk.measureRange of it, the
 --     nearest MEASURE_MAX, the player among them. Farther ones keep their
 --     straight estimate. With no place but the player nothing is measured (a
---     lone walk is the arrow's own search, above).
+--     lone walk is the arrow's own search, above). The player's walk bounds
+--     the batch (its `bound`, Routing/Path.lua Safe.many): a place whose walk
+--     can't cost less than it keeps its estimate unsearched (e.pruned).
 --   A settled refusal rules out the walk from that start. Unmeasured places
 --     keep their policy-checked estimate. A player's measure is valid only
 --     at the measured position and floor, never shortened by the yards they
@@ -2075,9 +2077,11 @@ end
 -- place's cost only once that walk is checked (Routing/Path.lua Safe.many). A
 -- place the batch left unpriced because the target's floor joins no walk
 -- (e.unjoined) or because the batch spent its expansions (e.capped,
--- Path.manyCap, #3605), or one still unpriced when the planner stopped holding
--- its route for it (e.gaveUp, Walk.GiveUp), keeps its estimate, as a place
--- beyond the measure's reach does (#3553).
+-- Path.manyCap, #3605), or one the batch left because its walk could not
+-- beat the player's own (e.pruned, Path.lua Safe.many's `bound`), or one still
+-- unpriced when the planner stopped holding its route for it (e.gaveUp,
+-- Walk.GiveUp), keeps its estimate, as a place beyond the measure's reach does
+-- (#3553).
 function Walk.UnpricedTransfer(c, x, y, water, goalZ, from)
 	water = water or false
 	local e = measuring
@@ -2085,7 +2089,7 @@ function Walk.UnpricedTransfer(c, x, y, water, goalZ, from)
 	local i = e and placeIndex(e, from.wx, from.wy, from.z)
 	if i == nil then return false end
 	local costs = e.costs or e.partial
-	if (e.unjoined or e.capped or (e.gaveUp and not e.costs)) and e.z == goalZ and (not costs or costs[i] == nil) then return false end
+	if (e.unjoined or e.capped or e.pruned or (e.gaveUp and not e.costs)) and e.z == goalZ and (not costs or costs[i] == nil) then return false end
 	return not (e.checked or (not e.costs and e.partial)) or (goalZ and e.z ~= goalZ) or not costs or type(costs[i]) ~= "number"
 end
 
@@ -2167,7 +2171,7 @@ end
 local function batch(P, mine, z)
 	local pts, water = mine.pts, mine.water
 	mine.z, mine.o = z, mine.o or opts(water, mine.c, nil, nil, mine.x, mine.y, mine.sx, mine.sy)
-	mine.partial, mine.firstPriced, mine.unjoined, mine.capped = nil, false, nil, nil
+	mine.partial, mine.firstPriced, mine.unjoined, mine.capped, mine.pruned = nil, false, nil, nil, nil
 	local inCity = z ~= nil and mine.city
 	local first
 	for i = 1, #pts do
@@ -2192,6 +2196,10 @@ local function batch(P, mine, z)
 		mine.yards = type(answer) == "table" and type(answer.yards) == "table" and answer.yards or nil
 		mine.checked = type(answer) == "table" and answer.walkChecked == true
 		mine.unjoined, mine.capped = type(answer) == "table" and answer.unjoined or nil, type(answer) == "table" and answer.capped or nil
+		-- Places left unpriced because their walk can't beat the player's (answer.pruned): mine.bound is the player's
+		-- cost they were compared with (remeasureStart).
+		mine.pruned = type(answer) == "table" and answer.pruned or nil
+		mine.bound = mine.pruned and mine.si and type(costs[mine.si]) == "number" and costs[mine.si] or nil
 		local found, refused = false, false
 		for i = 1, #pts do
 			if type(costs[i]) == "number" then found = true
@@ -2233,7 +2241,11 @@ end
 -- the player's move changes none of theirs, and the 16-place batch measured
 -- again cost 20-70 MB of garbage per replan near the target. Only when another
 -- place's walk was found (the batch measured again would then find walks at the
--- same height, not ask once more without it). -> started.
+-- same height, not ask once more without it). A measure that left places
+-- unpriced against the player's walk (e.pruned) keeps them so while the
+-- player's new walk costs no more than the one they were compared with
+-- (e.bound); a dearer one (or none) leaves it stale, and the next plan
+-- measures the whole batch again. -> started.
 local function remeasureStart(P, e, c, x, y, water, p)
 	if not (e.lookup and e.costs and e.pts) or e.z ~= city.MeasureZ(P, c, x, y, e.goalZ) then return false end
 	local other = false
@@ -2252,7 +2264,8 @@ local function remeasureStart(P, e, c, x, y, water, p)
 	local si = e.si or #pts + 1
 	pts[si], costs[si] = pt, nil
 	if yards then yards[si] = nil end
-	local mine = { c = c, x = x, y = y, water = water, pts = pts, si = si, sx = pt.x, sy = pt.y, z = e.z, goalZ = e.goalZ, o = o, costs = costs, yards = yards, city = e.city }
+	local mine = { c = c, x = x, y = y, water = water, pts = pts, si = si, sx = pt.x, sy = pt.y, z = e.z, goalZ = e.goalZ, o = o, costs = costs, yards = yards, city = e.city,
+		pruned = e.pruned, bound = e.bound }
 	measuring = mine
 	local ok, handle = pcall(P.FindMany, c, { x = x, y = y, z = e.z, reach = e.z and city.GOAL or nil }, { pt }, function(got, _, answer)
 		if measuring ~= mine then return end
@@ -2265,6 +2278,7 @@ local function remeasureStart(P, e, c, x, y, water, p)
 		mine.checked = e.checked
 		if priced or m == false then costs[si] = m end
 		if yards and priced and type(answer.yards) == "table" then yards[si] = answer.yards[1] end
+		if e.pruned and not (priced and e.bound and m <= e.bound) then mine.stale = true end
 		measured(mine, priced or m == false)
 	end, o, true)
 	if not ok then
@@ -2358,14 +2372,15 @@ function Walk.Measure(c, x, y, water, places, goalZ)
 				break
 			end
 		end
-		if not (start or other) then return false end
-		if start and not other and remeasureStart(P, e, c, x, y, water, start) then return true end
+		if not (start or other or e.stale) then return false end
+		if start and not other and not e.stale and remeasureStart(P, e, c, x, y, water, start) then return true end
 	end
 	-- The places picked, the player's walk, and those the last measure had.
 	local pts, si = {}, nil
 	for _, p in ipairs(pick) do
+		-- The player's own walk bounds the batch (Path.lua Safe.many): a place whose walk can't beat it stays unpriced.
 		pts[#pts + 1] = { x = p.wx, y = p.wy, z = p.z, floors = p.start and p.z == nil and startFloors(c, p.wx, p.wy) or nil,
-			first = p.chosen and not p.start or nil }
+			first = p.chosen and not p.start or nil, bound = p.start or nil }
 		if p.start then si = #pts end
 	end
 	if e then
