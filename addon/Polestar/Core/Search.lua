@@ -540,8 +540,17 @@ local function loadCodex()
 	if codexOn() and C and C.IsLoaded and not C.IsLoaded() and C.Load then C.Load() end
 end
 
+-- The name a localised client's row shows, or nil for the pack's English:
+-- localName first (what Lookup's rows paint, Search.LocalName), then for an
+-- item the client's item cache (Codex.Name). Sort keys and titles both use it.
+local function displayedName(kind, id)
+	local name = localName(kind, id)
+	if name then return name end
+	if NAMES_KIND[kind] == "item" and type(id) == "number" then return ns.Compat.GetItemName(id) end
+end
+
 local function codexTitle(kind, id, rawId, localNames)
-	return (localNames and localName(kind, id)) or ns.Codex.Name(kind, id) or rawId
+	return (localNames and displayedName(kind, id)) or ns.Codex.Name(kind, id) or rawId
 end
 
 local function codexRow(kind, blob, at, title)
@@ -757,10 +766,11 @@ local function mostStatCode(opts)
 	if opts.order == "most" and statLabels[opts.sortStat] then return opts.sortStat end
 end
 
--- Both stat orders use the folded displayed name and a decimal ID whose
--- width sorts first, so equally folded names tie by numeric ID.
+-- Both stat orders use the folded displayed name (the row's title, from
+-- displayedName) and a decimal ID whose width sorts first, so equally folded
+-- names tie by numeric ID.
 local function statOrderKey(kind, blob, at, rawId, useLocalName)
-	local shown = useLocalName and localName(kind, tonumber(rawId))
+	local shown = useLocalName and displayedName(kind, tonumber(rawId))
 	local folded
 	if shown then
 		folded = sub(fold(shown), 2)

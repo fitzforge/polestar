@@ -2929,3 +2929,44 @@ fn an_era_spawn_at_the_same_place_as_a_live_spawn_on_another_map_is_the_live_one
 	.remove(0);
 	assert_eq!(out, json!({ "twin": 9002, "apart": 9001, "unplaced": 9002 }));
 }
+
+#[test]
+fn most_stat_ties_follow_the_displayed_item_cache_name_across_pages() {
+	let data = json!({
+		"items": {
+			"1": { "name": "Charm Alpha", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 12 } },
+			"2": { "name": "Charm Bravo", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 12 } },
+			"3": { "name": "Charm Charlie", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 12 } }
+		}
+	});
+	let pack = write_codex_pack(&data, &CodexOpts::default());
+	let script = [
+		BROWSE_LUA,
+		r#"
+		assert(C.Load() and C.StatCodes())
+		Polestar.Names.Localised = function() return true end
+		Polestar.Names.Ready = function() return true end
+		-- The names pack knows only item 3; the client's item cache knows all three.
+		Polestar.Names.Cached = function(kind, id) if kind == "item" and id == 3 then return "Mu" end end
+		local cache = { [1] = "Zeta", [2] = "Eta", [3] = "Alpha" }
+		Polestar.Compat.GetItemName = function(id) return cache[id] end
+		for _, list in ipairs({
+			function(o) return S.Browse("item", o) end,
+			function(o) return S.Query("charm", o) end,
+		}) do
+			local opts = { order = "most", sortStat = 7, resultKind = "item", kinds = { item = true }, subtitles = false, limit = 1 }
+			local shown = {}
+			for offset = 0, 2 do
+				opts.offset = offset
+				local rows = list(opts)
+				assert(#rows == 1 and rows[1].statAmount == 12)
+				shown[#shown + 1] = S.LocalName("item", rows[1].id) or rows[1].title
+				assert(rows[1].title == shown[#shown], "title " .. tostring(rows[1].title))
+			end
+			assert(table.concat(shown, ",") == "Eta,Mu,Zeta", table.concat(shown, ","))
+		end
+		"#,
+	]
+	.concat();
+	run_with(&script, &Opts { with_pack: false, setup: pack.stub_lua.clone(), ..Default::default() });
+}
