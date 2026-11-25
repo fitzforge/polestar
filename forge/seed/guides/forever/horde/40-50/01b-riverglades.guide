@@ -534,6 +534,7 @@ step Powderfuse Port
 
 step Wharfmaster Whizzbuzz
   when onquest 95120
+  when complete 95120
   turnin 95120
 
 step The pirates' second wave
