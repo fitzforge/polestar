@@ -126,6 +126,30 @@ test('A Supernatural Device follows one class-locked An Earnest Proposition per 
 	assert.ok(corrections.quests[8922].set.preAny.includes(84147), 'the Alliance Druid version 84147 leads to 8922');
 });
 
+// #4169 (Swiftfyre, Skyborne Hunter 58): the Blackrock Spire pick-up guide's step at Deliana listed five copies of
+// Just Compensation, none of them offered, and waited on them. Forever's copies of the Dungeon Set 2 chain's
+// class quests had no class and no prerequisite, so every class saw every copy from the first step. Each copy now
+// names its class (by its set pieces) and the quest before it (as the Classic copy for that class has it), and
+// the Classic copies that a Forever copy for the same class replaces, at the Classic Deliana or Mokvar whom
+// players never meet, leave the data.
+test('Dungeon Set 2: each Forever copy of Just Compensation, Anthion\'s Parting Words and Saving the Best for Last has its class and prerequisite (#4169)', () => {
+	// id: [class, the quest before it]
+	const copies = { 84163: [1024, 8977], 84164: [4, 8977], 84165: [128, 8977], 84166: [2, 8977], 84167: [16, 8977], 84168: [8, 8977], 84169: [256, 8977], 84170: [1, 8977], 97448: [64, 8977],
+		84171: [1024, 8978], 84172: [4, 8978], 84173: [128, 8978], 84174: [16, 8978], 84175: [8, 8978], 84176: [64, 8978], 84177: [256, 8978], 84178: [1, 8978], 97412: [2, 8978],
+		84179: [1024, 9015], 84180: [4, 9015], 84181: [128, 9015], 84182: [2, 9015], 84183: [16, 9015], 84184: [8, 9015], 84186: [1, 9015],
+		84187: [1024, 9015], 84188: [4, 9015], 84189: [128, 9015], 84190: [16, 9015], 84191: [8, 9015], 84192: [64, 9015], 84193: [256, 9015], 84194: [1, 9015],
+		84195: [1024, 8997], 84196: [4, 8997], 84200: [8, 8997], 84202: [1, 8997], 84203: [1024, 8998], 84208: [64, 8998], 84210: [1, 8998] };
+	for (const [id, [cls, pre]] of Object.entries(copies)) {
+		const entry = corrections.quests[id];
+		assert.ok(entry && entry.set && !entry.remove, `${id} has a record`);
+		assert.equal(entry.set.classes, cls, `${id}'s class`);
+		assert.deepEqual(entry.set.preAny, [pre], `${id} after ${pre}`);
+	}
+	for (const id of [8951, 8952, 8953, 8954, 8955, 8956, 8957, 8959, 9016, 9017, 9018, 9019, 9020, 9021, 9022, 8999, 9000, 9004, 9006, 9007, 9011, 9013]) {
+		assert.equal(corrections.quests[id] && corrections.quests[id].remove, true, `the Classic copy ${id} leaves the data`);
+	}
+});
+
 test('the overlay takes mechanics flat or under quests; mechanics 603 and 1064 stay private', () => {
 	const out = overlayCorrections({ mechanics: {} }, { mechanics: { quests: { 603: { note: 'nested' } }, 1064: { note: 'flat' } } });
 	assert.deepEqual(Object.keys(out.mechanics).sort(), ['1064', '603']);
