@@ -2147,7 +2147,12 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   (`Own.waitsOf`); the guide's end stores the rest (`Own.endPending`, from
   `Own.noteEnd` and the completion). Nothing is stored before
   `QUEST_LOG_UPDATE` (`logReady`; the log lags `PLAYER_LOGIN`):
-  `Own.latchCaughtUp` stores the steps passed meanwhile once it can.
+  `Own.latchCaughtUp` stores the steps passed meanwhile once it can. A step
+  stored as skipped can leave out work after it (the prerequisite it handed
+  in no longer comes, `Own.coming`), so `evaluateLoaded` works the live step
+  out again in the same evaluation, storing what that passes in turn, until
+  nothing more is stored: the route never rests on a step left with nothing
+  to do until some event comes.
   `ResetProgress` forgets them; a pack update moves them with the steps
   (`Own.remap`). The live state they read already re-evaluates the guide
   (quest log, `BAG_UPDATE_DELAYED`, zone changes, `PLAYER_LEVEL_UP`,

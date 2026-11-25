@@ -1532,7 +1532,8 @@ end
 -- in this guide (Own.mayComeTrue) waits in Own.whenPending instead, unless
 -- `final` (the guide's end, Own.endPending): then it is stored as skipped.
 -- A level-gated step stored as skipped leaves its accepts waiting for the
--- guides after this one (Own.waitsOf).
+-- guides after this one (Own.waitsOf). True when the step was stored as
+-- skipped (what follows it may be left out with it: evaluateLoaded).
 function Own.latchWhen(s, final)
 	local step = guide.steps[s]
 	if not logReady or not (step and step.when) or not Guides.Matches(step.only, player) then return end
@@ -1553,7 +1554,10 @@ function Own.latchWhen(s, final)
 		state[field][guide.id] = t
 	end
 	t[s] = true
-	if field == "skipped" then Own.waitsOf(step) end
+	if field == "skipped" then
+		Own.waitsOf(step)
+		return true
+	end
 end
 
 -- The steps of guide table g passed with a `when` that can still turn
@@ -1645,12 +1649,15 @@ function Own.waitsOf(step)
 end
 
 -- Once per loaded guide, after the quest log can be read: store the
--- outcomes of steps 1..passed the route moved past before it could.
+-- outcomes of steps 1..passed the route moved past before it could. True
+-- when one was stored as skipped (Own.latchWhen).
 Own.caughtUp = setmetatable({}, { __mode = "k" })
 function Own.latchCaughtUp(passed)
-	if not logReady or Own.caughtUp[guide] then return end
+	if not logReady or Own.caughtUp[guide] then return false end
 	Own.caughtUp[guide] = true
-	for s = 1, passed do Own.latchWhen(s) end
+	local stored = false
+	for s = 1, passed do stored = Own.latchWhen(s) or stored end
+	return stored
 end
 
 -- The player stands in a hearth's or flight's place: the zone or subzone
@@ -5894,12 +5901,14 @@ end
 -- moves on, even after that flight lands and nothing flies on any more
 -- (#1768: the walk up to Thunder Bluff opened again on landing in Camp
 -- Taurajo, and the flight to Camp Taurajo again back in Thunder Bluff). Its
--- accepts waiting for a level are noted (Own.noteWaits).
+-- accepts waiting for a level are noted (Own.noteWaits). True when a step's
+-- `when` was stored as skipped (Own.latchWhen).
 local function latchPassed(from, to)
 	local steps = guide.steps
+	local stored = false
 	for s = from, to do
 		local step = steps[s]
-		Own.latchWhen(s)
+		stored = Own.latchWhen(s) or stored
 		if stepApplies(step) then
 			Own.noteWaits(s)
 			local flown = not Own.goalsDone(s) and (Own.flightPassed(s) or Own.alreadyAcross(s))
@@ -5911,6 +5920,7 @@ local function latchPassed(from, to)
 			end
 		end
 	end
+	return stored
 end
 
 -- isBagCount: see computeCurrent above.
@@ -11005,14 +11015,26 @@ local function evaluateLoaded(active)
 		computed = computeCurrent()
 		lastSig = nil
 	end
+	-- Storing the `when` of the steps the route moves past (latchPassed,
+	-- Own.latchCaughtUp) can leave out work after them: a step stored as
+	-- skipped hands in no prerequisite any more (Own.coming), so an accept
+	-- waiting on it is passed too. The live step is worked out again, with
+	-- the steps that passes stored in turn, until nothing more is stored:
+	-- never a step left with nothing to do, held until some event comes.
+	local passed = (computed or #guide.steps + 1) - 1
+	local stored = passed > passedUpTo and latchPassed(passedUpTo + 1, passed)
+	stored = Own.latchCaughtUp(passed) or stored
+	passedUpTo = passed
+	while stored and not gate do
+		computed = computeCurrent()
+		passed = (computed or #guide.steps + 1) - 1
+		stored = passed > passedUpTo and latchPassed(passedUpTo + 1, passed)
+		passedUpTo = passed
+	end
 	if computed then
 		sawIncomplete = true
 		Own.startWaits(computed)
 	end
-	local passed = (computed or #guide.steps + 1) - 1
-	if passed > passedUpTo then latchPassed(passedUpTo + 1, passed) end
-	Own.latchCaughtUp(passed)
-	passedUpTo = passed
 
 	-- The view of another step: released once it is the live step (or no
 	-- longer applies); while the step looked at gets done it follows forward,
