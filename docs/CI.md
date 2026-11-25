@@ -123,6 +123,43 @@ their figures went 3x over for two days unnoticed (#3730, #4065).
 be over only warn while its issue is open. The workflow names the issue
 beside it, and the fix takes the figure out of the list.
 
+## Memory budgets
+
+Some tests hold what the addon costs in memory, as the client counts it
+(Lua 5.1, `collectgarbage("count")`), to a budget in KiB: the core at login
+and the settings window (forge-addontest's `options_memory`), the guide pack
+(`guides_memory`), the quest database (`questdb_memory`), the walking maps
+(`nav_memory`), the names packs (`names_memory`), what a session builds once
+(`memory_session`), the new-in-Forever quest ids (`new_in_forever`) and the
+baked legs (`tests/legs-memory.test.js`). These figures don't depend on the
+machine's speed, so they fail everywhere, CI included.
+
+**Each budget is the figure measured on the frozen tree plus 3 %, and the
+budgets move once per release, at the code freeze.** Then every memory test
+runs three times on the release branch (the highest figure of the three
+counts), and one pull request sets every budget with less room than that to
+the figure plus 3 %, rounded up, with one table: budget, measured, old
+budget, new budget, headroom. A budget more than 10 % over its figure comes
+down to the figure plus 3 % in the same pull request; one 3 to 10 % over it
+stays. Between freezes no budget is raised: a change that crosses one finds
+what grew and trims it, or waits for the freeze.
+
+The login figure depends on where the checkout is: the harness loads every
+file by its absolute path, and each file's chunk name and the loader's file
+lists keep that path, about 0.7 KiB for each character. The post-merge
+runner's checkout path is 63 characters long, 25 to 35 more than a short
+local one, so it reads the login 17 to 25 KiB higher. The login budget is
+set on the runner's figure: measure it with the checkout mounted at a path
+of the runner's length, or add that difference to a local run. The other
+figures move by 5 KiB at most.
+
+Not budgets of this kind: what one action allocates (a drag step, a hover,
+a lookup, a step change: `settings_session`, `settings_perf`,
+`settings_hover_perf`, the session's churn, `codex-lookup.test.js`), which
+keeps its own margin for run-to-run spread, and the fixed limits (a round
+repeated keeps no more, a switched-off pack costs nothing at login, a race's
+legs stay under 1 MiB resident), which are design limits, not figures.
+
 ## The on-demand workflows
 
 | Workflow | What it runs |
