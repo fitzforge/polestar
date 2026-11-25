@@ -398,7 +398,8 @@ fn a_walked_trail_reads_decoded_clusters_only_and_decodes_nothing_itself_3451() 
 fn a_walked_trail_set_again_snaps_only_its_new_places_and_joins_as_a_fresh_one_3451() {
 	let tmp = TempDir::new("polestar-nav-snaps-");
 	let count = tmp.path().join("count-snaps.lua");
-	std::fs::write(&count, "local _, ns = ...\nstub.navNs = ns\nlocal snap = ns.PathGrid.snap\nstub.snaps = 0\nns.PathGrid.snap = function(...) stub.snaps = stub.snaps + 1 return snap(...) end\n").unwrap();
+	std::fs::write(&count, "local _, ns = ...\nstub.navNs = ns\nlocal snap = ns.PathGrid.snap\nstub.snaps = 0\nns.PathGrid.snap = function(...) stub.snaps = stub.snaps + 1 return snap(...) end\n")
+		.unwrap();
 	let mut files: Vec<String> = toc_entries(&addons_dir().join("Polestar_Nav")).unwrap().into_iter().filter(|f| !f.ends_with(".xml")).collect();
 	let at_grid = files.iter().position(|f| f.ends_with("PathGrid.lua")).unwrap();
 	files.insert(at_grid + 1, count.to_string_lossy().into_owned());
