@@ -115,7 +115,9 @@ const LOGIN_BASE: f64 = 11003.0;
 /// every file by its absolute path, and each file's chunk name and the loader's file lists keep that path: the
 /// runner's checkout path is 32 characters longer than the local one. The same build run with the local checkout
 /// mounted at the runner's path measures 14,806. The budget: 14,850, the runner's figure and headroom.
-const LOGIN: f64 = LOGIN_BASE + 3847.0;
+/// Measured 14,814 KiB locally and 14,833 at the runner's path on next fe1a7484af after #4062, #4078 and #4063 (the
+/// 0.4.3 audit); 0.24 % headroom was too tight for the runner. The budget: 14,900 (Main, reported to Fitz).
+const LOGIN: f64 = LOGIN_BASE + 3897.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile
 /// strings, the preview stage and the skin picker's cards and presets (+400), all out of the login (1,513).

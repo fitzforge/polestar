@@ -187,15 +187,25 @@ local function drop() stub.RunScript(grip, "OnMouseUp", "LeftButton") end
 local function gripAt() local p, rel, rp = grip:GetPoint(1); return { p = p, rp = rp, onF = rel == F } end
 `;
 
-test('the grip sits on the edge that moves: the bottom right, or with Grow upward just over the top right', () => {
-	const [down, up, back] = run(`${DRAG}
+test('the grip sits on the edge that moves while it drags the height: with Grow upward just over the top right under Fixed and Automatic; under Follows the step it keeps the bottom-right corner and widens the window', () => {
+	const [down, fit, fitDrag, fixed, auto, back] = run(`${DRAG}
 		emit(gripAt())
 		Polestar.Set("ui.growUp", true)
 		emit(gripAt())
-		Polestar.Set("ui.growUp", false)
+		drag(500, 600, 560, 600)
+		drop()
+		emit({ w = F:GetWidth(), saved = Polestar.Get("ui.width") })
+		Polestar.Set("ui.heightMode", "fixed")
+		emit(gripAt())
+		Polestar.Set("ui.heightMode", "auto")
+		emit(gripAt())
+		Polestar.Set("ui.heightMode", "fit")
 		emit(gripAt())`);
 	assert.deepEqual(down, { p: 'BOTTOMRIGHT', rp: 'BOTTOMRIGHT', onF: true });
-	assert.deepEqual(up, { p: 'BOTTOMRIGHT', rp: 'TOPRIGHT', onF: true });
+	assert.deepEqual(fit, down, 'Follows the step (the default) with Grow upward: the grip sets the width alone and stays in the corner');
+	assert.deepEqual(fitDrag, { w: 400, saved: 400 }, 'and a drag of it widens the window');
+	assert.deepEqual(fixed, { p: 'BOTTOMRIGHT', rp: 'TOPRIGHT', onF: true });
+	assert.deepEqual(auto, fixed);
 	assert.deepEqual(back, down);
 });
 

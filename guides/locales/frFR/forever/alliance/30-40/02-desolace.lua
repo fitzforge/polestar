@@ -108,7 +108,7 @@ return {
 	-- Step 18: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
 	-- plural, as words: Ancient Kodos = {npc:4702} Ancient Kodo
-	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: the Ancient Kodos (36-37) hit hard: tame them, don't fight them."] = "",
+	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: the Ancient Kodos (36-37) hit hard: tame them, don't fight them."] = "Utilisez {item:13892} de {npc:11596} sur un kodo âgé, mourant ou {npc:4702} : il devient un kodo apprivoisé qui vous suit. Ramenez-le au camp de {npc:11596} ; là, parlez au kodo : il est compté et vous pouvez apprivoiser le suivant. Cinq kodos, un à la fois. Attention : les kodos anciens (36-37) frappent fort : apprivoisez-les, ne les combattez pas.",
 	-- {npc:4702} Ancient Kodo
 	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "sur un Kodo âgé, un Kodo mourant ou un {npc:4702} dans le cimetière ; ne le tuez pas",
 	-- {npc:11596} Smeed Scrabblescrew
@@ -116,9 +116,9 @@ return {
 
 	-- Step 19: Kodo Graveyard: hides and venom
 	-- {area:596} Kodo Graveyard
-	["{area:596}: hides and venom"] = "",
+	["{area:596}: hides and venom"] = "{area:596} : peaux et venin",
 	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher · Ancient Kodos = {npc:4702} Ancient Kodo
-	["The Aged Kodos in the graveyard drop the hides, and the Scorpashi Lashers that hunt around it carry the venom. Careful: the Ancient Kodos (36-37) hit hard: fight only the Aged Kodos."] = "",
+	["The Aged Kodos in the graveyard drop the hides, and the Scorpashi Lashers that hunt around it carry the venom. Careful: the Ancient Kodos (36-37) hit hard: fight only the Aged Kodos."] = "Les kodos âgés ({npc:4700}) du cimetière lâchent les peaux, et les Fouetteurs scorpashi ({npc:4697}) qui chassent autour portent le venin. Attention : les kodos anciens ({npc:4702}, 36-37) frappent fort : ne combattez que les kodos âgés.",
 
 	-- Step 21: Kolkar Village
 	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:5752} Corporal Melkins · {quest:93224} Carved Centaur Totems · {npc:5396} Captain Pentigast

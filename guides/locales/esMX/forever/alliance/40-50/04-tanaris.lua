@@ -136,13 +136,13 @@ return {
 
 	-- Step 26: Tooga
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
-	["The little turtle {npc:5955} wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Take him from the edge and leave the Thistleshrubs (48-50) alone."] = "",
+	["The little turtle {npc:5955} wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Take him from the edge and leave the Thistleshrubs (48-50) alone."] = "La tortuguita {npc:5955} deambula por el borde oeste de {quest:3362} entre varios puntos: la flecha va de uno a otro hasta que la encuentres. Tómala desde el borde y deja en paz a los Cardos (48-50).",
 
 	-- Step 27: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "La escolta de {npc:5955}",
 	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port
-	["Lead {npc:5955} home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "",
+	["Lead {npc:5955} home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "Lleva a {npc:5955} a casa con su esposa {npc:6015}, junto al agua justo al este de {area:977}: camina despacio y las bestias del desierto van a por él, así que mantenlo con vida.",
 	-- {npc:5955} Tooga
 	["{npc:5955}, beside her: Oasis"] = "{npc:5955}, a su lado: Oasis",
 

@@ -48,7 +48,7 @@ return {
 	["Put on the {item:275706} and go into Stromgarde. {npc:266847} waits on a ledge just outside the castle; players reach her by jumping from the roof of the house beside the ledge. Her stash is upstairs in a house near the keep."] = "Vista o {item:275706} e entre em Stromgarde. {npc:266847} espera numa saliência logo fora do castelo; os jogadores chegam até ela pulando do telhado da casa ao lado da saliência. O esconderijo dela fica no andar de cima de uma casa perto da fortaleza.",
 	-- {item:275709} Stolen Funds · {object:656405} Anastasia's Stash (no name in this language: may be words)
 	-- was: ["{item:275709}, in Anastasia's Stash upstairs"] = "{item:275709}, no Esconderijo de Anastasia, no andar de cima"
-	["{item:275709}, in {object:656405} upstairs"] = "",
+	["{item:275709}, in {object:656405} upstairs"] = "{item:275709}, em {object:656405} no andar de cima",
 
 	-- Step 7: Thoradin's Wall: the shipment
 	-- {area:1057} Thoradin's Wall

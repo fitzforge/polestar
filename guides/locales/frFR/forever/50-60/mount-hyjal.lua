@@ -57,7 +57,7 @@ return {
 	-- Step 8: The ancients' outpost
 	["The ancients' outpost"] = "L'avant-poste des ancestraux",
 	-- {npc:248395} Tainted Shrubbery · {item:247892} Verdant Leaves · {npc:248367} Hyacinth · {quest:91755} Leaves to Ligatures · {npc:249235} Kaylaena Springwhisper · {npc:260626} Bluebell · {npc:265586} Thylaen · {npc:248366} Fraxinus
-	["South down the west side of the shrub field to the ancients' outpost. Leave the {npc:248395} for now: their {item:247892} drop only once {npc:248367}'s {quest:91755} is in your log, and the guide brings you back to the shrub field for the leaves and {npc:249235}'s kills together. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "",
+	["South down the west side of the shrub field to the ancients' outpost. Leave the {npc:248395} for now: their {item:247892} drop only once {npc:248367}'s {quest:91755} is in your log, and the guide brings you back to the shrub field for the leaves and {npc:249235}'s kills together. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "Vers le sud le long du côté ouest du champ d'arbustes jusqu'à l'avant-poste des anciens. Laissez les {npc:248395} pour l'instant : leurs {item:247892} ne tombent que lorsque {quest:91755} de {npc:248367} est dans votre journal, et le guide vous ramène au champ d'arbustes pour les feuilles et les victimes de {npc:249235} en même temps. {npc:260626}, la maîtresse de vol, attend près de l'avant-poste ; {npc:248367} et {npc:265586} se tiennent avec l'ancien {npc:248366}.",
 
 	-- Step 9: Celastrus the Bitter
 	-- {quest:91923} Celastrus the Bitter
@@ -225,7 +225,7 @@ return {
 
 	-- Step 50: Rabine Saturna
 	-- {zone:1457} Darnassus · {quest:1123} Rabine Saturna · {quest:1124} Wasteland · {area:2361} Nighthaven
-	["The letter from {zone:1457} is already with {quest:1123}: take {quest:1124} from her, in her house in {area:2361}."] = "",
+	["The letter from {zone:1457} is already with {quest:1123}: take {quest:1124} from her, in her house in {area:2361}."] = "La lettre de {zone:1457} est déjà chez {quest:1123} : prenez {quest:1124} auprès d'elle, dans sa maison à {area:2361}.",
 
 	-- Step 51: Fly to Everlook
 	-- {area:2255} Everlook
@@ -561,14 +561,14 @@ return {
 	-- {area:16866} Dae'gun · {npc:259695} Renalard · {npc:265788} Kal'tinzan · {item:253249} Horde Flag · {object:656786} Troll Remains (no name in this language: may be words) · {quest:96998} Tribal Colors · {npc:255183} Jezerelle the Swaying · {npc:267439} Doomguard Xarkul
 	-- plural, as words: Felguard Sentinels = {npc:249229} Felguard Sentinel · Defiling Hounds = {npc:249230} Defiling Hound · Legion Hulks = {npc:249238} Legion Hulk
 	["Work west back through {area:16866}: the Felguard Sentinels and Defiling Hounds are everywhere, the hounds carry the essence, and the Horde base's rubble (wire, scrap and dung) lies all over it. Light the two bonfires on your way, scout the Horde tower in the middle, take Azgalor's ashes west of the tower, and pick up the abandoned supplies, a few just north-west of {npc:259695} and the rest in the western half: {npc:259695}'s tuft of fur, used on a demon, distracts it while you take them.\nHorde: the demons here also drop the Scraps of Horde Heraldry for {npc:265788}, the old {item:253249} stands in the camp north of the south bonfire, and the {object:656786} at the camp's eastern edge start {quest:96998}.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room. {npc:255183} (61, rare) walks the camp north of the south bonfire: keep away from her.\nCareful: Doomguards (elites, 58-59) stand among the demons, and {npc:267439} (elite, 61) walks the camp: pull the hounds and sentinels to you, away from them."] = "Travaillez vers l'ouest à travers {area:16866} : les Sentinelles de la garde vil et les Molosses profanateurs sont partout, les molosses portent l'essence, et les décombres de la base de la Horde (fil, ferraille et fumier) couvrent tout le sol. Allumez les deux feux de joie en chemin, explorez la tour de la Horde au centre, prenez les cendres d'Azgalor à l'ouest de la tour, et ramassez les fournitures abandonnées, quelques-unes juste au nord-ouest de {npc:259695} et le reste dans la moitié ouest : la touffe de poils de {npc:259695}, utilisée sur un démon, le distrait pendant que vous les prenez.\nHorde : les démons ici laissent aussi tomber les Fragments d'héraldique de la Horde pour {npc:265788}, le vieil {item:253249} se trouve dans le camp au nord du feu de joie sud, et les {object:656786} de la lisière est du camp lancent {quest:96998}.\nAttention : les Mastodontes de la Légion (60, élites rares) foulent le sol des camps de {area:16866} : laissez-leur de la place. {npc:255183} (61, rare) parcourt le camp au nord du feu de joie sud : tenez-vous loin d'elle.\nAttention : les Gardes funestes (élites, 58-59) se tiennent parmi les démons, et {npc:267439} (élite, 61) parcourt le camp : attirez les molosses et les sentinelles vers vous, loin d'eux.",
-	["light it"] = "",
+	["light it"] = "allumez-la",
 	["scout the Horde tower"] = "explorez la tour de la Horde",
 	-- {object:656786} Troll Remains (no name in this language: may be words) · {quest:96998} Tribal Colors · {npc:244511} Zet'gan · {area:16848} Elderwild
 	["{object:656786}: {quest:96998}, for {npc:244511} in {area:16848}; keep it"] = "{object:656786} : {quest:96998}, pour {npc:244511} en {area:16848} ; gardez-la",
 
 	-- Step 127: Drawing Down the Malevolent
 	-- {npc:263394} Bethra'zel the Feeble · {npc:252457} Mazzogore · {npc:263406} Elaena Moonwhisper
-	["{npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them: drain each one first, then fight it. Drained, they are no longer elite and you can take them alone; players in our recordings killed both once drained."] = "",
+	["{npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them: drain each one first, then fight it. Drained, they are no longer elite and you can take them alone; players in our recordings killed both once drained."] = "{npc:263394} et {npc:252457} sont des élites de niveau 60 jusqu'à ce que l'œil de {npc:263406} les draine : drainez chacun d'abord, puis combattez-le. Drainés, ils ne sont plus élites et vous pouvez les affronter seul ; les joueurs de nos enregistrements ont tué les deux une fois drainés.",
 
 	-- Step 129: Bethra'zel the Feeble
 	-- {npc:263394} Bethra'zel the Feeble · {npc:263406} Elaena Moonwhisper · {npc:252457} Mazzogore · {npc:267439} Doomguard Xarkul · {area:16866} Dae'gun

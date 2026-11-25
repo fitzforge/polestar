@@ -270,7 +270,7 @@ return {
 	["{spell:3176} to 160"] = "{spell:3176}: 160까지",
 	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial
 	-- was: ["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176}은(는) 150에서 노란색입니다(노란색 150, 초록색 170, 회색 190). 160까지 약 12번 만드십시오. 한 번에 {item:2453} 2개, {item:2450} 2개, {item:3372} 1개가 듭니다. 제작당 {item:2453} 2개와 {item:2450} 2개; {item:2453}은(는) 15-30 구간에 자랍니다."
-	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. If you got here without learning {spell:3176}, learn it now: an earlier step teaches it."] = "",
+	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. If you got here without learning {spell:3176}, learn it now: an earlier step teaches it."] = "{spell:3176}은(는) 150에서 노란색입니다(노란색 150, 초록색 170, 회색 190): 160까지 약 12번 제작. 매번 {item:2453} 2개, {item:2450} 2개, {item:3372} 1개가 필요합니다. 제작마다 {item:2453} 두 개와 {item:2450} 두 개. {item:2453}은(는) 15-30레벨 지역에서 자랍니다. {spell:3176}을(를) 배우지 않고 여기까지 왔다면 지금 배우십시오: 앞의 단계에서 가르칩니다.",
 
 	-- Step 55: Alchemy recipes at 160
 	-- {skill:171} Alchemy
@@ -357,7 +357,7 @@ return {
 	["{item:8951} to 230"] = "{item:8951}: 230까지",
 	-- {item:8951} Elixir of Defense · {item:3355} Wild Steelbloom · {item:3821} Goldthorn · {item:3372} Leaded Vial · {zone:1418} Badlands
 	-- was: ["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951}은(는) 225에서 노란색입니다(노란색 215, 초록색 235, 회색 255). 230까지 약 8번 만드십시오. 한 번에 {item:3355} 1개, {item:3821} 1개, {item:3372} 1개가 듭니다. {item:3355}와(과) {item:3821}은(는) 30-45 구간의 약초입니다(스트렝글손, 아라시, {zone:1418})."
-	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). If you got here without learning {item:8951}, learn it now: an earlier step teaches it."] = "",
+	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). If you got here without learning {item:8951}, learn it now: an earlier step teaches it."] = "{item:8951}은(는) 225에서 노란색입니다(노란색 215, 초록색 235, 회색 255): 230까지 약 8번 제작. 매번 {item:3355} 1개, {item:3821} 1개, {item:3372} 1개가 필요합니다. {item:3355}와(과) {item:3821}은(는) 30-45레벨 지역의 약초입니다(가시덤불 골짜기, 아라시, {zone:1418}). {item:8951}을(를) 배우지 않고 여기까지 왔다면 지금 배우십시오: 앞의 단계에서 가르칩니다.",
 
 	-- Step 70: Alchemy recipes at 230
 	-- {skill:171} Alchemy

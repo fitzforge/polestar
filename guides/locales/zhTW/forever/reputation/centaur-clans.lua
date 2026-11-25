@@ -112,7 +112,7 @@ return {
 	-- {npc:253713} Mulara
 	["{npc:253713}, in the cave"] = "{npc:253713}，在洞穴裡",
 	-- {npc:253713} Mulara
-	["three Tears of Theradras, in {npc:253713}'s cave"] = "",
+	["three Tears of Theradras, in {npc:253713}'s cave"] = "三顆瑟拉達斯之淚，在{npc:253713}的洞穴裡",
 
 	-- Step 15: Gelkis: Test Your Theory
 	-- {quest:93045} Test Your Theory

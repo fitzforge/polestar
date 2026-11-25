@@ -57,7 +57,7 @@ return {
 	-- Step 8: The ancients' outpost
 	["The ancients' outpost"] = "Der Außenposten der Uralten",
 	-- {npc:248395} Tainted Shrubbery · {item:247892} Verdant Leaves · {npc:248367} Hyacinth · {quest:91755} Leaves to Ligatures · {npc:249235} Kaylaena Springwhisper · {npc:260626} Bluebell · {npc:265586} Thylaen · {npc:248366} Fraxinus
-	["South down the west side of the shrub field to the ancients' outpost. Leave the {npc:248395} for now: their {item:247892} drop only once {npc:248367}'s {quest:91755} is in your log, and the guide brings you back to the shrub field for the leaves and {npc:249235}'s kills together. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "",
+	["South down the west side of the shrub field to the ancients' outpost. Leave the {npc:248395} for now: their {item:247892} drop only once {npc:248367}'s {quest:91755} is in your log, and the guide brings you back to the shrub field for the leaves and {npc:249235}'s kills together. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "Nach Süden an der Westseite des Strauchfelds entlang zum Außenposten der Urtume. Lass die {npc:248395} vorerst in Ruhe: Ihre {item:247892} fallen erst, wenn {quest:91755} von {npc:248367} in deinem Questlog ist, und der Guide bringt dich für die Blätter und die Kills für {npc:249235} zusammen zurück zum Strauchfeld. {npc:260626}, die Flugmeisterin, wartet beim Außenposten; {npc:248367} und {npc:265586} stehen beim Urtum {npc:248366}.",
 
 	-- Step 9: Celastrus the Bitter
 	-- {quest:91923} Celastrus the Bitter

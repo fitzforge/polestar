@@ -150,7 +150,7 @@ return {
 	-- Step 26: Eleanor Shackleton
 	-- {area:159} Brill · {zone:1458} Undercity
 	-- was: ["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, at Linnea's camp, or in the {zone:1458} in the next guide."] = "엘리노어 섀클턴은 마을 바로 남서쪽에서 야영합니다. 전문 기술을 배웠다면 그녀가 해당 야영 기초 퀘스트도 주며, 그 기술의 상급자에게 가져가면 됩니다. 상급자는 {area:159}, 리니아의 야영지, 또는 다음 가이드의 {zone:1458}에 있습니다."
-	["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, east of {area:159} for fishing, at Linnea's camp, or in the {zone:1458} in the next guide."] = "",
+	["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, east of {area:159} for fishing, at Linnea's camp, or in the {zone:1458} in the next guide."] = "엘리노어는 마을 바로 남서쪽에서 야영합니다. 전문 기술을 배웠다면 그녀도 해당 야영 101을 주며, 그 상급자가 받습니다: {area:159}에서, 낚시는 {area:159} 동쪽에서, 린니아의 야영지에서, 또는 다음 가이드의 {zone:1458}에서.",
 	-- {spell:1229451} Boosted Rest
 	["/sit by her campfire until you get {spell:1229451}"] = "{spell:1229451}을(를) 얻을 때까지 그녀의 모닥불 옆에서 /앉기 하세요",
 
@@ -210,9 +210,9 @@ return {
 
 	-- Step 37: Camping 101: Fishing
 	-- {npc:5690} Clyde Kellen · {skill:356} Fishing
-	["{npc:5690} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:5690} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:356} 숙련도가 20이 되면 {npc:5690}이(가) 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 	-- {npc:5690} Clyde Kellen
-	["Eleanor: for {npc:5690}"] = "",
+	["Eleanor: for {npc:5690}"] = "엘리노어: {npc:5690}에게",
 
 	-- Step 38: Brill
 	-- {npc:1518} Apothecary Johaan · {npc:1515} Executor Zygand · {npc:1499} Magistrate Sevren
@@ -466,7 +466,7 @@ return {
 
 	-- Step 82: Clyde Kellen
 	-- {npc:5690} Clyde Kellen · {area:159} Brill · {quest:97956} Camping 101: Fishing
-	["{npc:5690}, east of {area:159}: {quest:97956}"] = "",
+	["{npc:5690}, east of {area:159}: {quest:97956}"] = "{npc:5690}, {area:159} 동쪽: {quest:97956}",
 
 	-- Step 83: Leonid Barthalomew the Revered
 	-- {area:159} Brill · {area:157} Agamand Mills · {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {area:16881} Shadowvale

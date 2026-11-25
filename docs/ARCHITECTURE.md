@@ -250,7 +250,7 @@ them are keyed by step position: `stepKeys` (a hash per step of its verbs and
 ids) lets a pack update carry them to the steps it kept (see "Placement"),
 and, for a step it changed, to the step that has the same goal now: the
 changed step's goals come from `ns.LegacySteps` (Core/LegacySteps.lua,
-written by `forge guide legacy-steps` from earlier releases' guides), so a
+written by `forge guide legacy-steps` from the guides earlier releases shipped), so a
 check-off goes to the goal with the same verb and quest (or item, landing),
 a skip and the saved view to the step sharing most of its quest goals
 (`Own.remap`, `Own.legacyMaps`). The save's keys are those of the steps as
@@ -323,7 +323,10 @@ says so, naming the guide by its title in the save's release
 notes no update (`Own.noteAdded`: nearly all of it would pass) and opens
 where the log puts the player (`Own.logPlaced`, `Own.noteMovedBehind`): the
 last step with progress on a quest of the log (a quest an earlier release
-offered in another guide counting), else the first with work of one; its
+offered in another guide counting), read first among the steps the save had,
+in the save's order (`Own.reworkedOrder`, noted by `checkShape`: a part of the
+guide moved elsewhere keeps the player where their own route got, 0.4.1.1
+-> 0.4.3 Burning Steppes' Azshara), else the first with work of one; its
 steps before pass as an update's new steps do.
 
 ### Profiles
@@ -2145,7 +2148,12 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   (`Own.waitsOf`); the guide's end stores the rest (`Own.endPending`, from
   `Own.noteEnd` and the completion). Nothing is stored before
   `QUEST_LOG_UPDATE` (`logReady`; the log lags `PLAYER_LOGIN`):
-  `Own.latchCaughtUp` stores the steps passed meanwhile once it can.
+  `Own.latchCaughtUp` stores the steps passed meanwhile once it can. A step
+  stored as skipped can leave out work after it (the prerequisite it handed
+  in no longer comes, `Own.coming`), so `evaluateLoaded` works the live step
+  out again in the same evaluation, storing what that passes in turn, until
+  nothing more is stored: the route never rests on a step left with nothing
+  to do until some event comes.
   `ResetProgress` forgets them; a pack update moves them with the steps
   (`Own.remap`). The live state they read already re-evaluates the guide
   (quest log, `BAG_UPDATE_DELAYED`, zone changes, `PLAYER_LEVEL_UP`,
@@ -2609,7 +2617,10 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   predicate holds (`Own.predicateHolds`) and saves the step and every step
   before the labelled one as `"jump"` in `CharState().skipped` (a skip already
   there stays), and `computeCurrent` goes on from there. A step done before
-  the route reaches it never jumps. `Unskip`, and `Goto` on a jumped step with
+  the route reaches it never jumps, nor does any once the player went into
+  its block (`Own.jumpEntered`: a step before it with a jump to the same
+  label done, or quest work of theirs done in one up to it; a save from a
+  release without the jump). `Unskip`, and `Goto` on a jumped step with
   `skipto`, mark it in `CharState().when` (`Own.keep`), so it takes no second
   jump. A `done` predicate (`Own.labelDone`) holds when the labelled step
   applies, is not skipped and its goals are done (`Own.goalsDone`, which is
@@ -6689,7 +6700,9 @@ needs it is (`QuestDB.IsWanted()`: map/minimap objectives, available quests,
 turn-ins, tooltips, nameplates); turning the first one on later loads it then,
 and a load refused in combat is retried when combat ends. It fires
 `QUESTDB_LOADED`, then `QUESTDB_STARTED`; `QUESTDB_UPDATED` follows every
-change to the tracked quest log. Record layouts: `rust/crates/forge-data/src/questdb.rs`;
+change to the tracked quest log; `QUESTDB_ITEM_QUESTS` once the item-to-quests
+index the bags' leftover borders read (`QuestDB.ItemQuests`, built over frames,
+`QuestDB.ITEM_SLICE` quests a frame) is in. Record layouts: `rust/crates/forge-data/src/questdb.rs`;
 the records stay LuaChunks text (`Core/LuaChunks.lua`) and are decoded when read, so the
 loaded database costs about 1.2 MiB, not the 6.6 MiB of tables it took (#693).
 An entity's spawn clusters (70 yd) cover every known spawn on each map (the
@@ -9611,7 +9624,10 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   "fit" (Follows the step, the default) as above; "fixed" keeps the window
   at that height for a short step too (the progress bar under the last goal
   or, `ui.footAt` "edge", on the window's edge), resized by the grip; "auto"
-  takes all the room on screen from the pinned edge, less a margin. Past the
+  takes all the room on screen from the pinned edge, less a margin. Under
+  "fixed" and "auto" the grip drags the height too and sits on the edge that
+  moves (`GF.PlaceGrip`: just over the top right with Grow upward); under
+  "fit" it sets the width alone and keeps the bottom-right corner. Past the
   cap the goals area ends on a whole goal or line, never inside one (a
   wrapped goal's second line was cut in half under the tip): the bottom of
   the last one that fits from which the wheel's last stop is a goal's top

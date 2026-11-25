@@ -31,17 +31,17 @@ return {
 	["{area:1038}: kill these as you meet them"] = "{area:1038} : tuez-les au passage",
 	-- {area:1036} Angerfang Encampment · {area:205} Dun Modr · {area:1025} Green Belt · {item:280331} Malignant Rotclaw Flesh · {quest:98283} Carnage
 	-- plural, as words: Maddened Rotclaws = {npc:271334} Maddened Rotclaw
-	["The whelps nest in the hills north-east of the {area:1036}, and the Razormaw raptors hunt the highlands on the way north to {area:205}. The Maddened Rotclaws that roam these hills and the {area:1025} drop the {item:280331} that calls {quest:98283} out.\n{quest:98283} is elite: grouping up is advised."] = "",
+	["The whelps nest in the hills north-east of the {area:1036}, and the Razormaw raptors hunt the highlands on the way north to {area:205}. The Maddened Rotclaws that roam these hills and the {area:1025} drop the {item:280331} that calls {quest:98283} out.\n{quest:98283} is elite: grouping up is advised."] = "Les dragonnets nichent dans les collines au nord-est de {area:1036}, et les raptors Tranchegueule chassent sur les hauteurs en route vers le nord pour {area:205}. Les Pourrigriffes enragés ({npc:271334}) qui errent dans ces collines et à {area:1025} lâchent {item:280331} qui fait sortir {quest:98283}.\n{quest:98283} est élite : il est conseillé de grouper.",
 	-- {item:280331} Malignant Rotclaw Flesh · {quest:98283} Carnage
-	["{item:280331}, for {quest:98283}"] = "",
+	["{item:280331}, for {quest:98283}"] = "{item:280331}, pour {quest:98283}",
 
 	-- Step 8: Carnage
 	-- {quest:98283} Carnage · {item:280331} Malignant Rotclaw Flesh · {area:1038} Dragonmaw Gates
-	["{quest:98283} only comes out when the {item:280331} is used at his lair on the hill north of the {area:1038}. He is a level 30 elite: grouping up is advised."] = "",
+	["{quest:98283} only comes out when the {item:280331} is used at his lair on the hill north of the {area:1038}. He is a level 30 elite: grouping up is advised."] = "{quest:98283} ne sort que lorsque {item:280331} est utilisé à son antre sur la colline au nord de {area:1038}. C'est un élite de niveau 30 : il est conseillé de grouper.",
 	-- {quest:98283} Carnage
-	["{quest:98283} comes out to it"] = "",
+	["{quest:98283} comes out to it"] = "{quest:98283} sort pour elle",
 	-- {item:280331} Malignant Rotclaw Flesh · {quest:98283} Carnage
-	["Use the {item:280331} at {quest:98283}'s lair"] = "",
+	["Use the {item:280331} at {quest:98283}'s lair"] = "Utilisez {item:280331} à l'antre de {quest:98283}",
 
 	-- Step 9: Razormaw nests
 	["Razormaw nests"] = "Nids de Tranchegueule",
@@ -77,7 +77,7 @@ return {
 	-- Step 15: Captive Fire Elemental
 	-- {npc:275049} Captive Fire Elemental · {object:147516} Dark Iron · {npc:1364} Balgaras the Foul · {npc:1072} Roggo Harlbarrow
 	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {npc:271481} est retenu tout à l'ouest des ruines des nains {object:147516}, après des nains élites de niveau 27-30, et {npc:1364} (34, élite) peut se trouver parmi eux. Ramenez-le vers l'est hors des ruines, puis rendez la quête à {npc:1072}, dans le camp. Passez-la si vous êtes seul."
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:275049} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:275049} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "Ce sont des monstres élites : il est conseillé de grouper, cherchez des gens avec qui le faire. {npc:275049} est retenu à l'extrémité ouest des ruines de {object:147516}, au-delà de nains élites de niveau 27-30, et {npc:1364} (34, élite) peut se trouver parmi eux. Menez-le vers l'est hors des ruines, puis rendez-le à {npc:1072} au camp. Passez-la si vous êtes seul.",
 
 	-- Step 16: Modr
 	-- {npc:271460} Modr · {area:205} Dun Modr · {item:279996} Goaz Stone
@@ -163,7 +163,7 @@ return {
 
 	-- Step 34: Prospector Whelgar
 	-- {item:287959} Titan Relic · {npc:1077} Prospector Whelgar · {quest:98824} Prehistoric Prism
-	["The {item:287959} is already with {npc:1077}: take {quest:98824} from him, below ground in his dig, south of the road west."] = "",
+	["The {item:287959} is already with {npc:1077}: take {quest:98824} from him, below ground in his dig, south of the road west."] = "{item:287959} est déjà chez {npc:1077} : prenez {quest:98824} auprès de lui, sous terre dans son chantier de fouilles, au sud de la route vers l'ouest.",
 
 	-- Step 35: Menethil Harbor
 	["West along the road to Menethil."] = "À l'ouest par la route jusqu'au Port de Menethil.",

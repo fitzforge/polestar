@@ -41,7 +41,7 @@ return {
 	-- {object:12666} Twilight Tome · {quest:948} Onu · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
 	-- was: ["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater; {npc:3584} stands on its north side. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "Espreitalunas Machos rondam a mata ao redor da glaive. {object:12666} fica no fundo da cratera; {npc:3584} fica no lado norte. Para a missão de {quest:948}, use {item:5251} no fundo da cratera: isso cria {object:10076}, e você entrega a missão na tigela."
-	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "",
+	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "Grandes Espreitadores da Lua rondam a floresta ao redor da glaive. {object:12666} fica no fundo da cratera. Para a missão de {quest:948}, use {item:5251} no fundo da cratera: isso cria {object:10076}, e você entrega a missão à tigela.",
 	-- plural, as words: Fine Moonstalker Pelts = {item:5386} Fine Moonstalker Pelt
 	["Fine Moonstalker Pelts"] = "Pelagens de Espreitaluna Finas",
 	-- {item:5352} Book: The Powers Below
@@ -58,7 +58,7 @@ return {
 
 	-- Step 7: Therylune
 	-- {npc:3584} Therylune · {zone:1440} Ashenvale
-	["{npc:3584} stands on the north side of the crater: escort her out of the glaive. Therysil takes the turn-in in {zone:1440}."] = "",
+	["{npc:3584} stands on the north side of the crater: escort her out of the glaive. Therysil takes the turn-in in {zone:1440}."] = "{npc:3584} fica no lado norte da cratera: escolte-a para fora da glaive. Therysil recebe a entrega em {zone:1440}.",
 	-- {zone:1440} Ashenvale
 	["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "Escolte-a para fora da glaive; Therysil recebe a entrega em {zone:1440}",
 
@@ -120,7 +120,7 @@ return {
 
 	-- Step 21: Volcor
 	-- {npc:3692} Volcor · {area:449} Master's Glaive · {area:455} Blackwood Den
-	["{npc:3692} hides in the hills east of the {area:449}, inside {area:455}."] = "",
+	["{npc:3692} hides in the hills east of the {area:449}, inside {area:455}."] = "{npc:3692} se esconde nas colinas a leste de {area:449}, dentro de {area:455}.",
 	-- {npc:3692} Volcor · {area:455} Blackwood Den
 	["{npc:3692}, inside {area:455}"] = "{npc:3692}, dentro de {area:455}",
 	-- {npc:12298} Sickly Deer · {item:15826} Curative Animal Salve · {zone:1439} Darkshore
@@ -130,9 +130,9 @@ return {
 
 	-- Step 22: Escort Volcor
 	-- {npc:3692} Volcor
-	["Escort {npc:3692}"] = "",
+	["Escort {npc:3692}"] = "Escolte {npc:3692}",
 	-- {npc:3692} Volcor · {npc:3693} Terenthis · {area:442} Auberdine
-	["Help {npc:3692} back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "",
+	["Help {npc:3692} back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "Ajude {npc:3692} a voltar para a estrada; ele luta na saída. {npc:3693} recebe a escolta em {area:442} na próxima visita.",
 	["His walk ends at the road, where Grimclaw waits"] = "A caminhada dele termina na estrada, onde Garratroz espera",
 
 	-- Step 23: Auberdine
@@ -178,7 +178,7 @@ return {
 
 	-- Step 34: Dendrite Starblaze
 	-- {item:15885} Pendant of the Sea Lion · {npc:11802} Dendrite Starblaze · {quest:5061} Aquatic Form
-	["The {item:15885} is already with {npc:11802}: take {quest:5061} from him, upstairs in his building."] = "",
+	["The {item:15885} is already with {npc:11802}: take {quest:5061} from him, upstairs in his building."] = "{item:15885} já está com {npc:11802}: pegue {quest:5061} com ele, no andar de cima do prédio dele.",
 
 	-- Step 35: Back to Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze
