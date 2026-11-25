@@ -20,9 +20,12 @@ concurrency:
 
 # Lanes (tools/ci-lane.js, docs/CI.md "Lanes"): a pull request that changes
 # documentation alone gets the checks every tracked file gets (wording, names,
-# SVGs) and skips the forge build and the Node suite; anything else, or
-# anything unsure, and every push run the full lane. Tests reports either way,
-# so the required check never waits on a skipped job.
+# SVGs); one that changes only guides, the addon's Lua, data, changelog
+# fragments and documentation (the part lane) gets forge from the cache, the
+# Node tests those changes can break and each area's checks; anything else
+# (Rust, the Node tools and tests, workflows, anything unsure) and every push
+# run the full lane. Tests reports either way, so the required check never
+# waits on a skipped job.
 jobs:
   test:
     name: Tests
@@ -66,6 +69,7 @@ jobs:
             echo "lane=full" >> "$GITHUB_OUTPUT"
             printf '## Lane: full\n\n- %s\n' "$EVENT: every check" >> "$GITHUB_STEP_SUMMARY"
           fi
+          echo "base=$from" >> "$GITHUB_OUTPUT"
 
       - name: Documentation checks
         if: steps.lane.outputs.lane == 'docs'
@@ -74,48 +78,140 @@ jobs:
         run: node --test $TESTS
 
       - name: Install Lua 5.1
-        if: steps.lane.outputs.lane == 'full'
+        if: steps.lane.outputs.lane != 'docs'
         run: sudo apt-get update -q && sudo apt-get install -y -q lua5.1
 
-      # The guide, data and release commands are forge's (rust/): build it
-      # first, so the Node tests that run it (tests/helpers/cli.js, $FORGE)
-      # run instead of skipping. The quick profile: release without LTO.
+      # The guide, data and release commands are forge's (rust/): the Node
+      # tests that run it (tests/helpers/cli.js, $FORGE) run instead of
+      # skipping. The binary is cached by the code it is built from (rust/ and
+      # the Lua it embeds), so a pull request that changes no Rust takes the
+      # one a run on next built; only a miss builds it (the quick profile:
+      # release without LTO). Pushes save it; pull requests only read it.
+      - name: Forge cache key
+        id: forgekey
+        if: steps.lane.outputs.lane != 'docs'
+        run: echo "key=forge-quick-${{ runner.os }}-${{ hashFiles('rust/**', 'tests/lua/simulate.lua') }}" >> "$GITHUB_OUTPUT"
+
+      - name: Forge (cache)
+        id: forgecache
+        if: steps.lane.outputs.lane != 'docs'
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: rust/target/quick/forge
+          key: ${{ steps.forgekey.outputs.key }}
+
       - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
-        if: steps.lane.outputs.lane == 'full'
+        if: steps.lane.outputs.lane != 'docs' && steps.forgecache.outputs.cache-hit != 'true'
         with:
           toolchain: stable
 
       - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
-        if: steps.lane.outputs.lane == 'full'
+        if: steps.lane.outputs.lane != 'docs' && steps.forgecache.outputs.cache-hit != 'true'
         with:
           workspaces: rust
           key: ci
 
       - name: Build forge
-        if: steps.lane.outputs.lane == 'full'
+        if: steps.lane.outputs.lane != 'docs' && steps.forgecache.outputs.cache-hit != 'true'
         working-directory: rust
+        run: cargo build --profile quick --locked -p forge
+
+      - name: Forge (save)
+        if: steps.lane.outputs.lane != 'docs' && steps.forgecache.outputs.cache-hit != 'true' && github.event_name == 'push'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: rust/target/quick/forge
+          key: ${{ steps.forgekey.outputs.key }}
+
+      - name: Forge path
+        if: steps.lane.outputs.lane != 'docs'
         run: |
-          cargo build --profile quick --locked -p forge
+          test -x rust/target/quick/forge
           echo "FORGE=$GITHUB_WORKSPACE/rust/target/quick/forge" >> "$GITHUB_ENV"
 
-      # A fresh clone has no built data (it needs the game client and local
-      # sources), so the tests that read it skip with a reason.
+      # The reference data (docs/CI.md, "Reference data"): a pull request's
+      # tests read the public data next's last run built (ci-data.yml), the
+      # entry of the commit it merges into or else the newest, and fail only
+      # on failures next's run on it does not have (.ci/baseline.jsonl).
+      # Pushes run without it; ci-data.yml runs next's suite on it.
+      - name: Public data (cache)
+        id: data
+        if: steps.lane.outputs.lane != 'docs' && github.event_name != 'push'
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            data/forever
+            data/sources/wago
+            .ci/baseline.jsonl
+          key: public-data-${{ steps.lane.outputs.base }}
+          restore-keys: public-data-
+
+      - name: Public data
+        if: steps.lane.outputs.lane != 'docs'
+        env:
+          MATCHED: ${{ steps.data.outputs.cache-matched-key }}
+          BASE: ${{ steps.lane.outputs.base }}
+          # This repository's own branches: a failure of a test neither next's baseline nor the base checkout has (one
+          # the pull request adds or renames) only warns here, since their Release data job runs it on the release
+          # data (tools/ci-failures.js --unseen-ok). One the base has is run there too (tools/ci-tests.sh).
+          OWN: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository }}
+        run: |
+          if [ -f .ci/baseline.jsonl ]; then
+            echo "BASELINE=.ci/baseline.jsonl" >> "$GITHUB_ENV"
+            echo "CI_BASE=$RUNNER_TEMP/base" >> "$GITHUB_ENV"
+            [ "$OWN" = true ] && echo "CI_UNSEEN_OK=1" >> "$GITHUB_ENV"
+            note="the public data of ${MATCHED#public-data-}"
+            [ "${MATCHED#public-data-}" = "$BASE" ] || note="$note (next's newest; the base's own is not built yet)"
+          else
+            note="none: the tests that read data/forever skip"
+          fi
+          echo "Reference data: $note"
+          printf '## Reference data\n\n%s\n' "$note" >> "$GITHUB_STEP_SUMMARY"
+
+      # The part lane runs the test files its changes can break
+      # (tools/testsel.js, from the base's copy), the full lane every one.
       - name: Test
         if: steps.lane.outputs.lane == 'full'
-        run: npm test
+        run: tools/ci-tests.sh "${BASELINE:-}" "tests/**/*.test.js"
+
+      - name: Test (the files the changes can break)
+        if: steps.lane.outputs.lane == 'part'
+        env:
+          TESTS: ${{ steps.lane.outputs.tests }}
+        run: tools/ci-tests.sh "${BASELINE:-}" $TESTS
 
       # Every changelog fragment in changes/ has a section and an entry, and
       # CHANGELOG.md has no "Unreleased" section of its own.
       - name: Changelog fragments
-        if: steps.lane.outputs.lane == 'full'
+        if: steps.lane.outputs.lane != 'docs'
         run: $FORGE changelog check --root .
 
       # The interface translations: every locale file loads, no stale key, no
       # broken format; glossary drift only warns. The forge-i18n tests check
       # the same; this step prints each language's counts and warnings.
       - name: Translations
-        if: steps.lane.outputs.lane == 'full'
+        if: steps.lane.outputs.lane != 'docs'
         run: $FORGE i18n check --root .
+
+      # No generated guide or seed file edited without its checksum
+      # (guides/GENERATED.json, forge/seed/SEED.json; docs/FORGE.md).
+      - name: Generated guides
+        if: steps.lane.outputs.lane == 'full' || contains(steps.lane.outputs.areas, 'guides')
+        run: $FORGE guide check-generated --checkout .
+
+      # The guide texts (docs/CI.md, "Guide texts"): the languages whose texts
+      # the change can break, on the public data, failing only on errors the
+      # base's own texts do not have on the same data.
+      - name: Guide texts
+        if: steps.lane.outputs.lane != 'docs' && steps.lane.outputs.locales != ''
+        env:
+          LOCALES: ${{ steps.lane.outputs.locales }}
+        run: |
+          if [ -z "${BASELINE:-}" ] || [ ! -d "$RUNNER_TEMP/base" ]; then
+            echo "::notice::No reference data or base checkout in this run: the Release data job and the post-merge gates check the guide texts."
+            exit 0
+          fi
+          tools/ci-guide-texts.sh "$RUNNER_TEMP/base" "$LOCALES"
 
       # The textures build in textures.yml, only when their inputs change.
 
@@ -125,5 +221,5 @@ jobs:
       # merging UI PRs (polestar regen). A UI change never requires a guide
       # recompile; a guide change never affects these renders.
       - name: Previews build clean
-        if: steps.lane.outputs.lane == 'full'
+        if: steps.lane.outputs.lane == 'full' || contains(steps.lane.outputs.areas, 'lua')
         run: node tools/polestar.js preview

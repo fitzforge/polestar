@@ -9,6 +9,7 @@ const PRELUDE: &str = r#"
 local N = Polestar.Nav
 local A = N.arrow
 local nav = stub.nav
+Polestar.Set("nav.navRouting", false) -- Show the goal bearing on Testshire, which has no walking map.
 local function target(wx, wy, label)
 	local m, x, y = nav.mapPoint(wx, wy)
 	N.SetTarget(m, x, y, label or "T")
@@ -31,6 +32,30 @@ fn run(script: &str) -> Value {
 		..Default::default()
 	})
 	.remove(0)
+}
+
+#[test]
+fn walking_arrow_repaints_its_tint_only_when_the_display_changes() {
+	let out = run(r#"
+		local result = {}
+		for _, style in ipairs({ "flat", "3d", "halo", "hearth" }) do
+			Polestar.Set("nav.arrowStyle", style)
+			nav.place(0, 0); target(0, 300); stub.advance(1)
+			local paints, set = 0, A.body.SetVertexColor
+			A.body.SetVertexColor = function(self, ...) paints = paints + 1; return set(self, ...) end
+			local tick = A.frame:GetScript("OnUpdate")
+			for i = 1, 60 do tick(A.frame, 1/60) end
+			local stable, far = paints, rgba(A.body)
+			nav.place(0, 272); tick(A.frame, 0.1)
+			local near = rgba(A.body)
+			nav.place(0, 0); tick(A.frame, 0.1)
+			result[style] = { stable, near[1] ~= far[1], rgba(A.body)[1] == far[1], A.GetMode() }
+			A.body.SetVertexColor = set
+		end
+		emit(result)"#);
+	for style in ["flat", "3d", "halo", "hearth"] {
+		assert_eq!(out[style], json!([0, true, true, "travel"]), "{style}: a steady arrow does not repaint; its colour follows the player into and out of range");
+	}
 }
 
 fn r3(v: &Value) -> Value {
@@ -218,11 +243,13 @@ fn the_preview_paints_its_own_dials_with_the_arrows_code_never_the_live_arrow_an
 		local function visit(c)
 			n = n + 1
 			if c.key then keys[#keys + 1] = c.key end
-			if not (c.search and c.help) then out.missing = c.key or c.label end
+			-- A reference (W.Ref) takes its search words and help from its home row on Guide.
+			if not (c.ref or (c.search and c.help)) then out.missing = c.key or c.label end
 			if c.kind == "slider" and type(c.format) ~= "function" then out.unformatted = c.key end
 			if c.info then infos = infos + 1 end
 			local _, words = (c.label or ""):gsub("%S+", "")
-			if words > 3 then long = c.label end
+			-- "With nowhere to go" (No goal's plain label) reads as one phrase.
+			if words > 3 and c.key ~= "nav.arrowNoTarget" then long = c.label end
 			local switches, swatches = 0, 0
 			for _, x in ipairs(c.extras or {}) do
 				if x.kind == "toggle" then switches = switches + 1 elseif x.kind == "color" then swatches = swatches + 1 end

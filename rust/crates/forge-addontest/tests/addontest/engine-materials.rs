@@ -253,6 +253,94 @@ fn an_item_no_profession_guide_has_counts_its_mail_its_purchases_and_the_bank_th
 }
 
 #[test]
+fn live_material_totals_use_one_bag_read_per_item_and_pick_up_the_next_inventory_change() {
+	let out = run(
+		CORE,
+		"",
+		r#"
+		local bag, bank = 3, 7
+		local reads, inclusive = 0, 0
+		local count = C_Item.GetItemCount
+		C_Item.GetItemCount = function(id, withBank)
+			if id ~= 2589 then return count(id, withBank) end
+			if withBank then inclusive = inclusive + 1; return bank + bag end
+			reads = reads + 1; return bag
+		end
+		local total, parts = M.Have(2589)
+		r.guide = { total, parts.bags, parts.bank, reads, inclusive }
+		bag, reads, inclusive = 0, 0, 0
+		r.character = { M.OwnCounts()[2589], reads, inclusive }
+		"#,
+	);
+	assert_eq!(out["guide"], json!([10, 3, 7, 1, 1]));
+	assert_eq!(out["character"], json!([7, 1, 1]), "the next read keeps bank-only materials, not the previous bag count");
+}
+
+#[test]
+fn the_materials_counted_are_every_profession_guide_s_and_the_tabs_items_without_indexing_the_guides_nobody_runs() {
+	// Materials.Tracked reads the items alone of a guide whose ways nobody asks (any character holds every
+	// profession guide); the per-goal index comes with Materials.Way. Tabs, a replacement and a release follow.
+	let out = run(
+		CORE,
+		"",
+		r#"
+		local G, P = Polestar.Guides, Polestar.Compat.GetPlayerInfo()
+		local AUC = { { npc = 8719, npcName = "Auctioneer Fitch", map = 1453, x = 61.2, y = 70.6, faction = "A" } }
+		local function full() collectgarbage("collect"); collectgarbage("collect"); return collectgarbage("count") end
+		local function has(item) return M.Tracked()[item] == true end
+		local function tabEvent() Polestar.Fire("TABS_CHANGED", E.GetTabs()) end -- as after the next step change
+		-- A profession guide no tab shows: 300 steps buying and gathering four items.
+		local steps = {}
+		for i = 1, 300 do
+			local item = 3001 + i % 4
+			steps[i] = { title = "Mats " .. i, goals = {
+				{ t = "auction", item = item, itemName = "Ore", count = 5, candidates = AUC },
+				{ t = "collect", item = item, itemName = "Ore", count = 5, gather = true },
+			} }
+		end
+		Polestar.RegisterGuide({ id = "test/mining", pack = "test", title = "Mining", category = "Professions", minLevel = 1, maxLevel = 60, steps = steps })
+		Polestar.RegisterGuide({ id = "test/level", pack = "test", title = "Level", faction = "Alliance", minLevel = 1, maxLevel = 20, stepCount = 1,
+			stepsSrc = 'return { { title = "Hide", goals = { { t = "collect", item = 4001, itemName = "Light Hide", count = 2, gather = true } } } }' })
+		flush(); tabEvent()
+		local before = full()
+		r.items = { has(3001), has(3002), has(3003), has(3004), has(2589), has(4001) }
+		r.setKiB = full() - before
+		-- Counted as any tracked material: the bags, and the bank as at the last visit.
+		local bank = {}
+		local bags = C_Item.GetItemCount
+		C_Item.GetItemCount = function(id, withBank) return bags(id) + (withBank and bank[id] or 0) end
+		w.addItem(3001, 7); bank[3002] = 5
+		stub.fire("BANKFRAME_OPENED"); stub.fire("BANKFRAME_CLOSED"); bank[3002] = nil; flush()
+		local own = M.OwnCounts() or {}
+		r.counts = { own[3001] or false, own[3002] or false, (M.Have(3002)) }
+		-- A leveling guide counts while a tab shows it; closed, its steps go and so do its items.
+		local tab = E.OpenTab("test/level", true); flush()
+		r.opened = { has(4001), rawget(G.Get("test/level"), "steps") ~= nil }
+		E.CloseTab(tab); flush()
+		r.closed = { has(4001), rawget(G.Get("test/level"), "steps") ~= nil }
+		-- Asking a way indexes the guide's goals; the items stay the same.
+		r.way = { M.Way(G.Get("test/mining"), 3001, P) }
+		tabEvent()
+		r.indexed = { has(3001), has(3004) }
+		-- Steps put in place of the guide's: their items, not the old ones.
+		r.replaced = { E.ReplaceSteps("test/mining", { { title = "Iron", goals = { { t = "auction", item = 5001, itemName = "Iron Ore", count = 3, candidates = AUC } } } }) }
+		tabEvent()
+		r.after = { has(5001), has(3001), (M.Way(G.Get("test/mining"), 5001, P)) }
+		"#,
+	);
+	assert_eq!(out["items"], json!([true, true, true, true, true, false]), "every profession guide's, the tab's; a leveling guide no tab shows: none");
+	let set = out["setKiB"].as_f64().unwrap();
+	assert!(set < 4.0, "the items alone of 600 material goals: {set} KiB");
+	assert_eq!(out["counts"], json!([7, 5, 5]), "the bank snapshot holds the guide's item");
+	assert_eq!(out["opened"], json!([true, true]));
+	assert_eq!(out["closed"], json!([false, false]), "a released guide's items are no longer counted");
+	assert_eq!(out["way"], json!(["gather", "mix"]));
+	assert_eq!(out["indexed"], json!([true, true]));
+	assert_eq!(out["replaced"], json!([true]));
+	assert_eq!(out["after"], json!([true, false, "buy"]));
+}
+
+#[test]
 fn prices_are_for_the_count_cheapest_first_auctionator_fills_in_and_counts_shrink_with_the_skill() {
 	let out = run(
 		WITH_UI,
@@ -411,4 +499,39 @@ fn search_opens_the_game_s_buy_view_fills_in_the_count_once_the_listings_come_an
 	assert_eq!(out["price"], json!([1350, { "each": 100, "age": 0, "source": "search" }]));
 	assert_eq!(out["own"], json!([1, 100]));
 	assert_eq!(out["closed"], json!(false), "only at an open Auction House");
+}
+
+// Bruatel (#3700): in gamepad mode, the Search's buy view and quantity event tainted the game's gamepad managers,
+// and the controller's own actions were then blocked. There a search is the game's browse query for the item's name
+// alone: the Auction House window itself is never driven, and no count is filled in when the listings come.
+#[test]
+fn in_gamepad_mode_a_search_is_only_the_game_s_browse_query_by_name_3700() {
+	let out = run(
+		CORE,
+		"",
+		r#"
+		Polestar.GamepadUI = function() return true end
+		local selected, quantities, queries, known = {}, {}, {}, { [2318] = { isCommodity = true, itemName = "Silk Cloth" } }
+		AuctionHouseFrameMixin = { Event = { CommoditiesQuantitySelectionChanged = 7 } }
+		AuctionHouseFrame = {
+			IsShown = function() return true end,
+			SelectBrowseResult = function(self, result) selected[#selected + 1] = result.itemKey.itemID end,
+			TriggerEvent = function(self, event, n) quantities[#quantities + 1] = { event, n } end,
+		}
+		C_AuctionHouse = {
+			MakeItemKey = function(id) return { itemID = id } end,
+			GetItemKeyInfo = function(key) return known[key.itemID] end,
+			SendBrowseQuery = function(q) queries[#queries + 1] = q.searchString end,
+			GetNumCommoditySearchResults = function() return 1 end,
+			GetCommoditySearchResultInfo = function() return { unitPrice = 100, quantity = 3 } end,
+		}
+		r.searched = M.Search(2318, 10)
+		stub.fire("COMMODITY_SEARCH_RESULTS_UPDATED", 2318); flush()
+		r.queries, r.selected, r.quantities = queries, #selected, #quantities
+		"#,
+	);
+	assert_eq!(out["searched"], json!(true));
+	assert_eq!(out["queries"], json!(["Silk Cloth"]), "the browse query for the item's name");
+	assert_eq!(out["selected"], json!(0), "the window's buy view is not driven");
+	assert_eq!(out["quantities"], json!(0), "no count filled in");
 }

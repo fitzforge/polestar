@@ -66,9 +66,9 @@ fn run(script: &str) -> Vec<Value> {
 	run_with(script, "")
 }
 
-const VERMIN: &str = "/cleartarget [nocombat]\n/targetexact Kobold Vermin\n/cleartarget [dead]";
-const WORKER: &str = "/cleartarget [nocombat]\n/targetexact Kobold Worker\n/cleartarget [dead]";
-const LABORER: &str = "/cleartarget [nocombat]\n/targetexact Kobold Laborer\n/cleartarget [dead]";
+const VERMIN: &str = "/cleartarget [nocombat][dead]\n/targetexact Kobold Vermin\n/cleartarget [dead]";
+const WORKER: &str = "/cleartarget [nocombat][dead]\n/targetexact Kobold Worker\n/cleartarget [dead]";
+const LABORER: &str = "/cleartarget [nocombat][dead]\n/targetexact Kobold Laborer\n/cleartarget [dead]";
 
 #[test]
 fn target_list_a_row_per_name_with_its_id_and_drop_and_its_own_macro() {
@@ -170,7 +170,7 @@ fn target_list_rows_follow_the_step_and_wait_for_the_end_of_a_fight() {
 		emit({ #rows(), t:IsShown() })
 	"#);
 	assert_eq!(out[0], 3, "no secure change in combat");
-	assert_eq!(out[1], json!([["Defias Thug", "", "/cleartarget [nocombat]\n/targetexact Defias Thug\n/cleartarget [dead]", 38]]));
+	assert_eq!(out[1], json!([["Defias Thug", "", "/cleartarget [nocombat][dead]\n/targetexact Defias Thug\n/cleartarget [dead]", 38]]));
 	assert_eq!(out[2], json!([0, false]));
 }
 
@@ -854,8 +854,8 @@ fn target_list_names_the_step_s_npcs_when_it_has_no_mob_with_the_npc_mark_and_th
 	assert_eq!(
 		out[0],
 		json!([
-			["Marshal Dughan", "", format!("/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/ping [@target]\n{npc_mark}"), 240],
-			["Gryan Stoutmantle", "", format!("/cleartarget [nocombat]\n/targetexact Gryan Stoutmantle\n/cleartarget [dead]\n/ping [@target]\n{npc_mark}"), 241]
+			["Marshal Dughan", "", format!("/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/ping [@target]\n{npc_mark}"), 240],
+			["Gryan Stoutmantle", "", format!("/cleartarget [nocombat][dead]\n/targetexact Gryan Stoutmantle\n/cleartarget [dead]\n/ping [@target]\n{npc_mark}"), 241]
 		]),
 		"no mob: the step's NPCs, each row with the NPC's mark and, with Ping on, the ping (#2036: NPCs are pinged too)"
 	);
@@ -1217,9 +1217,9 @@ fn target_list_a_step_s_npc_and_while_you_re_here_mobs_each_row_with_its_own_kin
 		out[0],
 		json!([
 			"Marshal Dughan",
-			format!("/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/ping [@target]\n{npc_mark}"),
+			format!("/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/ping [@target]\n{npc_mark}"),
 			"Bluegill Murloc",
-			"/cleartarget [nocombat]\n/targetexact Bluegill Murloc\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8"
+			"/cleartarget [nocombat][dead]\n/targetexact Bluegill Murloc\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8"
 		]),
 		"the NPC first (no place known: near), with its mark; the row's mob after, with the mob's mark; both pinged with Ping on (#2036)"
 	);
@@ -1249,7 +1249,7 @@ const MIXED_FOLDED: &str = r#"
 	local advance = B.AdvanceMark
 	B.AdvanceMark = function(kind) kinds[#kinds + 1] = kind; return advance(kind) end
 "#;
-const MIXED_NAMES: &str = "/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/targetexact [noexists] Bluegill Murloc\n/cleartarget [dead]";
+const MIXED_NAMES: &str = "/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/targetexact [noexists] Bluegill Murloc\n/cleartarget [dead]";
 
 #[test]
 fn target_list_folded_a_step_s_npc_and_a_while_you_re_here_mob_mark_and_advance_the_kind_targeted() {
@@ -1381,11 +1381,11 @@ fn target_list_a_name_that_turns_from_an_npc_goal_into_a_kill_takes_the_mob_s_ma
 	assert_eq!(
 		out[0],
 		json!([
-			"/cleartarget [nocombat]\n/targetexact Same Name\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1",
+			"/cleartarget [nocombat][dead]\n/targetexact Same Name\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1",
 			["Same Name", "success", "textDim", false]
 		])
 	);
-	assert_eq!(out[1], json!(["/cleartarget [nocombat]\n/targetexact Same Name\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8", ["Same Name", "danger", "danger", false]]));
+	assert_eq!(out[1], json!(["/cleartarget [nocombat][dead]\n/targetexact Same Name\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8", ["Same Name", "danger", "danger", false]]));
 }
 
 // Review of the 0.3.7 rebase: a mob on the list seen to be elite (the target, a nameplate) turns its row's name gold
@@ -1618,8 +1618,8 @@ fn target_list_rows_mark_by_default_a_skull_on_a_mob_and_a_star_on_an_npc_and_pi
 	let skull = "/tm [@target,harm,nodead] !8";
 	let star = "/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1";
 	assert_eq!(out[0], json!([true, false, [format!("{VERMIN}\n{skull}")]]), "mark on and ping off by default: the mob's row with the skull");
-	assert_eq!(out[1], json!([format!("/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n{star}")]), "an NPC's row: the star");
-	assert_eq!(out[2], json!([format!("/cleartarget [nocombat]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/ping [@target]\n{star}")]), "with Ping on, the NPC is pinged too");
+	assert_eq!(out[1], json!([format!("/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n{star}")]), "an NPC's row: the star");
+	assert_eq!(out[2], json!([format!("/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/ping [@target]\n{star}")]), "with Ping on, the NPC is pinged too");
 }
 
 // Compact styles (qol.targetListStyle): slim rows, and portrait tiles in a
@@ -1647,6 +1647,26 @@ local function done(i)
 	return { r.Face.desaturated or false, r.Mark:GetAlpha() < 1 }
 end
 "#;
+
+#[test]
+fn shared_collect_target_tile_counts_down_and_greys_out_when_paid_for() {
+	let out = run(&format!(
+		r#"{COMPACT}
+		set("targetListStyle", "column")
+		local function stock(n)
+			q.step({{ {{ t = "collect", item = 950, itemName = "Candle", quest = 7, oi = 1,
+				progress = {{ cur = n, max = 6, kind = "shared" }},
+				fromNpcs = {{ {{ npc = 257, npcName = "Kobold Worker" }} }} }} }})
+			local r = B.rows[1]
+			r:GetScript("OnEnter")(r)
+			emit({{ r.Count:GetText(), GameTooltip.lines[2], done(1) }})
+			r:GetScript("OnLeave")(r)
+		end
+		stock(3); stock(6)
+	"#
+	));
+	assert_eq!(out, vec![json!(["3", "Candle · 3/6", [false, false]]), json!(["", "Candle · 6/6", [true, true]])]);
+}
 
 #[test]
 fn target_list_style_full_is_the_default_and_unchanged() {
@@ -2089,4 +2109,46 @@ fn target_list_compact_styles_grow_up_over_a_row_of_buttons_and_name_a_close_str
 		json!([["BOTTOMLEFT", "button", "TOPLEFT", 0, 8], ["LEFT", "row1", "RIGHT", 2, 0], true, "BOTTOMLEFT", true, "TOPLEFT", 0, 6]),
 		"a strip's close name goes on its far side, above it"
 	);
+}
+
+// Kill stutter (0.4.1): the rows repaint only what changed. A close mob's health changing (every frame of a
+// fight) leaves the rows alone until it dies, and a refresh with the same counts (a kill for no row, a loot,
+// the bags) lays no row out again. Widget calls (frame, texture and font string methods) are counted.
+#[test]
+fn target_list_a_fight_s_health_ticks_and_refreshes_with_the_same_counts_repaint_no_row() {
+	let out = run_with(
+		r#"
+		local calls = 0
+		local real = {}
+		for k, v in pairs(stub.Methods) do real[k] = v; stub.Methods[k] = nil end
+		setmetatable(stub.Methods, { __index = function(_, k) calls = calls + 1; return real[k] end, __newindex = real })
+		kobolds()
+		q.combat(true)
+		q.units.nameplate2 = { name = "Kobold Worker" }
+		stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate2")
+		stub.runTimers()
+		emit(face(2))
+		local c0 = calls
+		for _ = 1, 60 do stub.fire("UNIT_HEALTH", "nameplate2"); stub.runTimers() end
+		local health = calls - c0
+		c0 = calls
+		for _ = 1, 10 do stub.fire("QUEST_LOG_UPDATE"); stub.fire("BAG_UPDATE_DELAYED"); stub.runTimers() end
+		local refresh = calls - c0
+		-- It dies: its health says so, and its row's crosshair goes red.
+		q.units.nameplate2.dead = true
+		stub.fire("UNIT_HEALTH", "nameplate2")
+		stub.runTimers()
+		emit(face(2))
+		emit({ health = health, refresh = refresh })
+		q.combat(false)
+	"#,
+		MODELS,
+	);
+	assert_eq!(out[0], json!([257, "green"]));
+	assert_eq!(out[1], json!([257, "red"]), "a death still repaints the row");
+	let health = out[2]["health"].as_u64().unwrap();
+	let refresh = out[2]["refresh"].as_u64().unwrap();
+	// Measured: 0.4.1 made 17,700 calls for the 60 ticks (295 a frame through a fight) and 2,740 for the 10
+	// refreshes; with the rows left alone, 60 and 250 (the rest of the buttons' own work).
+	assert!(health <= 120 && refresh <= 400, "widget calls: 60 health ticks {health} (at most 120), 10 refreshes with the same counts {refresh} (at most 400)");
 }

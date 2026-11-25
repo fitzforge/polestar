@@ -218,6 +218,7 @@ fn suggest_prefers_the_current_zone_then_the_nearest_by_travel_race_chains_win_t
 }
 
 // Engine.OUTGROWN: most players run a little ahead of the route, so a guide is outgrown 3 levels past its top, not 2.
+// With Skip grey quests off: with it on, the catch-up may pass the opened guide whole and the notice waits (mayPass).
 #[test]
 fn guide_outleveled_fires_once_per_guide_three_levels_past_its_top_never_at_two() {
 	let out = run(
@@ -226,7 +227,7 @@ fn guide_outleveled_fires_once_per_guide_three_levels_past_its_top_never_at_two(
 			Polestar.RegisterGuide({ id = "test/low", pack = "test", title = "Low", faction = "Horde", minLevel = 1, maxLevel = 6, steps = { { goals = { { t = "level", level = 60 } } } } })
 			Polestar.RegisterGuide({ id = "test/mid", pack = "test", title = "Mid", faction = "Horde", minLevel = 7, maxLevel = 20, steps = { { goals = { { t = "level", level = 60 } } } } })
 		"#,
-		None,
+		SKIP_GREY_OFF,
 		r#"
 			local fired = {}
 			Polestar.On("GUIDE_OUTLEVELED", function(id, s) fired[#fired + 1] = id .. ">" .. tostring(s) end)
@@ -244,7 +245,38 @@ fn guide_outleveled_fires_once_per_guide_three_levels_past_its_top_never_at_two(
 	assert_eq!(out, json!({ "at8": 0, "at9": 1, "fired": ["test/low>test/mid"], "guide": "test/low", "margin": 3 }));
 }
 
+// #3845 (Fitz, 23 Nov): a Class guide is outgrown 5 levels past its top, as its offer stops, and never while a
+// spell it rewards is unknown: the window's notice comes then, not at 3 past.
+#[test]
+fn a_class_guide_is_outleveled_five_levels_past_its_top_once_its_reward_spell_is_known_3845() {
+	let out = run(
+		"stub.world.level = 12",
+		r#"
+			Polestar.RegisterGuide({ id = "test/mid", pack = "test", title = "Mid", faction = "Horde", minLevel = 10, maxLevel = 30, steps = { { goals = { { t = "level", level = 60 } } } } })
+			Polestar.RegisterGuide({ id = "test/bear", pack = "test", title = "Bear", category = "Class", minLevel = 10, maxLevel = 12,
+				reward = { { spell = 5487, spellName = "Bear Form" } }, steps = { { goals = { { t = "level", level = 60 } } } } })
+		"#,
+		SKIP_GREY_OFF,
+		r#"
+			local fired = {}
+			Polestar.On("GUIDE_OUTLEVELED", function(id) fired[#fired + 1] = id end)
+			E.SetGuide("test/bear"); flush()
+			local w = stub.world
+			w.setLevel(16); flush()
+			local at16 = #fired
+			w.setLevel(17); flush()
+			local missing = #fired
+			w.learnSpell(5487); w.setLevel(18); flush()
+			emit({ at16 = at16, missing = missing, fired = fired, margin = E.CLASS_OUTGROWN })
+		"#,
+		true,
+	);
+	assert_eq!(out, json!({ "at16": 0, "missing": 0, "fired": ["test/bear"], "margin": 5 }));
+}
+
 const SKIP_GREY_ON: Option<&str> = Some("PolestarDB = { schema = 1, settings = { behavior = { skipGrey = true } } }");
+// Skip grey quests is on by default since 0.4.3: off is a stored choice.
+const SKIP_GREY_OFF: Option<&str> = Some("PolestarDB = { schema = 1, settings = { behavior = { skipGrey = false } } }");
 
 // Wogi's report: a Human at 20 in Darkshore (16-21) was sent to grey quests. With the setting on, a grey quest
 // turned in later in the guide is left out with its turn-in; a grey quest stays when a quest down the chain that
@@ -298,7 +330,7 @@ fn skipgrey_skips_grey_accepts_and_their_turn_ins_unless_a_quest_worth_doing_nee
 			"at": 3, "accepted101": false, "grey": true, "byHand": ["done", "pending"],
 		})
 	);
-	let off = run("", guides, None, script, true);
+	let off = run("", guides, SKIP_GREY_OFF, script, true);
 	assert_eq!(off["statuses"].as_array().unwrap().iter().filter(|s| **s == "na").count(), 0, "{}", off["statuses"]);
 	assert_eq!(json!([off["at"].clone(), off["accepted101"].clone(), off["grey"].clone()]), json!([1, true, false]));
 }
@@ -344,7 +376,7 @@ fn skipgrey_a_grey_accept_kept_for_its_chain_names_the_nearest_open_quest_it_lea
 			{ "level": 23, "kept": false, "text": false, "skipped": true, "accepts": ["skipped", "skipped", "skipped"] },
 		])
 	);
-	let off = run("", guides, None, script, true);
+	let off = run("", guides, SKIP_GREY_OFF, script, true);
 	let rows = Value::Array(off.as_array().unwrap().iter().map(|r| json!([r["kept"].clone(), r["text"].clone(), r["skipped"].clone()])).collect());
 	assert_eq!(rows, json!([[false, false, false], [false, false, false], [false, false, false]]));
 }

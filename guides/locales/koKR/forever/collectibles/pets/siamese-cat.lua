@@ -13,7 +13,7 @@ return {
 	-- {area:1581} The Deadmines
 	["{area:1581}: Cookie"] = "{area:1581}: 쿠키",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
-	["{area:1581} is a group of five under {area:20}: the mine mouth is in {area:20}, the instance portal deep inside the mine. Cookie, the murloc cook, waits on a small island under the pirate ship at the far end, an optional boss; his cooking heals him, so interrupt it. He drops the Siamese about 15% of the time in Classic's data: expect several runs. The carrier can be traded, so check the Auction House too."] = "",
+	["{area:1581} is a group of five under {area:20}: the mine mouth is in {area:20}, the instance portal deep inside the mine. Cookie, the murloc cook, waits on a small island under the pirate ship at the far end, an optional boss; his cooking heals him, so interrupt it. He drops the Siamese about 15% of the time in Classic's data: expect several runs. The carrier can be traded, so check the Auction House too."] = "{area:1581}은 {area:20} 아래 5인 던전입니다. 광산 입구는 {area:20}에 있고 인스턴스 차원문은 광산 깊은 곳에 있습니다. 멀록 요리사 쿠키는 끝 쪽 해적선 아래 작은 섬에 있는 선택 보스입니다. 요리가 체력을 회복시키니 차단하세요. 클래식 데이터상 샴 고양이는 약 15%로 떨어지니 여러 번 돌아야 합니다. 운반 상자는 거래 가능하니 경매장도 확인하세요.",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
 	["{area:1581}, in the {area:20} mine"] = "{area:1581}, {area:20} 광산 안",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook

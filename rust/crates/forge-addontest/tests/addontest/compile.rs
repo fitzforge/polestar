@@ -15,7 +15,7 @@ use std::path::Path;
 const LOAD_HEAD: &str = r#"
 			local packs, guides, frames = {}, {}, {}
 			Polestar.RegisterPack = function(m) packs[#packs + 1] = m end
-			Polestar.RegisterGuide = function(g) guides[#guides + 1] = g; return true end
+			Polestar.RegisterGuide = function(g) if g.stepsSrc then g.steps, g.stepsSrc, g.stepCount = assert(loadstring(g.stepsSrc))(), nil, nil end; guides[#guides + 1] = g; return true end
 			Polestar.RegisterMapFrames = function(f, p) frames[#frames + 1] = { frames = f, pack = p } end
 			local ns = {}
 			for _, f in ipairs({ "#;

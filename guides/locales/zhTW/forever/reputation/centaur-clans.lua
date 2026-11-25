@@ -111,7 +111,8 @@ return {
 	["From the quest data: back west to {npc:5397} in {area:606}. She needs Tears of Theradras: {npc:253713}, the Voice of Theradras, keeps them in the cave in the south of the village, past {npc:253140}. Ask her for them on {npc:5397}'s behalf and bring three back. {npc:253140} takes {quest:92812} on the way."] = "依任務資料：向西回到{area:606}的{npc:5397}那裡。她需要瑟萊德絲之淚：瑟萊德絲之聲{npc:253713}把它們放在村莊南部的洞穴裡，要經過{npc:253140}。代{npc:5397}向她索取，帶回三個。途中{npc:253140}會收下{quest:92812}。",
 	-- {npc:253713} Mulara
 	["{npc:253713}, in the cave"] = "{npc:253713}，在洞穴裡",
-	["three Tears of Theradras"] = "三個瑟萊德絲之淚",
+	-- {npc:253713} Mulara
+	["three Tears of Theradras, in {npc:253713}'s cave"] = "三顆瑟拉達斯之淚，在{npc:253713}的洞穴裡",
 
 	-- Step 15: Gelkis: Test Your Theory
 	-- {quest:93045} Test Your Theory
@@ -163,7 +164,7 @@ return {
 	["Gelkis: {npc:5601}"] = "吉爾吉斯：{npc:5601}",
 	-- {npc:5601} Khan Jehn · {area:604} Magram Village · {npc:253177} Nerlokh · {npc:5397} Uthek the Wise · {item:271801} Abandoned Ferocity · {item:271802} Bludgeon of Betrayed Virtues · {item:271805} Thrice-Damned Effigy
 	-- plural, as words: Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["From the quest data: {npc:5601} (level 37) leads the Magram from the west side of {area:604}, north-east of {npc:253177}. The village is hostile to a friend of the Gelkis, and two Magram Necrokhans, elite and level 45, stand a little west of the khan. {npc:5397} pays 6,000, a title, and your pick of three rare level 35 weapons: {item:271801} (two-handed axe: Strength, Stamina, Agility), {item:271802} (one-handed mace: Strength, Stamina, Agility) or {item:271805} (off-hand: Spirit, Intellect, Stamina). The quest costs the Magram 30,000."] = "",
+	["From the quest data: {npc:5601} (level 37) leads the Magram from the west side of {area:604}, north-east of {npc:253177}. The village is hostile to a friend of the Gelkis, and two Magram Necrokhans, elite and level 45, stand a little west of the khan. {npc:5397} pays 6,000, a title, and your pick of three rare level 35 weapons: {item:271801} (two-handed axe: Strength, Stamina, Agility), {item:271802} (one-handed mace: Strength, Stamina, Agility) or {item:271805} (off-hand: Spirit, Intellect, Stamina). The quest costs the Magram 30,000."] = "根據任務資料：{npc:5601}（37級）在 {area:604} 西側、{npc:253177} 東北方統領瑪格拉姆。該村莊對吉爾吉斯的朋友懷有敵意，可汗西邊不遠處還站著兩名45級精英瑪格拉姆死靈可汗。{npc:5397} 會獎勵6,000點聲望、一個頭銜，以及三件35級稀有武器中的一件：{item:271801}（雙手斧：力量、耐力、敏捷）、{item:271802}（單手錘：力量、耐力、敏捷）或 {item:271805}（副手：精神、智力、耐力）。該任務會扣除瑪格拉姆30,000聲望。",
 
 	-- Step 22: Gelkis: totems to Exalted
 	["Gelkis: totems to Exalted"] = "吉爾吉斯：圖騰衝崇拜",
@@ -303,7 +304,7 @@ return {
 	-- {quest:93196} Khan Jehn
 	["Magram: {quest:93196}"] = "瑪格拉姆：{quest:93196}",
 	-- {item:257517} Ultimate Necromancy Staff · {area:604} Magram Village · {quest:93196} Khan Jehn · {item:271800} Scavenged Magram Armament · {item:271803} Greatstaff of the Necrokhans · {item:271804} Soulsplatter Mace
-	["From the quest data: take the {item:257517} to the ritual site, a tent by the lake in the middle of {area:604}, and raise {quest:93196}. The risen khan takes the quest: 6,000, a title, and your pick of three rare level 35 weapons: {item:271800} (polearm: Stamina, attack power, Agility), {item:271803} (staff: Intellect, Stamina, Spirit) or {item:271804} (main-hand mace: Intellect, Stamina, Spirit). The quest costs the Gelkis 30,000."] = "",
+	["From the quest data: take the {item:257517} to the ritual site, a tent by the lake in the middle of {area:604}, and raise {quest:93196}. The risen khan takes the quest: 6,000, a title, and your pick of three rare level 35 weapons: {item:271800} (polearm: Stamina, attack power, Agility), {item:271803} (staff: Intellect, Stamina, Spirit) or {item:271804} (main-hand mace: Intellect, Stamina, Spirit). The quest costs the Gelkis 30,000."] = "根據任務資料：把{item:257517}帶到儀式地點，即{area:604}中央湖邊的一頂帳篷，復活{quest:93196}。復活的可汗接收任務：獎勵6,000聲望、一個頭銜，以及三件35級精良武器任選一件：{item:271800}（長柄武器：耐力、攻擊強度、敏捷）、{item:271803}（法杖：智力、耐力、精神）或{item:271804}（主手錘：智力、耐力、精神）。該任務會扣除吉爾吉斯30,000聲望。",
 	-- {quest:93196} Khan Jehn
 	["raise {quest:93196} at the tent by the lake"] = "在湖邊的帳篷復活{quest:93196}",
 
@@ -316,4 +317,7 @@ return {
 	["The totem recipes"] = "圖騰配方",
 	-- {quest:93224} Carved Centaur Totems · {item:273613} Enchant Bracer - Lesser Agility · {item:250941} Greater Frenzy Potion · {item:250538} Hard Gold Gauntlet · {item:250606} Iron Morningstar · {item:252462} Mystic Thick Armor Kit · {item:253973} Silk Reagent Bag · {item:10011} Stormcloth Gloves · {item:274490} Centaur Hoofwarmers · {item:269900} Centaur Banner Deployment Device · {item:269902} Hoof-Shaped Foot Pedal
 	["Both quartermasters sell the same 12 recipes for {quest:93224}, no standing needed: {item:273613} and - Lesser Healing Power; Greater Spellblasting and {item:250941}; {item:250538} and {item:250606} plans; {item:252462}, {item:253973}, {item:10011} and {item:274490} patterns; the {item:269900} and {item:269902} schematics. Keep the totems you need for them before you hand the rest in."] = "兩名軍需官都出售相同的12種配方，用{quest:93224}兌換，不需要聲望：{item:273613}和附魔護腕 - 次級治療能量；強效法爆藥水和{item:250941}；{item:250538}和{item:250606}設計圖；{item:252462}、{item:253973}、{item:10011}和{item:274490}圖樣；以及{item:269900}和{item:269902}結構圖。交出其餘圖騰之前，先留下兌換所需的份量。",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["three Tears of Theradras"] = "三個瑟萊德絲之淚",
 }

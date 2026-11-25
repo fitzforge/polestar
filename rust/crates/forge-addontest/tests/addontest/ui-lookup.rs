@@ -611,9 +611,9 @@ fn lookup_turned_off_in_options_guides_only_the_section_says_where_to_turn_it_on
 		Polestar.Lookup.Show(nil, "mount", 8631)
 		emit({ idle = idle, none = none, loads = loads })"#);
 	assert_eq!(out["idle"]["title"], "Lookup is turned off");
-	assert!(is_match(text(&out["idle"]["note"]), r"Options > Discovery > Lookup"));
+	assert!(is_match(text(&out["idle"]["note"]), r"Settings > Discovery > Lookup"));
 	assert_eq!(out["idle"]["codex"], "Lookup is off: searching guides only");
-	assert!(is_match(text(&out["none"]), r"Nothing matches .saber.\. Lookup is turned off in Options > Discovery > Lookup"));
+	assert!(is_match(text(&out["none"]), r"Nothing matches .saber.\. Lookup is turned off in Settings > Discovery > Lookup"));
 	assert_eq!(out["loads"], 0);
 }
 
@@ -685,4 +685,89 @@ fn a_quest_in_a_chain_shows_its_step_each_quest_s_state_and_its_branches_and_a_r
 	assert_eq!(f["clickHere"], false, "the quest's own row opens nothing");
 	assert_eq!(out["sel"], json!({ "kind": "quest", "id": 4970 }), "a row opens that quest's page");
 	assert_eq!(out["after"], false, "a quest standing alone has no chain");
+}
+
+// #3370 (Zack: a level 57 went to Pix Xizzix for In Demand, which the game offers from level 60): a quest's page says
+// which level it requires, in the warning colour, while the character is below it; its level alone read as a quest
+// to take. At that level the line goes.
+#[test]
+fn a_quest_s_page_says_the_level_it_requires_in_the_warning_colour_while_the_character_is_below_it_3370() {
+	let out = run(r#"
+		lookupstub.entity["quest:4970"] = { id = 4970, title = "Frostsaber Provisions", level = 60, minLevel = 60, faction = "A" }
+		uistub.player.level = 57
+		Polestar.Lookup.Show(nil, "quest", 4970)
+		local below = LK.detail.facts
+		local r, g, b = LK.details.Facts[2].Value:GetTextColor()
+		local wr, wg, wb = Polestar.Theme.Color("warning")
+		local warning = r == wr and g == wg and b == wb
+		LK.Select(nil)
+		uistub.player.level = 60
+		Polestar.Lookup.Show(nil, "quest", 4970)
+		emit({ below = below, warning = warning, at = LK.detail.facts })"#);
+	assert_eq!(out["below"], json!([["Level", "60"], ["Requires", "Level 60"], ["Faction", "Alliance"], ["Places", "None known"]]));
+	assert_eq!(out["warning"], true, "the requirement in the warning colour");
+	assert_eq!(out["at"], json!([["Level", "60"], ["Faction", "Alliance"], ["Places", "None known"]]), "at level 60: no line");
+}
+
+#[test]
+fn an_item_s_icon_in_the_details_shows_the_game_s_tooltip_for_it_other_pages_icons_none() {
+	let out = run(r#"
+		local links = {}
+		GameTooltip.SetHyperlink = function(self, link) links[#links + 1] = link end
+		local well
+		local function hover()
+			GameTooltip.owner = nil
+			stub.RunScript(well, "OnEnter")
+			local r = { mouse = well:IsMouseEnabled(), owner = GameTooltip:GetOwner() == well, link = links[#links] or false }
+			stub.RunScript(well, "OnLeave")
+			links = {}
+			return r
+		end
+		Polestar.Lookup.Show(nil, "item", 4386)
+		well = LK.details.Well
+		local item = hover()
+		Polestar.Lookup.Show(nil, "mount", 8631)
+		local mount = hover()
+		Polestar.Lookup.Show(nil, "npc", 4730)
+		local npc = hover()
+		Polestar.Lookup.Show(nil, "item", 4386)
+		stub.RunScript(well, "OnEnter")
+		links = {}
+		Polestar.Lookup.Show(nil, "mount", 8631)
+		local follows = links[1] or false
+		Polestar.Lookup.Show(nil, "npc", 4730)
+		local leftNpc = GameTooltip:IsShown()
+		Polestar.Lookup.Show(nil, "item", 4386)
+		stub.RunScript(well, "OnEnter")
+		LK.Select(nil)
+		local leftEmpty = GameTooltip:IsShown()
+		emit({ item = item, mount = mount, npc = npc, follows = follows, leftNpc = leftNpc, leftEmpty = leftEmpty })"#);
+	assert_eq!(out["item"], json!({ "mouse": true, "owner": true, "link": "item:4386" }));
+	assert_eq!(out["mount"], json!({ "mouse": true, "owner": true, "link": "item:8631" }));
+	assert_eq!(out["npc"]["mouse"], false, "an NPC's glyph leaves the band to drag the window");
+	assert_eq!(out["npc"]["link"], false);
+	assert_eq!(out["follows"], "item:8631", "a tooltip already up follows the newly opened item");
+	assert_eq!(out["leftNpc"], false, "and goes when the page is no item");
+	assert_eq!(out["leftEmpty"], false, "and when the details empty");
+}
+
+#[test]
+fn a_modified_click_on_an_item_s_icon_in_the_details_hands_its_link_to_the_client_a_plain_or_right_click_does_nothing() {
+	let out = run(r#"
+		local modified, handled = false, {}
+		IsModifiedClick = function() return modified end
+		Polestar.Compat.ItemLink = function(id) return "|Hitem:" .. id .. "|h[x]|h" end
+		HandleModifiedItemClick = function(link) handled[#handled + 1] = link end
+		Polestar.Lookup.Show(nil, "item", 4386)
+		local well = LK.details.Well
+		stub.RunScript(well, "OnMouseUp", "LeftButton")
+		local plain = #handled
+		modified = true
+		stub.RunScript(well, "OnMouseUp", "RightButton")
+		stub.RunScript(well, "OnMouseUp", "LeftButton")
+		Polestar.Lookup.Show(nil, "npc", 4730)
+		stub.RunScript(well, "OnMouseUp", "LeftButton")
+		emit({ plain = plain, handled = handled })"#);
+	assert_eq!(out["plain"], 0, "a plain click is not a modified click");
+	assert_eq!(out["handled"], json!(["|Hitem:4386|h[x]|h"]), "Shift / Ctrl on the item hands its link over; an NPC's glyph none");
 }

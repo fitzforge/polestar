@@ -45,8 +45,11 @@ why Experience and gold at 50, ending in the Sunken Temple; the Classic item cho
 # own text names carrion birds as sources of either, alongside bears/spiders.
 # Drop rates (Forever's quest notes, KB `drops`): Elemental Air 12.9%
 # (Thundering Exiles), Fire 11.1% (Burning Exiles), Earth 9.9% (Rumbling
-# Exiles), Water 13.6% (the Summoned Guardian) in Arathi; 40% from the
-# Patches of Elemental Water in Azshara; Seeker Aqualon by Lakeshire 36.7%.
+# Exiles) in Arathi; Water from the Cresting Exiles at the Circle of East
+# Binding (players' recordings: 13 of 62 loot windows, 9 people, #3907; the
+# KB's 13.6% Summoned Guardian is a single elite with no recorded loot);
+# 40% from the Patches of Elemental Water in Azshara; Seeker Aqualon by
+# Lakeshire 36.7%.
 # 8412: Diseased Black Bears, Venom Mist Lurkers and the two Carrion Vultures
 # 20% each, the Diseased Grizzlies and Plague Lurkers further east 2%.
 # 8413: two feathers of each colour, one from each of the six elite trolls
@@ -68,11 +71,11 @@ step Beram Skychaser
 
 step The four elements
   zone Arathi Highlands
-  tip One each of Elemental Air, Fire, Earth and Water; all four trade, so the auction house is quickest. To farm them, Arathi Highlands has the exiles near Refuge Pointe (level 38-39, about one kill in eight to ten, respawn under seven minutes): Thundering Exiles south-east of it (air), Rumbling Exiles south-west (earth), Burning Exiles far to the north-west (fire), and the Summoned Guardian far to the south-west (water, about one in seven). Water comes easier from the Patches of Elemental Water in Azshara (two in five) or Seeker Aqualon by Lakeshire in Redridge.
+  tip One each of Elemental Air, Fire, Earth and Water; all four trade, so the auction house is quickest. To farm them, Arathi Highlands has the exiles at its stone circles (level 38-39, respawn under seven minutes): Thundering Exiles south-east of Refuge Pointe (air), Rumbling Exiles south-west of it (earth) and Burning Exiles far to the north-west (fire), about one kill in eight to ten each, and Cresting Exiles at the Circle of East Binding in the north-east (water, in about one in five of the corpses you can loot). Leave the Summoned Guardian in the south-west alone: it is elite. Water also comes from the Patches of Elemental Water in Azshara (two in five) or Seeker Aqualon by Lakeshire in Redridge.
   collect 7069 quest 8410.1                   -- Elemental Air: Thundering Exiles
   collect 7068 quest 8410.2                   -- Elemental Fire: Burning Exiles
   collect 7067 quest 8410.3                   -- Elemental Earth: Rumbling Exiles
-  collect 7070 quest 8410.4                   -- Elemental Water: the Summoned Guardian, or Azshara's water patches
+  collect 7070 quest 8410.4 @65.0,30.0        -- Elemental Water: Cresting Exiles, or Azshara's water patches
 
 step Bath'rah the Windwatcher
   zone Alterac Mountains

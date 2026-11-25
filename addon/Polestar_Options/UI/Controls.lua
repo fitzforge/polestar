@@ -210,6 +210,13 @@ end
 -- ones when the picker closes, unless it was cancelled.
 local picking
 local pickerHooked = false
+local origStrata, origLevel
+
+function W.ClosePicker()
+	if picking and ColorPickerFrame and ColorPickerFrame:IsShown() then
+		ColorPickerFrame:Hide()
+	end
+end
 
 local function pickerAlpha()
 	local P = ColorPickerFrame
@@ -225,6 +232,14 @@ local function openPicker(self)
 		ColorPickerFrame:HookScript("OnHide", function()
 			local p = picking
 			picking = nil
+			if origStrata then
+				ColorPickerFrame:SetFrameStrata(origStrata)
+				origStrata = nil
+			end
+			if origLevel then
+				ColorPickerFrame:SetFrameLevel(origLevel)
+				origLevel = nil
+			end
 			-- What the wheel wrote live settles (ns.SettleLive): the layouts and
 			-- redraws it left for its end.
 			ns.SettleLive()
@@ -233,6 +248,14 @@ local function openPicker(self)
 				if type(c) == "table" then W.PushRecentColor(c) end
 			end
 		end)
+	end
+	if PolestarOptionsMore and PolestarOptionsMore:IsShown() then
+		if not origStrata then
+			origStrata = ColorPickerFrame:GetFrameStrata()
+			origLevel = ColorPickerFrame:GetFrameLevel()
+		end
+		ColorPickerFrame:SetFrameStrata("FULLSCREEN_DIALOG")
+		ColorPickerFrame:SetFrameLevel(15)
 	end
 	local path = self.psPath
 	local r, g, b, _, a = swatchColor(self)
@@ -570,6 +593,15 @@ local function cardFor(row, ch)
 	mark:SetSize(10, 10)
 	mark:SetPoint("CENTER", check, "CENTER", 0, 0)
 	card.Check = check
+	-- A stage tag (ch.tag: "Beta", "Alpha") in the picture's top-left corner.
+	local tag = CreateFrame("Frame", nil, card)
+	tag:SetPoint("TOPLEFT", card, "TOPLEFT", 6, -6)
+	tag:SetFrameLevel(card.Art:GetFrameLevel() + 5)
+	W.Fill(tag, "accent", "ARTWORK")
+	tag.Text = W.Text(tag, "small", "onAccent")
+	tag.Text:SetPoint("CENTER", tag, "CENTER", 0, 0)
+	tag:Hide()
+	card.Tag = tag
 	card.psRow, card.psValue = row, ch.value
 	card:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	card:SetScript("OnClick", cardClick)
@@ -651,6 +683,11 @@ local function cardsBelow(row, width, y)
 			card.Name:SetText(ch.text)
 			local note = ch.note or ""
 			card.Note:SetText(note)
+			card.Tag:SetShown(ch.tag ~= nil)
+			if ch.tag then
+				card.Tag.Text:SetText(ch.tag)
+				card.Tag:SetSize(math.ceil(textWidth(card.Tag.Text)) + 10, 16)
+			end
 			-- The name takes what it needs; the note what is left, cut short
 			-- (whole in the tooltip), or none when that is too little to read.
 			-- A name without a note shown takes the whole line, shrunk to fit
@@ -668,6 +705,7 @@ local function cardsBelow(row, width, y)
 			local lines = {}
 			if ch.tip then lines[#lines + 1] = ch.tip end
 			if note ~= "" then lines[#lines + 1] = note end
+			if ch.tagTip then lines[#lines + 1] = ch.tagTip end
 			card.psTip, card.psTipLines = ch.text, #lines > 0 and lines or nil
 			local col, line = (i - 1) % perLine, floor((i - 1) / perLine)
 			card:ClearAllPoints()
@@ -797,7 +835,7 @@ function W.SectionCard(parent)
 	card.Header:SetPoint("TOPLEFT", card, "TOPLEFT", 0, 0)
 	card.Header:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, 0)
 	card.Header:SetHeight(W.CARD_HEADER)
-	card.Title = W.Text(card.Header, "heading", "text")
+	card.Title = W.Text(card.Header, "cardTitle", "cardTitle")
 	card.Title:SetPoint("LEFT", card.Header, "LEFT", HALF_PAD, 0)
 	card.Title:SetWordWrap(false)
 	card.Rule = W.Divider(card)

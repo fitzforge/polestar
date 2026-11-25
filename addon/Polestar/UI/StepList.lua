@@ -20,8 +20,9 @@
 -- goals are ticked and muted, done and skipped steps muted whole, the step on
 -- screen on a lifted ground. A click looks at that step (GuideFrame.LookAt)
 -- and returns to the card. It opens at the step on screen and keeps the
--- window's current height, scrolling inside it; the compact window, too
--- short to browse in, grows to fit the cards up to its height cap. Steps that keep their number but
+-- window's current height (or the one its grip last dragged it to),
+-- scrolling inside it; the compact window, too short to browse in, grows to
+-- fit the cards up to its height cap. Steps that keep their number but
 -- do not apply to the character now (a `when` that does not hold, such as a
 -- catch-up for quests already handed in) share one muted card per run that
 -- says which numbers they are and why (Engine.GetStepView `why`), so the
@@ -64,7 +65,11 @@ function SL.On() return SL.open end
 function SL.Toggle(on)
 	if on == nil then on = not SL.open end
 	local G = GF()
-	if on and not SL.open then SL.height = G and G.frame and G.frame:GetHeight() end
+	-- Its own height once dragged (the window's grip, ui.stepListHeight), else the window's.
+	if on and not SL.open then
+		local h = ns.Get("ui.stepListHeight")
+		SL.height = type(h) == "number" and h > 0 and h or (G and G.frame and G.frame:GetHeight())
+	end
 	if not on then SL.height = nil end
 	SL.open = on and true or false
 	SL.sig, SL.opened = nil, SL.open
@@ -122,6 +127,65 @@ function SL.Place(parent, steps)
 	return on and SL.frame or nil
 end
 
+-- What the player set aside in the open guide that is still undone: steps
+-- skipped, quests skipped and goals dismissed, each counted once. Only the
+-- steps holding a skip are read (Engine.SetAsideSteps): a finished guide's
+-- page asks on every draw, and a view of every step cost 20 ms there. -> n
+function SL.Skips()
+	local E = ns.Engine
+	if not (E and E.SetAsideSteps and E.GetStepView and E.GetGuide and E.GetGuide()) then return 0 end
+	local n, seen = 0, {}
+	for _, i in ipairs(E.SetAsideSteps()) do
+		local v = E.GetStepView(i, true)
+		if v and v.skipped == true then
+			n = n + 1
+		elseif v and v.goals then
+			for _, goal in ipairs(v.goals) do
+				if goal.status ~= "done" then
+					local q = goal.quest and E.IsQuestSkipped and E.IsQuestSkipped(goal.quest) and goal.quest
+					if q and not seen[q] then seen[q] = true; n = n + 1
+					elseif not q and goal.dismissed then n = n + 1 end
+				end
+			end
+		end
+	end
+	return n
+end
+
+-- The list read again and drawn: after an unskip from a card.
+function SL.Refresh()
+	SL.sig, SL.lsig = nil, nil
+	local G = GF()
+	if G and G.Render then G.Render() end
+end
+-- A quest brought back here or elsewhere (the guide window's quest line, its
+-- banner's Undo): a skip redraws through its undo banner, an unskip has
+-- nothing else to.
+ns.On("PLAYER_UNSKIPPED_QUEST", function() if SL.On() then SL.Refresh() end end)
+
+-- An accent "Unskip" link on card r, as wide as its word; onClick(self).
+local function unskipLink(r, onClick)
+	local b = CreateFrame("Button", nil, r)
+	b:RegisterForClicks("LeftButtonUp")
+	b.Label = T(b, "caption", "accent")
+	b.Label:SetText(L["Unskip it"])
+	b.Label:SetPoint("RIGHT", b, "RIGHT", 0, 0)
+	b:SetSize(floor(b.Label:GetStringWidth() + 0.5) + 4, TAB_H)
+	b:SetScript("OnClick", onClick)
+	b:SetScript("OnEnter", function(self)
+		W.Color(self.Label, "text")
+		local G = GF()
+		W.Tooltip(self, G.TooltipAnchor(), self.psTip or L["Unskip it"])
+		G.HoverIn()
+	end)
+	b:SetScript("OnLeave", function(self)
+		W.Color(self.Label, "accent")
+		W.HideTooltip(self)
+	end)
+	b:Hide()
+	return b
+end
+
 local function row(i)
 	local r = SL.rows[i]
 	if r then return r end
@@ -151,6 +215,13 @@ local function row(i)
 	r.Live = T(r, "caption", "accent")
 	r.Live:SetText(ns.Upper(L["Live"]))
 	r.Live:Hide()
+	-- A step the player skipped: Unskip in the header's right end, where
+	-- LIVE stands on the live step (Engine.Unskip).
+	r.Unskip = unskipLink(r, function(self)
+		local E = ns.Engine
+		if self:GetParent().psIndex and E and E.Unskip then E.Unskip(self:GetParent().psIndex) end
+		SL.Refresh()
+	end)
 	r.G = {} -- the goal lines, made as a step needs them
 	-- A skill range's heading, over the card (outside it).
 	r.Head = T(r, "caption", "textMuted")
@@ -181,6 +252,7 @@ local function row(i)
 				local o = self.psOut[k]
 				lines[#lines + 1] = { o.title .. ": " .. o.text, Theme.TipColor("textDim") }
 			end
+			for _, w in ipairs(self.psWhy or {}) do lines[#lines + 1] = w end
 			lines[#lines + 1] = { L["Click to jump to this step"], Theme.Accent() }
 			W.Tooltip(self, G.TooltipAnchor(), self.psSummary or "", lines)
 		end
@@ -203,6 +275,14 @@ local function line(r, j)
 	g.Text:SetMaxLines(3)
 	g.Text:SetJustifyH("LEFT")
 	g.Text:SetJustifyV("TOP")
+	-- A skipped quest's way back, at the line's right end (Engine.SkipQuest).
+	g.Unskip = unskipLink(r, function(self)
+		local E = ns.Engine
+		-- A quest's unskip redraws the list through PLAYER_UNSKIPPED_QUEST.
+		if self.psQuest and E and E.SkipQuest then E.SkipQuest(self.psQuest, false)
+		elseif self.psStep and E and E.Unskip then E.Unskip(self.psStep); SL.Refresh() end
+	end)
+	g.Unskip.psTip = L["Bring it back"]
 	r.G[j] = g
 	return g
 end
@@ -238,26 +318,70 @@ end
 
 -- Paint card r from step i's view v. -> a key of what it says
 local function fillRow(r, v, i, live, at)
+	local E = ns.Engine
 	local gone = v.status == "done" or v.status == "skipped" or v.skipped == true
 	r.psIndex, r.psRun = i, nil
 	r.psSummary = UI.StepSummary(v)
-	-- A finished step (not the one on screen) is one muted line.
-	local one = gone and i ~= at
+	-- A finished step (not the one on screen) is one muted line. One that
+	-- holds a skip of the player's (a quest skipped, an optional goal passed
+	-- on) shows those lines alone under it, each with its Unskip, and no tick.
+	local function mySkip(goal)
+		if goal.psPerson or goal.status == "done" then return false end
+		return goal.dismissed or (goal.quest and E.IsQuestSkipped and E.IsQuestSkipped(goal.quest)) or false
+	end
+	local list = entries(v)
+	local held = false
+	for _, goal in ipairs(list) do
+		if mySkip(goal) then held = true break end
+	end
+	-- A step the player skipped is never folded: its title (an untitled
+	-- step's first goal), then one line that says the player skipped it, the
+	-- skip glyph in the accent and its Unskip. Steps skipped for the player
+	-- (fillSkipped: the guide's call) read "Skipped for you", muted, with no
+	-- Unskip: the two are never drawn alike.
+	local mine = v.skipped == true and i ~= live
+	local only = gone and i ~= at and held and not mine
+	local one = gone and i ~= at and not held and not mine
 	r.psOne = one
 	local no = UI.StepNo(i)
-	local title = (v.title and v.title ~= "") and v.title or string.format(L["Step %d"], no)
-	r.Tab:SetText(no .. " \194\183 " .. title)
+	-- An untitled step is named by its first goal (UI.StepSummary), as its
+	-- tooltip is; "Step N" only when it has none.
+	local plain = r.psSummary ~= "" and UI.PlainGoalText({ text = r.psSummary }) or nil
+	local title = (v.title and v.title ~= "") and v.title or plain or string.format(L["Step %d"], no)
+	-- The group mark (UI.StepMark, #3580) after the number, so a long title's
+	-- cut never takes it; its reason leads the card's tooltip.
+	local guide = E.GetGuide and E.GetGuide()
+	local mark, reason = UI.StepMark(v, guide and guide.steps and guide.steps[i])
+	r.Tab:SetText(no .. " \194\183 " .. (mark and (UI.StepMarkGlyph(mark) .. " ") or "") .. title)
 	W.Color(r.Tab, gone and "textMuted" or (i == live and "accent" or "textMuted"))
 	r.Live:SetShown(i == live and not one)
-	local n, more, key = 0, 0, {}
-	-- A first goal that says the title draws no line, as on the step card.
+	local why = {}
+	if mark then why[1] = { UI.StepMarkGlyph(mark) .. " " .. reason, Theme.TipColor(mark == "group" and "warning" or "textDim") } end
+	r.psWhy = why
+	r.Unskip:SetShown(false)
+	r.Unskip.psTip = L["Bring it back"]
+	local n, more, key = 0, 0, { mine and "unskip" or "" }
+	-- A first goal that says the title draws no line, as on the step card,
+	-- unless it is the player's skip: that line carries its Unskip.
 	local said = false
-	for _, goal in ipairs(entries(v)) do
-		if n >= MAX_LINES then
+	if mine then
+		n = 1
+		local g = line(r, 1)
+		g.Icon:SetTexture(Theme.Media("skip"))
+		W.Color(g.Icon, "accent")
+		g.Text:SetText(L["You skipped this step."])
+		W.Color(g.Text, "textMuted")
+		key[1] = "unskip"
+	end
+	for _, goal in ipairs(mine and {} or list) do
+		if only and not mySkip(goal) then
+			-- Folded: only the player's skips show.
+		elseif n >= MAX_LINES then
 			more = more + 1
 		elseif goal.psPerson then
 			n = n + 1
 			local g, grp = line(r, n), goal.psPerson
+			g.psUnskip = nil
 			local name = UI.GroupName(v, grp)
 			g.Icon:SetTexture(goal.psDone and Theme.Media("check") or Theme.VerbIcon(GROUP_VERB[grp.kind]))
 			W.Color(g.Icon, goal.psDone and "success" or (gone and "textMuted" or "textDim"), (goal.psDone and gone) and 0.6 or 1)
@@ -266,8 +390,8 @@ local function fillRow(r, v, i, live, at)
 			g.Text:SetText(text)
 			W.Color(g.Text, (gone or goal.psDone) and "textMuted" or "text")
 			key[n] = text
-		elseif n == 0 and not said and v.title and v.title ~= "" and not UI.GoalProgress(goal) and not UI.GoalBar(goal)
-			and UI.PlainGoalText(UI.ReadingGoal(v, goal)) == v.title then
+		elseif n == 0 and not said and not only and not mine and not mySkip(goal) and not UI.GoalProgress(goal)
+			and not UI.GoalBar(goal) and UI.PlainGoalText(UI.ReadingGoal(v, goal)) == title then
 			said = true
 		else
 			n = n + 1
@@ -275,12 +399,23 @@ local function fillRow(r, v, i, live, at)
 			local g = line(r, n)
 			local done = goal.status == "done"
 			local off = gone or done or goal.status == "skipped" or goal.dismissed
-			g.Icon:SetTexture(done and Theme.Media("check") or (goal.dismissed and Theme.Media("skip")) or Theme.VerbIcon(goal.t))
-			W.Color(g.Icon, done and "success" or (off and "textMuted" or "textDim"), (done and gone) and 0.6 or 1)
+			-- The player's own skip (the quest, the optional goal, or the step):
+			-- the skip glyph in the accent, so it reads apart from a step done.
+			-- A goal the guide leaves out itself (another quest first, closed,
+			-- grey) keeps its muted glyph, its reason in the card's tooltip.
+			local qskip = not done and goal.quest and E.IsQuestSkipped and E.IsQuestSkipped(goal.quest) or false
+			local skip = not done and (qskip or goal.dismissed or v.skipped == true)
+			if goal.status == "skipped" and not skip and goal.unavailableText then
+				why[#why + 1] = { UI.PlainGoalText(goal) .. ": " .. goal.unavailableText, Theme.TipColor("textDim") }
+			end
+			g.Icon:SetTexture(done and Theme.Media("check") or (skip and Theme.Media("skip")) or Theme.VerbIcon(goal.t))
+			W.Color(g.Icon, done and "success" or (skip and "accent" or (off and "textMuted" or "textDim")), (done and gone) and 0.6 or 1)
+			g.Unskip.psQuest, g.Unskip.psStep = qskip and goal.quest or nil, nil
+			g.psUnskip = qskip and true or nil
 			local text = (gone and not done) and UI.PlainGoalText(goal) or UI.GoalLine(goal)
 			g.Text:SetText(text)
 			W.Color(g.Text, off and "textMuted" or "text")
-			key[n] = text
+			key[n] = text .. (qskip and "|unskip" or "")
 		end
 	end
 	-- A step without goals: its summary under its first verb (none when the
@@ -288,6 +423,7 @@ local function fillRow(r, v, i, live, at)
 	if n == 0 and not said then
 		n = 1
 		local g = line(r, 1)
+		g.psUnskip = nil
 		g.Icon:SetTexture(Theme.VerbIcon(UI.FirstVerb(v)))
 		W.Color(g.Icon, gone and "textMuted" or "textDim")
 		g.Text:SetText(r.psSummary)
@@ -296,12 +432,12 @@ local function fillRow(r, v, i, live, at)
 	end
 	-- What the route leaves out of this step (#2634, Engine.LeftOutHere with
 	-- `alone`): one muted line, the quests and why in the card's tooltip.
-	local E = ns.Engine
-	local out = not one and E.LeftOutHere and E.LeftOutHere(i, true) or nil
+	local out = not one and not only and not mine and E.LeftOutHere and E.LeftOutHere(i, true) or nil
 	r.psOut = out and #out > 0 and out or nil
 	if r.psOut then
 		n = n + 1
 		local g = line(r, n)
+		g.psUnskip = nil
 		g.Icon:SetTexture(Theme.Media("skip"))
 		W.Color(g.Icon, "textMuted")
 		g.Text:SetText(string.format(L["%d left out here"], #out))
@@ -309,14 +445,21 @@ local function fillRow(r, v, i, live, at)
 		key[#key + 1] = "out" .. #out
 	end
 	if one then n, more, key = 0, 0, { "one" } end
+	-- The step's Unskip on its line.
+	if mine and n > 0 then
+		local g = r.G[1]
+		g.psUnskip = true
+		g.Unskip.psQuest, g.Unskip.psStep = nil, i
+	end
 	for j = 1, #r.G do
 		r.G[j].Icon:SetShown(j <= n)
 		r.G[j].Text:SetShown(j <= n)
+		r.G[j].Unskip:SetShown(j <= n and r.G[j].psUnskip == true)
 	end
 	r.psN = n
 	r.More:SetText(more > 0 and string.format(L["+%d more"], more) or "")
 	r.More:SetShown(more > 0)
-	r.Tick:SetShown(v.status == "done")
+	r.Tick:SetShown(v.status == "done" and not held and not mine)
 	r.Mark:SetShown(i == live)
 	r.View:SetShown(i == at)
 	r:Show()
@@ -338,12 +481,13 @@ end
 -- now (`run`: first, last, steps = { "N · title" }, whys = { reason, ... }
 -- in order, each once). -> a key of what it says
 local function fillSkipped(r, run)
-	r.psIndex, r.psRun, r.psOne, r.psHead = nil, run, false, nil
+	r.psIndex, r.psRun, r.psOne, r.psHead, r.psWhy = nil, run, false, nil, nil
 	local nums = run.first == run.last and tostring(run.first) or (run.first .. "\226\128\147" .. run.last)
 	r.Tab:SetText(nums .. " \194\183 " .. L["Skipped for you"])
 	W.Color(r.Tab, "textMuted")
 	r.psSummary = #run.steps == 1 and L["This step does not apply to you now"] or string.format(L["These %d steps do not apply to you now"], #run.steps)
 	r.Live:Hide()
+	r.Unskip:Hide()
 	r.Head:Hide()
 	local n, more, key = 0, 0, { r.Tab:GetText() }
 	for _, why in ipairs(run.whys) do
@@ -352,6 +496,7 @@ local function fillSkipped(r, run)
 		else
 			n = n + 1
 			local g = line(r, n)
+			g.psUnskip = nil
 			g.Icon:SetTexture(Theme.Media("skip"))
 			W.Color(g.Icon, "textMuted")
 			g.Text:SetText(why)
@@ -362,6 +507,7 @@ local function fillSkipped(r, run)
 	for j = 1, #r.G do
 		r.G[j].Icon:SetShown(j <= n)
 		r.G[j].Text:SetShown(j <= n)
+		r.G[j].Unskip:SetShown(j <= n and r.G[j].psUnskip == true)
 	end
 	r.psN = n
 	r.More:SetText(more > 0 and string.format(L["+%d more"], more) or "")
@@ -373,12 +519,25 @@ local function fillSkipped(r, run)
 	return table.concat(key, "\n")
 end
 
+-- The quests the character skipped (Engine.SkipQuest), as one key: a skip or
+-- an unskip made anywhere (the quest log, a slash command) redraws the list.
+local function skippedKey()
+	local st = ns.CharState and ns.CharState()
+	local q = st and st.skippedQuests
+	if type(q) ~= "table" then return "" end
+	local ids = {}
+	for id in pairs(q) do ids[#ids + 1] = id end
+	table.sort(ids)
+	return table.concat(ids, ",")
+end
+
 -- The cards, in step order. Every step is read again only when the guide,
 -- the step on screen, the live step, the progress, a step's gate (Engine.
 -- StepGate: a later step's `when` turning, which a run card shows) or the
--- names (Names.revision: a run card's reasons name quests) moved;
--- between those (a kill, a loot) only the live and the viewed step's cards
--- are, and the cards are measured again only when what one says changed.
+-- names (Names.revision: a run card's reasons name quests) or the skipped
+-- quests moved; between those (a kill, a loot) only the live and the viewed
+-- step's cards are, and the cards are measured again only when what one says
+-- changed.
 function SL.Fill()
 	local E = ns.Engine
 	local guide = E and E.GetGuide and E.GetGuide()
@@ -392,7 +551,7 @@ function SL.Fill()
 	-- Skip grey quests and the level change what a card says is left out (Engine.LeftOutHere).
 	local level = (ns.Compat.GetPlayerInfo() or {}).level or 0
 	local sig = table.concat({ guide.id or "", count, at or 0, live or 0, done or 0, total or 0, names, table.concat(gates, ","),
-		ns.Get("behavior.skipGrey") and 1 or 0, level }, "|")
+		ns.Get("behavior.skipGrey") and 1 or 0, level, skippedKey() }, "|")
 	if sig == SL.sig then
 		for k = 1, 2 do
 			local i = k == 1 and live or (at ~= live and at)
@@ -471,7 +630,9 @@ function SL.Layout(width, room, least)
 			r:ClearAllPoints()
 			r:SetPoint("TOPLEFT", sc.Child, "TOPLEFT", IN, -y)
 			r:SetPoint("TOPRIGHT", sc.Child, "TOPRIGHT", -IN, -y)
-			r.Tab:SetWidth(max(40, width - IN * 2 - PX * 2 - 34))
+			r.Tab:SetWidth(max(40, width - IN * 2 - PX * 2 - (r.Unskip:IsShown() and r.Unskip:GetWidth() + 8 or 34)))
+			r.Unskip:ClearAllPoints()
+			r.Unskip:SetPoint("TOPRIGHT", r, "TOPRIGHT", -PX, -(r.psOne and PT - 3 or PT) + 1)
 			r.Tab:ClearAllPoints()
 			r.Tab:SetPoint("TOPLEFT", r, "TOPLEFT", PX, -(r.psOne and PT - 3 or PT))
 			r.Live:ClearAllPoints()
@@ -481,10 +642,14 @@ function SL.Layout(width, room, least)
 			local ly = PT + TAB_H + 3
 			for j = 1, r.psN do
 				local g = r.G[j]
-				g.Text:SetWidth(tw)
+				local lw = g.Unskip:IsShown() and g.Unskip:GetWidth() + 8 or 0
+				g.Text:SetWidth(max(40, tw - lw))
 				g.Text:ClearAllPoints()
 				g.Text:SetPoint("TOPLEFT", r, "TOPLEFT", textX, -ly)
 				local lh = g.Text:GetLineHeight()
+				g.Unskip:ClearAllPoints()
+				g.Unskip:SetPoint("TOPRIGHT", r, "TOPRIGHT", -PX, -ly + 1)
+				g.Unskip:SetHeight(lh + 2)
 				g.Icon:ClearAllPoints()
 				g.Icon:SetPoint("TOPLEFT", r, "TOPLEFT", PX, -(ly + floor(max(0, (lh - GLYPH) / 2) + 0.5)))
 				ly = ly + max(lh, floor(g.Text:GetStringHeight() + 0.5)) + LINE_GAP

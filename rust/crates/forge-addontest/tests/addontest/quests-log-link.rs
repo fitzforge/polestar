@@ -1,13 +1,16 @@
-//! Quests/QuestLogLink.lua: "Show in quest log" opens the game's quest log at a quest (Compat.OpenQuestLog, the
-//! client's QuestMapFrame_OpenToQuestDetails), against the fake client (tests/lua/stub_world.lua for the quest log).
+//! Quests/QuestLogLink.lua: "Show in quest log" opens the game's quest log at a quest (Compat.OpenQuestLog: the quest
+//! selected, then the map opened through the client's C opener, #2924), against the fake client
+//! (tests/lua/stub_world.lua for the quest log).
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
 
-// The client's opener, recorded: the quest it opened the log at.
+// The client's C opener, recorded: the quest selected when the map opened.
 const OPENER: &str = r#"
 opened = {}
-function QuestMapFrame_OpenToQuestDetails(q) opened[#opened + 1] = q end
+local selected
+C_QuestLog.SetSelectedQuest = function(q) selected = q end
+C_Map.OpenWorldMap = function() opened[#opened + 1] = selected end
 "#;
 
 // `said()`: the chat lines printed after login (login's own, such as the install check's line about the packs this
@@ -93,7 +96,7 @@ fn the_menu_entry_shows_in_quest_log_through_the_helper() {
 		local real, asked = Polestar.ShowInQuestLog, {}
 		Polestar.ShowInQuestLog = function(q) asked[#asked + 1] = q; return real(q) end
 		item.onClick(item)
-		QuestMapFrame_OpenToQuestDetails = nil
+		C_Map.OpenWorldMap = nil
 		emit({ text = item.text, disabled = item.disabled or false, awayDisabled = away.disabled, asked = asked, opened = opened,
 			noOpener = Polestar.QuestLogMenuItem(33) == nil })"#,
 		OPENER,

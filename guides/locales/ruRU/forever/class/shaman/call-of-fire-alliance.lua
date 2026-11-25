@@ -57,7 +57,7 @@ return {
 
 	-- Step 9: The Brazier of the Dormant Flame
 	-- {object:61934} Brazier of the Dormant Flame
-	["The {object:61934}"] = "",
+	["The {object:61934}"] = "{object:61934}",
 	-- {object:61934} Brazier of the Dormant Flame · {item:277329} Torch of Eternal Flame
 	["Click the {object:61934} atop the shrine with the torch in your bags to place the ember, then click it again for the next quest: the lit {item:277329}."] = "",
 

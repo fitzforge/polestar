@@ -44,11 +44,11 @@ return {
 	-- {area:228} Sepulcher
 	["Back to the {area:228}"] = "返回{area:228}",
 	-- {npc:248840} Trevan Rol · {area:228} Sepulcher · {quest:95034} The Debt
-	["Lumina waits beside {npc:248840} in the {area:228} (a different Lumina from the one you escorted). For {quest:95034}, click through every line of her story."] = "",
+	["Lumina waits beside {npc:248840} in the {area:228} (a different Lumina from the one you escorted). For {quest:95034}, click through every line of her story."] = "盧米娜在 {area:228} 內的 {npc:248840} 身邊等候（這名盧米娜與你護送的那位不是同一個）。做 {quest:95034} 時，要逐項點選，聽完她的全部故事。",
 	-- {npc:248755} Lumina Windsinger · {area:228} Sepulcher
 	["{npc:248755}, the {area:228}"] = "{npc:248755}，{area:228}",
 	-- {npc:248755} Lumina Windsinger
-	["{npc:248755}: hear her story to the end"] = "",
+	["{npc:248755}: hear her story to the end"] = "{npc:248755}：聽完她的故事",
 
 	-- Step 7: A Moon-Kissed Blade
 	-- {npc:259620} Lumina Windsinger · {quest:95140} Old Fire-Eye · {npc:248840} Trevan Rol
@@ -79,9 +79,9 @@ return {
 
 	-- Step 11: The north end of the Zoram Strand
 	-- {area:414} Zoram Strand
-	["The north end of the {area:414}"] = "",
+	["The north end of the {area:414}"] = "{area:414}的北端",
 	-- {area:414} Zoram Strand
-	["The naga's flooded ruins lie just past the north end of the {area:414}. The arrow cannot find its own way down into them, so it leads you to the water's edge first: from there swim north into the ruins."] = "",
+	["The naga's flooded ruins lie just past the north end of the {area:414}. The arrow cannot find its own way down into them, so it leads you to the water's edge first: from there swim north into the ruins."] = "納迦的水淹廢墟就在{area:414}北端稍遠處。箭頭找不到下行的路，所以先把你引到水邊：從那裡向北遊進廢墟。",
 
 	-- Step 12: The Corrupted Kor Gem
 	-- {item:6995} Corrupted Kor Gem
@@ -113,7 +113,7 @@ return {
 
 	-- Step 17: Two-Handed Swords
 	-- {npc:11870} Archibald · {zone:1458} Undercity · {object:36070} War Quarter · {spell:202} Two-Handed Swords
-	["The blade is a two-handed sword, and you need the skill to hit a level 25 elite with it. {npc:11870}, the weapon master in the {zone:1458}'s {object:36070}, teaches {spell:202} for a small fee; then swing it on easy mobs until the skill is near its cap (five points per level)."] = "",
+	["The blade is a two-handed sword, and you need the skill to hit a level 25 elite with it. {npc:11870}, the weapon master in the {zone:1458}'s {object:36070}, teaches {spell:202} for a small fee; then swing it on easy mobs until the skill is near its cap (five points per level)."] = "這把劍是雙手劍，你需要足夠的武器技能才能用它命中25級精英。{zone:1458} 的 {object:36070} 內的武器大師 {npc:11870} 收取少量費用，教授 {spell:202}；學會後先攻擊容易對付的小怪，將技能練到接近上限（每級上限增加五點）。",
 
 	-- Step 18: Old Fire-Eye
 	-- {item:268484} Moonsilver Blade · {quest:95140} Old Fire-Eye · {area:228} Sepulcher · {area:17065} Gilneas

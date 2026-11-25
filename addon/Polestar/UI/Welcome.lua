@@ -20,7 +20,8 @@
 --      bar and progress line (the guide window), the gold dart with the
 --      guide's first walk (the arrow), the library's Leveling, Professions
 --      and Reputation rows with their counts (every guide); a line on what
---      the next pages do;
+--      the arrow follows (the route's step; a quest of the player's own is
+--      found in Lookup, #3701); a line on what the next pages do;
 --   2. questing: quest automation (behavior.autoAccept and autoTurnin as one
 --      switch), grey quests (behavior.skipGrey) and the guide at login
 --      (behavior.autoSelectGuide), each with its description inline; then
@@ -804,7 +805,9 @@ PAGES[#PAGES + 1] = {
 		p.Goal = goalMini(p.Cards[1].Media)
 		p.Arrow = arrowMini(p.Cards[2].Media)
 		p.Library = libraryMini(p.Cards[3].Media)
-		-- What the next pages are for.
+		-- What the arrow follows (#3701), then what the next pages are for.
+		p.Follow = para(p, "note", "textDim", CW, 3)
+		p.Follow:SetText(L["The arrow follows the route step you're on; to go to a quest you already have, open it in Lookup."])
 		p.Ahead = para(p, "note", "textMuted", CW, 3)
 	end,
 	layout = function(P)
@@ -847,6 +850,8 @@ PAGES[#PAGES + 1] = {
 			c.Desc:SetPoint("TOPLEFT", c.Title, "BOTTOMLEFT", 0, -4)
 		end
 		y = y + 6 + MEDIA_H + 10 + textH + 12 + 18
+		place(p.Follow, 0, y)
+		y = y + p.Follow:GetStringHeight() + 10
 		-- A later character's settings are the account's: only its own choices follow.
 		local own = #pageList() > 2
 		if full then
@@ -2421,7 +2426,7 @@ do
 	-- puts the house look back.
 	local PREVIEW_W, PREVIEW_ART_H = 256, 144
 	local SIDE_X = PREVIEW_W + 20
-	local LOOK_COLS, LOOK_GAP, LOOK_THUMB_H, LOOK_NAME_H, LOOK_RESERVE = 6, 8, 40, 20, 3
+	local LOOK_COLS, LOOK_GAP, LOOK_THUMB_H, LOOK_NAME_H, LOOK_RESERVE = 6, 8, 40, 20, 1
 	local LOOK_W = floor((CW - LOOK_GAP * (LOOK_COLS - 1)) / LOOK_COLS)
 	local LOOK_H = 4 + LOOK_THUMB_H + LOOK_NAME_H
 
@@ -2584,8 +2589,10 @@ do
 			p.PreviewHint:SetText(L["Point at a look to see it here; click it to wear it."])
 			p.BuiltTitle = W.Text(p, "caption", "textMuted")
 			p.BuiltTitle:SetText(L["Built in"])
-			p.AddonTitle = W.Text(p, "caption", "textMuted")
-			p.AddonTitle:SetText(L["Concept looks"])
+			-- The concept looks the skin addons bring stay in Settings, Theme
+			-- (the one in use shows with the built-ins).
+			p.MoreLooks = para(p, "note", "textMuted", CW, 2)
+			p.MoreLooks:SetText(L["More concept looks are in Settings, Theme."])
 			buildSchemes(p)
 			F.Glyphs = optionGroup(p, { title = L["Button names"],
 				note = L["The names and shapes Polestar shows for your gamepad's buttons. Automatic reads them off the gamepad."],
@@ -2597,6 +2604,30 @@ do
 						{ value = "xbox", name = L["Xbox (A, B, X, Y)"] },
 						{ value = "playstation", name = L["PlayStation (shapes)"] },
 					}
+				end })
+			-- The guide window's layout: Polestar's own, or one a layout addon
+			-- brings (Theme.LayoutPresets; it loads when picked). Shown only
+			-- with one installed.
+			F.LayoutPick = optionGroup(p, { title = L["Guide window layout"],
+				note = L["How the guide window lays out the step. More in Settings, Guide window, Presets."],
+				get = function() return Theme.LayoutId and Theme.LayoutId() or "" end,
+				set = function(v)
+					if not Theme.SetLayout then return end
+					local ok = pcall(Theme.SetLayout, v ~= "" and v or nil)
+					local lp = ok and v ~= "" and F.LayoutPick.psStage and F.LayoutPick.psStage[v]
+					if lp and ns.Print then ns.Print(string.format(L["%s: /reload after picking it."], lp)) end
+				end,
+				choices = function()
+					local list = Theme.LayoutPresets and Theme.LayoutPresets() or {}
+					if #list == 0 then return {} end
+					local out = { { value = "", name = L["Polestar"], desc = L["The step card, Up next under it."] } }
+					F.LayoutPick.psStage = {}
+					for _, lp in ipairs(list) do
+						local stage = lp.stage == "beta" and L["Beta"] or lp.stage == "alpha" and L["Alpha"] or nil
+						if stage then F.LayoutPick.psStage[lp.id] = lp.label end
+						out[#out + 1] = { value = lp.id, name = stage and string.format("%s (%s)", lp.label, stage) or lp.label, desc = known(lp.help) }
+					end
+					return out
 				end })
 			p.Keep = keepLine(p)
 		end,
@@ -2620,41 +2651,46 @@ do
 			sy = house and laySchemes(p, SIDE_X, sy, CW - SIDE_X, true, 3) or laySchemes(p, SIDE_X, sy, CW - SIDE_X, false, 3) + p.PreviewHint:GetStringHeight()
 			local y = max(PREVIEW_ART_H, sy) + 16
 			-- The cards, once the page has shown (the looks load then): the
-			-- built-ins, then the skin addons' looks.
+			-- built-ins (and a concept look in use), then a line on the others.
 			local choices = looksLoaded and Theme.SkinChoices() or {}
-			local groups = { {}, {} }
-			for _, ch in ipairs(choices) do table.insert(groups[ch.addon and 2 or 1], ch) end
-			local i, top = 0, y
-			for gi, list in ipairs(groups) do
-				local head = gi == 1 and p.BuiltTitle or p.AddonTitle
-				head:SetShown(#list > 0)
-				if #list > 0 then
-					place(head, 0, y)
-					y = y + 18
-					for k, ch in ipairs(list) do
-						i = i + 1
-						local r = F.Skins[i] or lookRow(p)
-						F.Skins[i] = r
-						r.psLook = ch.value
-						r.Name:SetText(ch.text)
-						W.FitText(r.Name, LOOK_W - 12)
-						local col, row = (k - 1) % LOOK_COLS, floor((k - 1) / LOOK_COLS)
-						place(r, col * (LOOK_W + LOOK_GAP), y + row * (LOOK_H + LOOK_GAP))
-						if Theme.DrawSkinCard and r.psDrawn ~= ch.value then
-							r.psDrawn = ch.value
-							-- fit: the whole window shrunk to the thumbnail, not the
-							-- Theme page's crop at a legible scale.
-							pcall(Theme.DrawSkinCard, r.Art, ch.value, nil, true)
-						end
-						r:Show()
-						paintLookRow(r)
-					end
-					y = y + math.ceil(#list / LOOK_COLS) * (LOOK_H + LOOK_GAP) - LOOK_GAP + 12
-				end
+			local list, more = {}, false
+			local using = lookInUse()
+			for _, ch in ipairs(choices) do
+				if not ch.addon or ch.value == using then list[#list + 1] = ch else more = true end
 			end
-			for k = i + 1, #F.Skins do F.Skins[k]:Hide() end
+			local top = y
+			p.BuiltTitle:SetShown(#list > 0)
+			if #list > 0 then
+				place(p.BuiltTitle, 0, y)
+				y = y + 18
+				for k, ch in ipairs(list) do
+					local r = F.Skins[k] or lookRow(p)
+					F.Skins[k] = r
+					r.psLook = ch.value
+					r.Name:SetText(ch.text)
+					W.FitText(r.Name, LOOK_W - 12)
+					local col, row = (k - 1) % LOOK_COLS, floor((k - 1) / LOOK_COLS)
+					place(r, col * (LOOK_W + LOOK_GAP), y + row * (LOOK_H + LOOK_GAP))
+					if Theme.DrawSkinCard and r.psDrawn ~= ch.value then
+						r.psDrawn = ch.value
+						-- fit: the whole window shrunk to the thumbnail, not the
+						-- Theme page's crop at a legible scale.
+						pcall(Theme.DrawSkinCard, r.Art, ch.value, nil, true)
+					end
+					r:Show()
+					paintLookRow(r)
+				end
+				y = y + math.ceil(#list / LOOK_COLS) * (LOOK_H + LOOK_GAP) - LOOK_GAP + 8
+			end
+			for k = #list + 1, #F.Skins do F.Skins[k]:Hide() end
 			-- Room for the grid before the looks load, so the height does not wait for them.
-			y = max(y, top + LOOK_RESERVE * (LOOK_H + LOOK_GAP) + 2 * 18 + 12)
+			y = max(y, top + LOOK_RESERVE * (LOOK_H + LOOK_GAP) + 18 + 8)
+			p.MoreLooks:SetShown(more)
+			if more then
+				place(p.MoreLooks, 0, y)
+				y = y + p.MoreLooks:GetStringHeight() + 12
+			end
+			y = layGroup(F.LayoutPick, y + 6, true) + 14
 			local pad = gamepadShown()
 			y = layGroup(F.Glyphs, pad and y + 18 or y, pad) + 14
 			place(p.Keep, 0, y)

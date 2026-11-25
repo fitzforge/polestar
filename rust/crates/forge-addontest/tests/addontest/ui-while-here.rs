@@ -117,7 +117,9 @@ fn a_right_click_offers_show_in_quest_log_and_not_now() {
 		"",
 		r#"
 		local opened = {}
-		QuestMapFrame_OpenToQuestDetails = function(q) opened[#opened + 1] = q end
+		local selected
+		C_QuestLog.SetSelectedQuest = function(q) selected = q end
+		C_Map.OpenWorldMap = function() opened[#opened + 1] = selected end
 		local function menu()
 			local out = {}
 			for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then out[#out + 1] = r.Text:GetText() end end
@@ -158,7 +160,9 @@ fn a_middle_click_opens_the_quest_log_at_the_line_s_quest_2545() {
 		"",
 		r#"
 		local opened = {}
-		QuestMapFrame_OpenToQuestDetails = function(q) opened[#opened + 1] = q end
+		local selected
+		C_QuestLog.SetSelectedQuest = function(q) selected = q end
+		C_Map.OpenWorldMap = function() opened[#opened + 1] = selected end
 		w.moveTo(1429, 47.6, 37.6); stub.advance(1.05)
 		local R = row(1)
 		stub.RunScript(R, "OnEnter")
@@ -561,7 +565,7 @@ fn off_the_minimap_the_mark_pings_at_the_rim_with_its_edge_pointer() {
 }
 
 #[test]
-fn the_options_sit_in_the_window_tab_on_by_default_the_radius_from_60_to_400_yards_and_the_sound() {
+fn the_options_sit_in_the_while_you_play_tab_on_by_default_the_radius_from_60_to_400_yards_and_the_sound() {
 	let out = run_with(
 		"",
 		"",
@@ -569,7 +573,7 @@ fn the_options_sit_in_the_window_tab_on_by_default_the_radius_from_60_to_400_yar
 		Polestar.UI.LoadOptions()
 		local UI, O = Polestar.UI, Polestar.UI.Options
 		UI.ShowOptions("guide")
-		local c = O.Controls("guide", "Window")
+		local c = O.Controls("guide", "While you play")
 		local on, radius, turnins, sound = c["behavior.whileHere"], c["behavior.whileHereRadius"], c["behavior.whileHereTurnins"], c["behavior.whileHereSound"]
 		local before = { on ~= nil, radius ~= nil, turnins ~= nil, sound ~= nil, Polestar.Get("behavior.whileHere"), Polestar.Get("behavior.whileHereRadius"),
 			Polestar.Get("behavior.whileHereTurnins"), Polestar.Get("behavior.whileHereSound") }
@@ -598,7 +602,7 @@ fn the_hand_ins_slider_sets_their_seconds_out_of_the_way_apart_from_how_close() 
 		Polestar.UI.LoadOptions()
 		local UI, O = Polestar.UI, Polestar.UI.Options
 		UI.ShowOptions("guide")
-		local c = O.Controls("guide", "Window")
+		local c = O.Controls("guide", "While you play")
 		local turnins, seconds = c["behavior.whileHereTurnins"], c["behavior.whileHereTurninSeconds"]
 		local before = { seconds ~= nil, Polestar.Get("behavior.whileHereTurninSeconds"), seconds.Value:GetText(), seconds:IsEnabled() }
 		stub.RunScript(seconds.Slider, "OnValueChanged", 58, true)

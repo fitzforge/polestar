@@ -442,6 +442,24 @@ evaluator exactly.
 `forge sim replay` (a developer command) replays a saved reference event stream and prints the
 first event where the model differs from it.
 
+`forge sim fights` reads recorded sessions and reports the terms of the [Kills](#kills) formula as
+players played them, each beside its prior: `classFactor` per class, `killUp`, `killDown`,
+`eliteTime`, and `killSec1` / `killSec60` with the walk between the mobs taken out. It writes a
+report to read against the priors, never `params.json`:
+
+```sh
+forge sim fights --recordings data/recordings --out fights.json
+```
+
+A sample is the seconds between two kills of one session (over 2 s, at most 180 s) less the straight
+walk between them at `runSpeed`. Left out: a kill in a group, another player's tap, a rare or a boss,
+a mob more than 6 levels below or 4 above the character, and a pair with a death, a flight, a ride
+or AFK between them. Samples are pooled per player, class, level, mob level and rank; a pool counts
+as its median, weighs at most 40 samples and needs 3, so one player's long farm is one vote. The fit
+is additive in log seconds over level, mob level, class and rank. A term nothing was recorded for is
+`null`. `forge sim calibrate` still fits its own `killSec1` / `killSec60` from the same seconds with
+the walk left in, so its values read higher.
+
 ## When it goes wrong
 
 | Symptom | Likely cause | What to do |

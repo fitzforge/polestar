@@ -8,6 +8,8 @@
 //   data/forever/quests.json        which quests a class may take (classes),
 //                                   their links (next, pre, preAll, preAny) and
 //                                   item rewards (the web quest data's items and choices)
+//   data/codex/recorded.json        the items players were handed at each turn-in
+//                                   (their recordings' `rewards`; a trusted row wins)
 //   data/sources/forever-tdb        quest RewardSpell (else RewardDisplaySpell1)
 //   the client tables               SpellEffect (a "teach" spell's learned
 //                                   spell), SpellName, SpellMisc and Item (names,
@@ -135,7 +137,24 @@ function classGuides(dir) {
 	return out;
 }
 
-function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}, races = {} }) {
+// A live-frame point (map percent on the client's map) on map m -> the same place in Era map percent, or null
+// without both frames (data/forever/map-frames.json: { era, forever }, each map's world bounds).
+function eraPoint(frames, m, pt) {
+	const live = frames && frames.forever && frames.forever[m];
+	const era = frames && frames.era && frames.era[m];
+	if (!live || !era || !pt || live.c !== era.c) return null;
+	const wx = live.top + ((live.bottom - live.top) * pt[1]) / 100;
+	const wy = live.left + ((live.right - live.left) * pt[0]) / 100;
+	const x = ((wy - era.left) / (era.right - era.left)) * 100;
+	const y = ((wx - era.top) / (era.bottom - era.top)) * 100;
+	if (!(x >= 0 && x <= 100 && y >= 0 && y <= 100)) return null;
+	return [Math.round(x * 100) / 100, Math.round(y * 100) / 100];
+}
+
+// recorded: data/codex/recorded.json `rewards` ({ quest: { items, choices, voters, trusted } }): what players were
+// handed at the turn-in, in their recordings; a trusted row wins over the quest data's `web` items. frames:
+// data/forever/map-frames.json, to place a giver the data knows only on the live frame.
+function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}, races = {}, recorded = {}, frames = null }) {
 	// Spells: what a "teach" spell teaches, names, icons, kinds.
 	const effects = new Map();
 	for (const r of table('SpellEffect')) {
@@ -198,11 +217,16 @@ function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}
 	// Class quests and their own rewards: { teach, spell, items, choice, show }.
 	// Only the data's class limit makes a class quest: a class guide also takes
 	// quests every class can do (the errands before a class quest, Tauren
-	// chains), and those are nobody's class quest.
+	// chains), and those are nobody's class quest. A quest that asks for a
+	// profession's skill is the trade's, whatever classes the data limits it to:
+	// QuestieDB 1.1.5 limits the Horde's The Art of the Armorsmith (5301,
+	// Blacksmithing 200, the Armorsmith specialisation) to Warriors and
+	// Paladins, where CMaNGOS, pfQuest and its Alliance twin (5283) have no
+	// class, and the heads-up offered it to every Horde Warrior at 40.
 	const mask = new Map();
 	for (const [k, v] of Object.entries(quests)) {
 		const m = classMask(v.classes);
-		if (m) mask.set(Number(k), m);
+		if (m && !v.skill) mask.set(Number(k), m);
 	}
 	const tq = (tdb && tdb.quests) || {};
 	const own = new Map();
@@ -214,7 +238,8 @@ function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}
 			r.teach = s;
 			r.spell = resolve(s);
 		}
-		const w = webOf(quests[q]);
+		const seen = recorded[q];
+		const w = seen && seen.trusted && ((seen.items || []).length || (seen.choices || []).length) ? seen : webOf(quests[q]);
 		const fixed = ((w && w.items) || []).map((e) => Number(Array.isArray(e) ? e[0] : e)).filter(kept);
 		const choices = ((w && w.choices) || []).map((e) => Number(Array.isArray(e) ? e[0] : e)).filter(kept);
 		if (fixed.length) r.items = [fixed.find(isTotem) || fixed[0]];
@@ -244,10 +269,16 @@ function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}
 		guideGiver.set(g, q);
 	}
 
-	// Links between class quests of the same class.
+	// Links between class quests of the same class and side: a quest both factions' chains lead to (The Tempest's
+	// Weapons, 79442, lists the Horde's Heed My Call and the Alliance's as `pre`) joins neither to the other.
 	const succ = new Map(), pred = new Map();
+	const raceBits = (q) => BigInt(Number((quests[q] || {}).races) || 0);
+	const sameSide = (a, b) => {
+		const x = raceBits(a), y = raceBits(b);
+		return x === 0n || y === 0n || (x & y) !== 0n;
+	};
 	const link = (a, b) => {
-		if (!a || !b || a === b || !mask.has(a) || !mask.has(b) || !(mask.get(a) & mask.get(b))) return;
+		if (!a || !b || a === b || !mask.has(a) || !mask.has(b) || !(mask.get(a) & mask.get(b)) || !sameSide(a, b)) return;
 		if (!succ.has(a)) succ.set(a, new Set());
 		if (!pred.has(b)) pred.set(b, new Set());
 		succ.get(a).add(b);
@@ -403,14 +434,25 @@ function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}
 			.map((w) => {
 				const spawns = w.spawns || {};
 				// Where the giver stands decides which races it is offered to: a spawn the recordings placed on the
-				// client's live frame (f 'l') is on that map too. The card's point stays an Era one, as before.
+				// client's live frame (f 'l') is on that map too. The card's point stays an Era one: a giver with only
+				// live spawns (the 0.4.3 data has many) gets its live point carried onto the Era map (eraPoint).
 				const placed = Object.keys(spawns).filter((k) => (spawns[k].pts || []).length).map(Number);
 				const maps = placed.filter((m) => spawns[String(m)].f === 'e');
-				const at = maps.includes(Number(v.zone)) ? Number(v.zone) : maps[0];
 				const g = { name: w.name, faction: w.faction, maps: placed };
+				const at = maps.includes(Number(v.zone)) ? Number(v.zone) : maps[0];
 				if (at) {
 					g.map = at;
 					[g.x, g.y] = spawns[String(at)].pts[0];
+				} else {
+					const live = placed.includes(Number(v.zone)) ? [Number(v.zone), ...placed] : placed;
+					for (const m of live) {
+						const p = spawns[String(m)].f === 'l' ? eraPoint(frames, m, spawns[String(m)].pts[0]) : null;
+						if (p) {
+							g.map = m;
+							[g.x, g.y] = p;
+							break;
+						}
+					}
 				}
 				return g;
 			});
@@ -513,10 +555,13 @@ module.exports = {
 		const npcs = JSON.parse(fs.readFileSync(path.join(dataDir, 'npcs.json'), 'utf8'));
 		const objects = JSON.parse(fs.readFileSync(path.join(dataDir, 'objects.json'), 'utf8'));
 		const races = JSON.parse(fs.readFileSync(path.join(dataDir, 'races.json'), 'utf8'));
+		const recordedFile = path.join(ROOT, 'data', 'codex', 'recorded.json');
+		const recorded = fs.existsSync(recordedFile) ? JSON.parse(fs.readFileSync(recordedFile, 'utf8')).rewards || {} : {};
 		const tdbFile = path.join(sources, 'forever-tdb', 'extract.json');
 		const tdb = fs.existsSync(tdbFile) ? JSON.parse(fs.readFileSync(tdbFile, 'utf8')) : null;
 		const guides = classGuides(path.resolve(values.guides || path.join(ROOT, 'guides')));
-		const data = { ...buildClassRewards({ quests, tdb, table: tableFinder(sources), guides, npcs, objects, races }) };
+		const frames = JSON.parse(fs.readFileSync(path.join(dataDir, 'map-frames.json'), 'utf8'));
+		const data = { ...buildClassRewards({ quests, tdb, table: tableFinder(sources), guides, npcs, objects, races, recorded, frames }) };
 		const out = path.resolve(values.lua || path.join(ROOT, 'addon', 'Polestar', 'UI', 'ClassRewards.lua'));
 		fs.mkdirSync(path.dirname(out), { recursive: true });
 		fs.writeFileSync(out, toLua(data));

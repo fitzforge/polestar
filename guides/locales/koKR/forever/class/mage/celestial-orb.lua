@@ -26,13 +26,13 @@ return {
 	-- Step 4: The Infernal Orb
 	-- {area:602} Mannoroc Coven · {zone:1443} Desolace · {area:2408} Shadowprey Village · {item:7291} Infernal Orb · {spell:686} Shadow Bolt · {zone:1412} Mulgore · {zone:1456} Thunder Bluff
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner · Nether Maidens = {npc:4679} Nether Maiden
-	["The Burning Blade Summoners (level 38-39, not elite) work the {area:602} in southern {zone:1443}, east of {area:2408}, and every one carries an {item:7291}. They cast {spell:686} from 40 yards, keep an imp at their side and run for help at low health; Nether Maidens patrol the pillared ruin beside them, so pull with care. Horde mages: one more summoner stands alone in western {zone:1412}, south-west of {zone:1456}."] = "",
+	["The Burning Blade Summoners (level 38-39, not elite) work the {area:602} in southern {zone:1443}, east of {area:2408}, and every one carries an {item:7291}. They cast {spell:686} from 40 yards, keep an imp at their side and run for help at low health; Nether Maidens patrol the pillared ruin beside them, so pull with care. Horde mages: one more summoner stands alone in western {zone:1412}, south-west of {zone:1456}."] = "불타는칼날단 소환사(38-39레벨, 정예 아님)가 남부 {zone:1443}의 {area:2408} 동쪽 {area:602}에서 일하며 모두 {item:7291}을(를) 지닙니다. 40야드에서 {spell:686}을(를) 시전하고 임프를 곁에 두며 체력이 낮으면 도움을 부릅니다. 옆 기둥 폐허의 공허 처녀들이 순찰하니 조심스레 끌어오세요. 호드 마법사는 {zone:1412} 서부, {zone:1456} 남서쪽에 홀로 있는 소환사가 한 명 더 있습니다.",
 
 	-- Step 5: The Exorcism
 	-- {npc:6546} Tabetha · {quest:1955} The Exorcism · {npc:6549} Demon of the Orb
 	["Back at {npc:6546}'s. Hand in the orb now; {quest:1955} waits for level 40. Kill the critters around the cottage first: they join the fight. Accepting {quest:1955} starts a 3 minute timer, and {npc:6546} calls the {npc:6549} out in her garden: a level 40 elite that resists many spells, roots and slows. Grouping up is encouraged: a mage of 40 may need help or potions, at about 45 it is soloable. You can pull it from range from the dock. The timer keeps running after it dies, so hand the quest in straight away. If time runs out, abandon the quest and take it again; she calls the demon again."] = "{npc:6546}에게 돌아가세요. 지금 보주를 제출하세요. {quest:1955}은(는) 40레벨이 될 때까지 기다립니다. 먼저 오두막 주변의 동물들을 처치하세요. 전투에 끼어듭니다. {quest:1955}을(를) 수락하면 3분 타이머가 시작되고, {npc:6546}이(가) 정원으로 {npc:6549}을(를) 불러냅니다. 많은 주문, 이동 불가, 감속에 저항하는 40레벨 정예입니다. 파티를 권장합니다. 40레벨 마법사는 도움이나 물약이 필요할 수 있고, 45레벨쯤이면 혼자 잡을 수 있습니다. 부두에서 원거리로 끌어올 수 있습니다. 처치한 뒤에도 타이머는 계속 흐르니 바로 퀘스트를 제출하세요. 시간이 다 되면 퀘스트를 포기하고 다시 받으세요. 그녀가 악마를 다시 불러냅니다.",
 	-- {npc:6549} Demon of the Orb
-	["{npc:6549} (elite, 40)"] = "",
+	["{npc:6549} (elite, 40)"] = "{npc:6549}(정예, 40레벨)",
 
 	-- Step 6: Power in Uldaman
 	-- {area:1517} Uldaman · {zone:1418} Badlands · {area:1898} Dustwind Gulch · {npc:7023} Obsidian Sentinel · {npc:7209} Obsidian Shard
@@ -40,13 +40,13 @@ return {
 
 	-- Step 7: Mana Surges
 	-- {npc:6546} Tabetha · {quest:1957} Mana Surges · {spell:403} Lightning Bolt
-	["Back to {npc:6546}. Accepting {quest:1957} opens a rift beside her cottage and starts a 10 minute timer: twelve {quest:1957} (level 40, Shock and {spell:403}) come out about four at a time. Attacking one does not pull the rest. Standing at the edge of the field draws them all; the tree south-west of it is out of their reach but in your spell range. Kill twelve and hand in before the timer runs out."] = "",
+	["Back to {npc:6546}. Accepting {quest:1957} opens a rift beside her cottage and starts a 10 minute timer: twelve {quest:1957} (level 40, Shock and {spell:403}) come out about four at a time. Attacking one does not pull the rest. Standing at the edge of the field draws them all; the tree south-west of it is out of their reach but in your spell range. Kill twelve and hand in before the timer runs out."] = "{npc:6546}에게 돌아가세요. {quest:1957}을(를) 받으면 그녀의 오두막 옆에 균열이 생기고 10분 타이머가 시작됩니다. {quest:1957}(40레벨, 충격과 {spell:403})이 네 마리씩 나와 총 열두 마리가 나옵니다. 하나를 공격해도 나머지가 딸려 오지는 않습니다. 들판 가장자리에 서면 모두 끌어오고, 남서쪽 나무는 그들의 사정거리 밖이지만 당신 주문 사정거리 안입니다. 열두 마리를 처치하고 시간 안에 제출하세요.",
 	-- {quest:1958} Celestial Power · {item:7515} Celestial Orb · {item:9517} Celestial Stave
-	["{quest:1958}: the {item:7515} (off-hand) or the {item:9517}"] = "",
+	["{quest:1958}: the {item:7515} (off-hand) or the {item:9517}"] = "{quest:1958}: {item:7515}(보조장비) 또는 {item:9517}",
 
 	-- Step 8: Tabetha's Task (optional)
 	-- {quest:2861} Tabetha's Task
-	["{quest:2861} (optional)"] = "",
+	["{quest:2861} (optional)"] = "{quest:2861}(선택)",
 	-- {npc:6546} Tabetha · {npc:5497} Jennea Cannon · {npc:4568} Anastasia Hartwell · {npc:5885} Deino · {quest:2861} Tabetha's Task · {quest:2846} Tiara of the Deep · {npc:7795} Hydromancer Velratha · {area:978} Zul'Farrak · {zone:1446} Tanaris · {item:9527} Spellshifter Rod · {item:9531} Gemshale Pauldrons
 	["At 40 the mage trainers who send you to {npc:6546} ({npc:5497}, Bink, {npc:4568}, {npc:5885}) also have {quest:2861}, a quest any class can do. {npc:6546} then wants the {quest:2846} from {npc:7795}, a level 46 elite naga in {area:978}, the troll dungeon in north-western {zone:1446}: a group of five, level 44-54. The reward window shows the {item:9527} and the {item:9531}."] = "40레벨이 되면 {npc:6546}에게 보내 주는 마법사 상급자들({npc:5497}, 빙크, {npc:4568}, {npc:5885})이 어느 직업이나 할 수 있는 {quest:2861}도 줍니다. 그다음 {npc:6546}은(는) {zone:1446} 북서쪽의 트롤 던전 {area:978}에 있는 46레벨 정예 나가 {npc:7795}의 {quest:2846}을(를) 원합니다. 5인 파티, 44-54레벨 던전입니다. 보상 창에 {item:9527}와(과) {item:9531}이(가) 표시됩니다.",
 

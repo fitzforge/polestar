@@ -12,7 +12,9 @@
 --       low) | "rep" (standing too low for the quest) | "na" (not for this
 --       character: faction, race, class) | "skip" (another of its alternatives is done,
 --       or an alternative this character does not take)
---       drops, chests and gifts are "done" once the item is owned; a standing once reached.
+--       drops, chests, gifts and uses are "done" once their item is owned; a standing once
+--       reached; a quest that ends the chain at its accept (`accept`: the key comes with it,
+--       Heart of Disruption) once it is in the log.
 --       done: a key or item owned (bank included); an attunement's goals done (one of
 --       them with `any`). goalDone: the goal quests done (a key since lost: goalDone
 --       and not done). next: the first step to do; left: steps still to do.
@@ -26,10 +28,15 @@
 -- when the giver, a target or the turn-in is inside an instance (the Codex's
 -- NPC instance, else the attunement's cited `inside`): sent to that
 -- instance's entrance, the step's note saying what is inside; a quest above
--- the character's level stays, its accept saying from which level (Engine).
--- A drop or chest as a collect step at its NPC or object (inside an
--- instance: at its entrance); a standing as a rep step; a gift as a talk
--- step. The quests are ordered as the cheapest path from where the
+-- the character's level stays, its accept saying from which level (Engine);
+-- a quest whose standing is not reached yet starts with that standing; an
+-- accept or turn-in at an NPC only the dead see stays to do, its goal saying
+-- how (Lookup.GhostOnly: the Shadowforge Key's Franclorn Forgewright). A
+-- quest that ends the chain at its accept (`accept`) is only that accept,
+-- its note saying to keep it in the log. A drop or chest as a collect step at
+-- its NPC or object (inside an instance: at its entrance); a standing as a rep
+-- step; a gift as a talk step; a use (the Black Tome at the Ambermill Leyline
+-- Focus) as a use and a collect of what it makes, there. The quests are ordered as the cheapest path from where the
 -- player stands (Dungeons.OrderStops, kept per character as
 -- CharState().dungeonAttune["<key>:<id>"]); the item steps follow the quests
 -- they come after. Of `any` alternatives the guide takes the one this
@@ -70,10 +77,12 @@ local function find(key, id)
 	return nil
 end
 
--- One quest step's state before the alternatives are settled.
+-- One quest step's state before the alternatives are settled. A step that
+-- ends the chain at its accept is done once it is in the log.
 local function questState(s, p)
 	if s.faction and p.code and s.faction ~= p.code then return "na" end
 	if done(s.id) then return "done" end
+	if s.accept and inLog(s.id) then return "done" end
 	if ns.Compat.IsQuestReadyForTurnIn(s.id) then return "ready" end
 	if inLog(s.id) then return "log" end
 	local C, Lk = ns.Codex, LK()
@@ -196,23 +205,35 @@ local function endPoint(e)
 	return { kind = e.npc and "npc" or "object", id = e.npc or e.object, name = e.name, map = s.map, x = s.x, y = s.y, f = s.f }
 end
 
+-- The entrance of the instance instance key `key` names, as a point
+-- { map, x, y, f, name = instance name } | nil.
+local function entranceOf(key)
+	local inst = key and Dungeons.Get(key)
+	local e = inst and inst.entrance
+	if not located(e) then return nil end
+	return { map = e.map, x = e.x, y = e.y, f = e.f, name = inst.name }
+end
+
+-- Dungeons.InsideEntrance(kind, id) -> point | nil: where an NPC or object
+-- the Codex puts inside an instance is reached from outside, its instance's
+-- entrance (Lookup's quest guides: the Head of Targorr's collect goes to the
+-- Stockade's door, not beside Guard Berton who takes it, #3613).
+function Dungeons.InsideEntrance(kind, id)
+	local C = ns.Codex
+	local rec = C and (kind == "npc" and C.Npc and C.Npc(id) or kind == "object" and C.Object and C.Object(id)) or nil
+	return entranceOf(rec and rec.instance)
+end
+
 -- inside(kind, id) for Lookup.QuestStep: where an NPC or object without a
--- spawn is, the entrance of its instance (the Codex's NPC instance, else the
--- attunement's `inside`) -> { map, x, y, f, name = instance name } | nil.
+-- spawn is, the entrance of its instance (the attunement's `inside`, else
+-- Dungeons.InsideEntrance) -> { map, x, y, f, name = instance name } | nil.
 local function insideOf(a)
 	local listed = {}
 	for _, e in ipairs(a.inside or {}) do listed[e.kind .. ":" .. tostring(e.id)] = e.instance end
-	local C = ns.Codex
 	return function(kind, id)
 		local key = listed[kind .. ":" .. tostring(id)]
-		if not key and kind == "npc" and C and C.Npc then
-			local npc = C.Npc(id)
-			key = npc and npc.instance
-		end
-		local inst = key and Dungeons.Get(key)
-		local e = inst and inst.entrance
-		if not located(e) then return nil end
-		return { map = e.map, x = e.x, y = e.y, f = e.f, name = inst.name }
+		if key then return entranceOf(key) end
+		return Dungeons.InsideEntrance(kind, id)
 	end
 end
 
@@ -259,8 +280,9 @@ local function itemStep(s, inside)
 	if s.object then goal.object, goal.objName = s.object.id, s.object.name end
 	local step = { title = s.item.name or L["Item"], goals = { goal } }
 	if instName then
+		-- A chest the Codex names no object for (the Black Tome's table in Shadowfang Keep) is the item itself.
 		local text = s.npc and format(L["%s drops it inside %s."], where and where.name or "?", instName)
-			or format(L["%s: inside %s."], where and where.name or "?", instName)
+			or format(L["%s: inside %s."], (where and where.name) or s.item.name or "?", instName)
 		step.goals[#step.goals + 1] = { t = "note", text = text }
 	end
 	return step
@@ -330,7 +352,7 @@ function Dungeons.AttuneGuide(key, id)
 	local stops = questStops(a, st, p, from, inside)
 	local order = Dungeons.OrderStops(stops, from, nil, "dungeonAttune", key .. ":" .. id)
 	local steps = {}
-	-- Item, standing and gift steps follow the quest step before them in the list.
+	-- Item, standing, gift and use steps follow the quest step before them in the list.
 	local placed = {}
 	local function extras(upTo)
 		for i = 1, upTo do
@@ -352,6 +374,13 @@ function Dungeons.AttuneGuide(key, id)
 					steps[#steps + 1] = { title = faction or L["Reputation"], goals = { { t = "rep", faction = s.faction, factionName = faction, standing = s.standing } } }
 				elseif s.kind == "gift" then
 					steps[#steps + 1] = { title = s.npc and s.npc.name or L["Talk to"], goals = { at({ t = "talk", npc = s.npc and s.npc.id, npcName = s.npc and s.npc.name }, s.npc) } }
+				elseif s.kind == "use" and s.from and s.item then
+					-- The item it is made from, used where the NPC beside the spot stands; the made item is
+					-- the collect that closes the use (the Engine's untied use).
+					local use = at({ t = "use", item = s.from.id, itemName = s.from.name }, s.at)
+					local made = at({ t = "collect", item = s.item.id, itemName = s.item.name, count = 1 }, s.at)
+					steps[#steps + 1] = { title = s.from.name or L["Item"], goals = { use, made },
+						note = format(L["Use %s beside %s: it becomes %s."], s.from.name or "?", s.at and s.at.name or "?", s.item.name or "?") }
 				end
 			end
 		end
@@ -359,7 +388,24 @@ function Dungeons.AttuneGuide(key, id)
 	for _, si in ipairs(order) do
 		local stop = stops[si]
 		extras((stop.index or 1) - 1)
-		local step = Lk.QuestStep(stop.rec, stop.inP or from, { inside = inside })
+		local step = Lk.QuestStep(stop.rec, stop.inP or from, { inside = inside, needed = true })
+		local s = stop.index and st.steps[stop.index].step
+		if s and s.accept then
+			-- The chain ends at this accept: the quest hands over the item and takes it back if it is
+			-- dropped (Heart of Disruption's Dalaran Sewer Key), so its objectives and turn-in are no step of it.
+			local goals = {}
+			for _, g in ipairs(step.goals) do
+				if g.t == "accept" then goals[#goals + 1] = g end
+			end
+			step.goals = goals
+			step.note = format(L["Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back."], ns.Quoted(stop.rec.title), a.item and a.item.name or a.name)
+		end
+		-- A standing the quest needs and this character lacks: reach it first (Agent of Hydraxis, The Dread Citadel).
+		if s and s.rep and s.rep.faction and standing(s.rep.faction) < (s.rep.standing or 0) and step.goals then
+			local N = ns.Names
+			local faction = (N and N.Faction(s.rep.faction)) or s.rep.name
+			table.insert(step.goals, 1, { t = "rep", faction = s.rep.faction, factionName = faction, standing = s.rep.standing })
+		end
 		-- A quest the list lacks says which of its quests it opens (Dungeons.MarkOpens).
 		if stop.opens then Dungeons.MarkOpens(step, stop.rec.id, stop.opens, false) end
 		steps[#steps + 1] = step
@@ -369,6 +415,8 @@ function Dungeons.AttuneGuide(key, id)
 	local d = Dungeons.Get(key)
 	local last = { title = d and d.name or a.name, goals = {} }
 	if a.note then last.goals[#last.goals + 1] = { t = "note", text = L[a.note] } end
+	-- A raid Forever has not opened yet (#3695): the chain can be done, the door stays shut.
+	if a.open == false then last.goals[#last.goals + 1] = { t = "note", text = L["Not open on Forever yet: the attunement is ready for when it opens."] } end
 	local e = d and d.entrance
 	if located(e) then
 		last.goals[#last.goals + 1] = { t = "goto", text = d.name, map = e.map, x = e.x, y = e.y, f = e.f == "e" and "e" or nil, entrance = true }

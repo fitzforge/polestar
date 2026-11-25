@@ -37,7 +37,7 @@ return {
 
 	-- Step 5: What's the Big Idea?
 	-- {npc:13085} Myrokos Silentform · {npc:266357} Barton · {area:280} Strahnbrad · {zone:1416} Alterac Mountains · {spell:921} Pick Pocket
-	["In your mid 30s {npc:13085} has two more jobs; take both. {npc:266357} leads a Syndicate scouting party at {area:280}, in the east of the {zone:1416}, inside one of the houses with stealthed Syndicate around him. Pick his pocket for the report and do not kill him: he does not drop it. If you are lower than him he sees through stealth; Master of Deception helps, or Distract him, Vanish and come in from behind. {spell:921} can miss several times in a row."] = "",
+	["In your mid 30s {npc:13085} has two more jobs; take both. {npc:266357} leads a Syndicate scouting party at {area:280}, in the east of the {zone:1416}, inside one of the houses with stealthed Syndicate around him. Pick his pocket for the report and do not kill him: he does not drop it. If you are lower than him he sees through stealth; Master of Deception helps, or Distract him, Vanish and come in from behind. {spell:921} can miss several times in a row."] = "35級左右時，{npc:13085} 還有兩項任務，都接下。{npc:266357} 帶領一支辛迪加偵察隊，位於 {zone:1416} 東部的 {area:280}，在其中一棟房屋內，周圍有潛行的辛迪加成員。對他使用偷竊取得報告，不要殺他：他不會掉落報告。如果你等級比他低，他能識破潛行；欺詐高手天賦有幫助，也可以先擾亂他，再消失並繞到背後接近。{spell:921} 可能連續幾次未命中。",
 	-- {item:275482} Barton's Scouting Report
 	["Pick Pocket Barton for {item:275482}"] = "對巴頓使用搜尋，獲得{item:275482}",
 
@@ -63,8 +63,6 @@ return {
 	-- Step 9: Ain't No Telling
 	-- {item:275709} Stolen Funds
 	["She will not talk without something to bargain with. Her stash is upstairs in a house close to the keep: take the {item:275709}. If it is already open, wait for it to come back."] = "沒有籌碼她不會開口。她的藏匿物在城堡附近一棟房子的樓上：拿走{item:275709}。如果已經被開啟過，就等它重新出現。",
-	-- {item:275709} Stolen Funds
-	["{item:275709}: Anastasia's Stash"] = "{item:275709}：阿納斯塔西婭的藏匿物",
 
 	-- Step 10: The Syndicate Sting
 	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad · {item:275882} Intercepted Shipment · {item:275706} Syndicate Uniform · {npc:13085} Myrokos Silentform
@@ -82,5 +80,6 @@ return {
 	-- ["Horde fly to {area:272}, Alliance to {area:271}. The manor hides in the hills east of {area:272}, up a path into the {zone:1416}; the Rite of Cunning is passing its way in."] = "部落飛往{area:272}，聯盟飛往{area:271}。莊園隱藏在{area:272}東邊的山丘中，沿小路往上進入{zone:1416}；狡詐儀式是你進入的通行方式。",
 	-- ["Rite of Cunning"] = "狡詐儀式",
 	-- ["{item:275482}: pickpocket Barton"] = "{item:275482}：對巴爾頓偷竊",
+	-- ["{item:275709}: Anastasia's Stash"] = "{item:275709}：阿納斯塔西婭的藏匿物",
 	-- ["{npc:266216} is inside {area:275}, the Syndicate fortress in eastern {area:287}, south of the manor. Quick and quiet, says {npc:13085}."] = "{npc:266216}在{area:275}內，那是{area:287}東部、莊園南邊的辛迪加要塞。{npc:13085}說：要快又要安靜。",
 }

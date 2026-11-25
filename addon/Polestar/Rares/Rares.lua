@@ -10,9 +10,11 @@
 --
 --   Rares.Decide(s, ctx) -> action, reason          pure
 --     s   = { source = "vignette"|"nameplate"|"target"|"mouseover", kind = "rare"|"treasure",
---             id, name, classification, dead, player, level }
+--             id, name, classification, dead, player, level, attackable }
+--         attackable: a unit's UnitCanAttack("player", unit); false = on the player's side
 --     ctx = { get = fn(key) -> setting (key without "rares."), now = epoch seconds,
---             history = { [key] = entry }, inCombat, inInstance, known = fn(kind, id) -> bool }
+--             history = { [key] = entry }, inCombat, inInstance, known = fn(kind, id) -> bool,
+--             friendly = fn(id) -> bool (the Codex puts the NPC on the player's side) }
 --     action: "alert" | "hold" (alert once combat ends) | "record" (remember, no alert) | "skip"
 --   Rares.Key(kind, id, name) -> "rare:61" | "treasure:2843" | "name:<name>"
 --   Rares.Sighting(s, where) -> action, reason        the live path: decide, record, alert
@@ -72,7 +74,8 @@ ns.RegisterDefaults("rares", {
 })
 
 -- Polestar's founder, Fitz, plays this character on Forever's EU PvP realms
--- (his client's GetRealmName reads "CAMWOW EU5 Realm 8 PvP"). Forever's
+-- (his client's GetRealmName read "CAMWOW EU5 Realm 8 PvP" until 1.60.1; the
+-- match never used the realm). Forever's
 -- names carry a surname, so this is the full name as Compat.UnitFullName
 -- gives it. When he comes into sight, one alert says so and the rare button
 -- offers to target him and wave (QoL/Buttons.lua, Buttons.FounderMacro).
@@ -81,12 +84,36 @@ Rares.FOUNDER = "Fitz Polestar"
 local HISTORY_MAX = 400
 local CLASS_RARE = { rare = true, rareelite = true }
 
+-- Faction leaders the 0.4.1 Codex lists as rares (#2929, #2942): players'
+-- sightings of them were taken for rare sightings. They are never rares here,
+-- whatever the Codex says, so they never alert, pin or list.
+local NOT_RARE = {
+	[1284] = true, -- Archbishop Benedictus
+	[1749] = true, -- Lady Katrana Prestor
+	[2425] = true, -- Varimathras
+	[2784] = true, -- King Magni Bronzebeard
+	[3057] = true, -- Cairne Bloodhoof
+	[3516] = true, -- Arch Druid Fandral Staghelm
+	[4949] = true, -- Thrall
+	[4968] = true, -- Lady Jaina Proudmoore
+	[7937] = true, -- High Tinker Mekkatorque
+	[7999] = true, -- Tyrande Whisperwind
+	[10181] = true, -- Lady Sylvanas Windrunner
+	[10540] = true, -- Vol'jin
+}
+Rares.NOT_RARE = NOT_RARE
+
 -- Sounds the alert may play: SOUNDKIT names in Blizzard_SharedXML/Mainline/
 -- SoundKitConstants.lua (Forever 1.60.1), with their ids as the fallback.
+-- The third was the boss whisper (UI_RAID_BOSS_WHISPER_WARNING, 37666), which
+-- Forever's SoundKit table plays at 1% volume, so it was never heard (#3158);
+-- the boss emote warning (12197) is the client's own raid-warning sound for
+-- boss emotes, at 40%. Its value stays "whisper" so a saved choice keeps
+-- working.
 Rares.SOUNDS = {
 	{ value = "raid", label = L["Raid warning"], kit = "RAID_WARNING", id = 8959 },
 	{ value = "ready", label = L["Ready check"], kit = "READY_CHECK", id = 8960 },
-	{ value = "whisper", label = L["Boss whisper"], kit = "UI_RAID_BOSS_WHISPER_WARNING", id = 37666 },
+	{ value = "whisper", label = L["Boss emote"], kit = "RAID_BOSS_EMOTE_WARNING", id = 12197 },
 }
 
 local function get(key) return ns.Get("rares." .. key) end
@@ -113,10 +140,16 @@ function Rares.Decide(s, ctx)
 	if s.player then return "skip", "player" end
 	local kind = s.kind == "treasure" and "treasure" or "rare"
 	if kind == "rare" then
+		if s.id and NOT_RARE[s.id] then return "skip", "notRare" end
 		-- A vignette on a creature is a rare by the client's own word; a unit
 		-- must say so itself or be one the Codex knows.
 		local known = s.id and ctx.known and ctx.known("rare", s.id)
 		if source ~= "vignette" and not CLASS_RARE[s.classification or ""] and not known then return "skip", "notRare" end
+		-- Only a rare the player can fight alerts: a unit says so itself (a
+		-- death is still recorded, as before); a vignette has no unit to ask,
+		-- so the Codex's side decides.
+		if s.attackable == false and not s.dead then return "skip", "friendly" end
+		if source == "vignette" and s.id and ctx.friendly and ctx.friendly(s.id) then return "skip", "friendly" end
 	end
 	local key = Rares.Key(kind, s.id, s.name)
 	if not key then return "skip", "unknown" end
@@ -133,13 +166,59 @@ function Rares.Decide(s, ctx)
 end
 
 ---------------------------------------------------------------------------
--- History (account-wide, per realm: PolestarDB.rares.history[realm])
+-- History (account-wide, per realm: PolestarDB.rares.history[realm]; "?"
+-- while the client does not give the realm, Compat.RealmName)
 ---------------------------------------------------------------------------
 
 local function realm()
-	local r = GetRealmName and GetRealmName()
-	if type(r) ~= "string" or r == "" or (issecretvalue and issecretvalue(r)) then return "?" end
-	return r
+	return ns.Compat.RealmName() or "?"
+end
+
+-- The realms other than "?" with a history.
+local function otherRealms(all)
+	local out = {}
+	for k, h in pairs(all) do
+		if k ~= "?" and type(h) == "table" then out[#out + 1] = k end
+	end
+	return out
+end
+
+-- With the realm unknown, the history of the only realm that has one moves to
+-- "?" once (with several, none moves; Rares.UnclaimedRealms says how many).
+-- A rare in both keeps the newer entry, with both counts and the earliest
+-- `first`; the oldest go past HISTORY_MAX.
+local claimed -- the PolestarDB.rares.history the move ran on
+local function claim(all)
+	if claimed == all then return end
+	claimed = all
+	local others = otherRealms(all)
+	if #others ~= 1 then return end
+	local from = all[others[1]]
+	local into = type(all["?"]) == "table" and all["?"] or {}
+	all["?"] = into
+	for key, e in pairs(from) do
+		local held = into[key]
+		if type(e) == "table" then
+			if type(held) ~= "table" then
+				into[key] = e
+			else
+				local new, old = e, held
+				if (held.t or 0) > (e.t or 0) then new, old = held, e end
+				new.n = (new.n or 0) + (old.n or 0)
+				local first, alerted = math.min(new.first or math.huge, old.first or math.huge), math.max(new.alerted or 0, old.alerted or 0)
+				new.first = first < math.huge and first or nil
+				new.alerted = alerted > 0 and alerted or nil
+				into[key] = new
+			end
+		end
+	end
+	all[others[1]] = nil
+	local list = {}
+	for k, e in pairs(into) do list[#list + 1] = { k = k, t = type(e) == "table" and e.t or 0 } end
+	if #list > HISTORY_MAX then
+		table.sort(list, function(a, b) return a.t > b.t end)
+		for i = HISTORY_MAX + 1, #list do into[list[i].k] = nil end
+	end
 end
 
 function Rares.History()
@@ -151,12 +230,23 @@ function Rares.History()
 	end
 	if type(root.history) ~= "table" then root.history = {} end
 	local r = realm()
+	if r == "?" then claim(root.history) end
 	local h = root.history[r]
 	if type(h) ~= "table" then
 		h = {}
 		root.history[r] = h
 	end
 	return h
+end
+
+-- With the realm unknown, how many realms' histories were left apart (0 when
+-- the realm is known or one at most had a history).
+function Rares.UnclaimedRealms()
+	if ns.Compat.RealmName() then return 0 end
+	Rares.History()
+	local db = ns.DB()
+	local n = #otherRealms(type(db.rares) == "table" and type(db.rares.history) == "table" and db.rares.history or {})
+	return n > 1 and n or 0
 end
 
 local function prune(h)
@@ -220,15 +310,28 @@ end
 local function known(kind, id)
 	local C = ns.Codex
 	if not (C and C.IsLoaded() and id) then return false end
+	if kind == "rare" and NOT_RARE[id] then return false end
 	return C.Name(kind, id) ~= nil
 end
 Rares.Known = known
+
+-- True when the Codex puts NPC id on the player's side (its faction code
+-- names the player's faction): for a sighting without a unit to ask.
+local function friendly(id)
+	local C = ns.Codex
+	if not (C and C.IsLoaded() and id) then return false end
+	local side = ns.Compat.GetPlayerFaction()
+	local n = side and C.Npc(id)
+	local code = n and n.faction
+	return type(code) == "string" and code:find(side == "Alliance" and "A" or "H", 1, true) ~= nil
+end
+Rares.Friendly = friendly
 
 -- A Codex rare or treasure in one shape (Codex loaded only).
 function Rares.Info(kind, id)
 	local C = Rares.Codex(false)
 	id = tonumber(id)
-	if not (C and id) then return nil end
+	if not (C and id) or (kind ~= "treasure" and NOT_RARE[id]) then return nil end
 	if kind == "treasure" then
 		local o = C.Object(id)
 		if not o then return nil end
@@ -323,7 +426,7 @@ local HOLD_FOR = 60
 local function context()
 	return {
 		get = get, now = serverTime(), history = Rares.History(),
-		inCombat = ns.Compat.InCombat(), inInstance = ns.Compat.IsInInstance(), known = known,
+		inCombat = ns.Compat.InCombat(), inInstance = ns.Compat.IsInInstance(), known = known, friendly = friendly,
 	}
 end
 Rares.Context = context
