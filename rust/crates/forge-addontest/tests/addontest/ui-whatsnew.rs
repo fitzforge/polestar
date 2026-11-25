@@ -225,8 +225,7 @@ fn it_says_what_changed_in_eight_notes_in_order_and_keeps_the_window_within_one_
 	let heads: Vec<&str> = out["notes"].as_array().unwrap().iter().map(|n| n["head"].as_str().unwrap()).collect();
 	assert_eq!(
 		heads,
-		["A smarter arrow", "Guides named for their zones", "Escorts are your choice", "Windows your way", "Attunements",
-			"Polestar in your language", "Fewer folders", "Fixes from your reports"],
+		["A smarter arrow", "Guides named for their zones", "Escorts are your choice", "Windows your way", "Attunements", "Polestar in your language", "Fewer folders", "Fixes from your reports"],
 		"0.4.3's eight notes, in order"
 	);
 	assert_eq!(out["notes"][4]["text"], "Every attunement and key for your faction in the guide menu, with a progress bar and Guide me.");
