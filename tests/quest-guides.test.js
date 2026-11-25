@@ -94,3 +94,20 @@ emit({ first = list[1].guide.id, open = list[1].open, second = list[2].guide.id,
 	assert.match(text, /\|T[^|]*guides[^|]*\|t Later Zone/);
 	assert.doesNotMatch(text, /\|t Early Zone/);
 });
+
+test('labels: no levels twice when the title has them; the pack named when two packs share a title; same lines once', () => {
+	const out = run(`Polestar.RegisterPack({ addon = "Polestar_Other", id = "other", format = 1, title = "Other Pack", author = "Test", version = "1", license = "MIT" })
+Polestar.RegisterGuide({ id = "test/el1", pack = "test", title = "6-11 Elwynn Forest", minLevel = 6, maxLevel = 11,
+	steps = { { goals = { { t = "accept", quest = 300, title = "Q" } } } } })
+Polestar.RegisterGuide({ id = "test/el2", pack = "test", title = "6-11 Elwynn Forest", minLevel = 6, maxLevel = 11,
+	steps = { { goals = { { t = "accept", quest = 300, title = "Q" } } } } })
+Polestar.RegisterGuide({ id = "other/el", pack = "other", title = "6-11 Elwynn Forest", minLevel = 6, maxLevel = 11,
+	steps = { { goals = { { t = "turnin", quest = 300, title = "Q" } } } } })
+Polestar.Set("behavior.suggestFrom", "test")
+QG.BuildNow()
+local labels = {}
+for _, e in ipairs(QG.Shown(QG.For(300))) do labels[#labels + 1] = e.label end
+emit({ labels = labels, plain = Polestar.UI.GuideLabel({ title = "Early Zone", minLevel = 10, maxLevel = 12 }) })`);
+	assert.deepEqual(out.labels, ['6-11 Elwynn Forest · Test', '6-11 Elwynn Forest · Other Pack']);
+	assert.match(out.plain, /^Early Zone \(10.12\)$/);
+});

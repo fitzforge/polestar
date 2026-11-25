@@ -197,6 +197,39 @@ local function rolesText(roles)
 	return table.concat(parts, ", ")
 end
 
+-- The label of each entry of a For list, as the lines name it: the guide's
+-- label, with its pack's title when another guide of that label is from
+-- another pack. Entries whose line would read the same as an earlier one's
+-- (label, roles, open) are dropped: the list as shown.
+local function shown(list)
+	local G = ns.Guides
+	local byLabel, out, seen = {}, {}, {}
+	for _, e in ipairs(list) do
+		local label = ns.UI.GuideLabel(e.guide)
+		local packs = byLabel[label]
+		if not packs then
+			packs = {}
+			byLabel[label] = packs
+		end
+		packs[e.guide.pack or ""] = true
+		e.label = label
+	end
+	for _, e in ipairs(list) do
+		local packs, n = byLabel[e.label], 0
+		for _ in pairs(packs) do n = n + 1 end
+		local label = e.label
+		local p = n > 1 and G.Pack and G.Pack(e.guide.pack)
+		if p and p.title then label = label .. " \194\183 " .. p.title end
+		local key = label .. "|" .. e.roles .. "|" .. tostring(e.open)
+		if not seen[key] then
+			seen[key] = true
+			out[#out + 1] = { guide = e.guide, roles = e.roles, open = e.open, label = label }
+		end
+	end
+	return out
+end
+QG.Shown = shown
+
 local enabled = false
 
 local function wanted()
@@ -220,8 +253,8 @@ function QG.AddLines(tip, q)
 	local mr, mg, mb = T.Color("textMuted")
 	tip:AddLine(" ")
 	tip:AddLine(L["Polestar guides"], ar, ag, ab)
-	for _, e in ipairs(list) do
-		local label = ns.UI.GuideLabel(e.guide)
+	for _, e in ipairs(shown(list)) do
+		local label = e.label
 		if e.open then
 			tip:AddDoubleLine(markTexture(ar, ag, ab) .. " " .. label, rolesText(e.roles), ar, ag, ab, tr, tg, tb)
 		else
@@ -372,8 +405,8 @@ local function detailText(q)
 	if not list or #list == 0 then return nil end
 	local T = ns.Theme
 	local lines = { "|c" .. T.Hex("accent") .. L["Polestar guides"] .. "|r" }
-	for _, e in ipairs(list) do
-		local label = ns.UI.GuideLabel(e.guide)
+	for _, e in ipairs(shown(list)) do
+		local label = e.label
 		if e.open then
 			label = markTexture(T.Color("accent")) .. " |c" .. T.Hex("accent") .. label .. "|r  " .. rolesText(e.roles)
 		else
