@@ -9,7 +9,7 @@ return {
 	-- Guide
 	-- {area:976} Gadgetzan · {zone:1427} Searing Gorge · {npc:5955} Tooga · {area:1446} Thorium Point
 	-- was: ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "46-48级的{area:976}和{zone:1427}：废土营地、{npc:5955}的护送任务和{area:1446}。"
-	["{area:976} and the {zone:1427} at 47-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "",
+	["{area:976} and the {zone:1427} at 47-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "47-49级的{area:976}和{zone:1427}：废土营地、{npc:5955}的护送任务和{area:1446}。",
 
 	-- Step 1: Fly to Gadgetzan
 	-- {area:976} Gadgetzan

@@ -8297,6 +8297,7 @@ t.guides["forever/horde/40-50/04-tanaris"] = (function() return {
 		["the {object:173265}"] = "das {object:173265}",
 		["{area:246}'s slavers and golems"] = "die Sklavenhalter und Golems von {area:246}",
 		["{area:496} flight master"] = "Flugmeister von {area:496}",
+		["{area:976} and the {zone:1427} at 47-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} und {zone:1427} mit 47-49: die Lager der Wastewander, die Eskorte von {npc:5955} und {area:1446}.",
 		["{area:978} is a dungeon for a group of five; its quests here are level 45 to 47. Its gate lies about 400 yards north of the troll camp's water hole.\nInside: the Scarabs drop the shells, every Sandfury troll can drop {quest:3042}, and {npc:7604} carries the {quest:2768}."] = "{area:978} ist ein Dungeon für eine Gruppe aus fünf Spielern; seine Quests hier sind Stufe 45 bis 47. Das Tor liegt etwa 400 Meter nördlich des Wasserlochs im Trolllager.\nDrinnen: Die Skarabäen lassen die Panzer fallen, jeder Troll der Sandfury kann {quest:3042} fallen lassen, und {npc:7604} trägt {quest:2768} bei sich.",
 		["{item:11818}, a rare drop"] = "{item:11818}, seltene Beute",
 		["{item:8623}, a rare drop"] = "{item:8623}, seltene Beute",
