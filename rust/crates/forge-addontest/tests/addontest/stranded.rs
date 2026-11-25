@@ -406,8 +406,9 @@ fn the_still_to_do_rows_turn_off_with_their_switch_and_come_back_on() {
 // #4112: the quest log notices have one switch (guideWindow.questLogNotices, on by default). Stray Errand (50, not
 // finished, on no guide) makes three quests off the route with 40 and 42: the card's cleanup line shows, and 40 is
 // the finished quests' row. Off, neither shows, read as the setting changes (no render of the test's own), and the
-// quest an update left behind keeps its Still to do row; the guide menu still has Hand in finished quests and Clean
-// up quest log, both enabled; on again, both lines are back. A quest taken while off (51, on no guide) is counted
+// quest an update left behind keeps its Still to do row; the guide menu still has Hand in finished quests (every
+// finished quest in the log, 4, since #2486) and Clean up quest log, both enabled; on again, both lines are back. A
+// quest taken while off (51, on no guide) is counted
 // once the switch is on again.
 #[test]
 fn the_quest_log_notices_switch_hides_the_cleanup_line_and_the_finished_quests_row_and_keeps_the_menu_entries() {
@@ -457,7 +458,7 @@ fn the_quest_log_notices_switch_hides_the_cleanup_line_and_the_finished_quests_r
 	assert_eq!(out["off"], json!({ "off": false, "carried": false, "behind": behind }), "{out}");
 	for key in ["menuOn", "menuOff"] {
 		let items = out[key].as_array().unwrap_or_else(|| panic!("{out}"));
-		assert!(items.iter().any(|s| s == "Hand in finished quests (1)"), "{key}: {out}");
+		assert!(items.iter().any(|s| s == "Hand in finished quests (4)"), "{key}: {out}");
 		assert!(items.iter().any(|s| is_match(text(s), r"^Clean up quest log \(\d+\)$")), "{key}: {out}");
 	}
 	assert_eq!(out["back"], out["on"], "{out}");
