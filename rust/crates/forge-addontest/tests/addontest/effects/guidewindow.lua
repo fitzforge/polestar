@@ -202,6 +202,34 @@ return {
 				Polestar.Engine.GetBehind = nil
 				uistub.update()
 			end },
+		-- The quest log notices (#4112): three quests off the route (RoutePlan.OffRoute) as the card's cleanup line,
+		-- and a finished quest no guide ahead hands in (RoutePlan.Carried) as a row under the step. The off-route list
+		-- is read when the step changes: the step changes and comes back.
+		["guideWindow.questLogNotices"] = {
+			prepare = function()
+				local P = Polestar.RoutePlan
+				P.psOffRoute, P.psCarried = P.OffRoute, P.Carried
+				P.OffRoute = function() return { { quest = 1, title = "A" }, { quest = 2, title = "B" }, { quest = 3, title = "C" } } end
+				P.Carried = function() return { { quest = 4, title = "Finished", xp = 100 } } end
+				uistub.setStep(2)
+				uistub.setStep(3)
+			end,
+			probe = function()
+				local off, carried = false, false
+				for _, l in ipairs(GF.lines) do
+					if l:IsShown() and l.psRoom then off = l.Text:GetText() end
+				end
+				for _, r in ipairs(GF.alongRows) do
+					if r:IsShown() and r.psCarried then carried = r.Text:GetText() end
+				end
+				return { off, carried }
+			end,
+			cleanup = function()
+				local P = Polestar.RoutePlan
+				P.OffRoute, P.Carried, P.psOffRoute, P.psCarried = P.psOffRoute, P.psCarried, nil, nil
+				uistub.setStep(2)
+				uistub.setStep(3)
+			end },
 		["guideWindow.foldAnim"] = fold,
 		-- The step's "N left out here" line (Engine.LeftOutHere, the fake Engine's answer for the step).
 		["guideWindow.leftOut"] = function()

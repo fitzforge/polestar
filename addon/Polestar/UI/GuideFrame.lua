@@ -331,6 +331,10 @@ GF.Part(function(GF)
 		-- The XP row's own line (#3304) and the Still to do rows (#3303): each
 		-- off on its own, without compact mode.
 		xpLine = true, stillToDo = true,
+		-- The quest log notices (#4112): the off-route line and the finished
+		-- quests' row, the end card's off-route line, all off at once; the
+		-- guide menu keeps their lists.
+		questLogNotices = true,
 		bgColor = false, bgOpacity = false, border = true, idleAlpha = 1, combatAlpha = 0.35, veil = 0.68, shade = 0.2,
 		stepAnim = true, animSpeed = 1, foldAnim = true, rules = true, hideTaxi = false, leftOut = true, lastSteps = 0,
 		-- The step card's gaps, each its whole size in px (GF.Gap); false: the
@@ -1985,11 +1989,12 @@ GF.Part(function(GF)
 	-- (Engine.CarriedQuests) and "2 quests aren't part of your route"
 	-- (RoutePlan.OffRoute), each only with a count, each opening its list
 	-- (UI.ShowQuestRoom "later" / "offroute"). Read when the card is painted,
-	-- never on a frame tick.
+	-- never on a frame tick. The second is off with the quest log notices
+	-- (guideWindow.questLogNotices, #4112).
 	function GF.EndQuestLines(id)
 		local E, P = Engine(), ns.RoutePlan
 		local carried = E and E.CarriedQuests and #E.CarriedQuests(id) or 0
-		local off = P and P.OffRoute and P.OffRoute(id)
+		local off = GF.On("questLogNotices") and P and P.OffRoute and P.OffRoute(id)
 		local stray = off and #off or 0
 		local function line(link, n, text, mode)
 			if n == 0 then return end
@@ -2434,8 +2439,9 @@ GF.Part(function(GF)
 		-- Then, in one row, the finished quests no open route hands in
 		-- (RoutePlan.Carried): "3 finished quests to hand in elsewhere (410 XP)";
 		-- a click lists them (UI/QuestRoom.lua, "carried"). The player's own
-		-- quest log: the live window's row only.
-		local carried = stillToDo and GF.live and ns.RoutePlan and ns.RoutePlan.Carried()
+		-- quest log: the live window's row only. Off with the quest log notices
+		-- too (guideWindow.questLogNotices, #4112).
+		local carried = stillToDo and GF.On("questLogNotices") and GF.live and ns.RoutePlan and ns.RoutePlan.Carried()
 		if carried and #carried > 0 and n < ALONG_MAX then
 			n, back = n + 1, back + 1
 			local r, xp = alongRow(n), 0
@@ -3064,7 +3070,8 @@ GF.Part(function(GF)
 		-- log that no guide of the route uses (RoutePlan.OffRoute), one dim
 		-- line that opens them with an Abandon button each (UI.ShowQuestRoom
 		-- "offroute"). Worked out when the step changes, not on every refill.
-		if GF.live and GF.On("leftOut") then
+		-- Off with the quest log notices (guideWindow.questLogNotices, #4112).
+		if GF.live and GF.On("leftOut") and GF.On("questLogNotices") then
 			if not sameFocus or model.offRoute == nil then
 				local P = ns.RoutePlan
 				model.offRoute = P and P.OffRoute and P.OffRoute() or false
@@ -3076,6 +3083,9 @@ GF.Part(function(GF)
 				l.Chevron:SetTexture(Theme.Media("chevron-right"))
 				if l.Close then l.Close:Show() end
 			end
+		else
+			-- Read afresh once the line is back on.
+			model.offRoute = nil
 		end
 		for gi, goal in ipairs(view.goals) do model.last[gi] = goal.status end
 		for i = n + 1, #rows do

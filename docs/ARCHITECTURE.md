@@ -2927,7 +2927,9 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   character's side nearest the player (`Lookup.QuestEnd`). The guide
   window's "Still to do" list gives them one row, "N finished quests to hand
   in elsewhere (X XP)" (with the quests an update left behind, both off with
-  `guideWindow.stillToDo`, Guide window > Parts > Still to do; #3303), and
+  `guideWindow.stillToDo`, Guide window > Parts > Still to do; #3303; the
+  row alone also off with `guideWindow.questLogNotices`, Guide window > Parts
+  > Quest log notices; #4112), and
   Make room shows a "Finished quests you're still
   carrying (N)" button while there are any; either opens
   `UI.ShowQuestRoom("carried")`: each quest
@@ -3487,7 +3489,8 @@ and both of its values start on `"ask"`.
   card is painted and when the guide-end window opens, never on a frame
   tick: the card's second line ("2 quests aren't part of your route") opens
   `UI.ShowQuestRoom("offroute", id)`, each row with its Abandon button (the
-  game's own confirmation); the guide-end window lists them under "Not part
+  game's own confirmation; the line off with `guideWindow.questLogNotices`,
+  #4112); the guide-end window lists them under "Not part
   of your route" with "Keep or abandon them". Nothing is abandoned by itself.
   On the step view a goal's `carriedTo`
   is set once per quest and step (`Own.carriedTo`: its last such goal there
@@ -10437,7 +10440,11 @@ new tab; a click shows that tab or opens it, the guide waiting keeps its own),
 before the dungeon line; and
 with `GF.OFF_ROUTE_NUDGE` (3) or more quests in the log off the route
 (`RoutePlan.OffRoute`, worked out when the step changes) a line that opens
-the quest room on them (`UI.ShowQuestRoom("offroute")`). The bug report adds
+the quest room on them (`UI.ShowQuestRoom("offroute")`); off with
+`guideWindow.questLogNotices` (Guide window > Parts > Quest log notices,
+#4112), with the finished quests' row under the step and the end card's
+"N quests aren't part of your route", the guide menu's Clean up quest log
+and Hand in finished quests kept. The bug report adds
 the reported step's list ("Left out here: title (quest) · why", five at most,
 cut early when the report is too long).
 
