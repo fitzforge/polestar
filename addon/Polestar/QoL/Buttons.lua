@@ -2412,36 +2412,41 @@ do
 		return drawn == false
 	end
 
-	-- A folded row's macro holds only the names that fit in a macro. The first
-	-- of the list that comes close is put first in a new macro, so the click
-	-- targets the one the row shows; out of combat (a frame later, never from
-	-- inside a secure run), in a fight once it ends.
+	-- A macro holds only the names that fit in it (about three or four). The
+	-- first of the list that comes close is put first in a new macro, for the
+	-- target button (and its key) and a folded row alike, so a press tries the
+	-- mob beside the player before names further down the list (#3824,
+	-- Shuurajou: a Hatefury Shadowstalker next to them, past the three names
+	-- the key's macro held); out of combat (a frame later, never from inside a
+	-- secure run), in a fight once it ends.
 	local refold = QoL.Coalesce(function() if Buttons.target then applyTarget(Buttons.target) end end)
 
 	local function paintFaces()
+		-- (The simple button cycles by hand instead: its order is the player's.)
+		local list = simple() and {} or target.list
+		local units = #list > 1 and closeUnits() or nil
+		if units then
+			local close
+			for k = 1, #list do
+				if units[list[k]] then
+					close = list[k]
+					break
+				end
+			end
+			-- None close any more: back to the list's own order.
+			if close ~= target.foldFirst then
+				target.foldFirst = close
+				refold()
+			end
+		elseif target.foldFirst and #list == 0 then
+			target.foldFirst = nil
+		end
 		if not (TL.rows[1] and TL.rows[1].applied) then return end
-		local units = closeUnits()
+		units = units or closeUnits()
 		-- A folded row shows the first of its macro's names that is close, else
 		-- its first: plain text and textures, so it follows in combat too.
 		local r1 = TL.rows[1]
 		if r1.names then
-			local close
-			for k = 1, #r1.all do
-				if units[r1.all[k]] then
-					close = r1.all[k]
-					break
-				end
-			end
-			if close then
-				if r1.names[1] ~= close and target.foldFirst ~= close then
-					target.foldFirst = close
-					refold()
-				end
-			elseif target.foldFirst then
-				-- None close any more: back to the list's own order.
-				target.foldFirst = nil
-				refold()
-			end
 			local pick = r1.names[1]
 			for k = 1, #r1.names do
 				if units[r1.names[k]] then
@@ -3090,8 +3095,12 @@ do
 		if TL.anchor and not ns.GuideShown() then TL.anchor:Hide() end
 		QoL.Secure("target", function()
 			local list = target.list
-			-- The list keeps its order: only the single button cycles.
+			-- The list keeps its order: only the single button cycles. A name that
+			-- came close goes first (target.foldFirst, #3824).
 			local cycle = simple() and target.cycle or 1
+			for k = 1, simple() and 0 or #list do
+				if list[k] == target.foldFirst then cycle = k end
+			end
 			-- A mob and an NPC goal's NPC are both pinged for the group (Fitz, 2026-11-13);
 			-- a fallback of the other kind takes its own kind's mark (#2152).
 			local text = Buttons.MarkedMacro(list, cycle, targetKind, Buttons.QuestPingLine())
