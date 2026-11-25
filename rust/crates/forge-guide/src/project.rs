@@ -1391,7 +1391,7 @@ mod native {
 		let license = read_license(pack_dir, manifest, &mut project.diag);
 		let mut translations = V::obj();
 		if !project.diag.has_errors() || force {
-			let got = crate::i18n_guides::pack_translations(pack_dir, manifest, &project.guides)?;
+			let got = crate::i18n_guides::pack_translations(root, pack_dir, manifest, &project.guides)?;
 			translations = got.get("translations");
 			for w in got.get("warnings").items() {
 				project.diag.warn(&w.get("file").to_js_string(), 0.0, w.get("message").to_js_string(), None);
