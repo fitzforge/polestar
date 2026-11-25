@@ -33,7 +33,6 @@ return {
 	["{npc:217590} in {zone:1443}"] = "{zone:1443}的{npc:217590}",
 	-- {area:596} Kodo Graveyard · {zone:1443} Desolace · {item:213562} Bug Catching Net
 	-- plural, as words: Flesh Pickers = {npc:217590} Flesh Picker
-	-- was: ["The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the kit's tool on one."] = "剔肉蝎在 {zone:1443} 南部中央的 {area:596} 觅食。对其中一只使用工具包中的工具。"
 	["The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the {item:213562} on one."] = "食腐者（{npc:217590}）在{zone:1443}南部中央的{area:596}觅食。对其中一只使用{item:213562}。",
 	-- {item:213562} Bug Catching Net · {npc:217590} Flesh Picker
 	["{item:213562}, on a {npc:217590}"] = "{item:213562}，用在{npc:217590}上",

@@ -195,7 +195,6 @@ return {
 
 	-- Step 44: Clubtoe
 	-- {area:16723} Sunnyglade · {npc:260931} Clubtoe · {npc:256710} Tran'gul
-	-- was: ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "다시 서쪽 {area:16723}(으)로 가세요. 빠져나가고 싶어 하는 황혼의 망치단 광부 {npc:260931}이(가) 마을 동쪽 끝에서 기다립니다. 그를 설득한 뒤 {npc:256710}의 퀘스트를 제출하세요. 실종된 오우거 중 하나가 조금 서쪽에 있습니다."
 	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits inside the cave under the town's eastern edge, a floor below the street. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "다시 서쪽 {area:16723}(으)로: 빠져나가고 싶어 하는 황혼의 광부 {npc:260931}이(가) 마을 동쪽 끝 아래 동굴, 거리보다 한 층 아래에서 기다립니다. 그를 설득한 뒤 {npc:256710}의 퀘스트를 제출하십시오. 실종된 오우거 하나가 몇 걸음 서쪽에 서 있습니다.",
 	-- {npc:260931} Clubtoe
 	["talk {npc:260931} round"] = "{npc:260931} 설득",

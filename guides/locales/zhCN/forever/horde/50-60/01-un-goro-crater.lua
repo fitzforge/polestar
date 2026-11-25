@@ -362,7 +362,6 @@ return {
 	-- Step 78: Scarlet forward camp
 	["Scarlet forward camp"] = "血色十字军前线营地",
 	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
-	-- was: ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "从{area:152}沿路向东进入{zone:1422}。血色十字军的帐篷就在费尔斯通农场再往前一点，位于{area:199}和{area:200}之间。用{object:176092}点燃指挥帐篷，并插上天灾战旗。小心：帐篷周围的血色十字军最高54级，祈求者会施法：从离指挥帐篷最近的一侧进入，别惹其他人。"
 	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "从{area:152}沿路向东进入{zone:1422}。血色十字军的帐篷就在费尔斯通农场后面，在{area:199}和{area:200}之间。用{item:12814}点燃指挥帐篷，插上天灾旗帜。小心：帐篷周围的血色十字军最高54级，祈求者会施法：从离指挥帐篷最近的一侧进入，别管其他人。",
 
 	-- Step 79: Janice Felstone

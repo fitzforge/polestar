@@ -26,7 +26,6 @@ return {
 
 	-- Step 4: Light Leather (Elwynn Forest)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1922} Gray Forest Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:822} Young Forest Bear
-	-- was: ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "349 {item:2318} para {spell:2152}, {spell:3756} e {spell:3763} (210 delas para 75-150: pegue todas agora): {skill:393}: feras de nível 5-20. Esfole {npc:1922}, {npc:525}, Predador, {npc:524}, {npc:113} e {npc:822} aqui (nível 5-20); o guia de {skill:393} traça essa rota."
 	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "349 {item:2318} para {spell:2152}, {spell:3756} e {spell:3763} (210 deles para 75-150: pegue todos agora): {skill:393}: feras de nível 5-20. Esfole {npc:1922}, espreitadores, {npc:524}, {npc:113} e {npc:822} aqui (nível 5-20); o guia de {skill:393} traça esta rota.",
 
 	-- Step 5: Light Leather (Dun Morogh)
@@ -189,7 +188,6 @@ return {
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 158"] = "{spell:3780} até 158",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread
-	-- was: ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} é amarela em 150 (amarelo 145, verde 155, cinza 165): cerca de 15 criações até 158. Cada uma usa 5 {item:4234} e 1 {item:2321}. Cinco {item:4234} por criação (feras de nível 28-40); os kits vendem para vendedores."
 	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "{spell:3780} está amarelo em 150 (amarelo 145, verde 155, cinza 165): cerca de 15 produções até 158. Cada uma leva 5 {item:4234} e 1 {item:2321}. Cinco {item:4234} por produção (feras de nível 28-40); os kits vendem a mercadores. Se chegou aqui sem aprender {spell:3780}, aprenda agora: uma etapa anterior ensina.",
 
 	-- Step 39: Barbaric Shoulders to 165

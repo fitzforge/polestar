@@ -79,7 +79,6 @@ return {
 
 	-- Step 22: Goldthorn & Khadgar's Whisker: Swamp of Sorrows (185-200)
 	-- {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
-	-- was: ["Pick every {item:3356} (125, green), {item:3357} (150, yellow), {item:3818} (160, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 35-45."] = "Sammle unterwegs jedes Vorkommen von {item:3356} (125, grün), {item:3357} (150, gelb), {item:3818} (160, gelb), {item:3821} (170, orange), {object:2043} (185, orange) und lauf die Wegpunkte ab, bis {skill:182} 200 erreicht ist. Gebietsstufe 35-45."
 	["Pick every {item:3356} (125, green), {item:3357} (150, yellow), {item:3818} (160, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 35-45. Expect about 20 herbs for these 15 points."] = "Sammle jedes {item:3356} (125, grün), {item:3357} (150, gelb), {item:3818} (160, gelb), {item:3821} (170, orange), {object:2043} (185, orange), an dem du vorbeikommst, und lauf die Wegpunkte ab, bis {skill:182} 200 erreicht. Gebietsstufe 35-45. Rechne mit etwa 20 Kräutern für diese 15 Punkte.",
 
 	-- Step 23: Artisan Herbalism
@@ -90,10 +89,8 @@ return {
 
 	-- Step 24: Goldthorn & Khadgar's Whisker: Swamp of Sorrows (200-210) cont.
 	-- {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {zone:1435} Swamp of Sorrows
-	-- was: ["{object:2043}: {zone:1435} (200-210) cont."] = "{object:2043}: {zone:1435} (200-210), Fortsetzung"
 	["{item:3821} & {object:2043}: {zone:1435} (200-210) cont."] = "{item:3821} & {object:2043}: {zone:1435} (200-210), Fortsetzung",
 	-- {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
-	-- was: ["Pick every {object:1623} (115, green, rare), {item:3356} (125, green), {item:3357} (150, green), {item:3818} (160, yellow), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 35-45. Expect about 20 herbs for these 10 points."] = "Pflücke alles, was du auf dem Weg findest: {object:1623} (115, grün, selten), {item:3356} (125, grün), {item:3357} (150, grün), {item:3818} (160, gelb), {item:3821} (170, gelb), {object:2043} (185, orange). Lauf die Wegpunkte im Kreis ab, bis {skill:182} 210 erreicht ist. Gebietsstufe 35-45. Rechne mit etwa 20 Kräutern für diese 10 Punkte."
 	["Pick every {item:3356} (125, green), {item:3357} (150, green), {item:3818} (160, yellow), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 35-45. Expect about 20 herbs for these 10 points."] = "Sammle jedes {item:3356} (125, grün), {item:3357} (150, grün), {item:3818} (160, gelb), {item:3821} (170, gelb), {object:2043} (185, orange), an dem du vorbeikommst, und lauf die Wegpunkte ab, bis {skill:182} 210 erreicht. Gebietsstufe 35-45. Rechne mit etwa 20 Kräutern für diese 10 Punkte.",
 
 	-- Step 25: Purple Lotus: The Hinterlands (210-230)

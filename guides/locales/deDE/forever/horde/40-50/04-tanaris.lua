@@ -8,7 +8,6 @@
 return {
 	-- Guide
 	-- {area:976} Gadgetzan · {zone:1427} Searing Gorge · {npc:5955} Tooga · {area:1446} Thorium Point
-	-- was: ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} und {zone:1427} mit 46-48: die Lager der Wastewander, die Eskorte von {npc:5955} und {area:1446}."
 	["{area:976} and the {zone:1427} at 47-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} und {zone:1427} mit 47-49: die Lager der Wastewander, die Eskorte von {npc:5955} und {area:1446}.",
 
 	-- Step 1: Fly to Gadgetzan

@@ -26,7 +26,6 @@ return {
 
 	-- Step 4: Light Leather (Elwynn Forest)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1922} Gray Forest Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:822} Young Forest Bear
-	-- was: ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "{spell:2152}, {spell:3756} 및 {spell:3763}에 필요한 {item:2318} 349개(75-150에 210개: 지금 모두 채집하세요): {skill:393}: 5-20레벨 야수. 여기서 {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113}와(과) {npc:822}을(를) 무두질하세요(레벨 5-20). {skill:393} 가이드가 이 루트를 안내합니다."
 	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "{spell:2152}, {spell:3756}, {spell:3763}에 필요한 {item:2318} 349개(그중 210개는 75-150용: 지금 모두 모으십시오): {skill:393}: 5-20레벨 짐승. 여기서 {npc:1922}, 배회하는 짐승, {npc:524}, {npc:113}, {npc:822}의 가죽을 벗기십시오(5-20레벨). {skill:393} 가이드가 경로를 안내합니다.",
 
 	-- Step 5: Light Leather (Dun Morogh)
@@ -189,7 +188,6 @@ return {
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 158"] = "{spell:3780}: 158까지",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread
-	-- was: ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}은(는) 150에서 노란색입니다(노란색 145, 녹색 155, 회색 165). 158까지 약 15번 만듭니다. 한 번에 {item:4234} 5개와 {item:2321} 1개가 듭니다. 한 번에 {item:4234} 5개(28-40레벨 야수)이며, 키트는 상인에게 팔 수 있습니다."
 	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "{spell:3780}은(는) 150에서 노란색입니다(노란색 145, 초록색 155, 회색 165): 158까지 약 15번 제작. 매번 {item:4234} 5개와 {item:2321} 1개가 필요합니다. 제작마다 {item:4234} 다섯 개(28-40레벨 짐승). 키트는 상인에게 팝니다. {spell:3780}을(를) 배우지 않고 여기까지 왔다면 지금 배우십시오: 앞의 단계에서 가르칩니다.",
 
 	-- Step 39: Barbaric Shoulders to 165

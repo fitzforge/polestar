@@ -118,7 +118,6 @@ return {
 
 	-- Step 17: The Great Outdoors
 	-- {npc:265811} Lyreena Duskblade · {npc:6286} Zarrin · {skill:129} First Aid · {npc:6094} Byancie · {zone:1457} Darnassus · {area:442} Auberdine
-	-- was: ["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west."] = "學會一項專業技能後，{npc:265811}還會提供該專業的露營入門，由該專業的訓練師接收：煉金術和草藥學在{npc:6286}旁邊，{skill:129}找旅店裡的{npc:6094}，剝皮和製皮在往西道路上的鬃紡家族營地。"
 	["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west, fishing and tailoring in {zone:1457}, enchanting north of the city, blacksmithing, mining and engineering in {area:442}."] = "學會一項專業後，{npc:265811}還會提供該專業的露營 101，由其訓練師接收：鍊金術和草藥學在{npc:6286}旁邊，{skill:129}找旅店裡的{npc:6094}，剝皮和製皮在西邊路上的鬃織營地，釣魚和裁縫在{zone:1457}，附魔在城市北邊，鍛造、採礦和工程學在{area:442}。",
 	-- {npc:265811} Lyreena Duskblade · {spell:1229451} Boosted Rest
 	["/sit by {npc:265811}'s campfire until you get {spell:1229451}"] = "在{npc:265811}的營火旁/sit，直到獲得{spell:1229451}",
