@@ -29,7 +29,6 @@ const secondary = require('./secondary');
 const { RACE_GROUPS, raceCondition } = require('./groups');
 const { FACTIONS, GUIDE_HEADER, fmt, liveMark, money, zoneName, rankInfo, vendorSpawns, flightMaster, npcSpawn } = require('./common');
 const { dist } = require('../../route/geo');
-const { byBanners } = require('../sections');
 const { ERA_NOTE } = require('./notes');
 
 const GUIDE = 'forever/professions/fishing-cooking';
@@ -374,12 +373,22 @@ function render(ctx) {
 		const e = list[0];
 		if (e.kind === 'band') {
 			banner(`Fishing ${e.band.from}-${e.band.to}`);
-			// Both factions at one round with the same steps: written once, for everyone.
-			const per = list.map((b) => renderBand(ctx, b, mats));
+			// Groups whose steps match but for `only` (the same round, recipes and fish) share them: races of
+			// one faction under one `only`, both factions' whole routes with none.
 			const bare = (steps) => JSON.stringify(steps.map(([t, lines]) => [t, lines.filter((l) => !l.startsWith('only '))]));
-			if (per.length === 2 && e.band.by === 'faction' && bare(per[0]) === bare(per[1])) {
-				for (const [t, lines] of per[0]) step(t, lines.filter((l) => !l.startsWith('only ')));
-			} else for (const steps of per) for (const [t, lines] of steps) step(t, lines);
+			const buckets = new Map();
+			for (const b of list) {
+				const steps = renderBand(ctx, b, mats);
+				const key = bare(steps);
+				if (!buckets.has(key)) buckets.set(key, { steps, groups: [] });
+				buckets.get(key).groups.push(b.group);
+			}
+			for (const { steps, groups } of buckets.values()) {
+				const factions = [...new Set(groups.map((g) => g.faction))];
+				const everyone = groups.every((g) => !g.races) && factions.length === FACTIONS.length;
+				const cond = everyone ? null : groups.every((g) => g.races) ? raceCondition(groups.flatMap((g) => g.races), factions) : factions.join(',');
+				for (const [t, lines] of steps) step(t, lines.map((l) => (l.startsWith('only ') ? (cond ? `only ${cond}` : null) : l)).filter((l) => l !== null));
+			}
 		} else if (e.kind === 'rank') renderRank(ctx, e, step, banner);
 		else {
 			banner('Artisan: Nat Pagle and Clamlette Surprise');
@@ -387,8 +396,7 @@ function render(ctx) {
 			for (const s of secondary.clamletteSteps(ctx)) step(s.title, s.raw);
 		}
 	}
-	// Each band's range is a section (the guide window's heading; the guide starts at the player's skill).
-	return `${byBanners(L.join('\n'), 'Fishing')}\n`;
+	return `${L.join('\n')}\n`;
 }
 
 function renderRank(ctx, e, step, banner) {
@@ -440,11 +448,14 @@ function renderBand(ctx, e, mats) {
 	const zone = zoneName(ctx, round.map);
 	const only = `only ${group.cond}`;
 	const first = round.stops[0].pt;
-	// Shopping: the band's new recipes at the vendor nearest the round, spices, a lure.
+	// A character whose cooking is past the band's (it cooked from elsewhere) skips the band's shopping and
+	// fish; one whose fishing is past the water's loss skill skips the lure. The guide has no `section`s:
+	// a section follows one skill, and a band here is a Fishing range and a Cooking range at once.
+	const cooked = `skill Cooking ${band.cookTo}`;
+	// Shopping: the band's new recipes, the seller in the round's zone (`npc`), else the one nearest the
+	// player (`nearest`; the tip names the two nearest the round); spices.
 	const buys = [];
 	const notes = [];
-	// A recipe sold in the round's zone is bought there (`npc`); else the arrow picks the seller nearest
-	// the player (`nearest`), and the tip names the two nearest the round.
 	for (const r of shop.recipes) {
 		const m = mats[r.recipeItem] || {};
 		const all = sellersOf(ctx, mats, r.recipeItem, faction);
@@ -458,34 +469,48 @@ function renderBand(ctx, e, mats) {
 		buys.push(`buy ${item} x${Math.ceil(n)} nearest`);
 		notes.push(`${Math.ceil(n)} ${itemName(ctx, item)}`);
 	}
+	if (buys.length) step(`Recipes for ${zone} (Cooking to ${band.cookTo})`, [only, `when !${cooked}`, `zone ${zone}`, `tip Before the round: ${named(notes)}.${shop.recipes.length ? ' A recipe teaches itself when you use it from your bags.' : ''}`, ...buys]);
 	if (shop.lure) {
-		buys.push(`buy ${shop.lure[0]} x3 nearest`);
-		notes.push(`a lure for the pole: ${itemName(ctx, shop.lure[0])}, three${fishing.note(ctx, shop.lure[0], shop.lure[1], true)}`);
+		step(`Lures for ${zone}`, [
+			only,
+			`when !skill Fishing ${round.full}`,
+			`tip This water loses fish below Fishing ${round.full}: a lure on the pole adds to your skill for ten minutes. ${itemName(ctx, shop.lure[0])}${fishing.note(ctx, shop.lure[0], shop.lure[1], true)} closes the gap from ${band.from}; three see you through.`,
+			`buy ${shop.lure[0]} x3 nearest`,
+		]);
 	}
-	if (buys.length) step(`Shopping for ${zone} (Fishing ${band.from}-${band.to})`, [only, `zone ${zone}`, `tip Before the round: ${named(notes)}.${shop.recipes.length ? ' A recipe teaches itself when you use it from your bags.' : ''}`, ...buys]);
 
-	// The fishing round: the skill and the fish the cooking takes.
-	const lines = [only, `zone ${zone}`];
-	const tip = [];
+	// The fishing round: the skill, and while the cooking needs them, the fish it takes (a second copy of
+	// the step: `when` holds for a whole step).
 	const skillCatches = fishing.catches(band.from, band.to);
 	const holds = Object.entries(need).filter(([item]) => (round.fish[item] || 0) >= BITES);
-	const fishNote = holds.length ? ` and until your bags hold ${named(holds.map(([item, n]) => `${n} ${itemName(ctx, Number(item))}`))} for the cooking` : '';
-	tip.push(`Fish the round until Fishing ${band.to}${fishNote}: ${fishing.about(Math.max(skillCatches, e.catches))} catches${band.from >= 75 ? ' (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225)' : ' (below 75 every catch raises the skill)'}.`);
-	if (round.stops.length > 1) tip.push('The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy.');
-	tip.push(`What bites here${round.recorded ? " (players' catches at these stands)" : " (the zone's fishing loot)"}: ${biteLine(ctx, round)}.`);
-	if (round.pools.size) tip.push(`Fishing pools by the round: ${named([...round.pools.keys()].sort())}.`);
-	if (round.full && round.full > band.from) tip.push(`This water loses fish below skill ${round.full}: keep a lure on the pole until then.`);
-	else if (round.full) tip.push(`From skill ${round.full} this water loses no fish.`);
-	tip.push(...forever(ctx, e));
-	lines.push(`tip ${tip.join(' ')}`);
-	if (round.level > band.level) lines.push(`level ${round.level}`);
-	// A round of two or more stops is a `loop` (the places of the skill); the fish to hold are a bag count
-	// (`anywhere`: the round's stands are where they bite, and the creatures that also drop them are not).
-	if (round.stops.length > 1) lines.push('loop');
-	for (const s of round.stops) lines.push(`goto ${fmt(s.pt.x)},${fmt(s.pt.y)}${liveMark(s.pt)} r ${s.pool ? 25 : STAND_R}`);
-	for (const [item, n] of holds) lines.push(`collect ${item} x${n} anywhere`);
-	lines.push(`skill Fishing ${band.to}`);
-	step(`Fishing: ${zone} (${band.from}-${band.to})`, lines);
+	const roundTip = (withFish) => {
+		const tip = [];
+		const fishNote = withFish ? ` and until your bags hold ${named(holds.map(([item, n]) => `${n} ${itemName(ctx, Number(item))}`))} for the cooking` : '';
+		tip.push(`Fish the round until Fishing ${band.to}${fishNote}: ${fishing.about(withFish ? Math.max(skillCatches, e.catches) : skillCatches)} catches${band.from >= 75 ? ' (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225)' : ' (below 75 every catch raises the skill)'}.`);
+		// Never the word "bite" alone in a tip: the compiler then reads the spell Bite as a common word in every guide.
+		if (round.stops.length > 1) tip.push('The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy.');
+		tip.push(`What bites here${round.recorded ? " (players' catches at these stands)" : " (the zone's fishing loot)"}: ${biteLine(ctx, round)}.`);
+		if (round.pools.size) tip.push(`Fishing pools by the round: ${named([...round.pools.keys()].sort())}.`);
+		if (round.full && round.full > band.from) tip.push(`This water loses fish below skill ${round.full}: keep a lure on the pole until then.`);
+		else if (round.full) tip.push(`From skill ${round.full} this water loses no fish.`);
+		tip.push(...forever(ctx, e));
+		return `tip ${tip.join(' ')}`;
+	};
+	const roundLines = (withFish) => {
+		const lines = [only];
+		if (holds.length) lines.push(withFish ? `when !${cooked}` : `when ${cooked}`);
+		lines.push(`zone ${zone}`, withFish || !holds.length ? roundTip(withFish) : `tip Your Cooking is past ${band.cookTo}, so there are no fish to keep: fish the round until Fishing ${band.to}, ${fishing.about(skillCatches)} catches.`);
+		if (round.level > band.level) lines.push(`level ${round.level}`);
+		// A round of two or more stops is a `loop` (the places of the skill); the fish to hold are a bag
+		// count (`anywhere`: the round's stands are where they bite, not the creatures that also drop them).
+		if (round.stops.length > 1) lines.push('loop');
+		for (const s of round.stops) lines.push(`goto ${fmt(s.pt.x)},${fmt(s.pt.y)}${liveMark(s.pt)} r ${s.pool ? 25 : STAND_R}`);
+		if (withFish) for (const [item, n] of holds) lines.push(`collect ${item} x${n} anywhere`);
+		lines.push(`skill Fishing ${band.to}`);
+		return lines;
+	};
+	step(`Fishing: ${zone} (${band.from}-${band.to})`, roundLines(holds.length > 0));
+	if (holds.length) step(`Fishing: ${zone} (${band.from}-${band.to})`, roundLines(false));
 
 	// Cooking: one step per recipe stretch; Journeyman Cooking where the cooking reaches it.
 	for (const c of cook) {

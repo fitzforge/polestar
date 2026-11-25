@@ -42,7 +42,6 @@ zone Ironforge
 # changed a map frame, and a map without an Era frame (Zephras Isle) compiles live.
 
 # ---------------------------------------------------------------- Apprentice
-section Fishing 1-75
 
 step Learn Fishing and Cooking
   tip Any Fishing trainer of your faction teaches Apprentice Fishing (1s) and any Cooking trainer Apprentice Cooking (1s), at any character level; the arrow picks the nearest of each, and every starting area has both. Buy a Fishing Pole (23c) and equip it (you can only fish with a pole in your hands). Forever: every cook knows Basic Campfire: a Basic Campfire Kit from one Simple Wood with Flint and Tinder lights a cooking fire anywhere, so you can cook beside the water. If you sat at your starting area's campfire for The Great Outdoors, its camping guide also offers Camping 101: Fishing (handed in at Fishing 20 for the Fish Bowl recipe) and Camping 101: Cooking.
@@ -52,17 +51,24 @@ step Learn Fishing and Cooking
 
 # ---------------------------------------------------------------- Fishing 1-75
 
-step Shopping for Elwynn Forest (Fishing 1-75)
+step Recipes for Elwynn Forest (Cooking to 50)
   only Human
+  when !skill Cooking 50
   zone Elwynn Forest
-  tip Before the round: Recipe: Brilliant Smallfish (Cooking 1, 40c: Tharynn Bouden, Elwynn Forest) and a lure for the pole: Shiny Bauble, three (+25, 50c each). A recipe teaches itself when you use it from your bags.
+  tip Before the round: Recipe: Brilliant Smallfish (Cooking 1, 40c: Tharynn Bouden, Elwynn Forest). A recipe teaches itself when you use it from your bags.
   buy 6325 x1 npc 66
+
+step Lures for Elwynn Forest
+  only Human
+  when !skill Fishing 25
+  tip This water loses fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1; three see you through.
   buy 6529 x3 nearest
 
 step Fishing: Elwynn Forest (1-75)
   only Human
+  when !skill Cooking 50
   zone Elwynn Forest
-  tip Fish the round until Fishing 75 and until your bags hold 50 Raw Brilliant Smallfish for the cooking: about 80 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Brilliant Smallfish (61%), Raw Longjaw Mud Snapper (37%). This water loses fish below skill 25: keep a lure on the pole until then.
+  tip Fish the round until Fishing 75 and until your bags hold 50 Raw Brilliant Smallfish for the cooking: about 80 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Brilliant Smallfish (61%), Raw Longjaw Mud Snapper (37%). This water loses fish below skill 25: keep a lure on the pole until then.
   loop
   goto 47.1,64.0 r 15
   goto 48.8,63.3 r 15
@@ -72,6 +78,19 @@ step Fishing: Elwynn Forest (1-75)
   collect 6291 x50 anywhere
   skill Fishing 75
 
+step Fishing: Elwynn Forest (1-75)
+  only Human
+  when skill Cooking 50
+  zone Elwynn Forest
+  tip Your Cooking is past 50, so there are no fish to keep: fish the round until Fishing 75, about 70 catches.
+  loop
+  goto 47.1,64.0 r 15
+  goto 48.8,63.3 r 15
+  goto 47.5,63.3 r 15
+  goto 39.7,65.6 r 15
+  goto 46.6,64.7 r 15
+  skill Fishing 75
+
 step Cook Brilliant Smallfish (1-50)
   only Human
   tip Brilliant Smallfish is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50, 50 Raw Brilliant Smallfish. Cook at any fire: a town hearth or your own Basic Campfire. Short of fish: fish the round a little longer.
@@ -83,19 +102,34 @@ step Journeyman Cooking
   tip Journeyman Cooking raises the cap to 150; it needs skill 50 and no character level, and costs 5s. The arrow picks the nearest Cooking trainer of your faction.
   train Cooking Journeyman
 
-step Shopping for Dun Morogh (Fishing 1-75)
+step Recipes for Dun Morogh (Cooking to 50)
   only Dwarf,Gnome
+  when !skill Cooking 50
   zone Dun Morogh
-  tip Before the round: Recipe: Brilliant Smallfish (Cooking 1, 40c: Gretta Ganter, Dun Morogh) and a lure for the pole: Shiny Bauble, three (+25, 50c each). A recipe teaches itself when you use it from your bags.
+  tip Before the round: Recipe: Brilliant Smallfish (Cooking 1, 40c: Gretta Ganter, Dun Morogh). A recipe teaches itself when you use it from your bags.
   buy 6325 x1 npc 8508
+
+step Lures for Dun Morogh
+  only Dwarf,Gnome
+  when !skill Fishing 25
+  tip This water loses fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1; three see you through.
   buy 6529 x3 nearest
 
 step Fishing: Dun Morogh (1-75)
   only Dwarf,Gnome
+  when !skill Cooking 50
   zone Dun Morogh
   tip Fish the round until Fishing 75 and until your bags hold 50 Raw Brilliant Smallfish for the cooking: about 80 catches (below 75 every catch raises the skill). What bites here (players' catches at these stands): Raw Brilliant Smallfish (60%), Raw Longjaw Mud Snapper (37%). This water loses fish below skill 25: keep a lure on the pole until then.
   goto 35.5,40.3 r 15
   collect 6291 x50 anywhere
+  skill Fishing 75
+
+step Fishing: Dun Morogh (1-75)
+  only Dwarf,Gnome
+  when skill Cooking 50
+  zone Dun Morogh
+  tip Your Cooking is past 50, so there are no fish to keep: fish the round until Fishing 75, about 70 catches.
+  goto 35.5,40.3 r 15
   skill Fishing 75
 
 step Cook Brilliant Smallfish (1-50)
@@ -109,21 +143,38 @@ step Journeyman Cooking
   tip Journeyman Cooking raises the cap to 150; it needs skill 50 and no character level, and costs 5s. The arrow picks the nearest Cooking trainer of your faction.
   train Cooking Journeyman
 
-step Shopping for Teldrassil (Fishing 1-75)
+step Recipes for Teldrassil (Cooking to 50)
   only NightElf
+  when !skill Cooking 50
   zone Teldrassil
-  tip Before the round: Recipe: Slitherskin Mackerel (Cooking 1, 40c: Nessa Shadowsong, Teldrassil) and a lure for the pole: Shiny Bauble, three (+25, 50c each). A recipe teaches itself when you use it from your bags.
+  tip Before the round: Recipe: Slitherskin Mackerel (Cooking 1, 40c: Nessa Shadowsong, Teldrassil). A recipe teaches itself when you use it from your bags.
   buy 6326 x1 npc 10118
+
+step Lures for Teldrassil
+  only NightElf
+  when !skill Fishing 25
+  tip This water loses fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1; three see you through.
   buy 6529 x3 nearest
 
 step Fishing: Teldrassil (1-75)
   only NightElf
+  when !skill Cooking 50
   zone Teldrassil
-  tip Fish the round until Fishing 75 and until your bags hold 50 Raw Slitherskin Mackerel for the cooking: about 70 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Slitherskin Mackerel (96%), Battered Chest (4%). This water loses fish below skill 25: keep a lure on the pole until then.
+  tip Fish the round until Fishing 75 and until your bags hold 50 Raw Slitherskin Mackerel for the cooking: about 70 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Slitherskin Mackerel (96%), Battered Chest (4%). This water loses fish below skill 25: keep a lure on the pole until then.
   loop
   goto 55.7,93.5 r 15
   goto 54.8,97.6 r 15
   collect 6303 x50 anywhere
+  skill Fishing 75
+
+step Fishing: Teldrassil (1-75)
+  only NightElf
+  when skill Cooking 50
+  zone Teldrassil
+  tip Your Cooking is past 50, so there are no fish to keep: fish the round until Fishing 75, about 70 catches.
+  loop
+  goto 55.7,93.5 r 15
+  goto 54.8,97.6 r 15
   skill Fishing 75
 
 step Cook Slitherskin Mackerel (1-50)
@@ -137,16 +188,18 @@ step Journeyman Cooking
   tip Journeyman Cooking raises the cap to 150; it needs skill 50 and no character level, and costs 5s. The arrow picks the nearest Cooking trainer of your faction.
   train Cooking Journeyman
 
-step Shopping for Zephras Isle (Fishing 1-75)
-  only Skyborne,Alliance
+step Recipes for Zephras Isle (Cooking to 50)
+  only Skyborne
+  when !skill Cooking 50
   zone Zephras Isle
   tip Before the round: Recipe: Brilliant Smallfish (Cooking 1, 40c: Nyalah Brightfire, Zephras Isle). A recipe teaches itself when you use it from your bags.
   buy 6325 x1 npc 257006
 
 step Fishing: Zephras Isle (1-75)
-  only Skyborne,Alliance
+  only Skyborne
+  when !skill Cooking 50
   zone Zephras Isle
-  tip Fish the round until Fishing 75 and until your bags hold 50 Raw Brilliant Smallfish for the cooking: about 80 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Brilliant Smallfish (59%), Raw Longjaw Mud Snapper (39%).
+  tip Fish the round until Fishing 75 and until your bags hold 50 Raw Brilliant Smallfish for the cooking: about 80 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Brilliant Smallfish (59%), Raw Longjaw Mud Snapper (39%).
   level 5
   loop
   goto 46.8,48.9 live r 15
@@ -154,31 +207,58 @@ step Fishing: Zephras Isle (1-75)
   collect 6291 x50 anywhere
   skill Fishing 75
 
+step Fishing: Zephras Isle (1-75)
+  only Skyborne
+  when skill Cooking 50
+  zone Zephras Isle
+  tip Your Cooking is past 50, so there are no fish to keep: fish the round until Fishing 75, about 70 catches.
+  level 5
+  loop
+  goto 46.8,48.9 live r 15
+  goto 46.0,48.8 live r 15
+  skill Fishing 75
+
 step Cook Brilliant Smallfish (1-50)
-  only Skyborne,Alliance
+  only Skyborne
   tip Brilliant Smallfish is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50, 50 Raw Brilliant Smallfish. Cook at any fire: a town hearth or your own Basic Campfire. Short of fish: fish the round a little longer.
   learn 7751
   craft 7751 until 50
 
 step Journeyman Cooking
-  only Skyborne,Alliance
+  only Skyborne
   tip Journeyman Cooking raises the cap to 150; it needs skill 50 and no character level, and costs 5s. The arrow picks the nearest Cooking trainer of your faction.
   train Cooking Journeyman
 
-step Shopping for Durotar (Fishing 1-75)
+step Recipes for Durotar (Cooking to 50)
   only Orc,Troll
+  when !skill Cooking 50
   zone Durotar
-  tip Before the round: Recipe: Slitherskin Mackerel (Cooking 1, 40c: Zansoa, Durotar) and a lure for the pole: Shiny Bauble, three (+25, 50c each). A recipe teaches itself when you use it from your bags.
+  tip Before the round: Recipe: Slitherskin Mackerel (Cooking 1, 40c: Zansoa, Durotar). A recipe teaches itself when you use it from your bags.
   buy 6326 x1 npc 5942
+
+step Lures for Durotar
+  only Orc,Troll
+  when !skill Fishing 25
+  tip This water loses fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1; three see you through.
   buy 6529 x3 nearest
 
 step Fishing: Durotar (1-75)
   only Orc,Troll
+  when !skill Cooking 50
   zone Durotar
   tip Fish the round until Fishing 75 and until your bags hold 50 Raw Slitherskin Mackerel for the cooking: about 70 catches (below 75 every catch raises the skill). What bites here (players' catches at these stands): Raw Slitherskin Mackerel (98%). This water loses fish below skill 25: keep a lure on the pole until then.
   level 5
   goto 53.5,83.2 r 15
   collect 6303 x50 anywhere
+  skill Fishing 75
+
+step Fishing: Durotar (1-75)
+  only Orc,Troll
+  when skill Cooking 50
+  zone Durotar
+  tip Your Cooking is past 50, so there are no fish to keep: fish the round until Fishing 75, about 70 catches.
+  level 5
+  goto 53.5,83.2 r 15
   skill Fishing 75
 
 step Cook Slitherskin Mackerel (1-50)
@@ -192,19 +272,34 @@ step Journeyman Cooking
   tip Journeyman Cooking raises the cap to 150; it needs skill 50 and no character level, and costs 5s. The arrow picks the nearest Cooking trainer of your faction.
   train Cooking Journeyman
 
-step Shopping for Mulgore (Fishing 1-75)
+step Recipes for Mulgore (Cooking to 50)
   only Tauren
+  when !skill Cooking 50
   zone Mulgore
-  tip Before the round: Recipe: Brilliant Smallfish (Cooking 1, 40c: Harn Longcast, Mulgore) and a lure for the pole: Shiny Bauble, three (+25, 50c each). A recipe teaches itself when you use it from your bags.
+  tip Before the round: Recipe: Brilliant Smallfish (Cooking 1, 40c: Harn Longcast, Mulgore). A recipe teaches itself when you use it from your bags.
   buy 6325 x1 npc 5940
+
+step Lures for Mulgore
+  only Tauren
+  when !skill Fishing 25
+  tip This water loses fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1; three see you through.
   buy 6529 x3 nearest
 
 step Fishing: Mulgore (1-75)
   only Tauren
+  when !skill Cooking 50
   zone Mulgore
   tip Fish the round until Fishing 75 and until your bags hold 50 Raw Brilliant Smallfish for the cooking: about 80 catches (below 75 every catch raises the skill). What bites here (players' catches at these stands): Raw Brilliant Smallfish (63%), Raw Longjaw Mud Snapper (35%). This water loses fish below skill 25: keep a lure on the pole until then.
   goto 44.4,61.1 r 15
   collect 6291 x50 anywhere
+  skill Fishing 75
+
+step Fishing: Mulgore (1-75)
+  only Tauren
+  when skill Cooking 50
+  zone Mulgore
+  tip Your Cooking is past 50, so there are no fish to keep: fish the round until Fishing 75, about 70 catches.
+  goto 44.4,61.1 r 15
   skill Fishing 75
 
 step Cook Brilliant Smallfish (1-50)
@@ -218,17 +313,24 @@ step Journeyman Cooking
   tip Journeyman Cooking raises the cap to 150; it needs skill 50 and no character level, and costs 5s. The arrow picks the nearest Cooking trainer of your faction.
   train Cooking Journeyman
 
-step Shopping for Tirisfal Glades (Fishing 1-75)
+step Recipes for Tirisfal Glades (Cooking to 50)
   only Undead
+  when !skill Cooking 50
   zone Tirisfal Glades
-  tip Before the round: Recipe: Brilliant Smallfish (Cooking 1, 40c: Martine Tramblay, Tirisfal Glades) and a lure for the pole: Shiny Bauble, three (+25, 50c each). A recipe teaches itself when you use it from your bags.
+  tip Before the round: Recipe: Brilliant Smallfish (Cooking 1, 40c: Martine Tramblay, Tirisfal Glades). A recipe teaches itself when you use it from your bags.
   buy 6325 x1 npc 3550
+
+step Lures for Tirisfal Glades
+  only Undead
+  when !skill Fishing 25
+  tip This water loses fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1; three see you through.
   buy 6529 x3 nearest
 
 step Fishing: Tirisfal Glades (1-75)
   only Undead
+  when !skill Cooking 50
   zone Tirisfal Glades
-  tip Fish the round until Fishing 75 and until your bags hold 50 Raw Brilliant Smallfish for the cooking: about 100 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Brilliant Smallfish (48%), Raw Longjaw Mud Snapper (29%), Sickly Looking Fish (15%), Old Skull (5%). This water loses fish below skill 25: keep a lure on the pole until then.
+  tip Fish the round until Fishing 75 and until your bags hold 50 Raw Brilliant Smallfish for the cooking: about 100 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Brilliant Smallfish (48%), Raw Longjaw Mud Snapper (29%), Sickly Looking Fish (15%), Old Skull (5%). This water loses fish below skill 25: keep a lure on the pole until then.
   level 6
   loop
   goto 67.4,51.4 r 15
@@ -237,42 +339,26 @@ step Fishing: Tirisfal Glades (1-75)
   collect 6291 x50 anywhere
   skill Fishing 75
 
-step Cook Brilliant Smallfish (1-50)
+step Fishing: Tirisfal Glades (1-75)
   only Undead
-  tip Brilliant Smallfish is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50, 50 Raw Brilliant Smallfish. Cook at any fire: a town hearth or your own Basic Campfire. Short of fish: fish the round a little longer.
-  learn 7751
-  craft 7751 until 50
-
-step Journeyman Cooking
-  only Undead
-  tip Journeyman Cooking raises the cap to 150; it needs skill 50 and no character level, and costs 5s. The arrow picks the nearest Cooking trainer of your faction.
-  train Cooking Journeyman
-
-step Shopping for Zephras Isle (Fishing 1-75)
-  only Skyborne,Horde
-  zone Zephras Isle
-  tip Before the round: Recipe: Brilliant Smallfish (Cooking 1, 40c: Nyalah Brightfire, Zephras Isle). A recipe teaches itself when you use it from your bags.
-  buy 6325 x1 npc 257006
-
-step Fishing: Zephras Isle (1-75)
-  only Skyborne,Horde
-  zone Zephras Isle
-  tip Fish the round until Fishing 75 and until your bags hold 50 Raw Brilliant Smallfish for the cooking: about 80 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Brilliant Smallfish (59%), Raw Longjaw Mud Snapper (39%).
-  level 5
+  when skill Cooking 50
+  zone Tirisfal Glades
+  tip Your Cooking is past 50, so there are no fish to keep: fish the round until Fishing 75, about 70 catches.
+  level 6
   loop
-  goto 46.8,48.9 live r 15
-  goto 46.0,48.8 live r 15
-  collect 6291 x50 anywhere
+  goto 67.4,51.4 r 15
+  goto 66.9,50.5 r 15
+  goto 66.4,48.6 r 15
   skill Fishing 75
 
 step Cook Brilliant Smallfish (1-50)
-  only Skyborne,Horde
+  only Undead
   tip Brilliant Smallfish is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50, 50 Raw Brilliant Smallfish. Cook at any fire: a town hearth or your own Basic Campfire. Short of fish: fish the round a little longer.
   learn 7751
   craft 7751 until 50
 
 step Journeyman Cooking
-  only Skyborne,Horde
+  only Undead
   tip Journeyman Cooking raises the cap to 150; it needs skill 50 and no character level, and costs 5s. The arrow picks the nearest Cooking trainer of your faction.
   train Cooking Journeyman
 
@@ -282,19 +368,20 @@ step Journeyman Fishing
   train Fishing Journeyman
 
 # ---------------------------------------------------------------- Fishing 75-150
-section Fishing 75-150
 
-step Shopping for Stormwind City (Fishing 75-150)
-  only Human
+step Recipes for Stormwind City (Cooking to 140)
+  only Human,Skyborne,Alliance
+  when !skill Cooking 140
   zone Stormwind City
   tip Before the round: Recipe: Longjaw Mud Snapper (Cooking 50, 4s: Tharynn Bouden, Elwynn Forest, or Tansy Puddlefizz, Ironforge) and Recipe: Bristle Whisker Catfish (Cooking 100, 12s: Catherine Leland, Stormwind City). A recipe teaches itself when you use it from your bags.
   buy 6328 x1 nearest
   buy 6330 x1 npc 5494
 
 step Fishing: Stormwind City (75-150)
-  only Human
+  only Human,Skyborne,Alliance
+  when !skill Cooking 140
   zone Stormwind City
-  tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Longjaw Mud Snapper (61%), Raw Bristle Whisker Catfish (21%), Raw Brilliant Smallfish (17%). From skill 75 this water loses no fish. From level 7, Gilbert Gray at the harbor gives Fishin' Time: bring 1 Shiny Bauble and 3 Nightcrawlers for cooked fish.
+  tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Longjaw Mud Snapper (61%), Raw Bristle Whisker Catfish (21%), Raw Brilliant Smallfish (17%). From skill 75 this water loses no fish. From level 7, Gilbert Gray at the harbor gives Fishin' Time: bring 1 Shiny Bauble and 3 Nightcrawlers for cooked fish.
   loop
   goto 61.7,50.8 r 15
   goto 46.9,58.9 r 15
@@ -304,20 +391,33 @@ step Fishing: Stormwind City (75-150)
   collect 6308 x40 anywhere
   skill Fishing 150
 
+step Fishing: Stormwind City (75-150)
+  only Human,Skyborne,Alliance
+  when skill Cooking 140
+  zone Stormwind City
+  tip Your Cooking is past 140, so there are no fish to keep: fish the round until Fishing 150, about 190 catches.
+  loop
+  goto 61.7,50.8 r 15
+  goto 46.9,58.9 r 15
+  goto 44.5,60.8 r 15
+  goto 45.6,56.8 r 15
+  skill Fishing 150
+
 step Cook Longjaw Mud Snapper (50-100)
-  only Human
+  only Human,Skyborne,Alliance
   tip Longjaw Mud Snapper is orange from 50 (yellow at 90, green at 110, grey at 130): about 52 crafts to 100, 52 Raw Longjaw Mud Snapper. Cook at any fire: a town hearth or your own Basic Campfire. Short of fish: fish the round a little longer.
   learn 7753
   craft 7753 until 100
 
 step Cook Bristle Whisker Catfish (100-140)
-  only Human
+  only Human,Skyborne,Alliance
   tip Bristle Whisker Catfish is orange from 100 (yellow at 140, green at 160, grey at 180): about 40 crafts to 140, 40 Raw Bristle Whisker Catfish. Cook at any fire: a town hearth or your own Basic Campfire. Short of fish: fish the round a little longer.
   learn 7755
   craft 7755 until 140
 
-step Shopping for Ironforge (Fishing 75-150)
+step Recipes for Ironforge (Cooking to 140)
   only Dwarf,Gnome
+  when !skill Cooking 140
   zone Ironforge
   tip Before the round: Recipe: Longjaw Mud Snapper (Cooking 50, 4s: Tansy Puddlefizz, Ironforge) and Recipe: Bristle Whisker Catfish (Cooking 100, 12s: Lindea Rabonne, Hillsbrad Foothills, or Catherine Leland, Stormwind City). A recipe teaches itself when you use it from your bags.
   buy 6328 x1 npc 5162
@@ -325,6 +425,7 @@ step Shopping for Ironforge (Fishing 75-150)
 
 step Fishing: Ironforge (75-150)
   only Dwarf,Gnome
+  when !skill Cooking 140
   zone Ironforge
   tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 300 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). What bites here (players' catches at these stands): Raw Longjaw Mud Snapper (66%), Raw Brilliant Smallfish (19%), Raw Bristle Whisker Catfish (14%). From skill 75 this water loses no fish.
   goto 47.8,14.3 r 15
@@ -332,6 +433,14 @@ step Fishing: Ironforge (75-150)
   collect 6308 x40 anywhere
   skill Fishing 150
 
+step Fishing: Ironforge (75-150)
+  only Dwarf,Gnome
+  when skill Cooking 140
+  zone Ironforge
+  tip Your Cooking is past 140, so there are no fish to keep: fish the round until Fishing 150, about 190 catches.
+  goto 47.8,14.3 r 15
+  skill Fishing 150
+
 step Cook Longjaw Mud Snapper (50-100)
   only Dwarf,Gnome
   tip Longjaw Mud Snapper is orange from 50 (yellow at 90, green at 110, grey at 130): about 52 crafts to 100, 52 Raw Longjaw Mud Snapper. Cook at any fire: a town hearth or your own Basic Campfire. Short of fish: fish the round a little longer.
@@ -344,8 +453,9 @@ step Cook Bristle Whisker Catfish (100-140)
   learn 7755
   craft 7755 until 140
 
-step Shopping for Darnassus (Fishing 75-150)
+step Recipes for Darnassus (Cooking to 140)
   only NightElf
+  when !skill Cooking 140
   zone Darnassus
   tip Before the round: Recipe: Longjaw Mud Snapper (Cooking 50, 4s: Nyoma, Teldrassil) and Recipe: Bristle Whisker Catfish (Cooking 100, 12s: Kilxx, The Barrens). A recipe teaches itself when you use it from your bags.
   buy 6328 x1 nearest
@@ -353,6 +463,7 @@ step Shopping for Darnassus (Fishing 75-150)
 
 step Fishing: Darnassus (75-150)
   only NightElf
+  when !skill Cooking 140
   zone Darnassus
   tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). What bites here (players' catches at these stands): Raw Longjaw Mud Snapper (62%), Raw Bristle Whisker Catfish (22%), Raw Brilliant Smallfish (16%). From skill 75 this water loses no fish.
   goto 46.4,56.0 r 15
@@ -360,61 +471,39 @@ step Fishing: Darnassus (75-150)
   collect 6308 x40 anywhere
   skill Fishing 150
 
-step Cook Longjaw Mud Snapper (50-100)
+step Fishing: Darnassus (75-150)
   only NightElf
-  tip Longjaw Mud Snapper is orange from 50 (yellow at 90, green at 110, grey at 130): about 52 crafts to 100, 52 Raw Longjaw Mud Snapper. Cook at any fire: a town hearth or your own Basic Campfire. Short of fish: fish the round a little longer.
-  learn 7753
-  craft 7753 until 100
-
-step Cook Bristle Whisker Catfish (100-140)
-  only NightElf
-  tip Bristle Whisker Catfish is orange from 100 (yellow at 140, green at 160, grey at 180): about 40 crafts to 140, 40 Raw Bristle Whisker Catfish. Cook at any fire: a town hearth or your own Basic Campfire. Short of fish: fish the round a little longer.
-  learn 7755
-  craft 7755 until 140
-
-step Shopping for Stormwind City (Fishing 75-150)
-  only Skyborne,Alliance
-  zone Stormwind City
-  tip Before the round: Recipe: Longjaw Mud Snapper (Cooking 50, 4s: Tharynn Bouden, Elwynn Forest, or Tansy Puddlefizz, Ironforge) and Recipe: Bristle Whisker Catfish (Cooking 100, 12s: Catherine Leland, Stormwind City). A recipe teaches itself when you use it from your bags.
-  buy 6328 x1 nearest
-  buy 6330 x1 npc 5494
-
-step Fishing: Stormwind City (75-150)
-  only Skyborne,Alliance
-  zone Stormwind City
-  tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Longjaw Mud Snapper (61%), Raw Bristle Whisker Catfish (21%), Raw Brilliant Smallfish (17%). From skill 75 this water loses no fish. From level 7, Gilbert Gray at the harbor gives Fishin' Time: bring 1 Shiny Bauble and 3 Nightcrawlers for cooked fish.
-  loop
-  goto 61.7,50.8 r 15
-  goto 46.9,58.9 r 15
-  goto 44.5,60.8 r 15
-  goto 45.6,56.8 r 15
-  collect 6289 x52 anywhere
-  collect 6308 x40 anywhere
+  when skill Cooking 140
+  zone Darnassus
+  tip Your Cooking is past 140, so there are no fish to keep: fish the round until Fishing 150, about 190 catches.
+  goto 46.4,56.0 r 15
   skill Fishing 150
 
 step Cook Longjaw Mud Snapper (50-100)
-  only Skyborne,Alliance
+  only NightElf
   tip Longjaw Mud Snapper is orange from 50 (yellow at 90, green at 110, grey at 130): about 52 crafts to 100, 52 Raw Longjaw Mud Snapper. Cook at any fire: a town hearth or your own Basic Campfire. Short of fish: fish the round a little longer.
   learn 7753
   craft 7753 until 100
 
 step Cook Bristle Whisker Catfish (100-140)
-  only Skyborne,Alliance
+  only NightElf
   tip Bristle Whisker Catfish is orange from 100 (yellow at 140, green at 160, grey at 180): about 40 crafts to 140, 40 Raw Bristle Whisker Catfish. Cook at any fire: a town hearth or your own Basic Campfire. Short of fish: fish the round a little longer.
   learn 7755
   craft 7755 until 140
 
-step Shopping for Orgrimmar (Fishing 75-150)
-  only Orc,Troll
+step Recipes for Orgrimmar (Cooking to 140)
+  only Orc,Troll,Skyborne,Horde
+  when !skill Cooking 140
   zone Orgrimmar
   tip Before the round: Recipe: Longjaw Mud Snapper (Cooking 50, 4s: Naal Mistrunner, Thunder Bluff, or Harn Longcast, Mulgore) and Recipe: Bristle Whisker Catfish (Cooking 100, 12s: Kilxx, The Barrens, or Sewa Mistrunner, Thunder Bluff). A recipe teaches itself when you use it from your bags.
   buy 6328 x1 nearest
   buy 6330 x1 nearest
 
 step Fishing: Orgrimmar (75-150)
-  only Orc,Troll
+  only Orc,Troll,Skyborne,Horde
+  when !skill Cooking 140
   zone Orgrimmar
-  tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Longjaw Mud Snapper (60%), Raw Bristle Whisker Catfish (20%), Raw Brilliant Smallfish (19%). From skill 75 this water loses no fish.
+  tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Longjaw Mud Snapper (60%), Raw Bristle Whisker Catfish (20%), Raw Brilliant Smallfish (19%). From skill 75 this water loses no fish.
   loop
   goto 68.4,34.8 r 15
   goto 66.6,31.7 r 15
@@ -425,20 +514,34 @@ step Fishing: Orgrimmar (75-150)
   collect 6308 x40 anywhere
   skill Fishing 150
 
+step Fishing: Orgrimmar (75-150)
+  only Orc,Troll,Skyborne,Horde
+  when skill Cooking 140
+  zone Orgrimmar
+  tip Your Cooking is past 140, so there are no fish to keep: fish the round until Fishing 150, about 190 catches.
+  loop
+  goto 68.4,34.8 r 15
+  goto 66.6,31.7 r 15
+  goto 68.4,29.4 r 15
+  goto 69.8,30.1 r 15
+  goto 71.2,32.8 r 15
+  skill Fishing 150
+
 step Cook Longjaw Mud Snapper (50-100)
-  only Orc,Troll
+  only Orc,Troll,Skyborne,Horde
   tip Longjaw Mud Snapper is orange from 50 (yellow at 90, green at 110, grey at 130): about 52 crafts to 100, 52 Raw Longjaw Mud Snapper. Cook at any fire: a town hearth or your own Basic Campfire. Short of fish: fish the round a little longer.
   learn 7753
   craft 7753 until 100
 
 step Cook Bristle Whisker Catfish (100-140)
-  only Orc,Troll
+  only Orc,Troll,Skyborne,Horde
   tip Bristle Whisker Catfish is orange from 100 (yellow at 140, green at 160, grey at 180): about 40 crafts to 140, 40 Raw Bristle Whisker Catfish. Cook at any fire: a town hearth or your own Basic Campfire. Short of fish: fish the round a little longer.
   learn 7755
   craft 7755 until 140
 
-step Shopping for Thunder Bluff (Fishing 75-150)
+step Recipes for Thunder Bluff (Cooking to 140)
   only Tauren
+  when !skill Cooking 140
   zone Thunder Bluff
   tip Before the round: Recipe: Longjaw Mud Snapper (Cooking 50, 4s: Naal Mistrunner, Thunder Bluff) and Recipe: Bristle Whisker Catfish (Cooking 100, 12s: Naal Mistrunner, Thunder Bluff). A recipe teaches itself when you use it from your bags.
   buy 6328 x1 npc 3027
@@ -446,13 +549,24 @@ step Shopping for Thunder Bluff (Fishing 75-150)
 
 step Fishing: Thunder Bluff (75-150)
   only Tauren
+  when !skill Cooking 140
   zone Thunder Bluff
-  tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Longjaw Mud Snapper (56%), Raw Bristle Whisker Catfish (23%), Raw Brilliant Smallfish (20%). From skill 75 this water loses no fish.
+  tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Longjaw Mud Snapper (56%), Raw Bristle Whisker Catfish (23%), Raw Brilliant Smallfish (20%). From skill 75 this water loses no fish.
   loop
   goto 41.6,58.1 r 15
   goto 39.9,61.2 r 15
   collect 6289 x52 anywhere
   collect 6308 x40 anywhere
+  skill Fishing 150
+
+step Fishing: Thunder Bluff (75-150)
+  only Tauren
+  when skill Cooking 140
+  zone Thunder Bluff
+  tip Your Cooking is past 140, so there are no fish to keep: fish the round until Fishing 150, about 190 catches.
+  loop
+  goto 41.6,58.1 r 15
+  goto 39.9,61.2 r 15
   skill Fishing 150
 
 step Cook Longjaw Mud Snapper (50-100)
@@ -467,8 +581,9 @@ step Cook Bristle Whisker Catfish (100-140)
   learn 7755
   craft 7755 until 140
 
-step Shopping for Undercity (Fishing 75-150)
+step Recipes for Undercity (Cooking to 140)
   only Undead
+  when !skill Cooking 140
   zone Undercity
   tip Before the round: Recipe: Longjaw Mud Snapper (Cooking 50, 4s: Lizbeth Cromwell, Undercity) and Recipe: Bristle Whisker Catfish (Cooking 100, 12s: Ronald Burch, Undercity). A recipe teaches itself when you use it from your bags.
   buy 6328 x1 npc 4574
@@ -476,8 +591,9 @@ step Shopping for Undercity (Fishing 75-150)
 
 step Fishing: Undercity (75-150)
   only Undead
+  when !skill Cooking 140
   zone Undercity
-  tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 250 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Longjaw Mud Snapper (45%), Sickly Looking Fish (15%), Raw Bristle Whisker Catfish (15%), Old Skull (14%), Raw Brilliant Smallfish (11%). From skill 75 this water loses no fish.
+  tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 250 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Longjaw Mud Snapper (45%), Sickly Looking Fish (15%), Raw Bristle Whisker Catfish (15%), Old Skull (14%), Raw Brilliant Smallfish (11%). From skill 75 this water loses no fish.
   loop
   goto 65.4,47.5 r 15
   goto 64.9,41.2 r 15
@@ -486,53 +602,30 @@ step Fishing: Undercity (75-150)
   collect 6308 x40 anywhere
   skill Fishing 150
 
-step Cook Longjaw Mud Snapper (50-100)
+step Fishing: Undercity (75-150)
   only Undead
-  tip Longjaw Mud Snapper is orange from 50 (yellow at 90, green at 110, grey at 130): about 52 crafts to 100, 52 Raw Longjaw Mud Snapper. Cook at any fire: a town hearth or your own Basic Campfire. Short of fish: fish the round a little longer.
-  learn 7753
-  craft 7753 until 100
-
-step Cook Bristle Whisker Catfish (100-140)
-  only Undead
-  tip Bristle Whisker Catfish is orange from 100 (yellow at 140, green at 160, grey at 180): about 40 crafts to 140, 40 Raw Bristle Whisker Catfish. Cook at any fire: a town hearth or your own Basic Campfire. Short of fish: fish the round a little longer.
-  learn 7755
-  craft 7755 until 140
-
-step Shopping for Orgrimmar (Fishing 75-150)
-  only Skyborne,Horde
-  zone Orgrimmar
-  tip Before the round: Recipe: Longjaw Mud Snapper (Cooking 50, 4s: Naal Mistrunner, Thunder Bluff, or Harn Longcast, Mulgore) and Recipe: Bristle Whisker Catfish (Cooking 100, 12s: Kilxx, The Barrens, or Sewa Mistrunner, Thunder Bluff). A recipe teaches itself when you use it from your bags.
-  buy 6328 x1 nearest
-  buy 6330 x1 nearest
-
-step Fishing: Orgrimmar (75-150)
-  only Skyborne,Horde
-  zone Orgrimmar
-  tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Longjaw Mud Snapper (60%), Raw Bristle Whisker Catfish (20%), Raw Brilliant Smallfish (19%). From skill 75 this water loses no fish.
+  when skill Cooking 140
+  zone Undercity
+  tip Your Cooking is past 140, so there are no fish to keep: fish the round until Fishing 150, about 190 catches.
   loop
-  goto 68.4,34.8 r 15
-  goto 66.6,31.7 r 15
-  goto 68.4,29.4 r 15
-  goto 69.8,30.1 r 15
-  goto 71.2,32.8 r 15
-  collect 6289 x52 anywhere
-  collect 6308 x40 anywhere
+  goto 65.4,47.5 r 15
+  goto 64.9,41.2 r 15
+  goto 80.6,31.0 r 15
   skill Fishing 150
 
 step Cook Longjaw Mud Snapper (50-100)
-  only Skyborne,Horde
+  only Undead
   tip Longjaw Mud Snapper is orange from 50 (yellow at 90, green at 110, grey at 130): about 52 crafts to 100, 52 Raw Longjaw Mud Snapper. Cook at any fire: a town hearth or your own Basic Campfire. Short of fish: fish the round a little longer.
   learn 7753
   craft 7753 until 100
 
 step Cook Bristle Whisker Catfish (100-140)
-  only Skyborne,Horde
+  only Undead
   tip Bristle Whisker Catfish is orange from 100 (yellow at 140, green at 160, grey at 180): about 40 crafts to 140, 40 Raw Bristle Whisker Catfish. Cook at any fire: a town hearth or your own Basic Campfire. Short of fish: fish the round a little longer.
   learn 7755
   craft 7755 until 140
 
 # ---------------------------------------------------------------- Expert Fishing and Expert Cooking
-section Fishing 150-190
 
 step Expert Fishing
   tip Expert Fishing (cap 225) is a book, not a trainer rank: Expert Fishing - The Bass and You (1g), Old Man Heming (Stranglethorn Vale) sells it to both factions. Buy it and read it; it needs skill 125 and level 20. At level 20 the safe way to Booty Bay is the boat from Ratchet in The Barrens. Old Man Heming also sells Bright Baubles (+75 from skill 100, 2s 50c each), the lure for harder water. Forever's Fishing Rack (a camping item, from Fishing 140) is a blueprint that drops from Gelihast in Blackfathom Deeps.
@@ -548,12 +641,23 @@ step Expert Cooking
 
 step Fishing: Ashenvale (150-190)
   only Alliance
+  when !skill Cooking 175
   zone Ashenvale
-  tip Fish the round until Fishing 190 and until your bags hold 80 Raw Bristle Whisker Catfish for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (the zone's fishing loot): Raw Bristle Whisker Catfish (42%), Raw Longjaw Mud Snapper (23%), Raw Rainbow Fin Albacore (15%), Raw Sagefish (9%), Oily Blackmouth (6%). Fishing pools by the round: Sagefish School. From skill 150 this water loses no fish.
+  tip Fish the round until Fishing 190 and until your bags hold 80 Raw Bristle Whisker Catfish for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (the zone's fishing loot): Raw Bristle Whisker Catfish (42%), Raw Longjaw Mud Snapper (23%), Raw Rainbow Fin Albacore (15%), Raw Sagefish (9%), Oily Blackmouth (6%). Fishing pools by the round: Sagefish School. From skill 150 this water loses no fish.
   loop
   goto 44.5,70.2 r 15
   goto 48.8,68.3 r 15
   collect 6308 x80 anywhere
+  skill Fishing 190
+
+step Fishing: Ashenvale (150-190)
+  only Alliance
+  when skill Cooking 175
+  zone Ashenvale
+  tip Your Cooking is past 175, so there are no fish to keep: fish the round until Fishing 190, about 190 catches.
+  loop
+  goto 44.5,70.2 r 15
+  goto 48.8,68.3 r 15
   skill Fishing 190
 
 step Cook Bristle Whisker Catfish (140-175)
@@ -562,21 +666,33 @@ step Cook Bristle Whisker Catfish (140-175)
   learn 7755
   craft 7755 until 175
 
-step Shopping for Desolace (Fishing 150-190)
+step Lures for Desolace
   only Horde
-  zone Desolace
-  tip Before the round: a lure for the pole: Bright Baubles, three (+75 from skill 100, 2s 50c each).
+  when !skill Fishing 225
+  tip This water loses fish below Fishing 225: a lure on the pole adds to your skill for ten minutes. Bright Baubles (+75 from skill 100, 2s 50c each) closes the gap from 150; three see you through.
   buy 6532 x3 nearest
 
 step Fishing: Desolace (150-190)
   only Horde
+  when !skill Cooking 175
   zone Desolace
-  tip Fish the round until Fishing 190 and until your bags hold 80 Raw Bristle Whisker Catfish for the cooking: about 250 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Mithril Head Trout (64%), Raw Bristle Whisker Catfish (33%). Fishing pools by the round: Firefin Snapper School, Floating Wreckage and Oily Blackmouth School. This water loses fish below skill 225: keep a lure on the pole until then.
+  tip Fish the round until Fishing 190 and until your bags hold 80 Raw Bristle Whisker Catfish for the cooking: about 250 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Mithril Head Trout (64%), Raw Bristle Whisker Catfish (33%). Fishing pools by the round: Firefin Snapper School, Floating Wreckage and Oily Blackmouth School. This water loses fish below skill 225: keep a lure on the pole until then.
   loop
   goto 21.6,73.7 r 15
   goto 22.3,72.3 r 15
   goto 23.9,73.2 r 15
   collect 6308 x80 anywhere
+  skill Fishing 190
+
+step Fishing: Desolace (150-190)
+  only Horde
+  when skill Cooking 175
+  zone Desolace
+  tip Your Cooking is past 175, so there are no fish to keep: fish the round until Fishing 190, about 190 catches.
+  loop
+  goto 21.6,73.7 r 15
+  goto 22.3,72.3 r 15
+  goto 23.9,73.2 r 15
   skill Fishing 190
 
 step Cook Bristle Whisker Catfish (140-175)
@@ -586,19 +702,25 @@ step Cook Bristle Whisker Catfish (140-175)
   craft 7755 until 175
 
 # ---------------------------------------------------------------- Fishing 190-225
-section Fishing 190-225
 
-step Shopping for Stranglethorn Vale (Fishing 190-225)
+step Recipes for Stranglethorn Vale (Cooking to 225)
   only Alliance
+  when !skill Cooking 225
   zone Stranglethorn Vale
-  tip Before the round: Recipe: Mithril Head Trout (Cooking 175, 22s: Kelsey Yance, Stranglethorn Vale) and a lure for the pole: Nightcrawlers, three (+50 from skill 50, 1s each). A recipe teaches itself when you use it from your bags.
+  tip Before the round: Recipe: Mithril Head Trout (Cooking 175, 22s: Kelsey Yance, Stranglethorn Vale). A recipe teaches itself when you use it from your bags.
   buy 17062 x1 npc 2664
+
+step Lures for Stranglethorn Vale
+  only Alliance
+  when !skill Fishing 225
+  tip This water loses fish below Fishing 225: a lure on the pole adds to your skill for ten minutes. Nightcrawlers (+50 from skill 50, 1s each) closes the gap from 190; three see you through.
   buy 6530 x3 nearest
 
 step Fishing: Stranglethorn Vale (190-225)
   only Alliance
+  when !skill Cooking 225
   zone Stranglethorn Vale
-  tip Fish the round until Fishing 225 and until your bags hold 52 Raw Mithril Head Trout for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Mithril Head Trout (43%), Raw Greater Sagefish (32%), Raw Bristle Whisker Catfish (17%), Stranglekelp (10%), Iron Bound Trunk (4%), Rumsey Rum Black Label (3%). Fishing pools by the round: Floating Wreckage and Greater Sagefish School. This water loses fish below skill 225: keep a lure on the pole until then.
+  tip Fish the round until Fishing 225 and until your bags hold 52 Raw Mithril Head Trout for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Mithril Head Trout (43%), Raw Greater Sagefish (32%), Raw Bristle Whisker Catfish (17%), Stranglekelp (10%), Iron Bound Trunk (4%), Rumsey Rum Black Label (3%). Fishing pools by the round: Floating Wreckage and Greater Sagefish School. This water loses fish below skill 225: keep a lure on the pole until then.
   loop
   goto 35.4,10.3 r 15
   goto 35.6,9.9 r 15
@@ -607,29 +729,60 @@ step Fishing: Stranglethorn Vale (190-225)
   collect 8365 x52 anywhere
   skill Fishing 225
 
+step Fishing: Stranglethorn Vale (190-225)
+  only Alliance
+  when skill Cooking 225
+  zone Stranglethorn Vale
+  tip Your Cooking is past 225, so there are no fish to keep: fish the round until Fishing 225, about 200 catches.
+  loop
+  goto 35.4,10.3 r 15
+  goto 35.6,9.9 r 15
+  goto 33.5,7.5 r 15
+  goto 30.6,6.7 r 15
+  skill Fishing 225
+
 step Cook Mithril Headed Trout (175-225)
   only Alliance
   tip Mithril Headed Trout is orange from 175 (yellow at 215, green at 235, grey at 255): about 52 crafts to 225, 52 Raw Mithril Head Trout. Cook at any fire: a town hearth or your own Basic Campfire. Short of fish: fish the round a little longer.
   learn 20916
   craft 20916 until 225
 
-step Shopping for Desolace (Fishing 190-225)
+step Recipes for Desolace (Cooking to 225)
   only Horde
+  when !skill Cooking 225
   zone Desolace
-  tip Before the round: Recipe: Mithril Head Trout (Cooking 175, 22s: Wulan, Desolace) and a lure for the pole: Nightcrawlers, three (+50 from skill 50, 1s each). A recipe teaches itself when you use it from your bags.
+  tip Before the round: Recipe: Mithril Head Trout (Cooking 175, 22s: Wulan, Desolace). A recipe teaches itself when you use it from your bags.
   buy 17062 x1 npc 12033
+
+step Lures for Desolace
+  only Horde
+  when !skill Fishing 225
+  tip This water loses fish below Fishing 225: a lure on the pole adds to your skill for ten minutes. Nightcrawlers (+50 from skill 50, 1s each) closes the gap from 190; three see you through.
   buy 6530 x3 nearest
 
 step Fishing: Desolace (190-225)
   only Horde
+  when !skill Cooking 225
   zone Desolace
-  tip Fish the round until Fishing 225 and until your bags hold 52 Raw Mithril Head Trout for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Mithril Head Trout (59%), Raw Bristle Whisker Catfish (31%), Raw Rockscale Cod (4%). Fishing pools by the round: Firefin Snapper School, Floating Wreckage and Oily Blackmouth School. This water loses fish below skill 225: keep a lure on the pole until then.
+  tip Fish the round until Fishing 225 and until your bags hold 52 Raw Mithril Head Trout for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Mithril Head Trout (59%), Raw Bristle Whisker Catfish (31%), Raw Rockscale Cod (4%). Fishing pools by the round: Firefin Snapper School, Floating Wreckage and Oily Blackmouth School. This water loses fish below skill 225: keep a lure on the pole until then.
   loop
   goto 21.6,73.7 r 15
   goto 22.3,72.3 r 15
   goto 23.9,73.2 r 15
   goto 25.9,78.3 r 15
   collect 8365 x52 anywhere
+  skill Fishing 225
+
+step Fishing: Desolace (190-225)
+  only Horde
+  when skill Cooking 225
+  zone Desolace
+  tip Your Cooking is past 225, so there are no fish to keep: fish the round until Fishing 225, about 200 catches.
+  loop
+  goto 21.6,73.7 r 15
+  goto 22.3,72.3 r 15
+  goto 23.9,73.2 r 15
+  goto 25.9,78.3 r 15
   skill Fishing 225
 
 step Cook Mithril Headed Trout (175-225)
@@ -639,7 +792,6 @@ step Cook Mithril Headed Trout (175-225)
   craft 20916 until 225
 
 # ---------------------------------------------------------------- Artisan: Nat Pagle and Clamlette Surprise
-section Fishing 225-300
 
 step Nat Pagle, Angler Extreme
   only Alliance
@@ -742,15 +894,21 @@ step Clamlette Surprise
 
 # ---------------------------------------------------------------- Fishing 225-300
 
-step Shopping for Tanaris (Fishing 225-300)
+step Recipes for Tanaris (Cooking to 300)
+  when !skill Cooking 300
   zone Tanaris
-  tip Before the round: Recipe: Spotted Yellowtail (Cooking 225, 1g 60s: Gikkix, Tanaris) and a lure for the pole: Bright Baubles, three (+75 from skill 100, 2s 50c each). A recipe teaches itself when you use it from your bags.
+  tip Before the round: Recipe: Spotted Yellowtail (Cooking 225, 1g 60s: Gikkix, Tanaris). A recipe teaches itself when you use it from your bags.
   buy 13939 x1 npc 8137
+
+step Lures for Tanaris
+  when !skill Fishing 300
+  tip This water loses fish below Fishing 300: a lure on the pole adds to your skill for ten minutes. Bright Baubles (+75 from skill 100, 2s 50c each) closes the gap from 225; three see you through.
   buy 6532 x3 nearest
 
 step Fishing: Tanaris (225-300)
+  when !skill Cooking 300
   zone Tanaris
-  tip Fish the round until Fishing 300 and until your bags hold 120 Raw Spotted Yellowtail for the cooking: about 650 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Spotted Yellowtail (42%), Stonescale Eel (15%), Firefin Snapper (11%), Raw Winter Squid (10%, in its season only), Big-mouth Clam (9%), Raw Rockscale Cod (9%). Fishing pools by the round: Firefin Snapper School, Floating Wreckage, Oily Blackmouth School and Stonescale Eel Swarm. This water loses fish below skill 300: keep a lure on the pole until then.
+  tip Fish the round until Fishing 300 and until your bags hold 120 Raw Spotted Yellowtail for the cooking: about 650 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Spotted Yellowtail (42%), Stonescale Eel (15%), Firefin Snapper (11%), Raw Winter Squid (10%, in its season only), Big-mouth Clam (9%), Raw Rockscale Cod (9%). Fishing pools by the round: Firefin Snapper School, Floating Wreckage, Oily Blackmouth School and Stonescale Eel Swarm. This water loses fish below skill 300: keep a lure on the pole until then.
   level 37
   loop
   goto 67.3,25.5 r 15
@@ -758,6 +916,18 @@ step Fishing: Tanaris (225-300)
   goto 68.0,22.8 r 15
   goto 67.6,23.4 r 15
   collect 4603 x120 anywhere
+  skill Fishing 300
+
+step Fishing: Tanaris (225-300)
+  when skill Cooking 300
+  zone Tanaris
+  tip Your Cooking is past 300, so there are no fish to keep: fish the round until Fishing 300, about 650 catches.
+  level 37
+  loop
+  goto 67.3,25.5 r 15
+  goto 67.7,27.2 r 15
+  goto 68.0,22.8 r 15
+  goto 67.6,23.4 r 15
   skill Fishing 300
 
 step Cook Spotted Yellowtail (225-300)
