@@ -405,8 +405,15 @@ function parseGuide(text, file, diag) {
 			} else if (kw === 'image') {
 				parseImage(step, toks, ln, err);
 			} else if (kw === 'loop') {
-				if (toks.length > 1) err(ln, '`loop` takes nothing');
-				else if (step.loop) err(ln, 'duplicate `loop` in step');
+				const mixed = 'a bare `loop` walks the step\'s gotos; `loop <zone> …` lines are farming loops to pick from: use one kind';
+				if (toks.length > 1) {
+					if (step.loop) err(ln, mixed);
+					else {
+						const c = parseLoopCandidate(lex, ln, err);
+						if (c) (step.loops ||= []).push(c);
+					}
+				} else if (step.loop) err(ln, 'duplicate `loop` in step');
+				else if (step.loops) err(ln, mixed);
 				else step.loop = ln;
 			} else {
 				const tip = unquoteRest(line, lex, 1);
@@ -459,6 +466,96 @@ function parseGuide(text, file, diag) {
 		if (secs[i].first >= end) err(secs[i].line, '`section` has no steps under it');
 	}
 	return guide;
+}
+
+// The words of a `loop <zone> …` line after its zone.
+const LOOP_WORDS = new Set(['lvl', 'lap', 'gain', 'yield', 'only', 'live', 'r', 'at']);
+
+// `loop <zone or map <uiMapID>> lvl <level> lap <seconds> gain|yield <per lap> [only <conditions>] [live]
+// [r <yards>] at <x,y> <x,y> …`: a farming loop a `skill` or `collect` goal of its step may pick at runtime
+// (docs/GUIDE_FORMAT.md, "Farming loops"; parse.rs parse_loop_candidate).
+function parseLoopCandidate(lex, ln, err) {
+	const toks = lex.tokens;
+	const usage = 'usage: loop <zone> lvl <level> lap <seconds> gain|yield <per lap> [only <conditions>] [live] [r <yards>] at <x,y> <x,y> …';
+	const word = (t) => !t.quoted && LOOP_WORDS.has(t.text.toLowerCase());
+	let i = 1;
+	while (i < toks.length && !word(toks[i])) i++;
+	let zone;
+	if (i === 1) {
+		err(ln, '`loop` with settings needs its zone first', usage);
+		return null;
+	} else if (!toks[1].quoted && toks[1].text.toLowerCase() === 'map') {
+		if (i !== 3 || !INT_RE.test(toks[2].text) || Number(toks[2].text) <= 0) {
+			err(ln, 'malformed `loop map <uiMapID>`', usage);
+			return null;
+		}
+		zone = { map: Number(toks[2].text), line: ln };
+	} else {
+		zone = { name: toks.slice(1, i).map((t) => t.text).join(' '), line: ln };
+	}
+	const out = { line: ln, zone };
+	const pts = [];
+	while (i < toks.length) {
+		const w = toks[i].text.toLowerCase();
+		if (!word(toks[i])) {
+			err(ln, `unexpected "${toks[i].text}" in \`loop\``, usage);
+			return null;
+		}
+		i++;
+		if (w === 'live') {
+			out.live = true;
+		} else if (w === 'at') {
+			while (i < toks.length && !word(toks[i])) {
+				const [x, y, more] = toks[i].text.split(',');
+				if (more !== undefined || !NUM_RE.test(x || '') || !NUM_RE.test(y || '')) {
+					err(ln, `malformed loop point "${toks[i].text}" (expected x,y)`, usage);
+					return null;
+				}
+				pts.push([Number(x), Number(y)]);
+				i++;
+			}
+		} else if (w === 'only') {
+			const t = toks[i];
+			if (!t) {
+				err(ln, '`only` in `loop` needs a condition list', usage);
+				return null;
+			}
+			const c = parseConditions(t.text.replace(/\s*,\s*/g, ','), 'any');
+			for (const e of c.errors) err(ln, e);
+			if (c.errors.length) return null;
+			out.only = c.value;
+			i++;
+		} else {
+			const t = toks[i];
+			const v = t && NUM_RE.test(t.text) ? Number(t.text) : NaN;
+			if (!(v > 0)) {
+				err(ln, `\`${w}\` in \`loop\` needs a positive number`, usage);
+				return null;
+			}
+			if (out[w]) {
+				err(ln, `duplicate \`${w}\` in \`loop\``);
+				return null;
+			}
+			out[w] = v;
+			i++;
+		}
+	}
+	if (pts.length < 2) {
+		err(ln, 'a `loop` needs at least two points after `at`', usage);
+		return null;
+	}
+	for (const k of ['lvl', 'lap']) {
+		if (!out[k]) {
+			err(ln, `\`loop\` needs \`${k}\``, usage);
+			return null;
+		}
+	}
+	if (!out.gain === !out.yield) {
+		err(ln, '`loop` needs one of `gain` (skill points a lap) or `yield` (items a lap)', usage);
+		return null;
+	}
+	out.pts = pts;
+	return out;
 }
 
 function parseZoneSpec(line, lex, ln, err) {

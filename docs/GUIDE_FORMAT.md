@@ -135,6 +135,7 @@ Step directives:
 | `tip <text>` | Player-facing step note (compiled to `step.note`). |
 | `image <path> [<w>x<h>]` | A picture shown in the guide window under the step's tip, while the tip is open, scaled to the window's width (at most 160 high): a screenshot of a spot that is hard to find, such as a cave mouth. `<path>` is the file's place in the pack folder, `/` between folders (`media/fargodeep-mine.tga`), a `.tga` or `.blp` file; without the extension the `.tga`, else the `.blp`. The file ships in the pack's addon folder at that path. `<w>x<h>` is the size it is drawn at (only the ratio counts: `512x256` is twice as wide as high); without it the compiler reads the file's own. One per step; a step with no `tip` reads "Picture of this spot" above it. See "Pictures" in the Cookbook. |
 | `loop` | The step's `goto` points, in order, are the places to search for its kill, collect, interact, skill and `use … quest Q.O` goals (or, with none of those, for the NPC of its accept, turnin and talk goals) instead of a path to walk: see "Spawn areas", Loop. |
+| `loop <zone> lvl <n> lap <s> gain\|yield <n> [only <conditions>] [live] [r <yards>] at <x,y> …` | One of several farming loops the step's `skill` or `collect` goal picks from where the player is: see "Spawn areas", Farming loops. |
 
 A step must contain at least one goal.
 
@@ -1128,6 +1129,26 @@ gets no `spots`, except an NPC who walks around:
     goto 49.0,32.4 r 20
     goto 52.3,26.8
     kill 6 x10 quest 7.1
+  ```
+- **Farming loops** (`loop <zone> …` lines, one per loop; a step holds no bare
+  `loop` and no `goto` beside them): the step's one unpinned `skill` goal (each
+  loop with `gain`: the skill points a lap gives) or `collect` goal (`yield`:
+  the goal's items a lap gives) gets one candidate per loop, and the Engine
+  picks one when the step comes up, again on a zone change, a level-up and
+  from the window's "Other": travel there from where the player is plus the
+  laps left times `lap` (seconds a lap takes), as for farm spots (`collect …
+  nearest`), with a loop whose `lvl` (its strongest creature) is 2 or more
+  above the player only when every loop is. The picked loop's points, in
+  order, each `r` yards wide (default 30), are the goal's spawn areas, as in a
+  Loop step; `only` limits a loop to some characters (the other faction's
+  towns differ). Points are Era-frame unless `live`. The window names the loop,
+  its zone, its lap and the laps left, and the next choice.
+
+  ```
+  step Copper & Tin (65-125)
+    loop Westfall lvl 18 lap 420 gain 3.5 r 60 at 52.1,61.3 49.8,64.0 47.0,60.2
+    loop Loch Modan lvl 16 lap 380 gain 3.1 only Alliance r 60 at 33.1,25.0 36.4,22.8 38.0,30.1
+    skill Mining 125
   ```
 - **Recorded** (a `kill`, `collect` or `interact` bound to a quest objective,
   `quest Q.O`, outside a `loop` step, that players' recordings place:
