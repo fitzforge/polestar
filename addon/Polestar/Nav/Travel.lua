@@ -3339,8 +3339,9 @@ end
 -- later walk's path into it (pricePaths, Walk.LegPath), remembered for the target (Travel.walked: the player's walk
 -- and where it was measured from, and each place's), so every later plan prices those walks by them (p.walkLeft,
 -- p.walked) instead of their straight lines x1.25. One that takes over 20 s more than the plan priced it plans once
--- more, as a measure landing would (Travel.Remeasured on the next tick): from Moonglade, 2,999 yd straight from a
--- Mount Hyjal goal and 10,090 along the path, the walk was priced at 9 minutes, took 24, and stayed the route over
+-- more on the next tick, as walking on does (Travel.Replan's soft replan: the live walk stays unless another way saves
+-- keep.SAVES, a way it left costing at least what it had left then): from Moonglade, 2,999 yd straight from a Mount
+-- Hyjal goal and 10,090 along the path, the walk was priced at 9 minutes, took 24, and stayed the route over
 -- Faustron's flight to the Tainted Foothills (11 minutes), the player out of reach of the measure's nearest places.
 function Travel.NoteWalk(c, x, y, total, start)
 	if not (type(total) == "number" and total == total and total >= 0 and total < huge) then return false end
@@ -3371,14 +3372,14 @@ function Travel.WalkMeasured(whole, c, x, y, total)
 	if pc ~= c or not Travel.NoteWalk(pc, px, py, total, true) then return end
 	if not whole.walkTried and total / Travel.walkSpeed > (whole.straightSeconds or whole.seconds or 0) + 20 then
 		whole.walkTried = true
-		remeasureOwed = true
+		if not dirty then dirty = "zone" end
 	end
 end
 
 -- A later walk into the target (`leg`, the route's last) measured along its path: `yd` yards.
 function Travel.WalkPriced(leg, yd)
 	local from = leg.from
-	if Travel.NoteWalk(from.c, from.wx, from.wy, yd) and yd / Travel.walkSpeed > (leg.seconds or 0) + 20 then remeasureOwed = true end
+	if Travel.NoteWalk(from.c, from.wx, from.wy, yd) and yd / Travel.walkSpeed > (leg.seconds or 0) + 20 and not dirty then dirty = "zone" end
 end
 
 -- The player's walk into the target as the arrow's path last measured it: at least its yards less the ground covered

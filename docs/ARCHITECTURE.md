@@ -5817,8 +5817,10 @@ left, else the remembered yards less the ground covered since, summed each
 second by `Travel.WalkedMoved` so a flight or a teleport uses it up; never
 under the straight distance) and an unmeasured place by its path
 (`p.walked`, matched by its point). A path that takes over 20 s more than
-the plan priced the walk plans once more on the next tick, as a measure
-landing does (`Travel.Remeasured`, once per walk): from Moonglade, 2,999 yd
+the plan priced the walk plans once more on the next tick, as walking on
+does (`Travel.Replan`'s soft replan, once per walk: the live walk stays
+unless another way saves `keep.SAVES`, a way it left costing at least what it
+had left then, so the border sweep's back and forth stays fixed): from Moonglade, 2,999 yd
 straight from Mourning's Rest and 10,090 along the path, the walk was priced
 at 9 minutes and stayed the route over Faustron's flight to the Tainted
 Foothills.
