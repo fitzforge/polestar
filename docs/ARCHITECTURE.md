@@ -322,7 +322,10 @@ says so, naming the guide by its title in the save's release
 notes no update (`Own.noteAdded`: nearly all of it would pass) and opens
 where the log puts the player (`Own.logPlaced`, `Own.noteMovedBehind`): the
 last step with progress on a quest of the log (a quest an earlier release
-offered in another guide counting), else the first with work of one; its
+offered in another guide counting), read first among the steps the save had,
+in the save's order (`Own.reworkedOrder`, noted by `checkShape`: a part of the
+guide moved elsewhere keeps the player where their own route got, 0.4.1.1
+-> 0.4.3 Burning Steppes' Azshara), else the first with work of one; its
 steps before pass as an update's new steps do.
 
 ### Profiles
@@ -2608,7 +2611,10 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   predicate holds (`Own.predicateHolds`) and saves the step and every step
   before the labelled one as `"jump"` in `CharState().skipped` (a skip already
   there stays), and `computeCurrent` goes on from there. A step done before
-  the route reaches it never jumps. `Unskip`, and `Goto` on a jumped step with
+  the route reaches it never jumps, nor does any once the player went into
+  its block (`Own.jumpEntered`: a step before it with a jump to the same
+  label done, or quest work of theirs done in one up to it; a save from a
+  release without the jump). `Unskip`, and `Goto` on a jumped step with
   `skipto`, mark it in `CharState().when` (`Own.keep`), so it takes no second
   jump. A `done` predicate (`Own.labelDone`) holds when the labelled step
   applies, is not skipped and its goals are done (`Own.goalsDone`, which is
