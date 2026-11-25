@@ -21863,5 +21863,291 @@
 			}
 		],
 		"note": "End of the Dark Horde is the Alliance's: it is handed in to Stormwind's Master Mathias Shaw or General Marcus Jonathan and goes on to an Alliance-only follow-up. With no race limit, the Horde's Blackrock Spire hand-in guide sent Horde players to Stormwind."
+	},
+	"86791": {
+		"set": {
+			"pre": [
+				86752
+			],
+			"preAny": [
+				86752
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Gatekeeper Rageroar offered it to 2 people (both Neutral with the Timbermaw), each right after they handed Report to Rageroar (86752) in at Rageroar"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 86752"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara): Missing Blackmaw Scouts (86791) follows Report to Rageroar (86752). The merged data had no prerequisite for any quest of the chain."
+	},
+	"86797": {
+		"set": {
+			"pre": [
+				86777
+			],
+			"preAny": [
+				86777
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Korsa gave it to 1 person on the visit where Master Feardred (86777) was handed in at Korsa"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 86777"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara): Return to Rageroar (86797) follows Master Feardred (86777). The merged data had no prerequisite for any quest of the chain."
+	},
+	"86798": {
+		"set": {
+			"pre": [
+				86797
+			],
+			"preAny": [
+				86797
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Gatekeeper Rageroar offered it to 1 person right after Return to Rageroar (86797) was handed in at Rageroar"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 86797"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara): Timbermaw Reinforcements (86798) follows Return to Rageroar (86797). The merged data had no prerequisite for any quest of the chain."
+	},
+	"86804": {
+		"set": {
+			"pre": [
+				86799
+			],
+			"preAny": [
+				86799
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Elder Bramblesnap offered it to 2 people, each right after Encroaching Corruption (86799) was handed in at Bramblesnap"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 86799"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara): An Unlikely Source (86804) follows Encroaching Corruption (86799). The merged data had no prerequisite for any quest of the chain."
+	},
+	"86925": {
+		"set": {
+			"pre": [
+				86804
+			],
+			"preAny": [
+				86804
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): the Legashi Cauldron offered it to 2 people, each right after An Unlikely Source (86804) was handed in at the cauldron"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 86804"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara): Toil and Trouble (86925) follows An Unlikely Source (86804). The merged data had no prerequisite for any quest of the chain."
+	},
+	"86926": {
+		"set": {
+			"pre": [
+				86925
+			],
+			"preAny": [
+				86925
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): the Legashi Cauldron offered it to 1 person right after Toil and Trouble (86925) was handed in at the cauldron"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 86925"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara): Felfire Burn, Cauldron Bubble (86926) follows Toil and Trouble (86925). The merged data had no prerequisite for any quest of the chain."
+	},
+	"86927": {
+		"set": {
+			"pre": [
+				86926
+			],
+			"preAny": [
+				86926
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): the Legashi Cauldron offered it to 1 person right after Felfire Burn, Cauldron Bubble (86926) was handed in at the cauldron"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 86926"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara): Running Firewater (86927) follows Felfire Burn, Cauldron Bubble (86926). The merged data had no prerequisite for any quest of the chain."
+	},
+	"86812": {
+		"set": {
+			"pre": [
+				86927
+			],
+			"preAny": [
+				86927
+			],
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 3,
+					"text": "Satyrweed Tincture tested"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Elder Bramblesnap offered it to 1 person right after Running Firewater (86927) was handed in at Bramblesnap"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 86927"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): 1 person's quest log listed 'Satyrweed Tincture tested' x3 at the accept; it ticked three times among the Mosshoof Coursers and Thunderhead Skystormers east of Ursolan (Azshara 46.3,18.9 / 48.7,18.4 / 53.7,15.4)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "requirements: Satyrweed Tincture tested x 3"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara): Transmuted Tincture (86812) follows Running Firewater (86927). The merged data had no prerequisite for any quest of the chain. Its objective is 'Satyrweed Tincture tested' x3, a line the game counts (not a kill of a named NPC); the merged data had none."
+	},
+	"86813": {
+		"set": {
+			"pre": [
+				86812
+			],
+			"preAny": [
+				86812
+			],
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Panacea administered"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Elder Bramblesnap offered it to 1 person right after Transmuted Tincture (86812) was handed in at Bramblesnap"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 86812"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): 1 person's quest log listed 'Panacea administered' x1 at the accept; it ticked at Furze's window (Azshara 45.3,22.3)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "requirements: Panacea administered"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara): Potential Panacea (86813) follows Transmuted Tincture (86812). The merged data had no prerequisite for any quest of the chain. Its objective is 'Panacea administered' x1, a line the game counts (not a kill of a named NPC); the merged data had none."
+	},
+	"87346": {
+		"set": {
+			"pre": [
+				86798
+			],
+			"preAny": [
+				86798
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Gorn One Eye gave it to 1 person right after Timbermaw Reinforcements (86798) was handed in at Gorn"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 86798"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara): Chieftain Bloodmaw (87346) follows Timbermaw Reinforcements (86798). The merged data had no prerequisite for any quest of the chain."
+	},
+	"86814": {
+		"set": {
+			"pre": [
+				87346
+			],
+			"preAny": [
+				87346
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Gorn One Eye gave it to 1 person right after Chieftain Bloodmaw (87346) was handed in at Gorn"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 87346"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara): Blackmaw Counter-Offensive (86814) follows Chieftain Bloodmaw (87346). The merged data had no prerequisite for any quest of the chain."
+	},
+	"86796": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Help Graal break out of Legashi Stronghold"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): 1 person's quest log listed one event line 'Help Graal break out of Legashi Stronghold' at the accept"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "requirements: Help Graal break out of Legashi Stronghold"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara), quest 86796: Its objective is 'Help Graal break out of Legashi Stronghold' x1, a line the game counts (not a kill of a named NPC); the merged data had none."
 	}
 }

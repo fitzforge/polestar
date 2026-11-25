@@ -2923,6 +2923,31 @@ test('forever/reputation/argent-dawn.guide: The Archivist burns the Scarlet Arch
 	assert.equal(list[archive].s, list[galford].s, 'in the Stratholme step');
 	assert.ok(archive < at(list, 'turnin 5251', is('turnin', 5251)), 'before the hand-in');
 });
+// #3974 (0.4.4 route round): the Blackmaw furbolgs of Ursolan (Azshara) give their quests only from Neutral with the
+// Timbermaw (players' recordings to 2026-11-20: 10 people met them hostile below Neutral, the 2 who did the chain
+// were just past it; 0 of 32 recorded characters were Neutral by level 53). The leveling routes pass Azshara before
+// any Timbermaw quest, so the chain lives in the reputation guide, after its Neutral goal: every accept and hand-in
+// of it, in the chain's order, with its first accepts held for Neutral.
+test('forever/reputation/timbermaw-hold.guide: the Blackmaw chain comes after Neutral, accepts before hand-ins (#3974)', { skip }, () => {
+	const G = 'forever/reputation/timbermaw-hold.guide';
+	const list = goals(G);
+	const neutral = at(list, 'rep 576 Neutral', (g) => g.t === 'rep' && g.faction === 576 && g.standing === 4);
+	const chain = [86752, 86799, 86791, 86804, 86925, 86926, 86777, 86792, 86796, 86797, 86927, 86798, 86812, 86813, 87346];
+	for (const q of chain) {
+		const take = at(list, `accept ${q}`, is('accept', q));
+		const hand = at(list, `turnin ${q}`, is('turnin', q));
+		assert.ok(take > neutral, `${q}: taken after the Neutral goal`);
+		assert.ok(take < hand, `${q}: accepted before its hand-in`);
+	}
+	const neutralGate = (step) => (step.when || []).some((p) => p.k === 'rep' && !p.neg && p.faction === 576 && p.standing >= 4);
+	for (const q of [86752, 86799, 86791, 86796]) {
+		const { step } = list[at(list, `accept ${q}`, is('accept', q))];
+		assert.ok(neutralGate(step), `${q}: its step shows only from Neutral with the Timbermaw`);
+	}
+	for (const [q, pre] of [[86791, 86752], [86804, 86799], [86925, 86804], [86926, 86925], [86927, 86926], [86812, 86927], [86813, 86812], [86797, 86777], [86798, 86797], [87346, 86798]]) {
+		assert.ok(at(list, `turnin ${pre}`, is('turnin', pre)) < at(list, `accept ${q}`, is('accept', q)), `${q} after ${pre} is handed in`);
+	}
+});
 // Partially Digested Collar (93568) is started by the collar and counts the collar as its objective: the accept
 // leaves it in the bags (players' recordings: 10 people, "item x1 Partially Digested Collar" at the accept, handed
 // in to Liranne). So the Liranne step may wait on the collar and hold the accept and the hand-in together; the
