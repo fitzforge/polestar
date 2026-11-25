@@ -70,7 +70,7 @@ return {
 
 	-- Step 15: The Binding
 	-- {item:6810} Surena's Choker · {npc:6122} Gakin the Darkbinder · {quest:1689} The Binding · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6928} Bloodstone Choker
-	["{item:6810} is already with {npc:6122}: take {quest:1689} from him in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls."] = "",
+	["{item:6810} is already with {npc:6122}: take {quest:1689} from him in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls."] = "{item:6810}은(는) 이미 {npc:6122}에게 있습니다: {object:2101}의 {object:2164} 지하실에서 그에게 {quest:1689}을(를) 받으십시오. 그곳의 소환진에서 {item:6928}을(를) 사용하고 불려 나온 공허방랑자를 물리치십시오.",
 
 	-- Step 16: The Jansen Stead
 	-- {zone:1436} Westfall · {object:2724} Sack of Oats
@@ -207,7 +207,7 @@ return {
 	["Harvest Watchers north of {area:107}"] = "{area:107} 북쪽의 허수아비골렘 보초",
 	-- {area:916} The Jansen Stead · {area:107} Saldean's Farm · {quest:9} The Killing Fields · {item:732} Okra · {item:255155} Precessive Autocognition Assembly · {npc:573} Foe Reaper 4000
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher · Harvest Golems = {npc:36} Harvest Golem · Harvest Reapers = {npc:115} Harvest Reaper
-	["On the way south from the {area:916} to {area:107}: Harvest Watchers (level 14-15) work the fields west of the road. Stick to them: they are the only mechanicals that count for {quest:9}, and they drop everything else here too: the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. Harvest Golems drop some of the parts but don't count, and the Harvest Reapers (17) are too high. {npc:573}, a level 20 rare, walks these fields: leave it alone."] = "",
+	["On the way south from the {area:916} to {area:107}: Harvest Watchers (level 14-15) work the fields west of the road. Stick to them: they are the only mechanicals that count for {quest:9}, and they drop everything else here too: the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. Harvest Golems drop some of the parts but don't count, and the Harvest Reapers (17) are too high. {npc:573}, a level 20 rare, walks these fields: leave it alone."] = "{area:916}에서 남쪽 {area:107}(으)로 가는 길: 길 서쪽 들판에서 수확용 감시로봇({npc:114}, 14-15레벨)이 일합니다. 그것만 잡으십시오: {quest:9}에 집계되는 유일한 기계이며, 이곳의 나머지도 모두 떨어뜨립니다: 등압 스프링, 자이로 안정기, {item:732}, 가끔 {item:255155}. 수확용 골렘({npc:36})은 부품 일부를 떨어뜨리지만 집계되지 않고, 수확용 리퍼({npc:115}, 17)는 레벨이 너무 높습니다. 20레벨 희귀 몹 {npc:573}이(가) 이 들판을 걷습니다: 건드리지 마십시오.",
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
 	["Harvest Watchers"] = "허수아비골렘 보초",
 	-- {item:814} Flask of Oil · {npc:392} Captain Grayson · {area:115} Westfall Lighthouse

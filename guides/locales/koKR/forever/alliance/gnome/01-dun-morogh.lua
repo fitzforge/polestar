@@ -111,7 +111,7 @@ return {
 
 	-- Step 18: The Great Outdoors
 	-- {npc:1241} Tognus Flintfire · {skill:129} First Aid · {npc:2326} Thamner Pol · {area:131} Kharanos · {area:189} Steelgrill's Depot · {npc:1700} Paxton Ganter · {area:137} Brewnall Village · {zone:1455} Ironforge
-	["Sit by Eric's campfire (type /sit) and wait for the buff. With a profession learned, Eric also offers its Camping 101, which its trainer takes: blacksmithing with {npc:1241} and {skill:129} with {npc:2326} in {area:131}, mining and engineering at {area:189}, fishing with {npc:1700} by {area:137}, herbalism, skinning, leatherworking and tailoring in {zone:1455}. In {zone:1455} the alchemy and enchanting trainers give their own."] = "",
+	["Sit by Eric's campfire (type /sit) and wait for the buff. With a profession learned, Eric also offers its Camping 101, which its trainer takes: blacksmithing with {npc:1241} and {skill:129} with {npc:2326} in {area:131}, mining and engineering at {area:189}, fishing with {npc:1700} by {area:137}, herbalism, skinning, leatherworking and tailoring in {zone:1455}. In {zone:1455} the alchemy and enchanting trainers give their own."] = "에릭의 모닥불 옆에 앉아(/sit 입력) 효과를 기다리십시오. 전문 기술을 배웠다면 에릭은 해당 야영 101도 주며, 그 상급자가 받습니다: 대장기술은 {npc:1241}, {skill:129}은(는) {area:131}의 {npc:2326}, 채광과 기계공학은 {area:189}, 낚시는 {area:137} 옆의 {npc:1700}, 약초채집, 무두질, 가죽세공, 재봉술은 {zone:1455}. {zone:1455}에서는 연금술과 마법부여 상급자가 각자의 퀘스트를 줍니다.",
 
 	-- Step 19: Camping 101: First Aid
 	-- {npc:2326} Thamner Pol · {skill:129} First Aid
@@ -133,33 +133,33 @@ return {
 
 	-- Step 22: Camping 101: Herbalism
 	-- {npc:5137} Reyna Stonebranch · {skill:182} Herbalism
-	["{npc:5137} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:5137} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:182} 숙련도가 20이 되면 {npc:5137}이(가) 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 	-- {npc:265813} Eric Brighthammer · {npc:5137} Reyna Stonebranch · {zone:1455} Ironforge
-	["{npc:265813}: for {npc:5137} in {zone:1455}"] = "",
+	["{npc:265813}: for {npc:5137} in {zone:1455}"] = "{npc:265813}: {zone:1455}의 {npc:5137}에게",
 
 	-- Step 23: Camping 101: Skinning
 	-- {npc:6291} Balthus Stoneflayer · {skill:393} Skinning
-	["{npc:6291} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:6291} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:393} 숙련도가 20이 되면 {npc:6291}이(가) 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 	-- {npc:265813} Eric Brighthammer · {npc:6291} Balthus Stoneflayer · {zone:1455} Ironforge
-	["{npc:265813}: for {npc:6291} in {zone:1455}"] = "",
+	["{npc:265813}: for {npc:6291} in {zone:1455}"] = "{npc:265813}: {zone:1455}의 {npc:6291}에게",
 
 	-- Step 24: Camping 101: Leatherworking
 	-- {npc:1466} Gretta Finespindle · {skill:165} Leatherworking
-	["{npc:1466} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:1466} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:165} 숙련도가 20이 되면 {npc:1466}이(가) 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 	-- {npc:265813} Eric Brighthammer · {npc:1466} Gretta Finespindle · {zone:1455} Ironforge
-	["{npc:265813}: for {npc:1466} in {zone:1455}"] = "",
+	["{npc:265813}: for {npc:1466} in {zone:1455}"] = "{npc:265813}: {zone:1455}의 {npc:1466}에게",
 
 	-- Step 25: Camping 101: Tailoring
 	-- {npc:1703} Uthrar Threx · {skill:197} Tailoring
-	["{npc:1703} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:1703} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:197} 숙련도가 20이 되면 {npc:1703}이(가) 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 	-- {npc:265813} Eric Brighthammer · {npc:1703} Uthrar Threx · {zone:1455} Ironforge
-	["{npc:265813}: for {npc:1703} in {zone:1455}"] = "",
+	["{npc:265813}: for {npc:1703} in {zone:1455}"] = "{npc:265813}: {zone:1455}의 {npc:1703}에게",
 
 	-- Step 26: Camping 101: Fishing
 	-- {npc:1700} Paxton Ganter · {skill:356} Fishing
-	["{npc:1700} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:1700} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:356} 숙련도가 20이 되면 {npc:1700}이(가) 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 	-- {npc:265813} Eric Brighthammer · {npc:1700} Paxton Ganter · {area:137} Brewnall Village
-	["{npc:265813}: for {npc:1700} by {area:137}"] = "",
+	["{npc:265813}: for {npc:1700} by {area:137}"] = "{npc:265813}: {area:137} 옆 {npc:1700}에게",
 
 	-- Step 27: Kharanos
 	-- {area:131} Kharanos · {npc:1252} Senir Whitebeard · {area:2102} Thunderbrew Distillery · {npc:1872} Tharek Blackstone · {npc:6806} Tannok Frosthammer · {npc:1226} Maxan Anvol · {npc:1267} Ragnar Thunderbrew · {npc:1699} Gremlock Pilsnor · {skill:185} Cooking
@@ -396,11 +396,11 @@ return {
 
 	-- Step 81: North Gate Outpost
 	-- {area:808} North Gate Outpost · {npc:1960} Pilot Hammerfoot · {area:38} Loch Modan
-	["Follow the road east and take its northern fork to the {area:808}: {npc:1960} waits there, and the dwarven corpse lies up the pass to the west of him. The South Gate and its tunnel into {area:38} come next, down the road to the south."] = "",
+	["Follow the road east and take its northern fork to the {area:808}: {npc:1960} waits there, and the dwarven corpse lies up the pass to the west of him. The South Gate and its tunnel into {area:38} come next, down the road to the south."] = "길을 따라 동쪽으로 가다 북쪽 갈림길로 {area:808}에 가십시오: {npc:1960}이(가) 그곳에서 기다리고, 드워프 시체는 그의 서쪽 고갯길 위에 있습니다. 남쪽 관문과 {area:38}(으)로 가는 터널은 그다음, 남쪽 길 아래에 있습니다.",
 
 	-- Step 82: South Gate Outpost
 	-- {area:806} South Gate Outpost · {area:38} Loch Modan
-	["Back south down the road to the {area:806} at the {area:38} tunnel."] = "",
+	["Back south down the road to the {area:806} at the {area:38} tunnel."] = "길을 따라 남쪽 {area:38} 터널의 {area:806}(으)로 돌아가십시오.",
 
 	-- Step 83: Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn · {area:806} South Gate Outpost
@@ -504,23 +504,23 @@ return {
 
 	-- Step 100: Gretta Finespindle
 	-- {npc:1466} Gretta Finespindle · {npc:6291} Balthus Stoneflayer · {quest:96031} Camping 101: Leatherworking
-	["{npc:1466}, beside {npc:6291}: {quest:96031}"] = "",
+	["{npc:1466}, beside {npc:6291}: {quest:96031}"] = "{npc:1466}, {npc:6291} 옆: {quest:96031}",
 
 	-- Step 102: Camping 101: Alchemy
 	-- {npc:1246} Vosur Brakthel · {skill:171} Alchemy
-	["{npc:1246} gives it and takes it back once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:1246} gives it and takes it back once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1246}이(가) 퀘스트를 주고 {skill:171} 숙련도가 20이 되면 다시 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 
 	-- Step 103: Vosur Brakthel
 	-- {npc:1246} Vosur Brakthel
-	["{npc:1246}, who gave it"] = "",
+	["{npc:1246}, who gave it"] = "{npc:1246}, 퀘스트를 준 사람",
 
 	-- Step 104: Camping 101: Enchanting
 	-- {npc:11065} Thonys Pillarstone · {skill:333} Enchanting
-	["{npc:11065} gives it and takes it back once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:11065} gives it and takes it back once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:11065}이(가) 퀘스트를 주고 {skill:333} 숙련도가 20이 되면 다시 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 
 	-- Step 105: Thonys Pillarstone
 	-- {npc:11065} Thonys Pillarstone
-	["{npc:11065}, who gave it"] = "",
+	["{npc:11065}, who gave it"] = "{npc:11065}, 퀘스트를 준 사람",
 
 	-- Step 106: Tinker Town
 	-- {object:32372} Great Forge (no name in this language: may be words) · {object:171524} Tinker Town · {object:660964} Misplaced Packages · {object:32383} Forlorn Cavern · {object:32362} Mystic Ward (no name in this language: may be words) · {object:171709} High Seat · {object:32359} Military Ward (no name in this language: may be words)

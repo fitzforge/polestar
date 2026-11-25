@@ -76,7 +76,7 @@ return {
 
 	-- Step 15: Chemist Cuely
 	-- {npc:8390} Chemist Cuely
-	["{npc:8390} works in the Apothecarium."] = "",
+	["{npc:8390} works in the Apothecarium."] = "{npc:8390}在鍊金房工作。",
 
 	-- Step 16: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong

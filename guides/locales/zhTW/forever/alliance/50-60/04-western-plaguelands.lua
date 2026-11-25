@@ -14,7 +14,7 @@ return {
 	-- {area:702} Rut'theran Village
 	["Fly to {area:702}"] = "飛往{area:702}",
 	-- {zone:1457} Darnassus · {zone:1450} Moonglade · {zone:1455} Ironforge · {area:3197} Chillwind Camp
-	["The {zone:1457}, {zone:1450} and {zone:1455} stops are for players coming from the previous guides with their quests; opened with none of those quests in the log, the guide starts at {area:3197}."] = "",
+	["The {zone:1457}, {zone:1450} and {zone:1455} stops are for players coming from the previous guides with their quests; opened with none of those quests in the log, the guide starts at {area:3197}."] = "{zone:1457}、{zone:1450}和{zone:1455}這幾站是給帶著任務從之前指南過來的玩家的；如果任務日誌中沒有這些任務就開啟指南，指南從{area:3197}開始。",
 
 	-- Step 2: Rut'theran Village
 	-- {area:702} Rut'theran Village · {npc:7916} Erelas Ambersky
@@ -255,13 +255,13 @@ return {
 	["Andorhal"] = "安多哈爾",
 	-- {quest:5154} The Annals of Darrowshire · {quest:5537} Skeletal Fragments · {npc:1852} Araj the Summoner
 	-- plural, as words: Skeletal Warlords = {npc:1788} Skeletal Warlord · Flesh Golems = {npc:1805} Flesh Golem
-	["{quest:5154} is one of the musty tomes in the town hall. Every skeleton in town drops {quest:5537}.\nCareful: Skeletal Warlords and Flesh Golems (57, elites) walk the streets: let them pass.\n{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal."] = "",
+	["{quest:5154} is one of the musty tomes in the town hall. Every skeleton in town drops {quest:5537}.\nCareful: Skeletal Warlords and Flesh Golems (57, elites) walk the streets: let them pass.\n{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal."] = "{quest:5154}是市政廳裡那些發霉的書卷之一。鎮上的每個骷髏都會掉落{quest:5537}。\n小心：骷髏督軍（{npc:1788}）和血肉魔像（{npc:1805}）（57，精英）在街上巡邏：讓牠們過去。\n{npc:1852}是精英：建議組小隊。他在安多哈爾中央守護著他的護命匣。",
 
 	-- Step 45: Andorhal's grain silos
-	["Andorhal's grain silos"] = "",
+	["Andorhal's grain silos"] = "安多哈爾的穀倉",
 	-- {item:12627} Temporal Displacer
 	-- plural, as words: Temporal Parasites = {npc:10717} Temporal Parasite · Skeletal Warlords = {npc:1788} Skeletal Warlord · Flesh Golems = {npc:1805} Flesh Golem
-	["Use the {item:12627} by each grain silo on the north side of town to draw out Temporal Parasites, one silo after another.\nCareful: the Temporal Parasites are 55-57: draw them out one silo at a time, away from the Skeletal Warlords and Flesh Golems (57, elites) in the streets."] = "",
+	["Use the {item:12627} by each grain silo on the north side of town to draw out Temporal Parasites, one silo after another.\nCareful: the Temporal Parasites are 55-57: draw them out one silo at a time, away from the Skeletal Warlords and Flesh Golems (57, elites) in the streets."] = "在城鎮北側的每個穀倉旁使用{item:12627}，引出時間寄生蟲（{npc:10717}），一個穀倉接一個穀倉。\n小心：時間寄生蟲是55-57級：一次引一個穀倉，遠離街上的骷髏督軍（{npc:1788}）和血肉魔像（{npc:1805}）（57，精英）。",
 
 	-- Step 46: Chromie
 	-- {quest:5210} Brother Carlin · {area:2268} Light's Hope Chapel

@@ -14,11 +14,11 @@ return {
 
 	-- Step 3: Commander Althea Ebonlocke
 	-- {quest:57} The Night Watch · {zone:1431} Duskwood
-	["{quest:57}'s skeletons, from your last {zone:1431} visit: Commander Althea is in the town hall."] = "",
+	["{quest:57}'s skeletons, from your last {zone:1431} visit: Commander Althea is in the town hall."] = "{quest:57}의 해골, 지난번 {zone:1431} 방문 때 모은 것: 알테아 사령관은 시청에 있습니다.",
 
 	-- Step 4: Commander Althea Ebonlocke
 	-- {quest:57} The Night Watch
-	["once {quest:57}'s skeletons are handed in"] = "",
+	["once {quest:57}'s skeletons are handed in"] = "{quest:57}의 해골을 제출한 뒤",
 
 	-- Step 5: Commander Althea Ebonlocke
 	-- {quest:58} The Night Watch · {zone:1431} Duskwood

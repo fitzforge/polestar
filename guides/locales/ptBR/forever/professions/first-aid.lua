@@ -56,7 +56,7 @@ return {
 
 	-- Step 11: Heavy Linen Bandage (50-80)
 	-- {item:2581} Heavy Linen Bandage · {skill:129} First Aid · {item:858} Lesser Healing Potion · {item:2450} Briarthorn · {item:2678} Mild Spices · {item:3371} Empty Vial
-	["{item:2581} is yellow from 50 (yellow at 50, green at 75, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: any {skill:129} trainer of your faction teaches it for 1s; the arrow picks the nearest. Herbalists: {item:858} (from 55, 1s 50c; {item:2450}, two {item:2678} and an {item:3371}) is orange to 85."] = "",
+	["{item:2581} is yellow from 50 (yellow at 50, green at 75, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: any {skill:129} trainer of your faction teaches it for 1s; the arrow picks the nearest. Herbalists: {item:858} (from 55, 1s 50c; {item:2450}, two {item:2678} and an {item:3371}) is orange to 85."] = "{item:2581} está amarela desde 50 (amarela em 50, verde em 75, cinza em 100): cerca de 46 produções até 80. Bandagens não precisam de fogo: faça-as em qualquer lugar. Se chegou aqui sem aprender, aprenda agora: qualquer instrutor de {skill:129} da sua facção ensina por 1 p; a seta escolhe o mais próximo. Herboristas: {item:858} (a partir de 55, 1 p 50 c; {item:2450}, dois {item:2678} e um {item:3371}) fica laranja até 85.",
 
 	-- Step 12: Wool Bandage: Auction House
 	-- {spell:3277} Wool Bandage
@@ -102,7 +102,7 @@ return {
 
 	-- Step 21: Heavy Wool Bandage (125-150)
 	-- {spell:3278} Heavy Wool Bandage · {skill:129} First Aid
-	["{spell:3278} is yellow from 125 (yellow at 115, green at 150, grey at 185): about 38 crafts to 150. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: any {skill:129} trainer of your faction teaches it for 10s; the arrow picks the nearest."] = "",
+	["{spell:3278} is yellow from 125 (yellow at 115, green at 150, grey at 185): about 38 crafts to 150. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: any {skill:129} trainer of your faction teaches it for 10s; the arrow picks the nearest."] = "{spell:3278} está amarela desde 125 (amarela em 115, verde em 150, cinza em 185): cerca de 38 produções até 150. Bandagens não precisam de fogo: faça-as em qualquer lugar. Se chegou aqui sem aprender, aprenda agora: qualquer instrutor de {skill:129} da sua facção ensina por 10 p; a seta escolhe o mais próximo.",
 
 	-- Step 22: Silk Bandage: Auction House
 	-- {item:6450} Silk Bandage
@@ -178,7 +178,7 @@ return {
 	-- Step 37: Mageweave Bandage (225-240)
 	-- {item:8544} Mageweave Bandage · {item:16113} Manual: Mageweave Bandage · {skill:129} First Aid
 	-- plural, as words: Mageweave Bandages = {item:8544} Mageweave Bandage
-	["{item:8544} is yellow from 225 (yellow at 210, green at 240, grey at 270): about 24 crafts to 240. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: read the {item:16113} (the vendor who sold you the Expert {skill:129} book sells it). {item:8544} turns green at 240: switch to Heavy Mageweave there, which costs less cloth than green Mageweave Bandages to 260."] = "",
+	["{item:8544} is yellow from 225 (yellow at 210, green at 240, grey at 270): about 24 crafts to 240. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: read the {item:16113} (the vendor who sold you the Expert {skill:129} book sells it). {item:8544} turns green at 240: switch to Heavy Mageweave there, which costs less cloth than green Mageweave Bandages to 260."] = "{item:8544} está amarela desde 225 (amarela em 210, verde em 240, cinza em 270): cerca de 24 produções até 240. Bandagens não precisam de fogo: faça-as em qualquer lugar. Se chegou aqui sem aprender, aprenda agora: leia {item:16113} (o mercador que vendeu o livro de {skill:129} Perito vende). {item:8544} fica verde em 240: mude ali para a Bandagem Grossa de Magitrama, que gasta menos tecido do que as bandagens de magitrama verdes até 260.",
 
 	-- Step 38: Heavy Mageweave Bandage
 	-- {spell:10841} Heavy Mageweave Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall
@@ -196,7 +196,7 @@ return {
 
 	-- Step 41: Heavy Mageweave Bandage (240-260)
 	-- {item:8545} Heavy Mageweave Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall
-	["{item:8545} is yellow from 240 (yellow at 240, green at 270, grey at 300): about 25 crafts to 260. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "",
+	["{item:8545} is yellow from 240 (yellow at 240, green at 270, grey at 300): about 25 crafts to 260. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "{item:8545} está amarela desde 240 (amarela em 240, verde em 270, cinza em 300): cerca de 25 produções até 260. Bandagens não precisam de fogo: faça-as em qualquer lugar. Se chegou aqui sem aprender, aprenda agora: só o médico de {quest:6622} ensina ({npc:12939} em Theramore, {npc:12920} em {area:321}).",
 
 	-- Step 42: Runecloth Bandage
 	-- {spell:18629} Runecloth Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall
@@ -216,7 +216,7 @@ return {
 
 	-- Step 45: Runecloth Bandage (260-300)
 	-- {item:14529} Runecloth Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall · {item:14047} Runecloth · {item:14530} Heavy Runecloth Bandage
-	["{item:14529} is yellow from 260 (yellow at 260, green at 290, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321}). {item:14529} turns green at 290, yet to 300 it takes about the same {item:14047} as switching to {item:14530} (the doctor teaches it at 290): one recipe is enough."] = "",
+	["{item:14529} is yellow from 260 (yellow at 260, green at 290, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321}). {item:14529} turns green at 290, yet to 300 it takes about the same {item:14047} as switching to {item:14530} (the doctor teaches it at 290): one recipe is enough."] = "{item:14529} está amarela desde 260 (amarela em 260, verde em 290, cinza em 320): cerca de 65 produções até 300. Bandagens não precisam de fogo: faça-as em qualquer lugar. Se chegou aqui sem aprender, aprenda agora: só o médico de {quest:6622} ensina ({npc:12939} em Theramore, {npc:12920} em {area:321}). {item:14529} fica verde em 290, mas até 300 leva mais ou menos o mesmo {item:14047} que mudar para {item:14530} (o médico ensina em 290): uma receita basta.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (character level 5); the arrow picks the nearest."] = "Qualquer instrutor de {skill:129} da sua facção ensina {skill:129} Aprendiz (nível de personagem 5); a seta escolhe o mais próximo.",

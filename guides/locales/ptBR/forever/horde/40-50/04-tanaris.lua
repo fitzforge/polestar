@@ -96,14 +96,14 @@ return {
 
 	-- Step 18: Tooga
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
-	["{npc:5955}, a little turtle, wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Leave the Thistleshrubs (48-50) alone."] = "",
+	["{npc:5955}, a little turtle, wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Leave the Thistleshrubs (48-50) alone."] = "{npc:5955}, uma tartaruguinha, vaga pela borda oeste de {quest:3362} entre vários pontos: a seta vai de um para o outro até você encontrá-la. Deixe os Cardos (48-50) em paz.",
 
 	-- Step 19: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "Escolta de {npc:5955}",
 	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port · {npc:8579} Yeh'kinya
 	-- was: ["{npc:5955} waits in the valley. Walk him all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "{npc:5955} espera no vale. Leve-o a pé até a esposa dele, {npc:6015}, no {area:977}, a nordeste atravessando o deserto: fique perto, diminua o passo por ele e afaste o que o atacar. Não monte nem use a Pedra de Regresso longe dele. {npc:8579} também fica no porto."
-	["Walk {npc:5955} all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "",
+	["Walk {npc:5955} all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "Acompanhe {npc:5955} até a esposa dele, {npc:6015}, em {area:977}, para nordeste pelo deserto: fique perto, vá devagar por ele e afaste o que o atacar. Não monte nem use a Pedra de Regresso fora do alcance dele. {npc:8579} também fica no porto.",
 
 	-- Step 22: Slake That Thirst
 	-- {spell:686} Shadow Bolt
@@ -138,7 +138,7 @@ return {
 	-- Step 29: Tanaris Field Sampling
 	-- {area:976} Gadgetzan · {item:8524} Model 4711-FTZ Power Source · {quest:654} Tanaris Field Sampling · {npc:7407} Chief Engineer Bilgewhizzle
 	-- plural, as words: Blisterpaw Hyenas = {npc:5426} Blisterpaw Hyena · Glasshide Basilisks = {npc:5419} Glasshide Basilisk · Scorpid Hunters = {npc:5422} Scorpid Hunter
-	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon {quest:654} if it is in your log, then take Another Power Source? from {npc:7407}: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of {area:976}."] = "",
+	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon {quest:654} if it is in your log, then take Another Power Source? from {npc:7407}: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of {area:976}."] = "De volta ao norte, logo ao sul de {area:976}, use {item:8524} agora: o cronômetro de duas horas começa. As Hienas Pata-de-bolha ({npc:5426}), os Basiliscos Pele-de-vidro ({npc:5419}) e os Caçadores Escorpídeos ({npc:5422}) dividem as dunas aqui. Cada um pode soltar uma amostra não testada: use-a, e ela passa como aceitável ou se perde. Continue matando até ter oito de cada. Sem fonte de energia nas bolsas, ou as duas horas dela acabaram? Abandone {quest:654} se estiver no seu registro e depois pegue Outra Fonte de Energia? com {npc:7407}: ele dá uma nova por mais dez cantis Errantes, dos acampamentos Errantes a leste de {area:976}.",
 	-- {item:8524} Model 4711-FTZ Power Source
 	["Use the {item:8524}"] = "Use a {item:8524}",
 

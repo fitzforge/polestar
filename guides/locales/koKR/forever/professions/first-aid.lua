@@ -56,7 +56,7 @@ return {
 
 	-- Step 11: Heavy Linen Bandage (50-80)
 	-- {item:2581} Heavy Linen Bandage · {skill:129} First Aid · {item:858} Lesser Healing Potion · {item:2450} Briarthorn · {item:2678} Mild Spices · {item:3371} Empty Vial
-	["{item:2581} is yellow from 50 (yellow at 50, green at 75, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: any {skill:129} trainer of your faction teaches it for 1s; the arrow picks the nearest. Herbalists: {item:858} (from 55, 1s 50c; {item:2450}, two {item:2678} and an {item:3371}) is orange to 85."] = "",
+	["{item:2581} is yellow from 50 (yellow at 50, green at 75, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: any {skill:129} trainer of your faction teaches it for 1s; the arrow picks the nearest. Herbalists: {item:858} (from 55, 1s 50c; {item:2450}, two {item:2678} and an {item:3371}) is orange to 85."] = "{item:2581}은(는) 50부터 노란색입니다(50 노란색, 75 초록색, 100 회색): 80까지 약 46번 제작. 붕대는 불이 필요 없습니다: 어디서나 만드십시오. 배우지 않고 여기까지 왔다면 지금 배우십시오: 내 진영의 {skill:129} 상급자 누구나 1실버에 가르칩니다. 화살표가 가장 가까운 곳을 고릅니다. 약초채집가: {item:858}(55부터, 1실버 50코퍼; {item:2450}, {item:2678} 두 개, {item:3371} 하나)은(는) 85까지 주황색입니다.",
 
 	-- Step 12: Wool Bandage: Auction House
 	-- {spell:3277} Wool Bandage
@@ -102,7 +102,7 @@ return {
 
 	-- Step 21: Heavy Wool Bandage (125-150)
 	-- {spell:3278} Heavy Wool Bandage · {skill:129} First Aid
-	["{spell:3278} is yellow from 125 (yellow at 115, green at 150, grey at 185): about 38 crafts to 150. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: any {skill:129} trainer of your faction teaches it for 10s; the arrow picks the nearest."] = "",
+	["{spell:3278} is yellow from 125 (yellow at 115, green at 150, grey at 185): about 38 crafts to 150. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: any {skill:129} trainer of your faction teaches it for 10s; the arrow picks the nearest."] = "{spell:3278}은(는) 125부터 노란색입니다(115 노란색, 150 초록색, 185 회색): 150까지 약 38번 제작. 붕대는 불이 필요 없습니다: 어디서나 만드십시오. 배우지 않고 여기까지 왔다면 지금 배우십시오: 내 진영의 {skill:129} 상급자 누구나 10실버에 가르칩니다. 화살표가 가장 가까운 곳을 고릅니다.",
 
 	-- Step 22: Silk Bandage: Auction House
 	-- {item:6450} Silk Bandage
@@ -178,7 +178,7 @@ return {
 	-- Step 37: Mageweave Bandage (225-240)
 	-- {item:8544} Mageweave Bandage · {item:16113} Manual: Mageweave Bandage · {skill:129} First Aid
 	-- plural, as words: Mageweave Bandages = {item:8544} Mageweave Bandage
-	["{item:8544} is yellow from 225 (yellow at 210, green at 240, grey at 270): about 24 crafts to 240. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: read the {item:16113} (the vendor who sold you the Expert {skill:129} book sells it). {item:8544} turns green at 240: switch to Heavy Mageweave there, which costs less cloth than green Mageweave Bandages to 260."] = "",
+	["{item:8544} is yellow from 225 (yellow at 210, green at 240, grey at 270): about 24 crafts to 240. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: read the {item:16113} (the vendor who sold you the Expert {skill:129} book sells it). {item:8544} turns green at 240: switch to Heavy Mageweave there, which costs less cloth than green Mageweave Bandages to 260."] = "{item:8544}은(는) 225부터 노란색입니다(210 노란색, 240 초록색, 270 회색): 240까지 약 24번 제작. 붕대는 불이 필요 없습니다: 어디서나 만드십시오. 배우지 않고 여기까지 왔다면 지금 배우십시오: {item:16113}을(를) 읽으십시오(전문가 {skill:129} 책을 판 상인이 팝니다). {item:8544}은(는) 240에서 초록색이 됩니다: 거기서 두꺼운 마법 붕대로 바꾸십시오. 260까지 초록색 마법 붕대보다 천이 덜 듭니다.",
 
 	-- Step 38: Heavy Mageweave Bandage
 	-- {spell:10841} Heavy Mageweave Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall
@@ -196,7 +196,7 @@ return {
 
 	-- Step 41: Heavy Mageweave Bandage (240-260)
 	-- {item:8545} Heavy Mageweave Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall
-	["{item:8545} is yellow from 240 (yellow at 240, green at 270, grey at 300): about 25 crafts to 260. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "",
+	["{item:8545} is yellow from 240 (yellow at 240, green at 270, grey at 300): about 25 crafts to 260. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "{item:8545}은(는) 240부터 노란색입니다(240 노란색, 270 초록색, 300 회색): 260까지 약 25번 제작. 붕대는 불이 필요 없습니다: 어디서나 만드십시오. 배우지 않고 여기까지 왔다면 지금 배우십시오: {quest:6622} 의사만 가르칩니다(테라모어의 {npc:12939}, {area:321}의 {npc:12920}).",
 
 	-- Step 42: Runecloth Bandage
 	-- {spell:18629} Runecloth Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall
@@ -216,7 +216,7 @@ return {
 
 	-- Step 45: Runecloth Bandage (260-300)
 	-- {item:14529} Runecloth Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall · {item:14047} Runecloth · {item:14530} Heavy Runecloth Bandage
-	["{item:14529} is yellow from 260 (yellow at 260, green at 290, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321}). {item:14529} turns green at 290, yet to 300 it takes about the same {item:14047} as switching to {item:14530} (the doctor teaches it at 290): one recipe is enough."] = "",
+	["{item:14529} is yellow from 260 (yellow at 260, green at 290, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. If you got here without learning it, learn it now: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321}). {item:14529} turns green at 290, yet to 300 it takes about the same {item:14047} as switching to {item:14530} (the doctor teaches it at 290): one recipe is enough."] = "{item:14529}은(는) 260부터 노란색입니다(260 노란색, 290 초록색, 320 회색): 300까지 약 65번 제작. 붕대는 불이 필요 없습니다: 어디서나 만드십시오. 배우지 않고 여기까지 왔다면 지금 배우십시오: {quest:6622} 의사만 가르칩니다(테라모어의 {npc:12939}, {area:321}의 {npc:12920}). {item:14529}은(는) 290에서 초록색이 되지만, 300까지는 {item:14530}(으)로 바꾸는 것과 비슷한 양의 {item:14047}이(가) 듭니다(의사가 290에서 가르칩니다): 제조법 하나면 충분합니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (character level 5); the arrow picks the nearest."] = "진영의 모든 {skill:129} 상급자가 초급 {skill:129}을(를) 가르칩니다(캐릭터 레벨 5). 화살표가 가장 가까운 곳을 가리킵니다.",

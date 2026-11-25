@@ -96,14 +96,14 @@ return {
 
 	-- Step 18: Tooga
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
-	["{npc:5955}, a little turtle, wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Leave the Thistleshrubs (48-50) alone."] = "",
+	["{npc:5955}, a little turtle, wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Leave the Thistleshrubs (48-50) alone."] = "{npc:5955}, маленькая черепаха, бродит по западному краю места {quest:3362} между несколькими точками: стрелка ведет от одной к другой, пока вы его не найдете. Не трогайте чертополохов (48-50).",
 
 	-- Step 19: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "Сопровождение: {npc:5955}",
 	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port · {npc:8579} Yeh'kinya
 	-- was: ["{npc:5955} waits in the valley. Walk him all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "{npc:5955} ждет в долине. Доведите его до жены ({npc:6015}, {area:977}) на северо-восток через пустыню: держитесь рядом, не спешите и отбивайтесь от нападающих. Не садитесь на транспорт и не используйте камень возвращения. {npc:8579} тоже стоит в порту."
-	["Walk {npc:5955} all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "",
+	["Walk {npc:5955} all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "Доведите NPC {npc:5955} до жены ({npc:6015}, {area:977}) на северо-восток через пустыню: держитесь рядом, не спешите и отбивайтесь от нападающих. Не садитесь на транспорт и не используйте камень возвращения вне его досягаемости. {npc:8579} тоже стоит в порту.",
 
 	-- Step 22: Slake That Thirst
 	-- {spell:686} Shadow Bolt
@@ -138,7 +138,7 @@ return {
 	-- Step 29: Tanaris Field Sampling
 	-- {area:976} Gadgetzan · {item:8524} Model 4711-FTZ Power Source · {quest:654} Tanaris Field Sampling · {npc:7407} Chief Engineer Bilgewhizzle
 	-- plural, as words: Blisterpaw Hyenas = {npc:5426} Blisterpaw Hyena · Glasshide Basilisks = {npc:5419} Glasshide Basilisk · Scorpid Hunters = {npc:5422} Scorpid Hunter
-	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon {quest:654} if it is in your log, then take Another Power Source? from {npc:7407}: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of {area:976}."] = "",
+	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon {quest:654} if it is in your log, then take Another Power Source? from {npc:7407}: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of {area:976}."] = "Назад на север, чуть к югу от места {area:976}, используйте {item:8524} сейчас: запускается двухчасовой таймер. Пузырчатые гиены ({npc:5426}), стеклошкурые василиски ({npc:5419}) и скорпиды-охотники ({npc:5422}) делят здесь дюны. Каждый может уронить непроверенный образец: используйте его, и он либо окажется подходящим, либо пропадет. Убивайте, пока не будет восемь каждого. Нет источника энергии в сумках или его два часа истекли? Откажитесь от задания {quest:654}, если оно в журнале, затем возьмите «Еще один источник энергии?» у NPC {npc:7407}: он даст новый за десять бурдюков с водой Скитальцев Пустошей из лагерей к востоку от места {area:976}.",
 	-- {item:8524} Model 4711-FTZ Power Source
 	["Use the {item:8524}"] = "Используйте предмет {item:8524}",
 

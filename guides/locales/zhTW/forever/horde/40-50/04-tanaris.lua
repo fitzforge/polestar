@@ -96,14 +96,14 @@ return {
 
 	-- Step 18: Tooga
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
-	["{npc:5955}, a little turtle, wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Leave the Thistleshrubs (48-50) alone."] = "",
+	["{npc:5955}, a little turtle, wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Leave the Thistleshrubs (48-50) alone."] = "小海龜{npc:5955}在{quest:3362}西緣的幾個地點之間遊蕩：箭頭會從一個點帶到下一個點，直到你找到他。別去招惹薊草（48-50）。",
 
 	-- Step 19: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "護送{npc:5955}",
 	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port · {npc:8579} Yeh'kinya
 	-- was: ["{npc:5955} waits in the valley. Walk him all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "{npc:5955}在山谷裡等候。一路護送他向東北穿過沙漠，到{area:977}找他的妻子{npc:6015}：跟緊他，放慢速度配合他，擊退攻擊他的敵人。不要騎坐騎或用爐石離開他的範圍。{npc:8579}也在港口裡。"
-	["Walk {npc:5955} all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "",
+	["Walk {npc:5955} all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "帶{npc:5955}一路走到{area:977}他的妻子{npc:6015}那裡，向東北穿過沙漠：跟緊，放慢速度等他，打退攻擊他的東西。不要在他夠不到的地方上坐騎或使用爐石。{npc:8579}也站在港口。",
 
 	-- Step 22: Slake That Thirst
 	-- {spell:686} Shadow Bolt
@@ -138,7 +138,7 @@ return {
 	-- Step 29: Tanaris Field Sampling
 	-- {area:976} Gadgetzan · {item:8524} Model 4711-FTZ Power Source · {quest:654} Tanaris Field Sampling · {npc:7407} Chief Engineer Bilgewhizzle
 	-- plural, as words: Blisterpaw Hyenas = {npc:5426} Blisterpaw Hyena · Glasshide Basilisks = {npc:5419} Glasshide Basilisk · Scorpid Hunters = {npc:5422} Scorpid Hunter
-	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon {quest:654} if it is in your log, then take Another Power Source? from {npc:7407}: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of {area:976}."] = "",
+	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon {quest:654} if it is in your log, then take Another Power Source? from {npc:7407}: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of {area:976}."] = "向北回去，就在{area:976}南邊，現在使用{item:8524}：兩小時計時開始。水皰爪土狼（{npc:5426}）、琉璃皮蜥蜴（{npc:5419}）和蠍子獵手（{npc:5422}）共享這裡的沙丘。每種都可能掉落未經測試的樣本：使用它，它要麼成為合格的樣本，要麼損失掉。一直殺到每種各有八個。背包裡沒有能量源，或者它的兩小時用完了？如果{quest:654}在你的任務日誌中就放棄它，然後向{npc:7407}接取另一個能量源？：他會用十個從{area:976}以東的廢土營地得來的廢土水袋換一個新的。",
 	-- {item:8524} Model 4711-FTZ Power Source
 	["Use the {item:8524}"] = "使用{item:8524}",
 

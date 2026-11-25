@@ -80,25 +80,25 @@ return {
 
 	-- Step 13: The Musty Scroll
 	-- {object:2555} Musty Scroll
-	["The {object:2555} lies to the south-west."] = "",
+	["The {object:2555} lies to the south-west."] = "{object:2555} se trouve au sud-ouest.",
 
 	-- Step 14: Mudsprocket
 	["Mudsprocket"] = "Gouffrefange",
 	-- {object:2555} Musty Scroll · {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle · {item:280092} Wyrmtail
-	["South-east from the {object:2555} to Mudsprocket, the goblin camp at the {area:511}'s western edge: {npc:270723} and {npc:270727} stand together in the camp. Their whelps, scales and {item:280092} come on the same {area:511} loop as Brackenwall's quests."] = "",
+	["South-east from the {object:2555} to Mudsprocket, the goblin camp at the {area:511}'s western edge: {npc:270723} and {npc:270727} stand together in the camp. Their whelps, scales and {item:280092} come on the same {area:511} loop as Brackenwall's quests."] = "Vers le sud-est depuis {object:2555} jusqu'à Gouffrefange, le camp gobelin au bord ouest de {area:511} : {npc:270723} et {npc:270727} se tiennent ensemble au camp. Leurs dragonnets, écailles et {item:280092} viennent dans la même boucle de {area:511} que les quêtes de Mur-de-Fougères.",
 
 	-- Step 15: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
 	["{area:510}: kill these as you meet them"] = "{area:510} : tuez-les au passage",
 	-- {area:511} Wyrmbog · {item:280092} Wyrmtail
 	-- was: ["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "Vers l'est à travers la {area:511} : les éclaireurs et les queues-de-cendre Crins-de-feu parcourent sa lisière nord avec les jeunes dragons et les dragonnets brûlants ; les Fléaux-d'écailles gardent les grottes des dragons plus au sud-est. Le tabac à priser, le grog et le coffre-fort de Mok'Morokk se trouvent dans les camps des draconiens."
-	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps. The {item:280092} grows in the bog just east of Mudsprocket."] = "",
+	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps. The {item:280092} grows in the bog just east of Mudsprocket."] = "Vers l'est à travers {area:511} : les éclaireurs Crins-de-feu et les queues-de-cendre rôdent sur son bord nord avec les petits et les dragonnets brûlants ; les brise-écailles gardent les grottes des dragons plus au sud-est. Le tabac, le grog et le coffre de Mok'Morokk sont dans les camps de draconiens. {item:280092} pousse dans le marécage juste à l'est de Gouffrefange.",
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "{npc:4329} se promène autour de {area:510} : cherchez dans le cercle sur la carte",
 	["Below ground"] = "Sous terre",
 
 	-- Step 16: Mudsprocket
-	["Back to Mudsprocket before you ride north."] = "",
+	["Back to Mudsprocket before you ride north."] = "Retour à Gouffrefange avant de chevaucher vers le nord.",
 
 	-- Step 17: Brackenwall Village
 	["Ride back north to Brackenwall."] = "Retournez au nord jusqu'à Mur-de-Fougères.",

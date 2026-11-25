@@ -80,25 +80,25 @@ return {
 
 	-- Step 13: The Musty Scroll
 	-- {object:2555} Musty Scroll
-	["The {object:2555} lies to the south-west."] = "",
+	["The {object:2555} lies to the south-west."] = "{object:2555} лежит на юго-западе.",
 
 	-- Step 14: Mudsprocket
 	["Mudsprocket"] = "Шестермуть",
 	-- {object:2555} Musty Scroll · {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle · {item:280092} Wyrmtail
-	["South-east from the {object:2555} to Mudsprocket, the goblin camp at the {area:511}'s western edge: {npc:270723} and {npc:270727} stand together in the camp. Their whelps, scales and {item:280092} come on the same {area:511} loop as Brackenwall's quests."] = "",
+	["South-east from the {object:2555} to Mudsprocket, the goblin camp at the {area:511}'s western edge: {npc:270723} and {npc:270727} stand together in the camp. Their whelps, scales and {item:280092} come on the same {area:511} loop as Brackenwall's quests."] = "На юго-восток от места {object:2555} к Шестермути, гоблинскому лагерю на западном краю места {area:511}: {npc:270723} и {npc:270727} стоят вместе в лагере. Их дракончики, чешуя и {item:280092} – на том же круге по месту {area:511}, что и задания Гиблотопи.",
 
 	-- Step 15: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
 	["{area:510}: kill these as you meet them"] = "{area:510}: убивайте их по пути",
 	-- {area:511} Wyrmbog · {item:280092} Wyrmtail
 	-- was: ["Ride south-west to the {object:2555}, then east through the {area:511}. The Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "Езжайте на юго-запад к предмету {object:2555}, затем на восток через место {area:511}. Огнегривые разведчики и пеплохвосты бродят по его северному краю вместе с опаляющими малышами дракона и дракончиками; чешуйчатые губители охраняют драконьи пещеры дальше к юго-востоку. Понюшка, грог и сейф Мок'Морокка лежат в лагерях драконидов."
-	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps. The {item:280092} grows in the bog just east of Mudsprocket."] = "",
+	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps. The {item:280092} grows in the bog just east of Mudsprocket."] = "На восток через место {area:511}: огнегривые разведчики и пеплохвосты бродят по его северному краю вместе с опаляющими детенышами и дракончиками; чешуебои охраняют драконьи пещеры дальше на юго-востоке. Табак, грог и сундук Мок'Морокка лежат в лагерях драконидов. {item:280092} растет на болоте чуть к востоку от Шестермути.",
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "{npc:4329} ходит по месту {area:510}: ищите внутри круга на карте",
 	["Below ground"] = "Под землей",
 
 	-- Step 16: Mudsprocket
-	["Back to Mudsprocket before you ride north."] = "",
+	["Back to Mudsprocket before you ride north."] = "Назад в Шестермуть, прежде чем ехать на север.",
 
 	-- Step 17: Brackenwall Village
 	["Ride back north to Brackenwall."] = "Возвращайтесь на север в Гиблотопь.",

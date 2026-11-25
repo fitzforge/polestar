@@ -14,7 +14,7 @@ return {
 	-- {area:702} Rut'theran Village
 	["Fly to {area:702}"] = "Летите сюда: {area:702}",
 	-- {zone:1457} Darnassus · {zone:1450} Moonglade · {zone:1455} Ironforge · {area:3197} Chillwind Camp
-	["The {zone:1457}, {zone:1450} and {zone:1455} stops are for players coming from the previous guides with their quests; opened with none of those quests in the log, the guide starts at {area:3197}."] = "",
+	["The {zone:1457}, {zone:1450} and {zone:1455} stops are for players coming from the previous guides with their quests; opened with none of those quests in the log, the guide starts at {area:3197}."] = "Остановки {zone:1457}, {zone:1450} и {zone:1455} – для игроков, пришедших из предыдущих гайдов со своими заданиями; если открыть гайд без этих заданий в журнале, он начинается в месте {area:3197}.",
 
 	-- Step 2: Rut'theran Village
 	-- {area:702} Rut'theran Village · {npc:7916} Erelas Ambersky
@@ -255,13 +255,13 @@ return {
 	["Andorhal"] = "Андорал",
 	-- {quest:5154} The Annals of Darrowshire · {quest:5537} Skeletal Fragments · {npc:1852} Araj the Summoner
 	-- plural, as words: Skeletal Warlords = {npc:1788} Skeletal Warlord · Flesh Golems = {npc:1805} Flesh Golem
-	["{quest:5154} is one of the musty tomes in the town hall. Every skeleton in town drops {quest:5537}.\nCareful: Skeletal Warlords and Flesh Golems (57, elites) walk the streets: let them pass.\n{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal."] = "",
+	["{quest:5154} is one of the musty tomes in the town hall. Every skeleton in town drops {quest:5537}.\nCareful: Skeletal Warlords and Flesh Golems (57, elites) walk the streets: let them pass.\n{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal."] = "{quest:5154} – один из заплесневелых томов в ратуше. Каждый скелет в городе роняет {quest:5537}.\nОсторожно: скелеты-полководцы ({npc:1788}) и плотоглоты ({npc:1805}) (57, элита) ходят по улицам: пропускайте их.\n{npc:1852} – элита: советуем группу. Он охраняет свою филактерию в центре Андорала.",
 
 	-- Step 45: Andorhal's grain silos
-	["Andorhal's grain silos"] = "",
+	["Andorhal's grain silos"] = "Зернохранилища Андорала",
 	-- {item:12627} Temporal Displacer
 	-- plural, as words: Temporal Parasites = {npc:10717} Temporal Parasite · Skeletal Warlords = {npc:1788} Skeletal Warlord · Flesh Golems = {npc:1805} Flesh Golem
-	["Use the {item:12627} by each grain silo on the north side of town to draw out Temporal Parasites, one silo after another.\nCareful: the Temporal Parasites are 55-57: draw them out one silo at a time, away from the Skeletal Warlords and Flesh Golems (57, elites) in the streets."] = "",
+	["Use the {item:12627} by each grain silo on the north side of town to draw out Temporal Parasites, one silo after another.\nCareful: the Temporal Parasites are 55-57: draw them out one silo at a time, away from the Skeletal Warlords and Flesh Golems (57, elites) in the streets."] = "Используйте {item:12627} у каждого зернохранилища в северной части города, чтобы выманить временных паразитов ({npc:10717}), одно хранилище за другим.\nОсторожно: временные паразиты 55-57 уровня: выманивайте их по одному хранилищу, подальше от скелетов-полководцев ({npc:1788}) и плотоглотов ({npc:1805}) (57, элита) на улицах.",
 
 	-- Step 46: Chromie
 	-- {quest:5210} Brother Carlin · {area:2268} Light's Hope Chapel

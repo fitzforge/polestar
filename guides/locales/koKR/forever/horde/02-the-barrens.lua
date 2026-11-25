@@ -14,13 +14,13 @@ return {
 
 	-- Step 2: Orgnil Soulscar
 	-- {npc:3142} Orgnil Soulscar · {area:362} Razor Hill
-	["{npc:3142} stands in the middle of {area:362}."] = "",
+	["{npc:3142} stands in the middle of {area:362}."] = "{npc:3142}은(는) {area:362} 한가운데에 서 있습니다.",
 	-- {npc:3142} Orgnil Soulscar · {quest:99051} Threat from Below · {zone:1411} Durotar
 	["{npc:3142}: {quest:99051}, from {zone:1411}'s naga beach"] = "",
 
 	-- Step 4: Uzzek
 	-- {npc:5810} Uzzek · {area:379} Far Watch Post · {npc:3337} Kargal Battlescar · {quest:809} Ak'Zeloth
-	["{npc:5810} stands at {area:379} with {npc:3337} and {quest:809}."] = "",
+	["{npc:5810} stands at {area:379} with {npc:3337} and {quest:809}."] = "{npc:5810}은(는) {area:379}에 {npc:3337}, {quest:809}와(과) 함께 서 있습니다.",
 
 	-- Step 5: Far Watch Post
 	-- {area:814} Southfury River · {area:379} Far Watch Post · {zone:1413} The Barrens · {npc:3337} Kargal Battlescar · {quest:809} Ak'Zeloth · {npc:5810} Uzzek
@@ -34,7 +34,7 @@ return {
 
 	-- Step 7: Far Watch Post
 	-- {npc:5810} Uzzek · {area:379} Far Watch Post · {area:814} Southfury River
-	["{npc:5810} stands at {area:379}, just above the {area:814} bridge."] = "",
+	["{npc:5810} stands at {area:379}, just above the {area:814} bridge."] = "{npc:5810}은(는) {area:379}, {area:814} 다리 바로 위에 서 있습니다.",
 
 	-- Step 8: The Crossroads
 	-- {area:379} Far Watch Post · {npc:3489} Zargh · {npc:3338} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3615} Devrak · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger
@@ -48,9 +48,9 @@ return {
 
 	-- Step 9: Thork
 	-- {npc:3429} Thork
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:3429}'s supply crates lie in the Razormane camp's north-east, among the Flesheaters and Berserkers (18-19, elite): it needs a group of 3. Skip it if you are alone."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:3429}'s supply crates lie in the Razormane camp's north-east, among the Flesheaters and Berserkers (18-19, elite): it needs a group of 3. Skip it if you are alone."] = "정예 몹입니다: 파티를 권장하니 함께할 사람을 찾으십시오. {npc:3429}의 보급품 상자는 서리갈기 야영지 북동쪽, 살점포식자와 광전사(18-19, 정예) 사이에 있습니다: 3인 파티가 필요합니다. 혼자라면 건너뛰십시오.",
 	-- {npc:3429} Thork
-	["{npc:3429}, on the tower"] = "",
+	["{npc:3429}, on the tower"] = "{npc:3429}, 탑 위",
 
 	-- Step 10: Thun'grim Firegaze
 	-- {npc:5878} Thun'grim Firegaze · {area:392} Ratchet
@@ -67,13 +67,13 @@ return {
 	-- {npc:3429} Thork
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
 	-- was: ["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "야영지에 있는 동안: {npc:3429}의 풍수사와 가시마술사는 서쪽 절반에, 사냥꾼은 가운데에, 보급품 상자는 동쪽 끝에 있습니다.\n주의: 서슬갈기일족 살점먹보와 광전사(18-19)는 정예이며, 야영지 북동쪽 보급품 상자 옆에 서 있습니다. 가시멧돼지를 그들에게서 하나씩 떼어 끌어오세요."
-	["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, and, if you took his supplies with a group, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "",
+	["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, and, if you took his supplies with a group, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "야영지에 있는 동안: {npc:3429}의 물 탐색꾼과 가시덩굴 직조자는 서쪽 절반, 사냥꾼은 가운데, 파티로 그의 보급품을 받았다면 보급품 상자는 동쪽 끝에 있습니다.\n주의: 서리갈기 살점포식자와 광전사(18-19)는 정예입니다. 야영지 북동쪽, 보급품 상자 옆에 서 있습니다: 멧돼지인간들을 하나씩 그들에게서 떨어뜨려 끌어내십시오.",
 
 	-- Step 13: Thork's supply crates
 	-- {npc:3429} Thork
-	["{npc:3429}'s supply crates"] = "",
+	["{npc:3429}'s supply crates"] = "{npc:3429}의 보급품 상자",
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
-	["With your group: the supply crates sit at the camp's eastern end. Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand beside the crates."] = "",
+	["With your group: the supply crates sit at the camp's eastern end. Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand beside the crates."] = "파티와 함께: 보급품 상자는 야영지 동쪽 끝에 있습니다. 주의: 서리갈기 살점포식자({npc:267308})와 광전사(18-19)는 정예이며 상자 옆에 서 있습니다.",
 
 	-- Step 15: Telf Joolam
 	-- {npc:5900} Telf Joolam · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember
@@ -106,7 +106,7 @@ return {
 	-- Step 23: Razormane camp
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
 	-- was: ["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "야영지에서는 풍수사와 가시마술사가 서쪽 절반을, 사냥꾼이 가운데를 차지하고, 보급품 상자는 동쪽 끝에 있습니다.\n여기 초원타조도 부리 수집에 포함됩니다.\n주의: 서슬갈기일족 살점먹보와 광전사(18-19)는 정예이며, 야영지 북동쪽 보급품 상자 옆에 서 있습니다. 가시멧돼지를 그들에게서 하나씩 떼어 끌어오세요."
-	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates (with a group only) sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "",
+	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates (with a group only) sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "야영지에서 물 탐색꾼과 가시덩굴 직조자가 서쪽 절반을, 사냥꾼이 가운데를 차지하고, 보급품 상자(파티로만)는 동쪽 끝에 있습니다.\n이곳의 평원 타조도 부리에 집계됩니다.\n주의: 서리갈기 살점포식자와 광전사(18-19)는 정예입니다. 야영지 북동쪽, 보급품 상자 옆에 서 있습니다: 멧돼지인간들을 하나씩 그들에게서 떨어뜨려 끌어내십시오.",
 
 	-- Step 25: Finish the Plainstrider Beaks
 	-- plural, as words: Plainstrider Beaks = {item:5087} Plainstrider Beak
@@ -115,7 +115,7 @@ return {
 
 	-- Step 28: Thork
 	-- {npc:3438} Kreenig Snarlsnout
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:3438} and the Geomancers and Defenders of The Disruption Ends stand in the camp's eastern half, among the Flesheaters and Berserkers (18-19, elite): it needs a group of 3. Skip it if you are alone."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:3438} and the Geomancers and Defenders of The Disruption Ends stand in the camp's eastern half, among the Flesheaters and Berserkers (18-19, elite): it needs a group of 3. Skip it if you are alone."] = "정예 몹입니다: 파티를 권장하니 함께할 사람을 찾으십시오. {npc:3438}과(와) 분열의 끝의 지자기술사, 수호자들이 야영지 동쪽 절반, 살점포식자와 광전사(18-19, 정예) 사이에 서 있습니다: 3인 파티가 필요합니다. 혼자라면 건너뛰십시오.",
 
 	-- Step 29: The Zhevra
 	-- {area:392} Ratchet
@@ -171,7 +171,7 @@ return {
 	-- Step 37: The Barrens: kill these as you meet them
 	-- {npc:3389} Regthar Deathgate · {npc:3394} Barak Kodobane · {quest:4021} Counterattack! · {npc:9456} Warlord Krom'zar
 	-- plural, as words: Laden Mushrooms = {object:3640} Laden Mushroom · Kolkar Invaders = {npc:9524} Kolkar Invader
-	["The pools lie just north of {npc:3389}. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers. {npc:3394} stands in the Kolkar camp west of the pools.\nCareful: the Kolkar stand in packs around their camp west of the pools, and the Stormers cast from range: pull them one at a time from the edge. When anyone starts {npc:3389}'s {quest:4021}, Kolkar Invaders (16-17) and {npc:9456} (20, elite) charge his watch post: keep away from it until the attack is over."] = "",
+	["The pools lie just north of {npc:3389}. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers. {npc:3394} stands in the Kolkar camp west of the pools.\nCareful: the Kolkar stand in packs around their camp west of the pools, and the Stormers cast from range: pull them one at a time from the edge. When anyone starts {npc:3389}'s {quest:4021}, Kolkar Invaders (16-17) and {npc:9456} (20, elite) charge his watch post: keep away from it until the attack is over."] = "웅덩이는 {npc:3389} 바로 북쪽에 있습니다. 물속으로 들어가 탐험하십시오. 헬브림의 가득 찬 버섯({object:3640})이 주변에 자랍니다. 지나치는 콜카르는 모두 처치해 손목보호구를 모으십시오. {npc:3394}은(는) 웅덩이 서쪽의 콜카르 야영지에 서 있습니다.\n주의: 콜카르는 웅덩이 서쪽 야영지 주변에 무리 지어 있고, 폭풍술사는 멀리서 공격합니다: 가장자리에서 하나씩 끌어내십시오. 누군가 {npc:3389}의 {quest:4021}을(를) 시작하면 콜카르 침략자({npc:9524}, 16-17)와 {npc:9456}(20, 정예)이(가) 그의 감시 초소로 돌격합니다: 공격이 끝날 때까지 멀리 떨어져 있으십시오.",
 
 	-- Step 38: Regthar Deathgate
 	-- {npc:3389} Regthar Deathgate · {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis
@@ -235,7 +235,7 @@ return {
 	["Finish the Raptor Heads"] = "랩터 머리 마저 모으기",
 	-- {quest:881} Echeyakee
 	-- plural, as words: Sunscale Screechers = {npc:3255} Sunscale Screecher
-	["Still short of twelve? Sunscale Screechers are thickest on the open plains just north of {quest:881}'s lair: finish there, then head back south-west to the Crossroads, keeping west of the Razormane camp."] = "",
+	["Still short of twelve? Sunscale Screechers are thickest on the open plains just north of {quest:881}'s lair: finish there, then head back south-west to the Crossroads, keeping west of the Razormane camp."] = "아직 열둘이 안 됐습니까? 태양비늘 날개날개({npc:3255})는 {quest:881}의 둥지 바로 북쪽의 탁 트인 평원에 가장 많습니다: 그곳에서 채운 뒤 서리갈기 야영지 서쪽을 지나 남서쪽 크로스로드로 돌아가십시오.",
 
 	-- Step 53: The Crossroads
 	-- {npc:3464} Gazrog · {npc:3338} Sergra Darkthorn · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork

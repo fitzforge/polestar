@@ -80,25 +80,25 @@ return {
 
 	-- Step 13: The Musty Scroll
 	-- {object:2555} Musty Scroll
-	["The {object:2555} lies to the south-west."] = "",
+	["The {object:2555} lies to the south-west."] = "{object:2555}在西南方。",
 
 	-- Step 14: Mudsprocket
 	["Mudsprocket"] = "泥鏈營地",
 	-- {object:2555} Musty Scroll · {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle · {item:280092} Wyrmtail
-	["South-east from the {object:2555} to Mudsprocket, the goblin camp at the {area:511}'s western edge: {npc:270723} and {npc:270727} stand together in the camp. Their whelps, scales and {item:280092} come on the same {area:511} loop as Brackenwall's quests."] = "",
+	["South-east from the {object:2555} to Mudsprocket, the goblin camp at the {area:511}'s western edge: {npc:270723} and {npc:270727} stand together in the camp. Their whelps, scales and {item:280092} come on the same {area:511} loop as Brackenwall's quests."] = "從{object:2555}向東南前往{area:511}西緣的哥布林營地泥鏈營地：{npc:270723}和{npc:270727}一起站在營地裡。他們要的雛龍、鱗片和{item:280092}在與蕨牆村任務相同的{area:511}路線上。",
 
 	-- Step 15: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
 	["{area:510}: kill these as you meet them"] = "{area:510}：遇到就殺",
 	-- {area:511} Wyrmbog · {item:280092} Wyrmtail
 	-- was: ["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "向東穿過{area:511}：火鬃斥候和火鬃灰尾龍人與灼熱龍崽、灼熱雛龍一起在它北緣遊蕩；碎鱗者守護著更東南的龍穴。莫格穆洛克的鼻菸、烈酒和保險箱都在龍人營地裡。"
-	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps. The {item:280092} grows in the bog just east of Mudsprocket."] = "",
+	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps. The {item:280092} grows in the bog just east of Mudsprocket."] = "向東穿過{area:511}：火鬃斥候和灰尾在其北緣遊蕩，還有灼熱幼龍和雛龍；鱗翼守衛著更東南方的龍洞。莫克莫洛克的鼻菸、烈酒和保險箱在龍人營地裡。{item:280092}長在泥鏈營地東邊的沼澤裡。",
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "{npc:4329}在{area:510}一帶走動：檢視地圖上的圓圈範圍",
 	["Below ground"] = "地下",
 
 	-- Step 16: Mudsprocket
-	["Back to Mudsprocket before you ride north."] = "",
+	["Back to Mudsprocket before you ride north."] = "向北騎行之前先回泥鏈營地。",
 
 	-- Step 17: Brackenwall Village
 	["Ride back north to Brackenwall."] = "向北騎回蕨牆村。",
