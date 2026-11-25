@@ -15200,8 +15200,8 @@ function Own.hereBuild()
 		elseif cur.kind == "flight" and Own.hereFlyHolds(cur) then
 			-- A flight path line: while its flight master is a candidate (Own.hereFly).
 			i = i + 1
-		elseif (cur.kind == "sell" or cur.kind == "repair") and Own.hereVendorHolds(cur) then
-			-- A sell or repair reminder: while the bags or the gear still need it (Own.hereVendor).
+		elseif (cur.kind == "sell" or cur.kind == "repair" or cur.kind == "rune") and Own.hereVendorHolds(cur) then
+			-- A sell, repair or rune reminder: while the bags, the gear or the route still need it (Own.hereVendor).
 			i = i + 1
 		elseif cur.kind == "gather" and Own.hereGatherHolds(cur) then
 			-- A gathering spot line: while its kind of node is a candidate (Own.hereGather).
@@ -15982,7 +15982,7 @@ function Own.hereViewOf(e)
 	if not v and e.kind == "flight" then
 		v = Own.hereFlyView(e)
 		e.view = v
-	elseif not v and (e.kind == "sell" or e.kind == "repair") then
+	elseif not v and (e.kind == "sell" or e.kind == "repair" or e.kind == "rune") then
 		v = Own.hereVendorView(e)
 		e.view = v
 	elseif not v and e.kind == "gather" then
@@ -16626,6 +16626,7 @@ Own.hereVendorRetry = false -- the places were asked for in combat: again once i
 Own.hereVendorAway = false -- the live step flies or hearths: heading out with no waypoint too
 Own.hereVendorRepair = false -- the repair need at the last build (UPDATE_INVENTORY_DURABILITY builds again when it flips)
 Own.hereVendorFree, Own.hereVendorWant = nil, 0 -- the free bag slots and those wanted at the last build; nil: reminders off
+Own.hereRuneOffer = false -- Nav/RuneStop.lua's offer: a Rune of Teleportation from a vendor nearby (#3547)
 
 -- Kind's candidate, made once. Its goal is a verb of its own ("sell", "repair": no guide step holds it, no goal
 -- state ends it) placed at the NPC the line shows (Own.hereVendorPlace); `list`: the continent's places
@@ -16633,9 +16634,9 @@ Own.hereVendorFree, Own.hereVendorWant = nil, 0 -- the free bag slots and those 
 function Own.hereVendorOf(kind)
 	local e = Own.hereVendorEntries[kind]
 	if not e then
-		local goal = { t = kind, text = "" }
+		local goal = { t = kind == "rune" and "sell" or kind, text = "" } -- (a rune stop has the merchant's icon)
 		-- g: the kind's place in VENDOR_KINDS (a goal index is a number wherever a waypoint goes, Nav/Walk.lua's too).
-		e = { s = Own.VENDOR_STEP, g = kind == "repair" and 1 or 2, goal = goal, kind = kind, left = 0, places = 1, npcs = false, seen = false, spot = false,
+		e = { s = Own.VENDOR_STEP, g = kind == "repair" and 1 or kind == "sell" and 2 or 3, goal = goal, kind = kind, left = 0, places = 1, npcs = false, seen = false, spot = false,
 			d = false, pick = 0, budget = 0, xp = false, soon = false, visit = false, detour = 0, town = false, near = false,
 			on = false, since = 0, yards = 0, serial = 0, view = false,
 			list = false, p = false, pc = false, px = 0, py = 0, free = 0, want = 0, worn = 100, both = false }
@@ -16723,6 +16724,15 @@ function Own.hereVendorBuild(c, live)
 				Own.hereVendorRetry = true
 			end
 		end
+	end
+	local rune = near and Own.hereRuneOffer
+	if rune then
+		local e = Own.hereVendorOf("rune")
+		if e.list ~= rune.places then e.list, e.p, e.pc = rune.places, false, false end
+		-- Its saving is already measured against the whole route: that is the detour it may take.
+		e.offer, e.budget = rune, rune.saves
+		n = n + 1
+		list[n] = e
 	end
 	for i = n + 1, #list do list[i] = nil end
 	Own.hereVendorN = n
@@ -16812,7 +16822,7 @@ function Own.hereVendorTick(c, px, py, timedOnly)
 		if not e.on and not (covered and e.kind == "sell") and not Own.hereVendorSpentNow(e.kind, c, px, py)
 			and not Own.hereQuiet[e.goal] and Own.hereAgain(e) and not Own.hereMuted(e) then
 			local p = Own.hereVendorPick(e, c, px, py)
-			if p and Own.hereVendorLeaving(p) then
+			if p and (e.kind == "rune" or Own.hereVendorLeaving(p)) then
 				Own.hereVendorPlace(e, p)
 				local d = Own.hereDistance(e, c, px, py)
 				if d and Own.hereIn(e, d) and not Own.hereWalkWait(e, c, px, py, d) and Own.hereMayShow(e, d) then
@@ -16843,9 +16853,11 @@ function Own.hereVendorShow(e, d)
 	e.yards = math.floor(d / Own.HERE_STEP + 0.5) * Own.HERE_STEP
 	-- What the arrow says, led there.
 	local goal = e.goal
-	goal.text = (e.kind == "repair" and L["Repair at %s"] or L["Sell at %s"]):format(goal.npcName or "")
+	goal.text = (e.kind == "rune" and L["Buy a rune at %s"] or e.kind == "repair" and L["Repair at %s"] or L["Sell at %s"]):format(goal.npcName or "")
 	Own.hereExpiredAt[goal], Own.hereMutes[goal] = nil, nil
-	Own.hereVendorSpend(e.kind)
+	-- (A rune stop is not once per visit: it is for this trip, and goes and comes with Nav/RuneStop.lua's offer. Its
+	-- dismiss still holds, as any line's does.)
+	if e.kind ~= "rune" then Own.hereVendorSpend(e.kind) end
 	Own.here = on[1]
 	ns.Fire("WHILE_HERE_CHANGED")
 end
@@ -16862,10 +16874,15 @@ end
 -- it the NPC and their title.
 function Own.hereVendorView(e)
 	local goal, p = e.goal, e.goal.place
-	local v = { t = e.kind, step = e.s, index = e.g, here = e.kind, left = 0, appeared = e.serial, later = false, npc = goal.npc,
+	local v = { t = goal.t, step = e.s, index = e.g, here = e.kind, left = 0, appeared = e.serial, later = false, npc = goal.npc,
 		map = goal.map, x = goal.x, y = goal.y, f = goal.f, status = "active" }
 	local worn = math.floor(e.worn)
-	if e.kind == "repair" then
+	if e.kind == "rune" then
+		local Q = ns.QoL
+		local saves = Q and Q.Duration and Q.Duration(e.offer.saves) or ("%ds"):format(e.offer.saves)
+		v.hereText = L["Buy a rune and cast %s to save about %s"]:format(e.offer.teleport.name, saves)
+		v.hereTip = L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."]
+	elseif e.kind == "repair" then
 		v.hereText = e.both and L["Repair and sell before heading out: gear at %d%%, %s"]:format(worn, Own.hereVendorSlots(e.free))
 			or L["Repair before heading out: gear at %d%%"]:format(worn)
 		v.hereTip = L["The guide heads out of town next and your gear is worn: repair it here before it breaks."]
@@ -16877,6 +16894,34 @@ function Own.hereVendorView(e)
 	v.hereSub = (p and p.sub and p.sub ~= "") and ("%s (%s)"):format(name, p.sub) or name
 	v.text = v.hereText
 	return v
+end
+
+-- Nav/RuneStop.lua's offer (nil: none now). The same stop only takes the new saving; another one, or none, is a new
+-- build, which makes or ends the line.
+function Engine.SetRuneStop(offer)
+	local was = Own.hereRuneOffer
+	Own.hereRuneOffer = offer or false
+	local e = Own.hereVendorEntries.rune
+	if offer and was and was.seller == offer.seller and was.teleport.spell == offer.teleport.spell then
+		offer.places = was.places
+		if e then
+			local moved = math.floor(was.saves / 60) ~= math.floor(offer.saves / 60)
+			e.offer, e.budget = offer, offer.saves
+			if moved and e.on then
+				e.view = false
+				ns.Fire("WHILE_HERE_CHANGED")
+			end
+		end
+		return
+	end
+	Own.hereDirty = true
+	requestUpdate()
+end
+
+-- Whether the player's click on the rune line leads the arrow to the vendor.
+function Engine.RuneStopAimed()
+	local e = Own.hereVendorEntries.rune
+	return e ~= nil and aim == e.goal
 end
 
 -- A merchant's window: the sell reminder is spent for this visit, the repair one too at a merchant who repairs;
