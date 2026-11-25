@@ -6,7 +6,8 @@
 -- Setting qol.questGuides.
 --
 --   ns.QuestGuides.For(q) -> { { guide = header, roles = bits, open = bool }, ... }
---     by the guides' first level, then the guide list's order; nil while the
+--     the open guides first, then by the guides' first level, then the guide
+--     list's order; nil while the
 --     index is still being built (it starts itself). roles: ACCEPT, WORK,
 --     TURNIN bits (QG.ACCEPT ...). open: a guide tab shows it.
 --   ns.QuestGuides.AddLines(tooltip, q) -> true when lines were added
@@ -174,6 +175,7 @@ function QG.For(q)
 		if h then out[#out + 1] = { guide = h, roles = roles, open = tabs[id] and true or false } end
 	end
 	table.sort(out, function(a, b)
+		if a.open ~= b.open then return a.open end
 		local la, lb = levelOf(a.guide), levelOf(b.guide)
 		if la ~= lb then return la < lb end
 		return (rankOf[a.guide.id] or 0) < (rankOf[b.guide.id] or 0)
@@ -201,22 +203,30 @@ local function wanted()
 	return ns.Get("qol.questGuides") and not ns.Hidden() and true or false
 end
 
+local function markTexture(r, g, b)
+	return format("|T%s:12:12:0:0:64:64:0:64:0:64:%d:%d:%d|t", MARK_PATH, r * 255, g * 255, b * 255)
+end
+
 -- "Polestar guides" and a line per guide: its name and levels, what it does
--- with the quest on the right; an open guide in the accent.
+-- with the quest on the right. The open guides first, marked and in the
+-- accent; the others muted, so the ones being played stand out.
 function QG.AddLines(tip, q)
 	if not (enabled and tip) then return false end
 	local list = QG.For(q)
 	if not list or #list == 0 then return false end
 	local T = ns.Theme
 	local ar, ag, ab = T.Color("accent")
-	local dr, dg, db = T.Color("textDim")
+	local tr, tg, tb = T.Color("text")
+	local mr, mg, mb = T.Color("textMuted")
 	tip:AddLine(" ")
 	tip:AddLine(L["Polestar guides"], ar, ag, ab)
 	for _, e in ipairs(list) do
 		local label = ns.UI.GuideLabel(e.guide)
-		local r, g, b = 1, 1, 1
-		if e.open then r, g, b = ar, ag, ab end
-		tip:AddDoubleLine(label, rolesText(e.roles), r, g, b, dr, dg, db)
+		if e.open then
+			tip:AddDoubleLine(markTexture(ar, ag, ab) .. " " .. label, rolesText(e.roles), ar, ag, ab, tr, tg, tb)
+		else
+			tip:AddDoubleLine(label, rolesText(e.roles), mr, mg, mb, mr, mg, mb)
+		end
 	end
 	return true
 end
@@ -228,8 +238,7 @@ local function markFor(q)
 	if not list or #list == 0 then return nil end
 	local open = false
 	for _, e in ipairs(list) do if e.open then open = true break end end
-	local r, g, b = ns.Theme.Color(open and "accent" or "textDim")
-	return format(" |T%s:12:12:0:0:64:64:0:64:0:64:%d:%d:%d|t", MARK_PATH, r * 255, g * 255, b * 255)
+	return " " .. markTexture(ns.Theme.Color(open and "accent" or "textDim"))
 end
 QG.MarkFor = markFor
 
@@ -365,8 +374,12 @@ local function detailText(q)
 	local lines = { "|c" .. T.Hex("accent") .. L["Polestar guides"] .. "|r" }
 	for _, e in ipairs(list) do
 		local label = ns.UI.GuideLabel(e.guide)
-		if e.open then label = "|c" .. T.Hex("accent") .. label .. "|r" end
-		lines[#lines + 1] = label .. "  |c" .. T.Hex("textDim") .. rolesText(e.roles) .. "|r"
+		if e.open then
+			label = markTexture(T.Color("accent")) .. " |c" .. T.Hex("accent") .. label .. "|r  " .. rolesText(e.roles)
+		else
+			label = "|c" .. T.Hex("textMuted") .. label .. "  " .. rolesText(e.roles) .. "|r"
+		end
+		lines[#lines + 1] = label
 	end
 	return table.concat(lines, "\n")
 end

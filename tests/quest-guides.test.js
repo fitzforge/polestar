@@ -76,3 +76,21 @@ GameTooltip:SetOwner(UIParent, "ANCHOR_RIGHT")
 emit({ added = QG.AddLines(GameTooltip, 100) })`);
 	assert.equal(out.added, false);
 });
+
+test('an open guide comes first and is marked; the others follow unmarked', () => {
+	const out = run(`local E = Polestar.Engine
+E.OpenTab("test/later", true)
+local tabs = E.GetTabs()
+for i = #tabs, 1, -1 do if tabs[i].guideId == "test/early" then E.CloseTab(i, true) end end
+local list = QG.For(100)
+GameTooltip:SetOwner(UIParent, "ANCHOR_RIGHT")
+GameTooltip:SetText("Pre-quest")
+QG.AddLines(GameTooltip, 100)
+emit({ first = list[1].guide.id, open = list[1].open, second = list[2].guide.id, lines = GameTooltip.lines })`);
+	assert.equal(out.first, 'test/later');
+	assert.equal(out.open, true);
+	assert.equal(out.second, 'test/early');
+	const text = out.lines.join('\n');
+	assert.match(text, /\|T[^|]*guides[^|]*\|t Later Zone/);
+	assert.doesNotMatch(text, /\|t Early Zone/);
+});
