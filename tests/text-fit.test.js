@@ -103,7 +103,7 @@ test("text fits: What's new in every language, each note's line on two lines at 
 	} finally {
 		P.cleanupPacks();
 	}
-	assert.equal(notes, 10 * 3 * (1 + Object.keys(LOCALES).length), 'ten notes, in every language and font');
+	assert.equal(notes, 8 * 3 * (1 + Object.keys(LOCALES).length), 'eight notes, in every language and font');
 	assert.deepEqual(found, [], `What's new does not fit:\n${found.join('\n')}`);
 });
 

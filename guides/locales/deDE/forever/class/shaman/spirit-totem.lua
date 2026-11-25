@@ -25,7 +25,7 @@ return {
 	["The four elements"] = "Die vier Elemente",
 	-- {item:7069} Elemental Air · {zone:1417} Arathi Highlands · {area:320} Refuge Pointe · {area:333} Circle of East Binding · {npc:2794} Summoned Guardian · {zone:1447} Azshara · {npc:14269} Seeker Aqualon · {area:69} Lakeshire
 	-- plural, as words: Thundering Exiles = {npc:2762} Thundering Exile · Rumbling Exiles = {npc:2592} Rumbling Exile · Burning Exiles = {npc:2760} Burning Exile · Cresting Exiles = {npc:2761} Cresting Exile
-	["One each of {item:7069}, Fire, Earth and Water; all four trade, so the auction house is quickest. To farm them, {zone:1417} has the exiles at its stone circles (level 38-39, respawn under seven minutes): Thundering Exiles south-east of {area:320} (air), Rumbling Exiles south-west of it (earth) and Burning Exiles far to the north-west (fire), about one kill in eight to ten each, and Cresting Exiles at the {area:333} in the north-east (water, in about one in five of the corpses you can loot). Leave the {npc:2794} in the south-west alone: it is elite. Water also comes from the Patches of Elemental Water in {zone:1447} (two in five) or {npc:14269} by {area:69} in Redridge."] = "",
+	["One each of {item:7069}, Fire, Earth and Water; all four trade, so the auction house is quickest. To farm them, {zone:1417} has the exiles at its stone circles (level 38-39, respawn under seven minutes): Thundering Exiles south-east of {area:320} (air), Rumbling Exiles south-west of it (earth) and Burning Exiles far to the north-west (fire), about one kill in eight to ten each, and Cresting Exiles at the {area:333} in the north-east (water, in about one in five of the corpses you can loot). Leave the {npc:2794} in the south-west alone: it is elite. Water also comes from the Patches of Elemental Water in {zone:1447} (two in five) or {npc:14269} by {area:69} in Redridge."] = "Je eins: {item:7069}, Feuer, Erde und Wasser; alle vier sind handelbar, also ist das Auktionshaus am schnellsten. Zum Farmen hat {zone:1417} die Verbannten an seinen Steinkreisen (Stufe 38-39, Respawn unter sieben Minuten): Donnernde Verbannte ({npc:2762}) südöstlich von {area:320} (Luft), Grollende Verbannte ({npc:2592}) südwestlich davon (Erde) und Brennende Verbannte ({npc:2760}) weit im Nordwesten (Feuer), jeweils etwa einer von acht bis zehn Kills, und Wogende Verbannte ({npc:2761}) bei {area:333} im Nordosten (Wasser, in etwa einer von fünf plünderbaren Leichen). Lass {npc:2794} im Südwesten in Ruhe: Er ist Elite. Wasser gibt es auch aus den Pfützen mit Elementarwasser in {zone:1447} (zwei von fünf) oder von {npc:14269} bei {area:69} im Rotkammgebirge.",
 	-- {item:7069} Elemental Air
 	-- plural, as words: Thundering Exiles = {npc:2762} Thundering Exile
 	["{item:7069}: Thundering Exiles"] = "{item:7069}: Donnernde Verbannte",
@@ -37,7 +37,7 @@ return {
 	["{item:7067}: Rumbling Exiles"] = "{item:7067}: Rumpelnde Verbannte",
 	-- {item:7070} Elemental Water · {zone:1447} Azshara
 	-- plural, as words: Cresting Exiles = {npc:2761} Cresting Exile
-	["{item:7070}: Cresting Exiles, or {zone:1447}'s water patches"] = "",
+	["{item:7070}: Cresting Exiles, or {zone:1447}'s water patches"] = "{item:7070}: Wogende Verbannte ({npc:2761}) oder die Wasserpfützen in {zone:1447}",
 
 	-- Step 4: Bath'rah the Windwatcher
 	-- {npc:6176} Bath'rah the Windwatcher · {zone:1416} Alterac Mountains · {area:272} Tarren Mill

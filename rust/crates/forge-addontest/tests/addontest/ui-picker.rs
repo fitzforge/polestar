@@ -533,7 +533,7 @@ fn selecting_a_guide_shows_its_details_and_loads_nothing_the_selection_is_rememb
 			"choice": ["Next", "Your choice: Desolace or Feralas"],
 			"open1": {
 				"progress": "Open in tab 1  \u{b7}  step 3 of 8", "pct": "29%", "track": true, "load": "Continue", "newTab": false, "loadWidth": 324,
-				"facts": [["Steps", "8"], ["Quests", "4"], ["Passes through", "Elwynn Forest"], ["Next", "Westfall (12\u{2013}17)"]],
+				"facts": [["Steps", "8"], ["Quests", "4"], ["Quests in", "Elwynn Forest"], ["Next", "Westfall (12\u{2013}17)"]],
 			},
 			"saved": "forever/alliance/human/01-elwynn-forest", "again": "Elwynn Forest",
 		})

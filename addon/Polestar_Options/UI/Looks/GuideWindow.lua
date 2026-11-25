@@ -34,17 +34,18 @@ local function signedPx(v)
 	return (p > 0 and "+" or "") .. string.format(L["%d px"], p)
 end
 local function times(v) return string.format("%.2gx", v) end
--- The height (a share of the screen) with its pixels beside it (ui.heightMode, #1067).
+-- The height (a share of the screen) with its pixels beside it (ui.heightMode, #1067):
+-- the screen's own pixels (GetPhysicalScreenSize), whatever the UI scale.
+local function screenPx() return UIParent:GetHeight() * Theme.PixelsPerUnit(UIParent) end
 local function heightText(v)
-	local screen = UIParent:GetHeight() * UIParent:GetEffectiveScale()
-	return string.format(L["%d px"], floor(v * screen + 0.5)) .. "  \194\183  " .. percent(v)
+	return string.format(L["%d px"], floor(v * screenPx() + 0.5)) .. "  \194\183  " .. percent(v)
 end
 -- A typed height (#2542): pixels ("402", "402 px"), or a share with its sign ("40%"). -> share | nil
 local function heightParse(text)
 	local n = tonumber(text:match("%d+%.?%d*") or "")
 	if not n then return nil end
 	if text:find("%", 1, true) and not text:lower():find("px", 1, true) then return n / 100 end
-	return n / (UIParent:GetHeight() * UIParent:GetEffectiveScale())
+	return n / screenPx()
 end
 local function notFixed() return ns.Get("ui.heightMode") ~= "fixed" end
 

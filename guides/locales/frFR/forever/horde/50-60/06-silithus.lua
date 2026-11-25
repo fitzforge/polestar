@@ -28,7 +28,7 @@ return {
 
 	-- Step 4: Gaeriyan
 	-- {npc:9299} Gaeriyan · {item:11243} Videre Elixir · {area:976} Gadgetzan
-	["{npc:9299} has already met you: drink the {item:11243} at the graveyard just east of {area:976} and find him, as a ghost, in the rocky crevice due north of it."] = "",
+	["{npc:9299} has already met you: drink the {item:11243} at the graveyard just east of {area:976} and find him, as a ghost, in the rocky crevice due north of it."] = "{npc:9299} vous a déjà rencontré : buvez {item:11243} au cimetière juste à l'est de {area:976} et trouvez-le, en fantôme, dans la crevasse rocheuse plein nord.",
 
 	-- Step 5: Sprinkle
 	-- {item:12928} Umi's Mechanical Yeti · {npc:7583} Sprinkle · {area:976} Gadgetzan · {npc:10977} Quixxil · {npc:10978} Legacki
@@ -131,7 +131,7 @@ return {
 	["Flayers and Rock Stalkers"] = "Écorcheurs et Traqueuses des rochers",
 	-- {area:2744} Hive'Regal · {zone:1451} Silithus
 	-- plural, as words: Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker
-	["Stonelash Flayers and Rock Stalkers roam the dunes north of {area:2744}, in the south-east of {zone:1451}."] = "",
+	["Stonelash Flayers and Rock Stalkers roam the dunes north of {area:2744}, in the south-east of {zone:1451}."] = "Des écorcheurs Fouette-pierre ({npc:11737}) et des traqueurs des roches ({npc:11739}) rôdent dans les dunes au nord de {area:2744}, au sud-est de {zone:1451}.",
 
 	-- Step 26: Twilight Vanguard
 	["Twilight Vanguard"] = "Avant-garde du Crépuscule",

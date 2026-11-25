@@ -39,7 +39,7 @@ return {
 	["{area:34}: kill these as you meet them"] = "{area:34}：遇到就击杀",
 	-- {object:83763} Stolen Books · {quest:91741} Nibbled-On Book · {npc:951} Brother Paxton
 	-- plural, as words: Kobold Workers = {npc:257} Kobold Worker
-	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}.\nNow and then a kobold here drops a {quest:91741}: right-click it and hand it to {npc:951} on your next Abbey stop."] = "",
+	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}.\nNow and then a kobold here drops a {quest:91741}: right-click it and hand it to {npc:951} on your next Abbey stop."] = "沿小路向北前往矿洞。狗头人工人（{npc:257}）聚集在洞外；山谷里的每个狗头人都可能掉落{object:83763}。\n这里的狗头人偶尔会掉落{quest:91741}：右键点击它，下次回修道院时交给{npc:951}。",
 
 	-- Step 7: Northshire Abbey
 	-- {npc:248415} Tordrin Sternblade · {npc:198} Khelden Bremen
@@ -77,26 +77,26 @@ return {
 
 	-- Step 12: Kelsey Fargo
 	-- {quest:91752} The Big Picture · {npc:248362} Shinyfinder Narf
-	["She stands outside the mine entrance. Her next errand, {quest:91752}, sends you after {npc:248362} inside, a level 3 elite: the guide gives it from level 5, when he is two levels under you."] = "",
+	["She stands outside the mine entrance. Her next errand, {quest:91752}, sends you after {npc:248362} inside, a level 3 elite: the guide gives it from level 5, when he is two levels under you."] = "她站在矿洞入口外。她的下一个差事{quest:91752}会派你进去对付3级精英{npc:248362}：指南从5级起给出这个任务，那时他比你低两级。",
 
 	-- Step 13: The Big Picture
 	-- {quest:91752} The Big Picture · {npc:248362} Shinyfinder Narf
-	["From level 5: Kelsey's {quest:91752}. {npc:248362} (3, elite) is two levels under you then."] = "",
+	["From level 5: Kelsey's {quest:91752}. {npc:248362} (3, elite) is two levels under you then."] = "从5级起：凯尔希的{quest:91752}。那时{npc:248362}（3，精英）比你低两级。",
 	-- {npc:247226} Kelsey Fargo
-	["{npc:247226}, outside the mine"] = "",
+	["{npc:247226}, outside the mine"] = "{npc:247226}，在矿洞外",
 
 	-- Step 14: Inside Echo Ridge Mine
 	-- {area:34} Echo Ridge Mine
 	["Inside {area:34}"] = "{area:34}里面",
 	-- {npc:248362} Shinyfinder Narf · {quest:91741} Nibbled-On Book · {npc:951} Brother Paxton
 	-- plural, as words: Kobold Laborers = {npc:80} Kobold Laborer
-	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nNow and then a Laborer drops a {quest:91741}: right-click it and hand it to {npc:951} at the Abbey after the mine.\nCareful: {npc:248362} (3) is elite: below level 5, leave him be."] = "",
+	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nNow and then a Laborer drops a {quest:91741}: right-click it and hand it to {npc:951} at the Abbey after the mine.\nCareful: {npc:248362} (3) is elite: below level 5, leave him be."] = "狗头人苦工（{npc:80}）在矿洞的隧道里干活。{npc:248362}在右手第二个拐角处等着。\n苦工偶尔会掉落{quest:91741}：右键点击它，离开矿洞后在修道院交给{npc:951}。\n小心：{npc:248362}（3）是精英：5级之前别惹他。",
 	-- {npc:80} Kobold Laborer · {area:34} Echo Ridge Mine
 	["{npc:80} walks around {area:34}: look inside the circle on the map"] = "{npc:80}在{area:34}附近走动：查看地图上的圆圈范围内",
 
 	-- Step 15: Shinyfinder Narf
 	-- {npc:248362} Shinyfinder Narf
-	["From level 5 {npc:248362}, a level 3 elite, is two levels under you: he waits down the second turn on the right inside the mine.\nCareful: clear the Laborers around him first and fight him at full health."] = "",
+	["From level 5 {npc:248362}, a level 3 elite, is two levels under you: he waits down the second turn on the right inside the mine.\nCareful: clear the Laborers around him first and fight him at full health."] = "从5级起，3级精英{npc:248362}比你低两级：他在矿洞内右手第二个拐角处等着。\n小心：先清掉他周围的苦工，满血再和他战斗。",
 
 	-- Step 16: Northshire Abbey
 	-- {npc:823} Deputy Willem
@@ -126,7 +126,7 @@ return {
 
 	-- Step 22: Sam Sarsaparilla
 	-- {npc:263399} Sam Sarsaparilla · {skill:129} First Aid · {area:87} Goldshire · {area:24} Northshire Abbey · {area:88} Eastvale Logging Camp · {zone:1453} Stormwind
-	["{npc:263399} camps north-east of the inn. With a profession learned, he also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing on the lake shore, {skill:129} and blacksmithing in {area:87}, herbalism and alchemy back in {area:24}, tailoring at the {area:88}, mining, engineering and enchanting in {zone:1453}."] = "",
+	["{npc:263399} camps north-east of the inn. With a profession learned, he also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing on the lake shore, {skill:129} and blacksmithing in {area:87}, herbalism and alchemy back in {area:24}, tailoring at the {area:88}, mining, engineering and enchanting in {zone:1453}."] = "{npc:263399}在旅店东北方扎营。学会一项专业后，他还会提供该专业的露营 101，由其训练师接收：剥皮、制皮和钓鱼在湖岸，{skill:129}和锻造在{area:87}，草药学和炼金术回到{area:24}，裁缝在{area:88}，采矿、工程学和附魔在{zone:1453}。",
 	-- {spell:1229451} Boosted Rest
 	["Sit (/sit) by his campfire until you have {spell:1229451}"] = "在他的营火旁坐下（/sit），直到获得{spell:1229451}",
 
@@ -162,39 +162,39 @@ return {
 
 	-- Step 28: Camping 101: Herbalism
 	-- {npc:1218} Herbalist Pomeroy · {skill:182} Herbalism
-	["{npc:1218} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:1218} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:182}技能达到20时，{npc:1218}会接收它：在此之前采集或制作，指南同时继续进行。",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1218} Herbalist Pomeroy · {area:24} Northshire Abbey
-	["{npc:263399}: for {npc:1218} in {area:24}"] = "",
+	["{npc:263399}: for {npc:1218} in {area:24}"] = "{npc:263399}：交给{area:24}的{npc:1218}",
 
 	-- Step 29: Camping 101: Alchemy
 	-- {npc:1215} Alchemist Mallory · {skill:171} Alchemy
-	["{npc:1215} takes it once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:1215} takes it once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:171}技能达到20时，{npc:1215}会接收它：在此之前采集或制作，指南同时继续进行。",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1215} Alchemist Mallory · {area:24} Northshire Abbey
-	["{npc:263399}: for {npc:1215} in {area:24}"] = "",
+	["{npc:263399}: for {npc:1215} in {area:24}"] = "{npc:263399}：交给{area:24}的{npc:1215}",
 
 	-- Step 30: Camping 101: Tailoring
 	-- {npc:1103} Eldrin · {skill:197} Tailoring
-	["{npc:1103} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:1103} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:197}技能达到20时，{npc:1103}会接收它：在此之前采集或制作，指南同时继续进行。",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1103} Eldrin · {area:88} Eastvale Logging Camp
-	["{npc:263399}: for {npc:1103} at the {area:88}"] = "",
+	["{npc:263399}: for {npc:1103} at the {area:88}"] = "{npc:263399}：交给{area:88}的{npc:1103}",
 
 	-- Step 31: Camping 101: Mining
 	-- {npc:5513} Gelman Stonehand · {skill:186} Mining
-	["{npc:5513} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:5513} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:186}技能达到20时，{npc:5513}会接收它：在此之前采集或制作，指南同时继续进行。",
 	-- {npc:263399} Sam Sarsaparilla · {npc:5513} Gelman Stonehand · {zone:1453} Stormwind · {object:28027} Dwarven District
-	["{npc:263399}: for {npc:5513} in {zone:1453}'s {object:28027}"] = "",
+	["{npc:263399}: for {npc:5513} in {zone:1453}'s {object:28027}"] = "{npc:263399}：交给{zone:1453}{object:28027}的{npc:5513}",
 
 	-- Step 32: Camping 101: Engineering
 	-- {npc:11026} Sprite Jumpsprocket · {skill:202} Engineering
-	["{npc:11026} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:11026} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:202}技能达到20时，{npc:11026}会接收它：在此之前采集或制作，指南同时继续进行。",
 	-- {npc:263399} Sam Sarsaparilla · {npc:11026} Sprite Jumpsprocket · {zone:1453} Stormwind · {object:28027} Dwarven District
-	["{npc:263399}: for {npc:11026} in {zone:1453}'s {object:28027}"] = "",
+	["{npc:263399}: for {npc:11026} in {zone:1453}'s {object:28027}"] = "{npc:263399}：交给{zone:1453}{object:28027}的{npc:11026}",
 
 	-- Step 33: Camping 101: Enchanting
 	-- {npc:11068} Betty Quin · {skill:333} Enchanting
-	["{npc:11068} takes it once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:11068} takes it once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:333}技能达到20时，{npc:11068}会接收它：在此之前采集或制作，指南同时继续进行。",
 	-- {npc:263399} Sam Sarsaparilla · {npc:11068} Betty Quin · {zone:1453} Stormwind
-	["{npc:263399}: for {npc:11068} in {zone:1453}"] = "",
+	["{npc:263399}: for {npc:11068} in {zone:1453}"] = "{npc:263399}：交给{zone:1453}的{npc:11068}",
 
 	-- Step 34: Helene Peltskinner
 	["talk to the trainer"] = "与训练师交谈",
@@ -247,11 +247,11 @@ return {
 
 	-- Step 46: Herbalist Pomeroy
 	-- {npc:1218} Herbalist Pomeroy · {area:87} Goldshire
-	["{npc:1218}, north of {area:87}"] = "",
+	["{npc:1218}, north of {area:87}"] = "{npc:1218}，在{area:87}以北",
 
 	-- Step 47: Alchemist Mallory
 	-- {npc:1215} Alchemist Mallory · {npc:1218} Herbalist Pomeroy
-	["{npc:1215}, beside {npc:1218}"] = "",
+	["{npc:1215}, beside {npc:1218}"] = "{npc:1215}，在{npc:1218}旁边",
 
 	-- Step 48: Maybell Maclure
 	-- {area:87} Goldshire · {area:64} Maclure Vineyards · {npc:251} Maybell Maclure
@@ -419,7 +419,7 @@ return {
 
 	-- Step 82: Eldrin
 	-- {npc:1103} Eldrin
-	["{npc:1103}, at the logging camp"] = "",
+	["{npc:1103}, at the logging camp"] = "{npc:1103}，在伐木场",
 
 	-- Step 83: Stone Cairn Lake
 	-- {npc:6866} Defias Bodyguard

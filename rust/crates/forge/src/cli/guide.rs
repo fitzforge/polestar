@@ -382,8 +382,8 @@ fn guidecheck(args: &[String]) -> i32 {
 	i32::from(!failures.is_empty())
 }
 
-/// `forge guide legacy-steps --old <dir> [--old <dir> ...] [--data <dir>] [--out <file>] [--current <dir>]
-/// [--root <checkout>]` (forge::legacy_steps).
+/// `forge guide legacy-steps --old <addon dir> [--old <addon dir> ...] [--data <dir>] [--out <file>]
+/// [--current <dir>] [--root <checkout>]` (forge::legacy_steps).
 fn legacy_steps(args: &[String]) -> i32 {
 	let usage = |m: &str| {
 		eprintln!("forge guide legacy-steps: {m}\n(forge guide --help for the options)");
@@ -409,7 +409,7 @@ fn legacy_steps(args: &[String]) -> i32 {
 	}
 	let opt = |k: &str| opts.iter().find(|(o, _)| o == k).map(|(_, v)| cwd.join(v));
 	if olds.is_empty() {
-		return usage("at least one --old <guides dir>: an earlier release's guides (git archive <tag> guides)");
+		return usage("at least one --old <addon dir>: an earlier release's addon folder as it shipped (git archive <tag> addon)");
 	}
 	let Some(root) = opt("--root").or_else(find_root) else {
 		return usage("no Polestar checkout (addon/Polestar/Polestar.toc and guides/pack.json) above here or the forge binary: pass --root <checkout>");

@@ -582,9 +582,12 @@ pub struct Db<'a> {
 pub enum DropChances {
 	/// None: the sources' chances stand.
 	Off,
-	/// A quest drop's only (the data build): counted on the kills while it was wanted ([`QuestLoot`],
-	/// #2747); any other drop's still counts loot windows, which read high, so its sources' stands.
+	/// A quest drop's only: counted on the kills while it was wanted ([`QuestLoot`], #2747); any
+	/// other drop's still counts loot windows, which read high, so its sources' stands.
 	QuestDrops,
+	/// The same, written by the caller ([`RecordedDrops::apply`], in [`Stats::recorded_drops`]) once
+	/// every source's chance is in (the data build: after the knowledge base's Forever TDB rates).
+	QuestDropsLater,
 	/// Every drop's.
 	All,
 }
@@ -615,6 +618,88 @@ pub struct Stats {
 	pub overruled: Vec<String>,
 	/// Per quest, the NPCs counted players handed it in to (a `turnin` in that NPC's window).
 	pub npc_hand_ins: FxHashMap<i64, FxHashSet<i64>>,
+	/// The recorded drop chances ([`RecordedDrops`]), written unless [`DropChances::QuestDropsLater`].
+	pub recorded_drops: RecordedDrops,
+}
+
+/// The drop chances the recordings give ([`apply_recordings`]): (kind, source, item, chance).
+#[derive(Default)]
+pub struct RecordedDrops(Vec<(usize, i64, i64, DropChance)>);
+
+impl RecordedDrops {
+	/// Writes them into `items`: a trusted chance replaces the sources', any other only fills a gap
+	/// (with `seen`, the loot and kills behind it). Then an item's chances go on one scale: where players
+	/// measured some of its sources, the sources' figures for its others are off by the same factor (the
+	/// median of the measured ones' recorded chance over the sources' figure), since the guide picks the
+	/// likely droppers by comparing them. The Enchanted Gyrozephyr: the Forever TDB puts it at 100% in
+	/// both kinds of Construct Parts; players found it in 30.3% of the 616466 ones, so the other kind,
+	/// which nobody looted, reads 30.3% beside them, not the 100% that sent the arrow there alone
+	/// (#285). The figures must all be in first: the data build writes these after its knowledge base
+	/// has added the TDB's. `removed(item, kind, source)`: a dropper a correction takes away, which no
+	/// recorded chance brings back (corrections are the last word). -> the chances written.
+	pub fn apply(&self, items: &Obj, removed: &dyn Fn(i64, &str, i64) -> bool) -> usize {
+		let mut written = 0;
+		// Per item: the recorded chance over the sources' at each source a trusted one replaced, and
+		// every source a recorded chance was written for.
+		let mut scale: IndexMap<i64, (Vec<f64>, FxHashSet<(usize, i64)>)> = IndexMap::new();
+		for (k, id, item, dc) in &self.0 {
+			let (k, id) = (*k, *id);
+			let kind = ["npc", "object"][k];
+			let it = items.get(&item.to_string());
+			if !it.truthy() || removed(*item, kind, id) {
+				continue;
+			}
+			if !it.get("drops").truthy() {
+				let d = Obj::new();
+				d.set("npc", Obj::new());
+				d.set("object", Obj::new());
+				it.set("drops", d);
+			}
+			if !it.get("drops").get(kind).truthy() {
+				it.get("drops").set(kind, Obj::new());
+			}
+			let cur = it.get("drops").get(kind).get(&id.to_string());
+			if !cur.is_nullish() && !dc.trusted {
+				continue;
+			}
+			let (ratios, measured) = scale.entry(*item).or_default();
+			measured.insert((k, id));
+			if let Some(was) = cur.as_num().filter(|c| *c > 0.0 && dc.trusted) {
+				ratios.push(dc.chance / was);
+			}
+			it.get("drops").get(kind).set(&id.to_string(), dc.chance);
+			written += 1;
+			if !it.get("seen").truthy() {
+				it.set("seen", Obj::new());
+			}
+			if !it.get("seen").get(kind).truthy() {
+				it.get("seen").set(kind, Obj::new());
+			}
+			// The loot and kills behind the chance.
+			let s = Obj::new();
+			s.set("n", dc.n);
+			s.set("of", dc.of);
+			it.get("seen").get(kind).set(&id.to_string(), s);
+			tag_field(&it, "drops", dc.trusted);
+		}
+		for (item, (ratios, measured)) in scale {
+			if ratios.is_empty() {
+				continue;
+			}
+			let f = median(ratios);
+			let drops = items.get(&item.to_string()).get("drops");
+			for kind in ["npc", "object"] {
+				let k = k_ix(kind);
+				for (id, v) in drops.get(kind).entries() {
+					let (Some(c), Ok(n)) = (v.as_num().filter(|c| *c > 0.0), id.parse::<i64>()) else { continue };
+					if !measured.contains(&(k, n)) {
+						drops.get(kind).set(&id, round2((c * f).min(100.0)));
+					}
+				}
+			}
+		}
+		written
+	}
 }
 
 type ByMap = IndexMap<i64, Vec<P>>;
@@ -1490,50 +1575,26 @@ impl<'a> Overlay<'a> {
 
 	fn apply_finds(&mut self) {
 		let db = self.db;
-		let mut chances = 0;
 		let samples = std::mem::take(&mut self.quest_loot).finish();
+		let quest_only = matches!(self.drop_chances, DropChances::QuestDrops | DropChances::QuestDropsLater);
 		for kind in ["npc", "object"].into_iter().filter(|_| self.drop_chances != DropChances::Off) {
 			let k = k_ix(kind);
 			for (&id, m) in &self.loots[k] {
 				let windows = &self.windows[k][&id];
 				for (&item, held) in m {
-					if self.drop_chances == DropChances::QuestDrops && !samples.quest_drops.contains(&item) {
+					if quest_only && !samples.quest_drops.contains(&item) {
 						continue;
 					}
-					let it = db.items.get(&item.to_string());
-					if !it.truthy() {
+					if !db.items.get(&item.to_string()).truthy() {
 						continue;
 					}
 					let Some(dc) = samples.chance(k, id, item, windows, held, self.min, |c| self.contributors[*c].clone()) else { continue };
-					if !it.get("drops").truthy() {
-						let d = Obj::new();
-						d.set("npc", Obj::new());
-						d.set("object", Obj::new());
-						it.set("drops", d);
-					}
-					if !it.get("drops").get(kind).truthy() {
-						it.get("drops").set(kind, Obj::new());
-					}
-					let cur = it.get("drops").get(kind).get(&id.to_string());
-					if !cur.is_nullish() && !dc.trusted {
-						continue;
-					}
-					it.get("drops").get(kind).set(&id.to_string(), dc.chance);
-					chances += 1;
-					if !it.get("seen").truthy() {
-						it.set("seen", Obj::new());
-					}
-					if !it.get("seen").get(kind).truthy() {
-						it.get("seen").set(kind, Obj::new());
-					}
-					// The loot and kills behind the chance.
-					let s = Obj::new();
-					s.set("n", dc.n);
-					s.set("of", dc.of);
-					it.get("seen").get(kind).set(&id.to_string(), s);
-					tag_field(&it, "drops", dc.trusted);
+					self.stats.recorded_drops.0.push((k, id, item, dc));
 				}
 			}
+		}
+		if self.drop_chances != DropChances::QuestDropsLater {
+			self.stats.recorded_drop_chances = self.stats.recorded_drops.apply(db.items, &|_, _, _| false);
 		}
 		for (&id, b) in &self.rank {
 			let e = db.npcs.get(&id.to_string());
@@ -1659,7 +1720,6 @@ impl<'a> Overlay<'a> {
 			}
 			db.instances.set(&id.to_string(), out);
 		}
-		self.stats.recorded_drop_chances = chances;
 		self.stats.recorded_treasures = treasures;
 		self.stats.recorded_instances = self.inst.len();
 		self.stats.recorded_encounters = encounters;

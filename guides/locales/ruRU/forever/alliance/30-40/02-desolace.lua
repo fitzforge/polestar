@@ -108,7 +108,7 @@ return {
 	-- Step 18: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
 	-- plural, as words: Ancient Kodos = {npc:4702} Ancient Kodo
-	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: the Ancient Kodos (36-37) hit hard: tame them, don't fight them."] = "",
+	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: the Ancient Kodos (36-37) hit hard: tame them, don't fight them."] = "Используйте {item:13892} от NPC {npc:11596} на старом, умирающем или древнем кодо ({npc:4702}): он станет прирученным кодо и пойдет за вами. Отведите его в лагерь NPC {npc:11596}; там поговорите с кодо: это засчитает его и позволит приручить следующего. Пять кодо, по одному. Осторожно: древние кодо (36-37) бьют сильно: приручайте их, не сражайтесь с ними.",
 	-- {npc:4702} Ancient Kodo
 	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "",
 	-- {npc:11596} Smeed Scrabblescrew
@@ -116,9 +116,9 @@ return {
 
 	-- Step 19: Kodo Graveyard: hides and venom
 	-- {area:596} Kodo Graveyard
-	["{area:596}: hides and venom"] = "",
+	["{area:596}: hides and venom"] = "{area:596}: шкуры и яд",
 	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher · Ancient Kodos = {npc:4702} Ancient Kodo
-	["The Aged Kodos in the graveyard drop the hides, and the Scorpashi Lashers that hunt around it carry the venom. Careful: the Ancient Kodos (36-37) hit hard: fight only the Aged Kodos."] = "",
+	["The Aged Kodos in the graveyard drop the hides, and the Scorpashi Lashers that hunt around it carry the venom. Careful: the Ancient Kodos (36-37) hit hard: fight only the Aged Kodos."] = "Старые кодо ({npc:4700}) на кладбище роняют шкуры, а скорпаши-хлестуны ({npc:4697}) вокруг него носят яд. Осторожно: древние кодо ({npc:4702}, 36-37) бьют сильно: сражайтесь только со старыми кодо.",
 
 	-- Step 21: Kolkar Village
 	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:5752} Corporal Melkins · {quest:93224} Carved Centaur Totems · {npc:5396} Captain Pentigast

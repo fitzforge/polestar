@@ -123,7 +123,7 @@ return {
 	["{npc:265809}'s campfire"] = "{npc:265809}的營火",
 	-- {npc:265809} Brakk · {area:362} Razor Hill · {spell:1229451} Boosted Rest · {area:367} Sen'jin Village · {zone:1454} Orgrimmar
 	-- was: ["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362} or in {zone:1454} at the start of the next guide."] = "{npc:265809}在{area:362}南邊紮營。坐在他的營火旁（/sit），直到出現{spell:1229451}增益效果。學會專業技能後，{npc:265809}也會提供該專業的露營入門任務，交給該專業的訓練師：在{area:362}或在{zone:1454}（下一份指南的開頭）。"
-	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362}, by {area:367} for fishing, or in {zone:1454} at the start of the next guide."] = "",
+	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362}, by {area:367} for fishing, or in {zone:1454} at the start of the next guide."] = "{npc:265809}在{area:362}南邊不遠處紮營。坐在他的營火旁（/sit），直到出現{spell:1229451}增益效果。學會一項專業後，{npc:265809}還會提供該專業的露營 101，由其訓練師接收：在{area:362}，釣魚找{area:367}，或在下一份指南開始時的{zone:1454}。",
 
 	-- Step 24: Camping 101: Mining
 	-- {npc:3175} Krunn · {skill:186} Mining
@@ -165,9 +165,9 @@ return {
 
 	-- Step 32: Camping 101: Fishing
 	-- {npc:5941} Lau'Tiki · {skill:356} Fishing
-	["{npc:5941} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:5941} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:356}技能達到20時，{npc:5941}會接收它：在此之前採集或製作，指南同時繼續進行。",
 	-- {npc:265809} Brakk · {npc:5941} Lau'Tiki
-	["{npc:265809}: for {npc:5941}, on the shore south of Sen'jin"] = "",
+	["{npc:265809}: for {npc:5941}, on the shore south of Sen'jin"] = "{npc:265809}：交給{npc:5941}，在森金村以南的岸邊",
 
 	-- Step 33: Razor Hill
 	-- {npc:266940} Turroc
@@ -189,9 +189,9 @@ return {
 
 	-- Step 39: Camping 101: Blacksmithing
 	-- {npc:3174} Dwukk · {skill:164} Blacksmithing
-	["{npc:3174} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:3174} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:164}技能達到20時，{npc:3174}會接收它：在此之前採集或製作，指南同時繼續進行。",
 	-- {npc:265809} Brakk · {npc:3174} Dwukk
-	["{npc:265809}: for {npc:3174}"] = "",
+	["{npc:265809}: for {npc:3174}"] = "{npc:265809}：交給{npc:3174}",
 
 	-- Step 40: Grunt Kor'ja
 	-- {npc:12430} Grunt Kor'ja · {area:362} Razor Hill · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude

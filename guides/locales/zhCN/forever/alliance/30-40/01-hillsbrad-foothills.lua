@@ -31,17 +31,17 @@ return {
 	["{area:1038}: kill these as you meet them"] = "{area:1038}：沿途击杀以下目标",
 	-- {area:1036} Angerfang Encampment · {area:205} Dun Modr · {area:1025} Green Belt · {item:280331} Malignant Rotclaw Flesh · {quest:98283} Carnage
 	-- plural, as words: Maddened Rotclaws = {npc:271334} Maddened Rotclaw
-	["The whelps nest in the hills north-east of the {area:1036}, and the Razormaw raptors hunt the highlands on the way north to {area:205}. The Maddened Rotclaws that roam these hills and the {area:1025} drop the {item:280331} that calls {quest:98283} out.\n{quest:98283} is elite: grouping up is advised."] = "",
+	["The whelps nest in the hills north-east of the {area:1036}, and the Razormaw raptors hunt the highlands on the way north to {area:205}. The Maddened Rotclaws that roam these hills and the {area:1025} drop the {item:280331} that calls {quest:98283} out.\n{quest:98283} is elite: grouping up is advised."] = "幼龙在{area:1036}东北方的山丘中筑巢，剃刀之喉迅猛龙在向北前往{area:205}途中的高地上狩猎。在这些山丘和{area:1025}游荡的发狂腐爪（{npc:271334}）会掉落{item:280331}，用来召唤{quest:98283}。\n{quest:98283}是精英：建议组队。",
 	-- {item:280331} Malignant Rotclaw Flesh · {quest:98283} Carnage
-	["{item:280331}, for {quest:98283}"] = "",
+	["{item:280331}, for {quest:98283}"] = "{item:280331}，用于{quest:98283}",
 
 	-- Step 8: Carnage
 	-- {quest:98283} Carnage · {item:280331} Malignant Rotclaw Flesh · {area:1038} Dragonmaw Gates
-	["{quest:98283} only comes out when the {item:280331} is used at his lair on the hill north of the {area:1038}. He is a level 30 elite: grouping up is advised."] = "",
+	["{quest:98283} only comes out when the {item:280331} is used at his lair on the hill north of the {area:1038}. He is a level 30 elite: grouping up is advised."] = "只有在{area:1038}以北山丘上的巢穴处使用{item:280331}，{quest:98283}才会出现。他是30级精英：建议组队。",
 	-- {quest:98283} Carnage
-	["{quest:98283} comes out to it"] = "",
+	["{quest:98283} comes out to it"] = "{quest:98283}会出来",
 	-- {item:280331} Malignant Rotclaw Flesh · {quest:98283} Carnage
-	["Use the {item:280331} at {quest:98283}'s lair"] = "",
+	["Use the {item:280331} at {quest:98283}'s lair"] = "在{quest:98283}的巢穴处使用{item:280331}",
 
 	-- Step 9: Razormaw nests
 	["Razormaw nests"] = "刺喉龙巢",
@@ -75,8 +75,9 @@ return {
 	["{npc:1073}, in the camp"] = "{npc:1073}，在营地里",
 
 	-- Step 15: Captive Fire Elemental
-	-- {npc:271481} Captive Fire Elemental · {object:147516} Dark Iron · {npc:1364} Balgaras the Foul · {npc:1072} Roggo Harlbarrow
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "这些是精英怪物：建议寻找其他玩家组队。{npc:271481}被关在{object:147516}废墟最西端，需先穿过27-30级精英矮人，{npc:1364}（34级精英）也可能在其中。带它向东离开废墟，再交给营地里的{npc:1072}。如果只有自己，就跳过。",
+	-- {npc:275049} Captive Fire Elemental · {object:147516} Dark Iron · {npc:1364} Balgaras the Foul · {npc:1072} Roggo Harlbarrow
+	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "这些是精英怪物：建议寻找其他玩家组队。{npc:271481}被关在{object:147516}废墟最西端，需先穿过27-30级精英矮人，{npc:1364}（34级精英）也可能在其中。带它向东离开废墟，再交给营地里的{npc:1072}。如果只有自己，就跳过。"
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:275049} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "这些是精英怪物：鼓励组队，找人一起做。{npc:275049}被关在{object:147516}废墟的最西端，要经过27-30级的精英矮人，{npc:1364}（34，精英）也可能在其中。带它向东离开废墟，然后在营地交给{npc:1072}。如果你是单人，就跳过。",
 
 	-- Step 16: Modr
 	-- {npc:271460} Modr · {area:205} Dun Modr · {item:279996} Goaz Stone
@@ -162,7 +163,7 @@ return {
 
 	-- Step 34: Prospector Whelgar
 	-- {item:287959} Titan Relic · {npc:1077} Prospector Whelgar · {quest:98824} Prehistoric Prism
-	["The {item:287959} is already with {npc:1077}: take {quest:98824} from him, below ground in his dig, south of the road west."] = "",
+	["The {item:287959} is already with {npc:1077}: take {quest:98824} from him, below ground in his dig, south of the road west."] = "{item:287959}已经交给{npc:1077}：在他地下的挖掘场里从他那里接取{quest:98824}，位于西边道路以南。",
 
 	-- Step 35: Menethil Harbor
 	["West along the road to Menethil."] = "沿道路向西到米奈希尔港。",
@@ -372,6 +373,7 @@ return {
 	-- ["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp."] = "雪人住在{area:271}北边山丘上的洞穴里，就在向北去辛迪加营地的路上。",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "雪人住在{area:271}北边山丘上的洞穴里，就在向北去辛迪加营地的路上。\n待在{area:277}里：更北边的洞穴里有成对出现的山岭雪人和巨型雪人（32-34级），以及36级精英{npc:13602}。",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on your way back south."] = "雪人住在{area:271}北边山丘上的洞穴里，就在你向南返回的路上。",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "这些是精英怪物：建议寻找其他玩家组队。{npc:271481}被关在{object:147516}废墟最西端，需先穿过27-30级精英矮人，{npc:1364}（34级精英）也可能在其中。带它向东离开废墟，再交给营地里的{npc:1072}。如果只有自己，就跳过。",
 	-- ["To {area:2104}"] = "前往{area:2104}",
 	-- ["West to the farms of {area:287}: place the {item:279386} on the bookkeeping table in the town hall, where {npc:2335} and the councilmen stand."] = "向西到{area:287}的农场：把{item:279386}放在市政厅的记账桌上，{npc:2335}和议员们站在那里。",
 	-- ["Whelps, raptors and {npc:271458}"] = "雏龙、迅猛龙和{npc:271458}",

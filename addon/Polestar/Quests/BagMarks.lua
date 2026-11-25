@@ -197,6 +197,8 @@ end
 
 ns.On("QUESTDB_UPDATED", Q.RedrawBagMarks)
 ns.On("QUESTDB_STARTED", Q.RedrawBagMarks)
+-- The item index the leftover border reads (Q.ItemQuests) is built over a few frames: in, the bags show it.
+ns.On("QUESTDB_ITEM_QUESTS", Q.RedrawBagMarks)
 ns.On("STEP_CHANGED", Q.RedrawBagMarks)
 ns.On("GUIDE_CHANGED", Q.RedrawBagMarks)
 ns.On("SETTING_CHANGED", function(path)

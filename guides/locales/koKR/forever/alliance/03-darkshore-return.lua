@@ -41,7 +41,7 @@ return {
 	-- {object:12666} Twilight Tome · {quest:948} Onu · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
 	-- was: ["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater; {npc:3584} stands on its north side. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "덩치큰 달표범이 글레이브 주변 숲을 배회합니다. {object:12666}은(는) 구덩이 바닥에 있고, {npc:3584}은(는) 구덩이 북쪽에 서 있습니다. {quest:948}의 퀘스트는 구덩이 바닥에서 {item:5251}을(를) 사용하십시오: {object:10076}이(가) 나타나며, 퀘스트는 그 그릇에 제출합니다."
-	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "",
+	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "달빛사냥꾼 우두머리들이 글레이브 주변 숲을 돌아다닙니다. {object:12666}은(는) 분화구 바닥에 있습니다. {quest:948}의 퀘스트를 위해 분화구 바닥에서 {item:5251}을(를) 사용하십시오: {object:10076}이(가) 생기고, 퀘스트는 그 그릇에 제출합니다.",
 	-- plural, as words: Fine Moonstalker Pelts = {item:5386} Fine Moonstalker Pelt
 	["Fine Moonstalker Pelts"] = "고급 달표범 모피",
 	-- {item:5352} Book: The Powers Below
@@ -58,7 +58,7 @@ return {
 
 	-- Step 7: Therylune
 	-- {npc:3584} Therylune · {zone:1440} Ashenvale
-	["{npc:3584} stands on the north side of the crater: escort her out of the glaive. Therysil takes the turn-in in {zone:1440}."] = "",
+	["{npc:3584} stands on the north side of the crater: escort her out of the glaive. Therysil takes the turn-in in {zone:1440}."] = "{npc:3584}은(는) 분화구 북쪽에 서 있습니다: 그녀를 글레이브 밖으로 호위하십시오. 제출은 {zone:1440}의 테리실에게 합니다.",
 	-- {zone:1440} Ashenvale
 	["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "그녀를 글레이브 밖으로 호위하십시오. 제출은 {zone:1440}의 테리실에게 합니다",
 
@@ -120,7 +120,7 @@ return {
 
 	-- Step 21: Volcor
 	-- {npc:3692} Volcor · {area:449} Master's Glaive · {area:455} Blackwood Den
-	["{npc:3692} hides in the hills east of the {area:449}, inside {area:455}."] = "",
+	["{npc:3692} hides in the hills east of the {area:449}, inside {area:455}."] = "{npc:3692}은(는) {area:449} 동쪽 언덕, {area:455} 안에 숨어 있습니다.",
 	-- {npc:3692} Volcor · {area:455} Blackwood Den
 	["{npc:3692}, inside {area:455}"] = "{npc:3692}, {area:455} 안",
 	-- {npc:12298} Sickly Deer · {item:15826} Curative Animal Salve · {zone:1439} Darkshore
@@ -130,9 +130,9 @@ return {
 
 	-- Step 22: Escort Volcor
 	-- {npc:3692} Volcor
-	["Escort {npc:3692}"] = "",
+	["Escort {npc:3692}"] = "{npc:3692} 호위",
 	-- {npc:3692} Volcor · {npc:3693} Terenthis · {area:442} Auberdine
-	["Help {npc:3692} back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "",
+	["Help {npc:3692} back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "{npc:3692}이(가) 길까지 돌아가도록 도우십시오. 그는 싸우면서 빠져나갑니다. 다음에 {area:442}에 들를 때 {npc:3693}이(가) 호위를 받아 줍니다.",
 	["His walk ends at the road, where Grimclaw waits"] = "",
 
 	-- Step 23: Auberdine
@@ -178,7 +178,7 @@ return {
 
 	-- Step 34: Dendrite Starblaze
 	-- {item:15885} Pendant of the Sea Lion · {npc:11802} Dendrite Starblaze · {quest:5061} Aquatic Form
-	["The {item:15885} is already with {npc:11802}: take {quest:5061} from him, upstairs in his building."] = "",
+	["The {item:15885} is already with {npc:11802}: take {quest:5061} from him, upstairs in his building."] = "{item:15885}은(는) 이미 {npc:11802}에게 있습니다: 그의 건물 위층에서 {quest:5061}을(를) 받으십시오.",
 
 	-- Step 35: Back to Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze

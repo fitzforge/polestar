@@ -9,7 +9,7 @@ return {
 	-- Guide
 	-- {area:976} Gadgetzan · {zone:1427} Searing Gorge · {npc:5955} Tooga · {area:1446} Thorium Point
 	-- was: ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "46-48레벨 {area:976}와(과) {zone:1427}: 황무지유랑단 야영지, {npc:5955} 호위, {area:1446}."
-	["{area:976} and the {zone:1427} at 47-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "",
+	["{area:976} and the {zone:1427} at 47-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "47-49레벨 {area:976}와(과) {zone:1427}: 황무지유랑단 야영지, {npc:5955} 호위, {area:1446}.",
 
 	-- Step 1: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -96,14 +96,14 @@ return {
 
 	-- Step 18: Tooga
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
-	["{npc:5955}, a little turtle, wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Leave the Thistleshrubs (48-50) alone."] = "",
+	["{npc:5955}, a little turtle, wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Leave the Thistleshrubs (48-50) alone."] = "작은 거북 {npc:5955}은(는) {quest:3362} 서쪽 가장자리의 여러 지점을 돌아다닙니다: 찾을 때까지 화살표가 한 지점에서 다음 지점으로 안내합니다. 엉겅퀴덩굴(48-50)은 건드리지 마십시오.",
 
 	-- Step 19: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "{npc:5955} 호위",
 	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port · {npc:8579} Yeh'kinya
 	-- was: ["{npc:5955} waits in the valley. Walk him all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "{npc:5955}은(는) 골짜기에서 기다립니다. 사막을 가로질러 북동쪽 {area:977}에 있는 그의 아내 {npc:6015}에게까지 데려가세요. 가까이 붙어 그의 속도에 맞추고, 그를 공격하는 적을 물리치세요. 그에게서 멀리 떨어진 채 탈것에 오르거나 귀환석을 쓰지 마세요. {npc:8579}도 항구에 있습니다."
-	["Walk {npc:5955} all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "",
+	["Walk {npc:5955} all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "{npc:5955}을(를) 북동쪽 사막을 가로질러 {area:977}에 있는 아내 {npc:6015}에게까지 데려가십시오: 가까이 있고, 그에게 맞춰 천천히 가며, 그를 공격하는 것을 물리치십시오. 그가 닿지 않는 곳에서 탈것을 타거나 귀환석을 쓰지 마십시오. {npc:8579}도 항구에 서 있습니다.",
 
 	-- Step 22: Slake That Thirst
 	-- {spell:686} Shadow Bolt
@@ -138,7 +138,7 @@ return {
 	-- Step 29: Tanaris Field Sampling
 	-- {area:976} Gadgetzan · {item:8524} Model 4711-FTZ Power Source · {quest:654} Tanaris Field Sampling · {npc:7407} Chief Engineer Bilgewhizzle
 	-- plural, as words: Blisterpaw Hyenas = {npc:5426} Blisterpaw Hyena · Glasshide Basilisks = {npc:5419} Glasshide Basilisk · Scorpid Hunters = {npc:5422} Scorpid Hunter
-	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon {quest:654} if it is in your log, then take Another Power Source? from {npc:7407}: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of {area:976}."] = "",
+	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon {quest:654} if it is in your log, then take Another Power Source? from {npc:7407}: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of {area:976}."] = "북쪽으로 돌아가 {area:976} 바로 남쪽에서 지금 {item:8524}을(를) 사용하십시오: 2시간 타이머가 시작됩니다. 물집발 하이에나({npc:5426}), 유리가죽 바실리스크({npc:5419}), 전갈 사냥꾼({npc:5422})이 이곳 모래언덕을 함께 씁니다. 각각 검사하지 않은 표본을 떨어뜨릴 수 있습니다: 사용하면 쓸 만한 표본이 되거나 사라집니다. 각각 여덟 개가 될 때까지 계속 처치하십시오. 가방에 동력원이 없거나 두 시간이 지났습니까? {quest:654}이(가) 퀘스트 목록에 있으면 포기한 뒤 {npc:7407}에게 '또 다른 동력원?'을 받으십시오: {area:976} 동쪽 사막유랑단 야영지에서 얻는 사막유랑단 물주머니 열 개로 새것을 줍니다.",
 	-- {item:8524} Model 4711-FTZ Power Source
 	["Use the {item:8524}"] = "{item:8524} 사용하기",
 

@@ -39,7 +39,7 @@ return {
 	["{area:34}: kill these as you meet them"] = "{area:34}: Töte sie, wenn du ihnen begegnest",
 	-- {object:83763} Stolen Books · {quest:91741} Nibbled-On Book · {npc:951} Brother Paxton
 	-- plural, as words: Kobold Workers = {npc:257} Kobold Worker
-	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}.\nNow and then a kobold here drops a {quest:91741}: right-click it and hand it to {npc:951} on your next Abbey stop."] = "",
+	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}.\nNow and then a kobold here drops a {quest:91741}: right-click it and hand it to {npc:951} on your next Abbey stop."] = "Folge dem Pfad nach Norden zur Mine. Koboldarbeiter ({npc:257}) schwärmen davor herum; jeder Kobold im Tal kann {object:83763} fallen lassen.\nAb und zu lässt ein Kobold hier {quest:91741} fallen: Rechtsklick darauf und gib es bei deinem nächsten Halt an der Abtei {npc:951}.",
 
 	-- Step 7: Northshire Abbey
 	-- {npc:248415} Tordrin Sternblade · {npc:198} Khelden Bremen
@@ -77,26 +77,26 @@ return {
 
 	-- Step 12: Kelsey Fargo
 	-- {quest:91752} The Big Picture · {npc:248362} Shinyfinder Narf
-	["She stands outside the mine entrance. Her next errand, {quest:91752}, sends you after {npc:248362} inside, a level 3 elite: the guide gives it from level 5, when he is two levels under you."] = "",
+	["She stands outside the mine entrance. Her next errand, {quest:91752}, sends you after {npc:248362} inside, a level 3 elite: the guide gives it from level 5, when he is two levels under you."] = "Sie steht vor dem Mineneingang. Ihr nächster Auftrag, {quest:91752}, schickt dich hinein zu {npc:248362}, einem Elite der Stufe 3: Der Guide gibt ihn ab Stufe 5, wenn er zwei Stufen unter dir ist.",
 
 	-- Step 13: The Big Picture
 	-- {quest:91752} The Big Picture · {npc:248362} Shinyfinder Narf
-	["From level 5: Kelsey's {quest:91752}. {npc:248362} (3, elite) is two levels under you then."] = "",
+	["From level 5: Kelsey's {quest:91752}. {npc:248362} (3, elite) is two levels under you then."] = "Ab Stufe 5: Kelseys {quest:91752}. {npc:248362} (3, Elite) ist dann zwei Stufen unter dir.",
 	-- {npc:247226} Kelsey Fargo
-	["{npc:247226}, outside the mine"] = "",
+	["{npc:247226}, outside the mine"] = "{npc:247226}, vor der Mine",
 
 	-- Step 14: Inside Echo Ridge Mine
 	-- {area:34} Echo Ridge Mine
 	["Inside {area:34}"] = "In {area:34}",
 	-- {npc:248362} Shinyfinder Narf · {quest:91741} Nibbled-On Book · {npc:951} Brother Paxton
 	-- plural, as words: Kobold Laborers = {npc:80} Kobold Laborer
-	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nNow and then a Laborer drops a {quest:91741}: right-click it and hand it to {npc:951} at the Abbey after the mine.\nCareful: {npc:248362} (3) is elite: below level 5, leave him be."] = "",
+	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nNow and then a Laborer drops a {quest:91741}: right-click it and hand it to {npc:951} at the Abbey after the mine.\nCareful: {npc:248362} (3) is elite: below level 5, leave him be."] = "Koboldtagelöhner ({npc:80}) arbeiten in den Tunneln der Mine. {npc:248362} wartet an der zweiten Abzweigung rechts.\nAb und zu lässt ein Tagelöhner {quest:91741} fallen: Rechtsklick darauf und gib es nach der Mine an der Abtei {npc:951}.\nVorsicht: {npc:248362} (3) ist Elite: Unter Stufe 5 lass ihn in Ruhe.",
 	-- {npc:80} Kobold Laborer · {area:34} Echo Ridge Mine
 	["{npc:80} walks around {area:34}: look inside the circle on the map"] = "{npc:80} läuft um {area:34} umher: Schau in den Kreis auf der Karte",
 
 	-- Step 15: Shinyfinder Narf
 	-- {npc:248362} Shinyfinder Narf
-	["From level 5 {npc:248362}, a level 3 elite, is two levels under you: he waits down the second turn on the right inside the mine.\nCareful: clear the Laborers around him first and fight him at full health."] = "",
+	["From level 5 {npc:248362}, a level 3 elite, is two levels under you: he waits down the second turn on the right inside the mine.\nCareful: clear the Laborers around him first and fight him at full health."] = "Ab Stufe 5 ist {npc:248362}, ein Elite der Stufe 3, zwei Stufen unter dir: Er wartet in der Mine an der zweiten Abzweigung rechts.\nVorsicht: Räum zuerst die Tagelöhner um ihn herum weg und kämpf mit voller Gesundheit gegen ihn.",
 
 	-- Step 16: Northshire Abbey
 	-- {npc:823} Deputy Willem
@@ -126,7 +126,7 @@ return {
 
 	-- Step 22: Sam Sarsaparilla
 	-- {npc:263399} Sam Sarsaparilla · {skill:129} First Aid · {area:87} Goldshire · {area:24} Northshire Abbey · {area:88} Eastvale Logging Camp · {zone:1453} Stormwind
-	["{npc:263399} camps north-east of the inn. With a profession learned, he also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing on the lake shore, {skill:129} and blacksmithing in {area:87}, herbalism and alchemy back in {area:24}, tailoring at the {area:88}, mining, engineering and enchanting in {zone:1453}."] = "",
+	["{npc:263399} camps north-east of the inn. With a profession learned, he also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing on the lake shore, {skill:129} and blacksmithing in {area:87}, herbalism and alchemy back in {area:24}, tailoring at the {area:88}, mining, engineering and enchanting in {zone:1453}."] = "{npc:263399} lagert nordöstlich des Gasthauses. Mit einem erlernten Beruf bietet er auch dessen Camping 101 an, das sein Lehrer annimmt: Kürschnerei, Lederverarbeitung und Angeln am Seeufer, {skill:129} und Schmiedekunst in {area:87}, Kräuterkunde und Alchemie zurück in {area:24}, Schneiderei im {area:88}, Bergbau, Ingenieurskunst und Verzauberkunst in {zone:1453}.",
 	-- {spell:1229451} Boosted Rest
 	["Sit (/sit) by his campfire until you have {spell:1229451}"] = "Setz dich (/sit) an sein Lagerfeuer, bis du {spell:1229451} hast",
 
@@ -162,39 +162,39 @@ return {
 
 	-- Step 28: Camping 101: Herbalism
 	-- {npc:1218} Herbalist Pomeroy · {skill:182} Herbalism
-	["{npc:1218} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:1218} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1218} nimmt sie an, sobald deine Fertigkeit in {skill:182} 20 erreicht: Sammle oder stelle bis dahin her, der Guide läuft so lange weiter.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1218} Herbalist Pomeroy · {area:24} Northshire Abbey
-	["{npc:263399}: for {npc:1218} in {area:24}"] = "",
+	["{npc:263399}: for {npc:1218} in {area:24}"] = "{npc:263399}: für {npc:1218} in {area:24}",
 
 	-- Step 29: Camping 101: Alchemy
 	-- {npc:1215} Alchemist Mallory · {skill:171} Alchemy
-	["{npc:1215} takes it once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:1215} takes it once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1215} nimmt sie an, sobald deine Fertigkeit in {skill:171} 20 erreicht: Sammle oder stelle bis dahin her, der Guide läuft so lange weiter.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1215} Alchemist Mallory · {area:24} Northshire Abbey
-	["{npc:263399}: for {npc:1215} in {area:24}"] = "",
+	["{npc:263399}: for {npc:1215} in {area:24}"] = "{npc:263399}: für {npc:1215} in {area:24}",
 
 	-- Step 30: Camping 101: Tailoring
 	-- {npc:1103} Eldrin · {skill:197} Tailoring
-	["{npc:1103} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:1103} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1103} nimmt sie an, sobald deine Fertigkeit in {skill:197} 20 erreicht: Sammle oder stelle bis dahin her, der Guide läuft so lange weiter.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1103} Eldrin · {area:88} Eastvale Logging Camp
-	["{npc:263399}: for {npc:1103} at the {area:88}"] = "",
+	["{npc:263399}: for {npc:1103} at the {area:88}"] = "{npc:263399}: für {npc:1103} im {area:88}",
 
 	-- Step 31: Camping 101: Mining
 	-- {npc:5513} Gelman Stonehand · {skill:186} Mining
-	["{npc:5513} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:5513} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5513} nimmt sie an, sobald deine Fertigkeit in {skill:186} 20 erreicht: Sammle oder stelle bis dahin her, der Guide läuft so lange weiter.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:5513} Gelman Stonehand · {zone:1453} Stormwind · {object:28027} Dwarven District
-	["{npc:263399}: for {npc:5513} in {zone:1453}'s {object:28027}"] = "",
+	["{npc:263399}: for {npc:5513} in {zone:1453}'s {object:28027}"] = "{npc:263399}: für {npc:5513} im {object:28027} von {zone:1453}",
 
 	-- Step 32: Camping 101: Engineering
 	-- {npc:11026} Sprite Jumpsprocket · {skill:202} Engineering
-	["{npc:11026} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:11026} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:11026} nimmt sie an, sobald deine Fertigkeit in {skill:202} 20 erreicht: Sammle oder stelle bis dahin her, der Guide läuft so lange weiter.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:11026} Sprite Jumpsprocket · {zone:1453} Stormwind · {object:28027} Dwarven District
-	["{npc:263399}: for {npc:11026} in {zone:1453}'s {object:28027}"] = "",
+	["{npc:263399}: for {npc:11026} in {zone:1453}'s {object:28027}"] = "{npc:263399}: für {npc:11026} im {object:28027} von {zone:1453}",
 
 	-- Step 33: Camping 101: Enchanting
 	-- {npc:11068} Betty Quin · {skill:333} Enchanting
-	["{npc:11068} takes it once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:11068} takes it once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:11068} nimmt sie an, sobald deine Fertigkeit in {skill:333} 20 erreicht: Sammle oder stelle bis dahin her, der Guide läuft so lange weiter.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:11068} Betty Quin · {zone:1453} Stormwind
-	["{npc:263399}: for {npc:11068} in {zone:1453}"] = "",
+	["{npc:263399}: for {npc:11068} in {zone:1453}"] = "{npc:263399}: für {npc:11068} in {zone:1453}",
 
 	-- Step 34: Helene Peltskinner
 	["talk to the trainer"] = "Sprich mit dem Lehrer",
@@ -247,11 +247,11 @@ return {
 
 	-- Step 46: Herbalist Pomeroy
 	-- {npc:1218} Herbalist Pomeroy · {area:87} Goldshire
-	["{npc:1218}, north of {area:87}"] = "",
+	["{npc:1218}, north of {area:87}"] = "{npc:1218}, nördlich von {area:87}",
 
 	-- Step 47: Alchemist Mallory
 	-- {npc:1215} Alchemist Mallory · {npc:1218} Herbalist Pomeroy
-	["{npc:1215}, beside {npc:1218}"] = "",
+	["{npc:1215}, beside {npc:1218}"] = "{npc:1215}, neben {npc:1218}",
 
 	-- Step 48: Maybell Maclure
 	-- {area:87} Goldshire · {area:64} Maclure Vineyards · {npc:251} Maybell Maclure
@@ -310,7 +310,7 @@ return {
 	-- {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
 	["{npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:377} (Priester), {npc:328} (Magier) und {npc:917} (Schurken) stehen oben im Gasthaus: Nimm drinnen die Treppe, der Pfeil kann die Stockwerke nicht unterscheiden.",
 	-- {npc:279} Morgan Pestle · {zone:1453} Stormwind · {zone:1436} Westfall
-	["{npc:279} in {zone:1453} takes it (the {zone:1436} guide)"] = "",
+	["{npc:279} in {zone:1453} takes it (the {zone:1436} guide)"] = "{npc:279} in {zone:1453} nimmt es an (der Guide für {zone:1436})",
 
 	-- Step 60: Level 8.39
 	["Level 8.39"] = "Stufe 8,39",
@@ -419,7 +419,7 @@ return {
 
 	-- Step 82: Eldrin
 	-- {npc:1103} Eldrin
-	["{npc:1103}, at the logging camp"] = "",
+	["{npc:1103}, at the logging camp"] = "{npc:1103}, im Holzfällerlager",
 
 	-- Step 83: Stone Cairn Lake
 	-- {npc:6866} Defias Bodyguard
@@ -438,7 +438,7 @@ return {
 	["{npc:240}, while William brews"] = "{npc:240}, während William braut",
 	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind · {zone:1436} Westfall
 	-- was: ["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, an der Schmiede neben Dughan: {npc:1416} in {zone:1453} nimmt sie an (02-westfall)"
-	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (the {zone:1436} guide)"] = "",
+	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (the {zone:1436} guide)"] = "{npc:514}, in der Schmiede neben Dughan: {npc:1416} in {zone:1453} nimmt es an (der Guide für {zone:1436})",
 	-- {npc:253} William Pestle
 	["{npc:253}, back in the inn"] = "{npc:253}, zurück im Gasthaus",
 	-- {npc:377} Priestess Josetta · {npc:376} High Priestess Laurena · {zone:1453} Stormwind

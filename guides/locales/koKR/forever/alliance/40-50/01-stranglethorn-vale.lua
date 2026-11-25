@@ -268,9 +268,9 @@ return {
 
 	-- Step 49: Arbor Tarantula
 	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
-	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "",
+	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "{npc:217588}이(가) 네싱워리 야영지 남동쪽 정글, {area:99}(으)로 가는 길에 기어 다닙니다: {npc:217412}의 {item:213565}을(를) 열어 그 안의 {item:213562}을(를) 한 마리에게 사용하십시오. 죽이지 마십시오.",
 	-- {item:213562} Bug Catching Net · {npc:217588} Arbor Tarantula · {item:213566} Arbor Tarantula Specimen
-	["{item:213562}, on an {npc:217588}: the {item:213566}"] = "",
+	["{item:213562}, on an {npc:217588}: the {item:213566}"] = "{item:213562}을(를) {npc:217588}에게: {item:213566}",
 
 	-- Step 50: Rebel Camp
 	["Head north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "네싱워리의 야영지를 지나 북동쪽으로 간 뒤 길을 따라 북쪽으로 계곡 위쪽의 야영지까지 가세요.",

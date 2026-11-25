@@ -190,11 +190,11 @@ return {
 
 	-- Step 38: Andi Lynn
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn · {area:983} Dunemaul Compound
-	["The hearth lands in {area:976}: {npc:11758} takes the {area:983}."] = "",
+	["The hearth lands in {area:976}: {npc:11758} takes the {area:983}."] = "爐石把你帶到{area:976}：{npc:11758}接收{area:983}。",
 
 	-- Step 39: Tran'rek
 	-- {npc:7876} Tran'rek
-	["{npc:7876} stands beside the wind rider master."] = "",
+	["{npc:7876} stands beside the wind rider master."] = "{npc:7876}站在雙足飛龍管理員旁邊。",
 
 	-- Step 41: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
@@ -343,7 +343,7 @@ return {
 
 	-- Step 74: Oran Snakewrithe
 	-- {quest:2995} Lines of Communication · {object:144073} Highvale Report · {area:350} Quel'Danil Lodge · {zone:1425} The Hinterlands · {zone:1419} Blasted Lands
-	["{quest:2995}'s work is not in this guide: burn the {object:144073}, Notes and Records in the elves' camps around {area:350}, in {zone:1425} & {zone:1419} (its Highvale step). Load that guide for the arrows."] = "",
+	["{quest:2995}'s work is not in this guide: burn the {object:144073}, Notes and Records in the elves' camps around {area:350}, in {zone:1425} & {zone:1419} (its Highvale step). Load that guide for the arrows."] = "{quest:2995}的任務不在本指南中：在{area:350}周圍精靈營地裡燒掉{object:144073}、筆記和記錄，在{zone:1425}和{zone:1419}指南中（它的高原精靈步驟）。載入那份指南以取得箭頭。",
 
 	-- Step 75: Undercity
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
@@ -355,15 +355,15 @@ return {
 	-- {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {area:152} The Bulwark
 	["Leave the {zone:1458} and ride east along the road through {zone:1420} to the {area:152}, the Forsaken fort on the border."] = "離開{zone:1458}，沿著道路向東穿過{zone:1420}前往邊境上的被遺忘者要塞{area:152}。",
 	-- {quest:5405} Argent Dawn Commission
-	["Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "",
+	["Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "裝備{quest:5405}：只有佩戴它時才會掉落天譴石。",
 	-- {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions
-	["{item:12814}, from the {object:176092} next to Derrington: {quest:5096}, done on the way back"] = "",
+	["{item:12814}, from the {object:176092} next to Derrington: {quest:5096}, done on the way back"] = "{item:12814}，來自德靈頓旁邊的{object:176092}：{quest:5096}，在回程路上完成",
 
 	-- Step 78: Scarlet forward camp
 	["Scarlet forward camp"] = "血色十字軍前進營地",
 	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
 	-- was: ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "從{area:152}沿著道路向東進入{zone:1422}。血色十字軍的帳篷就在費爾斯通農場過去一點，位於{area:199}和{area:200}之間。用{object:176092}燒掉指揮帳篷，並插上天災戰旗。注意：帳篷周圍的血色十字軍最高54級，祈咒者會施法：從最靠近指揮帳篷的一側進入，別理其他人。"
-	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "",
+	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "從{area:152}沿路向東進入{zone:1422}。血色十字軍的帳篷就在費爾斯通農場後面，在{area:199}和{area:200}之間。用{item:12814}點燃指揮帳篷，插上天譴旗幟。小心：帳篷周圍的血色十字軍最高54級，祈求者會施法：從離指揮帳篷最近的一側進入，別管其他人。",
 
 	-- Step 79: Janice Felstone
 	-- {npc:10778} Janice Felstone

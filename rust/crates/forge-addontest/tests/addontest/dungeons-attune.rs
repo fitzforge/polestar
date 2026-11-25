@@ -15,6 +15,7 @@
 
 use forge_addontest::codex::{fixture, write_codex_pack, CodexOpts, CodexPack};
 use forge_addontest::dsl::plain;
+use forge_addontest::playtest::SIMULATE;
 use forge_addontest::run::{addons_dir, join, root};
 use forge_addontest::{emitted, fake_locale, is_match, lua_value, text, truthy, Addon, RunAddon};
 use forge_data::codex::attune::attunements_of;
@@ -862,6 +863,63 @@ emit(walk)"#,
 	assert_eq!(walk[0]["entrance"], json!(false), "level 18: the arrow is not on the entrance");
 }
 
+// The Shadowforge Key's guide (Dark Iron Legacy, 3801 > 3802) went straight to Blackrock Depths' entrance: Franclorn
+// Forgewright gives and takes both quests and only a dead character sees him, and #558 made such an accept or
+// turn-in optional, so the engine passed both quests by. An attunement's quests are what it needs: here a ghost-only
+// NPC's goals stay to do, each saying how to reach him, and the guide plays every step to the entrance.
+#[test]
+fn a_ghost_only_npc_s_accepts_and_turn_ins_stay_to_do_in_an_attunement_guide_their_goal_saying_how_and_the_engine_walks_every_step() {
+	let f = Fx::new();
+	let mut c = f.codex.clone();
+	c["npcs"]["3448"]["ghostOnly"] = json!(true);
+	let pk = pack_of(&c, &f.inputs);
+	let out = f.run(
+		&pk,
+		&format!(
+			r#"
+local def = D.AttuneGuide("wailing-caverns", "fang")
+local ghost = {{}}
+for _, s in ipairs(def.steps) do
+	for _, g in ipairs(s.goals) do
+		if g.npc == 3448 then ghost[#ghost + 1] = {{ goal = g.t .. ":" .. g.quest, optional = g.optional or false, note = g.note or false }} end
+	end
+end
+emit({{ steps = describe(def), ghost = ghost }})
+D.Attune("wailing-caverns", "fang")
+stub.advance(0.6)
+SIM_GUIDE = Polestar.Engine.GetGuide()
+{SIMULATE}"#,
+			SIMULATE = SIMULATE.as_str()
+		),
+		"Horde",
+		"Tauren",
+	);
+	let (built, played) = (&out[0], &out[1]);
+	assert_eq!(
+		built["steps"],
+		json!([
+			{ "title": "Rite of the Serpent", "goals": "accept:90001 turnin:90001" },
+			{ "title": "The Serpent's Trial", "goals": "accept:90002 collect:90002 turnin:90002" },
+			{ "title": "Fang of the Serpent", "goals": "rep accept:90003 turnin:90003" },
+			{ "title": "Wailing Caverns", "goals": "note goto" },
+		])
+	);
+	let how = "Only visible while dead: die nearby and talk to them as a ghost.";
+	assert_eq!(
+		built["ghost"],
+		json!([
+			{ "goal": "turnin:90001", "optional": false, "note": how },
+			{ "goal": "accept:90002", "optional": false, "note": how },
+			{ "goal": "turnin:90002", "optional": false, "note": how },
+			{ "goal": "accept:90003", "optional": false, "note": how },
+		]),
+		"Tonga's goals are the chain: to do, not skipped"
+	);
+	assert!(!truthy(&played["stuck"]), "stuck: {}", played["stuck"]);
+	assert_eq!(played["done"], true);
+	assert_eq!(played["visited"], played["steps"], "the engine stops at every step, none passed as done");
+}
+
 // What Comes Around...: Lookup's guide for the quest said "Collect Head of Targorr" with the arrow left beside
 // Guard Berton, who takes it; Targorr is a boss inside the Stockade and the data has no place for him outside
 // (#3613). A quest guide sends an inside source's item to its instance's entrance, as the attunement guides do,
@@ -1068,6 +1126,23 @@ emit(DS.atts[1].Meta:GetText())"#,
 	assert_eq!(out[0], "Zugangsquest  \u{b7}  Jeder braucht sie  \u{b7}  Ab Stufe 17");
 }
 
+// The next step of a chest (the Tome of Dalaran's Black Tome) names its object in the client's language
+// (Polestar.Names), and in English where the language has no name for it, as the drop and gift steps' NPCs do:
+// a Russian client read "(источник: Black Tome)" before.
+#[test]
+fn the_next_step_names_its_object_in_the_client_language_and_in_english_where_it_has_none() {
+	let f = Fx::new();
+	let out = f.run_ui(
+		r#"
+local step = { kind = "object", item = { id = 276561, name = "Black Tome" }, object = { kind = "object", id = 659376, name = "Black Tome" } }
+emit(Polestar.UI.Attunements.StepWords(step, "open"))
+Polestar.Names.AddChunk("itIT", "object", 659376, 659376, "\n659376\tTomo nero\n")
+emit(Polestar.UI.Attunements.StepWords(step, "open"))"#,
+		&fake_locale("itIT", &[("%s from %s", "%s da %s")]),
+	);
+	assert_eq!(out, vec![json!("Black Tome da Black Tome"), json!("Black Tome da Tomo nero")]);
+}
+
 // ---------------------------------------------------------------------------
 // The Attunements section (UI/Attunements.lua, #3695)
 // ---------------------------------------------------------------------------
@@ -1138,15 +1213,15 @@ emit({ section = P.Section(), later = list(), notes = notes })"#,
 	assert_eq!(
 		fresh["fresh"],
 		json!([
-			["fang", "Wailing Caverns", [0, 3], "Next: Pick up Rite of the Serpent from Nara Wildmane", false, true, false],
 			["smelting-key", "The Deadmines", [0, 1], "Next: Smelting Key from Edwin VanCleef", false, true, false],
+			["fang", "Wailing Caverns", [0, 3], "Next: Pick up Rite of the Serpent from Nara Wildmane", false, true, false],
 		]),
-		"the Horde's two, by level; the Alliance's Ironclad Key left out"
+		"the Horde's two, by level then the instance's name; the Alliance's Ironclad Key left out"
 	);
-	assert_eq!(fresh["fresh"][0][2], fresh["counted"], "the bar counts what AttunementState says");
-	assert_eq!(progress["progress"][0][2], json!([1, 3]));
-	assert_eq!(progress["progress"][0][2], progress["counted"]);
-	assert_eq!(progress["progress"][0][3], "Next: Finish The Serpent's Trial", "the quest in the log is the next step");
+	assert_eq!(fresh["fresh"][1][2], fresh["counted"], "the bar counts what AttunementState says");
+	assert_eq!(progress["progress"][1][2], json!([1, 3]));
+	assert_eq!(progress["progress"][1][2], progress["counted"]);
+	assert_eq!(progress["progress"][1][3], "Next: Finish The Serpent's Trial", "the quest in the log is the next step");
 	assert_eq!(progress["asked"], json!(["wailing-caverns:fang", "wailing-caverns:fang"]), "Guide me opens the dungeon page's guide");
 	assert_eq!(progress["link"], "All attunements and keys", "the dungeon page links here");
 	assert_eq!(later["section"], "Attunements", "the link opens the section");
@@ -1189,7 +1264,7 @@ local last = AT.Shown()[#AT.Shown()]
 local lastCard
 for _, c in ipairs(AT.cards) do if c:IsShown() and c.psId == last.id then lastCard = c end end
 emit({ icon = icon, first = first, sideBySide = y1 == y2 and x2 > x1, sameHeight = c1:GetHeight() == c2:GetHeight(), art = art,
-	guide = c1.Guide.Label:GetText(), last = { last.id, last.glyph, lastCard:GetAlpha() } })"#,
+	guide = c1.Guide.Label:GetText(), titles = { c1.Title:GetText(), c2.Title:GetText() }, metas = { c1.Meta:GetText(), c2.Meta:GetText() }, last = { last.id, last.glyph, lastCard:GetAlpha() } })"#,
 		"",
 	);
 	let out = &out[0];
@@ -1199,5 +1274,11 @@ emit({ icon = icon, first = first, sideBySide = y1 == y2 and x2 > x1, sameHeight
 	assert_eq!(out["sameHeight"], true, "a row's cards as tall as each other: {out}");
 	assert_eq!(out["art"], true, "the picture band: {out}");
 	assert_eq!(out["guide"], "Guide me");
+	assert_eq!(out["titles"], json!(["Wailing Caverns", "The Deadmines"]), "the title is the instance the card opens: {out}");
+	assert_eq!(
+		out["metas"],
+		json!(["Fang of the Serpent  ·  Attunement  ·  Everyone entering needs it  ·  From level 17", "Smelting Key  ·  Key  ·  One in the group is enough"]),
+		"the key's own name leads the facts: {out}"
+	);
 	assert_eq!(out["last"], json!(["smelting-key", "check", 0.6]), "done: ticked, at the end, dimmed: {out}");
 }
