@@ -2951,17 +2951,17 @@ test('forever/40-50/shendralas.guide: Sekyno\'s report (#2946): Liranne\'s step 
 // the fragment at Magram Village without a fight.
 test('forever/40-50/shendralas.guide: the western pylon is repaired from its quiet south side, away from the elites', { skip }, () => {
 	const steps = compiled('forever/40-50/shendralas.guide').steps;
-	const st = steps.find((s) => s.goals.some((g) => g.t === 'kill' && g.quest === 96018 && g.oi === 2));
+	const st = steps.find((s) => s.goals.some((g) => g.t === 'use' && g.item === 271882 && g.quest === 96018 && g.oi === 2));
 	assert.ok(st, 'the western pylon\'s repair step');
-	const kill = st.goals.find((g) => g.t === 'kill');
+	const repair = st.goals.find((g) => g.t === 'use');
 	const approach = steps[steps.indexOf(st) - 1];
 	const pin = approach.goals.find((g) => g.t === 'goto');
-	assert.ok(approach.label && st.when.some((w) => w.k === 'done' && w.label === approach.label && !w.neg));
-	assert.ok(pin && pin.x <= kill.x && pin.y > kill.y, 'approach the west edge from the south');
-	assert.deepEqual(kill.spots.map(({ x, y }) => [x, y]), [[43.97, 35.59], [43.89, 35.64]], 'both repair targets are on the west face');
+	assert.ok(approach.label && pin, 'the road step comes right before the repair');
+	assert.ok(pin.x <= repair.x && pin.y > repair.y, 'approach the west edge from the south');
+	assert.deepEqual(repair.spots.map(({ x, y }) => [x, y]), [[43.97, 35.59], [43.89, 35.64]], 'both repair targets are on the west face');
 	const crystal = steps.flatMap((s) => s.goals).find((g) => g.t === 'collect' && g.quest === 99257);
 	assert.equal(crystal.npc, 252711);
-	assert.deepEqual(crystal.spots.map(({ x, y }) => [x, y]), kill.spots.map(({ x, y }) => [x, y]), 'the heart uses the same west-side pulls');
+	assert.deepEqual(crystal.spots.map(({ x, y }) => [x, y]), repair.spots.map(({ x, y }) => [x, y]), 'the heart uses the same west-side pulls');
 	const tips = approach.note || '';
 	assert.match(tips, /one Decrepit Pylon Protector at a time/, 'the pull');
 	assert.match(tips, /Careful: stay off the pylon's east and north-east side/, 'the side to keep off');
@@ -2981,6 +2981,29 @@ test('Shen\'dralas: Mana Mania is only offered to groups after A Heart of Crysta
 	const follow = steps.findIndex((s) => s.goals.some((g) => g.t === 'accept' && g.quest === 99258));
 	assert.ok(heart >= 0 && follow > heart);
 	for (const k of ['group', 'turnedin']) assert.ok(steps[follow].when.some((w) => w.k === k && !w.neg && [].concat(w.q).includes(k === 'group' ? 99258 : 99257)));
+});
+// #4135 (gidi_, 0.4.2.2): each pylon's line of Powering the Pylons ticks on Repair and Recharge Pylon, the spell of the
+// Pile of Pylon Parts (271882) the quest hands over (players' recordings: 79 of 79 repairs; 25 with no Protector killed
+// in the minute before). The repairs were `kill` goals on the Decrepit Pylon Protectors, so While you're here offered
+// Protector kills for the quest, and the western repair waited for the road step south of the pylon: a player who
+// repaired it from elsewhere was sent back to the road. The repairs are uses of the Pile, and the western one no longer
+// waits for the road step (whose goto passes once the repair is done).
+test('Shen\'dralas: the pylons are repaired with the Pile of Pylon Parts, and the road step never holds a repaired pylon (#4135)', { skip }, () => {
+	const steps = compiled('forever/40-50/shendralas.guide').steps;
+	for (const oi of [2, 3]) {
+		const goal = steps.flatMap((s) => s.goals).find((g) => g.quest === 96018 && g.oi === oi);
+		assert.ok(goal && goal.t === 'use' && goal.item === 271882, `pylon line ${oi} is a use of the Pile of Pylon Parts`);
+	}
+	assert.ok(!steps.flatMap((s) => s.goals).some((g) => g.t === 'kill' && g.quest === 96018), 'no Protector kill counts for the quest');
+	const west = steps.find((s) => s.goals.some((g) => g.quest === 96018 && g.oi === 2));
+	assert.ok(!(west.when || []).some((w) => w.k === 'done'), 'the western repair does not wait for the road step');
+});
+// #4138 (gidi_, 0.4.2.2): Mana Mania's Nascent Pylon Protector is an elite (every recorded kill, 23 of 23), but it comes
+// alone, and 13 of the 20 players recorded killing it had no group. It stays a group choice; its tip says so.
+test('Shen\'dralas: Mana Mania\'s tip says the elite comes alone and most players killed it without a group (#4138)', { skip }, () => {
+	const steps = compiled('forever/40-50/shendralas.guide').steps;
+	const st = steps.find((s) => s.goals.some((g) => g.t === 'accept' && g.quest === 99258));
+	assert.match(st.note || '', /comes alone: most players in our recordings killed it without a group/);
 });
 // A step shown only while the bags hold an item (`when has I`) stops applying the moment the item is used up, so
 // nothing may follow the goal that uses it up (a `use`, an accept the item starts, a hand-in that takes it) but what
@@ -18494,7 +18517,7 @@ test('Tarren Mill\'s Southshore Stout buy shows only while Infiltration is in th
 test('Shen\'dralas: a Coalesced Mana Crystal step comes before each pylon repair (#2923, #3167)', { skip }, () => {
 	const list = goals('forever/40-50/shendralas.guide');
 	for (const oi of [2, 3]) {
-		const repair = list[at(list, `pylon ${oi - 1}`, (g) => g.t === 'kill' && g.quest === 96018 && g.oi === oi)];
+		const repair = list[at(list, `pylon ${oi - 1}`, (g) => g.t === 'use' && g.item === 271882 && g.quest === 96018 && g.oi === oi)];
 		const mana = list.filter(({ goal, s }) => goal.t === 'collect' && goal.item === 255667 && goal.count === 4 && s < repair.s);
 		assert.ok(mana.length >= oi - 1, `four crystals before pylon ${oi - 1}`);
 		const last = mana[mana.length - 1];

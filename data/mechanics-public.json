@@ -595,16 +595,13 @@
 				},
 				{
 					"n": 2,
-					"action": "kill",
-					"target": {
-						"type": "npc",
-						"id": 252711
-					},
-					"fact": "At each pylon, kill a Decrepit Pylon Protector beside it, then use Repair and Recharge Pylon on the pylon.",
-					"confidence": "medium"
+					"action": "use-item",
+					"item": 271882,
+					"fact": "At each pylon, use the Pile of Pylon Parts the quest hands over: its Repair and Recharge Pylon takes four Coalesced Mana Crystals. The Decrepit Pylon Protectors guard the pylons; most players pull one away first, but no kill is needed.",
+					"confidence": "high"
 				}
 			],
-			"note": "Powering the Pylons (96018): the pylons are repaired with mana gathered with the Mana Sieve (255662) first; its objectives list only the Sieve and the two pylons. Source: the quest's own text (\"use it to collect Ancient Mana Crystals. Once you have acquired enough mana, empower the pylons\"); players' in-game recordings to 2026-11-17: the Unstable Mana Rifts (264149) seen by 54 people in Shen'dralas, and the pylons' lines ticking on a cast of spell 1289727 (30 people took the quest); Unholy's report (#2714), who counted four Coalesced Mana Crystals (255667) for each pylon."
+			"note": "Powering the Pylons (96018): the pylons are repaired with mana gathered with the Mana Sieve (255662) first; its objectives list only the Sieve and the two pylons. Source: the quest's own text (\"use it to collect Ancient Mana Crystals. Once you have acquired enough mana, empower the pylons\"); players' in-game recordings to 2026-11-17: the Unstable Mana Rifts (264149) seen by 54 people in Shen'dralas, and the pylons' lines ticking on a cast of spell 1289727 (30 people took the quest); Unholy's report (#2714), who counted four Coalesced Mana Crystals (255667) for each pylon. Spell 1289727 is the Pile of Pylon Parts' (271882, the quest's handed-over item; the client's item effect table), with four Coalesced Mana Crystals as its reagent (the client's spell reagent table); recordings to 2026-11-20: 79 of 79 pylon repairs ticked on it, 25 of them with no Decrepit Pylon Protector killed in the minute before (#4135)."
 		},
 		"96082": {
 			"kinds": [
