@@ -902,5 +902,29 @@
 			}
 		],
 		"note": "Missing Mail (Unfrozen Deliveries, 93406) drops from the Ice Thistle yetis in the hills east of Everlook, not from the Rogue Ice Thistles along the road west of them. The merged data lists the Rogue Ice Thistle too, so the quest's collect spots led west to them first."
+	},
+	"20378": {
+		"removeDrops": {
+			"npc": [
+				11744,
+				11746,
+				14455
+			]
+		},
+		"source": [
+			{
+				"kind": "pfquest",
+				"ref": "units of item 20378: npcs 11744, 11746 and 14455, all at 100, beside objects 180436 and 180501"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classicdb loot: objects 180436 and 180501 give the fragment every time (quest loot); no Dust Stormer (11744) or Desert Rumbler (11746) loot has it, and Whirling Invader (14455) only at 5%"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3773"
+			}
+		],
+		"note": "Twilight Tablet Fragments (Twilight Geolords, 8284) lie on the ground in Silithus' Twilight camps; a player who killed the elementals there got none (#3773). Only pfQuest lists the three elementals, each at 100, so the step's arrow sent players to kill Dust Stormers and Desert Rumblers instead of picking the fragments up."
 	}
 }

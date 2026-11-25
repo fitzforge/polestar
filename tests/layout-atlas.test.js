@@ -347,10 +347,51 @@ emit(out)`,
 	assert.equal(out.polestar[0], out.own, "Polestar's own layout: its own room");
 });
 
-// A quest's [level] in the goal rows: a size smaller than the line, as a
-// string of its own after it where the line holds it on one line; in the
-// line, wrapping with it, where it does not.
-test('the Atlas goal rows draw the quest level a size smaller', () => {
+// The XP line's switch (guideWindow.xpLine, #3304) under Atlas too: off, the
+// row's level and percent go with XP an hour, time to level and the pace;
+// Boosted Rest keeps its own line, alone in the row; on again, all back.
+test('under Atlas the XP line switch takes the level and percent with it and leaves Boosted Rest', () => {
+	const [out] = runAddon({
+		stubs: ['stub_world.lua'],
+		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
+		script: `${GUIDE}
+local T, GF = Polestar.Theme, Polestar.UI.GuideFrame
+Polestar.Set("ui.shown", true)
+local Q = Polestar.QoL
+local stats = { rate = 48000, timeToLevel = 30, maxed = false }
+Q.GetXPStats = function() return stats end
+Q.Duration = function() return "30s" end
+Q.XP = { Short = function(n) return string.format("%.1fk", n / 1000) end, Summary = function() return "Level 5" end }
+local rest
+Q.Rest = { Parts = function() return rest end }
+GF.PaceText = function() return "On pace for level 6 by step 12" end
+T.SetLayout("atlas")
+local function row()
+	GF.UpdateXP(stats)
+	GF.Layout()
+	stub.advance(0.5)
+	return { shown = GF.xp:IsShown(), text = GF.xp:IsShown() and GF.xp.Text:GetText() or false }
+end
+local out = { on = row() }
+Polestar.Set("guideWindow.xpLine", false)
+out.off = row()
+rest = { "Boosted Rest 12m" }
+out.rest = row()
+Polestar.Set("guideWindow.xpLine", true)
+rest = nil
+out.back = row()
+emit(out)`,
+	}).emitted;
+	assert.equal(out.on.shown, true, JSON.stringify(out));
+	assert.match(out.on.text, /^Level \d+ {2}· {2}\d+% {2}· {2}48\.0k XP\/h {2}· {2}30s to level {2}· {2}On pace for level 6 by step 12$/, JSON.stringify(out));
+	assert.deepEqual(out.off, { shown: false, text: false }, 'nothing else to say: the row goes');
+	assert.deepEqual(out.rest, { shown: true, text: 'Boosted Rest 12m' }, 'Boosted Rest alone, no level or percent');
+	assert.deepEqual(out.back, out.on, 'on again, as it was');
+});
+
+// A quest's [level] in the goal rows: none, at any width (#3876: the guide
+// window shows no quest level anywhere, Atlas included).
+test('the Atlas goal rows draw no quest level', () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
 		addons: ['Polestar', own(SKIN_ATLAS, LAYOUT_ATLAS)],
@@ -366,14 +407,10 @@ stub.advance(1)
 local function look()
 	for _, row in ipairs(T.GuideParts().rows or {}) do
 		if row:IsShown() and (row.Text:GetText() or ""):find("Kobold", 1, true) then
-			local level
 			for _, r in ipairs({ row:GetRegions() }) do
-				if r ~= row.Text and r.GetText and r:IsShown() and (r:GetText() or ""):find("[24]", 1, true) then level = r end
+				if r.GetText and r:IsShown() and (r:GetText() or ""):find("[24]", 1, true) then return "level" end
 			end
-			local _, size = row.Text:GetFont()
-			local lsize
-			if level then lsize = select(2, level:GetFont()) end
-			return { inText = (row.Text:GetText() or ""):find("[24]", 1, true) ~= nil, own = level ~= nil, down = level and size - lsize or false }
+			return "none"
 		end
 	end
 	return false
@@ -389,8 +426,8 @@ stub.advance(1)
 out.narrow = look()
 emit(out)`,
 	}).emitted;
-	assert.deepEqual(out.wide, { inText: false, own: true, down: 2 }, 'on one line: its own string, 2 smaller');
-	assert.deepEqual(out.narrow, { inText: true, own: false, down: false }, 'a line that wraps: in the line');
+	assert.equal(out.wide, 'none', 'a line on one line: no level');
+	assert.equal(out.narrow, 'none', 'a line that wraps: no level');
 });
 
 // The real thing: the layout addon registers, SetLayout picks it, the window

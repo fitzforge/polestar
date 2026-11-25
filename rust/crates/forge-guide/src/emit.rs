@@ -84,7 +84,7 @@ pub const WHEN_KEYS: [&str; 22] =
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 90] = [
+pub const GOAL_KEYS: [&str; 93] = [
 	"t",
 	"class",
 	// `train class`: its step's zone (uiMapID), whose trainers the Engine ranks first (#1357).
@@ -185,9 +185,15 @@ pub const GOAL_KEYS: [&str; 90] = [
 	"rewards",
 	"group",
 	"direct",
+	// A turn-in of a repeatable quest (not `direct`): the engine remembers its hand-in (#3334).
+	"repeatable",
 	"gossip",
 	"seconds",
 	"escort",
+	// An escort's accept: players' median seconds for a completed run and the share of runs that failed
+	// (data/recorded/escorts.json, #3439).
+	"escortSecs",
+	"escortFail",
 	// A `complete` goal's quest objectives from the data (text, count) and the item the quest hands over: what
 	// the window reads before the quest is in the log, and "Use <item>:" (#942).
 	"objs",
@@ -626,12 +632,22 @@ fn faction_levels(v: &V) -> String {
 	format!("{{ {} }}", parts.join(", "))
 }
 
-/// `deferred` (a race part's guide, docs/PACK_FORMAT.md "Race parts"): the
-/// steps as one source string (`stepsSrc`, `return { ... }`, run on first
-/// read) with `stepCount`, and the guide registers only for a character of
-/// one of its classes (Polestar.PartWants). `packed`: spawn spots as strings
-/// (pack_spots, format 8).
-fn emit_guide(guide: &V, source_rel: &V, deferred: bool, packed: bool) -> String {
+/// How a guide's steps are written (docs/PACK_FORMAT.md, "Race parts" and "Format 8").
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum Steps {
+	/// In the guide's table.
+	Inline,
+	/// Deferred: one source string (`stepsSrc`, `return { ... }`, run on first read) with
+	/// `stepCount`; the guide registers for every character (a side shelf of our pack).
+	Shelf,
+	/// Deferred, and the guide registers only for a character of one of its classes
+	/// (Polestar.PartWants): a race part's guide.
+	RacePart,
+}
+
+/// `steps`: how the steps are written (Steps). `packed`: spawn spots as strings (pack_spots, format 8).
+fn emit_guide(guide: &V, source_rel: &V, steps: Steps, packed: bool) -> String {
+	let deferred = steps != Steps::Inline;
 	let mut out: Vec<String> = Vec::new();
 	if source_rel.truthy() {
 		out.push(format!("-- Source: {}", source_rel.to_js_string().replace(['\r', '\n'], " ")));
@@ -651,9 +667,9 @@ fn emit_guide(guide: &V, source_rel: &V, deferred: bool, packed: bool) -> String
 		}
 		if k == "steps" && deferred {
 			out.push(format!("\t\t\tstepCount = {},", v.len()));
-			// The group quests its steps ask about (`when group`), for the
-			// options' list without reading the steps (Engine.GroupQuests).
-			let mut groups: Vec<(V, V)> = Vec::new();
+			// The group quests its steps ask about (`when group`), and its escorts, which ask the same way
+			// (escort.rs choice_quests, #3439), for the options' list without reading the steps (Engine.GroupQuests).
+			let mut groups: Vec<(V, V, bool)> = Vec::new();
 			for step in v.items() {
 				for p in step.get("when").items() {
 					let q = p.get("q");
@@ -665,15 +681,21 @@ fn emit_guide(guide: &V, source_rel: &V, deferred: bool, packed: bool) -> String
 						Some(g) => g.get("title"),
 						None => step.get("title"),
 					};
-					groups.push((q, title));
+					groups.push((q, title, false));
+				}
+			}
+			for (q, title) in crate::escort::choice_quests(&v) {
+				if !groups.iter().any(|x| x.0.strict_eq(&q)) {
+					groups.push((q, title, true));
 				}
 			}
 			if !groups.is_empty() {
 				let parts: Vec<String> = groups
 					.iter()
-					.map(|(quest, title)| {
+					.map(|(quest, title, escort)| {
 						let t = if title.truthy() { format!(", title = {}", lua_str_v(title)) } else { String::new() };
-						format!("{{ quest = {}{t} }}", quest.to_js_string())
+						let e = if *escort { ", escort = true" } else { "" };
+						format!("{{ quest = {}{t}{e} }}", quest.to_js_string())
 					})
 					.collect();
 				out.push(format!("\t\t\tgroupQuests = {{ {} }},", parts.join(", ")));
@@ -706,7 +728,7 @@ fn emit_guide(guide: &V, source_rel: &V, deferred: bool, packed: bool) -> String
 		}
 	}
 	let classes = guide.get("classes");
-	let classes = if deferred && classes.as_arr().is_some_and(|a| !a.is_empty()) { Some(classes) } else { None };
+	let classes = if steps == Steps::RacePart && classes.as_arr().is_some_and(|a| !a.is_empty()) { Some(classes) } else { None };
 	out.push("\t\t})".into());
 	out.push("\tend".into());
 	out.push(match classes {
@@ -836,6 +858,17 @@ pub fn emit_guides(entries: &[V], deferred: bool) -> String {
 
 /// `emit_guides` with spawn spots written as strings when `packed` (format 8, Polestar's own pack).
 pub fn emit_guides_with(entries: &[V], deferred: bool, packed: bool) -> String {
+	let steps = if deferred { Steps::RacePart } else { Steps::Inline };
+	emit_sorted(entries, |_| steps, packed)
+}
+
+/// Guides.lua of Polestar's own pack and of its faction parts (format 8): spawn spots packed, and the
+/// steps of every side-shelf guide (crate::project::shelf) deferred, read in when the guide is opened.
+pub fn emit_own_guides(entries: &[V]) -> String {
+	emit_sorted(entries, |g| if crate::project::shelf(g) { Steps::Shelf } else { Steps::Inline }, true)
+}
+
+fn emit_sorted(entries: &[V], steps: impl Fn(&V) -> Steps, packed: bool) -> String {
 	let mut sorted: Vec<&V> = entries.iter().collect();
 	sorted.sort_by(|a, b| {
 		let (x, y) = (a.get("guide").get("id").to_js_string(), b.get("guide").get("id").to_js_string());
@@ -843,7 +876,8 @@ pub fn emit_guides_with(entries: &[V], deferred: bool, packed: bool) -> String {
 	});
 	let mut parts = vec![format!("{}\n", header_main())];
 	for e in sorted {
-		parts.push(emit_guide(&e.get("guide"), &e.get("source"), deferred, packed));
+		let g = e.get("guide");
+		parts.push(emit_guide(&g, &e.get("source"), steps(&g), packed));
 	}
 	parts.join("\n")
 }

@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "{area:150}(으)로 비행",
-	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "{zone:1453} 비행 조련사",
 
 	-- Step 2: Red Jack Flint
 	-- {npc:4455} Red Jack Flint · {area:2103} Menethil Keep
@@ -210,4 +208,5 @@ return {
 	-- ["{npc:5082}, {npc:4963} and Tapoke Jahn are all at Menethil's inn; {npc:4962} fights you when you talk to {npc:4963}, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn."] = "{npc:5082}, {npc:4963}, {npc:4962}은(는) 모두 메네실 항구 여관에 있습니다. {npc:4963}와(과) 대화하면 타포케가 덤벼들지만, 쓰러뜨리면 포기합니다. {npc:1480}은(는) 여관에서 북동쪽으로 조금 걸어간 곳에 있습니다.",
 	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868}은(는) 평원 곳곳에 흩어져 있습니다. 붉은독전갈과 소금 평원 청소부독수리는 북쪽 절반을, 소금껍질거북(30-31)은 평원 중앙을 돌아다닙니다. 등껍질은 소금껍질거북에게서 얻으세요. 주의: 무쇠턱 소금껍질거북(34-35)은 평원 전체를 돌아다니고, 소금바위 큰눈바실리스크(34-35)와 점박이독전갈(33-34)은 남쪽 끝을 차지하고 있습니다. 그쪽은 피하고 북쪽 절반에 머무르세요.",
 	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: {area:415}의 {npc:3961}에게",
+	-- ["{zone:1453} flight master"] = "{zone:1453} 비행 조련사",
 }

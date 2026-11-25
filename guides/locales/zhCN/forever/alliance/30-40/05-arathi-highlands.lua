@@ -7,15 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {area:327} Faldir's Cove
-	-- was: ["For characters of 35 to 37. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "适合35到37级角色。{area:327}的纳迦和教授的水元素为38-40级，需要组队：单人就跳过。"
-	["For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "",
+	-- {zone:1435} Swamp of Sorrows · {area:271} Southshore · {area:327} Faldir's Cove
+	["{zone:1435} first, then north to {area:271}, Alterac and Arathi. For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "先去{zone:1435}，再向北前往{area:271}、奥特兰克和阿拉希。适合36到38级的角色。{area:327}的娜迦和教授的水元素为38-40级，那里是组队站点：单人就跳过。",
 
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "飞往{area:42}",
-	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "{area:35}的飞行管理员",
 
 	-- Step 2: The Scythe of Elune
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {zone:1430} Deadwind Pass · {npc:661} Jonathan Carevin
@@ -430,6 +427,7 @@ return {
 	-- ["Walk back onto the span: Ebenezer lies under its Arathi end."] = "走回桥上：伊贝尼瑟的尸体在桥的阿拉希一端下方。",
 	-- ["West along the coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "沿海岸向西前往地精的海湾（法迪尔海湾）；哨兵鲁鲁在上方的岩石上放哨。",
 	-- ["West along the road to {area:320}, on the way to the {object:2689}."] = "沿道路向西前往{area:320}，再继续去{object:2689}。",
+	-- ["{area:35} flight master"] = "{area:35}的飞行管理员",
 	-- ["{item:2321} for {npc:2438}'s cloak, from {npc:2381}, if you have none"] = "{npc:2438}的披风需要{item:2321}，如果没有就从{npc:2381}处购买",
 	-- ["{item:3659}: the {object:1760}"] = "{item:3659}：{object:1760}",
 	-- ["{npc:1356}, {object:32356}: for {npc:1344} in {zone:1432}, next"] = "{npc:1356}，在{object:32356}：交给{zone:1432}的{npc:1344}，接下来会去",

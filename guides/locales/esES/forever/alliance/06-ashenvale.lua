@@ -80,7 +80,7 @@ return {
 
 	-- Step 16: Ruuzel
 	-- {quest:1009} Ruuzel · {area:414} Zoram Strand
-	["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009} recorre la punta norte de {area:414} con guardias Colafuria.",
+	["{quest:1009} and his Wrathtail guards stand on the small islet just off the northern tip of the {area:414}: swim across to it."] = "",
 
 	-- Step 17: Blackfathom Deeps
 	-- {area:2797} Blackfathom Deeps · {npc:4787} Argent Guard Thaelrid · {zone:1457} Darnassus
@@ -454,5 +454,6 @@ return {
 	-- ["{npc:4959} and {npc:482}"] = "{npc:4959} y {npc:482}",
 	-- ["{npc:4982}, in the Cathedral of Light"] = "{npc:4982}, en la catedral",
 	-- ["{object:176364} Harbor"] = "{object:176364} (Puerto de Menethil)",
+	-- ["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009} recorre la punta norte de {area:414} con guardias Colafuria.",
 	-- ["{zone:1455} priests"] = "Sacerdotes de {zone:1455}",
 }

@@ -63,8 +63,6 @@ return {
 	-- Step 9: Ain't No Telling
 	-- {item:275709} Stolen Funds
 	["She will not talk without something to bargain with. Her stash is upstairs in a house close to the keep: take the {item:275709}. If it is already open, wait for it to come back."] = "Ela não fala sem ter o que negociar. O esconderijo dela fica no andar de cima de uma casa perto da fortaleza: pegue {item:275709}. Se já estiver aberto, espere voltar.",
-	-- {item:275709} Stolen Funds
-	["{item:275709}: Anastasia's Stash"] = "{item:275709}: o esconderijo de Anastácia",
 
 	-- Step 10: The Syndicate Sting
 	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad · {item:275882} Intercepted Shipment · {item:275706} Syndicate Uniform · {npc:13085} Myrokos Silentform
@@ -83,6 +81,7 @@ return {
 	-- ["Opens {area:3486}, the hidden rogue house in the Alterac hills, and its first jobs."] = "Abre {area:3486}, a casa secreta dos ladinos nas colinas de Alterac, e seus primeiros trabalhos.",
 	-- ["Rite of Cunning"] = "Rito da Astúcia",
 	-- ["{item:275482}: pickpocket Barton"] = "{item:275482}: bata a carteira de Barton",
+	-- ["{item:275709}: Anastasia's Stash"] = "{item:275709}: o esconderijo de Anastácia",
 	-- ["{npc:266216} is inside {area:275}, the Syndicate fortress in eastern {area:287}, south of the manor. Quick and quiet, says {npc:13085}."] = "{npc:266216} está dentro de {area:275}, a fortaleza da Camarilha no leste de {area:287}, ao sul do solar. Rápido e silencioso, diz {npc:13085}.",
 	-- ["{npc:6766}: {quest:6701}, repeatable"] = "{npc:6766}: {quest:6701}, repetível",
 	-- ["{npc:6766}: {quest:6701}, repeatable; take it now, the emblems are quest items"] = "{npc:6766}: {quest:6701}, repetível; pegue agora, os emblemas são itens de missão",

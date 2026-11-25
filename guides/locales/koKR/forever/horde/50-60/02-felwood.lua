@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Korean words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1422} Western Plaguelands · {area:152} Bulwark · {zone:1447} Azshara · {zone:1448} Felwood
+	["{zone:1422} and the {area:152} first, then {zone:1447} and {zone:1448}."] = "먼저 {zone:1422}, {area:152}, 그다음 {zone:1447}, {zone:1448}.",
+
 	-- Step 1: Mulgris Deepriver
 	-- {area:202} Writhing Haunt · {area:200} Dalson's Tears
 	["He camps by the {area:202}, south-east of {area:200}."] = "그는 {area:200} 남동쪽, {area:202} 옆에 야영하고 있습니다.",
@@ -38,12 +42,12 @@ return {
 
 	-- Step 8: Scarlet forward camp
 	["Scarlet forward camp"] = "붉은십자군 전진 야영지",
-	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
+	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
 	-- was: ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "{area:152}에서 길을 따라 동쪽으로 {zone:1422}(으)로 가세요. 붉은십자군의 천막은 펠스톤 농장을 막 지나 {area:199}와(과) {area:200} 사이에 있습니다. {object:176092}(으)로 지휘 천막을 불태우고 스컬지 깃발을 꽂으세요. 주의: 천막 주변 붉은십자군은 54레벨까지 있고 기원사는 주문을 시전합니다. 지휘 천막에 가장 가까운 쪽으로 접근하고 나머지는 건드리지 마세요."
 	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "",
 
-	-- Step 9: The Bulwark
-	-- {area:152} The Bulwark
+	-- Step 9: Bulwark
+	-- {area:152} Bulwark
 	["Ride south-west past Felstone Farm and follow the road west back to the {area:152}."] = "남서쪽으로 펠스톤 농장을 지나 길을 따라 서쪽의 {area:152}(으)로 돌아가세요.",
 	["Derrington's watchtowers and Vandis' cauldron are done on a later visit: keep them."] = "데링턴의 감시탑과 반디스의 가마솥은 나중에 들를 때 처리합니다. 보관하세요.",
 

@@ -42,11 +42,11 @@ step Copper: Elwynn Forest (1-50)
   zone Elwynn Forest
   tip Mine every Copper (1, orange), Poor Copper (1, orange) node you pass and circle the waypoints until Mining 50. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points.
   goto 40.1,80.3 "Copper" r 30
+  goto 20.7,74.6 "Copper" r 30
   goto 27.2,69.0 "Copper" r 30
   goto 30.4,59.9 "Copper" r 30
-  goto 44.5,39.3 "Poor Copper" r 30
   goto 49.1,28.8 "Poor Copper" r 30
-  goto 54.6,35.8 "Poor Copper" r 30
+  goto 54.6,35.9 "Poor Copper" r 30
   goto 61.0,50.2 "Copper, Poor Copper" r 30
   goto 74.6,54.0 "Copper" r 30
   goto 75.9,80.8 "Copper" r 30
@@ -62,12 +62,12 @@ step Copper & Poor Copper: Dun Morogh (1-50)
   goto 72.7,50.8 "Copper" r 30
   goto 70.8,53.7 "Copper" r 30
   goto 67.2,59.4 "Copper" r 30
-  goto 28.9,80.9 "Poor Copper" r 30
+  goto 30.5,79.9 "Poor Copper" r 30
+  goto 28.5,80.8 "Poor Copper" r 30
   goto 20.9,77.7 "Poor Copper" r 30
   goto 20.7,71.3 "Poor Copper" r 30
   goto 26.7,63.1 "Poor Copper" r 30
   goto 22.6,51.9 "Copper" r 30
-  goto 27.1,46.7 "Copper" r 30
   goto 41.2,35.4 "Copper" r 30
   goto 39.2,47.2 "Copper" r 30
   goto 42.1,49.3 "Copper" r 30
@@ -77,14 +77,14 @@ step Chunk of Amber & Large Chunk of Amber: Teldrassil (1-50)
   only NightElf
   zone Teldrassil
   tip Mine every Chunk of Amber (1, orange), Large Chunk of Amber (1, orange) node you pass and circle the waypoints until Mining 50. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points.
-  goto 53.4,74.9 "Large Chunk of Amber" r 30
-  goto 71.4,51.6 "Large Chunk of Amber" r 30
-  goto 56.7,27.6 "Chunk of Amber" r 30
-  goto 37.3,23.3 "Large Chunk of Amber" r 30
-  goto 52.7,50.3 "Large Chunk of Amber" r 30
-  goto 46.2,51.7 "Large Chunk of Amber" r 30
+  goto 53.4,74.8 "Large Chunk of Amber" r 30
+  goto 38.0,82.2 "Large Chunk of Amber" r 30
   goto 44.3,59.6 "Large Chunk of Amber" r 30
-  goto 37.8,82.3 "Large Chunk of Amber" r 30
+  goto 46.2,51.7 "Large Chunk of Amber" r 30
+  goto 37.3,23.3 "Large Chunk of Amber" r 30
+  goto 56.8,27.5 "Chunk of Amber" r 30
+  goto 52.7,50.3 "Large Chunk of Amber" r 30
+  goto 70.6,64.0 "Large Chunk of Amber" r 30
   skill Mining 50
 
 step Copper: Zephras Isle (1-50)
@@ -109,7 +109,7 @@ step Copper & Poor Copper: Durotar (1-50)
   only Orc,Troll
   zone Durotar
   tip Mine every Copper (1, orange), Poor Copper (1, orange) node you pass and circle the waypoints until Mining 50. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points.
-  goto 44.0,53.6 "Poor Copper, Copper" r 30
+  goto 43.9,53.6 "Poor Copper, Copper" r 30
   goto 45.9,58.0 "Poor Copper" r 30
   goto 42.6,60.7 "Poor Copper" r 30
   goto 45.7,69.8 "Poor Copper" r 30
@@ -137,7 +137,7 @@ step Copper: Mulgore (1-50)
   goto 57.0,40.7 "Copper" r 30
   goto 62.5,40.7 "Copper" r 30
   goto 61.8,52.6 "Copper" r 30
-  goto 55.4,74.9 "Copper" r 30
+  goto 55.3,74.9 "Copper" r 30
   goto 34.0,70.8 "Copper" r 30
   skill Mining 50
 
@@ -145,15 +145,15 @@ step Copper & Poor Copper: Tirisfal Glades (1-50)
   only Undead
   zone Tirisfal Glades
   tip Mine every Copper (1, orange), Poor Copper (1, orange) node you pass and circle the waypoints until Mining 50. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points.
-  goto 24.8,59.6 "Poor Copper" r 30
+  goto 24.7,59.6 "Poor Copper" r 30
   goto 29.4,68.9 "Poor Copper" r 30
-  goto 32.4,71.0 "Poor Copper" r 30
-  goto 38.2,65.2 "Poor Copper" r 30
+  goto 32.3,71.2 "Poor Copper" r 30
+  goto 38.3,67.4 "Poor Copper" r 30
   goto 47.3,69.4 "Copper" r 30
+  goto 54.2,44.9 "Copper" r 30
   goto 76.1,31.3 "Copper" r 30
   goto 55.6,31.6 "Copper" r 30
   goto 54.3,39.2 "Copper" r 30
-  goto 54.2,44.9 "Copper" r 30
   goto 49.3,45.9 "Copper" r 30
   goto 36.4,38.5 "Copper" r 30
   goto 33.9,55.0 "Poor Copper, Copper" r 30
@@ -169,11 +169,11 @@ step Copper: Elwynn Forest (50-65) cont.
   zone Elwynn Forest
   tip Mine every Copper (1, yellow), Poor Copper (1, yellow) node you pass and circle the waypoints until Mining 65. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points.
   goto 40.1,80.3 "Copper" r 30
+  goto 20.7,74.6 "Copper" r 30
   goto 27.2,69.0 "Copper" r 30
   goto 30.4,59.9 "Copper" r 30
-  goto 44.5,39.3 "Poor Copper" r 30
   goto 49.1,28.8 "Poor Copper" r 30
-  goto 54.6,35.8 "Poor Copper" r 30
+  goto 54.6,35.9 "Poor Copper" r 30
   goto 61.0,50.2 "Copper, Poor Copper" r 30
   goto 74.6,54.0 "Copper" r 30
   goto 75.9,80.8 "Copper" r 30
@@ -189,12 +189,12 @@ step Copper & Poor Copper: Dun Morogh (50-65) cont.
   goto 72.7,50.8 "Copper" r 30
   goto 70.8,53.7 "Copper" r 30
   goto 67.2,59.4 "Copper" r 30
-  goto 28.9,80.9 "Poor Copper" r 30
+  goto 30.5,79.9 "Poor Copper" r 30
+  goto 28.5,80.8 "Poor Copper" r 30
   goto 20.9,77.7 "Poor Copper" r 30
   goto 20.7,71.3 "Poor Copper" r 30
   goto 26.7,63.1 "Poor Copper" r 30
   goto 22.6,51.9 "Copper" r 30
-  goto 27.1,46.7 "Copper" r 30
   goto 41.2,35.4 "Copper" r 30
   goto 39.2,47.2 "Copper" r 30
   goto 42.1,49.3 "Copper" r 30
@@ -204,14 +204,14 @@ step Chunk of Amber & Large Chunk of Amber: Teldrassil (50-65) cont.
   only NightElf
   zone Teldrassil
   tip Mine every Chunk of Amber (1, yellow), Large Chunk of Amber (1, yellow) node you pass and circle the waypoints until Mining 65. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points.
-  goto 53.4,74.9 "Large Chunk of Amber" r 30
-  goto 71.4,51.6 "Large Chunk of Amber" r 30
-  goto 56.7,27.6 "Chunk of Amber" r 30
-  goto 37.3,23.3 "Large Chunk of Amber" r 30
-  goto 52.7,50.3 "Large Chunk of Amber" r 30
-  goto 46.2,51.7 "Large Chunk of Amber" r 30
+  goto 53.4,74.8 "Large Chunk of Amber" r 30
+  goto 38.0,82.2 "Large Chunk of Amber" r 30
   goto 44.3,59.6 "Large Chunk of Amber" r 30
-  goto 37.8,82.3 "Large Chunk of Amber" r 30
+  goto 46.2,51.7 "Large Chunk of Amber" r 30
+  goto 37.3,23.3 "Large Chunk of Amber" r 30
+  goto 56.8,27.5 "Chunk of Amber" r 30
+  goto 52.7,50.3 "Large Chunk of Amber" r 30
+  goto 70.6,64.0 "Large Chunk of Amber" r 30
   skill Mining 65
 
 step Copper: Zephras Isle (50-65) cont.
@@ -236,7 +236,7 @@ step Copper & Poor Copper: Durotar (50-65) cont.
   only Orc,Troll
   zone Durotar
   tip Mine every Copper (1, yellow), Poor Copper (1, yellow) node you pass and circle the waypoints until Mining 65. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points.
-  goto 44.0,53.6 "Poor Copper, Copper" r 30
+  goto 43.9,53.6 "Poor Copper, Copper" r 30
   goto 45.9,58.0 "Poor Copper" r 30
   goto 42.6,60.7 "Poor Copper" r 30
   goto 45.7,69.8 "Poor Copper" r 30
@@ -264,7 +264,7 @@ step Copper: Mulgore (50-65) cont.
   goto 57.0,40.7 "Copper" r 30
   goto 62.5,40.7 "Copper" r 30
   goto 61.8,52.6 "Copper" r 30
-  goto 55.4,74.9 "Copper" r 30
+  goto 55.3,74.9 "Copper" r 30
   goto 34.0,70.8 "Copper" r 30
   skill Mining 65
 
@@ -272,15 +272,15 @@ step Copper & Poor Copper: Tirisfal Glades (50-65) cont.
   only Undead
   zone Tirisfal Glades
   tip Mine every Copper (1, yellow), Poor Copper (1, yellow) node you pass and circle the waypoints until Mining 65. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points.
-  goto 24.8,59.6 "Poor Copper" r 30
+  goto 24.7,59.6 "Poor Copper" r 30
   goto 29.4,68.9 "Poor Copper" r 30
-  goto 32.4,71.0 "Poor Copper" r 30
-  goto 38.2,65.2 "Poor Copper" r 30
+  goto 32.3,71.2 "Poor Copper" r 30
+  goto 38.3,67.4 "Poor Copper" r 30
   goto 47.3,69.4 "Copper" r 30
+  goto 54.2,44.9 "Copper" r 30
   goto 76.1,31.3 "Copper" r 30
   goto 55.6,31.6 "Copper" r 30
   goto 54.3,39.2 "Copper" r 30
-  goto 54.2,44.9 "Copper" r 30
   goto 49.3,45.9 "Copper" r 30
   goto 36.4,38.5 "Copper" r 30
   goto 33.9,55.0 "Poor Copper, Copper" r 30

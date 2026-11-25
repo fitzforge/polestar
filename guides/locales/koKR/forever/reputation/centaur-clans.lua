@@ -111,7 +111,8 @@ return {
 	["From the quest data: back west to {npc:5397} in {area:606}. She needs Tears of Theradras: {npc:253713}, the Voice of Theradras, keeps them in the cave in the south of the village, past {npc:253140}. Ask her for them on {npc:5397}'s behalf and bring three back. {npc:253140} takes {quest:92812} on the way."] = "퀘스트 데이터 기준: 서쪽 {area:606}의 {npc:5397}에게 돌아가십시오. 그녀는 테라드라스의 눈물이 필요합니다. 테라드라스의 목소리 {npc:253713}이(가) {npc:253140}을(를) 지나 마을 남쪽 동굴에 보관하고 있습니다. {npc:5397}을(를) 대신해 부탁하고 세 개를 가져오십시오. 가는 길에 {npc:253140}이(가) {quest:92812}을(를) 받습니다.",
 	-- {npc:253713} Mulara
 	["{npc:253713}, in the cave"] = "{npc:253713}, 동굴 안",
-	["three Tears of Theradras"] = "테라드라스의 눈물 세 개",
+	-- {npc:253713} Mulara
+	["three Tears of Theradras, in {npc:253713}'s cave"] = "",
 
 	-- Step 15: Gelkis: Test Your Theory
 	-- {quest:93045} Test Your Theory
@@ -316,4 +317,7 @@ return {
 	["The totem recipes"] = "",
 	-- {quest:93224} Carved Centaur Totems · {item:273613} Enchant Bracer - Lesser Agility · {item:250941} Greater Frenzy Potion · {item:250538} Hard Gold Gauntlet · {item:250606} Iron Morningstar · {item:252462} Mystic Thick Armor Kit · {item:253973} Silk Reagent Bag · {item:10011} Stormcloth Gloves · {item:274490} Centaur Hoofwarmers · {item:269900} Centaur Banner Deployment Device · {item:269902} Hoof-Shaped Foot Pedal
 	["Both quartermasters sell the same 12 recipes for {quest:93224}, no standing needed: {item:273613} and - Lesser Healing Power; Greater Spellblasting and {item:250941}; {item:250538} and {item:250606} plans; {item:252462}, {item:253973}, {item:10011} and {item:274490} patterns; the {item:269900} and {item:269902} schematics. Keep the totems you need for them before you hand the rest in."] = "두 병참장교 모두 같은 제조법 12개를 {quest:93224}(으)로 팔며, 평판 조건이 없습니다: {item:273613}와(과) 손목보호구 마법부여 - 하급 치유력, 상급 주문 작렬 물약과 {item:250941}, {item:250538}와(과) {item:250606} 설계도, {item:252462}, {item:253973}, {item:10011}, {item:274490} 도안, {item:269900}와(과) {item:269902} 설계도. 나머지를 제출하기 전에 이 제조법에 필요한 토템은 남겨 두세요.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["three Tears of Theradras"] = "테라드라스의 눈물 세 개",
 }

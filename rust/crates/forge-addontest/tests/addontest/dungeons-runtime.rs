@@ -709,6 +709,51 @@ emit(nav)"#);
 	assert_eq!(out, json!([["Excavation Site: Wetlands", 140], ["Wailing Caverns", false]]));
 }
 
+// #3348: Blackrock Mountain has a door on each side, open to both factions, and the arrow sent everyone to the Searing
+// Gorge one: a player in Burning Steppes walked through the mountain, out of that door and back in. An entrance's other
+// doors (the curated table's `doors`, forge-data instances.rs) ride into the journal, and Dungeons.Entrance, Get and
+// GuideTo take the door nearest the player on their continent; off the continent, the main door.
+#[test]
+fn the_arrow_takes_the_entrance_door_nearer_the_player_3348() {
+	let mut c = codex();
+	c["instances"]["deadmines"]["entrance"] = json!({ "map": 1436, "x": 42.5, "y": 71.7, "f": null, "doors": [{ "map": 1436, "x": 60, "y": 20 }] });
+	let j = journal_json(&inputs(), &c);
+	assert_eq!(j["dungeons"]["deadmines"]["entrance"]["doors"], json!([{ "map": 1436, "x": 60, "y": 20 }]));
+	assert!(j["dungeons"]["wailing-caverns"]["entrance"].get("doors").is_none(), "none without one");
+	let text = emit_journal(&journal(&inputs(), &c));
+	let pack = write_codex_pack(&c, &CodexOpts { extra_files: vec![("Dungeons1.lua".into(), text)], ..Default::default() });
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: pack.stub_lua.clone(),
+		addons: vec![Addon::files("Polestar", &FILES)],
+		script: r#"stub.login()
+local D, w = Polestar.Dungeons, stub.world
+w.addMap(1436, { name = "Westfall", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
+w.addMap(1413, { name = "The Barrens", c = 1, left = 1500, right = -1500, top = 500, bottom = -1500 })
+D.Load()
+local nav = {}
+Polestar.Nav = {
+	SetTarget = function(map, x, y, label) nav[#nav + 1] = { map, x, y } return true end,
+	StartTrip = function() end,
+}
+local function at(map, x, y) w.moveTo(map, x, y) return { D.Entrance("deadmines") } end
+local near = at(1436, 58, 22)
+local get = D.Get("deadmines").entrance
+D.GuideTo("deadmines")
+local main = at(1436, 44, 70)
+local away = at(1413, 60, 20)
+emit({ near = near, get = { get.map, get.x, get.y }, main = main, away = away, nav = nav })"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["near"], json!([1436, 60, 20]), "beside the other door: that door");
+	assert_eq!(out["get"], json!([1436, 60, 20]), "the page's entrance too");
+	assert_eq!(out["nav"], json!([[1436, 60, 20]]), "and the arrow");
+	assert_eq!(out["main"], json!([1436, 42.5, 71.7]), "beside the main door: the main door");
+	assert_eq!(out["away"], json!([1436, 42.5, 71.7]), "on another continent: the main door");
+}
+
 #[test]
 fn runtime_only_the_open_page_is_decoded_timing_in_the_harness() {
 	let out = run(r#"

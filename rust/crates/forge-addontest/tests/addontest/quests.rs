@@ -330,7 +330,7 @@ emit({ sq.pins.layers["quests.objectives"] == nil, sq.pins.layers["quests.turnin
 	let ready = &out[3];
 	assert_eq!(ready[0], json!({}), "no objective markers once complete");
 	assert_eq!(ready[1], json!(["Marshal McBride@48.9,41.6:map:quest-turnin"]));
-	assert_eq!(ready[2], json!({ "world": true, "minimap": true, "edge": false, "scale": 1 }));
+	assert_eq!(ready[2], json!({ "world": true, "minimap": true, "edge": false, "scale": 1, "summary": "Hand-ins" }));
 	assert_eq!(out[4], json!([true, true]));
 }
 
@@ -1213,8 +1213,8 @@ emit({ sq.pins.layers["quests.available"] == nil, #Q.GetAvailableQuests() })
 "#,
 		"w.complete({ 783 })",
 	);
-	let opts = json!({ "world": true, "minimap": false, "edge": false, "scale": 1 });
-	let objectives = json!({ "world": true, "minimap": false, "edge": false, "scale": 1, "minimapAreas": true });
+	let opts = json!({ "world": true, "minimap": false, "edge": false, "scale": 1, "summary": "Available quests" });
+	let objectives = json!({ "world": true, "minimap": false, "edge": false, "scale": 1, "minimapAreas": true, "summary": "Objectives" });
 	assert_eq!(out[0], json!([objectives, opts]), "objective areas would follow the layer onto the minimap");
 	assert_eq!(out[1], true);
 	assert_eq!(out[2], json!([true, 0]));

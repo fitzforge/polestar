@@ -229,7 +229,7 @@
 		"moves.json": 13516,
 		"training.json": 91048,
 		"mechanics.json": 2587,
-		"trainers.json": 4156
+		"trainers.json": 4186
 	},
 	"warnings": [
 		"pfQuest: <data>/pfQuest is not a git checkout; revision unknown",

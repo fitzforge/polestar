@@ -6,11 +6,13 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (traditional) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:392} Ratchet · {zone:1454} Orgrimmar · {zone:1458} Undercity
+	["{area:392}, {zone:1454} and the {zone:1458}, then into the Plaguelands."] = "{area:392}、{zone:1454}和{zone:1458}，然後前往瘟疫之地。",
+
 	-- Step 1: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "飛往{area:392}",
-	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "{zone:1456}飛行管理員",
 
 	-- Step 2: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
@@ -100,7 +102,7 @@ return {
 
 	-- Step 23: Royal Quarter
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
-	-- plural, as words: Library Books = {object:386691} Library Book
+	-- plural, as words: Library Books = {object:386759} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "僅在揹包中帶有從{area:159}鍊金店取得的書籍《{quest:79095}》時進行，詳見《圖書館藏書》指南",
 
 	-- Step 25: The Bulwark
@@ -168,4 +170,5 @@ return {
 	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050}要交回給{area:28}的{npc:10778}：保留此任務。",
 	-- ["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}：交給{area:1237}的{npc:8587}",
 	-- ["{zone:1454} flight master"] = "{zone:1454}的飛行管理員",
+	-- ["{zone:1456} flight master"] = "{zone:1456}飛行管理員",
 }

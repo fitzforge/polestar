@@ -6,11 +6,13 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (simplified) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1425} The Hinterlands · {area:75} Stonard · {zone:1419} Blasted Lands
+	["{zone:1425} first, then {area:75} and the {zone:1419}."] = "先去{zone:1425}，再去{area:75}和{zone:1419}。",
+
 	-- Step 1: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "飞往{area:272}",
-	-- {area:1446} Thorium Point
-	["{area:1446} flight master"] = "{area:1446}的飞行管理员",
 
 	-- Step 2: The Hinterlands
 	-- {npc:7801} Gilveradin Sunchaser
@@ -216,6 +218,7 @@ return {
 	-- ["Vulture hills"] = "秃鹫山丘",
 	-- ["West of the island, the Vilebranch scalpers hold the temples of {area:1884} and {area:1917}. Slagtree's tools lie at one of the temples."] = "在小岛西边，邪枝割颅者占据着{area:1884}和{area:1917}的神殿。斯拉提的工具在其中一座神殿里。",
 	-- ["grind on {npc:5982} at the northern hills, {zone:1419}"] = "在{zone:1419}北部山丘刷{npc:5982}",
+	-- ["{area:1446} flight master"] = "{area:1446}的飞行管理员",
 	-- ["{npc:2926} on the way"] = "顺路击杀{npc:2926}",
 	-- ["{npc:6741}: for {zone:1456}, around level 50"] = "{npc:6741}：交给{zone:1456}，大约50级时",
 	-- ["{npc:7825}, the {object:36126}"] = "{npc:7825}，在{object:36126}",

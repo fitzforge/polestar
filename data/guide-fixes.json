@@ -2480,6 +2480,29 @@
 			"issue": 1575
 		},
 		{
+			"id": "043-barrens-centaur-bracers-kolkar-camp",
+			"faction": "Horde",
+			"at": { "quest": 855, "goal": "objective", "objective": 1 },
+			"tip": "Careful: the Kolkar stand in packs around their camp west of the pools, and the Stormers cast from range: pull them one at a time from the edge. When anyone starts Regthar's Counterattack!, Kolkar Invaders (16-17) and Warlord Krom'zar (20, elite) charge his watch post: keep away from it until the attack is over.",
+			"note": "Centaur Bracers is the Horde 12-30 band's top death spot for players following the guide: the Kolkar (Wranglers 12-13, Stormers 13-14, Marauders 15-16) are at or under the route's level, but they stand in packs, and Counterattack! (4021) sends Kolkar Invaders (16-17) and Warlord Krom'zar (20, elite) at Regthar's post whenever anyone starts it. The deaths cluster at 43-46,23-28, the Kolkar camp west of the pools and around Regthar. A Careful line on the step (0.4.3 route round).",
+			"source": [
+				{ "kind": "recording", "ref": "players' recordings to 2026-11-19: 21 people following the guide died 40 times on Centaur Bracers (median level 16.5), 4 of them on 0.4.x" },
+				{ "kind": "pfquest", "ref": "npcs.json 3272 Kolkar Wrangler 12-13, 3273 Kolkar Stormer 13-14, 3275 Kolkar Marauder 15-16, 9524 Kolkar Invader 16-17, 9456 Warlord Krom'zar 20 elite" }
+			],
+			"pr": 3145
+		},
+		{
+			"id": "043-barrens-840-only-while-carried",
+			"faction": "Horde",
+			"at": { "quest": 840, "goal": "turnin", "guide": "forever/horde/02-the-barrens" },
+			"when": "onquest 840",
+			"note": "Conscript of the Horde (840) is handed to Kargal Battlescar on the Barrens guide's Far Watch Post stop only by characters still carrying it: Warriors and Shamans hand it in at the end of their Durotar guide (h01-840-far-watch-warriors-orc/troll), and the playtest read the hand-in as never accepted for them. Its own step comes first; Crossroads Conscription (842) and the rest of the stop follow for everyone.",
+			"source": [
+				{ "kind": "client", "ref": "quests.json 842 Crossroads Conscription: pre 840; the Durotar guides' Far Watch Post steps (when onquest 840) hand 840 in for Warriors and Shamans" }
+			],
+			"pr": 3145
+		},
+		{
 			"id": "2025-barrens-barrow-dens-terrans",
 			"faction": "Horde",
 			"at": {
@@ -5765,14 +5788,14 @@
 				"mention": "Sunscale raptors here count toward the heads.",
 				"finish": {
 					"title": "Finish the Raptor Heads",
-					"tip": "Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from Echeyakee's lair.",
+					"tip": "Still short of twelve? Sunscale Screechers are thickest on the open plains just north of Echeyakee's lair: finish there, then head back south-west to the Crossroads, keeping west of the Razormane camp.",
 					"map": 1413,
-					"x": 55.0,
-					"y": 23.5
+					"x": 56.5,
+					"y": 13.5
 				}
 			},
 			"faction": "Horde",
-			"note": "Raptor Thieves: the heads drop often (about three Sunscale raptors in four), but the raptors are sparse and contested where the route goes: players' recordings show a median 77 s between raptor kills while on the quest, 447 s at p90, and a median 76 minutes from the accept to the twelfth head (up to 697), so it is worked over the stay instead of in a step of its own (Fitz on #1135). Per kill: Screecher 314 heads from 425 kills, Lashtail 73 from 99, Scytheclaw 29 from 82 (level 16-18, in the south). The finish point is the best raptor ground by kills a minute while on the quest (1.0 to 1.3 a minute around 55-57,13-17), which the route already crosses at Samophlange and Echeyakee.",
+			"note": "Raptor Thieves: the heads drop often (about three Sunscale raptors in four), but the raptors are sparse and contested where the route goes: players' recordings show a median 77 s between raptor kills while on the quest, 447 s at p90, and a median 76 minutes from the accept to the twelfth head (up to 697), so it is worked over the stay instead of in a step of its own (Fitz on #1135). Per kill: Screecher 314 heads from 425 kills, Lashtail 73 from 99, Scytheclaw 29 from 82 (level 16-18, in the south). The finish point is the best raptor ground by kills a minute while on the quest (1.0 to 1.3 a minute around 55-57,13-17), which the route already crosses at Samophlange and Echeyakee. 0.4.3: the point was 55.0,23.5, 0.7 map units from the Razormane camp's level 18-19 elite Flesheaters and Berserkers (62 spawns over 54.8-60.0,21.1-27.4) with one Lashtail beside it; it moves to 56.5,13.5, just north of Echeyakee's lair, where 21 Screecher spawns lie within 3 units and the nearest elite is 7.9 units south.",
 			"source": [
 				{
 					"kind": "recording",
@@ -17059,6 +17082,1301 @@
 			"note": "#3279: the Un'Goro guide hands Lines of Communication in, but its three Highvale objectives are in the Hinterlands guide (forever/horde/40-50/05-the-hinterlands, step Highvale), which a player who ran the earlier guides has already left. The hand-in alone left beardedoak with an arrow to the Undercity for a quest he could not finish. The next route update brings an unfinished quest's objectives back before its hand-in only when they are close to the route; the Hinterlands are too far from Un'Goro, so the hand-in says where the work is.",
 			"source": { "kind": "in-game-check", "ref": "#3279: beardedoak's report; fitzforge's confirmation naming the Highvale step and its three interact goals" },
 			"issue": 3279
+		},
+		{
+			"id": "3123-blackrock-walk-only-without-flame-crest",
+			"faction": "Horde",
+			"at": { "quest": 4296, "goal": "accept", "guide": "forever/horde/50-60/01-un-goro-crater" },
+			"way": { "when": "!taxi \"Flame Crest\"" },
+			"note": "#3123: the walk into Blackrock Mountain from the Searing Gorge (step Into Blackrock Mountain) is the way to Flame Crest and its flight path on foot. Zack already knew Flame Crest's flight path and was walked through the mountain all the same. It is for a character without that flight path only; one who has it goes on to Flame Crest the way the travel planner finds. Overmaster Pyron and Blackrock Depths keep their own conditions.",
+			"source": { "kind": "in-game-check", "ref": "#3123: Zack's report (sent into Blackrock Mountain for a flight path he had), confirmed by fitzforge" },
+			"issue": 3123
+		},
+		{
+			"id": "3365-corrupted-sabers-winna",
+			"faction": "Horde",
+			"at": { "quest": 4506, "goal": "complete" },
+			"goalNote": "Bring the Corrupted Saber to Winna Hazzard at Bloodvenom Post and click on it to hand it over.",
+			"note": "#3365: Corrupted Sabers' one objective is an event, returning the corrupted cat to Winna Hazzard at Bloodvenom Post; the line read only \"Complete Corrupted Sabers\" while the arrow pointed at Winna, 567 yd off, so the reporter could not tell where to go with the saber. The line names her.",
+			"source": { "kind": "in-game-check", "ref": "#3365: the reporter's /polestar report (arrow at Winna Hazzard, 34.2,52.3) and the quest's objective, Return the corrupted cat to Winna Hazzard" },
+			"issue": 3365
+		},
+		{
+			"id": "3354-mithril-casing-gadgetzan-horde",
+			"faction": "Horde",
+			"at": { "quest": 4504, "goal": "accept", "guide": "forever/horde/40-50/06-azshara" },
+			"tip": "Gadgetzan's Auction House is the last one before Un'Goro. There, A-Me 01 (Chasing A-Me 01) asks for a Mithril Casing, an Engineering item, before her escort: buy one here if you want that chain.",
+			"note": "#3354: Chasing A-Me 01's second part (4244) asks for a Mithril Casing (10561), and the guide said so only at A-Me 01 on Un'Goro's Ironstone Plateau, with no auction house near. Gadgetzan's, on this step, is the last the route passes before the crater: the heads-up goes here.",
+			"source": { "kind": "in-game-check", "ref": "#3354 and #3761: the reporters' /polestar reports at A-Me 01; quest 4244's objective, Mithril Casing" },
+			"issue": 3354
+		},
+		{
+			"id": "3354-mithril-casing-gadgetzan-alliance",
+			"faction": "Alliance",
+			"at": { "quest": 4504, "goal": "accept", "guide": "forever/alliance/50-60/03-winterspring" },
+			"tip": "Gadgetzan's Auction House is the last one before Un'Goro. There, A-Me 01 (Chasing A-Me 01) asks for a Mithril Casing, an Engineering item, before her escort: buy one here if you want that chain.",
+			"note": "#3354 (#3761, Alliance): Chasing A-Me 01's second part (4244) asks for a Mithril Casing (10561); nothing said so before the flight to Marshal's Refuge. Gadgetzan's Auction House, on this step, is the last the route passes before the crater.",
+			"source": { "kind": "in-game-check", "ref": "#3761: Soggy's /polestar report in Winterspring with Chasing A-Me 01 unfinished; quest 4244's objective, Mithril Casing" },
+			"issue": 3354
+		},
+		{
+			"id": "2749-camping-97921-knows",
+			"at": {
+				"quest": 97921,
+				"goal": "accept"
+			},
+			"when": "!knows 1229705",
+			"note": "#2749: Camping 101: Herbalism is not offered once its camp item (1229705) is known (a trainer teaches it from Herbalism 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1229705, learned at Herbalism 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Herbalism"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97921-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97921,
+				"goal": "turnin"
+			},
+			"when": "complete 97921",
+			"note": "#2749: Camping 101: Herbalism asks for Herbalism at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97921-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97921,
+				"goal": "accept"
+			},
+			"tip": "Herbalist Pomeroy takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97915-knows",
+			"at": {
+				"quest": 97915,
+				"goal": "accept"
+			},
+			"when": "!knows 1230564",
+			"note": "#2749: Camping 101: Alchemy is not offered once its camp item (1230564) is known (a trainer teaches it from Alchemy 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230564, learned at Alchemy 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Alchemy"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97915-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97915,
+				"goal": "turnin"
+			},
+			"when": "complete 97915",
+			"note": "#2749: Camping 101: Alchemy asks for Alchemy at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97915-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97915,
+				"goal": "accept"
+			},
+			"tip": "Alchemist Mallory takes it once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97925-knows",
+			"at": {
+				"quest": 97925,
+				"goal": "accept"
+			},
+			"when": "!knows 1263425",
+			"note": "#2749: Camping 101: Tailoring is not offered once its camp item (1263425) is known (a trainer teaches it from Tailoring 20); the step waits only while it is not.",
+			"source": {
+				"kind": "client",
+				"ref": "SpellEffect (1.60.1.70888): the quest's reward spell 1255249 teaches spell 1263425, the Alliance's camp item"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97925-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97925,
+				"goal": "turnin"
+			},
+			"when": "complete 97925",
+			"note": "#2749: Camping 101: Tailoring asks for Tailoring at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97925-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97925,
+				"goal": "accept"
+			},
+			"tip": "Eldrin takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97923-knows",
+			"at": {
+				"quest": 97923,
+				"goal": "accept"
+			},
+			"when": "!knows 1230161",
+			"note": "#2749: Camping 101: Mining is not offered once its camp item (1230161) is known (a trainer teaches it from Mining 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230161, learned at Mining 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Mining"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97923-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97923,
+				"goal": "turnin"
+			},
+			"when": "complete 97923",
+			"note": "#2749: Camping 101: Mining asks for Mining at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97923-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97923,
+				"goal": "accept"
+			},
+			"tip": "Gelman Stonehand takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97918-knows",
+			"at": {
+				"quest": 97918,
+				"goal": "accept"
+			},
+			"when": "!knows 1230656",
+			"note": "#2749: Camping 101: Engineering is not offered once its camp item (1230656) is known (a trainer teaches it from Engineering 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230656, learned at Engineering 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Engineering"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97918-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97918,
+				"goal": "turnin"
+			},
+			"when": "complete 97918",
+			"note": "#2749: Camping 101: Engineering asks for Engineering at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97918-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97918,
+				"goal": "accept"
+			},
+			"tip": "Sprite Jumpsprocket takes it once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97917-knows",
+			"at": {
+				"quest": 97917,
+				"goal": "accept"
+			},
+			"when": "!knows 1230643",
+			"note": "#2749: Camping 101: Enchanting is not offered once its camp item (1230643) is known (a trainer teaches it from Enchanting 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230643, learned at Enchanting 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Enchanting"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97917-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97917,
+				"goal": "turnin"
+			},
+			"when": "complete 97917",
+			"note": "#2749: Camping 101: Enchanting asks for Enchanting at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97917-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97917,
+				"goal": "accept"
+			},
+			"tip": "Betty Quin takes it once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96055-knows",
+			"at": {
+				"quest": 96055,
+				"goal": "accept"
+			},
+			"when": "!knows 1229705",
+			"note": "#2749: Camping 101: Herbalism is not offered once its camp item (1229705) is known (a trainer teaches it from Herbalism 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1229705, learned at Herbalism 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Herbalism"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96055-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96055,
+				"goal": "turnin"
+			},
+			"when": "complete 96055",
+			"note": "#2749: Camping 101: Herbalism asks for Herbalism at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96055-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96055,
+				"goal": "accept"
+			},
+			"tip": "Reyna Stonebranch takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96056-knows",
+			"at": {
+				"quest": 96056,
+				"goal": "accept"
+			},
+			"when": "!knows 1229517",
+			"note": "#2749: Camping 101: Skinning is not offered once its camp item (1229517) is known (a trainer teaches it from Skinning 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1229517, learned at Skinning 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Skinning"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96056-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96056,
+				"goal": "turnin"
+			},
+			"when": "complete 96056",
+			"note": "#2749: Camping 101: Skinning asks for Skinning at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96056-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96056,
+				"goal": "accept"
+			},
+			"tip": "Balthus Stoneflayer takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96031-knows",
+			"at": {
+				"quest": 96031,
+				"goal": "accept"
+			},
+			"when": "!knows 1229432",
+			"note": "#2749: Camping 101: Leatherworking is not offered once its camp item (1229432) is known (a trainer teaches it from Leatherworking 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1229432, learned at Leatherworking 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Leatherworking"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96031-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96031,
+				"goal": "turnin"
+			},
+			"when": "complete 96031",
+			"note": "#2749: Camping 101: Leatherworking asks for Leatherworking at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96031-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96031,
+				"goal": "accept"
+			},
+			"tip": "Gretta Finespindle takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96057-knows",
+			"at": {
+				"quest": 96057,
+				"goal": "accept"
+			},
+			"when": "!knows 1263425",
+			"note": "#2749: Camping 101: Tailoring is not offered once its camp item (1263425) is known (a trainer teaches it from Tailoring 20); the step waits only while it is not.",
+			"source": {
+				"kind": "client",
+				"ref": "SpellEffect (1.60.1.70888): the quest's reward spell 1255249 teaches spell 1263425, the Alliance's camp item"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96057-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96057,
+				"goal": "turnin"
+			},
+			"when": "complete 96057",
+			"note": "#2749: Camping 101: Tailoring asks for Tailoring at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96057-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96057,
+				"goal": "accept"
+			},
+			"tip": "Uthrar Threx takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96050-knows",
+			"at": {
+				"quest": 96050,
+				"goal": "accept"
+			},
+			"when": "!knows 1229745",
+			"note": "#2749: Camping 101: Fishing is not offered once its camp item (1229745) is known (a trainer teaches it from Fishing 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1229745, learned at Fishing 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Fishing"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96050-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96050,
+				"goal": "turnin"
+			},
+			"when": "complete 96050",
+			"note": "#2749: Camping 101: Fishing asks for Fishing at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96050-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96050,
+				"goal": "accept"
+			},
+			"tip": "Paxton Ganter takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96045-knows",
+			"at": {
+				"quest": 96045,
+				"goal": "accept"
+			},
+			"when": "!knows 1230564",
+			"note": "#2749: Camping 101: Alchemy is not offered once its camp item (1230564) is known (a trainer teaches it from Alchemy 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230564, learned at Alchemy 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Alchemy"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96045-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96045,
+				"goal": "turnin"
+			},
+			"when": "complete 96045",
+			"note": "#2749: Camping 101: Alchemy asks for Alchemy at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96045-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96045,
+				"goal": "accept"
+			},
+			"tip": "Vosur Brakthel gives it and takes it back once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96059-knows",
+			"at": {
+				"quest": 96059,
+				"goal": "accept"
+			},
+			"when": "!knows 1230643",
+			"note": "#2749: Camping 101: Enchanting is not offered once its camp item (1230643) is known (a trainer teaches it from Enchanting 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230643, learned at Enchanting 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Enchanting"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96059-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96059,
+				"goal": "turnin"
+			},
+			"when": "complete 96059",
+			"note": "#2749: Camping 101: Enchanting asks for Enchanting at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-96059-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96059,
+				"goal": "accept"
+			},
+			"tip": "Thonys Pillarstone gives it and takes it back once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97943-knows",
+			"at": {
+				"quest": 97943,
+				"goal": "accept"
+			},
+			"when": "!knows 1229745",
+			"note": "#2749: Camping 101: Fishing is not offered once its camp item (1229745) is known (a trainer teaches it from Fishing 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1229745, learned at Fishing 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Fishing"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97943-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97943,
+				"goal": "turnin"
+			},
+			"when": "complete 97943",
+			"note": "#2749: Camping 101: Fishing asks for Fishing at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97943-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97943,
+				"goal": "accept"
+			},
+			"tip": "Astaia takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97950-knows",
+			"at": {
+				"quest": 97950,
+				"goal": "accept"
+			},
+			"when": "!knows 1263425",
+			"note": "#2749: Camping 101: Tailoring is not offered once its camp item (1263425) is known (a trainer teaches it from Tailoring 20); the step waits only while it is not.",
+			"source": {
+				"kind": "client",
+				"ref": "SpellEffect (1.60.1.70888): the quest's reward spell 1255249 teaches spell 1263425, the Alliance's camp item"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97950-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97950,
+				"goal": "turnin"
+			},
+			"when": "complete 97950",
+			"note": "#2749: Camping 101: Tailoring asks for Tailoring at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97950-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97950,
+				"goal": "accept"
+			},
+			"tip": "Trianna takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97940-knows",
+			"at": {
+				"quest": 97940,
+				"goal": "accept"
+			},
+			"when": "!knows 1230643",
+			"note": "#2749: Camping 101: Enchanting is not offered once its camp item (1230643) is known (a trainer teaches it from Enchanting 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230643, learned at Enchanting 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Enchanting"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97940-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97940,
+				"goal": "turnin"
+			},
+			"when": "complete 97940",
+			"note": "#2749: Camping 101: Enchanting asks for Enchanting at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97940-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97940,
+				"goal": "accept"
+			},
+			"tip": "Alanna Raveneye takes it once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97939-knows",
+			"at": {
+				"quest": 97939,
+				"goal": "accept"
+			},
+			"when": "!knows 1230171",
+			"note": "#2749: Camping 101: Blacksmithing is not offered once its camp item (1230171) is known (a trainer teaches it from Blacksmithing 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230171, learned at Blacksmithing 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Blacksmithing"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97939-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97939,
+				"goal": "turnin"
+			},
+			"when": "complete 97939",
+			"note": "#2749: Camping 101: Blacksmithing asks for Blacksmithing at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97939-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97939,
+				"goal": "accept"
+			},
+			"tip": "Elisa Steelhand takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97948-knows",
+			"at": {
+				"quest": 97948,
+				"goal": "accept"
+			},
+			"when": "!knows 1230161",
+			"note": "#2749: Camping 101: Mining is not offered once its camp item (1230161) is known (a trainer teaches it from Mining 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230161, learned at Mining 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Mining"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97948-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97948,
+				"goal": "turnin"
+			},
+			"when": "complete 97948",
+			"note": "#2749: Camping 101: Mining asks for Mining at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97948-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97948,
+				"goal": "accept"
+			},
+			"tip": "Kurdram Stonehammer takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97941-knows",
+			"at": {
+				"quest": 97941,
+				"goal": "accept"
+			},
+			"when": "!knows 1230656",
+			"note": "#2749: Camping 101: Engineering is not offered once its camp item (1230656) is known (a trainer teaches it from Engineering 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230656, learned at Engineering 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Engineering"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97941-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97941,
+				"goal": "turnin"
+			},
+			"when": "complete 97941",
+			"note": "#2749: Camping 101: Engineering asks for Engineering at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97941-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97941,
+				"goal": "accept"
+			},
+			"tip": "Jenna Lemkenilli takes it once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97968-knows",
+			"at": {
+				"quest": 97968,
+				"goal": "accept"
+			},
+			"when": "!knows 1229705",
+			"note": "#2749: Camping 101: Herbalism is not offered once its camp item (1229705) is known (a trainer teaches it from Herbalism 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1229705, learned at Herbalism 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Herbalism"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97968-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97968,
+				"goal": "turnin"
+			},
+			"when": "complete 97968",
+			"note": "#2749: Camping 101: Herbalism asks for Herbalism at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97968-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97968,
+				"goal": "accept"
+			},
+			"tip": "Halassa Fernbreeze takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97968-turnin-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97968,
+				"goal": "turnin"
+			},
+			"when": "complete 97968",
+			"note": "#2749: Camping 101: Herbalism asks for Herbalism at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97968-tip-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97968,
+				"goal": "accept"
+			},
+			"tip": "Halassa Fernbreeze takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-98285-knows",
+			"at": {
+				"quest": 98285,
+				"goal": "accept"
+			},
+			"when": "!knows 1230656",
+			"note": "#2749: Camping 101: Engineering is not offered once its camp item (1230656) is known (a trainer teaches it from Engineering 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230656, learned at Engineering 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Engineering"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-98285-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98285,
+				"goal": "turnin"
+			},
+			"when": "complete 98285",
+			"note": "#2749: Camping 101: Engineering asks for Engineering at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-98285-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98285,
+				"goal": "accept"
+			},
+			"tip": "The Strange Hermit has a Camping 101 for engineers too, and takes it back once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-98285-turnin-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 98285,
+				"goal": "turnin"
+			},
+			"when": "complete 98285",
+			"note": "#2749: Camping 101: Engineering asks for Engineering at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-98285-tip-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 98285,
+				"goal": "accept"
+			},
+			"tip": "The Strange Hermit has a Camping 101 for engineers too, and takes it back once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97972-knows",
+			"at": {
+				"quest": 97972,
+				"goal": "accept"
+			},
+			"when": "!knows 1229504",
+			"note": "#2749: Camping 101: Tailoring is not offered once its camp item (1229504) is known (a trainer teaches it from Tailoring 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1229504, learned at Tailoring 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Tailoring"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97972-turnin-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97972,
+				"goal": "turnin"
+			},
+			"when": "complete 97972",
+			"note": "#2749: Camping 101: Tailoring asks for Tailoring at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97972-tip-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97972,
+				"goal": "accept"
+			},
+			"tip": "Taleen Shimmerthread takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-98284-knows",
+			"at": {
+				"quest": 98284,
+				"goal": "accept"
+			},
+			"when": "!knows 1230643",
+			"note": "#2749: Camping 101: Enchanting is not offered once its camp item (1230643) is known (a trainer teaches it from Enchanting 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230643, learned at Enchanting 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Enchanting"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-98284-turnin-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 98284,
+				"goal": "turnin"
+			},
+			"when": "complete 98284",
+			"note": "#2749: Camping 101: Enchanting asks for Enchanting at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-98284-tip-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 98284,
+				"goal": "accept"
+			},
+			"tip": "Nasalanna Windsinger takes it once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97900-knows",
+			"at": {
+				"quest": 97900,
+				"goal": "accept"
+			},
+			"when": "!knows 1230171",
+			"note": "#2749: Camping 101: Blacksmithing is not offered once its camp item (1230171) is known (a trainer teaches it from Blacksmithing 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230171, learned at Blacksmithing 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Blacksmithing"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97900-turnin-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97900,
+				"goal": "turnin"
+			},
+			"when": "complete 97900",
+			"note": "#2749: Camping 101: Blacksmithing asks for Blacksmithing at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97900-tip-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97900,
+				"goal": "accept"
+			},
+			"tip": "Dwukk takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97904-knows",
+			"at": {
+				"quest": 97904,
+				"goal": "accept"
+			},
+			"when": "!knows 1229745",
+			"note": "#2749: Camping 101: Fishing is not offered once its camp item (1229745) is known (a trainer teaches it from Fishing 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1229745, learned at Fishing 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Fishing"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97904-turnin-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97904,
+				"goal": "turnin"
+			},
+			"when": "complete 97904",
+			"note": "#2749: Camping 101: Fishing asks for Fishing at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97904-tip-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97904,
+				"goal": "accept"
+			},
+			"tip": "Lau'Tiki takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97930-knows",
+			"at": {
+				"quest": 97930,
+				"goal": "accept"
+			},
+			"when": "!knows 1230656",
+			"note": "#2749: Camping 101: Engineering is not offered once its camp item (1230656) is known (a trainer teaches it from Engineering 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1230656, learned at Engineering 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Engineering"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97930-turnin-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97930,
+				"goal": "turnin"
+			},
+			"when": "complete 97930",
+			"note": "#2749: Camping 101: Engineering asks for Engineering at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97930-tip-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97930,
+				"goal": "accept"
+			},
+			"tip": "Twizwick Sprocketgrind takes it once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97956-knows",
+			"at": {
+				"quest": 97956,
+				"goal": "accept"
+			},
+			"when": "!knows 1229745",
+			"note": "#2749: Camping 101: Fishing is not offered once its camp item (1229745) is known (a trainer teaches it from Fishing 20); the step waits only while it is not.",
+			"source": {
+				"kind": "tdb",
+				"ref": "trainer recipe 1229745, learned at Fishing 20 (data/forever professions.json); the same camp item as the start zones' other Camping 101: Fishing"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97956-turnin-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97956,
+				"goal": "turnin"
+			},
+			"when": "complete 97956",
+			"note": "#2749: Camping 101: Fishing asks for Fishing at 20 before its trainer takes it; the hand-in step shows only once the quest is complete.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "2749-camping-97956-tip-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97956,
+				"goal": "accept"
+			},
+			"tip": "Clyde Kellen takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#2749: says up front that the hand-in waits for the skill at 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 2749
+		},
+		{
+			"id": "races-94373-call-of-earth-dwarf",
+			"faction": "Alliance",
+			"at": { "quest": 94373, "goal": "quest", "guide": "forever/alliance/gnome/01-dun-morogh" },
+			"races": "Dwarf",
+			"note": "Call of Earth (94373, then 94374 and 94375) is the Dwarf shaman's first totem chain: no Gnome shaman among the 173 shamans in players' recordings (71 of them Dwarves, 20 of whom took it), and QuestieDB 1.1.5 limits 94373 to Dwarves. The shared Dun Morogh route gave the Gnome guide its `only Shaman` accept, pendants and Call of Earth step, which no Gnome character can reach: they leave the Gnome guide (an `only` line no character reaches, not a route change). The Dwarf guide keeps the chain.",
+			"source": [
+				{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): 173 shaman players (Dwarf 71, Orc 29, Troll 11, Tauren 35, Horde Skyborne 27), no Gnome; 94373 taken by 20 Dwarf shamans" },
+				{ "kind": "questie", "ref": "QuestieDB 1.1.5: quest 94373 requiredRaces 4 (Dwarf; 1.1.2: the Alliance races)" }
+			]
 		}
 	]
 }

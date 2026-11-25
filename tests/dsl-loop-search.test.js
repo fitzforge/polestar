@@ -74,3 +74,24 @@ test("the format reference's loop examples compile", () => {
 	assert.deepEqual(willem.errors, [], willem.text);
 	assert.equal(goalsOf(willem)[0].spots.length, 3);
 });
+
+// #1616 kept (Alliance Desolace, Kolkar Village): a loop collect's target button names the droppers at the
+// author's points, not the map's best droppers elsewhere. The Gelkis drop the token at 40% and 38% far from
+// the loop; the Kolkar Raider and Scout (30%, 25%) stand at its first point, the Kolkar Mauler (10%, under
+// half the map's best) alone at its second. Each point names its own; the Mauler's camp still has its target.
+const CAMP_ITEM = 95940;
+const CAMP = [[95941, 'Gelkis Raider', 40, 60, 60], [95942, 'Gelkis Scout', 38, 61, 60], [95943, 'Kolkar Raider', 30, 30, 30], [95944, 'Kolkar Scout', 25, 30.3, 30.2], [95945, 'Kolkar Mauler', 10, 40, 30]];
+
+test('a loop collect names the droppers at each of its points, a point none of the likely ones stands at its own (#1616)', () => {
+	const { fixtureData } = require('./helpers/dsl');
+	const base = fixtureData();
+	const npcs = { ...base.npcs };
+	for (const [id, name, , x, y] of CAMP) npcs[id] = { id, name, level: 5, faction: null, spawns: { 1429: { f: 'e', pts: [[x, y], [x + 0.1, y]] } } };
+	const items = { ...base.items, [CAMP_ITEM]: { id: CAMP_ITEM, name: 'Camp Token', vendors: [], drops: { npc: Object.fromEntries(CAMP.map(([id, , chance]) => [id, chance])), object: {} } } };
+	const data = new Data({ quests: base.quests, npcs, objects: base.objects, items, zones: base.zones, 'map-frames': base.mapFrames, meta: base.meta }, { dir: base.dir });
+	const r = compile(guideText(['step Kolkar Village', '  loop', '  goto 30,30 r 60', '  goto 40,30 r 60', `  collect ${CAMP_ITEM} x5`]), data);
+	assert.deepEqual(r.errors, [], r.text);
+	const [goal] = goalsOf(r);
+	assert.deepEqual(goal.fromNpcs.map((n) => n.npcName), ['Kolkar Raider', 'Kolkar Scout', 'Kolkar Mauler']);
+	assert.equal(goal.fromNpcsAt, '1,2;3');
+});

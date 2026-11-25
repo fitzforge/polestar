@@ -7,15 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {area:327} Faldir's Cove
-	-- was: ["For characters of 35 to 37. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "Pour les personnages de niveau 35 à 37. {area:327}, où les nagas et les élémentaires d'eau du professeur sont de niveau 38-40, se fait en Groupe : passez-la si vous êtes seul."
-	["For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "",
+	-- {zone:1435} Swamp of Sorrows · {area:271} Southshore · {area:327} Faldir's Cove
+	["{zone:1435} first, then north to {area:271}, Alterac and Arathi. For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "D'abord {zone:1435}, puis au nord jusqu'à {area:271}, Alterac et Arathi. Pour les personnages de niveau 36 à 38. {area:327}, où les nagas et les élémentaires d'eau du professeur sont de niveau 38-40, est une étape de groupe : passez-la si vous êtes seul.",
 
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Prenez un vol pour {area:42}",
-	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "Maître de vol de {area:35}",
 
 	-- Step 2: The Scythe of Elune
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {zone:1430} Deadwind Pass · {npc:661} Jonathan Carevin
@@ -425,6 +422,7 @@ return {
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {npc:2417} est un élite de niveau 40 : la plupart des classes le battent seules au niveau 42, mais vous aurez peut-être besoin d'aide. Passez-le si vous êtes seul : l'itinéraire vous fait regagner l'expérience en tuant des monstres.",
 	-- ["Walk back onto the span: Ebenezer lies under its Arathi end."] = "Revenez sur le pont : Ebenezer gît sous son extrémité côté Arathi.",
 	-- ["West along the road to {area:320}, on the way to the {object:2689}."] = "À l'ouest par la route jusqu'au {area:320}, sur le chemin de {object:2689}.",
+	-- ["{area:35} flight master"] = "Maître de vol de {area:35}",
 	-- ["{item:2321} for {npc:2438}'s cloak, from {npc:2381}, if you have none"] = "{item:2321} pour la cape de {npc:2438}, chez {npc:2381}, si vous n'en avez pas",
 	-- ["{item:3659}: the {object:1760}"] = "{item:3659} : {object:1760}",
 	-- ["{item:4435} along the way to {object:2701}"] = "{item:4435} sur le chemin de {object:2701}",

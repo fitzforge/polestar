@@ -30,9 +30,7 @@ next forever/horde/40-50/01b-riverglades
 
 step Fly to the Undercity
   only Warrior,Paladin,Rogue,Priest,Mage,Warlock
-  zone Badlands
   tip Your level 40 training is in the Undercity: fly there from Kargath, train, and take the zeppelin from the towers outside the city to Grom'gol.
-  goto 4.1,44.9 "Kargath flight master"
   fly "Undercity"
   zone Undercity
 

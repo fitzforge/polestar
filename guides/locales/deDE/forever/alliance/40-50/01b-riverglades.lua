@@ -199,6 +199,8 @@ return {
 	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge."] = "",
 	-- {npc:259158} Fuzzle · {quest:94961} Biting the Hand
 	["{npc:259158}: {quest:94961}, in his cage"] = "",
+	["the way in: she is below the town"] = "",
+	["Claire's cave"] = "",
 
 	-- Step 41: The Twilight cult
 	["The Twilight cult"] = "Der Schattenhammerkult",
@@ -387,10 +389,13 @@ return {
 	["The pirates' ships"] = "Die Schiffe der Piraten",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
 	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way."] = "",
+	["on board, at the arrow"] = "",
 	-- {item:268505} Remote Explosive Charge
-	["{item:268505}, the southern ship"] = "{item:268505}, das südliche Schiff",
-	["the middle ship"] = "das mittlere Schiff",
-	["the northern ship"] = "das nördliche Schiff",
+	["Plant a {item:268505} on the southern ship"] = "",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the middle ship"] = "",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the northern ship"] = "",
 
 	-- Step 74: Rotflesh Mushrooms
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom
@@ -579,8 +584,11 @@ return {
 	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "Noch einmal hinaus zu den Klippen der Piraten. Platziere Whizzbuzz' Ladungen an den drei Schiffen, die unterhalb des Lagers vor Anker liegen, von Süden nach Norden; {quest:95124} (Stufe 45) steht beim mittleren, mit ihrer Beutetruhe neben sich. Halte unterwegs nach {npc:259758} Ausschau.",
 	-- ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "Die Kultisten füllen die Straßen und Felder von {area:16723}. Beginne bei den Ritualkreisen in der Mitte (fülle dort Claires Katalysator), arbeite dich nach Westen durch die verbrannten Häuser bis zum Dorfrand, dann zurück nach Nordosten zur lockeren Erde westlich von Elbrims Hof: Vergrabe dort die {item:266148}, die die Twilight-Räuber fallen lassen. Die Talismane, Seiten und Fingerknochen droppen von den Kultisten.\nBehalte den {item:4338}, den sie fallen lassen: {npc:263613} in der {area:16724} will zwanzig, wenn du zurück bist. Ab und zu droppt ein Kultist {quest:94885}: Rechtsklicke darauf, um die Quest zu starten.\nVorsicht: {npc:256899}, ein Elite-Oger (Stufe 41), läuft durch die westlichen Straßen von {area:16723}, etwa bei 44-47,47-52. Zieh die Kultisten zu dir heraus und lass ihn vorbeiziehen; hier sind mehr Spieler gestorben als irgendwo sonst im Gebiet.\n{npc:263380}, der Elite vom Fluss (Stufe 42), kann von den südwestlichen Feldern heraufwandern: Lass ihn vorbeiziehen.",
 	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244} streift durch das seichte Wasser südwestlich des Hafens, unterhalb der Strände der Murlocs. {npc:257001}, ein Elite, läuft ganz in der Nähe am Ufer entlang: Halte Abstand zu ihm.",
+	-- ["the middle ship"] = "das mittlere Schiff",
+	-- ["the northern ship"] = "das nördliche Schiff",
 	-- ["the {object:707245} poster"] = "das Plakat {object:707245}",
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}, von {npc:272437}",
+	-- ["{item:268505}, the southern ship"] = "{item:268505}, das südliche Schiff",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026} wartet neben der Straße östlich des Passes.",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} hütet die alte Kathedrale in der Südwestecke von {area:16724}. Die Fledermäuse nisten im Obergeschoss; {npc:272437} verteilt daneben die heiligen Kerzen; die Gräber liegen auf dem Kapellenfriedhof.\n{npc:271742}, ein Elite der Stufe 53, steht in der Kathedrale: Er lässt dich in Ruhe, also greif ihn nie an und zieh die Fledermäuse von ihm weg.",
 	-- ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, westlich von Elbrims Farm: Jedes Grab braucht eines der {item:266148}, die die Twilight-Raider fallen lassen, also plündere erst fünf",

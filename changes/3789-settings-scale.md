@@ -1,7 +1,6 @@
 ---
 section: players
 ---
-- The settings window opens larger: its 100 % is what 115 % was. A Settings
-  scale you set yourself moves with it once, so your window keeps the size you
-  chose (115 % now reads 100 %). The guide list's own scale is unchanged.
-  (#3789)
+- A Settings scale you had set carries over once, within the slider's 70 % to
+  140 %, to match the Settings window's new base size. The Guides window's own
+  scale is unchanged. (#3789)

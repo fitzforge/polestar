@@ -6,11 +6,13 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (simplified) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:35} Booty Bay · {zone:1447} Azshara · {zone:1444} Feralas · {zone:1446} Tanaris
+	["{area:35} first, then {zone:1447}, {zone:1444} and {zone:1446}."] = "先去{area:35}，再去{zone:1447}、{zone:1444}和{zone:1446}。",
+
 	-- Step 2: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "飞往{area:35}",
-	-- {area:75} Stonard
-	["{area:75} flight master"] = "{area:75}的飞行管理员",
 
 	-- Step 3: Booty Bay
 	-- {area:75} Stonard · {area:35} Booty Bay · {npc:7406} Oglethorpe Obnoticus
@@ -55,6 +57,11 @@ return {
 	-- {npc:818} Mai'Zoth
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:818} (level 47 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\nCareful: Two elite caster guards, around level 45, stand with {npc:818} and join the fight together with him."] = "这些怪物是精英：建议组队，找人一起完成。{npc:818}（47级精英）需要两人小队。独自一人就跳过：路线会安排刷怪补回经验。\n小心：{npc:818} 身边有两名约45级的精英施法守卫，会与他同时加入战斗。",
 	["Below ground"] = "在地下",
+
+	-- Step 17: Saving Yenniku
+	["while he is alive: the gem fills; don't kill him"] = "",
+	-- {item:3912} Soul Gem
+	["Use the {item:3912} on Yenniku"] = "",
 
 	-- Step 19: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -237,6 +244,8 @@ return {
 	["{npc:5594}, inside"] = "{npc:5594}：在屋内",
 
 	-- Step 61: Gadgetzan
+	-- {area:976} Gadgetzan · {npc:9623} A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
+	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} (Chasing {npc:9623}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}，在双足飞龙管理员旁边",
 
@@ -312,6 +321,7 @@ return {
 	-- ["grind on {npc:6125}"] = "击杀{npc:6125}刷经验",
 	-- ["{area:1108}: kill these as you meet them"] = "{area:1108}：沿途击杀以下目标",
 	-- ["{area:1221}: kill these as you meet them"] = "{area:1221}：沿途遇到就击杀",
+	-- ["{area:75} flight master"] = "{area:75}的飞行管理员",
 	-- ["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{zone:1456}的{npc:246344}；{zone:1454}没有圣骑士训练师",
 	-- ["{npc:7010}, the Drag: if you still carry it"] = "{npc:7010}，在暗巷区：如果你还带着它",
 	-- ["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}：熊在{zone:1448}",

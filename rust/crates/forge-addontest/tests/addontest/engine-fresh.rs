@@ -203,7 +203,7 @@ w.race, w.raceName, w.class, w.className, w.faction, w.level = "Human", "Human",
 		..Default::default()
 	})
 	.remove(0);
-	let title = "Ashenvale, Wetlands & Stonetalon Mountains";
+	let title = "Ashenvale, Stonetalon Mountains & Wetlands";
 	let taken = |q: i64| out["onWay"].as_array().is_some_and(|a| a.iter().any(|v| v.as_i64() == Some(q)));
 	let on_way = needs.iter().filter(|q| taken(**q)).count();
 	let left = share * (1.0 - on_way as f64 / needs.len() as f64);

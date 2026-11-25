@@ -29,7 +29,9 @@
 -- NPC instance, else the attunement's cited `inside`): sent to that
 -- instance's entrance, the step's note saying what is inside; a quest above
 -- the character's level stays, its accept saying from which level (Engine);
--- a quest whose standing is not reached yet starts with that standing. A
+-- a quest whose standing is not reached yet starts with that standing; an
+-- accept or turn-in at an NPC only the dead see stays to do, its goal saying
+-- how (Lookup.GhostOnly: the Shadowforge Key's Franclorn Forgewright). A
 -- quest that ends the chain at its accept (`accept`) is only that accept,
 -- its note saying to keep it in the log. A drop or chest as a collect step at
 -- its NPC or object (inside an instance: at its entrance); a standing as a rep
@@ -386,7 +388,7 @@ function Dungeons.AttuneGuide(key, id)
 	for _, si in ipairs(order) do
 		local stop = stops[si]
 		extras((stop.index or 1) - 1)
-		local step = Lk.QuestStep(stop.rec, stop.inP or from, { inside = inside })
+		local step = Lk.QuestStep(stop.rec, stop.inP or from, { inside = inside, needed = true })
 		local s = stop.index and st.steps[stop.index].step
 		if s and s.accept then
 			-- The chain ends at this accept: the quest hands over the item and takes it back if it is

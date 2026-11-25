@@ -6,11 +6,13 @@
 -- A token marked "no name in this language" would show in English: write that name in French words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:2255} Everlook · {zone:1448} Felwood · {zone:1452} Winterspring
+	["{area:2255} first, then Un'Goro, then {zone:1448} and {zone:1452} again."] = "D'abord {area:2255}, puis Un'Goro, puis de nouveau {zone:1448} et {zone:1452}.",
+
 	-- Step 1: Fly to Everlook
 	-- {area:2255} Everlook
 	["Fly to {area:2255}"] = "Prendre un vol pour {area:2255}",
-	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "Maître de vol de {area:489}",
 
 	-- Step 2: Everlook
 	-- {area:2255} Everlook · {npc:11754} Meggi Peppinrocker
@@ -111,6 +113,8 @@ return {
 	["{area:392} flight master"] = "Maître de vol de {area:392}",
 
 	-- Step 19: Gadgetzan
+	-- {area:976} Gadgetzan · {npc:9623} A-Me 01 · {quest:4243} Chasing A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
+	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} ({quest:4243}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, à l'intérieur",
 	-- {npc:7876} Tran'rek
@@ -521,6 +525,7 @@ return {
 	-- ["{area:2255} flight master"] = "Maître de vol de {area:2255}",
 	-- ["{area:2255}'s inn"] = "Auberge de {area:2255}",
 	-- ["{area:2269}: kill these as you meet them"] = "{area:2269} : tuez-les au passage",
+	-- ["{area:489} flight master"] = "Maître de vol de {area:489}",
 	-- ["{item:12367} along the way to {area:2255}"] = "{item:12367} sur le chemin de {area:2255}",
 	-- ["{item:12367} on the way"] = "{item:12367} en chemin",
 	-- ["{item:12383} on the way"] = "{item:12383} en chemin",
