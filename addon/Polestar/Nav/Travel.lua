@@ -73,6 +73,7 @@ local MIN_SPEED, MAX_SPEED = 4, 14
 local WALK_DETOUR = 1.25     -- straight lines are not walkable; learned paths are
 Travel.WALK_DETOUR = WALK_DETOUR -- Nav/Walk.lua's floor for the player's measured walk
 Travel.walkSpeed = RUN_SPEED -- the live route's walk speed (Travel.GroundSpeed), set by each plan
+Travel.walked = { places = {} } -- the walks into the target measured along their paths (Travel.NoteWalk)
 local HEARTH_ITEM = 6948
 -- The Hearthstone's hour-long cooldown is spent once a trip is long enough
 -- for it to clearly pay (Fitz, #1096: hearth a trip over 3 minutes that it
@@ -485,6 +486,8 @@ end
 --         to this target, for the same faction and level, can certify a detour.
 --       liveLeft = yards or nil: left along the arrow's live walk to the target (Nav/Walk.lua Walk.LiveLeft):
 --         a start inside an approach chain on it walks on by it alone,
+--       walkLeft = yards or nil: the player's walk into the target as the arrow's own path measured it (Travel.WalkedLeft):
+--         a start no walkCost measure priced walks at least that far (#3920),
 --       noDirect = true: no walk from the player straight to the target (the
 --         engine found none from where they stand: Travel.WalkUnreachable),
 --       nearWalk = yards or nil: the near walk, a target within this many
@@ -1169,7 +1172,27 @@ local function planBody(p, S)
 	-- A start inside a chain on the arrow's live walk to the target (p.liveLeft, its yards left): that walk, as it stands.
 	-- A plan made on the way down (the floor found, a replan after 30 s) priced the chain's way out and an unmeasured
 	-- walk back in straight through the rock, cheaper, and the arrow turned back to the mouth (#3449).
-	if startIn and type(p.liveLeft) == "number" then tw[1], ty[1], nw[1] = p.liveLeft, p.liveLeft, nil end
+	if startIn and type(p.liveLeft) == "number" then
+		tw[1], ty[1], nw[1] = p.liveLeft, p.liveLeft, nil
+	elseif not startIn and tw[1] == nil and not nw[1] and type(p.walkLeft) == "number" then
+		-- A start whose walk into the target no measure priced (the measure's places are the nearest to the target,
+		-- and the player was not among them) walks it at least as far as the arrow's own path measured it
+		-- (p.walkLeft, Travel.WalkedLeft), never less than straight: by its straight line x1.25, Moonglade's walk to
+		-- Mourning's Rest (2,999 yd straight, 10,090 along the path: 24 minutes) beat Faustron's flight to the
+		-- Tainted Foothills (11 minutes) and stayed the route (#3920).
+		local y, d = p.walkLeft, yards(vc[1], vx[1], vy[1], vc[2], vx[2], vy[2])
+		if y < d then y = d end
+		if y < huge then tw[1], ty[1] = y, y end
+	end
+	-- The other places whose walks into the target the engine's paths measured after an earlier plan (p.walked,
+	-- Travel.Walked) and no measure prices: by those paths (#3920).
+	if p.walked then
+		for _, w in ipairs(p.walked) do
+			for v = 3, keys do
+				if tw[v] == nil and not nw[v] and vc[v] == w.c and vx[v] == w.wx and vy[v] == w.wy then tw[v], ty[v] = w.yards, w.yards end
+			end
+		end
+	end
 
 	-- Links between key vertices and their nearest learned path nodes (zone rules apply). Each key's nearest
 	-- (MAX_LINKS at most, nearest first) in bv/bd, the same two lists for every key.
@@ -2442,6 +2465,7 @@ local function pricePaths()
 		if leg.kind == "walk" and leg.engine ~= "path" and not leg.handmade and not leg.parent and not (gotoLast and k == #legs) then
 			local yd, hubs = W.LegPath(leg.from, leg.to)
 			if yd then
+				if k == #legs then Travel.WalkPriced(leg, yd) end
 				leg.yards, leg.seconds, leg.engine, leg.hubs = floor(yd + 0.5), floor(yd / Travel.walkSpeed + 0.5), "path", hubs
 				changed = true
 			end
@@ -2626,10 +2650,14 @@ local function plan(target, held)
 			probe = { reach = nearWalk.CROSS }
 		end
 	end
+	local live = W and W.LiveLeft and W.LiveLeft(tc, twx, twy) or nil
 	local plan = {
 		c = pc, wx = px, wy = py, map = playerMap(), z = pz, clientZ = Travel.ObservedFloor(pc), floors = pfloors, place = Travel.Inside(pc, px, py),
 		target = { c = tc, wx = twx, wy = twy, z = tz, label = target.label, map = target.map, x = target.x, y = target.y, f = target.f, kind = target.kind },
-		liveLeft = W and W.LiveLeft and W.LiveLeft(tc, twx, twy) or nil,
+		liveLeft = live,
+		-- The player's walk into the target, and other places', as the walking engine's paths measured them (#3920).
+		walkLeft = live or Travel.WalkedLeft(target, pc, px, py),
+		walked = Travel.Walked(target),
 		liveTaxi = true,
 		liftFloor = Travel.ObservedFloor,
 		faction = playerFaction,
@@ -3306,6 +3334,68 @@ function Travel.PricePaths()
 	return true
 end
 
+-- Walks into the target measured along the walking engine's own paths after the plan was made (#3920): the arrow's
+-- path from where the player stands (Travel.SplitWalk's `total`, the walk the arrow is on ending at the target) and a
+-- later walk's path into it (pricePaths, Walk.LegPath), remembered for the target (Travel.walked: the player's walk
+-- and where it was measured from, and each place's), so every later plan prices those walks by them (p.walkLeft,
+-- p.walked) instead of their straight lines x1.25. One that takes over 20 s more than the plan priced it plans once
+-- more, as a measure landing would (Travel.Remeasured on the next tick): from Moonglade, 2,999 yd straight from a
+-- Mount Hyjal goal and 10,090 along the path, the walk was priced at 9 minutes, took 24, and stayed the route over
+-- Faustron's flight to the Tainted Foothills (11 minutes), the player out of reach of the measure's nearest places.
+function Travel.NoteWalk(c, x, y, total, start)
+	if not (type(total) == "number" and total == total and total >= 0 and total < huge) then return false end
+	local target, w = Nav.GetTarget(), Travel.walked
+	if w.target ~= target then w.target, w.yards, w.places = target, nil, {} end
+	if start then
+		w.c, w.x, w.y, w.yards, w.moved = c, x, y, total, 0
+		return true
+	end
+	local list = w.places
+	for _, e in ipairs(list) do
+		if e.c == c and e.wx == x and e.wy == y then
+			e.yards = total
+			return true
+		end
+	end
+	if #list < 32 then list[#list + 1] = { c = c, wx = x, wy = y, yards = total } end
+	return true
+end
+
+-- The arrow's path into the target from where the player stands: `whole`, the walk it measures (once per walk).
+function Travel.WalkMeasured(whole, c, x, y, total)
+	local tc, tx, ty = Nav.GetTargetWorld()
+	if not (tc == c and (tx - x) * (tx - x) + (ty - y) * (ty - y) <= 1) then return end
+	local C = ns.Compat
+	local pc, px, py
+	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
+	if pc ~= c or not Travel.NoteWalk(pc, px, py, total, true) then return end
+	if not whole.walkTried and total / Travel.walkSpeed > (whole.straightSeconds or whole.seconds or 0) + 20 then
+		whole.walkTried = true
+		remeasureOwed = true
+	end
+end
+
+-- A later walk into the target (`leg`, the route's last) measured along its path: `yd` yards.
+function Travel.WalkPriced(leg, yd)
+	local from = leg.from
+	if Travel.NoteWalk(from.c, from.wx, from.wy, yd) and yd / Travel.walkSpeed > (leg.seconds or 0) + 20 then remeasureOwed = true end
+end
+
+-- The player's walk into the target as the arrow's path last measured it: at least its yards less the ground covered
+-- since (Travel.WalkedMoved); nil for another target or none.
+function Travel.WalkedLeft(target, pc, px, py)
+	local w = Travel.walked
+	if not (target and w.target == target and w.yards and w.c == pc) then return nil end
+	local left = w.yards - w.moved - yards(pc, px, py, w.c, w.x, w.y)
+	return left > 0 and left or nil
+end
+
+-- The other places' measured walks into the target: { { c, wx, wy, yards }, ... }, or nil.
+function Travel.Walked(target)
+	local w = Travel.walked
+	return target and w.target == target and w.places[1] and w.places or nil
+end
+
 -- Split the current walk leg to (c, x, y), or the pieces it was split into
 -- before, at `stops` (Nav/Walk.lua Walk.Stops; `total` = yards along the path
 -- from the player to its end). Piece times are whole seconds that add up to
@@ -3360,6 +3450,7 @@ function Travel.SplitWalk(c, x, y, stops, total, hubs)
 	local whole = parent and parent.leg or leg
 	local to = whole.to
 	if to.c ~= c or (to.wx - x) * (to.wx - x) + (to.wy - y) * (to.wy - y) > 1 then return false end
+	Travel.WalkMeasured(whole, c, x, y, total)
 	if type(hubs) ~= "table" or (#hubs == 0 and not (type(hubs.avoided) == "table" and #hubs.avoided > 0)) then hubs = nil end
 	-- The walk on to a crossing's far end from a start on it (whole.passes, not the crossing's own walk) is the rest of
 	-- the crossing's walk, which makes no step of a pass along it: a lift it rides still is one. Split there, a pass just
@@ -4075,9 +4166,28 @@ local function movedAway()
 	return pc ~= nil and yards(pc, px, py, planC, planX, planY) > REPLAN_MOVED
 end
 
+-- Nav's once-a-second tick: the ground the player has covered since the arrow's path measured their walk, summed
+-- from second to second. The walk from here is at least that walk less it (the way they came, then the walk from
+-- here, is a walk from there). Only on foot or mounted: a flight, a ride, a teleport or a jump of over 50 yd between
+-- two ticks (no ground of theirs) forgets the walk.
+function Travel.WalkedMoved()
+	local w = Travel.walked
+	if not w.yards then return end
+	local C = ns.Compat
+	local pc, px, py
+	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
+	local step = pc == w.c and yards(pc, px, py, w.c, w.x, w.y) or huge
+	if step > 50 or onTaxi() or riding() then
+		w.yards = nil
+		return
+	end
+	w.moved, w.x, w.y = w.moved + step, px, py
+end
+
 -- Nav's once-a-second tick and situation events.
 local lastGhost = false
 function Travel:Refresh()
+	Travel.WalkedMoved()
 	local taxiNow = onTaxi()
 	if wasTaxi and not taxiNow then
 		dirty = true

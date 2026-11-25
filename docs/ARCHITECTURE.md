@@ -5805,6 +5805,24 @@ Shortest Path Forever (`Walk:Refresh` cancels one in flight). The planner
 itself never waits: the first plan is straight, the measured one follows a
 few frames later.
 
+**Walks the engine's paths measured after the plan (#3920).** The measure
+prices the 16 places nearest the target within 3,000 yd; a player farther
+out, or past those 16, keeps the straight estimate. Every path the engine
+searches into the target later is remembered for that target
+(`Travel.NoteWalk`): the arrow's path from where the player stands
+(`Travel.SplitWalk`'s total, `Travel.WalkMeasured`) and a later walk's path
+(`Travel.PricePaths`, `Travel.WalkPriced`). Each plan for the target prices
+an unmeasured start by the arrow's path (`p.walkLeft`: the live walk's yards
+left, else the remembered yards less the ground covered since, summed each
+second by `Travel.WalkedMoved` so a flight or a teleport uses it up; never
+under the straight distance) and an unmeasured place by its path
+(`p.walked`, matched by its point). A path that takes over 20 s more than
+the plan priced the walk plans once more on the next tick, as a measure
+landing does (`Travel.Remeasured`, once per walk): from Moonglade, 2,999 yd
+straight from Mourning's Rest and 10,090 along the path, the walk was priced
+at 9 minutes and stayed the route over Faustron's flight to the Tainted
+Foothills.
+
 **Walk speed (#3913).** The live route and the player's estimates time and
 weigh every walk at the character's ground speed (`Travel.GroundSpeed`):
 run speed (7 yd/s) for a ghost, an escort or a character without riding,
