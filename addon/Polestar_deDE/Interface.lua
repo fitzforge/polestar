@@ -463,6 +463,7 @@ L["Chain: finished, %d skipped"] = "Questreihe: abgeschlossen, %d übersprungen"
 L["Chain: all %d done"] = "Questreihe: alle %d erledigt"
 L["Chain: %d of %d"] = "Questreihe: %d von %d"
 L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."] = "Nur als Toter sichtbar: Stirb in der Nähe und sprich als Geist mit ihm, oder überspringe diese Quest."
+-- L["Only visible while dead: die nearby and talk to them as a ghost."] = ""
 
 -- Lookup/Sources.lua
 L["Reputation"] = "Ruf"
@@ -5269,10 +5270,6 @@ L["%d of %d"] = "%d von %d"
 -- L["kept for %s"] = ""
 -- L["kept"] = ""
 -- L["Kept for %s: the route hands it in there."] = ""
-
--- Quests/Tracker.lua
--- L["Hand-ins"] = ""
--- L["Objectives"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar neu einrichten, eine Seite nach der anderen. Jede Wahl wirkt sofort."

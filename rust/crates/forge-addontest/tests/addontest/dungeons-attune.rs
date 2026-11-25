@@ -15,6 +15,7 @@
 
 use forge_addontest::codex::{fixture, write_codex_pack, CodexOpts, CodexPack};
 use forge_addontest::dsl::plain;
+use forge_addontest::playtest::SIMULATE;
 use forge_addontest::run::{addons_dir, join, root};
 use forge_addontest::{emitted, fake_locale, is_match, lua_value, text, truthy, Addon, RunAddon};
 use forge_data::codex::attune::attunements_of;
@@ -860,6 +861,62 @@ emit(walk)"#,
 	// #1320's generic pass of an accept above the level never sends a character too low for the attunement into
 	// the dungeon's entrance: the guide holds at Tonga's accept.
 	assert_eq!(walk[0]["entrance"], json!(false), "level 18: the arrow is not on the entrance");
+}
+
+// The Shadowforge Key's guide (Dark Iron Legacy, 3801 > 3802) went straight to Blackrock Depths' entrance: Franclorn
+// Forgewright gives and takes both quests and only a dead character sees him, and #558 made such an accept or
+// turn-in optional, so the engine passed both quests by. An attunement's quests are what it needs: here a ghost-only
+// NPC's goals stay to do, each saying how to reach him, and the guide plays every step to the entrance.
+#[test]
+fn a_ghost_only_npc_s_accepts_and_turn_ins_stay_to_do_in_an_attunement_guide_their_goal_saying_how_and_the_engine_walks_every_step() {
+	let f = Fx::new();
+	let mut c = f.codex.clone();
+	c["npcs"]["3448"]["ghostOnly"] = json!(true);
+	let pk = pack_of(&c, &f.inputs);
+	let out = f.run(
+		&pk,
+		&format!(
+			r#"
+local def = D.AttuneGuide("wailing-caverns", "fang")
+local ghost = {{}}
+for _, s in ipairs(def.steps) do
+	for _, g in ipairs(s.goals) do
+		if g.npc == 3448 then ghost[#ghost + 1] = {{ goal = g.t .. ":" .. g.quest, optional = g.optional or false, note = g.note or false }} end
+	end
+end
+emit({{ steps = describe(def), ghost = ghost }})
+D.Attune("wailing-caverns", "fang")
+stub.advance(0.6)
+SIM_GUIDE = Polestar.Engine.GetGuide()
+{SIMULATE}"#
+		),
+		"Horde",
+		"Tauren",
+	);
+	let (built, played) = (&out[0], &out[1]);
+	assert_eq!(
+		built["steps"],
+		json!([
+			{ "title": "Rite of the Serpent", "goals": "accept:90001 turnin:90001" },
+			{ "title": "The Serpent's Trial", "goals": "accept:90002 collect:90002 turnin:90002" },
+			{ "title": "Fang of the Serpent", "goals": "rep accept:90003 turnin:90003" },
+			{ "title": "Wailing Caverns", "goals": "note goto" },
+		])
+	);
+	let how = "Only visible while dead: die nearby and talk to them as a ghost.";
+	assert_eq!(
+		built["ghost"],
+		json!([
+			{ "goal": "turnin:90001", "optional": false, "note": how },
+			{ "goal": "accept:90002", "optional": false, "note": how },
+			{ "goal": "turnin:90002", "optional": false, "note": how },
+			{ "goal": "accept:90003", "optional": false, "note": how },
+		]),
+		"Tonga's goals are the chain: to do, not skipped"
+	);
+	assert!(!truthy(&played["stuck"]), "stuck: {}", played["stuck"]);
+	assert_eq!(played["done"], true);
+	assert_eq!(played["visited"], played["steps"], "the engine stops at every step, none passed as done");
 }
 
 // What Comes Around...: Lookup's guide for the quest said "Collect Head of Targorr" with the arrow left beside

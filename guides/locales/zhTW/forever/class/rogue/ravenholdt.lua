@@ -63,8 +63,6 @@ return {
 	-- Step 9: Ain't No Telling
 	-- {item:275709} Stolen Funds
 	["She will not talk without something to bargain with. Her stash is upstairs in a house close to the keep: take the {item:275709}. If it is already open, wait for it to come back."] = "沒有籌碼她不會開口。她的藏匿物在城堡附近一棟房子的樓上：拿走{item:275709}。如果已經被開啟過，就等它重新出現。",
-	-- {item:275709} Stolen Funds
-	["{item:275709}: Anastasia's Stash"] = "{item:275709}：阿納斯塔西婭的藏匿物",
 
 	-- Step 10: The Syndicate Sting
 	-- {area:1057} Thoradin's Wall · {area:287} Hillsbrad · {item:275882} Intercepted Shipment · {item:275706} Syndicate Uniform · {npc:13085} Myrokos Silentform
@@ -82,5 +80,6 @@ return {
 	-- ["Horde fly to {area:272}, Alliance to {area:271}. The manor hides in the hills east of {area:272}, up a path into the {zone:1416}; the Rite of Cunning is passing its way in."] = "部落飛往{area:272}，聯盟飛往{area:271}。莊園隱藏在{area:272}東邊的山丘中，沿小路往上進入{zone:1416}；狡詐儀式是你進入的通行方式。",
 	-- ["Rite of Cunning"] = "狡詐儀式",
 	-- ["{item:275482}: pickpocket Barton"] = "{item:275482}：對巴爾頓偷竊",
+	-- ["{item:275709}: Anastasia's Stash"] = "{item:275709}：阿納斯塔西婭的藏匿物",
 	-- ["{npc:266216} is inside {area:275}, the Syndicate fortress in eastern {area:287}, south of the manor. Quick and quiet, says {npc:13085}."] = "{npc:266216}在{area:275}內，那是{area:287}東部、莊園南邊的辛迪加要塞。{npc:13085}說：要快又要安靜。",
 }

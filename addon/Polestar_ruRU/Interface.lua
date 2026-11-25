@@ -1393,6 +1393,7 @@ L["Chain: finished, %d skipped"] = "Цепочка: завершена, проп
 L["Chain: all %d done"] = "Цепочка: выполнены все %d"
 L["Chain: %d of %d"] = "Цепочка: %d из %d"
 L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."] = "Виден только мёртвым: умрите рядом и поговорите с ним в облике духа или пропустите это задание."
+-- L["Only visible while dead: die nearby and talk to them as a ghost."] = ""
 
 -- Lookup/Spotter.lua
 L["From"] = "Источник:"

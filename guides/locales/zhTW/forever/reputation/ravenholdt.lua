@@ -46,8 +46,9 @@ return {
 	["Stromgarde: {npc:266847}"] = "激流堡：{npc:266847}",
 	-- {item:275706} Syndicate Uniform · {npc:266847} Anastasia Miller
 	["Put on the {item:275706} and go into Stromgarde. {npc:266847} waits on a ledge just outside the castle; players reach her by jumping from the roof of the house beside the ledge. Her stash is upstairs in a house near the keep."] = "穿上{item:275706}，進入激流堡。{npc:266847}在城堡外的一處壁架上等候；玩家從壁架旁那棟房子的屋頂跳過去找她。她的藏匿物在城堡主樓附近一棟房子的樓上。",
-	-- {item:275709} Stolen Funds
-	["{item:275709}, in Anastasia's Stash upstairs"] = "{item:275709}，在樓上阿納斯塔西婭的藏匿物中",
+	-- {item:275709} Stolen Funds · {object:656405} Anastasia's Stash (no name in this language: may be words)
+	-- was: ["{item:275709}, in Anastasia's Stash upstairs"] = "{item:275709}，在樓上阿納斯塔西婭的藏匿物中"
+	["{item:275709}, in {object:656405} upstairs"] = "",
 
 	-- Step 7: Thoradin's Wall: the shipment
 	-- {area:1057} Thoradin's Wall
@@ -117,4 +118,7 @@ return {
 	["{item:16885}: pickpocket level 50+ humanoids, {area:1445}"] = "{item:16885}：扒50級以上人形生物的口袋，{area:1445}",
 	-- {npc:6707} Fahrad
 	["{npc:6707}: 50 per five boxes, handed in from his window"] = "{npc:6707}：每五個箱子換50點聲望，在他的視窗中直接繳交",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{item:275709}, in Anastasia's Stash upstairs"] = "{item:275709}，在樓上阿納斯塔西婭的藏匿物中",
 }

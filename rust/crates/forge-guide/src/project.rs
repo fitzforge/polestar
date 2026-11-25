@@ -348,6 +348,14 @@ pub fn faction_part(g: &V) -> Option<&'static str> {
 	FACTION_PARTS.into_iter().find(|p| f.as_str() == Some(*p))
 }
 
+/// A side-shelf guide of Polestar's own pack (format 8): every guide that is not a leveling guide (class,
+/// profession, reputation, collectible, exploration, ...). Its steps ship as source and are read in only
+/// when the guide is opened (docs/PACK_FORMAT.md, "Format 8").
+pub fn shelf(g: &V) -> bool {
+	let cat = g.get("category");
+	!cat.is_nullish() && cat.as_str() != Some("Leveling")
+}
+
 /// Our guide pack's folder (pack id `guides`).
 pub const OWN_FOLDER: &str = "Polestar_Guides";
 
@@ -843,7 +851,7 @@ pub fn build_pack_files(
 	}
 	files.push(("MapFrames.lua".into(), t(crate::emit::emit_map_frames(&frames, &id))));
 	let main_entries: Vec<V> = main.iter().map(entry).collect();
-	let mut gl = crate::emit::emit_guides_with(&main_entries, false, ours);
+	let mut gl = if ours { crate::emit::emit_own_guides(&main_entries) } else { crate::emit::emit_guides_with(&main_entries, false, false) };
 	if !retired.is_empty() {
 		gl.push_str(&crate::emit::emit_retired(&id, retired));
 	}
@@ -902,7 +910,7 @@ pub fn build_pack_files(
 		let names: Vec<&str> = mine.iter().map(|(_, n, _)| n.as_str()).collect();
 		files.push((format!("../{name}/{name}.toc"), t(crate::emit::emit_faction_toc(manifest, faction, iface, &names))));
 		let es: Vec<V> = list.iter().map(entry).collect();
-		files.push((format!("../{name}/Guides.lua"), t(crate::emit::emit_guides_with(&es, false, true))));
+		files.push((format!("../{name}/Guides.lua"), t(crate::emit::emit_own_guides(&es))));
 		for (_, file, text) in mine {
 			files.push((format!("../{name}/{file}"), t(text.clone())));
 		}
@@ -1391,7 +1399,7 @@ mod native {
 		let license = read_license(pack_dir, manifest, &mut project.diag);
 		let mut translations = V::obj();
 		if !project.diag.has_errors() || force {
-			let got = crate::i18n_guides::pack_translations(pack_dir, manifest, &project.guides)?;
+			let got = crate::i18n_guides::pack_translations(root, pack_dir, manifest, &project.guides)?;
 			translations = got.get("translations");
 			for w in got.get("warnings").items() {
 				project.diag.warn(&w.get("file").to_js_string(), 0.0, w.get("message").to_js_string(), None);

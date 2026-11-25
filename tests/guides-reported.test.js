@@ -3368,17 +3368,19 @@ test('forever/horde/30-40/01-hillsbrad-foothills.guide: the Defiler\'s Basic Car
 // Craftsman's Writs of the Supply Factions Reputation guide named old item names the same way (one, Elixir of Greater
 // Defense, is now another item).
 test("DexeeXI's report (#1322): the guides name the elixirs the quests take by their names in the game", { skip }, () => {
+	data = data || loadData(DATA);
 	assert.equal(data.items[3388].name, "Lesser Troll's Blood Elixir");
 	assert.ok(data.quests[515].objectives.some((o) => o.type === 'item' && o.id === 3388), 'Elixir of Agony takes item 3388');
 	for (const file of ['forever/horde/06-hillsbrad-foothills.guide', 'forever/horde/30-40/01-hillsbrad-foothills.guide']) {
 		const said = goals(file).map(({ step }) => [step.tip, step.note, ...step.goals.map((g) => g.text)].flat().filter(Boolean).join(' ')).join(' ');
 		assert.doesNotMatch(said, /Strong Troll's Blood Potion/, `${file}: never the old name`);
 	}
-	// Each writ's hand-in says which item it takes: one of the quest's item objectives, by the game's name.
+	// Each writ's hand-in says which item it takes: one of the quest's item objectives, by the game's name (a note may
+	// write it as an {item:ID} token, which the game shows as that item's name).
 	const writs = goals('forever/reputation/merchants-favor.guide').filter(({ goal }) => goal.t === 'turnin' && /^Craftsman's Writ/.test(data.quests[goal.quest]?.title || ''));
 	assert.ok(writs.length > 0, 'the writ hand-ins');
 	for (const { goal } of writs) {
-		const item = (goal.note || '').replace(/, \d+ reputation$/, '');
+		const item = (goal.note || '').replace(/, \d+ reputation$/, '').replace(/^\{item:(\d+)\}$/, (_, id) => data.items[id]?.name ?? `item ${id} unknown`);
 		const takes = data.quests[goal.quest].objectives.filter((o) => o.type === 'item').map((o) => data.items[o.id]?.name);
 		assert.ok(takes.includes(item), `writ ${goal.quest}: "${item}" is one of ${takes.join(', ')}`);
 	}
@@ -19435,6 +19437,19 @@ test('#3578: a collect a rare and common mobs both drop leads to the common mobs
 		const g = list[at(list, `collect ${item}`, (x) => x.t === 'collect' && x.item === item)].goal;
 		assert.notEqual(g.fromId, rare, `${guide}: item ${item} is not named after the rare`);
 	}
+});
+
+// #3907 (Grim): Elemental Mastery's Elemental Water led to the Summoned Guardian, the elite with a single spawn far to
+// the south-west of Arathi Highlands, the item's top dropper by the reference data's chance. Players' recordings have
+// no loot window of his; 13 of 62 Cresting Exile loot windows (9 people) held Elemental Water. The water now leads to
+// the Cresting Exiles at the Circle of East Binding, where the other exiles' elements are farmed the same way.
+test('#3907 Elemental Mastery: Elemental Water leads to the Cresting Exiles, not the elite Summoned Guardian', { skip }, () => {
+	const list = goals('forever/class/shaman/spirit-totem.guide');
+	const water = list[at(list, 'collect 7070', (g) => g.t === 'collect' && g.item === 7070)].goal;
+	assert.equal(water.map, 1417, 'in Arathi Highlands');
+	const near = (id) => Math.min(...data.spawns('npc', id).filter((s) => s.map === 1417).flatMap((s) => s.pts).map(([x, y]) => Math.hypot(x - water.x, y - water.y)));
+	assert.ok(near(2761) <= 3, `at the Cresting Exiles (${water.x},${water.y})`);
+	assert.ok(near(2794) > 20, 'not at the Summoned Guardian');
 });
 
 // #3681 (MattMaximo): Witherbark Village sent players to farm tusks and pouches round the huts first and only then

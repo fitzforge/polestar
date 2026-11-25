@@ -36,6 +36,9 @@
 --       (Berard's Bookshelf in Pyrewood Village, #1778). A kill the
 --       Codex marks with `useItem` (an item used on that NPC) is a use of
 --       that item, at the NPC's spawns; a tame stays a tame (#2468)
+--       opts.needed: the guide is there to get the quest done (Dungeons'
+--       attunement guides), so an accept or turn-in at an NPC only the dead
+--       see stays to do (Lookup.GhostOnly)
 --   Lookup.DropQuestSteps(source, player, from, direct?) -> steps | nil, reason, quest
 --       obtain every source.requiresQuests quest not held or completed;
 --       finish its ordinary prerequisites, then only accept the root.
@@ -573,27 +576,35 @@ end
 
 -- An accept or turn-in goal at an NPC only a dead character sees (the Codex's
 -- ghostOnly: Franclorn Forgewright of Dark Iron Legacy, at Forgewright's Tomb)
--- is optional, with a note on the goal itself, which compact mode shows
--- (the step's tip is folded away there): #558, the player saw nobody there.
+-- gets a note on the goal itself, which compact mode shows (the step's tip is
+-- folded away there): #558, the player saw nobody there. It is optional
+-- unless `needed`: a pick-up or hand-in guide's quest can be left, an
+-- attunement's cannot (the Shadowforge Key's guide passed both Dark Iron
+-- Legacy quests by and went straight to Blackrock Depths' entrance).
 -- Returns goal.
-function Lookup.GhostOnly(goal)
+function Lookup.GhostOnly(goal, needed)
 	local C = ns.Codex
 	local npc = goal and goal.npc and C and C.Npc and C.Npc(goal.npc)
 	if not (npc and npc.ghostOnly) then return goal end
-	goal.optional = true
-	local text = L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."]
+	local text
+	if needed then
+		text = L["Only visible while dead: die nearby and talk to them as a ghost."]
+	else
+		goal.optional = true
+		text = L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."]
+	end
 	goal.note = goal.note and (text .. " " .. goal.note) or text
 	return goal
 end
 
-local function endGoal(t, q, e)
+local function endGoal(t, q, e, needed)
 	local g = { t = t, quest = q.id, title = q.title }
 	if e.npc then
 		g.npc, g.npcName = e.npc, e.name
 	else
 		g.object, g.objName = e.object, e.name
 	end
-	return Lookup.GhostOnly(at(g, e.spawn))
+	return Lookup.GhostOnly(at(g, e.spawn), needed)
 end
 
 -- Every NPC of `ends` the character may talk to (Lookup.SideOK), each at its
@@ -695,7 +706,7 @@ local function questStep(q, from, isTarget, opts)
 	local goals = {}
 	local accept
 	if giver then
-		accept = endGoal("accept", q, giver)
+		accept = endGoal("accept", q, giver, opts and opts.needed)
 		if giver.npc then accept.candidates = Lookup.GiverCandidates(q.start, from, direct) end
 	else
 		accept = { t = "accept", quest = q.id, title = q.title, item = startItem, itemName = itemName(startItem) }
@@ -825,7 +836,7 @@ local function questStep(q, from, isTarget, opts)
 	if event then
 		table.insert(goals, eventAt, at({ t = "complete", quest = q.id, title = q.title, text = event.text }, event))
 	end
-	goals[#goals + 1] = endGoal("turnin", q, finish)
+	goals[#goals + 1] = endGoal("turnin", q, finish, opts and opts.needed)
 	local step = { title = q.title, goals = goals }
 	-- How the quest is done beyond its objectives (the Codex's `how`, our
 	-- public words: Powering the Pylons' mana from the rifts, #2714), first.

@@ -1409,6 +1409,7 @@ L["Chain: finished, %d skipped"] = "연계: 완료, %d개 건너뜀"
 L["Chain: all %d done"] = "연계: %d개 모두 완료"
 L["Chain: %d of %d"] = "연계: %d/%d"
 L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."] = "죽은 상태에서만 보입니다: 근처에서 죽은 뒤 유령 상태로 대화하거나, 이 퀘스트를 건너뛰세요."
+-- L["Only visible while dead: die nearby and talk to them as a ghost."] = ""
 
 -- Lookup/Spotter.lua
 L["From"] = "출처"

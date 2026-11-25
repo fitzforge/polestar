@@ -1699,6 +1699,33 @@ end
 -- card above it, its × putting the chain away for the session.
 local classShut = {}
 
+-- Another tab's step close by (UI/OtherTab.lua) as a card above the window:
+-- on the window's ground in Optional's measures, without the card's own
+-- wash, stripe and border (psPlain); its heading, icon and chevron keep
+-- their sky. -> its height
+local OT_ICON, OT_GO = 14, 16
+local function otherTabLook(part, width)
+	part.psPlain = true
+	for _, t in ipairs({ rawget(part, "Wash"), rawget(part, "Stripe") }) do if t then t:Hide() end end
+	for _, t in ipairs(rawget(part, "psBorder") or {}) do t:Hide() end
+	local head, title, icon = part.Head, part.Title, part.Icon
+	local r, g, b = icon:GetVertexColor()
+	capsLabel(head)
+	head:SetTextColor(r, g, b, 1)
+	head:SetWidth(math.max(40, width - OPT_PAD * 2 - OT_GO))
+	local y = cardHead(part, head)
+	rowFont(title)
+	local tx = OPT_PAD + OT_ICON + 6
+	title:SetWidth(math.max(40, width - tx - OPT_PAD - OT_GO))
+	local inset, mid, lineH = rowLine(title)
+	title:ClearAllPoints()
+	title:SetPoint("TOPLEFT", part, "TOPLEFT", tx, y - inset)
+	icon:ClearAllPoints()
+	icon:SetPoint("LEFT", part, "TOPLEFT", OPT_PAD, y + mid)
+	y = y - rowHeight(title:GetStringHeight() or lineH, lineH)
+	return cardFoot(y)
+end
+
 on("guidePlace", function(name, part, width, height)
 	if name == "here" then
 		hereLook(part, true)
@@ -1718,6 +1745,11 @@ on("guidePlace", function(name, part, width, height)
 	elseif name == "banner" and part.psKind == "train" then
 		slots.train = part
 		part:Hide()
+		return true
+	end
+	if name == "otherTab" then
+		part:SetHeight(otherTabLook(part, width or 300))
+		slots.otherTab = part
 		return true
 	end
 	if name == "classCard" then
@@ -1826,6 +1858,13 @@ local function layoutStack(parts)
 	local s = slots
 	-- A banner notice keeps its own × (and Later): none of the card's.
 	if s.banner and isUnder(s.banner, window) then add(s.banner, nil) end
+	-- Another tab's step close by: its × puts it away until out of range.
+	if s.otherTab and isUnder(s.otherTab, window) then
+		add(s.otherTab, function()
+			local OT = P.UI and P.UI.OtherTabCard
+			if OT and OT.Dismiss then OT.Dismiss() end
+		end)
+	end
 	if s.class and isUnder(s.class, window) then
 		local key = s.classKey
 		add(s.class, function() if key then classShut[key] = true end relay() end)

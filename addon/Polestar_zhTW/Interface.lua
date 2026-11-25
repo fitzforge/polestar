@@ -1409,6 +1409,7 @@ L["Chain: finished, %d skipped"] = "任務鏈：已完成，跳過 %d 個"
 L["Chain: all %d done"] = "任務鏈：全部 %d 個已完成"
 L["Chain: %d of %d"] = "任務鏈：%d / %d"
 L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."] = "只有死亡後才能看見：在附近死亡，以靈魂狀態與其對話，或略過此任務。"
+-- L["Only visible while dead: die nearby and talk to them as a ghost."] = ""
 
 -- Lookup/Spotter.lua
 L["From"] = "來自"

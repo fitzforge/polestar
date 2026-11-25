@@ -75,6 +75,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		local OT = GF.live and UI.OtherTabCard or nil
 		if OT then
 			local oh = OT.Layout(width, 0)
+			-- A skin may place the card itself (guidePlace "otherTab").
+			local OF = OT.Frame and OT.Frame()
+			if oh > 0 and OF and claimed("otherTab", OF, width, OF:GetHeight()) then oh = 0 end
 			if oh > 0 then
 				local CF = CC and CC.Frame and CC.Frame()
 				if y > 0 and CF and CF:GetParent() == card then
@@ -571,7 +574,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		limitLine:ClearAllPoints()
 		limitLine:SetPoint(up and "BOTTOMLEFT" or "TOPLEFT", F, up and "BOTTOMLEFT" or "TOPLEFT", 0, up and cap or -cap)
 		limitLine:SetPoint(up and "BOTTOMRIGHT" or "TOPRIGHT", F, up and "BOTTOMRIGHT" or "TOPRIGHT", 0, up and cap or -cap)
-		limitLine.Text:SetText(string.format(ns.L["%d px"], floor(cap * F:GetEffectiveScale() + 0.5)))
+		limitLine.Text:SetText(string.format(ns.L["%d px"], floor(cap * Theme.PixelsPerUnit(F) + 0.5)))
 	end
 
 	-- How far a layout's frames reach below the window's bottom edge (Atlas's
