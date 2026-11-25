@@ -3262,6 +3262,19 @@
 				{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-25): 11 people looted Holy Spring Water at a median of 28.91,61.98, each walking up from 27.1,62.9 by 27.9,62.75 and 28.55,62.35" }
 			],
 			"issue": 3868
+		},
+		{
+			"id": "4115-98252-1",
+			"faction": "Horde",
+			"quest": 98252,
+			"objective": 1,
+			"at": { "map": 1440, "x": 38.2, "y": 58.1, "frame": "era" },
+			"note": "A Void Path: the one objective is steering Va'xug's Eye of Kilrogg out of the ravine to the main road, where the quest is handed in to the Eye of Kilrogg (271181, 38.2,58.1). The data has no place for it, so the step's bare complete had no arrow while the player steered (#4115, ItsSaulx).",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#4115: the reporter's /polestar report, Arrow: none on Complete A Void Path" },
+				{ "kind": "recording", "ref": "players' recordings: 'Eye of Kilrogg guided to the road' ticks, then the hand-in at npc 271181 on the road" }
+			],
+			"issue": 4115
 		}
 	]
 }
