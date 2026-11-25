@@ -736,13 +736,9 @@ fn a_page_quest_is_not_picked_up_below_the_profession_rank_it_needs_2752_snakest
 	assert_eq!(master[1], json!({ "why": false, "text": false }));
 }
 
-// #2439 (Onrevax, Razorfen Kraul's pick-up guide): Blueleaf Tubers asks for a Crate with Holes, the Snufflenose
-// Owner's Manual and a Snufflenose Command Stick, each taken from an object at Mebok Mizzyrix's feet in Ratchet
-// (65 people's recordings tick those lines there), and the guide only said to take the quest, so players went into
-// the dungeon without them. An item objective of a page quest whose item comes from an object at the giver (within
-// a few yards) is collected in the giver's step, right after the accept; one found inside the dungeon is not.
-#[test]
-fn the_items_a_page_quest_needs_from_objects_at_its_giver_are_collected_with_the_accept_2439_blueleaf_tubers() {
+/// #2439's page: Blueleaf Tubers (90730) from Mebok in Ratchet, its crate (8100) from an object at his feet, a far
+/// item (8101) and the tubers (8102, found inside).
+fn blueleaf_pack() -> CodexPack {
 	let (codex, inputs) = fixture_parts();
 	let mut c = codex.clone();
 	let mut i = inputs.clone();
@@ -762,7 +758,17 @@ fn the_items_a_page_quest_needs_from_objects_at_its_giver_are_collected_with_the
 		{ "type": "item", "id": 8101, "count": 1, "text": "Far Thing" },
 	]);
 	i["forever"]["quests"]["90730"] = json!({ "area": 209, "xp": 2000 });
-	let own = pack_of(&c, &i);
+	pack_of(&c, &i)
+}
+
+// #2439 (Onrevax, Razorfen Kraul's pick-up guide): Blueleaf Tubers asks for a Crate with Holes, the Snufflenose
+// Owner's Manual and a Snufflenose Command Stick, each taken from an object at Mebok Mizzyrix's feet in Ratchet
+// (65 people's recordings tick those lines there), and the guide only said to take the quest, so players went into
+// the dungeon without them. An item objective of a page quest whose item comes from an object at the giver (within
+// a few yards) is collected in the giver's step, right after the accept; one found inside the dungeon is not.
+#[test]
+fn the_items_a_page_quest_needs_from_objects_at_its_giver_are_collected_with_the_accept_2439_blueleaf_tubers() {
+	let own = blueleaf_pack();
 	let out = run(
 		&own,
 		&k(r#"
@@ -781,6 +787,40 @@ emit(out)"#),
 	)
 	.remove(0);
 	assert_eq!(out, json!(["accept:90730@60 collect:8100@60.2"]), "the crate at the giver's feet with the accept; neither the tubers inside nor the far crate");
+}
+
+// #4042 (Iriael, Razorfen Kraul's pick-up guide): with Blueleaf Tubers taken long before, the guide only named it as
+// in the log, so the crate, manual and stick stayed in Ratchet; with every quest of the page in the log the page
+// had nothing to pick up at all. A quest in the log whose items at its giver are not in the bags gets that giver's
+// stop with the items and no accept, the guide is built for it alone too, and once the bags hold them (or the
+// quest is ready to hand in) it goes.
+#[test]
+fn a_quest_in_the_log_whose_items_at_its_giver_are_not_in_the_bags_gets_that_stop_4042_blueleaf_tubers() {
+	let own = blueleaf_pack();
+	let script = k(r#"
+local function guide()
+	local def, why = D.PickupGuide("{KEY}")
+	local out = {}
+	for _, s in ipairs(def and def.steps or {}) do
+		local verbs = {}
+		for _, g in ipairs(s.goals) do
+			if g.quest == 90730 then verbs[#verbs + 1] = g.t .. ":" .. (g.item or g.quest) end
+		end
+		if #verbs > 0 then out[#out + 1] = s.title .. " " .. table.concat(verbs, " ") end
+	end
+	return { why = why or false, steps = table.concat(out, " | "), fetch = #D.PickupPlan("{KEY}").fetch }
+end
+emit(guide())
+stub.world.addItem(8100, 1)
+emit(guide())"#);
+	let alone = run(&own, &script, Opts { done: vec![1098, 1740, 1014, 1016], log: vec![1013, 90730], ..Default::default() });
+	assert_eq!(alone[0], json!({ "why": false, "steps": "Mebok collect:8100", "fetch": 1 }), "every quest in the log: a guide to the crate");
+	assert_eq!(alone[1], json!({ "why": "nothing", "steps": "", "fetch": 0 }), "the crate in the bags: nothing left");
+	let with_takes = run(&own, &script, Opts { log: vec![1013, 90730], ..Default::default() });
+	assert_eq!(with_takes[0]["steps"], json!("Mebok collect:8100"), "among the quests to take: the stop, no accept");
+	assert_eq!(with_takes[1]["steps"], json!(""), "the crate in the bags: no stop");
+	let ready = run(&own, &script, Opts { done: vec![1098, 1740, 1014, 1016], log: vec![1013], ready: vec![90730], ..Default::default() });
+	assert_eq!(ready[0], json!({ "why": "nothing", "steps": "", "fetch": 0 }), "ready to hand in: no items needed");
 }
 
 // #2092 (Fyurie, Uldaman's pick-up guide): Indurium Ore pays six silver, no experience and no item, and the guide
