@@ -147,7 +147,7 @@ fn look_up(query: &str, kind_of: &str, race: &str, faction: &str, cls: &str, lev
 		before: before(&lv(race), &lv(cls), &lv(faction), level, at),
 		// The pack and the player's faction's part (Polestar loads it on demand in game).
 		addons: vec!["Polestar".into(), "Polestar_Guides".into(), Addon::name(&format!("Polestar_Guides_{faction}"))],
-		script: LOOKUP.replace("@QUERY@", &lv(query)).replace("@KIND@", &lv(kind_of)).replace("@SIMULATE@", SIMULATE),
+		script: LOOKUP.replace("@QUERY@", &lv(query)).replace("@KIND@", &lv(kind_of)).replace("@SIMULATE@", SIMULATE.as_str()),
 		..Default::default()
 	});
 	let out3 = out.remove(2);
@@ -808,7 +808,7 @@ fn every_attunement_and_key_the_guide_has_a_step_per_quest_still_to_do_none_a_ba
 	];
 	for (r, who) in refs {
 		for p in who {
-			let out = attune_guide(r, p, 60, SIMULATE);
+			let out = attune_guide(r, p, 60, SIMULATE.as_str());
 			let (count, out) = (&out[0], &out[1]);
 			let as_ = format!("{r} ({})", p.faction);
 			assert_eq!(count["why"], false, "{as_}: a guide");
@@ -819,7 +819,7 @@ fn every_attunement_and_key_the_guide_has_a_step_per_quest_still_to_do_none_a_ba
 			assert_eq!(out["visited"], out["steps"], "{as_}: the engine stops at every step, none passed as done");
 		}
 	}
-	let other = attune_guide("onyxias-lair:drakefire-a", &ORGRIMMAR, 60, SIMULATE);
+	let other = attune_guide("onyxias-lair:drakefire-a", &ORGRIMMAR, 60, SIMULATE.as_str());
 	assert_eq!(other[0], json!({ "quests": 0, "accepts": 0, "bare": "", "why": "nothing" }), "the Alliance amulet's guide is not a Horde character's");
 }
 

@@ -193,7 +193,7 @@ return {
 	-- Step 38: Witherbark Village
 	-- {area:318} Drywhisker Gorge · {area:314} Go'Shek Farm · {area:317} Witherbark Village · {npc:2712} Quae
 	-- plural, as words: Witherbark Goliaths = {npc:218032} Witherbark Goliath
-	["South from {area:318}, past {area:314}, through {area:317} to the far end of the valley: the Shadow Hunters there drop the knife, and the trolls packed around them give most of the tusks. Then the Witch Doctors among the huts for the pouches, on the way back out towards {npc:2712}. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "从{area:318}向南，经过{area:314}，穿过{area:317}到山谷尽头：那里的暗影猎手掉落匕首，围在他们周围的巨魔提供大部分獠牙。然后在回程朝{npc:2712}的路上，到小屋间的巫医那里拿袋子。小心：枯木巨人（{npc:218032}，35，精英）和暗影猎手一起在尽头走动：把猎手一个个拉到你这边，远离巨人。",
+	["South from {area:318}, past {area:314}, through {area:317} to the far end of the valley: the Shadow Hunters there drop the knife, and the trolls packed around them give most of the tusks. Then the Witch Doctors among the huts for the pouches, on the way back out towards {npc:2712}. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "从{area:318}向南，经过{area:314}，穿过{area:317}来到山谷尽头。这里的枯木暗影猎手会掉落短刀，附近扎堆的巨魔是獠牙的主要来源。然后往{npc:2712}的方向折返，顺路击杀小屋之间的枯木巫医收集药包。小心，枯木巨怪（35级精英）和枯木暗影猎手都在山谷尽头活动。每次只拉一名暗影猎手，拉到远离巨怪的地方再打。",
 	-- {item:5040} Shadow Hunter Knife
 	["{item:5040}; below ground"] = "{item:5040}：在地下",
 
@@ -365,7 +365,7 @@ return {
 
 	-- Step 77: Thelsamar
 	-- {zone:2548} Riverglades · {zone:1455} Ironforge · {area:69} Lakeshire · {area:2417} Blackrock Pass
-	["Leave the {zone:2548} for about level 41: its Western Front has elite patrols. After Stranglethorn, the {zone:2548} guide takes you from {zone:1455} to {area:69}, then through {area:2417}."] = "",
+	["Leave the {zone:2548} for about level 41: its Western Front has elite patrols. After Stranglethorn, the {zone:2548} guide takes you from {zone:1455} to {area:69}, then through {area:2417}."] = "大约41级再去{zone:2548}，那里的西部前线有精英巡逻。跑完荆棘谷后，按{zone:2548}指南从{zone:1455}前往{area:69}，再穿过{area:2417}。",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "{npc:1470}：在地下",
 

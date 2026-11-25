@@ -1,0 +1,10 @@
+## Interface: 16001
+## Title: Polestar NPC name capture (contributors only)
+## Notes: Collect NPC names shown by the Forever client in its current language.
+## Author: Polestar contributors
+## Version: dev
+## X-License: GPL-3.0-only
+## SavedVariables: PolestarNpcNameCaptureDB
+
+Targets.lua
+Capture.lua

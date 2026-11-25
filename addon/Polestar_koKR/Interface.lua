@@ -385,7 +385,6 @@
 --   Pick up %s from %s
 --   Pick up %s
 --   Every step, on the dungeon's page
---   Opens %s
 --   %d of %d steps
 --   Attunements
 --   What lets you into each raid and opens a dungeon's doors, and how far you are
@@ -5828,7 +5827,6 @@ L["Finish %s"] = "%s 완료"
 L["Pick up %s from %s"] = "%2$s에게서 %1$s 받기"
 L["Pick up %s"] = "%s 받기"
 L["Every step, on the dungeon's page"] = "모든 단계, 던전 페이지에서"
-L["Opens %s"] = "%s 열림"
 L["%d of %d steps"] = "%2$d단계 중 %1$d단계"
 L["Attunements"] = "입장 조건"
 L["What lets you into each raid and opens a dungeon's doors, and how far you are"] = "각 공격대에 들어가고 던전의 문을 여는 데 필요한 것과 진행 상황"

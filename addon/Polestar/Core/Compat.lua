@@ -595,13 +595,31 @@ function Compat.GetQuestTitle(questID)
 end
 
 -- The quests in the log, in log order (headers and hidden entries left out).
-function Compat.GetLogQuests()
+-- An optional set of quest IDs lets a reader interested in one quest use its
+-- index without asking the client for every entry.
+function Compat.GetLogQuests(only)
 	local out, QL = {}, C_QuestLog
 	if not (QL and QL.GetNumQuestLogEntries and QL.GetInfo) then return out end
+	if only then
+		local quest = next(only)
+		if not quest then return out end
+		if QL.GetLogIndexForQuestID and not next(only, quest) then
+			local i = readable(QL.GetLogIndexForQuestID(quest))
+			if type(i) == "number" and i > 0 then
+				local info = QL.GetInfo(i)
+				if info and readable(info.questID) == quest then
+					if not info.isHeader and not info.isHidden then out[1] = quest end
+					return out
+				end
+			elseif QL.IsOnQuest and not Compat.IsOnQuest(quest) then
+				return out
+			end
+		end
+	end
 	for i = 1, QL.GetNumQuestLogEntries() or 0 do
 		local info = QL.GetInfo(i)
 		local q = info and not info.isHeader and not info.isHidden and Compat.Readable(info.questID)
-		if type(q) == "number" and q > 0 then out[#out + 1] = q end
+		if type(q) == "number" and q > 0 and (not only or only[q]) then out[#out + 1] = q end
 	end
 	return out
 end

@@ -397,7 +397,6 @@
 --   Pick up %s from %s
 --   Pick up %s
 --   Every step, on the dungeon's page
---   Opens %s
 --   %d of %d steps
 --   Attunements
 --   What lets you into each raid and opens a dungeon's doors, and how far you are
@@ -5840,7 +5839,6 @@ L["Finish %s"] = "Terminer %s"
 L["Pick up %s from %s"] = "Prendre %s auprès de %s"
 L["Pick up %s"] = "Prendre %s"
 L["Every step, on the dungeon's page"] = "Toutes les étapes, sur la page du donjon"
-L["Opens %s"] = "Ouvre %s"
 L["%d of %d steps"] = "%d étapes sur %d"
 L["Attunements"] = "Accès"
 L["What lets you into each raid and opens a dungeon's doors, and how far you are"] = "Ce qui vous ouvre chaque raid et les portes d'un donjon, et où vous en êtes"

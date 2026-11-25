@@ -2061,8 +2061,11 @@ end
 -- stays in the guide's own zones and costs little goes in, next to the
 -- guide's own steps nearest it; every other accept that waits on an earlier
 -- guide's quest is left out, with its goals, and a step left with no quest
--- goal goes too. Nothing marks either in the guide window; the report names
--- them (step.feeder, guide.hidden).
+-- goal goes too. An optional class chain (Own.optionalClass, #3925) is never
+-- required: no feeder goes in for its accept, which is left out; a quest of
+-- it the player holds is the chain under way and keeps its hand-in. Nothing
+-- marks either in the guide window; the report names them (step.feeder,
+-- guide.hidden).
 Own.FEED_BACK = 8 -- guides back along the route
 Own.FEED_LOCAL = 300 -- seconds a feeder chain may add to the guide's route
 Own.FEED_OBJECTIVE = 90 -- seconds counted per objective goal (kill, collect, ...)
@@ -2456,8 +2459,10 @@ function Own.feederPlan(g)
 					-- One record for the accept, in the chain of each missing root: it
 					-- opens only once every one of them is put in (else it is left out
 					-- with any chain not put in; a root no guide gives keeps its line).
+					-- An optional class chain's accept is never worth a feeder
+					-- (Own.optionalClass, #3925): left out like a grey one.
 					local d = #roots > 0 and { q = q, s = s, title = goal.title, whole = true,
-						worth = not goal.optional and not (goal.qlvl and C.IsQuestTrivial(tonumber(goal.qlvl), level)) } or nil
+						worth = not goal.optional and not (goal.qlvl and C.IsQuestTrivial(tonumber(goal.qlvl), level)) and not Own.optionalClass(q) } or nil
 					for _, root in ipairs(roots) do
 						-- Down to the quest the guide does not take itself (as before).
 						local p = root
@@ -10762,6 +10767,17 @@ function Own.classQuest(q)
 	if not mask then return false end
 	local band = bit and bit.band
 	return not band or band(mask, Own.ALL_CLASSES) ~= Own.ALL_CLASSES
+end
+-- Whether quest q is of an optional class chain (Core/ClassQuestList.lua,
+-- Fitz 2026-11-24, #3925: items only, not on the worth-it list) and a class
+-- quest (UI/ClassRewards.lua lists it, else the quest database's mask): never
+-- required, so never a feeder's reason (Own.feederPlan). Zardeth's errand
+-- before the Dread Mage Hat is open to everyone and stays a quest like any other.
+function Own.optionalClass(q)
+	local list, R = ns.ClassQuestList, ns.ClassRewards
+	if not (list and list.OptionalQuest and list.OptionalQuest(q)) then return false end
+	if R and R.quests and R.quests[q] then return true end
+	return Own.classQuest(q)
 end
 function Own.forSome(step)
 	if Own.someOnly(step.only) then return true end

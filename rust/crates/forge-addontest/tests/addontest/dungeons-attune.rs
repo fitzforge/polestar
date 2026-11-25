@@ -888,7 +888,8 @@ emit({{ steps = describe(def), ghost = ghost }})
 D.Attune("wailing-caverns", "fang")
 stub.advance(0.6)
 SIM_GUIDE = Polestar.Engine.GetGuide()
-{SIMULATE}"#
+{SIMULATE}"#,
+			SIMULATE = SIMULATE.as_str()
 		),
 		"Horde",
 		"Tauren",
@@ -1142,6 +1143,41 @@ emit(Polestar.UI.Attunements.StepWords(step, "open"))"#,
 	assert_eq!(out, vec![json!("Black Tome da Black Tome"), json!("Black Tome da Tomo nero")]);
 }
 
+#[test]
+fn the_next_step_uses_client_names_for_quest_givers_items_and_their_sources() {
+	let f = Fx::new();
+	let out = f.run_ui(
+		r#"
+local stepWords, names = Polestar.UI.Attunements.StepWords, Polestar.Names
+local npc = { kind = "npc", id = 31, name = "Elizabeth" }
+local item = { id = 42, name = "Key" }
+local object = { kind = "object", id = 53, name = "Door" }
+local quest = { kind = "quest", id = 64, title = "The quest", start = npc }
+local function lines()
+	return {
+		stepWords(quest, "open"),
+		stepWords({ kind = "drop", item = item, npc = npc }, "open"),
+		stepWords({ kind = "gift", item = item, npc = npc }, "open"),
+		stepWords({ kind = "use", from = item, at = object }, "open"),
+	}
+end
+emit(lines())
+names.AddChunk("itIT", "npc", 31, 31, "\n31\tElisabetta\n")
+names.AddChunk("itIT", "item", 42, 42, "\n42\tChiave\n")
+names.AddChunk("itIT", "object", 53, 53, "\n53\tPorta\n")
+names.AddChunk("itIT", "quest", 64, 64, "\n64\tLa missione\n")
+emit(lines())"#,
+		&fake_locale("itIT", &[("Pick up %s from %s", "Accetta %s da %s"), ("%s from %s", "%s da %s"), ("%s gives you %s", "%s ti dà %s"), ("Use %s beside %s", "Usa %s accanto a %s")]),
+	);
+	assert_eq!(
+		out,
+		vec![
+			json!(["Accetta The quest da Elizabeth", "Key da Elizabeth", "Elizabeth ti dà Key", "Usa Key accanto a Door"]),
+			json!(["Accetta La missione da Elisabetta", "Chiave da Elisabetta", "Elisabetta ti dà Chiave", "Usa Chiave accanto a Porta"]),
+		]
+	);
+}
+
 // ---------------------------------------------------------------------------
 // The Attunements section (UI/Attunements.lua, #3695)
 // ---------------------------------------------------------------------------
@@ -1212,15 +1248,15 @@ emit({ section = P.Section(), later = list(), notes = notes })"#,
 	assert_eq!(
 		fresh["fresh"],
 		json!([
-			["fang", "Wailing Caverns", [0, 3], "Next: Pick up Rite of the Serpent from Nara Wildmane", false, true, false],
 			["smelting-key", "The Deadmines", [0, 1], "Next: Smelting Key from Edwin VanCleef", false, true, false],
+			["fang", "Wailing Caverns", [0, 3], "Next: Pick up Rite of the Serpent from Nara Wildmane", false, true, false],
 		]),
-		"the Horde's two, by level; the Alliance's Ironclad Key left out"
+		"the Horde's two, by level then the instance's name; the Alliance's Ironclad Key left out"
 	);
-	assert_eq!(fresh["fresh"][0][2], fresh["counted"], "the bar counts what AttunementState says");
-	assert_eq!(progress["progress"][0][2], json!([1, 3]));
-	assert_eq!(progress["progress"][0][2], progress["counted"]);
-	assert_eq!(progress["progress"][0][3], "Next: Finish The Serpent's Trial", "the quest in the log is the next step");
+	assert_eq!(fresh["fresh"][1][2], fresh["counted"], "the bar counts what AttunementState says");
+	assert_eq!(progress["progress"][1][2], json!([1, 3]));
+	assert_eq!(progress["progress"][1][2], progress["counted"]);
+	assert_eq!(progress["progress"][1][3], "Next: Finish The Serpent's Trial", "the quest in the log is the next step");
 	assert_eq!(progress["asked"], json!(["wailing-caverns:fang", "wailing-caverns:fang"]), "Guide me opens the dungeon page's guide");
 	assert_eq!(progress["link"], "All attunements and keys", "the dungeon page links here");
 	assert_eq!(later["section"], "Attunements", "the link opens the section");
@@ -1263,7 +1299,7 @@ local last = AT.Shown()[#AT.Shown()]
 local lastCard
 for _, c in ipairs(AT.cards) do if c:IsShown() and c.psId == last.id then lastCard = c end end
 emit({ icon = icon, first = first, sideBySide = y1 == y2 and x2 > x1, sameHeight = c1:GetHeight() == c2:GetHeight(), art = art,
-	guide = c1.Guide.Label:GetText(), last = { last.id, last.glyph, lastCard:GetAlpha() } })"#,
+	guide = c1.Guide.Label:GetText(), titles = { c1.Title:GetText(), c2.Title:GetText() }, metas = { c1.Meta:GetText(), c2.Meta:GetText() }, last = { last.id, last.glyph, lastCard:GetAlpha() } })"#,
 		"",
 	);
 	let out = &out[0];
@@ -1273,5 +1309,11 @@ emit({ icon = icon, first = first, sideBySide = y1 == y2 and x2 > x1, sameHeight
 	assert_eq!(out["sameHeight"], true, "a row's cards as tall as each other: {out}");
 	assert_eq!(out["art"], true, "the picture band: {out}");
 	assert_eq!(out["guide"], "Guide me");
+	assert_eq!(out["titles"], json!(["Wailing Caverns", "The Deadmines"]), "the title is the instance the card opens: {out}");
+	assert_eq!(
+		out["metas"],
+		json!(["Fang of the Serpent  ·  Attunement  ·  Everyone entering needs it  ·  From level 17", "Smelting Key  ·  Key  ·  One in the group is enough"]),
+		"the key's own name leads the facts: {out}"
+	);
 	assert_eq!(out["last"], json!(["smelting-key", "check", 0.6]), "done: ticked, at the end, dimmed: {out}");
 }

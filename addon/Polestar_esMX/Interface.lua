@@ -274,7 +274,6 @@
 --   Pick up %s from %s
 --   Pick up %s
 --   Every step, on the dungeon's page
---   Opens %s
 --   %d of %d steps
 --   Attunements
 --   What lets you into each raid and opens a dungeon's doors, and how far you are
@@ -5717,7 +5716,6 @@ L["Finish %s"] = "Completa %s"
 L["Pick up %s from %s"] = "Recoge %s de %s"
 L["Pick up %s"] = "Recoge %s"
 L["Every step, on the dungeon's page"] = "Todos los pasos, en la página del calabozo"
-L["Opens %s"] = "Abre %s"
 L["%d of %d steps"] = "%d de %d pasos"
 L["Attunements"] = "Armonizaciones"
 L["What lets you into each raid and opens a dungeon's doors, and how far you are"] = "Lo que te da acceso a cada banda y abre las puertas de un calabozo, y lo que te falta"

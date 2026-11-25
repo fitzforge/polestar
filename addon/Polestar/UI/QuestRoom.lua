@@ -210,8 +210,10 @@ function UI.LayoutQuestRoom()
 		F.Hint:SetText(hint)
 	elseif carried then
 		F.Title:SetText(L["Finished quests you're still carrying"])
-		list = ns.RoutePlan.Carried()
-		if list == nil then
+		local waiting
+		list, waiting = ns.RoutePlan.Carried()
+		-- None listed while some wait on a route choice ahead: not settled yet.
+		if list == nil or (#list == 0 and (waiting or 0) > 0) then
 			F.Hint:SetText(L["The route ahead isn't settled yet (a guide to choose or load), so it can't say which quests it leaves behind."])
 		elseif #list == 0 then
 			F.Hint:SetText(L["The route hands in every finished quest in your log."])

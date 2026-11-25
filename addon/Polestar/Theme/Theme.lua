@@ -1575,7 +1575,12 @@ do
 	end
 	-- The children as GetChildren returns them, with no table made: a lookup
 	-- that misses walks every scoped window, and the settings window's rows miss
-	-- often as they are built.
+	-- often as they are built. Within a pass over every string (Fonts.pass:
+	-- false until its walk, true after it) the frames stand still, so the pass
+	-- walks once and a parent the walk did not reach is outside: a look
+	-- setting changed with the settings window open walked the scoped windows
+	-- once for each of its hundreds of rows' parents (Fitz's 0.4.3-rc probe,
+	-- 427 ms frames).
 	function markChildren(key, ...)
 		for i = 1, select("#", ...) do markScope((select(i, ...)), key) end
 	end
@@ -1585,7 +1590,10 @@ do
 		local key = Fonts.frames[p]
 		if key ~= nil then return key or nil end
 		if Fonts.outside[p] then return nil end
-		for frame, k in pairs(Fonts.scopes) do markScope(frame, k) end
+		if Fonts.pass ~= true then
+			for frame, k in pairs(Fonts.scopes) do markScope(frame, k) end
+			if Fonts.pass == false then Fonts.pass = true end
+		end
 		key = Fonts.frames[p]
 		if key == nil then Fonts.outside[p] = true end
 		return key or nil
@@ -2991,7 +2999,10 @@ do
 		walked = nil
 		if not ok then error(err, 0) end
 		if Fonts.moved() then
-			for fs, role in pairs(fonted) do paintFont(fs, role) end
+			Fonts.pass = false
+			local ok2, err2 = pcall(function() for fs, role in pairs(fonted) do paintFont(fs, role) end end)
+			Fonts.pass = nil
+			if not ok2 then error(err2, 0) end
 		end
 	end
 end

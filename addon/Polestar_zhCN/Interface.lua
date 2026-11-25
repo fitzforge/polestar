@@ -291,7 +291,6 @@
 --   Pick up %s from %s
 --   Pick up %s
 --   Every step, on the dungeon's page
---   Opens %s
 --   %d of %d steps
 --   Attunements
 --   What lets you into each raid and opens a dungeon's doors, and how far you are
@@ -5734,7 +5733,6 @@ L["Finish %s"] = "完成 %s"
 L["Pick up %s from %s"] = "从 %2$s 处接取 %1$s"
 L["Pick up %s"] = "接取 %s"
 L["Every step, on the dungeon's page"] = "所有步骤，在地下城页面"
-L["Opens %s"] = "开启 %s"
 L["%d of %d steps"] = "%d / %d 步骤"
 L["Attunements"] = "进入资格"
 L["What lets you into each raid and opens a dungeon's doors, and how far you are"] = "进入每个团队副本和打开地下城大门所需的条件，以及你的进度"

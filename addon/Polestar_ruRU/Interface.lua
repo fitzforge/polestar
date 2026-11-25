@@ -368,7 +368,6 @@
 --   Pick up %s from %s
 --   Pick up %s
 --   Every step, on the dungeon's page
---   Opens %s
 --   %d of %d steps
 --   Attunements
 --   What lets you into each raid and opens a dungeon's doors, and how far you are
@@ -5811,7 +5810,6 @@ L["Finish %s"] = "Выполните «%s»"
 L["Pick up %s from %s"] = "Возьмите «%s» у %s"
 L["Pick up %s"] = "Возьмите «%s»"
 L["Every step, on the dungeon's page"] = "Все шаги — на странице подземелья"
-L["Opens %s"] = "Открывает %s"
 L["%d of %d steps"] = "Шагов: %d из %d"
 L["Attunements"] = "Допуски"
 L["What lets you into each raid and opens a dungeon's doors, and how far you are"] = "Что открывает доступ в каждый рейд и двери подземелий, и ваш прогресс"

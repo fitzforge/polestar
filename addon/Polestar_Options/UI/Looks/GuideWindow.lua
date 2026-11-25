@@ -351,6 +351,7 @@ function UI.GuideWindowScene(band)
 			["ui.upcoming"] = { up }, ["guideWindow.upSize"] = { up }, ["guideWindow.progress"] = { foot },
 			["guideWindow.progressHeight"] = { foot }, ["guideWindow.progressColor"] = { foot.Line }, ["guideWindow.progressPct"] = { foot.Pct },
 			["guideWindow.pace"] = { G.xp }, ["guideWindow.xpLine"] = { G.xp }, ["guideWindow.stillToDo"] = { P.along },
+			["guideWindow.questLogNotices"] = { G.lines[1] or person, P.along },
 			-- The window itself shown and held in place; the step's goals, whole or one person's; the tip and Up next open.
 			["ui.shown"] = window, ["ui.locked"] = window, ["ui.wholeStep"] = moving, ["ui.notesOpen"] = { P.tip },
 			["ui.upcomingOpen"] = { up },
@@ -760,6 +761,12 @@ local SPECS = {
 		{ kind = "toggle", key = "guideWindow.stillToDo", label = L["Still to do"], new = "0.4.3",
 			help = L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."],
 			search = "still to do, finished quests, carried, hand in elsewhere, behind, left behind, hide still to do, along the way" },
+	} },
+	-- The off-route line and the finished quests' row (#4112).
+	{ page = PAGE, tab = L["Parts"], section = L["Quest log notices"], controls = {
+		{ kind = "toggle", key = "guideWindow.questLogNotices", label = L["Quest log notices"], new = "0.4.4",
+			help = L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."],
+			search = "quest log notices, quest log, clean up, cleanup, aren't part of your route, off route, finished quests, carried, hand in elsewhere, hide notices" },
 	} },
 	{ page = PAGE, tab = L["Parts"], section = L["Progress & pace"], controls = {
 		{ kind = "toggle", key = "guideWindow.progress", label = L["Progress bar"], new = NEW,
