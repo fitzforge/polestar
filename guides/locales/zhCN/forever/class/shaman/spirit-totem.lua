@@ -23,9 +23,9 @@ return {
 
 	-- Step 3: The four elements
 	["The four elements"] = "四种元素",
-	-- {item:7069} Elemental Air · {zone:1417} Arathi Highlands · {area:320} Refuge Pointe · {npc:2794} Summoned Guardian · {zone:1447} Azshara · {npc:14269} Seeker Aqualon · {area:69} Lakeshire
-	-- plural, as words: Thundering Exiles = {npc:2762} Thundering Exile · Rumbling Exiles = {npc:2592} Rumbling Exile · Burning Exiles = {npc:2760} Burning Exile
-	["One each of {item:7069}, Fire, Earth and Water; all four trade, so the auction house is quickest. To farm them, {zone:1417} has the exiles near {area:320} (level 38-39, about one kill in eight to ten, respawn under seven minutes): Thundering Exiles south-east of it (air), Rumbling Exiles south-west (earth), Burning Exiles far to the north-west (fire), and the {npc:2794} far to the south-west (water, about one in seven). Water comes easier from the Patches of Elemental Water in {zone:1447} (two in five) or {npc:14269} by {area:69} in Redridge."] = "{item:7069}、元素火焰、元素之土和元素之水各一个；四种都可交易，所以拍卖行最快。自行刷取的话，{zone:1417}的{area:320}附近有流放者（38-39级，约八到十只出一个，刷新不到七分钟）：东南方的雷霆流放者掉空气，西南方的顽石流放者掉土，远处西北方的烈焰流放者掉火，远处西南方的{npc:2794}掉水（约七只出一个）。水更容易从{zone:1447}的元素之水水域（五次出两个），或赤脊山{area:69}旁的{npc:14269}处获得。",
+	-- {item:7069} Elemental Air · {zone:1417} Arathi Highlands · {area:320} Refuge Pointe · {area:333} Circle of East Binding · {npc:2794} Summoned Guardian · {zone:1447} Azshara · {npc:14269} Seeker Aqualon · {area:69} Lakeshire
+	-- plural, as words: Thundering Exiles = {npc:2762} Thundering Exile · Rumbling Exiles = {npc:2592} Rumbling Exile · Burning Exiles = {npc:2760} Burning Exile · Cresting Exiles = {npc:2761} Cresting Exile
+	["One each of {item:7069}, Fire, Earth and Water; all four trade, so the auction house is quickest. To farm them, {zone:1417} has the exiles at its stone circles (level 38-39, respawn under seven minutes): Thundering Exiles south-east of {area:320} (air), Rumbling Exiles south-west of it (earth) and Burning Exiles far to the north-west (fire), about one kill in eight to ten each, and Cresting Exiles at the {area:333} in the north-east (water, in about one in five of the corpses you can loot). Leave the {npc:2794} in the south-west alone: it is elite. Water also comes from the Patches of Elemental Water in {zone:1447} (two in five) or {npc:14269} by {area:69} in Redridge."] = "{item:7069}、火、土和水各一个；这四种都能交易，所以拍卖行最快。要自己刷的话，{zone:1417}的石圈旁有流放者（38-39级，重生不到七分钟）：雷霆流放者（{npc:2762}）在{area:320}东南（空气），隆隆流放者（{npc:2592}）在其西南（土），燃烧流放者（{npc:2760}）在远处的西北（火），每种大约八到十次击杀一个；涌浪流放者（{npc:2761}）在东北的{area:333}（水，大约五具可拾取的尸体里有一个）。别去碰西南的{npc:2794}：它是精英。水也可以从{zone:1447}的元素之水（五分之二），或赤脊山{area:69}旁的{npc:14269}获得。",
 	-- {item:7069} Elemental Air
 	-- plural, as words: Thundering Exiles = {npc:2762} Thundering Exile
 	["{item:7069}: Thundering Exiles"] = "{item:7069}：{npc:2762}",
@@ -35,8 +35,9 @@ return {
 	-- {item:7067} Elemental Earth
 	-- plural, as words: Rumbling Exiles = {npc:2592} Rumbling Exile
 	["{item:7067}: Rumbling Exiles"] = "{item:7067}：{npc:2592}",
-	-- {item:7070} Elemental Water · {npc:2794} Summoned Guardian · {zone:1447} Azshara
-	["{item:7070}: the {npc:2794}, or {zone:1447}'s water patches"] = "{item:7070}：由 {npc:2794} 掉落，或前往 {zone:1447} 的水域寻找",
+	-- {item:7070} Elemental Water · {zone:1447} Azshara
+	-- plural, as words: Cresting Exiles = {npc:2761} Cresting Exile
+	["{item:7070}: Cresting Exiles, or {zone:1447}'s water patches"] = "{item:7070}：涌浪流放者（{npc:2761}），或{zone:1447}的水坑",
 
 	-- Step 4: Bath'rah the Windwatcher
 	-- {npc:6176} Bath'rah the Windwatcher · {zone:1416} Alterac Mountains · {area:272} Tarren Mill
@@ -72,7 +73,9 @@ return {
 	-- ["In the {zone:1422}, the Venom Mist Lurkers drop the {item:20610} and the Diseased Black Bears the {item:20611} (about one kill in five each). Carrion birds can drop either, so keep what they give you on the way."] = "在{zone:1422}，{npc:1822}掉落{item:20610}，{npc:1815}掉落{item:20611}（各自大约五次击杀掉落一次）。食腐鸟可能掉落其中任一种，路上得到的也要留着。",
 	-- ["One each of {item:7069}, Fire, Earth and Water. The Exiles of Arathi Highlands drop them, one element each, about one kill in ten: Thundering (air), Burning (fire), Rumbling (earth) and Cresting (water). Or buy them at the auction house."] = "{item:7069}、元素火焰、元素之土和元素之水各一份。阿拉希高地的流放者会掉落它们，每种对应一个元素，大约十次击杀掉落一次：雷霆流放者（空气）、烈焰流放者（火焰）、顽石流放者（土）和水浪流放者（水）。也可以在拍卖行购买。",
 	-- ["One each of {item:7069}, Fire, Earth and Water. The Exiles of {zone:1417} drop them, one element each, about one kill in ten: Thundering (air), Burning (fire), Rumbling (earth) and Cresting (water). Or buy them at the auction house."] = "{item:7069}、元素火焰、元素之土和元素之水各一份。{zone:1417}的流放者会掉落它们，每种对应一个元素，大约十次击杀掉落一次：雷霆流放者（空气）、烈焰流放者（火焰）、顽石流放者（土）和水浪流放者（水）。也可以在拍卖行购买。",
+	-- ["One each of {item:7069}, Fire, Earth and Water; all four trade, so the auction house is quickest. To farm them, {zone:1417} has the exiles near {area:320} (level 38-39, about one kill in eight to ten, respawn under seven minutes): Thundering Exiles south-east of it (air), Rumbling Exiles south-west (earth), Burning Exiles far to the north-west (fire), and the {npc:2794} far to the south-west (water, about one in seven). Water comes easier from the Patches of Elemental Water in {zone:1447} (two in five) or {npc:14269} by {area:69} in Redridge."] = "{item:7069}、元素火焰、元素之土和元素之水各一个；四种都可交易，所以拍卖行最快。自行刷取的话，{zone:1417}的{area:320}附近有流放者（38-39级，约八到十只出一个，刷新不到七分钟）：东南方的雷霆流放者掉空气，西南方的顽石流放者掉土，远处西北方的烈焰流放者掉火，远处西南方的{npc:2794}掉水（约七只出一个）。水更容易从{zone:1447}的元素之水水域（五次出两个），或赤脊山{area:69}旁的{npc:14269}处获得。",
 	-- ["The {area:1417} ({area:1477}) lies under the {area:74}; the arrow points at its entrance. Gasher or {npc:5716} drop the {item:20606}, Hukku or Mijan the Blue, Zolo or Loro the Green: all six are elite trolls inside. Bring a group."] = "{area:1417}（{area:1477}）位于{area:74}下方；箭头指向其入口。加什尔或{npc:5716}掉落{item:20606}，胡库或米杉掉落蓝色，祖罗或洛若尔掉落绿色：六个都是里面的精英巨魔。组队前往。",
 	-- ["{item:7070}: Cresting Exiles"] = "{item:7070}：{npc:2761}",
+	-- ["{item:7070}: the {npc:2794}, or {zone:1447}'s water patches"] = "{item:7070}：由 {npc:2794} 掉落，或前往 {zone:1447} 的水域寻找",
 	-- ["{npc:6176} camps in the east of {zone:1416}, north-east of {area:272}."] = "{npc:6176}在{zone:1416}东部、{area:272}东北边扎营。",
 }

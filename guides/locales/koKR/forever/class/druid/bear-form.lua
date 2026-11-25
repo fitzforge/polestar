@@ -93,23 +93,29 @@ return {
 	-- {npc:255853} Urs'endris
 	["Back to {npc:255853} by the falls."] = "폭포 옆의 {npc:255853}에게 돌아가세요.",
 
-	-- Step 25: Child of Nature
+	-- Step 25: Skycutter to Mulgore
+	-- {zone:1412} Mulgore
+	["Skycutter to {zone:1412}"] = "하늘절단기를 타고 {zone:1412}(으)로",
+	-- {npc:259118} Muln Earthfury · {zone:1412} Mulgore · {zone:2521} Zephras Isle · {area:16628} Valanaar Skydocks · {area:16638} Valanaar
+	["{npc:259118} is in {zone:1412}, where the skycutter from {zone:2521} lands. Board it at the {area:16628} on the village's south-west edge: go down through {area:16638} on its paths, not over the cliffs around it, which drop off the isle."] = "{npc:259118}은(는) {zone:2521}에서 오는 하늘절단기가 내리는 {zone:1412}에 있습니다. 마을 남서쪽 끝의 {area:16628}에서 타십시오: 주변 절벽을 넘지 말고 {area:16638}의 길을 따라 내려가십시오. 절벽은 섬 밖으로 떨어집니다.",
+
+	-- Step 26: Child of Nature
 	-- {npc:259118} Muln Earthfury · {zone:2521} Zephras Isle · {zone:1412} Mulgore · {zone:1456} Thunder Bluff
 	["{npc:259118} waits where the airship from {zone:2521} lands, in northern {zone:1412} beside {zone:1456}."] = "{npc:259118}은(는) {zone:2521}에서 오는 비행선이 내리는 곳, {zone:1456} 옆 {zone:1412} 북부에서 기다립니다.",
 
-	-- Step 26: Turak Runetotem
+	-- Step 27: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade
 	["{npc:3033} trains druids in the druids' hut on {area:1639}, over the rope bridges east of the lifts. He teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "",
 
-	-- Step 27: Child of Nature
+	-- Step 28: Child of Nature
 	-- {npc:270459} Alfina Nightgaze · {npc:259084} Denaaris Stargale · {area:279} Dalaran · {zone:2521} Zephras Isle · {npc:2543} Archmage Ansirem Runeweaver
 	["{npc:270459} stands beside {npc:259084} and the Skyborne Portal, west of {area:279}, where the skycutter from {zone:2521} lands. {npc:2543} offers the same quest."] = "{npc:270459}은(는) {area:279} 서쪽, {zone:2521}에서 오는 비행정이 내리는 곳에 {npc:259084}, 스카이본 차원문과 함께 있습니다. {npc:2543}도 같은 퀘스트를 줍니다.",
 
-	-- Step 28: Sheldras Moontree
+	-- Step 29: Sheldras Moontree
 	-- {zone:1453} Stormwind · {npc:5504} Sheldras Moontree · {spell:18960} Teleport: Moonglade
 	["The Skyborne Portal takes you to {zone:1453}. {npc:5504} is the city's druid trainer (the arrow points at him); he teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "",
 
-	-- Step 29: Dendrite Starblaze
+	-- Step 30: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade · {npc:12740} Faustron · {npc:10897} Sindrayl
 	["Cast {spell:18960}: it lands you beside the building where {npc:11802} stands upstairs, in {area:2361}. Learn the {area:493} flight path while you are here ({npc:12740} for the Horde, south-west of the lake; {npc:10897} for the Alliance, south of it)."] = "{spell:18960}을(를) 시전하세요. {area:2361}에서 {npc:11802}이(가) 위층에 서 있는 건물 옆에 도착합니다. 여기 온 김에 {area:493} 비행 경로를 배우세요(호드는 호수 남서쪽의 {npc:12740}, 얼라이언스는 호수 남쪽의 {npc:10897}).",
 

@@ -95,8 +95,8 @@ options:
                         an explicitly named file must exist
   --filter <text>       play only the guides whose file or id contains it
   --class <c>           play only this class (e.g. Warrior), in every guide
-  --group do|skip       the answer at every group quest (when group): skip
-                        (the default, the solo route) or do (with a group)
+  --group do|skip       the answer at every group quest (when group) and escort
+                        (#3439): skip (the default, the solo route) or do
   --dungeon <list>      play as a player who chose these dungeons in Options
                         (\`when dungeon\`): names or map ids, comma-separated
                         (\`--dungeon "The Deadmines,Wailing Caverns"\`), or all;
@@ -107,6 +107,9 @@ options:
                         \`when skill\` it opens are played; on its own the
                         simulator takes no optional goal, so it learns none
                         (a profession taught by an item is not taken)
+  --strict-start-gates  leave class guides waiting at their opening level or
+                        prerequisite; normally the simulated player meets it
+                        outside the guide and the play reports what it supplied
   --level-offset <n>    play a character n levels ahead of each guide's level
                         (negative: behind; never below 1): it starts the guide
                         at its minimum level + n, and a level goal or an
@@ -126,7 +129,7 @@ function dungeonsArg(v) {
 
 async function run(argv) {
 	const { opts, positional, error } = parseArgs(argv, {
-		flags: ['--honest'],
+		flags: ['--honest', '--strict-start-gates'],
 		options: ['--filter', '--class', '--group', '--dungeon', '--pack', '--guides', '--data', '--context', '--context-data', '--format', '--kb', '--learn', '--persona', '--sample', '--points', '--from', '--level-offset'],
 	});
 	if (opts.help) {
@@ -147,6 +150,7 @@ async function run(argv) {
 		(opts.kb && !opts.honest && '--kb needs --honest') ||
 		(learn && learn.error) ||
 		(learn && opts.honest && '--learn plays in the addon: it does not go with --honest') ||
+		(opts.strictStartGates && opts.honest && '--strict-start-gates plays in the addon: it does not go with --honest') ||
 		levelOffset.error ||
 		(levelOffset && (opts.honest || opts.persona) && `--level-offset plays the simulated player: it does not go with ${opts.honest ? '--honest' : '--persona'}`);
 	const pack = problem ? null : commandPack({ ...opts, pack: arg.pack });
@@ -181,6 +185,7 @@ async function run(argv) {
 		...(pack.official ? {} : { contextDir: pack.contextDir, contextDataDir: pack.contextDataDir }),
 		learn,
 		levelOffset,
+		openStartGates: !opts.strictStartGates,
 		onResult: (r) => {
 			if (r.stuck) stuck++;
 			else if (!r.ok) failed++;
@@ -309,6 +314,8 @@ async function runPersonas(opts, pack, cls) {
 		points,
 		from,
 		dataDir: resolvePath(opts.data, 'data/forever', ROOT),
+		openStartGates: !opts.strictStartGates,
+		onStartGate: (r, gate) => console.log(`${r.guide} (${personaWho(r)}) [${r.persona}: ${r.variant}]: start gate opened: ${gate}`),
 		onResult: (r) => {
 			const c = counts.get(r.persona);
 			c.plays++;

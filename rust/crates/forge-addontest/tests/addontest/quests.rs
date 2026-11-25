@@ -330,7 +330,7 @@ emit({ sq.pins.layers["quests.objectives"] == nil, sq.pins.layers["quests.turnin
 	let ready = &out[3];
 	assert_eq!(ready[0], json!({}), "no objective markers once complete");
 	assert_eq!(ready[1], json!(["Marshal McBride@48.9,41.6:map:quest-turnin"]));
-	assert_eq!(ready[2], json!({ "world": true, "minimap": true, "edge": false, "scale": 1 }));
+	assert_eq!(ready[2], json!({ "world": true, "minimap": true, "edge": false, "scale": 1, "summary": "Hand-ins" }));
 	assert_eq!(out[4], json!([true, true]));
 }
 
@@ -1121,6 +1121,48 @@ emit(sq.hoverObject(78, "Candle Crate"))
 	assert_eq!(out[1], json!(["?", "Kobold Candles: | Large Candle 0/8"]));
 }
 
+// Object 7983211 (Flintfire's Shipment, 98321) has no name in QuestieDB: the record's name was nil, and the
+// objective index keyed it by that name, a Lua error at login for anyone holding the quest. `forge data questdb`
+// now names such a record ("Unnamed object", "Unnamed creature"); a database built before that still has the nil.
+#[test]
+fn a_nameless_object_or_mob_record_costs_the_tracker_no_error_and_the_quest_still_shows() {
+	let data = data_with(|raw| {
+		raw.get_mut("objects.json").unwrap()["77"]["name"] = Value::Null;
+		raw.get_mut("npcs.json").unwrap()["6"]["name"] = Value::Null;
+	});
+	let db = build_db(data.path());
+	let named = run(&db, "emit({ Q.EntityName(-77), Q.EntityName(6) })", "");
+	assert_eq!(named[0], json!(["Unnamed object", "Unnamed creature"]), "the build names both");
+	for (file, id, name) in [("Objects.lua", 77, "Unnamed object"), ("Npcs.lua", 6, "Unnamed creature")] {
+		let path = db.dir.path().join(file);
+		let text = std::fs::read_to_string(&path).unwrap();
+		let from = format!("\n{id}\t'{name};");
+		assert!(text.contains(&from), "{file}: no {from:?}");
+		std::fs::write(&path, text.replacen(&from, &format!("\n{id}\t;"), 1)).unwrap();
+	}
+	let out = run(
+		&db,
+		r#"
+w.accept(7, { { text = "Kobold Vermin slain: 0/10", type = "monster", required = 10 } })
+w.accept(60, { { text = "Large Candle: 0/8", type = "item", required = 8 } })
+stub.advance(0.3)
+emit({ Q.EntityName(-77), Q.EntityName(6) })
+emit(sq.hoverItem(772))
+emit(sq.hoverObject(77, "Candle Crate"))
+emit(sq.hoverObject(nil, "Candle Crate"))
+emit(sq.hoverUnit(6))
+emit(#layer("quests.objectives") > 0)
+"#,
+		"",
+	);
+	assert_eq!(out[0], json!({}), "the database has no name for either");
+	assert_eq!(out[1], json!(["?", "Kobold Candles: | 0/8"]), "the item's tooltip still lists the quest");
+	assert_eq!(out[2], json!(["?", "Kobold Candles: | Large Candle 0/8"]), "the object's own tooltip, by its id");
+	assert_eq!(out[3], json!(["?"]), "a name the database does not know indexes nothing");
+	assert_eq!(out[4], json!(["?", "Kobold Camp Cleanup: | 0/10", "Kobold Candles: | Large Candle 0/8"]), "the mob's tooltip: its kill line unnamed, the candle it drops still named");
+	assert_eq!(out[5], json!(true), "the map markers are drawn");
+}
+
 #[test]
 fn an_unchanged_quest_log_costs_no_rebuild_and_no_pins_call() {
 	let db = fixture();
@@ -1213,8 +1255,8 @@ emit({ sq.pins.layers["quests.available"] == nil, #Q.GetAvailableQuests() })
 "#,
 		"w.complete({ 783 })",
 	);
-	let opts = json!({ "world": true, "minimap": false, "edge": false, "scale": 1 });
-	let objectives = json!({ "world": true, "minimap": false, "edge": false, "scale": 1, "minimapAreas": true });
+	let opts = json!({ "world": true, "minimap": false, "edge": false, "scale": 1, "summary": "Available quests" });
+	let objectives = json!({ "world": true, "minimap": false, "edge": false, "scale": 1, "minimapAreas": true, "summary": "Objectives" });
 	assert_eq!(out[0], json!([objectives, opts]), "objective areas would follow the layer onto the minimap");
 	assert_eq!(out[1], true);
 	assert_eq!(out[2], json!([true, 0]));
@@ -1460,8 +1502,12 @@ local out, other = { Questing = {}, Map = {} }, {}
 local reg = Polestar.Widgets and Polestar.Widgets.OptionsRegistry or {}
 if #reg == 0 then reg = Q.OPTIONS end
 for _, spec in ipairs(reg) do
-	for _, c in ipairs(spec.controls) do
-		if c.key and mine[c.key] then
+	-- Quest data's switch is its section's header (the module switch, its rows under it); the Map page's header
+	-- over the quest markers is a reference to it.
+	local list = { spec.toggle }
+	for _, c in ipairs(spec.controls) do list[#list + 1] = c end
+	for _, c in ipairs(list) do
+		if c.key and mine[c.key] and not c.ref then
 			local list = out[spec.page]
 			if list and (spec.page == "Map" or spec.tab == "Quests") then
 				list[#list + 1] = c.key .. (c.help and "+help" or "")

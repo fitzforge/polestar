@@ -24,7 +24,7 @@ function GetAppropriateTooltip() return GameTooltip end
 // settings window, not at login).
 function run(script, options) {
 	const addons = [{ name: 'Polestar', files: ['Core/Init.lua', 'Core/Compat.lua', 'Theme/Theme.xml', 'QoL/QoL.xml'] }];
-	if (options) addons.push({ name: 'Polestar_Options', files: ['QoL/Options.lua'] });
+	if (options) addons.push({ name: 'Polestar_Options', files: ['UI/Kit.lua', 'QoL/Options.lua'] });
 	return runAddon({
 		stubs: ['stub_qol.lua'],
 		before,
@@ -93,7 +93,10 @@ emit({ total = P.total, count = P.count })
 stub.fire("QUEST_REMOVED", 14); stub.runTimers()
 emit({ total = P.total, shown = f:IsShown() })
 Polestar.Set("qol.questXPOverlay", false); stub.runTimers()
-emit({ shown = f:IsShown(), watches = Polestar.QoL.Watching("QUEST_LOG_UPDATE") })
+q.ready[12] = true -- newly ready, its reward has not been read
+reads = q.rewardReads
+stub.fire("QUEST_LOG_UPDATE"); stub.runTimers()
+emit({ shown = f:IsShown(), rewardReads = q.rewardReads - reads })
 Polestar.Set("qol.questXPOverlay", true); stub.runTimers()
 q.level, q.rested = q.maxLevel, nil
 stub.fire("PLAYER_LEVEL_UP", q.level); stub.runTimers()
@@ -104,7 +107,7 @@ emit({ total = P.total, shown = f:IsShown(), rested = q.rested or 0 })
 	assert.ok(!tip.some((line) => line.includes('XP after turn-ins')));
 	assert.deepEqual(turned, { total: 100, count: 1 });
 	assert.deepEqual(abandoned, { total: 0, shown: false });
-	assert.deepEqual(off, { shown: false, watches: false });
+	assert.deepEqual(off, { shown: false, rewardReads: 0 });
 	assert.deepEqual(maxed, { total: 0, shown: false, rested: 0 });
 });
 
@@ -241,7 +244,7 @@ emit({ total = P.total, shown = f:IsShown(), marker = f.Rested:IsVisible(), line
 	assert.equal(restored.marker, true);
 	assert.ok(restored.lines.some((line) => line.includes('Pending quest XP')));
 });
-test('registers only one quest XP toggle in Trackers & map / Experience', () => {
+test('registers only one quest XP toggle in Leveling / Experience', () => {
 	const [settings] = run(String.raw`
 dofile("addon/Polestar_Options/QoL/Options.lua")
 local found = {}
@@ -256,7 +259,7 @@ end
 emit(found)
 `, true);
 	assert.deepEqual(settings, {
-		'qol.questXPOverlay': { tab: 'Trackers & map', section: 'Experience', kind: 'toggle', help: true, default: true },
+		'qol.questXPOverlay': { tab: 'Leveling', section: 'Experience', kind: 'toggle', help: true, default: true },
 	});
 });
 

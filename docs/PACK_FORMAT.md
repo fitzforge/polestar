@@ -22,8 +22,8 @@ A community addon is an addon for World of Warcraft: Forever that depends
 on Polestar and registers guides with it. It is built from a pack: a folder
 with a `pack.json` and `.guide` files. In the format, every such addon is a
 pack; Polestar's own guides are a pack too (`Polestar_Guides`, pack id
-`guides`), and so are its experimental guides (`Polestar_Experimental`,
-[below](#polestars-own-extra-packs)).
+`guides`), and so are its experimental guides (inside `Polestar`,
+`Polestar/Experimental`, [below](#polestars-own-extra-packs)).
 
 ## `pack.json`
 
@@ -117,7 +117,12 @@ the pack no longer has a chain or baked legs for. A race part also carries
 the baked legs of the leveling guides that race may follow, in `Legs.lua`
 ([Format 7](#format-7)); a race with legs and no class chain gets a part
 with `Legs.lua` only. Polestar's own pack also splits its other guides by
-faction ([Format 8](#format-8)).
+faction ([Format 8](#format-8)), and since 0.4.3 writes no race parts: each
+race's guides and legs go into its faction's part (Skyborne's into both) as
+`Guides_<race file>.lua` and `Legs_<race file>.lua`, listed in that part's
+TOC, each starting with `if not Polestar.IsPlayerRace("<race file>") then
+return end`, so a character still reads only its own race's (#3507: two
+folders where there were eleven).
 
 **Retired guides.** A pack folder's `retired.json`, a list of guide ids
 (`["forever/horde/02-the-barrens", ...]`), names the guides a new route set
@@ -214,8 +219,8 @@ before a pack is built (`rust/crates/forge-addontest/tests/addontest/packs-parit
    `lookup`, `draft`, `polestar`, `imported` and `polestar-experimental` are
    reserved: lint refuses them in a `pack.json`, and Polestar a pack or an
    imported guide that uses one. Only `guides` (from the addon
-   `Polestar_Guides`) and `polestar-experimental` (from `Polestar_Experimental`,
-   [below](#polestars-own-extra-packs)) belong to an addon, and only that one
+   `Polestar_Guides`) and `polestar-experimental` (from `Polestar`, its
+   `Experimental/` files, [below](#polestars-own-extra-packs)) belong to an addon, and only that one
    may register it. Every guide id starts with `<pack id>/`, except in
    Polestar's own packs: `guides` owns `forever/` and `draft/`, Polestar's
    internal `lookup` pack owns `lookup/`, and `imported` (the guides pasted as
@@ -264,18 +269,20 @@ before a pack is built (`rust/crates/forge-addontest/tests/addontest/packs-parit
    `not-loaded` (the client did not load it: out of date, a dependency
    missing) or `broken`.
 10. **Packs that load on demand.** A pack whose addon the client loads only
-    on demand (`## LoadOnDemand: 1`: Polestar's own `Polestar_Experimental`,
-    below; `forge guide compile` writes it for no community addon) is `off`
-    until the player switches it on on the Community guides page (or, for
+    on demand (`## LoadOnDemand: 1`; `forge guide compile` writes it for no
+    community addon), and Polestar's own experimental pack, whose
+    `Guides.lua` hands its guides to `Polestar.DeferGuides` (below; until
+    0.4.3 it was such an addon, `Polestar_Experimental`), are `off` until the
+    player switches them on on the Community guides page (or, for
     Polestar's experimental pack, chooses one of its guides at a route
-    choice, below). Switching it on loads the addon (never in combat: then
-    once the fight ends) and
-    its guides come in without a reload; while it stays on it loads at every
-    login, before the saved tabs reopen. Switched off, its guides hide; from
-    the next login it no longer loads. Left off, it costs a login its row
-    and nothing more. Its row shows no guide count until it has loaded, and
-    one whose addon the client could not load is `not-loaded`, with the
-    reason. The switch is kept per account (`PolestarDB.packs[id].on`).
+    choice, below; it is on by default). Switching one on loads the addon,
+    or runs the experimental pack's guides (never in combat: then once the
+    fight ends), and its guides come in without a reload; while it stays on
+    it loads at every login, before the saved tabs reopen. Switched off, its
+    guides hide; from the next login it no longer loads. Left off, it costs a
+    login its row and nothing more. Its row shows no guide count until it has
+    loaded, and one whose addon the client could not load is `not-loaded`,
+    with the reason. The switch is kept per account (`PolestarDB.packs[id].on`).
 
 Only guides of packs that are on are shown, searched and suggested.
 Suggestions come from Polestar's guides unless the player picks a pack under
@@ -286,12 +293,18 @@ guides fill in where the chosen pack has nothing for the character.
 ## Polestar's own extra packs
 
 Besides `Polestar_Guides`, the release zip carries one more pack of
-Polestar's own: **Polestar Experimental** (`Polestar_Experimental`, pack id
-`polestar-experimental`), guides for Forever's new zones while they are in
-testing (alpha). It is built from `experimental/` in the checkout
-(`pack.json` and `.guide` files) by `forge release pack`, and by
+Polestar's own: **Polestar Experimental** (`Polestar/Experimental` inside
+`Polestar`, pack id `polestar-experimental`; its own folder
+`Polestar_Experimental` until 0.4.3), guides for Forever's new zones while
+they are in testing (alpha). It is built from `experimental/` in the
+checkout (`pack.json` and `.guide` files) by `forge release pack`, and by
 `forge guide compile experimental` (`polestar regen` runs it) into
-`addon/Polestar_Experimental/`, which is committed like `Polestar_Guides`.
+`addon/Polestar/Experimental/`, which is committed like `Polestar_Guides`.
+It has no TOC: `Polestar.toc` lists its `Pack.lua`, `MapFrames.lua` and
+`Guides.lua`, whose guides are wrapped in
+`Polestar.DeferGuides("polestar-experimental", function() ... end)` and
+come in the first time the pack is shown (at login while it is on, or when
+the player switches it on), never in combat.
 
 - Its `pack.json` is checked as a community pack's: the folder rule still
   refuses `Polestar_` for it as for every pack, so it leaves `folder` out;
@@ -299,7 +312,7 @@ testing (alpha). It is built from `experimental/` in the checkout
   the build names the folder. That id is reserved (rule 1): only this
   `pack.json` may give it, read from `experimental/` beside `guides/` in the
   checkout (`forge guide lint`, `polestar playtest` and the other pack
-  commands know it), and in game only `Polestar_Experimental` may register
+  commands know it), and in game only `Polestar` may register
   it. Its `version` follows the release: `forge release version` sets it as
   it sets `guides/pack.json`'s.
 - Its guides are linted and compiled as another pack's
@@ -717,9 +730,11 @@ The fields:
 | `candidates` | smart targets: `{ { npc, npcName, map, x, y, z, f, faction, races, classes, lvl, rate, spawns } }` (`z` optional, see `z`); Polestar picks the nearest usable one at runtime |
 | `rewards` | `{ choices = { { item, itemName, quality } }, items = { ... }, xp, money }` (money in copper) |
 | `direct` | `true` on a `turnin`: the quest is handed in straight from the giver's window and never enters the quest log, so the goal needs no `accept` before it and carries no objectives. Polestar counts it done on the hand-in itself and stores that, so a repeatable stays done after a reload |
+| `repeatable` | `true` on a `turnin` (not `direct`) of a repeatable quest, which the game never marks completed: Polestar stores the hand-in, one per goal, so the step stays done after a reload, and the accept and work of the same round before it with it. Older Polestar ignores it |
 | `gossip` | On a `talk`, `vendor` or `train`: the `gossipOptionID` Polestar picks at that NPC on the live step |
 | `seconds` | A `wait` goal's countdown, 1 to 3600 |
 | `escort` | `true` on the accept, `complete` and objective goals of an escort quest: the guide window says under the goal that the NPC may have to respawn (GUIDE_FORMAT.md, "Escort quests"). Older Polestar ignores it |
+| `escortSecs`, `escortFail` | on an escort's `accept`: the median seconds players' completed runs of it took and the share of their runs that failed (`data/recorded/escorts.json`), for the escort's Do it / Skip question (GUIDE_FORMAT.md, "Escort quests"). Older Polestar ignores them |
 | `objs` | on a `complete`: its quest's objectives from the quest data, `{ { text, count } }`, which the guide window shows while the quest is not in the log (looked at ahead); in the log it shows the game's own lines. Older Polestar ignores it |
 | `startItem`, `startItemName` | on a `complete`: the item its quest hands over when taken (Tharnariun's Hope for Plagued Lands), id and name; while it is in the bags and usable the guide window starts the goal with "Use <item>:". Older Polestar ignores them |
 | `carriedTo` | on a `complete` or objective goal (`kill`, `collect`, `interact`, `use`, `talk` with `quest`): the id of the later guide of the chain that hands its quest in, this guide not (GUIDE_FORMAT.md, "Quests carried to a later guide"). The guide window says to keep the quest, the guide-end window lists it while it is still in the log, and "Clean up quest log" never calls it unneeded. Older Polestar ignores it |
@@ -768,7 +783,11 @@ detour) and writes them beside the guides as `legs.json`: `{ "schema": 1,
 legs while its leg ends still hash as when they were baked (a changed guide
 warns and goes without) and writes them into `Legs.lua` of the race parts
 that guide is for: its own race part's races (a class chain), else the races
-its `race` header names, else every race of its faction. One call per grid:
+its `race` header names, else every race of its faction. A leveling guide
+both factions share (no `faction` header) is walked once per faction, each
+without the steps and goals `only` the other faction, and kept as `{ "sides":
+{ "Horde": { "hash", "steps" }, "Alliance": { ... } } }`; each side goes into
+its faction's races' `Legs.lua` under the guide's id. One call per grid:
 
 ```lua
 Polestar.RegisterLegs("joe-routes", "grid 1.60.1.70450, leffe 6e0f5f2529c5", {
@@ -805,8 +824,8 @@ strip change.
 ## Format 8
 
 Polestar's own pack (`guides`, the `Polestar_Guides` folder) is written for
-memory; a community addon is written as before. Format 8 is format 7 with two
-changes, read by Polestar 0.3.0 and later:
+memory; a community addon is written as before. Format 8 is format 7 with
+these changes, read by Polestar 0.3.0 and later:
 
 - **Packed spawn spots.** A goal carries its `spots` as one string,
   `spotsPacked = "<spot>;<spot>;..."`, each spot its `x`, `y`, `z`, `r`, `n`,
@@ -828,10 +847,23 @@ changes, read by Polestar 0.3.0 and later:
   <faction>` with the generated-folder marker, and their `Guides.lua` is
   written like the pack's. Polestar loads the player's faction's part once
   the pack's own files are in, before the player's race part (whose baked
-  legs, `Legs.lua`, name those guides); the other faction's only when a saved
+  legs, `Legs.lua`, name those guides; in Polestar's own pack since 0.4.3,
+  the faction part's `Legs_<race file>.lua`, [The addon](#the-addon)); the other faction's only when a saved
   tab holds a guide no loaded part has (the guide menu never lists the other
   side's guides). A character holds its own faction's guides and the
   factionless ones, not the other side's.
+
+- **Side shelves** (from Polestar 0.4.3). Every guide of the pack that is not
+  a leveling guide (class, profession, reputation, collectible, exploration,
+  ...) carries its steps as one Lua source string, `stepsSrc = "return { ...
+  }"`, with `stepCount` (and `groupQuests`), as a race part's guide does
+  ([Race parts](#the-addon)), but registers for every character (no
+  `Polestar.PartWants`): the guide menu lists it with its header alone, and
+  its steps are read in when it is opened in a tab, and given back when no
+  tab shows it. A look at the steps of many guides (the guide menu's facts
+  and quest search, the follow-up and closes indexes, the class-quest card)
+  reads a shelf guide in and gives it back (`Polestar.Guides.Peek`). Leveling
+  guides keep their steps as tables: the route's guides are read together.
 
 ## Format 10
 

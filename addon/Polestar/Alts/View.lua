@@ -274,6 +274,9 @@ function AV.Build(parent, shell)
 	root.Note:SetWordWrap(true)
 	root.Note:SetJustifyV("TOP")
 	root.Note:SetPoint("TOPLEFT", scroll.Child, "TOPLEFT", SH.pad, -12)
+	root.Apart = W.Text(scroll.Child, "note", "textDim")
+	root.Apart:SetWordWrap(true)
+	root.Apart:SetJustifyV("TOP")
 	return root
 end
 
@@ -286,13 +289,37 @@ local function entries()
 	return Alts.List(ns.Get("alts.sort")), on
 end
 
+-- Below the list: what moving to the realm-less keys left apart, never merged
+-- unasked (Alts.Unclaimed, Rares.UnclaimedRealms), or nil.
+local function apartText(me)
+	local lines = {}
+	local old = Alts.Unclaimed()
+	if #old > 0 then
+		local name = old[1].name or me or "?"
+		if #old == 1 then
+			lines[#lines + 1] = format(L["Another character named %s was saved before Forever's client stopped giving addons the realm name. Polestar can't tell whether it is this one, so it stays listed as it was; forget it if it is."], name)
+		else
+			lines[#lines + 1] = format(L["%d characters named %s were saved on different realms before Forever's client stopped giving addons the realm name. Polestar can't tell which one you are playing, so they stay listed as they were and this character has a new entry; forget the old one that was this character."], #old, name)
+		end
+	end
+	local R = ns.Rares
+	local realms = R and R.UnclaimedRealms and R.UnclaimedRealms() or 0
+	if realms > 0 then
+		lines[#lines + 1] = format(L["Rares met on %d realms are kept apart: Forever's client no longer gives addons the realm name, so Polestar can't tell which of them this is. Rares lists what you meet from now on."], realms)
+	end
+	return #lines > 0 and table.concat(lines, "\n\n") or nil
+end
+
+-- "1 character on <realm>", or without the realm while the client does not
+-- give it (Compat.RealmName); the realms counted are the entries' saved ones.
 local function subtitle(list, on, me)
-	local realm = GetRealmName and GetRealmName() or ""
+	local realm = Compat.RealmName()
 	local n = #list
 	local realms, nRealms = {}, 0
 	for _, e in ipairs(list) do
-		if not realms[e.realm or ""] then
-			realms[e.realm or ""] = true
+		local r = e.realm
+		if type(r) == "string" and r ~= "" and not realms[r] then
+			realms[r] = true
 			nRealms = nRealms + 1
 		end
 	end
@@ -301,6 +328,14 @@ local function subtitle(list, on, me)
 		sub = L["Turned off: showing what was saved"]
 	elseif nRealms > 1 then
 		sub = format(L["%d characters on %d realms \194\183 each as of their last logout"], n, nRealms)
+	elseif not realm then
+		if n == 1 and list[1].key == me then
+			sub = L["1 character"]
+		elseif n == 1 then
+			sub = L["1 character \194\183 each as of their last logout"]
+		else
+			sub = format(L["%d characters \194\183 each as of their last logout"], n)
+		end
 	elseif n == 1 and list[1].key == me then
 		sub = format(L["1 character on %s"], realm)
 	elseif n == 1 then
@@ -342,7 +377,7 @@ function AV.Render()
 		root.Note:Hide()
 	else
 		root.Note:SetWidth(width)
-		root.Note:SetText(L["Characters is turned off. Turn it on under Options > Discovery > Lookup."])
+		root.Note:SetText(L["Characters is turned off. Turn it on under Settings > Discovery > Lookup."])
 		root.Note:Show()
 		y = 12 + floor(root.Note:GetStringHeight() + 0.5) + 12
 	end
@@ -361,6 +396,16 @@ function AV.Render()
 	empty:ClearAllPoints()
 	empty:SetPoint("TOPLEFT", scroll.Child, "TOPLEFT", SH.pad, -y)
 	empty:SetShown(#list == 0)
+	local apart = on and apartText(Alts.Key()) or nil
+	root.Apart:ClearAllPoints()
+	if apart then
+		root.Apart:SetPoint("TOPLEFT", scroll.Child, "TOPLEFT", SH.pad, -y)
+		root.Apart:SetWidth(width)
+		root.Apart:SetText(apart)
+		y = y + floor(root.Apart:GetStringHeight() + 0.5) + 8
+	end
+	root.Apart:SetShown(apart ~= nil)
+	shown.apart = apart
 	shown.off = not on
 	scroll.Child:SetWidth(width + SH.pad * 2)
 	W.SetScrollContent(scroll, y + 8)

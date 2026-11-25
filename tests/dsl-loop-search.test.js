@@ -9,6 +9,8 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { guideText, compile, plain } = require('./helpers/dsl');
 const { formatFor, FORMAT } = require('../tools/lib/pack/format');
+const { readFileSync } = require('node:fs');
+const { Data } = require('../tools/lib/dsl/data');
 
 const goalsOf = (r, s = 0) => plain(r.guides[0].steps)[s].goals;
 const POINTS = ['  loop', '  goto 47.6,35.1', '  goto 49.0,32.4 r 20'];
@@ -22,6 +24,19 @@ test('`loop` places a `skill` goal on its points, as it does a kill, collect or 
 	assert.deepEqual([skill.t, skill.level, skill.map, skill.x, skill.y, skill.spread], ['skill', 50, 1429, 47.6, 35.1, true]);
 	assert.deepEqual(skill.spots, [{ x: 47.6, y: 35.1, r: 30 }, { x: 49, y: 32.4, r: 20 }]);
 	assert.equal(formatFor(r.guides), FORMAT, 'no pack format change');
+});
+
+test('the displacer and its kill share only the four authored silo points', () => {
+	const text = readFileSync(require.resolve('./fixtures/dsl/silo-loop.guide'), 'utf8');
+	const r = compile(text, new Data(require('./fixtures/dsl/silo-loop.json')));
+	assert.deepEqual(r.errors, [], r.text);
+	const goals = goalsOf(r, 1);
+	assert.deepEqual(goals.map((g) => [g.t, g.item ?? g.npc]), [['use', 12627], ['kill', 10717]]);
+	for (const g of goals) {
+		assert.deepEqual(g.spots?.map((p) => [p.x, p.y, p.r]), [[45.15, 62.28, 8], [46.38, 62.33, 8], [47.83, 63.45, 8], [48.45, 62.81, 8]], g.t);
+		assert.deepEqual([g.quest, g.oi, g.map, g.x, g.y, g.spread], [4971, 1, 1422, 45.15, 62.28, true]);
+	}
+	assert.ok(!r.warnings.some((w) => w.includes('has no coordinates')), r.text);
 });
 
 test('`loop` with nothing else to search places the NPC of an accept, turnin or talk on its points', () => {
@@ -45,8 +60,8 @@ test('beside a goal the loop searches for, an accept keeps the place the data gi
 });
 
 test('a loop with no goal to place is an error that names what it takes', () => {
-	const message = /`loop` needs a kill, collect, interact or skill goal without its own `@x,y`, or with none of those an accept, turnin or talk/;
-	for (const goal of ['note Nobody here', 'talk 197 @50,30', 'kill 6 @50,30']) {
+	const message = /`loop` needs an unpinned kill, collect, interact, skill or `use … quest Q.O` goal, or with none of those an accept, turnin or talk/;
+	for (const goal of ['note Nobody here', 'talk 197 @50,30', 'kill 6 @50,30', 'use 750 quest 7.1 @50,30', 'use 750']) {
 		const r = compile(guideText(['step L', ...POINTS, `  ${goal}`]));
 		assert.equal(r.errors.filter((e) => message.test(e)).length, 1, goal);
 	}
@@ -58,4 +73,25 @@ test("the format reference's loop examples compile", () => {
 	const willem = compile(guideText(['step Deputy Willem, somewhere on his rounds', '  loop', '  goto 48.2,42.0', '  goto 46.9,40.3', '  goto 45.5,42.6', '  accept 783', 'step Hand in', '  turnin 783']));
 	assert.deepEqual(willem.errors, [], willem.text);
 	assert.equal(goalsOf(willem)[0].spots.length, 3);
+});
+
+// #1616 kept (Alliance Desolace, Kolkar Village): a loop collect's target button names the droppers at the
+// author's points, not the map's best droppers elsewhere. The Gelkis drop the token at 40% and 38% far from
+// the loop; the Kolkar Raider and Scout (30%, 25%) stand at its first point, the Kolkar Mauler (10%, under
+// half the map's best) alone at its second. Each point names its own; the Mauler's camp still has its target.
+const CAMP_ITEM = 95940;
+const CAMP = [[95941, 'Gelkis Raider', 40, 60, 60], [95942, 'Gelkis Scout', 38, 61, 60], [95943, 'Kolkar Raider', 30, 30, 30], [95944, 'Kolkar Scout', 25, 30.3, 30.2], [95945, 'Kolkar Mauler', 10, 40, 30]];
+
+test('a loop collect names the droppers at each of its points, a point none of the likely ones stands at its own (#1616)', () => {
+	const { fixtureData } = require('./helpers/dsl');
+	const base = fixtureData();
+	const npcs = { ...base.npcs };
+	for (const [id, name, , x, y] of CAMP) npcs[id] = { id, name, level: 5, faction: null, spawns: { 1429: { f: 'e', pts: [[x, y], [x + 0.1, y]] } } };
+	const items = { ...base.items, [CAMP_ITEM]: { id: CAMP_ITEM, name: 'Camp Token', vendors: [], drops: { npc: Object.fromEntries(CAMP.map(([id, , chance]) => [id, chance])), object: {} } } };
+	const data = new Data({ quests: base.quests, npcs, objects: base.objects, items, zones: base.zones, 'map-frames': base.mapFrames, meta: base.meta }, { dir: base.dir });
+	const r = compile(guideText(['step Kolkar Village', '  loop', '  goto 30,30 r 60', '  goto 40,30 r 60', `  collect ${CAMP_ITEM} x5`]), data);
+	assert.deepEqual(r.errors, [], r.text);
+	const [goal] = goalsOf(r);
+	assert.deepEqual(goal.fromNpcs.map((n) => n.npcName), ['Kolkar Raider', 'Kolkar Scout', 'Kolkar Mauler']);
+	assert.equal(goal.fromNpcsAt, '1,2;3');
 });

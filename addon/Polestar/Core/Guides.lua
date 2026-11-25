@@ -757,12 +757,15 @@ Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [
 -- Pack ids only Polestar's own packs may give (forge-guide's RESERVED_IDS and
 -- format.js's have the same): a pack registering one is refused, unless it
 -- comes from the addon the id belongs to (RESERVED_ADDON: ours,
--- Polestar_Guides, and our experimental guides, Polestar_Experimental).
+-- Polestar_Guides, and our experimental guides, Polestar itself: they are
+-- compiled into Polestar/Experimental/, #3507).
 -- Lookup's and the imported guides' packs register as their files load,
 -- before any pack can.
 Guides.RESERVED = { guides = true, forever = true, lookup = true, draft = true, polestar = true, imported = true, ["polestar-experimental"] = true }
 local OFFICIAL_ADDON = "Polestar_Guides"
-local RESERVED_ADDON = { guides = OFFICIAL_ADDON, ["polestar-experimental"] = "Polestar_Experimental" }
+local RESERVED_ADDON = { guides = OFFICIAL_ADDON, ["polestar-experimental"] = ADDON }
+-- The folder inside Polestar's own of a pack it registers itself (forge-guide's OwnExtra dir).
+local INSIDE = { ["polestar-experimental"] = "Experimental" }
 
 -- Is pack id `id` reserved, and `addon` not the addon it belongs to?
 local function reservedAgainst(id, addon)
@@ -773,7 +776,7 @@ end
 -- addons: pack id -> the setting that shows them (on by default). Their
 -- guides are listed with ours (UI/Picker.lua: Leveling, in their band),
 -- never on the Community guides page (Guides.Packs leaves their own record
--- out). Polestar_Experimental is one: its guides are shown unless the
+-- out). The experimental guides are one: they are shown unless the
 -- player switched them off (Options, Guide: Show experimental guides).
 Guides.OWN_EXTRA = { ["polestar-experimental"] = "behavior.experimentalGuides" }
 ns.RegisterDefaults("behavior", { experimentalGuides = true })
@@ -979,22 +982,26 @@ end
 -- def: a compiled guide (ARCHITECTURE, "Guide data"); def.pack names its
 -- registered pack, which must own def.id. A pack registering one of its own
 -- ids again replaces that guide in its first slot. -> ok, err
--- A step's picture is a file in the pack's addon folder: its texture path
+-- A step's picture is a file in the pack's addon folder (a pack Polestar
+-- registers itself: its folder inside Polestar's, INSIDE): its texture path
 -- from the addon that registered the pack. A pack without an addon folder
 -- (imported guides, Lookup's) has no files, so shows none.
 function Own.stepImages(steps, r)
+	local home = r and r.addon and (r.addon == ADDON and INSIDE[r.id] and (ADDON .. "\\" .. INSIDE[r.id]) or r.addon)
 	for _, step in ipairs(steps) do
 		local image = step.image
 		if image then
-			image.texture = r and r.addon and ("Interface\\AddOns\\" .. r.addon .. "\\" .. (image.file:gsub("/", "\\"))) or nil
+			image.texture = home and ("Interface\\AddOns\\" .. home .. "\\" .. (image.file:gsub("/", "\\"))) or nil
 		end
 	end
 end
 
 ---------------------------------------------------------------------------
 -- Deferred steps. A race part's guide (docs/PACK_FORMAT.md, "Race parts")
--- carries its steps as one Lua source string, `stepsSrc` (`return { ... }`),
--- with `stepCount`: a guide nobody opens costs its string, not its tables.
+-- and a side-shelf guide of our pack (every guide that is not a leveling
+-- guide: class, profession, reputation, collectible...; "Format 8") carry
+-- their steps as one Lua source string, `stepsSrc` (`return { ... }`), with
+-- `stepCount`: a guide nobody opens costs its string, not its tables.
 -- The first read of `def.steps` runs it (Guides.Steps): the steps are
 -- checked, their pictures placed, their texts put in the client's language
 -- and escaped, as at registration. Guides.Release drops them again (the
@@ -1053,6 +1060,28 @@ function Own.sweep()
 end
 ns.On("TABS_CHANGED", Own.sweep)
 ns.On("GUIDE_CHANGED", Own.sweep)
+
+-- Whether guide def carries deferred steps (read in on first use).
+function Guides.StepsDeferred(def)
+	return type(def) == "table" and type(rawget(def, "stepsSrc")) == "string"
+end
+
+-- Guide `id`'s steps for one look (an index, a check, the guide menu's
+-- facts): -> steps | nil, fresh. `fresh`: a deferred guide's steps were read
+-- in for this look; Guides.Unpeek(id, fresh) gives them back after, unless a
+-- tab shows the guide by then. What the caller keeps must not be the steps
+-- or goals themselves (they would stay in memory): copy what it needs.
+function Guides.Peek(id)
+	local def = Guides.Get(id)
+	if not def then return nil, false end
+	local fresh = Guides.StepsDeferred(def) and rawget(def, "steps") == nil
+	return def.steps, fresh
+end
+
+function Guides.Unpeek(id, fresh)
+	local E = ns.Engine
+	if fresh and not (E and E.TabIds and E.TabIds()[id]) then Guides.Release(id) end
+end
 
 -- Whether the player's class is among `classes` (a race part's guide of one
 -- class route registers only for that class: its other classes' routes are
@@ -1192,13 +1221,12 @@ local function packState(id)
 	return type(p) == "table" and p or nil
 end
 
--- Packs whose addon the client loads only on demand (## LoadOnDemand: 1;
--- Polestar's own Polestar_Experimental is one): pack id -> its addon. Such a
--- community pack is off until the player switches it on on the Community
--- guides page; one of Polestar's extra packs is on until its setting is
--- switched off (Guides.OWN_EXTRA). Its addon loads then, and at every login
--- while it stays on (Own.loadDemand), so one left off costs its row and
--- nothing more.
+-- Packs whose addon the client loads only on demand (## LoadOnDemand: 1):
+-- pack id -> its addon. Such a community pack is off until the player
+-- switches it on on the Community guides page; its addon loads then, and at
+-- every login while it stays on (Own.loadDemand), so one left off costs its
+-- row and nothing more. Polestar's extra packs load with Polestar (since
+-- 0.4.3, #3507), shown until their setting is switched off (Guides.OWN_EXTRA).
 Own.demand = {}
 
 -- Is pack `id` shown? Internal packs always are; one of Polestar's extra
@@ -1341,12 +1369,46 @@ end
 Own.demandFailed = {} -- addon -> why it did not load (Data.Pack's reason)
 Own.demandWaiting = {} -- pack id -> true while its load waits for the fight to end
 
+-- Polestar's own extra packs' guides (forge-guide's OwnExtra: compiled into
+-- a folder inside Polestar's own since 0.4.3, #3507): their Guides.lua hands
+-- them over in one function, run the first time the pack is shown (at login
+-- while it is, or when the player switches it on), as the load-on-demand
+-- folder they had loaded then.
+Own.deferred = {} -- pack id -> the function that registers its guides, until it runs
+function ns.DeferGuides(packId, fn)
+	if type(packId) ~= "string" or type(fn) ~= "function" or not Guides.OWN_EXTRA[packId] then return end
+	local r = packs[packId]
+	if not (r and Own.ownExtra(r)) then return end
+	Own.deferred[packId] = fn
+	Own.demand[packId] = r.addon
+end
+
+-- Whether pack `id`'s guides still wait to come in (Polestar.DeferGuides).
+function Guides.Deferred(id)
+	return Own.deferred[id] ~= nil
+end
+
 -- Loads the addon of on-demand pack `id` when it is switched on, listed from
 -- its TOC (not in yet) and the client can load it, never in combat (Data.Pack;
 -- PLAYER_REGEN_ENABLED loads it after the fight). Its files register the pack
 -- and its guides, and the scan then lists it as registered, or says why it did
--- not load. -> whether guides came in
+-- not load. One of Polestar's own extra packs runs its deferred guides
+-- instead (Polestar.DeferGuides). -> whether guides came in
 function Own.loadDemand(id)
+	local deferred = Own.deferred[id]
+	if deferred then
+		if not packShown(id) then return false end
+		-- Never in a fight, as an addon's load: once it ends.
+		if InCombatLockdown and InCombatLockdown() then
+			Own.demandWaiting[id] = true
+			return false
+		end
+		Own.demandWaiting[id], Own.deferred[id] = nil, nil
+		local count = #order
+		local ok, err = pcall(deferred)
+		if not ok then ns.Debug("Guides: " .. id .. ": " .. tostring(err)) end
+		return #order > count
+	end
 	local name = Own.demand[id]
 	local r = name and installed[name]
 	if not r then return false end
@@ -1375,9 +1437,8 @@ function Own.loadDemandAll()
 end
 
 -- One of Polestar's extra packs whose setting changed (the Options toggle,
--- Guides.SetPackShown, a reset or another profile): its record follows, its
--- addon loads when it comes on (never in a fight: after it), and the guide
--- menu hears of it. Before login the login does all of that.
+-- Guides.SetPackShown, a reset or another profile): its record follows and
+-- the guide menu hears of it. Before login the login does that.
 Own.extraShown = {} -- pack id -> shown when last applied
 function Own.extraChanged(id)
 	local shown = packShown(id)
@@ -1482,7 +1543,8 @@ function Guides.ScanInstalled()
 	local player = C.Readable(UnitGUID and UnitGUID("player")) or C.Readable(UnitName and UnitName("player")) or nil
 	for i = 1, A.GetNumAddOns() do
 		local name, _, _, _, reason = A.GetAddOnInfo(i)
-		local id = type(name) == "string" and meta(name, "X-Polestar-Pack") or nil
+		-- Polestar_Experimental left installed from before 0.4.3 is no pack (Data.Folded).
+		local id = type(name) == "string" and not ns.Data.Folded(name) and meta(name, "X-Polestar-Pack") or nil
 		if id then
 			if reason == "DEMAND_LOADED" or Own.isDemand(name) then Own.markDemand(id, name) end
 			local r = registeredBy(name)
@@ -1551,9 +1613,25 @@ end
 -- only for a saved tab of one of its guides (Own.loadForSaved): the guide
 -- menu never lists them (Guides.OtherFaction). Their guides register into the
 -- pack. A load the faction (not known yet) or combat put off is done at
--- login or after the fight.
+-- login or after the fight. Polestar's own faction parts carry their races'
+-- guides and legs themselves (#3507: Guides_<race>.lua, Legs_<race>.lua, each
+-- starting with Polestar.IsPlayerRace): such a pack has no race part to load,
+-- and a Polestar_Guides_<race> folder left from before 0.4.3 stays unloaded.
 local FACTIONS = { "Alliance", "Horde" }
 local partsWaiting = {} -- pack addon -> true while its parts' load is put off
+local racesCarried = {} -- pack addon -> true once its faction part carried its races' files
+local partLoading -- the pack addon whose faction part is loading
+
+-- Is the player of race `race` (a race file: UnitRace's second return)? A
+-- race file in a faction part asks before it registers anything, so a
+-- player keeps only their own race's guides and legs. A race not known yet
+-- answers true (the legs of one guide are the same for every race that
+-- follows it).
+function ns.IsPlayerRace(race)
+	if partLoading then racesCarried[partLoading] = true end
+	local mine = UnitRace and ns.Compat.Readable((select(2, UnitRace("player"))))
+	return type(mine) ~= "string" or mine == "" or mine == race
+end
 
 local function loadParts(name)
 	local faction = ns.Compat.GetPlayerFaction()
@@ -1565,11 +1643,13 @@ local function loadParts(name)
 	for _, f in ipairs(FACTIONS) do
 		-- A faction still unknown at login (none the client names): both.
 		if not faction or f == faction then
+			partLoading = name
 			local _, reason = ns.Data.Pack(name .. "_" .. f)
+			partLoading = nil
 			if reason == "combat" then partsWaiting[name] = true end
 		end
 	end
-	if partsWaiting[name] or not UnitRace then return end
+	if partsWaiting[name] or racesCarried[name] or not UnitRace then return end
 	local _, race = UnitRace("player")
 	race = ns.Compat.Readable(race)
 	if type(race) ~= "string" or race == "" then return end
@@ -1728,29 +1808,42 @@ function Guides.List()
 	return out
 end
 
--- Where a guide starts: its first goal with coordinates (cached).
+-- Where a guide starts for a character (`player`: Compat.GetPlayerInfo()'s,
+-- the player's by default): its first goal with coordinates that is for
+-- them, in a step that is for them (`only`: an Undead's Silverpine does not
+-- start at the Orgrimmar flight master its Orc, Troll and Tauren take,
+-- #3344). Cached per guide and character kind.
 local startOf = setmetatable({}, { __mode = "k" })
-local function guideStart(g)
-	local p = startOf[g]
+local function guideStart(g, player)
+	player = player or ns.Compat.GetPlayerInfo()
+	local who = tostring(player.race) .. "|" .. tostring(player.class) .. "|" .. tostring(player.faction)
+	local mine = startOf[g]
+	if not mine then
+		mine = {}
+		startOf[g] = mine
+	end
+	local p = mine[who]
 	if p == nil then
 		p = false
 		for _, step in ipairs(g.steps) do
-			for _, goal in ipairs(step.goals) do
-				if goal.map and goal.x and goal.y then
-					p = { map = goal.map, x = goal.x, y = goal.y, f = goal.f }
-					break
+			if Guides.Matches(step.only, player) then
+				for _, goal in ipairs(step.goals) do
+					if goal.map and goal.x and goal.y and Guides.Matches(goal.only, player) then
+						p = { map = goal.map, x = goal.x, y = goal.y, f = goal.f }
+						break
+					end
 				end
 			end
 			if p then break end
 		end
-		startOf[g] = p
+		mine[who] = p
 	end
 	return p or nil
 end
 Guides.Start = guideStart
 
 -- Packs never suggested and never part of the route, whatever Suggest
--- guides from says: Polestar's experimental guides (Polestar_Experimental,
+-- guides from says: Polestar's experimental guides (Polestar/Experimental/,
 -- alpha) are listed with ours in the guide menu, with an "Experimental"
 -- chip, and followed only when the player opens one there or picks its zone
 -- where a route choice offers it.
@@ -1898,7 +1991,7 @@ function Guides.ExperimentalLoadable(id)
 	local e = Own.experimental[id]
 	local r = e and Guides.Pack(e.pack)
 	if not (r and accepted(r)) then return false end
-	if r.tocOnly then return true end
+	if r.tocOnly or Own.deferred[r.id] then return true end
 	return guides[id] ~= nil
 end
 
@@ -1964,7 +2057,7 @@ local function rank(packId, player, here, zone)
 				local specific = ((g.races and #g.races > 0) or (g.classes and #g.classes > 0)) and 0 or 1
 				local inZone = ((here and g.zone == here.map) or (zone and g.zoneName == zone)) and 0 or 1
 				local band = math.huge
-				local start = here and guideStart(g)
+				local start = here and guideStart(g, player)
 				if start then
 					local cost = ns.TravelCost(here, start)
 					if cost then band = math.floor(cost / TRAVEL_TIE) end

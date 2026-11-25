@@ -14,7 +14,8 @@ const { needs } = require('./helpers/data');
 const { DATA_DIR } = require('./helpers/dsl');
 const { findLua } = require('../tools/lib/lua');
 const cmd = require('../tools/commands/playtest');
-const { playtest, chainDone, dungeonPicker } = require('../tools/lib/playtest');
+const { playtest, playGuide, buildSimPack, SIMULATE, luaValue, chainDone, dungeonPicker } = require('../tools/lib/playtest');
+const { TEST_PACK, TEST_SOURCE } = require('./helpers/packs');
 const { commandPack } = require('../tools/lib/pack/locate');
 
 const PACKS = path.join(__dirname, 'fixtures', 'packs');
@@ -28,6 +29,45 @@ const hasLua = (() => {
 const skip = needs('quests.json') || (!hasLua && 'no Lua 5.1');
 
 const lines = (out) => out.split('\n').filter(Boolean);
+
+test('looting a quest item puts it in bags and credits every held quest asking for it', { skip: !hasLua }, () => {
+	const collect = (quest, count) => ({ t: 'collect', item: 8392, itemName: 'Blasted Boar Lung', quest, oi: 1, count, map: 1429, x: 50, y: 50 });
+	const guide = { id: 'test/loot', pack: 'test', title: 'Supplies', minLevel: 1, maxLevel: 10, steps: [
+		{ goals: [collect(2581, 2)] },
+		{ when: [{ k: 'level', op: '>=', n: 10 }], goals: [collect(2583, 3)] },
+	] };
+	const pack = { maps: 'w.addMap(1429, { c=0, left=100, right=0, top=100, bottom=0 })', loads: `${TEST_PACK}\n${TEST_SOURCE}\nassert(Polestar.RegisterGuide(${luaValue(guide)}))` };
+	const [play, state] = playGuide(pack, guide, {
+		race: 'Human', faction: 'Alliance', cls: 'WARRIOR',
+		before: 'w.onQuest(2581, {{type="item",required=2}}); w.onQuest(2583, {{type="item",required=3}})',
+		script: `${SIMULATE}\nemit({bag=w.items[8392] or 0, sibling=w.log[2583].objectives[1].numFulfilled})`,
+	});
+	assert.ok(play.done);
+	assert.ok(state.bag >= 2, 'the looted organs remain in bags');
+	assert.equal(state.sibling, Math.min(state.bag, 3), 'the other quest reads the very same stack');
+});
+
+// A goto with a height (a cellar's stairs, a raised floor, an NPC's deck) is reached only by a visit the client's
+// UnitPosition confirms on that floor (Nav.AllowGuideArrival, #3210). The simulated player stands at the goal's
+// point on its floor, as a player who walked there does; one on another floor is not there.
+test('the simulated player reaches a goto with a height on its floor: the Gallows\' End cellar stairs', { skip: !hasLua }, async (t) => {
+	const guide = { id: 'test/floor', pack: 'test', title: 'Floors', minLevel: 1, maxLevel: 10, steps: [
+		{ title: 'Brill', goals: [{ t: 'goto', map: 1420, x: 10, y: 10, text: 'Brill' }] },
+		{ title: 'The cellar stairs', goals: [{ t: 'goto', map: 1420, x: 61.66, y: 51.5, z: 34.3, text: 'The cellar stairs' }] },
+		{ title: 'Outside', goals: [{ t: 'goto', map: 1420, x: 40, y: 40, text: 'Outside' }] },
+	] };
+	const pack = { maps: 'w.addMap(1420, { c=0, left=100, right=0, top=100, bottom=0 })', loads: `${TEST_PACK}\n${TEST_SOURCE}\nassert(Polestar.RegisterGuide(${luaValue(guide)}))` };
+	const below = 'local moveTo = stub.world.moveTo\nstub.world.moveTo = function(map, x, y, z) moveTo(map, x, y, z and z - 6) end';
+	for (const [runner, script] of [['playtest', SIMULATE], ['addon tests', fs.readFileSync(path.join(__dirname, 'lua', 'simulate.lua'), 'utf8')]]) {
+		await t.test(runner, () => {
+			const [play] = playGuide(pack, guide, { race: 'Scourge', faction: 'Horde', cls: 'WARRIOR', script });
+			assert.ok(play.done, JSON.stringify(play.stuck));
+			const [held] = playGuide(pack, guide, { race: 'Scourge', faction: 'Horde', cls: 'WARRIOR', script: `${below}\n${script}` });
+			assert.equal(held.done, false, 'a player on the floor below is not at the stairs');
+			assert.equal(held.stuck && held.stuck.step, 2, JSON.stringify(held.stuck));
+		});
+	}
+});
 
 test('invalid explicit worker counts fail before loading reference data', async () => {
 	for (const workers of [-1, 0, 1.5, Infinity, NaN]) {
@@ -159,6 +199,34 @@ test('--level-offset plays a character n levels ahead: a step behind `when level
 	assert.match(honest.out, /--level-offset plays the simulated player: it does not go with --honest/);
 });
 
+test('a skipped quest collect does not block the active collect beside it', { skip: !hasLua }, async (t) => {
+	const guide = { id: 'test/collects', pack: 'test', title: 'Two errands', minLevel: 1, maxLevel: 5, steps: [
+		{ goals: [{ t: 'accept', quest: 1, title: 'The Sceptre' }] },
+		{ goals: [{ t: 'accept', quest: 2, title: 'The Gem', closedBy: [1] }] },
+		{ goals: [{ t: 'collect', quest: 2, oi: 1, item: 102, itemName: 'Gem', count: 1 }, { t: 'collect', quest: 1, oi: 1, item: 101, itemName: 'Sceptre', count: 1 }] },
+		{ goals: [{ t: 'turnin', quest: 1, title: 'The Sceptre' }] },
+	] };
+	const pack = { maps: '', loads: `${TEST_PACK}\n${TEST_SOURCE}\nassert(Polestar.RegisterGuide(${luaValue(guide)}))` };
+	for (const [runner, script] of [['playtest', SIMULATE], ['addon tests', fs.readFileSync(path.join(__dirname, 'lua', 'simulate.lua'), 'utf8')]]) {
+		await t.test(runner, () => {
+			const [play, paid] = playGuide(pack, guide, { race: 'Human', faction: 'Alliance', cls: 'WARRIOR', script: `${script}\nemit(w.completed[1] == true)` });
+			assert.ok(play.done, JSON.stringify(play.stuck));
+			assert.equal(paid, true);
+		});
+	}
+});
+
+test('the CLI opens and reports a class start prerequisite unless strict start gates are requested', { skip }, async () => {
+	const args = ['--filter', 'forever/class/shaman/call-of-earth-alliance', '--class', 'Shaman'];
+	const plain = await quiet(() => cmd.run(args));
+	assert.equal(plain.result, 0, plain.out);
+	assert.match(plain.out, /start gate opened: quest 179 \(Dwarven Outfitters\) completed outside the guide/);
+	const strict = await quiet(() => cmd.run([...args, '--strict-start-gates']));
+	assert.equal(strict.result, 1, strict.out);
+	assert.match(strict.out, /stuck .* at step 1 "Archaic Rune"/);
+	assert.doesNotMatch(strict.out, /start gate opened/);
+});
+
 test('a stuck step is reported with guide, step, title and class; exit 1', { skip }, async () => {
 	const { result, out } = await quiet(() => cmd.run(['--pack', path.join(PACKS, 'stuck')]));
 	assert.equal(result, 1);
@@ -169,9 +237,10 @@ test('a stuck step is reported with guide, step, title and class; exit 1', { ski
 
 // The simulated player used to finish a quest at its hand-in, so a guide with no goal for an escort (Kerlonian's,
 // 5321, 2026-11-16) played clean while players were sent to the hand-in with the escort undone. The game takes no
-// hand-in with a line open: a kill, talk, object or event line no goal works holds the play there.
+// hand-in with a line open: a kill, talk, object or event line no goal works holds the play there. An escort is the
+// player's choice (#3439) and the default play skips it with the group quests, so this plays one who does it.
 test('a hand-in whose quest has a line no goal works is stuck there; with the goal it plays through', { skip }, async () => {
-	const { result, out } = await quiet(() => cmd.run(['--pack', path.join(PACKS, 'handin'), '--class', 'Warrior']));
+	const { result, out } = await quiet(() => cmd.run(['--pack', path.join(PACKS, 'handin'), '--class', 'Warrior', '--group', 'do']));
 	assert.equal(result, 1, out);
 	const stuck = lines(out).filter((l) => l.startsWith('stuck '));
 	assert.equal(stuck.length, 1, out);
@@ -211,12 +280,42 @@ test('a hand-over must land on a guide the character can follow: a Human handed 
 	]);
 });
 
+// The recommendation ranks the options by the travel time to each guide's start. The fixture ends in Brill: The
+// Barrens across the sea, Silverpine Forest a ride south, whose start for an Undead is its first goal for them, not
+// the Orgrimmar flight master of its Orc, Troll and Tauren steps (#3344).
 test('a route choice lands on whichever option the engine recommends, not only the first', { skip }, async () => {
 	const pack = commandPack({ pack: path.join(PACKS, 'handover') });
-	const { results } = await playtest({ dir: pack.dir, manifest: pack.manifest, filter: 'tirisfal', contextDir: pack.contextDir, contextDataDir: pack.contextDataDir });
+	const { results } = await playtest({ dir: pack.dir, manifest: pack.manifest, filter: 'route-choice', contextDir: pack.contextDir, contextDataDir: pack.contextDataDir });
 	assert.equal(results.length, 1);
 	assert.equal(results[0].ok, true, JSON.stringify(results[0]));
-	assert.equal(results[0].landed, 'forever/horde/03-silverpine-forest', 'the recommended option here is the second one');
+	assert.equal(results[0].landed, 'forever/horde/03-silverpine-forest', 'the recommended option here is the second one, a ride away');
+});
+
+// #3344: a guide starts at its first goal for the character (`only`): Silverpine's is the Orgrimmar flight master for
+// an Orc, not for an Undead, in the engine (Guides.Start, the route choice's travel times) and where a play sets the
+// character down. And a play prices a journey over the sea (Brill to the Barrens' start) with the travel planner,
+// not as the flat hour it fell back to while the planner refused walks on the stub's client build.
+test('a guide starts at its first goal for the character, and a play prices a journey over the sea', { skip }, () => {
+	const pack = buildSimPack(['forever/horde/03-silverpine-forest.guide', 'forever/horde/02-the-barrens.guide']);
+	try {
+		const g = pack.guides.find((x) => x.id === 'forever/horde/03-silverpine-forest');
+		const script = `
+			local P = Polestar
+			local G = P.Guides
+			local here = P.PlayerPoint()
+			local sp, bar = G.Get("forever/horde/03-silverpine-forest"), G.Get("forever/horde/02-the-barrens")
+			local undead, orc = G.Start(sp), G.Start(sp, { race = "Orc", class = "WARRIOR", faction = "Horde" })
+			w.moveTo(1420, 61, 52)
+			emit({ undead = undead.map, orc = orc.map, set = here and here.map or false, cost = P.TravelCost(P.PlayerPoint(), G.Start(bar)) or false })`;
+		const [out] = playGuide(pack, g, { race: 'Scourge', faction: 'Horde', cls: 'WARRIOR', script: `local w = stub.world\n${script}` });
+		assert.equal(out.orc, 1454, 'an Orc starts at the Orgrimmar flight master');
+		assert.notEqual(out.undead, 1454, 'an Undead does not');
+		assert.equal(out.set, out.undead, 'the play sets the Undead down at their own start');
+		assert.equal(typeof out.cost, 'number');
+		assert.ok(out.cost > 0 && out.cost < 3600, `a priced journey: ${out.cost}`);
+	} finally {
+		pack.dispose();
+	}
 });
 
 test('a `next` option whose `when` does not hold is no hand-over: the engine goes on to one offered, or the guide ends there', { skip }, async () => {

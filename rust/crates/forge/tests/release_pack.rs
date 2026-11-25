@@ -40,7 +40,7 @@ fn forge(cwd: &Path, args: &[&str]) -> Run {
 }
 
 const VERSION: &str = "0.1.0";
-const RELEASE: [&str; 8] = ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options", "Polestar_SkinAPI", "Polestar_Looks", "Polestar_Recorder", "Polestar_Codex"];
+const RELEASE: [&str; 6] = ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options", "Polestar_Recorder", "Polestar_Codex"];
 
 /// Addon folders as the release reads them (tests/helpers/cli.js fakeAddons): a TOC with the version, a
 /// Main.lua, a hidden file never shipped, and a release-safe Codex.
@@ -128,12 +128,6 @@ fn pack_zips_polestar_guides_nav_and_codex_and_the_recorder_separately_reproduci
 			"Polestar_Options/",
 			"Polestar_Options/Main.lua",
 			"Polestar_Options/Polestar_Options.toc",
-			"Polestar_SkinAPI/",
-			"Polestar_SkinAPI/Main.lua",
-			"Polestar_SkinAPI/Polestar_SkinAPI.toc",
-			"Polestar_Looks/",
-			"Polestar_Looks/Main.lua",
-			"Polestar_Looks/Polestar_Looks.toc",
 			// The fixture guides are Alliance guides: our pack's Alliance part, built by the pack (format 8).
 			"Polestar_Guides_Alliance/",
 			"Polestar_Guides_Alliance/Guides.lua",
@@ -168,7 +162,7 @@ fn the_polestar_folder_carries_the_gpl_and_install_steps_naming_every_folder_shi
 	assert_eq!(get("Polestar/LICENSE"), std::fs::read(repo().join("LICENSE")).unwrap());
 	let readme = String::from_utf8(get("Polestar/README.txt")).unwrap();
 	assert!(readme.starts_with(&format!("Polestar {VERSION}\r\n")));
-	for n in ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options", "Polestar_SkinAPI", "Polestar_Looks", "Polestar_QuestDB", "Polestar_ItemDB", "Polestar_Codex"] {
+	for n in ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options", "Polestar_QuestDB", "Polestar_ItemDB", "Polestar_Codex"] {
 		assert!(readme.contains(&format!("\r\n     {n}\r\n")), "{n}");
 	}
 	assert!(!readme.contains("     Polestar_Recorder\r\n"));
@@ -211,41 +205,27 @@ fn the_release_zip_includes_the_built_data_addons_and_leaves_out_ones_not_built(
 		t
 	};
 	let zip = dist.join(format!("Polestar-{VERSION}.zip"));
-	assert_eq!(tops(&zip), ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options", "Polestar_SkinAPI", "Polestar_Looks", "Polestar_Guides_Alliance", "Polestar_QuestDB", "Polestar_Codex"]);
+	assert_eq!(tops(&zip), ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options", "Polestar_Guides_Alliance", "Polestar_QuestDB", "Polestar_Codex"]);
 	fake_addons(&root.join("addon"), &["Polestar_ItemDB"]);
 	assert_eq!(pack_ours(&root, &dist).status, 0);
-	assert_eq!(
-		tops(&zip),
-		["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options", "Polestar_SkinAPI", "Polestar_Looks", "Polestar_Guides_Alliance", "Polestar_QuestDB", "Polestar_ItemDB", "Polestar_Codex"]
-	);
-	// The language folders last; the folders they replaced are named, never shipped.
-	fake_addons(&root.join("addon"), &["Polestar_frFR", "Polestar_Guides_deDE", "Polestar_Names_deDE"]);
+	assert_eq!(tops(&zip), ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options", "Polestar_Guides_Alliance", "Polestar_QuestDB", "Polestar_ItemDB", "Polestar_Codex"]);
+	// The language folders last; the folders they replaced are named, never shipped, and so are the ones 0.4.3
+	// folded into others (#3507).
+	fake_addons(&root.join("addon"), &["Polestar_frFR", "Polestar_Guides_deDE", "Polestar_Names_deDE", "Polestar_Looks", "Polestar_Guides_Orc", "Polestar_Skin_Vellum"]);
 	let r = pack_ours(&root, &dist);
 	assert_eq!(r.status, 0, "{}", r.out());
-	assert_eq!(
-		tops(&zip),
-		[
-			"Polestar",
-			"Polestar_Guides",
-			"Polestar_Nav",
-			"Polestar_Options",
-			"Polestar_SkinAPI",
-			"Polestar_Looks",
-			"Polestar_Guides_Alliance",
-			"Polestar_QuestDB",
-			"Polestar_ItemDB",
-			"Polestar_Codex",
-			"Polestar_frFR"
-		]
-	);
+	assert_eq!(tops(&zip), ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options", "Polestar_Guides_Alliance", "Polestar_QuestDB", "Polestar_ItemDB", "Polestar_Codex", "Polestar_frFR"]);
 	for old in ["Polestar_Guides_deDE", "Polestar_Names_deDE"] {
 		assert!(r.stdout.contains(&format!("note: {old} is left from before 0.3.0")), "{}", r.out());
+	}
+	for old in ["Polestar_Looks", "Polestar_Guides_Orc", "Polestar_Skin_Vellum"] {
+		assert!(r.stdout.contains(&format!("note: {old} is left from before 0.4.3")), "{}", r.out());
 	}
 }
 
 #[test]
 fn pack_refuses_a_release_without_the_codex_or_with_a_local_one_and_writes_no_zip() {
-	let none = checkout("no-codex", &["Polestar", "Polestar_Nav", "Polestar_Options", "Polestar_SkinAPI", "Polestar_Looks", "Polestar_Recorder"]);
+	let none = checkout("no-codex", &["Polestar", "Polestar_Nav", "Polestar_Options", "Polestar_Recorder"]);
 	let r = pack_ours(&none, &none.join("dist"));
 	assert_eq!(r.status, 1, "{}", r.out());
 	assert!(r.stderr.contains("forge release pack: Polestar_Codex not built (run `forge data codex`)"), "{}", r.out());
@@ -325,13 +305,13 @@ fn pack_without_reference_data_stops_with_one_error_and_no_data_is_for_a_pack_on
 
 #[test]
 fn our_guide_folder_is_generated_before_its_toc_is_checked_and_a_foreign_one_is_refused() {
-	let root = checkout("generated", &["Polestar", "Polestar_Nav", "Polestar_Options", "Polestar_SkinAPI", "Polestar_Looks", "Polestar_Recorder", "Polestar_Codex"]);
+	let root = checkout("generated", &["Polestar", "Polestar_Nav", "Polestar_Options", "Polestar_Recorder", "Polestar_Codex"]);
 	let ok = pack_ours(&root, &root.join("dist"));
 	assert_eq!(ok.status, 0, "{}", ok.out());
 	assert!(!ok.stderr.contains("Polestar_Guides.toc says version"));
 	assert!(root.join("addon/Polestar_Guides/Polestar_Guides.toc").exists());
 
-	let foreign = checkout("foreign", &["Polestar", "Polestar_Nav", "Polestar_Options", "Polestar_SkinAPI", "Polestar_Looks", "Polestar_Recorder", "Polestar_Codex"]);
+	let foreign = checkout("foreign", &["Polestar", "Polestar_Nav", "Polestar_Options", "Polestar_Recorder", "Polestar_Codex"]);
 	std::fs::create_dir_all(foreign.join("addon/Polestar_Guides")).unwrap();
 	std::fs::write(foreign.join("addon/Polestar_Guides/mine.txt"), "mine\n").unwrap();
 	let bad = pack_ours(&foreign, &foreign.join("dist"));
@@ -342,7 +322,7 @@ fn our_guide_folder_is_generated_before_its_toc_is_checked_and_a_foreign_one_is_
 
 #[test]
 fn a_polestar_toc_without_an_interface_line_is_a_clear_error() {
-	let root = checkout("no-interface", &["Polestar", "Polestar_Nav", "Polestar_Options", "Polestar_SkinAPI", "Polestar_Looks", "Polestar_Recorder", "Polestar_Codex"]);
+	let root = checkout("no-interface", &["Polestar", "Polestar_Nav", "Polestar_Options", "Polestar_Recorder", "Polestar_Codex"]);
 	std::fs::write(root.join("addon/Polestar/Polestar.toc"), "## Title: Polestar\n## Version: 0.1.0\nMain.lua\n").unwrap();
 	let r = pack_ours(&root, &root.join("dist"));
 	assert_eq!(r.status, 1, "{}", r.out());
@@ -389,63 +369,32 @@ fn tops(zip: &Path) -> Vec<String> {
 }
 
 #[test]
-fn pack_builds_polestar_experimental_from_experimental_and_ships_it_loaded_on_demand() {
+fn pack_builds_the_experimental_pack_from_experimental_into_polestar_and_ships_it_there() {
 	let root = checkout("experimental", &RELEASE);
 	with_experimental(&root, "");
 	let dists = [root.join("dist1"), root.join("dist2")];
 	for d in &dists {
 		let r = pack_ours(&root, d);
 		assert_eq!(r.status, 0, "{}", r.out());
-		assert!(r.stdout.contains("Polestar_Experimental: 1 guide"), "{}", r.out());
+		assert!(r.stdout.contains("Polestar/Experimental: 1 guide"), "{}", r.out());
 	}
 	let file = format!("Polestar-{VERSION}.zip");
 	assert_eq!(std::fs::read(dists[0].join(&file)).unwrap(), std::fs::read(dists[1].join(&file)).unwrap(), "reproducible");
 	let zip = dists[0].join(&file);
-	// After our guides' parts, before the data addons.
-	assert_eq!(
-		tops(&zip),
-		["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options", "Polestar_SkinAPI", "Polestar_Looks", "Polestar_Guides_Alliance", "Polestar_Experimental", "Polestar_Codex"]
-	);
+	// Inside Polestar (#3507): no folder of its own.
+	assert_eq!(tops(&zip), ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options", "Polestar_Guides_Alliance", "Polestar_Codex"]);
 	let files = read_zip(&std::fs::read(&zip).unwrap(), u64::MAX).unwrap();
-	let mine: Vec<&str> = files.iter().map(|e| e.name.as_str()).filter(|n| n.starts_with("Polestar_Experimental/")).collect();
-	assert_eq!(
-		mine,
-		[
-			"Polestar_Experimental/",
-			"Polestar_Experimental/Guides.lua",
-			"Polestar_Experimental/LICENSE-DATA.txt",
-			"Polestar_Experimental/MapFrames.lua",
-			"Polestar_Experimental/Pack.lua",
-			"Polestar_Experimental/Polestar_Experimental.toc",
-		]
-	);
+	let mine: Vec<&str> = files.iter().map(|e| e.name.as_str()).filter(|n| n.starts_with("Polestar/Experimental/")).collect();
+	assert_eq!(mine, ["Polestar/Experimental/", "Polestar/Experimental/Guides.lua", "Polestar/Experimental/LICENSE-DATA.txt", "Polestar/Experimental/MapFrames.lua", "Polestar/Experimental/Pack.lua"]);
 	let get = |n: &str| String::from_utf8(files.iter().find(|e| e.name == n).unwrap().data.clone()).unwrap();
-	let toc = get("Polestar_Experimental/Polestar_Experimental.toc");
-	for line in [
-		"## Title: Polestar Experimental",
-		"## Notes: Experimental guides.",
-		"## Author: Polestar",
-		&format!("## Version: {VERSION}"),
-		"## Category: Polestar",
-		"## Group: Polestar",
-		"## LoadOnDemand: 1",
-		"## Dependencies: Polestar",
-		"## X-Polestar-Pack: polestar-experimental",
-		"## X-License: GPL-3.0-only",
-	] {
-		assert!(toc.lines().any(|l| l == line), "{line} in\n{toc}");
+	let pack = get("Polestar/Experimental/Pack.lua");
+	for field in ["id = \"polestar-experimental\"", "title = \"Polestar Experimental\"", "author = \"Polestar\"", &format!("version = \"{VERSION}\""), "notes = \"Experimental guides.\""] {
+		assert!(pack.contains(field), "{field} in\n{pack}");
 	}
-	assert!(toc.lines().any(|l| l.starts_with("## Title-deDE: Polestar")), "the AddOns list in every client language:\n{toc}");
-	assert!(!toc.contains("Polestar Community"), "{toc}");
-	assert!(get("Polestar_Experimental/Pack.lua").contains("id = \"polestar-experimental\""));
-	assert!(get("Polestar_Experimental/Guides.lua").contains("id = \"polestar-experimental/elwynn\""));
-	let readme = get("Polestar/README.txt");
-	assert!(
-		readme.contains("\r\n     Polestar_Experimental\r\n") && readme.contains("Polestar_Experimental holds experimental guides for Forever's new") && readme.contains("Show experimental guides"),
-		"{readme}"
-	);
+	let guides = get("Polestar/Experimental/Guides.lua");
+	assert!(guides.contains("\nPolestar.DeferGuides(\"polestar-experimental\", function()\n") && guides.contains("id = \"polestar-experimental/elwynn\""), "{guides}");
 	// Written into the checkout too, as our guides are.
-	assert_eq!(std::fs::read_to_string(root.join("addon/Polestar_Experimental/Polestar_Experimental.toc")).unwrap(), toc);
+	assert_eq!(std::fs::read_to_string(root.join("addon/Polestar/Experimental/Pack.lua")).unwrap(), pack);
 }
 
 #[test]
@@ -473,13 +422,13 @@ fn the_experimental_pack_json_is_checked_as_a_community_pack_s_its_errors_stop_t
 	assert_eq!(r.status, 1, "{}", r.out());
 	assert!(r.stderr.contains("1 error in experimental (forge guide lint experimental for details)"), "{}", r.out());
 	assert!(!broken.join("dist").exists());
-	assert!(!broken.join("addon/Polestar_Experimental").exists());
-	// Without experimental/ it is left out, saying so.
+	assert!(!broken.join("addon/Polestar/Experimental").exists());
+	// Without experimental/ Polestar ships without it, saying so.
 	let none = checkout("no-experimental", &RELEASE);
 	let r = pack_ours(&none, &none.join("dist"));
 	assert_eq!(r.status, 0, "{}", r.out());
-	assert!(r.stdout.contains("note: no experimental/pack.json; leaving Polestar_Experimental out of the zip"), "{}", r.out());
-	assert!(!tops(&none.join(format!("dist/Polestar-{VERSION}.zip"))).contains(&"Polestar_Experimental".to_string()));
+	assert!(r.stdout.contains("note: no experimental/pack.json; Polestar ships without addon/Polestar/Experimental"), "{}", r.out());
+	assert!(!names(&none.join(format!("dist/Polestar-{VERSION}.zip"))).iter().any(|n| n.starts_with("Polestar/Experimental/")));
 	// Never a zip of its own: it ships inside ours.
 	let root = checkout("experimental-alone", &RELEASE);
 	with_experimental(&root, "");
@@ -530,13 +479,26 @@ fn guides_with_legs(root: &Path, fresh: bool, unbaked: Option<&str>) -> PathBuf 
 	let (manifest, _) = forge_guide::manifest::read_manifest(&guides, true);
 	let project = forge_guide::project::compile_project(&guides, &manifest.unwrap(), &data, diag, false, None);
 	let mut legs = serde_json::Map::new();
-	for g in project.guides.iter().filter(|g| forge_guide::project::legs_races(g).is_some()) {
+	for g in project.guides.iter() {
+		let Some(sides) = forge_guide::project::legs_sides(g) else { continue };
 		let id = g.get("id").to_js_string();
 		if Some(id.as_str()) == unbaked {
 			continue;
 		}
-		let hash = if fresh || id != "forever/alliance/human/02-elwynn" { forge_guide::bake::guide_hash(g, &data.map_frames) } else { "000000000000".into() };
-		legs.insert(id, serde_json::json!({ "hash": hash, "steps": { "1": "CgA" } }));
+		let entry = |side: Option<&str>| {
+			let hash = if fresh || id != "forever/alliance/human/02-elwynn" { forge_guide::bake::guide_hash_for(g, &data.map_frames, side) } else { "000000000000".into() };
+			serde_json::json!({ "hash": hash, "steps": { "1": "CgA" } })
+		};
+		let e = match sides.as_slice() {
+			[(None, _)] => entry(None),
+			_ => {
+				let by: serde_json::Map<String, serde_json::Value> = sides.iter().map(|(f, _)| (f.unwrap_or_default().to_string(), entry(*f))).collect();
+				let mut m = serde_json::Map::new();
+				m.insert(forge_guide::bake::SIDES.to_string(), serde_json::Value::Object(by));
+				serde_json::Value::Object(m)
+			}
+		};
+		legs.insert(id.clone(), e);
 	}
 	let doc = serde_json::json!({ "schema": 1, "grid": "test maps", "legs": legs });
 	std::fs::write(guides.join("legs.json"), serde_json::to_string_pretty(&doc).unwrap() + "\n").unwrap();
@@ -571,15 +533,19 @@ fn pack_refuses_guides_whose_legs_are_stale_naming_each_and_writes_no_zip() {
 	assert!(!dist.exists(), "no zip: {:?}", std::fs::read_dir(&dist).map(|d| d.count()).ok());
 }
 
+// Since 0.4.3 (#3507) our pack's legs ship in the faction part, one file per race (the fixture guides are
+// Alliance's: Human's in Polestar_Guides_Alliance), and no race part does.
 #[test]
-fn pack_ships_current_legs_in_the_race_part() {
+fn pack_ships_current_legs_in_the_faction_part() {
 	let root = checkout("fresh-legs", &RELEASE);
 	let guides = guides_with_legs(&root, true, None);
 	let dist = root.join("dist");
 	let d = fixture("tests/fixtures/dsl/data");
 	let r = forge(&root, &["--root", &root.to_string_lossy(), "--guides", &guides.to_string_lossy(), "--data", &d, "--dist", &dist.to_string_lossy()]);
 	assert_eq!(r.status, 0, "{}", r.out());
-	assert!(names(&dist.join(format!("Polestar-{VERSION}.zip"))).iter().any(|n| n.ends_with("/Legs.lua")), "{}", r.out());
+	let names = names(&dist.join(format!("Polestar-{VERSION}.zip")));
+	assert!(names.iter().any(|n| n == "Polestar_Guides_Alliance/Legs_Human.lua"), "{names:?}");
+	assert!(!names.iter().any(|n| n.ends_with("/Legs.lua") || n.starts_with("Polestar_Guides_Human/")), "{names:?}");
 }
 
 #[test]

@@ -145,10 +145,10 @@ fn a_guide_the_update_really_changed_still_passes_its_new_steps_behind_the_playe
 // Rat Catching (385) it added behind them (`gone`). The save is from before own shapes were stored; its shape is
 // the guide as planned for the character (63 steps). A pack version change with the same Loch Modan sent them
 // back to The Farstrider Lodge (Rat Catching's accept, step 16); they stay at Lakeshire. The 0.4.0 pack's first
-// Lakeshire stop (36, their 34) no longer takes Marshal Marris's Blackrock quests (20, 98387: on the first Redridge
-// visit since c41c0e1b76), but still Messenger to Stormwind (120), which they have not taken: they stay there. Read
-// as a step the update added (no earlier release's steps listed it then), it passed and put them at the second
-// stop (42), with 120 gone (#2350).
+// Lakeshire stop (36, their 34; 37 since 0.4.3 added a Human Paladin's Henze Faulk step ahead of it) no longer takes
+// Marshal Marris's Blackrock quests (20, 98387: on the first Redridge visit since c41c0e1b76), but still Messenger to
+// Stormwind (120), which they have not taken: they stay there. Read as a step the update added (no earlier release's
+// steps listed it then), it passed and put them at the second stop (42), with 120 gone (#2350).
 const LOCH_WORLD: &str = include_str!("engine-upgrade-twice/loch-modan-world.lua");
 const LOCH_SAVE: &str = include_str!("engine-upgrade-twice/loch-modan-save.lua");
 
@@ -157,11 +157,13 @@ fn a_pack_update_keeps_a_loch_modan_save_where_it_was() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: LOCH_WORLD.to_string(),
-		addons: vec![Addon::name("Polestar"), Addon::name("Polestar_Guides"), Addon::name("Polestar_Guides_Alliance"), Addon::name("Polestar_Guides_NightElf")],
+		addons: vec![Addon::name("Polestar"), Addon::name("Polestar_Guides"), Addon::name("Polestar_Guides_Alliance")],
 		saved: vec![("Polestar".to_string(), LOCH_SAVE.to_string())],
 		login: false,
 		script: r#"
 Polestar.Guides.Pack("guides").version = "0.3.7"
+-- The recorded player played with Skip grey quests off, the default before 0.4.3 (the save is their character's alone).
+Polestar.Set("behavior.skipGrey", false)
 stub.login(); stub.advance(0.25)
 stub.fire("QUEST_LOG_UPDATE"); stub.advance(11)
 local E = Polestar.Engine
@@ -169,7 +171,7 @@ local g = E.GetGuide()
 emit({ guide = g.id, live = E.GetLiveStep(), title = g.steps[E.GetLiveStep()].title })"#
 			.to_string(),
 	});
-	assert_eq!(out[0], json!({ "guide": "forever/alliance/03-loch-modan", "live": 36, "title": "Lakeshire" }));
+	assert_eq!(out[0], json!({ "guide": "forever/alliance/03-loch-modan", "live": 37, "title": "Lakeshire" }));
 }
 
 // Final 0.3.7 candidate, the upgrade harness: a step the 0.3.5 -> 0.3.6 update had passed behind the player and that

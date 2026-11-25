@@ -11,7 +11,7 @@ return {
 	["A new look for {spell:118}: it turns the target into a pig rather than a sheep."] = "{spell:118}의 새 모습: 대상을 양 대신 돼지로 바꿉니다.",
 
 	-- Step 1: Xylem's tower
-	["Xylem's tower"] = "",
+	["Xylem's tower"] = "툴럼의 탑",
 	-- {area:3137} Talrendis Point · {area:1237} Valormok · {npc:8395} Sanath Lim-yo · {npc:8379} Archmage Xylem · {zone:1447} Azshara · {area:1221} Ruins of Eldarath
 	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below {npc:8379}'s tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Dismount, and he teleports you up; a trail climbs to the Archmage at the top of the tower."] = "{area:3137}(얼라이언스) 또는 {area:1237}(호드)(으)로 날아가십시오. {npc:8395}은(는) {area:1237}에서 동쪽으로 조금 떨어진 {npc:8379}의 탑 아래에서 야영합니다. {area:1221}에 있는 {zone:1447} 큰길의 갈림길에서 절벽까지 곧장 북쪽으로 가십시오. 탈것에서 내리면 그가 순간이동시켜 줍니다. 오솔길이 탑 꼭대기의 대마법사에게 이어집니다.",
 
@@ -21,14 +21,14 @@ return {
 
 	-- Step 3: Archmage Xylem
 	-- {npc:8395} Sanath Lim-yo
-	["Back to {npc:8395} and up to the tower. Xylem hands the shell back with the next quest: keep it in your bags."] = "",
+	["Back to {npc:8395} and up to the tower. Xylem hands the shell back with the next quest: keep it in your bags."] = "{npc:8395}에게 돌아가 탑으로 올라가세요. 툴럼이 껍질을 다음 퀘스트와 함께 돌려줍니다. 가방에 보관하세요.",
 
 	-- Step 4: Polymorph Clones
 	-- plural, as words: Polymorph Clones = {npc:16479} Polymorph Clone
 	["Polymorph Clones"] = "변이된 복제생물",
 	-- {area:1221} Ruins of Eldarath · {spell:118} Polymorph · {spell:122} Frost Nova · {spell:1449} Arcane Explosion
 	-- plural, as words: Polymorph Clones = {npc:16479} Polymorph Clone
-	["Back to the {area:1221}, full of Spitelash naga. Cast your sheep {spell:118} (the turtle one does nothing) on a naga and wait a few seconds: it splits into two to six Polymorph Clones of about 150 health that run off fast. Stand next to the sheep and hit them the moment they appear with {spell:122} and {spell:1449}. Fifty clones are needed, so it takes a while; not in a raid group."] = "",
+	["Back to the {area:1221}, full of Spitelash naga. Cast your sheep {spell:118} (the turtle one does nothing) on a naga and wait a few seconds: it splits into two to six Polymorph Clones of about 150 health that run off fast. Stand next to the sheep and hit them the moment they appear with {spell:122} and {spell:1449}. Fifty clones are needed, so it takes a while; not in a raid group."] = "{area:1221}으로 돌아가세요. 원한채찍 나가로 가득합니다. 양 {spell:118}을(를) 나가에게 시전하고 몇 초 기다리세요. 체력 약 150인 변형 복제 개체 2~6마리로 갈라져 빠르게 도망갑니다. 양 옆에 서서 나타나자마자 {spell:122}과(와) {spell:1449}으로 때리세요. 50마리가 필요하니 시간이 걸립니다. 공격대 편성으로는 안 됩니다.",
 
 	-- Step 5: Fragmented Magic
 	-- {npc:8395} Sanath Lim-yo

@@ -26,6 +26,21 @@ fn learn_with(sessions: &[String], quests: &str, corrections: &str, verdicts: &V
 /// `learn_with` where `scope` is the Forever-new quests, `all_spots` learns every quest's objective spots and `eg`
 /// are EG Link's objective positions.
 fn learn_in(sessions: &[String], quests: &str, corrections: &str, verdicts: &Verdicts, scope: &dyn Fn(i64) -> bool, all_spots: bool, eg: Option<&[crate::players::EgTick]>) -> (Output, V) {
+	learn_over(sessions, quests, corrections, verdicts, scope, all_spots, eg, None)
+}
+
+/// `learn_in` with the snapshot `previous` (the last quests.json) given.
+#[allow(clippy::too_many_arguments)]
+fn learn_over(
+	sessions: &[String],
+	quests: &str,
+	corrections: &str,
+	verdicts: &Verdicts,
+	scope: &dyn Fn(i64) -> bool,
+	all_spots: bool,
+	eg: Option<&[crate::players::EgTick]>,
+	previous: Option<&V>,
+) -> (Output, V) {
 	let cfg = Config { exclude: FxHashSet::default(), min_build: None, establish: OPEN, min_voters: 3 };
 	let mut frames = FxHashMap::default();
 	frames.insert(1426, (1000.0, 1000.0));
@@ -46,7 +61,7 @@ fn learn_in(sessions: &[String], quests: &str, corrections: &str, verdicts: &Ver
 	for (i, s) in sessions.iter().enumerate() {
 		l.add(&format!("s{i}.json"), s);
 	}
-	let out = l.finish(&data, (None, 0, 0), None);
+	let out = l.finish(&data, (None, 0, 0), previous);
 	let q = parse_json(&out.quests).unwrap();
 	(out, q)
 }
@@ -111,6 +126,27 @@ fn offered_without_it_contradicts_and_the_two_thirds_rule_decides() {
 	assert_eq!(q.get("900").get("notPre").at(0).get("status").as_str(), Some("trusted"));
 	let q = learn(&s[..2], &quests(r#","preAll":[800]"#));
 	assert_eq!(q.get("900").get("notPre").at(0).get("status").as_str(), Some("gap"), "two players don't override our data");
+}
+
+// #3359: a learn run on the data a build made with the last snapshot's notPre applied (800 no longer 900's
+// prerequisite) keeps the fact, judged again on the recordings; a correction setting the prerequisites wins.
+#[test]
+fn a_learn_over_data_the_build_corrected_keeps_the_not_pre_facts_it_applied() {
+	let s: Vec<String> = ["c1", "c2", "c3"].iter().map(|c| session(c, &format!("{c}x"), &[r#"{"t":0,"e":"session","lvl":5}"#.into(), window(110.0, "900", ""), turnin(500.0, 800)])).collect();
+	let first = learn(&s, &quests(r#","preAll":[800]"#));
+	assert_eq!(first.get("900").get("notPre").at(0).get("value").num(), 800.0);
+	let open = |_q: i64| true;
+	let over = |corrections: &str| learn_over(&s, &quests(r#","pre":[],"preAll":[]"#), corrections, &Verdicts::default(), &open, false, None, Some(&first)).1;
+	let again = over("{}");
+	assert_eq!(again.get("900").get("notPre").at(0).get("value").num(), 800.0, "{}", again.get("900"));
+	assert_eq!(again.get("900").get("notPre").at(0).get("status").as_str(), Some("trusted"));
+	assert!(learn_over(&s, &quests(r#","pre":[],"preAll":[]"#), "{}", &Verdicts::default(), &open, false, None, None).1.get("900").get("notPre").is_undef(), "without the snapshot: the bug's drop");
+	assert!(over(r#"{"quests":{"900":{"set":{"pre":[]}}}}"#).get("900").get("notPre").is_undef(), "a correction's prerequisites stand");
+	// A prerequisite the recordings no longer contradict is not kept for the snapshot's sake.
+	let refused: Vec<String> = ["c1", "c2", "c3"].iter().map(|c| session(c, &format!("{c}x"), &unlock(10.0, &[]))).collect();
+	let judged = learn_over(&refused, &quests(r#","pre":[],"preAll":[]"#), "{}", &Verdicts::default(), &open, false, None, Some(&first)).1;
+	assert!(judged.get("900").get("notPre").is_undef(), "{}", judged.get("900"));
+	assert_eq!(pre_of(&judged), vec![(800.0, "trusted".into())]);
 }
 
 #[test]
@@ -363,4 +399,34 @@ fn clone_forever(f: &crate::codex::Forever) -> crate::codex::Forever {
 		spawnz: V::Null,
 		dungeons: V::Null,
 	}
+}
+
+/// An escort of quest 900 run from `on` to `off` (the client's `escort` events), then `end` ("complete",
+/// "fail" or none) at `off`.
+fn escort_run(on: f64, off: f64, end: Option<&str>) -> Vec<String> {
+	let mut ev = vec![format!(r#"{{"t":{on},"e":"escort","q":900,"on":true}}"#), format!(r#"{{"t":{off},"e":"escort","q":900,"on":false}}"#)];
+	if let Some(e) = end {
+		ev.push(format!(r#"{{"t":{},"e":"{e}","q":900}}"#, off + 1.0));
+	}
+	ev
+}
+
+// #3439: escorts.json says how long players' runs of an escort take (each player's median completed run, then the
+// median of those) and how often they fail (failed of the runs whose end is known); trusted from three counted
+// players with a completed run.
+#[test]
+fn escorts_say_the_median_time_of_a_completed_run_and_the_share_that_failed() {
+	let s = vec![
+		session("c1", "c1x", &[escort_run(10.0, 610.0, Some("complete")), escort_run(1000.0, 1100.0, Some("fail"))].concat()),
+		session("c2", "c2x", &escort_run(10.0, 730.0, Some("complete"))),
+		session("c3", "c3x", &[escort_run(10.0, 790.0, Some("complete")), escort_run(900.0, 950.0, None)].concat()),
+	];
+	let out = learn_with(&s, &quests(""), "{}", &Verdicts::default()).0;
+	let e = parse_json(&out.escorts).unwrap().get("900");
+	assert_eq!(e.get("seconds").num(), 720.0, "{}", out.escorts);
+	assert_eq!(e.get("failed").num(), 0.25, "1 of 4 runs whose end is known");
+	assert_eq!((e.get("runs").num(), e.get("voters").num(), e.get("counted").num()), (4.0, 3.0, 3.0));
+	assert_eq!(e.get("status").as_str(), Some("trusted"));
+	let two = learn_with(&s[..2], &quests(""), "{}", &Verdicts::default()).0;
+	assert_eq!(parse_json(&two.escorts).unwrap().get("900").get("status").as_str(), Some("gap"), "two players: not trusted");
 }

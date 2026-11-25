@@ -444,7 +444,6 @@ local function fillCard(c, o, grid)
 	local lead = o.recommended and not o.open
 	for k = 1, 4 do c.Ring[k]:SetShown(lead and true or false) end
 	c.Go.psPrimary = lead
-	Theme.Repaint(c.Go)
 	W.RepaintButton(c.Go)
 	W.SetButtonText(c.Go, goText(o))
 	-- A label longer than the button (a long zone name, a translation) is cut,

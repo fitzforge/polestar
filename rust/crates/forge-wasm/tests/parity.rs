@@ -95,7 +95,7 @@ fn pack_files_equal_the_native_compile() {
 	let manifest = forge_guide::js::parse_json(&std::fs::read_to_string(guides.join("pack.json")).unwrap()).unwrap();
 	let built = forge_guide::project::build_pack(&seed, &guides, &manifest, Vec::new(), &data, forge_guide::diag::Diagnostics::new(), false).unwrap();
 	let project = forge_guide::project::compile_project(&guides, &manifest, &data, forge_guide::diag::Diagnostics::new(), false, None);
-	let tr = forge_guide::i18n_guides::pack_translations(&guides, &manifest, &project.guides).unwrap();
+	let tr = forge_guide::i18n_guides::pack_translations(&seed, &guides, &manifest, &project.guides).unwrap();
 	let read = |f: &str| std::fs::read_to_string(guides.join(f)).ok();
 	p.set_pack(Pack {
 		manifest: read("pack.json").unwrap(),
