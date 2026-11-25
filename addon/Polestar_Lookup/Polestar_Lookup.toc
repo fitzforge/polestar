@@ -1,0 +1,31 @@
+## Interface: 16001
+## Title: Polestar Lookup
+## Notes: Part of Polestar: Lookup's window. Loaded when you open Lookup.
+## Title-deDE: Polestar-Suche
+## Notes-deDE: Teil von Polestar: das Suchfenster. Wird geladen, wenn du die Suche öffnest.
+## Title-esES: Polestar: búsqueda
+## Notes-esES: Parte de Polestar: la ventana de búsqueda. Se carga al abrir la búsqueda.
+## Title-esMX: Polestar: búsqueda
+## Notes-esMX: Parte de Polestar: la ventana de búsqueda. Se carga al abrir la búsqueda.
+## Title-frFR: Polestar : recherche
+## Notes-frFR: Fait partie de Polestar : la fenêtre de recherche. Chargé à l'ouverture de la recherche.
+## Title-koKR: Polestar 검색
+## Notes-koKR: Polestar의 일부: 검색 창. 검색 창을 열 때 불러옵니다.
+## Title-ptBR: Polestar: busca
+## Notes-ptBR: Parte do Polestar: a janela de busca. Carregado ao abrir a busca.
+## Title-ruRU: Polestar: поиск
+## Notes-ruRU: Часть Polestar: окно поиска. Загружается при открытии поиска.
+## Title-zhCN: Polestar 查找
+## Notes-zhCN: Polestar 的组成部分：查找窗口。打开查找时加载。
+## Title-zhTW: Polestar 查詢
+## Notes-zhTW: Polestar 的一部分：查詢視窗。開啟查詢時載入。
+## Author: Polestar
+## Version: 0.4.2.2
+## Category: Polestar
+## Group: Polestar
+## LoadOnDemand: 1
+## Dependencies: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+
+UI\LookupWindow.lua

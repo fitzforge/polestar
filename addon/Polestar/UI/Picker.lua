@@ -2285,6 +2285,7 @@ end
 --   UI.RegisterSection({
 --     key, label, icon, order,
 --     build = fn(parent, hub), render = fn(),
+--     load = fn(retry) -> ready,      -- may supply build and render on first use
 --     nav = fn() -> items, activeKey,  -- optional: its index ({ key, label, icon, count })
 --     onNav = fn(key),                 -- with nav: set the state, then UI.Picker.Render()
 --     search = fn(text), enter = fn(), step = fn(delta), -- optional: the hub search drives it
@@ -2300,7 +2301,8 @@ P.GUIDES = GUIDES.key
 -- built afresh on every render they were garbage each time the menu opened.
 local railItems, footItems
 function UI.RegisterSection(spec)
-	if type(spec) ~= "table" or type(spec.key) ~= "string" or type(spec.build) ~= "function" or type(spec.render) ~= "function" then return false end
+	if type(spec) ~= "table" or type(spec.key) ~= "string" then return false end
+	if type(spec.load) ~= "function" and (type(spec.build) ~= "function" or type(spec.render) ~= "function") then return false end
 	if spec.key == GUIDES.key then return false end
 	for i = #sections, 1, -1 do if sections[i].key == spec.key then table.remove(sections, i) end end
 	sections[#sections + 1] = spec
@@ -2313,11 +2315,12 @@ end
 function P.Sections() return sections end
 function P.Section() return section or GUIDES.key end
 
-local function activeSection()
-	if not section then return nil end
-	for _, s in ipairs(sections) do if s.key == section and not s.builtin then return s end end
+local function sectionFor(key)
+	if not key then return nil end
+	for _, s in ipairs(sections) do if s.key == key and not s.builtin then return s end end
 	return nil
 end
+local function activeSection() return sectionFor(section) end
 P.ActiveSection = activeSection
 
 function P.Query() return query end
@@ -2326,6 +2329,11 @@ function P.Query() return query end
 -- empty in every section.
 function P.ShowSection(key)
 	if key == GUIDES.key then key = nil end
+	local s = sectionFor(key)
+	-- Finish loading before changing the search or building the section frame.
+	if s and s.load and not s.build then
+		if not s.load(function() P.ShowSection(key) end) then return end
+	end
 	if key ~= section and win then
 		query = ""
 		win.Search:SetText("")
