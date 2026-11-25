@@ -63,7 +63,7 @@ local type, pairs, ipairs, pcall = type, pairs, ipairs, pcall
 local sqrt, floor, huge = math.sqrt, math.floor, math.huge
 local format, lower = string.format, string.lower
 
-local Travel = { version = 0, zoneOfPoint = {}, dockChain = {} }
+local Travel = { version = 0, dataVersion = 0, zoneOfPoint = {}, dockChain = {} }
 Nav.travel = Travel
 
 ns.RegisterDefaults("nav", { travel = true, detourCaption = false })
@@ -124,7 +124,8 @@ nearWalk.HOLD = nearWalk.CROSS * nearWalk.SLACK + nearWalk.PAD
 -- Data
 ---------------------------------------------------------------------------
 
-local taxi, taxiList, taxiByName, flights = {}, {}, {}, {}
+local taxi, taxiList, flights = {}, {}, {}
+local taxiByName -- built on the first flight path reported by name
 local npcClass = {} -- [npc] = class: a class's own flight master (Nighthaven's), from its taxi node
 local transports, inns, innByName, innByNpc, portals = {}, {}, {}, {}, {}
 local pathC, pathX, pathY, pathAdj, pathMap = {}, {}, {}, {}, {}
@@ -209,7 +210,8 @@ function Travel.CuratedEnd(c, wx, wy)
 end
 
 local function clearData()
-	taxi, taxiList, taxiByName, flights, npcClass = {}, {}, {}, {}, {}
+	taxi, taxiList, flights, npcClass = {}, {}, {}, {}
+	taxiByName = nil
 	transports, inns, innByName, innByNpc, portals = {}, {}, {}, {}, {}
 	pathC, pathX, pathY, pathAdj, pathMap = {}, {}, {}, {}, {}
 	pathCount = 0
@@ -223,8 +225,10 @@ end
 -- replace: drop what was registered before (tests and tools use it).
 function Nav.RegisterTravelData(d, replace)
 	if type(d) ~= "table" then return end
+	Travel.dataVersion = Travel.dataVersion + 1
 	if replace then clearData() end
 	Travel.build = d.build
+	if d.taxi and #d.taxi > 0 then taxiByName = nil end
 	for _, t in ipairs(d.taxi or {}) do
 		-- x, y on the map's Era frame; t[11] "l": on its live frame (f nil), a map Forever added with
 		-- no Era frame (Rog'mar, Farholde Keep on the Riverglades).
@@ -236,10 +240,6 @@ function Nav.RegisterTravelData(d, replace)
 		if t[10] and t[12] then npcClass[t[12]] = t[10] end
 		taxi[node.id] = node
 		taxiList[#taxiList + 1] = node
-		local key = lower(node.name)
-		taxiByName[key] = taxiByName[key] or {}
-		local list = taxiByName[key]
-		list[#list + 1] = node.id
 	end
 	-- Each node's height (TaxiNodes): the floor a flight lands on (Nav/Walk.lua, right after a landing).
 	for id, z in pairs(d.taxiZ or {}) do
@@ -291,6 +291,7 @@ end
 -- { edges = { a, b, yards, ... } } (node numbers count across calls).
 function Nav.AddTravelPaths(chunk)
 	if type(chunk) ~= "table" then return end
+	Travel.dataVersion = Travel.dataVersion + 1
 	local nodes = chunk.nodes
 	if nodes then
 		for i = 1, #nodes - 4, 5 do
@@ -331,6 +332,7 @@ end
 -- Calls merge; an id seen before is skipped.
 function Nav.RegisterCrossings(d)
 	if type(d) ~= "table" then return end
+	Travel.dataVersion = Travel.dataVersion + 1
 	for map, z in pairs(d.zones or {}) do
 		if type(z) == "table" then zoneInfo[map] = z end
 	end
@@ -830,7 +832,9 @@ local function planBody(p, S)
 	local MAX_MS = 40
 	local START, TARGET, TAXI, DOCK, INN, PATH, CROSS, CHAIN, DARK = 1, 2, 3, 4, 5, 6, 7, 8, 9
 	local WALK, FLY, RIDE, HEARTH = 1, 2, 3, 4 -- HEARTH: the Hearthstone or a teleport, from the start
-	local clock = debugprofilestop
+	-- An internal background caller supplies a cooperative CPU clock. It may
+	-- yield, and excludes suspended frames from this plan's existing time cap.
+	local clock = p.work or debugprofilestop
 	local t0 = clock and clock()
 	local tg = p.target
 	local speed = p.speed or RUN_SPEED
@@ -867,6 +871,7 @@ local function planBody(p, S)
 	-- floor height (key.z: a dock's or portal end's, a chain node's) may stand in a place only portals reach (#1970).
 	local zoneMemo = Travel.zoneOfPoint
 	local function add(kind, c, wx, wy, ref, map, key, zone)
+		if p.work then p.work() end
 		n = n + 1
 		vc[n], vx[n], vy[n], vkind[n], vref[n] = c, wx, wy, kind, ref
 		if covered[c] then
@@ -992,6 +997,7 @@ local function planBody(p, S)
 	local keys = n
 	local pathV = S and S.pathV or {}
 	for i = 1, pathCount do
+		if p.work and i % 32 == 0 then p.work() end
 		local c = pathC[i]
 		if (c == p.c or c == tg.c) and n - keys < MAX_PATH_VERTICES then
 			pathV[i] = add(PATH, c, pathX[i], pathY[i], i)
@@ -1179,6 +1185,7 @@ local function planBody(p, S)
 			if not sealed(k) then
 				local m = 0
 				for v = keys + 1, n do
+					if p.work and v % 32 == 0 then p.work() end
 					local d = yards(vc[k], vx[k], vy[k], vc[v], vx[v], vy[v])
 					if d <= LINK_YARDS then
 						local pos = m + 1
@@ -1370,6 +1377,7 @@ local function planBody(p, S)
 	if hooks and #hooks == 0 then hooks = nil end
 	local hookWalk = hooks and { from = {}, to = {} }
 	local function walk(u, v, cost, secs, du, tu)
+		if p.work then p.work() end
 		if not hooks and (du + cost >= dist[v + n] or du + cost >= dist[v]) then return end
 		if vc[u] ~= vc[v] then return end
 		if hooks then
@@ -1419,6 +1427,7 @@ local function planBody(p, S)
 		if not list then return end
 		local mu = tw[u]
 		for i = 1, #list do
+			if p.work and i % 32 == 0 then p.work() end
 			local v = list[i]
 			if back and zonesWalk(vzone[back], vzone[v]) then
 				-- the walk into u goes there straight
@@ -1503,6 +1512,7 @@ local function planBody(p, S)
 			elseif not covered[cu] then
 				local mu = tw[u]
 				for v = 2, keys do
+					if p.work and v % 32 == 0 then p.work() end
 					if v == 2 and mu then
 						walk(u, 2, mu / speed, ty[u] / speed, du, tu)
 					elseif v == 2 and (stranded[u] or (nw[u] and not (u == 1 and unmeasured))) then
@@ -1872,9 +1882,10 @@ local function planBody(p, S)
 end
 
 -- A plan (planBody) on the kept arrays, or on its own while another runs.
+-- Cooperative plans need private arrays and no pcall across a Lua 5.1 yield.
 local function planRoute(p)
 	local S = planScratch
-	if S.busy then return planBody(p, nil) end
+	if p.work or S.busy then return planBody(p, nil) end
 	S.busy = true
 	local ok, legs, why, discounted = pcall(planBody, p, S)
 	S.busy = false
@@ -1935,7 +1946,17 @@ end
 -- Marks the nodes named `name` the character may fly from known, and with `seen`
 -- their continent seen. -> true when a node was added or a continent newly seen.
 local function markByName(known, name, seen)
-	local ids = name and taxiByName[lower(name)]
+	if not name then return false end
+	if not taxiByName then
+		taxiByName = {}
+		for _, node in ipairs(taxiList) do
+			local key = lower(node.name)
+			local ids = taxiByName[key] or {}
+			taxiByName[key] = ids
+			ids[#ids + 1] = node.id
+		end
+	end
+	local ids = taxiByName[lower(name)]
 	if not ids then return false end
 	local added = false
 	for _, id in ipairs(ids) do
@@ -2850,15 +2871,18 @@ end
 -- noHearth = true: the way without the Hearthstone (the Engine's hearth goal weighs the two).
 -- While a quest timer runs, the player's own estimates leave out the Hearthstone and teleports, as the route does.
 --   -> seconds | nil (unknown position or unreachable) | nil, "busy" (budgeted, this frame's budget is spent)
-function Nav.EstimateTravel(from, to, budgeted, noHearth)
+function Nav.EstimateTravel(from, to, budgeted, noHearth, work)
 	local key, fc, fwx, fwy, tc, twx, twy, timed, ghost, fz, offer = Travel.EstimateKey(from, to, noHearth)
 	if not fc then return nil end
 	local now = GetTime()
-	local hit = estimates[key]
+	-- Cooperative requests belong to the background job, which keeps its own
+	-- sparse costs. They neither evict foreground cache entries nor spend the
+	-- public API's per-frame estimate allowance.
+	local hit = not work and estimates[key]
 	if hit and now - hit.at < CACHE_SECONDS then return hit.seconds end
-	if budgetFrame ~= now then budgetFrame, budgetSpent = now, 0 end
-	if budgeted and budgetSpent >= ESTIMATE_MS then return nil, "busy" end
-	local clock = debugprofilestop
+	if not work and budgetFrame ~= now then budgetFrame, budgetSpent = now, 0 end
+	if not work and budgeted and budgetSpent >= ESTIMATE_MS then return nil, "busy" end
+	local clock = not work and debugprofilestop
 	local t0 = clock and clock()
 	local inn, bindName
 	local wait = from == nil and not ghost and not timed and not noHearth and hearthWait() or nil
@@ -2871,6 +2895,7 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 	end
 	if wait or recall then inn, bindName = bindInn() end
 	local plan = Nav.PlanRoute({
+		work = work,
 		c = fc, wx = fwx, wy = fwy, z = fz, map = from == nil and playerMap() or from and from.map,
 		target = { c = tc, wx = twx, wy = twy, z = to.z, map = to.map },
 		liveTaxi = from == nil,
@@ -2894,13 +2919,20 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 	if t0 then budgetSpent = budgetSpent + (clock() - t0) end
 	local seconds
 	if plan then seconds = plan[1] and (plan[1].seconds + plan[1].rest) or 0 end
-	if offer then return seconds end -- a live interaction cannot be cached
+	if work or offer then return seconds end -- background estimates and live interactions bypass the shared cache
 	if not hit then
 		if #estimateOrder >= CACHE_MAX then estimates[table.remove(estimateOrder, 1)] = nil end
 		estimateOrder[#estimateOrder + 1] = key
 	end
 	estimates[key] = { at = now, seconds = seconds }
 	return seconds
+end
+
+-- Internal coroutine-only estimate. work() yields at the caller's slice
+-- boundary and returns accumulated active CPU milliseconds, not wall time.
+-- Checkpoints are outside protected callbacks, so yielding is legal in 5.1.
+function Nav.EstimateTravelCooperative(from, to, work)
+	return Nav.EstimateTravel(from, to, false, false, work)
 end
 
 -- A route worth following: more than one leg. A lone walk is the direct arrow.

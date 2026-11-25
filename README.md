@@ -624,7 +624,14 @@ its source is in [apps/client](apps/client).
 - **Finished quests stay found.** Quests the route takes are handed in where
   it passes their NPC. Finished quests no step ahead hands in get one row in
   "Still to do" ("2 finished quests to hand in elsewhere (900 XP)"), and a
-  click lists who takes each in. When you finish a guide, its end window
+  click lists those quests. Choose **Hand in finished quests (N)**
+  in the guide window's menu to open a guide for every completed quest in your log,
+  including those another guide hands in, with stops ordered by estimated
+  travel time. Known places keep their waypoints when a travel estimate is
+  missing; unknown places are listed for manual hand-in. When the count is
+  zero, the menu shows **None to hand in**. You can also open `/polestar questlog`,
+  choose **Finished quests you're still carrying**, then **Guide me**.
+  When you finish a guide, its end window
   says which quests in your log carry on to later guides and which aren't
   part of your route at all, each with Abandon a click away. Nothing is
   abandoned unless you choose.

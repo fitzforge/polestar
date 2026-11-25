@@ -84,13 +84,12 @@ ns.UI.GuideFrame.Part(function(GF)
 		group()
 		-- Pin the shown step's quests in the log as along the way, or unpin them (#644).
 		for _, it in ipairs(GF.PinItems(GF.View())) do add(it) end
-		-- The finished quests no open route hands in (RoutePlan.Carried): one
-		-- click opens their hand-in guide (UI.GuideCarried). Both rows are
-		-- always here: with none, or while the plan cannot say (nil, as with
-		-- no guide, a route choice to make or a guide not loaded), disabled.
-		local carried = ns.RoutePlan and ns.RoutePlan.Carried() or nil
-		if carried and #carried > 0 then
-			add({ text = L["Hand in finished quests (%d)"]:format(#carried), icon = "icon-turnin", onClick = function() UI.GuideCarried() end })
+		-- Every ready quest, even with no guide or a hand-in already planned.
+		-- Count the live quest ids without building their recipient rows; the
+		-- shared Guide me action opens the one carried/log planner.
+		local ready = ns.Handins and ns.Handins.Ready()
+		if ready and #ready > 0 then
+			add({ text = L["Hand in finished quests (%d)"]:format(#ready), icon = "icon-turnin", onClick = function() UI.GuideCarried() end })
 		else
 			add({ text = L["None to hand in"], icon = "icon-turnin", disabled = true })
 		end

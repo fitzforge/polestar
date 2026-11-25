@@ -9,12 +9,16 @@
 -- UI.ShowQuestRoom(), or SHOW_QUEST_ROOM from Core.
 --
 -- UI.ShowQuestRoom("carried"): "Finished quests you're still carrying"
--- (RoutePlan.Carried; the Make room list's own button switches to it while
--- it has any, and back): the finished quests no open route hands in, each
+-- (RoutePlan.Carried(true); the Make room list's own button switches to it
+-- while it has any, and back): every finished quest in the log, each
 -- with who takes it and where (RoutePlan.Ender) and what it gives now; a
 -- grey one says so and keeps its Abandon button. "Guide me" opens a hand-in
--- guide for all of them (the Lookup planner kind "carried", id "log": one
--- stop per ender, nearest first from where the player stands).
+-- guide for all of them (Lookup/Handins.lua, planner kind "carried", id
+-- "log": grouped enders in an estimated travel order, unknown locations
+-- kept for manual hand-in).
+-- UI.ShowQuestRoom("elsewhere"): the same list for only the finished quests
+-- no open route hands in (RoutePlan.Carried), matching the guide window's
+-- "to hand in elsewhere" row. Guide me still opens the all-ready guide.
 --
 -- The end of a leveling guide opens two more lists (the guide window's end
 -- card, the guide-end window): UI.ShowQuestRoom("later", guideId), "Carried
@@ -105,7 +109,9 @@ local function build()
 	end, { height = 28 })
 	F.GuideMe:Hide()
 	-- Between the two lists: the finished quests while Make room is shown, and back.
-	F.Switch = W.Button(F, "", function() UI.ShowQuestRoom(F.psMode ~= "carried" and "carried" or nil) end, { ghost = true, height = 28 })
+	F.Switch = W.Button(F, "", function()
+		UI.ShowQuestRoom(F.psMode ~= "carried" and F.psMode ~= "elsewhere" and "carried" or nil)
+	end, { ghost = true, height = 28 })
 	F.Switch:Hide()
 
 	F.rows = {}
@@ -161,9 +167,9 @@ end
 local function carriedWhy(c)
 	local e = ns.RoutePlan.Ender(c.quest)
 	local where = e and (e.zone and L["%s, %s"]:format(e.name or "", e.zone) or e.name) or L["Where it is turned in is not known"]
-	if c.grey then return L["Grey: no XP any more"] .. "  \194\183  " .. where, e end
-	if c.xp and c.xp > 0 then return where .. "  \194\183  " .. L["%s XP"]:format(ns.Thousands(c.xp)), e end
-	return where, e
+	if c.grey then return L["Grey: no XP any more"] .. "  \194\183  " .. where end
+	if c.xp and c.xp > 0 then return where .. "  \194\183  " .. L["%s XP"]:format(ns.Thousands(c.xp)) end
+	return where
 end
 
 -- One row's second line in the "later" list: the guide that hands it in.
@@ -200,7 +206,8 @@ end
 function UI.LayoutQuestRoom()
 	if not (F and F:IsShown()) then return end
 	local mode = F.psMode
-	local carried = mode == "carried"
+	local elsewhere = mode == "elsewhere"
+	local carried = mode == "carried" or elsewhere
 	local ending = mode == "later" or mode == "offroute"
 	local list
 	if ending then
@@ -210,13 +217,16 @@ function UI.LayoutQuestRoom()
 		F.Hint:SetText(hint)
 	elseif carried then
 		F.Title:SetText(L["Finished quests you're still carrying"])
-		list = ns.RoutePlan.Carried()
+		list = ns.RoutePlan.Carried(not elsewhere)
 		if list == nil then
 			F.Hint:SetText(L["The route ahead isn't settled yet (a guide to choose or load), so it can't say which quests it leaves behind."])
+		elseif elsewhere then
+			F.Hint:SetText(#list == 0 and L["The route hands in every finished quest in your log."]
+				or L["Finished quests not handed in on your route. Guide me opens a travel order for all finished quests in your log."])
 		elseif #list == 0 then
-			F.Hint:SetText(L["The route hands in every finished quest in your log."])
+			F.Hint:SetText(L["No quests in your log are ready to hand in."])
 		else
-			F.Hint:SetText(L["Finished, and the route ahead never hands these in: here is who takes each. Guide me leads you to them, nearest first. A grey one gives almost no XP any more: abandon it if you won't pass by."])
+			F.Hint:SetText(L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."])
 		end
 	else
 		F.Title:SetText(L["Make room in your quest log"])
@@ -231,7 +241,7 @@ function UI.LayoutQuestRoom()
 	end
 	local top = HEAD_H + 12 + F.Hint:GetStringHeight() + 12
 	local rowW = WIDTH - PAD * 2
-	local y, guided = 0, false
+	local y, guided = 0, carried and list ~= nil and #list > 0
 	for i, u in ipairs(list or {}) do
 		local r = row(i)
 		r:ClearAllPoints()
@@ -249,9 +259,7 @@ function UI.LayoutQuestRoom()
 			r.Why:SetText(why)
 			r.Abandon:Show()
 		elseif carried then
-			local why, e = carriedWhy(u)
-			r.Why:SetText(why)
-			if e then guided = true end
+			r.Why:SetText(carriedWhy(u))
 			r.Abandon:SetShown(u.grey)
 		else
 			local why
@@ -268,8 +276,8 @@ function UI.LayoutQuestRoom()
 		y = y + ROW_H + ROW_GAP
 	end
 	for i = #(list or {}) + 1, #F.rows do F.rows[i]:Hide() end
-	-- Make room: the finished quests no route hands in, when there are any.
-	local finished = not (carried or ending) and ns.RoutePlan.Carried() or nil
+	-- Make room: every finished quest in the log, when there are any.
+	local finished = not (carried or ending) and ns.RoutePlan.Carried(true) or nil
 	local switch = carried or (finished ~= nil and #finished > 0)
 	local foot = ((carried and guided) or switch) and (BUTTON_H + ROW_GAP) or 0
 	-- The list: every row, at most MAX_ROWS of them in view, and no taller
@@ -296,7 +304,8 @@ function UI.LayoutQuestRoom()
 	F:SetHeight(under + foot + PAD - 6)
 end
 
--- mode: nil (make room in the quest log), "carried", or the guide's end's
+-- mode: nil (make room in the quest log), "carried" (all ready), "elsewhere"
+-- (the off-route finished subset), or the guide's end's
 -- "later" and "offroute" (guideId: the guide that ended; nil: the active tab's).
 function UI.ShowQuestRoom(mode, guideId)
 	if not F then build() end
@@ -307,68 +316,11 @@ function UI.ShowQuestRoom(mode, guideId)
 end
 
 -- Guide me on the "carried" list, and the guide window's menu: the hand-in
--- guide for the finished quests no open route hands in (Lookup planner kind
+-- guide for every finished quest in the log (Lookup planner kind
 -- "carried", id "log"). -> its guide id, or nil with the reason in chat.
 function UI.GuideCarried()
-	local Lk = ns.Lookup
-	local gid, why = Lk and Lk.Guide and Lk.Guide("carried", "log")
-	if gid then return gid end
-	if why == "tabs" then
-		ns.Print(L["Six tabs is the limit. Close one to open another."])
-	else
-		ns.Print(L["None of these has a known place to hand it in."])
-	end
-	return nil
+	return ns.Handins.Start()
 end
 
 ns.On("SHOW_QUEST_ROOM", function() UI.ShowQuestRoom() end)
 ns.RegisterEvent("QUEST_LOG_UPDATE", function() UI.LayoutQuestRoom() end)
-
--- The hand-in guide for RoutePlan.Carried's quests (Lookup planner kind
--- "carried", id "log"): one step per ender (RoutePlan.Ender) holding every
--- quest it takes in, the nearest first from where the player stands, then
--- the nearest from each stop (ns.DirectTravelCost). -> def | nil, reason
-local function carriedGuide()
-	local P = ns.RoutePlan
-	local list = P.Carried()
-	if not list then return nil, "unsettled" end
-	local stops, byKey = {}, {}
-	for _, c in ipairs(list) do
-		local e = P.Ender(c.quest)
-		if e then
-			local key = e.npc and ("n" .. e.npc) or ("o" .. tostring(e.object))
-			local s = byKey[key]
-			if not s then
-				s = { at = e, quests = {} }
-				byKey[key] = s
-				stops[#stops + 1] = s
-			end
-			s.quests[#s.quests + 1] = c
-		end
-	end
-	if #stops == 0 then return nil, "nothing" end
-	local from, steps = ns.PlayerPoint(), {}
-	while #stops > 0 do
-		local best, bestT = 1, nil
-		for i, s in ipairs(stops) do
-			local t = from and ns.DirectTravelCost and ns.DirectTravelCost(from, s.at)
-			if t and (not bestT or t < bestT) then best, bestT = i, t end
-		end
-		local s = table.remove(stops, best)
-		local at, goals = s.at, {}
-		-- An ender inside a dungeon: the stop is its entrance (RoutePlan.Ender), and each hand-in's own line
-		-- says the ender is inside, where it shows whatever the tips setting (#3774: Daewyn Songblade, in
-		-- the Excavation Site: Wetlands, read as a point in the open world).
-		local note = at.inside and string.format(L["%s: inside %s."], at.name or "?", at.zone or "?") or nil
-		for _, c in ipairs(s.quests) do
-			goals[#goals + 1] = { t = "turnin", quest = c.quest, title = c.title or ns.Names.Quest(c.quest) or (L["Quest"] .. " " .. c.quest),
-				npc = at.npc, npcName = at.npc and at.name or nil, object = at.object, objName = at.object and at.name or nil,
-				map = at.map, x = at.x, y = at.y, f = at.f, note = note }
-		end
-		steps[#steps + 1] = { title = at.name or L["Quest giver"], goals = goals }
-		from = at
-	end
-	return { title = L["Hand in your finished quests"], steps = steps }
-end
-
-if ns.Lookup and ns.Lookup.RegisterPlanner then ns.Lookup.RegisterPlanner("carried", carriedGuide) end

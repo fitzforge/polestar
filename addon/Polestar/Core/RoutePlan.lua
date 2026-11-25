@@ -430,12 +430,47 @@ function Plan.LogOverflow()
 end
 
 ---------------------------------------------------------------------------
--- Finished quests the routes leave behind: the ones no open route hands in
--- (Plan.Carried: the Quest room's "carried" list and its hand-in guide), and
+-- Finished quests in the log: all of them for the Quest room and its hand-in
+-- guide (Plan.Carried(true)), the ones no open route hands in (Plan.Carried), and
 -- the ones a jump to another guide would leave (Plan.LeftBehind: the guide
 -- menu's Load and the engine's outlevelled suggestion). Nothing here hands
 -- in or abandons anything.
 ---------------------------------------------------------------------------
+
+-- QUEST_TURNED_IN can arrive before the quest log loses the quest. Hold that
+-- stale entry briefly; accepting the repeatable again starts a new attempt.
+local turned = {}
+
+local function finished(q)
+	local C = ns.Compat
+	if C.IsQuestReadyForTurnIn(q) then return true end
+	if C.GetQuestObjectives(q) ~= nil then return false end
+	-- Some clients never mark a plain delivery complete. Require the Codex
+	-- to confirm there are no objectives; missing log data alone is not proof.
+	local rec = ns.Codex and ns.Codex.Quest(q)
+	return rec ~= nil and #(rec.objectives or {}) == 0
+end
+
+-- The ready, non-failed quests in the current log, once each, in log order.
+-- Completion history is not readiness: a repeatable can be ready again.
+function Plan.Ready()
+	local C, out, seen, now = ns.Compat, {}, {}, GetTime()
+	for q, untilTime in pairs(turned) do if untilTime <= now then turned[q] = nil end end
+	for _, q in ipairs(C.GetLogQuests() or {}) do
+		if not seen[q] and not turned[q] and not C.IsQuestFailed(q) and finished(q) then
+			out[#out + 1], seen[q] = q, true
+		end
+	end
+	return out
+end
+
+ns.RegisterEvent("QUEST_ACCEPTED", function(_, a, b)
+	local q = b or a
+	if q then turned[q] = nil end
+end)
+ns.RegisterEvent("QUEST_TURNED_IN", function(_, q)
+	if q then turned[q] = GetTime() + 10 end
+end)
 
 -- What handing quest q in gives the character now: the Codex's full reward
 -- times Levels.Share for the level gap; nil when the Codex has no XP for it.
@@ -447,8 +482,9 @@ local function xpNow(C, q, level)
 	return math.floor(rec.xp * Lv.Share(level or 1, qlvl) + 0.5)
 end
 
--- What Plan.Carried last answered (its quest ids, "?" when it could not say;
--- nil: never asked), for CARRIED_CHANGED below.
+-- What Plan.Carried() last answered (its quest ids, "?" when it could not
+-- say; nil: never asked), for CARRIED_CHANGED below. Reading every ready
+-- quest with Carried(true) must not replace this off-route row's answer.
 local carriedSig
 
 -- The finished quests in the log (ready to hand in) no open route hands in
@@ -457,24 +493,24 @@ local carriedSig
 -- neither is here, but for a dungeon's page quest only its pick-up guide has
 -- open: that guide hands nothing in, so a finished one is here): { { quest, title, status, grey, xp }, ... } in log order
 -- (xp nil when unknown); nil while the plan cannot say (no guide, a route
--- choice to make, a guide not loaded).
-function Plan.Carried()
+-- choice to make, a guide not loaded). With all=true, every ready quest is
+-- listed regardless of routes; always a table, with no route status.
+function Plan.Carried(all)
 	local C, out, ids = ns.Compat, {}, {}
 	local level = (C.GetPlayerInfo() or {}).level
-	for _, q in ipairs(C.GetLogQuests() or {}) do
-		if C.IsQuestReadyForTurnIn(q) then
-			local r = Plan.GetTurnIn(q)
-			if r.status == "noGuide" or r.status == "choice" or r.status == "unloaded" then
-				carriedSig = "?"
-				return nil
-			end
-			if NEVER[r.status] or r.pickupOnly then
-				out[#out + 1] = { quest = q, title = C.GetQuestTitle(q), status = r.status, grey = grey(C, q, level), xp = xpNow(C, q, level) }
-				ids[#ids + 1] = q
-			end
+	for _, q in ipairs(Plan.Ready()) do
+		local r = not all and Plan.GetTurnIn(q) or nil
+		local status = r and r.status
+		if not all and (status == "noGuide" or status == "choice" or status == "unloaded") then
+			carriedSig = "?"
+			return nil
+		end
+		if all or NEVER[status] or r.pickupOnly then
+			out[#out + 1] = { quest = q, title = C.GetQuestTitle(q), status = status, grey = grey(C, q, level), xp = xpNow(C, q, level) }
+			ids[#ids + 1] = q
 		end
 	end
-	carriedSig = table.concat(ids, ",")
+	if not all then carriedSig = table.concat(ids, ",") end
 	return out
 end
 
@@ -557,7 +593,7 @@ end
 
 -- Where quest q is handed in for this character: the Codex's ender of the
 -- character's side nearest the player (Lookup.QuestEnd), as { npc | object,
--- name, map, x, y, f, zone }, else one inside a dungeon (insideEnder); nil
+-- name, map, x, y, f, z, zone }, else one inside a dungeon (insideEnder); nil
 -- when unknown or the other side's.
 function Plan.Ender(q)
 	local X, Lk = ns.Codex, ns.Lookup
@@ -565,8 +601,9 @@ function Plan.Ender(q)
 	local e = rec and Lk.QuestEnd(rec["end"], ns.PlayerPoint(), nil, true)
 	if e and e.hostile then return nil end
 	local s = e and e.spawn
-	if not s then return rec and insideEnder(rec["end"]) or nil end
-	return { npc = e.npc, object = e.object, name = e.name, map = s.map, x = s.x, y = s.y, f = s.f, zone = ns.Compat.MapName(s.map) }
+	if not (s and s.map and s.x and s.y) then return rec and insideEnder(rec["end"]) or nil end
+	return { npc = e.npc, object = e.object, name = e.name, map = s.map, x = s.x, y = s.y,
+		f = s.f == "e" and "e" or nil, z = s.z, zone = ns.Compat.MapName(s.map) }
 end
 
 ---------------------------------------------------------------------------
