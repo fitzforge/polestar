@@ -255,7 +255,7 @@ return {
 
 	-- Step 42: Get Wild Steelbloom (Alliance)
 	-- {object:1623} Wild Steelbloom
-	-- was: ["{object:1623} (Alliance)"] = "{object:1623}（聯盟）"
+	-- was: ["{item:3355} (Alliance)"] = "{item:3355}（聯盟）"
 	["Get {object:1623} (Alliance)"] = "",
 	-- {object:1623} Wild Steelbloom · {skill:171} Alchemy · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1442} Stonetalon Mountains · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
 	-- was: ["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1434} is marked."] = "為 {item:8951} 準備 40 個 {object:1623}（其中 8 個用於 225-300 階段：現在一併採齊）：透過 {skill:182} 在 {zone:1442}（15-27 級）、{zone:1417}（30-40 級）和 {zone:1434}（30-45 級）採集 {object:1623}（技能 115）。已標記 {zone:1434} 中 {object:1623} 最密集的區域。"
@@ -263,7 +263,7 @@ return {
 
 	-- Step 43: Get Wild Steelbloom (Horde)
 	-- {object:1623} Wild Steelbloom
-	-- was: ["{object:1623} (Horde)"] = "{object:1623}（部落）"
+	-- was: ["{item:3355} (Horde)"] = "{item:3355}（部落）"
 	["Get {object:1623} (Horde)"] = "",
 	-- {object:1623} Wild Steelbloom · {skill:171} Alchemy · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1442} Stonetalon Mountains · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
 	-- was: ["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1442} is marked."] = "為 {item:8951} 準備 40 個 {object:1623}（其中 8 個用於 225-300 階段：現在一併採齊）：透過 {skill:182} 在 {zone:1442}（15-27 級）、{zone:1417}（30-40 級）和 {zone:1434}（30-45 級）採集 {object:1623}（技能 115）。已標記 {zone:1442} 中 {object:1623} 最密集的區域。"

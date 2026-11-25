@@ -255,7 +255,7 @@ return {
 
 	-- Step 42: Get Wild Steelbloom (Alliance)
 	-- {object:1623} Wild Steelbloom
-	-- was: ["{object:1623} (Alliance)"] = "{object:1623} (얼라이언스)"
+	-- was: ["{item:3355} (Alliance)"] = "{item:3355} (얼라이언스)"
 	["Get {object:1623} (Alliance)"] = "",
 	-- {object:1623} Wild Steelbloom · {skill:171} Alchemy · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1442} Stonetalon Mountains · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
 	-- was: ["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1434} is marked."] = "{item:8951}에 필요한 {object:1623} 40개(225-300에 8개: 지금 모두 채집하세요): {skill:182}: {object:1623}(숙련도 115) {zone:1442}(15-27), {zone:1417}(30-40), {zone:1434}(30-45). {zone:1434}(30-45)에서 가장 많이 나는 {object:1623} 지역이 표시됩니다."
@@ -263,7 +263,7 @@ return {
 
 	-- Step 43: Get Wild Steelbloom (Horde)
 	-- {object:1623} Wild Steelbloom
-	-- was: ["{object:1623} (Horde)"] = "{object:1623} (호드)"
+	-- was: ["{item:3355} (Horde)"] = "{item:3355} (호드)"
 	["Get {object:1623} (Horde)"] = "",
 	-- {object:1623} Wild Steelbloom · {skill:171} Alchemy · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1442} Stonetalon Mountains · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
 	-- was: ["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1442} is marked."] = "{item:8951}에 필요한 {object:1623} 40개(225-300에 8개: 지금 모두 채집하세요): {skill:182}: {object:1623}(숙련도 115) {zone:1442}(15-27), {zone:1417}(30-40), {zone:1434}(30-45). {zone:1442}(15-27)에서 가장 많이 나는 {object:1623} 지역이 표시됩니다."

@@ -255,7 +255,7 @@ return {
 
 	-- Step 42: Get Wild Steelbloom (Alliance)
 	-- {object:1623} Wild Steelbloom
-	-- was: ["{object:1623} (Alliance)"] = "{object:1623} (Alianza)"
+	-- was: ["{item:3355} (Alliance)"] = "{item:3355} (Alianza)"
 	["Get {object:1623} (Alliance)"] = "",
 	-- {object:1623} Wild Steelbloom · {skill:171} Alchemy · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1442} Stonetalon Mountains · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
 	-- was: ["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1434} is marked."] = "40 {object:1623} para {item:8951} (8 de ellos para 225-300: recógelos todos ahora): {skill:182}: {object:1623} (habilidad 115) en {zone:1442} (15-27), {zone:1417} (30-40) y {zone:1434} (30-45). Está marcada la zona más densa de {object:1623} en {zone:1434}."
@@ -263,7 +263,7 @@ return {
 
 	-- Step 43: Get Wild Steelbloom (Horde)
 	-- {object:1623} Wild Steelbloom
-	-- was: ["{object:1623} (Horde)"] = "{object:1623} (Horda)"
+	-- was: ["{item:3355} (Horde)"] = "{item:3355} (Horda)"
 	["Get {object:1623} (Horde)"] = "",
 	-- {object:1623} Wild Steelbloom · {skill:171} Alchemy · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1442} Stonetalon Mountains · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
 	-- was: ["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1442} is marked."] = "40 {object:1623} para {item:8951} (8 de ellos para 225-300: recógelos todos ahora): {skill:182}: {object:1623} (habilidad 115) en {zone:1442} (15-27), {zone:1417} (30-40) y {zone:1434} (30-45). Está marcada la zona más densa de {object:1623} en {zone:1442}."
