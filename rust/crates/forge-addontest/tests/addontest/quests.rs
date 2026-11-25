@@ -155,11 +155,7 @@ fn handsover_counts_what_comes_out_of_a_box_the_quest_hands_over_4109() {
 		items["10691"] = item(10691, "Filled Vial Labeled #1", json!({ "drops": { "npc": {}, "object": { "77": 100 } } }));
 	});
 	let db = build_db(data.path());
-	let out = run(
-		&db,
-		"emit({ Q.HandsOver(3568, 10695), Q.HandsOver(3568, 10687), Q.HandsOver(3568, 10688), Q.HandsOver(3568, 3108), Q.HandsOver(3568, 10691), Q.UsesOnly(3568, 10687) })",
-		"",
-	);
+	let out = run(&db, "emit({ Q.HandsOver(3568, 10695), Q.HandsOver(3568, 10687), Q.HandsOver(3568, 10688), Q.HandsOver(3568, 3108), Q.HandsOver(3568, 10691), Q.UsesOnly(3568, 10687) })", "");
 	assert_eq!(out[0], json!([true, true, true, false, false, true]), "the box and both vials; not the dagger a vendor sells, nor the filled vial asked for");
 }
 
