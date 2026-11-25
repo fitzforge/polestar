@@ -164,6 +164,18 @@ test('Bodley gives each class group its own Components of Importance and Valthal
 	}
 });
 
+// #4169's sweep: Forever's Horde Paladin charger chain at Danitha Morr had no prerequisites, so Justice and
+// Retribution (97185, on the Dire Maul and Scholomance pick-up pages) read as open for every Horde Paladin; and
+// the Alliance's The Darkreaver Menace (97169, Scholomance) had no class or prerequisite, unlike the Horde's
+// Shaman-only 7668 after 7667.
+test('the Horde Paladin charger chain and the Alliance Darkreaver Menace have their prerequisites (#4169)', () => {
+	const after = { 97175: 97174, 97177: 97175, 97176: 97177, 97182: 97176, 97179: 97178, 97180: 97179, 97184: 97183, 97185: 97184, 97169: 97168 };
+	for (const [id, pre] of Object.entries(after)) {
+		assert.deepEqual(corrections.quests[id] && corrections.quests[id].set && corrections.quests[id].set.preAny, [pre], `${id} after ${pre}`);
+	}
+	assert.equal(corrections.quests[97169].set.classes, 64, 'The Darkreaver Menace 97169 is the Shaman\'s');
+});
+
 test('the overlay takes mechanics flat or under quests; mechanics 603 and 1064 stay private', () => {
 	const out = overlayCorrections({ mechanics: {} }, { mechanics: { quests: { 603: { note: 'nested' } }, 1064: { note: 'flat' } } });
 	assert.deepEqual(Object.keys(out.mechanics).sort(), ['1064', '603']);
