@@ -11,7 +11,7 @@ use serde_json::{json, Value};
 
 const FILES: [&str; 3] = ["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml"];
 
-// Ten window settings a player tuned, saved on 0.4.2 (and What's new's notes seen).
+// Ten window settings a player tuned, saved on 0.4.2 (and What's new's 0.4.0 notes seen: 0.4.3's are due).
 const TUNED: &str = r#"PolestarDB = { schema = 1, welcomeSeen = 1, whatsNewSeen = "0.4.0",
 	settings = { ui = { scale = 1.2, width = 380, skin = "hearth", pos = { 300, 700 } },
 		guideWindow = { tabStyle = "edge", padding = 10, rowSpacing = 4, titleSize = 1.1, goalSize = 1.15, bgOpacity = 0.6, idleAlpha = 0.5 } } }
