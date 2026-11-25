@@ -46,8 +46,8 @@ return {
 	["The {object:179827} board"] = "Das Brett {object:179827}",
 
 	-- Step 9: Culling the Competition
-	["Culling the Competition"] = "",
-	["Take the bounty from the board only if you want to hunt the linked dwarf packs with a group."] = "",
+	["Culling the Competition"] = "Konkurrenz ausmerzen",
+	["Take the bounty from the board only if you want to hunt the linked dwarf packs with a group."] = "Nimm den Preis vom Brett nur, wenn du die verknüpften Zwerg-Wacht mit einer Gruppe jagen willst.",
 
 	-- Step 11: Zamael Lunthistle
 	-- {npc:8436} Zamael Lunthistle · {area:1442} Firewatch Ridge · {area:1446} Thorium Point · {npc:8282} Highlord Mastrogonde · {quest:3377} Prayer to Elune
@@ -56,9 +56,9 @@ return {
 
 	-- Step 14: Prayer to Elune: the page
 	-- {quest:3378} Prayer to Elune
-	["{quest:3378}: the page"] = "",
+	["{quest:3378}: the page"] = "{quest:3378}: das Blatt",
 	-- {npc:8436} Zamael Lunthistle · {quest:3378} Prayer to Elune
-	["The Twilight elites of {npc:8436}'s camp drop the {quest:3378} page, about one in five: keep the group together here until one drops."] = "",
+	["The Twilight elites of {npc:8436}'s camp drop the {quest:3378} page, about one in five: keep the group together here until one drops."] = "Die Twilight-Elite des Lagers von {npc:8436} fallen das {quest:3378}-Blatt, etwa eines von fünf: halte die Gruppe hier zusammen, bis eins abfällt.",
 
 	-- Step 15: Searing Lava Spiders
 	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
@@ -78,26 +78,26 @@ return {
 
 	-- Step 21: Dark Iron Taskmasters
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster
-	["Dark Iron Taskmasters"] = "",
+	["Dark Iron Taskmasters"] = "DunkelEisen-Aufseher",
 	-- {area:1443} Slag Pit
-	["With your group, look for Taskmasters on the open ledges first. Last stop, if you still need some: take the lift (the scaffold cars) down into the {area:1443} below, where four more stand."] = "",
+	["With your group, look for Taskmasters on the open ledges first. Last stop, if you still need some: take the lift (the scaffold cars) down into the {area:1443} below, where four more stand."] = "Mit deiner Gruppe suche zuerst die Aufseher an den offenen Scheiteln. Letzter Stop, falls du noch einige brauchst: nimm den Lifter (die Gerüst-Wagen) hinab in die {area:1443} darunter, wo noch vier weitere stehen.",
 
 	-- Step 22: Dark Iron Slavers
 	-- plural, as words: Dark Iron Slavers = {npc:5844} Dark Iron Slaver
-	["Dark Iron Slavers"] = "",
-	["Careful: Slavers can net you and call allies within 15 yards. A Taskmaster or Steamsmith may be standing beside one. Wait for a clear pull or leave the pack; don't descend into the Cauldron for this bounty."] = "",
+	["Dark Iron Slavers"] = "DunkelEisen-Sklavenhändler",
+	["Careful: Slavers can net you and call allies within 15 yards. A Taskmaster or Steamsmith may be standing beside one. Wait for a clear pull or leave the pack; don't descend into the Cauldron for this bounty."] = "Vorsicht: Sklavenhändler können dich abfangen und innerhalb von 15 Yards Verbündete rufen. Ein Aufseher oder Dampfschmied steht oft neben einem. Warte auf einen sicheren Zugang oder verlasse das Rudel; fahr nicht in den Kaldern für diesen Preis herunter.",
 
 	-- Step 23: The furnaces and southern ridges
-	["The furnaces and southern ridges"] = "",
+	["The furnaces and southern ridges"] = "Die Schmelzöfen und die südlichen Rücken",
 	-- {item:18959} Smithing Tuyere · {item:11818} Grimesilt Outhouse Key
-	["The Steamsmiths at the furnaces carry the {item:18959}; the Lookouts on the southern ridges carry the Spyglass. Keep the {item:11818} if a dwarf drops it."] = "",
+	["The Steamsmiths at the furnaces carry the {item:18959}; the Lookouts on the southern ridges carry the Spyglass. Keep the {item:11818} if a dwarf drops it."] = "Die Dampfsiedler am Schmelzturm tragen das {item:18959}; die Wächter an den südlichen Hängen das Spähers. Lass das {item:11818} stehen, falls ein Zwerge es ablegt.",
 
 	-- Step 24: Thorium Plated Daggers
 	-- plural, as words: Thorium Plated Daggers = {item:10551} Thorium Plated Dagger
-	["Thorium Plated Daggers"] = "",
+	["Thorium Plated Daggers"] = "Thorium-Belachtete Dolche",
 	-- {item:18959} Smithing Tuyere
 	-- plural, as words: Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith · Thorium Plated Daggers = {item:10551} Thorium Plated Dagger
-	["Dark Iron Steamsmiths at the surface furnaces carry Thorium Plated Daggers as well as the {item:18959}. Pull from the outside of the camp."] = "",
+	["Dark Iron Steamsmiths at the surface furnaces carry Thorium Plated Daggers as well as the {item:18959}. Pull from the outside of the camp."] = "DunkelEisen-Dampfschmiede an den Oberflächenschmelzöfen tragen Thorium-Belachtete Dolche zusätzlich zum {item:18959}. Jage von außen in das Lager.",
 
 	-- Step 28: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
@@ -147,7 +147,7 @@ return {
 	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider · Magma Elementals = {npc:5855} Magma Elemental
 	["Still under level 48.98 (a solo player usually is; a group's {quest:3452} covers it)? Top up on the Searing Lava Spiders (47-48) of the western plateaus, away from the {object:147516} camps.\nCareful: Magma Elementals (46-48) drift among the spiders: pull one at a time. Keep south of the Twilight camp at {area:1442}, whose cultists are elites."] = "",
 	-- {npc:5858} Searing Lava Spider
-	["grind on {npc:5858}"] = "",
+	["grind on {npc:5858}"] = "Ertüchtigung auf {npc:5858}",
 
 	-- Step 39: Margol's Horn
 	-- {quest:3181} The Horn of the Beast

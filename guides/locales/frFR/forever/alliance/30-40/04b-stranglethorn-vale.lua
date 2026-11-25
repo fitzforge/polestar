@@ -27,7 +27,7 @@ return {
 
 	-- Step 4: Clerk Daltry
 	-- {npc:267} Clerk Daltry · {area:42} Darkshire · {npc:661} Jonathan Carevin
-	["{npc:267} works in {area:42}'s town hall; {npc:661} stands just east of it."] = "",
+	["{npc:267} works in {area:42}'s town hall; {npc:661} stands just east of it."] = "{npc:267} travaille à l'hôtel de ville de {area:42} ; {npc:661} se tient juste à l'est.",
 
 	-- Step 5: Stranglethorn Vale
 	-- {zone:1434} Stranglethorn Vale
@@ -56,7 +56,7 @@ return {
 
 	-- Step 9: Bookie Herod
 	-- {area:101} Kurzen's Compound · {quest:328} The Hidden Key
-	["Herod's records lie in a hut on the west side of {area:101}: take {quest:328} there."] = "",
+	["Herod's records lie in a hut on the west side of {area:101}: take {quest:328} there."] = "Les registres d'Herod sont dans une hutte du côté ouest de {area:101} : prenez {quest:328} là-bas.",
 
 	-- Step 10: Kurzen's Compound
 	-- {npc:218230} Wendel Mathers · {spell:7964} Smoke Bomb · {npc:813} Colonel Kurzen
@@ -85,7 +85,7 @@ return {
 	-- {npc:268992} Zimmix Sputterspark · {item:277957} Primitive Key
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment · Bloodscalp Berserkers = {npc:597} Bloodscalp Berserker
 	-- was: ["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}, then lead him out of the ruins. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "Au nord le long de la côte vers les ruines sur la colline : les deux dernières tablettes s'y trouvent. {npc:268992}, un gobelin, est enfermé dans une cage à côté de la troisième tablette : n'importe quel Bloodscalp peut lâcher sa {item:277957}, puis escortez-le hors des ruines. Les Cargaisons volées se trouvent à la lisière est des ruines. Ramassez les pages des Collines verdoyantes à mesure qu'elles tombent.\nAttention : les Berserkers, Chasseurs de têtes et Sorciers-docteurs Bloodscalp (36-37) tiennent le cœur des ruines : attirez-les un par un."
-	["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "",
+	["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "Vers le nord le long de la côte jusqu'aux ruines sur la colline : les deux dernières tablettes s'y trouvent. {npc:268992}, un gobelin, est en cage à côté de la troisième tablette : n'importe quel Scalpessang peut lâcher son {item:277957}. Les cargaisons volées se trouvent au bord est des ruines. Ramassez les pages des Vertes collines quand elles tombent.\nAttention : les berserkers, chasseurs de têtes et sorciers-docteurs Scalpessang (36-37) tiennent le cœur des ruines : attirez-les un par un.",
 	-- {npc:268992} Zimmix Sputterspark
 	["{npc:268992}, in his cage beside the third tablet"] = "{npc:268992}, dans sa cage à côté de la troisième tablette",
 	-- {item:277957} Primitive Key
@@ -93,9 +93,9 @@ return {
 
 	-- Step 14: Escort Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark
-	["Escort {npc:268992}"] = "",
+	["Escort {npc:268992}"] = "Escortez {npc:268992}",
 	-- {npc:268992} Zimmix Sputterspark · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
-	["Lead {npc:268992} out of the ruins and keep him alive: {npc:4631} in {area:35} takes the news at the end of this loop."] = "",
+	["Lead {npc:268992} out of the ruins and keep him alive: {npc:4631} in {area:35} takes the news at the end of this loop."] = "Menez {npc:268992} hors des ruines et gardez-le en vie : {npc:4631} à {area:35} prend la nouvelle à la fin de cette boucle.",
 	-- {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	["For {npc:4631} in {area:35}, at the end of this loop"] = "Pour {npc:4631} à {area:35}, à la fin de cette boucle",
 

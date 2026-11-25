@@ -265,9 +265,9 @@ return {
 
 	-- Step 49: Arbor Tarantula
 	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
-	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "",
+	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "Un {npc:217588} se arrastra por la selva al sureste del campamento de Nesingwary, camino de {area:99}: abre {item:213565} de {npc:217412} y usa su {item:213562} en uno. No lo mates.",
 	-- {item:213562} Bug Catching Net · {npc:217588} Arbor Tarantula · {item:213566} Arbor Tarantula Specimen
-	["{item:213562}, on an {npc:217588}: the {item:213566}"] = "",
+	["{item:213562}, on an {npc:217588}: the {item:213566}"] = "{item:213562}, en un {npc:217588}: {item:213566}",
 
 	-- Step 50: Rebel Camp
 	["Head north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "Ve al noreste pasando el campamento de Nesingwary y sigue el camino al norte hasta el campamento de lo alto de la vega.",

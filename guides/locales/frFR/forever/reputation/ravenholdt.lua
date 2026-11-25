@@ -46,8 +46,9 @@ return {
 	["Stromgarde: {npc:266847}"] = "Stromgarde : {npc:266847}",
 	-- {item:275706} Syndicate Uniform · {npc:266847} Anastasia Miller
 	["Put on the {item:275706} and go into Stromgarde. {npc:266847} waits on a ledge just outside the castle; players reach her by jumping from the roof of the house beside the ledge. Her stash is upstairs in a house near the keep."] = "Revêtez l'{item:275706} et entrez dans Stromgarde. {npc:266847} attend sur une corniche juste à l'extérieur du château ; on la rejoint en sautant depuis le toit de la maison voisine. Sa cachette est à l'étage d'une maison près du donjon.",
-	-- {item:275709} Stolen Funds
-	["{item:275709}, in Anastasia's Stash upstairs"] = "{item:275709}, dans la cachette d'Anastasia à l'étage",
+	-- {item:275709} Stolen Funds · {object:656405} Anastasia's Stash (no name in this language: may be words)
+	-- was: ["{item:275709}, in Anastasia's Stash upstairs"] = "{item:275709}, dans la cachette d'Anastasia à l'étage"
+	["{item:275709}, in {object:656405} upstairs"] = "{item:275709}, dans {object:656405} à l'étage",
 
 	-- Step 7: Thoradin's Wall: the shipment
 	-- {area:1057} Thoradin's Wall
@@ -121,5 +122,6 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["a {npc:6766}: 100 per emblem"] = "un {npc:6766} : 100 par emblème",
 	-- ["{area:280}: Barton"] = "{area:280} : Barton",
+	-- ["{item:275709}, in Anastasia's Stash upstairs"] = "{item:275709}, dans la cachette d'Anastasia à l'étage",
 	-- ["{npc:6707}: 50 per five boxes"] = "{npc:6707} : 50 pour cinq coffrets",
 }

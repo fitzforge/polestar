@@ -8,32 +8,32 @@
 return {
 	-- Guide
 	-- {zone:1451} Silithus · {area:3425} Cenarion Hold
-	["{zone:1451}: {area:3425}'s quests, to 60."] = "",
+	["{zone:1451}: {area:3425}'s quests, to 60."] = "{zone:1451}: {area:3425}'s Quests, bis 60.",
 
 	-- Step 1: Innkeeper Vizzie
 	-- {zone:2482} Mount Hyjal · {area:2255} Everlook · {npc:11118} Innkeeper Vizzie
-	["Back from {zone:2482} in {area:2255}: {npc:11118}'s mail went astray in the hills east of town, where the Ice Thistle yetis carry it off."] = "",
+	["Back from {zone:2482} in {area:2255}: {npc:11118}'s mail went astray in the hills east of town, where the Ice Thistle yetis carry it off."] = "Rückwärts von {zone:2482} in {area:2255}: {npc:11118}'s Post ging in den Hügeln östlich der Stadt verloren, wo die Eis-Tistel-Yetis es mitnehmen.",
 
 	-- Step 2: Missing Mail
 	-- {area:2255} Everlook · {item:258323} Missing Mail
-	["The Ice Thistle yetis (53-57) in the hills east of {area:2255} carry the {item:258323}: take it from the ones at the edge of the hills."] = "",
+	["The Ice Thistle yetis (53-57) in the hills east of {area:2255} carry the {item:258323}: take it from the ones at the edge of the hills."] = "Die Eis-Tistel-Yetis (53-57) in den Hügeln östlich von {area:2255} tragen das {item:258323}: nimm es von den, die am Hügelrand stehen.",
 
 	-- Step 4: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
 	["Fly to {area:541}"] = "Flieg nach {area:541}",
 	-- {area:541} Marshal's Refuge · {zone:1449} Un'Goro Crater · {zone:1451} Silithus
-	["Fly to {area:541} in {zone:1449}, the way into {zone:1451}."] = "",
-	["Maethrya, the Alliance flight master"] = "",
+	["Fly to {area:541} in {zone:1449}, the way into {zone:1451}."] = "Fliege zu {area:541} in {zone:1449}, dem Weg in die {zone:1451}.",
+	["Maethrya, the Alliance flight master"] = "Maethrya, Allianz-Flugmeister",
 
 	-- Step 5: Into Silithus
 	-- {zone:1451} Silithus
 	["Into {zone:1451}"] = "Nach {zone:1451}",
 	-- {area:541} Marshal's Refuge · {zone:1451} Silithus
-	["Ride west from {area:541} to the crater's north-western pass into {zone:1451}."] = "",
+	["Ride west from {area:541} to the crater's north-western pass into {zone:1451}."] = "Fahre nach Westen von {area:541} zum nordwestlichen Pässe des Crater in die {zone:1451}.",
 
 	-- Step 6: Layo Starstrike
 	-- {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
-	["{npc:13220} stands at {area:3077}, where the pass comes out."] = "",
+	["{npc:13220} stands at {area:3077}, where the pass comes out."] = "{npc:13220} steht in {area:3077}, wo der Pass raus führt.",
 
 	-- Step 9: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
@@ -41,7 +41,7 @@ return {
 	-- {npc:15183} Geologist Larksbane
 	["{npc:15183}: the tablet fragments come from the Twilight dig"] = "{npc:15183}: Die Schrifttafelfragmente stammen von der Grabung der Twilight",
 	-- {npc:15306} Bor Wildmane
-	["{npc:15306}: his Twilight texts come from the dig"] = "",
+	["{npc:15306}: his Twilight texts come from the dig"] = "{npc:15306}: seine Twilight-Texte kommen vom Abbau",
 
 	-- Step 10: Silithus: kill these as you meet them
 	-- {zone:1451} Silithus
@@ -52,7 +52,7 @@ return {
 
 	-- Step 11: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
-	["Back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Zurück zu {area:3425}. {npc:15189} steht oben in seinem Gebäude: geh hinauf rein, der Pfeil kann die Etagen nicht voneinander unterscheiden.",
 	-- {npc:15189} Beetix Ficklespragg
 	["{npc:15189}, upstairs"] = "{npc:15189}, oben",
 
@@ -68,7 +68,7 @@ return {
 	-- {npc:15190} Noggle Ficklespragg · {npc:15189} Beetix Ficklespragg
 	["{npc:15190}, upstairs beside {npc:15189}"] = "{npc:15190}, oben neben {npc:15189}",
 	-- {npc:15181} Commander Mar'alith
-	["{npc:15181} (from level 58): Bronzebeard's Encampment comes later, on the way south"] = "",
+	["{npc:15181} (from level 58): Bronzebeard's Encampment comes later, on the way south"] = "{npc:15181} (ab Level 58): Bronzebeards Lager kommt später, auf dem Weg nach Süden",
 
 	-- Step 14: Hive'Ashi: kill these as you meet them
 	-- {area:2742} Hive'Ashi
@@ -84,11 +84,11 @@ return {
 	["Ten more for {quest:8323}"] = "Zehn weitere für {quest:8323}",
 
 	-- Step 16: Southwind Village
-	["The tortured druids and sentinels haunt the ruined village east of the hold."] = "",
+	["The tortured druids and sentinels haunt the ruined village east of the hold."] = "Die geschändeten Druiden und Wächter geistern das ruinerische Dorf östlich der Festung.",
 
 	-- Step 17: Layo Starstrike
 	-- {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
-	["Ride north-east to {npc:13220} at {area:3077}."] = "",
+	["Ride north-east to {npc:13220} at {area:3077}."] = "Fahre nordöstlich zu {npc:13220} in {area:3077}.",
 
 	-- Step 18: The Hive'Ashi tower
 	-- {area:2742} Hive'Ashi
@@ -98,7 +98,7 @@ return {
 
 	-- Step 19: Layo Starstrike
 	-- {npc:13220} Layo Starstrike · {zone:1450} Moonglade
-	["{npc:13220}'s next task goes to {zone:1450}: skip it."] = "",
+	["{npc:13220}'s next task goes to {zone:1450}: skip it."] = "{npc:13220}'s nächster Auftrag geht an {zone:1450}: überspringe es.",
 
 	-- Step 20: Hermit Ortell
 	-- {area:2738} Southwind Village
@@ -112,7 +112,7 @@ return {
 
 	-- Step 22: Brann Bronzebeard's Lost Letter
 	-- {area:2742} Hive'Ashi · {npc:15170} Rutgar Glyphshaper
-	["From a {area:2742} silithid: for {npc:15170} at Bronzebeard's Encampment"] = "",
+	["From a {area:2742} silithid: for {npc:15170} at Bronzebeard's Encampment"] = "Von einem {area:2742}-Silithiden: für {npc:15170} beim Bronzebeards Lager",
 
 	-- Step 24: The Twilight Post
 	-- {area:3098} Twilight Post

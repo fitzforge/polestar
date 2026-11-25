@@ -39,7 +39,7 @@ return {
 	["{area:34}: kill these as you meet them"] = "{area:34}: 만나는 대로 처치하세요",
 	-- {object:83763} Stolen Books · {quest:91741} Nibbled-On Book · {npc:951} Brother Paxton
 	-- plural, as words: Kobold Workers = {npc:257} Kobold Worker
-	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}.\nNow and then a kobold here drops a {quest:91741}: right-click it and hand it to {npc:951} on your next Abbey stop."] = "",
+	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}.\nNow and then a kobold here drops a {quest:91741}: right-click it and hand it to {npc:951} on your next Abbey stop."] = "길을 따라 북쪽 광산으로 가십시오. 코볼트 일꾼({npc:257})이 광산 밖에 우글거리고, 골짜기의 모든 코볼트가 {object:83763}을(를) 떨어뜨릴 수 있습니다.\n가끔 이곳 코볼트가 {quest:91741}을(를) 떨어뜨립니다: 오른쪽 클릭하여 다음에 수도원에 들를 때 {npc:951}에게 주십시오.",
 
 	-- Step 7: Northshire Abbey
 	-- {npc:248415} Tordrin Sternblade · {npc:198} Khelden Bremen
@@ -77,26 +77,26 @@ return {
 
 	-- Step 12: Kelsey Fargo
 	-- {quest:91752} The Big Picture · {npc:248362} Shinyfinder Narf
-	["She stands outside the mine entrance. Her next errand, {quest:91752}, sends you after {npc:248362} inside, a level 3 elite: the guide gives it from level 5, when he is two levels under you."] = "",
+	["She stands outside the mine entrance. Her next errand, {quest:91752}, sends you after {npc:248362} inside, a level 3 elite: the guide gives it from level 5, when he is two levels under you."] = "그녀는 광산 입구 밖에 서 있습니다. 그녀의 다음 심부름 {quest:91752}은(는) 안에 있는 3레벨 정예 {npc:248362}을(를) 잡으러 보냅니다: 가이드는 그가 두 레벨 낮아지는 5레벨부터 이 퀘스트를 줍니다.",
 
 	-- Step 13: The Big Picture
 	-- {quest:91752} The Big Picture · {npc:248362} Shinyfinder Narf
-	["From level 5: Kelsey's {quest:91752}. {npc:248362} (3, elite) is two levels under you then."] = "",
+	["From level 5: Kelsey's {quest:91752}. {npc:248362} (3, elite) is two levels under you then."] = "5레벨부터: 켈시의 {quest:91752}. 그때 {npc:248362}(3, 정예)은(는) 당신보다 두 레벨 낮습니다.",
 	-- {npc:247226} Kelsey Fargo
-	["{npc:247226}, outside the mine"] = "",
+	["{npc:247226}, outside the mine"] = "{npc:247226}, 광산 밖",
 
 	-- Step 14: Inside Echo Ridge Mine
 	-- {area:34} Echo Ridge Mine
 	["Inside {area:34}"] = "{area:34} 안",
 	-- {npc:248362} Shinyfinder Narf · {quest:91741} Nibbled-On Book · {npc:951} Brother Paxton
 	-- plural, as words: Kobold Laborers = {npc:80} Kobold Laborer
-	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nNow and then a Laborer drops a {quest:91741}: right-click it and hand it to {npc:951} at the Abbey after the mine.\nCareful: {npc:248362} (3) is elite: below level 5, leave him be."] = "",
+	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nNow and then a Laborer drops a {quest:91741}: right-click it and hand it to {npc:951} at the Abbey after the mine.\nCareful: {npc:248362} (3) is elite: below level 5, leave him be."] = "코볼트 노동자({npc:80})가 광산 안 터널에서 일합니다. {npc:248362}은(는) 오른쪽 두 번째 모퉁이에서 기다립니다.\n가끔 노동자가 {quest:91741}을(를) 떨어뜨립니다: 오른쪽 클릭하여 광산을 나온 뒤 수도원의 {npc:951}에게 주십시오.\n주의: {npc:248362}(3)은(는) 정예입니다: 5레벨 전에는 건드리지 마십시오.",
 	-- {npc:80} Kobold Laborer · {area:34} Echo Ridge Mine
 	["{npc:80} walks around {area:34}: look inside the circle on the map"] = "",
 
 	-- Step 15: Shinyfinder Narf
 	-- {npc:248362} Shinyfinder Narf
-	["From level 5 {npc:248362}, a level 3 elite, is two levels under you: he waits down the second turn on the right inside the mine.\nCareful: clear the Laborers around him first and fight him at full health."] = "",
+	["From level 5 {npc:248362}, a level 3 elite, is two levels under you: he waits down the second turn on the right inside the mine.\nCareful: clear the Laborers around him first and fight him at full health."] = "5레벨부터 3레벨 정예 {npc:248362}은(는) 당신보다 두 레벨 낮습니다: 광산 안 오른쪽 두 번째 모퉁이에서 기다립니다.\n주의: 먼저 주변의 노동자를 정리하고 생명력이 가득할 때 싸우십시오.",
 
 	-- Step 16: Northshire Abbey
 	-- {npc:823} Deputy Willem
@@ -126,7 +126,7 @@ return {
 
 	-- Step 22: Sam Sarsaparilla
 	-- {npc:263399} Sam Sarsaparilla · {skill:129} First Aid · {area:87} Goldshire · {area:24} Northshire Abbey · {area:88} Eastvale Logging Camp · {zone:1453} Stormwind
-	["{npc:263399} camps north-east of the inn. With a profession learned, he also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing on the lake shore, {skill:129} and blacksmithing in {area:87}, herbalism and alchemy back in {area:24}, tailoring at the {area:88}, mining, engineering and enchanting in {zone:1453}."] = "",
+	["{npc:263399} camps north-east of the inn. With a profession learned, he also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing on the lake shore, {skill:129} and blacksmithing in {area:87}, herbalism and alchemy back in {area:24}, tailoring at the {area:88}, mining, engineering and enchanting in {zone:1453}."] = "{npc:263399}은(는) 여관 북동쪽에서 야영합니다. 전문 기술을 배웠다면 해당 야영 101도 주며, 그 상급자가 받습니다: 무두질, 가죽세공, 낚시는 호숫가, {skill:129}와(과) 대장기술은 {area:87}, 약초채집과 연금술은 다시 {area:24}, 재봉술은 {area:88}, 채광, 기계공학, 마법부여는 {zone:1453}.",
 	-- {spell:1229451} Boosted Rest
 	["Sit (/sit) by his campfire until you have {spell:1229451}"] = "{spell:1229451} 효과를 얻을 때까지 그의 모닥불 옆에 앉으세요(/앉기)",
 
@@ -162,39 +162,39 @@ return {
 
 	-- Step 28: Camping 101: Herbalism
 	-- {npc:1218} Herbalist Pomeroy · {skill:182} Herbalism
-	["{npc:1218} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:1218} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:182} 숙련도가 20이 되면 {npc:1218}이(가) 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1218} Herbalist Pomeroy · {area:24} Northshire Abbey
-	["{npc:263399}: for {npc:1218} in {area:24}"] = "",
+	["{npc:263399}: for {npc:1218} in {area:24}"] = "{npc:263399}: {area:24}의 {npc:1218}에게",
 
 	-- Step 29: Camping 101: Alchemy
 	-- {npc:1215} Alchemist Mallory · {skill:171} Alchemy
-	["{npc:1215} takes it once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:1215} takes it once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:171} 숙련도가 20이 되면 {npc:1215}이(가) 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1215} Alchemist Mallory · {area:24} Northshire Abbey
-	["{npc:263399}: for {npc:1215} in {area:24}"] = "",
+	["{npc:263399}: for {npc:1215} in {area:24}"] = "{npc:263399}: {area:24}의 {npc:1215}에게",
 
 	-- Step 30: Camping 101: Tailoring
 	-- {npc:1103} Eldrin · {skill:197} Tailoring
-	["{npc:1103} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:1103} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:197} 숙련도가 20이 되면 {npc:1103}이(가) 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1103} Eldrin · {area:88} Eastvale Logging Camp
-	["{npc:263399}: for {npc:1103} at the {area:88}"] = "",
+	["{npc:263399}: for {npc:1103} at the {area:88}"] = "{npc:263399}: {area:88}의 {npc:1103}에게",
 
 	-- Step 31: Camping 101: Mining
 	-- {npc:5513} Gelman Stonehand · {skill:186} Mining
-	["{npc:5513} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:5513} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:186} 숙련도가 20이 되면 {npc:5513}이(가) 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:5513} Gelman Stonehand · {zone:1453} Stormwind · {object:28027} Dwarven District
-	["{npc:263399}: for {npc:5513} in {zone:1453}'s {object:28027}"] = "",
+	["{npc:263399}: for {npc:5513} in {zone:1453}'s {object:28027}"] = "{npc:263399}: {zone:1453} {object:28027}의 {npc:5513}에게",
 
 	-- Step 32: Camping 101: Engineering
 	-- {npc:11026} Sprite Jumpsprocket · {skill:202} Engineering
-	["{npc:11026} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:11026} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:202} 숙련도가 20이 되면 {npc:11026}이(가) 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:11026} Sprite Jumpsprocket · {zone:1453} Stormwind · {object:28027} Dwarven District
-	["{npc:263399}: for {npc:11026} in {zone:1453}'s {object:28027}"] = "",
+	["{npc:263399}: for {npc:11026} in {zone:1453}'s {object:28027}"] = "{npc:263399}: {zone:1453} {object:28027}의 {npc:11026}에게",
 
 	-- Step 33: Camping 101: Enchanting
 	-- {npc:11068} Betty Quin · {skill:333} Enchanting
-	["{npc:11068} takes it once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:11068} takes it once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:333} 숙련도가 20이 되면 {npc:11068}이(가) 받습니다: 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속됩니다.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:11068} Betty Quin · {zone:1453} Stormwind
-	["{npc:263399}: for {npc:11068} in {zone:1453}"] = "",
+	["{npc:263399}: for {npc:11068} in {zone:1453}"] = "{npc:263399}: {zone:1453}의 {npc:11068}에게",
 
 	-- Step 34: Helene Peltskinner
 	["talk to the trainer"] = "상급자와 대화하기",
@@ -247,11 +247,11 @@ return {
 
 	-- Step 46: Herbalist Pomeroy
 	-- {npc:1218} Herbalist Pomeroy · {area:87} Goldshire
-	["{npc:1218}, north of {area:87}"] = "",
+	["{npc:1218}, north of {area:87}"] = "{npc:1218}, {area:87} 북쪽",
 
 	-- Step 47: Alchemist Mallory
 	-- {npc:1215} Alchemist Mallory · {npc:1218} Herbalist Pomeroy
-	["{npc:1215}, beside {npc:1218}"] = "",
+	["{npc:1215}, beside {npc:1218}"] = "{npc:1215}, {npc:1218} 옆",
 
 	-- Step 48: Maybell Maclure
 	-- {area:87} Goldshire · {area:64} Maclure Vineyards · {npc:251} Maybell Maclure
@@ -310,7 +310,7 @@ return {
 	-- {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
 	["{npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:279} Morgan Pestle · {zone:1453} Stormwind · {zone:1436} Westfall
-	["{npc:279} in {zone:1453} takes it (the {zone:1436} guide)"] = "",
+	["{npc:279} in {zone:1453} takes it (the {zone:1436} guide)"] = "{zone:1453}의 {npc:279}이(가) 받습니다({zone:1436} 가이드)",
 
 	-- Step 60: Level 8.39
 	["Level 8.39"] = "",
@@ -419,7 +419,7 @@ return {
 
 	-- Step 82: Eldrin
 	-- {npc:1103} Eldrin
-	["{npc:1103}, at the logging camp"] = "",
+	["{npc:1103}, at the logging camp"] = "{npc:1103}, 벌목장",
 
 	-- Step 83: Stone Cairn Lake
 	-- {npc:6866} Defias Bodyguard
@@ -438,7 +438,7 @@ return {
 	["{npc:240}, while William brews"] = "",
 	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind · {zone:1436} Westfall
 	-- was: ["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, 듀간 옆 대장간: {zone:1453}의 {npc:1416}이(가) 받습니다 (02-westfall)"
-	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (the {zone:1436} guide)"] = "",
+	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (the {zone:1436} guide)"] = "{npc:514}, 더간 옆 대장간: {zone:1453}의 {npc:1416}이(가) 받습니다({zone:1436} 가이드)",
 	-- {npc:253} William Pestle
 	["{npc:253}, back in the inn"] = "{npc:253}, 다시 여관 안",
 	-- {npc:377} Priestess Josetta · {npc:376} High Priestess Laurena · {zone:1453} Stormwind

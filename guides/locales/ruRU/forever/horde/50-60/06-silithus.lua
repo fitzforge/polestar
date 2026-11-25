@@ -28,7 +28,7 @@ return {
 
 	-- Step 4: Gaeriyan
 	-- {npc:9299} Gaeriyan · {item:11243} Videre Elixir · {area:976} Gadgetzan
-	["{npc:9299} has already met you: drink the {item:11243} at the graveyard just east of {area:976} and find him, as a ghost, in the rocky crevice due north of it."] = "",
+	["{npc:9299} has already met you: drink the {item:11243} at the graveyard just east of {area:976} and find him, as a ghost, in the rocky crevice due north of it."] = "{npc:9299} уже встречался с вами: выпейте {item:11243} на кладбище чуть к востоку от места {area:976} и найдите его в облике духа в скалистой расщелине прямо к северу от него.",
 
 	-- Step 5: Sprinkle
 	-- {item:12928} Umi's Mechanical Yeti · {npc:7583} Sprinkle · {area:976} Gadgetzan · {npc:10977} Quixxil · {npc:10978} Legacki
@@ -131,7 +131,7 @@ return {
 	["Flayers and Rock Stalkers"] = "Живодеры и скальные пауки-скакуны",
 	-- {area:2744} Hive'Regal · {zone:1451} Silithus
 	-- plural, as words: Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker
-	["Stonelash Flayers and Rock Stalkers roam the dunes north of {area:2744}, in the south-east of {zone:1451}."] = "",
+	["Stonelash Flayers and Rock Stalkers roam the dunes north of {area:2744}, in the south-east of {zone:1451}."] = "Свежеватели Камнебоя ({npc:11737}) и скальные охотники ({npc:11739}) бродят по дюнам к северу от места {area:2744}, на юго-востоке зоны {zone:1451}.",
 
 	-- Step 26: Twilight Vanguard
 	["Twilight Vanguard"] = "Авангард Сумеречного Молота",

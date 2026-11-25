@@ -128,13 +128,15 @@ function SL.Place(parent, steps)
 end
 
 -- What the player set aside in the open guide that is still undone: steps
--- skipped, quests skipped and goals dismissed, each counted once. -> n
+-- skipped, quests skipped and goals dismissed, each counted once. Only the
+-- steps holding a skip are read (Engine.SetAsideSteps): a finished guide's
+-- page asks on every draw, and a view of every step cost 20 ms there. -> n
 function SL.Skips()
 	local E = ns.Engine
-	if not (E and E.GetStepCount and E.GetStepView and E.GetGuide and E.GetGuide()) then return 0 end
+	if not (E and E.SetAsideSteps and E.GetStepView and E.GetGuide and E.GetGuide()) then return 0 end
 	local n, seen = 0, {}
-	for i = 1, E.GetStepCount() do
-		local v = E.GetStepView(i)
+	for _, i in ipairs(E.SetAsideSteps()) do
+		local v = E.GetStepView(i, true)
 		if v and v.skipped == true then
 			n = n + 1
 		elseif v and v.goals then
@@ -156,6 +158,10 @@ function SL.Refresh()
 	local G = GF()
 	if G and G.Render then G.Render() end
 end
+-- A quest brought back here or elsewhere (the guide window's quest line, its
+-- banner's Undo): a skip redraws through its undo banner, an unskip has
+-- nothing else to.
+ns.On("PLAYER_UNSKIPPED_QUEST", function() if SL.On() then SL.Refresh() end end)
 
 -- An accent "Unskip" link on card r, as wide as its word; onClick(self).
 local function unskipLink(r, onClick)
@@ -272,9 +278,9 @@ local function line(r, j)
 	-- A skipped quest's way back, at the line's right end (Engine.SkipQuest).
 	g.Unskip = unskipLink(r, function(self)
 		local E = ns.Engine
+		-- A quest's unskip redraws the list through PLAYER_UNSKIPPED_QUEST.
 		if self.psQuest and E and E.SkipQuest then E.SkipQuest(self.psQuest, false)
-		elseif self.psStep and E and E.Unskip then E.Unskip(self.psStep) end
-		SL.Refresh()
+		elseif self.psStep and E and E.Unskip then E.Unskip(self.psStep); SL.Refresh() end
 	end)
 	g.Unskip.psTip = L["Bring it back"]
 	r.G[j] = g

@@ -130,7 +130,7 @@ return {
 	-- {npc:268992} Zimmix Sputterspark · {area:102} Ruins of Zul'Kunda · {item:277957} Primitive Key · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment · Bloodscalp Scouts = {npc:588} Bloodscalp Scout · Bloodscalp Berserkers = {npc:597} Bloodscalp Berserker
 	-- was: ["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}. Then lead him out of the ruins: {npc:4631} in {area:35} takes the news and the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992} в плену у восточного края места {area:102}; украденные грузы лежат среди руин вокруг него. Разведчики, охотники и мистики из племени Кровавого Скальпа (34-35) носят его {item:277957}. Затем выведите его из руин: {npc:4631} ({area:35}) примет новости и грузы.\nОсторожно: берсерки и охотники за головами из племени Кровавого Скальпа (36-37) и знахари (37, заклинатели) занимают руины к северу и западу от NPC {npc:268992}, рядом с северными грузами (около 24.9,9.6): сначала соберите грузы в южных руинах рядом с NPC {npc:268992}, а если пойдете на север, выманивайте по одному."
-	["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}: {npc:4631} in {area:35} takes the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "",
+	["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}: {npc:4631} in {area:35} takes the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992} в плену у восточного края места {area:102}; украденные грузы лежат среди руин вокруг него. Разведчики, охотники и мистики Кровавого Скальпа (34-35) там носят его {item:277957}: {npc:4631} ({area:35}) принимает грузы.\nОсторожно: берсерки и охотники за головами Кровавого Скальпа (36-37) и знахари (37, заклинатели) держат руины к северу и западу от NPC {npc:268992}, рядом с северными грузами (около 24.9,9.6): сначала соберите грузы в южных руинах у NPC {npc:268992}, а если идете на север, выманивайте по одному.",
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
 	["Stolen Shipments, in the ruins"] = "Украденные грузы – в руинах",
 	-- {item:277957} Primitive Key
@@ -139,9 +139,9 @@ return {
 
 	-- Step 21: Escort Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark
-	["Escort {npc:268992}"] = "",
+	["Escort {npc:268992}"] = "Сопроводите: {npc:268992}",
 	-- {npc:268992} Zimmix Sputterspark
-	["Lead {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "",
+	["Lead {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "Выведите NPC {npc:268992} из руин и сохраните ему жизнь: Лозгил примет новость, когда он будет в безопасности.",
 	-- {npc:268992} Zimmix Sputterspark
 	["Escort {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "Выведите NPC {npc:268992} из руин и сохраните ему жизнь: Подгребай примет новости, когда он будет в безопасности.",
 

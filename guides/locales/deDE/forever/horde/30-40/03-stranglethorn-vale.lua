@@ -110,7 +110,7 @@ return {
 	-- Step 17: Nesingwary's camp
 	["Back north to the camp."] = "Zurück nach Norden zum Lager.",
 	-- {npc:717} Ajeck Rouack · {npc:729} Sin'Dall
-	["{npc:717}: {npc:729} (37) comes at the end of this guide, from level 36"] = "",
+	["{npc:717}: {npc:729} (37) comes at the end of this guide, from level 36"] = "{npc:717}: {npc:729} (37) kommt am Ende dieses Guides, aus Level 36",
 
 	-- Step 18: Thoroughly Scavenged Supplies
 	-- {object:661516} Thoroughly Scavenged Supplies · {quest:97328} Anything of Value · {area:102} Ruins of Zul'Kunda
@@ -129,7 +129,7 @@ return {
 	-- {npc:268992} Zimmix Sputterspark · {area:102} Ruins of Zul'Kunda · {item:277957} Primitive Key · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment · Bloodscalp Scouts = {npc:588} Bloodscalp Scout · Bloodscalp Berserkers = {npc:597} Bloodscalp Berserker
 	-- was: ["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}. Then lead him out of the ruins: {npc:4631} in {area:35} takes the news and the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992} wird am Ostrand der {area:102} festgehalten; die Gestohlenen Lieferungen liegen in den Ruinen um ihn herum. Die Späher, Jäger und Mystiker der Bloodscalp (34-35) dort tragen seinen {item:277957}. Führe ihn dann aus den Ruinen: {npc:4631} in {area:35} nimmt die Nachricht und die Lieferungen entgegen.\nVorsicht: Berserker und Kopfjäger der Bloodscalp (36-37) und Hexendoktoren (37, Zauberwirker) halten die Ruinen nördlich und westlich von {npc:268992}, nahe den nördlichen Lieferungen (um 24.9,9.6): Sammle zuerst die Lieferungen in den südlichen Ruinen bei {npc:268992} und zieh einzeln, wenn du nach Norden gehst."
-	["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}: {npc:4631} in {area:35} takes the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "",
+	["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}: {npc:4631} in {area:35} takes the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992} wird am Ostrand von {area:102} festgehalten; die gestohlenen Lieferungen liegen in den Ruinen um ihn herum. Die Späher, Jäger und Mystiker der Blutskalpe (34-35) dort tragen seinen {item:277957}: {npc:4631} in {area:35} nimmt die Lieferungen entgegen.\nVorsicht: Berserker und Kopfjäger der Blutskalpe (36-37) und Hexendoktoren (37, Zauberwirker) halten die Ruinen nördlich und westlich von {npc:268992}, nahe den nördlichen Lieferungen (um 24.9,9.6): Hol zuerst die Lieferungen in den südlichen Ruinen bei {npc:268992} und zieh einzeln, wenn du nach Norden gehst.",
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
 	["Stolen Shipments, in the ruins"] = "Gestohlene Lieferungen, in den Ruinen",
 	-- {item:277957} Primitive Key
@@ -138,9 +138,9 @@ return {
 
 	-- Step 21: Escort Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark
-	["Escort {npc:268992}"] = "",
+	["Escort {npc:268992}"] = "Begleite {npc:268992}",
 	-- {npc:268992} Zimmix Sputterspark
-	["Lead {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "",
+	["Lead {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "Führe {npc:268992} aus den Ruinen und halte ihn am Leben: Lozgil übernimmt die Nachrichten, sobald er sicher ist.",
 	-- {npc:268992} Zimmix Sputterspark
 	["Escort {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "Eskortiere {npc:268992} aus den Ruinen und halte ihn am Leben: Lozgil nimmt die Nachricht entgegen, sobald er in Sicherheit ist.",
 
@@ -214,12 +214,11 @@ return {
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Back to {object:3202}."] = "Zurück nach {object:3202}.",
 	-- {npc:2465} Far Seer Mok'thardin · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
-	["{npc:2465}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "",
+	["{npc:2465}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "{npc:2465}: für den {zone:1434} & {zone:1435}-Guide, um etwa Level 40",
 	-- {npc:2497} Nimboya · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
-	["{npc:2497}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "",
+	["{npc:2497}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "{npc:2497}: für den {zone:1434} & {zone:1435}-Guide, um etwa Level 40",
 	-- {npc:729} Sin'Dall · {zone:1454} Orgrimmar
-	-- was: ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "Der nächste Guide nimmt den Zeppelin nach {zone:1454} vom Turm auf der Westseite des Lagers."
-	["After {npc:729}, back here: the next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "",
+	["After {npc:729}, back here: the next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "Nach {npc:729} hier zurück: der nächste Guide nimmt den Zeppelin zu {zone:1454} vom Turm auf der Westseite des Lagers.",
 
 	-- Step 35: Level 36
 	["Level 36"] = "Stufe 36",
@@ -239,7 +238,7 @@ return {
 
 	-- Step 37: Nesingwary's camp
 	-- {npc:717} Ajeck Rouack · {object:3202} Grom'gol (no name in this language: may be words)
-	["North to {npc:717} in Nesingwary's camp, then back south to {object:3202}'s zeppelin tower."] = "",
+	["North to {npc:717} in Nesingwary's camp, then back south to {object:3202}'s zeppelin tower."] = "Nördlich zu {npc:717} in Nesingwarys Lager, dann zurück südlich zum Zeppelin-Turm von {object:3202}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Mosh'Ogg Brutes and Witch Doctors camp in the hills just east of the camp: kill them until level 36, pulling one at a time, then walk back to the zeppelin tower."] = "Die Quests von Dustwallow sind 35-38. Nach den Abgaben bei {object:3202} noch unter 36? Die Mosh'Ogg-Rohlinge und Hexendoktoren lagern in den Hügeln direkt östlich des Lagers: Töte sie, bis du Stufe 36 bist, und zieh dabei einen nach dem anderen; geh dann zurück zum Zeppelinturm.",

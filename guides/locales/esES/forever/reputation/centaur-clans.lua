@@ -111,7 +111,8 @@ return {
 	["From the quest data: back west to {npc:5397} in {area:606}. She needs Tears of Theradras: {npc:253713}, the Voice of Theradras, keeps them in the cave in the south of the village, past {npc:253140}. Ask her for them on {npc:5397}'s behalf and bring three back. {npc:253140} takes {quest:92812} on the way."] = "Según los datos de las misiones: vuelve al oeste con {npc:5397} en {area:606}. Necesita Lágrimas de Theradras: {npc:253713}, la Voz de Theradras, las guarda en la cueva del sur del poblado, pasado {npc:253140}. Pídeselas en nombre de {npc:5397} y trae tres. {npc:253140} recoge {quest:92812} por el camino.",
 	-- {npc:253713} Mulara
 	["{npc:253713}, in the cave"] = "{npc:253713}, en la cueva",
-	["three Tears of Theradras"] = "tres Lágrimas de Theradras",
+	-- {npc:253713} Mulara
+	["three Tears of Theradras, in {npc:253713}'s cave"] = "tres Lágrimas de Theradras, en la cueva de {npc:253713}",
 
 	-- Step 15: Gelkis: Test Your Theory
 	-- {quest:93045} Test Your Theory
@@ -316,4 +317,7 @@ return {
 	["The totem recipes"] = "Las recetas de tótems",
 	-- {quest:93224} Carved Centaur Totems · {item:273613} Enchant Bracer - Lesser Agility · {item:250941} Greater Frenzy Potion · {item:250538} Hard Gold Gauntlet · {item:250606} Iron Morningstar · {item:252462} Mystic Thick Armor Kit · {item:253973} Silk Reagent Bag · {item:10011} Stormcloth Gloves · {item:274490} Centaur Hoofwarmers · {item:269900} Centaur Banner Deployment Device · {item:269902} Hoof-Shaped Foot Pedal
 	["Both quartermasters sell the same 12 recipes for {quest:93224}, no standing needed: {item:273613} and - Lesser Healing Power; Greater Spellblasting and {item:250941}; {item:250538} and {item:250606} plans; {item:252462}, {item:253973}, {item:10011} and {item:274490} patterns; the {item:269900} and {item:269902} schematics. Keep the totems you need for them before you hand the rest in."] = "Ambos intendentes venden las mismas 12 recetas por {quest:93224}, sin necesidad de reputación: {item:273613} y poder de sanación inferior; Explosión de hechizos superior y {item:250941}; diseños de {item:250538} y {item:250606}; patrones de {item:252462}, {item:253973}, {item:10011} y {item:274490}; los esquemas de {item:269900} y {item:269902}. Guarda los tótems que necesites para ellas antes de entregar el resto.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["three Tears of Theradras"] = "tres Lágrimas de Theradras",
 }

@@ -3368,17 +3368,19 @@ test('forever/horde/30-40/01-hillsbrad-foothills.guide: the Defiler\'s Basic Car
 // Craftsman's Writs of the Supply Factions Reputation guide named old item names the same way (one, Elixir of Greater
 // Defense, is now another item).
 test("DexeeXI's report (#1322): the guides name the elixirs the quests take by their names in the game", { skip }, () => {
+	data = data || loadData(DATA);
 	assert.equal(data.items[3388].name, "Lesser Troll's Blood Elixir");
 	assert.ok(data.quests[515].objectives.some((o) => o.type === 'item' && o.id === 3388), 'Elixir of Agony takes item 3388');
 	for (const file of ['forever/horde/06-hillsbrad-foothills.guide', 'forever/horde/30-40/01-hillsbrad-foothills.guide']) {
 		const said = goals(file).map(({ step }) => [step.tip, step.note, ...step.goals.map((g) => g.text)].flat().filter(Boolean).join(' ')).join(' ');
 		assert.doesNotMatch(said, /Strong Troll's Blood Potion/, `${file}: never the old name`);
 	}
-	// Each writ's hand-in says which item it takes: one of the quest's item objectives, by the game's name.
+	// Each writ's hand-in says which item it takes: one of the quest's item objectives, by the game's name (a note may
+	// write it as an {item:ID} token, which the game shows as that item's name).
 	const writs = goals('forever/reputation/merchants-favor.guide').filter(({ goal }) => goal.t === 'turnin' && /^Craftsman's Writ/.test(data.quests[goal.quest]?.title || ''));
 	assert.ok(writs.length > 0, 'the writ hand-ins');
 	for (const { goal } of writs) {
-		const item = (goal.note || '').replace(/, \d+ reputation$/, '');
+		const item = (goal.note || '').replace(/, \d+ reputation$/, '').replace(/^\{item:(\d+)\}$/, (_, id) => data.items[id]?.name ?? `item ${id} unknown`);
 		const takes = data.quests[goal.quest].objectives.filter((o) => o.type === 'item').map((o) => data.items[o.id]?.name);
 		assert.ok(takes.includes(item), `writ ${goal.quest}: "${item}" is one of ${takes.join(', ')}`);
 	}
@@ -19437,6 +19439,19 @@ test('#3578: a collect a rare and common mobs both drop leads to the common mobs
 	}
 });
 
+// #3907 (Grim): Elemental Mastery's Elemental Water led to the Summoned Guardian, the elite with a single spawn far to
+// the south-west of Arathi Highlands, the item's top dropper by the reference data's chance. Players' recordings have
+// no loot window of his; 13 of 62 Cresting Exile loot windows (9 people) held Elemental Water. The water now leads to
+// the Cresting Exiles at the Circle of East Binding, where the other exiles' elements are farmed the same way.
+test('#3907 Elemental Mastery: Elemental Water leads to the Cresting Exiles, not the elite Summoned Guardian', { skip }, () => {
+	const list = goals('forever/class/shaman/spirit-totem.guide');
+	const water = list[at(list, 'collect 7070', (g) => g.t === 'collect' && g.item === 7070)].goal;
+	assert.equal(water.map, 1417, 'in Arathi Highlands');
+	const near = (id) => Math.min(...data.spawns('npc', id).filter((s) => s.map === 1417).flatMap((s) => s.pts).map(([x, y]) => Math.hypot(x - water.x, y - water.y)));
+	assert.ok(near(2761) <= 3, `at the Cresting Exiles (${water.x},${water.y})`);
+	assert.ok(near(2794) > 20, 'not at the Summoned Guardian');
+});
+
 // #3681 (MattMaximo): Witherbark Village sent players to farm tusks and pouches round the huts first and only then
 // into the far end for the Shadow Hunter Knife, though the far end is where the tusk droppers are packed (all 16
 // Shadow Hunters at 66-70,79-82 with most Headhunters and Zalas Witherbark) and most Witch Doctors stand among the
@@ -19510,5 +19525,23 @@ test('#3046 A Matter of Time: the Temporal Displacer and its parasites search fo
 		for (const { goal } of list.filter((g) => g.s === use.s && g.goal !== use.goal && g.goal !== kill.goal)) {
 			assert.ok(!(goal.spots || []).some(({ x, y }) => silos.some(([sx, sy]) => sx === x && sy === y)), `${guide}: ${goal.t} ${goal.npc || goal.item || goal.quest} keeps its own place`);
 		}
+	}
+});
+
+// #3927 (Sekyno): Mount Hyjal's walk to the ancients' outpost told players to kill the Tainted Shrubbery they passed
+// for Kaylaena, before Hyacinth's Leaves to Ligatures (91755) was in the log. The shrubs drop the Verdant Leaves only
+// with that quest (200 of 228 leaf ticks in players' recordings came with a shrub kill, none before the accept), so
+// those kills were lost for the leaves. No step before the accept sends you at the shrubs; the shrub field after it
+// does both quests.
+test('#3927 Mount Hyjal: the Tainted Shrubbery are killed after Leaves to Ligatures is taken, not on the way to it', { skip }, () => {
+	const list = goals('forever/50-60/mount-hyjal.guide');
+	const accept = at(list, 'accept 91755', is('accept', 91755));
+	const kill = at(list, 'kill 248395', (g) => g.t === 'kill' && g.npc === 248395);
+	const leaves = at(list, 'collect 247892', (g) => g.t === 'collect' && g.item === 247892);
+	assert.ok(kill > accept && leaves > accept, 'the shrub field comes after the accept');
+	assert.equal(list[kill].s, list[leaves].s, 'the kills and the leaves in one step');
+	for (const step of new Set(list.slice(0, accept + 1).map((e) => e.step))) {
+		const tip = [step.note, step.tip].flat().filter(Boolean).join(' ');
+		assert.doesNotMatch(tip, /\bkill[^.:;]*Tainted Shrubbery/i, `${step.title}: no shrub kills before the accept`);
 	}
 });

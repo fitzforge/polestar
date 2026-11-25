@@ -152,6 +152,16 @@ impl Engine {
 	/// Installs, updates, repairs or removes one product. Returns what was done.
 	pub async fn addon_action(self: &Arc<Self>, id: &str, action: &'static str) -> Result<String, String> {
 		let product: &'static Product = addons::product(id).ok_or("No such addon.")?;
+		let version = self.addon_run(product, action).await?;
+		Ok(match action {
+			"uninstall" => format!("{} removed.", product.name),
+			"repair" => format!("{} {version} re-installed.", product.name),
+			_ => installed(&[format!("{} {version}", product.name)]),
+		})
+	}
+
+	/// `addon_action`'s work. Returns the version installed.
+	async fn addon_run(self: &Arc<Self>, product: &'static Product, action: &'static str) -> Result<String, String> {
 		if self.lock().catalog.is_none() && action != "uninstall" {
 			self.fetch_catalog().await;
 		}
@@ -225,15 +235,11 @@ impl Engine {
 		}
 		self.rescan();
 		self.publish();
-		result.map(|version| match action {
-			"uninstall" => format!("{} removed.", product.name),
-			"repair" => format!("{} {version} re-installed.", product.name),
-			_ => format!("{} {version} installed. Restart the game (or /reload) to load it.", product.name),
-		})
+		result
 	}
 
 	/// Updates every installed product that has a newer release, then every community pack
-	/// with a newer version the game can take (the Addons badge counts both).
+	/// with a newer version the game can take (the Addons and Community Guides badges count them).
 	pub async fn update_all(self: &Arc<Self>) -> Result<String, String> {
 		let (ids, packs) = {
 			let state = self.lock();
@@ -246,19 +252,26 @@ impl Engine {
 		let mut done = Vec::new();
 		let mut failed = Vec::new();
 		for id in ids {
-			match self.addon_action(id, "update").await {
-				Ok(text) => done.push(text),
+			let Some(product) = addons::product(id) else {
+				failed.push("No such addon.".to_owned());
+				continue;
+			};
+			match self.addon_run(product, "update").await {
+				Ok(version) => done.push(format!("{} {version}", product.name)),
 				Err(e) => failed.push(e),
 			}
 		}
 		for (id, ..) in packs {
-			match self.pack_action(&id, "update", false).await {
-				Ok(text) => done.push(text),
+			match self.pack_run(&id, "update", false).await {
+				Ok((title, Some(version))) => done.push(format!("{title} {version}")),
+				Ok(_) => {}
 				Err(e) => failed.push(e),
 			}
 		}
-		if failed.is_empty() {
-			Ok(done.join(" "))
+		if failed.is_empty() && done.is_empty() {
+			Ok("Everything is up to date.".to_owned())
+		} else if failed.is_empty() {
+			Ok(installed(&done))
 		} else {
 			Err(failed.join(" "))
 		}
@@ -277,5 +290,41 @@ impl Engine {
 			body: release.body.clone(),
 			page_url: release.page_url.clone(),
 		})
+	}
+}
+
+/// What was installed, as one sentence with the restart line once (#3638): "A 1.0 installed.",
+/// "A 1.0 and B 2.0 installed.", "A 1.0, B 2.0 and C 3.0 installed.".
+pub(crate) fn installed(names: &[String]) -> String {
+	let list = match names {
+		[] => String::new(),
+		[one] => one.clone(),
+		[rest @ .., last] => format!("{} and {last}", rest.join(", ")),
+	};
+	let them = if names.len() == 1 { "it" } else { "them" };
+	format!("{list} installed. Restart the game (or /reload) to load {them}.")
+}
+
+#[cfg(test)]
+mod tests {
+	use super::installed;
+
+	fn names(list: &[&str]) -> Vec<String> {
+		list.iter().map(|s| (*s).to_owned()).collect()
+	}
+
+	#[test]
+	fn one_install_keeps_its_message() {
+		assert_eq!(installed(&names(&["Polestar 0.4.2.2"])), "Polestar 0.4.2.2 installed. Restart the game (or /reload) to load it.");
+	}
+
+	#[test]
+	fn several_installs_say_restart_once_3638() {
+		let two = installed(&names(&["Polestar 0.4.2.2", "Polestar Recorder 0.4.2.2"]));
+		assert_eq!(two, "Polestar 0.4.2.2 and Polestar Recorder 0.4.2.2 installed. Restart the game (or /reload) to load them.");
+		// Two addons and a community guide.
+		let three = installed(&names(&["Polestar 0.4.2.2", "Polestar Recorder 0.4.2.2", "Forever Dungeon Quests 2.28.2"]));
+		assert_eq!(three, "Polestar 0.4.2.2, Polestar Recorder 0.4.2.2 and Forever Dungeon Quests 2.28.2 installed. Restart the game (or /reload) to load them.");
+		assert_eq!(three.matches("Restart the game").count(), 1);
 	}
 }

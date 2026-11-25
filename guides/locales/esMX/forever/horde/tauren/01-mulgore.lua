@@ -89,7 +89,7 @@ return {
 	-- Step 15: Kaga Wildhoof
 	-- {area:220} Red Cloud Mesa · {npc:265810} Kaga Wildhoof · {area:222} Bloodhoof Village · {spell:1229451} Boosted Rest · {zone:1456} Thunder Bluff · {zone:1413} Barrens
 	-- was: ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof or on the {zone:1456} stop."] = "Sigue el camino al norte fuera de {area:220}. {npc:265810} espera en el camino justo al sur de {area:222}; usa /sentarse junto a su fogata hasta obtener {spell:1229451}. Con una profesión aprendida, Kaga también ofrece su Campamento 101, que recibe su instructor: en Poblado Pezuña de Sangre o en la parada de {zone:1456}."
-	["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof, on the {zone:1456} stop, or in the western {zone:1413} for engineering."] = "",
+	["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof, on the {zone:1456} stop, or in the western {zone:1413} for engineering."] = "Sigue el camino al norte saliendo de {area:220}. {npc:265810} espera en el camino justo al sur de {area:222}; /sit junto a su hoguera hasta obtener {spell:1229451}. Con una profesión aprendida, Kaga también ofrece su Campamento 101, que retoma su instructor: en Pezuña de Sangre, en la parada de {zone:1456}, o en el oeste de {zone:1413} para ingeniería.",
 	-- {spell:1229451} Boosted Rest
 	["/sit by Kaga's campfire until you get {spell:1229451}"] = "Usa /sentarse junto a la fogata de Kaga hasta obtener {spell:1229451}",
 
@@ -155,9 +155,9 @@ return {
 
 	-- Step 26: Camping 101: Engineering
 	-- {npc:10993} Twizwick Sprocketgrind · {skill:202} Engineering
-	["{npc:10993} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:10993} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:10993} la retoma cuando tu habilidad de {skill:202} llegue a 20: recolecta o fabrica hasta entonces, la guía sigue mientras tanto.",
 	-- {npc:265810} Kaga Wildhoof · {npc:10993} Twizwick Sprocketgrind · {zone:1413} Barrens
-	["{npc:265810}: for {npc:10993}, in the western {zone:1413}"] = "",
+	["{npc:265810}: for {npc:10993}, in the western {zone:1413}"] = "{npc:265810}: para {npc:10993}, en el oeste de {zone:1413}",
 
 	-- Step 27: Bloodhoof Village
 	-- {npc:3063} Krang Stonehoof

@@ -391,6 +391,51 @@ fn the_preview_paints_from_the_theme_on_one_stage_and_follows_a_change_live() {
 	);
 }
 
+// The new settings page's Preview panel (a band 376 wide, the panel 400): too narrow for the rare alert at its real
+// size, so the three stand on rows of their own, and each row is drawn as large as the stage's width holds it, never
+// over its real size. The rare alert, the widest, shrinks its own row only: the guide window and the heads-up card
+// span the stage too (all three were drawn at the rare alert's 64%, the pane half empty: Fitz's 0.4.3-rc2 Theme
+// page). In a Polestar look and in a game look alike.
+#[test]
+fn the_preview_in_the_narrow_preview_panel_draws_each_part_as_wide_as_the_stage() {
+	let out = run_with_rares(
+		r#"
+		local out = {}
+		for _, skin in ipairs({ "polestar", "classic" }) do
+			Polestar.Set("ui.skin", skin)
+			Polestar.Theme.Refresh()
+			local f = Polestar.UI.ThemePreview(UIParent)
+			f:Layout(376, 1300)
+			local _, _, _, sx = f.Stage:GetPoint(1)
+			local inner = { sx + 20, sx + f.Stage:GetWidth() - 20 }
+			local parts = {}
+			for _, p in ipairs(f.Parts) do
+				local fr = p.kind == "guide" and f.Scene or p.frame
+				local _, _, _, x = fr:GetPoint(1)
+				local g = fr:GetScale()
+				-- Its scale against its real size (1: real size): the window's box is on the band's units, a card on its own.
+				local of = p.kind == "guide" and g or g / p.k
+				local l = x * g + (p.kind == "guide" and 16 * g or 0)
+				parts[p.kind] = { left = l - inner[1], right = inner[2] - (l + p.w * of), of = of }
+			end
+			out[skin] = { rows = f.psRows, fit = f.psFit, parts = parts }
+		end
+		emit(out)"#,
+	);
+	for skin in ["polestar", "classic"] {
+		let o = &out[skin];
+		assert_eq!(o["rows"], 3, "{skin}: each on a row of its own");
+		assert_eq!(o["fit"], 1, "{skin}: the panel's height holds them");
+		for kind in ["guide", "headsup", "rare"] {
+			let p = &o["parts"][kind];
+			assert!(n(&p["left"]).abs() <= 1.0 && n(&p["right"]).abs() <= 1.0, "{skin} {kind}: spans the stage's width: {p}");
+			assert!(n(&p["of"]) <= 1.001, "{skin} {kind}: never over its real size: {p}");
+		}
+		let of = |k: &str| n(&o["parts"][k]["of"]);
+		assert!(of("guide") > of("rare") + 0.05 && of("headsup") > of("rare") + 0.05, "{skin}: the rare alert shrinks its own row only: {o}");
+	}
+}
+
 // The font lists (Font, Heading font) draw each name in its own face, once: the row's own label hidden, not at alpha
 // 0, which in the client is its colour's alpha that the row's next paint put back (Open Sans and Fira Sans stood
 // doubled behind their faces). The same in the box that shows the choice, also after a theme repaint.

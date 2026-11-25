@@ -26,7 +26,7 @@ return {
 
 	-- Step 4: Whiskey Slim
 	-- {npc:2491} Whiskey Slim · {area:35} Booty Bay
-	["{npc:2491} sits in the {area:35} inn."] = "",
+	["{npc:2491} sits in the {area:35} inn."] = "{npc:2491}은(는) {area:35} 여관에 앉아 있습니다.",
 	-- {npc:2491} Whiskey Slim
 	["{npc:2491}, in the inn"] = "{npc:2491}, 여관 안",
 
@@ -59,9 +59,9 @@ return {
 	["Below ground"] = "지하",
 
 	-- Step 17: Saving Yenniku
-	["while he is alive: the gem fills; don't kill him"] = "",
+	["while he is alive: the gem fills; don't kill him"] = "그가 살아 있는 동안: 보석이 찹니다. 죽이지 마십시오",
 	-- {item:3912} Soul Gem
-	["Use the {item:3912} on Yenniku"] = "",
+	["Use the {item:3912} on Yenniku"] = "옌니쿠에게 {item:3912} 사용",
 
 	-- Step 19: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -246,7 +246,7 @@ return {
 
 	-- Step 61: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:9623} A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
-	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} (Chasing {npc:9623}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "",
+	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} (Chasing {npc:9623}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "{area:976}의 경매장은 운고로 전 마지막 경매장입니다. 그곳에서 {npc:9623}({npc:9623} 추적)이(가) 호위 전에 {skill:202} 아이템인 {item:10561}을(를) 요구합니다: 이 연계를 하려면 여기서 하나 사십시오.",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "와이번 조련사 옆의 {npc:7876}",
 

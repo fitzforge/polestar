@@ -217,11 +217,16 @@ function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}
 	// Class quests and their own rewards: { teach, spell, items, choice, show }.
 	// Only the data's class limit makes a class quest: a class guide also takes
 	// quests every class can do (the errands before a class quest, Tauren
-	// chains), and those are nobody's class quest.
+	// chains), and those are nobody's class quest. A quest that asks for a
+	// profession's skill is the trade's, whatever classes the data limits it to:
+	// QuestieDB 1.1.5 limits the Horde's The Art of the Armorsmith (5301,
+	// Blacksmithing 200, the Armorsmith specialisation) to Warriors and
+	// Paladins, where CMaNGOS, pfQuest and its Alliance twin (5283) have no
+	// class, and the heads-up offered it to every Horde Warrior at 40.
 	const mask = new Map();
 	for (const [k, v] of Object.entries(quests)) {
 		const m = classMask(v.classes);
-		if (m) mask.set(Number(k), m);
+		if (m && !v.skill) mask.set(Number(k), m);
 	}
 	const tq = (tdb && tdb.quests) || {};
 	const own = new Map();

@@ -27,7 +27,7 @@ return {
 
 	-- Step 4: Clerk Daltry
 	-- {npc:267} Clerk Daltry · {area:42} Darkshire · {npc:661} Jonathan Carevin
-	["{npc:267} works in {area:42}'s town hall; {npc:661} stands just east of it."] = "",
+	["{npc:267} works in {area:42}'s town hall; {npc:661} stands just east of it."] = "{npc:267}은(는) {area:42} 시청에서 일하고, {npc:661}은(는) 그 바로 동쪽에 서 있습니다.",
 
 	-- Step 5: Stranglethorn Vale
 	-- {zone:1434} Stranglethorn Vale
@@ -56,7 +56,7 @@ return {
 
 	-- Step 9: Bookie Herod
 	-- {area:101} Kurzen's Compound · {quest:328} The Hidden Key
-	["Herod's records lie in a hut on the west side of {area:101}: take {quest:328} there."] = "",
+	["Herod's records lie in a hut on the west side of {area:101}: take {quest:328} there."] = "헤로드의 기록은 {area:101} 서쪽 오두막에 있습니다: 그곳에서 {quest:328}을(를) 받으십시오.",
 
 	-- Step 10: Kurzen's Compound
 	-- {npc:218230} Wendel Mathers · {spell:7964} Smoke Bomb · {npc:813} Colonel Kurzen
@@ -85,7 +85,7 @@ return {
 	-- {npc:268992} Zimmix Sputterspark · {item:277957} Primitive Key
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment · Bloodscalp Berserkers = {npc:597} Bloodscalp Berserker
 	-- was: ["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}, then lead him out of the ruins. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "해안을 따라 북쪽의 언덕 위 폐허로 가세요. 마지막 석판 두 개가 그곳에 있습니다. 고블린 {npc:268992}은(는) 세 번째 석판 옆에 갇혀 있습니다. 붉은머리부족 누구나 {item:277957}을(를) 떨어뜨릴 수 있으니, 그를 풀어 폐허 밖으로 데리고 나가세요. 도난당한 화물은 폐허 동쪽 끝에 있습니다. 푸른 언덕 페이지가 떨어지면 주우세요.\n주의: 붉은머리부족 광전사, 머리사냥꾼, 의술사(36-37)가 폐허 중심부를 지키니 하나씩 끌어오세요."
-	["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "",
+	["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "해안을 따라 북쪽 언덕 위 폐허로 가십시오: 마지막 석판 두 개가 그곳에 있습니다. 고블린 {npc:268992}은(는) 세 번째 석판 옆 우리에 갇혀 있습니다: 피투성이 트롤이라면 누구든 그의 {item:277957}을(를) 떨어뜨릴 수 있습니다. 도난당한 화물은 폐허 동쪽 끝에 있습니다. 푸른 언덕 쪽지는 떨어지는 대로 주우십시오.\n주의: 피투성이 광전사, 머리사냥꾼, 주술 의사(36-37)가 폐허 중심을 지킵니다: 하나씩 끌어내십시오.",
 	-- {npc:268992} Zimmix Sputterspark
 	["{npc:268992}, in his cage beside the third tablet"] = "{npc:268992}, 세 번째 석판 옆 우리 안",
 	-- {item:277957} Primitive Key
@@ -93,9 +93,9 @@ return {
 
 	-- Step 14: Escort Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark
-	["Escort {npc:268992}"] = "",
+	["Escort {npc:268992}"] = "{npc:268992} 호위",
 	-- {npc:268992} Zimmix Sputterspark · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
-	["Lead {npc:268992} out of the ruins and keep him alive: {npc:4631} in {area:35} takes the news at the end of this loop."] = "",
+	["Lead {npc:268992} out of the ruins and keep him alive: {npc:4631} in {area:35} takes the news at the end of this loop."] = "{npc:268992}을(를) 폐허 밖으로 데려가 살려 두십시오: 이 순회가 끝날 때 {area:35}의 {npc:4631}이(가) 소식을 받습니다.",
 	-- {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	["For {npc:4631} in {area:35}, at the end of this loop"] = "이 경로 끝에 {area:35}의 {npc:4631}에게",
 

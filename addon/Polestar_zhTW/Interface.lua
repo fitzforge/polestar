@@ -135,6 +135,363 @@
 --   forever/horde/50-60/04-azshara
 --   forever/horde/50-60/05-eastern-plaguelands
 --   forever/horde/50-60/06-silithus
+--
+-- Machine-translated, to be reviewed (0.4.3, 25 Nov 2026): the interface and guide texts 0.4.3 added
+-- or reworded that this file still showed in English, translated by an AI model (Claude Opus 5.5)
+-- in this file's own wording, and waiting for a native speaker's check. Reviewing one: keep or fix
+-- it, and take it off this list. The interface texts:
+--   Took %s now for %s, later on your route: this saves a trip back.
+--   For %s, later on your route.
+--   kill %s as you meet them
+--   Escort, about %d min
+--   Escort
+--   %s; 1 in %d runs fails
+--   %s. Optional: the route doesn't need it.
+--   Kept for %s
+--   Hand in %s to %s, who walks around here: look inside the circle on the map
+--   A quest you carry that the route does not work here: its work is nearby.
+--   %s at %s
+--   Only visible while dead: die nearby and talk to them as a ghost.
+--   Under water nearby: swim down to it
+--   %d yd below you: swim down
+--   Known flight paths forgotten: open a flight map on each continent to settle them again.
+--   No flight paths known yet: open a flight map to record them.
+--   Known flight paths (%d): %s
+--   List the flight paths Polestar knows you have (reset: forget them)
+--   Faster if you have the flight path at %s
+--   Ask %s to teleport you to %s
+--   Riding the boat to %s
+--   Riding the zeppelin to %s
+--   Riding the airship to %s
+--   Riding the tram to %s
+--   %s is done.
+--   All steps
+--   Every step of the guide in one list. Click one to look at it.
+--   While you play
+--   What the window shows, when it hides and where it sits:
+--   Suggested
+--   The guides window only. Click to pick a size; right-click to reset.
+--   Elites nearby
+--   Group, or careful: a group quest, yours to do or skip
+--   Group, or careful: an escort that can go wrong
+--   Group, or careful: elites at your level or above
+--   Group, or careful: a group is advised
+--   Careful: elites nearby
+--   Careful: elites, below your level
+--   %s · kept for %s
+--   More concept looks are in Settings, Theme.
+--   Guide window layout
+--   How the guide window lays out the step. More in Settings, Guide window, Presets.
+--   %s: /reload after picking it.
+--   The step card, Up next under it.
+--   Alpha
+--   The arrow follows the route step you're on; to go to a quest you already have, open it in Lookup.
+--   New in %s
+--   New settings on this page
+--   Settings on this page changed from their default
+--   play Sky Jewels by RikyZ90
+--   play Tetris by beemerwt
+--   Points to the current goal. Off hides only the arrow: the route lines have their own switch, under Routes. Its look and colours are on the Arrow page.
+--   The way to the goal on the world map and the minimap, with the arrow on or off: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them.
+--   Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags, unless a talent does away with it (Reagent Economy).
+--   The language of Polestar's windows and guides. Follow the game: your game's language. Takes effect after a /reload.
+--   Reload now?
+--   Polestar shows the new language after a /reload.
+--   Follow the game
+--   English
+--   Simplified Chinese
+--   Traditional Chinese
+--   General
+--   The language Polestar shows.
+--   Say when I've outlevelled a guide
+--   A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is.
+--   Use %s beside %s
+--   All attunements and keys
+--   Every attunement and key, with how far you are
+--   Not open on Forever yet
+--   Step errands
+--   Level pace
+--   %s walks around here: look inside the circle on the map
+--   No %s for your side.
+--   With %s
+--   Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Image of Archmage Modera gives it with Heart of Disruption: keep that quest in your log until you are inside. The Alliance walks in through the sewer pipe in Cantrips & Crows.
+--   Calls up Lyn the Ignored, a hidden boss, at the summoning circle in the City of Dalaran's Underbelly, in the small room past Atrexis the Grave Knight. The Black Tome lies on a table up the stairs behind Archmage Arugal in Shadowfang Keep; use it at the Ambermill Leyline Focus, the blue crystal beside Archmage Ataeric in Ambermill's town hall, and it becomes the Tome of Dalaran.
+--   Opens a portal from the first khan's spot in Maraudon's outer caves to Earth Song Falls in inner Maraudon; the group walks through it. Celebras the Redeemed makes it once Celebras the Cursed is dead inside.
+--   Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Alphonse Dumas in Farholde Keep forges the key from it with 4 Thick Leather and 12 Iron Bars.
+--   Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars.
+--   Use %s beside %s: it becomes %s.
+--   Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back.
+--   Not open on Forever yet: the attunement is ready for when it opens.
+--   Click to open the zone's map
+--   %d steps left in %s
+--   1 step left in %s
+--   Do or skip what's left, and you choose where to go next.
+--   Do or skip what's left, and the next guide follows.
+--   Do or skip what's left, and the guide ends.
+--   Spawn markers
+--   Spawn markers for your quests
+--   A skull on the world map and the minimap at every spawn of the mobs your quests need, one colour per quest and a ring per mob; the things you pick up or use get the pickup bag. Their size and opacity are on the Icons tab.
+--   Off: the spawn markers show on the world map only.
+--   Legend on the world map
+--   Lists the quests and mobs on the shown map. Hover a row to highlight its markers, click it to turn them off or on.
+--   Only the current step's quests
+--   Marks only the quests the guide step you're on works on, not your whole quest log. With no guide running, the whole log shows.
+--   Quest colours
+--   The colours quests are given, in quest-log order: the skull's colour. The first quest keeps the skull's own colours.
+--   Mob colours
+--   The colours of the rings that tell a quest's mobs apart. A quest with one mob has no ring.
+--   Start from
+--   Your current settings
+--   Defaults
+--   Your current settings: the new profile is a copy of the one in use, window positions, skin and all. Defaults: every setting at its default.
+--   Northshire Abbey
+--   Echo Ridge Mine
+--   Northshire Vineyards
+--   Brother Paxton
+--   Goldshire
+--   Tab style
+--   How the tabs of the open guides show: a strip above the step bar, a menu on the guide's title, small tabs on the window's top edge, or a column down its left side. Default follows the layout.
+--   Above the step bar
+--   Title menu
+--   On the top edge
+--   Down the left side
+--   Default (%s)
+--   A button in the step bar that opens every step of the guide in one list. The step number and the guide menu open it too.
+--   Steps before
+--   How many of the steps before this one show over it, one dimmed line each, done or skipped; 0 turns them off. Click one to go back to it.
+--   Journey style
+--   Polestar's layout draws the Journey under the step. Pick a layout with more Journey styles, such as Atlas, in Presets.
+--   Where the travel route shows while you travel: under the step, in a card under the window, folded to the leg you are on, as nodes on the timeline, or as chips in the window's foot.
+--   Under the step
+--   Under the window
+--   Under the window, folded
+--   On the timeline
+--   In the foot
+--   Window height
+--   Fixed: the window is always the height below; drag its grip to resize it like any window. Follows the step: it grows with the step up to that height. Automatic: it grows into all the free room on screen.
+--   Fixed
+--   Follows the step
+--   Height
+--   In pixels and as a share of the screen: click the number to type the pixels, or drag the grip at the window's corner. Changing it under Automatic switches to Fixed. A longer step scrolls.
+--   With a Fixed height: right under the last goal, the free room past it (above the goals with Grow upward), or on the window's edge.
+--   Under the last goal
+--   On the window's edge
+--   Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests.
+--   XP line
+--   The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line.
+--   Flight arcade
+--   Game on flights
+--   None: don't offer a game
+--   On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed), Sky Jewels by RikyZ90, a match-three game, or Tetris by beemerwt. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade, /polestar jewels and /polestar tetris open them any time.
+--   The layout %s could not be chosen: %s.
+--   Alpha: /reload after picking it.
+--   Beta: /reload after picking it.
+--   Any issues: @%s in a bug report or on Discord.
+--   Before %s (%s)
+--   Your setup as it was saved: a click puts back every window setting it holds.
+--   Looking ahead.
+--   Looking back.
+--   On the way to your map point (%s).
+--   Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests.
+--   You are past this class quest's levels.
+--   Escort: %s
+--   Do it
+--   Freedoom Arcade
+--   Sky Jewels
+--   Sky Jewels by RikyZ90
+--   Play Sky Jewels
+--   Sky Jewels can't open: its folder Polestar_Arcade is missing or turned off.
+--   Sky Jewels opens after the fight.
+--   Sky Jewels is saved and paused for the fight: type %s to continue.
+--   Sky Jewels is saved and paused.
+--   Landed. Sky Jewels is saved and paused: type %s to continue.
+--   Play a game while you fly?
+--   Close the game that is open before you start another.
+--   Tetris
+--   Tetris by beemerwt
+--   Play Tetris
+--   Tetris can't open: its folder Polestar_Arcade is missing or turned off.
+--   Tetris opens after the fight.
+--   Tetris is saved and paused for the fight: type %s to continue.
+--   Tetris is saved and paused.
+--   Landed. Tetris is saved and paused: type %s to continue.
+--   Play next
+--   Start
+--   Other guides
+--   Review %d skipped
+--   Next in your route · your level %d
+--   Next in your route
+--   The guide window hides in dungeons and battlegrounds. %s Change it in Settings > Guide window.
+--   New settings in this group
+--   Language: %s. Change it with /polestar language <name>, one of: %s.
+--   No language '%s'. Choose one of: %s.
+--   Language: %s, from the next /reload.
+--   Choose Polestar's language (game, enUS, deDE...), from the next /reload
+--   Polestar rings
+--   Vivid
+--   Colour-blind safe
+--   Light & night
+--   Polestar pastels
+--   Gives %s
+--   Drops %s
+--   Quest spawns (preview)
+--   Quest spawns
+--   Spawn markers: preview on. Open the world map on a zone.
+--   Spawn markers: preview off, your quest log again.
+--   Spawn markers are off: Settings, Map pins, Spawn markers.
+--   Spawn markers: %d quests, %d spawns in world positions, %d zone marks on %d maps (%d on map %s), %d markers drawn.
+--   Spawn markers for your quests: what they found here (preview: 20 of this zone's quests)
+--   Nightbloom Glade
+--   Sunstone Canyon
+--   Frostglass Peaks
+--   Emberforge
+--   Stormspire Isles
+--   Astral Sanctum
+--   Row sweep
+--   Column sweep
+--   Burst
+--   Level %d / %d
+--   Objectives complete
+--   Moves left: %d
+--   Collect %d / %d
+--   Bonuses fired: %d / %d
+--   Out of moves
+--   Congratulations!\nAll %d levels complete!\nThanks for playing!
+--   Level %d complete!
+--   Play again
+--   Next level
+--   Retry level
+--   Line up at least three matching relics.
+--   %s activated!
+--   %s created. Swap the marked relic to activate it.
+--   Cascade x%d   +%d
+--   No moves left on the board. Relics reshuffled.
+--   Sky Jewels paused for combat. Type %s to continue.
+--   Swap adjacent relics to line up three.
+--   Sound off
+--   Sound on
+--   Score
+--   4 in a line: sweep\n5, T or L: burst\nSwap a bonus to fire it.
+--   Score %d\nLines %d\nLevel %d\nBest %d
+--   Game over — New game
+--   Paused — press P or Start
+--   New game
+--   Resume
+--   Polestar Tetris
+--   Hold
+--   Arrows move\nX/Z rotate  |  C hold\nSpace hard drop\nP pause  |  N new game
+--   D-pad move\nA/B rotate  |  Y hold\nX hard drop  |  Start pause
+--   Finish %s
+--   Pick up %s from %s
+--   Pick up %s
+--   Every step, on the dungeon's page
+--   %d of %d steps
+--   Attunements
+--   What lets you into each raid and opens a dungeon's doors, and how far you are
+--   No attunement or key is known for your faction.
+--   Before Atlas (%s)
+--   New in 0.4.3: the Atlas layout
+--   Try it on your own guide window: each button switches it now, as often as you like.
+--   Tabs are off in Settings > Guide window > Parts.
+--   Your current setup is saved; you can go back to it any time in Settings > Guide window > Presets.
+--   The guide window is hidden: open it to see each choice on your guide.
+--   Atlas layout and tab styles by %s
+--   Keep this
+--   (your current)
+--   Hand-ins
+--   Objectives
+--   kept for %s
+--   kept
+--   Kept for %s: the route hands it in there.
+-- and, in this language's folder of guides/locales/, the texts these guides still showed in English:
+--   forever/50-60/mount-hyjal
+--   forever/alliance/02-westfall
+--   forever/alliance/03-darkshore-return
+--   forever/alliance/03-loch-modan
+--   forever/alliance/05-duskwood
+--   forever/alliance/06-ashenvale
+--   forever/alliance/06-wetlands
+--   forever/alliance/07-thousand-needles
+--   forever/alliance/30-40/01-hillsbrad-foothills
+--   forever/alliance/30-40/02-desolace
+--   forever/alliance/30-40/04-stranglethorn-vale
+--   forever/alliance/30-40/04b-stranglethorn-vale
+--   forever/alliance/30-40/05-arathi-highlands
+--   forever/alliance/30-40/06b-desolace
+--   forever/alliance/40-50/01-stranglethorn-vale
+--   forever/alliance/40-50/01b-riverglades
+--   forever/alliance/40-50/04-tanaris
+--   forever/alliance/40-50/05-the-hinterlands
+--   forever/alliance/40-50/06-searing-gorge
+--   forever/alliance/50-60/03-winterspring
+--   forever/alliance/50-60/04-western-plaguelands
+--   forever/alliance/dwarf/01-dun-morogh
+--   forever/alliance/human/01-elwynn-forest
+--   forever/alliance/nightelf/01-teldrassil
+--   forever/alliance/nightelf/02-darkshore
+--   forever/alliance/skyborne/01-zephras-isle
+--   forever/class/druid/bear-form
+--   forever/class/rogue/the-eye-of-bhossca
+--   forever/class/shaman/spirit-totem
+--   forever/class/warlock/incubus-alliance
+--   forever/collectibles/pets/weevil-k-neevil
+--   forever/horde/02-the-barrens
+--   forever/horde/03-silverpine-forest
+--   forever/horde/04-the-barrens
+--   forever/horde/05-stonetalon-mountains
+--   forever/horde/07-ashenvale
+--   forever/horde/30-40/01-hillsbrad-foothills
+--   forever/horde/30-40/02-thousand-needles
+--   forever/horde/30-40/03-stranglethorn-vale
+--   forever/horde/30-40/04-dustwallow-marsh
+--   forever/horde/40-50/01-stranglethorn-vale
+--   forever/horde/40-50/01b-riverglades
+--   forever/horde/40-50/02-feralas
+--   forever/horde/40-50/03-feralas
+--   forever/horde/40-50/04-tanaris
+--   forever/horde/40-50/06-azshara
+--   forever/horde/50-60/01-un-goro-crater
+--   forever/horde/50-60/02-felwood
+--   forever/horde/50-60/03-winterspring
+--   forever/horde/50-60/04-azshara
+--   forever/horde/50-60/05-eastern-plaguelands
+--   forever/horde/50-60/06-silithus
+--   forever/horde/50-60/07-felwood
+--   forever/horde/orc/01-durotar
+--   forever/horde/skyborne/01-zephras-isle
+--   forever/horde/tauren/01-mulgore
+--   forever/horde/undead/01-tirisfal-glades
+--   forever/professions/alchemy
+--   forever/professions/blacksmithing
+--   forever/professions/enchanting
+--   forever/professions/engineering
+--   forever/professions/first-aid
+--   forever/professions/herbalism
+--   forever/professions/leatherworking
+--   forever/professions/mining
+--   forever/professions/skinning
+--   forever/professions/tailoring
+--   forever/reputation/centaur-clans
+--   forever/reputation/darkspear-islands
+--   forever/reputation/hydraxian-waterlords
+--   forever/reputation/ravenholdt
+-- Machine-translated, to be reviewed (0.4.3 What's new notes, 25 Nov 2026): translated by an AI model
+-- (Claude Sonnet 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing
+-- one: keep or fix it, and take it off this list:
+--   A smarter arrow
+--   Walks that follow your own trail, boats and lifts it understands, flights it remembers, enemy towns it goes round.
+--   Guides named for their zones
+--   Titles name the zones you quest in, in walking order. Camping 101 is in for every start-zone profession.
+--   Escorts are your choice
+--   Do it or Skip it, with how long other players' runs take and how often they fail.
+--   Windows your way
+--   Atlas or Standard layout; Settings and Guides have their own scale; switches for chat messages and the XP line.
+--   Every attunement and key for your faction in the guide menu, with a progress bar and %s.
+--   Polestar in your language
+--   Settings > General > Language shows Polestar in another language than the game's.
+--   Fewer folders
+--   Quit the game fully and start it again: Polestar is 22 folders now, not 45.
+--   Steps fixed in dozens of zones. Found something off? Type %s.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhTW") then return end
@@ -363,21 +720,21 @@ L["Ride to the flight master"] = "騎乘前往飛行管理員"
 L["Requires level %d: the guide comes back for it then"] = "需要等級 %d：屆時指南會回來接取"
 L["Requires level %d: kept for a later guide"] = "需要等級 %d：保留給之後的指南"
 L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = "你路線上之後的某份指南會在這裡接取此任務：現在接取的話，到達該步驟時它就已完成。"
--- L["For %s, later on your route."] = ""
--- L["kill %s as you meet them"] = ""
--- L["Escort, about %d min"] = ""
--- L["Escort"] = ""
--- L["%s; 1 in %d runs fails"] = ""
--- L["%s. Optional: the route doesn't need it."] = ""
--- L["Kept for %s"] = ""
--- L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = ""
--- L["A quest you carry that the route does not work here: its work is nearby."] = ""
--- L["%s at %s"] = ""
+L["For %s, later on your route."] = "用於路線後面的 %s。"
+L["kill %s as you meet them"] = "遇到 %s 時順手擊殺"
+L["Escort, about %d min"] = "護送，約 %d 分鐘"
+L["Escort"] = "護送"
+L["%s; 1 in %d runs fails"] = "%s；每 %d 次有 1 次失敗"
+L["%s. Optional: the route doesn't need it."] = "%s。可選：路線不需要它。"
+L["Kept for %s"] = "保留給 %s"
+L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "把 %s 繳交給 %s，此人在附近走動：在地圖上的圓圈裡找"
+L["A quest you carry that the route does not work here: its work is nearby."] = "你身上的一個任務，路線不在這裡做：它的目標就在附近。"
+L["%s at %s"] = "%2$s 處的 %1$s"
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "選擇一項獎勵以完成繳交。"
 L["%s is an escort: it starts as soon as it is taken. Accept it yourself when your group is ready."] = "%s 是護送任務：一接取就會開始。請在小隊準備好時自行接受。"
--- L["Took %s now for %s, later on your route: this saves a trip back."] = ""
+L["Took %s now for %s, later on your route: this saves a trip back."] = "已為路線後面的 %2$s 先接受 %1$s：省得再跑回來一趟。"
 
 -- Core/Commands.lua
 L["Toggle guide window"] = "切換指南視窗"
@@ -517,8 +874,8 @@ L["Click for the next spot."] = "點擊前往下一處。"
 L["Shift-drag to move."] = "Shift-拖曳以移動。"
 L["No waypoint"] = "沒有路徑點"
 L["Arrived underwater"] = "已抵達水下"
--- L["Under water nearby: swim down to it"] = ""
--- L["%d yd below you: swim down"] = ""
+L["Under water nearby: swim down to it"] = "附近水下：往下游過去"
+L["%d yd below you: swim down"] = "在你下方 %d 碼：往下游"
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "第 %d/%d 處"
@@ -615,16 +972,16 @@ L["Ride to the cave mouth in %s"] = "騎乘前往 %s 的洞口"
 L["Ride to the entrance in %s"] = "騎乘前往 %s 的入口"
 L["Ride to the cave mouth"] = "騎乘前往洞口"
 L["Ride to the entrance"] = "騎乘前往入口"
--- L["Known flight paths forgotten: open a flight map on each continent to settle them again."] = ""
--- L["No flight paths known yet: open a flight map to record them."] = ""
--- L["Known flight paths (%d): %s"] = ""
--- L["List the flight paths Polestar knows you have (reset: forget them)"] = ""
--- L["Faster if you have the flight path at %s"] = ""
--- L["Ask %s to teleport you to %s"] = ""
--- L["Riding the boat to %s"] = ""
--- L["Riding the zeppelin to %s"] = ""
--- L["Riding the airship to %s"] = ""
--- L["Riding the tram to %s"] = ""
+L["Known flight paths forgotten: open a flight map on each continent to settle them again."] = "已忘記已知的飛行路線：在每個大陸開啟一次飛行地圖以重新記錄。"
+L["No flight paths known yet: open a flight map to record them."] = "尚未知道任何飛行路線：開啟飛行地圖來記錄。"
+L["Known flight paths (%d): %s"] = "已知的飛行路線（%d）：%s"
+L["List the flight paths Polestar knows you have (reset: forget them)"] = "列出 Polestar 記錄的你擁有的飛行路線（reset：忘記它們）"
+L["Faster if you have the flight path at %s"] = "如果你有 %s 的飛行路線會更快"
+L["Ask %s to teleport you to %s"] = "請 %s 把你傳送到 %s"
+L["Riding the boat to %s"] = "搭船前往 %s"
+L["Riding the zeppelin to %s"] = "搭飛艇前往 %s"
+L["Riding the airship to %s"] = "搭飛空艇前往 %s"
+L["Riding the tram to %s"] = "搭地鐵前往 %s"
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -703,7 +1060,7 @@ L["Bullets"] = "子彈"
 L["Bows & guns"] = "弓與槍"
 L["Mailbox"] = "郵箱"
 L["Transmogrifier"] = "塑形師"
--- L["No %s for your side."] = ""
+L["No %s for your side."] = "沒有適合你陣營的%s。"
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "右鍵點擊以跳過這一段。"
@@ -738,8 +1095,8 @@ L["Airship to %s"] = "前往 %s 的飛艇"
 -- Quests/Tracker.lua
 L["Done"] = "已完成"
 L["Not done"] = "未完成"
--- L["Hand-ins"] = ""
--- L["Objectives"] = ""
+L["Hand-ins"] = "繳交任務"
+L["Objectives"] = "目標"
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "開始一個任務"
@@ -877,7 +1234,7 @@ L["%s is on Polestar %s: your guides can differ."] = "%s 使用的是 Polestar %
 L["Party sync is on: you and your party see each other's quest progress. Turn it off in Settings."] = "隊伍同步已開啟：你和隊友可以看到彼此的任務進度。可在「設定」中關閉。"
 L["Up to 10 hidden addon whispers a session, to players of your faction you target or mouse over outside cities, combat and dungeons, and an answer to theirs: only the version number, so Polestar can tell you when a newer one is out. Off: none sent or answered."] = "每次登入最多傳送 10 則隱藏的插件密語，對象是你在主城、戰鬥和地城之外選取或滑鼠指向的同陣營玩家，並回覆他們的詢問：只包含版本號，讓 Polestar 能在有新版本時告訴你。關閉：不傳送也不回覆。"
 L["You asked a moment ago: wait 1 second."] = "你剛才已詢問過：請等待 1 秒。"
--- L["With %s"] = ""
+L["With %s"] = "與 %s 一起"
 
 -- Gear/Gear.lua
 L["big upgrade"] = "大幅提升"
@@ -1345,8 +1702,8 @@ L["Name the one that's close"] = "顯示附近那一個的名字"
 L["With portraits, the name of the one close enough to target shows beside its face in a column, under it in a row (above it when the list goes up over the buttons)."] = "使用頭像時，近到可選取的那一個的名字會顯示在其頭像旁（直列）或下方（橫列；清單向上延伸到按鈕上方時則在上方）。"
 L["Equip a spare bag first"] = "先裝備備用背包"
 L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."] = "當背包快滿、背包中有一個背包而背包欄位又有空位時，背包按鈕與指南視窗會先提議裝上它，再處理垃圾。在你按下之前不會有任何動作。"
--- L["Step errands"] = ""
--- L["Level pace"] = ""
+L["Step errands"] = "步驟雜務"
+L["Level pace"] = "升級節奏"
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "僅限聯盟"
@@ -1389,7 +1746,7 @@ L["Tailoring"] = "裁縫"
 L["Cooking"] = "烹飪"
 L["Fishing"] = "釣魚"
 L["First Aid"] = "急救"
--- L["%s walks around here: look inside the circle on the map"] = ""
+L["%s walks around here: look inside the circle on the map"] = "%s 在附近走動：在地圖上的圓圈裡找"
 
 -- Lookup/Guide.lua
 L["Lookup is turned off (Settings > Discovery > Lookup)."] = "查詢已關閉（「設定」>「探索」>「查詢」）。"
@@ -1409,6 +1766,7 @@ L["Chain: finished, %d skipped"] = "任務鏈：已完成，跳過 %d 個"
 L["Chain: all %d done"] = "任務鏈：全部 %d 個已完成"
 L["Chain: %d of %d"] = "任務鏈：%d / %d"
 L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."] = "只有死亡後才能看見：在附近死亡，以靈魂狀態與其對話，或略過此任務。"
+L["Only visible while dead: die nearby and talk to them as a ghost."] = "只有死亡時可見：在附近死亡，以靈魂狀態與其對話。"
 
 -- Lookup/Spotter.lua
 L["From"] = "來自"
@@ -1492,14 +1850,14 @@ L["Opens the inner doors of Dire Maul's North and West wings."] = "打開厄運�
 L["Opens Gnomeregan's back door, the Workshop entrance."] = "打開諾姆瑞根的後門，即工作坊入口。"
 L["Opens the doors of the Armory and the Cathedral."] = "打開軍械庫和大教堂的門。"
 L["Rings the gong by the sacred pool in Zul'Farrak to call Gahz'rilla; one mallet does it for the group. Qiaga the Keeper (elite) on top of the Altar of Zul in the Hinterlands drops the Sacred Mallet: use it at the altar at the very top of Jintha'Alor and it becomes the Mallet of Zul'Farrak. Both places are full of elites."] = "敲響祖爾法拉克聖池旁的銅鑼以召喚加茲瑞拉；一把槌子就夠全隊使用。辛特蘭的祖爾祭壇頂端的 Qiaga the Keeper（精英）會掉落神聖之槌：在辛薩羅最頂端的祭壇使用它，就會變成祖爾法拉克之槌。兩個地方都滿是精英。"
--- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Image of Archmage Modera gives it with Heart of Disruption: keep that quest in your log until you are inside. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = ""
--- L["Calls up Lyn the Ignored, a hidden boss, at the summoning circle in the City of Dalaran's Underbelly, in the small room past Atrexis the Grave Knight. The Black Tome lies on a table up the stairs behind Archmage Arugal in Shadowfang Keep; use it at the Ambermill Leyline Focus, the blue crystal beside Archmage Ataeric in Ambermill's town hall, and it becomes the Tome of Dalaran."] = ""
--- L["Opens a portal from the first khan's spot in Maraudon's outer caves to Earth Song Falls in inner Maraudon; the group walks through it. Celebras the Redeemed makes it once Celebras the Cursed is dead inside."] = ""
--- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Alphonse Dumas in Farholde Keep forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
--- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
--- L["Use %s beside %s: it becomes %s."] = ""
--- L["Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back."] = ""
--- L["Not open on Forever yet: the attunement is ready for when it opens."] = ""
+L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Image of Archmage Modera gives it with Heart of Disruption: keep that quest in your log until you are inside. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "開啟部落進入達拉然城通道的大門；一把鑰匙即可為全隊開門。Image of Archmage Modera 會隨 Heart of Disruption 交給你：進入之前請把該任務留在任務日誌中。聯盟則從 Cantrips & Crows 的下水道管線進入。"
+L["Calls up Lyn the Ignored, a hidden boss, at the summoning circle in the City of Dalaran's Underbelly, in the small room past Atrexis the Grave Knight. The Black Tome lies on a table up the stairs behind Archmage Arugal in Shadowfang Keep; use it at the Ambermill Leyline Focus, the blue crystal beside Archmage Ataeric in Ambermill's town hall, and it becomes the Tome of Dalaran."] = "在達拉然城 Underbelly 的召喚法陣處召喚隱藏首領 Lyn the Ignored，位於『墓地騎士』亞崔希斯後面的小房間。黑色秘典放在影牙城堡中大法師阿魯高身後樓梯上方的桌子上；在 Ambermill Leyline Focus（安伯米爾市政廳中大法師阿塔瑞克旁的藍色水晶）處使用它，它就會變成達拉然典籍。"
+L["Opens a portal from the first khan's spot in Maraudon's outer caves to Earth Song Falls in inner Maraudon; the group walks through it. Celebras the Redeemed makes it once Celebras the Cursed is dead inside."] = "從瑪拉頓外部洞穴中第一位可汗的位置開啟一道通往瑪拉頓內部 Earth Song Falls 的傳送門；全隊從中穿過。被詛咒的塞雷布拉斯在裡面死後，贖罪的塞雷布拉斯會製作它。"
+L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Alphonse Dumas in Farholde Keep forges the key from it with 4 Thick Leather and 12 Iron Bars."] = "開啟通往克羅多克要塞上層區域的道路。War Handler Ashka 附近鐵匠鋪旁的 Tunk 會掉落克羅多克模具；遠境堡要塞的 Alphonse Dumas 用它加上 4 張厚皮和 12 塊鐵錠鍛造鑰匙。"
+L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = "開啟通往克羅多克要塞上層區域的道路。War Handler Ashka 附近鐵匠鋪旁的 Tunk 會掉落克羅多克模具；羅格瑪的 Kreza Darkthorn 用它加上 4 張厚皮和 12 塊鐵錠鍛造鑰匙。"
+L["Use %s beside %s: it becomes %s."] = "在 %2$s 旁使用 %1$s：它會變成 %3$s。"
+L["Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back."] = "進入之前請把 %s 留在任務日誌中：接受它會給你 %s，放棄任務會將其收回。"
+L["Not open on Forever yet: the attunement is ready for when it opens."] = "Forever 上尚未開放：副本鑰匙任務已為開放做好準備。"
 
 -- UI/UI.lua
 L["Map %d"] = "地圖 %d"
@@ -1575,14 +1933,14 @@ L["%s has %s"] = "%s 有 %s 個"
 L["%s to buy"] = "需購買 %s 個"
 L["(only %s listed)"] = "（僅有 %s 個在售）"
 L["(old price)"] = "（舊價格）"
--- L["Elites nearby"] = ""
--- L["Group, or careful: a group quest, yours to do or skip"] = ""
--- L["Group, or careful: an escort that can go wrong"] = ""
--- L["Group, or careful: elites at your level or above"] = ""
--- L["Group, or careful: a group is advised"] = ""
--- L["Careful: elites nearby"] = ""
--- L["Careful: elites, below your level"] = ""
--- L["%s · kept for %s"] = ""
+L["Elites nearby"] = "附近有精英"
+L["Group, or careful: a group quest, yours to do or skip"] = "小隊或小心：小隊任務，做還是跳過由你決定"
+L["Group, or careful: an escort that can go wrong"] = "小隊或小心：可能失敗的護送"
+L["Group, or careful: elites at your level or above"] = "小隊或小心：與你同等級或更高的精英"
+L["Group, or careful: a group is advised"] = "小隊或小心：建議組隊"
+L["Careful: elites nearby"] = "小心：附近有精英"
+L["Careful: elites, below your level"] = "小心：精英，等級低於你"
+L["%s · kept for %s"] = "%s · 保留給 %s"
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
@@ -1846,9 +2204,9 @@ L["Click to switch to its tab"] = "點擊切換到其分頁"
 L["Click to open it in a new tab"] = "點擊在新分頁開啟"
 L["Hides this line until more quests are off your route."] = "隱藏此行，直到有更多任務不在你的路線上。"
 L["Level with %s meanwhile: this guide picks up at level %d"] = "在此期間用 %s 升級：此指南會在 %d 級時接續"
--- L["%s is done."] = ""
--- L["All steps"] = ""
--- L["Every step of the guide in one list. Click one to look at it."] = ""
+L["%s is done."] = "%s 已完成。"
+L["All steps"] = "所有步驟"
+L["Every step of the guide in one list. Click one to look at it."] = "指南的所有步驟列在一個清單裡。點擊其中一個查看。"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "前往 %s 的升降梯"
@@ -1967,8 +2325,8 @@ L["They stay in your log, and the guide lists who takes each in."] = "它們會�
 L["Load it anyway? They stay in your log, and the guide lists who takes each in."] = "仍要載入嗎？它們會留在日誌中，指南會列出每個任務要交給誰。"
 L["This zone is new in Forever. Its guide is experimental and still a work in progress: thanks for trying it."] = "此地區為 Forever 新增。其指南為實驗性，仍在完善中：感謝你的試用。"
 L["This zone is new in Forever."] = "此地區為 Forever 新增。"
--- L["Suggested"] = ""
--- L["The guides window only. Click to pick a size; right-click to reset."] = ""
+L["Suggested"] = "推薦"
+L["The guides window only. Click to pick a size; right-click to reset."] = "僅限指南視窗。點擊選擇大小；右鍵點擊重設。"
 L["Quests in"] = "任務地區"
 L["Passes through"] = "途經"
 
@@ -2205,10 +2563,10 @@ L["The Dungeons section is turned off. Turn it on under Settings > Discovery > L
 L["%d-%d players"] = "%d-%d 名玩家"
 L["No boss drops known"] = "沒有已知的首領掉落"
 L["Drops (%d)"] = "掉落（%d）"
--- L["Use %s beside %s"] = ""
--- L["All attunements and keys"] = ""
--- L["Every attunement and key, with how far you are"] = ""
--- L["Not open on Forever yet"] = ""
+L["Use %s beside %s"] = "在 %2$s 旁使用 %1$s"
+L["All attunements and keys"] = "所有副本鑰匙任務和鑰匙"
+L["Every attunement and key, with how far you are"] = "每項副本鑰匙任務和鑰匙，以及你的進度"
+L["Not open on Forever yet"] = "Forever 上尚未開放"
 
 -- UI/RouteChoice.lua
 L["Right here"] = "就在這裡"
@@ -2339,13 +2697,13 @@ L["For a party levelling together: every one is in the route."] = "適合一起�
 L["Point at a look to see it here; click it to wear it."] = "將滑鼠指向一個皮膚即可在此預覽；點擊即可套用。"
 L["Built in"] = "內建"
 L["Leaves out grey quests, and quests behind you that pay less than full XP when going back for them costs more time than they give. A quest still paying full XP stays, and so does one a later quest needs. The guide window says what it left out."] = "略過灰色任務，以及身後經驗不滿額、且回頭去做花的時間比所得更多的任務。仍給滿額經驗的任務會保留，後續任務需要的任務也會保留。指南視窗會說明略過了什麼。"
--- L["More concept looks are in Settings, Theme."] = ""
--- L["Guide window layout"] = ""
--- L["How the guide window lays out the step. More in Settings, Guide window, Presets."] = ""
--- L["%s: /reload after picking it."] = ""
--- L["The step card, Up next under it."] = ""
--- L["Alpha"] = ""
--- L["The arrow follows the route step you're on; to go to a quest you already have, open it in Lookup."] = ""
+L["More concept looks are in Settings, Theme."] = "更多概念外觀在 設定 > 主題 中。"
+L["Guide window layout"] = "指南視窗版面"
+L["How the guide window lays out the step. More in Settings, Guide window, Presets."] = "指南視窗如何排列步驟。更多選項在 設定 > 指南視窗 > 預設組合 中。"
+L["%s: /reload after picking it."] = "%s：選擇後請 /reload。"
+L["The step card, Up next under it."] = "步驟卡片，下方為「接下來」。"
+L["Alpha"] = "內測版"
+L["The arrow follows the route step you're on; to go to a quest you already have, open it in Lookup."] = "箭頭跟隨你目前所在的路線步驟；要前往你已有的任務，請在「查詢」中開啟它。"
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "已為你選取：用 Ctrl+C（Mac 為 Cmd+C）複製，然後按 Escape。"
@@ -2804,31 +3162,31 @@ L["Reminds you to repair when a piece of your gear is below this share of its du
 L["play Freedoom Arcade by petllama"] = "玩 petllama 的 Freedoom Arcade"
 L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] = "petllama 的 Freedoom Arcade（GPL-2.0 或更新版本）從 Polestar_Arcade 資料夾執行 Freedoom 專案的三個 Freedoom 關卡（BSD 授權）。"
 L["While paused, quests are not accepted or turned in for you, no reward is picked, and flight masters do not open the flight map or fly you off, until Polestar resumes."] = "暫停期間，不會替你接受或繳交任務、不會選擇獎勵，飛行管理員也不會開啟飛行地圖或載你起飛，直到 Polestar 恢復。"
--- L["While you play"] = ""
--- L["What the window shows, when it hides and where it sits:"] = ""
--- L["New in %s"] = ""
+L["While you play"] = "遊戲時"
+L["What the window shows, when it hides and where it sits:"] = "視窗顯示什麼、何時隱藏、位於何處："
+L["New in %s"] = "%s 新增"
 L["%s is off. Turn it on to change its settings."] = "%s已關閉。開啟後才能變更其設定。"
--- L["New settings on this page"] = ""
--- L["Settings on this page changed from their default"] = ""
+L["New settings on this page"] = "本頁的新設定"
+L["Settings on this page changed from their default"] = "本頁中已更改預設值的設定"
 L["Every setting on %s goes back to its default. Other pages keep theirs."] = "%s上的所有設定將恢復預設值。其他頁面保持不變。"
 L["Nothing to reset"] = "沒有可重置的內容"
 L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "將指南視窗、箭頭、卡片和警示拖到你想要的位置。在你按下「儲存並退出」之前，此視窗會暫時讓開。也可使用 /polestar unlock。"
--- L["play Sky Jewels by RikyZ90"] = ""
--- L["play Tetris by beemerwt"] = ""
--- L["Points to the current goal. Off hides only the arrow: the route lines have their own switch, under Routes. Its look and colours are on the Arrow page."] = ""
--- L["The way to the goal on the world map and the minimap, with the arrow on or off: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = ""
--- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags, unless a talent does away with it (Reagent Economy)."] = ""
--- L["The language of Polestar's windows and guides. Follow the game: your game's language. Takes effect after a /reload."] = ""
--- L["Reload now?"] = ""
--- L["Polestar shows the new language after a /reload."] = ""
--- L["Follow the game"] = ""
--- L["English"] = ""
--- L["Simplified Chinese"] = ""
--- L["Traditional Chinese"] = ""
--- L["General"] = ""
--- L["The language Polestar shows."] = ""
--- L["Say when I've outlevelled a guide"] = ""
--- L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."] = ""
+L["play Sky Jewels by RikyZ90"] = "玩 RikyZ90 的 Sky Jewels"
+L["play Tetris by beemerwt"] = "玩 beemerwt 的 Tetris"
+L["Points to the current goal. Off hides only the arrow: the route lines have their own switch, under Routes. Its look and colours are on the Arrow page."] = "指向目前目標。關閉只會隱藏箭頭：路線線條在「路線」下有自己的開關。它的外觀和顏色在「箭頭」頁面。"
+L["The way to the goal on the world map and the minimap, with the arrow on or off: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "在地圖和小地圖上顯示通往目標的路，無論箭頭開關與否：步行處為線或點，飛行、航行或騎乘處為線，之後的路段顏色較淡。畫法與 Cillian Berragan 的 Shortest Path Forever 相同。"
+L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags, unless a talent does away with it (Reagent Economy)."] = "如果更快，路線可以從你會的傳送法術開始：法師的城市傳送、德魯伊的月光林地，或薩滿的星界傳送（相當於第二顆爐石）。城市傳送需要背包裡有傳送符文，除非有天賦免除它（材料經濟）。"
+L["The language of Polestar's windows and guides. Follow the game: your game's language. Takes effect after a /reload."] = "Polestar 視窗和指南的語言。跟隨遊戲：你的遊戲語言。在 /reload 後生效。"
+L["Reload now?"] = "現在重新載入？"
+L["Polestar shows the new language after a /reload."] = "Polestar 會在 /reload 後顯示新語言。"
+L["Follow the game"] = "跟隨遊戲"
+L["English"] = "英語"
+L["Simplified Chinese"] = "簡體中文"
+L["Traditional Chinese"] = "繁體中文"
+L["General"] = "一般"
+L["The language Polestar shows."] = "Polestar 顯示的語言。"
+L["Say when I've outlevelled a guide"] = "我的等級超過指南時提醒"
+L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."] = "當你的等級超過指南的等級時，在指南視窗顯示提醒，每個指南每次登入一次，並附上適合你等級的指南。關閉：不提醒；指南保持不變。"
 
 -- Rares/Rares.lua
 L["Raid warning"] = "團隊警告"
@@ -3416,7 +3774,7 @@ L["The licence differs from the stored guide's."] = "授權條款與已儲存指
 
 -- Nav/Pins.lua
 L["Polestar trail dots"] = "Polestar 路徑圓點"
--- L["Click to open the zone's map"] = ""
+L["Click to open the zone's map"] = "點擊開啟該地區的地圖"
 
 -- UI/LineStyle.lua
 L["Dots"] = "圓點"
@@ -3782,11 +4140,11 @@ L["Not part of your route"] = "不在你的路線中"
 L["Keep or abandon them"] = "保留或放棄"
 L["Each with its Abandon button, which asks in the game's own window first."] = "每個任務都有「放棄」按鈕，會先在遊戲本身的視窗中確認。"
 L["%s · at level %d"] = "%s · %d 級"
--- L["%d steps left in %s"] = ""
--- L["1 step left in %s"] = ""
--- L["Do or skip what's left, and you choose where to go next."] = ""
--- L["Do or skip what's left, and the next guide follows."] = ""
--- L["Do or skip what's left, and the guide ends."] = ""
+L["%d steps left in %s"] = "%2$s 還剩 %1$d 個步驟"
+L["1 step left in %s"] = "%s 還剩 1 個步驟"
+L["Do or skip what's left, and you choose where to go next."] = "完成或跳過剩下的內容，然後由你選擇下一步去哪。"
+L["Do or skip what's left, and the next guide follows."] = "完成或跳過剩下的內容，然後進入下一個指南。"
+L["Do or skip what's left, and the guide ends."] = "完成或跳過剩下的內容，然後指南結束。"
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "點擊選取並標記 %s（戰鬥外）。"
@@ -3914,6 +4272,20 @@ L["Small helpers"] = "小幫手"
 L["Sell and repair reminders before you leave town; compact mode now has tabs."] = "離開城鎮前提醒你販賣與修理；精簡模式現在也有分頁了。"
 L["In 9 languages, now with German and Latin American Spanish guides. Thanks, translators!"] = "支援 9 種語言，現在還有德語與拉丁美洲西班牙語指南。感謝譯者！"
 L["Caves, cities, flights and more. Found something off? Type %s."] = "洞穴、城市、飛行等。發現問題？輸入 %s。"
+L["A smarter arrow"] = "更聰明的箭頭"
+L["Walks that follow your own trail, boats and lifts it understands, flights it remembers, enemy towns it goes round."] = "路線會沿著你自己走過的路；看得懂船和電梯，記得你的飛行路線，並繞開敵方城鎮。"
+L["Guides named for their zones"] = "以地區命名的指南"
+L["Titles name the zones you quest in, in walking order. Camping 101 is in for every start-zone profession."] = "標題寫出你做任務的地區，依行進順序排列。每個起始地區的所有專業都有 Camping 101。"
+L["Escorts are your choice"] = "護送任務由你決定"
+L["Do it or Skip it, with how long other players' runs take and how often they fail."] = "做或跳過，並顯示其他玩家完成所需的時間和失敗的頻率。"
+L["Windows your way"] = "隨你心意的視窗"
+L["Atlas or Standard layout; Settings and Guides have their own scale; switches for chat messages and the XP line."] = "Atlas 或標準版面；設定和指南視窗各有自己的縮放；可用開關控制聊天訊息和經驗列。"
+L["Every attunement and key for your faction in the guide menu, with a progress bar and %s."] = "指南選單列出你陣營的每項副本鑰匙任務與鑰匙，附進度條和「%s」。"
+L["Polestar in your language"] = "用你的語言看 Polestar"
+L["Settings > General > Language shows Polestar in another language than the game's."] = "設定 > 一般 > 語言可讓 Polestar 使用與遊戲不同的語言。"
+L["Fewer folders"] = "更少的資料夾"
+L["Quit the game fully and start it again: Polestar is 22 folders now, not 45."] = "請完全退出遊戲再重新啟動：Polestar 現在是 22 個資料夾，而不是 45 個。"
+L["Steps fixed in dozens of zones. Found something off? Type %s."] = "已修正數十個地區的步驟。發現問題？輸入 %s。"
 
 -- QoL/ClassQuests.lua
 L["Long chain: %d quests across %d zones on %d continents"] = "長任務鏈：%d 個任務，橫跨 %d 個地區、%d 塊大陸"
@@ -4164,18 +4536,18 @@ L["Smaller, fainter pins that leave the map to the map."] = "更小、更淡的�
 L["Colour per step"] = "每步一色"
 L["Each step ahead in its own colour, none fainter, so the route reads at a glance."] = "每個後續步驟各用一種顏色，不會變淡，讓路線一目了然。"
 L["Icons and target"] = "圖示與目標"
--- L["Spawn markers"] = ""
--- L["Spawn markers for your quests"] = ""
--- L["A skull on the world map and the minimap at every spawn of the mobs your quests need, one colour per quest and a ring per mob; the things you pick up or use get the pickup bag. Their size and opacity are on the Icons tab."] = ""
--- L["Off: the spawn markers show on the world map only."] = ""
--- L["Legend on the world map"] = ""
--- L["Lists the quests and mobs on the shown map. Hover a row to highlight its markers, click it to turn them off or on."] = ""
--- L["Only the current step's quests"] = ""
--- L["Marks only the quests the guide step you're on works on, not your whole quest log. With no guide running, the whole log shows."] = ""
--- L["Quest colours"] = ""
--- L["The colours quests are given, in quest-log order: the skull's colour. The first quest keeps the skull's own colours."] = ""
--- L["Mob colours"] = ""
--- L["The colours of the rings that tell a quest's mobs apart. A quest with one mob has no ring."] = ""
+L["Spawn markers"] = "重生點標記"
+L["Spawn markers for your quests"] = "任務的重生點標記"
+L["A skull on the world map and the minimap at every spawn of the mobs your quests need, one colour per quest and a ring per mob; the things you pick up or use get the pickup bag. Their size and opacity are on the Icons tab."] = "在地圖和小地圖上，於你的任務所需怪物的每個重生點顯示骷髏，每個任務一種顏色，每種怪物一個圓環；需要拾取或使用的東西顯示拾取袋。大小和不透明度在「圖示」分頁。"
+L["Off: the spawn markers show on the world map only."] = "關閉：重生點標記只顯示在地圖上。"
+L["Legend on the world map"] = "地圖圖例"
+L["Lists the quests and mobs on the shown map. Hover a row to highlight its markers, click it to turn them off or on."] = "列出目前地圖上的任務和怪物。滑鼠停在某行上以醒目顯示其標記，點擊以關閉或開啟它們。"
+L["Only the current step's quests"] = "僅目前步驟的任務"
+L["Marks only the quests the guide step you're on works on, not your whole quest log. With no guide running, the whole log shows."] = "只標記目前指南步驟所做的任務，而不是整個任務日誌。沒有進行中的指南時，顯示整個日誌。"
+L["Quest colours"] = "任務顏色"
+L["The colours quests are given, in quest-log order: the skull's colour. The first quest keeps the skull's own colours."] = "依任務日誌順序分配給任務的顏色：即骷髏的顏色。第一個任務保留骷髏本身的顏色。"
+L["Mob colours"] = "怪物顏色"
+L["The colours of the rings that tell a quest's mobs apart. A quest with one mob has no ring."] = "用於區分同一任務中不同怪物的圓環顏色。只有一種怪物的任務沒有圓環。"
 
 -- Maps/RouteOptions.lua
 L["Theme"] = "主題"
@@ -4395,10 +4767,10 @@ L["%d changes"] = "%d 處變更"
 L["Same as yours"] = "與你的相同"
 L["Nothing here differs from yours."] = "此處與你的設定沒有差異。"
 L["The positions were made on another screen or UI scale, so Window positions starts unticked: tick it to take them anyway."] = "這些位置來自其他螢幕或介面縮放，因此「視窗位置」預設不勾選：如仍要採用，請勾選。"
--- L["Start from"] = ""
--- L["Your current settings"] = ""
--- L["Defaults"] = ""
--- L["Your current settings: the new profile is a copy of the one in use, window positions, skin and all. Defaults: every setting at its default."] = ""
+L["Start from"] = "起始於"
+L["Your current settings"] = "你目前的設定"
+L["Defaults"] = "預設值"
+L["Your current settings: the new profile is a copy of the one in use, window positions, skin and all. Defaults: every setting at its default."] = "你目前的設定：新設定檔是目前所用設定檔的副本，包括視窗位置、皮膚等全部內容。預設值：所有設定為預設值。"
 
 -- UI/Looks/Theme.lua
 L["Turn in %s"] = "繳交%s"
@@ -4586,41 +4958,41 @@ L["Stonefield Farm"] = "斯通菲爾德農場"
 L["Jasperlode Mine"] = "玉石礦坑"
 L["A dim line where the guide passes over quests: open it to see each one and why, with a way to bring it back. Grind steps say what else is worth doing, and a line offers to clean up quests that aren't part of your route."] = "在指南略過任務的地方顯示一行淡色文字：展開可看到每個任務及原因，並可恢復。打怪升級的步驟會說明還有什麼值得做，另有一行提示清理不在路線中的任務。"
 L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). The class quest card keeps that general size. Changes at once. Right-click to reset."] = "指南視窗文字的大小，與其縮放及 Polestar 其餘文字（「主題」>「文字」）分開。職業任務卡片維持一般大小。立即生效。右鍵點擊重置。"
--- L["Northshire Abbey"] = ""
--- L["Echo Ridge Mine"] = ""
--- L["Northshire Vineyards"] = ""
--- L["Brother Paxton"] = ""
--- L["Goldshire"] = ""
--- L["Tab style"] = ""
--- L["How the tabs of the open guides show: a strip above the step bar, a menu on the guide's title, small tabs on the window's top edge, or a column down its left side. Default follows the layout."] = ""
--- L["Above the step bar"] = ""
--- L["Title menu"] = ""
--- L["On the top edge"] = ""
--- L["Down the left side"] = ""
--- L["Default (%s)"] = ""
--- L["A button in the step bar that opens every step of the guide in one list. The step number and the guide menu open it too."] = ""
--- L["Steps before"] = ""
--- L["How many of the steps before this one show over it, one dimmed line each, done or skipped; 0 turns them off. Click one to go back to it."] = ""
--- L["Journey style"] = ""
--- L["Polestar's layout draws the Journey under the step. Pick a layout with more Journey styles, such as Atlas, in Presets."] = ""
--- L["Where the travel route shows while you travel: under the step, in a card under the window, folded to the leg you are on, as nodes on the timeline, or as chips in the window's foot."] = ""
--- L["Under the step"] = ""
--- L["Under the window"] = ""
--- L["Under the window, folded"] = ""
--- L["On the timeline"] = ""
--- L["In the foot"] = ""
--- L["Window height"] = ""
--- L["Fixed: the window is always the height below; drag its grip to resize it like any window. Follows the step: it grows with the step up to that height. Automatic: it grows into all the free room on screen."] = ""
--- L["Fixed"] = ""
--- L["Follows the step"] = ""
--- L["Height"] = ""
--- L["In pixels and as a share of the screen: click the number to type the pixels, or drag the grip at the window's corner. Changing it under Automatic switches to Fixed. A longer step scrolls."] = ""
--- L["With a Fixed height: right under the last goal, the free room past it (above the goals with Grow upward), or on the window's edge."] = ""
--- L["Under the last goal"] = ""
--- L["On the window's edge"] = ""
--- L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = ""
--- L["XP line"] = ""
--- L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = ""
+L["Northshire Abbey"] = "北郡修道院"
+L["Echo Ridge Mine"] = "回音山礦坑"
+L["Northshire Vineyards"] = "北郡農場"
+L["Brother Paxton"] = "帕克斯頓修士"
+L["Goldshire"] = "閃金鎮"
+L["Tab style"] = "分頁樣式"
+L["How the tabs of the open guides show: a strip above the step bar, a menu on the guide's title, small tabs on the window's top edge, or a column down its left side. Default follows the layout."] = "已開啟指南的分頁如何顯示：步驟列上方的一條、指南標題上的選單、視窗上邊緣的小分頁，或左側的一欄。預設跟隨版面。"
+L["Above the step bar"] = "步驟列上方"
+L["Title menu"] = "標題選單"
+L["On the top edge"] = "上邊緣"
+L["Down the left side"] = "左側"
+L["Default (%s)"] = "預設（%s）"
+L["A button in the step bar that opens every step of the guide in one list. The step number and the guide menu open it too."] = "步驟列中的一個按鈕，可在一個清單中開啟指南的所有步驟。步驟編號和指南選單也能開啟它。"
+L["Steps before"] = "之前的步驟"
+L["How many of the steps before this one show over it, one dimmed line each, done or skipped; 0 turns them off. Click one to go back to it."] = "在此步驟上方顯示多少個之前的步驟，每個一行淡色，已完成或已跳過；0 表示關閉。點擊一個可返回該步驟。"
+L["Journey style"] = "旅程樣式"
+L["Polestar's layout draws the Journey under the step. Pick a layout with more Journey styles, such as Atlas, in Presets."] = "Polestar 版面把旅程畫在步驟下方。在「預設組合」中選擇有更多旅程樣式的版面，例如 Atlas。"
+L["Where the travel route shows while you travel: under the step, in a card under the window, folded to the leg you are on, as nodes on the timeline, or as chips in the window's foot."] = "旅行時旅行路線顯示的位置：步驟下方、視窗下方的卡片、摺疊到目前路段、時間軸上的節點，或視窗底部的標籤。"
+L["Under the step"] = "步驟下方"
+L["Under the window"] = "視窗下方"
+L["Under the window, folded"] = "視窗下方，摺疊"
+L["On the timeline"] = "時間軸上"
+L["In the foot"] = "底部"
+L["Window height"] = "視窗高度"
+L["Fixed: the window is always the height below; drag its grip to resize it like any window. Follows the step: it grows with the step up to that height. Automatic: it grows into all the free room on screen."] = "固定：視窗總是下面的高度；拖曳其把手可像其他視窗一樣調整大小。跟隨步驟：隨步驟增高，最高到該高度。自動：佔滿螢幕上所有空餘空間。"
+L["Fixed"] = "固定"
+L["Follows the step"] = "跟隨步驟"
+L["Height"] = "高度"
+L["In pixels and as a share of the screen: click the number to type the pixels, or drag the grip at the window's corner. Changing it under Automatic switches to Fixed. A longer step scrolls."] = "以像素和螢幕比例表示：點擊數字輸入像素，或拖曳視窗角落的把手。在「自動」下更改會切換為「固定」。較長的步驟可捲動。"
+L["With a Fixed height: right under the last goal, the free room past it (above the goals with Grow upward), or on the window's edge."] = "固定高度時：緊接最後一個目標的下方、其後的空餘空間（使用「向上延伸」時在目標上方），或視窗邊緣。"
+L["Under the last goal"] = "最後一個目標下方"
+L["On the window's edge"] = "視窗邊緣"
+L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = "在步驟下方為路線之外仍需完成或繳交的任務顯示列：指南更新後落在你身後的任務，以及之後沒有指南會繳交的已完成任務。關閉後，指南視窗選單仍會在「繳交已完成的任務」下列出已完成的任務。"
+L["XP line"] = "經驗列"
+L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "步驟下方的一行：每小時經驗、升級時間和你的節奏。加強休息保留自己的一行。"
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "警示列"
@@ -4837,10 +5209,10 @@ L["Hearth and travel"] = "爐石與旅行"
 -- Maps/Options.lua
 L["Rares, travel & zones"] = "稀有、旅行與地區"
 L["Zones and coordinates"] = "地區與座標"
--- L["Flight arcade"] = ""
--- L["Game on flights"] = ""
--- L["None: don't offer a game"] = ""
--- L["On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed), Sky Jewels by RikyZ90, a match-three game, or Tetris by beemerwt. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade, /polestar jewels and /polestar tetris open them any time."] = ""
+L["Flight arcade"] = "飛行街機"
+L["Game on flights"] = "飛行時的遊戲"
+L["None: don't offer a game"] = "無：不提供遊戲"
+L["On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed), Sky Jewels by RikyZ90, a match-three game, or Tetris by beemerwt. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade, /polestar jewels and /polestar tetris open them any time."] = "在剩餘一分鐘或更長的飛行中，Polestar 會提供一個遊戲供你等待時玩：petllama 的 Freedoom Arcade（Freedoom 的三個關卡，安裝了 Freedoom Arcade 插件則為完整遊戲）、RikyZ90 的三消遊戲 Sky Jewels，或 beemerwt 的 Tetris。飛行計時器下方的卡片會執行你選的遊戲。著陸前 10 秒，遊戲會儲存、暫停並關閉。/polestar arcade、/polestar jewels 和 /polestar tetris 可隨時開啟它們。"
 
 -- Dungeons/Options.lua
 L["As for all dungeons"] = "同所有地城"
@@ -4852,12 +5224,12 @@ L["When a level-up opens a dungeon's quests to this character, a card on the gui
 L["On"] = "開啟"
 L["Every setting here at its default."] = "這裡的所有設定都是預設值。"
 L["A look in one click: it sets the settings it names and puts the others of these looks back to their defaults. Right-click goes back to the defaults."] = "一鍵套用外觀：設定它列出的項目，並把這些外觀的其他設定恢復預設值。右鍵點擊可回到預設值。"
--- L["The layout %s could not be chosen: %s."] = ""
--- L["Alpha: /reload after picking it."] = ""
--- L["Beta: /reload after picking it."] = ""
--- L["Any issues: @%s in a bug report or on Discord."] = ""
--- L["Before %s (%s)"] = ""
--- L["Your setup as it was saved: a click puts back every window setting it holds."] = ""
+L["The layout %s could not be chosen: %s."] = "無法選擇版面 %s：%s。"
+L["Alpha: /reload after picking it."] = "內測版：選擇後請 /reload。"
+L["Beta: /reload after picking it."] = "測試版：選擇後請 /reload。"
+L["Any issues: @%s in a bug report or on Discord."] = "有問題：在錯誤回報或 Discord 中 @%s。"
+L["Before %s (%s)"] = "%s 之前（%s）"
+L["Your setup as it was saved: a click puts back every window setting it holds."] = "你儲存時的設定：點擊即可恢復其中包含的所有視窗設定。"
 
 -- Theme/SkinApi.lua
 L["The skin %s (from %s) could not be added: %s. Polestar's own look stands in."] = "無法新增皮膚 %s（來自 %s）：%s。改以 Polestar 本身的外觀代替。"
@@ -4920,13 +5292,13 @@ L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danit
 L["%s (level %d)"] = "%s（%d 級）"
 L["%s takes these once you reach their level: %s"] = "%s 會在你達到其等級後接取這些：%s"
 L["Waiting for your level, taken where a later guide passes the giver: %s"] = "等待你的等級，將在之後的指南經過任務給予者時接取：%s"
--- L["Looking ahead."] = ""
--- L["Looking back."] = ""
--- L["On the way to your map point (%s)."] = ""
--- L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."] = ""
--- L["You are past this class quest's levels."] = ""
--- L["Escort: %s"] = ""
--- L["Do it"] = ""
+L["Looking ahead."] = "向前看。"
+L["Looking back."] = "向後看。"
+L["On the way to your map point (%s)."] = "正在前往你的地圖點（%s）。"
+L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."] = "本指南的部分任務接續自 %s。從那裡開始可取得全部任務，或在這裡繼續；指南會用附近的任務補足。"
+L["You are past this class quest's levels."] = "你已超過這個職業任務的等級。"
+L["Escort: %s"] = "護送：%s"
+L["Do it"] = "去做"
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "按 %s 恢復，或打開指南視窗。"
@@ -5077,25 +5449,25 @@ L["Landing in 10 seconds"] = "10 秒後降落"
 L["Freedoom Arcade is saved and paused."] = "Freedoom Arcade 已存檔並暫停。"
 L["Close Freedoom Arcade to get your keys back."] = "關閉 Freedoom Arcade 以恢復按鍵操作。"
 L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "已降落。Freedoom Arcade 已存檔並暫停：輸入 %s 繼續。"
--- L["Freedoom Arcade"] = ""
--- L["Sky Jewels"] = ""
--- L["Sky Jewels by RikyZ90"] = ""
--- L["Play Sky Jewels"] = ""
--- L["Sky Jewels can't open: its folder Polestar_Arcade is missing or turned off."] = ""
--- L["Sky Jewels opens after the fight."] = ""
--- L["Sky Jewels is saved and paused for the fight: type %s to continue."] = ""
--- L["Sky Jewels is saved and paused."] = ""
--- L["Landed. Sky Jewels is saved and paused: type %s to continue."] = ""
--- L["Play a game while you fly?"] = ""
--- L["Close the game that is open before you start another."] = ""
--- L["Tetris"] = ""
--- L["Tetris by beemerwt"] = ""
--- L["Play Tetris"] = ""
--- L["Tetris can't open: its folder Polestar_Arcade is missing or turned off."] = ""
--- L["Tetris opens after the fight."] = ""
--- L["Tetris is saved and paused for the fight: type %s to continue."] = ""
--- L["Tetris is saved and paused."] = ""
--- L["Landed. Tetris is saved and paused: type %s to continue."] = ""
+L["Freedoom Arcade"] = "Freedoom Arcade"
+L["Sky Jewels"] = "Sky Jewels"
+L["Sky Jewels by RikyZ90"] = "RikyZ90 的 Sky Jewels"
+L["Play Sky Jewels"] = "玩 Sky Jewels"
+L["Sky Jewels can't open: its folder Polestar_Arcade is missing or turned off."] = "Sky Jewels 無法開啟：其資料夾 Polestar_Arcade 缺少或已停用。"
+L["Sky Jewels opens after the fight."] = "Sky Jewels 將在戰鬥後開啟。"
+L["Sky Jewels is saved and paused for the fight: type %s to continue."] = "Sky Jewels 已因戰鬥儲存並暫停：輸入 %s 繼續。"
+L["Sky Jewels is saved and paused."] = "Sky Jewels 已儲存並暫停。"
+L["Landed. Sky Jewels is saved and paused: type %s to continue."] = "已著陸。Sky Jewels 已儲存並暫停：輸入 %s 繼續。"
+L["Play a game while you fly?"] = "飛行時玩個遊戲？"
+L["Close the game that is open before you start another."] = "開始另一個遊戲前，請先關閉已開啟的遊戲。"
+L["Tetris"] = "Tetris"
+L["Tetris by beemerwt"] = "beemerwt 的 Tetris"
+L["Play Tetris"] = "玩 Tetris"
+L["Tetris can't open: its folder Polestar_Arcade is missing or turned off."] = "Tetris 無法開啟：其資料夾 Polestar_Arcade 缺少或已停用。"
+L["Tetris opens after the fight."] = "Tetris 將在戰鬥後開啟。"
+L["Tetris is saved and paused for the fight: type %s to continue."] = "Tetris 已因戰鬥儲存並暫停：輸入 %s 繼續。"
+L["Tetris is saved and paused."] = "Tetris 已儲存並暫停。"
+L["Landed. Tetris is saved and paused: type %s to continue."] = "已著陸。Tetris 已儲存並暫停：輸入 %s 繼續。"
 
 -- QoL/QuestXP.lua
 L["+1 level"] = "+1 級"
@@ -5118,15 +5490,15 @@ L["/polestar perf: on, off, report or reset"] = "/polestar perf：on、off、rep
 L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = "找出讓遊戲卡頓的原因：計時 Polestar 自己的運作（on、off、report、reset）"
 
 -- UI/GuideFramePlayNext.lua
--- L["Play next"] = ""
--- L["Start"] = ""
--- L["Other guides"] = ""
--- L["Review %d skipped"] = ""
--- L["Next in your route · your level %d"] = ""
--- L["Next in your route"] = ""
+L["Play next"] = "接下來玩"
+L["Start"] = "開始"
+L["Other guides"] = "其他指南"
+L["Review %d skipped"] = "查看 %d 個已跳過"
+L["Next in your route · your level %d"] = "路線中的下一個 · 你的等級 %d"
+L["Next in your route"] = "路線中的下一個"
 
 -- UI/GuideFrameWindow.lua
--- L["The guide window hides in dungeons and battlegrounds. %s Change it in Settings > Guide window."] = ""
+L["The guide window hides in dungeons and battlegrounds. %s Change it in Settings > Guide window."] = "指南視窗在地城和戰場中隱藏。%s 可在 設定 > 指南視窗 中更改。"
 
 -- UI/Kit.lua
 L["ON"] = "開"
@@ -5162,107 +5534,106 @@ L["Reload to finish?"] = "重新載入以完成？"
 L["Some guide window and look changes only show in full after a reload. Recommended."] = "部分指南視窗和外觀的變更需要重新載入介面後才會完全生效。建議重新載入。"
 L["New settings page"] = "新設定頁面"
 L["A preview of the settings in groups, with tabs, a filter and a preview beside the rows. The same settings; switch it off for the current page."] = "設定的預覽版面：分組顯示，附有分頁、篩選和列旁的預覽。設定相同；關閉即回到目前頁面。"
--- L["New settings in this group"] = ""
+L["New settings in this group"] = "此群組中的新設定"
 
 -- UI/Essentials.lua
 L["Most used"] = "常用設定"
 
 -- Core/Locale.lua
--- L["Language: %s. Change it with /polestar language <name>, one of: %s."] = ""
--- L["No language '%s'. Choose one of: %s."] = ""
--- L["Language: %s, from the next /reload."] = ""
--- L["Choose Polestar's language (game, enUS, deDE...), from the next /reload"] = ""
+L["Language: %s. Change it with /polestar language <name>, one of: %s."] = "語言：%s。用 /polestar language <名稱> 更改，可選：%s。"
+L["No language '%s'. Choose one of: %s."] = "沒有「%s」這種語言。請從以下選擇：%s。"
+L["Language: %s, from the next /reload."] = "語言：%s，從下次 /reload 起。"
+L["Choose Polestar's language (game, enUS, deDE...), from the next /reload"] = "選擇 Polestar 的語言（game、enUS、deDE...），從下次 /reload 起"
 
 -- Maps/MobMarkers.lua
--- L["Polestar rings"] = ""
--- L["Vivid"] = ""
--- L["Colour-blind safe"] = ""
--- L["Light & night"] = ""
--- L["Polestar pastels"] = ""
--- L["Gives %s"] = ""
--- L["Drops %s"] = ""
--- L["Quest spawns (preview)"] = ""
--- L["Quest spawns"] = ""
--- L["Spawn markers: preview on. Open the world map on a zone."] = ""
--- L["Spawn markers: preview off, your quest log again."] = ""
--- L["Spawn markers are off: Settings, Map pins, Spawn markers."] = ""
--- L["Spawn markers: %d quests, %d spawns in world positions, %d zone marks on %d maps (%d on map %s), %d markers drawn."] = ""
--- L["Spawn markers for your quests: what they found here (preview: 20 of this zone's quests)"] = ""
+L["Polestar rings"] = "Polestar 圓環"
+L["Vivid"] = "鮮豔"
+L["Colour-blind safe"] = "色盲友善"
+L["Light & night"] = "明亮與夜晚"
+L["Polestar pastels"] = "Polestar 粉彩"
+L["Gives %s"] = "給予 %s"
+L["Drops %s"] = "掉落 %s"
+L["Quest spawns (preview)"] = "任務重生點（預覽）"
+L["Quest spawns"] = "任務重生點"
+L["Spawn markers: preview on. Open the world map on a zone."] = "重生點標記：預覽開啟。在某個地區開啟地圖。"
+L["Spawn markers: preview off, your quest log again."] = "重生點標記：預覽關閉，恢復你的任務日誌。"
+L["Spawn markers are off: Settings, Map pins, Spawn markers."] = "重生點標記已關閉：設定 > 地圖標記 > 重生點標記。"
+L["Spawn markers: %d quests, %d spawns in world positions, %d zone marks on %d maps (%d on map %s), %d markers drawn."] = "重生點標記：%d 個任務，%d 個帶世界座標的重生點，%d 個地區標記分布在 %d 張地圖上（%d 個在地圖 %s 上），已繪製 %d 個標記。"
+L["Spawn markers for your quests: what they found here (preview: 20 of this zone's quests)"] = "任務的重生點標記：在這裡找到的內容（預覽：本地區的 20 個任務）"
 
 -- games/skyjewels/SkyJewels.lua
--- L["Nightbloom Glade"] = ""
--- L["Sunstone Canyon"] = ""
--- L["Frostglass Peaks"] = ""
--- L["Emberforge"] = ""
--- L["Stormspire Isles"] = ""
--- L["Astral Sanctum"] = ""
--- L["Row sweep"] = ""
--- L["Column sweep"] = ""
--- L["Burst"] = ""
--- L["Level %d / %d"] = ""
--- L["Objectives complete"] = ""
--- L["Moves left: %d"] = ""
--- L["Collect %d / %d"] = ""
--- L["Bonuses fired: %d / %d"] = ""
--- L["Out of moves"] = ""
--- L["Congratulations!\nAll %d levels complete!\nThanks for playing!"] = ""
--- L["Level %d complete!"] = ""
--- L["Play again"] = ""
--- L["Next level"] = ""
--- L["Retry level"] = ""
--- L["Line up at least three matching relics."] = ""
--- L["%s activated!"] = ""
--- L["%s created. Swap the marked relic to activate it."] = ""
--- L["Cascade x%d   +%d"] = ""
--- L["No moves left on the board. Relics reshuffled."] = ""
--- L["Sky Jewels paused for combat. Type %s to continue."] = ""
--- L["Swap adjacent relics to line up three."] = ""
--- L["Sound off"] = ""
--- L["Sound on"] = ""
--- L["Score"] = ""
--- L["4 in a line: sweep\n5, T or L: burst\nSwap a bonus to fire it."] = ""
+L["Nightbloom Glade"] = "夜花林地"
+L["Sunstone Canyon"] = "日石峽谷"
+L["Frostglass Peaks"] = "霜晶峰"
+L["Emberforge"] = "餘燼熔爐"
+L["Stormspire Isles"] = "風暴尖塔群島"
+L["Astral Sanctum"] = "星界聖所"
+L["Row sweep"] = "橫排橫掃"
+L["Column sweep"] = "直行橫掃"
+L["Burst"] = "爆炸"
+L["Level %d / %d"] = "關卡 %d / %d"
+L["Objectives complete"] = "目標完成"
+L["Moves left: %d"] = "剩餘步數：%d"
+L["Collect %d / %d"] = "收集 %d / %d"
+L["Bonuses fired: %d / %d"] = "已觸發獎勵：%d / %d"
+L["Out of moves"] = "沒有步數了"
+L["Congratulations!\nAll %d levels complete!\nThanks for playing!"] = "恭喜！\n全部 %d 關完成！\n感謝遊玩！"
+L["Level %d complete!"] = "第 %d 關完成！"
+L["Play again"] = "再玩一次"
+L["Next level"] = "下一關"
+L["Retry level"] = "重玩本關"
+L["Line up at least three matching relics."] = "把至少三個相同的遺物連成一線。"
+L["%s activated!"] = "%s 已觸發！"
+L["%s created. Swap the marked relic to activate it."] = "已產生 %s。交換有標記的遺物來觸發它。"
+L["Cascade x%d   +%d"] = "連鎖 x%d   +%d"
+L["No moves left on the board. Relics reshuffled."] = "棋盤上沒有可走的步了。遺物已重新洗牌。"
+L["Sky Jewels paused for combat. Type %s to continue."] = "Sky Jewels 因戰鬥暫停。輸入 %s 繼續。"
+L["Swap adjacent relics to line up three."] = "交換相鄰的遺物，連成三個一線。"
+L["Sound off"] = "聲音關閉"
+L["Sound on"] = "聲音開啟"
+L["Score"] = "得分"
+L["4 in a line: sweep\n5, T or L: burst\nSwap a bonus to fire it."] = "4 個連線：橫掃\n5 個、T 形或 L 形：爆炸\n交換獎勵即可觸發。"
 
 -- games/tetris/Window.lua
--- L["Score %d\nLines %d\nLevel %d\nBest %d"] = ""
--- L["Game over — New game"] = ""
--- L["Paused — press P or Start"] = ""
--- L["New game"] = ""
--- L["Resume"] = ""
--- L["Polestar Tetris"] = ""
--- L["Hold"] = ""
--- L["Arrows move\nX/Z rotate  |  C hold\nSpace hard drop\nP pause  |  N new game"] = ""
--- L["D-pad move\nA/B rotate  |  Y hold\nX hard drop  |  Start pause"] = ""
+L["Score %d\nLines %d\nLevel %d\nBest %d"] = "得分 %d\n行數 %d\n等級 %d\n最佳 %d"
+L["Game over — New game"] = "遊戲結束 — 新遊戲"
+L["Paused — press P or Start"] = "已暫停 — 按 P 或 Start"
+L["New game"] = "新遊戲"
+L["Resume"] = "繼續"
+L["Polestar Tetris"] = "Polestar Tetris"
+L["Hold"] = "暫存"
+L["Arrows move\nX/Z rotate  |  C hold\nSpace hard drop\nP pause  |  N new game"] = "方向鍵 移動\nX/Z 旋轉  |  C 暫存\n空白鍵 直接落下\nP 暫停  |  N 新遊戲"
+L["D-pad move\nA/B rotate  |  Y hold\nX hard drop  |  Start pause"] = "十字鍵 移動\nA/B 旋轉  |  Y 暫存\nX 直接落下  |  Start 暫停"
 
 -- UI/TabStyles/TabStyles.lua
 L["Open guides"] = "已開啟的指南"
 L["%d of %d"] = "%d / %d"
 
 -- UI/Attunements.lua
--- L["Finish %s"] = ""
--- L["Pick up %s from %s"] = ""
--- L["Pick up %s"] = ""
--- L["Every step, on the dungeon's page"] = ""
--- L["Opens %s"] = ""
--- L["%d of %d steps"] = ""
--- L["Attunements"] = ""
--- L["What lets you into each raid and opens a dungeon's doors, and how far you are"] = ""
--- L["No attunement or key is known for your faction."] = ""
+L["Finish %s"] = "完成 %s"
+L["Pick up %s from %s"] = "從 %2$s 處接取 %1$s"
+L["Pick up %s"] = "接取 %s"
+L["Every step, on the dungeon's page"] = "所有步驟，在地城頁面"
+L["%d of %d steps"] = "%d / %d 步驟"
+L["Attunements"] = "副本鑰匙任務"
+L["What lets you into each raid and opens a dungeon's doors, and how far you are"] = "進入每個團隊副本和開啟地城大門所需的條件，以及你的進度"
+L["No attunement or key is known for your faction."] = "你的陣營沒有已知的副本鑰匙任務或鑰匙。"
 
 -- UI/LayoutCard.lua
--- L["Before Atlas (%s)"] = ""
--- L["New in 0.4.3: the Atlas layout"] = ""
--- L["Try it on your own guide window: each button switches it now, as often as you like."] = ""
--- L["Tabs are off in Settings > Guide window > Parts."] = ""
--- L["Your current setup is saved; you can go back to it any time in Settings > Guide window > Presets."] = ""
--- L["The guide window is hidden: open it to see each choice on your guide."] = ""
--- L["Atlas layout and tab styles by %s"] = ""
--- L["Keep this"] = ""
--- L["(your current)"] = ""
+L["Before Atlas (%s)"] = "Atlas 之前（%s）"
+L["New in 0.4.3: the Atlas layout"] = "0.4.3 新增：Atlas 版面"
+L["Try it on your own guide window: each button switches it now, as often as you like."] = "在你自己的指南視窗上試試：每個按鈕都會立即切換，想切幾次都行。"
+L["Tabs are off in Settings > Guide window > Parts."] = "分頁已在 設定 > 指南視窗 > 部件 中關閉。"
+L["Your current setup is saved; you can go back to it any time in Settings > Guide window > Presets."] = "你目前的設定已儲存；隨時可在 設定 > 指南視窗 > 預設組合 中恢復。"
+L["The guide window is hidden: open it to see each choice on your guide."] = "指南視窗已隱藏：開啟它即可在你的指南上看到每個選項。"
+L["Atlas layout and tab styles by %s"] = "Atlas 版面和分頁樣式由 %s 設計"
+L["Keep this"] = "保留這個"
+L["(your current)"] = "（你目前的）"
 
 -- Quests/KeptFor.lua
--- L["kept for %s"] = ""
--- L["kept"] = ""
--- L["Kept for %s: the route hands it in there."] = ""
+L["kept for %s"] = "保留給 %s"
+L["kept"] = "保留"
+L["Kept for %s: the route hands it in there."] = "保留給 %s：路線會在那裡繳交。"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐頁重新設定 Polestar。每項選擇立即生效。"

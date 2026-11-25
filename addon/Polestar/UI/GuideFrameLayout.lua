@@ -75,6 +75,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		local OT = GF.live and UI.OtherTabCard or nil
 		if OT then
 			local oh = OT.Layout(width, 0)
+			-- A skin may place the card itself (guidePlace "otherTab").
+			local OF = OT.Frame and OT.Frame()
+			if oh > 0 and OF and claimed("otherTab", OF, width, OF:GetHeight()) then oh = 0 end
 			if oh > 0 then
 				local CF = CC and CC.Frame and CC.Frame()
 				if y > 0 and CF and CF:GetParent() == card then
@@ -535,12 +538,16 @@ ns.UI.GuideFrame.Part(function(GF)
 		return top * uiScale / scale - bottom
 	end
 
-	-- The grip sits on the edge that moves: the bottom-right corner, or with Grow
-	-- upward just over the top-right one, clear of the header's menu button.
+	-- The grip sits on the edge that moves while it drags the height (Fixed or
+	-- Automatic): the bottom-right corner, or with Grow upward just over the
+	-- top-right one, clear of the header's menu button. Under Follows the step
+	-- it sets the width alone and keeps the corner, Grow upward or not: over
+	-- the top it was where no one looks for it, and the corner moved the window.
 	function GF.PlaceGrip()
 		local grip = GF.grip
 		if not grip then return end
-		local up = ns.Get("ui.growUp")
+		local mode = ns.Get("ui.heightMode")
+		local up = ns.Get("ui.growUp") and (mode == "fixed" or mode == "auto")
 		grip:ClearAllPoints()
 		grip:SetPoint("BOTTOMRIGHT", F, up and "TOPRIGHT" or "BOTTOMRIGHT", -1, 1)
 		grip.Icon:SetTexCoord(0, 1, up and 1 or 0, up and 0 or 1)
@@ -571,7 +578,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		limitLine:ClearAllPoints()
 		limitLine:SetPoint(up and "BOTTOMLEFT" or "TOPLEFT", F, up and "BOTTOMLEFT" or "TOPLEFT", 0, up and cap or -cap)
 		limitLine:SetPoint(up and "BOTTOMRIGHT" or "TOPRIGHT", F, up and "BOTTOMRIGHT" or "TOPRIGHT", 0, up and cap or -cap)
-		limitLine.Text:SetText(string.format(ns.L["%d px"], floor(cap * F:GetEffectiveScale() + 0.5)))
+		limitLine.Text:SetText(string.format(ns.L["%d px"], floor(cap * Theme.PixelsPerUnit(F) + 0.5)))
 	end
 
 	-- How far a layout's frames reach below the window's bottom edge (Atlas's

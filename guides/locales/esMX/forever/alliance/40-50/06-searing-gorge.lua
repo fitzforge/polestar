@@ -80,7 +80,7 @@ return {
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster
 	["Dark Iron Taskmasters"] = "Capataces Hierro Negro",
 	-- {area:1443} Slag Pit
-	["With your group, look for Taskmasters on the open ledges first. Last stop, if you still need some: take the lift (the scaffold cars) down into the {area:1443} below, where four more stand."] = "",
+	["With your group, look for Taskmasters on the open ledges first. Last stop, if you still need some: take the lift (the scaffold cars) down into the {area:1443} below, where four more stand."] = "Con tu grupo, busca primero capataces en las cornisas abiertas. Última parada, si aún te faltan: baja en el elevador (las vagonetas del andamio) a {area:1443}, donde hay cuatro más.",
 
 	-- Step 22: Dark Iron Slavers
 	-- plural, as words: Dark Iron Slavers = {npc:5844} Dark Iron Slaver

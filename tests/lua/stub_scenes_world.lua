@@ -13,9 +13,24 @@ local world = stub.world
 local S = { took = {}, guid = 0, loot = 0, looted = 0 }
 stub.scenes = S
 
+-- The client's flight map: TaxiFrame and a TaxiButton per node, shown while the map is open (Polestar marks the
+-- route's node on it, QoL/Flight.lua; without it the route says "Route: fly to ..." in chat instead).
+TaxiFrame = TaxiFrame or CreateFrame("Frame", "TaxiFrame", UIParent)
+TaxiFrame:Hide()
+local openTaxi = world.taxi
+function world.taxi(npc, current, others)
+	for i = 1, 1 + #(others or {}) do
+		local b = _G["TaxiButton" .. i] or CreateFrame("Button", "TaxiButton" .. i, TaxiFrame)
+		b:Show()
+	end
+	TaxiFrame:Show()
+	openTaxi(npc, current, others)
+end
+
 function TakeTaxiNode(slot)
 	S.took[#S.took + 1] = slot
 	world.taxiNodes = {}
+	TaxiFrame:Hide()
 	world.close()
 	world.onTaxi = true
 	stub.fire("PLAYER_CONTROL_LOST")
