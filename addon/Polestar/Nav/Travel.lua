@@ -1,5 +1,5 @@
 -- Travel planner: how to get to the target. Dijkstra over
---   walking (straight lines on one continent at run speed, plus walking paths
+--   walking (straight lines on one continent at the character's ground speed, plus walking paths
 --     learned from recordings, which are trusted more than straight lines),
 --   flights between the flight masters this character knows (and out of one
 --     it has not learnt yet on the start's or the target's continent: walked
@@ -72,6 +72,7 @@ local RUN_SPEED = 7          -- yd/s, unmounted run speed
 local MIN_SPEED, MAX_SPEED = 4, 14
 local WALK_DETOUR = 1.25     -- straight lines are not walkable; learned paths are
 Travel.WALK_DETOUR = WALK_DETOUR -- Nav/Walk.lua's floor for the player's measured walk
+Travel.walkSpeed = RUN_SPEED -- the live route's walk speed (Travel.GroundSpeed), set by each plan
 local HEARTH_ITEM = 6948
 -- The Hearthstone's hour-long cooldown is spent once a trip is long enough
 -- for it to clearly pay (Fitz, #1096: hearth a trip over 3 minutes that it
@@ -451,7 +452,7 @@ end
 --       (p.clientZ: the player's height as the client gives it, nil without one: the side of a lift city, Travel.LiftSide)
 --       faction = 1 Alliance | 2 Horde | 0 other,
 --       known = { [taxiNodeID] = true },
---       speed = yd/s,
+--       speed = yd/s: the walks' (Travel.GroundSpeed: mounted, the mount's),
 --       hearth = inn point or nil, hearthName = bind location, noHearth = true: leave it out,
 --       hearthWait = seconds until the Hearthstone is off cooldown (nil: ready),
 --       hearthHeld = true: the live route hearths for this target already (the
@@ -1383,7 +1384,7 @@ local function planBody(p, S)
 		end
 		relax(v, du + cost, tu + secs, WALK)
 	end
-	-- A straight walk from u to v of `s` seconds (yards x1.25 at run speed):
+	-- A straight walk from u to v of `s` seconds (yards x1.25 at p.speed):
 	-- its cost takes the share of its length in zones far above the player,
 	-- x3 dangerous, x20 far above (p.walkDanger, Nav/Danger.lua Danger.Along:
 	-- the zone every 100 yd; the player's and the target's zones never count); its time
@@ -2099,7 +2100,7 @@ local function recordTaxiMap()
 	return added
 end
 
--- The player's run speed for the plan's walks (Compat.GetRunSpeed: never a
+-- The player's run speed now, for the ETA of the walk they are on (Compat.GetRunSpeed: never a
 -- secret value, #2533); the usual run speed while the client does not say.
 local function runSpeed()
 	local fn = ns.Compat and ns.Compat.GetRunSpeed
@@ -2108,6 +2109,19 @@ local function runSpeed()
 	if not ok or type(s) ~= "number" or s < MIN_SPEED then return RUN_SPEED end
 	if s > MAX_SPEED then return MAX_SPEED end
 	return s
+end
+
+-- The speed the plan's walks are timed and weighed at, yd/s (#3913): a character with the riding skill rides them,
+-- at its mount's speed (skill 150 or more: +100%, else +60%; Compat.SKILL_LINES' riding, as ns.CanRide reads it),
+-- so a way with more of them is not dearer than it is; a ghost, an escort and a character without riding run.
+-- Read from the skill, not from whether the player sits on a mount now: the plan holds through mounting up.
+-- (A field, not a local: the file's main chunk keeps clear of Lua 5.1's 200 locals.)
+function Travel.GroundSpeed(onFoot)
+	if onFoot then return RUN_SPEED end
+	local C = ns.Compat
+	local rank = C and C.GetSkillRank and C.GetSkillRank(762)
+	if type(rank) ~= "number" or rank <= 0 then return RUN_SPEED end
+	return RUN_SPEED * (rank >= 150 and 2 or 1.6)
 end
 
 -- Seconds until the Hearthstone is off cooldown (0: ready now; the global
@@ -2414,8 +2428,8 @@ local function retime()
 end
 
 -- Walk legs after the current one take the measure of their engine path once
--- Nav/Walk.lua has searched it (Walk.LegPath): yards along it, seconds at run
--- speed; the rides after them are timed again (retime). Hand-made walks, the
+-- Nav/Walk.lua has searched it (Walk.LegPath): yards along it, seconds at the walk
+-- speed (Travel.walkSpeed); the rides after them are timed again (retime). Hand-made walks, the
 -- pieces of a split walk and the last walk to a target after a guide `goto`
 -- (walked straight from the mouth) keep theirs. -> true when a leg changed.
 local function pricePaths()
@@ -2428,7 +2442,7 @@ local function pricePaths()
 		if leg.kind == "walk" and leg.engine ~= "path" and not leg.handmade and not leg.parent and not (gotoLast and k == #legs) then
 			local yd, hubs = W.LegPath(leg.from, leg.to)
 			if yd then
-				leg.yards, leg.seconds, leg.engine, leg.hubs = floor(yd + 0.5), floor(yd / RUN_SPEED + 0.5), "path", hubs
+				leg.yards, leg.seconds, leg.engine, leg.hubs = floor(yd + 0.5), floor(yd / Travel.walkSpeed + 0.5), "path", hubs
 				changed = true
 			end
 		end
@@ -2557,6 +2571,8 @@ local function plan(target, held)
 	lastHearth = wait == 0
 	questTimed, timedCheck = readTimed(), false
 	local ghost = isGhost()
+	-- The live route's walks: timed at this speed by every later measure of them (pricePaths, SplitWalk).
+	Travel.walkSpeed = Travel.GroundSpeed(ghost or questTimed == "escort")
 	local field = Travel.AtField(target, pc, px, py)
 	local teleports = not ghost and not questTimed and not field and teleportList() or nil
 	-- The bind point: for the Hearthstone, or a teleport there (Astral Recall) without one in the bags.
@@ -2620,10 +2636,10 @@ local function plan(target, held)
 		known = knownNodes(),
 		-- Flight masters the player may have though Polestar doesn't know them (#1795).
 		seen = seenSet(), level = Nav.danger and Nav.danger.Level(), maybe = maybeTaxi,
-		-- Walk edges are priced unmounted: straight lines may cross water, and a
-		-- mount's speed would make swimming a sea look faster than the boat.
-		-- planSpeed (the live speed) only scales the ETA of the current walk.
-		speed = RUN_SPEED,
+		-- Walks at the character's ground speed (Travel.GroundSpeed, #3913): mounted, a way with more walking was
+		-- priced as if run, and lost to one with less by minutes it doesn't take. planSpeed (the live speed) only
+		-- scales the ETA of the current walk.
+		speed = Travel.walkSpeed,
 		hearth = inn,
 		hearthName = bindName,
 		hearthWait = inn and wait and wait > 0 and wait or nil,
@@ -2828,9 +2844,9 @@ function Travel.EstimateKey(from, to, noHearth)
 	local fz = from and from.z or nil
 	if from == nil and Nav.walk and Nav.walk.Floor then fz = Nav.walk.Floor(fc, fwx, fwy) end
 	local offer = from == nil and Travel.taxiOffer
-	local key = not offer and format("%d:%.17g:%.17g:%s>%d:%.17g:%.17g:%s:%d:%d:%d", fc, fwx, fwy, fz and format("%.17g", fz) or "?",
+	local key = not offer and format("%d:%.17g:%.17g:%s>%d:%.17g:%.17g:%s:%d:%d:%d:%g", fc, fwx, fwy, fz and format("%.17g", fz) or "?",
 		tc, twx, twy, to.z and format("%.17g", to.z) or "?", from ~= nil and 0 or ghost and 5 or timed == "escort" and 4 or timed and 3 or noHearth and 2 or 1,
-		D and D.Level() or 0, playerFaction)
+		D and D.Level() or 0, playerFaction, Travel.GroundSpeed(ghost or timed == "escort")) -- the speed: riding learnt since
 	return key, fc, fwx, fwy, tc, twx, twy, timed, ghost, fz, offer
 end
 
@@ -2877,7 +2893,7 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 		faction = playerFaction,
 		known = knownNodes(),
 		seen = seenSet(), level = Nav.danger and Nav.danger.Level(), maybe = maybeTaxi,
-		speed = RUN_SPEED,
+		speed = Travel.GroundSpeed(ghost or timed == "escort"),
 		hearth = inn,
 		hearthName = bindName,
 		hearthWait = inn and wait and wait > 0 and wait or nil,
@@ -3293,7 +3309,7 @@ end
 -- Split the current walk leg to (c, x, y), or the pieces it was split into
 -- before, at `stops` (Nav/Walk.lua Walk.Stops; `total` = yards along the path
 -- from the player to its end). Piece times are whole seconds that add up to
--- the path's time at run speed. With no stops the walk stays one leg and
+-- the path's time at the walk speed. With no stops the walk stays one leg and
 -- takes the path's measure (yards, seconds), its straight estimate kept in
 -- straightYards/straightSeconds for Travel.RestoreWalk (second review).
 -- The detour caption goes on one piece of a split walk (one caption per detour): each town the walk goes round
@@ -3356,7 +3372,7 @@ function Travel.SplitWalk(c, x, y, stops, total, hubs)
 	end
 	if #kept == 0 and not parent then
 		if type(total) ~= "number" or total ~= total or total < 0 or total == huge then return false end
-		local py, ps = floor(total + 0.5), floor(total / RUN_SPEED + 0.5)
+		local py, ps = floor(total + 0.5), floor(total / Travel.walkSpeed + 0.5)
 		if leg.yards == py and leg.seconds == ps and sameHubs(leg.hubs, hubs) then return false end
 		if not leg.straightSeconds then leg.straightYards, leg.straightSeconds = leg.yards, leg.seconds end
 		leg.yards, leg.seconds, leg.hubs = py, ps, hubs
@@ -3369,7 +3385,7 @@ function Travel.SplitWalk(c, x, y, stops, total, hubs)
 	local now = transitNow()
 	for _, s in ipairs(kept) do
 		local at = point(nil, c, s.wx, s.wy)
-		local secs = floor(s.along / RUN_SPEED + 0.5)
+		local secs = floor(s.along / Travel.walkSpeed + 0.5)
 		pieces[#pieces + 1] = {
 			kind = "walk", from = from, to = at, label = stopLabel(s, c), step = s.kind,
 			choke = { kind = s.kind, name = present(s.to) or present(s.name) or stopZone(s, c) },
@@ -3392,7 +3408,7 @@ function Travel.SplitWalk(c, x, y, stops, total, hubs)
 			from = other
 		end
 	end
-	local totalSecs = floor(total / RUN_SPEED + 0.5)
+	local totalSecs = floor(total / Travel.walkSpeed + 0.5)
 	pieces[#pieces + 1] = {
 		kind = "walk", from = from, to = whole.to, label = whole.label, step = whole.step,
 		radius = whole.radius, waypoint = whole.waypoint, via = whole.via, tail = 0, parent = P,
@@ -3507,7 +3523,7 @@ function Travel.NearWalk(along, sx, sy)
 	nearWalk.job = W.Probe(from.c, from.wx, from.wy, tx, ty, tz, function(rest)
 		if nearWalk.target ~= target or nearWalk.ok ~= nil then return end
 		nearWalk.job = nil
-		nearWalk.ok = type(rest) == "number" and along / RUN_SPEED < before + rest / RUN_SPEED
+		nearWalk.ok = type(rest) == "number" and along / Travel.walkSpeed < before + rest / Travel.walkSpeed
 		if nearWalk.ok then Travel.Remeasured() end
 	end, true, from.z)
 	if not nearWalk.job then nearWalk.ok = false end
@@ -3947,7 +3963,7 @@ keepLive = function(old, i, progress, fresh, target, pc, px, py)
 		if along then along = along - (cur.tail or 0) else along = progress end
 	end
 	if not (along and along >= keep.AHEAD) then return false end
-	local left = along / RUN_SPEED + (cur.rest or 0)
+	local left = along / Travel.walkSpeed + (cur.rest or 0)
 	local cost = fresh[1].seconds + (fresh[1].rest or 0)
 	local ways = keep.ways
 	for _, w in ipairs(ways) do

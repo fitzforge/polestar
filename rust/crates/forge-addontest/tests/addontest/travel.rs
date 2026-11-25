@@ -1382,3 +1382,41 @@ fn a_class_flight_node_flies_that_class_alone_with_no_path_learnt() {
 	assert_eq!(out["warrior"], json!(["walk|Kobolds"]));
 	assert!(out["druid"].as_array().unwrap().iter().any(|l| l.as_str().is_some_and(|s| s.starts_with("fly|"))), "{}", out["druid"]);
 }
+
+// The live route's walks are timed at the character's own ground speed (Travel.GroundSpeed): mounted, a way with
+// more riding is no dearer than it is. cjtylr (#3913, Human Hunter 53, Farholde Keep known): from Stormwind's Trade
+// District to Fizzledowser in Gadgetzan the arrow flew to Booty Bay for the boat to Ratchet and the flight on, though
+// on a mount the flight to Farholde Keep, the ride to Powderfuse Port and the boat to Steamwheedle Port is two minutes
+// sooner; every walk was timed as if run.
+#[test]
+fn a_mounted_character_is_routed_by_its_mount_speed_stormwind_to_gadgetzan() {
+	let out = run_real(
+		r#"
+		local N, nav = Polestar.Nav, stub.nav
+		nav.faction, nav.level = "Alliance", 53
+		local flags = Polestar.CharState().flags
+		flags.taxi, flags.taxiSeen = {}, { [0] = true, [1] = true }
+		for _, node in ipairs(N.GetTravelData().taxi) do
+			if not node.class and (node.faction == 1 or node.faction == 3) then flags.taxi[node.id] = true end
+		end
+		-- Fizzledowser (npc 7724) at Tanaris 50.18, 27.49; the player in the Trade District, Stormwind 71.06, 72.50.
+		nav.era[1446] = { c = 1, top = -5875, bottom = -10475, left = -218.75, right = -7118.75 }
+		nav.place(-8835.6, 488.2, 0)
+		function nav.Compat.GetPlayerMapPosition() return 1453, 71.06, 72.5 end
+		local function way(rank)
+			function nav.Compat.GetSkillRank(line) if line == 762 and rank > 0 then return rank, rank end end
+			N.SetTarget(1446, 50.18, 27.49, "Fizzledowser", "e")
+			N.travel.Replan()
+			local out = {}
+			for _, leg in ipairs(N.GetRoute() or {}) do
+				out[#out + 1] = leg.kind .. (leg.kind == "fly" and ">" .. leg.to.id or leg.kind == "boat" and ">" .. leg.transport.id or "")
+			end
+			return table.concat(out, ",")
+		end
+		emit({ foot = way(0), apprentice = way(75), journeyman = way(150) })"#,
+	);
+	assert_eq!(out["foot"], "walk,fly>19,walk,boat>boat-bootybay-ratchet,walk,fly>39,walk", "on foot, as before: {out}");
+	for k in ["apprentice", "journeyman"] {
+		assert_eq!(out[k], "walk,fly>3276,walk,boat>boat-tanaris-powderfuse,walk", "{k}: by Farholde Keep: {out}");
+	}
+}
