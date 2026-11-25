@@ -19751,3 +19751,15 @@ test(`${STONETALON_HORDE}: ItsSaulx's report: A Void Path leads the arrow to the
 	assert.ok(located(complete), 'the complete has a place for the arrow');
 	assert.ok(yards(complete.goal, turnin.goal) < 15, `it is the road where the eye is handed in (${complete.goal.x},${complete.goal.y})`);
 });
+
+// #4013 (asdmasa, 0.4.2.2): a Horde player without Gol'dir (503: its feeder The Rescue comes from the Hillsbrad
+// guide) walked from Tarren Mill to Strahnbrad for a stop hidden from him, while the Bracers of Binding are at the
+// Dalaran ruins. The walk to Gol'dir is for whoever carries the quest, as the stop is (guide-fixes 4013).
+test("forever/horde/30-40/05-arathi-highlands.guide: asdmasa's report: the walk to Gol'dir is only for Gol'dir's carriers (#4013)", { skip }, () => {
+	const list = goals('forever/horde/30-40/05-arathi-highlands.guide');
+	const goldir = list[at(list, 'turnin 503 (Gol\'dir)', is('turnin', 503))];
+	const steps = compiled('forever/horde/30-40/05-arathi-highlands.guide').steps;
+	const walk = steps[steps.indexOf(goldir.step) - 1];
+	assert.ok(walk.goals.length && walk.goals.every((g) => g.t === 'goto'), `the step before Gol'dir is the walk there (${walk.title})`);
+	assert.ok(holdsQuest(walk, 503), 'the walk shows only with Gol\'dir in the log');
+});
