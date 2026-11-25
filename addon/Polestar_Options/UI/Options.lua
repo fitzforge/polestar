@@ -562,6 +562,8 @@ for _, list in ipairs({
 	declare(QOL, "qualityoflife", "qol-toggles", 50, L["Small conveniences: questing, travel, invitations, merchants, bags and trackers."], {
 		-- References to conveniences whose home is Questing: players look for them here (Fitz, 2026-11-05).
 		{ L["Quests"], { L["Faster questing"], L["Rewards, buttons and tracker"] } },
+		-- References to every setting that adds a line to a game tooltip (QoL/Options.lua), each linking home.
+		{ L["Tooltips"], { L["Quests"], L["Items"], L["Mounts"], L["Talents"] } },
 		{ L["Vendors"], { L["Merchants"], L["Restock"], L["Bags"] } },
 		{ L["Travel"], { L["Flights"], L["Death"], L["Hearth and travel"] } },
 		-- What changes as you level: the XP bar's marks, the XP tracker (its switch in its card's header), the

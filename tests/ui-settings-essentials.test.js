@@ -232,6 +232,46 @@ test('an Essentials row keeps the whole column for its label, the path to its ho
 	}
 });
 
+test('Quality of Life has a Tooltips row in the sidebar: every tooltip setting, each linking home', () => {
+	const [out] = run(`
+		Polestar.UI.ShowOptions()
+		O.Select("qualityoflife")
+		local rows = {}
+		for _, it in ipairs(G.NavItems()) do
+			if it.indent and it.key:sub(1, 2) == "t:" and it.key:find("^t:qualityoflife") then rows[#rows + 1] = it.label end
+		end
+		O.Select("qualityoflife", L["Tooltips"])
+		local _, t = G.Current()
+		local cards, links, children = {}, {}, {}
+		for _, sec in ipairs(t.sections) do
+			local keys = {}
+			for _, c in ipairs(sec.controls) do
+				if K.available(c) then
+					keys[#keys + 1] = c.key
+					local row = O.view.cache[c]
+					local link = row and rawget(row, "psAfter")
+					links[c.key] = link and link:IsShown() and link.Label:GetText() or false
+					if rawget(c, "child") then children[#children + 1] = c.key end
+				end
+			end
+			if #keys > 0 then cards[#cards + 1] = { name = sec.name, keys = keys } end
+		end
+		emit({ rows = rows, tab = t.name, cards = cards, links = links, children = children })`);
+	const at = out.rows.indexOf('Tooltips');
+	assert.ok(at > 0, out.rows.join(', '));
+	assert.equal(out.rows[at - 1], 'Quests', 'Tooltips right after Quests');
+	assert.equal(out.tab, 'Tooltips');
+	assert.deepEqual(out.cards, [
+		{ name: 'Quests', keys: ['qol.questTooltips', 'qol.questDropChance', 'qol.questTooltipsNpc', 'qol.questTooltipsReplace'] },
+		{ name: 'Items', keys: ['gear.tooltip', 'gear.pickTooltip', 'lookup.tooltip', 'qol.itemMarks'] },
+		{ name: 'Mounts', keys: ['lookup.mounts'] },
+	]);
+	assert.deepEqual(out.children, ['qol.questDropChance', 'qol.questTooltipsNpc', 'qol.questTooltipsReplace'], 'the quest options under Quest tooltips');
+	assert.equal(out.links['qol.questTooltips'], 'Questing \u203a Quests');
+	assert.equal(out.links['gear.tooltip'], 'Questing \u203a Rewards & gear');
+	assert.equal(out.links['qol.itemMarks'], 'Vendors');
+});
+
 test('LB / RB step on from Essentials after the tab is built again', () => {
 	const [out] = run(`
 		Polestar.UI.ShowOptions()

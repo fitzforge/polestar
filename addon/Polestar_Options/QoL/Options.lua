@@ -262,6 +262,22 @@ register(QOL, L["Quests"], L["Rewards, buttons and tracker"], {
 	Ref("toggle", "qol.questLoot", { child = true }), Ref("toggle", "qol.stepInteract"), Ref("toggle", "qol.instanceTrack"),
 })
 
+-- Tooltips: a reference to every setting that adds a line to a game tooltip,
+-- by what the tooltip is of, each with the link to its home (`essentials`,
+-- UI/Essentials.lua). A reference with no home registered is left out (the
+-- talent plan while it is coming soon; Questie's lines without Questie).
+do
+	local Ref = ns.Widgets.Ref
+	local function ref(key, child) return Ref("toggle", key, { essentials = true, child = child or nil }) end
+	register(QOL, L["Tooltips"], L["Quests"], {
+		ref("qol.questTooltips"), ref("qol.questDropChance", true), ref("qol.questTooltipsNpc", true),
+		ref("qol.questTooltipsReplace", true), ref("qol.questTooltipsQuestie", true),
+	})
+	register(QOL, L["Tooltips"], L["Items"], { ref("gear.tooltip"), ref("gear.pickTooltip"), ref("lookup.tooltip"), ref("qol.itemMarks") })
+	register(QOL, L["Tooltips"], L["Mounts"], { ref("lookup.mounts") })
+	register(QOL, L["Tooltips"], L["Talents"], { ref("talents.tooltip") })
+end
+
 -- Flight masters, after the flight timer (Maps/Options.lua). The route's
 -- mark and its auto-take only follow the guide: Guide > Arrow & routes.
 register(QOL, L["Travel"], L["Flights"], {

@@ -116,6 +116,8 @@ test('the homes match the review', () => {
 const REFS = [
 	'qualityoflife > Quests > Faster questing: behavior.autoAccept',
 	'qualityoflife > Quests > Rewards, buttons and tracker: qol.itemButton',
+	'qualityoflife > Tooltips > Quests: qol.questTooltips',
+	'qualityoflife > Tooltips > Items: gear.tooltip',
 	'questing > Quests > Faster questing: qol.instantQuestText',
 	'questing > Quests > Quest log: qol.hideQuestTracker',
 	'questing > Quests > Faster questing: qol.fastLoot',
@@ -323,7 +325,7 @@ test('pages and sections follow the player journey order', () => {
 	assert.deepEqual(sectionsOf(out, 'questing', 'Group'), ['Group', 'Party chat']);
 
 	// By name: pr/settings-essentials puts an Essentials tab before them.
-	assert.deepEqual(tabsOf(out, 'qualityoflife').filter((n) => n !== 'Essentials'), ['Quests', 'Vendors', 'Travel', 'Leveling', 'Social', 'Game']);
+	assert.deepEqual(tabsOf(out, 'qualityoflife').filter((n) => n !== 'Essentials'), ['Quests', 'Tooltips', 'Vendors', 'Travel', 'Leveling', 'Social', 'Game']);
 	assert.deepEqual(sectionsOf(out, 'qualityoflife', 'Quests'), ['Faster questing', 'Rewards, buttons and tracker']);
 	assert.deepEqual(sectionsOf(out, 'qualityoflife', 'Vendors'), ['Merchants', 'Restock', 'Bags']);
 	assert.deepEqual(sectionsOf(out, 'qualityoflife', 'Travel'), ['Flights', 'Death', 'Hearth and travel']);

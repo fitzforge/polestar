@@ -1445,8 +1445,8 @@ local function tabView(p, t)
 	local refresh = v.Refresh
 	v.Refresh = function()
 		v.psReveal = B.reveal
-		-- An Essentials row's link to its home, in its row before the layout.
-		if rawget(t, "psEssentials") and G.EssentialsLinks then G.EssentialsLinks(v, t) end
+		-- A reference's link to its home (an Essentials row, a Tooltips row), in its row before the layout.
+		if G.EssentialsLinks then G.EssentialsLinks(v, t) end
 		for _, sec in ipairs(t.sections) do
 			local tg = sec.toggle
 			if tg and tg.key then B.depKeys[tg.key] = true end
