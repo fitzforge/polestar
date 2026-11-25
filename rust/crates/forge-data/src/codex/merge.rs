@@ -2781,6 +2781,38 @@ mod tests {
 		assert!(q.get("how").as_str().is_some_and(|h| h.contains("Makeshift Bandages")), "{:?}", q.get("how"));
 	}
 
+	// #4046 (Soffish): Get the Scoop's "Plucky" Johnson is a chicken until a /beckon turns him human, and Lookup's
+	// Scarlet Monastery pick-up list only said to talk to him. The shipped public mechanics give the quest its how,
+	// which Lookup's step note leads with.
+	#[test]
+	fn get_the_scoop_says_to_beckon_plucky_from_the_shipped_public_mechanics_4046() {
+		let public = include_str!("../../../../../data/mechanics-public.json");
+		let quests = r#"{ "1950": { "id": 1950, "title": "Get the Scoop", "objectives": [{ "type": "talk", "id": 6626, "count": 1, "text": "\"Plucky\" Johnson" }] } }"#;
+		let mut i = inputs(quests, public);
+		i.mechanics_public = parse_json(public).unwrap();
+		let codex = merge_codex(&i);
+		assert!(codex.quests.get("1950").get("how").as_str().is_some_and(|h| h.contains("/beckon")), "{:?}", codex.quests.get("1950").get("how"));
+	}
+
+	// #4046's check: a quest done with an emote (a step of the merged mechanics, data/forever/mechanics.json, with
+	// action `emote`) has the emote in our public words too, or Lookup's steps for it never say it: the private
+	// layers' text never ships. Needs the built data; skipped without it.
+	#[test]
+	fn every_quest_done_with_an_emote_says_it_in_the_public_mechanics_4046() {
+		let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../..");
+		let Ok(text) = std::fs::read_to_string(root.join("data/forever/mechanics.json")) else {
+			eprintln!("skipped: data/forever not built");
+			return;
+		};
+		let merged = parse_json(&text).unwrap();
+		let public = parse_json(include_str!("../../../../../data/mechanics-public.json")).unwrap();
+		let emote = |e: &V| e.get("steps").items().iter().any(|s| s.get("action").as_str() == Some("emote"));
+		let quests = merged.get("quests");
+		let quests = if quests.as_obj().is_some() { quests } else { merged };
+		let missing: Vec<String> = quests.entries().into_iter().filter(|(id, e)| emote(e) && !emote(&public.get("quests").get(id))).map(|(id, _)| id.to_string()).collect();
+		assert!(missing.is_empty(), "quests done with an emote that data/mechanics-public.json does not explain: {missing:?}");
+	}
+
 	// A herb, an ore vein or a fishing pool is never a treasure, whatever else gave it the chest role: Copper Vein
 	// (1731) and Forever's Briarthorn (657385) got it from players' loot windows the Recorder did not see as a
 	// gather, and the Rares window and the world map listed them as treasures.
