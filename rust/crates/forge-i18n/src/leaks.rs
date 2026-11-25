@@ -842,13 +842,22 @@ impl DataNames {
 				}
 			}
 		} else if kind == "objective" {
-			// The event objectives' lines (no id: what Dungeons.ObjectiveText falls back to).
+			// The lines the page shows as events (no id: what Dungeons.ObjectiveText falls back to): events, those
+			// with no id, and a talk whose text is not its NPC's name (codex/journal.rs, #3426).
+			let npcs = self.table("npc");
 			for (id, q) in doc.entries() {
 				let lines: Vec<String> = q
 					.get("objectives")
 					.items()
 					.iter()
-					.filter(|o| (o.get("type").as_str() == Some("event") || !o.get("id").truthy()) && o.get("text").truthy())
+					.filter(|o| {
+						let text = o.get("text");
+						let npc = npcs.get(&o.get("id").to_js_string());
+						text.truthy()
+							&& (o.get("type").as_str() == Some("event")
+								|| !o.get("id").truthy()
+								|| (o.get("type").as_str() == Some("talk") && npc.truthy() && npc.as_str() != text.as_str()))
+					})
 					.map(|o| o.get("text").to_js_string())
 					.collect();
 				if !lines.is_empty() {
