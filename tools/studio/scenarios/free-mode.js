@@ -18,10 +18,13 @@ const LOOKS = { polestar: ['polestar', null], halo: ['halo', null] };
 for (const [name, look] of Object.entries(skins.SKINS)) if (!look[2]) LOOKS[name] = look;
 const SCALES = ['0.64', '1.0', '1.5'];
 
+// The UI scale: UIParent at that scale, its size in UI units the screen's 1920 x 1080 over it, and the guide
+// window at the same place on screen at every scale (its saved place is in UI units).
 const SCALE = (scale) => `local s = ${scale}
 UIParent:SetScale(s)
 function UIParent:GetWidth() return 1920 / s end
-function UIParent:GetHeight() return 1080 / s end`;
+function UIParent:GetHeight() return 1080 / s end
+Polestar.Set("ui.pos", { 1300 / s, 900 / s })`;
 
 const LOG = `local w = stub.world
 w.accept(12, { { text = "Defias Trapper slain: 6/15", required = 15, fulfilled = 6 }, { text = "Defias Smuggler slain: 2/15", required = 15, fulfilled = 2 } }, "The People's Militia")
