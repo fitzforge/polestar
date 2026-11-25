@@ -249,7 +249,7 @@ them are keyed by step position: `stepKeys` (a hash per step of its verbs and
 ids) lets a pack update carry them to the steps it kept (see "Placement"),
 and, for a step it changed, to the step that has the same goal now: the
 changed step's goals come from `ns.LegacySteps` (Core/LegacySteps.lua,
-written by `forge guide legacy-steps` from earlier releases' guides), so a
+written by `forge guide legacy-steps` from the guides earlier releases shipped), so a
 check-off goes to the goal with the same verb and quest (or item, landing),
 a skip and the saved view to the step sharing most of its quest goals
 (`Own.remap`, `Own.legacyMaps`). The save's keys are those of the steps as
