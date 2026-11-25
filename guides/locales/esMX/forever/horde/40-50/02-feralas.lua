@@ -98,7 +98,6 @@ return {
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "{npc:2491} y {npc:2486}",
 	-- {area:35} Booty Bay · {npc:2491} Whiskey Slim
-	-- was: ["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "¿Tenías menos de 40 en tu primera visita a {area:35}? {npc:2491}, en la posada, {npc:2486}, al lado, y MacKinley \"Lobo de Mar\", en el piso superior, tienen sus misiones para ti ahora."
 	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "¿Por debajo de 40 en tu primera visita a {area:35}? {npc:2491}, en la posada, y MacKinley «Lobo de Mar», en el piso de arriba, ya tienen misiones para ti.",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}, en la posada: sus botellas llegan a la costa de {zone:1425}, alrededor del nivel 48",
