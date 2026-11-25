@@ -939,6 +939,11 @@ end
 -- (Own.coming), a mark that goes the moment the parent is taken, or one of
 -- its breadcrumbs is in the log and the route does not hand it in
 -- (Own.crumbHeld), a mark that goes the moment it is handed in.
+-- A `turnin ... direct` is its own accept for all of these: Zamek offers
+-- Zamek's Distraction (1191) only while Keeping Pace (1190, its `parent`) is
+-- in the log, so with Keeping Pace's accept passed for a missing News for
+-- Fizzle the hand-in is passed too (#4124), and once Keeping Pace is handed
+-- in it is closed.
 -- `depth`: how far Own.coming has followed a chain of prerequisites.
 local function unavailableFor(goal, depth)
 	local q = goal.quest
@@ -954,7 +959,8 @@ local function unavailableFor(goal, depth)
 	if Own.questSkipped(q) and not questDone(q) then return Own.skipMark(goal) end
 	local C = Compat()
 	if C.IsOnQuest(q) or questDone(q) then return nil end
-	local own = goal.t == "accept"
+	-- The goal that carries the quest's gates: an accept, or a direct hand-in (no accept of its own).
+	local own = goal.t == "accept" or goal.direct
 	local list = not own and guide and layoutOf(guide).accepts[q] or NONE
 	for i = 1, own and 1 or #list do
 		local a = own and goal or list[i].goal
@@ -978,9 +984,8 @@ local function unavailableFor(goal, depth)
 	end
 	if u or Own.offered[q] then return u end
 	local level = player and player.level
-	local levelOwn = own or goal.direct
-	for i = 1, level and (levelOwn and 1 or #list) or 0 do
-		local a = levelOwn and goal or list[i].goal
+	for i = 1, level and (own and 1 or #list) or 0 do
+		local a = own and goal or list[i].goal
 		local lvl = tonumber(a.minLevel)
 		if lvl and level < lvl then
 			local m = Own.levelMarks[a]
