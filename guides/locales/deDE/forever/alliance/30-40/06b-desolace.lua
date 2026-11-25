@@ -26,15 +26,15 @@ return {
 
 	-- Step 4: Nijel's Point
 	-- {npc:5638} Kreldig Ungor · {zone:1443} Desolace · {npc:11863} Azore Aldamort
-	["{npc:5638}, if the first {zone:1443} visit didn't take it: the wreck lies below {npc:11863}'s tower"] = "",
+	["{npc:5638}, if the first {zone:1443} visit didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}, falls der erste {zone:1443}-Besuch es nicht mitgenommen hat: das Wrack liegt unterhalb von {npc:11863}'s Turm",
 	-- {npc:5396} Captain Pentigast · {zone:1443} Desolace
-	["{npc:5396}, if the first {zone:1443} visit didn't give it"] = "",
+	["{npc:5396}, if the first {zone:1443} visit didn't give it"] = "{npc:5396}, falls der erste {zone:1443}-Besuch es nicht mitgenommen hat",
 
 	-- Step 5: Bibbly F'utzbuckle
 	-- {area:2407} Kormek's Hut
 	["Follow the road south to {area:2407}."] = "Folge der Straße nach Süden zu {area:2407}.",
 	-- {npc:11438} Bibbly F'utzbuckle · {zone:1443} Desolace
-	["{npc:11438}, if the first {zone:1443} visit didn't give it"] = "",
+	["{npc:11438}, if the first {zone:1443} visit didn't give it"] = "{npc:11438}, falls der erste {zone:1443}-Besuch es nicht mitgenommen hat",
 
 	-- Step 6: Kodo Graveyard
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones
@@ -47,9 +47,9 @@ return {
 
 	-- Step 8: Flesh Picker
 	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
-	["A {npc:217590} crawls about the {area:596}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "",
+	["A {npc:217590} crawls about the {area:596}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "Ein {npc:217590} kriecht um das {area:596}: öffne {npc:217412}'s {item:213565} und benutze dessen {item:213562} auf einen. Töte ihn nicht.",
 	-- {item:213562} Bug Catching Net · {npc:217590} Flesh Picker · {item:213567} Flesh Picker Specimen
-	["{item:213562}, on a {npc:217590}: the {item:213567}"] = "",
+	["{item:213562}, on a {npc:217590}: the {item:213567}"] = "{item:213562}, auf einem {npc:217590}: das {item:213567}",
 
 	-- Step 9: Maraudine centaurs
 	["Maraudine centaurs"] = "Zentauren der Maraudine",
@@ -92,9 +92,9 @@ return {
 
 	-- Step 17: Azore Aldamort
 	-- {npc:11863} Azore Aldamort · {area:2405} Ethel Rethor · {zone:1443} Desolace
-	["{npc:11863}'s tower stands on the hill at the ruins of {area:2405}, west across the north of {zone:1443}."] = "",
+	["{npc:11863}'s tower stands on the hill at the ruins of {area:2405}, west across the north of {zone:1443}."] = "{npc:11863}'s Turm steht auf dem Hügel bei den Ruinen von {area:2405}, westwärts über dem Norden von {zone:1443}.",
 	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
-	["{npc:11863}, if the first {zone:1443} visit didn't take the sceptre back to him"] = "",
+	["{npc:11863}, if the first {zone:1443} visit didn't take the sceptre back to him"] = "{npc:11863}, falls der erste {zone:1443}-Besuch das Retrospective nicht zurückzu dem geholt hat",
 
 	-- Step 18: Azore Aldamort
 	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
@@ -102,7 +102,7 @@ return {
 	-- {npc:11863} Azore Aldamort · {quest:93464} The Visiting Mage · {zone:1435} Swamp of Sorrows
 	["{npc:11863}: {quest:93464}, from Magtoor in the {zone:1435}"] = "{npc:11863}: {quest:93464}, von Magtoor in den {zone:1435}",
 	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
-	["{npc:11863}, if the first {zone:1443} visit didn't give it"] = "",
+	["{npc:11863}, if the first {zone:1443} visit didn't give it"] = "{npc:11863}, falls der erste {zone:1443}-Besuch es nicht mitgenommen hat",
 
 	-- Step 19: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
@@ -112,7 +112,7 @@ return {
 	-- {object:177787} Rackmore's Log · {object:35251} Karnitol's Chest · {zone:1443} Desolace
 	["{object:177787} lies beside {object:35251}, if you didn't take it on your first {zone:1443} visit. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787} liegt neben {object:35251}, falls du es nicht bei deinem ersten Besuch in {zone:1443} mitgenommen hast. Sein silberner Schlüssel wird von den Trockenschnappkrebsen rund um das Wrack fallen gelassen; der goldene stammt von den Naga der Schlitterklingen an der Nordwestküste, als Nächstes.",
 	-- {object:177787} Rackmore's Log · {zone:1443} Desolace
-	["{object:177787}, if the first {zone:1443} visit didn't take it"] = "",
+	["{object:177787}, if the first {zone:1443} visit didn't take it"] = "{object:177787}, falls der erste {zone:1443}-Besuch es nicht mitgenommen hat",
 	["Underwater"] = "Unter Wasser",
 
 	-- Step 21: Sar'theris Strand: kill these as you meet them

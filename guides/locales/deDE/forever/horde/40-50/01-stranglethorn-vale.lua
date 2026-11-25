@@ -14,9 +14,9 @@ return {
 
 	-- Step 2: Genavie Callow
 	-- {npc:4486} Genavie Callow · {zone:1417} Arathi Highlands
-	["{npc:4486} stands beside the flight master you land at: the Dabyrie heads from the {zone:1417}."] = "",
+	["{npc:4486} stands beside the flight master you land at: the Dabyrie heads from the {zone:1417}."] = "{npc:4486} steht neben dem Flugmeister, an dem du landest: die Dabyrie-Mann. von {zone:1417}.",
 	-- {npc:4486} Genavie Callow
-	["{npc:4486}, beside the flight master"] = "",
+	["{npc:4486}, beside the flight master"] = "{npc:4486}, neben dem Flugmeister",
 
 	-- Step 3: Undercity trainers
 	-- {zone:1458} Undercity
@@ -45,11 +45,11 @@ return {
 	-- {npc:2519} Kin'weelay · {npc:1061} Gan'zulah
 	["{npc:2519}: the legend lies in Zul'Kunda, where this guide goes for {npc:1061}"] = "{npc:2519}: die Legende liegt in Zul'Kunda, wohin dieser Guide für {npc:1061} geht",
 	-- {object:2076} Bubbling Cauldron · {npc:2519} Kin'weelay · {quest:1261} Marg Speaks · {npc:4791} Nazeer Bloodpike · {area:496} Brackenwall Village
-	["the {object:2076} beside {npc:2519}: {quest:1261}, for {npc:4791} in {area:496} on the Dustwallow guide, where the crabs drop the pendant"] = "",
+	["the {object:2076} beside {npc:2519}: {quest:1261}, for {npc:4791} in {area:496} on the Dustwallow guide, where the crabs drop the pendant"] = "das {object:2076} neben {npc:2519}: {quest:1261}, für {npc:4791} in {area:496} im Dustwallow-Guide, wo die Krabben das Anhängsel fallen",
 	-- {npc:2519} Kin'weelay · {quest:598} Split Bone Necklace
-	["{npc:2519}: {quest:598}, the trophy skulls stand in the Skullsplitter ruins, on this guide's second loop"] = "",
+	["{npc:2519}: {quest:598}, the trophy skulls stand in the Skullsplitter ruins, on this guide's second loop"] = "{npc:2519}: {quest:598}, die Trophy-Skelette stehen im Skullsplitter-Grab, im zweiten Loop dieses Guides",
 	-- {npc:2497} Nimboya · {quest:2932} Grim Message · {zone:1425} Hinterlands
-	["{npc:2497}: {quest:2932}, for the {zone:1425}, around level 48"] = "",
+	["{npc:2497}: {quest:2932}, for the {zone:1425}, around level 48"] = "{npc:2497}: {quest:2932}, für das {zone:1425}, um ungefähr Stufe 48",
 
 	-- Step 8: Jungle Stalkers
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
@@ -66,7 +66,7 @@ return {
 
 	-- Step 11: Drizzlik
 	-- {npc:2495} Drizzlik
-	["{npc:2495}'s shop is in the building east of the inn."] = "",
+	["{npc:2495}'s shop is in the building east of the inn."] = "{npc:2495} hat seinen Laden im Gebäude östlich des Gasthauses.",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}: the Snapjaw skins gathered earlier; inside"] = "{npc:2495}: die zuvor gesammelten Snapjaw-Häute; drinnen",
 
@@ -78,10 +78,10 @@ return {
 
 	-- Step 13: Kebok
 	-- {npc:737} Kebok
-	["{npc:737} stands upstairs, beside the flight master."] = "",
+	["{npc:737} stands upstairs, beside the flight master."] = "{npc:737} steht oben, neben dem Flugmeister.",
 	-- {npc:737} Kebok
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
-	["{npc:737}: the Tumbled Crystals from the earlier Stranglethorn guide"] = "",
+	["{npc:737}: the Tumbled Crystals from the earlier Stranglethorn guide"] = "{npc:737}: die Tumbled Crystals von den früheren Stranglethorn-Guides",
 
 	-- Step 14: Kebok
 	-- {npc:737} Kebok
@@ -98,7 +98,7 @@ return {
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, on the balcony beside MacKinley"] = "{npc:2496}, auf dem Balkon neben MacKinley",
 	-- {npc:2496} Baron Revilgaz · {area:37} Lake Nazferiti
-	["{npc:2496}: Cozzle's footlocker is in his house by {area:37}, on your way north to Nesingwary"] = "",
+	["{npc:2496}: Cozzle's footlocker is in his house by {area:37}, on your way north to Nesingwary"] = "{npc:2496}: Cozzles Schublade ist in seinem Haus bei {area:37}, auf deinem Weg nach Norden zu Nesingwary",
 	["Inside"] = "Drinnen",
 
 	-- Step 16: Bloodsail Correspondence
@@ -112,14 +112,14 @@ return {
 	-- was: ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "Die Gorillas streifen durch das Tal um Unbagwa. Die Alten lassen die Innereien fallen; jeder von ihnen kann einen Reißzahn fallen lassen: Behalte zehn für Unbagwa, dessen Mokk (44) auf deinen Stranglethorn-Besuch mit etwa 45 wartet.\nVorsicht: Die Alten Nebeltalgorillas (40-41) stehen im Tal dicht beieinander: Zieh sie einzeln."
 	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: if you will take {quest:348} with a group, keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "",
 	-- {quest:348} Stranglethorn Fever
-	["Keep fangs from these same elders for Unbagwa ({quest:348}, with a group)."] = "",
+	["Keep fangs from these same elders for Unbagwa ({quest:348}, with a group)."] = "Behalte Zähne von diesen gleichen Ältesten für Unbagwa ({quest:348}, mit einer Gruppe).",
 
 	-- Step 19: Mistvale giblets
-	["Mistvale giblets"] = "",
+	["Mistvale giblets"] = "Mistvale-Innereien",
 
 	-- Step 20: Mistvale gorillas at 39
-	["Mistvale gorillas at 39"] = "",
-	["Look for lone level 40 elders in this same camp for the sinew and giblets. Leave level 41 gorillas alone; don't stay just for extra fangs."] = "",
+	["Mistvale gorillas at 39"] = "Mistvale-Gorillas um 39",
+	["Look for lone level 40 elders in this same camp for the sinew and giblets. Leave level 41 gorillas alone; don't stay just for extra fangs."] = "Suche einzelne Level-40-Älter in diesemselben Lager für Sehnung und Innereien. Lass Level-41-Gorillas allein; bleibe nicht nur extra für Zähne.",
 
 	-- Step 21: Venture Co. mine
 	["Venture Co. mine"] = "Mine der Venture Co.",
@@ -142,12 +142,12 @@ return {
 
 	-- Step 25: Foreman Cozzle's house
 	-- {npc:4723} Foreman Cozzle
-	["{npc:4723}'s house"] = "",
+	["{npc:4723}'s house"] = "Das Haus von {npc:4723}",
 	-- {npc:4723} Foreman Cozzle · {area:37} Lake Nazferiti
 	-- plural, as words: Venture Co. Agents = {npc:260429} Venture Co. Agent
-	["On the way north, a short way east of the road: {npc:4723}'s house stands on the north shore of {area:37}. {npc:4723} (38) carries the key to his footlocker, inside the house; the Venture Co. Agents (39) stand in and around it: pull them one at a time. Then on north-west to Nesingwary's camp."] = "",
+	["On the way north, a short way east of the road: {npc:4723}'s house stands on the north shore of {area:37}. {npc:4723} (38) carries the key to his footlocker, inside the house; the Venture Co. Agents (39) stand in and around it: pull them one at a time. Then on north-west to Nesingwary's camp."] = "Auf dem Weg nach Norden, kurz östlich der Straße: das Haus von {npc:4723} steht am nördlichen Ufer von {area:37}. {npc:4723} (38) trägt der Schlüssel zum Schubfach, im Haus; die Unternehmer-Agenten (39) stehen drin und drumherum: jaged sie eine nach der anderen. Dann nordwestlich zu Nesingwarys Lager.",
 	-- {object:20691} Cozzle's Footlocker
-	["{object:20691}, inside the house"] = "",
+	["{object:20691}, inside the house"] = "{object:20691}, im Haus",
 
 	-- Step 26: Nesingwary's camp
 	["Nesingwary's camp"] = "Lager von Nesingwary",
@@ -195,7 +195,7 @@ return {
 	-- {object:2076} Bubbling Cauldron · {npc:2497} Nimboya
 	["the {object:2076}, beside {npc:2497}"] = "{object:2076}, neben {npc:2497}",
 	-- {npc:2519} Kin'weelay
-	["{npc:2519}, if you didn't take it on the first stop: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "",
+	["{npc:2519}, if you didn't take it on the first stop: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "{npc:2519}, falls du es beim ersten Stop nicht genommen hast: die Trophy-Skelette stehen im Skullsplitter-Ruins, später in diesem Loop",
 	-- {npc:2519} Kin'weelay · {area:104} Vile Reef
 	["{npc:2519}: the cavern entrance under the {area:104}, west of the camp"] = "{npc:2519}: der Höhleneingang unter dem {area:104}, westlich des Lagers",
 
@@ -225,8 +225,7 @@ return {
 
 	-- Step 43: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1458} Undercity · {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {zone:1444} Feralas · {zone:1446} Tanaris
-	-- was: ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {area:1497}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1435} guide passes the {area:1497} again at about 47."] = "Reiten erfordert Stufe 40 und kostet 100 Gold; beim Erlernen bekommst du ein Reittier, und ohne eines ist der Weg durch {zone:2548} nach dem Schlingendorntal lang. Nimm den Zeppelin vom Turm in {object:3202} zu den Türmen von {area:1497}: {npc:4773} lehrt die Verlassenen in {area:159}, einen kurzen Ritt nördlich, mit den Skelettpferden von {npc:4731} (je 20 Gold). Dann mit dem Zeppelin zurück nach {object:3202}. Zu wenig Gold? Überspring diesen Schritt: Der Guide für {zone:1435} führt dich mit etwa 47 erneut durch {area:1497}."
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {zone:1458}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} & {zone:1446} guide passes the {zone:1458} again at about 45."] = "",
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {zone:1458}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} & {zone:1446} guide passes the {zone:1458} again at about 45."] = "Fahren braucht Level 40 und kostet 100 Gold; lernen macht dir ein Reittier, und die {zone:2548} nach Stranglethorn sind ohne eins ein langer Weg. Nimm den Zeppelin von dem Turm von {object:3202} zum {zone:1458}: {npc:4773} lehrt die Forsaken in {area:159}, eine kurze Nordfahrt, mit den Knochengeschossen der Skelettpferde ({npc:4731}, 20 Gold pro Stück). Dann fliege den Zeppelin zurück zu {object:3202}. Knapp Gold? Überspringe diesen Schritt: der {zone:1444}- & {zone:1446}-Guide passiert {zone:1458} um ungefähr 45 wieder.",
 
 	-- Step 44: Your mount at 40
 	["Your mount at 40"] = "Dein Reittier mit 40",
@@ -252,9 +251,9 @@ return {
 	-- {area:35} Booty Bay
 	["Head south to {area:35}. Shaky Phillipe waits on the docks."] = "Geh nach Süden nach {area:35}. Shaky Phillipe wartet an den Docks.",
 	-- {npc:2496} Baron Revilgaz
-	["{npc:2496}, on the balcony"] = "",
+	["{npc:2496}, on the balcony"] = "{npc:2496}, auf dem Balkon",
 	-- {npc:2496} Baron Revilgaz · {area:2240} Mirage Raceway · {zone:1444} Feralas · {zone:1446} Tanaris
-	["{npc:2496}: for Pozzik at the {area:2240}, on the {zone:1444} & {zone:1446} guide's way"] = "",
+	["{npc:2496}: for Pozzik at the {area:2240}, on the {zone:1444} & {zone:1446} guide's way"] = "{npc:2496}: für Pozzik im {area:2240}, auf dem {zone:1444}- & {zone:1446}-Guide Weg",
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs: the tusks come from the Skullsplitters, later on this loop"] = "{npc:737}, oben: Die Stoßzähne stammen von den Skullsplitters, später auf dieser Runde",
 	["MacKinley: keep it, the ghost pirates (43-44) wait for your Stranglethorn stop at about 45"] = "MacKinley: Behalte sie, die Geisterpiraten (43-44) warten auf deinen Halt im Schlingendorntal mit etwa 45",
@@ -269,19 +268,19 @@ return {
 
 	-- Step 48: Whiskey Slim and Fin Fizracket
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
-	["{npc:2491} and {npc:2486}"] = "",
+	["{npc:2491} and {npc:2486}"] = "{npc:2491} und {npc:2486}",
 	-- {npc:2491} Whiskey Slim · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
-	["{npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "",
+	["{npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "{npc:2491}, im Gasthaus, und „Sea Wolf“ MacKinley, oben, bieten diese Quests ab Level 40: nimm sie jetzt. Unter 40 bietet der {zone:1444}- & {zone:1446}-Guide das {area:35}-Stop nochmal an.",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}, im Gasthaus: Seine Flaschen werden an der Küste von {zone:1425} angespült, ungefähr auf Stufe 48",
 	-- {quest:2872} Stoley's Debt · {zone:1446} Tanaris
-	["MacKinley, on the top floor: {quest:2872}, for Stoley in {zone:1446}"] = "",
+	["MacKinley, on the top floor: {quest:2872}, for Stoley in {zone:1446}"] = "MacKinley, oben: {quest:2872}, für Stoley im {zone:1446}",
 
 	-- Step 49: Fin Fizracket
 	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
-	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "",
+	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "Gruppenquest: {quest:348} endet bei {npc:1449} im Nebeltal. Übergib ihm zehn Gorillafangzähne, und er ruft drei Wellen Gorillas (41-42), eine nach der anderen, dann {npc:1514} (44). In den Aufzeichnungen der Spieler starben 12 der 27, die ihn begannen, dort. Nimm ihn, wenn ein Freund oder zwei mit dir sind.",
 	-- {npc:2486} Fin Fizracket · {zone:1444} Feralas · {object:3202} Grom'gol (no name in this language: may be words)
-	["{npc:2486}, beside the inn: Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "",
+	["{npc:2486}, beside the inn: Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}, neben dem Gasthaus: Unbagwas Teil am {object:3202}-Stop des {zone:1444}-Guides",
 
 	-- Step 50: The Bloodsail ships
 	["The Bloodsail ships"] = "Die Schiffe der Blutsegelbukaniere",
@@ -298,10 +297,10 @@ return {
 
 	-- Step 52: Zul'Mamwe
 	["Zul'Mamwe"] = "Ruinen von Zul'Mamwe",
-	["The warriors in the northern ruins (39-40) drop both tusks and necklaces. Pull from the edge; leave the chief and his two guards to the south alone."] = "",
+	["The warriors in the northern ruins (39-40) drop both tusks and necklaces. Pull from the edge; leave the chief and his two guards to the south alone."] = "Die Kämpfer in den nördlichen Ruinen (39-40) fallen beide Gewehre und Halsketten. Jaged von der Kante; lasse den Chef und seine zwei Wächter im Süden allein.",
 
 	-- Step 53: Zul'Mamwe and Balia'mah trophy skulls
-	["Zul'Mamwe and Balia'mah trophy skulls"] = "",
+	["Zul'Mamwe and Balia'mah trophy skulls"] = "Trophäen-Skelette von Zul'Mamwe und Balia'mah",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Look for the trophy skulls in the small ruins north of Zul'Mamwe's warriors.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "",
 
@@ -370,8 +369,7 @@ return {
 
 	-- Step 78: Harborage
 	-- {area:657} Harborage · {zone:1430} Deadwind Pass
-	-- was: ["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}."] = "Reite auf der Straße nach Westen zum Draeneilager bei {area:657}, nahe dem Weg vom {zone:1430} herein."
-	["Head west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}."] = "",
+	["Head west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}."] = "Gehe westlich entlang der Straße zum Draenei-Lager am {area:657}, nahe dem Eingang von {zone:1430}.",
 
 	-- Step 79: Pool of Tears
 	-- {area:75} Stonard · {quest:1424} Pool of Tears
@@ -379,7 +377,7 @@ return {
 
 	-- Step 80: Misty Reed Post
 	-- {npc:5592} Tok'Kar · {npc:5593} Katar
-	["Follow the road south-east to the small Horde post on the shore: {npc:5592} takes the crocolisk flanks, and {npc:5593} stands beside him."] = "",
+	["Follow the road south-east to the small Horde post on the shore: {npc:5592} takes the crocolisk flanks, and {npc:5593} stands beside him."] = "Folge der Straße südöstlich zum kleinen Horden-Camp am Wasser: {npc:5592} nimmt die Crocodile-Flanken, und {npc:5593} steht neben ihm.",
 
 	-- Step 81: Sawtooth snappers
 	["Sawtooth snappers"] = "Sägezahnschnapper",
@@ -393,7 +391,7 @@ return {
 
 	-- Step 83: Stonard
 	-- {area:75} Stonard · {npc:1443} Fel'zerul · {quest:1430} Fresh Meat · {npc:5593} Katar
-	["Back north-west along the road to {area:75}: {npc:1443}, on the top floor, takes the artifacts. {quest:1430}'s crawlers and {npc:5593}'s murlocs wait for your next swamp visit."] = "",
+	["Back north-west along the road to {area:75}: {npc:1443}, on the top floor, takes the artifacts. {quest:1430}'s crawlers and {npc:5593}'s murlocs wait for your next swamp visit."] = "Rückwärts nordwestlich entlang der Straße zu {area:75}: {npc:1443}, oben im Stockwerk, nimmt die Artefakte. {quest:1430}'s Crawler und {npc:5593}'s Murlocs warten auf deinen nächsten Sumpf-Besuch.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Below ground"] = "Unter der Erde",
