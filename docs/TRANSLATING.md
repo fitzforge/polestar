@@ -318,6 +318,43 @@ docs/ARCHITECTURE.md, "Names", has the details.
   entry in the release list (`tools/lib/dsl/project.js` takes every locale of
   `locales.js`).
 
+### Capture missing NPC names in the client
+
+The optional contributor addon in `tools/dev/PolestarNpcNameCapture` queries
+NPC tooltips in your Forever client's language. It queries only missing
+Codex NPC names and only runs when you start it.
+
+1. Build the Codex with `forge data codex` or place its `npcs.json` from a
+   reference-data checkout under `data/local/`. From the repository root,
+   generate the target file for your client locale. The optional final
+   argument is the path to a different Codex NPC file in this checkout.
+
+   ```sh
+   node tools/dev/npc-name-capture.js targets deDE > Targets.lua
+   ```
+
+2. Copy the `PolestarNpcNameCapture` folder to Forever's `Interface/AddOns/`
+   and put `Targets.lua` in that folder. Enable the addon and reload. Run
+   `/psnpcname start`. Use `/psnpcname status` for progress and
+   `/psnpcname stop` to pause. Start again to resume missing lookups on
+   the same client build. Reload after a run or stop to save the names.
+
+3. Copy `PolestarNpcNameCapture.lua` from your account's `SavedVariables`
+   directory (under `WTF/Account/`) to `data/local/` in the checkout.
+   Use the same Codex file for export and supply the issue or PR number
+   for the new records. For example, for issue 1234 and a German capture:
+
+   ```sh
+   node tools/dev/npc-name-capture.js export data/local/PolestarNpcNameCapture.lua 1234 > data/local/deDE.json
+   ```
+
+The export includes the existing observations. It keeps the client text,
+build and source-file hash for each new record, and lists unresolved IDs
+on stderr. Results equal to the English name are left out. Review the
+export before replacing `data/i18n/names-observed/<locale>.json`; contribute
+the reviewed JSON. The capture addon is installed manually for contributions.
+
+
 ## The AddOns list
 
 The game's AddOns list shows each addon's title and notes in the client's
