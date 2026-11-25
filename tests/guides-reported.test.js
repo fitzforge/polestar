@@ -19546,6 +19546,41 @@ test('#3927 Mount Hyjal: the Tainted Shrubbery are killed after Leaves to Ligatu
 	}
 });
 
+// Type1Insulin (#4040): the Tailoring guide's 225-300 shopping sent a player to Helenia Olden in Theramore for Rune
+// Thread, and its tip named Edna Mullby in Stormwind; neither sells it on Forever (players' merchant windows: 42 and
+// 125 people, none listing it; Forever's world data has no such sale). forever-db/corrections/items.json takes such
+// sellers off an item's vendor list, for Rune Thread and ten more items the profession guides buy. No profession
+// guide's `buy` offers one of them to pick, and no shopping tip names one for the items its step buys.
+test('#4040: profession guides never send a shopping step to a vendor who does not sell the item on Forever', { skip }, () => {
+	const off = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'corrections', 'items.json'), 'utf8'));
+	const removed = (item) => new Set((off[item] && off[item].removeVendors) || []);
+	const items = JSON.parse(fs.readFileSync(path.join(DATA, 'items.json'), 'utf8'));
+	const npcs = JSON.parse(fs.readFileSync(path.join(DATA, 'npcs.json'), 'utf8'));
+	const sells = (npc, item) => ((items[item] || {}).vendors || []).includes(npc) && !removed(item).has(npc);
+	let checked = 0;
+	for (const guide of allGuides().filter((g) => g.startsWith('forever/professions/'))) {
+		for (const { goal, s } of goals(guide)) {
+			if (goal.t !== 'buy') continue;
+			const bad = (goal.candidates || []).filter((c) => removed(goal.item).has(c.npc)).map((c) => c.npc);
+			assert.deepEqual(bad, [], `${guide} step ${s}: buy ${goal.item} offers sellers who do not sell it`);
+		}
+		const text = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8');
+		for (const block of text.split(/\nstep /).slice(1)) {
+			const bought = [...block.matchAll(/\n {2}buy (\d+)/g)].map((m) => m[1]);
+			const tip = [...block.matchAll(/\n {2}tip (.*)/g)].map((m) => m[1]).join(' ');
+			for (const item of bought) {
+				for (const npc of removed(item)) {
+					const name = (npcs[npc] || {}).name;
+					if (!name || bought.some((other) => sells(npc, other))) continue;
+					checked++;
+					assert.ok(!tip.includes(name), `${guide} step "${block.split('\n')[0]}": the tip names ${name}, who does not sell item ${item}`);
+				}
+			}
+		}
+	}
+	assert.ok(checked > 0, 'some shopping steps buy an item the corrections take sellers off');
+});
+
 // Dima (#3923) and divo2000 (#3708): the Tailoring guide sent players to Timothy Worthington or Daryl Stack for Black
 // Mageweave Headband at 197; they teach nothing below 200 (players' recordings: every recipe learned from them at 200 or
 // more). Every profession guide: a recipe only a later rank's trainers teach is learned once the skill reaches that rank's.
