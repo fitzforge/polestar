@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "{area:1637}(으)로 날아가기",
-	-- {area:2408} Shadowprey Village
-	["{area:2408} flight master"] = "{area:2408} 비행 조련사",
 
 	-- Step 2: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
@@ -132,7 +130,7 @@ return {
 	-- {npc:268992} Zimmix Sputterspark · {area:102} Ruins of Zul'Kunda · {item:277957} Primitive Key · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment · Bloodscalp Scouts = {npc:588} Bloodscalp Scout · Bloodscalp Berserkers = {npc:597} Bloodscalp Berserker
 	-- was: ["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}. Then lead him out of the ruins: {npc:4631} in {area:35} takes the news and the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992}은(는) {area:102} 동쪽 끝에 붙잡혀 있고, 도난당한 화물은 그 주변 폐허에 있습니다. 그곳의 붉은머리부족 정찰병, 사냥꾼, 신비술사(34-35)가 {item:277957}을(를) 지니고 있습니다. 그런 다음 그를 폐허 밖으로 데리고 나가세요. {area:35}의 {npc:4631}이(가) 소식과 화물을 받습니다.\n주의: 붉은머리부족 광전사와 머리사냥꾼(36-37), 주술사(37, 시전자)가 {npc:268992} 북쪽과 서쪽 폐허, 북쪽 화물(약 24.9,9.6) 근처를 차지하고 있습니다. 먼저 {npc:268992} 옆 남쪽 폐허의 화물을 줍고, 북쪽으로 가면 하나씩 끌어내세요."
-	["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}: {npc:4631} in {area:35} takes the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "",
+	["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}: {npc:4631} in {area:35} takes the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992}은(는) {area:102} 동쪽 끝에 붙잡혀 있고, 도난당한 화물은 그 주변 폐허에 있습니다. 그곳의 피투성이 정찰병, 사냥꾼, 신비술사(34-35)가 그의 {item:277957}을(를) 지니고 있습니다: {area:35}의 {npc:4631}이(가) 화물을 받습니다.\n주의: 피투성이 광전사와 머리사냥꾼(36-37), 주술 의사(37, 주문시전자)가 {npc:268992} 북쪽과 서쪽 폐허, 북쪽 화물 근처(24.9,9.6 부근)를 지킵니다: {npc:268992} 옆 남쪽 폐허의 화물부터 줍고, 북쪽으로 가면 하나씩 끌어내십시오.",
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
 	["Stolen Shipments, in the ruins"] = "도난당한 화물, 폐허에서",
 	-- {item:277957} Primitive Key
@@ -141,9 +139,9 @@ return {
 
 	-- Step 21: Escort Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark
-	["Escort {npc:268992}"] = "",
+	["Escort {npc:268992}"] = "{npc:268992} 호위",
 	-- {npc:268992} Zimmix Sputterspark
-	["Lead {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "",
+	["Lead {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "{npc:268992}을(를) 폐허 밖으로 데려가 살려 두십시오: 그가 안전해지면 로즈길이 소식을 받습니다.",
 	-- {npc:268992} Zimmix Sputterspark
 	["Escort {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "{npc:268992}을(를) 폐허 밖으로 호위하며 살려 두세요. 안전해지면 로즈길이 소식을 받습니다.",
 
@@ -262,6 +260,7 @@ return {
 	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "야영지를 지나 서쪽 바위에는 수정가시 바실리스크(34-35)가 있습니다. 그 너머 마을의 붉은머리부족은 모두 귀를 떨어뜨릴 수 있습니다.\n야영지 남서쪽 언덕 위의 37레벨 호랑이 {npc:729}은(는) 지금은 두세요. 2레벨 높으며, 40-50 가시덤불 골짜기 가이드에서 다시 옵니다.\n주의: 랩터 둥지에는 어른 랩터를 공격하면 전투에 끼어드는 새끼 랩터가 있습니다.",
 	-- ["Zeppelin to {object:3202}"] = "{object:3202}행 비행선",
 	-- ["from {npc:4723}"] = "{npc:4723}에게서",
+	-- ["{area:2408} flight master"] = "{area:2408} 비행 조련사",
 	-- ["{item:5852}, in {object:20691}"] = "{item:5852}, {object:20691} 안",
 	-- ["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs beside the flight master."] = "{npc:2495}의 상점은 여관 동쪽 건물에 있고, {npc:2498}은(는) 여관 1층, {npc:2496}, {npc:737}, {npc:773}은(는) 위층 비행 조련사 옆에 있습니다.",
 	-- ["{npc:2496}: Cozzle's footlocker is at {area:37}, later in this guide"] = "{npc:2496}: 코즐의 사물함은 이 가이드 후반에 가는 {area:37}에 있습니다",

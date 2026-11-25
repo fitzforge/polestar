@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Prendre un vol pour {area:1637}",
-	-- {area:2408} Shadowprey Village
-	["{area:2408} flight master"] = "Maître de vol de {area:2408}",
 
 	-- Step 2: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
@@ -131,7 +129,7 @@ return {
 	-- {npc:268992} Zimmix Sputterspark · {area:102} Ruins of Zul'Kunda · {item:277957} Primitive Key · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment · Bloodscalp Scouts = {npc:588} Bloodscalp Scout · Bloodscalp Berserkers = {npc:597} Bloodscalp Berserker
 	-- was: ["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}. Then lead him out of the ruins: {npc:4631} in {area:35} takes the news and the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992} est retenu à l'extrémité est des {area:102} ; les Cargaisons volées se trouvent dans les ruines autour de lui. Les Éclaireurs, Chasseurs et Mystiques Bloodscalp (34-35) portent sa {item:277957}. Ensuite, escortez-le hors des ruines : {npc:4631} à {area:35} prend les nouvelles et les cargaisons.\nAttention : les Berserkers et Chasseurs de têtes Bloodscalp (36-37) et les Sorciers-docteurs (37, lanceurs de sorts) tiennent les ruines au nord et à l'ouest de {npc:268992}, près des cargaisons du nord (vers 24.9,9.6) : ramassez d'abord les cargaisons des ruines du sud près de {npc:268992}, et attirez-les un par un si vous allez au nord."
-	["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}: {npc:4631} in {area:35} takes the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "",
+	["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}: {npc:4631} in {area:35} takes the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992} est retenu au bord est de {area:102} ; les cargaisons volées sont dans les ruines autour de lui. Les éclaireurs, chasseurs et mystiques Scalpessang (34-35) qui s'y trouvent portent son {item:277957} : {npc:4631} à {area:35} prend les cargaisons.\nAttention : les berserkers et chasseurs de têtes Scalpessang (36-37) et les sorciers-docteurs (37, lanceurs de sorts) tiennent les ruines au nord et à l'ouest de {npc:268992}, près des cargaisons du nord (vers 24.9,9.6) : prenez d'abord les cargaisons des ruines du sud près de {npc:268992}, et attirez-les un par un si vous allez au nord.",
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
 	["Stolen Shipments, in the ruins"] = "Cargaisons volées, dans les ruines",
 	-- {item:277957} Primitive Key
@@ -140,9 +138,9 @@ return {
 
 	-- Step 21: Escort Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark
-	["Escort {npc:268992}"] = "",
+	["Escort {npc:268992}"] = "Escortez {npc:268992}",
 	-- {npc:268992} Zimmix Sputterspark
-	["Lead {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "",
+	["Lead {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "Menez {npc:268992} hors des ruines et gardez-le en vie : Lozgil prend la nouvelle une fois qu'il est en sécurité.",
 	-- {npc:268992} Zimmix Sputterspark
 	["Escort {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "Escortez {npc:268992} hors des ruines et gardez-le en vie : Lozgil prend les nouvelles une fois qu'il est en sécurité.",
 
@@ -272,6 +270,7 @@ return {
 	-- ["from {npc:4723}"] = "sur {npc:4723}",
 	-- ["grind on {npc:1142}"] = "tuez en boucle : {npc:1142}",
 	-- ["grind on {npc:686}"] = "tuez en boucle : {npc:686}",
+	-- ["{area:2408} flight master"] = "Maître de vol de {area:2408}",
 	-- ["{area:35}'s and {object:3202}'s next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of {object:3202}: kill them until level 35."] = "Les quêtes suivantes de {area:35} et de {object:3202} sont de niveau 35-38. Toujours en dessous de 35 après avoir rendu la quête d'Aggro'gosh ? Les Raptors Fouette-queue (35) chassent dans la jungle juste au nord de {object:3202} : tuez-les jusqu'au niveau 35.",
 	-- ["{item:5852}, in {object:20691}"] = "{item:5852}, dans {object:20691}",
 	-- ["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2465} : pour forever/horde/40-50/01-stranglethorn-vale",

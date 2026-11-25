@@ -527,13 +527,13 @@ fn selecting_a_guide_shows_its_details_and_loads_nothing_the_selection_is_rememb
 	assert_eq!(
 		out,
 		json!({
-			"title": "Westfall", "eyebrow": false, "track": false, "chips": ["Levels 12\u{2013}17", "Alliance"], "facts": [["Steps", "17"], ["Zones", "Westfall"], ["Next", "Darkshore (16\u{2013}21)"]], "progress": "Not started",
+			"title": "Westfall", "eyebrow": false, "track": false, "chips": ["Levels 12\u{2013}17", "Alliance"], "facts": [["Steps", "17"], ["Passes through", "Westfall"], ["Next", "Darkshore (16\u{2013}21)"]], "progress": "Not started",
 			"pitch": "Farms and bandits.", "pros": ["Compact", "Flight path"], "cons": "Long walks", "load": "Load guide", "newTab": true, "selectedRow": true,
 			"calls": 0, "open": true, "tip": "Double-click a guide or press Enter to load it.",
 			"choice": ["Next", "Your choice: Desolace or Feralas"],
 			"open1": {
 				"progress": "Open in tab 1  \u{b7}  step 3 of 8", "pct": "29%", "track": true, "load": "Continue", "newTab": false, "loadWidth": 324,
-				"facts": [["Steps", "8"], ["Quests", "4"], ["Zones", "Elwynn Forest"], ["Next", "Westfall (12\u{2013}17)"]],
+				"facts": [["Steps", "8"], ["Quests", "4"], ["Quests in", "Elwynn Forest"], ["Next", "Westfall (12\u{2013}17)"]],
 			},
 			"saved": "forever/alliance/human/01-elwynn-forest", "again": "Elwynn Forest",
 		})

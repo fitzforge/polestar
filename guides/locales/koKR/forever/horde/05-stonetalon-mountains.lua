@@ -56,8 +56,8 @@ return {
 	["{npc:12717}: take it last, his escort starts at once"] = "",
 
 	-- Step 10: Vorsha the Lasher
-	-- {npc:12717} Muglash · {npc:12719} Marukai
-	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "",
+	-- {npc:12717} Muglash · {npc:12940} Vorsha the Lasher · {npc:12719} Marukai
+	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until {npc:12940} is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717}은(는) 해변을 따라 북쪽 나가 화로로 걸어갑니다. 화로를 끄고 {npc:12940}이(가) 죽을 때까지 나가의 공격 물결에서 그를 지키십시오. 성난꼬리 나가가 {npc:12719}이(가) 원하는 머리를 떨어뜨립니다.",
 	["Naga brazier"] = "나가 화로",
 
 	-- Step 11: Naga heads
@@ -97,11 +97,11 @@ return {
 
 	-- Step 17: Magatha Grimtotem
 	-- {quest:1063} The Elder Crone · {npc:4046} Magatha Grimtotem · {quest:1064} Forsaken Aid · {area:1639} Elder Rise · {npc:3419} Apothecary Zamah · {area:2197} Pools of Vision · {area:1640} Spirit Rise
-	["{quest:1063}'s errand is already with {npc:4046}: take {quest:1064} from her on {area:1639}, for {npc:3419} in the {area:2197}, under {area:1640}."] = "",
+	["{quest:1063}'s errand is already with {npc:4046}: take {quest:1064} from her on {area:1639}, for {npc:3419} in the {area:2197}, under {area:1640}."] = "{quest:1063}의 심부름은 이미 {npc:4046}에게 있습니다: {area:1639}에서 그녀에게 {quest:1064}을(를) 받으십시오. {area:1640} 아래 {area:2197}의 {npc:3419}에게 가는 것입니다.",
 
 	-- Step 18: Apothecary Zamah
 	-- {quest:1064} Forsaken Aid · {npc:3419} Apothecary Zamah · {area:272} Tarren Mill · {area:2197} Pools of Vision · {area:1640} Spirit Rise
-	["{quest:1064} is already with {npc:3419}: take her note for {area:272} in the {area:2197}, under {area:1640}."] = "",
+	["{quest:1064} is already with {npc:3419}: take her note for {area:272} in the {area:2197}, under {area:1640}."] = "{quest:1064}은(는) 이미 {npc:3419}에게 있습니다: {area:1640} 아래 {area:2197}에서 {area:272}에 보낼 그녀의 쪽지를 받으십시오.",
 
 	-- Step 19: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar

@@ -34,6 +34,20 @@ local function signedPx(v)
 	return (p > 0 and "+" or "") .. string.format(L["%d px"], p)
 end
 local function times(v) return string.format("%.2gx", v) end
+-- The height (a share of the screen) with its pixels beside it (ui.heightMode, #1067):
+-- the screen's own pixels (GetPhysicalScreenSize), whatever the UI scale.
+local function screenPx() return UIParent:GetHeight() * Theme.PixelsPerUnit(UIParent) end
+local function heightText(v)
+	return string.format(L["%d px"], floor(v * screenPx() + 0.5)) .. "  \194\183  " .. percent(v)
+end
+-- A typed height (#2542): pixels ("402", "402 px"), or a share with its sign ("40%"). -> share | nil
+local function heightParse(text)
+	local n = tonumber(text:match("%d+%.?%d*") or "")
+	if not n then return nil end
+	if text:find("%", 1, true) and not text:lower():find("px", 1, true) then return n / 100 end
+	return n / screenPx()
+end
+local function notFixed() return ns.Get("ui.heightMode") ~= "fixed" end
 
 local function GF() return UI.GuideFrame end
 local function transparent() return ns.Get("ui.style") == "transparent" end
@@ -57,7 +71,7 @@ for part, keys in pairs({
 	tip = { "noteSize" },
 	upnext = { "upSize" },
 	foot = { "progress", "progressHeight", "progressColor", "progressPct" },
-	xp = { "pace" },
+	xp = { "pace", "xpLine" },
 	journey = { "journeyStyle" },
 }) do
 	for _, k in ipairs(keys) do PART_OF["guideWindow." .. k] = part end
@@ -319,7 +333,7 @@ function UI.GuideWindowScene(band)
 		for key, parts in pairs({
 			["ui.style"] = window, ["ui.backing"] = window, ["guideWindow.veil"] = window, ["guideWindow.shade"] = window,
 			["guideWindow.outline"] = window, ["ui.barShown"] = { P.strip, nav }, ["ui.scale"] = window, ["ui.guideTextSize"] = window, ["ui.width"] = window,
-			["ui.maxHeight"] = window, ["guideWindow.padding"] = rows, ["ui.compact"] = window, ["guideWindow.bgOpacity"] = window,
+			["ui.maxHeight"] = window, ["ui.heightMode"] = window, ["ui.footAt"] = window, ["guideWindow.padding"] = rows, ["ui.compact"] = window, ["guideWindow.bgOpacity"] = window,
 			["guideWindow.bgColor"] = window, ["ui.opacity"] = window, ["guideWindow.idleAlpha"] = window, ["guideWindow.border"] = window,
 			["guideWindow.rules"] = { P.strip.Rule, nav.Rule, up.Toggle.Rule, G.xp.Rule }, ["ui.combat"] = window,
 			["guideWindow.combatAlpha"] = window, ["ui.instance"] = window, ["guideWindow.hideTaxi"] = window, ["ui.growUp"] = window,
@@ -336,7 +350,7 @@ function UI.GuideWindowScene(band)
 			["guideWindow.targetBarColor"] = marks, ["guideWindow.noteSize"] = { P.tip }, ["ui.showNotes"] = { P.tip },
 			["ui.upcoming"] = { up }, ["guideWindow.upSize"] = { up }, ["guideWindow.progress"] = { foot },
 			["guideWindow.progressHeight"] = { foot }, ["guideWindow.progressColor"] = { foot.Line }, ["guideWindow.progressPct"] = { foot.Pct },
-			["guideWindow.pace"] = { G.xp },
+			["guideWindow.pace"] = { G.xp }, ["guideWindow.xpLine"] = { G.xp }, ["guideWindow.stillToDo"] = { P.along },
 			-- The window itself shown and held in place; the step's goals, whole or one person's; the tip and Up next open.
 			["ui.shown"] = window, ["ui.locked"] = window, ["ui.wholeStep"] = moving, ["ui.notesOpen"] = { P.tip },
 			["ui.upcomingOpen"] = { up },
@@ -485,9 +499,16 @@ local SPECS = {
 		{ kind = "slider", key = "ui.width", label = L["Width"], min = 260, max = 560, step = 10, format = "%d",
 			help = L["How wide the guide window is. You can also drag its bottom-right corner."],
 			search = "wide, wider, narrow, size, width" },
-		{ kind = "slider", key = "ui.maxHeight", label = L["Max height"], min = 0.3, max = 0.9, step = 0.05, format = percent,
-			help = L["How tall the window may grow, as a share of the screen. A longer step scrolls."],
-			search = "height, tall, taller, shorter, cap, scroll, size, maximum height" },
+		{ kind = "dropdown", key = "ui.heightMode", label = L["Window height"], new = "0.4.3", search = "height, fixed, resize, size, automatic, taller, shorter",
+			help = L["Fixed: the window is always the height below; drag its grip to resize it like any window. Follows the step: it grows with the step up to that height. Automatic: it grows into all the free room on screen."],
+			choices = { { value = "fixed", label = L["Fixed"] }, { value = "fit", label = L["Follows the step"] }, { value = "auto", label = L["Automatic"] } } },
+		{ kind = "slider", key = "ui.maxHeight", label = L["Height"], min = 0.3, max = 1, step = 0.01, format = heightText, parse = heightParse,
+			help = L["In pixels and as a share of the screen: click the number to type the pixels, or drag the grip at the window's corner. Changing it under Automatic switches to Fixed. A longer step scrolls."],
+			search = "height, tall, taller, shorter, cap, scroll, size, maximum height, pixels, px, resize" },
+		{ kind = "dropdown", key = "ui.footAt", label = L["Progress bar"], child = true, disabled = notFixed, new = "0.4.3",
+			help = L["With a Fixed height: right under the last goal, the free room past it (above the goals with Grow upward), or on the window's edge."],
+			search = "progress bar, bottom, under goals, fixed height",
+			choices = { { value = "goals", label = L["Under the last goal"] }, { value = "edge", label = L["On the window's edge"] } } },
 		{ kind = "slider", key = "guideWindow.padding", label = L["Padding"], min = -6, max = 16, step = 1, format = signedPx, new = NEW,
 			help = L["Room between the window's edges and its text, on top of the skin's."],
 			search = "padding, margin, inset, edge, room, tight, roomy, inner padding" },
@@ -734,6 +755,12 @@ local SPECS = {
 				{ value = "foot", label = L["In the foot"] },
 			} },
 	} },
+	-- The Still to do rows over Along the way (#3303).
+	{ page = PAGE, tab = L["Parts"], section = L["Still to do"], controls = {
+		{ kind = "toggle", key = "guideWindow.stillToDo", label = L["Still to do"], new = "0.4.3",
+			help = L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."],
+			search = "still to do, finished quests, carried, hand in elsewhere, behind, left behind, hide still to do, along the way" },
+	} },
 	{ page = PAGE, tab = L["Parts"], section = L["Progress & pace"], controls = {
 		{ kind = "toggle", key = "guideWindow.progress", label = L["Progress bar"], new = NEW,
 			help = L["The guide's progress at the bottom of the window."], search = "progress, bar, percent, footer, completion",
@@ -747,6 +774,9 @@ local SPECS = {
 				{ kind = "toggle", key = "guideWindow.progressPct", label = L["Percent"], new = NEW,
 					help = L["The percent beside the progress bar."], search = "percent, number, percentage" },
 			} },
+		{ kind = "toggle", key = "guideWindow.xpLine", label = L["XP line"], new = "0.4.3",
+			help = L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."],
+			search = "xp line, xp per hour, xp/h, experience, time to level, hide xp" },
 		{ kind = "toggle", key = "guideWindow.pace", label = L["Pace line"], new = "0.4.1",
 			help = L["The line above the progress bar: on pace for a level by a step, or how far behind the route you are."],
 			search = "pace, on pace, behind, level by step, xp line, progress text, hide pace" },

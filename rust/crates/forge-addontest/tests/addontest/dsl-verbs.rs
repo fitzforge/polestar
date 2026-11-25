@@ -5,7 +5,7 @@
 
 use forge_addontest::dsl::{compile, compile_with, fixture_data, guide_text, plain, write_our_test_pack};
 use forge_addontest::{emitted, is_match, Addon, RunAddon, TEST_PACK};
-use forge_guide::emit::emit_guides_with;
+use forge_guide::emit::emit_own_guides;
 use forge_guide::js::V;
 use serde_json::json;
 
@@ -33,20 +33,21 @@ fn new_verbs_emit_lua_that_loads_under_lua_5_1_and_round_trips_with_reagents_as_
 	let pack = write_our_test_pack(&r.guides);
 	let at = pack.guides_of("t/prof");
 	let lua = pack.text(at);
-	assert!(is_match(lua, r#"reagents = \{ \{ item = 2589, itemName = "Linen Cloth", count = 2 \} \}"#));
+	// A profession guide is a side shelf: its steps are one source string (`stepsSrc`), read in when opened.
+	assert!(is_match(lua, r#"reagents = \{ \{ item = 2589, itemName = \\"Linen Cloth\\", count = 2 \} \}"#));
 	let localised = r.guides[0].hidden("_localised");
 	let entry = V::obj();
 	entry.set("guide", localised.clone());
 	entry.set("source", V::str("test.guide"));
-	// Polestar's own pack writes spawn spots packed (format 8).
-	assert_eq!(lua, emit_guides_with(&[entry], false, true));
+	// Polestar's own pack writes spawn spots packed and side shelves' steps as source (format 8).
+	assert_eq!(lua, emit_own_guides(&[entry]));
 	let file = serde_json::to_string(&pack.dir.join(at)).unwrap();
 	let out = emitted(&RunAddon {
 		addons: vec![Addon::files("Polestar", &["Core/Init.lua"])],
 		script: [
 			r#"
 			local got
-			Polestar.RegisterGuide = function(g) got = g end"#,
+			Polestar.RegisterGuide = function(g) if g.stepsSrc then g.steps, g.stepsSrc, g.stepCount = assert(loadstring(g.stepsSrc))(), nil, nil end; got = g end"#,
 			&format!("\t\t\tassert(loadfile({file}))(\"Polestar_Guides\", {{}})"),
 			"\t\t\temit(got)",
 		]

@@ -78,7 +78,7 @@ return {
 
 	-- Step 16: Ruuzel
 	-- {quest:1009} Ruuzel · {area:414} Zoram Strand
-	["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009}带着怒尾卫兵在{area:414}北端巡逻。",
+	["{quest:1009} and his Wrathtail guards stand on the small islet just off the northern tip of the {area:414}: swim across to it."] = "{quest:1009}和他的怒尾卫兵站在{area:414}北端外的小岛上：游过去。",
 
 	-- Step 17: Blackfathom Deeps
 	-- {area:2797} Blackfathom Deeps · {npc:4787} Argent Guard Thaelrid · {zone:1457} Darnassus
@@ -347,7 +347,7 @@ return {
 
 	-- Step 62: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square
-	["Thundris' letter is already with {npc:1646}: his reply waits at the east side of {object:2098}."] = "",
+	["Thundris' letter is already with {npc:1646}: his reply waits at the east side of {object:2098}."] = "桑德里斯的信已经交给{npc:1646}：他的回信在{object:2098}东侧等你。",
 
 	-- Step 63: Cathedral Square
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:376} High Priestess Laurena
@@ -473,5 +473,6 @@ return {
 	-- ["{npc:5082}, Mikhail and Tapoke Jahn are all at Menethil's inn; Tapoke fights you when you talk to Mikhail, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn.\n{npc:2104} stands on the top floor of {area:2103}."] = "{npc:5082}、米克海尔和塔波克·贾恩都在米奈希尔的旅店里；和米克海尔交谈时塔波克会攻击你，被打败后就会认输。{npc:1480}站在旅店东北方不远处。\n{npc:2104}站在{area:2103}的顶层。",
 	-- ["{object:176634}, beside him"] = "他旁边的{object:176634}",
 	-- ["{object:2164} is in the {object:2101}."] = "{object:2164}在{object:2101}。",
+	-- ["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009}带着怒尾卫兵在{area:414}北端巡逻。",
 	-- ["{zone:1455} priests"] = "{zone:1455}的牧师",
 }

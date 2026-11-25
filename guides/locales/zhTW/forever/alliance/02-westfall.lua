@@ -70,7 +70,7 @@ return {
 
 	-- Step 15: The Binding
 	-- {item:6810} Surena's Choker · {npc:6122} Gakin the Darkbinder · {quest:1689} The Binding · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6928} Bloodstone Choker
-	["{item:6810} is already with {npc:6122}: take {quest:1689} from him in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls."] = "",
+	["{item:6810} is already with {npc:6122}: take {quest:1689} from him in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls."] = "{item:6810}已經交給{npc:6122}：在{object:2101}的{object:2164}地窖裡向他接取{quest:1689}。在那裡的召喚法陣處使用{item:6928}，擊敗被召喚出的虛無行者。",
 
 	-- Step 16: The Jansen Stead
 	-- {zone:1436} Westfall · {object:2724} Sack of Oats
@@ -207,7 +207,7 @@ return {
 	["Harvest Watchers north of {area:107}"] = "{area:107}北邊的看守傀儡",
 	-- {area:916} The Jansen Stead · {area:107} Saldean's Farm · {quest:9} The Killing Fields · {item:732} Okra · {item:255155} Precessive Autocognition Assembly · {npc:573} Foe Reaper 4000
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher · Harvest Golems = {npc:36} Harvest Golem · Harvest Reapers = {npc:115} Harvest Reaper
-	["On the way south from the {area:916} to {area:107}: Harvest Watchers (level 14-15) work the fields west of the road. Stick to them: they are the only mechanicals that count for {quest:9}, and they drop everything else here too: the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. Harvest Golems drop some of the parts but don't count, and the Harvest Reapers (17) are too high. {npc:573}, a level 20 rare, walks these fields: leave it alone."] = "",
+	["On the way south from the {area:916} to {area:107}: Harvest Watchers (level 14-15) work the fields west of the road. Stick to them: they are the only mechanicals that count for {quest:9}, and they drop everything else here too: the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. Harvest Golems drop some of the parts but don't count, and the Harvest Reapers (17) are too high. {npc:573}, a level 20 rare, walks these fields: leave it alone."] = "從{area:916}向南前往{area:107}的路上：收割傀儡（{npc:114}，14-15級）在道路以西的田裡幹活。專打牠們：牠們是唯一計入{quest:9}的機械，這裡的其他東西也都從牠們身上掉：等壓彈簧、陀螺穩定器、{item:732}，有時還有{item:255155}。收穫傀儡（{npc:36}）掉落部分零件但不計數，收割者（{npc:115}，17）等級太高。{npc:573}，一個20級的稀有怪，在這些田裡走動：別惹牠。",
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
 	["Harvest Watchers"] = "看守傀儡",
 	-- {item:814} Flask of Oil · {npc:392} Captain Grayson · {area:115} Westfall Lighthouse
@@ -241,7 +241,7 @@ return {
 	-- Step 46: Jangolode Mine
 	-- {area:918} Molsen Farm · {area:111} Jangolode Mine
 	-- plural, as words: Kobold Diggers = {npc:1236} Kobold Digger
-	["Back north past {area:918} to the mine.\nCareful: pull the four Kobold Diggers from the mouth of {area:111}, one at a time. There is no need to go deeper."] = "",
+	["Back north past {area:918} to the mine.\nCareful: pull the four Kobold Diggers from the mouth of {area:111}, one at a time. There is no need to go deeper."] = "向北經過{area:918}回到礦坑。\n小心：從{area:111}的坑口一次拉一個狗頭人掘地工（{npc:1236}）。沒有必要往深處走。",
 	-- plural, as words: Kobold Diggers = {npc:1236} Kobold Digger
 	["Kobold Diggers"] = "狗頭人掘地工",
 
@@ -250,7 +250,7 @@ return {
 	["The {area:113}"] = "{area:113}",
 	-- {area:918} Molsen Farm
 	-- plural, as words: Riverpaw Miners = {npc:1426} Riverpaw Miner
-	["South-west to the coast, west of {area:918}. Riverpaw Miners work the quarry.\nCareful: pull the Riverpaw Miners away from the quarry mouth. The Defias stand close together inside the cave."] = "",
+	["South-west to the coast, west of {area:918}. Riverpaw Miners work the quarry.\nCareful: pull the Riverpaw Miners away from the quarry mouth. The Defias stand close together inside the cave."] = "向西南到{area:918}以西的海岸。河爪礦工（{npc:1426}）在採石場幹活。\n小心：把河爪礦工拉離採石場入口。洞裡的迪菲亞站得很密。",
 	-- plural, as words: Riverpaw Miners = {npc:1426} Riverpaw Miner
 	["Riverpaw Miners"] = "河爪礦工",
 
@@ -259,7 +259,7 @@ return {
 	["{area:20}: kill these as you meet them"] = "{area:20}：遇到就殺",
 	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {object:1166} Alexston's Chest · {area:219} Alexston Farmstead · {npc:1646} Baros Alexston
 	-- plural, as words: Defias Pillagers = {npc:589} Defias Pillager
-	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: the Pillagers and Looters crowd the Alexston farm and the quarry entrance. Pull one out into the open before fighting it."] = "",
+	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: the Pillagers and Looters crowd the Alexston farm and the quarry entrance. Pull one out into the open before fighting it."] = "迪菲亞劫掠者（{npc:589}）和盜賊佔據著{area:108}以西、海岸公路和{area:20}之間的農場。{object:1166}立在他們中間的{area:219}的農舍裡：{npc:1646}的羅盤就在裡面。\n小心：劫掠者和盜賊擠在阿歷克斯頓農場和採石場入口。先把一個拉到空地上再打。",
 	-- {item:2998} A Simple Compass · {object:1166} Alexston's Chest
 	["{item:2998}, from {object:1166}"] = "{item:2998}，來自{object:1166}",
 
@@ -345,31 +345,34 @@ return {
 	-- {npc:7232} Borgus Steelhand · {object:28027} Dwarven District · {area:442} Auberdine
 	["{npc:7232}, {object:28027}: for his brother in {area:442}"] = "{npc:7232}，{object:28027}：為了他在{area:442}的兄弟",
 
-	-- Step 68: Jennea Cannon
+	-- Step 68: Gelman Stonehand
+	["talk to the trainer"] = "與訓練師交談",
+
+	-- Step 71: Jennea Cannon
 	-- {npc:5497} Jennea Cannon · {quest:1861} Mirror Lake
 	["{npc:5497}, Wizard's Sanctum: {quest:1861}"] = "{npc:5497}，巫師聖所：{quest:1861}",
 
-	-- Step 70: Woo Ping
+	-- Step 73: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "趁在這裡：向{npc:11867}學習{spell:202}（{object:2096}，10銀）；雙手武器讓戰士升級最快。",
 
-	-- Step 71: Woo Ping
+	-- Step 74: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Paladin fastest."] = "趁在這裡：向{npc:11867}學習{spell:202}（{object:2096}，10銀）；雙手武器讓聖騎士升級最快。",
 
-	-- Step 72: Woo Ping
+	-- Step 75: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "順便：在{npc:11867}處學習法杖（{object:2096}，10銀幣）；獵人的近戰武器主要看屬性，而雙手武器屬性最多。",
 
-	-- Step 73: Woo Ping
+	-- Step 76: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "順便：在{npc:11867}處學習劍（{object:2096}，10銀幣）；主手持劍能讓盜賊穩定升級。",
 
-	-- Step 74: Woo Ping
+	-- Step 77: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "順便：在{npc:11867}處學習法杖（{object:2096}，10銀幣）；升級期間，法杖的法術屬性比單手武器更多。",
 
-	-- Step 76: Fishin' Time
+	-- Step 79: Fishin' Time
 	-- {npc:5494} Catherine Leland · {object:2096} Trade District · {npc:267118} Gilbert Gray
 	["{npc:5494} sells fishing supplies along the canal just west of the {object:2096}; {npc:267118} fishes at the harbor, on the way to the boat."] = "{npc:5494}在{object:2096}西側的運河邊出售釣魚用品；{npc:267118}在港口釣魚，就在前往船的路上。",
 	-- {item:6529} Shiny Bauble · {npc:5494} Catherine Leland

@@ -14,7 +14,7 @@ return {
 	-- {area:340} Kargath
 	["Fly to {area:340}"] = "Flieg nach {area:340}",
 	-- {zone:2548} Riverglades · {area:3} Badlands · {area:75} Stonard · {area:340} Kargath
-	["The {zone:2548} lie south of the {area:3}. Fly from {area:75} to {area:340}: the way down into the zone starts there."] = "",
+	["The {zone:2548} lie south of the {area:3}. Fly from {area:75} to {area:340}: the way down into the zone starts there."] = "Die {zone:2548} liegen südlich von {area:3}. Fliege von {area:75} zu {area:340}: der Weg hinfällt in die Zone, beginnt dort.",
 	-- {area:75} Stonard
 	["{area:75} flight master"] = "Flugmeister in {area:75}",
 
@@ -173,9 +173,9 @@ return {
 
 	-- Step 40: Fuzzle
 	-- {area:16723} Sunnyglade · {npc:259158} Fuzzle
-	["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, waits in a cage at the arrow."] = "",
+	["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, waits in a cage at the arrow."] = "Westlich von Rog'mar hält der Twilight-Kult die Farmgemeinde {area:16723}. {npc:259158}, ein Dabyrie, der auswilligert, wartet in einem Käfig am Pfeil.",
 	-- {quest:94961} Biting the Hand · {npc:259158} Fuzzle
-	["{quest:94961}, {npc:259158} in his cage"] = "",
+	["{quest:94961}, {npc:259158} in his cage"] = "{quest:94961}, {npc:259158} in seinem Käfig",
 
 	-- Step 41: Sunnyglade
 	-- {npc:256899} Chogg'Zac · {area:16723} Sunnyglade
@@ -195,7 +195,7 @@ return {
 
 	-- Step 44: Clubtoe
 	-- {area:16723} Sunnyglade · {npc:260931} Clubtoe · {npc:256710} Tran'gul
-	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Wieder nach Westen nach {area:16723}: {npc:260931}, ein Schattenhammer-Bergarbeiter, der aussteigen will, wartet am Ostrand des Dorfs. Überrede ihn, dann gib {npc:256710}s Quest ab; einer der vermissten Oger steht ein paar Schritte westlich.",
+	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits inside the cave under the town's eastern edge, a floor below the street. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Wieder westlich zu {area:16723}: {npc:260931}, ein Twilight-Göhler, der auswilligert, wartet innen in der Höhle am östlichen Rand der Stadt, eine Etage unter der Straße. Rede ihn um, dann überlasse {npc:256710}'s Quest; einer der verschwundenen Ogres steht einige Schritte westlich.",
 	-- {npc:260931} Clubtoe
 	["talk {npc:260931} round"] = "{npc:260931} überreden",
 	-- {npc:261208} Twilight Brute
@@ -210,10 +210,10 @@ return {
 
 	-- Step 47: Twilight No More!
 	-- {npc:256899} Chogg'Zac · {area:16723} Sunnyglade · {npc:260931} Clubtoe · {quest:95420} Land of Giants · {npc:255829} Clugfist · {quest:94668} Bloodmaster's Ring · {area:16726} Bolder'ok · {npc:258570} Da'grosh
-	["{npc:256899}, the two-headed ogre at the western edge of {area:16723}, is an elite (level 41): grouping up is advised. {npc:260931} wants both his heads, and the rest of the zone's ogre story waits on them: {quest:95420}, {npc:255829}'s quests and the {quest:94668} in {area:16726}, then {npc:258570}'s camp in the west (about 21,000 XP in all). Skip him and the guide leaves those out."] = "",
+	["{npc:256899}, the two-headed ogre at the western edge of {area:16723}, is an elite (level 41): grouping up is advised. {npc:260931} wants both his heads, and the rest of the zone's ogre story waits on them: {quest:95420}, {npc:255829}'s quests and the {quest:94668} in {area:16726}, then {npc:258570}'s camp in the west (about 21,000 XP in all). Skip him and the guide leaves those out."] = "{npc:256899}, der zweiköpfige Oger am westlichen Rand von {area:16723}, ist ein Elite (Level 41): gruppieren wird empfohlen. {npc:260931} will beide Köpfe, und die gesamte Ogen-Geschichte der Zone wartet auf sie: {quest:95420}, {npc:255829}'s Quests und die {quest:94668} in {area:16726}, dann das Lager von {npc:258570} im Westen (etwa 21.000 XP insgesamt). Lass ihn fallen und der Guide lässt diese aus.",
 
 	-- Step 48: Chogg'Zac
-	["Clear the cultists around him first and come in with full health and mana."] = "",
+	["Clear the cultists around him first and come in with full health and mana."] = "Kläre die Kultisten um ihn zuerst und komme mit voller Gesundheit und Mana.",
 
 	-- Step 49: Clubtoe
 	-- {quest:95418} Spread the Word · {npc:256710} Tran'gul · {area:16743} Rog'mar
@@ -228,7 +228,7 @@ return {
 	-- Step 51: WANTED: Scoutmaster Vargas
 	-- {npc:260211} Scoutmaster Vargas · {npc:256728} Na'zok · {npc:258031} Neza Bloodsnout
 	["{npc:260211} is an elite (level 42) at the Alliance scouts' camp in the hills south-east of {npc:256728}, where you go next: grouping up is advised. The poster hangs in the middle of the fort; {npc:258031} takes the eye, later in this guide."] = "{npc:260211} ist ein Elite (Stufe 42) im Lager der Allianz-Späher in den Hügeln südöstlich von {npc:256728}, wo du als Nächstes hingehst: Eine Gruppe wird empfohlen. Der Steckbrief hängt mitten in der Festung; {npc:258031} nimmt das Auge später in diesem Guide entgegen.",
-	["the Wanted poster"] = "",
+	["the Wanted poster"] = "das Schilder mit der Forderung",
 
 	-- Step 52: Na'zok's camp
 	-- {npc:256728} Na'zok
@@ -262,7 +262,7 @@ return {
 
 	-- Step 58: Jom-jom's Escape
 	-- {npc:258048} Jom-jom · {npc:256728} Na'zok · {area:16726} Bolder'ok
-	["{npc:258048} waits at the back of the cave by the Twilight ogres' camp north-east of {npc:256728}: go all the way in to find him, then take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "",
+	["{npc:258048} waits at the back of the cave by the Twilight ogres' camp north-east of {npc:256728}: go all the way in to find him, then take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048} wartet im Hintergrund der Höhle bei den Twilight-Ogern am Lager nordöstlich von {npc:256728}: geh bis zum Ende der Höhle, um ihn zu finden, dann bring ihn nach {area:16726} nach Hause und halte die Kultisten von ihm fern. Wenn er fällt, nimm die Quest von ihm wieder.",
 	-- {npc:258048} Jom-jom
 	["{npc:258048}, in the cave"] = "{npc:258048}, in der Höhle",
 	-- {npc:258048} Jom-jom · {area:16726} Bolder'ok
@@ -297,18 +297,18 @@ return {
 	-- {quest:94962} Bloodmaster's Ring · {npc:258626} Mog'thar
 	["The {quest:94962}: {npc:258626}"] = "{quest:94962}: {npc:258626}",
 	-- {npc:258626} Mog'thar · {npc:257058} Gobam · {npc:263440} Hamur
-	["{npc:258626} is a level 43 elite, at or above your level here: a hard one-on-one fight in the ring, where nobody can help you. Take it only rested, with full health and mana; {npc:257058}'s and {npc:263440}'s errands and the last two bouts come after him."] = "",
+	["{npc:258626} is a level 43 elite, at or above your level here: a hard one-on-one fight in the ring, where nobody can help you. Take it only rested, with full health and mana; {npc:257058}'s and {npc:263440}'s errands and the last two bouts come after him."] = "{npc:258626} ist ein Level-43-Elite, auf deiner Stufe oder darüber: ein harter Eins-zu-eins-Kampf in der Arena, wo niemand dir helfen kann. Nimm es nur ausgeruht, mit voller Gesundheit und Mana; {npc:257058}'s und {npc:263440}'s Aufgaben und die letzten zwei Show folgen ihm.",
 
 	-- Step 64: Gobam and Hamur
 	-- {npc:257058} Gobam · {npc:263440} Hamur
-	["{npc:257058} and {npc:263440}"] = "",
+	["{npc:257058} and {npc:263440}"] = "{npc:257058} und {npc:263440}",
 	-- {npc:258626} Mog'thar · {npc:257062} Jezap Jinglesprocket · {npc:257058} Gobam · {npc:263440} Hamur · {area:16727} Powderfuse Port · {item:265806} Riverweed · {area:16743} Rog'mar · {area:16726} Bolder'ok
-	["With {npc:258626} beaten, {npc:257062} sends you to {npc:257058}, who keeps the Ring's beasts a few steps north-east of the ring; {npc:263440}, just south of the ring, wants good rock. {npc:257058}'s boar treat needs Sweetberries from the pirates' slopes north of {area:16727} and {item:265806} from the river between {area:16743} and {area:16726}: this guide gathers both and brings you back here after the port, for the Ring's last two bouts."] = "",
+	["With {npc:258626} beaten, {npc:257062} sends you to {npc:257058}, who keeps the Ring's beasts a few steps north-east of the ring; {npc:263440}, just south of the ring, wants good rock. {npc:257058}'s boar treat needs Sweetberries from the pirates' slopes north of {area:16727} and {item:265806} from the river between {area:16743} and {area:16726}: this guide gathers both and brings you back here after the port, for the Ring's last two bouts."] = "Nach {npc:258626} besiegt, schickt {npc:257062} dich zu {npc:257058}, der die Ringtiere einige Schritte nordöstlich des Ringes hält; {npc:263440}, direkt südlich des Ringes, will guten Stein. Die Rauschbaums-Futter für {npc:257058} muss Süßbeeren von den Piratenhängen nördlich von {area:16727} und {item:265806} vom Fluss zwischen {area:16743} und {area:16726}: dieser Guide sammelt beides und bringt dich nach dem Hafen zurück hier, für die Ring's letzten beiden Shows.",
 
 	-- Step 65: The rock piles
-	["The rock piles"] = "",
+	["The rock piles"] = "die Steinhaufen",
 	-- {area:16726} Bolder'ok · {npc:263440} Hamur
-	["South-east from {area:16726} on the way down to the port: {npc:263440}'s rock piles lie in the hills just south of the town and on the slopes west of the Twilight ogres' camp."] = "",
+	["South-east from {area:16726} on the way down to the port: {npc:263440}'s rock piles lie in the hills just south of the town and on the slopes west of the Twilight ogres' camp."] = "Südöstlich von {area:16726} auf dem Weg hinab zum Hafen: {npc:263440}'s Steinhaufen liegen in den Hügeln direkt südlich der Stadt und auf den Hängen westlich des Twilight-Oger-Lagers.",
 
 	-- Step 66: Powderfuse Port
 	-- {area:16727} Powderfuse Port · {npc:255897} Friz Frazzlespark · {npc:259962} Fimbo Greasemitz · {npc:259961} Wharfmaster Whizzbuzz
@@ -366,9 +366,9 @@ return {
 	["North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. Watch for {npc:259758} on these cliffs.\nCareful: the Eastsea Raiders are level 44-45, a level or two over you here: pull them one at a time from the edge of the slopes and keep clear of the camp behind them."] = "Vom Hafen nach Norden die Küste entlang: Die Plünderer und Bombardiere der Ostsee haben sich an den Hängen westlich des Freibeuterlagers zwischen ihren Pulverfässern verschanzt. Achte auf diesen Klippen auf {npc:259758}.\nVorsicht: Die Plünderer der Ostsee sind Stufe 44-45, hier ein oder zwei Stufen über dir: Zieh sie einzeln vom Rand der Hänge und halte dich vom Lager dahinter fern.",
 
 	-- Step 78: Sweetberries
-	["Sweetberries"] = "",
+	["Sweetberries"] = "Süßbeeren",
 	-- {npc:257058} Gobam · {item:265808} Sweetberry
-	["{npc:257058}'s {item:265808} bushes grow on these slopes among the raiders' powder kegs, the last one a little to the north."] = "",
+	["{npc:257058}'s {item:265808} bushes grow on these slopes among the raiders' powder kegs, the last one a little to the north."] = "{npc:257058}'s {item:265808}-Strauch wächst auf diesen Hängen unter den Räuberpulverkisten, der letzte etwas nördlicher.",
 
 	-- Step 79: Captain Bentcoin
 	-- {npc:260390} Captain Bentcoin · {npc:260391} Captain Haynes
@@ -384,10 +384,13 @@ return {
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
 	-- was: ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "Noch einmal hinaus zu den Klippen der Piraten. Platziere Whizzbuzz' Sprengladungen auf den drei Schiffen, die unterhalb des Lagers vor Anker liegen, von Süden nach Norden; {quest:95124} steht beim mittleren, ihre Beutetruhe neben ihr. Halte unterwegs Ausschau nach {npc:259758}.\nVorsicht: {quest:95124} ist Stufe 45, hier ein oder zwei Stufen über dir: Räum zuerst das Deck um sie herum und geh mit voller Gesundheit rein."
 	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "",
+	["on board, at the arrow"] = "an Bord, am Pfeil",
 	-- {item:268505} Remote Explosive Charge
-	["{item:268505}, the southern ship"] = "{item:268505}, das südliche Schiff",
-	["the middle ship"] = "das mittlere Schiff",
-	["the northern ship"] = "das nördliche Schiff",
+	["Plant a {item:268505} on the southern ship"] = "Lege ein {item:268505} aufs südlich Schiffe",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the middle ship"] = "Lege ein {item:268505} aufs mittlere Schiffe",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the northern ship"] = "Lege ein {item:268505} aufs nördlich Schiffe",
 
 	-- Step 82: Rotflesh Mushrooms
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom
@@ -408,44 +411,43 @@ return {
 
 	-- Step 85: The Monster Surfaces
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
-	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "",
+	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244} kommt auf, wenn du ihn rufst: Rechtsklick auf das Ding, das in der Wasser fließt am Pfeil, in den flachen Gewässern südwestlich des Hafens, und er taucht dort auf. {npc:257001}, ein Elite, patrouilliert die direkt benachbarte Uferseite: gib ihr Raum.",
 	-- {item:268633} Sea Monster's Head
-	["{item:268633}, where the Threshadon surfaces when you call him"] = "",
+	["{item:268633}, where the Threshadon surfaces when you call him"] = "{item:268633}, wo der Threshadon auftaucht, wenn du ihn rufst",
 
 	-- Step 87: The river: Riverweed
 	-- {item:265806} Riverweed
-	["The river: {item:265806}"] = "",
+	["The river: {item:265806}"] = "Der Fluss: {item:265806}",
 	-- {area:16726} Bolder'ok · {npc:257058} Gobam · {item:265806} Riverweed · {area:16743} Rog'mar
-	["From the port, ride north-west to the river and follow it upstream towards {area:16726}: {npc:257058}'s {item:265806} grows along its banks between {area:16743} and {area:16726}."] = "",
+	["From the port, ride north-west to the river and follow it upstream towards {area:16726}: {npc:257058}'s {item:265806} grows along its banks between {area:16743} and {area:16726}."] = "Vom Hafen nordwestlich zur Fluss und folge ihm hinauf Richtung {area:16726}: {npc:257058}'s {item:265806} wächst entlang seines Uferzwischen {area:16743} und {area:16726}.",
 
 	-- Step 89: Gobam
 	-- {area:16726} Bolder'ok · {npc:263440} Hamur · {npc:257058} Gobam · {npc:257062} Jezap Jinglesprocket
-	["North up the river to {area:16726}: {npc:263440} just south of the ring, {npc:257058} north-east of it, then {npc:257062}."] = "",
+	["North up the river to {area:16726}: {npc:263440} just south of the ring, {npc:257058} north-east of it, then {npc:257062}."] = "Nordlich den Fluss zu {area:16726}: {npc:263440} direkt südlich des Ringes, {npc:257058} nordöstlich davon, dann {npc:257062}.",
 
 	-- Step 90: The Bloodmaster's Ring: Snufflesnout
 	-- {quest:94965} Bloodmaster's Ring
-	["The {quest:94965}: Snufflesnout"] = "",
-	["Snufflesnout (44) is elite: a hard one-on-one fight in the ring, where nobody can help you. Come in rested, with full health and mana."] = "",
+	["The {quest:94965}: Snufflesnout"] = "Der {quest:94965}: Snufflesnout",
+	["Snufflesnout (44) is elite: a hard one-on-one fight in the ring, where nobody can help you. Come in rested, with full health and mana."] = "Snufflesnout (44) ist Elite: ein harter Eins-zu-eins-Kampf in der Arena, wo niemand dir helfen kann. Komme ausgeruht, mit voller Gesundheit und Mana.",
 	["Snufflesnout (44)"] = "Schnüffelschnauze (44)",
 
 	-- Step 91: The Bloodmaster's Ring: Chub'chob
 	-- {quest:94965} Bloodmaster's Ring · {npc:257059} Chub'chob
-	["The {quest:94965}: {npc:257059}"] = "",
+	["The {quest:94965}: {npc:257059}"] = "Der {quest:94965}: {npc:257059}",
 	-- {npc:257059} Chub'chob
-	["{npc:257059} (45) is elite: a hard one-on-one fight in the ring, where nobody can help you. Come in rested, with full health and mana."] = "",
+	["{npc:257059} (45) is elite: a hard one-on-one fight in the ring, where nobody can help you. Come in rested, with full health and mana."] = "{npc:257059} (45) ist Elite: ein harter Eins-zu-eins-Kampf in der Arena, wo niemand dir helfen kann. Komme ausgeruht, mit voller Gesundheit und Mana.",
 	-- {npc:255829} Clugfist
 	["{npc:255829}, on the hill"] = "{npc:255829}, auf dem Hügel",
 
 	-- Step 92: Rog'mar
 	-- {area:16743} Rog'mar · {area:16726} Bolder'ok · {npc:256418} Krom'rosh · {npc:255829} Clugfist · {npc:258570} Da'grosh
-	-- was: ["Back to {area:16743} from the port, where your Hearthstone is set. {npc:256418} in the middle of the fort: {npc:255829}'s word sends him looking for {npc:258570}, his warrior in the west."] = "Vom Hafen zurück nach {area:16743}, wo dein Ruhestein gesetzt ist. {npc:256418} in der Mitte der Festung: {npc:255829}s Wort schickt ihn auf die Suche nach {npc:258570}, seinem Krieger im Westen."
-	["Back to {area:16743}: from {area:16726} south-west down the river, or from the port, where your Hearthstone is set. {npc:256418} in the middle of the fort: {npc:255829}'s word sends him looking for {npc:258570}, his warrior in the west."] = "",
+	["Back to {area:16743}: from {area:16726} south-west down the river, or from the port, where your Hearthstone is set. {npc:256418} in the middle of the fort: {npc:255829}'s word sends him looking for {npc:258570}, his warrior in the west."] = "Zurück zu {area:16743}: von {area:16726} südwestlich den Fluss hinab, oder vom Hafen, wo dein Ruhestein gesetzt ist. {npc:256418} in der Mitte der Festung: {npc:255829}'s Wort sendet ihn nach dem Suchen nach {npc:258570}, seinem Krieger im Westen.",
 	-- {quest:94744} The Wayward Warrior · {npc:258570} Da'grosh · {area:16723} Sunnyglade
 	["{quest:94744}: for {npc:258570}, west of {area:16723}"] = "{quest:94744}: für {npc:258570}, westlich von {area:16723}",
 
 	-- Step 94: Fly to Kargath
 	-- {npc:258570} Da'grosh · {npc:256899} Chogg'Zac · {zone:2548} Riverglades · {area:16743} Rog'mar · {npc:255993} Grakna · {area:340} Kargath · {area:3} Badlands
-	["The rest of this guide is {npc:258570}'s camp in the west, which waits on {npc:256899}: without him the {zone:2548} end here. Back to {area:16743} from the port, where your Hearthstone is set: {npc:255993}, the wind rider master in the middle of the fort, flies to {area:340} in the {area:3}, where the next guide starts."] = "",
+	["The rest of this guide is {npc:258570}'s camp in the west, which waits on {npc:256899}: without him the {zone:2548} end here. Back to {area:16743} from the port, where your Hearthstone is set: {npc:255993}, the wind rider master in the middle of the fort, flies to {area:340} in the {area:3}, where the next guide starts."] = "Der Rest dieses Guides wartet {npc:258570}'s Lager im Westen, das auf {npc:256899} wartet: ohne ihn wartet das {zone:2548} Ende hier. Zurück zu {area:16743} vom Hafen, wo dein Ruhestein gesetzt ist: {npc:255993}, der Windreiter-Meister in der Mitte der Festung, fliegt zu {area:340} in {area:3}, wo der nächste Guide beginnt.",
 
 	-- Step 95: Da'grosh
 	-- {area:16743} Rog'mar · {area:16723} Sunnyglade · {area:16685} Twilight's Shroud · {npc:258570} Da'grosh · {npc:256418} Krom'rosh
@@ -459,8 +461,7 @@ return {
 	["The Twilight camps"] = "Die Lager des Schattenhammers",
 	-- {npc:258570} Da'grosh · {item:265821} Twilight Key · {npc:257450} Rog'mar Scout · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg · {npc:258023} Sergeant Riftan
 	-- plural, as words: Twilight Champions = {npc:256799} Twilight Champion · Twilight Enforcers = {npc:256800} Twilight Enforcer · Farholde Lookouts = {npc:258686} Farholde Lookout
-	-- was: ["The cult's camps fill the valley south and west of {npc:258570}. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "Die Lager des Kults füllen das Tal südlich und westlich von {npc:258570}. Befreie die gefangenen Späher der Rog'mar, sobald du sie findest. Twilight-Vollstrecker (Elite, Stufe 45) patrouillieren durch die Lager: Achte vor jedem Pull darauf, wo sie langlaufen. {npc:256881} und {npc:256891} (Elite, 46) halten die Festung am Kopf des Tals: Zieh die Kultisten von ihnen weg. Das Lager der Allianz von {npc:258023} liegt am Südende des Tals, und seine Aufklärer von Farholde (Stufe 46) greifen die Horde an: Bleib nördlich davon."
-	["The cult's camps fill the valley south and west of {npc:258570}. Twilight Champions drop the {item:265821} that frees a captive {npc:257450}: free them as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "",
+	["The cult's camps fill the valley south and west of {npc:258570}. Twilight Champions drop the {item:265821} that frees a captive {npc:257450}: free them as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "Die Kult-Lager füllen das Tal südlich und westlich von {npc:258570}. Twilight-Champions lassen das {item:265821} fallen, das einen Gefangenen von {npc:257450} befreit: freilassen, wie du sie findest. Twilight-Enforcers (Elite, Level 45) patrouillieren durch die Lager: schau, wo sie gehen, bevor du sie jagst. {npc:256881} und {npc:256891} (Elite, 46) halten die Festung am Talende: jage die Kultisten von ihnen weg. {npc:258023}'s Allianz-Lager liegt am Talende, und seine Farholde-Wächter (Level 46) greifen die Horden an: bleibe nördlich von ihm.",
 	-- plural, as words: Rog'mar Scouts = {npc:257450} Rog'mar Scout
 	["free five captive Rog'mar Scouts"] = "Befreie fünf gefangene Späher der Rog'mar",
 
@@ -477,7 +478,7 @@ return {
 
 	-- Step 102: Twilight's Shroud
 	-- {area:340} Kargath · {area:3} Badlands · {area:16685} Twilight's Shroud · {npc:258570} Da'grosh · {area:16743} Rog'mar · {area:16723} Sunnyglade
-	["The next guide flies from {area:340} in the {area:3}: up through {area:16685}, the pass at the valley's north-west end, just north of {npc:258570}'s camp. Coming from {area:16743}, ride west through {area:16723} and keep north of the Twilight camps below the pass."] = "",
+	["The next guide flies from {area:340} in the {area:3}: up through {area:16685}, the pass at the valley's north-west end, just north of {npc:258570}'s camp. Coming from {area:16743}, ride west through {area:16723} and keep north of the Twilight camps below the pass."] = "Für den nächsten Guide fliegt {area:340} in {area:3}: hoch durch {area:16685}, den Pass am nordwestlichen Ende des Tals, direkt nordlich von {npc:258570}'s Lager. Kommend von {area:16743}, fahre westlich durch {area:16723} und halte nordlich der Twilight-Lager unterhalb des Passes.",
 
 	-- Step 103: Kargath
 	-- {area:3} Badlands · {area:340} Kargath
@@ -493,7 +494,11 @@ return {
 	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: Schnüffelschnauze und {npc:257059}",
 	-- ["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548} liegt südlich von {area:3}. Reite von {area:657} nach Osten nach {area:75} und flieg nach {area:340}: Dort beginnt der Weg hinab ins Gebiet.",
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "Westlich von Rog'mar hält der Schattenhammerkult das Bauerndorf {area:16723}. {npc:259158}, ein Kobold, der aussteigen will, versteckt sich mitten im Dorf.",
+	-- ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Wieder nach Westen nach {area:16723}: {npc:260931}, ein Schattenhammer-Bergarbeiter, der aussteigen will, wartet am Ostrand des Dorfs. Überrede ihn, dann gib {npc:256710}s Quest ab; einer der vermissten Oger steht ein paar Schritte westlich.",
+	-- ["the middle ship"] = "das mittlere Schiff",
+	-- ["the northern ship"] = "das nördliche Schiff",
 	-- ["the {object:707249} poster"] = "der Steckbrief {object:707249}",
+	-- ["{item:268505}, the southern ship"] = "{item:268505}, das südliche Schiff",
 	-- ["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "{npc:257062} bietet die letzten beiden an, sobald Gobams Aufträge erledigt sind (laut Spieleraufzeichnungen); dieser Guide lässt sie aus. Sie sind Stufe 44 und 45: Heb sie dir für später auf, wenn {npc:258626} knapp war.",
 	-- ["{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048} wartet beim Lager der Schattenhammeroger nordöstlich von {npc:256728}: Bring ihn nach Hause nach {area:16726} und halte die Kultisten von ihm fern. Stirbt er, nimm die Quest erneut bei ihm an.",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "{npc:263190}s Speere, an den Süßwasserkrokilisken",

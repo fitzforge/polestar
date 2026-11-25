@@ -7,15 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {area:327} Faldir's Cove
-	-- was: ["For characters of 35 to 37. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "Pour les personnages de niveau 35 à 37. {area:327}, où les nagas et les élémentaires d'eau du professeur sont de niveau 38-40, se fait en Groupe : passez-la si vous êtes seul."
-	["For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "",
+	-- {zone:1435} Swamp of Sorrows · {area:271} Southshore · {area:327} Faldir's Cove
+	["{zone:1435} first, then north to {area:271}, Alterac and Arathi. For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "D'abord {zone:1435}, puis au nord jusqu'à {area:271}, Alterac et Arathi. Pour les personnages de niveau 36 à 38. {area:327}, où les nagas et les élémentaires d'eau du professeur sont de niveau 38-40, est une étape de groupe : passez-la si vous êtes seul.",
 
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Prenez un vol pour {area:42}",
-	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "Maître de vol de {area:35}",
 
 	-- Step 2: The Scythe of Elune
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {zone:1430} Deadwind Pass · {npc:661} Jonathan Carevin
@@ -100,7 +97,7 @@ return {
 
 	-- Step 18: Gakin the Darkbinder
 	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
-	["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}."] = "",
+	["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}."] = "{npc:6122} attend dans la cave de {object:2164}, dans {object:2101}.",
 
 	-- Step 19: The Binding
 	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6913} Heartswood Core · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
@@ -165,9 +162,9 @@ return {
 	-- Step 33: Hay Weevil
 	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
 	-- plural, as words: Hay Weevils = {npc:217589} Hay Weevil
-	["Hay Weevils crawl about the north end of {quest:681}'s farm: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "",
+	["Hay Weevils crawl about the north end of {quest:681}'s farm: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "Des charançons du foin ({npc:217589}) rampent au nord de la ferme de {quest:681} : ouvrez {item:213565} de {npc:217412} et utilisez son {item:213562} sur l'un d'eux. Ne le tuez pas.",
 	-- {item:213562} Bug Catching Net · {npc:217589} Hay Weevil · {item:213568} Hay Weevil Specimen
-	["{item:213562}, on a {npc:217589}: the {item:213568}"] = "",
+	["{item:213562}, on a {npc:217589}: the {item:213568}"] = "{item:213562}, sur un {npc:217589} : {item:213568}",
 
 	-- Step 34: Shards of Myzrael
 	-- {quest:681} Northfold Manor · {area:333} Circle of East Binding · {area:314} Go'Shek Farm
@@ -196,7 +193,7 @@ return {
 	-- Step 38: Witherbark Village
 	-- {area:318} Drywhisker Gorge · {area:314} Go'Shek Farm · {area:317} Witherbark Village · {npc:2712} Quae
 	-- plural, as words: Witherbark Goliaths = {npc:218032} Witherbark Goliath
-	["South from {area:318}, past {area:314}, through {area:317} to the far end of the valley: the Shadow Hunters there drop the knife, and the trolls packed around them give most of the tusks. Then the Witch Doctors among the huts for the pouches, on the way back out towards {npc:2712}. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "",
+	["South from {area:318}, past {area:314}, through {area:317} to the far end of the valley: the Shadow Hunters there drop the knife, and the trolls packed around them give most of the tusks. Then the Witch Doctors among the huts for the pouches, on the way back out towards {npc:2712}. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "Vers le sud depuis {area:318}, après {area:314}, à travers {area:317} jusqu'au fond de la vallée : les chasseurs des ombres y lâchent le couteau, et les trolls massés autour d'eux donnent la plupart des défenses. Ensuite les sorciers-docteurs parmi les huttes pour les bourses, en ressortant vers {npc:2712}. Attention : les goliaths Fanécorce ({npc:218032}, 35, élites) arpentent le fond avec les chasseurs des ombres : attirez les chasseurs vers vous un par un, loin des goliaths.",
 	-- {item:5040} Shadow Hunter Knife
 	["{item:5040}; below ground"] = "{item:5040} ; sous terre",
 
@@ -425,6 +422,7 @@ return {
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {npc:2417} est un élite de niveau 40 : la plupart des classes le battent seules au niveau 42, mais vous aurez peut-être besoin d'aide. Passez-le si vous êtes seul : l'itinéraire vous fait regagner l'expérience en tuant des monstres.",
 	-- ["Walk back onto the span: Ebenezer lies under its Arathi end."] = "Revenez sur le pont : Ebenezer gît sous son extrémité côté Arathi.",
 	-- ["West along the road to {area:320}, on the way to the {object:2689}."] = "À l'ouest par la route jusqu'au {area:320}, sur le chemin de {object:2689}.",
+	-- ["{area:35} flight master"] = "Maître de vol de {area:35}",
 	-- ["{item:2321} for {npc:2438}'s cloak, from {npc:2381}, if you have none"] = "{item:2321} pour la cape de {npc:2438}, chez {npc:2381}, si vous n'en avez pas",
 	-- ["{item:3659}: the {object:1760}"] = "{item:3659} : {object:1760}",
 	-- ["{item:4435} along the way to {object:2701}"] = "{item:4435} sur le chemin de {object:2701}",

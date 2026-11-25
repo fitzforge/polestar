@@ -111,7 +111,8 @@ return {
 	["From the quest data: back west to {npc:5397} in {area:606}. She needs Tears of Theradras: {npc:253713}, the Voice of Theradras, keeps them in the cave in the south of the village, past {npc:253140}. Ask her for them on {npc:5397}'s behalf and bring three back. {npc:253140} takes {quest:92812} on the way."] = "根据任务数据：向西返回{area:606}的{npc:5397}处。她需要瑟莱德丝之泪：瑟莱德丝之声{npc:253713}把它们保存在村子南部的洞穴里，要经过{npc:253140}。代表{npc:5397}向她索取，带回三颗。途中{npc:253140}会接收{quest:92812}。",
 	-- {npc:253713} Mulara
 	["{npc:253713}, in the cave"] = "{npc:253713}，在洞穴里",
-	["three Tears of Theradras"] = "三颗瑟莱德丝之泪",
+	-- {npc:253713} Mulara
+	["three Tears of Theradras, in {npc:253713}'s cave"] = "三颗瑟拉达斯之泪，在{npc:253713}的洞穴里",
 
 	-- Step 15: Gelkis: Test Your Theory
 	-- {quest:93045} Test Your Theory
@@ -327,4 +328,5 @@ return {
 	-- ["Gelkis: the {quest:93034}"] = "吉尔吉斯：{quest:93034}",
 	-- ["Magram: the {quest:92841}"] = "玛格拉姆：{quest:92841}",
 	-- ["The Gelkis (south-west {zone:1443}) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now, and the choice quests no longer cost the other clan anything. Alliance: {npc:5396} at {area:608} offers {quest:1382} (Gelkis) and {quest:1385} (Magram). Horde: {npc:5412}, east of Shadowprey, offers {quest:1368} and {quest:1367}. Take the one of your clan and its Buying Friendship (3,000 for carrying a tote of totems), then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it jumps to the Magram half. Do the clan's quests by level 50 if you can: in Classic a quest pays less once it is 6 or more levels below you, down to a fifth."] = "吉尔吉斯（{zone:1443} 西南）与玛格拉姆（东南）正在交战：每杀一名某部族成员，会给另一部族增加 20 点声望，同时扣除被杀部族 100 点，因此只能提升其中一方。两者初始都是中立。现在无限的任务奖励远高于击杀，而且选择部族的任务已不会扣除另一方声望。联盟：{area:608} 的 {npc:5396} 提供 {quest:1382}（吉尔吉斯）和 {quest:1385}（玛格拉姆）。部落：葬影村东边的 {npc:5412} 提供 {quest:1368} 和 {quest:1367}。接受所选部族的任务及其“收买友谊”任务（携带一袋图腾，奖励 3,000 点），然后勾选此项。指南接下来按吉尔吉斯路线进行；改接玛格拉姆任务，就会跳到玛格拉姆部分。尽量在 50 级之前完成部族任务：经典怀旧服中，任务等级比你低 6 级及以上时，奖励会减少，最低只有五分之一。",
+	-- ["three Tears of Theradras"] = "三颗瑟莱德丝之泪",
 }

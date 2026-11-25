@@ -1649,6 +1649,34 @@ fn on_the_way_to_your_own_map_point_a_banner_offers_the_way_back_to_the_guide() 
 	assert_eq!(out["after"], false, "the banner goes with the point");
 }
 
+// #3878: with the action on the right (guideWindow.bannerLinks "right", Atlas's), a notice whose text would wrap
+// beside it (Fresh start's two sentences) keeps the text's full width and puts the action on its own line under it at
+// the right; a short one (Looking back.) keeps the action on its line.
+#[test]
+fn a_banner_s_action_on_the_right_takes_its_own_line_when_the_text_would_wrap_beside_it() {
+	let out = run(r#"
+		Polestar.Set("guideWindow.bannerLinks", "right")
+		local B = GF.parts.banner
+		local E = Polestar.Engine
+		E.FreshStart = function() return { guideId = uistub.elwynn, share = 42, fromTitle = "The Barrens", minutes = 25 } end
+		uistub.setGuide(uistub.elwynn, 3)
+		local full = B:GetWidth()
+		local point, rel, relPoint = B.Jump:GetPoint(1)
+		local fresh = { B.psKind, B.Text:GetWidth(), point, rel == B.Text, relPoint }
+		B.Close:Click()
+		E.FreshStart = function() return nil end
+		uistub.live = 4
+		uistub.setStep(3)
+		local p2, r2 = B.Jump:GetPoint(1)
+		local short = { B.psKind, p2, r2 == B, B.Text:GetText() }
+		emit({ full = full, fresh = fresh, short = short })"#)
+	.remove(0);
+	assert_eq!(out["fresh"][0], "fresh", "{out}");
+	assert_eq!(json!([out["fresh"][2], out["fresh"][3], out["fresh"][4]]), json!(["TOPRIGHT", true, "BOTTOMRIGHT"]), "the action under the text, at its right: {out}");
+	assert!(out["fresh"][1].as_f64().unwrap() > out["full"].as_f64().unwrap() * 0.7, "the text keeps the card's width: {out}");
+	assert_eq!(out["short"], json!(["away", "TOPRIGHT", true, "Looking back."]), "a one-line notice keeps its action on its line: {out}");
+}
+
 #[test]
 fn guide_outleveled_a_dismissible_banner_offers_the_better_guide_in_the_same_tab() {
 	let out = run(r#"
@@ -2132,6 +2160,50 @@ fn the_pace_line_turns_off_on_its_own_and_the_xp_row_keeps_the_rest() {
 	assert_eq!(out["off"], json!({ "shown": true, "text": "48.0k XP/h  \u{b7}  30s to level" }), "{out}");
 	assert_eq!(out["alone"], json!({ "shown": false, "text": false }), "the pace was all it had: {out}");
 	assert_eq!(out["back"], json!({ "shown": true, "text": "On pace for level 25.2 by step 96" }), "{out}");
+}
+
+// The XP line has its own switch (guideWindow.xpLine, #3304), outside compact mode: off, XP an hour, time to level
+// and the pace go and the row with them; Boosted Rest keeps its own line, alone in the row; on again, the line is
+// back (a profile switch and Reset all: settings-effects.rs).
+#[test]
+fn the_xp_line_turns_off_on_its_own_and_boosted_rest_keeps_its_line() {
+	let out = run(r#"
+		local stats = { rate = 48000, timeToLevel = 30, maxed = false }
+		local rest
+		Polestar.QoL = {
+			GetXPStats = function() return stats end,
+			Duration = function() return "30s" end,
+			XP = { Short = function(n) return string.format("%.1fk", n / 1000) end, Summary = function() return "Level 24" end },
+			Rest = { Parts = function() return rest end },
+		}
+		local pace = GF.PaceText
+		GF.PaceText = function() return "On pace for level 25.2 by step 96" end
+		uistub.setGuide(uistub.elwynn, 3)
+		Polestar.Fire("QOL_XP_UPDATED", stats)
+		local function row()
+			return { shown = GF.xp:IsShown(), text = GF.xp:IsShown() and GF.xp.Text:GetText() or false, rest = GF.xp.Rest:IsShown() }
+		end
+		local r = { on = row(), compact = Polestar.Get("ui.compact") or false }
+		Polestar.Set("guideWindow.xpLine", false)
+		r.off = row()
+		rest = { "Boosted Rest 12m" }
+		Polestar.Fire("QOL_REST_UPDATED")
+		r.rest = row()
+		Polestar.Set("guideWindow.xpLine", true)
+		r.both = row()
+		rest = nil
+		Polestar.Fire("QOL_REST_UPDATED")
+		r.back = row()
+		GF.PaceText = pace
+		emit(r)"#)
+	.remove(0);
+	let line = "48.0k XP/h  \u{b7}  30s to level  \u{b7}  On pace for level 25.2 by step 96";
+	assert_eq!(out["compact"], false, "{out}");
+	assert_eq!(out["on"], json!({ "shown": true, "text": line, "rest": false }), "{out}");
+	assert_eq!(out["off"], json!({ "shown": false, "text": false, "rest": false }), "{out}");
+	assert_eq!(out["rest"], json!({ "shown": true, "text": "Boosted Rest 12m", "rest": false }), "Boosted Rest alone: {out}");
+	assert_eq!(out["both"], json!({ "shown": true, "text": line, "rest": true }), "Boosted Rest under the line: {out}");
+	assert_eq!(out["back"], json!({ "shown": true, "text": line, "rest": false }), "{out}");
 }
 
 // The XP line is measured at the window's width, as the layout measures it: an update that changes nothing in the
@@ -3001,21 +3073,23 @@ fn the_training_banner_says_how_many_steps_ahead_the_guide_trains_the_class_or_t
 		GF.Layout()
 		emit({ ahead = ahead, untitled = untitled, none = B.Text:GetText() })"#)
 	.remove(0);
-	let first = "Level 12  \u{b7}  new Warrior skills  \u{b7}  Ander Germaine, Stormwind City";
+	let first = "Level 12  \u{b7}  new Warrior skills";
 	assert_eq!(
 		out,
 		json!({
 			"ahead": format!("{first}\nThe guide trains you in 14 steps (Thunderbrew Distillery)."),
 			"untitled": format!("{first}\nThe guide trains you in 12 steps."),
-			"none": format!("{first}\nThe guide has no class training ahead."),
+			"none": format!("{first}  \u{b7}  Ander Germaine, Stormwind City\nThe guide has no class training ahead."),
 		})
 	);
 }
 
 // A level-18 Tauren at the Crossroads was told "Jen'shan, Durotar" while the guide trains in Orgrimmar in 10
-// steps: with the guide's own stop within 10 steps the banner names that and no other trainer, and has no Show.
+// steps, and a Gnome Warlock in Darkshore "Strahad Farsan, Ratchet" while the guide trains him in Ironforge after
+// the Wetlands (#2843): with the guide's own stop ahead, however far, the banner names that and no other trainer,
+// and has no Show. With none ahead, the planner's pick, live, over the notice's.
 #[test]
-fn with_the_guide_s_training_stop_within_10_steps_the_banner_names_it_and_no_other_trainer() {
+fn with_the_guide_s_training_stop_ahead_the_banner_names_it_and_no_other_trainer_2843() {
 	let out = run(r#"
 		uistub.openTabs(TABS, 1)
 		local B = GF.parts.banner
@@ -3027,18 +3101,21 @@ fn with_the_guide_s_training_stop_within_10_steps_the_banner_names_it_and_no_oth
 		uistub.trainStop = { 1, "Orgrimmar" }
 		GF.Layout()
 		local here = seen()
-		-- 11 steps: the planner's pick, live, over the notice's.
-		uistub.trainStop = { 11, "Orgrimmar" }
+		uistub.trainStop = { 40, "Ironforge" }
+		GF.Layout()
+		local later = seen()
+		uistub.trainStop = { false }
 		uistub.plannerTrainer = { npc = 3171, npcName = "Thotar", map = 1411, x = 51.8, y = 43.5 }
 		GF.Layout()
-		local far = seen()
+		local none = seen()
 		B.Jump:Click()
-		emit({ near = near, here = here, far = far, target = lastCall("SetTarget") })"#)
+		emit({ near = near, here = here, later = later, none = none, target = lastCall("SetTarget") })"#)
 	.remove(0);
 	let head = "Level 18  \u{b7}  new Warrior skills";
 	assert_eq!(out["near"], json!({ "text": format!("{head}\nThe guide trains you in 10 steps (Orgrimmar)."), "show": false, "later": true }));
 	assert_eq!(out["here"], json!({ "text": format!("{head}\nYour guide's current step trains you."), "show": false, "later": true }));
-	assert_eq!(out["far"], json!({ "text": format!("{head}  \u{b7}  Thotar, Durotar\nThe guide trains you in 11 steps (Orgrimmar)."), "show": true, "later": true }));
+	assert_eq!(out["later"], json!({ "text": format!("{head}\nThe guide trains you in 40 steps (Ironforge)."), "show": false, "later": true }));
+	assert_eq!(out["none"], json!({ "text": format!("{head}  \u{b7}  Thotar, Durotar\nThe guide has no class training ahead."), "show": true, "later": true }));
 	assert_eq!(out["target"], json!(["SetTarget", 1411, 51.8, 43.5, "Thotar"]));
 }
 

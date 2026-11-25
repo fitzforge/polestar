@@ -18,8 +18,6 @@ return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Vuela a {area:150}",
-	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "Maestro de vuelo de {area:144}",
 
 	-- Step 3: Theramore flight master
 	["Theramore flight master"] = "Maestro de vuelo de Theramore",
@@ -49,9 +47,9 @@ return {
 
 	-- Step 8: Flesh Picker
 	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
-	["A {npc:217590} crawls about the {area:596}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "",
+	["A {npc:217590} crawls about the {area:596}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "Un {npc:217590} se arrastra por {area:596}: abre {item:213565} de {npc:217412} y usa su {item:213562} en uno. No lo mates.",
 	-- {item:213562} Bug Catching Net · {npc:217590} Flesh Picker · {item:213567} Flesh Picker Specimen
-	["{item:213562}, on a {npc:217590}: the {item:213567}"] = "",
+	["{item:213562}, on a {npc:217590}: the {item:213567}"] = "{item:213562}, en un {npc:217590}: {item:213567}",
 
 	-- Step 9: Maraudine centaurs
 	["Maraudine centaurs"] = "Centauros Maraudine",
@@ -60,7 +58,7 @@ return {
 
 	-- Step 10: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "",
+	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} está retenida en el campamento de centauros al oeste del cementerio. Libérala y mantenla con vida en la salida; se detiene junto al cementerio.\nCuidado: seis centauros atacan durante la escolta, y no puedes limpiarlos antes: solo aparecen durante la escolta y vienen vinculados. En las grabaciones de los jugadores, 14 de las 30 personas que la aceptaron fallaron al menos una vez. Lleva a un amigo, o sáltala si vas solo. Limpiar antes los centauros normales del camino ayuda.",
 	-- {npc:12277} Melizza Brimbuzzle
 	["escort {npc:12277} back toward the graveyard"] = "escolta a {npc:12277} de vuelta hacia el cementerio",
 
@@ -94,7 +92,7 @@ return {
 
 	-- Step 17: Azore Aldamort
 	-- {npc:11863} Azore Aldamort · {area:2405} Ethel Rethor · {zone:1443} Desolace
-	["{npc:11863}'s tower stands on the hill at the ruins of {area:2405}, west across the north of {zone:1443}."] = "",
+	["{npc:11863}'s tower stands on the hill at the ruins of {area:2405}, west across the north of {zone:1443}."] = "La torre de {npc:11863} está en la colina de las ruinas de {area:2405}, al oeste cruzando el norte de {zone:1443}.",
 	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
 	["{npc:11863}, if the first {zone:1443} visit didn't take the sceptre back to him"] = "{npc:11863}, si en la primera visita a {zone:1443} no le llevaste el cetro",
 
@@ -148,6 +146,7 @@ return {
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Los nagas Filozante ocupan la costa noroeste, al norte de la torre de {npc:11863}; la cartera de Karnitol está en el fondo del mar frente a ella, y cualquier naga puede soltar la llave dorada de Rackmore. Nada hasta {area:2406}, frente a la punta más al norte, y usa {item:15766} en {object:177673}: surge {npc:12369} (38); mátalo para {quest:6027}.",
 	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "Los demonios se reúnen en {area:602}, en el sur de {zone:1443}: canes viles (devoradores de maná, cazadores de magos y de líneas ley), doncellas y hermanas abisales, y capitanes Guardaruina alrededor del foso.\nCuidado: La mayoría de los enemigos de aquí patrullan, así que es fácil atraer enemigos de más.",
 	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "Los devastadores no-muertos recorren los campos de huesos al sur de la aldea Magram, al este del Aquelarre: la flecha lleva a su borde oeste. Luego usa {item:15848} en su flecha, en el lado este de los campos, para atraer a los espectros Magrami. Cuidado: los necrokhans Magram y los Corpsefeeders (45, élite) recorren los campos de huesos entre las dos flechas, con nigromantes Magram (42): atrae a los devastadores y a los espectros hacia ti, lejos de ellos.",
+	-- ["{area:144} flight master"] = "Maestro de vuelo de {area:144}",
 	-- ["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} está cautiva en el campamento centauro al oeste del cementerio. Libérala y mantenla con vida en la salida; se detiene junto al cementerio.\nCuidado: Los grupos programados están vinculados y solo aparecen durante la escolta, así que no puedes despejarlos antes ni atraerlos de a uno. Sí ayuda despejar antes los centauros normales del camino.",
 	-- ["{npc:5396}, if 30-40/02 didn't give it"] = "{npc:5396}, si 30-40/02 no te la dio",
 	-- ["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}, si 30-40/02 no la tomó: el naufragio está debajo de la torre de {npc:11863}",

@@ -128,7 +128,8 @@ return {
 	-- {spell:3320} Rough Grinding Stone
 	["{spell:3320} to 83"] = "{spell:3320}練到83",
 	-- {spell:3320} Rough Grinding Stone · {item:2835} Rough Stone
-	["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320}在75時為綠色（45黃、65綠、85灰）：大約58次製作可到83。每次需要2個{item:2835}。每次兩個{item:2835}。磨石是後續圖紙的零件；多出來的賣給商人。",
+	-- was: ["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320}在75時為綠色（45黃、65綠、85灰）：大約58次製作可到83。每次需要2個{item:2835}。每次兩個{item:2835}。磨石是後續圖紙的零件；多出來的賣給商人。"
+	["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors. If you got here without learning {spell:3320}, learn it now: an earlier step teaches it."] = "{spell:3320}在75時為綠色（黃色45，綠色65，灰色85）：大約製作58次到83。每次需要2個{item:2835}。每次兩個{item:2835}。磨石是後續圖樣的材料；多餘的賣給商人。如果你到這裡還沒學會{spell:3320}，現在就學：之前的步驟會教。",
 
 	-- Step 28: Runed Copper Belt to 100
 	-- {spell:2666} Runed Copper Belt
@@ -271,11 +272,11 @@ return {
 
 	-- Step 51: Plans: Ornate Thorium Handaxe
 	-- {item:12819} Plans: Ornate Thorium Handaxe · {item:12773} Ornate Thorium Handaxe · {skill:164} Blacksmithing · {npc:11278} Magnus Frostwake · {zone:1422} Western Plaguelands · {item:13544} Spectral Essence · {npc:11216} Eva Sarkhoff · {area:2057} Scholomance
-	["{item:12819} teaches {item:12773} ({skill:164} 250) for 1g 60s. Sold by {npc:11278} ({zone:1422}). {npc:11278} is a ghost: you see him only with the {item:13544} on (from {npc:11216}'s {area:2057} chain, level 55, a group), so skip this without it."] = "",
+	["{item:12819} teaches {item:12773} ({skill:164} 250) for 1g 60s. Sold by {npc:11278} ({zone:1422}). {npc:11278} is a ghost: you see him only with the {item:13544} on (from {npc:11216}'s {area:2057} chain, level 55, a group), so skip this without it."] = "{item:12819}教會{item:12773}（{skill:164} 250），價格1金60銀。由{zone:1422}的{npc:11278}出售。{npc:11278}是幽靈：只有戴著{item:13544}時才能看見他（來自{npc:11216}的{area:2057}任務線，55級，需要小隊），沒有它就跳過。",
 
 	-- Step 52: Plans: Huge Thorium Battleaxe
 	-- {item:12823} Plans: Huge Thorium Battleaxe · {item:12775} Huge Thorium Battleaxe · {skill:164} Blacksmithing · {npc:11278} Magnus Frostwake · {zone:1422} Western Plaguelands · {item:13544} Spectral Essence · {npc:11216} Eva Sarkhoff · {area:2057} Scholomance
-	["{item:12823} teaches {item:12775} ({skill:164} 255) for 2g. Sold by {npc:11278} ({zone:1422}). {npc:11278} is a ghost: you see him only with the {item:13544} on (from {npc:11216}'s {area:2057} chain, level 55, a group), so skip this without it."] = "",
+	["{item:12823} teaches {item:12775} ({skill:164} 255) for 2g. Sold by {npc:11278} ({zone:1422}). {npc:11278} is a ghost: you see him only with the {item:13544} on (from {npc:11216}'s {area:2057} chain, level 55, a group), so skip this without it."] = "{item:12823}教會{item:12775}（{skill:164} 255），價格2金。由{zone:1422}的{npc:11278}出售。{npc:11278}是幽靈：只有戴著{item:13544}時才能看見他（來自{npc:11216}的{area:2057}任務線，55級，需要小隊），沒有它就跳過。",
 
 	-- Step 53: Blacksmithing 225-300: Auction House
 	-- {skill:164} Blacksmithing
@@ -383,7 +384,7 @@ return {
 	["{item:12775} to 285"] = "{item:12775}練到285",
 	-- {item:12775} Huge Thorium Battleaxe · {item:12359} Thorium Bar · {item:12644} Dense Grinding Stone · {item:8170} Rugged Leather · {npc:11278} Magnus Frostwake · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {item:13544} Spectral Essence · {npc:11216} Eva Sarkhoff · {area:2057} Scholomance · {npc:10506} Kirtonos the Herald · {quest:7654} Imperial Plate Boots
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar · Dense Grinding Stones = {item:12644} Dense Grinding Stone
-	["{item:12775} is orange at 255 (yellow 280, green 292, grey 305): about 31 crafts to 285. Each takes 40 {item:12359}, 6 {item:12644} and 6 {item:8170}. Make the 186 {item:12644} first. Plans from {npc:11278} in {area:2298} ({zone:1422}): he is a ghost you see only with the {item:13544} trinket on (put it on inside {area:2298}), the reward of {npc:11216}'s {area:2057} chain that ends with {npc:10506} (level 55, a dungeon group). Unlimited stock, but the plans bind when picked up. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the {quest:7654} take over. Without the trinket, the other ways through: world-drop plans from the Auction House (the Radiant pieces: about 820 Thorium Bars and 190 Hearts of Fire for the Radiant route) or the Merchant's Favor sets. Needs an anvil nearby."] = "",
+	["{item:12775} is orange at 255 (yellow 280, green 292, grey 305): about 31 crafts to 285. Each takes 40 {item:12359}, 6 {item:12644} and 6 {item:8170}. Make the 186 {item:12644} first. Plans from {npc:11278} in {area:2298} ({zone:1422}): he is a ghost you see only with the {item:13544} trinket on (put it on inside {area:2298}), the reward of {npc:11216}'s {area:2057} chain that ends with {npc:10506} (level 55, a dungeon group). Unlimited stock, but the plans bind when picked up. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the {quest:7654} take over. Without the trinket, the other ways through: world-drop plans from the Auction House (the Radiant pieces: about 820 Thorium Bars and 190 Hearts of Fire for the Radiant route) or the Merchant's Favor sets. Needs an anvil nearby."] = "{item:12775}在255時為橙色（黃色280，綠色292，灰色305）：大約製作31次到285。每次需要40個{item:12359}、6個{item:12644}和6個{item:8170}。先做186個{item:12644}。圖樣來自{area:2298}（{zone:1422}）的{npc:11278}：他是幽靈，只有戴著{item:13544}飾品時才能看見（在{area:2298}裡面戴上），這是{npc:11216}的{area:2057}任務線的獎勵，該任務線以{npc:10506}結束（55級，地城小隊）。庫存無限，但圖樣拾取後綁定。每次需要四十個瑟銀錠和六個緻密砂輪：最貴的一段，所以在{quest:7654}接手的地方停下。沒有飾品的話，其他途徑：拍賣場上的世界掉落圖樣（光輝系列：光輝路線大約需要820個瑟銀錠和190個火焰之心），或商人之友套裝。需要附近有鐵砧。",
 
 	-- Step 73: Plans: Imperial Plate Boots
 	-- {npc:14567} Derotain Mudsipper · {zone:1446} Tanaris · {item:12700} Plans: Imperial Plate Boots · {skill:164} Blacksmithing · {item:12359} Thorium Bar · {quest:7654} Imperial Plate Boots · {quest:7652} A Blue Light Bargain
@@ -483,5 +484,6 @@ return {
 	-- ["{skill:393} (or the Auction House)"] = "{skill:393}（或在拍賣場購買）",
 	-- ["{spell:2668} to 121"] = "{spell:2668}練到121",
 	-- ["{spell:3117} to 112"] = "{spell:3117}練到112",
+	-- ["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320}在75時為綠色（45黃、65綠、85灰）：大約58次製作可到83。每次需要2個{item:2835}。每次兩個{item:2835}。磨石是後續圖紙的零件；多出來的賣給商人。",
 	-- ["{spell:3333} to 155"] = "{spell:3333}練到155",
 }

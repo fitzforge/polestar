@@ -6,11 +6,13 @@
 -- A token marked "no name in this language" would show in English: write that name in Spanish (Latin America) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1425} The Hinterlands · {area:75} Stonard · {zone:1419} Blasted Lands
+	["{zone:1425} first, then {area:75} and the {zone:1419}."] = "Primero {zone:1425}, luego {area:75} y {zone:1419}.",
+
 	-- Step 1: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "Vuela a {area:272}",
-	-- {area:1446} Thorium Point
-	["{area:1446} flight master"] = "Maestro de vuelo de {area:1446}",
 
 	-- Step 2: The Hinterlands
 	-- {npc:7801} Gilveradin Sunchaser
@@ -214,6 +216,7 @@ return {
 	-- ["Vulture hills"] = "Colinas de los buitres",
 	-- ["West of the island, the Vilebranch scalpers hold the temples of {area:1884} and {area:1917}. Slagtree's tools lie at one of the temples."] = "Al oeste de la isla, los arrancacabelleras Vilrama ocupan los templos de {area:1884} y {area:1917}. Las herramientas de Arbolescoria están en uno de los templos.",
 	-- ["grind on {npc:5982} at the northern hills, {zone:1419}"] = "farmea {npc:5982} en las colinas del norte, {zone:1419}",
+	-- ["{area:1446} flight master"] = "Maestro de vuelo de {area:1446}",
 	-- ["{npc:6741}: for {zone:1456}, around level 50"] = "{npc:6741}: para {zone:1456}, alrededor del nivel 50",
 	-- ["{npc:7825}, the {object:36126}"] = "{npc:7825}, {object:36126}",
 }

@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (traditional) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1422} Western Plaguelands · {area:152} Bulwark · {zone:1447} Azshara · {zone:1448} Felwood
+	["{zone:1422} and the {area:152} first, then {zone:1447} and {zone:1448}."] = "先去{zone:1422}和{area:152}，再去{zone:1447}和{zone:1448}。",
+
 	-- Step 1: Mulgris Deepriver
 	-- {area:202} Writhing Haunt · {area:200} Dalson's Tears
 	["He camps by the {area:202}, south-east of {area:200}."] = "他在{area:200}東南方的{area:202}旁紮營。",
@@ -28,22 +32,22 @@ return {
 	-- Step 6: High Executor Derrington
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "你在路線之前來這裡時錯過了這一步：現在先做它。它很快，還會開啟後面的任務。",
 	-- {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries
-	["{item:12814}, from the {object:176092} next to Derrington"] = "",
+	["{item:12814}, from the {object:176092} next to Derrington"] = "{item:12814}，來自德靈頓旁邊的{object:176092}",
 
 	-- Step 7: Box of Incendiaries
 	-- {quest:5096} Scarlet Diversions · {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries · {npc:10837} High Executor Derrington
-	["{quest:5096} needs a {item:12814} to torch the command tent: take one from the {object:176092} next to {npc:10837}."] = "",
+	["{quest:5096} needs a {item:12814} to torch the command tent: take one from the {object:176092} next to {npc:10837}."] = "{quest:5096}需要一個{item:12814}來點燃指揮帳篷：從{npc:10837}旁邊的{object:176092}拿一個。",
 	-- {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries
-	["{item:12814}, from the {object:176092}"] = "",
+	["{item:12814}, from the {object:176092}"] = "{item:12814}，來自{object:176092}",
 
 	-- Step 8: Scarlet forward camp
 	["Scarlet forward camp"] = "血色十字軍前進營地",
-	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
+	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
 	-- was: ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "從{area:152}沿著道路向東進入{zone:1422}。血色十字軍的帳篷就在費爾斯通農場過去一點，位於{area:199}和{area:200}之間。用{object:176092}燒掉指揮帳篷，並插上天災戰旗。注意：帳篷周圍的血色十字軍最高54級，祈咒者會施法：從最靠近指揮帳篷的一側進入，別理其他人。"
-	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "",
+	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "從{area:152}沿路向東進入{zone:1422}。血色十字軍的帳篷就在費爾斯通農場後面，在{area:199}和{area:200}之間。用{item:12814}點燃指揮帳篷，插上天譴旗幟。小心：帳篷周圍的血色十字軍最高54級，祈求者會施法：從離指揮帳篷最近的一側進入，別管其他人。",
 
-	-- Step 9: The Bulwark
-	-- {area:152} The Bulwark
+	-- Step 9: Bulwark
+	-- {area:152} Bulwark
 	["Ride south-west past Felstone Farm and follow the road west back to the {area:152}."] = "向西南騎過費爾斯通農場，沿著道路向西回到{area:152}。",
 	["Derrington's watchtowers and Vandis' cauldron are done on a later visit: keep them."] = "德靈頓的瞭望塔和范蒂絲的大鍋會在之後造訪時完成：先保留。",
 

@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in French words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1445} Dustwallow Marsh · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{zone:1445} first, then {zone:1434} and the {zone:1435}."] = "D'abord {zone:1445}, puis {zone:1434} et {zone:1435}.",
+
 	-- Step 1: Theramore
 	["Theramore"] = "Theramore",
 	-- {quest:1260} Morgan Stern · {npc:4897} Helenia Olden
@@ -264,9 +268,9 @@ return {
 
 	-- Step 49: Arbor Tarantula
 	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
-	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "",
+	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "Un {npc:217588} rampe dans la jungle au sud-est du camp de Nesingwary, en route vers {area:99} : ouvrez {item:213565} de {npc:217412} et utilisez son {item:213562} sur l'un d'eux. Ne le tuez pas.",
 	-- {item:213562} Bug Catching Net · {npc:217588} Arbor Tarantula · {item:213566} Arbor Tarantula Specimen
-	["{item:213562}, on an {npc:217588}: the {item:213566}"] = "",
+	["{item:213562}, on an {npc:217588}: the {item:213566}"] = "{item:213562}, sur un {npc:217588} : {item:213566}",
 
 	-- Step 50: Rebel Camp
 	["Head north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "Dirigez-vous vers le nord-est en passant le camp de Nesingwary et suivez la route vers le nord jusqu'au camp en haut de la vallée.",

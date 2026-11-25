@@ -26,5 +26,7 @@ return {
 	["Reputation · Cities"] = "평판 · 도시",
 	["Reputation · Raids and dungeons"] = "평판 · 공격대와 던전",
 	["Reputation · World"] = "평판 · 세계",
-	["The Drowned City"] = "가라앉은 도시",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The Drowned City"] = "가라앉은 도시",
 }

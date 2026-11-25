@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (simplified) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1434} Stranglethorn Vale · {area:75} Stonard · {zone:1446} Tanaris · {zone:1444} Feralas
+	["{zone:1434} and {area:75} first, then {zone:1446} and {zone:1444}."] = "先去{zone:1434}和{area:75}，再去{zone:1446}和{zone:1444}。",
+
 	-- Step 1: Fly to Grom'gol
 	-- {object:3202} Grom'gol
 	["Fly to {object:3202}"] = "飞往{object:3202}",
@@ -83,7 +87,7 @@ return {
 
 	-- Step 16: Booty Bay
 	-- {area:35} Booty Bay · {npc:2494} Privateer Bloads · {npc:2498} Crank Fizzlebub · {npc:737} Kebok · {npc:773} Krazek
-	["In {area:35}: {npc:2494} on the docks, {npc:2498} inside the inn, MacKinley, {npc:737} and {npc:773} upstairs."] = "",
+	["In {area:35}: {npc:2494} on the docks, {npc:2498} inside the inn, MacKinley, {npc:737} and {npc:773} upstairs."] = "在{area:35}：{npc:2494}在码头上，{npc:2498}在旅店里，马克基雷、{npc:737}和{npc:773}在楼上。",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}：在屋内",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "“海狼”马克基雷，位于最顶层",
@@ -96,7 +100,7 @@ return {
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "",
 	-- {area:35} Booty Bay · {npc:2491} Whiskey Slim
-	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "",
+	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "第一次来{area:35}时还不到40级？旅店里的{npc:2491}和顶楼的“海狼”马克基雷现在就有任务给你。",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}在旅店里：他的酒瓶被冲到了{zone:1425}海岸，约48级时再去",
 	-- {quest:2872} Stoley's Debt · {npc:7881} Stoley · {zone:1446} Tanaris
@@ -104,9 +108,9 @@ return {
 
 	-- Step 19: Fin Fizracket
 	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
-	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "",
+	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "小队任务：{quest:348}在薄雾山谷的{npc:1449}处结束。交给他十颗大猩猩獠牙，他会召来三波大猩猩（41-42），一波接一波，然后是{npc:1514}（44）。玩家记录中，开始此任务的27人里有12人死在那里。如果有一两个朋友同行就接。",
 	-- {npc:2486} Fin Fizracket · {quest:348} Stranglethorn Fever
-	["{npc:2486}, beside the inn: {quest:348}"] = "",
+	["{npc:2486}, beside the inn: {quest:348}"] = "{npc:2486}，在旅店旁边：{quest:348}",
 
 	-- Step 20: Witch Doctor Unbagwa
 	-- {area:35} Booty Bay · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
@@ -161,7 +165,7 @@ return {
 	["for the {object:2555} in {zone:1445}, on the Dustwallow guide"] = "",
 
 	-- Step 38: A Soggy Scroll
-	["The scroll lies at the water's edge in the swamp's far west."] = "",
+	["The scroll lies at the water's edge in the swamp's far west."] = "卷轴在沼泽最西边的水边。",
 
 	-- Step 39: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "盐齿鳄鱼",

@@ -127,6 +127,35 @@ fn upgrade_line_unusable_items_say_why_class_restricted_the_downgrade_in_red_equ
 	assert_eq!(worn, false);
 }
 
+// #3785 (imp, a Warrior): Vindicator's Belt, a Paladin-only item from Pix Xizzix, showed as an upgrade. Polestar.ItemDB
+// has no entry for Forever's newer items, so the class list it reads was never there. An item ItemDB gives no class
+// list reads the "Classes:" line of its own tooltip (C_TooltipInfo), the class names in the client's language. Here
+// 9900 is such an item, cloth any class can wear, for Paladins only; 9901 is the same with no such line.
+const CLASS_LINE_ITEMS: &str = r#"
+	LOCALIZED_CLASS_NAMES_MALE = { WARRIOR = "Warrior", PALADIN = "Paladin", PRIEST = "Priest" }
+	ITEM_CLASSES_ALLOWED = "Classes: %s"
+	local stats = { ITEM_MOD_STRENGTH_SHORT = 30, ITEM_MOD_STAMINA_SHORT = 30 }
+	g.defineItem("item:9900", { equipLoc = "INVTYPE_WAIST", classID = 4, subclassID = 1, minLevel = 1, stats = stats })
+	g.defineItem("item:9901", { equipLoc = "INVTYPE_WAIST", classID = 4, subclassID = 1, minLevel = 1, stats = stats })
+	TIPS = { ["item:9900"] = { "Vindicator's Belt", "Waist", "Classes: Priest, Paladin" }, ["item:9901"] = { "Plain Belt", "Waist" } }
+	C_TooltipInfo = { GetHyperlink = function(link)
+		local lines = {}
+		for i, t in ipairs(TIPS[link] or {}) do lines[i] = { leftText = t } end
+		return { lines = lines }
+	end }
+"#;
+
+#[test]
+fn an_item_polestar_has_no_entry_for_reads_its_classes_line_paladin_only_is_not_a_warriors_upgrade_3785() {
+	let script = format!("{CLASS_LINE_ITEMS}\nemit({{ line(\"item:9900\"), line(\"item:9901\") }})");
+	let warrior = run(&script).remove(0);
+	assert_eq!(warrior[0], "Polestar | not for your class", "a Warrior: Paladins and Priests only");
+	assert_ne!(warrior[1], "Polestar | not for your class", "no Classes line: any class");
+	let paladin = run_with(&script, Opts { cls: "PALADIN", class_name: "Paladin", class_id: 2, ..Default::default() }).remove(0);
+	assert_ne!(paladin[0], "Polestar | not for your class", "a Paladin may wear it ({paladin})");
+	assert_eq!(paladin[0], paladin[1], "and it scores as the same belt with no Classes line");
+}
+
 #[test]
 fn upgrade_line_why_an_item_is_unusable_is_in_the_client_language() {
 	let es = fake_locale("itIT", &[("armor you cannot wear", "armadura que no puedes llevar"), ("not for your class", "no es para tu clase")]);

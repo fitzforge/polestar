@@ -188,7 +188,7 @@ step Sen'jin Village
   kill 266849 quest 96821.2
 
 step Brakk's campfire
-  tip Brakk camps just south of Razor Hill. Sit by his campfire (/sit) until the Boosted Rest buff appears. With a profession learned, Brakk also offers its Camping 101, which its trainer takes: in Razor Hill or in Orgrimmar at the start of the next guide.
+  tip Brakk camps just south of Razor Hill. Sit by his campfire (/sit) until the Boosted Rest buff appears. With a profession learned, Brakk also offers its Camping 101, which its trainer takes: in Razor Hill, by Sen'jin Village for fishing, or in Orgrimmar at the start of the next guide.
   turnin 96652                        -- Brakk
   accept 96604
   complete 96604 @52.1,47.4
@@ -238,6 +238,12 @@ step Camping 101: Alchemy
   when !knows 1230564
   accept 97899                        -- Brakk: for Whuut
 
+step Camping 101: Fishing
+  when skill Fishing 1
+  when !knows 1229745
+  tip Lau'Tiki takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97904                        -- Brakk: for Lau'Tiki, on the shore south of Sen'jin
+
 step Razor Hill
   accept 96822                        -- Turroc, on the east side of town; inside
   turnin 5649 only Troll,Priest       -- Tai'jin, in the barracks beside Turroc
@@ -279,6 +285,12 @@ step Camping 101: Tailoring
   when skill Tailoring 1
   when !knows 1229504
   accept 96102                        -- Brakk: for Snang
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  when !knows 1230171
+  tip Dwukk takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97900                        -- Brakk: for Dwukk
 
 step Grunt Kor'ja
   only Troll,Priest
@@ -382,12 +394,24 @@ step Sen'jin Village
   turnin 97223                        -- Xar'Ti
   train class only Mage               -- Un'Thuwa, the mage trainer in Sen'jin
 
+step Lau'Tiki
+  when onquest 97904
+  when complete 97904
+  complete 97904 @53.21,81.45 map 1411
+  turnin 97904                        -- Lau'Tiki: Camping 101: Fishing
+
 step Razor Hill
   accept 99048
   accept 837                          -- Gar'Thok
   turnin 825                          -- Gar'Thok
   turnin 815                          -- Cook Torka
   accept 96825                        -- Cook Torka
+
+step Dwukk
+  when onquest 97900
+  when complete 97900
+  complete 97900 @51.97,40.65 map 1411
+  turnin 97900                        -- Dwukk: Camping 101: Blacksmithing
 
 step Class trainer
   only Rogue

@@ -6,11 +6,13 @@
 -- A token marked "no name in this language" would show in English: write that name in Spanish (Spain) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:2255} Everlook · {zone:1448} Felwood · {zone:1452} Winterspring
+	["{area:2255} first, then Un'Goro, then {zone:1448} and {zone:1452} again."] = "Primero {area:2255}, luego Un'Goro y después de nuevo {zone:1448} y {zone:1452}.",
+
 	-- Step 1: Fly to Everlook
 	-- {area:2255} Everlook
 	["Fly to {area:2255}"] = "Vuela a {area:2255}",
-	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "Maestro de vuelo de {area:489}",
 
 	-- Step 2: Everlook
 	-- {area:2255} Everlook · {npc:11754} Meggi Peppinrocker
@@ -110,6 +112,8 @@ return {
 	["{area:392} flight master"] = "Maestro de vuelo de {area:392}",
 
 	-- Step 19: Gadgetzan
+	-- {area:976} Gadgetzan · {npc:9623} A-Me 01 · {quest:4243} Chasing A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
+	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} ({quest:4243}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "La casa de subastas de {area:976} es la última antes de Un'Goro. Allí {npc:9623} ({quest:4243}) pide un {item:10561}, un objeto de {skill:202}, antes de su escolta: compra uno aquí si quieres esa cadena.",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, dentro",
 	-- {npc:7876} Tran'rek
@@ -281,7 +285,7 @@ return {
 
 	-- Step 57: Eridan Bluewind
 	-- {npc:9116} Eridan Bluewind · {area:2479} Emerald Sanctuary
-	["{npc:9116} stands inside, in the {area:2479}."] = "",
+	["{npc:9116} stands inside, in the {area:2479}."] = "{npc:9116} está dentro, en {area:2479}.",
 	-- {npc:9116} Eridan Bluewind
 	["{npc:9116}, inside"] = "{npc:9116}, dentro",
 
@@ -508,6 +512,7 @@ return {
 	-- ["{area:2247}: kill these as you meet them"] = "{area:2247}: mátalos según te los encuentres",
 	-- ["{area:2255} flight master"] = "Maestro de vuelo de {area:2255}",
 	-- ["{area:2255}'s inn"] = "La posada de {area:2255}",
+	-- ["{area:489} flight master"] = "Maestro de vuelo de {area:489}",
 	-- ["{item:12771}, a rare drop"] = "{item:12771}, botín poco frecuente",
 	-- ["{npc:10301}'s supplies"] = "Los suministros de {npc:10301}",
 	-- ["{npc:10431}: keep both for the Plaguelands; inside"] = "{npc:10431}: guarda ambos para las Tierras de la Peste; dentro",

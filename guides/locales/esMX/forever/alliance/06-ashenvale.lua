@@ -75,7 +75,7 @@ return {
 
 	-- Step 16: Ruuzel
 	-- {quest:1009} Ruuzel · {area:414} Zoram Strand
-	["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009} recorre el extremo norte de {area:414} con guardias Colafuria.",
+	["{quest:1009} and his Wrathtail guards stand on the small islet just off the northern tip of the {area:414}: swim across to it."] = "{quest:1009} y sus guardias Cola Rabiosa están en el islote justo frente a la punta norte de {area:414}: cruza a nado.",
 
 	-- Step 17: Blackfathom Deeps
 	-- {area:2797} Blackfathom Deeps · {npc:4787} Argent Guard Thaelrid · {zone:1457} Darnassus
@@ -343,7 +343,7 @@ return {
 
 	-- Step 62: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square
-	["Thundris' letter is already with {npc:1646}: his reply waits at the east side of {object:2098}."] = "",
+	["Thundris' letter is already with {npc:1646}: his reply waits at the east side of {object:2098}."] = "La carta de Thundris ya está con {npc:1646}: su respuesta espera en el lado este de {object:2098}.",
 
 	-- Step 63: Cathedral Square
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:376} High Priestess Laurena
@@ -453,5 +453,6 @@ return {
 	-- ["{npc:4959} and {npc:482}"] = "{npc:4959} y {npc:482}",
 	-- ["{npc:4982}, in the Cathedral of Light"] = "{npc:4982}, en la catedral",
 	-- ["{object:2164} is in the {object:2101}."] = "{object:2164} está en {object:2101}.",
+	-- ["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009} recorre el extremo norte de {area:414} con guardias Colafuria.",
 	-- ["{zone:1455} priests"] = "Sacerdotes de {zone:1455}",
 }

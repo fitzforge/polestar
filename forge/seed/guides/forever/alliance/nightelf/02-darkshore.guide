@@ -226,6 +226,24 @@ step Auberdine
   turnin 4728                                 -- Gwennyth Bly'Leggonde
   turnin 4725
 
+step Elisa Steelhand
+  when onquest 97939
+  when complete 97939
+  complete 97939 @38.11,41.13                 -- talk to the trainer
+  turnin 97939                                -- Elisa Steelhand: Camping 101: Blacksmithing
+
+step Kurdram Stonehammer
+  when onquest 97948
+  when complete 97948
+  complete 97948 @38.2,41.03                  -- talk to the trainer
+  turnin 97948                                -- Kurdram Stonehammer, beside Elisa: Camping 101: Mining
+
+step Jenna Lemkenilli
+  when onquest 97941
+  when complete 97941
+  complete 97941 @38.23,41.07                 -- talk to the trainer
+  turnin 97941                                -- Jenna Lemkenilli, beside Elisa: Camping 101: Engineering
+
 step Thundris Windweaver
   when level>=15
   tip From level 15 Thundris also has The Blackwood Corrupted: its samples come from the northern Blackwood camp on your next Darkshore visit. Fill its bowl at the moonwell in the middle of the village now.

@@ -195,7 +195,8 @@ return {
 
 	-- Step 44: Clubtoe
 	-- {area:16723} Sunnyglade · {npc:260931} Clubtoe · {npc:256710} Tran'gul
-	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "De nuevo al oeste, a {area:16723}: {npc:260931}, un minero Crepuscular que quiere salirse, espera en el borde este del pueblo. Convéncelo y luego entrega la misión de {npc:256710}; uno de los ogros desaparecidos está a unos pasos al oeste.",
+	-- was: ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "De nuevo al oeste, a {area:16723}: {npc:260931}, un minero Crepuscular que quiere salirse, espera en el borde este del pueblo. Convéncelo y luego entrega la misión de {npc:256710}; uno de los ogros desaparecidos está a unos pasos al oeste."
+	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits inside the cave under the town's eastern edge, a floor below the street. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Otra vez al oeste a {area:16723}: {npc:260931}, un minero Crepuscular que quiere salir, espera dentro de la cueva bajo el borde este del pueblo, un piso por debajo de la calle. Convéncelo y luego entrega la misión de {npc:256710}; uno de los ogros desaparecidos está a unos pasos al oeste.",
 	-- {npc:260931} Clubtoe
 	["talk {npc:260931} round"] = "convence a {npc:260931}",
 	-- {npc:261208} Twilight Brute
@@ -383,10 +384,13 @@ return {
 	["The pirates' ships"] = "Los barcos piratas",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
 	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "Vuelve una vez más a los acantilados de los piratas. Coloca las cargas de Whizzbuzz en los tres barcos amarrados bajo el campamento, de sur a norte. {quest:95124} recorre la cubierta superior del barco del medio; su cofre de botín está bajo cubierta. Atento a {npc:259758} en el camino.\nCuidado: {quest:95124} es de nivel 45, uno o dos niveles por encima de ti aquí: limpia primero la cubierta a su alrededor y entra con la salud llena.",
+	["on board, at the arrow"] = "a bordo, donde la flecha",
 	-- {item:268505} Remote Explosive Charge
-	["{item:268505}, the southern ship"] = "{item:268505}, el barco del sur",
-	["the middle ship"] = "el barco del medio",
-	["the northern ship"] = "el barco del norte",
+	["Plant a {item:268505} on the southern ship"] = "Coloca una {item:268505} en el barco del sur",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the middle ship"] = "Coloca una {item:268505} en el barco del medio",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the northern ship"] = "Coloca una {item:268505} en el barco del norte",
 
 	-- Step 82: Rotflesh Mushrooms
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom
@@ -407,9 +411,9 @@ return {
 
 	-- Step 85: The Monster Surfaces
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
-	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "",
+	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244} sube cuando lo llamas: haz clic derecho en lo que flota en el agua donde la flecha, en los bajíos al suroeste del puerto, y emerge allí. {npc:257001}, un élite, camina por la orilla cerca: dale espacio.",
 	-- {item:268633} Sea Monster's Head
-	["{item:268633}, where the Threshadon surfaces when you call him"] = "",
+	["{item:268633}, where the Threshadon surfaces when you call him"] = "{item:268633}, donde emerge el Threshadon cuando lo llamas",
 
 	-- Step 87: The river: Riverweed
 	-- {item:265806} Riverweed
@@ -490,7 +494,11 @@ return {
 	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: Hocicorresoplo y {npc:257059}",
 	-- ["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548} están al sur de {area:3}. Cabalga al este desde {area:657} hasta {area:75} y vuela a {area:340}: el camino de bajada a la zona empieza ahí.",
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "Al oeste de Rog'mar, el culto Crepuscular controla el pueblo granjero de {area:16723}. {npc:259158}, un kóbold que quiere salirse, se esconde en medio del pueblo.",
+	-- ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "De nuevo al oeste, a {area:16723}: {npc:260931}, un minero Crepuscular que quiere salirse, espera en el borde este del pueblo. Convéncelo y luego entrega la misión de {npc:256710}; uno de los ogros desaparecidos está a unos pasos al oeste.",
+	-- ["the middle ship"] = "el barco del medio",
+	-- ["the northern ship"] = "el barco del norte",
 	-- ["the {object:707249} poster"] = "el cartel de {object:707249}",
+	-- ["{item:268505}, the southern ship"] = "{item:268505}, el barco del sur",
 	-- ["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "{npc:257062} ofrece las dos últimas cuando terminas los encargos de Gobam (según grabaciones de jugadores), que esta guía omite. Son de nivel 44 y 45: déjalas para más tarde si {npc:258626} fue una pelea reñida.",
 	-- ["{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048} espera junto al campamento de los ogros Crepusculares al noreste de {npc:256728}: llévalo a casa, a {area:16726}, y mantén a los cultistas lejos de él. Si cae, vuelve a aceptar la misión con él.",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "Las lanzas de {npc:263190}, en los Crocoliscos de agua dulce",

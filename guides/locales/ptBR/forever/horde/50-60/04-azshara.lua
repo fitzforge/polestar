@@ -6,11 +6,13 @@
 -- A token marked "no name in this language" would show in English: write that name in Portuguese (Brazil) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:392} Ratchet · {zone:1454} Orgrimmar · {zone:1458} Undercity
+	["{area:392}, {zone:1454} and the {zone:1458}, then into the Plaguelands."] = "{area:392}, {zone:1454} e {zone:1458}, depois para as Terras Pestilentas.",
+
 	-- Step 1: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Voe para {area:392}",
-	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "Mestre de voo de {zone:1456}",
 
 	-- Step 2: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
@@ -75,7 +77,7 @@ return {
 
 	-- Step 15: Chemist Cuely
 	-- {npc:8390} Chemist Cuely
-	["{npc:8390} works in the Apothecarium."] = "",
+	["{npc:8390} works in the Apothecarium."] = "{npc:8390} trabalha no Apothecarium.",
 
 	-- Step 16: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
@@ -101,7 +103,7 @@ return {
 
 	-- Step 23: Royal Quarter
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
-	-- plural, as words: Library Books = {object:386691} Library Book
+	-- plural, as words: Library Books = {object:386759} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "Só com {quest:79095}, da loja de alquimia de {area:159}, nas bolsas (o guia dos Livros da Biblioteca)",
 
 	-- Step 25: The Bulwark
@@ -175,4 +177,5 @@ return {
 	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050} volta para {npc:10778} em {area:28}: guarde-a.",
 	-- ["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: para {npc:8587} em {area:1237}",
 	-- ["{zone:1454} flight master"] = "Mestre de voo de {zone:1454}",
+	-- ["{zone:1456} flight master"] = "Mestre de voo de {zone:1456}",
 }

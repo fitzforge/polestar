@@ -48,6 +48,65 @@ pub const AGREE_YD: f64 = 100.0;
 pub const STALE_VOTERS: usize = 3;
 /// An accept with no NPC took it from the window opened this recently.
 const ACCEPT_WINDOW: f64 = 60.0;
+/// An escort run's `complete` or `fail` comes at most this many seconds after its `escort` went off.
+const ESCORT_END: f64 = 15.0;
+/// data/recorded/escorts.json.
+pub const ESCORTS_FILE: &str = "escorts.json";
+
+/// One escort (or event) run of a session: the client's `escort` on to off, and how it ended (Some(true): the
+/// quest completed, Some(false): it failed, None: neither said).
+pub struct EscortRun {
+	pub sess: u32,
+	pub build: i64,
+	pub secs: f64,
+	pub done: Option<bool>,
+}
+
+/// The escorts.json facts (#3439): per quest with runs whose end is known, `seconds` (the median time a
+/// completed run took: each counted voter's median, then the median of those), `failed` (the share of the
+/// counted voters' known runs that failed, two decimals), `runs` (those runs), `voters` (everyone who ran it),
+/// `counted` (counted voters with a known run), `status` (trusted from `min_voters` counted voters with a
+/// completed run, else gap) and `builds` (first and last). `voter_of[sess]`: the session's voter;
+/// `counted[voter]`: whether it counts.
+pub fn escort_facts(escorts: &FxHashMap<i64, Vec<EscortRun>>, voter_of: &[usize], counted: &[bool], min_voters: usize) -> String {
+	fn median(mut v: Vec<f64>) -> Option<f64> {
+		if v.is_empty() {
+			return None;
+		}
+		v.sort_by(f64::total_cmp);
+		let n = v.len();
+		Some(if n % 2 == 1 { v[n / 2] } else { (v[n / 2 - 1] + v[n / 2]) / 2.0 })
+	}
+	let mut ids: Vec<&i64> = escorts.keys().collect();
+	ids.sort_unstable();
+	let out = Obj::new();
+	for q in ids {
+		let list = &escorts[q];
+		let voters: FxHashSet<usize> = list.iter().map(|r| voter_of[r.sess as usize]).collect();
+		let known: Vec<&EscortRun> = list.iter().filter(|r| r.done.is_some() && counted[voter_of[r.sess as usize]]).collect();
+		if known.is_empty() {
+			continue;
+		}
+		let mut by: BTreeMap<usize, Vec<f64>> = BTreeMap::new();
+		for r in known.iter().filter(|r| r.done == Some(true)) {
+			by.entry(voter_of[r.sess as usize]).or_default().push(r.secs);
+		}
+		let done_voters = by.len();
+		let seconds = median(by.into_values().filter_map(median).collect());
+		let failed = known.iter().filter(|r| r.done == Some(false)).count() as f64 / known.len() as f64;
+		let o = Obj::new();
+		o.set("seconds", seconds.map_or(V::Null, |s| V::from(s.round())));
+		o.set("failed", (failed * 100.0).round() / 100.0);
+		o.set("runs", known.len());
+		o.set("voters", voters.len());
+		o.set("counted", known.iter().map(|r| voter_of[r.sess as usize]).collect::<FxHashSet<_>>().len());
+		o.set("status", if done_voters >= min_voters { "trusted" } else { "gap" });
+		let (lo, hi) = known.iter().fold((i64::MAX, i64::MIN), |(lo, hi), r| (lo.min(r.build), hi.max(r.build)));
+		o.set("builds", V::from(vec![V::from(lo), V::from(hi)]));
+		out.set(&q.to_string(), V::Obj(o));
+	}
+	crate::build::serialize_table(&out)
+}
 
 /// The scopes `forge record learn` knows: `forever-new` learns every fact for the quests Forever added;
 /// `all` learns objective spots for every quest too (prerequisites and levels stay the Forever-new ones').
@@ -71,10 +130,13 @@ pub struct Options {
 	pub all_spots: bool,
 }
 
-/// The files `learn` writes: data/recorded/quests.json and meta.json, data/local/recorded/report.md
-/// and conflicts.json.
+/// The files `learn` writes: data/recorded/quests.json, escorts.json and meta.json,
+/// data/local/recorded/report.md and conflicts.json.
 pub struct Output {
 	pub quests: String,
+	/// data/recorded/escorts.json: how long players' escorts and event quests take, and how often they fail
+	/// ([`escort_facts`], #3439).
+	pub escorts: String,
 	pub meta: String,
 	pub report: String,
 	pub conflicts: String,
@@ -236,6 +298,8 @@ pub struct Learner<'a> {
 	accept_maps: FxHashMap<i64, Vec<(u32, i64)>>,
 	/// Map frames sessions carry (for maps the data lacks).
 	session_frames: FxHashMap<i64, (f64, f64)>,
+	/// quest -> its escort (or event) runs: the client's `escort` on to off ([`EscortRun`], #3439).
+	escorts: FxHashMap<i64, Vec<EscortRun>>,
 	hash: Sha256,
 	files: usize,
 	unreadable: usize,
@@ -263,6 +327,7 @@ impl<'a> Learner<'a> {
 			seen: FxHashMap::default(),
 			accept_maps: FxHashMap::default(),
 			session_frames: FxHashMap::default(),
+			escorts: FxHashMap::default(),
 			hash: Sha256::new(),
 			files: 0,
 			unreadable: 0,
@@ -346,12 +411,31 @@ impl<'a> Learner<'a> {
 		let (scope, all_spots) = (self.scope, self.all_spots);
 		let spot_scope = |q: i64| all_spots || scope(q);
 		let rows = &mut self.chars[ci].rows;
+		// Escort runs: quest -> when its `escort` went on; (quest, on, off) once off; (quest, time, done) for each
+		// `complete` (true) and `fail` (false) of a quest.
+		let mut escort_on: FxHashMap<i64, f64> = FxHashMap::default();
+		let mut runs: Vec<(i64, f64, f64)> = Vec::new();
+		let mut ends: Vec<(i64, f64, bool)> = Vec::new();
 		for ev in rec.get("events").items() {
 			let t = t0 + ev.get("t").as_num().filter(|n| n.is_finite()).unwrap_or(0.0);
 			let q = pos_int(&ev.get("q"));
 			let npc = pos_int(&ev.get("npc"));
 			let row = |row: Row| Timed { t, build, row };
 			match ev.get("e").as_str().unwrap_or("") {
+				"escort" => {
+					if let Some(q) = q {
+						if ev.get("on").truthy() {
+							escort_on.insert(q, t);
+						} else if let Some(on) = escort_on.remove(&q) {
+							runs.push((q, on, t));
+						}
+					}
+				}
+				"complete" | "fail" => {
+					if let Some(q) = q {
+						ends.push((q, t, ev.get("e").as_str() == Some("complete")));
+					}
+				}
 				"session" | "level" => {
 					if let Some(l) = int(&ev.get("lvl")) {
 						rows.push(row(Row::Level(l)));
@@ -418,6 +502,11 @@ impl<'a> Learner<'a> {
 				"land" => flying = false,
 				_ => {}
 			}
+		}
+		// Each run's outcome: the quest's first `complete` or `fail` from its start to ESCORT_END s after it ended.
+		for (q, on, off) in runs {
+			let done = ends.iter().filter(|(eq, t, _)| *eq == q && *t >= on && *t <= off + ESCORT_END).min_by(|a, b| a.1.total_cmp(&b.1)).map(|e| e.2);
+			self.escorts.entry(q).or_default().push(EscortRun { sess, build, secs: off - on, done });
 		}
 	}
 }
@@ -754,6 +843,25 @@ impl Learner<'_> {
 		for (k, q) in data.quests.entries() {
 			if let Ok(id) = k.parse::<i64>() {
 				qd.insert(id, qdata(&q));
+			}
+		}
+		// The prerequisites the previous snapshot's trusted `notPre` and `notPreAny` took out of our data
+		// (a data build applies them): run on that build's output, they are no longer in it, so they
+		// would never be judged again and their facts would drop out of the snapshot, letting the next
+		// build put them back (#3359). They count as our data's again, and the recordings judge them anew.
+		// A quest whose prerequisites a correction sets keeps the correction's.
+		if let Some(prev) = previous {
+			let corrections = data.corrections.get("quests");
+			for (k, rec) in prev.entries() {
+				let Ok(id) = k.parse::<i64>() else { continue };
+				let set = corrections.get(&k).get("set");
+				if ["pre", "preAll", "preAny"].iter().any(|f| set.has(f)) {
+					continue;
+				}
+				let any = if usable(&rec.get("notPreAny"), false) { ids(&rec.get("notPreAny").get("value")) } else { Vec::new() };
+				if let Some(d) = qd.get_mut(&id) {
+					d.restore(&not_prereqs(&rec), &any);
+				}
 			}
 		}
 		let quests = Quests::new(qd);
@@ -1163,7 +1271,9 @@ impl Learner<'_> {
 			eg: self.eg_read,
 		};
 		let scope_name = if self.all_spots { "all" } else { "forever-new" };
-		render(&out, &ctx, &archive, verdicts_meta, previous, &|q| (self.scope)(q), scope_name)
+		let mut o = render(&out, &ctx, &archive, verdicts_meta, previous, &|q| (self.scope)(q), scope_name);
+		o.escorts = escort_facts(&self.escorts, &sess_voter, &counted, self.cfg.min_voters);
+		o
 	}
 }
 
@@ -1548,7 +1658,7 @@ fn render(out: &[QuestOut], ctx: &Ctx, a: &ArchiveMeta, verdicts: (Option<String
 		),
 		format!("vs corrections: {}; conflicts: {}", ordered.iter().filter(|(_, f)| f.class == Class::VsCorrection).count(), ordered.iter().filter(|(_, f)| f.class == Class::Conflict).count()),
 	];
-	Output { quests: quests_text, meta: meta_text, report: r, conflicts: conflicts_text, summary }
+	Output { quests: quests_text, escorts: String::new(), meta: meta_text, report: r, conflicts: conflicts_text, summary }
 }
 
 // ---------------------------------------------------------------- the command

@@ -70,7 +70,7 @@ return {
 
 	-- Step 15: The Binding
 	-- {item:6810} Surena's Choker · {npc:6122} Gakin the Darkbinder · {quest:1689} The Binding · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6928} Bloodstone Choker
-	["{item:6810} is already with {npc:6122}: take {quest:1689} from him in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls."] = "",
+	["{item:6810} is already with {npc:6122}: take {quest:1689} from him in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls."] = "{item:6810} уже у NPC {npc:6122}: возьмите у него задание {quest:1689} в подвале ({object:2164}, {object:2101}). Используйте {item:6928} у круга призыва там и победите вызванного демона Бездны.",
 
 	-- Step 16: The Jansen Stead
 	-- {zone:1436} Westfall · {object:2724} Sack of Oats
@@ -129,7 +129,7 @@ return {
 
 	-- Step 27: High Priestess Laurena
 	-- {npc:376} High Priestess Laurena · {object:2098} Cathedral Square · {npc:1646} Baros Alexston
-	["{npc:376} is in the Cathedral of Light, across {object:2098} from {npc:1646}."] = "",
+	["{npc:376} is in the Cathedral of Light, across {object:2098} from {npc:1646}."] = "{npc:376} – в Соборе Света, через место {object:2098} от NPC {npc:1646}.",
 
 	-- Step 28: Dungar Longdrink
 	-- {npc:352} Dungar Longdrink
@@ -207,7 +207,7 @@ return {
 	["Harvest Watchers north of {area:107}"] = "Дозорные полей к северу от места {area:107}",
 	-- {area:916} The Jansen Stead · {area:107} Saldean's Farm · {quest:9} The Killing Fields · {item:732} Okra · {item:255155} Precessive Autocognition Assembly · {npc:573} Foe Reaper 4000
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher · Harvest Golems = {npc:36} Harvest Golem · Harvest Reapers = {npc:115} Harvest Reaper
-	["On the way south from the {area:916} to {area:107}: Harvest Watchers (level 14-15) work the fields west of the road. Stick to them: they are the only mechanicals that count for {quest:9}, and they drop everything else here too: the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. Harvest Golems drop some of the parts but don't count, and the Harvest Reapers (17) are too high. {npc:573}, a level 20 rare, walks these fields: leave it alone."] = "",
+	["On the way south from the {area:916} to {area:107}: Harvest Watchers (level 14-15) work the fields west of the road. Stick to them: they are the only mechanicals that count for {quest:9}, and they drop everything else here too: the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. Harvest Golems drop some of the parts but don't count, and the Harvest Reapers (17) are too high. {npc:573}, a level 20 rare, walks these fields: leave it alone."] = "По пути на юг от места {area:916} к месту {area:107}: дозорные полей ({npc:114}, 14-15 уровня) работают на полях к западу от дороги. Держитесь их: это единственные механизмы, засчитываемые для задания {quest:9}, и с них падает все остальное тоже: изопружины, гиростабилизаторы, {item:732} и иногда {item:255155}. Жатвенные големы ({npc:36}) дают часть деталей, но не засчитываются, а жнецы ({npc:115}, 17) слишком высокого уровня. {npc:573}, редкий моб 20-го уровня, ходит по этим полям: не трогайте его.",
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
 	["Harvest Watchers"] = "Дозорные полей",
 	-- {item:814} Flask of Oil · {npc:392} Captain Grayson · {area:115} Westfall Lighthouse
@@ -241,7 +241,7 @@ return {
 	-- Step 46: Jangolode Mine
 	-- {area:918} Molsen Farm · {area:111} Jangolode Mine
 	-- plural, as words: Kobold Diggers = {npc:1236} Kobold Digger
-	["Back north past {area:918} to the mine.\nCareful: pull the four Kobold Diggers from the mouth of {area:111}, one at a time. There is no need to go deeper."] = "",
+	["Back north past {area:918} to the mine.\nCareful: pull the four Kobold Diggers from the mouth of {area:111}, one at a time. There is no need to go deeper."] = "Назад на север мимо места {area:918} к руднику.\nОсторожно: выманивайте четырех кобольдов-копателей ({npc:1236}) от входа в {area:111} по одному. Глубже заходить не нужно.",
 	-- plural, as words: Kobold Diggers = {npc:1236} Kobold Digger
 	["Kobold Diggers"] = "Кобольды-землекопы",
 
@@ -250,7 +250,7 @@ return {
 	["The {area:113}"] = "{area:113}",
 	-- {area:918} Molsen Farm
 	-- plural, as words: Riverpaw Miners = {npc:1426} Riverpaw Miner
-	["South-west to the coast, west of {area:918}. Riverpaw Miners work the quarry.\nCareful: pull the Riverpaw Miners away from the quarry mouth. The Defias stand close together inside the cave."] = "",
+	["South-west to the coast, west of {area:918}. Riverpaw Miners work the quarry.\nCareful: pull the Riverpaw Miners away from the quarry mouth. The Defias stand close together inside the cave."] = "На юго-запад к побережью, к западу от места {area:918}. В каменоломне работают рудокопы-гноллы Речной Лапы ({npc:1426}).\nОсторожно: выманивайте рудокопов подальше от входа в каменоломню. Бойцы Братства Справедливости в пещере стоят тесно.",
 	-- plural, as words: Riverpaw Miners = {npc:1426} Riverpaw Miner
 	["Riverpaw Miners"] = "Шахтеры из стаи Речной Лапы",
 
@@ -259,7 +259,7 @@ return {
 	["{area:20}: kill these as you meet them"] = "{area:20}: убивайте этих по пути",
 	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {object:1166} Alexston's Chest · {area:219} Alexston Farmstead · {npc:1646} Baros Alexston
 	-- plural, as words: Defias Pillagers = {npc:589} Defias Pillager
-	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: the Pillagers and Looters crowd the Alexston farm and the quarry entrance. Pull one out into the open before fighting it."] = "",
+	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}. {object:1166} stands in the farmhouse at the {area:219}, among them: {npc:1646}' compass is inside.\nCareful: the Pillagers and Looters crowd the Alexston farm and the quarry entrance. Pull one out into the open before fighting it."] = "Бандиты и мародеры Братства Справедливости ({npc:589}) держат фермы к западу от места {area:108}, между прибрежной дорогой и местом {area:20}. {object:1166} стоит в фермерском доме ({area:219}) среди них: внутри компас NPC {npc:1646}.\nОсторожно: бандиты и мародеры толпятся на ферме Алекстона и у входа в каменоломню. Выманивайте их по одному на открытое место, прежде чем сражаться.",
 	-- {item:2998} A Simple Compass · {object:1166} Alexston's Chest
 	["{item:2998}, from {object:1166}"] = "{item:2998} – из объекта {object:1166}",
 
@@ -345,31 +345,34 @@ return {
 	-- {npc:7232} Borgus Steelhand · {object:28027} Dwarven District · {area:442} Auberdine
 	["{npc:7232}, {object:28027}: for his brother in {area:442}"] = "{npc:7232}, {object:28027}: для его брата в {area:442}",
 
-	-- Step 68: Jennea Cannon
+	-- Step 68: Gelman Stonehand
+	["talk to the trainer"] = "поговорите с учителем",
+
+	-- Step 71: Jennea Cannon
 	-- {npc:5497} Jennea Cannon · {quest:1861} Mirror Lake
 	["{npc:5497}, Wizard's Sanctum: {quest:1861}"] = "{npc:5497}, Святилище волшебника: {quest:1861}",
 
-	-- Step 70: Woo Ping
+	-- Step 73: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "Раз уж вы здесь: изучите {spell:202} у NPC {npc:11867} ({object:2096}, 10 серебра); с двуручным оружием воин качается быстрее всего.",
 
-	-- Step 71: Woo Ping
+	-- Step 74: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Paladin fastest."] = "Раз уж вы здесь: изучите навык {spell:202} у NPC {npc:11867} ({object:2096}, 10 серебра); с двуручным оружием паладин качается быстрее всего.",
 
-	-- Step 72: Woo Ping
+	-- Step 75: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Раз уж вы здесь: изучите владение посохами у NPC {npc:11867} ({object:2096}, 10 серебра); у оружия ближнего боя охотника важнее всего характеристики, а у двуручного их больше всего.",
 
-	-- Step 73: Woo Ping
+	-- Step 76: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "Раз уж вы здесь: изучите владение мечами у NPC {npc:11867} ({object:2096}, 10 серебра); с мечом в правой руке разбойник стабильно качается.",
 
-	-- Step 74: Woo Ping
+	-- Step 77: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Раз уж вы здесь: изучите владение посохами у NPC {npc:11867} ({object:2096}, 10 серебра); при прокачке посох дает больше характеристик для заклинаний, чем одноручное оружие.",
 
-	-- Step 76: Fishin' Time
+	-- Step 79: Fishin' Time
 	-- {npc:5494} Catherine Leland · {object:2096} Trade District · {npc:267118} Gilbert Gray
 	["{npc:5494} sells fishing supplies along the canal just west of the {object:2096}; {npc:267118} fishes at the harbor, on the way to the boat."] = "{npc:5494} продает рыболовные принадлежности у канала, чуть западнее (ориентир: {object:2096}); {npc:267118} рыбачит в гавани, по пути к кораблю.",
 	-- {item:6529} Shiny Bauble · {npc:5494} Catherine Leland

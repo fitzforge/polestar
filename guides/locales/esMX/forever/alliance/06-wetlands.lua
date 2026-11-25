@@ -43,7 +43,7 @@ return {
 	-- Step 12: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Vuela a {area:150}",
-	-- {zone:1453} Stormwind City
+	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "Maestro de vuelo de {zone:1453}",
 
 	-- Step 13: First Mate Fitzsimmons
@@ -71,13 +71,13 @@ return {
 	["{npc:2097}, by the north gate: {npc:1071} takes it at {area:205}, at the north end of this visit's east loop"] = "{npc:2097}, junto a la puerta norte: la recibe {npc:1071} en {area:205}, en el extremo norte del circuito este de esta visita",
 
 	-- Step 16: Glorin Steelbrow
-	-- {quest:270} The Doomed Fleet · {npc:1212} Bishop Farthing · {zone:1453} Stormwind City · {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {quest:321} Lightforge Iron · {item:279915} Nord'el
+	-- {quest:270} The Doomed Fleet · {npc:1212} Bishop Farthing · {zone:1453} Stormwind · {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {quest:321} Lightforge Iron · {item:279915} Nord'el
 	["{quest:270}, from {npc:1212} in {zone:1453}: {npc:1217} stands in the {area:2104}, south of the keep. His {quest:321} lies in the wreck just south of town, by {item:279915}."] = "{quest:270}, de {npc:1212} en {zone:1453}: {npc:1217} está en {area:2104}, al sur del bastión. Su {quest:321} está en el naufragio justo al sur del pueblo, junto a {item:279915}.",
 	["Inside"] = "Adentro",
 
 	-- Step 17: Glorin Steelbrow
 	-- {quest:270} The Doomed Fleet · {npc:1217} Glorin Steelbrow · {quest:321} Lightforge Iron · {area:2104} Deepwater Tavern
-	["{quest:270} is already with {npc:1217}: take {quest:321} from him in the {area:2104}, south of the keep."] = "",
+	["{quest:270} is already with {npc:1217}: take {quest:321} from him in the {area:2104}, south of the keep."] = "{quest:270} ya está con {npc:1217}: acepta {quest:321} de él en {area:2104}, al sur del torreón.",
 
 	-- Step 18: James Halloran
 	-- {area:17732} Excavation Site: Wetlands · {npc:2094} James Halloran
@@ -102,7 +102,7 @@ return {
 	-- Step 22: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
 	["Back north through Menethil: {npc:1217} is in the {area:2104}, on the way to the hovels."] = "De vuelta al norte por Menethil: {npc:1217} está en {area:2104}, de camino a las chozas.",
-	-- {npc:1416} Grimand Elmore · {zone:1453} Stormwind City
+	-- {npc:1416} Grimand Elmore · {zone:1453} Stormwind
 	["For {npc:1416} in {zone:1453}, on this guide's {zone:1453} stop"] = "Para {npc:1416} en {zone:1453}, en la parada de {zone:1453} de esta guía",
 
 	-- Step 23: The Bluegill hovels
@@ -213,8 +213,8 @@ return {
 	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "Al noroeste desde {npc:2093} hasta el río: los trepadores del pantano se esconden en sus pozas y a lo largo de sus orillas, todo el camino al oeste hasta {area:1024}. Avanza al oeste por él hasta tener doce, luego vuelve al este con {npc:1244}.\nCuidado: Fuera de combate, los trepadores del pantano usan Sigilo de vez en cuando, así que están ocultos y cuesta verlos.",
 
 	-- Step 39: Rethiel the Greenwarden
-	-- {quest:98283} Carnage · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
-	["{quest:98283}, an elite raptor, on the {zone:1437} loop of the {zone:1424} guide"] = "{quest:98283}, un raptor élite, en el circuito de {zone:1437} de la guía de {zone:1424}",
+	-- {quest:98283} Carnage · {npc:271334} Maddened Rotclaw · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
+	["{quest:98283}, an elite raptor called out with a {npc:271334}'s flesh, on the {zone:1437} loop of the {zone:1424} guide"] = "{quest:98283}, un raptor élite al que se llama con la carne de un {npc:271334}, en la vuelta de {zone:1437} de la guía de {zone:1424}",
 
 	-- Step 40: Dragonmaw Gates: kill these as you meet them
 	-- {area:1038} Dragonmaw Gates
@@ -290,7 +290,7 @@ return {
 
 	-- Step 52: Prospector Whelgar
 	-- {item:287959} Titan Relic · {npc:1077} Prospector Whelgar · {quest:98824} Prehistoric Prism
-	["The {item:287959} is already with {npc:1077}: take {quest:98824} from him, below ground in his dig."] = "",
+	["The {item:287959} is already with {npc:1077}: take {quest:98824} from him, below ground in his dig."] = "{item:287959} ya está con {npc:1077}: acepta {quest:98824} de él, bajo tierra en su excavación.",
 
 	-- Step 53: Captain Stoutfist
 	-- {area:150} Menethil Harbor · {area:2104} Deepwater Tavern · {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep · {npc:2094} James Halloran
@@ -298,8 +298,6 @@ return {
 	["On the top floor"] = "En el piso superior",
 	-- {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
 	["For the Dragonmaw catapult, on the {zone:1437} loop of the {zone:1424} guide"] = "Para la catapulta Dragonmaw, en el circuito de {zone:1437} de la guía de {zone:1424}",
-	-- {npc:2094} James Halloran · {npc:270637} Howin Kindfeather · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
-	["{npc:2094}: the crate for {npc:270637}, on the {zone:1437} loop of the {zone:1424} guide"] = "{npc:2094}: la caja para {npc:270637}, en el circuito de {zone:1437} de la guía de {zone:1424}",
 
 	-- Step 54: Captain Halyndor
 	-- {npc:1160} Captain Halyndor · {npc:270589} Nightveiled Rotheap · {zone:1437} Wetlands
@@ -311,7 +309,7 @@ return {
 	-- Step 55: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
 	["Back south to Menethil: {npc:1217} stands in the {area:2104}."] = "De vuelta al sur a Menethil: {npc:1217} está en {area:2104}.",
-	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind City
+	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind
 	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "Para {npc:1284} en {zone:1453}, al final de esta guía",
 
 	-- Step 56: Level 28
@@ -632,8 +630,8 @@ return {
 	-- {npc:2784} King Magni Bronzebeard · {object:171709} High Seat
 	["{npc:2784} holds court in the {object:171709}."] = "{npc:2784} preside su corte en el {object:171709}.",
 
-	-- Step 123: Tram to Stormwind City
-	-- {zone:1453} Stormwind City
+	-- Step 123: Tram to Stormwind
+	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "Tranvía a {zone:1453}",
 
 	-- Step 124: Baros Alexston
@@ -650,7 +648,7 @@ return {
 
 	-- Step 126: Cathedral of Light
 	["Cathedral of Light"] = "Cathedral of Light",
-	-- {area:2257} Deeprun Tram · {object:171524} Tinker Town · {zone:1453} Stormwind City · {object:28027} Dwarven District · {object:2098} Cathedral Square
+	-- {area:2257} Deeprun Tram · {object:171524} Tinker Town · {zone:1453} Stormwind · {object:28027} Dwarven District · {object:2098} Cathedral Square
 	["Take the {area:2257} from {object:171524} to {zone:1453}'s {object:28027}, then walk to the {object:2098}."] = "Toma {area:2257} desde {object:171524} hasta {object:28027} de {zone:1453} y luego camina hasta {object:2098}.",
 	-- {npc:4982} Thomas
 	["{npc:4982}, in the Cathedral of Light"] = "{npc:4982}, en la catedral",
@@ -712,6 +710,7 @@ return {
 	-- ["{item:15885}: join the two halves"] = "{item:15885}: une las dos mitades",
 	-- ["{npc:1217}, in the {area:2104}"] = "{npc:1217}, en {area:2104}",
 	-- ["{npc:2094}, by the docks, on the way to the boat"] = "{npc:2094}, junto a los muelles, de camino al barco",
+	-- ["{npc:2094}: the crate for {npc:270637}, on the {zone:1437} loop of the {zone:1424} guide"] = "{npc:2094}: la caja para {npc:270637}, en el circuito de {zone:1437} de la guía de {zone:1424}",
 	-- ["{npc:2097}, by the north gate: {npc:1071} takes it on 30-40/01-hillsbrad-foothills' {area:205} stop"] = "{npc:2097}, junto a la puerta norte: la recibe {npc:1071} en la parada de {area:205} de 30-40/01-hillsbrad-foothills",
 	-- ["{npc:3691}, in the inn"] = "{npc:3691}, en la posada",
 	-- ["{npc:3691}: {quest:1025}, the Foulweald on the way to {npc:3897}"] = "{npc:3691}: {quest:1025}, los Malahoja de camino a {npc:3897}",
@@ -722,4 +721,5 @@ return {
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619} dirige a los sátiros de {area:429}; él lleva la rama.",
 	-- ["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}: los huevos Tajobuche, en el mismo circuito",
 	-- ["{quest:98283}, an elite raptor, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "{quest:98283}, un raptor élite, en el circuito de {zone:1437} de 30-40/01-hillsbrad-foothills",
+	-- ["{quest:98283}, an elite raptor, on the {zone:1437} loop of the {zone:1424} guide"] = "{quest:98283}, un raptor élite, en el circuito de {zone:1437} de la guía de {zone:1424}",
 }

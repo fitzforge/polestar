@@ -11,8 +11,6 @@ return {
 	["Fly to the {area:1497}"] = "Летите сюда: {area:1497}",
 	-- {area:1497} Undercity · {area:340} Kargath · {object:3202} Grom'gol
 	["Your level 40 training is in the {area:1497}: fly there from {area:340}, train, and take the zeppelin from the towers outside the city to {object:3202}."] = "Ваше обучение на 40-м уровне – здесь: {area:1497}. Летите туда из места {area:340}, обучитесь и сядьте на дирижабль у башен за городом до места {object:3202}.",
-	-- {area:340} Kargath
-	["{area:340} flight master"] = "Распорядитель полетов: {area:340}",
 
 	-- Step 2: Genavie Callow
 	-- {npc:4486} Genavie Callow · {zone:1417} Arathi Highlands
@@ -40,6 +38,8 @@ return {
 	-- Step 6: Fly to Grom'gol
 	-- {object:3202} Grom'gol
 	["Fly to {object:3202}"] = "Летите сюда: {object:3202}",
+	-- {area:340} Kargath
+	["{area:340} flight master"] = "Распорядитель полетов: {area:340}",
 
 	-- Step 7: Grom'gol Base Camp
 	-- {npc:2519} Kin'weelay · {npc:1061} Gan'zulah
@@ -66,7 +66,7 @@ return {
 
 	-- Step 11: Drizzlik
 	-- {npc:2495} Drizzlik
-	["{npc:2495}'s shop is in the building east of the inn."] = "",
+	["{npc:2495}'s shop is in the building east of the inn."] = "Лавка NPC {npc:2495} – в здании к востоку от таверны.",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}: the Snapjaw skins gathered earlier; inside"] = "",
 
@@ -78,10 +78,10 @@ return {
 
 	-- Step 13: Kebok
 	-- {npc:737} Kebok
-	["{npc:737} stands upstairs, beside the flight master."] = "",
+	["{npc:737} stands upstairs, beside the flight master."] = "{npc:737} стоит на втором этаже, рядом с распорядителем полетов.",
 	-- {npc:737} Kebok
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
-	["{npc:737}: the Tumbled Crystals from the earlier Stranglethorn guide"] = "",
+	["{npc:737}: the Tumbled Crystals from the earlier Stranglethorn guide"] = "{npc:737}: ограненные кристаллы ({item:4106}) из прошлого гайда по Тернистой долине",
 
 	-- Step 14: Kebok
 	-- {npc:737} Kebok
@@ -110,9 +110,9 @@ return {
 	-- {quest:348} Stranglethorn Fever
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
 	-- was: ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "Гориллы бродят по долине вокруг Унбагвы. С вожаков падают потроха; клык может упасть с любой: сохраните десять для Унбагвы, чей Мокк (44) ждет вашего визита в Тернистую долину примерно на 45-м.\nОсторожно: старые гориллы из Мглистой долины (40-41) стоят в долине близко друг к другу: выманивайте по одному."
-	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: if you will take {quest:348} with a group, keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "",
+	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: if you will take {quest:348} with a group, keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "Гориллы бродят по долине вокруг Унбагвы. Старейшины роняют потроха; любая может уронить клык: если вы возьмете {quest:348} с группой, сохраните десять для Унбагвы, чей Мокк (44) ждет вашей остановки в Тернистой долине примерно на 45-м.\nОсторожно: старые гориллы Мглистой долины (40-41) стоят близко друг к другу в долине: выманивайте по одному.",
 	-- {quest:348} Stranglethorn Fever
-	["Keep fangs from these same elders for Unbagwa ({quest:348}, with a group)."] = "",
+	["Keep fangs from these same elders for Unbagwa ({quest:348}, with a group)."] = "Собирайте клыки с этих же старейшин для Унбагвы ({quest:348}, с группой).",
 
 	-- Step 19: Mistvale giblets
 	["Mistvale giblets"] = "",
@@ -271,7 +271,7 @@ return {
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
-	["{npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "",
+	["{npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "{npc:2491}, в таверне, и «Морской волк» Мак-Кинли на верхнем этаже дают эти задания с 40-го уровня: возьмите их сейчас. Ниже 40-го их снова предложит остановка {area:35} в гайде «{zone:1444} и {zone:1446}».",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "",
 	-- {quest:2872} Stoley's Debt · {zone:1446} Tanaris
@@ -279,9 +279,9 @@ return {
 
 	-- Step 49: Fin Fizracket
 	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
-	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "",
+	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "Групповое задание: {quest:348} заканчивается у NPC {npc:1449} в Мглистой долине. Отдайте ему десять клыков горилл, и он призовет три волны горилл (41-42), одну за другой, затем {npc:1514} (44). В записях игроков 12 из 27 начавших погибли там. Берите, если с вами друг или двое.",
 	-- {npc:2486} Fin Fizracket · {zone:1444} Feralas · {object:3202} Grom'gol
-	["{npc:2486}, beside the inn: Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "",
+	["{npc:2486}, beside the inn: Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}, рядом с таверной: часть Унбагвы – на остановке {object:3202} в гайде «{zone:1444}»",
 
 	-- Step 50: The Bloodsail ships
 	["The Bloodsail ships"] = "Корабли Кровавого Паруса",

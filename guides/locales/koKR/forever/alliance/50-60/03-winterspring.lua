@@ -6,11 +6,13 @@
 -- A token marked "no name in this language" would show in English: write that name in Korean words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:2255} Everlook · {zone:1448} Felwood · {zone:1452} Winterspring
+	["{area:2255} first, then Un'Goro, then {zone:1448} and {zone:1452} again."] = "먼저 {area:2255}, 그다음 운고로, 그리고 다시 {zone:1448}, {zone:1452}.",
+
 	-- Step 1: Fly to Everlook
 	-- {area:2255} Everlook
 	["Fly to {area:2255}"] = "{area:2255}(으)로 날아가기",
-	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "{area:489} 비행 조련사",
 
 	-- Step 2: Everlook
 	-- {area:2255} Everlook · {npc:11754} Meggi Peppinrocker
@@ -110,6 +112,8 @@ return {
 	["{area:392} flight master"] = "{area:392} 비행 조련사",
 
 	-- Step 19: Gadgetzan
+	-- {area:976} Gadgetzan · {npc:9623} A-Me 01 · {quest:4243} Chasing A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
+	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} ({quest:4243}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "{area:976}의 경매장은 운고로 전 마지막 경매장입니다. 그곳에서 {npc:9623}({quest:4243})이(가) 호위 전에 {skill:202} 아이템인 {item:10561}을(를) 요구합니다: 이 연계를 하려면 여기서 하나 사십시오.",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, 내부",
 	-- {npc:7876} Tran'rek
@@ -281,7 +285,7 @@ return {
 
 	-- Step 57: Eridan Bluewind
 	-- {npc:9116} Eridan Bluewind · {area:2479} Emerald Sanctuary
-	["{npc:9116} stands inside, in the {area:2479}."] = "",
+	["{npc:9116} stands inside, in the {area:2479}."] = "{npc:9116}은(는) {area:2479} 안에 서 있습니다.",
 	-- {npc:9116} Eridan Bluewind
 	["{npc:9116}, inside"] = "{npc:9116}, 내부",
 
@@ -508,6 +512,7 @@ return {
 	-- ["{area:2247}: kill these as you meet them"] = "{area:2247}: 만나는 대로 처치하세요",
 	-- ["{area:2255} flight master"] = "{area:2255} 비행 조련사",
 	-- ["{area:2255}'s inn"] = "{area:2255} 여관",
+	-- ["{area:489} flight master"] = "{area:489} 비행 조련사",
 	-- ["{item:12771}, a rare drop"] = "{item:12771}, 드문 전리품",
 	-- ["{npc:10301}'s supplies"] = "{npc:10301}의 보급품",
 	-- ["{npc:10431}: keep both for the Plaguelands; inside"] = "{npc:10431}: 둘 다 역병지대를 위해 보관하세요. 안",

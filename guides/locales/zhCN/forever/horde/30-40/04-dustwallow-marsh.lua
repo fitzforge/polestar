@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Orgrimmar
 	-- {zone:1454} Orgrimmar · {zone:1445} Dustwallow Marsh
-	["The {zone:1454} and Crossroads stops are on the way for players coming from the previous guide; opened with none of its quests in the log, the guide starts in {zone:1445}."] = "",
+	["The {zone:1454} and Crossroads stops are on the way for players coming from the previous guide; opened with none of its quests in the log, the guide starts in {zone:1445}."] = "{zone:1454}和十字路口这两站是给从上一篇指南过来的玩家顺路的；如果任务日志中没有它的任务就打开指南，指南从{zone:1445}开始。",
 	-- {zone:1454} Orgrimmar
 	["The middle of {zone:1454}"] = "{zone:1454}中央",
 
@@ -160,7 +160,7 @@ return {
 
 	-- Step 30: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "",
+	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}被关在山谷西端的玛洛迪营地里；救出她，护送她向东离开山谷。\n小心：护送途中会有六个半人马来袭，而且无法提前清理：它们只在护送时出现，并且会一起上。玩家记录中，接过此任务的30人里有14人至少失败过一次。带个朋友，如果你是单人就跳过。开始前清掉路上的普通半人马会有帮助。",
 
 	-- Step 31: Hornizz Brimbuzzle
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard

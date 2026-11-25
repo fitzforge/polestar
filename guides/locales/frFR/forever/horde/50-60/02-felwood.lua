@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in French words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1422} Western Plaguelands · {area:152} Bulwark · {zone:1447} Azshara · {zone:1448} Felwood
+	["{zone:1422} and the {area:152} first, then {zone:1447} and {zone:1448}."] = "D'abord {zone:1422} et {area:152}, puis {zone:1447} et {zone:1448}.",
+
 	-- Step 1: Mulgris Deepriver
 	-- {area:202} Writhing Haunt · {area:200} Dalson's Tears
 	["He camps by the {area:202}, south-east of {area:200}."] = "Il campe près du {area:202}, au sud-est de {area:200}.",
@@ -28,22 +32,22 @@ return {
 	-- Step 6: High Executor Derrington
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "Vous avez manqué ceci lors du passage précédent de l'itinéraire ici : cela passe d'abord maintenant. C'est rapide et cela ouvre les quêtes qui suivent.",
 	-- {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries
-	["{item:12814}, from the {object:176092} next to Derrington"] = "",
+	["{item:12814}, from the {object:176092} next to Derrington"] = "{item:12814}, dans {object:176092} à côté de Derrington",
 
 	-- Step 7: Box of Incendiaries
 	-- {quest:5096} Scarlet Diversions · {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries · {npc:10837} High Executor Derrington
-	["{quest:5096} needs a {item:12814} to torch the command tent: take one from the {object:176092} next to {npc:10837}."] = "",
+	["{quest:5096} needs a {item:12814} to torch the command tent: take one from the {object:176092} next to {npc:10837}."] = "{quest:5096} demande une {item:12814} pour incendier la tente de commandement : prenez-en une dans {object:176092} à côté de {npc:10837}.",
 	-- {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries
-	["{item:12814}, from the {object:176092}"] = "",
+	["{item:12814}, from the {object:176092}"] = "{item:12814}, dans {object:176092}",
 
 	-- Step 8: Scarlet forward camp
 	["Scarlet forward camp"] = "Camp avancé écarlate",
-	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
+	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
 	-- was: ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Depuis la {area:152}, suivez la route vers l'est jusqu'aux {zone:1422}. Les tentes de la Croisade écarlate se dressent juste après la ferme Felstone, entre {area:199} et {area:200}. Incendiez la tente de commandement avec les {object:176092} et plantez la bannière du Fléau. Attention : les Écarlates autour des tentes vont jusqu'au niveau 54 et les Invocateurs lancent des sorts : arrivez par le côté le plus proche de la tente de commandement et laissez les autres tranquilles."
-	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "",
+	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Depuis {area:152}, suivez la route vers l'est jusqu'aux {zone:1422}. Les tentes de la Croisade écarlate se trouvent juste après la ferme des Felstone, entre {area:199} et {area:200}. Incendiez la tente de commandement avec {item:12814} et plantez la bannière du Fléau. Attention : les Écarlates autour des tentes vont jusqu'au niveau 54 et les invocateurs lancent des sorts : arrivez par le côté le plus proche de la tente de commandement et laissez les autres tranquilles.",
 
-	-- Step 9: The Bulwark
-	-- {area:152} The Bulwark
+	-- Step 9: Bulwark
+	-- {area:152} Bulwark
 	["Ride south-west past Felstone Farm and follow the road west back to the {area:152}."] = "Chevauchez vers le sud-ouest en passant la ferme des Felstone et suivez la route vers l'ouest jusqu'à {area:152}.",
 	["Derrington's watchtowers and Vandis' cauldron are done on a later visit: keep them."] = "Les tours de guet de Derrington et le chaudron de Vandis se font lors d'une visite ultérieure : gardez-les.",
 

@@ -9,10 +9,8 @@ return {
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "Flieg nach {area:42}",
-	-- {area:69} Lakeshire · {area:42} Darkshire · {zone:1431} Duskwood
-	["Back to the {area:69} gryphon master: fly to {area:42} for {zone:1431}'s second loop."] = "Zurück zum Greifenmeister von {area:69}: Flieg nach {area:42} für die zweite Runde durch den {zone:1431}.",
-	-- {area:69} Lakeshire
-	["{area:69} flight master"] = "Flugmeister von {area:69}",
+	-- {area:42} Darkshire · {zone:1431} Duskwood · {area:69} Lakeshire
+	["Fly to {area:42} for {zone:1431}'s second loop: from {area:69}'s gryphon master if you come from the Redridge guide."] = "Fliege zu {area:42} für den zweiten Loop von {zone:1431}: vom Gryphonschreiber von {area:69}, falls du vom Redridge-Guide kommst.",
 
 	-- Step 2: Blind Mary
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
@@ -56,7 +54,7 @@ return {
 
 	-- Step 9: Lars
 	-- {npc:893} Lars · {npc:311} Sven Yorgen
-	["{npc:893}, at {npc:311}'s camp"] = "",
+	["{npc:893}, at {npc:311}'s camp"] = "{npc:893}, am Lager von {npc:311}",
 
 	-- Step 11: Moonbrook
 	-- {quest:67} The Legend of Stalvan · {npc:311} Sven Yorgen · {zone:1436} Westfall · {area:20} Moonbrook · {object:3643} Old Footlocker · {area:42} Darkshire
@@ -64,7 +62,7 @@ return {
 
 	-- Step 12: Moonbrook
 	-- {quest:67} The Legend of Stalvan · {object:3643} Old Footlocker · {area:20} Moonbrook · {area:42} Darkshire
-	["{quest:67}: the {object:3643} in {area:20}, among the Defias (15-18), holds the next part. Then hearth back to {area:42}."] = "",
+	["{quest:67}: the {object:3643} in {area:20}, among the Defias (15-18), holds the next part. Then hearth back to {area:42}."] = "{quest:67}: {object:3643} in {area:20}, zwischen den Defias (15-18), enthält den nächsten Teil. Dann mit dem Ruhestein zurück nach {area:42}.",
 
 	-- Step 13: Back to Darkshire
 	-- {area:42} Darkshire
@@ -97,7 +95,7 @@ return {
 
 	-- Step 16: Chef Grual
 	-- {npc:272} Chef Grual
-	["{npc:272} is in the Scarlet Raven Tavern."] = "",
+	["{npc:272} is in the Scarlet Raven Tavern."] = "{npc:272} ist im Scharlachroten Rabe Gasthaus.",
 
 	-- Step 17: Rot Blossoms
 	-- plural, as words: Rot Blossoms = {item:1598} Rot Blossom
@@ -191,11 +189,11 @@ return {
 
 	-- Step 36: Gazin Tenorm
 	-- {item:6846} Defias Script · {npc:6173} Gazin Tenorm · {quest:1787} The Tome of Divinity
-	["The {item:6846} is already with {npc:6173}: take the last part of {quest:1787} from him, in the Cathedral of Light."] = "",
+	["The {item:6846} is already with {npc:6173}: take the last part of {quest:1787} from him, in the Cathedral of Light."] = "Das {item:6846} ist bereits bei {npc:6173}: nimm den letzten Teil von {quest:1787} von ihm, im Lichtdom.",
 
 	-- Step 37: Duthorian Rall
 	-- {npc:6171} Duthorian Rall · {npc:6173} Gazin Tenorm
-	["{npc:6171} stands in the Cathedral of Light, beside {npc:6173}."] = "",
+	["{npc:6171} stands in the Cathedral of Light, beside {npc:6173}."] = "{npc:6171} steht im Lichtdom, neben {npc:6173}.",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}: Redemption"] = "{npc:6171}: Erlösung",
 
@@ -218,6 +216,7 @@ return {
 	["Train here, in {zone:1453}, before you go on."] = "Lerne hier in {zone:1453}, bevor du weitergehst.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to the {area:69} gryphon master: fly to {area:42} for {zone:1431}'s second loop."] = "Zurück zum Greifenmeister von {area:69}: Flieg nach {area:42} für die zweite Runde durch den {zone:1431}.",
 	-- ["Continue west to {area:94}. The {object:673515} glows by the ruined house south of the road."] = "Geh weiter nach Westen nach {area:94}. Die {object:673515} leuchtet beim zerstörten Haus südlich der Straße.",
 	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters and Bone Chewers (24-27) are the easier kills; Plague Spreaders and Brain Eaters (27-29) drop them too. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "Jeder Ghul in der nördlichen Hälfte von {area:492} kann eine Rippe fallen lassen: Fleischfresser und Knochenkauer (24-27) sind leichter zu töten; Seuchenverbreiter und Hirnfresser (27-29) lassen sie auch fallen. {npc:522}, ein Elite, wandert zwischen den Gräbern: Halte dich von ihm fern.\nVorsicht: Ein {npc:948} wirkt beim Sterben {spell:3428}, was zusätzliche Adds herbeiruft.",
 	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters."] = "Jeder Ghul der nördlichen Hälfte des {area:492} kann eine Rippe fallen lassen: Fleischfresser, Knochenkauer, Seuchenverbreiter und Hirnfresser.",
@@ -245,6 +244,7 @@ return {
 	-- ["Train in {zone:1453}, north through {zone:1429}. Then take the boat from {area:17203} to {area:442}."] = "Trainiere in {zone:1453}, nach Norden durch den {zone:1429}. Nimm dann das Boot vom {area:17203} nach {area:442}.",
 	-- ["Wolves, spiders and ghouls"] = "Wölfe, Spinnen und Ghule",
 	-- ["{area:492}, south"] = "{area:492}, Süden",
+	-- ["{area:69} flight master"] = "Flugmeister von {area:69}",
 	-- ["{item:1946}: the {npc:511} in the cemetery's crypt is level 26; it waits for the {zone:1431} return"] = "{item:1946}: Der {npc:511} in der Gruft des Friedhofs ist Stufe 26; er wartet auf deine Rückkehr in den {zone:1431}",
 	-- ["{item:281046}, from the {object:673515}"] = "{item:281046}, von der {object:673515}",
 	-- ["{item:4371}, from {npc:3133}: limited stock. Sold out? {npc:1448} in {area:150} sells it too."] = "{item:4371}, von {npc:3133}: begrenzter Vorrat. Ausverkauft? {npc:1448} in {area:150} verkauft sie auch.",

@@ -43,7 +43,7 @@ return {
 	-- Step 12: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Летите сюда: {area:150}",
-	-- {zone:1453} Stormwind City
+	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "Распорядитель полетов: {zone:1453}",
 
 	-- Step 13: First Mate Fitzsimmons
@@ -71,13 +71,13 @@ return {
 	["{npc:2097}, by the north gate: {npc:1071} takes it at {area:205}, at the north end of this visit's east loop"] = "",
 
 	-- Step 16: Glorin Steelbrow
-	-- {quest:270} The Doomed Fleet · {npc:1212} Bishop Farthing · {zone:1453} Stormwind City · {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {quest:321} Lightforge Iron · {item:279915} Nord'el
+	-- {quest:270} The Doomed Fleet · {npc:1212} Bishop Farthing · {zone:1453} Stormwind · {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {quest:321} Lightforge Iron · {item:279915} Nord'el
 	["{quest:270}, from {npc:1212} in {zone:1453}: {npc:1217} stands in the {area:2104}, south of the keep. His {quest:321} lies in the wreck just south of town, by {item:279915}."] = "",
 	["Inside"] = "Внутри",
 
 	-- Step 17: Glorin Steelbrow
 	-- {quest:270} The Doomed Fleet · {npc:1217} Glorin Steelbrow · {quest:321} Lightforge Iron · {area:2104} Deepwater Tavern
-	["{quest:270} is already with {npc:1217}: take {quest:321} from him in the {area:2104}, south of the keep."] = "",
+	["{quest:270} is already with {npc:1217}: take {quest:321} from him in the {area:2104}, south of the keep."] = "{quest:270} уже у NPC {npc:1217}: возьмите у него задание {quest:321} здесь: {area:2104}, к югу от крепости.",
 
 	-- Step 18: James Halloran
 	-- {area:17732} Excavation Site: Wetlands · {npc:2094} James Halloran
@@ -102,7 +102,7 @@ return {
 	-- Step 22: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
 	["Back north through Menethil: {npc:1217} is in the {area:2104}, on the way to the hovels."] = "",
-	-- {npc:1416} Grimand Elmore · {zone:1453} Stormwind City
+	-- {npc:1416} Grimand Elmore · {zone:1453} Stormwind
 	["For {npc:1416} in {zone:1453}, on this guide's {zone:1453} stop"] = "",
 
 	-- Step 23: The Bluegill hovels
@@ -214,8 +214,8 @@ return {
 	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "На северо-запад от {npc:2093} к реке: Трясинные ползуны прячутся в её заводях и вдоль берегов до самого {area:1024} на западе. Идите на запад вдоль неё, пока не наберёте двенадцать, затем обратно на восток к {npc:1244}.\nОсторожно: вне боя Трясинные ползуны время от времени применяют Скрытность, поэтому они незаметны и их трудно увидеть.",
 
 	-- Step 39: Rethiel the Greenwarden
-	-- {quest:98283} Carnage · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
-	["{quest:98283}, an elite raptor, on the {zone:1437} loop of the {zone:1424} guide"] = "",
+	-- {quest:98283} Carnage · {npc:271334} Maddened Rotclaw · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
+	["{quest:98283}, an elite raptor called out with a {npc:271334}'s flesh, on the {zone:1437} loop of the {zone:1424} guide"] = "{quest:98283}, элитный ящер, вызываемый плотью существа {npc:271334}, на круге «{zone:1437}» гайда «{zone:1424}»",
 
 	-- Step 40: Dragonmaw Gates: kill these as you meet them
 	-- {area:1038} Dragonmaw Gates
@@ -291,7 +291,7 @@ return {
 
 	-- Step 52: Prospector Whelgar
 	-- {item:287959} Titan Relic · {npc:1077} Prospector Whelgar · {quest:98824} Prehistoric Prism
-	["The {item:287959} is already with {npc:1077}: take {quest:98824} from him, below ground in his dig."] = "",
+	["The {item:287959} is already with {npc:1077}: take {quest:98824} from him, below ground in his dig."] = "{item:287959} уже у NPC {npc:1077}: возьмите у него задание {quest:98824} под землей, на его раскопках.",
 
 	-- Step 53: Captain Stoutfist
 	-- {area:150} Menethil Harbor · {area:2104} Deepwater Tavern · {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep · {npc:2094} James Halloran
@@ -300,8 +300,6 @@ return {
 	["On the top floor"] = "На верхнем этаже",
 	-- {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
 	["For the Dragonmaw catapult, on the {zone:1437} loop of the {zone:1424} guide"] = "",
-	-- {npc:2094} James Halloran · {npc:270637} Howin Kindfeather · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
-	["{npc:2094}: the crate for {npc:270637}, on the {zone:1437} loop of the {zone:1424} guide"] = "",
 
 	-- Step 54: Captain Halyndor
 	-- {npc:1160} Captain Halyndor · {npc:270589} Nightveiled Rotheap · {zone:1437} Wetlands
@@ -313,7 +311,7 @@ return {
 	-- Step 55: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
 	["Back south to Menethil: {npc:1217} stands in the {area:2104}."] = "Назад на юг в Менетил: {npc:1217} стоит в таверне ({area:2104}).",
-	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind City
+	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind
 	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "Для NPC {npc:1284} ({zone:1453}), в конце этого гайда",
 
 	-- Step 56: Level 28
@@ -635,8 +633,8 @@ return {
 	-- {npc:2784} King Magni Bronzebeard · {object:171709} High Seat
 	["{npc:2784} holds court in the {object:171709}."] = "",
 
-	-- Step 123: Tram to Stormwind City
-	-- {zone:1453} Stormwind City
+	-- Step 123: Tram to Stormwind
+	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "Поезд до {zone:1453}",
 
 	-- Step 124: Baros Alexston
@@ -653,7 +651,7 @@ return {
 
 	-- Step 126: Cathedral of Light
 	["Cathedral of Light"] = "Собор Света",
-	-- {area:2257} Deeprun Tram · {object:171524} Tinker Town · {zone:1453} Stormwind City · {object:28027} Dwarven District · {object:2098} Cathedral Square
+	-- {area:2257} Deeprun Tram · {object:171524} Tinker Town · {zone:1453} Stormwind · {object:28027} Dwarven District · {object:2098} Cathedral Square
 	["Take the {area:2257} from {object:171524} to {zone:1453}'s {object:28027}, then walk to the {object:2098}."] = "Сядьте на поезд ({area:2257}) в месте {object:171524} до места {object:28027} ({zone:1453}), затем идите сюда: {object:2098}.",
 	-- {npc:4982} Thomas
 	["{npc:4982}, in the Cathedral of Light"] = "{npc:4982}, в Соборе Света",

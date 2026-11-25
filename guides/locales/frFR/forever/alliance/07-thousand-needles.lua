@@ -14,11 +14,11 @@ return {
 
 	-- Step 3: Commander Althea Ebonlocke
 	-- {quest:57} The Night Watch · {zone:1431} Duskwood
-	["{quest:57}'s skeletons, from your last {zone:1431} visit: Commander Althea is in the town hall."] = "",
+	["{quest:57}'s skeletons, from your last {zone:1431} visit: Commander Althea is in the town hall."] = "Les squelettes de {quest:57}, de votre dernière visite en {zone:1431} : le commandant Althea est à l'hôtel de ville.",
 
 	-- Step 4: Commander Althea Ebonlocke
 	-- {quest:57} The Night Watch
-	["once {quest:57}'s skeletons are handed in"] = "",
+	["once {quest:57}'s skeletons are handed in"] = "une fois les squelettes de {quest:57} rendus",
 
 	-- Step 5: Commander Althea Ebonlocke
 	-- {quest:58} The Night Watch · {zone:1431} Duskwood

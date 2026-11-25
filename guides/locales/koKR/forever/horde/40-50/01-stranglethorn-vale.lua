@@ -11,8 +11,6 @@ return {
 	["Fly to the {area:1497}"] = "{area:1497}(으)로 비행",
 	-- {area:1497} Undercity · {area:340} Kargath · {object:3202} Grom'gol
 	["Your level 40 training is in the {area:1497}: fly there from {area:340}, train, and take the zeppelin from the towers outside the city to {object:3202}."] = "40레벨 훈련은 {area:1497}에서 합니다. {area:340}에서 그곳으로 날아가 훈련한 뒤, 도시 밖 탑에서 비행선을 타고 {object:3202}(으)로 가십시오.",
-	-- {area:340} Kargath
-	["{area:340} flight master"] = "{area:340} 비행 조련사",
 
 	-- Step 2: Genavie Callow
 	-- {npc:4486} Genavie Callow · {zone:1417} Arathi Highlands
@@ -40,6 +38,8 @@ return {
 	-- Step 6: Fly to Grom'gol
 	-- {object:3202} Grom'gol
 	["Fly to {object:3202}"] = "{object:3202}(으)로 날아가기",
+	-- {area:340} Kargath
+	["{area:340} flight master"] = "{area:340} 비행 조련사",
 
 	-- Step 7: Grom'gol Base Camp
 	-- {npc:2519} Kin'weelay · {npc:1061} Gan'zulah
@@ -66,7 +66,7 @@ return {
 
 	-- Step 11: Drizzlik
 	-- {npc:2495} Drizzlik
-	["{npc:2495}'s shop is in the building east of the inn."] = "",
+	["{npc:2495}'s shop is in the building east of the inn."] = "{npc:2495}의 상점은 여관 동쪽 건물에 있습니다.",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}: the Snapjaw skins gathered earlier; inside"] = "",
 
@@ -78,10 +78,10 @@ return {
 
 	-- Step 13: Kebok
 	-- {npc:737} Kebok
-	["{npc:737} stands upstairs, beside the flight master."] = "",
+	["{npc:737} stands upstairs, beside the flight master."] = "{npc:737}은(는) 위층, 비행 조련사 옆에 서 있습니다.",
 	-- {npc:737} Kebok
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
-	["{npc:737}: the Tumbled Crystals from the earlier Stranglethorn guide"] = "",
+	["{npc:737}: the Tumbled Crystals from the earlier Stranglethorn guide"] = "{npc:737}: 이전 가시덤불 골짜기 가이드의 굴러다니는 수정({item:4106})",
 
 	-- Step 14: Kebok
 	-- {npc:737} Kebok
@@ -110,9 +110,9 @@ return {
 	-- {quest:348} Stranglethorn Fever
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
 	-- was: ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "고릴라는 운바그와 주변 골짜기를 돌아다닙니다. 덩치큰 고릴라는 내장을 떨어뜨리고, 모든 고릴라가 송곳니를 떨어뜨릴 수 있습니다. 운바그와를 위해 10개를 챙기세요. 운바그와의 모크(44)는 약 45레벨에 들르는 가시덤불 골짜기에서 기다립니다.\n주의: 덩치큰 안개계곡고릴라(40-41)는 골짜기에 서로 가까이 서 있으니 한 마리씩 끌어오세요."
-	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: if you will take {quest:348} with a group, keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "",
+	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: if you will take {quest:348} with a group, keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "고릴라들이 운바그와 주변 골짜기를 돌아다닙니다. 장로들이 내장을 떨어뜨리고, 어느 것이든 송곳니를 떨어뜨릴 수 있습니다: 파티와 함께 {quest:348}을(를) 받을 거라면 운바그와를 위해 열 개를 남기십시오. 그의 모크(44)는 약 45레벨의 가시덤불 골짜기 정거장에서 기다립니다.\n주의: 늙은 안개계곡 고릴라(40-41)가 골짜기에 가까이 모여 있습니다: 하나씩 끌어내십시오.",
 	-- {quest:348} Stranglethorn Fever
-	["Keep fangs from these same elders for Unbagwa ({quest:348}, with a group)."] = "",
+	["Keep fangs from these same elders for Unbagwa ({quest:348}, with a group)."] = "같은 장로들에게서 운바그와를 위해 송곳니를 모으십시오({quest:348}, 파티와 함께).",
 
 	-- Step 19: Mistvale giblets
 	["Mistvale giblets"] = "",
@@ -271,7 +271,7 @@ return {
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
-	["{npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "",
+	["{npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "여관의 {npc:2491}와(과) 꼭대기 층의 '바다늑대' 맥킨리가 40레벨부터 이 퀘스트를 줍니다: 지금 받으십시오. 40 미만이면 {zone:1444} & {zone:1446} 가이드의 {area:35} 정거장에서 다시 줍니다.",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "",
 	-- {quest:2872} Stoley's Debt · {zone:1446} Tanaris
@@ -279,9 +279,9 @@ return {
 
 	-- Step 49: Fin Fizracket
 	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
-	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "",
+	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "파티 퀘스트: {quest:348}은(는) 안개계곡 골짜기의 {npc:1449}에게서 끝납니다. 고릴라 송곳니 열 개를 주면 고릴라(41-42) 세 무리를 차례로 부른 뒤 {npc:1514}(44)을(를) 부릅니다. 플레이어 기록에서 시작한 27명 중 12명이 그곳에서 죽었습니다. 친구 한둘과 함께라면 받으십시오.",
 	-- {npc:2486} Fin Fizracket · {zone:1444} Feralas · {object:3202} Grom'gol
-	["{npc:2486}, beside the inn: Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "",
+	["{npc:2486}, beside the inn: Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}, 여관 옆: 운바그와 부분은 {zone:1444} 가이드의 {object:3202} 정거장에서",
 
 	-- Step 50: The Bloodsail ships
 	["The Bloodsail ships"] = "붉은해적단 배",

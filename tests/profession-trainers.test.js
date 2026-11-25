@@ -54,6 +54,15 @@ const TRAINS_FROM = {
 };
 const RANK_SKILL = { 1: 0, 2: 50, 3: 125, 4: 200 };
 
+// A side shelf (format 8) carries its shared candidates and steps as one Lua
+// string (`stepsSrc`): its source, unescaped and indented as an inline guide's.
+function shelfSource(block) {
+	const m = block.match(/^\t\t\tstepsSrc = "((?:[^"\\]|\\.)*)",$/m);
+	if (!m) return block;
+	const src = m[1].replace(/\\(\d{3}|.)/g, (_, c) => ({ n: '\n', r: '\r', t: '\t' })[c] ?? (/^\d{3}$/.test(c) ? String.fromCharCode(Number(c)) : c));
+	return `${src.split('\n').map((l) => `\t\t${l}`).join('\n')}\n`;
+}
+
 // Every `train` goal ({ skill, rank, npcs }) and `learn` goal ({ skill line,
 // spell, npcs }) of the forever/professions guides, npcs sorted.
 function goals() {
@@ -63,7 +72,7 @@ function goals() {
 	const parts = lua.split(/^(-- Source: .*)$/m);
 	for (let i = 1; i < parts.length; i += 2) {
 		if (!parts[i].includes('forever/professions/')) continue;
-		const block = parts[i + 1];
+		const block = shelfSource(parts[i + 1]);
 		const recs = block.match(/local candidateRecords = \{\n([\s\S]*?)\n\t\t\}\n/);
 		const records = recs ? [...recs[1].matchAll(/^\t\t\t\{ npc = (\d+)/gm)].map((m) => Number(m[1])) : [];
 		const ids = (text) => [...text.matchAll(/candidateRecords\[(\d+)\]|\{ npc = (\d+)/g)].map((m) => (m[1] ? records[Number(m[1]) - 1] : Number(m[2])));

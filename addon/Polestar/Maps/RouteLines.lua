@@ -198,6 +198,7 @@ ns.OnInit(keepDots)
 ---------------------------------------------------------------------------
 
 local paths = {}          -- Strokes.Path per drawable leg, in travel order
+local guesses = {}        -- those of them drawn straight, no walking path known (dashed in every style, #3418)
 local marks = {}          -- world map stop marks: c, wx, wy, radius (px), ...
 local markCount = 0
 local goalC, goalX, goalY -- the route's end
@@ -237,6 +238,7 @@ end
 
 local function rebuild()
 	for i = #paths, 1, -1 do paths[i] = nil end
+	for i = #guesses, 1, -1 do guesses[i] = nil end
 	markCount, goalC, live = 0, nil, nil
 	local geometry = Nav and Nav.GetRouteGeometry and Nav.GetRouteGeometry()
 	local legs = type(geometry) == "table" and geometry.legs or nil
@@ -264,6 +266,7 @@ local function rebuild()
 		end
 	end
 	if markCount > 0 then marks[markCount * 4] = GOAL_MARK end
+	for _, p in ipairs(paths) do if p.guess then guesses[#guesses + 1] = p end end
 end
 
 -- The player's world position, or nil when unknown or unreadable (secret:
@@ -383,6 +386,14 @@ function RouteLines.Drawable(leg)
 		if b[1] ~= a[1] or b[2] ~= a[2] or b[3] ~= a[3] then return true end
 	end
 	return false
+end
+
+-- Whether the lines draw anywhere (the world map or the minimap): their own
+-- switch, whatever the arrow's (Nav/Journey.lua samples for them while the
+-- arrow is hidden, #3828).
+function RouteLines.Shown()
+	local world, minimap = surfaces()
+	return world or minimap
 end
 
 -- Whether the lines stand in for the trail: on, and a leg they can draw.
@@ -833,16 +844,20 @@ end
 
 local function drawWorld(pin)
 	local view, worldStrokes = pin.view, pin.strokes
+	-- The sparkles: no line but a walk with no walking path known, drawn dashed over them (#3418).
 	if sparkling then
-		if pin.used > 0 then
-			worldStrokes.n = 0
-			paint(pin, worldStrokes)
-		end
 		drawWorldSparkles(pin)
-		pin.revision = revision
-		return
+		if #guesses == 0 then
+			if pin.used > 0 then
+				worldStrokes.n = 0
+				paint(pin, worldStrokes)
+			end
+			pin.revision = revision
+			return
+		end
+	else
+		finishSparkles(pin, 0)
 	end
-	finishSparkles(pin, 0)
 	local mapID = view.mapID
 	local b = mapID and boundsOf(mapID)
 	if not b then
@@ -867,14 +882,15 @@ local function drawWorld(pin)
 			n = n + 1
 		end
 	end
-	v.markCount = n
+	v.markCount = sparkling and 0 or n
 	-- The walk being walked starts at the player, with or without the minimap.
 	local pc, px, py = playerPosition()
 	advance(pc, px, py)
 	pin.drawnX, pin.drawnY = px, py
-	v.from, v.fromIndex, v.fromC, v.fromX, v.fromY = live ~= nil, live, liveC, liveX, liveY
-	Strokes.Map(worldStrokes, paths, v)
-	paint(pin, worldStrokes)
+	v.from, v.fromIndex, v.fromC, v.fromX, v.fromY = live ~= nil and (not sparkling or guesses[1] == paths[1]), live, liveC, liveX, liveY
+	Strokes.Map(worldStrokes, sparkling and guesses or paths, v)
+	-- (Among the sparkles the dashes are drawn whole: the draw-in belongs to the lines' own styles.)
+	paint(pin, worldStrokes, sparkling and worldStrokes.n or nil)
 	pin.revision = revision
 end
 
@@ -1071,16 +1087,20 @@ local function drawMinimap(force, given, pc, px, py, radius, facing, square)
 	end
 	-- mm covers the minimap (SetAllPoints): its size is the minimap's.
 	local width, height, scale = Minimap:GetWidth(), Minimap:GetHeight(), mm:GetEffectiveScale()
+	-- The sparkles: no line but a walk with no walking path known, drawn dashed over them (#3418).
 	if sparkling then
-		if minimapStrokes.n > 0 then
-			minimapStrokes.n = 0
-			paint(mm, minimapStrokes)
-		end
-		last.revision = nil
 		drawMinimapSparkles(pc, px, py, radius, facing, square, width, height)
-		return
+		if #guesses == 0 then
+			if minimapStrokes.n > 0 then
+				minimapStrokes.n = 0
+				paint(mm, minimapStrokes)
+			end
+			last.revision = nil
+			return
+		end
+	else
+		finishSparkles(mm, 0)
 	end
-	finishSparkles(mm, 0)
 	local phase = trailPhase()
 	if not force and last.c == pc and last.x == px and last.y == py and last.radius == radius and last.facing == facing
 		and last.square == square and last.width == width and last.height == height and last.scale == scale
@@ -1098,11 +1118,11 @@ local function drawMinimap(force, given, pc, px, py, radius, facing, square)
 	v.c, v.x, v.y, v.radius, v.facing, v.square = pc, px, py, radius, facing, square
 	v.width, v.height = width, height
 	mm.opacity = look(v, "minimap", scale)
-	v.goalC, v.goalX, v.goalY, v.goalRadius = goalC, goalX, goalY, MINIMAP_GOAL
+	v.goalC, v.goalX, v.goalY, v.goalRadius = not sparkling and goalC or nil, goalX, goalY, MINIMAP_GOAL
 	v.phase = phase
-	v.from, v.fromIndex, v.fromC, v.fromX, v.fromY = live ~= nil, live, liveC, liveX, liveY
-	Strokes.Minimap(minimapStrokes, paths, v)
-	paint(mm, minimapStrokes)
+	v.from, v.fromIndex, v.fromC, v.fromX, v.fromY = live ~= nil and (not sparkling or guesses[1] == paths[1]), live, liveC, liveX, liveY
+	Strokes.Minimap(minimapStrokes, sparkling and guesses or paths, v)
+	paint(mm, minimapStrokes, sparkling and minimapStrokes.n or nil)
 end
 
 local function tick(_, elapsed)

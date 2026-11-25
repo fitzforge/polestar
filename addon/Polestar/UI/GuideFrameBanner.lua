@@ -179,9 +179,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		local lq, ltitle
 		if E and E.LostQuestion then lq, ltitle = E.LostQuestion() end
 		if lq then return "lost", { quest = lq, title = ltitle } end
-		local gq, gtitle
-		if E and E.GroupQuestion then gq, gtitle = E.GroupQuestion() end
-		if gq then return "group", { quest = gq, title = gtitle } end
+		-- An escort left to the player asks the same way, in its own words (Engine.EscortNote, #3439).
+		local gq, gtitle, ginfo
+		if E and E.GroupQuestion then gq, gtitle, ginfo = E.GroupQuestion() end
+		if gq then return "group", { quest = gq, title = gtitle, escort = ginfo and ginfo.escort or nil, note = ginfo and ginfo.text or nil } end
 		-- A dungeon in the route not answered yet (Engine.DungeonQuestion): the guide waits and asks.
 		-- None of the dungeon notices while dungeons in the route are held back (ns.dungeonRoute).
 		local dq = ns.dungeonRoute and E and E.DungeonQuestion and E.DungeonQuestion()
@@ -547,6 +548,14 @@ ns.UI.GuideFrame.Part(function(GF)
 			banner.Text:SetText(text)
 			placeLink(banner.Jump, L["Make room"], 0, -4)
 			banner.Close:Show()
+		elseif kind == "group" and n.escort then
+			-- An escort left to the player (#3439): the group mark, how long it takes and how often it fails.
+			banner.Icon:SetTexture(Theme.Media("icon-group"))
+			banner.Text:SetText(string.format(L["Escort: %s"], ns.Quoted(n.title) or "") .. "\n" .. (n.note or ""))
+			-- Skip is the default answer, as for a group quest.
+			local w = placeLink(banner.Jump, L["Skip it"], 0, -4)
+			placeLink(banner.Later, L["Do it"], w + 10, -4)
+			banner.Close:Hide()
 		elseif kind == "group" then
 			banner.Icon:SetTexture(Theme.Media("icon-kill"))
 			banner.Text:SetText(string.format(L["Group quest: %s"], ns.Quoted(n.title) or "") .. "\n" .. L["It needs a group. Skip it and the guide keeps to the solo route."])
@@ -773,10 +782,24 @@ ns.UI.GuideFrame.Part(function(GF)
 			placeLink(banner.Jump, n.kind == "old" and L["How to update"] or L["Update"], 0, -4)
 			banner.Close:SetShown(n.closable)
 		end
-		-- The action on the right: the text stops short of it, no row under.
+		-- The action on the right: the text stops short of it, no row under,
+		-- while the text still reads on one line there. Text that would wrap
+		-- into a narrow column beside it (#3878: Atlas's "Fresh start" card ran
+		-- six short lines) keeps the full width, the action on its own line
+		-- under it at the right.
 		if onRight > 0 and banner.Jump:IsShown() then
-			banner.Text:SetWidth(width - PAD * 2 - 21 - closeRoom - onRight)
-			oneLine = true
+			local full = banner.Text:GetWidth()
+			banner.Text:SetWidth(full - onRight)
+			local text = banner.Text:GetText() or ""
+			local lineH = banner.Text:GetLineHeight() or 12
+			if not text:find("\n", 1, true) and banner.Text:GetStringHeight() <= lineH * 1.5 then
+				oneLine = true
+			else
+				banner.Text:SetWidth(full)
+				banner.Jump:ClearAllPoints()
+				banner.Jump:SetPoint("TOPRIGHT", banner.Text, "BOTTOMRIGHT", 0, -4)
+				onRight = 0
+			end
 		end
 		if noClose then banner.Close:Hide() end
 		local h = floor(9 + banner.Text:GetStringHeight() + (oneLine and 0 or 4 + 18) + (secondRow and laterPlaced and 4 + 18 or 0) + 9 + 0.5)

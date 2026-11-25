@@ -212,10 +212,16 @@ version throughout.
 
    After the last change to a leveling guide, regenerate
    `addon/Polestar/Core/LegacySteps.lua` with every release players may
-   update from as an `--old` (each `vX.Y.Z` tag's `guides`, the last release
-   included): `git archive <tag> guides | tar -x -C <dir>/<tag>`, then
-   `node tools/legacy-steps.js --old <dir>/v0.3.4/guides ... --old
-   <dir>/<last release>/guides`, and commit it. The mapping above reads a
+   update from as an `--old` (each `vX.Y.Z` tag's `addon` folder, the last
+   release included): `git archive <tag> addon | tar -x -C <dir>/<tag>`,
+   then `forge guide legacy-steps --old <dir>/v0.3.4/addon ... --old
+   <dir>/<last release>/addon`, and commit it. It reads each release's
+   steps from the guides that release shipped (its
+   `Polestar_Guides*/Guides.lua`), never from its guide sources: a save
+   holds the keys of the steps as they shipped, and a later compiler or
+   data could name some of them differently. The current guides are
+   compiled from `guides/` with `--data` (default `data/forever`): pass
+   the release's reference data. The mapping above reads a
    save's changed steps from it: a step it does not list keeps no check-off,
    skip or saved view, and nothing in its stretch passes behind the player;
    its `ns.LegacyMovedIn` (the quests each guide now offers that a release
@@ -361,7 +367,11 @@ version throughout.
    Then the pin coverage guard: every issue closed as completed has a test
    that names it (in `tests/reported-gate.json`, or a test mentioning `#N`),
    and every route, guide and place record still names a quest some guide
-   has. The gaps known when the guard came in are listed with why in
+   has. An issue labelled `released:<tag>` for a release already out (at or
+   before `package.json`'s version, which step 7 bumps after the gates) is
+   that release's fix, not this one's: a report closed as already fixed
+   carries the older release's label (CONTRIBUTING.md, "How a report is
+   handled"). The gaps known when the guard came in are listed with why in
    `tests/pin-coverage.json`; anything else fails:
 
    ```sh

@@ -81,7 +81,8 @@ local function stepWords(s, state)
 		return format(L["%s from %s"], s.item and s.item.name or L["Item"], s.npc and s.npc.name or L["Not known"])
 	elseif s.kind == "object" then
 		if not (s.object and s.object.name) then return s.item and s.item.name or L["Item"] end
-		return format(L["%s from %s"], s.item and s.item.name or L["Item"], s.object.name)
+		local N = ns.Names
+		return format(L["%s from %s"], s.item and s.item.name or L["Item"], N and N.Object and N.Object(s.object.id) or s.object.name)
 	elseif s.kind == "rep" then
 		return format(L["Reach %s with %s"], standingName(s.standing), factionName(s.faction, s.name))
 	elseif s.kind == "gift" then

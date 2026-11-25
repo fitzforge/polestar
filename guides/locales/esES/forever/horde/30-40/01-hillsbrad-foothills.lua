@@ -202,7 +202,7 @@ return {
 
 	-- Step 36: Azurelode Mine
 	-- {area:287} Hillsbrad · {area:288} Azurelode Mine · {npc:2305} Foreman Bonds · {npc:2450} Miner Hackett
-	["Head south-west past {area:287} town to the {area:288}. The miners work inside the {area:288}, below the hill: go in at its mouth on the west side, where the arrow leads first. Miners (26-27) work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside. Keep killing Miners until Samsa's thirty skulls are in your bags: most {area:287} humans drop one."] = "",
+	["Head south-west past {area:287} town to the {area:288}. The miners work inside the {area:288}, below the hill: go in at its mouth on the west side, where the arrow leads first. Miners (26-27) work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside. Keep killing Miners until Samsa's thirty skulls are in your bags: most {area:287} humans drop one."] = "Ve al suroeste pasando el pueblo de {area:287} hasta {area:288}. Los mineros trabajan dentro de {area:288}, bajo la colina: entra por su boca del lado oeste, adonde la flecha lleva primero. Los mineros (26-27) trabajan en los túneles; {npc:2305} (30) y {npc:2450} (29) están al fondo. Sigue matando mineros hasta tener en las bolsas las treinta calaveras de Samsa: la mayoría de los humanos de {area:287} sueltan una.",
 	-- {area:288} Azurelode Mine
 	["Inside {area:288}"] = "Dentro de {area:288}",
 	-- {item:3692} Hillsbrad Human Skull · {area:287} Hillsbrad

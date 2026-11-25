@@ -1945,9 +1945,17 @@ end
 
 -- A typed value: the number in the text, in the slider's own terms (on a
 -- slider showing "120%", "120" and "120%" are both 1.2), clamped to its
--- range and put on its step. -> value | nil
+-- range and put on its step. A row with its own reading (opts.parse: the
+-- guide window's height in pixels) takes that, clamped, off the step.
+-- -> value | nil
 function W.ParseSliderText(row, text)
 	text = tostring(text or ""):gsub(",", ".")
+	local parse = rawget(row, "psParse")
+	if parse then
+		local v = parse(text)
+		if type(v) ~= "number" then return nil end
+		return min(row.psMax, max(row.psMin, v))
+	end
 	local n = tonumber(text:match("[-+]?%d*%.?%d+") or "")
 	if not n then return nil end
 	local cur = sliderValue(row)
@@ -2040,10 +2048,13 @@ end
 -- opts.get() / opts.set(value) stand in for reading and writing the path,
 -- for state that is no setting (path nil; per character); set(nil) on
 -- right-click: the default.
+-- opts.parse(text) -> value | nil reads a typed value in the row's own way
+-- (W.ParseSliderText).
 function W.Slider(parent, label, path, lo, hi, stepSize, fmt, desc, depends, opts)
 	local row = settingRow(parent, label, desc)
 	row.psRow = true
 	row.psGet, row.psSet = opts and opts.get, opts and opts.set
+	row.psParse = opts and opts.parse
 	row.psMin, row.psMax, row.psStep, row.psFormat = lo, hi, stepSize, fmt
 	-- The value in its box (the field's well and hairline); a click on it
 	-- types one in.
@@ -4902,10 +4913,10 @@ end
 -- The guides window keeps the skin's size in UI units (UI/Picker.lua).
 W.SHELL_BASE_W, W.SHELL_BASE_H = 1680, 946
 W.SHELL_MIN_W, W.SHELL_MIN_H = 860, 560 -- the least either window is, the screen allowing
--- The settings window draws at this share of its scale setting (ui.menuScale): 100 % is what
--- 115 % was before 0.4.3 (#3789: 0.8 drew it too small; a saved scale moved with it, the
--- migration "menuScale092" in Theme.lua). The guides window (ui.pickerScale) draws at its
--- setting as it is.
+-- The settings window draws at this share of its scale setting (ui.menuScale): a release
+-- drew it at 1 x, the 0.4.3 previews at 0.8 x (#3789: too small). A saved scale moved
+-- with it, so the window keeps the size its player chose (the migration "menuScale092"
+-- in Theme.lua). The guides window (ui.pickerScale) draws at its setting as it is.
 W.SETTINGS_SCALE_BASE = 0.92
 function W.ShellDefaultSize()
 	local ph = GetPhysicalScreenSize and select(2, GetPhysicalScreenSize()) or 0

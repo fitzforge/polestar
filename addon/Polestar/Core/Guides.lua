@@ -998,8 +998,10 @@ end
 
 ---------------------------------------------------------------------------
 -- Deferred steps. A race part's guide (docs/PACK_FORMAT.md, "Race parts")
--- carries its steps as one Lua source string, `stepsSrc` (`return { ... }`),
--- with `stepCount`: a guide nobody opens costs its string, not its tables.
+-- and a side-shelf guide of our pack (every guide that is not a leveling
+-- guide: class, profession, reputation, collectible...; "Format 8") carry
+-- their steps as one Lua source string, `stepsSrc` (`return { ... }`), with
+-- `stepCount`: a guide nobody opens costs its string, not its tables.
 -- The first read of `def.steps` runs it (Guides.Steps): the steps are
 -- checked, their pictures placed, their texts put in the client's language
 -- and escaped, as at registration. Guides.Release drops them again (the
@@ -1058,6 +1060,28 @@ function Own.sweep()
 end
 ns.On("TABS_CHANGED", Own.sweep)
 ns.On("GUIDE_CHANGED", Own.sweep)
+
+-- Whether guide def carries deferred steps (read in on first use).
+function Guides.StepsDeferred(def)
+	return type(def) == "table" and type(rawget(def, "stepsSrc")) == "string"
+end
+
+-- Guide `id`'s steps for one look (an index, a check, the guide menu's
+-- facts): -> steps | nil, fresh. `fresh`: a deferred guide's steps were read
+-- in for this look; Guides.Unpeek(id, fresh) gives them back after, unless a
+-- tab shows the guide by then. What the caller keeps must not be the steps
+-- or goals themselves (they would stay in memory): copy what it needs.
+function Guides.Peek(id)
+	local def = Guides.Get(id)
+	if not def then return nil, false end
+	local fresh = Guides.StepsDeferred(def) and rawget(def, "steps") == nil
+	return def.steps, fresh
+end
+
+function Guides.Unpeek(id, fresh)
+	local E = ns.Engine
+	if fresh and not (E and E.TabIds and E.TabIds()[id]) then Guides.Release(id) end
+end
 
 -- Whether the player's class is among `classes` (a race part's guide of one
 -- class route registers only for that class: its other classes' routes are
@@ -1784,22 +1808,35 @@ function Guides.List()
 	return out
 end
 
--- Where a guide starts: its first goal with coordinates (cached).
+-- Where a guide starts for a character (`player`: Compat.GetPlayerInfo()'s,
+-- the player's by default): its first goal with coordinates that is for
+-- them, in a step that is for them (`only`: an Undead's Silverpine does not
+-- start at the Orgrimmar flight master its Orc, Troll and Tauren take,
+-- #3344). Cached per guide and character kind.
 local startOf = setmetatable({}, { __mode = "k" })
-local function guideStart(g)
-	local p = startOf[g]
+local function guideStart(g, player)
+	player = player or ns.Compat.GetPlayerInfo()
+	local who = tostring(player.race) .. "|" .. tostring(player.class) .. "|" .. tostring(player.faction)
+	local mine = startOf[g]
+	if not mine then
+		mine = {}
+		startOf[g] = mine
+	end
+	local p = mine[who]
 	if p == nil then
 		p = false
 		for _, step in ipairs(g.steps) do
-			for _, goal in ipairs(step.goals) do
-				if goal.map and goal.x and goal.y then
-					p = { map = goal.map, x = goal.x, y = goal.y, f = goal.f }
-					break
+			if Guides.Matches(step.only, player) then
+				for _, goal in ipairs(step.goals) do
+					if goal.map and goal.x and goal.y and Guides.Matches(goal.only, player) then
+						p = { map = goal.map, x = goal.x, y = goal.y, f = goal.f }
+						break
+					end
 				end
 			end
 			if p then break end
 		end
-		startOf[g] = p
+		mine[who] = p
 	end
 	return p or nil
 end
@@ -2020,7 +2057,7 @@ local function rank(packId, player, here, zone)
 				local specific = ((g.races and #g.races > 0) or (g.classes and #g.classes > 0)) and 0 or 1
 				local inZone = ((here and g.zone == here.map) or (zone and g.zoneName == zone)) and 0 or 1
 				local band = math.huge
-				local start = here and guideStart(g)
+				local start = here and guideStart(g, player)
 				if start then
 					local cost = ns.TravelCost(here, start)
 					if cost then band = math.floor(cost / TRAVEL_TIE) end

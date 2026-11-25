@@ -1,9 +1,10 @@
 guide forever/horde/50-60/05-eastern-plaguelands
-title Western & Eastern Plaguelands, Felwood & Winterspring
+title Western & Eastern Plaguelands & Felwood
 faction Horde
 levels 55-56
 zone Eastern Plaguelands
 next forever/50-60/mount-hyjal
+pitch The Bulwark and both Plaguelands, then Felwood and Winterspring.
 # Built from the playthrough simulator's consensus route (Horde, visits
 # 86-93) and machine-checked with lint; not play-tested on Forever yet.
 #
@@ -103,6 +104,7 @@ step The western hills
 
 step Egan
   tip Egan the ghost stands by a hut in Terrordale, in the north-west corner.
+  tip Careful: Terrordale Spirits (59-60) drift through the north-west corner just north of Egan's hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time.
   turnin 5281
 
 # ---------------------------------------------------------------- The north
@@ -132,6 +134,9 @@ step Corin's Crossing
   tip With Defenders of Darrowshire in your log (from Carlin at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the Living Rot.
   goto 52.3,58.2 "Corin's Crossing" live
   talk 11064 quest 5211.1 "Free Darrowshire Spirits: talk to them"
+  kill 8530 optional                  -- Cannibal Ghoul: a Darrowshire Spirit rises where one dies
+  kill 8531 optional                  -- Gibbering Ghoul: leaves a spirit too
+  kill 8532 optional                  -- Diseased Flayer: leaves a spirit too
   collect 15447 x7
   complete 6022
 

@@ -76,7 +76,7 @@ return {
 
 	-- Step 16: Ruuzel
 	-- {quest:1009} Ruuzel · {area:414} Zoram Strand
-	["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009} ходит по северной оконечности {area:414} со стражами из клана Зловещего Хвоста.",
+	["{quest:1009} and his Wrathtail guards stand on the small islet just off the northern tip of the {area:414}: swim across to it."] = "{quest:1009} и его стражи Гневохвостых стоят на маленьком островке у северной оконечности места {area:414}: доплывите до него.",
 
 	-- Step 17: Blackfathom Deeps
 	-- {area:2797} Blackfathom Deeps · {npc:4787} Argent Guard Thaelrid · {zone:1457} Darnassus
@@ -344,7 +344,7 @@ return {
 
 	-- Step 62: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square
-	["Thundris' letter is already with {npc:1646}: his reply waits at the east side of {object:2098}."] = "",
+	["Thundris' letter is already with {npc:1646}: his reply waits at the east side of {object:2098}."] = "Письмо Тандриса уже у NPC {npc:1646}: его ответ ждет на восточной стороне места {object:2098}.",
 
 	-- Step 63: Cathedral Square
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:376} High Priestess Laurena
@@ -442,5 +442,6 @@ return {
 	-- ["{npc:4959} and {npc:482}"] = "{npc:4959} и {npc:482}",
 	-- ["{npc:4982}, in the Cathedral of Light"] = "{npc:4982}, в Соборе Света",
 	-- ["{npc:5082}, Mikhail and Tapoke Jahn are all at Menethil's inn; Tapoke fights you when you talk to Mikhail, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn.\n{npc:2104} stands on the top floor of {area:2103}."] = "{npc:5082}, Михаил и Тапок Ян находятся в таверне Гавани Менетилов; Тапок нападает, когда вы говорите с Михаилом, но сдается после поражения. {npc:1480} стоит недалеко к северо-востоку от таверны.\n{npc:2104} стоит на верхнем этаже здесь: {area:2103}.",
+	-- ["{quest:1009} walks the northern tip of the {area:414} with Wrathtail guards."] = "{quest:1009} ходит по северной оконечности {area:414} со стражами из клана Зловещего Хвоста.",
 	-- ["{zone:1455} priests"] = "Жрецы: {zone:1455}",
 }

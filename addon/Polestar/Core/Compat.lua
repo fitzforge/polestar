@@ -1511,6 +1511,17 @@ if ns.RegisterEvent then
 	end
 end
 
+-- Whether the character knows spell `id`: by its id, else by its name in the
+-- spellbook (KnowsSpellNamed: another race's chain teaches the same ability
+-- under another id). `english`: the name to look for when the client has none
+-- for the id.
+function Compat.KnowsSpell(id, english)
+	if Compat.IsSpellKnown(id) then return true end
+	local name = C_Spell and C_Spell.GetSpellName and readable(C_Spell.GetSpellName(id))
+	if type(name) ~= "string" or name == "" then name = english end
+	return Compat.KnowsSpellNamed(name)
+end
+
 -- A skill line's name in the client's language (C_SkillInfo by ID, else the
 -- character's professions), or nil when the client does not say.
 function Compat.GetSkillLineName(skillLine)

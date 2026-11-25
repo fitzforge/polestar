@@ -9,10 +9,8 @@ return {
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "飛往{area:42}",
-	-- {area:69} Lakeshire · {area:42} Darkshire · {zone:1431} Duskwood
-	["Back to the {area:69} gryphon master: fly to {area:42} for {zone:1431}'s second loop."] = "回到{area:69}的獅鷲管理員：飛往{area:42}，開始{zone:1431}的第二趟環線。",
-	-- {area:69} Lakeshire
-	["{area:69} flight master"] = "{area:69}飛行管理員",
+	-- {area:42} Darkshire · {zone:1431} Duskwood · {area:69} Lakeshire
+	["Fly to {area:42} for {zone:1431}'s second loop: from {area:69}'s gryphon master if you come from the Redridge guide."] = "飛往{area:42}，進行{zone:1431}的第二輪：如果你來自赤脊山指南，從{area:69}的獅鷲管理員處起飛。",
 
 	-- Step 2: Blind Mary
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
@@ -56,7 +54,7 @@ return {
 
 	-- Step 9: Lars
 	-- {npc:893} Lars · {npc:311} Sven Yorgen
-	["{npc:893}, at {npc:311}'s camp"] = "",
+	["{npc:893}, at {npc:311}'s camp"] = "{npc:893}，在{npc:311}的營地",
 
 	-- Step 11: Moonbrook
 	-- {quest:67} The Legend of Stalvan · {npc:311} Sven Yorgen · {zone:1436} Westfall · {area:20} Moonbrook · {object:3643} Old Footlocker · {area:42} Darkshire
@@ -64,7 +62,7 @@ return {
 
 	-- Step 12: Moonbrook
 	-- {quest:67} The Legend of Stalvan · {object:3643} Old Footlocker · {area:20} Moonbrook · {area:42} Darkshire
-	["{quest:67}: the {object:3643} in {area:20}, among the Defias (15-18), holds the next part. Then hearth back to {area:42}."] = "",
+	["{quest:67}: the {object:3643} in {area:20}, among the Defias (15-18), holds the next part. Then hearth back to {area:42}."] = "{quest:67}：{area:20}裡迪菲亞（15-18）中間的{object:3643}存放著下一部分。然後用爐石回到{area:42}。",
 
 	-- Step 13: Back to Darkshire
 	-- {area:42} Darkshire
@@ -97,7 +95,7 @@ return {
 
 	-- Step 16: Chef Grual
 	-- {npc:272} Chef Grual
-	["{npc:272} is in the Scarlet Raven Tavern."] = "",
+	["{npc:272} is in the Scarlet Raven Tavern."] = "{npc:272}在血鴉旅店裡。",
 
 	-- Step 17: Rot Blossoms
 	-- plural, as words: Rot Blossoms = {item:1598} Rot Blossom
@@ -191,11 +189,11 @@ return {
 
 	-- Step 36: Gazin Tenorm
 	-- {item:6846} Defias Script · {npc:6173} Gazin Tenorm · {quest:1787} The Tome of Divinity
-	["The {item:6846} is already with {npc:6173}: take the last part of {quest:1787} from him, in the Cathedral of Light."] = "",
+	["The {item:6846} is already with {npc:6173}: take the last part of {quest:1787} from him, in the Cathedral of Light."] = "{item:6846}已經交給{npc:6173}：在光明大教堂裡向他接取{quest:1787}的最後一部分。",
 
 	-- Step 37: Duthorian Rall
 	-- {npc:6171} Duthorian Rall · {npc:6173} Gazin Tenorm
-	["{npc:6171} stands in the Cathedral of Light, beside {npc:6173}."] = "",
+	["{npc:6171} stands in the Cathedral of Light, beside {npc:6173}."] = "{npc:6171}站在光明大教堂裡，在{npc:6173}旁邊。",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}: Redemption"] = "{npc:6171}：救贖",
 
@@ -218,6 +216,7 @@ return {
 	["Train here, in {zone:1453}, before you go on."] = "繼續之前，先在{zone:1453}這裡訓練。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to the {area:69} gryphon master: fly to {area:42} for {zone:1431}'s second loop."] = "回到{area:69}的獅鷲管理員：飛往{area:42}，開始{zone:1431}的第二趟環線。",
 	-- ["Continue west to {area:94}. The {object:673515} glows by the ruined house south of the road."] = "繼續向西前往{area:94}。{object:673515}在道路南邊的廢墟房屋旁發光。",
 	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters and Bone Chewers (24-27) are the easier kills; Plague Spreaders and Brain Eaters (27-29) drop them too. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "{area:492}北半部的每個食屍鬼都可能掉落肋骨：食腐者和噬骨者（24-27級）比較好打；瘟疫食屍鬼和食腦者（27-29級）也會掉。精英{npc:522}在墳墓間遊蕩：離他遠一點。\n小心：{npc:948}死亡時會施放{spell:3428}，引來額外的怪。",
 	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "{area:492}北半部的每個食屍鬼都可能掉落肋骨：食腐者、噬骨者、瘟疫食屍鬼和食腦者。\n小心：{npc:948}死亡時會施放{spell:3428}，引來額外的怪。",
@@ -235,6 +234,7 @@ return {
 	-- ["Train in {zone:1453}, north through {zone:1429}. Then take the boat from {area:17203} to {area:442}."] = "在{zone:1453}訓練，向北穿過{zone:1429}前往。然後從{area:17203}搭船前往{area:442}。",
 	-- ["Wolves, spiders and ghouls"] = "狼、蜘蛛和食屍鬼",
 	-- ["{area:492}, south"] = "{area:492}南側",
+	-- ["{area:69} flight master"] = "{area:69}飛行管理員",
 	-- ["{item:1946}: the {npc:511} in the cemetery's crypt is level 26; it waits for the {zone:1431} return"] = "{item:1946}：墓地地穴裡的{npc:511}是26級；留到返回{zone:1431}時再打",
 	-- ["{item:281046}, from the {object:673515}"] = "{item:281046}，來自{object:673515}",
 	-- ["{item:4371}, from {npc:3133}: limited stock. Sold out? {npc:1448} in {area:150} sells it too."] = "{item:4371}，向{npc:3133}購買：數量有限。賣完了？{area:150}的{npc:1448}也有賣。",

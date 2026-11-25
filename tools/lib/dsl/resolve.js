@@ -156,7 +156,8 @@ function pickSpawn(data, candidates, zoneMap, prev, opts = {}) {
 // An item only elites drop here keeps them. With `rares` (see rareLeads) a
 // rare (isRare) is passed over the same way. With `qlvl` (a collect's quest
 // level), droppers ABOVE_QUEST_LEVELS or more above it are passed over where
-// they would crowd out the droppers nearer its level (levelSplit).
+// they would crowd out the droppers nearer its level, or would be named beside
+// them (levelSplit).
 //
 // Sources with a drop chance: only the likely ones count (at least half the
 // best chance here; sub-1% drops only when nothing better drops here).
@@ -279,6 +280,53 @@ function packSpotNpcs(initial, mobs, at) {
 	return { list, packed, missingSources: left.length > 0 };
 }
 
+// A `loop` collect's target names: the droppers at each of the author's points
+// (#1616), not the map's best ones the arrow would otherwise pick from (Kolkar
+// Village's search named Gelkis and Magram centaurs from across Desolace once
+// recorded chances reordered them). The likely droppers on the map (onMap's)
+// that spawn within a point's radius lead, the most spawns first; a point none
+// of them spawns at names every dropper spawning there, so a camp whose mobs a
+// better chance elsewhere passed over still has its targets; a point no
+// dropper spawns at names the loop's others. Points that all name the same mobs,
+// five at most, share the plain list; otherwise each has its own (`fromNpcsAt`). With no
+// dropper at any point, the goal keeps the map's.
+function loopNpcs(data, goal, drops, map, f) {
+	const spots = goal.spots || [];
+	if (!spots.length || !data.mapSize(map)) return;
+	const mobsOf = (list) => list
+		.filter((s) => s && s.kind === 'npc')
+		.map((s) => ({ id: s.id, name: nameOf(data, 'npc', s.id), pts: spawnPointsOf(data, [s], map, f) }))
+		.filter((m) => m.name && m.pts.length);
+	const likely = mobsOf(drops.likely);
+	const every = mobsOf(drops.all);
+	const at = (mobs, spot) => mobs
+		.map((m) => ({ m, n: m.pts.filter((p) => distance(data, map, p[0], p[1], spot.x, spot.y) <= spot.r + 1).length }))
+		.filter((x) => x.n > 0)
+		.sort((a, b) => b.n - a.n)
+		.map((x) => x.m);
+	const per = spots.map((spot) => {
+		const own = at(likely, spot);
+		return own.length ? own : at(every, spot);
+	});
+	const list = [];
+	for (const here of per) for (const m of here) if (!list.some((n) => n.npc === m.id)) list.push({ npc: m.id, npcName: m.name });
+	if (!list.length) return;
+	const ids = per.map((here) => (here.length ? here.map((m) => m.id) : list.map((n) => n.npc)));
+	delete goal.fromNpcsAt;
+	if (list.length <= MAX_SOURCE_NPCS && ids.every((l) => l.length === list.length)) {
+		goal.fromNpcs = list.slice(0, MAX_SOURCE_NPCS);
+		return;
+	}
+	const kept = list.slice(0, MAX_SPOT_NPCS);
+	const packed = ids.map((l) => l.map((id) => kept.findIndex((n) => n.npc === id) + 1).filter((k) => k > 0).join(',')).join(';');
+	if (packed.length > MAX_SPOT_NPCS_TEXT) {
+		goal.fromNpcs = list.slice(0, MAX_SOURCE_NPCS);
+		return;
+	}
+	goal.fromNpcs = kept;
+	goal.fromNpcsAt = packed;
+}
+
 // The quests that hand item `item` over when taken (their `sourceItem`), by
 // quest id; the index is built once per data object.
 const handedOver = new WeakMap();
@@ -364,9 +412,13 @@ function eliteSplit(data, cands, sides, rares = false) {
 // out droppers near a quest's level `qlvl` only because an npc whose lowest
 // level is ABOVE_QUEST_LEVELS or more above it drops it at a higher chance:
 // `near`, the likely ones among the droppers near the quest's level (their
-// own best chance sets the bar), `above`, those far above it.
+// own best chance sets the bar), `above`, those far above it. A far-above
+// dropper likely beside the near ones is passed over too (#2744: the Elder
+// Timberling, level 10, at 100% beside the level 5 Timberlings' 53% for the
+// level 5 Timberling Seeds named the Elder on the goal).
 // -> { near, above } | null (no quest level, no chances, nothing near the
-// quest's level drops it at 1% while something does, or none crowded out)
+// quest's level drops it at 1% while something does, or no far-above dropper
+// among the likely ones and none near crowded out)
 function levelSplit(data, cands, qlvl) {
 	if (!(qlvl > 0) || !cands.some((c) => typeof c.chance === 'number')) return null;
 	const chanceOf = (c) => c.chance || 0;
@@ -383,7 +435,7 @@ function levelSplit(data, cands, qlvl) {
 	if (Math.max(...rest.map(chanceOf)) < 1 && Math.max(...cands.map(chanceOf)) >= 1) return null;
 	const all = likely(cands);
 	const near = likely(rest);
-	return near.some((c) => !all.includes(c)) ? { near, above } : null;
+	return near.some((c) => !all.includes(c)) || above.some((c) => all.includes(c)) ? { near, above } : null;
 }
 
 // Whether a rare drops the item at the highest chance while normal sources
@@ -752,6 +804,7 @@ function applyLoop(step, s, data, err) {
 		delete goal.z;
 		setIf(goal, 'z', goalHeight(data, goal));
 		for (const p of goal.spots) setIf(p, 'z', spotHeight(data, goal, p));
+		if (goal.t === 'collect' && goal._drops) loopNpcs(data, goal, goal._drops, first.map, first.f);
 	}
 	step.goals = step.goals.filter((g) => g.t !== 'goto');
 }
@@ -2333,8 +2386,10 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			// An authored `npc` already names the one creature to target.
 			if (v === 'collect' && goal.npc === undefined) {
 				setIf(goal, 'fromNpcs', sourceNpcs(data, c, picked.sources));
-				// A `loop` step's goals take its gotos as their spots (applyLoop).
-				if (!ctx.loop) spotNpcs(data, goal, area ? picked.sources || [c] : [c], picked.map, picked.f);
+				// A `loop` step's goals take its gotos as their spots, and the droppers there as their targets
+				// (applyLoop, loopNpcs).
+				if (ctx.loop) hidden(goal, '_drops', { likely: picked.sources || [c], all: candidates });
+				else spotNpcs(data, goal, area ? picked.sources || [c] : [c], picked.map, picked.f);
 			}
 		} else if (g.explicitCoords && goal.x !== undefined) {
 			// Hand-placed: the sources known to give the item (a drop chance, or a

@@ -9,10 +9,8 @@ return {
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "{area:42}(으)로 날아가세요",
-	-- {area:69} Lakeshire · {area:42} Darkshire · {zone:1431} Duskwood
-	["Back to the {area:69} gryphon master: fly to {area:42} for {zone:1431}'s second loop."] = "",
-	-- {area:69} Lakeshire
-	["{area:69} flight master"] = "{area:69} 비행 조련사",
+	-- {area:42} Darkshire · {zone:1431} Duskwood · {area:69} Lakeshire
+	["Fly to {area:42} for {zone:1431}'s second loop: from {area:69}'s gryphon master if you come from the Redridge guide."] = "{zone:1431}의 두 번째 순회를 위해 {area:42}(으)로 날아가십시오: 붉은마루 산맥 가이드에서 왔다면 {area:69}의 그리폰 조련사에게서 출발합니다.",
 
 	-- Step 2: Blind Mary
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
@@ -56,7 +54,7 @@ return {
 
 	-- Step 9: Lars
 	-- {npc:893} Lars · {npc:311} Sven Yorgen
-	["{npc:893}, at {npc:311}'s camp"] = "",
+	["{npc:893}, at {npc:311}'s camp"] = "{npc:893}, {npc:311}의 야영지",
 
 	-- Step 11: Moonbrook
 	-- {quest:67} The Legend of Stalvan · {npc:311} Sven Yorgen · {zone:1436} Westfall · {area:20} Moonbrook · {object:3643} Old Footlocker · {area:42} Darkshire
@@ -64,7 +62,7 @@ return {
 
 	-- Step 12: Moonbrook
 	-- {quest:67} The Legend of Stalvan · {object:3643} Old Footlocker · {area:20} Moonbrook · {area:42} Darkshire
-	["{quest:67}: the {object:3643} in {area:20}, among the Defias (15-18), holds the next part. Then hearth back to {area:42}."] = "",
+	["{quest:67}: the {object:3643} in {area:20}, among the Defias (15-18), holds the next part. Then hearth back to {area:42}."] = "{quest:67}: {area:20}의 데피아즈단(15-18) 사이에 있는 {object:3643}에 다음 부분이 있습니다. 그런 다음 귀환석으로 {area:42}(으)로 돌아가십시오.",
 
 	-- Step 13: Back to Darkshire
 	-- {area:42} Darkshire
@@ -97,7 +95,7 @@ return {
 
 	-- Step 16: Chef Grual
 	-- {npc:272} Chef Grual
-	["{npc:272} is in the Scarlet Raven Tavern."] = "",
+	["{npc:272} is in the Scarlet Raven Tavern."] = "{npc:272}은(는) 붉은까마귀 선술집에 있습니다.",
 
 	-- Step 17: Rot Blossoms
 	-- plural, as words: Rot Blossoms = {item:1598} Rot Blossom
@@ -191,11 +189,11 @@ return {
 
 	-- Step 36: Gazin Tenorm
 	-- {item:6846} Defias Script · {npc:6173} Gazin Tenorm · {quest:1787} The Tome of Divinity
-	["The {item:6846} is already with {npc:6173}: take the last part of {quest:1787} from him, in the Cathedral of Light."] = "",
+	["The {item:6846} is already with {npc:6173}: take the last part of {quest:1787} from him, in the Cathedral of Light."] = "{item:6846}은(는) 이미 {npc:6173}에게 있습니다: 빛의 대성당에서 그에게 {quest:1787}의 마지막 부분을 받으십시오.",
 
 	-- Step 37: Duthorian Rall
 	-- {npc:6171} Duthorian Rall · {npc:6173} Gazin Tenorm
-	["{npc:6171} stands in the Cathedral of Light, beside {npc:6173}."] = "",
+	["{npc:6171} stands in the Cathedral of Light, beside {npc:6173}."] = "{npc:6171}은(는) 빛의 대성당 안, {npc:6173} 옆에 서 있습니다.",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}: Redemption"] = "{npc:6171}: 구원",
 
@@ -235,6 +233,7 @@ return {
 	-- ["Train in {zone:1453}, north through {zone:1429}. Then take the boat from {area:17203} to {area:442}."] = "{zone:1429}을(를) 지나 북쪽 {zone:1453}에서 수련하십시오. 그다음 {area:17203}에서 배를 타고 {area:442}(으)로 가십시오.",
 	-- ["Wolves, spiders and ghouls"] = "늑대, 거미, 구울",
 	-- ["{area:492}, south"] = "{area:492}, 남쪽",
+	-- ["{area:69} flight master"] = "{area:69} 비행 조련사",
 	-- ["{item:281046}, from the {object:673515}"] = "{object:673515}에서 {item:281046}",
 	-- ["{item:4371}, from {npc:3133}: limited stock. Sold out? {npc:1448} in {area:150} sells it too."] = "{npc:3133}에게서 {item:4371}: 재고 한정. 매진되었다면 {area:150}의 {npc:1448}도 팝니다.",
 	-- ["{npc:2409}, at the north end of town"] = "{npc:2409}, 마을 북쪽 끝",

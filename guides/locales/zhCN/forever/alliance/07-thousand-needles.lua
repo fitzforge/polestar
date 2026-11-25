@@ -14,11 +14,11 @@ return {
 
 	-- Step 3: Commander Althea Ebonlocke
 	-- {quest:57} The Night Watch · {zone:1431} Duskwood
-	["{quest:57}'s skeletons, from your last {zone:1431} visit: Commander Althea is in the town hall."] = "",
+	["{quest:57}'s skeletons, from your last {zone:1431} visit: Commander Althea is in the town hall."] = "{quest:57}的骷髅，来自你上次去{zone:1431}：埃伯洛克指挥官在市政厅里。",
 
 	-- Step 4: Commander Althea Ebonlocke
 	-- {quest:57} The Night Watch
-	["once {quest:57}'s skeletons are handed in"] = "",
+	["once {quest:57}'s skeletons are handed in"] = "{quest:57}的骷髅交还之后",
 
 	-- Step 5: Commander Althea Ebonlocke
 	-- {quest:58} The Night Watch · {zone:1431} Duskwood

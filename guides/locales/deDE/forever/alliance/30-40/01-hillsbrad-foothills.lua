@@ -29,23 +29,29 @@ return {
 	-- Step 7: Dragonmaw Gates: kill these as you meet them
 	-- {area:1038} Dragonmaw Gates
 	["{area:1038}: kill these as you meet them"] = "{area:1038}: Töte diese, sobald sie dir begegnen",
-	-- {area:1036} Angerfang Encampment · {quest:98283} Carnage · {area:205} Dun Modr
-	["The whelps nest in the hills north-east of the {area:1036}; {quest:98283} prowls further north, and the Razormaw raptors hunt the highlands on the way north to {area:205}.\n{quest:98283} is elite: grouping up is advised."] = "Die Welpen nisten in den Hügeln nordöstlich des {area:1036}; {quest:98283} streift weiter nördlich umher, und die Razormaw-Raptoren jagen im Hochland auf dem Weg nach Norden zu {area:205}.\n{quest:98283} ist ein Elite: Eine Gruppe wird empfohlen.",
+	-- {area:1036} Angerfang Encampment · {area:205} Dun Modr · {area:1025} Green Belt · {item:280331} Malignant Rotclaw Flesh · {quest:98283} Carnage
+	-- plural, as words: Maddened Rotclaws = {npc:271334} Maddened Rotclaw
+	["The whelps nest in the hills north-east of the {area:1036}, and the Razormaw raptors hunt the highlands on the way north to {area:205}. The Maddened Rotclaws that roam these hills and the {area:1025} drop the {item:280331} that calls {quest:98283} out.\n{quest:98283} is elite: grouping up is advised."] = "Die Welpen nisten in den Hügeln nordöstlich von {area:1036}, und die Klingenmaulraptoren jagen im Hochland auf dem Weg nach Norden zu {area:205}. Die Wahnsinnigen Faulklauen ({npc:271334}), die durch diese Hügel und {area:1025} streifen, lassen {item:280331} fallen, das {quest:98283} hervorlockt.\n{quest:98283} ist Elite: Eine Gruppe wird empfohlen.",
+	-- {item:280331} Malignant Rotclaw Flesh · {quest:98283} Carnage
+	["{item:280331}, for {quest:98283}"] = "{item:280331}, für {quest:98283}",
 
-	-- Step 8: Razormaw nests
+	-- Step 8: Carnage
+	-- {quest:98283} Carnage · {item:280331} Malignant Rotclaw Flesh · {area:1038} Dragonmaw Gates
+	["{quest:98283} only comes out when the {item:280331} is used at his lair on the hill north of the {area:1038}. He is a level 30 elite: grouping up is advised."] = "{quest:98283} bricht nur aus, wenn das {item:280331} an seinem Lager auf dem Hügel nördlich von {area:1038} verwendet wird. Er ist ein Level-30-Elite: Gruppierung wird empfohlen.",
+	-- {quest:98283} Carnage
+	["{quest:98283} comes out to it"] = "{quest:98283} bricht darauf aus",
+	-- {item:280331} Malignant Rotclaw Flesh · {quest:98283} Carnage
+	["Use the {item:280331} at {quest:98283}'s lair"] = "Nutze das {item:280331} am Lager von {quest:98283}",
+
+	-- Step 9: Razormaw nests
 	["Razormaw nests"] = "Razormaw-Nester",
 	-- {quest:98246} Trying Times · {quest:98283} Carnage
 	-- plural, as words: Perfect Razormaw Eggs = {item:280132} Perfect Razormaw Egg
 	["The Perfect Razormaw Eggs for {quest:98246} lie in the raptors' nests in the hills around {quest:98283}."] = "Die Perfect Razormaw Eggs für {quest:98246} liegen in den Raptornestern in den Hügeln rund um {quest:98283}.",
 
-	-- Step 9: Neru
+	-- Step 10: Neru
 	-- {npc:271458} Neru · {area:1038} Dragonmaw Gates · {area:205} Dun Modr · {item:279996} Goaz Stone
 	["{npc:271458} stands in the hills between the {area:1038} and {area:205} (use the {item:279996})."] = "{npc:271458} steht in den Hügeln zwischen dem {area:1038} und {area:205} (benutze den {item:279996}).",
-
-	-- Step 10: The Green Belt
-	-- {area:1025} The Green Belt · {npc:1244} Rethiel the Greenwarden · {quest:98283} Carnage
-	-- plural, as words: Maddened Rotclaws = {npc:271334} Maddened Rotclaw
-	["Maddened Rotclaws roam the {area:1025} around {npc:1244}; one of them drops the flesh. {npc:1244} takes the quest only with {quest:98283}'s head too."] = "Maddened Rotclaws streifen durch den {area:1025} rund um {npc:1244}; einer von ihnen lässt das Fleisch fallen. {npc:1244} gibt die Quest nur, wenn du auch den Kopf von {quest:98283} hast.",
 
 	-- Step 11: Rethiel the Greenwarden
 	-- {quest:98283} Carnage
@@ -55,26 +61,27 @@ return {
 	-- {area:205} Dun Modr · {npc:1071} Longbraid the Grim · {npc:1075} Rhag Garmason · {object:147516} Dark Iron
 	["North along the road to {area:205}. {npc:1071} and {npc:1075} stand together in the dwarves' camp on the east side of the road; the {object:147516} ruins west of it are full of elites."] = "Nach Norden entlang der Straße nach {area:205}. {npc:1071} und {npc:1075} stehen zusammen im Lager der Zwerge an der Ostseite der Straße; die Ruinen von {object:147516} westlich davon sind voller Elites.",
 
-	-- Step 13: Captive Fire Elemental
-	-- {npc:271481} Captive Fire Elemental · {object:147516} Dark Iron · {npc:1364} Balgaras the Foul · {npc:1072} Roggo Harlbarrow
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "Das sind Elite-Mobs: Eine Gruppe wird empfohlen, such dir Mitspieler dafür. Der {npc:271481} wird am äußersten Westende der Ruinen von {object:147516} festgehalten, hinter Elite-Zwergen der Stufe 27-30, und {npc:1364} (34, Elite) kann unter ihnen sein. Führ ihn nach Osten aus den Ruinen und gib ihn dann bei {npc:1072} im Lager ab. Überspring ihn, wenn du allein bist.",
-
-	-- Step 14: Modr
-	-- {npc:271460} Modr · {area:205} Dun Modr · {item:279996} Goaz Stone
-	["{npc:271460} stands in the ruins of {area:205} (use the {item:279996})."] = "{npc:271460} steht in den Ruinen von {area:205} (benutze den {item:279996}).",
-
-	-- Step 15: Motley Garmason
+	-- Step 13: Motley Garmason
 	-- {quest:303} The Dark Iron War
 	-- plural, as words: Dark Irons = {object:147516} Dark Iron
 	["{quest:303} is a group quest: 30 elite Dark Irons (27-31) in the ruins west of the camp. Skip it if you are alone."] = "{quest:303} ist eine Gruppenquest: 30 Elite-Dunkeleisen (27-31) in den Ruinen westlich des Lagers. Überspring sie, wenn du allein bist.",
 	-- {npc:1074} Motley Garmason
 	["{npc:1074}, in the camp"] = "{npc:1074}, im Lager",
 
-	-- Step 16: Ashlan Stonesmirk
+	-- Step 14: Ashlan Stonesmirk
 	-- {quest:88756} Bring Back a Bang · {item:280806} Stolen Explosives · {object:147516} Dark Iron · {area:1016} Direforge Hill · {area:205} Dun Modr
 	["{quest:88756} is a group quest: the {item:280806} lie in the {object:147516} camp on {area:1016}, south-east of {area:205}, among the same elite dwarves. Skip it if you are alone."] = "{quest:88756} ist eine Gruppenquest: Die {item:280806} liegen im Lager der {object:147516} auf {area:1016}, südöstlich von {area:205}, zwischen denselben Elite-Zwergen. Überspring sie, wenn du allein bist.",
 	-- {npc:1073} Ashlan Stonesmirk
 	["{npc:1073}, in the camp"] = "{npc:1073}, im Lager",
+
+	-- Step 15: Captive Fire Elemental
+	-- {npc:275049} Captive Fire Elemental · {object:147516} Dark Iron · {npc:1364} Balgaras the Foul · {npc:1072} Roggo Harlbarrow
+	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "Das sind Elite-Mobs: Eine Gruppe wird empfohlen, such dir Mitspieler dafür. Der {npc:271481} wird am äußersten Westende der Ruinen von {object:147516} festgehalten, hinter Elite-Zwergen der Stufe 27-30, und {npc:1364} (34, Elite) kann unter ihnen sein. Führ ihn nach Osten aus den Ruinen und gib ihn dann bei {npc:1072} im Lager ab. Überspring ihn, wenn du allein bist."
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:275049} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "Das sind Elite-Gegner: Eine Gruppe wird empfohlen, such dir Leute dafür. {npc:275049} wird am äußersten Westende der Ruinen von {object:147516} festgehalten, hinter Elite-Zwergen der Stufe 27-30, und {npc:1364} (34, Elite) kann unter ihnen sein. Führe ihn nach Osten aus den Ruinen und gib ihn dann bei {npc:1072} im Lager ab. Überspring es, wenn du allein bist.",
+
+	-- Step 16: Modr
+	-- {npc:271460} Modr · {area:205} Dun Modr · {item:279996} Goaz Stone
+	["{npc:271460} stands in the ruins of {area:205} (use the {item:279996})."] = "{npc:271460} steht in den Ruinen von {area:205} (benutze den {item:279996}).",
 
 	-- Step 17: The Dark Iron War
 	-- {npc:1364} Balgaras the Foul
@@ -118,11 +125,7 @@ return {
 	-- {area:205} Dun Modr
 	["Back over the span and down the road through {area:205} on the way south."] = "Zurück über die Brücke und die Straße durch {area:205} nach Süden.",
 	-- {npc:2700} Captain Nials · {area:320} Refuge Pointe · {zone:1417} Arathi Highlands
-	["for {npc:2700} at {area:320}, in the {zone:1417} guide"] = "",
-
-	-- Step 26: The Green Belt
-	-- {npc:270637} Howin Kindfeather · {npc:2094} James Halloran · {area:150} Menethil Harbor
-	["{npc:270637}: {npc:2094}'s crate, from {area:150}"] = "",
+	["for {npc:2700} at {area:320}, in the {zone:1417} guide"] = "für {npc:2700} in {area:320}, im {zone:1417}-Guide",
 
 	-- Step 27: Rethiel the Greenwarden
 	-- {area:17732} Excavation Site: Wetlands · {npc:1244} Rethiel the Greenwarden · {npc:270637} Howin Kindfeather
@@ -160,7 +163,7 @@ return {
 
 	-- Step 34: Prospector Whelgar
 	-- {item:287959} Titan Relic · {npc:1077} Prospector Whelgar · {quest:98824} Prehistoric Prism
-	["The {item:287959} is already with {npc:1077}: take {quest:98824} from him, below ground in his dig, south of the road west."] = "",
+	["The {item:287959} is already with {npc:1077}: take {quest:98824} from him, below ground in his dig, south of the road west."] = "Das {item:287959} ist bereits bei {npc:1077}: nimm {quest:98824} von ihm, unterirdisch in seinem Graben, südlich der Straße nach Westen.",
 
 	-- Step 35: Menethil Harbor
 	["West along the road to Menethil."] = "Nach Westen die Straße entlang nach Menethil.",
@@ -177,7 +180,7 @@ return {
 	["{npc:2104}: for {npc:270637}, back east along the road"] = "{npc:2104}: für {npc:270637}, zurück nach Osten entlang der Straße",
 
 	-- Step 38: Howin Kindfeather
-	-- {area:1025} The Green Belt · {npc:270637} Howin Kindfeather · {npc:1244} Rethiel the Greenwarden
+	-- {area:1025} Green Belt · {npc:270637} Howin Kindfeather · {npc:1244} Rethiel the Greenwarden
 	["Back east along the road to the {area:1025}: {npc:270637} camps among the Fenrunners, just west of {npc:1244}. Then west again to Menethil for the boat."] = "Zurück nach Osten entlang der Straße zum {area:1025}: {npc:270637} lagert zwischen den Fenrunners, direkt westlich von {npc:1244}. Dann wieder nach Westen nach Menethil zum Boot.",
 
 	-- Step 39: Menethil Harbor
@@ -215,7 +218,7 @@ return {
 	-- {npc:2228} Lieutenant Farren Orinelle
 	["{npc:2228}, inside"] = "{npc:2228}, drinnen",
 	-- {npc:2366} Barkeep Kelly · {area:35} Booty Bay · {zone:1434} Stranglethorn Vale
-	["{npc:2366}, in the inn: for {area:35} (the {zone:1434} guide)"] = "",
+	["{npc:2366}, in the inn: for {area:35} (the {zone:1434} guide)"] = "{npc:2366}, im Gasthaus: für {area:35} (der {zone:1434}-Guide)",
 	-- {npc:2430} Chef Jessen
 	["{npc:2430}, upstairs"] = "{npc:2430}, oben",
 	-- {npc:2382} Darren Malvew
@@ -223,8 +226,7 @@ return {
 	-- {item:3713} Soothing Spices · {npc:2381} Micha Yance
 	["{item:3713}, from {npc:2381}"] = "{item:3713}, von {npc:2381}",
 	-- {npc:2276} Magistrate Henry Maleb · {zone:1417} Arathi Highlands
-	-- was: ["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)"] = "{npc:2276}, drinnen: Behalte sie, das Lager des Syndikats kommt auf dem Weg nach Norden ins Arathi (05-arathi-highlands)"
-	["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (the {zone:1417} guide)"] = "",
+	["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (the {zone:1417} guide)"] = "{npc:2276}, innen: behalte es, das Syndikal-Lager wartet auf der Straße nach Norden nach Arathi (der {zone:1417}-Guide)",
 
 	-- Step 45: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {skill:165} Leatherworking · {item:2997} Bolt of Woolen Cloth · {skill:197} Tailoring
@@ -341,6 +343,7 @@ return {
 	-- ["For {npc:2916} in {zone:1455}, at the end of this guide"] = "Für {npc:2916} in {zone:1455}, am Ende dieses Guides",
 	-- ["From {npc:2432} in {area:271}"] = "Von {npc:2432} in {area:271}",
 	-- ["Golm"] = "Golm",
+	-- ["Maddened Rotclaws roam the {area:1025} around {npc:1244}; one of them drops the flesh. {npc:1244} takes the quest only with {quest:98283}'s head too."] = "Maddened Rotclaws streifen durch den {area:1025} rund um {npc:1244}; einer von ihnen lässt das Fleisch fallen. {npc:1244} gibt die Quest nur, wenn du auch den Kopf von {quest:98283} hast.",
 	-- ["North along the road to {area:205}. {npc:271460} stands in the ruins (use the {item:279996}); the {npc:271481} is held on the west side: lead it out to {npc:1072}."] = "Nach Norden die Straße entlang nach {area:205}. {npc:271460} steht in den Ruinen (benutze {item:279996}); {npc:271481} wird auf der Westseite festgehalten: Führ ihn hinaus zu {npc:1072}.",
 	-- ["North-east to the {area:1038}: the {npc:271373} are held there, and {npc:271338} stands at the gates (use the {item:279996})."] = "Nach Nordosten zu {area:1038}: {npc:271373} werden dort festgehalten, und {npc:271338} steht an den Toren (benutze {item:279996}).",
 	-- ["Pick up everything in town before heading out. Off the boat, {npc:251493} is the first you meet, north-west of the flight master; {npc:2381} and {npc:2438} stand between the flight master and the inn, Farren and {npc:2366} at the inn, Maleb in the town hall."] = "Nimm im Ort alles mit, bevor du aufbrichst. Vom Schiff aus triffst du zuerst {npc:251493}, nordwestlich des Flugmeisters; {npc:2381} und {npc:2438} stehen zwischen Flugmeister und Gasthaus, Farren und {npc:2366} im Gasthaus, Maleb im Rathaus.",
@@ -357,8 +360,10 @@ return {
 	-- ["The Torn Fin murlocs crowd the {area:295}, south-west of {area:271}."] = "Die Murlocs der Fetzenflossen drängen sich am {area:295}, südwestlich von {area:271}.",
 	-- ["The Villards"] = "Die Villards",
 	-- ["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "Der nächste Schritt, {quest:474}, stellt dich gegen einen Elite-Häuptling: Überspring ihn.",
+	-- ["The whelps nest in the hills north-east of the {area:1036}; {quest:98283} prowls further north, and the Razormaw raptors hunt the highlands on the way north to {area:205}.\n{quest:98283} is elite: grouping up is advised."] = "Die Welpen nisten in den Hügeln nordöstlich des {area:1036}; {quest:98283} streift weiter nördlich umher, und die Razormaw-Raptoren jagen im Hochland auf dem Weg nach Norden zu {area:205}.\n{quest:98283} ist ein Elite: Eine Gruppe wird empfohlen.",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "Die Yetis leben in der Höhle in den Hügeln nördlich von {area:271}, auf dem Weg nach Norden zum Lager des Syndikats.\nBleib in {area:277}: In der Höhle weiter nördlich gibt es Berg- und Riesenyetis (32-34) in Paaren und {npc:13602}, eine Elite der Stufe 36.",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on your way back south."] = "Die Yetis leben in der Höhle in den Hügeln nördlich von {area:271}, auf deinem Rückweg nach Süden.",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "Das sind Elite-Mobs: Eine Gruppe wird empfohlen, such dir Mitspieler dafür. Der {npc:271481} wird am äußersten Westende der Ruinen von {object:147516} festgehalten, hinter Elite-Zwergen der Stufe 27-30, und {npc:1364} (34, Elite) kann unter ihnen sein. Führ ihn nach Osten aus den Ruinen und gib ihn dann bei {npc:1072} im Lager ab. Überspring ihn, wenn du allein bist.",
 	-- ["To {area:2104}"] = "Nach {area:2104}",
 	-- ["West to the farms of {area:287}: place the {item:279386} on the bookkeeping table in the town hall, where {npc:2335} and the councilmen stand."] = "Nach Westen zu den Höfen von {area:287}: Leg {item:279386} auf den Buchhaltungstisch im Rathaus, wo {npc:2335} und die Ratsherren stehen.",
 	-- ["Whelps, raptors and {npc:271458}"] = "Welpen, Raptoren und {npc:271458}",

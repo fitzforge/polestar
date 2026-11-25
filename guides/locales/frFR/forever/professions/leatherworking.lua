@@ -27,7 +27,7 @@ return {
 	-- Step 4: Light Leather (Elwynn Forest)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1922} Gray Forest Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:822} Young Forest Bear
 	-- was: ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "349 {item:2318} pour {spell:2152}, {spell:3756} et {spell:3763} (dont 210 pour 75-150 : récoltez-les tous maintenant) : {skill:393} : bêtes de niveau 5-20. Dépecez {npc:1922}, {npc:525}, Rôdeur, {npc:524}, {npc:113} et {npc:822} ici (niveau 5-20) ; le guide de {skill:393} en donne le parcours."
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "349 {item:2318} pour {spell:2152}, {spell:3756} et {spell:3763} (210 d'entre eux pour 75-150 : ramassez-les tous maintenant) : {skill:393} : bêtes de niveau 5-20. Dépecez {npc:1922}, les rôdeurs, {npc:524}, {npc:113} et {npc:822} ici (niveau 5-20) ; le guide de {skill:393} trace ce parcours.",
 
 	-- Step 5: Light Leather (Dun Morogh)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1125} Crag Boar · {npc:1127} Elder Crag Boar · {npc:1196} Ice Claw Bear · {npc:1199} Juvenile Snow Leopard · {npc:1126} Large Crag Boar · {npc:1689} Scarred Crag Boar · {npc:1201} Snow Leopard · {npc:1138} Snow Tracker Wolf · {npc:1131} Winter Wolf · {npc:1128} Young Black Bear
@@ -189,7 +189,8 @@ return {
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 158"] = "{spell:3780} jusqu'à 158",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread
-	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} est jaune à 150 (jaune 145, vert 155, gris 165) : environ 15 fabrications jusqu'à 158. Chaque fabrication demande 5 {item:4234} et 1 {item:2321}. Cinq {item:4234} par fabrication (bêtes de niveau 28-40) ; les renforts se vendent aux marchands.",
+	-- was: ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} est jaune à 150 (jaune 145, vert 155, gris 165) : environ 15 fabrications jusqu'à 158. Chaque fabrication demande 5 {item:4234} et 1 {item:2321}. Cinq {item:4234} par fabrication (bêtes de niveau 28-40) ; les renforts se vendent aux marchands."
+	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "{spell:3780} est jaune à 150 (jaune 145, vert 155, gris 165) : environ 15 fabrications jusqu'à 158. Chacune demande 5 {item:4234} et 1 {item:2321}. Cinq {item:4234} par fabrication (bêtes de niveau 28-40) ; les nécessaires se vendent aux marchands. Si vous êtes arrivé ici sans apprendre {spell:3780}, apprenez-le maintenant : une étape précédente l'enseigne.",
 
 	-- Step 39: Barbaric Shoulders to 165
 	-- {item:5964} Barbaric Shoulders
@@ -423,6 +424,7 @@ return {
 	-- ["{spell:3763} to 105"] = "{spell:3763} jusqu'à 105",
 	-- ["{spell:3768} to 150"] = "{spell:3768} jusqu'à 150",
 	-- ["{spell:3776} to 185"] = "{spell:3776} jusqu'à 185",
+	-- ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} est jaune à 150 (jaune 145, vert 155, gris 165) : environ 15 fabrications jusqu'à 158. Chaque fabrication demande 5 {item:4234} et 1 {item:2321}. Cinq {item:4234} par fabrication (bêtes de niveau 28-40) ; les renforts se vendent aux marchands.",
 	-- ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 8 crafts to 155. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} est jaune à 150 (jaune 145, vert 155, gris 165) : environ 8 fabrications jusqu'à 155. Chaque fabrication demande 5 {item:4234} et 1 {item:2321}. Cinq {item:4234} par fabrication (bêtes de niveau 28-40) ; les renforts se vendent aux marchands.",
 	-- ["{spell:3780} to 155"] = "{spell:3780} jusqu'à 155",
 }

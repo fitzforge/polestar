@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Russian words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1422} Western Plaguelands · {area:152} Bulwark · {zone:1447} Azshara · {zone:1448} Felwood
+	["{zone:1422} and the {area:152} first, then {zone:1447} and {zone:1448}."] = "Сначала {zone:1422} и {area:152}, затем {zone:1447} и {zone:1448}.",
+
 	-- Step 1: Mulgris Deepriver
 	-- {area:202} Writhing Haunt · {area:200} Dalson's Tears
 	["He camps by the {area:202}, south-east of {area:200}."] = "Он стоит лагерем у места {area:202}, к юго-востоку от места {area:200}.",
@@ -28,22 +32,22 @@ return {
 	-- Step 6: High Executor Derrington
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "Вы пропустили это при прошлом посещении этих мест по маршруту: теперь это идёт первым. Это быстро и открывает следующие задания.",
 	-- {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries
-	["{item:12814}, from the {object:176092} next to Derrington"] = "",
+	["{item:12814}, from the {object:176092} next to Derrington"] = "{item:12814}, из места {object:176092} рядом с Деррингтоном",
 
 	-- Step 7: Box of Incendiaries
 	-- {quest:5096} Scarlet Diversions · {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries · {npc:10837} High Executor Derrington
-	["{quest:5096} needs a {item:12814} to torch the command tent: take one from the {object:176092} next to {npc:10837}."] = "",
+	["{quest:5096} needs a {item:12814} to torch the command tent: take one from the {object:176092} next to {npc:10837}."] = "Для задания {quest:5096} нужен {item:12814}, чтобы поджечь командную палатку: возьмите один из места {object:176092} рядом с NPC {npc:10837}.",
 	-- {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries
-	["{item:12814}, from the {object:176092}"] = "",
+	["{item:12814}, from the {object:176092}"] = "{item:12814}, из места {object:176092}",
 
 	-- Step 8: Scarlet forward camp
 	["Scarlet forward camp"] = "Передовой лагерь Алого ордена",
-	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
+	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
 	-- was: ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "От места {area:152} езжайте по дороге на восток в край {zone:1422}. Палатки Алого ордена стоят сразу за фермой Фелстоунов, между местами {area:199} и {area:200}. Подожгите командную палатку ({object:176092}) и установите знамя Плети. Осторожно: воины Алого ордена у палаток – до 54 уровня, а заклинатели колдуют: заходите со стороны, ближайшей к командной палатке, и не трогайте остальных."
-	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "",
+	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "От места {area:152} езжайте по дороге на восток в зону {zone:1422}. Палатки Алого ордена стоят сразу за фермой Фелстоунов, между местами {area:199} и {area:200}. Подожгите командную палатку с помощью {item:12814} и установите знамя Плети. Осторожно: воины Алого ордена у палаток до 54-го уровня, а заклинатели колдуют: заходите со стороны, ближайшей к командной палатке, и не трогайте остальных.",
 
-	-- Step 9: The Bulwark
-	-- {area:152} The Bulwark
+	-- Step 9: Bulwark
+	-- {area:152} Bulwark
 	["Ride south-west past Felstone Farm and follow the road west back to the {area:152}."] = "Езжайте на юго-запад мимо фермы Фелстоунов и по дороге на запад обратно сюда: {area:152}.",
 	["Derrington's watchtowers and Vandis' cauldron are done on a later visit: keep them."] = "Сторожевые башни Деррингтона и котел Вандис – в следующий визит: сохраните эти задания.",
 

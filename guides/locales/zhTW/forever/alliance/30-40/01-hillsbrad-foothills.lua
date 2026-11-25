@@ -29,23 +29,29 @@ return {
 	-- Step 7: Dragonmaw Gates: kill these as you meet them
 	-- {area:1038} Dragonmaw Gates
 	["{area:1038}: kill these as you meet them"] = "{area:1038}：遇到就殺",
-	-- {area:1036} Angerfang Encampment · {quest:98283} Carnage · {area:205} Dun Modr
-	["The whelps nest in the hills north-east of the {area:1036}; {quest:98283} prowls further north, and the Razormaw raptors hunt the highlands on the way north to {area:205}.\n{quest:98283} is elite: grouping up is advised."] = "幼龍在{area:1036}東北的山丘裡築巢；{quest:98283}在更北處徘徊，向北去{area:205}途中的高地上還有銳顎迅猛龍捕獵。\n{quest:98283}是精英：建議組隊。",
+	-- {area:1036} Angerfang Encampment · {area:205} Dun Modr · {area:1025} Green Belt · {item:280331} Malignant Rotclaw Flesh · {quest:98283} Carnage
+	-- plural, as words: Maddened Rotclaws = {npc:271334} Maddened Rotclaw
+	["The whelps nest in the hills north-east of the {area:1036}, and the Razormaw raptors hunt the highlands on the way north to {area:205}. The Maddened Rotclaws that roam these hills and the {area:1025} drop the {item:280331} that calls {quest:98283} out.\n{quest:98283} is elite: grouping up is advised."] = "幼龍在{area:1036}東北方的山丘中築巢，剃刀之喉迅猛龍在向北前往{area:205}途中的高地上狩獵。在這些山丘和{area:1025}遊蕩的發狂腐爪（{npc:271334}）會掉落{item:280331}，用來召喚{quest:98283}。\n{quest:98283}是精英：建議組小隊。",
+	-- {item:280331} Malignant Rotclaw Flesh · {quest:98283} Carnage
+	["{item:280331}, for {quest:98283}"] = "{item:280331}，用於{quest:98283}",
 
-	-- Step 8: Razormaw nests
+	-- Step 8: Carnage
+	-- {quest:98283} Carnage · {item:280331} Malignant Rotclaw Flesh · {area:1038} Dragonmaw Gates
+	["{quest:98283} only comes out when the {item:280331} is used at his lair on the hill north of the {area:1038}. He is a level 30 elite: grouping up is advised."] = "只有在{area:1038}以北山丘上的巢穴處使用{item:280331}，{quest:98283}才會出現。他是30級精英：建議組小隊。",
+	-- {quest:98283} Carnage
+	["{quest:98283} comes out to it"] = "{quest:98283}會出來",
+	-- {item:280331} Malignant Rotclaw Flesh · {quest:98283} Carnage
+	["Use the {item:280331} at {quest:98283}'s lair"] = "在{quest:98283}的巢穴處使用{item:280331}",
+
+	-- Step 9: Razormaw nests
 	["Razormaw nests"] = "裂齒龍的巢穴",
 	-- {quest:98246} Trying Times · {quest:98283} Carnage
 	-- plural, as words: Perfect Razormaw Eggs = {item:280132} Perfect Razormaw Egg
 	["The Perfect Razormaw Eggs for {quest:98246} lie in the raptors' nests in the hills around {quest:98283}."] = "{quest:98246}要的完好裂齒龍蛋在{quest:98283}周圍山丘上的迅猛龍巢裡。",
 
-	-- Step 9: Neru
+	-- Step 10: Neru
 	-- {npc:271458} Neru · {area:1038} Dragonmaw Gates · {area:205} Dun Modr · {item:279996} Goaz Stone
 	["{npc:271458} stands in the hills between the {area:1038} and {area:205} (use the {item:279996})."] = "{npc:271458}站在{area:1038}與{area:205}之間的山丘上（使用{item:279996}）。",
-
-	-- Step 10: The Green Belt
-	-- {area:1025} The Green Belt · {npc:1244} Rethiel the Greenwarden · {quest:98283} Carnage
-	-- plural, as words: Maddened Rotclaws = {npc:271334} Maddened Rotclaw
-	["Maddened Rotclaws roam the {area:1025} around {npc:1244}; one of them drops the flesh. {npc:1244} takes the quest only with {quest:98283}'s head too."] = "狂亂的腐爛爪在{npc:1244}周圍的{area:1025}遊蕩；其中一隻會掉肉。{npc:1244}只在你也帶著{quest:98283}的頭時才收任務。",
 
 	-- Step 11: Rethiel the Greenwarden
 	-- {quest:98283} Carnage
@@ -55,26 +61,27 @@ return {
 	-- {area:205} Dun Modr · {npc:1071} Longbraid the Grim · {npc:1075} Rhag Garmason · {object:147516} Dark Iron
 	["North along the road to {area:205}. {npc:1071} and {npc:1075} stand together in the dwarves' camp on the east side of the road; the {object:147516} ruins west of it are full of elites."] = "沿路向北到{area:205}。{npc:1071}和{npc:1075}一起站在路東側的矮人營地裡；它西邊的{object:147516}廢墟裡全是精英。",
 
-	-- Step 13: Captive Fire Elemental
-	-- {npc:271481} Captive Fire Elemental · {object:147516} Dark Iron · {npc:1364} Balgaras the Foul · {npc:1072} Roggo Harlbarrow
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "這些是精英怪：建議組隊，找幾個人一起做。{npc:271481}守在{object:147516}廢墟最西端，要穿過27-30級的精英矮人，{npc:1364}（34級，精英）也可能在他們中間。把它引出廢墟向東帶，然後交給營地裡的{npc:1072}。只有你一個人就跳過。",
-
-	-- Step 14: Modr
-	-- {npc:271460} Modr · {area:205} Dun Modr · {item:279996} Goaz Stone
-	["{npc:271460} stands in the ruins of {area:205} (use the {item:279996})."] = "{npc:271460}站在{area:205}的廢墟裡（使用{item:279996}）。",
-
-	-- Step 15: Motley Garmason
+	-- Step 13: Motley Garmason
 	-- {quest:303} The Dark Iron War
 	-- plural, as words: Dark Irons = {object:147516} Dark Iron
 	["{quest:303} is a group quest: 30 elite Dark Irons (27-31) in the ruins west of the camp. Skip it if you are alone."] = "{quest:303}是小隊任務：營地西邊的廢墟里有30個黑鐵精英（27-31級）。單人就跳過。",
 	-- {npc:1074} Motley Garmason
 	["{npc:1074}, in the camp"] = "{npc:1074}，在營地裡",
 
-	-- Step 16: Ashlan Stonesmirk
+	-- Step 14: Ashlan Stonesmirk
 	-- {quest:88756} Bring Back a Bang · {item:280806} Stolen Explosives · {object:147516} Dark Iron · {area:1016} Direforge Hill · {area:205} Dun Modr
 	["{quest:88756} is a group quest: the {item:280806} lie in the {object:147516} camp on {area:1016}, south-east of {area:205}, among the same elite dwarves. Skip it if you are alone."] = "{quest:88756}是小隊任務：{item:280806}在{area:1016}的{object:147516}營地裡，位於{area:205}東南，就在那群精英矮人中間。單人就跳過。",
 	-- {npc:1073} Ashlan Stonesmirk
 	["{npc:1073}, in the camp"] = "{npc:1073}，在營地裡",
+
+	-- Step 15: Captive Fire Elemental
+	-- {npc:275049} Captive Fire Elemental · {object:147516} Dark Iron · {npc:1364} Balgaras the Foul · {npc:1072} Roggo Harlbarrow
+	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "這些是精英怪：建議組隊，找幾個人一起做。{npc:271481}守在{object:147516}廢墟最西端，要穿過27-30級的精英矮人，{npc:1364}（34級，精英）也可能在他們中間。把它引出廢墟向東帶，然後交給營地裡的{npc:1072}。只有你一個人就跳過。"
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:275049} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "這些是精英怪物：鼓勵組隊，找人一起做。{npc:275049}被關在{object:147516}廢墟的最西端，要經過27-30級的精英矮人，{npc:1364}（34，精英）也可能在其中。帶它向東離開廢墟，然後在營地繳交給{npc:1072}。如果你是單人，就跳過。",
+
+	-- Step 16: Modr
+	-- {npc:271460} Modr · {area:205} Dun Modr · {item:279996} Goaz Stone
+	["{npc:271460} stands in the ruins of {area:205} (use the {item:279996})."] = "{npc:271460}站在{area:205}的廢墟裡（使用{item:279996}）。",
 
 	-- Step 17: The Dark Iron War
 	-- {npc:1364} Balgaras the Foul
@@ -120,10 +127,6 @@ return {
 	-- {npc:2700} Captain Nials · {area:320} Refuge Pointe · {zone:1417} Arathi Highlands
 	["for {npc:2700} at {area:320}, in the {zone:1417} guide"] = "",
 
-	-- Step 26: The Green Belt
-	-- {npc:270637} Howin Kindfeather · {npc:2094} James Halloran · {area:150} Menethil Harbor
-	["{npc:270637}: {npc:2094}'s crate, from {area:150}"] = "",
-
 	-- Step 27: Rethiel the Greenwarden
 	-- {area:17732} Excavation Site: Wetlands · {npc:1244} Rethiel the Greenwarden · {npc:270637} Howin Kindfeather
 	["The root core from your {area:17732} run: {npc:1244} stands by the river, just east of {npc:270637}."] = "你{area:17732}之行取得的根核：{npc:1244}站在河邊，就在{npc:270637}東邊。",
@@ -160,7 +163,7 @@ return {
 
 	-- Step 34: Prospector Whelgar
 	-- {item:287959} Titan Relic · {npc:1077} Prospector Whelgar · {quest:98824} Prehistoric Prism
-	["The {item:287959} is already with {npc:1077}: take {quest:98824} from him, below ground in his dig, south of the road west."] = "",
+	["The {item:287959} is already with {npc:1077}: take {quest:98824} from him, below ground in his dig, south of the road west."] = "{item:287959}已經交給{npc:1077}：在他地下的挖掘場裡向他接取{quest:98824}，位於西邊道路以南。",
 
 	-- Step 35: Menethil Harbor
 	["West along the road to Menethil."] = "沿著道路向西前往米奈希爾。",
@@ -177,7 +180,7 @@ return {
 	["{npc:2104}: for {npc:270637}, back east along the road"] = "{npc:2104}：給{npc:270637}，沿道路往東回去",
 
 	-- Step 38: Howin Kindfeather
-	-- {area:1025} The Green Belt · {npc:270637} Howin Kindfeather · {npc:1244} Rethiel the Greenwarden
+	-- {area:1025} Green Belt · {npc:270637} Howin Kindfeather · {npc:1244} Rethiel the Greenwarden
 	["Back east along the road to the {area:1025}: {npc:270637} camps among the Fenrunners, just west of {npc:1244}. Then west again to Menethil for the boat."] = "沿著道路向東回到{area:1025}：{npc:270637}在沼澤奔行者之間紮營，就在{npc:1244}西邊不遠處。然後再向西回到米奈希爾港搭船。",
 
 	-- Step 39: Menethil Harbor
@@ -339,6 +342,7 @@ return {
 	-- ["For {npc:2916} in {zone:1455}, at the end of this guide"] = "給{zone:1455}的{npc:2916}，在本指南結尾",
 	-- ["From {npc:2432} in {area:271}"] = "來自{area:271}的{npc:2432}",
 	-- ["Golm"] = "高爾姆",
+	-- ["Maddened Rotclaws roam the {area:1025} around {npc:1244}; one of them drops the flesh. {npc:1244} takes the quest only with {quest:98283}'s head too."] = "狂亂的腐爛爪在{npc:1244}周圍的{area:1025}遊蕩；其中一隻會掉肉。{npc:1244}只在你也帶著{quest:98283}的頭時才收任務。",
 	-- ["North along the road to {area:205}. {npc:271460} stands in the ruins (use the {item:279996}); the {npc:271481} is held on the west side: lead it out to {npc:1072}."] = "沿著道路向北前往{area:205}。{npc:271460}站在遺跡中（使用{item:279996}）；{npc:271481}被關在西側：把它帶出去交給{npc:1072}。",
 	-- ["Pick up everything in town before heading out. Off the boat, {npc:251493} is the first you meet, north-west of the flight master; {npc:2381} and {npc:2438} stand between the flight master and the inn, Farren and {npc:2366} at the inn, Maleb in the town hall."] = "出發前先接下城裡的所有任務。下船後，第一個遇到的是飛行管理員西北方的{npc:251493}；{npc:2381}和{npc:2438}站在飛行管理員和旅店之間，法爾林和{npc:2366}在旅店，馬雷布在市政廳。",
 	-- ["Red whelps fill the hills west of the gates, Maddened Rotclaws the {area:1025}, Razormaws the northern slopes; Neru stands in the north-east (use the {item:279996}).\n{quest:98283} is elite: grouping up is advised."] = "紅色雛龍遍布大門西邊的山丘，{npc:271334}在{area:1025}，刺喉龍在北面山坡；奈爾魯站在東北方（使用{item:279996}）。\n{quest:98283}是精英：建議組隊。",
@@ -350,8 +354,10 @@ return {
 	-- ["The Syndicate camp sits on the Alterac border in northern {area:287}, west of {area:272} (Horde); the documents lie in the camp, and its Footpads and Thieves are the Syndicate Maleb wants."] = "辛迪加營地位於{area:287}北部的奧特蘭克邊界，在{area:272}（部落）西邊；文件就在營地裡，營地裡的辛迪加盜賊和竊賊正是馬勒布要的辛迪加成員。",
 	-- ["The Villards"] = "韋拉德一家",
 	-- ["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "下一步「{quest:474}」要你對抗一名精英酋長：跳過它。",
+	-- ["The whelps nest in the hills north-east of the {area:1036}; {quest:98283} prowls further north, and the Razormaw raptors hunt the highlands on the way north to {area:205}.\n{quest:98283} is elite: grouping up is advised."] = "幼龍在{area:1036}東北的山丘裡築巢；{quest:98283}在更北處徘徊，向北去{area:205}途中的高地上還有銳顎迅猛龍捕獵。\n{quest:98283}是精英：建議組隊。",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "雪人住在{area:271}北邊山丘上的洞穴裡，就在往北去辛迪加營地的路上。\n待在{area:277}裡：更北邊的洞穴裡有成對出現的山嶺雪人和巨型雪人（32-34級），以及36級精英{npc:13602}。",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on your way back south."] = "雪人住在{area:271}北邊山丘的洞穴裡，就在你往南回去的路上。",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "這些是精英怪：建議組隊，找幾個人一起做。{npc:271481}守在{object:147516}廢墟最西端，要穿過27-30級的精英矮人，{npc:1364}（34級，精英）也可能在他們中間。把它引出廢墟向東帶，然後交給營地裡的{npc:1072}。只有你一個人就跳過。",
 	-- ["West to the farms of {area:287}: place the {item:279386} on the bookkeeping table in the town hall, where {npc:2335} and the councilmen stand."] = "向西前往{area:287}的農場：把{item:279386}放在市政廳裡的帳簿桌上，{npc:2335}和議員們就站在那裡。",
 	-- ["Whelps, raptors and {npc:271458}"] = "雛龍、迅猛龍與{npc:271458}",
 	-- ["for {npc:2700} at {area:320}, in 05-arathi-highlands"] = "給{area:320}的{npc:2700}，在 05-arathi-highlands 指南中",

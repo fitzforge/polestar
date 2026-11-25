@@ -11,7 +11,6 @@ return {
 	["Fly to {area:2897}"] = "飛到{area:2897}",
 	-- {area:2897} Zoram'gar Outpost · {area:378} Camp Taurajo
 	["East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to {area:2897}. If your hearthstone is ready, hearth to {area:378} and fly from there instead."] = "從希瑞斯的營地沿道路向東，到十字路口的雙足飛龍管理員那裡，飛往{area:2897}。如果爐石已冷卻，改用爐石回{area:378}，從那裡飛過去。",
-	["Crossroads flight master"] = "十字路口飛行管理員",
 
 	-- Step 2: Zoram'gar Outpost
 	-- {npc:12736} Je'neu Sancrea · {npc:12757} Karang Amakkar · {npc:12721} Mitsuwa
@@ -45,13 +44,13 @@ return {
 	-- Step 8: Thistlefur Hold
 	["Thistlefur Hold"] = "薊皮熊怪的巢穴",
 	-- plural, as words: Troll Chests = {object:178144} Troll Chest
-	["Inside the hold, Troll Chests lie along the tunnels."] = "",
+	["Inside the hold, Troll Chests lie along the tunnels."] = "巢穴裡，食人妖箱子（{object:178144}）沿著隧道擺放。",
 	["Below ground"] = "地下",
 
 	-- Step 9: Ruul Snowhoof
 	-- {npc:12818} Ruul Snowhoof · {area:428} Night Run · {npc:3987} Dal Bloodclaw
 	-- was: ["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "據點內部的隧道沿線有食人妖的箱子。{npc:12818}被囚禁在深處：釋放他並一路保護他離開，之後他會跑回{area:428}的家。\n小心：會觸發兩次固定伏擊，每次由3名薊皮熊怪組成（一名薩滿祭司、一名探路者，以及一名復仇者、巨熊戰士或巢穴守衛）：第一處在洞內返回隧道岔口時，第二處在越過{npc:3987}遊蕩的大門後不遠處。"
-	["{npc:12818} is held deep inside Thistlefur Hold: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "",
+	["{npc:12818} is held deep inside Thistlefur Hold: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "{npc:12818}被關在薊皮熊怪的巢穴深處：救出他，一路保護他出去，然後他會跑回{area:428}的家。\n小心：會有兩次腳本伏擊，每次三隻薊皮熊怪（一個薩滿、一個探路者，以及一個復仇者、烏薩或巢穴守衛）：第一次在你回到洞穴內隧道岔口時，第二次就在{npc:3987}遊蕩的大門外。",
 	-- {npc:12818} Ruul Snowhoof
 	["{npc:12818}, below ground"] = "{npc:12818}，地下",
 
@@ -226,7 +225,7 @@ return {
 
 	-- Step 55: Zangen Stonehoof
 	-- {npc:4721} Zangen Stonehoof · {quest:1195} The Sacred Flame · {npc:2995} Tal
-	["The phial is already with {npc:4721}: take {quest:1195} from him, a short walk east of {npc:2995}."] = "",
+	["The phial is already with {npc:4721}: take {quest:1195} from him, a short walk east of {npc:2995}."] = "藥瓶已經交給{npc:4721}：向他接取{quest:1195}，在{npc:2995}東邊不遠處。",
 
 	-- Step 56: Tah Winterhoof
 	-- {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof · {npc:2995} Tal
@@ -341,25 +340,25 @@ return {
 
 	-- Step 74: Lakota Windsong
 	-- {area:485} Great Lift · {area:2097} Darkcloud Pinnacle · {npc:10896} Arnak Grimtotem
-	["{area:485} detour warning: the arrow may miss the path up {area:2097}. If you are on the canyon floor, follow the path and rope bridges up {area:2097}. {npc:10896} (29) stands among his guards there: clear the guards, then {npc:10896}."] = "",
+	["{area:485} detour warning: the arrow may miss the path up {area:2097}. If you are on the canyon floor, follow the path and rope bridges up {area:2097}. {npc:10896} (29) stands among his guards there: clear the guards, then {npc:10896}."] = "{area:485}繞路警告：箭頭可能會錯過通往{area:2097}的小路。如果你在峽谷底部，沿著小路和繩橋上到{area:2097}。{npc:10896}（29）站在他的衛兵中間：先清掉衛兵，再打{npc:10896}。",
 
 	-- Step 75: Escort Lakota Windsong
 	-- {npc:10646} Lakota Windsong
-	["Escort {npc:10646}"] = "",
+	["Escort {npc:10646}"] = "護送{npc:10646}",
 	-- {npc:10646} Lakota Windsong · {npc:10896} Arnak Grimtotem
-	["{npc:10646} is held captive beside where {npc:10896} stood: free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "",
+	["{npc:10646} is held captive beside where {npc:10896} stood: free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "{npc:10646}被關在{npc:10896}原先所站的位置旁：救出她，在下山的路上保護她；恐怖圖騰伏兵會在途中來襲。",
 
 	-- Step 76: Highperch
 	-- {area:482} Highperch
 	-- plural, as words: Highperch Patriarchs = {npc:4110} Highperch Patriarch
 	-- was: ["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "在白沙崗哨西邊，雙足飛龍在{area:482}的懸崖上築巢；蛋就在巢裡。{npc:10427}在築巢區東側等候：救出他，並在走回{area:2237}的路上保護他存活。\n小心：28-29級的雙足飛龍在頭頂飛行，可能在你沒注意時被拉到。經過底部的第一根石柱後，可能會有三隻雙足飛龍一起伏擊你。風巢飛龍族王（30-31級）和稀有的心刃（32級）也在這裡築巢：繞開牠們拉怪。"
-	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "",
+	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "白沙崗哨以西，雙足飛龍在{area:482}的懸崖上築巢；蛋在巢裡。\n小心：28-29級的雙足飛龍在頭頂飛過，可能毫無預警地被拉到。經過底部第一根柱子後，三隻雙足飛龍可能會一起伏擊你。高崖族長（30-31）和稀有的裂心者（32）也在這裡築巢：繞開牠們。",
 
 	-- Step 77: Escort Pao'ka Swiftmountain
 	-- {npc:10427} Pao'ka Swiftmountain
-	["Escort {npc:10427}"] = "",
+	["Escort {npc:10427}"] = "護送{npc:10427}",
 	-- {npc:10427} Pao'ka Swiftmountain · {area:2237} Whitereach Post
-	["{npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}."] = "",
+	["{npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}."] = "{npc:10427}在築巢地東側等候：救出他，在回{area:2237}的路上保護他活著。",
 
 	-- Step 78: Whitereach Post
 	-- {npc:10428} Motega Firemane · {item:12732} Incendia Agave · {area:2097} Darkcloud Pinnacle
@@ -426,6 +425,7 @@ return {
 	-- ["Back east past {area:2237} to {area:484}."] = "向東經過{area:2237}回到{area:484}。",
 	-- ["Back to Zoram'gar from the ruins before heading east for good."] = "在永久往東之前，先從廢墟回到左拉姆加。",
 	-- ["Climb the path to the top of {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "沿著小路爬到{area:2097}頂端。{npc:10646}被囚禁在{npc:10896}（29級）旁邊：先清掉守衛和{npc:10896}，再救出她，並在下山途中保護她；路上會有恐怖圖騰伏擊者來攻擊你。",
+	-- ["Crossroads flight master"] = "十字路口飛行管理員",
 	-- ["East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to {area:2897}. Keep your hearthstone: {area:431}'s bind later in this guide saves more."] = "從希瑞斯的營地沿道路向東，到十字路口的雙足飛龍管理員那裡，飛往{area:2897}。先留著爐石：本指南稍後在{area:431}綁定更省時間。",
 	-- ["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold."] = "在左拉姆加東邊，薊皮熊怪佔據村莊和他們巢穴周圍的山丘。",
 	-- ["Fly from {area:392} to {area:2897} on the {zone:1440} coast."] = "從{area:392}飛往{zone:1440}海岸的{area:2897}。",

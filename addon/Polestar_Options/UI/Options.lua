@@ -455,7 +455,7 @@ local BUILTIN = {
 			needs = function() return ns.UI and ns.UI.Materials end },
 	} },
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Arrow"], controls = {
-		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"], move = "arrow", help = L["Points to the current goal. Its look and colours are on the Arrow page."],
+		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"], move = "arrow", help = L["Points to the current goal. Off hides only the arrow: the route lines have their own switch, under Routes. Its look and colours are on the Arrow page."],
 			search = "arrow, waypoint, pointer, direction, compass, navigation, hud, show arrow, hide arrow",
 			children = {
 				H({ kind = "toggle", key = "nav.hideArrowWithGuide", label = L["Hide the arrow with the guide"], help = L["When the guide window is hidden, hide the arrow too."],
@@ -481,7 +481,7 @@ local BUILTIN = {
 				H({ kind = "toggle", key = "nav.detourCaption", label = L["Detour captions"], help = L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."],
 					search = "detour, enemy town, hostile town, avoid, go round, journey" }),
 			} }),
-		H({ kind = "toggle", key = "nav.routeLines", label = L["Route lines"], help = L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."],
+		H({ kind = "toggle", key = "nav.routeLines", label = L["Route lines"], help = L["The way to the goal on the world map and the minimap, with the arrow on or off: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."],
 			search = "path line, route on map, show route, hide route, sparkles, dots, trail",
 			gear = { tip = L["Line style"], onClick = function() UI.ShowOptions("routelines") end },
 			children = {
@@ -1099,7 +1099,7 @@ local function makeControl(parent, c)
 		w = W.Toggle(parent, labelOf(c), c.key, c.help, nil, (c.gear or c.get or c.set) and { gear = c.gear, get = c.get, set = c.set } or nil)
 	elseif c.kind == "slider" then
 		local opts
-		if c.release or c.get or c.set then opts = { release = c.release, get = c.get, set = c.set } end
+		if c.release or c.get or c.set or c.parse then opts = { release = c.release, get = c.get, set = c.set, parse = c.parse } end
 		w = W.Slider(parent, labelOf(c), c.key, c.min or 0, c.max or 1, c.step or 0.1, c.format, c.help, nil, opts)
 	elseif c.kind == "dropdown" or c.kind == "font" then
 		local choices = type(c.choices) == "function" and function() return choicesOf(c) end or choicesOf(c)

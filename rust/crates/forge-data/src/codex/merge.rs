@@ -2128,7 +2128,13 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		if !treasure && !mailbox && !want_objects.contains(&str_to_num(&id).to_bits()) {
 			continue;
 		}
-		let name = o.get("name");
+		let mut name = o.get("name");
+		if !name.truthy() && want_objects.contains(&str_to_num(&id).to_bits()) {
+			// An object an item, quest or boss points at that the data has no name for (QuestieDB 1.1.5's 7983211, a
+			// source of Flintfire's Shipment) keeps its page and pins under a fallback name.
+			warnings.push(format!("object {id} has no name; its page reads \"{}\"", crate::questdb::UNNAMED_OBJECT));
+			name = V::str(crate::questdb::UNNAMED_OBJECT);
+		}
 		if !name.truthy() || junk(&name.to_js_string()) {
 			continue;
 		}
@@ -2875,5 +2881,19 @@ mod tests {
 		assert!(has_word("use the taming rod to tame a beast", "taming rod to tame"));
 		assert_eq!(standing_of(3000.0), 5.0);
 		assert_eq!(standing_of(-100.0), 3.0);
+	}
+
+	// QuestieDB 1.1.5 lists object 7983211, which has no name, as a source of Flintfire's Shipment: it stays a source
+	// and gets a page with a fallback name, so Lookup can pin it.
+	#[test]
+	fn a_nameless_object_source_reads_a_fallback_name() {
+		let mut i = inputs("{}", "{}");
+		i.forever.items = parse_json(r#"{ "280413": { "id": 280413, "name": "Flintfire's Shipment", "drops": { "npc": {}, "object": { "672508": 100, "7983211": null } }, "vendors": [] } }"#).unwrap();
+		i.forever.objects = parse_json(r#"{ "672508": { "id": 672508, "name": "Flintfire's Shipment", "spawns": {} }, "7983211": { "id": 7983211, "name": null, "spawns": {} } }"#).unwrap();
+		let codex = merge_codex(&i);
+		let objects: Vec<f64> = codex.items.get("280413").get("sources").items().iter().map(|s| s.get("object").num()).collect();
+		assert_eq!(objects, vec![672508.0, 7983211.0]);
+		assert_eq!(codex.objects.get("7983211").get("name").as_str(), Some("Unnamed object"));
+		assert!(codex.warnings.iter().any(|w| w.contains("object 7983211") && w.contains("no name")), "{:?}", codex.warnings);
 	}
 }

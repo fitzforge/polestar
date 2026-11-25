@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Spanish (Latin America) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1452} Winterspring · {zone:1448} Felwood · {zone:1444} Feralas · {zone:1456} Thunder Bluff
+	["{zone:1452} and {zone:1448}, then {zone:1444} and {zone:1456}."] = "{zone:1452} y {zone:1448}, luego {zone:1444} y {zone:1456}.",
+
 	-- Step 1: Into Winterspring
 	-- {zone:1452} Winterspring
 	["Into {zone:1452}"] = "Hacia {zone:1452}",
@@ -118,6 +122,8 @@ return {
 	["Take the kitten back to the Jadefire moonwell and release it there with {item:12565}; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "Lleva el gatito de vuelta al pozo de la luna Fuego de Jade y suéltalo ahí con el {item:12565}; cuando se haya convertido en un {npc:10042}, llévalo de vuelta con {npc:9996} y haz clic sobre él para entregarlo.",
 	-- {item:12565} Winna's Kitten Carrier
 	["{item:12565}, at the Jadefire moonwell"] = "{item:12565}, en el pozo de la luna Fuego de Jade",
+	-- {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard · {area:1997} Bloodvenom Post
+	["Bring the {npc:10042} to {npc:9996} at {area:1997} and click on it to hand it over."] = "Lleva {npc:10042} a {npc:9996} en {area:1997} y haz clic en él para entregárselo.",
 
 	-- Step 23: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
@@ -147,7 +153,7 @@ return {
 
 	-- Step 30: Ghede
 	-- {npc:9076} Ghede · {area:1639} Elder Rise
-	["{npc:9076} stands on {area:1639}."] = "",
+	["{npc:9076} stands on {area:1639}."] = "{npc:9076} está en {area:1639}.",
 
 	-- Step 31: Elder Rise
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful

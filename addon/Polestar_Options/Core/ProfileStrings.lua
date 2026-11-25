@@ -648,7 +648,7 @@ function P.Import(text)
 		end
 	end
 	for _, id in ipairs(migrationOrder) do
-		if not applied[id] and not savedOnly[id] then ns.SafeCall(migrations[id], nested) end
+		if not applied[id] and not savedOnly[id] then ns.SafeCall(migrations[id], nested, applied) end
 	end
 	local ix = index()
 	local preview = { settings = {}, keys = {}, labels = {}, category = {}, held = {}, holds = {}, order = {}, dropped = dropped }

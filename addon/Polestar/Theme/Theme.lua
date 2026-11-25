@@ -3311,17 +3311,20 @@ if ns.RegisterMigration then
 	end)
 end
 
--- The settings window drew at 0.8 x ui.menuScale and draws at 0.92 x it now
--- (W.SETTINGS_SCALE_BASE, 0.8 x 1.15): a scale the player set is divided by
--- 1.15 once, to the nearest 1 % within the slider's 70-140 %, so the window
--- keeps the size they chose (115 % reads 100 %). Runs after "pickerScale",
--- which copies the old number to the guides window.
+-- The settings window draws at 0.92 x ui.menuScale now (W.SETTINGS_SCALE_BASE).
+-- A release (0.4.2 and before) drew it at 1 x the setting, so a scale saved
+-- there is divided by 0.92; a 0.4.3 preview drew it at 0.8 x (a profile that
+-- ran "pickerScale" before this pass is one), so its scale is divided by 1.15.
+-- Either way the window draws at the scale its player chose, within the
+-- slider's 70-140 % (a release's 130 % and 140 % draw at 0.92 x 140 %, the
+-- most there is). Runs after "pickerScale", which copies the old number to
+-- the guides window.
 if ns.RegisterMigration then
-	ns.RegisterMigration("menuScale092", function(s)
+	ns.RegisterMigration("menuScale092", function(s, ran)
 		local ui = s.ui
 		local v = type(ui) == "table" and tonumber(ui.menuScale)
 		if not v then return end
-		v = math.min(1.4, math.max(0.7, math.floor(v / 1.15 * 100 + 0.5) / 100))
+		v = math.min(1.4, math.max(0.7, v / (ran.pickerScale and 1.15 or 0.92)))
 		ui.menuScale = v ~= 1 and v or nil
 	end)
 end

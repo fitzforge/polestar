@@ -199,28 +199,30 @@ return {
 	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge."] = "",
 	-- {npc:259158} Fuzzle · {quest:94961} Biting the Hand
 	["{npc:259158}: {quest:94961}, in his cage"] = "",
+	["the way in: she is below the town"] = "들어가는 길: 그녀는 마을 아래에 있습니다",
+	["Claire's cave"] = "클레어의 동굴",
 
 	-- Step 41: The Twilight cult
 	["The Twilight cult"] = "황혼의 교단",
 	-- {area:16723} Sunnyglade · {item:266148} Farmers' Mementos · {item:4338} Mageweave Cloth · {npc:263613} Brother Lowley · {area:16724} Farholde Keep · {quest:94885} Field Marshal's Log · {npc:256899} Chogg'Zac · {npc:263380} Ghostmaw
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
 	-- was: ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "교단원들이 {area:16723}의 거리와 들판을 메우고 있습니다. 한가운데 의식의 원에서 시작해(거기서 클레어의 촉매를 채우십시오), 불탄 집들을 지나 서쪽 마을 끝까지 간 뒤, 북동쪽 엘브림 농장 서쪽의 무른 흙으로 돌아오십시오: 황혼의 약탈자가 떨어뜨리는 {item:266148}을(를) 그곳에 묻으십시오. 부적, 책장, 손가락뼈는 교단원에게서 나옵니다.\n교단원이 떨어뜨리는 {item:4338}은(는) 보관하세요: {area:16724}의 {npc:263613}이(가) 돌아가면 20개를 요구합니다. 가끔 교단원이 {quest:94885}을(를) 떨어뜨립니다: 우클릭하여 퀘스트를 시작하십시오.\n주의: 정예 오우거 {npc:256899}(41레벨)이(가) {area:16723} 서쪽 거리 44-47,47-52 부근을 돌아다닙니다. 교단원을 끌어내고 그가 지나가게 두십시오. 이 지역에서 플레이어가 가장 많이 죽은 곳입니다.\n강의 정예 {npc:263380}(42레벨)이(가) 남서쪽 들판에서 올라올 수 있습니다: 지나가게 두십시오."
-	["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), then work west through the burnt houses to the edge of town. The charms, pages and finger bones drop from the cultists; keep the {item:266148} the Twilight Raiders drop: five, one for each grave west of Elbrim's farm.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "",
+	["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), then work west through the burnt houses to the edge of town. The charms, pages and finger bones drop from the cultists; keep the {item:266148} the Twilight Raiders drop: five, one for each grave west of Elbrim's farm.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "{area:16723}의 거리와 들판에 광신도들이 가득합니다. 가운데 의식 원에서 시작해(그곳에서 클레어의 촉매를 채우십시오) 불탄 집들을 지나 서쪽 마을 끝까지 가십시오. 부적, 쪽지, 손가락뼈는 광신도에게서 떨어집니다. 황혼의 습격자가 떨어뜨리는 {item:266148}은(는) 보관하십시오: 다섯 개, 엘브림의 농장 서쪽 무덤마다 하나씩.\n그들이 떨어뜨리는 {item:4338}도 보관하십시오: {area:16724}에 돌아가면 {npc:263613}이(가) 스무 개를 요구합니다. 가끔 광신도가 {quest:94885}을(를) 떨어뜨립니다: 오른쪽 클릭하여 퀘스트를 시작하십시오.\n주의: 정예 오우거 {npc:256899}(41레벨)이(가) {area:16723}의 서쪽 거리 44-47,47-52 부근을 돌아다닙니다. 광신도를 끌어내고 그는 지나가게 두십시오. 이 지역에서 플레이어가 가장 많이 죽은 곳입니다.\n강의 정예 {npc:263380}(42레벨)이(가) 남서쪽 들판에서 올라올 수 있습니다: 지나가게 두십시오.",
 	-- {item:269990} Crystal Catalyst
 	["fill the {item:269990} at the ritual circles"] = "의식의 원에서 {item:269990} 채우기",
 	-- {item:266148} Farmers' Mementos
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
-	["{item:266148}, from the Twilight Raiders: one for each grave"] = "",
+	["{item:266148}, from the Twilight Raiders: one for each grave"] = "{item:266148}, 황혼의 습격자({npc:256952})에게서: 무덤마다 하나",
 	-- {quest:94885} Field Marshal's Log
 	["{quest:94885}: only if a cultist dropped the log"] = "{quest:94885}: 교단원이 일지를 떨어뜨린 경우에만",
 
 	-- Step 42: Loose Soil
 	-- {item:266148} Farmers' Mementos
-	["Back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} there, one in each grave."] = "",
+	["Back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} there, one in each grave."] = "북동쪽 엘브림의 농장 서쪽의 무른 흙으로 돌아가십시오: 그곳에 {item:266148}을(를) 무덤마다 하나씩 묻으십시오.",
 	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
 	-- was: ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, 엘브림 농장 서쪽: 묘지마다 황혼 약탈자가 떨어뜨리는 {item:266148}이(가) 하나 필요하니 먼저 다섯 개를 모으세요"
-	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop"] = "",
+	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop"] = "{object:621813}, 엘브림의 농장 서쪽: 무덤마다 황혼의 습격자({npc:256952})가 떨어뜨리는 {item:266148} 하나",
 
 	-- Step 43: Apprentice Claire
 	-- {area:16723} Sunnyglade
@@ -387,10 +389,13 @@ return {
 	["The pirates' ships"] = "해적선",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
 	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way."] = "",
+	["on board, at the arrow"] = "배 위, 화살표 위치",
 	-- {item:268505} Remote Explosive Charge
-	["{item:268505}, the southern ship"] = "{item:268505}, 남쪽 배",
-	["the middle ship"] = "가운데 배",
-	["the northern ship"] = "북쪽 배",
+	["Plant a {item:268505} on the southern ship"] = "남쪽 배에 {item:268505} 설치",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the middle ship"] = "가운데 배에 {item:268505} 설치",
+	-- {item:268505} Remote Explosive Charge
+	["Plant a {item:268505} on the northern ship"] = "북쪽 배에 {item:268505} 설치",
 
 	-- Step 74: Rotflesh Mushrooms
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom
@@ -425,9 +430,9 @@ return {
 
 	-- Step 80: The Monster Surfaces
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
-	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "",
+	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}은(는) 부르면 떠오릅니다: 항구 남서쪽 얕은 물, 화살표가 가리키는 곳에 떠 있는 것을 오른쪽 클릭하면 그곳에 떠오릅니다. 정예 {npc:257001}이(가) 근처 해안을 걷습니다: 거리를 두십시오.",
 	-- {item:268633} Sea Monster's Head
-	["{item:268633}, where the Threshadon surfaces when you call him"] = "",
+	["{item:268633}, where the Threshadon surfaces when you call him"] = "{item:268633}, 부르면 트레샤돈이 떠오르는 곳",
 
 	-- Step 82: The meadows
 	["The meadows"] = "초원",
@@ -579,8 +584,11 @@ return {
 	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "다시 해적 절벽으로 가십시오. 야영지 아래 정박한 배 세 척에 남쪽부터 북쪽 순서로 위즈버즈의 폭약을 설치하십시오. {quest:95124}(45레벨)은(는) 가운데 배 옆에 전리품 상자와 함께 있습니다. 가는 길에 {npc:259758}을(를) 주의하십시오.",
 	-- ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "교단원들이 {area:16723}의 거리와 들판을 메우고 있습니다. 한가운데 의식의 원에서 시작해(거기서 클레어의 촉매를 채우십시오), 불탄 집들을 지나 서쪽 마을 끝까지 간 뒤, 북동쪽 엘브림 농장 서쪽의 무른 흙으로 돌아오십시오: 황혼의 약탈자가 떨어뜨리는 {item:266148}을(를) 그곳에 묻으십시오. 부적, 책장, 손가락뼈는 교단원에게서 나옵니다.\n교단원이 떨어뜨리는 {item:4338}은(는) 보관하세요: {area:16724}의 {npc:263613}이(가) 돌아가면 20개를 요구합니다. 가끔 교단원이 {quest:94885}을(를) 떨어뜨립니다: 우클릭하여 퀘스트를 시작하십시오.\n주의: 정예 오우거 {npc:256899}(41레벨)이(가) {area:16723} 서쪽 거리 44-47,47-52 부근을 돌아다닙니다. 교단원을 끌어내고 그가 지나가게 두십시오. 이 지역에서 플레이어가 가장 많이 죽은 곳입니다.\n강의 정예 {npc:263380}(42레벨)이(가) 남서쪽 들판에서 올라올 수 있습니다: 지나가게 두십시오.",
 	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}은(는) 항구 남서쪽, 멀록 해변 아래 얕은 물을 배회합니다. 정예인 {npc:257001}이(가) 근처 해안을 걸어 다니니 거리를 두십시오.",
+	-- ["the middle ship"] = "가운데 배",
+	-- ["the northern ship"] = "북쪽 배",
 	-- ["the {object:707245} poster"] = "{object:707245} 전단",
 	-- ["{item:17028}, from {npc:272437}"] = "{npc:272437}에게서 {item:17028}",
+	-- ["{item:268505}, the southern ship"] = "{item:268505}, 남쪽 배",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026}은(는) 고개 동쪽 길가에서 기다립니다.",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031}은(는) {area:16724} 남서쪽 구석의 옛 대성당을 지키고 있습니다. 박쥐는 대성당 위층에 둥지를 틀고 있고, 그 옆에서 {npc:272437}이(가) 신성한 양초를 나눠 주며, 무덤은 예배당 묘지에 있습니다.\n53레벨 정예인 {npc:271742}이(가) 대성당 안에 서 있습니다: 먼저 공격하지 않으니 절대 공격하지 말고, 박쥐는 그에게서 떨어진 곳으로 끌어내십시오.",
 	-- ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, 엘브림 농장 서쪽: 묘지마다 황혼 약탈자가 떨어뜨리는 {item:266148}이(가) 하나 필요하니 먼저 다섯 개를 모으세요",
