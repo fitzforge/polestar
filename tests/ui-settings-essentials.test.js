@@ -212,7 +212,7 @@ test('Quality of Life\'s Essentials gathers the tooltip settings in a Tooltips c
 	assert.equal(out.flipped, true, 'the card\'s row sets the setting itself');
 });
 
-test('a label too long to share its line with the path keeps the column, the path under it', () => {
+test('an Essentials row keeps the whole column for its label, the path to its home on a line under it', () => {
 	const [out] = run(`
 		Polestar.UI.ShowOptions()
 		O.Select("qualityoflife")
@@ -224,16 +224,12 @@ test('a label too long to share its line with the path keeps the column, the pat
 			return { whole = label:GetWidth() + 0.5 >= W.TextWidth(label), under = rel == label and relPoint == "BOTTOMLEFT",
 				tall = row:GetHeight() >= math.ceil(label:GetStringHeight() + link.Label:GetStringHeight()) }
 		end
-		-- A short label still has its path beside it.
-		local short = essentialsRow("qol.sellJunk")
-		local _, rel, relPoint = rawget(short, "psAfter"):GetPoint(1)
-		emit({ long = look("lookup.tooltip"), gear = look("gear.pickTooltip"), beside = rel == short.Label and relPoint == "LEFT" })`);
-	for (const k of ['long', 'gear']) {
+		emit({ long = look("lookup.tooltip"), gear = look("gear.pickTooltip"), short = look("qol.sellJunk") })`);
+	for (const k of ['long', 'gear', 'short']) {
 		assert.equal(out[k].whole, true, `${k}: the whole label`);
 		assert.equal(out[k].under, true, `${k}: the path under the label`);
 		assert.equal(out[k].tall, true, `${k}: the row holds both lines`);
 	}
-	assert.equal(out.beside, true, 'a label that leaves room keeps its path beside it');
 });
 
 test('LB / RB step on from Essentials after the tab is built again', () => {

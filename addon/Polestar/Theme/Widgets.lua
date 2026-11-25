@@ -3104,9 +3104,10 @@ function W.LayoutCompact(row, width)
 	-- settings page's link to a reference's home), its room kept.
 	local after = rawget(row, "psAfter")
 	local below = row.psBelow
-	-- A label too long to share its line with the link keeps the column, and
-	-- the link stands on a line of its own under it.
-	local under = after and not below and textWidth(label) + (info and 20 or 0) + after:GetWidth() + 8 > lw
+	-- The label keeps the whole column and the link stands on a line of its
+	-- own under it: no measure of the text decides it (in the client a label
+	-- measured before its text or font is ready read as fitting, and was cut).
+	local under = after and not below
 	if after and not under then lw = max(1, lw - (after:GetWidth() + 8)) end
 	label:ClearAllPoints()
 	local nh = under and after.Label:GetStringHeight() + 1 or 0
