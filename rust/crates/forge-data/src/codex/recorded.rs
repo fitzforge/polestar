@@ -880,6 +880,22 @@ mod tests {
 		let s = |v: &V| stringify(v, None);
 		assert_eq!(s(&items.get("260883").get("drops")), r#"{"npc":{"9":15},"object":{"616466":30,"618329":30,"618330":null}}"#);
 		assert_eq!(s(&items.get("260927").get("drops").get("object")), r#"{"616466":null,"618329":100}"#, "not a quest drop: the sources' stand");
+
+		// The 0.4.3 data build: 616466 has no chance until the knowledge base, after the recordings, fills it and adds
+		// 618329 from the Forever TDB, both at 100%. The recorded chances are written after it (QuestDropsLater), so
+		// the scale sees both figures.
+		let items = obj(r#"{"260883":{"id":260883,"name":"Enchanted Gyrozephyr","drops":{"npc":{},"object":{"616466":null}},"vendors":[]}}"#);
+		let db = Db { quests: &quests, npcs: &npcs, objects: &objects, items: &items, zones: &zones, factions: &factions, instances: &instances, gather_spells: &[], quest_items: &[] };
+		let st = apply_recordings(&db, &recs.list, &V::obj(), recs.min_voters, DEFAULTS, &|_| false, false, DropChances::QuestDropsLater);
+		assert_eq!(s(&items.get("260883").get("drops").get("object")), r#"{"616466":null}"#, "nothing written yet");
+		items.get("260883").get("drops").get("object").set("616466", 100.0);
+		items.get("260883").get("drops").get("object").set("618329", 100.0);
+		assert_eq!(st.recorded_drops.apply(&items, &|_, _, _| false), 1);
+		assert_eq!(s(&items.get("260883").get("drops").get("object")), r#"{"616466":30,"618329":30}"#);
+		// A dropper a correction removes: no recorded chance brings it back.
+		let items = obj(r#"{"260883":{"id":260883,"name":"Enchanted Gyrozephyr","drops":{"npc":{},"object":{}},"vendors":[]}}"#);
+		assert_eq!(st.recorded_drops.apply(&items, &|item, kind, id| (item, kind, id) == (260883, "object", 616466)), 0);
+		assert_eq!(s(&items.get("260883").get("drops").get("object")), "{}");
 	}
 
 	// The archive as `forge data codex --recordings` reads it: the recordings audit's verdicts set a suspect contributor

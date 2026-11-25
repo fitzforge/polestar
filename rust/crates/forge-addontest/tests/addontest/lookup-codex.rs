@@ -488,6 +488,8 @@ fn every_attunement_and_key_the_guide_has_a_step_per_quest_still_to_do_none_a_ba
 	if skip() {
 		return;
 	}
+	// No Molten Core: Attunement to the Core and Duke Hydraxis's chain are out of the data while the raid is closed
+	// (#3392), so the built Codex carries neither (dungeons_attune's built-Codex test and the one below pin that).
 	let refs: [(&str, &[&Who]); 9] = [
 		("onyxias-lair:drakefire-h", &[&ORGRIMMAR]),
 		("onyxias-lair:drakefire-a", &[&STORMWIND]),
