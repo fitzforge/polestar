@@ -827,7 +827,7 @@ stub.world.abandon(1010)
 emit(links)
 stub.advance(0.6)
 {SIMULATE}"#)
-	.replace("{SIMULATE}", SIMULATE);
+	.replace("{SIMULATE}", SIMULATE.as_str());
 	let r = run(&pack, &script, Opts::default());
 	let (opened, links, out) = (&r[0], &r[1], &r[2]);
 	assert_eq!(opened["id"], GID, "built ({})", js(&opened["why"]));
@@ -2402,7 +2402,7 @@ emit({ early = early[1] or false, kept = kept, id = id or false, tabs = tabIds()
 	order = s.dungeonHandin and s.dungeonHandin["{KEY}"] or false, saved = s.tabs })
 stub.advance(0.6)
 {SIMULATE}"#)
-	.replace("{SIMULATE}", SIMULATE);
+	.replace("{SIMULATE}", SIMULATE.as_str());
 	let r = run(&pack, &script, opts());
 	let (first, out) = (&r[0], &r[1]);
 	assert_eq!(first["early"], "lookup/handin/shadowfang-keep", "built while the pick-up guide still has a quest to take");

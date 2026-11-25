@@ -88,7 +88,7 @@ emit({ids = ids, roles = C.Npc(270513).roles,
 	assert.equal(result.icon, 'map:transmog');
 	assert.equal(result.nearby, 270581, JSON.stringify(result));
 	assert.equal(result.alias, true);
-	assert.match(result.usage, /\| stable \| transmog$/);
+	assert.match(result.usage, /\| stable \| transmog \| riding$/);
 	assert.equal(result.pinX, 55);
 	assert.equal(result.nearX, 50);
 	assert.equal(result.button, 'Transmogrifier');
