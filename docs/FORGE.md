@@ -554,13 +554,12 @@ anchored goal and the lines after it in its step a step of their own right after
 `split.title` (with `split.tip`), repeating the step's `only` and `when` lines and the zone it is in
 there: a town stop split in walking order, or hand-ins cut off a later stop, which `step` then moves.
 `step` moves the anchored goal's whole step to right after the step of `step.after`'s goal, in the
-guide `step.guide` names (its id; the same guide when it names none), with `step.tip` as its tip;
-with `"copy": true` a copy goes there and the step stays (a class step done on an earlier walk past
-the same NPC, the later one kept, gated `when onquest`, for whoever still carries the quest). The
+guide `step.guide` names (the same guide by default). `step.tip` sets the destination step's tip and
+`step.when` adds a condition there. With `"copy": true` a copy goes there and the step stays (a class
+step done on an earlier walk past the same NPC, the later one kept for whoever still carries the quest). The
 travel-only steps right before it for the same players, the walk to it, go with it with `"way":
-true`; else they go when it moves. Where the step already follows `after`'s step, only its tip is
-set. `at.guide` (a guide's id) narrows any record to that guide: these records name the guide they
-are for.
+true`; else they go when it moves. If the step is already in place, the record can still update its
+tip and add its condition. `at.guide` narrows any record to the source guide it names.
 
 `way` sets where the walk right before the anchored goal's step ends (a travel-only step for the same
 players): its last `goto` takes `way.at` (`{ map, x, y, frame }`) and `way.label`, the step

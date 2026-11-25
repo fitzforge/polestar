@@ -90,6 +90,10 @@ function carriedStep(step, quest) {
 	return (step.when || []).some((p) => !p.neg && (p.k === 'onquest' || p.k === 'complete') && [].concat(p.q).includes(quest));
 }
 
+function readyTurnIn(step, goal) {
+	return goal.t === 'turnin' && (step.when || []).some((p) => !p.neg && p.k === 'complete' && p.q === goal.quest);
+}
+
 // The quests of g the player takes only by choosing a group quest: every
 // accept of them in g sits in a group step, so their turn-ins and objectives
 // go with it when the player skips (orphaned).
@@ -406,7 +410,7 @@ function checkTurninItems(g, before, data, diag) {
 	for (const step of g.steps) {
 		for (const goal of step.goals) {
 			const q = goal.t === 'turnin' && goal.quest !== undefined ? data.quest(goal.quest) : null;
-			if (q) {
+			if (q && !readyTurnIn(step, goal)) {
 				const missing = neededItems(data, q).filter((it) => !held.has(it.id) && !objectives.has(`${goal.quest}.${it.oi}`) && !completed.has(goal.quest));
 				if (missing.length) {
 					const list = missing.map((it) => `${it.name} (${it.id}, objective ${goal.quest}.${it.oi})`).join(', ');
@@ -667,7 +671,7 @@ function validateGuides(guides, data, diag) {
 		const goals = goalsOf(g);
 		goals.forEach(({ step, goal }, i) => {
 			if (goal.quest === undefined || !(goal.t === 'complete' || OBJECTIVE_VERBS.has(goal.t))) return;
-			if (goals.slice(i + 1).some((later) => closes(later.goal) && later.goal.quest === goal.quest)) return;
+			if (goals.slice(i + 1).some((later) => closes(later.goal) && later.goal.quest === goal.quest && !readyTurnIn(later.step, later.goal))) return;
 			let to = null;
 			for (const k of characters([gl, step._only, goal._only], data.quest(goal.quest))) {
 				const r = handInAfter(g, goal.quest, k, new Set([g.id])).to;

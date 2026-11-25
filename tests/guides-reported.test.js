@@ -3734,6 +3734,54 @@ test(`${TELDRASSIL}: Pynte's report: Zenn's Bidding is taken on the walk down to
 
 const BADLANDS = 'forever/alliance/30-40/06-badlands.guide';
 const DESOLACE_SOUTH = 'forever/alliance/30-40/06b-desolace.guide';
+test('Alliance Badlands: Safety Checks can be handed in on the first ride out if ready', { skip }, () => {
+	const early = fs.readFileSync(path.join(OFFICIAL_DIR, BADLANDS), 'utf8');
+	const late = fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/alliance/40-50/02-badlands.guide'), 'utf8');
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	const record = fixes.find((f) => f.id === 'alliance-badlands-ready-safety-checks-on-exit');
+	assert.deepEqual(record.step, {
+		after: { quest: 711, goal: 'turnin' },
+		guide: BADLANDS.replace(/\.guide$/, ''),
+		copy: true,
+		when: 'complete 97617',
+	});
+
+	// Play the copy from the record until Forge has written it into the checked-in guide.
+	const dorgaron = late.match(/^step Dorgaron\r?\n(?:[ \t]+[^\r\n]*\r?\n)+/m)[0];
+	const guarded = dorgaron.replace(/^(  zone Badlands\r?\n)/m, `$1  when ${record.step.when}\n`);
+	const text = /^  turnin 97617\b/m.test(early) ? early : early.replace(/^(  turnin 711\r?\n)/m, `$1\n${guarded}`);
+	const who = { race: 'Human', raceName: 'Human', faction: 'Alliance', cls: 'WARLOCK', className: 'Warlock', level: 39 };
+	const view = (state, continueAfterHandIn = '') => engineRun(BADLANDS, who, {
+		text,
+		before: `w.moveTo(1418, 25.92, 45.12)
+			w.complete({710}); w.onQuest(711, {})
+			${state}`,
+		after: `local w, lotwil = stub.world
+			for i, step in ipairs(E.GetGuide().steps) do
+				for _, goal in ipairs(step.goals) do
+					if goal.t == "turnin" and goal.quest == 711 then lotwil = i end
+				end
+			end
+			E.SkipUpTo(assert(lotwil))
+			assert(E.GetLiveStep() == lotwil)
+			w.turnIn(711)
+			${continueAfterHandIn}`,
+		script: `local step = E.GetGuide().steps[assert(E.GetLiveStep())]
+			local goal = step.goals[1]
+			emit({action = goal.t, quest = goal.quest, npc = goal.npc, map = goal.map})`,
+	});
+	const ready = 'w.onQuest(97617, {})';
+	assert.deepEqual(view(ready), { action: 'turnin', quest: 97617, npc: 269577, map: 1418 });
+	for (const [state, turnIn] of [
+		[ready, 'w.turnIn(97617)'],
+		['w.onQuest(97617, { 1 })', ''],
+		['w.complete({97617})', ''],
+		['', ''],
+	]) {
+		assert.deepEqual(view(state, turnIn), { action: 'goto', map: 1432 });
+	}
+});
+
 test(`${DESOLACE_SOUTH}: the same pattern as #89: Book of the Ancients is taken from Azore on the way to Karnitol's Chest, not on a walk back from it`, { skip }, () => {
 	// Review (0.3.6): the first Desolace visit (02) opens the chest beside Azore's tower; the south loop (06b) keeps
 	// the chain for a player who loads it without 02, and there Azore still comes before the chest.

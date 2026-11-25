@@ -657,6 +657,19 @@ fn quest_work_handed_in_only_by_a_later_guide_carries_that_guides_id() {
 }
 
 #[test]
+fn an_early_hand_in_only_when_ready_keeps_the_carry_for_unfinished_quests() {
+	let first = text(
+		"t/one",
+		&["step S", "  accept 7", "  kill 6 quest 7.1", "  accept 33", "step Early", "  when complete 7", "  turnin 7", "step Early item quest", "  when complete 33", "  turnin 33"],
+		&["next t/two"],
+	);
+	let later = text("t/two", &["step S", "  turnin 7"], &[]);
+	let result = compile_map(&[("1.guide", &first), ("2.guide", &later)]);
+	assert_eq!(plain(&result.guide("t/one").get("steps").items()[0].get("goals").items()[1].get("carriedTo")), json!("t/two"));
+	assert!(diags(result.diag.warnings(), "quest 33.*no earlier goal").is_empty());
+}
+
+#[test]
 fn an_objective_index_past_the_quests_objectives_is_an_error_naming_them_with_a_hint() {
 	let src = guide_text(&["step S", "  accept 7", "  kill 6 quest 7.2", "  turnin 7"]);
 	let r = compile(&src);
