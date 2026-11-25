@@ -19169,6 +19169,18 @@ test('forever/50-60/mount-hyjal.guide: Fine Feathered Friend waits for Celastrus
 	assert.ok(list[at(list, 'turnin 91770', is('turnin', 91770))].s < s, 'after Bark Bite');
 });
 
+// #4029 (Soggy, 0.4.2.2): the Deadwood camps lie in Malorne's Retreat, a sunken valley whose northern end runs under
+// the cliffs; from Mourning's Rest the arrow led straight at it. Players' recordings (18 people) walk in from the
+// valley's mouth in the south-east, west and then north. A step outside the Retreat leads in that way first.
+test('forever/50-60/mount-hyjal.guide: the Deadwood camps are entered through the valley from the south (#4029)', { skip }, () => {
+	const list = goals('forever/50-60/mount-hyjal.guide');
+	const kill = list[at(list, 'kill 252116', (g) => g.t === 'kill' && g.quest === 93826)];
+	const way = compiled('forever/50-60/mount-hyjal.guide').steps[kill.s - 2];
+	assert.ok((way.when || []).some((p) => p.k === 'subzone' && p.neg && p.name === "Malorne's Retreat"), 'only from outside the Retreat');
+	const pins = way.goals.filter((g) => g.t === 'goto');
+	assert.deepEqual(pins.map((g) => [g.x, g.y]), [[36.1, 75.4], [23.9, 66.5]], 'the valley mouth, then up the valley');
+});
+
 // #3192 (PierreAnken): Stinky Ignatz offered nothing at 35; nobody took Stinky's Escape below 36 in the recordings.
 // #3347 (Cobra), #2755 (Gindry): Get Me Out of Here!'s six attackers are said up front, and a player who skips the
 // escort is not sent to Hornizz for its hand-in.
