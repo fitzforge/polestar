@@ -7856,7 +7856,6 @@ t.guides["forever/horde/50-60/01-un-goro-crater"] = (function() return {
 		["{npc:5594}, inside"] = "{npc:5594}, lá dentro",
 		["{npc:7825} stands in the {object:36082}."] = "{npc:7825} fica no {object:36082}.",
 		["{npc:7876} stands beside the wind rider master."] = "{npc:7876} fica ao lado do mestre de mantícoras.",
-		["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}, no Apothecarium: os frascos são enchidos em {zone:1447} depois",
 		["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}, no fundo da caverna; no subterrâneo",
 		["{npc:9117}, below ground"] = "{npc:9117}, no subterrâneo",
 		["{npc:9166} (50-52) fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for {npc:9998}, and {npc:9997}'s sign wants ten of them. Leave the {npc:9167} over the west for the pylon loop."] = "Os {npc:9166} (50-52) voam sobre o leste da cratera, a partir das encostas abaixo do refúgio, rumo ao sul; as escamas membranosas deles são para {npc:9998}, e a placa de {npc:9997} pede dez deles. Deixe os {npc:9167} do oeste para o circuito dos pilares.",

@@ -7857,7 +7857,6 @@ t.guides["forever/horde/50-60/01-un-goro-crater"] = (function() return {
 		["{npc:5594}, inside"] = "{npc:5594}，在室內",
 		["{npc:7825} stands in the {object:36082}."] = "{npc:7825}站在{object:36082}。",
 		["{npc:7876} stands beside the wind rider master."] = "{npc:7876}站在雙足飛龍管理員旁邊。",
-		["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}，皇家藥劑師協會：瓶子稍後在{zone:1447}裝滿",
 		["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}，在洞穴深處；在地下",
 		["{npc:9117}, below ground"] = "{npc:9117}，地下",
 		["{npc:9166} (50-52) fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for {npc:9998}, and {npc:9997}'s sign wants ten of them. Leave the {npc:9167} over the west for the pylon loop."] = "{npc:9166}（50-52）在環形山東部上空飛行，從避難營下方的山坡往南；牠們的蹼鱗交給{npc:9998}，{npc:9997}的告示牌要十隻。西邊的{npc:9167}留到水晶塔路線再打。",

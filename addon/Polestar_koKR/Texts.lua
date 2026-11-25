@@ -6180,7 +6180,6 @@ t.guides["forever/horde/50-60/01-un-goro-crater"] = (function() return {
 		["{npc:5594}, inside"] = "{npc:5594}, 내부",
 		["{npc:7825} stands in the {object:36082}."] = "{npc:7825}은(는) {object:36082}에 있습니다.",
 		["{npc:7876} stands beside the wind rider master."] = "{npc:7876}은(는) 와이번 조련사 옆에 서 있습니다.",
-		["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "연금술 실험실의 {npc:8390}: 약병은 나중에 {zone:1447}에서 채웁니다",
 		["{npc:9117}, at the back of the cave; below ground"] = "동굴 안쪽의 {npc:9117}, 지하",
 		["{npc:9117}, below ground"] = "{npc:9117}, 지하",
 		["{npc:9166} (50-52) fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for {npc:9998}, and {npc:9997}'s sign wants ten of them. Leave the {npc:9167} over the west for the pylon loop."] = "{npc:9166}(50-52)는 피난처 아래 비탈에서 남쪽까지, 분화구 동쪽 위를 납니다. 물갈퀴 비늘은 {npc:9998}에게 가져가고, {npc:9997}의 표지판은 10마리를 원합니다. 서쪽의 {npc:9167}는 수정탑 순회 때 잡으세요.",

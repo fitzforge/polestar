@@ -43,7 +43,6 @@ return {
 	-- Step 8: Scarlet forward camp
 	["Scarlet forward camp"] = "Camp avancé écarlate",
 	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
-	-- was: ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Depuis la {area:152}, suivez la route vers l'est jusqu'aux {zone:1422}. Les tentes de la Croisade écarlate se dressent juste après la ferme Felstone, entre {area:199} et {area:200}. Incendiez la tente de commandement avec les {object:176092} et plantez la bannière du Fléau. Attention : les Écarlates autour des tentes vont jusqu'au niveau 54 et les Invocateurs lancent des sorts : arrivez par le côté le plus proche de la tente de commandement et laissez les autres tranquilles."
 	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Depuis {area:152}, suivez la route vers l'est jusqu'aux {zone:1422}. Les tentes de la Croisade écarlate se trouvent juste après la ferme des Felstone, entre {area:199} et {area:200}. Incendiez la tente de commandement avec {item:12814} et plantez la bannière du Fléau. Attention : les Écarlates autour des tentes vont jusqu'au niveau 54 et les invocateurs lancent des sorts : arrivez par le côté le plus proche de la tente de commandement et laissez les autres tranquilles.",
 
 	-- Step 9: Bulwark
@@ -88,8 +87,8 @@ return {
 	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (52-55): pull them one at a time."] = "Chevauchez vers l'est jusqu'aux ruines sur la côte. Les quatre tablettes se trouvent parmi les ruines, gardées par des nagas Fouette-bile (52-55) : attirez-les un par un.",
 
 	-- Step 18: Ruins of Eldarath
-	-- {area:1231} Southridge Beach
-	["Fill Cuely's four vials at the tide pools on the shore, from {area:1231} north up the coast; Spitelash naga patrol between them."] = "",
+	-- {item:10695} Box of Empty Vials · {area:1231} Southridge Beach · {npc:8390} Chemist Cuely · {zone:1458} Undercity
+	["Open Cuely's {item:10695} in your bags for the four labelled vials. The tide pools cannot be clicked: stand in each pool and use its own vial from your bags, from {area:1231} north up the coast; Spitelash naga patrol between them. No vials? Abandon the quest and take it again from {npc:8390} in the {zone:1458}."] = "",
 	-- {item:10691} Filled Vial Labeled #1 · {area:1231} Southridge Beach
 	["{item:10691}: the tide pool on {area:1231}"] = "",
 	["#2, north along the shore"] = "",
