@@ -3362,6 +3362,103 @@ fn a_strict_batch_past_its_expansion_cap_leaves_the_rest_of_its_places_unpriced_
 	assert_eq!(out["capped"], json!([["nil", "priced", "nil"], "nil"]), "past it: the nearest (the second) priced, the rest unpriced, no refusal");
 }
 
+// Fitz's 0.4.3-rc probe (the Charred Vale's kill-as-you-meet step completed, the arrow up to Sun Rock's turn-ins): the
+// planner's measure into the turn-in searched each of its 16 places on its own, the flight masters and inns of
+// Desolace and the Barrens 3,500-7,200 yd of walk away while the player's own walk was 1,476: 571,000 expansions, 19 s
+// of 3 ms slices every frame. A batch's `bound` place (the player's, Nav/Walk.lua) is searched after any `first` one;
+// once it is priced, a place whose walk can't cost less (Path.LowerBound over its gap) is left unpriced, never
+// refused, and never searched. A place at the same point as one searched takes its answer.
+#[test]
+fn a_batch_leaves_unpriced_every_place_whose_walk_cannot_beat_its_bound_place_and_searches_a_repeated_place_once() {
+	let out = run_priced(
+		r#"
+		local o = { profile = Polestar.Compat.GetPlayerFaction(), walkLevel = N.danger.Level() or 1 }
+		local function many(pts)
+			local costs, reason, expansions = solver.FindManySync(0, { x = -890, y = 10, z = 5.9, reach = 10 }, pts, o, true)
+			local c = {}
+			for i = 1, #pts do c[i] = type(costs[i]) == "number" and "priced" or tostring(costs[i]) end
+			return { c, tostring(reason), expansions, costs }
+		end
+		-- far: on another tile (no walk joins it), well past the bound's cost; run with its bound first, on cold caches.
+		local far, near, mid = { x = 100, y = 100 }, { x = -800, y = 60 }, { x = -760, y = -40 }
+		local bound = many({ far, near, { x = -760, y = -40, bound = true } })
+		local whole = many({ far, near, mid })
+		local once = many({ near })
+		local twice = many({ near, { x = -800, y = 60 } })
+		emit({ whole = { whole[1], whole[2] }, bound = { bound[1], bound[2] }, boundExp = bound[3], wholeExp = whole[3],
+			midSame = bound[4][3] == whole[4][3], farLeast = solver.LowerBound(0, { x = -890, y = 10 }, far), mid = whole[4][3],
+			twice = twice[1], same = twice[4][1] == twice[4][2], twiceExp = twice[3], onceExp = once[3] })"#,
+	);
+	assert_eq!(out["whole"], json!([["false", "priced", "priced"], "nil"]), "no bound: every place searched, the far one refused: {out}");
+	assert!(num(&out["farLeast"]) > num(&out["mid"]), "the far place's least cost is over the bound's: {out}");
+	assert_eq!(out["bound"], json!([["nil", "priced", "priced"], "nil"]), "past the bound: unpriced, never refused; a nearer place still priced: {out}");
+	assert_eq!(out["midSame"], true, "the bound place priced as in the whole batch");
+	assert!(num(&out["boundExp"]) < num(&out["wholeExp"]), "the far place never searched, though the bound batch ran first: {out}");
+	assert_eq!(out["twice"], json!(["priced", "priced"]), "a repeated place priced");
+	assert_eq!(out["same"], true, "with its twin's answer");
+	assert!(num(&out["twiceExp"]) < 1.5 * num(&out["onceExp"]), "searched once, not twice: {out}");
+}
+
+// The planner's measure (Walk.Measure) bounds its batch by the player's own walk: the player's place is the batch's
+// `bound`. A batch that left places unpriced against it keeps their estimates and is not asked again; once the player
+// has walked away and their walk, measured again alone, costs more than the bound the batch was cut by, the next plan
+// measures the whole batch again.
+#[test]
+fn the_planner_s_measure_is_bounded_by_the_player_s_walk_and_measured_whole_again_once_that_walk_costs_more() {
+	let out = run_priced(
+		r#"
+		N.RegisterTravelData({ build = "test",
+			taxi = {
+				{ 1, 0, 900, 900, 9000, 5, 5, 3, "Home Roost, Testshire" },
+				{ 2, 0, -700, 0, 9000, 50, 85, 3, "Dock Roost, Testshire" },
+			},
+			taxiZ = { [2] = 5.9 },
+			flights = { 1, 2, 1700, 2, 1, 1700 },
+		}, true)
+		Polestar.CharState().flags.taxi = { [1] = true, [2] = true }
+		local r = {}
+		nav.place(900, 800)
+		local m, x, y = nav.mapPoint(-890, 10)
+		N.SetTarget(m, x, y, "Pier")
+		N.Sample()
+		local batch = assert(fake.of(true)[1], "the walks into the target are measured")
+		local bound, bi = 0, nil
+		for i, p in ipairs(batch.targets) do if p.bound then bound, bi = bound + 1, i end end
+		r.bound = { bound, bi and batch.targets[bi].x, bi and batch.targets[bi].y }
+		-- The router's answer: the player's walk and the landing's priced, the rest left past the bound.
+		local costs, yards = {}, {}
+		for i, p in ipairs(batch.targets) do
+			if i == bi then costs[i] = 1800 elseif p.first then costs[i] = 200 end
+			yards[i] = costs[i]
+		end
+		batch.yards, batch.walkChecked, batch.pruned = yards, true, true
+		batch.callback(costs, nil, batch)
+		for i = 1, 10 do N.Sample(); stub.advance(0.1) end
+		r.batches = #fake.of(true)
+		r.held = N.travel.Waiting()
+		-- Walked away: the next plan measures the player's walk alone, dearer than the bound.
+		nav.place(1000, 860)
+		N.travel.Replan()
+		for i = 1, 10 do N.Sample(); stub.advance(0.1) end
+		local again = fake.of(true)
+		local one = again[#again]
+		r.alone = #again == 2 and #one.targets
+		if #again == 2 then
+			one.yards, one.walkChecked = { 2100 }, true
+			one.callback({ 2100 }, nil, one)
+			for i = 1, 10 do N.Sample(); stub.advance(0.1) end
+		end
+		local last = fake.of(true)
+		r.whole = #last == 3 and #last[3].targets
+		emit(r)"#,
+	);
+	assert_eq!(out["bound"], json!([1, 900, 800]), "one bound place, the player's: {out}");
+	assert_eq!(out["batches"], 1, "a batch cut by its bound is not asked again: {out}");
+	assert_eq!(out["held"], false, "and holds no route: {out}");
+	assert_eq!(out["alone"], 1, "walked away: the player's walk measured alone: {out}");
+	assert!(out["whole"].as_i64().unwrap_or(0) > 1, "dearer than the bound: the whole batch again: {out}");
+}
+
 // #3553 and #3605: a batch that leaves its places their estimates (the target's floor joins no walk) and lands before
 // the planner's 2 s hold is up has decided: the held route is offered at once, by the estimates. Before, nothing
 // planned again when such a batch landed, so the arrow went for its own walk and no flight was offered (Foggy

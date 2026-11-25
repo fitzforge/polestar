@@ -3468,6 +3468,14 @@ end
 -- foresaw, a batch's search ends (#3605: before the pocket rule in run, 16 places ran to the detour bound, minutes of
 -- slices). The cap sits well over the batches ordinary routes take (430,000 to 600,000 expansions measured on the
 -- route-speed scenes, whose settled routes it leaves as they were).
+-- A target marked `bound` (the player's own walk into a measured target, Nav/Walk.lua) is searched right after the
+-- `first` ones; once it is priced, a place whose walk can't be cheaper than it (Path.LowerBound over its gap to the
+-- source above the bound's cost, and that gap above its yards) is left unpriced (job.pruned; costs[i] nil, the
+-- caller's estimate, itself no less than that bound), never searched: a route ending in that walk costs more than
+-- walking from where the player stands. A place at the same point as one already searched (same x, y, z, no floors
+-- or reach of its own) takes that one's answer. Fitz's 0.4.3-rc probe (Sun Rock's turn-ins from the Charred Vale):
+-- the flight masters and inns of Desolace, the Barrens and Ashenvale, 3,500-7,200 yd of walk from the target while the
+-- player's own walk was 1,476, took 438,000 of the batch's 571,000 expansions, 19 s of 3 ms slices.
 Path.manyCap = 1000000
 function Safe.many(job)
 	local why = Safe.setup(job)
@@ -3481,11 +3489,13 @@ function Safe.many(job)
 	end
 	-- Publish nearby verified transfers first, regardless of the planner's target
 	-- order; a target marked `first` (the landing a planned route waits on) before
-	-- them. Each target is its own search, so the order changes no answer, only when
-	-- each is published. A pending entry stays nil with a conservative radius of zero.
+	-- them, then the `bound` one. Each target is its own search, so the order changes no answer, only when each is
+	-- published. A pending entry stays nil with a conservative radius of zero.
 	local order, dist, lead, any = {}, {}, {}, false
+	local bound, boundYards -- the bound target's cost and yards, once priced
 	for i, p in ipairs(job.targets) do
-		order[i], dist[i], lead[i] = i, (p.x-from.x)^2 + (p.y-from.y)^2, p.first and 0 or 1
+		order[i], dist[i], lead[i] = i, (p.x-from.x)^2 + (p.y-from.y)^2, p.first and 0 or p.bound and 1 or 2
+		if p.bound and type(job.costs[i]) == "number" then bound, boundYards = job.costs[i], job.yards[i] or job.costs[i] end
 	end
 	for i = 1, #job.targets do
 		if job.costs[i] then any = true end
@@ -3500,10 +3510,33 @@ function Safe.many(job)
 			waterWalking = job.waterWalking, costOnly = true, check = job.check, policy = job.policy }
 		return Safe.find(child), child
 	end
-	for _, i in ipairs(order) do
+	local D = PolestarPathData and PolestarPathData[job.map]
+	local cheapest = D and Grid.Classed(D) and math.min(Costs.MIN, Costs.Min(job.style)) or 1
+	local function beyond(target)
+		if not bound or target.first then return false end
+		local least = Path.LowerBound(job.map, from, target, job.style)
+		return least > bound and least / cheapest > boundYards
+	end
+	-- An earlier target at the same point, already answered: its index.
+	local function twin(n, target)
+		if target.floors or target.reach then return nil end
+		for k = 1, n - 1 do
+			local j = order[k]
+			local q = job.targets[j]
+			if job.costs[j] ~= nil and q.x == target.x and q.y == target.y and q.z == target.z and not q.floors and not q.reach then return j end
+		end
+		return nil
+	end
+	for n, i in ipairs(order) do
 		local target = job.targets[i]
 		if job.costs[i] == nil and not job.unjoined and not job.capped and Expansions() >= Path.manyCap then job.capped = true end
-		if job.costs[i] == nil and not job.unjoined and not job.capped then
+		local same = job.costs[i] == nil and not job.unjoined and not job.capped and twin(n, target)
+		if same then
+			job.costs[i], job.yards[i] = job.costs[same], job.yards[same]
+			job.revision = job.revision + 1
+		elseif job.costs[i] == nil and not job.unjoined and not job.capped and beyond(target) then
+			job.pruned = true
+		elseif job.costs[i] == nil and not job.unjoined and not job.capped then
 			local cost, child = search(target, from)
 			if not cost and from.z and not any and not child.blockedReason and search(target, { x = from.x, y = from.y }) then
 				job.unjoined = true
@@ -3511,6 +3544,7 @@ function Safe.many(job)
 				if child.walkChecked then job.walkChecked = true end
 				job.costs[i], job.yards[i] = cost or false, cost and child.yards or false
 				if not cost then job.blockedReason = child.blockedReason or job.blockedReason end
+				if target.bound and cost then bound, boundYards = cost, child.yards or cost end
 			end
 			job.revision = job.revision + 1
 		end
