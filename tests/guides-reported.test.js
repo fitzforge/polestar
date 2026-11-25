@@ -19204,6 +19204,63 @@ test('forever/50-60/mount-hyjal.guide: the Deadwood camps are entered through th
 	assert.deepEqual(pins.map((g) => [g.x, g.y]), [[36.1, 75.4], [23.9, 66.5]], 'the valley mouth, then up the valley');
 });
 
+// #3985 (Aireil), #4080 (Clownfondre), 0.4.2.2: Archmage Xylem stands at the top of his tower on the cliff; Sanath
+// Lim-yo, at its foot (28.1,50.1), teleports you up. Every Xylem hand-in or accept the player walks back to leads to
+// Sanath first, in the Mage class guides as in the leveling guides (#3275).
+test('Archmage Xylem: every walk back to him leads to Sanath Lim-yo first (#3985, #4080)', { skip }, () => {
+	const xylem = new Set([8251, 8252, 8253, 9362, 9364, 3561]);
+	for (const guide of ['forever/class/mage/polymorph-pig.guide', 'forever/class/mage/destroy-morphaz.guide', 'forever/alliance/50-60/01-burning-steppes.guide', 'forever/horde/50-60/02-felwood.guide']) {
+		const { steps } = compiled(guide);
+		steps.forEach((st, i) => {
+			const xi = st.goals.findIndex((g) => (g.t === 'turnin' || g.t === 'accept') && xylem.has(g.quest) && g.npc === 8379);
+			if (xi < 0) return;
+			const sanath = (g) => (g.t === 'goto' && Math.hypot(g.x - 28.1, g.y - 50.1) < 0.3) || g.npc === 8395;
+			assert.ok(st.goals.slice(0, xi).some(sanath) || (i > 0 && steps[i - 1].goals.some(sanath)), `${guide} "${st.title}": Sanath before Xylem`);
+		});
+	}
+});
+
+// #3796 (pagb666, 0.4.2.2): Terrordale was a death trap at Egan's hut; a Nerubian Overseer (60, elite) walks Terrordale
+// and the Terrorweb Tunnel (players' recordings: 11 people met him between 8,23 and 18,30). Egan's step names him.
+test('Egan in Terrordale: the step warns of the Nerubian Overseer (#3796)', { skip }, () => {
+	for (const guide of ['forever/horde/50-60/05-eastern-plaguelands.guide', 'forever/alliance/50-60/04-western-plaguelands.guide']) {
+		const list = goals(guide);
+		const { step } = list[at(list, 'turnin 5281', is('turnin', 5281))];
+		assert.match([].concat(step.note || []).join(' '), /\(60, elite\) walks/, guide);
+	}
+});
+
+// #4102 (Myringains, 0.4.2.2): Miblon Snarltooth guards the Evoroot's door, and Gregan's Bait draws him off (players'
+// recordings: 6 of the 12 people who looted the Evoroot used it). The step names that way as well as the broken wall.
+test('Evoroot: the step names the Bait for Miblon as well as the wall (#4102)', { skip }, () => {
+	for (const guide of ['forever/alliance/50-60/02-felwood.guide', 'forever/horde/50-60/03-winterspring.guide']) {
+		const list = goals(guide);
+		const { step } = list[at(list, 'collect 11242', (g) => g.t === 'collect' && g.item === 11242)];
+		assert.match([].concat(step.note || []).join(' '), /front door/, guide);
+	}
+});
+
+// #4136 (rcmitchell583, 0.4.2.2): Jes'rimon stands at the top of a tower in the Drag (the reporter's position beside
+// him reads "Orgrimmar, The Drag"); the steps said the Cleft of Shadow.
+test('Jes\'rimon: the steps place him in the Drag, not the Cleft of Shadow (#4136)', { skip }, () => {
+	for (const guide of ['forever/horde/50-60/02-felwood.guide', 'forever/horde/40-50/06-azshara.guide']) {
+		for (const st of compiled(guide).steps.filter((s) => s.goals.some((g) => g.npc === 8659))) {
+			const note = [].concat(st.note || []).join(' ');
+			if (/8659|Jes'rimon/.test(note)) assert.match(note, /at the top of a tower/, `${guide} "${st.title}"`);
+		}
+	}
+});
+
+// #3992 (Liquidor, 0.4.2.2): Garments of the Light counts only Lesser Heal (Rank 2); a priest reached Guard Roberts
+// without it. The Garments accepts whose step trains nobody say to learn it from the giver, a priest trainer.
+test('Garments quests: the accept says to learn Lesser Heal (Rank 2) from the giver (#3992)', { skip }, () => {
+	for (const [guide, q] of [['forever/alliance/human/01-elwynn-forest.guide', 5624], ['forever/alliance/nightelf/01-teldrassil.guide', 5621], ['forever/horde/troll/01-durotar.guide', 5648]]) {
+		const list = goals(guide);
+		const { step } = list[at(list, `accept ${q}`, is('accept', q))];
+		assert.match([].concat(step.note || []).join(' '), /counts only/, guide);
+	}
+});
+
 // #3192 (PierreAnken): Stinky Ignatz offered nothing at 35; nobody took Stinky's Escape below 36 in the recordings.
 // #3347 (Cobra), #2755 (Gindry): Get Me Out of Here!'s six attackers are said up front, and a player who skips the
 // escort is not sent to Hornizz for its hand-in.

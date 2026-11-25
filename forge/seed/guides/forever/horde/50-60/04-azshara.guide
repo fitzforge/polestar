@@ -44,7 +44,7 @@ pitch Ratchet, Orgrimmar and the Undercity, then into the Plaguelands.
 
 step Orgrimmar
   zone Orgrimmar
-  turnin 4300                         -- Jes'rimon, the Cleft of Shadow
+  turnin 4300                         -- Jes'rimon, at the top of a tower in the Drag
   accept 8276                         -- Cenarion Emissary Blackhoof, Valley of Wisdom: keep it for Silithus
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 

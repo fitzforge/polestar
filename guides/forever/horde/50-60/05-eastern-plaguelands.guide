@@ -320,6 +320,7 @@ step Eastern Plaguelands: kill these as you meet them
 step Egan
   tip Egan the ghost stands by a hut in Terrordale, in the north-west corner; Augustus the Touched sits inside the hut.
   tip Careful: Terrordale Spirits (59-60) drift through the north-west corner just north of Egan's hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time.
+  tip Careful: a Nerubian Overseer (60, elite) walks Terrordale and the Terrorweb Tunnel south-west of it. Look for him before you ride in, and wait for him to pass.
   turnin 5281                         -- Inside
   accept 6164                         -- Augustus, inside
 

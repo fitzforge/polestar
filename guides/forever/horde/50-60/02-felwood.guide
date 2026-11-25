@@ -102,8 +102,8 @@ step Orgrimmar
 step Jes'rimon
   zone Orgrimmar
   when complete 4300
-  tip Jes'rimon takes the ravasaur claws from Un'Goro; he stands in the Cleft of Shadow, a short walk from the middle of the city.
-  turnin 4300                           -- Jes'rimon, the Cleft of Shadow
+  tip Jes'rimon takes the ravasaur claws from Un'Goro; he stands at the top of a tower in the Drag.
+  turnin 4300                           -- Jes'rimon, at the top of a tower in the Drag
 
 step Fly to Valormok
   zone Orgrimmar
@@ -240,10 +240,10 @@ step Fly to Orgrimmar
 
 step Belgrom Rockmaul
   zone Orgrimmar
-  tip Belgrom is in the Valley of Honor, Zevrost and Jes'rimon in the Cleft of Shadow.
+  tip Belgrom is in the Valley of Honor, Zevrost in the Cleft of Shadow and Jes'rimon at the top of a tower in the Drag.
   turnin 91531                        -- Belgrom Rockmaul
   turnin 91547                        -- Zevrost, the Cleft of Shadow
-  turnin 3541                         -- Jes'rimon, the Cleft of Shadow
+  turnin 3541                         -- Jes'rimon, at the top of a tower in the Drag
   accept 3563                         -- Jes'rimon: his payment goes back to Jediga, on the flight out
 
 step Class trainer
