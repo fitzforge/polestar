@@ -315,6 +315,11 @@ local BUILTIN = {
 					search = "hand in, turn in, detour, out of the way, seconds, nearby hand-ins",
 					disabled = function() return not (ns.Get("behavior.whileHere") and ns.Get("behavior.whileHereTurnins")) end },
 			} },
+		-- Dungeon quests you pass (Engine Own.hereDungeons, Dungeons/Nearby.lua): off by default.
+		{ kind = "toggle", key = "behavior.whileHereDungeons", label = L["Dungeon quests you pass"], new = "0.4.3",
+			help = L["Also a dungeon's quest, or the first quest of its chain, when you walk by its giver: for a dungeon up to 10 levels ahead, while your quest log has 5 free slots. Taken now, it is in your log when you get there."],
+			search = "dungeon quests, dungeon pick up, prerequisite, chain, carry, later, instance quests",
+			disabled = function() return not ns.Get("behavior.whileHere") end },
 		-- 0.3.7's flight paths you pass (Engine Own.hereBuild).
 		{ kind = "toggle", key = "behavior.whileHereFlights", label = L["Flight paths you pass"],
 			help = L["Also a friendly flight master near you whose flight path you haven't learned yet. Learning it ticks the guide's later step for it too."],

@@ -48,6 +48,7 @@ ns.RegisterDefaults("behavior", {
 	whileHereRadius = 180, -- yards from the centre of a place its target spawns (Spots.dist, never the area's edge) at which it shows (60-400); it goes past 100/60 of that, at most Own.HERE_CLEAR_MAX
 	whileHereTurnins = true, -- also a quest ready to hand in whose NPC is little out of the way (Own.hereDetour)
 	whileHereTurninSeconds = 20, -- seconds of extra walking a hand-in may cost (0-60); an NPC in the town the player rests in counts whatever it costs
+	whileHereDungeons = false, -- also a dungeon quest (or the first open quest of its chain) the character can take now, at its giver on the way (Own.hereDungeons, Dungeons/Nearby.lua)
 	whileHereFlights = true, -- also a friendly flight master within the radius whose flight path the character has not learned (Own.hereFlights)
 	whileHereGather = false, -- also a spot within the radius where a herb, ore vein or fishing pool the character gathers can spawn (Own.hereGather, Core/Gather.lua)
 	whileHereVendors = true, -- also a merchant or repairer on the way when the route heads out with the bags nearly full or the gear worn (Own.hereVendor, #2344)
@@ -15146,6 +15147,58 @@ function Own.hereNext(list, n)
 	return n
 end
 
+-- Dungeon quests to take on the way (behavior.whileHereDungeons): a quest
+-- Dungeons.TakeNow gives for the character's level (a dungeon's quest, or
+-- the first open quest of its chain, for a dungeon at most TAKE_AHEAD levels
+-- ahead) whose giver stands on the player's map is a pick-up line like a
+-- later guide's, at step Own.DUNGEON_STEP (its built goal in
+-- Own.dungeonGoals by quest), ranked after the route's next steps (near
+-- false), its sub-line naming the dungeon and its levels. Not for a quest
+-- the loaded guide takes (the route gets there) or one a line already has,
+-- nor while the log has fewer than Dungeons.TAKE_ROOM free slots (the
+-- guide's own quests come first). It costs the poll nothing more than any
+-- pick-up line: the list is built once per level and quest log change.
+-- -> the new n.
+Own.DUNGEON_STEP = -5 -- the step of a dungeon quest's pick-up line: no step of the loaded guide has it
+Own.dungeonGoals = {} -- quest -> its built accept goal at the giver
+function Own.hereDungeons(list, n)
+	local Dg = ns.Dungeons
+	if not (ns.Get("behavior.whileHereDungeons") and Dg and Dg.TakeNow and Dg.IsEnabled and Dg.IsEnabled()) then return n end
+	local C = Compat()
+	local map = C.GetPlayerMapPosition()
+	if not map or Own.logRoom() < Dg.TAKE_ROOM then return n end
+	local mine, have = layoutOf(guide), nil
+	for _, t in ipairs(Dg.TakeNow(player.level or 1)) do
+		local q, pt = t.quest, t.giver
+		if pt.map == map and not mine.accepts[q] and not C.IsOnQuest(q) and not questDone(q) then
+			if not have then
+				have = {}
+				for m = 1, n do have[list[m].key or false] = true end
+			end
+			if not have["a" .. q] then
+				have["a" .. q] = true
+				local goal = Own.dungeonGoals[q]
+				if not goal then
+					local npc = pt.kind == "npc"
+					goal = { t = "accept", quest = q, title = C.GetQuestTitle(q) or t.title, map = pt.map, x = pt.x, y = pt.y, f = pt.f,
+						npc = npc and pt.id or nil, npcName = npc and pt.name or nil, object = not npc and pt.id or nil, objName = not npc and pt.name or nil }
+					Own.dungeonGoals[q] = goal
+				end
+				local range = t.minLevel and t.maxLevel and t.minLevel ~= t.maxLevel and ("%d-%d"):format(t.minLevel, t.maxLevel) or tostring(t.minLevel or "")
+				n = n + 1
+				list[n] = { s = Own.DUNGEON_STEP, g = q, goal = goal, kind = "take", left = 0, places = 1,
+					npcs = false, seen = false, spot = false, d = false, pick = 0,
+					budget = Own.hereSeconds, xp = false, soon = false, visit = false, detour = 0, town = false, near = false, key = "a" .. q,
+					sub = L["For %s (levels %s), to carry until then"]:format(t.name or t.key, range), dungeon = t.key,
+					tip = t.forQuest and L["It opens a quest for %s: take it as you pass, and the dungeon's quest is ready when you get there."]:format(t.name or t.key)
+						or L["A quest for %s: take it as you pass, and it is in your log when you get there."]:format(t.name or t.key),
+					on = false, since = 0, yards = 0, serial = 0, view = false }
+			end
+		end
+	end
+	return n
+end
+
 -- Direct hand-ins whose items the player carries (#2561). A `turnin ...
 -- direct` never enters the log, so the quest-log checks of a later step's
 -- hand-in (Own.hereFits) and of the stranded ones never see it ready. One
@@ -15445,6 +15498,8 @@ function Own.hereCollect(list, live, pc)
 	n = Own.hereOffRoute(list, n, live)
 	-- Pick-ups for the guides after this one.
 	n = Own.hereNext(list, n)
+	-- Dungeon quests to take on the way.
+	n = Own.hereDungeons(list, n)
 	-- Direct hand-ins whose items are in the bags (#2561).
 	return Own.hereDirect(list, n, live, nearTo)
 end
@@ -17262,6 +17317,8 @@ function Own.alongGoal(s, g)
 	end
 	-- A later guide's pick-up line (Own.hereNext): g is its quest.
 	if s == Own.NEXT_STEP then return Own.nextGoals[g] end
+	-- A dungeon quest's pick-up line (Own.hereDungeons): g is its quest.
+	if s == Own.DUNGEON_STEP then return Own.dungeonGoals[g] end
 	-- An off-route held quest's work line (Own.hereOffRoute): g is quest * 100 + line.
 	if s == Own.OFF_STEP then return Own.offGoals[g] or nil end
 	local step = guide.steps[s]
@@ -18973,7 +19030,7 @@ function Own.hereWants(questID, kind)
 		local e = Own.hereOn[i]
 		local goal = e.goal
 		if e.kind == kind and goal.quest == questID
-			and (e.s == Own.NEXT_STEP or e.s < 1 and Own.openGuidesHandIn(questID)
+			and (e.s == Own.NEXT_STEP or e.s == Own.DUNGEON_STEP or e.s < 1 and Own.openGuidesHandIn(questID)
 				or e.s >= 1 and Own.groupPending(guide.steps[e.s]) ~= questID and not Own.dungeonPending(guide.steps[e.s]))
 			and (kind ~= "take" or goal.npc == npc or goal.object == npc) then return true end
 	end
