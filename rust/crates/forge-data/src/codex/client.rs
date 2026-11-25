@@ -9,6 +9,7 @@ use forge_guide::races::{ALL_CLASSES, CLASSES};
 use rustc_hash::{FxHashMap, FxHashSet};
 
 use super::util::{int_s, norm_s, num0_s};
+use crate::gear::forever::{CASTER_HEAL, CASTER_SPELL};
 use crate::jsv::{to_int32, Row, Rows};
 use crate::tables::{compare_versions, parse_csv};
 
@@ -150,6 +151,20 @@ fn item_sparse_stat_codes_skip_slots_with_zero_allocation() {
 	assert_eq!(client.items[&3].stat_codes, [4]);
 }
 
+#[cfg(test)]
+#[test]
+fn item_sparse_keeps_the_caster_bits_of_flags_4() {
+	let mut tables = Tables::default();
+	// 3446 (Darkwood Staff): 0x100 | 0x200. 18608 (Benediction): 0x100 | 0x400. 1: other bits only.
+	tables.insert("ItemSparse", parse_csv(concat!("ID,Flags_4,StatModifier_bonusStat_0,StatPercentEditor_0\n", "3446,768,7,10000\n", "18608,1280,5,2000\n", "1,4352,-1,0\n", "2,,-1,0\n")).unwrap());
+	let client = client_facts(&tables, "test");
+	assert_eq!(client.items[&3446].caster_flags, 0x200);
+	assert_eq!(client.items[&3446].stat_codes, [7]);
+	assert_eq!(client.items[&18608].caster_flags, 0x400);
+	assert_eq!(client.items[&1].caster_flags, 0);
+	assert_eq!(client.items[&2].caster_flags, 0);
+}
+
 #[derive(Clone, Debug, Default)]
 pub struct ClientItem {
 	pub name: Option<String>,
@@ -158,6 +173,9 @@ pub struct ClientItem {
 	pub item_level: Option<f64>,
 	pub allow_class: Option<f64>,
 	pub stat_codes: Vec<i64>,
+	/// The caster bits of `Flags_4` (`gear::forever::CASTER_SPELL`, `CASTER_HEAL`): spell power the
+	/// item grants outside its stat slots; codex/itemdb.rs turns them into spell codes.
+	pub caster_flags: i64,
 	pub buy_price: Option<f64>,
 	pub min_faction: Option<f64>,
 	pub min_standing: Option<f64>,
@@ -212,6 +230,7 @@ pub fn client_facts(tables: &Tables, build: &str) -> ClientFacts {
 				item_level: int(r, "ItemLevel"),
 				allow_class: int(r, "AllowableClass").map(|mask| f64::from(to_int32(mask) & ALL_CLASSES as i32)),
 				stat_codes: stat_codes(r),
+				caster_flags: int(r, "Flags_4").map_or(0, |f| to_int32(f) as i64 & (CASTER_SPELL | CASTER_HEAL)),
 				buy_price: truthy_int(r, "BuyPrice"),
 				min_faction: mf,
 				min_standing: mf.map(|_| int(r, "MinReputation").filter(|n| *n != 0.0).unwrap_or(0.0) + 1.0),

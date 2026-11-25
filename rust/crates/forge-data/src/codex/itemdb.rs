@@ -8,6 +8,7 @@ use forge_guide::js::{str_to_num, Obj, V};
 use rustc_hash::FxHashMap;
 
 use crate::factions::ALL_CLASSES;
+use crate::gear::forever::{CASTER_HEAL, CASTER_SPELL};
 use crate::gear::leveling::{read_item_rows, Rec};
 use crate::jsv::to_int32;
 
@@ -109,8 +110,9 @@ impl ItemDb {
 					item.set("slot", rec.inv.clone());
 				}
 			}
-			let codes = client.and_then(|client| client.items.get(&(id as i64))).map_or(&[][..], |item| &item.stat_codes);
-			fill_stats(item, codes, entry);
+			let client_item = client.and_then(|client| client.items.get(&(id as i64)));
+			let codes = client_item.map_or(&[][..], |item| &item.stat_codes);
+			fill_stats(item, codes, client_item.map_or(0, |item| item.caster_flags), entry);
 		}
 	}
 }
@@ -119,15 +121,21 @@ impl ItemDb {
 // An omitted stats map is empty when levelsSource is set, unknown otherwise.
 // All known amounts on one item come from the same selected ItemDB row, so
 // `statAmountSource` applies to its nonzero amounts only.
-fn fill_stats(item: V, client_codes: &[i64], entry: Option<(&str, &Rec)>) {
+// A client-sourced item's codes are its stat slots plus the spell codes its
+// caster bits grant (`caster_codes`).
+fn fill_stats(item: V, client_codes: &[i64], caster_flags: i64, entry: Option<(&str, &Rec)>) {
 	let levels = item.get("levelsSource");
 	let Some(levels) = levels.as_str() else { return };
 	let from_client = levels == "client";
+	let stat = |token: &str| entry.and_then(|(_, rec)| rec.stats.iter().find(|(key, _)| key == token).map(|(_, amount)| *amount));
+	let (sp, heal) = (stat("sp"), stat("heal"));
+	let mut client_codes = client_codes.to_vec();
+	if from_client {
+		client_codes.extend_from_slice(caster_codes(caster_flags, sp, heal));
+	}
 	let mut amounts: BTreeMap<i64, f64> = BTreeMap::new();
-	if let Some((_, rec)) = entry {
-		let stat = |token: &str| rec.stats.iter().find(|(key, _)| key == token).map(|(_, amount)| *amount);
-		let sp = stat("sp");
-		let combined_spell_power = !from_client && sp.is_some() && sp == stat("heal");
+	if entry.is_some() {
+		let combined_spell_power = !from_client && sp.is_some() && sp == heal;
 		for &(token, code, canonical) in STAT_CODES {
 			let selected = if from_client {
 				client_codes.contains(&code) && !canonical.is_some_and(|code| client_codes.contains(&code))
@@ -147,7 +155,7 @@ fn fill_stats(item: V, client_codes: &[i64], entry: Option<(&str, &Rec)>) {
 		}
 	}
 	if from_client {
-		for &code in client_codes {
+		for &code in &client_codes {
 			amounts.entry(code).or_insert(0.0);
 		}
 	}
@@ -163,6 +171,21 @@ fn fill_stats(item: V, client_codes: &[i64], entry: Option<(&str, &Rec)>) {
 	item.set("stats", stats);
 	if let Some((source, _)) = entry.filter(|_| has_amount) {
 		item.set("statAmountSource", source);
+	}
+}
+
+/// The spell codes a client item's caster bits grant. Forever adds this spell power outside the stat
+/// slots (gear/forever.rs): CASTER_HEAL gives more healing than spell damage, so healing (41) and
+/// spell damage (42); CASTER_SPELL alone gives equal amounts, so combined spell power (45), unless
+/// the selected ItemDB row states unequal sp and heal (then 41 and 42, as for ItemDB-only rows).
+fn caster_codes(flags: i64, sp: Option<f64>, heal: Option<f64>) -> &'static [i64] {
+	let unequal = sp.is_some() && heal.is_some() && sp != heal;
+	if flags & CASTER_HEAL != 0 || (flags & CASTER_SPELL != 0 && unequal) {
+		&[41, 42]
+	} else if flags & CASTER_SPELL != 0 {
+		&[45]
+	} else {
+		&[]
 	}
 }
 
@@ -219,6 +242,8 @@ mod tests {
 			"19019":{"id":19019,"levelsSource":"client"},
 			"17142":{"id":17142,"levelsSource":"client"},
 				"19431":{"id":19431,"levelsSource":"client"},
+				"3446":{"id":3446,"levelsSource":"client"},
+				"18608":{"id":18608,"levelsSource":"client"},
 				"19862":{"id":19862},
 			"20257":{"id":20257},
 			"20134":{"id":20134},
@@ -228,8 +253,9 @@ mod tests {
 		)
 		.unwrap();
 		let mut client = ClientFacts::default();
-		for (id, codes) in [(19019, vec![3, 7, 51, 55]), (17142, vec![32, 36]), (19431, vec![12, 15, 48])] {
-			client.items.insert(id, ClientItem { stat_codes: codes, ..Default::default() });
+		// 3446 (Darkwood Staff) and 18608 (Benediction) grant their spell power through Flags_4.
+		for (id, codes, caster_flags) in [(19019, vec![3, 7, 51, 55], 0), (17142, vec![32, 36], 0), (19431, vec![12, 15, 48], 0), (3446, vec![7], 0x200), (18608, vec![5, 6, 7, 54], 0x400)] {
+			client.items.insert(id, ClientItem { stat_codes: codes, caster_flags, ..Default::default() });
 		}
 		db.fill(items.as_obj().unwrap(), Some(&client));
 		let mut mismatches = Vec::new();
@@ -260,6 +286,8 @@ mod tests {
 		check("19019", Some("client"), Some("forever"), &[(3, 5.0), (7, 8.0), (51, 0.0), (55, 0.0)]);
 		check("17142", Some("client"), None, &[(32, 0.0), (36, 0.0)]);
 		check("19431", Some("client"), Some("era"), &[(12, 13.0), (15, 0.0), (48, 24.0)]);
+		check("3446", Some("client"), Some("forever"), &[(7, 3.0), (45, 6.0)]);
+		check("18608", Some("client"), Some("forever"), &[(5, 31.0), (6, 12.0), (7, 10.0), (41, 195.0), (42, 65.0), (54, 0.0)]);
 		check("19862", Some("era"), Some("era"), &[(12, 7.0), (15, 0.0), (48, 30.0)]);
 		check("20257", Some("era"), Some("era"), &[(4, 10.0), (5, 9.0), (7, 9.0), (32, 0.0), (43, 7.0)]);
 		check("20134", Some("era"), Some("era"), &[(4, 13.0), (6, 12.0), (7, 14.0), (32, 0.0)]);
@@ -291,11 +319,32 @@ mod tests {
 			let item = V::Obj(Obj::new());
 			item.set("levelsSource", levels);
 			let client_codes = if levels == "client" { &codes[..] } else { &[] };
-			fill_stats(item.clone(), client_codes, Some(("era", &row)));
+			fill_stats(item.clone(), client_codes, 0, Some(("era", &row)));
 			let stats = item.get("stats");
 			assert_eq!(codes.map(|code| stats.get(&code.to_string()).as_num()), [Some(0.0); 5], "{levels}");
 			assert!(item.get("statAmountSource").is_nullish(), "{levels}");
 		}
+	}
+
+	#[test]
+	fn caster_bits_grant_spell_codes_to_client_items_only() {
+		let equal = crate::gear::leveling::decode(1.0, "17 13 0 2 2 10 sta3 sp6 heal6").unwrap();
+		let unequal = crate::gear::leveling::decode(1.0, "17 13 0 2 2 10 sp5 heal9").unwrap();
+		let stats = |levels: &str, flags: i64, row: Option<&Rec>| {
+			let item = V::Obj(Obj::new());
+			item.set("levelsSource", levels);
+			fill_stats(item.clone(), &[], flags, row.map(|row| ("forever", row)));
+			let stats = item.get("stats");
+			[41, 42, 45].map(|code| stats.get(&code.to_string()).as_num())
+		};
+		assert_eq!(stats("client", CASTER_SPELL, Some(&equal)), [None, None, Some(6.0)]);
+		assert_eq!(stats("client", CASTER_SPELL, Some(&unequal)), [Some(9.0), Some(5.0), None]);
+		assert_eq!(stats("client", CASTER_HEAL, Some(&equal)), [Some(6.0), Some(6.0), None]);
+		assert_eq!(stats("client", CASTER_SPELL, None), [None, None, Some(0.0)]);
+		assert_eq!(stats("client", CASTER_HEAL, None), [Some(0.0), Some(0.0), None]);
+		assert_eq!(stats("client", 0, None), [None; 3]);
+		// An ItemDB-sourced row already states the caster bonus in its sp and heal tokens.
+		assert_eq!(stats("forever", CASTER_HEAL, Some(&equal)), [None, None, Some(6.0)]);
 	}
 
 	#[test]

@@ -82,8 +82,10 @@ fn ignored(t: i64) -> bool {
 }
 
 const CASTER: i64 = 0x100;
-const CASTER_SPELL: i64 = 0x200;
-const CASTER_HEAL: i64 = 0x400;
+/// Flags_4 bits that grant a caster weapon spell power outside its stat slots: 0x200 equal spell
+/// damage and healing, 0x400 more healing than damage. The Codex reads them too (codex/itemdb.rs).
+pub(crate) const CASTER_SPELL: i64 = 0x200;
+pub(crate) const CASTER_HEAL: i64 = 0x400;
 
 fn slot_group(inv: i64) -> Option<usize> {
 	Some(match inv {
