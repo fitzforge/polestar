@@ -835,6 +835,19 @@ test('forever/horde/skyborne/01-zephras-isle.guide: the Al\'Aketh Cultist\'s Ear
 	assert.ok(Math.hypot(goal.x - 63.7, goal.y - 37.1) < 1, `at Vayn's camp (${goal.x},${goal.y})`);
 });
 
+// #3868 (gidi_): from the beach below the Holy Spring (Stranglethorn Vale 24.57,64.61) the arrow drew a straight line at
+// the cliff for Mok'thardin's Enchantment's spring water. The step pointed at 29.0,61.9, 7 yd off the spring onto the
+// rocks above it, which no walk on the walking maps reaches, with its height or without. At the spring itself (its spawn,
+// 28.9,61.96, where 11 people's recordings fill the water; data/places.json 3868-573-2) the walk goes up the hill
+// (nav-reported.rs holds the walk).
+test("forever/horde/40-50/02-feralas.guide: Holy Spring Water points at the Holy Spring itself, not the rocks above it (#3868)", { skip }, () => {
+	const list = goals('forever/horde/40-50/02-feralas.guide');
+	const { goal } = list[at(list, 'collect 737 (Holy Spring Water)', (g) => g.t === 'collect' && g.quest === 573 && g.item === 737)];
+	const spring = { map: 1434, x: 28.9, y: 61.96 };
+	assert.ok(yards(goal, spring) < 2, `at the spring (${goal.x},${goal.y}: ${yards(goal, spring).toFixed(1)} yd off)`);
+	assert.ok(Math.abs(goal.z - 93.7) < 1, `on the spring's floor (z ${goal.z})`);
+});
+
 // Maazias's report (#1450): "walks you to a spot to do nothing": a travel-only step labelled with just the zone's name
 // ("The Barrens", a goto south of Camp Taurajo on the way back from the Great Lift, where the hearth is bound) led a
 // player who was already in Camp Taurajo back 1,200 yd. Guard over every leveling guide: a step whose only goal is a
