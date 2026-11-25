@@ -35,7 +35,7 @@ const STUBS = path.join(ROOT, 'tests', 'lua');
 // Polestar's load-on-demand addons runAddon loads when the addon asks (C_AddOns.LoadAddOn): the settings
 // window (Polestar_Options), our skins and layouts (Polestar_Skins) and Freedoom Arcade (Polestar_Arcade: the
 // first Play).
-const LOAD_ON_DEMAND = ['Polestar_Options', 'Polestar_Skins', 'Polestar_Arcade'];
+const LOAD_ON_DEMAND = ['Polestar_Options', 'Polestar_Skins', 'Polestar_Arcade', 'Polestar_FreeMode'];
 
 function norm(p) {
 	return p.replace(/\\/g, '/');

@@ -1,0 +1,31 @@
+## Interface: 16001
+## Title: Polestar Free Mode
+## Notes: Part of Polestar: Free mode, your own quests as a guide. Loaded when you start it.
+## Title-deDE: Polestar-Freimodus
+## Notes-deDE: Teil von Polestar: der Freimodus, deine eigenen Quests als Guide. Wird geladen, wenn du ihn startest.
+## Title-esES: Polestar: modo libre
+## Notes-esES: Parte de Polestar: el modo libre, tus propias misiones como guía. Se carga al iniciarlo.
+## Title-esMX: Polestar: modo libre
+## Notes-esMX: Parte de Polestar: el modo libre, tus propias misiones como guía. Se carga al iniciarlo.
+## Title-frFR: Polestar : mode libre
+## Notes-frFR: Fait partie de Polestar : le mode libre, vos propres quêtes comme guide. Chargé quand vous le lancez.
+## Title-koKR: Polestar 자유 모드
+## Notes-koKR: Polestar의 일부: 자유 모드, 내가 받은 퀘스트를 가이드로. 시작할 때 불러옵니다.
+## Title-ptBR: Polestar: modo livre
+## Notes-ptBR: Parte do Polestar: o modo livre, suas próprias missões como guia. Carregado ao iniciá-lo.
+## Title-ruRU: Polestar: свободный режим
+## Notes-ruRU: Часть Polestar: свободный режим, ваши собственные задания как гайд. Загружается при запуске.
+## Title-zhCN: Polestar 自由模式
+## Notes-zhCN: Polestar 的组成部分：自由模式，把你自己的任务当作指南。启动时加载。
+## Title-zhTW: Polestar 自由模式
+## Notes-zhTW: Polestar 的一部分：自由模式，把你自己的任務當作指南。啟動時載入。
+## Author: Polestar
+## Version: 0.4.3
+## Category: Polestar
+## Group: Polestar
+## LoadOnDemand: 1
+## Dependencies: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+
+Free.lua

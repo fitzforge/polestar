@@ -8502,6 +8502,83 @@ Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the qu
   fires on target change and mouseover; `/polestar mount` opens Lookup at the
   target's (else the mouseover's) mount, `/polestar lookup [text]` searches.
 
+### Free mode (`Lookup/Free.lua`, #3701)
+
+Polestar without a guide: the character's own quest log as a guide, in a tab
+of its own (planner kind `free`, guide id `lookup/free/log`), so the Engine
+runs it as any guide and everything that works off a guide in a tab works on
+it unchanged (the arrow, the target button, While you're here, auto accept
+and hand-in, party, Make room). Built from ideas and tests of AreChen's
+prototype (#4104).
+
+```lua
+Polestar.Free.GUIDE                            -- "lookup/free/log"
+Polestar.Free.Start() -> true | nil, reason     -- the Codex loads, the tab opens active; reason "combat" | "missing" | "login"
+Polestar.Free.Stop()                            -- the tab closes; the tab the player came from (else the first other) is active
+Polestar.Free.Toggle() ; Polestar.Free.IsOn() -> bool ; Polestar.Free.IsGuide(id) -> bool
+Polestar.Free.ReturnTitle() -> title | nil      -- the guide Stop hands back to
+Polestar.Free.Pin(questID, on) ; Polestar.Free.Pinned() -> questID | nil
+Polestar.Free.LeaveOut(questID, on) ; Polestar.Free.LeftOut() -> { questID, ... }
+Polestar.Free.SetPick("near" | "xp")            -- setting free.pick
+Polestar.Free.Steps(from?) -> steps, info       -- a plan as it stands (info.rows in order, info.hint, info.first)
+Polestar.Free.Plan(force?)                      -- plan again when what it reads moved
+Polestar.Free.MenuItems() ; Polestar.Free.RowItems(questID) -- the guide window's menu rows; a quest line's right-click rows
+/polestar free [on | off | back | nearest | xp]
+```
+
+- **Steps.** One per held quest (the log as listed, plus quests under a folded
+  header the character is still on), not left out: `Lookup.QuestStep`'s
+  objectives (placed at the spawn nearest the giver, with the spawn areas the
+  arrow re-picks from the player) and hand-in, without the accept, titled with
+  the client's quest title. A quest the data cannot place still has a step: its
+  own `complete`. With `free.details` (on by default) the hand-in carries
+  `rewards.xp` (the Codex's XP times `Levels.Share` at the player's level) and a
+  collect whose best placed source gives the item under 20% says "Low drop
+  rate: N%". An empty plan is one note step ("Pick up quests…"), and the
+  window's finished card then reads "No quests to lead to" with Return to
+  <guide> or Choose a guide.
+- **The pick rule** (`free.pick`). Each quest's next place: the hand-in when
+  ready, else its open objective nearest in a straight line; its travel is the
+  walking planner's (`Nav.EstimateTravel`, budgeted; else the straight line).
+  Tiers first: at the player's level on this continent; then a quest 3+ levels
+  above or with an elite target; then another continent or nowhere placed.
+  Nearest first: the travel less 10 s for each other quest's place within 150
+  yd (at most 3) and 6 s for a hand-in; after the first, each next quest is
+  the nearest to the last one's place, tier by tier. Most XP a minute: XP times
+  60 over the travel and the work left (15 s, then 27 s a kill, 22 s an item,
+  12 s anything else; 6 s a hand-in). The last plan's first quest stays first
+  while it scores within 1.2 times the best and 6 s (nearest; most XP: a rate
+  within a fifth), so a few yards never flip the arrow. A pinned quest
+  (`CharState().free.pin`) comes first; quests left out (`CharState().free.out`)
+  are not listed. Both go when the quest leaves the log.
+- **Zone hints** (`free.hints`). With no quest placed, or the first more than
+  300 s away, the first step is "Quests for your level": a `goto` to the hub of
+  the zone with the most quests the character can take now (side, race, class,
+  profession, a level above grey and at most 3 above the player, prerequisites
+  done, not done or held, a giver of its side with a spawn; scanned 300 Codex
+  quests a frame, once per level), the hub the giver with the most others
+  within 150 yd. None while the player stands within 150 yd of such a hub.
+- **Plans.** A plan reads the held quests, each one's ready state and finished
+  lines, the pin, the quests left out, the rule, the level and the map; it
+  runs 0.3 s after a quest-log event, a level-up or a zone change when any of
+  them moved (never per kill count), and at once on a pin, a leave-out or a
+  `free.*` setting. It builds the guide again and reopens it in its tab, at its
+  place and active as it was (`Engine.CloseTab(i, true)`, `OpenTab`,
+  `MoveTab`), as Lookup's generated guides reopen: placed from the quest log,
+  the first open quest live. While no Free mode tab is open the quest log's
+  events cost one flag test (`TABS_CHANGED` keeps it).
+- **The window.** The guide menu's "Free mode" row (on/off) and, while it is on,
+  the other order and "Bring back left-out quests (N)"; with no guide open, the
+  empty card's "Or follow your own quests: Free mode"; while it is the guide
+  shown, the banner (after every other notice but the update's) "Free mode: the
+  arrow takes your own quests, nearest first." with Return to <guide> and the
+  other order, closed for the session by its ×; a quest line's right-click has
+  Pin to the top / Unpin and Leave out of Free mode in place of Skip this
+  quest. Settings: Questing > Quests > Free mode (the switch, `free.pick`,
+  `free.hints`, `free.details`).
+- **After /reload.** A saved Free mode tab is rebuilt by Lookup's planner tabs
+  at ADDON_LOADED (the Codex loads then) and fills at the first quest-log event.
+
 ## Dungeons — dungeon quest journal, pick-up and hand-in guides
 
 The dungeon pages come from the Codex's instances (Toolchain, "Codex"): in a

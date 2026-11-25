@@ -126,7 +126,7 @@ end
 -- interface, names and guide texts to English; a
 -- source install may not build the packs), but when present they must be the
 -- same version.
-local COMPANIONS = { "Polestar_Guides", "Polestar_Codex", "Polestar_Options", "Polestar_Skins", "Polestar_Nav", "Polestar_Arcade", "Polestar_QuestDB", "Polestar_ItemDB" }
+local COMPANIONS = { "Polestar_Guides", "Polestar_Codex", "Polestar_Options", "Polestar_Skins", "Polestar_Nav", "Polestar_Arcade", "Polestar_FreeMode", "Polestar_QuestDB", "Polestar_ItemDB" }
 local REQUIRED = { Polestar_Guides = true, Polestar_Codex = true, Polestar_Options = true }
 
 -- The folders 0.4.3 folded into others (#3507): the game's looks, the Skin

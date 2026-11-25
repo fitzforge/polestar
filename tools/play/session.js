@@ -284,7 +284,7 @@ C_Map.GetMapArtID = function(id) local m = ART[id]; return m and m.artID end`);
 		// (C_AddOns.LoadAddOn), as in the client and forge-addontest's run.rs: the settings window
 		// (Polestar_Options, UI/OptionsLoader.lua) and our skins and layouts (Polestar_Skins, when one of them
 		// is picked under Theme: Theme/SkinApi.lua finds them by its TOC's `X-Polestar-Skin`, listed below).
-		for (const part of ['Polestar_Options', 'Polestar_Skins']) {
+		for (const part of ['Polestar_Options', 'Polestar_Skins', 'Polestar_FreeMode']) {
 			if (fs.existsSync(path.join(ADDONS, part, `${part}.toc`))) lines.push(`stub.packs.${part} = stub.packs.${part} or { ${tocFiles(part).map(luaString).join(', ')} }`);
 		}
 		// Freedoom Arcade (Polestar_Arcade), installed as in the client, loaded on demand by the first Play

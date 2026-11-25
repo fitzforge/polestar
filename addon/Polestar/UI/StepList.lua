@@ -190,7 +190,7 @@ local function row(i)
 	local r = SL.rows[i]
 	if r then return r end
 	r = CreateFrame("Button", nil, SL.scroll.Child)
-	r:RegisterForClicks("LeftButtonUp")
+	r:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	-- The card's ground and, over it, the lift of the step on screen.
 	r.Card = r:CreateTexture(nil, "BACKGROUND", nil, -1)
 	r.Card:SetTexture(Theme.Media("white"))
@@ -235,8 +235,18 @@ local function row(i)
 	r.Tick = W.Tex(r, "ARTWORK", "check", "success")
 	r.Tick:SetSize(12, 12)
 	r.Tick:Hide()
-	r:SetScript("OnClick", function(self)
+	r:SetScript("OnClick", function(self, button)
 		if not self.psIndex then return end
+		if button == "RightButton" then
+			-- In Free mode (Lookup/Free.lua) a quest's card: pin it first or leave it out.
+			local E, F = ns.Engine, ns.Free
+			local v = F and E and E.GetStepView(self.psIndex, true)
+			for _, g in ipairs(v and v.goals or {}) do
+				local items = g.quest and F.RowItems(g.quest)
+				if items then return W.ShowMenu(self, items) end
+			end
+			return
+		end
 		GF().LookAt(self.psIndex)
 		SL.Toggle(false)
 	end)

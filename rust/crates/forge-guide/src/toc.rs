@@ -164,6 +164,22 @@ static TEXT: &[(&str, [&str; 9], [&str; 9])] = &[
 			"Polestar 的一部分：設定視窗、外觀頁面及其預覽。開啟設定時載入。",
 		],
 	),
+	// Free mode (#3701): the quest-log modes, loaded the first time one starts.
+	(
+		"Polestar_FreeMode",
+		["Polestar-Freimodus", "Polestar: modo libre", "Polestar: modo libre", "Polestar : mode libre", "Polestar 자유 모드", "Polestar: modo livre", "Polestar: свободный режим", "Polestar 自由模式", "Polestar 自由模式"],
+		[
+			"Teil von Polestar: der Freimodus, deine eigenen Quests als Guide. Wird geladen, wenn du ihn startest.",
+			"Parte de Polestar: el modo libre, tus propias misiones como guía. Se carga al iniciarlo.",
+			"Parte de Polestar: el modo libre, tus propias misiones como guía. Se carga al iniciarlo.",
+			"Fait partie de Polestar : le mode libre, vos propres quêtes comme guide. Chargé quand vous le lancez.",
+			"Polestar의 일부: 자유 모드, 내가 받은 퀘스트를 가이드로. 시작할 때 불러옵니다.",
+			"Parte do Polestar: o modo livre, suas próprias missões como guia. Carregado ao iniciá-lo.",
+			"Часть Polestar: свободный режим, ваши собственные задания как гайд. Загружается при запуске.",
+			"Polestar 的组成部分：自由模式，把你自己的任务当作指南。启动时加载。",
+			"Polestar 的一部分：自由模式，把你自己的任務當作指南。啟動時載入。",
+		],
+	),
 	// Polestar's ten skins and the Atlas layout (one folder since 0.4.3, #3507): loaded with the first one used or
 	// listed.
 	(

@@ -14,6 +14,9 @@ pub const SKINS: &str = "Polestar_Skins";
 /// FREEDOOM-COPYING.txt, CREDITS.md), loaded on demand the first time Play is pressed; shipped when present
 /// (committed), right after the settings and the skins.
 pub const ARCADE: &str = "Polestar_Arcade";
+/// Free mode (#3701), the quest-log modes, loaded on demand when one starts; shipped when present (committed),
+/// right after Freedoom Arcade.
+pub const FREE_MODE: &str = "Polestar_FreeMode";
 /// Parts of a shipped folder that stay in the repository and out of the release zip (archive paths; a name
 /// ending in `/` is a folder and everything in it): Freedoom Arcade's own build, test and publish scripts, its
 /// CurseForge page images, and the standalone addon's TOC under src/ (the client never reads a TOC there).
@@ -77,7 +80,7 @@ fn has_toc(addons: &Path, name: &str) -> bool {
 /// Leffe's, loaded on demand by Polestar_Nav's router).
 pub const NAV_PARTS: [&str; 2] = ["Polestar_Nav_EK", "Polestar_Nav_Kalimdor"];
 
-/// The release's folders: the four always shipped, our skins and Freedoom Arcade's folder when there, the walking
+/// The release's folders: the four always shipped, our skins, Freedoom Arcade's and Free mode's folders when there, the walking
 /// maps' part addons when written, our guides' faction parts once built (with their races' guides and legs
 /// inside), then the data addons that are built (our guides' texts are in the language folders).
 pub fn release_addons(addons: &Path) -> Result<Release, String> {
@@ -85,7 +88,7 @@ pub fn release_addons(addons: &Path) -> Result<Release, String> {
 	let factions = forge_guide::project::FACTION_PARTS.iter().map(|f| forge_guide::project::part_addon(guides, f));
 	let (data, skipped): (Vec<String>, Vec<String>) = data_addons().into_iter().partition(|n| has_toc(addons, n));
 	let mut names: Vec<String> = RELEASE_ADDONS.iter().map(|s| s.to_string()).collect();
-	names.extend([SKINS, ARCADE].iter().map(|s| s.to_string()).filter(|n| has_toc(addons, n)));
+	names.extend([SKINS, ARCADE, FREE_MODE].iter().map(|s| s.to_string()).filter(|n| has_toc(addons, n)));
 	names.extend(NAV_PARTS.iter().map(|s| s.to_string()).filter(|n| has_toc(addons, n)));
 	names.extend(factions.filter(|n| has_toc(addons, n)));
 	names.extend(data);
@@ -248,8 +251,8 @@ mod tests {
 		assert_eq!(folded_addons(&root), ["Polestar_Looks", "Polestar_Skin_Sheen", "Polestar_Guides_Orc"]);
 	}
 
-	// Our skins' and Freedoom Arcade's folders ship when they are there (both are committed), after the settings
-	// and before the walking maps' parts.
+	// Our skins', Freedoom Arcade's and Free mode's folders ship when they are there (all committed), after the
+	// settings and before the walking maps' parts.
 	#[test]
 	fn the_skins_and_arcade_folders_ship_after_the_settings_when_they_are_there() {
 		let root = tmp("arcade");
@@ -257,14 +260,16 @@ mod tests {
 			addon(&root, n);
 		}
 		let names = release_addons(&root).unwrap().names;
-		assert!(!names.contains(&ARCADE.to_string()) && !names.contains(&SKINS.to_string()));
+		assert!(!names.contains(&ARCADE.to_string()) && !names.contains(&SKINS.to_string()) && !names.contains(&FREE_MODE.to_string()));
 		addon(&root, ARCADE);
 		addon(&root, SKINS);
+		addon(&root, FREE_MODE);
 		let names = release_addons(&root).unwrap().names;
 		let at = |n: &str| names.iter().position(|x| x == n).unwrap();
 		assert_eq!(at(SKINS), at("Polestar_Options") + 1);
 		assert_eq!(at(ARCADE), at(SKINS) + 1);
-		assert!(at(ARCADE) < at("Polestar_Nav_EK"));
+		assert_eq!(at(FREE_MODE), at(ARCADE) + 1);
+		assert!(at(FREE_MODE) < at("Polestar_Nav_EK"));
 	}
 
 	#[test]

@@ -72,6 +72,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		local function group() if #items > 0 and not items[#items].separator then add({ separator = true }) end end
 		local reopen = not several and GF.ReopenItem()
 		if reopen then add(reopen) end
+		-- Free mode (Lookup/Free.lua): on or off, and while on its order and the quests left out.
+		for _, it in ipairs(ns.Free and ns.Free.MenuItems() or {}) do add(it) end
 		-- A header with no Lookup (a skin's layout hid it) has it here.
 		if not inHeader("Lookup") then
 			add({ text = L["Lookup"], icon = "search", onClick = function() UI.ShowLookup() end })

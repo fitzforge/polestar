@@ -134,6 +134,21 @@ const TEXT = {
 			zhTW: 'Polestar 的一部分：設定視窗、外觀頁面及其預覽。開啟設定時載入。',
 		},
 	},
+	// Free mode (#3701): the quest-log modes, loaded the first time one starts.
+	Polestar_FreeMode: {
+		title: { deDE: 'Polestar-Freimodus', esES: 'Polestar: modo libre', esMX: 'Polestar: modo libre', frFR: 'Polestar : mode libre', koKR: 'Polestar 자유 모드', ptBR: 'Polestar: modo livre', ruRU: 'Polestar: свободный режим', zhCN: 'Polestar 自由模式', zhTW: 'Polestar 自由模式' },
+		notes: {
+			deDE: 'Teil von Polestar: der Freimodus, deine eigenen Quests als Guide. Wird geladen, wenn du ihn startest.',
+			esES: 'Parte de Polestar: el modo libre, tus propias misiones como guía. Se carga al iniciarlo.',
+			esMX: 'Parte de Polestar: el modo libre, tus propias misiones como guía. Se carga al iniciarlo.',
+			frFR: 'Fait partie de Polestar : le mode libre, vos propres quêtes comme guide. Chargé quand vous le lancez.',
+			koKR: 'Polestar의 일부: 자유 모드, 내가 받은 퀘스트를 가이드로. 시작할 때 불러옵니다.',
+			ptBR: 'Parte do Polestar: o modo livre, suas próprias missões como guia. Carregado ao iniciá-lo.',
+			ruRU: 'Часть Polestar: свободный режим, ваши собственные задания как гайд. Загружается при запуске.',
+			zhCN: 'Polestar 的组成部分：自由模式，把你自己的任务当作指南。启动时加载。',
+			zhTW: 'Polestar 的一部分：自由模式，把你自己的任務當作指南。啟動時載入。',
+		},
+	},
 	// Polestar's ten skins and the Atlas layout (one folder since 0.4.3, #3507): loaded with the first one used or listed.
 	Polestar_Skins: {
 		title: { deDE: 'Polestar-Skins', esES: 'Polestar: aspectos', esMX: 'Polestar: aspectos', frFR: 'Polestar : skins', koKR: 'Polestar 스킨', ptBR: 'Polestar: aparências', ruRU: 'Polestar: облики', zhCN: 'Polestar 皮肤', zhTW: 'Polestar 外觀主題' },

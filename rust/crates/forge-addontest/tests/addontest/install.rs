@@ -40,6 +40,7 @@ const RELEASE: &[&str] = &[
 	"Polestar_Options",
 	"Polestar_Skins",
 	"Polestar_Arcade",
+	"Polestar_FreeMode",
 	"Polestar_deDE",
 	"Polestar_zhCN",
 ];

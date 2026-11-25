@@ -244,6 +244,8 @@ mod engine_zone_walk;
 mod faction_guides;
 #[path = "flight-map-notice.rs"]
 mod flight_map_notice;
+#[path = "free-mode.rs"]
+mod free_mode;
 mod gamepad;
 #[path = "gamepad-ui.rs"]
 mod gamepad_ui;
