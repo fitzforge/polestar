@@ -692,29 +692,49 @@ function Q.StartedBy(itemID)
 	return startedBy[itemID]
 end
 
--- All known quests that start from, request, or use an item. Built only when
--- bag marks ask, and rebuilt if more quest chunks arrive.
-local itemQuests, itemQuestsOf
+-- All known quests that start from, request, or use an item. Built when bag
+-- marks first ask, and again once more quest chunks arrived, Q.ITEM_SLICE
+-- quests a frame: reading every quest's record at once took one frame 130 ms
+-- (Fitz's 0.4.3-rc probe, the bags painted 25 s after login; 6,214 quests).
+-- Until it is in an item has none (nil), and QUESTDB_ITEM_QUESTS says it is.
+Q.ITEM_SLICE = 100
+local itemQuests, itemQuestsOf, itemNext -- the index, the ids it is built from, the next id's place while building
+local function itemSlice()
+	local ids, from = itemQuestsOf, itemNext
+	if not from then return end
+	local function add(item, quest)
+		if not item then return end
+		local list = itemQuests[item]
+		if not list then list = {}; itemQuests[item] = list end
+		if list[#list] ~= quest then list[#list + 1] = quest end
+	end
+	local last = math.min(#ids, from + Q.ITEM_SLICE - 1)
+	for k = from, last do
+		local q = ids[k]
+		local rec = data.quests[q]
+		for _, item in Each(rec and rec[QUEST_START_ITEM]) do add(item, q) end
+		for _, item in Each(rec and rec[QUEST_ITEMS]) do add(item, q) end
+		local obj = rec and rec[QUEST_OBJ]
+		if type(obj) == "table" then
+			for i, kind in pairs(obj) do if i % 3 == 1 and kind == 2 then add(obj[i + 1], q) end end
+		end
+	end
+	if last < #ids then
+		itemNext = last + 1
+		ns.After(0, itemSlice)
+		return
+	end
+	itemNext = nil
+	ns.Fire("QUESTDB_ITEM_QUESTS")
+end
 function Q.ItemQuests(itemID)
 	local ids = Q.QuestIds()
 	if itemQuestsOf ~= ids then
-		itemQuests, itemQuestsOf = {}, ids
-		local function add(item, quest)
-			if not item then return end
-			local list = itemQuests[item]
-			if not list then list = {}; itemQuests[item] = list end
-			if list[#list] ~= quest then list[#list + 1] = quest end
-		end
-		for _, q in ipairs(ids) do
-			local rec = data.quests[q]
-			for _, item in Each(rec and rec[QUEST_START_ITEM]) do add(item, q) end
-			for _, item in Each(rec and rec[QUEST_ITEMS]) do add(item, q) end
-			local obj = rec and rec[QUEST_OBJ]
-			if type(obj) == "table" then
-				for i, kind in pairs(obj) do if i % 3 == 1 and kind == 2 then add(obj[i + 1], q) end end
-			end
-		end
+		local building = itemNext ~= nil
+		itemQuests, itemQuestsOf, itemNext = {}, ids, 1
+		if not building then ns.After(0, itemSlice) end
 	end
+	if itemNext then return nil end
 	return itemQuests[itemID]
 end
 

@@ -6696,7 +6696,9 @@ needs it is (`QuestDB.IsWanted()`: map/minimap objectives, available quests,
 turn-ins, tooltips, nameplates); turning the first one on later loads it then,
 and a load refused in combat is retried when combat ends. It fires
 `QUESTDB_LOADED`, then `QUESTDB_STARTED`; `QUESTDB_UPDATED` follows every
-change to the tracked quest log. Record layouts: `rust/crates/forge-data/src/questdb.rs`;
+change to the tracked quest log; `QUESTDB_ITEM_QUESTS` once the item-to-quests
+index the bags' leftover borders read (`QuestDB.ItemQuests`, built over frames,
+`QuestDB.ITEM_SLICE` quests a frame) is in. Record layouts: `rust/crates/forge-data/src/questdb.rs`;
 the records stay LuaChunks text (`Core/LuaChunks.lua`) and are decoded when read, so the
 loaded database costs about 1.2 MiB, not the 6.6 MiB of tables it took (#693).
 An entity's spawn clusters (70 yd) cover every known spawn on each map (the
