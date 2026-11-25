@@ -86,10 +86,13 @@ async function runDraft(rest) {
 	};
 	// Where the compiler can place `collect <item> nearest`: the same farm spots
 	// it compiles (tools/lib/dsl/farmspots.js), so a drafted step never fails
-	// lint for want of a qualifying dropper. -> { Alliance, Horde }: the lowest
-	// mob level among the spots that side may use, or null when there is none.
+	// lint for want of a qualifying dropper. -> { Alliance, Horde, top, best, camps }:
+	// the lowest mob level among the spots that side may use (null when there is
+	// none), the highest mob level of any spot, and the names of the three best
+	// spots' mobs (items per kill x spawns), for the step's tip, and whether any
+	// spot is a camp of MIN_SPAWNS or more.
 	const { loadData } = require('../lib/dsl/data');
-	const { farmSpots } = require('../lib/dsl/farmspots');
+	const { farmSpots, MIN_SPAWNS } = require('../lib/dsl/farmspots');
 	const compiled = loadData(dataDir);
 	const lowest = (list) => (list.length ? Math.min(...list.map((s) => s.lvl.min)) : null);
 	data.farmable = (item) => {
@@ -97,6 +100,10 @@ async function runDraft(rest) {
 		return {
 			Alliance: lowest(spots.filter((s) => s.faction === 'A' || s.faction === 'AH')),
 			Horde: lowest(spots.filter((s) => s.faction === 'H' || s.faction === 'AH')),
+			top: spots.length ? Math.max(...spots.map((s) => s.lvl.max)) : null,
+			// Only lone mobs (a named turtle for Iridescent Pearl): no camp to farm.
+			camps: spots.some((s) => s.spawns >= MIN_SPAWNS),
+			best: [...new Set([...spots].sort((a, b) => b.rate * b.spawns - a.rate * a.spawns).map((s) => s.npcName))].slice(0, 3),
 		};
 	};
 	const { text, plan } = draftGuide(positionals[0], data);

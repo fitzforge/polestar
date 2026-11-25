@@ -307,7 +307,7 @@ function farmSpot(itemId, kind, side, home, data, minChance = 0, opts = {}) {
 	// level) is the one a character gathering these materials is likely near.
 	const best = pool.filter((c) => c.score >= pool[0].score * NEAR_BEST).sort((a, b) => lvl(a) - lvl(b) || b.score - a.score || a.id - b.id || a.map - b.map)[0];
 	const [x, y] = densest(best.pts);
-	return { map: best.map, x: round1(x), y: round1(y), label: best.label, level: best.level, object: !best.level, chance: best.chance, frame: best.f === 'l' ? 'live' : 'era' };
+	return { map: best.map, x: round1(x), y: round1(y), label: best.label, level: best.level, object: !best.level, id: best.id, chance: best.chance, frame: best.f === 'l' ? 'live' : 'era' };
 }
 
 // Skinned materials by the level of the beasts that yield them (Classic game
@@ -913,11 +913,18 @@ function draftGuide(name, data, opts = {}) {
 				world();
 				if (need.length === 1) line(`  only ${need[0]}`);
 			};
-			if (ok && need.every((side) => MOB_KINDS.has(t.src[side].kind) && ok[side] != null)) {
+			if (ok && ok.camps !== false && need.every((side) => MOB_KINDS.has(t.src[side].kind) && ok[side] != null)) {
 				const lows = need.map((side) => ok[side]);
 				const lv = cloth ? D.CLOTH_LEVELS[matName(t.item)] : null;
-				const levels = lv ? ` levels ${lv[0]}-${lv[1]}` : ` levels ${Math.min(...lows)}-${Math.max(...lows)}`;
-				const from = cloth ? `Humanoids${lv ? ` of level ${lv[0]}-${lv[1]}` : ''} drop it, and what you loot as you level counts` : `${capital(D.sourceText(data, t.item, mats[t.item], t.src[need[0]], need[0], { market: false }))}`;
+				// Mix's levels: the cloth's band, else the lowest spot's mobs to the highest spot's.
+				const lo = Math.min(...lows);
+				const hi = Math.max(lo + 1, ok.top || 0, ...lows);
+				const levels = lv ? ` levels ${lv[0]}-${lv[1]}` : ` levels ${lo}-${hi}`;
+				const from = cloth
+					? `Humanoids${lv ? ` of level ${lv[0]}-${lv[1]}` : ''} drop it, and what you loot as you level counts`
+					: ok.best && ok.best.length
+						? `${matName(t.item)} drops most from ${D.list(ok.best)}, among others`
+						: `${capital(D.sourceText(data, t.item, mats[t.item], t.src[need[0]], need[0], { market: false }))}`;
 				getIt(
 					matName(t.item),
 					farmHead,
@@ -1020,7 +1027,11 @@ function draftGuide(name, data, opts = {}) {
 				// A bar Mining smelts from ore: the ore's densest vein cluster per faction,
 				// in zones a character at the bracket's start works in (Iron Bar: Iron
 				// Deposits), else a bag count.
-				const ore = maker && maker.name === 'Mining' ? oreOf(t.item) : null;
+				// A bar that chests or mobs drop too (Silver Bar) is placed by those sources
+				// when compiled, never at a vein: a bag count.
+				const barDrops = (((data.items || {})[t.item] || {}).drops) || {};
+				const dropsToo = Object.keys(barDrops.npc || {}).length > 0 || Object.keys(barDrops.object || {}).length > 0;
+				const ore = maker && maker.name === 'Mining' && !dropsToo ? oreOf(t.item) : null;
 				const oreSpots = ore ? SIDES.map((side) => ({ side, spot: farmSpot(ore, 'mine', side, homeOf(side), data, 0, { maxZone: maxZoneLevel(b.from) }) })) : [];
 				if (way && oreSpots.length && oreSpots.every((x) => x.spot && !rare(x.spot))) {
 					const one = sameSpot(oreSpots[0].spot, oreSpots[1].spot);
@@ -1063,11 +1074,11 @@ function draftGuide(name, data, opts = {}) {
 					line(`  zone ${zoneName(s.map)}`);
 					curZone = zoneName(s.map);
 				};
-				const about = `${capital(D.sourceText(data, t.item, mats[t.item], s0, side || 'Alliance', { zones: !e.races, marked: s.map, market: false }))}.`;
+				const about = s0.kind === 'fishing' ? '' : `${capital(D.sourceText(data, t.item, mats[t.item], s0, side || 'Alliance', { zones: !e.races, marked: s.map, market: false }))}.`;
 				const here = {
 					herb: `The densest patch of ${s.label} in ${zoneName(s.map)} is marked`,
 					mine: `The densest cluster of ${s.label} in ${zoneName(s.map)} is marked`,
-					fishing: `Fish ${s.label} here`,
+					fishing: `Fish them from the ${s.label} pools at the marked spot`,
 					skinning: s.beasts ? `Skin ${D.list(s.beasts)} here (level ${s.min}-${s.max}); the Skinning guide routes this` : `Kill and skin ${s.label} (level ${s.level}) here`,
 				}[s0.kind] || (s.object ? `Open the ${s.label}s here` : `It drops from ${s.label} (level ${s.level}) here`);
 				// A drop's own note names the first dropper in the data (often a rare or a
@@ -1082,7 +1093,7 @@ function draftGuide(name, data, opts = {}) {
 					fishing: () => ' Fishing 1',
 					skinning: () => ` Skinning ${skinSkill(s.min != null ? s.min : parseInt(String(s.level), 10) || 1)}`,
 				}[s0.kind];
-				getIt(title, head, dropAbout || `${about} ${here}.`, `  collect ${t.item} x${t.count} @${s.x},${s.y} ${s.frame || 'era'}${mark(facts ? facts() : s.object ? '' : levelsOf(s.level))}`);
+				getIt(title, head, dropAbout || `${about ? `${about} ` : ''}${here}.`, `  collect ${t.item} x${t.count} @${s.x},${s.y} ${s.frame || 'era'}${mark(facts ? facts() : s.object ? '' : levelsOf(s.level))}`);
 			}
 		}
 		// The Auction House, last: what has no Get it step, and the patterns.
