@@ -241,9 +241,8 @@ fn skip_passes_the_step_and_its_turn_in_goes_with_it_do_keeps_the_quest_on_the_r
 // "No group? Skip it"; skipped, the route goes on without it.
 #[test]
 fn a_do_answer_names_the_quest_at_its_step_and_a_later_skip_passes_it() {
-	let out = run(opts(
-		r#"emit(E.GroupDoing() or false); E.AnswerGroup(7, "do"); flush(); emit({ E.GroupDoing() }); E.AnswerGroup(7, "skip"); flush(); emit({ at = at(), q = E.GroupDoing() or false })"#,
-	));
+	let out =
+		run(opts(r#"emit(E.GroupDoing() or false); E.AnswerGroup(7, "do"); flush(); emit({ E.GroupDoing() }); E.AnswerGroup(7, "skip"); flush(); emit({ at = at(), q = E.GroupDoing() or false })"#));
 	assert_eq!(out[0], json!(false), "unanswered: asked, not doing");
 	assert_eq!(out[1][0], json!(7));
 	assert_eq!(out[2], json!({ "at": 3, "q": false }));
@@ -273,11 +272,7 @@ fn an_elite_goal_in_the_live_step_is_named_for_no_group_skip_it_and_skipping_its
 	});
 	assert_eq!(out[0], json!([1, 783, "A Threat Within", "elite", 1]));
 	assert_eq!(out[1], json!({ "at": 2, "q": false }));
-	let near = run(Opts {
-		guide: &ELITE_GUIDE.replace("rank = 1 }", "rank = 1, near = true }"),
-		before: "w.onQuest(783, { 1 })",
-		..opts("emit(E.GroupDoing() or false)")
-	});
+	let near = run(Opts { guide: &ELITE_GUIDE.replace("rank = 1 }", "rank = 1, near = true }"), before: "w.onQuest(783, { 1 })", ..opts("emit(E.GroupDoing() or false)") });
 	assert_eq!(near[0], json!(false), "an object among elites needs no group");
 }
 
