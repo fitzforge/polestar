@@ -482,7 +482,9 @@ end
 -- costs[i] is nil until settled, an exact running-yard cost afterwards, or false when unreachable; job.yards[i]
 -- beside it the yards along its cost-best path (equal to costs[i] on a format 1 map). job.radius
 -- bounds every unsettled target, including a popped entrance whose expansion has not finished. Pause/Resume
--- retain the frontier. Missing data or an invalid source completes with all false plus a reason.
+-- retain the frontier. Missing data or an invalid source completes with all false plus a reason. In a strict batch
+-- (opts.walkLevel) a target's `first` and `bound` fields order and bound the work (Path.lua Safe.many); job.unjoined,
+-- job.capped and job.pruned say why targets were left unpriced (nil: the caller's estimate).
 ---@param map number
 ---@param from SPFPoint
 ---@param targets SPFPoint[]
