@@ -1276,10 +1276,7 @@ emit({ icon = icon, first = first, sideBySide = y1 == y2 and x2 > x1, sameHeight
 	assert_eq!(out["titles"], json!(["Wailing Caverns", "The Deadmines"]), "the title is the instance the card opens: {out}");
 	assert_eq!(
 		out["metas"],
-		json!([
-			"Fang of the Serpent  ·  Attunement  ·  Everyone entering needs it  ·  From level 17",
-			"Smelting Key  ·  Key  ·  One in the group is enough"
-		]),
+		json!(["Fang of the Serpent  ·  Attunement  ·  Everyone entering needs it  ·  From level 17", "Smelting Key  ·  Key  ·  One in the group is enough"]),
 		"the key's own name leads the facts: {out}"
 	);
 	assert_eq!(out["last"], json!(["smelting-key", "check", 0.6]), "done: ticked, at the end, dimmed: {out}");
