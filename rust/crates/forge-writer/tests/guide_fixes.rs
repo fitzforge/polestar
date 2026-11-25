@@ -93,14 +93,6 @@ fn report_2282_warns_at_arnak_and_lakota_even_when_the_writer_separates_their_st
 }
 
 #[test]
-fn report_2282_does_not_add_the_horde_detour_warning_to_other_routes() {
-	let before = format!("guide forever/alliance/test\nzone Thousand Needles\n\nstep Lakota Windsong\n{ARNAK}{LAKOTA}");
-	let (after, rows) = written(&before, "Alliance", &[5147, 4904]);
-	assert_eq!(after, before);
-	assert!(rows.iter().all(|r| r.state == "not for this start"));
-}
-
-#[test]
 fn no_honor_among_thieves_detour_requires_the_quest_but_pickup_and_main_route_do_not() {
 	const BOOTY_BAY: &str = "forever/alliance/30-40/04b-stranglethorn-vale.guide";
 	const ARATHI: &str = "forever/alliance/30-40/05-arathi-highlands.guide";
@@ -137,4 +129,12 @@ fn no_honor_among_thieves_detour_requires_the_quest_but_pickup_and_main_route_do
 	assert!(steps[7].contains("only Hunter,Druid") && !steps[7].contains("when onquest 79242"));
 	assert!(steps[8].contains("turnin 693") && !steps[8].contains("when onquest 79242"));
 	assert!(write(&mut tree).iter().all(|r| r.state == "redundant"));
+}
+
+#[test]
+fn report_2282_does_not_add_the_horde_detour_warning_to_other_routes() {
+	let before = format!("guide forever/alliance/test\nzone Thousand Needles\n\nstep Lakota Windsong\n{ARNAK}{LAKOTA}");
+	let (after, rows) = written(&before, "Alliance", &[5147, 4904]);
+	assert_eq!(after, before);
+	assert!(rows.iter().all(|r| r.state == "not for this start"));
 }
