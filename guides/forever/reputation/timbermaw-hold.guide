@@ -132,18 +132,10 @@ step Kernda: the Winterfall totem
   turnin 8471
 
 step To Azshara
-  only Horde
   when rep "Timbermaw Hold" Neutral
-  tip Neutral opens Ursolan, the camp of the Blackmaw furbolgs in northern Azshara: their quests and Gorn One Eye's in Timbermaw Hold are levels 53-55, about 50,000 experience below level 60, all outdoors. Below Neutral the Blackmaw attack you.
-  fly "Valormok"
   zone Azshara
-
-step To Azshara
-  only Alliance
-  when rep "Timbermaw Hold" Neutral
-  tip Neutral opens Ursolan, the camp of the Blackmaw furbolgs in northern Azshara: their quests and Gorn One Eye's in Timbermaw Hold are levels 53-55, about 50,000 experience below level 60, all outdoors. Below Neutral the Blackmaw attack you.
-  fly "Talrendis Point"
-  zone Azshara
+  tip Neutral opens Ursolan, the camp of the Blackmaw furbolgs in northern Azshara: their quests and Gorn One Eye's in Timbermaw Hold are levels 53-55, about 50,000 experience below level 60, all outdoors. Below Neutral the Blackmaw attack you. The nearest flight masters are Valormok (Horde) and Talrendis Point (Alliance); Ekkal camps by the road between them and Ursolan.
+  goto 41.9,38.9 "Ekkal's camp"
 
 step Ekkal
   when rep "Timbermaw Hold" Neutral
@@ -284,21 +276,15 @@ step Elder Bramblesnap
   turnin 86813
 
 step To Timbermaw Hold
-  only Horde
   when onquest 86798
-  fly "Bloodvenom Post"
   zone Felwood
-
-step To Timbermaw Hold
-  only Alliance
-  when onquest 86798
-  fly "Talonbranch Glade"
-  zone Felwood
+  tip Back to Felwood: fly to Bloodvenom Post (Horde) or Talonbranch Glade (Alliance) and ride north up the road to the Felwood mouth of the tunnel.
+  goto 64.7,8.1 "Timbermaw Hold"
 
 step Gorn One Eye
   when onquest 86798
   zone Felwood
-  tip Ride north up the road to the Felwood mouth of the tunnel: Gorn One Eye stands just inside, by Kernda and Meilosh.
+  tip Gorn One Eye stands just inside the tunnel, by Kernda and Meilosh.
   turnin 86798
   accept 87346
 
