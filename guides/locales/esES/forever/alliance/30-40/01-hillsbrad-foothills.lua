@@ -31,17 +31,17 @@ return {
 	["{area:1038}: kill these as you meet them"] = "{area:1038}: mátalos según te los encuentres",
 	-- {area:1036} Angerfang Encampment · {area:205} Dun Modr · {area:1025} Green Belt · {item:280331} Malignant Rotclaw Flesh · {quest:98283} Carnage
 	-- plural, as words: Maddened Rotclaws = {npc:271334} Maddened Rotclaw
-	["The whelps nest in the hills north-east of the {area:1036}, and the Razormaw raptors hunt the highlands on the way north to {area:205}. The Maddened Rotclaws that roam these hills and the {area:1025} drop the {item:280331} that calls {quest:98283} out.\n{quest:98283} is elite: grouping up is advised."] = "",
+	["The whelps nest in the hills north-east of the {area:1036}, and the Razormaw raptors hunt the highlands on the way north to {area:205}. The Maddened Rotclaws that roam these hills and the {area:1025} drop the {item:280331} that calls {quest:98283} out.\n{quest:98283} is elite: grouping up is advised."] = "Las crías anidan en las colinas al noreste de {area:1036}, y los raptores Faucedaga cazan en las tierras altas camino del norte hacia {area:205}. Las Garrapútridas enloquecidas ({npc:271334}) que vagan por estas colinas y {area:1025} sueltan {item:280331} que hace salir a {quest:98283}.\n{quest:98283} es élite: se recomienda ir en grupo.",
 	-- {item:280331} Malignant Rotclaw Flesh · {quest:98283} Carnage
-	["{item:280331}, for {quest:98283}"] = "",
+	["{item:280331}, for {quest:98283}"] = "{item:280331}, para {quest:98283}",
 
 	-- Step 8: Carnage
 	-- {quest:98283} Carnage · {item:280331} Malignant Rotclaw Flesh · {area:1038} Dragonmaw Gates
-	["{quest:98283} only comes out when the {item:280331} is used at his lair on the hill north of the {area:1038}. He is a level 30 elite: grouping up is advised."] = "",
+	["{quest:98283} only comes out when the {item:280331} is used at his lair on the hill north of the {area:1038}. He is a level 30 elite: grouping up is advised."] = "{quest:98283} solo sale cuando se usa {item:280331} en su guarida, en la colina al norte de {area:1038}. Es un élite de nivel 30: se recomienda ir en grupo.",
 	-- {quest:98283} Carnage
-	["{quest:98283} comes out to it"] = "",
+	["{quest:98283} comes out to it"] = "{quest:98283} sale a por ella",
 	-- {item:280331} Malignant Rotclaw Flesh · {quest:98283} Carnage
-	["Use the {item:280331} at {quest:98283}'s lair"] = "",
+	["Use the {item:280331} at {quest:98283}'s lair"] = "Usa {item:280331} en la guarida de {quest:98283}",
 
 	-- Step 9: Razormaw nests
 	["Razormaw nests"] = "Nidos Tajobuche",
@@ -75,8 +75,9 @@ return {
 	["{npc:1073}, in the camp"] = "{npc:1073}, en el campamento",
 
 	-- Step 15: Captive Fire Elemental
-	-- {npc:271481} Captive Fire Elemental · {object:147516} Dark Iron · {npc:1364} Balgaras the Foul · {npc:1072} Roggo Harlbarrow
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "Son enemigos élite: se recomienda agruparse, busca gente con quien hacerlo. {npc:271481} está retenido en el extremo oeste de las ruinas de {object:147516}, pasando enanos élite de nivel 27-30, y {npc:1364} (34, élite) puede estar entre ellos. Llévalo al este, fuera de las ruinas, y entrégalo a {npc:1072} en el campamento. Sáltalo si vas solo.",
+	-- {npc:275049} Captive Fire Elemental · {object:147516} Dark Iron · {npc:1364} Balgaras the Foul · {npc:1072} Roggo Harlbarrow
+	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "Son enemigos élite: se recomienda agruparse, busca gente con quien hacerlo. {npc:271481} está retenido en el extremo oeste de las ruinas de {object:147516}, pasando enanos élite de nivel 27-30, y {npc:1364} (34, élite) puede estar entre ellos. Llévalo al este, fuera de las ruinas, y entrégalo a {npc:1072} en el campamento. Sáltalo si vas solo."
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:275049} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "Son enemigos élite: se recomienda ir en grupo, busca gente con quien hacerlo. {npc:275049} está retenido en el extremo oeste de las ruinas de {object:147516}, más allá de enanos élite de nivel 27-30, y {npc:1364} (34, élite) puede estar entre ellos. Sácalo hacia el este de las ruinas y entrégalo a {npc:1072} en el campamento. Sáltala si vas solo.",
 
 	-- Step 16: Modr
 	-- {npc:271460} Modr · {area:205} Dun Modr · {item:279996} Goaz Stone
@@ -162,7 +163,7 @@ return {
 
 	-- Step 34: Prospector Whelgar
 	-- {item:287959} Titan Relic · {npc:1077} Prospector Whelgar · {quest:98824} Prehistoric Prism
-	["The {item:287959} is already with {npc:1077}: take {quest:98824} from him, below ground in his dig, south of the road west."] = "",
+	["The {item:287959} is already with {npc:1077}: take {quest:98824} from him, below ground in his dig, south of the road west."] = "{item:287959} ya está con {npc:1077}: acepta {quest:98824} de él, bajo tierra en su excavación, al sur del camino del oeste.",
 
 	-- Step 35: Menethil Harbor
 	["West along the road to Menethil."] = "Al oeste por el camino hasta Puerto de Menethil.",
@@ -356,6 +357,7 @@ return {
 	-- ["The whelps nest in the hills north-east of the {area:1036}; {quest:98283} prowls further north, and the Razormaw raptors hunt the highlands on the way north to {area:205}.\n{quest:98283} is elite: grouping up is advised."] = "Las crías anidan en las colinas al noreste de {area:1036}; {quest:98283} merodea más al norte, y los raptores Tajobuche cazan en las tierras altas de camino al norte hacia {area:205}.\n{quest:98283} es élite: se recomienda agruparse.",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "Los yetis viven en la cueva de las colinas al norte de {area:271}, de camino al norte hacia el campamento del Sindicato.\nQuédate en {area:277}: la cueva más al norte tiene Yetis monteses y Yetis gigantes (32-34) en parejas y a {npc:13602}, un élite de nivel 36.",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on your way back south."] = "Los yetis viven en la cueva de las colinas al norte de {area:271}, de camino de vuelta al sur.",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "Son enemigos élite: se recomienda agruparse, busca gente con quien hacerlo. {npc:271481} está retenido en el extremo oeste de las ruinas de {object:147516}, pasando enanos élite de nivel 27-30, y {npc:1364} (34, élite) puede estar entre ellos. Llévalo al este, fuera de las ruinas, y entrégalo a {npc:1072} en el campamento. Sáltalo si vas solo.",
 	-- ["West to the farms of {area:287}: place the {item:279386} on the bookkeeping table in the town hall, where {npc:2335} and the councilmen stand."] = "Al oeste, hasta las granjas de {area:287}: pon la {item:279386} en la mesa de contabilidad del ayuntamiento, donde están {npc:2335} y los Consejeros de Trabalomas.",
 	-- ["Whelps, raptors and {npc:271458}"] = "Crías, raptores y {npc:271458}",
 	-- ["for {npc:2700} at {area:320}, in 05-arathi-highlands"] = "para {npc:2700} en {area:320}, en 05-arathi-highlands",

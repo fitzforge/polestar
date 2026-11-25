@@ -1624,3 +1624,40 @@ fn the_class_quest_card_in_the_guide_window_keeps_the_general_text_size() {
 	assert!((out["guideGuide"].as_f64().unwrap() - 1.4).abs() < 0.05, "and sizes the window around it: {}", out["guideGuide"]);
 	assert!((out["cardGeneral"].as_f64().unwrap() - 0.8).abs() < 0.05, "the card follows the general size: {}", out["cardGeneral"]);
 }
+
+// Fitz's 0.4.3-rc probe: a look setting changed with the settings window open cost 427-461 ms frames. The font
+// repaint (every themed string, Fonts.moved) asked each string's text scope; once a scope was set since the last
+// lookups (a preview's copy of the guide window built), every parent outside the scoped windows (the settings window's
+// hundreds of rows) walked every scoped window's frames again. One repaint walks them once now; the strings inside a
+// scope still take its size, those outside the general one.
+#[test]
+fn a_font_repaint_walks_the_scoped_windows_once_however_many_strings_live_outside_them() {
+	let out = run(r#"
+		local scoped = PolestarGuideFrame
+		local inside = scoped:CreateFontString()
+		T.Font(inside, "title")
+		local outside = {}
+		for i = 1, 60 do
+			local row = CreateFrame("Frame", nil, UIParent)
+			local fs = row:CreateFontString()
+			T.Font(fs, "body")
+			outside[i] = fs
+		end
+		local _, base = inside:GetFont()
+		local _, baseOut = outside[1]:GetFont()
+		Polestar.Set("ui.guideTextSize", 1.4)
+		-- A copy of the guide window built since (the settings window's previews: GuideFrame's build sets its scope),
+		-- which starts the scope lookups over.
+		local copy = CreateFrame("Frame", nil, UIParent)
+		T.TextScope(copy, "ui.guideTextSize")
+		local walks, children = 0, scoped.GetChildren
+		scoped.GetChildren = function(self, ...) walks = walks + 1 return children(self, ...) end
+		Polestar.Set("ui.textSize", 0.8)
+		scoped.GetChildren = nil
+		local _, inGuide = inside:GetFont()
+		local _, outGeneral = outside[60]:GetFont()
+		emit({ walks = walks, inside = inGuide / base, outside = outGeneral / baseOut })"#);
+	assert!(out["walks"].as_i64().unwrap() <= 1, "one walk of the guide window for the whole repaint: {out}");
+	assert!((out["inside"].as_f64().unwrap() - 1.4).abs() < 0.05, "a string in the window keeps its size: {out}");
+	assert!((out["outside"].as_f64().unwrap() - 0.8).abs() < 0.05, "one outside takes the general size: {out}");
+}

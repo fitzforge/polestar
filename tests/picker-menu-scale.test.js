@@ -110,40 +110,79 @@ test('a saved menu scale is copied to the guides scale once, as it was saved', (
 	assert.equal(c.pk, 1.1);
 });
 
-// #3789: 100 % drew the settings window too small. It draws at 0.92 x the
-// setting now (0.8 x 1.15): the default window is what 115 % showed, and a
-// saved scale is divided by 1.15 once (to the nearest 1 %, within 70-140 %),
-// so the window keeps the size its player chose. The guides window keeps its own.
-test('the settings window\'s 100 % is the old 115 %; a saved settings scale moves once and keeps its size', () => {
-	const size = (saved) => runAddon({
-		stubs: ['stub_world.lua'],
-		addons: ['Polestar'],
-		login: true,
-		saved: saved ? { Polestar: saved } : undefined,
-		script: `
+// #3789: the settings window draws at 0.92 x its setting. A release (0.4.2 and
+// before) drew it at 1 x, the 0.4.3 previews at 0.8 x; a saved scale moves once
+// (a release's divided by 0.92, a preview's by 1.15: a preview save had run
+// "pickerScale"), within 70-140 %, so the window draws at the scale its player
+// chose. The default window is wider and shorter (1546 x 870 at 1080p where a
+// release drew 1300 x 946). The guides window keeps its own scale.
+const drawn = (saved) => runAddon({
+	stubs: ['stub_world.lua'],
+	addons: ['Polestar'],
+	login: true,
+	saved: saved ? { Polestar: saved } : undefined,
+	before: 'function GetPhysicalScreenSize() return 1920, 1080 end',
+	script: `
 Polestar.UI.ShowOptions()
 local o = PolestarOptions
-emit({ h = o:GetHeight() * o:GetScale(), o = o:GetScale(), mk = Polestar.Get("ui.menuScale"), stored = PolestarDB.settings.ui and PolestarDB.settings.ui.menuScale,
-	pk = Polestar.Get("ui.pickerScale"), ran = PolestarDB.migrations.menuScale092 })`,
-	}).emitted[0];
-	const fresh = size();
-	assert.equal(fresh.o, 0.92);
-	assert.ok(Math.abs(fresh.h - 946 * 0.8 * 1.15) < 1e-6, `the default window at 1080p is 1.15 times the old 757 pixels: ${JSON.stringify(fresh)}`);
-	const was115 = size('PolestarDB = { schema = 1, settings = { ui = { menuScale = 1.15 } } }');
-	assert.equal(was115.mk, 1, '115 % reads 100 %');
+local per = 1080 / UIParent:GetHeight()
+emit({ w = o:GetWidth() * o:GetScale() * per, h = o:GetHeight() * o:GetScale() * per, o = o:GetScale(), mk = Polestar.Get("ui.menuScale"),
+	stored = PolestarDB.settings.ui and PolestarDB.settings.ui.menuScale, pk = Polestar.Get("ui.pickerScale"), ran = PolestarDB.migrations.menuScale092 })`,
+}).emitted[0];
+const near = (a, b, what) => assert.ok(Math.abs(a - b) < 1e-6, `${what}: ${a} is not ${b}`);
+
+test('a release save\'s settings scale draws the settings window at the scale it drew in 0.4.2', () => {
+	for (const s of [1.2, 1, 0.8]) {
+		const r = drawn(`PolestarDB = { schema = 1, settings = { ui = { menuScale = ${s} } } }`);
+		near(r.o, s, `saved ${s}: the window's scale`);
+		near(r.mk, s / 0.92, `saved ${s}: the setting`);
+		assert.equal(r.pk, s === 1 ? 1 : s, `saved ${s}: the guides window keeps the number it had`);
+		assert.equal(r.ran, true);
+	}
+	const r100 = drawn('PolestarDB = { schema = 1, settings = { ui = { menuScale = 1 } } }');
+	near(r100.w, 1680, 'saved 1: 16:9 at the scale 0.4.2 drew');
+	near(r100.h, 946, 'saved 1: as tall as 0.4.2 drew it');
+	const r80 = drawn('PolestarDB = { schema = 1, settings = { ui = { menuScale = 0.8 } } }');
+	near(r80.w, 1680 * 0.8, 'saved 0.8: width');
+	near(r80.h, 946 * 0.8, 'saved 0.8: height');
+	// 0.4.2's 130 % and 140 % are past the slider's 140 % x 0.92: they draw at the most there is.
+	const top = drawn('PolestarDB = { schema = 1, settings = { ui = { menuScale = 1.4 } } }');
+	assert.equal(top.mk, 1.4);
+	near(top.o, 1.4 * 0.92, 'saved 1.4: the window\'s scale');
+});
+
+test('a 0.4.3 preview save (0.8 x its setting) keeps its size; a fresh install draws at 0.92', () => {
+	const preview = drawn('PolestarDB = { schema = 1, migrations = { pickerScale = true }, settings = { ui = { menuScale = 1, pickerScale = 1.1 } } }');
+	near(preview.o, 0.8, 'the preview drew 100 % at 0.8');
+	near(preview.mk, 1 / 1.15, 'the setting');
+	assert.equal(preview.pk, 1.1, 'the guides scale untouched');
+	const was115 = drawn('PolestarDB = { schema = 1, migrations = { pickerScale = true }, settings = { ui = { menuScale = 1.15 } } }');
+	assert.equal(was115.mk, 1, 'the preview\'s 115 % reads 100 %');
 	assert.equal(was115.stored, undefined, 'the default, nothing stored');
-	assert.ok(Math.abs(was115.o - 1.15 * 0.8) < 1e-9, JSON.stringify(was115));
-	assert.equal(was115.pk, 1.15, 'the guides window keeps the number it had');
-	assert.equal(was115.ran, true);
-	const was100 = size('PolestarDB = { schema = 1, settings = { ui = { menuScale = 1 } } }');
-	assert.equal(was100.mk, 0.87);
-	const low = size('PolestarDB = { schema = 1, settings = { ui = { menuScale = 0.75 } } }');
+	const low = drawn('PolestarDB = { schema = 1, migrations = { pickerScale = true }, settings = { ui = { menuScale = 0.75 } } }');
 	assert.equal(low.mk, 0.7, 'within the slider: 65 % is 70 %');
-	const once = size('PolestarDB = { schema = 1, migrations = { menuScale092 = true }, settings = { ui = { menuScale = 1.15 } } }');
+	const fresh = drawn();
+	assert.equal(fresh.o, 0.92);
+	assert.equal(fresh.stored, undefined);
+	near(fresh.w, 1680 * 0.92, 'the default window\'s width');
+	near(fresh.h, 946 * 0.92, 'the default window\'s height');
+	const once = drawn('PolestarDB = { schema = 1, migrations = { pickerScale = true, menuScale092 = true }, settings = { ui = { menuScale = 1.15 } } }');
 	assert.equal(once.mk, 1.15, 'once: a scale saved after the move stays as it is');
-	const picker = size('PolestarDB = { schema = 1, settings = { ui = { menuScale = 1.2, pickerScale = 1.3 } } }');
-	assert.equal(picker.pk, 1.3, 'the guides scale untouched');
-	assert.equal(picker.mk, 1.04);
+});
+
+test('a profile string moves its settings scale by the version it is from', () => {
+	const [r] = runAddon({
+		stubs: ['stub_world.lua', 'stub_encoding.lua'],
+		addons: ['Polestar'],
+		login: true,
+		script: `
+local P = Polestar.Profiles
+local release = assert(P.Import(P.Pack('{"format":1,"migrations":["guideTextSize"],"settings":{"ui.menuScale":1.2}}')))
+local preview = assert(P.Import(P.Pack('{"format":1,"migrations":["guideTextSize","pickerScale"],"settings":{"ui.menuScale":1.2}}')))
+emit({ release = release.settings["ui.menuScale"], preview = preview.settings["ui.menuScale"] })`,
+	}).emitted;
+	near(r.release, 1.2 / 0.92, 'a release string');
+	near(r.preview, 1.2 / 1.15, 'a preview string');
 });
 
 // The settings window's default is 16:9 (1680 x 946 on a 1080p screen), its

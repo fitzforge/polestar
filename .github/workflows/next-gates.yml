@@ -2,9 +2,10 @@ name: Post-merge gates
 
 # The gates that only make sense on the merged tree (docs/CI.md, "After a merge"), on every push to next, on the
 # release data, on the maintainers' self-hosted runner for the gates (labels self-hosted, polestar-gates; docs/CI.md "Reference
-# data"): the whole Node suite, guide lint, the addon's Lua tests in full, playtest, the route-speed gate, the arrow's
-# corner cadence and the arrow through guide stretches. Two pull requests that each passed alone are tested here as one
-# tree. A failing gate fails the run (the badge in docs/CI.md turns red) and files an issue labelled `next-gates`, or
+# data"): the whole Node suite, perf.test.js's timing budgets enforced, guide lint, the addon's Lua tests in full,
+# playtest, the route-speed gate, the arrow's corner cadence and the arrow through guide stretches. Two pull requests
+# that each passed alone are tested here as one tree. A failing gate fails the run (the badge in docs/CI.md turns red)
+# and files an issue labelled `next-gates`, or
 # comments on the open one; the next passing run closes it. A gate that cannot run (no data, no harness) fails too:
 # nothing here is skipped quietly.
 # Pushes to next only (and a run started by hand on next): merged code, never a pull request's.
@@ -67,11 +68,23 @@ jobs:
         run: echo "FORGE=$GITHUB_WORKSPACE/rust/target/quick/forge" >> "$GITHUB_ENV"
 
       # Each gate below runs whatever the ones before did, and leaves its verdict for the summary.
-      # The tests that read the data (tools/ci-data-tests.js); ci.yml's push run has every other one.
+      # The tests that read the data (tools/ci-data-tests.js); ci.yml's push run has every other one. perf.test.js runs
+      # on its own below.
       - name: Node suite on the release data
         id: node
         continue-on-error: true
-        run: tools/ci-tests.sh "" $(node tools/ci-data-tests.js "tests/**/*.test.js") 2>&1 | tee "$RUNNER_TEMP/gates/node.log"
+        run: tools/ci-tests.sh "" $(node tools/ci-data-tests.js "tests/**/*.test.js" | tr ' ' '\n' | grep -vx tests/perf.test.js) 2>&1 | tee "$RUNNER_TEMP/gates/node.log"
+
+      # perf.test.js with its budgets enforced (docs/CI.md, "Timing budgets"), alone after the suite: in warn mode its
+      # step change, guide open and catch-up stood 3x over budget here for two days (#3730, fixed by #4065).
+      # POLESTAR_PERF_WARN names a figure known to be over with its issue open; it only warns until that is fixed.
+      - name: Perf budgets
+        id: perf
+        continue-on-error: true
+        env:
+          POLESTAR_TIMING_BUDGETS: enforce
+          POLESTAR_PERF_WARN: burst # #4066
+        run: node --test --test-timeout=900000 tests/perf.test.js 2>&1 | tee "$RUNNER_TEMP/gates/perf.log"
 
       - name: Guide texts
         id: texts
@@ -155,6 +168,7 @@ jobs:
         if: always()
         env:
           NODE: ${{ steps.node.outcome }}
+          PERF: ${{ steps.perf.outcome }}
           TEXTS: ${{ steps.texts.outcome }}
           LINT: ${{ steps.lint.outcome }}
           ADDONTEST: ${{ steps.addontest.outcome }}
@@ -177,6 +191,7 @@ jobs:
             echo "| gate | result | note |"
             echo "|---|---|---|"
             row "Node suite (release data)" "$NODE" "$(tail1 "$g/node.log" '^ℹ (pass|fail) ' | tr '\n' ' ')"
+            row "Perf budgets" "$PERF" "$(grep -o 'measured (fastest of 5) {[^}]*' "$g/perf.log" 2>/dev/null | tail -n 1 | cut -c1-200)"
             row "Guide texts" "$TEXTS" "$(grep -c '^error: ' "$g/texts.log" 2>/dev/null) errors"
             row "Guide lint" "$LINT" "$(grep -c '^::error' "$g/lint.log" 2>/dev/null) errors"
             row "Addon tests (all)" "$ADDONTEST" "$(grep -E '^test result' "$g/addontest.log" 2>/dev/null | awk '{p+=$4; f+=$6} END {print p" passed, "f" failed"}')"

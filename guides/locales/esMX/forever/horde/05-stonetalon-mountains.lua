@@ -55,8 +55,9 @@ return {
 	["{npc:12717}: take it last, his escort starts at once"] = "{npc:12717}: tómala al final, su escolta empieza enseguida",
 
 	-- Step 10: Vorsha the Lasher
-	-- {npc:12717} Muglash · {npc:12719} Marukai
-	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} camina al norte por la playa hasta un brasero naga. Apaga el brasero y protégelo durante las oleadas de nagas hasta que Vorsha muera; los nagas Colafuria sueltan las cabezas que quiere {npc:12719}.",
+	-- {npc:12717} Muglash · {npc:12940} Vorsha the Lasher · {npc:12719} Marukai
+	-- was: ["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} camina al norte por la playa hasta un brasero naga. Apaga el brasero y protégelo durante las oleadas de nagas hasta que Vorsha muera; los nagas Colafuria sueltan las cabezas que quiere {npc:12719}."
+	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until {npc:12940} is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} camina al norte por la playa hasta un brasero naga. Apaga el brasero y protégelo durante las oleadas de nagas hasta que {npc:12940} muera; los nagas Cola Rabiosa sueltan las cabezas que quiere {npc:12719}.",
 	["Naga brazier"] = "Brasero naga",
 
 	-- Step 11: Naga heads
@@ -96,11 +97,11 @@ return {
 
 	-- Step 17: Magatha Grimtotem
 	-- {quest:1063} The Elder Crone · {npc:4046} Magatha Grimtotem · {quest:1064} Forsaken Aid · {area:1639} Elder Rise · {npc:3419} Apothecary Zamah · {area:2197} Pools of Vision · {area:1640} Spirit Rise
-	["{quest:1063}'s errand is already with {npc:4046}: take {quest:1064} from her on {area:1639}, for {npc:3419} in the {area:2197}, under {area:1640}."] = "",
+	["{quest:1063}'s errand is already with {npc:4046}: take {quest:1064} from her on {area:1639}, for {npc:3419} in the {area:2197}, under {area:1640}."] = "El recado de {quest:1063} ya está con {npc:4046}: acepta {quest:1064} de ella en {area:1639}, para {npc:3419} en {area:2197}, bajo {area:1640}.",
 
 	-- Step 18: Apothecary Zamah
 	-- {quest:1064} Forsaken Aid · {npc:3419} Apothecary Zamah · {area:272} Tarren Mill · {area:2197} Pools of Vision · {area:1640} Spirit Rise
-	["{quest:1064} is already with {npc:3419}: take her note for {area:272} in the {area:2197}, under {area:1640}."] = "",
+	["{quest:1064} is already with {npc:3419}: take her note for {area:272} in the {area:2197}, under {area:1640}."] = "{quest:1064} ya está con {npc:3419}: toma su nota para {area:272} en {area:2197}, bajo {area:1640}.",
 
 	-- Step 19: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -261,6 +262,7 @@ return {
 	-- ["{npc:12696} stands at {area:428}, the Warsong camp just north-east of Splintertree, beside the hunt board."] = "{npc:12696} está en {area:428}, el campamento Grito de Guerra justo al noreste del Puesto del Hachazo, junto al tablón de caza.",
 	-- ["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 26."] = "Los objetivos de caza de {npc:12696} (Ursangous, Shadumbra, Garrafilada) son para la próxima visita a {zone:1440}, a nivel 26.",
 	-- ["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 27."] = "Las presas de caza de {npc:12696} (Ursangous, Shadumbra, Garfafilada) son para la próxima visita a {zone:1440}, a nivel 27.",
+	-- ["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} camina al norte por la playa hasta un brasero naga. Apaga el brasero y protégelo durante las oleadas de nagas hasta que Vorsha muera; los nagas Colafuria sueltan las cabezas que quiere {npc:12719}.",
 	-- ["{npc:12721}: the troll charms are in Thistlefur Hold, east of the outpost"] = "{npc:12721}: los amuletos trol están en el Bastión Cardopelo, al este del puesto",
 	-- ["{npc:12736} at Zoram'gar, at 27"] = "{npc:12736} en Zoram'gar, a nivel 27",
 	-- ["{npc:12818}, below ground"] = "{npc:12818}, bajo tierra",

@@ -87,7 +87,7 @@ return {
 
 	-- Step 16: Booty Bay
 	-- {area:35} Booty Bay · {npc:2494} Privateer Bloads · {npc:2498} Crank Fizzlebub · {npc:737} Kebok · {npc:773} Krazek
-	["In {area:35}: {npc:2494} on the docks, {npc:2498} inside the inn, MacKinley, {npc:737} and {npc:773} upstairs."] = "",
+	["In {area:35}: {npc:2494} on the docks, {npc:2498} inside the inn, MacKinley, {npc:737} and {npc:773} upstairs."] = "En {area:35}: {npc:2494} en los muelles, {npc:2498} dentro de la posada, MacKinley, {npc:737} y {npc:773} arriba.",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}, dentro",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "MacKinley «Lobo de Mar», en el piso superior",
@@ -100,7 +100,7 @@ return {
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "",
 	-- {area:35} Booty Bay · {npc:2491} Whiskey Slim
-	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "",
+	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "¿Por debajo de 40 en tu primera visita a {area:35}? {npc:2491}, en la posada, y MacKinley «Lobo de Mar», en el piso de arriba, ya tienen misiones para ti.",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "",
 	-- {quest:2872} Stoley's Debt · {npc:7881} Stoley · {zone:1446} Tanaris
@@ -108,9 +108,9 @@ return {
 
 	-- Step 19: Fin Fizracket
 	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
-	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "",
+	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "Misión de grupo: {quest:348} termina con {npc:1449} en el Valle del Velo de Bruma. Dale diez colmillos de gorila y llama a tres oleadas de gorilas (41-42), una tras otra, y luego a {npc:1514} (44). En las grabaciones de los jugadores, 12 de las 27 personas que la empezaron murieron allí. Acéptala si vas con un amigo o dos.",
 	-- {npc:2486} Fin Fizracket · {quest:348} Stranglethorn Fever
-	["{npc:2486}, beside the inn: {quest:348}"] = "",
+	["{npc:2486}, beside the inn: {quest:348}"] = "{npc:2486}, junto a la posada: {quest:348}",
 
 	-- Step 20: Witch Doctor Unbagwa
 	-- {area:35} Booty Bay · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
@@ -166,7 +166,7 @@ return {
 	["for the {object:2555} in {zone:1445}, on the Dustwallow guide"] = "",
 
 	-- Step 38: A Soggy Scroll
-	["The scroll lies at the water's edge in the swamp's far west."] = "",
+	["The scroll lies at the water's edge in the swamp's far west."] = "El pergamino está a la orilla del agua en el extremo oeste del pantano.",
 
 	-- Step 39: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "Crocoliscos Denteserra",

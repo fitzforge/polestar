@@ -71,7 +71,7 @@ return {
 	-- Step 10: Stranglethorn Tigers
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger
 	["Stranglethorn Tigers"] = "Tigres de Tuercespina",
-	["The adult tigers prowl the hills on both sides of the camp: west of it, and east of it toward the lake. The arrow takes the eastern group."] = "",
+	["The adult tigers prowl the hills on both sides of the camp: west of it, and east of it toward the lake. The arrow takes the eastern group."] = "Los tigres adultos merodean por las colinas a ambos lados del campamento: al oeste y al este, hacia el lago. La flecha te lleva al grupo del este.",
 
 	-- Step 11: Ajeck Rouack
 	-- {area:99} Rebel Camp
@@ -198,7 +198,7 @@ return {
 
 	-- Step 30: Heartswood
 	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {item:190307} Unlit Torch
-	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0): light the {item:190307} from the table outside at a campfire and throw it onto the archaeologist's cart outside the house, which draws the figure in the house away so you can take the figurine upstairs. Then take the road west to Stonetalon."] = "",
+	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0): light the {item:190307} from the table outside at a campfire and throw it onto the archaeologist's cart outside the house, which draws the figure in the house away so you can take the figurine upstairs. Then take the road west to Stonetalon."] = "Desde {area:415} ve al noroeste hacia las colinas: {quest:1738} es un árbol brillante al norte del camino a {area:413}. Si aceptaste {quest:65602}, {item:190309} está en una casa entre los árboles al norte de {area:413} (26.6,22.0): enciende {item:190307} de la mesa de fuera en una hoguera y lánzala al carro del arqueólogo frente a la casa, lo que aleja a la figura de la casa y te deja coger la figurilla del piso de arriba. Luego toma el camino al oeste hacia Sierra Espolón.",
 	-- {item:190309} Wooden Figurine · {area:413} Maestra's Post
 	["{item:190309}, north of {area:413}"] = "{item:190309}, al norte de {area:413}",
 

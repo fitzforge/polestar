@@ -26,7 +26,7 @@ return {
 
 	-- Step 4: Whiskey Slim
 	-- {npc:2491} Whiskey Slim · {area:35} Booty Bay
-	["{npc:2491} sits in the {area:35} inn."] = "",
+	["{npc:2491} sits in the {area:35} inn."] = "{npc:2491}坐在{area:35}旅店裡。",
 	-- {npc:2491} Whiskey Slim
 	["{npc:2491}, in the inn"] = "{npc:2491}，在旅店裡",
 
@@ -59,9 +59,9 @@ return {
 	["Below ground"] = "地下",
 
 	-- Step 17: Saving Yenniku
-	["while he is alive: the gem fills; don't kill him"] = "",
+	["while he is alive: the gem fills; don't kill him"] = "趁他活著：寶石會充滿；不要殺死他",
 	-- {item:3912} Soul Gem
-	["Use the {item:3912} on Yenniku"] = "",
+	["Use the {item:3912} on Yenniku"] = "對耶尼庫使用{item:3912}",
 
 	-- Step 19: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -246,7 +246,7 @@ return {
 
 	-- Step 61: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:9623} A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
-	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} (Chasing {npc:9623}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "",
+	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} (Chasing {npc:9623}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "{area:976}的拍賣場是安戈洛之前的最後一個。在那裡，{npc:9623}（追捕{npc:9623}）會在護送前要一個{item:10561}，這是一件{skill:202}物品：如果你想做這條任務線，就在這裡買一個。",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}，在雙足飛龍管理員旁",
 

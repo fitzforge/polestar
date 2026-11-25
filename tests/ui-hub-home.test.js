@@ -338,6 +338,40 @@ test('a name cut short reads whole in its tooltip: the tab card, a row, the Pass
 	assert.ok(!out.pack.shortTip.length, 'a name that fits has no tooltip');
 });
 
+// A zone is under Quests in when the title names it (the guide writer's rule: its quest goals) or six steps
+// carry a quest goal there for this character; the rest under Passes through, in route order.
+const TITLED_GUIDE = `
+do
+	local steps = {}
+	local function leg(map, n)
+		for i = 1, n do
+			steps[#steps + 1] = { title = "Leg " .. #steps, goals = { { t = "accept", quest = 9500 + #steps, map = map, status = "pending", text = "Accept" } } }
+		end
+	end
+	leg(1441, 2) -- not in the title, two steps: passes through
+	leg(1421, 1) -- "Silverpine & Elwynn Forest" names Silverpine Forest: quests in
+	leg(1426, 6) -- not in the title, six steps: quests in
+	leg(1440, 1) -- in the title: quests in
+	leg(1420, 5) -- not in the title, five steps: passes through
+	uistub.guides["test/alliance/titled"] = { id = "test/alliance/titled", pack = "guides", title = "Silverpine & Elwynn Forest, Ashenvale & Stranglethorn",
+		faction = "Alliance", minLevel = 1, maxLevel = 20, category = "Leveling", zone = 1421, zoneName = "Silverpine Forest", author = "Polestar", version = 1, steps = steps }
+	table.insert(uistub.order, "test/alliance/titled")
+end`;
+
+test('Quests in: the zones the title names and those with six quest steps; Passes through the rest, in route order', () => {
+	const [out] = run(`
+		uistub.suggestions = { "test/alliance/titled", uistub.elwynn }
+		open()
+		P.Select("test/alliance/titled")
+		local facts = {}
+		for _, f in ipairs(P.details.Facts) do
+			if f.Label:IsShown() then facts[f.Label:GetText()] = f.Value:GetText() end
+		end
+		emit(facts)`, TITLED_GUIDE);
+	assert.equal(out['Quests in'], 'Silverpine Forest › Dun Morogh › Ashenvale');
+	assert.equal(out['Passes through'], 'Thousand Needles › Tirisfal Glades');
+});
+
 test('Special thanks is in the header on Home and every page, a new name each time the window opens; the hub is built on first open, not at login', () => {
 	const [out] = run(`
 		local before = PolestarPicker ~= nil

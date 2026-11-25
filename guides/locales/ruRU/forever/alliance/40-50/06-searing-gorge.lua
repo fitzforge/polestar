@@ -80,7 +80,7 @@ return {
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster
 	["Dark Iron Taskmasters"] = "",
 	-- {area:1443} Slag Pit
-	["With your group, look for Taskmasters on the open ledges first. Last stop, if you still need some: take the lift (the scaffold cars) down into the {area:1443} below, where four more stand."] = "",
+	["With your group, look for Taskmasters on the open ledges first. Last stop, if you still need some: take the lift (the scaffold cars) down into the {area:1443} below, where four more stand."] = "С группой сначала ищите надсмотрщиков на открытых уступах. Последняя остановка, если еще нужно: спуститесь на подъемнике (вагонетки на лесах) вниз, в место {area:1443}, где стоят еще четверо.",
 
 	-- Step 22: Dark Iron Slavers
 	-- plural, as words: Dark Iron Slavers = {npc:5844} Dark Iron Slaver

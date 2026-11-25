@@ -97,7 +97,7 @@ return {
 
 	-- Step 18: Gakin the Darkbinder
 	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
-	["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}."] = "",
+	["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}."] = "{npc:6122}在{object:2101}的{object:2164}地窖里等候。",
 
 	-- Step 19: The Binding
 	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6913} Heartswood Core · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
@@ -162,9 +162,9 @@ return {
 	-- Step 33: Hay Weevil
 	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
 	-- plural, as words: Hay Weevils = {npc:217589} Hay Weevil
-	["Hay Weevils crawl about the north end of {quest:681}'s farm: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "",
+	["Hay Weevils crawl about the north end of {quest:681}'s farm: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "干草象鼻虫（{npc:217589}）在{quest:681}农场北端爬行：打开{npc:217412}的{item:213565}，对其中一只使用里面的{item:213562}。不要杀死它。",
 	-- {item:213562} Bug Catching Net · {npc:217589} Hay Weevil · {item:213568} Hay Weevil Specimen
-	["{item:213562}, on a {npc:217589}: the {item:213568}"] = "",
+	["{item:213562}, on a {npc:217589}: the {item:213568}"] = "{item:213562}，用在{npc:217589}上：{item:213568}",
 
 	-- Step 34: Shards of Myzrael
 	-- {quest:681} Northfold Manor · {area:333} Circle of East Binding · {area:314} Go'Shek Farm

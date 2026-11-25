@@ -116,7 +116,7 @@ return {
 
 	-- Step 19: Kodo Graveyard: hides and venom
 	-- {area:596} Kodo Graveyard
-	["{area:596}: hides and venom"] = "",
+	["{area:596}: hides and venom"] = "{area:596}：兽皮和毒液",
 	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher · Ancient Kodos = {npc:4702} Ancient Kodo
 	["The Aged Kodos in the graveyard drop the hides, and the Scorpashi Lashers that hunt around it carry the venom. Careful: the Ancient Kodos (36-37) hit hard: fight only the Aged Kodos."] = "在墓地击杀老迈的科多兽收集皮，墓地周围的荒土鞭尾蝎会掉落毒液。注意：远古科多兽（36–37级）伤害很高，收集皮时只打老迈的科多兽。",
 

@@ -4,7 +4,8 @@
     "onyxias-lair:drakefire-h": {
       "head": "key each faction=\"H\" level=55 item=16309",
       "steps": [
-        "quest 4903 Warlord's Command after=[] any=[] start=npc:9077 finish=npc:9077 minLevel=55",
+        "quest 98325 Blood and Thunder after=[] any=[] start=npc:9077 finish=npc:9077 minLevel=55",
+        "quest 4903 Warlord's Command after=[] any=[98325] start=npc:9077 finish=npc:9077 minLevel=55",
         "quest 4941 Eitrigg's Wisdom after=[] any=[4903] start=npc:9077 finish=npc:4949 minLevel=55",
         "quest 4974 For The Horde! after=[] any=[4941] start=npc:4949 finish=npc:4949 minLevel=55",
         "quest 6566 What the Wind Carries after=[] any=[4974] start=npc:4949 finish=npc:4949 minLevel=55",

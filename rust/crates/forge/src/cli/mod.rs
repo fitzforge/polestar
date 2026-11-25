@@ -145,7 +145,7 @@ const GUIDE_HELP: &str = "usage: forge guide compile [<dir>] [options]
        forge guide publish --from <out>/guides [--data <dir>] [--checkout <dir>]
        forge guide check-generated [--checkout <dir>]
        forge guide rehash [--checkout <dir>]
-       forge guide legacy-steps --old <guides dir> [--old <guides dir> ...] [--data <dir>] [--out <file>]
+       forge guide legacy-steps --old <addon dir> [--old <addon dir> ...] [--data <dir>] [--out <file>]
                                 [--current <guides dir>] [--root <checkout>]
 
 compile: a pack's .guide files (docs/GUIDE_FORMAT.md) into its community addon folder, as its pack.json
@@ -202,11 +202,11 @@ rehash: recompute guides/GENERATED.json (every leveling guide with the generated
 and forge/seed/SEED.json (every seed guide) from the files on disk: after the maintainer's hand edit
 to a generated guide and its seed copy, or for a merge conflict in either (take either side, run it).
 legacy-steps: addon/Polestar/Core/LegacySteps.lua (--out): each leveling guide's steps the earlier
-releases' guides had (each --old, a release's guides folder with its pack.json, in release order) that
-the current ones (--current, default guides/) no longer have, the quests a release offered in another
-guide, and the titles it gave them: an update mid-guide keeps the player's check-offs and skips
-(docs/RELEASING.md). Run at a release whose leveling guides changed; --data: reference data (default
-data/forever/).
+releases shipped (each --old, a release's addon folder from its tag, in release order: the steps as its
+Polestar_Guides*/Guides.lua have them, never recompiled) that the current guides (--current, default
+guides/, compiled with --data, default data/forever/) no longer have, the quests a release offered in
+another guide, and the titles it gave them: an update mid-guide keeps the player's check-offs and skips
+(docs/RELEASING.md). Run at a release whose leveling guides changed.
 ";
 
 const SIM_HELP: &str = "usage: forge sim <command> [options]

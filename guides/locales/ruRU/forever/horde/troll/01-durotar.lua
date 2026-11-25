@@ -123,7 +123,7 @@ return {
 	["{npc:265809}'s campfire"] = "Костер: {npc:265809}",
 	-- {npc:265809} Brakk · {area:362} Razor Hill · {spell:1229451} Boosted Rest · {area:367} Sen'jin Village · {zone:1454} Orgrimmar
 	-- was: ["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362} or in {zone:1454} at the start of the next guide."] = "{npc:265809} разбил лагерь чуть к югу от места {area:362}. Сядьте у его костра (/sit), пока не появится эффект {spell:1229451}. Если вы изучили профессию, {npc:265809} также предлагает свое задание «Походное дело 101» – сдайте его учителю этой профессии: здесь ({area:362}) или в начале следующего руководства ({zone:1454})."
-	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362}, by {area:367} for fishing, or in {zone:1454} at the start of the next guide."] = "",
+	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362}, by {area:367} for fishing, or in {zone:1454} at the start of the next guide."] = "{npc:265809} стоит лагерем чуть к югу от места {area:362}. Сядьте у его костра (/sit), пока не появится эффект {spell:1229451}. Если вы изучили профессию, {npc:265809} также предлагает ее задание «Основы походной жизни», которое принимает учитель: в месте {area:362}, у NPC {area:367} для рыбной ловли или в городе {zone:1454} в начале следующего гайда.",
 
 	-- Step 24: Camping 101: Mining
 	-- {npc:3175} Krunn · {skill:186} Mining
@@ -165,9 +165,9 @@ return {
 
 	-- Step 32: Camping 101: Fishing
 	-- {npc:5941} Lau'Tiki · {skill:356} Fishing
-	["{npc:5941} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:5941} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5941} принимает его, когда навык «{skill:356}» достигнет 20: собирайте или создавайте предметы до тех пор, гайд пока продолжается.",
 	-- {npc:265809} Brakk · {npc:5941} Lau'Tiki
-	["{npc:265809}: for {npc:5941}, on the shore south of Sen'jin"] = "",
+	["{npc:265809}: for {npc:5941}, on the shore south of Sen'jin"] = "{npc:265809}: для NPC {npc:5941}, на берегу к югу от Сен'джина",
 
 	-- Step 33: Razor Hill
 	-- {npc:266940} Turroc
@@ -189,9 +189,9 @@ return {
 
 	-- Step 39: Camping 101: Blacksmithing
 	-- {npc:3174} Dwukk · {skill:164} Blacksmithing
-	["{npc:3174} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:3174} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:3174} принимает его, когда навык «{skill:164}» достигнет 20: собирайте или создавайте предметы до тех пор, гайд пока продолжается.",
 	-- {npc:265809} Brakk · {npc:3174} Dwukk
-	["{npc:265809}: for {npc:3174}"] = "",
+	["{npc:265809}: for {npc:3174}"] = "{npc:265809}: для NPC {npc:3174}",
 
 	-- Step 40: Grunt Kor'ja
 	-- {npc:12430} Grunt Kor'ja · {area:362} Razor Hill · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude

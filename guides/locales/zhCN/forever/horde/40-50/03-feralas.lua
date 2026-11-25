@@ -8,13 +8,13 @@
 return {
 	-- Guide
 	-- {zone:1454} Orgrimmar · {area:1099} Camp Mojache · {area:511} Wyrmbog · {area:496} Brackenwall Village
-	["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "",
+	["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "{zone:1454}的交还任务、{area:1099}的枭兽穆西克之瓶，然后是尘泥沼泽的{area:511}和{area:496}。",
 	["Takes you to level 47"] = "带你升到47级",
 	-- {zone:1446} Tanaris
 	["Then on to {zone:1446}"] = "然后前往{zone:1446}",
 	["Stays on the main route"] = "位于主线路线上",
 	-- {zone:2652} Shen'dralas · {zone:1446} Tanaris
-	["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "",
+	["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "跳过{zone:2652}：少做大约十几个任务，进入{zone:1446}时低约三分之一级",
 
 	-- Step 1: Orgrimmar
 	-- {object:172960} Cleft of Shadow · {object:172958} Valley of Honor
@@ -80,25 +80,25 @@ return {
 
 	-- Step 13: The Musty Scroll
 	-- {object:2555} Musty Scroll
-	["The {object:2555} lies to the south-west."] = "",
+	["The {object:2555} lies to the south-west."] = "{object:2555}在西南方。",
 
 	-- Step 14: Mudsprocket
 	["Mudsprocket"] = "泥链营地",
 	-- {object:2555} Musty Scroll · {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle · {item:280092} Wyrmtail
-	["South-east from the {object:2555} to Mudsprocket, the goblin camp at the {area:511}'s western edge: {npc:270723} and {npc:270727} stand together in the camp. Their whelps, scales and {item:280092} come on the same {area:511} loop as Brackenwall's quests."] = "",
+	["South-east from the {object:2555} to Mudsprocket, the goblin camp at the {area:511}'s western edge: {npc:270723} and {npc:270727} stand together in the camp. Their whelps, scales and {item:280092} come on the same {area:511} loop as Brackenwall's quests."] = "从{object:2555}向东南前往{area:511}西缘的地精营地泥链营地：{npc:270723}和{npc:270727}一起站在营地里。他们要的雏龙、鳞片和{item:280092}在与蕨墙村任务相同的{area:511}路线上。",
 
 	-- Step 15: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
 	["{area:510}: kill these as you meet them"] = "{area:510}：沿途遇到就击杀",
 	-- {area:511} Wyrmbog · {item:280092} Wyrmtail
 	-- was: ["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "向东穿过{area:511}：火鬃斥候和火鬃灰尾龙人与灼热龙崽、灼热雏龙一起在北缘游荡；火鬃守卫守着更东南方的龙穴。莫格穆洛克的鼻烟、烈酒和保险箱散落在龙人营地里。"
-	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps. The {item:280092} grows in the bog just east of Mudsprocket."] = "",
+	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps. The {item:280092} grows in the bog just east of Mudsprocket."] = "向东穿过{area:511}：火鬃斥候和灰尾在其北缘游荡，还有灼热幼龙和雏龙；鳞翼守卫着更东南方的龙洞。莫克莫洛克的鼻烟、烈酒和保险箱在龙人营地里。{item:280092}长在泥链营地东边的沼泽里。",
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "{npc:4329}在{area:510}附近巡逻，请在地图标出的圆圈内寻找",
 	["Below ground"] = "在地下",
 
 	-- Step 16: Mudsprocket
-	["Back to Mudsprocket before you ride north."] = "",
+	["Back to Mudsprocket before you ride north."] = "向北骑行之前先回泥链营地。",
 
 	-- Step 17: Brackenwall Village
 	["Ride back north to Brackenwall."] = "向北骑回蕨墙村。",

@@ -15,18 +15,18 @@ return {
 	["{npc:217588} in {zone:1434}"] = "{npc:217588} em {zone:1434}",
 	-- {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
 	-- plural, as words: Arbor Tarantulas = {npc:217588} Arbor Tarantula
-	["The Arbor Tarantulas sit in northern Stranglethorn. Open the {item:213565} and use its {item:213562} on one to catch it: don't kill it."] = "",
+	["The Arbor Tarantulas sit in northern Stranglethorn. Open the {item:213565} and use its {item:213562} on one to catch it: don't kill it."] = "As Tarântulas Arbóreas ({npc:217588}) ficam no norte da Selva do Espinhaço. Abra {item:213565} e use a {item:213562} dele em uma para pegá-la: não a mate.",
 	-- {item:213562} Bug Catching Net · {npc:217588} Arbor Tarantula
-	["{item:213562}, on an {npc:217588}"] = "",
+	["{item:213562}, on an {npc:217588}"] = "{item:213562}, em um {npc:217588}",
 
 	-- Step 3: Hay Weevil in Arathi Highlands
 	-- {npc:217589} Hay Weevil · {zone:1417} Arathi Highlands
 	["{npc:217589} in {zone:1417}"] = "{npc:217589} em {zone:1417}",
 	-- {zone:1417} Arathi Highlands · {item:213562} Bug Catching Net
 	-- plural, as words: Hay Weevils = {npc:217589} Hay Weevil
-	["The Hay Weevils crawl in the north-west of {zone:1417}. Use the {item:213562} on one."] = "",
+	["The Hay Weevils crawl in the north-west of {zone:1417}. Use the {item:213562} on one."] = "Os Gorgulhos do Feno ({npc:217589}) rastejam no noroeste de {zone:1417}. Use {item:213562} em um.",
 	-- {item:213562} Bug Catching Net · {npc:217589} Hay Weevil
-	["{item:213562}, on a {npc:217589}"] = "",
+	["{item:213562}, on a {npc:217589}"] = "{item:213562}, em um {npc:217589}",
 
 	-- Step 4: Flesh Picker in Desolace
 	-- {npc:217590} Flesh Picker · {zone:1443} Desolace
@@ -34,9 +34,9 @@ return {
 	-- {area:596} Kodo Graveyard · {zone:1443} Desolace · {item:213562} Bug Catching Net
 	-- plural, as words: Flesh Pickers = {npc:217590} Flesh Picker
 	-- was: ["The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the kit's tool on one."] = "Os Flesh Pickers se alimentam em {area:596}, no meio do sul de {zone:1443}. Use a ferramenta do kit em um."
-	["The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the {item:213562} on one."] = "",
+	["The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the {item:213562} on one."] = "Os Bicadores de Carne ({npc:217590}) se alimentam em {area:596}, no meio do sul de {zone:1443}. Use {item:213562} em um.",
 	-- {item:213562} Bug Catching Net · {npc:217590} Flesh Picker
-	["{item:213562}, on a {npc:217590}"] = "",
+	["{item:213562}, on a {npc:217590}"] = "{item:213562}, em um {npc:217590}",
 
 	-- Step 5: Back to Amaryllis Webb
 	-- {npc:217412} Amaryllis Webb

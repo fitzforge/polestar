@@ -1125,6 +1125,23 @@ emit(DS.atts[1].Meta:GetText())"#,
 	assert_eq!(out[0], "Zugangsquest  \u{b7}  Jeder braucht sie  \u{b7}  Ab Stufe 17");
 }
 
+// The next step of a chest (the Tome of Dalaran's Black Tome) names its object in the client's language
+// (Polestar.Names), and in English where the language has no name for it, as the drop and gift steps' NPCs do:
+// a Russian client read "(источник: Black Tome)" before.
+#[test]
+fn the_next_step_names_its_object_in_the_client_language_and_in_english_where_it_has_none() {
+	let f = Fx::new();
+	let out = f.run_ui(
+		r#"
+local step = { kind = "object", item = { id = 276561, name = "Black Tome" }, object = { kind = "object", id = 659376, name = "Black Tome" } }
+emit(Polestar.UI.Attunements.StepWords(step, "open"))
+Polestar.Names.AddChunk("itIT", "object", 659376, 659376, "\n659376\tTomo nero\n")
+emit(Polestar.UI.Attunements.StepWords(step, "open"))"#,
+		&fake_locale("itIT", &[("%s from %s", "%s da %s")]),
+	);
+	assert_eq!(out, vec![json!("Black Tome da Black Tome"), json!("Black Tome da Tomo nero")]);
+}
+
 // ---------------------------------------------------------------------------
 // The Attunements section (UI/Attunements.lua, #3695)
 // ---------------------------------------------------------------------------
@@ -1195,15 +1212,15 @@ emit({ section = P.Section(), later = list(), notes = notes })"#,
 	assert_eq!(
 		fresh["fresh"],
 		json!([
-			["fang", "Wailing Caverns", [0, 3], "Next: Pick up Rite of the Serpent from Nara Wildmane", false, true, false],
 			["smelting-key", "The Deadmines", [0, 1], "Next: Smelting Key from Edwin VanCleef", false, true, false],
+			["fang", "Wailing Caverns", [0, 3], "Next: Pick up Rite of the Serpent from Nara Wildmane", false, true, false],
 		]),
-		"the Horde's two, by level; the Alliance's Ironclad Key left out"
+		"the Horde's two, by level then the instance's name; the Alliance's Ironclad Key left out"
 	);
-	assert_eq!(fresh["fresh"][0][2], fresh["counted"], "the bar counts what AttunementState says");
-	assert_eq!(progress["progress"][0][2], json!([1, 3]));
-	assert_eq!(progress["progress"][0][2], progress["counted"]);
-	assert_eq!(progress["progress"][0][3], "Next: Finish The Serpent's Trial", "the quest in the log is the next step");
+	assert_eq!(fresh["fresh"][1][2], fresh["counted"], "the bar counts what AttunementState says");
+	assert_eq!(progress["progress"][1][2], json!([1, 3]));
+	assert_eq!(progress["progress"][1][2], progress["counted"]);
+	assert_eq!(progress["progress"][1][3], "Next: Finish The Serpent's Trial", "the quest in the log is the next step");
 	assert_eq!(progress["asked"], json!(["wailing-caverns:fang", "wailing-caverns:fang"]), "Guide me opens the dungeon page's guide");
 	assert_eq!(progress["link"], "All attunements and keys", "the dungeon page links here");
 	assert_eq!(later["section"], "Attunements", "the link opens the section");
@@ -1246,7 +1263,7 @@ local last = AT.Shown()[#AT.Shown()]
 local lastCard
 for _, c in ipairs(AT.cards) do if c:IsShown() and c.psId == last.id then lastCard = c end end
 emit({ icon = icon, first = first, sideBySide = y1 == y2 and x2 > x1, sameHeight = c1:GetHeight() == c2:GetHeight(), art = art,
-	guide = c1.Guide.Label:GetText(), last = { last.id, last.glyph, lastCard:GetAlpha() } })"#,
+	guide = c1.Guide.Label:GetText(), titles = { c1.Title:GetText(), c2.Title:GetText() }, metas = { c1.Meta:GetText(), c2.Meta:GetText() }, last = { last.id, last.glyph, lastCard:GetAlpha() } })"#,
 		"",
 	);
 	let out = &out[0];
@@ -1256,5 +1273,11 @@ emit({ icon = icon, first = first, sideBySide = y1 == y2 and x2 > x1, sameHeight
 	assert_eq!(out["sameHeight"], true, "a row's cards as tall as each other: {out}");
 	assert_eq!(out["art"], true, "the picture band: {out}");
 	assert_eq!(out["guide"], "Guide me");
+	assert_eq!(out["titles"], json!(["Wailing Caverns", "The Deadmines"]), "the title is the instance the card opens: {out}");
+	assert_eq!(
+		out["metas"],
+		json!(["Fang of the Serpent  ·  Attunement  ·  Everyone entering needs it  ·  From level 17", "Smelting Key  ·  Key  ·  One in the group is enough"]),
+		"the key's own name leads the facts: {out}"
+	);
 	assert_eq!(out["last"], json!(["smelting-key", "check", 0.6]), "done: ticked, at the end, dimmed: {out}");
 }

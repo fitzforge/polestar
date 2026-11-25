@@ -130,7 +130,7 @@ return {
 	-- {npc:268992} Zimmix Sputterspark · {area:102} Ruins of Zul'Kunda · {item:277957} Primitive Key · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment · Bloodscalp Scouts = {npc:588} Bloodscalp Scout · Bloodscalp Berserkers = {npc:597} Bloodscalp Berserker
 	-- was: ["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}. Then lead him out of the ruins: {npc:4631} in {area:35} takes the news and the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992}은(는) {area:102} 동쪽 끝에 붙잡혀 있고, 도난당한 화물은 그 주변 폐허에 있습니다. 그곳의 붉은머리부족 정찰병, 사냥꾼, 신비술사(34-35)가 {item:277957}을(를) 지니고 있습니다. 그런 다음 그를 폐허 밖으로 데리고 나가세요. {area:35}의 {npc:4631}이(가) 소식과 화물을 받습니다.\n주의: 붉은머리부족 광전사와 머리사냥꾼(36-37), 주술사(37, 시전자)가 {npc:268992} 북쪽과 서쪽 폐허, 북쪽 화물(약 24.9,9.6) 근처를 차지하고 있습니다. 먼저 {npc:268992} 옆 남쪽 폐허의 화물을 줍고, 북쪽으로 가면 하나씩 끌어내세요."
-	["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}: {npc:4631} in {area:35} takes the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "",
+	["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}: {npc:4631} in {area:35} takes the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992}은(는) {area:102} 동쪽 끝에 붙잡혀 있고, 도난당한 화물은 그 주변 폐허에 있습니다. 그곳의 피투성이 정찰병, 사냥꾼, 신비술사(34-35)가 그의 {item:277957}을(를) 지니고 있습니다: {area:35}의 {npc:4631}이(가) 화물을 받습니다.\n주의: 피투성이 광전사와 머리사냥꾼(36-37), 주술 의사(37, 주문시전자)가 {npc:268992} 북쪽과 서쪽 폐허, 북쪽 화물 근처(24.9,9.6 부근)를 지킵니다: {npc:268992} 옆 남쪽 폐허의 화물부터 줍고, 북쪽으로 가면 하나씩 끌어내십시오.",
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
 	["Stolen Shipments, in the ruins"] = "도난당한 화물, 폐허에서",
 	-- {item:277957} Primitive Key
@@ -139,9 +139,9 @@ return {
 
 	-- Step 21: Escort Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark
-	["Escort {npc:268992}"] = "",
+	["Escort {npc:268992}"] = "{npc:268992} 호위",
 	-- {npc:268992} Zimmix Sputterspark
-	["Lead {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "",
+	["Lead {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "{npc:268992}을(를) 폐허 밖으로 데려가 살려 두십시오: 그가 안전해지면 로즈길이 소식을 받습니다.",
 	-- {npc:268992} Zimmix Sputterspark
 	["Escort {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "{npc:268992}을(를) 폐허 밖으로 호위하며 살려 두세요. 안전해지면 로즈길이 소식을 받습니다.",
 

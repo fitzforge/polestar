@@ -192,11 +192,11 @@ return {
 
 	-- Step 38: Andi Lynn
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn · {area:983} Dunemaul Compound
-	["The hearth lands in {area:976}: {npc:11758} takes the {area:983}."] = "",
+	["The hearth lands in {area:976}: {npc:11758} takes the {area:983}."] = "Камень возвращения приводит в место {area:976}: {npc:11758} принимает {area:983}.",
 
 	-- Step 39: Tran'rek
 	-- {npc:7876} Tran'rek
-	["{npc:7876} stands beside the wind rider master."] = "",
+	["{npc:7876} stands beside the wind rider master."] = "{npc:7876} стоит рядом с укротителем ветрокрылов.",
 
 	-- Step 41: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
@@ -345,7 +345,7 @@ return {
 
 	-- Step 74: Oran Snakewrithe
 	-- {quest:2995} Lines of Communication · {object:144073} Highvale Report · {area:350} Quel'Danil Lodge · {zone:1425} The Hinterlands · {zone:1419} Blasted Lands
-	["{quest:2995}'s work is not in this guide: burn the {object:144073}, Notes and Records in the elves' camps around {area:350}, in {zone:1425} & {zone:1419} (its Highvale step). Load that guide for the arrows."] = "",
+	["{quest:2995}'s work is not in this guide: burn the {object:144073}, Notes and Records in the elves' camps around {area:350}, in {zone:1425} & {zone:1419} (its Highvale step). Load that guide for the arrows."] = "Работа задания {quest:2995} не входит в этот гайд: сожгите {object:144073}, записи и отчеты в лагерях эльфов вокруг места {area:350}, в гайде «{zone:1425} и {zone:1419}» (его шаг «Высокодолье»). Загрузите тот гайд ради стрелок.",
 
 	-- Step 75: Undercity
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
@@ -357,15 +357,15 @@ return {
 	-- {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {area:152} The Bulwark
 	["Leave the {zone:1458} and ride east along the road through {zone:1420} to the {area:152}, the Forsaken fort on the border."] = "Покиньте город {zone:1458} и езжайте на восток по дороге через край {zone:1420} к {area:152} – форту Отрекшихся на границе.",
 	-- {quest:5405} Argent Dawn Commission
-	["Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "",
+	["Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "Наденьте {quest:5405}: камни Плети падают, только пока он на вас.",
 	-- {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions
-	["{item:12814}, from the {object:176092} next to Derrington: {quest:5096}, done on the way back"] = "",
+	["{item:12814}, from the {object:176092} next to Derrington: {quest:5096}, done on the way back"] = "{item:12814}, из места {object:176092} рядом с Деррингтоном: {quest:5096}, выполняется на обратном пути",
 
 	-- Step 78: Scarlet forward camp
 	["Scarlet forward camp"] = "Передовой лагерь Алого ордена",
 	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
 	-- was: ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "От места {area:152} езжайте по дороге на восток в край {zone:1422}. Палатки Алого ордена стоят сразу за фермой Фелстоунов, между местами {area:199} и {area:200}. Подожгите командную палатку ({object:176092}) и установите знамя Плети. Осторожно: воины Алого ордена у палаток – до 54 уровня, а заклинатели колдуют: заходите со стороны, ближайшей к командной палатке, и не трогайте остальных."
-	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "",
+	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "От места {area:152} езжайте по дороге на восток в зону {zone:1422}. Палатки Алого ордена стоят сразу за фермой Фелстоунов, между местами {area:199} и {area:200}. Подожгите командную палатку с помощью {item:12814} и установите знамя Плети. Осторожно: воины Алого ордена у палаток до 54-го уровня, а заклинатели колдуют: заходите со стороны, ближайшей к командной палатке, и не трогайте остальных.",
 
 	-- Step 79: Janice Felstone
 	-- {npc:10778} Janice Felstone

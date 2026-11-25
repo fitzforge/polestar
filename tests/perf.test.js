@@ -297,6 +297,16 @@ function within(m, k, value) {
 	return withinBudget(value, BUDGET[k], m.scale, k === 'gatherSeconds' ? m.resolution / 1000 : m.resolution);
 }
 
+// POLESTAR_PERF_WARN: BUDGET's figures, comma-separated, that only warn where
+// the budgets are otherwise enforced. The post-merge gates enforce this file
+// (next-gates.yml, docs/CI.md "Timing budgets") and name there a figure known
+// to be over, with its issue open, until that is fixed; nothing else sets it.
+const WARN_ONLY = (process.env.POLESTAR_PERF_WARN || '').split(',').map((s) => s.trim()).filter(Boolean);
+function assertFigure(k, ok, message) {
+	assert.ok(WARN_ONLY.every((w) => w in BUDGET), `POLESTAR_PERF_WARN names a figure perf.test.js does not have: ${WARN_ONLY.join(',')}`);
+	return assertTiming(ok, message, WARN_ONLY.includes(k) ? { ...process.env, POLESTAR_TIMING_BUDGETS: 'warn' } : process.env);
+}
+
 test('event bursts, walking frames and step changes stay within budget with every module on', { skip }, () => {
 	const m = measure();
 	const last = m.rounds[m.rounds.length - 1];
@@ -311,7 +321,7 @@ test('event bursts, walking frames and step changes stay within budget with ever
 	}
 	assert.ok(m.changes > 10, `too few step changes measured (${m.changes})`);
 	for (const r of m.rounds) assert.ok(r.caughtUp, 'the catch-up ended before the bursts');
-	for (const k of ['burst', 'tick', 'setGuide', 'catchUp', 'stepChange']) assertTiming(within(m, k, m[k]), `${k} over budget: ${report}`);
+	for (const k of ['burst', 'tick', 'setGuide', 'catchUp', 'stepChange']) assertFigure(k, within(m, k, m[k]), `${k} over budget: ${report}`);
 	console.log(report);
 });
 
@@ -330,6 +340,6 @@ test(`a gathering guide plays to the end in under ${BUDGET.gatherSeconds} s`, { 
 	const seconds = fastest(times);
 	const report = `${gathering.id} took ${seconds.toFixed(2)} s (fastest of ${ROUNDS}); budget ${BUDGET.gatherSeconds} s, `
 		+ `scale ${round3(m.scale)} (refNow ${round3(m.refNow)} ms, refBaseline ${REF_BASELINE} ms), scaled budget ${m.limit.gatherSeconds} s`;
-	assertTiming(within(m, 'gatherSeconds', seconds), report);
+	assertFigure('gatherSeconds', within(m, 'gatherSeconds', seconds), report);
 	console.log(report);
 });

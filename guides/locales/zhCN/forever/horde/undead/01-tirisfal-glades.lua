@@ -46,7 +46,7 @@ return {
 	-- {area:154} Deathknell
 	["{area:154}: kill these as you meet them"] = "{area:154}：沿途遇到就击杀",
 	-- {area:154} Deathknell · {npc:1661} Novice Elreth
-	-- plural, as words: Rattlecage Skeletons = {npc:1890} Rattlecage Skeleton · Young Scavengers = {npc:1508} Young Scavenger · Duskbats = {npc:1512} Duskbat · Ragged Scavengers = {npc:1509} Ragged Scavenger · Mangy Duskbats = {npc:1513} Mangy Duskbat
+	-- plural, as words: Rattlecage Skeletons = {npc:1890} Rattlecage Skeleton · Young Scavengers = {npc:1508} Young Scavenger · Ragged Scavengers = {npc:1509} Ragged Scavenger · Mangy Duskbats = {npc:1513} Mangy Duskbat
 	["Rattlecage Skeletons wander the ruined houses in the north half of {area:154}. Young Scavengers and Duskbats roam all around the village; the Ragged Scavengers and Mangy Duskbats are on its east side. {npc:1661} wants their paws and wings: kill them as you meet them while you clear the skeletons."] = "{npc:1890}在{area:154}北半部的废弃房屋里游荡。{npc:1508}和夜行蝙蝠在村子周围游荡；{npc:1509}和{npc:1513}在村子东侧。{npc:1661}需要它们的爪子和翅膀：清理骷髅时顺路击杀遇到的它们。",
 
 	-- Step 7: Back to the church
@@ -150,7 +150,7 @@ return {
 	-- Step 26: Eleanor Shackleton
 	-- {area:159} Brill · {zone:1458} Undercity
 	-- was: ["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, at Linnea's camp, or in the {zone:1458} in the next guide."] = "埃莉诺·沙克尔顿在镇子西南方不远处扎营。学会专业技能后，她还会提供相应的野营入门任务，交给该专业的训练师：在{area:159}、林奈的营地，或下篇指南中的{zone:1458}。"
-	["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, east of {area:159} for fishing, at Linnea's camp, or in the {zone:1458} in the next guide."] = "",
+	["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, east of {area:159} for fishing, at Linnea's camp, or in the {zone:1458} in the next guide."] = "埃莉诺在镇子西南边不远处扎营。学会一项专业后，她还会提供该专业的露营 101，由其训练师接收：在{area:159}、钓鱼在{area:159}东边、在林妮亚的营地，或在下一篇指南中的{zone:1458}。",
 	-- {spell:1229451} Boosted Rest
 	["/sit by her campfire until you get {spell:1229451}"] = "在她的营火旁/sit，直到获得{spell:1229451}",
 
@@ -210,9 +210,9 @@ return {
 
 	-- Step 37: Camping 101: Fishing
 	-- {npc:5690} Clyde Kellen · {skill:356} Fishing
-	["{npc:5690} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:5690} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:356}技能达到20时，{npc:5690}会接收它：在此之前采集或制作，指南同时继续进行。",
 	-- {npc:5690} Clyde Kellen
-	["Eleanor: for {npc:5690}"] = "",
+	["Eleanor: for {npc:5690}"] = "埃莉诺：交给{npc:5690}",
 
 	-- Step 38: Brill
 	-- {npc:1518} Apothecary Johaan · {npc:1515} Executor Zygand · {npc:1499} Magistrate Sevren
@@ -466,7 +466,7 @@ return {
 
 	-- Step 82: Clyde Kellen
 	-- {npc:5690} Clyde Kellen · {area:159} Brill · {quest:97956} Camping 101: Fishing
-	["{npc:5690}, east of {area:159}: {quest:97956}"] = "",
+	["{npc:5690}, east of {area:159}: {quest:97956}"] = "{npc:5690}，在{area:159}东边：{quest:97956}",
 
 	-- Step 83: Leonid Barthalomew the Revered
 	-- {area:159} Brill · {area:157} Agamand Mills · {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {area:16881} Shadowvale

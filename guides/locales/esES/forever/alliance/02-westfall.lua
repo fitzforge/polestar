@@ -70,7 +70,7 @@ return {
 
 	-- Step 15: The Binding
 	-- {item:6810} Surena's Choker · {npc:6122} Gakin the Darkbinder · {quest:1689} The Binding · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6928} Bloodstone Choker
-	["{item:6810} is already with {npc:6122}: take {quest:1689} from him in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls."] = "",
+	["{item:6810} is already with {npc:6122}: take {quest:1689} from him in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls."] = "{item:6810} ya está con {npc:6122}: acepta {quest:1689} de él en el sótano de {object:2164}, en {object:2101}. Usa {item:6928} en el círculo de invocación de allí y derrota al abisario que llama.",
 
 	-- Step 16: The Jansen Stead
 	-- {zone:1436} Westfall · {object:2724} Sack of Oats
@@ -207,7 +207,7 @@ return {
 	["Harvest Watchers north of {area:107}"] = "Vigilantes de la cosecha al norte de {area:107}",
 	-- {area:916} The Jansen Stead · {area:107} Saldean's Farm · {quest:9} The Killing Fields · {item:732} Okra · {item:255155} Precessive Autocognition Assembly · {npc:573} Foe Reaper 4000
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher · Harvest Golems = {npc:36} Harvest Golem · Harvest Reapers = {npc:115} Harvest Reaper
-	["On the way south from the {area:916} to {area:107}: Harvest Watchers (level 14-15) work the fields west of the road. Stick to them: they are the only mechanicals that count for {quest:9}, and they drop everything else here too: the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. Harvest Golems drop some of the parts but don't count, and the Harvest Reapers (17) are too high. {npc:573}, a level 20 rare, walks these fields: leave it alone."] = "",
+	["On the way south from the {area:916} to {area:107}: Harvest Watchers (level 14-15) work the fields west of the road. Stick to them: they are the only mechanicals that count for {quest:9}, and they drop everything else here too: the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. Harvest Golems drop some of the parts but don't count, and the Harvest Reapers (17) are too high. {npc:573}, a level 20 rare, walks these fields: leave it alone."] = "Camino del sur desde {area:916} hasta {area:107}: los Vigías de la cosecha ({npc:114}, nivel 14-15) trabajan los campos al oeste del camino. Céntrate en ellos: son los únicos mecánicos que cuentan para {quest:9}, y además sueltan todo lo demás de aquí: los isomuelles, los giroestabilizadores, {item:732} y a veces {item:255155}. Los gólems de cosecha ({npc:36}) sueltan parte de las piezas pero no cuentan, y los segadores de cosecha ({npc:115}, 17) son demasiado altos. {npc:573}, un raro de nivel 20, recorre estos campos: déjalo en paz.",
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
 	["Harvest Watchers"] = "Vigilantes de la cosecha",
 	-- {item:814} Flask of Oil · {npc:392} Captain Grayson · {area:115} Westfall Lighthouse

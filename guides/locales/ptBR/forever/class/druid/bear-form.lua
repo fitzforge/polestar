@@ -95,9 +95,9 @@ return {
 
 	-- Step 25: Skycutter to Mulgore
 	-- {zone:1412} Mulgore
-	["Skycutter to {zone:1412}"] = "",
+	["Skycutter to {zone:1412}"] = "Corta-céu para {zone:1412}",
 	-- {npc:259118} Muln Earthfury · {zone:1412} Mulgore · {zone:2521} Zephras Isle · {area:16628} Valanaar Skydocks · {area:16638} Valanaar
-	["{npc:259118} is in {zone:1412}, where the skycutter from {zone:2521} lands. Board it at the {area:16628} on the village's south-west edge: go down through {area:16638} on its paths, not over the cliffs around it, which drop off the isle."] = "",
+	["{npc:259118} is in {zone:1412}, where the skycutter from {zone:2521} lands. Board it at the {area:16628} on the village's south-west edge: go down through {area:16638} on its paths, not over the cliffs around it, which drop off the isle."] = "{npc:259118} está em {zone:1412}, onde pousa o corta-céu vindo de {zone:2521}. Embarque em {area:16628}, na borda sudoeste da aldeia: desça por {area:16638} pelas trilhas, não pelos penhascos ao redor, que caem da ilha.",
 
 	-- Step 26: Child of Nature
 	-- {npc:259118} Muln Earthfury · {zone:2521} Zephras Isle · {zone:1412} Mulgore · {zone:1456} Thunder Bluff
