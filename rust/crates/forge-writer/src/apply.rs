@@ -5936,9 +5936,14 @@ impl Writer<'_, '_> {
 			}
 		}
 		self.write_goto(&c, zn, label, with_only);
-		// The coast's return boat is only useful while the player is there.
-		if label == "Portal to Thandol Span" {
-			self.g.body.insert(self.g.body.len() - 1, Some("  when subzone \"The Forbidding Sea\"".to_string()));
+		// The ride out is part of the quest detour. The way back is still needed after turning it in.
+		let rowboat_guard = match label {
+			"Portal to The Forbidding Sea" => Some("  when onquest 79242"),
+			"Portal to Thandol Span" => Some("  when subzone \"The Forbidding Sea\""),
+			_ => None,
+		};
+		if let Some(guard) = rowboat_guard {
+			self.g.body.insert(self.g.body.len() - 1, Some(guard.to_string()));
 		}
 	}
 

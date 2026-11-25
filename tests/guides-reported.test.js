@@ -8324,7 +8324,11 @@ test(`${ARATHI}: Fyurie's report (#1319): MacKreel's Moonshine is taken after Ko
 
 test(`${ARATHI}: No Honor Among Thieves uses the Rowboat and finishes before the Moonshine timer starts`, { skip }, () => {
 	const boot = goals('forever/alliance/30-40/04b-stranglethorn-vale.guide');
-	assert.ok(at(boot, 'accept 79242', is('accept', 79242)) > at(boot, 'turnin 79236', is('turnin', 79236)));
+	const pickup = at(boot, 'accept 79242', is('accept', 79242));
+	assert.ok(pickup > at(boot, 'turnin 79236', is('turnin', 79236)));
+	assert.ok(!boot[pickup].goal.optional, 'the route tells players to take the quest at Tokal');
+	const needsQuest = ({ step }) => step.when?.some((p) => p.k === 'onquest' && p.q === 79242 && !p.neg);
+	assert.ok(!needsQuest(boot[pickup]), 'the pickup is shown before the player has the quest');
 	const list = goals(ARATHI);
 	const boat = at(list, 'the Wetlands Rowboat', (g) => g.t === 'goto' && g.map === 1437 && Math.abs(g.x - 58.2) < 0.15 && Math.abs(g.y - 6.9) < 0.15);
 	const talk = at(list, 'talk to Illari Duskfeather', (g) => g.t === 'talk' && g.quest === 79242 && g.npc === 215655);
@@ -8332,6 +8336,8 @@ test(`${ARATHI}: No Honor Among Thieves uses the Rowboat and finishes before the
 	const cache = at(list, "turnin at Illari's Loot Cache", is('turnin', 79242));
 	const moonshine = at(list, 'accept 647', is('accept', 647));
 	assert.ok(boat < talk && talk < key && key < cache && cache < moonshine);
+	for (const i of [boat, talk, key, cache]) assert.ok(needsQuest(list[i]), `guide step ${list[i].s} is skipped without the quest`);
+	assert.ok(!needsQuest(list[moonshine]), 'the Moonshine stop does not depend on the other quest');
 });
 
 // --- Timed-quest check (2026-11-08, #1319's pattern): A Meal Served Cold (212) must be back with Angus Stern in Stormwind

@@ -7812,8 +7812,8 @@
 				"quest": 79242,
 				"goal": "accept"
 			},
-			"tip": "Take No Honor Among Thieves from Tokal. Before picking up MacKreel's Moonshine, click the Rowboat at Wetlands 58.2, 6.9 to reach Illari Duskfeather on the Arathi coast.",
-			"note": "Tokal offered this follow-up after Cherry for Your Thoughts? in Booty Bay. The boat takes the player from Wetlands to the Arathi coast.",
+			"tip": "Pick up No Honor Among Thieves from Tokal after turning in Cherry for Your Thoughts? Keep it for Arathi Highlands. You'll click the Rowboat at Wetlands 58.2, 6.9 before the Moonshine stop.",
+			"note": "Tokal offers this follow-up after Cherry for Your Thoughts? in Booty Bay. Players who start the guide later skip the detour if they do not already have the quest in their log.",
 			"source": {
 				"kind": "recording",
 				"ref": "cameronmoten's Forever 1.60.1.71037 recording, quest 79242"
@@ -7828,6 +7828,7 @@
 				"objective": 1
 			},
 			"tip": "Speak to Illari Duskfeather and challenge her. Defeat her, then loot Illari's Key from the Dropped Pouch she leaves behind. Use the key at Illari's Loot Cache and take the Rowboat back to Thandol Span.",
+			"when": "onquest 79242",
 			"note": "The recording shows 27.9 seconds in combat, then the key from Dropped Pouch (423569) and 4,017 XP at the cache hand-in (418855). The base quest reward is 3,900 XP. The recording has no separate combat XP award.",
 			"source": {
 				"kind": "recording",
@@ -7861,6 +7862,35 @@
 				"when": "onquest 79242"
 			},
 			"note": "Players who missed Tokal's pickup can skip the walk to the rowboat and the ride out to the coast.",
+			"source": {
+				"kind": "recording",
+				"ref": "cameronmoten's Forever 1.60.1.71037 recording, quest 79242"
+			}
+		},
+		{
+			"id": "arathi-no-honor-among-thieves-key-carried",
+			"faction": "Alliance",
+			"at": {
+				"quest": 79242,
+				"goal": "objective",
+				"objective": 2
+			},
+			"when": "onquest 79242",
+			"note": "When the writer gives the key its own step, show it only for a player still carrying the quest.",
+			"source": {
+				"kind": "recording",
+				"ref": "cameronmoten's Forever 1.60.1.71037 recording, quest 79242"
+			}
+		},
+		{
+			"id": "arathi-no-honor-among-thieves-hand-in-carried",
+			"faction": "Alliance",
+			"at": {
+				"quest": 79242,
+				"goal": "turnin"
+			},
+			"when": "onquest 79242",
+			"note": "Send only players carrying No Honor Among Thieves to Illari's Loot Cache.",
 			"source": {
 				"kind": "recording",
 				"ref": "cameronmoten's Forever 1.60.1.71037 recording, quest 79242"

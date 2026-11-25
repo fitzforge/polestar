@@ -12041,7 +12041,7 @@
 				"q": 79242,
 				"faction": "Alliance",
 				"after": ["turnin", 79236],
-				"reason": "Alliance 30-40: Tokal offers No Honor Among Thieves as soon as Cherry for Your Thoughts? is handed in. Carry it to the Thandol Span visit, cross by Rowboat to Illari Duskfeather, and turn it in before starting the 15-minute MacKreel's Moonshine delivery. The recording shows the boat crossing, the encounter and the cache hand-in.",
+				"reason": "Alliance 30-40: Take No Honor Among Thieves from Tokal after Cherry for Your Thoughts? and carry it to Thandol Span. Only players with the quest take the Rowboat detour before the Moonshine stop. The recording shows both crossings, the encounter and the cache hand-in.",
 				"issue": "-"
 			},
 			{
