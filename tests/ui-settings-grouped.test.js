@@ -50,7 +50,7 @@ test('the new page lists groups, each open on its pages, and a page shows its ow
 		lookHas = has.guidewindow == true and has.alerts == true
 		emit({ groups = groups, open = open, guidingPages = tree.guiding, crumb = O.frame.Title:GetText(), page = p.key,
 			tab = t.name, tabs = tabs, lookHas = lookHas, navKey = G.NavKey() })`);
-	assert.deepEqual(out.groups, ['b:guiding', 'b:qol', 'b:look', 'b:setup'], 'About and Guiding Stars stand at the foot, not as a group');
+	assert.deepEqual(out.groups, ['b:guiding', 'b:qol', 'b:look', 'b:setup', 'b:addons'], 'About and Guiding Stars stand at the foot, not as a group');
 	assert.deepEqual(out.guidingPages, ['guide', 'questing', 'map', 'discovery']);
 	assert.deepEqual(out.open, out.guidingPages, 'the group shown, Guiding, lists its pages');
 	assert.equal(out.crumb, 'Guiding › Questing');
@@ -91,7 +91,7 @@ test('groups come from G.TREE: a fifth group and a moved page need only a table 
 		for _, it in ipairs(G.NavItems()) do if it.key == "discovery" then orphan = true end end
 		emit({ groups = groups, guidingPages = guiding, crumbQol = crumbQol, orphanShown = orphan and guiding[#guiding] == "discovery",
 			crumbOrphan = O.frame.Title:GetText() })`);
-	assert.deepEqual(out.groups, ['b:guiding', 'b:look', 'b:setup', 'b:extra']);
+	assert.deepEqual(out.groups, ['b:guiding', 'b:look', 'b:setup', 'b:addons', 'b:extra']);
 	assert.equal(out.guidingPages.includes('qualityoflife'), false);
 	assert.ok(out.crumbQol.startsWith('Quality of Life \u203a ') && !out.crumbQol.includes('Quality of Life \u203a Quality of Life'),
 		`the label falls back to the page name, said once, then the tab (${out.crumbQol})`);
@@ -141,8 +141,8 @@ test('the switch lays the open window out in groups and back, with the same rows
 		emit({ nav = nav, on = on, look = look, changed = changed, titles = titles, back = back,
 			stepped = stepped, steppedTab = steppedTab.name, jumped = jumped,
 			off = { layout = PolestarDB.optionsLayout or false, title = O.frame.Title:GetText() } })`);
-	assert.deepEqual(out.nav, ['b:guiding', 'guide', 'questing', 'map', 'discovery', 'b:qol', 'b:look', 'b:setup', 'about', 'thanks', 'profile'],
-		'four groups, Guiding open on its pages, then About, Guiding Stars and the profile at the foot');
+	assert.deepEqual(out.nav, ['b:guiding', 'guide', 'questing', 'map', 'discovery', 'b:qol', 'b:look', 'b:setup', 'b:addons', 'about', 'thanks', 'profile'],
+		'five groups, Guiding open on its pages, then About, Guiding Stars and the profile at the foot');
 	assert.equal(out.on.layout, 'grouped', 'the choice is saved for the account');
 	assert.equal(out.on.title, 'Guiding › Guide', 'the Guide page stays on screen');
 	assert.ok(out.on.rows > 0 && out.look.rows > 0, 'the pages show their rows');
@@ -364,8 +364,8 @@ test('pinned settings sit under the tree, with the profile last', () => {
 		G.Pin("nav.arrowScale", false)
 		emit({ empty = empty, pinned = pinned, saved = saved or false, went = went, after = PolestarDB.optionsPins[1] or false })`);
 	const L = { pinned: 'h:Pinned', hint: 'h:Pin a setting with the flag on its row.' };
-	assert.deepEqual(out.empty, ['b:guiding', 'b:qol', 'b:look', 'b:setup', L.pinned, L.hint, 'fill', 'about', 'thanks', 'profile:Default'], 'with none pinned the heading says how');
-	assert.deepEqual(out.pinned.slice(4), [L.pinned, 'pin:nav.arrowScale', 'fill', 'about', 'thanks', 'profile:Default'], 'a pinned setting under its heading');
+	assert.deepEqual(out.empty, ['b:guiding', 'b:qol', 'b:look', 'b:setup', 'b:addons', L.pinned, L.hint, 'fill', 'about', 'thanks', 'profile:Default'], 'with none pinned the heading says how');
+	assert.deepEqual(out.pinned.slice(5), [L.pinned, 'pin:nav.arrowScale', 'fill', 'about', 'thanks', 'profile:Default'], 'a pinned setting under its heading');
 	assert.equal(out.saved, 'nav.arrowScale', 'saved for the account');
 	assert.equal(out.went, 'Look › Arrow', "its sidebar row goes to the setting's page");
 	assert.equal(out.after, false, 'and unpins');
@@ -523,7 +523,7 @@ test('the new page says Settings, never Options', () => {
 		PolestarDB.optionsLayout = "grouped"
 		Polestar.UI.ShowOptions()
 		local texts = {}
-		for _, key in ipairs({ "b:guiding", "b:qol", "b:look", "b:setup" }) do O.Select(key); for _, t in ipairs(O.Grouped.NewPageText(O.frame)) do texts[#texts + 1] = t end end
+		for _, key in ipairs({ "b:guiding", "b:qol", "b:look", "b:setup", "b:addons" }) do O.Select(key); for _, t in ipairs(O.Grouped.NewPageText(O.frame)) do texts[#texts + 1] = t end end
 		emit({ texts = texts })`);
 	assert.deepEqual(out.texts.filter((t) => /\bOptions\b/.test(t)), []);
 });

@@ -76,7 +76,11 @@ G.TREE = {
 	{ key = "look", label = L["Look"], iconPage = "theme",
 		pages = { "guidewindow", "theme", "arrow", "mappins", "routelines", "buttons", "alerts", "trackers" } },
 	{ key = "setup", label = L["Setup"], iconPage = "profiles",
-		pages = { "language", "profiles", "integrations", "guidepacks", "gamepad", "recorder" } },
+		pages = { "language", "profiles", "gamepad" } },
+	-- What Polestar works with from outside it: other addons, other
+	-- players' guides, and the recorder that feeds guide authors.
+	{ key = "addons", label = L["Add-ons"], iconPage = "integrations",
+		pages = { "integrations", "guidepacks", "recorder" } },
 	-- foot: the group's pages stand at the sidebar's foot, over the profile
 	-- card, as rows of their own (folded to the rail, a group like the rest).
 	{ key = "about", label = L["About"], iconPage = "about", foot = true,
@@ -98,7 +102,8 @@ local SUBTITLES = {
 	guiding = L["What Polestar does for you while you level: suggestions, quests, rewards, buttons, rares."],
 	arrowmap = L["The arrow, its routes, and what Polestar draws on the world map and the minimap."],
 	look = L["The theme every Polestar window wears, the action buttons, the alert cards and the trackers."],
-	setup = L["Profiles, other addons, community guides and gamepad."],
+	setup = L["Language, profiles and gamepad."],
+	addons = L["Other addons, community guides and the recorder."],
 }
 
 local homes, dirty = nil, true

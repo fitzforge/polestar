@@ -306,7 +306,8 @@ test('pages and sections follow the player journey order', () => {
 	assert.deepEqual(out.tree.qol, ['qualityoflife']);
 	assert.equal(out.tree.look[0], 'guidewindow');
 	assert.deepEqual(out.tree.look, ['guidewindow', 'theme', 'arrow', 'mappins', 'routelines', 'buttons', 'alerts', 'trackers']);
-	assert.deepEqual(out.tree.setup, ['language', 'profiles', 'integrations', 'guidepacks', 'gamepad', 'recorder']);
+	assert.deepEqual(out.tree.setup, ['language', 'profiles', 'gamepad']);
+	assert.deepEqual(out.tree.addons, ['integrations', 'guidepacks', 'recorder']);
 	assert.deepEqual(out.tree.about, ['about', 'thanks']);
 	// By name: pr/settings-essentials puts an Essentials tab before them.
 	assert.deepEqual(out.questingTabs.filter((n) => n !== 'Essentials'), ['Quests', 'Rewards & gear', 'Buttons', 'Group']);
