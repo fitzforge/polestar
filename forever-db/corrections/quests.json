@@ -21825,5 +21825,21 @@
 			}
 		],
 		"note": "Microcrystal Contamination starts from the Crystal Infused Scale, not from Torwa Pathfinder: players open it where the scale drops and take it to Torwa, as the quest text says. QuestieDB 1.1.5 lists Torwa as its giver too, which would send players to him for the accept."
+	},
+	"84377": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.5: finishedBy Master Mathias Shaw (332) and General Marcus Jonathan (466), both in Stormwind (1.1.2: no ender); its follow-up of the same name (97883) is Alliance only (requiredRaces 4294967373)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20): nobody took or handed in the quest; the starting item (227911) was seen by one Alliance player"
+			}
+		],
+		"note": "End of the Dark Horde is the Alliance's: it is handed in to Stormwind's Master Mathias Shaw or General Marcus Jonathan and goes on to an Alliance-only follow-up. With no race limit, the Horde's Blackrock Spire hand-in guide sent Horde players to Stormwind."
 	}
 }
