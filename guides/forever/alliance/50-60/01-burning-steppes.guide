@@ -569,6 +569,13 @@ step The Temple of Zin-Malor
   tip The Spitelash Sirens wander the ruins and the beach around the Temple of Zin-Malor, just south of Sanath. Only the Sirens carry the coral, not the Screamers.
   collect 20029 quest 8252.1          -- Enchanted Coral
 
+step Sanath Lim-yo
+  zone Azshara
+  only Mage
+  when onquest 8252
+  tip Back north to Sanath's camp at the foot of the cliff and get off your mount: he teleports you up to Xylem again.
+  goto 28.1,50.1 "Sanath Lim-yo"
+
 step Archmage Xylem
   zone Azshara
   only Mage

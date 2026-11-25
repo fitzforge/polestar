@@ -161,6 +161,7 @@ step Goldshire
   sethome "Goldshire" npc 295
   accept 60                                   -- William Pestle, inside
   turnin 5623 only Priest                     -- Priestess Josetta, upstairs
+  tip Priests: Garments of the Light counts only Lesser Heal (Rank 2). Priestess Josetta trains priests too: learn it from her now if you have not yet.
   accept 5624 only Priest                     -- Priestess Josetta: heal Guard Roberts at Crystal Lake
 
 step Marshal Dughan

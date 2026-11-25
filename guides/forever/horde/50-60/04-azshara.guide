@@ -42,7 +42,7 @@ step Fly to Orgrimmar
 step Jes'rimon
   zone Orgrimmar
   when complete 4300
-  turnin 4300                         -- Jes'rimon, the Cleft of Shadow
+  turnin 4300                         -- Jes'rimon, at the top of a tower in the Drag
 
 step Orgrimmar
   zone Orgrimmar
