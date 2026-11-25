@@ -1223,7 +1223,10 @@ function draftGuide(name, data, opts = {}) {
 		line(`  skill ${pq} ${goal}`);
 	}
 	// Each bracket's range is a section (the guide window's heading; the guide starts at the player's skill).
-	return { text: `${byBanners(out.join('\n'), P)}\n`, plan };
+	// `materials`: what each rank bracket's Get it steps ask for (the gathering guides' band tips count
+	// against it): [{ from, cap, items: [{ item, name, count, uses }] }], after the moves between brackets.
+	const materials = brackets.map((b) => ({ from: b.from, cap: b.cap, items: b.list.filter((t) => SIDES.some((s) => t.src[s].kind !== 'vendor')).map((t) => ({ item: t.item, name: matName(t.item), count: t.count, uses: t.uses.slice() })) }));
+	return { text: `${byBanners(out.join('\n'), P)}\n`, plan, materials };
 }
 
 module.exports = { draftGuide, farmSpot, skinSpot, money: D.money, slug };
