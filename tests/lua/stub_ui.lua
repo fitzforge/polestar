@@ -739,6 +739,7 @@ function Guides.Peek(id)
 	return g and g.steps, false
 end
 function Guides.Unpeek() end
+function Guides.StepsDeferred() return false end
 
 local Nav = {}
 function Nav.SetTarget(map, x, y, label, f, stop, z)
