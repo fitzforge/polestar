@@ -6090,7 +6090,6 @@ t.guides["forever/horde/50-60/01-un-goro-crater"] = (function() return {
 		["{npc:5594}, inside"] = "{npc:5594}, внутри",
 		["{npc:7825} stands in the {object:36082}."] = "{npc:7825} стоит здесь: {object:36082}.",
 		["{npc:7876} stands beside the wind rider master."] = "{npc:7876} стоит рядом с укротителем ветрокрылов.",
-		["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}, Район Фармацевтов: склянки наполните позже ({zone:1447})",
 		["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}, в глубине пещеры; под землей",
 		["{npc:9117}, below ground"] = "{npc:9117}, под землей",
 		["{npc:9166} (50-52) fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for {npc:9998}, and {npc:9997}'s sign wants ten of them. Leave the {npc:9167} over the west for the pylon loop."] = "Жутедактили ({npc:9166}, 50-52) летают над востоком кратера, от склонов под лагерем на юг; их перепончатая чешуя — для персонажа {npc:9998}, а табличка ({npc:9997}) просит десять из них. Бесноватых жутедактилей ({npc:9167}) над западом оставьте для маршрута по пилонам.",
