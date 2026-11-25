@@ -6670,6 +6670,24 @@
 		},
 		"note": "Seeking Caitlin (Llana, Astranaar) is the optional breadcrumb to Lost in the Thicket Things 95647 (Excavation Site: Wetlands): it ends at Caitlin Grassman, who starts 95647, and in game Llana stops offering it once 95647 is taken (issue #533). QuestieDB has no breadcrumb link."
 	},
+	"95766": {
+		"set": {
+			"pre": [91770, 91923],
+			"preAll": [91770, 91923],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: 19 people took Fine Feathered Friend from Fraxinus (248366), every one after handing in both Bark Bite (91770) and Celastrus the Bitter (91923); six of them took The Dying Ancients (92959) from Fraxinus before handing in Celastrus and Fine Feathered Friend only after, and two of those were offered The Dying Ancients alone in a window opened with Celastrus still in the log"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#4003: a player who had skipped Celastrus the Bitter was not offered it after Bark Bite"
+			}
+		],
+		"note": "Fine Feathered Friend (Fraxinus, Mount Hyjal) needs Celastrus the Bitter (Thylaen) handed in as well as Bark Bite; the merged data had only Bark Bite. The Dying Ancients, from the same giver, needs only Bark Bite."
+	},
 	"95771": {
 		"remove": true,
 		"source": [
