@@ -65,30 +65,38 @@ local function factionName(id, english)
 	return (N and N.Faction and N.Faction(id)) or english or L["Not known"]
 end
 
+local function stepName(entry, kind)
+	if not entry then return nil end
+	local N = ns.Names
+	return (N and N.Get(kind or entry.kind, entry.id)) or entry.name
+end
+
 -- A step and its state -> the next step in words.
 local function stepWords(s, state)
 	if s.kind == "quest" then
-		local title = s.title or ""
+		local N = ns.Names
+		local title = (N and N.Quest(s.id)) or s.title or ""
 		if state == "ready" then return format(L["Hand in %s"], title) end
 		if state == "log" then return format(L["Finish %s"], title) end
 		if state == "level" then return format(L["%s, from level %d"], title, s.minLevel or 0) end
 		if state == "rep" and s.rep then
 			return format(L["Reach %s with %s"], standingName(s.rep.standing), factionName(s.rep.faction, s.rep.name))
 		end
-		if s.start and s.start.name then return format(L["Pick up %s from %s"], title, s.start.name) end
+		local start = stepName(s.start)
+		if start then return format(L["Pick up %s from %s"], title, start) end
 		return format(L["Pick up %s"], title)
 	elseif s.kind == "drop" then
-		return format(L["%s from %s"], s.item and s.item.name or L["Item"], s.npc and s.npc.name or L["Not known"])
+		return format(L["%s from %s"], stepName(s.item, "item") or L["Item"], stepName(s.npc, "npc") or L["Not known"])
 	elseif s.kind == "object" then
-		if not (s.object and s.object.name) then return s.item and s.item.name or L["Item"] end
-		local N = ns.Names
-		return format(L["%s from %s"], s.item and s.item.name or L["Item"], N and N.Object and N.Object(s.object.id) or s.object.name)
+		local item = stepName(s.item, "item") or L["Item"]
+		local object = stepName(s.object, "object")
+		return object and format(L["%s from %s"], item, object) or item
 	elseif s.kind == "rep" then
 		return format(L["Reach %s with %s"], standingName(s.standing), factionName(s.faction, s.name))
 	elseif s.kind == "gift" then
-		return format(L["%s gives you %s"], s.npc and s.npc.name or L["Not known"], s.item and s.item.name or L["Item"])
+		return format(L["%s gives you %s"], stepName(s.npc, "npc") or L["Not known"], stepName(s.item, "item") or L["Item"])
 	elseif s.kind == "use" then
-		return format(L["Use %s beside %s"], s.from and s.from.name or L["Item"], s.at and s.at.name or L["Not known"])
+		return format(L["Use %s beside %s"], stepName(s.from, "item") or L["Item"], stepName(s.at) or L["Not known"])
 	end
 	return ""
 end
