@@ -7,7 +7,8 @@
 --     grey item, or one marked as junk (QoL/Marks.lua) of common quality or
 --     below; never one marked to keep, one a later step needs, or a quest's
 --     item or one that begins a quest (Client.SlotQuest). Its worth
---     is the vendor price of the stack (an item without one is worth
+--     is what a merchant pays for the stack (Client.SlotSellPrice: less for a
+--     damaged item, #3997; an item without a price is worth
 --     nothing; one whose price the client
 --     has not loaded yet goes last).
 --   * while the live step has an open collect goal, the guide window's
@@ -84,7 +85,7 @@ function Space.Cheapest()
 				if info.hasNoValue then
 					value = 0
 				else
-					local price = Client.SellPrice(info.itemID)
+					local price = Client.SlotSellPrice(bag, slot, info.itemID, count)
 					value = price and price * count or huge
 				end
 				if not best or value < bestValue then
