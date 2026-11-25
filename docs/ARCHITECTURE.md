@@ -8553,7 +8553,9 @@ Polestar.Free.MenuItems() ; Polestar.Free.RowItems(questID) -- the guide window'
   are not listed. Both go when the quest leaves the log.
 - **Zone hints** (`free.hints`). With no quest placed, or the first more than
   300 s away, the first step is "Quests for your level": a `goto` to the hub of
-  the zone with the most quests the character can take now (side, race, class,
+  the zone with the most quests for the trip (its count over 1 + the straight
+  walk's minutes / 5, zones on the player's continent first) the character can
+  take now (side, race, class,
   profession, a level above grey and at most 3 above the player, prerequisites
   done, not done or held, a giver of its side with a spawn; scanned 300 Codex
   quests a frame, once per level), the hub the giver with the most others

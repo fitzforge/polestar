@@ -47,7 +47,8 @@ function Free.Load()
 end
 
 function Free.Say(why)
-	ns.Print(why == "combat" and L["Free mode starts after combat."]
+	ns.Print((why == "combat" and L["Free mode starts after combat."])
+		or (why == "tabs" and L["Six tabs is the limit. Close one to open another."])
 		or L["Free mode can't start: its folder Polestar_FreeMode or the Codex is missing or turned off."])
 end
 

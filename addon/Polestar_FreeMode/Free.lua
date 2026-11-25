@@ -474,42 +474,47 @@ local function hubOf(z)
 	return best, bestN
 end
 
--- The hint step for now, or nil: the zone with the most quests for the
--- level (the nearer hub on a tie). None while the player stands at a hub
--- with quests to take: they are there, and taking them is next.
+-- The hint step for now, or nil: of the zones on the player's continent (any
+-- with none there), the one with the most quests for the level for the trip:
+-- its count over 1 + the straight walk's minutes / HINT_MINUTES, so a zone
+-- of 20 quests a tram ride off loses to one of 10 a field away. None while
+-- the player stands at a hub with quests to take: taking them is next.
+local HINT_MINUTES = 5
 local function hintStep(from)
 	local zones = hint.zones
 	if not zones then return nil end
-	local list = {}
+	local list, near = {}, false
 	for _, z in pairs(zones) do
 		local hub, here = hubOf(z)
 		if hub then
 			local d = from and direct(from, hub)
 			if d and d * RUN <= HUB_YARDS then return nil end
-			list[#list + 1] = { z = z, hub = hub, here = here, d = d or CROSS }
+			local e = { z = z, hub = hub, here = here, d = d or CROSS }
+			e.score = z.n / (1 + min(e.d, CROSS) / 60 / HINT_MINUTES)
+			if e.d < CROSS then near = true end
+			list[#list + 1] = e
 		end
 	end
 	sort(list, function(a, b)
-		if a.z.n ~= b.z.n then return a.z.n > b.z.n end
-		if a.d ~= b.d then return a.d < b.d end
+		if (a.d < CROSS) ~= (b.d < CROSS) then return a.d < CROSS end
+		if a.score ~= b.score then return a.score > b.score end
 		return a.z.map < b.z.map
 	end)
 	local best = list[1]
-	if not best then return nil end
+	if not best or (near and best.d >= CROSS) then return nil end
 	local z, hub, here, n = best.z, best.hub, best.here, best.z.n
-	local zone = ns.Compat.MapName(z.map) or tostring(z.map)
 	local note
 	if n == 1 then
-		note = format(L["%s has 1 quest for your level: %s gives it."], zone, hub.name)
+		note = format(L["1 quest for your level: %s gives it."], hub.name)
 	elseif here == n then
-		note = format(L["%s has %d quests for your level, all from givers around %s."], zone, n, hub.name)
+		note = format(L["%d quests for your level, all here."], n)
 	else
-		note = format(L["%s has %d quests for your level, %d of them from givers around %s."], zone, n, here, hub.name)
+		note = format(L["%d quests for your level, %d of them here."], n, here)
 	end
 	return {
 		title = L["Quests for your level"],
 		note = note,
-		goals = { { t = "goto", map = hub.map, x = hub.x, y = hub.y, f = hub.f, text = zone, r = 30 } },
+		goals = { { t = "goto", map = hub.map, x = hub.x, y = hub.y, f = hub.f, text = hub.name, r = 30 } },
 		hint = z.map,
 	}
 end

@@ -256,7 +256,7 @@ emit({ note = v.goals[1].note, xp = v.goals[#v.goals].rewards })
 
 #[test]
 fn an_empty_log_leads_to_the_zone_with_the_most_quests_for_the_level() {
-	// Away from Marshal Hale's camp, his five quests (7001-7003, 7005, 7110) outnumber Merrow Fields' four.
+	// Away from Marshal Hale's camp, his five quests (7001-7003, 7005, 7110), nearer, beat Merrow Fields' four.
 	let out = run(r#"
 w.moveTo(9001, 10, 90)
 stub.advance(1)
@@ -270,7 +270,7 @@ emit({ title = v.title, note = v.note, map = wp and wp.map, x = wp and wp.x, y =
 	assert_eq!(out[0]["map"], 9001);
 	assert_eq!(out[0]["x"], 50);
 	assert_eq!(out[0]["y"], 52);
-	assert_eq!(text(&out[0]["note"]), "Hale's Reach has 5 quests for your level, all from givers around Marshal Hale.");
+	assert_eq!(text(&out[0]["note"]), "5 quests for your level, all here.");
 }
 
 #[test]
@@ -293,7 +293,7 @@ emit({ title = v.title, note = v.note, map = wp and wp.map, x = wp and wp.x, y =
 	assert_eq!(out[0]["map"], 9002);
 	assert_eq!(out[0]["x"], 60);
 	assert_eq!(out[0]["y"], 40);
-	assert_eq!(text(&out[0]["note"]), "Merrow Fields has 4 quests for your level, 3 of them from givers around Scout Merrow.");
+	assert_eq!(text(&out[0]["note"]), "4 quests for your level, 3 of them here.");
 }
 
 #[test]
