@@ -38,6 +38,7 @@ const RELEASE: &[&str] = &[
 	"Polestar_Nav_EK",
 	"Polestar_Nav_Kalimdor",
 	"Polestar_Options",
+	"Polestar_Lookup",
 	"Polestar_Skins",
 	"Polestar_Arcade",
 	"Polestar_deDE",
@@ -143,17 +144,18 @@ emit({ missing = table.concat(missing, ","), stale = table.concat(stale, ","), r
 	);
 }
 
-// The settings window (Polestar_Options) loads on demand but ships in every release: a copy without the folder is
-// named at login (the settings could not open).
+// The settings and Lookup windows load on demand and ship in every release. A missing folder is named at login.
 #[test]
-fn a_copy_without_the_settings_folder_is_named_at_login() {
-	let without: Vec<String> = RELEASE.iter().filter(|n| **n != "Polestar_Options").map(|s| s.to_string()).collect();
-	let out = login(&without);
-	assert_eq!(out["missing"], "Polestar_Options");
-	assert_eq!(out["stale"], "");
-	let said = said(&out);
-	assert_eq!(said.len(), 1, "one line: {said:?}");
-	assert!(is_match(&said[0], r"Polestar_Options not installed"), "{}", said[0]);
+fn a_missing_window_folder_is_named_at_login() {
+	for folder in ["Polestar_Options", "Polestar_Lookup"] {
+		let without: Vec<String> = RELEASE.iter().filter(|n| **n != folder).map(|s| s.to_string()).collect();
+		let out = login(&without);
+		assert_eq!(out["missing"], folder);
+		assert_eq!(out["stale"], "");
+		let said = said(&out);
+		assert_eq!(said.len(), 1, "one line: {said:?}");
+		assert!(said[0].contains(&format!("{folder} not installed")), "{}", said[0]);
+	}
 }
 
 #[test]

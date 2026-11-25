@@ -23,9 +23,9 @@ pub fn stubs_dir() -> PathBuf {
 }
 
 /// Polestar's own load-on-demand addons besides the walking maps' parts, which [`run_addon`] loads from their
-/// TOC when the addon asks (C_AddOns.LoadAddOn): the settings window, our skins and layouts, and Freedoom Arcade
+/// TOC when the addon asks (C_AddOns.LoadAddOn): the settings and Lookup windows, our skins and layouts, and Freedoom Arcade
 /// (the first Play).
-pub const LOAD_ON_DEMAND: &[&str] = &["Polestar_Options", "Polestar_Skins", "Polestar_Arcade"];
+pub const LOAD_ON_DEMAND: &[&str] = &["Polestar_Options", "Polestar_Lookup", "Polestar_Skins", "Polestar_Arcade"];
 
 /// An addon to load, as the client loads it.
 #[derive(Clone, Debug)]
@@ -193,8 +193,8 @@ end"
 	);
 	// The load-on-demand addons, loaded as the client loads them, when asked (a test's own stub.packs entry for
 	// one, stub_packs.lua, wins): the walking maps' part addons (Polestar_Nav_EK, _Kalimdor: Routing/PathGrid.lua
-	// asks for one the first time it searches its continent), the settings window (Polestar_Options:
-	// UI/OptionsLoader.lua asks for it the first time the settings open), our skins and layouts (Polestar_Skins:
+	// asks for one the first time it searches its continent), the settings and Lookup windows (Polestar_Options
+	// and Polestar_Lookup, on first open), our skins and layouts (Polestar_Skins:
 	// Theme/SkinApi.lua, when one of them is wanted) and Freedoom Arcade (Polestar_Arcade: Maps/Arcade.lua, the
 	// first Play).
 	static PART_FILES: LazyLock<Result<Vec<(String, String)>, String>> = LazyLock::new(|| {

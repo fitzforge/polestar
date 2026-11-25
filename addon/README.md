@@ -335,13 +335,14 @@ icon, order, build, render, ... })` from its own file:
 | Section | Order | File |
 |---|---|---|
 | Guides | 10 | `UI/Picker.lua` (built in) |
-| Lookup | 20 | `UI/Lookup.lua` |
+| Lookup | 20 | `UI/Lookup.lua` (rail entry), `Polestar_Lookup/UI/LookupWindow.lua` (window) |
 | Dungeons | 30 | `UI/Dungeons.lua` |
 | Talents | 40 | `Talents/View.lua` |
 | Rares | 50 | `Rares/View.lua` |
 | Characters | 60 | `Alts/View.lua` |
 
-Lookup and Dungeons keep their screens in `UI/`; Rares, Talents and Characters keep their
+Lookup loads its window the first time its section opens. Dungeons keeps its screen in `UI/`.
+Rares, Talents and Characters keep their
 screens in their own modules, which works because `Rares.xml`,
 `Talents.xml` and `Alts.xml` load after `UI.xml`. A new
 section registers the same way, from a file that loads after `UI/Picker.lua`.

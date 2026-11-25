@@ -533,8 +533,8 @@ function textsDirRefusal(dir, packId) {
 }
 
 // Addon folders of the release: always these (Polestar_Nav is committed:
-// Polestar's walking router and maps, `nav pack`; Polestar_Options is the
-// settings window, loaded on demand; the game looks, the Skin API's checks
+// Polestar's walking router and maps, `nav pack`; Polestar_Options and Polestar_Lookup hold the
+// settings and Lookup windows, loaded on demand; the game looks, the Skin API's checks
 // and the tab styles are inside Polestar since 0.4.3), Polestar_Skins (our
 // skins and layouts, loaded on demand) and Polestar_Arcade
 // (Freedoom Arcade by petllama, loaded on demand) when there, plus the generated
@@ -543,7 +543,7 @@ function textsDirRefusal(dir, packId) {
 // Dungeons and Rares read: forge-release's codex_refusal), the language
 // folders last (our guides' texts and the game's names, `forge guide
 // compile` and `forge data names`, committed; the client loads only its own).
-const RELEASE_ADDONS = ['Polestar', 'Polestar_Guides', 'Polestar_Nav', 'Polestar_Options'];
+const RELEASE_ADDONS = ['Polestar', 'Polestar_Guides', 'Polestar_Nav', 'Polestar_Options', 'Polestar_Lookup'];
 // forge-release addons.rs SKINS and ARCADE.
 const SKINS = 'Polestar_Skins';
 const ARCADE = 'Polestar_Arcade';

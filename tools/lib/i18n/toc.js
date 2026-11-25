@@ -134,6 +134,20 @@ const TEXT = {
 			zhTW: 'Polestar 的一部分：設定視窗、外觀頁面及其預覽。開啟設定時載入。',
 		},
 	},
+	Polestar_Lookup: {
+		title: { deDE: 'Polestar-Nachschlagen', esES: 'Polestar: buscador', esMX: 'Polestar: buscador', frFR: 'Polestar : recherche', koKR: 'Polestar 찾아보기', ptBR: 'Polestar: consulta', ruRU: 'Polestar: поиск', zhCN: 'Polestar 查询', zhTW: 'Polestar 查詢' },
+		notes: {
+			deDE: 'Teil von Polestar: das Nachschlagefenster. Wird beim Öffnen geladen.',
+			esES: 'Parte de Polestar: la ventana del buscador. Se carga al abrir el buscador.',
+			esMX: 'Parte de Polestar: la ventana del buscador. Se carga al abrir el buscador.',
+			frFR: 'Fait partie de Polestar : la fenêtre de recherche. Chargé à l\'ouverture de la recherche.',
+			koKR: 'Polestar의 일부: 찾아보기 창. 찾아보기를 열 때 불러옵니다.',
+			ptBR: 'Parte do Polestar: a janela de consulta. Carregado ao abrir a consulta.',
+			ruRU: 'Часть Polestar: окно поиска. Загружается при открытии поиска.',
+			zhCN: 'Polestar 的组成部分：查询窗口。打开查询时加载。',
+			zhTW: 'Polestar 的一部分：查詢視窗。開啟查詢時載入。',
+		},
+	},
 	// Polestar's ten skins and the Atlas layout (one folder since 0.4.3, #3507): loaded with the first one used or listed.
 	Polestar_Skins: {
 		title: { deDE: 'Polestar-Skins', esES: 'Polestar: aspectos', esMX: 'Polestar: aspectos', frFR: 'Polestar : skins', koKR: 'Polestar 스킨', ptBR: 'Polestar: aparências', ruRU: 'Polestar: облики', zhCN: 'Polestar 皮肤', zhTW: 'Polestar 外觀主題' },
