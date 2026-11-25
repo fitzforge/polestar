@@ -7811,7 +7811,7 @@
 				"quest": 647,
 				"goal": "accept"
 			},
-			"tip": "South-west from Kor'gresh's cave to the Thandol Span: Foggy MacKreel stands on a broken section of the bridge; jump down to him from its north end. MacKreel's Moonshine must reach Brewmeister Bilger in Southshore within 15 minutes: go straight back to Refuge Pointe and fly to Southshore.",
+			"tip": "Before jumping to Foggy MacKreel, use Aspect of the Cheetah (Hunter) or Travel Form (Druid). Jump from the north end of the broken Thandol Span. A missed jump can cost 5–10 minutes. Once you take the quest, head straight to Refuge Pointe and fly to Southshore to reach Brewmeister Bilger within 15 minutes.",
 			"note": "MacKreel's Moonshine has a 15-minute limit; the Wetlands guide took it at the span and handed it in after Menethil and the boat, too late. 05-arathi-highlands takes it after Kor'gresh and hands it in straight off the Refuge Pointe flight (route-fixes pairs, #1319); the tip names the limit and the way.",
 			"source": [
 				{
@@ -9284,6 +9284,43 @@
 				{
 					"kind": "recording",
 					"ref": "a Dwarf took 683 from Sara Balloo (players' recordings, 0.3.6 review)"
+				}
+			]
+		},
+		{
+			"id": "arathi-mackreel-moonshine-jump",
+			"faction": "Alliance",
+			"at": {
+				"quest": 647,
+				"goal": "accept",
+				"guide": "forever/alliance/30-40/05-arathi-highlands"
+			},
+			"classes": "Hunter,Druid",
+			"note": "The detour requires a jump across a broken section of the Thandol Span. Keep the pickup for Hunters and Druids, who can use Aspect of the Cheetah and Travel Form. Players who take it on their own can still hand it in at Southshore.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "cameronmoten's Thandol Span report: missing the jump costs 5–10 minutes"
+				}
+			]
+		},
+		{
+			"id": "arathi-southshore-town-hall",
+			"faction": "Alliance",
+			"at": {
+				"quest": 505,
+				"goal": "turnin",
+				"guide": "forever/alliance/30-40/05-arathi-highlands"
+			},
+			"split": {
+				"title": "Southshore town hall",
+				"tip": "Magistrate Henry Maleb and Loremaster Dibbs are in the Southshore town hall. Hand in the Syndicate quests before heading north to Strahnbrad."
+			},
+			"note": "The inn hand-in for MacKreel's Moonshine is for players carrying the quest. The next step sends everyone to the town hall.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1319: the Moonshine hand-in is at the Southshore inn before the town hall stop on the Arathi route"
 				}
 			]
 		},

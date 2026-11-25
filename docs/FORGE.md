@@ -545,6 +545,10 @@ A quest with a quest-wide `races` record has no other. The writer applies `races
 again after the shared route re-gates the shared guides by the starts that take each quest, and last
 on every guide it writes, so the old list never comes back.
 
+`classes` on an accept (for example, `"classes": "Hunter,Druid"`) sets the goal's class list and
+keeps its race and faction filters. The same guide shows later hand-ins to players who already have
+the quest in their log. Use a separate record for this route choice.
+
 Three kinds move what a step holds; the writer applies them after the others, so a tip or `when` a
 record sets on a goal's step goes with it. `follows` puts the anchored goal line right after the
 first line of that goal in the guide: the order inside a step (Commander Althea's optional hand-in

@@ -19,6 +19,7 @@
 //!   A `collect` anchor names `quest` and `item` for a `goalNote` on that item's collection line.
 //!   The `tip` field sets the step's `tip`; `goalNote` replaces only the goal's inline note; `optional: true` marks
 //!   only the goal optional, including its along copies (each change uses a separate record).
+//!   `classes` limits the anchored accept to listed classes and guards its later hand-ins on the quest log.
 //!   `level: N` puts a `level N` gate right before the anchor goal (with `after: true`, right after
 //!   it: the hand-ins at the anchor count towards the level; with `only`, a
 //!   class or race list, the gate holds only those players: `level N only Priest`). `background` (on an objective,
@@ -422,6 +423,29 @@ fn along_step(lines: &[String], s: (usize, usize)) -> bool {
 
 fn apply_fix(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> {
 	let mut changed = Vec::new();
+	if let Some(classes) = r["classes"].as_str() {
+		for &i in found {
+			let (code, comment) = split_comment(&lines[i]);
+			let code = match crate::apply::line_only(code) {
+				Some(list) => {
+					let (prefix, suffix) = code.rsplit_once(list).expect("the only list came from this goal");
+					let mut audience: Vec<&str> = list.split(',').filter(|name| !crate::apply::CLASSES.contains(&name.trim_start_matches('!'))).collect();
+					audience.extend(classes.split(',').map(str::trim));
+					format!("{prefix}{}{suffix}", audience.join(","))
+				}
+				None => format!("{} only {}", trim_end(code), classes.split(',').map(str::trim).collect::<Vec<_>>().join(",")),
+			};
+			let line = format!("{code}{comment}");
+			if lines[i] != line {
+				lines[i] = line;
+				changed.push(i);
+			}
+		}
+		if let Some(q) = r["at"]["quest"].as_u64() {
+			changed.extend(guard_hand_ins(lines, q));
+		}
+		return changed;
+	}
 	// Goal modifiers and notes cover every copy, including one listed along the way; unlike a
 	// step tip they must not change the other quests that happen to share this step.
 	if r["optional"] == true || r["goalNote"].is_string() {
@@ -1344,6 +1368,8 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			"goalNote"
 		} else if r.get("races").is_some() {
 			"races"
+		} else if r.get("classes").is_some() {
+			"classes"
 		} else if r.get("follows").is_some() {
 			"follows"
 		} else if r.get("split").is_some() {
@@ -1364,7 +1390,7 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			r,
 			slot: format!("{anchor:?} {kind}{}{to}", r["at"]["guide"].as_str().map_or(String::new(), |g| format!(" in {g}"))),
 			want: format!(
-				"{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}",
+				"{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}{}",
 				r["tip"],
 				r["level"],
 				r["only"],
@@ -1375,6 +1401,7 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 				r["optional"],
 				r["goalNote"],
 				r["races"],
+				r["classes"],
 				r["follows"],
 				r["split"],
 				r["step"],
