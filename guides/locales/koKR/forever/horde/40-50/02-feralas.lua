@@ -87,7 +87,7 @@ return {
 
 	-- Step 16: Booty Bay
 	-- {area:35} Booty Bay · {npc:2494} Privateer Bloads · {npc:2498} Crank Fizzlebub · {npc:737} Kebok · {npc:773} Krazek
-	["In {area:35}: {npc:2494} on the docks, {npc:2498} inside the inn, MacKinley, {npc:737} and {npc:773} upstairs."] = "",
+	["In {area:35}: {npc:2494} on the docks, {npc:2498} inside the inn, MacKinley, {npc:737} and {npc:773} upstairs."] = "{area:35}에서: {npc:2494}은(는) 부두에, {npc:2498}은(는) 여관 안에, 맥킨리, {npc:737}, {npc:773}은(는) 위층에.",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}, 내부",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
@@ -100,7 +100,7 @@ return {
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "",
 	-- {area:35} Booty Bay · {npc:2491} Whiskey Slim
-	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "",
+	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "처음 {area:35}에 왔을 때 40레벨이 안 됩니까? 여관의 {npc:2491}와(과) 꼭대기 층의 '바다늑대' 맥킨리가 지금 퀘스트를 줍니다.",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "",
 	-- {quest:2872} Stoley's Debt · {npc:7881} Stoley · {zone:1446} Tanaris
@@ -108,9 +108,9 @@ return {
 
 	-- Step 19: Fin Fizracket
 	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
-	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "",
+	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "파티 퀘스트: {quest:348}은(는) 안개계곡 골짜기의 {npc:1449}에게서 끝납니다. 고릴라 송곳니 열 개를 주면 고릴라(41-42) 세 무리를 차례로 부른 뒤 {npc:1514}(44)을(를) 부릅니다. 플레이어 기록에서 시작한 27명 중 12명이 그곳에서 죽었습니다. 친구 한둘과 함께라면 받으십시오.",
 	-- {npc:2486} Fin Fizracket · {quest:348} Stranglethorn Fever
-	["{npc:2486}, beside the inn: {quest:348}"] = "",
+	["{npc:2486}, beside the inn: {quest:348}"] = "{npc:2486}, 여관 옆: {quest:348}",
 
 	-- Step 20: Witch Doctor Unbagwa
 	-- {area:35} Booty Bay · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
@@ -165,7 +165,7 @@ return {
 	["for the {object:2555} in {zone:1445}, on the Dustwallow guide"] = "",
 
 	-- Step 38: A Soggy Scroll
-	["The scroll lies at the water's edge in the swamp's far west."] = "",
+	["The scroll lies at the water's edge in the swamp's far west."] = "두루마리는 늪 서쪽 끝 물가에 있습니다.",
 
 	-- Step 39: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "톱니악어",

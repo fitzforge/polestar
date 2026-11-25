@@ -114,7 +114,7 @@ return {
 
 	-- Step 19: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:9623} A-Me 01 · {quest:4243} Chasing A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
-	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} ({quest:4243}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "",
+	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} ({quest:4243}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "A Casa de Leilões de {area:976} é a última antes de Un'Goro. Lá, {npc:9623} ({quest:4243}) pede um {item:10561}, um item de {skill:202}, antes da escolta dela: compre um aqui se quiser essa cadeia.",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, lá dentro",
 	-- {npc:7876} Tran'rek
@@ -287,7 +287,7 @@ return {
 
 	-- Step 57: Eridan Bluewind
 	-- {npc:9116} Eridan Bluewind · {area:2479} Emerald Sanctuary
-	["{npc:9116} stands inside, in the {area:2479}."] = "",
+	["{npc:9116} stands inside, in the {area:2479}."] = "{npc:9116} fica lá dentro, em {area:2479}.",
 	-- {npc:9116} Eridan Bluewind
 	["{npc:9116}, inside"] = "{npc:9116}, lá dentro",
 

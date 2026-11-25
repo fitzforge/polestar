@@ -136,13 +136,13 @@ return {
 
 	-- Step 26: Tooga
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
-	["The little turtle {npc:5955} wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Take him from the edge and leave the Thistleshrubs (48-50) alone."] = "",
+	["The little turtle {npc:5955} wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Take him from the edge and leave the Thistleshrubs (48-50) alone."] = "小海龜{npc:5955}在{quest:3362}西緣的幾個地點之間遊蕩：箭頭會從一個點帶到下一個點，直到你找到他。從邊緣帶走他，別去招惹薊草（48-50）。",
 
 	-- Step 27: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "護送{npc:5955}",
 	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port
-	["Lead {npc:5955} home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "",
+	["Lead {npc:5955} home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "帶{npc:5955}回家找他的妻子{npc:6015}，她在{area:977}東邊的水邊：他走得很慢，沙漠野獸會攻擊他，所以要保護他活著。",
 	-- {npc:5955} Tooga
 	["{npc:5955}, beside her: Oasis"] = "{npc:5955}，在她旁邊：綠洲",
 

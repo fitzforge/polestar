@@ -44,11 +44,8 @@ return {
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}, 무리발톱",
 	["Prideclaw, Galestrider"] = "프라이드클로, 갈스트라이더",
-	-- {npc:250928} Highlands Ursera
-	["Prideclaw, {npc:250928}"] = "무리발톱, {npc:250928}",
-	["Galestrider, Cloudrunner"] = "돌풍타조, 구름달리미",
+	["Cloudrunner, Galestrider"] = "구름달리기, 바람걸음",
 	["Prideclaw, Vuldren"] = "프라이드클로, 불드렌",
-	["Galestrider, Prideclaw"] = "갈스트라이더, 프라이드클로",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)
 	-- {zone:1411} Durotar
@@ -87,7 +84,7 @@ return {
 	["Beasts 10-15: {zone:1436} (50-100)"] = "야수 10-15: {zone:1436} (50-100)",
 	-- {npc:833} Coyote Packleader · {npc:454} Young Goretusk · {npc:547} Great Goretusk · {skill:393} Skinning
 	-- was: ["Kill and skin Coyote (10), {npc:833} (11), {npc:454} (12), Goretusk (14), {npc:547} (15) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 120 beasts for these 50 points."] = "순환 경로를 따라 {skill:393} 100까지 다음 야수를 처치하고 가죽을 벗기세요: 코요테 (10), {npc:833} (11), {npc:454} (12), 뿔엄니멧돼지 (14), {npc:547} (15). 각 시체를 루팅한 뒤 가죽을 벗기고, 숙련도가 허용하는 가장 높은 레벨의 야수를 벗기세요. L 레벨 야수는 20레벨까지 숙련도 (L-10)x10, 그 이상은 Lx5가 필요합니다. 지역 레벨 10-20. 이번 50점에는 야수 약 120마리가 필요합니다."
-	["Kill and skin Coyote (10), {npc:833} (10), {npc:454} (12), Goretusk (14), {npc:547} (15) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 120 beasts for these 50 points."] = "",
+	["Kill and skin Coyote (10), {npc:833} (10), {npc:454} (12), Goretusk (14), {npc:547} (15) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 120 beasts for these 50 points."] = "순회하며 코요테(10), {npc:833}(10), {npc:454}(12), 칼엄니(14), {npc:547}(15)을(를) 처치하고 가죽을 벗기십시오. {skill:393}이(가) 100이 될 때까지. 시체마다 먼저 전리품을 줍고 가죽을 벗기며, 숙련도가 허락하는 가장 높은 레벨의 짐승을 벗기십시오. 레벨 L의 짐승은 20레벨까지 숙련도 (L-10)x10, 그 위로는 Lx5가 필요합니다. 지역 레벨 10-20. 이 50점에 짐승 약 120마리가 듭니다.",
 	-- {npc:547} Great Goretusk
 	["Goretusk, {npc:547}"] = "뿔엄니멧돼지, {npc:547}",
 	-- {npc:454} Young Goretusk
@@ -145,7 +142,7 @@ return {
 	["Beasts 19-21: {zone:1440} (100-125)"] = "야수 19-21: {zone:1440} (100-125)",
 	-- {npc:3823} Ghostpaw Runner · {npc:3809} Ashenvale Bear · {npc:3817} Shadowhorn Stag · {skill:393} Skinning
 	-- was: ["Kill and skin {npc:3823} (19), {npc:3809} (21, needs 105), {npc:3817} (21, needs 105) along the loop until {skill:393} 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 30 beasts for these 25 points."] = "순환 경로를 따라 {skill:393} 125까지 다음 야수를 처치하고 가죽을 벗기세요: {npc:3823} (19), {npc:3809} (21, 숙련도 105), {npc:3817} (21, 숙련도 105). 각 시체를 루팅한 뒤 가죽을 벗기고, 숙련도가 허용하는 가장 높은 레벨의 야수를 벗기세요. L 레벨 야수는 20레벨까지 숙련도 (L-10)x10, 그 이상은 Lx5가 필요합니다. 지역 레벨 18-30. 이번 25점에는 야수 약 30마리가 필요합니다."
-	["Kill and skin {npc:3823} (19), {npc:3809} (20), {npc:3817} (21, needs 105) along the loop until {skill:393} 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 30 beasts for these 25 points."] = "",
+	["Kill and skin {npc:3823} (19), {npc:3809} (20), {npc:3817} (21, needs 105) along the loop until {skill:393} 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 30 beasts for these 25 points."] = "순회하며 {npc:3823}(19), {npc:3809}(20), {npc:3817}(21, 105 필요)을(를) 처치하고 가죽을 벗기십시오. {skill:393}이(가) 125가 될 때까지. 시체마다 먼저 전리품을 줍고 가죽을 벗기며, 숙련도가 허락하는 가장 높은 레벨의 짐승을 벗기십시오. 레벨 L의 짐승은 20레벨까지 숙련도 (L-10)x10, 그 위로는 Lx5가 필요합니다. 지역 레벨 18-30. 이 25점에 짐승 약 30마리가 듭니다.",
 
 	-- Step 18: Beasts 10-16: Silverpine Forest (100-105)
 	-- {zone:1421} Silverpine Forest
@@ -179,7 +176,7 @@ return {
 	["Beasts 19-29: {zone:1440} (125-150)"] = "야수 19-29: {zone:1440} (125-150)",
 	-- {npc:3823} Ghostpaw Runner · {npc:3809} Ashenvale Bear · {npc:3817} Shadowhorn Stag · {npc:3810} Elder Ashenvale Bear · {npc:3818} Elder Shadowhorn Stag · {npc:3811} Giant Ashenvale Bear · {skill:393} Skinning
 	-- was: ["Kill and skin {npc:3823} (19), {npc:3809} (21), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, needs 130), {npc:3811} (29, needs 145) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 40 beasts for these 25 points."] = "순환로를 따라 {npc:3823}(19), {npc:3809}(21), {npc:3817}(21), {npc:3810}(25), {npc:3818}(26), {npc:3811}(29)을(를) 죽이고 무두질해 {skill:393} 150까지 가세요. 각 시체에서 전리품을 훔치고 무두질하세요. 숙련도가 허락하는 가장 높은 레벨의 야수를 무두질하세요. 레벨 L의 야수는 레벨 20까지 (L-10)x10, 그 위로는 Lx5의 숙련도가 필요합니다. 지역 레벨 18-30. 이 25포인트에는 야수 약 40마리가 필요합니다."
-	["Kill and skin {npc:3823} (19), {npc:3809} (20), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, needs 130), {npc:3811} (29, needs 145) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 40 beasts for these 25 points."] = "",
+	["Kill and skin {npc:3823} (19), {npc:3809} (20), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, needs 130), {npc:3811} (29, needs 145) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 40 beasts for these 25 points."] = "순회하며 {npc:3823}(19), {npc:3809}(20), {npc:3817}(21), {npc:3810}(25), {npc:3818}(26, 130 필요), {npc:3811}(29, 145 필요)을(를) 처치하고 가죽을 벗기십시오. {skill:393}이(가) 150이 될 때까지. 시체마다 먼저 전리품을 줍고 가죽을 벗기며, 숙련도가 허락하는 가장 높은 레벨의 짐승을 벗기십시오. 레벨 L의 짐승은 20레벨까지 숙련도 (L-10)x10, 그 위로는 Lx5가 필요합니다. 지역 레벨 18-30. 이 25점에 짐승 약 40마리가 듭니다.",
 
 	-- Step 25: Beasts 21-33: Alterac Mountains (150-175)
 	-- {zone:1416} Alterac Mountains
@@ -196,10 +193,10 @@ return {
 
 	-- Step 26: Beasts 29-39: Stranglethorn Vale (175-200)
 	-- {zone:1434} Stranglethorn Vale
-	["Beasts 29-39: {zone:1434} (175-200)"] = "",
+	["Beasts 29-39: {zone:1434} (175-200)"] = "짐승 29-39: {zone:1434} (175-200)",
 	-- {npc:681} Young Stranglethorn Tiger · {npc:1150} River Crocolisk · {npc:683} Young Panther · {npc:855} Young Stranglethorn Raptor · {npc:688} Stone Maw Basilisk · {npc:1108} Mistvale Gorilla · {npc:682} Stranglethorn Tiger · {npc:685} Stranglethorn Raptor · {npc:689} Crystal Spine Basilisk · {npc:1085} Elder Stranglethorn Tiger · {npc:686} Lashtail Raptor · {npc:1151} Saltwater Crocolisk · {npc:1152} Snapjaw Crocolisk · {npc:854} Young Jungle Stalker · {npc:684} Shadowmaw Panther · {npc:690} Cold Eye Basilisk · {skill:393} Skinning
 	-- was: ["Kill and skin {npc:1150} (30), {npc:683} (30), {npc:855} (30), {npc:681} (30), {npc:688} (31), {npc:1108} (32), Panther (32), {npc:682} (32), {npc:685} (33), {npc:689} (34), {npc:1085} (34), {npc:686} (35), {npc:1151} (35), {npc:1152} (35), {npc:854} (36, needs 180), {npc:684} (37, needs 185), {npc:690} (39, needs 195) along the loop until {skill:393} 200; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 30-45. Expect about 30 beasts for these 25 points."] = "순환 경로를 따라 {skill:393} 200까지 다음 야수를 처치하고 가죽을 벗기세요: {npc:1150} (30), {npc:683} (30), {npc:855} (30), {npc:681} (30), {npc:688} (31), {npc:1108} (32), 퓨마 (32), {npc:682} (32), {npc:685} (33), {npc:689} (34), {npc:1085} (34), {npc:686} (35), {npc:1151} (35), {npc:1152} (35), {npc:854} (36, 숙련도 180), {npc:684} (37, 숙련도 185), {npc:690} (39, 숙련도 195). 각 시체를 루팅한 뒤 가죽을 벗기고, 숙련도가 허용하는 가장 높은 레벨의 야수를 벗기세요. L 레벨 야수는 20레벨까지 숙련도 (L-10)x10, 그 이상은 Lx5가 필요합니다. 지역 레벨 30-45. 이번 25점에는 야수 약 30마리가 필요합니다."
-	["Kill and skin {npc:681} (29), {npc:1150} (30), {npc:683} (30), {npc:855} (30), {npc:688} (31), {npc:1108} (32), Panther (32), {npc:682} (32), {npc:685} (33), {npc:689} (34), {npc:1085} (34), {npc:686} (35), {npc:1151} (35), {npc:1152} (35), {npc:854} (36, needs 180), {npc:684} (37, needs 185), {npc:690} (39, needs 195) along the loop until {skill:393} 200; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 30-45. Expect about 30 beasts for these 25 points."] = "",
+	["Kill and skin {npc:681} (29), {npc:1150} (30), {npc:683} (30), {npc:855} (30), {npc:688} (31), {npc:1108} (32), Panther (32), {npc:682} (32), {npc:685} (33), {npc:689} (34), {npc:1085} (34), {npc:686} (35), {npc:1151} (35), {npc:1152} (35), {npc:854} (36, needs 180), {npc:684} (37, needs 185), {npc:690} (39, needs 195) along the loop until {skill:393} 200; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 30-45. Expect about 30 beasts for these 25 points."] = "순회하며 {npc:681}(29), {npc:1150}(30), {npc:683}(30), {npc:855}(30), {npc:688}(31), {npc:1108}(32), 표범(32), {npc:682}(32), {npc:685}(33), {npc:689}(34), {npc:1085}(34), {npc:686}(35), {npc:1151}(35), {npc:1152}(35), {npc:854}(36, 180 필요), {npc:684}(37, 185 필요), {npc:690}(39, 195 필요)을(를) 처치하고 가죽을 벗기십시오. {skill:393}이(가) 200이 될 때까지. 시체마다 먼저 전리품을 줍고 가죽을 벗기며, 숙련도가 허락하는 가장 높은 레벨의 짐승을 벗기십시오. 레벨 L의 짐승은 20레벨까지 숙련도 (L-10)x10, 그 위로는 Lx5가 필요합니다. 지역 레벨 30-45. 이 25점에 짐승 약 30마리가 듭니다.",
 	-- {npc:682} Stranglethorn Tiger
 	["Panther, {npc:682}"] = "퓨마, {npc:682}",
 	-- {npc:684} Shadowmaw Panther
@@ -221,10 +218,10 @@ return {
 
 	-- Step 29: Beasts 42-49: The Hinterlands (225-250)
 	-- {zone:1425} The Hinterlands
-	["Beasts 42-49: {zone:1425} (225-250)"] = "",
+	["Beasts 42-49: {zone:1425} (225-250)"] = "짐승 42-49: {zone:1425} (225-250)",
 	-- {npc:2927} Vicious Owlbeast · {npc:2924} Silvermane Wolf · {npc:2928} Primitive Owlbeast · {npc:2929} Savage Owlbeast · {npc:2926} Silvermane Stalker · {npc:2505} Saltwater Snapjaw · {skill:393} Skinning
 	-- was: ["Kill and skin {npc:2927} (42), {npc:2924} (43), {npc:2928} (44), {npc:2929} (46, needs 230), {npc:2926} (47, needs 235), {npc:2505} (49, needs 245) along the loop until {skill:393} 250; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 40-50."] = "순환 경로를 따라 {skill:393} 250까지 다음 야수를 처치하고 가죽을 벗기세요: {npc:2927} (42), {npc:2924} (43), {npc:2928} (44), {npc:2929} (46, 숙련도 230), {npc:2926} (47, 숙련도 235), {npc:2505} (49, 숙련도 245). 숙련도가 허용하는 가장 높은 레벨의 야수를 벗기세요. L 레벨 야수는 20레벨까지 숙련도 (L-10)x10, 그 이상은 Lx5가 필요합니다. 지역 레벨 40-50."
-	["Kill and skin {npc:2927} (42), {npc:2924} (43), {npc:2928} (44), {npc:2929} (46, needs 230), {npc:2926} (47, needs 235), {npc:2505} (49, needs 245) along the loop until {skill:393} 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 40-50. Expect about 40 beasts for these 25 points."] = "",
+	["Kill and skin {npc:2927} (42), {npc:2924} (43), {npc:2928} (44), {npc:2929} (46, needs 230), {npc:2926} (47, needs 235), {npc:2505} (49, needs 245) along the loop until {skill:393} 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 40-50. Expect about 40 beasts for these 25 points."] = "순회하며 {npc:2927}(42), {npc:2924}(43), {npc:2928}(44), {npc:2929}(46, 230 필요), {npc:2926}(47, 235 필요), {npc:2505}(49, 245 필요)을(를) 처치하고 가죽을 벗기십시오. {skill:393}이(가) 250이 될 때까지. 시체마다 먼저 전리품을 줍고 가죽을 벗기며, 숙련도가 허락하는 가장 높은 레벨의 짐승을 벗기십시오. 레벨 L의 짐승은 20레벨까지 숙련도 (L-10)x10, 그 위로는 Lx5가 필요합니다. 지역 레벨 40-50. 이 25점에 짐승 약 40마리가 듭니다.",
 
 	-- Step 30: Beasts 48-54: Un'Goro Crater (250-275)
 	-- {zone:1449} Un'Goro Crater
@@ -263,6 +260,7 @@ return {
 	-- ["Duskbat"] = "그늘박쥐",
 	-- ["Duskbat, {npc:1513}"] = "그늘박쥐, {npc:1513}",
 	-- ["Galestrider, Cloudrunner"] = "돌풍타조, 구름달리미",
+	-- ["Galestrider, Prideclaw"] = "갈스트라이더, 프라이드클로",
 	-- ["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:393} trainer of your faction."] = "수습 {skill:393}은(는) 최대 숙련도를 150(으)로 올립니다. 숙련도 50, 캐릭터 레벨 10이(가) 필요합니다. 화살표가 진영의 가장 가까운 {skill:393} 상급자를 가리킵니다.",
 	-- ["Kill and skin Coyote (10), {npc:833} (11), {npc:454} (12), Goretusk (14), {npc:547} (15) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 120 beasts for these 50 points."] = "순환 경로를 따라 {skill:393} 100까지 다음 야수를 처치하고 가죽을 벗기세요: 코요테 (10), {npc:833} (11), {npc:454} (12), 뿔엄니멧돼지 (14), {npc:547} (15). 각 시체를 루팅한 뒤 가죽을 벗기고, 숙련도가 허용하는 가장 높은 레벨의 야수를 벗기세요. L 레벨 야수는 20레벨까지 숙련도 (L-10)x10, 그 이상은 Lx5가 필요합니다. 지역 레벨 10-20. 이번 50점에는 야수 약 120마리가 필요합니다.",
 	-- ["Kill and skin Coyote (10), {npc:833} (11), {npc:454} (12), Goretusk (14), {npc:547} (16, needs 60) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 130 beasts for these 50 points."] = "순환 경로를 따라 {skill:393} 100까지 다음 야수를 처치하고 가죽을 벗기세요: 코요테 (10), {npc:833} (11), {npc:454} (12), 뿔엄니멧돼지 (14), {npc:547} (16, 숙련도 60). 각 시체를 루팅한 뒤 가죽을 벗기고, 숙련도가 허용하는 가장 높은 레벨의 야수를 벗기세요. L 레벨 야수는 20레벨까지 숙련도 (L-10)x10, 그 이상은 Lx5가 필요합니다. 지역 레벨 10-20. 이번 50점에는 야수 약 130마리가 필요합니다.",
@@ -284,6 +282,7 @@ return {
 	-- ["Kill and skin {npc:8759} (45), {npc:6375} (46, needs 230), {npc:6377} (48, needs 240) along the loop until {skill:393} 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 45-55. Expect about 30 beasts for these 25 points."] = "순환로를 따라 {npc:8759}(45), {npc:6375}(46), {npc:6377}(48)을(를) 죽이고 무두질해 {skill:393} 250까지 가세요. 각 시체에서 전리품을 훔치고 무두질하세요. 숙련도가 허락하는 가장 높은 레벨의 야수를 무두질하세요. 레벨 L의 야수는 레벨 20까지 (L-10)x10, 그 위로는 Lx5의 숙련도가 필요합니다. 지역 레벨 45-55. 이 25포인트에는 야수 약 30마리가 필요합니다.",
 	-- ["Kill and skin {npc:9165} (48), Ravasaur (48), {npc:6507} (49), {npc:6506} (49), {npc:9162} (49), Pterrordax (50), {npc:6514} (50), {npc:6508} (50), Diemetradon (51), {npc:9167} (51), {npc:6513} (51), {npc:6516} (52), {npc:9164} (53), {npc:11735} (54) along the loop until {skill:393} 300; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 48-55."] = "순환 경로를 따라 {skill:393} 300까지 다음 야수를 처치하고 가죽을 벗기세요: {npc:9165} (48), 라바사우루스 (48), {npc:6507} (49), {npc:6506} (49), {npc:9162} (49), 테러닥스 (50), {npc:6514} (50), {npc:6508} (50), 디메트로돈 (51), {npc:9167} (51), {npc:6513} (51), {npc:6516} (52), {npc:9164} (53), {npc:11735} (54). 숙련도가 허용하는 가장 높은 레벨의 야수를 벗기세요. L 레벨 야수는 20레벨까지 숙련도 (L-10)x10, 그 이상은 Lx5가 필요합니다. 지역 레벨 48-55.",
 	-- ["Moonstalker, {npc:2165}"] = "달표범, {npc:2165}",
+	-- ["Prideclaw, {npc:250928}"] = "무리발톱, {npc:250928}",
 	-- ["Pterrordax, {npc:9164}"] = "테러닥스, {npc:9164}",
 	-- ["Worg"] = "검은늑대",
 	-- ["Worg, {npc:1778}"] = "검은늑대, {npc:1778}",

@@ -9,12 +9,12 @@ return {
 	-- Guide
 	["Hydraxian Waterlords Reputation"] = "海达希亚水元素声望",
 	-- {item:22754} Eternal Quintessence · {area:2717} Molten Core
-	["The reputation kills to Honored, and the reusable {item:22754} at Revered once the {area:2717} opens."] = "",
+	["The reputation kills to Honored, and the reusable {item:22754} at Revered once the {area:2717} opens."] = "击杀到尊敬的声望，以及{area:2717}开放后在崇敬时获得的可重复使用的{item:22754}。",
 
 	-- Step 1: Elementals to Honored
 	["Elementals to Honored"] = "刷元素至尊敬",
 	-- {npc:13278} Duke Hydraxis · {area:2717} Molten Core · {npc:11744} Dust Stormer · {npc:11746} Desert Rumbler · {area:2740} Crystal Vale · {zone:1451} Silithus · {npc:7032} Greater Obsidian Elemental · {zone:1428} Burning Steppes · {npc:14478} Huricanian · {npc:9017} Lord Incendius · {object:174825} Black Anvil (no name in this language: may be words) · {area:1584} Blackrock Depths
-	["Everyone starts Neutral with the Waterlords, and their reputation comes from killing the servants of fire, air and earth. {npc:13278}'s quests aren't offered on Forever yet: they come back when the {area:2717} opens. The numbers in this guide leave out the Legacy perk Diplomat, which adds up to 10%.\nNeutral to Honored is 9,000 reputation. It comes from the elementals: 5 per {npc:11744} or {npc:11746}, which drift around the {area:2740} in the north-west of {zone:1451}, or {npc:7032} (the {zone:1428}), about 1,800 kills from Neutral. They stop at 5,999 of 6,000 Friendly, one point short, so the last point needs a kill that still counts there: {npc:14478}, a rare air elemental in the {area:2740} (25), or {npc:9017} at the {object:174825} in {area:1584} (15, a five-player dungeon). Those two keep paying through Honored as well."] = "",
+	["Everyone starts Neutral with the Waterlords, and their reputation comes from killing the servants of fire, air and earth. {npc:13278}'s quests aren't offered on Forever yet: they come back when the {area:2717} opens. The numbers in this guide leave out the Legacy perk Diplomat, which adds up to 10%.\nNeutral to Honored is 9,000 reputation. It comes from the elementals: 5 per {npc:11744} or {npc:11746}, which drift around the {area:2740} in the north-west of {zone:1451}, or {npc:7032} (the {zone:1428}), about 1,800 kills from Neutral. They stop at 5,999 of 6,000 Friendly, one point short, so the last point needs a kill that still counts there: {npc:14478}, a rare air elemental in the {area:2740} (25), or {npc:9017} at the {object:174825} in {area:1584} (15, a five-player dungeon). Those two keep paying through Honored as well."] = "每个人与水元素领主的关系都从中立开始，声望来自击杀火、空气和土的仆从。{npc:13278}的任务在Forever上还未提供：等{area:2717}开放后才会回来。本指南中的数字没有计入传承特权外交家，它最多增加10%。\n从中立到尊敬需要9,000声望。声望来自元素：每只{npc:11744}或{npc:11746}5点，它们在{zone:1451}西北部的{area:2740}周围游荡，或者{npc:7032}（{zone:1428}），从中立开始大约1,800次击杀。它们在友善5,999/6,000时停止，差一点，所以最后一点需要一次在那里仍然计数的击杀：{npc:14478}，{area:2740}中的稀有空气元素（25），或{area:1584}的{object:174825}处的{npc:9017}（15，五人地下城）。这两者在尊敬期间也会继续给声望。",
 	-- {npc:14478} Huricanian
 	["{npc:14478}, rare, 25"] = "{npc:14478}，稀有，25",
 	-- {npc:9017} Lord Incendius · {area:1584} Blackrock Depths
@@ -23,16 +23,16 @@ return {
 	-- Step 2: Pyroguard Emberseer
 	-- {npc:9816} Pyroguard Emberseer · {area:254} Blackrock Mountain · {item:12344} Seal of Ascension
 	-- was: ["{npc:9816} is a boss in Upper Blackrock Spire, inside {area:254}: a group of up to ten, and someone needs the {item:12344} to open the door. He drops the Eye and pays 50 reputation per kill up to 11,999 of 12,000 Honored. {npc:9017} in {area:1584} pays 15 the same way."] = "{npc:9816} 是黑石塔上层的首领，位于 {area:254} 内：小队最多十人，需要有人持有 {item:12344} 才能开门。他会掉落眼睛，每次击杀奖励50点声望，直到尊敬12,000中的11,999点。{area:1584} 的 {npc:9017} 以同样规则奖励15点。"
-	["{npc:9816} is a boss in Upper Blackrock Spire, inside {area:254}: a group of up to ten, and someone needs the {item:12344} to open the door. He pays 50 reputation per kill up to 11,999 of 12,000 Honored."] = "",
+	["{npc:9816} is a boss in Upper Blackrock Spire, inside {area:254}: a group of up to ten, and someone needs the {item:12344} to open the door. He pays 50 reputation per kill up to 11,999 of 12,000 Honored."] = "{npc:9816}是黑石塔上层的首领，在{area:254}里面：最多十人的队伍，需要有人带着{item:12344}才能开门。每次击杀他给50声望，直到尊敬11,999/12,000。",
 	-- {npc:9816} Pyroguard Emberseer
-	["{npc:9816}: raid of ten"] = "",
+	["{npc:9816}: raid of ten"] = "{npc:9816}：十人团队",
 
 	-- Step 3: Molten Core to Revered
 	-- {area:2717} Molten Core
 	["{area:2717} to Revered"] = "在 {area:2717} 提升至崇敬。",
 	-- {npc:227939} The Molten Core · {npc:11988} Golemagg the Incinerator · {npc:11502} Ragnaros · {npc:9017} Lord Incendius · {npc:9816} Pyroguard Emberseer
 	-- plural, as words: Firewalkers = {npc:11666} Firewalker · Flameguards = {npc:11667} Flameguard · Lava Elementals = {npc:12076} Lava Elemental · Lava Reavers = {npc:12100} Lava Reaver · Molten Destroyers = {npc:11659} Molten Destroyer · Lava Surgers = {npc:12101} Lava Surger · Molten Giants = {npc:11658} Molten Giant · Ancient Core Hounds = {npc:11673} Ancient Core Hound
-	["{npc:227939} is a raid of 40 and not open on Forever yet. Once it is: every elemental there pays, Firewalkers, Flameguards, Lava Elementals, Lava Reavers and Molten Destroyers 40, Firelords, Lava Surgers, Molten Giants and Ancient Core Hounds 20, up to 11,999 of 12,000 Honored; about 3,360 for a full clear of the trash.\nHonored to Revered is 12,000 reputation. The trash still counts, so a full clear pays about 3,360 plus 700 from the seven bosses, 150 from {npc:11988} and 200 from {npc:11502}: about three clears. {npc:9017} (15) and {npc:9816} (50) count too while you are Honored. The trash stops at 11,999 of 12,000 Honored; the bosses carry you over."] = "",
+	["{npc:227939} is a raid of 40 and not open on Forever yet. Once it is: every elemental there pays, Firewalkers, Flameguards, Lava Elementals, Lava Reavers and Molten Destroyers 40, Firelords, Lava Surgers, Molten Giants and Ancient Core Hounds 20, up to 11,999 of 12,000 Honored; about 3,360 for a full clear of the trash.\nHonored to Revered is 12,000 reputation. The trash still counts, so a full clear pays about 3,360 plus 700 from the seven bosses, 150 from {npc:11988} and 200 from {npc:11502}: about three clears. {npc:9017} (15) and {npc:9816} (50) count too while you are Honored. The trash stops at 11,999 of 12,000 Honored; the bosses carry you over."] = "{npc:227939}是40人团队副本，Forever上还未开放。开放后：那里的每个元素都给声望，火焰行者（{npc:11666}）、烈焰守卫（{npc:11667}）、熔岩元素（{npc:12076}）、熔岩掠夺者（{npc:12100}）和熔火毁灭者（{npc:11659}）40点，火焰领主、熔岩奔腾者（{npc:12101}）、熔火巨人（{npc:11658}）和上古熔火恶犬（{npc:11673}）20点，直到尊敬11,999/12,000；清完全部小怪大约3,360点。\n从尊敬到崇敬需要12,000声望。小怪仍然计数，所以一次全清大约3,360，加上七个首领700点、{npc:11988}150点和{npc:11502}200点：大约三次全清。尊敬期间{npc:9017}（15）和{npc:9816}（50）也计数。小怪在尊敬11,999/12,000时停止；首领会让你越过。",
 	-- {npc:12118} Lucifron
 	["{npc:12118} and the other bosses, 100: they carry you past 11,999"] = "{npc:12118} 及其他首领，100点：可让你越过11,999点门槛",
 
@@ -40,7 +40,7 @@ return {
 	-- {item:22754} Eternal Quintessence
 	["The {item:22754}"] = "{item:22754}",
 	-- {npc:13278} Duke Hydraxis · {zone:1447} Azshara · {item:22754} Eternal Quintessence · {area:2717} Molten Core · {npc:12018} Majordomo Executus · {npc:11502} Ragnaros
-	["{npc:13278} stands on a small island off the east coast of {zone:1447}; swim out to him. At Revered he gives you the {item:22754}: pour it on a rune in the {area:2717} to douse it. It is not used up, so you never come back for another. With every rune doused, {npc:12018} comes out, and after him {npc:11502}."] = "",
+	["{npc:13278} stands on a small island off the east coast of {zone:1447}; swim out to him. At Revered he gives you the {item:22754}: pour it on a rune in the {area:2717} to douse it. It is not used up, so you never come back for another. With every rune doused, {npc:12018} comes out, and after him {npc:11502}."] = "{npc:13278}站在{zone:1447}东海岸外的一个小岛上；游过去找他。崇敬时他会给你{item:22754}：把它倒在{area:2717}里的符文上熄灭它。它不会用完，所以你不用再回来拿。所有符文熄灭后，{npc:12018}会出来，之后是{npc:11502}。",
 	-- {item:22754} Eternal Quintessence
 	["{item:22754}, ask the Duke"] = "{item:22754}，向公爵索取",
 

@@ -164,7 +164,7 @@ return {
 	["Mithril & {object:147516}: {zone:1427} (230-245)"] = "祕銀與{object:147516}：{zone:1427}（230-245）",
 	-- {object:147516} Dark Iron · {skill:186} Mining · {item:11099} Dark Iron Ore · {object:174824} Black Forge (no name in this language: may be words) · {area:1584} Blackrock Depths
 	-- was: ["Mine every Gold (155, green), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "路過每一處金礦（155，綠色）、秘銀（175，綠色）、{object:147516}（230，橙色）、真銀（230，橙色）都採，並沿路徑點迴圈，直到{skill:186}達到245。從這裡起熔鍊不再漲點（學會後更高階的熔鍊都變灰）：需要就熔鍊用於製作或出售，否則直接賣礦石。{item:11099}只能在{area:1584}的{object:174824}熔鍊（8塊礦石成一塊錠）。區域等級43-50。這15點大約需要40個礦點。"
-	["Mine every Gold (155, green, rare), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "",
+	["Mine every Gold (155, green, rare), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "開採經過的每個金礦（155，綠色，稀有）、秘銀礦（175，綠色）、{object:147516}（230，橙色）、真銀礦（230，橙色），並繞著路徑點轉，直到{skill:186}達到245。從這裡開始熔煉不再加點（較高的熔煉學會後就是灰色）：熔煉用於製作或出售，或者直接賣礦石。{item:11099}只能在{area:1584}的{object:174824}熔煉（8個礦石一個錠）。地區等級43-50。這15點大約需要40個礦點。",
 	-- {object:147516} Dark Iron
 	["Mithril, {object:147516}"] = "秘銀、{object:147516}",
 
@@ -178,10 +178,10 @@ return {
 
 	-- Step 30: Small Thorium & Rich Thorium: Eastern Plaguelands (275-300)
 	-- {zone:1423} Eastern Plaguelands
-	["Small Thorium & Rich Thorium: {zone:1423} (275-300)"] = "",
+	["Small Thorium & Rich Thorium: {zone:1423} (275-300)"] = "瑟銀礦脈和富瑟銀礦：{zone:1423}（275-300）",
 	-- {skill:186} Mining
 	-- was: ["Mine every Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 55-60. Expect about 40 nodes for these 25 points."] = "路過每一處真銀（230，黃色）、小瑟銀（245，黃色）、富瑟銀（275，橙色）都採，並沿路徑點迴圈，直到{skill:186}達到300。從這裡起熔鍊不再漲點（學會後更高階的熔鍊都變灰）：需要就熔鍊用於製作或出售，否則直接賣礦石。區域等級55-60。這25點大約需要40個礦點。"
-	["Mine every Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 53-60. Expect about 30 nodes for these 25 points."] = "",
+	["Mine every Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 53-60. Expect about 30 nodes for these 25 points."] = "開採經過的每個真銀礦（230，黃色）、瑟銀礦脈（245，黃色）、富瑟銀礦（275，橙色），並繞著路徑點轉，直到{skill:186}達到300。從這裡開始熔煉不再加點（較高的熔煉學會後就是灰色）：熔煉用於製作或出售，或者直接賣礦石。地區等級53-60。這25點大約需要30個礦點。",
 	["Rich Thorium, Small Thorium"] = "富瑟銀、小瑟銀",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

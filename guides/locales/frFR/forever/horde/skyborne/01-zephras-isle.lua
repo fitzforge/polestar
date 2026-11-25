@@ -97,7 +97,7 @@ return {
 	-- Step 14: Shen'dar Village
 	-- {area:16624} Shen'dar Village · {npc:251523} Constable Aonda · {npc:251902} Illaya Amberwind · {npc:254089} Coriella Calmbreeze · {npc:263664} Raan Wildwind · {quest:93159} The Strange Hermit
 	-- was: ["Follow the road south to {area:16624}, in the middle of the isle. {npc:251523} stands on its east side, {npc:251902} in the middle, {npc:254089} just north-west of her, {npc:263664} by the campfire on the west side. With a profession learned, {npc:263664} also offers its Camping 101: its trainer stands in the village."] = "Suivez la route vers le sud jusqu'à {area:16624}, au milieu de l'île. {npc:251523} se tient du côté est, {npc:251902} au milieu, {npc:254089} juste au nord-ouest d'elle, {npc:263664} près du feu de camp du côté ouest. Une fois un métier appris, {npc:263664} propose aussi la quête Camping 101 correspondante : son maître se tient dans le village."
-	["Follow the road south to {area:16624}, in the middle of the isle. {npc:251523} stands on its east side, {npc:251902} in the middle, {npc:254089} just north-west of her, {npc:263664} by the campfire on the west side. With a profession learned, {npc:263664} also offers its Camping 101: its trainer stands in the village. {quest:93159} has his own for engineers."] = "",
+	["Follow the road south to {area:16624}, in the middle of the isle. {npc:251523} stands on its east side, {npc:251902} in the middle, {npc:254089} just north-west of her, {npc:263664} by the campfire on the west side. With a profession learned, {npc:263664} also offers its Camping 101: its trainer stands in the village. {quest:93159} has his own for engineers."] = "Suivez la route vers le sud jusqu'à {area:16624}, au milieu de l'île. {npc:251523} se tient du côté est, {npc:251902} au milieu, {npc:254089} juste au nord-ouest d'elle, {npc:263664} près du feu de camp du côté ouest. Si vous avez appris un métier, {npc:263664} propose aussi sa quête Camping 101 : son maître se tient dans le village. {quest:93159} a la sienne pour les ingénieurs.",
 	-- {npc:251902} Illaya Amberwind
 	["talk to {npc:251902}"] = "parlez à {npc:251902}",
 	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
@@ -133,7 +133,7 @@ return {
 
 	-- Step 22: Camping 101: Herbalism
 	-- {npc:257021} Halassa Fernbreeze · {skill:182} Herbalism
-	["{npc:257021} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:257021} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257021} la prend une fois votre compétence {skill:182} à 20 : récoltez ou fabriquez d'ici là, le guide continue en attendant.",
 
 	-- Step 23: Camping 101: Tailoring
 	-- {npc:251991} Taleen Shimmerthread · {skill:197} Tailoring
@@ -416,7 +416,7 @@ return {
 
 	-- Step 92: Camping 101: Engineering
 	-- {quest:93159} The Strange Hermit · {skill:202} Engineering
-	["{quest:93159} has a Camping 101 for engineers too, and takes it back once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{quest:93159} has a Camping 101 for engineers too, and takes it back once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{quest:93159} a aussi une quête Camping 101 pour les ingénieurs, et la reprend une fois votre compétence {skill:202} à 20 : récoltez ou fabriquez d'ici là, le guide continue en attendant.",
 
 	-- Step 93: Windsong Lake
 	-- {item:257128} Zephyrseed · {npc:254344} Endaria Mistgaze · {quest:93736} Unwelcome Spirits · {area:16625} Windsong Lake · {npc:259013} Resaan Nimbuswalker
@@ -425,7 +425,7 @@ return {
 
 	-- Step 95: Strange Hermit
 	-- {npc:251684} Strange Hermit
-	["talk to the {npc:251684}"] = "",
+	["talk to the {npc:251684}"] = "parlez à {npc:251684}",
 
 	-- Step 96: The Shrine of Akir
 	-- {area:16629} Shrine of Akir

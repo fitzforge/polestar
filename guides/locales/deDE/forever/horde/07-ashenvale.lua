@@ -44,13 +44,13 @@ return {
 	-- Step 8: Thistlefur Hold
 	["Thistlefur Hold"] = "Höhle der Distelfelle",
 	-- plural, as words: Troll Chests = {object:178144} Troll Chest
-	["Inside the hold, Troll Chests lie along the tunnels."] = "",
+	["Inside the hold, Troll Chests lie along the tunnels."] = "Im Inneren der Festung liegen Troll-Kisten entlang der Tunnel.",
 	["Below ground"] = "Unter der Erde",
 
 	-- Step 9: Ruul Snowhoof
 	-- {npc:12818} Ruul Snowhoof · {area:428} Night Run · {npc:3987} Dal Bloodclaw
 	-- was: ["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "In der Feste liegen Trollkisten entlang der Tunnel. {npc:12818} wird tief im Inneren festgehalten: Befreie ihn und beschütze ihn den ganzen Weg hinaus, dann rennt er heim nach {area:428}.\nVorsicht: Es gibt zwei geskriptete Hinterhalte, jeder aus drei Thistlefur (einem Schamanen, einem Pfadfinder und einem Rächer, Ursa oder Höhlenwächter): der erste, wenn du zur Gabelung des Tunnels in der Höhle zurückkommst, der zweite direkt hinter dem Tor, wo {npc:3987} umherzieht."
-	["{npc:12818} is held deep inside Thistlefur Hold: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "",
+	["{npc:12818} is held deep inside Thistlefur Hold: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "{npc:12818} wird tief in der Höhle der Distelfelle festgehalten: Befreie ihn und beschütze ihn den ganzen Weg hinaus, dann läuft er heim nach {area:428}.\nVorsicht: Es gibt zwei geskriptete Hinterhalte aus je drei Distelfellen (ein Schamane, ein Pfadfinder und ein Rächer, Ursa oder Höhlenwächter): der erste, wenn du zur Tunnelgabelung in der Höhle zurückkommst, der zweite direkt hinter dem Tor, wo {npc:3987} umherstreift.",
 	-- {npc:12818} Ruul Snowhoof
 	["{npc:12818}, below ground"] = "{npc:12818}, unter Tage",
 
@@ -225,7 +225,7 @@ return {
 
 	-- Step 55: Zangen Stonehoof
 	-- {npc:4721} Zangen Stonehoof · {quest:1195} The Sacred Flame · {npc:2995} Tal
-	["The phial is already with {npc:4721}: take {quest:1195} from him, a short walk east of {npc:2995}."] = "",
+	["The phial is already with {npc:4721}: take {quest:1195} from him, a short walk east of {npc:2995}."] = "Das Amphorak ist bereits bei {npc:4721}: nimm {quest:1195} von ihm, einen kurzen Spaziergang östlich von {npc:2995}.",
 
 	-- Step 56: Tah Winterhoof
 	-- {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof · {npc:2995} Tal
@@ -340,25 +340,25 @@ return {
 
 	-- Step 74: Lakota Windsong
 	-- {area:485} Great Lift · {area:2097} Darkcloud Pinnacle · {npc:10896} Arnak Grimtotem
-	["{area:485} detour warning: the arrow may miss the path up {area:2097}. If you are on the canyon floor, follow the path and rope bridges up {area:2097}. {npc:10896} (29) stands among his guards there: clear the guards, then {npc:10896}."] = "",
+	["{area:485} detour warning: the arrow may miss the path up {area:2097}. If you are on the canyon floor, follow the path and rope bridges up {area:2097}. {npc:10896} (29) stands among his guards there: clear the guards, then {npc:10896}."] = "{area:485} Umgehungswarnung: Der Pfeil hat die Wegstiege nach {area:2097} übersehen. Wenn du auf der Canyon-Böden stehst, folge dem Pfad und nutze die Seilbrücken nach {area:2097}. {npc:10896} (29) steht unter seinen Wächtern: kläre die Wächter, dann {npc:10896}.",
 
 	-- Step 75: Escort Lakota Windsong
 	-- {npc:10646} Lakota Windsong
-	["Escort {npc:10646}"] = "",
+	["Escort {npc:10646}"] = "Begleite {npc:10646}",
 	-- {npc:10646} Lakota Windsong · {npc:10896} Arnak Grimtotem
-	["{npc:10646} is held captive beside where {npc:10896} stood: free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "",
+	["{npc:10646} is held captive beside where {npc:10896} stood: free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "{npc:10646} ist gefangen gehalten neben dem Platz, wo {npc:10896} stand: Befreie sie und bewache sie auf dem Abstieg nach unten; Grimtotem-Häscher greifen dich auf dem Weg an.",
 
 	-- Step 76: Highperch
 	-- {area:482} Highperch
 	-- plural, as words: Highperch Patriarchs = {npc:4110} Highperch Patriarch
 	-- was: ["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "Westlich vom Weißgipfelposten nisten die Flügeldrachen auf den Klippen ({area:482}); die Eier liegen in den Nestern. {npc:10427} wartet auf der Ostseite der Nistplätze: Befreie ihn und halte ihn auf dem Rückweg zum {area:2237} am Leben.\nVorsicht: Flügeldrachen der Stufe 28-29 fliegen über dir und können ohne Vorwarnung gezogen werden. Eine Gruppe aus drei Flügeldrachen kann dich überfallen, sobald du die erste Säule unten passierst. Steilhangpatriarchen (30-31) und der Rare Herzschlitzer (32) nisten hier ebenfalls: Zieh um sie herum."
-	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "",
+	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "Westlich des Weißgipfelpostens nisten die Wyvern an den Klippen von {area:482}; die Eier liegen in den Nestern.\nVorsicht: Wyvern der Stufe 28-29 fliegen über dich hinweg und können ohne Vorwarnung gezogen werden. Eine Gruppe von drei Wyvern kann dich überfallen, sobald du den ersten Pfeiler unten passierst. Patriarchen (30-31) und der seltene Herzreißer (32) nisten hier auch: Geh um sie herum.",
 
 	-- Step 77: Escort Pao'ka Swiftmountain
 	-- {npc:10427} Pao'ka Swiftmountain
-	["Escort {npc:10427}"] = "",
+	["Escort {npc:10427}"] = "Begleite {npc:10427}",
 	-- {npc:10427} Pao'ka Swiftmountain · {area:2237} Whitereach Post
-	["{npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}."] = "",
+	["{npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}."] = "{npc:10427} wartet auf der östlichen Seite der Nestgelände: Befreie ihn und bewache ihn auf dem Rückweg nach {area:2237}.",
 
 	-- Step 78: Whitereach Post
 	-- {npc:10428} Motega Firemane · {item:12732} Incendia Agave · {area:2097} Darkcloud Pinnacle

@@ -32,19 +32,18 @@ return {
 	-- Step 6: High Executor Derrington
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "Das hast du beim früheren Besuch der Route hier verpasst: Es kommt jetzt zuerst. Es geht schnell und öffnet die Quests danach.",
 	-- {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries
-	["{item:12814}, from the {object:176092} next to Derrington"] = "",
+	["{item:12814}, from the {object:176092} next to Derrington"] = "{item:12814}, von dem {object:176092} neben Derrington",
 
 	-- Step 7: Box of Incendiaries
 	-- {quest:5096} Scarlet Diversions · {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries · {npc:10837} High Executor Derrington
-	["{quest:5096} needs a {item:12814} to torch the command tent: take one from the {object:176092} next to {npc:10837}."] = "",
+	["{quest:5096} needs a {item:12814} to torch the command tent: take one from the {object:176092} next to {npc:10837}."] = "{quest:5096} benötigt ein {item:12814}, um das Befehlszelt niederzubrennen: nehme eines vom {object:176092} neben {npc:10837}.",
 	-- {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries
-	["{item:12814}, from the {object:176092}"] = "",
+	["{item:12814}, from the {object:176092}"] = "{item:12814}, von dem {object:176092}",
 
 	-- Step 8: Scarlet forward camp
 	["Scarlet forward camp"] = "Vorgeschobenes Lager des Scharlachroten Kreuzzugs",
 	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
-	-- was: ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Folge vom {area:152} aus der Straße nach Osten in die {zone:1422}. Die Zelte des Scharlachroten Kreuzzugs stehen gleich hinter dem Hof der Felsteins, zwischen {area:199} und {area:200}. Zünde das Kommandozelt mit {object:176092} an und pflanz das Banner der Geißel auf. Vorsicht: Die Scharlachroten um die Zelte sind bis Stufe 54 und die Beschwörer wirken Zauber: Komm von der Seite, die dem Kommandozelt am nächsten ist, und lass die anderen in Ruhe."
-	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "",
+	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Vom {area:152} über die Straße nach Osten in die {zone:1422}. Das Zeltdorf der Schwarzen Kreuzzüger liegt direkt hinter Felstone Farm, zwischen {area:199} und {area:200}. Brenne das Befehlszelt mit dem {item:12814} nieder und pflanze das Banner der Scourge. Vorsicht: Die Schwarzen Kreuzzüger um die Zelte erreichen Stufe 54 und invokern: komme von der Seite heran, die dem Befehlszelt am nächsten ist, und lasse die anderen unberührt.",
 
 	-- Step 9: Bulwark
 	-- {area:152} Bulwark
@@ -178,8 +177,7 @@ return {
 
 	-- Step 33: Archmage Xylem
 	["The apprentice at the top of the tower sends you back down."] = "Der Lehrling oben im Turm schickt dich wieder nach unten.",
-	-- was: ["Upstairs"] = "Oben"
-	["Upstairs"] = "",
+	["Upstairs"] = "Oben",
 
 	-- Step 35: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar

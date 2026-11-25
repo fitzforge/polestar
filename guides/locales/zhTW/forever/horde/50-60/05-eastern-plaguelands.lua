@@ -26,7 +26,7 @@ return {
 	["Andorhal watchtowers and silos"] = "安多哈爾的哨塔與穀倉",
 	-- {npc:10667} Chromie · {item:12815} Beacon Torch · {item:12627} Temporal Displacer · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
 	-- plural, as words: Temporal Parasites = {npc:10717} Temporal Parasite · Skeletal Warlords = {npc:1788} Skeletal Warlord
-	["Ride south-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the {item:12815} to mark it; keep to the edges of town. Use the {item:12627} by each grain silo on the north side of town, one silo after another, to bring out Temporal Parasites (55-57): fight them one at a time and let the biggest go.\nCareful: a {npc:10996}, a level 58-59 elite, can stand in Andorhal, as at many other spots of the {zone:1422}: give it room.\nCareful: Skeletal Warlords, level 56-57 elites, stand by the first and second towers (the south-western and the western one): mark those towers from the far side of the doorway once the Warlord has turned away, and never pull one. Putridius (58, rare) walks among the silos."] = "",
+	["Ride south-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the {item:12815} to mark it; keep to the edges of town. Use the {item:12627} by each grain silo on the north side of town, one silo after another, to bring out Temporal Parasites (55-57): fight them one at a time and let the biggest go.\nCareful: a {npc:10996}, a level 58-59 elite, can stand in Andorhal, as at many other spots of the {zone:1422}: give it room.\nCareful: Skeletal Warlords, level 56-57 elites, stand by the first and second towers (the south-western and the western one): mark those towers from the far side of the doorway once the Warlord has turned away, and never pull one. Putridius (58, rare) walks among the silos."] = "向西南騎進安多哈爾。{npc:10667}在城鎮西側被毀的旅店裡等候。拿著{item:12815}站在四座塔每座的門口來標記它；沿著城鎮邊緣走。在城鎮北側的每個穀倉旁使用{item:12627}，一個接一個，引出時間寄生蟲（{npc:10717}，55-57）：一次打一隻，放過最大的。\n小心：{npc:10996}，58-59級精英，可能站在安多哈爾，就像在{zone:1422}的許多其他地點一樣：離它遠點。\n小心：骷髏督軍（{npc:1788}），56-57級精英，站在第一和第二座塔旁（西南和西邊的那座）：等督軍轉過身後，從門口的遠側標記這些塔，絕不要拉牠們。普崔迪烏斯（58，稀有）在穀倉之間走動。",
 	-- {npc:10667} Chromie
 	["{npc:10667}, upstairs"] = "{npc:10667}，樓上",
 	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch
@@ -180,7 +180,7 @@ return {
 	-- Step 41: Egan
 	-- {npc:11140} Egan · {area:2627} Terrordale · {npc:12384} Augustus the Touched
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit · Crypt Horrors = {npc:8557} Crypt Horror · Crypt Walkers = {npc:8556} Crypt Walker
-	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut.\nCareful: Terrordale Spirits (59-60) drift through the north-west corner just north of {npc:11140}'s hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time."] = "",
+	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut.\nCareful: Terrordale Spirits (59-60) drift through the north-west corner just north of {npc:11140}'s hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time."] = "幽靈{npc:11140}站在{area:2627}西北角的一間小屋旁；{npc:12384}坐在小屋裡。\n小心：恐懼谷之魂（{npc:14564}，59-60）在{npc:11140}的小屋以北的西北角飄蕩，墓穴恐魔（{npc:8557}，57-58）和墓穴行者（{npc:8556}，55-56）站在周圍；其中一些會定身你。慢慢走進去，一次拉一隻。",
 	-- {npc:12384} Augustus the Touched
 	["{npc:12384}, inside"] = "{npc:12384}，在裡面",
 
@@ -217,11 +217,11 @@ return {
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "解放達隆郡之魂：和它們交談",
 	-- {npc:8530} Cannibal Ghoul · {npc:11064} Darrowshire Spirit
-	["{npc:8530}: a {npc:11064} rises where one dies"] = "",
+	["{npc:8530}: a {npc:11064} rises where one dies"] = "{npc:8530}：一個死去的地方會升起{npc:11064}",
 	-- {npc:8531} Gibbering Ghoul
-	["{npc:8531}: leaves a spirit too"] = "",
+	["{npc:8531}: leaves a spirit too"] = "{npc:8531}：也會留下一個靈魂",
 	-- {npc:8532} Diseased Flayer
-	["{npc:8532}: leaves a spirit too"] = "",
+	["{npc:8532}: leaves a spirit too"] = "{npc:8532}：也會留下一個靈魂",
 
 	-- Step 47: Carlin Redpath
 	-- {area:2268} Light's Hope Chapel

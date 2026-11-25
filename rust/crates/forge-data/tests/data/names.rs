@@ -514,11 +514,16 @@ fn the_extra_ids_instances_factions_flight_points_lifts_and_event_objectives() {
 	let codex = dir.join("codex");
 	write_json(&codex.join("instances.json"), json!({ "deadmines": { "map": 36 }, "brd": { "map": 230 } }));
 	write_json(&codex.join("factions.json"), json!({ "72": { "id": 72 }, "76": { "id": 76 } }));
+	// A talk whose text is the quest log's own line (The Glowing Shard's "Speak with someone in Ratchet about the
+	// Glowing Shard", Sputtervalve) shows on the page as an event's line; one that is its NPC's name does not.
 	write_json(
 		&codex.join("quests.json"),
-		json!({ "155": { "objectives": [{ "type": "event", "id": 78 }] }, "166": { "objectives": [{ "type": "monster", "id": 639 }] }, "200": { "objectives": [{ "type": "event", "id": 1 }] } }),
+		json!({ "155": { "objectives": [{ "type": "event", "id": 78 }] }, "166": { "objectives": [{ "type": "monster", "id": 639 }] }, "200": { "objectives": [{ "type": "event", "id": 1 }] },
+			"6981": { "objectives": [{ "type": "talk", "id": 3442, "text": "Speak with someone in Ratchet about the Glowing Shard" }] },
+			"6982": { "objectives": [{ "type": "talk", "id": 3442, "text": "Sputtervalve" }] } }),
 	);
-	write_json(&codex.join("journal.json"), json!({ "dungeons": { "deadmines": { "bosses": [{ "quests": [{ "id": 155 }, { "id": 166 }] }] } } }));
+	write_json(&codex.join("npcs.json"), json!({ "3442": { "id": 3442, "name": "Sputtervalve" } }));
+	write_json(&codex.join("journal.json"), json!({ "dungeons": { "deadmines": { "bosses": [{ "quests": [{ "id": 155 }, { "id": 166 }, { "id": 6981 }, { "id": 6982 }] }] } } }));
 	let travel = dir.join("TravelData.lua");
 	std::fs::write(
 		&travel,
@@ -529,7 +534,7 @@ fn the_extra_ids_instances_factions_flight_points_lifts_and_event_objectives() {
 	std::fs::write(&choke, "{ kind = \"lift\", liftObject = 4170 },\n{ kind = \"lift\", liftObject = 20649 },\n").unwrap();
 	let e = names::extra_ids(&codex, &travel, &choke).unwrap();
 	let v = |s: &BTreeSet<i64>| s.iter().copied().collect::<Vec<_>>();
-	assert_eq!([v(&e.map), v(&e.faction), v(&e.taxi), v(&e.lift_object), v(&e.objective)], [vec![36, 230], vec![72, 76], vec![2, 4], vec![4170, 20649], vec![155]]);
+	assert_eq!([v(&e.map), v(&e.faction), v(&e.taxi), v(&e.lift_object), v(&e.objective)], [vec![36, 230], vec![72, 76], vec![2, 4], vec![4170, 20649], vec![155, 6981]]);
 	assert!(names::extra_ids(&dir.join("none"), &dir.join("none.lua"), &choke).unwrap().map.is_empty());
 }
 

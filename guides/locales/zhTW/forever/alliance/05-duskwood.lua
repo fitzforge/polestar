@@ -10,7 +10,7 @@ return {
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "飛往{area:42}",
 	-- {area:42} Darkshire · {zone:1431} Duskwood · {area:69} Lakeshire
-	["Fly to {area:42} for {zone:1431}'s second loop: from {area:69}'s gryphon master if you come from the Redridge guide."] = "",
+	["Fly to {area:42} for {zone:1431}'s second loop: from {area:69}'s gryphon master if you come from the Redridge guide."] = "飛往{area:42}，進行{zone:1431}的第二輪：如果你來自赤脊山指南，從{area:69}的獅鷲管理員處起飛。",
 
 	-- Step 2: Blind Mary
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
@@ -54,7 +54,7 @@ return {
 
 	-- Step 9: Lars
 	-- {npc:893} Lars · {npc:311} Sven Yorgen
-	["{npc:893}, at {npc:311}'s camp"] = "",
+	["{npc:893}, at {npc:311}'s camp"] = "{npc:893}，在{npc:311}的營地",
 
 	-- Step 11: Moonbrook
 	-- {quest:67} The Legend of Stalvan · {npc:311} Sven Yorgen · {zone:1436} Westfall · {area:20} Moonbrook · {object:3643} Old Footlocker · {area:42} Darkshire
@@ -62,7 +62,7 @@ return {
 
 	-- Step 12: Moonbrook
 	-- {quest:67} The Legend of Stalvan · {object:3643} Old Footlocker · {area:20} Moonbrook · {area:42} Darkshire
-	["{quest:67}: the {object:3643} in {area:20}, among the Defias (15-18), holds the next part. Then hearth back to {area:42}."] = "",
+	["{quest:67}: the {object:3643} in {area:20}, among the Defias (15-18), holds the next part. Then hearth back to {area:42}."] = "{quest:67}：{area:20}裡迪菲亞（15-18）中間的{object:3643}存放著下一部分。然後用爐石回到{area:42}。",
 
 	-- Step 13: Back to Darkshire
 	-- {area:42} Darkshire
@@ -95,7 +95,7 @@ return {
 
 	-- Step 16: Chef Grual
 	-- {npc:272} Chef Grual
-	["{npc:272} is in the Scarlet Raven Tavern."] = "",
+	["{npc:272} is in the Scarlet Raven Tavern."] = "{npc:272}在血鴉旅店裡。",
 
 	-- Step 17: Rot Blossoms
 	-- plural, as words: Rot Blossoms = {item:1598} Rot Blossom
@@ -189,11 +189,11 @@ return {
 
 	-- Step 36: Gazin Tenorm
 	-- {item:6846} Defias Script · {npc:6173} Gazin Tenorm · {quest:1787} The Tome of Divinity
-	["The {item:6846} is already with {npc:6173}: take the last part of {quest:1787} from him, in the Cathedral of Light."] = "",
+	["The {item:6846} is already with {npc:6173}: take the last part of {quest:1787} from him, in the Cathedral of Light."] = "{item:6846}已經交給{npc:6173}：在光明大教堂裡向他接取{quest:1787}的最後一部分。",
 
 	-- Step 37: Duthorian Rall
 	-- {npc:6171} Duthorian Rall · {npc:6173} Gazin Tenorm
-	["{npc:6171} stands in the Cathedral of Light, beside {npc:6173}."] = "",
+	["{npc:6171} stands in the Cathedral of Light, beside {npc:6173}."] = "{npc:6171}站在光明大教堂裡，在{npc:6173}旁邊。",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}: Redemption"] = "{npc:6171}：救贖",
 

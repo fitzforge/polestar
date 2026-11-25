@@ -27,7 +27,7 @@ return {
 	-- Step 4: Light Leather (Elwynn Forest)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1922} Gray Forest Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:822} Young Forest Bear
 	-- was: ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "準備349個{item:2318}製作{spell:2152}、{spell:3756}和{spell:3763}（其中210個用於75-150階段：現在一次收齊）：{skill:393}：剝取5-20級野獸。在這裡剝取{npc:1922}、{npc:525}、覓食的灰狼、{npc:524}、{npc:113}和{npc:822}（5-20級）；{skill:393}指南有對應路線。"
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "349個{item:2318}用於{spell:2152}、{spell:3756}和{spell:3763}（其中210個用於75-150：現在全部撿起）：{skill:393}：5-20級野獸。在這裡剝{npc:1922}、潛行者、{npc:524}、{npc:113}和{npc:822}的皮（5-20級）；{skill:393}指南會安排路線。",
 
 	-- Step 5: Light Leather (Dun Morogh)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1125} Crag Boar · {npc:1127} Elder Crag Boar · {npc:1196} Ice Claw Bear · {npc:1199} Juvenile Snow Leopard · {npc:1126} Large Crag Boar · {npc:1689} Scarred Crag Boar · {npc:1201} Snow Leopard · {npc:1138} Snow Tracker Wolf · {npc:1131} Winter Wolf · {npc:1128} Young Black Bear
@@ -190,7 +190,7 @@ return {
 	["{spell:3780} to 158"] = "{spell:3780}練到158",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread
 	-- was: ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}在技能150時為黃色（145變黃、155變綠、165變灰）：約製作15次可到158。每次需要5個{item:4234}和1個{item:2321}。每次五個{item:4234}（來自28-40級野獸）；做出的護甲片可以賣給商人。"
-	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "",
+	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "{spell:3780}在150時為黃色（黃色145，綠色155，灰色165）：大約製作15次到158。每次需要5個{item:4234}和1個{item:2321}。每次五個{item:4234}（28-40級野獸）；護甲片可以賣給商人。如果你到這裡還沒學會{spell:3780}，現在就學：之前的步驟會教。",
 
 	-- Step 39: Barbaric Shoulders to 165
 	-- {item:5964} Barbaric Shoulders

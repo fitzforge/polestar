@@ -136,13 +136,13 @@ return {
 
 	-- Step 26: Tooga
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
-	["The little turtle {npc:5955} wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Take him from the edge and leave the Thistleshrubs (48-50) alone."] = "",
+	["The little turtle {npc:5955} wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Take him from the edge and leave the Thistleshrubs (48-50) alone."] = "작은 거북 {npc:5955}은(는) {quest:3362} 서쪽 가장자리의 여러 지점을 돌아다닙니다: 찾을 때까지 화살표가 한 지점에서 다음 지점으로 안내합니다. 가장자리에서 데려가고 엉겅퀴덩굴(48-50)은 건드리지 마십시오.",
 
 	-- Step 27: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "{npc:5955} 호위",
 	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port
-	["Lead {npc:5955} home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "",
+	["Lead {npc:5955} home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "{npc:5955}을(를) {area:977} 바로 동쪽 물가에 있는 아내 {npc:6015}에게 데려다주십시오: 느리게 걷고 사막 짐승들이 그를 노리니 살려 두십시오.",
 	-- {npc:5955} Tooga
 	["{npc:5955}, beside her: Oasis"] = "{npc:5955}, 토르타 옆: 오아시스",
 

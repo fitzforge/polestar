@@ -66,7 +66,7 @@ return {
 
 	-- Step 11: Drizzlik
 	-- {npc:2495} Drizzlik
-	["{npc:2495}'s shop is in the building east of the inn."] = "",
+	["{npc:2495}'s shop is in the building east of the inn."] = "{npc:2495}的商店在旅店東邊的建築裡。",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}: the Snapjaw skins gathered earlier; inside"] = "{npc:2495}：之前收集的鉗嘴鱷皮；在裡面",
 
@@ -78,10 +78,10 @@ return {
 
 	-- Step 13: Kebok
 	-- {npc:737} Kebok
-	["{npc:737} stands upstairs, beside the flight master."] = "",
+	["{npc:737} stands upstairs, beside the flight master."] = "{npc:737}站在樓上，飛行管理員旁邊。",
 	-- {npc:737} Kebok
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
-	["{npc:737}: the Tumbled Crystals from the earlier Stranglethorn guide"] = "",
+	["{npc:737}: the Tumbled Crystals from the earlier Stranglethorn guide"] = "{npc:737}：上一份荊棘谷指南中的翻滾水晶（{item:4106}）",
 
 	-- Step 14: Kebok
 	-- {npc:737} Kebok
@@ -110,9 +110,9 @@ return {
 	-- {quest:348} Stranglethorn Fever
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
 	-- was: ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "猩猩在溫巴瓦周圍的山谷遊蕩。老邁的猩猩掉落內臟；任何一隻都可能掉落尖牙：留十顆給溫巴瓦，他的莫克（44級）等你約45級回到荊棘谷時再打。\n小心：老邁的迷霧谷猩猩（40-41級）在山谷中站得很近：一次拉一隻。"
-	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: if you will take {quest:348} with a group, keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "",
+	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: if you will take {quest:348} with a group, keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "大猩猩在安巴格瓦周圍的山谷裡遊蕩。長者掉落內臟；任何一隻都可能掉落獠牙：如果你要和小隊一起接{quest:348}，就為安巴格瓦留十個，他的莫克（44）在你大約45級的荊棘谷那一站等著。\n小心：薄霧谷長者大猩猩（40-41）在山谷裡站得很近：一次拉一隻。",
 	-- {quest:348} Stranglethorn Fever
-	["Keep fangs from these same elders for Unbagwa ({quest:348}, with a group)."] = "",
+	["Keep fangs from these same elders for Unbagwa ({quest:348}, with a group)."] = "從這些長者身上留著獠牙給安巴格瓦（{quest:348}，需要小隊）。",
 
 	-- Step 19: Mistvale giblets
 	["Mistvale giblets"] = "",
@@ -271,7 +271,7 @@ return {
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
-	["{npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "",
+	["{npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "旅店裡的{npc:2491}和頂樓的“海狼”麥金利從40級起提供這些任務：現在就接。不到40級的話，{zone:1444}和{zone:1446}指南的{area:35}那一站會再次提供。",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}，在旅店裡：他的酒瓶衝到{zone:1425}海岸上，大約48級",
 	-- {quest:2872} Stoley's Debt · {zone:1446} Tanaris
@@ -279,9 +279,9 @@ return {
 
 	-- Step 49: Fin Fizracket
 	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
-	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "",
+	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "小隊任務：{quest:348}在薄霧山谷的{npc:1449}處結束。交給他十顆大猩猩獠牙，他會召來三波大猩猩（41-42），一波接一波，然後是{npc:1514}（44）。玩家記錄中，開始此任務的27人裡有12人死在那裡。如果有一兩個朋友同行就接。",
 	-- {npc:2486} Fin Fizracket · {zone:1444} Feralas · {object:3202} Grom'gol
-	["{npc:2486}, beside the inn: Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "",
+	["{npc:2486}, beside the inn: Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}，在旅店旁邊：安巴格瓦那部分在{zone:1444}指南的{object:3202}那一站",
 
 	-- Step 50: The Bloodsail ships
 	["The Bloodsail ships"] = "血帆海盜船",

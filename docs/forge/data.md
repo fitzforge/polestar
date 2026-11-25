@@ -332,8 +332,9 @@ quest log's words, from players' recordings or the game's quest objectives. The 
 Fireworks and The Challenge have such records too: the public build has no source for the quest log's words and
 would otherwise read only the markers' names. Then any placeholder name a player could read that is left is named,
 one line each: a title, an objective's words, or the name of an NPC, object or item an objective, giver, ender or
-starting item points at, in every quest but the game's unused and test ones ("<UNUSED>", "<TEST> HEY MISTER
-WILSON!", "REUSE"), which Lookup's search leaves out, as it does NPCs and items with a placeholder name. `forge
+starting item points at, in every quest but the game's unused, test and unfinished ones ("<UNUSED>", "<TEST> HEY
+MISTER WILSON!", "<NYI> Flirting With Darkness", "REUSE", "REUSEME"), which Lookup's search leaves out, as it does
+NPCs and items with a placeholder name. `forge
 build` and `forge data build --strict-placeholders` (our release builds and CI) stop on them; a plain `forge data
 build`, a guide author's, names them as a warning and goes on, so a QuestieDB newer than the corrections still
 builds (#3797); `forge data publish`'s public builds only count them.
@@ -437,7 +438,7 @@ first.
 | `forge data itemdb` | `addon/Polestar_ItemDB/Items.lua` and its TOC (size budget 1 MiB) | the Classic Era item tables (ItemSparse, Item, ItemEffect, SpellEffect) |
 | `forge data names [<locale>...]` | `Names.lua`, `LICENSE-DATA.txt`, `CREDITS.md` and the TOC in the language folders `addon/Polestar_<locale>` (committed; our guides' `Texts.lua` there is left alone): the data's names in each client language; `--offline`, `--no-questie`, `--no-tables`, `--build`, `--sources`, `--observed`, `--ding`, `--pfquest`, `--guides`, `--questdb`, `--codex`, `--travel`, `--chokepoints`, `--out`, `--json` (`polestar i18n names` retired) | the client's tables (wago.tools, cached), the names the client showed players (`data/i18n/names-observed/<locale>.json`, [TRANSLATING.md](../TRANSLATING.md#game-names)), the cached web quest database names, DingDB (pinned), pfQuest; the ids of the compiled guides, `addon/Polestar_QuestDB`, `data/forever/codex`, the travel data and the chokepoints |
 | `forge data subzones [<locale>...]` | `Subzones.lua` and the TOC in the language folders `addon/Polestar_<locale>` (committed): the subzone name the client in each language shows on each area of the walking maps, for the rows not named as in English, which the arrow reads to tell a city's floors apart; `--offline`, `--sources`, `--data`, `--nav`, `--out`. Run it after `forge nav pack` | the walking maps' areas (`addon/Polestar_Nav/Nav/Nav<map>.lua`'s `areaNames`) and the Forever client's WMOAreaTable and AreaTable in English and each language (wago.tools, cached) at the client build the data is built from (`forge_data::subzones::BUILD`; data/forever naming another stops it) |
-| `forge data questdb` | `addon/Polestar_QuestDB` (local; in the release zip when built): each kind's records as LuaChunks strings, decoded when read; `--radius YD`, `--droppers N`, `--json` | `data/forever` (quests, npcs, objects, items, map-frames) |
+| `forge data questdb` | `addon/Polestar_QuestDB` (local; in the release zip when built): each kind's records as LuaChunks strings, decoded when read; `--radius YD`, `--droppers N`, `--json`. An NPC or object the data has no name for (QuestieDB 1.1.5's object 7983211) reads "Unnamed creature" or "Unnamed object", with a warning, and keeps its spawns; the Codex gives such an object the same name on its page when an item, quest or boss points at it | `data/forever` (quests, npcs, objects, items, map-frames) |
 | `forge data talents build` | `addon/Polestar/Talents/Builds.lua`; `check` fails when it is out of date or a plan breaks a rule | the plans in `talents/forever/*.json` and the Forever client's trait tables at a pinned build |
 | `forge data maps build` | `addon/Polestar/Maps/ZoneLevels.lua` | `data/forever` (npcs, zones, map frames) |
 | `forge data maps overlays` | `addon/Polestar/UI/ZoneArtOverlays.lua` | the Forever client's map-art tables at a pinned build |
