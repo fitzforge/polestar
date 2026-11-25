@@ -446,6 +446,7 @@ local function tooltip(self)
 	GameTooltip:AddLine(m[5], 1, 0.84, 0.45)
 	GameTooltip:AddLine(m[6], 0.97, 0.97, 0.99)
 	if m[9] then GameTooltip:AddLine((m[11] and L["Gives %s"] or L["Drops %s"]):format(m[9]), 0.77, 0.79, 0.87) end
+	if ns.Theme then ns.Theme.TipDots(GameTooltip) end
 	GameTooltip:Show()
 end
 

@@ -48,8 +48,10 @@ local function dim(s)
 end
 
 -- obj's text with `label` after it when that adds no line (it stays set), else nil.
+-- The dot as obj's face draws it (the game's font on a Russian client has none, #4015).
 local function fits(obj, text, label, lines)
-	local new = text .. dim(" · " .. label)
+	local face = obj.GetFont and (obj:GetFont()) or STANDARD_TEXT_FONT
+	local new = text .. dim(" " .. ns.Theme.Dot(face) .. " " .. label)
 	obj:SetText(new)
 	if obj:GetNumLines() <= lines then return new end
 	return nil
@@ -112,6 +114,7 @@ local function onLogEnter(button)
 	if not title or not GameTooltip or GameTooltip:GetOwner() ~= button then return end
 	local r, g, b = ns.Theme.Color("textDim")
 	GameTooltip:AddLine(format(L["Kept for %s: the route hands it in there."], title), r, g, b, true)
+	if ns.Theme then ns.Theme.TipDots(GameTooltip) end
 	GameTooltip:Show()
 end
 
