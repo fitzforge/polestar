@@ -408,14 +408,30 @@ pub fn build(data_dir: &Path, root: &Path, o: &Options) -> Result<Output, String
 
 	// --- items (their sources pull in more NPCs and objects)
 	let mut item_records = BTreeMap::new();
+	// A dropper the data has no name for is no source (QuestieDB 1.1.5's object 7983211 for Flintfire's Shipment): the
+	// addon reads every NPC and object record's name. It leaves the item's sources, with a warning.
+	let nameless = |table: &V, id: f64| {
+		let e = table.get(&num_str(id));
+		e.truthy() && !e.get("name").truthy()
+	};
 	for id in want_item.clone() {
 		let it = items.get(&id.to_string());
 		if !it.truthy() {
 			warnings.push(format!("item {id} referenced by a quest is missing from items.json"));
 			continue;
 		}
-		let droppers = top_sources(&field(&it, "drops", "npc"), o.max_droppers, |n| !test_creature(&npcs, n));
-		let obj_sources = top_sources(&field(&it, "drops", "object"), o.max_object_sources, |_| true);
+		for (kind, table) in [("npc", &npcs), ("object", &objects)] {
+			let drops = field(&it, "drops", kind);
+			if drops.is_object() {
+				for (d, _) in drops.entries() {
+					if nameless(table, forge_guide::js::str_to_num(&d)) {
+						warnings.push(format!("item {id}: {kind} {d} drops it but has no name, so it is no source"));
+					}
+				}
+			}
+		}
+		let droppers = top_sources(&field(&it, "drops", "npc"), o.max_droppers, |n| !test_creature(&npcs, n) && !nameless(&npcs, n));
+		let obj_sources = top_sources(&field(&it, "drops", "object"), o.max_object_sources, |n| !nameless(&objects, n));
 		let mut vendors = list(&it.get("vendors"));
 		vendors.sort_by(|a, b| a.partial_cmp(b).unwrap());
 		vendors.truncate(o.max_vendors);

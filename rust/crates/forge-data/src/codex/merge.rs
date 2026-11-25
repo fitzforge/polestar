@@ -1899,7 +1899,30 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 				list.push(src("rep", &[("faction", g.get("faction")), ("standing", g.get("standing")), ("npc", V::Null)], &curated_from));
 			}
 		}
-		let all: Vec<&Cand> = base.iter().chain(list.iter()).collect();
+		// An NPC or object the data has no name for has no page and nothing to show (QuestieDB 1.1.5's object 7983211
+		// for Flintfire's Shipment): it is no source, with a warning.
+		let mut nameless: Vec<String> = Vec::new();
+		let all: Vec<&Cand> = base
+			.iter()
+			.chain(list.iter())
+			.filter(|s| {
+				let (kind, table, id) = match s.ty {
+					"drop" => ("npc", &fv.npcs, s.get("npc")),
+					"object" => ("object", &fv.objects, s.get("object")),
+					_ => return true,
+				};
+				let e = table.get(&kstr(&id));
+				if e.truthy() && !e.get("name").truthy() {
+					let w = format!("item {ids}: {kind} {} drops it but has no name, so it is no source", kstr(&id));
+					if !nameless.contains(&w) {
+						nameless.push(w);
+					}
+					return false;
+				}
+				true
+			})
+			.collect();
+		warnings.extend(nameless);
 		let sources = finalize_sources(&all, &npc_level, &|npc: &V| boss_instance.get(&kstr(npc)).truthy(), &mut |ty: &str, npc: &V| {
 			if ty == "drop" {
 				let l = cut_drop.get(&ids);
@@ -2747,5 +2770,18 @@ mod tests {
 		assert!(has_word("use the taming rod to tame a beast", "taming rod to tame"));
 		assert_eq!(standing_of(3000.0), 5.0);
 		assert_eq!(standing_of(-100.0), 3.0);
+	}
+
+	// QuestieDB 1.1.5 lists object 7983211, which has no name, as a source of Flintfire's Shipment: it has no page
+	// and nothing to show, so it is no source.
+	#[test]
+	fn a_nameless_object_is_no_item_source() {
+		let mut i = inputs("{}", "{}");
+		i.forever.items = parse_json(r#"{ "280413": { "id": 280413, "name": "Flintfire's Shipment", "drops": { "npc": {}, "object": { "672508": 100, "7983211": null } }, "vendors": [] } }"#).unwrap();
+		i.forever.objects = parse_json(r#"{ "672508": { "id": 672508, "name": "Flintfire's Shipment", "spawns": {} }, "7983211": { "id": 7983211, "name": null, "spawns": {} } }"#).unwrap();
+		let codex = merge_codex(&i);
+		let objects: Vec<f64> = codex.items.get("280413").get("sources").items().iter().map(|s| s.get("object").num()).collect();
+		assert_eq!(objects, vec![672508.0]);
+		assert!(codex.warnings.iter().any(|w| w.contains("item 280413") && w.contains("object 7983211")), "{:?}", codex.warnings);
 	}
 }
