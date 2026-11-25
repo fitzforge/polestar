@@ -225,7 +225,6 @@ return {
 
 	-- Step 43: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1458} Undercity · {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {zone:1444} Feralas · {zone:1446} Tanaris
-	-- was: ["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {area:1497}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1435} guide passes the {area:1497} again at about 47."] = "Reiten erfordert Stufe 40 und kostet 100 Gold; beim Erlernen bekommst du ein Reittier, und ohne eines ist der Weg durch {zone:2548} nach dem Schlingendorntal lang. Nimm den Zeppelin vom Turm in {object:3202} zu den Türmen von {area:1497}: {npc:4773} lehrt die Verlassenen in {area:159}, einen kurzen Ritt nördlich, mit den Skelettpferden von {npc:4731} (je 20 Gold). Dann mit dem Zeppelin zurück nach {object:3202}. Zu wenig Gold? Überspring diesen Schritt: Der Guide für {zone:1435} führt dich mit etwa 47 erneut durch {area:1497}."
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to the {zone:1458}'s towers: {npc:4773} teaches the Forsaken in {area:159}, a short ride north, with {npc:4731}'s skeletal horses (20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} & {zone:1446} guide passes the {zone:1458} again at about 45."] = "Fahren braucht Level 40 und kostet 100 Gold; lernen macht dir ein Reittier, und die {zone:2548} nach Stranglethorn sind ohne eins ein langer Weg. Nimm den Zeppelin von dem Turm von {object:3202} zum {zone:1458}: {npc:4773} lehrt die Forsaken in {area:159}, eine kurze Nordfahrt, mit den Knochengeschossen der Skelettpferde ({npc:4731}, 20 Gold pro Stück). Dann fliege den Zeppelin zurück zu {object:3202}. Knapp Gold? Überspringe diesen Schritt: der {zone:1444}- & {zone:1446}-Guide passiert {zone:1458} um ungefähr 45 wieder.",
 
 	-- Step 44: Your mount at 40
@@ -271,7 +270,7 @@ return {
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "{npc:2491} und {npc:2486}",
 	-- {npc:2491} Whiskey Slim · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
-	["{npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "{npc:2491}, im Gasthaus, und "Sea Wolf" MacKinley, oben, bieten diese Quests ab Level 40: nimm sie jetzt. Unter 40 bietet der {zone:1444}- & {zone:1446}-Guide das {area:35}-Stop nochmal an.",
+	["{npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "{npc:2491}, im Gasthaus, und „Sea Wolf“ MacKinley, oben, bieten diese Quests ab Level 40: nimm sie jetzt. Unter 40 bietet der {zone:1444}- & {zone:1446}-Guide das {area:35}-Stop nochmal an.",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}, im Gasthaus: Seine Flaschen werden an der Küste von {zone:1425} angespült, ungefähr auf Stufe 48",
 	-- {quest:2872} Stoley's Debt · {zone:1446} Tanaris
@@ -370,7 +369,6 @@ return {
 
 	-- Step 78: Harborage
 	-- {area:657} Harborage · {zone:1430} Deadwind Pass
-	-- was: ["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}."] = "Reite auf der Straße nach Westen zum Draeneilager bei {area:657}, nahe dem Weg vom {zone:1430} herein."
 	["Head west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}."] = "Gehe westlich entlang der Straße zum Draenei-Lager am {area:657}, nahe dem Eingang von {zone:1430}.",
 
 	-- Step 79: Pool of Tears
