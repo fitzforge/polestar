@@ -1,7 +1,7 @@
 -- A quick complete hand-in order, improved with a sparse set of transport
 -- estimates. Real Nav searches and stop optimization yield at cooperative
 -- three-millisecond checkpoints, without spending other addons' Nav API budget.
-local ADDON, ns = ...
+local ns = Polestar
 local Route = {}
 ns.HandinRoute = Route
 

@@ -14,6 +14,9 @@ mod routing;
 #[path = "handins-readiness.rs"]
 mod readiness;
 
+#[path = "handins-loading.rs"]
+mod loading;
+
 fn codex() -> Value {
 	let mut c = fixture("lookup.json");
 	c["quests"] = json!({});

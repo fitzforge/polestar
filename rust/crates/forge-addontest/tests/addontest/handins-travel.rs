@@ -6,10 +6,10 @@ use serde_json::Value;
 fn run(script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_nav.lua"],
-		addons: vec![Addon::files(
-			"Polestar",
-			&["Core/Init.lua", "Core/LuaChunks.lua", "Core/Names.lua", "Core/Guides.lua", "Nav/Nav.xml", "Dungeons/Dungeons.lua", "Dungeons/Pickup.lua", "Lookup/HandinRoute.lua"],
-		)],
+		addons: vec![
+			Addon::files("Polestar", &["Core/Init.lua", "Core/LuaChunks.lua", "Core/Names.lua", "Core/Guides.lua", "Nav/Nav.xml", "Dungeons/Dungeons.lua", "Dungeons/Pickup.lua"]),
+			Addon::files("Polestar_Handins", &["Route.lua"]),
+		],
 		login: true,
 		script: script.into(),
 		..Default::default()

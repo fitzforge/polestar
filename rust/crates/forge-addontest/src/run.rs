@@ -23,9 +23,9 @@ pub fn stubs_dir() -> PathBuf {
 }
 
 /// Polestar's own load-on-demand addons besides the walking maps' parts, which [`run_addon`] loads from their
-/// TOC when the addon asks (C_AddOns.LoadAddOn): the settings window, our skins and layouts, and Freedoom Arcade
+/// TOC when the addon asks (C_AddOns.LoadAddOn): the hand-in planner, settings window, our skins and layouts, and Freedoom Arcade
 /// (the first Play).
-pub const LOAD_ON_DEMAND: &[&str] = &["Polestar_Options", "Polestar_Skins", "Polestar_Arcade"];
+pub const LOAD_ON_DEMAND: &[&str] = &["Polestar_Handins", "Polestar_Options", "Polestar_Skins", "Polestar_Arcade"];
 
 /// An addon to load, as the client loads it.
 #[derive(Clone, Debug)]

@@ -1,0 +1,32 @@
+## Interface: 16001
+## Title: Polestar: Turn-ins
+## Notes: Hand in your finished quests
+## Title-deDE: Polestar: Abgaben
+## Notes-deDE: Erledigte Quests abgeben
+## Title-esES: Polestar: Entregas
+## Notes-esES: Entrega tus misiones completadas
+## Title-esMX: Polestar: Entregas
+## Notes-esMX: Entrega tus misiones terminadas
+## Title-frFR: Polestar : Quêtes à rendre
+## Notes-frFR: Rendre vos quêtes terminées
+## Title-koKR: Polestar 제출
+## Notes-koKR: 완료한 퀘스트 제출
+## Title-ptBR: Polestar: Entregas
+## Notes-ptBR: Entregue suas missões concluídas
+## Title-ruRU: Polestar: Сдача
+## Notes-ruRU: Сдайте выполненные задания
+## Title-zhCN: Polestar 交还
+## Notes-zhCN: 交还已完成的任务
+## Title-zhTW: Polestar 繳交
+## Notes-zhTW: 繳交已完成的任務
+## Author: Polestar
+## Version: 0.4.2.2
+## Category: Polestar
+## Group: Polestar
+## LoadOnDemand: 1
+## Dependencies: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+
+Route.lua
+Handins.lua
