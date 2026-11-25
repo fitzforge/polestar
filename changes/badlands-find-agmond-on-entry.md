@@ -1,4 +1,4 @@
 ---
 section: players
 ---
-- Alliance players who start the Badlands guide can pick up Find Agmond in Loch Modan before crossing the pass for Safety Checks (thanks Cameron).
+- The Alliance Badlands guide offers Find Agmond on the way in before Safety Checks and skips the pickup if you start inside Badlands (thanks Cameron).

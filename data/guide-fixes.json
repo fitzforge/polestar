@@ -12,9 +12,10 @@
 			"step": {
 				"before": { "quest": 97617, "goal": "accept" },
 				"guide": "forever/alliance/30-40/06-badlands",
-				"copy": true
+				"copy": true,
+				"when": "!zone \"Badlands\""
 			},
-			"note": "A player who opened Badlands directly took Safety Checks, rode back to Ironband for Find Agmond, then crossed into Badlands again. Copy the Ironband stop before the pass so a player arriving without the quest visits him first. It also hands in Ironband Wants You! if they already carry that breadcrumb.",
+			"note": "A player who opened Badlands directly took Safety Checks, rode back to Ironband for Find Agmond, then crossed into Badlands again. Copy the Ironband stop before the pass for players who have yet to enter Badlands. The stop also hands in Ironband Wants You! if they already carry that breadcrumb.",
 			"source": [
 				{
 					"kind": "in-game-check",
