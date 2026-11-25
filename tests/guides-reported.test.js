@@ -19741,3 +19741,13 @@ test('#3708, #3923: profession guides learn a recipe only the Artisan trainers t
 	}
 	assert.ok(checked > 0, 'the Artisan-only recipes the guides learn');
 });
+// #4115 (ItsSaulx, 0.4.2.2): A Void Path's one objective is steering Va'xug's Eye of Kilrogg out of the ravine to
+// the main road, where the quest is handed in to the Eye of Kilrogg; the bare complete had no place, so the arrow
+// showed nothing while the player steered. It leads to the road (data/places.json 4115-98252-1).
+test(`${STONETALON_HORDE}: ItsSaulx's report: A Void Path leads the arrow to the road while you steer the eye (#4115)`, { skip }, () => {
+	const list = goals(STONETALON_HORDE);
+	const complete = list[at(list, 'complete 98252 (A Void Path)', is('complete', 98252))];
+	const turnin = list[at(list, 'turnin 98252 (A Void Path)', is('turnin', 98252))];
+	assert.ok(located(complete), 'the complete has a place for the arrow');
+	assert.ok(yards(complete.goal, turnin.goal) < 15, `it is the road where the eye is handed in (${complete.goal.x},${complete.goal.y})`);
+});

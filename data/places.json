@@ -3276,6 +3276,19 @@
 				{ "kind": "questie", "ref": "quest 944 objective 1 (event, Enter the Master's Glaive) at 1439 38.48,86.45; the Scrying Bowl 10076 spawns at 38.35-39.5,85.45-87.61 live" }
 			],
 			"issue": 4095
+		},
+		{
+			"id": "4115-98252-1",
+			"faction": "Horde",
+			"quest": 98252,
+			"objective": 1,
+			"at": { "map": 1440, "x": 38.2, "y": 58.1, "frame": "era" },
+			"note": "A Void Path: the one objective is steering Va'xug's Eye of Kilrogg out of the ravine to the main road, where the quest is handed in to the Eye of Kilrogg (271181, 38.2,58.1). The data has no place for it, so the step's bare complete had no arrow while the player steered (#4115, ItsSaulx).",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#4115: the reporter's /polestar report, Arrow: none on Complete A Void Path" },
+				{ "kind": "recording", "ref": "players' recordings: 'Eye of Kilrogg guided to the road' ticks, then the hand-in at npc 271181 on the road" }
+			],
+			"issue": 4115
 		}
 	]
 }
