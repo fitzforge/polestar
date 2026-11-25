@@ -574,7 +574,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		limitLine:ClearAllPoints()
 		limitLine:SetPoint(up and "BOTTOMLEFT" or "TOPLEFT", F, up and "BOTTOMLEFT" or "TOPLEFT", 0, up and cap or -cap)
 		limitLine:SetPoint(up and "BOTTOMRIGHT" or "TOPRIGHT", F, up and "BOTTOMRIGHT" or "TOPRIGHT", 0, up and cap or -cap)
-		limitLine.Text:SetText(string.format(ns.L["%d px"], floor(cap * F:GetEffectiveScale() + 0.5)))
+		limitLine.Text:SetText(string.format(ns.L["%d px"], floor(cap * Theme.PixelsPerUnit(F) + 0.5)))
 	end
 
 	-- How far a layout's frames reach below the window's bottom edge (Atlas's

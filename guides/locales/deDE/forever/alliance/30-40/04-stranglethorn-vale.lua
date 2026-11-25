@@ -71,7 +71,7 @@ return {
 	-- Step 10: Stranglethorn Tigers
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger
 	["Stranglethorn Tigers"] = "Schlingendorntiger",
-	["The adult tigers prowl the hills on both sides of the camp: west of it, and east of it toward the lake. The arrow takes the eastern group."] = "",
+	["The adult tigers prowl the hills on both sides of the camp: west of it, and east of it toward the lake. The arrow takes the eastern group."] = "Die erwachsenen Tiger patrouillieren die Hügel an beiden Seiten des Lagers: westlich davon und östlich davon.",
 
 	-- Step 11: Ajeck Rouack
 	-- {area:99} Rebel Camp

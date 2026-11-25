@@ -282,8 +282,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			local dy = (self.psStartY - y) * (ns.Get("ui.growUp") and -1 or 1)
 			if (mode == "fixed" or mode == "auto") and self.psStartCap and (self.psSized or math.abs(dy) >= 3) then
 				self.psSized = true
-				local screen = UIParent:GetHeight() * UIParent:GetEffectiveScale()
-				local px = floor((self.psStartCap + dy) * F:GetEffectiveScale() + 0.5)
+				-- The screen's own pixels (GetPhysicalScreenSize), whatever the UI scale, as the Options row reads them.
+				local screen = UIParent:GetHeight() * Theme.PixelsPerUnit(UIParent)
+				local px = floor((self.psStartCap + dy) * Theme.PixelsPerUnit(F) + 0.5)
 				local share = min(1, max(0.3, px / screen))
 				if mode == "auto" then ns.Set("ui.heightMode", "fixed") end
 				if share ~= GF.dragShare then

@@ -44,7 +44,7 @@ return {
 	-- Step 8: Thistlefur Hold
 	["Thistlefur Hold"] = "Höhle der Distelfelle",
 	-- plural, as words: Troll Chests = {object:178144} Troll Chest
-	["Inside the hold, Troll Chests lie along the tunnels."] = "",
+	["Inside the hold, Troll Chests lie along the tunnels."] = "Im Inneren der Festung liegen Troll-Kisten entlang der Tunnel.",
 	["Below ground"] = "Unter der Erde",
 
 	-- Step 9: Ruul Snowhoof
@@ -225,7 +225,7 @@ return {
 
 	-- Step 55: Zangen Stonehoof
 	-- {npc:4721} Zangen Stonehoof · {quest:1195} The Sacred Flame · {npc:2995} Tal
-	["The phial is already with {npc:4721}: take {quest:1195} from him, a short walk east of {npc:2995}."] = "",
+	["The phial is already with {npc:4721}: take {quest:1195} from him, a short walk east of {npc:2995}."] = "Das Amphorak ist bereits bei {npc:4721}: nimm {quest:1195} von ihm, einen kurzen Spaziergang östlich von {npc:2995}.",
 
 	-- Step 56: Tah Winterhoof
 	-- {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof · {npc:2995} Tal
@@ -340,13 +340,13 @@ return {
 
 	-- Step 74: Lakota Windsong
 	-- {area:485} Great Lift · {area:2097} Darkcloud Pinnacle · {npc:10896} Arnak Grimtotem
-	["{area:485} detour warning: the arrow may miss the path up {area:2097}. If you are on the canyon floor, follow the path and rope bridges up {area:2097}. {npc:10896} (29) stands among his guards there: clear the guards, then {npc:10896}."] = "",
+	["{area:485} detour warning: the arrow may miss the path up {area:2097}. If you are on the canyon floor, follow the path and rope bridges up {area:2097}. {npc:10896} (29) stands among his guards there: clear the guards, then {npc:10896}."] = "{area:485} Umgehungswarnung: Der Pfeil hat die Wegstiege nach {area:2097} übersehen. Wenn du auf der Canyon-Böden stehst, folge dem Pfad und nutze die Seilbrücken nach {area:2097}. {npc:10896} (29) steht unter seinen Wächtern: kläre die Wächter, dann {npc:10896}.",
 
 	-- Step 75: Escort Lakota Windsong
 	-- {npc:10646} Lakota Windsong
-	["Escort {npc:10646}"] = "",
+	["Escort {npc:10646}"] = "Begleite {npc:10646}",
 	-- {npc:10646} Lakota Windsong · {npc:10896} Arnak Grimtotem
-	["{npc:10646} is held captive beside where {npc:10896} stood: free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "",
+	["{npc:10646} is held captive beside where {npc:10896} stood: free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "{npc:10646} ist gefangen gehalten neben dem Platz, wo {npc:10896} stand: Befreie sie und bewache sie auf dem Abstieg nach unten; Grimtotem-Häscher greifen dich auf dem Weg an.",
 
 	-- Step 76: Highperch
 	-- {area:482} Highperch
@@ -356,9 +356,9 @@ return {
 
 	-- Step 77: Escort Pao'ka Swiftmountain
 	-- {npc:10427} Pao'ka Swiftmountain
-	["Escort {npc:10427}"] = "",
+	["Escort {npc:10427}"] = "Begleite {npc:10427}",
 	-- {npc:10427} Pao'ka Swiftmountain · {area:2237} Whitereach Post
-	["{npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}."] = "",
+	["{npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}."] = "{npc:10427} wartet auf der östlichen Seite der Nestgelände: Befreie ihn und bewache ihn auf dem Rückweg nach {area:2237}.",
 
 	-- Step 78: Whitereach Post
 	-- {npc:10428} Motega Firemane · {item:12732} Incendia Agave · {area:2097} Darkcloud Pinnacle

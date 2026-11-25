@@ -135,6 +135,24 @@
 --   forever/horde/50-60/04-azshara
 --   forever/horde/50-60/05-eastern-plaguelands
 --   forever/horde/50-60/06-silithus
+--
+-- Machine-translated, to be reviewed (0.4.3 What's new notes, 25 Nov 2026): translated by an AI model
+-- (Claude Sonnet 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing
+-- one: keep or fix it, and take it off this list:
+--   A smarter arrow
+--   Walks that follow your own trail, boats and lifts it understands, flights it remembers, enemy towns it goes round.
+--   Guides named for their zones
+--   Titles name the zones you quest in, in walking order. Camping 101 is in for every start-zone profession.
+--   Escorts are your choice
+--   Do it or Skip it, with how long other players' runs take and how often they fail.
+--   Windows your way
+--   Atlas or Standard layout; Settings and Guides have their own scale; switches for chat messages and the XP line.
+--   Every attunement and key for your faction in the guide menu, with a progress bar and %s.
+--   Polestar in your language
+--   Settings > General > Language shows Polestar in another language than the game's.
+--   Fewer folders
+--   Quit the game fully and start it again: Polestar is 22 folders now, not 45.
+--   Steps fixed in dozens of zones. Found something off? Type %s.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "koKR") then return end
@@ -3915,6 +3933,20 @@ L["Small helpers"] = "작은 도우미"
 L["Sell and repair reminders before you leave town; compact mode now has tabs."] = "마을을 떠나기 전 판매와 수리 알림; 이제 간략 모드에도 탭이 있습니다."
 L["In 9 languages, now with German and Latin American Spanish guides. Thanks, translators!"] = "9개 언어 지원, 이제 독일어와 중남미 스페인어 가이드도 있습니다. 번역가 여러분 감사합니다!"
 L["Caves, cities, flights and more. Found something off? Type %s."] = "동굴, 도시, 비행 등. 이상한 점이 있나요? %s 입력."
+L["A smarter arrow"] = "더 똑똑해진 화살표"
+L["Walks that follow your own trail, boats and lifts it understands, flights it remembers, enemy towns it goes round."] = "직접 걸은 길을 따라가고, 배와 승강기를 이해하며, 비행 경로를 기억하고, 적 마을은 우회합니다."
+L["Guides named for their zones"] = "지역 이름이 붙은 가이드"
+L["Titles name the zones you quest in, in walking order. Camping 101 is in for every start-zone profession."] = "제목에 퀘스트를 하는 지역이 이동 순서대로 나옵니다. 시작 지역의 모든 직업 Camping 101도 들어 있습니다."
+L["Escorts are your choice"] = "호위는 당신의 선택"
+L["Do it or Skip it, with how long other players' runs take and how often they fail."] = "하기 또는 건너뛰기, 다른 플레이어의 소요 시간과 실패 빈도도 알려 줍니다."
+L["Windows your way"] = "내 방식대로 쓰는 창"
+L["Atlas or Standard layout; Settings and Guides have their own scale; switches for chat messages and the XP line."] = "Atlas 또는 기본 레이아웃, 설정 창과 가이드 창에 각각 배율, 채팅 메시지와 경험치 줄 스위치."
+L["Every attunement and key for your faction in the guide menu, with a progress bar and %s."] = "가이드 메뉴에서 진영의 모든 입장 조건과 열쇠를 진행 막대로 보고, %s 버튼으로 안내받으세요."
+L["Polestar in your language"] = "내 언어로 보는 Polestar"
+L["Settings > General > Language shows Polestar in another language than the game's."] = "설정 > 일반 > 언어에서 게임과 다른 언어로 Polestar를 볼 수 있습니다."
+L["Fewer folders"] = "줄어든 폴더"
+L["Quit the game fully and start it again: Polestar is 22 folders now, not 45."] = "게임을 완전히 종료한 뒤 다시 시작하세요. Polestar는 이제 45개가 아닌 22개 폴더입니다."
+L["Steps fixed in dozens of zones. Found something off? Type %s."] = "수십 곳의 지역에서 단계를 고쳤습니다. 이상한 점이 있나요? %s 입력."
 
 -- QoL/ClassQuests.lua
 L["Long chain: %d quests across %d zones on %d continents"] = "긴 연계: %d개 퀘스트, %d개 지역, %d개 대륙"

@@ -378,7 +378,7 @@ return {
 
 	-- Step 66: Magistrate Sevren
 	-- {area:159} Brill · {area:157} Agamand Mills · {npc:1753} Maggot Eye · {npc:1515} Executor Zygand
-	["Back up the road to {area:159}, on the way north-west to {area:157}. The Wanted poster for {npc:1753} stands beside {npc:1515}, in front of the inn."] = "",
+	["Back up the road to {area:159}, on the way north-west to {area:157}. The Wanted poster for {npc:1753} stands beside {npc:1515}, in front of the inn."] = "Läuft die Straße zurück nach {area:159}, auf dem Weg nach Nordwesten zu {area:157}. Das Gesuch auf {npc:1753} steht neben {npc:1515}, vor dem Gasthaus.",
 	["The Wanted poster beside Zygand"] = "Der Steckbrief neben Zygand",
 
 	-- Step 67: Agamand Mills

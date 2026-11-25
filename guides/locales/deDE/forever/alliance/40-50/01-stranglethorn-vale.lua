@@ -202,7 +202,7 @@ return {
 	["{npc:2624} swims off the north-west coast, on the northern loop"] = "{npc:2624} schwimmt vor der Nordwestküste, auf der nördlichen Runde",
 
 	-- Step 36: Booty Bay
-	["You missed this on the route's earlier visit here: take it now, before the Bloodsail camp. Its gorillas live on the hills just above the camp."] = "",
+	["You missed this on the route's earlier visit here: take it now, before the Bloodsail camp. Its gorillas live on the hills just above the camp."] = "Mistvale-Innereien",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "„Sea Wolf“ MacKinley, im obersten Stockwerk",
 
 	-- Step 37: Bloodsail pirates: kill these as you meet them
@@ -214,7 +214,7 @@ return {
 	-- Step 38: Gorilla hills
 	["Gorilla hills"] = "Gorillahügel",
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
-	["From the Bloodsail camp, climb into the Mistvale hills just east of it: the Elder Mistvale Gorillas (40) there drop the giblets."] = "",
+	["From the Bloodsail camp, climb into the Mistvale hills just east of it: the Elder Mistvale Gorillas (40) there drop the giblets."] = "Suche einzelne Level-40-Älter in diesemselben Lager für Sehnen und Innereien. Lass Level-41-Gorillas allein; bleibe nicht nur extra für Zähne.",
 
 	-- Step 39: Booty Bay
 	-- {npc:2488} Deeg
