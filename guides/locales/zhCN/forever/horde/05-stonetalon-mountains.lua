@@ -24,8 +24,7 @@ return {
 
 	-- Step 4: Splintertree Post
 	-- {area:431} Splintertree Post · {npc:12696} Senani Thunderheart · {area:428} Night Run · {npc:12867} Kuray'bin · {quest:6503} Ashenvale Outrunners · {zone:1440} Ashenvale
-	-- was: ["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers Ashenvale Outrunners: leave it for the next {zone:1440} visit, at 26."] = "沿路向北不远就是{area:431}。从南边进入时，先经过飞行管理员和{area:428}的{npc:12696}狩猎告示板，再到商人处。伐木营地的{npc:12867}提供“灰谷先驱者”：留到下次26级来{zone:1440}时再做。"
-	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers {quest:6503}: leave it for the next {zone:1440} visit, at 26."] = "",
+	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers {quest:6503}: leave it for the next {zone:1440} visit, at 26."] = "沿路向北不远就是{area:431}。从南边进入时，先经过飞行管理员和{area:428}的{npc:12696}狩猎告示板，再到商人处。伐木营地的{npc:12867}提供{quest:6503}：留到下次26级来{zone:1440}时再做。",
 	-- {npc:12696} Senani Thunderheart · {zone:1440} Ashenvale
 	["{npc:12696}'s hunt targets Ursangous and Shadumbra are for the next {zone:1440} visit, at 26; Sharptalon (31) only from level 30."] = "{npc:12696}的狩猎目标乌萨苟斯和萨杜布拉留到26级下次来{zone:1440}时再做；沙普塔隆（31级）要到30级才能做。",
 
@@ -56,8 +55,9 @@ return {
 	["{npc:12717}: take it last, his escort starts at once"] = "{npc:12717}：最后再接，他的护送任务会立即开始",
 
 	-- Step 10: Vorsha the Lasher
-	-- {npc:12717} Muglash · {npc:12719} Marukai
-	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717}沿海滩向北走到一座纳迦火盆。熄灭火盆，再保护他抵挡一波波纳迦，直到沃尔沙被击杀；怒尾纳迦掉落{npc:12719}要的头颅。",
+	-- {npc:12717} Muglash · {npc:12940} Vorsha the Lasher · {npc:12719} Marukai
+	-- was: ["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717}沿海滩向北走到一座纳迦火盆。熄灭火盆，再保护他抵挡一波波纳迦，直到沃尔沙被击杀；怒尾纳迦掉落{npc:12719}要的头颅。"
+	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until {npc:12940} is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "",
 	["Naga brazier"] = "纳迦火盆",
 
 	-- Step 11: Naga heads
@@ -271,6 +271,7 @@ return {
 	-- ["{npc:12696} stands at {area:428}, the Warsong camp just north-east of Splintertree, beside the hunt board."] = "{npc:12696}站在{area:428}的狩猎告示板旁，那是碎木岗哨东北方不远的战歌营地。",
 	-- ["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 26."] = "{npc:12696}的狩猎目标（乌萨苟斯、萨杜布拉、沙普塔隆）留到26级下次来{zone:1440}时再做。",
 	-- ["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 27."] = "{npc:12696}的狩猎目标（乌萨苟斯、萨杜布拉、沙普塔隆）留到27级下次来{zone:1440}时。",
+	-- ["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717}沿海滩向北走到一座纳迦火盆。熄灭火盆，再保护他抵挡一波波纳迦，直到沃尔沙被击杀；怒尾纳迦掉落{npc:12719}要的头颅。",
 	-- ["{npc:12721}: the troll charms are in Thistlefur Hold, east of the outpost"] = "{npc:12721}：巨魔符咒在前哨站东边的蓟皮熊怪的巢穴",
 	-- ["{npc:12736} at Zoram'gar, at 27"] = "佐拉姆加的{npc:12736}，27级时",
 	-- ["{npc:12818}, below ground"] = "{npc:12818}：在地下",

@@ -85,12 +85,6 @@ end
 function Core.questTitle(quest) local u = ui(); return u and u.QuestTitle and u.QuestTitle(quest) or nil end
 function Core.mapName(map) local u = ui(); return u and u.MapName and u.MapName(map) or nil end
 function Core.stepSummary(view) local u = ui(); return u and u.StepSummary and u.StepSummary(view) or nil end
--- A quest's own level (docs/skins/API-GAPS.md 25: not on the goal yet).
-function Core.questLevel(quest)
-	local Lv, E = P.Levels, P.Engine
-	local lvl = quest and Lv and Lv.QuestLevel and Lv.QuestLevel(quest, E and E.GetGuide and E.GetGuide() or nil)
-	if type(lvl) == "number" and lvl > 0 then return lvl end
-end
 -- An area objective's spots line (UI.AreaLine: "Rockjaw Troggs all over
 -- this area: 12 spots"), the line Polestar puts under such a goal.
 function Core.areaLine(goal) local u = ui(); return u and u.AreaLine and u.AreaLine(goal) or nil end
@@ -1705,6 +1699,33 @@ end
 -- card above it, its × putting the chain away for the session.
 local classShut = {}
 
+-- Another tab's step close by (UI/OtherTab.lua) as a card above the window:
+-- on the window's ground in Optional's measures, without the card's own
+-- wash, stripe and border (psPlain); its heading, icon and chevron keep
+-- their sky. -> its height
+local OT_ICON, OT_GO = 14, 16
+local function otherTabLook(part, width)
+	part.psPlain = true
+	for _, t in ipairs({ rawget(part, "Wash"), rawget(part, "Stripe") }) do if t then t:Hide() end end
+	for _, t in ipairs(rawget(part, "psBorder") or {}) do t:Hide() end
+	local head, title, icon = part.Head, part.Title, part.Icon
+	local r, g, b = icon:GetVertexColor()
+	capsLabel(head)
+	head:SetTextColor(r, g, b, 1)
+	head:SetWidth(math.max(40, width - OPT_PAD * 2 - OT_GO))
+	local y = cardHead(part, head)
+	rowFont(title)
+	local tx = OPT_PAD + OT_ICON + 6
+	title:SetWidth(math.max(40, width - tx - OPT_PAD - OT_GO))
+	local inset, mid, lineH = rowLine(title)
+	title:ClearAllPoints()
+	title:SetPoint("TOPLEFT", part, "TOPLEFT", tx, y - inset)
+	icon:ClearAllPoints()
+	icon:SetPoint("LEFT", part, "TOPLEFT", OPT_PAD, y + mid)
+	y = y - rowHeight(title:GetStringHeight() or lineH, lineH)
+	return cardFoot(y)
+end
+
 on("guidePlace", function(name, part, width, height)
 	if name == "here" then
 		hereLook(part, true)
@@ -1724,6 +1745,11 @@ on("guidePlace", function(name, part, width, height)
 	elseif name == "banner" and part.psKind == "train" then
 		slots.train = part
 		part:Hide()
+		return true
+	end
+	if name == "otherTab" then
+		part:SetHeight(otherTabLook(part, width or 300))
+		slots.otherTab = part
 		return true
 	end
 	if name == "classCard" then
@@ -1832,6 +1858,13 @@ local function layoutStack(parts)
 	local s = slots
 	-- A banner notice keeps its own × (and Later): none of the card's.
 	if s.banner and isUnder(s.banner, window) then add(s.banner, nil) end
+	-- Another tab's step close by: its × puts it away until out of range.
+	if s.otherTab and isUnder(s.otherTab, window) then
+		add(s.otherTab, function()
+			local OT = P.UI and P.UI.OtherTabCard
+			if OT and OT.Dismiss then OT.Dismiss() end
+		end)
+	end
 	if s.class and isUnder(s.class, window) then
 		local key = s.classKey
 		add(s.class, function() if key then classShut[key] = true end relay() end)
@@ -2158,8 +2191,6 @@ local function rowBack(row)
 		end
 		own._font, own._set = nil, nil
 	end
-	if own.level then own.level:Hide() end
-	own.lv = nil
 	if own.count then own.count:Hide() end
 	row.psLevelWidth, row.psRightMin = nil, nil
 	if own._single then
@@ -2226,90 +2257,21 @@ local function goalRow(row, goal, info)
 	if live and goal.progress then
 		text = text:gsub("|c%x%x%x%x%x%x%x%x(%d+/%d+)|r", "|c" .. Theme.Hex("accent") .. "%1|r")
 	end
-	local muted = Theme.Hex("textMuted")
 	if info.skipped or not goal.quest then
 		row.Text:SetText(text)
 		return
 	end
-	local lvl = Core.questLevel(goal.quest)
-	if goal.t == "accept" or goal.t == "turnin" then
-		-- The line names the quest already: its level after it, in the
-		-- line so it wraps with it.
-		if lvl then
-			own.lv = { fs = "Text", tag = "  |c" .. muted .. "[" .. lvl .. "]|r" }
-			text = text .. own.lv.tag
-		end
-		row.Text:SetText(text)
-		return
-	end
 	row.Text:SetText(text)
-	-- An objective: its quest and level on the line under it.
+	-- An accept or a turn-in names its quest already. An objective: its quest
+	-- on the line under it, with no level (#3438, #3876: the guide window
+	-- shows no quest level anywhere).
+	if goal.t == "accept" or goal.t == "turnin" then return end
 	local title = Core.questTitle(goal.quest)
 	if not (title and row.Sub) then return end
 	local sub = row.Sub:IsShown() and row.Sub:GetText() or nil
 	if sub and plainText(sub):find(title, 1, true) then return end
-	local line = title .. (lvl and ("  |c" .. muted .. "[" .. lvl .. "]|r") or "")
-	if lvl then own.lv = { fs = "Sub", tag = "  |c" .. muted .. "[" .. lvl .. "]|r" } end
-	row.Sub:SetText((sub and sub ~= "") and (line .. "\n" .. sub) or line)
+	row.Sub:SetText((sub and sub ~= "") and (title .. "\n" .. sub) or title)
 	row.Sub:Show()
-end
-
--- The quest's [level] a size smaller than its line (LVL_DOWN): a string has
--- one size, so where its line holds it on one line the level is a string of
--- its own after that line; else it stays in the line and wraps with it.
--- At every layout (the line's width is the layout's).
-local LVL_DOWN = 2
-local lvlProbe
-local function textWidth(fs, text, down)
-	if not lvlProbe then
-		lvlProbe = UIParent:CreateFontString(nil, "OVERLAY")
-		lvlProbe:Hide()
-	end
-	local path, size, flags = fs:GetFont()
-	if not (path and size) then return nil end
-	lvlProbe:SetFont(path, math.max(6, size - (down or 0)), flags)
-	lvlProbe:SetText(text)
-	return lvlProbe:GetUnboundedStringWidth()
-end
-
--- -> whether the row's lines changed height (a layout again settles them)
-local function levelFit(row)
-	local own = stores[row]
-	local lv = own and own.lv
-	local fs = lv and rawget(row, lv.fs)
-	if not (fs and fs:IsShown()) then
-		if own and own.level then own.level:Hide() end
-		return false
-	end
-	if not lv.split then lv.full = fs:GetText() or "" end
-	local full = lv.full
-	local first, rest = full:match("^(.-)\n(.*)$")
-	first = first or full
-	local at = first:find(lv.tag, 1, true)
-	local base = at and at + #lv.tag - 1 == #first and first:sub(1, at - 1) or nil
-	local w = fs:GetWidth()
-	local bw = base and textWidth(fs, base)
-	local tw = bw and textWidth(fs, lv.tag)
-	if bw and tw and type(w) == "number" and w > 0 and bw + tw <= w then
-		fs:SetText(rest and (base .. "\n" .. rest) or base)
-		lv.split = true
-		if not own.level then own.level = row:CreateFontString(nil, "OVERLAY") end
-		local l = own.level
-		local path, size, flags = fs:GetFont()
-		l:SetFont(path, math.max(6, size - LVL_DOWN), flags)
-		l:SetText((lv.tag:gsub("^%s+", "")))
-		l:ClearAllPoints()
-		l:SetPoint("LEFT", fs, "TOPLEFT", textWidth(fs, base .. "  ") or bw, -(fs:GetLineHeight() or size) / 2)
-		l:Show()
-		return false
-	end
-	if own.level then own.level:Hide() end
-	if lv.split then
-		lv.split = false
-		fs:SetText(full)
-		return true
-	end
-	return false
 end
 
 -- The count in a column on the right. The tick stays laid out (its room
@@ -2367,23 +2329,6 @@ on("guideRow", function(row, goal, info)
 	if not (row.Text and goal and info) then return end
 	goalRow(row, goal, info)
 	countColumn(row, goal, info)
-end)
-
-local lvlLater = false
-on("guideLayout", function(parts)
-	local again = false
-	for _, row in ipairs(parts.rows or {}) do
-		if row:IsShown() and levelFit(row) then again = true end
-	end
-	-- A level back in its line: the next frame lays the rows out again at
-	-- their new height.
-	if again and not lvlLater and P.After then
-		lvlLater = true
-		P.After(0, function()
-			lvlLater = false
-			Core.relayout()
-		end)
-	end
 end)
 
 -- After the rows are laid out: "Other" (the next spot) in the count's
@@ -3023,9 +2968,10 @@ local function xpLook(xp)
 	if not (xp.Text and xp.Icon) then return end
 	store(xp).atlas = true
 	local head = {}
-	-- The level and its percent are the XP tracker's: not while it is off.
+	-- The level and its percent are the XP tracker's: not while it is off,
+	-- nor while the XP line is (guideWindow.xpLine, #3304).
 	local Q = Polestar.QoL
-	if Q and Q.GetXPStats and Q.GetXPStats() then
+	if Core.on("xpLine") and Q and Q.GetXPStats and Q.GetXPStats() then
 		local level = UnitLevel and UnitLevel("player")
 		local cur, max = UnitXP and UnitXP("player"), UnitXPMax and UnitXPMax("player")
 		if type(level) == "number" and level > 0 then head[#head + 1] = string.format(tr("Level %d"), level) end

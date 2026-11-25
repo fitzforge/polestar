@@ -31,7 +31,11 @@
 local ADDON = "Polestar" -- one of Polestar's own skins: Polestar_Skins/Skins/Aurora/ (#3507)
 
 local Theme = Polestar and Polestar.Theme
-if not (Theme and Theme.RegisterSkin and (Theme.API_VERSION or 0) >= 2) then return end
+if not (Theme and Theme.RegisterSkin and Theme.SkinBuilder and (Theme.API_VERSION or 0) >= 2) then return end
+
+-- Built the first time this skin is wanted (Theme.SkinBuilder, #3881):
+-- loading the folder builds none of its ten skins.
+Theme.SkinBuilder("aurora", function()
 
 local MEDIA = "Interface\\AddOns\\Polestar_Skins\\Skins\\Aurora\\Media\\"
 
@@ -356,3 +360,4 @@ check("skin aurora", Theme.RegisterSkin("aurora", {
 	hooks = HOOKS,
 	preset = PRESET,
 }))
+end)

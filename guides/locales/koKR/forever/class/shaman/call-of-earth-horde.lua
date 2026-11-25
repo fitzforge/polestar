@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {quest:1516} Call of Earth
-	["{quest:1516} (Horde)"] = "",
+	["{quest:1516} (Horde)"] = "{quest:1516} (호드)",
 	-- {item:5175} Earth Totem · {spell:8071} Stoneskin Totem
 	["Your {item:5175}: without it no earth totem can be cast. {spell:8071} comes with it at level 4."] = "",
 
@@ -46,7 +46,7 @@ return {
 	-- {item:6656} Rough Quartz · {npc:5887} Canaga Earthcaller · {item:5175} Earth Totem
 	["Bring the {item:6656} back to {npc:5887} outside the Den. Keep the {item:5175} she gives you in your bags for good: every earth totem needs it."] = "",
 	-- {npc:5887} Canaga Earthcaller · {spell:8071} Stoneskin Totem · {item:5175} Earth Totem
-	["{npc:5887}: {spell:8071} and your {item:5175}"] = "",
+	["{npc:5887}: {spell:8071} and your {item:5175}"] = "{npc:5887}: {spell:8071}과(와) {item:5175}",
 	["the level 4 shaman spells"] = "",
 
 	-- Step 7: Seer Ravenfeather
@@ -80,7 +80,7 @@ return {
 	-- {item:6656} Rough Quartz · {item:5175} Earth Totem
 	["Bring the {item:6656} back to the Seer. Keep the {item:5175} in your bags for good: every earth totem needs it."] = "",
 	-- {npc:5888} Seer Ravenfeather · {spell:8071} Stoneskin Totem · {item:5175} Earth Totem
-	["{npc:5888}: {spell:8071} and your {item:5175}"] = "",
+	["{npc:5888}: {spell:8071} and your {item:5175}"] = "{npc:5888}: {spell:8071}과(와) {item:5175}",
 
 	-- Step 13: Windshaper Boro
 	-- {npc:251374} Windshaper Boro · {area:16635} Thendal Village
@@ -96,7 +96,7 @@ return {
 
 	-- Step 16: The Rise of Spirits
 	-- {area:16988} Rise of Spirits
-	["The {area:16988}"] = "",
+	["The {area:16988}"] = "{area:16988}",
 	-- {area:16988} Rise of Spirits · {item:6635} Earth Sapta · {npc:251166} Minor Manifestation of Earth
 	["The {area:16988} is the hilltop shrine north-east of Boro: the path up starts on the hill just above the clearing where the flies were. Drink the {item:6635} beside the shrine and speak to the {npc:251166} before it fades."] = "",
 	-- {item:6635} Earth Sapta
@@ -106,5 +106,5 @@ return {
 	-- {item:6656} Rough Quartz · {item:5175} Earth Totem
 	["Bring the {item:6656} back to Boro. Keep the {item:5175} in your bags for good: every earth totem needs it."] = "",
 	-- {npc:251374} Windshaper Boro · {spell:8071} Stoneskin Totem · {item:5175} Earth Totem
-	["{npc:251374}: {spell:8071} and your {item:5175}"] = "",
+	["{npc:251374}: {spell:8071} and your {item:5175}"] = "{npc:251374}: {spell:8071}과(와) {item:5175}",
 }

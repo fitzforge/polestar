@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {zone:1451} Silithus · {zone:1446} Tanaris
-	["{zone:1451}, then Un'Goro and {zone:1446}."] = "",
+	-- {area:976} Gadgetzan · {zone:1451} Silithus · {zone:1446} Tanaris
+	["{area:976} first, then {zone:1451}, Un'Goro and back to {zone:1446}."] = "D'abord {area:976}, puis {zone:1451}, Un'Goro et retour à {zone:1446}.",
 
 	-- Step 1: Innkeeper Vizzie
 	-- {npc:11118} Innkeeper Vizzie · {area:2255} Everlook · {area:2249} Frostwhisper Gorge

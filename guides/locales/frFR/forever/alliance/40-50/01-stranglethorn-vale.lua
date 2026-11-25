@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in French words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1445} Dustwallow Marsh · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{zone:1445} first, then {zone:1434} and the {zone:1435}."] = "D'abord {zone:1445}, puis {zone:1434} et {zone:1435}.",
+
 	-- Step 1: Theramore
 	["Theramore"] = "Theramore",
 	-- {quest:1260} Morgan Stern · {npc:4897} Helenia Olden
@@ -284,8 +288,7 @@ return {
 	-- {item:216616} Compound Cage Key
 	["{item:216616}, from the Subchiefs (or the Elites)"] = "{item:216616}, sur les Lieutenants (ou les Élites)",
 	-- {item:216617} Kurzen Fighter's Uniform
-	-- was: ["{item:216617}, in the supply crate"] = "{item:216617}, dans la caisse de ravitaillement"
-	["{item:216617}, in the supply crate deep in the cave"] = "",
+	["{item:216617}, in the supply crate deep in the cave"] = "{item:216617}, dans la caisse de ravitaillement au fond de la grotte",
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, back at his cage on the way out"] = "{npc:218230}, de retour à sa cage en sortant",
 	-- {npc:218229} Captain Aransas · {area:35} Booty Bay

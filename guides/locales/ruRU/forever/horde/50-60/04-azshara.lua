@@ -6,11 +6,13 @@
 -- A token marked "no name in this language" would show in English: write that name in Russian words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:392} Ratchet · {zone:1454} Orgrimmar · {zone:1458} Undercity
+	["{area:392}, {zone:1454} and the {zone:1458}, then into the Plaguelands."] = "{area:392}, {zone:1454} и {zone:1458}, затем в Чумные земли.",
+
 	-- Step 1: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Летите сюда: {area:392}",
-	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "Распорядитель полетов: {zone:1456}",
 
 	-- Step 2: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
@@ -100,7 +102,7 @@ return {
 
 	-- Step 23: Royal Quarter
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
-	-- plural, as words: Library Books = {object:386691} Library Book
+	-- plural, as words: Library Books = {object:386759} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "",
 
 	-- Step 25: The Bulwark
@@ -169,4 +171,5 @@ return {
 	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050} сдается персонажу {npc:10778} ({area:28}): сохраните задание.",
 	-- ["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: для NPC {npc:8587} ({area:1237})",
 	-- ["{zone:1454} flight master"] = "Распорядитель полетов: {zone:1454}",
+	-- ["{zone:1456} flight master"] = "Распорядитель полетов: {zone:1456}",
 }

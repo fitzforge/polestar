@@ -44,11 +44,8 @@ return {
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}, Garraltiva",
 	["Prideclaw, Galestrider"] = "Garraltiva, Vagaventos",
-	-- {npc:250928} Highlands Ursera
-	["Prideclaw, {npc:250928}"] = "Garraltiva, {npc:250928}",
-	["Galestrider, Cloudrunner"] = "Vagaventos, Correnuvens",
+	["Cloudrunner, Galestrider"] = "Corre-nuvens, Vagaventos",
 	["Prideclaw, Vuldren"] = "Garraltiva, Vuldren",
-	["Galestrider, Prideclaw"] = "Vagaventos, Garraltiva",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)
 	-- {zone:1411} Durotar
@@ -306,6 +303,7 @@ return {
 	-- ["Kill and skin {npc:9165} (48), Ravasaur (48), {npc:6507} (49), {npc:6506} (49), {npc:9162} (49), Pterrordax (50), {npc:6514} (50), {npc:6508} (50), Diemetradon (51), {npc:9167} (51), {npc:6513} (51), {npc:6516} (52), {npc:9164} (53), {npc:11735} (54) along the loop until {skill:393} 300; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 48-55."] = "Mate e esfole {npc:9165} (48), Ravassauro (48), {npc:6507} (49), {npc:6506} (49), {npc:9162} (49), Pterrordax (50), {npc:6514} (50), {npc:6508} (50), Dimetrodonte (51), {npc:9167} (51), {npc:6513} (51), {npc:6516} (52), {npc:9164} (53), {npc:11735} (54) ao longo do circuito até {skill:393} 300; esfole as feras de nível mais alto que sua perícia permitir. Uma fera de nível N requer perícia (N-10)x10 até o nível 20 e Nx5 acima disso. Nível da zona 48-55.",
 	-- ["Kill and skin {npc:9165} (48), Ravasaur (48), {npc:6507} (49), {npc:6506} (49), {npc:9162} (49), Pterrordax (50), {npc:6514} (50), {npc:6508} (50), Diemetradon (51, needs 255), {npc:9167} (51, needs 255), {npc:6513} (51, needs 255), {npc:6516} (52, needs 260), {npc:9164} (53, needs 265), {npc:11735} (54, needs 270) along the loop until {skill:393} 275; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 48-55."] = "Mate e esfole {npc:9165} (48), Ravassauro (48), {npc:6507} (49), {npc:6506} (49), {npc:9162} (49), Pterrordax (50), {npc:6514} (50), {npc:6508} (50), Dimetrodonte (51, requer 255), {npc:9167} (51, requer 255), {npc:6513} (51, requer 255), {npc:6516} (52, requer 260), {npc:9164} (53, requer 265), {npc:11735} (54, requer 270) ao longo do circuito até {skill:393} 275; esfole as feras de nível mais alto que sua perícia permitir. Uma fera de nível N requer perícia (N-10)x10 até o nível 20 e Nx5 acima disso. Nível da zona 48-55.",
 	-- ["Moonstalker, {npc:2165}"] = "Espreitaluna, {npc:2165}",
+	-- ["Prideclaw, {npc:250928}"] = "Garraltiva, {npc:250928}",
 	-- ["Pterrordax, {npc:9164}"] = "Pterrordax, {npc:9164}",
 	-- ["Vuldren, Galestrider"] = "Vuldren, Vagaventos",
 	-- ["Worg"] = "Worg",

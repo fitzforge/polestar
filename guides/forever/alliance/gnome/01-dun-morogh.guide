@@ -92,7 +92,6 @@ step Anvilmar
   accept 3365                                 -- Durnan Furcutter
   train class                                 -- Level 4 spells
   turnin 1599 only Warlock                    -- Alamar Grimm: Summon Imp
-  accept 94373 only Shaman                    -- Teo Hammerstorm, inside Anvilmar
   turnin 3361                                 -- Felix Whindlebolt, at the door on the way out; inside
   goto 26.93,80.03 live "The troll cave"
 
@@ -104,7 +103,6 @@ step Grik'nir the Cold
 
 step Grelin Whitebeard
   turnin 3365                                 -- Nori Pridedrift, next to him
-  collect 264356 quest 94373.1 only Shaman    -- Iceclaw Bear Pendants, from the Frostmane Troll Whelps on the slopes above the camp
   turnin 218
   accept 282
 
@@ -120,16 +118,6 @@ step Branstock Khalder
   tip Anvilmar is on the way north from Grelin's camp to the tunnel: Branstock Khalder, the priest trainer inside, sends priests of level 5 to Maxan Anvol in Kharanos.
   accept 5626                                 -- Branstock Khalder, inside Anvilmar
 
-step Call of Earth
-  only Shaman
-  tip Back to Teo Hammerstorm in Anvilmar. He gives you the Earth Sapta: take the rubble-marked path that climbs west from the south of the valley to the Spirit Stone on the ridge, drink the Sapta beside it and speak to the Minor Manifestation of Earth, then bring its Rough Quartz back to Teo.
-  turnin 94373                                -- Teo Hammerstorm
-  accept 94374
-  use 6635 @25.0,62.4                         -- Earth Sapta, beside the Spirit Stone
-  turnin 94374                                -- Minor Manifestation of Earth
-  accept 94375
-  turnin 94375                                -- Teo Hammerstorm: Stoneskin Totem and your Earth Totem
-
 step The tunnel
   tip Mountaineer Thalos guards the tunnel out of the valley, east of Anvilmar; Hands Springsprocket stands beside him at its mouth.
   turnin 282                                  -- Mountaineer Thalos
@@ -138,7 +126,7 @@ step The tunnel
   accept 2160                                 -- Hands Springsprocket
 
 step The Great Outdoors
-  tip Sit by Eric's campfire (type /sit) and wait for the buff. With a profession learned, Eric also offers its Camping 101, which its trainer takes: blacksmithing with Tognus Flintfire and First Aid with Thamner Pol in Kharanos, mining and engineering at Steelgrill's Depot.
+  tip Sit by Eric's campfire (type /sit) and wait for the buff. With a profession learned, Eric also offers its Camping 101, which its trainer takes: blacksmithing with Tognus Flintfire and First Aid with Thamner Pol in Kharanos, mining and engineering at Steelgrill's Depot, fishing with Paxton Ganter by Brewnall Village, herbalism, skinning, leatherworking and tailoring in Ironforge. In Ironforge the alchemy and enchanting trainers give their own.
   turnin 96628                                -- Eric Brighthammer: The Adventurer
   accept 96608                                -- Eric Brighthammer
   complete 96608
@@ -162,6 +150,36 @@ step Camping 101: Engineering
   when !knows 1230656
   tip Bronk Guzzlegear takes it once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 96058                                -- Eric Brighthammer: for Bronk Guzzlegear at Steelgrill's Depot
+
+step Camping 101: Herbalism
+  when skill Herbalism 1
+  when !knows 1229705
+  tip Reyna Stonebranch takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 96055                                -- Eric Brighthammer: for Reyna Stonebranch in Ironforge
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  when !knows 1229517
+  tip Balthus Stoneflayer takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 96056                                -- Eric Brighthammer: for Balthus Stoneflayer in Ironforge
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  when !knows 1229432
+  tip Gretta Finespindle takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 96031                                -- Eric Brighthammer: for Gretta Finespindle in Ironforge
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  when !knows 1263425
+  tip Uthrar Threx takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 96057                                -- Eric Brighthammer: for Uthrar Threx in Ironforge
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  when !knows 1229745
+  tip Paxton Ganter takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 96050                                -- Eric Brighthammer: for Paxton Ganter by Brewnall Village
 
 # ---------------------------------------------------------------- Kharanos
 
@@ -320,6 +338,12 @@ step Brewnall Village
   accept 413
   turnin 311                                  -- Marleth Barleybrew
   turnin 98326                                -- Gretta Ganter
+
+step Paxton Ganter
+  when onquest 96050
+  when complete 96050
+  complete 96050 @35.42,40.14                 -- talk to the trainer
+  turnin 96050                                -- Paxton Ganter: Camping 101: Fishing
 
 step The Gnomeregan road
   zone Dun Morogh
@@ -489,10 +513,21 @@ step Earthseer Farsen
   turnin 96390
   turnin 96391 optional
 
+# ---------------------------------------------------------------- North Gate Outpost
+
+step North Gate Outpost
+  zone Dun Morogh
+  tip Follow the road east and take its northern fork to the North Gate Outpost: Pilot Hammerfoot waits there, and the dwarven corpse lies up the pass to the west of him. The South Gate and its tunnel into Loch Modan come next, down the road to the south.
+  accept 419                                  -- Pilot Hammerfoot
+  turnin 419                                  -- A Dwarven Corpse
+  accept 417
+  collect 3183 quest 417.1                    -- Mangy Claw: Mangeclaw
+  turnin 417                                  -- Pilot Hammerfoot
+
 # ---------------------------------------------------------------- South Gate Outpost
 
 step South Gate Outpost
-  tip Follow the road all the way east to the South Gate Outpost at the Loch Modan tunnel.
+  tip Back south down the road to the South Gate Outpost at the Loch Modan tunnel.
   turnin 413                                  -- Mountaineer Barleybrew
   accept 414
 
@@ -513,17 +548,6 @@ step Braldir Ashmantle
   tip Go through the tunnel into Loch Modan. Just past it, a path marked by stones climbs the hills on the right of the road north to Braldir's camp.
   turnin 94465                                -- Braldir Ashmantle
   accept 94466
-
-# ---------------------------------------------------------------- North Gate Outpost
-
-step North Gate Outpost
-  zone Dun Morogh
-  tip Pilot Hammerfoot waits at the North Gate Outpost, north of the South Gate; the dwarven corpse lies up the pass to the west of him.
-  accept 419                                  -- Pilot Hammerfoot
-  turnin 419                                  -- A Dwarven Corpse
-  accept 417
-  collect 3183 quest 417.1                    -- Mangy Claw: Mangeclaw
-  turnin 417                                  -- Pilot Hammerfoot
 
 # ---------------------------------------------------------------- Loch Modan: the tunnel post, Thelsamar and the west hills
 
@@ -622,6 +646,54 @@ step Golnir Bouldertoe
   accept 6388
   turnin 6388                                 -- Gryth Thurden, the gryphon master in the Great Forge
   getfp "Ironforge"
+
+step Reyna Stonebranch
+  when onquest 96055
+  when complete 96055
+  complete 96055 @55.42,58.84                 -- talk to the trainer
+  turnin 96055                                -- Reyna Stonebranch: Camping 101: Herbalism
+
+step Balthus Stoneflayer
+  when onquest 96056
+  when complete 96056
+  complete 96056 @39.27,32.61                 -- talk to the trainer
+  turnin 96056                                -- Balthus Stoneflayer: Camping 101: Skinning
+
+step Gretta Finespindle
+  when onquest 96031
+  when complete 96031
+  complete 96031 @38.85,32.52                 -- talk to the trainer
+  turnin 96031                                -- Gretta Finespindle, beside Balthus: Camping 101: Leatherworking
+
+step Uthrar Threx
+  when onquest 96057
+  when complete 96057
+  complete 96057 @43.26,28.44                 -- talk to the trainer
+  turnin 96057                                -- Uthrar Threx: Camping 101: Tailoring
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  when !knows 1230564
+  tip Vosur Brakthel gives it and takes it back once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 96045                                -- Vosur Brakthel
+
+step Vosur Brakthel
+  when onquest 96045
+  when complete 96045
+  complete 96045 @66.25,55.23                 -- talk to the trainer
+  turnin 96045                                -- Vosur Brakthel, who gave it
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  when !knows 1230643
+  tip Thonys Pillarstone gives it and takes it back once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 96059                                -- Thonys Pillarstone
+
+step Thonys Pillarstone
+  when onquest 96059
+  when complete 96059
+  complete 96059 @60.15,44.89                 -- talk to the trainer
+  turnin 96059                                -- Thonys Pillarstone, who gave it
 
 # ---------------------------------------------------------------- Ironforge: one round of the city
 

@@ -123,11 +123,11 @@ return {
 
 	-- Step 24: Durnholde Keep
 	-- {npc:2238} Tog'thar · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key
-	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings, and each lock needs its key: {npc:2427} carries the {item:3467} for Drull's, {npc:2428} the {item:3499} for {npc:2238}'s, both in the keep. Kill them first, then open both locks."] = "",
+	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings, and each lock needs its key: {npc:2427} carries the {item:3467} for Drull's, {npc:2428} the {item:3499} for {npc:2238}'s, both in the keep. Kill them first, then open both locks."] = "Südöstlich von Tarrens Mühle. Drull und {npc:2238} sind in den Gebäuden des Burghofs angekettet, und jedes Schloss braucht seinen Schlüssel: {npc:2427} trägt den {item:3467} für Drulls, {npc:2428} den {item:3499} für {npc:2238}s, beide in der Burg. Töte sie zuerst, dann öffne beide Schlösser.",
 	-- {item:3467} Dull Iron Key · {npc:2427} Jailor Eston
-	["{item:3467}, from {npc:2427}"] = "",
+	["{item:3467}, from {npc:2427}"] = "{item:3467}, von {npc:2427}",
 	-- {item:3499} Burnished Gold Key · {npc:2428} Jailor Marlgen
-	["{item:3499}, from {npc:2428}"] = "",
+	["{item:3499}, from {npc:2428}"] = "{item:3499}, von {npc:2428}",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "Kugel und Kette von {npc:2238}",
 	["Drull's ball and chain"] = "Drulls Kugel und Kette",

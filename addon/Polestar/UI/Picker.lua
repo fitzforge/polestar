@@ -47,7 +47,8 @@
 -- selected. Home's tab card and tab rows close their tab from their
 -- right-click menu (Close tab, Move left, Move right; the card's ··· too) or
 -- Y on a gamepad. A name cut short (the tab card's, a row's, a community
--- pack's in the sidebar, the Zones fact) reads whole in its tooltip.
+-- pack's in the sidebar, the Quests in and Passes through facts) reads
+-- whole in its tooltip.
 --
 -- Selecting shows details; loading is explicit: the buttons, a double-click,
 -- or Enter in the search box (a row's tooltip says so). Opened from the guide
@@ -113,7 +114,7 @@ UI.Picker = P
 P.RECENT_MAX = RECENT_MAX
 
 local win, details
-local factCache = {} -- guide id -> { quests, zones } (guideFacts)
+local factCache = {} -- guide id -> { quests, questsIn, passes } (guideFacts)
 local folderPool, rowPool = {}, {}
 local query = ""
 local questContext -- { id, query, steps = { [guideId] = matching steps } }
@@ -498,19 +499,56 @@ function P.Entries(q, cat)
 			label[g], key[g], fid[g] = folderOf(g, mine, fac[g])
 		end
 	end
+	-- Guides in one folder, on one side, at one first level are listed as they
+	-- are played: a guide that hands over to another comes before it (a race's
+	-- lead-in "(12)" before the shared "(12-16)"; Badlands, Shen'dralas, then
+	-- Feralas, all at 45), otherwise by id (leveling) or title. The order is a
+	-- rank worked out before the sort, so guides that hand over to each other
+	-- (a community pack's starting zones offering one another, #3817) still
+	-- give table.sort one consistent order.
+	local level, groups, rank = {}, {}, {}
+	for _, g in ipairs(picked) do
+		level[g] = G.Levels(g, mine) or 0
+		local k = key[g] .. "\0" .. rankOfFaction(fac[g], mine) .. "\0" .. level[g]
+		groups[k] = groups[k] or {}
+		table.insert(groups[k], g)
+	end
+	local function byName(a, b)
+		if categoryOf(a) == "Leveling" then return (a.id or "") < (b.id or "") end
+		if (a.title or "") ~= (b.title or "") then return (a.title or "") < (b.title or "") end
+		return (a.id or "") < (b.id or "")
+	end
+	for _, members in pairs(groups) do
+		table.sort(members, byName)
+		-- Each round places the first guide (by name) that no unplaced guide
+		-- hands over to; in a loop of hand-overs, the first by name.
+		local into = {}
+		for _, g in ipairs(members) do
+			into[g] = 0
+			for _, h in ipairs(members) do
+				if h ~= g and handsTo(h, g) then into[g] = into[g] + 1 end
+			end
+		end
+		for n = 1, #members do
+			local pick
+			for _, g in ipairs(members) do
+				if not rank[g] then
+					if into[g] == 0 then pick = g break end
+					pick = pick or g
+				end
+			end
+			rank[pick] = n
+			for _, g in ipairs(members) do
+				if g ~= pick and not rank[g] and handsTo(pick, g) then into[g] = into[g] - 1 end
+			end
+		end
+	end
 	table.sort(picked, function(a, b)
 		if key[a] ~= key[b] then return key[a] < key[b] end
 		local fa, fb = rankOfFaction(fac[a], mine), rankOfFaction(fac[b], mine)
 		if fa ~= fb then return fa < fb end
-		local la, lb = G.Levels(a, mine) or 0, G.Levels(b, mine) or 0
-		if la ~= lb then return la < lb end
-		-- Same first level: a guide that hands over to the other comes first,
-		-- as it is played (a race's lead-in "(12)" before the shared "(12-16)";
-		-- Badlands, Shen'dralas, then Feralas, all at 45).
-		if handsTo(a, b) then return true end
-		if handsTo(b, a) then return false end
-		if categoryOf(a) == "Leveling" then return (a.id or "") < (b.id or "") end
-		return (a.title or "") < (b.title or "")
+		if level[a] ~= level[b] then return level[a] < level[b] end
+		return rank[a] < rank[b]
 	end)
 	local titles = P.Titles(picked)
 	local out, folder = {}, nil
@@ -569,12 +607,15 @@ local mapName = ns.Compat.MapName
 
 -- What a guide's steps hold for this character: the quests it accepts
 -- (steps and goals filtered by `only`, as the route choice counts them) and
--- the zones its goals visit, in step order (its own zone without any).
--- Cached per guide until guides register again.
+-- the zones its goals visit, in step order: `questsIn` those where
+-- QUEST_STEPS or more of its steps carry a quest goal, `passes` the rest
+-- (its own zone when no goal has one). Cached per guide until guides
+-- register again.
+local QUEST_STEPS = 6
 local function guideFacts(g)
 	local f = factCache[g.id]
 	if f then return f end
-	f = { quests = 0, zones = {} }
+	f = { quests = 0, questsIn = {}, passes = {} }
 	local G, C = ns.Guides, ns.Compat
 	local full, fresh = nil, false
 	if G and G.Peek then full, fresh = G.Peek(g.id) end
@@ -588,23 +629,34 @@ local function guideFacts(g)
 		if type(only) ~= "table" or not fits then return true end
 		return player ~= nil and fits(only, player)
 	end
-	local seen = {}
+	local zones, questSteps = {}, {} -- route order; zone -> steps with a quest goal there
 	for _, step in ipairs(type(full) == "table" and full or {}) do
 		if applies(step.only) and type(step.goals) == "table" then
+			local counted = {}
 			for _, goal in ipairs(step.goals) do
 				if applies(goal.only) then
 					if goal.t == "accept" then f.quests = f.quests + 1 end
 					local name = mapName(goal.map)
-					if name and not seen[name] then
-						seen[name] = true
-						f.zones[#f.zones + 1] = name
+					if name then
+						if not questSteps[name] then
+							questSteps[name] = 0
+							zones[#zones + 1] = name
+						end
+						if goal.quest and not counted[name] then
+							counted[name] = true
+							questSteps[name] = questSteps[name] + 1
+						end
 					end
 				end
 			end
 		end
 	end
 	if G and G.Peek then G.Unpeek(g.id, fresh) end
-	if #f.zones == 0 then f.zones[1] = UI.GuidePlace(g) end
+	for _, name in ipairs(zones) do
+		local list = questSteps[name] >= QUEST_STEPS and f.questsIn or f.passes
+		list[#list + 1] = name
+	end
+	if #zones == 0 then f.passes[1] = UI.GuidePlace(g) end
 	if player then factCache[g.id] = f end
 	return f
 end
@@ -1532,7 +1584,7 @@ local function factRow(i)
 	f.Value:SetJustifyH("LEFT")
 	f.Value:SetJustifyV("TOP")
 	f.Value:SetWordWrap(true)
-	-- Over a value cut short (the Zones fact): the whole of it on hover.
+	-- Over a value cut short (Quests in, Passes through): the whole of it on hover.
 	f.Hit = CreateFrame("Frame", nil, details)
 	f.Hit:SetAllPoints(f.Value)
 	f.Hit:SetScript("OnEnter", W.SimpleTip)
@@ -1938,9 +1990,10 @@ local function renderDetails(byId, tabs, active)
 	y = y + (started and (20 + 2) or 14) + 16
 
 	-- Facts: what the guide's goal gives and why (a Class guide's `reward`
-	-- and `why`), then steps, the quests this character takes, the zones in
-	-- route order, where the guide leads. Reward entries are tiles: those
-	-- given outright under "Reward", a choice under "Choose one".
+	-- and `why`), then steps, the quests this character takes, the zones it
+	-- quests in and those it passes through (each in route order), where the
+	-- guide leads. Reward entries are tiles: those given outright under
+	-- "Reward", a choice under "Choose one".
 	local facts, info = {}, guideFacts(g)
 	if type(g.reward) == "table" then
 		local get, choose = {}, {}
@@ -1968,7 +2021,8 @@ local function renderDetails(byId, tabs, active)
 	end
 	if g.stepCount then facts[#facts + 1] = { L["Steps"], tostring(g.stepCount) } end
 	if info.quests > 0 then facts[#facts + 1] = { L["Quests"], tostring(info.quests) } end
-	if #info.zones > 0 then facts[#facts + 1] = { L["Zones"], info.zones, "textDim" } end
+	if #info.questsIn > 0 then facts[#facts + 1] = { L["Quests in"], info.questsIn, "textDim" } end
+	if #info.passes > 0 then facts[#facts + 1] = { L["Passes through"], info.passes, "textDim" } end
 	local nextText = nextFact(g, byId)
 	if nextText then facts[#facts + 1] = { L["Next"], nextText, "textDim" } end
 	d.FactRule:ClearAllPoints()

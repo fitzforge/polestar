@@ -145,9 +145,9 @@ return {
 
 	-- Step 31: Goretusk Livers as you go
 	-- plural, as words: Goretusk Livers = {item:723} Goretusk Liver
-	["Goretusk Livers as you go"] = "",
+	["Goretusk Livers as you go"] = "順路收集血牙野豬的肝",
 	-- plural, as words: Goretusks = {npc:157} Goretusk · Young Goretusks = {npc:454} Young Goretusk
-	["Goretusks and Young Goretusks root along every leg of this loop: kill the ones you pass for the pie's livers."] = "",
+	["Goretusks and Young Goretusks root along every leg of this loop: kill the ones you pass for the pie's livers."] = "血牙野豬和幼年血牙野豬在這條路線的每一段遊蕩：順路殺掉遇到的，收集餡餅用的肝臟。",
 
 	-- Step 32: Stringy Vulture Meat as you go
 	-- {item:729} Stringy Vulture Meat
@@ -164,10 +164,10 @@ return {
 
 	-- Step 34: Defias Trappers and Smugglers
 	-- plural, as words: Defias Trappers = {npc:504} Defias Trapper
-	["Defias Trappers and Smugglers"] = "",
+	["Defias Trappers and Smugglers"] = "迪菲亞捕獸者和走私者",
 	-- {area:108} Sentinel Hill · {area:918} Molsen Farm
 	-- plural, as words: Defias Trappers = {npc:504} Defias Trapper
-	["North-west from {area:108} toward {area:918}: Defias Trappers and Smugglers camp in the fields between them."] = "",
+	["North-west from {area:108} toward {area:918}: Defias Trappers and Smugglers camp in the fields between them."] = "從{area:108}向西北往{area:918}方向：迪菲亞捕獸者和走私者在兩地之間的田野紮營。",
 
 	-- Step 35: Molsen Farm's well
 	-- {area:918} Molsen Farm
@@ -178,7 +178,7 @@ return {
 	["The gnoll hills"] = "豺狼人丘陵",
 	-- {area:111} Jangolode Mine · {area:916} The Jansen Stead
 	-- plural, as words: Riverpaw Gnolls = {npc:117} Riverpaw Gnoll
-	["North to the hills above {area:111}: Riverpaw Gnolls and Scouts (level 11-13) roam there, east toward the {area:916}. The gnolls further south and west are 13-19: stay in the north hills.\nCareful: Gnolls that stand close together tend to join a fight as a group. Pulling one at a time is safer."] = "",
+	["North to the hills above {area:111}: Riverpaw Gnolls and Scouts (level 11-13) roam there, east toward the {area:916}. The gnolls further south and west are 13-19: stay in the north hills.\nCareful: Gnolls that stand close together tend to join a fight as a group. Pulling one at a time is safer."] = "向北到{area:111}上方的山丘：河爪豺狼人和斥候（11-13級）在那裡遊蕩，向東一直到{area:916}。更南邊和西邊的豺狼人是13-19級：待在北邊的山丘。\n小心：站得很近的豺狼人往往會成群加入戰鬥。一次拉一隻更安全。",
 	-- plural, as words: Gnoll Paws = {item:725} Gnoll Paw
 	["Gnoll Paws"] = "豺狼人的爪子",
 
@@ -215,24 +215,24 @@ return {
 
 	-- Step 41: Finish the Goretusk Livers
 	-- plural, as words: Goretusk Livers = {item:723} Goretusk Liver
-	["Finish the Goretusk Livers"] = "",
+	["Finish the Goretusk Livers"] = "湊齊血牙野豬的肝",
 	-- {area:107} Saldean's Farm
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
-	["Still short of eight? Young Goretusks root in the fields just west of {area:107}."] = "",
+	["Still short of eight? Young Goretusks root in the fields just west of {area:107}."] = "還差八個？幼年血牙野豬就在{area:107}西邊的田野裡拱土。",
 
 	-- Step 42: Finish the Stringy Vulture Meat
 	-- {item:729} Stringy Vulture Meat
 	["Finish the {item:729}"] = "湊齊{item:729}",
 	-- {area:107} Saldean's Farm
 	-- plural, as words: Young Fleshrippers = {npc:199} Young Fleshripper
-	["Still short of three? Young Fleshrippers circle the fields north-west of {area:107}."] = "",
+	["Still short of three? Young Fleshrippers circle the fields north-west of {area:107}."] = "還差三個？小碎屍鳥在{area:107}西北邊的田野上空盤旋。",
 
 	-- Step 44: Finish the Red Leather Bandanas
 	-- {quest:153} Red Leather Bandanas
 	["Finish the {quest:153}"] = "湊齊{quest:153}",
 	-- {area:108} Sentinel Hill
 	-- plural, as words: Defias Trappers = {npc:504} Defias Trapper
-	["Still short of fifteen? Defias Trappers camp in the fields just west of {area:108}."] = "",
+	["Still short of fifteen? Defias Trappers camp in the fields just west of {area:108}."] = "還差十五個？迪菲亞捕獸者就在{area:108}西邊的田野裡紮營。",
 
 	-- Step 45: Sentinel Hill
 	-- {npc:266} Wiley the Black · {area:69} Lakeshire
@@ -275,7 +275,7 @@ return {
 	-- {npc:6171} Duthorian Rall · {npc:6173} Gazin Tenorm · {npc:6174} Stephanie Turner · {object:2096} Trade District · {item:2589} Linen Cloth
 	["{npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in the {object:2096} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "{npc:6171}和{npc:6173}在光明大教堂；{npc:6174}站在{object:2096}，要求十塊{item:2589}（人型生物掉落；拍賣行有售）。",
 	-- {quest:2998} Tome of Divinity
-	["Right-click the {quest:2998} he gives you"] = "",
+	["Right-click the {quest:2998} he gives you"] = "在包裡右鍵點選他給你的{quest:2998}",
 	-- {item:2589} Linen Cloth · {zone:1436} Westfall · {object:2096} Trade District · {object:2100} Old Town
 	["{item:2589}: you have it from {zone:1436}'s Defias; if not, the Auction House here in the {object:2096} (not the level 25 thugs in {object:2100})"] = "{item:2589}：你應該已從{zone:1436}的迪菲亞身上拿到；如果沒有，就到這裡{object:2096}的拍賣場買（別去打{object:2100}那些25級的暴徒）",
 	-- {npc:6172} Henze Faulk · {area:86} Stone Cairn Lake
@@ -345,31 +345,34 @@ return {
 	-- {npc:7232} Borgus Steelhand · {object:28027} Dwarven District · {area:442} Auberdine
 	["{npc:7232}, {object:28027}: for his brother in {area:442}"] = "{npc:7232}，{object:28027}：為了他在{area:442}的兄弟",
 
-	-- Step 68: Jennea Cannon
+	-- Step 68: Gelman Stonehand
+	["talk to the trainer"] = "與訓練師交談",
+
+	-- Step 71: Jennea Cannon
 	-- {npc:5497} Jennea Cannon · {quest:1861} Mirror Lake
 	["{npc:5497}, Wizard's Sanctum: {quest:1861}"] = "{npc:5497}，巫師聖所：{quest:1861}",
 
-	-- Step 70: Woo Ping
+	-- Step 73: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "趁在這裡：向{npc:11867}學習{spell:202}（{object:2096}，10銀）；雙手武器讓戰士升級最快。",
 
-	-- Step 71: Woo Ping
+	-- Step 74: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Paladin fastest."] = "趁在這裡：向{npc:11867}學習{spell:202}（{object:2096}，10銀）；雙手武器讓聖騎士升級最快。",
 
-	-- Step 72: Woo Ping
+	-- Step 75: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "順便：在{npc:11867}處學習法杖（{object:2096}，10銀幣）；獵人的近戰武器主要看屬性，而雙手武器屬性最多。",
 
-	-- Step 73: Woo Ping
+	-- Step 76: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "順便：在{npc:11867}處學習劍（{object:2096}，10銀幣）；主手持劍能讓盜賊穩定升級。",
 
-	-- Step 74: Woo Ping
+	-- Step 77: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "順便：在{npc:11867}處學習法杖（{object:2096}，10銀幣）；升級期間，法杖的法術屬性比單手武器更多。",
 
-	-- Step 76: Fishin' Time
+	-- Step 79: Fishin' Time
 	-- {npc:5494} Catherine Leland · {object:2096} Trade District · {npc:267118} Gilbert Gray
 	["{npc:5494} sells fishing supplies along the canal just west of the {object:2096}; {npc:267118} fishes at the harbor, on the way to the boat."] = "{npc:5494}在{object:2096}西側的運河邊出售釣魚用品；{npc:267118}在港口釣魚，就在前往船的路上。",
 	-- {item:6529} Shiny Bauble · {npc:5494} Catherine Leland

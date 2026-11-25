@@ -151,8 +151,9 @@ jobs:
         env:
           MATCHED: ${{ steps.data.outputs.cache-matched-key }}
           BASE: ${{ steps.lane.outputs.base }}
-          # This repository's own branches: a failure of a test next has not run (new or renamed) only warns here,
-          # since their Release data job runs it on the release data (tools/ci-failures.js --unseen-ok).
+          # This repository's own branches: a failure of a test neither next's baseline nor the base checkout has (one
+          # the pull request adds or renames) only warns here, since their Release data job runs it on the release
+          # data (tools/ci-failures.js --unseen-ok). One the base has is run there too (tools/ci-tests.sh).
           OWN: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository }}
         run: |
           if [ -f .ci/baseline.jsonl ]; then

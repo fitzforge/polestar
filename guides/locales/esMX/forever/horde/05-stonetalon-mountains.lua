@@ -24,8 +24,7 @@ return {
 
 	-- Step 4: Splintertree Post
 	-- {area:431} Splintertree Post · {npc:12696} Senani Thunderheart · {area:428} Night Run · {npc:12867} Kuray'bin · {quest:6503} Ashenvale Outrunners · {zone:1440} Ashenvale
-	-- was: ["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers Ashenvale Outrunners: leave it for the next {zone:1440} visit, at 26."] = "{area:431} está justo al norte, subiendo por el camino. Entrando desde el sur, primero están el maestro de vuelo y el tablón de caza de {npc:12696} en {area:428}, y luego los mercaderes. {npc:12867}, en el aserradero, ofrece “Avanzada de Vallefresno”: déjala para la próxima visita a {zone:1440}, a nivel 26."
-	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers {quest:6503}: leave it for the next {zone:1440} visit, at 26."] = "",
+	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers {quest:6503}: leave it for the next {zone:1440} visit, at 26."] = "{area:431} está justo al norte por el camino. Al llegar desde el sur, primero están el maestro de vuelo y el tablón de caza de {npc:12696} en {area:428}, y después los vendedores. {npc:12867}, en el campamento maderero, ofrece {quest:6503}: déjala para la próxima visita a {zone:1440}, al nivel 26.",
 	-- {npc:12696} Senani Thunderheart · {zone:1440} Ashenvale
 	["{npc:12696}'s hunt targets Ursangous and Shadumbra are for the next {zone:1440} visit, at 26; Sharptalon (31) only from level 30."] = "Las presas de caza de {npc:12696}, Ursangous y Shadumbra, son para la próxima visita a {zone:1440}, a nivel 26; Garrafilada (31), solo a partir del nivel 30.",
 
@@ -56,8 +55,9 @@ return {
 	["{npc:12717}: take it last, his escort starts at once"] = "{npc:12717}: tómala al final, su escolta empieza enseguida",
 
 	-- Step 10: Vorsha the Lasher
-	-- {npc:12717} Muglash · {npc:12719} Marukai
-	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} camina al norte por la playa hasta un brasero naga. Apaga el brasero y protégelo durante las oleadas de nagas hasta que Vorsha muera; los nagas Colafuria sueltan las cabezas que quiere {npc:12719}.",
+	-- {npc:12717} Muglash · {npc:12940} Vorsha the Lasher · {npc:12719} Marukai
+	-- was: ["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} camina al norte por la playa hasta un brasero naga. Apaga el brasero y protégelo durante las oleadas de nagas hasta que Vorsha muera; los nagas Colafuria sueltan las cabezas que quiere {npc:12719}."
+	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until {npc:12940} is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "",
 	["Naga brazier"] = "Brasero naga",
 
 	-- Step 11: Naga heads
@@ -262,6 +262,7 @@ return {
 	-- ["{npc:12696} stands at {area:428}, the Warsong camp just north-east of Splintertree, beside the hunt board."] = "{npc:12696} está en {area:428}, el campamento Grito de Guerra justo al noreste del Puesto del Hachazo, junto al tablón de caza.",
 	-- ["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 26."] = "Los objetivos de caza de {npc:12696} (Ursangous, Shadumbra, Garrafilada) son para la próxima visita a {zone:1440}, a nivel 26.",
 	-- ["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 27."] = "Las presas de caza de {npc:12696} (Ursangous, Shadumbra, Garfafilada) son para la próxima visita a {zone:1440}, a nivel 27.",
+	-- ["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} camina al norte por la playa hasta un brasero naga. Apaga el brasero y protégelo durante las oleadas de nagas hasta que Vorsha muera; los nagas Colafuria sueltan las cabezas que quiere {npc:12719}.",
 	-- ["{npc:12721}: the troll charms are in Thistlefur Hold, east of the outpost"] = "{npc:12721}: los amuletos trol están en el Bastión Cardopelo, al este del puesto",
 	-- ["{npc:12736} at Zoram'gar, at 27"] = "{npc:12736} en Zoram'gar, a nivel 27",
 	-- ["{npc:12818}, below ground"] = "{npc:12818}, bajo tierra",

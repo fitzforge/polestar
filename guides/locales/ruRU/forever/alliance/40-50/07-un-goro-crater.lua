@@ -7,14 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- was: ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56."] = "Для персонажей 49-50 уровня, но большинство заданий здесь 51-53 уровня: намеренно, ради опыта. Этот первый визит ограничен восточной половиной кратера, где звери 48-52 уровня, так что выманивайте их по одному; пилоны, кости и улей подождут следующего визита в Ун'Горо примерно на 56 уровне."
-	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "",
+	-- {zone:1446} Tanaris · {area:976} Gadgetzan
+	["{zone:1446} first ({area:976} hand-ins), then into Un'Goro. For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "Сначала {zone:1446} (сдача заданий в {area:976}), затем в Ун'Горо. Для персонажей 49-50 уровня, но большинство заданий здесь 51-53 уровня: намеренно, ради опыта. Этот первый визит ограничен восточной половиной кратера, где звери 48-52 уровня, так что выманивайте их по одному; пилоны, кости и улей подождут следующего визита в Ун'Горо примерно на 54 уровне.",
 
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Летите сюда: {area:150}",
-	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "Распорядитель полетов ({zone:1455})",
 
 	-- Step 3: Theramore
 	["Theramore"] = "Терамор",
@@ -235,4 +233,5 @@ return {
 	-- ["{npc:9998}, at the refuge entrance"] = "{npc:9998} – у входа в укрытие",
 	-- ["{npc:9998}, at the refuge's entrance"] = "{npc:9998} – у входа в укрытие",
 	-- ["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999} сидит на юго-восточном склоне вулкана ({area:537}) в середине кратера.",
+	-- ["{zone:1455} flight master"] = "Распорядитель полетов ({zone:1455})",
 }

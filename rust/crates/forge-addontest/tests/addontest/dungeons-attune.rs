@@ -15,6 +15,7 @@
 
 use forge_addontest::codex::{fixture, write_codex_pack, CodexOpts, CodexPack};
 use forge_addontest::dsl::plain;
+use forge_addontest::playtest::SIMULATE;
 use forge_addontest::run::{addons_dir, join, root};
 use forge_addontest::{emitted, fake_locale, is_match, lua_value, text, truthy, Addon, RunAddon};
 use forge_data::codex::attune::attunements_of;
@@ -862,6 +863,62 @@ emit(walk)"#,
 	assert_eq!(walk[0]["entrance"], json!(false), "level 18: the arrow is not on the entrance");
 }
 
+// The Shadowforge Key's guide (Dark Iron Legacy, 3801 > 3802) went straight to Blackrock Depths' entrance: Franclorn
+// Forgewright gives and takes both quests and only a dead character sees him, and #558 made such an accept or
+// turn-in optional, so the engine passed both quests by. An attunement's quests are what it needs: here a ghost-only
+// NPC's goals stay to do, each saying how to reach him, and the guide plays every step to the entrance.
+#[test]
+fn a_ghost_only_npc_s_accepts_and_turn_ins_stay_to_do_in_an_attunement_guide_their_goal_saying_how_and_the_engine_walks_every_step() {
+	let f = Fx::new();
+	let mut c = f.codex.clone();
+	c["npcs"]["3448"]["ghostOnly"] = json!(true);
+	let pk = pack_of(&c, &f.inputs);
+	let out = f.run(
+		&pk,
+		&format!(
+			r#"
+local def = D.AttuneGuide("wailing-caverns", "fang")
+local ghost = {{}}
+for _, s in ipairs(def.steps) do
+	for _, g in ipairs(s.goals) do
+		if g.npc == 3448 then ghost[#ghost + 1] = {{ goal = g.t .. ":" .. g.quest, optional = g.optional or false, note = g.note or false }} end
+	end
+end
+emit({{ steps = describe(def), ghost = ghost }})
+D.Attune("wailing-caverns", "fang")
+stub.advance(0.6)
+SIM_GUIDE = Polestar.Engine.GetGuide()
+{SIMULATE}"#
+		),
+		"Horde",
+		"Tauren",
+	);
+	let (built, played) = (&out[0], &out[1]);
+	assert_eq!(
+		built["steps"],
+		json!([
+			{ "title": "Rite of the Serpent", "goals": "accept:90001 turnin:90001" },
+			{ "title": "The Serpent's Trial", "goals": "accept:90002 collect:90002 turnin:90002" },
+			{ "title": "Fang of the Serpent", "goals": "rep accept:90003 turnin:90003" },
+			{ "title": "Wailing Caverns", "goals": "note goto" },
+		])
+	);
+	let how = "Only visible while dead: die nearby and talk to them as a ghost.";
+	assert_eq!(
+		built["ghost"],
+		json!([
+			{ "goal": "turnin:90001", "optional": false, "note": how },
+			{ "goal": "accept:90002", "optional": false, "note": how },
+			{ "goal": "turnin:90002", "optional": false, "note": how },
+			{ "goal": "accept:90003", "optional": false, "note": how },
+		]),
+		"Tonga's goals are the chain: to do, not skipped"
+	);
+	assert!(!truthy(&played["stuck"]), "stuck: {}", played["stuck"]);
+	assert_eq!(played["done"], true);
+	assert_eq!(played["visited"], played["steps"], "the engine stops at every step, none passed as done");
+}
+
 // What Comes Around...: Lookup's guide for the quest said "Collect Head of Targorr" with the arrow left beside
 // Guard Berton, who takes it; Targorr is a boss inside the Stockade and the data has no place for him outside
 // (#3613). A quest guide sends an inside source's item to its instance's entrance, as the attunement guides do,
@@ -1156,4 +1213,48 @@ emit({ section = P.Section(), later = list(), notes = notes })"#,
 		"not open: the line instead of the bar, Guide me still there; done: ticked, at the bottom"
 	);
 	assert_eq!(later["notes"].as_array().unwrap().last().unwrap(), "Not open on Forever yet: the attunement is ready for when it opens.");
+}
+
+// #3877: the section laid out like the Dungeons page: a key in the rail, cards two to a row each with the
+// instance's picture band, the key glyph before the name (a check once done) and Guide me unchanged; a raid's
+// attunement before the dungeons' keys; a done one dimmed at the end.
+#[test]
+fn the_attunements_section_is_cards_two_to_a_row_with_a_key_raids_first_done_ones_dimmed_3877() {
+	let f = Fx::new();
+	let out = f.run_ui(
+		r#"
+local AT, P, D = Polestar.UI.Attunements, Polestar.UI.Picker, Polestar.Dungeons
+local icon
+for _, it in ipairs(P.RailItems()) do if it.key == "Attunements" then icon = it.icon end end
+-- The Deadmines a raid, for the order.
+local list = D.List
+D.List = function()
+	local l = list()
+	for _, d in ipairs(l) do if d.key == "deadmines" then d.kind = "raid" end end
+	return l
+end
+AT.Show()
+local c1, c2 = AT.cards[1], AT.cards[2]
+local _, _, _, x1, y1 = c1:GetPoint(1)
+local _, _, _, x2, y2 = c2:GetPoint(1)
+local first = { AT.Shown()[1].id, AT.Shown()[1].raid, AT.Shown()[1].glyph }
+local art = c1.Art:IsShown() and c1.Art:GetHeight() > 0
+-- The Smelting Key in the bags: done, at the end, dimmed.
+Polestar.Compat.GetItemCount = function(id) return id == 90011 and 1 or 0 end
+AT.Render()
+local last = AT.Shown()[#AT.Shown()]
+local lastCard
+for _, c in ipairs(AT.cards) do if c:IsShown() and c.psId == last.id then lastCard = c end end
+emit({ icon = icon, first = first, sideBySide = y1 == y2 and x2 > x1, sameHeight = c1:GetHeight() == c2:GetHeight(), art = art,
+	guide = c1.Guide.Label:GetText(), last = { last.id, last.glyph, lastCard:GetAlpha() } })"#,
+		"",
+	);
+	let out = &out[0];
+	assert_eq!(out["icon"], "key", "a key in the rail: {out}");
+	assert_eq!(out["first"], json!(["smelting-key", true, "key"]), "the raid's first, a key before its name: {out}");
+	assert_eq!(out["sideBySide"], true, "two to a row: {out}");
+	assert_eq!(out["sameHeight"], true, "a row's cards as tall as each other: {out}");
+	assert_eq!(out["art"], true, "the picture band: {out}");
+	assert_eq!(out["guide"], "Guide me");
+	assert_eq!(out["last"], json!(["smelting-key", "check", 0.6]), "done: ticked, at the end, dimmed: {out}");
 }

@@ -2,6 +2,45 @@
 -- Keys are the English strings exactly as the code writes them; a key
 -- missing here, or commented out, shows in English. Grouped by the file that
 -- first uses each key. docs/TRANSLATING.md explains the rest.
+--
+-- Machine-translated, to be reviewed (#3423, 24 Nov 2026): the interface texts 0.4.2 added or
+-- reworded that this file still showed in English, translated by an AI model (Claude Opus 5.5)
+-- in this file's own wording, and waiting for a native speaker's check. Reviewing one: keep or
+-- fix its line below, and take its key off this list.
+--   Requires level %d: the guide comes back for it then
+--   Requires level %d: kept for a later guide
+--   A guide later on your route takes this quest here: taken now, its step is done when you get there.
+--   Arrived underwater
+--   Another character named %s was saved before Forever's client stopped giving addons the realm name. Polestar can't tell whether it is this one, so it stays listed as it was; forget it if it is.
+--   %d characters named %s were saved on different realms before Forever's client stopped giving addons the realm name. Polestar can't tell which one you are playing, so they stay listed as they were and this character has a new entry; forget the old one that was this character.
+--   Rares met on %d realms are kept apart: Forever's client no longer gives addons the realm name, so Polestar can't tell which of them this is. Rares lists what you meet from now on.
+--   %s · at level %d
+--   %s (level %d)
+--   %s takes these once you reach their level: %s
+--   Waiting for your level, taken where a later guide passes the giver: %s
+--
+-- Machine-translated, to be reviewed (0.4.3 guide titles, 24 Nov 2026): translated by an AI model
+-- (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing
+-- one: keep or fix it, and take it off this list. The interface texts:
+--   Quests in
+--   Passes through
+-- and, in guides/locales/zhCN/, these guides' route-order line (the Horde 55-56 guide's title too,
+-- whose zone name is the client's own):
+--   forever/alliance/30-40/05-arathi-highlands
+--   forever/alliance/40-50/01-stranglethorn-vale
+--   forever/alliance/40-50/07-un-goro-crater
+--   forever/alliance/50-60/01-burning-steppes
+--   forever/alliance/50-60/02-felwood
+--   forever/alliance/50-60/03-winterspring
+--   forever/horde/40-50/02-feralas
+--   forever/horde/40-50/05-the-hinterlands
+--   forever/horde/40-50/06-azshara
+--   forever/horde/50-60/01-un-goro-crater
+--   forever/horde/50-60/02-felwood
+--   forever/horde/50-60/03-winterspring
+--   forever/horde/50-60/04-azshara
+--   forever/horde/50-60/05-eastern-plaguelands
+--   forever/horde/50-60/06-silithus
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhCN") then return end
@@ -212,30 +251,38 @@ L["Sell before heading out: %s"] = "出发前出售：%s"
 L["The guide heads out of town next and your bags are nearly full: sell what you don't need here."] = "指南接下来将离开城镇，而你的背包快满了：在这里卖掉不需要的物品。"
 L["Pays %d%% XP at your level and is out of the way (Skip grey quests)"] = "在你的等级只给 %d%% 经验，且不顺路（跳过灰色任务）"
 L["Grey for you: pays %d%% XP (Skip grey quests)"] = "对你是灰色：只给 %d%% 经验（跳过灰色任务）"
+L["Reach %d points into %s with"] = "声望达到 %d 点（%s 阶段）："
+L["Lose"] = "失去"
+L["Gain"] = "获得"
 L["Put in the bank"] = "存入银行"
 L["Take off"] = "卸下"
 L["Equip"] = "装备"
--- L["Reach %d points into %s with"] = ""
--- L["Lose"] = ""
--- L["Gain"] = ""
 L["Journeyman %s"] = "中级%s"
 L["Expert %s"] = "高级%s"
 L["Artisan %s"] = "专家级%s"
--- L["Not offered by %s: you can take %s without it"] = ""
+L["Not offered by %s: you can take %s without it"] = "%s 未提供此任务，可直接接取 %s"
 L["Your Hearthstone is bound to %s, not %s: ride to the inn"] = "你的炉石绑定在 %s，而非 %s：请自行前往旅店"
 L["No Hearthstone in your bags: ride to the inn"] = "背包中没有炉石：请自行前往旅店"
 L["Hearthstone ready in %s: ride to the inn, or wait for it"] = "炉石将在 %s 后就绪：可自行前往旅店，或等待冷却结束"
 L["Ride to %s"] = "前往 %s"
 L["Ride to the flight master"] = "前往飞行管理员处"
--- L["Requires level %d: the guide comes back for it then"] = ""
--- L["Requires level %d: kept for a later guide"] = ""
--- L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = ""
+L["Requires level %d: the guide comes back for it then"] = "需要%d级：届时指南会回来接取"
+L["Requires level %d: kept for a later guide"] = "需要%d级：留给后续的指南"
+L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = "你路线上后面的某个指南会在这里接受此任务：现在接受的话，到达该步骤时它就已完成。"
 -- L["For %s, later on your route."] = ""
 -- L["kill %s as you meet them"] = ""
+-- L["Escort, about %d min"] = ""
+-- L["Escort"] = ""
+-- L["%s; 1 in %d runs fails"] = ""
+-- L["%s. Optional: the route doesn't need it."] = ""
+-- L["Kept for %s"] = ""
+-- L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = ""
+-- L["A quest you carry that the route does not work here: its work is nearby."] = ""
+-- L["%s at %s"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "选择一个奖励以完成交还。"
--- L["%s is an escort: it starts as soon as it is taken. Accept it yourself when your group is ready."] = ""
+L["%s is an escort: it starts as soon as it is taken. Accept it yourself when your group is ready."] = "%s 是护送任务，接受后会立即开始。请等队伍准备好后再接。"
 -- L["Took %s now for %s, later on your route: this saves a trip back."] = ""
 
 -- Core/Commands.lua
@@ -375,7 +422,7 @@ L["Drag to move."] = "拖动以移动。"
 L["Click for the next spot."] = "点击前往下一地点。"
 L["Shift-drag to move."] = "按住 Shift 拖动可移动。"
 L["No waypoint"] = "没有路径点"
--- L["Arrived underwater"] = ""
+L["Arrived underwater"] = "已在水下到达"
 -- L["Under water nearby: swim down to it"] = ""
 -- L["%d yd below you: swim down"] = ""
 
@@ -479,6 +526,11 @@ L["Ride to the entrance"] = "前往入口"
 -- L["Known flight paths (%d): %s"] = ""
 -- L["List the flight paths Polestar knows you have (reset: forget them)"] = ""
 -- L["Faster if you have the flight path at %s"] = ""
+-- L["Ask %s to teleport you to %s"] = ""
+-- L["Riding the boat to %s"] = ""
+-- L["Riding the zeppelin to %s"] = ""
+-- L["Riding the airship to %s"] = ""
+-- L["Riding the tram to %s"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -592,6 +644,8 @@ L["Airship to %s"] = "前往%s的飞空艇"
 -- Quests/Tracker.lua
 L["Done"] = "完成"
 L["Not done"] = "未完成"
+-- L["Hand-ins"] = ""
+-- L["Objectives"] = ""
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "开始任务"
@@ -652,11 +706,11 @@ L["The size of every quest marker on the world map and the minimap."] = "世界�
 L["Timed quest alerts"] = "限时任务提醒"
 L["A chat line and a sound when a timed quest has 5 minutes left, again at 1 minute, and if it fails. The guide window always shows the time left."] = "限时任务剩余 5 分钟时、剩余 1 分钟时以及失败时，在聊天框显示一行提示并播放声音。指南窗口始终显示剩余时间。"
 L["Party chat"] = "小队聊天"
--- L["On a mob that drops a quest item you still need, or an object it comes out of, show how often."] = ""
+L["On a mob that drops a quest item you still need, or an object it comes out of, show how often."] = "当怪物或物体可提供你仍需要的任务物品时，在悬浮提示中显示该物品的掉率。"
 L["Quest givers and turn-ins"] = "任务发布者与交还"
--- L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = ""
+L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = "在 NPC 的悬浮提示中列出你现在可接取的任务，以及能在此交还的已完成任务。"
 L["Replace the game's quest lines"] = "替换游戏的任务行"
--- L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = ""
+L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = "若 Polestar 已在怪物或物体的悬浮提示中列出某项任务，就隐藏游戏自带的对应条目，避免重复显示。组队时会保留游戏自带条目，以便查看队友的任务进度。"
 
 -- Quests/Party.lua
 L["%s done"] = "%s 已完成"
@@ -669,7 +723,6 @@ L["%s: 1 step ahead"] = "%s：领先 1 个步骤"
 L["%s: %d steps ahead"] = "%s：领先 %d 个步骤"
 L["%s: 1 step behind"] = "%s：落后 1 个步骤"
 L["%s: %d steps behind"] = "%s：落后 %d 个步骤"
-L["%s: on this step"] = "%s：在此步骤"
 L["Still at it: %s"] = "仍在进行：%s"
 L["already done"] = "已完成"
 L["quest log full"] = "任务日志已满"
@@ -730,6 +783,7 @@ L["%s is on Polestar %s: your guides can differ."] = "%s 使用的是 Polestar %
 L["Party sync is on: you and your party see each other's quest progress. Turn it off in Settings."] = "小队同步已开启：你和小队成员可以看到彼此的任务进度。可在设置中关闭。"
 L["Up to 10 hidden addon whispers a session, to players of your faction you target or mouse over outside cities, combat and dungeons, and an answer to theirs: only the version number, so Polestar can tell you when a newer one is out. Off: none sent or answered."] = "每次登录最多发送 10 条隐藏的插件密语，对象是你在主城、战斗和地下城之外选中或鼠标指向的同阵营玩家，并回复他们发来的询问：只包含版本号，以便 Polestar 在有新版本时告诉你。关闭：不发送也不回复。"
 L["You asked a moment ago: wait 1 second."] = "你刚刚已询问过：请等待 1 秒。"
+-- L["With %s"] = ""
 
 -- Gear/Gear.lua
 L["big upgrade"] = "大幅提升"
@@ -959,7 +1013,7 @@ L["Left-click to fold the list to one row."] = "左键点击将列表折叠为�
 L["Right-click for its settings. Shift-drag to move."] = "右键点击打开设置。按住 Shift 拖动可移动。"
 L["Right-click for its settings. Drag to move."] = "右键点击打开设置。拖动以移动。"
 L["Targets the first name in the list that is close. Click a name to target that one."] = "选中列表中附近的第一个名字。点击名字即可选中该目标。"
--- L["Dragging the Polestar mark in combat places the buttons after the fight."] = ""
+L["Dragging the Polestar mark in combat places the buttons after the fight."] = "战斗中拖动 Polestar 标记，按钮会在战斗结束后移到新位置。"
 L["Press to equip"] = "按键装备"
 L["Press to equip it."] = "点击装备"
 
@@ -1182,20 +1236,20 @@ L["Lists the current step's mobs, or the NPCs it sends you to when it has no mob
 L["Names in the target list"] = "目标列表中的名字数"
 L["How many of the step's mobs the target list shows, in guide order."] = "目标列表按指南顺序显示的步骤怪物数量。"
 L["Completed quest XP"] = "已完成任务的经验"
--- L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."] = ""
+L["Shows XP from completed quests you can turn in on the game's XP bar and in its tooltip."] = "在游戏经验条和悬浮提示中，显示交还已完成任务可获得的经验。"
 L["Target list style"] = "目标列表样式"
--- L["Full rows show each name, what it drops and the goal's count. Slim rows are shorter, with a small face, the name and the count; names only leaves the face out. Portraits show the faces alone, in a column or a row, each with how many are left; hover one for its name."] = ""
+L["Full rows show each name, what it drops and the goal's count. Slim rows are shorter, with a small face, the name and the count; names only leaves the face out. Portraits show the faces alone, in a column or a row, each with how many are left; hover one for its name."] = "完整样式显示名称、掉落物和目标数量。精简样式显示小头像、名称和数量；仅名称样式只显示名称和数量。头像样式只显示横排或竖排的头像和剩余数量，悬停可查看名称。"
 L["Full"] = "完整"
 L["Slim"] = "精简"
 L["Names only"] = "仅名称"
 L["Portraits in a column"] = "头像竖排"
 L["Portraits in a row"] = "头像横排"
 L["Portraits"] = "头像"
--- L["3D draws each creature's model. 2D shows the game's flat portrait once you have seen that one (your target, or its nameplate up), and an icon for what you do with it until then."] = ""
+L["3D draws each creature's model. 2D shows the game's flat portrait once you have seen that one (your target, or its nameplate up), and an icon for what you do with it until then."] = "3D 模式显示生物模型。2D 模式下，选中过该生物或看到过它的姓名板后，会显示游戏的平面头像；此前显示对应操作的图标。"
 L["3D models"] = "3D 模型"
 L["2D portraits"] = "2D 头像"
 L["Name the one that's close"] = "显示附近目标的名称"
--- L["With portraits, the name of the one close enough to target shows beside its face in a column, under it in a row (above it when the list goes up over the buttons)."] = ""
+L["With portraits, the name of the one close enough to target shows beside its face in a column, under it in a row (above it when the list goes up over the buttons)."] = "头像样式下，进入可选中范围的目标会显示名称。竖排时名称在头像旁边。横排时在头像下方，若列表向按钮上方展开，则在头像上方。"
 L["Equip a spare bag first"] = "先装备备用背包"
 L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."] = "背包快满时，如果还有空的背包栏位，且背包里有备用背包，背包按钮和指南窗口会优先提示装备备用背包。按下按钮才会装备。"
 -- L["Step errands"] = ""
@@ -1242,6 +1296,7 @@ L["Tailoring"] = "裁缝"
 L["Cooking"] = "烹饪"
 L["Fishing"] = "钓鱼"
 L["First Aid"] = "急救"
+-- L["%s walks around here: look inside the circle on the map"] = ""
 
 -- Lookup/Guide.lua
 L["Lookup is turned off (Settings > Discovery > Lookup)."] = "查询已关闭（设置 > 发现 > 查询）。"
@@ -1256,11 +1311,12 @@ L["Lookup"] = "查询"
 L["%s: click through what they say until the quest's line is done."] = "%s：逐页点完对话，直到该任务目标完成。"
 L["%s: use %s to call it up."] = "%s：使用%s将其召唤出来。"
 L["Use %s to learn it."] = "使用%s来学习。"
--- L["After an earlier quest"] = ""
+L["After an earlier quest"] = "需先完成前置任务"
 L["Chain: finished, %d skipped"] = "任务链：已完成，跳过 %d 个"
 L["Chain: all %d done"] = "任务链：%d 个全部完成"
 L["Chain: %d of %d"] = "任务链：%d/%d"
 L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."] = "只有死亡后才能看见：在附近死亡，以灵魂状态与其对话，或跳过此任务。"
+-- L["Only visible while dead: die nearby and talk to them as a ghost."] = ""
 
 -- Lookup/Spotter.lua
 L["From"] = "来源"
@@ -1428,6 +1484,13 @@ L["%s to buy"] = "需购买 %s 个"
 L["(only %s listed)"] = "（仅有 %s 个在售）"
 L["(old price)"] = "（旧价格）"
 -- L["Elites nearby"] = ""
+-- L["Group, or careful: a group quest, yours to do or skip"] = ""
+-- L["Group, or careful: an escort that can go wrong"] = ""
+-- L["Group, or careful: elites at your level or above"] = ""
+-- L["Group, or careful: a group is advised"] = ""
+-- L["Careful: elites nearby"] = ""
+-- L["Careful: elites, below your level"] = ""
+-- L["%s · kept for %s"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
@@ -1686,11 +1749,11 @@ L["Worth doing near here: %s"] = "附近值得做的：%s"
 L["%d left out here"] = "此处略过 %d 个"
 L["Left out here"] = "此处略过"
 L["Turn off Skip grey quests"] = "关闭跳过灰色任务"
--- L["This guide stays open in its tab and picks up by itself at that level."] = ""
--- L["Click to switch to its tab"] = ""
--- L["Click to open it in a new tab"] = ""
--- L["Hides this line until more quests are off your route."] = ""
--- L["Level with %s meanwhile: this guide picks up at level %d"] = ""
+L["This guide stays open in its tab and picks up by itself at that level."] = "本指南的标签页会保持打开，达到所需等级后会自动继续。"
+L["Click to switch to its tab"] = "点击切换到练级指南的标签页"
+L["Click to open it in a new tab"] = "点击在新标签页打开练级指南"
+L["Hides this line until more quests are off your route."] = "隐藏本提示，路线外任务增多时会再次显示。"
+L["Level with %s meanwhile: this guide picks up at level %d"] = "先跟随 %s 练级，达到 %d 级后继续本指南"
 -- L["%s is done."] = ""
 -- L["All steps"] = ""
 -- L["Every step of the guide in one list. Click one to look at it."] = ""
@@ -1814,6 +1877,8 @@ L["This zone is new in Forever. Its guide is experimental and still a work in pr
 L["This zone is new in Forever."] = "此地区为 Forever 新增。"
 -- L["Suggested"] = ""
 -- L["The guides window only. Click to pick a size; right-click to reset."] = ""
+L["Quests in"] = "任务地区"
+L["Passes through"] = "途经"
 
 -- UI/Lookup.lua
 L["Companion"] = "小伙伴"
@@ -1911,14 +1976,14 @@ L["Opens Lookup with this search."] = "用此搜索打开查询。"
 L["No guide to this mount yet: the sources above say where it comes from and what it takes. Guide on one leads you there."] = "暂无此坐骑的指南：上面的来源说明了它从哪里获得以及需要什么。对其中一个点击“指引”即可带你前往。"
 L["Origin"] = "来源"
 L["Builds a guide to %s, the quickest of these to reach, and opens it in a new tab."] = "生成前往%s（其中最快能到达的）的指南，并在新标签页中打开。"
--- L["In your quest log"] = ""
--- L["You can take it now"] = ""
--- L["Not yet"] = ""
--- L["Skipped"] = ""
--- L["Finished, %d skipped"] = ""
--- L["All %d done"] = ""
--- L["Click to open its page."] = ""
--- L["Then any of: %s"] = ""
+L["In your quest log"] = "已在任务日志中"
+L["You can take it now"] = "可接取"
+L["Not yet"] = "暂不可接取"
+L["Skipped"] = "已跳过"
+L["Finished, %d skipped"] = "已结束，跳过 %d 个任务"
+L["All %d done"] = "%d 个任务已全部完成"
+L["Click to open its page."] = "点击打开任务详情。"
+L["Then any of: %s"] = "后续可接：%s"
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "可交还"
@@ -2188,6 +2253,7 @@ L["Leaves out grey quests, and quests behind you that pay less than full XP when
 -- L["%s: /reload after picking it."] = ""
 -- L["The step card, Up next under it."] = ""
 -- L["Alpha"] = ""
+-- L["The arrow follows the route step you're on; to go to a quest you already have, open it in Lookup."] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "已为你选中：按 Ctrl+C（Mac 上为 Cmd+C）复制，然后按 Esc。"
@@ -2285,7 +2351,7 @@ L["Read more:"] = "了解更多："
 L["Read more: docs/GUIDE_PACKS.md in Polestar's source"] = "了解更多：Polestar 源码中的 docs/GUIDE_PACKS.md"
 L["Turn on and reload"] = "开启并重载"
 L["Polestar Guides is turned off in the AddOns list, so Polestar has no guides to show. Turn it on for all your characters and reload?"] = "Polestar 指南在插件列表中已关闭，因此 Polestar 没有可显示的指南。要为你的所有角色开启它并重载吗？"
--- L["Part of Polestar is turned off in the AddOns list (%s), so its settings cannot open. Turn it on for all your characters and reload?"] = ""
+L["Part of Polestar is turned off in the AddOns list (%s), so its settings cannot open. Turn it on for all your characters and reload?"] = "插件列表中停用了部分 Polestar 组件（%s），无法打开对应设置。要为所有角色启用这些组件并重载界面吗？"
 
 -- UI/Options.lua
 L["A setting under it is changed: turn it on to see it."] = "其下有设置已更改：开启后即可看到。"
@@ -2522,7 +2588,6 @@ L["%.1f MB"] = "%.1f MB"
 L["%d KB"] = "%d KB"
 L["Show the whole step"] = "显示整个步骤"
 L["Every goal of the step at once, finished ones kept, instead of one person at a time with the others on one line each."] = "一次显示步骤的全部目标（保留已完成的），而不是一次只显示一个人、其余每人一行。"
-L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "窗口最多能长到多高，按屏幕高度的比例。更长的步骤可滚动查看。"
 L["Hide the arrow with the guide"] = "随指南隐藏箭头"
 L["When the guide window is hidden, hide the arrow too."] = "隐藏指南窗口时，也隐藏箭头。"
 L["Did you mean:"] = "你是不是要找："
@@ -2555,7 +2620,6 @@ L["Step key targets their mobs"] = "步骤快捷键选中其怪物"
 L["The step key also targets the mobs of the suggestions, nearest first, after the current step's own. It changes only out of combat."] = "步骤快捷键在选中当前步骤的怪物之后，也会选中推荐任务的怪物，最近的优先。只在非战斗状态下切换。"
 L["Mark quests new in Forever"] = "标记 Forever 新增任务"
 L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."] = "在指南、顺便完成、Codex 和任务鼠标提示中，于 Forever 新增任务的名称旁显示一个小的无穷符号。"
-L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "在地图和微缩地图上显示通往目标的路线：步行段为线条或圆点，飞行、航行或乘坐段为线，之后的路段颜色较淡。绘制方式沿用 Cillian Berragan 的 Shortest Path Forever。"
 L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."] = "路线的绘制方式：一条实线、Polestar 的圆点，或沿途飘向目标的闪光（开启“减少动效”时为圆点）。"
 L["A Polestar button in the game menu (Esc) that opens the guide menu."] = "在游戏菜单（Esc）中放一个打开指南菜单的 Polestar 按钮。"
 L["Backing"] = "背景"
@@ -2576,7 +2640,6 @@ L["Under a walk in the journey, say when it goes round a town of the other facti
 L["Manual check-offs and skips, current guide, from your last quest progress on."] = "当前指南中，从最近一次任务进度起的手动勾选和跳过。"
 L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "从你最近一次任务进度起，%s中你手动勾选的目标和跳过的步骤将被清除。已完成的任务仍保持完成，指南也会停留在这些任务所对应的位置。"
 L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "从你最近一次任务进度起，当前指南中你手动勾选的目标和跳过的步骤将被清除。已完成的任务仍保持完成，指南也会停留在这些任务所对应的位置。"
-L["Points to the current goal. Its look and colours are on the Arrow page."] = "指向当前目标。外观和颜色在“箭头”页面中设置。"
 L["Reset this section?"] = "重置此部分？"
 L["Reset section"] = "重置此部分"
 L["%d settings in %s go back to their defaults."] = "%d 项设置（%s）将恢复默认。"
@@ -2640,7 +2703,6 @@ L["Install's pages: questing, groups, your route and your look, a page at a time
 L["Set Polestar up again, a page at a time: questing, groups, your route, your look. Each choice works at once."] = "逐页重新设置 Polestar：做任务、小队、你的路线、你的外观。每项选择立即生效。"
 L["Show experimental guides"] = "显示实验性指南"
 L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."] = "Polestar 为 Forever 新地区制作的指南，仍在测试中：列在指南菜单的“练级”下，带有“实验性”标签。它们不会被自动选中；无论如何，路线选择都会在合适的位置提供它们的地区。"
-L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "更快时，路线可从你已学会的传送法术开始：法师的城市传送、德鲁伊的月光林地，或萨满祭司的星界传送（相当于第二块炉石）。城市传送需要背包中有传送符文。"
 L["Sell and repair reminders"] = "出售和修理提醒"
 L["When the guide is about to head out of town with your bags nearly full or your gear worn, a merchant or repairer on the way, once per visit. Click it to point the arrow there."] = "当指南即将离开城镇，而你的背包快满或装备已有磨损时，提示途中的商人或修理商，每次进城一次。点击提示可将箭头指向该处。"
 L["Sell: fewer free bag slots than"] = "出售：背包空位少于"
@@ -2649,7 +2711,7 @@ L["Repair: gear worn below"] = "修理：装备耐久低于"
 L["Reminds you to repair when a piece of your gear is below this share of its durability. 0: never."] = "当你的任一装备耐久低于此比例时，提醒你修理。0：从不提醒。"
 L["play Freedoom Arcade by petllama"] = "玩 petllama 的 Freedoom Arcade"
 L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] = "petllama 的 Freedoom Arcade（GPL-2.0 或更高版本）从 Polestar_Arcade 文件夹运行 Freedoom 项目的三个 Freedoom 关卡（BSD 许可）。"
--- L["While paused, quests are not accepted or turned in for you, no reward is picked, and flight masters do not open the flight map or fly you off, until Polestar resumes."] = ""
+L["While paused, quests are not accepted or turned in for you, no reward is picked, and flight masters do not open the flight map or fly you off, until Polestar resumes."] = "暂停期间，Polestar 不会自动接受或交还任务、选择奖励。与飞行管理员对话时，也不会自动打开飞行地图或搭乘航班。"
 -- L["While you play"] = ""
 -- L["What the window shows, when it hides and where it sits:"] = ""
 -- L["New in %s"] = ""
@@ -2661,6 +2723,8 @@ L["Nothing to reset"] = "没有可重置的内容"
 L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "将指南窗口、箭头、卡片和提醒拖到你想要的位置。在你点击“保存并退出”之前，此窗口会暂时让开。也可使用 /polestar unlock。"
 -- L["play Sky Jewels by RikyZ90"] = ""
 -- L["play Tetris by beemerwt"] = ""
+-- L["Points to the current goal. Off hides only the arrow: the route lines have their own switch, under Routes. Its look and colours are on the Arrow page."] = ""
+-- L["The way to the goal on the world map and the minimap, with the arrow on or off: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = ""
 -- L["The language of Polestar's windows and guides. Follow the game: your game's language. Takes effect after a /reload."] = ""
 -- L["Reload now?"] = ""
 -- L["Polestar shows the new language after a /reload."] = ""
@@ -2670,6 +2734,9 @@ L["Drag the guide window, the arrow, the cards and the alerts where you want the
 -- L["Traditional Chinese"] = ""
 -- L["General"] = ""
 -- L["The language Polestar shows."] = ""
+-- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags, unless a talent does away with it (Reagent Economy)."] = ""
+-- L["Say when I've outlevelled a guide"] = ""
+-- L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"
@@ -3257,6 +3324,7 @@ L["The licence differs from the stored guide's."] = "许可证与已存储指南
 
 -- Nav/Pins.lua
 L["Polestar trail dots"] = "Polestar 轨迹圆点"
+-- L["Click to open the zone's map"] = ""
 
 -- UI/LineStyle.lua
 L["Dots"] = "圆点"
@@ -3499,9 +3567,9 @@ L["1 character"] = "1个角色"
 L["1 character · each as of their last logout"] = "1个角色 · 为其上次登出时的数据"
 L["%d characters · each as of their last logout"] = "%d个角色 · 均为各自上次登出时的数据"
 L["Forget %s"] = "忘记 %s"
--- L["Another character named %s was saved before Forever's client stopped giving addons the realm name. Polestar can't tell whether it is this one, so it stays listed as it was; forget it if it is."] = ""
--- L["%d characters named %s were saved on different realms before Forever's client stopped giving addons the realm name. Polestar can't tell which one you are playing, so they stay listed as they were and this character has a new entry; forget the old one that was this character."] = ""
--- L["Rares met on %d realms are kept apart: Forever's client no longer gives addons the realm name, so Polestar can't tell which of them this is. Rares lists what you meet from now on."] = ""
+L["Another character named %s was saved before Forever's client stopped giving addons the realm name. Polestar can't tell whether it is this one, so it stays listed as it was; forget it if it is."] = "另一个名为%s的角色是在 Forever 客户端停止向插件提供服务器名称之前保存的。Polestar 无法判断它是否就是这个角色，因此保持原样列出；如果是，请忘记它。"
+L["%d characters named %s were saved on different realms before Forever's client stopped giving addons the realm name. Polestar can't tell which one you are playing, so they stay listed as they were and this character has a new entry; forget the old one that was this character."] = "%d 个名为%s的角色在 Forever 客户端停止向插件提供服务器名称之前保存在不同的服务器上。Polestar 无法判断你正在玩哪一个，因此它们保持原样列出，此角色有了一个新条目；请忘记原本属于此角色的旧条目。"
+L["Rares met on %d realms are kept apart: Forever's client no longer gives addons the realm name, so Polestar can't tell which of them this is. Rares lists what you meet from now on."] = "在 %d 个服务器上遇到的稀有怪物分开保存：Forever 客户端不再向插件提供服务器名称，因此 Polestar 无法判断当前是其中哪一个。“稀有”将列出你从现在起遇到的稀有怪物。"
 L["Characters is turned off. Turn it on under Settings > Discovery > Lookup."] = "“角色”功能已关闭。请在“设置 > 发现 > 查询”中开启。"
 
 -- QoL/Keep.lua
@@ -3621,7 +3689,12 @@ L["Carried to later guides"] = "留待之后指南的任务"
 L["Not part of your route"] = "不在你的路线中"
 L["Keep or abandon them"] = "保留或放弃"
 L["Each with its Abandon button, which asks in the game's own window first."] = "每个任务都有“放弃”按钮，会先在游戏自身的窗口中确认。"
--- L["%s · at level %d"] = ""
+L["%s · at level %d"] = "%s · %d级"
+-- L["%d steps left in %s"] = ""
+-- L["1 step left in %s"] = ""
+-- L["Do or skip what's left, and you choose where to go next."] = ""
+-- L["Do or skip what's left, and the next guide follows."] = ""
+-- L["Do or skip what's left, and the guide ends."] = ""
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "点击选中并标记 %s（战斗外）。"
@@ -4330,7 +4403,7 @@ L["Shadow strength"] = "阴影强度"
 L["More looks"] = "更多皮肤"
 L["Game looks"] = "游戏皮肤"
 L["Polestar looks"] = "Polestar 皮肤"
--- L["The size of Polestar's text, apart from the window scale. The guide window has its own, on its page. Changes at once. Right-click to reset."] = ""
+L["The size of Polestar's text, apart from the window scale. The guide window has its own, on its page. Changes at once. Right-click to reset."] = "调整 Polestar 的通用文字大小，与窗口缩放分开设置。指南窗口可在自己的设置页单独调整。修改立即生效，右键重置。"
 
 -- UI/Looks/GuideWindow.lua
 L["Marshal Dughan"] = "治安官杜汉"
@@ -4385,7 +4458,6 @@ L["Soft strength"] = "柔和强度"
 L["How dark the light shade behind each line of the transparent window is."] = "透明窗口中每行文字后面浅色阴影的深浅。"
 L["Keep bars shown"] = "始终显示栏"
 L["The whole guide window, text and all."] = "整个指南窗口，包括文字等全部内容。"
-L["Max height"] = "最大高度"
 L["Padding"] = "内边距"
 L["Compact"] = "紧凑"
 L["This window's own background opacity: how much of the world shows through. Its own colour is the swatch. Unset, both follow every Polestar window's."] = "此窗口自己的背景不透明度：能透出多少世界。其自身颜色在色块中设置。未设置时两者都跟随所有 Polestar 窗口。"
@@ -4421,7 +4493,7 @@ L["Lion's Pride Inn"] = "狮王之傲旅店"
 L["Stonefield Farm"] = "斯通菲尔德农场"
 L["Jasperlode Mine"] = "玉石矿洞"
 L["A dim line where the guide passes over quests: open it to see each one and why, with a way to bring it back. Grind steps say what else is worth doing, and a line offers to clean up quests that aren't part of your route."] = "在指南略过任务的地方显示一行淡色文字：展开可看到每个任务及原因，并可恢复。打怪升级的步骤会说明还有什么值得做，另有一行提示清理不在路线中的任务。"
--- L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). The class quest card keeps that general size. Changes at once. Right-click to reset."] = ""
+L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). The class quest card keeps that general size. Changes at once. Right-click to reset."] = "调整指南窗口的文字大小，与窗口缩放及「主题 > 文字」里的通用大小分开设置。职业任务卡片仍使用通用大小。修改立即生效，右键重置。"
 -- L["Northshire Abbey"] = ""
 -- L["Echo Ridge Mine"] = ""
 -- L["Northshire Vineyards"] = ""
@@ -4445,6 +4517,18 @@ L["A dim line where the guide passes over quests: open it to see each one and wh
 -- L["Under the window, folded"] = ""
 -- L["On the timeline"] = ""
 -- L["In the foot"] = ""
+-- L["Window height"] = ""
+-- L["Fixed: the window is always the height below; drag its grip to resize it like any window. Follows the step: it grows with the step up to that height. Automatic: it grows into all the free room on screen."] = ""
+-- L["Fixed"] = ""
+-- L["Follows the step"] = ""
+-- L["Height"] = ""
+-- L["In pixels and as a share of the screen: click the number to type the pixels, or drag the grip at the window's corner. Changing it under Automatic switches to Fixed. A longer step scrolls."] = ""
+-- L["With a Fixed height: right under the last goal, the free room past it (above the goals with Grow upward), or on the window's edge."] = ""
+-- L["Under the last goal"] = ""
+-- L["On the window's edge"] = ""
+-- L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = ""
+-- L["XP line"] = ""
+-- L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = ""
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "提醒队列"
@@ -4738,13 +4822,18 @@ L["Jump anyway? They stay in your log, and the guide lists who takes each in."] 
 L["Jump anyway"] = "仍要跳转"
 L["Open any flight master's map once on this continent so Polestar knows your flight paths."] = "在这片大陆上打开任意一位飞行管理员的地图一次，Polestar 就能知道你的飞行路线。"
 L["This guide is for %s characters. Polestar won't guide you through it."] = "此指南适用于%s角色。Polestar 不会引导你完成它。"
+L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."] = "先在幽暗城找加伦·拉戈接取「Report to Danitha」，再到班达里安堡找丹妮莎·莫尔完成「A Paladin's Steed」，即可学会「召唤军马」。"
 L["Equip it"] = "装备"
--- L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."] = ""
--- L["%s (level %d)"] = ""
--- L["%s takes these once you reach their level: %s"] = ""
--- L["Waiting for your level, taken where a later guide passes the giver: %s"] = ""
+L["%s (level %d)"] = "%s（%d级）"
+L["%s takes these once you reach their level: %s"] = "达到所需等级后，%s会接受这些任务：%s"
+L["Waiting for your level, taken where a later guide passes the giver: %s"] = "等待你的等级，在后续指南经过任务给予者时接受：%s"
 -- L["Looking ahead."] = ""
 -- L["Looking back."] = ""
+-- L["On the way to your map point (%s)."] = ""
+-- L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."] = ""
+-- L["You are past this class quest's levels."] = ""
+-- L["Escort: %s"] = ""
+-- L["Do it"] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "按 %s 恢复，或打开指南窗口。"
@@ -4855,8 +4944,6 @@ L["You have %s"] = "你有 %s"
 L["Send to Auctionator"] = "发送到 Auctionator"
 L["Copy list"] = "复制清单"
 L["Show how the profession guide gets its materials"] = "显示专业指南如何获取材料"
-L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "从头开始：此指南约 %d%% 的任务经验承接自%s。"
-L["Expect about %d minutes of extra grinding, or start there."] = "预计需要额外刷怪约 %d 分钟，或者从那里开始。"
 L["Open %s"] = "打开%s"
 
 -- Core/ProfileStrings.lua
@@ -4918,14 +5005,14 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "已降
 -- L["Landed. Tetris is saved and paused: type %s to continue."] = ""
 
 -- QoL/QuestXP.lua
--- L["+1 level"] = ""
--- L["Current XP"] = ""
--- L["Rested XP"] = ""
--- L["Completed quests"] = ""
--- L["Pending quest XP"] = ""
--- L["After turn-ins: at least +1 level"] = ""
--- L["XP after turn-ins"] = ""
--- L["XP remaining after turn-ins"] = ""
+L["+1 level"] = "+1 级"
+L["Current XP"] = "当前经验"
+L["Rested XP"] = "休息经验"
+L["Completed quests"] = "已完成任务数"
+L["Pending quest XP"] = "待交任务经验"
+L["After turn-ins: at least +1 level"] = "交还后至少升 1 级"
+L["XP after turn-ins"] = "交还后经验"
+L["XP remaining after turn-ins"] = "交还后距升级还差的经验"
 
 -- Core/Perf.lua
 L["Perf probe on: Polestar now times its own work. Play as usual, then type /polestar report and paste it."] = "性能诊断已开启。Polestar 现在会记录自身的运行耗时。请照常游玩，然后输入 /polestar report 并粘贴报告。"
@@ -4982,6 +5069,7 @@ L["Reload to finish?"] = "重新加载以完成？"
 L["Some guide window and look changes only show in full after a reload. Recommended."] = "部分指南窗口和外观的更改需要重新加载界面后才能完全生效。建议重新加载。"
 L["New settings page"] = "新设置页面"
 L["A preview of the settings in groups, with tabs, a filter and a preview beside the rows. The same settings; switch it off for the current page."] = "设置的预览布局：分组显示，带标签页、筛选和行旁的预览。设置相同；关闭即回到当前页面。"
+-- L["New settings in this group"] = ""
 
 -- UI/Essentials.lua
 L["Most used"] = "常用设置"
@@ -5071,13 +5159,17 @@ L["%d of %d"] = "%d / %d"
 -- L["Before Atlas (%s)"] = ""
 -- L["New in 0.4.3: the Atlas layout"] = ""
 -- L["Try it on your own guide window: each button switches it now, as often as you like."] = ""
--- L["Layout"] = ""
--- L["Your current design"] = ""
 -- L["Tabs are off in Settings > Guide window > Parts."] = ""
 -- L["Your current setup is saved; you can go back to it any time in Settings > Guide window > Presets."] = ""
 -- L["The guide window is hidden: open it to see each choice on your guide."] = ""
 -- L["Atlas layout and tab styles by %s"] = ""
 -- L["Keep this"] = ""
+-- L["(your current)"] = ""
+
+-- Quests/KeptFor.lua
+-- L["kept for %s"] = ""
+-- L["kept"] = ""
+-- L["Kept for %s: the route hands it in there."] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐页重新设置 Polestar。每项选择立即生效。"
@@ -5347,3 +5439,11 @@ L["%d of %d"] = "%d / %d"
 -- L["On a flight with a minute or more to go, Polestar asks if you want to play Freedoom Arcade by petllama while you wait: three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade opens it any time."] = "飞行剩余一分钟或更久时，Polestar 会询问你是否想在等待时玩 petllama 的 Freedoom Arcade：Freedoom 的三个关卡，若已安装 Freedoom Arcade 插件则是完整游戏。降落前 10 秒，游戏会存档、暂停并关闭。随时可用 /polestar arcade 打开。"
 -- L["a game: Play"] = "开始游戏"
 -- L["Do you want to play Doom while waiting?"] = "等待时想玩 Doom 吗？"
+-- L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."] = "在地图和微缩地图上显示通往目标的路线：步行段为线条或圆点，飞行、航行或乘坐段为线，之后的路段颜色较淡。绘制方式沿用 Cillian Berragan 的 Shortest Path Forever。"
+-- L["Points to the current goal. Its look and colours are on the Arrow page."] = "指向当前目标。外观和颜色在“箭头”页面中设置。"
+-- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "更快时，路线可从你已学会的传送法术开始：法师的城市传送、德鲁伊的月光林地，或萨满祭司的星界传送（相当于第二块炉石）。城市传送需要背包中有传送符文。"
+-- L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = "从头开始：此指南约 %d%% 的任务经验承接自%s。"
+-- L["Expect about %d minutes of extra grinding, or start there."] = "预计需要额外刷怪约 %d 分钟，或者从那里开始。"
+-- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "窗口最多能长到多高，按屏幕高度的比例。更长的步骤可滚动查看。"
+-- L["Max height"] = "最大高度"
+-- L["%s: on this step"] = "%s：在此步骤"

@@ -24,8 +24,7 @@ return {
 
 	-- Step 4: Splintertree Post
 	-- {area:431} Splintertree Post · {npc:12696} Senani Thunderheart · {area:428} Night Run · {npc:12867} Kuray'bin · {quest:6503} Ashenvale Outrunners · {zone:1440} Ashenvale
-	-- was: ["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers Ashenvale Outrunners: leave it for the next {zone:1440} visit, at 26."] = "沿路往北不遠就是{area:431}。從南邊進來時，先經過飛行管理員和{area:428}的{npc:12696}狩獵告示板，再到商人處。伐木營地的{npc:12867}提供「梣谷先驅者」：留到下次26級來{zone:1440}時再做。"
-	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers {quest:6503}: leave it for the next {zone:1440} visit, at 26."] = "",
+	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers {quest:6503}: leave it for the next {zone:1440} visit, at 26."] = "沿路向北不遠就是{area:431}。從南邊進入時，先經過飛行管理員和{area:428}的{npc:12696}狩獵告示板，再到商人處。伐木營地的{npc:12867}提供{quest:6503}：留到下次26級來{zone:1440}時再做。",
 	-- {npc:12696} Senani Thunderheart · {zone:1440} Ashenvale
 	["{npc:12696}'s hunt targets Ursangous and Shadumbra are for the next {zone:1440} visit, at 26; Sharptalon (31) only from level 30."] = "{npc:12696}的狩獵目標烏薩苟斯和薩杜布拉要留到26級再次來到{zone:1440}時；沙普塔隆（31級）要30級以後才做。",
 
@@ -56,8 +55,9 @@ return {
 	["{npc:12717}: take it last, his escort starts at once"] = "{npc:12717}：最後再接，護送立即開始",
 
 	-- Step 10: Vorsha the Lasher
-	-- {npc:12717} Muglash · {npc:12719} Marukai
-	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717}沿著海灘向北走到一個納迦火盆旁。熄滅火盆，然後在納迦一波波來襲時保護他，直到鞭笞者沃爾沙死去；怒尾納迦會掉落{npc:12719}要的首級。",
+	-- {npc:12717} Muglash · {npc:12940} Vorsha the Lasher · {npc:12719} Marukai
+	-- was: ["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717}沿著海灘向北走到一個納迦火盆旁。熄滅火盆，然後在納迦一波波來襲時保護他，直到鞭笞者沃爾沙死去；怒尾納迦會掉落{npc:12719}要的首級。"
+	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until {npc:12940} is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "",
 	["Naga brazier"] = "納迦火盆",
 
 	-- Step 11: Naga heads
@@ -152,7 +152,7 @@ return {
 
 	-- Step 30: Strange Lockbox
 	-- {area:240} Dead Field · {object:177844} Strange Lockbox · {item:15882} Half Pendant of Aquatic Endurance · {area:228} The Sepulcher
-	["From the zeppelin towers, run south into Silverpine and west past the {area:240} to the coast: the {object:177844} lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the {item:15882} for Trial of the Sea Lion. Then on to the {area:228}."] = "",
+	["From the zeppelin towers, run south into Silverpine and west past the {area:240} to the coast: the {object:177844} lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the {item:15882} for Trial of the Sea Lion. Then on to the {area:228}."] = "從飛艇塔出發，向南進入銀松森林，再向西經過 {area:240} 到達海岸：{object:177844} 位於那裡的深水海底，旁邊有可以呼吸的空氣裂隙。下潛時注意剩餘呼吸時間。裡面有海獅試煉所需的 {item:15882}。然後前往 {area:228}。",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177844} Strange Lockbox
 	["{item:15882}, from the {object:177844}"] = "{item:15882}，來自{object:177844}",
 
@@ -181,7 +181,7 @@ return {
 	["{zone:1421}: kill these as you meet them"] = "{zone:1421}：遇到就殺",
 	-- {area:233} Ambermill · {quest:516} Beren's Peril
 	-- plural, as words: Dalaran Watchers = {npc:1888} Dalaran Watcher · Ravenclaw Drudgers = {npc:1974} Ravenclaw Drudger · High Order Mages = {npc:254294} High Order Mage
-	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest. Careful: High Order Mages (30) walk the same roads among the Watchers and Wizards: leave them."] = "",
+	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest. Careful: High Order Mages (30) walk the same roads among the Watchers and Wizards: leave them."] = "沿路向南經過焚木村：達拉然衛士和達拉然巫師在{area:233}周圍的道路上巡邏；鎮子西南方、森林東南部的{quest:516}廢墟中，鴉爪苦工和鴉爪守護者出沒。小心：高天盟法師（30級）也在同樣的道路上，混在衛士和巫師之中：別去惹它們。",
 	["Below ground"] = "地下",
 
 	-- Step 35: Ambermill
@@ -251,6 +251,7 @@ return {
 	-- ["{npc:11862}, up on the ledge"] = "{npc:11862}，在上方的岩架上",
 	-- ["{npc:12696} stands at {area:428}, the Warsong camp just north-east of Splintertree, beside the hunt board."] = "{npc:12696}站在{area:428}的狩獵告示板旁，那是碎木崗哨東北方不遠處的戰歌營地。",
 	-- ["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 26."] = "{npc:12696}的狩獵目標（烏薩苟斯、薩杜布拉、沙普塔隆）要留到26級再次來到{zone:1440}時。",
+	-- ["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717}沿著海灘向北走到一個納迦火盆旁。熄滅火盆，然後在納迦一波波來襲時保護他，直到鞭笞者沃爾沙死去；怒尾納迦會掉落{npc:12719}要的首級。",
 	-- ["{npc:12736} at Zoram'gar, at 27"] = "左拉姆加的{npc:12736}，27級時",
 	-- ["{npc:12867} stands at the lumber camp. The night elf Outrunners stalk the woods south-east of it; they stealth, so watch for them."] = "{npc:12867}站在伐木營地。夜精靈的梣谷先驅者在營地東南方的樹林中潛行；他們會潛行，要留意。",
 	-- ["{npc:4198}'s next quest, Ordanus, is on the Alliance side of {zone:1440}. Skip it."] = "{npc:4198}的下一個任務「奧達努斯」在{zone:1440}的聯盟那一側。跳過。",

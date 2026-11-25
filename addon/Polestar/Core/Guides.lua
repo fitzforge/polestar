@@ -1808,22 +1808,35 @@ function Guides.List()
 	return out
 end
 
--- Where a guide starts: its first goal with coordinates (cached).
+-- Where a guide starts for a character (`player`: Compat.GetPlayerInfo()'s,
+-- the player's by default): its first goal with coordinates that is for
+-- them, in a step that is for them (`only`: an Undead's Silverpine does not
+-- start at the Orgrimmar flight master its Orc, Troll and Tauren take,
+-- #3344). Cached per guide and character kind.
 local startOf = setmetatable({}, { __mode = "k" })
-local function guideStart(g)
-	local p = startOf[g]
+local function guideStart(g, player)
+	player = player or ns.Compat.GetPlayerInfo()
+	local who = tostring(player.race) .. "|" .. tostring(player.class) .. "|" .. tostring(player.faction)
+	local mine = startOf[g]
+	if not mine then
+		mine = {}
+		startOf[g] = mine
+	end
+	local p = mine[who]
 	if p == nil then
 		p = false
 		for _, step in ipairs(g.steps) do
-			for _, goal in ipairs(step.goals) do
-				if goal.map and goal.x and goal.y then
-					p = { map = goal.map, x = goal.x, y = goal.y, f = goal.f }
-					break
+			if Guides.Matches(step.only, player) then
+				for _, goal in ipairs(step.goals) do
+					if goal.map and goal.x and goal.y and Guides.Matches(goal.only, player) then
+						p = { map = goal.map, x = goal.x, y = goal.y, f = goal.f }
+						break
+					end
 				end
 			end
 			if p then break end
 		end
-		startOf[g] = p
+		mine[who] = p
 	end
 	return p or nil
 end
@@ -2044,7 +2057,7 @@ local function rank(packId, player, here, zone)
 				local specific = ((g.races and #g.races > 0) or (g.classes and #g.classes > 0)) and 0 or 1
 				local inZone = ((here and g.zone == here.map) or (zone and g.zoneName == zone)) and 0 or 1
 				local band = math.huge
-				local start = here and guideStart(g)
+				local start = here and guideStart(g, player)
 				if start then
 					local cost = ns.TravelCost(here, start)
 					if cost then band = math.floor(cost / TRAVEL_TIE) end

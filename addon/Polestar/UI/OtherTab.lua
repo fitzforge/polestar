@@ -10,7 +10,9 @@
 -- by Tabs) turns it off.
 --
 -- The window places it under the alerts, over the class quest card and the
--- step (UI/GuideFrameLayout.lua).
+-- step (UI/GuideFrameLayout.lua), unless a layout takes it (guidePlace
+-- "otherTab", as Atlas stacks it above the window). A layout that dresses
+-- it its own way sets F.psPlain: no wash, stripe or border of the card's.
 --
 --   UI.OtherTabCard.Check(), .Layout(width, y) -> height, .Frame(),
 --   .Shown() -> the entry shown or nil, .Dismiss(), .SHOW, .HIDE
@@ -32,6 +34,7 @@ local F, ticker
 local near -- { e = Engine.OtherTabPlaces entry, key, yards } shown, else nil
 local dismissed -- the key put away by a layout's ×, until it is out of range
 
+local paint -- (): the card's colours; defined with SKY
 local function GF() return UI.GuideFrame end
 local function on() return ns.Get("guideWindow.otherTabNear") ~= false end
 local function keyOf(e) return e.guideId .. ":" .. e.step end
@@ -76,8 +79,12 @@ local function build()
 		local E = ns.Engine
 		if near and E and E.SelectTab then E.SelectTab(near.e.index) end
 	end)
-	F:SetScript("OnEnter", function(self) self.Wash:SetAlpha(1.6) end)
-	F:SetScript("OnLeave", function(self) self.Wash:SetAlpha(1) end)
+	-- Hover deepens the wash through its vertex colour, never SetAlpha: in
+	-- the client a texture's alpha IS its vertex colour's alpha, so
+	-- SetAlpha(1.6) drew it solid sky, and the stripe, icon and chevron, the
+	-- same sky, vanished into it (#1684 was the same for the text shades).
+	F:SetScript("OnEnter", function(self) self.psHover = true; paint() end)
+	F:SetScript("OnLeave", function(self) self.psHover = nil; paint() end)
 	return F
 end
 
@@ -86,16 +93,20 @@ end
 -- its ground ("sky" is the dark header band) or its gold (a game look's
 -- link). A look may give its own as the palette's `otherTab`.
 local SKY = { 0x8C / 255, 0xCB / 255, 1 }
-local function paint()
+local WASH, WASH_HOVER = 0.12, 0.2
+function paint()
 	local pal = Theme.Palette and Theme.Palette()
 	local c = type(pal) == "table" and rawget(pal, "otherTab") or SKY
 	local r, g, b = c[1], c[2], c[3]
-	F.Wash:SetVertexColor(r, g, b, 0.12)
+	F.Wash:SetVertexColor(r, g, b, F.psHover and WASH_HOVER or WASH)
 	F.Stripe:SetVertexColor(r, g, b, 1)
+	F.Wash:SetShown(not F.psPlain)
+	F.Stripe:SetShown(not F.psPlain)
 	F.Icon:SetVertexColor(r, g, b, 1)
 	F.Go:SetVertexColor(r, g, b, 1)
 	F.Head:SetTextColor(r, g, b, 1)
-	Theme.Border(F, r, g, b, 0.6)
+	local e = Theme.Border(F, r, g, b, 0.6)
+	if F.psPlain and e then for i = 1, 4 do e[i]:Hide() end end
 end
 
 local function headText()
@@ -176,6 +187,11 @@ end
 -- height with its margins (0 while hidden).
 function O.Layout(width, y)
 	if not (F and near and F:IsShown()) then return 0 end
+	-- Its own look until a layout takes it again (guidePlace "otherTab"),
+	-- which may give its strings other faces.
+	F.psPlain = nil
+	Theme.Font(F.Head, "caption")
+	Theme.Font(F.Title, "label")
 	-- Again on each layout: a look's repaint gives the strings back their
 	-- theme colours (the head's textMuted) and leaves the wash in the old look's.
 	paint()
@@ -192,7 +208,8 @@ function O.Layout(width, y)
 	local h = math.floor(7 + F.Head:GetStringHeight() + 5 + math.max(ICON, F.Title:GetStringHeight()) + 8 + 0.5)
 	F:SetSize(w, h)
 	F:ClearAllPoints()
-	F:SetPoint("TOPLEFT", F:GetParent(), "TOPLEFT", INSET, -((y or 0) + INSET))
+	-- On the guide window's card (its home), though a layout held it last time.
+	F:SetPoint("TOPLEFT", F.psHome or F:GetParent(), "TOPLEFT", INSET, -((y or 0) + INSET))
 	return h + INSET
 end
 

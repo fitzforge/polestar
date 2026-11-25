@@ -6,11 +6,13 @@
 -- A token marked "no name in this language" would show in English: write that name in Spanish (Latin America) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:35} Booty Bay · {zone:1447} Azshara · {zone:1444} Feralas · {zone:1446} Tanaris
+	["{area:35} first, then {zone:1447}, {zone:1444} and {zone:1446}."] = "Primero {area:35}, luego {zone:1447}, {zone:1444} y {zone:1446}.",
+
 	-- Step 2: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Vuela a {area:35}",
-	-- {area:75} Stonard
-	["{area:75} flight master"] = "Maestro de vuelo de {area:75}",
 
 	-- Step 3: Booty Bay
 	-- {area:75} Stonard · {area:35} Booty Bay · {npc:7406} Oglethorpe Obnoticus
@@ -56,6 +58,11 @@ return {
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:818} (level 47 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\nCareful: Two elite caster guards, around level 45, stand with {npc:818} and join the fight together with him."] = "Son enemigos élite: se recomienda agruparse, busca gente para hacerlo. {npc:818} (élite de nivel 47) necesita un grupo de 2. Omítelo si estás solo: la ruta te hace recuperar esa experiencia matando enemigos.\nCuidado: Dos guardias lanzadores de hechizos élite, de nivel 45 más o menos, están con {npc:818} y se unen a la pelea junto con él.",
 	["Below ground"] = "Bajo tierra",
 
+	-- Step 17: Saving Yenniku
+	["while he is alive: the gem fills; don't kill him"] = "",
+	-- {item:3912} Soul Gem
+	["Use the {item:3912} on Yenniku"] = "",
+
 	-- Step 19: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Zepelín a {zone:1454}",
@@ -68,7 +75,7 @@ return {
 
 	-- Step 21: Zilzibin Drumlore
 	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1447} Azshara · {area:1237} Valormok
-	["{quest:4494} needs level 50: {npc:7010}, in the Drag, gives it from then on. Under 50, it waits: if you reach 50 in {zone:1447}, this guide brings you back for it from {area:1237}; else the {zone:1447} guide at 55 offers it again."] = "",
+	["{quest:4494} needs level 50: {npc:7010}, in the Drag, gives it from then on. Under 50, it waits: if you reach 50 in {zone:1447}, this guide brings you back for it from {area:1237}; else the {zone:1447} guide at 55 offers it again."] = "{quest:4494} requiere nivel 50: {npc:7010}, en la Calle Mayor, la da a partir de entonces. Si tienes menos de 50, espera: si llegas a 50 en {zone:1447}, esta guía te trae de vuelta por ella desde {area:1237}; si no, la guía de {zone:1447} a nivel 55 la ofrece de nuevo.",
 
 	-- Step 22: Dran Droffers
 	["The Droffers' shop is a few steps further into the Drag."] = "La tienda de los Droffers está unos pasos más adentro de la Calle Mayor.",
@@ -77,13 +84,13 @@ return {
 
 	-- Step 23: Orgrimmar
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow · {quest:4300} Bone-Bladed Weapons · {zone:1447} Azshara
-	["{npc:8659}, in the {object:172960}, has {quest:4300} for later; then your class trainer before you leave for {zone:1447}."] = "",
+	["{npc:8659}, in the {object:172960}, has {quest:4300} for later; then your class trainer before you leave for {zone:1447}."] = "{npc:8659}, en la {object:172960}, tiene {quest:4300} para más adelante; luego tu instructor de clase antes de salir hacia {zone:1447}.",
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 
 	-- Step 24: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {object:172957} Valley of Wisdom · {npc:4791} Nazeer Bloodpike · {zone:1445} Dustwallow Marsh
-	["{npc:4047} stands in the {object:172957}: {npc:4791}'s report from {zone:1445}."] = "",
+	["{npc:4047} stands in the {object:172957}: {npc:4791}'s report from {zone:1445}."] = "{npc:4047} está en el {object:172957}: el informe de {npc:4791} desde {zone:1445}.",
 
 	-- Step 26: Ride into Azshara
 	-- {zone:1447} Azshara
@@ -111,13 +118,13 @@ return {
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Vuela a {area:1637}",
 	-- {zone:1447} Azshara · {area:1637} Orgrimmar · {quest:4493} March of the Silithid · {zone:1456} Thunder Bluff
-	["You reached 50 in {zone:1447}: fly back to {area:1637} for {quest:4493} and your level 50 training, then on to {zone:1456}."] = "",
+	["You reached 50 in {zone:1447}: fly back to {area:1637} for {quest:4493} and your level 50 training, then on to {zone:1456}."] = "Llegaste a 50 en {zone:1447}: vuela de vuelta a {area:1637} por {quest:4493} y tu entrenamiento de nivel 50, y luego sigue a {zone:1456}.",
 	-- {area:1237} Valormok
 	["{area:1237} flight master"] = "Maestro de vuelo de {area:1237}",
 
 	-- Step 31: Zilzibin Drumlore
 	-- {npc:7010} Zilzibin Drumlore
-	["{npc:7010} is in the Drag; your class trainer next."] = "",
+	["{npc:7010} is in the Drag; your class trainer next."] = "{npc:7010} está en la Calle Mayor; luego tu instructor de clase.",
 
 	-- Step 32: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
@@ -145,21 +152,21 @@ return {
 
 	-- Step 38: Camp Mojache
 	-- {npc:8115} Witch Doctor Uzer'i
-	["{npc:8115}, if you don't carry it yet: the materials come on this loop"] = "",
+	["{npc:8115}, if you don't carry it yet: the materials come on this loop"] = "{npc:8115}, si todavía no la llevas: los materiales vienen en este recorrido",
 	-- {npc:7776} Talo Thornhoof · {zone:1448} Felwood
 	["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}: los osos están en {zone:1448}",
 	-- {npc:7776} Talo Thornhoof
-	["{npc:7776}: the Northspring harpies, at the far end of this loop"] = "",
+	["{npc:7776}: the Northspring harpies, at the far end of this loop"] = "{npc:7776}: las arpías Nortearroyo, en el otro extremo de este recorrido",
 
 	-- Step 39: Talo Thornhoof
 	-- {quest:3062} Dark Heart · {npc:8075} Edana Hatetalon
-	["{quest:3062}: {npc:8075} (level 50, elite) roosts above the Northspring harpies this loop ends at. Grouping up is advised: skip it if you are alone."] = "",
+	["{quest:3062}: {npc:8075} (level 50, elite) roosts above the Northspring harpies this loop ends at. Grouping up is advised: skip it if you are alone."] = "{quest:3062}: {npc:8075} (nivel 50, élite) anida sobre las arpías Nortearroyo donde termina este recorrido. Se recomienda ir en grupo: omítela si vas solo.",
 
 	-- Step 40: Frayfeather Hippogryphs
 	-- plural, as words: Frayfeather Hippogryphs = {npc:5300} Frayfeather Hippogryph
 	["Frayfeather Hippogryphs"] = "Hipogrifos Plumavieja",
 	-- {quest:3128} Natural Materials
-	["The hippogryphs nest on the hills south-west of the camp. Kill one, then use the Muisek Vessel on its body. Nearly every one also drops the sinew and metallic fragments for {quest:3128}."] = "",
+	["The hippogryphs nest on the hills south-west of the camp. Kill one, then use the Muisek Vessel on its body. Nearly every one also drops the sinew and metallic fragments for {quest:3128}."] = "Los hipogrifos anidan en las colinas al suroeste del campamento. Mata uno y usa la vasija Muisek sobre su cuerpo. Casi todos también sueltan el tendón y los trozos metálicos para {quest:3128}.",
 
 	-- Step 41: Hippogryph nests
 	["Hippogryph nests"] = "Nidos de hipogrifo",
@@ -170,15 +177,14 @@ return {
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
 	["Sprite Darters"] = "Duendes dardo",
 	-- {item:9589} Encrusted Minerals
-	-- was: ["The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill."] = "Los dragones feéricos revolotean por el bosque justo al oeste del campamento. Usa la vasija en cada uno que mates."
-	["The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill; they carry the {item:9589} too."] = "",
+	["The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill; they carry the {item:9589} too."] = "Los dragones feéricos revolotean por el bosque justo al oeste del campamento. Usa la vasija en cada uno que mates; también llevan los {item:9589}.",
 
 	-- Step 45: Wandering Forest Walkers
 	-- plural, as words: Wandering Forest Walkers = {npc:7584} Wandering Forest Walker
 	["Wandering Forest Walkers"] = "Caminabosques deambulantes",
 	-- {zone:1444} Feralas · {npc:272401} Vale Screamer
 	-- plural, as words: Splintered Logs = {item:9590} Splintered Log
-	["The treants wander the forest roads between the camp and the middle of {zone:1444}; there are only a few, so look along the paths. They carry the Splintered Logs too.\nCareful: a {npc:272401} (level 60) flies over the forest west of the camp: keep clear of it."] = "",
+	["The treants wander the forest roads between the camp and the middle of {zone:1444}; there are only a few, so look along the paths. They carry the Splintered Logs too.\nCareful: a {npc:272401} (level 60) flies over the forest west of the camp: keep clear of it."] = "Los antárboles deambulan por los caminos del bosque entre el campamento y el centro de {zone:1444}; hay pocos, así que búscalos por los senderos. También llevan los troncos astillados.\nCuidado: un {npc:272401} (nivel 60) vuela sobre el bosque al oeste del campamento: mantente lejos de él.",
 
 	-- Step 47: Zorbin Fandazzle
 	-- {area:1108} Forgotten Coast · {npc:14637} Zorbin Fandazzle
@@ -186,10 +192,10 @@ return {
 
 	-- Step 48: Forgotten Coast: the water and the shore
 	-- {area:1108} Forgotten Coast
-	["{area:1108}: the water and the shore"] = "",
+	["{area:1108}: the water and the shore"] = "{area:1108}: el agua y la orilla",
 	-- {item:18904} Zorbin's Ultra-Shrinker · {npc:14637} Zorbin Fandazzle
 	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray · Water Elemental Cores = {item:18958} Water Elemental Core · Sea Elementals = {npc:5461} Sea Elemental · Deep Striders = {npc:5360} Deep Strider
-	["The Sea Sprays (46-48) wash along the shore just south of the dock and drop the Water Elemental Cores, as the Sea Elementals (47-49) do. The Wave and Deep Striders (47-49) wade in the water off the same beach: zap them with {item:18904} first, and shrunken they lose their elite strength.\nThe Ultra-Shrinker lasts two hours: {npc:14637} has a second round once these are done."] = "",
+	["The Sea Sprays (46-48) wash along the shore just south of the dock and drop the Water Elemental Cores, as the Sea Elementals (47-49) do. The Wave and Deep Striders (47-49) wade in the water off the same beach: zap them with {item:18904} first, and shrunken they lose their elite strength.\nThe Ultra-Shrinker lasts two hours: {npc:14637} has a second round once these are done."] = "Los rocíos del mar (46-48) recorren la orilla justo al sur del muelle y sueltan los núcleos de elemental de agua, igual que los elementales de mar (47-49). Los asaltaolas y los zancaprofundas (47-49) andan en el agua frente a la misma playa: primero dispárales con el {item:18904}, y encogidos pierden su fuerza de élite.\nEl Ultra-reductor dura dos horas: {npc:14637} tiene una segunda ronda cuando termines estos.",
 	-- {item:18958} Water Elemental Core
 	-- plural, as words: Sea Sprays = {npc:5462} Sea Spray
 	["{item:18958}, from the Sea Sprays"] = "{item:18958}, de los Rocíos del mar",
@@ -199,11 +205,10 @@ return {
 
 	-- Step 50: Forgotten Coast: the giants' hills
 	-- {area:1108} Forgotten Coast
-	["{area:1108}: the giants' hills"] = "",
+	["{area:1108}: the giants' hills"] = "{area:1108}: las colinas de los gigantes",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant · Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray
-	-- was: ["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "Los elementales marinos y las espumas marinas recorren la orilla alrededor del muelle.\nLos caminantes terrestres y los gigantes del acantilado recorren las colinas al norte del muelle. Primero dale a cada uno con {item:18904}: reducidos, ya no son élite. Cada gigante reducido suelta residuo; usa también la Vasija Muisek sobre su cuerpo."
-	["The Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too.\nThe Sea Elementals and Sea Sprays along the shore have the last cores."] = "",
+	["The Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too.\nThe Sea Elementals and Sea Sprays along the shore have the last cores."] = "Los caminatierras y los gigantes del risco recorren las colinas al norte del muelle. Primero dispárale a cada uno con el {item:18904}: encogidos, ya no son élite. Cada gigante encogido suelta residuo; usa también la vasija Muisek sobre su cuerpo.\nLos elementales de mar y los rocíos del mar de la orilla tienen los últimos núcleos.",
 
 	-- Step 52: Northspring harpies
 	["Northspring harpies"] = "Arpías Nortearroyo",
@@ -211,12 +216,12 @@ return {
 
 	-- Step 53: Edana Hatetalon
 	-- {npc:8075} Edana Hatetalon
-	["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests. Clear the harpies around her first."] = "",
+	["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests. Clear the harpies around her first."] = "{npc:8075} (nivel 50, élite) anida en el acantilado justo al norte de los nidos de las arpías. Limpia primero las arpías a su alrededor.",
 
 	-- Step 54: Rage Scar yetis
 	["Rage Scar yetis"] = "Yetis Cicatriz de Rabia",
 	-- {quest:7738} Perfect Yeti Hide
-	["On the way back south-east towards the camp, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "",
+	["On the way back south-east towards the camp, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "De vuelta al sureste hacia el campamento, los yetis Cicatriz de Rabia viven alrededor de las cuevas en las colinas junto al camino. Cualquiera de ellos también puede soltar una {quest:7738}, que inicia una misión propia.",
 	-- {quest:7738} Perfect Yeti Hide
 	["{quest:7738}, a rare drop"] = "{quest:7738}, botín raro",
 
@@ -237,12 +242,14 @@ return {
 	["{npc:5594}, inside"] = "{npc:5594}, adentro",
 
 	-- Step 61: Gadgetzan
+	-- {area:976} Gadgetzan · {npc:9623} A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
+	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} (Chasing {npc:9623}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}, junto al maestro de jinetes del viento",
 
 	-- Step 62: The Egg-O-Matic
 	-- {object:142071} Egg-O-Matic
-	["The {object:142071}"] = "",
+	["The {object:142071}"] = "El {object:142071}",
 	-- {object:142071} Egg-O-Matic
 	["The {object:142071}, in the middle of town"] = "{object:142071}, en el centro del pueblo",
 
@@ -258,13 +265,12 @@ return {
 
 	-- Step 65: The Dunemaul Compound
 	-- {area:1938} Broken Pillar · {npc:12046} Gor'marok the Ravager · {npc:11758} Andi Lynn · {zone:1446} Tanaris
-	["South of the {area:1938} the Dunemaul ogres hold their compound, with {npc:12046} at its eastern end: {npc:11758}'s quest, if you still carry it from {zone:1446}."] = "",
+	["South of the {area:1938} the Dunemaul ogres hold their compound, with {npc:12046} at its eastern end: {npc:11758}'s quest, if you still carry it from {zone:1446}."] = "Al sur de {area:1938}, los ogros Machacaduna tienen su recinto, con {npc:12046} en su extremo este: la misión de {npc:11758}, si todavía la llevas desde {zone:1446}.",
 
 	-- Step 66: Thistleshrub Valley
 	-- {quest:3362} Thistleshrub Valley · {npc:7876} Tran'rek · {zone:1446} Tanaris · {area:976} Gadgetzan
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
-	-- was: ["West from the compound, on the way to Un'Goro's ramp: {quest:3362}'s Gnarled Thistleshrubs and Rootshapers (48-50) are {npc:7876}'s, carried from your first {zone:1446} visit. They wander a lot: pull them one at a time. {npc:7876} takes them on the next guide's {area:976} stop, with {npc:11758}'s."] = "Al oeste del recinto, de camino a la rampa de Un'Goro: los Cardizales nudosos y los Formarraíces (48-50) de {quest:3362} son de {npc:7876}, que llevas desde tu primera visita a {zone:1446}. Deambulan mucho: atráelos de uno en uno. {npc:7876} la recibe en la parada de {area:976} de la siguiente guía, junto con la de {npc:11758}."
-	["West from the compound, on the way to Un'Goro's ramp: {quest:3362}'s Gnarled Thistleshrubs and Rootshapers (49-50) are {npc:7876}'s, carried from your second {zone:1446} visit. They wander a lot: pull them one at a time. {npc:7876} takes them on the next guide's {area:976} stop."] = "",
+	["West from the compound, on the way to Un'Goro's ramp: {quest:3362}'s Gnarled Thistleshrubs and Rootshapers (49-50) are {npc:7876}'s, carried from your second {zone:1446} visit. They wander a lot: pull them one at a time. {npc:7876} takes them on the next guide's {area:976} stop."] = "Al oeste del recinto, de camino a la rampa de Un'Goro: los cardizales nudosos y los enraizadores (49-50) de {quest:3362} son de {npc:7876}, que llevas desde tu segunda visita a {zone:1446}. Deambulan mucho: atráelos de uno en uno. {npc:7876} los recibe en la parada de {area:976} de la siguiente guía.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["\"Sea Wolf\" MacKinley, on the top floor"] = "MacKinley «Lobo de Mar», en el piso superior",
@@ -311,6 +317,7 @@ return {
 	-- ["grind on {npc:6125}"] = "sube de nivel con {npc:6125}",
 	-- ["{area:1108}: kill these as you meet them"] = "{area:1108}: mata a estos según te los encuentres",
 	-- ["{area:1221}: kill these as you meet them"] = "{area:1221}: mata a estos según te los encuentres",
+	-- ["{area:75} flight master"] = "Maestro de vuelo de {area:75}",
 	-- ["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} en {zone:1456}; {zone:1454} no tiene instructor de paladines",
 	-- ["{npc:7010}, the Drag: if you still carry it"] = "{npc:7010}, la Calle Mayor: si aún lo llevas",
 	-- ["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}: los osos están en {zone:1448}",

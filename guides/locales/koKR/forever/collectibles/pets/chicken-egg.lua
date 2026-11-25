@@ -8,11 +8,11 @@
 return {
 	-- Step 1: Special Chicken Feed
 	-- {item:11109} Special Chicken Feed · {npc:233} Farmer Saldean
-	["Buy one {item:11109} (25 copper) from {npc:233} at his farm first: it is not a quest item, and the chicken stays friendly only for a short while."] = "",
+	["Buy one {item:11109} (25 copper) from {npc:233} at his farm first: it is not a quest item, and the chicken stays friendly only for a short while."] = "먼저 {npc:233}의 농장에서 {item:11109}을(를) 하나 사세요(25코퍼). 퀘스트 아이템이 아니며 닭이 우호적으로 남는 시간은 짧습니다.",
 
 	-- Step 2: CLUCK!
 	-- {quest:3861} CLUCK! · {item:11110} Chicken Egg
-	["Target one of the chickens around Saldean's farm and type /chicken at it, again and again, until it offers {quest:3861}; this can take several minutes. Then /cheer at a chicken until it turns friendly (green) and hand in the feed; right-clicking a chicken before it is friendly attacks it. The chicken lays an egg on the ground: loot it for your {item:11110}."] = "",
+	["Target one of the chickens around Saldean's farm and type /chicken at it, again and again, until it offers {quest:3861}; this can take several minutes. Then /cheer at a chicken until it turns friendly (green) and hand in the feed; right-clicking a chicken before it is friendly attacks it. The chicken lays an egg on the ground: loot it for your {item:11110}."] = "샐딘 농장 주변 닭 하나를 대상으로 /chicken을 계속 입력해 {quest:3861}을(를) 받으세요. 몇 분 걸릴 수 있습니다. 다음 닭에게 /cheer를 입력해 우호적(초록색)이 되면 사료를 제출하세요. 우호적이 되기 전에 닭을 우클릭하면 공격합니다. 닭이 바닥에 알을 낳으니 줍으면 {item:11110}을(를) 얻습니다.",
 	-- {object:161513} Farm Chicken Egg
 	["Loot the {object:161513} the chicken lays"] = "닭이 낳은 {object:161513} 획득",
 

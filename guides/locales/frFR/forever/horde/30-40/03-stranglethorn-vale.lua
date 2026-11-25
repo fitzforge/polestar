@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Prendre un vol pour {area:1637}",
-	-- {area:2408} Shadowprey Village
-	["{area:2408} flight master"] = "Maître de vol de {area:2408}",
 
 	-- Step 2: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
@@ -94,8 +92,7 @@ return {
 	["{zone:1434}: kill these as you meet them"] = "{zone:1434} : tuez-les au passage",
 	-- {area:37} Lake Nazferiti
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal · Venture Co. Agents = {npc:260429} Venture Co. Agent
-	-- was: ["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "Les Tigres de Strangleronce (32) parcourent les collines autour du camp et au sud, les Panthères (32) les clairières à l'ouest et au sud-ouest. Les Géologues de la KapitalRisk (34-36), qui portent les Cristaux réduits, travaillent dans les camps près de {area:37}, au sud-est du camp. Attention : des Agents de la KapitalRisk (39) se tiennent parmi les géologues dans les camps de l'ouest, près de la maison de la KapitalRisk : chassez dans les camps de l'est, loin d'eux."
-	["Stranglethorn Tigers (32) roam the hills west of the camp and east of it toward the lake: the arrow takes the eastern ones, on your way to the geologists. Panthers (32) roam the clearings west and south-west of the camp. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "",
+	["Stranglethorn Tigers (32) roam the hills west of the camp and east of it toward the lake: the arrow takes the eastern ones, on your way to the geologists. Panthers (32) roam the clearings west and south-west of the camp. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "Les Tigres de Strangleronce (32) parcourent les collines à l'ouest du camp et à l'est vers le lac : la flèche mène aux tigres de l'est, sur votre chemin vers les géologues. Les Panthères (32) parcourent les clairières à l'ouest et au sud-ouest du camp. Les Géologues de la KapitalRisk (34-36), qui portent les Cristaux réduits, travaillent dans les camps près de {area:37}, au sud-est du camp. Attention : des Agents de la KapitalRisk (39) se tiennent parmi les géologues dans les camps de l'ouest, près de la maison de la KapitalRisk : chassez dans les camps de l'est, loin d'eux.",
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
 	["Tumbled Crystals, from the geologists of the eastern camps"] = "Cristaux réduits, sur les géologues des camps de l'est",
 
@@ -273,6 +270,7 @@ return {
 	-- ["from {npc:4723}"] = "sur {npc:4723}",
 	-- ["grind on {npc:1142}"] = "tuez en boucle : {npc:1142}",
 	-- ["grind on {npc:686}"] = "tuez en boucle : {npc:686}",
+	-- ["{area:2408} flight master"] = "Maître de vol de {area:2408}",
 	-- ["{area:35}'s and {object:3202}'s next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of {object:3202}: kill them until level 35."] = "Les quêtes suivantes de {area:35} et de {object:3202} sont de niveau 35-38. Toujours en dessous de 35 après avoir rendu la quête d'Aggro'gosh ? Les Raptors Fouette-queue (35) chassent dans la jungle juste au nord de {object:3202} : tuez-les jusqu'au niveau 35.",
 	-- ["{item:5852}, in {object:20691}"] = "{item:5852}, dans {object:20691}",
 	-- ["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2465} : pour forever/horde/40-50/01-stranglethorn-vale",

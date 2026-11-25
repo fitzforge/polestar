@@ -213,10 +213,11 @@ pub fn read_retired_text(text: Option<&str>, file: &str, guides: &[V], diag: &mu
 	out
 }
 
-/// readLegs on legs.json's text (None: no file): a leveling guide (legs_races) whose leg ends still
+/// readLegs on legs.json's text (None: no file): a leveling guide (legs_sides) whose leg ends still
 /// hash as when it was baked gets its legs hidden as `_legs` (step -> string) and `_legsGrid`, for
-/// build_pack_files to write into the race parts' Legs.lua. Returns the ids of the guides whose legs
-/// are stale (baked, but their leg ends hash differently now), in the guides' order.
+/// build_pack_files to write into the race parts' Legs.lua; a guide both factions share, each
+/// side's as `_legs<Faction>` (#3360). Returns the ids of the guides whose legs are stale (baked,
+/// but their leg ends hash differently now), in the guides' order.
 pub fn read_legs_text(text: Option<&str>, file: &str, guides: &[V], data: &Data, diag: &mut Diagnostics) -> Vec<String> {
 	let mut stale = Vec::new();
 	let Some(text) = text else { return stale };
@@ -234,25 +235,37 @@ pub fn read_legs_text(text: Option<&str>, file: &str, guides: &[V], data: &Data,
 	let legs = doc.get("legs");
 	for g in guides {
 		let entry = legs.get(&g.get("id").to_js_string());
-		if !entry.truthy() || legs_races(g).is_none() {
-			continue;
+		let Some(sides) = legs_sides(g).filter(|_| entry.truthy()) else { continue };
+		let mut fresh = Vec::new();
+		for (side, _) in &sides {
+			let e = match side {
+				Some(f) => entry.get(crate::bake::SIDES).get(f),
+				None => entry.clone(),
+			};
+			if !e.get("hash").strict_eq(&V::from(crate::bake::guide_hash_for(g, &data.map_frames, *side))) {
+				fresh.clear();
+				break;
+			}
+			fresh.push((*side, e));
 		}
-		if !entry.get("hash").strict_eq(&V::from(crate::bake::guide_hash(g, &data.map_frames))) {
+		if fresh.is_empty() {
 			stale.push(g.get("id").to_js_string());
 			continue;
 		}
-		let steps = Obj::new();
 		let gsteps = g.get("steps");
-		for (s, st) in entry.get("steps").entries() {
-			let ok = st.as_str().is_some_and(|x| !x.is_empty() && x.bytes().all(|b| b.is_ascii_alphanumeric() || b == b'+' || b == b'/'));
-			let n = crate::js::str_to_num(&s);
-			if ok && crate::js::is_integer(n) && n >= 1.0 && gsteps.at(n as usize - 1).truthy() {
-				steps.set_str(s, st);
+		for (side, e) in fresh {
+			let steps = Obj::new();
+			for (s, st) in e.get("steps").entries() {
+				let ok = st.as_str().is_some_and(|x| !x.is_empty() && x.bytes().all(|b| b.is_ascii_alphanumeric() || b == b'+' || b == b'/'));
+				let n = crate::js::str_to_num(&s);
+				if ok && crate::js::is_integer(n) && n >= 1.0 && gsteps.at(n as usize - 1).truthy() {
+					steps.set_str(s, st);
+				}
 			}
-		}
-		if !steps.is_empty() {
-			g.set_hidden("_legs", steps);
-			g.set_hidden("_legsGrid", doc.get("grid"));
+			if !steps.is_empty() {
+				g.set_hidden(&legs_key(side), steps);
+				g.set_hidden("_legsGrid", doc.get("grid"));
+			}
 		}
 	}
 	if !stale.is_empty() {
@@ -261,32 +274,43 @@ pub fn read_legs_text(text: Option<&str>, file: &str, guides: &[V], data: &Data,
 	stale
 }
 
-/// The leveling guides (legs_races) legs.json's text holds no legs for, in the guides' order: never
+/// The hidden key read_legs_text puts a guide's legs under: `_legs`, or a shared guide's side's `_legs<Faction>`.
+pub fn legs_key(side: Option<&str>) -> String {
+	format!("_legs{}", side.unwrap_or(""))
+}
+
+/// The leveling guides (legs_sides) legs.json's text holds no legs for, in the guides' order: never
 /// baked, so they ship without legs. Empty without the file or with one read_legs_text refuses.
 pub fn unbaked_legs(text: Option<&str>, guides: &[V]) -> Vec<String> {
 	let Some(doc) = text.and_then(|t| crate::js::parse_json(t).ok()).filter(|d| d.get("schema").as_num() == Some(1.0)) else { return Vec::new() };
 	let legs = doc.get("legs");
-	guides.iter().filter(|g| legs_races(g).is_some() && !legs.get(&g.get("id").to_js_string()).truthy()).map(|g| g.get("id").to_js_string()).collect()
+	guides.iter().filter(|g| legs_sides(g).is_some() && !legs.get(&g.get("id").to_js_string()).truthy()).map(|g| g.get("id").to_js_string()).collect()
 }
 
 /// The race parts a leveling guide's baked legs ship in: its own race part's races (race_part),
-/// else the races its `race` header names, else every race of its faction; None for any other
-/// guide (not leveling, or no faction).
-pub fn legs_races(g: &V) -> Option<Vec<String>> {
+/// else the races its `race` header names, else every race of its faction, as one side (None: its
+/// legs.json entry is `{ hash, steps }`); a guide both factions share (no `faction`, no races:
+/// Shen'dralas, Mount Hyjal) has a side per faction with that faction's races (Some(faction): its
+/// entry's `sides[faction]`, #3360). None for any other guide (not leveling).
+pub fn legs_sides(g: &V) -> Option<Vec<(Option<&'static str>, Vec<String>)>> {
 	let cat = g.get("category");
 	if !cat.is_nullish() && cat.as_str() != Some("Leveling") {
 		return None;
 	}
 	if let Some(own) = race_part(g) {
-		return Some(own);
+		return Some(vec![(None, own)]);
 	}
 	let named: Vec<String> = g.get("races").items().iter().filter_map(|r| r.as_str().filter(|s| crate::races::RACE_FILES.contains(s)).map(str::to_string)).collect();
 	if !named.is_empty() {
-		return Some(named);
+		return Some(vec![(None, named)]);
 	}
-	let faction = g.get("faction");
-	let side = faction.as_str().filter(|f| *f == "Alliance" || *f == "Horde")?;
-	Some(crate::races::RACE_FILES.iter().filter(|r| crate::races::race_by_file_ref(r).is_some_and(|x| x.sides.iter().any(|s| s.0 == side))).map(|r| r.to_string()).collect())
+	let of = |side: &str| -> Vec<String> {
+		crate::races::RACE_FILES.iter().filter(|r| crate::races::race_by_file_ref(r).is_some_and(|x| x.sides.iter().any(|s| s.0 == side))).map(|r| r.to_string()).collect()
+	};
+	if crate::bake::shared_legs(g) {
+		return Some(crate::bake::leg_factions(g).into_iter().map(|f| (Some(f), of(f))).collect());
+	}
+	Some(vec![(None, of(crate::bake::leg_factions(g)[0]))])
 }
 
 /// The races a guide's own addon part is for (a Leveling guide with `class` and `race` headers), or None.
@@ -752,7 +776,8 @@ pub fn build_pack_files(
 	};
 	// Leveling guides for one class and named races go into an addon per race (race_part), which
 	// Polestar loads for the player's race only; so do the baked legs of every leveling guide
-	// (read_legs_text, legs_races), in its Legs.lua.
+	// (read_legs_text, legs_sides), in its Legs.lua: a guide both factions share, each faction's
+	// legs in that faction's races' (#3360), as a guide of that faction with those legs.
 	let mut parts: Vec<(String, Vec<V>)> = Vec::new();
 	let mut leg_parts: Vec<(String, Vec<V>)> = Vec::new();
 	let add = |m: &mut Vec<(String, Vec<V>)>, r: String, g: &V| match m.iter_mut().find(|(k, _)| *k == r) {
@@ -762,9 +787,24 @@ pub fn build_pack_files(
 	let mut factions: Vec<(&str, Vec<V>)> = Vec::new();
 	let mut main: Vec<V> = Vec::new();
 	for g in guides {
-		if g.hidden("_legs").truthy() {
-			for r in legs_races(g).unwrap_or_default() {
-				add(&mut leg_parts, r, g);
+		for (side, races) in legs_sides(g).unwrap_or_default() {
+			let legs = g.hidden(&legs_key(side));
+			if !legs.truthy() {
+				continue;
+			}
+			let holder = match side {
+				None => g.clone(),
+				Some(f) => {
+					let h = V::obj();
+					h.set("id", g.get("id"));
+					h.set("faction", f);
+					h.set_hidden("_legs", legs);
+					h.set_hidden("_legsGrid", g.hidden("_legsGrid"));
+					h
+				}
+			};
+			for r in races {
+				add(&mut leg_parts, r, &holder);
 			}
 		}
 		match race_part(g) {

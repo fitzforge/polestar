@@ -4,6 +4,7 @@ faction Horde
 levels 54-55
 zone The Barrens
 next forever/horde/50-60/05-eastern-plaguelands
+pitch Ratchet, Orgrimmar and the Undercity, then into the Plaguelands.
 # Built from the playthrough simulator's consensus route (Horde, visits
 # 80-85) and machine-checked with lint; not play-tested on Forever yet.
 #

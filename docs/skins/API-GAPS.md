@@ -141,10 +141,9 @@ author, and a suggested fix, or that it is done and how. Items marked
     the grounds, on the other bases nothing does. Suggested: measure the
     resolver's palette once per answer and note a shortfall in the debug
     log, without refusing (a resolver cannot be refused after the fact).
-25. **The quest's own level is not on a goal row.** A dense row (count,
-    level, distance on each goal) can read the count (`progress`) and where
-    it is (`map`, `x`, `y`) from the goal the `guideRow` hook gets, and the
-    level range of the spot chosen (`lvl`) for kill and collect goals, but
-    not the quest's level. Suggested: add the compiled quest level to the
-    step view's goal (the Engine has it as the guide's `qlvl`), documented
-    with the other fields.
+25. **The quest's own level is not on a goal row**, and stays off it: the
+    guide window shows no quest level anywhere (#3438), in any layout
+    (#3876 took Atlas's `[24]` after its goals' quests out). A layout
+    reads the count (`progress`), where it is (`map`, `x`, `y`) and the
+    level range of the spot chosen (`lvl`) for kill and collect goals from
+    the goal the `guideRow` hook gets.

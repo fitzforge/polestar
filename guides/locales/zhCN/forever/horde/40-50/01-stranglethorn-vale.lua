@@ -11,8 +11,6 @@ return {
 	["Fly to the {area:1497}"] = "飞往{area:1497}",
 	-- {area:1497} Undercity · {area:340} Kargath · {object:3202} Grom'gol
 	["Your level 40 training is in the {area:1497}: fly there from {area:340}, train, and take the zeppelin from the towers outside the city to {object:3202}."] = "40级的训练在{area:1497}：从{area:340}飞过去，学习技能，然后在城外的飞艇塔乘飞艇前往{object:3202}。",
-	-- {area:340} Kargath
-	["{area:340} flight master"] = "{area:340}的飞行管理员",
 
 	-- Step 2: Genavie Callow
 	-- {npc:4486} Genavie Callow · {zone:1417} Arathi Highlands
@@ -40,6 +38,8 @@ return {
 	-- Step 6: Fly to Grom'gol
 	-- {object:3202} Grom'gol
 	["Fly to {object:3202}"] = "飞往{object:3202}",
+	-- {area:340} Kargath
+	["{area:340} flight master"] = "{area:340}的飞行管理员",
 
 	-- Step 7: Grom'gol Base Camp
 	-- {npc:2519} Kin'weelay · {npc:1061} Gan'zulah
@@ -128,17 +128,17 @@ return {
 
 	-- Step 22: Shadowmaw Panthers
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
-	["Shadowmaw Panthers"] = "",
+	["Shadowmaw Panthers"] = "深喉猎豹",
 	-- {quest:192} Panther Mastery
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Elder Shadowmaw Panthers = {npc:1713} Elder Shadowmaw Panther
-	["{quest:192} is still open: the Shadowmaw Panthers (37-38) stalk the jungle north of the mine, towards the Mosh'Ogg hills. They use Sneak, so they show only when you are close: pull them one at a time, and leave the Elder Shadowmaw Panthers (42-43) alone."] = "",
+	["{quest:192} is still open: the Shadowmaw Panthers (37-38) stalk the jungle north of the mine, towards the Mosh'Ogg hills. They use Sneak, so they show only when you are close: pull them one at a time, and leave the Elder Shadowmaw Panthers (42-43) alone."] = "{quest:192}仍未完成：深喉猎豹（37-38级）在矿井北边的丛林中潜行，朝向莫什奥格山丘。它们会潜行，所以只有靠近才会现身：一次只拉一只，别去惹老年深喉猎豹（42-43级）。",
 
 	-- Step 24: Lashtail Raptors
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["Lashtail Raptors"] = "鞭尾迅猛龙",
 	-- {quest:195} Raptor Mastery · {object:3202} Grom'gol
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{quest:195} is still open: the Lashtail Raptors (35-36) hunt the jungle between {object:3202} and Nesingwary's camp, on your way north."] = "",
+	["{quest:195} is still open: the Lashtail Raptors (35-36) hunt the jungle between {object:3202} and Nesingwary's camp, on your way north."] = "{quest:195}仍未完成：鞭尾迅猛龙（35-36级）在{object:3202}和奈辛瓦里远征队营地之间的丛林中狩猎，顺路向北。",
 
 	-- Step 25: Foreman Cozzle's house
 	-- {npc:4723} Foreman Cozzle

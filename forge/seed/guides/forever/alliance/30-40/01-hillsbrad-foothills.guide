@@ -19,7 +19,9 @@ next forever/alliance/30-40/03-ashenvale
 # route does not take.
 # Spark of Freedom (87491) is a group quest (#1313): its escort starts at the far west of Dun Modr's elite Dark Iron ruins.
 # The Dark Iron War (303, the ruins' elites) and Bring Back a Bang (88756, the explosives on Direforge Hill among the same
-# elites) are group quests on the same stop (#2587): asked like Spark of Freedom, never on the solo route.
+# elites) are group quests on the same stop (#2587): asked like Spark of Freedom, never on the solo route. Motley and Ashlan
+# stand beside Rhag, so both are asked on arrival, before the escort and Modr, and the Dark Irons killed in the ruins
+# count from the first one (#3871).
 # MacKreel's Moonshine (647) is taken in 05-arathi-highlands: its 15-minute limit does not last the walk to Menethil and the boat (#1319).
 # Level tidy (0.4.0): Lifting the Curse (290), The Eye of Paleth (292) and Cleansing the Eye (293) moved off the first
 # Wetlands visit; since the 2026-11-20 round 06-wetlands takes 290 on its first Menethil stop and works it from 29, and
@@ -57,11 +59,18 @@ step Ados
 
 step Dragonmaw Gates: kill these as you meet them
   zone Wetlands
-  tip The whelps nest in the hills north-east of the Angerfang Encampment; Carnage prowls further north, and the Razormaw raptors hunt the highlands on the way north to Dun Modr.
+  tip The whelps nest in the hills north-east of the Angerfang Encampment, and the Razormaw raptors hunt the highlands on the way north to Dun Modr. The Maddened Rotclaws that roam these hills and the Green Belt drop the Malignant Rotclaw Flesh that calls Carnage out.
   tip Carnage is elite: grouping up is advised.
   collect 279385 quest 98072.1        -- Pristine Crimson Scale
-  collect 280330 quest 98283.2 optional -- Carnage's Head
+  collect 280331 quest 98283.1 optional -- Malignant Rotclaw Flesh, for Carnage
   collect 280103 quest 98245.1        -- Razormaw Incisor
+
+step Carnage
+  when has 280331
+  when group 98283
+  tip Carnage only comes out when the Malignant Rotclaw Flesh is used at his lair on the hill north of the Dragonmaw Gates. He is a level 30 elite: grouping up is advised.
+  use 280331 quest 98283.2 @70.0,29.0 "Use the Malignant Rotclaw Flesh at Carnage's lair" -- Carnage comes out to it
+  collect 280330 quest 98283.2        -- Carnage's Head
 
 step Razormaw nests
   when onquest 98246
@@ -73,12 +82,8 @@ step Neru
   tip Neru stands in the hills between the Dragonmaw Gates and Dun Modr (use the Goaz Stone).
   collect 280398 quest 98310.4        -- Heart of Neru
 
-step The Green Belt
-  when has 280330
-  tip Maddened Rotclaws roam the Green Belt around Rethiel; one of them drops the flesh. Rethiel takes the quest only with Carnage's head too.
-  collect 280331 quest 98283.1        -- Malignant Rotclaw Flesh
-
 step Rethiel the Greenwarden
+  when group 98283
   when complete 98283
   turnin 98283                        -- With Carnage's head and the flesh
 
@@ -88,6 +93,16 @@ step Dun Modr
   tip North along the road to Dun Modr. Longbraid the Grim and Rhag Garmason stand together in the dwarves' camp on the east side of the road; the Dark Iron ruins west of it are full of elites.
   turnin 472                              -- Longbraid the Grim
   accept 631                          -- Rhag Garmason
+
+step Motley Garmason
+  when group 303
+  tip The Dark Iron War is a group quest: 30 elite Dark Irons (27-31) in the ruins west of the camp. Skip it if you are alone.
+  accept 303                          -- Motley Garmason, in the camp
+
+step Ashlan Stonesmirk
+  when group 88756
+  tip Bring Back a Bang is a group quest: the Stolen Explosives lie in the Dark Iron camp on Direforge Hill, south-east of Dun Modr, among the same elite dwarves. Skip it if you are alone.
+  accept 88756                        -- Ashlan Stonesmirk, in the camp
 
 step Captive Fire Elemental
   when group 87491
@@ -100,16 +115,6 @@ step Modr
   when group 98310
   tip Modr stands in the ruins of Dun Modr (use the Goaz Stone).
   collect 280396 quest 98310.2        -- Heart of Modr
-
-step Motley Garmason
-  when group 303
-  tip The Dark Iron War is a group quest: 30 elite Dark Irons (27-31) in the ruins west of the camp. Skip it if you are alone.
-  accept 303                          -- Motley Garmason, in the camp
-
-step Ashlan Stonesmirk
-  when group 88756
-  tip Bring Back a Bang is a group quest: the Stolen Explosives lie in the Dark Iron camp on Direforge Hill, south-east of Dun Modr, among the same elite dwarves. Skip it if you are alone.
-  accept 88756                        -- Ashlan Stonesmirk, in the camp
 
 step The Dark Iron War
   when group 303
@@ -161,7 +166,6 @@ step Rhag Garmason again
   accept 634                          -- for Captain Nials at Refuge Pointe, in the Arathi Highlands guide
 
 step The Green Belt
-  turnin 98240                        -- Howin Kindfeather: James Halloran's crate, from Menethil Harbor
   turnin 98245                        -- Howin Kindfeather
 
 step Howin Kindfeather

@@ -235,7 +235,8 @@ function loadEntranceTable(file = path.join(__dirname, '..', '..', '..', 'data',
 // Recorder entrances [ { map, x, y, f?, n } ]; table: its entrances.json entry
 // or null; guides: curatedEntrances(); corpse: the Map row's { c, x, y } |
 // null; prefer: uiMap ids of the zones holding it (for the corpse point).
-// A table entry's `A` (the Alliance's own way in) rides along as entrance.A; its z (the door's floor where floors
+// A table entry's `A` (the Alliance's own way in) rides along as entrance.A, its `doors` (other ways in open to both
+// sides: Blackrock Mountain's two, #3348) as entrance.doors ([ { map, x, y } ]); its z (the door's floor where floors
 // stack) as entrance.z when the chosen point lies within DOOR_YARDS of the entry's on the same map (forge-data's
 // instances.rs choose_entrance).
 const DOOR_YARDS = 30;
@@ -244,6 +245,7 @@ function chooseEntrance(args) {
 	const t = args.table;
 	const a = t && t.A;
 	if (e && a && a.map) e = { ...e, A: { map: Number(a.map), x: round1(a.x), y: round1(a.y) } };
+	if (e && t && Array.isArray(t.doors) && t.doors.length) e = { ...e, doors: t.doors.map((d) => ({ map: Number(d.map), x: round1(d.x), y: round1(d.y) })) };
 	const f = e && t && typeof t.z === 'number' && Number(t.map) === e.map && (args.frames || {})[String(e.map)];
 	if (f && Math.hypot(((e.x - t.x) / 100) * (f.left - f.right), ((e.y - t.y) / 100) * (f.top - f.bottom)) <= DOOR_YARDS) e = { ...e, z: t.z };
 	return e;

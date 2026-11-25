@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in French words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1434} Stranglethorn Vale · {area:75} Stonard · {zone:1446} Tanaris · {zone:1444} Feralas
+	["{zone:1434} and {area:75} first, then {zone:1446} and {zone:1444}."] = "D'abord {zone:1434} et {area:75}, puis {zone:1446} et {zone:1444}.",
+
 	-- Step 1: Fly to Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Fly to {object:3202}"] = "Prendre un vol pour {object:3202}",
@@ -217,7 +221,7 @@ return {
 	-- {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {zone:1454} Orgrimmar
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, a short ride north of the zeppelin towers, with {npc:4731}'s skeletal horses (20 gold each) beside her. Ride back to the towers for the {zone:1454} zeppelin."] = "",
 	-- {npc:4773} Velma Warnam
-	["{npc:4773}, riding trainer"] = "{npc:4773}, maître de monte",
+	["{npc:4773}, riding trainer"] = "{npc:4773}, maîtresse de monte",
 	-- {npc:4731} Zachariah Post · {npc:4773} Velma Warnam · {area:159} Brill
 	["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "Chevaux squelettes : {npc:4731}, à côté de {npc:4773} à {area:159}.",
 

@@ -6,11 +6,13 @@
 -- A token marked "no name in this language" would show in English: write that name in German words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:35} Booty Bay · {zone:1447} Azshara · {zone:1444} Feralas · {zone:1446} Tanaris
+	["{area:35} first, then {zone:1447}, {zone:1444} and {zone:1446}."] = "Zuerst {area:35}, dann {zone:1447}, {zone:1444} und {zone:1446}.",
+
 	-- Step 2: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Flieg nach {area:35}",
-	-- {area:75} Stonard
-	["{area:75} flight master"] = "Flugmeister in {area:75}",
 
 	-- Step 3: Booty Bay
 	-- {area:75} Stonard · {area:35} Booty Bay · {npc:7406} Oglethorpe Obnoticus
@@ -55,6 +57,11 @@ return {
 	-- {npc:818} Mai'Zoth
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:818} (level 47 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\nCareful: Two elite caster guards, around level 45, stand with {npc:818} and join the fight together with him."] = "Das sind Elite-Mobs: Sich zu gruppieren ist empfohlen, such dir Leute dafür. {npc:818} (Elite, Stufe 47) braucht eine Gruppe von 2. Überspring ihn, wenn du allein bist: Die Route lässt dich die EP wieder erarbeiten.\nVorsicht: Zwei Elite-Zauberwirker-Wachen, ungefähr Stufe 45, stehen bei {npc:818} und greifen gemeinsam mit ihm in den Kampf ein.",
 	["Below ground"] = "Unter der Erde",
+
+	-- Step 17: Saving Yenniku
+	["while he is alive: the gem fills; don't kill him"] = "",
+	-- {item:3912} Soul Gem
+	["Use the {item:3912} on Yenniku"] = "",
 
 	-- Step 19: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -238,6 +245,8 @@ return {
 	["{npc:5594}, inside"] = "{npc:5594}, drinnen",
 
 	-- Step 61: Gadgetzan
+	-- {area:976} Gadgetzan · {npc:9623} A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
+	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} (Chasing {npc:9623}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}, neben dem Windreitermeister",
 
@@ -313,6 +322,7 @@ return {
 	-- ["grind on {npc:6125}"] = "grinde {npc:6125}",
 	-- ["{area:1108}: kill these as you meet them"] = "{area:1108}: Töte diese, sobald sie dir begegnen",
 	-- ["{area:1221}: kill these as you meet them"] = "{area:1221}: töte diese, wenn du sie triffst",
+	-- ["{area:75} flight master"] = "Flugmeister in {area:75}",
 	-- ["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} in {zone:1456}; in {zone:1454} gibt es keinen Paladin-Lehrer",
 	-- ["{npc:7010}, the Drag: if you still carry it"] = "{npc:7010}, die Gasse: falls du ihn noch dabeihast",
 	-- ["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}: Die Bären sind im {zone:1448}",

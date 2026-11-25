@@ -18,8 +18,6 @@ return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "飞往{area:150}",
-	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "{area:144}的飞行管理员",
 
 	-- Step 3: Theramore flight master
 	["Theramore flight master"] = "塞拉摩飞行管理员",
@@ -121,7 +119,7 @@ return {
 	-- {area:598} Sar'theris Strand
 	["{area:598}: kill these as you meet them"] = "{area:598}：遇到就杀",
 	-- {npc:11863} Azore Aldamort · {spell:131} Water Breathing · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
-	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower, on the shore and out in the water. Karnitol's satchel drops now and then from their Tidehunters and Sea Witches, most of them underwater ({spell:131} helps): take it if it comes, it is optional. Any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "",
+	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower, on the shore and out in the water. Karnitol's satchel drops now and then from their Tidehunters and Sea Witches, most of them underwater ({spell:131} helps): take it if it comes, it is optional. Any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "滑刃纳迦控制着{npc:11863}塔北面的西北海岸，在岸上和水里都有。卡尼托的背包会不时被他们的滑刃潮行者和滑刃海巫掉落，大多在水下（{spell:131}有帮助）：出了就拿，可选的。任何纳迦都可能掉落拉克摩尔的金钥匙。游到远处北端的{area:2406}，对{object:177673}使用{item:15766}：{npc:12369}（38级）现身；杀掉他以完成{quest:6027}。",
 	-- {item:15881} Rackmore's Golden Key
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}，击杀滑刃纳迦获取",
 	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue
@@ -148,6 +146,7 @@ return {
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "滑刃纳迦占据着{npc:11863}的塔北边的西北海岸；卡尼托的挎包就在近海的海底，任何纳迦都可能掉落拉克摩尔的金钥匙。游到最北端外的{area:2406}，对{object:177673}使用{item:15766}：{npc:12369}（38级）会出现；杀死他获得{quest:6027}。",
 	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "恶魔聚集在{zone:1443}南部的{area:602}：坑边有地狱犬（噬法魔犬、法师猎手和灵能猎犬）、虚空少女和虚空姐妹，以及末日守卫队长。\n小心：这里的大多数怪物都会沿路线巡逻，很容易引来额外的怪。",
 	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "亡灵劫掠者在玛格拉姆村庄南边、集会所东边的白骨荒地游荡：箭头会指向它们的西缘。然后在荒地东侧的另一个箭头处使用{item:15848}，引来玛格拉姆鬼魂。小心：玛格拉姆死灵可汗和玛格拉姆食尸者（45级，精英）在两个箭头之间的白骨荒地上走动，还有玛格拉姆死灵法师（42级）：把劫掠者和鬼魂引到你身边，远离它们。",
+	-- ["{area:144} flight master"] = "{area:144}的飞行管理员",
 	-- ["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}被关在墓地西边的半人马营地；救出她，在离开途中保护她的安全；她会在墓地旁停下。\n小心：脚本刷出的敌群会一起行动，而且仅在护送期间出现，因此无法提前清理，也无法逐个引出。开始前先清理路上的普通半人马仍有帮助。",
 	-- ["{npc:5396}, if 30-40/02 didn't give it"] = "{npc:5396}，如果30-40/02没有接到",
 	-- ["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}，如果30-40/02没有交还：沉船就在{npc:11863}的塔下方",

@@ -46,7 +46,8 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- The cursor left: the transparent chrome fades, and the window to
 	-- guideWindow.idleAlpha when the player set one.
 	local function watch()
-		if F:IsMouseOver(4, -4, -4, 4) then return end
+		-- With Grow upward the grip stands just over the window (GF.PlaceGrip): over it is over the window.
+		if F:IsMouseOver(4, -4, -4, 4) or (GF.grip and GF.grip:IsMouseOver()) then return end
 		hovering = false
 		watcher:SetScript("OnUpdate", nil)
 		if transparent() then fadeChrome(0) end
@@ -267,9 +268,10 @@ ns.UI.GuideFrame.Part(function(GF)
 	function GF.ApplyLook(key)
 		if not F or (key and GF.LOOK_LATER[key]) then return end
 		if key == "hideTaxi" then return GF.ApplyVisibility() end
-		-- The pace line (#2371, #2379): the XP row's text read anew, also when
-		-- every setting changes at once (a profile switch, Reset all).
-		if key == "pace" then return GF.UpdateXP() end
+		-- The XP line and its pace part (#3304; #2371, #2379): the XP row's text
+		-- read anew, also when every setting changes at once (a profile switch,
+		-- Reset all).
+		if key == "pace" or key == "xpLine" then return GF.UpdateXP() end
 		if not key then GF.UpdateXP() end
 		if key == "idleAlpha" or key == "combatAlpha" then
 			-- The cursor may sit on a window that never watched it (Standard style).

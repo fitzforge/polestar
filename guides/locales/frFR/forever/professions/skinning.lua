@@ -44,11 +44,8 @@ return {
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}, Fièregriffe",
 	["Prideclaw, Galestrider"] = "Fièregriffe, Trotteur des trombes",
-	-- {npc:250928} Highlands Ursera
-	["Prideclaw, {npc:250928}"] = "Fièregriffe, {npc:250928}",
-	["Galestrider, Cloudrunner"] = "Trotteur des trombes, Coureur des nuages",
+	["Cloudrunner, Galestrider"] = "Coureur des nuages, Trotteur des trombes",
 	["Prideclaw, Vuldren"] = "Fièregriffe, Vuldrène",
-	["Galestrider, Prideclaw"] = "Trotteur des trombes, Fièregriffe",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)
 	-- {zone:1411} Durotar
@@ -306,6 +303,7 @@ return {
 	-- ["Kill and skin {npc:9165} (48), Ravasaur (48), {npc:6507} (49), {npc:6506} (49), {npc:9162} (49), Pterrordax (50), {npc:6514} (50), {npc:6508} (50), Diemetradon (51), {npc:9167} (51), {npc:6513} (51), {npc:6516} (52), {npc:9164} (53), {npc:11735} (54) along the loop until {skill:393} 300; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 48-55."] = "Tuez et dépecez {npc:9165} (48), Ravasaure (48), {npc:6507} (49), {npc:6506} (49), {npc:9162} (49), Pterreurdactyle (50), {npc:6514} (50), {npc:6508} (50), Dimeurtrodon (51), {npc:9167} (51), {npc:6513} (51), {npc:6516} (52), {npc:9164} (53), {npc:11735} (54) le long de la boucle jusqu'à {skill:393} 300 ; dépecez les bêtes du plus haut niveau que votre compétence permet. Une bête de niveau N requiert la compétence (N-10)x10 jusqu'au niveau 20, puis Nx5 au-delà. Zone de niveau 48-55.",
 	-- ["Kill and skin {npc:9165} (48), Ravasaur (48), {npc:6507} (49), {npc:6506} (49), {npc:9162} (49), Pterrordax (50), {npc:6514} (50), {npc:6508} (50), Diemetradon (51, needs 255), {npc:9167} (51, needs 255), {npc:6513} (51, needs 255), {npc:6516} (52, needs 260), {npc:9164} (53, needs 265), {npc:11735} (54, needs 270) along the loop until {skill:393} 275; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 48-55."] = "Tuez et dépecez {npc:9165} (48), Ravasaure (48), {npc:6507} (49), {npc:6506} (49), {npc:9162} (49), Pterreurdactyle (50), {npc:6514} (50), {npc:6508} (50), Dimeurtrodon (51, requiert 255), {npc:9167} (51, requiert 255), {npc:6513} (51, requiert 255), {npc:6516} (52, requiert 260), {npc:9164} (53, requiert 265), {npc:11735} (54, requiert 270) le long de la boucle jusqu'à {skill:393} 275 ; dépecez les bêtes du plus haut niveau que votre compétence permet. Une bête de niveau N requiert la compétence (N-10)x10 jusqu'au niveau 20, puis Nx5 au-delà. Zone de niveau 48-55.",
 	-- ["Moonstalker, {npc:2165}"] = "Traquelune, {npc:2165}",
+	-- ["Prideclaw, {npc:250928}"] = "Fièregriffe, {npc:250928}",
 	-- ["Pterrordax, {npc:9164}"] = "Pterreurdactyle, {npc:9164}",
 	-- ["Vuldren, Galestrider"] = "Vuldrène, Trotteur des trombes",
 	-- ["Worg"] = "Worg",

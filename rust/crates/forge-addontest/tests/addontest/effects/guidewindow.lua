@@ -85,6 +85,11 @@ return {
 		["ui.width"] = one("width"),
 		-- A tall step (the biggest goals and spacing, six steps up next): the cap on the window's height.
 		["ui.maxHeight"] = { value = 0.3, with = { ["guideWindow.goalSize"] = 1.8, ["guideWindow.rowSpacing"] = 12, ["ui.upcoming"] = 6 }, probe = one("height") },
+		-- Fixed: the window is the height for a short step too (#1067); the progress bar under the last goal or on
+		-- the window's edge.
+		["ui.heightMode"] = { value = "fixed", probe = one("height") },
+		["ui.footAt"] = { value = "edge", with = { ["ui.heightMode"] = "fixed" },
+			probe = function() local p, rel, rp, _, y = P.foot:GetPoint(1); return { p, rp, rel == F, y } end },
 		["guideWindow.padding"] = one("rowTextX"),
 		["ui.compact"] = function() return { snapshot().person, snapshot().height } end,
 		["guideWindow.bgOpacity"] = function() return { snapshot().bgAlpha, rgba(F.psSkin.bg) } end,
@@ -166,6 +171,36 @@ return {
 			cleanup = function()
 				GF.PaceText, GF.psPaceText = GF.psPaceText, nil
 				GF.UpdateXP()
+			end },
+		-- The XP row's own line (#3304): XP an hour, time to level and the pace go; with nothing else to say the row
+		-- goes too.
+		["guideWindow.xpLine"] = {
+			prepare = function()
+				GF.psPaceText = GF.PaceText
+				GF.PaceText = function() return "On pace for level 6 by step 12" end
+				GF.UpdateXP()
+			end,
+			probe = function() return GF.xp.psHas and GF.xp.Text:GetText() or false end,
+			cleanup = function()
+				GF.PaceText, GF.psPaceText = GF.psPaceText, nil
+				GF.UpdateXP()
+			end },
+		-- The Still to do rows (#3303): a quest an update left behind the player (Engine.GetBehind, the fake
+		-- Engine's answer) as a row under the step.
+		["guideWindow.stillToDo"] = {
+			prepare = function()
+				Polestar.Engine.GetBehind = function() return { { quest = 1, title = "Left behind", zone = "Elwynn Forest" } } end
+				uistub.update()
+			end,
+			probe = function()
+				for _, r in ipairs(GF.alongRows) do
+					if r:IsShown() and r.psBehind then return r.Text:GetText() end
+				end
+				return false
+			end,
+			cleanup = function()
+				Polestar.Engine.GetBehind = nil
+				uistub.update()
 			end },
 		["guideWindow.foldAnim"] = fold,
 		-- The step's "N left out here" line (Engine.LeftOutHere, the fake Engine's answer for the step).

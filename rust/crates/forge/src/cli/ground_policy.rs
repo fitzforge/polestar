@@ -159,10 +159,10 @@ fn hubs(mut data: Hubs) -> Result<String, String> {
 
 pub(super) fn import(from: &Path, out: &Path) -> Result<(), String> {
 	let mut tiles = load::<Vec<Tile>>(&from.join("areas.json"), "631b76ab30cd0b156cca7e0f0d0ca8dbe7f958c7c29caad0640fe4023ea83c9e")?;
-	let disks = load(&from.join("hubs.json"), "44ff820d885a8b0044cb2f751aba9db39905a05cd20b34335bc173c716f15fd4")?;
+	let disks = load(&from.join("hubs.json"), "1c5df0bd0714ad6b74d662ac82efaa6fd8fc366b6357aa72433f018efdd4540f")?;
 	let outputs = [
 		("DangerAreas.lua", "4ae5e400f2b508ff17067b6929054db00328fc2256197dcdab8342abb1c44f2d", areas(&mut tiles)?),
-		("DangerHubs.lua", "0cd540c10ffe1969a18e78ad7ceffc7603dfa146f4c1531462353fce2d34360b", hubs(disks)?),
+		("DangerHubs.lua", "16ed673bf190457a45ce484e8753ae36f052d03d430e3bac4afc61edf9eb41ee", hubs(disks)?),
 	];
 	// Check every independent reference before touching even the first destination.
 	for (name, reference, payload) in &outputs {

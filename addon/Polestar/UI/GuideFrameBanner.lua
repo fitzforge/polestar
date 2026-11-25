@@ -2,6 +2,9 @@
 -- overview over the step number (UI/GuideFrame.lua).
 
 local ADDON, ns = ...
+-- "Say when I've outlevelled a guide" (Options, Guide > Automation > Guides,
+-- #3585): the "outlevel" notice, on unless the player turned it off.
+ns.RegisterDefaults("ui", { outlevelNotice = true })
 ns.UI.GuideFrame.Part(function(GF)
 	local UI, Theme, L, floor = ns.UI, ns.Theme, ns.L, math.floor
 	local Engine = GF.Engine
@@ -69,6 +72,17 @@ ns.UI.GuideFrame.Part(function(GF)
 	local function navTrip()
 		local nav = ns.Nav
 		return nav and nav.Trip and nav.Trip() or nil
+	end
+
+	-- The arrow on a point the player picked (a Shift- or Alt-click on the
+	-- world map or the minimap, /way: Journey.PlanTo marks it `mine`) that is
+	-- no trip: { label } (its place, "Stranglethorn Vale 41, 11"), said as a
+	-- trip is, with Back to the guide (#3843); else nil.
+	local function ownPoint()
+		local nav = ns.Nav
+		if not (nav and nav.IsOverride and nav.IsOverride()) or navTrip() then return nil end
+		local t = nav.GetTarget()
+		return t and t.mine and { label = t.label } or nil
 	end
 
 	-- The flight map notice (#1795, #2189): on a continent where no flight map has opened yet for this character,
@@ -141,9 +155,12 @@ ns.UI.GuideFrame.Part(function(GF)
 		local view = GF.View()
 		local E = Engine()
 		local g = E and E.GetGuide and E.GetGuide()
-		-- On the way to a nearby service, a dungeon or a trainer (Nav.StartTrip): the way back first.
+		-- On the way to a nearby service, a dungeon or a trainer (Nav.StartTrip),
+		-- or to a point of the player's own: the way back first.
 		local t = navTrip()
 		if t then return "trip", t end
+		local own = ownPoint()
+		if own then return "own", own end
 		-- A guide of the other faction (an import, an old saved tab): whose it
 		-- is, for as long as it is open; never dismissed (#2462).
 		local side = g ~= nil and E.OtherFaction and E.OtherFaction(g.id)
@@ -162,9 +179,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		local lq, ltitle
 		if E and E.LostQuestion then lq, ltitle = E.LostQuestion() end
 		if lq then return "lost", { quest = lq, title = ltitle } end
-		local gq, gtitle
-		if E and E.GroupQuestion then gq, gtitle = E.GroupQuestion() end
-		if gq then return "group", { quest = gq, title = gtitle } end
+		-- An escort left to the player asks the same way, in its own words (Engine.EscortNote, #3439).
+		local gq, gtitle, ginfo
+		if E and E.GroupQuestion then gq, gtitle, ginfo = E.GroupQuestion() end
+		if gq then return "group", { quest = gq, title = gtitle, escort = ginfo and ginfo.escort or nil, note = ginfo and ginfo.text or nil } end
 		-- A dungeon in the route not answered yet (Engine.DungeonQuestion): the guide waits and asks.
 		-- None of the dungeon notices while dungeons in the route are held back (ns.dungeonRoute).
 		local dq = ns.dungeonRoute and E and E.DungeonQuestion and E.DungeonQuestion()
@@ -196,7 +214,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local fr = g ~= nil and not notices.freshSeen[g.id] and E.FreshStart and E.FreshStart()
 		if fr then return "fresh", fr end
 		local o = notices.outlevel
-		if o and g ~= nil and g.id == o.guideId then return "outlevel", o end
+		if o and g ~= nil and g.id == o.guideId and ns.Get("ui.outlevelNotice") then return "outlevel", o end
 		if notices.train then return "train", notices.train end
 		if notices.riding then return "riding", notices.riding end
 		if notices.classQuest then return "classQuest", notices.classQuest end
@@ -530,6 +548,14 @@ ns.UI.GuideFrame.Part(function(GF)
 			banner.Text:SetText(text)
 			placeLink(banner.Jump, L["Make room"], 0, -4)
 			banner.Close:Show()
+		elseif kind == "group" and n.escort then
+			-- An escort left to the player (#3439): the group mark, how long it takes and how often it fails.
+			banner.Icon:SetTexture(Theme.Media("icon-group"))
+			banner.Text:SetText(string.format(L["Escort: %s"], ns.Quoted(n.title) or "") .. "\n" .. (n.note or ""))
+			-- Skip is the default answer, as for a group quest.
+			local w = placeLink(banner.Jump, L["Skip it"], 0, -4)
+			placeLink(banner.Later, L["Do it"], w + 10, -4)
+			banner.Close:Hide()
 		elseif kind == "group" then
 			banner.Icon:SetTexture(Theme.Media("icon-kill"))
 			banner.Text:SetText(string.format(L["Group quest: %s"], ns.Quoted(n.title) or "") .. "\n" .. L["It needs a group. Skip it and the guide keeps to the solo route."])
@@ -585,9 +611,10 @@ ns.UI.GuideFrame.Part(function(GF)
 				placeLink(banner.Jump, string.format(L["Back to step %d"], live), 0, -4)
 			end
 			banner.Close:Show()
-		elseif kind == "trip" then
+		elseif kind == "trip" or kind == "own" then
 			banner.Icon:SetTexture(Theme.Media("icon-goto"))
-			banner.Text:SetText(string.format(L["On the way to %s (%s)."], n.name or "", n.label or ""))
+			banner.Text:SetText(kind == "own" and string.format(L["On the way to your map point (%s)."], n.label or "")
+				or string.format(L["On the way to %s (%s)."], n.name or "", n.label or ""))
 			placeLink(banner.Jump, L["Back to the guide"], 0, -4)
 			banner.Close:Hide()
 		elseif kind == "ended" then
@@ -597,11 +624,10 @@ ns.UI.GuideFrame.Part(function(GF)
 			placeLink(banner.Jump, n.choose and L["Choose where to go next"] or string.format(L["Start %s"], n.label), 0, -4)
 			banner.Close:Show()
 		elseif kind == "fresh" then
-			-- What the quests it leaves out cost in grinding, and the guide they follow on from.
+			-- The guide some of its quests follow on from, as an offer, not a warning (Fitz, #3879: no percent,
+			-- no minutes: "it freaks people out that they're behind").
 			banner.Icon:SetTexture(Theme.Media("icon-level"))
-			local text = string.format(L["Fresh start: about %d%% of this guide's quest XP follows on from %s."], n.share, n.fromTitle)
-			if n.minutes then text = text .. "\n" .. string.format(L["Expect about %d minutes of extra grinding, or start there."], n.minutes) end
-			banner.Text:SetText(text)
+			banner.Text:SetText(string.format(L["Some of this guide's quests follow on from %s. Start there for the full set, or carry on here; the guide fills in with nearby quests."], n.fromTitle))
 			placeLink(banner.Jump, string.format(L["Open %s"], n.fromTitle), 0, -4)
 			banner.Close:Show()
 		elseif kind == "outlevel" then
@@ -610,7 +636,10 @@ ns.UI.GuideFrame.Part(function(GF)
 			-- (RoutePlan.LeftBehind): said here, and the jump asks once.
 			local left = ns.RoutePlan and ns.RoutePlan.LeftBehind(n.to)
 			n.left = left and left.n > 0 and left or nil
-			local text = L["You have outlevelled this guide."]
+			-- A Class guide's own words (#3845): its quests are behind you, the jump takes you on leveling.
+			local G = ns.Guides
+			local from = G and G.Get and G.Get(n.guideId)
+			local text = (from and from.category == "Class") and L["You are past this class quest's levels."] or L["You have outlevelled this guide."]
 			if n.left then
 				local what = n.left.n == 1 and L["1 finished quest here first"] or string.format(L["%d finished quests here first"], n.left.n)
 				text = text .. "\n" .. (n.left.xp > 0 and string.format(L["%s (%s XP)"], what, ns.Thousands(n.left.xp)) or what)
@@ -753,10 +782,24 @@ ns.UI.GuideFrame.Part(function(GF)
 			placeLink(banner.Jump, n.kind == "old" and L["How to update"] or L["Update"], 0, -4)
 			banner.Close:SetShown(n.closable)
 		end
-		-- The action on the right: the text stops short of it, no row under.
+		-- The action on the right: the text stops short of it, no row under,
+		-- while the text still reads on one line there. Text that would wrap
+		-- into a narrow column beside it (#3878: Atlas's "Fresh start" card ran
+		-- six short lines) keeps the full width, the action on its own line
+		-- under it at the right.
 		if onRight > 0 and banner.Jump:IsShown() then
-			banner.Text:SetWidth(width - PAD * 2 - 21 - closeRoom - onRight)
-			oneLine = true
+			local full = banner.Text:GetWidth()
+			banner.Text:SetWidth(full - onRight)
+			local text = banner.Text:GetText() or ""
+			local lineH = banner.Text:GetLineHeight() or 12
+			if not text:find("\n", 1, true) and banner.Text:GetStringHeight() <= lineH * 1.5 then
+				oneLine = true
+			else
+				banner.Text:SetWidth(full)
+				banner.Jump:ClearAllPoints()
+				banner.Jump:SetPoint("TOPRIGHT", banner.Text, "BOTTOMRIGHT", 0, -4)
+				onRight = 0
+			end
 		end
 		if noClose then banner.Close:Hide() end
 		local h = floor(9 + banner.Text:GetStringHeight() + (oneLine and 0 or 4 + 18) + (secondRow and laterPlaced and 4 + 18 or 0) + 9 + 0.5)
@@ -779,6 +822,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		local E = Engine()
 		if kind == "trip" then
 			ns.Nav.EndTrip()
+		elseif kind == "own" then
+			ns.Nav.BackToGuide()
 		elseif kind == "closedTab" then
 			notices.closedTab = nil
 			if E and E.ReopenClosedTab then E.ReopenClosedTab(n.guideId) end
@@ -908,6 +953,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		local kind, n = bannerNotice()
 		if kind == "trip" then
 			ns.Nav.EndTrip()
+		elseif kind == "own" then
+			ns.Nav.BackToGuide()
 		elseif kind == "away" then
 			-- Looking ahead or back: closed for this step (awayNotice), another step has its own
 			notices.away = n.guideId .. ":" .. n.index
@@ -975,12 +1022,16 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- GUIDE_OUTLEVELED(guideId, suggestedId): the player has outgrown the guide
 		-- in the active tab; offer the suggested one until dismissed or taken.
 		ns.On("GUIDE_OUTLEVELED", function(guideId, suggestedId)
-			if not F then return end
+			if not F or not ns.Get("ui.outlevelNotice") then return end
 			local G = ns.Guides
 			local target = suggestedId and G and G.Get and G.Get(suggestedId)
 			if not target then return end
 			notices.outlevel = { guideId = guideId, to = suggestedId, title = target.title or suggestedId }
 			if ns.IsLoggedIn() then GF.Layout() end
+		end)
+		-- The notice turned off (or on again): one on screen goes (or comes back).
+		ns.On("SETTING_CHANGED", function(path)
+			if (path == "ui.outlevelNotice" or path == "" or path == "ui") and F and notices.outlevel and ns.IsLoggedIn() then GF.Layout() end
 		end)
 		-- GUIDE_CONTINUED(fromId, toId, carried): with "Continue automatically" a
 		-- finished leveling guide handed off by itself. Said in the banner for
@@ -1073,6 +1124,17 @@ ns.UI.GuideFrame.Part(function(GF)
 		ns.On("NAV_TRIP", function()
 			if F and ns.IsLoggedIn() then GF.Layout() end
 		end)
+		-- The arrow came onto a point of the player's own, or left one: its banner
+		-- shows or goes. Laid out only when that changes, not on every target;
+		-- looked at a frame later, once Journey.PlanTo has marked the point its own.
+		local ownShown = false
+		local function ownChanged()
+			local own = ownPoint() ~= nil
+			if own == ownShown then return end
+			ownShown = own
+			if F and ns.IsLoggedIn() then GF.Layout() end
+		end
+		ns.On("WAYPOINT_CHANGED", function() ns.After(0, ownChanged) end)
 		-- The bags' free slots or their cheapest junk changed (QoL/Space.lua), or
 		-- the gear offer did (QoL/Wear.lua): their banners come, change or go.
 		ns.On("BAG_SPACE", function()

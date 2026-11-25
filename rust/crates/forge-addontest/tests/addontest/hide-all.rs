@@ -595,6 +595,7 @@ const MARKS: &[(&str, &str)] = &[
 	("Polestar/QoL/BagGlow.lua", "the step's item glowing in the bags"),
 	("Polestar/Quests/BagMarks.lua", "quest marks on bag items"),
 	("Polestar/Quests/QuestLevels.lua", "quest levels before quest titles (the text put back)"),
+	("Polestar/Quests/KeptFor.lua", "\"kept for <guide>\" after quest titles (the text put back)"),
 	("Polestar/Quests/Tooltips.lua", "quest icons on nameplates"),
 	("Polestar/UI/QuestieTurnIns.lua", "turn-in captions in another addon's quest tracker"),
 	("Polestar/UI/QuestLinks.lua", "Show in Guides in the quest log's menus"),

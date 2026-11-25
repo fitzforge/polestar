@@ -328,6 +328,9 @@ GF.Part(function(GF)
 		outline = "outline", padding = 0, rowSpacing = 0, lineSpacing = 0, glyphSize = 1, checkSize = 1,
 		targetBar = true, targetBarColor = false, targetBarWidth = 2,
 		progress = true, progressPct = true, progressHeight = 3, progressColor = false, pace = true,
+		-- The XP row's own line (#3304) and the Still to do rows (#3303): each
+		-- off on its own, without compact mode.
+		xpLine = true, stillToDo = true,
 		bgColor = false, bgOpacity = false, border = true, idleAlpha = 1, combatAlpha = 0.35, veil = 0.68, shade = 0.2,
 		stepAnim = true, animSpeed = 1, foldAnim = true, rules = true, hideTaxi = false, leftOut = true, lastSteps = 0,
 		-- The step card's gaps, each its whole size in px (GF.Gap); false: the
@@ -1110,8 +1113,9 @@ GF.Part(function(GF)
 	-- lines at the bars; at least MIN_BODY_H of it stays.
 	local MIN_BODY_H = 40
 	GF.MIN_BODY_H = MIN_BODY_H -- the step browser keeps it too (GuideFrameLayout.lua)
-	local function sizeWindow(y)
-		local natural = floor(fit.outer + y + 0.5)
+	-- `pad`: room the window keeps past its content (Fixed with the bar under the last goal, fit.follow).
+	local function sizeWindow(y, pad)
+		local natural = floor(fit.outer + y + (pad or 0) + 0.5)
 		local height, limit = natural, fit.limit
 		if limit and natural > limit then height = max(floor(limit), floor(fit.outer + MIN_BODY_H + 0.5)) end
 		local cut = height < natural
@@ -1154,6 +1158,22 @@ GF.Part(function(GF)
 		end
 		GF.ItemTop = itemTop
 
+		-- The row edge nearest `to` on one side: the last item top at or above it
+		-- (dir < 0) or the first at or below it (dir > 0); nil when there is none.
+		-- Scroll stops land on these, so no goal shows cut in half at the top.
+		local function rowEdge(to, dir)
+			local y, items, hs, last = 0, area.items, area.h, nil
+			for i = 1, area.n do
+				if dir > 0 and y >= to - 0.5 then return y end
+				if dir < 0 and y > to + 0.5 then return last end
+				last = y
+				y = y + hs[i] * (items[i].psK or 1)
+			end
+			if dir < 0 then return last end
+			return nil
+		end
+		GF.RowEdge = rowEdge
+
 		-- The goals area's items, top to bottom (tests, preview).
 		function GF.CardItems()
 			local out = {}
@@ -1185,17 +1205,35 @@ GF.Part(function(GF)
 		-- under CARD.minView, the floor (which already outranks the cap) grows to
 		-- the bottom of the item the cap cuts, unless that passes the cap by more
 		-- than the floor itself: then the cap stays and the item scrolls.
-		local function wholeItems(limit)
-			local y, down, items, hs = 0, 0, area.items, area.h
-			for i = 1, area.n do
+		-- Of the item bottoms that fit, the last from which the last scroll stop
+		-- (the content less the view) is an item's top too is taken, so the
+		-- wheel's last stop starts on a whole row as well (#1066); when none of
+		-- them down to CARD.minView is, the last that fits.
+		local sums = {}
+		local function wholeItems(limit, content)
+			local y, n, items, hs, fits = 0, area.n, area.items, area.h, 0
+			for i = 1, n do
 				y = y + hs[i] * (items[i].psK or 1)
-				if y > limit + 0.5 then
-					if down >= CARD.minView - 0.5 then return down end
-					return y <= limit + CARD.minView and y or limit
-				end
-				down = y
+				sums[i] = y
+				if y <= limit + 0.5 then fits = i end
 			end
-			return limit
+			if fits == n then return limit end
+			local down = fits > 0 and sums[fits] or 0
+			if down < CARD.minView - 0.5 then
+				local cut = sums[fits + 1]
+				return cut <= limit + CARD.minView and cut or limit
+			end
+			-- Down from the last bottom that fits, the last stop climbs through
+			-- the item tops (0, then each bottom) from the start.
+			local k = 0
+			for j = fits, 1, -1 do
+				local v = sums[j]
+				if v < CARD.minView - 0.5 then break end
+				local stop = content - v
+				while k < n and sums[k + 1] < stop - 0.5 do k = k + 1 end
+				if stop < 0.5 or (k < n and abs(sums[k + 1] - stop) < 0.5) then return v end
+			end
+			return down
 		end
 
 		-- Size the goals area to its contents within the cap, then the card, the
@@ -1206,12 +1244,19 @@ GF.Part(function(GF)
 		function fitGoals()
 			local content = contentHeight()
 			local limit = max(CARD.minView, fit.room)
-			local viewH = min(content, limit)
-			if fold.n > 0 and goals.psWhole then
+			local viewH, pad = min(content, limit), 0
+			-- Fixed (ui.heightMode): the view fills the room up to the height, the
+			-- step short or not; with the bar under the last goal (fit.follow) the
+			-- window keeps that room past it instead. The height is the player's:
+			-- no whole-item trim.
+			if fit.fixedH and fit.room < math.huge then
+				goals.psWhole = false
+				if fit.follow then pad = limit - viewH else viewH = limit end
+			elseif fold.n > 0 and goals.psWhole then
 				viewH = min(content, goals.psViewH)
 			else
-				goals.psWhole = content > limit + 0.5
-				if goals.psWhole then viewH = wholeItems(limit) end
+				goals.psWhole = fit.snap and content > limit + 0.5 or false
+				if goals.psWhole then viewH = wholeItems(limit, content) end
 			end
 			goals:SetHeight(max(0.01, viewH))
 			goals.psContentH, goals.psViewH = content, viewH
@@ -1223,6 +1268,16 @@ GF.Part(function(GF)
 				goals:EnableMouseWheel(over)
 				barWake()
 			end
+			-- While there is more to scroll, the goals take no click on the bar's
+			-- strip at their right edge: the bar under them stays draggable.
+			local strip = over and W.ScrollBarRoom(goals) or 0
+			for i = 1, area.n do
+				local f = area.items[i]
+				if f.psBarStrip ~= strip then
+					f.psBarStrip = strip
+					f:SetHitRectInsets(0, strip, 0, 0)
+				end
+			end
 			local cardH = fit.fixed + viewH
 			card:SetHeight(cardH)
 			local y = fit.top + cardH
@@ -1233,13 +1288,19 @@ GF.Part(function(GF)
 				f:SetPoint("TOPRIGHT", body, "TOPRIGHT", 0, at)
 			end
 			y = y + fit.h
-			sizeWindow(y)
+			sizeWindow(y, pad)
 		end
 
 		-- Scroll the goals area to `to` (clamped), gliding there unless `snap`.
 		local function scrollTo(to, snap)
 			local cur = goals:GetVerticalScroll()
-			to = min(max(0, (goals.psContentH or 0) - (goals.psViewH or 0)), max(0, to))
+			local last = max(0, (goals.psContentH or 0) - (goals.psViewH or 0))
+			to = min(last, max(0, to))
+			-- Stop on a row's top, in the direction of travel (fitGoals keeps the
+			-- last stop on one too: wholeItems).
+			if to > 0.5 and to < last - 0.5 then
+				to = min(last, rowEdge(to, to > cur and 1 or -1) or to)
+			end
 			if abs(to - cur) < 0.5 then return end
 			barWake()
 			if snap then
@@ -1613,7 +1674,12 @@ GF.Part(function(GF)
 		local verb = GROUP_VERB[kind] or "goto"
 		person.Icon:SetTexture(Theme.VerbIcon(verb))
 		W.Color(person.Icon, "textDim")
-		person.Name:SetText(UI.GroupName(view, group))
+		-- The group mark after the name (UI.StepMark, #3580); its reason in the tooltip.
+		local E = Engine()
+		local guide = E and E.GetGuide and E.GetGuide()
+		local mark, reason = UI.StepMark(view, guide and guide.steps and view and guide.steps[view.index])
+		person.Name:SetText(UI.GroupName(view, group) .. (mark and (" " .. UI.StepMarkGlyph(mark)) or ""))
+		person.psMark, person.psMarkWhy = mark, reason
 		W.Color(person.Name, kind == "here" and "text" or (kind == "object" and "object" or "npc"))
 		local place = groupPlace(group)
 		local where = place and UI.MapName(place.map) or nil
@@ -1637,6 +1703,9 @@ GF.Part(function(GF)
 			lines[#lines + 1] = { L["Click to point the arrow here"], r, g, b }
 		end
 		if view and view.title and view.title ~= self.psLabel then lines[#lines + 1] = view.title end
+		if self.psMark then
+			lines[#lines + 1] = { UI.StepMarkGlyph(self.psMark) .. " " .. self.psMarkWhy, Theme.TipColor(self.psMark == "group" and "warning" or "textDim") }
+		end
 		W.Tooltip(self, tooltipAnchor(), self.psLabel or "", lines)
 		GF.HoverIn()
 	end
@@ -2341,10 +2410,13 @@ GF.Part(function(GF)
 			end
 		end
 		local n, untilStep, mixed = 0, nil, false
+		-- Still to do (both kinds below) unless turned off (guideWindow.stillToDo,
+		-- #3303); the finished ones stay in the menu's Hand in finished quests.
+		local stillToDo = GF.On("stillToDo")
 		-- First the quests an update left behind the player (Engine.GetBehind):
 		-- "Still to do: <quest>, back in <zone>, 240 yd".
 		local back = 0
-		for _, b in ipairs(E.GetBehind and E.GetBehind() or {}) do
+		for _, b in ipairs(stillToDo and E.GetBehind and E.GetBehind() or {}) do
 			if n < ALONG_MAX then
 				n, back = n + 1, back + 1
 				local r = alongRow(n)
@@ -2363,7 +2435,7 @@ GF.Part(function(GF)
 		-- (RoutePlan.Carried): "3 finished quests to hand in elsewhere (410 XP)";
 		-- a click lists them (UI/QuestRoom.lua, "carried"). The player's own
 		-- quest log: the live window's row only.
-		local carried = GF.live and ns.RoutePlan and ns.RoutePlan.Carried()
+		local carried = stillToDo and GF.live and ns.RoutePlan and ns.RoutePlan.Carried()
 		if carried and #carried > 0 and n < ALONG_MAX then
 			n, back = n + 1, back + 1
 			local r, xp = alongRow(n), 0
@@ -3224,6 +3296,14 @@ GF.Part(function(GF)
 		Theme.TextScope(F, "ui.guideTextSize")
 		if GF.live then
 			F:SetFrameStrata("MEDIUM")
+			-- Above the game's action bars, whole (#2753): at UIParent's level
+			-- its rows drew between the bars' buttons. Raised before it has
+			-- parts, which take their levels from it, and one more for its
+			-- shadow, a level under it (Theme.lua shadowFor); the target
+			-- list's rows, made later, raise over it in turn (QoL/Buttons.lua
+			-- newRow).
+			F:Raise()
+			F:SetFrameLevel(F:GetFrameLevel() + 1)
 			F:SetClampedToScreen(true)
 			F:SetMovable(true)
 			F:EnableMouse(true)
@@ -3919,6 +3999,8 @@ GF.Part(function(GF)
 		ns.On("STEP_CHANGED", whenReady(GF.Render))
 		ns.On("STEP_UPDATED", whenReady(GF.Update))
 		ns.On("PARTY_PROGRESS", whenReady(GF.Update))
+		-- The finished quests to hand in elsewhere changed off the step (RoutePlan, #3568): the row follows.
+		ns.On("CARRIED_CHANGED", whenReady(GF.Update))
 		-- A finished guide's card counts the quests in the log (GF.EndQuestLines):
 		-- one taken, handed in or abandoned paints it afresh. Only on that card.
 		ns.RegisterEvent("QUEST_LOG_UPDATE", function()

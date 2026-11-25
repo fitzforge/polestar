@@ -6,11 +6,13 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (traditional) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:2255} Everlook · {zone:1448} Felwood · {zone:1452} Winterspring
+	["{area:2255} first, then Un'Goro, then {zone:1448} and {zone:1452} again."] = "先去{area:2255}，再去安戈洛，然後再回到{zone:1448}和{zone:1452}。",
+
 	-- Step 1: Fly to Everlook
 	-- {area:2255} Everlook
 	["Fly to {area:2255}"] = "飛往{area:2255}",
-	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "{area:489}飛行管理員",
 
 	-- Step 2: Everlook
 	-- {area:2255} Everlook · {npc:11754} Meggi Peppinrocker
@@ -111,6 +113,8 @@ return {
 	["{area:392} flight master"] = "{area:392}飛行管理員",
 
 	-- Step 19: Gadgetzan
+	-- {area:976} Gadgetzan · {npc:9623} A-Me 01 · {quest:4243} Chasing A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
+	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} ({quest:4243}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
 	-- {npc:7876} Tran'rek
@@ -512,6 +516,7 @@ return {
 	-- ["{area:2247}: kill these as you meet them"] = "{area:2247}：遇到就殺",
 	-- ["{area:2255} flight master"] = "{area:2255}飛行管理員",
 	-- ["{area:2255}'s inn"] = "{area:2255}的旅店",
+	-- ["{area:489} flight master"] = "{area:489}飛行管理員",
 	-- ["{item:12771}, a rare drop"] = "{item:12771}，稀有掉落",
 	-- ["{item:12886}; inside"] = "{item:12886}；室內",
 	-- ["{item:12888}; inside"] = "{item:12888}；室內",

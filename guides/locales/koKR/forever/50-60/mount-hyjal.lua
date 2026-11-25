@@ -56,8 +56,8 @@ return {
 
 	-- Step 8: The ancients' outpost
 	["The ancients' outpost"] = "",
-	-- {npc:248395} Tainted Shrubbery · {npc:249235} Kaylaena Springwhisper · {npc:260626} Bluebell · {npc:248367} Hyacinth · {npc:265586} Thylaen · {npc:248366} Fraxinus
-	["South down the west side of the shrub field to the ancients' outpost: kill the {npc:248395} you pass for {npc:249235}. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "",
+	-- {npc:248395} Tainted Shrubbery · {item:247892} Verdant Leaves · {npc:248367} Hyacinth · {quest:91755} Leaves to Ligatures · {npc:249235} Kaylaena Springwhisper · {npc:260626} Bluebell · {npc:265586} Thylaen · {npc:248366} Fraxinus
+	["South down the west side of the shrub field to the ancients' outpost. Leave the {npc:248395} for now: their {item:247892} drop only once {npc:248367}'s {quest:91755} is in your log, and the guide brings you back to the shrub field for the leaves and {npc:249235}'s kills together. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "",
 
 	-- Step 9: Celastrus the Bitter
 	-- {quest:91923} Celastrus the Bitter
@@ -228,7 +228,7 @@ return {
 
 	-- Step 51: Fly to Everlook
 	-- {area:2255} Everlook
-	["Fly to {area:2255}"] = "",
+	["Fly to {area:2255}"] = "{area:2255}(으)로 날아가기",
 	-- {area:493} Moonglade · {area:2255} Everlook · {npc:249235} Kaylaena Springwhisper
 	["South to {area:493}'s flight master (the Alliance's at the southern end of the valley, the Horde's at its south-western end) and fly to {area:2255} for {npc:249235}'s parts order."] = "",
 

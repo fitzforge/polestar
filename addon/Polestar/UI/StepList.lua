@@ -156,6 +156,10 @@ function SL.Refresh()
 	local G = GF()
 	if G and G.Render then G.Render() end
 end
+-- A quest brought back here or elsewhere (the guide window's quest line, its
+-- banner's Undo): a skip redraws through its undo banner, an unskip has
+-- nothing else to.
+ns.On("PLAYER_UNSKIPPED_QUEST", function() if SL.On() then SL.Refresh() end end)
 
 -- An accent "Unskip" link on card r, as wide as its word; onClick(self).
 local function unskipLink(r, onClick)
@@ -272,9 +276,9 @@ local function line(r, j)
 	-- A skipped quest's way back, at the line's right end (Engine.SkipQuest).
 	g.Unskip = unskipLink(r, function(self)
 		local E = ns.Engine
+		-- A quest's unskip redraws the list through PLAYER_UNSKIPPED_QUEST.
 		if self.psQuest and E and E.SkipQuest then E.SkipQuest(self.psQuest, false)
-		elseif self.psStep and E and E.Unskip then E.Unskip(self.psStep) end
-		SL.Refresh()
+		elseif self.psStep and E and E.Unskip then E.Unskip(self.psStep); SL.Refresh() end
 	end)
 	g.Unskip.psTip = L["Bring it back"]
 	r.G[j] = g
@@ -342,10 +346,15 @@ local function fillRow(r, v, i, live, at)
 	-- tooltip is; "Step N" only when it has none.
 	local plain = r.psSummary ~= "" and UI.PlainGoalText({ text = r.psSummary }) or nil
 	local title = (v.title and v.title ~= "") and v.title or plain or string.format(L["Step %d"], no)
-	r.Tab:SetText(no .. " \194\183 " .. title)
+	-- The group mark (UI.StepMark, #3580) after the number, so a long title's
+	-- cut never takes it; its reason leads the card's tooltip.
+	local guide = E.GetGuide and E.GetGuide()
+	local mark, reason = UI.StepMark(v, guide and guide.steps and guide.steps[i])
+	r.Tab:SetText(no .. " \194\183 " .. (mark and (UI.StepMarkGlyph(mark) .. " ") or "") .. title)
 	W.Color(r.Tab, gone and "textMuted" or (i == live and "accent" or "textMuted"))
 	r.Live:SetShown(i == live and not one)
 	local why = {}
+	if mark then why[1] = { UI.StepMarkGlyph(mark) .. " " .. reason, Theme.TipColor(mark == "group" and "warning" or "textDim") } end
 	r.psWhy = why
 	r.Unskip:SetShown(false)
 	r.Unskip.psTip = L["Bring it back"]

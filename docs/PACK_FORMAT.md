@@ -730,9 +730,11 @@ The fields:
 | `candidates` | smart targets: `{ { npc, npcName, map, x, y, z, f, faction, races, classes, lvl, rate, spawns } }` (`z` optional, see `z`); Polestar picks the nearest usable one at runtime |
 | `rewards` | `{ choices = { { item, itemName, quality } }, items = { ... }, xp, money }` (money in copper) |
 | `direct` | `true` on a `turnin`: the quest is handed in straight from the giver's window and never enters the quest log, so the goal needs no `accept` before it and carries no objectives. Polestar counts it done on the hand-in itself and stores that, so a repeatable stays done after a reload |
+| `repeatable` | `true` on a `turnin` (not `direct`) of a repeatable quest, which the game never marks completed: Polestar stores the hand-in, one per goal, so the step stays done after a reload, and the accept and work of the same round before it with it. Older Polestar ignores it |
 | `gossip` | On a `talk`, `vendor` or `train`: the `gossipOptionID` Polestar picks at that NPC on the live step |
 | `seconds` | A `wait` goal's countdown, 1 to 3600 |
 | `escort` | `true` on the accept, `complete` and objective goals of an escort quest: the guide window says under the goal that the NPC may have to respawn (GUIDE_FORMAT.md, "Escort quests"). Older Polestar ignores it |
+| `escortSecs`, `escortFail` | on an escort's `accept`: the median seconds players' completed runs of it took and the share of their runs that failed (`data/recorded/escorts.json`), for the escort's Do it / Skip question (GUIDE_FORMAT.md, "Escort quests"). Older Polestar ignores them |
 | `objs` | on a `complete`: its quest's objectives from the quest data, `{ { text, count } }`, which the guide window shows while the quest is not in the log (looked at ahead); in the log it shows the game's own lines. Older Polestar ignores it |
 | `startItem`, `startItemName` | on a `complete`: the item its quest hands over when taken (Tharnariun's Hope for Plagued Lands), id and name; while it is in the bags and usable the guide window starts the goal with "Use <item>:". Older Polestar ignores them |
 | `carriedTo` | on a `complete` or objective goal (`kill`, `collect`, `interact`, `use`, `talk` with `quest`): the id of the later guide of the chain that hands its quest in, this guide not (GUIDE_FORMAT.md, "Quests carried to a later guide"). The guide window says to keep the quest, the guide-end window lists it while it is still in the log, and "Clean up quest log" never calls it unneeded. Older Polestar ignores it |
@@ -781,7 +783,11 @@ detour) and writes them beside the guides as `legs.json`: `{ "schema": 1,
 legs while its leg ends still hash as when they were baked (a changed guide
 warns and goes without) and writes them into `Legs.lua` of the race parts
 that guide is for: its own race part's races (a class chain), else the races
-its `race` header names, else every race of its faction. One call per grid:
+its `race` header names, else every race of its faction. A leveling guide
+both factions share (no `faction` header) is walked once per faction, each
+without the steps and goals `only` the other faction, and kept as `{ "sides":
+{ "Horde": { "hash", "steps" }, "Alliance": { ... } } }`; each side goes into
+its faction's races' `Legs.lua` under the guide's id. One call per grid:
 
 ```lua
 Polestar.RegisterLegs("joe-routes", "grid 1.60.1.70450, leffe 6e0f5f2529c5", {

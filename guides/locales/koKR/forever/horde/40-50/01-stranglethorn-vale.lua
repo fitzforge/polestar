@@ -11,8 +11,6 @@ return {
 	["Fly to the {area:1497}"] = "{area:1497}(으)로 비행",
 	-- {area:1497} Undercity · {area:340} Kargath · {object:3202} Grom'gol
 	["Your level 40 training is in the {area:1497}: fly there from {area:340}, train, and take the zeppelin from the towers outside the city to {object:3202}."] = "40레벨 훈련은 {area:1497}에서 합니다. {area:340}에서 그곳으로 날아가 훈련한 뒤, 도시 밖 탑에서 비행선을 타고 {object:3202}(으)로 가십시오.",
-	-- {area:340} Kargath
-	["{area:340} flight master"] = "{area:340} 비행 조련사",
 
 	-- Step 2: Genavie Callow
 	-- {npc:4486} Genavie Callow · {zone:1417} Arathi Highlands
@@ -40,6 +38,8 @@ return {
 	-- Step 6: Fly to Grom'gol
 	-- {object:3202} Grom'gol
 	["Fly to {object:3202}"] = "{object:3202}(으)로 날아가기",
+	-- {area:340} Kargath
+	["{area:340} flight master"] = "{area:340} 비행 조련사",
 
 	-- Step 7: Grom'gol Base Camp
 	-- {npc:2519} Kin'weelay · {npc:1061} Gan'zulah
@@ -87,7 +87,7 @@ return {
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs, has his next errand now: the Skullsplitter tusks come from the trolls of Zul'Mamwe, later on this loop."] = "위층의 {npc:737}이(가) 이제 다음 심부름을 줍니다. 백골가루부족 엄니는 이 경로 후반에 줄맘웨의 트롤에게서 얻습니다.",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}, 위층",
 
 	-- Step 15: Booty Bay
 	-- {npc:4631} Wharfmaster Lozgil
@@ -99,7 +99,7 @@ return {
 	["{npc:2496}, on the balcony beside MacKinley"] = "{npc:2496}, 맥킨리 옆 발코니",
 	-- {npc:2496} Baron Revilgaz · {area:37} Lake Nazferiti
 	["{npc:2496}: Cozzle's footlocker is in his house by {area:37}, on your way north to Nesingwary"] = "",
-	["Inside"] = "",
+	["Inside"] = "내부",
 
 	-- Step 16: Bloodsail Correspondence
 	-- {area:35} Booty Bay
@@ -203,19 +203,19 @@ return {
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {npc:4752} Kildar · {object:172958} Valley of Honor · {npc:3362} Ogunaro Wolfrunner · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454}: {npc:4752} teaches Orcs in the {object:172958}, by {npc:3362}'s kennel (wolves 20 gold each). Then the zeppelin back to {object:3202}. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "탈것 타기는 40레벨이 필요하고 100골드가 듭니다. 배우면 탈것을 얻으며, 가시덤불 골짜기 다음의 {zone:2548}은(는) 탈것 없이는 먼 길입니다. {object:3202} 탑에서 비행선을 타고 {zone:1454}(으)로 가세요. {npc:4752}이(가) {object:172958}의 {npc:3362} 늑대 우리 옆에서 오크에게 가르칩니다(늑대 각 20골드). 그 후 비행선을 타고 {object:3202}(으)로 돌아오세요. 골드가 부족하면 이 단계를 건너뛰세요. {zone:1444} 가이드에서 약 45레벨에 {zone:1454}을(를) 다시 지납니다.",
 	-- {npc:4752} Kildar
-	["{npc:4752}, riding trainer"] = "",
+	["{npc:4752}, riding trainer"] = "{npc:4752}, 탈것 상급자",
 
 	-- Step 40: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1411} Durotar · {area:367} Sen'jin Village · {npc:7953} Xar'Ti · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454} and go south down the {zone:1411} road to {area:367}: {npc:7953} teaches Trolls there, with Zjolnir's raptors (20 gold each). Then back to the zeppelin for {object:3202}. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1454} again at about 45."] = "탈것 타기는 40레벨이 필요하고 100골드가 듭니다. 배우면 탈것을 얻으며, 가시덤불 골짜기 다음의 {zone:2548}은(는) 탈것 없이는 먼 길입니다. {object:3202} 탑에서 비행선을 타고 {zone:1454}(으)로 간 뒤 {zone:1411} 길을 따라 남쪽 {area:367}(으)로 가세요. {npc:7953}이(가) 그곳에서 트롤에게 가르치며, 즐니르의 랩터(각 20골드)도 있습니다. 그 후 비행선으로 돌아가 {object:3202}(으)로 가세요. 골드가 부족하면 이 단계를 건너뛰세요. {zone:1444} 가이드에서 약 45레벨에 {zone:1454}을(를) 다시 지납니다.",
 	-- {npc:7953} Xar'Ti
-	["{npc:7953}, riding trainer"] = "",
+	["{npc:7953}, riding trainer"] = "{npc:7953}, 탈것 상급자",
 
 	-- Step 41: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {area:222} Bloodhoof Village · {npc:3690} Kar Stormsinger · {npc:3685} Harb Clawhoof · {zone:1444} Feralas
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the {zone:2548} after Stranglethorn are a long walk without one. Take the zeppelin from {object:3202}'s tower to {zone:1454}, fly to {zone:1456} and ride down to {area:222}: {npc:3690} teaches Tauren there, with {npc:3685}'s kodos (20 gold each). Then fly back to {zone:1454} for the {object:3202} zeppelin. Short of gold? Skip this step: the {zone:1444} guide passes {zone:1456} again at about 45."] = "탈것 타기는 40레벨이 필요하고 100골드가 듭니다. 배우면 탈것을 얻으며, 가시덤불 골짜기 다음의 {zone:2548}은(는) 탈것 없이는 먼 길입니다. {object:3202} 탑에서 비행선을 타고 {zone:1454}(으)로 가서, {zone:1456}(으)로 날아간 뒤 {area:222}(으)로 내려가세요. {npc:3690}이(가) 그곳에서 타우렌에게 가르치며, {npc:3685}의 코도(각 20골드)도 있습니다. 그 후 {zone:1454}(으)로 날아가 {object:3202}행 비행선을 타세요. 골드가 부족하면 이 단계를 건너뛰세요. {zone:1444} 가이드에서 약 45레벨에 {zone:1456}을(를) 다시 지납니다.",
 	-- {npc:3690} Kar Stormsinger
-	["{npc:3690}, riding trainer"] = "",
+	["{npc:3690}, riding trainer"] = "{npc:3690}, 탈것 상급자",
 
 	-- Step 42: Riding at 40
 	-- {zone:2548} Riverglades · {object:3202} Grom'gol · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {zone:1444} Feralas
@@ -294,7 +294,7 @@ return {
 	-- {object:3202} Grom'gol
 	["Fly back to {object:3202}: Zul'Mamwe's Skullsplitters are just east of it."] = "{object:3202}(으)로 다시 비행하세요. 줄맘웨의 해골망치부족은 바로 동쪽에 있습니다.",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "{area:35} 비행 조련사",
 
 	-- Step 52: Zul'Mamwe
 	["Zul'Mamwe"] = "줄맘웨",
@@ -340,9 +340,9 @@ return {
 	-- {area:75} Stonard
 	["Head east to {area:75}, in the reeds south of the road."] = "동쪽으로 길 남쪽 갈대밭의 {area:75}(으)로 가세요.",
 	-- {npc:5591} Dar
-	["{npc:5591}, inside"] = "",
+	["{npc:5591}, inside"] = "{npc:5591}, 내부",
 	-- {npc:1442} Helgrum the Swift
-	["{npc:1442}, upstairs"] = "",
+	["{npc:1442}, upstairs"] = "{npc:1442}, 위층",
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "",
 
@@ -439,6 +439,7 @@ return {
 	-- ["for a later stop in the {area:8}"] = "나중에 {area:8}에 들를 때",
 	-- ["the {object:2076}"] = "{object:2076}",
 	-- ["the {object:2076}, beside {npc:2497}"] = "{npc:2497} 옆의 {object:2076}",
+	-- ["{area:127}: kill these as you meet them"] = "{area:127}: 만나는 대로 처치하세요",
 	-- ["{area:1497} trainers"] = "{area:1497} 상급자",
 	-- ["{area:392} pier"] = "{area:392} 부두",
 	-- ["{npc:2486}: {quest:348} (offered from 40), Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}: {quest:348}(40레벨부터 수락 가능), 운바과 부분은 {zone:1444} 가이드의 {object:3202} 방문 때",
