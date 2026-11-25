@@ -2437,6 +2437,8 @@ L["Then any of: %s"] = "Luego cualquiera de: %s"
 -- L["Clear all filters"] = ""
 -- L["Update the Codex to filter items."] = ""
 -- L["Sort by"] = ""
+-- L["Polestar's Lookup opens when combat ends."] = ""
+-- L["Polestar's Lookup could not be loaded (%s): is the Polestar_Lookup folder installed and enabled?"] = ""
 
 -- UI/Options.lua
 L["A setting under it is changed: turn it on to see it."] = "Hay un ajuste cambiado debajo: actívalo para verlo."

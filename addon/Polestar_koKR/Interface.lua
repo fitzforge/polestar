@@ -2646,6 +2646,8 @@ L["Then any of: %s"] = "그다음 다음 중 하나: %s"
 -- L["Clear all filters"] = ""
 -- L["Update the Codex to filter items."] = ""
 -- L["Sort by"] = ""
+-- L["Polestar's Lookup opens when combat ends."] = ""
+-- L["Polestar's Lookup could not be loaded (%s): is the Polestar_Lookup folder installed and enabled?"] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "제출 가능"
