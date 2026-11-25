@@ -11,7 +11,9 @@
 -- name, "Learn <spell>" / "Earn <item>", a badge for what it brings (a new
 -- ability, pet, mount, weapon or armour), the trip (the zones the chain's
 -- remaining steps go through and how many steps) and "Only you see this ...
--- Part of your route: just follow the guide." The step's accept folds into
+-- Part of your route: just follow the guide." The ring and the reward line
+-- show the game's own tooltip of the spell or item that line names, beside
+-- the guide window, and Shift-click links it. The step's accept folds into
 -- the card with its tick box. Once that accept is done, the card shrinks to
 -- one slim line in the class colour ("Mage quest taken: hand it in to
 -- Marryk Nurribit"), so the step's person keeps the focus; it goes once the
@@ -408,11 +410,58 @@ function CC.BadgeText(reward)
 	return reward and BADGE[reward.kind] or nil
 end
 
+-- What the reward's tooltip shows: what its line names (CC.RewardLine), the
+-- spell a totem quest teaches rather than the totem; a choice's first item,
+-- the ring's icon. -> "spell" | "item", id | nil
+function CC.TipOf(reward)
+	if not reward then return nil end
+	if reward.spell and (reward.show == "spell" or reward.kind == "ability") then return "spell", reward.spell end
+	if reward.items and reward.items[1] then return "item", reward.items[1] end
+	if reward.spell then return "spell", reward.spell end
+	return nil
+end
+
 ---------------------------------------------------------------------------
 -- The frame
 ---------------------------------------------------------------------------
 
 local paint -- below
+
+-- The game's tooltip of the reward card c shows (c.psReward; a sandbox card
+-- has none), over `hit`: beside the guide window, never over the card's
+-- lines, as the class heads-up places its spell icons' (CT.PlaceTip).
+-- In the guide window it keeps the window's hover look (GF.HoverIn), as
+-- every part that takes the pointer does.
+local function rewardHit(c)
+	local b = CreateFrame("Button", nil, c)
+	b:Hide()
+	b:SetScript("OnEnter", function(self)
+		local G, CT = GF(), UI.ClassToast
+		if c == CC.frame and G and G.HoverIn then G.HoverIn() end
+		local kind, id = CC.TipOf(c.psReward)
+		if not kind then return end
+		local by = (G and G.frame) or c
+		local place = function(tip)
+			if CT and CT.PlaceTip then CT.PlaceTip(tip, by) else tip:SetPoint("TOPLEFT", by, "TOPRIGHT", 4, 0) end
+		end
+		if kind == "item" then W.ItemTip(self, id, nil, place) else W.SpellTip(self, id, nil, place) end
+	end)
+	b:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
+	b:SetScript("OnClick", function()
+		local kind, id = CC.TipOf(c.psReward)
+		if kind == "item" then W.ItemClick(id) elseif kind == "spell" then W.SpellClick(id) end
+	end)
+	return b
+end
+
+-- Drop the reward's tooltip of card c when the card under a still cursor
+-- hides, folds to its slim line or changes reward: OnLeave never runs then.
+local function dropTip(c)
+	if c and c.RingHit then
+		W.HideTooltip(c.RingHit)
+		W.HideTooltip(c.LearnHit)
+	end
+end
 
 -- The card's parts, drawn into `parent`: the guide window's card (build) or
 -- a sandbox one for the options' preview (CC.NewCard).
@@ -452,6 +501,11 @@ local function newCard(parent)
 	F.Title:SetWordWrap(true)
 	F.Learn = text(F, "label", "text")
 	F.Learn:SetWordWrap(true)
+	-- The reward under the cursor: the ring and the reward line.
+	F.RingHit = rewardHit(F)
+	F.RingHit:SetAllPoints(F.Ring)
+	F.LearnHit = rewardHit(F)
+	F:HookScript("OnHide", function() dropTip(F) end)
 	F.Trip = text(F, "small", "textDim")
 	F.Trip:SetWordWrap(true)
 	F.Only = text(F, "small", "textDim")
@@ -562,7 +616,7 @@ function CC.Fill(guide, index, view)
 	if mode() == "off" then gi = nil end
 	if gi and chainBefore(guide, index, chainOf(step.goals[gi].quest), p) then gi = nil end
 	if not gi then
-		if F then F:Hide() end
+		if F then dropTip(F); F:Hide() end
 		return nil
 	end
 	if not build() then return nil end
@@ -602,6 +656,11 @@ function CC.Fill(guide, index, view)
 	if slim and F.psBorder then for i = 1, 4 do F.psBorder[i]:Hide() end end
 	for _, part in ipairs({ F.Ring, F.Disc, F.Icon, F.Head, F.Title }) do part:SetShown(not slim) end
 	if slim then F.Learn:Hide(); F.Badge:Hide() end
+	local tips = not slim and CC.TipOf(reward) ~= nil
+	if not tips or reward ~= F.psReward then dropTip(F) end
+	F.psReward = reward
+	F.RingHit:SetShown(tips)
+	F.LearnHit:SetShown(tips and learn ~= nil)
 	F.Trip:SetShown(not (F.psCompact or slim))
 	-- Not in another faction's guide (#2462): its banner says Polestar won't guide it, so no "just follow the guide".
 	F.psOther = ns.Guides.OtherFaction ~= nil and ns.Guides.OtherFaction(guide, p) ~= nil
@@ -738,6 +797,10 @@ function CC.Layout(width, c)
 		y = y + 4
 		F.Learn:ClearAllPoints()
 		F.Learn:SetPoint("TOPLEFT", F, "TOPLEFT", x, -y)
+		-- Its hover area: the words, not the empty room after them.
+		F.LearnHit:ClearAllPoints()
+		F.LearnHit:SetPoint("TOPLEFT", F.Learn, "TOPLEFT", 0, 0)
+		F.LearnHit:SetSize(math.min(tw, W.TextWidth(F.Learn)), F.Learn:GetStringHeight())
 		y = y + F.Learn:GetStringHeight()
 	end
 	if F.Accept:IsShown() then

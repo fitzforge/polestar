@@ -353,6 +353,49 @@ fn issue_1603_a_measured_road_walk_never_beats_a_faster_flight_and_a_near_tie_wa
 	assert_eq!(out["slope"], json!(["fly|59", "walk|4"]));
 }
 
+// #3482 (Buzzbox 827 in Auberdine, 20 yd off on the pier no walk reaches): with no walk from the player to the target
+// (the engine found none: noDirect), the player's straight walk was left out and a detour ending in a walk nobody
+// measured won: by the flight master and a flight, its last walk priced straight from the landing. An unmeasured walk
+// into the target now costs at least the player's own straight walk (x1.25), which is offered at that price: a goal
+// 20 yd off is walked to; a far one is flown to only where the landing's walk into it was measured.
+#[test]
+fn with_no_walk_from_the_player_an_unmeasured_last_walk_never_beats_walking_straight_at_the_target_3482() {
+	let out = run(r#"
+		local function plan(from, to, landing)
+			local legs = N.PlanRoute({ c = 0, wx = 0, wy = from, faction = 1, level = nav.level, known = { [1] = true, [2] = true }, speed = 7,
+				target = { c = 0, wx = 0, wy = to, label = "Buzzbox" }, noDirect = true,
+				walkCost = function(_, x, y, start)
+					if start then return false end
+					if landing and x == 0 and y == -800 then return landing, landing end
+				end })
+			local out = {}
+			for _, l in ipairs(legs or {}) do out[#out + 1] = l.kind end
+			return table.concat(out, " ")
+		end
+		emit({ near = plan(600, 580), farMeasured = plan(700, -780, 20), farUnmeasured = plan(700, -780) })"#);
+	assert_eq!(out["near"], "walk", "20 yd off: walked to, no detour");
+	assert_eq!(out["farMeasured"], "walk fly walk", "a flight whose landing's walk in was measured still wins");
+	assert_eq!(out["farUnmeasured"], "walk", "an unmeasured last walk never wins over walking at it");
+}
+
+// #2812: the search kept one arrival per place, and an arrival on foot may not walk on where the walk into it went
+// (#1694). From a cliff top whose walk down the walking maps measure the long way round (5,000 yd), East Hold's flight
+// master 150 yd off was reached on foot first, so a flight landing there later, which may walk on, was dropped as
+// dearer: "teleport, fly, walk" was never found and the plan walked from the teleport's landing instead. Each place
+// now keeps its arrivals by what they may do next.
+#[test]
+fn a_flight_master_first_reached_on_foot_still_takes_a_flight_s_landing_that_walks_on_2812() {
+	let out = run(r#"
+		local legs = N.PlanRoute({ c = 0, wx = 0, wy = -650, faction = 1, level = nav.level, known = { [1] = true, [2] = true }, speed = 7,
+			target = { c = 0, wx = 0, wy = -1000, label = "Camp" },
+			teleports = { { spell = 3561, name = "Teleport: West Hold", to = { c = 0, wx = 0, wy = 780 }, cast = 10, ready = 0 } },
+			walkCost = function(_, _, _, start) if start then return 5000, 5000 end end })
+		local out = {}
+		for _, l in ipairs(legs or {}) do out[#out + 1] = l.kind end
+		emit({ route = table.concat(out, " ") })"#);
+	assert_eq!(out["route"], "teleport walk fly walk");
+}
+
 #[test]
 fn never_flies_through_a_node_the_character_does_not_know_or_cannot_use() {
 	let out = run(r#"
@@ -1196,6 +1239,53 @@ fn a_boat_end_with_a_board_point_the_walk_ends_on_the_deck_and_arriving_there_bo
 	assert_eq!(out["atDeck"], json!([2, "boat|Take the boat to Testshire Docks"]), "at the deck: the ride");
 	assert_eq!(out["sailing"], json!([2, "boat|Take the boat to Testshire Docks"]), "boarded at the deck: sailing away is the ride, no new plan");
 	assert_eq!(out["landed"], json!(["walk|Docks quest"]));
+}
+
+// #3538: a boat, zeppelin or airship is ridden like a flight. Boarded at the deck, the leg reads "Take the boat to
+// X" with the departure; once the ship is under way (off the deck, carried or past LEAVE) it reads "Riding the boat to
+// X", the arrow aims at the far dock (not back at the one left), and the time left is the ride's own (60 s here) from
+// there, its wait over. Walking about the deck before it leaves changes nothing.
+#[test]
+fn under_way_the_ride_says_where_it_goes_aims_at_the_far_dock_and_counts_the_ride_down_3538() {
+	let out = run(r#"
+		N.RegisterTravelData({ build = "test", taxi = {}, flights = {}, inns = {},
+			transports = { { id = "boat-test", kind = "boat", faction = 3, ab = 60, ba = 60, waitA = 30, waitB = 30,
+				a = { "Testshire Docks", 0, -900, 0, 9000, 50, 95, "e", nil, { wx = -900, wy = 70, z = 5.9 } },
+				b = { "Farland Pier", 1, 400, 0, 9001, 50, 10, "e", nil, { wx = 400, wy = 70, z = 4.5 } } } } }, true)
+		local T = N.travel
+		local r = {}
+		nav.place(0, 0, 1)
+		target(-800, 100, "Docks quest")
+		stub.advance(0.2)
+		local function now()
+			local mode, c, x, y = T.Aim(Polestar.Compat.GetPlayerWorldPosition())
+			local legs, ci = N.GetRoute()
+			return { ci, T.CurrentLabel(), mode, c, x, y, math.floor(T.Remaining() + 0.5) - legs[#legs].seconds }
+		end
+		nav.place(400, 70, 1)                            -- on the deck
+		stub.advance(0.2)
+		r.deck = now()
+		nav.place(390, 100, 1)                           -- walking about the deck, 30 yd off: not under way
+		stub.advance(0.2)
+		r.about = now()
+		nav.place(250, 70, 1)                            -- under way: 150 yd out
+		stub.advance(1.2)
+		r.underway = now()
+		nav.place(-500, 70)                              -- the other continent, nearing Testshire
+		stub.fire("ZONE_CHANGED_NEW_AREA")
+		stub.advance(1.2)
+		r.nearing = now()
+		emit(r)"#);
+	let label = |v: &Value| v[1].as_str().unwrap().split('\n').next().unwrap().to_string();
+	assert_eq!(out["deck"][0], 2);
+	assert_eq!(label(&out["deck"]), "Take the boat to Testshire Docks", "at the deck: take the boat");
+	assert_eq!(json!([out["deck"][3], out["deck"][4], out["deck"][5]]), json!([1, 400, 70]), "the arrow at the deck boarded");
+	assert_eq!(label(&out["about"]), "Take the boat to Testshire Docks", "about the deck: still waiting");
+	assert_eq!(out["underway"][1], "Riding the boat to Testshire Docks");
+	assert_eq!(json!([out["underway"][2], out["underway"][3], out["underway"][4], out["underway"][5]]), json!(["instruction", 0, -900, 70]), "the arrow at the far dock");
+	let left = out["underway"][6].as_i64().unwrap();
+	assert!((58..=60).contains(&left), "the ride's own 60 s from here, its wait over: {left}");
+	assert_eq!(out["nearing"][1], "Riding the boat to Testshire Docks", "still the ride across the loading screen");
 }
 
 // Igotthis rode the Deeprun Tram toward Duskwood and the arrow vanished: the tram is a map of its own (Map 369,

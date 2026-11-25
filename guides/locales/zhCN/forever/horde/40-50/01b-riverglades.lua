@@ -195,7 +195,8 @@ return {
 
 	-- Step 44: Clubtoe
 	-- {area:16723} Sunnyglade · {npc:260931} Clubtoe · {npc:256710} Tran'gul
-	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "再次向西前往{area:16723}：想要脱身的暮光矿工{npc:260931}在镇子东缘等着。说服他，然后交还{npc:256710}的任务；一名失踪的食人魔就在西边几步远处。",
+	-- was: ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "再次向西前往{area:16723}：想要脱身的暮光矿工{npc:260931}在镇子东缘等着。说服他，然后交还{npc:256710}的任务；一名失踪的食人魔就在西边几步远处。"
+	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits inside the cave under the town's eastern edge, a floor below the street. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "再次向西前往{area:16723}：想脱身的暮光矿工{npc:260931}在镇子东边下方的洞穴里等候，比街道低一层。说服他，然后交还{npc:256710}的任务；一个失踪的食人魔就在西边几步远。",
 	-- {npc:260931} Clubtoe
 	["talk {npc:260931} round"] = "说服{npc:260931}",
 	-- {npc:261208} Twilight Brute
@@ -384,13 +385,13 @@ return {
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
 	-- was: ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "再次前往海盗的悬崖。从南到北在营地下方停泊的三艘船上安放威兹巴兹的炸药；{quest:95124}站在中间那艘船旁，身边有她的战利品箱。路上留意{npc:259758}。\n小心：{quest:95124}为45级，比你高一两级：先清理她周围的甲板，满血再上。"
 	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "",
-	["on board, at the arrow"] = "",
+	["on board, at the arrow"] = "在船上，箭头处",
 	-- {item:268505} Remote Explosive Charge
-	["Plant a {item:268505} on the southern ship"] = "",
+	["Plant a {item:268505} on the southern ship"] = "在南边的船上安放{item:268505}",
 	-- {item:268505} Remote Explosive Charge
-	["Plant a {item:268505} on the middle ship"] = "",
+	["Plant a {item:268505} on the middle ship"] = "在中间的船上安放{item:268505}",
 	-- {item:268505} Remote Explosive Charge
-	["Plant a {item:268505} on the northern ship"] = "",
+	["Plant a {item:268505} on the northern ship"] = "在北边的船上安放{item:268505}",
 
 	-- Step 82: Rotflesh Mushrooms
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom
@@ -411,9 +412,9 @@ return {
 
 	-- Step 85: The Monster Surfaces
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
-	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "",
+	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "你召唤时{npc:260244}会浮上来：右键点击箭头处漂在水里的东西，在港口西南的浅水区，它就会在那里浮出水面。精英{npc:257001}在附近的岸边走动：离他远点。",
 	-- {item:268633} Sea Monster's Head
-	["{item:268633}, where the Threshadon surfaces when you call him"] = "",
+	["{item:268633}, where the Threshadon surfaces when you call him"] = "{item:268633}，在你召唤时脱颚龙浮出水面的地方",
 
 	-- Step 87: The river: Riverweed
 	-- {item:265806} Riverweed
@@ -496,6 +497,7 @@ return {
 	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}：嗅嗅鼻和{npc:257059}",
 	-- ["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548}位于{area:3}以南。从{area:657}向东骑到{area:75}，再飞往{area:340}：进入该地区的下山路就从那里开始。",
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "罗格玛西边，暮光教派占据着农镇{area:16723}。想要脱身的狗头人{npc:259158}躲在镇子中央。",
+	-- ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "再次向西前往{area:16723}：想要脱身的暮光矿工{npc:260931}在镇子东缘等着。说服他，然后交还{npc:256710}的任务；一名失踪的食人魔就在西边几步远处。",
 	-- ["the middle ship"] = "中间的船",
 	-- ["the northern ship"] = "北边的船",
 	-- ["the {object:707249} poster"] = "{object:707249}通缉令",

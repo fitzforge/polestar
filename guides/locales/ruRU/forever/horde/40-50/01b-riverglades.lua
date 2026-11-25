@@ -195,7 +195,8 @@ return {
 
 	-- Step 44: Clubtoe
 	-- {area:16723} Sunnyglade · {npc:260931} Clubtoe · {npc:256710} Tran'gul
-	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Снова на запад: {area:16723}. {npc:260931}, сумеречный рудокоп, который хочет уйти, ждет на восточной окраине городка. Переубедите его, затем сдайте задание ({npc:256710}); один из пропавших огров стоит в нескольких шагах к западу.",
+	-- was: ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Снова на запад: {area:16723}. {npc:260931}, сумеречный рудокоп, который хочет уйти, ждет на восточной окраине городка. Переубедите его, затем сдайте задание ({npc:256710}); один из пропавших огров стоит в нескольких шагах к западу."
+	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits inside the cave under the town's eastern edge, a floor below the street. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Снова на запад: {area:16723}. {npc:260931}, сумеречный рудокоп, который хочет уйти, ждет в пещере под восточной окраиной городка, этажом ниже улицы. Переубедите его, затем сдайте задание ({npc:256710}); один из пропавших огров стоит в нескольких шагах к западу.",
 	-- {npc:260931} Clubtoe
 	["talk {npc:260931} round"] = "переубедить: {npc:260931}",
 	-- {npc:261208} Twilight Brute
@@ -384,13 +385,13 @@ return {
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
 	-- was: ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "Еще раз к пиратским утесам. Заложите заряды Вжиквжика на три корабля, стоящих под лагерем, с юга на север; {quest:95124} стоит у среднего, рядом с сундуком с добычей. По пути остерегайтесь: {npc:259758}.\nОсторожно: {quest:95124} — 45-го уровня, на уровень-два выше вас: сначала зачистите палубу вокруг нее и вступайте в бой с полным здоровьем."
 	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "",
-	["on board, at the arrow"] = "",
+	["on board, at the arrow"] = "на борту, у стрелки",
 	-- {item:268505} Remote Explosive Charge
-	["Plant a {item:268505} on the southern ship"] = "",
+	["Plant a {item:268505} on the southern ship"] = "Установите {item:268505} на южном корабле",
 	-- {item:268505} Remote Explosive Charge
-	["Plant a {item:268505} on the middle ship"] = "",
+	["Plant a {item:268505} on the middle ship"] = "Установите {item:268505} на среднем корабле",
 	-- {item:268505} Remote Explosive Charge
-	["Plant a {item:268505} on the northern ship"] = "",
+	["Plant a {item:268505} on the northern ship"] = "Установите {item:268505} на северном корабле",
 
 	-- Step 82: Rotflesh Mushrooms
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom
@@ -411,9 +412,9 @@ return {
 
 	-- Step 85: The Monster Surfaces
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
-	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "",
+	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244} поднимается, когда вы его зовете: щелкните правой кнопкой по предмету, плавающему в воде у стрелки, на мелководье к юго-западу от порта, и он всплывет там. {npc:257001}, элита, ходит по берегу рядом: держитесь от него подальше.",
 	-- {item:268633} Sea Monster's Head
-	["{item:268633}, where the Threshadon surfaces when you call him"] = "",
+	["{item:268633}, where the Threshadon surfaces when you call him"] = "{item:268633}, там, где всплывает трешадон, когда вы его зовете",
 
 	-- Step 87: The river: Riverweed
 	-- {item:265806} Riverweed
@@ -496,6 +497,7 @@ return {
 	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: Нюхорыл и {npc:257059}",
 	-- ["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548} лежат к югу от зоны {area:3}. Езжайте на восток от места {area:657} к месту {area:75} и летите сюда: {area:340}. Оттуда начинается спуск в зону.",
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "К западу от Рог'мара культ Сумеречного Молота захватил фермерский городок {area:16723}. {npc:259158}, кобольд, который хочет уйти, прячется в центре городка.",
+	-- ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Снова на запад: {area:16723}. {npc:260931}, сумеречный рудокоп, который хочет уйти, ждет на восточной окраине городка. Переубедите его, затем сдайте задание ({npc:256710}); один из пропавших огров стоит в нескольких шагах к западу.",
 	-- ["the middle ship"] = "средний корабль",
 	-- ["the northern ship"] = "северный корабль",
 	-- ["the {object:707249} poster"] = "Плакат: {object:707249}",

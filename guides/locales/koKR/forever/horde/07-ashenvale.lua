@@ -11,7 +11,6 @@ return {
 	["Fly to {area:2897}"] = "{area:2897}(으)로 날아가기",
 	-- {area:2897} Zoram'gar Outpost · {area:378} Camp Taurajo
 	["East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to {area:2897}. If your hearthstone is ready, hearth to {area:378} and fly from there instead."] = "세레스의 야영지에서 길을 따라 동쪽 크로스로드의 와이번 조련사로 가서 {area:2897}(으)로 비행하세요. 귀환석을 사용할 수 있다면 {area:378}(으)로 귀환한 뒤 그곳에서 비행하세요.",
-	["Crossroads flight master"] = "크로스로드 비행 조련사",
 
 	-- Step 2: Zoram'gar Outpost
 	-- {npc:12736} Je'neu Sancrea · {npc:12757} Karang Amakkar · {npc:12721} Mitsuwa
@@ -45,12 +44,12 @@ return {
 	-- Step 8: Thistlefur Hold
 	["Thistlefur Hold"] = "엉겅퀴일족 소굴",
 	-- plural, as words: Troll Chests = {object:178144} Troll Chest
-	["Inside the hold, Troll Chests lie along the tunnels."] = "",
+	["Inside the hold, Troll Chests lie along the tunnels."] = "소굴 안 터널을 따라 트롤 상자({object:178144})가 놓여 있습니다.",
 	["Below ground"] = "지하",
 
 	-- Step 9: Ruul Snowhoof
 	-- {npc:12818} Ruul Snowhoof · {area:428} Night Run · {npc:3987} Dal Bloodclaw
-	["{npc:12818} is held deep inside Thistlefur Hold: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "",
+	["{npc:12818} is held deep inside Thistlefur Hold: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "{npc:12818}은(는) 엉겅퀴일족 소굴 깊숙이 붙잡혀 있습니다: 풀어 주고 밖으로 나갈 때까지 지키면 그는 {area:428}의 집으로 달려갑니다.\n주의: 정해진 매복이 두 번 있으며, 매번 엉겅퀴일족 셋(주술사, 길잡이, 그리고 복수자, 우르사 또는 소굴 감시자)입니다: 첫 번째는 동굴 안 터널 갈림길로 돌아올 때, 두 번째는 {npc:3987}이(가) 돌아다니는 문 바로 너머입니다.",
 	-- {npc:12818} Ruul Snowhoof
 	["{npc:12818}, below ground"] = "{npc:12818}, 지하",
 
@@ -225,7 +224,7 @@ return {
 
 	-- Step 55: Zangen Stonehoof
 	-- {npc:4721} Zangen Stonehoof · {quest:1195} The Sacred Flame · {npc:2995} Tal
-	["The phial is already with {npc:4721}: take {quest:1195} from him, a short walk east of {npc:2995}."] = "",
+	["The phial is already with {npc:4721}: take {quest:1195} from him, a short walk east of {npc:2995}."] = "약병은 이미 {npc:4721}에게 있습니다: {npc:2995}에서 동쪽으로 조금 걸어가 그에게 {quest:1195}을(를) 받으십시오.",
 
 	-- Step 56: Tah Winterhoof
 	-- {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof · {npc:2995} Tal
@@ -340,25 +339,25 @@ return {
 
 	-- Step 74: Lakota Windsong
 	-- {area:485} Great Lift · {area:2097} Darkcloud Pinnacle · {npc:10896} Arnak Grimtotem
-	["{area:485} detour warning: the arrow may miss the path up {area:2097}. If you are on the canyon floor, follow the path and rope bridges up {area:2097}. {npc:10896} (29) stands among his guards there: clear the guards, then {npc:10896}."] = "",
+	["{area:485} detour warning: the arrow may miss the path up {area:2097}. If you are on the canyon floor, follow the path and rope bridges up {area:2097}. {npc:10896} (29) stands among his guards there: clear the guards, then {npc:10896}."] = "{area:485} 우회 경고: 화살표가 {area:2097}(으)로 올라가는 길을 놓칠 수 있습니다. 협곡 바닥에 있다면 길과 밧줄 다리를 따라 {area:2097}(으)로 올라가십시오. {npc:10896}(29)은(는) 경비병들 사이에 서 있습니다: 경비병을 정리한 뒤 {npc:10896}.",
 
 	-- Step 75: Escort Lakota Windsong
 	-- {npc:10646} Lakota Windsong
-	["Escort {npc:10646}"] = "",
+	["Escort {npc:10646}"] = "{npc:10646} 호위",
 	-- {npc:10646} Lakota Windsong · {npc:10896} Arnak Grimtotem
-	["{npc:10646} is held captive beside where {npc:10896} stood: free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "",
+	["{npc:10646} is held captive beside where {npc:10896} stood: free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "{npc:10646}은(는) {npc:10896}이(가) 서 있던 곳 옆에 붙잡혀 있습니다: 풀어 주고 내려가는 길에 지키십시오. 도중에 그림토템 매복병이 덤빕니다.",
 
 	-- Step 76: Highperch
 	-- {area:482} Highperch
 	-- plural, as words: Highperch Patriarchs = {npc:4110} Highperch Patriarch
 	-- was: ["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "백사장 야영지 서쪽, {area:482} 절벽에 와이번이 둥지를 틀고 있으며, 알은 둥지에 있습니다. {npc:10427}은(는) 둥지 동쪽에서 기다립니다. 풀어 주고 {area:2237}(으)로 돌아가는 동안 살려 두세요.\n주의: 28-29레벨 와이번이 머리 위를 날아다녀 예고 없이 끌려올 수 있습니다. 아래쪽 첫 번째 기둥을 지나면 와이번 셋이 기습할 수 있습니다. 우두머리 마루둥지 와이번(30-31)과 희귀 몹 심장칼날(32)도 이곳에 둥지를 틀고 있으니 피해서 끌어오세요."
-	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "",
+	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "백사장 야영지 서쪽, 와이번들이 {area:482} 절벽에 둥지를 틀고 알은 둥지에 있습니다.\n주의: 28-29레벨 와이번이 머리 위를 날아다니며 예고 없이 끌려올 수 있습니다. 아래쪽 첫 기둥을 지나면 와이번 세 마리가 매복할 수 있습니다. 높은둥지 족장(30-31)과 희귀 심장절단기(32)도 이곳에 둥지를 틉니다: 돌아서 가십시오.",
 
 	-- Step 77: Escort Pao'ka Swiftmountain
 	-- {npc:10427} Pao'ka Swiftmountain
-	["Escort {npc:10427}"] = "",
+	["Escort {npc:10427}"] = "{npc:10427} 호위",
 	-- {npc:10427} Pao'ka Swiftmountain · {area:2237} Whitereach Post
-	["{npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}."] = "",
+	["{npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}."] = "{npc:10427}은(는) 둥지 동쪽에서 기다립니다: 풀어 주고 {area:2237}(으)로 돌아가는 길에 살려 두십시오.",
 
 	-- Step 78: Whitereach Post
 	-- {npc:10428} Motega Firemane · {item:12732} Incendia Agave · {area:2097} Darkcloud Pinnacle
@@ -425,6 +424,7 @@ return {
 	-- ["Back east past {area:2237} to {area:484}."] = "{area:2237}을(를) 지나 동쪽의 {area:484}(으)로 돌아가세요.",
 	-- ["Back to Zoram'gar from the ruins before heading east for good."] = "완전히 동쪽으로 떠나기 전에 폐허에서 조람가르로 돌아가세요.",
 	-- ["Climb the path to the top of {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "길을 따라 {area:2097} 꼭대기로 올라가세요. {npc:10646}은(는) {npc:10896}(29) 옆에 붙잡혀 있습니다. 먼저 경비병과 {npc:10896}을 처치한 뒤 그녀를 풀어 주고, 내려가는 동안 보호하세요. 가는 길에 그림토템부족 복병이 덤벼듭니다.",
+	-- ["Crossroads flight master"] = "크로스로드 비행 조련사",
 	-- ["East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to {area:2897}. Keep your hearthstone: {area:431}'s bind later in this guide saves more."] = "세레스의 야영지에서 길을 따라 동쪽 크로스로드의 와이번 조련사로 가서 {area:2897}(으)로 비행하십시오. 귀환석은 아껴 두십시오. 이 가이드 후반에 {area:431}에 귀환 지점을 정하는 편이 시간을 더 줄여 줍니다.",
 	-- ["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold."] = "조람가르 동쪽에서는 엉겅퀴일족 털보숭이가 마을과 소굴 주변 언덕을 가득 메우고 있습니다.",
 	-- ["Fly from {area:392} to {area:2897} on the {zone:1440} coast."] = "{area:392}에서 {zone:1440} 해안의 {area:2897}(으)로 날아가세요.",

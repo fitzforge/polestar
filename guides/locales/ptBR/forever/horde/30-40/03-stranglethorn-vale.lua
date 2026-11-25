@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Voe para {area:1637}",
-	-- {area:2408} Shadowprey Village
-	["{area:2408} flight master"] = "Mestre de voo da {area:2408}",
 
 	-- Step 2: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
@@ -131,7 +129,7 @@ return {
 	-- {npc:268992} Zimmix Sputterspark · {area:102} Ruins of Zul'Kunda · {item:277957} Primitive Key · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment · Bloodscalp Scouts = {npc:588} Bloodscalp Scout · Bloodscalp Berserkers = {npc:597} Bloodscalp Berserker
 	-- was: ["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}. Then lead him out of the ruins: {npc:4631} in {area:35} takes the news and the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992} está preso na borda leste de {area:102}; os Carregamentos Roubados estão espalhados pelas ruínas em volta dele. Os Batedores, Caçadores e Místicos Sanguescalpo (34-35) de lá carregam a {item:277957} dele. Depois, leve-o para fora das ruínas: {npc:4631}, na {area:35}, recebe a notícia e os carregamentos.\nCuidado: Berserkers e Caçadores de Cabeças Sanguescalpo (36-37) e Mandingueiros (37, conjuradores) ocupam as ruínas ao norte e a oeste de {npc:268992}, perto dos carregamentos do norte (por volta de 24.9,9.6): pegue primeiro os carregamentos das ruínas do sul, perto de {npc:268992}, e puxe um de cada vez se for para o norte."
-	["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}: {npc:4631} in {area:35} takes the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "",
+	["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}: {npc:4631} in {area:35} takes the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992} está preso na borda leste de {area:102}; as cargas roubadas ficam entre as ruínas ao redor dele. Os batedores, caçadores e místicos Escalpo Sangrento (34-35) de lá carregam a {item:277957} dele: {npc:4631} em {area:35} recebe as cargas.\nCuidado: os berserkers e caçadores de cabeças Escalpo Sangrento (36-37) e os mandingueiros (37, conjuradores) ocupam as ruínas ao norte e a oeste de {npc:268992}, perto das cargas do norte (por volta de 24.9,9.6): pegue primeiro as cargas das ruínas do sul perto de {npc:268992}, e puxe um de cada vez se for para o norte.",
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
 	["Stolen Shipments, in the ruins"] = "Carregamentos Roubados, nas ruínas",
 	-- {item:277957} Primitive Key
@@ -140,9 +138,9 @@ return {
 
 	-- Step 21: Escort Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark
-	["Escort {npc:268992}"] = "",
+	["Escort {npc:268992}"] = "Escolte {npc:268992}",
 	-- {npc:268992} Zimmix Sputterspark
-	["Lead {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "",
+	["Lead {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "Leve {npc:268992} para fora das ruínas e mantenha-o vivo: Lozgil recebe a notícia quando ele estiver a salvo.",
 	-- {npc:268992} Zimmix Sputterspark
 	["Escort {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "Escolte {npc:268992} para fora das ruínas e mantenha-o vivo: Lozgil recebe a notícia quando ele estiver a salvo.",
 
@@ -277,6 +275,7 @@ return {
 	-- ["from {npc:4723}"] = "de {npc:4723}",
 	-- ["grind on {npc:1142}"] = "mate {npc:1142} até subir",
 	-- ["grind on {npc:686}"] = "mate {npc:686} até subir",
+	-- ["{area:2408} flight master"] = "Mestre de voo da {area:2408}",
 	-- ["{area:35}'s and {object:3202}'s next quests are 35-38. Below 35? The Lashtail Raptors (35) hunt the slopes south of the camp, on your way back to {object:3202}: kill them until level 35. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "As próximas missões de {area:35} e {object:3202} são de nível 35-38. Abaixo de 35? Os Raptores Batecauda (35) caçam nas encostas ao sul do acampamento, no seu caminho de volta a {object:3202}: mate-os até o nível 35. Ou, em grupo, faça a masmorra {area:796} (Biblioteca ou Arsenal).",
 	-- ["{area:35}'s and {object:3202}'s next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of {object:3202}: kill them until level 35."] = "As próximas missões de {area:35} e {object:3202} são de nível 35-38. Ainda abaixo de 35 depois da entrega a Aggro'gosh? Os Raptores Batecauda (35) caçam na selva logo ao norte de {object:3202}: mate-os até o nível 35.",
 	-- ["{item:5852}, in {object:20691}"] = "{item:5852}, em {object:20691}",

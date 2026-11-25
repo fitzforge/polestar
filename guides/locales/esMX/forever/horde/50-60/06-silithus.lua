@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {zone:1451} Silithus · {zone:1446} Tanaris
-	["{zone:1451}, then Un'Goro and {zone:1446}."] = "{zone:1451}, luego Un'Goro y {zone:1446}.",
+	-- {area:976} Gadgetzan · {zone:1451} Silithus · {zone:1446} Tanaris
+	["{area:976} first, then {zone:1451}, Un'Goro and back to {zone:1446}."] = "Primero {area:976}, luego {zone:1451}, Un'Goro y de vuelta a {zone:1446}.",
 
 	-- Step 1: Innkeeper Vizzie
 	-- {npc:11118} Innkeeper Vizzie · {area:2255} Everlook · {area:2249} Frostwhisper Gorge
@@ -28,7 +28,7 @@ return {
 
 	-- Step 4: Gaeriyan
 	-- {npc:9299} Gaeriyan · {item:11243} Videre Elixir · {area:976} Gadgetzan
-	["{npc:9299} has already met you: drink the {item:11243} at the graveyard just east of {area:976} and find him, as a ghost, in the rocky crevice due north of it."] = "",
+	["{npc:9299} has already met you: drink the {item:11243} at the graveyard just east of {area:976} and find him, as a ghost, in the rocky crevice due north of it."] = "{npc:9299} ya te conoció: bebe {item:11243} en el cementerio justo al este de {area:976} y búscalo, como espíritu, en la grieta rocosa justo al norte.",
 
 	-- Step 5: Sprinkle
 	-- {item:12928} Umi's Mechanical Yeti · {npc:7583} Sprinkle · {area:976} Gadgetzan · {npc:10977} Quixxil · {npc:10978} Legacki
@@ -128,7 +128,7 @@ return {
 	["Flayers and Rock Stalkers"] = "Despellejadores y Acecharrocas ({npc:11739})",
 	-- {area:2744} Hive'Regal · {zone:1451} Silithus
 	-- plural, as words: Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker
-	["Stonelash Flayers and Rock Stalkers roam the dunes north of {area:2744}, in the south-east of {zone:1451}."] = "",
+	["Stonelash Flayers and Rock Stalkers roam the dunes north of {area:2744}, in the south-east of {zone:1451}."] = "Los desolladores Látigo Pétreo ({npc:11737}) y los acechadores de las rocas ({npc:11739}) recorren las dunas al norte de {area:2744}, en el sureste de {zone:1451}.",
 
 	-- Step 26: Twilight Vanguard
 	["Twilight Vanguard"] = "Vanguardia Crepuscular",
@@ -385,4 +385,5 @@ return {
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "Ahora {npc:9619} pide la piel de {npc:9622}, en la cueva del noreste: omítela.",
 	-- ["{quest:105}'s shard lies at {npc:1852}'s feet, in the middle of Andorhal: he is a level 61 elite with elite Skeletal Warlords about him, a fight for a group."] = "El fragmento de {quest:105} está a los pies de {npc:1852}, en el centro de Andorhal: es un élite de nivel 61 con señores de la guerra esqueléticos élite a su alrededor, una pelea para grupo.",
 	-- ["{zone:1449}: kill these as you meet them"] = "{zone:1449}: mata a estos según te los encuentres",
+	-- ["{zone:1451}, then Un'Goro and {zone:1446}."] = "{zone:1451}, luego Un'Goro y {zone:1446}.",
 }

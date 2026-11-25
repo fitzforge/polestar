@@ -6,11 +6,13 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (simplified) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:2255} Everlook · {zone:1448} Felwood · {zone:1452} Winterspring
+	["{area:2255} first, then Un'Goro, then {zone:1448} and {zone:1452} again."] = "先去{area:2255}，再去安戈洛，然后再回到{zone:1448}和{zone:1452}。",
+
 	-- Step 1: Fly to Everlook
 	-- {area:2255} Everlook
 	["Fly to {area:2255}"] = "飞往{area:2255}",
-	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "{area:489}的飞行管理员",
 
 	-- Step 2: Everlook
 	-- {area:2255} Everlook · {npc:11754} Meggi Peppinrocker
@@ -111,6 +113,8 @@ return {
 	["{area:392} flight master"] = "{area:392}的飞行管理员",
 
 	-- Step 19: Gadgetzan
+	-- {area:976} Gadgetzan · {npc:9623} A-Me 01 · {quest:4243} Chasing A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
+	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} ({quest:4243}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "{area:976}的拍卖行是安戈洛之前的最后一个。在那里，{npc:9623}（{quest:4243}）会在护送前要一个{item:10561}，这是一件{skill:202}物品：如果你想做这条任务线，就在这里买一个。",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}：在屋内",
 	-- {npc:7876} Tran'rek
@@ -282,7 +286,7 @@ return {
 
 	-- Step 57: Eridan Bluewind
 	-- {npc:9116} Eridan Bluewind · {area:2479} Emerald Sanctuary
-	["{npc:9116} stands inside, in the {area:2479}."] = "",
+	["{npc:9116} stands inside, in the {area:2479}."] = "{npc:9116}站在里面，在{area:2479}中。",
 	-- {npc:9116} Eridan Bluewind
 	["{npc:9116}, inside"] = "{npc:9116}：在屋内",
 
@@ -520,6 +524,7 @@ return {
 	-- ["{area:2255} flight master"] = "{area:2255}的飞行管理员",
 	-- ["{area:2255}'s inn"] = "{area:2255}的旅店",
 	-- ["{area:2269}: kill these as you meet them"] = "{area:2269}：沿途击杀以下目标",
+	-- ["{area:489} flight master"] = "{area:489}的飞行管理员",
 	-- ["{item:12383}, 110 yd north"] = "{item:12383}，往北110码",
 	-- ["{item:12771}, a rare drop"] = "{item:12771}，稀有掉落",
 	-- ["{item:12886}; inside"] = "{item:12886}：在屋内",

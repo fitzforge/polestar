@@ -248,6 +248,18 @@ step Strength and Mercy
 
 # ---------------------------------------------------------------- Skyborne: Teleport: Moonglade
 
+# #3099: a Horde Skyborne druid still on Zephras Isle walked off the isle's edge following the arrow to the
+# airship. The skycutter to Mulgore leaves from the Valanaar Skydocks on the village's south-west edge
+# (travel.json: the Windshapers Dockmaster, 58.0,81.0 live; the leveling guide's own boarding point).
+step Skycutter to Mulgore
+  only Skyborne,Horde
+  when zone "Zephras Isle"
+  when !onquest 94911
+  when !turnedin 94911
+  zone Zephras Isle
+  tip Muln Earthfury is in Mulgore, where the skycutter from Zephras Isle lands. Board it at the Valanaar Skydocks on the village's south-west edge: go down through Valanaar on its paths, not over the cliffs around it, which drop off the isle.
+  goto 57.9,80.8 "Valanaar Skydocks" live
+
 step Child of Nature
   only Skyborne,Horde
   zone Mulgore

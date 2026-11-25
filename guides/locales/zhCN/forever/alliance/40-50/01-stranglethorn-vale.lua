@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (simplified) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1445} Dustwallow Marsh · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{zone:1445} first, then {zone:1434} and the {zone:1435}."] = "先去{zone:1445}，再去{zone:1434}和{zone:1435}。",
+
 	-- Step 1: Theramore
 	["Theramore"] = "塞拉摩",
 	-- {quest:1260} Morgan Stern · {npc:4897} Helenia Olden
@@ -264,9 +268,9 @@ return {
 
 	-- Step 49: Arbor Tarantula
 	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
-	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "",
+	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "{npc:217588}在奈辛瓦里营地东南方的丛林中爬行，在前往{area:99}的路上：打开{npc:217412}的{item:213565}，对其中一只使用里面的{item:213562}。不要杀死它。",
 	-- {item:213562} Bug Catching Net · {npc:217588} Arbor Tarantula · {item:213566} Arbor Tarantula Specimen
-	["{item:213562}, on an {npc:217588}: the {item:213566}"] = "",
+	["{item:213562}, on an {npc:217588}: the {item:213566}"] = "{item:213562}，用在{npc:217588}上：{item:213566}",
 
 	-- Step 50: Rebel Camp
 	["Head north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "向东北经过奈辛瓦里远征队营地，再沿道路向北前往山谷最北端的营地。",

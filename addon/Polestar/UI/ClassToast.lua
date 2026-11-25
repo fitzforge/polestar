@@ -249,6 +249,8 @@ end
 
 -- The chain's own Class guide for this character: one that takes quest q,
 -- else one that takes another quest of its chain. -> guide id | nil
+-- A side-shelf guide's steps are read in for the search and given back
+-- (Guides.Peek).
 function CT.ClassGuide(q)
 	local G, C = ns.Guides, CC()
 	local p = C and C.Player()
@@ -256,13 +258,16 @@ function CT.ClassGuide(q)
 	local chain, other = C.ChainOf(q), nil
 	for _, h in ipairs(G.List()) do
 		if h.category == "Class" and (not G.GuideMatches or G.GuideMatches(h, p)) then
-			local g = G.Get(h.id)
-			for _, step in ipairs(g and g.steps or {}) do
+			local steps, fresh = G.Peek(h.id)
+			local takes = false
+			for _, step in ipairs(steps or {}) do
 				for _, goal in ipairs(step.goals or {}) do
-					if goal.quest == q then return h.id end
+					if goal.quest == q then takes = true end
 					if not other and ofChain(goal, q, chain) then other = h.id end
 				end
 			end
+			G.Unpeek(h.id, fresh)
+			if takes then return h.id end
 		end
 	end
 	return other
@@ -338,12 +343,21 @@ function CT.Model(q)
 end
 
 -- Whether the chain of quest q is an optional one (Core/ClassQuestList.lua,
--- #3925): its Class guide (CT.ClassGuide) is listed optional. No heads-up
--- tells of it; the guide menu lists it under "Optional class quests".
+-- #3925): its Class guide (CT.ClassGuide) is listed optional, or it has no
+-- Class guide and gives only an item (no spell, pet or mount: the reward's
+-- kind in UI/ClassRewards.lua). No heads-up tells of it; the guide menu
+-- lists the guided ones under "Optional class quests".
 function CT.Optional(q, guideId)
 	local list = ns.ClassQuestList
 	if not (list and list.OptionalGuide) then return false end
 	if guideId == nil then guideId = CT.ClassGuide(q) end
+	if guideId == nil then
+		local d = data()
+		local e = d and d.quests and d.quests[q]
+		local reward = e and e[3] > 0 and d.rewards[e[3]] or nil
+		local kind = reward and reward.kind
+		return kind ~= "ability" and kind ~= "pet" and kind ~= "mount"
+	end
 	return list.OptionalGuide(guideId)
 end
 
@@ -525,6 +539,9 @@ end
 -- placing measures the window, its look's reach and the screen. On its own
 -- spot (free) the card never minds them.
 local placedCovers -- Buttons.Covers() as CT.Place last read it (nil: it read none)
+-- The room the card took above or below the edge it sits on, gap included,
+-- in the edge's units, as CT.Place last placed it (0: free or beside it).
+local placedRoom = 0
 local function sameCovers(a, b)
 	if #a ~= #b then return false end
 	for i = 1, #a do
@@ -931,7 +948,7 @@ function CT.Place(animate)
 	if place == "free" then
 		local p = ns.Get("toasts.headsup.pos")
 		if type(p) ~= "table" or type(p[1]) ~= "string" then p = CT.FREE_AT end
-		CT.side, placedCovers = "free", nil
+		CT.side, placedCovers, placedRoom = "free", nil, 0
 		f:SetClampedToScreen(true)
 		Anim.Anchor(f, p[1], UIParent, p[1], tonumber(p[2]) or 0, tonumber(p[3]) or 0)
 		dy = 18
@@ -992,6 +1009,7 @@ function CT.Place(animate)
 		end
 		local side = pick(clear) or pick(function() return true end) or "below"
 		CT.side = side
+		placedRoom = (side == "above" or side == "below") and hk + gap[side] or 0
 		-- Beside the window, nothing of it is under the card however the screen
 		-- moves it, so the screen keeps the card whole (a window reaching past
 		-- the screen's top would take a top-aligned card with it).
@@ -1022,6 +1040,33 @@ function CT.Place(animate)
 			Anim.To(f, "alpha", 0, 1, SLIDE, "out")
 		end
 	end
+end
+
+-- The height the card takes above or below the window while it shows there,
+-- gap included (the edge's reach and GAP, as CT.Place placed it), in the
+-- window's units. The guide window keeps window and card within ui.maxHeight
+-- together (GuideFrameLayout); free or beside it, none.
+function CT.Reserved()
+	if not (f and CT.current and f:IsShown()) then return 0 end
+	if CT.side ~= "above" and CT.side ~= "below" then return 0 end
+	return placedRoom
+end
+
+-- The window makes room for the card, or takes it back: only when the room
+-- the card takes changed and the window is held by its cap or would be with
+-- the card (a layout redraws the whole window; a card beside it, free, or
+-- over a window with room to spare changes nothing).
+local laidRoom = 0
+local function relayout()
+	local room = CT.Reserved()
+	if room == laidRoom then return end
+	laidRoom = room
+	local G = UI.GuideFrame
+	if not (G and G.Layout and G.frame) then return end
+	local goals = G.parts and G.parts.goals
+	local capped = goals and goals.psOver
+	if not capped and G.CapHeight and G.frame:GetHeight() + room <= G.CapHeight() + 0.5 then return end
+	G.Layout()
 end
 
 -- The compact card's tooltip: what its one line leaves out.
@@ -1158,6 +1203,7 @@ function CT.ShowCard(m)
 	CT.current = m
 	fillCard(f, m)
 	CT.Place(not wasShown)
+	relayout()
 	if not wasShown and f:IsShown() and not m.quiet then
 		local C = CC()
 		if ns.Get("ui.classCardSound") and C.GameSoundOn() then
@@ -1278,6 +1324,7 @@ function CT.Hide()
 	local was = CT.current
 	CT.current = nil
 	if f then f:Hide() end
+	relayout()
 	if was and ns.Fire then ns.Fire("HEADS_UP_HIDDEN", was) end
 end
 

@@ -403,45 +403,36 @@ pub fn pack_locales(pack_dir: &str) -> Vec<String> {
 	out
 }
 
-/// The object ids Polestar's names addon of `locale`
+/// The object ids Polestar's names addon of `locale` in the checkout `root`
 /// (addon/Polestar_<locale>/Names.lua, `forge data names`) names, or None
-/// when it has none, cached. The addon folder is the repository's (as the
-/// JS finds it from its own file), located from this crate's source path.
+/// when it has none. `root` is the checkout the command works on (its
+/// `--root`), not the one forge was built in: the post-merge gates' runner
+/// runs a forge built on another machine, whose build folder it does not
+/// have, and with no names every object token was taken as named.
 #[cfg(feature = "native")]
-fn named_objects(locale: &str) -> Option<std::rc::Rc<HashSet<String>>> {
-	use std::cell::RefCell;
-	use std::collections::HashMap;
-	use std::rc::Rc;
-	thread_local! {
-		static NAMED: RefCell<HashMap<String, Option<Rc<HashSet<String>>>>> = RefCell::new(HashMap::new());
-	}
+pub fn named_objects(root: &std::path::Path, locale: &str) -> Option<HashSet<String>> {
 	// R("object", lo, hi, [[ then one "<id>\t<name>" line per name, up to the chunk's ]].
 	static ADD: LazyLock<Regex> = LazyLock::new(|| Regex::new(r#"(?s)R\("object", [0-9-]+, [0-9-]+, \[(=*)\[(.*?)\n\]"#).unwrap());
 	static ID: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"\n([0-9]+)\t").unwrap());
-	if let Some(hit) = NAMED.with(|n| n.borrow().get(locale).cloned()) {
-		return hit;
-	}
-	let root = concat!(env!("CARGO_MANIFEST_DIR"), "/../../../addon");
-	let file = join(&[root, &crate::toc::language_addon(locale), "Names.lua"]);
-	let ids = std::fs::read_to_string(&file).ok().map(|text| {
+	let file = root.join("addon").join(crate::toc::language_addon(locale)).join("Names.lua");
+	std::fs::read_to_string(file).ok().map(|text| {
 		let mut ids = HashSet::new();
 		for m in ADD.captures_iter(&text) {
 			for e in ID.captures_iter(&m[2]) {
 				ids.insert(format!("object:{}", &e[1]));
 			}
 		}
-		Rc::new(ids)
-	});
-	NAMED.with(|n| n.borrow_mut().insert(locale.to_string(), ids.clone()));
-	ids
+		ids
+	})
 }
 
-/// The tokens of `english` a translation into `locale` may write as words: the
-/// objects no source names in that language (a district's sign, a tavern),
-/// which the game would show in English.
+/// The tokens of `english` a translation may write as words: the objects no
+/// source names in its language (a district's sign, a tavern), which the game
+/// would show in English. `named`: the language's named objects
+/// (named_objects); None, no names addon: none.
 #[cfg(feature = "native")]
-pub fn unnamed_tokens(english: &str, locale: &str) -> Vec<String> {
-	let Some(named) = named_objects(locale) else { return Vec::new() };
+pub fn unnamed_tokens(english: &str, named: Option<&HashSet<String>>) -> Vec<String> {
+	let Some(named) = named else { return Vec::new() };
 	let mut out: Vec<String> = Vec::new();
 	for t in tokens_of(english) {
 		if !out.contains(&t) && t.starts_with("object:") && !named.contains(&t) {
@@ -472,6 +463,8 @@ pub struct FileState {
 	pub problems: Vec<(String, String)>,
 	/// { stale English: new English }.
 	pub successors: V,
+	/// A guide's file: the objects its language's names addon names (named_objects), for unnamed_tokens.
+	pub named: Option<std::sync::Arc<HashSet<String>>>,
 }
 
 pub struct LocaleState {
@@ -480,11 +473,12 @@ pub struct LocaleState {
 }
 
 /// guides: the pack's compiled guides with `_ast.source`. -> per locale (in
-/// `locales` order) its files and orphan files.
+/// `locales` order) its files and orphan files. `root`: the Polestar checkout
+/// whose names addons say which objects have a name (named_objects).
 #[cfg(feature = "native")]
-pub fn guide_state(pack_dir: &str, manifest: &V, guides: &[V], locales: &[String]) -> Result<Vec<(String, LocaleState)>, String> {
+pub fn guide_state(root: &std::path::Path, pack_dir: &str, manifest: &V, guides: &[V], locales: &[String]) -> Result<Vec<(String, LocaleState)>, String> {
 	let mut planned: Vec<FileState> = Vec::new();
-	let blank = |locale: &str, kind: &'static str, id: Option<String>, source: Option<String>, file: String, texts: Vec<Text>| FileState {
+	let blank = |locale: &str, kind: &'static str, id: Option<String>, source: Option<String>, file: String, texts: Vec<Text>, named: Option<std::sync::Arc<HashSet<String>>>| FileState {
 		locale: locale.to_string(),
 		kind,
 		id,
@@ -499,12 +493,14 @@ pub fn guide_state(pack_dir: &str, manifest: &V, guides: &[V], locales: &[String
 		retired: V::obj(),
 		problems: Vec::new(),
 		successors: V::obj(),
+		named,
 	};
 	for locale in locales {
-		planned.push(blank(locale, "pack", None, None, join(&[&locale_dir(pack_dir, locale), PACK_FILE]), pack_texts(manifest, guides)));
+		planned.push(blank(locale, "pack", None, None, join(&[&locale_dir(pack_dir, locale), PACK_FILE]), pack_texts(manifest, guides), None));
+		let named = named_objects(root, locale).map(std::sync::Arc::new);
 		for g in guides {
 			let source = g.hidden("_ast").get("source").to_js_string();
-			planned.push(blank(locale, "guide", Some(g.get("id").to_js_string()), Some(source.clone()), guide_file(pack_dir, locale, &source), guide_texts(g)));
+			planned.push(blank(locale, "guide", Some(g.get("id").to_js_string()), Some(source.clone()), guide_file(pack_dir, locale, &source), guide_texts(g), named.clone()));
 		}
 	}
 	let existing: Vec<(String, String)> = planned.iter().filter(|p| std::path::Path::new(&p.file).exists()).map(|p| (p.file.clone(), p.locale.clone())).collect();
@@ -535,7 +531,7 @@ pub fn guide_state(pack_dir: &str, manifest: &V, guides: &[V], locales: &[String
 					}
 					s.translated.set(&k, v.clone());
 					let plurals: Vec<String> = s.texts.iter().rev().find(|t| t.text == *k).map(|t| t.plurals.iter().map(|p| p.0.clone()).collect()).unwrap_or_default();
-					let unnamed = if s.kind == "guide" { unnamed_tokens(&k, &s.locale) } else { Vec::new() };
+					let unnamed = if s.kind == "guide" { unnamed_tokens(&k, s.named.as_deref()) } else { Vec::new() };
 					for problem in text_problems(&k, &v, &plurals, &unnamed) {
 						s.problems.push((k.to_string(), problem));
 					}
@@ -577,8 +573,9 @@ fn json_str(s: &str) -> String {
 /// guides: { [id]: {} } } }, warnings: [{ file, message }] } with only
 /// well-formed translations of texts the pack has, and a warning for every
 /// problem, stale entry and orphan file. Err: Lua could not run (the JS throws).
+/// `root`: the Polestar checkout (guide_state).
 #[cfg(feature = "native")]
-pub fn pack_translations(pack_dir: &std::path::Path, manifest: &V, guides: &[V]) -> Result<V, String> {
+pub fn pack_translations(root: &std::path::Path, pack_dir: &std::path::Path, manifest: &V, guides: &[V]) -> Result<V, String> {
 	let pack_dir = &pack_dir.to_string_lossy().into_owned();
 	let locales = pack_locales(pack_dir);
 	if locales.is_empty() {
@@ -592,7 +589,7 @@ pub fn pack_translations(pack_dir: &std::path::Path, manifest: &V, guides: &[V])
 		})
 		.cloned()
 		.collect();
-	let state = guide_state(pack_dir, manifest, &with_source, &locales)?;
+	let state = guide_state(root, pack_dir, manifest, &with_source, &locales)?;
 	let translations = Obj::new();
 	let mut warnings: Vec<(String, String)> = Vec::new();
 	for (locale, st) in &state {

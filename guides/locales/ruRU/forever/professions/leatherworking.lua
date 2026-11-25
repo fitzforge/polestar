@@ -27,7 +27,7 @@ return {
 	-- Step 4: Light Leather (Elwynn Forest)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1922} Gray Forest Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:822} Young Forest Bear
 	-- was: ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "{item:2318} 349 для {spell:2152}, {spell:3756} и {spell:3763} (210 из них на 75-150: соберите все сейчас): {skill:393}: звери 5-20 уровня. Снимайте шкуры с {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} и {npc:822} здесь (5-20 уровня); маршрут ведет гайд {skill:393}."
-	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "",
+	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "349 {item:2318} для {spell:2152}, {spell:3756} и {spell:3763} (210 из них на 75-150: соберите все сейчас): {skill:393}: звери 5-20 уровня. Снимайте шкуры с {npc:1922}, крадущихся хищников, {npc:524}, {npc:113} и {npc:822} здесь (5-20 уровня); маршрут ведет гайд «{skill:393}».",
 
 	-- Step 5: Light Leather (Dun Morogh)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1125} Crag Boar · {npc:1127} Elder Crag Boar · {npc:1196} Ice Claw Bear · {npc:1199} Juvenile Snow Leopard · {npc:1126} Large Crag Boar · {npc:1689} Scarred Crag Boar · {npc:1201} Snow Leopard · {npc:1138} Snow Tracker Wolf · {npc:1131} Winter Wolf · {npc:1128} Young Black Bear
@@ -189,7 +189,8 @@ return {
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 158"] = "{spell:3780} до 158",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread
-	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}: желтый на 150 (желтый 145, зеленый 155, серый 165): около 15 изготовлений до 158. Каждое требует 5 {item:4234} и 1 {item:2321}. По пять {item:4234} на изготовление (звери 28-40 уровня); наборы можно продать торговцам.",
+	-- was: ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}: желтый на 150 (желтый 145, зеленый 155, серый 165): около 15 изготовлений до 158. Каждое требует 5 {item:4234} и 1 {item:2321}. По пять {item:4234} на изготовление (звери 28-40 уровня); наборы можно продать торговцам."
+	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "{spell:3780}: желтый на 150 (желтый 145, зеленый 155, серый 165): около 15 изготовлений до 158. Каждое требует 5 {item:4234} и 1 {item:2321}. По пять {item:4234} на изготовление (звери 28-40 уровня); наборы можно продать торговцам. Если вы дошли сюда, не выучив {spell:3780}, выучите сейчас: его учит один из прошлых шагов.",
 
 	-- Step 39: Barbaric Shoulders to 165
 	-- {item:5964} Barbaric Shoulders
@@ -385,4 +386,5 @@ return {
 	-- ["{skill:333}: disenchant uncommon (green) gear (or the Auction House)"] = "{skill:333}: распыляйте необычные (зеленые) вещи (или аукцион)",
 	-- ["{spell:3768} to 150"] = "{spell:3768} до 150",
 	-- ["{spell:3776} to 185"] = "{spell:3776} до 185",
+	-- ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780}: желтый на 150 (желтый 145, зеленый 155, серый 165): около 15 изготовлений до 158. Каждое требует 5 {item:4234} и 1 {item:2321}. По пять {item:4234} на изготовление (звери 28-40 уровня); наборы можно продать торговцам.",
 }

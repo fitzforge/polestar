@@ -131,7 +131,7 @@ return {
 
 	-- Step 24: Moktar Krin
 	-- {quest:1146} The Swarm Grows · {npc:4483} Moktar Krin
-	["{quest:1146}' second part is already handed in: take the third part from {npc:4483}, on the north-western edge of the salt flats."] = "",
+	["{quest:1146}' second part is already handed in: take the third part from {npc:4483}, on the north-western edge of the salt flats."] = "La deuxième partie de {quest:1146} est déjà rendue : prenez la troisième auprès de {npc:4483}, au bord nord-ouest des plaines salées.",
 
 	-- Step 25: Mirage Raceway
 	-- {area:2240} Mirage Raceway

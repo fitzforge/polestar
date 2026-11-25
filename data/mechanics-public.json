@@ -956,6 +956,15 @@
 				}
 			],
 			"note": "Saving Yenniku (592): the Filled Soul Gem (3913) comes from using the Soul Gem (3912) on Yenniku (2530) while he is alive; our quest data lists it as his drop, so the step read \"Kill Yenniku for Filled Soul Gem\" before the gem's use (#3825, Meta). Source: an in-game check: the reporter used the gem on him alive and the quest completed (592 done in the report's quest log)."
+		},
+		"5211": {
+			"steps": [
+				{ "n": 1, "action": "kill", "target": { "type": "npc", "id": 8530 }, "fact": "Kill the Cannibal Ghouls around Corin's Crossing: a Darrowshire Spirit rises where one dies.", "confidence": "high" },
+				{ "n": 2, "action": "kill", "target": { "type": "npc", "id": 8531 }, "fact": "Gibbering Ghouls around Corin's Crossing leave a Darrowshire Spirit too.", "confidence": "high" },
+				{ "n": 3, "action": "kill", "target": { "type": "npc", "id": 8532 }, "fact": "Diseased Flayers around Corin's Crossing leave a Darrowshire Spirit too.", "confidence": "high" },
+				{ "n": 4, "action": "talk", "target": { "type": "npc", "id": 11064 }, "fact": "Talk to each Darrowshire Spirit to free it (objective 1).", "confidence": "high" }
+			],
+			"note": "Defenders of Darrowshire (5211): the Darrowshire Spirits (11064) it asks you to free are not in the world; each rises where one of the Scourge around Corin's Crossing dies (Cannibal Ghoul 8530, Gibbering Ghoul 8531, Diseased Flayer 8532). The guide's target button looked for the spirits alone. Source: Zack's report (#3309) and its confirmation; the quest's text."
 		}
 	}
 }

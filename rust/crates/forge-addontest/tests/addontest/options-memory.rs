@@ -95,7 +95,29 @@ const LOGIN_BASE: f64 = 11003.0;
 /// KiB at login on 2026-11-23, next without it 14,237. The budget is that and CI's runner's few KiB: 14,600 (Fitz).
 /// +28 KiB: DangerHubs for Forever's new zones (#3830): 14,610 KiB at login on 2026-11-24, 14,582 with next's
 /// DangerHubs.lua (CI's runner 14,626). The budget: 14,650 (Main, reported to Fitz).
-const LOGIN: f64 = LOGIN_BASE + 3647.0;
+/// +44 KiB: the class cards' rewards from recorded turn-ins (#2472) list 1,034 class quests, past the 1,024 slots of
+/// the quests table's hash part, which doubles: 14,669 KiB at login on 2026-11-24, 14,625 with next's ClassRewards.lua
+/// (CI's runner 14,672). The budget: 14,700 (reported to Fitz).
+/// +22 KiB: held quests (#3390), Quests/KeptFor.lua's hooks and the Engine's re-take: 14,717 KiB at login on
+/// 2026-11-24, 14,695 with next (CI's runner 14,711 on the pull request's first run). The budget: 14,750 (reported
+/// to Fitz in the pull request).
+/// +15 KiB: escorts as the player's choice (#3439), the Engine's escort layout, question and note: 14,732 KiB at
+/// login on 2026-11-24, 14,717 with next (CI's runner 14,702 on the pull request's first run, before #3390). The
+/// budget: 14,760 (reported to Fitz in the pull request).
+/// +13 KiB: the guide window's height modes and the class card's room (#1066, #1067): the cap by mode, the grip's
+/// vertical drag and its limit line, the whole-row scroll stops: 14,755 KiB at login on 2026-11-24, 14,742 with next
+/// (CI's runner 14,761 on the pull request's run). The budget: 14,775 (reported to Fitz in the pull request).
+/// +8 KiB: the Engine's target mark, step views, trainer pick and party line, the guide's trainer stop and off-route
+/// work (#3965): 14,774 KiB at login on 2026-11-24, 14,766 with next (CI's runner 14,778 on the pull request's run).
+/// The budget: 14,790 (reported to Fitz).
+/// +24 KiB on the post-merge gates' runner, none of it the addon's: the runner measures 14,806 KiB on the 0.4.3
+/// release data at next 78fa260855 (2026-11-25), a local run of the same tree and data 14,782. The harness loads
+/// every file by its absolute path, and each file's chunk name and the loader's file lists keep that path: the
+/// runner's checkout path is 32 characters longer than the local one. The same build run with the local checkout
+/// mounted at the runner's path measures 14,806. The budget: 14,850, the runner's figure and headroom.
+/// Measured 14,814 KiB locally and 14,833 at the runner's path on next fe1a7484af after #4062, #4078 and #4063 (the
+/// 0.4.3 audit); 0.24 % headroom was too tight for the runner. The budget: 14,900 (Main, reported to Fitz).
+const LOGIN: f64 = LOGIN_BASE + 3897.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile
 /// strings, the preview stage and the skin picker's cards and presets (+400), all out of the login (1,513).

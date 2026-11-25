@@ -56,8 +56,8 @@ return {
 
 	-- Step 8: The ancients' outpost
 	["The ancients' outpost"] = "El puesto de los ancianos",
-	-- {npc:248395} Tainted Shrubbery · {npc:249235} Kaylaena Springwhisper · {npc:260626} Bluebell · {npc:248367} Hyacinth · {npc:265586} Thylaen · {npc:248366} Fraxinus
-	["South down the west side of the shrub field to the ancients' outpost: kill the {npc:248395} you pass for {npc:249235}. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "Al sur por el lado oeste del campo de arbustos hasta el puesto de los ancianos: mata los {npc:248395} que encuentres para {npc:249235}. {npc:260626}, la maestra de vuelo, espera junto al puesto; {npc:248367} y {npc:265586} están con el anciano {npc:248366}.",
+	-- {npc:248395} Tainted Shrubbery · {item:247892} Verdant Leaves · {npc:248367} Hyacinth · {quest:91755} Leaves to Ligatures · {npc:249235} Kaylaena Springwhisper · {npc:260626} Bluebell · {npc:265586} Thylaen · {npc:248366} Fraxinus
+	["South down the west side of the shrub field to the ancients' outpost. Leave the {npc:248395} for now: their {item:247892} drop only once {npc:248367}'s {quest:91755} is in your log, and the guide brings you back to the shrub field for the leaves and {npc:249235}'s kills together. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "Al sur por el lado oeste del campo de arbustos hasta el puesto de los ancestros. Deja a los {npc:248395} por ahora: sus {item:247892} solo caen cuando {quest:91755} de {npc:248367} está en tu registro, y la guía te trae de vuelta al campo de arbustos para las hojas y las muertes de {npc:249235} a la vez. {npc:260626}, la maestra de vuelo, espera junto al puesto; {npc:248367} y {npc:265586} están con el ancestro {npc:248366}.",
 
 	-- Step 9: Celastrus the Bitter
 	-- {quest:91923} Celastrus the Bitter
@@ -224,7 +224,7 @@ return {
 
 	-- Step 50: Rabine Saturna
 	-- {zone:1457} Darnassus · {quest:1123} Rabine Saturna · {quest:1124} Wasteland · {area:2361} Nighthaven
-	["The letter from {zone:1457} is already with {quest:1123}: take {quest:1124} from her, in her house in {area:2361}."] = "",
+	["The letter from {zone:1457} is already with {quest:1123}: take {quest:1124} from her, in her house in {area:2361}."] = "La carta de {zone:1457} ya está con {quest:1123}: acepta {quest:1124} de ella, en su casa de {area:2361}.",
 
 	-- Step 51: Fly to Everlook
 	-- {area:2255} Everlook
@@ -558,14 +558,14 @@ return {
 	-- {area:16866} Dae'gun · {npc:259695} Renalard · {npc:265788} Kal'tinzan · {item:253249} Horde Flag · {object:656786} Troll Remains (no name in this language: may be words) · {quest:96998} Tribal Colors · {npc:255183} Jezerelle the Swaying · {npc:267439} Doomguard Xarkul
 	-- plural, as words: Felguard Sentinels = {npc:249229} Felguard Sentinel · Defiling Hounds = {npc:249230} Defiling Hound · Legion Hulks = {npc:249238} Legion Hulk
 	["Work west back through {area:16866}: the Felguard Sentinels and Defiling Hounds are everywhere, the hounds carry the essence, and the Horde base's rubble (wire, scrap and dung) lies all over it. Light the two bonfires on your way, scout the Horde tower in the middle, take Azgalor's ashes west of the tower, and pick up the abandoned supplies, a few just north-west of {npc:259695} and the rest in the western half: {npc:259695}'s tuft of fur, used on a demon, distracts it while you take them.\nHorde: the demons here also drop the Scraps of Horde Heraldry for {npc:265788}, the old {item:253249} stands in the camp north of the south bonfire, and the {object:656786} at the camp's eastern edge start {quest:96998}.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room. {npc:255183} (61, rare) walks the camp north of the south bonfire: keep away from her.\nCareful: Doomguards (elites, 58-59) stand among the demons, and {npc:267439} (elite, 61) walks the camp: pull the hounds and sentinels to you, away from them."] = "Vuelve al oeste a través de {area:16866}: los Felguard Sentinels y los Defiling Hounds están por todas partes, los sabuesos llevan la esencia, y los escombros de la base de la Horda (alambre, chatarra y estiércol) están por todo el lugar. Enciende las dos hogueras de camino, explora la torre de la Horda del medio, recoge las cenizas de Azgalor al oeste de la torre y toma los suministros abandonados, unos pocos justo al noroeste de {npc:259695} y el resto en la mitad oeste: el mechón de pelaje de {npc:259695}, usado en un demonio, lo distrae mientras los tomas.\nHorda: los demonios de aquí también sueltan los Scraps of Horde Heraldry para {npc:265788}, la vieja {item:253249} está en el campamento al norte de la hoguera del sur, y los restos de trol del borde este del campamento inician {quest:96998}.\nCuidado: los Legion Hulks (60, élites raros) pisotean los campamentos de {area:16866}: dales espacio. {npc:255183} (61, rara) recorre el campamento al norte de la hoguera del sur: mantente lejos de ella.\nCuidado: hay guardias apocalípticos (élites, 58-59) entre los demonios, y {npc:267439} (élite, 61) recorre el campamento: atrae a los sabuesos y centinelas hacia ti, lejos de ellos.",
-	["light it"] = "",
+	["light it"] = "enciéndela",
 	["scout the Horde tower"] = "explora la torre de la Horda",
 	-- {object:656786} Troll Remains (no name in this language: may be words) · {quest:96998} Tribal Colors · {npc:244511} Zet'gan · {area:16848} Elderwild
 	["{object:656786}: {quest:96998}, for {npc:244511} in {area:16848}; keep it"] = "Restos de trol: {quest:96998}, para {npc:244511} en {area:16848}; consérvala",
 
 	-- Step 127: Drawing Down the Malevolent
 	-- {npc:263394} Bethra'zel the Feeble · {npc:252457} Mazzogore · {npc:263406} Elaena Moonwhisper
-	["{npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them: drain each one first, then fight it. Drained, they are no longer elite and you can take them alone; players in our recordings killed both once drained."] = "",
+	["{npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them: drain each one first, then fight it. Drained, they are no longer elite and you can take them alone; players in our recordings killed both once drained."] = "{npc:263394} y {npc:252457} son élites de nivel 60 hasta que el ojo de {npc:263406} los drena: drena a cada uno primero y luego lucha. Drenados ya no son élites y puedes con ellos solo; los jugadores de nuestras grabaciones mataron a ambos una vez drenados.",
 
 	-- Step 129: Bethra'zel the Feeble
 	-- {npc:263394} Bethra'zel the Feeble · {npc:263406} Elaena Moonwhisper · {npc:252457} Mazzogore · {npc:267439} Doomguard Xarkul · {area:16866} Dae'gun
@@ -688,5 +688,6 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A group choice: {npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them. Drain each one first, then fight it; players in our recordings killed both once drained. Grouping up is advised."] = "Para ir en grupo: {npc:263394} y {npc:252457} son élites de nivel 60 hasta que el ojo de {npc:263406} los drena. Drena a cada uno primero y luego pelea; los jugadores de nuestras grabaciones mataron a los dos una vez drenados. Se recomienda ir en grupo.",
 	-- ["South Bonfire"] = "South Bonfire",
+	-- ["South down the west side of the shrub field to the ancients' outpost: kill the {npc:248395} you pass for {npc:249235}. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "Al sur por el lado oeste del campo de arbustos hasta el puesto de los ancianos: mata los {npc:248395} que encuentres para {npc:249235}. {npc:260626}, la maestra de vuelo, espera junto al puesto; {npc:248367} y {npc:265586} están con el anciano {npc:248366}.",
 	-- ["Southeast Bonfire"] = "Southeast Bonfire",
 }

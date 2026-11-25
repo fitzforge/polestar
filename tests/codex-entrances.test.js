@@ -144,6 +144,23 @@ test("chooseEntrance: a table entry's Alliance way in rides along as entrance.A,
 	assert.equal(chooseEntrance({ ...base, table }).A, undefined, 'one way in: no A');
 });
 
+// #3348: Blackrock Mountain has a door on each side, open to both factions; each Blackrock instance lists the other
+// door, which rides along as entrance.doors (the arrow takes the nearer, Polestar/Dungeons' Dungeons.Entrance).
+test("chooseEntrance: a table entry's other doors ride along as entrance.doors, and Blackrock's instances have both", () => {
+	const brd = { key: 'blackrock-depths', map: 1427, x: 34.8, y: 85.3, source: 'https://example.org', doors: [{ map: 1428, x: 29.41, y: 38.3, source: 'https://example.org' }] };
+	assert.deepEqual(chooseEntrance({ name: 'Blackrock Depths', table: brd }).doors, [{ map: 1428, x: 29.4, y: 38.3 }]);
+	assert.deepEqual(chooseEntrance({ name: 'Blackrock Depths', table: brd, recorded: [{ map: 1427, x: 34.9, y: 85, n: 19 }] }).doors, [{ map: 1428, x: 29.4, y: 38.3 }], 'a recording keeps them');
+	assert.equal(chooseEntrance({ ...base, table }).doors, undefined, 'one way in: no doors');
+	const t = loadEntranceTable();
+	const at = (e) => [e.map, e.x, e.y].join(' ');
+	for (const k of ['blackrock-depths', 'blackrock-spire', 'molten-core', 'blackwing-lair']) {
+		const e = t[k];
+		const all = [at(e), ...(e.doors || []).map(at)].sort();
+		assert.deepEqual(all, ['1427 34.8 85.3', '1428 29.4 38.3'], `${k}: the Searing Gorge and Burning Steppes doors`);
+		for (const d of e.doors) assert.ok(/^https:\/\//.test(d.source) && d.note, `${k}: each door has a source and a note`);
+	}
+});
+
 test('the curated table: the City of Dalaran sends the Alliance in through Cantrips & Crows, inside the city', () => {
 	const d = loadEntranceTable()['city-of-dalaran'];
 	assert.ok(d && d.A, 'an Alliance way in');

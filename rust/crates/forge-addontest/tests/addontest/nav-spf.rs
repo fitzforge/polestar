@@ -2814,6 +2814,50 @@ fn a_way_in_reaches_past_goals_at_the_target_s_own_spot_1338_the_optional_turn_i
 	assert_eq!(out, json!({ "same": true, "elsewhere": false }));
 }
 
+// #3488: past a reached way in, the arrow pointed straight at the next NPC, through the town's houses (Northshire
+// Abbey). The straight line is kept only while the walking grid sees no wall, cliff or floor change on it from the
+// player's floor; a blocked one is walked to the end. With the floor unknown it stays straight (#914: a search from
+// no height can start on the hill above the cave). A kill goal's spots stay straight: walked round, the nearest spot
+// changes under the player and the arrow flips between two.
+#[test]
+fn a_reached_way_in_keeps_the_straight_line_only_while_nothing_blocks_it_3488() {
+	let out = run_many(
+		r#"
+		local m, tx, ty = nav.mapPoint(0, 0)          -- the NPC
+		local _, dx, dy = nav.mapPoint(0, 25)         -- the way in, a guide goto
+		local guide = { steps = {
+			{ goals = { { t = "goto", map = m, x = dx, y = dy } } },
+			{ goals = { { t = "accept", map = m, x = tx, y = ty } } },
+		} }
+		Polestar.Engine.GetGuide = function() return guide end
+		Polestar.Engine.GoalDone = function(s, g) return s == 1 and g == 1 end -- the way in reached
+		local function target() return { map = m, x = tx, y = ty, stepIndex = 2, goalIndex = 1, kind = "accept" } end
+		nav.place(0, 25)
+		local C = Polestar.Compat
+		local world = C.GetPlayerWorldPosition
+		C.GetPlayerUnitPosition = function() local c, x, y = world(); return x, y, 40, c end -- the client's height
+		local r = {}
+		local t = target()
+		fake.sight = function() return true end
+		r.clear = N.walk.FollowsGoto(t)
+		fake.sight = function() return false end
+		stub.advance(1)
+		r.wall = N.walk.FollowsGoto(t)
+		fake.sight = function() return true end
+		stub.advance(1)
+		r.stays = N.walk.FollowsGoto(t)
+		fake.sight = function() return false end
+		local grind = target()
+		grind.kind, grind.spots = "kill", { { x = tx, y = ty }, { x = tx + 0.01, y = ty } }
+		r.grind = N.walk.FollowsGoto(grind)                                -- blocked, yet straight
+		C.GetPlayerUnitPosition = function() return nil end              -- no height, no floor followed
+		fake.sight = function() return false end
+		r.noFloor = N.walk.FollowsGoto(target())
+		emit(r)"#,
+	);
+	assert_eq!(out, json!({ "clear": true, "wall": false, "stays": false, "grind": true, "noFloor": true }));
+}
+
 // A boat from Testshire Docks (-900, 0) to Farland Pier (c1: 400, 0); on Farland,
 // Pier Roost (300, 0) flies to Far Roost (-400, 0); the target (-400, -300).
 const BOAT: &str = r#"
@@ -3316,6 +3360,103 @@ fn a_strict_batch_past_its_expansion_cap_leaves_the_rest_of_its_places_unpriced_
 	assert_eq!(out["cap"], true, "a cap in expansions, over the batches ordinary routes take");
 	assert_eq!(out["whole"], json!([["priced", "priced", "priced"], "nil"]), "under the cap: every place priced");
 	assert_eq!(out["capped"], json!([["nil", "priced", "nil"], "nil"]), "past it: the nearest (the second) priced, the rest unpriced, no refusal");
+}
+
+// Fitz's 0.4.3-rc probe (the Charred Vale's kill-as-you-meet step completed, the arrow up to Sun Rock's turn-ins): the
+// planner's measure into the turn-in searched each of its 16 places on its own, the flight masters and inns of
+// Desolace and the Barrens 3,500-7,200 yd of walk away while the player's own walk was 1,476: 571,000 expansions, 19 s
+// of 3 ms slices every frame. A batch's `bound` place (the player's, Nav/Walk.lua) is searched after any `first` one;
+// once it is priced, a place whose walk can't cost less (Path.LowerBound over its gap) is left unpriced, never
+// refused, and never searched. A place at the same point as one searched takes its answer.
+#[test]
+fn a_batch_leaves_unpriced_every_place_whose_walk_cannot_beat_its_bound_place_and_searches_a_repeated_place_once() {
+	let out = run_priced(
+		r#"
+		local o = { profile = Polestar.Compat.GetPlayerFaction(), walkLevel = N.danger.Level() or 1 }
+		local function many(pts)
+			local costs, reason, expansions = solver.FindManySync(0, { x = -890, y = 10, z = 5.9, reach = 10 }, pts, o, true)
+			local c = {}
+			for i = 1, #pts do c[i] = type(costs[i]) == "number" and "priced" or tostring(costs[i]) end
+			return { c, tostring(reason), expansions, costs }
+		end
+		-- far: on another tile (no walk joins it), well past the bound's cost; run with its bound first, on cold caches.
+		local far, near, mid = { x = 100, y = 100 }, { x = -800, y = 60 }, { x = -760, y = -40 }
+		local bound = many({ far, near, { x = -760, y = -40, bound = true } })
+		local whole = many({ far, near, mid })
+		local once = many({ near })
+		local twice = many({ near, { x = -800, y = 60 } })
+		emit({ whole = { whole[1], whole[2] }, bound = { bound[1], bound[2] }, boundExp = bound[3], wholeExp = whole[3],
+			midSame = bound[4][3] == whole[4][3], farLeast = solver.LowerBound(0, { x = -890, y = 10 }, far), mid = whole[4][3],
+			twice = twice[1], same = twice[4][1] == twice[4][2], twiceExp = twice[3], onceExp = once[3] })"#,
+	);
+	assert_eq!(out["whole"], json!([["false", "priced", "priced"], "nil"]), "no bound: every place searched, the far one refused: {out}");
+	assert!(num(&out["farLeast"]) > num(&out["mid"]), "the far place's least cost is over the bound's: {out}");
+	assert_eq!(out["bound"], json!([["nil", "priced", "priced"], "nil"]), "past the bound: unpriced, never refused; a nearer place still priced: {out}");
+	assert_eq!(out["midSame"], true, "the bound place priced as in the whole batch");
+	assert!(num(&out["boundExp"]) < num(&out["wholeExp"]), "the far place never searched, though the bound batch ran first: {out}");
+	assert_eq!(out["twice"], json!(["priced", "priced"]), "a repeated place priced");
+	assert_eq!(out["same"], true, "with its twin's answer");
+	assert!(num(&out["twiceExp"]) < 1.5 * num(&out["onceExp"]), "searched once, not twice: {out}");
+}
+
+// The planner's measure (Walk.Measure) bounds its batch by the player's own walk: the player's place is the batch's
+// `bound`. A batch that left places unpriced against it keeps their estimates and is not asked again; once the player
+// has walked away and their walk, measured again alone, costs more than the bound the batch was cut by, the next plan
+// measures the whole batch again.
+#[test]
+fn the_planner_s_measure_is_bounded_by_the_player_s_walk_and_measured_whole_again_once_that_walk_costs_more() {
+	let out = run_priced(
+		r#"
+		N.RegisterTravelData({ build = "test",
+			taxi = {
+				{ 1, 0, 900, 900, 9000, 5, 5, 3, "Home Roost, Testshire" },
+				{ 2, 0, -700, 0, 9000, 50, 85, 3, "Dock Roost, Testshire" },
+			},
+			taxiZ = { [2] = 5.9 },
+			flights = { 1, 2, 1700, 2, 1, 1700 },
+		}, true)
+		Polestar.CharState().flags.taxi = { [1] = true, [2] = true }
+		local r = {}
+		nav.place(900, 800)
+		local m, x, y = nav.mapPoint(-890, 10)
+		N.SetTarget(m, x, y, "Pier")
+		N.Sample()
+		local batch = assert(fake.of(true)[1], "the walks into the target are measured")
+		local bound, bi = 0, nil
+		for i, p in ipairs(batch.targets) do if p.bound then bound, bi = bound + 1, i end end
+		r.bound = { bound, bi and batch.targets[bi].x, bi and batch.targets[bi].y }
+		-- The router's answer: the player's walk and the landing's priced, the rest left past the bound.
+		local costs, yards = {}, {}
+		for i, p in ipairs(batch.targets) do
+			if i == bi then costs[i] = 1800 elseif p.first then costs[i] = 200 end
+			yards[i] = costs[i]
+		end
+		batch.yards, batch.walkChecked, batch.pruned = yards, true, true
+		batch.callback(costs, nil, batch)
+		for i = 1, 10 do N.Sample(); stub.advance(0.1) end
+		r.batches = #fake.of(true)
+		r.held = N.travel.Waiting()
+		-- Walked away: the next plan measures the player's walk alone, dearer than the bound.
+		nav.place(1000, 860)
+		N.travel.Replan()
+		for i = 1, 10 do N.Sample(); stub.advance(0.1) end
+		local again = fake.of(true)
+		local one = again[#again]
+		r.alone = #again == 2 and #one.targets
+		if #again == 2 then
+			one.yards, one.walkChecked = { 2100 }, true
+			one.callback({ 2100 }, nil, one)
+			for i = 1, 10 do N.Sample(); stub.advance(0.1) end
+		end
+		local last = fake.of(true)
+		r.whole = #last == 3 and #last[3].targets
+		emit(r)"#,
+	);
+	assert_eq!(out["bound"], json!([1, 900, 800]), "one bound place, the player's: {out}");
+	assert_eq!(out["batches"], 1, "a batch cut by its bound is not asked again: {out}");
+	assert_eq!(out["held"], false, "and holds no route: {out}");
+	assert_eq!(out["alone"], 1, "walked away: the player's walk measured alone: {out}");
+	assert!(out["whole"].as_i64().unwrap_or(0) > 1, "dearer than the bound: the whole batch again: {out}");
 }
 
 // #3553 and #3605: a batch that leaves its places their estimates (the target's floor joins no walk) and lands before
@@ -6055,4 +6196,75 @@ fn world_outside_the_capitals_the_npc_talked_to_seeds_an_unknown_floor_a_namepla
 	]
 	.concat());
 	assert_eq!(out, json!({ "plate": "none", "talked": 25 }));
+}
+
+// #3451's open half (Fitz's 0.4.3-rc probe): a search that can't finish took 3-4 ms of every frame for as long as it
+// ran. Every search and batch has a whole budget (Path.jobBudget, expansions): past it, a search answers
+// (nil, "budget") and a batch completes with what it priced, the rest unpriced (capped), never refused.
+#[test]
+fn a_search_or_batch_past_its_whole_budget_gives_up_a_batch_keeping_what_it_priced() {
+	let out = run_priced(
+		r#"
+		local o = { profile = Polestar.Compat.GetPlayerFaction(), walkLevel = N.danger.Level() or 1 }
+		-- Corner to corner of the tile: a search of many slices at the smallest slice.
+		local from, to = { x = -1060, y = -390, z = 5.9 }, { x = -540, y = 120 }
+		local function run(fn)
+			local got
+			fn(function(...) got = { ... } end)
+			local n = 0
+			while not got and #frames > 0 and n < 10000 do n = n + 1; table.remove(frames, 1)() end
+			return got, n
+		end
+		local function find(budget, slices)
+			solver.jobBudget, solver.budget, solver.sliceMin = budget, slices, slices
+			local got = run(function(cb) solver.Find(0, from, to, cb, o) end)
+			return got and { type(got[1]) == "table" and "path" or tostring(got[1]), tostring(got[2]) } or "none"
+		end
+		local function many(budget, slices)
+			solver.jobBudget, solver.budget, solver.sliceMin = budget, slices, slices
+			local got = run(function(cb) solver.FindMany(0, from, { { x = -1050, y = -380 }, to }, cb, o, true) end)
+			if not got then return "none" end
+			local c = {}
+			for i = 1, 2 do c[i] = type(got[1][i]) == "number" and "priced" or tostring(got[1][i]) end
+			return { c, tostring(got[2]), got[3].capped == true }
+		end
+		local budget, slice, sliceMin = solver.jobBudget, solver.budget, solver.sliceMin
+		local r = { whole = find(1e9, slice), over = find(-1, -1), manyWhole = many(1e9, slice), manyOver = many(-1, -1) }
+		solver.jobBudget, solver.budget, solver.sliceMin = budget, slice, sliceMin
+		r.budget = type(budget) == "number" and budget >= 500000 and budget <= 2000000
+		emit(r)"#,
+	);
+	assert_eq!(out["budget"], true, "a budget in expansions, over what ordinary searches take: {out}");
+	assert_eq!(out["whole"][0], "path", "within it: the path: {out}");
+	assert_eq!(out["over"], json!(["nil", "budget"]), "past it: no path, the reason why: {out}");
+	assert_eq!(out["manyWhole"][0], json!(["priced", "priced"]), "{out}");
+	assert_eq!(out["manyWhole"][2], false, "{out}");
+	assert_eq!(out["manyOver"][1], "nil", "a batch past it is no refusal: {out}");
+	assert_eq!(out["manyOver"][2], true, "and says it was capped: {out}");
+	assert!(out["manyOver"][0].as_array().unwrap().iter().all(|v| v != "false"), "its unpriced places never refused: {out}");
+}
+
+// The arrow's walk past its budget: the straight arrow (its line dashed, #3418), and the goal held unasked for
+// Walk.budgetHold seconds even as the player walks on (a failure for any other reason is asked again after 15 s and 5
+// yards): the same search never restarts every frame or every few seconds.
+#[test]
+fn a_walk_past_its_budget_points_straight_and_is_not_asked_again_for_a_minute() {
+	let out = run(r#"
+		local r = {}
+		nav.place(0, 0)
+		target(0, -500)
+		aim()
+		fake.fail("budget")
+		r.straight = aim()
+		nav.place(0, -40)
+		stub.advance(20); aim(); r.at20 = calls()
+		stub.advance(30); aim(); r.at50 = calls()
+		stub.advance(15); aim(); r.at65 = calls()
+		r.hold = Polestar.Nav.walk.budgetHold
+		emit(r)"#);
+	assert_eq!(out["straight"], json!(["travel", 500, 0, -500]), "the straight arrow: {out}");
+	assert_eq!(out["hold"], 60);
+	assert_eq!(out["at20"], 1, "not asked again after 20 s: {out}");
+	assert_eq!(out["at50"], 1, "nor after 50 s: {out}");
+	assert_eq!(out["at65"], 2, "asked again once the hold is over and the player has moved: {out}");
 }

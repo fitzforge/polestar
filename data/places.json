@@ -44,15 +44,23 @@
 					[
 						44.79,
 						51.93
+					],
+					[
+						39.6,
+						50.8
+					],
+					[
+						40.6,
+						53.6
 					]
 				]
 			},
-			"note": "Only the group bounty uses these exterior Taskmaster ledges; omit the mine floors underneath Thorium Point.",
+			"note": "Only the group bounty uses these Taskmaster places: the exterior ledges, then the Slag Pit below as the last stop (#3722, Fitz's pick: a player found more Taskmasters there; 4 of their 24 places). Their other low places stay out.",
 			"source": {
 				"kind": "client",
-				"ref": "Dark Iron Taskmaster 5846: surface spawn heights 241.0, 248.0, 242.4 and 243.1."
+				"ref": "Dark Iron Taskmaster 5846: surface spawn heights 241.0, 248.0, 242.4 and 243.1; in the Slag Pit 176.5, 178.4, 180.5 and 183.5 (38.8-41.2,50.5-54.2)."
 			},
-			"issue": 3144
+			"issue": 3722
 		},
 		{
 			"id": "searing-surface-slavers",
@@ -2917,18 +2925,44 @@
 			"id": "2825-tanaris-tooga-giver",
 			"quest": 1560,
 			"objective": "giver",
-			"at": {
+			"path": {
 				"map": 1446,
-				"x": 30.2,
-				"y": 70.7,
-				"frame": "era"
+				"frame": "era",
+				"points": [
+					[
+						28.59,
+						67.38
+					],
+					[
+						30.23,
+						70.7
+					],
+					[
+						29.8,
+						73.9
+					],
+					[
+						30.31,
+						64.56
+					],
+					[
+						29.47,
+						60.44
+					]
+				]
 			},
-			"note": "Tooga's Quest: Tooga wanders the west edge of the Thistleshrub Valley (29.5,60.6 to 29.8,74.0) until the escort starts; his spawn data also has him beside Torta at Steamwheedle Port (66.9,25.4), where the escort ends and Oasis (97540) is given, and the accept went to whichever was nearest the player: from Gadgetzan or the port, the port. The point is where most players found him; the valley's other points stay as the goal's other places. Found with #2825's sweep of escort givers.",
-			"source": {
-				"kind": "recording",
-				"ref": "players' recordings to 2026-11-17: 18 accepts of 1560 (18 people), all in the valley at 28.4-32.1,60.6-74.1, 8 of them at 30.0-30.6,70.4-70.9; none at the port"
-			},
-			"issue": 2825
+			"note": "Tooga's Quest: Tooga wanders the west edge of the Thistleshrub Valley (29.5,60.6 to 29.8,74.0) until the escort starts; his spawn data also has him beside Torta at Steamwheedle Port (66.9,25.4), where the escort ends and Oasis (97540) is given, and the accept went to whichever was nearest the player: from Gadgetzan or the port, the port. Found with #2825's sweep of escort givers. The accept then pointed at the one place where most players found him (30.2,70.7), and a player who didn't find him there camped it (#3712): the step searches his valley places in turn (two of them a few yards apart are one search point).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-17: 18 accepts of 1560 (18 people), all in the valley at 28.4-32.1,60.6-74.1, 8 of them at 30.0-30.6,70.4-70.9; none at the port"
+				},
+				{
+					"kind": "client",
+					"ref": "Tooga 5955: spawns 28.59,67.38; 29.47,60.44; 29.7,74.06; 29.87,73.72; 30.23,70.7; 30.31,64.56 in the valley, four more at 66.4-67.7,24.9-25.8"
+				}
+			],
+			"issue": 3712
 		},
 		{
 			"id": "a043-stonesplinter-north-camps",

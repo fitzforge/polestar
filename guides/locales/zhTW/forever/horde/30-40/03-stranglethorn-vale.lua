@@ -9,8 +9,6 @@ return {
 	-- Step 1: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "飛往{area:1637}",
-	-- {area:2408} Shadowprey Village
-	["{area:2408} flight master"] = "{area:2408}的飛行管理員",
 
 	-- Step 2: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
@@ -131,7 +129,7 @@ return {
 	-- {npc:268992} Zimmix Sputterspark · {area:102} Ruins of Zul'Kunda · {item:277957} Primitive Key · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment · Bloodscalp Scouts = {npc:588} Bloodscalp Scout · Bloodscalp Berserkers = {npc:597} Bloodscalp Berserker
 	-- was: ["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}. Then lead him out of the ruins: {npc:4631} in {area:35} takes the news and the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992}被關在{area:102}的東側邊緣；遭竊的貨物散落在他周圍的遺跡中。那裡的血頂斥候、獵手和秘法師（34-35級）身上帶著他的{item:277957}。然後帶他離開遺跡：{area:35}的{npc:4631}會接收消息和貨物。\n小心：血頂狂戰士、獵頭者（36-37級）和巫醫（37級，施法者）佔據著{npc:268992}北邊和西邊的遺跡，靠近北側的貨物（約24.9,9.6）：先撿{npc:268992}附近南側遺跡的貨物，如果要往北，一次只拉一隻。"
-	["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}: {npc:4631} in {area:35} takes the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "",
+	["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}: {npc:4631} in {area:35} takes the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992}被關在{area:102}的東緣；被盜的貨物散落在他周圍的廢墟中。那裡的血頂斥候、獵手和秘法師（34-35）身上有他的{item:277957}：{area:35}的{npc:4631}接收貨物。\n小心：血頂狂戰士、獵頭者（36-37）和巫醫（37，施法者）佔據{npc:268992}以北和以西的廢墟，靠近北邊的貨物（大約24.9,9.6）：先拿{npc:268992}旁南邊廢墟裡的貨物，如果往北走就一次拉一隻。",
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
 	["Stolen Shipments, in the ruins"] = "遭竊的貨物，在遺跡中",
 	-- {item:277957} Primitive Key
@@ -140,9 +138,9 @@ return {
 
 	-- Step 21: Escort Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark
-	["Escort {npc:268992}"] = "",
+	["Escort {npc:268992}"] = "護送{npc:268992}",
 	-- {npc:268992} Zimmix Sputterspark
-	["Lead {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "",
+	["Lead {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "帶{npc:268992}離開廢墟並保護他活著：他安全後，洛茲吉爾會接收消息。",
 	-- {npc:268992} Zimmix Sputterspark
 	["Escort {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "護送{npc:268992}離開遺跡並保護他存活：他安全後羅茲基爾就會接收消息。",
 
@@ -261,6 +259,7 @@ return {
 	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "經過營地往西，晶背蜥蜴（34-35級）待在岩石上；再過去村子裡的每個血頂食人妖都可能掉落耳朵。\n營地西南方山頂上的37級猛虎{npc:729}先別打：他在這裡比你高兩級，40-50級荊棘谷指南會再回來處理他。\n小心：迅猛龍巢穴裡有幼年迅猛龍，你攻擊成年迅猛龍時牠們會加入戰鬥。",
 	-- ["Zeppelin to {object:3202}"] = "搭飛艇前往{object:3202}",
 	-- ["from {npc:4723}"] = "從{npc:4723}身上取得",
+	-- ["{area:2408} flight master"] = "{area:2408}的飛行管理員",
 	-- ["{item:5852}, in {object:20691}"] = "{item:5852}，在{object:20691}裡",
 	-- ["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2465}：留給（forever/horde/40-50/01-stranglethorn-vale）",
 	-- ["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs beside the flight master."] = "{npc:2495}的商店在旅店東邊的建築裡；{npc:2498}在旅店的一樓，{npc:2496}、{npc:737}和{npc:773}在樓上的飛行管理員旁邊。",

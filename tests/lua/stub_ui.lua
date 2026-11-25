@@ -523,12 +523,12 @@ function Engine.GuideTrainStop()
 	if not t then return nil end
 	return t[1], t[2]
 end
--- The real rule (Core/Engine.lua Engine.TrainingAdvice) over the stub's stop;
--- uistub.plannerTrainer: the planner's pick (unset: none, the notice's is used).
-Engine.TRAIN_GUIDE_NEAR = 10
+-- The real rule (Core/Engine.lua Engine.TrainingAdvice) over the stub's stop:
+-- the guide's own stop wherever it is ahead (#2843); uistub.plannerTrainer:
+-- the planner's pick (unset: none, the notice's is used).
 function Engine.TrainingAdvice()
 	local steps, title = Engine.GuideTrainStop()
-	if type(steps) == "number" and steps <= Engine.TRAIN_GUIDE_NEAR then
+	if type(steps) == "number" then
 		return { steps = steps, title = title, guide = true }
 	end
 	return { steps = steps, title = title, trainer = uistub.plannerTrainer }
@@ -733,6 +733,13 @@ function Guides.Levels(g, faction) return uistub.realGuides.Levels(g, faction or
 -- Experimental guides and guides in Forever's new zones (the Forever mark): the real registry's rules.
 function Guides.IsExperimental(g) return uistub.realGuides.IsExperimental(g) end
 function Guides.InForeverZone(g) return uistub.realGuides.InForeverZone(g) end
+-- The scenes' guides carry their steps: a look reads nothing in (Guides.Peek).
+function Guides.Peek(id)
+	local g = Guides.Get(id)
+	return g and g.steps, false
+end
+function Guides.Unpeek() end
+function Guides.StepsDeferred() return false end
 
 local Nav = {}
 function Nav.SetTarget(map, x, y, label, f, stop, z)

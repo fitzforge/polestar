@@ -49,7 +49,8 @@
 -- selected. Home's tab card and tab rows close their tab from their
 -- right-click menu (Close tab, Move left, Move right; the card's ··· too) or
 -- Y on a gamepad. A name cut short (the tab card's, a row's, a community
--- pack's in the sidebar, the Zones fact) reads whole in its tooltip.
+-- pack's in the sidebar, the Quests in and Passes through facts) reads
+-- whole in its tooltip.
 --
 -- Selecting shows details; loading is explicit: the buttons, a double-click,
 -- or Enter in the search box (a row's tooltip says so). Opened from the guide
@@ -115,7 +116,7 @@ UI.Picker = P
 P.RECENT_MAX = RECENT_MAX
 
 local win, details
-local factCache = {} -- guide id -> { quests, zones } (guideFacts)
+local factCache = {} -- guide id -> { quests, questsIn, passes } (guideFacts)
 local folderPool, rowPool = {}, {}
 local query = ""
 local questContext -- { id, query, steps = { [guideId] = matching steps } }
@@ -275,7 +276,9 @@ local function haystack(g)
 	return table.concat(parts, " "):lower()
 end
 
--- Match IDs, not translated titles: two quests can share a name.
+-- Match IDs, not translated titles: two quests can share a name. A hit
+-- keeps the step's title and note, not the step: a side-shelf guide's steps
+-- are read in for the search and given back (Guides.Peek).
 local function questSteps(g)
 	local cached = questContext.steps[g.id]
 	if cached then return cached end
@@ -286,16 +289,18 @@ local function questSteps(g)
 	questContext.steps[g.id] = found
 	if not full or (G.GuideMatches and not G.GuideMatches(g, player) and not (G.OtherStart and G.OtherStart(g, player))) then return found end
 	local function applies(only) return not G.Matches or G.Matches(only, player) end
-	for i, step in ipairs(full.steps or {}) do
+	local steps, fresh = G.Peek(g.id)
+	for i, step in ipairs(steps or {}) do
 		if applies(step.only) then
 			for _, goal in ipairs(step.goals or {}) do
 				if goal.quest == questContext.id and applies(goal.only) then
-					found[#found + 1] = { index = i, step = step }
+					found[#found + 1] = { index = i, step = { title = step.title, note = step.note } }
 					break
 				end
 			end
 		end
 	end
+	G.Unpeek(g.id, fresh)
 	return found
 end
 
@@ -634,16 +639,40 @@ end
 
 local mapName = ns.Compat.MapName
 
+-- Whether `text` has `name` in it as whole words.
+local function mentions(text, name)
+	local at = 1
+	while true do
+		local a, b = text:find(name, at, true)
+		if not a then return false end
+		if not text:sub(a - 1, a - 1):find("[%w\128-\255]") and not text:sub(b + 1, b + 1):find("[%w\128-\255]") then return true end
+		at = a + 1
+	end
+end
+
+-- Whether a guide's title names the zone: its name in the title, or its first
+-- word before "&" and the rest of it after ("Western Plaguelands" in "Western
+-- & Eastern Plaguelands": the writer's titles share the last word).
+local function titleNames(title, zone)
+	if mentions(title, zone) then return true end
+	local first, rest = zone:match("^(%S+) (.+)$")
+	return first ~= nil and mentions(title, first .. " &") and mentions(title, rest)
+end
+
 -- What a guide's steps hold for this character: the quests it accepts
 -- (steps and goals filtered by `only`, as the route choice counts them) and
--- the zones its goals visit, in step order (its own zone without any).
--- Cached per guide until guides register again.
+-- the zones its goals visit, in step order: `questsIn` those its title names
+-- (the guide writer's: the zones it quests in) or where QUEST_STEPS or more
+-- of its steps carry a quest goal, `passes` the rest (its own zone when no
+-- goal has one). Cached per guide until guides register again.
+local QUEST_STEPS = 6
 local function guideFacts(g)
 	local f = factCache[g.id]
 	if f then return f end
-	f = { quests = 0, zones = {} }
+	f = { quests = 0, questsIn = {}, passes = {} }
 	local G, C = ns.Guides, ns.Compat
-	local full = G and G.Get and G.Get(g.id)
+	local full, fresh = nil, false
+	if G and G.Peek then full, fresh = G.Peek(g.id) end
 	local player
 	if C and C.GetPlayerInfo then
 		local ok, info = pcall(C.GetPlayerInfo)
@@ -654,22 +683,35 @@ local function guideFacts(g)
 		if type(only) ~= "table" or not fits then return true end
 		return player ~= nil and fits(only, player)
 	end
-	local seen = {}
-	for _, step in ipairs(full and type(full.steps) == "table" and full.steps or {}) do
+	local zones, questSteps = {}, {} -- route order; zone -> steps with a quest goal there
+	for _, step in ipairs(type(full) == "table" and full or {}) do
 		if applies(step.only) and type(step.goals) == "table" then
+			local counted = {}
 			for _, goal in ipairs(step.goals) do
 				if applies(goal.only) then
 					if goal.t == "accept" then f.quests = f.quests + 1 end
 					local name = mapName(goal.map)
-					if name and not seen[name] then
-						seen[name] = true
-						f.zones[#f.zones + 1] = name
+					if name then
+						if not questSteps[name] then
+							questSteps[name] = 0
+							zones[#zones + 1] = name
+						end
+						if goal.quest and not counted[name] then
+							counted[name] = true
+							questSteps[name] = questSteps[name] + 1
+						end
 					end
 				end
 			end
 		end
 	end
-	if #f.zones == 0 then f.zones[1] = UI.GuidePlace(g) end
+	if G and G.Peek then G.Unpeek(g.id, fresh) end
+	local title = type(g.title) == "string" and g.title or ""
+	for _, name in ipairs(zones) do
+		local list = (questSteps[name] >= QUEST_STEPS or titleNames(title, name)) and f.questsIn or f.passes
+		list[#list + 1] = name
+	end
+	if #zones == 0 then f.passes[1] = UI.GuidePlace(g) end
 	if player then factCache[g.id] = f end
 	return f
 end
@@ -1601,7 +1643,7 @@ local function factRow(i)
 	f.Value:SetJustifyH("LEFT")
 	f.Value:SetJustifyV("TOP")
 	f.Value:SetWordWrap(true)
-	-- Over a value cut short (the Zones fact): the whole of it on hover.
+	-- Over a value cut short (Quests in, Passes through): the whole of it on hover.
 	f.Hit = CreateFrame("Frame", nil, details)
 	f.Hit:SetAllPoints(f.Value)
 	f.Hit:SetScript("OnEnter", W.SimpleTip)
@@ -2007,9 +2049,10 @@ local function renderDetails(byId, tabs, active)
 	y = y + (started and (20 + 2) or 14) + 16
 
 	-- Facts: what the guide's goal gives and why (a Class guide's `reward`
-	-- and `why`), then steps, the quests this character takes, the zones in
-	-- route order, where the guide leads. Reward entries are tiles: those
-	-- given outright under "Reward", a choice under "Choose one".
+	-- and `why`), then steps, the quests this character takes, the zones it
+	-- quests in and those it passes through (each in route order), where the
+	-- guide leads. Reward entries are tiles: those given outright under
+	-- "Reward", a choice under "Choose one".
 	local facts, info = {}, guideFacts(g)
 	if type(g.reward) == "table" then
 		local get, choose = {}, {}
@@ -2026,14 +2069,19 @@ local function renderDetails(byId, tabs, active)
 	-- A Class guide: the same heads-up the class-quest card gives (QoL/ClassQuests.lua).
 	local CQ, G = ns.QoL and ns.QoL.ClassQuests, ns.Guides
 	local full = g.category == "Class" and CQ and CQ.Heads and G and G.Get and G.Get(g.id)
-	if type(full) == "table" and type(full.steps) == "table" then
-		local okP, player = pcall(ns.Compat.GetPlayerInfo)
-		local heads = CQ.HeadsLine(CQ.Heads(full, okP and type(player) == "table" and player or {}), full)
-		if heads then facts[#facts + 1] = { L["Heads-up"], heads } end
+	if type(full) == "table" then
+		local steps, fresh = G.Peek(g.id)
+		if type(steps) == "table" then
+			local okP, player = pcall(ns.Compat.GetPlayerInfo)
+			local heads = CQ.HeadsLine(CQ.Heads(full, okP and type(player) == "table" and player or {}), full)
+			if heads then facts[#facts + 1] = { L["Heads-up"], heads } end
+		end
+		G.Unpeek(g.id, fresh)
 	end
 	if g.stepCount then facts[#facts + 1] = { L["Steps"], tostring(g.stepCount) } end
 	if info.quests > 0 then facts[#facts + 1] = { L["Quests"], tostring(info.quests) } end
-	if #info.zones > 0 then facts[#facts + 1] = { L["Zones"], info.zones, "textDim" } end
+	if #info.questsIn > 0 then facts[#facts + 1] = { L["Quests in"], info.questsIn, "textDim" } end
+	if #info.passes > 0 then facts[#facts + 1] = { L["Passes through"], info.passes, "textDim" } end
 	local nextText = nextFact(g, byId)
 	if nextText then facts[#facts + 1] = { L["Next"], nextText, "textDim" } end
 	d.FactRule:ClearAllPoints()
@@ -2130,8 +2178,10 @@ local function renderDetails(byId, tabs, active)
 	local pitch = g.pitch
 	if questContext then
 		local text = {}
-		local E, full = ns.Engine, ns.Guides.Get(g.id)
+		local E, G = ns.Engine, ns.Guides
+		local full = G.Get(g.id)
 		local numbered = E and E.StepNumberOf and full
+		local _, fresh = G.Peek(g.id)
 		for _, hit in ipairs(questSteps(g)) do
 			-- As the player counts the steps (#942).
 			local no = numbered and (E.StepNumberOf(full, hit.index)) or hit.index
@@ -2139,6 +2189,7 @@ local function renderDetails(byId, tabs, active)
 			text[#text + 1] = string.format(L["Step %d of %d: %s"], no, total, hit.step.title or questContext.query)
 			if type(hit.step.note) == "string" and hit.step.note ~= "" then text[#text + 1] = hit.step.note end
 		end
+		G.Unpeek(g.id, fresh)
 		if #text > 0 then
 			if type(pitch) == "string" and pitch ~= "" then text[#text + 1] = pitch end
 			pitch = table.concat(text, "\n\n")

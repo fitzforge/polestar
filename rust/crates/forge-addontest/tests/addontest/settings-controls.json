@@ -2375,14 +2375,6 @@
  ],
  "0.4.3": [
   {
-   "id": "behavior.dungeons",
-   "kind": "dropdown",
-   "label": "Dungeons in my route",
-   "at": [
-    "Guide > Automation > Quests"
-   ]
-  },
-  {
    "id": "arcade.game",
    "kind": "dropdown",
    "label": "Game on flights",
@@ -2396,6 +2388,16 @@
    "label": "Say when I've outlevelled a guide",
    "at": [
     "Guide > Automation > Guides"
+   ]
+  }
+ ],
+ "0.4.4": [
+  {
+   "id": "behavior.dungeons",
+   "kind": "dropdown",
+   "label": "Dungeons in my route",
+   "at": [
+    "Guide > Automation > Quests"
    ]
   }
  ]

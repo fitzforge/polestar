@@ -7,14 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- was: ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56."] = "49~50레벨 캐릭터용이지만, 여기 퀘스트 대부분은 51-53레벨입니다. 경험치를 위해 일부러 넣었습니다. 이번 첫 방문은 야수가 48-52레벨인 분화구 동쪽 절반만 다니니 하나씩 끌어오세요. 수정탑, 뼈, 벌집은 약 56레벨의 나중 운고로 방문 때 합니다."
-	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "",
+	-- {zone:1446} Tanaris · {area:976} Gadgetzan
+	["{zone:1446} first ({area:976} hand-ins), then into Un'Goro. For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "먼저 {zone:1446}({area:976}에서 퀘스트 완료), 그다음 운고로로 들어갑니다. 49~50레벨 캐릭터용이지만, 여기 퀘스트 대부분은 51-53레벨입니다. 경험치를 위해 일부러 넣었습니다. 이번 첫 방문은 야수가 48-52레벨인 분화구 동쪽 절반만 다니니 하나씩 끌어오세요. 수정탑, 뼈, 벌집은 약 54레벨의 나중 운고로 방문 때 합니다.",
 
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "{area:150}(으)로 비행",
-	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "{zone:1455} 비행 조련사",
 
 	-- Step 3: Theramore
 	["Theramore"] = "테라모어",
@@ -235,4 +233,5 @@ return {
 	-- ["{npc:9998}, at the refuge entrance"] = "{npc:9998}, 야영지 입구",
 	-- ["{npc:9998}, at the refuge's entrance"] = "{npc:9998}, 야영지 입구",
 	-- ["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999}은(는) 분화구 한가운데 {area:537}의 남동쪽 비탈에 앉아 있습니다.",
+	-- ["{zone:1455} flight master"] = "{zone:1455} 비행 조련사",
 }

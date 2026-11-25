@@ -187,10 +187,10 @@ const HEADS_UP = {
 	Alliance: {
 		DRUID: { on: ['aquatic-form', 'bear-form', 'cat-form', 'cure-poison'], dropped: ['bloodpetal-poison'] },
 		HUNTER: { on: ['taming-the-beast-alliance'], dropped: ['rhokdelar', 'the-hunters-charm'] },
-		MAGE: { on: ['arcane-refreshment', 'celestial-orb', 'polymorph-pig'], dropped: ['astral-knot-garment', 'destroy-morphaz', 'mages-wand', 'manaweave-robe', 'staff-or-orb-alliance'] },
-		PALADIN: { on: ['alliance/paladin-charger', 'alliance/paladin-warhorse', 'tome-of-divinity', 'verigans-fist'], dropped: ['holy-mightstone'] },
+		MAGE: { on: ['arcane-refreshment', 'celestial-orb', 'polymorph-pig'], dropped: ['astral-knot-garment', 'destroy-morphaz', 'mages-wand', 'manaweave-robe', 'quest 82084', 'staff-or-orb-alliance'] },
+		PALADIN: { on: ['alliance/paladin-charger', 'alliance/paladin-warhorse', 'tome-of-divinity', 'verigans-fist'], dropped: ['cloak-of-the-divine-storm', 'holy-mightstone'] },
 		PRIEST: { on: ['divine-grace-and-feedback'], dropped: ['benediction', 'blood-of-morphaz', 'priest-robes-alliance'] },
-		ROGUE: { on: ['poisons-alliance'], dropped: ['blade-of-cunning-alliance', 'certificate-of-thievery', 'the-azure-key', 'the-eye-of-bhossca'] },
+		ROGUE: { on: ['poisons-alliance'], dropped: ['blade-of-cunning-alliance', 'certificate-of-thievery', 'the-azure-key'] },
 		SHAMAN: { on: ['call-of-air-alliance', 'call-of-fire-alliance', 'call-of-water-alliance'], dropped: [] },
 		WARLOCK: {
 			on: ['felhunter-alliance', 'incubus-alliance', 'neutral/warlock-dreadsteed', 'neutral/warlock-felsteed', 'voidwalker-alliance'],
@@ -201,10 +201,10 @@ const HEADS_UP = {
 	Horde: {
 		DRUID: { on: ['aquatic-form', 'bear-form', 'cat-form', 'cure-poison'], dropped: ['bloodpetal-poison'] },
 		HUNTER: { on: ['taming-the-beast-horde'], dropped: ['rhokdelar', 'the-hunters-charm'] },
-		MAGE: { on: ['arcane-refreshment', 'celestial-orb', 'polymorph-pig'], dropped: ['destroy-morphaz', 'ju-ju-heaps', 'mages-wand', 'nether-lace-garment', 'spellfire-robes'] },
-		PALADIN: { on: ['horde/paladin-warhorse', 'lumina-windsinger', 'tyrs-watch'], dropped: [] },
+		MAGE: { on: ['arcane-refreshment', 'celestial-orb', 'polymorph-pig'], dropped: ['destroy-morphaz', 'ju-ju-heaps', 'mages-wand', 'nether-lace-garment', 'quest 82084', 'spellfire-robes'] },
+		PALADIN: { on: ['horde/paladin-warhorse', 'lumina-windsinger'], dropped: [] },
 		PRIEST: { on: ['hex-of-weakness-and-shadowguard'], dropped: ['benediction', 'blood-of-morphaz', 'priest-robes-horde'] },
-		ROGUE: { on: ['poisons-horde'], dropped: ['blade-of-cunning-horde', 'plundering-the-plunderers', 'the-azure-key', 'the-eye-of-bhossca'] },
+		ROGUE: { on: ['poisons-horde'], dropped: ['blade-of-cunning-horde', 'plundering-the-plunderers', 'the-azure-key'] },
 		SHAMAN: { on: ['call-of-air-horde', 'call-of-earth-horde', 'call-of-fire-horde', 'call-of-water-horde'], dropped: ['darkreaver', 'spirit-totem'] },
 		WARLOCK: {
 			on: ['felhunter-horde', 'incubus-horde', 'neutral/warlock-dreadsteed', 'neutral/warlock-felsteed', 'voidwalker-horde'],
@@ -222,7 +222,8 @@ for (const faction of Object.keys(SIDES)) {
 			const on = v.on.map(short).sort();
 			got[c] = { on, dropped: v.off.map(short).filter((id) => !on.includes(id)).sort() };
 			for (const id of on) assert.ok(PINNED[c].prompted.includes(id), `${faction} ${c}: ${id} is alerted for`);
-			for (const id of got[c].dropped) assert.ok(PINNED[c].optional.includes(id), `${faction} ${c}: only an optional chain drops out (${id})`);
+			// A chain with no Class guide ("quest <id>", e.g. 82084's Personal Spellbook) drops out when it gives only an item.
+			for (const id of got[c].dropped) assert.ok(PINNED[c].optional.includes(id) || /^quest \d+$/.test(id), `${faction} ${c}: only an optional chain drops out (${id})`);
 		}
 		assert.deepEqual(got, HEADS_UP[faction]);
 	});

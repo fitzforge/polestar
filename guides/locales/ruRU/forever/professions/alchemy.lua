@@ -269,7 +269,8 @@ return {
 	-- {spell:3176} Lesser Troll's Blood Elixir
 	["{spell:3176} to 160"] = "{spell:3176} до 160",
 	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial
-	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176}: желтый на 150 (желтый 150, зеленый 170, серый 190): около 12 изготовлений до 160. Каждое требует 2 {item:2453}, 2 {item:2450} и 1 {item:3372}. Два {item:2453} и два {item:2450} на изготовление; {item:2453} растет в зонах 15-30 уровня.",
+	-- was: ["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176}: желтый на 150 (желтый 150, зеленый 170, серый 190): около 12 изготовлений до 160. Каждое требует 2 {item:2453}, 2 {item:2450} и 1 {item:3372}. Два {item:2453} и два {item:2450} на изготовление; {item:2453} растет в зонах 15-30 уровня."
+	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. If you got here without learning {spell:3176}, learn it now: an earlier step teaches it."] = "{spell:3176}: желтый на 150 (желтый 150, зеленый 170, серый 190): около 12 изготовлений до 160. Каждое требует 2 {item:2453}, 2 {item:2450} и 1 {item:3372}. Два {item:2453} и два {item:2450} на изготовление; {item:2453} растет в зонах 15-30 уровня. Если вы дошли сюда, не выучив {spell:3176}, выучите сейчас: его учит один из прошлых шагов.",
 
 	-- Step 55: Alchemy recipes at 160
 	-- {skill:171} Alchemy
@@ -355,7 +356,8 @@ return {
 	-- {item:8951} Elixir of Defense
 	["{item:8951} to 230"] = "{item:8951} до 230",
 	-- {item:8951} Elixir of Defense · {item:3355} Wild Steelbloom · {item:3821} Goldthorn · {item:3372} Leaded Vial · {zone:1418} Badlands
-	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951}: желтый на 225 (желтый 215, зеленый 235, серый 255): около 8 изготовлений до 230. Каждое требует 1 {item:3355}, 1 {item:3821} и 1 {item:3372}. {item:3355} и {item:3821} – травы зон 30-45 уровня (Тернистая долина, Арати, {zone:1418}).",
+	-- was: ["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951}: желтый на 225 (желтый 215, зеленый 235, серый 255): около 8 изготовлений до 230. Каждое требует 1 {item:3355}, 1 {item:3821} и 1 {item:3372}. {item:3355} и {item:3821} – травы зон 30-45 уровня (Тернистая долина, Арати, {zone:1418})."
+	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). If you got here without learning {item:8951}, learn it now: an earlier step teaches it."] = "{item:8951}: желтый на 225 (желтый 215, зеленый 235, серый 255): около 8 изготовлений до 230. Каждое требует 1 {item:3355}, 1 {item:3821} и 1 {item:3372}. {item:3355} и {item:3821} – травы зон 30-45 уровня (Тернистая долина, Арати, {zone:1418}). Если вы дошли сюда, не выучив {item:8951}, выучите сейчас: его учит один из прошлых шагов.",
 
 	-- Step 70: Alchemy recipes at 230
 	-- {skill:171} Alchemy
@@ -457,11 +459,13 @@ return {
 	-- ["{item:765} (Horde)"] = "{item:765} (Орда)",
 	-- ["{item:785} (Alliance)"] = "{item:785} (Альянс)",
 	-- ["{item:785} (Horde)"] = "{item:785} (Орда)",
+	-- ["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951}: желтый на 225 (желтый 215, зеленый 235, серый 255): около 8 изготовлений до 230. Каждое требует 1 {item:3355}, 1 {item:3821} и 1 {item:3372}. {item:3355} и {item:3821} – травы зон 30-45 уровня (Тернистая долина, Арати, {zone:1418}).",
 	-- ["{npc:1958} (level 17-18) drop it here. The Auction House works too."] = "Добыча здесь: {npc:1958} (уровень 17-18). Подойдет и аукцион.",
 	-- ["{npc:513} (level 14-15) drop it here. The Auction House works too."] = "Добыча здесь: {npc:513} (уровень 14-15). Подойдет и аукцион.",
 	-- ["{skill:171} recipes at 259"] = "{skill:171}: рецепты на 259",
 	-- ["{skill:171} recipes at 85"] = "{skill:171}: рецепты на 85",
 	-- ["{skill:171} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 68s in all."] = "{skill:171} качается параллельно с уровнем. Система наследия Forever награждает за профессии производства на навыке 150, 225 и 300 (пределы рангов «Подмастерье», «Умелец» и «Искусник»), так что важен каждый рубеж. Материалы на 1-75 стоят всего около 68с.",
 	-- ["{spell:11447} to 215"] = "{spell:11447} до 215",
+	-- ["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176}: желтый на 150 (желтый 150, зеленый 170, серый 190): около 12 изготовлений до 160. Каждое требует 2 {item:2453}, 2 {item:2450} и 1 {item:3372}. Два {item:2453} и два {item:2450} на изготовление; {item:2453} растет в зонах 15-30 уровня.",
 	-- ["{spell:7845} to 175"] = "{spell:7845} до 175",
 }

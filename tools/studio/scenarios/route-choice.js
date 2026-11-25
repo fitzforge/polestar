@@ -45,7 +45,7 @@ const FERALAS = {
 			seconds: 300, quests: 28, zone: 1446, focusX: 52.0, focusY: 28.4,
 			pitch: "Gadgetzan's camps, Tooga's escort, then Thorium Point.",
 			pros: ['Thorium Point on the way', 'Then on to the Hinterlands', 'Stays on the main route'], cons: ['Long runs across the desert'],
-			thenId: 'forever/horde/40-50/05-the-hinterlands', thenGuideTitle: 'The Hinterlands & Blasted Lands', thenLevel: 48 },
+			thenId: 'forever/horde/40-50/05-the-hinterlands', thenGuideTitle: 'The Hinterlands & Swamp of Sorrows', thenLevel: 48 },
 		{ id: 'polestar-experimental/shendralas', title: "Shen'dralas", zoneName: "Shen'dralas", minLevel: 42, maxLevel: 44,
 			seconds: 780, quests: 11, zone: 2652, focusX: 21.2, focusY: 22.4, experimental: true, newInForever: true, outleveled: true, detour: 'Desolace',
 			pitch: 'A fallen Highborne temple south of Desolace.',
@@ -55,20 +55,20 @@ const FERALAS = {
 	],
 };
 const BADLANDS = {
-	from: 'forever/horde/30-40/06-badlands', fromTitle: 'Badlands', recommended: 'forever/horde/40-50/01-stranglethorn-vale', joinsAt: 'Feralas & Tanaris',
+	from: 'forever/horde/30-40/06-badlands', fromTitle: 'Badlands', recommended: 'forever/horde/40-50/01-stranglethorn-vale', joinsAt: 'Stranglethorn Vale, Swamp of Sorrows, Tanaris & Feralas',
 	options: [
 		{ id: 'forever/horde/40-50/01-stranglethorn-vale', title: 'Stranglethorn Vale & Swamp of Sorrows', zoneName: 'Stranglethorn Vale', minLevel: 39, maxLevel: 43,
 			recommended: true, seconds: 600, quests: 41, zone: 1434, focusX: 32.5, focusY: 29.0,
 			pitch: "Nesingwary's hunts and Booty Bay's pirates, then Stonard.",
 			pros: ['Riding and level 40 training first', 'Stonard flight path for later', 'Stays on the main route'],
 			cons: ['Spread over two zones, lots of travel'],
-			thenId: 'forever/horde/40-50/02-feralas', thenGuideTitle: 'Feralas & Tanaris', thenLevel: 43 },
+			thenId: 'forever/horde/40-50/02-feralas', thenGuideTitle: 'Stranglethorn Vale, Swamp of Sorrows, Tanaris & Feralas', thenLevel: 43 },
 		{ id: 'polestar-experimental/riverglades-horde-1', title: 'Riverglades', zoneName: 'Riverglades',
 			minLevel: 40, maxLevel: 43, seconds: 1500, quests: 70, zone: 2548, focusX: 77.1, focusY: 52.9, experimental: true, newInForever: true,
 			pitch: 'A new Forever zone south of the Badlands.',
 			pros: ['One zone instead of two', 'Ride straight in from Kargath', "Rog'mar: flight path and inn"],
 			cons: ['New guide: steps may still change'],
-			thenId: 'forever/horde/40-50/02-feralas', thenGuideTitle: 'Feralas & Tanaris', thenLevel: 43 },
+			thenId: 'forever/horde/40-50/02-feralas', thenGuideTitle: 'Stranglethorn Vale, Swamp of Sorrows, Tanaris & Feralas', thenLevel: 43 },
 	],
 };
 

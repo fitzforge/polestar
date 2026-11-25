@@ -51,7 +51,7 @@ pub fn write_texts_file(s: &FileState, retired: &V, drafts: &V) -> String {
 			place = Some(&t.where_);
 		}
 		if !t.tokens.is_empty() {
-			let unnamed: HashSet<String> = if s.kind == "guide" { unnamed_tokens(&t.text, locale).into_iter().collect() } else { HashSet::new() };
+			let unnamed: HashSet<String> = if s.kind == "guide" { unnamed_tokens(&t.text, s.named.as_deref()).into_iter().collect() } else { HashSet::new() };
 			lines.push(token_line(&t.tokens, &unnamed));
 		}
 		if !t.plurals.is_empty() {

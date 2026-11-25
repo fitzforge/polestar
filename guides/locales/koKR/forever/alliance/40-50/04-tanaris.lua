@@ -134,24 +134,28 @@ return {
 	-- {npc:5471} Dunemaul Ogre
 	["grind on {npc:5471}, at the compound's south end"] = "주둔지 남쪽 끝에서 {npc:5471} 사냥",
 
-	-- Step 26: Tooga's escort
+	-- Step 26: Tooga
+	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
+	["The little turtle {npc:5955} wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Take him from the edge and leave the Thistleshrubs (48-50) alone."] = "작은 거북 {npc:5955}은(는) {quest:3362} 서쪽 가장자리의 여러 지점을 돌아다닙니다: 찾을 때까지 화살표가 한 지점에서 다음 지점으로 안내합니다. 가장자리에서 데려가고 엉겅퀴덩굴(48-50)은 건드리지 마십시오.",
+
+	-- Step 27: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "{npc:5955} 호위",
-	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley · {npc:6015} Torta · {area:977} Steamwheedle Port
-	["The little turtle {npc:5955} wanders the west edge of the {quest:3362}, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "작은 거북 {npc:5955}은(는) {quest:3362} 서쪽 가장자리를 배회하며 대체로 화살표가 가리키는 곳에 있습니다. 가장자리에서 데려가고 가시덤불(48-50레벨)은 건드리지 마세요. {area:977} 바로 동쪽 물가의 아내 {npc:6015}에게 데려다주세요. 천천히 걷고 사막 짐승들이 노리니 살려 두세요.",
+	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port
+	["Lead {npc:5955} home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "{npc:5955}을(를) {area:977} 바로 동쪽 물가에 있는 아내 {npc:6015}에게 데려다주십시오: 느리게 걷고 사막 짐승들이 그를 노리니 살려 두십시오.",
 	-- {npc:5955} Tooga
 	["{npc:5955}, beside her: Oasis"] = "{npc:5955}, 토르타 옆: 오아시스",
 
-	-- Step 27: Steamwheedle Port
+	-- Step 28: Steamwheedle Port
 	-- {npc:6015} Torta · {area:977} Steamwheedle Port
 	["From {npc:6015}, {area:977} is just west along the shore."] = "{npc:6015}에서 해안을 따라 바로 서쪽에 {area:977}이(가) 있습니다.",
 
-	-- Step 28: Caliph Scorpidsting
+	-- Step 29: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "남동쪽 {area:985}로 말을 타고 가세요. {npc:7847}은(는) 남부 방랑자 야영지 중앙에 서 있으니 먼저 주변을 정리하세요.\n주의: 은신한 방랑자 도적 두 명이 어디에 가든 함께 다닙니다. 처음 야영지에서는 그림자술사 두 명과 부하들이 가까이 있어 전투에 끼어들 수 있습니다. 탑 밖에서는 그 들 없이 싸울 수 있습니다.",
 
-	-- Step 30: Fly to Auberdine
+	-- Step 31: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "{area:442}(으)로 비행",
 	-- {zone:1457} Darnassus · {npc:7763} Curgle Cranklehop · {area:442} Auberdine · {area:150} Menethil Harbor · {area:348} Aerie Peak
@@ -159,13 +163,13 @@ return {
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "{area:976} 비행 조련사",
 
-	-- Step 31: Teldrassil
+	-- Step 32: Teldrassil
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:3838} Vesprystus
 	["Take the boat from {area:442}'s dock to {area:702}; {npc:3838}, the hippogryph master, stands on the rise just east of the landing: learn the flight path on the way up to the village."] = "{area:442} 부두에서 배를 타고 {area:702}(으)로 가십시오. 히포그리프 조련사 {npc:3838}은(는) 선착장 바로 동쪽 언덕에 서 있습니다. 마을로 올라가는 길에 비행 경로를 익히십시오.",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "{area:702} 비행 조련사",
 
-	-- Step 32: Rut'theran Village
+	-- Step 33: Rut'theran Village
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
 	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907}은(는) {npc:7916} 위층에 서 있습니다. 건물 안에서 올라가십시오. 화살표는 층을 구분하지 못합니다.",
 	-- {npc:7907} Daryn Lightwind · {zone:1446} Tanaris
@@ -174,45 +178,45 @@ return {
 	["{npc:7916}: the feathers lie in the {zone:1425}, next"] = "{npc:7916}: 깃털은 다음 {zone:1425}에 있습니다",
 	["the book on her table"] = "그녀의 탁자 위에 있는 책",
 
-	-- Step 34: Temple of the Moon
+	-- Step 35: Temple of the Moon
 	["Temple of the Moon"] = "달의 신전",
 	-- {zone:1457} Darnassus
 	["Step through the portal into {zone:1457}. The Temple of the Moon is in the south of the city."] = "차원문을 지나 {zone:1457}(으)로 가십시오. 달의 신전은 도시 남쪽에 있습니다.",
 
-	-- Step 38: Cenarion Enclave
+	-- Step 39: Cenarion Enclave
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, at the top of the tree"] = "{npc:3516}, 나무 꼭대기",
 
-	-- Step 39: Class trainer
+	-- Step 40: Class trainer
 	["Class trainer"] = "직업 상급자",
 
-	-- Step 40: Cenarion Enclave
+	-- Step 41: Cenarion Enclave
 	-- {zone:1449} Un'Goro Crater
 	["the soil comes from {zone:1449}, later"] = "흙은 나중에 {zone:1449}에서 얻습니다",
 
-	-- Step 41: Portal to Teldrassil
+	-- Step 42: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "{zone:1438}행 차원문",
 
-	-- Step 43: Boat to Menethil Harbor
+	-- Step 44: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "배를 타고 {area:150}(으)로",
 
-	-- Step 44: Fly to Aerie Peak
+	-- Step 45: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
 	["Fly to {area:348}"] = "{area:348}(으)로 날아가기",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "{area:150} 비행 조련사",
 
-	-- Step 45: Fly to Southshore
+	-- Step 46: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "{area:271}(으)로 비행",
 
-	-- Step 46: Hinterlands
+	-- Step 47: Hinterlands
 	-- {area:348} Aerie Peak · {area:271} Southshore · {zone:1425} Hinterlands
 	["No flight path to {area:348} yet: ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border."] = "아직 {area:348} 비행 경로가 없다면: {area:271}에서 북동쪽 길을 따라 {zone:1425}(으)로 가십시오. {area:348}은(는) 경계 바로 너머에 있습니다.",
 
-	-- Step 47: Aerie Peak
+	-- Step 48: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, beside the flight master"] = "{npc:5636}, 비행 조련사 옆",
 	-- {npc:7884} Fraggar Thundermantle
@@ -240,6 +244,7 @@ return {
 	-- ["The Wanted poster by {npc:7882}"] = "{npc:7882} 옆의 현상수배 포스터",
 	-- ["The little turtle {npc:5955} hides at the north end of the valley. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "작은 거북 {npc:5955}은(는) 골짜기 북쪽 끝에 숨어 있습니다. {area:977} 바로 동쪽 물가에 있는 아내 {npc:6015}에게 데려다주십시오: 느리게 걷고 사막의 야수들이 노리니 살려 두십시오.",
 	-- ["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "작은 거북 {npc:5955}은(는) {quest:3362} 북쪽 끝에 숨어 있습니다. 가장자리에서 데려가고 덤불나무(48-50레벨)는 건드리지 마십시오. {area:977} 바로 동쪽 물가에 있는 아내 {npc:6015}에게 데려다주십시오: 느리게 걷고 사막의 야수들이 노리니 살려 두십시오.",
+	-- ["The little turtle {npc:5955} wanders the west edge of the {quest:3362}, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "작은 거북 {npc:5955}은(는) {quest:3362} 서쪽 가장자리를 배회하며 대체로 화살표가 가리키는 곳에 있습니다. 가장자리에서 데려가고 가시덤불(48-50레벨)은 건드리지 마세요. {area:977} 바로 동쪽 물가의 아내 {npc:6015}에게 데려다주세요. 천천히 걷고 사막 짐승들이 노리니 살려 두세요.",
 	-- ["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, Zamek by the goblin camp."] = "{area:2240}은(는) {zone:1441} 남동쪽의 {area:439}에 있습니다. {npc:4454}은(는) 경주로 옆 노움 야영지에, 자멕은 고블린 야영지 옆에 있습니다.",
 	-- ["Underwater"] = "물속",
 	-- ["Wastewander bandits"] = "사막유랑단 약탈자",

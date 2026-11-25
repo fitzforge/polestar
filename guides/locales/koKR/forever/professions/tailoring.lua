@@ -136,7 +136,8 @@ return {
 	-- {item:7053} Azure Silk Cloak
 	["{item:7053} to 170"] = "{item:7053}: 170까지",
 	-- {item:7053} Azure Silk Cloak · {spell:3839} Bolt of Silk Cloth · {item:6260} Blue Dye · {item:2321} Fine Thread
-	["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053}은(는) 150에 주황색입니다(노란색 160, 초록색 175, 회색 190). 170까지 약 22번 만드세요. 한 번에 {spell:3839} 3개, {item:6260} 2개, {item:2321} 2개. 먼저 {spell:3839} 66개를 만드세요. 제조법은 위에서 산 것이며, 데이터에서 이 포인트를 지나는 가장 싼 방법입니다.",
+	-- was: ["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053}은(는) 150에 주황색입니다(노란색 160, 초록색 175, 회색 190). 170까지 약 22번 만드세요. 한 번에 {spell:3839} 3개, {item:6260} 2개, {item:2321} 2개. 먼저 {spell:3839} 66개를 만드세요. 제조법은 위에서 산 것이며, 데이터에서 이 포인트를 지나는 가장 싼 방법입니다."
+	["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data. If you got here without learning {spell:3839}, learn it now: an earlier step teaches it."] = "{item:7053}은(는) 150에서 주황색입니다(노란색 160, 초록색 175, 회색 190): 170까지 약 22번 제작. 매번 {spell:3839} 3개, {item:6260} 2개, {item:2321} 2개가 필요합니다. 먼저 {spell:3839} 66개를 만드십시오. 그 제조법은 위에서 산 것이며, 데이터상 이 구간을 지나는 가장 싼 방법입니다. {spell:3839}을(를) 배우지 않고 여기까지 왔다면 지금 배우십시오: 앞의 단계에서 가르칩니다.",
 	["from the recipe in your bags"] = "가방에 있는 제조법으로",
 
 	-- Step 25: Tailoring recipes at 170
@@ -271,6 +272,7 @@ return {
 	-- ["{item:4338} (Alliance)"] = "{item:4338} (얼라이언스)",
 	-- ["{item:4338} (Horde)"] = "{item:4338} (호드)",
 	-- ["{item:7026} to 80"] = "{item:7026}: 80까지",
+	-- ["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053}은(는) 150에 주황색입니다(노란색 160, 초록색 175, 회색 190). 170까지 약 22번 만드세요. 한 번에 {spell:3839} 3개, {item:6260} 2개, {item:2321} 2개. 먼저 {spell:3839} 66개를 만드세요. 제조법은 위에서 산 것이며, 데이터에서 이 포인트를 지나는 가장 싼 방법입니다.",
 	-- ["{item:7062} to 185"] = "{item:7062}: 185까지",
 	-- ["{npc:11739} (level 57-59) drop it here. The Auction House works too."] = "이곳의 {npc:11739}(57-59레벨)이(가) 떨어뜨립니다. 경매장도 됩니다.",
 	-- ["{npc:1824} (level 54-55) drop it here. The Auction House works too."] = "이곳의 {npc:1824}(54-55레벨)이(가) 떨어뜨립니다. 경매장도 됩니다.",

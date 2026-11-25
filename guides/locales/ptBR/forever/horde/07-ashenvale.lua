@@ -11,7 +11,6 @@ return {
 	["Fly to {area:2897}"] = "Voe para {area:2897}",
 	-- {area:2897} Zoram'gar Outpost · {area:378} Camp Taurajo
 	["East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to {area:2897}. If your hearthstone is ready, hearth to {area:378} and fly from there instead."] = "Para leste pela estrada, do acampamento de Seereth até o mestre de mantícoras da Encruzilhada, e voe para {area:2897}. Se a Pedra de Regresso estiver pronta, volte para {area:378} e voe de lá.",
-	["Crossroads flight master"] = "Mestre de voo da Encruzilhada",
 
 	-- Step 2: Zoram'gar Outpost
 	-- {npc:12736} Je'neu Sancrea · {npc:12757} Karang Amakkar · {npc:12721} Mitsuwa
@@ -45,13 +44,13 @@ return {
 	-- Step 8: Thistlefur Hold
 	["Thistlefur Hold"] = "Toca dos Pelocardo",
 	-- plural, as words: Troll Chests = {object:178144} Troll Chest
-	["Inside the hold, Troll Chests lie along the tunnels."] = "",
+	["Inside the hold, Troll Chests lie along the tunnels."] = "Dentro da toca, Baús Trolls ({object:178144}) ficam ao longo dos túneis.",
 	["Below ground"] = "Debaixo da terra",
 
 	-- Step 9: Ruul Snowhoof
 	-- {npc:12818} Ruul Snowhoof · {area:428} Night Run · {npc:3987} Dal Bloodclaw
 	-- was: ["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "Dentro do covil, Baús dos Trolls ficam ao longo dos túneis. {npc:12818} está preso lá no fundo: liberte-o e proteja até a saída; depois ele corre para casa, em {area:428}.\nCuidado: há duas emboscadas certas, cada uma com três Pelocardos (um Xamã, um Desbravador e um Vingador, Ursino ou Vigia do Covil): a primeira quando você volta à bifurcação do túnel dentro da caverna, a segunda logo depois do portão por onde {npc:3987} anda."
-	["{npc:12818} is held deep inside Thistlefur Hold: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "",
+	["{npc:12818} is held deep inside Thistlefur Hold: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "{npc:12818} está preso no fundo da Toca dos Pelocardo: liberte-o e proteja-o até a saída, e então ele corre para casa em {area:428}.\nCuidado: acontecem duas emboscadas programadas, cada uma com três Pelocardo (um xamã, um desbravador e um vingador, ursa ou vigia da toca): a primeira quando você volta à bifurcação do túnel dentro da caverna, a segunda logo depois do portão onde {npc:3987} ronda.",
 	-- {npc:12818} Ruul Snowhoof
 	["{npc:12818}, below ground"] = "{npc:12818}, no subterrâneo",
 
@@ -226,7 +225,7 @@ return {
 
 	-- Step 55: Zangen Stonehoof
 	-- {npc:4721} Zangen Stonehoof · {quest:1195} The Sacred Flame · {npc:2995} Tal
-	["The phial is already with {npc:4721}: take {quest:1195} from him, a short walk east of {npc:2995}."] = "",
+	["The phial is already with {npc:4721}: take {quest:1195} from him, a short walk east of {npc:2995}."] = "O frasco já está com {npc:4721}: pegue {quest:1195} com ele, a uma curta caminhada a leste de {npc:2995}.",
 
 	-- Step 56: Tah Winterhoof
 	-- {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof · {npc:2995} Tal
@@ -341,25 +340,25 @@ return {
 
 	-- Step 74: Lakota Windsong
 	-- {area:485} Great Lift · {area:2097} Darkcloud Pinnacle · {npc:10896} Arnak Grimtotem
-	["{area:485} detour warning: the arrow may miss the path up {area:2097}. If you are on the canyon floor, follow the path and rope bridges up {area:2097}. {npc:10896} (29) stands among his guards there: clear the guards, then {npc:10896}."] = "",
+	["{area:485} detour warning: the arrow may miss the path up {area:2097}. If you are on the canyon floor, follow the path and rope bridges up {area:2097}. {npc:10896} (29) stands among his guards there: clear the guards, then {npc:10896}."] = "Aviso de desvio em {area:485}: a seta pode errar a trilha que sobe até {area:2097}. Se estiver no fundo do cânion, siga a trilha e as pontes de corda até {area:2097}. {npc:10896} (29) fica entre os guardas: limpe os guardas e depois {npc:10896}.",
 
 	-- Step 75: Escort Lakota Windsong
 	-- {npc:10646} Lakota Windsong
-	["Escort {npc:10646}"] = "",
+	["Escort {npc:10646}"] = "Escolte {npc:10646}",
 	-- {npc:10646} Lakota Windsong · {npc:10896} Arnak Grimtotem
-	["{npc:10646} is held captive beside where {npc:10896} stood: free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "",
+	["{npc:10646} is held captive beside where {npc:10896} stood: free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "{npc:10646} está presa ao lado de onde {npc:10896} estava: liberte-a e proteja-a na descida; emboscadores Temível Totem atacam no caminho.",
 
 	-- Step 76: Highperch
 	-- {area:482} Highperch
 	-- plural, as words: Highperch Patriarchs = {npc:4110} Highperch Patriarch
 	-- was: ["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "A oeste do Posto Confinalvo, as mantícoras fazem ninho nos penhascos de {area:482}; os ovos ficam nos ninhos. {npc:10427} espera no lado leste da área dos ninhos: liberte-o e mantenha-o vivo na volta até {area:2237}.\nCuidado: mantícoras de nível 28-29 voam por cima e podem ser puxadas sem aviso. Um bando de três mantícoras pode emboscar você depois que passar a primeira coluna lá embaixo. Patriarcas de Alcândora (30-31) e o raro Heartrazor (32) também fazem ninho aqui: contorne-os."
-	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "",
+	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "A oeste do Posto Confinalvo as mantícoras fazem ninho nos penhascos de {area:482}; os ovos ficam nos ninhos.\nCuidado: mantícoras de nível 28-29 voam por cima e podem ser puxadas sem aviso. Um grupo de três mantícoras pode emboscar você depois que passar o primeiro pilar lá embaixo. Os Patriarcas (30-31) e o raro Rasgacoração (32) também fazem ninho aqui: contorne-os.",
 
 	-- Step 77: Escort Pao'ka Swiftmountain
 	-- {npc:10427} Pao'ka Swiftmountain
-	["Escort {npc:10427}"] = "",
+	["Escort {npc:10427}"] = "Escolte {npc:10427}",
 	-- {npc:10427} Pao'ka Swiftmountain · {area:2237} Whitereach Post
-	["{npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}."] = "",
+	["{npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}."] = "{npc:10427} espera no lado leste dos ninhos: liberte-o e mantenha-o vivo no caminho de volta para {area:2237}.",
 
 	-- Step 78: Whitereach Post
 	-- {npc:10428} Motega Firemane · {item:12732} Incendia Agave · {area:2097} Darkcloud Pinnacle
@@ -430,6 +429,7 @@ return {
 	-- ["Back to {area:484}. The {area:2240}'s quests come with the next visit to the {area:439}, at 33."] = "De volta a {area:484}. As missões de {area:2240} vêm na próxima visita a {area:439}, no nível 33.",
 	-- ["Back west to Zoram'gar before heading east for good."] = "De volta a oeste até Zoram'gar antes de seguir para o leste de vez.",
 	-- ["Climb the path to the top of {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "Suba a trilha até o alto do {area:2097}. {npc:10646} está presa ao lado de {npc:10896} (29): elimine os guardas e {npc:10896} primeiro, depois liberte-a e proteja-a na descida; emboscadores Temível Totem atacam você no caminho.",
+	-- ["Crossroads flight master"] = "Mestre de voo da Encruzilhada",
 	-- ["East along the road from Seereth's camp to the Crossroads' wind rider master, and fly to {area:2897}. Keep your hearthstone: {area:431}'s bind later in this guide saves more."] = "Para leste pela estrada, do acampamento de Seereth até o mestre de mantícoras da Encruzilhada, e voe para {area:2897}. Guarde a Pedra de Regresso: vinculá-la em {area:431}, mais adiante neste guia, economiza mais.",
 	-- ["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold."] = "A leste de Zoram'gar, os furbolgs Pelocardo enchem a aldeia e as colinas em volta da toca deles.",
 	-- ["Fly from {area:392} to {area:2897} on the {zone:1440} coast."] = "Voe de {area:392} até o {area:2897}, na costa de {zone:1440}.",

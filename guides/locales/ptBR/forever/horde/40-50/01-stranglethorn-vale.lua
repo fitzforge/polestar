@@ -11,8 +11,6 @@ return {
 	["Fly to the {area:1497}"] = "Voe para a {area:1497}",
 	-- {area:1497} Undercity · {area:340} Kargath · {object:3202} Grom'gol (no name in this language: may be words)
 	["Your level 40 training is in the {area:1497}: fly there from {area:340}, train, and take the zeppelin from the towers outside the city to {object:3202}."] = "Seu treinamento do nível 40 é na {area:1497}: voe para lá a partir de {area:340}, treine e pegue o zepelim nas torres do lado de fora da cidade até {object:3202}.",
-	-- {area:340} Kargath
-	["{area:340} flight master"] = "Mestre de voo de {area:340}",
 
 	-- Step 2: Genavie Callow
 	-- {npc:4486} Genavie Callow · {zone:1417} Arathi Highlands
@@ -40,6 +38,8 @@ return {
 	-- Step 6: Fly to Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Fly to {object:3202}"] = "Voe para {object:3202}",
+	-- {area:340} Kargath
+	["{area:340} flight master"] = "Mestre de voo de {area:340}",
 
 	-- Step 7: Grom'gol Base Camp
 	-- {npc:2519} Kin'weelay · {npc:1061} Gan'zulah
@@ -66,7 +66,7 @@ return {
 
 	-- Step 11: Drizzlik
 	-- {npc:2495} Drizzlik
-	["{npc:2495}'s shop is in the building east of the inn."] = "",
+	["{npc:2495}'s shop is in the building east of the inn."] = "A loja de {npc:2495} fica no prédio a leste da estalagem.",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}: the Snapjaw skins gathered earlier; inside"] = "{npc:2495}: as peles de Crocolisco Arapuca que você juntou antes; lá dentro",
 
@@ -78,10 +78,10 @@ return {
 
 	-- Step 13: Kebok
 	-- {npc:737} Kebok
-	["{npc:737} stands upstairs, beside the flight master."] = "",
+	["{npc:737} stands upstairs, beside the flight master."] = "{npc:737} fica no andar de cima, ao lado do mestre de voo.",
 	-- {npc:737} Kebok
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
-	["{npc:737}: the Tumbled Crystals from the earlier Stranglethorn guide"] = "",
+	["{npc:737}: the Tumbled Crystals from the earlier Stranglethorn guide"] = "{npc:737}: os Cristais Rolados ({item:4106}) do guia anterior da Selva do Espinhaço",
 
 	-- Step 14: Kebok
 	-- {npc:737} Kebok
@@ -110,9 +110,9 @@ return {
 	-- {quest:348} Stranglethorn Fever
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
 	-- was: ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "Os gorilas andam pelo vale em volta de Unbagwa. Os anciões deixam cair os miúdos; qualquer um deles pode deixar cair uma presa: guarde dez para Unbagwa, cujo Mokk (44) espera sua parada em Selva do Espinhaço por volta do 45.\nCuidado: os Gorilas Anciões do Vale da Névoa (40-41) ficam bem juntos no vale: puxe um de cada vez."
-	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: if you will take {quest:348} with a group, keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "",
+	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: if you will take {quest:348} with a group, keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "Os gorilas vagam pelo vale ao redor de Unbagwa. Os anciões soltam os miúdos; qualquer um pode soltar uma presa: se for pegar {quest:348} com um grupo, guarde dez para Unbagwa, cujo Mokk (44) espera a sua parada na Selva do Espinhaço por volta do nível 45.\nCuidado: os Gorilas Anciões do Vale da Névoa (40-41) ficam bem juntos no vale: puxe um de cada vez.",
 	-- {quest:348} Stranglethorn Fever
-	["Keep fangs from these same elders for Unbagwa ({quest:348}, with a group)."] = "",
+	["Keep fangs from these same elders for Unbagwa ({quest:348}, with a group)."] = "Guarde presas desses mesmos anciões para Unbagwa ({quest:348}, em grupo).",
 
 	-- Step 19: Mistvale giblets
 	["Mistvale giblets"] = "",
@@ -271,7 +271,7 @@ return {
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
-	["{npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "",
+	["{npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "{npc:2491}, na estalagem, e MacKinley \"Lobo do Mar\", no último andar, oferecem estas missões a partir do nível 40: pegue-as agora. Abaixo do 40, a parada de {area:35} do guia de {zone:1444} e {zone:1446} as oferece de novo.",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}, na estalagem: as garrafas dele dão na costa de {zone:1425}, por volta do nível 48",
 	-- {quest:2872} Stoley's Debt · {zone:1446} Tanaris
@@ -279,9 +279,9 @@ return {
 
 	-- Step 49: Fin Fizracket
 	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
-	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "",
+	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "Missão de grupo: {quest:348} termina com {npc:1449} no Vale da Névoa. Entregue a ele dez presas de gorila e ele chama três ondas de gorilas (41-42), uma depois da outra, e depois {npc:1514} (44). Nas gravações dos jogadores, 12 das 27 pessoas que a começaram morreram lá. Pegue se tiver um ou dois amigos junto.",
 	-- {npc:2486} Fin Fizracket · {zone:1444} Feralas · {object:3202} Grom'gol (no name in this language: may be words)
-	["{npc:2486}, beside the inn: Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "",
+	["{npc:2486}, beside the inn: Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}, ao lado da estalagem: a parte de Unbagwa, na parada de {object:3202} do guia de {zone:1444}",
 
 	-- Step 50: The Bloodsail ships
 	["The Bloodsail ships"] = "Os navios da Vela Sangrenta",

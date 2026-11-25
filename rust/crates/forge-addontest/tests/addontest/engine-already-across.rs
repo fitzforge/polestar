@@ -1,11 +1,13 @@
-//! A walk to a boat or zeppelin the player is already across passes (#1971, #1978, #1983; addon/Polestar/Core/Engine.lua,
-//! Own.alreadyAcross). 0.3.7.2's Thousand Needles & Desolace opens with "Zeppelin to Orgrimmar", a walk to the
-//! Undercity's tower in Tirisfal Glades, because the previous guide ends in the Undercity. A Scourge Warrior who
-//! loaded it at Freewind Post was sent to Orgrimmar, onto the zeppelin to the Undercity, and back to Orgrimmar for
-//! Craven Drok (#1971); Dustwallow Marsh & Desolace opens the same way at Grom'gol and sent an Orc Shaman in
-//! Orgrimmar to Stranglethorn and back (#1978). Along one continent (#1983): Feralas's "Boat to Feathermoon
-//! Stronghold" sent a Druid who had flown in to Feathermoon back over the water to the Forgotten Coast's dock and
-//! across again. Nav is faked as in engine-empty-stop.rs.
+//! A walk to a boat, zeppelin or portal the player is already across passes (#1971, #1978, #1983, #3906;
+//! addon/Polestar/Core/Engine.lua, Own.alreadyAcross). 0.3.7.2's Thousand Needles & Desolace opens with "Zeppelin
+//! to Orgrimmar", a walk to the Undercity's tower in Tirisfal Glades, because the previous guide ends in the
+//! Undercity. A Scourge Warrior who loaded it at Freewind Post was sent to Orgrimmar, onto the zeppelin to the
+//! Undercity, and back to Orgrimmar for Craven Drok (#1971); Dustwallow Marsh & Desolace opens the same way at
+//! Grom'gol and sent an Orc Shaman in Orgrimmar to Stranglethorn and back (#1978). Along one continent (#1983):
+//! Feralas's "Boat to Feathermoon Stronghold" sent a Druid who had flown in to Feathermoon back over the water to
+//! the Forgotten Coast's dock and across again. Through a portal (#3906): Tanaris's "Portal to Darnassus", a walk
+//! to the portal's mouth in Rut'theran Village, stayed open in Darnassus, since the portal takes the player before
+//! the walk's goto is reached. Nav is faked as in engine-empty-stop.rs.
 
 use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::{json, Value};
@@ -18,6 +20,8 @@ w.addMap(1434, { name = "Stranglethorn Vale", c = 0, left = 2220.833, right = -4
 w.addMap(1441, { name = "Thousand Needles", c = 1, left = -433.333, right = -4833.333, top = -3966.667, bottom = -6900 })
 w.addMap(1444, { name = "Feralas", c = 1, left = 5441.667, right = -1508.333, top = -2366.667, bottom = -7000 })
 w.addMap(1454, { name = "Orgrimmar", c = 1, left = -3680.601, right = -5083.206, top = 2273.877, bottom = 1338.461 })
+w.addMap(1438, { name = "Teldrassil", c = 1, left = 3814.583, right = -1277.083, top = 11831.25, bottom = 8437.5 })
+w.addMap(1457, { name = "Darnassus", c = 1, left = 2938.363, right = 1880.03, top = 10238.316, bottom = 9532.587 })
 w.race, w.raceName, w.faction, w.class, w.className, w.level = "Scourge", "Undead", "Horde", "WARRIOR", "Warrior", 32
 w.money = 50000
 "#;
@@ -73,12 +77,24 @@ FEATHERMOON = { a = { c = 1, wx = -4197.3, wy = 3286.6 }, b = { c = 1, wx = -434
 function boats() Polestar.Nav.GetTravelData = function() return { transports = { FEATHERMOON } } end end
 "#;
 
+// Steps 33-34 of 0.4.2.2's forever/alliance/40-50/04-tanaris: the walk to the portal into Darnassus in Rut'theran
+// Village, then Tyrande Whisperwind's hand-in in the Temple of the Moon.
+const TANARIS: &str = r#"
+Polestar.RegisterGuide({ id = "test/ta", pack = "test", title = "Tanaris", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "Portal to Darnassus", goals = { { t = "goto", map = 1438, x = 55.9, y = 89.3, text = "Portal to Darnassus" } } },
+	{ title = "Temple of the Moon", goals = { { t = "turnin", quest = 2972, title = "Doling Justice", npc = 7999, map = 1457, x = 38.81, y = 81.1 } } },
+} })
+-- Nav/Travel.lua's walk-in portal from Rut'theran Village (a, its mouth) into Darnassus (b, where it lands).
+RUTTHERAN = { kind = "portal", a = { c = 1, wx = 8799.4, wy = 969.8 }, b = { c = 1, wx = 9946.3, wy = 2613 } }
+function portals() Polestar.Nav.GetTravelData = function() return { portals = { RUTTHERAN } } end end
+"#;
+
 fn run(script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.to_string(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
-		script: format!("{TEST_PACK}\n{TEST_SOURCE}\n{NEEDLES}\n{DUSTWALLOW}\n{FERALAS}\nE = Polestar.Engine\nfunction flush() stub.advance(0.25) end\nstub.login()\n{NAV}\n{script}"),
+		script: format!("{TEST_PACK}\n{TEST_SOURCE}\n{NEEDLES}\n{DUSTWALLOW}\n{FERALAS}\n{TANARIS}\nE = Polestar.Engine\nfunction flush() stub.advance(0.25) end\nstub.login()\n{NAV}\n{script}"),
 		..Default::default()
 	})
 	.remove(0)
@@ -175,4 +191,42 @@ fn t_1983_on_the_mainland_or_without_crossing_data_the_walk_to_the_boat_holds() 
 		"nodata": flown_in(""),
 	});
 	assert_eq!(out, json!({ "thalanaar": [1, 1444, "goto"], "coast": [1, 1444, "goto"], "nodata": [1, 1, 1444, "goto"] }));
+}
+
+const RUTTHERAN: &str = r#"stub.world.moveTo(1438, 58.4, 94.0); stub.world.setZone("Teldrassil", "Rut'theran Village")"#;
+
+// Doling Justice in the log, ready for Tyrande.
+const DOLING: &str = r#"stub.world.onQuest(2972, {}); stub.fire("QUEST_LOG_UPDATE")"#;
+
+// The guide loaded by Rut'theran Village's flight master with Doling Justice ready (the walk to the portal live),
+// then through the portal, landing in Darnassus: the live step before and after, and where the arrow points then.
+fn through_portal(setup: &str) -> Value {
+	run(&format!(
+		r#"
+		{RUTTHERAN}
+		{setup}
+		{DOLING}
+		E.SetGuide("test/ta"); flush()
+		local before = E.GetStepIndex()
+		stub.world.moveTo(1457, 30.75, 41.39); stub.world.setZone("Darnassus", "Darnassus"); flush()
+		local wp = E.GetWaypoint()
+		emit({{ before, E.GetStepIndex(), wp and wp.map or false, wp and wp.kind or false }})
+		"#
+	))
+}
+
+#[test]
+fn t_3906_through_the_portal_into_darnassus_the_walk_to_it_passes() {
+	assert_eq!(through_portal("portals()"), json!([1, 2, 1457, "turnin"]), "lordp: Tyrande leads, not the portal behind you");
+}
+
+#[test]
+fn t_3906_in_ruttheran_or_without_portal_data_the_walk_to_the_portal_holds() {
+	let out = json!({
+		// By Rut'theran Village's flight master, short of the portal.
+		"ruttheran": at(RUTTHERAN, &format!("portals(); {DOLING}"), "test/ta"),
+		// Through the portal with no portal data: as before.
+		"nodata": through_portal(""),
+	});
+	assert_eq!(out, json!({ "ruttheran": [1, 1438, "goto"], "nodata": [1, 1, 1438, "goto"] }));
 }

@@ -2668,8 +2668,16 @@ end
 -- one's height (its own when it has one); two whose surfaces lie further apart in height than Path.trailRise yards a
 -- yard plus Path.trailPad (a fence's step, a bank) are never joined: another floor, not a gap. The searches of a set
 -- trail are their own (weights' tag carries its
--- version; a trail with the same joins keeps it, so caches stay). -> the joins made (map gaps the player walked
--- through) and the middle of the first: n, x, y (0 for none).
+-- version; a trail with the same joins keeps it, so caches stay). Reads decoded clusters only: a place in a cluster
+-- not decoded (dropped at rest, never searched) is passed over, so a walk asked at a step change never decodes the
+-- player's last minute of ground in that frame (#3451: 30-60 ms frames); the search decodes what it needs in its
+-- slices, and the next walk asked has those places. A place asked again at the same height on the same decoded
+-- cluster keeps the node it snapped to last time, and a step searched again there keeps its answer (st.trailMemo,
+-- the last call's places and steps): the player's trail moves on by a few places between two asks, so a walk asked
+-- at a step change snaps only the places added since (#3451: snapping up to 300 places in that frame was half of a
+-- step change's cost on a kill-as-you-meet tour). The memo holds its clusters weakly; one dropped and decoded again
+-- is snapped again. -> the joins made (map gaps the player walked through) and the middle of the first: n, x, y (0
+-- for none).
 local TRAIL_STEP, TRAIL_DETOUR, TRAIL_SLACK = 6, 3, 2
 Path.trailRise, Path.trailPad = 1.2, 3
 local trailVersion = 0
@@ -2689,16 +2697,44 @@ function Path.SetTrail(map, samples)
 	local tree = Tree()
 	local C, cs = st.C, st.cs
 	local N = C * C
+	local memo = st.trailMemo
+	if not memo then
+		local weak = { __mode = "v" }
+		memo = { x = {}, y = {}, h = {}, node = {}, c = setmetatable({}, weak), n = 0, open = {}, on = setmetatable({}, weak), weak = weak }
+		st.trailMemo = memo
+	end
+	local mx, my, mh, mnode, mc, mn = memo.x, memo.y, memo.h, memo.node, memo.c, memo.n
+	local openBefore, onBefore = memo.open, memo.on
+	local open, on = {}, setmetatable({}, memo.weak)
+	-- Where this trail's first place stands in the last one's: the places dropped off its start shift the rest.
+	local shift = 0
+	for j = 1, mn do
+		if mx[j] == samples[1] and my[j] == samples[2] then
+			shift = j - 1
+			break
+		end
+	end
+	local s = 0
 	local pk, pn, px, py, pz, pc
 	for i = 1, #samples - 2, 3 do
 		local x, y, z = samples[i], samples[i + 1], samples[i + 2]
 		if z == false then
 			z = nil
 		end
+		local h = z or pz
 		local k, lc = locate(st, x, y)
-		local node = k and snap(st, k, lc, x, y, z or pz)
-		local c = node and grid(st, k)
-		if node and c then
+		local c = k and st.cl[k] or nil
+		local node
+		s = s + 1
+		local j = s + shift
+		if c and j <= mn and mc[j] == c and mx[j] == x and my[j] == y and mh[j] == (h or false) then
+			node = mnode[j] or nil
+		elseif c then
+			node = snap(st, k, lc, x, y, h)
+		end
+		-- (In place: entry s is written after entry s + shift, which is not before it, was read.)
+		mx[s], my[s], mh[s], mnode[s], mc[s] = x, y, h or false, node or false, c
+		if node then
 			local cell = node < N and node or floorCell(c, node)
 			local nz = zOf(c, node)
 			if pn and pk == k and pn ~= node and (x - px) ^ 2 + (y - py) ^ 2 <= TRAIL_STEP * TRAIL_STEP
@@ -2708,8 +2744,15 @@ function Path.SetTrail(map, samples)
 				local key = k .. ":" .. (pn < node and pn .. ":" .. node or node .. ":" .. pn)
 				if not keys[key] then
 					keys[key] = true
-					hn = 0
-					if not search(st, k, 1, nil, pn, tree, node, nil, nil, false, (TRAIL_DETOUR * d + TRAIL_SLACK) * cs) then
+					local gap
+					if onBefore[key] == c then
+						gap = openBefore[key]
+					else
+						hn = 0
+						gap = not search(st, k, 1, nil, pn, tree, node, nil, nil, false, (TRAIL_DETOUR * d + TRAIL_SLACK) * cs)
+					end
+					open[key], on[key] = gap, c
+					if gap then
 						local A = arcs[k] or {}
 						arcs[k] = A
 						local a, b = A[pn] or {}, A[node] or {}
@@ -2729,6 +2772,7 @@ function Path.SetTrail(map, samples)
 			pn = nil
 		end
 	end
+	memo.n, memo.open, memo.on = s, open, on
 	Release(tree)
 	if gaps == 0 then
 		st.trail = nil
@@ -3424,6 +3468,14 @@ end
 -- foresaw, a batch's search ends (#3605: before the pocket rule in run, 16 places ran to the detour bound, minutes of
 -- slices). The cap sits well over the batches ordinary routes take (430,000 to 600,000 expansions measured on the
 -- route-speed scenes, whose settled routes it leaves as they were).
+-- A target marked `bound` (the player's own walk into a measured target, Nav/Walk.lua) is searched right after the
+-- `first` ones; once it is priced, a place whose walk can't be cheaper than it (Path.LowerBound over its gap to the
+-- source above the bound's cost, and that gap above its yards) is left unpriced (job.pruned; costs[i] nil, the
+-- caller's estimate, itself no less than that bound), never searched: a route ending in that walk costs more than
+-- walking from where the player stands. A place at the same point as one already searched (same x, y, z, no floors
+-- or reach of its own) takes that one's answer. Fitz's 0.4.3-rc probe (Sun Rock's turn-ins from the Charred Vale):
+-- the flight masters and inns of Desolace, the Barrens and Ashenvale, 3,500-7,200 yd of walk from the target while the
+-- player's own walk was 1,476, took 438,000 of the batch's 571,000 expansions, 19 s of 3 ms slices.
 Path.manyCap = 1000000
 function Safe.many(job)
 	local why = Safe.setup(job)
@@ -3437,11 +3489,13 @@ function Safe.many(job)
 	end
 	-- Publish nearby verified transfers first, regardless of the planner's target
 	-- order; a target marked `first` (the landing a planned route waits on) before
-	-- them. Each target is its own search, so the order changes no answer, only when
-	-- each is published. A pending entry stays nil with a conservative radius of zero.
+	-- them, then the `bound` one. Each target is its own search, so the order changes no answer, only when each is
+	-- published. A pending entry stays nil with a conservative radius of zero.
 	local order, dist, lead, any = {}, {}, {}, false
+	local bound, boundYards -- the bound target's cost and yards, once priced
 	for i, p in ipairs(job.targets) do
-		order[i], dist[i], lead[i] = i, (p.x-from.x)^2 + (p.y-from.y)^2, p.first and 0 or 1
+		order[i], dist[i], lead[i] = i, (p.x-from.x)^2 + (p.y-from.y)^2, p.first and 0 or p.bound and 1 or 2
+		if p.bound and type(job.costs[i]) == "number" then bound, boundYards = job.costs[i], job.yards[i] or job.costs[i] end
 	end
 	for i = 1, #job.targets do
 		if job.costs[i] then any = true end
@@ -3456,10 +3510,33 @@ function Safe.many(job)
 			waterWalking = job.waterWalking, costOnly = true, check = job.check, policy = job.policy }
 		return Safe.find(child), child
 	end
-	for _, i in ipairs(order) do
+	local D = PolestarPathData and PolestarPathData[job.map]
+	local cheapest = D and Grid.Classed(D) and math.min(Costs.MIN, Costs.Min(job.style)) or 1
+	local function beyond(target)
+		if not bound or target.first then return false end
+		local least = Path.LowerBound(job.map, from, target, job.style)
+		return least > bound and least / cheapest > boundYards
+	end
+	-- An earlier target at the same point, already answered: its index.
+	local function twin(n, target)
+		if target.floors or target.reach then return nil end
+		for k = 1, n - 1 do
+			local j = order[k]
+			local q = job.targets[j]
+			if job.costs[j] ~= nil and q.x == target.x and q.y == target.y and q.z == target.z and not q.floors and not q.reach then return j end
+		end
+		return nil
+	end
+	for n, i in ipairs(order) do
 		local target = job.targets[i]
 		if job.costs[i] == nil and not job.unjoined and not job.capped and Expansions() >= Path.manyCap then job.capped = true end
-		if job.costs[i] == nil and not job.unjoined and not job.capped then
+		local same = job.costs[i] == nil and not job.unjoined and not job.capped and twin(n, target)
+		if same then
+			job.costs[i], job.yards[i] = job.costs[same], job.yards[same]
+			job.revision = job.revision + 1
+		elseif job.costs[i] == nil and not job.unjoined and not job.capped and beyond(target) then
+			job.pruned = true
+		elseif job.costs[i] == nil and not job.unjoined and not job.capped then
 			local cost, child = search(target, from)
 			if not cost and from.z and not any and not child.blockedReason and search(target, { x = from.x, y = from.y }) then
 				job.unjoined = true
@@ -3467,6 +3544,7 @@ function Safe.many(job)
 				if child.walkChecked then job.walkChecked = true end
 				job.costs[i], job.yards[i] = cost or false, cost and child.yards or false
 				if not cost then job.blockedReason = child.blockedReason or job.blockedReason end
+				if target.bound and cost then bound, boundYards = cost, child.yards or cost end
 			end
 			job.revision = job.revision + 1
 		end

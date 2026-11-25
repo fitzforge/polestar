@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Orgrimmar
 	-- {zone:1454} Orgrimmar · {zone:1445} Dustwallow Marsh
-	["The {zone:1454} and Crossroads stops are on the way for players coming from the previous guide; opened with none of its quests in the log, the guide starts in {zone:1445}."] = "",
+	["The {zone:1454} and Crossroads stops are on the way for players coming from the previous guide; opened with none of its quests in the log, the guide starts in {zone:1445}."] = "{zone:1454}과(와) 크로스로드 정거장은 이전 가이드에서 오는 플레이어가 가는 길에 있습니다. 그 퀘스트 없이 가이드를 열면 {zone:1445}에서 시작합니다.",
 	-- {zone:1454} Orgrimmar
 	["The middle of {zone:1454}"] = "{zone:1454} 중앙",
 
@@ -160,7 +160,7 @@ return {
 
 	-- Step 30: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "",
+	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}은(는) 골짜기 서쪽 끝의 마라우돈일족 야영지에 붙잡혀 있습니다. 풀어 주고 골짜기 동쪽 밖으로 호위하십시오.\n주의: 호위 중에 켄타우로스 여섯이 공격하며 미리 정리할 수 없습니다: 호위 중에만 나타나고 함께 덤빕니다. 플레이어 기록에서 받은 30명 중 14명이 한 번 이상 실패했습니다. 친구를 데려가거나, 혼자라면 건너뛰십시오. 시작 전에 길의 일반 켄타우로스를 정리하면 도움이 됩니다.",
 
 	-- Step 31: Hornizz Brimbuzzle
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard

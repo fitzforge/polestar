@@ -66,7 +66,7 @@
 			},
 			"areas": 1894,
 			"occupiedFloor": {
-				"sourceManifestSha256": "7c230fe71aeb5171f363c34c452b2eb4b28b1f47664528ab739c713fe9bec6b3",
+				"sourceManifestSha256": "baebcb9390ef28030af0201d79ba68faca9fcb5973656cf920015ca650bff2d1",
 				"cluster": 471,
 				"cell": 15594,
 				"layer": 1,
@@ -214,23 +214,23 @@
 					"edges": 8652
 				},
 				"joins": {
-					"ways": 179,
+					"ways": 181,
 					"refused": 11,
 					"falls": 16,
 					"floors": 27,
-					"arcs": 260,
+					"arcs": 267,
 					"entrances": 4,
 					"edges": 24030,
 					"components": 25
 				},
 				"cuts": {
-					"cuts": 1,
-					"moves": 16,
-					"arcs": 16,
-					"dearer": 0,
+					"cuts": 2,
+					"moves": 21,
+					"arcs": 21,
+					"dearer": 23,
 					"gone": 0
 				},
-				"places": 559,
+				"places": 563,
 				"unplaced": 0,
 				"unreachedFloors": 82193,
 				"unreachedBases": 61574,
@@ -245,8 +245,8 @@
 			"components": 3391,
 			"clampedCosts": 0,
 			"maxDegree": 63,
-			"rawBytes": 51236255,
-			"packedBytes": 25794642,
+			"rawBytes": 51236311,
+			"packedBytes": 25794702,
 			"files": 51,
 			"hubs": 94,
 			"roads": {
@@ -371,7 +371,7 @@
 		"Polestar_Nav_Kalimdor/Nav1_24.lua": "48ed58e655a1383781b695199d81de831cb52b1007c57fd0381edf57cba25213",
 		"Polestar_Nav_Kalimdor/Nav1_25.lua": "d8491d60aa745bbacb209122f799e9a6bd226b4003c3d0c3ff2b0ad178aaf1f1",
 		"Polestar_Nav_Kalimdor/Nav1_26.lua": "72d997c4b6cba495fb50c2666ca32071bfc099d663a78970693fcee5155f40d2",
-		"Polestar_Nav_Kalimdor/Nav1_27.lua": "2d81173e0967e120ee46f7d96474e67dea70d0cb5ca4e44e3c2a86bfbf5ba848",
+		"Polestar_Nav_Kalimdor/Nav1_27.lua": "da76da55598d236ef0eb47c7323f9535d6f11124a8d8c70e520257e244f4818e",
 		"Polestar_Nav_Kalimdor/Nav1_28.lua": "2ab07265dad7d7d7cc12e55a086922c4f041be308a7369fe89f66963b18bc343",
 		"Polestar_Nav_Kalimdor/Nav1_29.lua": "190e909a043e9f6daf74b7f3ba63ef6046a93f4ead0a54f6fdd91423a8a08f33",
 		"Polestar_Nav_Kalimdor/Nav1_30.lua": "1a6ad7f819d2789363ae448a5fda054c9b3ca5d690fe14e1018d2fbc0456e8d1",
@@ -499,7 +499,7 @@
 		"Polestar_Nav_Kalimdor/Region1_6_11.lua": "d33ab8b037659b42ffac14d1d40dc7f9eb4d6ba2257eb2a3bd76f19a5867e1b4",
 		"Polestar_Nav_Kalimdor/Region1_6_6.lua": "7b2fbf5914a746356ffff342cce6de5797d9f07d82d4917e6661fc75391c97ca",
 		"Polestar_Nav_Kalimdor/Region1_6_7.lua": "f6073780c79b8a0922635edd795b592e8a339ab5e5f7389933af7d55d8d0030d",
-		"Polestar_Nav_Kalimdor/Region1_6_8.lua": "9758c81bf9d4d16a8570176a1c92ceb7d5ef367e4e3234d48db595d263783e34",
+		"Polestar_Nav_Kalimdor/Region1_6_8.lua": "13cb9d1bcc25c99d5cf8cb5f653cce2449c5ad11b2cdc3cff5ea169f11431dac",
 		"Polestar_Nav_Kalimdor/Region1_6_9.lua": "e7b1fd61a25b819ba42252a1c00005841083a081611dfc812b3c73797c653b74",
 		"Polestar_Nav_Kalimdor/Region1_7_10.lua": "3d21796622a5548e87c0f707a33dc374f5d86a076b3a62c90411b5d7a2908444",
 		"Polestar_Nav_Kalimdor/Region1_7_11.lua": "97b777db01cd8e7c91d7c5ae2b0a631c23617ecbf7d70d8075a556ea4d92e726",
@@ -535,7 +535,7 @@
 	},
 	"import": {
 		"command": "node tools/lib/nav/import-regions.js",
-		"manifestSha256": "f6c0e56b2d5b94d93daf347635d8147b322ad444387330a4db4a058882c4b376",
+		"manifestSha256": "2517c1d6771f0bc311be697d623034773622e803f94444b2531ba136b6c33cf5",
 		"terminalSha256": {
 			"0": "38288a037e6fb2397f1cd26f36cd9f8bfa74a743508c3408e12db62ff40cff7a",
 			"1": "823b7365bf07629fc79c187decf2921f18e6dd518255b9ad1266d5814e842a75",
@@ -558,9 +558,9 @@
 			"data/forever/spawnz.json": "266d149082242e4fd987107099ebfcf8ebbece8b4078349ca9af9f82dc214036",
 			"data/sources/wago/1.60.1.70888/AreaTable.csv": "6e34c93426bf9ba46dfc8f7dd1b140bb556c1bf2a6ace8a1a3556f434c8c6989",
 			"data/crossings.json": "f6f5ba01fd539c351bb7f26de4c16021d6d44f12358eb0e084c5ffe131f7e85e",
-			"joins.json": "2f58c26945da9c02ae9c5c783a8451ebc83a1f0cd7207285f73e7885c51bf1c6"
+			"joins.json": "db1438cb703da808e93d132d57d2ebc1b188e6ee31a34d50c8a5cfeda1211e6e"
 		},
-		"packManifestSha256": "15acd8b65311f061835b8d58bc391fe8044a7ae592134d3384554501c258baf1",
+		"packManifestSha256": "131901f0c4e5568faa4a8a6c3311686b45f68995dd8f7896b8647f189a1d9e9e",
 		"graft": {
 			"baseManifestSha256": "bcbe88bbe5a93e8d483150433273ca606721c35d84570d8c8525825f2bec3088",
 			"plainManifestSha256": "03b28056dafa3619f6241105d73b2a42a18ff454cd3fa54720b04242572db1db",
@@ -570,7 +570,7 @@
 				"Polestar_Nav_Kalimdor/TerminalGround.lua"
 			]
 		},
-		"derivedManifestSha256": "7c230fe71aeb5171f363c34c452b2eb4b28b1f47664528ab739c713fe9bec6b3",
-		"rebuiltManifestSha256": "f6c0e56b2d5b94d93daf347635d8147b322ad444387330a4db4a058882c4b376"
+		"derivedManifestSha256": "baebcb9390ef28030af0201d79ba68faca9fcb5973656cf920015ca650bff2d1",
+		"rebuiltManifestSha256": "2517c1d6771f0bc311be697d623034773622e803f94444b2531ba136b6c33cf5"
 	}
 }

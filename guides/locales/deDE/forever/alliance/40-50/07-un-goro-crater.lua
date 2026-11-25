@@ -7,14 +7,12 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- was: ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56."] = "Für Charaktere der Stufe 49 bis 50, aber die meisten Quests hier sind Stufe 51-53: mit Absicht, wegen ihrer Erfahrung. Dieser erste Besuch bleibt in der Osthälfte des Kraters, wo die Bestien 48-52 sind, also zieh sie einzeln; die Pylonen, die Knochen und der Bau warten auf den späteren Un'Goro-Besuch mit etwa 56."
-	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "",
+	-- {zone:1446} Tanaris · {area:976} Gadgetzan
+	["{zone:1446} first ({area:976} hand-ins), then into Un'Goro. For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "Zuerst {zone:1446} (Abgaben in {area:976}), dann hinein nach Un'Goro. Für Charaktere der Stufe 49 bis 50, aber die meisten Quests hier sind Stufe 51-53: mit Absicht, wegen ihrer Erfahrung. Dieser erste Besuch bleibt in der Osthälfte des Kraters, wo die Bestien 48-52 sind, also zieh sie einzeln; die Pylonen, die Knochen und der Bau warten auf den späteren Un'Goro-Besuch mit etwa 54.",
 
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Flieg nach {area:150}",
-	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "Flugmeister von {zone:1455}",
 
 	-- Step 3: Theramore
 	["Theramore"] = "Theramore",
@@ -30,7 +28,7 @@ return {
 
 	-- Step 5: The Stone Circle
 	-- {quest:3444} The Stone Circle
-	["{quest:3444} stands on the hill just south-west of the flight master."] = "",
+	["{quest:3444} stands on the hill just south-west of the flight master."] = "{quest:3444} steht auf dem Hügel direkt südwestlich des Flugmeisters.",
 
 	-- Step 6: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -73,7 +71,7 @@ return {
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {item:10556} Stone Circle
 	["On the ride south, {npc:7771}'s dig camp stands at the {area:1938}: hand him the {item:10556}."] = "",
 	-- {npc:7771} Marvon Rivetseeker · {area:1417} Sunken Temple
-	["{npc:7771}'s next task, Into the Depths, is inside the {area:1417}: skip it."] = "",
+	["{npc:7771}'s next task, Into the Depths, is inside the {area:1417}: skip it."] = "{npc:7771}'s nächste Aufgabe, Into the Depths, ist in {area:1417}: überspringe es.",
 
 	-- Step 16: The Gaping Chasm
 	-- {area:1938} Broken Pillar · {area:981} The Gaping Chasm
@@ -249,4 +247,5 @@ return {
 	-- ["{npc:9998}, at the refuge entrance"] = "{npc:9998}, am Eingang der Zuflucht",
 	-- ["{npc:9998}, at the refuge's entrance"] = "{npc:9998}, am Eingang der Zuflucht",
 	-- ["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999} sitzt am Südosthang des {area:537}, in der Mitte des Kraters.",
+	-- ["{zone:1455} flight master"] = "Flugmeister von {zone:1455}",
 }

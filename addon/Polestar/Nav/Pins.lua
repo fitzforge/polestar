@@ -2,9 +2,14 @@
 -- Nav's own target). Contract: docs/ARCHITECTURE.md, "Pins".
 --
 --   Pins.SetLayer(layer, pins, opts)   replace a layer; opts = { world = true, minimap = true, edge = false, scale = 1,
---                                      minimapAreas = false, minMapType = nil, worldLayout = nil }
+--                                      minimapAreas = false, minMapType = nil, worldLayout = nil, summary = nil }
 --   minMapType limits world-map pins to that UIMapType or narrower views; the minimap is unaffected.
 --   worldLayout(projected, view) -> { { pin, x, y }, ... } lays out this layer on the world map only.
+--   summary: what the layer's pins are, as the player reads them ("Hand-ins"). On a continent or world map
+--   (wider than a zone) the pins of every summary layer are gathered into one pin per zone, its count on a badge
+--   and each layer's count in its tooltip ("Hand-ins: 5"); clicking it opens the zone's map, which shows them all
+--   (#2973: Dustwallow Marsh covered in quest pins on the Kalimdor map). Their areas and hulls wait for the zone
+--   map too. The minimap is unaffected.
 --   Pins.ClearLayer(layer)
 --   Pins.SetLayerVisible(layer, visible)
 --   pin = { map, x, y, f, icon, size, color = { r, g, b, a }, tooltip = string | function(tooltip),
@@ -299,6 +304,7 @@ function Pins.SetLayer(name, pins, opts)
 	layer.world = opts.world ~= false
 	layer.minMapType = tonumber(opts.minMapType)
 	layer.worldLayout = type(opts.worldLayout) == "function" and opts.worldLayout or nil
+	layer.summary = type(opts.summary) == "string" and opts.summary ~= "" and opts.summary or nil
 	layer.minimap = opts.minimap ~= false
 	layer.edge = opts.edge == true
 	layer.scale = tonumber(opts.scale) or 1
@@ -1473,6 +1479,13 @@ do
 		return count + 1
 	end
 
+	-- #2973: a view wider than a zone (a continent, the world) gathers the summary layers' pins by zone, and leaves
+	-- their areas and hulls to the zone's map.
+	local ZONE_TYPE = Enum and Enum.UIMapType and Enum.UIMapType.Zone or 3
+	local function summarized(layer, mapType)
+		return layer.summary ~= nil and mapType ~= nil and mapType < ZONE_TYPE
+	end
+
 	-- Every shown layer's hulls on the viewed map, inside the window around
 	-- the view as it is now (world.hullWin; mapType: the viewed map's, for minMapType).
 	function world.drawHulls(mapType)
@@ -1485,7 +1498,7 @@ do
 			local level = wView:Level(BLOB_LEVEL)
 			for _, name in ipairs(order) do
 				local layer = layers[name]
-				if layer and layer.world and not hidden[name]
+				if layer and layer.world and not hidden[name] and not summarized(layer, mapType)
 					and (not layer.minMapType or (mapType and mapType >= layer.minMapType)) then
 					if not layer.resolved then resolveLayer(layer) end
 					local pins = layer.pins
@@ -1549,6 +1562,54 @@ do
 		end
 	end
 
+	-- The zone a summary layer's pin lies in (#2973): its own map's zone (the map, or its widest ancestor that is still
+	-- a zone: a cave's or a city quarter's zone), else the zone the viewed map shows at its point.
+	local zoneOfMap = {}
+	local function zoneOf(p, x, y, mapID)
+		local m = p.map
+		if m and C_Map and C_Map.GetMapInfo then
+			local z = zoneOfMap[m]
+			if z == nil then
+				z = false
+				local id = m
+				for _ = 1, 12 do
+					local info = C_Map.GetMapInfo(id)
+					if not (info and info.mapType and info.mapType >= ZONE_TYPE) then break end
+					z = id
+					local parent = info.parentMapID and C_Map.GetMapInfo(info.parentMapID)
+					if not (parent and parent.mapType and parent.mapType >= ZONE_TYPE) then break end
+					id = info.parentMapID
+				end
+				zoneOfMap[m] = z
+			end
+			if z then return z end
+		end
+		local at = C_Map and C_Map.GetMapInfoAtPosition and C_Map.GetMapInfoAtPosition(mapID, x / 100, y / 100)
+		if at and at.mapID and at.mapID ~= mapID and at.mapType and at.mapType >= ZONE_TYPE then return at.mapID end
+		return nil
+	end
+
+	-- A zone's summary pin: a medallion with up to three of its layers' glyphs, a badge with how many pins it holds,
+	-- each layer's count in the tooltip; a click opens the zone's map.
+	local SUMMARY_MEDAL = 30
+	local SUMMARY_LAYER = { name = "summary", scale = 1 }
+	local function summaryPin(g)
+		local info = C_Map.GetMapInfo(g.zone)
+		local name, zone, lines = info and info.name or "", g.zone, {}
+		for i, label in ipairs(g.labels) do lines[i] = label .. ": " .. g.counts[label] end
+		return { icon = g.icons[1], stack = #g.icons > 1 and g.icons or nil, badge = g.n, count = g.n, zone = zone,
+			size = SUMMARY_MEDAL / 1.4, medalSize = SUMMARY_MEDAL, color = g.color, priority = 1,
+			tooltip = function(tip)
+				tip:SetText(name)
+				for _, l in ipairs(lines) do tip:AddLine(l, 1, 1, 1) end
+				tip:AddLine(L["Click to open the zone's map"], 1, 0.82, 0.25)
+			end,
+			onClick = function(button)
+				local map = wView and wView.map
+				if button == "LeftButton" and map and map.SetMapID then map:SetMapID(zone) end
+			end }
+	end
+
 	-- Every layer's pins, areas and hulls, and the trail, for the viewed map.
 	local function drawWorld()
 		wDirty = false
@@ -1561,6 +1622,7 @@ do
 			local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(mapID)
 			mapType = info and info.mapType
 			local pinLevel, blobLevel = v:Level(PIN_LEVEL), v:Level(BLOB_LEVEL)
+			local groups, gOrder = nil, nil
 			for _, name in ipairs(order) do
 				local layer = layers[name]
 				if layer and layer.world and not hidden[name]
@@ -1568,21 +1630,39 @@ do
 					if not layer.resolved then resolveLayer(layer) end
 					local pins = layer.pins
 					local first = n + 1
+					local sum = summarized(layer, mapType)
 					for i = 1, #pins do
 						local p = pins[i]
-						if not (p.areaOnly and not p.area) then
+						if not (p.areaOnly and (sum or not p.area)) then
 							local x, y
 							if p.map == mapID and p.x and p.y and not p.f then
 								x, y = p.x, p.y
 							elseif layer.c[i] and C and C.WorldToMap then
 								x, y = C.WorldToMap(layer.c[i], layer.wx[i], layer.wy[i], mapID)
 							end
-							if x and x >= 0 and x <= 100 and y >= 0 and y <= 100 then
+							local zone = sum and x and x >= 0 and x <= 100 and y >= 0 and y <= 100 and zoneOf(p, x, y, mapID)
+							if zone then
+								groups, gOrder = groups or {}, gOrder or {}
+								local g = groups[zone]
+								if not g then
+									g = { zone = zone, n = 0, x = 0, y = 0, counts = {}, labels = {}, icons = {}, color = p.color }
+									groups[zone] = g
+									gOrder[#gOrder + 1] = zone
+								end
+								local label = layer.summary
+								g.n, g.x, g.y = g.n + 1, g.x + x, g.y + y
+								if not g.counts[label] then
+									g.counts[label] = 0
+									g.labels[#g.labels + 1] = label
+									if #g.icons < 3 and p.icon then g.icons[#g.icons + 1] = p.icon end
+								end
+								g.counts[label] = g.counts[label] + 1
+							elseif x and x >= 0 and x <= 100 and y >= 0 and y <= 100 then
 								if not p.areaOnly then
 									n = n + 1
 									queue[n], qPin[n], qLayer[n], qX[n], qY[n], qPri[n] = n, p, layer, x, y, tonumber(p.priority) or 0
 								end
-								if p.area then
+								if p.area and not sum then
 									local dx = areaRadius(p, layer, i, x, mapID, C)
 									if dx then
 										areas = areas + 1
@@ -1598,7 +1678,7 @@ do
 							end
 						end
 					end
-					if layer.worldLayout then
+					if layer.worldLayout and not sum then
 						local projected = {}
 						for i = first, n do projected[#projected + 1] = { pin = qPin[i], x = qX[i], y = qY[i] } end
 						local arranged = layer.worldLayout(projected, v)
@@ -1610,6 +1690,11 @@ do
 						end
 					end
 				end
+			end
+			for _, zone in ipairs(gOrder or {}) do
+				local g = groups[zone]
+				n = n + 1
+				queue[n], qPin[n], qLayer[n], qX[n], qY[n], qPri[n] = n, summaryPin(g), SUMMARY_LAYER, g.x / g.n, g.y / g.n, 1
 			end
 			for i = #queue, n + 1, -1 do queue[i] = nil end
 			table.sort(queue, byPriority)

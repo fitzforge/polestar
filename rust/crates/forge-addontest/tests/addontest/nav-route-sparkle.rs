@@ -150,6 +150,16 @@ fn lines() -> Addon {
 
 const PAINTED_PRELUDE: &str = r#"
 local N, R, Pins, nav = Polestar.Nav, Polestar.RouteLines, Polestar.Pins, stub.nav
+-- These scenes' walks (navRouting off, no walking engine) are drawn straight, no walking path known (`straight`),
+-- which every style dashes (#3418, nav-route-lines.rs): here they stand for found walks, so their sparkles show.
+do
+	local geometry = N.GetRouteGeometry
+	N.GetRouteGeometry = function(...)
+		local g = geometry(...)
+		for _, l in ipairs(type(g) == "table" and g.legs or {}) do l.straight = nil end
+		return g
+	end
+end
 local function target(wx, wy)
 	local m, x, y = nav.mapPoint(wx, wy)
 	N.SetTarget(m, x, y, "Target")
@@ -213,6 +223,33 @@ fn the_sparkle_style_paints_both_surfaces_instead_of_the_dots_still_standing_in_
 	assert_eq!(out["dotsWorld"], 0, "dots again: the sparkles hide");
 	assert_eq!(out["dotsMinimap"], 0);
 	assert!(num(&out["dotLines"]) > 10.0, "and the dots are back");
+}
+
+// #3418: in the sparkle style a walk with no walking path known (the arrow's straight fallback, #3409) gets no
+// sparkles: it is drawn as the line style's paler dashes on both surfaces, so it never reads as a found walk.
+#[test]
+fn the_sparkle_style_draws_a_walk_with_no_walking_path_known_as_dashes_not_sparkles_3418() {
+	let out = painted(
+		r#"
+		walkTo(-600)
+		local found = N.GetRouteGeometry
+		N.GetRouteGeometry = function(...)
+			local g = found(...)
+			for _, l in ipairs(type(g) == "table" and g.legs or {}) do l.straight = true end
+			return g
+		end
+		Polestar.Fire("NAV_ROUTE_GEOMETRY")
+		Polestar.Set("nav.lineStyle", "sparkle")
+		nav.showWorldMap(9000)
+		stub.advance(0.5)
+		local mm = R.GetStrokes("minimap")
+		local alpha = {}
+		for i = 1, mm.n do alpha[mm.alpha[i]] = true end
+		emit({ world = R.GetSparkles("world"), minimap = R.GetSparkles("minimap"), lines = shownLines(R.GetWorldFrame()), strokes = mm.n, alpha = next(alpha) })"#,
+	);
+	assert_eq!(out["world"], 0, "no sparkles on the world map");
+	assert_eq!(out["minimap"], 0, "nor on the minimap");
+	assert!(num(&out["lines"]) > 5.0, "dashes on the world map: {}", out["lines"]);
 }
 
 #[test]
