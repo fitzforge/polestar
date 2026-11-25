@@ -884,6 +884,12 @@ step The Shrine of Aviana
   turnin 92147                          -- Phoebe Highfeather
   turnin 96252
 
+step The way into the Deadwood camps
+  when !subzone "Malorne's Retreat"
+  tip The Deadwood camps fill Malorne's Retreat, a sunken valley whose northern end runs in under the cliffs: there is no way down into it from Mourning's Rest. Go round to the valley's mouth in the south-east and follow it west, then north up into the camps, as players do.
+  goto 36.1,75.4 "the mouth of the valley up into Malorne's Retreat"
+  goto 23.9,66.5 "Malorne's Retreat"
+
 step The Deadwood camps
   tip South-west back towards Barkskin Burrow: the Deadwood camps on the slopes east of the burrow hold the Totemics and Fel-Tenders. An elite named Head Scratcher (level 60) may roam the camps' eastern end.
   kill 252116 x8 quest 93826.1          -- Deadwood Totemic
