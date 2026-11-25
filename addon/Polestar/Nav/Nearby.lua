@@ -616,6 +616,28 @@ function Nearby.Go(key, line)
 	return true
 end
 
+-- The friendly vendors on continent c that the Codex says sell item `id`
+-- (their spawns, as PlacesOn's): the list, kept until the index is dropped |
+-- nil, reason.
+function Nearby.Sellers(id, c)
+	local at = "sells:" .. tostring(id) .. ":" .. tostring(c)
+	if index[at] then return index[at] end
+	local ok, why = codexReady()
+	if not ok then return nil, why end
+	local item = ns.Codex.Item(id)
+	if not item then return nil, "none" end
+	local sells = {}
+	for _, s in ipairs(item.sources or {}) do
+		if s.type == "vendor" and s.npc then sells[s.npc] = true end
+	end
+	local list = {}
+	for _, p in ipairs(rolePlaces("vendor")) do
+		if p.c == c and sells[p.id] then list[#list + 1] = p end
+	end
+	index[at] = list
+	return list
+end
+
 -- "/polestar near <kind> [profession]"; a profession alone means its trainer.
 function Nearby.Command(rest)
 	local text = lower((rest or ""):match("^%s*(.-)%s*$"))

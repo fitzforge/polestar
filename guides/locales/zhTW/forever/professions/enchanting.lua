@@ -15,8 +15,9 @@ return {
 	-- Step 2: Enchanting 1-75: vendor goods
 	-- {skill:333} Enchanting
 	["{skill:333} 1-75: vendor goods"] = "{skill:333} 1-75：商人貨物",
-	-- {item:6217} Copper Rod · {item:247786} Mote of Magic · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1318} Jessara Cordell · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3346} Kithas · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "一次買齊這一段所需的全部：1個{item:6217}（1銀24銅）和32個{item:247786}（3銀20銅）；總共約4銀44銅。箭頭會指向本陣營最近的賣家（{zone:1453}：{npc:1286}和{npc:1318}；{zone:1454}：{npc:3367}、{npc:3346}和{npc:5817}）。",
+	-- {item:6217} Copper Rod · {item:247786} Mote of Magic · {zone:1453} Stormwind City · {npc:1318} Jessara Cordell · {zone:1454} Orgrimmar · {npc:3346} Kithas
+	-- was: ["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "一次買齊這一段所需的全部：1個{item:6217}（1銀24銅）和32個{item:247786}（3銀20銅）；總共約4銀44銅。箭頭會指向本陣營最近的賣家（{zone:1453}：{npc:1286}和{npc:1318}；{zone:1454}：{npc:3367}、{npc:3346}和{npc:5817}）。"
+	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1318}; {zone:1454}: {npc:3346})."] = "",
 
 	-- Step 3: Enchanting 1-75: Auction House
 	-- {skill:333} Enchanting
@@ -85,7 +86,6 @@ return {
 	-- {spell:7420} Enchant Chest - Inferior Stamina
 	["{spell:7420} to 90"] = "{spell:7420} 到90",
 	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption
-	-- was: ["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7420} 在技能 75 時為黃色（70 變黃、90 變綠、110 變灰）：約製作 22 次可到 90。每次需要 1 個 {item:10940}。每次只用一個 {item:10940}：多數 5-20 級綠色物品，尤其是護甲，分解後都會獲得這種塵。如果手頭 {item:10938}（來自武器）更多，也可以透過“附魔護腕 - 初級偏斜”或“附魔胸甲 - {spell:7423}”達到同樣目的。對揹包中對應部位的任意裝備附魔即可，灰色品質也行。"
 	["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one. If you got here without learning {spell:7420}, learn it now: an earlier step teaches it."] = "{spell:7420}在75時為黃色（黃色70，綠色90，灰色110）：大約製作22次到90。每次需要1個{item:10940}。每次一個{item:10940}：大部分5-20級綠色物品分解出的粉塵，尤其是護甲。{item:10938}（來自武器）透過護腕 - 初級偏斜或胸甲 - {spell:7423}也能起同樣作用，如果你這種更多的話。給背包裡該部位的任何物品附魔，灰色的也行。如果你到這裡還沒學會{spell:7420}，現在就學：之前的步驟會教。",
 
 	-- Step 16: Enchant Cloak - Minor Protection to 130
@@ -157,7 +157,6 @@ return {
 	-- {spell:13501} Enchant Bracer - Lesser Stamina
 	["{spell:13501} to 160"] = "{spell:13501} 到160",
 	-- {spell:13501} Enchant Bracer - Lesser Stamina · {item:11083} Soul Dust · {item:11130} Runed Golden Rod
-	-- was: ["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13501}在技能150時為橙色（155變黃、175變綠、195變灰）：約製作11次可到160。每次需要1個{item:11083}。每次一個{item:11083}（21-30級的綠色物品）。趁現在還能加點時做好{item:11130}：之後的配方需要它放在背包裡，所以一直帶著。對背包中任何該部位的物品附魔都可以，灰色物品也行。"
 	["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one. If you got here without learning {spell:13501}, learn it now: an earlier step teaches it."] = "{spell:13501}在150時為橙色（黃色155，綠色175，灰色195）：大約製作11次到160。每次需要1個{item:11083}。每次一個{item:11083}（21-30級綠色物品）。現在就做{item:11130}，趁它還能加點：後面的配方需要它在你的背包裡，所以留著。給背包裡該部位的任何物品附魔，灰色的也行。如果你到這裡還沒學會{spell:13501}，現在就學：之前的步驟會教。",
 
 	-- Step 30: Enchanting recipes at 160
@@ -258,6 +257,7 @@ return {
 	-- ["Back to an {skill:333} trainer: {spell:13948} is taught from {skill:333} 270."] = "回到{skill:333}訓練師那裡：{spell:13948}在{skill:333}270點時可學。",
 	-- ["Back to an {skill:333} trainer: {spell:7426} is taught from {skill:333} 90."] = "回到{skill:333}訓練師那裡：{spell:7426}在{skill:333}90點時可學。",
 	-- ["Back to an {skill:333} trainer: {spell:7788} is taught from {skill:333} 120."] = "回到{skill:333}訓練師那裡：{spell:7788}在{skill:333}120點時可學。",
+	-- ["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "一次買齊這一段所需的全部：1個{item:6217}（1銀24銅）和32個{item:247786}（3銀20銅）；總共約4銀44銅。箭頭會指向本陣營最近的賣家（{zone:1453}：{npc:1286}和{npc:1318}；{zone:1454}：{npc:3367}、{npc:3346}和{npc:5817}）。",
 	-- ["Expert needs character level 20 and {skill:333} 125; it raises the cap to 225. Materials for 150-225 are worth about 13s in all."] = "高級需要角色等級20且{skill:333}125點；上限提高到225。150-225所需材料總價約13銀。",
 	-- ["Journeyman needs character level 10 and {skill:333} 50; it raises the cap to 150. Materials for 75-150 are worth about 7g 51s in all."] = "中級需要角色等級10且{skill:333}50點；上限提高到150。75-150所需材料總價約7金51銀。",
 	-- ["Open Giant Clams here. The Auction House works too."] = "在這裡打開巨型蚌殼。拍賣場也買得到。",

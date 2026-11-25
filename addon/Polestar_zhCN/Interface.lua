@@ -7,17 +7,11 @@
 -- reworded that this file still showed in English, translated by an AI model (Claude Opus 5.5)
 -- in this file's own wording, and waiting for a native speaker's check. Reviewing one: keep or
 -- fix its line below, and take its key off this list.
---   Requires level %d: the guide comes back for it then
 --   Requires level %d: kept for a later guide
---   A guide later on your route takes this quest here: taken now, its step is done when you get there.
 --   Arrived underwater
---   Another character named %s was saved before Forever's client stopped giving addons the realm name. Polestar can't tell whether it is this one, so it stays listed as it was; forget it if it is.
---   %d characters named %s were saved on different realms before Forever's client stopped giving addons the realm name. Polestar can't tell which one you are playing, so they stay listed as they were and this character has a new entry; forget the old one that was this character.
---   Rares met on %d realms are kept apart: Forever's client no longer gives addons the realm name, so Polestar can't tell which of them this is. Rares lists what you meet from now on.
 --   %s · at level %d
 --   %s (level %d)
 --   %s takes these once you reach their level: %s
---   Waiting for your level, taken where a later guide passes the giver: %s
 --
 -- Machine-translated, to be reviewed (0.4.3 guide titles, 24 Nov 2026): translated by an AI model
 -- (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing
@@ -673,9 +667,9 @@ L["No Hearthstone in your bags: ride to the inn"] = "背包中没有炉石：请
 L["Hearthstone ready in %s: ride to the inn, or wait for it"] = "炉石将在 %s 后就绪：可自行前往旅店，或等待冷却结束"
 L["Ride to %s"] = "前往 %s"
 L["Ride to the flight master"] = "前往飞行管理员处"
-L["Requires level %d: the guide comes back for it then"] = "需要%d级：届时指南会回来接取"
+L["Requires level %d: the guide comes back for it then"] = "需要%d级：到时会回来接"
 L["Requires level %d: kept for a later guide"] = "需要%d级：留给后续的指南"
-L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = "你路线上后面的某个指南会在这里接受此任务：现在接受的话，到达该步骤时它就已完成。"
+L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = "这是后续路线的任务，可以提前接。"
 L["For %s, later on your route."] = "用于路线后面的 %s。"
 L["kill %s as you meet them"] = "遇到 %s 时顺手击杀"
 L["Escort, about %d min"] = "护送，约 %d 分钟"
@@ -1423,8 +1417,8 @@ L["Right-click for its settings. Shift-drag to move."] = "右键点击打开设�
 L["Right-click for its settings. Drag to move."] = "右键点击打开设置。拖动以移动。"
 L["Targets the first name in the list that is close. Click a name to target that one."] = "选中列表中附近的第一个名字。点击名字即可选中该目标。"
 L["Dragging the Polestar mark in combat places the buttons after the fight."] = "战斗中拖动 Polestar 标记，按钮会在战斗结束后移到新位置。"
-L["Press to equip"] = "按键装备"
-L["Press to equip it."] = "点击装备"
+L["Press to equip"] = "按下装备"
+L["Press to equip it."] = "按下即可装备"
 
 -- QoL/XP.lua
 L["Level %d"] = "等级 %d"
@@ -4137,9 +4131,9 @@ L["1 character"] = "1个角色"
 L["1 character · each as of their last logout"] = "1个角色 · 为其上次登出时的数据"
 L["%d characters · each as of their last logout"] = "%d个角色 · 均为各自上次登出时的数据"
 L["Forget %s"] = "忘记 %s"
-L["Another character named %s was saved before Forever's client stopped giving addons the realm name. Polestar can't tell whether it is this one, so it stays listed as it was; forget it if it is."] = "另一个名为%s的角色是在 Forever 客户端停止向插件提供服务器名称之前保存的。Polestar 无法判断它是否就是这个角色，因此保持原样列出；如果是，请忘记它。"
-L["%d characters named %s were saved on different realms before Forever's client stopped giving addons the realm name. Polestar can't tell which one you are playing, so they stay listed as they were and this character has a new entry; forget the old one that was this character."] = "%d 个名为%s的角色在 Forever 客户端停止向插件提供服务器名称之前保存在不同的服务器上。Polestar 无法判断你正在玩哪一个，因此它们保持原样列出，此角色有了一个新条目；请忘记原本属于此角色的旧条目。"
-L["Rares met on %d realms are kept apart: Forever's client no longer gives addons the realm name, so Polestar can't tell which of them this is. Rares lists what you meet from now on."] = "在 %d 个服务器上遇到的稀有怪物分开保存：Forever 客户端不再向插件提供服务器名称，因此 Polestar 无法判断当前是其中哪一个。“稀有”将列出你从现在起遇到的稀有怪物。"
+L["Another character named %s was saved before Forever's client stopped giving addons the realm name. Polestar can't tell whether it is this one, so it stays listed as it was; forget it if it is."] = "另一个名为%s的角色是在无限服客户端停止向插件提供服务器名称之前保存的。Polestar 无法判断它是否就是这个角色，因此保持原样列出；如果是，请忘记它。"
+L["%d characters named %s were saved on different realms before Forever's client stopped giving addons the realm name. Polestar can't tell which one you are playing, so they stay listed as they were and this character has a new entry; forget the old one that was this character."] = "%d 个名为%s的角色在无限服客户端停止向插件提供服务器名称之前保存在不同的服务器上。Polestar 无法判断你正在玩哪一个，因此它们保持原样列出，此角色有了一个新条目；请忘记原本属于此角色的旧条目。"
+L["Rares met on %d realms are kept apart: Forever's client no longer gives addons the realm name, so Polestar can't tell which of them this is. Rares lists what you meet from now on."] = "在 %d 个服务器上遇到的稀有怪物分开保存：无限服客户端不再向插件提供服务器名称，因此 Polestar 无法判断当前是其中哪一个。“稀有”将列出你从现在起遇到的稀有怪物。"
 L["Characters is turned off. Turn it on under Settings > Discovery > Lookup."] = "“角色”功能已关闭。请在“设置 > 发现 > 查询”中开启。"
 
 -- QoL/Keep.lua
@@ -5410,7 +5404,7 @@ L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danit
 L["Equip it"] = "装备"
 L["%s (level %d)"] = "%s（%d级）"
 L["%s takes these once you reach their level: %s"] = "达到所需等级后，%s会接受这些任务：%s"
-L["Waiting for your level, taken where a later guide passes the giver: %s"] = "等待你的等级，在后续指南经过任务给予者时接受：%s"
+L["Waiting for your level, taken where a later guide passes the giver: %s"] = "等级达标后，后续路线经过任务发布者时接取：%s"
 L["Looking ahead."] = "向前看。"
 L["Looking back."] = "向后看。"
 L["On the way to your map point (%s)."] = "正在前往你的地图点（%s）。"
