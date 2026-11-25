@@ -263,13 +263,46 @@ test('Quality of Life has a Tooltips row in the sidebar: every tooltip setting, 
 	assert.equal(out.tab, 'Tooltips');
 	assert.deepEqual(out.cards, [
 		{ name: 'Quests', keys: ['qol.questTooltips', 'qol.questDropChance', 'qol.questTooltipsNpc', 'qol.questTooltipsReplace'] },
-		{ name: 'Items', keys: ['gear.tooltip', 'gear.pickTooltip', 'lookup.tooltip', 'qol.itemMarks'] },
-		{ name: 'Mounts', keys: ['lookup.mounts'] },
+		// Mounts (and the talent plan once it is out) share Items: a section of one row breaks the layout rules.
+		{ name: 'Items', keys: ['gear.tooltip', 'gear.pickTooltip', 'lookup.tooltip', 'qol.itemMarks', 'lookup.mounts'] },
 	]);
 	assert.deepEqual(out.children, ['qol.questDropChance', 'qol.questTooltipsNpc', 'qol.questTooltipsReplace'], 'the quest options under Quest tooltips');
 	assert.equal(out.links['qol.questTooltips'], 'Questing \u203a Quests');
 	assert.equal(out.links['gear.tooltip'], 'Questing \u203a Rewards & gear');
 	assert.equal(out.links['qol.itemMarks'], 'Vendors');
+});
+
+test('pointing at a Tooltips row shows a sample game tooltip with the line it adds, live as it is switched', () => {
+	const [out] = run(`
+		-- A tooltip frame as the client's GameTooltipTemplate makes it (the stub's GameTooltip's methods).
+		PolestarSampleTooltip = CreateFrame("GameTooltip", "PolestarSampleTooltip", UIParent)
+		for _, m in ipairs({ "SetOwner", "ClearLines", "AddLine", "AddDoubleLine", "SetText", "GetOwner" }) do
+			PolestarSampleTooltip[m] = GameTooltip[m]
+		end
+		Polestar.UI.ShowOptions()
+		O.Select("qualityoflife", L["Tooltips"])
+		local tip = PolestarSampleTooltip
+		local row = O.view.cache[(function()
+			local _, t = G.Current()
+			for _, sec in ipairs(t.sections) do
+				for _, c in ipairs(sec.controls) do if c.key == "lookup.tooltip" then return c end end
+			end
+		end)()]
+		stub.RunScript(row, "OnEnter")
+		local on = { shown = tip:IsShown(), owner = tip:GetOwner() == row, lines = tip.lines }
+		Polestar.Set("lookup.tooltip", false)
+		local off = { lines = tip.lines }
+		stub.RunScript(row, "OnLeave")
+		emit({ on = on, off = off, hidden = not tip:IsShown() })`);
+	assert.equal(out.on.shown, true, 'the sample shows');
+	assert.equal(out.on.owner, true, 'beside the row');
+	const line = out.on.lines.find((l) => l.startsWith('From '));
+	assert.ok(line, `the line the setting adds: ${out.on.lines.join(' / ')}`);
+	assert.equal(out.on.lines.at(-1), 'Preview');
+	const offLine = out.off.lines.find((l) => l.startsWith('From '));
+	assert.ok(offLine, 'still there, switched off');
+	assert.equal(out.off.lines.at(-1), 'Off', 'says it is off');
+	assert.equal(out.hidden, true, 'hidden as the pointer leaves');
 });
 
 test('LB / RB step on from Essentials after the tab is built again', () => {
