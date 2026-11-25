@@ -9,8 +9,8 @@ use serde_json::{json, Value};
 
 const FILES: [&str; 3] = ["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml"];
 
-// An account that saw the 0.3.7 notes, updated to 0.4.0.
-const UPDATED: &str = "PolestarDB = { schema = 1, settings = {}, welcomeSeen = 1, whatsNewSeen = \"0.3.7\" }";
+// An account that saw the 0.4.0 notes (a 0.4.2.2 player), updated to 0.4.3.
+const UPDATED: &str = "PolestarDB = { schema = 1, settings = {}, welcomeSeen = 1, whatsNewSeen = \"0.4.0\" }";
 // An account from before the window: no flag at all.
 const OLD_ACCOUNT: &str = "PolestarDB = { schema = 1, settings = {}, welcomeSeen = 1 }";
 const CHAR_SEEN: &str = "PolestarCharDB = { schema = 1, welcomeSeen = 1 }";
@@ -63,8 +63,8 @@ fn after_an_update_it_shows_once_a_few_seconds_after_login_and_got_it_closes_it_
 	);
 	assert_eq!(
 		out,
-		json!({ "atLogin": false, "after": true, "title": "What's new in Polestar 0.4.0", "flag": "0.4.0", "closed": true,
-			"latest": "0.4.0", "welcome": false }),
+		json!({ "atLogin": false, "after": true, "title": "What's new in Polestar 0.4.3", "flag": "0.4.3", "closed": true,
+			"latest": "0.4.3", "welcome": false }),
 		"opening it marks the account, so a reload or logout with it up does not repeat it"
 	);
 	// The next login, with what the first one saved.
@@ -79,11 +79,11 @@ fn after_an_update_it_shows_once_a_few_seconds_after_login_and_got_it_closes_it_
 #[test]
 fn an_account_from_before_the_window_has_updated_so_it_shows() {
 	let out = run_with("stub.advance(4)\nemit({ shown = shown(), flag = PolestarDB.whatsNewSeen })", Some(format!("{OLD_ACCOUNT}\n{CHAR_SEEN}")), "");
-	assert_eq!(out, json!({ "shown": true, "flag": "0.4.0" }));
+	assert_eq!(out, json!({ "shown": true, "flag": "0.4.3" }));
 }
 
 #[test]
-fn the_newest_notes_are_0_4_0_and_an_account_that_saw_0_3_7_gets_them_at_login() {
+fn the_newest_notes_are_0_4_3_and_an_account_that_saw_0_4_0_gets_them_at_login_not_0_4_0_s_again() {
 	let out = run_with(
 		r#"
 		local versions = {}
@@ -95,13 +95,14 @@ fn the_newest_notes_are_0_4_0_and_an_account_that_saw_0_3_7_gets_them_at_login()
 		updated(),
 		"",
 	);
-	assert_eq!(out["versions"][0], "0.4.0", "0.4.0's notes come first, the newest: {}", out["versions"]);
-	assert_eq!(out["versions"][1], "0.3.7", "0.3.7's stay behind them");
-	assert_eq!(out["latest"], "0.4.0");
-	assert_eq!(out["atLogin"], json!({ "shown": false, "flag": "0.3.7" }), "not before its few seconds");
-	assert_eq!(out["shown"], true, "an account that read 0.3.7's notes gets 0.4.0's at login");
-	assert_eq!(out["title"], "What's new in Polestar 0.4.0");
-	assert_eq!(out["flag"], "0.4.0", "and is marked as having seen them");
+	assert_eq!(out["versions"][0], "0.4.3", "0.4.3's notes come first, the newest: {}", out["versions"]);
+	assert_eq!(out["versions"][1], "0.4.0", "0.4.0's stay behind them");
+	assert_eq!(out["versions"][2], "0.3.7");
+	assert_eq!(out["latest"], "0.4.3");
+	assert_eq!(out["atLogin"], json!({ "shown": false, "flag": "0.4.0" }), "not before its few seconds");
+	assert_eq!(out["shown"], true, "an account that read 0.4.0's notes (0.4.2.2) gets 0.4.3's at login");
+	assert_eq!(out["title"], "What's new in Polestar 0.4.3", "not 0.4.0's title and notes again");
+	assert_eq!(out["flag"], "0.4.3", "and is marked as having seen them");
 }
 
 #[test]
@@ -116,7 +117,7 @@ fn a_fresh_install_gets_the_welcome_not_whats_new_even_after_the_welcome_closes(
 		None,
 		"",
 	);
-	assert_eq!(out, json!({ "during": { "welcome": true, "shown": false }, "after": false, "flag": "0.4.0" }));
+	assert_eq!(out, json!({ "during": { "welcome": true, "shown": false }, "after": false, "flag": "0.4.3" }));
 }
 
 #[test]
@@ -131,7 +132,7 @@ fn in_combat_it_waits_for_the_fight_to_end() {
 		updated(),
 		"stub.inCombat = true",
 	);
-	assert_eq!(out, json!({ "during": { "shown": false, "flag": "0.3.7" }, "after": true, "flag": "0.4.0" }));
+	assert_eq!(out, json!({ "during": { "shown": false, "flag": "0.4.0" }, "after": true, "flag": "0.4.3" }));
 }
 
 #[test]
@@ -177,7 +178,7 @@ fn polestar_whatsnew_and_about_reopen_it_once_seen() {
 		PolestarWhatsNew:Hide()
 		Polestar.Fire("SHOW_WHATSNEW")
 		emit({ atLogin = atLogin, slash = slash, event = shown() })"#,
-		Some(format!("PolestarDB = {{ schema = 1, settings = {{}}, welcomeSeen = 1, whatsNewSeen = \"0.4.0\" }}\n{CHAR_SEEN}")),
+		Some(format!("PolestarDB = {{ schema = 1, settings = {{}}, welcomeSeen = 1, whatsNewSeen = \"0.4.3\" }}\n{CHAR_SEEN}")),
 		"",
 	);
 	assert_eq!(out, json!({ "atLogin": false, "slash": true, "event": true }));
@@ -200,7 +201,7 @@ fn open_the_guide_list_closes_it_and_opens_the_guide_list_on_its_home_view_with_
 }
 
 #[test]
-fn it_says_what_changed_in_ten_notes_in_order_and_scrolls_them_within_one_screen() {
+fn it_says_what_changed_in_eight_notes_in_order_and_keeps_the_window_within_one_screen() {
 	let out = run_with(
 		r#"
 		WN.Show()
@@ -221,11 +222,20 @@ fn it_says_what_changed_in_ten_notes_in_order_and_scrolls_them_within_one_screen
 		updated(),
 		"",
 	);
+	let heads: Vec<&str> = out["notes"].as_array().unwrap().iter().map(|n| n["head"].as_str().unwrap()).collect();
+	assert_eq!(
+		heads,
+		["A smarter arrow", "Guides named for their zones", "Escorts are your choice", "Windows your way", "Attunements", "Polestar in your language", "Fewer folders", "Fixes from your reports"],
+		"0.4.3's eight notes, in order"
+	);
+	assert_eq!(out["notes"][4]["text"], "Every attunement and key for your faction in the guide menu, with a progress bar and Guide me.");
+	assert_eq!(out["notes"][6]["text"], "Quit the game fully and start it again: Polestar is 22 folders now, not 45.");
+	assert_eq!(out["notes"][7]["text"], "Steps fixed in dozens of zones. Found something off? Type /polestar report.");
 	assert_eq!(out["escape"], true, "Escape closes it");
 	let h = out["height"].as_f64().unwrap();
 	assert!(h > 300.0 && h <= 440.0, "the window keeps its size with five notes; the list scrolls instead: {h}");
 	let (view, content) = (out["view"].as_f64().unwrap(), out["content"].as_f64().unwrap());
-	assert!(content > view, "ten notes are more than the window holds, so the list scrolls: {content} in {view}");
+	assert!(content > view, "eight notes are more than the window holds, so the list scrolls: {content} in {view}");
 	assert_eq!(out["bar"], true, "the scroll bar shows");
 	assert_eq!(out["top"], 0.0, "it opens at the first note");
 	assert_eq!(out["bottom"].as_f64().unwrap(), content - view, "the wheel reaches the last note and stops there");
@@ -233,11 +243,13 @@ fn it_says_what_changed_in_ten_notes_in_order_and_scrolls_them_within_one_screen
 
 // A note about a setting leads to it: the whole note answers the pointer (a chevron on its heading's line, its text
 // clear of it) and a click closes What's new and opens the settings on that setting's row, lit. A note with no
-// setting stays text: no click, no chevron.
+// setting stays text: no click, no chevron. 0.4.3's notes name no setting, so this runs on the 0.4.0 notes, which
+// it brings up by dropping the newer entry.
 #[test]
 fn a_note_about_a_setting_opens_the_settings_on_its_row_and_the_others_stay_text() {
 	let out = run_with(
 		r#"
+		table.remove(WN.NOTES, 1)
 		WN.Show()
 		local linked, plainNotes, note = {}, {}, nil
 		for _, n in ipairs(PolestarWhatsNew.Body.Notes) do

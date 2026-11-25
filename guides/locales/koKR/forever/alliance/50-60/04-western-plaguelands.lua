@@ -8,13 +8,13 @@
 return {
 	-- Guide
 	-- {zone:1423} Eastern Plaguelands
-	["Western & {zone:1423}"] = "",
+	["Western & {zone:1423}"] = "서부 역병지대 & {zone:1423}",
 
 	-- Step 1: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
 	["Fly to {area:702}"] = "{area:702}(으)로 날아가기",
 	-- {zone:1457} Darnassus · {zone:1450} Moonglade · {zone:1455} Ironforge · {area:3197} Chillwind Camp
-	["The {zone:1457}, {zone:1450} and {zone:1455} stops are for players coming from the previous guides with their quests; opened with none of those quests in the log, the guide starts at {area:3197}."] = "",
+	["The {zone:1457}, {zone:1450} and {zone:1455} stops are for players coming from the previous guides with their quests; opened with none of those quests in the log, the guide starts at {area:3197}."] = "{zone:1457}, {zone:1450}, {zone:1455} 정거장은 이전 가이드에서 퀘스트를 가지고 온 플레이어를 위한 것입니다. 그 퀘스트 없이 가이드를 열면 {area:3197}에서 시작합니다.",
 
 	-- Step 2: Rut'theran Village
 	-- {area:702} Rut'theran Village · {npc:7916} Erelas Ambersky
@@ -255,13 +255,13 @@ return {
 	["Andorhal"] = "안돌할",
 	-- {quest:5154} The Annals of Darrowshire · {quest:5537} Skeletal Fragments · {npc:1852} Araj the Summoner
 	-- plural, as words: Skeletal Warlords = {npc:1788} Skeletal Warlord · Flesh Golems = {npc:1805} Flesh Golem
-	["{quest:5154} is one of the musty tomes in the town hall. Every skeleton in town drops {quest:5537}.\nCareful: Skeletal Warlords and Flesh Golems (57, elites) walk the streets: let them pass.\n{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal."] = "",
+	["{quest:5154} is one of the musty tomes in the town hall. Every skeleton in town drops {quest:5537}.\nCareful: Skeletal Warlords and Flesh Golems (57, elites) walk the streets: let them pass.\n{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal."] = "{quest:5154}은(는) 시청의 곰팡내 나는 책 중 하나입니다. 마을의 모든 해골이 {quest:5537}을(를) 떨어뜨립니다.\n주의: 해골 전쟁군주({npc:1788})와 살점 골렘({npc:1805})(57, 정예)이 거리를 돌아다닙니다: 지나가게 두십시오.\n{npc:1852}은(는) 정예입니다: 파티를 권장합니다. 그는 안돌할 한가운데에서 성물함을 지킵니다.",
 
 	-- Step 45: Andorhal's grain silos
-	["Andorhal's grain silos"] = "",
+	["Andorhal's grain silos"] = "안돌할의 곡물 창고",
 	-- {item:12627} Temporal Displacer
 	-- plural, as words: Temporal Parasites = {npc:10717} Temporal Parasite · Skeletal Warlords = {npc:1788} Skeletal Warlord · Flesh Golems = {npc:1805} Flesh Golem
-	["Use the {item:12627} by each grain silo on the north side of town to draw out Temporal Parasites, one silo after another.\nCareful: the Temporal Parasites are 55-57: draw them out one silo at a time, away from the Skeletal Warlords and Flesh Golems (57, elites) in the streets."] = "",
+	["Use the {item:12627} by each grain silo on the north side of town to draw out Temporal Parasites, one silo after another.\nCareful: the Temporal Parasites are 55-57: draw them out one silo at a time, away from the Skeletal Warlords and Flesh Golems (57, elites) in the streets."] = "마을 북쪽의 곡물 창고마다 {item:12627}을(를) 사용해 시간의 기생충({npc:10717})을 하나씩 끌어내십시오.\n주의: 시간의 기생충은 55-57레벨입니다: 거리의 해골 전쟁군주({npc:1788})와 살점 골렘({npc:1805})(57, 정예)에게서 떨어져 창고 하나씩 끌어내십시오.",
 
 	-- Step 46: Chromie
 	-- {quest:5210} Brother Carlin · {area:2268} Light's Hope Chapel

@@ -76,7 +76,7 @@ return {
 
 	-- Step 16: Ruuzel
 	-- {quest:1009} Ruuzel · {area:414} Zoram Strand
-	["{quest:1009} and his Wrathtail guards stand on the small islet just off the northern tip of the {area:414}: swim across to it."] = "",
+	["{quest:1009} and his Wrathtail guards stand on the small islet just off the northern tip of the {area:414}: swim across to it."] = "{quest:1009}과(와) 그의 성난꼬리 경비병들은 {area:414} 북쪽 끝 바로 앞의 작은 섬에 서 있습니다: 헤엄쳐 건너가십시오.",
 
 	-- Step 17: Blackfathom Deeps
 	-- {area:2797} Blackfathom Deeps · {npc:4787} Argent Guard Thaelrid · {zone:1457} Darnassus
@@ -344,7 +344,7 @@ return {
 
 	-- Step 62: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square
-	["Thundris' letter is already with {npc:1646}: his reply waits at the east side of {object:2098}."] = "",
+	["Thundris' letter is already with {npc:1646}: his reply waits at the east side of {object:2098}."] = "썬드리스의 편지는 이미 {npc:1646}에게 있습니다: 그의 답장은 {object:2098} 동쪽에서 기다립니다.",
 
 	-- Step 63: Cathedral Square
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:376} High Priestess Laurena

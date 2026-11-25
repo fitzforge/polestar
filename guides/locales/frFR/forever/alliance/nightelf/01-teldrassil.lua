@@ -31,7 +31,7 @@ return {
 	-- {area:256} Aldrassil
 	["Back at {area:256}"] = "Retour à {area:256}",
 	-- {npc:3595} Shanda · {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light
-	["{npc:3595}'s quest, {quest:97979}, asks for your two night elf racial spells: open your spellbook (P), cast {spell:1259799} and Shadowmeld once each, then hand it back to her."] = "",
+	["{npc:3595}'s quest, {quest:97979}, asks for your two night elf racial spells: open your spellbook (P), cast {spell:1259799} and Shadowmeld once each, then hand it back to her."] = "La quête de {npc:3595}, {quest:97979}, demande vos deux sorts raciaux d'elfe de la nuit : ouvrez votre grimoire (P), lancez {spell:1259799} et Camouflage dans l'ombre une fois chacun, puis rendez-la-lui.",
 	-- {npc:2079} Conservator Ilthalaine · {npc:3596} Ayanna Everstride
 	["{npc:2079}: a sigil for {npc:3596}"] = "{npc:2079} : un sceau pour {npc:3596}",
 	-- {npc:2082} Gilshalan Windwalker
@@ -119,7 +119,7 @@ return {
 	-- Step 17: The Great Outdoors
 	-- {npc:265811} Lyreena Duskblade · {npc:6286} Zarrin · {skill:129} First Aid · {npc:6094} Byancie · {zone:1457} Darnassus · {area:442} Auberdine
 	-- was: ["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west."] = "Une fois un métier appris, {npc:265811} propose aussi son Camping 101, que rend son maître : l'alchimie et l'herboristerie à côté de {npc:6286}, {skill:129} avec {npc:6094} dans l'auberge, le dépeçage et le travail du cuir au camp des Tisse-crinière sur la route à l'ouest."
-	["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west, fishing and tailoring in {zone:1457}, enchanting north of the city, blacksmithing, mining and engineering in {area:442}."] = "",
+	["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west, fishing and tailoring in {zone:1457}, enchanting north of the city, blacksmithing, mining and engineering in {area:442}."] = "Si vous avez appris un métier, {npc:265811} propose aussi sa quête Camping 101, que prend son maître : alchimie et herboristerie à côté de {npc:6286}, {skill:129} avec {npc:6094} à l'auberge, dépeçage et travail du cuir au camp des Tisse-crinière sur la route vers l'ouest, pêche et couture à {zone:1457}, enchantement au nord de la ville, forge, minage et ingénierie à {area:442}.",
 	-- {npc:265811} Lyreena Duskblade · {spell:1229451} Boosted Rest
 	["/sit by {npc:265811}'s campfire until you get {spell:1229451}"] = "/sit près du feu de camp de {npc:265811} jusqu'à obtenir {spell:1229451}",
 
@@ -155,39 +155,39 @@ return {
 
 	-- Step 23: Camping 101: Fishing
 	-- {npc:4156} Astaia · {skill:356} Fishing
-	["{npc:4156} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:4156} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:4156} la prend une fois votre compétence {skill:356} à 20 : récoltez ou fabriquez d'ici là, le guide continue en attendant.",
 	-- {npc:265811} Lyreena Duskblade · {npc:4156} Astaia · {zone:1457} Darnassus
-	["{npc:265811}: for {npc:4156} in {zone:1457}"] = "",
+	["{npc:265811}: for {npc:4156} in {zone:1457}"] = "{npc:265811} : pour {npc:4156} à {zone:1457}",
 
 	-- Step 24: Camping 101: Tailoring
 	-- {npc:11050} Trianna · {skill:197} Tailoring
-	["{npc:11050} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:11050} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:11050} la prend une fois votre compétence {skill:197} à 20 : récoltez ou fabriquez d'ici là, le guide continue en attendant.",
 	-- {npc:265811} Lyreena Duskblade · {npc:11050} Trianna · {zone:1457} Darnassus
-	["{npc:265811}: for {npc:11050} in {zone:1457}"] = "",
+	["{npc:265811}: for {npc:11050} in {zone:1457}"] = "{npc:265811} : pour {npc:11050} à {zone:1457}",
 
 	-- Step 25: Camping 101: Enchanting
 	-- {npc:3606} Alanna Raveneye · {skill:333} Enchanting
-	["{npc:3606} takes it once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:3606} takes it once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:3606} la prend une fois votre compétence {skill:333} à 20 : récoltez ou fabriquez d'ici là, le guide continue en attendant.",
 	-- {npc:265811} Lyreena Duskblade · {npc:3606} Alanna Raveneye · {zone:1457} Darnassus
-	["{npc:265811}: for {npc:3606} north of {zone:1457}"] = "",
+	["{npc:265811}: for {npc:3606} north of {zone:1457}"] = "{npc:265811} : pour {npc:3606} au nord de {zone:1457}",
 
 	-- Step 26: Camping 101: Blacksmithing
 	-- {npc:6300} Elisa Steelhand · {skill:164} Blacksmithing
-	["{npc:6300} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:6300} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:6300} la prend une fois votre compétence {skill:164} à 20 : récoltez ou fabriquez d'ici là, le guide continue en attendant.",
 	-- {npc:265811} Lyreena Duskblade · {npc:6300} Elisa Steelhand · {area:442} Auberdine
-	["{npc:265811}: for {npc:6300} in {area:442}"] = "",
+	["{npc:265811}: for {npc:6300} in {area:442}"] = "{npc:265811} : pour {npc:6300} à {area:442}",
 
 	-- Step 27: Camping 101: Mining
 	-- {npc:6297} Kurdram Stonehammer · {skill:186} Mining
-	["{npc:6297} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:6297} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:6297} la prend une fois votre compétence {skill:186} à 20 : récoltez ou fabriquez d'ici là, le guide continue en attendant.",
 	-- {npc:265811} Lyreena Duskblade · {npc:6297} Kurdram Stonehammer · {area:442} Auberdine
-	["{npc:265811}: for {npc:6297} in {area:442}"] = "",
+	["{npc:265811}: for {npc:6297} in {area:442}"] = "{npc:265811} : pour {npc:6297} à {area:442}",
 
 	-- Step 28: Camping 101: Engineering
 	-- {npc:11037} Jenna Lemkenilli · {skill:202} Engineering
-	["{npc:11037} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:11037} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:11037} la prend une fois votre compétence {skill:202} à 20 : récoltez ou fabriquez d'ici là, le guide continue en attendant.",
 	-- {npc:265811} Lyreena Duskblade · {npc:11037} Jenna Lemkenilli · {area:442} Auberdine
-	["{npc:265811}: for {npc:11037} in {area:442}"] = "",
+	["{npc:265811}: for {npc:11037} in {area:442}"] = "{npc:265811} : pour {npc:11037} à {area:442}",
 
 	-- Step 29: Zarrin
 	-- {npc:6286} Zarrin
@@ -550,7 +550,7 @@ return {
 
 	-- Step 94: Alanna Raveneye
 	-- {npc:3606} Alanna Raveneye · {quest:97940} Camping 101: Enchanting
-	["{npc:3606}, north of the city: {quest:97940}"] = "",
+	["{npc:3606}, north of the city: {quest:97940}"] = "{npc:3606}, au nord de la ville : {quest:97940}",
 
 	-- Step 95: Portal to Teldrassil
 	-- {quest:940} Teldrassil

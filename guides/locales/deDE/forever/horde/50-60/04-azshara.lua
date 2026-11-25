@@ -76,7 +76,7 @@ return {
 
 	-- Step 15: Chemist Cuely
 	-- {npc:8390} Chemist Cuely
-	["{npc:8390} works in the Apothecarium."] = "",
+	["{npc:8390} works in the Apothecarium."] = "{npc:8390} arbeitet im Apothecarium.",
 
 	-- Step 16: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
@@ -102,7 +102,7 @@ return {
 
 	-- Step 23: Royal Quarter
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
-	-- plural, as words: Library Books = {object:386691} Library Book
+	-- plural, as words: Library Books = {object:386759} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "Nur mit {quest:79095} aus dem Alchemieladen von {area:159} in deinen Taschen (der Guide Bibliotheksbücher)",
 
 	-- Step 25: The Bulwark

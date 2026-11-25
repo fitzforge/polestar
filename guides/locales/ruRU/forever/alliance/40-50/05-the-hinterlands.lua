@@ -88,9 +88,9 @@ return {
 
 	-- Step 16: Fin Fizracket
 	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
-	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "",
+	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "Групповое задание: {quest:348} заканчивается у NPC {npc:1449} в Мглистой долине. Отдайте ему десять клыков горилл, и он призовет три волны горилл (41-42), одну за другой, затем {npc:1514} (44). В записях игроков 12 из 27 начавших погибли там. Берите, если с вами друг или двое.",
 	-- {npc:2486} Fin Fizracket
-	["{npc:2486}, beside the inn"] = "",
+	["{npc:2486}, beside the inn"] = "{npc:2486}, рядом с таверной",
 
 	-- Step 17: Oglethorpe Obnoticus
 	-- {zone:1444} Feralas · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay

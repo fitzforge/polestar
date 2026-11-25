@@ -108,7 +108,7 @@ return {
 	-- Step 18: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
 	-- plural, as words: Ancient Kodos = {npc:4702} Ancient Kodo
-	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: the Ancient Kodos (36-37) hit hard: tame them, don't fight them."] = "",
+	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: the Ancient Kodos (36-37) hit hard: tame them, don't fight them."] = "对年老、垂死或上古的科多兽（{npc:4702}）使用{npc:11596}的{item:13892}：它会变成跟随你的驯服科多兽。把它带回{npc:11596}的营地；在那里与科多兽对话：这样会计数并让你驯服下一只。共五只，一次一只。小心：上古科多兽（36-37）攻击很重：驯服它们，别和它们战斗。",
 	-- {npc:4702} Ancient Kodo
 	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "对墓地里的老迈的科多兽、濒死的科多兽或{npc:4702}使用；不要击杀",
 	-- {npc:11596} Smeed Scrabblescrew
@@ -116,9 +116,9 @@ return {
 
 	-- Step 19: Kodo Graveyard: hides and venom
 	-- {area:596} Kodo Graveyard
-	["{area:596}: hides and venom"] = "",
+	["{area:596}: hides and venom"] = "{area:596}：兽皮和毒液",
 	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher · Ancient Kodos = {npc:4702} Ancient Kodo
-	["The Aged Kodos in the graveyard drop the hides, and the Scorpashi Lashers that hunt around it carry the venom. Careful: the Ancient Kodos (36-37) hit hard: fight only the Aged Kodos."] = "",
+	["The Aged Kodos in the graveyard drop the hides, and the Scorpashi Lashers that hunt around it carry the venom. Careful: the Ancient Kodos (36-37) hit hard: fight only the Aged Kodos."] = "墓地里的老科多兽（{npc:4700}）掉落兽皮，在周围狩猎的鞭笞者斯克巴希（{npc:4697}）身上有毒液。小心：上古科多兽（{npc:4702}，36-37）攻击很重：只打老科多兽。",
 
 	-- Step 21: Kolkar Village
 	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:608} Nijel's Point · {npc:5752} Corporal Melkins · {quest:93224} Carved Centaur Totems · {npc:5396} Captain Pentigast

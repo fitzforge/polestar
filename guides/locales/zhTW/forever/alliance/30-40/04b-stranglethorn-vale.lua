@@ -27,7 +27,7 @@ return {
 
 	-- Step 4: Clerk Daltry
 	-- {npc:267} Clerk Daltry · {area:42} Darkshire · {npc:661} Jonathan Carevin
-	["{npc:267} works in {area:42}'s town hall; {npc:661} stands just east of it."] = "",
+	["{npc:267} works in {area:42}'s town hall; {npc:661} stands just east of it."] = "{npc:267}在{area:42}的市政廳裡工作；{npc:661}就站在它東邊。",
 
 	-- Step 5: Stranglethorn Vale
 	-- {zone:1434} Stranglethorn Vale
@@ -56,7 +56,7 @@ return {
 
 	-- Step 9: Bookie Herod
 	-- {area:101} Kurzen's Compound · {quest:328} The Hidden Key
-	["Herod's records lie in a hut on the west side of {area:101}: take {quest:328} there."] = "",
+	["Herod's records lie in a hut on the west side of {area:101}: take {quest:328} there."] = "赫洛德的記錄在{area:101}西側的一間小屋裡：在那裡接取{quest:328}。",
 
 	-- Step 10: Kurzen's Compound
 	-- {npc:218230} Wendel Mathers · {spell:7964} Smoke Bomb · {npc:813} Colonel Kurzen
@@ -85,7 +85,7 @@ return {
 	-- {npc:268992} Zimmix Sputterspark · {item:277957} Primitive Key
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment · Bloodscalp Berserkers = {npc:597} Bloodscalp Berserker
 	-- was: ["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}, then lead him out of the ruins. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "沿海岸向北前往山丘上的廢墟：最後兩塊石板就在那裡。哥布林{npc:268992}被關在第三塊石板旁的籠子裡：任何血頂食人妖都可能掉落他的{item:277957}，之後帶他走出廢墟。遭竊的貨物在廢墟東緣。綠丘書頁掉落時順手撿起。\n小心：血頂狂戰士、獵頭者和巫醫（36-37級）盤踞廢墟中心：一次拉一隻。"
-	["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "",
+	["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "沿海岸向北到山上的廢墟：最後兩塊石板在那裡。哥布林{npc:268992}被關在第三塊石板旁的籠子裡：任何血頂食人妖都可能掉落他的{item:277957}。被盜的貨物在廢墟東緣。掉落的綠色山谷書頁隨手撿起。\n小心：血頂狂戰士、獵頭者和巫醫（36-37）佔據廢墟中心：一次拉一隻。",
 	-- {npc:268992} Zimmix Sputterspark
 	["{npc:268992}, in his cage beside the third tablet"] = "{npc:268992}，在第三塊石板旁的籠子裡",
 	-- {item:277957} Primitive Key
@@ -93,9 +93,9 @@ return {
 
 	-- Step 14: Escort Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark
-	["Escort {npc:268992}"] = "",
+	["Escort {npc:268992}"] = "護送{npc:268992}",
 	-- {npc:268992} Zimmix Sputterspark · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
-	["Lead {npc:268992} out of the ruins and keep him alive: {npc:4631} in {area:35} takes the news at the end of this loop."] = "",
+	["Lead {npc:268992} out of the ruins and keep him alive: {npc:4631} in {area:35} takes the news at the end of this loop."] = "帶{npc:268992}離開廢墟並保護他活著：{area:35}的{npc:4631}會在這一輪結束時接收消息。",
 	-- {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	["For {npc:4631} in {area:35}, at the end of this loop"] = "給{area:35}的{npc:4631}，在這趟路線的終點",
 

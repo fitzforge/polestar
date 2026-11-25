@@ -38,7 +38,7 @@ return {
 
 	-- Step 8: Remains of Trey Lightforge
 	-- {area:1763} Jaedenar · {npc:11019} Jessir Moonbow
-	["Trey Lightforge's remains lie at the edge of the {area:1763} camp, west of the road: they go back to {npc:11019} at the end of this guide."] = "",
+	["Trey Lightforge's remains lie at the edge of the {area:1763} camp, west of the road: they go back to {npc:11019} at the end of this guide."] = "特雷·莱特弗格的遗骸在{area:1763}营地边缘、道路以西：它们会在本指南结束时回到{npc:11019}那里。",
 
 	-- Step 9: Trull Failbane
 	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post

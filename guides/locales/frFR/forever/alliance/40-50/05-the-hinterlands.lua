@@ -87,9 +87,9 @@ return {
 
 	-- Step 16: Fin Fizracket
 	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
-	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "",
+	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "Quête de groupe : {quest:348} se termine auprès de {npc:1449} à Valbrume. Donnez-lui dix crocs de gorille et il appelle trois vagues de gorilles (41-42), l'une après l'autre, puis {npc:1514} (44). Dans les enregistrements des joueurs, 12 des 27 personnes qui l'ont commencée y sont mortes. Prenez-la si vous avez un ami ou deux avec vous.",
 	-- {npc:2486} Fin Fizracket
-	["{npc:2486}, beside the inn"] = "",
+	["{npc:2486}, beside the inn"] = "{npc:2486}, à côté de l'auberge",
 
 	-- Step 17: Oglethorpe Obnoticus
 	-- {zone:1444} Feralas · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay

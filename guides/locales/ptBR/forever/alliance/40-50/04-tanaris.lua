@@ -136,13 +136,13 @@ return {
 
 	-- Step 26: Tooga
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
-	["The little turtle {npc:5955} wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Take him from the edge and leave the Thistleshrubs (48-50) alone."] = "",
+	["The little turtle {npc:5955} wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Take him from the edge and leave the Thistleshrubs (48-50) alone."] = "A tartaruguinha {npc:5955} vaga pela borda oeste de {quest:3362} entre vários pontos: a seta vai de um para o outro até você encontrá-la. Pegue-a pela borda e deixe os Cardos (48-50) em paz.",
 
 	-- Step 27: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "Escolta de {npc:5955}",
 	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port
-	["Lead {npc:5955} home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "",
+	["Lead {npc:5955} home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "Leve {npc:5955} para casa até a esposa dele, {npc:6015}, junto à água logo a leste de {area:977}: ele anda devagar e as feras do deserto vão atrás dele, então mantenha-o vivo.",
 	-- {npc:5955} Tooga
 	["{npc:5955}, beside her: Oasis"] = "{npc:5955}, ao lado dela: Oásis",
 

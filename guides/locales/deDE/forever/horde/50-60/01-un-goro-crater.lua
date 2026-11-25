@@ -190,11 +190,11 @@ return {
 
 	-- Step 38: Andi Lynn
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn · {area:983} Dunemaul Compound
-	["The hearth lands in {area:976}: {npc:11758} takes the {area:983}."] = "",
+	["The hearth lands in {area:976}: {npc:11758} takes the {area:983}."] = "Die Herd-Landstriche in {area:976}: {npc:11758} übernimmt den {area:983}.",
 
 	-- Step 39: Tran'rek
 	-- {npc:7876} Tran'rek
-	["{npc:7876} stands beside the wind rider master."] = "",
+	["{npc:7876} stands beside the wind rider master."] = "{npc:7876} steht neben dem Windreiter-Meister.",
 
 	-- Step 41: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
@@ -343,7 +343,7 @@ return {
 
 	-- Step 74: Oran Snakewrithe
 	-- {quest:2995} Lines of Communication · {object:144073} Highvale Report · {area:350} Quel'Danil Lodge · {zone:1425} The Hinterlands · {zone:1419} Blasted Lands
-	["{quest:2995}'s work is not in this guide: burn the {object:144073}, Notes and Records in the elves' camps around {area:350}, in {zone:1425} & {zone:1419} (its Highvale step). Load that guide for the arrows."] = "",
+	["{quest:2995}'s work is not in this guide: burn the {object:144073}, Notes and Records in the elves' camps around {area:350}, in {zone:1425} & {zone:1419} (its Highvale step). Load that guide for the arrows."] = "Die Arbeit von {quest:2995} ist in diesem Guide nicht enthalten: verbrenne die {object:144073}, die Notizen und Aufzeichnungen in den Elfenlager um {area:350}, in {zone:1425} & {zone:1419} (seinem Highvale-Schritt). Lade diesen Guide für die Pfeile ab.",
 
 	-- Step 75: Undercity
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
@@ -355,15 +355,14 @@ return {
 	-- {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {area:152} The Bulwark
 	["Leave the {zone:1458} and ride east along the road through {zone:1420} to the {area:152}, the Forsaken fort on the border."] = "Verlass {zone:1458} und reite auf der Straße nach Osten durch {zone:1420} zum {area:152}, der Festung der Verlassenen an der Grenze.",
 	-- {quest:5405} Argent Dawn Commission
-	["Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "",
+	["Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "Trage das {quest:5405}: Die Scourgestone fallen nur, wenn du es trägst.",
 	-- {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions
-	["{item:12814}, from the {object:176092} next to Derrington: {quest:5096}, done on the way back"] = "",
+	["{item:12814}, from the {object:176092} next to Derrington: {quest:5096}, done on the way back"] = "{item:12814}, von dem {object:176092} an Derrington: {quest:5096}, auf dem Rückweg erledigt",
 
 	-- Step 78: Scarlet forward camp
 	["Scarlet forward camp"] = "Vorgeschobenes Lager des Scharlachroten Kreuzzugs",
 	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
-	-- was: ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Folge vom {area:152} aus der Straße nach Osten in die {zone:1422}. Die Zelte des Scharlachroten Kreuzzugs stehen gleich hinter dem Hof der Felsteins, zwischen {area:199} und {area:200}. Zünde das Kommandozelt mit {object:176092} an und pflanz das Banner der Geißel auf. Vorsicht: Die Scharlachroten um die Zelte sind bis Stufe 54 und die Beschwörer wirken Zauber: Komm von der Seite, die dem Kommandozelt am nächsten ist, und lass die anderen in Ruhe."
-	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "",
+	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Vom {area:152} über die Straße nach Osten in die {zone:1422}. Das Zeltdorf der Schwarzen Kreuzzüger liegt direkt hinter Felstone Farm, zwischen {area:199} und {area:200}. Brenne das Befehlszelt mit dem {item:12814} nieder und pflanze das Banner der Scourge. Vorsicht: Die Schwarzen Kreuzzüger um die Zelte erreichen Stufe 54 und invokern: komme von der Seite heran, die dem Befehlszelt am nächsten ist, und lasse die anderen unberührt.",
 
 	-- Step 79: Janice Felstone
 	-- {npc:10778} Janice Felstone

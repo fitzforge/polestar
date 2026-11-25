@@ -111,7 +111,8 @@ return {
 	["From the quest data: back west to {npc:5397} in {area:606}. She needs Tears of Theradras: {npc:253713}, the Voice of Theradras, keeps them in the cave in the south of the village, past {npc:253140}. Ask her for them on {npc:5397}'s behalf and bring three back. {npc:253140} takes {quest:92812} on the way."] = "По данным заданий: назад на запад к NPC {npc:5397} ({area:606}). Ей нужны Слезы Терадраса: {npc:253713}, Глас Терадраса, хранит их в пещере на юге деревни, за NPC {npc:253140}. Попросите их от имени NPC {npc:5397} и принесите три. По пути {npc:253140} принимает {quest:92812}.",
 	-- {npc:253713} Mulara
 	["{npc:253713}, in the cave"] = "{npc:253713}, в пещере",
-	["three Tears of Theradras"] = "три Слезы Терадраса",
+	-- {npc:253713} Mulara
+	["three Tears of Theradras, in {npc:253713}'s cave"] = "три слезы Терадраса в пещере NPC {npc:253713}",
 
 	-- Step 15: Gelkis: Test Your Theory
 	-- {quest:93045} Test Your Theory
@@ -319,4 +320,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["12 recipes for Carved Centaur Totems at the clan quartermasters, no standing needed"] = "12 рецептов резных тотемов кентавров ({item:254432}) у интендантов кланов, репутация не требуется",
+	-- ["three Tears of Theradras"] = "три Слезы Терадраса",
 }

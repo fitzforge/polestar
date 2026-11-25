@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {zone:1451} Silithus
-	["About 100 quests in Forever's new endgame zone, 57 to 59, then on to {zone:1451}."] = "",
+	["About 100 quests in Forever's new endgame zone, 57 to 59, then on to {zone:1451}."] = "Около 100 заданий в новой зоне Forever для последних уровней, с 57 по 59, затем дальше: {zone:1451}.",
 
 	-- Step 1: Into Mount Hyjal
 	-- {area:616} Mount Hyjal
@@ -57,7 +57,7 @@ return {
 	-- Step 8: The ancients' outpost
 	["The ancients' outpost"] = "",
 	-- {npc:248395} Tainted Shrubbery · {item:247892} Verdant Leaves · {npc:248367} Hyacinth · {quest:91755} Leaves to Ligatures · {npc:249235} Kaylaena Springwhisper · {npc:260626} Bluebell · {npc:265586} Thylaen · {npc:248366} Fraxinus
-	["South down the west side of the shrub field to the ancients' outpost. Leave the {npc:248395} for now: their {item:247892} drop only once {npc:248367}'s {quest:91755} is in your log, and the guide brings you back to the shrub field for the leaves and {npc:249235}'s kills together. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "",
+	["South down the west side of the shrub field to the ancients' outpost. Leave the {npc:248395} for now: their {item:247892} drop only once {npc:248367}'s {quest:91755} is in your log, and the guide brings you back to the shrub field for the leaves and {npc:249235}'s kills together. {npc:260626}, the flight mistress, waits by the outpost; {npc:248367} and {npc:265586} stand with the ancient {npc:248366}."] = "На юг вдоль западного края поля кустарника к заставе древних. Пока не трогайте {npc:248395}: {item:247892} с них падают только тогда, когда задание {quest:91755} от NPC {npc:248367} есть в журнале, а гайд еще вернет вас на поле за листьями и убийствами для NPC {npc:249235}. {npc:260626}, распорядительница полетов, ждет у заставы; {npc:248367} и {npc:265586} стоят рядом с древним {npc:248366}.",
 
 	-- Step 9: Celastrus the Bitter
 	-- {quest:91923} Celastrus the Bitter
@@ -224,7 +224,7 @@ return {
 
 	-- Step 50: Rabine Saturna
 	-- {zone:1457} Darnassus · {quest:1123} Rabine Saturna · {quest:1124} Wasteland · {area:2361} Nighthaven
-	["The letter from {zone:1457} is already with {quest:1123}: take {quest:1124} from her, in her house in {area:2361}."] = "",
+	["The letter from {zone:1457} is already with {quest:1123}: take {quest:1124} from her, in her house in {area:2361}."] = "Письмо из места {zone:1457} уже у NPC {quest:1123}: возьмите у нее задание {quest:1124} в ее доме ({area:2361}).",
 
 	-- Step 51: Fly to Everlook
 	-- {area:2255} Everlook
@@ -558,14 +558,14 @@ return {
 	-- {area:16866} Dae'gun · {npc:259695} Renalard · {npc:265788} Kal'tinzan · {item:253249} Horde Flag · {object:656786} Troll Remains (no name in this language: may be words) · {quest:96998} Tribal Colors · {npc:255183} Jezerelle the Swaying · {npc:267439} Doomguard Xarkul
 	-- plural, as words: Felguard Sentinels = {npc:249229} Felguard Sentinel · Defiling Hounds = {npc:249230} Defiling Hound · Legion Hulks = {npc:249238} Legion Hulk
 	["Work west back through {area:16866}: the Felguard Sentinels and Defiling Hounds are everywhere, the hounds carry the essence, and the Horde base's rubble (wire, scrap and dung) lies all over it. Light the two bonfires on your way, scout the Horde tower in the middle, take Azgalor's ashes west of the tower, and pick up the abandoned supplies, a few just north-west of {npc:259695} and the rest in the western half: {npc:259695}'s tuft of fur, used on a demon, distracts it while you take them.\nHorde: the demons here also drop the Scraps of Horde Heraldry for {npc:265788}, the old {item:253249} stands in the camp north of the south bonfire, and the {object:656786} at the camp's eastern edge start {quest:96998}.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room. {npc:255183} (61, rare) walks the camp north of the south bonfire: keep away from her.\nCareful: Doomguards (elites, 58-59) stand among the demons, and {npc:267439} (elite, 61) walks the camp: pull the hounds and sentinels to you, away from them."] = "",
-	["light it"] = "",
+	["light it"] = "зажгите его",
 	["scout the Horde tower"] = "",
 	-- {object:656786} Troll Remains (no name in this language: may be words) · {quest:96998} Tribal Colors · {npc:244511} Zet'gan · {area:16848} Elderwild
 	["{object:656786}: {quest:96998}, for {npc:244511} in {area:16848}; keep it"] = "",
 
 	-- Step 127: Drawing Down the Malevolent
 	-- {npc:263394} Bethra'zel the Feeble · {npc:252457} Mazzogore · {npc:263406} Elaena Moonwhisper
-	["{npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them: drain each one first, then fight it. Drained, they are no longer elite and you can take them alone; players in our recordings killed both once drained."] = "",
+	["{npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them: drain each one first, then fight it. Drained, they are no longer elite and you can take them alone; players in our recordings killed both once drained."] = "{npc:263394} и {npc:252457} – элита 60-го уровня, пока глаз NPC {npc:263406} не истощит их: сначала истощите каждого, затем сражайтесь. Истощенные, они больше не элита, и с ними можно справиться в одиночку; игроки в наших записях убивали обоих после истощения.",
 
 	-- Step 129: Bethra'zel the Feeble
 	-- {npc:263394} Bethra'zel the Feeble · {npc:263406} Elaena Moonwhisper · {npc:252457} Mazzogore · {npc:267439} Doomguard Xarkul · {area:16866} Dae'gun

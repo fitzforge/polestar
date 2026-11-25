@@ -733,6 +733,13 @@ function Guides.Levels(g, faction) return uistub.realGuides.Levels(g, faction or
 -- Experimental guides and guides in Forever's new zones (the Forever mark): the real registry's rules.
 function Guides.IsExperimental(g) return uistub.realGuides.IsExperimental(g) end
 function Guides.InForeverZone(g) return uistub.realGuides.InForeverZone(g) end
+-- The scenes' guides carry their steps: a look reads nothing in (Guides.Peek).
+function Guides.Peek(id)
+	local g = Guides.Get(id)
+	return g and g.steps, false
+end
+function Guides.Unpeek() end
+function Guides.StepsDeferred() return false end
 
 local Nav = {}
 function Nav.SetTarget(map, x, y, label, f, stop, z)

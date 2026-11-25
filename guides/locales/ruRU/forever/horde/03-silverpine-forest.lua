@@ -24,7 +24,7 @@ return {
 
 	-- Step 4: Neeru Fireblade
 	-- {quest:829} Neeru Fireblade · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength
-	["{quest:829} stands at the far end of the {object:172960}, the canyon under the {object:172982}."] = "",
+	["{quest:829} stands at the far end of the {object:172960}, the canyon under the {object:172982}."] = "{quest:829} стоит в дальнем конце места {object:172960}, ущелья под местом {object:172982}.",
 
 	-- Step 5: The Drag
 	-- {npc:3348} Kor'geld · {npc:3347} Yelmak · {npc:11046} Whuut
@@ -116,11 +116,11 @@ return {
 
 	-- Step 22: Thrall
 	-- {npc:4949} Thrall · {item:14544} Lieutenant's Insignia · {area:817} Skull Rock · {quest:829} Neeru Fireblade · {zone:1454} Orgrimmar
-	["{npc:4949}, on his throne in Grommash Hold, takes the {item:14544} from {area:817}. His next errand is only a word with {quest:829}, on this guide's last {zone:1454} walk."] = "",
+	["{npc:4949}, on his throne in Grommash Hold, takes the {item:14544} from {area:817}. His next errand is only a word with {quest:829}, on this guide's last {zone:1454} walk."] = "{npc:4949}, на троне в Крепости Громмаш, принимает {item:14544} из места {area:817}. Его следующее поручение – лишь разговор с NPC {quest:829} во время последнего обхода места {zone:1454} в этом гайде.",
 
 	-- Step 23: Thrall
 	-- {npc:4949} Thrall · {npc:3216} Neeru Fireblade · {zone:1454} Orgrimmar
-	["{npc:4949} sits on his throne in Grommash Hold. His next errand is only a word with {npc:3216}, on this guide's last {zone:1454} walk."] = "",
+	["{npc:4949} sits on his throne in Grommash Hold. His next errand is only a word with {npc:3216}, on this guide's last {zone:1454} walk."] = "{npc:4949} сидит на троне в Крепости Громмаш. Его следующее поручение – лишь разговор с NPC {npc:3216} во время последнего обхода места {zone:1454} в этом гайде.",
 
 	-- Step 24: Zeppelin to Undercity
 	-- {zone:1458} Undercity

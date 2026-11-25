@@ -46,7 +46,7 @@ return {
 	-- {area:154} Deathknell
 	["{area:154}: kill these as you meet them"] = "{area:154} : tuez-les au passage",
 	-- {area:154} Deathknell · {npc:1661} Novice Elreth
-	-- plural, as words: Rattlecage Skeletons = {npc:1890} Rattlecage Skeleton · Young Scavengers = {npc:1508} Young Scavenger · Duskbats = {npc:1512} Duskbat · Ragged Scavengers = {npc:1509} Ragged Scavenger · Mangy Duskbats = {npc:1513} Mangy Duskbat
+	-- plural, as words: Rattlecage Skeletons = {npc:1890} Rattlecage Skeleton · Young Scavengers = {npc:1508} Young Scavenger · Ragged Scavengers = {npc:1509} Ragged Scavenger · Mangy Duskbats = {npc:1513} Mangy Duskbat
 	["Rattlecage Skeletons wander the ruined houses in the north half of {area:154}. Young Scavengers and Duskbats roam all around the village; the Ragged Scavengers and Mangy Duskbats are on its east side. {npc:1661} wants their paws and wings: kill them as you meet them while you clear the skeletons."] = "Les Squelettes Cliquethorax errent dans les maisons en ruine de la moitié nord de {area:154}. Les Jeunes charognards et les Chauves-souris du crépuscule rôdent tout autour du village ; les Charognards pouilleux et les Chauves-souris du crépuscule galeuses sont du côté est. {npc:1661} veut leurs pattes et leurs ailes : tuez-les au passage en nettoyant les squelettes.",
 
 	-- Step 7: Back to the church
@@ -150,7 +150,7 @@ return {
 	-- Step 26: Eleanor Shackleton
 	-- {area:159} Brill · {zone:1458} Undercity
 	-- was: ["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, at Linnea's camp, or in the {zone:1458} in the next guide."] = "Eleanor campe juste au sud-ouest du village. Si vous avez appris un métier, elle propose aussi sa quête Camping 101 correspondante, que son maître prend en charge : à {area:159}, au camp de Linnea, ou à {zone:1458} dans le guide suivant."
-	["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, east of {area:159} for fishing, at Linnea's camp, or in the {zone:1458} in the next guide."] = "",
+	["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, east of {area:159} for fishing, at Linnea's camp, or in the {zone:1458} in the next guide."] = "Eleanor campe juste au sud-ouest de la ville. Si vous avez appris un métier, elle propose aussi sa quête Camping 101, que prend son maître : à {area:159}, à l'est de {area:159} pour la pêche, au camp de Linnea, ou à {zone:1458} au guide suivant.",
 	-- {spell:1229451} Boosted Rest
 	["/sit by her campfire until you get {spell:1229451}"] = "/sit près de son feu de camp jusqu'à obtenir {spell:1229451}",
 
@@ -210,9 +210,9 @@ return {
 
 	-- Step 37: Camping 101: Fishing
 	-- {npc:5690} Clyde Kellen · {skill:356} Fishing
-	["{npc:5690} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:5690} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5690} la prend une fois votre compétence {skill:356} à 20 : récoltez ou fabriquez d'ici là, le guide continue en attendant.",
 	-- {npc:5690} Clyde Kellen
-	["Eleanor: for {npc:5690}"] = "",
+	["Eleanor: for {npc:5690}"] = "Eleanor : pour {npc:5690}",
 
 	-- Step 38: Brill
 	-- {npc:1518} Apothecary Johaan · {npc:1515} Executor Zygand · {npc:1499} Magistrate Sevren
@@ -466,7 +466,7 @@ return {
 
 	-- Step 82: Clyde Kellen
 	-- {npc:5690} Clyde Kellen · {area:159} Brill · {quest:97956} Camping 101: Fishing
-	["{npc:5690}, east of {area:159}: {quest:97956}"] = "",
+	["{npc:5690}, east of {area:159}: {quest:97956}"] = "{npc:5690}, à l'est de {area:159} : {quest:97956}",
 
 	-- Step 83: Leonid Barthalomew the Revered
 	-- {area:159} Brill · {area:157} Agamand Mills · {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {area:16881} Shadowvale
