@@ -27,8 +27,6 @@
 --                    per page with changes ("Group › Page", its count, its
 --                    Reset, a link there) and a jump tab for each; Esc, the
 --                    close button and the switch go back to the page
---   the index        under the tabs, for a tab of more than 30 rows: its
---                    sections as jump links, the one in view lit as the selected tab
 --   beside the rows  on a page with a live preview (UI/Preview.lua), that
 --                    preview alone; under a 1240 wide window over the rows.
 --                    Preview in the tab band hides it
@@ -84,12 +82,11 @@ G.TREE = {
 }
 
 -- SEP: a crumb's separator (" › "). WIDE: the window width from which the
--- side card stands beside the rows. LONG: rows past which a tab shows its
--- index. STRIP: the index's height. SIDE: the side card's width bounds and
+-- side card stands beside the rows. SIDE: the side card's width bounds and
 -- its gap to the rows and to the window's edge. PIN_MAX: the settings the
 -- sidebar holds pinned at most.
 local SEP = " \226\128\186 "
-local WIDE, LONG, STRIP = 1240, 30, 34
+local WIDE = 1240
 local SIDE = { MIN = 300, MAX = 400, GAP = 16, EDGE = 16 }
 local PIN_MAX = 8
 
@@ -106,7 +103,7 @@ local homes, dirty = nil, true
 -- st.tab[page key] (its tab last shown), st.filter ("all", "changed": the
 -- whole window's).
 local st = { page = {}, tab = {}, filter = "all" }
-local B = { views = {}, links = {}, depKeys = {} }
+local B = { views = {}, depKeys = {} }
 local shown = false
 local render, navSelect, hookPins, changedKeys, changedTabs, changedJump
 
@@ -1049,132 +1046,6 @@ function G.Crumb()
 	return c[1], c[2]
 end
 
--- The index under the tabs (the shell's pinned slot): links, the count.
-local function strip()
-	if B.Strip then return B.Strip end
-	local s = CreateFrame("Frame", nil, W.ShellPreviewSlot(win()))
-	s.Count = W.Text(s, "small", "textMuted")
-	s.Count:SetJustifyH("RIGHT")
-	s:Hide()
-	B.Strip = s
-	return s
-end
-
-local function stripLink(i)
-	local l = B.links[i]
-	if l then return l end
-	local s = strip()
-	-- A tab as the row above draws its own (W.ShellTabs), one size down.
-	l = CreateFrame("Button", nil, s)
-	l:SetHeight(STRIP - 6)
-	l.Label = W.Text(l, "label", "textDim")
-	l.Label:SetPoint("CENTER", l, "CENTER", 0, 0)
-	Theme.Skin(l, "tab")
-	l:SetScript("OnClick", function(self) if self.psClick then self.psClick(self) end end)
-	l:SetScript("OnEnter", function(self) if not self.psOn then W.Color(self.Label, "text") end end)
-	l:SetScript("OnLeave", function(self) if not self.psOn then W.Color(self.Label, "textDim") end end)
-	B.links[i] = l
-	return l
-end
-
--- i: the lit entry. One folded under More (drawStrip) lights More, which
--- takes its name.
-local function lightLink(i)
-	B.lit = i
-	local at = B.moreIdx
-	local more = at and B.links[at]
-	if more then
-		local folded = i and i >= B.moreFrom and i < at and B.entries and B.entries[i]
-		more.Label:SetText(folded and folded.label or L["More"])
-		more:SetWidth(floor(more.Label:GetStringWidth() + 24 + 14 + 0.5))
-		if folded then i = at end
-	end
-	for j, l in ipairs(B.links) do
-		local on = j == i
-		l.psOn = on
-		Theme.SetTabSelected(l, on)
-		local kit = Theme.KitTab(l, on, l.Label)
-		if not kit then
-			l.Label:ClearAllPoints()
-			l.Label:SetPoint(j == at and "LEFT" or "CENTER", l, j == at and "LEFT" or "CENTER", j == at and 12 or 0, 0)
-		end
-		l.psKit = kit
-		W.Color(l.Label, on and "text" or (kit and "tabRest" or "textDim"))
-		if rawget(l, "Chev") then l.Chev:SetShown(j == at) end
-	end
-end
-
--- entries: { { label, onClick, on } }; count: the right-hand note or nil.
--- The links that don't fit fold under a last one, More, its menu theirs.
-local function drawStrip(entries, count, width)
-	local s = strip()
-	B.entries = entries
-	s.Count:SetText(count or "")
-	s.Count:ClearAllPoints()
-	s.Count:SetPoint("RIGHT", s, "RIGHT", -SH.pad, 0)
-	local room = width - SH.pad * 2 - (count and s.Count:GetStringWidth() + 16 or 0)
-	local widths, total = {}, 0
-	for i, e in ipairs(entries) do
-		local l = stripLink(i)
-		l.Label:SetText(e.label)
-		widths[i] = floor(l.Label:GetStringWidth() + 24 + 0.5)
-		total = total + widths[i] + (i > 1 and 4 or 0)
-	end
-	-- Room for More, its widest label, when they don't all fit.
-	local fold
-	if total > room then
-		local probe = stripLink(#entries + 1)
-		probe.Label:SetText(L["More"])
-		local moreW = floor(probe.Label:GetStringWidth() + 24 + 14 + 0.5)
-		local x = 0
-		fold = 1
-		for i = 1, #entries do
-			if x + widths[i] + 4 + moreW > room then break end
-			x = x + widths[i] + 4
-			fold = i + 1
-		end
-	end
-	local x, lit = 0, nil
-	local shown = fold and (fold - 1) or #entries
-	for i, e in ipairs(entries) do
-		local l = stripLink(i)
-		l.Label:SetText(e.label)
-		l:SetWidth(widths[i])
-		l:ClearAllPoints()
-		l:SetPoint("BOTTOMLEFT", s, "BOTTOMLEFT", SH.pad - 12 + x, 0)
-		l.psClick = e.onClick
-		l:SetShown(i <= shown)
-		if e.on then lit = i end
-		if i <= shown then x = x + widths[i] + 4 end
-	end
-	local n = #entries
-	B.moreIdx, B.moreFrom = nil, nil
-	if fold then
-		n = n + 1
-		local m = stripLink(n)
-		if not rawget(m, "Chev") then
-			m.Chev = W.Tex(m, "ARTWORK", "chevron-down", "textMuted")
-			m.Chev:SetSize(10, 10)
-			m.Chev:SetPoint("LEFT", m.Label, "RIGHT", 4, 0)
-		end
-		m:ClearAllPoints()
-		m:SetPoint("BOTTOMLEFT", s, "BOTTOMLEFT", SH.pad - 12 + x, 0)
-		m.psClick = function(self)
-			local items = {}
-			for i = fold, #entries do
-				local e = entries[i]
-				items[#items + 1] = { text = e.label, checked = B.lit == i, onClick = e.onClick }
-			end
-			W.ShowMenu(self, items)
-		end
-		m:Show()
-		-- Folded entries still light by index (lightLink): More stands for them.
-		B.moreIdx, B.moreFrom = n, fold
-	end
-	for i = n + 1, #B.links do B.links[i]:Hide() end
-	lightLink(lit)
-end
-
 -- The Preview panel: the page's live preview alone, beside the rows (over
 -- them in a narrow window, with its close button).
 local function side()
@@ -1620,11 +1491,10 @@ local function hideChrome()
 		local host = rawget(v, "PreviewHost")
 		if host then host:Hide() end
 	end
-	if B.Strip then B.Strip:Hide() end
 	changedKeys(false)
 	w.psKeepTabRow, w.psTabRoom = nil, nil
 	W.ShellTabs(w, nil)
-	B.room, B.sideMode, B.entries = 0, nil, nil
+	B.room, B.sideMode = 0, nil
 	W.ShellLayout(w)
 end
 
@@ -1853,39 +1723,7 @@ function render(opts)
 		w.FolderTabs = W.FolderTabs(w.TabRow, list, folder)
 	end
 	w.FolderTabs:Show()
-	-- The index under the tabs, for a long tab.
-	local entries
-	if not filtering and not p.custom and (view.psRows or 0) > LONG then
-		entries = {}
-		local last
-		for n, gr in ipairs(view.psGroups or {}) do
-			local label = gr.section.name or ""
-			if label ~= "" and label ~= last then
-				local card = view.cards[n]
-				local at = #entries + 1
-				entries[at] = { label = label, card = card, onClick = function()
-					W.ScrollTo(w.Scroll, max(0, (card.psTop or 0) - 12))
-					-- One the scroll can't bring to the top is still the one asked for.
-					lightLink(at)
-				end }
-				last = label
-			end
-		end
-		-- One section is the tab itself: no index for it.
-		if #entries > 1 then
-			drawStrip(entries, string.format(L["%d settings"], view.psRows), beside and (w.BodyWidth + SH.pad * 2) or w.psMainW)
-		else
-			entries = nil
-		end
-	end
-	B.entries = entries
-	if entries and #entries > 0 then
-		strip():Show()
-		W.ShellPreview(w, strip(), STRIP)
-	else
-		if B.Strip then B.Strip:Hide() end
-		W.ShellPreview(w, nil)
-	end
+	W.ShellPreview(w, nil)
 	-- The Preview panel.
 	local f = side()
 	if B.host then
@@ -1905,7 +1743,7 @@ function render(opts)
 		UI.Preview.Place(w, view, previewTab, sideW - 24, max(80, room - 24) / UI.Preview.MAX)
 		local host = rawget(view, "PreviewHost")
 		local hh = w.psPreviewH or 0
-		W.ShellPreview(w, entries and #entries > 0 and strip() or nil, entries and #entries > 0 and STRIP or 0)
+		W.ShellPreview(w, nil)
 		if host and host.Frame and hh > 0 and not view.empty then
 			host:SetParent(f)
 			host:ClearAllPoints()
@@ -1922,7 +1760,6 @@ function render(opts)
 				w.BodyWidth = fullW
 				h = view.Refresh()
 				view:SetHeight(h)
-				if entries and #entries > 0 then drawStrip(entries, string.format(L["%d settings"], view.psRows), w.psMainW) end
 			end
 		end
 	else
@@ -1951,8 +1788,6 @@ function render(opts)
 	if B.Switch then B.Switch.Sw:Refresh() end
 end
 G.Render = render
--- The index's entries in view (the tests read them).
-function G._entries() return B.entries or {} end
 
 -- The page and its tab on screen. -> p, t
 function G.Current()
@@ -2091,33 +1926,6 @@ function G.Jump(c)
 	W.ScrollTo(win().Scroll, max(0, (top or 0) - 40))
 	O.Flash(w)
 	return w
-end
-
--- The scroll's place: the index lights the section in view.
--- A section lights once its top is 24 under the body's top. The sections
--- the scroll can't bring up so far (the last ones, short) share the scroll's
--- last stretch, from the last one that can to the end, in turn: scrolled to
--- the end, the last one is lit.
-local function spy(_, cur, range)
-	local list = B.entries
-	if not (shown and list and list[1] and list[1].card) then return end
-	range = range or cur
-	local marks, reach = {}, 0
-	for i, e in ipairs(list) do
-		marks[i] = e.card and max(0, (e.card.psTop or 0) - 24) or 0
-		if marks[i] <= range then reach = i end
-	end
-	local n = #list
-	if reach < n then
-		local from = reach > 0 and marks[reach] or 0
-		local share = (range - from) / (n - reach + 1)
-		for i = reach + 1, n do marks[i] = from + share * (i - reach) end
-		-- At the very end the last one, whatever the rounding.
-		marks[n] = min(marks[n], range)
-	end
-	local lit = 1
-	for i = 1, n do if marks[i] <= cur then lit = i end end
-	lightLink(lit)
 end
 
 -- A setting changed while the Changed view is open: it lays out again (a
@@ -2275,7 +2083,6 @@ local function ensureSwitch()
 	-- The grip let go: the layout fits the window's new size.
 	local grip = rawget(w, "Grip")
 	if grip then grip:HookScript("OnMouseUp", function() if shown then G.Relayout() end end) end
-	w.Scroll.psOnScroll = spy
 	-- Closed: the reload offer, a frame on (Move frames hides the window first, then unlocks).
 	w:HookScript("OnHide", function()
 		if ns.After then ns.After(0, offerReload) else offerReload() end
