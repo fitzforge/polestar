@@ -8,13 +8,11 @@
 return {
 	-- Guide
 	-- {item:277246} Ruby-Adorned Blade · {area:796} Scarlet Monastery · {quest:78307} The Horn of Xelthos
-	-- was: ["The {item:277246}, C's payment for a solo job in the {area:796}, after The {item:210183}."] = "{item:277246} — плата от C за одиночную работу в месте {area:796}, после задания «{item:210183}»."
 	["The {item:277246}, C's payment for a solo job in the {area:796}, after {quest:78307}."] = "{item:277246} – плата от C за одиночную работу в месте {area:796}, после задания {quest:78307}.",
 
 	-- Step 1: C's dead drop
 	["C's dead drop"] = "Тайник C",
 	-- {quest:78307} The Horn of Xelthos · {object:410369} Dead Drop · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
-	-- was: ["C's next job comes by letter: once you are level 30 and have done the horn job (The {item:210183}, its payment from this {object:410369} handed in), visit any capital city and C's letter arrives in the mailbox; only then does the {object:410369} near {area:204}, in southern Silverpine just south of {area:236}, offer it. The quest data lists a minimum of 25, but players get the letter, and the job, at 30."] = "Следующая работа от C приходит письмом: когда вы достигнете 30 уровня и выполните работу с рогом («{item:210183}», плата за нее получена в этом месте: {object:410369}), посетите любую столицу, и письмо от C придет в почтовый ящик; только после этого {object:410369} у места {area:204}, на юге Серебряного бора чуть южнее: {area:236}, предложит задание. В данных задания указан минимум 25, но игроки получают письмо и работу на 30 уровне."
 	["C's next job comes by letter: once you are level 30 and have done the horn job ({quest:78307}, its payment from this {object:410369} handed in), visit any capital city and C's letter arrives in the mailbox; only then does the {object:410369} near {area:204}, in southern Silverpine just south of {area:236}, offer it. The quest data lists a minimum of 25, but players get the letter, and the job, at 30."] = "Следующая работа от C приходит письмом: когда вы достигнете 30-го уровня и выполните работу с рогом ({quest:78307}, плату за нее из этого места ({object:410369}) сдали), посетите любую столицу, и письмо от C придет в почтовый ящик; только тогда {object:410369} рядом с местом {area:204}, на юге Серебряного бора чуть к югу от места {area:236}, предложит ее. В данных о заданиях указан минимум 25, но игроки получают письмо и работу на 30-м.",
 
 	-- Step 2: The Scarlet Monastery

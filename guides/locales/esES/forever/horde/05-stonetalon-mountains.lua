@@ -56,7 +56,6 @@ return {
 
 	-- Step 10: Vorsha the Lasher
 	-- {npc:12717} Muglash · {npc:12940} Vorsha the Lasher · {npc:12719} Marukai
-	-- was: ["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} camina al norte por la playa hasta un brasero naga. Apaga el brasero y protégelo durante las oleadas de nagas hasta que muera Vorsha; los nagas Colafuria sueltan las cabezas que quiere {npc:12719}."
 	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until {npc:12940} is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} camina al norte por la playa hasta un brasero naga. Apaga el brasero y protégelo durante las oleadas de nagas hasta que {npc:12940} muera; los nagas Cola Rabiosa sueltan las cabezas que quiere {npc:12719}.",
 	["Naga brazier"] = "Brasero naga",
 
