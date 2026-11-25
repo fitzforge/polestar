@@ -90,6 +90,10 @@ fn an_items_hotfix_row_comes_before_classic_era() {
 	// An older push loses to the newer one.
 	lines.push(format!("16666,1,10,{}", fields("40", "2")));
 	lines.push(format!("16666,1,20,{}", fields("50", "4")));
+	// Green Iron Bracers (3835) ships in the slice's Forever build (quality 2; Classic Era's is 1).
+	// The server deleted its row, so Classic Era's must not come back for it: the item keeps only what
+	// data/forever says (its name), no client facts.
+	lines.push(format!("3835,2,30,{}", header.iter().map(|_| "0").collect::<Vec<_>>().join(",")));
 	let hot = sources.join("hotfix").join(build);
 	std::fs::create_dir_all(&hot).unwrap();
 	std::fs::write(hot.join("ItemSparse.csv"), lines.join("\n") + "\n").unwrap();
@@ -101,8 +105,15 @@ fn an_items_hotfix_row_comes_before_classic_era() {
 	assert_eq!(items["16666"]["reqLevel"], 50);
 	assert_eq!(items["16666"]["quality"], 4);
 	assert_eq!(items["16667"]["reqLevel"], 57, "items without a hotfix row keep Classic Era's level");
+	assert_eq!((&items["3835"]["quality"], &items["3835"]["reqLevel"]), (&serde_json::Value::Null, &serde_json::Value::Null), "a deleted item: {}", items["3835"]);
 	let logged = logged.into_inner();
-	assert!(logged.iter().any(|l| l.contains("hotfix") && l.contains("ItemSparse") && l.contains("1 added")), "{logged:?}");
+	assert!(logged.iter().any(|l| l.contains("hotfixes ItemSparse: 0 replaced, 1 added, 1 deleted")), "{logged:?}");
+	let src = out.meta.get("sources").items().into_iter().find(|s| s.get("name").to_js_string().contains("hotfix")).expect("a hotfix source in meta.json");
+	assert_eq!(src.get("version").to_js_string(), build);
+	let applied = src.get("applied").items();
+	assert_eq!(applied.len(), 1);
+	assert_eq!(applied[0].get("table").to_js_string(), "ItemSparse");
+	assert_eq!((applied[0].get("replaced").to_js_string(), applied[0].get("added").to_js_string(), applied[0].get("deleted").to_js_string()), ("0".into(), "1".into(), "1".into()));
 }
 
 #[test]

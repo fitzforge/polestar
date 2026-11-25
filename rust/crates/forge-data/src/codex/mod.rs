@@ -31,9 +31,9 @@ use std::path::{Path, PathBuf};
 use std::sync::LazyLock;
 use std::time::Instant;
 
-use forge_guide::js::{parse_json, stringify, Obj, V};
+use forge_guide::js::{parse_json, stringify, Arr, Obj, V};
 use regex::Regex;
-use rustc_hash::FxHashMap;
+use rustc_hash::{FxHashMap, FxHashSet};
 
 use client::{ClientFacts, ERA_BUILD, ERA_TABLES, TABLES};
 use instances::GuideGoto;
@@ -472,12 +472,19 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 	// (`forge gamedata hotfix --table <T> --status all --out <sources>/hotfix/<build>/<T>.csv`):
 	// the game shows these, so they come before the shipped rows and Classic Era's.
 	let hotfix_dir = opts.sources_dir.join("hotfix").join(&build);
-	if hotfix_dir.is_dir() {
-		for a in crate::gear::client::apply_hotfix_dir(&hotfix_dir, &TABLES, &mut tables)? {
-			log(&format!("hotfixes {}: {} replaced, {} added, {} deleted", a.table, a.replaced, a.added, a.deleted));
+	let hotfixes = if hotfix_dir.is_dir() {
+		let applied = crate::gear::client::apply_hotfix_dir(&hotfix_dir, &TABLES, &mut tables)?;
+		for a in &applied {
+			log(&format!("hotfixes {}: {} replaced, {} added, {} deleted", a.table, a.replaced, a.added, a.deleted.len()));
 		}
-	}
+		Some(applied)
+	} else {
+		None
+	};
+	// An item row the server deleted is gone in the game too: Classic Era's row doesn't fill it in.
+	let deleted_items: FxHashSet<i64> = hotfixes.iter().flatten().filter(|a| matches!(a.table.as_str(), "Item" | "ItemSparse")).flat_map(|a| a.deleted.iter().copied()).collect();
 	let mut cl = client::client_facts(&tables, &build);
+	cl.hotfixes = hotfixes;
 	cl.instance_maps = client::instance_maps_of(tables.get("Map").map(Vec::as_slice).unwrap_or(&[]), tables.get("AreaTable").map(Vec::as_slice).unwrap_or(&[]));
 	client::attach_finder(&mut cl.instance_maps, tables.get("GroupFinderActivity").map(Vec::as_slice).unwrap_or(&[]));
 	let mut era_maps = None;
@@ -486,7 +493,7 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 			let era_items = client::client_facts(&era, ERA_BUILD).items;
 			let mut filled = 0;
 			for (id, mut it) in era_items {
-				if cl.items.contains_key(&id) {
+				if cl.items.contains_key(&id) || deleted_items.contains(&id) {
 					continue;
 				}
 				it.era = true;
@@ -635,6 +642,17 @@ fn sources_meta(inputs: &Inputs) -> V {
 	}
 	if let Some(cl) = &inputs.client {
 		out.push(source("World of Warcraft: Forever client tables via wago.tools", V::str(&cl.build), V::str("Blizzard Entertainment game data, facts only")));
+		if let Some(applied) = &cl.hotfixes {
+			let o = source(
+				&format!("World of Warcraft: Forever server hotfix rows over the client tables (data/sources/hotfix/{})", cl.build),
+				V::str(&cl.build),
+				V::str("Blizzard Entertainment game data, facts only"),
+			);
+			if let V::Obj(m) = &o {
+				m.set("applied", V::Arr(Arr::from_vec(applied.iter().map(crate::gear::client::Applied::to_v).collect())));
+			}
+			out.push(o);
+		}
 		if let Some(eb) = &cl.era_build {
 			out.push(source(
 				"World of Warcraft Classic Era client item tables via wago.tools (items missing from the Forever tables)",

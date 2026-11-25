@@ -119,6 +119,8 @@ pub struct ClientItem {
 pub struct ClientFacts {
 	pub build: String,
 	pub era_build: Option<String>,
+	/// What the server's hotfix rows (`<sources>/hotfix/<build>`) changed per table (None: no such folder).
+	pub hotfixes: Option<Vec<crate::gear::client::Applied>>,
 	pub items: BTreeMap<i64, ClientItem>,
 	pub item_only: BTreeMap<i64, ClientItem>,
 	pub spell_names: FxHashMap<i64, String>,
@@ -291,6 +293,7 @@ pub fn client_facts(tables: &Tables, build: &str) -> ClientFacts {
 	ClientFacts {
 		build: build.to_string(),
 		era_build: None,
+		hotfixes: None,
 		items,
 		item_only,
 		spell_names,

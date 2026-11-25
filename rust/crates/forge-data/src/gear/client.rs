@@ -8,6 +8,7 @@
 
 use std::path::{Path, PathBuf};
 
+use forge_guide::js::{Obj, V};
 use rustc_hash::FxHashMap;
 
 use crate::jsv::{Row, Rows};
@@ -44,7 +45,20 @@ pub struct Applied {
 	pub table: String,
 	pub replaced: usize,
 	pub added: usize,
-	pub deleted: usize,
+	/// The ids of the shipped rows a deleted (2) row removed, in id order.
+	pub deleted: Vec<i64>,
+}
+
+impl Applied {
+	/// `{table, replaced, added, deleted}` (counts), as the gear report and the Codex's meta.json list them.
+	pub fn to_v(&self) -> V {
+		let o = Obj::new();
+		o.set("table", V::str(&self.table));
+		o.set("replaced", V::Num(self.replaced as f64));
+		o.set("added", V::Num(self.added as f64));
+		o.set("deleted", V::Num(self.deleted.len() as f64));
+		V::Obj(o)
+	}
 }
 
 pub struct Tables {
@@ -105,7 +119,7 @@ pub fn apply_hotfixes(table: &str, rows: &mut Rows, hot: &Rows) -> Applied {
 			2 => {
 				if let Some(&i) = at.get(&id) {
 					gone.push(i);
-					out.deleted += 1;
+					out.deleted.push(id);
 				}
 			}
 			_ => {}
@@ -179,7 +193,7 @@ mod tests {
 			row(&[("RecordID", "7"), ("Status", "1"), ("PushID", "4"), ("ID", "0"), ("X", "added")]),
 		];
 		let a = apply_hotfixes("T", &mut rows, &hot);
-		assert_eq!(a, Applied { table: "T".into(), replaced: 1, added: 1, deleted: 1 });
+		assert_eq!(a, Applied { table: "T".into(), replaced: 1, added: 1, deleted: vec![2] });
 		let got: Vec<(String, String)> = rows.iter().map(|r| (r["ID"].clone(), r["X"].clone())).collect();
 		assert_eq!(got, vec![("1".into(), "new".into()), ("3".into(), "c".into()), ("7".into(), "added".into())]);
 	}
