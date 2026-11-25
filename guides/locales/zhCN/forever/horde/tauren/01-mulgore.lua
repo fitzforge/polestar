@@ -89,7 +89,7 @@ return {
 	-- Step 15: Kaga Wildhoof
 	-- {area:220} Red Cloud Mesa · {npc:265810} Kaga Wildhoof · {area:222} Bloodhoof Village · {spell:1229451} Boosted Rest · {zone:1456} Thunder Bluff · {zone:1413} Barrens
 	-- was: ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof or on the {zone:1456} stop."] = "沿道路向北离开{area:220}。{npc:265810}在{area:222}南边不远处的路上等候；在她的营火旁/sit，直到获得{spell:1229451}。学会一项专业后，卡加还会提供对应的露营 101 任务，交给该专业的训练师：在血蹄村或{zone:1456}途中交付。"
-	["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof, on the {zone:1456} stop, or in the western {zone:1413} for engineering."] = "",
+	["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof, on the {zone:1456} stop, or in the western {zone:1413} for engineering."] = "沿路向北离开{area:220}。{npc:265810}在{area:222}南边不远处的路上等候；在她的营火旁/sit，直到获得{spell:1229451}。学会一项专业后，卡加还会提供该专业的露营 101，由其训练师接收：在血蹄村、在{zone:1456}那一站，或工程学在{zone:1413}西部。",
 	-- {spell:1229451} Boosted Rest
 	["/sit by Kaga's campfire until you get {spell:1229451}"] = "在卡加的营火旁/sit，直到获得{spell:1229451}",
 
@@ -155,9 +155,9 @@ return {
 
 	-- Step 26: Camping 101: Engineering
 	-- {npc:10993} Twizwick Sprocketgrind · {skill:202} Engineering
-	["{npc:10993} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "",
+	["{npc:10993} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:202}技能达到20时，{npc:10993}会接收它：在此之前采集或制作，指南同时继续进行。",
 	-- {npc:265810} Kaga Wildhoof · {npc:10993} Twizwick Sprocketgrind · {zone:1413} Barrens
-	["{npc:265810}: for {npc:10993}, in the western {zone:1413}"] = "",
+	["{npc:265810}: for {npc:10993}, in the western {zone:1413}"] = "{npc:265810}：交给{zone:1413}西部的{npc:10993}",
 
 	-- Step 27: Bloodhoof Village
 	-- {npc:3063} Krang Stonehoof

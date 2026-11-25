@@ -14,13 +14,13 @@ return {
 
 	-- Step 2: Orgnil Soulscar
 	-- {npc:3142} Orgnil Soulscar · {area:362} Razor Hill
-	["{npc:3142} stands in the middle of {area:362}."] = "",
+	["{npc:3142} stands in the middle of {area:362}."] = "{npc:3142} está en el centro de {area:362}.",
 	-- {npc:3142} Orgnil Soulscar · {quest:99051} Threat from Below · {zone:1411} Durotar
 	["{npc:3142}: {quest:99051}, from {zone:1411}'s naga beach"] = "{npc:3142}: {quest:99051}, desde la playa de los naga de {zone:1411}",
 
 	-- Step 4: Uzzek
 	-- {npc:5810} Uzzek · {area:379} Far Watch Post · {npc:3337} Kargal Battlescar · {quest:809} Ak'Zeloth
-	["{npc:5810} stands at {area:379} with {npc:3337} and {quest:809}."] = "",
+	["{npc:5810} stands at {area:379} with {npc:3337} and {quest:809}."] = "{npc:5810} está en {area:379} con {npc:3337} y {quest:809}.",
 
 	-- Step 5: Far Watch Post
 	-- {area:814} Southfury River · {area:379} Far Watch Post · {zone:1413} The Barrens · {npc:3337} Kargal Battlescar · {quest:809} Ak'Zeloth · {npc:5810} Uzzek
@@ -34,7 +34,7 @@ return {
 
 	-- Step 7: Far Watch Post
 	-- {npc:5810} Uzzek · {area:379} Far Watch Post · {area:814} Southfury River
-	["{npc:5810} stands at {area:379}, just above the {area:814} bridge."] = "",
+	["{npc:5810} stands at {area:379}, just above the {area:814} bridge."] = "{npc:5810} está en {area:379}, justo encima del puente de {area:814}.",
 
 	-- Step 8: The Crossroads
 	-- {area:379} Far Watch Post · {npc:3489} Zargh · {npc:3338} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3615} Devrak · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger
@@ -48,9 +48,9 @@ return {
 
 	-- Step 9: Thork
 	-- {npc:3429} Thork
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:3429}'s supply crates lie in the Razormane camp's north-east, among the Flesheaters and Berserkers (18-19, elite): it needs a group of 3. Skip it if you are alone."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:3429}'s supply crates lie in the Razormane camp's north-east, among the Flesheaters and Berserkers (18-19, elite): it needs a group of 3. Skip it if you are alone."] = "Son enemigos élite: se recomienda ir en grupo, busca gente con quien hacerlo. Las cajas de suministros de {npc:3429} están en el noreste del campamento Crines de Acero, entre los Comecarne y Rabiosos (18-19, élite): necesita un grupo de 3. Omítela si vas solo.",
 	-- {npc:3429} Thork
-	["{npc:3429}, on the tower"] = "",
+	["{npc:3429}, on the tower"] = "{npc:3429}, en la torre",
 
 	-- Step 10: Thun'grim Firegaze
 	-- {npc:5878} Thun'grim Firegaze · {area:392} Ratchet
@@ -67,13 +67,13 @@ return {
 	-- {npc:3429} Thork
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
 	-- was: ["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "Mientras estés en el campamento: los Buscaqua y Tejespinas de {npc:3429} en su mitad oeste, los Cazadores en el centro y las cajas de suministros en su extremo este.\nCuidado: los Comecarnes y Rabiosos Crines de Acero (18-19) son élites; están en el noreste del campamento, junto a las cajas de suministros: atrae a los jabaespines lejos de ellos de uno en uno."
-	["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, and, if you took his supplies with a group, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "",
+	["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, and, if you took his supplies with a group, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "Mientras estés en el campamento: los Buscaaguas y Tejespinas de {npc:3429} en su mitad oeste, los Cazadores en el centro y, si aceptaste sus suministros con un grupo, las cajas en su extremo este.\nCuidado: los Comecarne y Rabiosos Crines de Acero (18-19) son élite; están en el noreste del campamento, junto a las cajas: aleja a los jabaespines de ellos de uno en uno.",
 
 	-- Step 13: Thork's supply crates
 	-- {npc:3429} Thork
-	["{npc:3429}'s supply crates"] = "",
+	["{npc:3429}'s supply crates"] = "Las cajas de suministros de {npc:3429}",
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
-	["With your group: the supply crates sit at the camp's eastern end. Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand beside the crates."] = "",
+	["With your group: the supply crates sit at the camp's eastern end. Careful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand beside the crates."] = "Con tu grupo: las cajas de suministros están en el extremo este del campamento. Cuidado: los Comecarne Crines de Acero ({npc:267308}) y los Rabiosos (18-19) son élite; están junto a las cajas.",
 
 	-- Step 15: Telf Joolam
 	-- {npc:5900} Telf Joolam · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember
@@ -106,7 +106,7 @@ return {
 	-- Step 23: Razormane camp
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
 	-- was: ["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "En el campamento, los Buscaqua y Tejespinas ocupan la mitad oeste, y los Cazadores, el centro; las cajas de suministros están en su extremo este.\nLos Zancudos de llanura de aquí cuentan para los picos.\nCuidado: los Comecarnes y Rabiosos Crines de Acero (18-19) son élites; están en el noreste del campamento, junto a las cajas de suministros: atrae a los jabaespines lejos de ellos de uno en uno."
-	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates (with a group only) sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "",
+	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates (with a group only) sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "En el campamento, los Buscaaguas y Tejespinas ocupan la mitad oeste, los Cazadores el centro; las cajas de suministros (solo en grupo) están en su extremo este.\nLos zancudos de las llanuras de aquí cuentan para los picos.\nCuidado: los Comecarne y Rabiosos Crines de Acero (18-19) son élite; están en el noreste del campamento, junto a las cajas: aleja a los jabaespines de ellos de uno en uno.",
 
 	-- Step 25: Finish the Plainstrider Beaks
 	-- plural, as words: Plainstrider Beaks = {item:5087} Plainstrider Beak
@@ -115,7 +115,7 @@ return {
 
 	-- Step 28: Thork
 	-- {npc:3438} Kreenig Snarlsnout
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:3438} and the Geomancers and Defenders of The Disruption Ends stand in the camp's eastern half, among the Flesheaters and Berserkers (18-19, elite): it needs a group of 3. Skip it if you are alone."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:3438} and the Geomancers and Defenders of The Disruption Ends stand in the camp's eastern half, among the Flesheaters and Berserkers (18-19, elite): it needs a group of 3. Skip it if you are alone."] = "Son enemigos élite: se recomienda ir en grupo, busca gente con quien hacerlo. {npc:3438} y los Geomantes y Defensores del Fin de la Disrupción están en la mitad este del campamento, entre los Comecarne y Rabiosos (18-19, élite): necesita un grupo de 3. Omítela si vas solo.",
 
 	-- Step 29: The Zhevra
 	-- {area:392} Ratchet
@@ -168,7 +168,7 @@ return {
 	-- Step 37: The Barrens: kill these as you meet them
 	-- {npc:3389} Regthar Deathgate · {npc:3394} Barak Kodobane · {quest:4021} Counterattack! · {npc:9456} Warlord Krom'zar
 	-- plural, as words: Laden Mushrooms = {object:3640} Laden Mushroom · Kolkar Invaders = {npc:9524} Kolkar Invader
-	["The pools lie just north of {npc:3389}. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers. {npc:3394} stands in the Kolkar camp west of the pools.\nCareful: the Kolkar stand in packs around their camp west of the pools, and the Stormers cast from range: pull them one at a time from the edge. When anyone starts {npc:3389}'s {quest:4021}, Kolkar Invaders (16-17) and {npc:9456} (20, elite) charge his watch post: keep away from it until the attack is over."] = "",
+	["The pools lie just north of {npc:3389}. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers. {npc:3394} stands in the Kolkar camp west of the pools.\nCareful: the Kolkar stand in packs around their camp west of the pools, and the Stormers cast from range: pull them one at a time from the edge. When anyone starts {npc:3389}'s {quest:4021}, Kolkar Invaders (16-17) and {npc:9456} (20, elite) charge his watch post: keep away from it until the attack is over."] = "Las pozas están justo al norte de {npc:3389}. Métete en el agua para explorarlas; los Champiñones cargados ({object:3640}) para Helbrim crecen a su alrededor. Mata a cada Kolkar que pases por los brazales. {npc:3394} está en el campamento Kolkar al oeste de las pozas.\nCuidado: los Kolkar están en grupos alrededor de su campamento al oeste de las pozas, y los Clamatormentas atacan a distancia: atráelos de uno en uno desde el borde. Cuando alguien empieza {quest:4021} de {npc:3389}, invasores Kolkar ({npc:9524}, 16-17) y {npc:9456} (20, élite) cargan contra su puesto: aléjate hasta que acabe el ataque.",
 
 	-- Step 38: Regthar Deathgate
 	-- {npc:3389} Regthar Deathgate · {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis
@@ -232,7 +232,7 @@ return {
 	["Finish the Raptor Heads"] = "Termina las cabezas de raptor",
 	-- {quest:881} Echeyakee
 	-- plural, as words: Sunscale Screechers = {npc:3255} Sunscale Screecher
-	["Still short of twelve? Sunscale Screechers are thickest on the open plains just north of {quest:881}'s lair: finish there, then head back south-west to the Crossroads, keeping west of the Razormane camp."] = "",
+	["Still short of twelve? Sunscale Screechers are thickest on the open plains just north of {quest:881}'s lair: finish there, then head back south-west to the Crossroads, keeping west of the Razormane camp."] = "¿Aún te faltan para doce? Los chilladores Escamasol ({npc:3255}) abundan más en las llanuras abiertas justo al norte de la guarida de {quest:881}: termina allí y vuelve al suroeste al Cruce, manteniéndote al oeste del campamento Crines de Acero.",
 
 	-- Step 53: The Crossroads
 	-- {npc:3464} Gazrog · {npc:3338} Sergra Darkthorn · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork

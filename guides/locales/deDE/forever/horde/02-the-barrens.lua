@@ -48,7 +48,7 @@ return {
 
 	-- Step 9: Thork
 	-- {npc:3429} Thork
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:3429}'s supply crates lie in the Razormane camp's north-east, among the Flesheaters and Berserkers (18-19, elite): it needs a group of 3. Skip it if you are alone."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:3429}'s supply crates lie in the Razormane camp's north-east, among the Flesheaters and Berserkers (18-19, elite): it needs a group of 3. Skip it if you are alone."] = "Das sind Elite-Gegner: Eine Gruppe wird empfohlen, such dir Leute dafür. Die Vorratskisten von {npc:3429} liegen im Nordosten des Klingenmähnenlagers, zwischen den Fleischfressern und Berserkern (18-19, Elite): Es braucht eine Gruppe von 3. Überspring es, wenn du allein bist.",
 	-- {npc:3429} Thork
 	["{npc:3429}, on the tower"] = "{npc:3429}, auf dem Turm",
 
@@ -67,7 +67,7 @@ return {
 	-- {npc:3429} Thork
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
 	-- was: ["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "Wenn du schon im Lager bist: die Wassersucher und Dornenwirker für {npc:3429} in der westlichen Hälfte, die Jäger in der Mitte, die Vorratskisten am östlichen Ende.\nVorsicht: Fleischfresser und Berserker der Grimmhauer (18-19) sind Elites; sie stehen im Nordosten des Lagers neben den Vorratskisten: Zieh die Stacheleber einzeln von ihnen weg."
-	["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, and, if you took his supplies with a group, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "",
+	["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, and, if you took his supplies with a group, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "Solange du im Lager bist: die Wassersucher und Dornenwirker für {npc:3429} in der Westhälfte, die Jäger in der Mitte und, wenn du seine Vorräte mit einer Gruppe angenommen hast, die Vorratskisten am Ostende.\nVorsicht: Die Fleischfresser und Berserker der Klingenmähnen (18-19) sind Elite; sie stehen im Nordosten des Lagers neben den Vorratskisten: Zieh die Stacheleber einzeln von ihnen weg.",
 
 	-- Step 13: Thork's supply crates
 	-- {npc:3429} Thork
@@ -106,7 +106,7 @@ return {
 	-- Step 23: Razormane camp
 	-- plural, as words: Razormane Flesheaters = {npc:267308} Razormane Flesheater
 	-- was: ["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "Im Lager halten Wassersucher und Dornenwirker die westliche Hälfte, Jäger die Mitte; die Vorratskisten stehen am östlichen Ende.\nEbenenschreiter hier zählen für die Schnäbel.\nVorsicht: Fleischfresser und Berserker der Grimmhauer (18-19) sind Elites; sie stehen im Nordosten des Lagers neben den Vorratskisten: Zieh die Stacheleber einzeln von ihnen weg."
-	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates (with a group only) sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "",
+	["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates (with a group only) sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "Im Lager halten die Wassersucher und Dornenwirker die Westhälfte, die Jäger die Mitte; die Vorratskisten (nur mit Gruppe) stehen am Ostende.\nDie Ebenenschreiter hier zählen für die Schnäbel.\nVorsicht: Die Fleischfresser und Berserker der Klingenmähnen (18-19) sind Elite; sie stehen im Nordosten des Lagers neben den Vorratskisten: Zieh die Stacheleber einzeln von ihnen weg.",
 
 	-- Step 25: Finish the Plainstrider Beaks
 	-- plural, as words: Plainstrider Beaks = {item:5087} Plainstrider Beak
@@ -115,7 +115,7 @@ return {
 
 	-- Step 28: Thork
 	-- {npc:3438} Kreenig Snarlsnout
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:3438} and the Geomancers and Defenders of The Disruption Ends stand in the camp's eastern half, among the Flesheaters and Berserkers (18-19, elite): it needs a group of 3. Skip it if you are alone."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:3438} and the Geomancers and Defenders of The Disruption Ends stand in the camp's eastern half, among the Flesheaters and Berserkers (18-19, elite): it needs a group of 3. Skip it if you are alone."] = "Das sind Elite-Gegner: Eine Gruppe wird empfohlen, such dir Leute dafür. {npc:3438} und die Geomanten und Verteidiger vom Ende der Zerrüttung stehen in der Osthälfte des Lagers, zwischen den Fleischfressern und Berserkern (18-19, Elite): Es braucht eine Gruppe von 3. Überspring es, wenn du allein bist.",
 
 	-- Step 29: The Zhevra
 	-- {area:392} Ratchet
@@ -168,7 +168,7 @@ return {
 	-- Step 37: The Barrens: kill these as you meet them
 	-- {npc:3389} Regthar Deathgate · {npc:3394} Barak Kodobane · {quest:4021} Counterattack! · {npc:9456} Warlord Krom'zar
 	-- plural, as words: Laden Mushrooms = {object:3640} Laden Mushroom · Kolkar Invaders = {npc:9524} Kolkar Invader
-	["The pools lie just north of {npc:3389}. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers. {npc:3394} stands in the Kolkar camp west of the pools.\nCareful: the Kolkar stand in packs around their camp west of the pools, and the Stormers cast from range: pull them one at a time from the edge. When anyone starts {npc:3389}'s {quest:4021}, Kolkar Invaders (16-17) and {npc:9456} (20, elite) charge his watch post: keep away from it until the attack is over."] = "",
+	["The pools lie just north of {npc:3389}. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers. {npc:3394} stands in the Kolkar camp west of the pools.\nCareful: the Kolkar stand in packs around their camp west of the pools, and the Stormers cast from range: pull them one at a time from the edge. When anyone starts {npc:3389}'s {quest:4021}, Kolkar Invaders (16-17) and {npc:9456} (20, elite) charge his watch post: keep away from it until the attack is over."] = "Die Teiche liegen direkt nördlich von {npc:3389}. Geh ins Wasser, um sie zu erkunden; die Beladenen Pilze ({object:3640}) für Helbrim wachsen drumherum. Töte jeden Kolkar, an dem du vorbeikommst, für die Armschienen. {npc:3394} steht im Kolkarlager westlich der Teiche.\nVorsicht: Die Kolkar stehen in Gruppen um ihr Lager westlich der Teiche, und die Sturmrufer greifen aus der Ferne an: Zieh sie einzeln vom Rand aus. Wenn jemand {quest:4021} von {npc:3389} startet, stürmen Kolkarinvasoren ({npc:9524}, 16-17) und {npc:9456} (20, Elite) seinen Wachposten: Halte dich fern, bis der Angriff vorbei ist.",
 
 	-- Step 38: Regthar Deathgate
 	-- {npc:3389} Regthar Deathgate · {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis

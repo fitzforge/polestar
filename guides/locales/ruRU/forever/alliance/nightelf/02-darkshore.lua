@@ -186,11 +186,11 @@ return {
 
 	-- Step 32: Kurdram Stonehammer
 	-- {npc:6297} Kurdram Stonehammer · {npc:6300} Elisa Steelhand · {quest:97948} Camping 101: Mining
-	["{npc:6297}, beside {npc:6300}: {quest:97948}"] = "",
+	["{npc:6297}, beside {npc:6300}: {quest:97948}"] = "{npc:6297}, рядом с NPC {npc:6300}: {quest:97948}",
 
 	-- Step 33: Jenna Lemkenilli
 	-- {npc:11037} Jenna Lemkenilli · {npc:6300} Elisa Steelhand · {quest:97941} Camping 101: Engineering
-	["{npc:11037}, beside {npc:6300}: {quest:97941}"] = "",
+	["{npc:11037}, beside {npc:6300}: {quest:97941}"] = "{npc:11037}, рядом с NPC {npc:6300}: {quest:97941}",
 
 	-- Step 34: Thundris Windweaver
 	-- {npc:3649} Thundris Windweaver · {quest:4763} The Blackwood Corrupted · {zone:1439} Darkshore

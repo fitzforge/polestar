@@ -80,7 +80,7 @@ return {
 	-- Step 22: Goldthorn & Khadgar's Whisker: Swamp of Sorrows (185-200)
 	-- {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
 	-- was: ["Pick every {item:2453} (100, green, rare), {object:1623} (115, green, rare), {item:3356} (125, green), {item:3357} (150, yellow), {item:3818} (160, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 35-45. Expect about 20 herbs for these 15 points."] = "지나가는 {item:2453}(100, 초록색, 희귀), {object:1623}(115, 초록색, 희귀), {item:3356}(125, 초록색), {item:3357}(150, 노란색), {item:3818}(160, 노란색), {item:3821}(170, 주황색), {object:2043}(185, 주황색)을(를) 모두 채집하고, {skill:182} 200까지 경유지를 도세요. 지역 레벨 35-45. 이번 15점에는 약초 약 20개가 필요합니다."
-	["Pick every {item:3356} (125, green), {item:3357} (150, yellow), {item:3818} (160, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 35-45. Expect about 20 herbs for these 15 points."] = "",
+	["Pick every {item:3356} (125, green), {item:3357} (150, yellow), {item:3818} (160, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 35-45. Expect about 20 herbs for these 15 points."] = "지나가며 {item:3356}(125, 초록색), {item:3357}(150, 노란색), {item:3818}(160, 노란색), {item:3821}(170, 주황색), {object:2043}(185, 주황색)을(를) 모두 채집하고 {skill:182}이(가) 200이 될 때까지 경유지를 도십시오. 지역 레벨 35-45. 이 15점에 약초 약 20개가 듭니다.",
 
 	-- Step 23: Artisan Herbalism
 	-- {skill:182} Herbalism
@@ -90,10 +90,10 @@ return {
 
 	-- Step 24: Goldthorn & Khadgar's Whisker: Swamp of Sorrows (200-210) cont.
 	-- {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {zone:1435} Swamp of Sorrows
-	["{item:3821} & {object:2043}: {zone:1435} (200-210) cont."] = "",
+	["{item:3821} & {object:2043}: {zone:1435} (200-210) cont."] = "{item:3821} & {object:2043}: {zone:1435} (200-210) 계속",
 	-- {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
 	-- was: ["Pick every {object:1623} (115, green, rare), {item:3356} (125, green), {item:3357} (150, green), {item:3818} (160, yellow), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 35-45. Expect about 20 herbs for these 10 points."] = "지나가는 {object:1623}(115, 초록색, 희귀), {item:3356}(125, 초록색), {item:3357}(150, 초록색), {item:3818}(160, 노란색), {item:3821}(170, 노란색), {object:2043}(185, 주황색)을(를) 모두 채집하고, {skill:182} 210까지 경유지를 도세요. 지역 레벨 35-45. 이번 10점에는 약초 약 20개가 필요합니다."
-	["Pick every {item:3356} (125, green), {item:3357} (150, green), {item:3818} (160, yellow), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 35-45. Expect about 20 herbs for these 10 points."] = "",
+	["Pick every {item:3356} (125, green), {item:3357} (150, green), {item:3818} (160, yellow), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 35-45. Expect about 20 herbs for these 10 points."] = "지나가며 {item:3356}(125, 초록색), {item:3357}(150, 초록색), {item:3818}(160, 노란색), {item:3821}(170, 노란색), {object:2043}(185, 주황색)을(를) 모두 채집하고 {skill:182}이(가) 210이 될 때까지 경유지를 도십시오. 지역 레벨 35-45. 이 10점에 약초 약 20개가 듭니다.",
 
 	-- Step 25: Purple Lotus: The Hinterlands (210-230)
 	-- {object:1623} Wild Steelbloom · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {item:8831} Purple Lotus · {skill:182} Herbalism · {item:8153} Wildvine
@@ -109,7 +109,7 @@ return {
 
 	-- Step 28: Dreamfoil & Plaguebloom: Felwood (285-300)
 	-- {item:8836} Arthas' Tears · {item:8838} Sungrass · {item:8846} Gromsblood · {item:13464} Golden Sansam · {item:13463} Dreamfoil · {item:13465} Mountain Silversage · {item:13466} Plaguebloom · {skill:182} Herbalism · {npc:9528} Arathandris Silversky · {npc:9529} Maybess Riverbreeze
-	["Pick every {item:8836} (220, green), {item:8838} (230, green), {item:8846} (250, yellow), {item:13464} (260, yellow), {item:13463} (270, orange), {item:13465} (280, orange), {item:13466} (285, orange) you pass and circle the waypoints until {skill:182} 300. {item:8846} grows near demon and satyr camps: pull carefully. Quests here that need {skill:182}: Salve via Gathering (level 55, {npc:9528}; Alliance), Salve via Gathering (level 55, {npc:9529}; Horde). Zone level 48-55. Expect about 20 herbs for these 15 points."] = "",
+	["Pick every {item:8836} (220, green), {item:8838} (230, green), {item:8846} (250, yellow), {item:13464} (260, yellow), {item:13463} (270, orange), {item:13465} (280, orange), {item:13466} (285, orange) you pass and circle the waypoints until {skill:182} 300. {item:8846} grows near demon and satyr camps: pull carefully. Quests here that need {skill:182}: Salve via Gathering (level 55, {npc:9528}; Alliance), Salve via Gathering (level 55, {npc:9529}; Horde). Zone level 48-55. Expect about 20 herbs for these 15 points."] = "지나가며 {item:8836}(220, 초록색), {item:8838}(230, 초록색), {item:8846}(250, 노란색), {item:13464}(260, 노란색), {item:13463}(270, 주황색), {item:13465}(280, 주황색), {item:13466}(285, 주황색)을(를) 모두 채집하고 {skill:182}이(가) 300이 될 때까지 경유지를 도십시오. {item:8846}은(는) 악마와 사티로스 야영지 근처에서 자랍니다: 조심해서 끌어내십시오. 이곳에서 {skill:182}이(가) 필요한 퀘스트: 채집한 약초로 만드는 연고(55레벨, {npc:9528}; 얼라이언스), 채집한 약초로 만드는 연고(55레벨, {npc:9529}; 호드). 지역 레벨 48-55. 이 15점에 약초 약 20개가 듭니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:182} trainer of your faction teaches Apprentice {skill:182} (character level 5); the arrow picks the nearest."] = "진영의 {skill:182} 상급자 누구에게서나 초급 {skill:182}을(를) 배울 수 있습니다(캐릭터 레벨 5). 화살표가 가장 가까운 상급자를 가리킵니다.",

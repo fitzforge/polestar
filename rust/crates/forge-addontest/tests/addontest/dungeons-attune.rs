@@ -1125,6 +1125,23 @@ emit(DS.atts[1].Meta:GetText())"#,
 	assert_eq!(out[0], "Zugangsquest  \u{b7}  Jeder braucht sie  \u{b7}  Ab Stufe 17");
 }
 
+// The next step of a chest (the Tome of Dalaran's Black Tome) names its object in the client's language
+// (Polestar.Names), and in English where the language has no name for it, as the drop and gift steps' NPCs do:
+// a Russian client read "(источник: Black Tome)" before.
+#[test]
+fn the_next_step_names_its_object_in_the_client_language_and_in_english_where_it_has_none() {
+	let f = Fx::new();
+	let out = f.run_ui(
+		r#"
+local step = { kind = "object", item = { id = 276561, name = "Black Tome" }, object = { kind = "object", id = 659376, name = "Black Tome" } }
+emit(Polestar.UI.Attunements.StepWords(step, "open"))
+Polestar.Names.AddChunk("itIT", "object", 659376, 659376, "\n659376\tTomo nero\n")
+emit(Polestar.UI.Attunements.StepWords(step, "open"))"#,
+		&fake_locale("itIT", &[("%s from %s", "%s da %s")]),
+	);
+	assert_eq!(out, vec![json!("Black Tome da Black Tome"), json!("Black Tome da Tomo nero")]);
+}
+
 // ---------------------------------------------------------------------------
 // The Attunements section (UI/Attunements.lua, #3695)
 // ---------------------------------------------------------------------------

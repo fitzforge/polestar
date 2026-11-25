@@ -57,7 +57,7 @@ return {
 	-- Step 10: Vorsha the Lasher
 	-- {npc:12717} Muglash · {npc:12940} Vorsha the Lasher · {npc:12719} Marukai
 	-- was: ["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717}沿著海灘向北走到一個納迦火盆旁。熄滅火盆，然後在納迦一波波來襲時保護他，直到鞭笞者沃爾沙死去；怒尾納迦會掉落{npc:12719}要的首級。"
-	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until {npc:12940} is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "",
+	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until {npc:12940} is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717}沿著海灘向北走到一個納迦火盆。熄滅火盆，然後在納迦一波波來襲時保護他，直到{npc:12940}死亡；怒尾納迦會掉落{npc:12719}要的頭顱。",
 	["Naga brazier"] = "納迦火盆",
 
 	-- Step 11: Naga heads
@@ -97,11 +97,11 @@ return {
 
 	-- Step 17: Magatha Grimtotem
 	-- {quest:1063} The Elder Crone · {npc:4046} Magatha Grimtotem · {quest:1064} Forsaken Aid · {area:1639} Elder Rise · {npc:3419} Apothecary Zamah · {area:2197} Pools of Vision · {area:1640} Spirit Rise
-	["{quest:1063}'s errand is already with {npc:4046}: take {quest:1064} from her on {area:1639}, for {npc:3419} in the {area:2197}, under {area:1640}."] = "",
+	["{quest:1063}'s errand is already with {npc:4046}: take {quest:1064} from her on {area:1639}, for {npc:3419} in the {area:2197}, under {area:1640}."] = "{quest:1063}的差事已經交給{npc:4046}：在{area:1639}向她接取{quest:1064}，交給{area:1640}下方{area:2197}裡的{npc:3419}。",
 
 	-- Step 18: Apothecary Zamah
 	-- {quest:1064} Forsaken Aid · {npc:3419} Apothecary Zamah · {area:272} Tarren Mill · {area:2197} Pools of Vision · {area:1640} Spirit Rise
-	["{quest:1064} is already with {npc:3419}: take her note for {area:272} in the {area:2197}, under {area:1640}."] = "",
+	["{quest:1064} is already with {npc:3419}: take her note for {area:272} in the {area:2197}, under {area:1640}."] = "{quest:1064}已經交給{npc:3419}：在{area:1640}下方的{area:2197}裡拿取她給{area:272}的便條。",
 
 	-- Step 19: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar

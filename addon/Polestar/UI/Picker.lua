@@ -605,12 +605,32 @@ end
 
 local mapName = ns.Compat.MapName
 
+-- Whether `text` has `name` in it as whole words.
+local function mentions(text, name)
+	local at = 1
+	while true do
+		local a, b = text:find(name, at, true)
+		if not a then return false end
+		if not text:sub(a - 1, a - 1):find("[%w\128-\255]") and not text:sub(b + 1, b + 1):find("[%w\128-\255]") then return true end
+		at = a + 1
+	end
+end
+
+-- Whether a guide's title names the zone: its name in the title, or its first
+-- word before "&" and the rest of it after ("Western Plaguelands" in "Western
+-- & Eastern Plaguelands": the writer's titles share the last word).
+local function titleNames(title, zone)
+	if mentions(title, zone) then return true end
+	local first, rest = zone:match("^(%S+) (.+)$")
+	return first ~= nil and mentions(title, first .. " &") and mentions(title, rest)
+end
+
 -- What a guide's steps hold for this character: the quests it accepts
 -- (steps and goals filtered by `only`, as the route choice counts them) and
--- the zones its goals visit, in step order: `questsIn` those where
--- QUEST_STEPS or more of its steps carry a quest goal, `passes` the rest
--- (its own zone when no goal has one). Cached per guide until guides
--- register again.
+-- the zones its goals visit, in step order: `questsIn` those its title names
+-- (the guide writer's: the zones it quests in) or where QUEST_STEPS or more
+-- of its steps carry a quest goal, `passes` the rest (its own zone when no
+-- goal has one). Cached per guide until guides register again.
 local QUEST_STEPS = 6
 local function guideFacts(g)
 	local f = factCache[g.id]
@@ -652,8 +672,9 @@ local function guideFacts(g)
 		end
 	end
 	if G and G.Peek then G.Unpeek(g.id, fresh) end
+	local title = type(g.title) == "string" and g.title or ""
 	for _, name in ipairs(zones) do
-		local list = questSteps[name] >= QUEST_STEPS and f.questsIn or f.passes
+		local list = (questSteps[name] >= QUEST_STEPS or titleNames(title, name)) and f.questsIn or f.passes
 		list[#list + 1] = name
 	end
 	if #zones == 0 then f.passes[1] = UI.GuidePlace(g) end

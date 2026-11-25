@@ -2671,8 +2671,13 @@ end
 -- version; a trail with the same joins keeps it, so caches stay). Reads decoded clusters only: a place in a cluster
 -- not decoded (dropped at rest, never searched) is passed over, so a walk asked at a step change never decodes the
 -- player's last minute of ground in that frame (#3451: 30-60 ms frames); the search decodes what it needs in its
--- slices, and the next walk asked has those places. -> the joins made (map gaps the player walked through) and the
--- middle of the first: n, x, y (0 for none).
+-- slices, and the next walk asked has those places. A place asked again at the same height on the same decoded
+-- cluster keeps the node it snapped to last time, and a step searched again there keeps its answer (st.trailMemo,
+-- the last call's places and steps): the player's trail moves on by a few places between two asks, so a walk asked
+-- at a step change snaps only the places added since (#3451: snapping up to 300 places in that frame was half of a
+-- step change's cost on a kill-as-you-meet tour). The memo holds its clusters weakly; one dropped and decoded again
+-- is snapped again. -> the joins made (map gaps the player walked through) and the middle of the first: n, x, y (0
+-- for none).
 local TRAIL_STEP, TRAIL_DETOUR, TRAIL_SLACK = 6, 3, 2
 Path.trailRise, Path.trailPad = 1.2, 3
 local trailVersion = 0
@@ -2692,16 +2697,44 @@ function Path.SetTrail(map, samples)
 	local tree = Tree()
 	local C, cs = st.C, st.cs
 	local N = C * C
+	local memo = st.trailMemo
+	if not memo then
+		local weak = { __mode = "v" }
+		memo = { x = {}, y = {}, h = {}, node = {}, c = setmetatable({}, weak), n = 0, open = {}, on = setmetatable({}, weak), weak = weak }
+		st.trailMemo = memo
+	end
+	local mx, my, mh, mnode, mc, mn = memo.x, memo.y, memo.h, memo.node, memo.c, memo.n
+	local openBefore, onBefore = memo.open, memo.on
+	local open, on = {}, setmetatable({}, memo.weak)
+	-- Where this trail's first place stands in the last one's: the places dropped off its start shift the rest.
+	local shift = 0
+	for j = 1, mn do
+		if mx[j] == samples[1] and my[j] == samples[2] then
+			shift = j - 1
+			break
+		end
+	end
+	local s = 0
 	local pk, pn, px, py, pz, pc
 	for i = 1, #samples - 2, 3 do
 		local x, y, z = samples[i], samples[i + 1], samples[i + 2]
 		if z == false then
 			z = nil
 		end
+		local h = z or pz
 		local k, lc = locate(st, x, y)
-		local node = k and st.cl[k] and snap(st, k, lc, x, y, z or pz)
-		local c = node and grid(st, k)
-		if node and c then
+		local c = k and st.cl[k] or nil
+		local node
+		s = s + 1
+		local j = s + shift
+		if c and j <= mn and mc[j] == c and mx[j] == x and my[j] == y and mh[j] == (h or false) then
+			node = mnode[j] or nil
+		elseif c then
+			node = snap(st, k, lc, x, y, h)
+		end
+		-- (In place: entry s is written after entry s + shift, which is not before it, was read.)
+		mx[s], my[s], mh[s], mnode[s], mc[s] = x, y, h or false, node or false, c
+		if node then
 			local cell = node < N and node or floorCell(c, node)
 			local nz = zOf(c, node)
 			if pn and pk == k and pn ~= node and (x - px) ^ 2 + (y - py) ^ 2 <= TRAIL_STEP * TRAIL_STEP
@@ -2711,8 +2744,15 @@ function Path.SetTrail(map, samples)
 				local key = k .. ":" .. (pn < node and pn .. ":" .. node or node .. ":" .. pn)
 				if not keys[key] then
 					keys[key] = true
-					hn = 0
-					if not search(st, k, 1, nil, pn, tree, node, nil, nil, false, (TRAIL_DETOUR * d + TRAIL_SLACK) * cs) then
+					local gap
+					if onBefore[key] == c then
+						gap = openBefore[key]
+					else
+						hn = 0
+						gap = not search(st, k, 1, nil, pn, tree, node, nil, nil, false, (TRAIL_DETOUR * d + TRAIL_SLACK) * cs)
+					end
+					open[key], on[key] = gap, c
+					if gap then
 						local A = arcs[k] or {}
 						arcs[k] = A
 						local a, b = A[pn] or {}, A[node] or {}
@@ -2732,6 +2772,7 @@ function Path.SetTrail(map, samples)
 			pn = nil
 		end
 	end
+	memo.n, memo.open, memo.on = s, open, on
 	Release(tree)
 	if gaps == 0 then
 		st.trail = nil

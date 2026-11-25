@@ -249,7 +249,7 @@ them are keyed by step position: `stepKeys` (a hash per step of its verbs and
 ids) lets a pack update carry them to the steps it kept (see "Placement"),
 and, for a step it changed, to the step that has the same goal now: the
 changed step's goals come from `ns.LegacySteps` (Core/LegacySteps.lua,
-written by `forge guide legacy-steps` from earlier releases' guides), so a
+written by `forge guide legacy-steps` from the guides earlier releases shipped), so a
 check-off goes to the goal with the same verb and quest (or item, landing),
 a skip and the saved view to the step sharing most of its quest goals
 (`Own.remap`, `Own.legacyMaps`). The save's keys are those of the steps as
@@ -322,7 +322,10 @@ says so, naming the guide by its title in the save's release
 notes no update (`Own.noteAdded`: nearly all of it would pass) and opens
 where the log puts the player (`Own.logPlaced`, `Own.noteMovedBehind`): the
 last step with progress on a quest of the log (a quest an earlier release
-offered in another guide counting), else the first with work of one; its
+offered in another guide counting), read first among the steps the save had,
+in the save's order (`Own.reworkedOrder`, noted by `checkShape`: a part of the
+guide moved elsewhere keeps the player where their own route got, 0.4.1.1
+-> 0.4.3 Burning Steppes' Azshara), else the first with work of one; its
 steps before pass as an update's new steps do.
 
 ### Profiles
@@ -2144,7 +2147,12 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   (`Own.waitsOf`); the guide's end stores the rest (`Own.endPending`, from
   `Own.noteEnd` and the completion). Nothing is stored before
   `QUEST_LOG_UPDATE` (`logReady`; the log lags `PLAYER_LOGIN`):
-  `Own.latchCaughtUp` stores the steps passed meanwhile once it can.
+  `Own.latchCaughtUp` stores the steps passed meanwhile once it can. A step
+  stored as skipped can leave out work after it (the prerequisite it handed
+  in no longer comes, `Own.coming`), so `evaluateLoaded` works the live step
+  out again in the same evaluation, storing what that passes in turn, until
+  nothing more is stored: the route never rests on a step left with nothing
+  to do until some event comes.
   `ResetProgress` forgets them; a pack update moves them with the steps
   (`Own.remap`). The live state they read already re-evaluates the guide
   (quest log, `BAG_UPDATE_DELAYED`, zone changes, `PLAYER_LEVEL_UP`,
@@ -2608,7 +2616,10 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   predicate holds (`Own.predicateHolds`) and saves the step and every step
   before the labelled one as `"jump"` in `CharState().skipped` (a skip already
   there stays), and `computeCurrent` goes on from there. A step done before
-  the route reaches it never jumps. `Unskip`, and `Goto` on a jumped step with
+  the route reaches it never jumps, nor does any once the player went into
+  its block (`Own.jumpEntered`: a step before it with a jump to the same
+  label done, or quest work of theirs done in one up to it; a save from a
+  release without the jump). `Unskip`, and `Goto` on a jumped step with
   `skipto`, mark it in `CharState().when` (`Own.keep`), so it takes no second
   jump. A `done` predicate (`Own.labelDone`) holds when the labelled step
   applies, is not skipped and its goals are done (`Own.goalsDone`, which is

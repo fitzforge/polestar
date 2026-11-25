@@ -26,7 +26,7 @@ return {
 	["Andorhal watchtowers and silos"] = "Atalayas y silos de Andorhal",
 	-- {npc:10667} Chromie · {item:12815} Beacon Torch · {item:12627} Temporal Displacer · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
 	-- plural, as words: Temporal Parasites = {npc:10717} Temporal Parasite · Skeletal Warlords = {npc:1788} Skeletal Warlord
-	["Ride south-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the {item:12815} to mark it; keep to the edges of town. Use the {item:12627} by each grain silo on the north side of town, one silo after another, to bring out Temporal Parasites (55-57): fight them one at a time and let the biggest go.\nCareful: a {npc:10996}, a level 58-59 elite, can stand in Andorhal, as at many other spots of the {zone:1422}: give it room.\nCareful: Skeletal Warlords, level 56-57 elites, stand by the first and second towers (the south-western and the western one): mark those towers from the far side of the doorway once the Warlord has turned away, and never pull one. Putridius (58, rare) walks among the silos."] = "",
+	["Ride south-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the {item:12815} to mark it; keep to the edges of town. Use the {item:12627} by each grain silo on the north side of town, one silo after another, to bring out Temporal Parasites (55-57): fight them one at a time and let the biggest go.\nCareful: a {npc:10996}, a level 58-59 elite, can stand in Andorhal, as at many other spots of the {zone:1422}: give it room.\nCareful: Skeletal Warlords, level 56-57 elites, stand by the first and second towers (the south-western and the western one): mark those towers from the far side of the doorway once the Warlord has turned away, and never pull one. Putridius (58, rare) walks among the silos."] = "Cabalga al suroeste hacia Andorhal. {npc:10667} espera en la posada en ruinas del lado oeste del pueblo. Ponte en la puerta de cada una de las cuatro torres con {item:12815} para marcarla; mantente en los bordes del pueblo. Usa {item:12627} junto a cada silo de grano del norte del pueblo, uno tras otro, para sacar a los parásitos temporales ({npc:10717}, 55-57): lucha con ellos de uno en uno y deja ir a los más grandes.\nCuidado: un {npc:10996}, un élite de nivel 58-59, puede estar en Andorhal, como en muchos otros puntos de {zone:1422}: dale espacio.\nCuidado: los señores de la guerra esqueléticos ({npc:1788}), élites de nivel 56-57, están junto a la primera y la segunda torre (la del suroeste y la del oeste): marca esas torres desde el lado lejano de la puerta cuando el señor de la guerra se haya dado la vuelta, y nunca atraigas a uno. Putridius (58, raro) camina entre los silos.",
 	-- {npc:10667} Chromie
 	["{npc:10667}, upstairs"] = "{npc:10667}, en el piso de arriba",
 	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch
@@ -180,7 +180,7 @@ return {
 	-- Step 41: Egan
 	-- {npc:11140} Egan · {area:2627} Terrordale · {npc:12384} Augustus the Touched
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit · Crypt Horrors = {npc:8557} Crypt Horror · Crypt Walkers = {npc:8556} Crypt Walker
-	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut.\nCareful: Terrordale Spirits (59-60) drift through the north-west corner just north of {npc:11140}'s hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time."] = "",
+	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut.\nCareful: Terrordale Spirits (59-60) drift through the north-west corner just north of {npc:11140}'s hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time."] = "{npc:11140}, el fantasma, está junto a una choza en {area:2627}, en la esquina noroeste; {npc:12384} está sentado dentro de la choza.\nCuidado: los espíritus del Valle del Terror ({npc:14564}, 59-60) flotan por la esquina noroeste justo al norte de la choza de {npc:11140}, y los horrores de la cripta ({npc:8557}, 57-58) y caminantes de la cripta ({npc:8556}, 55-56) están alrededor; algunos te enraízan. Entra despacio y atráelos de uno en uno.",
 	-- {npc:12384} Augustus the Touched
 	["{npc:12384}, inside"] = "{npc:12384}, dentro",
 
@@ -217,11 +217,11 @@ return {
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "Libera a los espíritus de Villa Darrow: habla con ellos",
 	-- {npc:8530} Cannibal Ghoul · {npc:11064} Darrowshire Spirit
-	["{npc:8530}: a {npc:11064} rises where one dies"] = "",
+	["{npc:8530}: a {npc:11064} rises where one dies"] = "{npc:8530}: un {npc:11064} se alza donde muere uno",
 	-- {npc:8531} Gibbering Ghoul
-	["{npc:8531}: leaves a spirit too"] = "",
+	["{npc:8531}: leaves a spirit too"] = "{npc:8531}: también deja un espíritu",
 	-- {npc:8532} Diseased Flayer
-	["{npc:8532}: leaves a spirit too"] = "",
+	["{npc:8532}: leaves a spirit too"] = "{npc:8532}: también deja un espíritu",
 
 	-- Step 47: Carlin Redpath
 	-- {area:2268} Light's Hope Chapel

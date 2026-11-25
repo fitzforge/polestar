@@ -1121,8 +1121,9 @@ emit(sq.hoverObject(78, "Candle Crate"))
 	assert_eq!(out[1], json!(["?", "Kobold Candles: | Large Candle 0/8"]));
 }
 
-// Object 7983211 (Flintfire's Shipment, 98321) has no name in QuestieDB: the record's name is nil, and the
-// objective index keyed it by that name, a Lua error at login for anyone holding the quest.
+// Object 7983211 (Flintfire's Shipment, 98321) has no name in QuestieDB: the record's name was nil, and the
+// objective index keyed it by that name, a Lua error at login for anyone holding the quest. `forge data questdb`
+// now names such a record ("Unnamed object", "Unnamed creature"); a database built before that still has the nil.
 #[test]
 fn a_nameless_object_or_mob_record_costs_the_tracker_no_error_and_the_quest_still_shows() {
 	let data = data_with(|raw| {
@@ -1130,6 +1131,15 @@ fn a_nameless_object_or_mob_record_costs_the_tracker_no_error_and_the_quest_stil
 		raw.get_mut("npcs.json").unwrap()["6"]["name"] = Value::Null;
 	});
 	let db = build_db(data.path());
+	let named = run(&db, "emit({ Q.EntityName(-77), Q.EntityName(6) })", "");
+	assert_eq!(named[0], json!(["Unnamed object", "Unnamed creature"]), "the build names both");
+	for (file, id, name) in [("Objects.lua", 77, "Unnamed object"), ("Npcs.lua", 6, "Unnamed creature")] {
+		let path = db.dir.path().join(file);
+		let text = std::fs::read_to_string(&path).unwrap();
+		let from = format!("\n{id}\t'{name};");
+		assert!(text.contains(&from), "{file}: no {from:?}");
+		std::fs::write(&path, text.replacen(&from, &format!("\n{id}\t;"), 1)).unwrap();
+	}
 	let out = run(
 		&db,
 		r#"

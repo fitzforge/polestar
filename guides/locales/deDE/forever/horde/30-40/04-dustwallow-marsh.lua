@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Orgrimmar
 	-- {zone:1454} Orgrimmar · {zone:1445} Dustwallow Marsh
-	["The {zone:1454} and Crossroads stops are on the way for players coming from the previous guide; opened with none of its quests in the log, the guide starts in {zone:1445}."] = "",
+	["The {zone:1454} and Crossroads stops are on the way for players coming from the previous guide; opened with none of its quests in the log, the guide starts in {zone:1445}."] = "Die Stopps in {zone:1454} und am Crossroads liegen auf dem Weg für Spieler aus dem vorherigen Guide; ohne eine seiner Quests im Questlog geöffnet, beginnt der Guide in {zone:1445}.",
 	-- {zone:1454} Orgrimmar
 	["The middle of {zone:1454}"] = "Die Mitte von {zone:1454}",
 
@@ -160,7 +160,7 @@ return {
 
 	-- Step 30: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "",
+	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} wird im Lager der Maraudine am Westende des Tals festgehalten; befreie sie und eskortiere sie nach Osten aus dem Tal.\nVorsicht: Während der Eskorte greifen sechs Zentauren an, und du kannst sie nicht vorher wegräumen: Sie erscheinen nur während der Eskorte und kommen gemeinsam. In den Aufzeichnungen der Spieler sind 14 von 30, die sie angenommen haben, mindestens einmal gescheitert. Nimm einen Freund mit oder überspring sie, wenn du allein bist. Die normalen Zentauren auf dem Weg vorher wegzuräumen hilft.",
 
 	-- Step 31: Hornizz Brimbuzzle
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard

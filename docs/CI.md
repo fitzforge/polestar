@@ -113,6 +113,16 @@ test. The release gate runs them alone, enforced, with
 `--list` names the tests it finds. A new timing assertion uses
 `assert_timing!`/`assertTiming`, never a plain `assert!`.
 
+The post-merge gates (`next-gates.yml`, [After a merge](#after-a-merge))
+run on a runner of our own. There `tests/perf.test.js` (step change, guide
+open, catch-up, a walking frame, a quest-log burst, a gathering guide's
+play) runs alone after the Node suite, with its budgets enforced. Those
+budgets scale with the load its reference timing sees, and in warn mode
+their figures went 3x over for two days unnoticed (#3730, #4065).
+`POLESTAR_PERF_WARN` (comma-separated figure names) lets a figure known to
+be over only warn while its issue is open. The workflow names the issue
+beside it, and the fix takes the figure out of the list.
+
 ## The on-demand workflows
 
 | Workflow | What it runs |
@@ -303,7 +313,8 @@ together.
 
 | Gate | What fails it |
 |---|---|
-| Node suite on the release data | any failing test among those that read the data: the guide suites, danger, levels, guide ends, while-here (`tools/ci-data-tests.js`; `ci.yml`'s push run has the rest) |
+| Node suite on the release data | any failing test among those that read the data: the guide suites, danger, levels, guide ends, while-here (`tools/ci-data-tests.js`; `ci.yml`'s push run has the rest), all but `perf.test.js` |
+| Perf budgets | `tests/perf.test.js` alone, its timing budgets enforced ([Timing budgets](#timing-budgets)): a figure over its scaled budget, but one `POLESTAR_PERF_WARN` names while its issue is open (now `burst`, #4066) |
 | Guide lint | a lint error, leveling or experimental guides |
 | Addon tests | any of forge-addontest's tests, all of them (the cached test binaries) |
 | Playtest | a guide stuck or failing, leveling or experimental |

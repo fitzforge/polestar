@@ -71,7 +71,7 @@ return {
 	-- Step 10: Stranglethorn Tigers
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger
 	["Stranglethorn Tigers"] = "荊棘谷猛虎",
-	["The adult tigers prowl the hills on both sides of the camp: west of it, and east of it toward the lake. The arrow takes the eastern group."] = "",
+	["The adult tigers prowl the hills on both sides of the camp: west of it, and east of it toward the lake. The arrow takes the eastern group."] = "成年猛虎在營地兩側的山丘上遊蕩：營地以西，以及以東朝湖的方向。箭頭帶你去東邊那一群。",
 
 	-- Step 11: Ajeck Rouack
 	-- {area:99} Rebel Camp
@@ -198,7 +198,7 @@ return {
 
 	-- Step 30: Heartswood
 	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {item:190307} Unlit Torch
-	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0): light the {item:190307} from the table outside at a campfire and throw it onto the archaeologist's cart outside the house, which draws the figure in the house away so you can take the figurine upstairs. Then take the road west to Stonetalon."] = "",
+	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0): light the {item:190307} from the table outside at a campfire and throw it onto the archaeologist's cart outside the house, which draws the figure in the house away so you can take the figurine upstairs. Then take the road west to Stonetalon."] = "從{area:415}向西北進入山丘：{quest:1738}是通往{area:413}的道路以北一棵發光的樹。如果你接了{quest:65602}，{item:190309}在{area:413}以北樹林中的一棟房子裡（26.6,22.0）：拿起屋外桌上的{item:190307}，在營火上點燃，然後丟到房子外面考古學家的推車上，這會引開屋裡的人影，你就能到樓上拿走小雕像。然後沿路向西前往石爪山脈。",
 	-- {item:190309} Wooden Figurine · {area:413} Maestra's Post
 	["{item:190309}, north of {area:413}"] = "{item:190309}，在{area:413}北邊",
 

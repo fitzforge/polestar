@@ -95,9 +95,9 @@ return {
 
 	-- Step 25: Skycutter to Mulgore
 	-- {zone:1412} Mulgore
-	["Skycutter to {zone:1412}"] = "",
+	["Skycutter to {zone:1412}"] = "하늘절단기를 타고 {zone:1412}(으)로",
 	-- {npc:259118} Muln Earthfury · {zone:1412} Mulgore · {zone:2521} Zephras Isle · {area:16628} Valanaar Skydocks · {area:16638} Valanaar
-	["{npc:259118} is in {zone:1412}, where the skycutter from {zone:2521} lands. Board it at the {area:16628} on the village's south-west edge: go down through {area:16638} on its paths, not over the cliffs around it, which drop off the isle."] = "",
+	["{npc:259118} is in {zone:1412}, where the skycutter from {zone:2521} lands. Board it at the {area:16628} on the village's south-west edge: go down through {area:16638} on its paths, not over the cliffs around it, which drop off the isle."] = "{npc:259118}은(는) {zone:2521}에서 오는 하늘절단기가 내리는 {zone:1412}에 있습니다. 마을 남서쪽 끝의 {area:16628}에서 타십시오: 주변 절벽을 넘지 말고 {area:16638}의 길을 따라 내려가십시오. 절벽은 섬 밖으로 떨어집니다.",
 
 	-- Step 26: Child of Nature
 	-- {npc:259118} Muln Earthfury · {zone:2521} Zephras Isle · {zone:1412} Mulgore · {zone:1456} Thunder Bluff
