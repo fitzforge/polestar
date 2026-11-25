@@ -46,7 +46,7 @@ return {
 	-- {area:154} Deathknell
 	["{area:154}: kill these as you meet them"] = "{area:154}: Töte sie, wenn sie dir begegnen",
 	-- {area:154} Deathknell · {npc:1661} Novice Elreth
-	-- plural, as words: Rattlecage Skeletons = {npc:1890} Rattlecage Skeleton · Young Scavengers = {npc:1508} Young Scavenger · Duskbats = {npc:1512} Duskbat · Ragged Scavengers = {npc:1509} Ragged Scavenger · Mangy Duskbats = {npc:1513} Mangy Duskbat
+	-- plural, as words: Rattlecage Skeletons = {npc:1890} Rattlecage Skeleton · Young Scavengers = {npc:1508} Young Scavenger · Ragged Scavengers = {npc:1509} Ragged Scavenger · Mangy Duskbats = {npc:1513} Mangy Duskbat
 	["Rattlecage Skeletons wander the ruined houses in the north half of {area:154}. Young Scavengers and Duskbats roam all around the village; the Ragged Scavengers and Mangy Duskbats are on its east side. {npc:1661} wants their paws and wings: kill them as you meet them while you clear the skeletons."] = "Rattlecage Skeletons wandern durch die zerstörten Häuser in der nördlichen Hälfte von {area:154}. Young Scavengers und Duskbats streifen überall ums Dorf; die Ragged Scavengers und Mangy Duskbats sind an seiner Ostseite. {npc:1661} will ihre Pfoten und Flügel: Töte sie, wenn sie dir begegnen, während du die Skelette ausdünnst.",
 
 	-- Step 7: Back to the church

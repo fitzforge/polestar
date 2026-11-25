@@ -102,7 +102,7 @@ return {
 
 	-- Step 23: Royal Quarter
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
-	-- plural, as words: Library Books = {object:386691} Library Book
+	-- plural, as words: Library Books = {object:386759} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "仅在背包中带有从{area:159}炼金店取得的书籍《{quest:79095}》时进行，详见《图书馆藏书》指南",
 
 	-- Step 25: The Bulwark

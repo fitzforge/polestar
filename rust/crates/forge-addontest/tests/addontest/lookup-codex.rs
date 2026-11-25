@@ -489,7 +489,7 @@ fn every_attunement_and_key_the_guide_has_a_step_per_quest_still_to_do_none_a_ba
 		return;
 	}
 	// No Molten Core: Attunement to the Core and Duke Hydraxis's chain are out of the data while the raid is closed
-	// (#3392), so the built Codex carries neither (dungeons_attune's built-Codex test pins that).
+	// (#3392), so the built Codex carries neither (dungeons_attune's built-Codex test and the one below pin that).
 	let refs: [(&str, &[&Who]); 9] = [
 		("onyxias-lair:drakefire-h", &[&ORGRIMMAR]),
 		("onyxias-lair:drakefire-a", &[&STORMWIND]),
@@ -516,6 +516,43 @@ fn every_attunement_and_key_the_guide_has_a_step_per_quest_still_to_do_none_a_ba
 	}
 	let other = attune_guide("onyxias-lair:drakefire-a", &ORGRIMMAR, 60, SIMULATE);
 	assert_eq!(other[0], json!({ "quests": 0, "accepts": 0, "bare": "", "why": "nothing" }), "the Alliance amulet's guide is not a Horde character's");
+}
+
+// #3392: Molten Core has not opened on Forever and its attunement quests are out of the data, so the Codex builds
+// no Molten Core attunement. Its page lists none, "Guide me through it" has nothing to build ("unknown"), and
+// asking for the old ids (core, aqual) builds no guide and raises no error.
+const MC_CLOSED: &str = r#"
+stub.login()
+local D = Polestar.Dungeons
+D.Load()
+local ids = {}
+for _, a in ipairs(D.Attunements("molten-core")) do ids[#ids + 1] = a.id end
+local out = { listed = table.concat(ids, ", ") }
+for _, id in ipairs({ "core", "aqual" }) do
+	local def, why = D.AttuneGuide("molten-core", id)
+	local ok, err = pcall(D.Attune, "molten-core", id)
+	out[id] = { guide = def ~= nil, why = why or false, ok = ok, err = not ok and tostring(err) or false }
+end
+emit(out)"#;
+
+#[test]
+fn molten_core_closed_with_its_attunement_quests_out_of_the_data_lists_no_attunement_and_its_old_ids_build_no_guide_without_an_error() {
+	if skip() {
+		return;
+	}
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: before("\"Scourge\"", "\"WARRIOR\"", "\"Horde\"", 20, &[1458.0, 66.0, 44.0]),
+		addons: vec!["Polestar".into()],
+		script: MC_CLOSED.into(),
+		..Default::default()
+	});
+	assert_eq!(out[0]["listed"], "", "no Molten Core attunement while the raid is closed");
+	for id in ["core", "aqual"] {
+		assert_eq!(out[0][id]["guide"], false, "{id}: no guide");
+		assert_eq!(out[0][id]["why"], "unknown", "{id}: nothing to build");
+		assert_eq!(out[0][id]["ok"], true, "{id}: no error: {}", out[0][id]["err"]);
+	}
 }
 
 const DUNGEON_QUESTS: &str = r#"

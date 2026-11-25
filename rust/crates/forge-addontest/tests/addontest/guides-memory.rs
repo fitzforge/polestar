@@ -96,8 +96,13 @@ fn pack_files(name: &str) -> String {
 /// 0.4.3 Camping 101 at every start campfire (2026-11-24, #3963: 27 quests behind their profession, handed in at the
 /// trainers): Horde peak 37,607 against its 37,600. The peak: that plus ~1% (a reported raise, for Fitz to confirm in
 /// the pull request); the rest stays.
+/// 0.4.3 data build and legs bake (2026-11-24): the legs bake writes 3,586 legs, 720-750 KB per race file; the budgets
+/// above were set with most leveling guides' legs stale (79 KB and 53 KB per race file). Measured on the baked pack:
+/// Alliance resident 19,678, peak 42,006, read 27,492; Horde resident 18,412, peak 38,946, read 26,563 (the same data
+/// with the stale legs: Alliance 19,017 / 40,573 / 26,830, Horde 17,719 / 37,502 / 25,871). Budgets: those plus ~1%,
+/// reported to Fitz (Main, 2026-11-24).
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 19100.0), ("peak", 40800.0), ("read", 27130.0)]), ("Horde", "Orc", [("resident", 17800.0), ("peak", 37980.0), ("read", 26140.0)])];
+	[("Alliance", "Human", [("resident", 19900.0), ("peak", 42450.0), ("read", 27800.0)]), ("Horde", "Orc", [("resident", 18600.0), ("peak", 39350.0), ("read", 26850.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {

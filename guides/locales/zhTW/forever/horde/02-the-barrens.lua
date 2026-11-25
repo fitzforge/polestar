@@ -605,7 +605,6 @@ return {
 
 	-- Step 138: Enraged Thunder Lizards
 	-- {area:378} Camp Taurajo · {quest:884} Owatanka
-	-- plural, as words: Thunderheads = {npc:3239} Thunderhead
 	["Thunderheads graze on the plains just south of {area:378}. {quest:884}, a blue thunder lizard (level 24), roams among them: his Tailspike starts a quest. Leave him alone below level 23."] = "雷首蜥蜴在{area:378}南邊不遠的平原吃草。藍色雷霆蜥蜴{quest:884}（24級）在牠們之間遊蕩：牠的尾刺會開啟任務。23級以下別惹牠。",
 
 	-- Step 139: Jorn Skyseer

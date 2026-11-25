@@ -75,8 +75,9 @@ return {
 	["{npc:1073}, in the camp"] = "{npc:1073}，在营地里",
 
 	-- Step 15: Captive Fire Elemental
-	-- {npc:271481} Captive Fire Elemental · {object:147516} Dark Iron · {npc:1364} Balgaras the Foul · {npc:1072} Roggo Harlbarrow
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "这些是精英怪物：建议寻找其他玩家组队。{npc:271481}被关在{object:147516}废墟最西端，需先穿过27-30级精英矮人，{npc:1364}（34级精英）也可能在其中。带它向东离开废墟，再交给营地里的{npc:1072}。如果只有自己，就跳过。",
+	-- {npc:275049} Captive Fire Elemental · {object:147516} Dark Iron · {npc:1364} Balgaras the Foul · {npc:1072} Roggo Harlbarrow
+	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "这些是精英怪物：建议寻找其他玩家组队。{npc:271481}被关在{object:147516}废墟最西端，需先穿过27-30级精英矮人，{npc:1364}（34级精英）也可能在其中。带它向东离开废墟，再交给营地里的{npc:1072}。如果只有自己，就跳过。"
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:275049} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "",
 
 	-- Step 16: Modr
 	-- {npc:271460} Modr · {area:205} Dun Modr · {item:279996} Goaz Stone
@@ -372,6 +373,7 @@ return {
 	-- ["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp."] = "雪人住在{area:271}北边山丘上的洞穴里，就在向北去辛迪加营地的路上。",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "雪人住在{area:271}北边山丘上的洞穴里，就在向北去辛迪加营地的路上。\n待在{area:277}里：更北边的洞穴里有成对出现的山岭雪人和巨型雪人（32-34级），以及36级精英{npc:13602}。",
 	-- ["The yetis live in the cave in the hills north of {area:271}, on your way back south."] = "雪人住在{area:271}北边山丘上的洞穴里，就在你向南返回的路上。",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "这些是精英怪物：建议寻找其他玩家组队。{npc:271481}被关在{object:147516}废墟最西端，需先穿过27-30级精英矮人，{npc:1364}（34级精英）也可能在其中。带它向东离开废墟，再交给营地里的{npc:1072}。如果只有自己，就跳过。",
 	-- ["To {area:2104}"] = "前往{area:2104}",
 	-- ["West to the farms of {area:287}: place the {item:279386} on the bookkeeping table in the town hall, where {npc:2335} and the councilmen stand."] = "向西到{area:287}的农场：把{item:279386}放在市政厅的记账桌上，{npc:2335}和议员们站在那里。",
 	-- ["Whelps, raptors and {npc:271458}"] = "雏龙、迅猛龙和{npc:271458}",

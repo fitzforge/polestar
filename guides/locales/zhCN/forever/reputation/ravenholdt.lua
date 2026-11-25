@@ -46,8 +46,9 @@ return {
 	["Stromgarde: {npc:266847}"] = "激流堡：{npc:266847}",
 	-- {item:275706} Syndicate Uniform · {npc:266847} Anastasia Miller
 	["Put on the {item:275706} and go into Stromgarde. {npc:266847} waits on a ledge just outside the castle; players reach her by jumping from the roof of the house beside the ledge. Her stash is upstairs in a house near the keep."] = "穿上{item:275706}后进入激流堡。{npc:266847}在城堡外侧的一处台沿等候；玩家可从台沿旁房屋的屋顶跳过去。她的藏品在要塞附近一栋房子的楼上。",
-	-- {item:275709} Stolen Funds
-	["{item:275709}, in Anastasia's Stash upstairs"] = "{item:275709}，在她位于楼上的藏匿处内",
+	-- {item:275709} Stolen Funds · {object:656405} Anastasia's Stash (no name in this language: may be words)
+	-- was: ["{item:275709}, in Anastasia's Stash upstairs"] = "{item:275709}，在她位于楼上的藏匿处内"
+	["{item:275709}, in {object:656405} upstairs"] = "",
 
 	-- Step 7: Thoradin's Wall: the shipment
 	-- {area:1057} Thoradin's Wall
@@ -121,5 +122,6 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["a {npc:6766}: 100 per emblem"] = "{npc:6766}：每枚徽记100点",
 	-- ["{area:280}: Barton"] = "{area:280}：巴顿",
+	-- ["{item:275709}, in Anastasia's Stash upstairs"] = "{item:275709}，在她位于楼上的藏匿处内",
 	-- ["{npc:6707}: 50 per five boxes"] = "{npc:6707}：每五个箱子换 50 点声望",
 }

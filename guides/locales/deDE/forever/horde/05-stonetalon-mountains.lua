@@ -55,8 +55,9 @@ return {
 	["{npc:12717}: take it last, his escort starts at once"] = "{npc:12717}: Nimm sie zuletzt an, seine Eskorte startet sofort",
 
 	-- Step 10: Vorsha the Lasher
-	-- {npc:12717} Muglash · {npc:12719} Marukai
-	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} läuft die Küste nach Norden zu einem Nagabecken. Lösche das Becken, dann bewache ihn durch die Nagawellen, bis Vorsha tot ist; die Naga der Wrathtail lassen die Köpfe fallen, die {npc:12719} will.",
+	-- {npc:12717} Muglash · {npc:12940} Vorsha the Lasher · {npc:12719} Marukai
+	-- was: ["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} läuft die Küste nach Norden zu einem Nagabecken. Lösche das Becken, dann bewache ihn durch die Nagawellen, bis Vorsha tot ist; die Naga der Wrathtail lassen die Köpfe fallen, die {npc:12719} will."
+	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until {npc:12940} is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "",
 	["Naga brazier"] = "Nagakohlenpfanne",
 
 	-- Step 11: Naga heads
@@ -269,6 +270,7 @@ return {
 	-- ["{npc:12696} stands at {area:428}, the Warsong camp just north-east of Splintertree, beside the hunt board."] = "{npc:12696} steht bei {area:428}, dem Lager der Warsong gleich nordöstlich von Splintertree, neben dem Jagdbrett.",
 	-- ["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 26."] = "Die Jagdziele von {npc:12696} (Ursangous, Shadumbra, Sharptalon) sind für den nächsten Besuch in {zone:1440}, bei 26.",
 	-- ["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 27."] = "{npc:12696}s Jagdziele (Ursangus, Schattumbra, Scharfkralle) sind für den nächsten Besuch in {zone:1440}, mit 27.",
+	-- ["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} läuft die Küste nach Norden zu einem Nagabecken. Lösche das Becken, dann bewache ihn durch die Nagawellen, bis Vorsha tot ist; die Naga der Wrathtail lassen die Köpfe fallen, die {npc:12719} will.",
 	-- ["{npc:12721}: the troll charms are in Thistlefur Hold, east of the outpost"] = "{npc:12721}: Die Trollamulette sind in der Feste Thistlefur, östlich des Außenpostens",
 	-- ["{npc:12736} at Zoram'gar, at 27"] = "{npc:12736} in Zoram'gar, mit 27",
 	-- ["{npc:12818}, below ground"] = "{npc:12818}, unter Tage",

@@ -601,7 +601,6 @@ return {
 
 	-- Step 138: Enraged Thunder Lizards
 	-- {area:378} Camp Taurajo · {quest:884} Owatanka
-	-- plural, as words: Thunderheads = {npc:3239} Thunderhead
 	["Thunderheads graze on the plains just south of {area:378}. {quest:884}, a blue thunder lizard (level 24), roams among them: his Tailspike starts a quest. Leave him alone below level 23."] = "Los Tronatestas pastan en las llanuras justo al sur de {area:378}. {quest:884}, un lagarto del trueno azul (nivel 24), deambula entre ellos: su púa caudal inicia una misión. No lo ataques si eres de nivel inferior a 23.",
 
 	-- Step 139: Jorn Skyseer
