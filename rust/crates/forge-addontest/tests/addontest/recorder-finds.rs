@@ -142,7 +142,7 @@ fn kills_carry_level_class_and_tap_loot_windows_go_per_source_with_the_open_item
 	));
 	assert_eq!(
 		sorted(&out["kills"]),
-		vec!["kill|113|5|n|1429|5000|5000|40||0|", "kill|299|3|n|1429|5000|5000|||0|", "kill|299|3|n|1429|5000|5000|||1|", "kill|299|3|n|1429|5000|5000|||1|", "kill|299|||1429|5000|5000||||",]
+		vec!["kill|113|5|n|1429|5000|5000|40||0|", "kill|299|3|n|1429|5000|5000|||0|", "kill|299|3|n|1429|5000|5000|||1|", "kill|299|3|n|1429|5000|5000|||1|", "kill|299|||1429|5000|5000|||0|",]
 	);
 	assert_eq!(
 		out["loot"],
@@ -154,6 +154,116 @@ fn kills_carry_level_class_and_tap_loot_windows_go_per_source_with_the_open_item
 			"loot|o|2843|1429|2510|3020||2589:2;772:1|33:1",
 			"loot|o|1617|1429|2510|3020|h|2447:1|33:1",
 			"loot|||1429|2510|3020|f|6291:1|33:1",
+		])
+	);
+	assert_eq!(out["bad"], json!({}));
+}
+
+#[test]
+fn a_solo_kill_that_gave_xp_or_opened_its_loot_window_is_never_marked_as_someone_else_s_4026() {
+	// CanLootUnit a second after the death reads many of the player's own corpses as not theirs to
+	// loot, and a creature can read as tap-denied before the player hits it: a kill that gave XP or
+	// whose corpse opened a loot window before the kill was written was the player's.
+	let out = run(&format!(
+		"{UNIT}{}",
+		r#"
+		stub.moveTo(50, 50)
+		local function kill(guid, name, lvl, xp)
+			unit("target", guid, name, "normal", lvl)
+			stub.fire("PLAYER_TARGET_CHANGED")
+			stub.partyKill(guid)
+			if xp then stub.xpLine(name, xp) end
+		end
+		local w = {}
+		for i = 1, 3 do w[i] = stub.creature(299, "Young Wolf") end
+		stub.world.lootable = { [w[1]] = { true, false }, [w[2]] = { true, false }, [w[3]] = { true, false } }
+		kill(w[1], "Young Wolf", 3, 45) -- XP: the player's
+		stub.advance(4)
+		kill(w[2], "Young Wolf", 3) -- no XP, but its loot window opens before the kill is written
+		stub.advance(2)
+		stub.world.loot = { { name = "Tough Wolf Meat", item = 750, src = { w[2], 1 } } }
+		stub.fire("LOOT_READY", false)
+		stub.fire("LOOT_CLOSED")
+		stub.advance(2)
+		kill(w[3], "Young Wolf", 3) -- no XP, no loot window: someone else's
+		stub.advance(4)
+		local boar = stub.creature(113, "Stonetusk Boar")
+		unit("target", boar, "Stonetusk Boar", "normal", 5)
+		stub.world.units.target.tapped = true -- read as tap-denied before the pull
+		stub.fire("PLAYER_TARGET_CHANGED")
+		stub.partyKill(boar)
+		stub.xpLine("Stonetusk Boar", 40)
+		stub.advance(4)
+		logout()
+		emit({ kills = recs("kill"), bad = malformed() })"#
+	));
+	assert_eq!(
+		out["kills"],
+		json!([
+			"kill|299|3|n|1429|5000|5000|45||0|",
+			"kill|299|3|n|1429|5000|5000|||0|",
+			"kill|299|3|n|1429|5000|5000|||1|",
+			"kill|113|5|n|1429|5000|5000|40||0|",
+		])
+	);
+	assert_eq!(out["bad"], json!({}));
+}
+
+#[test]
+fn only_the_kill_s_own_corpse_window_read_before_the_kill_is_written_clears_its_mark_4026() {
+	// Each kill gives no XP and its corpse reads as not the player's to loot a second after the death.
+	let out = run(&format!(
+		"{UNIT}{}",
+		r#"
+		stub.moveTo(50, 50)
+		stub.world.lootable = {}
+		local function kill(npc, name, lvl)
+			npc, name, lvl = npc or 299, name or "Young Wolf", lvl or 3
+			local g = stub.creature(npc, name)
+			stub.world.lootable[g] = { true, false }
+			unit("target", g, name, "normal", lvl)
+			stub.fire("PLAYER_TARGET_CHANGED")
+			stub.partyKill(g)
+			return g
+		end
+		local function window(event, g, item)
+			stub.world.loot = { { name = "Ruined Leather Scraps", item = item, src = { g, 1 } } }
+			stub.fire(event, false)
+			stub.fire("LOOT_CLOSED")
+		end
+		-- a skinning window on the corpse is not its loot: still marked
+		local a = kill()
+		stub.advance(2)
+		stub.fire("UNIT_SPELLCAST_SUCCEEDED", "player", "Cast-1", 8613)
+		window("LOOT_READY", a, 2934)
+		stub.advance(4)
+		-- two corpses waiting: the window of the first clears only the first
+		local b = kill()
+		local c = kill(113, "Stonetusk Boar", 5)
+		stub.advance(2)
+		window("LOOT_READY", b, 750)
+		stub.advance(4)
+		-- a window read at LOOT_OPENED only (a client without LOOT_READY)
+		local d = kill()
+		stub.advance(2)
+		window("LOOT_OPENED", d, 750)
+		stub.advance(4)
+		-- looted after the kill was written: the record keeps the earlier readings
+		local e = kill()
+		stub.advance(4)
+		window("LOOT_READY", e, 750)
+		stub.advance(4)
+		logout()
+		emit({ kills = recs("kill"), bad = malformed() })"#
+	));
+	assert_eq!(
+		out["kills"],
+		json!([
+			"kill|299|3|n|1429|5000|5000|||1|",
+			"kill|113|5|n|1429|5000|5000|||1|",
+			"kill|299|3|n|1429|5000|5000|||0|",
+			"kill|299|3|n|1429|5000|5000|||0|",
+			"kill|299|3|n|1429|5000|5000|||1|",
 		])
 	);
 	assert_eq!(out["bad"], json!({}));
