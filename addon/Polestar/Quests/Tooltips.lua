@@ -220,6 +220,14 @@ end
 ns.On("STEP_CHANGED", function() ahead = nil end)
 ns.On("GUIDE_CHANGED", function() ahead = nil end)
 ns.On("QUESTDB_UPDATED", function() ahead = nil end)
+-- An item's quests (Q.ItemQuests) are in a few frames after it is first
+-- asked: an item tooltip shown before then gets its lines now.
+ns.On("QUESTDB_ITEM_QUESTS", function()
+	local H = ns.Hooks
+	if not (H and H.HoveredItem and H.RefreshItem) then return end
+	local _, id = H.HoveredItem()
+	if id then H.RefreshItem(id) end
+end)
 
 -- An NPC's own quests (qol.questTooltipsNpc): the ready quests it takes,
 -- "<Quest>: Turn in", then the quests it has for this character now, "Starts

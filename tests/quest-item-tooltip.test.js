@@ -30,6 +30,9 @@ test('quest tooltips name the quest with its level, difficulty colour and state'
 		fields[1], fields[2], fields[19] = "'Mail Run", "12", "902"
 		Q.AddChunk("quests", 9001, 9001, string.char(10) .. "9001" .. string.char(9) .. table.concat(fields, ";") .. string.char(10))
 		Q.SetMeta({})
+		-- The item index is built over the next frames (Q.ITEM_SLICE quests each).
+		Q.ItemQuests(0)
+		stub.advance(0.5)
 		Q.IsRunning = function() return true end
 		Q.ObjectivesForItem = function() return nil end
 		Q.Color = function(name) return { r = 0, g = 0, b = 0, name = name } end
@@ -77,6 +80,12 @@ test('quest tooltips name the quest with its level, difficulty colour and state'
 		lines = {}
 		Q.AddUnitLines({}, 55)
 		emit(lines)
+		-- The item index in, the item tooltip on show is drawn again.
+		local refreshed = {}
+		Polestar.Hooks.HoveredItem = function() return "link", 902 end
+		Polestar.Hooks.RefreshItem = function(id) refreshed[#refreshed + 1] = id end
+		Polestar.Fire("QUESTDB_ITEM_QUESTS")
+		emit(refreshed)
 	` }).emitted;
 	assert.deepEqual(out, [
 		0,
@@ -88,6 +97,7 @@ test('quest tooltips name the quest with its level, difficulty colour and state'
 			['[2] Wolves Across the Border:', 'Done', 0.5, 0.5, 0.5],
 		],
 		[['[12] Mail Run:', 'Kill Kobold Vermin 3/10', 1, 0.82, 0]],
+		[902],
 	]);
 });
 
@@ -120,6 +130,9 @@ test('Questie leaves out its lines for the quests Polestar names', () => {
 		fields[1], fields[2], fields[19] = "'Mail Run", "12", "902"
 		Q.AddChunk("quests", 9001, 9001, string.char(10) .. "9001" .. string.char(9) .. table.concat(fields, ";") .. string.char(10))
 		Q.SetMeta({})
+		-- The item index is built over the next frames (Q.ITEM_SLICE quests each).
+		Q.ItemQuests(0)
+		stub.advance(0.5)
 		Q.IsRunning = function() return true end
 		Q.Color = function() return { r = 0, g = 0, b = 0 } end
 		Q.ProgressText = function() return "3/10" end
