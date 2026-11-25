@@ -150,6 +150,20 @@ test('Dungeon Set 2: each Forever copy of Just Compensation, Anthion\'s Parting 
 	}
 });
 
+// #4169's sweep: Bodley's class-group quests (four versions each, by class group, per the server's world database
+// and Factoruide) had no class in the data, so every class saw all four at his step, as at Deliana.
+test('Bodley gives each class group its own Components of Importance and Valthalak amulet quests (#4169)', () => {
+	const groups = { 8962: 129, 8963: 1280, 8964: 12, 8965: 82, 8966: 129, 8967: 1280, 8968: 12, 8969: 82,
+		8985: 9, 8986: 1090, 8987: 144, 8988: 260, 8989: 1090, 8990: 9, 8991: 144, 8992: 260 };
+	for (const [id, cls] of Object.entries(groups)) {
+		assert.equal(corrections.quests[id] && corrections.quests[id].set && corrections.quests[id].set.classes, cls, `${id}'s classes`);
+	}
+	// The four of each set together are every class, once.
+	for (const set of [[8962, 8963, 8964, 8965], [8966, 8967, 8968, 8969], [8985, 8986, 8987, 8988], [8989, 8990, 8991, 8992]]) {
+		assert.equal(set.reduce((m, id) => m + groups[id], 0), 1503, `${set}: every class once`);
+	}
+});
+
 test('the overlay takes mechanics flat or under quests; mechanics 603 and 1064 stay private', () => {
 	const out = overlayCorrections({ mechanics: {} }, { mechanics: { quests: { 603: { note: 'nested' } }, 1064: { note: 'flat' } } });
 	assert.deepEqual(Object.keys(out.mechanics).sort(), ['1064', '603']);
