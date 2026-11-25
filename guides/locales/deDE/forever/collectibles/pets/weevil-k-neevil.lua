@@ -33,7 +33,6 @@ return {
 	["{npc:217590} in {zone:1443}"] = "{npc:217590} in {zone:1443}",
 	-- {area:596} Kodo Graveyard · {zone:1443} Desolace · {item:213562} Bug Catching Net
 	-- plural, as words: Flesh Pickers = {npc:217590} Flesh Picker
-	-- was: ["The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the kit's tool on one."] = "Die Flesh Pickers fressen im {area:596} in der Mitte des Südens von {zone:1443}. Benutze das Werkzeug des Kits an einem."
 	["The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the {item:213562} on one."] = "Die Fleischfresser fressen im {area:596} in der Mitte von südlichem {zone:1443}. Benutze das {item:213562} auf eine.",
 	-- {item:213562} Bug Catching Net · {npc:217590} Flesh Picker
 	["{item:213562}, on a {npc:217590}"] = "{item:213562}, auf einem {npc:217590}",

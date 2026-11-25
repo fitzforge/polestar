@@ -33,7 +33,6 @@ return {
 	-- Step 4: Deadwood Village
 	-- {npc:11554} Grazle · {npc:15395} Nafien
 	-- plural, as words: Deadwood Headdress Feathers = {item:21377} Deadwood Headdress Feather
-	-- was: ["The Deadwood furbolgs live in the village just south-west of {npc:11554}; keep the Deadwood Headdress Feathers they drop."] = "Die Furbolgs der Totenwaldfelle leben im Dorf gleich südwestlich von {npc:11554}; behalte die Kopfputzfedern der Totenwaldfelle, die sie fallen lassen."
 	["The Deadwood furbolgs live in the village just south-west of {npc:11554}; keep the Deadwood Headdress Feathers they drop: {npc:11554} and {npc:15395} each take five."] = "Die Deadwood-Fuchskolben leben im Dorf direkt südwestlich von {npc:11554}; halte die Deadwood-Krone-Federn, die sie fallen lassen: {npc:11554} und {npc:15395} nehmen je fünf.",
 
 	-- Step 5: Grazle
@@ -110,7 +109,6 @@ return {
 
 	-- Step 20: Nafien
 	-- {npc:11556} Salfa · {zone:1452} Winterspring
-	-- was: ["Salfa stands at the {zone:1452} end of the tunnel: keep it"] = "Salfa steht am Ende des Tunnels in {zone:1452}: Behalte es"
 	["{npc:11556} stands at the {zone:1452} end of the tunnel"] = "{npc:11556} steht am {zone:1452}-Ende des Tunnel",
 
 	-- Step 22: Timbermaw Hold

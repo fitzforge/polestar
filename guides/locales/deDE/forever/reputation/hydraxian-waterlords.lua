@@ -22,7 +22,6 @@ return {
 
 	-- Step 2: Pyroguard Emberseer
 	-- {npc:9816} Pyroguard Emberseer · {area:254} Blackrock Mountain · {item:12344} Seal of Ascension
-	-- was: ["{npc:9816} is a boss in Upper Blackrock Spire, inside {area:254}: a group of up to ten, and someone needs the {item:12344} to open the door. He drops the Eye and pays 50 reputation per kill up to 11,999 of 12,000 Honored. {npc:9017} in {area:1584} pays 15 the same way."] = "{npc:9816} ist ein Boss in der Oberen Schwarzfelsspitze, im {area:254}: eine Gruppe von bis zu zehn, und jemand braucht den {item:12344}, um die Tür zu öffnen. Er lässt das Auge fallen und zahlt 50 Ruf pro Kill bis 11.999 von 12.000 Wohlwollend. {npc:9017} in {area:1584} zahlt auf dieselbe Weise 15."
 	["{npc:9816} is a boss in Upper Blackrock Spire, inside {area:254}: a group of up to ten, and someone needs the {item:12344} to open the door. He pays 50 reputation per kill up to 11,999 of 12,000 Honored."] = "{npc:9816} ist eine Boss-Stelle in Obernem-Ausblick-Turm, innen in {area:254}: eine Gruppe von bis zu zehn Personen, und jemand benötigt das {item:12344} zum Öffnen der Tür. Er zahlt 50 Rufpunkte pro Tötung bis auf 11.999 von 12.000 Honored.",
 	-- {npc:9816} Pyroguard Emberseer
 	["{npc:9816}: raid of ten"] = "{npc:9816}: Raid von zehn",

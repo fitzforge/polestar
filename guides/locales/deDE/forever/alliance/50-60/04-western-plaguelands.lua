@@ -117,7 +117,6 @@ return {
 	-- Step 22: Chillwind Camp
 	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "Reinherz, Dumah, Tapferfaust und MacDonnell stehen in der Mitte des Lagers, beim Flugmeister.",
 	-- {npc:11616} Nathaniel Dumah · {area:2277} Plaguewood
-	-- was: ["{npc:11616}: the termites come later, in {area:2627}"] = "{npc:11616}: Die Termiten kommen später, im {area:2627}"
 	["{npc:11616}: the termites come later, in the {area:2277}"] = "{npc:11616}: Die Termiten kommen später, im {area:2277}",
 	-- {npc:10838} Commander Ashlam Valorfist · {area:199} Felstone Field
 	["{npc:10838}: the watchtowers stand around Andorhal, on the way to {area:199}"] = "{npc:10838}: Die Wachtürme stehen um Andorhal, auf dem Weg zum {area:199}",
@@ -130,7 +129,6 @@ return {
 	["The Andorhal watchtowers"] = "Die Wachtürme von Andorhal",
 	-- {item:12815} Beacon Torch · {area:199} Felstone Field · {npc:7572} Fallen Hero of the Horde
 	-- plural, as words: Skeletal Warlords = {npc:1788} Skeletal Warlord · Flesh Golems = {npc:1805} Flesh Golem
-	-- was: ["Use the {item:12815} at the foot of each of the four watchtowers around the edge of Andorhal, north of the camp.\nCareful: Skeletal Warlords and Flesh Golems (57, elites) walk Andorhal's streets, and the {npc:7572} (59, elite) wanders between Andorhal and Northridge: keep to the towers at the town's edge and let them pass."] = "Benutze die {item:12815} am Fuß jedes der vier Wachtürme am Rand von Andorhal, nördlich des Lagers.\nVorsicht: Skelettkriegsherren und Fleischgolems (57, Elite) laufen durch Andorhals Straßen, und der {npc:7572} (59, Elite) wandert zwischen Andorhal und Nordgrat umher: Bleib bei den Türmen am Stadtrand und lass sie vorbeiziehen."
 	["Use the {item:12815} at the foot of each of the four watchtowers around the edge of Andorhal, north of the camp, on the way to {area:199}.\nCareful: Skeletal Warlords and Flesh Golems (57, elites) walk Andorhal's streets, and the {npc:7572} (59, elite) wanders between Andorhal and Northridge: keep to the towers at the town's edge and let them pass."] = "Benutze das {item:12815} am Fuß jedes der vier Wachtürme am Rand von Andorhal, nördlich des Lagers, auf dem Weg zum {area:199}.\nVorsicht: Skelettkriegsherren und Fleischgolems (57, Elite) laufen durch Andorhals Straßen, und der {npc:7572} (59, Elite) wandert zwischen Andorhal und Northridge: Bleib bei den Türmen am Stadtrand und lass sie passieren.",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
 	["Mark {npc:10902} with the {item:12815}"] = "Markiere {npc:10902} mit der {item:12815}",
@@ -268,14 +266,12 @@ return {
 	["{quest:5210}, at {area:2268}: keep it"] = "{quest:5210}, bei der {area:2268}: Behalte es",
 
 	-- Step 47: Sorrow Hill: kill these as you meet them
-	-- was: ["{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal.\nSmall lockboxes lie in the rubble all over Andorhal; each holds a watch.\nCareful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "{npc:1852} ist Elite: Eine Gruppe wird empfohlen. Er bewacht sein Phylakterium mitten in Andorhal.\nKleine Schließkassetten liegen überall in den Trümmern von Andorhal; jede enthält eine Uhr.\nVorsicht: Ghule und Skelette stehen meist neben den Kassetten und greifen an, wenn du nahe kommst. Searing Ghouls verletzen außerdem jeden in der Nähe und brechen die Tarnung."
 	["Small lockboxes lie in the rubble all over Andorhal; each holds a watch.\nCareful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "Kleine Schließkästen liegen im Schutt überall in Andorhal; jeder birgt eine Uhr.\nVorsicht: Ghule und Skelette stehen meist neben den Kästen und greifen an, wenn du nah kommst. Siedende Ghule verletzen auch alle in der Nähe und durchbrechen dein Schleichen.",
 
 	-- Step 49: Writhing Haunt cauldron
 	-- {area:202} Writhing Haunt
 	["{area:202} cauldron"] = "Kessel: {area:202}",
 	-- {area:202} Writhing Haunt · {npc:10739} Mulgris Deepriver
-	-- was: ["The cauldron sits at the {area:202}, by {npc:10739}' farm."] = "Der Kessel steht am Ort {area:202}, bei {npc:10739}' Hof."
 	["The cauldron sits at the {area:202}, by {npc:10739}' farm, east of Andorhal."] = "Der Kessel steht im {area:202}, beim Bauernhaus von {npc:10739}, östlich von Andorhal.",
 
 	-- Step 50: Chillwind Camp
@@ -331,7 +327,6 @@ return {
 	-- Step 59: Radley and Durgen
 	["Radley and Durgen"] = "Radley und Durgen",
 	-- {npc:11613} Huntsman Radley · {npc:11610} Kirsta Deepshadow · {npc:11611} Cavalier Durgen · {area:190} Hearthglen
-	-- was: ["{npc:11613} walks the Northridge camp east of {npc:11610}; {npc:11611} guards the tower at {area:190}'s southern approach.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "{npc:11613} läuft durch das Lager von Northridge östlich von {npc:11610}; {npc:11611} bewacht den Turm an der südlichen Zufahrt von {area:190}.\nVorsicht: Wachen stehen am Fuß des Turms, und eine weitere kreist patrouillierend um ihn. Räume sie, bevor du Durgen angreifst, damit sie sich dem Kampf nicht anschließen."
 	["{npc:11613} (56) walks the Northridge camp east of {npc:11610}; {npc:11611} (57) guards the tower at {area:190}'s southern approach.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "{npc:11613} (56) läuft im Holzlager Northridge östlich von {npc:11610} umher; {npc:11611} (57) bewacht den Turm am südlichen Zugang zum {area:190}.\nVorsicht: Wachen stehen am Fuß des Turms, und eine weitere patrouilliert um ihn. Räume sie auf, bevor du dich auf Durgen einlässt, damit sie nicht mitkämpfen.",
 
 	-- Step 60: Kirsta Deepshadow

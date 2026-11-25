@@ -221,7 +221,6 @@ return {
 	["Back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} there, one in each grave."] = "Rückwärts nordöstlich zum locker Erdboden westlich von Elbrims Bauernhof: begrabe das {item:266148} dort, eins in jedem Grab.",
 	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
-	-- was: ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, westlich von Elbrims Farm: Jedes Grab braucht eines der {item:266148}, die die Twilight-Raider fallen lassen, also plündere erst fünf"
 	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop"] = "{object:621813}, westlich von Elbrims Bauernhof: jeder Grab nimmt eines der {item:266148}, die die Twilight Raiders fallen lassen",
 
 	-- Step 43: Apprentice Claire

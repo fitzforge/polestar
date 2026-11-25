@@ -24,7 +24,6 @@ return {
 	-- {npc:6986} Dran Droffers
 	["{npc:6986}, the Drag"] = "{npc:6986}, die Gasse",
 	-- {zone:1425} Hinterlands
-	-- was: ["for the {zone:1425}, around level 50"] = "für {zone:1425}, etwa ab Stufe 50"
 	["for the {zone:1425}, around level 49"] = "für die {zone:1425}, um ca. Level 49",
 
 	-- Step 3: Fly to Thunder Bluff
@@ -47,7 +46,6 @@ return {
 
 	-- Step 7: Camp Mojache
 	-- {zone:1425} Hinterlands
-	-- was: ["for the {zone:1425} owlbeasts, around level 48"] = "für die Eulenbestien im {zone:1425}, etwa ab Stufe 48"
 	["for the {zone:1425} owlbeasts, around level 49"] = "für die {zone:1425}-Eulwölfe, um ca. Level 49",
 
 	-- Step 8: Fly to Brackenwall Village
@@ -91,7 +89,6 @@ return {
 	-- {area:510} The Dragonmurk
 	["{area:510}: kill these as you meet them"] = "{area:510}: töte diese, wenn du sie triffst",
 	-- {area:511} Wyrmbog · {item:280092} Wyrmtail
-	-- was: ["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "Weiter östlich durch {area:511}: Die Firemane-Späher und Aschenschwänze streifen mit den Searing-Jungtieren und Welpen am Nordrand umher; die Scalebane bewachen die Drachenhöhlen weiter südöstlich. Mok'Morokks Schnupftabak, Grog und Truhe liegen in den Lagern der Drachkin."
 	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps. The {item:280092} grows in the bog just east of Mudsprocket."] = "Osten durch {area:511}: die Feuerkümmler und Ascheschwänze patrouillieren seinen nördlichen Rand mit den Searing-Küken und Jüngern; die Schuppenlöwen bewachen die Drachenhöhlen weiter östlich-südöstlich. Mok'Morokk's Schnuppe, Gliss und starkes Kistchen liegen in den Drachenkin-Lagern. Das {item:280092} wächst im Moor direkt östlich von Mudsprocket.",
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "{npc:4329} läuft um {area:510} herum: schau in den Kreis auf der Karte",

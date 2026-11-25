@@ -102,7 +102,6 @@ return {
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "Eskorte: {npc:5955}",
 	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port · {npc:8579} Yeh'kinya
-	-- was: ["{npc:5955} waits in the valley. Walk him all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "{npc:5955} wartet im Tal. Bring ihn den ganzen Weg zu seiner Frau {npc:6015} in {area:977}, nach Nordosten durch die Wüste: Bleib nah bei ihm, geh langsam für ihn und wehr ab, was ihn angreift. Steig nicht auf und nutz keinen Ruhestein außerhalb seiner Reichweite. {npc:8579} steht auch im Hafen."
 	["Walk {npc:5955} all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "Gehe {npc:5955} den ganzen Weg zu seiner Frau {npc:6015} in {area:977}, nordöstlich durch die Wüste: halte dich nah bei ihm, fahre langsam für ihn und wehr ab, was ihn angreift. Steig nicht auf und ruhe dich nicht außerhalb seiner Reichweite. {npc:8579} steht auch im Hafen.",
 
 	-- Step 22: Slake That Thirst

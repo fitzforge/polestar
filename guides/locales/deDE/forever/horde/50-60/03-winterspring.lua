@@ -53,7 +53,6 @@ return {
 	-- Step 8: Everlook
 	-- {zone:1423} Eastern Plaguelands · {area:2255} Everlook
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
-	-- was: ["Umi: keep it, the Pristine Yeti Horns come on the {zone:1423} guide's {area:2255} stop at about 57"] = "Umi: behalten, die Makellosen Yetihörner kommen beim Halt in {area:2255} im Guide für {zone:1423} mit etwa 57"
 	["Umi: keep it, the Pristine Yeti Horns come on the {zone:1423} guide's {area:2255} stop at about 56"] = "Umi: behalte es, die ursprünglichen Yeti-Hörner kommen im {zone:1423}-Guide am {area:2255}-Stop bei ca. 56",
 	["The Matriarchs and Patriarchs that carry Umi's horns are 56-58: leave them for that later stop."] = "Die Matriarchinnen und Patriarchen mit Umis Hörnern sind Stufe 56-58: Heb sie dir für diesen späteren Halt auf.",
 
@@ -62,7 +61,6 @@ return {
 	["Raging Owlbeasts"] = "Tobende Eulenbestien",
 	-- {area:2251} Lake Kel'Theril · {area:2255} Everlook · {area:2246} Frostfire Hot Springs
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
-	-- was: ["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}. Careful: the biggest are level 56: pull them one at a time."] = "Tobende Eulenbestien streifen durch die Hügel nördlich von {area:2251}, an der Straße zwischen {area:2246} und {area:2255}. Vorsicht: Die größten sind Stufe 56: Zieh sie einzeln."
 	["Ride back west: Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2255} and {area:2246}. Careful: the biggest are level 56: pull them one at a time."] = "Fahre Westen zurück: Raging-Eulwölfe patrouillieren die Hügel nördlich von {area:2251}, an der Straße zwischen {area:2255} und {area:2246}. Vorsicht: Die Grössten sind Level 56: jagde sie eine nach der anderen.",
 
 	-- Step 10: Frostfire Hot Springs: kill these as you meet them

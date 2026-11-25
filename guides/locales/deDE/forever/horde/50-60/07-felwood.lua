@@ -98,7 +98,6 @@ return {
 
 	-- Step 26: Darkwhisper Gorge
 	-- {area:2249} Frostwhisper Gorge · {area:2256} Darkwhisper Gorge
-	-- was: ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "Reite nach Osten, dann nach Süden die {area:2249} hinunter. Die Frosthagelriesen dort sind Elite der Stufe 59: Halte dich in der Mitte und bleib in Bewegung. Die seltsame Quelle ist am Eingang von {area:2256}, am Südende."
 	["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59-60: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "Fahre östlich, dann südlich entlang von {area:2249}. Die Frostmaul-Riesen sind Elite Level 59-60: bleibe in der Mitte und halte die Bewegung. Die seltsame Quelle liegt am Mund von {area:2256}, am südlichen Ende.",
 
 	-- Step 27: Frostmaul Shards
@@ -132,7 +131,6 @@ return {
 
 	-- Step 33: Winterfall Village
 	-- {area:2255} Everlook · {quest:5121} High Chief Winterfall
-	-- was: ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} (59, elite) and Xandivious (62) are in the cave at the back: stay out."] = "Das Furbolgdorf füllt das Tal nordöstlich von {area:2255}. Töte zuerst die Schamanen; sie heilen. {npc:10738} (59, Elite) und Xandivious (62) sind in der Höhle hinten: Bleib draußen."
 	["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {quest:5121} (59, elite) and Xandivious (62) are in the cave at the back: stay out."] = "Das Fuchskolben-Dorf füllt das Tal nordöstlich von {area:2255}. Töte zuerst die Schamanen, die heilen. {quest:5121} (59, Elite) und Xandivious (62) sind in der Höhle im Hintergrund: bleibe draußen.",
 
 	-- Step 34: Berserk Owlbeasts

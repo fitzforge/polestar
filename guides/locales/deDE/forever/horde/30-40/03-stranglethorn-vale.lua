@@ -218,7 +218,6 @@ return {
 	-- {npc:2497} Nimboya · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
 	["{npc:2497}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "{npc:2497}: für den {zone:1434} & {zone:1435}-Guide, um etwa Level 40",
 	-- {npc:729} Sin'Dall · {zone:1454} Orgrimmar
-	-- was: ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "Der nächste Guide nimmt den Zeppelin nach {zone:1454} vom Turm auf der Westseite des Lagers."
 	["After {npc:729}, back here: the next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "Nach {npc:729} hier zurück: der nächste Guide nimmt den Zeppelin zu {zone:1454} vom Turm auf der Westseite des Lagers.",
 
 	-- Step 35: Level 36

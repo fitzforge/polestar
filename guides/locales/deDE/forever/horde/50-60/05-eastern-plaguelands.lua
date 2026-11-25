@@ -379,7 +379,6 @@ return {
 
 	-- Step 84: Deadwood Cauldron
 	-- {zone:1448} Felwood · {area:1997} Bloodvenom Post · {area:1762} Felpaw Village · {area:1769} Timbermaw Hold
-	-- was: ["Ride north up the road. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "Reite die Straße nach Norden. Der Kessel steht in {area:1762}, direkt südwestlich von {area:1769}; die Deadwood-Furbolgs dort sind feindlich."
 	["Ride north up the whole {zone:1448} road, past {area:1997}. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "Reite nach Norden die ganze Straße von {zone:1448} hinauf, an {area:1997} vorbei. Der Kessel steht in {area:1762}, knapp südwestlich von {area:1769}; die Deadwood-Fuchskolben dort sind feindselig.",
 
 	-- Step 85: Kernda

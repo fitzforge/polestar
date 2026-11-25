@@ -140,7 +140,6 @@ return {
 	-- {area:272} Tarren Mill
 	["The river south of {area:272}: kill these as you meet them"] = "Der Fluss südlich von {area:272}: Töte diese, wenn sie dir begegnen",
 	-- {area:272} Tarren Mill · {area:271} Southshore · {item:3712} Turtle Meat
-	-- was: ["South from {area:272} along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "Von {area:272} nach Süden den Fluss entlang: Schnappkiefer (29) sonnen sich an seinen Ufern bis hinunter zu den Hügeln oberhalb von {area:271}. Manche haben {item:3712} dabei."
 	["South from {area:272} along the river: Snapjaws (29-31) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "Südlich von {area:272} entlang des Flusses: Snapjaws (29-31) sunnen sich an seinen Ufern bis zum Hügel oberhalb von {area:271}. Einige tragen {item:3712}.",
 	-- {item:3712} Turtle Meat
 	["{item:3712}, from the Snapjaws"] = "{item:3712}, von den Schnappkiefern",
@@ -179,7 +178,6 @@ return {
 	-- Step 32: Town hall
 	["Town hall"] = "Rathaus",
 	-- {area:287} Hillsbrad · {npc:2335} Magistrate Burnside · {npc:2448} Clerk Horrace Whitesteed
-	-- was: ["On to {area:287} town, south-west of the yeti caves. The town hall is on the town's west side: {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "Weiter zur Stadt {area:287}, südwestlich der Yetihöhlen. Das Rathaus liegt auf der Westseite der Stadt: {npc:2335} (30) und {npc:2448} sind mit dem Stadtregister drinnen; die Proklamation hängt daneben. Stadträte laufen durch die Stadt."
 	["On to {area:287} town, south-west of the yeti caves. The town hall is on the town's west side: {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town. Every {area:287} human you kill from here on can drop a skull for Samsa: keep them."] = "Zum Dorf {area:287} südlichwestlich der Yeti-Höhlen. Das Rathaus steht auf der westlichen Seite des Dorfes: {npc:2335} (30) und {npc:2448} sind innen mit dem Dorfregister; die Erklärung hängt daneben. Ratsmannsleute gehen das Dorf. Jeder {area:287}-Mensch, den du ab hier tötest, kann einen Schädel für Samsa zur Fallen bringen: behalte sie.",
 	-- {object:1761} Hillsbrad Proclamation
 	["{object:1761}, inside"] = "{object:1761}, drinnen",

@@ -61,7 +61,6 @@ return {
 
 	-- Step 9: Tarren Mill
 	-- {quest:528} Battle of Hillsbrad
-	-- was: ["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "Darthalias nächste Quest {quest:528} und Lydons Elixier der Qualen sind für den nächsten Besuch, bei etwa 30."
 	["Darthalia's next {quest:528}, Samsa's Souvenirs of Death and Lydon's Elixir of Agony are for the next visit, at about 30."] = "Darthalias nächste {quest:528}, Samsas Kindertote und Lydons Elixier der Agonie, warten auf den nächsten Besuch, ungefähr bei Level 30.",
 
 	-- Step 10: Durnholde Keep: kill these as you meet them
