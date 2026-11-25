@@ -242,6 +242,7 @@ local ASK_EVERY = 2         -- seconds between asks for the same goal
 local ASK_FAR, ASK_FAR_EVERY = 2000, 10 -- yards left along the path past which a stray is asked again at most this often
 local GOAL_MOVED = 1        -- yards: the goal is another one
 local FAIL_RETRY, FAIL_MOVED, FAIL_AGAIN = 15, 5, 2 -- a failed search is asked again this late, this far away; a refusal for no policy reason once this soon
+Walk.budgetHold = 60       -- seconds a search that spent its whole budget (Path.jobBudget) holds its goal unasked
 local Z_OFF = 30            -- yards: a path ending this far above or below the goal's height missed its floor
 
 ---------------------------------------------------------------------------
@@ -1366,7 +1367,7 @@ end
 -- floor beside it (Ironforge's vendors), and none at all starts on the
 -- mountain over the city.
 local function ask(P, pc, px, py, flat, terminal)
-	wanted = true
+	wanted, Walk.failHold = true, nil
 	if inCombat() then return end -- after combat, on the next sample
 	-- Carried (Transit.Carried: the skycutter to Dalaran): no walk from a point the ride leaves at once; on the
 	-- first sample after it.
@@ -1421,6 +1422,17 @@ local function ask(P, pc, px, py, flat, terminal)
 			-- A price for a detour doesn't authorize a bearing. Don't install a
 			-- partial or a walk found on a substitute floor as its live path.
 			got, reason = false, "no safe walking route"
+		end
+		-- A search that spent its whole budget (Routing/PathJobs.lua, Path.jobBudget): asked again at once it would
+		-- run as long again, so the walk is the straight arrow (its line dashed, #3418) and the goal is not asked
+		-- again for Walk.budgetHold seconds (Walk.failHold), and then only once the player has moved (FAIL_MOVED).
+		if not got and reason == "budget" and not terminal then
+			failed, failAt, failX, failY, Walk.failHold = true, GetTime(), px, py, Walk.budgetHold
+			count, hubs, shape = 0, nil, nil
+			restore(gc, gx, gy)
+			changed()
+			pumpLegs()
+			return
 		end
 		-- A goal's floor no walk reaches though no policy said no (Foggy MacKreel on a broken section of the Thandol
 		-- Span, #3553): asked once more without its height, as before strict searches, and the arrow says the last
@@ -1759,7 +1771,7 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checke
 		if failAgain and wait >= FAIL_AGAIN then
 			failAgain = nil
 			ask(P, pc, px, py)
-		elseif wait >= FAIL_RETRY and dx * dx + dy * dy > FAIL_MOVED * FAIL_MOVED then ask(P, pc, px, py) end
+		elseif wait >= (Walk.failHold or FAIL_RETRY) and dx * dx + dy * dy > FAIL_MOVED * FAIL_MOVED then ask(P, pc, px, py) end
 	elseif wanted then
 		ask(P, pc, px, py)
 	elseif token ~= nil and ns.Transit and ns.Transit.Carried and ns.Transit.Carried() then
