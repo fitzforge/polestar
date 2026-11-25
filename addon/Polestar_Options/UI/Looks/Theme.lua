@@ -293,8 +293,11 @@ end
 -- their real size, each centred on its row's middle line, the space between
 -- them even, a caption under each on one line. A band too narrow for the
 -- three across at STAGE_FIT of their size or more takes the window on a row
--- of its own and the two cards under it (then each on its own row); past
--- that, all smaller alike, never overlapping, and nothing says so.
+-- of its own and the two cards under it (then each on its own row). Each row
+-- is drawn as large as the stage's width holds it, never over its real size:
+-- one part wider than the rest (the rare alert in the new page's narrow
+-- Preview panel) shrinks its own row, not the others. Past that, all smaller
+-- alike, never overlapping, and nothing says so.
 local GAP, MAX_GAP, ROWS_ROOM, SIDE = 32, 72, 12, 16 -- between two (least, most); the window's ground under its goals; the window's own room a side
 local STAGE_PAD, ROW_GAP, CAP_GAP, CAP_H, STAGE_FIT, CUT_FADE = 20, 20, 10, 15, 0.8, 20
 local ARRANGEMENTS = { { { 1, 2, 3 } }, { { 1 }, { 2, 3 } }, { { 1 }, { 2 }, { 3 } } }
@@ -347,22 +350,27 @@ local function buildPreview(view)
 	lightParts(f, G, heads, toast)
 	if #parts == 0 then return f end
 	local snap = P.Snap
-	-- Rows of parts (indexes into `parts`, those it has) -> the stage's
-	-- natural width and height, each row's width and tallest part.
-	local function measure(rows)
-		local wide, high, sized = 0, STAGE_PAD * 2, {}
+	-- Rows of parts (indexes into `parts`, those it has), across `room` ->
+	-- the stage's natural width and height, each row's width and tallest
+	-- part at its own fit (the most of its real size the room holds), and
+	-- the least of those fits.
+	local function measure(rows, room)
+		local wide, high, sized, least = 0, STAGE_PAD * 2, {}, 1
 		for i, row in ipairs(rows) do
 			local w, tall = 0, 0
-			for j, at in ipairs(row) do
+			for _, at in ipairs(row) do
 				local p = parts[at]
-				w = w + p.w + (j > 1 and GAP or 0)
+				w = w + p.w
 				tall = max(tall, p.h)
 			end
-			sized[i] = { list = row, w = w, tall = tall }
-			wide = max(wide, w)
-			high = high + tall + CAP_GAP + CAP_H + (i > 1 and ROW_GAP or 0)
+			local gaps = (#row - 1) * GAP
+			local fit = min(1, max(0.05, (room - STAGE_PAD * 2 - gaps) / max(1, w)))
+			least = min(least, fit)
+			sized[i] = { list = row, fit = fit, w = w * fit + gaps, tall = tall * fit }
+			wide = max(wide, w * fit + gaps)
+			high = high + tall * fit + CAP_GAP + CAP_H + (i > 1 and ROW_GAP or 0)
 		end
-		return wide + STAGE_PAD * 2, high, sized
+		return wide + STAGE_PAD * 2, high, sized, least
 	end
 	function f:Content(width, tall)
 		local t = self:TrueScale()
@@ -395,12 +403,12 @@ local function buildPreview(view)
 				for _, at in ipairs(row) do if parts[at] then kept[#kept + 1] = at end end
 				if #kept > 0 then list[#list + 1] = kept end
 			end
-			local w, h = measure(list)
-			local fit = min(1, room / w, tall and tall > 0 and tall / h or 1)
+			local w, h, _, least = measure(list, room)
+			local fit = min(least, room / w, tall and tall > 0 and tall / h or 1)
 			if not best or fit > bestFit + 0.001 then best, bestFit = list, fit end
 			if fit >= STAGE_FIT then best = list break end
 		end
-		local natural, high, sized = measure(best)
+		local natural, high, sized = measure(best, room)
 		f.psRows = #sized
 		-- The stage spans the band; the parts share what is over.
 		local wide = max(natural, room)
@@ -411,21 +419,23 @@ local function buildPreview(view)
 			stage:Show()
 			local y = top + STAGE_PAD * k
 			for _, row in ipairs(sized) do
-				local n = #row.list
+				local n, rf = #row.list, row.fit
 				local parts_w = row.w - (n - 1) * GAP
 				local gap = n > 1 and min(MAX_GAP, max(GAP, (wide - parts_w) / (n + 1))) or 0
 				local x = left + (wide - parts_w - (n - 1) * gap) / 2 * k
 				local mid = y + row.tall / 2 * k
+				-- The row's own scale: its fit within the band's.
+				local rk = rf * k
 				for _, at in ipairs(row.list) do
 					local p = parts[at]
-					local g = p.k * k
-					local ptop = mid - p.h / 2 * k
+					local g = p.k * rk
+					local ptop = mid - p.h / 2 * rk
 					if p.kind == "guide" then
 						-- Its box the window and the room it keeps a side, as
 						-- tall as the cut.
-						G:SetScale(k)
+						G:SetScale(rk)
 						G:ClearAllPoints()
-						G:SetPoint("TOPLEFT", self, "TOPLEFT", snap(self, x - SIDE * k) / k, -snap(self, ptop) / k)
+						G:SetPoint("TOPLEFT", self, "TOPLEFT", snap(self, x - SIDE * rk) / rk, -snap(self, ptop) / rk)
 						G:Resize(p.w + SIDE * 2, p.h)
 					else
 						p.frame.psBandScale = g
@@ -434,9 +444,9 @@ local function buildPreview(view)
 						p.frame:SetPoint("TOPLEFT", self, "TOPLEFT", snap(p.frame, x / g), snap(p.frame, -ptop / g))
 					end
 					p.label:ClearAllPoints()
-					p.label:SetPoint("TOP", self, "TOPLEFT", snap(self, x + p.w / 2 * k), -snap(self, y + (row.tall + CAP_GAP) * k))
-					p.label:SetWidth(max(1, (p.w + gap) * k))
-					x = x + (p.w + gap) * k
+					p.label:SetPoint("TOP", self, "TOPLEFT", snap(self, x + p.w * rf / 2 * k), -snap(self, y + (row.tall + CAP_GAP) * k))
+					p.label:SetWidth(max(1, (p.w * rf + gap) * k))
+					x = x + (p.w * rf + gap) * k
 				end
 				y = y + (row.tall + CAP_GAP + CAP_H + ROW_GAP) * k
 			end

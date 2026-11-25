@@ -147,7 +147,7 @@ fn look_up(query: &str, kind_of: &str, race: &str, faction: &str, cls: &str, lev
 		before: before(&lv(race), &lv(cls), &lv(faction), level, at),
 		// The pack and the player's faction's part (Polestar loads it on demand in game).
 		addons: vec!["Polestar".into(), "Polestar_Guides".into(), Addon::name(&format!("Polestar_Guides_{faction}"))],
-		script: LOOKUP.replace("@QUERY@", &lv(query)).replace("@KIND@", &lv(kind_of)).replace("@SIMULATE@", SIMULATE),
+		script: LOOKUP.replace("@QUERY@", &lv(query)).replace("@KIND@", &lv(kind_of)).replace("@SIMULATE@", SIMULATE.as_str()),
 		..Default::default()
 	});
 	let out3 = out.remove(2);
@@ -488,9 +488,9 @@ fn every_attunement_and_key_the_guide_has_a_step_per_quest_still_to_do_none_a_ba
 	if skip() {
 		return;
 	}
-	let refs: [(&str, &[&Who]); 11] = [
-		("molten-core:core", &[&ORGRIMMAR, &STORMWIND]),
-		("molten-core:aqual", &[&ORGRIMMAR, &STORMWIND]),
+	// No Molten Core: Attunement to the Core and Duke Hydraxis's chain are out of the data while the raid is closed
+	// (#3392), so the built Codex carries neither (dungeons_attune's built-Codex test and the one below pin that).
+	let refs: [(&str, &[&Who]); 9] = [
 		("onyxias-lair:drakefire-h", &[&ORGRIMMAR]),
 		("onyxias-lair:drakefire-a", &[&STORMWIND]),
 		("blackwing-lair:blackhand", &[&ORGRIMMAR, &STORMWIND]),
@@ -503,7 +503,7 @@ fn every_attunement_and_key_the_guide_has_a_step_per_quest_still_to_do_none_a_ba
 	];
 	for (r, who) in refs {
 		for p in who {
-			let out = attune_guide(r, p, 60, SIMULATE);
+			let out = attune_guide(r, p, 60, SIMULATE.as_str());
 			let (count, out) = (&out[0], &out[1]);
 			let as_ = format!("{r} ({})", p.faction);
 			assert_eq!(count["why"], false, "{as_}: a guide");
@@ -514,34 +514,45 @@ fn every_attunement_and_key_the_guide_has_a_step_per_quest_still_to_do_none_a_ba
 			assert_eq!(out["visited"], out["steps"], "{as_}: the engine stops at every step, none passed as done");
 		}
 	}
-	let other = attune_guide("onyxias-lair:drakefire-a", &ORGRIMMAR, 60, SIMULATE);
+	let other = attune_guide("onyxias-lair:drakefire-a", &ORGRIMMAR, 60, SIMULATE.as_str());
 	assert_eq!(other[0], json!({ "quests": 0, "accepts": 0, "bare": "", "why": "nothing" }), "the Alliance amulet's guide is not a Horde character's");
 }
 
-const MC_VIEW: &str = r#"
-local E = Polestar.Engine
-local v = E.GetStepView(1)
-local goals = {}
-for i, g in ipairs(v.goals) do goals[i] = { t = g.t, text = g.text, detail = g.detail or false, at = g.map and { g.map, g.x, g.y } or false } end
-local brd = D.Get("blackrock-depths").entrance
-emit({ step = E.GetStepIndex(), count = E.GetStepCount(), title = v.title, note = v.note or false, goals = goals, brd = { brd.map, brd.x, brd.y } })"#;
+// #3392: Molten Core has not opened on Forever and its attunement quests are out of the data, so the Codex builds
+// no Molten Core attunement. Its page lists none, "Guide me through it" has nothing to build ("unknown"), and
+// asking for the old ids (core, aqual) builds no guide and raises no error.
+const MC_CLOSED: &str = r#"
+stub.login()
+local D = Polestar.Dungeons
+D.Load()
+local ids = {}
+for _, a in ipairs(D.Attunements("molten-core")) do ids[#ids + 1] = a.id end
+local out = { listed = table.concat(ids, ", ") }
+for _, id in ipairs({ "core", "aqual" }) do
+	local def, why = D.AttuneGuide("molten-core", id)
+	local ok, err = pcall(D.Attune, "molten-core", id)
+	out[id] = { guide = def ~= nil, why = why or false, ok = ok, err = not ok and tostring(err) or false }
+end
+emit(out)"#;
 
 #[test]
-fn the_maintainer_s_level_20_undead_in_the_undercity_molten_core_s_guide_sends_him_to_the_core_fragment_inside_blackrock_depths_and_its_accept_says_from_level_55() {
+fn molten_core_closed_with_its_attunement_quests_out_of_the_data_lists_no_attunement_and_its_old_ids_build_no_guide_without_an_error() {
 	if skip() {
 		return;
 	}
-	let out = attune_guide("molten-core:core", &Who { race: "Scourge", faction: "Horde", at: [1458.0, 66.0, 44.0] }, 20, MC_VIEW);
-	let (count, view) = (&out[0], &out[1]);
-	assert_eq!(json!([count["quests"], count["accepts"]]), json!([1, 1]), "one quest: Attunement to the Core (7848, the Forever id)");
-	assert_eq!(view["step"], 1);
-	assert_eq!(view["count"], 2, "the quest, then the way in");
-	let ts: Vec<Value> = view["goals"].as_array().unwrap().iter().map(|g| g["t"].clone()).collect();
-	assert_eq!(json!(ts), json!(["accept", "collect", "turnin"]));
-	assert_eq!(view["goals"][0]["detail"], "from Lothos Riftwaker, from level 55");
-	assert_eq!(view["goals"][1]["text"], "Collect Core Fragment");
-	assert_eq!(view["goals"][1]["at"], view["brd"], "at the Blackrock Depths entrance");
-	assert_eq!(view["note"], "Core Fragment: inside Blackrock Depths.");
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: before("\"Scourge\"", "\"WARRIOR\"", "\"Horde\"", 20, &[1458.0, 66.0, 44.0]),
+		addons: vec!["Polestar".into()],
+		script: MC_CLOSED.into(),
+		..Default::default()
+	});
+	assert_eq!(out[0]["listed"], "", "no Molten Core attunement while the raid is closed");
+	for id in ["core", "aqual"] {
+		assert_eq!(out[0][id]["guide"], false, "{id}: no guide");
+		assert_eq!(out[0][id]["why"], "unknown", "{id}: nothing to build");
+		assert_eq!(out[0][id]["ok"], true, "{id}: no error: {}", out[0][id]["err"]);
+	}
 }
 
 const DUNGEON_QUESTS: &str = r#"

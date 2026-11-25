@@ -66,6 +66,10 @@
 		"Freedoom",
 		"Freedoom Arcade",
 		"petllama",
+		"Sky Jewels",
+		"RikyZ90",
+		"Tetris",
+		"beemerwt",
 		"BSD"
 	],
 	"terms": [
@@ -151,7 +155,10 @@
 		"ui",
 		"trail",
 		"explore",
-		"spec"
+		"spec",
+		"arcade",
+		"jewels",
+		"tetris"
 	],
 	"locales": {
 		"deDE": [

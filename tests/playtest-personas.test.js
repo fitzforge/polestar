@@ -173,6 +173,48 @@ test('a play that loses the Applejack is held at An Apple Treat; the gated step 
 	assert.equal(playApple(true, { skip: 1 }).done, true);
 });
 
+// The Barrens' Brine steps for a Shaman: the red waterskin (Call of Water, 1536) is handed in only `when complete
+// 1536`, then the blue one (1534, which needs 1536) is taken. A character who opens the guide without the earlier
+// guides' Call of Water (the fresh persona) walks past the hand-in, whose `when` is stored as skipped as the route
+// moves past it; that leaves the accept without its prerequisite, so the route passes it in the same evaluation
+// instead of holding the player at "Accept Call of Water" until some event comes.
+const brineGuide = `guide forever/horde/brine-test
+title Brine
+faction Horde
+levels 20-25
+zone The Barrens
+
+step Crossroads
+  goto 51.5,30.3
+
+step Brine
+  only Shaman
+  when complete 1536
+  turnin 1536
+
+step Brine
+  only Shaman
+  accept 1534
+
+step South
+  goto 45.0,60.0
+`;
+
+test('fresh: an accept whose prerequisite a passed `when` step no longer hands in is passed, never held', { skip }, () => {
+	realData = realData || loadData(DATA);
+	const pack = buildSimPack([{ file: 'brine.guide', text: brineGuide }], realData);
+	try {
+		assert.ok(!pack.diag.hasErrors(), JSON.stringify(pack.diag.errors));
+		const g = pack.guides[0];
+		const t = personaTables(g, realData);
+		const [out] = playGuide(pack, g, { race: 'Orc', faction: 'Horde', cls: 'SHAMAN', script: `PERSONA = ${luaValue({ needs: t.needs, gives: t.gives })}\n${SIMULATE}` });
+		assert.equal(out.stuck, undefined, JSON.stringify(out.stuck));
+		assert.equal(out.done, true);
+	} finally {
+		pack.dispose();
+	}
+});
+
 // Tiger Mastery (188): the old guide takes it for a later guide and works none of it; the updated one collects
 // Sin'Dall's paw (3879) and hands it in. The save the old guide left opens the updated one with the quest in the
 // log as the game has it, its paw line included, so the collect can finish.

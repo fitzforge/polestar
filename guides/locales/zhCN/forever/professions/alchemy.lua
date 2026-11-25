@@ -270,7 +270,7 @@ return {
 	["{spell:3176} to 160"] = "制作{spell:3176}，提升至 160",
 	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial
 	-- was: ["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176} 在技能150时为黄色（150变黄，170变绿，190变灰）：大约制作12次升到160。每次需要2份 {item:2453}、2份 {item:2450} 和1个 {item:3372}。每次需两份 {item:2453} 和两份 {item:2450}；{item:2453} 生长在15—30级地区。"
-	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. If you got here without learning {spell:3176}, learn it now: an earlier step teaches it."] = "",
+	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. If you got here without learning {spell:3176}, learn it now: an earlier step teaches it."] = "{spell:3176}在150时为黄色（黄色150，绿色170，灰色190）：大约制作12次到160。每次需要2个{item:2453}、2个{item:2450}和1个{item:3372}。每次两个{item:2453}和两个{item:2450}；{item:2453}生长在15-30级地区。如果你到这里还没学会{spell:3176}，现在就学：之前的步骤会教。",
 
 	-- Step 55: Alchemy recipes at 160
 	-- {skill:171} Alchemy
@@ -357,7 +357,7 @@ return {
 	["{item:8951} to 230"] = "{item:8951}练到230",
 	-- {item:8951} Elixir of Defense · {item:3355} Wild Steelbloom · {item:3821} Goldthorn · {item:3372} Leaded Vial · {zone:1418} Badlands
 	-- was: ["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951} 在技能 225 时为黄色（215 变黄，235 变绿，255 变灰）：约制作 8 次可到 230。每次需要 1 个 {item:3355}、1 个 {item:3821} 和 1 个 {item:3372}。{item:3355} 和 {item:3821} 产于 30-45 级区域（荆棘谷、阿拉希和 {zone:1418}）。"
-	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). If you got here without learning {item:8951}, learn it now: an earlier step teaches it."] = "",
+	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). If you got here without learning {item:8951}, learn it now: an earlier step teaches it."] = "{item:8951}在225时为黄色（黄色215，绿色235，灰色255）：大约制作8次到230。每次需要1个{item:3355}、1个{item:3821}和1个{item:3372}。{item:3355}和{item:3821}是30-45级地区的草药（荆棘谷、阿拉希、{zone:1418}）。如果你到这里还没学会{item:8951}，现在就学：之前的步骤会教。",
 
 	-- Step 70: Alchemy recipes at 230
 	-- {skill:171} Alchemy

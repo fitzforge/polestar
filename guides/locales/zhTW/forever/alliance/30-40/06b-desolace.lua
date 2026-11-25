@@ -47,9 +47,9 @@ return {
 
 	-- Step 8: Flesh Picker
 	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
-	["A {npc:217590} crawls about the {area:596}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "",
+	["A {npc:217590} crawls about the {area:596}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "{npc:217590}在{area:596}爬行：打開{npc:217412}的{item:213565}，對其中一隻使用裡面的{item:213562}。不要殺死牠。",
 	-- {item:213562} Bug Catching Net · {npc:217590} Flesh Picker · {item:213567} Flesh Picker Specimen
-	["{item:213562}, on a {npc:217590}: the {item:213567}"] = "",
+	["{item:213562}, on a {npc:217590}: the {item:213567}"] = "{item:213562}，用在{npc:217590}上：{item:213567}",
 
 	-- Step 9: Maraudine centaurs
 	["Maraudine centaurs"] = "瑪勞登半人馬",
@@ -58,7 +58,7 @@ return {
 
 	-- Step 10: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "",
+	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}被關在墓地以西的半人馬營地裡。救出她，在走出去的路上保護她；她會停在墓地旁。\n小心：護送途中會有六個半人馬來襲，而且無法提前清理：牠們只在護送時出現，並且會一起上。玩家記錄中，接過此任務的30人裡有14人至少失敗過一次。帶個朋友，如果你是單人就跳過。開始前清掉路上的普通半人馬會有幫助。",
 	-- {npc:12277} Melizza Brimbuzzle
 	["escort {npc:12277} back toward the graveyard"] = "護送{npc:12277}回墓地",
 
@@ -92,7 +92,7 @@ return {
 
 	-- Step 17: Azore Aldamort
 	-- {npc:11863} Azore Aldamort · {area:2405} Ethel Rethor · {zone:1443} Desolace
-	["{npc:11863}'s tower stands on the hill at the ruins of {area:2405}, west across the north of {zone:1443}."] = "",
+	["{npc:11863}'s tower stands on the hill at the ruins of {area:2405}, west across the north of {zone:1443}."] = "{npc:11863}的塔樓位於{area:2405}廢墟的山上，橫越{zone:1443}北部向西。",
 	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
 	["{npc:11863}, if the first {zone:1443} visit didn't take the sceptre back to him"] = "",
 

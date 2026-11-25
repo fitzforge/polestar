@@ -48,6 +48,7 @@ step Merchant Coast
   when level<40
   tip The Darkspear Islands lie off the coast of Dustwallow Marsh: 15 against 15, from level 30. Hold the four capture points to gain points, faster the more you hold, and carry the flag from the middle to a base your team holds for more; the first team to 2000 points wins. The sea kills: cross on the bridges. Queue at any battlemaster or step through the portal here at the Merchant Coast, north of Ratchet. Nizook Boof pays 200 reputation for your first win. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide.
   accept 98906
+  complete 98906                       -- win a Darkspear Islands battleground
   turnin 98906                         -- after a win
 
 step Merchant Coast
@@ -57,6 +58,7 @@ step Merchant Coast
   tip The Darkspear Islands lie off the coast of Dustwallow Marsh: 15 against 15, from level 30. Hold the four capture points to gain points, faster the more you hold, and carry the flag from the middle to a base your team holds for more; the first team to 2000 points wins. The sea kills: cross on the bridges. Queue at any battlemaster or step through the portal here at the Merchant Coast, north of Ratchet. Nizook Boof pays 200 reputation for your first win. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide.
   level 40
   accept 98907 npc 275276 @65,35
+  complete 98907                       -- win a Darkspear Islands battleground
   turnin 98907 npc 275276 @65,35       -- after a win
 
 step Merchant Coast
@@ -65,6 +67,7 @@ step Merchant Coast
   tip The Darkspear Islands lie off the coast of Dustwallow Marsh: 15 against 15, from level 30. Hold the four capture points to gain points, faster the more you hold, and carry the flag from the middle to a base your team holds for more; the first team to 2000 points wins. The sea kills: cross on the bridges. Queue at any battlemaster or step through the portal here at the Merchant Coast, north of Ratchet. Nizook Boof pays 200 reputation for your first win. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide.
   level 50
   accept 98908 npc 275276 @65,35
+  complete 98908                       -- win a Darkspear Islands battleground
   turnin 98908 npc 275276 @65,35       -- after a win
 
 step Horde Warbringer
@@ -142,6 +145,7 @@ step Northwatch Hold
   when level<40
   tip The Darkspear Islands lie off the coast of Dustwallow Marsh: 15 against 15, from level 30. Hold the four capture points to gain points, faster the more you hold, and carry the flag from the middle to a base your team holds for more; the first team to 2000 points wins. The sea kills: cross on the bridges. Queue at any battlemaster or step through the portal here at Northwatch Hold, south of Ratchet. Brelinda McFarry pays 200 reputation for your first win. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide.
   accept 98903 @63.4,58.7
+  complete 98903                       -- win a Darkspear Islands battleground
   turnin 98903 @63.4,58.7              -- after a win
 
 step Northwatch Hold
@@ -152,6 +156,7 @@ step Northwatch Hold
   tip The Darkspear Islands lie off the coast of Dustwallow Marsh: 15 against 15, from level 30. Hold the four capture points to gain points, faster the more you hold, and carry the flag from the middle to a base your team holds for more; the first team to 2000 points wins. The sea kills: cross on the bridges. Queue at any battlemaster or step through the portal here at Northwatch Hold, south of Ratchet. Brelinda McFarry pays 200 reputation for your first win. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide.
   level 40
   accept 98904 npc 275273 @63.4,58.7
+  complete 98904                       -- win a Darkspear Islands battleground
   turnin 98904 npc 275273 @63.4,58.7   -- after a win
 
 step Northwatch Hold
@@ -161,6 +166,7 @@ step Northwatch Hold
   tip The Darkspear Islands lie off the coast of Dustwallow Marsh: 15 against 15, from level 30. Hold the four capture points to gain points, faster the more you hold, and carry the flag from the middle to a base your team holds for more; the first team to 2000 points wins. The sea kills: cross on the bridges. Queue at any battlemaster or step through the portal here at Northwatch Hold, south of Ratchet. Brelinda McFarry pays 200 reputation for your first win. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide.
   level 50
   accept 98905 npc 275273 @63.4,58.7
+  complete 98905                       -- win a Darkspear Islands battleground
   turnin 98905 npc 275273 @63.4,58.7   -- after a win
 
 step Alliance Brigadier General

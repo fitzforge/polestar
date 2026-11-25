@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in French words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:35} Booty Bay · {zone:1447} Azshara · {zone:1444} Feralas · {zone:1446} Tanaris
+	["{area:35} first, then {zone:1447}, {zone:1444} and {zone:1446}."] = "D'abord {area:35}, puis {zone:1447}, {zone:1444} et {zone:1446}.",
+
 	-- Step 2: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Prendre un vol pour {area:35}",
@@ -22,7 +26,7 @@ return {
 
 	-- Step 4: Whiskey Slim
 	-- {npc:2491} Whiskey Slim · {area:35} Booty Bay
-	["{npc:2491} sits in the {area:35} inn."] = "",
+	["{npc:2491} sits in the {area:35} inn."] = "{npc:2491} est assis à l'auberge de {area:35}.",
 	-- {npc:2491} Whiskey Slim
 	["{npc:2491}, in the inn"] = "{npc:2491}, dans l'auberge",
 
@@ -55,9 +59,9 @@ return {
 	["Below ground"] = "Sous terre",
 
 	-- Step 17: Saving Yenniku
-	["while he is alive: the gem fills; don't kill him"] = "",
+	["while he is alive: the gem fills; don't kill him"] = "tant qu'il est en vie : la gemme se remplit ; ne le tuez pas",
 	-- {item:3912} Soul Gem
-	["Use the {item:3912} on Yenniku"] = "",
+	["Use the {item:3912} on Yenniku"] = "Utilisez {item:3912} sur Yenniku",
 
 	-- Step 19: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -242,7 +246,7 @@ return {
 
 	-- Step 61: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:9623} A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
-	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} (Chasing {npc:9623}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "",
+	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} (Chasing {npc:9623}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "L'hôtel des ventes de {area:976} est le dernier avant Un'Goro. Là, {npc:9623} (À la poursuite de {npc:9623}) demande un {item:10561}, un objet d'{skill:202}, avant son escorte : achetez-en un ici si vous voulez cette chaîne.",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}, à côté du maître des coursiers du vent",
 

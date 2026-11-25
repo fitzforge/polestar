@@ -237,9 +237,10 @@ test('a stuck step is reported with guide, step, title and class; exit 1', { ski
 
 // The simulated player used to finish a quest at its hand-in, so a guide with no goal for an escort (Kerlonian's,
 // 5321, 2026-11-16) played clean while players were sent to the hand-in with the escort undone. The game takes no
-// hand-in with a line open: a kill, talk, object or event line no goal works holds the play there.
+// hand-in with a line open: a kill, talk, object or event line no goal works holds the play there. An escort is the
+// player's choice (#3439) and the default play skips it with the group quests, so this plays one who does it.
 test('a hand-in whose quest has a line no goal works is stuck there; with the goal it plays through', { skip }, async () => {
-	const { result, out } = await quiet(() => cmd.run(['--pack', path.join(PACKS, 'handin'), '--class', 'Warrior']));
+	const { result, out } = await quiet(() => cmd.run(['--pack', path.join(PACKS, 'handin'), '--class', 'Warrior', '--group', 'do']));
 	assert.equal(result, 1, out);
 	const stuck = lines(out).filter((l) => l.startsWith('stuck '));
 	assert.equal(stuck.length, 1, out);

@@ -23,9 +23,9 @@ return {
 
 	-- Step 3: The four elements
 	["The four elements"] = "네 가지 원소",
-	-- {item:7069} Elemental Air · {zone:1417} Arathi Highlands · {area:320} Refuge Pointe · {npc:2794} Summoned Guardian · {zone:1447} Azshara · {npc:14269} Seeker Aqualon · {area:69} Lakeshire
-	-- plural, as words: Thundering Exiles = {npc:2762} Thundering Exile · Rumbling Exiles = {npc:2592} Rumbling Exile · Burning Exiles = {npc:2760} Burning Exile
-	["One each of {item:7069}, Fire, Earth and Water; all four trade, so the auction house is quickest. To farm them, {zone:1417} has the exiles near {area:320} (level 38-39, about one kill in eight to ten, respawn under seven minutes): Thundering Exiles south-east of it (air), Rumbling Exiles south-west (earth), Burning Exiles far to the north-west (fire), and the {npc:2794} far to the south-west (water, about one in seven). Water comes easier from the Patches of Elemental Water in {zone:1447} (two in five) or {npc:14269} by {area:69} in Redridge."] = "",
+	-- {item:7069} Elemental Air · {zone:1417} Arathi Highlands · {area:320} Refuge Pointe · {area:333} Circle of East Binding · {npc:2794} Summoned Guardian · {zone:1447} Azshara · {npc:14269} Seeker Aqualon · {area:69} Lakeshire
+	-- plural, as words: Thundering Exiles = {npc:2762} Thundering Exile · Rumbling Exiles = {npc:2592} Rumbling Exile · Burning Exiles = {npc:2760} Burning Exile · Cresting Exiles = {npc:2761} Cresting Exile
+	["One each of {item:7069}, Fire, Earth and Water; all four trade, so the auction house is quickest. To farm them, {zone:1417} has the exiles at its stone circles (level 38-39, respawn under seven minutes): Thundering Exiles south-east of {area:320} (air), Rumbling Exiles south-west of it (earth) and Burning Exiles far to the north-west (fire), about one kill in eight to ten each, and Cresting Exiles at the {area:333} in the north-east (water, in about one in five of the corpses you can loot). Leave the {npc:2794} in the south-west alone: it is elite. Water also comes from the Patches of Elemental Water in {zone:1447} (two in five) or {npc:14269} by {area:69} in Redridge."] = "{item:7069}, 불, 대지, 물 각 하나씩. 넷 다 거래되므로 경매장이 가장 빠릅니다. 직접 모으려면 {zone:1417}의 바위 원에 추방자들이 있습니다(38-39레벨, 7분 안에 재생성): 천둥 추방자({npc:2762})는 {area:320} 남동쪽(바람), 우르릉 추방자({npc:2592})는 그 남서쪽(대지), 불타는 추방자({npc:2760})는 멀리 북서쪽(불)에 있으며 각각 여덟에서 열 마리에 하나 정도, 파도 추방자({npc:2761})는 북동쪽 {area:333}에 있습니다(물, 뒤질 수 있는 시체 다섯 중 하나 정도). 남서쪽의 {npc:2794}은(는) 건드리지 마십시오: 정예입니다. 물은 {zone:1447}의 원소의 물 웅덩이(다섯 중 둘)나 붉은마루 산맥 {area:69} 옆의 {npc:14269}에서도 얻습니다.",
 	-- {item:7069} Elemental Air
 	-- plural, as words: Thundering Exiles = {npc:2762} Thundering Exile
 	["{item:7069}: Thundering Exiles"] = "{item:7069}: 떠도는 천둥 정령",
@@ -35,8 +35,9 @@ return {
 	-- {item:7067} Elemental Earth
 	-- plural, as words: Rumbling Exiles = {npc:2592} Rumbling Exile
 	["{item:7067}: Rumbling Exiles"] = "{item:7067}: 떠도는 바위 정령",
-	-- {item:7070} Elemental Water · {npc:2794} Summoned Guardian · {zone:1447} Azshara
-	["{item:7070}: the {npc:2794}, or {zone:1447}'s water patches"] = "",
+	-- {item:7070} Elemental Water · {zone:1447} Azshara
+	-- plural, as words: Cresting Exiles = {npc:2761} Cresting Exile
+	["{item:7070}: Cresting Exiles, or {zone:1447}'s water patches"] = "{item:7070}: 파도 추방자({npc:2761}) 또는 {zone:1447}의 물 웅덩이",
 
 	-- Step 4: Bath'rah the Windwatcher
 	-- {npc:6176} Bath'rah the Windwatcher · {zone:1416} Alterac Mountains · {area:272} Tarren Mill

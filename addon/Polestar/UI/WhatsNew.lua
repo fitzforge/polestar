@@ -49,6 +49,35 @@ end
 -- (`setting`, a settings key: the note opens the settings on it).
 local NOTES = {
 	{
+		version = "0.4.3",
+		notes = {
+			{ glyph = "dart", color = "accent", head = L["A smarter arrow"], text = function()
+				return L["Walks that follow your own trail, boats and lifts it understands, flights it remembers, enemy towns it goes round."]
+			end },
+			{ glyph = "guides", color = "accent", head = L["Guides named for their zones"], text = function()
+				return L["Titles name the zones you quest in, in walking order. Camping 101 is in for every start-zone profession."]
+			end },
+			{ glyph = "icon-group", color = "accent", head = L["Escorts are your choice"], text = function()
+				return L["Do it or Skip it, with how long other players' runs take and how often they fail."]
+			end },
+			{ glyph = "window", color = "accent", head = L["Windows your way"], text = function()
+				return L["Atlas or Standard layout; Settings and Guides have their own scale; switches for chat messages and the XP line."]
+			end },
+			{ glyph = "key", color = "accent", head = L["Attunements"], text = function()
+				return L["Every attunement and key for your faction in the guide menu, with a progress bar and %s."]:format(L["Guide me"])
+			end },
+			{ glyph = "icon-talk", color = "accent", head = L["Polestar in your language"], text = function()
+				return L["Settings > General > Language shows Polestar in another language than the game's."]
+			end },
+			{ glyph = "reload", color = "accent", head = L["Fewer folders"], text = function()
+				return L["Quit the game fully and start it again: Polestar is 22 folders now, not 45."]
+			end },
+			{ glyph = "check", color = "success", head = L["Fixes from your reports"], text = function()
+				return L["Steps fixed in dozens of zones. Found something off? Type %s."]:format(cmd("/polestar report"))
+			end },
+		},
+	},
+	{
 		version = "0.4.0",
 		notes = {
 			{ glyph = "icon-forever", color = "accent", head = L["Two new zones in your route"], text = function()

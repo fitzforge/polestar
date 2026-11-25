@@ -7,9 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {area:327} Faldir's Cove
-	-- was: ["For characters of 35 to 37. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "Für Charaktere der Stufe 35 bis 37. {area:327}, wo die Naga und die Wasserelementare des Professors 38-40 sind, ist ein Gruppenstopp: Überspring ihn, wenn du allein bist."
-	["For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "",
+	-- {zone:1435} Swamp of Sorrows · {area:271} Southshore · {area:327} Faldir's Cove
+	["{zone:1435} first, then north to {area:271}, Alterac and Arathi. For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "Zuerst {zone:1435}, dann nach Norden nach {area:271}, Alterac und Arathi. Für Charaktere der Stufe 36 bis 38. {area:327}, wo die Naga und die Wasserelementare des Professors 38-40 sind, ist ein Gruppenstopp: Überspring ihn, wenn du allein bist.",
 
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
@@ -19,7 +18,7 @@ return {
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {zone:1430} Deadwind Pass · {npc:661} Jonathan Carevin
 	["South from {area:42} to the {area:121}, on the way to {zone:1430}: the mound of dirt by the Nightbane worgen (29-31) holds the evidence {npc:661} wants."] = "",
 	-- {object:19030} Mound of Dirt
-	["the {object:19030}"] = "",
+	["the {object:19030}"] = "das {object:19030}",
 
 	-- Step 4: Watcher Biggs
 	-- {npc:5476} Watcher Biggs · {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends
@@ -84,9 +83,9 @@ return {
 
 	-- Step 15: Jonathan Carevin
 	-- {npc:661} Jonathan Carevin · {area:42} Darkshire
-	["{npc:661}, in {area:42}"] = "",
+	["{npc:661}, in {area:42}"] = "{npc:661}, in {area:42}",
 	-- {zone:1457} Darnassus
-	["His next errand goes to {zone:1457}, off this route: leave it."] = "",
+	["His next errand goes to {zone:1457}, off this route: leave it."] = "Sein nächster Auftrag geht zu {zone:1457}, außerv diesem Route: lass ihn.",
 
 	-- Step 16: Fly to Stormwind
 	-- {zone:1453} Stormwind
@@ -98,7 +97,7 @@ return {
 
 	-- Step 18: Gakin the Darkbinder
 	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
-	["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}."] = "",
+	["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}."] = "{npc:6122} wartet in der Keller des {object:2164}, in dem {object:2101}.",
 
 	-- Step 19: The Binding
 	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6913} Heartswood Core · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
@@ -132,7 +131,7 @@ return {
 
 	-- Step 25: Southshore
 	-- {npc:2276} Magistrate Henry Maleb · {zone:1424} Hillsbrad Foothills
-	["{npc:2276}, inside, if the {zone:1424} guide didn't take it: the Syndicate camp is on the way to Arathi"] = "",
+	["{npc:2276}, inside, if the {zone:1424} guide didn't take it: the Syndicate camp is on the way to Arathi"] = "{npc:2276}, innen, falls der {zone:1424}-Guide es nicht mitgenommen hat: das Syndikatlager liegt auf dem Weg nach Arathi",
 
 	-- Step 26: Shadowy Assassin
 	-- {npc:2434} Shadowy Assassin · {area:271} Southshore · {npc:2276} Magistrate Henry Maleb
@@ -154,7 +153,7 @@ return {
 	-- {area:1057} Thoradin's Wall · {area:320} Refuge Pointe
 	["From the Syndicate camp, follow the road east over {area:1057} to {area:320}."] = "Folge vom Lager des Syndikats der Straße nach Osten über {area:1057} nach {area:320}.",
 	-- {npc:2700} Captain Nials · {npc:1075} Rhag Garmason · {zone:1437} Wetlands
-	["{npc:2700}: {npc:1075}'s plea, from the {zone:1437}"] = "",
+	["{npc:2700}: {npc:1075}'s plea, from the {zone:1437}"] = "{npc:2700}: {npc:1075}'s Flehen, von der {zone:1437}",
 
 	-- Step 32: Northfold Manor
 	-- {area:320} Refuge Pointe
@@ -163,9 +162,9 @@ return {
 	-- Step 33: Hay Weevil
 	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
 	-- plural, as words: Hay Weevils = {npc:217589} Hay Weevil
-	["Hay Weevils crawl about the north end of {quest:681}'s farm: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "",
+	["Hay Weevils crawl about the north end of {quest:681}'s farm: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "Heuwespen krabbeln am nordwestlichen Ende des Grundstücks von {quest:681}: öffne {npc:217412}'s {item:213565} und benutze sein {item:213562} auf einen. Töte ihn nicht.",
 	-- {item:213562} Bug Catching Net · {npc:217589} Hay Weevil · {item:213568} Hay Weevil Specimen
-	["{item:213562}, on a {npc:217589}: the {item:213568}"] = "",
+	["{item:213562}, on a {npc:217589}: the {item:213568}"] = "{item:213562}, auf einem {npc:217589}: das {item:213568}",
 
 	-- Step 34: Shards of Myzrael
 	-- {quest:681} Northfold Manor · {area:333} Circle of East Binding · {area:314} Go'Shek Farm
@@ -194,7 +193,7 @@ return {
 	-- Step 38: Witherbark Village
 	-- {area:318} Drywhisker Gorge · {area:314} Go'Shek Farm · {area:317} Witherbark Village · {npc:2712} Quae
 	-- plural, as words: Witherbark Goliaths = {npc:218032} Witherbark Goliath
-	["South from {area:318}, past {area:314}, through {area:317} to the far end of the valley: the Shadow Hunters there drop the knife, and the trolls packed around them give most of the tusks. Then the Witch Doctors among the huts for the pouches, on the way back out towards {npc:2712}. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "",
+	["South from {area:318}, past {area:314}, through {area:317} to the far end of the valley: the Shadow Hunters there drop the knife, and the trolls packed around them give most of the tusks. Then the Witch Doctors among the huts for the pouches, on the way back out towards {npc:2712}. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "Südlich von {area:318}, vorbei an {area:314}, durch {area:317} bis zum weiteren Ende des Tals: die Schattenjäger geben dort das Dolch, und die um sie gepackten Trolle lassen die meisten Zähne. Dann die Hexenärztinnen unter den Hütten für die Taschen, auf dem Weg zurück nach Außen Richtung {npc:2712}. Vorsicht: Witherbark-Riesen (35, Elite) am weiteren Ende mit den Schattenjägern: jagde die Jäger zu dir her, eine nach der anderen, fern der Riesen.",
 	-- {item:5040} Shadow Hunter Knife
 	["{item:5040}; below ground"] = "{item:5040}; unter der Erde",
 
@@ -366,7 +365,7 @@ return {
 
 	-- Step 77: Thelsamar
 	-- {zone:2548} Riverglades · {zone:1455} Ironforge · {area:69} Lakeshire · {area:2417} Blackrock Pass
-	["Leave the {zone:2548} for about level 41: its Western Front has elite patrols. After Stranglethorn, the {zone:2548} guide takes you from {zone:1455} to {area:69}, then through {area:2417}."] = "",
+	["Leave the {zone:2548} for about level 41: its Western Front has elite patrols. After Stranglethorn, the {zone:2548} guide takes you from {zone:1455} to {area:69}, then through {area:2417}."] = "Verlasse die {zone:2548} für etwa Level 41: deren Western Front hat Elite-Patroulliert. Nach Stranglethorn nimmt der {zone:2548}-Guide dich von {zone:1455} nach {area:69}, dann durch {area:2417}.",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "{npc:1470}, unter der Erde",
 

@@ -771,7 +771,7 @@ fn guides(o: &Opts, positional: &[String]) -> Result<u8, Fail> {
 		println!("{}: no languages yet (`forge i18n guides sync <locale>` starts one)", rel(&pack.dir.join("locales")));
 		return Ok(0);
 	}
-	let st = guide_state(&dir, &pack.manifest, &pack.guides, &chosen)?;
+	let st = guide_state(&o.root, &dir, &pack.manifest, &pack.guides, &chosen)?;
 	if what == "sync" {
 		let mut code = 0;
 		for (_, l) in &st {

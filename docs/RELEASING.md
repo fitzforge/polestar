@@ -212,10 +212,16 @@ version throughout.
 
    After the last change to a leveling guide, regenerate
    `addon/Polestar/Core/LegacySteps.lua` with every release players may
-   update from as an `--old` (each `vX.Y.Z` tag's `guides`, the last release
-   included): `git archive <tag> guides | tar -x -C <dir>/<tag>`, then
-   `node tools/legacy-steps.js --old <dir>/v0.3.4/guides ... --old
-   <dir>/<last release>/guides`, and commit it. The mapping above reads a
+   update from as an `--old` (each `vX.Y.Z` tag's `addon` folder, the last
+   release included): `git archive <tag> addon | tar -x -C <dir>/<tag>`,
+   then `forge guide legacy-steps --old <dir>/v0.3.4/addon ... --old
+   <dir>/<last release>/addon`, and commit it. It reads each release's
+   steps from the guides that release shipped (its
+   `Polestar_Guides*/Guides.lua`), never from its guide sources: a save
+   holds the keys of the steps as they shipped, and a later compiler or
+   data could name some of them differently. The current guides are
+   compiled from `guides/` with `--data` (default `data/forever`): pass
+   the release's reference data. The mapping above reads a
    save's changed steps from it: a step it does not list keeps no check-off,
    skip or saved view, and nothing in its stretch passes behind the player;
    its `ns.LegacyMovedIn` (the quests each guide now offers that a release

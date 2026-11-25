@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (traditional) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:2255} Everlook · {zone:1448} Felwood · {zone:1452} Winterspring
+	["{area:2255} first, then Un'Goro, then {zone:1448} and {zone:1452} again."] = "先去{area:2255}，再去安戈洛，然後再回到{zone:1448}和{zone:1452}。",
+
 	-- Step 1: Fly to Everlook
 	-- {area:2255} Everlook
 	["Fly to {area:2255}"] = "飛往{area:2255}",
@@ -110,7 +114,7 @@ return {
 
 	-- Step 19: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:9623} A-Me 01 · {quest:4243} Chasing A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
-	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} ({quest:4243}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "",
+	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} ({quest:4243}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "{area:976}的拍賣場是安戈洛之前的最後一個。在那裡，{npc:9623}（{quest:4243}）會在護送前要一個{item:10561}，這是一件{skill:202}物品：如果你想做這條任務線，就在這裡買一個。",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
 	-- {npc:7876} Tran'rek
@@ -282,7 +286,7 @@ return {
 
 	-- Step 57: Eridan Bluewind
 	-- {npc:9116} Eridan Bluewind · {area:2479} Emerald Sanctuary
-	["{npc:9116} stands inside, in the {area:2479}."] = "",
+	["{npc:9116} stands inside, in the {area:2479}."] = "{npc:9116}站在裡面，在{area:2479}中。",
 	-- {npc:9116} Eridan Bluewind
 	["{npc:9116}, inside"] = "{npc:9116}，在裡面",
 

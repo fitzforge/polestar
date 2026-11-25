@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Portuguese (Brazil) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1425} The Hinterlands · {area:75} Stonard · {zone:1419} Blasted Lands
+	["{zone:1425} first, then {area:75} and the {zone:1419}."] = "Primeiro {zone:1425}, depois {area:75} e {zone:1419}.",
+
 	-- Step 1: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "Voe para {area:272}",

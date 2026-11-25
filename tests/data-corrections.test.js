@@ -76,6 +76,56 @@ test('Damp Note requires The Essence of Aku\'Mai on the recorded Priestess drop,
 	assert.notEqual(corrections.quests[6564]?.set?.pre?.includes(6563), true, 'accepting the root is enough; it is not a completion prerequisite');
 });
 
+// #3918 (Deadshot): a Gnome Mage held Forever's An Earnest Proposition 84149 while the Lookup guide for the chain
+// waited for the Classic 8907, since 8922 did not follow 84149 and the data gave it no class or objectives. Every
+// version players' quest logs held or Deliana and Mokvar offered (game build 70959) is one of A Supernatural Device's
+// prerequisites on its side, for its class, with the side's samples and the class's bracers, given and taken back by
+// the side's giver.
+test('A Supernatural Device follows every recorded class version of An Earnest Proposition (#3918, #3081)', () => {
+	const SAMPLE = { 8922: 21928, 8923: 22381 };
+	const GIVER = { 8922: 230319, 8923: 230317 };
+	const versions = [
+		[84149, 8922, 128, 16683], // Mage: Magister's Bindings
+		[84150, 8922, 2, 16722], // Paladin: Lightforge Bracers
+		[84152, 8922, 8, 16710], // Rogue: Shadowcraft Bracers
+		[84160, 8923, 64, 16671], // Shaman: Bindings of Elements
+		[84161, 8923, 256, 16703], // Warlock: Dreadmist Bracers
+		[97411, 8923, 2, 16722], // Paladin (Horde): Lightforge Bracers
+	];
+	for (const [id, device, cls, bracers] of versions) {
+		assert.ok(corrections.quests[device].set.preAny.includes(id), `${device} follows ${id}`);
+		const { set, remove } = corrections.quests[id];
+		assert.ok(!remove, `${id} stays in the data`);
+		assert.equal(set.classes, cls, `${id}'s class`);
+		assert.equal(set.next, device, `${id} leads to ${device}`);
+		assert.deepEqual(set.objectives.map((o) => [o.id, o.count]), [[SAMPLE[device], 15], [bracers, 1]], `${id}'s objectives`);
+		for (const end of [set.start, set.end].filter(Boolean)) assert.deepEqual(end.npc, [GIVER[device]], `${id} at its side's giver`);
+	}
+});
+
+// #4025 (Tauren Druid, 84155), #3765 (Night Elf Druid, 84147), #4016: the versions no recording had yet carried no
+// class, so the Lookup chain sent every class without one in its log to the first of them (the Hunter's 84148, the
+// Druid's 84155), which the giver never offers it; and the Alliance Druid's 84147 had left the data. Each side's
+// A Supernatural Device now follows one version per class, and each version names its class and that class's bracers.
+test('A Supernatural Device follows one class-locked An Earnest Proposition per class on each side (#4025, #3765)', () => {
+	const BRACERS = { 1: 16735, 2: 16722, 4: 16681, 8: 16710, 16: 16697, 64: 16671, 128: 16683, 256: 16703, 1024: 16714 };
+	const SAMPLE = { 8922: 21928, 8923: 22381 };
+	for (const device of [8922, 8923]) {
+		const classes = [];
+		for (const id of corrections.quests[device].set.preAny) {
+			const entry = corrections.quests[id];
+			assert.ok(entry && entry.set && !entry.remove, `${id} has a record and stays in the data`);
+			const { classes: cls, next, objectives } = entry.set;
+			assert.ok(BRACERS[cls], `${id} names one class`);
+			classes.push(cls);
+			assert.equal(next, device, `${id} leads to ${device}`);
+			assert.deepEqual(objectives.map((o) => [o.id, o.count]), [[SAMPLE[device], 15], [BRACERS[cls], 1]], `${id}: the samples and its class's bracers`);
+		}
+		assert.deepEqual(classes.slice().sort((a, b) => a - b), Object.keys(BRACERS).map(Number), `${device}: one version per class`);
+	}
+	assert.ok(corrections.quests[8922].set.preAny.includes(84147), 'the Alliance Druid version 84147 leads to 8922');
+});
+
 test('the overlay takes mechanics flat or under quests; mechanics 603 and 1064 stay private', () => {
 	const out = overlayCorrections({ mechanics: {} }, { mechanics: { quests: { 603: { note: 'nested' } }, 1064: { note: 'flat' } } });
 	assert.deepEqual(Object.keys(out.mechanics).sort(), ['1064', '603']);

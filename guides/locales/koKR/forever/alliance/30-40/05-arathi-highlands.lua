@@ -7,9 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {area:327} Faldir's Cove
-	-- was: ["For characters of 35 to 37. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "35~37레벨 캐릭터용입니다. 나가와 교수의 물의 정령이 38-40레벨인 {area:327}은(는) 파티용이니 혼자라면 건너뛰세요."
-	["For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "",
+	-- {zone:1435} Swamp of Sorrows · {area:271} Southshore · {area:327} Faldir's Cove
+	["{zone:1435} first, then north to {area:271}, Alterac and Arathi. For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "먼저 {zone:1435}, 그다음 북쪽의 {area:271}, 알터랙, 아라시로 갑니다. 36~38레벨 캐릭터용입니다. 나가와 교수의 물의 정령이 38-40레벨인 {area:327}은(는) 파티용 경유지이니 혼자라면 건너뛰세요.",
 
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
@@ -98,7 +97,7 @@ return {
 
 	-- Step 18: Gakin the Darkbinder
 	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
-	["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}."] = "",
+	["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}."] = "{npc:6122}은(는) {object:2101}의 {object:2164} 지하실에서 기다립니다.",
 
 	-- Step 19: The Binding
 	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6913} Heartswood Core · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
@@ -163,9 +162,9 @@ return {
 	-- Step 33: Hay Weevil
 	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
 	-- plural, as words: Hay Weevils = {npc:217589} Hay Weevil
-	["Hay Weevils crawl about the north end of {quest:681}'s farm: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "",
+	["Hay Weevils crawl about the north end of {quest:681}'s farm: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "건초 바구미({npc:217589})가 {quest:681} 농장 북쪽 끝을 기어 다닙니다: {npc:217412}의 {item:213565}을(를) 열어 그 안의 {item:213562}을(를) 한 마리에게 사용하십시오. 죽이지 마십시오.",
 	-- {item:213562} Bug Catching Net · {npc:217589} Hay Weevil · {item:213568} Hay Weevil Specimen
-	["{item:213562}, on a {npc:217589}: the {item:213568}"] = "",
+	["{item:213562}, on a {npc:217589}: the {item:213568}"] = "{item:213562}을(를) {npc:217589}에게: {item:213568}",
 
 	-- Step 34: Shards of Myzrael
 	-- {quest:681} Northfold Manor · {area:333} Circle of East Binding · {area:314} Go'Shek Farm
@@ -194,7 +193,7 @@ return {
 	-- Step 38: Witherbark Village
 	-- {area:318} Drywhisker Gorge · {area:314} Go'Shek Farm · {area:317} Witherbark Village · {npc:2712} Quae
 	-- plural, as words: Witherbark Goliaths = {npc:218032} Witherbark Goliath
-	["South from {area:318}, past {area:314}, through {area:317} to the far end of the valley: the Shadow Hunters there drop the knife, and the trolls packed around them give most of the tusks. Then the Witch Doctors among the huts for the pouches, on the way back out towards {npc:2712}. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "",
+	["South from {area:318}, past {area:314}, through {area:317} to the far end of the valley: the Shadow Hunters there drop the knife, and the trolls packed around them give most of the tusks. Then the Witch Doctors among the huts for the pouches, on the way back out towards {npc:2712}. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "{area:318}에서 남쪽으로 {area:314}을(를) 지나 {area:317}을(를) 통과해 골짜기 끝까지 가십시오: 그곳의 어둠사냥꾼이 칼을 떨어뜨리고, 그 주위에 모인 트롤들이 엄니 대부분을 줍니다. 그런 다음 {npc:2712} 쪽으로 돌아나오는 길에 오두막 사이의 주술 의사에게서 주머니를 얻으십시오. 주의: 마른나무껍질 골리앗({npc:218032}, 35, 정예)이 어둠사냥꾼과 함께 골짜기 끝을 돌아다닙니다: 사냥꾼을 하나씩 골리앗에게서 떨어진 곳으로 끌어내십시오.",
 	-- {item:5040} Shadow Hunter Knife
 	["{item:5040}; below ground"] = "",
 

@@ -15,18 +15,18 @@ return {
 	["{npc:217588} in {zone:1434}"] = "{npc:217588}在{zone:1434}",
 	-- {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
 	-- plural, as words: Arbor Tarantulas = {npc:217588} Arbor Tarantula
-	["The Arbor Tarantulas sit in northern Stranglethorn. Open the {item:213565} and use its {item:213562} on one to catch it: don't kill it."] = "",
+	["The Arbor Tarantulas sit in northern Stranglethorn. Open the {item:213565} and use its {item:213562} on one to catch it: don't kill it."] = "喬木狼蛛（{npc:217588}）在荊棘谷北部。打開{item:213565}，對其中一隻使用裡面的{item:213562}來抓住牠：不要殺死牠。",
 	-- {item:213562} Bug Catching Net · {npc:217588} Arbor Tarantula
-	["{item:213562}, on an {npc:217588}"] = "",
+	["{item:213562}, on an {npc:217588}"] = "{item:213562}，用在{npc:217588}上",
 
 	-- Step 3: Hay Weevil in Arathi Highlands
 	-- {npc:217589} Hay Weevil · {zone:1417} Arathi Highlands
 	["{npc:217589} in {zone:1417}"] = "{npc:217589}在{zone:1417}",
 	-- {zone:1417} Arathi Highlands · {item:213562} Bug Catching Net
 	-- plural, as words: Hay Weevils = {npc:217589} Hay Weevil
-	["The Hay Weevils crawl in the north-west of {zone:1417}. Use the {item:213562} on one."] = "",
+	["The Hay Weevils crawl in the north-west of {zone:1417}. Use the {item:213562} on one."] = "乾草象鼻蟲（{npc:217589}）在{zone:1417}西北部爬行。對其中一隻使用{item:213562}。",
 	-- {item:213562} Bug Catching Net · {npc:217589} Hay Weevil
-	["{item:213562}, on a {npc:217589}"] = "",
+	["{item:213562}, on a {npc:217589}"] = "{item:213562}，用在{npc:217589}上",
 
 	-- Step 4: Flesh Picker in Desolace
 	-- {npc:217590} Flesh Picker · {zone:1443} Desolace
@@ -34,9 +34,9 @@ return {
 	-- {area:596} Kodo Graveyard · {zone:1443} Desolace · {item:213562} Bug Catching Net
 	-- plural, as words: Flesh Pickers = {npc:217590} Flesh Picker
 	-- was: ["The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the kit's tool on one."] = "食肉蟲在{zone:1443}南部中段的{area:596}覓食。用工具包裡的工具對一隻使用。"
-	["The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the {item:213562} on one."] = "",
+	["The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the {item:213562} on one."] = "食腐者（{npc:217590}）在{zone:1443}南部中央的{area:596}覓食。對其中一隻使用{item:213562}。",
 	-- {item:213562} Bug Catching Net · {npc:217590} Flesh Picker
-	["{item:213562}, on a {npc:217590}"] = "",
+	["{item:213562}, on a {npc:217590}"] = "{item:213562}，用在{npc:217590}上",
 
 	-- Step 5: Back to Amaryllis Webb
 	-- {npc:217412} Amaryllis Webb

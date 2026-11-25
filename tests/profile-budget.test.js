@@ -45,6 +45,25 @@ test("CI's timing budgets only warn: the workflows running forge-addontest and t
 	for (const f of ['ci.yml', 'forge.yml', 'ondemand-suites.yml']) assert.match(workflow(f), /^\s+POLESTAR_TIMING_BUDGETS: warn$/m, f);
 });
 
+// The post-merge gates' steps by name: name -> the step's text.
+function steps(file) {
+	return Object.fromEntries(workflow(file).split(/\n {6}- name: /).slice(1).map((s) => [s.split('\n')[0].trim(), s]));
+}
+
+test("the post-merge gates enforce perf.test.js's budgets on their own and keep it out of the warn-mode suite", () => {
+	const s = steps('next-gates.yml');
+	const perf = s['Perf budgets'];
+	assert.ok(perf, Object.keys(s).join(', '));
+	assert.match(perf, /^\s+POLESTAR_TIMING_BUDGETS: enforce$/m);
+	assert.match(perf, /node --test .*tests\/perf\.test\.js/);
+	// A figure that only warns there names its open issue beside it.
+	const warn = perf.match(/^\s+POLESTAR_PERF_WARN: (\S*)(.*)$/m);
+	if (warn && warn[1]) assert.match(warn[2], /#\d+/, 'POLESTAR_PERF_WARN without its issue');
+	assert.match(s['Node suite on the release data'], /grep -vx tests\/perf\.test\.js/);
+	assert.match(s.Summary, /PERF: \$\{\{ steps\.perf\.outcome \}\}/);
+	assert.match(s.Summary, /row "Perf budgets" "\$PERF"/);
+});
+
 test('the release gate finds every timing test: each file using assert_timing! or assertTiming is in its list', { skip: process.platform === 'win32' && 'bash script' }, () => {
 	const r = spawnSync('bash', ['rust/scripts/timing-budgets.sh', '--list'], { cwd: ROOT, encoding: 'utf8' });
 	assert.equal(r.status, 0, r.stderr);

@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (simplified) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:35} Booty Bay · {zone:1447} Azshara · {zone:1444} Feralas · {zone:1446} Tanaris
+	["{area:35} first, then {zone:1447}, {zone:1444} and {zone:1446}."] = "先去{area:35}，再去{zone:1447}、{zone:1444}和{zone:1446}。",
+
 	-- Step 2: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "飞往{area:35}",
@@ -22,7 +26,7 @@ return {
 
 	-- Step 4: Whiskey Slim
 	-- {npc:2491} Whiskey Slim · {area:35} Booty Bay
-	["{npc:2491} sits in the {area:35} inn."] = "",
+	["{npc:2491} sits in the {area:35} inn."] = "{npc:2491}坐在{area:35}旅店里。",
 	-- {npc:2491} Whiskey Slim
 	["{npc:2491}, in the inn"] = "{npc:2491}，在旅店里",
 
@@ -55,9 +59,9 @@ return {
 	["Below ground"] = "在地下",
 
 	-- Step 17: Saving Yenniku
-	["while he is alive: the gem fills; don't kill him"] = "",
+	["while he is alive: the gem fills; don't kill him"] = "趁他活着：宝石会充满；不要杀死他",
 	-- {item:3912} Soul Gem
-	["Use the {item:3912} on Yenniku"] = "",
+	["Use the {item:3912} on Yenniku"] = "对耶尼库使用{item:3912}",
 
 	-- Step 19: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -241,7 +245,7 @@ return {
 
 	-- Step 61: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:9623} A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
-	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} (Chasing {npc:9623}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "",
+	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} (Chasing {npc:9623}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "{area:976}的拍卖行是安戈洛之前的最后一个。在那里，{npc:9623}（追捕{npc:9623}）会在护送前要一个{item:10561}，这是一件{skill:202}物品：如果你想做这条任务线，就在这里买一个。",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}，在双足飞龙管理员旁边",
 

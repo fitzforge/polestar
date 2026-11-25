@@ -782,7 +782,7 @@ const ZONE_OPTIONS = [
 		seconds: 300, quests: 28, zone: 1446, focusX: 52.0, focusY: 28.4,
 		pitch: "Gadgetzan's camps, Tooga's escort, then Thorium Point.",
 		pros: ['Thorium Point on the way', 'Then on to the Hinterlands', 'Stays on the main route'], cons: ['Long runs across the desert'],
-		thenId: 'forever/horde/40-50/05-the-hinterlands', thenGuideTitle: 'The Hinterlands & Blasted Lands', thenLevel: 48 },
+		thenId: 'forever/horde/40-50/05-the-hinterlands', thenGuideTitle: 'The Hinterlands & Swamp of Sorrows', thenLevel: 48 },
 	{ id: 'polestar-experimental/shendralas', title: "Shen'dralas", zoneName: "Shen'dralas", minLevel: 42, maxLevel: 44, seconds: 780, quests: 11,
 		zone: 2652, focusX: 21.2, focusY: 22.4, experimental: true, newInForever: true, outleveled: true, detour: 'Desolace',
 		pitch: 'A fallen Highborne temple south of Desolace.',

@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in French words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:2255} Everlook · {zone:1448} Felwood · {zone:1452} Winterspring
+	["{area:2255} first, then Un'Goro, then {zone:1448} and {zone:1452} again."] = "D'abord {area:2255}, puis Un'Goro, puis de nouveau {zone:1448} et {zone:1452}.",
+
 	-- Step 1: Fly to Everlook
 	-- {area:2255} Everlook
 	["Fly to {area:2255}"] = "Prendre un vol pour {area:2255}",
@@ -110,7 +114,7 @@ return {
 
 	-- Step 19: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:9623} A-Me 01 · {quest:4243} Chasing A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
-	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} ({quest:4243}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "",
+	["{area:976}'s Auction House is the last one before Un'Goro. There, {npc:9623} ({quest:4243}) asks for a {item:10561}, an {skill:202} item, before her escort: buy one here if you want that chain."] = "L'hôtel des ventes de {area:976} est le dernier avant Un'Goro. Là, {npc:9623} ({quest:4243}) demande un {item:10561}, un objet d'{skill:202}, avant son escorte : achetez-en un ici si vous voulez cette chaîne.",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, à l'intérieur",
 	-- {npc:7876} Tran'rek
@@ -282,7 +286,7 @@ return {
 
 	-- Step 57: Eridan Bluewind
 	-- {npc:9116} Eridan Bluewind · {area:2479} Emerald Sanctuary
-	["{npc:9116} stands inside, in the {area:2479}."] = "",
+	["{npc:9116} stands inside, in the {area:2479}."] = "{npc:9116} se tient à l'intérieur, dans {area:2479}.",
 	-- {npc:9116} Eridan Bluewind
 	["{npc:9116}, inside"] = "{npc:9116}, à l'intérieur",
 

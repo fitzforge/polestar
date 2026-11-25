@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (simplified) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:340} Kargath · {zone:1427} Searing Gorge · {zone:1428} Burning Steppes
+	["Un'Goro first, then {area:340}, the {zone:1427} and the {zone:1428}."] = "先去安戈洛，再去{area:340}、{zone:1427}和{zone:1428}。",
+
 	-- Step 2: Into Un'Goro Crater
 	-- {zone:1449} Un'Goro Crater
 	["Into {zone:1449}"] = "进入{zone:1449}",
@@ -186,11 +190,11 @@ return {
 
 	-- Step 38: Andi Lynn
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn · {area:983} Dunemaul Compound
-	["The hearth lands in {area:976}: {npc:11758} takes the {area:983}."] = "",
+	["The hearth lands in {area:976}: {npc:11758} takes the {area:983}."] = "炉石把你带到{area:976}：{npc:11758}接收{area:983}。",
 
 	-- Step 39: Tran'rek
 	-- {npc:7876} Tran'rek
-	["{npc:7876} stands beside the wind rider master."] = "",
+	["{npc:7876} stands beside the wind rider master."] = "{npc:7876}站在双足飞龙管理员旁边。",
 
 	-- Step 41: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
@@ -339,7 +343,7 @@ return {
 
 	-- Step 74: Oran Snakewrithe
 	-- {quest:2995} Lines of Communication · {object:144073} Highvale Report · {area:350} Quel'Danil Lodge · {zone:1425} The Hinterlands · {zone:1419} Blasted Lands
-	["{quest:2995}'s work is not in this guide: burn the {object:144073}, Notes and Records in the elves' camps around {area:350}, in {zone:1425} & {zone:1419} (its Highvale step). Load that guide for the arrows."] = "",
+	["{quest:2995}'s work is not in this guide: burn the {object:144073}, Notes and Records in the elves' camps around {area:350}, in {zone:1425} & {zone:1419} (its Highvale step). Load that guide for the arrows."] = "{quest:2995}的任务不在本指南中：在{area:350}周围精灵营地里烧掉{object:144073}、笔记和记录，在{zone:1425}和{zone:1419}指南中（它的高原精灵步骤）。加载那篇指南以获得箭头。",
 
 	-- Step 75: Undercity
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
@@ -351,15 +355,15 @@ return {
 	-- {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {area:152} The Bulwark
 	["Leave the {zone:1458} and ride east along the road through {zone:1420} to the {area:152}, the Forsaken fort on the border."] = "离开{zone:1458}，沿道路向东穿过{zone:1420}，前往边境上的被遗忘者要塞{area:152}。",
 	-- {quest:5405} Argent Dawn Commission
-	["Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "",
+	["Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "装备{quest:5405}：只有佩戴它时才会掉落天灾石。",
 	-- {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions
-	["{item:12814}, from the {object:176092} next to Derrington: {quest:5096}, done on the way back"] = "",
+	["{item:12814}, from the {object:176092} next to Derrington: {quest:5096}, done on the way back"] = "{item:12814}，来自德灵顿旁边的{object:176092}：{quest:5096}，在回程路上完成",
 
 	-- Step 78: Scarlet forward camp
 	["Scarlet forward camp"] = "血色十字军前线营地",
 	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
 	-- was: ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "从{area:152}沿路向东进入{zone:1422}。血色十字军的帐篷就在费尔斯通农场再往前一点，位于{area:199}和{area:200}之间。用{object:176092}点燃指挥帐篷，并插上天灾战旗。小心：帐篷周围的血色十字军最高54级，祈求者会施法：从离指挥帐篷最近的一侧进入，别惹其他人。"
-	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "",
+	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "从{area:152}沿路向东进入{zone:1422}。血色十字军的帐篷就在费尔斯通农场后面，在{area:199}和{area:200}之间。用{item:12814}点燃指挥帐篷，插上天灾旗帜。小心：帐篷周围的血色十字军最高54级，祈求者会施法：从离指挥帐篷最近的一侧进入，别管其他人。",
 
 	-- Step 79: Janice Felstone
 	-- {npc:10778} Janice Felstone

@@ -182,26 +182,37 @@ return {
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston · {zone:1453} Stormwind
 	["{npc:3649}: for {npc:1646} in {zone:1453}, on the walk from the boat"] = "",
 
-	-- Step 31: Thundris Windweaver
+	-- Step 31: Elisa Steelhand
+	["talk to the trainer"] = "與訓練師交談",
+
+	-- Step 32: Kurdram Stonehammer
+	-- {npc:6297} Kurdram Stonehammer · {npc:6300} Elisa Steelhand · {quest:97948} Camping 101: Mining
+	["{npc:6297}, beside {npc:6300}: {quest:97948}"] = "{npc:6297}，在{npc:6300}旁邊：{quest:97948}",
+
+	-- Step 33: Jenna Lemkenilli
+	-- {npc:11037} Jenna Lemkenilli · {npc:6300} Elisa Steelhand · {quest:97941} Camping 101: Engineering
+	["{npc:11037}, beside {npc:6300}: {quest:97941}"] = "{npc:11037}，在{npc:6300}旁邊：{quest:97941}",
+
+	-- Step 34: Thundris Windweaver
 	-- {npc:3649} Thundris Windweaver · {quest:4763} The Blackwood Corrupted · {zone:1439} Darkshore
 	["From level 15 {npc:3649} also has {quest:4763}: its samples come from the northern Blackwood camp on your next {zone:1439} visit. Fill its bowl at the moonwell in the middle of the village now."] = "",
 	-- {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell
 	["{item:12347}: fill the {item:12346} at the {object:174795}"] = "{item:12347}：在{object:174795}裝滿{item:12346}",
 
-	-- Step 32: Cerellean Whiteclaw
+	-- Step 35: Cerellean Whiteclaw
 	-- {npc:3644} Cerellean Whiteclaw
 	-- was: ["{npc:3644}, where the pier meets the shore, on the way to the boat"] = "{npc:3644}，在碼頭與岸邊相接處，就在去搭船的路上"
 	["{npc:3644} waits where the pier meets the shore, on the way to the boat."] = "",
 
-	-- Step 33: Boat to Stormwind Harbor
+	-- Step 36: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
 	["Boat to {area:17203}"] = "乘船前往{area:17203}",
 
-	-- Step 34: Manifest Clerk Philmor
+	-- Step 37: Manifest Clerk Philmor
 	-- {npc:268511} Manifest Clerk Philmor · {npc:483} Elaine Trias · {object:2096} Trade District
 	["Off the boat, {npc:268511} stands on the harbor: his shipment goes to {npc:483}' cheese shop in the {object:2096}, beside the flight master."] = "下船後，{npc:268511}站在港口：他的貨物要送到{object:2096}裡{npc:483}的乳酪店，就在飛行管理員旁邊。",
 
-	-- Step 35: Stormwind flight master
+	-- Step 38: Stormwind flight master
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "{zone:1453}飛行管理員",
 	-- {npc:483} Elaine Trias
@@ -209,7 +220,7 @@ return {
 	-- {object:460004} Gatehouse Door (no name in this language: may be words)
 	["Up the stairs in her shop: leave the shipment at the {object:460004}"] = "上她店裡的樓梯：把貨物留在{object:460004}處",
 
-	-- Step 36: Baros Alexston
+	-- Step 39: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:2096} Trade District · {zone:1436} Westfall · {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	-- was: ["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way."] = "{npc:1646}站在{object:2098}裡，在{object:2096}以西：他的羅盤在{zone:1436}的老房子裡，順路可取。"
 	["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way. His reply to {npc:3649} goes back to {area:442} with you."] = "",
@@ -218,23 +229,23 @@ return {
 	-- {npc:1646} Baros Alexston · {quest:97926} Making Do · {npc:3649} Thundris Windweaver · {zone:1439} Darkshore
 	["{npc:1646}: {quest:97926}, for {npc:3649} on your next {zone:1439} visit"] = "",
 
-	-- Step 37: Woo Ping
+	-- Step 40: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "趁在這裡：向{npc:11867}學習{spell:202}（{object:2096}，10銀）；雙手武器讓戰士升級最快。",
 
-	-- Step 38: Woo Ping
+	-- Step 41: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "順便：在{npc:11867}處學習劍（{object:2096}，10銀幣）；主手持劍能讓盜賊穩定升級。",
 
-	-- Step 39: Druid trainer
+	-- Step 42: Druid trainer
 	["Druid trainer"] = "德魯伊訓練師",
 	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {area:87} Goldshire
 	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "{npc:5504}在{zone:1453}；{area:87}沒有德魯伊訓練師",
 
-	-- Step 41: Class trainer
+	-- Step 44: Class trainer
 	["Class trainer"] = "職業訓練師",
 
-	-- Step 42: Shaman trainer
+	-- Step 45: Shaman trainer
 	["Shaman trainer"] = "薩滿訓練師",
 	-- {npc:257446} Teo Hammerstorm · {zone:1426} Dun Morogh · {area:87} Goldshire
 	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "{npc:257446}在{zone:1426}；{area:87}沒有薩滿訓練師",

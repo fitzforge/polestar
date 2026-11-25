@@ -481,7 +481,7 @@ fn built_in_controls_write_settings_and_follow_changes_made_elsewhere() {
 		O.Controls("guide", "Automation")["behavior.skipGrey"]:Click()
 		-- The TomTom rows are Nav's own (Integrations > TomTom, not loaded here): their switch and its child are
 		-- checked with the rest (settings-roundtrip.rs).
-		stub.RunScript(maxHeight.Slider, "OnValueChanged", 0.79, true)
+		stub.RunScript(maxHeight.Slider, "OnValueChanged", 0.786, true)
 		-- The accent lives on the Theme page now (UI/Looks/Theme.lua); its colour row is the window's.
 		local accent = ctl("ui.accent")
 		accent:Click("LeftButton")
@@ -495,7 +495,7 @@ fn built_in_controls_write_settings_and_follow_changes_made_elsewhere() {
 	assert_eq!(out["compact"], true);
 	assert_eq!(out["followed"], false);
 	assert_eq!(out["notesOpen"], false, "Expand step tips greys out with the tips off");
-	assert_eq!(out["height"], 0.8, "slider values snap to the step");
+	assert_eq!(out["height"], 0.79, "slider values snap to the step (1%)");
 	assert_eq!(out["picked"], json!([0.9, 0.3, 0.1]));
 	assert_eq!(out["cancelled"], false, "cancel restores the previous value: no custom accent");
 	assert_eq!(out["skipGrey"], false, "on by default: the click turns it off");

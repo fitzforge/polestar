@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (traditional) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1452} Winterspring · {zone:1448} Felwood · {zone:1444} Feralas · {zone:1456} Thunder Bluff
+	["{zone:1452} and {zone:1448}, then {zone:1444} and {zone:1456}."] = "{zone:1452}和{zone:1448}，然後是{zone:1444}和{zone:1456}。",
+
 	-- Step 1: Into Winterspring
 	-- {zone:1452} Winterspring
 	["Into {zone:1452}"] = "進入{zone:1452}",
@@ -122,7 +126,7 @@ return {
 	-- {item:12565} Winna's Kitten Carrier
 	["{item:12565}, at the Jadefire moonwell"] = "{item:12565}，在碧火月井",
 	-- {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard · {area:1997} Bloodvenom Post
-	["Bring the {npc:10042} to {npc:9996} at {area:1997} and click on it to hand it over."] = "",
+	["Bring the {npc:10042} to {npc:9996} at {area:1997} and click on it to hand it over."] = "把{npc:10042}帶到{area:1997}的{npc:9996}那裡，點擊牠來交給她。",
 
 	-- Step 23: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
@@ -152,7 +156,7 @@ return {
 
 	-- Step 30: Ghede
 	-- {npc:9076} Ghede · {area:1639} Elder Rise
-	["{npc:9076} stands on {area:1639}."] = "",
+	["{npc:9076} stands on {area:1639}."] = "{npc:9076}站在{area:1639}。",
 
 	-- Step 31: Elder Rise
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful

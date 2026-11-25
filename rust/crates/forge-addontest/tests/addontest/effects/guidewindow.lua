@@ -85,6 +85,11 @@ return {
 		["ui.width"] = one("width"),
 		-- A tall step (the biggest goals and spacing, six steps up next): the cap on the window's height.
 		["ui.maxHeight"] = { value = 0.3, with = { ["guideWindow.goalSize"] = 1.8, ["guideWindow.rowSpacing"] = 12, ["ui.upcoming"] = 6 }, probe = one("height") },
+		-- Fixed: the window is the height for a short step too (#1067); the progress bar under the last goal or on
+		-- the window's edge.
+		["ui.heightMode"] = { value = "fixed", probe = one("height") },
+		["ui.footAt"] = { value = "edge", with = { ["ui.heightMode"] = "fixed" },
+			probe = function() local p, rel, rp, _, y = P.foot:GetPoint(1); return { p, rp, rel == F, y } end },
 		["guideWindow.padding"] = one("rowTextX"),
 		["ui.compact"] = function() return { snapshot().person, snapshot().height } end,
 		["guideWindow.bgOpacity"] = function() return { snapshot().bgAlpha, rgba(F.psSkin.bg) } end,

@@ -53,7 +53,7 @@ return {
 	-- Step 9: Henze Faulk
 	-- {npc:6172} Henze Faulk · {quest:1786} The Tome of Divinity · {area:86} Stone Cairn Lake · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["{npc:6172} is already raised: take the next part of {quest:1786} from him, south of {area:86}. The Defias Rogue Wizards around him carry the {item:6846}."] = "",
+	["{npc:6172} is already raised: take the next part of {quest:1786} from him, south of {area:86}. The Defias Rogue Wizards around him carry the {item:6846}."] = "{npc:6172} já foi reerguido: pegue com ele a próxima parte de {quest:1786}, ao sul de {area:86}. Os magos renegados Defias ({npc:474}) ao redor dele carregam {item:6846}.",
 
 	-- Step 10: Three Corners
 	-- {area:1002} Three Corners · {zone:1431} Duskwood

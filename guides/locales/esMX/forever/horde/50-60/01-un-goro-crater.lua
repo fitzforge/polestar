@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Spanish (Latin America) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:340} Kargath · {zone:1427} Searing Gorge · {zone:1428} Burning Steppes
+	["Un'Goro first, then {area:340}, the {zone:1427} and the {zone:1428}."] = "Primero Un'Goro, luego {area:340}, {zone:1427} y {zone:1428}.",
+
 	-- Step 2: Into Un'Goro Crater
 	-- {zone:1449} Un'Goro Crater
 	["Into {zone:1449}"] = "Hacia {zone:1449}",
@@ -186,11 +190,11 @@ return {
 
 	-- Step 38: Andi Lynn
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn · {area:983} Dunemaul Compound
-	["The hearth lands in {area:976}: {npc:11758} takes the {area:983}."] = "",
+	["The hearth lands in {area:976}: {npc:11758} takes the {area:983}."] = "La piedra de hogar te deja en {area:976}: {npc:11758} recibe {area:983}.",
 
 	-- Step 39: Tran'rek
 	-- {npc:7876} Tran'rek
-	["{npc:7876} stands beside the wind rider master."] = "",
+	["{npc:7876} stands beside the wind rider master."] = "{npc:7876} está junto al maestro de jinetes del viento.",
 
 	-- Step 41: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
@@ -336,7 +340,7 @@ return {
 
 	-- Step 74: Oran Snakewrithe
 	-- {quest:2995} Lines of Communication · {object:144073} Highvale Report · {area:350} Quel'Danil Lodge · {zone:1425} The Hinterlands · {zone:1419} Blasted Lands
-	["{quest:2995}'s work is not in this guide: burn the {object:144073}, Notes and Records in the elves' camps around {area:350}, in {zone:1425} & {zone:1419} (its Highvale step). Load that guide for the arrows."] = "",
+	["{quest:2995}'s work is not in this guide: burn the {object:144073}, Notes and Records in the elves' camps around {area:350}, in {zone:1425} & {zone:1419} (its Highvale step). Load that guide for the arrows."] = "El trabajo de {quest:2995} no está en esta guía: quema {object:144073}, las notas y los registros en los campamentos élficos alrededor de {area:350}, en la guía de {zone:1425} y {zone:1419} (su paso de Vallealto). Carga esa guía para las flechas.",
 
 	-- Step 75: Undercity
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
@@ -348,15 +352,15 @@ return {
 	-- {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {area:152} The Bulwark
 	["Leave the {zone:1458} and ride east along the road through {zone:1420} to the {area:152}, the Forsaken fort on the border."] = "Sal de {zone:1458} y cabalga al este por el camino a través de {zone:1420} hasta {area:152}, el fuerte de los Renegados en la frontera.",
 	-- {quest:5405} Argent Dawn Commission
-	["Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "",
+	["Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "Equípate {quest:5405}: las piedras de la Plaga solo caen mientras lo llevas.",
 	-- {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions
-	["{item:12814}, from the {object:176092} next to Derrington: {quest:5096}, done on the way back"] = "",
+	["{item:12814}, from the {object:176092} next to Derrington: {quest:5096}, done on the way back"] = "{item:12814}, de {object:176092} junto a Derrington: {quest:5096}, hecha a la vuelta",
 
 	-- Step 78: Scarlet forward camp
 	["Scarlet forward camp"] = "Campamento avanzado Escarlata",
 	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
 	-- was: ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Desde {area:152}, sigue el camino al este hacia {zone:1422}. Las tiendas de la Cruzada Escarlata están justo pasando la Granja Piedramácula, entre {area:199} y {area:200}. Quema la tienda de mando con {object:176092} y planta el estandarte de la Plaga. Cuidado: los Escarlata alrededor de las tiendas llegan al nivel 54 y los invocadores lanzan hechizos: entra por el lado más cercano a la tienda de mando y deja en paz a los demás."
-	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "",
+	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Desde {area:152}, sigue el camino al este hacia {zone:1422}. Las tiendas de la Cruzada Escarlata están justo pasada la granja de Piedramácula, entre {area:199} y {area:200}. Quema la tienda de mando con {item:12814} y planta el estandarte de la Plaga. Cuidado: los Escarlatas alrededor de las tiendas llegan a 54 y los invocadores lanzan hechizos: entra por el lado más cercano a la tienda de mando y deja en paz a los demás.",
 
 	-- Step 79: Janice Felstone
 	-- {npc:10778} Janice Felstone

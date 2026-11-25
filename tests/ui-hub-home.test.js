@@ -24,12 +24,22 @@ const LONG = 'test/alliance/long-name';
 
 // A guide whose name and route run long: its title past any card's room, its
 // goals over a dozen zones.
+// Fourteen zones of one quest step each; Westfall five steps more (six: it
+// quests there), Ashenvale five more of which one is a mage's (five for this
+// warrior: it passes through).
 const LONG_GUIDE = `
 do
 	local maps = { 1453, 1426, 1436, 1411, 1412, 1413, 1454, 1456, 1420, 1421, 1424, 1442, 1440, 1441 }
 	local steps = {}
 	for i, m in ipairs(maps) do
 		steps[i] = { title = "Leg " .. i, goals = { { t = "accept", quest = 9000 + i, map = m, status = "pending", text = "Accept" } } }
+	end
+	for i = 1, 5 do
+		steps[#steps + 1] = { title = "Westfall " .. i, goals = { { t = "turnin", quest = 9003, map = 1436, status = "pending", text = "Turn in" } } }
+	end
+	for i = 1, 5 do
+		steps[#steps + 1] = { title = "Ashenvale " .. i, only = i == 1 and { classes = { "MAGE" } } or nil,
+			goals = { { t = "kill", quest = 9100 + i, map = 1440, status = "pending", text = "Kill" } } }
 	end
 	uistub.guides[${JSON.stringify(LONG)}] = { id = ${JSON.stringify(LONG)}, pack = "guides",
 		title = "The Long Road Through Every Kingdom Of The Eastern Continent And Back Again", faction = "Alliance",
@@ -272,7 +282,7 @@ test('a new character: Start here with Load guide, the other guides for the leve
 	assert.deepEqual(out.calls, [`SetGuide(${'forever/alliance/human/01-elwynn-forest'})`]);
 });
 
-test('a name cut short reads whole in its tooltip: the tab card, a row, the Zones fact and a community pack in the sidebar', () => {
+test('a name cut short reads whole in its tooltip: the tab card, a row, the Passes through fact and a community pack in the sidebar', () => {
 	const [out] = run(`
 		uistub.suggestions = { ${JSON.stringify(LONG)}, uistub.elwynn }
 		uistub.openTabs({ { ${JSON.stringify(LONG)}, 2 }, { uistub.elwynn, 1 } }, 1)
@@ -289,18 +299,19 @@ test('a name cut short reads whole in its tooltip: the tab card, a row, the Zone
 			if f:IsShown() and rawget(f, "psGuide") and f.psGuide.id == uistub.elwynn and rawget(f, "Note") and not rawget(f, "Front") then short = f end
 		end
 		local shortTip = tip(short)
-		-- The Zones fact.
+		-- The Quests in and Passes through facts.
 		P.Select(${JSON.stringify(LONG)})
-		local zones
+		local facts = {}
 		for _, f in ipairs(P.details.Facts) do
-			if f.Label:IsShown() and f.Label:GetText() == "Zones" then zones = { text = f.Value:GetText(), hit = f.Hit:IsShown(), tip = tip(f.Hit) } end
+			if f.Label:IsShown() then facts[f.Label:GetText()] = { text = f.Value:GetText(), hit = f.Hit:IsShown(), tip = tip(f.Hit) } end
 		end
+		local zones, questsIn = facts["Passes through"], facts["Quests in"]
 		-- A community pack's row in the sidebar: one line, its name whole on hover.
 		local W = Polestar.Widgets
 		W.ShellNav(F, { { key = "pack:x", label = "A Very Long Community Pack Title" .. "  \\194\\183  " .. "Its Author", icon = "layers", count = 3, oneLine = true },
 			{ key = "pack:y", label = "Short", icon = "layers", count = 1, oneLine = true } }, nil, function() end)
 		local long, small = F.navButtons[1], F.navButtons[2]
-		emit({ card = card, row = rowOut, shortTip = shortTip, zones = zones,
+		emit({ card = card, row = rowOut, shortTip = shortTip, zones = zones, questsIn = questsIn,
 			pack = { wrap = long.Label:GetWordWrap(), cut = long.Label:IsTruncated(), tip = tip(long), shortTip = tip(small) } })`, LONG_GUIDE);
 	const name = 'The Long Road Through Every Kingdom Of The Eastern Continent And Back Again';
 	assert.ok(out.card.cut, 'the card title is cut');
@@ -309,14 +320,56 @@ test('a name cut short reads whole in its tooltip: the tab card, a row, the Zone
 	assert.ok(out.row.cut);
 	assert.equal(out.row.tip[0], `${name} (1–20)`);
 	assert.notEqual(out.shortTip[0], 'Elwynn Forest (1–13)', 'a whole name keeps its plain tooltip');
-	assert.ok(out.zones && out.zones.hit, 'the Zones fact is cut and takes the mouse');
-	assert.equal(out.zones.tip[0], 'Zones');
-	assert.ok(out.zones.tip[1].split(' › ').length >= 10, out.zones.tip[1]);
+	assert.ok(out.zones && out.zones.hit, 'the Passes through fact is cut and takes the mouse');
+	assert.ok(out.zones.text.endsWith('…'), out.zones.text);
+	assert.equal(out.zones.tip[0], 'Passes through');
 	assert.ok(!out.zones.tip[1].includes('…'));
+	// Quests in: the one zone with six quest steps for this character, whole; the
+	// other thirteen, Ashenvale's five warrior steps among them, in route order under Passes through.
+	assert.equal(out.questsIn.text, 'Westfall');
+	assert.equal(out.questsIn.hit, false, 'a whole value has no tooltip');
+	const passes = out.zones.tip[1].split(' › ');
+	assert.equal(passes.length, 13, out.zones.tip[1]);
+	assert.ok(!passes.includes('Westfall'), out.zones.tip[1]);
+	assert.equal(out.zones.text.split(' › ')[0], passes[0], 'route order, from the first zone');
 	assert.equal(out.pack.wrap, false);
 	assert.ok(out.pack.cut);
 	assert.deepEqual(out.pack.tip, ['A Very Long Community Pack Title  ·  Its Author']);
 	assert.ok(!out.pack.shortTip.length, 'a name that fits has no tooltip');
+});
+
+// A zone is under Quests in when the title names it (the guide writer's rule: its quest goals) or six steps
+// carry a quest goal there for this character; the rest under Passes through, in route order.
+const TITLED_GUIDE = `
+do
+	local steps = {}
+	local function leg(map, n)
+		for i = 1, n do
+			steps[#steps + 1] = { title = "Leg " .. #steps, goals = { { t = "accept", quest = 9500 + #steps, map = map, status = "pending", text = "Accept" } } }
+		end
+	end
+	leg(1441, 2) -- not in the title, two steps: passes through
+	leg(1421, 1) -- "Silverpine & Elwynn Forest" names Silverpine Forest: quests in
+	leg(1426, 6) -- not in the title, six steps: quests in
+	leg(1440, 1) -- in the title: quests in
+	leg(1420, 5) -- not in the title, five steps: passes through
+	uistub.guides["test/alliance/titled"] = { id = "test/alliance/titled", pack = "guides", title = "Silverpine & Elwynn Forest, Ashenvale & Stranglethorn",
+		faction = "Alliance", minLevel = 1, maxLevel = 20, category = "Leveling", zone = 1421, zoneName = "Silverpine Forest", author = "Polestar", version = 1, steps = steps }
+	table.insert(uistub.order, "test/alliance/titled")
+end`;
+
+test('Quests in: the zones the title names and those with six quest steps; Passes through the rest, in route order', () => {
+	const [out] = run(`
+		uistub.suggestions = { "test/alliance/titled", uistub.elwynn }
+		open()
+		P.Select("test/alliance/titled")
+		local facts = {}
+		for _, f in ipairs(P.details.Facts) do
+			if f.Label:IsShown() then facts[f.Label:GetText()] = f.Value:GetText() end
+		end
+		emit(facts)`, TITLED_GUIDE);
+	assert.equal(out['Quests in'], 'Silverpine Forest › Dun Morogh › Ashenvale');
+	assert.equal(out['Passes through'], 'Thousand Needles › Tirisfal Glades');
 });
 
 test('Special thanks is in the header on Home and every page, a new name each time the window opens; the hub is built on first open, not at login', () => {

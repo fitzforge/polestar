@@ -176,7 +176,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		["ui.compact"] = function() GF.ApplyCompact() end,
 		["ui.width"] = function() GF.ApplyWidth() end,
 		-- With Grow upward the room above the bottom edge sets the window's height.
-		["ui.pos"] = function() GF.ApplyPosition(); if ns.Get("ui.growUp") then GF.Layout() end end,
+		["ui.pos"] = function() GF.ApplyPosition(); if ns.Get("ui.growUp") or ns.Get("ui.heightMode") == "auto" then GF.Layout() end end,
 		-- Re-pin by the other corner where the window stands now, so it does not jump.
 		["ui.growUp"] = function() GF.SavePosition(); GF.Layout() end,
 		["ui.barsBottom"] = function() GF.Layout() end,
@@ -187,7 +187,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		["ui.newInForever"] = function() GF.Render() end,
 		-- The class quest card full, compact or off (UI/ClassCard.lua).
 		["toasts.classcard.mode"] = function() GF.Render() end,
-		["ui.maxHeight"] = function() GF.Layout() end,
+		-- Setting a height while Automatic switches to Fixed: the player asked for that height.
+		["ui.maxHeight"] = function() if ns.Get("ui.heightMode") == "auto" then ns.Set("ui.heightMode", "fixed") else GF.Layout() end end,
+		["ui.heightMode"] = function() GF.Layout() end,
+		["ui.footAt"] = function() GF.Layout() end,
 		-- Another way of reading the card: nothing kept from the one before.
 		["ui.wholeStep"] = function() resetModel(); GF.Render() end,
 		["ui.combat"] = function() GF.ApplyVisibility(); GF.ApplyAlpha(false) end,
@@ -270,6 +273,26 @@ ns.UI.GuideFrame.Part(function(GF)
 			h = max(120, floor(h + dy + 0.5))
 		else
 			h = nil
+			-- Vertical, under Fixed or Automatic (ui.heightMode): the height follows
+			-- the mouse by how far it moved, down with the top edge pinned, up with
+			-- Grow upward. Under Automatic, a few px of it switch to Fixed; under
+			-- Follows the step the grip sets the width alone.
+			local mode = ns.Get("ui.heightMode")
+			local y = select(2, GetCursorPosition()) / F:GetEffectiveScale()
+			local dy = (self.psStartY - y) * (ns.Get("ui.growUp") and -1 or 1)
+			if (mode == "fixed" or mode == "auto") and self.psStartCap and (self.psSized or math.abs(dy) >= 3) then
+				self.psSized = true
+				-- The screen's own pixels (GetPhysicalScreenSize), whatever the UI scale, as the Options row reads them.
+				local screen = UIParent:GetHeight() * Theme.PixelsPerUnit(UIParent)
+				local px = floor((self.psStartCap + dy) * Theme.PixelsPerUnit(F) + 0.5)
+				local share = min(1, max(0.3, px / screen))
+				if mode == "auto" then ns.Set("ui.heightMode", "fixed") end
+				if share ~= GF.dragShare then
+					GF.dragShare = share
+					GF.Layout()
+				end
+				GF.ShowLimit(true)
+			end
 		end
 		if w ~= floor(F:GetWidth() + 0.5) or (h and h ~= SL.height) then
 			F:SetWidth(w)
@@ -292,12 +315,18 @@ ns.UI.GuideFrame.Part(function(GF)
 		local SL = UI.StepList
 		self.psStartH = SL and SL.open and (SL.height or F:GetHeight()) or nil
 		self.psStartY = select(2, GetCursorPosition()) / F:GetEffectiveScale()
+		self.psStartCap = GF.CapHeight and GF.CapHeight() or nil
+		self.psSized = false
 		self:SetScript("OnUpdate", ns.Safe(resizeUpdate))
 	end
 
 	local function resizeStop(self)
 		if not self:GetScript("OnUpdate") then return end
 		self:SetScript("OnUpdate", nil)
+		GF.ShowLimit(false)
+		local share = GF.dragShare
+		GF.dragShare = nil
+		if share then ns.Set("ui.maxHeight", share) end
 		ns.Set("ui.width", floor(F:GetWidth() + 0.5))
 		local SL = UI.StepList
 		if self.psStartH and SL and SL.open and SL.height then ns.Set("ui.stepListHeight", SL.height) end

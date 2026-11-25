@@ -37,7 +37,9 @@ use forge_addontest::{emitted, Addon, RunAddon};
 // the settings set (#3730) adds enough interface strings that the reads' strings cross a doubling even with
 // the id list built first: next read 1,523, #3730 1,778 on the 0.4.3 data (resident 1,382 and peak 1,434,
 // within theirs). The table is the whole addon's, not the quest database's: measuring the pack alone is #3762.
-const BUDGET: [(&str, f64); 3] = [("resident", 1400.0), ("peak", 1450.0), ("read", 1810.0)];
+// Raised for the 0.4.3 data build on QuestieDB 1.1.5 (Main, 2026-11-24, reported to Fitz): +163 quests; measured
+// resident 1,422, peak 1,473, read 1,813 KiB (1,382 / 1,433 / 1,778 on the data before); about 1 % headroom on each.
+const BUDGET: [(&str, f64); 3] = [("resident", 1440.0), ("peak", 1490.0), ("read", 1850.0)];
 
 /// Records read between full collects while `read` is measured.
 const READ_BATCH: usize = 256;

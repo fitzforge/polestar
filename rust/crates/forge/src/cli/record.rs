@@ -239,7 +239,14 @@ fn learn(rest: &[String]) -> Result<(), Fail> {
 	for dir in [&out, &report] {
 		std::fs::create_dir_all(dir).map_err(|e| format!("{}: {e}", dir.display()))?;
 	}
-	for (dir, name, text) in [(&out, forge_data::learn::FILE, &r.quests), (&out, "meta.json", &r.meta), (&report, "report.md", &r.report), (&report, "conflicts.json", &r.conflicts)] {
+	let files = [
+		(&out, forge_data::learn::FILE, &r.quests),
+		(&out, forge_data::learn::ESCORTS_FILE, &r.escorts),
+		(&out, "meta.json", &r.meta),
+		(&report, "report.md", &r.report),
+		(&report, "conflicts.json", &r.conflicts),
+	];
+	for (dir, name, text) in files {
 		let f = dir.join(name);
 		write_atomic(&f, text.as_bytes())?;
 		println!("wrote {}", f.display());

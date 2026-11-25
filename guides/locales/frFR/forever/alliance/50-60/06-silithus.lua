@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {zone:1451} Silithus · {area:3425} Cenarion Hold
-	["{zone:1451}: {area:3425}'s quests, to 60."] = "",
+	["{zone:1451}: {area:3425}'s quests, to 60."] = "{zone:1451} : les quêtes de {area:3425}, jusqu'au niveau 60.",
 
 	-- Step 1: Innkeeper Vizzie
 	-- {zone:2482} Mount Hyjal · {area:2255} Everlook · {npc:11118} Innkeeper Vizzie

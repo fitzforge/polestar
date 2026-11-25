@@ -7,8 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {zone:1423} Eastern Plaguelands · {zone:1448} Felwood · {zone:1452} Winterspring
-	["Western & {zone:1423}, {zone:1448} & {zone:1452}"] = "",
+	-- {zone:1423} Eastern Plaguelands · {zone:1448} Felwood
+	["Western & {zone:1423} & {zone:1448}"] = "西瘟疫之地, {zone:1423} & {zone:1448}",
+	-- {area:152} The Bulwark · {zone:1448} Felwood · {zone:1452} Winterspring
+	["{area:152} and both Plaguelands, then {zone:1448} and {zone:1452}."] = "{area:152}和东西两片瘟疫之地，然后是{zone:1448}和{zone:1452}。",
 
 	-- Step 1: The Bulwark
 	-- {area:199} Felstone Field · {area:152} The Bulwark · {npc:11055} Shadow Priestess Vandis
@@ -24,7 +26,7 @@ return {
 	["Andorhal watchtowers and silos"] = "安多哈尔的哨塔和粮仓",
 	-- {npc:10667} Chromie · {item:12815} Beacon Torch · {item:12627} Temporal Displacer · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
 	-- plural, as words: Temporal Parasites = {npc:10717} Temporal Parasite · Skeletal Warlords = {npc:1788} Skeletal Warlord
-	["Ride south-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the {item:12815} to mark it; keep to the edges of town. Use the {item:12627} by the silos in the middle of town to bring out Temporal Parasites (55-57): fight them one at a time and let the biggest go.\nCareful: a {npc:10996}, a level 58-59 elite, can stand in Andorhal, as at many other spots of the {zone:1422}: give it room.\nCareful: Skeletal Warlords, level 56-57 elites, stand by the first and second towers (the south-western and the western one): mark those towers from the far side of the doorway once the Warlord has turned away, and never pull one. Putridius (58, rare) walks among the silos."] = "",
+	["Ride south-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the {item:12815} to mark it; keep to the edges of town. Use the {item:12627} by each grain silo on the north side of town, one silo after another, to bring out Temporal Parasites (55-57): fight them one at a time and let the biggest go.\nCareful: a {npc:10996}, a level 58-59 elite, can stand in Andorhal, as at many other spots of the {zone:1422}: give it room.\nCareful: Skeletal Warlords, level 56-57 elites, stand by the first and second towers (the south-western and the western one): mark those towers from the far side of the doorway once the Warlord has turned away, and never pull one. Putridius (58, rare) walks among the silos."] = "向西南骑进安多哈尔。{npc:10667}在镇子西侧被毁的旅店里等候。拿着{item:12815}站在四座塔每座的门口来标记它；沿着镇子边缘走。在镇子北侧的每个粮仓旁使用{item:12627}，一个接一个，引出时间寄生虫（{npc:10717}，55-57）：一次打一只，放过最大的。\n小心：{npc:10996}，58-59级精英，可能站在安多哈尔，就像在{zone:1422}的许多其他地点一样：离它远点。\n小心：骷髅督军（{npc:1788}），56-57级精英，站在第一和第二座塔旁（西南和西边的那座）：等督军转过身后，从门口的远侧标记这些塔，绝不要拉它们。普崔迪乌斯（58，稀有）在粮仓之间走动。",
 	-- {npc:10667} Chromie
 	["{npc:10667}, upstairs"] = "{npc:10667}：在楼上",
 	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch
@@ -178,7 +180,7 @@ return {
 	-- Step 41: Egan
 	-- {npc:11140} Egan · {area:2627} Terrordale · {npc:12384} Augustus the Touched
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit · Crypt Horrors = {npc:8557} Crypt Horror · Crypt Walkers = {npc:8556} Crypt Walker
-	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut.\nCareful: Terrordale Spirits (59-60) drift through the north-west corner just north of {npc:11140}'s hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time."] = "",
+	["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner; {npc:12384} sits inside the hut.\nCareful: Terrordale Spirits (59-60) drift through the north-west corner just north of {npc:11140}'s hut, and Crypt Horrors (57-58) and Crypt Walkers (55-56) stand around it; some of them root you. Walk in slowly and pull one at a time."] = "幽灵{npc:11140}站在{area:2627}西北角的一间小屋旁；{npc:12384}坐在小屋里。\n小心：恐惧谷之魂（{npc:14564}，59-60）在{npc:11140}的小屋以北的西北角飘荡，墓穴恐魔（{npc:8557}，57-58）和墓穴行者（{npc:8556}，55-56）站在周围；其中一些会定身你。慢慢走进去，一次拉一只。",
 	-- {npc:12384} Augustus the Touched
 	["{npc:12384}, inside"] = "{npc:12384}，在屋内",
 
@@ -215,11 +217,11 @@ return {
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "解放达隆郡之魂：与它们交谈",
 	-- {npc:8530} Cannibal Ghoul · {npc:11064} Darrowshire Spirit
-	["{npc:8530}: a {npc:11064} rises where one dies"] = "",
+	["{npc:8530}: a {npc:11064} rises where one dies"] = "{npc:8530}：一个死去的地方会升起{npc:11064}",
 	-- {npc:8531} Gibbering Ghoul
-	["{npc:8531}: leaves a spirit too"] = "",
+	["{npc:8531}: leaves a spirit too"] = "{npc:8531}：也会留下一个灵魂",
 	-- {npc:8532} Diseased Flayer
-	["{npc:8532}: leaves a spirit too"] = "",
+	["{npc:8532}: leaves a spirit too"] = "{npc:8532}：也会留下一个灵魂",
 
 	-- Step 47: Carlin Redpath
 	-- {area:2268} Light's Hope Chapel

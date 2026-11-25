@@ -180,7 +180,7 @@ return {
 	-- Step 34: Henze Faulk
 	-- {npc:6172} Henze Faulk · {quest:1786} The Tome of Divinity · {area:86} Stone Cairn Lake · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["{npc:6172} is already raised: take the next part of {quest:1786} from him, south of {area:86}. The Defias Rogue Wizards around him carry the {item:6846}."] = "",
+	["{npc:6172} is already raised: take the next part of {quest:1786} from him, south of {area:86}. The Defias Rogue Wizards around him carry the {item:6846}."] = "{npc:6172}은(는) 이미 되살아났습니다: {area:86} 남쪽에서 그에게 {quest:1786}의 다음 부분을 받으십시오. 그 주변의 데피아즈단 마법사({npc:474})들이 {item:6846}을(를) 지니고 있습니다.",
 
 	-- Step 35: Three Corners
 	-- {area:1002} Three Corners · {npc:464} Guard Parker
@@ -403,7 +403,7 @@ return {
 
 	-- Step 72: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square
-	["Thundris' letter is already with {npc:1646}: his reply waits at the east side of {object:2098}."] = "",
+	["Thundris' letter is already with {npc:1646}: his reply waits at the east side of {object:2098}."] = "썬드리스의 편지는 이미 {npc:1646}에게 있습니다: 그의 답장은 {object:2098} 동쪽에서 기다립니다.",
 
 	-- Step 73: Gazin Tenorm
 	-- {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall · {object:2098} Cathedral Square

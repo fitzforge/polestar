@@ -9,7 +9,7 @@ return {
 	-- Guide
 	-- {area:976} Gadgetzan · {zone:1427} Searing Gorge · {npc:5955} Tooga · {area:1446} Thorium Point
 	-- was: ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} und {zone:1427} mit 46-48: die Lager der Wastewander, die Eskorte von {npc:5955} und {area:1446}."
-	["{area:976} and the {zone:1427} at 47-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "",
+	["{area:976} and the {zone:1427} at 47-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} und {zone:1427} mit 47-49: die Lager der Wastewander, die Eskorte von {npc:5955} und {area:1446}.",
 
 	-- Step 1: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -96,14 +96,13 @@ return {
 
 	-- Step 18: Tooga
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
-	["{npc:5955}, a little turtle, wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Leave the Thistleshrubs (48-50) alone."] = "",
+	["{npc:5955}, a little turtle, wanders the west edge of the {quest:3362} between several spots: the arrow goes from one to the next until you find him. Leave the Thistleshrubs (48-50) alone."] = "{npc:5955}, eine kleine Schildkröte, wandert am Westrand von {quest:3362} zwischen mehreren Stellen umher: Der Pfeil führt von einer zur nächsten, bis du sie findest. Lass die Distelsträucher (48-50) in Ruhe.",
 
 	-- Step 19: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "Eskorte: {npc:5955}",
 	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port · {npc:8579} Yeh'kinya
-	-- was: ["{npc:5955} waits in the valley. Walk him all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "{npc:5955} wartet im Tal. Bring ihn den ganzen Weg zu seiner Frau {npc:6015} in {area:977}, nach Nordosten durch die Wüste: Bleib nah bei ihm, geh langsam für ihn und wehr ab, was ihn angreift. Steig nicht auf und nutz keinen Ruhestein außerhalb seiner Reichweite. {npc:8579} steht auch im Hafen."
-	["Walk {npc:5955} all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "",
+	["Walk {npc:5955} all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "Gehe {npc:5955} den ganzen Weg zu seiner Frau {npc:6015} in {area:977}, nordöstlich durch die Wüste: halte dich nah bei ihm, fahre langsam für ihn und wehr ab, was ihn angreift. Steig nicht auf und ruhe dich nicht außerhalb seiner Reichweite. {npc:8579} steht auch im Hafen.",
 
 	-- Step 22: Slake That Thirst
 	-- {spell:686} Shadow Bolt
@@ -138,7 +137,7 @@ return {
 	-- Step 29: Tanaris Field Sampling
 	-- {area:976} Gadgetzan · {item:8524} Model 4711-FTZ Power Source · {quest:654} Tanaris Field Sampling · {npc:7407} Chief Engineer Bilgewhizzle
 	-- plural, as words: Blisterpaw Hyenas = {npc:5426} Blisterpaw Hyena · Glasshide Basilisks = {npc:5419} Glasshide Basilisk · Scorpid Hunters = {npc:5422} Scorpid Hunter
-	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon {quest:654} if it is in your log, then take Another Power Source? from {npc:7407}: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of {area:976}."] = "",
+	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon {quest:654} if it is in your log, then take Another Power Source? from {npc:7407}: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of {area:976}."] = "Zurück nach Norden, direkt südlich von {area:976}, benutze jetzt {item:8524}: Der Zwei-Stunden-Timer startet. Die Blasenpfotenhyänen ({npc:5426}), Glashautbasilisken ({npc:5419}) und Skorpidjäger ({npc:5422}) teilen sich hier die Dünen. Jeder kann eine ungetestete Probe fallen lassen: Benutze sie, und sie wird entweder brauchbar oder geht verloren. Töte weiter, bis du von jeder acht hast. Keine Energiequelle in den Taschen, oder ihre zwei Stunden sind abgelaufen? Brich {quest:654} ab, wenn es in deinem Questlog ist, und nimm dann „Noch eine Energiequelle?“ bei {npc:7407} an: Er gibt dir eine neue für zehn weitere Wastewander-Wasserbeutel aus den Wastewander-Lagern östlich von {area:976}.",
 	-- {item:8524} Model 4711-FTZ Power Source
 	["Use the {item:8524}"] = "Benutze die {item:8524}",
 

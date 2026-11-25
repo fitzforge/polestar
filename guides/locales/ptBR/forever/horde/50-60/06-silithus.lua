@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {zone:1451} Silithus · {zone:1446} Tanaris
-	["{zone:1451}, then Un'Goro and {zone:1446}."] = "",
+	-- {area:976} Gadgetzan · {zone:1451} Silithus · {zone:1446} Tanaris
+	["{area:976} first, then {zone:1451}, Un'Goro and back to {zone:1446}."] = "Primeiro {area:976}, depois {zone:1451}, Un'Goro e de volta a {zone:1446}.",
 
 	-- Step 1: Innkeeper Vizzie
 	-- {npc:11118} Innkeeper Vizzie · {area:2255} Everlook · {area:2249} Frostwhisper Gorge
@@ -28,7 +28,7 @@ return {
 
 	-- Step 4: Gaeriyan
 	-- {npc:9299} Gaeriyan · {item:11243} Videre Elixir · {area:976} Gadgetzan
-	["{npc:9299} has already met you: drink the {item:11243} at the graveyard just east of {area:976} and find him, as a ghost, in the rocky crevice due north of it."] = "",
+	["{npc:9299} has already met you: drink the {item:11243} at the graveyard just east of {area:976} and find him, as a ghost, in the rocky crevice due north of it."] = "{npc:9299} já conheceu você: beba {item:11243} no cemitério logo a leste de {area:976} e encontre-o, como espírito, na fenda rochosa bem ao norte.",
 
 	-- Step 5: Sprinkle
 	-- {item:12928} Umi's Mechanical Yeti · {npc:7583} Sprinkle · {area:976} Gadgetzan · {npc:10977} Quixxil · {npc:10978} Legacki
@@ -131,7 +131,7 @@ return {
 	["Flayers and Rock Stalkers"] = "Esfoladores e Espreitadoras de Rocha",
 	-- {area:2744} Hive'Regal · {zone:1451} Silithus
 	-- plural, as words: Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker
-	["Stonelash Flayers and Rock Stalkers roam the dunes north of {area:2744}, in the south-east of {zone:1451}."] = "",
+	["Stonelash Flayers and Rock Stalkers roam the dunes north of {area:2744}, in the south-east of {zone:1451}."] = "Esfoladores Açoita-pedra ({npc:11737}) e Espreitadores das Rochas ({npc:11739}) vagam pelas dunas ao norte de {area:2744}, no sudeste de {zone:1451}.",
 
 	-- Step 26: Twilight Vanguard
 	["Twilight Vanguard"] = "Vanguarda do Crepúsculo",

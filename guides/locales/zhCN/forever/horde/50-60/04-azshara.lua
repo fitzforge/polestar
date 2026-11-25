@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (simplified) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:392} Ratchet · {zone:1454} Orgrimmar · {zone:1458} Undercity
+	["{area:392}, {zone:1454} and the {zone:1458}, then into the Plaguelands."] = "{area:392}、{zone:1454}和{zone:1458}，然后前往瘟疫之地。",
+
 	-- Step 1: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "飞往{area:392}",
@@ -72,7 +76,7 @@ return {
 
 	-- Step 15: Chemist Cuely
 	-- {npc:8390} Chemist Cuely
-	["{npc:8390} works in the Apothecarium."] = "",
+	["{npc:8390} works in the Apothecarium."] = "{npc:8390}在炼金房工作。",
 
 	-- Step 16: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
@@ -98,7 +102,7 @@ return {
 
 	-- Step 23: Royal Quarter
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
-	-- plural, as words: Library Books = {object:386691} Library Book
+	-- plural, as words: Library Books = {object:386759} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "仅在背包中带有从{area:159}炼金店取得的书籍《{quest:79095}》时进行，详见《图书馆藏书》指南",
 
 	-- Step 25: The Bulwark
