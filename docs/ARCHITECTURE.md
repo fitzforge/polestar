@@ -2078,7 +2078,21 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   0.3.7 it waits for one level below the chain's first quest's level
   (`ClassQuests.QUEST_MARGIN`; the accept's compiled `qlvl`), not for the
   game's first offer 3-5 levels earlier; the guide list opens it from its
-  gate as before.
+  gate as before. Since #3925 (Fitz, 2026-11-24: a hand-written list, no
+  gear scoring) only the chains worth an alert are offered
+  (`ClassQuests.Prompted`): the hand-written `data/codex/class-quests.json`
+  names for every Class guide why it is alerted for (`spell`, `ability`,
+  `mount`, `key`, `unlock`, or `worth`: an item chain on the hand-picked
+  worth-it list, such as the Whirlwind Axe) or that it is `optional` (every
+  other chain that gives only items, experience or reputation, such as the
+  Enchanted Gold Bloodrobe). `classquests build` writes the optional ones
+  into `Core/ClassQuestList.lua`: their guide ids and the quests only they
+  take, each a space-separated string (`OptionalGuide(id)`,
+  `OptionalQuest(q)`: about 4 KiB at login, held to the core's budget).
+  An optional chain is never offered, has no level-up heads-up and no class
+  card outside its own guide, is never a leveling guide's feeder, and is
+  listed in the guide menu's optional class quests with its reward named; a
+  guide the list does not name (a community pack's) is alerted for as before.
 - **Conditions checked during play.** A step with `when` (format 4;
   GUIDE_FORMAT, "Conditions checked during play") applies only while every
   predicate holds (`Own.whenFails`, `Own.predicateHolds`): the level, quests
@@ -2690,7 +2704,11 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   accept is left out with all of its quest's goals, and a step left with no
   quest goal goes (`Own.rebuilt`: a new guide table in the registry,
   `Guides.Replace`, with `feeders`, `hidden`, `fromBase`, baked legs kept
-  where the way in is unchanged). A missing quest no guide leading here
+  where the way in is unchanged). An optional class chain's accept
+  (`Own.optionalClass`: a class quest `Core/ClassQuestList.lua` lists
+  optional, #3925) is never worth a feeder and is left out the same way; a
+  quest of the chain in the log keeps its hand-in (the chain under way
+  stays). A missing quest no guide leading here
   gives is a gap of the route and keeps its "Requires" line. A hand-in of a
   quest the player carries unfinished, which the guide never works (its work
   is in an earlier guide: Fire Taboo's flint, #2871; Panther Mastery's
@@ -9625,7 +9643,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   among them. A step or goal `only <Class>` is a route choice and a Class
   guide carries open errands, so neither makes a class quest. No card for a
   chain whose reward the character already knows or owns
-  (`ClassToast.RewardKnown`). In the class colour
+  (`ClassToast.RewardKnown`), nor, outside its own Class guide, for an
+  optional chain (`ClassCard.OptionalChain`, #3925). In the class colour
   (`Theme.ClassColor`; text lifted with `Theme.Legible`): border, 4 px
   stripe, a left-to-right glow; the chain's reward icon in a ring
   (`GetSpellTexture` on the reward spell, else the first item's
@@ -9676,7 +9695,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   at the start), opening at the new level (PLAYER_LEVEL_UP) or in the last
   two levels (login), its reward not known or owned (IsPlayerSpell /
   IsSpellKnown; GetItemCount with the bank), no quest of its chain done or in
-  the log, once per chain per character (`classToastSeen`; the same reward
+  the log, not an optional chain (`ClassToast.Optional`: its Class guide is
+  listed optional, #3925), once per chain per character (`classToastSeen`; the same reward
   from another giver counts as told). "<reward> ready" ("Voidwalker ready": a summon by what it summons), "Get it
   from <giver>, <zone>." and "Your route takes you there at <step>." when the
   loaded leveling guide has a step for the chain ahead. It always offers an
@@ -9923,7 +9943,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   Recent (the tabs closed, newest first, then the last guides loaded) tabs
   over one line per guide,
   `Title (min–max)`, in folders (a guide's `folder` when set, else leveling by
-  faction and band, other guides by category); search also matches `folder`
+  faction and band, other guides by category; an optional Class guide in
+  "<folder>: optional class quests" right after its class's folder, its row
+  naming its reward, `P.OptionalReward`, #3925); search also matches `folder`
   and `keywords`. There is no faction filter (#2462): the menu lists only the
   guides this character can follow (`Guides.GuideMatches`: never the other
   faction's, nor another race's or class's), except the other races' starting
