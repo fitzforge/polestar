@@ -9,25 +9,30 @@ local find = string.find
 local List = {
 	-- The optional Class guides' ids.
 	guides =
-		" forever/class/druid/bloodpetal-poison forever/class/hunter/rhokdelar " ..
+		" forever/class/druid/bloodpetal-poison forever/class/druid/dungeon-set-2 " ..
+		"forever/class/hunter/dungeon-set-2 forever/class/hunter/rhokdelar " ..
 		"forever/class/hunter/the-hunters-charm forever/class/mage/astral-knot-garment " ..
 		"forever/class/mage/atiesh forever/class/mage/destroy-morphaz " ..
-		"forever/class/mage/ju-ju-heaps forever/class/mage/mages-wand " ..
-		"forever/class/mage/manaweave-robe forever/class/mage/nether-lace-garment " ..
-		"forever/class/mage/spellfire-robes forever/class/mage/staff-or-orb-alliance " ..
-		"forever/class/paladin/cloak-of-the-divine-storm forever/class/paladin/holy-mightstone " ..
+		"forever/class/mage/dungeon-set-2 forever/class/mage/ju-ju-heaps " ..
+		"forever/class/mage/mages-wand forever/class/mage/manaweave-robe " ..
+		"forever/class/mage/nether-lace-garment forever/class/mage/spellfire-robes " ..
+		"forever/class/mage/staff-or-orb-alliance forever/class/paladin/cloak-of-the-divine-storm " ..
+		"forever/class/paladin/dungeon-set-2 forever/class/paladin/holy-mightstone " ..
 		"forever/class/priest/benediction forever/class/priest/blood-of-morphaz " ..
-		"forever/class/priest/priest-robes-alliance forever/class/priest/priest-robes-horde " ..
-		"forever/class/rogue/blade-of-cunning-alliance forever/class/rogue/blade-of-cunning-horde " ..
-		"forever/class/rogue/certificate-of-thievery forever/class/rogue/plundering-the-plunderers " ..
+		"forever/class/priest/dungeon-set-2 forever/class/priest/priest-robes-alliance " ..
+		"forever/class/priest/priest-robes-horde forever/class/rogue/blade-of-cunning-alliance " ..
+		"forever/class/rogue/blade-of-cunning-horde forever/class/rogue/certificate-of-thievery " ..
+		"forever/class/rogue/dungeon-set-2 forever/class/rogue/plundering-the-plunderers " ..
 		"forever/class/rogue/the-azure-key forever/class/rogue/the-eye-of-bhossca " ..
 		"forever/class/rogue/the-horn-of-xelthos forever/class/shaman/darkreaver " ..
-		"forever/class/shaman/spirit-totem forever/class/warlock/dread-mage-hat " ..
+		"forever/class/shaman/dungeon-set-2 forever/class/shaman/spirit-totem " ..
+		"forever/class/warlock/dread-mage-hat forever/class/warlock/dungeon-set-2 " ..
 		"forever/class/warlock/enchanted-gold-bloodrobe forever/class/warlock/impsys-request " ..
 		"forever/class/warlock/orb-of-orahil forever/class/warlock/orb-of-soranruk " ..
 		"forever/class/warlock/shard-of-the-green-flame forever/class/warlock/tome-of-sacrifice " ..
-		"forever/class/warrior/brutal-armor forever/class/warrior/fire-hardened-armor " ..
-		"forever/class/warrior/quelserrar forever/class/warrior/voodoo-feathers ",
+		"forever/class/warrior/brutal-armor forever/class/warrior/dungeon-set-2 " ..
+		"forever/class/warrior/fire-hardened-armor forever/class/warrior/quelserrar " ..
+		"forever/class/warrior/voodoo-feathers ",
 	-- The quests only optional Class guides take. A quest open to every class (Zardeth's errand before the Dread
 	-- Mage Hat) is here too: each reader also asks whether it is a class quest.
 	quests =
@@ -41,9 +46,15 @@ local List = {
 		"5401 5621 5622 5623 5624 5625 5626 5648 5649 5650 5651 7507 7508 7509 7581 7582 " ..
 		"7583 7601 7602 7603 7621 7622 7632 7633 7634 7635 7636 7667 8151 8153 8231 8232 " ..
 		"8233 8234 8235 8236 8250 8251 8252 8253 8254 8255 8256 8257 8258 8410 8412 8413 " ..
-		"8414 8415 8416 8417 8418 8419 8420 8421 8422 8423 8424 8425 9051 9052 9053 9063 " ..
-		"9250 9251 9257 9269 9270 9271 78088 78089 78090 78091 78092 78093 78261 78270 78307 78676 " ..
-		"78699 93791 93797 ",
+		"8414 8415 8416 8417 8418 8419 8420 8421 8422 8423 8424 8425 8921 8922 8923 8924 " ..
+		"8925 8928 8929 8930 8945 8946 8947 8948 8949 8950 8960 8961 8962 8963 8964 8965 " ..
+		"8966 8967 8968 8969 8970 8977 8978 8985 8986 8987 8988 8989 8990 8991 8992 8994 " ..
+		"8995 8996 8997 8998 9015 9032 9051 9052 9053 9063 9250 9251 9257 9269 9270 9271 " ..
+		"78088 78089 78090 78091 78092 78093 78261 78270 78307 78676 78699 84147 84148 84149 84150 84151 " ..
+		"84152 84153 84154 84155 84156 84157 84158 84159 84160 84161 84162 84163 84164 84165 84166 84167 " ..
+		"84168 84169 84170 84171 84172 84173 84174 84175 84176 84177 84178 84179 84180 84181 84182 84183 " ..
+		"84184 84186 84187 84188 84189 84190 84191 84192 84193 84194 84195 84196 84200 84202 84203 84208 " ..
+		"84210 93791 93797 97411 97412 97447 97448 ",
 }
 
 -- Whether Class guide `id` is optional.
