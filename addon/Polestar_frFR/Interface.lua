@@ -2451,7 +2451,6 @@ L["Skipped"] = "Passée"
 L["Finished, %d skipped"] = "Terminée, %d passée(s)"
 L["All %d done"] = "Les %d faites"
 L["Click to open its page."] = "Cliquez pour ouvrir sa page."
-L["Then any of: %s"] = "Puis au choix : %s"
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Prête à rendre"
@@ -5969,3 +5968,4 @@ L["Kept for %s: the route hands it in there."] = "Gardée pour %s : l'itinérair
 -- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "Jusqu'où la fenêtre peut grandir, en part de l'écran. Une étape plus longue défile."
 -- L["Max height"] = "Hauteur max."
 -- L["%s: on this step"] = "%s : à cette étape"
+-- L["Then any of: %s"] = "Puis au choix : %s"

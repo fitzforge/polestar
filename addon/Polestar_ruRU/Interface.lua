@@ -2423,7 +2423,6 @@ L["Skipped"] = "Пропущено"
 L["Finished, %d skipped"] = "Завершено, пропущено: %d"
 L["All %d done"] = "Выполнены все %d"
 L["Click to open its page."] = "Щелкните, чтобы открыть страницу."
-L["Then any of: %s"] = "Затем любое из: %s"
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Можно сдать"
@@ -5900,3 +5899,4 @@ L["Kept for %s: the route hands it in there."] = "Оставлено для «%s
 -- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "Насколько высоким может стать окно, в доле экрана. Более длинный шаг прокручивается."
 -- L["Max height"] = "Макс. высота"
 -- L["%s: on this step"] = "%s: на этом шаге"
+-- L["Then any of: %s"] = "Затем любое из: %s"

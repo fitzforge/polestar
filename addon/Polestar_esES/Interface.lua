@@ -2439,7 +2439,6 @@ L["Skipped"] = "Saltada"
 L["Finished, %d skipped"] = "Terminada, %d saltadas"
 L["All %d done"] = "Las %d hechas"
 L["Click to open its page."] = "Haz clic para abrir su página."
-L["Then any of: %s"] = "Luego cualquiera de: %s"
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Lista para entregar"
@@ -5905,3 +5904,4 @@ L["Kept for %s: the route hands it in there."] = "Guardada para %s: la ruta la e
 -- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "Cuánto puede crecer la ventana, como parte de la pantalla. Un paso más largo se desplaza."
 -- L["Max height"] = "Altura máx."
 -- L["%s: on this step"] = "%s: en este paso"
+-- L["Then any of: %s"] = "Luego cualquiera de: %s"

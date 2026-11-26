@@ -970,13 +970,14 @@ end
 -- one questChain would pick) and forward through its follow-ups while there is
 -- one for this character. Unlike questChain, done quests stay in it.
 --   -> { quests = { { id, title, state, why, skipped } }, step, total, done,
---        branches = { { id, title } } | nil } | nil when the quest stands alone.
+--        branches = { { id, title, state, why } } | nil } | nil when the quest stands alone.
 -- state: "done", "log" (in the quest log), "open" (can be taken now) or
 -- "later" (why: what it waits for). skipped: not done or in the log, though a
 -- later quest in the line that needs it (its `pre`, or the `preAny` pick in
 -- the line) is done, in the log or skipped itself.
 -- step: the first quest neither done nor skipped; done: there is none left
--- (step is then total); skippedCount: how many quests are skipped.
+-- (step is then total); skippedCount: how many quests are skipped. Follow-ups
+-- carry the same live states but are outside this part's progress count.
 -- The walk is the costly part (it decodes and judges every quest in the line
 -- and each one's follow-ups), so its answer is kept per quest until a quest
 -- is turned in or taken, a level is gained, or the Codex loads: what decides
@@ -1038,7 +1039,7 @@ local function chainLine(questId, player)
 		if #next ~= 1 then
 			if #next > 1 then
 				branches = {}
-				for i, f in ipairs(next) do branches[i] = { id = f.id, title = f.title } end
+				for i, f in ipairs(next) do branches[i] = f end
 			end
 			break
 		end
@@ -1055,8 +1056,31 @@ local function chainLine(questId, player)
 	return order, branches, needs
 end
 
+-- The same live state for a quest in the current line or a follow-up.
+-- Follow-ups stay separate: their existence alone does not say whether
+-- they are alternatives or independent quests the character can all do.
+local function chainQuestState(q, player)
+	local K = ns.Compat
+	local e = { id = q.id, title = q.title }
+	if K.IsQuestCompleted(q.id) then
+		e.state = "done"
+	elseif K.IsOnQuest and K.IsOnQuest(q.id) then
+		e.state = "log"
+	else
+		local why, text = Lookup.QuestBlock(q, player)
+		if why then
+			e.state, e.why = "later", text
+		elseif not prereqsDone(q) then
+			e.state, e.why = "later", L["After an earlier quest"]
+		else
+			e.state = "open"
+		end
+	end
+	return e
+end
+
 function Lookup.ChainProgress(questId, player)
-	local C, K = Codex(), ns.Compat
+	local C = Codex()
 	if not (C and C.Quest and C.Quest(questId)) then return nil end
 	player = player or Lookup.PlayerInfo()
 	local line = chainLines[questId]
@@ -1069,22 +1093,8 @@ function Lookup.ChainProgress(questId, player)
 	if #order < 2 and not branches then return nil end
 	local quests, at = {}, {}
 	for i, q in ipairs(order) do
-		local e = { id = q.id, title = q.title }
+		local e = chainQuestState(q, player)
 		at[q.id] = e
-		if K.IsQuestCompleted(q.id) then
-			e.state = "done"
-		elseif K.IsOnQuest and K.IsOnQuest(q.id) then
-			e.state = "log"
-		else
-			local why, text = Lookup.QuestBlock(q, player)
-			if why then
-				e.state, e.why = "later", text
-			elseif not prereqsDone(q) then
-				e.state, e.why = "later", L["After an earlier quest"]
-			else
-				e.state = "open"
-			end
-		end
 		quests[i] = e
 	end
 	-- A quest needs only quests before it in the line, so one pass from the
@@ -1106,9 +1116,14 @@ function Lookup.ChainProgress(questId, player)
 			step = i
 		end
 	end
+	local followUps
+	if branches then
+		followUps = {}
+		for i, q in ipairs(branches) do followUps[i] = chainQuestState(q, player) end
+	end
 	return {
 		quests = quests, step = step or #quests, total = #quests, done = step == nil,
-		skippedCount = skippedCount, branches = branches,
+		skippedCount = skippedCount, branches = followUps,
 	}
 end
 
@@ -1122,6 +1137,10 @@ function Lookup.ChainTooltipText(questId)
 	if not (C and C.IsLoaded and C.IsLoaded()) then return nil end
 	local ch = Lookup.ChainProgress(questId)
 	if not ch then return nil end
+	if ch.done and ch.branches and #ch.branches > 0 then
+		if ch.skippedCount > 0 then return format(L["Chain: this part finished, %d skipped"], ch.skippedCount) end
+		return L["Chain: this part finished"]
+	end
 	if ch.done and ch.skippedCount > 0 then
 		return format(L["Chain: finished, %d skipped"], ch.skippedCount)
 	end

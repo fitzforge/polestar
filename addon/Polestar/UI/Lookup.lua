@@ -802,6 +802,10 @@ end
 -- "Step 6 of 11", "All 11 done", or "Finished, 2 skipped" when only skipped
 -- quests are left.
 local function chainStepText(chain)
+	if chain.done and chain.branches and #chain.branches > 0 then
+		if (chain.skippedCount or 0) > 0 then return format(L["This part finished, %d skipped"], chain.skippedCount) end
+		return L["This part finished"]
+	end
 	if chain.done and (chain.skippedCount or 0) > 0 then
 		return format(L["Finished, %d skipped"], chain.skippedCount)
 	end
@@ -809,6 +813,29 @@ local function chainStepText(chain)
 	return format(L["Step %d of %d"], chain.step, chain.total)
 end
 LK.ChainStepText = chainStepText
+
+-- Reuse the same interactive rows for the line and its follow-ups. The
+-- follow-ups have their own heading and are not included in the line's count.
+local function drawChainRow(index, e, selected, width, parent, y)
+	local r = chainRow(index)
+	local here = e.id == selected
+	local g = CHAIN_GLYPH[e.state] or CHAIN_GLYPH.later
+	setGlyph(r.Icon, e.skipped and "skip" or g[1], e.skipped and "warning" or g[2])
+	r.Label:SetText(e.title or (L["Quest"] .. " " .. e.id))
+	W.Color(r.Label, here and "accent" or (e.state == "done" and "textDim" or "quest"))
+	local state = chainStateText(e)
+	r.State:SetText(state)
+	W.Color(r.State, e.skipped and "warning" or "textDim")
+	r.Label:SetWidth(width - 30 - 10)
+	r.State:SetWidth(width - 30 - 10)
+	r.psQuest = not here and e.id or nil
+	r.psTip = not here and L["Click to open its page."] or nil
+	r:SetWidth(width)
+	r:ClearAllPoints()
+	r:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, -y)
+	r:Show()
+	return { id = e.id, title = e.title, state = state, here = here or nil }
+end
 
 -- Facts: { label, value, colour? }.
 local function factsFor(s, entity, list, chain)
@@ -1220,42 +1247,26 @@ local function renderDetails(loaded, reason)
 			d.ChainHead:Show()
 			cy = cy + FOLDER_H + 4
 			for i, e in ipairs(chain.quests) do
-				local r = chainRow(i)
-				local here = e.id == s.id
-				local g = CHAIN_GLYPH[e.state] or CHAIN_GLYPH.later
-				setGlyph(r.Icon, e.skipped and "skip" or g[1], e.skipped and "warning" or g[2])
-				r.Label:SetText(e.title or (L["Quest"] .. " " .. e.id))
-				W.Color(r.Label, here and "accent" or (e.state == "done" and "textDim" or "quest"))
-				local st = chainStateText(e)
-				r.State:SetText(st)
-				W.Color(r.State, e.skipped and "warning" or "textDim")
-				r.Label:SetWidth(cw - 30 - 10)
-				r.State:SetWidth(cw - 30 - 10)
-				r.psQuest = not here and e.id or nil
-				r.psTip = not here and L["Click to open its page."] or nil
-				r:SetWidth(cw)
-				r:ClearAllPoints()
-				r:SetPoint("TOPLEFT", child, "TOPLEFT", 0, -cy)
-				r:Show()
+				chainShown.quests[i] = drawChainRow(i, e, s.id, cw, child, cy)
 				cy = cy + CHAIN_ROW_H
-				chainShown.quests[i] = { id = e.id, title = e.title, state = st, here = here or nil }
 			end
-			for i = #chain.quests + 1, #d.ChainRows do d.ChainRows[i]:Hide() end
-			if chain.branches then
-				local titles = {}
-				for i, b in ipairs(chain.branches) do
-					titles[i] = b.title or (L["Quest"] .. " " .. b.id)
-					chainShown.branches[i] = titles[i]
-				end
-				d.ChainBranches:SetText(format(L["Then any of: %s"], table.concat(titles, ", ")))
+			local shown = #chain.quests
+			if chain.branches and #chain.branches > 0 then
+				d.ChainBranches:SetText(L["Follow-up quests"])
 				d.ChainBranches:SetWidth(cw - 30 - 10)
 				d.ChainBranches:ClearAllPoints()
 				d.ChainBranches:SetPoint("TOPLEFT", child, "TOPLEFT", 30, -(cy + 4))
 				d.ChainBranches:Show()
 				cy = cy + d.ChainBranches:GetStringHeight() + 10
+				for i, b in ipairs(chain.branches) do
+					shown = shown + 1
+					chainShown.branches[i] = drawChainRow(shown, b, s.id, cw, child, cy)
+					cy = cy + CHAIN_ROW_H
+				end
 			else
 				d.ChainBranches:Hide()
 			end
+			for i = shown + 1, #d.ChainRows do d.ChainRows[i]:Hide() end
 		else
 			d.ChainHead:Hide()
 			d.ChainBranches:Hide()
