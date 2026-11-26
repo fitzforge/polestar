@@ -133,19 +133,21 @@ function advance(recipe, k, n, t) {
 
 // Crafts of `r` from skill s to t when each craft's intermediates (`subs`: { recipe, n } per craft) are
 // all made first, deepest first: the smallest N whose N crafts' intermediates, then N crafts of `r`,
-// reach t, and the skill the first craft of `r` starts at. Without intermediates that give points,
-// the expected crafts (`upper`) from s.
-function makeFirst(r, s, t, subs, upper) {
-	const live = subs.filter((x) => chance(x.recipe, s) > 0);
+// reach t, and the skill the first craft of `r` starts at. An intermediate an earlier segment left in
+// the bags (`stocked`: Heavy Blasting Powder made to level at 125-140) is not made again and gives no
+// point. Without intermediates that give points, the expected crafts of `r` alone.
+function makeFirst(r, s, t, subs, stocked = () => false) {
+	const upper = Math.ceil(expectedCrafts(r, s, t) - 1e-9);
+	const live = subs.filter((x) => chance(x.recipe, s) > 0 && !stocked(x));
 	const after = (n) => {
 		let k = s;
 		for (let i = live.length - 1; i >= 0; i--) k = advance(live[i].recipe, k, Math.ceil(live[i].n * n - 1e-9), t);
 		return Math.floor(k);
 	};
 	const reach = (n) => expectedCrafts(r, after(n), t) <= n;
-	if (!live.length || !reach(Math.ceil(upper))) return { n: upper, k: s };
+	if (!live.length || !Number.isFinite(upper)) return { n: upper, k: s };
 	let lo = 0;
-	let hi = Math.ceil(upper);
+	let hi = upper;
 	while (lo < hi) {
 		const mid = Math.floor((lo + hi) / 2);
 		if (reach(mid)) hi = mid;
@@ -365,7 +367,7 @@ function planProfession(prof, data, { from = 1, to = 300, exclude = {}, noLevel 
 	segments.forEach((seg, i) => {
 		const r = bySpell.get(seg.spell);
 		seg.recipe = r;
-		const first = makeFirst(r, seg.from, seg.to, info.get(r.spell).subs, Math.ceil(seg.crafts - 1e-9));
+		const first = makeFirst(r, seg.from, seg.to, info.get(r.spell).subs, (x) => (stock.get(x.recipe.item) || 0) > 0);
 		seg.count = first.n;
 		seg.count90 = Math.max(seg.count, crafts90(r, first.k, seg.to, seg.count));
 		seg.cost = info.get(r.spell).cost * seg.count;
