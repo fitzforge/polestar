@@ -1981,6 +1981,10 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 	if ast.get("sections").truthy() {
 		let mut out_secs = Vec::new();
 		let mut prev: Option<V> = None;
+		// A guide whose `skills` names two professions (a paired guide) alternates their sections: each
+		// profession's own sections rise in order.
+		let paired: Vec<String> = if h.get("skills").items().len() > 1 { h.get("skills").items().iter().map(|s| s.to_js_string().to_lowercase()).collect() } else { Vec::new() };
+		let mut prev_of: Vec<(String, V)> = Vec::new();
 		for sec in ast.get("sections").items() {
 			let out = V::obj();
 			let ln = sec.get("line");
@@ -2002,7 +2006,28 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 			} else {
 				r.err(&ln, format!("unknown profession \"{}\"; quote the name to use it anyway: `section \"{}\" {}-{}`", sec.get("skill"), sec.get("skill"), sec.get("from"), sec.get("to")), None);
 			}
-			if let Some(pv) = &prev {
+			let own = sec.get("skill").to_js_string().to_lowercase();
+			if paired.contains(&own) {
+				if let Some((_, before)) = prev_of.iter().find(|(k, _)| *k == own) {
+					if sec.get("from").num() < before.get("from").num() {
+						r.warn(
+							&ln,
+							format!(
+								"section {} {}-{} comes after {} {}-{}: each profession's sections rise in order",
+								sec.get("skill"),
+								sec.get("from"),
+								sec.get("to"),
+								before.get("skill"),
+								before.get("from"),
+								before.get("to")
+							),
+							None,
+						);
+					}
+				}
+				prev_of.retain(|(k, _)| *k != own);
+				prev_of.push((own, sec.clone()));
+			} else if let Some(pv) = &prev {
 				if !pv.get("skill").strict_eq(&sec.get("skill")) || sec.get("from").num() < pv.get("from").num() {
 					r.warn(
 						&ln,
