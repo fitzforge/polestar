@@ -64,8 +64,8 @@ step Recipes for Fishing 1-75 (Cooking to 50)
 step Lures for Fishing 1-75
   only Human
   when !skill Fishing 25
-  tip Some of these waters lose fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1; three see you through.
-  buy 6529 x3 nearest
+  tip Some of these waters lose fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1: about 1 sees you to 25 (6 minutes of fishing).
+  buy 6529 x1 nearest
 
 step Fishing 1-75
   only Human
@@ -105,8 +105,8 @@ step Recipes for Dun Morogh (Cooking to 50)
 step Lures for Dun Morogh
   only Dwarf,Gnome
   when !skill Fishing 25
-  tip This water loses fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1; three see you through.
-  buy 6529 x3 nearest
+  tip This water loses fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1: about 1 sees you to 25 (6 minutes of fishing).
+  buy 6529 x1 nearest
 
 step Fishing: Dun Morogh (1-75)
   only Dwarf,Gnome
@@ -146,17 +146,15 @@ step Recipes for Teldrassil (Cooking to 50)
 step Lures for Teldrassil
   only NightElf
   when !skill Fishing 25
-  tip This water loses fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1; three see you through.
-  buy 6529 x3 nearest
+  tip This water loses fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1: about 1 sees you to 25 (6 minutes of fishing).
+  buy 6529 x1 nearest
 
 step Fishing: Teldrassil (1-75)
   only NightElf
   when !skill Cooking 50
   zone Teldrassil
-  tip Fish the round until Fishing 75 and until your bags hold 50 Raw Slitherskin Mackerel for the cooking: about 70 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Slitherskin Mackerel (96%), Battered Chest (4%). This water loses fish below skill 25: keep a lure on the pole until then.
-  loop
+  tip Fish the round until Fishing 75 and until your bags hold 50 Raw Slitherskin Mackerel for the cooking: about 70 catches (below 75 every catch raises the skill). What bites here (players' catches at these stands): Raw Slitherskin Mackerel (96%), Battered Chest (4%). This water loses fish below skill 25: keep a lure on the pole until then.
   goto 55.7,93.5 r 15
-  goto 54.8,97.6 r 15
   collect 6303 x50 anywhere
   skill Fishing 75
 
@@ -165,9 +163,7 @@ step Fishing: Teldrassil (1-75)
   when skill Cooking 50
   zone Teldrassil
   tip Your Cooking is past 50, so there are no fish to keep: fish the round until Fishing 75, about 70 catches.
-  loop
   goto 55.7,93.5 r 15
-  goto 54.8,97.6 r 15
   skill Fishing 75
 
 step Cook Slitherskin Mackerel (1-50)
@@ -190,8 +186,8 @@ step Recipes for Fishing 1-75 (Cooking to 50)
 step Lures for Fishing 1-75
   only Skyborne,Alliance
   when !skill Fishing 25
-  tip Some of these waters lose fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1; three see you through.
-  buy 6529 x3 nearest
+  tip Some of these waters lose fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1: about 1 sees you to 25 (6 minutes of fishing).
+  buy 6529 x1 nearest
 
 step Fishing 1-75
   only Skyborne,Alliance
@@ -231,8 +227,8 @@ step Recipes for Durotar (Cooking to 50)
 step Lures for Durotar
   only Orc,Troll
   when !skill Fishing 25
-  tip This water loses fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1; three see you through.
-  buy 6529 x3 nearest
+  tip This water loses fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1: about 1 sees you to 25 (6 minutes of fishing).
+  buy 6529 x1 nearest
 
 step Fishing: Durotar (1-75)
   only Orc,Troll
@@ -274,8 +270,8 @@ step Recipes for Mulgore (Cooking to 50)
 step Lures for Mulgore
   only Tauren
   when !skill Fishing 25
-  tip This water loses fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1; three see you through.
-  buy 6529 x3 nearest
+  tip This water loses fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1: about 1 sees you to 25 (6 minutes of fishing).
+  buy 6529 x1 nearest
 
 step Fishing: Mulgore (1-75)
   only Tauren
@@ -314,8 +310,8 @@ step Recipes for Fishing 1-75 (Cooking to 50)
 step Lures for Fishing 1-75
   only Undead
   when !skill Fishing 25
-  tip Some of these waters lose fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1; three see you through.
-  buy 6529 x3 nearest
+  tip Some of these waters lose fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1: about 1 sees you to 25 (6 minutes of fishing).
+  buy 6529 x1 nearest
 
 step Fishing 1-75
   only Undead
@@ -354,8 +350,8 @@ step Recipes for Fishing 1-75 (Cooking to 50)
 step Lures for Fishing 1-75
   only Skyborne,Horde
   when !skill Fishing 25
-  tip Some of these waters lose fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1; three see you through.
-  buy 6529 x3 nearest
+  tip Some of these waters lose fish below Fishing 25: a lure on the pole adds to your skill for ten minutes. Shiny Bauble (+25, 50c each) closes the gap from 1: about 1 sees you to 25 (6 minutes of fishing).
+  buy 6529 x1 nearest
 
 step Fishing 1-75
   only Skyborne,Horde
@@ -399,19 +395,11 @@ step Recipes for Fishing 75-150 (Cooking to 140)
   buy 6328 x1 nearest
   buy 6330 x1 nearest
 
-step Lures for Fishing 75-150
-  only Alliance
-  when !skill Fishing 150
-  tip Some of these waters lose fish below Fishing 150: a lure on the pole adds to your skill for ten minutes. Bright Baubles (+75 from skill 100, 2s 50c each) closes the gap from 75; three see you through.
-  buy 6532 x3 nearest
-
 step Fishing 75-150
   only Alliance
   when !skill Cooking 140
-  tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: Stormwind City (Raw Longjaw Mud Snapper 61%, Raw Bristle Whisker Catfish 21%); Stonetalon Mountains (Raw Longjaw Mud Snapper 24%, Raw Bristle Whisker Catfish 44%); Redridge Mountains (Raw Longjaw Mud Snapper 33%, Raw Bristle Whisker Catfish 65%); Westfall (Raw Longjaw Mud Snapper 11%, Raw Bristle Whisker Catfish 6%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Stonetalon Mountains and Redridge Mountains lose fish below skill 150: keep a lure on the pole there until then. From level 7, Gilbert Gray at the Stormwind harbor gives Fishin' Time: bring 1 Shiny Bauble and 3 Nightcrawlers for cooked fish.
+  tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: Stormwind City (Raw Longjaw Mud Snapper 61%, Raw Bristle Whisker Catfish 21%); Westfall (Raw Longjaw Mud Snapper 11%, Raw Bristle Whisker Catfish 6%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. From level 7, Gilbert Gray at the Stormwind harbor gives Fishin' Time: bring 1 Shiny Bauble and 3 Nightcrawlers for cooked fish.
   loop Stormwind City lvl 11 lap 313 gain 8.1 only Alliance r 15 at 61.7,50.8 46.9,58.9 44.5,60.8 45.6,56.8
-  loop Stonetalon Mountains lvl 11 lap 425 gain 12.1 only Alliance r 15 at 47.4,38.0 47.7,38.6 47.2,40.0 46.6,41.9 47.9,39.9 49.7,38.0
-  loop Redridge Mountains lvl 11 lap 378 gain 10.1 only Alliance r 15 at 28.0,53.4 26.3,51.0 24.4,49.0 27.9,49.8 36.2,53.3
   loop Westfall lvl 19 lap 342 gain 8.1 only Alliance r 15 at 30.5,85.1 28.6,78.4 26.1,71.7 27.7,73.0
   collect 6289 x52 anywhere
   collect 6308 x40 anywhere
@@ -422,8 +410,6 @@ step Fishing 75-150
   when skill Cooking 140
   tip Your Cooking is past 140, so there are no fish to keep: fish the round until Fishing 150, about 190 catches.
   loop Stormwind City lvl 11 lap 313 gain 8.1 only Alliance r 15 at 61.7,50.8 46.9,58.9 44.5,60.8 45.6,56.8
-  loop Stonetalon Mountains lvl 11 lap 425 gain 12.1 only Alliance r 15 at 47.4,38.0 47.7,38.6 47.2,40.0 46.6,41.9 47.9,39.9 49.7,38.0
-  loop Redridge Mountains lvl 11 lap 378 gain 10.1 only Alliance r 15 at 28.0,53.4 26.3,51.0 24.4,49.0 27.9,49.8 36.2,53.3
   loop Westfall lvl 19 lap 342 gain 8.1 only Alliance r 15 at 30.5,85.1 28.6,78.4 26.1,71.7 27.7,73.0
   skill Fishing 150
 
@@ -446,21 +432,15 @@ step Recipes for Fishing 75-150 (Cooking to 140)
   buy 6328 x1 nearest
   buy 6330 x1 nearest
 
-step Lures for Fishing 75-150
-  only Horde
-  when !skill Fishing 150
-  tip Some of these waters lose fish below Fishing 150: a lure on the pole adds to your skill for ten minutes. Bright Baubles (+75 from skill 100, 2s 50c each) closes the gap from 75; three see you through.
-  buy 6532 x3 nearest
-
 step Fishing 75-150
   only Horde
   when !skill Cooking 140
-  tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: Orgrimmar (Raw Longjaw Mud Snapper 60%, Raw Bristle Whisker Catfish 20%); Thunder Bluff (Raw Longjaw Mud Snapper 56%, Raw Bristle Whisker Catfish 23%); Undercity (Raw Longjaw Mud Snapper 45%, Raw Bristle Whisker Catfish 15%); Stonetalon Mountains (Raw Longjaw Mud Snapper 24%, Raw Bristle Whisker Catfish 44%); Silverpine Forest (Raw Longjaw Mud Snapper 44%, Raw Bristle Whisker Catfish 16%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Stonetalon Mountains loses fish below skill 150: keep a lure on the pole there until then.
+  tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: Orgrimmar (Raw Longjaw Mud Snapper 60%, Raw Bristle Whisker Catfish 20%); Thunder Bluff (Raw Longjaw Mud Snapper 56%, Raw Bristle Whisker Catfish 23%); Undercity (Raw Longjaw Mud Snapper 45%, Raw Bristle Whisker Catfish 15%); Silverpine Forest (Raw Longjaw Mud Snapper 44%, Raw Bristle Whisker Catfish 16%); The Barrens (Raw Longjaw Mud Snapper 33%, Raw Bristle Whisker Catfish 16%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy.
   loop Orgrimmar lvl 11 lap 324 gain 10.1 only Horde r 15 at 68.4,34.8 66.6,31.7 68.4,29.4 69.8,30.1 71.2,32.8
   loop Thunder Bluff lvl 11 lap 128 gain 4.0 only Horde r 15 at 41.6,58.1 39.9,61.2
   loop Undercity lvl 11 lap 235 gain 6.0 only Horde r 15 at 65.4,47.5 64.9,41.2 80.6,31.0
-  loop Stonetalon Mountains lvl 11 lap 425 gain 12.1 only Horde r 15 at 46.6,41.9 47.2,40.0 47.7,38.6 47.4,38.0 49.7,38.0 47.9,39.9
   loop Silverpine Forest lvl 13 lap 230 gain 4.0 only Horde r 15 at 59.0,34.9 56.8,21.5
+  loop The Barrens lvl 14 lap 197 gain 6.0 only Horde r 15 at 46.4,37.5 46.4,37.8 45.9,37.7
   collect 6289 x52 anywhere
   collect 6308 x40 anywhere
   skill Fishing 150
@@ -472,8 +452,8 @@ step Fishing 75-150
   loop Orgrimmar lvl 11 lap 324 gain 10.1 only Horde r 15 at 68.4,34.8 66.6,31.7 68.4,29.4 69.8,30.1 71.2,32.8
   loop Thunder Bluff lvl 11 lap 128 gain 4.0 only Horde r 15 at 41.6,58.1 39.9,61.2
   loop Undercity lvl 11 lap 235 gain 6.0 only Horde r 15 at 65.4,47.5 64.9,41.2 80.6,31.0
-  loop Stonetalon Mountains lvl 11 lap 425 gain 12.1 only Horde r 15 at 46.6,41.9 47.2,40.0 47.7,38.6 47.4,38.0 49.7,38.0 47.9,39.9
   loop Silverpine Forest lvl 13 lap 230 gain 4.0 only Horde r 15 at 59.0,34.9 56.8,21.5
+  loop The Barrens lvl 14 lap 197 gain 6.0 only Horde r 15 at 46.4,37.5 46.4,37.8 45.9,37.7
   skill Fishing 150
 
 step Cook Longjaw Mud Snapper (50-100)
@@ -505,8 +485,8 @@ step Expert Cooking
 step Lures for Fishing 150-190
   only Alliance
   when !skill Fishing 225
-  tip Some of these waters lose fish below Fishing 225: a lure on the pole adds to your skill for ten minutes. Bright Baubles (+75 from skill 100, 2s 50c each) closes the gap from 150; three see you through.
-  buy 6532 x3 nearest
+  tip Some of these waters lose fish below Fishing 225: a lure on the pole adds to your skill for ten minutes. Bright Baubles (+75 from skill 100, 2s 50c each) closes the gap from 150: about 5 see you to 190 (48 minutes of fishing).
+  buy 6532 x5 nearest
 
 step Fishing 150-190
   only Alliance
@@ -540,8 +520,8 @@ step Cook Bristle Whisker Catfish (140-175)
 step Lures for Fishing 150-190
   only Horde
   when !skill Fishing 225
-  tip Some of these waters lose fish below Fishing 225: a lure on the pole adds to your skill for ten minutes. Bright Baubles (+75 from skill 100, 2s 50c each) closes the gap from 150; three see you through.
-  buy 6532 x3 nearest
+  tip Some of these waters lose fish below Fishing 225: a lure on the pole adds to your skill for ten minutes. Bright Baubles (+75 from skill 100, 2s 50c each) closes the gap from 150: about 5 see you to 190 (48 minutes of fishing).
+  buy 6532 x5 nearest
 
 step Fishing 150-190
   only Horde
@@ -583,18 +563,17 @@ step Recipes for Fishing 190-225 (Cooking to 225)
 step Lures for Fishing 190-225
   only Alliance
   when !skill Fishing 225
-  tip Some of these waters lose fish below Fishing 225: a lure on the pole adds to your skill for ten minutes. Nightcrawlers (+50 from skill 50, 1s each) closes the gap from 190; three see you through.
-  buy 6530 x3 nearest
+  tip Some of these waters lose fish below Fishing 225: a lure on the pole adds to your skill for ten minutes. Nightcrawlers (+50 from skill 50, 1s each) closes the gap from 190: about 6 see you to 225 (55 minutes of fishing).
+  buy 6530 x6 nearest
 
 step Fishing 190-225
   only Alliance
   when !skill Cooking 225
-  tip Fish the round until Fishing 225 and until your bags hold 52 Raw Mithril Head Trout for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: Stranglethorn Vale (Raw Mithril Head Trout 43%); Desolace (Raw Mithril Head Trout 42%); Alterac Mountains (Raw Mithril Head Trout 29%); Arathi Highlands (Raw Mithril Head Trout 60%); Dustwallow Marsh (Raw Mithril Head Trout 5%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Stranglethorn Vale, Desolace, Alterac Mountains, Arathi Highlands and Dustwallow Marsh lose fish below skill 225: keep a lure on the pole there until then.
+  tip Fish the round until Fishing 225 and until your bags hold 52 Raw Mithril Head Trout for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: Stranglethorn Vale (Raw Mithril Head Trout 43%); Desolace (Raw Mithril Head Trout 42%); Alterac Mountains (Raw Mithril Head Trout 29%); Arathi Highlands (Raw Mithril Head Trout 60%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Stranglethorn Vale, Desolace, Alterac Mountains and Arathi Highlands lose fish below skill 225: keep a lure on the pole there until then.
   loop Stranglethorn Vale lvl 21 lap 168 gain 1.6 only Alliance r 15 at 35.4,10.3 33.5,7.5
   loop Desolace lvl 34 lap 152 gain 1.6 only Alliance r 15 at 39.7,22.1 37.8,24.5
   loop Alterac Mountains lvl 36 lap 196 gain 1.6 only Alliance r 15 at 30.8,35.5 23.7,45.0
   loop Arathi Highlands lvl 39 lap 404 gain 4.0 only Alliance r 25 at 27.8,85.4 27.3,87.2 23.5,98.2 24.7,96.9 28.6,89.7
-  loop Dustwallow Marsh lvl 41 lap 130 gain 1.6 only Alliance r 15 at 71.7,55.9 71.9,56.8
   collect 8365 x52 anywhere
   skill Fishing 225
 
@@ -606,7 +585,6 @@ step Fishing 190-225
   loop Desolace lvl 34 lap 152 gain 1.6 only Alliance r 15 at 39.7,22.1 37.8,24.5
   loop Alterac Mountains lvl 36 lap 196 gain 1.6 only Alliance r 15 at 30.8,35.5 23.7,45.0
   loop Arathi Highlands lvl 39 lap 404 gain 4.0 only Alliance r 25 at 27.8,85.4 27.3,87.2 23.5,98.2 24.7,96.9 28.6,89.7
-  loop Dustwallow Marsh lvl 41 lap 130 gain 1.6 only Alliance r 15 at 71.7,55.9 71.9,56.8
   skill Fishing 225
 
 step Cook Mithril Headed Trout (175-225)
@@ -624,8 +602,8 @@ step Recipes for Fishing 190-225 (Cooking to 225)
 step Lures for Fishing 190-225
   only Horde
   when !skill Fishing 225
-  tip Some of these waters lose fish below Fishing 225: a lure on the pole adds to your skill for ten minutes. Nightcrawlers (+50 from skill 50, 1s each) closes the gap from 190; three see you through.
-  buy 6530 x3 nearest
+  tip Some of these waters lose fish below Fishing 225: a lure on the pole adds to your skill for ten minutes. Nightcrawlers (+50 from skill 50, 1s each) closes the gap from 190: about 6 see you to 225 (55 minutes of fishing).
+  buy 6530 x6 nearest
 
 step Fishing 190-225
   only Horde
@@ -763,19 +741,12 @@ step Recipes for Fishing 225-300 (Cooking to 300)
   tip Before the round: Recipe: Spotted Yellowtail (Cooking 225, 1g 60s: Gikkix, Tanaris). A recipe teaches itself when you use it from your bags.
   buy 13939 x1 nearest
 
-step Lures for Fishing 225-300
-  only Alliance
-  when !skill Fishing 300
-  tip Some of these waters lose fish below Fishing 300: a lure on the pole adds to your skill for ten minutes. Bright Baubles (+75 from skill 100, 2s 50c each) closes the gap from 225; three see you through.
-  buy 6532 x3 nearest
-
 step Fishing 225-300
   only Alliance
   when !skill Cooking 300
-  tip Fish the round until Fishing 300 and until your bags hold 120 Raw Spotted Yellowtail for the cooking: about 650 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: Tanaris (Raw Spotted Yellowtail 42%); Stranglethorn Vale (Raw Spotted Yellowtail 10%); Azshara (Raw Spotted Yellowtail 18%); Riverglades (Raw Spotted Yellowtail 18%); Swamp of Sorrows (Raw Spotted Yellowtail 15%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Tanaris and Azshara lose fish below skill 300: keep a lure on the pole there until then.
-  loop Tanaris lvl 43 lap 300 gain 2.4 only Alliance r 15 at 67.3,25.5 67.7,27.2 68.0,22.8 67.6,23.4
+  tip Fish the round until Fishing 300 and until your bags hold 120 Raw Spotted Yellowtail for the cooking: about 650 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: Dustwallow Marsh (Raw Spotted Yellowtail 21%); Stranglethorn Vale (Raw Spotted Yellowtail 10%); Riverglades (Raw Spotted Yellowtail 18%); Swamp of Sorrows (Raw Spotted Yellowtail 15%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy.
+  loop Dustwallow Marsh lvl 43 lap 132 gain 1.2 only Alliance r 15 at 58.3,60.1 58.4,61.2
   loop Stranglethorn Vale lvl 36 lap 187 gain 1.2 only Alliance r 15 at 25.5,73.1 27.2,68.3
-  loop Azshara lvl 36 lap 402 gain 2.9 only Alliance r 25 at 50.0,61.7 50.4,59.4 50.2,55.8 51.6,53.6 53.7,58.3
   loop Riverglades lvl 42 lap 145 gain 1.2 only Alliance live r 15 at 80.0,53.2 79.3,50.7
   loop Swamp of Sorrows lvl 44 lap 215 gain 1.2 only Alliance r 15 at 94.5,41.3 89.4,21.0
   collect 4603 x120 anywhere
@@ -785,9 +756,8 @@ step Fishing 225-300
   only Alliance
   when skill Cooking 300
   tip Your Cooking is past 300, so there are no fish to keep: fish the round until Fishing 300, about 650 catches.
-  loop Tanaris lvl 43 lap 300 gain 2.4 only Alliance r 15 at 67.3,25.5 67.7,27.2 68.0,22.8 67.6,23.4
+  loop Dustwallow Marsh lvl 43 lap 132 gain 1.2 only Alliance r 15 at 58.3,60.1 58.4,61.2
   loop Stranglethorn Vale lvl 36 lap 187 gain 1.2 only Alliance r 15 at 25.5,73.1 27.2,68.3
-  loop Azshara lvl 36 lap 402 gain 2.9 only Alliance r 25 at 50.0,61.7 50.4,59.4 50.2,55.8 51.6,53.6 53.7,58.3
   loop Riverglades lvl 42 lap 145 gain 1.2 only Alliance live r 15 at 80.0,53.2 79.3,50.7
   loop Swamp of Sorrows lvl 44 lap 215 gain 1.2 only Alliance r 15 at 94.5,41.3 89.4,21.0
   skill Fishing 300
@@ -804,21 +774,14 @@ step Recipes for Fishing 225-300 (Cooking to 300)
   tip Before the round: Recipe: Spotted Yellowtail (Cooking 225, 1g 60s: Gikkix, Tanaris). A recipe teaches itself when you use it from your bags.
   buy 13939 x1 nearest
 
-step Lures for Fishing 225-300
-  only Horde
-  when !skill Fishing 300
-  tip Some of these waters lose fish below Fishing 300: a lure on the pole adds to your skill for ten minutes. Bright Baubles (+75 from skill 100, 2s 50c each) closes the gap from 225; three see you through.
-  buy 6532 x3 nearest
-
 step Fishing 225-300
   only Horde
   when !skill Cooking 300
-  tip Fish the round until Fishing 300 and until your bags hold 120 Raw Spotted Yellowtail for the cooking: about 650 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: Tanaris (Raw Spotted Yellowtail 42%); Dustwallow Marsh (Raw Spotted Yellowtail 21%); Desolace (Raw Spotted Yellowtail 20%); Stranglethorn Vale (Raw Spotted Yellowtail 10%); Azshara (Raw Spotted Yellowtail 18%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. Tanaris and Azshara lose fish below skill 300: keep a lure on the pole there until then.
-  loop Tanaris lvl 43 lap 300 gain 2.4 only Horde r 15 at 67.3,25.5 67.7,27.2 68.0,22.8 67.6,23.4
+  tip Fish the round until Fishing 300 and until your bags hold 120 Raw Spotted Yellowtail for the cooking: about 650 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: Dustwallow Marsh (Raw Spotted Yellowtail 21%); Desolace (Raw Spotted Yellowtail 20%); Stranglethorn Vale (Raw Spotted Yellowtail 10%); Swamp of Sorrows (Raw Spotted Yellowtail 15%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy.
   loop Dustwallow Marsh lvl 43 lap 132 gain 1.2 only Horde r 15 at 58.3,60.1 58.4,61.2
   loop Desolace lvl 36 lap 199 gain 1.8 only Horde r 15 at 26.1,76.1 26.1,76.7 25.9,78.3
   loop Stranglethorn Vale lvl 36 lap 187 gain 1.2 only Horde r 15 at 27.2,68.3 25.5,73.1
-  loop Azshara lvl 36 lap 402 gain 2.9 only Horde r 25 at 50.2,55.8 51.6,53.6 53.7,58.3 50.0,61.7 50.4,59.4
+  loop Swamp of Sorrows lvl 44 lap 215 gain 1.2 only Horde r 15 at 89.4,21.0 94.5,41.3
   collect 4603 x120 anywhere
   skill Fishing 300
 
@@ -826,11 +789,10 @@ step Fishing 225-300
   only Horde
   when skill Cooking 300
   tip Your Cooking is past 300, so there are no fish to keep: fish the round until Fishing 300, about 650 catches.
-  loop Tanaris lvl 43 lap 300 gain 2.4 only Horde r 15 at 67.3,25.5 67.7,27.2 68.0,22.8 67.6,23.4
   loop Dustwallow Marsh lvl 43 lap 132 gain 1.2 only Horde r 15 at 58.3,60.1 58.4,61.2
   loop Desolace lvl 36 lap 199 gain 1.8 only Horde r 15 at 26.1,76.1 26.1,76.7 25.9,78.3
   loop Stranglethorn Vale lvl 36 lap 187 gain 1.2 only Horde r 15 at 27.2,68.3 25.5,73.1
-  loop Azshara lvl 36 lap 402 gain 2.9 only Horde r 25 at 50.2,55.8 51.6,53.6 53.7,58.3 50.0,61.7 50.4,59.4
+  loop Swamp of Sorrows lvl 44 lap 215 gain 1.2 only Horde r 15 at 89.4,21.0 94.5,41.3
   skill Fishing 300
 
 step Cook Spotted Yellowtail (225-300)
