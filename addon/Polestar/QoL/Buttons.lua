@@ -1223,7 +1223,8 @@ local function bagQuestItem()
 end
 
 -- Item for the quest item button, or nil. view, raw: QoL.CurrentStep()'s,
--- when the caller has them. When the step has none: the "While you're here"
+-- when the caller has them. Open equip goals can offer wearable items after
+-- explicit use goals. When the step has none: the "While you're here"
 -- line's (Engine.GetWhileHere), its use goal's item or its quest's log item.
 function Buttons.ChooseQuestItem(view, raw)
 	if not view then view, raw = QoL.CurrentStep() end
@@ -1234,6 +1235,14 @@ function Buttons.ChooseQuestItem(view, raw)
 		if gv.t == "use" and QoL.Open(gv) then
 			local item = gv.item or (raw and raw[g] and raw[g].item)
 			if item and Client.ItemCount(item) > 0 then return item end
+		end
+	end
+	for g = 1, #goals do
+		local gv = goals[g]
+		local goal = raw and raw[g]
+		if gv.t == "equip" and QoL.Open(gv) and not (gv.off or (goal and goal.off)) then
+			local item = gv.item or (goal and goal.item)
+			if item and Client.ItemCount(item) > 0 and ns.Compat.IsItemEquipped(item) ~= true then return item end
 		end
 	end
 	openCount = 0
@@ -3880,6 +3889,7 @@ ns.RegisterEvent("BAG_UPDATE_DELAYED", function()
 	refreshSoon()
 end)
 ns.RegisterEvent("QUEST_LOG_UPDATE", refreshOnLog)
+ns.RegisterEvent("PLAYER_EQUIPMENT_CHANGED", refreshSoon)
 ns.RegisterEvent("BAG_UPDATE_COOLDOWN", repaintItems)
 -- Who may mark (Buttons.MarkRight) follows the group.
 ns.RegisterEvent("GROUP_ROSTER_UPDATE", refreshSoon)

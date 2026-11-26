@@ -466,6 +466,8 @@ Places and guide fixes are anchored on a quest's goal (a `when` on a flight step
 guide's header name the guide instead), never on a line or a step, and the writer applies them to
 the guides it writes, last:
 
+A collect `goalNote` record can also set `equip` to an item ID. Forge adds an optional
+equip goal on the same step so the quest-item button can offer gear that helps with the collection.
 A `goalNote` record replaces the anchored goal's `--` note without changing
 the step's tip or other goals. An `optional: true` record makes only the
 anchored goal optional, including its copies listed on the way. Use separate
