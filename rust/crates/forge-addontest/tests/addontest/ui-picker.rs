@@ -318,12 +318,12 @@ fn left_pane_the_rail_holds_the_sections_and_options_the_sidebar_holds_the_categ
 	// Sections (Guides built in, then the registered ones by order) are on the rail, Settings at its foot.
 	assert_eq!(out["sections"][0], "Guides");
 	assert_eq!(out["sections"][1], "Lookup");
-	// Import is a foot section: above Settings, not among the sections at the top.
-	let mut rail = vec![json!("Settings"), json!("Import"), json!("Guides*")];
-	rail.extend(out["sections"].as_array().unwrap()[1..].iter().filter(|s| s.as_str() != Some("Import")).cloned());
+	// Import is in Settings now: nothing above Options, every section at the top.
+	let mut rail = vec![json!("Settings"), json!("Guides*")];
+	rail.extend(out["sections"].as_array().unwrap()[1..].iter().cloned());
 	assert_eq!(out["rail"], Value::Array(rail));
 	// Leveling counts the other races' starting zones (Dun Morogh, Teldrassil, Zephras Isle) too.
-	assert_eq!(out["labels"], json!(["All guides 16", "Leveling 9", "Professions 3", "Reputation 1", "Exploration 1", "Legacy 1", "Collectibles 1", "Favourites 0"]));
+	assert_eq!(out["labels"], json!(["All guides 16", "Leveling 9", "Professions 3", "Reputation 1", "Exploration 1", "Legacy 1", "Collectibles 1", "Favourites 0", "Community guides ", "Import a guide "]));
 	assert!(is_match_icon(text(&out["icon"])));
 	assert_eq!(
 		out["r"],

@@ -1,8 +1,10 @@
--- The Import page, a section of the hub at the rail's foot above Options
--- (UI.RegisterSection with `foot`; `/polestar import` and SHOW_IMPORT open
--- it). It sets the two ways to bring someone else's guides into Polestar
--- side by side (an import string for one small guide, a community addon for
--- a route or a set), then:
+-- Import a guide, a section of Settings > Community guides (Packs.lua builds it
+-- into that page: IV.Build(parent) once, IV.Layout(x, y, width) with each
+-- layout of the page; `/polestar import` and the "+ Import a guide" row at the
+-- end of the guide menu's Community guides open the page at it, IV.Show).
+-- It brings someone else's small guide into Polestar as an import string
+-- (a community addon is the way for a route or a set: the page's own
+-- "About community guides"):
 --
 --   Paste a string: a box; what is pasted is read at once (Core/Import.lua,
 --     Import.Preview) and shown before anything is saved, "Title · by
@@ -11,35 +13,24 @@
 --     why the string is refused. Nothing is saved until Import.
 --   Your imported guides: title, author, version and licence, Delete on each
 --     (a second click within three seconds confirms).
---   Want more than one guide?: community addons in three steps, and a link to
---     docs/GUIDE_PACKS.md.
 
 local ADDON, ns = ...
 local UI, Theme, W = ns.UI, ns.Theme, ns.Widgets
 local L = ns.L
-local SH = W.SHELL
-local format, floor, max, min, ipairs = string.format, math.floor, math.max, math.min, ipairs
+local format, max, ipairs = string.format, math.max, ipairs
 
 local IV = {}
 UI.Import = IV
 
 local DOT = "  \194\183  "
-local KEY = "Import"
-
-local root, scroll, content, hub
+local host, content
 local parts = {}
 local rows = {}
--- What the page shows now: the preview (Import.Preview's info) or why the
+-- What the section shows now: the preview (Import.Preview's info) or why the
 -- pasted text was refused, and the line left by the last import.
 local preview, refusal, done
 
 local function Import() return ns.Import end
-
-local function mainWidth()
-	local w = hub and (hub:GetWidth() - (hub.psRail or 0) - (hub.psSidebar or SH.sidebar) - 2) or 0
-	if w <= 0 then w = 878 end
-	return w - SH.pad * 2
-end
 
 local function text(parent, role, color)
 	local fs = W.Text(parent, role, color)
@@ -53,13 +44,6 @@ local function oneLine(fs)
 	fs:SetWordWrap(false)
 	fs:SetJustifyH("LEFT")
 	return fs
-end
-
--- docs/GUIDE_PACKS.md online, beside the handbook ns.DocsURL names; nil
--- without the TOC's X-Website (as the Community guides page).
-local function guidePacksURL()
-	local url = ns.DocsURL and ns.DocsURL()
-	return url and (url:gsub("/PACKS%.md$", "/GUIDE_PACKS.md")) or nil
 end
 
 local function count(n, one, many) return n == 1 and one or many:format(n) end
@@ -93,7 +77,11 @@ local function stateNote(info)
 	return nil
 end
 
-local relayout
+-- Where a paste, an import or a delete changed what the section shows, the
+-- page lays itself out again (Packs.lua sets IV.onChange).
+local function relayout()
+	if IV.onChange then IV.onChange() end
+end
 
 function IV.Check(value)
 	done = nil
@@ -212,47 +200,27 @@ local function newRow(parent)
 	return row
 end
 
-function IV.Build(parent, shell)
-	if root then return root end
-	hub = shell
-	root = CreateFrame("Frame", nil, parent)
-	root:SetAllPoints(parent)
-	scroll = W.Scroll(root)
-	scroll:SetPoint("TOPLEFT", root, "TOPLEFT", 0, -4)
-	scroll:SetPoint("BOTTOMRIGHT", root, "BOTTOMRIGHT", 0, 8)
-	content = scroll.Child
+function IV.Build(parent)
+	if host then return host end
+	host = parent
+	content = parent
 
-	parts.Intro = text(content, "note", "textDim")
-	parts.Intro:SetText(L["Two ways to bring someone else's guides into Polestar. Pick the one that fits."])
-	-- The two ways, side by side.
-	parts.Ways = {}
-	local ways = {
-		{ L["Import string"], {
-			L["One small guide: a quest chain, an item, a mount, an errand."],
-			L["Its author shares it as text, anywhere. Paste it below."],
-			L["Updates: paste the newer string, then Update."],
-			(L["One guide of up to %d steps."]):format(ns.Import and ns.Import.LIMITS.steps or 60),
-		} },
-		{ L["Community addon"], {
-			L["A whole route or a set of guides: a leveling route, every profession."],
-			L["Install it like any addon, then restart the game."],
-			L["Updates: your addon app updates it."],
-			L["No size limit."],
-		} },
-	}
-	for i, way in ipairs(ways) do
-		local head = oneLine(W.Text(content, "label", "text"))
-		head:SetText(way[1])
-		local body = text(content, "note", "textDim")
-		body:SetSpacing(3)
-		local lines = {}
-		for j, l in ipairs(way[2]) do lines[j] = "\226\128\162 " .. l end
-		body:SetText(table.concat(lines, "\n"))
-		parts.Ways[i] = { head = head, body = body }
+	parts.Head = W.SectionHeader(content)
+	W.SetSection(parts.Head, L["Import a guide"])
+	parts.Way = oneLine(W.Text(content, "label", "text"))
+	parts.Way:SetText(L["Import string"])
+	parts.WayBody = text(content, "note", "textDim")
+	parts.WayBody:SetSpacing(3)
+	local lines = {}
+	for j, l in ipairs({
+		L["One small guide: a quest chain, an item, a mount, an errand."],
+		L["Its author shares it as text, anywhere. Paste it below."],
+		L["Updates: paste the newer string, then Update."],
+		(L["One guide of up to %d steps."]):format(ns.Import and ns.Import.LIMITS.steps or 60),
+	}) do
+		lines[j] = "\226\128\162 " .. l
 	end
-
-	parts.PasteH = W.SectionHeader(content)
-	W.SetSection(parts.PasteH, L["Paste a string"])
+	parts.WayBody:SetText(table.concat(lines, "\n"))
 	parts.Box = pasteBox(content)
 	parts.Preview = text(content, "body", "text")
 	parts.Note = text(content, "note", "textDim")
@@ -264,24 +232,7 @@ function IV.Build(parent, shell)
 	parts.ListH = W.SectionHeader(content)
 	parts.None = text(content, "note", "textMuted")
 	parts.None:SetText(L["No imported guides yet."])
-
-	parts.MoreH = W.SectionHeader(content)
-	W.SetSection(parts.MoreH, L["Want more than one guide?"])
-	parts.More = text(content, "note", "textDim")
-	parts.More:SetSpacing(3)
-	parts.More:SetText(table.concat({
-		L["A set of guides, or one too big for a string, comes as a community addon:"],
-		"1. " .. L["Get it from wherever its author publishes it."],
-		"2. " .. L["Install it like any addon, then restart the game."],
-		"3. " .. L["Its guides appear in the guide menu under Community guides, with the author's name. Settings, Community guides turns it on or off."],
-	}, "\n"))
-	parts.DocsLabel = oneLine(W.Text(content, "note", "text"))
-	parts.Docs = W.Link(content, "", function()
-		local url = guidePacksURL()
-		if url then UI.ShowCopy(L["Community guides, explained"], url) end
-	end, { role = "note" })
-	parts.Docs.Label:SetWordWrap(false)
-	return root
+	return host
 end
 
 ---------------------------------------------------------------------------
@@ -302,31 +253,19 @@ local function block(fs, s, width, x, y)
 	return y + fs:GetStringHeight() + 10
 end
 
-local function layout()
-	if not root then return 0 end
-	local width = mainWidth()
-	local x = SH.pad
-	local y = 8
-	content:SetWidth(width + SH.pad * 2)
-	y = block(parts.Intro, parts.Intro:GetText(), width, x, y) + 4
-
-	-- The two ways in two columns.
-	local gap = 24
-	local colW = floor((width - gap) / 2)
-	local tallest = 0
-	for i, way in ipairs(parts.Ways) do
-		local cx = x + (i - 1) * (colW + gap)
-		way.head:SetWidth(colW)
-		place(way.head, cx, y)
-		way.body:SetWidth(colW)
-		place(way.body, cx, y + 22)
-		tallest = max(tallest, 22 + way.body:GetStringHeight())
-	end
-	y = y + tallest + 12
-
-	place(parts.PasteH, x, y)
-	parts.PasteH:SetWidth(width)
+-- The section laid out from (x, y) in the page, `width` wide -> the y under it.
+-- IV.top is where it starts, for the page to scroll to.
+function IV.Layout(x, y, width)
+	if not host then return y end
+	IV.top = y
+	place(parts.Head, x, y)
+	parts.Head:SetWidth(width)
 	y = y + 44 + 4
+	place(parts.Way, x, y)
+	parts.Way:SetWidth(width)
+	parts.WayBody:SetWidth(width)
+	place(parts.WayBody, x, y + 22)
+	y = y + 22 + parts.WayBody:GetStringHeight() + 12
 	parts.Box:SetWidth(width)
 	place(parts.Box, x, y)
 	y = y + 30 + 12
@@ -388,42 +327,7 @@ local function layout()
 		y = y + h
 	end
 	for i = #list + 1, #rows do rows[i]:Hide() end
-	y = y + 16
-
-	-- Want more than one guide?
-	parts.MoreH:SetWidth(width)
-	place(parts.MoreH, x, y)
-	y = y + 44 + 4
-	y = block(parts.More, parts.More:GetText(), width, x, y) + 4
-	local url = guidePacksURL()
-	place(parts.DocsLabel, x, y + 3)
-	if url then
-		parts.DocsLabel:SetText(L["Read more:"])
-		parts.DocsLabel:SetWidth(0)
-		local lw = min(floor(width / 3), parts.DocsLabel:GetStringWidth() + 2)
-		parts.DocsLabel:SetWidth(lw)
-		parts.Docs.Label:SetWidth(0)
-		W.SetLinkText(parts.Docs, (url:gsub("^%a+://", "")))
-		place(parts.Docs, x + lw + 8, y)
-		parts.Docs:Show()
-	else
-		parts.DocsLabel:SetText(L["Read more: docs/GUIDE_PACKS.md in Polestar's source"])
-		parts.DocsLabel:SetWidth(width)
-		parts.Docs:Hide()
-	end
-	return y + 24 + 24
-end
-
-function relayout()
-	if not (root and root:IsVisible()) then return end
-	local h = layout()
-	W.SetScrollContent(scroll, h)
-end
-
-function IV.Render()
-	if not root then return end
-	if hub then W.ShellTitle(hub, L["Import"], L["Guides someone shared with you, as an import string or a community addon."]) end
-	W.SetScrollContent(scroll, layout())
+	return y + 16
 end
 
 -- What the page shows, for the tests.
@@ -444,18 +348,11 @@ end
 IV.parts = parts
 IV.rows = rows
 
+-- The Community guides page of Settings, scrolled to this section.
 function IV.Show()
-	if UI.ShowPicker then UI.ShowPicker() end
-	local P = UI.Picker
-	if P and P.ShowSection then P.ShowSection(KEY) end
+	ns.Fire("SHOW_OPTIONS", "guidepacks")
+	local win = UI.Options and UI.Options.frame
+	if win and win.Scroll and IV.top then W.ScrollTo(win.Scroll, max(0, IV.top - 8)) end
 end
 
 ns.On("SHOW_IMPORT", IV.Show)
-ns.On("PACKS_CHANGED", function() relayout() end)
-
-if UI.RegisterSection then
-	UI.RegisterSection({
-		key = KEY, label = L["Import"], icon = "plus", order = 90, foot = true,
-		build = IV.Build, render = IV.Render,
-	})
-end

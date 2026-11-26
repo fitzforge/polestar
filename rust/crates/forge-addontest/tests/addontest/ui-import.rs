@@ -1,6 +1,6 @@
-//! The Import page (addon/Polestar/UI/Import.lua), a hub section at the rail's foot above Options, over the
-//! real Core (Core/Import.lua, the guide registry) and the UI's fake Engine (tests/lua/stub_ui.lua); and the
-//! guide menu's "Imported" entry under Community guides.
+//! Import a guide (addon/Polestar/UI/Import.lua), a section of Settings > Community guides (UI/Packs.lua builds it
+//! into that page), over the real Core (Core/Import.lua, the guide registry) and the UI's fake Engine
+//! (tests/lua/stub_ui.lua); the guide menu's "Imported" entry and its "+ Import a guide" row under Community guides.
 
 use forge_addontest::dsl::{fixture_data, plain};
 use forge_addontest::{emitted, is_match, Addon, RunAddon};
@@ -49,7 +49,9 @@ G = uistub.realGuides
 assert(Polestar.RegisterPack({ addon = "Polestar_Guides", id = "guides", format = 1, title = "Polestar Guides", author = "Polestar", version = "0.1.0", license = "GPL-3.0" }))
 assert(Polestar.RegisterGuide({ id = "forever/westfall", pack = "guides", title = "Westfall", minLevel = 10, maxLevel = 20, steps = { { goals = { { t = "level", level = 20 } } } } }))
 stub.login()
+Polestar.UI.LoadOptions()
 UI, P, IV = Polestar.UI, Polestar.UI.Picker, Polestar.UI.Import
+function page() UI.ShowOptions("guidepacks"); return Polestar.UI.Packs.view end
 function paste(text)
 	local box = IV.parts.Box
 	box:SetText(text)
@@ -81,30 +83,57 @@ fn size(v: &Value) -> usize {
 }
 
 #[test]
-fn import_sits_at_the_rail_s_foot_just_above_options_in_the_hub_the_settings_window_has_no_rail_polestar_import_opens_it() {
+fn import_is_no_section_of_the_hub_it_is_in_settings_community_guides_and_polestar_import_opens_it() {
 	let out = run(r#"
 		SlashCmdList.POLESTAR("import")
-		local hub = rail(PolestarPicker)
-		local section = P.Section()
-		UI.ShowOptions()
-		emit({ hub = hub, section = section, options = rail(PolestarOptions), foot = P.FootItems() })
+		local view = Polestar.UI.Packs.view
+		local options, page = PolestarOptions:IsShown(), view and view:IsVisible() or false
+		local shown = IV.parts.Box and IV.parts.Box:IsVisible() or false
+		UI.ShowPicker()
+		local sections = {}
+		for _, s in ipairs(P.Sections()) do sections[#sections + 1] = s.key end
+		emit({ options = options, page = page, shown = shown, hub = rail(PolestarPicker), sections = sections, foot = P.FootItems() })
 	"#);
 	let out = &out[0];
-	assert_eq!(out["section"], "Import");
-	// The foot is placed first, from the bottom up: Options, then Import.
-	let hub = out["hub"].as_array().unwrap();
-	assert_eq!(hub[..2], [json!("Options"), json!("Import")]);
-	// The settings window is a window of its own: no hub rail in it.
-	assert!(out["options"].as_array().is_none_or(|a| a.is_empty()), "the settings window has no rail: {}", out["options"]);
-	assert_eq!(hub.iter().filter(|k| **k == "Import").count(), 1, "not among the sections at the top too");
+	assert_eq!(out["options"], true);
+	assert_eq!(out["page"], true, "the Community guides page of Settings is up");
+	assert_eq!(out["shown"], true, "with the paste box on it");
 	let foot: Vec<Value> = out["foot"].as_array().unwrap().iter().map(|i| i["key"].clone()).collect();
-	assert_eq!(foot, vec![json!("Options"), json!("Import")]);
+	assert_eq!(foot, vec![json!("Options")], "no Import above Options");
+	assert!(!out["sections"].as_array().unwrap().contains(&json!("Import")), "{out}");
+	assert!(!out["hub"].as_array().is_none_or(|a| a.contains(&json!("Import"))), "{out}");
+}
+
+#[test]
+fn the_guide_menu_ends_its_community_guides_with_a_plus_import_a_guide_row_that_opens_the_same_place() {
+	let out = run(r##"
+		UI.ShowPicker()
+		P.ShowSection("Guides")
+		local nav, row = {}, nil
+		for _, b in ipairs(PolestarPicker.navButtons) do
+			if b:IsShown() then
+				nav[#nav + 1] = (b.psHeading and "# " or "") .. b.Label:GetText()
+				if b.Label:GetText() == "Import a guide" then row = b end
+			end
+		end
+		local cats = P.categories
+		row:Click()
+		emit({ nav = nav, cats = cats, options = PolestarOptions:IsShown(), page = Polestar.UI.Packs.view:IsVisible(), category = P.Category() })
+	"##);
+	let out = &out[0];
+	let nav: Vec<&str> = out["nav"].as_array().unwrap().iter().map(|v| v.as_str().unwrap()).collect();
+	assert_eq!(nav[nav.len() - 1], "Import a guide", "last: {nav:?}");
+	let at = nav.iter().position(|n| *n == "# Community guides").expect("the heading shows with no pack too");
+	assert!(at < nav.len() - 1);
+	assert!(!out["cats"].as_array().unwrap().iter().any(|c| c.as_str().is_some_and(|c| c.starts_with("import"))), "it is no category: {out}");
+	assert_eq!((&out["options"], &out["page"]), (&json!(true), &json!(true)));
+	assert_ne!(out["category"], "import:");
 }
 
 #[test]
 fn a_pasted_string_shows_its_preview_before_anything_is_saved_import_saves_it_lists_it_and_adds_it_to_the_guide_menu() {
 	let out = run(&r##"
-		IV.Show()
+		page()
 		paste($S)
 		emit(IV.Shown())
 		emit({ saved = PolestarDB.imports == nil })
@@ -112,6 +141,7 @@ fn a_pasted_string_shows_its_preview_before_anything_is_saved_import_saves_it_li
 		emit(IV.Shown())
 		local g = G.Get("yendi/cozy-sleeping-bag")
 		local nav = {}
+		UI.ShowPicker()
 		P.ShowSection("Guides")
 		for _, b in ipairs(PolestarPicker.navButtons) do
 			if b:IsShown() then nav[#nav + 1] = (b.psHeading and "# " or "") .. b.Label:GetText() end
@@ -142,7 +172,7 @@ fn a_pasted_string_shows_its_preview_before_anything_is_saved_import_saves_it_li
 fn a_paste_comes_in_one_character_at_a_time_and_is_read_on_the_next_frame_the_box_keeps_only_its_beginning() {
 	let s = string();
 	let out = run(&r#"
-		IV.Show()
+		page()
 		local box = IV.parts.Box
 		local text = $S
 		for i = 1, #text do box:GetScript("OnChar")(box, text:sub(i, i)) end
@@ -164,7 +194,7 @@ fn a_refused_string_shows_why_and_saves_nothing_the_same_string_again_says_it_is
 	p["guide"]["version"] = json!(4);
 	let newer_string = encode_import(&parse_json(&p.to_string()).unwrap());
 	let out = run(&r#"
-		IV.Show()
+		page()
 		paste("!PS1!garbage")
 		emit({ shown = IV.Shown(), saved = PolestarDB.imports == nil })
 		paste($S)
@@ -189,7 +219,7 @@ fn a_refused_string_shows_why_and_saves_nothing_the_same_string_again_says_it_is
 #[test]
 fn delete_asks_for_a_second_click_then_removes_the_guide_from_the_list_and_the_store() {
 	let out = run(&r#"
-		IV.Show()
+		page()
 		paste($S)
 		IV.parts.Apply:Click()
 		local row = IV.rows[1]

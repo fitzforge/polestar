@@ -562,6 +562,8 @@ function P.Build(view)
 	end, { role = "note" })
 	docs.Label:SetWordWrap(false)
 	view.Docs, view.DocsLabel = docs, docsLabel
+	UI.Import.Build(view)
+	UI.Import.onChange = function() relayout(view) end
 
 	view.Refresh = function()
 		local width = bodyWidth()
@@ -591,6 +593,9 @@ function P.Build(view)
 		end
 		for i = #list + 1, #view.rows do view.rows[i]:Hide() end
 		y = y + 16
+		-- Import a guide: UI/Import.lua's section, between the installed
+		-- addons and where suggestions come from.
+		y = UI.Import.Layout(SH.pad, y, width)
 
 		suggestH:ClearAllPoints()
 		suggestH:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)

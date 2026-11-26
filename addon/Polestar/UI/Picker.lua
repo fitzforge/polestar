@@ -145,6 +145,7 @@ local categoryOf = UI.Category
 -- the "Community guides" heading, one entry per pack (key "pack:<id>"); All,
 -- Favorites and search cover every shown guide.
 local PACK = "pack:"
+local IMPORT = "import:" -- the guide list's "+ Import a guide" row, which is no category
 
 -- The community pack a guide (header) comes from; nil for ours (`guides`),
 -- Polestar's internal packs and its extra packs (Guides.OWN_EXTRA: the
@@ -1531,7 +1532,7 @@ local function layoutPlayNext(x, y, width)
 end
 
 -- Home's way into the rest: Leveling, Class and Professions with their
--- counts (those with guides for this character), then Import.
+-- counts (those with guides for this character), then Import a guide (Settings).
 local actPool = {}
 local function act(i)
 	local b = actPool[i]
@@ -1551,9 +1552,7 @@ local function layoutActs(counts, y)
 		local n = counts[c] or 0
 		if n > 0 then items[#items + 1] = { label = L[c], count = n, icon = CATEGORY_ICON[c], go = function() P.SetCategory(c) end } end
 	end
-	for _, s in ipairs(P.Sections()) do
-		if s.key == "Import" then items[#items + 1] = { label = s.label or L["Import"], icon = "plus", go = function() P.ShowSection("Import") end } end
-	end
+	items[#items + 1] = { label = L["Import a guide"], icon = "plus", go = function() UI.Import.Show() end }
 	local x, line = SH.pad, 0
 	local right = MID_W - SH.pad
 	for i, it in ipairs(items) do
@@ -2294,19 +2293,19 @@ local function navItems(counts, total)
 	end
 	items[#items + 1] = { key = "Favorites", label = L["Favourites"], icon = CATEGORY_ICON.Favorites, count = counts.Favorites or 0 }
 	-- Community guides: one entry per shown pack with guides, "<title> · <author>",
-	-- on one line (its tooltip has it whole when cut).
-	if #packs > 0 then
-		table.sort(packs, function(a, b) return (a.title or a.id):lower() < (b.title or b.id):lower() end)
-		items[#items + 1] = { key = "", heading = true, label = L["Community guides"] }
-		for _, r in ipairs(packs) do
-			local label = r.title or r.id
-			if r.author then label = label .. DOT .. r.author end
-			items[#items + 1] = { key = PACK .. r.id, label = label, icon = "layers", count = counts[PACK .. r.id] or 0, oneLine = true }
-		end
+	-- on one line (its tooltip has it whole when cut), and last "+ Import a
+	-- guide": not a category, it opens Settings' Import section.
+	table.sort(packs, function(a, b) return (a.title or a.id):lower() < (b.title or b.id):lower() end)
+	items[#items + 1] = { key = "", heading = true, label = L["Community guides"] }
+	for _, r in ipairs(packs) do
+		local label = r.title or r.id
+		if r.author then label = label .. DOT .. r.author end
+		items[#items + 1] = { key = PACK .. r.id, label = label, icon = "layers", count = counts[PACK .. r.id] or 0, oneLine = true }
 	end
+	items[#items + 1] = { key = IMPORT, label = L["Import a guide"], icon = "plus", action = true }
 	P.categories = {}
 	for _, it in ipairs(items) do
-		if not it.heading then P.categories[#P.categories + 1] = it.key end
+		if not (it.heading or it.action) then P.categories[#P.categories + 1] = it.key end
 	end
 	return items
 end
@@ -2620,7 +2619,9 @@ local function render()
 	local entries, n, counts = P.Entries(query, view == "browse" and category or "All")
 	local total = 0
 	for c, k in pairs(counts) do if c ~= "Favorites" then total = total + k end end
-	W.ShellNav(win, navItems(counts, total), view == "browse" and category or nil, function(key) P.SetCategory(key) end)
+	W.ShellNav(win, navItems(counts, total), view == "browse" and category or nil, function(key)
+		if key == IMPORT then UI.Import.Show() else P.SetCategory(key) end
+	end)
 	local tabsList = {}
 	for i, v in ipairs(VIEWS) do tabsList[i] = { key = v, label = VIEW_LABEL[v] } end
 	W.ShellTabs(win, tabsList, view, function(key) P.SetView(key) end)
@@ -3042,14 +3043,20 @@ local function build()
 			tabsLabel = L["Sections"],
 			-- The close sits among the details' own buttons: B goes in the hint bar.
 			close = false,
+			-- X: the widget's own (a section's row: Free mode's pin, w.psPadX),
+			-- else Play next's start or the focused guide's load.
 			x = function(w)
+				if w and w.psPadX then return w.psPadX(w) end
 				if w and w.psPlayNext then return playNextStart() end
 				if w and w.psGuide and w.psGuide.id then
 					P.Select(w.psGuide.id)
 					P.LoadSelected()
 				end
 			end,
-			xLabel = function(w) return w.psPlayNext and L["Start"] or (w.psGuide and L["Load guide"] or nil) end,
+			xLabel = function(w)
+				if w and w.psPadXLabel then return w.psPadXLabel(w) end
+				return w.psPlayNext and L["Start"] or (w.psGuide and L["Load guide"] or nil)
+			end,
 			reset = function(w)
 				if not (w and w.psCard) then return false end
 				closeCard(w)
