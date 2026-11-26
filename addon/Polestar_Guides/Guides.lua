@@ -4246,17 +4246,43 @@ do
 end
 
 Polestar.RetireGuides("guides", {
+	"forever/alliance/30-40/05-stranglethorn-vale",
+	"forever/alliance/30-40/06-arathi-highlands",
+	"forever/alliance/30-40/07-badlands",
+	"forever/alliance/40-50/08-un-goro-crater",
+	"forever/alliance/50-60/01-un-goro-crater",
+	"forever/alliance/50-60/02-burning-steppes",
+	"forever/alliance/50-60/03-felwood",
+	"forever/alliance/50-60/04-winterspring",
 	"forever/alliance/50-60/05-silithus",
+	"forever/alliance/50-60/05-western-plaguelands",
+	"forever/alliance/50-60/07-silithus",
 	"forever/alliance/dwarf-gnome/01-dun-morogh",
+	"forever/class/shaman/stalk-with-the-earthmother",
 	"forever/horde/30-40/01-desolace",
 	"forever/horde/30-40/02-stranglethorn-vale",
 	"forever/horde/30-40/03-arathi-highlands",
+	"forever/horde/30-40/04-stranglethorn-vale",
+	"forever/horde/30-40/06-dustwallow-marsh",
+	"forever/horde/40-50/02-stranglethorn-vale",
+	"forever/horde/40-50/04-feralas",
+	"forever/horde/40-50/05-tanaris",
+	"forever/horde/40-50/06-the-hinterlands",
+	"forever/horde/40-50/07-azshara",
 	"forever/horde/orc-troll/01-durotar",
 	"forever/horde/orc-troll/02-the-barrens",
 	"forever/horde/orc/02-the-barrens",
 	"forever/horde/troll/02-the-barrens",
+	"forever/miscellaneous/the-drowned-city-alliance",
+	"forever/miscellaneous/the-drowned-city-horde",
 	"polestar-experimental/hyjal-1",
 	"polestar-experimental/riverglades-alliance-1",
 	"polestar-experimental/riverglades-horde-1",
 	"polestar-experimental/shendralas",
+	["forever/class/shaman/stalk-with-the-earthmother"] = "forever/miscellaneous/stalk-with-the-earthmother",
 })
+
+if Polestar.PartGuides then Polestar.PartGuides("guides", {
+	["Alliance"] = "\nforever/alliance/02-westfall\nforever/alliance/03-darkshore-return\nforever/alliance/03-darkshore\nforever/alliance/03-loch-modan\nforever/alliance/04-redridge-mountains\nforever/alliance/05-duskwood\nforever/alliance/06-ashenvale\nforever/alliance/06-wetlands\nforever/alliance/07-thousand-needles\nforever/alliance/30-40/01-hillsbrad-foothills\nforever/alliance/30-40/02-desolace\nforever/alliance/30-40/03-ashenvale\nforever/alliance/30-40/04-stranglethorn-vale\nforever/alliance/30-40/04b-stranglethorn-vale\nforever/alliance/30-40/05-arathi-highlands\nforever/alliance/30-40/06-badlands\nforever/alliance/30-40/06b-desolace\nforever/alliance/40-50/01-stranglethorn-vale\nforever/alliance/40-50/01b-riverglades\nforever/alliance/40-50/02-badlands\nforever/alliance/40-50/03-feralas\nforever/alliance/40-50/04-tanaris\nforever/alliance/40-50/05-the-hinterlands\nforever/alliance/40-50/06-searing-gorge\nforever/alliance/40-50/07-un-goro-crater\nforever/alliance/50-60/01-burning-steppes\nforever/alliance/50-60/02-felwood\nforever/alliance/50-60/03-winterspring\nforever/alliance/50-60/04-western-plaguelands\nforever/alliance/50-60/06-silithus\nforever/alliance/dwarf/01-dun-morogh\nforever/alliance/gnome/01-dun-morogh\nforever/alliance/human/01-elwynn-forest\nforever/alliance/nightelf/01-teldrassil\nforever/alliance/nightelf/02-darkshore\nforever/alliance/skyborne/01-zephras-isle\nforever/class/hunter/taming-the-beast-alliance\nforever/class/mage/astral-knot-garment\nforever/class/mage/manaweave-robe\nforever/class/mage/staff-or-orb-alliance\nforever/class/mage/teleports-alliance\nforever/class/paladin/cloak-of-the-divine-storm\nforever/class/paladin/holy-mightstone\nforever/class/paladin/tome-of-divinity\nforever/class/paladin/verigans-fist\nforever/class/priest/confounding-flash-and-contingency-plan\nforever/class/priest/desperate-prayer-and-chastise\nforever/class/priest/divine-grace-and-feedback\nforever/class/priest/priest-robes-alliance\nforever/class/priest/starshards-and-elunes-grace\nforever/class/rogue/blade-of-cunning-alliance\nforever/class/rogue/certificate-of-thievery\nforever/class/rogue/poisons-alliance\nforever/class/shaman/call-of-air-alliance\nforever/class/shaman/call-of-earth-alliance\nforever/class/shaman/call-of-fire-alliance\nforever/class/shaman/call-of-water-alliance\nforever/class/warlock/dread-mage-hat\nforever/class/warlock/felhunter-alliance\nforever/class/warlock/imp-alliance\nforever/class/warlock/incubus-alliance\nforever/class/warlock/voidwalker-alliance\nforever/class/warrior/fire-hardened-armor\nforever/class/warrior/haggards-weapons\nforever/collectibles/mounts/alliance/black-war-mounts\nforever/collectibles/mounts/alliance/horse\nforever/collectibles/mounts/alliance/mechanostrider\nforever/collectibles/mounts/alliance/pack-kodo\nforever/collectibles/mounts/alliance/paladin-charger\nforever/collectibles/mounts/alliance/paladin-warhorse\nforever/collectibles/mounts/alliance/ram\nforever/collectibles/mounts/alliance/saber\nforever/collectibles/mounts/alliance/stormpike-battle-charger\nforever/collectibles/mounts/alliance/swift-horse\nforever/collectibles/mounts/alliance/swift-mechanostrider\nforever/collectibles/mounts/alliance/swift-ram\nforever/collectibles/mounts/alliance/swift-saber\nforever/collectibles/mounts/alliance/winterspring-frostsaber\nforever/collectibles/pets/chicken-egg\nforever/collectibles/pets/donni-anthania\nforever/collectibles/pets/shylenai\nforever/collectibles/pets/yarlyn-amberstill\nforever/reputation/darnassus\nforever/reputation/gnomeregan-exiles\nforever/reputation/ironforge\nforever/reputation/kirin-tor\nforever/reputation/stormwind\nforever/reputation/wintersaber-trainers\n",
+	["Horde"] = "\nforever/class/hunter/taming-the-beast-horde\nforever/class/mage/ju-ju-heaps\nforever/class/mage/nether-lace-garment\nforever/class/mage/spellfire-robes\nforever/class/mage/teleports-horde\nforever/class/paladin/lumina-windsinger\nforever/class/paladin/tyrs-watch\nforever/class/priest/hex-of-weakness-and-shadowguard\nforever/class/priest/priest-robes-horde\nforever/class/priest/touch-of-weakness-and-dark-sacrifice\nforever/class/rogue/blade-of-cunning-horde\nforever/class/rogue/plundering-the-plunderers\nforever/class/rogue/poisons-horde\nforever/class/shaman/call-of-air-horde\nforever/class/shaman/call-of-earth-horde\nforever/class/shaman/call-of-fire-horde\nforever/class/shaman/call-of-water-horde\nforever/class/shaman/darkreaver\nforever/class/shaman/spirit-totem\nforever/class/warlock/felhunter-horde\nforever/class/warlock/imp-horde\nforever/class/warlock/incubus-horde\nforever/class/warlock/voidwalker-horde\nforever/class/warrior/brutal-armor\nforever/class/warrior/heirloom-weapon\nforever/collectibles/mounts/horde/black-war-mounts\nforever/collectibles/mounts/horde/frostwolf-howler\nforever/collectibles/mounts/horde/great-kodo\nforever/collectibles/mounts/horde/kodo\nforever/collectibles/mounts/horde/pack-kodo\nforever/collectibles/mounts/horde/paladin-warhorse\nforever/collectibles/mounts/horde/raptor\nforever/collectibles/mounts/horde/skeletal-horse\nforever/collectibles/mounts/horde/skeletal-warhorse\nforever/collectibles/mounts/horde/swift-raptor\nforever/collectibles/mounts/horde/swift-wolf\nforever/collectibles/mounts/horde/wolf\nforever/collectibles/pets/black-tabby\nforever/collectibles/pets/excitable-slime\nforever/collectibles/pets/halpa\nforever/collectibles/pets/jeremiah-payson\nforever/collectibles/pets/mayhoa-skyhoof\nforever/collectibles/pets/xantish\nforever/horde/02-the-barrens\nforever/horde/03-silverpine-forest\nforever/horde/04-the-barrens\nforever/horde/05-stonetalon-mountains\nforever/horde/06-hillsbrad-foothills\nforever/horde/07-ashenvale\nforever/horde/30-40/01-hillsbrad-foothills\nforever/horde/30-40/02-thousand-needles\nforever/horde/30-40/03-stranglethorn-vale\nforever/horde/30-40/04-dustwallow-marsh\nforever/horde/30-40/05-arathi-highlands\nforever/horde/30-40/06-badlands\nforever/horde/40-50/01-stranglethorn-vale\nforever/horde/40-50/01b-riverglades\nforever/horde/40-50/02-feralas\nforever/horde/40-50/03-feralas\nforever/horde/40-50/04-tanaris\nforever/horde/40-50/05-the-hinterlands\nforever/horde/40-50/06-azshara\nforever/horde/50-60/01-un-goro-crater\nforever/horde/50-60/02-felwood\nforever/horde/50-60/03-winterspring\nforever/horde/50-60/04-azshara\nforever/horde/50-60/05-eastern-plaguelands\nforever/horde/50-60/06-silithus\nforever/horde/50-60/07-felwood\nforever/horde/orc/01-durotar\nforever/horde/skyborne/01-zephras-isle\nforever/horde/tauren/01-mulgore\nforever/horde/troll/01-durotar\nforever/horde/undead/01-tirisfal-glades\nforever/miscellaneous/stalk-with-the-earthmother\nforever/reputation/darkspear-trolls\nforever/reputation/orgrimmar\nforever/reputation/thunder-bluff\nforever/reputation/undercity\n",
+}) end

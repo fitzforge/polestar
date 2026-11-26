@@ -384,6 +384,7 @@ function W.Tooltip(owner, anchor, title, lines)
 	GameTooltip:SetOwner(owner, anchor or "ANCHOR_RIGHT")
 	GameTooltip:SetText(title or "", 1, 1, 1, 1, true)
 	W.TooltipLines(GameTooltip, lines)
+	Theme.TipDots(GameTooltip)
 	GameTooltip:Show()
 end
 
@@ -563,6 +564,7 @@ local function setGameTip(owner, kind, id, extra, place)
 	end
 	if kind == "item" then tip:SetHyperlink(link or ("item:" .. id)) else tip:SetSpellByID(id) end
 	if extra then extra(tip) end
+	Theme.TipDots(tip)
 	tip:Show()
 	gameTip = { owner = owner, kind = kind, id = id, extra = extra, place = anchor or place }
 end

@@ -129,8 +129,21 @@ folders where there were eleven).
 replaced. `Guides.lua` ends with `Polestar.RetireGuides("<pack id>", { ...
 })`, and a character whose saved tab holds one of them opens, at login, the
 pack's leveling guide for it now (the one the guide menu would suggest at
-its level), whose progress is read from the quest log. A retired id that is
-still one of the pack's guides warns.
+its level), whose progress is read from the quest log. An entry may name
+the guide an old id became instead, `{ "id": "<old id>", "to": "<new id>" }`
+(a guide moved to another folder): its saved tab opens that guide when the
+character's faction has it (`["<old id>"] = "<new id>"` in the call's table;
+a Polestar from before reads past it). A retired id that is still one of the
+pack's guides warns; a `to` that is none of them is an error. Polestar's own
+packs keep every id they have shipped in `guides/ids.json`: one that is no
+longer a guide must be retired (forge-guide's `retired_ids` test, #3924).
+
+**Faction part index.** Polestar's own pack's `Guides.lua` also lists the
+guide ids each faction part registers, `Polestar.PartGuides("guides", {
+["Alliance"] = "\n<id>\n...", ["Alliance_Human"] = "...", ... })` (a key per
+faction, and per faction and race for guides of one race), so a saved tab
+loads the other faction's part only for a guide that part has for the
+character; a tab of a guide no part has loads nothing (#3924).
 
 **Texts addons.** A pack whose `locales/<locale>/` folder holds translations
 (docs/TRANSLATING.md, "Guide texts") gets, beside its folder, one

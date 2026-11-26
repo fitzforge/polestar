@@ -1030,6 +1030,7 @@ local function wire(b, onEnter)
 		if GameTooltip and onEnter then
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 			onEnter(self, GameTooltip)
+			if ns.Theme then ns.Theme.TipDots(GameTooltip) end
 			GameTooltip:Show()
 		end
 	end)
@@ -3067,6 +3068,7 @@ do
 				if GameTooltip and GameTooltip:GetOwner() == self then
 					GameTooltip:ClearLines()
 					anchorTooltip(self, GameTooltip)
+					if ns.Theme then ns.Theme.TipDots(GameTooltip) end
 					GameTooltip:Show()
 				end
 				return

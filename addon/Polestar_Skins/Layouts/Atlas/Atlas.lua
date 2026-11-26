@@ -744,6 +744,7 @@ local function chipsFrame(owner)
 		GameTooltip:SetOwner(self, "ANCHOR_TOP")
 		GameTooltip:AddLine(tr("Journey"))
 		for _, t in ipairs(self.psTip or {}) do GameTooltip:AddDoubleLine(t[1], t[2], 0.85, 0.87, 0.93, 1, 1, 1) end
+		if Theme.TipDots then Theme.TipDots(GameTooltip) end
 		GameTooltip:Show()
 	end)
 	f:SetScript("OnLeave", function() GameTooltip:Hide() end)
@@ -856,6 +857,7 @@ local function infoIcon(owner, label, tip)
 				GameTooltip:ClearAllPoints()
 				GameTooltip:SetPoint("BOTTOMLEFT", owner, "TOPLEFT", 0, 4)
 				GameTooltip:SetText(self.psTip or "", 1, 1, 1, 1, true)
+				if Theme.TipDots then Theme.TipDots(GameTooltip) end
 				GameTooltip:Show()
 			end
 		end)
