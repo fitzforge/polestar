@@ -430,7 +430,7 @@ return {
 	-- Step 96: Drygulch Ravine
 	-- {area:370} Drygulch Ravine · {npc:3293} Rezlak · {item:277661} Dull Storm Orb · {quest:97281} A Simmering Storm · {area:371} Dustwind Cave · {item:6652} Reagent Pouch · {item:5026} Fire Tar
 	-- plural, as words: Burning Blade Cultists = {npc:3199} Burning Blade Cultist
-	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}, which starts {quest:97281}.\nShamans: the Burning Blade Cultists by {area:371}, at the ravine's south end, drop the {item:6652}. The {item:5026} comes from the Razormane on the next guide's first visit to their camp."] = "{npc:3293}东边的{area:370}是尘风暴徒和尘风雷巫的巢穴。尘风雷巫会掉落{item:277661}，可用来开启{quest:97281}。\n萨满祭司：山谷南端的{area:371}旁有火刃信徒，会掉落{item:6652}。下一段路线第一次去钢鬃野猪人营地时，可以从他们身上收集{item:5026}。",
+	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}, which starts {quest:97281}.\nShamans: the Burning Blade Cultists by {area:371}, at the ravine's south end, drop the {item:6652}. The {item:5026} comes from the Razormane on the next guide's first visit to their camp."] = "{npc:3293}东边的{area:370}是尘风暴徒和尘风雷巫的巢穴。尘风雷巫会掉落{item:277661}，可用来开启{quest:97281}。\n萨满祭司：山谷南端的{area:371}旁有火刃祭司，会掉落{item:6652}。下一段路线第一次去钢鬃野猪人营地时，可以从他们身上收集{item:5026}。",
 
 	-- Step 97: Rezlak
 	-- {npc:3293} Rezlak
