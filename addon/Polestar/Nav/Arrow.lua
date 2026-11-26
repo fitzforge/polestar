@@ -53,7 +53,7 @@ local ADDON, ns = ...
 local Nav = ns.Nav
 local L = ns.L
 
-local exp, sin, abs, floor, min, max, pi = math.exp, math.sin, math.abs, math.floor, math.min, math.max, math.pi
+local exp, sin, abs, floor, min, max, pi, sqrt = math.exp, math.sin, math.abs, math.floor, math.min, math.max, math.pi, math.sqrt
 local wrap = Nav.WrapAngle
 local MEDIA = Nav.MEDIA
 
@@ -881,6 +881,7 @@ local function setMode(m)
 	elseif m == "unmapped" then
 		distText:SetTextColor(Nav.RGB("textDim"))
 		distText:SetText("")
+		lastYards = nil
 	elseif m == "nopos" then
 		-- Nothing to point at or measure; the label (target or route leg) stays.
 		distText:SetTextColor(Nav.RGB("textDim"))
@@ -1067,6 +1068,15 @@ local function sample(elapsed)
 	syncLabel(T, routed)
 	if state == "far" or state == "arrived" or state == "search" or state == "nopos" or state == "unmapped" then
 		setMode(state)
+		if state == "unmapped" then
+			-- No walk to measure along: the straight-line distance to the target.
+			local dn, dw = Nav.TargetOffset()
+			local yards = dn and floor(sqrt(dn * dn + dw * dw) + 0.5)
+			if yards ~= lastYards then
+				lastYards = yards
+				distText:SetText(yards and ns.FormatDistance(yards) or "")
+			end
+		end
 		return true
 	end
 	if state == "instruction" then
