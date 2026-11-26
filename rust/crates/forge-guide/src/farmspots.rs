@@ -290,10 +290,7 @@ fn farm_spots_of(data: &Data, item_id: &V) -> V {
 			let markers: Vec<V> = towns.get(&map.to_js_string()).items().into_iter().filter(|m| m.get("service").truthy() || !farmers.contains(&m.get("npc").num())).collect();
 			let mut pts = s.get("pts").items();
 			pts.extend(s.get("more").items());
-			let open: Vec<V> = pts
-				.into_iter()
-				.filter(|p| !markers.iter().any(|m| hypot((p.at(0).num() - m.get("x").num()) * sx, (p.at(1).num() - m.get("y").num()) * sy) <= TOWN_YARDS))
-				.collect();
+			let open: Vec<V> = pts.into_iter().filter(|p| !markers.iter().any(|m| hypot((p.at(0).num() - m.get("x").num()) * sx, (p.at(1).num() - m.get("y").num()) * sy) <= TOWN_YARDS)).collect();
 			if open.is_empty() {
 				continue;
 			}
@@ -391,11 +388,8 @@ fn farm_spots_of(data: &Data, item_id: &V) -> V {
 	});
 	let out = V::arr();
 	for (_, members) in by_continent {
-		let members: Vec<usize> = if members.iter().any(|i| all[*i].spot.get("spawns").num() >= MIN_SPAWNS) {
-			members.into_iter().filter(|i| all[*i].spot.get("spawns").num() >= MIN_SPAWNS).collect()
-		} else {
-			members
-		};
+		let members: Vec<usize> =
+			if members.iter().any(|i| all[*i].spot.get("spawns").num() >= MIN_SPAWNS) { members.into_iter().filter(|i| all[*i].spot.get("spawns").num() >= MIN_SPAWNS).collect() } else { members };
 		// Each zone's best camp per safety and level band (first-seen key order, as a JS Map).
 		let mut best: Vec<(String, usize)> = Vec::new();
 		for i in members {
