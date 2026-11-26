@@ -5486,16 +5486,18 @@ Own.EARLIER_SHARE = 0.5
 
 -- The accept goals of the loaded guide's route before step `mark` that were
 -- not taken, or nil when too few quests before it were: { goal, ... }. A
--- quest the game no longer offers (closed, Own.unavailable) is none of them.
+-- quest the game no longer offers (closed, unavailableFor), one grey for the
+-- character (greyNeed) or one the catch-up already left out counts neither way.
 function Own.earlierBefore(mark, gated)
 	local C, steps, sk = Compat(), guide.steps, skippedFor(guide.id)
+	local caught = Own.leftOut[guide.id] or NONE
 	local seen, open, total, kept = {}, {}, 0, 0
 	for s = 1, mark - 1 do
 		if stepApplies(steps[s]) and not (sk and sk[s]) then
 			for _, goal in ipairs(steps[s].goals) do
 				local q = goal.quest
 				if (goal.t == "accept" or goal.direct) and q and not seen[q] and not goal.optional and Guides.Matches(goal.only, player)
-					and greyNeed(goal) ~= false and not unavailableFor(goal) then
+					and greyNeed(goal) ~= false and not unavailableFor(goal) and not caught[q] then
 					seen[q] = true
 					if questDone(q) or C.IsOnQuest(q) then
 						total, kept = total + 1, kept + 1
@@ -5510,20 +5512,27 @@ function Own.earlierBefore(mark, gated)
 	return open
 end
 
--- Notes what placement passed (Own.earlierBefore) in the save and puts every
--- quest of the guide's saved list that is not taken back into the route out
--- of it (Own.leftOut: out until the player takes the quest by hand).
+-- Notes what placement passed (Own.earlierBefore) in the save, then applies
+-- the guide's saved list (Own.applyEarlier). A quest already in the list
+-- keeps the player's answer.
 function Own.mergeEarlier(mark, gated)
 	local all = ns.CharState().earlier
-	local mine = all[guide.id]
 	for _, goal in ipairs(mark > 1 and Own.earlierBefore(mark, gated) or NONE) do
-		mine = mine or {}
+		local mine = all[guide.id] or {}
 		all[guide.id] = mine
 		if mine[goal.quest] == nil then mine[goal.quest] = true end
 	end
+	Own.applyEarlier(guide.id)
+end
+
+-- Puts every quest of guide `id`'s saved list that is not taken back into the
+-- route out of it (Own.leftOut: out until the player takes the quest by hand),
+-- beside the catch-up's own.
+function Own.applyEarlier(id)
+	local mine = ns.CharState().earlier[id]
 	if not mine then return end
-	local out = Own.leftOut[guide.id] or {}
-	Own.leftOut[guide.id] = out
+	local out = Own.leftOut[id] or {}
+	Own.leftOut[id] = out
 	for q, state in pairs(mine) do
 		if state ~= "taken" and out[q] == nil and not questDone(q) then out[q] = true end
 	end
@@ -17867,10 +17876,14 @@ function Own.setEarlier(q, state)
 end
 
 -- The quests placement passed as skipped earlier (#86), still open to take:
--- { { quest, title }, ... } in route order.
+-- { { quest, title }, ... } in route order. Kept for the evaluation (the
+-- guide window asks on every refill).
+Own.earlierCache = { gen = nil, guide = nil, list = nil }
 function Engine.SkippedEarlier()
 	local mine = guide and ns.CharState().earlier[guide.id]
 	if not mine then return {} end
+	local cache = Own.earlierCache
+	if cache.gen == generation and cache.guide == guide then return cache.list end
 	local C, out, seen = Compat(), {}, {}
 	for _, step in ipairs(guide.steps) do
 		for _, goal in ipairs(step.goals) do
@@ -17881,6 +17894,7 @@ function Engine.SkippedEarlier()
 			end
 		end
 	end
+	cache.gen, cache.guide, cache.list = generation, guide, out
 	return out
 end
 
@@ -17890,8 +17904,11 @@ function Engine.DismissEarlier(q) return Own.setEarlier(q, "dismissed") end
 
 -- How much of guide g's route the character has done (#86): the share of its
 -- quests (accepts for them, not optional) turned in or in the log, and whether
--- every one is turned in. Guides.Suggestions ranks by it. Kept per guide for
--- the evaluation and level.
+-- every one is turned in. Guides.Suggestions ranks by it. Turned in is the
+-- game's flag (and this session's turn-ins), not questDone: following every
+-- quest's chain (Own.chainPast) for each guide that fits would cost the
+-- picker too much, and a guide is ranked, not placed, by it. Kept per guide
+-- for the evaluation and level.
 Own.progressCache = setmetatable({}, { __mode = "k" })
 function Engine.ProgressOf(g)
 	if not player then refreshPlayer() end
@@ -18510,7 +18527,11 @@ ns.On("SETTING_CHANGED", function(path)
 	end
 	-- Turned off, every quest the catch-up left out is back at once (the guide
 	-- window's "Turn off" under "left out here", Engine.LeftOutHere).
-	if path == "behavior.skipGrey" and not ns.Get("behavior.skipGrey") then Own.leftOut, Own.leftOutWhy = {}, {} end
+	-- The quests skipped earlier (#86) stay out: they are no catch-up's.
+	if path == "behavior.skipGrey" and not ns.Get("behavior.skipGrey") then
+		Own.leftOut, Own.leftOutWhy = {}, {}
+		if guide then Own.applyEarlier(guide.id) end
+	end
 	if path == "behavior.groupQuests" or path == "behavior.deathskips" or path == "behavior.skipGrey" then requestUpdate() end
 end)
 

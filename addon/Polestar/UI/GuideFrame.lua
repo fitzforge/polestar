@@ -1518,6 +1518,10 @@ GF.Part(function(GF)
 			end)
 			l.Close:SetScript("OnEnter", function(self)
 				W.Color(l.Icon, "text")
+				if l.psEarlier then
+					W.Tooltip(self, "ANCHOR_TOP", L["Dismiss"], { L["Leaves it out of the route and off this list."] })
+					return
+				end
 				W.Tooltip(self, "ANCHOR_TOP", L["Close"], { L["Hides this line until more quests are off your route."] })
 			end)
 			l.Close:SetScript("OnLeave", function(self)
@@ -3118,7 +3122,8 @@ GF.Part(function(GF)
 		local earlier = GF.live and GF.On("leftOut") and E.SkippedEarlier and E.SkippedEarlier() or nil
 		if earlier and #earlier > 0 then
 			local open = model.open.earlier
-			addLine("earlier", "skip", "textMuted", string.format(L["%d quests you skipped earlier"], #earlier), nil, L["Skipped earlier"], open)
+			local label = #earlier == 1 and L["1 quest you skipped earlier"] or string.format(L["%d quests you skipped earlier"], #earlier)
+			addLine("earlier", "skip", "textMuted", label, nil, L["Skipped earlier"], open)
 			if open then
 				for k, o in ipairs(earlier) do
 					local il = addLine("earlier" .. k, "accept", "textMuted", o.title, nil, o.title, false)

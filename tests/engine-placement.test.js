@@ -387,6 +387,20 @@ test('a quest skipped before the player\'s real progress is no start: it is list
 	assert.deepEqual(asList(reload.list), [], 'in the log now: nothing skipped');
 });
 
+test('turning Skip grey quests off brings back the catch-up\'s quests, not the ones skipped earlier', { skip }, () => {
+	const fortress = stepOf('warlock', { t: 'collect', quest: 846, oi: 1 });
+	const grey = 'PolestarDB = { schema = 1, settings = { behavior = { autoSelectGuide = false, skipGrey = true } } }';
+	const [out] = play({
+		done: MID_DONE, log: MID_LOG, level: 22, saved: grey, open: 'tab',
+		script: `
+			Polestar.Set("behavior.skipGrey", false); stub.advance(0.6)
+			${SKIPPED_LIST}
+			emit({ at = E.GetStepIndex(), list = l })
+		`,
+	});
+	assert.deepEqual({ ...out, list: asList(out.list) }, { at: fortress, list: [868] });
+});
+
 test('mid-guide without skips, and a fresh character, list nothing skipped earlier', { skip }, () => {
 	const done = [...MID_DONE, 868];
 	const [mid] = play({ done, log: MID_LOG, level: 22, saved: FRESH, open: 'tab', script: `${SKIPPED_LIST}; emit(l)` });

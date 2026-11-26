@@ -2090,8 +2090,9 @@ end
 -- Faction/race/class must match. Every guide whose level range contains the
 -- player's level, in this order: the most of its quests done or in the log
 -- (tenths of its route; a guide with all of them done is left out), then the
--- player's current zone, then the nearest by travel (in 2-minute bands), then one whose quest XP mostly
--- follows on from an earlier guide the player has not done last
+-- player's current zone, then the nearest by travel (in 2-minute bands), then
+-- one whose quest XP mostly follows on from an earlier guide the player has
+-- not done last
 -- (Engine.FreshFor), then race- or class-specific (the race's own chain),
 -- then the narrowest range, the lowest minLevel and registration order. If
 -- none contains the level: the nearest upcoming guide, else the highest one
