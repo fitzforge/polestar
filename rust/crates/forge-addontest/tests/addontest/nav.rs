@@ -705,7 +705,7 @@ fn a_target_a_floor_above_or_below_is_not_arrived_at_and_the_arrow_shows_up_or_d
 	assert_eq!(
 		out,
 		json!([
-			["unmapped", "up", true, false, "The last steps here aren't mapped", false, 0],
+			["unmapped", "up", true, false, "", false, 0],
 			["unmapped", "down"],
 			["unmapped", false, false, 0],
 			["arrived", true, false, true, 1],

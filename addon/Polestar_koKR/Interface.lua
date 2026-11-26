@@ -923,7 +923,6 @@ L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the 
 L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = "Polestar가 일시 정지되었습니다: 던전에서 살아서 나오거나 /polestar resume을 입력하면 화살표가 다시 가이드를 따릅니다."
 
 -- Nav/Arrow.lua
-L["The last steps here aren't mapped"] = "이곳의 마지막 몇 걸음은 지도에 없습니다"
 L["Search here"] = "여기서 찾기"
 L["Arrived"] = "도착"
 L["Click the arrow for the next spot"] = "화살표를 클릭하면 다음 지점"
@@ -6035,3 +6034,4 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 -- L["Max height"] = "최대 높이"
 -- L["%s: on this step"] = "%s: 같은 단계"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "내가 받은 퀘스트를 자체 탭의 가이드로: 화살표가 가장 가까운 퀘스트로, 그다음 퀘스트로 안내합니다 (/polestar free)."
+-- L["The last steps here aren't mapped"] = "이곳의 마지막 몇 걸음은 지도에 없습니다"
