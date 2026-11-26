@@ -28,8 +28,10 @@ next forever/alliance/50-60/06-silithus
 # where the Hearthstone is bound) with the parts order from Everlook on the way back.
 # Offered only after another quest is handed in (the recordings): Violence Into
 # Verdure after Seeds for a New Season, The Bounty of Nature after Hope for Hatchlings, Rites of Respect after The
-# Bounty of Nature, Ancient Allies after Rites of Respect; Bark Bite after Leaves to Ligatures; Fine Feathered
-# Friend and The Dying Ancients after Bark Bite; Felflick's chain one quest at a time; A Revenge Now Bitter after
+# Bounty of Nature, Ancient Allies after Rites of Respect; Bark Bite after Leaves to Ligatures; The Dying Ancients
+# after Bark Bite; Fine Feathered Friend after Bark Bite and Celastrus the Bitter (#4003: 19 of 19 recorded players
+# took it only once Celastrus was handed in, and Fraxinus offered The Dying Ancients but not it before that, so a
+# player who skips Celastrus's group choice never gets it); Felflick's chain one quest at a time; A Revenge Now Bitter after
 # Amalgamated Marrow; A Prolific Source and Prickly Pinecones after Notation, Notation, Notation; The Experimental
 # Method after A Prolific Source; The Western Post after The Experimental Method; An Oldstone But An Old Friend
 # after The Dying God; Rubble Rummage after Crate Expectations; The Capricious Corvid and Taking to New Heights
@@ -52,7 +54,8 @@ step Into Mount Hyjal
   tip New in Forever: this guide follows what players did on Mount Hyjal. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip Mount Hyjal lies south of Winterspring. Fly to Everlook (from Theramore on the Alliance route; the Horde route already ends there), bind your Hearthstone at the inn (partway through this guide Ketharas sends you to Moonglade, and the way there starts in Everlook), then ride south down the road through Frostwhisper Gorge and on through Darkwhisper Gorge, which leads up into Mount Hyjal.
   tip Careful: elites stand along the whole way in. Frostmaul Giants and Preservers (59-60) flank the road through Frostwhisper Gorge, and Hederine Slayers, Initiates and Manastalkers (57-58) line Darkwhisper Gorge from its mouth to the zone line, with Lady Hederine (61) on its east side. Follow the arrows' line at full speed, never stop or fight on the way, and don't turn off it.
-  fly "Everlook"
+  fly "Everlook" only Alliance
+  fly "Everlook" only Horde
   zone Winterspring
   sethome "Everlook" npc 11118          -- Innkeeper Vizzie
   goto 62.3,67.0 "The road through Frostwhisper Gorge"
@@ -168,11 +171,15 @@ step The ancients' outpost
   accept 91770                          -- Bark Bite
   complete 91770 @53.4,84.3             -- put the poultice on Fraxinus
   turnin 91770
-  accept 95766                          -- Fine Feathered Friend
 
 step Thylaen
   when onquest 91923
   turnin 91923
+
+step Fine Feathered Friend
+  when turnedin 91923
+  tip With Celastrus the Bitter handed in, Fraxinus offers Fine Feathered Friend: the Curious Crow at Felblood Scar takes it later in this guide.
+  accept 95766                          -- Fine Feathered Friend
 
 step The Dying Ancients
   when group 92959
@@ -312,12 +319,14 @@ step Fly to Moonglade
   when zone "Mount Hyjal"
   tip Back west to Bluebell at the ancients' outpost and fly to Moonglade. Druids: Teleport: Moonglade is quicker. (No flight path to Moonglade yet? The road in is Timbermaw Hold's tunnel, from Winterspring or Felwood.)
   goto 55.1,82.6 "Bluebell, the flight mistress"
-  fly "Moonglade"
+  fly "Moonglade" only Alliance
+  fly "Moonglade" only Horde
 
 step Fly to Moonglade
   when zone "Winterspring"
   tip Fly to Moonglade from Everlook's flight master. No flight path to Moonglade yet? The way in is the tunnel through Timbermaw Hold, at the western end of Winterspring.
-  fly "Moonglade"
+  fly "Moonglade" only Alliance
+  fly "Moonglade" only Horde
   zone Moonglade
 
 step Dendrite Starblaze
@@ -356,7 +365,8 @@ step Fly to Everlook
   tip South to Moonglade's flight master (the Alliance's at the southern end of the valley, the Horde's at its south-western end) and fly to Everlook for Kaylaena's parts order.
   getfp "Moonglade" npc 10897 only Alliance  -- Sindrayl
   getfp "Moonglade" npc 12740 only Horde  -- Faustron
-  fly "Everlook"
+  fly "Everlook" only Alliance
+  fly "Everlook" only Horde
   zone Winterspring
 
 step Nami
@@ -874,6 +884,12 @@ step The Shrine of Aviana
   turnin 92147                          -- Phoebe Highfeather
   turnin 96252
 
+step The way into the Deadwood camps
+  when !subzone "Malorne's Retreat"
+  tip The Deadwood camps fill Malorne's Retreat, a sunken valley whose northern end runs in under the cliffs: there is no way down into it from Mourning's Rest. Go round to the valley's mouth in the south-east and follow it west, then north up into the camps, as players do.
+  goto 36.1,75.4 "the mouth of the valley up into Malorne's Retreat"
+  goto 23.9,66.5 "Malorne's Retreat"
+
 step The Deadwood camps
   tip South-west back towards Barkskin Burrow: the Deadwood camps on the slopes east of the burrow hold the Totemics and Fel-Tenders. An elite named Head Scratcher (level 60) may roam the camps' eastern end.
   kill 252116 x8 quest 93826.1          -- Deadwood Totemic
@@ -1151,7 +1167,8 @@ step The Summit of Eternity
 
 step Fly to Everlook
   tip Fayran Elthas flies you to Everlook.
-  fly "Everlook"
+  fly "Everlook" only Alliance
+  fly "Everlook" only Horde
   zone Winterspring
 
 step Innkeeper Vizzie

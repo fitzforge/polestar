@@ -239,8 +239,8 @@ return {
 	["The giant {npc:7765} sits just north-west of {npc:7775}'s camp."] = "Der Riese {npc:7765} sitzt gleich nordwestlich vom Lager von {npc:7775}.",
 
 	-- Step 51: Evoroot
-	-- {item:11242} Evoroot · {npc:7765} Rockbiter
-	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "Die {item:11242} wächst in einem zerfallenen Gebäude nördlich von {npc:7765}: Kletter vom Felsvorsprung daneben durch das Loch in der Wand hinein.",
+	-- {item:11242} Evoroot · {npc:7765} Rockbiter · {npc:9467} Miblon Snarltooth
+	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it.\nOr the front door: {npc:9467} guards it, and the Bait Gregan sells draws him off when you use it beside him. Half the players in our recordings went in that way, half through the wall."] = "",
 
 	-- Step 52: Shay Leafrunner
 	-- {npc:7774} Shay Leafrunner · {item:9189} Shay's Bell
@@ -288,6 +288,7 @@ return {
 	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back."] = "Die Jadefeuersatyrn halten das Tal westlich der Straße, mit {npc:9454} im hinteren Teil.",
 	-- ["The vial is filled in {zone:1457}: keep it"] = "Die Phiole wird in {zone:1457} gefüllt: Behalte es",
 	-- ["The vial is filled in {zone:1457}: keep it; inside"] = "Die Phiole wird in {zone:1457} gefüllt: Behalte sie; drinnen",
+	-- ["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "Die {item:11242} wächst in einem zerfallenen Gebäude nördlich von {npc:7765}: Kletter vom Felsvorsprung daneben durch das Loch in der Wand hinein.",
 	-- ["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53."] = "Grinde hier bis Stufe 52,69, bevor du bei {area:1763} abgibst: Das bringt dich auf Stufe 53.",
 	-- ["Top up here to level 52.9 before the hand-ins at {area:2479}: they take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Grinde hier bis Stufe 52,9, bevor du bei {area:2479} abgibst: Das bringt dich auf Stufe 53. Oder lauf mit einer Gruppe stattdessen den Dungeon {area:1417} oder den Dungeon {area:2100}.",
 	-- ["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}. If you freed {npc:11018}, go back into {area:1770} for the succubus {npc:9518}; Trey Lightforge's remains lie beside her."] = "Benutze die {item:12922} am verderbten Mondbrunnen mitten in {area:1763}. Hast du {npc:11018} befreit, geh zurück in {area:1770} zum Sukkubus {npc:9518}; die Überreste von Trey Lightforge liegen neben ihr.",

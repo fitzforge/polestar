@@ -18967,6 +18967,18 @@
 			]
 		},
 		{
+			"id": "garments-lesser-heal-rank2-5648-3992",
+			"faction": "Horde",
+			"at": { "quest": 5648, "goal": "accept", "guide": "forever/horde/troll/01-durotar" },
+			"tip": "Priests: Garments of Spirituality counts only Lesser Heal (Rank 2). Tai'jin trains priests too: learn it from her now if you have not yet.",
+			"note": "#3992: a priest reached the wounded guard of Garments of the Light without Lesser Heal (Rank 2), which the quest's objective asks for. The Garments quests' givers are priest trainers, so the accept says to learn it there. The Elwynn and Teldrassil guides carry the same tip from their seeds; the Dun Morogh guides already train at Maxan Anvol, and Tirisfal Glades says it at Dark Cleric Duesten.",
+			"source": [
+				{ "kind": "client", "ref": "quest 5648's objective text (\"heal her wounds using Lesser Heal (Rank 2)\"); training.json: Lesser Heal 2052 from level 4; npcs.json: Tai'jin (3706) a trainer" },
+				{ "kind": "in-game-check", "ref": "#3992" }
+			],
+			"issue": 3992
+		},
+		{
 			"id": "wpl-scholomance-5533-level-55",
 			"faction": "Alliance",
 			"at": {

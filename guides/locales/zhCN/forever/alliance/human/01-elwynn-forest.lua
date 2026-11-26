@@ -113,8 +113,8 @@ return {
 	["{npc:6774}, by the stables south of the Abbey"] = "{npc:6774}，在修道院南边的马厩旁",
 
 	-- Step 19: Goldshire
-	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:295} Innkeeper Farley · {npc:253} William Pestle
-	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road."] = "沿道路向南离开山谷到{area:87}。{npc:240}站在路西侧的铁匠铺外，{npc:241}在铁匠铺南边的路旁，{npc:295}和{npc:253}在路对面的狮王之傲旅店里。",
+	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:295} Innkeeper Farley · {npc:253} William Pestle · {quest:5624} Garments of the Light · {spell:613} Lesser Heal · {npc:377} Priestess Josetta
+	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road.\nPriests: {quest:5624} counts only {spell:613} (Rank 2). {npc:377} trains priests too: learn it from her now if you have not yet."] = "",
 	-- {npc:295} Innkeeper Farley
 	["{npc:295}, inside"] = "{npc:295}，在里面",
 	-- {npc:253} William Pestle
@@ -542,6 +542,7 @@ return {
 	-- ["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "沿小路向北到矿洞。{npc:257}聚集在矿洞外；山谷里的每个狗头人都可能掉落{object:83763}。",
 	-- ["Follow the road east past the {area:91} to the bridge."] = "沿道路向东经过{area:91}到桥。",
 	-- ["Follow the road north from {area:87} into {zone:1453}. {npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in {object:2100} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "沿道路从{area:87}向北进入{zone:1453}。{npc:6171}和{npc:6173}在光明大教堂；{npc:6174}站在{object:2100}，要十块{item:2589}（人形生物会掉落；拍卖行也有卖）。",
+	-- ["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road."] = "沿道路向南离开山谷到{area:87}。{npc:240}站在路西侧的铁匠铺外，{npc:241}在铁匠铺南边的路旁，{npc:295}和{npc:253}在路对面的狮王之傲旅店里。",
 	-- ["Follow the road south out of the valley to {area:87}. {npc:295} is in the Lion's Pride Inn; {npc:240} stands outside the smithy across the road, {npc:253} at the inn's front and {npc:241} by the road south of it."] = "沿道路向南离开山谷到{area:87}。{npc:295}在狮王之傲旅店里；{npc:240}站在路对面的铁匠铺外，{npc:253}在旅店前，{npc:241}在旅店南边的路旁。",
 	-- ["Follow the road west back to {area:87}."] = "沿道路向西返回{area:87}。",
 	-- ["Follow the road west back to {area:87}; {npc:6306} and Jason stand on the lake shore before town."] = "沿道路向西返回{area:87}；到镇子前，{npc:6306}和贾森·玛瑟斯站在湖岸上。",

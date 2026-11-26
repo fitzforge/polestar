@@ -326,6 +326,7 @@ step Rockbiter
 
 step Evoroot
   tip The Evoroot grows inside a ruined building north of Rockbiter: climb in through the break in its wall from the ledge beside it.
+  tip Or the front door: Miblon Snarltooth guards it, and the Bait Gregan sells draws him off when you use it beside him. Half the players in our recordings went in that way, half through the wall.
   collect 11242 @44.5,10.2 map 1444 -- Evoroot
 
 step Shay Leafrunner

@@ -2987,17 +2987,17 @@ test('forever/40-50/shendralas.guide: Sekyno\'s report (#2946): Liranne\'s step 
 // the fragment at Magram Village without a fight.
 test('forever/40-50/shendralas.guide: the western pylon is repaired from its quiet south side, away from the elites', { skip }, () => {
 	const steps = compiled('forever/40-50/shendralas.guide').steps;
-	const st = steps.find((s) => s.goals.some((g) => g.t === 'kill' && g.quest === 96018 && g.oi === 2));
+	const st = steps.find((s) => s.goals.some((g) => g.t === 'use' && g.item === 271882 && g.quest === 96018 && g.oi === 2));
 	assert.ok(st, 'the western pylon\'s repair step');
-	const kill = st.goals.find((g) => g.t === 'kill');
+	const repair = st.goals.find((g) => g.t === 'use');
 	const approach = steps[steps.indexOf(st) - 1];
 	const pin = approach.goals.find((g) => g.t === 'goto');
-	assert.ok(approach.label && st.when.some((w) => w.k === 'done' && w.label === approach.label && !w.neg));
-	assert.ok(pin && pin.x <= kill.x && pin.y > kill.y, 'approach the west edge from the south');
-	assert.deepEqual(kill.spots.map(({ x, y }) => [x, y]), [[43.97, 35.59], [43.89, 35.64]], 'both repair targets are on the west face');
+	assert.ok(approach.label && pin, 'the road step comes right before the repair');
+	assert.ok(pin.x <= repair.x && pin.y > repair.y, 'approach the west edge from the south');
+	assert.deepEqual(repair.spots.map(({ x, y }) => [x, y]), [[43.97, 35.59], [43.89, 35.64]], 'both repair targets are on the west face');
 	const crystal = steps.flatMap((s) => s.goals).find((g) => g.t === 'collect' && g.quest === 99257);
 	assert.equal(crystal.npc, 252711);
-	assert.deepEqual(crystal.spots.map(({ x, y }) => [x, y]), kill.spots.map(({ x, y }) => [x, y]), 'the heart uses the same west-side pulls');
+	assert.deepEqual(crystal.spots.map(({ x, y }) => [x, y]), repair.spots.map(({ x, y }) => [x, y]), 'the heart uses the same west-side pulls');
 	const tips = approach.note || '';
 	assert.match(tips, /one Decrepit Pylon Protector at a time/, 'the pull');
 	assert.match(tips, /Careful: stay off the pylon's east and north-east side/, 'the side to keep off');
@@ -3017,6 +3017,29 @@ test('Shen\'dralas: Mana Mania is only offered to groups after A Heart of Crysta
 	const follow = steps.findIndex((s) => s.goals.some((g) => g.t === 'accept' && g.quest === 99258));
 	assert.ok(heart >= 0 && follow > heart);
 	for (const k of ['group', 'turnedin']) assert.ok(steps[follow].when.some((w) => w.k === k && !w.neg && [].concat(w.q).includes(k === 'group' ? 99258 : 99257)));
+});
+// #4135 (gidi_, 0.4.2.2): each pylon's line of Powering the Pylons ticks on Repair and Recharge Pylon, the spell of the
+// Pile of Pylon Parts (271882) the quest hands over (players' recordings: 79 of 79 repairs; 25 with no Protector killed
+// in the minute before). The repairs were `kill` goals on the Decrepit Pylon Protectors, so While you're here offered
+// Protector kills for the quest, and the western repair waited for the road step south of the pylon: a player who
+// repaired it from elsewhere was sent back to the road. The repairs are uses of the Pile, and the western one no longer
+// waits for the road step (whose goto passes once the repair is done).
+test('Shen\'dralas: the pylons are repaired with the Pile of Pylon Parts, and the road step never holds a repaired pylon (#4135)', { skip }, () => {
+	const steps = compiled('forever/40-50/shendralas.guide').steps;
+	for (const oi of [2, 3]) {
+		const goal = steps.flatMap((s) => s.goals).find((g) => g.quest === 96018 && g.oi === oi);
+		assert.ok(goal && goal.t === 'use' && goal.item === 271882, `pylon line ${oi} is a use of the Pile of Pylon Parts`);
+	}
+	assert.ok(!steps.flatMap((s) => s.goals).some((g) => g.t === 'kill' && g.quest === 96018), 'no Protector kill counts for the quest');
+	const west = steps.find((s) => s.goals.some((g) => g.quest === 96018 && g.oi === 2));
+	assert.ok(!(west.when || []).some((w) => w.k === 'done'), 'the western repair does not wait for the road step');
+});
+// #4138 (gidi_, 0.4.2.2): Mana Mania's Nascent Pylon Protector is an elite (every recorded kill, 23 of 23), but it comes
+// alone, and 13 of the 20 players recorded killing it had no group. It stays a group choice; its tip says so.
+test('Shen\'dralas: Mana Mania\'s tip says the elite comes alone and most players killed it without a group (#4138)', { skip }, () => {
+	const steps = compiled('forever/40-50/shendralas.guide').steps;
+	const st = steps.find((s) => s.goals.some((g) => g.t === 'accept' && g.quest === 99258));
+	assert.match(st.note || '', /comes alone: most players in our recordings killed it without a group/);
 });
 // A step shown only while the bags hold an item (`when has I`) stops applying the moment the item is used up, so
 // nothing may follow the goal that uses it up (a `use`, an accept the item starts, a hand-in that takes it) but what
@@ -18575,7 +18598,7 @@ test('Tarren Mill\'s Southshore Stout buy shows only while Infiltration is in th
 test('Shen\'dralas: a Coalesced Mana Crystal step comes before each pylon repair (#2923, #3167)', { skip }, () => {
 	const list = goals('forever/40-50/shendralas.guide');
 	for (const oi of [2, 3]) {
-		const repair = list[at(list, `pylon ${oi - 1}`, (g) => g.t === 'kill' && g.quest === 96018 && g.oi === oi)];
+		const repair = list[at(list, `pylon ${oi - 1}`, (g) => g.t === 'use' && g.item === 271882 && g.quest === 96018 && g.oi === oi)];
 		const mana = list.filter(({ goal, s }) => goal.t === 'collect' && goal.item === 255667 && goal.count === 4 && s < repair.s);
 		assert.ok(mana.length >= oi - 1, `four crystals before pylon ${oi - 1}`);
 		const last = mana[mana.length - 1];
@@ -19259,6 +19282,99 @@ test('forever/50-60/mount-hyjal.guide: Blademaster\'s Bonfires are lit before th
 	const turnin = at(list, 'turnin 96959', is('turnin', 96959));
 	assert.ok(south < turnin && east < turnin);
 	assert.deepEqual([list[south].goal.quest, list[east].goal.quest], [96959, 96959]);
+});
+
+// #3894 (fekz, 0.4.2.2): "Fly to Everlook" in Moonglade had no arrow. Everlook and Moonglade have a flight master per
+// faction, so a `fly` written for both factions got no taxi node and the arrow had nowhere to lead once the flight
+// path was known. Each flight is written per faction now and carries its own side's node.
+test('forever/50-60/mount-hyjal.guide: every flight carries its taxi node (#3894)', { skip }, () => {
+	const flights = goals('forever/50-60/mount-hyjal.guide').filter(({ goal }) => goal.t === 'fly');
+	assert.ok(flights.length >= 10);
+	for (const { goal, step } of flights) assert.ok(goal.node > 0, `"${step.title}": fly ${goal.location} has a taxi node`);
+});
+
+// #4003 (as210558, 0.4.2.2): Fraxinus offers Fine Feathered Friend only once Celastrus the Bitter (a group choice) is
+// handed in as well as Bark Bite (players' recordings: 19 of 19 took it after both). The accept had sat with Bark
+// Bite's hand-in, before Thylaen's, and held a player who skipped Celastrus there. Its own step waits for Celastrus.
+test('forever/50-60/mount-hyjal.guide: Fine Feathered Friend waits for Celastrus the Bitter (#4003)', { skip }, () => {
+	const list = goals('forever/50-60/mount-hyjal.guide');
+	const { step, s } = list[at(list, 'accept 95766', is('accept', 95766))];
+	assert.ok((step.when || []).some((p) => p.k === 'turnedin' && !p.neg && [].concat(p.q).includes(91923)), '`when turnedin 91923`');
+	assert.ok(list[at(list, 'turnin 91923', is('turnin', 91923))].s < s, 'after Thylaen takes Celastrus');
+	assert.ok(list[at(list, 'turnin 91770', is('turnin', 91770))].s < s, 'after Bark Bite');
+});
+
+// #4029 (Soggy, 0.4.2.2): the Deadwood camps lie in Malorne's Retreat, a sunken valley whose northern end runs under
+// the cliffs; from Mourning's Rest the arrow led straight at it. Players' recordings (18 people) walk in from the
+// valley's mouth in the south-east, west and then north. A step outside the Retreat leads in that way first.
+test('forever/50-60/mount-hyjal.guide: the Deadwood camps are entered through the valley from the south (#4029)', { skip }, () => {
+	const list = goals('forever/50-60/mount-hyjal.guide');
+	const kill = list[at(list, 'kill 252116', (g) => g.t === 'kill' && g.quest === 93826)];
+	const way = compiled('forever/50-60/mount-hyjal.guide').steps[kill.s - 2];
+	assert.ok((way.when || []).some((p) => p.k === 'subzone' && p.neg && p.name === "Malorne's Retreat"), 'only from outside the Retreat');
+	const pins = way.goals.filter((g) => g.t === 'goto');
+	assert.deepEqual(pins.map((g) => [g.x, g.y]), [[36.1, 75.4], [23.9, 66.5]], 'the valley mouth, then up the valley');
+});
+
+// #3985 (Aireil), #4080 (Clownfondre), 0.4.2.2: Archmage Xylem stands at the top of his tower on the cliff; Sanath
+// Lim-yo, at its foot (28.1,50.1), teleports you up. Every Xylem hand-in or accept the player walks back to leads to
+// Sanath first, in the Mage class guides as in the leveling guides (#3275).
+test('Archmage Xylem: every walk back to him leads to Sanath Lim-yo first (#3985, #4080)', { skip }, () => {
+	const xylem = new Set([8251, 8252, 8253, 9362, 9364, 3561]);
+	for (const guide of ['forever/class/mage/polymorph-pig.guide', 'forever/class/mage/destroy-morphaz.guide', 'forever/alliance/50-60/01-burning-steppes.guide', 'forever/horde/50-60/02-felwood.guide']) {
+		const { steps } = compiled(guide);
+		steps.forEach((st, i) => {
+			const xi = st.goals.findIndex((g) => (g.t === 'turnin' || g.t === 'accept') && xylem.has(g.quest) && g.npc === 8379);
+			if (xi < 0) return;
+			const sanath = (g) => (g.t === 'goto' && Math.hypot(g.x - 28.1, g.y - 50.1) < 0.3) || g.npc === 8395;
+			assert.ok(st.goals.slice(0, xi).some(sanath) || (i > 0 && steps[i - 1].goals.some(sanath)), `${guide} "${st.title}": Sanath before Xylem`);
+		});
+	}
+});
+
+// #3796 (pagb666, 0.4.2.2): Terrordale was a death trap at Egan's hut; a Nerubian Overseer (60, elite) walks Terrordale
+// and the Terrorweb Tunnel (players' recordings: 11 people met him between 8,23 and 18,30). Egan's step names him.
+test('Egan in Terrordale: the step warns of the Nerubian Overseer (#3796)', { skip }, () => {
+	for (const guide of ['forever/horde/50-60/05-eastern-plaguelands.guide', 'forever/alliance/50-60/04-western-plaguelands.guide']) {
+		const list = goals(guide);
+		const { step } = list[at(list, 'turnin 5281', is('turnin', 5281))];
+		assert.match([].concat(step.note || []).join(' '), /\(60, elite\) walks/, guide);
+	}
+});
+
+// #4102 (Myringains, 0.4.2.2): Miblon Snarltooth guards the Evoroot's door, and Gregan's Bait draws him off (players'
+// recordings: 6 of the 12 people who looted the Evoroot used it). The step names that way as well as the broken wall.
+test('Evoroot: the step names the Bait for Miblon as well as the wall (#4102)', { skip }, () => {
+	for (const guide of ['forever/alliance/50-60/02-felwood.guide', 'forever/horde/50-60/03-winterspring.guide']) {
+		const list = goals(guide);
+		const { step } = list[at(list, 'collect 11242', (g) => g.t === 'collect' && g.item === 11242)];
+		assert.match([].concat(step.note || []).join(' '), /front door/, guide);
+	}
+});
+
+// #4136 (rcmitchell583, 0.4.2.2): Jes'rimon stands upstairs in The Drag (the reporter's position beside him reads
+// "Orgrimmar, The Drag"); the steps said the Cleft of Shadow. #3884's case covers the Felwood guide's hand-ins; this
+// one the Azshara guide's accept.
+test('Jes\'rimon: the steps place him in The Drag, not the Cleft of Shadow (#4136)', { skip }, () => {
+	for (const guide of ['forever/horde/50-60/02-felwood.guide', 'forever/horde/40-50/06-azshara.guide']) {
+		for (const st of compiled(guide).steps.filter((s) => s.goals.some((g) => g.npc === 8659))) {
+			const note = [].concat(st.note || []).join(' ');
+			if (/8659|Jes'rimon/.test(note)) {
+				assert.match(note, /The Drag/, `${guide} "${st.title}"`);
+				assert.doesNotMatch(note, /Jes'rimon[^.;]*Cleft of Shadow/, `${guide} "${st.title}"`);
+			}
+		}
+	}
+});
+
+// #3992 (Liquidor, 0.4.2.2): Garments of the Light counts only Lesser Heal (Rank 2); a priest reached Guard Roberts
+// without it. The Garments accepts whose step trains nobody say to learn it from the giver, a priest trainer.
+test('Garments quests: the accept says to learn Lesser Heal (Rank 2) from the giver (#3992)', { skip }, () => {
+	for (const [guide, q] of [['forever/alliance/human/01-elwynn-forest.guide', 5624], ['forever/alliance/nightelf/01-teldrassil.guide', 5621], ['forever/horde/troll/01-durotar.guide', 5648]]) {
+		const list = goals(guide);
+		const { step } = list[at(list, `accept ${q}`, is('accept', q))];
+		assert.match([].concat(step.note || []).join(' '), /counts only/, guide);
+	}
 });
 
 // #3192 (PierreAnken): Stinky Ignatz offered nothing at 35; nobody took Stinky's Escape below 36 in the recordings.

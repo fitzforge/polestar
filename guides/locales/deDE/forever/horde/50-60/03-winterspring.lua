@@ -132,8 +132,8 @@ return {
 	["{area:1997} flight master"] = "{area:1997}-Flugmeister",
 
 	-- Step 25: Evoroot
-	-- {item:11242} Evoroot · {npc:7775} Gregan Brewspewer · {area:1114} Ruins of Ravenwind
-	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall."] = "Die {item:11242} wächst in einem zerfallenen Gebäude nördlich von {npc:7775}s Lager, östlich von {area:1114} der Harpyien: Kletter durch das zerbrochene Stück der Wand hinein.",
+	-- {item:11242} Evoroot · {npc:7775} Gregan Brewspewer · {area:1114} Ruins of Ravenwind · {npc:9467} Miblon Snarltooth
+	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall.\nOr the front door: {npc:9467} guards it, and the Bait Gregan sells draws him off when you use it beside him. Half the players in our recordings went in that way, half through the wall."] = "",
 
 	-- Step 26: The Videre Elixir
 	-- {npc:7775} Gregan Brewspewer · {area:976} Gadgetzan
@@ -206,6 +206,7 @@ return {
 	-- ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} in the cave at the back is elite: stay out."] = "Das Furbolgdorf füllt das Tal nordöstlich von {area:2255}. Töte zuerst die Schamanen; sie heilen. {npc:10738} in der Höhle hinten ist Elite: Bleib draußen.",
 	-- ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit."] = "Die Yetihügel beginnen gleich südöstlich von {area:2255}. Jeder Yeti lässt Fell fallen: Kümmere dich um die Eisdistelyetis (55-56) und lass die Matriarchinnen und Patriarchen (56-58) in Ruhe; ihre Hörner holst du bei einem späteren Besuch.",
 	-- ["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "Die Yetihügel beginnen gleich südöstlich von {area:2255}. Jeder Yeti lässt Fell fallen; nur Matriarchinnen und Patriarchen lassen Hörner fallen, also heb die für nach der Abgabe auf.",
+	-- ["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall."] = "Die {item:11242} wächst in einem zerfallenen Gebäude nördlich von {npc:7775}s Lager, östlich von {area:1114} der Harpyien: Kletter durch das zerbrochene Stück der Wand hinein.",
 	-- ["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. The Ice Thistle Yetis (55-56) are the lowest here; the Matriarchs and Patriarchs (56-58) hit harder. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "Hol hier Stufe 55,04 auf, bevor du die Quests bei {area:2255} abgibst: Sie bringen dich auf Stufe 56. Die Eisdistelyetis (55-56) sind hier die niedrigsten; die Matriarchinnen und Patriarchen (56-58) schlagen härter zu. Oder lauf stattdessen mit einer Gruppe den Dungeon {area:1584} oder den Dungeon {area:1583} (Untere).",
 	-- ["Umi's third prank targets goblins in {area:976} and Un'Goro: keep it for later."] = "Umis dritter Streich gilt Goblins in {area:976} und Un'Goro: Behalte ihn für später.",
 	-- ["Umi: keep it, the Pristine Yeti Horns come on the {zone:1423} guide's {area:2255} stop at about 57"] = "Umi: behalten, die Makellosen Yetihörner kommen beim Halt in {area:2255} im Guide für {zone:1423} mit etwa 57",

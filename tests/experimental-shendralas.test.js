@@ -59,19 +59,21 @@ test("Shen'dralas: the temple's quests wait for Meeting the Magister, as the onl
 	for (const { goal } of goals().filter(({ goal }) => is('accept', 99257)(goal))) assert.ok(!goal.optional, 'taken by the route');
 });
 
-// Each repair is its own quest log line, credited as a kill: in players' recordings (8 recorded repairs at each pylon,
-// both factions) Repair and Recharge Pylon is cast on a Decrepit Pylon Protector (252711) just slain beside the pylon,
-// the cast's target where the recording names one. No source gives the Pile of Pylon Parts the client ties the
-// spell to, so the guide counts the log line on the Protector, not an item in the bags.
-test("Shen'dralas: each pylon repair is a Decrepit Pylon Protector at that pylon, counted by its quest log line, after the Mana Sieve", { skip }, () => {
+// Each repair is its own quest log line, done with the Pile of Pylon Parts (271882): Forever's quest data has it as
+// the item Powering the Pylons hands over, the client's item effect table ties Repair and Recharge Pylon (1289727) to
+// it, with four Coalesced Mana Crystals as the spell's reagent, and 7 people's recordings show the Pile used at the
+// pylons. All 79 recorded repairs ticked on that spell, 25 with no Decrepit Pylon Protector killed in the minute
+// before, so the line is a use of the Pile, not a kill (#4135).
+test("Shen'dralas: each pylon repair is a use of the Pile of Pylon Parts at that pylon, counted by its quest log line, after the Mana Sieve (#4135)", { skip }, () => {
 	const sieve = first((g) => g.t === 'collect' && g.item === 255662, 'the Mana Sieve');
-	const repairs = goals().map(({ goal }, i) => ({ goal, i })).filter(({ goal }) => goal.t === 'kill' && goal.quest === 96018);
-	assert.ok(!goals().some(({ goal }) => goal.t === 'use' && goal.item === 271882), 'no goal needs the Pile of Pylon Parts');
+	const repairs = goals().map(({ goal }, i) => ({ goal, i })).filter(({ goal }) => goal.quest === 96018 && (goal.oi === 2 || goal.oi === 3));
+	assert.ok(!goals().some(({ goal }) => goal.t === 'kill' && goal.quest === 96018), 'no Protector kill counts for the quest');
 	assert.equal(repairs.length, 2, 'two repairs');
 	for (const { goal, i } of repairs) {
 		assert.ok(i > sieve, 'after the Mana Sieve');
+		assert.equal(goal.t, 'use');
+		assert.equal(goal.item, 271882, 'the Pile of Pylon Parts');
 		assert.equal(goal.map, 2652);
-		assert.equal(goal.quest, 96018);
 	}
 	assert.deepEqual(repairs.map(({ goal }) => goal.oi), [2, 3], 'Western pylon repaired, then Eastern pylon repaired');
 	assert.ok(repairs[0].goal.x < 50 && repairs[1].goal.x > 70, 'the western pylon, then the eastern one');

@@ -30,7 +30,12 @@ next forever/alliance/40-50/03-feralas
 # leads to the quiet road just south of it, and the journal and the Magram Village fragment are taken without
 # killing Magram, whose clan (Necrokhans included, elites of 45, around the pylon) turns hostile once you do.
 # Behind a group choice: Mana Mania (99258, Historian Biraxas after A Heart of Crystal): its Nascent Pylon Protector
-# is an elite (level 43); 8 players recorded it.
+# is an elite (level 43) that comes alone; 20 players recorded killing it, 13 of them without a group (#4138).
+# Powering the Pylons (96018): each pylon's line ticks on Repair and Recharge Pylon, the spell of the Pile of Pylon
+# Parts Mordent hands over with the quest, which uses four Coalesced Mana Crystals (79 of 79 recorded repairs); the
+# Protectors guard the pylons, but killing one is no part of it (25 of those repairs had no kill before them). The
+# western repair step does not wait for the road step, so a player who repaired the pylon from elsewhere is not sent
+# back to the road (#4135).
 # Left out on purpose:
 # - The Gelkis and Magram quests of the Valley of Bones (Nerlokh, Orgrul, Hagiak, Rokren; Valley of Bones,
 #   Khan Jehn and the rest): each asks for Honored with its centaur clan (forever/reputation/centaur-clans).
@@ -149,29 +154,28 @@ step Unstable Mana Rifts: mana for the western pylon
 
 step The road south of the western pylon
   label western-pylon-approach
-  tip North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one Decrepit Pylon Protector at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use Repair and Recharge Pylon, as players did to repair it.
+  tip North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one Decrepit Pylon Protector at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use the Pile of Pylon Parts Mordent gave you: its Repair and Recharge Pylon takes your four Coalesced Mana Crystals.
   tip Careful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.
   tip If you die here, walk your ghost back to the arrow before you come back to life: players who rose beside the pylon died again within seconds.
   goto 43.9,37.0 "the road just south of the western pylon" r 10
 
 step The western pylon: repair it
   label western-pylon-repaired
-  when done western-pylon-approach
   loop
   goto 43.97,35.59 r 4
   goto 43.89,35.64 r 4
-  tip Pull a single Protector down to the road, then repair the pylon from its west side.
-  kill 252711 quest 96018.2 -- Decrepit Pylon Protector, pulled to the arrow's spot, then Repair and Recharge Pylon on the pylon's west side
+  tip Pull a single Protector down to the road, then use the Pile of Pylon Parts on the pylon's west side.
+  use 271882 quest 96018.2 -- Pile of Pylon Parts: Repair and Recharge Pylon on the pylon's west side
 
 step Unstable Mana Rifts: mana for the eastern pylon
   when onquest 96018
   when !complete 96018
-  tip The western repair used up your crystals: on the way east, use the Mana Sieve on the Unstable Mana Rifts again for four more Coalesced Mana Crystals.
+  tip The western repair used up your crystals: on the way east, use the Mana Sieve on the Unstable Mana Rifts again for four more Coalesced Mana Crystals. The Pile of Pylon Parts needs all four for the next repair.
   collect 255667 x4 npc 264149        -- Coalesced Mana Crystal, from the Unstable Mana Rifts with the Mana Sieve
 
 step Bristleback Retreat: repair the eastern pylon
-  tip East along the valley road to the eastern pylon and repair it the same way, a Decrepit Pylon Protector first, coming in from the west: Kog'thug the Brave (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road.
-  kill 252711 quest 96018.3 @73.4,23.91 -- Decrepit Pylon Protector, then Repair and Recharge Pylon on it
+  tip East along the valley road to the eastern pylon and repair it the same way with the Pile of Pylon Parts, coming in from the west and pulling the nearest Decrepit Pylon Protector away first: Kog'thug the Brave (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road.
+  use 271882 quest 96018.3 @73.4,23.91 -- Pile of Pylon Parts: Repair and Recharge Pylon on the eastern pylon
 
 step Evenshade's Overlook
   tip Back west along the valley road and south to Mordent. A Brief History Lesson asks you to hear him out: talk to him once more, then hand it in.
@@ -230,7 +234,7 @@ step Historian Biraxas
 step Mana Mania
   when group 99258
   when turnedin 99257
-  tip Take the Depleted Crystal Heart to an Unstable Mana Rift on the road north of the temple and throw it into the rift. The Nascent Pylon Protector is elite: grouping up is advised.
+  tip Take the Depleted Crystal Heart to an Unstable Mana Rift on the road north of the temple and throw it into the rift. The Nascent Pylon Protector that comes out is an elite (level 43) but it comes alone: most players in our recordings killed it without a group, from level 41 up.
   accept 99258                        -- Historian Biraxas
   kill 276401 quest 99258.1           -- Nascent Pylon Protector
   turnin 99258

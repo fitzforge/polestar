@@ -113,8 +113,8 @@ return {
 	["{npc:6774}, by the stables south of the Abbey"] = "{npc:6774}, у конюшен к югу от аббатства",
 
 	-- Step 19: Goldshire
-	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:295} Innkeeper Farley · {npc:253} William Pestle
-	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road."] = "Идите по дороге на юг из долины. Цель: {area:87}. {npc:240} стоит у кузницы на западной стороне дороги, {npc:241} – у дороги к югу от нее, а {npc:295} и {npc:253} – в таверне «Гордость льва» через дорогу.",
+	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:295} Innkeeper Farley · {npc:253} William Pestle · {quest:5624} Garments of the Light · {spell:613} Lesser Heal · {npc:377} Priestess Josetta
+	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road.\nPriests: {quest:5624} counts only {spell:613} (Rank 2). {npc:377} trains priests too: learn it from her now if you have not yet."] = "",
 	-- {npc:295} Innkeeper Farley
 	["{npc:295}, inside"] = "{npc:295}, внутри",
 	-- {npc:253} William Pestle
@@ -542,6 +542,7 @@ return {
 	-- ["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "Идите по тропе на север к руднику. Снаружи кишат кобольды-рабочие; {object:83763} может упасть с любого кобольда в долине.",
 	-- ["Follow the road east past the {area:91} to the bridge."] = "Идите по дороге на восток мимо места {area:91} к мосту.",
 	-- ["Follow the road north from {area:87} into {zone:1453}. {npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in {object:2100} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "Идите по дороге на север от места {area:87} в город {zone:1453}. {npc:6171} и {npc:6173} – в Соборе Света; {npc:6174} стоит здесь: {object:2100} – и просит десять штук: {item:2589} (падает с гуманоидов; продается на аукционе).",
+	-- ["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road."] = "Идите по дороге на юг из долины. Цель: {area:87}. {npc:240} стоит у кузницы на западной стороне дороги, {npc:241} – у дороги к югу от нее, а {npc:295} и {npc:253} – в таверне «Гордость льва» через дорогу.",
 	-- ["Follow the road south out of the valley to {area:87}. {npc:295} is in the Lion's Pride Inn; {npc:240} stands outside the smithy across the road, {npc:253} at the inn's front and {npc:241} by the road south of it."] = "Идите по дороге на юг из долины. Цель: {area:87}. {npc:295} – в таверне «Гордость льва»; {npc:240} стоит у кузницы через дорогу, {npc:253} – перед таверной, {npc:241} – у дороги к югу от нее.",
 	-- ["Follow the road west back to {area:87}."] = "Идите по дороге на запад обратно. Цель: {area:87}.",
 	-- ["Follow the road west back to {area:87}; {npc:6306} and Jason stand on the lake shore before town."] = "Идите по дороге на запад обратно. Цель: {area:87}; {npc:6306} и Джейсон стоят на берегу озера перед городком.",
