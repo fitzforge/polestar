@@ -462,6 +462,55 @@
 --   Most of it drops as you level %s
 --   A long farm: most of it drops as you level
 --   or the Auction House
+-- Machine-translated, to be reviewed (dungeon guides and the dungeon tracker, 26 Nov 2026): translated by an AI
+-- model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   %s off route
+--   %s · your level
+--   %s, on your way
+--   All %d quests are in your log
+--   Bring back the far ones (%d)
+--   Group %d of %d
+--   Group %d/%d
+--   Group of %d
+--   Group: none yet
+--   Its quest is in your log
+--   Level %d · best at %d
+--   Level %d: come back at %d
+--   Needs %s
+--   No quests to pick up
+--   Pick them up
+--   Pick up %d more quests
+--   Pick up 1 more quest
+--   Quests open at a later level: %d
+--   Skip the far one
+--   best %d
+--   from %d
+--   instances this hour: %d of %d
+--   on your way
+--   Quests to pick up
+--   %d / %d bosses
+--   All %d quests ready to turn in: hand them in after the run
+--   Every boss is down
+--   Its quest is ready to turn in: hand it in after the run
+--   Loot %s
+--   Next: %s · then %s
+--   Quests here
+--   for your quest
+--   from %s: it starts a quest
+--   in kill order
+--   loot it
+--   starts a quest
+--   Loot now
+--   %s · quests
+--   Also show it, with its bosses alone, in a dungeon where you hold none of its quests.
+--   Dungeon tracker
+--   Inside a dungeon or raid where you hold its quests: what is left for them, the bosses in kill order, and what to loot. It docks into the guide window when that is shown.
+--   Only the objectives still open and the next two bosses.
+--   Only what's left
+--   The size of the dungeon's name and the headings against Polestar's text size.
+--   Without quests too
+--   dungeon tracker
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhCN") then return end
@@ -5080,6 +5129,14 @@ L["Class quest chime"] = "职业任务提示音"
 L["The rare alert, the transport banner, the heads-up card and the class quest card: their size, look, motion, sound and time on screen."] = "稀有提醒、交通横幅、提醒卡片和职业任务卡片：它们的大小、外观、动效、声音和显示时长。"
 
 -- UI/Looks/Trackers.lua
+L["Also show it, with its bosses alone, in a dungeon where you hold none of its quests."] = "在没有其任务的地下城中也显示，仅列出首领。"
+L["Dungeon tracker"] = "地下城追踪器"
+L["Inside a dungeon or raid where you hold its quests: what is left for them, the bosses in kill order, and what to loot. It docks into the guide window when that is shown."] = "在你持有其任务的地下城或团队副本中：任务还差什么、按击杀顺序的首领，以及要拾取的物品。指南窗口显示时会停靠在其中。"
+L["Only the objectives still open and the next two bosses."] = "只显示仍未完成的目标和接下来的两个首领。"
+L["Only what's left"] = "只显示剩余的"
+L["The size of the dungeon's name and the headings against Polestar's text size."] = "地下城名称和标题相对于 Polestar 文字大小的大小。"
+L["Without quests too"] = "无任务时也显示"
+L["dungeon tracker"] = "地下城追踪器"
 L["Aelindra"] = "艾琳德拉"
 L["The Defias Brotherhood"] = "迪菲亚兄弟会"
 L["Brogan"] = "布罗根"
@@ -5683,6 +5740,48 @@ L["Pin to the top"] = "置顶"
 L["Free mode takes this quest first, whatever the order."] = "无论顺序如何，自由模式都会先做这个任务。"
 L["Leave out of Free mode"] = "从自由模式中排除"
 L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "自由模式不再列出此任务。菜单中的“恢复被排除的任务”会重新列出它。"
+
+-- UI/GuideFrameKindDungeon.lua
+L["%s off route"] = "偏离路线 %s"
+L["%s · your level"] = "%s · 你的等级"
+L["%s, on your way"] = "%s，顺路"
+L["All %d quests are in your log"] = "全部 %d 个任务已在任务日志中"
+L["Bring back the far ones (%d)"] = "找回较远的任务（%d）"
+L["Group %d of %d"] = "队伍 %d / %d"
+L["Group %d/%d"] = "队伍 %d/%d"
+L["Group of %d"] = "%d 人队伍"
+L["Group: none yet"] = "队伍：尚无"
+L["Its quest is in your log"] = "它的任务已在任务日志中"
+L["Level %d · best at %d"] = "等级 %d · 最佳 %d"
+L["Level %d: come back at %d"] = "等级 %d：%d 级再来"
+L["Needs %s"] = "需要 %s"
+L["No quests to pick up"] = "没有可接的任务"
+L["Pick them up"] = "去接任务"
+L["Pick up %d more quests"] = "还需接取 %d 个任务"
+L["Pick up 1 more quest"] = "还需接取 1 个任务"
+L["Quests open at a later level: %d"] = "更高等级开放的任务：%d"
+L["Skip the far one"] = "跳过远的"
+L["best %d"] = "最佳 %d"
+L["from %d"] = "%d 级起"
+L["instances this hour: %d of %d"] = "本小时副本：%d / %d"
+L["on your way"] = "顺路"
+L["Quests to pick up"] = "待接取的任务"
+
+-- UI/DungeonTracker.lua
+L["%d / %d bosses"] = "首领 %d / %d"
+L["All %d quests ready to turn in: hand them in after the run"] = "全部 %d 个任务可交还：打完后交还"
+L["Every boss is down"] = "所有首领已击败"
+L["Its quest is ready to turn in: hand it in after the run"] = "它的任务可交还：打完后交还"
+L["Loot %s"] = "拾取 %s"
+L["Next: %s · then %s"] = "下一个：%s · 然后 %s"
+L["Quests here"] = "此处的任务"
+L["for your quest"] = "任务需要"
+L["from %s: it starts a quest"] = "来自 %s：可开始一个任务"
+L["in kill order"] = "按击杀顺序"
+L["loot it"] = "去拾取"
+L["starts a quest"] = "开始任务"
+L["Loot now"] = "立即拾取"
+L["%s · quests"] = "%s · 任务"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐页重新设置 Polestar。每项选择立即生效。"

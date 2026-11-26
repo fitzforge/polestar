@@ -41,7 +41,7 @@ fn run(script: &str) -> Value {
 	emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons: vec![Addon::name("Polestar")], script: format!("{PRELUDE}{script}"), ..Default::default() }).remove(0)
 }
 
-const ALL: [&str; 10] = ["guide", "arrow", "launcher", "buttons", "flightTimer", "instances", "party", "rareAlert", "transportAlert", "whileHere"];
+const ALL: [&str; 11] = ["guide", "arrow", "launcher", "buttons", "flightTimer", "instances", "dungeonTracker", "party", "rareAlert", "transportAlert", "whileHere"];
 
 // Nothing is built until the first unlock; then a box for every registered frame whose feature is on, hidden
 // frames too, each where its frame's saved spot (or default) puts it; a feature turned off takes its box away.

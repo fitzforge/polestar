@@ -336,6 +336,55 @@
 --   Most of it drops as you level %s
 --   A long farm: most of it drops as you level
 --   or the Auction House
+-- Machine-translated, to be reviewed (dungeon guides and the dungeon tracker, 26 Nov 2026): translated by an AI
+-- model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   %s off route
+--   %s · your level
+--   %s, on your way
+--   All %d quests are in your log
+--   Bring back the far ones (%d)
+--   Group %d of %d
+--   Group %d/%d
+--   Group of %d
+--   Group: none yet
+--   Its quest is in your log
+--   Level %d · best at %d
+--   Level %d: come back at %d
+--   Needs %s
+--   No quests to pick up
+--   Pick them up
+--   Pick up %d more quests
+--   Pick up 1 more quest
+--   Quests open at a later level: %d
+--   Skip the far one
+--   best %d
+--   from %d
+--   instances this hour: %d of %d
+--   on your way
+--   Quests to pick up
+--   %d / %d bosses
+--   All %d quests ready to turn in: hand them in after the run
+--   Every boss is down
+--   Its quest is ready to turn in: hand it in after the run
+--   Loot %s
+--   Next: %s · then %s
+--   Quests here
+--   for your quest
+--   from %s: it starts a quest
+--   in kill order
+--   loot it
+--   starts a quest
+--   Loot now
+--   %s · quests
+--   Also show it, with its bosses alone, in a dungeon where you hold none of its quests.
+--   Dungeon tracker
+--   Inside a dungeon or raid where you hold its quests: what is left for them, the bosses in kill order, and what to loot. It docks into the guide window when that is shown.
+--   Only the objectives still open and the next two bosses.
+--   Only what's left
+--   The size of the dungeon's name and the headings against Polestar's text size.
+--   Without quests too
+--   dungeon tracker
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "deDE") then return end
@@ -4940,6 +4989,14 @@ L["Class quest chime"] = "Signalton für Klassenquests"
 L["The rare alert, the transport banner, the heads-up card and the class quest card: their size, look, motion, sound and time on screen."] = "Der Rare-Alarm, das Transport-Banner, die Hinweiskarte und die Klassenquest-Karte: Größe, Aussehen, Bewegung, Ton und Anzeigedauer."
 
 -- UI/Looks/Trackers.lua
+L["Also show it, with its bosses alone, in a dungeon where you hold none of its quests."] = "Auch in einem Dungeon zeigen, für den du keine Quest hast, dann nur mit seinen Bossen."
+L["Dungeon tracker"] = "Dungeon-Tracker"
+L["Inside a dungeon or raid where you hold its quests: what is left for them, the bosses in kill order, and what to loot. It docks into the guide window when that is shown."] = "In einem Dungeon oder Schlachtzug, für den du Quests hast: was dafür noch fehlt, die Bosse in Reihenfolge und was du plündern musst. Ist das Guide-Fenster offen, sitzt er darin."
+L["Only the objectives still open and the next two bosses."] = "Nur die noch offenen Ziele und die nächsten zwei Bosse."
+L["Only what's left"] = "Nur was fehlt"
+L["The size of the dungeon's name and the headings against Polestar's text size."] = "Die Größe des Dungeon-Namens und der Überschriften gegenüber Polestars Textgröße."
+L["Without quests too"] = "Auch ohne Quests"
+L["dungeon tracker"] = "Dungeon-Tracker"
 L["Aelindra"] = "Aelindra"
 L["The Defias Brotherhood"] = "Die Bruderschaft der Defias"
 L["Brogan"] = "Brogan"
@@ -5553,6 +5610,48 @@ L["Pin to the top"] = "Ganz nach oben heften"
 L["Free mode takes this quest first, whatever the order."] = "Der Freimodus nimmt diese Quest zuerst, egal in welcher Reihenfolge."
 L["Leave out of Free mode"] = "Aus dem Freimodus auslassen"
 L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "Der Freimodus führt diese Quest nicht mehr auf. „Ausgelassene Quests zurückholen“ im Menü führt sie wieder auf."
+
+-- UI/GuideFrameKindDungeon.lua
+L["%s off route"] = "%s abseits der Route"
+L["%s · your level"] = "%s · deine Stufe"
+L["%s, on your way"] = "%s, auf deinem Weg"
+L["All %d quests are in your log"] = "Alle %d Quests sind in deinem Log"
+L["Bring back the far ones (%d)"] = "Die weiten zurückholen (%d)"
+L["Group %d of %d"] = "Gruppe %d von %d"
+L["Group %d/%d"] = "Gruppe %d/%d"
+L["Group of %d"] = "Gruppe aus %d"
+L["Group: none yet"] = "Gruppe: noch keine"
+L["Its quest is in your log"] = "Ihre Quest ist in deinem Log"
+L["Level %d · best at %d"] = "Stufe %d · am besten mit %d"
+L["Level %d: come back at %d"] = "Stufe %d: komm mit %d wieder"
+L["Needs %s"] = "Braucht %s"
+L["No quests to pick up"] = "Keine Quests anzunehmen"
+L["Pick them up"] = "Annehmen"
+L["Pick up %d more quests"] = "Noch %d Quests annehmen"
+L["Pick up 1 more quest"] = "Noch 1 Quest annehmen"
+L["Quests open at a later level: %d"] = "Quests ab späterer Stufe: %d"
+L["Skip the far one"] = "Die weite auslassen"
+L["best %d"] = "am besten %d"
+L["from %d"] = "ab %d"
+L["instances this hour: %d of %d"] = "Instanzen diese Stunde: %d von %d"
+L["on your way"] = "auf deinem Weg"
+L["Quests to pick up"] = "Anzunehmende Quests"
+
+-- UI/DungeonTracker.lua
+L["%d / %d bosses"] = "%d / %d Bosse"
+L["All %d quests ready to turn in: hand them in after the run"] = "Alle %d Quests abgabebereit: gib sie nach dem Lauf ab"
+L["Every boss is down"] = "Alle Bosse besiegt"
+L["Its quest is ready to turn in: hand it in after the run"] = "Ihre Quest ist abgabebereit: gib sie nach dem Lauf ab"
+L["Loot %s"] = "%s plündern"
+L["Next: %s · then %s"] = "Als Nächstes: %s · dann %s"
+L["Quests here"] = "Quests hier"
+L["for your quest"] = "für deine Quest"
+L["from %s: it starts a quest"] = "von %s: startet eine Quest"
+L["in kill order"] = "in Reihenfolge"
+L["loot it"] = "plündern"
+L["starts a quest"] = "startet eine Quest"
+L["Loot now"] = "Jetzt plündern"
+L["%s · quests"] = "%s · Quests"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar neu einrichten, eine Seite nach der anderen. Jede Wahl wirkt sofort."

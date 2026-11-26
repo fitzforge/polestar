@@ -285,5 +285,13 @@ check("skin moonlit", Theme.RegisterSkin("moonlit", {
 		actionButton = function(button, kind, parts, hover)
 			moonline(button, "moon", hover and "accent" or "accent2", hover and 1 or 0.45, true)
 		end,
+		-- The dungeon tracker's parts, at each of its layouts: "loot", "quests",
+		-- "bosses". Answer true to place one yourself (a layout's cards do);
+		-- Moonlit leaves them in the tracker and draws its line over the loot.
+		-- A newer hook (0.4.4): offered only where Polestar has it, so an older
+		-- Polestar still takes the skin.
+		trackerPlace = Theme.HasCapability("surfaces.trackerPlace") and function(name, frame, width, height)
+			if name == "loot" then moonline(frame, "moon") end
+		end or nil,
 	},
 }))

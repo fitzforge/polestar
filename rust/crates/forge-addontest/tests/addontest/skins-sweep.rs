@@ -1,9 +1,10 @@
 //! #1390: every Polestar frame follows Appearance > Windows > Skin, live. The whole addon is loaded, its frames
-//! are built (the flight timer, the instance tracker, the party panel, the confirm dialog, the toasts, the
-//! welcome, copy and Materials windows), and the skin is switched through every choice: each skinned frame is painted in
-//! the skin in use (one hidden by a closed window above it as that window shows), the floating ones on the window
-//! skin (Halo's veil, not a menu's fill), and the quest item and
-//! travel buttons' hover wash follows the skin's.
+//! are built (the flight timer, the instance tracker, the dungeon tracker, the party panel, the confirm dialog,
+//! the toasts, the welcome, copy and Materials windows), and the skin is switched through every choice: each
+//! skinned frame is painted in the skin in use (one hidden by a closed window above it as that window shows), the
+//! floating ones on the window skin (Halo's veil, not a menu's fill), and the quest item and
+//! travel buttons' hover wash follows the skin's. A dungeon guide's regions outside the dungeon (the picture, the
+//! level, the pick-ups, the way in with its button) follow it too.
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
@@ -20,11 +21,13 @@ Polestar.Nav.alerts.ShowSample()
 Polestar.Rares.Toast.Show({ kind = "rare", name = "Mother Fang", map = 1429, x = 50, y = 50 })
 Polestar.UI.ShowCopy("Copy", "text")
 Polestar.UI.Materials.Show()
+-- The dungeon tracker on its sample run (UI/DungeonTracker.lua), floating: the guide window is not shown.
+Polestar.UI.DungeonTracker.ShowSample()
 -- The swept frames by global name: a name that is gone (a renamed frame) is reported missing, not skipped.
 local NAMES = {
 	timer = "PolestarFlightTimer", tracker = "PolestarInstanceTracker", party = "PolestarPartyPanel",
 	modal = "PolestarModal", transit = "PolestarAlert", rare = "PolestarRareToast", copy = "PolestarCopy",
-	materials = "PolestarMaterials",
+	materials = "PolestarMaterials", dungeon = "PolestarDungeonTracker",
 }
 local named, missing = {}, {}
 for k, name in pairs(NAMES) do
@@ -90,7 +93,7 @@ fn switching_the_skin_restyles_the_flight_timer_and_every_polestar_frame_live_13
 	for (key, s) in skins {
 		assert_eq!(s["stale"], 0, "{key}: every skinned frame repainted in the skin in use");
 		let frames = s["frames"].as_object().unwrap();
-		assert_eq!(frames.len(), 8, "{key}: every swept frame reported");
+		assert_eq!(frames.len(), 9, "{key}: every swept frame reported");
 		for (name, f) in frames {
 			assert_eq!(f["skin"], json!(key), "{key}: {name} painted in it");
 			// The window skin: Halo's soft veil (a panel would take the menu fill), the house drop shadow.
@@ -107,4 +110,47 @@ fn switching_the_skin_restyles_the_flight_timer_and_every_polestar_frame_live_13
 	}
 	assert_ne!(skins["polestar"]["wash"], skins["hearth"]["wash"], "the skins' hover washes differ");
 	assert!(skins["polestar"]["item"] != json!(false), "the quest item button was built");
+}
+
+// A dungeon guide outside its dungeon (Core/KindDungeon.lua, UI/GuideFrameKindDungeon.lua): its regions in the
+// window, the way in's button painted in each skin as it changes.
+const DUNGEON_GUIDE: &str = r#"
+local w = stub.world
+w.addMap(1413, { name = "The Barrens", c = 1, left = 1000, right = -1000, top = 1000, bottom = -1000 })
+w.moveTo(1413, 52, 30)
+local PAGE = { key = "wailing-caverns", name = "Wailing Caverns", map = 43, minLevel = 17, maxLevel = 24, floor = 17, players = 5,
+	zoneName = "The Barrens", entrance = { map = 1413, x = 46, y = 36 } }
+local D = Polestar.Dungeons
+D.Load = function() return true end
+D.Get = function(key) return key == PAGE.key and PAGE or nil end
+D.BestAt = function() return 20 end
+D.Entrance = function() return 1413, 46, 36 end
+D.Attunements = function() return {} end
+D.PickupPlan = function() return { dungeon = PAGE, take = {}, carried = { { id = 914 } }, skipped = {}, later = 0 } end
+Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
+Polestar.RegisterGuide({ id = "test/wc", pack = "test", title = "Wailing Caverns", kind = "dungeon", dungeon = "wailing-caverns",
+	minLevel = 17, maxLevel = 24, steps = { { title = "Wailing Caverns", goals = { { t = "goto", text = "Wailing Caverns", map = 1413, x = 46, y = 36, entrance = true } } } } })
+Polestar.Set("ui.shown", true)
+Polestar.Engine.SetGuide("test/wc")
+stub.advance(1)
+local GF = Polestar.UI.GuideFrame
+GF.Render()
+local out = { regions = {}, skins = {} }
+for _, id in ipairs({ "brief", "ready", "pickups", "entrance" }) do out.regions[id] = GF.RegionShown(id) end
+local go = GF.RegionFrame("entrance").Go
+for _, key in ipairs(Polestar.Theme.SKIN_ORDER) do
+	Polestar.Set("ui.skin", key)
+	out.skins[key] = { go = go.psSkin and go.psSkin.skin or false, shown = go:IsVisible() }
+end
+emit(out)
+"#;
+
+#[test]
+fn a_dungeon_guides_regions_follow_the_skin() {
+	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons: vec![Addon::name("Polestar")], login: true, script: DUNGEON_GUIDE.into(), ..Default::default() }).remove(0);
+	assert_eq!(out["regions"], json!({ "brief": true, "ready": true, "pickups": true, "entrance": true }), "the four regions show");
+	for (key, s) in out["skins"].as_object().unwrap() {
+		assert_eq!(s["shown"], true, "{key}: Guide me to the entrance shows");
+		assert_eq!(s["go"], json!(key), "{key}: Guide me to the entrance painted in it");
+	}
 }

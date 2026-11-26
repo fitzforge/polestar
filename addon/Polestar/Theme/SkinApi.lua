@@ -68,6 +68,11 @@ local LAYOUT_HOOKS = { guideLayout = true, guideRender = true, guidePlace = true
 local LAYOUTS, LAYOUT_FAILED = {}, {}
 -- The checks read them too (Theme/SkinCheck.lua).
 I.PAINT_KINDS, I.HOOKS, I.LAYOUT_HOOKS, I.LAYOUTS = PAINT_KINDS, HOOKS, LAYOUT_HOOKS, LAYOUTS
+-- The dungeon tracker's parts a layout places itself (UI/DungeonTracker.lua,
+-- floating or docked in the guide window): trackerPlace(name, frame, width,
+-- height), name "loot" | "quests" | "bosses"; true: the hook placed it (its
+-- cards), anything else: the tracker keeps it. The layout's hook, else the skin's.
+HOOKS.trackerPlace, LAYOUT_HOOKS.trackerPlace = true, true
 
 local CAPABILITIES = {}
 for _, c in ipairs({ "schemes", "skins", "tokens", "legibility", "fonts", "fontSizes", "textShadow", "icons", "media.band",

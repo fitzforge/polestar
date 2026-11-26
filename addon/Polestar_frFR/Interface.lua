@@ -574,6 +574,55 @@
 --   Most of it drops as you level %s
 --   A long farm: most of it drops as you level
 --   or the Auction House
+-- Machine-translated, to be reviewed (dungeon guides and the dungeon tracker, 26 Nov 2026): translated by an AI
+-- model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   %s off route
+--   %s · your level
+--   %s, on your way
+--   All %d quests are in your log
+--   Bring back the far ones (%d)
+--   Group %d of %d
+--   Group %d/%d
+--   Group of %d
+--   Group: none yet
+--   Its quest is in your log
+--   Level %d · best at %d
+--   Level %d: come back at %d
+--   Needs %s
+--   No quests to pick up
+--   Pick them up
+--   Pick up %d more quests
+--   Pick up 1 more quest
+--   Quests open at a later level: %d
+--   Skip the far one
+--   best %d
+--   from %d
+--   instances this hour: %d of %d
+--   on your way
+--   Quests to pick up
+--   %d / %d bosses
+--   All %d quests ready to turn in: hand them in after the run
+--   Every boss is down
+--   Its quest is ready to turn in: hand it in after the run
+--   Loot %s
+--   Next: %s · then %s
+--   Quests here
+--   for your quest
+--   from %s: it starts a quest
+--   in kill order
+--   loot it
+--   starts a quest
+--   Loot now
+--   %s · quests
+--   Also show it, with its bosses alone, in a dungeon where you hold none of its quests.
+--   Dungeon tracker
+--   Inside a dungeon or raid where you hold its quests: what is left for them, the bosses in kill order, and what to loot. It docks into the guide window when that is shown.
+--   Only the objectives still open and the next two bosses.
+--   Only what's left
+--   The size of the dungeon's name and the headings against Polestar's text size.
+--   Without quests too
+--   dungeon tracker
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "frFR") then return end
@@ -5192,6 +5241,14 @@ L["Class quest chime"] = "Carillon des quêtes de classe"
 L["The rare alert, the transport banner, the heads-up card and the class quest card: their size, look, motion, sound and time on screen."] = "L'alerte de rare, le bandeau de transport, la carte d'avertissement et la carte de quête de classe : leur taille, leur apparence, leurs animations, leur son et leur durée à l'écran."
 
 -- UI/Looks/Trackers.lua
+L["Also show it, with its bosses alone, in a dungeon where you hold none of its quests."] = "L'afficher aussi, avec ses boss seuls, dans un donjon dont vous n'avez aucune quête."
+L["Dungeon tracker"] = "Suivi de donjon"
+L["Inside a dungeon or raid where you hold its quests: what is left for them, the bosses in kill order, and what to loot. It docks into the guide window when that is shown."] = "Dans un donjon ou un raid dont vous avez des quêtes : ce qu'il leur reste, les boss dans l'ordre et quoi ramasser. Il s'intègre à la fenêtre du guide quand elle est affichée."
+L["Only the objectives still open and the next two bosses."] = "Seulement les objectifs encore ouverts et les deux boss suivants."
+L["Only what's left"] = "Seulement ce qui reste"
+L["The size of the dungeon's name and the headings against Polestar's text size."] = "La taille du nom du donjon et des titres par rapport à la taille du texte de Polestar."
+L["Without quests too"] = "Même sans quête"
+L["dungeon tracker"] = "suivi de donjon"
 L["Aelindra"] = "Aelindra"
 L["The Defias Brotherhood"] = "La Confrérie défias"
 L["Brogan"] = "Brogan"
@@ -5795,6 +5852,48 @@ L["Pin to the top"] = "Épingler en haut"
 L["Free mode takes this quest first, whatever the order."] = "Le mode libre prend cette quête en premier, quel que soit l'ordre."
 L["Leave out of Free mode"] = "Écarter du mode libre"
 L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "Le mode libre n'affiche plus cette quête. « Rétablir les quêtes écartées » dans le menu la remet dans la liste."
+
+-- UI/GuideFrameKindDungeon.lua
+L["%s off route"] = "%s hors itinéraire"
+L["%s · your level"] = "%s · votre niveau"
+L["%s, on your way"] = "%s, sur votre chemin"
+L["All %d quests are in your log"] = "Les %d quêtes sont dans votre journal"
+L["Bring back the far ones (%d)"] = "Reprendre les lointaines (%d)"
+L["Group %d of %d"] = "Groupe %d sur %d"
+L["Group %d/%d"] = "Groupe %d/%d"
+L["Group of %d"] = "Groupe de %d"
+L["Group: none yet"] = "Groupe : aucun pour l'instant"
+L["Its quest is in your log"] = "Sa quête est dans votre journal"
+L["Level %d · best at %d"] = "Niveau %d · idéal au niveau %d"
+L["Level %d: come back at %d"] = "Niveau %d : revenez au niveau %d"
+L["Needs %s"] = "Nécessite %s"
+L["No quests to pick up"] = "Aucune quête à prendre"
+L["Pick them up"] = "Les prendre"
+L["Pick up %d more quests"] = "Prendre encore %d quêtes"
+L["Pick up 1 more quest"] = "Prendre encore 1 quête"
+L["Quests open at a later level: %d"] = "Quêtes à un niveau ultérieur : %d"
+L["Skip the far one"] = "Laisser la lointaine"
+L["best %d"] = "idéal %d"
+L["from %d"] = "dès %d"
+L["instances this hour: %d of %d"] = "instances cette heure : %d sur %d"
+L["on your way"] = "sur votre chemin"
+L["Quests to pick up"] = "Quêtes à prendre"
+
+-- UI/DungeonTracker.lua
+L["%d / %d bosses"] = "%d / %d boss"
+L["All %d quests ready to turn in: hand them in after the run"] = "Les %d quêtes sont prêtes à rendre : rendez-les après le donjon"
+L["Every boss is down"] = "Tous les boss sont vaincus"
+L["Its quest is ready to turn in: hand it in after the run"] = "Sa quête est prête à rendre : rendez-la après le donjon"
+L["Loot %s"] = "Ramassez %s"
+L["Next: %s · then %s"] = "Ensuite : %s · puis %s"
+L["Quests here"] = "Quêtes ici"
+L["for your quest"] = "pour votre quête"
+L["from %s: it starts a quest"] = "de %s : il lance une quête"
+L["in kill order"] = "dans l'ordre"
+L["loot it"] = "à ramasser"
+L["starts a quest"] = "lance une quête"
+L["Loot now"] = "À ramasser"
+L["%s · quests"] = "%s · quêtes"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Reconfigurer Polestar, une page à la fois. Chaque choix s'applique tout de suite."

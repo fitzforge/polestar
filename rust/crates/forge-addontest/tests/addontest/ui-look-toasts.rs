@@ -339,7 +339,7 @@ fn the_look_pages_list_their_tabs_and_the_settings_they_hold() {
 		out[0],
 		json!({
 			"alerts": ["Essentials", "Rare alert", "Heads-up card", "Transport alert", "Class quest card"],
-			"trackers": ["Essentials", "Travel", "Instances & XP", "Party panel"]
+			"trackers": ["Essentials", "Travel", "Instances & XP", "Party panel", "Dungeon tracker"]
 		})
 	);
 }

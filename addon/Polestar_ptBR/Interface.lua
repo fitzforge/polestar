@@ -480,6 +480,55 @@
 --   Most of it drops as you level %s
 --   A long farm: most of it drops as you level
 --   or the Auction House
+-- Machine-translated, to be reviewed (dungeon guides and the dungeon tracker, 26 Nov 2026): translated by an AI
+-- model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   %s off route
+--   %s · your level
+--   %s, on your way
+--   All %d quests are in your log
+--   Bring back the far ones (%d)
+--   Group %d of %d
+--   Group %d/%d
+--   Group of %d
+--   Group: none yet
+--   Its quest is in your log
+--   Level %d · best at %d
+--   Level %d: come back at %d
+--   Needs %s
+--   No quests to pick up
+--   Pick them up
+--   Pick up %d more quests
+--   Pick up 1 more quest
+--   Quests open at a later level: %d
+--   Skip the far one
+--   best %d
+--   from %d
+--   instances this hour: %d of %d
+--   on your way
+--   Quests to pick up
+--   %d / %d bosses
+--   All %d quests ready to turn in: hand them in after the run
+--   Every boss is down
+--   Its quest is ready to turn in: hand it in after the run
+--   Loot %s
+--   Next: %s · then %s
+--   Quests here
+--   for your quest
+--   from %s: it starts a quest
+--   in kill order
+--   loot it
+--   starts a quest
+--   Loot now
+--   %s · quests
+--   Also show it, with its bosses alone, in a dungeon where you hold none of its quests.
+--   Dungeon tracker
+--   Inside a dungeon or raid where you hold its quests: what is left for them, the bosses in kill order, and what to loot. It docks into the guide window when that is shown.
+--   Only the objectives still open and the next two bosses.
+--   Only what's left
+--   The size of the dungeon's name and the headings against Polestar's text size.
+--   Without quests too
+--   dungeon tracker
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "ptBR") then return end
@@ -5098,6 +5147,14 @@ L["Class quest chime"] = "Som da missão de classe"
 L["The rare alert, the transport banner, the heads-up card and the class quest card: their size, look, motion, sound and time on screen."] = "O alerta de raro, o aviso de transporte, o cartão de aviso e o cartão de missão de classe: tamanho, visual, movimento, som e tempo na tela."
 
 -- UI/Looks/Trackers.lua
+L["Also show it, with its bosses alone, in a dungeon where you hold none of its quests."] = "Mostrar também, só com os chefes, numa masmorra em que você não tem nenhuma missão."
+L["Dungeon tracker"] = "Rastreador de masmorras"
+L["Inside a dungeon or raid where you hold its quests: what is left for them, the bosses in kill order, and what to loot. It docks into the guide window when that is shown."] = "Dentro de uma masmorra ou raide em que você tem missões: o que falta para elas, os chefes na ordem e o que saquear. Encaixa na janela do guia quando ela está aberta."
+L["Only the objectives still open and the next two bosses."] = "Só os objetivos ainda abertos e os próximos dois chefes."
+L["Only what's left"] = "Só o que falta"
+L["The size of the dungeon's name and the headings against Polestar's text size."] = "O tamanho do nome da masmorra e dos títulos em relação ao tamanho do texto do Polestar."
+L["Without quests too"] = "Também sem missões"
+L["dungeon tracker"] = "rastreador de masmorras"
 L["Aelindra"] = "Aelindra"
 L["The Defias Brotherhood"] = "A Irmandade Defias"
 L["Brogan"] = "Brogan"
@@ -5701,6 +5758,48 @@ L["Pin to the top"] = "Fixar no topo"
 L["Free mode takes this quest first, whatever the order."] = "O modo livre faz esta missão primeiro, seja qual for a ordem."
 L["Leave out of Free mode"] = "Deixar de fora do modo livre"
 L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "O modo livre para de listar esta missão. \"Trazer de volta as missões deixadas de fora\" no menu a lista de novo."
+
+-- UI/GuideFrameKindDungeon.lua
+L["%s off route"] = "%s fora da rota"
+L["%s · your level"] = "%s · seu nível"
+L["%s, on your way"] = "%s, no caminho"
+L["All %d quests are in your log"] = "Todas as %d missões estão no seu registro"
+L["Bring back the far ones (%d)"] = "Trazer de volta as distantes (%d)"
+L["Group %d of %d"] = "Grupo %d de %d"
+L["Group %d/%d"] = "Grupo %d/%d"
+L["Group of %d"] = "Grupo de %d"
+L["Group: none yet"] = "Grupo: nenhum ainda"
+L["Its quest is in your log"] = "A missão está no seu registro"
+L["Level %d · best at %d"] = "Nível %d · ideal no nível %d"
+L["Level %d: come back at %d"] = "Nível %d: volte no nível %d"
+L["Needs %s"] = "Precisa de %s"
+L["No quests to pick up"] = "Nenhuma missão para pegar"
+L["Pick them up"] = "Pegá-las"
+L["Pick up %d more quests"] = "Pegue mais %d missões"
+L["Pick up 1 more quest"] = "Pegue mais 1 missão"
+L["Quests open at a later level: %d"] = "Missões em nível posterior: %d"
+L["Skip the far one"] = "Pular a distante"
+L["best %d"] = "ideal %d"
+L["from %d"] = "a partir do %d"
+L["instances this hour: %d of %d"] = "instâncias nesta hora: %d de %d"
+L["on your way"] = "no caminho"
+L["Quests to pick up"] = "Missões para pegar"
+
+-- UI/DungeonTracker.lua
+L["%d / %d bosses"] = "%d / %d chefes"
+L["All %d quests ready to turn in: hand them in after the run"] = "Todas as %d missões prontas para entregar: entregue depois da masmorra"
+L["Every boss is down"] = "Todos os chefes derrotados"
+L["Its quest is ready to turn in: hand it in after the run"] = "A missão está pronta para entregar: entregue depois da masmorra"
+L["Loot %s"] = "Saqueie %s"
+L["Next: %s · then %s"] = "Próximo: %s · depois %s"
+L["Quests here"] = "Missões aqui"
+L["for your quest"] = "para sua missão"
+L["from %s: it starts a quest"] = "de %s: inicia uma missão"
+L["in kill order"] = "na ordem"
+L["loot it"] = "saqueie"
+L["starts a quest"] = "inicia uma missão"
+L["Loot now"] = "Saquear agora"
+L["%s · quests"] = "%s · missões"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Configurar o Polestar de novo, uma página por vez. Cada escolha vale na hora."

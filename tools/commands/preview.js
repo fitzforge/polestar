@@ -1278,6 +1278,60 @@ ${open ? `for _, l in ipairs(Polestar.UI.GuideFrame.lines) do
 	if l:IsShown() and (l.Text:GetText() or ""):find("left out here", 1, true) then stub.RunScript(l, "OnClick", "LeftButton") break end
 end` : ''}`;
 const LOOKS = ['polestar', 'hearth', 'halo', 'forever', 'blizzard', 'classic'];
+// The dungeon kind (docs/DESIGN.md, "The Guide Window" and "The Dungeon Tracker"): every built-in look,
+// Polestar's own and Polestar_Skins' (loaded whole for the scene).
+const ALL_LOOKS = [...LOOKS, 'atlas', 'aurora', 'beacon', 'hairline', 'lanterns', 'lumen', 'sheen', 'umbra', 'vellum', 'waymark'];
+const SKINS_ADDON = ['Polestar_Skins'];
+// Polestar_Skins registers its skins and the Atlas layout when Polestar loads installed skins (as the
+// settings' list does). A skin's preset names settings of the route lines, the arrow and the pins, whose
+// modules the scenes leave out: their defaults stand in (Maps/RouteLines.lua, Nav/Arrow.lua, Nav/Pins.lua,
+// Nav/Upcoming.lua), so no skin is refused.
+const INSTALLED_SKINS = `Polestar.RegisterDefaults("nav", { lineStyle = "line", lineWidth = 3, walkColor = false, routeChevrons = false,
+	lineOutline = 1, arrowBacking = false, arrowBackingAlpha = 0.6, arrowGlow = true, arrowGlowStrength = 1, arrowOutline = "OUTLINE",
+	minimapIconSize = 1, worldIconSize = 1, stepPinSize = 1, stepNumberSize = 1 })
+Polestar.Theme.LoadInstalledSkins()`;
+const look = (skin) => `${INSTALLED_SKINS}; Polestar.Set("ui.skin", "${skin}")`;
+const ATLAS_LAYOUT = `${INSTALLED_SKINS}; Polestar.Set("ui.layout", "atlas")`;
+// Outside: the Wailing Caverns pick-up guide of the dungeons fixture (a dungeon guide: kind "dungeon") on
+// its first step, the level 20 Tauren of the Dungeons scenes in the Barrens; the window's Engine stand-in
+// answers the guide's kind and the regions' models from the real one.
+// run: a dungeon guide of a pack's own (kind "dungeon", its `dungeon` named) instead, whose window offers
+// Pick them up; after: Lua run once the guide is open (then the window draws again).
+const RUN_GUIDE = `{ id = "test/wailing-caverns", pack = "test", title = "Wailing Caverns", kind = "dungeon", dungeon = "wailing-caverns",
+	minLevel = 17, maxLevel = 24, steps = { { title = "Wailing Caverns", goals = { { t = "goto", text = "Wailing Caverns", map = 1413, x = 46, y = 36, entrance = true } } } } }`;
+const kindDungeon = (extra = '', { run = false, after = '' } = {}) => `${clientArtLua()}${DUNGEONS_SETUP}
+local E, RE = Polestar.Engine, uistub.realEngine
+E.KindModel = function(r, v, k) return RE.KindModel(r, v, k) end
+E.GuideKind = function() return Polestar.GuideKinds.Of(E.GetGuide()) end
+-- Travel as the Lookup scenes take it (a walk on one map, a long trip across), and the maps' names.
+Polestar.TravelCost = function(a, b)
+	if a.map ~= b.map then return 900 end
+	return 20 + math.sqrt((a.x - b.x) ^ 2 + (a.y - b.y) ^ 2) * 9
+end
+Polestar.Compat.MapName = Polestar.Compat.GetMapName
+${extra}
+local def = ${run ? RUN_GUIDE : 'Polestar.Dungeons.PickupGuide("wailing-caverns")'}
+${run ? '' : 'def.id, def.pack = "lookup/pickup/wailing-caverns", "lookup"'}
+uistub.guides[def.id] = def
+uistub.setGuide(def.id, 1)
+${after}`;
+// Maps loads too: the travel time, the instances this hour, and the tracker floating as the instance
+// tracker does (Maps.CompactFrame).
+const KIND_FILES = [...FILES.slice(0, 2), 'Maps/Maps.xml', ...FILES.slice(2)];
+const kindPanel = (extra, opts = {}) => ({ dungeons: true, roots: GUIDE, files: KIND_FILES, addons: SKINS_ADDON, ...opts, script: kindDungeon(extra, opts) });
+// Leaders of the Fang left in Thunder Bluff (out of the log): a giver a flight away, past Skip the far one's 10 minutes.
+const FAR = 'log[914] = nil';
+const SKIP_FAR = 'Polestar.Dungeons.SkipFar(Polestar.Engine.KindModel("pickups", nil, "dungeon").plan); Polestar.UI.GuideFrame.Render()';
+// Inside: the tracker's made-up run (UI.DungeonTracker.SAMPLE), floating with the guide window hidden,
+// or docked in the window on the Barrens guide.
+const trackerFloat = (extra = '') => `Polestar.Set("ui.shown", false)
+${extra}
+Polestar.UI.DungeonTracker.ShowSample()`;
+const trackerDocked = (extra = '') => `${extra}
+uistub.setGuide(uistub.elwynn, 1)
+Polestar.UI.DungeonTracker.ShowSample(true)`;
+const TRACKER = ['PolestarDungeonTracker'];
+const trackerPanel = (script, roots = TRACKER) => ({ roots, files: KIND_FILES, addons: SKINS_ADDON, script });
 // Tetris (Polestar_Arcade/games/tetris) needs only Polestar's locale table and
 // stand-ins for the Arcade and events it registers with; keep its window
 // preview independent of the guide engine and its sample guide data.
@@ -1304,6 +1358,54 @@ const SCENES = [
 		file: 'tetris.svg',
 		title: 'Tetris flight game: active play, paused, and game over, with Next and Hold previews and both sets of controls',
 		panels: [tetrisPanel('active'), tetrisPanel('paused'), tetrisPanel('over')],
+	},
+	{
+		file: 'guide-kind-dungeon.svg',
+		title: 'Dungeon guide, outside: the picture, your level against the range, the group, the quests to pick up (on your way, minutes off the route), the way in; Compact; Atlas; under the floor with a key missing',
+		panels: [
+			kindPanel(''),
+			kindPanel('Polestar.Set("ui.compact", true)'),
+			kindPanel(ATLAS_LAYOUT),
+			kindPanel(`uistub.player.level = 15; UnitLevel = function() return 15 end
+Polestar.Dungeons.Attunements = function() return { { kind = "key", name = "Prison Cell Key", item = { name = "Prison Cell Key" } } } end
+Polestar.Dungeons.AttunementState = function() return { done = false } end`),
+			kindPanel(FAR, { run: true }),
+			kindPanel(FAR, { run: true, after: SKIP_FAR }),
+		],
+	},
+	{
+		file: 'guide-kind-dungeon-looks.svg',
+		title: 'Dungeon guide, outside, in every built-in look',
+		panels: ALL_LOOKS.map((skin) => kindPanel(look(skin))),
+	},
+	{
+		file: 'guide-kind-dungeon-scales.svg',
+		title: 'Dungeon guide, outside, at UI scale 0.64 and 1.5, Standard and Compact',
+		panels: [0.64, 1.5].flatMap((s) => [kindPanel(`Polestar.Set("ui.scale", ${s})`), kindPanel(`Polestar.Set("ui.scale", ${s}); Polestar.Set("ui.compact", true)`)]),
+	},
+	{
+		file: 'dungeon-tracker.svg',
+		title: 'Dungeon tracker, inside: Standard, Compact, docked in the guide window (Standard and Compact), and Atlas\'s cards',
+		panels: [
+			trackerPanel(trackerFloat()),
+			trackerPanel(trackerFloat('Polestar.Set("trackers.dungeon.compact", true)')),
+			trackerPanel(trackerDocked(), GUIDE),
+			trackerPanel(trackerDocked('Polestar.Set("ui.compact", true)'), GUIDE),
+			trackerPanel(trackerFloat(ATLAS_LAYOUT), [...TRACKER, 'PolestarAtlasDungeonCards']),
+		],
+	},
+	{
+		file: 'dungeon-tracker-looks.svg',
+		title: 'Dungeon tracker in every built-in look',
+		panels: ALL_LOOKS.map((skin) => trackerPanel(trackerFloat(look(skin)))),
+	},
+	{
+		file: 'dungeon-tracker-scales.svg',
+		title: 'Dungeon tracker at scale 0.64 and 1.5, and docked in the guide window at UI scale 0.64 and 1.5',
+		panels: [0.64, 1.5].flatMap((s) => [
+			trackerPanel(trackerFloat(`Polestar.Set("trackers.dungeon.scale", ${s})`)),
+			trackerPanel(trackerDocked(`Polestar.Set("ui.scale", ${s})`), GUIDE),
+		]),
 	},
 	{
 		file: 'guide-left-out.svg',

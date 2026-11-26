@@ -9701,6 +9701,40 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `trainer`, `guideSpace` names `supplyRow`, `splitGap`, `bossRow`, tokens
   `craftOrange`, `craftYellow`, `craftGreen`, `craftGrey`, `coin`; the
   dungeon tracker's `trackerPlace(name, frame, width, height)`.
+- **The dungeon kind** (`Core/KindDungeon.lua` models, `UI/GuideFrameKindDungeon.lua`
+  regions; design in docs/DESIGN.md, "The Guide Window"): a guide of kind `dungeon`
+  names its dungeon by `dungeon` (the pick-up guide, `Dungeons.PickupGuide`, sets it and
+  `kind = "dungeon"`), a pick-up or hand-in guide's id, else its title
+  (`ns.KindDungeon.KeyOf`). Its models, beyond the shapes above: `brief.art`
+  (Dungeons.Art); `ready.under` (below the floor); `pickups` adds `waiting`,
+  `skipped`, `far` (the count over `Dungeons.PICKUP_DETOUR`, 10 minutes), `inGuide`
+  (the open guide is its pick-up guide), each missing quest `far` and `current`
+  (the step accepts it), `plan` and `covers` (the step's accepts); `entrance.zone`,
+  `covers` (the step's way in). The pick-up plan and the travel time are kept 30
+  seconds (or until a quest is taken or dropped, the zone or the skips change):
+  `Dungeons.PickupDetours(plan)` plans the route once (`PlanStops`) and gives each
+  take its minutes off the way (the route against the same order without the stops
+  only that quest needs); `Dungeons.SkipFar(plan)` / `Unskip(key)` keep the left-out
+  quests per character (`CharState().dungeonPickupSkip`), and `PickupPlan` lists them
+  as `skipped`, never for the heads-up.
+- **The dungeon run and its tracker** (`Dungeons/Run.lua`, `UI/DungeonTracker.lua`;
+  design in docs/DESIGN.md, "The Dungeon Tracker"): inside a party or raid instance
+  with a Dungeons page, `Dungeons.Run` checks bosses off (ENCOUNTER_END won, by
+  `encounter`; UNIT_DIED in the combat log for a boss without one, listened to only
+  then), keeps them per character for the run (`CharState().dungeonRun`, a new run of
+  Maps' instance tracker starts over) and raises loot reminders for a dead boss's
+  `item` ties to quests still short of the item (`starts` ties: a quest neither done
+  nor held), gone at the item's count, after `Run.LOOT_SECONDS` (180) or at the next
+  ENCOUNTER_START; `Run.Model()` is the `tracker` model (nil while no quest here is
+  held, unless `trackers.dungeon.bossesAlone`). The tracker floats
+  (`PolestarDungeonTracker`, `Maps.CompactFrame`, `UI.Trackers` kind `dungeon`) unless
+  the guide window is shown, which takes it as the region `tracker` through
+  `GF.RegionOverride` for every guide kind. Its parts `loot`, `quests` and `bosses`
+  are offered to `trackerPlace` (Atlas's cards: Polestar_Skins/Layouts/Atlas/AtlasDungeon.lua,
+  handed Atlas's registry through `S.atlasParts`). A height change in a fight waits for
+  its end. `UI.DungeonTracker.UseItem()` hands the run's quest item (a held quest's
+  Codex `useItem` in the bags) to the quest item button (QoL/Buttons.lua), which then
+  shows while the tracker does.
 - **Guide window** (`UI/GuideFrame.lua`): tab strip (each tab's close button
   faint at rest, full under the pointer; right-click for Choose guide, Close
   tab, Move left/right; middle-click closes), a slim navigator (prev,

@@ -466,8 +466,8 @@ fn a_search_for_the_text_under_the_arrow_finds_label_lines() {
 	assert_eq!(out["step text"], 2, "step text: Label lines right after the guide window's step card: {out}");
 }
 
-// Trackers' Essentials sets all five of the page's elements: its dropdown picks the flight timer (first), the instance
-// tracker, the party panel, the journey or the level mark on its XP bar, one at a time; the pointer on a row picks the
+// Trackers' Essentials sets all six of the page's elements: its dropdown picks the flight timer (first), the instance
+// tracker, the party panel, the dungeon tracker, the journey or the level mark on its XP bar, one at a time; the pointer on a row picks the
 // one that row's setting draws, the band and its slot taking that element's height.
 #[test]
 fn the_trackers_essentials_band_picks_each_tracker_the_journey_and_the_level_mark() {
@@ -492,7 +492,7 @@ fn the_trackers_essentials_band_picks_each_tracker_the_journey_and_the_level_mar
 			return r
 		end
 		emit({ labels = labels, first = first, journey = hover("nav.journeySteps"), mark = hover("qol.xpTargetMark") })"#);
-	assert_eq!(out["labels"], json!(["Flight timer", "Instance tracker", "Party panel", "Journey", "Level mark"]));
+	assert_eq!(out["labels"], json!(["Flight timer", "Instance tracker", "Party panel", "Dungeon tracker", "Journey", "Level mark"]));
 	assert_eq!(out["first"], json!({ "pick": "flight", "on": "flight" }));
 	assert_eq!(out["journey"], json!({ "pick": "journey", "on": "journey", "slot": true }), "{out}");
 	assert_eq!(out["mark"], json!({ "pick": "xp", "on": "xp", "slot": true }), "{out}");
