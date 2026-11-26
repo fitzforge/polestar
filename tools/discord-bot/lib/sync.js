@@ -273,9 +273,10 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 	}
 
 	// The message's attachments: images and videos copied to the media
-	// branch, the rest linked, with why. Only the thread owner's are copied
-	// (`copy`); everyone else's are linked on Discord. `keep`: each copied
-	// file also keeps its bytes (`data`) and type, to attach elsewhere.
+	// branch, the rest linked, with why. In a #bugs post only the thread
+	// owner's are copied (`copy`); in a suggestions post everyone's are, and
+	// anything else is linked on Discord. `keep`: each copied file also keeps
+	// its bytes (`data`) and type, to attach elsewhere.
 	async function files(guild, threadId, message, copy, keep = false) {
 		const out = [];
 		for (const a of message.attachments || []) {
@@ -319,7 +320,7 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			guild: thread.guild_id,
 			thread: thread.id,
 			tags: tagNames,
-			files: await files(thread.guild_id, thread.id, message, message.author && message.author.id === thread.owner_id),
+			files: await files(thread.guild_id, thread.id, message, inIdeas(thread) || (message.author && message.author.id === thread.owner_id)),
 		};
 	}
 
@@ -452,7 +453,7 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 	// A follow-up's comment and its author's name.
 	async function followUpBody(thread, m) {
 		const reporter = m.author.id === await reporterOf(thread);
-		const f = await files(thread.guild_id, thread.id, m, reporter);
+		const f = await files(thread.guild_id, thread.id, m, reporter || inIdeas(thread));
 		const author = await displayName(thread.guild_id, m.author, m.member);
 		return { author, body: I.followUpComment({ report: readFollowUp(m), author, reporter, guild: thread.guild_id, thread: thread.id, message: m.id, files: f }) };
 	}

@@ -72,12 +72,13 @@ test('!suggest in a suggestions post files the whole post: its title, the first 
 	assert.equal(comments.length, 3, 'the bot\'s message, the empty one and the command are not comments');
 	assert.match(comments[0].body, /^\*\*Bea\*\* commented on \[Discord\]\(https:\/\/discord\.com\/channels\/800\/2001\/\d+\):/);
 	assert.match(comments[0].body, /I hide it with a macro/);
-	assert.match(comments[0].body, /\[b1\.png\]\([^)]*\) \(on Discord\)/, 'other players\' files stay links');
+	assert.match(comments[0].body, /!\[b1\.png\]\(https:\/\/raw\.githubusercontent\.com\/[^)]*\/discord\/2001\/b1-b1\.png\)/, 'other players\' images are copied too');
+	assert.ok(!comments[0].body.includes('(on Discord)'));
 	assert.match(comments[1].body, /^\*\*op\*\* \(the reporter\) added on/);
 	assert.match(comments[1].body, /A key bind would do/);
 	assert.match(comments[1].body, /bug-media\/discord\/2001\/a2-a2\.png/);
 	assert.match(comments[2].body, /^\*\*Cal\*\* commented on/);
-	assert.deepEqual(media.copied, ['discord/2001/a1-a1.png', 'discord/2001/a2-a2.png']);
+	assert.deepEqual(media.copied, ['discord/2001/a1-a1.png', 'discord/2001/b1-b1.png', 'discord/2001/a2-a2.png']);
 
 	assert.equal(discord.posts.length, 0, 'no extra #bugs post');
 	const tracked = discord.sent.filter((s) => s.channel === id);
@@ -177,6 +178,29 @@ test('replies after the filing are copied to the issue, the poster\'s marked as 
 	await sync.dispatch('MESSAGE_CREATE', discord.say('2003', { author: 'u2', content: 'a reply' }));
 	assert.equal(github.issues.length, 1, 'a suggestions post is never filed by itself');
 	assert.equal(commentsOf(github, 2).length, 0);
+});
+
+test('every author\'s images and videos in a suggestions post are copied, in the filing and in later replies; other files stay links; #bugs keeps the owner-only rule', async () => {
+	const { discord, github, media, sync, command, conversation } = setup();
+	const id = conversation();
+	await command(id, '!suggest');
+	const before = media.copied.length;
+	const clip = [{ id: 'v1', filename: 'demo.mp4', content_type: 'video/mp4', size: 5, url: 'x' }];
+	const doc = [{ id: 'd1', filename: 'notes.txt', content_type: 'text/plain', size: 5, url: 'x' }];
+	await sync.dispatch('MESSAGE_CREATE', discord.say(id, { author: 'u2', name: 'Bea', content: 'a clip', attachments: [...SHOT('c1'), ...clip, ...doc] }));
+	const body = commentsOf(github).at(-1).body;
+	assert.match(body, /!\[c1\.png\]\([^)]*discord\/2001\/c1-c1\.png\)/);
+	assert.match(body, /- \[demo\.mp4\]\([^)]*discord\/2001\/v1-demo\.mp4\) \(video\)/);
+	assert.match(body, /- \[notes\.txt\]\([^)]*\) \(on Discord: not an image or video, not copied\)/);
+	assert.deepEqual(media.copied.slice(before), ['discord/2001/c1-c1.png', 'discord/2001/v1-demo.mp4']);
+
+	// A #bugs post: only the poster's.
+	discord.post('3001', { owner: 'u5', content: 'a bug' });
+	await sync.newPost('3001');
+	await sync.dispatch('MESSAGE_CREATE', discord.say('3001', { author: 'u2', content: 'me too', attachments: SHOT('e1') }));
+	await sync.dispatch('MESSAGE_CREATE', discord.say('3001', { author: 'u5', content: 'mine', attachments: SHOT('e2') }));
+	assert.deepEqual(media.copied.slice(before + 2), ['discord/3001/e2-e2.png']);
+	assert.match(commentsOf(github, 2)[0].body, /\[e1\.png\]\([^)]*\) \(on Discord\)/);
 });
 
 test('an edited reply and an edited first message are written again on the issue', async () => {
