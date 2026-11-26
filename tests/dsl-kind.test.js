@@ -41,3 +41,14 @@ test('skills: the skill lines a profession guide levels, both of a pair, as skil
 	assert.match(odd.errors.join('\n'), /:6: unknown profession "Juggling" in `skills`/);
 	assert.match(compile(text(['skills Mining, mining'])).errors.join('\n'), /:6: `skills` names the same profession twice/);
 });
+
+test('a paired guide (`skills` naming two) alternates its two professions\' sections: each rises on its own', () => {
+	const guide = (skills) =>
+		`${['guide t/p', 'title P', 'levels 1-60', 'zone Elwynn Forest', 'category Professions', ...skills, '', 'section First Aid 10-40', 'step A', '  craft 3275 until 40', 'section Mining 1-50', 'step B', '  skill Mining 50', 'section First Aid 40-50', 'step C', '  learn 3276', '  craft 3276 until 50'].join('\n')}\n`;
+	const paired = compile(guide(['skills Mining, "First Aid"']));
+	assert.deepEqual(paired.errors, [], paired.text);
+	assert.deepEqual(paired.warnings.filter((w) => /sections/.test(w)), [], paired.text);
+	assert.equal(compile(guide([])).warnings.filter((w) => /rising order/.test(w)).length, 2);
+	const back = compile(guide(['skills Mining, "First Aid"']).replace('section First Aid 40-50', 'section First Aid 1-20'));
+	assert.equal(back.warnings.filter((w) => /each profession's sections rise in order/.test(w)).length, 1, back.text);
+});

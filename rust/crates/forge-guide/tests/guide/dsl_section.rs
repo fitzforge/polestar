@@ -79,3 +79,17 @@ fn sections_out_of_order_warn() {
 	assert!(r.errors.is_empty(), "{}", r.text);
 	assert_eq!(r.warned("a guide's sections are one profession's skill ranges in rising order").len(), 1, "{}", r.text);
 }
+
+#[test]
+fn a_paired_guide_alternates_its_two_professions_sections() {
+	let body = |skills: &[&str], last: &str| {
+		let mut l: Vec<&str> = skills.to_vec();
+		l.extend(["section First Aid 10-40", "step A", "  craft 3275 until 40", "section Mining 1-50", "step B", "  skill Mining 50", last, "step C", "  learn 3276", "  craft 3276 until 50"]);
+		text(&l)
+	};
+	let paired = compile(&body(&["skills Mining, \"First Aid\""], "section First Aid 40-50"));
+	assert!(paired.errors.is_empty(), "{}", paired.text);
+	assert!(paired.warned("rising order").is_empty() && paired.warned("rise in order").is_empty(), "{}", paired.text);
+	assert_eq!(compile(&body(&[], "section First Aid 40-50")).warned("rising order").len(), 2);
+	assert_eq!(compile(&body(&["skills Mining, \"First Aid\""], "section First Aid 1-20")).warned("each profession's sections rise in order").len(), 1);
+}

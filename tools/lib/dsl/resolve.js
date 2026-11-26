@@ -1055,6 +1055,10 @@ function resolveGuide(ast, data, diag, opts = {}) {
 	// is its index, 1-based); the engine starts a profession guide at the section the player's skill is in.
 	if (ast.sections) {
 		let prev = null;
+		// A guide whose `skills` names two professions (a paired guide) alternates their sections: each
+		// profession's own sections rise in order.
+		const paired = (h.skills || []).length > 1 ? new Set(h.skills.map((s) => s.toLowerCase())) : null;
+		const prevOf = new Map();
 		guide.sections = ast.sections.map((sec) => {
 			const out = {};
 			const p = data.professionNamed(sec.skill);
@@ -1067,7 +1071,12 @@ function resolveGuide(ast, data, diag, opts = {}) {
 			} else {
 				err(sec.line, `unknown profession "${sec.skill}"; quote the name to use it anyway: \`section "${sec.skill}" ${sec.from}-${sec.to}\``);
 			}
-			if (prev && (prev.skill !== sec.skill || sec.from < prev.from)) warn(sec.line, `section ${sec.skill} ${sec.from}-${sec.to} comes after ${prev.skill} ${prev.from}-${prev.to}: a guide's sections are one profession's skill ranges in rising order`);
+			const own = paired && paired.has(String(sec.skill).toLowerCase()) ? String(sec.skill).toLowerCase() : null;
+			if (own) {
+				const before = prevOf.get(own);
+				if (before && sec.from < before.from) warn(sec.line, `section ${sec.skill} ${sec.from}-${sec.to} comes after ${before.skill} ${before.from}-${before.to}: each profession's sections rise in order`);
+				prevOf.set(own, sec);
+			} else if (prev && (prev.skill !== sec.skill || sec.from < prev.from)) warn(sec.line, `section ${sec.skill} ${sec.from}-${sec.to} comes after ${prev.skill} ${prev.from}-${prev.to}: a guide's sections are one profession's skill ranges in rising order`);
 			prev = sec;
 			out.from = sec.from;
 			out.to = sec.to;
