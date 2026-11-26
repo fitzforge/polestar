@@ -91,7 +91,7 @@ return {
 
 	-- Step 20: Goretusk Snouts
 	-- plural, as words: Goretusk Snouts = {item:731} Goretusk Snout
-	["Goretusk Snouts"] = "Goretusk Snouts",
+	["Goretusk Snouts"] = "Geiferzahnschnauze",
 	-- {area:108} Sentinel Hill
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
 	["Young Goretusks root in the fields along the road south from Saldean's to {area:108}: take their snouts on the way."] = "Young Goretusks wühlen auf den Feldern entlang der Straße südlich von Saldean's nach {area:108}: Nimm ihre Schnauzen auf dem Weg mit.",

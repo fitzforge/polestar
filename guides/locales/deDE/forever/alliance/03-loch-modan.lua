@@ -85,7 +85,7 @@ return {
 
 	-- Step 17: Mountain Buzzards
 	-- plural, as words: Mountain Buzzards = {npc:1194} Mountain Buzzard
-	["Mountain Buzzards"] = "Mountain Buzzards",
+	["Mountain Buzzards"] = "Bergbussard",
 	-- {quest:257} A Hunter's Boast
 	-- plural, as words: Mountain Buzzards = {npc:1194} Mountain Buzzard
 	["Mountain Buzzards circle the hills west and south of the lodge, back toward the dig. {quest:257} runs for 15 minutes."] = "Mountain Buzzards kreisen über den Hügeln westlich und südlich der Hütte, zurück zur Ausgrabung. {quest:257} läuft 15 Minuten.",
