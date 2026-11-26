@@ -709,6 +709,42 @@ fn a_quest_s_page_says_the_level_it_requires_in_the_warning_colour_while_the_cha
 	assert_eq!(out["at"], json!([["Level", "60"], ["Faction", "Alliance"], ["Places", "None known"]]), "at level 60: no line");
 }
 
+// The Nightmare Incursion missions: quests our data keeps that no recording or report has shown on Forever yet. The
+// Codex packs the data's `unseen` as `n`, and the quest's page says "Not seen on Forever yet" in the warning colour,
+// through the real Codex runtime; a quest without the flag has no such line.
+#[test]
+fn a_quest_no_recording_has_shown_says_not_seen_on_forever_yet_on_its_page() {
+	let mut codex = sample_codex();
+	codex["quests"]["176"]["unseen"] = json!(true);
+	let pack = write_codex_pack(&codex, &CodexOpts { ..Default::default() });
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		before: pack.stub_lua.clone(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Lookup/Lookup.xml", "UI/UI.xml"])],
+		script: r#"uistub.install()
+stub.login()
+local LK = Polestar.UI.Lookup
+local function status()
+	for i, f in ipairs(LK.detail.facts) do if f[1] == "Status" then return f[2], i end end
+end
+Polestar.Lookup.Show(nil, "quest", 176)
+local line, i = status()
+local r, g, b = LK.details.Facts[i or 1].Value:GetTextColor()
+local wr, wg, wb = Polestar.Theme.Color("warning")
+local unseen = { line = line or false, warning = r == wr and g == wg and b == wb, flag = Polestar.Codex.Quest(176).unseen or false }
+LK.Select(nil)
+Polestar.Lookup.Show(nil, "quest", 33)
+emit({ unseen = unseen, seen = status() or false, flag = Polestar.Codex.Quest(33).unseen or false })"#
+			.into(),
+		..Default::default()
+	});
+	let out = &out[0];
+	assert_eq!(out["unseen"], json!({ "line": "Not seen on Forever yet", "warning": true, "flag": true }), "{out}");
+	assert_eq!(out["seen"], false, "a quest without the flag has no Status line");
+	assert_eq!(out["flag"], false);
+	drop(pack);
+}
+
 #[test]
 fn an_item_s_icon_in_the_details_shows_the_game_s_tooltip_for_it_other_pages_icons_none() {
 	let out = run(r#"

@@ -147,6 +147,20 @@ down to the figure plus 3 % in the same pull request; one 3 to 10 % over it
 stays. Between freezes no budget is raised: a change that crosses one finds
 what grew and trims it, or waits for the freeze.
 
+One exception so far, Fitz approved: the guide pack's budgets moved between
+the 0.4.3 and 0.4.4 freezes for the Tier 0.5 class guides (#4248, #4300;
+26 Nov 2026: "360 KB is tiny"). Measured with both, three runs reading the
+same (KiB):
+
+| Budget | Measured | Old budget | New budget | Headroom |
+|---|---:|---:|---:|---:|
+| Guide pack Alliance resident | 14,750 | 14,360 | 15,200 | 3.1 % |
+| Guide pack Alliance peak | 28,305 | 28,170 | 29,160 | 3.0 % |
+| Guide pack Alliance read | 20,620 | 20,410 | 21,240 | 3.0 % |
+| Guide pack Horde resident | 13,812 | 13,400 | 14,230 | 3.0 % |
+| Guide pack Horde peak | 25,972 | 25,660 | 26,760 | 3.0 % |
+| Guide pack Horde read | 19,880 | 19,650 | 20,480 | 3.0 % |
+
 The login figure depends on where the checkout is: the harness loads every
 file by its absolute path, and each file's chunk name and the loader's file
 lists keep that path, about 0.7 KiB for each character. The post-merge

@@ -138,14 +138,19 @@ test('Dungeon Set 2: each Forever copy of Just Compensation, Anthion\'s Parting 
 		84171: [1024, 8978], 84172: [4, 8978], 84173: [128, 8978], 84174: [16, 8978], 84175: [8, 8978], 84176: [64, 8978], 84177: [256, 8978], 84178: [1, 8978], 97412: [2, 8978],
 		84179: [1024, 9015], 84180: [4, 9015], 84181: [128, 9015], 84182: [2, 9015], 84183: [16, 9015], 84184: [8, 9015], 84186: [1, 9015],
 		84187: [1024, 9015], 84188: [4, 9015], 84189: [128, 9015], 84190: [16, 9015], 84191: [8, 9015], 84192: [64, 9015], 84193: [256, 9015], 84194: [1, 9015],
-		84195: [1024, 8997], 84196: [4, 8997], 84200: [8, 8997], 84202: [1, 8997], 84203: [1024, 8998], 84208: [64, 8998], 84210: [1, 8998] };
+		84195: [1024, 8997], 84196: [4, 8997], 84200: [8, 8997], 84202: [1, 8997], 84203: [1024, 8998], 84208: [64, 8998], 84210: [1, 8998],
+		// The copies the data lacked until the server's quest records in players' caches named them (0.4.4).
+		84185: [256, 9015], 97449: [64, 9015], 97413: [2, 9015],
+		84197: [128, 8997], 84198: [2, 8997], 84199: [16, 8997], 84201: [256, 8997], 97450: [64, 8997],
+		84204: [4, 8998], 84205: [128, 8998], 84206: [16, 8998], 84207: [8, 8998], 84209: [256, 8998], 97414: [2, 8998] };
 	for (const [id, [cls, pre]] of Object.entries(copies)) {
 		const entry = corrections.quests[id];
 		assert.ok(entry && entry.set && !entry.remove, `${id} has a record`);
 		assert.equal(entry.set.classes, cls, `${id}'s class`);
 		assert.deepEqual(entry.set.preAny, [pre], `${id} after ${pre}`);
 	}
-	for (const id of [8951, 8952, 8953, 8954, 8955, 8956, 8957, 8959, 9016, 9017, 9018, 9019, 9020, 9021, 9022, 8999, 9000, 9004, 9006, 9007, 9011, 9013]) {
+	for (const id of [8951, 8952, 8953, 8954, 8955, 8956, 8957, 8959, 9016, 9017, 9018, 9019, 9020, 9021, 9022, 8999, 9000, 9004, 9006, 9007, 9011, 9013,
+		8958, 9001, 9002, 9003, 9005, 9008, 9009, 9010, 9012, 9014]) {
 		assert.equal(corrections.quests[id] && corrections.quests[id].remove, true, `the Classic copy ${id} leaves the data`);
 	}
 });
@@ -178,10 +183,10 @@ test('the Horde Paladin charger chain and the Alliance Darkreaver Menace have th
 
 // #4169's hotfix build: removing the Classic Anthion's Parting Words copies took Bodley's Unfortunate Fate's
 // prerequisites with them (the Horde's 9032 had none left, the Alliance's 8960 only the Warlock's 8958). It
-// follows any class's Forever copy now.
+// follows any class's Forever copy now, the Alliance Warlock's and Shaman's and the Horde Paladin's included.
 test('Bodley\'s Unfortunate Fate follows Forever\'s Anthion\'s Parting Words on each side (#4169)', () => {
-	assert.deepEqual(corrections.quests[8960].set.preAny, [84179, 84180, 84181, 84182, 84183, 84184, 84186, 8958]);
-	assert.deepEqual(corrections.quests[9032].set.preAny, [84187, 84188, 84189, 84190, 84191, 84192, 84193, 84194]);
+	assert.deepEqual(corrections.quests[8960].set.preAny, [84179, 84180, 84181, 84182, 84183, 84184, 84185, 84186, 97449]);
+	assert.deepEqual(corrections.quests[9032].set.preAny, [84187, 84188, 84189, 84190, 84191, 84192, 84193, 84194, 97413]);
 	for (const id of [8960, 9032]) assert.deepEqual(corrections.quests[id].set.pre, [], `${id}: no all-of prerequisite left over`);
 });
 
@@ -205,24 +210,72 @@ test('no quest loses all its prerequisites to a removal without a record that gi
 	assert.deepEqual(bad, []);
 });
 
-// #4169's hotfix build: with the Classic Anthion's Parting Words and Saving the Best for Last copies gone, the tier
-// 0.5 pieces they reward had no quest source left (Lookup: "no known source"). Each Forever copy that replaces one
-// rewards what the Classic copy for that class does (the server dump's RewardItem1-4).
-test('Forever\'s Set 2 copies reward the pieces of the Classic copies they replace (#4169)', () => {
-	const rewards = { 84179: [22107, 22111, 22112], 84187: [22107, 22111, 22112], 84180: [22016, 22017, 22061], 84188: [22016, 22017, 22061],
-		84181: [22064, 22067, 22068], 84189: [22064, 22067, 22068], 84182: [22087, 22092, 22093], 84183: [22082, 22084, 22085], 84190: [22082, 22084, 22085],
-		84184: [22003, 22007, 22008], 84191: [22003, 22007, 22008], 84192: [22096, 22100, 22101], 84193: [22072, 22073, 22076],
-		84186: [21995, 22000, 22001], 84194: [21995, 22000, 22001], 84195: [22109, 22113], 84203: [22109, 22113], 84196: [22013, 22060],
-		84200: [22005, 22009], 84202: [21997, 21999], 84210: [21997, 21999], 84208: [22097, 22102] };
-	for (const [id, items] of Object.entries(rewards)) {
-		const r = corrections.quests[id] && corrections.quests[id].set && corrections.quests[id].set.rewards;
-		assert.deepEqual(r && r.items, items, `${id}'s reward items`);
+// #4169's hotfix build gave each Forever copy the Classic copy's pieces as its rewards, so the tier 0.5 pieces kept a
+// quest source. Forever's own quest records (players' caches) reward otherwise: a class with several specs chooses
+// one spec's set (a box per slot group), a class with one spec gets its new pieces. Both sides reward the same.
+test('Forever\'s Set 2 copies reward what Forever\'s quest records name, per class (0.4.4)', () => {
+	// class: [Anthion's Parting Words, Saving the Best for Last], each { items } or { choices }
+	const byClass = {
+		Druid: [{ choices: [227359, 227360, 227361, 227365] }, { choices: [227383, 227384, 227385, 227387] }],
+		Hunter: [{ items: [226881, 226882, 226884] }, { items: [226887, 226886] }],
+		Mage: [{ items: [226931, 226933, 226936] }, { items: [226935, 226932] }],
+		Paladin: [{ choices: [227368, 227369, 227370] }, { choices: [227390, 227391, 227392] }],
+		Priest: [{ choices: [227371, 227372] }, { choices: [227393, 227394] }],
+		Rogue: [{ items: [226831, 226827, 226826] }, { items: [226829, 226825] }],
+		Shaman: [{ choices: [227375, 227376, 227377] }, { choices: [227397, 227398, 227399] }],
+		Warlock: [{ items: [226908, 226910, 226912] }, { items: [226909, 226906] }],
+		Warrior: [{ choices: [227381, 227382] }, { choices: [227403, 227404] }],
+	};
+	// class: [Alliance APW, Horde APW, Alliance STBL, Horde STBL]
+	const copies = { Druid: [84179, 84187, 84195, 84203], Hunter: [84180, 84188, 84196, 84204], Mage: [84181, 84189, 84197, 84205],
+		Paladin: [84182, 97413, 84198, 97414], Priest: [84183, 84190, 84199, 84206], Rogue: [84184, 84191, 84200, 84207],
+		Shaman: [97449, 84192, 97450, 84208], Warlock: [84185, 84193, 84201, 84209], Warrior: [84186, 84194, 84202, 84210] };
+	for (const [cls, ids] of Object.entries(copies)) {
+		ids.forEach((id, i) => {
+			const want = byClass[cls][i < 2 ? 0 : 1];
+			const r = corrections.quests[id] && corrections.quests[id].set && corrections.quests[id].set.rewards;
+			assert.deepEqual(r && r.items, want.items || [], `${cls} ${id}'s reward items`);
+			assert.deepEqual(r && r.choices, want.choices || [], `${cls} ${id}'s reward choices`);
+		});
 	}
+});
+
+// The Nightmare Incursion quests (Duskwood, Hinterlands and Feralas missions, Fight the Nightmare Incursions): no
+// recording shows any of them or their Field Captains on Forever, so each stays in the data for Lookup marked
+// unseen; Materials of Significance (81790), a Paladin quest in the same id range that players' traces show, is not.
+test('the Nightmare Incursion quests are marked unseen, with their objective counts (0.4.4)', () => {
+	const missions = Object.keys(corrections.quests).map(Number).filter((id) => (id >= 81730 && id <= 81747) || (id >= 81786 && id <= 81874) || id === 82068);
+	assert.equal(missions.length, 55);
+	for (const id of missions) {
+		const set = corrections.quests[id].set;
+		assert.equal(set.unseen, true, `${id} is marked unseen`);
+		for (const o of set.objectives || []) assert.ok(o.count >= 1, `${id}: ${o.text} has a count`);
+	}
+	assert.ok(!corrections.quests[81790], 'Materials of Significance is left as it is');
+	assert.deepEqual(corrections.quests[81786].set.objectives, [{ type: 'kill', id: 221330, count: 20, text: 'Fallen Moonkin' }]);
 });
 
 // The check behind it: an item whose only sources in the built Codex are quests the corrections remove must get a
 // quest source back from a record (a `set.rewards` naming it), or Lookup reads "no known source" after the next
 // build. Reads the built Codex (skips without it).
+//
+// One stated exception, these 45 items by name: Classic's Dungeon Set 2 boots, legs, shoulders, helm and chest, the
+// rewards of the Classic copies of Anthion's Parting Words (8951-8959, 9016-9022) and Saving the Best for Last
+// (8999-9014). Forever's own copies of those two quests reward a choice of each spec's set boxes (227xxx) or the
+// class's new pieces (226xxx) instead (their records in forever-db/corrections/quests.json), so on Forever these 22xxx
+// pieces have no quest source, and "no known source" is the truth for them.
+const SET2_CLASSIC_PIECES = {
+	21995: 'Boots of Heroism', 21997: 'Breastplate of Heroism', 21999: 'Helm of Heroism', 22000: 'Legplates of Heroism', 22001: 'Spaulders of Heroism',
+	22003: 'Darkmantle Boots', 22005: 'Darkmantle Cap', 22007: 'Darkmantle Pants', 22008: 'Darkmantle Spaulders', 22009: 'Darkmantle Tunic',
+	22013: "Beastmaster's Cap", 22016: "Beastmaster's Mantle", 22017: "Beastmaster's Pants", 22060: "Beastmaster's Tunic", 22061: "Beastmaster's Boots",
+	22064: "Sorcerer's Boots", 22065: "Sorcerer's Crown", 22067: "Sorcerer's Leggings", 22068: "Sorcerer's Mantle", 22069: "Sorcerer's Robes",
+	22072: 'Deathmist Leggings', 22073: 'Deathmist Mantle', 22074: 'Deathmist Mask', 22075: 'Deathmist Robe', 22076: 'Deathmist Sandals',
+	22080: 'Virtuous Crown', 22082: 'Virtuous Mantle', 22083: 'Virtuous Robe', 22084: 'Virtuous Sandals', 22085: 'Virtuous Skirt',
+	22087: 'Soulforge Boots', 22089: 'Soulforge Breastplate', 22091: 'Soulforge Helm', 22092: 'Soulforge Legplates', 22093: 'Soulforge Spaulders',
+	22096: 'Boots of The Five Thunders', 22097: 'Coif of The Five Thunders', 22100: 'Kilt of The Five Thunders', 22101: 'Pauldrons of The Five Thunders', 22102: 'Vest of The Five Thunders',
+	22107: 'Feralheart Boots', 22109: 'Feralheart Cowl', 22111: 'Feralheart Kilt', 22112: 'Feralheart Spaulders', 22113: 'Feralheart Vest',
+};
+
 test('no item loses its only quest sources to a removal without a record that rewards it again (#4169)', { skip: require('./helpers/data').needs('codex/items.json') }, () => {
 	const items = JSON.parse(fs.readFileSync(path.join(require('./helpers/data').DATA, 'codex', 'items.json'), 'utf8'));
 	const removed = new Set(Object.entries(corrections.quests).filter(([, e]) => e && e.remove).map(([id]) => Number(id)));
@@ -235,6 +288,11 @@ test('no item loses its only quest sources to a removal without a record that re
 	for (const [id, it] of Object.entries(items)) {
 		const sources = it.sources || [];
 		if (!sources.length || !sources.every((s) => s.type === 'quest' && removed.has(s.quest))) continue;
+		if (SET2_CLASSIC_PIECES[id]) {
+			// The exception names each item: an id that is some other item now is an error, not a pass.
+			assert.equal(it.name, SET2_CLASSIC_PIECES[id], `item ${id} is the exception's ${SET2_CLASSIC_PIECES[id]}`);
+			continue;
+		}
 		if (!rewarded.has(Number(id))) bad.push(`${id} ${it.name}: only from ${sources.map((s) => s.quest).join(', ')}`);
 	}
 	assert.deepEqual(bad, []);
