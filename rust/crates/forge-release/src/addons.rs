@@ -4,8 +4,8 @@ use std::path::Path;
 
 /// Always in the release: the addon (with the game looks and Hearth, the Skin API's checks, the tab styles and
 /// our experimental guides inside it since 0.4.3), our guides, the walking router and maps, and the settings
-/// window (loaded on demand; all committed).
-pub const RELEASE_ADDONS: [&str; 4] = ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Options"];
+/// window and finished-quest planner (loaded on demand; all committed).
+pub const RELEASE_ADDONS: [&str; 5] = ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Handins", "Polestar_Options"];
 /// Our ten skins and the Atlas layout, one folder loaded on demand with the first one used or listed (#3507:
 /// their own folders before 0.4.3; not in the settings folder, so a player on one of them never loads the
 /// settings for it); shipped when present (committed), right after the settings.
@@ -230,6 +230,7 @@ mod tests {
 				"Polestar",
 				"Polestar_Guides",
 				"Polestar_Nav",
+				"Polestar_Handins",
 				"Polestar_Options",
 				"Polestar_Skins",
 				"Polestar_Guides_Alliance",

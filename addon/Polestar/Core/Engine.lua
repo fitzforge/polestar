@@ -4704,6 +4704,10 @@ function Own.goalDoneLive(s, g, goal)
 	local C = Compat()
 	-- One of a set (`either`): done once any other goal of the set is.
 	if goal.either and Own.eitherDone(s, g) then return true end
+	-- A generated errand represents this quest-log attempt, even if an
+	-- earlier attempt is in completion history or has a stored check-off.
+	-- Keep questDone's history intact for prerequisites and predicates.
+	if t == "turnin" and goal.currentLog then return not C.IsOnQuest(goal.quest) end
 	if t ~= "accept" and checked(s, g) then return true end
 	local now = Own.passedNow[guide.id]
 	if now and now[Own.key(s, g)] then return true end
