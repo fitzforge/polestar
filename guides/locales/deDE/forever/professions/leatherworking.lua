@@ -192,7 +192,7 @@ return {
 	-- Step 32: Get Thick Leather (Alliance)
 	-- {item:4304} Thick Leather
 	-- was: ["{item:4304} (Alliance)"] = "{item:4304} (Allianz)"
-	["Get {item:4304} (Alliance)"] = "",
+	["Get {item:4304} (Alliance)"] = "Sammle {item:4304} (Allianz)",
 	-- {item:4304} Thick Leather · {skill:165} Leatherworking · {item:8176} Nightscape Headband · {item:8193} Nightscape Pants · {skill:393} Skinning · {npc:2729} Elder Crag Coyote · {npc:2730} Rabid Crag Coyote · {npc:2732} Ridge Huntress · {npc:2734} Ridge Stalker Patriarch
 	-- was: ["373 {item:4304} for {item:8176} and {item:8193}: {skill:393}: beasts of level 38-50. Skin {npc:2729}, {npc:2730}, {npc:2732} and {npc:2734} here (level 38-50); the {skill:393} guide routes this."] = "373 {item:4304} für {item:8176} und {item:8193}: {skill:393}: Tiere der Stufen 38-50. Häute hier {npc:2729}, {npc:2730}, {npc:2732} und {npc:2734} (Stufe 38-50); der {skill:393}-Guide routet das."
 	["You need 373 {item:4304} for {skill:165} 150-225: {item:8176} and {item:8193}. {skill:393}: beasts of level 38-50. Skin {npc:2729}, {npc:2730}, {npc:2732} and {npc:2734} here (level 38-50); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",
@@ -200,7 +200,7 @@ return {
 	-- Step 33: Get Thick Leather (Horde)
 	-- {item:4304} Thick Leather
 	-- was: ["{item:4304} (Horde)"] = "{item:4304} (Horde)"
-	["Get {item:4304} (Horde)"] = "",
+	["Get {item:4304} (Horde)"] = "Sammle {item:4304} (Horde)",
 	-- {item:4304} Thick Leather · {skill:165} Leatherworking · {item:8176} Nightscape Headband · {item:8193} Nightscape Pants · {skill:393} Skinning · {npc:5292} Feral Scar Yeti · {npc:5300} Frayfeather Hippogryph · {npc:5304} Frayfeather Stagwing · {npc:5272} Grizzled Ironfur Bear · {npc:5260} Groddoc Ape · {npc:5262} Groddoc Thunderer · {npc:5268} Ironfur Bear · {npc:5274} Ironfur Patriarch · {npc:5287} Longtooth Howler · {npc:5286} Longtooth Runner · {npc:5296} Rage Scar Yeti
 	-- was: ["373 {item:4304} for {item:8176} and {item:8193}: {skill:393}: beasts of level 38-50. Skin {npc:5292}, {npc:5300}, {npc:5304}, {npc:5272}, {npc:5260}, {npc:5262}, {npc:5268}, {npc:5274}, {npc:5287}, {npc:5286} and {npc:5296} here (level 38-50); the {skill:393} guide routes this."] = "373 {item:4304} für {item:8176} und {item:8193}: {skill:393}: Tiere der Stufen 38-50. Häute hier {npc:5292}, {npc:5300}, {npc:5304}, {npc:5272}, {npc:5260}, {npc:5262}, {npc:5268}, {npc:5274}, {npc:5287}, {npc:5286} und {npc:5296} (Stufe 38-50); der {skill:393}-Guide routet das."
 	["You need 373 {item:4304} for {skill:165} 150-225: {item:8176} and {item:8193}. {skill:393}: beasts of level 38-50. Skin {npc:5292}, {npc:5300}, {npc:5304}, {npc:5272}, {npc:5260}, {npc:5262}, {npc:5268}, {npc:5274}, {npc:5287}, {npc:5286} and {npc:5296} here (level 38-50); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",
@@ -283,7 +283,7 @@ return {
 	-- Step 47: Get Rugged Leather (Alliance)
 	-- {item:8170} Rugged Leather
 	-- was: ["{item:8170} (Alliance)"] = "{item:8170} (Allianz)"
-	["Get {item:8170} (Alliance)"] = "",
+	["Get {item:8170} (Alliance)"] = "Sammle {item:8170} (Allianz)",
 	-- {item:8170} Rugged Leather · {skill:165} Leatherworking · {item:15564} Rugged Armor Kit · {item:15083} Wicked Leather Gauntlets · {item:15094} Runic Leather Headband · {skill:393} Skinning · {npc:8598} Frenzied Plaguehound · {npc:8596} Plaguehound Runt
 	-- was: ["1029 {item:8170} for {item:15564}, {item:15083} and {item:15094}: {skill:393}: beasts of level 48-60. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this."] = "1.029 {item:8170} für {item:15564}, {item:15083} und {item:15094}: {skill:393}: Tiere der Stufen 48-60. Häute hier {npc:8598}, Seuchenhunde und {npc:8596} (Stufe 48-60); der {skill:393}-Guide routet das."
 	["You need 1029 {item:8170} for {skill:165} 225-300: {item:15564}, {item:15083} and {item:15094}. {skill:393}: beasts of level 48-60. Skin {npc:8598}, Plaguehound and {npc:8596} here (level 48-60); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",
@@ -291,7 +291,7 @@ return {
 	-- Step 48: Get Rugged Leather (Horde)
 	-- {item:8170} Rugged Leather
 	-- was: ["{item:8170} (Horde)"] = "{item:8170} (Horde)"
-	["Get {item:8170} (Horde)"] = "",
+	["Get {item:8170} (Horde)"] = "Sammle {item:8170} (Horde)",
 	-- {item:8170} Rugged Leather · {skill:165} Leatherworking · {item:15564} Rugged Armor Kit · {item:15083} Wicked Leather Gauntlets · {item:15094} Runic Leather Headband · {skill:393} Skinning · {npc:6369} Coralshell Tortoise · {npc:8760} Mosshoof Stag · {npc:6380} Thunderhead Consort · {npc:6379} Thunderhead Patriarch · {npc:6378} Thunderhead Skystormer · {npc:6377} Thunderhead Stagwing
 	-- was: ["1029 {item:8170} for {item:15564}, {item:15083} and {item:15094}: {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this."] = "1.029 {item:8170} für {item:15564}, {item:15083} und {item:15094}: {skill:393}: Tiere der Stufen 48-60. Häute hier {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} und {npc:6377} (Stufe 48-60); der {skill:393}-Guide routet das."
 	["You need 1029 {item:8170} for {skill:165} 225-300: {item:15564}, {item:15083} and {item:15094}. {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",

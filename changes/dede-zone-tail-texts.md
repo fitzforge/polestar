@@ -1,6 +1,6 @@
 ---
 section: players
 ---
-- German (deDE): 167 remaining guide texts in 20 zone, dungeon, reputation and
+- German (deDE): 286 remaining guide texts in 24 zone, dungeon, reputation and
   profession guides, including Shendralas' Pylons, Timbermaw Hold, the Eastern
-  Plaguelands and the first 300 levels of Alchemy.
+  Plaguelands, Alchemy and Blacksmithing.

@@ -22,55 +22,55 @@ return {
 
 	-- Step 3: Get Rough Stone (Elwynn Forest)
 	-- {item:2835} Rough Stone · {zone:1429} Elwynn Forest
-	["Get {item:2835} ({zone:1429})"] = "",
+	["Get {item:2835} ({zone:1429})"] = "Sammle {item:2835} ({zone:1429})",
 	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1429} Elwynn Forest
 	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1429} is marked. Or buy them at the Auction House."] = "",
 
 	-- Step 4: Get Rough Stone (Dun Morogh)
 	-- {item:2835} Rough Stone · {zone:1426} Dun Morogh
-	["Get {item:2835} ({zone:1426})"] = "",
+	["Get {item:2835} ({zone:1426})"] = "Sammle {item:2835} ({zone:1426})",
 	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1426} Dun Morogh
 	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1426} is marked. Or buy them at the Auction House."] = "",
 
 	-- Step 5: Get Rough Stone (Darkshore)
 	-- {item:2835} Rough Stone · {zone:1439} Darkshore
-	["Get {item:2835} ({zone:1439})"] = "",
+	["Get {item:2835} ({zone:1439})"] = "Sammle {item:2835} ({zone:1439})",
 	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1439} Darkshore
 	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1439} is marked. Or buy them at the Auction House."] = "",
 
 	-- Step 6: Get Rough Stone (Zephras Isle)
 	-- {item:2835} Rough Stone · {zone:2521} Zephras Isle
-	["Get {item:2835} ({zone:2521})"] = "",
+	["Get {item:2835} ({zone:2521})"] = "Sammle {item:2835} ({zone:2521})",
 	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:2521} Zephras Isle
 	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:2521} is marked. Or buy them at the Auction House."] = "",
 
 	-- Step 7: Get Rough Stone (Durotar)
 	-- {item:2835} Rough Stone · {zone:1411} Durotar
-	["Get {item:2835} ({zone:1411})"] = "",
+	["Get {item:2835} ({zone:1411})"] = "Sammle {item:2835} ({zone:1411})",
 	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1411} Durotar
 	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1411} is marked. Or buy them at the Auction House."] = "",
 
 	-- Step 8: Get Rough Stone (Mulgore)
 	-- {item:2835} Rough Stone · {zone:1412} Mulgore
-	["Get {item:2835} ({zone:1412})"] = "",
+	["Get {item:2835} ({zone:1412})"] = "Sammle {item:2835} ({zone:1412})",
 	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1412} Mulgore
 	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1412} is marked. Or buy them at the Auction House."] = "",
 
 	-- Step 9: Get Rough Stone (Tirisfal Glades)
 	-- {item:2835} Rough Stone · {zone:1420} Tirisfal Glades
-	["Get {item:2835} ({zone:1420})"] = "",
+	["Get {item:2835} ({zone:1420})"] = "Sammle {item:2835} ({zone:1420})",
 	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1420} Tirisfal Glades
 	["You need 46 {item:2835} for {skill:202} 1-75: {spell:3918}. {skill:186}: {object:1731} (skill 1). The densest cluster of {object:1731} in {zone:1420} is marked. Or buy them at the Auction House."] = "",
 
 	-- Step 10: Get Copper Bar (Alliance)
 	-- {item:2840} Copper Bar
-	["Get {item:2840} (Alliance)"] = "",
+	["Get {item:2840} (Alliance)"] = "Sammle {item:2840} (Allianz)",
 	-- {item:2840} Copper Bar · {skill:202} Engineering · {spell:3922} Handful of Copper Bolts · {item:6219} Arclight Spanner · {spell:3924} Copper Tube · {object:1731} Copper Vein · {skill:186} Mining · {item:2770} Copper Ore · {zone:1426} Dun Morogh
 	["You need 75 {item:2840} for {skill:202} 1-75: {spell:3922}, {item:6219} and {spell:3924}. Mine {object:1731} ({skill:186} 1) for {item:2770} and smelt it at a forge ({skill:186} 1). The densest cluster of {object:1731} in {zone:1426} is marked. Or buy them at the Auction House."] = "",
 
 	-- Step 11: Get Copper Bar (Horde)
 	-- {item:2840} Copper Bar
-	["Get {item:2840} (Horde)"] = "",
+	["Get {item:2840} (Horde)"] = "Sammle {item:2840} (Horde)",
 	-- {item:2840} Copper Bar · {skill:202} Engineering · {spell:3922} Handful of Copper Bolts · {item:6219} Arclight Spanner · {spell:3924} Copper Tube · {object:1731} Copper Vein · {skill:186} Mining · {item:2770} Copper Ore · {zone:1411} Durotar
 	["You need 75 {item:2840} for {skill:202} 1-75: {spell:3922}, {item:6219} and {spell:3924}. Mine {object:1731} ({skill:186} 1) for {item:2770} and smelt it at a forge ({skill:186} 1). The densest cluster of {object:1731} in {zone:1411} is marked. Or buy them at the Auction House."] = "",
 
@@ -122,49 +122,49 @@ return {
 
 	-- Step 19: Get Coarse Stone (Westfall)
 	-- {item:2836} Coarse Stone · {zone:1436} Westfall
-	["Get {item:2836} ({zone:1436})"] = "",
+	["Get {item:2836} ({zone:1436})"] = "Sammle {item:2836} ({zone:1436})",
 	-- {item:2836} Coarse Stone · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1436} Westfall
 	["You need 15 {item:2836} for {skill:202} 75-150: {spell:3930}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1436} is marked. Or buy them at the Auction House."] = "",
 
 	-- Step 20: Get Coarse Stone (Loch Modan)
 	-- {item:2836} Coarse Stone · {zone:1432} Loch Modan
-	["Get {item:2836} ({zone:1432})"] = "",
+	["Get {item:2836} ({zone:1432})"] = "Sammle {item:2836} ({zone:1432})",
 	-- {item:2836} Coarse Stone · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1432} Loch Modan
 	["You need 15 {item:2836} for {skill:202} 75-150: {spell:3930}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1432} is marked. Or buy them at the Auction House."] = "",
 
 	-- Step 21: Get Coarse Stone (Darkshore)
 	-- {item:2836} Coarse Stone · {zone:1439} Darkshore
-	["Get {item:2836} ({zone:1439})"] = "",
+	["Get {item:2836} ({zone:1439})"] = "Sammle {item:2836} ({zone:1439})",
 	-- {item:2836} Coarse Stone · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1439} Darkshore
 	["You need 15 {item:2836} for {skill:202} 75-150: {spell:3930}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1439} is marked. Or buy them at the Auction House."] = "",
 
 	-- Step 22: Get Coarse Stone (The Barrens)
 	-- {item:2836} Coarse Stone · {zone:1413} The Barrens
-	["Get {item:2836} ({zone:1413})"] = "",
+	["Get {item:2836} ({zone:1413})"] = "Sammle {item:2836} ({zone:1413})",
 	-- {item:2836} Coarse Stone · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens
 	["You need 15 {item:2836} for {skill:202} 75-150: {spell:3930}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1413} is marked. Or buy them at the Auction House."] = "",
 
 	-- Step 23: Get Coarse Stone (Silverpine Forest)
 	-- {item:2836} Coarse Stone · {zone:1421} Silverpine Forest
-	["Get {item:2836} ({zone:1421})"] = "",
+	["Get {item:2836} ({zone:1421})"] = "Sammle {item:2836} ({zone:1421})",
 	-- {item:2836} Coarse Stone · {skill:202} Engineering · {spell:3930} Crafted Heavy Shot · {skill:186} Mining · {object:1732} Tin Vein · {zone:1421} Silverpine Forest
 	["You need 15 {item:2836} for {skill:202} 75-150: {spell:3930}. {skill:186}: {object:1732} (skill 65). The densest cluster of {object:1732} in {zone:1421} is marked. Or buy them at the Auction House."] = "",
 
 	-- Step 24: Get Heavy Stone (Arathi Highlands)
 	-- {item:2838} Heavy Stone · {zone:1417} Arathi Highlands
-	["Get {item:2838} ({zone:1417})"] = "",
+	["Get {item:2838} ({zone:1417})"] = "Sammle {item:2838} ({zone:1417})",
 	-- {item:2838} Heavy Stone · {skill:202} Engineering · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands
 	["You need 27 {item:2838} for {skill:202} 75-150: {spell:3945}. {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1417} is marked. Or buy them at the Auction House."] = "",
 
 	-- Step 25: Get Heavy Stone (Ashenvale)
 	-- {item:2838} Heavy Stone · {zone:1440} Ashenvale
-	["Get {item:2838} ({zone:1440})"] = "",
+	["Get {item:2838} ({zone:1440})"] = "Sammle {item:2838} ({zone:1440})",
 	-- {item:2838} Heavy Stone · {skill:202} Engineering · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1440} Ashenvale
 	["You need 27 {item:2838} for {skill:202} 75-150: {spell:3945}. {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1440} is marked. Or buy them at the Auction House."] = "",
 
 	-- Step 26: Get Heavy Stone (The Barrens)
 	-- {item:2838} Heavy Stone · {zone:1413} The Barrens
-	["Get {item:2838} ({zone:1413})"] = "",
+	["Get {item:2838} ({zone:1413})"] = "Sammle {item:2838} ({zone:1413})",
 	-- {item:2838} Heavy Stone · {skill:202} Engineering · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1413} The Barrens
 	["You need 27 {item:2838} for {skill:202} 75-150: {spell:3945}. {skill:186}: {object:1735} (skill 125). The densest cluster of {object:1735} in {zone:1413} is marked. Or buy them at the Auction House."] = "",
 
@@ -178,7 +178,7 @@ return {
 
 	-- Step 30: Get Bronze Bar
 	-- {item:2841} Bronze Bar
-	["Get {item:2841}"] = "",
+	["Get {item:2841}"] = "Sammle {item:2841}",
 	-- {item:2841} Bronze Bar · {skill:202} Engineering · {item:6712} Practice Lock · {spell:3950} Big Bronze Bomb · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
 	["You need 61 {item:2841} for {skill:202} 75-150: {item:6712} and {spell:3950}. {skill:186}: smelt {item:2840} and {item:3576}. Or buy them at the Auction House."] = "",
 
@@ -292,7 +292,7 @@ return {
 	-- Step 47: Get Heavy Stone (Alliance)
 	-- {item:2838} Heavy Stone
 	-- was: ["{item:2838} (Alliance)"] = "{item:2838} (Allianz)"
-	["Get {item:2838} (Alliance)"] = "",
+	["Get {item:2838} (Alliance)"] = "Sammle {item:2838} (Allianz)",
 	-- {item:2838} Heavy Stone · {skill:202} Engineering · {spell:3967} Big Iron Bomb · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {zone:1443} Desolace
 	-- was: ["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked."] = "74 {item:2838} für {spell:3967}: {skill:186}: {object:1735} (Fertigkeit 125) in {zone:1417} (30-40), {zone:1434} (30-45) und {zone:1443} (30-40). Das dichteste Vorkommen von {object:1735} in {zone:1417} ist markiert."
 	["You need 74 {item:2838} for {skill:202} 150-225: {spell:3967}. {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked. Or buy them at the Auction House."] = "",
@@ -300,7 +300,7 @@ return {
 	-- Step 48: Get Heavy Stone (Horde)
 	-- {item:2838} Heavy Stone
 	-- was: ["{item:2838} (Horde)"] = "{item:2838} (Horde)"
-	["Get {item:2838} (Horde)"] = "",
+	["Get {item:2838} (Horde)"] = "Sammle {item:2838} (Horde)",
 	-- {item:2838} Heavy Stone · {skill:202} Engineering · {spell:3967} Big Iron Bomb · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1441} Thousand Needles · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
 	-- was: ["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked."] = "74 {item:2838} für {spell:3967}: {skill:186}: {object:1735} (Fertigkeit 125) in {zone:1441} (25-35), {zone:1417} (30-40) und {zone:1434} (30-45). Das dichteste Vorkommen von {object:1735} in {zone:1441} ist markiert."
 	["You need 74 {item:2838} for {skill:202} 150-225: {spell:3967}. {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked. Or buy them at the Auction House."] = "",
@@ -315,32 +315,32 @@ return {
 
 	-- Step 51: Get Iron Bar (Alliance)
 	-- {item:3575} Iron Bar
-	["Get {item:3575} (Alliance)"] = "",
+	["Get {item:3575} (Alliance)"] = "Sammle {item:3575} (Allianz)",
 	-- {item:3575} Iron Bar · {skill:202} Engineering · {spell:3967} Big Iron Bomb · {object:1735} Iron Deposit · {skill:186} Mining · {item:2772} Iron Ore · {zone:1417} Arathi Highlands
 	["You need 81 {item:3575} for {skill:202} 150-225: {spell:3967}. Mine {object:1735} ({skill:186} 125) for {item:2772} and smelt it at a forge ({skill:186} 125). The densest cluster of {object:1735} in {zone:1417} is marked. Or buy them at the Auction House."] = "",
 
 	-- Step 52: Get Iron Bar (Horde)
 	-- {item:3575} Iron Bar
-	["Get {item:3575} (Horde)"] = "",
+	["Get {item:3575} (Horde)"] = "Sammle {item:3575} (Horde)",
 	-- {item:3575} Iron Bar · {skill:202} Engineering · {spell:3967} Big Iron Bomb · {object:1735} Iron Deposit · {skill:186} Mining · {item:2772} Iron Ore · {zone:1441} Thousand Needles
 	["You need 81 {item:3575} for {skill:202} 150-225: {spell:3967}. Mine {object:1735} ({skill:186} 125) for {item:2772} and smelt it at a forge ({skill:186} 125). The densest cluster of {object:1735} in {zone:1441} is marked. Or buy them at the Auction House."] = "",
 
 	-- Step 53: Get Mithril Bar (Alliance)
 	-- {item:3860} Mithril Bar
-	["Get {item:3860} (Alliance)"] = "",
+	["Get {item:3860} (Alliance)"] = "Sammle {item:3860} (Allianz)",
 	-- {item:3860} Mithril Bar · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {object:2040} Mithril Deposit · {skill:186} Mining · {item:3858} Mithril Ore · {zone:1434} Stranglethorn Vale
 	["You need 19 {item:3860} for {skill:202} 150-225: {item:10512}. Mine {object:2040} ({skill:186} 175) for {item:3858} and smelt it at a forge ({skill:186} 175). The densest cluster of {object:2040} in {zone:1434} is marked. Or buy them at the Auction House."] = "",
 
 	-- Step 54: Get Mithril Bar (Horde)
 	-- {item:3860} Mithril Bar
-	["Get {item:3860} (Horde)"] = "",
+	["Get {item:3860} (Horde)"] = "Sammle {item:3860} (Horde)",
 	-- {item:3860} Mithril Bar · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {object:2040} Mithril Deposit · {skill:186} Mining · {item:3858} Mithril Ore · {zone:1443} Desolace
 	["You need 19 {item:3860} for {skill:202} 150-225: {item:10512}. Mine {object:2040} ({skill:186} 175) for {item:3858} and smelt it at a forge ({skill:186} 175). The densest cluster of {object:2040} in {zone:1443} is marked. Or buy them at the Auction House."] = "",
 
 	-- Step 55: Get Solid Stone (Alliance)
 	-- {item:7912} Solid Stone
 	-- was: ["{item:7912} (Alliance)"] = "{item:7912} (Allianz)"
-	["Get {item:7912} (Alliance)"] = "",
+	["Get {item:7912} (Alliance)"] = "Sammle {item:7912} (Allianz)",
 	-- {item:7912} Solid Stone · {skill:202} Engineering · {item:10505} Solid Blasting Powder · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands · {zone:1444} Feralas
 	-- was: ["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked."] = "62 {item:7912} für {item:10505}: {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1434} (30-45), {zone:1425} (40-50) und {zone:1444} (40-50). Das dichteste Vorkommen von {object:2040} in {zone:1434} ist markiert."
 	["You need 62 {item:7912} for {skill:202} 150-225: {item:10505}. {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked. Or buy them at the Auction House."] = "",
@@ -348,7 +348,7 @@ return {
 	-- Step 56: Get Solid Stone (Horde)
 	-- {item:7912} Solid Stone
 	-- was: ["{item:7912} (Horde)"] = "{item:7912} (Horde)"
-	["Get {item:7912} (Horde)"] = "",
+	["Get {item:7912} (Horde)"] = "Sammle {item:7912} (Horde)",
 	-- {item:7912} Solid Stone · {skill:202} Engineering · {item:10505} Solid Blasting Powder · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
 	-- was: ["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "62 {item:7912} für {item:10505}: {skill:186}: {object:2040} (Fertigkeit 175) in {zone:1443} (30-40), {zone:1425} (40-50) und {zone:1444} (40-50). Das dichteste Vorkommen von {object:2040} in {zone:1443} ist markiert."
 	["You need 62 {item:7912} for {skill:202} 150-225: {item:10505}. {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked. Or buy them at the Auction House."] = "",
@@ -438,13 +438,13 @@ return {
 
 	-- Step 72: Get Thorium Bar (Alliance)
 	-- {item:12359} Thorium Bar
-	["Get {item:12359} (Alliance)"] = "",
+	["Get {item:12359} (Alliance)"] = "Sammle {item:12359} (Allianz)",
 	-- {item:12359} Thorium Bar · {skill:202} Engineering · {item:15994} Thorium Widget · {item:16000} Thorium Tube · {object:324} Small Thorium Vein · {skill:186} Mining · {item:10620} Thorium Ore · {zone:1419} Blasted Lands
 	["You need 156 {item:12359} for {skill:202} 225-300: {item:15994} and {item:16000}. Mine {object:324} ({skill:186} 245) for {item:10620} and smelt it at a forge ({skill:186} 250). The densest cluster of {object:324} in {zone:1419} is marked. Or buy them at the Auction House."] = "",
 
 	-- Step 73: Get Thorium Bar (Horde)
 	-- {item:12359} Thorium Bar
-	["Get {item:12359} (Horde)"] = "",
+	["Get {item:12359} (Horde)"] = "Sammle {item:12359} (Horde)",
 	-- {item:12359} Thorium Bar · {skill:202} Engineering · {item:15994} Thorium Widget · {item:16000} Thorium Tube · {object:324} Small Thorium Vein · {skill:186} Mining · {item:10620} Thorium Ore · {zone:1448} Felwood
 	["You need 156 {item:12359} for {skill:202} 225-300: {item:15994} and {item:16000}. Mine {object:324} ({skill:186} 245) for {item:10620} and smelt it at a forge ({skill:186} 250). The densest cluster of {object:324} in {zone:1448} is marked. Or buy them at the Auction House."] = "",
 
