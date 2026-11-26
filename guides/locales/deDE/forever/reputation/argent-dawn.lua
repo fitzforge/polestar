@@ -127,9 +127,9 @@ return {
 	-- Step 11: Mantles of the Dawn
 	-- {npc:11536} Quartermaster Miranda Breechlock · {quest:5513} Mantles of the Dawn · {faction:529} Argent Dawn · {item:18173} Shadow Mantle of the Dawn · {item:13810} Blessed Sunfruit
 	-- plural, as words: Argent Dawn Valor Tokens = {item:12844} Argent Dawn Valor Token
-	["At Revered, {npc:11536} takes 10 Argent Dawn Valor Tokens for {quest:5513} (100 reputation). After it, any {faction:529} quartermaster sells the five shoulder enchants for 10 gold each: Flame, Frost, Arcane, Nature and {item:18173}, +5 to that resistance. Revered also opens the {item:13810} and its juice (60 silver) and the Revered recipes."] = "Bei Respektvoll nimmt {npc:11536} 10 Argent Dawn Valor Tokens für {quest:5513} an (100 Ruf). Danach verkauft jeder Rüstmeister von {faction:529} die fünf Schulterverzauberungen für je 10 Gold: Feuer, Frost, Arkan, Natur und {item:18173}, +5 auf diesen Widerstand. Respektvoll schaltet außerdem die {item:13810} und ihren Saft (60 Silber) und die Rezepte für Respektvoll frei.",
+	["At Revered, {npc:11536} takes 10 Argent Dawn Valor Tokens for {quest:5513} (100 reputation). After it, any {faction:529} quartermaster sells the five shoulder enchants for 10 gold each: Flame, Frost, Arcane, Nature and {item:18173}, +5 to that resistance. Revered also opens the {item:13810} and its juice (60 silver) and the Revered recipes."] = "Bei Respektvoll nimmt {npc:11536} 10 Ehrenmarken der Argentumdämmerung für {quest:5513} an (100 Ruf). Danach verkauft jeder Rüstmeister von {faction:529} die fünf Schulterverzauberungen für je 10 Gold: Feuer, Frost, Arkan, Natur und {item:18173}, +5 auf diesen Widerstand. Respektvoll schaltet außerdem die {item:13810} und ihren Saft (60 Silber) und die Rezepte für Respektvoll frei.",
 	-- plural, as words: Argent Dawn Valor Tokens = {item:12844} Argent Dawn Valor Token
-	["Argent Dawn Valor Tokens, from the stone turn-ins"] = "Argent Dawn Valor Tokens, aus den Steinabgaben",
+	["Argent Dawn Valor Tokens, from the stone turn-ins"] = "Ehrenmarken der Argentumdämmerung, aus den Steinabgaben",
 	-- {item:18170} Frost Mantle of the Dawn
 	["{item:18170}: pick the resistance you need, 10 gold"] = "{item:18170}: wähle den Widerstand, den du brauchst, 10 Gold",
 	-- {item:19447} Formula: Enchant Bracer - Healing
@@ -149,7 +149,7 @@ return {
 	-- Step 13: Chromatic Mantle of the Dawn
 	-- {npc:11536} Quartermaster Miranda Breechlock · {quest:5517} Chromatic Mantle of the Dawn
 	-- plural, as words: Argent Dawn Valor Tokens = {item:12844} Argent Dawn Valor Token
-	["At Exalted, {npc:11536} takes 25 Argent Dawn Valor Tokens for the {quest:5517} (150 reputation): +5 to every resistance, on your shoulders. After it, the quartermasters sell more for 40 gold each."] = "Bei Ehrfürchtig nimmt {npc:11536} 25 Argent Dawn Valor Tokens für die {quest:5517} an (150 Ruf): +5 auf alle Widerstände, auf deinen Schultern. Danach verkaufen die Rüstmeister weitere für je 40 Gold.",
+	["At Exalted, {npc:11536} takes 25 Argent Dawn Valor Tokens for the {quest:5517} (150 reputation): +5 to every resistance, on your shoulders. After it, the quartermasters sell more for 40 gold each."] = "Bei Ehrfürchtig nimmt {npc:11536} 25 Ehrenmarken der Argentumdämmerung für die {quest:5517} an (150 Ruf): +5 auf alle Widerstände, auf deinen Schultern. Danach verkaufen die Rüstmeister weitere für je 40 Gold.",
 	-- plural, as words: Argent Dawn Valor Tokens = {item:12844} Argent Dawn Valor Token
 	["Argent Dawn Valor Tokens"] = "Ehrenmarke der Argentumdämmerung",
 
