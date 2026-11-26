@@ -271,7 +271,7 @@ GF.Part(function(GF)
 	-- then; it comes back when more are (this session).
 	GF.offRouteClosed = nil
 	GF.CONTENT = { "GetGuide", "GetTabs", "GetStepIndex", "GetLiveStep", "GetStepCount", "GetStepView", "StepNumber", "StepTotal",
-		"GetProgress", "GetAlong", "GetWhileHereList", "LeftOutHere", "Pace", "XPStats", "RestParts", "Target" }
+		"GetProgress", "GetAlong", "GetWhileHereList", "LeftOutHere", "SkippedEarlier", "Pace", "XPStats", "RestParts", "Target" }
 	local DERIVED = GF.live and {
 		Pace = function()
 			local Lv = ns.Levels
@@ -1391,6 +1391,11 @@ GF.Part(function(GF)
 				UI.DungeonToast.GrindOpen(self.psDungeon.key)
 				return
 			end
+			-- "Skipped earlier" (#86): click takes the quest back into the route.
+			if self.psEarlier then
+				ns.Engine.TakeEarlier(self.psEarlier.quest)
+				return
+			end
 			-- "Left out here" (#2634): a quest's fix, or the setting off.
 			local item, fix = self.psOutItem, self.psOutFix
 			if item then
@@ -1440,6 +1445,9 @@ GF.Part(function(GF)
 				if item.fix and item.fix.kind == "chain" then
 					tips[2] = { L["Click for a guide to it, through what it needs first"], Theme.Accent() }
 				end
+			elseif self.psEarlier then
+				tips[1] = L["You were further on in this guide when you started, so the route passed it."]
+				tips[2] = { L["Click to take it back into the route, × to dismiss it"], Theme.Accent() }
 			elseif self.psOutFix then
 				tips[1] = L["Brings back the quests it leaves out. Settings, Automation turns it on again."]
 			elseif self.psRoom then
@@ -1504,7 +1512,10 @@ GF.Part(function(GF)
 			l.Close = CreateFrame("Button", nil, l)
 			l.Close:SetSize(ICON + 6, lh)
 			l.Close:SetPoint("CENTER", l.Icon, "CENTER", 0, 0)
-			l.Close:SetScript("OnClick", function() GF.DismissOffRoute() end)
+			l.Close:SetScript("OnClick", function(self)
+				local early = self:GetParent().psEarlier
+				if early then ns.Engine.DismissEarlier(early.quest) else GF.DismissOffRoute() end
+			end)
 			l.Close:SetScript("OnEnter", function(self)
 				W.Color(l.Icon, "text")
 				W.Tooltip(self, "ANCHOR_TOP", L["Close"], { L["Hides this line until more quests are off your route."] })
@@ -2696,7 +2707,7 @@ GF.Part(function(GF)
 	-- it. The dungeon line (key "dungeon") is a link: its chevron points on.
 	local function paintLine(l, key, icon, iconColor, text, list, title, open)
 		l.psKey, l.psGoals, l.psTitle, l.psDungeon = key, list, title, nil
-		l.psOut, l.psOutItem, l.psOutFix, l.psRoom, l.psInfo, l.psNear, l.psBack = nil, nil, nil, nil, nil, nil, nil
+		l.psOut, l.psOutItem, l.psOutFix, l.psRoom, l.psInfo, l.psNear, l.psBack, l.psEarlier = nil, nil, nil, nil, nil, nil, nil, nil
 		if l.Close then l.Close:Hide() end
 		l.Icon:SetTexture((icon == "check" or icon == "icon-dungeon" or icon == "skip" or icon == "cross") and Theme.Media(icon) or Theme.VerbIcon(icon))
 		W.Color(l.Icon, iconColor)
@@ -3098,6 +3109,22 @@ GF.Part(function(GF)
 					local fl = addLine("leftOutFix", "skip", "accent", "|c" .. Theme.Hex("accent") .. L["Turn off Skip grey quests"] .. "|r", nil, L["Skip grey quests"], false)
 					fl.psOutFix = true
 					fl.Chevron:SetTexture(Theme.Media("chevron-right"))
+				end
+			end
+		end
+		-- Skipped earlier (#86, Engine.SkippedEarlier): the quests placement passed
+		-- behind the player's progress, one dim line, opened a line each: a click
+		-- takes it back into the route, the × dismisses it.
+		local earlier = GF.live and GF.On("leftOut") and E.SkippedEarlier and E.SkippedEarlier() or nil
+		if earlier and #earlier > 0 then
+			local open = model.open.earlier
+			addLine("earlier", "skip", "textMuted", string.format(L["%d quests you skipped earlier"], #earlier), nil, L["Skipped earlier"], open)
+			if open then
+				for k, o in ipairs(earlier) do
+					local il = addLine("earlier" .. k, "accept", "textMuted", o.title, nil, o.title, false)
+					il.psEarlier = o
+					il.Chevron:SetTexture(Theme.Media("chevron-right"))
+					if il.Close then il.Close:Show() end
 				end
 			end
 		end
