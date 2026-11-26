@@ -1127,11 +1127,16 @@ fn a_left_out_accept_names_the_earlier_guide_s_quest_it_lacks_never_one_of_its_o
 // the two accepts are left out with their hand-ins. A player who holds one of them has the chain under way: it stays.
 #[test]
 fn an_optional_class_chain_brings_no_feeder_and_is_left_out_unless_under_way_3925() {
+	// The plan is made when a tab opens the guide, with the quest log in. A player carrying one of the chain's quests
+	// has the login suggest this guide (#86 ranks by progress), planned before the list below is set; open another
+	// first, so test/07 opens afresh here whoever the login chose.
+	const ELSEWHERE_FIRST: &str = r#"E.SetGuide("test/side"); flush()
+"#;
 	const OPTIONAL: &str = r#"
 Polestar.ClassQuestList = { OptionalGuide = function() return false end, OptionalQuest = function(q) return q == 23 or q == 24 end }
 Polestar.ClassRewards = { rewards = {}, quests = { [23] = { 1024, 23, 0 }, [24] = { 1024, 23, 0 } } }
 "#;
-	let fresh = run("", NEAR, &format!("{OPTIONAL}{OPEN}\nemit(r)"));
+	let fresh = run("", NEAR, &format!("{OPTIONAL}{ELSEWHERE_FIRST}{OPEN}\nemit(r)"));
 	assert_eq!(
 		fresh["shape"],
 		json!([
@@ -1146,7 +1151,7 @@ Polestar.ClassRewards = { rewards = {}, quests = { [23] = { 1024, 23, 0 }, [24] 
 		"{fresh}"
 	);
 	assert_eq!(fresh["hidden"], json!([23, 24]), "{fresh}");
-	let held = run("w.onQuest(23, {})", NEAR, &format!("{OPTIONAL}{OPEN}\nemit(r)"));
+	let held = run("w.onQuest(23, {})", NEAR, &format!("{OPTIONAL}{ELSEWHERE_FIRST}{OPEN}\nemit(r)"));
 	assert!(held["shape"].as_array().unwrap().iter().any(|s| s.as_str().unwrap().contains("turnin:23")), "the chain under way keeps its hand-in: {held}");
 	assert!(!held["hidden"].as_array().unwrap().iter().any(|q| q == 23), "{held}");
 }
