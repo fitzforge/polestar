@@ -116,7 +116,7 @@ ns.RegisterCommand("reset", function()
 	if not needGuide() then return end
 	Engine.ResetProgress(true)
 	ns.Print(L["Cleared every tick, skip and saved step for this guide. It starts at the first quest you can take."])
-end, L["Reset everything: clear all ticks and skips for the current guide"])
+end, L["Clear ticks and skips for the current guide"])
 
 ns.RegisterCommand("resetfrom", function()
 	if not needGuide() then return end
