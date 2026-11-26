@@ -298,7 +298,7 @@ return {
 
 	-- Step 49: Get Runecloth
 	-- {item:14047} Runecloth
-	["Get {item:14047}"] = "",
+	["Get {item:14047}"] = "Sammle {item:14047}",
 	-- {item:14047} Runecloth · {skill:165} Leatherworking · {item:15094} Runic Leather Headband
 	["You need 430 {item:14047} for {skill:165} 225-300: {item:15094}. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
