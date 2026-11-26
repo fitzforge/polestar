@@ -1,8 +1,10 @@
 -- Atlas's dungeon parts (docs/DESIGN.md, "The Guide Window" and "The Dungeon
 -- Tracker"; Polestar/UI/GuideFrameKindDungeon.lua, Polestar/UI/DungeonTracker.lua):
 -- a dungeon guide's quests to pick up as a card above the window, and the
--- floating dungeon tracker's loot, quests and bosses as three stacked cards
--- under its head. Loaded before Atlas.lua, which hands each part in
+-- floating dungeon tracker's loot, quests and bosses as three stacked cards,
+-- with no head of the tracker's over them (their headings say what it would;
+-- the tracker's frame shrinks to the cards' anchor and the cards move it).
+-- Loaded before Atlas.lua, which hands each part in
 -- S.atlasParts its hook registry, its leave list and its Core.
 
 local _, S = ...
@@ -50,6 +52,7 @@ S.atlasParts[#S.atlasParts + 1] = function(on, onLeave, Core)
 	---------------------------------------------------------------------------
 
 	local holders = setmetatable({}, { __mode = "k" }) -- tracker frame -> { holder, cards = { name -> card } }
+	local flat = setmetatable({}, { __mode = "k" }) -- the tracker's own amber cards, flattened into their Atlas card
 	local HEAD_H = 24
 	local GAP = 6
 	local ORDER = { loot = 1, quests = 2, bosses = 3 }
@@ -57,13 +60,26 @@ S.atlasParts[#S.atlasParts + 1] = function(on, onLeave, Core)
 	local function holderOf(tracker)
 		local h = holders[tracker]
 		if h then return h end
-		h = { cards = {}, placed = {} }
+		h = { cards = {}, placed = {}, tracker = tracker }
 		h.frame = CreateFrame("Frame", tracker:GetName() == "PolestarDungeonTracker" and "PolestarAtlasDungeonCards" or nil, tracker)
-		h.frame:SetPoint("TOPLEFT", tracker, "BOTTOMLEFT", 0, -GAP)
-		h.frame:SetPoint("TOPRIGHT", tracker, "BOTTOMRIGHT", 0, -GAP)
 		h.frame:SetHeight(1)
 		holders[tracker] = h
 		return h
+	end
+
+	-- The cards start at the frame's top where the quests stand on one (the tracker has no head then), else
+	-- under its head.
+	local function anchorHolder(h)
+		local t = h.tracker
+		local up = h.placed.quests and h.placed.quests:IsShown()
+		h.frame:ClearAllPoints()
+		if up then
+			h.frame:SetPoint("TOPLEFT", t, "TOPLEFT", 0, 0)
+			h.frame:SetPoint("TOPRIGHT", t, "TOPRIGHT", 0, 0)
+		else
+			h.frame:SetPoint("TOPLEFT", t, "BOTTOMLEFT", 0, -GAP)
+			h.frame:SetPoint("TOPRIGHT", t, "BOTTOMRIGHT", 0, -GAP)
+		end
 	end
 
 	local function cardOf(h, name, tracker)
@@ -77,6 +93,8 @@ S.atlasParts[#S.atlasParts + 1] = function(on, onLeave, Core)
 			c.Right = c:CreateFontString(nil, "OVERLAY")
 			Theme.Font(c.Right, "small")
 			c.Right:SetPoint("TOPRIGHT", c, "TOPRIGHT", -12, -9)
+			-- The cards move the tracker as its frame does (the frame itself is a line without its head).
+			if tracker.psDrag and P.DragWindow then P.DragWindow(c, tracker, tracker.psDrag) end
 			h.cards[name] = c
 		end
 		Core.cardDress(c, tracker)
@@ -96,6 +114,7 @@ S.atlasParts[#S.atlasParts + 1] = function(on, onLeave, Core)
 
 	-- Lays the cards out in order, each the height its section asked.
 	local function stackCards(h)
+		anchorHolder(h)
 		local y = 0
 		for _, name in ipairs({ "loot", "quests", "bosses" }) do
 			local c, part = h.cards[name], h.placed[name]
@@ -120,6 +139,30 @@ S.atlasParts[#S.atlasParts + 1] = function(on, onLeave, Core)
 		h.frame:Show()
 	end
 
+	-- The reminder's own amber card, flat on the Atlas card: its ground, wash and bar go (a card in a card);
+	-- the Atlas card carries the 2px warning bar, and the entries stand where the other cards' rows do.
+	local function flatten(c, part)
+		if not c.psWarnBar then
+			c.psWarnBar = P.Widgets.Tex(c, "ARTWORK", nil, "warning")
+			c.psWarnBar:SetWidth(2)
+			c.psWarnBar:SetPoint("TOPLEFT", c, "TOPLEFT", 0, 0)
+			c.psWarnBar:SetPoint("BOTTOMLEFT", c, "BOTTOMLEFT", 0, 0)
+		end
+		c.psWarnBar:Show()
+		local y = 0
+		for _, ic in ipairs(rawget(part, "Cards") or {}) do
+			if ic:IsShown() then
+				flat[ic] = true
+				ic.Face:Hide()
+				ic.Face:SetAlpha(0) -- and clear: the skin's repaints must not bring its pieces back
+				ic:ClearAllPoints()
+				ic:SetPoint("TOPLEFT", part, "TOPLEFT", 0, -y)
+				ic:SetPoint("TOPRIGHT", part, "TOPRIGHT", 0, -y)
+				y = y + ic:GetHeight() + 4
+			end
+		end
+	end
+
 	on("trackerPlace", function(name, part, width, height)
 		if not ORDER[name] then return nil end
 		local tracker = trackerOf(part)
@@ -140,6 +183,7 @@ S.atlasParts[#S.atlasParts + 1] = function(on, onLeave, Core)
 		else
 			c.Head:SetText(Core.upper(tr(HEADS.loot or "")))
 			c.Right:SetText("")
+			flatten(c, part)
 		end
 		for _, r in ipairs({ label, right, rule }) do r:Hide() end
 		Core.capsLabel(c.Head)
@@ -155,6 +199,13 @@ S.atlasParts[#S.atlasParts + 1] = function(on, onLeave, Core)
 		for tracker, h in pairs(holders) do
 			h.frame:Hide()
 			h.placed = {}
+			local loot = h.cards.loot
+			if loot and loot.psWarnBar then loot.psWarnBar:Hide() end
+		end
+		for ic in pairs(flat) do
+			ic.Face:Show()
+			ic.Face:SetAlpha(1)
+			flat[ic] = nil
 		end
 		for part in pairs(styled) do
 			local head = rawget(part, "Head")

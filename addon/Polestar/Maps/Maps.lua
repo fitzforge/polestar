@@ -218,13 +218,15 @@ function Maps.CompactFrame(name, posKey, defaultPoint, dx, dy)
 			f:SetPoint(defaultPoint, UIParent, defaultPoint, dx, dy)
 		end
 	end
-	-- Dragged from the first pixel (ns.DragWindow); the spot saved on the drop.
-	ns.DragWindow(f, f, { locked = function() return ns.DragLocked() end, onStop = function(self)
+	-- Dragged from the first pixel (ns.DragWindow); the spot saved on the drop. f.psDrag: what a part standing
+	-- off the frame (a layout's card) hands ns.DragWindow to move it too.
+	f.psDrag = { locked = function() return ns.DragLocked() end, onStop = function(self)
 		local cx, cy = self:GetCenter()
 		local ux, uy = UIParent:GetCenter()
 		local s = self:GetEffectiveScale() / UIParent:GetEffectiveScale()
 		ns.Set(posKey, { "CENTER", floor(cx * s - ux + 0.5), floor(cy * s - uy + 0.5) })
-	end })
+	end }
+	ns.DragWindow(f, f, f.psDrag)
 	f.Place = place
 	place()
 	f:Hide()

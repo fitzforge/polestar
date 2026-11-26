@@ -27,7 +27,7 @@
 
 local ADDON, ns = ...
 local UI, Theme, W, L = ns.UI, ns.Theme, ns.Widgets, ns.L
-local floor, max, min, format, concat = math.floor, math.max, math.min, string.format, table.concat
+local floor, ceil, max, min, format, concat = math.floor, math.ceil, math.max, math.min, string.format, table.concat
 
 local DT = {}
 UI.DungeonTracker = DT
@@ -45,6 +45,17 @@ local function clock(s) local M = ns.Maps; return M and M.FormatTime and M.Forma
 -- "2 / 8 bosses · 18:42"
 local function bossLine(m, fmt)
 	return format(fmt, m.bossesDone or 0, m.bossesTotal or 0) .. (m.elapsed and (DOT .. clock(m.elapsed)) or "")
+end
+
+-- Whether the tracker's own head (the dungeon's name, its count and time) shows. Floating, always; docked in
+-- the guide window, unless the guide open is this very dungeon's (its pick-up guide, a dungeon guide): the
+-- window's tab names it then. With any other guide open (a leveling guide, a profession) the list is the
+-- run's and the head says which dungeon it is.
+local function headShown(v, m)
+	if not v.docked then return true end
+	local KD, En = ns.KindDungeon, ns.Engine
+	local key = KD and En and En.GetGuide and KD.KeyOf(En.GetGuide())
+	return not (key ~= nil and key == m.key)
 end
 
 ---------------------------------------------------------------------------
@@ -77,13 +88,19 @@ local function line(v, s)
 		r.Right = W.Text(r, "small", "textDim")
 		r.Right:SetJustifyH("RIGHT")
 		r.RightIcon = W.Tex(r, "ARTWORK")
+		-- The item a boss row stands for, named on hover (the glyph alone shows it).
+		r.Hit = CreateFrame("Frame", nil, r)
+		r.Hit:SetScript("OnEnter", W.SimpleTip)
+		r.Hit:SetScript("OnLeave", W.HideTip)
+		r.Hit:Hide()
 		r.Dot = W.Tex(r, "ARTWORK", "disc-16", "warning")
 		r.Dot:SetSize(5, 5)
 		r.Chip = W.Chip(r)
 		s.Lines[s.n] = r
 		if v.frame and TR() then TR().AddText(v.frame, {}, { r.Text, r.Right, r.Num }) end
 	end
-	r.Wash:Hide(); r.Bar:Hide(); r.Icon:Hide(); r.Num:Hide(); r.RightIcon:Hide(); r.Dot:Hide(); r.Chip:Hide()
+	r.Wash:Hide(); r.Bar:Hide(); r.Icon:Hide(); r.Num:Hide(); r.RightIcon:Hide(); r.Dot:Hide(); r.Chip:Hide(); r.Hit:Hide()
+	r.psTip = nil
 	r.Num:SetText(""); r.Right:SetText("")
 	Theme.Font(r.Text, "label")
 	r.psH, r.psIndent, r.psGutter, r.psIcon = LINE, 0, false, false
@@ -121,16 +138,20 @@ function DT.Build(parent, pad, frame)
 	return v
 end
 
--- One amber card a reminder: warning wash and bar on the skin's inset.
+-- One amber card a reminder: warning wash and bar on the skin's inset. Its ground is a frame of its own
+-- (Face, under the card's text) so a layout that stands the reminder on a card (Atlas) can take the ground off.
 local function card(v, i)
 	local c = v.Loot.Cards[i]
 	if not c then
 		c = CreateFrame("Frame", nil, v.Loot)
-		Theme.Skin(c, "inset")
-		c.Wash = W.Tex(c, "BORDER")
-		c.Wash:SetAllPoints(c)
+		c.Face = CreateFrame("Frame", nil, c)
+		c.Face:SetAllPoints(c)
+		c.Face:SetFrameLevel(max(0, c:GetFrameLevel() - 1))
+		Theme.Skin(c.Face, "inset")
+		c.Wash = W.Tex(c.Face, "BORDER")
+		c.Wash:SetAllPoints(c.Face)
 		W.Painter(c.Wash, function(t) local r, g, b = Theme.Color("warning"); t:SetVertexColor(r, g, b, 0.13) end)
-		c.Bar = W.Tex(c, "ARTWORK", nil, "warning")
+		c.Bar = W.Tex(c.Face, "ARTWORK", nil, "warning")
 		c.Bar:SetWidth(2)
 		c.Bar:SetPoint("TOPLEFT", c, "TOPLEFT", 0, 0)
 		c.Bar:SetPoint("BOTTOMLEFT", c, "BOTTOMLEFT", 0, 0)
@@ -235,9 +256,10 @@ function DT.Paint(v, m, compact)
 	local b = v.Bosses
 	b.n = 0
 	b.Label:SetText(L["Bosses"])
-	-- Docked, the window has no head of the tracker's: its count and time sit here.
+	-- Docked with no head of the tracker's (the window's own guide is this dungeon's): its count and time sit here.
 	local docked = bossLine(m, "%d / %d")
-	b.Right:SetText(compact and "" or (v.docked and docked or L["in kill order"]))
+	v.showHead = headShown(v, m)
+	b.Right:SetText(compact and "" or ((v.docked and not v.showHead) and docked or L["in kill order"]))
 	local list = m.bosses or {}
 	if compact then
 		local names = {}
@@ -278,16 +300,19 @@ function DT.Paint(v, m, compact)
 			if boss.role then
 				r.Right:SetText(col("textMuted", L["optional"]))
 			elseif tie then
+				-- The item's glyph alone, its name in the tooltip (the quests above name it); "loot it" while
+				-- it waits, and what the boss starts.
 				local what
 				if tie.how == "starts" then
 					what = L["starts a quest"]
 				elseif tie.how == "kill" then
 					what = L["for your quest"]
+				elseif tie.pending then
+					what = L["loot it"]
 				else
-					what = tie.itemName or ""
-					if tie.pending then what = L["loot it"] end
+					r.psTip = tie.itemName
 				end
-				r.Right:SetText(col(tie.pending and "warning" or "textDim", what))
+				r.Right:SetText(what and col(tie.pending and "warning" or "textDim", what) or "")
 				r.RightIcon:SetTexture(Theme.Media(tie.how == "kill" and "icon-kill" or "icon-collect"))
 				W.Color(r.RightIcon, tie.pending and "warning" or "item")
 				r.RightIcon:Show()
@@ -333,17 +358,40 @@ local function layoutLines(s, width, pad, y, k)
 			r.Chip:ClearAllPoints()
 			r.Chip:SetPoint("RIGHT", r, "RIGHT", -pad, 0)
 			right = r.Chip:GetWidth() + 8
-		elseif r.Right:GetText() ~= "" then
-			r.Right:ClearAllPoints()
-			r.Right:SetPoint("RIGHT", r, "RIGHT", -pad, 0)
-			local rw = min(floor(r.Right:GetStringWidth() + 0.5), floor(width * 0.45))
-			r.Right:SetWidth(rw)
-			right = rw + 8
-			if r.RightIcon:IsShown() then
+		else
+			local text = r.Right:GetText() or ""
+			local glyph = r.RightIcon:IsShown()
+			local rw = 0
+			if text ~= "" then
+				r.Right:ClearAllPoints()
+				r.Right:SetPoint("RIGHT", r, "RIGHT", -pad, 0)
+				-- The column keeps what the name leaves, and never less than its 45%: the name is cut before
+				-- the label is (a pooled row's earlier width would cap the measure, so it is taken unbound).
+				local want = ceil(W.TextWidth(r.Right))
+				local nameW = ceil(W.TextWidth(r.Text))
+				local room = width - x - pad - 8 - (glyph and 15 or 0)
+				rw = min(want, max(floor(width * 0.45), room - nameW))
+				r.Right:SetWidth(rw)
+				right = rw + 8
+			end
+			if glyph then
 				r.RightIcon:SetSize(11, 11)
 				r.RightIcon:ClearAllPoints()
-				r.RightIcon:SetPoint("RIGHT", r.Right, "LEFT", -4, 0)
+				if rw > 0 then
+					r.RightIcon:SetPoint("RIGHT", r.Right, "LEFT", -4, 0)
+				else
+					r.RightIcon:SetPoint("RIGHT", r, "RIGHT", -pad, 0)
+				end
 				right = right + 15
+			end
+			-- The glyph's hover, where a row names its item.
+			r.Hit:SetShown(r.psTip ~= nil)
+			if r.psTip then
+				r.Hit.psTip = r.psTip
+				r.Hit:EnableMouse(true)
+				r.Hit:SetSize(22, h)
+				r.Hit:ClearAllPoints()
+				r.Hit:SetPoint("RIGHT", r, "RIGHT", -(pad - 6), 0)
 			end
 		end
 		r.Text:ClearAllPoints()
@@ -359,17 +407,6 @@ end
 local function claimed(name, f, width, h)
 	local ran, mine = Theme.SkinHookValue("trackerPlace", name, f, width, h)
 	return ran and mine == true
-end
-
-local function stack(v, s, name, width, h, y)
-	s:SetHeight(max(1, h))
-	if h <= 0 then s:Hide(); return y end
-	s:Show()
-	if claimed(name, s, width, h) then return y end
-	s:ClearAllPoints()
-	s:SetPoint("TOPLEFT", v.parent, "TOPLEFT", 0, -y)
-	s:SetPoint("TOPRIGHT", v.parent, "TOPRIGHT", 0, -y)
-	return y + h
 end
 
 function DT.Layout(v, width, compact)
@@ -389,8 +426,20 @@ function DT.Layout(v, width, compact)
 	h.Name:ClearAllPoints()
 	h.Name:SetPoint("LEFT", h.Icon, "RIGHT", 8, 0)
 	h.Name:SetPoint("RIGHT", h.Right, "LEFT", -8, 0)
-	h:SetShown(not v.docked)
-	local y = v.docked and 4 or s(HEAD)
+	-- The parts, each its height first; where they stand once the head is known (a layout that puts the
+	-- quests on a card has cards that say what the head says: the head goes, and the cards start at the top).
+	local pending, y, onCards = {}, 0, false
+	local function put(name, sec, ph)
+		sec:SetHeight(max(1, ph))
+		if ph <= 0 then sec:Hide(); return end
+		sec:Show()
+		if claimed(name, sec, width, ph) then
+			if name == "quests" then onCards = true end
+			return
+		end
+		pending[#pending + 1] = { sec, y }
+		y = y + ph
+	end
 	-- Loot cards.
 	local ly = 0
 	for i = 1, v.Loot.cards or 0 do
@@ -413,7 +462,7 @@ function DT.Layout(v, width, compact)
 		c:Show()
 		ly = ly + ch + 4
 	end
-	y = stack(v, v.Loot, "loot", width, ly > 0 and ly + 4 or 0, y)
+	put("loot", v.Loot, ly > 0 and ly + 4 or 0)
 	-- Quests.
 	local q = v.Quests
 	local qy = 0
@@ -427,7 +476,7 @@ function DT.Layout(v, width, compact)
 	q.Label:SetShown(not compact)
 	q.Right:SetShown(not compact)
 	qy = layoutLines(q, width, pad, qy, k)
-	y = stack(v, q, "quests", width, qy > 0 and qy + 4 or 0, y)
+	put("quests", q, qy > 0 and qy + 4 or 0)
 	-- Bosses.
 	local b = v.Bosses
 	local by = 0
@@ -442,8 +491,18 @@ function DT.Layout(v, width, compact)
 	b.Label:SetShown(not compact)
 	b.Right:SetShown(not compact)
 	by = layoutLines(b, width, pad, by, k)
-	y = stack(v, b, "bosses", width, by + 6, y)
-	return y
+	put("bosses", b, by + 6)
+	-- The head: the window has none of its own (docked), and a guide of this dungeon's names it already.
+	local shown = not onCards and v.showHead ~= false
+	h:SetShown(shown)
+	if v.frame then v.frame.psHeadless = onCards or nil end
+	local base = shown and s(HEAD) or (onCards and 0 or 4)
+	for _, p in ipairs(pending) do
+		p[1]:ClearAllPoints()
+		p[1]:SetPoint("TOPLEFT", v.parent, "TOPLEFT", 0, -(base + p[2]))
+		p[1]:SetPoint("TOPRIGHT", v.parent, "TOPRIGHT", 0, -(base + p[2]))
+	end
+	return base + y
 end
 
 ---------------------------------------------------------------------------
@@ -481,7 +540,8 @@ local function paint(m, force)
 		deferred = true
 		return
 	end
-	frame:SetHeight(max(HEAD, h))
+	-- Its parts on cards of a layout's own (Atlas): the cards carry the dungeon, the frame is only their anchor.
+	frame:SetHeight(frame.psHeadless and 1 or max(HEAD, h))
 end
 
 local function buildFrame()

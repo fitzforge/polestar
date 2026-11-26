@@ -91,8 +91,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		build = function(parent)
 			local f = CreateFrame("Frame", nil, parent)
 			local ZA = ns.UI.ZoneArt
-			f.Art = ZA.Create(f, 300, ART_H, "bg", 0.7)
-			f.Art.psDesat = 0.2
+			-- The picture sits back so the chip and the primary button lead: 60% desaturated (ZoneArt's own
+			-- 20% leaves a loading screen loud) and a deep fade under the name.
+			f.Art = ZA.Create(f, 300, ART_H, "bg", 0.9)
+			f.Art.psDesat = 0.6
 			f.Art:SetPoint("TOPLEFT", f, "TOPLEFT", 0, 0)
 			f.Name = W.Text(f.Art.Over, "display", "text")
 			Theme.SetShadow(f.Name, true)
@@ -234,6 +236,43 @@ ns.UI.GuideFrame.Part(function(GF)
 		return b
 	end
 
+	-- A pick-up entry's second line round its place: what comes before the name, the name (the part that is
+	-- cut to fit), what follows it ("on your way", the minutes off the route: never cut), and the line
+	-- without the name for a window too narrow for any of it.
+	local function whereParts(q)
+		if q.onWay then
+			if not q.where then return "", nil, L["on your way"] end
+			local a, b = format(L["%s, on your way"], "\1"):match("^(.-)\1(.*)$")
+			return a or "", q.where, b or "", L["on your way"]
+		elseif q.minutesOff then
+			local tail = format(L["%s off route"], minutes(q.minutesOff))
+			if q.where then return "", q.where, DOT .. tail, tail end
+			return "", nil, tail
+		end
+		return "", q.where, ""
+	end
+	local function composeSub(r, place, bare)
+		local s = bare or (r.psPre .. (place or "") .. r.psPost)
+		if s == "" then return r.psNpc or "" end
+		s = col("textMuted", s)
+		return r.psNpc and (r.psNpc .. DOT .. s) or s
+	end
+	-- One line: the place gives way with "..." where the window is narrow (to four letters at least, else it
+	-- goes), the minutes stay.
+	local MIN_PLACE = 4
+	local function fitSub(r, width)
+		local avail = max(20, width - TEXT_X - PAD)
+		r.Sub:SetText(composeSub(r, r.psPlace))
+		if not r.psPlace or W.TextWidth(r.Sub) <= avail then return end
+		local chars = {}
+		for ch in r.psPlace:gmatch("[%z\1-\127\194-\244][\128-\191]*") do chars[#chars + 1] = ch end
+		for n = #chars - 1, MIN_PLACE, -1 do
+			r.Sub:SetText(composeSub(r, concat(chars, "", 1, n) .. "..."))
+			if W.TextWidth(r.Sub) <= avail then return end
+		end
+		r.Sub:SetText(composeSub(r, nil, r.psBare))
+	end
+
 	GF.RegisterRegion("pickups", {
 		build = function(parent)
 			local f = CreateFrame("Frame", nil, parent)
@@ -272,25 +311,17 @@ ns.UI.GuideFrame.Part(function(GF)
 				if not r then
 					r = row(f)
 					r.Icon:Hide()
-					-- The giver and how far off the way: a second line where a language needs it, never cut.
-					r.Sub:SetWordWrap(true)
+					-- The giver and where: one line (the place is cut for the minutes, fitSub).
+					r.Sub:SetWordWrap(false)
 					f.Rows[i] = r
 				end
 				Theme.Font(r.Text, "body")
 				r.Text:SetText(col("quest", q.title or ""))
-				local where
-				if q.onWay then
-					where = q.where and format(L["%s, on your way"], q.where) or L["on your way"]
-				elseif q.minutesOff then
-					where = (q.where and (q.where .. DOT) or "") .. format(L["%s off route"], minutes(q.minutesOff))
-				else
-					where = q.where
-				end
-				local parts = {}
-				if q.npc then parts[1] = col("npc", q.npc) end
-				if where then parts[#parts + 1] = col("textMuted", where) end
-				r.Sub:SetText(concat(parts, DOT))
-				r.Bar:SetShown(q.current and true or false)
+				local pre, place, post, bare = whereParts(q)
+				r.psNpc, r.psPre, r.psPlace, r.psPost, r.psBare = q.npc and col("npc", q.npc) or nil, pre, place, post, bare
+				r.Sub:SetText(composeSub(r, place))
+				-- The step's own bar is the head row's: an entry has none.
+				r.Bar:Hide()
 				hook(r, q, { kind = "pickup", current = q.current, way = q.onWay and "onWay" or (q.far and "far") or nil })
 			end
 			f.psRows = #list
@@ -302,7 +333,8 @@ ns.UI.GuideFrame.Part(function(GF)
 			local compact = mode == "compact"
 			for i = 1, f.psRows or 0 do
 				local r = f.Rows[i]
-				-- The quest's own line as the row's first, the giver and where under it.
+				-- The quest's own line as the row's first, the giver and where under it (on one line).
+				fitSub(r, width)
 				y = y + place(r, f, y, width, true) - 2
 			end
 			local pick = not compact and not m.inGuide and #m.missing > 0
@@ -318,11 +350,14 @@ ns.UI.GuideFrame.Part(function(GF)
 					f.Pick:SetPoint("TOPLEFT", f, "TOPLEFT", TEXT_X, -y)
 				end
 				local link = skip and f.Skip or (back and f.Back) or nil
+				local apart = false
 				if link then
 					link:ClearAllPoints()
-					link:SetPoint("RIGHT", f, "TOPRIGHT", -PAD, -(y + 12))
+					-- Beside the button; under it, right-aligned, where the two would touch (a narrow window).
+					apart = pick and TEXT_X + f.Pick:GetWidth() + 12 + link:GetWidth() > width - PAD
+					link:SetPoint("RIGHT", f, "TOPRIGHT", -PAD, -(y + (apart and 24 + 4 + 9 or 12)))
 				end
-				y = y + 24 + 6
+				y = y + 24 + 6 + (apart and 22 or 0)
 			elseif (f.psRows or 0) > 0 then
 				-- The last entry's second line stands clear of the way in's hairline.
 				y = y + 6
@@ -355,13 +390,17 @@ ns.UI.GuideFrame.Part(function(GF)
 			if m then
 				local b = En.KindModel("brief", view, kind)
 				m.key = b and b.key
+				-- The brief's zone chip names it already.
+				m.briefZone = b and b.zone
 			end
 			return m
 		end,
 		paint = function(f, m, mode)
 			f.psModel = m
 			glyph(f.Way, "icon-dungeon", "dungeon")
-			f.Way.Text:SetText(m.zone and (L["Entrance"] .. DOT .. col("place", m.zone)) or L["Entrance"])
+			-- "Entrance", with its zone only where that is not the one the brief above names.
+			local zone = m.zone ~= nil and m.zone ~= m.briefZone and m.zone or nil
+			f.Way.Text:SetText(zone and (L["Entrance"] .. DOT .. col("place", zone)) or L["Entrance"])
 			f.Way.Right:SetText(m.eta and ns.Maps.FormatTime(m.eta) or "")
 			local facts = {}
 			-- The line above names the zone: here its map coordinates alone.

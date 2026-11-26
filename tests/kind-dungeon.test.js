@@ -288,14 +288,20 @@ GF.Render()
 local shown = {}
 for _, id in ipairs({ "brief", "ready", "pickups", "entrance" }) do shown[id] = GF.RegionShown(id) end
 local p = GF.RegionFrame("pickups")
+local pickRows = {}
+for i = 1, p.psRows do pickRows[i] = p.Rows[i].Bar:IsShown() end
 emit({ kind = E.GuideKind(), shown = shown, head = p.Head.Text:GetText(), right = p.Head.Right:GetText(),
-	covers = #GF.RegionModel("pickups").covers })
+	covers = #GF.RegionModel("pickups").covers, headBar = p.Head.Bar:IsShown(), entryBars = pickRows,
+	way = GF.RegionFrame("entrance").Way.Text:GetText() })
 `);
 	assert.equal(out.kind, 'dungeon');
 	assert.deepEqual(out.shown, { brief: true, ready: true, pickups: true, entrance: true });
 	assert.equal(out.head, 'Pick up 3 more quests');
 	assert.equal(out.right, '0 / 3');
 	assert.ok(out.covers >= 1, 'the step accept is the pick-up row');
+	assert.equal(out.headBar, true, 'the 2px bar is on the "Pick up N more" row');
+	assert.deepEqual(out.entryBars, [false, false, false], 'and on no entry');
+	assert.equal(out.way, 'Entrance', "the zone is the brief chip's: the way in does not repeat it");
 });
 
 test('outside: under the floor and alone; a key still missing', () => {
@@ -314,4 +320,42 @@ emit({ needs = e.needs, zone = e.zone, eta = e.eta ~= nil, cap = e.cap })
 	assert.equal(entrance.zone, 'The Barrens');
 	assert.equal(entrance.eta, true);
 	assert.deepEqual(entrance.cap, { used: 0, max: 5 });
+});
+
+test('docked: the head names the dungeon unless the open guide is its own; an item boss row shows its glyph and names the item on hover', () => {
+	const [other, own] = run(`
+Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
+Polestar.RegisterGuide({ id = "test/barrens", pack = "test", title = "The Barrens", minLevel = 17, maxLevel = 21,
+	steps = { { goals = { { t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride" } } } } })
+Polestar.Engine.SetGuide("test/barrens")
+Polestar.Set("ui.shown", true)
+local GF = Polestar.UI.GuideFrame
+Polestar.UI.DungeonTracker.ShowSample(true)
+stub.advance(0.5)
+GF.Render()
+local function look()
+	local v = GF.RegionFrame("tracker").psView
+	local rows = {}
+	for i = 1, v.Bosses.n do
+		local r = v.Bosses.Lines[i]
+		rows[i] = { text = r.Right:GetText() or "", glyph = r.RightIcon:IsShown(), hit = r.Hit:IsShown(), tip = r.Hit.psTip }
+	end
+	return { head = v.Head:IsShown(), name = v.Head.Name:GetText(), right = v.Bosses.Right:GetText(), rows = rows }
+end
+emit(look())
+Polestar.Dungeons.PickUp("wailing-caverns")
+stub.advance(0.5)
+GF.Render()
+emit(look())
+`);
+	assert.equal(other.head, true, 'a leveling guide open: the head says which dungeon the list is');
+	assert.equal(other.name, 'Wailing Caverns');
+	assert.match(other.right, /in kill order/);
+	assert.equal(own.head, false, "the dungeon's own guide names it in its tab");
+	assert.match(own.right, /^2 \/ 8/, 'and the count and time move to the bosses heading');
+	// Anacondra (dead, item): the glyph alone, the item on hover; Cobrahn (loot pending) and Mutanus (starts a quest) say it.
+	assert.deepEqual(other.rows[0], { text: '', glyph: true, hit: true, tip: 'Gem of Anacondra' });
+	assert.match(other.rows[1].text, /loot it/);
+	assert.equal(other.rows[1].hit, false);
+	assert.match(other.rows[7].text, /starts a quest/);
 });

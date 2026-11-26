@@ -72,6 +72,7 @@ I.PAINT_KINDS, I.HOOKS, I.LAYOUT_HOOKS, I.LAYOUTS = PAINT_KINDS, HOOKS, LAYOUT_H
 -- floating or docked in the guide window): trackerPlace(name, frame, width,
 -- height), name "loot" | "quests" | "bosses"; true: the hook placed it (its
 -- cards), anything else: the tracker keeps it. The layout's hook, else the skin's.
+-- Placing "quests" takes the tracker's head away too (its cards say it).
 HOOKS.trackerPlace, LAYOUT_HOOKS.trackerPlace = true, true
 
 local CAPABILITIES = {}
