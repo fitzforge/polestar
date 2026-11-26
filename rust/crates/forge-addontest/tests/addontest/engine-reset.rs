@@ -153,3 +153,14 @@ fn issue_4111_the_reset_command_clears_everything_and_resetfrom_keeps_what_is_be
 	assert_eq!(out[1]["manual"], "");
 	assert_eq!(out[1]["live"], 2);
 }
+
+// With the skipped-earlier list (#86): Reset everything does not put the old quests back in it, they are the start.
+#[test]
+fn issue_4111_reset_everything_lists_no_quest_as_skipped_earlier() {
+	let out = run(&format!(
+		r#"{PLAYED}
+		E.ResetProgress(true); flush(); stub.advance(11)
+		emit({{ live = E.GetLiveStep(), earlier = #(E.SkippedEarlier() or {{}}) }})"#
+	));
+	assert_eq!(out[0], json!({ "live": 2, "earlier": 0 }));
+}

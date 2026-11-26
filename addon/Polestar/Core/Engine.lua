@@ -5472,6 +5472,9 @@ function Own.catchUpPast(level)
 	return out, why
 end
 
+-- Guide id -> the `placing` that Reset everything began (#4111): the placing it holds for, no other.
+Own.freshPlacing = {}
+
 -- Skipped earlier (#86). The high-water mark (anchorStep with turnedOnly) is
 -- the furthest step the character has done quest work in. The open accepts
 -- before it that the character can take, not grey for them, are passed for
@@ -5656,7 +5659,8 @@ local function place()
 	local added = type(addedAll) == "table" and addedAll[guide.id] or nil
 	local fromTab = logReady and Own.logPlaced[guide.id]
 	local anchor = anchorStep(added, fromTab)
-	local mark = logReady and not Own.everyStep(guide) and anchorStep(added, fromTab, true) or 0
+	-- After Reset everything (#4111) the placing it began starts the guide at the first quest the player can take: nothing is passed as skipped earlier.
+	local mark = Own.freshPlacing[guide.id] ~= placing and logReady and not Own.everyStep(guide) and anchorStep(added, fromTab, true) or 0
 	if fromTab then
 		Own.logPlaced[guide.id], Own.reworkedOrder[guide.id] = nil, nil
 		added = Own.noteMovedBehind(anchor) or added
@@ -18446,6 +18450,7 @@ function Engine.ResetProgress(everything)
 	state.guideDone[id] = nil
 	Own.endOpen[id], Own.lastOpen[id], Own.leftTold[id] = nil, nil, nil
 	pin, pinDone, aim, passedUpTo, placing = nil, nil, nil, 0, GetTime() + PLACE_SECONDS
+	Own.freshPlacing[id] = everything and placing or nil
 	for _, p in pairs(Own.sectionPlans) do
 		p.memo = {}
 		p.memoGen = nil
