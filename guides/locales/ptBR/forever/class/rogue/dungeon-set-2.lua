@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Darkmantle Armor (Dungeon Set 2)"] = "Armadura Mantonegro (Conjunto de Masmorra 2)",
-	["The level 60 upgrade of your Shadowcraft Armor: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "A melhoria de nível 60 da sua Armadura Umbrartífice: uma longa cadeia por Kalimdor e pelos Reinos do Leste, a maior parte em incursões de masmorra em grupo.",
+	["The level 60 upgrade of your Shadowcraft Armor: a long chain, most of it dungeon runs for a group."] = "A melhoria de nível 60 da sua Armadura Umbrartífice: uma longa cadeia, a maior parte em incursões de masmorra em grupo.",
 	["Darkmantle Armor: your class's Dungeon Set 2, eight pieces, each traded for its Shadowcraft Armor piece"] = "Armadura Mantonegro: o Conjunto de Masmorra 2 da sua classe, oito peças, cada uma trocada pela peça correspondente da Armadura de Umbraforja",
 
 	-- Step 1: Deliana

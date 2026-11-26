@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Darkmantle Armor (Dungeon Set 2)"] = "어둠망토 갑옷 (던전 세트 2)",
-	["The level 60 upgrade of your Shadowcraft Armor: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "어둠매듭 갑옷의 60레벨 강화: 칼림도어와 동부 왕국을 넘나드는 긴 연계 퀘스트이며 대부분 파티로 도는 던전입니다.",
+	["The level 60 upgrade of your Shadowcraft Armor: a long chain, most of it dungeon runs for a group."] = "어둠매듭 갑옷의 60레벨 강화: 긴 연계 퀘스트이며 대부분 파티로 도는 던전입니다.",
 	["Darkmantle Armor: your class's Dungeon Set 2, eight pieces, each traded for its Shadowcraft Armor piece"] = "어둠망토 갑옷: 내 직업의 던전 세트 2입니다. 8부위이며 각각 해당 부위의 어둠매듭 갑옷과 교환합니다",
 
 	-- Step 1: Deliana

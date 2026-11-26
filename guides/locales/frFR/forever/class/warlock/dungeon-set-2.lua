@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Deathmist Raiment (Dungeon Set 2)"] = "Tenue de Mortebrume (Ensemble de donjon 2)",
-	["The level 60 upgrade of your Dreadmist Raiment: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "L'amélioration de niveau 60 de votre Parure de brumeffroi : une longue chaîne à travers Kalimdor et les Royaumes de l'Est, surtout faite de donjons en groupe.",
+	["The level 60 upgrade of your Dreadmist Raiment: a long chain, most of it dungeon runs for a group."] = "L'amélioration de niveau 60 de votre Parure de brumeffroi : une longue chaîne, surtout faite de donjons en groupe.",
 	["Deathmist Raiment: your class's Dungeon Set 2, eight pieces, each traded for its Dreadmist Raiment piece"] = "Tenue de Mortebrume : l'Ensemble de donjon 2 de votre classe, huit pièces, chacune échangée contre la pièce correspondante de la Tenue de Brumeffroi",
 
 	-- Step 1: Deliana
@@ -154,7 +154,6 @@ return {
 
 	-- Step 29: Anthion Harmon: Anthion's Parting Words
 	-- {npc:16016} Anthion Harmon · {area:2279} Stratholme · {quest:84185} Anthion's Parting Words · {item:16704} Dreadmist Sandals · {npc:10436} Baroness Anastari · {item:16699} Dreadmist Leggings · {npc:10440} Baron Rivendare · {item:16701} Dreadmist Mantle · {npc:10503} Jandice Barov · {area:2057} Scholomance
-	-- was: ["Back to {npc:16016} at {area:2279}'s gate (Ghost Revealer). {quest:84193} takes your {item:16704}: {npc:10436} in {area:2279} (about 18%), your {item:16699}: {npc:10440} in {area:2279} (about 10%), and your {item:16701}: {npc:10503} in {area:2057} (about 17%)."] = "Retournez voir {npc:16016} à la porte de {area:2279} (Révélateur de fantômes). {quest:84193} prend votre {item:16704} : {npc:10436} à {area:2279} (environ 18 %), votre {item:16699} : {npc:10440} à {area:2279} (environ 10 %), et votre {item:16701} : {npc:10503} à {area:2057} (environ 17 %)."
 	["Back to {npc:16016} at {area:2279}'s gate (Ghost Revealer). {quest:84185} takes your {item:16704}: {npc:10436} in {area:2279} (about 18%), your {item:16699}: {npc:10440} in {area:2279} (about 10%), and your {item:16701}: {npc:10503} in {area:2057} (about 17%)."] = "Retournez voir {npc:16016} à la porte de {area:2279} (Révélateur de fantômes). {quest:84185} prend votre {item:16704} : {npc:10436} à {area:2279} (environ 18 %), votre {item:16699} : {npc:10440} à {area:2279} (environ 10 %), et votre {item:16701} : {npc:10503} à {area:2057} (environ 17 %).",
 
 	-- Step 32: Bodley
@@ -240,12 +239,10 @@ return {
 
 	-- Step 58: Deliana: Saving the Best for Last
 	-- {quest:84201} Saving the Best for Last · {item:16698} Dreadmist Mask · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16700} Dreadmist Robe · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16698}: {npc:1853} in {area:2057} (about 12%), and your {item:16700}: {npc:10363} in Upper Blackrock Spire (about 12%)."] = "Garder le meilleur pour la fin prend votre {item:16698} : {npc:1853} à {area:2057} (environ 12 %), et votre {item:16700} : {npc:10363} au sommet du pic Rochenoire (environ 12 %)."
 	["{quest:84201} takes your {item:16698}: {npc:1853} in {area:2057} (about 12%), and your {item:16700}: {npc:10363} in Upper Blackrock Spire (about 12%)."] = "{quest:84201} prend votre {item:16698} : {npc:1853} à {area:2057} (environ 12 %), et votre {item:16700} : {npc:10363} au sommet du pic Rochenoire (environ 12 %).",
 
 	-- Step 59: Mokvar: Saving the Best for Last
 	-- {quest:84209} Saving the Best for Last · {item:16698} Dreadmist Mask · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16700} Dreadmist Robe · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16698}: {npc:1853} in {area:2057} (about 12%), and your {item:16700}: {npc:10363} in Upper Blackrock Spire (about 12%)."] = "Garder le meilleur pour la fin prend votre {item:16698} : {npc:1853} à {area:2057} (environ 12 %), et votre {item:16700} : {npc:10363} au sommet du pic Rochenoire (environ 12 %)."
 	["{quest:84209} takes your {item:16698}: {npc:1853} in {area:2057} (about 12%), and your {item:16700}: {npc:10363} in Upper Blackrock Spire (about 12%)."] = "{quest:84209} prend votre {item:16698} : {npc:1853} à {area:2057} (environ 12 %), et votre {item:16700} : {npc:10363} au sommet du pic Rochenoire (environ 12 %).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

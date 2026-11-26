@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Beastmaster Armor (Dungeon Set 2)"] = "Доспехи повелителя зверей (комплект подземелий 2)",
-	["The level 60 upgrade of your Beaststalker Armor: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "Улучшение комплекта «Доспехи зверолова» до 60-го уровня: длинная цепочка по Калимдору и Восточным королевствам, в основном походы в подземелья группой.",
+	["The level 60 upgrade of your Beaststalker Armor: a long chain, most of it dungeon runs for a group."] = "Улучшение комплекта «Доспехи зверолова» до 60-го уровня: длинная цепочка, в основном походы в подземелья группой.",
 	["Beastmaster Armor: your class's Dungeon Set 2, eight pieces, each traded for its Beaststalker Armor piece"] = "Доспехи повелителя зверей: комплект подземелий 2 вашего класса, восемь частей, каждая обменивается на соответствующую часть доспехов ловчего",
 
 	-- Step 1: Deliana

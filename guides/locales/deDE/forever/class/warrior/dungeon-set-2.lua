@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Battlegear of Heroism (Dungeon Set 2)"] = "Schlachtrüstung des Heldentums (Dungeonset 2)",
-	["The level 60 upgrade of your Battlegear of Valor: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "Die Aufwertung deiner Schlachtrüstung der Ehre auf Stufe 60: eine lange Questreihe quer durch Kalimdor und die Östlichen Königreiche, größtenteils Dungeonläufe für eine Gruppe.",
+	["The level 60 upgrade of your Battlegear of Valor: a long chain, most of it dungeon runs for a group."] = "Die Aufwertung deiner Schlachtrüstung der Ehre auf Stufe 60: eine lange Questreihe, größtenteils Dungeonläufe für eine Gruppe.",
 	["Battlegear of Heroism: your class's Dungeon Set 2, eight pieces, each traded for its Battlegear of Valor piece"] = "Schlachtrüstung des Heldentums: das Dungeonset 2 deiner Klasse, acht Teile, jedes eingetauscht gegen sein Teil der Schlachtrüstung der Ehre",
 
 	-- Step 1: Deliana

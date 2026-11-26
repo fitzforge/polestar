@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Darkmantle Armor (Dungeon Set 2)"] = "暗影披風護甲（地城套裝2）",
-	["The level 60 upgrade of your Shadowcraft Armor: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "你的迅影護甲的60級升級：一條橫跨卡林多和東部王國的長任務鏈，大部分是需要小隊的地城。",
+	["The level 60 upgrade of your Shadowcraft Armor: a long chain, most of it dungeon runs for a group."] = "你的迅影護甲的60級升級：一條長任務鏈，大部分是需要小隊的地城。",
 	["Darkmantle Armor: your class's Dungeon Set 2, eight pieces, each traded for its Shadowcraft Armor piece"] = "暗影披風護甲：你職業的地城套裝2，共八件，每件用對應的暗影護甲部件兌換",
 
 	-- Step 1: Deliana

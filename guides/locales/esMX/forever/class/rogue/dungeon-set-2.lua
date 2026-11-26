@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Darkmantle Armor (Dungeon Set 2)"] = "Armadura de Mantoscuro (Conjunto de calabozo 2)",
-	["The level 60 upgrade of your Shadowcraft Armor: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "La mejora de nivel 60 de tu Armadura de arte oscuro: una larga cadena por Kalimdor y los Reinos del Este, casi toda de calabozos en grupo.",
+	["The level 60 upgrade of your Shadowcraft Armor: a long chain, most of it dungeon runs for a group."] = "La mejora de nivel 60 de tu Armadura de arte oscuro: una larga cadena, casi toda de calabozos en grupo.",
 	["Darkmantle Armor: your class's Dungeon Set 2, eight pieces, each traded for its Shadowcraft Armor piece"] = "Armadura de Mantoscuro: el Conjunto de calabozo 2 de tu clase, ocho piezas, cada una a cambio de su pieza de Armadura de Arteoscuro",
 
 	-- Step 1: Deliana

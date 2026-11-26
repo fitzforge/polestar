@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Darkmantle Armor (Dungeon Set 2)"] = "Доспехи Темной мантии (подземельный комплект 2)",
-	["The level 60 upgrade of your Shadowcraft Armor: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "Улучшение комплекта «Доспехи Тьмы» до 60-го уровня: длинная цепочка по Калимдору и Восточным королевствам, в основном походы в подземелья группой.",
+	["The level 60 upgrade of your Shadowcraft Armor: a long chain, most of it dungeon runs for a group."] = "Улучшение комплекта «Доспехи Тьмы» до 60-го уровня: длинная цепочка, в основном походы в подземелья группой.",
 	["Darkmantle Armor: your class's Dungeon Set 2, eight pieces, each traded for its Shadowcraft Armor piece"] = "Доспехи Темной мантии: подземельный комплект 2 вашего класса, восемь частей, каждая обменивается на соответствующую часть комплекта «Доспехи мастера теней»",
 
 	-- Step 1: Deliana

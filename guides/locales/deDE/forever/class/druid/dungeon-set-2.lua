@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Feralheart Raiment (Dungeon Set 2)"] = "Gewand des wilden Herzens (Dungeonset 2)",
-	["The level 60 upgrade of your Wildheart Raiment: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "Die Aufwertung deiner Gewandung des wilden Herzens auf Stufe 60: eine lange Questreihe quer durch Kalimdor und die Östlichen Königreiche, größtenteils Dungeonläufe für eine Gruppe.",
+	["The level 60 upgrade of your Wildheart Raiment: a long chain, most of it dungeon runs for a group."] = "Die Aufwertung deiner Gewandung des wilden Herzens auf Stufe 60: eine lange Questreihe, größtenteils Dungeonläufe für eine Gruppe.",
 	["Feralheart Raiment: your class's Dungeon Set 2, eight pieces, each traded for its Wildheart Raiment piece"] = "Gewand des wilden Herzens: das Dungeonset 2 deiner Klasse, acht Teile, jedes eingetauscht gegen sein Teil des Wildherzgewands",
 
 	-- Step 1: Deliana

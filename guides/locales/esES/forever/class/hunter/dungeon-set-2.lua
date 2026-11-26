@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Beastmaster Armor (Dungeon Set 2)"] = "Armadura de maestro de bestias (conjunto de mazmorra 2)",
-	["The level 60 upgrade of your Beaststalker Armor: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "La mejora a nivel 60 de tu Armadura de acechador de bestias: una larga cadena por Kalimdor y los Reinos del Este, casi toda de incursiones en mazmorras para un grupo.",
+	["The level 60 upgrade of your Beaststalker Armor: a long chain, most of it dungeon runs for a group."] = "La mejora a nivel 60 de tu Armadura de acechador de bestias: una larga cadena, casi toda de incursiones en mazmorras para un grupo.",
 	["Beastmaster Armor: your class's Dungeon Set 2, eight pieces, each traded for its Beaststalker Armor piece"] = "Armadura de maestro de bestias: el conjunto de mazmorra 2 de tu clase, ocho piezas, cada una a cambio de su pieza de Armadura de acechador de bestias",
 
 	-- Step 1: Deliana

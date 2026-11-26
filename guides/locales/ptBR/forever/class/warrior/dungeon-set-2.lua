@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Battlegear of Heroism (Dungeon Set 2)"] = "Equipamento de Batalha do Heroísmo (Conjunto de Masmorra 2)",
-	["The level 60 upgrade of your Battlegear of Valor: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "A melhoria de nível 60 do seu Equipamento de Batalha do Valor: uma longa cadeia por Kalimdor e pelos Reinos do Leste, a maior parte em incursões de masmorra em grupo.",
+	["The level 60 upgrade of your Battlegear of Valor: a long chain, most of it dungeon runs for a group."] = "A melhoria de nível 60 do seu Equipamento de Batalha do Valor: uma longa cadeia, a maior parte em incursões de masmorra em grupo.",
 	["Battlegear of Heroism: your class's Dungeon Set 2, eight pieces, each traded for its Battlegear of Valor piece"] = "Equipamento de Batalha do Heroísmo: o Conjunto de Masmorra 2 da sua classe, oito peças, cada uma trocada pela peça correspondente do Equipamento de Batalha da Bravura",
 
 	-- Step 1: Deliana

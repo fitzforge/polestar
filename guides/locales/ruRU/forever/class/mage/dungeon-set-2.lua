@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Sorcerer's Regalia (Dungeon Set 2)"] = "Регалии колдуна (подземельный комплект 2)",
-	["The level 60 upgrade of your Magister's Regalia: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "Улучшение комплекта «Регалии магистра» до 60-го уровня: длинная цепочка по Калимдору и Восточным королевствам, в основном походы в подземелья группой.",
+	["The level 60 upgrade of your Magister's Regalia: a long chain, most of it dungeon runs for a group."] = "Улучшение комплекта «Регалии магистра» до 60-го уровня: длинная цепочка, в основном походы в подземелья группой.",
 	["Sorcerer's Regalia: your class's Dungeon Set 2, eight pieces, each traded for its Magister's Regalia piece"] = "Регалии колдуна: подземельный комплект 2 вашего класса, восемь частей, каждая обменивается на соответствующую часть комплекта «Регалии магистра»",
 
 	-- Step 1: Deliana
@@ -241,12 +241,10 @@ return {
 
 	-- Step 58: Deliana: Saving the Best for Last
 	-- {quest:84197} Saving the Best for Last · {item:16686} Magister's Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16688} Magister's Robes · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "«Лучшее напоследок» требует {item:16686}: {npc:1853} в подземелье {area:2057} (около 13%), и {item:16688}: {npc:10363} в Верхней части пика Черной горы (около 11%)."
 	["{quest:84197} takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84197} забирает {item:16686}: {npc:1853} в подземелье {area:2057} (около 13%), и {item:16688}: {npc:10363} в Верхней части пика Черной горы (около 11%).",
 
 	-- Step 59: Mokvar: Saving the Best for Last
 	-- {quest:84205} Saving the Best for Last · {item:16686} Magister's Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16688} Magister's Robes · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "«Лучшее напоследок» требует {item:16686}: {npc:1853} в подземелье {area:2057} (около 13%), и {item:16688}: {npc:10363} в Верхней части пика Черной горы (около 11%)."
 	["{quest:84205} takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84205} забирает {item:16686}: {npc:1853} в подземелье {area:2057} (около 13%), и {item:16688}: {npc:10363} в Верхней части пика Черной горы (около 11%).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

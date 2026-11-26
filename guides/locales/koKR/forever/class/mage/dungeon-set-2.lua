@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Sorcerer's Regalia (Dungeon Set 2)"] = "마법사의 예복 (던전 세트 2)",
-	["The level 60 upgrade of your Magister's Regalia: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "마법학자의 예복의 60레벨 강화: 칼림도어와 동부 왕국을 넘나드는 긴 연계 퀘스트이며 대부분 파티로 도는 던전입니다.",
+	["The level 60 upgrade of your Magister's Regalia: a long chain, most of it dungeon runs for a group."] = "마법학자의 예복의 60레벨 강화: 긴 연계 퀘스트이며 대부분 파티로 도는 던전입니다.",
 	["Sorcerer's Regalia: your class's Dungeon Set 2, eight pieces, each traded for its Magister's Regalia piece"] = "마법사의 예복: 내 직업의 던전 세트 2입니다. 8부위이며 각각 해당 부위의 마술사의 예복과 교환합니다",
 
 	-- Step 1: Deliana
@@ -241,12 +241,10 @@ return {
 
 	-- Step 58: Deliana: Saving the Best for Last
 	-- {quest:84197} Saving the Best for Last · {item:16686} Magister's Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16688} Magister's Robes · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "'최고는 마지막에'에는 {item:16686}({area:2057}의 {npc:1853}, 약 13%)과 {item:16688}(검은바위 첨탑 상층의 {npc:10363}, 약 11%)이 필요합니다."
 	["{quest:84197} takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84197}에는 {item:16686}({area:2057}의 {npc:1853}, 약 13%)과 {item:16688}(검은바위 첨탑 상층의 {npc:10363}, 약 11%)이(가) 필요합니다.",
 
 	-- Step 59: Mokvar: Saving the Best for Last
 	-- {quest:84205} Saving the Best for Last · {item:16686} Magister's Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16688} Magister's Robes · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "'최고는 마지막에'에는 {item:16686}({area:2057}의 {npc:1853}, 약 13%)과 {item:16688}(검은바위 첨탑 상층의 {npc:10363}, 약 11%)이 필요합니다."
 	["{quest:84205} takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84205}에는 {item:16686}({area:2057}의 {npc:1853}, 약 13%)과 {item:16688}(검은바위 첨탑 상층의 {npc:10363}, 약 11%)이(가) 필요합니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

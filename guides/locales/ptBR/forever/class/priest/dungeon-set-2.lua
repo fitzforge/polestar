@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Vestments of the Virtuous (Dungeon Set 2)"] = "Vestes do Virtuoso (Conjunto de Masmorra 2)",
-	["The level 60 upgrade of your Vestments of the Devout: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "A melhoria de nível 60 das suas Vestes do Devoto: uma longa cadeia por Kalimdor e pelos Reinos do Leste, a maior parte em incursões de masmorra em grupo.",
+	["The level 60 upgrade of your Vestments of the Devout: a long chain, most of it dungeon runs for a group."] = "A melhoria de nível 60 das suas Vestes do Devoto: uma longa cadeia, a maior parte em incursões de masmorra em grupo.",
 	["Vestments of the Virtuous: your class's Dungeon Set 2, eight pieces, each traded for its Vestments of the Devout piece"] = "Vestes do Virtuoso: o Conjunto de Masmorra 2 da sua classe, oito peças, cada uma trocada pela peça correspondente das Vestes do Devoto",
 
 	-- Step 1: Deliana
@@ -241,12 +241,10 @@ return {
 
 	-- Step 58: Deliana: Saving the Best for Last
 	-- {quest:84199} Saving the Best for Last · {item:16693} Devout Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16690} Devout Robe · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "Saving the Best for Last pede seu {item:16693}: {npc:1853} em {area:2057} (cerca de 12%), e seu {item:16690}: {npc:10363} no Pico da Rocha Negra Superior (cerca de 11%)."
 	["{quest:84199} takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84199} pega seu {item:16693}: {npc:1853} em {area:2057} (cerca de 12%), e seu {item:16690}: {npc:10363} no Pico da Rocha Negra Superior (cerca de 11%).",
 
 	-- Step 59: Mokvar: Saving the Best for Last
 	-- {quest:84206} Saving the Best for Last · {item:16693} Devout Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16690} Devout Robe · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "Saving the Best for Last pede seu {item:16693}: {npc:1853} em {area:2057} (cerca de 12%), e seu {item:16690}: {npc:10363} no Pico da Rocha Negra Superior (cerca de 11%)."
 	["{quest:84206} takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84206} pega seu {item:16693}: {npc:1853} em {area:2057} (cerca de 12%), e seu {item:16690}: {npc:10363} no Pico da Rocha Negra Superior (cerca de 11%).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

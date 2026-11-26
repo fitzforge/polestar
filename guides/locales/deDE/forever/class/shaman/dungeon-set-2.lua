@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["The Five Thunders (Dungeon Set 2)"] = "Die Fünf Donner (Dungeonset 2)",
-	["The level 60 upgrade of your The Elements: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "Die Aufwertung deines Sets „Die Elemente“ auf Stufe 60: eine lange Questreihe quer durch Kalimdor und die Östlichen Königreiche, größtenteils Dungeonläufe für eine Gruppe.",
+	["The level 60 upgrade of your The Elements: a long chain, most of it dungeon runs for a group."] = "Die Aufwertung deines Sets „Die Elemente“ auf Stufe 60: eine lange Questreihe, größtenteils Dungeonläufe für eine Gruppe.",
 	["The Five Thunders: your class's Dungeon Set 2, eight pieces, each traded for its The Elements piece"] = "Die Fünf Donner: das Dungeonset 2 deiner Klasse, acht Teile, jedes eingetauscht gegen sein Teil der Elemente",
 
 	-- Step 1: Deliana

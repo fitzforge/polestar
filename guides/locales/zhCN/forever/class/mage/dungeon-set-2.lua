@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Sorcerer's Regalia (Dungeon Set 2)"] = "巫师套装（地下城套装2）",
-	["The level 60 upgrade of your Magister's Regalia: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "博学者的徽记的60级升级：一条横跨卡利姆多和东部王国的长任务链，大部分需要小队刷地下城。",
+	["The level 60 upgrade of your Magister's Regalia: a long chain, most of it dungeon runs for a group."] = "博学者的徽记的60级升级：一条长任务链，大部分需要小队刷地下城。",
 	["Sorcerer's Regalia: your class's Dungeon Set 2, eight pieces, each traded for its Magister's Regalia piece"] = "巫师套装：你职业的地下城套装2，共八件，每件用对应的博学者套装部件兑换",
 
 	-- Step 1: Deliana
@@ -28,14 +28,14 @@ return {
 	["Winterspring Blood Samples"] = "冬泉谷血液样本",
 	-- {zone:1452} Winterspring · {area:2255} Everlook
 	-- plural, as words: Frostsaber Stalkers = {npc:7432} Frostsaber Stalker · Rabid Shardtooths = {npc:7446} Rabid Shardtooth
-	["The Frostsabers and Shardtooth bears of northern {zone:1452}, north of {area:2255}, drop the samples (level 53-60, not elite: at 58 leave the level 60 Frostsaber Stalkers, Pride Watchers and Rabid Shardtooths alone). Fly to {area:2255}."] = "{zone:1452} 北部、{area:2255} 以北的霜刃豹和碎齿熊会掉落样本（53-60级，非精英：58级时别惹60级的霜刃豹潜伏者、狮群守望者和狂暴碎齿熊）。飞往 {area:2255}。",
+	["The Frostsabers and Shardtooth bears of northern {zone:1452}, north of {area:2255}, drop the samples (level 53-60, not elite: at 58 leave the level 60 Frostsaber Stalkers, Pride Watchers and Rabid Shardtooths alone). Fly to {area:2255}."] = "{zone:1452} 北部、{area:2255} 以北的霜刃豹和碎齿熊会掉落样本（53-60级，非精英：58级时别惹60级的霜刃捕食者、狮群守望者和疯狂的碎齿熊）。飞往 {area:2255}。",
 
 	-- Step 4: Silithus Venom Samples
 	-- plural, as words: Silithus Venom Samples = {item:22381} Silithus Venom Sample
 	["Silithus Venom Samples"] = "希利苏斯毒液样本",
 	-- {area:3425} Cenarion Hold
 	-- plural, as words: Sand Skitterers = {npc:11738} Sand Skitterer · Rock Stalkers = {npc:11739} Rock Stalker
-	["The Stonelash scorpids, Sand Skitterers and Rock Stalkers of Silithus drop the samples (level 54-59, not elite). Fly to {area:3425}."] = "希利苏斯的石鞭蝎、沙地爬行者和岩石潜伏者会掉落样本（54-59级，非精英）。飞往 {area:3425}。",
+	["The Stonelash scorpids, Sand Skitterers and Rock Stalkers of Silithus drop the samples (level 54-59, not elite). Fly to {area:3425}."] = "希利苏斯的石鞭蝎、掠沙蜘蛛和石行蜘蛛会掉落样本（54-59级，非精英）。飞往 {area:3425}。",
 
 	-- Step 5: Deliana: A Supernatural Device
 	-- {item:16683} Magister's Bindings · {area:1583} Blackrock Spire · {item:21985} Sealed Blood Container · {area:976} Gadgetzan
@@ -62,7 +62,7 @@ return {
 	-- Step 10: Scorched Ectoplasm
 	-- {area:2738} Southwind Village · {zone:1451} Silithus · {item:21946} Ectoplasmic Distiller
 	-- plural, as words: Tortured Druids = {npc:12178} Tortured Druid
-	["The Tortured Druids and Sentinels haunt {area:2738} in {zone:1451} (level 55-57, not elite; silithid can join when they die). Place the {item:21946} among the ghosts, pull them into its glow and kill them there, standing in it yourself: ectoplasm only drops from a ghost that dies inside the glow. It lasts a few minutes, then place it again."] = "受折磨的德鲁伊和哨兵徘徊在 {zone:1451} 的 {area:2738}（55-57级，非精英；它们死亡时可能会有异种虫加入）。把 {item:21946} 放在鬼魂之间，把它们拉进光晕里击杀，你自己也站在光晕中：只有死在光晕内的鬼魂才会掉落灵质。它持续几分钟，之后再放置一次。",
+	["The Tortured Druids and Sentinels haunt {area:2738} in {zone:1451} (level 55-57, not elite; silithid can join when they die). Place the {item:21946} among the ghosts, pull them into its glow and kill them there, standing in it yourself: ectoplasm only drops from a ghost that dies inside the glow. It lasts a few minutes, then place it again."] = "被折磨的德鲁伊和哨兵徘徊在 {zone:1451} 的 {area:2738}（55-57级，非精英；它们死亡时可能会有异种虫加入）。把 {item:21946} 放在鬼魂之间，把它们拉进光晕里击杀，你自己也站在光晕中：只有死在光晕内的鬼魂才会掉落灵质。它持续几分钟，之后再放置一次。",
 
 	-- Step 11: Frozen Ectoplasm and the Fel Elemental Rod
 	-- {item:21936} Frozen Ectoplasm · {item:21939} Fel Elemental Rod
@@ -73,7 +73,7 @@ return {
 	-- Step 12: Stable Ectoplasm
 	-- {zone:1423} Eastern Plaguelands · {area:2272} Northdale · {item:21946} Ectoplasmic Distiller
 	-- plural, as words: Unseen Servants = {npc:8538} Unseen Servant · Eyeless Watchers = {npc:8539} Eyeless Watcher · Death Singers = {npc:8542} Death Singer · Hate Shriekers = {npc:8541} Hate Shrieker
-	["The ghosts and banshees of the {zone:1423} (Unseen Servants, Eyeless Watchers, Death Singers, Hate Shriekers; level 55-59, not elite) drop it; {area:2272} in the north-east is a good spot. The shriekers fear: fight close to the distiller. Place the {item:21946} among the ghosts, pull them into its glow and kill them there, standing in it yourself: ectoplasm only drops from a ghost that dies inside the glow. It lasts a few minutes, then place it again."] = "{zone:1423} 的鬼魂和女妖（隐形仆从、无眼观察者、死亡歌手、仇恨尖啸者；55-59级，非精英）会掉落它；东北部的 {area:2272} 是个好地点。尖啸者会恐惧：靠近蒸馏器作战。把 {item:21946} 放在鬼魂之间，把它们拉进光晕里击杀，你自己也站在光晕中：只有死在光晕内的鬼魂才会掉落灵质。它持续几分钟，之后再放置一次。",
+	["The ghosts and banshees of the {zone:1423} (Unseen Servants, Eyeless Watchers, Death Singers, Hate Shriekers; level 55-59, not elite) drop it; {area:2272} in the north-east is a good spot. The shriekers fear: fight close to the distiller. Place the {item:21946} among the ghosts, pull them into its glow and kill them there, standing in it yourself: ectoplasm only drops from a ghost that dies inside the glow. It lasts a few minutes, then place it again."] = "{zone:1423} 的鬼魂和女妖（无影仆从、无眼观察者、死亡歌手、憎恨吟唱者；55-59级，非精英）会掉落它；东北部的 {area:2272} 是个好地点。憎恨吟唱者会恐惧：靠近蒸馏器作战。把 {item:21946} 放在鬼魂之间，把它们拉进光晕里击杀，你自己也站在光晕中：只有死在光晕内的鬼魂才会掉落灵质。它持续几分钟，之后再放置一次。",
 
 	-- Step 13: Mux Manascrambler: Magma Lord Bokk
 	["Bring the distiller back with the ectoplasm: it is handed in too."] = "把蒸馏器连同灵质一起带回来：它也要交还。",
@@ -138,7 +138,7 @@ return {
 	-- Step 26: The Instigator's Enchantment
 	-- {npc:16032} Falrin Treeshaper · {item:22224} Jeering Spectre's Essence · {npc:11496} Immol'thar · {area:2057} Scholomance · {item:13704} Skeleton Key
 	-- plural, as words: Eldreth Seethers = {npc:11469} Eldreth Seether · Dark Runes = {item:20520} Dark Rune · Large Brilliant Shards = {item:14344} Large Brilliant Shard
-	["{npc:16032} wants a {item:22224} (the Eldreth ghosts of Dire Maul West, best the Eldreth Seethers, and the invisible spectres around {npc:11496}'s prison), 4 Dark Runes (the necromancers and summoners of {area:2057}, whose gate opens to a {item:13704}: one in the group is enough; or the auction house) and 8 Large Brilliant Shards (enchanters, or the auction house)."] = "{npc:16032} 需要一个 {item:22224}（厄运之槌西区的埃德雷斯幽灵掉落，最好打埃德雷斯狂怒者，以及 {npc:11496} 牢笼周围的隐形幽灵），4 个黑暗符文（{area:2057} 的通灵师和召唤师掉落，其大门需用 {item:13704} 打开：小队中有一人持有即可；或去拍卖行买）和 8 个大块闪光碎片（找附魔师，或去拍卖行买）。",
+	["{npc:16032} wants a {item:22224} (the Eldreth ghosts of Dire Maul West, best the Eldreth Seethers, and the invisible spectres around {npc:11496}'s prison), 4 Dark Runes (the necromancers and summoners of {area:2057}, whose gate opens to a {item:13704}: one in the group is enough; or the auction house) and 8 Large Brilliant Shards (enchanters, or the auction house)."] = "{npc:16032} 需要一个 {item:22224}（厄运之槌西区的艾德雷斯幽灵掉落，最好打艾德雷斯怨魂，以及 {npc:11496} 牢笼周围的隐形幽灵），4 个黑暗符文（{area:2057} 的通灵师和召唤师掉落，其大门需用 {item:13704} 打开：小队中有一人持有即可；或去拍卖行买）和 8 个大块闪光碎片（找附魔师，或去拍卖行买）。",
 
 	-- Step 27: The Challenge
 	-- {npc:16032} Falrin Treeshaper · {item:21986} Banner of Provocation · {area:1584} Blackrock Depths
@@ -208,7 +208,7 @@ return {
 	-- Step 49: More Components of Importance: Brilliant Sword of Zealotry
 	-- {area:2266} Tyr's Hand · {zone:1423} Eastern Plaguelands · {item:22228} Brilliant Sword of Zealotry
 	-- plural, as words: Scarlet Praetorians = {npc:9448} Scarlet Praetorian
-	["At {area:2266}, the Scarlet town in the south-east of the {zone:1423}, the Scarlet Praetorians (level 56-57 elites) of its upper courtyard drop the {item:22228} (a rare drop: up to about 50 kills). They are elites: bring a friend or two unless your gear is good. It drops only while you have the quest; everyone in the group with it can loot one."] = "在{zone:1423}东南部的血色城镇{area:2266}，上层庭院的血色禁卫军（56-57级精英）会掉落{item:22228}（稀有掉落：最多约50只）。它们是精英：除非装备够好，带一两个朋友。只有接了任务才会掉落；小队中有该任务的每个人都能拾取一个。",
+	["At {area:2266}, the Scarlet town in the south-east of the {zone:1423}, the Scarlet Praetorians (level 56-57 elites) of its upper courtyard drop the {item:22228} (a rare drop: up to about 50 kills). They are elites: bring a friend or two unless your gear is good. It drops only while you have the quest; everyone in the group with it can loot one."] = "在{zone:1423}东南部的血色城镇{area:2266}，上层庭院的血色禁卫队（56-57级精英）会掉落{item:22228}（稀有掉落：最多约50只）。它们是精英：除非装备够好，带一两个朋友。只有接了任务才会掉落；小队中有该任务的每个人都能拾取一个。",
 
 	-- Step 52: The Right Piece of Lord Valthalak's Amulet: Jarien and Sothos
 	-- {quest:8991} The Right Piece of Lord Valthalak's Amulet · {npc:16101} Jarien · {npc:16102} Sothos
@@ -241,12 +241,10 @@ return {
 
 	-- Step 58: Deliana: Saving the Best for Last
 	-- {quest:84197} Saving the Best for Last · {item:16686} Magister's Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16688} Magister's Robes · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "“最好的留在最后”需要你的 {item:16686}：{area:2057} 的 {npc:1853} 掉落（约13%），以及你的 {item:16688}：黑石塔上层的 {npc:10363} 掉落（约11%）。"
 	["{quest:84197} takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84197} 需要你的 {item:16686}：{area:2057} 的 {npc:1853} 掉落（约 13%），以及你的 {item:16688}：黑石塔上层的 {npc:10363} 掉落（约 11%）。",
 
 	-- Step 59: Mokvar: Saving the Best for Last
 	-- {quest:84205} Saving the Best for Last · {item:16686} Magister's Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16688} Magister's Robes · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "“最好的留在最后”需要你的 {item:16686}：{area:2057} 的 {npc:1853} 掉落（约13%），以及你的 {item:16688}：黑石塔上层的 {npc:10363} 掉落（约11%）。"
 	["{quest:84205} takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84205} 需要你的 {item:16686}：{area:2057} 的 {npc:1853} 掉落（约 13%），以及你的 {item:16688}：黑石塔上层的 {npc:10363} 掉落（约 11%）。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

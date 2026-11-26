@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Soulforge Armor (Dungeon Set 2)"] = "Доспехи Кузни Душ (подземельный комплект 2)",
-	["The level 60 upgrade of your Lightforge Armor: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "Улучшение комплекта «Доспехи Светозарного» до 60-го уровня: длинная цепочка по Калимдору и Восточным королевствам, в основном походы в подземелья группой.",
+	["The level 60 upgrade of your Lightforge Armor: a long chain, most of it dungeon runs for a group."] = "Улучшение комплекта «Доспехи Светозарного» до 60-го уровня: длинная цепочка, в основном походы в подземелья группой.",
 	["Soulforge Armor: your class's Dungeon Set 2, eight pieces, each traded for its Lightforge Armor piece"] = "Доспехи Кузни Душ: подземельный комплект 2 вашего класса, восемь частей, каждая обменивается на соответствующую часть комплекта «Доспехи Кузни Света»",
 
 	-- Step 1: Deliana
@@ -238,12 +238,10 @@ return {
 
 	-- Step 58: Deliana: Saving the Best for Last
 	-- {quest:84198} Saving the Best for Last · {item:16727} Lightforge Helm · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16726} Lightforge Breastplate · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16727}: {npc:1853} in {area:2057} (about 6%), and your {item:16726}: {npc:10363} in Upper Blackrock Spire (about 7%)."] = "«Лучшее напоследок» требует {item:16727}: {npc:1853} в подземелье {area:2057} (около 6%), и {item:16726}: {npc:10363} в Верхней части пика Черной горы (около 7%)."
 	["{quest:84198} takes your {item:16727}: {npc:1853} in {area:2057} (about 6%), and your {item:16726}: {npc:10363} in Upper Blackrock Spire (about 7%)."] = "{quest:84198} забирает {item:16727}: {npc:1853} в подземелье {area:2057} (около 6%), и {item:16726}: {npc:10363} в Верхней части пика Черной горы (около 7%).",
 
 	-- Step 59: Mokvar: Saving the Best for Last
 	-- {quest:97414} Saving the Best for Last · {item:16727} Lightforge Helm · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16726} Lightforge Breastplate · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16727}: {npc:1853} in {area:2057} (about 6%), and your {item:16726}: {npc:10363} in Upper Blackrock Spire (about 7%)."] = "«Лучшее напоследок» требует {item:16727}: {npc:1853} в подземелье {area:2057} (около 6%), и {item:16726}: {npc:10363} в Верхней части пика Черной горы (около 7%)."
 	["{quest:97414} takes your {item:16727}: {npc:1853} in {area:2057} (about 6%), and your {item:16726}: {npc:10363} in Upper Blackrock Spire (about 7%)."] = "{quest:97414} забирает {item:16727}: {npc:1853} в подземелье {area:2057} (около 6%), и {item:16726}: {npc:10363} в Верхней части пика Черной горы (около 7%).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

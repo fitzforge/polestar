@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["The Five Thunders (Dungeon Set 2)"] = "Os Cinco Trovões (Conjunto de Masmorra 2)",
-	["The level 60 upgrade of your The Elements: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "A melhoria de nível 60 do seu conjunto Os Elementos: uma longa cadeia por Kalimdor e pelos Reinos do Leste, a maior parte em incursões de masmorra em grupo.",
+	["The level 60 upgrade of your The Elements: a long chain, most of it dungeon runs for a group."] = "A melhoria de nível 60 do seu conjunto Os Elementos: uma longa cadeia, a maior parte em incursões de masmorra em grupo.",
 	["The Five Thunders: your class's Dungeon Set 2, eight pieces, each traded for its The Elements piece"] = "Os Cinco Trovões: o Conjunto de Masmorra 2 da sua classe, oito peças, cada uma trocada pela peça correspondente de Os Elementos",
 
 	-- Step 1: Deliana

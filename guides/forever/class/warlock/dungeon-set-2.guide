@@ -7,7 +7,7 @@ levels 58-60
 zone Ironforge
 keywords Dungeon Set 2, Tier 0.5, T0.5, Deathmist Raiment, Dreadmist Raiment, Dungeon Set 1, Deliana, Mokvar, An Earnest Proposition, A Supernatural Device, Mux Manascrambler, Ectoplasmic Distiller, Extra-Dimensional Ghost Revealer, Just Compensation, Anthion Harmon, Dead Man's Plea, Ysida Harmon, Falrin Treeshaper, The Challenge, Theldren, Anthion's Parting Words, Bodley, Three Kings of Flame, Lord Valthalak, Brazier of Beckoning, Saving the Best for Last, Stratholme, Dire Maul, Blackrock Depths, Blackrock Spire, Scholomance
 reward text Deathmist Raiment: your class's Dungeon Set 2, eight pieces, each traded for its Dreadmist Raiment piece
-why The level 60 upgrade of your Dreadmist Raiment: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group.
+why The level 60 upgrade of your Dreadmist Raiment: a long chain, most of it dungeon runs for a group.
 
 # The Dungeon Set 2 chain, Forever's copies for this class on each side (data/forever quests.json with
 # forever-db/corrections): An Earnest Proposition, A Supernatural Device (8922/8923), The Ectoplasmic

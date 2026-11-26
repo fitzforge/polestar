@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Soulforge Armor (Dungeon Set 2)"] = "靈魂熔鑄護甲（地城套裝2）",
-	["The level 60 upgrade of your Lightforge Armor: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "你的光鑄鎧甲的60級升級：一條橫跨卡林多和東部王國的長任務鏈，大部分是需要小隊的地城。",
+	["The level 60 upgrade of your Lightforge Armor: a long chain, most of it dungeon runs for a group."] = "你的光鑄鎧甲的60級升級：一條長任務鏈，大部分是需要小隊的地城。",
 	["Soulforge Armor: your class's Dungeon Set 2, eight pieces, each traded for its Lightforge Armor piece"] = "靈魂熔鑄護甲：你職業的地城套裝2，共八件，每件用對應的光鑄護甲部件兌換",
 
 	-- Step 1: Deliana
@@ -238,12 +238,10 @@ return {
 
 	-- Step 58: Deliana: Saving the Best for Last
 	-- {quest:84198} Saving the Best for Last · {item:16727} Lightforge Helm · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16726} Lightforge Breastplate · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16727}: {npc:1853} in {area:2057} (about 6%), and your {item:16726}: {npc:10363} in Upper Blackrock Spire (about 7%)."] = "「留到最後」需要你的{item:16727}：{area:2057}的{npc:1853}掉落（約6%），以及你的{item:16726}：黑石塔上層的{npc:10363}掉落（約7%）。"
 	["{quest:84198} takes your {item:16727}: {npc:1853} in {area:2057} (about 6%), and your {item:16726}: {npc:10363} in Upper Blackrock Spire (about 7%)."] = "{quest:84198}需要你的{item:16727}：{area:2057}的{npc:1853}（約6%），以及你的{item:16726}：黑石塔上層的{npc:10363}（約7%）。",
 
 	-- Step 59: Mokvar: Saving the Best for Last
 	-- {quest:97414} Saving the Best for Last · {item:16727} Lightforge Helm · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16726} Lightforge Breastplate · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16727}: {npc:1853} in {area:2057} (about 6%), and your {item:16726}: {npc:10363} in Upper Blackrock Spire (about 7%)."] = "「留到最後」需要你的{item:16727}：{area:2057}的{npc:1853}掉落（約6%），以及你的{item:16726}：黑石塔上層的{npc:10363}掉落（約7%）。"
 	["{quest:97414} takes your {item:16727}: {npc:1853} in {area:2057} (about 6%), and your {item:16726}: {npc:10363} in Upper Blackrock Spire (about 7%)."] = "{quest:97414}需要你的{item:16727}：{area:2057}的{npc:1853}（約6%），以及你的{item:16726}：黑石塔上層的{npc:10363}（約7%）。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

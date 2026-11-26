@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Feralheart Raiment (Dungeon Set 2)"] = "Tenue de Cœur-farouche (Ensemble de donjon 2)",
-	["The level 60 upgrade of your Wildheart Raiment: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "L'amélioration de niveau 60 de votre Parure de cœur-sauvage : une longue chaîne à travers Kalimdor et les Royaumes de l'Est, surtout faite de donjons en groupe.",
+	["The level 60 upgrade of your Wildheart Raiment: a long chain, most of it dungeon runs for a group."] = "L'amélioration de niveau 60 de votre Parure de cœur-sauvage : une longue chaîne, surtout faite de donjons en groupe.",
 	["Feralheart Raiment: your class's Dungeon Set 2, eight pieces, each traded for its Wildheart Raiment piece"] = "Tenue de Cœur-farouche : l'Ensemble de donjon 2 de votre classe, huit pièces, chacune échangée contre la pièce correspondante de la Tenue de Cœur-sauvage",
 
 	-- Step 1: Deliana

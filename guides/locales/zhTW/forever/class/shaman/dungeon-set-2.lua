@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["The Five Thunders (Dungeon Set 2)"] = "五雷套裝（地城套裝2）",
-	["The level 60 upgrade of your The Elements: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "你的元素套裝的60級升級：一條橫跨卡林多和東部王國的長任務鏈，大部分是需要小隊的地城。",
+	["The level 60 upgrade of your The Elements: a long chain, most of it dungeon runs for a group."] = "你的元素套裝的60級升級：一條長任務鏈，大部分是需要小隊的地城。",
 	["The Five Thunders: your class's Dungeon Set 2, eight pieces, each traded for its The Elements piece"] = "五雷套裝：你職業的地城套裝2，共八件，每件用對應的元素套裝部件兌換",
 
 	-- Step 1: Deliana

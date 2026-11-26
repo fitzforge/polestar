@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["The Five Thunders (Dungeon Set 2)"] = "다섯 천둥 (던전 세트 2)",
-	["The level 60 upgrade of your The Elements: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "정령의 갑옷의 60레벨 강화: 칼림도어와 동부 왕국을 넘나드는 긴 연계 퀘스트이며 대부분 파티로 도는 던전입니다.",
+	["The level 60 upgrade of your The Elements: a long chain, most of it dungeon runs for a group."] = "정령의 갑옷의 60레벨 강화: 긴 연계 퀘스트이며 대부분 파티로 도는 던전입니다.",
 	["The Five Thunders: your class's Dungeon Set 2, eight pieces, each traded for its The Elements piece"] = "다섯 천둥: 내 직업의 던전 세트 2입니다. 8부위이며 각각 해당 부위의 정령 세트와 교환합니다",
 
 	-- Step 1: Deliana

@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Sorcerer's Regalia (Dungeon Set 2)"] = "巫師法衣（地城套裝2）",
-	["The level 60 upgrade of your Magister's Regalia: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "你的博學者的徽記的60級升級：一條橫跨卡林多和東部王國的長任務鏈，大部分是需要小隊的地城。",
+	["The level 60 upgrade of your Magister's Regalia: a long chain, most of it dungeon runs for a group."] = "你的博學者的徽記的60級升級：一條長任務鏈，大部分是需要小隊的地城。",
 	["Sorcerer's Regalia: your class's Dungeon Set 2, eight pieces, each traded for its Magister's Regalia piece"] = "巫師法衣：你職業的地城套裝2，共八件，每件用對應的博學者法衣部件兌換",
 
 	-- Step 1: Deliana
@@ -241,12 +241,10 @@ return {
 
 	-- Step 58: Deliana: Saving the Best for Last
 	-- {quest:84197} Saving the Best for Last · {item:16686} Magister's Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16688} Magister's Robes · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "「留到最後」需要你的{item:16686}：{area:2057}的{npc:1853}掉落（約13%），以及你的{item:16688}：黑石塔上層的{npc:10363}掉落（約11%）。"
 	["{quest:84197} takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84197}需要你的{item:16686}：{area:2057}的{npc:1853}（約13%），以及你的{item:16688}：黑石塔上層的{npc:10363}（約11%）。",
 
 	-- Step 59: Mokvar: Saving the Best for Last
 	-- {quest:84205} Saving the Best for Last · {item:16686} Magister's Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16688} Magister's Robes · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "「留到最後」需要你的{item:16686}：{area:2057}的{npc:1853}掉落（約13%），以及你的{item:16688}：黑石塔上層的{npc:10363}掉落（約11%）。"
 	["{quest:84205} takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84205}需要你的{item:16686}：{area:2057}的{npc:1853}（約13%），以及你的{item:16688}：黑石塔上層的{npc:10363}（約11%）。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

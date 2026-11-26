@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Darkmantle Armor (Dungeon Set 2)"] = "Rüstung des Düstermantels (Dungeonset 2)",
-	["The level 60 upgrade of your Shadowcraft Armor: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "Die Aufwertung deiner Schattenhandwerksrüstung auf Stufe 60: eine lange Questreihe quer durch Kalimdor und die Östlichen Königreiche, größtenteils Dungeonläufe für eine Gruppe.",
+	["The level 60 upgrade of your Shadowcraft Armor: a long chain, most of it dungeon runs for a group."] = "Die Aufwertung deiner Schattenhandwerksrüstung auf Stufe 60: eine lange Questreihe, größtenteils Dungeonläufe für eine Gruppe.",
 	["Darkmantle Armor: your class's Dungeon Set 2, eight pieces, each traded for its Shadowcraft Armor piece"] = "Rüstung des Düstermantels: das Dungeonset 2 deiner Klasse, acht Teile, jedes eingetauscht gegen sein Teil der Schattenhandwerkrüstung",
 
 	-- Step 1: Deliana

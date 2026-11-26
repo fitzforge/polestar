@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Sorcerer's Regalia (Dungeon Set 2)"] = "Ornat des Zauberers (Dungeonset 2)",
-	["The level 60 upgrade of your Magister's Regalia: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "Die Aufwertung deiner Insignien des Magisters auf Stufe 60: eine lange Questreihe quer durch Kalimdor und die Östlichen Königreiche, größtenteils Dungeonläufe für eine Gruppe.",
+	["The level 60 upgrade of your Magister's Regalia: a long chain, most of it dungeon runs for a group."] = "Die Aufwertung deiner Insignien des Magisters auf Stufe 60: eine lange Questreihe, größtenteils Dungeonläufe für eine Gruppe.",
 	["Sorcerer's Regalia: your class's Dungeon Set 2, eight pieces, each traded for its Magister's Regalia piece"] = "Ornat des Zauberers: das Dungeonset 2 deiner Klasse, acht Teile, jedes eingetauscht gegen sein Teil des Magisterornats",
 
 	-- Step 1: Deliana
@@ -241,12 +241,10 @@ return {
 
 	-- Step 58: Deliana: Saving the Best for Last
 	-- {quest:84197} Saving the Best for Last · {item:16686} Magister's Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16688} Magister's Robes · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "Das Beste kommt zum Schluss nimmt dein {item:16686}: {npc:1853} in {area:2057} (etwa 13 %), und dein {item:16688}: {npc:10363} in der Oberen Schwarzfelsspitze (etwa 11 %)."
 	["{quest:84197} takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84197} nimmt dein {item:16686}: {npc:1853} in {area:2057} (etwa 13 %), und dein {item:16688}: {npc:10363} in der Oberen Schwarzfelsspitze (etwa 11 %).",
 
 	-- Step 59: Mokvar: Saving the Best for Last
 	-- {quest:84205} Saving the Best for Last · {item:16686} Magister's Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16688} Magister's Robes · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "Das Beste kommt zum Schluss nimmt dein {item:16686}: {npc:1853} in {area:2057} (etwa 13 %), und dein {item:16688}: {npc:10363} in der Oberen Schwarzfelsspitze (etwa 11 %)."
 	["{quest:84205} takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84205} nimmt dein {item:16686}: {npc:1853} in {area:2057} (etwa 13 %), und dein {item:16688}: {npc:10363} in der Oberen Schwarzfelsspitze (etwa 11 %).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

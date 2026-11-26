@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Vestments of the Virtuous (Dungeon Set 2)"] = "Gewänder der Tugendhaftigkeit (Dungeonset 2)",
-	["The level 60 upgrade of your Vestments of the Devout: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "Die Aufwertung deiner Gewänder der Ergebenheit auf Stufe 60: eine lange Questreihe quer durch Kalimdor und die Östlichen Königreiche, größtenteils Dungeonläufe für eine Gruppe.",
+	["The level 60 upgrade of your Vestments of the Devout: a long chain, most of it dungeon runs for a group."] = "Die Aufwertung deiner Gewänder der Ergebenheit auf Stufe 60: eine lange Questreihe, größtenteils Dungeonläufe für eine Gruppe.",
 	["Vestments of the Virtuous: your class's Dungeon Set 2, eight pieces, each traded for its Vestments of the Devout piece"] = "Gewänder der Tugendhaftigkeit: das Dungeonset 2 deiner Klasse, acht Teile, jedes gegen das passende Teil der Gewänder der Ergebenheit eingetauscht",
 
 	-- Step 1: Deliana
@@ -241,12 +241,10 @@ return {
 
 	-- Step 58: Deliana: Saving the Best for Last
 	-- {quest:84199} Saving the Best for Last · {item:16693} Devout Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16690} Devout Robe · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "Das Beste kommt zum Schluss nimmt dein {item:16693}: {npc:1853} in {area:2057} (etwa 12 %), und dein {item:16690}: {npc:10363} in der Oberen Schwarzfelsspitze (etwa 11 %)."
 	["{quest:84199} takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84199} nimmt dein {item:16693}: {npc:1853} in {area:2057} (etwa 12 %), und dein {item:16690}: {npc:10363} in der Oberen Schwarzfelsspitze (etwa 11 %).",
 
 	-- Step 59: Mokvar: Saving the Best for Last
 	-- {quest:84206} Saving the Best for Last · {item:16693} Devout Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16690} Devout Robe · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "Das Beste kommt zum Schluss nimmt dein {item:16693}: {npc:1853} in {area:2057} (etwa 12 %), und dein {item:16690}: {npc:10363} in der Oberen Schwarzfelsspitze (etwa 11 %)."
 	["{quest:84206} takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84206} nimmt dein {item:16693}: {npc:1853} in {area:2057} (etwa 12 %), und dein {item:16690}: {npc:10363} in der Oberen Schwarzfelsspitze (etwa 11 %).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Sorcerer's Regalia (Dungeon Set 2)"] = "Atuendo de hechicero (Conjunto de calabozo 2)",
-	["The level 60 upgrade of your Magister's Regalia: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "La mejora de nivel 60 de tus Atavíos de magister: una larga cadena por Kalimdor y los Reinos del Este, casi toda de calabozos en grupo.",
+	["The level 60 upgrade of your Magister's Regalia: a long chain, most of it dungeon runs for a group."] = "La mejora de nivel 60 de tus Atavíos de magister: una larga cadena, casi toda de calabozos en grupo.",
 	["Sorcerer's Regalia: your class's Dungeon Set 2, eight pieces, each traded for its Magister's Regalia piece"] = "Atuendo de hechicero: el Conjunto de calabozo 2 de tu clase, ocho piezas, cada una a cambio de su pieza de Atuendo de magister",
 
 	-- Step 1: Deliana
@@ -241,12 +241,10 @@ return {
 
 	-- Step 58: Deliana: Saving the Best for Last
 	-- {quest:84197} Saving the Best for Last · {item:16686} Magister's Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16688} Magister's Robes · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "Lo mejor para el final pide tu {item:16686}: {npc:1853} en {area:2057} (alrededor del 13 %), y tu {item:16688}: {npc:10363} en Cumbre de Roca Negra Superior (alrededor del 11 %)."
 	["{quest:84197} takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84197} pide {item:16686}: {npc:1853} en {area:2057} (alrededor del 13 %), y {item:16688}: {npc:10363} en Cumbre de Roca Negra Superior (alrededor del 11 %).",
 
 	-- Step 59: Mokvar: Saving the Best for Last
 	-- {quest:84205} Saving the Best for Last · {item:16686} Magister's Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16688} Magister's Robes · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "Lo mejor para el final pide tu {item:16686}: {npc:1853} en {area:2057} (alrededor del 13 %), y tu {item:16688}: {npc:10363} en Cumbre de Roca Negra Superior (alrededor del 11 %)."
 	["{quest:84205} takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84205} pide {item:16686}: {npc:1853} en {area:2057} (alrededor del 13 %), y {item:16688}: {npc:10363} en Cumbre de Roca Negra Superior (alrededor del 11 %).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

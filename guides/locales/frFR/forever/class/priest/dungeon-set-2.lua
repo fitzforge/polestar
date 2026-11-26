@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Vestments of the Virtuous (Dungeon Set 2)"] = "Habits du vertueux (Ensemble de donjon 2)",
-	["The level 60 upgrade of your Vestments of the Devout: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "L'amélioration de niveau 60 de vos Habits du dévot : une longue chaîne à travers Kalimdor et les Royaumes de l'Est, surtout faite de donjons en groupe.",
+	["The level 60 upgrade of your Vestments of the Devout: a long chain, most of it dungeon runs for a group."] = "L'amélioration de niveau 60 de vos Habits du dévot : une longue chaîne, surtout faite de donjons en groupe.",
 	["Vestments of the Virtuous: your class's Dungeon Set 2, eight pieces, each traded for its Vestments of the Devout piece"] = "Habits du vertueux : l'Ensemble de donjon 2 de votre classe, huit pièces, chacune échangée contre sa pièce des Habits du dévot",
 
 	-- Step 1: Deliana
@@ -241,12 +241,10 @@ return {
 
 	-- Step 58: Deliana: Saving the Best for Last
 	-- {quest:84199} Saving the Best for Last · {item:16693} Devout Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16690} Devout Robe · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "Garder le meilleur pour la fin prend votre {item:16693} : {npc:1853} à {area:2057} (environ 12 %), et votre {item:16690} : {npc:10363} au sommet du pic Rochenoire (environ 11 %)."
 	["{quest:84199} takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84199} prend votre {item:16693} : {npc:1853} à {area:2057} (environ 12 %), et votre {item:16690} : {npc:10363} au sommet du pic Rochenoire (environ 11 %).",
 
 	-- Step 59: Mokvar: Saving the Best for Last
 	-- {quest:84206} Saving the Best for Last · {item:16693} Devout Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16690} Devout Robe · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "Garder le meilleur pour la fin prend votre {item:16693} : {npc:1853} à {area:2057} (environ 12 %), et votre {item:16690} : {npc:10363} au sommet du pic Rochenoire (environ 11 %)."
 	["{quest:84206} takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84206} prend votre {item:16693} : {npc:1853} à {area:2057} (environ 12 %), et votre {item:16690} : {npc:10363} au sommet du pic Rochenoire (environ 11 %).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

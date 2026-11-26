@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Beastmaster Armor (Dungeon Set 2)"] = "Armure de maître des bêtes (Ensemble de donjon 2)",
-	["The level 60 upgrade of your Beaststalker Armor: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "L'amélioration de niveau 60 de votre Armure de traqueur de bêtes : une longue chaîne à travers Kalimdor et les Royaumes de l'Est, surtout faite de donjons en groupe.",
+	["The level 60 upgrade of your Beaststalker Armor: a long chain, most of it dungeon runs for a group."] = "L'amélioration de niveau 60 de votre Armure de traqueur de bêtes : une longue chaîne, surtout faite de donjons en groupe.",
 	["Beastmaster Armor: your class's Dungeon Set 2, eight pieces, each traded for its Beaststalker Armor piece"] = "Armure de maître des bêtes : l'Ensemble de donjon 2 de votre classe, huit pièces, chacune échangée contre sa pièce de l'Armure de traqueur de bêtes",
 
 	-- Step 1: Deliana

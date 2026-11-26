@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Battlegear of Heroism (Dungeon Set 2)"] = "Equipo de batalla de heroísmo (Conjunto de calabozo 2)",
-	["The level 60 upgrade of your Battlegear of Valor: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "La mejora de nivel 60 de tu Equipo de batalla de valor: una larga cadena por Kalimdor y los Reinos del Este, casi toda de calabozos en grupo.",
+	["The level 60 upgrade of your Battlegear of Valor: a long chain, most of it dungeon runs for a group."] = "La mejora de nivel 60 de tu Equipo de batalla de valor: una larga cadena, casi toda de calabozos en grupo.",
 	["Battlegear of Heroism: your class's Dungeon Set 2, eight pieces, each traded for its Battlegear of Valor piece"] = "Equipo de batalla de heroísmo: el Conjunto de calabozo 2 de tu clase, ocho piezas, cada una cambiada por su pieza del Equipo de batalla de valor",
 
 	-- Step 1: Deliana

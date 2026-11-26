@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Deathmist Raiment (Dungeon Set 2)"] = "Vestimenta de Niebla Mortal (Conjunto de calabozo 2)",
-	["The level 60 upgrade of your Dreadmist Raiment: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "La mejora de nivel 60 de tu Atuendo de niebla aterradora: una larga cadena por Kalimdor y los Reinos del Este, casi toda de calabozos en grupo.",
+	["The level 60 upgrade of your Dreadmist Raiment: a long chain, most of it dungeon runs for a group."] = "La mejora de nivel 60 de tu Atuendo de niebla aterradora: una larga cadena, casi toda de calabozos en grupo.",
 	["Deathmist Raiment: your class's Dungeon Set 2, eight pieces, each traded for its Dreadmist Raiment piece"] = "Vestimenta de Niebla Mortal: el Conjunto de calabozo 2 de tu clase, ocho piezas, cada una a cambio de su pieza de Vestimenta de Niebla Aterradora",
 
 	-- Step 1: Deliana
@@ -154,7 +154,6 @@ return {
 
 	-- Step 29: Anthion Harmon: Anthion's Parting Words
 	-- {npc:16016} Anthion Harmon · {area:2279} Stratholme · {quest:84185} Anthion's Parting Words · {item:16704} Dreadmist Sandals · {npc:10436} Baroness Anastari · {item:16699} Dreadmist Leggings · {npc:10440} Baron Rivendare · {item:16701} Dreadmist Mantle · {npc:10503} Jandice Barov · {area:2057} Scholomance
-	-- was: ["Back to {npc:16016} at {area:2279}'s gate (Ghost Revealer). {quest:84193} takes your {item:16704}: {npc:10436} in {area:2279} (about 18%), your {item:16699}: {npc:10440} in {area:2279} (about 10%), and your {item:16701}: {npc:10503} in {area:2057} (about 17%)."] = "Vuelve con {npc:16016} en la puerta de {area:2279} (Revelador de fantasmas). {quest:84193} se lleva tu {item:16704}: {npc:10436} en {area:2279} (alrededor del 18 %), tu {item:16699}: {npc:10440} en {area:2279} (alrededor del 10 %), y tu {item:16701}: {npc:10503} en {area:2057} (alrededor del 17 %)."
 	["Back to {npc:16016} at {area:2279}'s gate (Ghost Revealer). {quest:84185} takes your {item:16704}: {npc:10436} in {area:2279} (about 18%), your {item:16699}: {npc:10440} in {area:2279} (about 10%), and your {item:16701}: {npc:10503} in {area:2057} (about 17%)."] = "Vuelve con {npc:16016} en la puerta de {area:2279} (Revelador de fantasmas). {quest:84185} se lleva tu {item:16704}: {npc:10436} en {area:2279} (alrededor del 18 %), tu {item:16699}: {npc:10440} en {area:2279} (alrededor del 10 %), y tu {item:16701}: {npc:10503} en {area:2057} (alrededor del 17 %).",
 
 	-- Step 32: Bodley
@@ -240,12 +239,10 @@ return {
 
 	-- Step 58: Deliana: Saving the Best for Last
 	-- {quest:84201} Saving the Best for Last · {item:16698} Dreadmist Mask · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16700} Dreadmist Robe · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16698}: {npc:1853} in {area:2057} (about 12%), and your {item:16700}: {npc:10363} in Upper Blackrock Spire (about 12%)."] = "Lo mejor para el final pide tu {item:16698}: {npc:1853} en {area:2057} (alrededor del 12 %), y tu {item:16700}: {npc:10363} en Cumbre de Roca Negra Superior (alrededor del 12 %)."
 	["{quest:84201} takes your {item:16698}: {npc:1853} in {area:2057} (about 12%), and your {item:16700}: {npc:10363} in Upper Blackrock Spire (about 12%)."] = "{quest:84201} pide {item:16698}: {npc:1853} en {area:2057} (alrededor del 12 %), y {item:16700}: {npc:10363} en Cumbre de Roca Negra Superior (alrededor del 12 %).",
 
 	-- Step 59: Mokvar: Saving the Best for Last
 	-- {quest:84209} Saving the Best for Last · {item:16698} Dreadmist Mask · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16700} Dreadmist Robe · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16698}: {npc:1853} in {area:2057} (about 12%), and your {item:16700}: {npc:10363} in Upper Blackrock Spire (about 12%)."] = "Lo mejor para el final pide tu {item:16698}: {npc:1853} en {area:2057} (alrededor del 12 %), y tu {item:16700}: {npc:10363} en Cumbre de Roca Negra Superior (alrededor del 12 %)."
 	["{quest:84209} takes your {item:16698}: {npc:1853} in {area:2057} (about 12%), and your {item:16700}: {npc:10363} in Upper Blackrock Spire (about 12%)."] = "{quest:84209} pide {item:16698}: {npc:1853} en {area:2057} (alrededor del 12 %), y {item:16700}: {npc:10363} en Cumbre de Roca Negra Superior (alrededor del 12 %).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

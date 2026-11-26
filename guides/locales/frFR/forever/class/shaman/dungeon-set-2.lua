@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["The Five Thunders (Dungeon Set 2)"] = "Les Cinq tonnerres (Ensemble de donjon 2)",
-	["The level 60 upgrade of your The Elements: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "L'amélioration de niveau 60 de votre ensemble Les Éléments : une longue chaîne à travers Kalimdor et les Royaumes de l'Est, surtout faite de donjons en groupe.",
+	["The level 60 upgrade of your The Elements: a long chain, most of it dungeon runs for a group."] = "L'amélioration de niveau 60 de votre ensemble Les Éléments : une longue chaîne, surtout faite de donjons en groupe.",
 	["The Five Thunders: your class's Dungeon Set 2, eight pieces, each traded for its The Elements piece"] = "Les Cinq tonnerres : l'Ensemble de donjon 2 de votre classe, huit pièces, chacune échangée contre la pièce correspondante de l'ensemble Les Éléments",
 
 	-- Step 1: Deliana

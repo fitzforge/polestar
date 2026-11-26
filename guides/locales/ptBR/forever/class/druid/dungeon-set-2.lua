@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Feralheart Raiment (Dungeon Set 2)"] = "Traje Coração Feral (Conjunto de Masmorra 2)",
-	["The level 60 upgrade of your Wildheart Raiment: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "A melhoria de nível 60 do seu Traje do Coração Selvagem: uma longa cadeia por Kalimdor e pelos Reinos do Leste, a maior parte em incursões de masmorra em grupo.",
+	["The level 60 upgrade of your Wildheart Raiment: a long chain, most of it dungeon runs for a group."] = "A melhoria de nível 60 do seu Traje do Coração Selvagem: uma longa cadeia, a maior parte em incursões de masmorra em grupo.",
 	["Feralheart Raiment: your class's Dungeon Set 2, eight pieces, each traded for its Wildheart Raiment piece"] = "Traje Coração Feral: o Conjunto de Masmorra 2 da sua classe, oito peças, cada uma trocada pela peça correspondente do Traje Coração Selvagem",
 
 	-- Step 1: Deliana

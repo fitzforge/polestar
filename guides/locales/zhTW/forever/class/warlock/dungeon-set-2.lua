@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Deathmist Raiment (Dungeon Set 2)"] = "死霧法衣（地城套裝2）",
-	["The level 60 upgrade of your Dreadmist Raiment: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "你的恐怖之霧的60級升級：一條橫跨卡林多和東部王國的長任務鏈，大部分是需要小隊的地城。",
+	["The level 60 upgrade of your Dreadmist Raiment: a long chain, most of it dungeon runs for a group."] = "你的恐怖之霧的60級升級：一條長任務鏈，大部分是需要小隊的地城。",
 	["Deathmist Raiment: your class's Dungeon Set 2, eight pieces, each traded for its Dreadmist Raiment piece"] = "死霧法衣：你職業的地城套裝2，共八件，每件用對應的恐懼之霧法衣部件兌換",
 
 	-- Step 1: Deliana
@@ -154,7 +154,6 @@ return {
 
 	-- Step 29: Anthion Harmon: Anthion's Parting Words
 	-- {npc:16016} Anthion Harmon · {area:2279} Stratholme · {quest:84185} Anthion's Parting Words · {item:16704} Dreadmist Sandals · {npc:10436} Baroness Anastari · {item:16699} Dreadmist Leggings · {npc:10440} Baron Rivendare · {item:16701} Dreadmist Mantle · {npc:10503} Jandice Barov · {area:2057} Scholomance
-	-- was: ["Back to {npc:16016} at {area:2279}'s gate (Ghost Revealer). {quest:84193} takes your {item:16704}: {npc:10436} in {area:2279} (about 18%), your {item:16699}: {npc:10440} in {area:2279} (about 10%), and your {item:16701}: {npc:10503} in {area:2057} (about 17%)."] = "回到{area:2279}門口的{npc:16016}（幽靈顯形器）。{quest:84193}收取你的{item:16704}：{area:2279}的{npc:10436}（約18%）、你的{item:16699}：{area:2279}的{npc:10440}（約10%），以及你的{item:16701}：{area:2057}的{npc:10503}（約17%）。"
 	["Back to {npc:16016} at {area:2279}'s gate (Ghost Revealer). {quest:84185} takes your {item:16704}: {npc:10436} in {area:2279} (about 18%), your {item:16699}: {npc:10440} in {area:2279} (about 10%), and your {item:16701}: {npc:10503} in {area:2057} (about 17%)."] = "回到{area:2279}門口的{npc:16016}（幽靈顯形器）。{quest:84185}收取你的{item:16704}：{area:2279}的{npc:10436}（約18%）、你的{item:16699}：{area:2279}的{npc:10440}（約10%），以及你的{item:16701}：{area:2057}的{npc:10503}（約17%）。",
 
 	-- Step 32: Bodley
@@ -240,12 +239,10 @@ return {
 
 	-- Step 58: Deliana: Saving the Best for Last
 	-- {quest:84201} Saving the Best for Last · {item:16698} Dreadmist Mask · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16700} Dreadmist Robe · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16698}: {npc:1853} in {area:2057} (about 12%), and your {item:16700}: {npc:10363} in Upper Blackrock Spire (about 12%)."] = "「留到最後」需要你的{item:16698}：{area:2057}的{npc:1853}掉落（約12%），以及你的{item:16700}：黑石塔上層的{npc:10363}掉落（約12%）。"
 	["{quest:84201} takes your {item:16698}: {npc:1853} in {area:2057} (about 12%), and your {item:16700}: {npc:10363} in Upper Blackrock Spire (about 12%)."] = "{quest:84201}需要你的{item:16698}：{area:2057}的{npc:1853}（約12%），以及你的{item:16700}：黑石塔上層的{npc:10363}（約12%）。",
 
 	-- Step 59: Mokvar: Saving the Best for Last
 	-- {quest:84209} Saving the Best for Last · {item:16698} Dreadmist Mask · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16700} Dreadmist Robe · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16698}: {npc:1853} in {area:2057} (about 12%), and your {item:16700}: {npc:10363} in Upper Blackrock Spire (about 12%)."] = "「留到最後」需要你的{item:16698}：{area:2057}的{npc:1853}掉落（約12%），以及你的{item:16700}：黑石塔上層的{npc:10363}掉落（約12%）。"
 	["{quest:84209} takes your {item:16698}: {npc:1853} in {area:2057} (about 12%), and your {item:16700}: {npc:10363} in Upper Blackrock Spire (about 12%)."] = "{quest:84209}需要你的{item:16698}：{area:2057}的{npc:1853}（約12%），以及你的{item:16700}：黑石塔上層的{npc:10363}（約12%）。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

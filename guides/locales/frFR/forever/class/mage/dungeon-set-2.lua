@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Sorcerer's Regalia (Dungeon Set 2)"] = "Tenue de sorcier (Ensemble de donjon 2)",
-	["The level 60 upgrade of your Magister's Regalia: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "L'amélioration de niveau 60 de votre Tenue de magistère : une longue chaîne à travers Kalimdor et les Royaumes de l'Est, surtout faite de donjons en groupe.",
+	["The level 60 upgrade of your Magister's Regalia: a long chain, most of it dungeon runs for a group."] = "L'amélioration de niveau 60 de votre Tenue de magistère : une longue chaîne, surtout faite de donjons en groupe.",
 	["Sorcerer's Regalia: your class's Dungeon Set 2, eight pieces, each traded for its Magister's Regalia piece"] = "Tenue de sorcier : l'Ensemble de donjon 2 de votre classe, huit pièces, chacune échangée contre la pièce correspondante de la Tenue de magistère",
 
 	-- Step 1: Deliana
@@ -241,12 +241,10 @@ return {
 
 	-- Step 58: Deliana: Saving the Best for Last
 	-- {quest:84197} Saving the Best for Last · {item:16686} Magister's Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16688} Magister's Robes · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "Garder le meilleur pour la fin prend votre {item:16686} : {npc:1853} à {area:2057} (environ 13 %), et votre {item:16688} : {npc:10363} au sommet du pic Rochenoire (environ 11 %)."
 	["{quest:84197} takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84197} prend votre {item:16686} : {npc:1853} à {area:2057} (environ 13 %), et votre {item:16688} : {npc:10363} au sommet du pic Rochenoire (environ 11 %).",
 
 	-- Step 59: Mokvar: Saving the Best for Last
 	-- {quest:84205} Saving the Best for Last · {item:16686} Magister's Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16688} Magister's Robes · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "Garder le meilleur pour la fin prend votre {item:16686} : {npc:1853} à {area:2057} (environ 13 %), et votre {item:16688} : {npc:10363} au sommet du pic Rochenoire (environ 11 %)."
 	["{quest:84205} takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84205} prend votre {item:16686} : {npc:1853} à {area:2057} (environ 13 %), et votre {item:16688} : {npc:10363} au sommet du pic Rochenoire (environ 11 %).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

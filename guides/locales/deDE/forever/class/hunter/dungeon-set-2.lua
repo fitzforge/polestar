@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Beastmaster Armor (Dungeon Set 2)"] = "Rüstung des Wildtiermeisters (Dungeonset 2)",
-	["The level 60 upgrade of your Beaststalker Armor: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "Die Aufwertung deiner Rüstung des Wildjägers auf Stufe 60: eine lange Questreihe quer durch Kalimdor und die Östlichen Königreiche, größtenteils Dungeonläufe für eine Gruppe.",
+	["The level 60 upgrade of your Beaststalker Armor: a long chain, most of it dungeon runs for a group."] = "Die Aufwertung deiner Rüstung des Wildjägers auf Stufe 60: eine lange Questreihe, größtenteils Dungeonläufe für eine Gruppe.",
 	["Beastmaster Armor: your class's Dungeon Set 2, eight pieces, each traded for its Beaststalker Armor piece"] = "Rüstung des Wildtiermeisters: das Dungeonset 2 deiner Klasse, acht Teile, jedes eingetauscht gegen sein Teil der Rüstung des Wildtierjägers",
 
 	-- Step 1: Deliana

@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Deathmist Raiment (Dungeon Set 2)"] = "죽음안개 의복 (던전 세트 2)",
-	["The level 60 upgrade of your Dreadmist Raiment: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "공포안개 의복의 60레벨 강화: 칼림도어와 동부 왕국을 넘나드는 긴 연계 퀘스트이며 대부분 파티로 도는 던전입니다.",
+	["The level 60 upgrade of your Dreadmist Raiment: a long chain, most of it dungeon runs for a group."] = "공포안개 의복의 60레벨 강화: 긴 연계 퀘스트이며 대부분 파티로 도는 던전입니다.",
 	["Deathmist Raiment: your class's Dungeon Set 2, eight pieces, each traded for its Dreadmist Raiment piece"] = "죽음안개 의복: 내 직업의 던전 세트 2입니다. 8부위이며 각각 해당 부위의 공포안개 의복과 교환합니다",
 
 	-- Step 1: Deliana
@@ -154,7 +154,6 @@ return {
 
 	-- Step 29: Anthion Harmon: Anthion's Parting Words
 	-- {npc:16016} Anthion Harmon · {area:2279} Stratholme · {quest:84185} Anthion's Parting Words · {item:16704} Dreadmist Sandals · {npc:10436} Baroness Anastari · {item:16699} Dreadmist Leggings · {npc:10440} Baron Rivendare · {item:16701} Dreadmist Mantle · {npc:10503} Jandice Barov · {area:2057} Scholomance
-	-- was: ["Back to {npc:16016} at {area:2279}'s gate (Ghost Revealer). {quest:84193} takes your {item:16704}: {npc:10436} in {area:2279} (about 18%), your {item:16699}: {npc:10440} in {area:2279} (about 10%), and your {item:16701}: {npc:10503} in {area:2057} (about 17%)."] = "{area:2279} 입구의 {npc:16016}에게 돌아가세요(유령 탐지기). {quest:84193}에는 {item:16704}: {area:2279}의 {npc:10436}(약 18%), {item:16699}: {area:2279}의 {npc:10440}(약 10%), {item:16701}: {area:2057}의 {npc:10503}(약 17%)이(가) 필요합니다."
 	["Back to {npc:16016} at {area:2279}'s gate (Ghost Revealer). {quest:84185} takes your {item:16704}: {npc:10436} in {area:2279} (about 18%), your {item:16699}: {npc:10440} in {area:2279} (about 10%), and your {item:16701}: {npc:10503} in {area:2057} (about 17%)."] = "{area:2279} 입구의 {npc:16016}에게 돌아가세요(유령 탐지기). {quest:84185}에는 {item:16704}: {area:2279}의 {npc:10436}(약 18%), {item:16699}: {area:2279}의 {npc:10440}(약 10%), {item:16701}: {area:2057}의 {npc:10503}(약 17%)이(가) 필요합니다.",
 
 	-- Step 32: Bodley
@@ -240,12 +239,10 @@ return {
 
 	-- Step 58: Deliana: Saving the Best for Last
 	-- {quest:84201} Saving the Best for Last · {item:16698} Dreadmist Mask · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16700} Dreadmist Robe · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16698}: {npc:1853} in {area:2057} (about 12%), and your {item:16700}: {npc:10363} in Upper Blackrock Spire (about 12%)."] = "'최고는 마지막에'에는 {item:16698}({area:2057}의 {npc:1853}, 약 12%)과 {item:16700}(검은바위 첨탑 상층의 {npc:10363}, 약 12%)이 필요합니다."
 	["{quest:84201} takes your {item:16698}: {npc:1853} in {area:2057} (about 12%), and your {item:16700}: {npc:10363} in Upper Blackrock Spire (about 12%)."] = "{quest:84201}에는 {item:16698}({area:2057}의 {npc:1853}, 약 12%)과 {item:16700}(검은바위 첨탑 상층의 {npc:10363}, 약 12%)이(가) 필요합니다.",
 
 	-- Step 59: Mokvar: Saving the Best for Last
 	-- {quest:84209} Saving the Best for Last · {item:16698} Dreadmist Mask · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16700} Dreadmist Robe · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16698}: {npc:1853} in {area:2057} (about 12%), and your {item:16700}: {npc:10363} in Upper Blackrock Spire (about 12%)."] = "'최고는 마지막에'에는 {item:16698}({area:2057}의 {npc:1853}, 약 12%)과 {item:16700}(검은바위 첨탑 상층의 {npc:10363}, 약 12%)이 필요합니다."
 	["{quest:84209} takes your {item:16698}: {npc:1853} in {area:2057} (about 12%), and your {item:16700}: {npc:10363} in Upper Blackrock Spire (about 12%)."] = "{quest:84209}에는 {item:16698}({area:2057}의 {npc:1853}, 약 12%)과 {item:16700}(검은바위 첨탑 상층의 {npc:10363}, 약 12%)이(가) 필요합니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

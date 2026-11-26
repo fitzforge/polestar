@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Beastmaster Armor (Dungeon Set 2)"] = "야수지배자의 갑옷 (던전 세트 2)",
-	["The level 60 upgrade of your Beaststalker Armor: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "야수추적자 갑옷의 60레벨 강화: 칼림도어와 동부 왕국을 넘나드는 긴 연계 퀘스트이며 대부분 파티로 도는 던전입니다.",
+	["The level 60 upgrade of your Beaststalker Armor: a long chain, most of it dungeon runs for a group."] = "야수추적자 갑옷의 60레벨 강화: 긴 연계 퀘스트이며 대부분 파티로 도는 던전입니다.",
 	["Beastmaster Armor: your class's Dungeon Set 2, eight pieces, each traded for its Beaststalker Armor piece"] = "야수지배자의 갑옷: 직업별 던전 세트 2, 8부위. 각각 해당 야수추적자의 갑옷 부위와 교환합니다",
 
 	-- Step 1: Deliana

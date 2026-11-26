@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Darkmantle Armor (Dungeon Set 2)"] = "Armure de Sombremanteau (Ensemble de donjon 2)",
-	["The level 60 upgrade of your Shadowcraft Armor: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "L'amélioration de niveau 60 de votre Armure ombrefaite : une longue chaîne à travers Kalimdor et les Royaumes de l'Est, surtout faite de donjons en groupe.",
+	["The level 60 upgrade of your Shadowcraft Armor: a long chain, most of it dungeon runs for a group."] = "L'amélioration de niveau 60 de votre Armure ombrefaite : une longue chaîne, surtout faite de donjons en groupe.",
 	["Darkmantle Armor: your class's Dungeon Set 2, eight pieces, each traded for its Shadowcraft Armor piece"] = "Armure de Sombremanteau : l'Ensemble de donjon 2 de votre classe, huit pièces, chacune échangée contre la pièce correspondante de l'Armure d'Ombrefaçon",
 
 	-- Step 1: Deliana

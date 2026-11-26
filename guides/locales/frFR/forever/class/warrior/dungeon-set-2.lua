@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Battlegear of Heroism (Dungeon Set 2)"] = "Tenue de bataille d'héroïsme (Ensemble de donjon 2)",
-	["The level 60 upgrade of your Battlegear of Valor: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "L'amélioration de niveau 60 de votre Tenue de bataille de valeur : une longue chaîne à travers Kalimdor et les Royaumes de l'Est, surtout faite de donjons en groupe.",
+	["The level 60 upgrade of your Battlegear of Valor: a long chain, most of it dungeon runs for a group."] = "L'amélioration de niveau 60 de votre Tenue de bataille de valeur : une longue chaîne, surtout faite de donjons en groupe.",
 	["Battlegear of Heroism: your class's Dungeon Set 2, eight pieces, each traded for its Battlegear of Valor piece"] = "Tenue de bataille d'héroïsme : l'Ensemble de donjon 2 de votre classe, huit pièces, chacune échangée contre sa pièce de la Tenue de bataille de valeur",
 
 	-- Step 1: Deliana

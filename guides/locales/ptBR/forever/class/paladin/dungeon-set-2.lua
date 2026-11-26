@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Soulforge Armor (Dungeon Set 2)"] = "Armadura Forja d'Alma (Conjunto de Masmorra 2)",
-	["The level 60 upgrade of your Lightforge Armor: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "A melhoria de nível 60 da sua Armadura Forjaluz: uma longa cadeia por Kalimdor e pelos Reinos do Leste, a maior parte em incursões de masmorra em grupo.",
+	["The level 60 upgrade of your Lightforge Armor: a long chain, most of it dungeon runs for a group."] = "A melhoria de nível 60 da sua Armadura Forjaluz: uma longa cadeia, a maior parte em incursões de masmorra em grupo.",
 	["Soulforge Armor: your class's Dungeon Set 2, eight pieces, each traded for its Lightforge Armor piece"] = "Armadura Forja d'Alma: o Conjunto de Masmorra 2 da sua classe, oito peças, cada uma trocada pela peça correspondente da Armadura Forjaluz",
 
 	-- Step 1: Deliana
@@ -238,12 +238,10 @@ return {
 
 	-- Step 58: Deliana: Saving the Best for Last
 	-- {quest:84198} Saving the Best for Last · {item:16727} Lightforge Helm · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16726} Lightforge Breastplate · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16727}: {npc:1853} in {area:2057} (about 6%), and your {item:16726}: {npc:10363} in Upper Blackrock Spire (about 7%)."] = "Saving the Best for Last pede seu {item:16727}: {npc:1853} em {area:2057} (cerca de 6%), e seu {item:16726}: {npc:10363} no Pico da Rocha Negra Superior (cerca de 7%)."
 	["{quest:84198} takes your {item:16727}: {npc:1853} in {area:2057} (about 6%), and your {item:16726}: {npc:10363} in Upper Blackrock Spire (about 7%)."] = "{quest:84198} pega seu {item:16727}: {npc:1853} em {area:2057} (cerca de 6%), e seu {item:16726}: {npc:10363} no Pico da Rocha Negra Superior (cerca de 7%).",
 
 	-- Step 59: Mokvar: Saving the Best for Last
 	-- {quest:97414} Saving the Best for Last · {item:16727} Lightforge Helm · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16726} Lightforge Breastplate · {npc:10363} General Drakkisath
-	-- was: ["Saving the Best for Last takes your {item:16727}: {npc:1853} in {area:2057} (about 6%), and your {item:16726}: {npc:10363} in Upper Blackrock Spire (about 7%)."] = "Saving the Best for Last pede seu {item:16727}: {npc:1853} em {area:2057} (cerca de 6%), e seu {item:16726}: {npc:10363} no Pico da Rocha Negra Superior (cerca de 7%)."
 	["{quest:97414} takes your {item:16727}: {npc:1853} in {area:2057} (about 6%), and your {item:16726}: {npc:10363} in Upper Blackrock Spire (about 7%)."] = "{quest:97414} pega seu {item:16727}: {npc:1853} em {area:2057} (cerca de 6%), e seu {item:16726}: {npc:10363} no Pico da Rocha Negra Superior (cerca de 7%).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

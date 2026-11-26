@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Beastmaster Armor (Dungeon Set 2)"] = "獸王護甲（地城套裝2）",
-	["The level 60 upgrade of your Beaststalker Armor: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "你的獸王鎧甲的60級升級：一條橫跨卡林多和東部王國的長任務鏈，大部分是需要小隊的地城。",
+	["The level 60 upgrade of your Beaststalker Armor: a long chain, most of it dungeon runs for a group."] = "你的獸王鎧甲的60級升級：一條長任務鏈，大部分是需要小隊的地城。",
 	["Beastmaster Armor: your class's Dungeon Set 2, eight pieces, each traded for its Beaststalker Armor piece"] = "獸王護甲：你職業的地城套裝2，共八件，每件用對應的獵獸者護甲部件交換",
 
 	-- Step 1: Deliana

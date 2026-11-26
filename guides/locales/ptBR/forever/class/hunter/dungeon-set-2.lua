@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Beastmaster Armor (Dungeon Set 2)"] = "Armadura do Mestre das Feras (Conjunto de Masmorra 2)",
-	["The level 60 upgrade of your Beaststalker Armor: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "A melhoria de nível 60 da sua Armadura do Espreitador de Feras: uma longa cadeia por Kalimdor e pelos Reinos do Leste, a maior parte em incursões de masmorra em grupo.",
+	["The level 60 upgrade of your Beaststalker Armor: a long chain, most of it dungeon runs for a group."] = "A melhoria de nível 60 da sua Armadura do Espreitador de Feras: uma longa cadeia, a maior parte em incursões de masmorra em grupo.",
 	["Beastmaster Armor: your class's Dungeon Set 2, eight pieces, each traded for its Beaststalker Armor piece"] = "Armadura do Mestre das Feras: o Conjunto de Masmorra 2 da sua classe, oito peças, cada uma trocada pela peça correspondente da Armadura do Espreitador de Feras",
 
 	-- Step 1: Deliana

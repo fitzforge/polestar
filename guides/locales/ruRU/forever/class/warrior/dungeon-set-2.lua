@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Battlegear of Heroism (Dungeon Set 2)"] = "Боевое снаряжение героизма (комплект подземелий 2)",
-	["The level 60 upgrade of your Battlegear of Valor: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "Улучшение комплекта «Доспехи доблести» до 60-го уровня: длинная цепочка по Калимдору и Восточным королевствам, в основном походы в подземелья группой.",
+	["The level 60 upgrade of your Battlegear of Valor: a long chain, most of it dungeon runs for a group."] = "Улучшение комплекта «Доспехи доблести» до 60-го уровня: длинная цепочка, в основном походы в подземелья группой.",
 	["Battlegear of Heroism: your class's Dungeon Set 2, eight pieces, each traded for its Battlegear of Valor piece"] = "Боевое снаряжение героизма: комплект подземелий 2 вашего класса, восемь частей, каждая обменивается на соответствующую часть боевого снаряжения доблести",
 
 	-- Step 1: Deliana

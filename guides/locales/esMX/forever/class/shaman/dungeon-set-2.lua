@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["The Five Thunders (Dungeon Set 2)"] = "Los Cinco Truenos (Conjunto de calabozo 2)",
-	["The level 60 upgrade of your The Elements: a long chain across Kalimdor and the Eastern Kingdoms, most of it dungeon runs for a group."] = "La mejora de nivel 60 de tu conjunto Los Elementos: una larga cadena por Kalimdor y los Reinos del Este, casi toda de calabozos en grupo.",
+	["The level 60 upgrade of your The Elements: a long chain, most of it dungeon runs for a group."] = "La mejora de nivel 60 de tu conjunto Los Elementos: una larga cadena, casi toda de calabozos en grupo.",
 	["The Five Thunders: your class's Dungeon Set 2, eight pieces, each traded for its The Elements piece"] = "Los Cinco Truenos: el Conjunto de calabozo 2 de tu clase, ocho piezas, cada una a cambio de su pieza de Los Elementos",
 
 	-- Step 1: Deliana
