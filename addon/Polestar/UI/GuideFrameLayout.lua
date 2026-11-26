@@ -53,6 +53,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		if frame:GetParent() ~= home then frame:SetParent(home) end
 		return false
 	end
+	GF.Claimed = claimed
 
 	-- Measure and place the card's parts; the goals area's own height is left
 	-- to fitGoals (its contents, within the cap). -> the card's height without
@@ -121,6 +122,8 @@ ns.UI.GuideFrame.Part(function(GF)
 			end
 			y = y + n * rowH
 		end
+		-- The guide kind's regions (UI/GuideFrameRegions.lua) where the header sits.
+		y = GF.LayoutRegions(width, y)
 		if person:IsShown() then
 			local nameW = cw - ICON - 10
 			person.Name:SetWidth(nameW)
@@ -777,6 +780,7 @@ ns.UI.GuideFrame.Part(function(GF)
 				return cardTop - (y or 0)
 			end
 			if person:IsShown() then add("person", person, inCard(person), person:GetHeight()) end
+			for _, r in ipairs(GF.PlacedRegions()) do add(r[1], r[2], inCard(r[2]), r[2]:GetHeight()) end
 			local goalsTop, scroll = inCard(goals), goals:GetVerticalScroll() or 0
 			for _, f in ipairs(GF.CardItems()) do
 				local y = GF.ItemTop(f)
