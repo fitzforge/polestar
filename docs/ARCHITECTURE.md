@@ -8755,7 +8755,10 @@ Polestar.FreeOrder.Sort(rows, rule, pin, last, dist) ; .Why(rows, rule, pin) ; .
   route": every quest in the plan's order, numbered, the one the arrow leads to
   now (the first, unless a zone hint leads) on the selection wash with the 2px
   accent bar; each row the title in the quest log's difficulty colour
-  (`UI.QuestDifficulty`), its reasons (`Free.Reasons`), its progress (the
+  (`UI.QuestDifficulty`), the reasons that tell it from the rows shown
+  (`Free.ReasonList`: one every shown row has is left out, the first row
+  keeping its strongest; "ready to hand in" never beside Ready; two at most;
+  the tooltip has them all), its progress (the
   objective counts summed, "3/8" and a slim bar; "Ready"), its walk ("4 min"),
   its XP and zone, then a quiet flag (`Free.Pin`) and tick (leaving it out,
   `Free.LeaveOut`); a click on the row pins it. Finished quests one after

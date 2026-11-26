@@ -321,12 +321,20 @@ local WHY = {
 	held = function() return L["kept while you walk"] end,
 }
 
--- rows[i]'s reasons against the quests after it: "ready to hand in · most XP for the trip" | nil.
-local function reasons(rows, i, rule, pin)
+-- rows[i]'s reasons against the quests after it, strongest first:
+-- { { key, text }, ... } (Order.Why's keys: "ready", "xp", ...).
+local function reasonList(rows, i, rule, pin)
 	local rest = {}
 	for k = i, #rows do rest[#rest + 1] = rows[k] end
+	local out = {}
+	for _, e in ipairs(Order.Why(rest, rule, pin)) do out[#out + 1] = { key = e.key, text = WHY[e.key](e.n) } end
+	return out
+end
+
+-- The same as one line: "ready to hand in · most XP for the trip" | nil.
+local function reasons(rows, i, rule, pin)
 	local parts = {}
-	for _, e in ipairs(Order.Why(rest, rule, pin)) do parts[#parts + 1] = WHY[e.key](e.n) end
+	for _, e in ipairs(reasonList(rows, i, rule, pin)) do parts[#parts + 1] = e.text end
 	if #parts == 0 then return nil end
 	return concat(parts, " \194\183 ")
 end
@@ -339,6 +347,11 @@ end
 function Free.Reasons(rows, i)
 	if not (rows and rows[i]) then return nil end
 	return reasons(rows, i, pick(), saved().pin)
+end
+
+function Free.ReasonList(rows, i)
+	if not (rows and rows[i]) then return {} end
+	return reasonList(rows, i, pick(), saved().pin)
 end
 
 ---------------------------------------------------------------------------

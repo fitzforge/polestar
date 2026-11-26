@@ -226,7 +226,7 @@ local s = P.Shown()
 local rows, byTitle = {}, {}
 for _, r in ipairs(s) do
 	rows[#rows + 1] = { n = r.n, title = r.title, current = r.current and true or false }
-	byTitle[r.title] = { progress = r.progress, zone = r.zone, walk = r.travel ~= nil, xp = (r.xp or 0) > 0, why = r.why ~= nil }
+	byTitle[r.title] = { progress = r.progress, zone = r.zone, walk = r.travel ~= nil, xp = (r.xp or 0) > 0 }
 end
 local first = rowOf(s[1].quest)
 local second = rowOf(s[2].quest)
@@ -249,10 +249,61 @@ emit(got)
 		assert_eq!(r["current"], i == 0, "only the quest the arrow leads to now is marked");
 	}
 	assert_eq!(o["marked"], json!([true, true, false]));
-	assert_eq!(o["gnoll"], json!({ "progress": "2/5", "zone": "Hale's Reach", "walk": true, "xp": true, "why": true }));
+	assert_eq!(o["gnoll"], json!({ "progress": "2/5", "zone": "Hale's Reach", "walk": true, "xp": true }));
 	assert_eq!(text(&o["after"]), "test/route", "Back hands the arrow back");
 	assert!(!truthy(&o["on"]));
 	assert_eq!(text(&o["mode2"]), "ready");
+}
+
+// try4: "most XP for the trip" stood on all five rows and "ready to hand in" beside Ready. A why line says only what
+// tells its row from the others: a reason every shown row has goes (the first row keeps its strongest), a Ready row
+// never repeats it, two reasons at most; the tooltip keeps them all.
+#[test]
+fn the_route_s_why_lines_say_only_what_tells_a_row_from_the_others() {
+	let out = run(r#"
+used()
+take(7001, 7007, 7002, 7003, 7101)
+finish(7001, 5)
+finish(7007, 3)
+finish(7101)
+finish(7002, 2)
+assert(F.Start())
+stub.advance(1)
+local P = page()
+local rows, all = {}, {}
+local list = F.Route()
+for i, r in ipairs(P.Shown()) do
+	rows[i] = { why = r.why or false, ready = r.ready and true or false }
+	local texts = {}
+	for _, x in ipairs(F.ReasonList(list, i)) do texts[#texts + 1] = x.text end
+	all[i] = texts
+end
+local r = rowOf(P.Shown()[2].quest)
+r:GetScript("OnEnter")(r)
+emit({ rows = rows, all = all, tip = GameTooltip.lines })
+"#);
+	let o = &out[0];
+	let rows = o["rows"].as_array().unwrap();
+	assert!(rows.len() >= 3, "{o}");
+	let whys: Vec<Vec<String>> = rows.iter().map(|r| r["why"].as_str().map(|s| s.split(" \u{b7} ").map(String::from).collect()).unwrap_or_default()).collect();
+	assert!(!whys[0].is_empty(), "the current row keeps its strongest reason: {o}");
+	for (i, w) in whys.iter().enumerate() {
+		assert!(w.len() <= 2, "two reasons at most: {o}");
+		if rows[i]["ready"] == true {
+			assert!(!w.contains(&"ready to hand in".to_string()), "a Ready row never says it again: {o}");
+		}
+	}
+	// The case the rule is for: a reason Order.Why gives every row is not shown on the rows after the first.
+	let all: Vec<Vec<String>> = o["all"].as_array().unwrap().iter().map(strs).collect();
+	let shared: Vec<&String> = all[0].iter().filter(|t| all.iter().all(|a| a.contains(t))).collect();
+	assert!(!shared.is_empty(), "the log gives every row a reason in common: {o}");
+	for t in &shared {
+		for w in whys.iter().skip(1) {
+			assert!(!w.contains(t), "{t} is on every row, so not shown: {o}");
+		}
+	}
+	let tip = strs(&o["tip"]);
+	assert!(tip.iter().any(|l| shared.iter().any(|t| l.contains(t.as_str()))), "the tooltip keeps every reason: {tip:?}");
 }
 
 #[test]

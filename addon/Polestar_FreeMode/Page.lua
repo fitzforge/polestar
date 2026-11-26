@@ -157,7 +157,8 @@ local function questTip(r)
 		if e.travel then where = where and (where .. "  \194\183  " .. format(L["%s away"], minutes(e.travel))) or format(L["%s away"], minutes(e.travel)) end
 		local lines = {}
 		if where then lines[#lines + 1] = { where, Theme.TipColor("place") } end
-		if e.why then lines[#lines + 1] = { e.why, Theme.TipColor("textDim") } end
+		local why = e.whyAll or e.why
+		if why then lines[#lines + 1] = { why, Theme.TipColor("textDim") } end
 		for _, l in ipairs(e.lines or {}) do
 			if type(l.text) == "string" and l.text ~= "" then
 				lines[#lines + 1] = { l.text, Theme.TipColor(l.finished and "success" or "text") }
@@ -509,17 +510,48 @@ local function paintRow(r, e, width, full)
 	r:Show()
 end
 
--- The route's entries: Free mode's order, numbered, with each quest's facts.
-local function entries(list, byQuest, on, info)
+-- The why lines of the rows shown (the first `visible`): only what tells a
+-- row from its neighbours. A reason every shown row has goes (the first row
+-- keeps its strongest), "ready to hand in" never stands on a row whose
+-- progress already says Ready, and two at most.
+local MAX_WHY = 2
+local function whyLines(list, visible)
+	local per, seen = {}, {}
+	for i = 1, visible do
+		local l = {}
+		for _, r in ipairs(Free.ReasonList(list, i)) do
+			if not (r.key == "ready" and list[i].ready) then
+				l[#l + 1] = r.text
+				seen[r.text] = (seen[r.text] or 0) + 1
+			end
+		end
+		per[i] = l
+	end
+	local out = {}
+	for i = 1, visible do
+		local keep = {}
+		for k, text in ipairs(per[i]) do
+			local everywhere = visible > 1 and seen[text] == visible
+			if (not everywhere or (i == 1 and k == 1)) and #keep < MAX_WHY then keep[#keep + 1] = text end
+		end
+		out[i] = #keep > 0 and table.concat(keep, " \194\183 ") or nil
+	end
+	return out
+end
+
+-- The route's entries: Free mode's order, numbered, with each quest's facts;
+-- `visible`: how many of them the page shows (their why lines compare them).
+local function entries(list, byQuest, on, info, visible)
 	local plevel = ns.Compat.GetPlayerLevel and ns.Compat.GetPlayerLevel() or nil
 	local pin = Free.Pinned()
+	local why = whyLines(list, min(visible, #list))
 	local out = {}
 	for i, row in ipairs(list) do
 		local q = byQuest[row.quest] or {}
 		local done, total, lines = progressOf(row.quest)
 		out[i] = {
 			n = i, quest = row.quest, title = row.title, level = row.qlvl or q.level, plevel = plevel,
-			why = Free.Reasons(list, i), ready = row.ready, done = done, total = total, lines = lines,
+			why = why[i], whyAll = Free.Reasons(list, i), ready = row.ready, done = done, total = total, lines = lines,
 			travel = row.travel, xp = row.xp, zone = q.zoneName, pinned = pin == row.quest,
 			current = on and i == 1 and not info.hint or false, ender = row.ender, enderName = row.enderName,
 			placeZone = row.ready and row.place and row.place.map and ns.Compat.MapName(row.place.map) or nil,
@@ -727,7 +759,7 @@ function P.Render()
 	for _, q in ipairs(quests) do byQuest[q.quest] = q end
 	local list, info = Free.Route()
 	info = info or {}
-	local route = entries(list or {}, byQuest, on, info)
+	local route = entries(list or {}, byQuest, on, info, on and #(list or {}) or PREVIEW_ROWS)
 	local ready = ns.Handins and ns.Handins.Ready() or {}
 	hideAll()
 	shown.mode, shown.on, shown.count = mode, on, #route
