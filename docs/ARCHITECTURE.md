@@ -1469,7 +1469,7 @@ Polestar.Hooks.ItemClick(owner, fn(link, itemID))                -- modified cli
 Polestar.Hooks.AddLine(tooltip, left, right?, r, g, b, rr, rg, rb)
 
 Polestar.BagSlots.Painter(owner, fn(button, view, itemID, link))  -- view "client" or "ellesmere"; one painter per owner, in registration order through SafeCall
-Polestar.BagSlots.Widget(owner, id, label, show, make, corner, bagsmithCorner)  -- show(details) -> bool, make(button) -> region; Baganator and BagSmith, registered once each
+Polestar.BagSlots.Widget(owner, id, label, show, make, corner)  -- show(details) -> bool, make(button) -> region; Baganator and BagSmith, registered once each
 Polestar.BagSlots.Redraw(owner)  -- that owner's shown client slots and active corner widgets; EllesmereUI's shown slots with every painter
 
 Polestar.Search.Query(text, opts) -> results, counts, more   -- opts = { kinds, limit = 60, perKind, offset, subtitles = false }
@@ -8269,7 +8269,10 @@ Polestar.QoL.KeptToSell() -> { { item, link }, ... }          -- kept items in t
   in the bags (QoL/BagGlow.lua, under `qol.bagGlow`) a kept item a merchant
   would buy gets a small lock in its bottom-left corner (Baganator and
   BagSmith: a bottom-left corner widget), unless it is the glowing step item.
-  EllesmereUI Bags shows the step item's full-slot glow on its text overlay
+  The step item's glow rings the whole slot in every bag view; in Baganator
+  and BagSmith it is a bottom-left corner widget (shared with the lock, which
+  never shows on the step item), so the stack count keeps its bottom-right
+  corner (#4207). EllesmereUI Bags shows the glow on its text overlay
   and the keep lock in the top-right corner, moved just left of the quest
   icon on a slot that shows one (`QuestDB.BagMarkShown`). Both follow
   `qol.bagGlow`; client and EllesmereUI glows stop pulsing with `ui.reduceMotion` on.
@@ -10715,7 +10718,8 @@ Tests: `ui-look-toasts.rs`.
 
 Ported from Ding! by Yendi (@moust4ki), GPL-3.0, and rebuilt on the Theme.
 No Polestar window takes a button from the game while it is merely shown:
-a window holds the gamepad only while it is the newest one open, out of
+a window holds the gamepad only while it is the newest one open on screen
+(a window shown under a hidden Polestar takes nothing until Polestar shows), out of
 combat, with a gamepad active (the game's gamepad interface, or
 `gamepad.withMouse` on with the keyboard and mouse) and `gamepad.navigate` on (focus mode needs
 only a gamepad), through a frame that reads the buttons first

@@ -198,10 +198,20 @@ function buildModel(data, opts, warn = () => {}) {
 				return { ...base, verb: 'collect', ent: src.ent, pt: src.ent.clusters[0].pt, label: src.ent.name, itemName, mobLevel: mobLevel(src.ent.raw.level, q.level), kills };
 			}
 			const item = data.items[String(o.id)];
+			// A vendor item: the guide says `buy … nearest`, so the game picks the
+			// vendor. The route plans the stop at the in-zone vendor nearest the
+			// quest giver (ties: data order), where the item is first wanted.
 			const vendors = item ? friendlyEnts('npc', item.vendors) : [];
 			if (vendors.length) {
-				const v = vendors[0];
-				return { ...base, verb: 'buy', ent: v, pt: v.clusters[0].pt, label: v.name, itemName, kills: 0 };
+				const anchor = q.starters.length ? q.starters[0].clusters[0].pt : q.pickup.pt;
+				let best = null;
+				for (const v of vendors) {
+					for (const cl of v.clusters) {
+						const d = dist(anchor, cl.pt);
+						if (!best || d < best.d) best = { v, pt: cl.pt, d };
+					}
+				}
+				return { ...base, verb: 'buy', ent: best.v, pt: best.pt, label: itemName || best.v.name, itemName, kills: 0 };
 			}
 			return null;
 		}

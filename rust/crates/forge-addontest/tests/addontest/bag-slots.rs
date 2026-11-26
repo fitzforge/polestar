@@ -184,23 +184,141 @@ function Baganator.API.RegisterCornerWidget(label, id, show, make, position)
 end
 "#;
 
+// No Polestar widget in the stack count's corner (bottom-right in Baganator and BagSmith, #4207). The step glow
+// shares bottom-left with the keep lock: a glowing step item never gets the lock. The leftover's full-slot border
+// shares top-left with the upgrade arrow: quest-class items never get the arrow.
 #[test]
-fn baganator_assigns_four_distinct_widget_corners() {
+fn baganator_leaves_the_stack_count_s_corner_to_the_count() {
 	let out = run(
 		BAGANATOR_CORNERS,
 		r#"
--- The leftover's full-slot border is excluded: quest-class items never get the upgrade arrow.
-local ids = { "polestar_upgrade", "polestar_quest_needed", "polestar_step_item", "polestar_keep_lock" }
-local corners, seen = {}, {}
-for _, id in ipairs(ids) do
- local corner = bagCorners[id]
- assert(corner and not seen[corner], id .. " needs a distinct corner")
- seen[corner] = true; corners[#corners + 1] = corner
-end
+local ids = { "polestar_upgrade", "polestar_quest_needed", "polestar_step_glow", "polestar_keep_lock" }
+local corners = {}
+for _, id in ipairs(ids) do corners[#corners + 1] = bagCorners[id] or false end
 emit(corners)
 "#,
 	);
-	assert_eq!(out[0], json!(["top_left", "top_right", "bottom_right", "bottom_left"]));
+	assert_eq!(out[0], json!(["top_left", "top_right", "bottom_left", "bottom_left"]));
+}
+
+// Baganator's corners as it draws them (its Core/Config.lua defaults, API/Main.lua's AutoInsert, once per widget id,
+// and ItemViewCommon/ItemButton.lua's update): in each corner only the first widget whose onUpdate says true shows.
+// The stack count is its `quantity` widget, bottom-right, shown for a stack of 2 or more.
+const BAGANATOR_SLOTS: &str = r#"
+corners = savedCorners or { top_left = { "junk", "item_level" }, top_right = {}, bottom_left = { "equipment_set" }, bottom_right = { "quantity" } }
+applied = savedApplied or {}
+plugins = {
+ quantity = { onUpdate = function(_, d) return d.itemCount > 1 end, onInit = function(b) return b.Count end },
+}
+for _, id in ipairs({ "junk", "item_level", "equipment_set" }) do
+ plugins[id] = { onUpdate = function() return false end, onInit = function(b) return CreateFrame("Frame", nil, b) end }
+end
+refreshes = 0
+Baganator = { API = {}, Constants = { RefreshReason = { ItemWidgets = 4 } } }
+function Baganator.API.RegisterCornerWidget(label, id, onUpdate, onInit, position)
+ assert(id and label and onUpdate and onInit and not plugins[id])
+ plugins[id] = { label = label, onUpdate = onUpdate, onInit = onInit }
+ if applied[id] then return end
+ applied[id] = true
+ local list = corners[position.corner]
+ if position.priority > #list then table.insert(list, id) else table.insert(list, position.priority, id) end
+end
+function Baganator.API.IsCornerWidgetActive(id)
+ for _, list in pairs(corners) do
+  for _, x in ipairs(list) do if x == id then return true end end
+ end
+ return false
+end
+function Baganator.API.RequestItemButtonsRefresh() refreshes = refreshes + 1 end
+-- One slot drawn: corner -> the id it shows.
+function baganatorSlot(details)
+ local button = CreateFrame("Button", nil, UIParent)
+ button:SetSize(37, 37)
+ button.Count = button:CreateFontString(nil, "ARTWORK")
+ local shown = {}
+ for corner, list in pairs(corners) do
+  for _, id in ipairs(list) do
+   local p = plugins[id]
+   local widget = p and p.onInit(button)
+   if widget and p.onUpdate(widget, details) then shown[corner] = id; break end
+  end
+ end
+ return shown, button
+end
+function stepWidget()
+ for id, p in pairs(plugins) do
+  if p.label == "Polestar: step item" then return id end
+ end
+end
+"#;
+
+const STACK_OF_THREE: &str = r#"
+local QoL = Polestar.QoL
+QoL.CurrentStep = function() return { goals = { { t = "collect", item = 9003, quest = 882, count = 5, status = "active" } } }, {} end
+QoL.BagGlow.Refresh()
+local stack = { itemID = 9003, itemLink = "item:9003", itemCount = 3 }
+local function look()
+ local shown = baganatorSlot(stack)
+ local glow = false
+ for corner, id in pairs(shown) do
+  if id == stepWidget() then glow = corner end
+ end
+ return { count = shown.bottom_right or false, glow = glow }
+end
+emit(look())
+"#;
+
+// #4207: a stack of 3 of the quest item the step collects. The step's highlight sat first in the count's corner,
+// so Baganator drew it (a small empty square) instead of the count until the last one was collected.
+#[test]
+fn baganator_shows_the_stack_count_of_the_step_s_quest_item_with_its_glow() {
+	let out = run(BAGANATOR_SLOTS, STACK_OF_THREE);
+	assert_eq!(out[0], json!({ "count": "quantity", "glow": "bottom_left" }));
+}
+
+// Players of 0.4.3 have the old step widget saved first in the count's corner: the count shows for them too.
+#[test]
+fn baganator_shows_the_stack_count_for_a_layout_saved_with_the_old_step_widget() {
+	let saved = [
+		r#"
+savedCorners = { top_left = { "polestar_upgrade", "junk", "item_level" }, top_right = { "polestar_quest_needed" },
+ bottom_left = { "polestar_keep_lock", "equipment_set" }, bottom_right = { "polestar_step_item", "quantity" } }
+savedApplied = { polestar_upgrade = true, polestar_quest_needed = true, polestar_quest_leftover = true,
+ polestar_step_item = true, polestar_keep_lock = true }
+"#,
+		BAGANATOR_SLOTS,
+	]
+	.concat();
+	let out = run(&saved, STACK_OF_THREE);
+	assert_eq!(out[0], json!({ "count": "quantity", "glow": "bottom_left" }));
+}
+
+// The highlight is the full-slot ring of the game's bags, centred on the slot, in the theme's accent; switched off
+// (qol.bagGlow), Baganator is asked to redraw and no Polestar widget shows, the count still does.
+#[test]
+fn baganator_step_glow_rings_the_slot_and_goes_with_its_setting() {
+	let out = run(
+		BAGANATOR_SLOTS,
+		&[
+			STACK_OF_THREE,
+			r#"
+local _, button = baganatorSlot(stack)
+local frame = plugins[stepWidget()].onInit(button)
+local ring = frame:GetRegions()
+local point, relative = ring:GetPoint(1)
+local r, g, b = Polestar.Theme.Accent()
+local vr, vg, vb = ring:GetVertexColor()
+emit({ texture = ring.texture, point = point, onButton = relative == button, blend = ring.blend,
+ width = math.floor(ring:GetWidth() * 10 + 0.5) / 10, accent = r == vr and g == vg and b == vb })
+refreshes = 0
+Polestar.Set("qol.bagGlow", false); stub.advance(0.1)
+emit({ refreshed = refreshes > 0, look = look() })
+"#,
+		]
+		.concat(),
+	);
+	assert_eq!(out[1], json!({ "texture": "Interface\\Buttons\\UI-ActionButton-Border", "point": "CENTER", "onButton": true, "blend": "ADD", "width": 70.3, "accent": true }));
+	assert_eq!(out[2], json!({ "refreshed": true, "look": { "count": "quantity", "glow": false } }));
 }
 
 const ELLESMERE_GLOW_LOOK: &str = r#"
