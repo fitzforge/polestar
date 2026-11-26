@@ -2236,7 +2236,7 @@ local r = b.Chains[1]; r:GetScript("OnEnter")(r)`) },
 	},
 	{
 		file: 'free-mode.svg',
-		title: 'The Free mode section of the hub, by who arrives: never started (what Free mode is, three points, when it suits and the way back, beside the log\'s first three quests in Free mode\'s order and one Start); started before (Start with the order beside it, the first three, What is Free mode? folded); on (following six quests, Back to the guide, the order, the hand-in card, the route numbered with the current quest marked, two hand-ins under Marshal Hale, Ogre Menace left out)',
+		title: 'The Free mode section of the hub, by who arrives: never started (the hero: the log\'s first three quests as stars on a dotted path the emblem leads, one big Activate Free mode under them, the three points and the hand-in card); started before (the stars unnamed, Activate with the order under it, the first three, What is Free mode? folded); on (following six quests, Back to the guide, the order, the hand-in card, the route numbered with the current quest marked, two hand-ins under Marshal Hale, Ogre Menace left out)',
 		panels: [
 			{ free: true, roots: PICKER, script: freeScene('Polestar.UI.ShowFreeMode()') },
 			{ free: true, roots: PICKER, script: freeScene(`${FREE_USED}; Polestar.UI.ShowFreeMode()`) },
@@ -2249,6 +2249,14 @@ local r = b.Chains[1]; r:GetScript("OnEnter")(r)`) },
 		panels: ['halo', 'hearth', 'forever', 'blizzard', 'classic'].flatMap((look) => [
 			{ free: true, roots: PICKER, script: freeScene(`Polestar.Set("ui.skin", "${look}"); Polestar.UI.ShowFreeMode()`) },
 			{ free: true, roots: PICKER, script: freeScene(`Polestar.Set("ui.skin", "${look}"); ${FREE_ON}; Polestar.UI.ShowFreeMode()`) },
+		]),
+	},
+	{
+		file: 'free-mode-hero.svg',
+		title: 'The Free mode page\'s hero, never started and started before, in its three compositions (the dev switch PolestarDB.devFreeHero): sky (the default: the log\'s first three quests as stars on a dotted path the emblem leads, Activate under them), polaris (the emblem in its glow over the tagline and Activate) and seal (Activate at the heart of the emblem\'s engraving)',
+		panels: ['sky', 'polaris', 'seal'].flatMap((d) => [
+			{ free: true, roots: PICKER, script: freeScene(`PolestarDB.devFreeHero = "${d}"; Polestar.UI.ShowFreeMode()`) },
+			{ free: true, roots: PICKER, script: freeScene(`PolestarDB.devFreeHero = "${d}"; ${FREE_USED}; Polestar.UI.ShowFreeMode()`) },
 		]),
 	},
 	{

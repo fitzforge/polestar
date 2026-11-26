@@ -1,7 +1,8 @@
 //! Free mode in the main window (addon/Polestar/UI/FreeMode.lua, Polestar_FreeMode/Page.lua): its menu item right under
-//! Guides with its running figure, the page laid out by who arrives (never started on this account: what Free mode is
-//! beside a preview of the log in its order and one Start; started before: Start with the order and the first three
-//! quests; on: the route numbered in Free mode's order, the quest it leads to marked, Back to <guide>), the hand-in
+//! Guides with its running figure, the page laid out by who arrives (never started on this account: the hero, one
+//! Activate at its centre under the emblem and the log's first quests in Free mode's order, the three points under it;
+//! started before: Activate with the order under it, then the first three quests; on: the route numbered in Free
+//! mode's order, the quest it leads to marked, Back to <guide>), the hand-in
 //! card and the NPC lines over finished quests, the quests left out folded with Bring back, the game's quest tooltip
 //! on hover and gamepad focus, the sidebar's sections, the tab and header glyphs, the hand-in row in the guide window,
 //! a gamepad on the page and the world map's click on a held quest's pin. The choices are Free mode's own saved state
@@ -153,17 +154,20 @@ emit({ keys = keys, rail = rail, icon = icon, label = label, section = P.Section
 }
 
 #[test]
-fn never_started_the_page_says_what_free_mode_is_previews_the_log_in_its_order_and_offers_one_start() {
+fn never_started_the_page_is_a_hero_activate_at_its_centre_under_the_log_in_its_order_as_a_constellation() {
 	let out = run(r#"
 take(7001, 7002, 7003, 7101)
 local P = page()
 local s = P.Shown()
+local H = F.Hero.parts
 local order = {}
 for _, r in ipairs(F.Route()) do order[#order + 1] = r.title end
 local rows = {}
 for _, r in ipairs(s) do rows[#rows + 1] = { r.n, r.title } end
-local got = { mode = s.mode, lead = s.lead, more = s.more, start = s.start, rows = rows, order = order,
-	intro = { P.parts.IntroTitle:IsShown(), P.parts.Points[1]:IsShown(), P.parts.Points[3]:IsShown(), P.parts.When:IsShown(), P.parts.BackNote:IsShown() },
+local labels = {}
+for i = 1, 3 do labels[i] = H.Labels[i].title:IsShown() and H.Labels[i].title:GetText() or false end
+local got = { mode = s.mode, hero = s.hero, lead = s.lead, more = s.more, start = s.start, rows = rows, order = order, labels = labels,
+	intro = { H.Title:IsShown(), H.Lead:IsShown(), H.Points[1]:IsShown(), H.Points[3]:IsShown(), H.Back:IsShown(), H.Emblem:IsShown() },
 	button = P.parts.Start:IsShown() and P.parts.Start.Label:GetText() or false, order_shown = P.parts.Near:IsShown(), about = P.parts.About:IsShown() }
 P.parts.Start:Click()
 stub.advance(1)
@@ -172,13 +176,16 @@ emit(got)
 "#);
 	let o = &out[0];
 	assert_eq!(text(&o["mode"]), "intro");
-	assert_eq!(o["intro"], json!([true, true, true, true, true]), "the title, the three points, when it suits, the way back");
+	assert_eq!(text(&o["hero"]), "sky", "the constellation by default");
+	assert_eq!(o["intro"], json!([true, true, true, true, true, true]), "the tagline and lead, the three points, the way back, the emblem");
 	let order = strs(&o["order"]);
 	assert_eq!(o["rows"], json!([[1, order[0]], [2, order[1]], [3, order[2]]]), "the first three in Free mode's own order");
+	assert_eq!(o["labels"], json!([order[0], order[1], order[2]]), "a star each, named, in that order");
 	let lead = text(&o["lead"]);
-	assert!(lead.starts_with("With your 4 quests, Free mode starts with ") && lead.contains(&order[0]), "{lead}");
+	assert_eq!(lead, format!("Free mode would start with {}", order[0]));
 	assert_eq!(o["more"], 1);
-	assert_eq!(text(&o["button"]), "Start Free mode", "one big Start");
+	assert_eq!(text(&o["button"]), "Activate Free mode", "one big Activate");
+	assert_eq!(text(&o["start"]), "Activate Free mode");
 	assert_eq!(o["order_shown"], false, "no order to choose before it is known");
 	assert_eq!(o["about"], false, "the intro is whole, nothing folded");
 	assert!(truthy(&o["on"]));
@@ -187,30 +194,84 @@ emit(got)
 }
 
 #[test]
-fn started_before_and_off_the_page_leads_with_start_and_the_order_then_the_first_three_quests() {
+fn started_before_and_off_the_page_leads_with_activate_and_the_order_then_the_first_three_quests() {
 	let out = run(r#"
 used()
 take(7001, 7002, 7003, 7101)
 local P = page()
 local s = P.Shown()
+local H = F.Hero.parts
 local got = { mode = s.mode, start = s.start, pick = s.pick, rule = s.rule, more = s.more, count = #s, about = s.about,
-	intro = P.parts.IntroTitle:IsShown(), order_shown = P.parts.Near:IsShown() }
+	intro = H.Title:IsShown(), emblem = H.Emblem:IsShown(), order_shown = P.parts.Near:IsShown() }
 P.parts.About:Click()
 stub.advance(0.1)
-got.open = { P.Shown().about, P.parts.Points[1]:IsShown(), P.parts.IntroTitle:IsShown() }
+got.open = { P.Shown().about, P.parts.Points[1]:IsShown(), H.Title:IsShown() }
 emit(got)
 "#);
 	let o = &out[0];
 	assert_eq!(text(&o["mode"]), "ready");
-	assert_eq!(text(&o["start"]), "Start Free mode");
+	assert_eq!(text(&o["start"]), "Activate Free mode");
 	assert_eq!(text(&o["pick"]), "balanced");
-	assert_eq!(o["order_shown"], true, "the order beside Start");
+	assert_eq!(o["order_shown"], true, "the order under Activate");
 	assert_eq!(text(&o["rule"]), "The best trip first: XP for the walk, quests started and stops shared.");
 	assert_eq!(o["count"], 3, "the first three it would take");
 	assert_eq!(o["more"], 1);
 	assert_eq!(o["about"], false, "What is Free mode? folded");
-	assert_eq!(o["intro"], false);
+	assert_eq!((o["intro"].clone(), o["emblem"].clone()), (json!(false), json!(true)), "the art, not the tagline");
 	assert_eq!(o["open"], json!([true, true, false]), "unfolded: the points, under the fold's own heading");
+}
+
+// The hero's three compositions (the dev switch PolestarDB.devFreeHero), never started and started before, and with
+// an empty log: Activate is centred in the column, the emblem in the accent, the preview the first three quests.
+#[test]
+fn every_hero_composition_centres_activate_under_the_emblem_in_the_accent() {
+	let out = run(r#"
+take(7001, 7002, 7003, 7101)
+local P = page()
+local H = F.Hero.parts
+local T = Polestar.Theme
+local function same(a, b)
+	for i = 1, 3 do if math.abs(a[i] - b[i]) > 0.002 then return false end end
+	return true
+end
+local out = {}
+for _, d in ipairs({ "sky", "polaris", "seal", "nope" }) do
+	for _, used in ipairs({ false, true }) do
+		Polestar.DB().devFreeHero = d
+		Polestar.DB().freeUsed = used or nil
+		P.Render()
+		local s = P.Shown()
+		local b = P.parts.Start
+		local _, _, _, x = b:GetPoint(1)
+		local mid = P.parts.Start:GetParent():GetWidth() / 2
+		out[#out + 1] = { d = d, used = used, hero = s.hero, mode = s.mode, label = b.Label:GetText(), h = b:GetHeight(),
+			centred = math.abs(x + b:GetWidth() / 2 - mid) < 1, accent = same({ H.Emblem:GetVertexColor() }, { T.Color("accent") }),
+			rows = #s, lead = s.lead or false }
+	end
+end
+Polestar.DB().devFreeHero, Polestar.DB().freeUsed = nil, nil
+for _, q in ipairs({ 7001, 7002, 7003, 7101 }) do stub.world.abandon(q) end
+stub.advance(1)
+P.Render()
+out[#out + 1] = { empty = P.Shown().empty or false, label = P.parts.Start:IsShown() and P.parts.Start.Label:GetText() or false }
+emit(out)
+"#);
+	let all = out[0].as_array().unwrap();
+	for o in &all[..8] {
+		let d = text(&o["d"]);
+		let used = o["used"] == json!(true);
+		assert_eq!(text(&o["hero"]), if d == "nope" { "sky" } else { d }, "an unknown switch is the default");
+		assert_eq!(text(&o["mode"]), if used { "ready" } else { "intro" });
+		assert_eq!(text(&o["label"]), "Activate Free mode", "{d}");
+		assert_eq!(o["h"], 44, "{d}: the big button");
+		assert_eq!(o["centred"], true, "{d} {used}: Activate centred in the column");
+		assert_eq!(o["accent"], true, "{d}: the emblem wears the accent");
+		assert_eq!(o["rows"], 3, "{d} {used}: the first three quests");
+		if !used {
+			assert!(text(&o["lead"]).starts_with("Free mode would start with "), "{d}: {}", o["lead"]);
+		}
+	}
+	assert_eq!(all[8], json!({ "empty": true, "label": "Activate Free mode" }), "an empty log: the sky says how to fill it");
 }
 
 #[test]

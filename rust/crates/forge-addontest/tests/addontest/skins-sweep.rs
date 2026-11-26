@@ -208,3 +208,65 @@ fn the_free_mode_page_and_its_step_line_follow_every_skin_live_through_skin_part
 		}
 	}
 }
+
+// The Free mode page's hero (never started: Polestar_FreeMode/Hero.lua), through every skin, live, in each of its
+// compositions: Activate is the skin's button (`button`), and the art and text paint from the skin's tokens (the
+// emblem and its glow in the accent, the quests' stars' names in the quest colour, the tagline in text, the lead and
+// the points' lines in textDim, the points' glyphs in the accent), so a skin or scheme restyles the hero without a
+// part of its own.
+const HERO: &str = r#"
+local T, F, UI = Polestar.Theme, Polestar.Free, Polestar.UI
+w.accept(7001, { { text = "Ridge Gnoll slain: 0/5", required = 5 } }, "Gnoll Trouble")
+w.accept(7002, { { text = "Boar Tusk: 0/4", required = 4, type = "item" } }, "Boar Hunt")
+w.accept(7003, { { text = "Marsh Lurker slain: 0/6", required = 6 } }, "Lurkers in the Marsh")
+stub.advance(1)
+UI.ShowFreeMode()
+stub.advance(0.3)
+local P, H = F.Page, F.Hero.parts
+local function rgb(...) local r, g, b = ...; return { r, g, b } end
+local function same(a, b)
+	for i = 1, 3 do if math.abs((a[i] or -1) - (b[i] or -2)) > 0.002 then return false end end
+	return true
+end
+local out = {}
+for _, d in ipairs({ "sky", "polaris", "seal" }) do
+	Polestar.DB().devFreeHero = d
+	for _, key in ipairs(T.SKIN_ORDER) do
+		Polestar.Set("ui.skin", key)
+		stub.advance(0.1)
+		local accent = rgb(T.Color("accent"))
+		out[d .. ":" .. key] = {
+			button = P.parts.Start.psSkin and P.parts.Start.psSkin.skin or false,
+			emblem = same(rgb(H.Emblem:GetVertexColor()), accent),
+			glow = same(rgb(H.Glow:GetVertexColor()), accent),
+			title = same(rgb(H.Title:GetTextColor()), rgb(T.Color("text"))),
+			lead = same(rgb(H.Lead:GetTextColor()), rgb(T.Color("textDim"))),
+			point = same(rgb(H.Points[2].Text:GetTextColor()), rgb(T.Color("textDim"))),
+			glyph = same(rgb(H.Points[2].Icon:GetVertexColor()), accent),
+			quest = d ~= "sky" or same(rgb(H.Labels[1].title:GetTextColor()), rgb(T.Color("quest"))),
+		}
+	end
+end
+emit(out)
+"#;
+
+#[test]
+fn the_free_mode_hero_follows_every_skin_live_in_each_composition_through_the_skin_s_button_and_tokens() {
+	let pack = write_codex_pack(&fixture("free-mode.json"), &CodexOpts::default());
+	let before = format!(
+		"{}\nlocal w = stub.world\n{}\nw.level, w.race, w.raceName, w.faction = 20, \"Human\", \"Human\", \"Alliance\"\nw.class, w.className = \"WARRIOR\", \"Warrior\"\nw.moveTo(9001, 50, 50)\n",
+		pack.stub_lua,
+		free_maps()
+	);
+	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar")], login: true, script: format!("local w = stub.world\n{HERO}"), ..Default::default() })
+		.remove(0);
+	let all = out.as_object().unwrap();
+	assert_eq!(all.len(), 18, "three compositions in six skins");
+	for (k, s) in all {
+		let skin = k.split(':').nth(1).unwrap();
+		assert_eq!(s["button"], json!(skin), "{k}: Activate painted by the skin in use");
+		for token in ["emblem", "glow", "title", "lead", "point", "glyph", "quest"] {
+			assert_eq!(s[token], true, "{k}: {token} in the skin's own token");
+		}
+	}
+}

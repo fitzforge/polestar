@@ -5760,6 +5760,7 @@ L["Refining the travel order. Travel times are estimates."] = "Refinando a ordem
 L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = "As estimativas de viagem estão incompletas. A ordem usa as estimativas disponíveis e distâncias aproximadas."
 L["Waiting for your quest log."] = "Esperando o seu registro de missões."
 L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = "O guia de entregas não pôde carregar. Verifique se o addon Polestar_Codex está instalado e ativado."
+-- L["None of these has a known place to hand it in."] = ""
 
 -- Free.lua
 L["Low drop rate: %s"] = "Chance de saque baixa: %s"
@@ -5813,16 +5814,12 @@ L["To each objective and hand-in in turn, as in any guide."] = "Para cada objeti
 L["Good for when you're off your guide's route, questing with friends, or doing your own thing."] = "Bom para quando você sai da rota do guia, joga com amigos ou faz do seu jeito."
 L["Back to your guide any time, from the guide window's menu or this page."] = "Volte para seu guia quando quiser, pelo menu da janela do guia ou por esta página."
 L["What is Free mode?"] = "O que é o modo livre?"
-L["Start Free mode"] = "Começar o modo livre"
 L["Left out"] = "Deixadas de fora"
 L["Every quest of a zone at once. Bring one back from Left out."] = "Todas as missões de uma zona de uma vez. Traga uma de volta em Deixadas de fora."
 L["Ready"] = "Pronta"
 L["About %s, 1 stop"] = "Cerca de %s, 1 parada"
 L["About %s, %d stops"] = "Cerca de %s, %d paradas"
 L["Hand in to %s"] = "Entregar a %s"
-L["Your quests in Free mode"] = "Suas missões no modo livre"
-L["With your quest, Free mode starts with %s."] = "Com sua missão, o modo livre começa por %s."
-L["With your %d quests, Free mode starts with %s."] = "Com suas %d missões, o modo livre começa por %s."
 L["Free mode is on · following 1 quest"] = "O modo livre está ativo · seguindo 1 missão"
 L["Free mode is on · following %d quests"] = "O modo livre está ativo · seguindo %d missões"
 L["First up"] = "Primeiro"
@@ -5830,6 +5827,12 @@ L["About Free mode"] = "Sobre o modo livre"
 
 -- UI/FreeMode.lua
 L["Your own quests, planned for you."] = "Suas próprias missões, planejadas para você."
+
+-- Hero.lua
+-- L["Activate Free mode"] = ""
+-- L["Free mode would start with %s"] = ""
+-- L["Then %s and %d more"] = ""
+-- L["Then %s"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Configurar o Polestar de novo, uma página por vez. Cada escolha vale na hora."
@@ -6164,3 +6167,7 @@ L["Your own quests, planned for you."] = "Suas próprias missões, planejadas pa
 -- L["Free mode takes this quest first, whatever the order."] = "O modo livre faz esta missão primeiro, seja qual for a ordem."
 -- L["Leave out of Free mode"] = "Deixar de fora do modo livre"
 -- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "O modo livre para de listar esta missão. \"Trazer de volta as missões deixadas de fora\" no menu a lista de novo."
+-- L["Start Free mode"] = "Começar o modo livre"
+-- L["Your quests in Free mode"] = "Suas missões no modo livre"
+-- L["With your quest, Free mode starts with %s."] = "Com sua missão, o modo livre começa por %s."
+-- L["With your %d quests, Free mode starts with %s."] = "Com suas %d missões, o modo livre começa por %s."

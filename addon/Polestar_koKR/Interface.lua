@@ -5842,6 +5842,7 @@ L["Refining the travel order. Travel times are estimates."] = "이동 순서를 
 L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = "이동 추정이 완전하지 않습니다. 가능한 추정치와 대략적인 거리로 순서를 정합니다."
 L["Waiting for your quest log."] = "퀘스트 목록을 기다리는 중입니다."
 L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = "퀘스트 제출 가이드를 불러오지 못했습니다. Polestar_Codex 애드온이 설치되어 켜져 있는지 확인하세요."
+-- L["None of these has a known place to hand it in."] = ""
 
 -- Free.lua
 L["Low drop rate: %s"] = "낮은 획득 확률: %s"
@@ -5895,16 +5896,12 @@ L["To each objective and hand-in in turn, as in any guide."] = "가이드처럼 
 L["Good for when you're off your guide's route, questing with friends, or doing your own thing."] = "가이드 경로를 벗어났을 때, 친구와 퀘스트할 때, 마음대로 하고 싶을 때 좋습니다."
 L["Back to your guide any time, from the guide window's menu or this page."] = "가이드 창 메뉴나 이 페이지에서 언제든 가이드로 돌아갈 수 있습니다."
 L["What is Free mode?"] = "자유 모드란?"
-L["Start Free mode"] = "자유 모드 시작"
 L["Left out"] = "제외됨"
 L["Every quest of a zone at once. Bring one back from Left out."] = "한 지역의 모든 퀘스트를 한 번에. 제외됨에서 하나씩 되돌릴 수 있습니다."
 L["Ready"] = "준비됨"
 L["About %s, 1 stop"] = "약 %s, 1곳"
 L["About %s, %d stops"] = "약 %s, %d곳"
 L["Hand in to %s"] = "%s에게 제출"
-L["Your quests in Free mode"] = "자유 모드의 내 퀘스트"
-L["With your quest, Free mode starts with %s."] = "이 퀘스트로 자유 모드는 %s부터 시작합니다."
-L["With your %d quests, Free mode starts with %s."] = "퀘스트 %d개로 자유 모드는 %s부터 시작합니다."
 L["Free mode is on · following 1 quest"] = "자유 모드 켜짐 · 퀘스트 1개 진행 중"
 L["Free mode is on · following %d quests"] = "자유 모드 켜짐 · 퀘스트 %d개 진행 중"
 L["First up"] = "먼저 할 일"
@@ -5912,6 +5909,12 @@ L["About Free mode"] = "자유 모드 소개"
 
 -- UI/FreeMode.lua
 L["Your own quests, planned for you."] = "내 퀘스트를 나에게 맞게 계획합니다."
+
+-- Hero.lua
+-- L["Activate Free mode"] = ""
+-- L["Free mode would start with %s"] = ""
+-- L["Then %s and %d more"] = ""
+-- L["Then %s"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar를 한 페이지씩 다시 설정합니다. 선택은 바로 적용됩니다."
@@ -6232,3 +6235,7 @@ L["Your own quests, planned for you."] = "내 퀘스트를 나에게 맞게 계�
 -- L["Free mode takes this quest first, whatever the order."] = "순서와 상관없이 자유 모드가 이 퀘스트를 먼저 합니다."
 -- L["Leave out of Free mode"] = "자유 모드에서 제외"
 -- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "자유 모드에서 이 퀘스트를 더 이상 보여 주지 않습니다. 메뉴의 '제외한 퀘스트 되돌리기'로 다시 보여 줍니다."
+-- L["Start Free mode"] = "자유 모드 시작"
+-- L["Your quests in Free mode"] = "자유 모드의 내 퀘스트"
+-- L["With your quest, Free mode starts with %s."] = "이 퀘스트로 자유 모드는 %s부터 시작합니다."
+-- L["With your %d quests, Free mode starts with %s."] = "퀘스트 %d개로 자유 모드는 %s부터 시작합니다."

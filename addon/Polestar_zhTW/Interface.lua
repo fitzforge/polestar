@@ -5842,6 +5842,7 @@ L["Refining the travel order. Travel times are estimates."] = "正在優化路�
 L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = "路程估算不完整。順序使用現有的估算和大致距離。"
 L["Waiting for your quest log."] = "正在等待你的任務日誌。"
 L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = "繳交任務指南無法載入。請檢查插件 Polestar_Codex 是否已安裝並啟用。"
+-- L["None of these has a known place to hand it in."] = ""
 
 -- Free.lua
 L["Low drop rate: %s"] = "掉落率低：%s"
@@ -5895,16 +5896,12 @@ L["To each objective and hand-in in turn, as in any guide."] = "像任何指南�
 L["Good for when you're off your guide's route, questing with friends, or doing your own thing."] = "適合偏離指南路線、和朋友一起解任務，或依自己的步調遊玩時使用。"
 L["Back to your guide any time, from the guide window's menu or this page."] = "隨時可以從指南視窗的選單或本頁返回你的指南。"
 L["What is Free mode?"] = "什麼是自由模式？"
-L["Start Free mode"] = "開始自由模式"
 L["Left out"] = "已排除"
 L["Every quest of a zone at once. Bring one back from Left out."] = "一次排除一個地區的所有任務。可在「已排除」中恢復單一任務。"
 L["Ready"] = "已完成"
 L["About %s, 1 stop"] = "約 %s，1 個地點"
 L["About %s, %d stops"] = "約 %s，%d 個地點"
 L["Hand in to %s"] = "繳交給%s"
-L["Your quests in Free mode"] = "自由模式中的任務"
-L["With your quest, Free mode starts with %s."] = "自由模式將從你的任務%s開始。"
-L["With your %d quests, Free mode starts with %s."] = "你有 %d 個任務，自由模式將從%s開始。"
 L["Free mode is on · following 1 quest"] = "自由模式已開啟 · 正在跟隨 1 個任務"
 L["Free mode is on · following %d quests"] = "自由模式已開啟 · 正在跟隨 %d 個任務"
 L["First up"] = "首先"
@@ -5912,6 +5909,12 @@ L["About Free mode"] = "關於自由模式"
 
 -- UI/FreeMode.lua
 L["Your own quests, planned for you."] = "為你規劃的你自己的任務。"
+
+-- Hero.lua
+-- L["Activate Free mode"] = ""
+-- L["Free mode would start with %s"] = ""
+-- L["Then %s and %d more"] = ""
+-- L["Then %s"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐頁重新設定 Polestar。每項選擇立即生效。"
@@ -6232,3 +6235,7 @@ L["Your own quests, planned for you."] = "為你規劃的你自己的任務。"
 -- L["Free mode takes this quest first, whatever the order."] = "無論順序如何，自由模式都會先做這個任務。"
 -- L["Leave out of Free mode"] = "從自由模式中排除"
 -- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "自由模式不再列出此任務。選單中的「恢復被排除的任務」會重新列出它。"
+-- L["Start Free mode"] = "開始自由模式"
+-- L["Your quests in Free mode"] = "自由模式中的任務"
+-- L["With your quest, Free mode starts with %s."] = "自由模式將從你的任務%s開始。"
+-- L["With your %d quests, Free mode starts with %s."] = "你有 %d 個任務，自由模式將從%s開始。"

@@ -2,11 +2,13 @@
 section: players
 ---
 - Free mode has a page in the main window, right under Guides, laid out for
-  why you came. Never tried it: what Free mode is (you pick up quests, Polestar
-  plans the order, the arrow leads), when it suits (off your guide's route,
-  with friends, doing your own thing), a preview of your own log in Free mode's
-  order ("With your 6 quests, Free mode starts with …") and one Start. Tried it
-  before: Start with the order beside it and the first three quests. On: your
+  why you came. Never tried it: one big "Activate Free mode" at the centre,
+  under your own quests drawn as a constellation: the Polestar star leads a
+  dotted path through a star for each of the first three quests in Free mode's
+  order, each named with why it comes there; under the button, what Free mode
+  is (you pick up quests, Polestar plans the order, the arrow leads). Tried it
+  before: the same sky, Activate and the order under it, then the first three
+  quests. On: your
   route, numbered in the order the arrow takes it, the quest it leads to now
   marked, each with why it's there, its progress, the walk, its XP and zone;
   finished quests stand under the NPC who takes them. Hover a quest (or focus

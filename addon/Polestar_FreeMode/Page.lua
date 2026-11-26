@@ -328,9 +328,7 @@ function P.Build(parent, shell)
 	body = scroll.Child
 	body:SetWidth(mainWidth())
 
-	-- What Free mode is.
-	parts.IntroTitle = W.Text(body, "display", "text")
-	parts.IntroTitle:SetText(L["Quest your own way"])
+	-- What Free mode is (the intro's text under "What is Free mode?").
 	parts.IntroLead = wrapped(W.Text(body, "note", "textDim"))
 	parts.IntroLead:SetText(L["Pick up whatever quests you like. Free mode puts them in a smart order and the arrow takes you through them, one after another."])
 	parts.Points = {
@@ -348,8 +346,8 @@ function P.Build(parent, shell)
 		P.Render()
 	end)
 
-	-- Start, the state while on, the way back.
-	parts.Start = W.Button(body, L["Start Free mode"], function() P.Start() end, { primary = true, height = START_H, icon = "icon-freemode" })
+	-- Activate (the hero's centrepiece, Hero.lua), the state while on, the way back.
+	parts.Start = W.Button(body, L["Activate Free mode"], function() P.Start() end, { primary = true, height = START_H, icon = "icon-freemode" })
 	parts.StatusIcon = W.Tex(body, "ARTWORK", "icon-freemode", "accent")
 	parts.StatusIcon:SetSize(16, 16)
 	parts.Status = oneLine(W.Text(body, "body", "text"))
@@ -391,7 +389,6 @@ function P.Build(parent, shell)
 
 	-- The route.
 	parts.RouteH = W.SectionHeader(body)
-	parts.Lead = wrapped(W.Text(body, "body", "text"))
 	parts.More = oneLine(W.Text(body, "small", "textMuted"))
 	parts.EmptyTitle = W.Text(body, "display", "text")
 	parts.EmptyTitle:SetText(L["No quests to lead to"])
@@ -561,6 +558,7 @@ local function entries(list, byQuest, on, info, visible)
 end
 
 local function hideAll()
+	Free.Hero.Hide()
 	for _, f in pairs(parts) do
 		if type(f) == "table" and f.Hide then f:Hide() end
 	end
@@ -571,11 +569,7 @@ local function hideAll()
 end
 
 -- The intro's text, from x at y in `width` -> the y under it.
-local function layIntro(x, y, width, title)
-	if title then
-		at(parts.IntroTitle, x, y)
-		y = y + 26
-	end
+local function layIntro(x, y, width)
 	parts.IntroLead:SetWidth(width)
 	at(parts.IntroLead, x, y)
 	y = y + parts.IntroLead:GetStringHeight() + 20
@@ -588,6 +582,13 @@ local function layIntro(x, y, width, title)
 	parts.When:SetWidth(width)
 	at(parts.When, x, y + 2)
 	return y + 2 + parts.When:GetStringHeight() + 16
+end
+
+-- The order's width: its label, the gap and the three segments.
+local function orderWidth()
+	local w = ceil(W.TextWidth(parts.PickLabel)) + 14
+	for _, b in ipairs({ parts.Balanced, parts.Near, parts.XP }) do w = w + b:GetWidth() + 4 end
+	return w - 4
 end
 
 -- The order: its label, the segments and the line under them, from x at y -> the y under it.
@@ -735,7 +736,7 @@ local function layAbout(x, y, width)
 	at(h, x - GUTTER, y)
 	y = y + 40
 	if aboutOpen then
-		y = layIntro(x, y + 4, width, false)
+		y = layIntro(x, y + 4, width)
 		parts.BackNote:SetWidth(width)
 		at(parts.BackNote, x, y - 6)
 		y = y + parts.BackNote:GetStringHeight() + 10
@@ -765,73 +766,29 @@ function P.Render()
 	shown.mode, shown.on, shown.count = mode, on, #route
 	local y = 24
 
-	if mode == "intro" then
-		-- Two columns: what it is and Start on the left, the player's own
-		-- quests in Free mode's order on the right.
-		local LW = floor(width * 0.5)
-		local RX, RW = PAD + LW + 48, width - LW - 48
-		anchors.about = 0
-		local ly = layIntro(PAD, y, LW, true)
-		W.SetButtonText(parts.Start, L["Start Free mode"])
-		at(parts.Start, PAD, ly + 4)
-		ly = ly + 4 + START_H + 12
-		parts.BackNote:SetWidth(LW)
-		at(parts.BackNote, PAD, ly)
-		ly = ly + parts.BackNote:GetStringHeight()
-		local H = parts.RouteH
-		H:SetWidth(RW)
-		W.SetSection(H, L["Your quests in Free mode"], #route > 0 and #route or nil)
-		at(H, RX, y - 18)
-		anchors.route = 0
-		local ry = y + 34
-		if #route == 0 then
-			at(parts.EmptyTitle, RX, ry)
-			parts.EmptyNote:SetWidth(RW)
-			at(parts.EmptyNote, RX, ry + 30)
-			ry = ry + 30 + parts.EmptyNote:GetStringHeight()
-			shown.empty = true
-		else
-			local first = route[1]
-			parts.Lead:SetWidth(RW)
-			parts.Lead:SetText(#route == 1 and format(L["With your quest, Free mode starts with %s."], hex("quest") .. first.title .. "|r")
-				or format(L["With your %d quests, Free mode starts with %s."], #route, hex("quest") .. first.title .. "|r"))
-			at(parts.Lead, RX, ry)
-			ry = ry + parts.Lead:GetStringHeight() + 10
-			local last = min(#route, PREVIEW_ROWS)
-			ry = layRoute(route, 1, last, RX - GUTTER, ry, RW + GUTTER, false)
-			if #route > last then
-				parts.More:SetText(format(L["and %d more"], #route - last))
-				at(parts.More, RX, ry + 10)
-				ry = ry + 10 + 14
-				shown.more = #route - last
-			end
-			shown.lead = parts.Lead:GetText()
-		end
-		y = max(ly, ry) + 32
-		y = layHandin(PAD, y, width, ready)
-		shown.start, shown.intro = L["Start Free mode"], true
+	if mode == "on" then
+		-- Free mode is on: what it follows, and the way back.
+		at(parts.StatusIcon, PAD, y + 6)
+		parts.Status:SetText(#route == 1 and L["Free mode is on \194\183 following 1 quest"] or format(L["Free mode is on \194\183 following %d quests"], #route))
+		parts.Status:ClearAllPoints()
+		parts.Status:SetPoint("LEFT", body, "TOPLEFT", PAD + GUTTER, -(y + 14))
+		parts.Status:Show()
+		local back = Free.ReturnTitle()
+		W.SetButtonText(parts.Back, back and format(L["Back to %s"], back) or L["Stop Free mode"])
+		at(parts.Back, PAD + width - parts.Back:GetWidth(), y)
+		shown.status, shown.back = parts.Status:GetText(), parts.Back.Label:GetText()
+		y = y + SEG_H + 20
+		y = layOrder(PAD, y, pick) + 24
 	else
-		if on then
-			-- Free mode is on: what it follows, and the way back.
-			at(parts.StatusIcon, PAD, y + 6)
-			parts.Status:SetText(#route == 1 and L["Free mode is on \194\183 following 1 quest"] or format(L["Free mode is on \194\183 following %d quests"], #route))
-			parts.Status:ClearAllPoints()
-			parts.Status:SetPoint("LEFT", body, "TOPLEFT", PAD + GUTTER, -(y + 14))
-			parts.Status:Show()
-			local back = Free.ReturnTitle()
-			W.SetButtonText(parts.Back, back and format(L["Back to %s"], back) or L["Stop Free mode"])
-			at(parts.Back, PAD + width - parts.Back:GetWidth(), y)
-			shown.status, shown.back = parts.Status:GetText(), parts.Back.Label:GetText()
-			y = y + SEG_H + 20
-			y = layOrder(PAD, y, pick) + 24
-		else
-			-- Started before: Start, the order beside it.
-			W.SetButtonText(parts.Start, L["Start Free mode"])
-			at(parts.Start, PAD, y)
-			shown.start = L["Start Free mode"]
-			y = layOrder(PAD + parts.Start:GetWidth() + 32, y + (START_H - SEG_H) / 2, pick) + 28
-		end
-		y = layHandin(PAD, y, width, ready)
+		-- Off: the hero, Activate at its centre (Hero.lua); started before, the order under it.
+		anchors.about = 0
+		y = Free.Hero.Lay({ body = body, x = PAD, y = y, width = width, mode = mode, route = route, start = parts.Start, pick = pick,
+			layOrder = layOrder, orderWidth = orderWidth, rule = parts.Rule, shown = shown })
+	end
+	y = layHandin(PAD, y, width, ready)
+	if mode == "intro" then
+		shown.intro = true
+	else
 		local H = parts.RouteH
 		H:SetWidth(width)
 		W.SetSection(H, on and L["Your route"] or L["First up"], #route > 0 and #route or nil)

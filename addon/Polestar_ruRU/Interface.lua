@@ -5825,6 +5825,7 @@ L["Refining the travel order. Travel times are estimates."] = "Уточняем 
 L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = "Оценки пути неполные. Порядок использует доступные оценки и приблизительные расстояния."
 L["Waiting for your quest log."] = "Ожидание журнала заданий."
 L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = "Не удалось загрузить гайд по сдаче заданий. Проверьте, что аддон Polestar_Codex установлен и включен."
+-- L["None of these has a known place to hand it in."] = ""
 
 -- Free.lua
 L["Low drop rate: %s"] = "Низкий шанс добычи: %s"
@@ -5878,16 +5879,12 @@ L["To each objective and hand-in in turn, as in any guide."] = "К каждой 
 L["Good for when you're off your guide's route, questing with friends, or doing your own thing."] = "Удобно, когда вы ушли с маршрута гайда, играете с друзьями или делаете что хотите."
 L["Back to your guide any time, from the guide window's menu or this page."] = "Вернуться к гайду можно в любой момент: через меню окна гайда или на этой странице."
 L["What is Free mode?"] = "Что такое свободный режим?"
-L["Start Free mode"] = "Включить свободный режим"
 L["Left out"] = "Исключенные"
 L["Every quest of a zone at once. Bring one back from Left out."] = "Все задания зоны сразу. Вернуть отдельное можно в разделе «Исключенные»."
 L["Ready"] = "Готово"
 L["About %s, 1 stop"] = "Около %s, 1 остановка"
 L["About %s, %d stops"] = "Около %s, остановок: %d"
 L["Hand in to %s"] = "Сдать: %s"
-L["Your quests in Free mode"] = "Ваши задания в свободном режиме"
-L["With your quest, Free mode starts with %s."] = "Свободный режим начнет с вашего задания %s."
-L["With your %d quests, Free mode starts with %s."] = "Заданий у вас: %d. Свободный режим начнет с %s."
 L["Free mode is on · following 1 quest"] = "Свободный режим включен · 1 задание в маршруте"
 L["Free mode is on · following %d quests"] = "Свободный режим включен · заданий в маршруте: %d"
 L["First up"] = "Сначала"
@@ -5895,6 +5892,12 @@ L["About Free mode"] = "О свободном режиме"
 
 -- UI/FreeMode.lua
 L["Your own quests, planned for you."] = "Ваши задания, спланированные для вас."
+
+-- Hero.lua
+-- L["Activate Free mode"] = ""
+-- L["Free mode would start with %s"] = ""
+-- L["Then %s and %d more"] = ""
+-- L["Then %s"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Заново настроить Polestar, страница за страницей. Каждый выбор действует сразу."
@@ -6222,3 +6225,7 @@ L["Your own quests, planned for you."] = "Ваши задания, сплани�
 -- L["Free mode takes this quest first, whatever the order."] = "Свободный режим берет это задание первым, каким бы ни был порядок."
 -- L["Leave out of Free mode"] = "Исключить из свободного режима"
 -- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "Свободный режим больше не показывает это задание. Пункт меню «Вернуть исключенные задания» вернет его в список."
+-- L["Start Free mode"] = "Включить свободный режим"
+-- L["Your quests in Free mode"] = "Ваши задания в свободном режиме"
+-- L["With your quest, Free mode starts with %s."] = "Свободный режим начнет с вашего задания %s."
+-- L["With your %d quests, Free mode starts with %s."] = "Заданий у вас: %d. Свободный режим начнет с %s."
