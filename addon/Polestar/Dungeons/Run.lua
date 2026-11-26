@@ -218,7 +218,7 @@ end
 ns.RegisterEvent("PLAYER_REGEN_DISABLED", function() if card then card:Hide() end end)
 ns.On("CODEX_LOADED", soon)
 ns.On("TABS_CHANGED", function(tabs)
-	for _, tab in ipairs(tabs) do
+	for _, tab in ipairs(type(tabs) == "table" and tabs or {}) do
 		if Lookup.ParseGuideId(tab.guideId) == KIND then soon(); break end
 	end
 end)
