@@ -3,7 +3,7 @@
 //! survives a re-cut, a re-seed or a new writer. Each record comes back with its state for this start.
 //!
 //! - **places**: where an objective is done, or where the arrow leads for a quest's giver or ender:
-//!   `{ id, quest, objective: N | "giver" | "ender", at: { map, x, y, frame: "era" | "live" } }`, or
+//!   `{ id, quest, objective: N | "giver" | "ender" | "complete", at: { map, x, y, frame: "era" | "live" } }`, or
 //!   `path: { map, frame, points: [[x, y], ...] }` for a target that walks a road (written as a
 //!   `loop` of `goto`s before the goal). The point goes on the goal line (`@x,y map M frame`), or on
 //!   the `goto` right before it when the step leads the arrow there with one. An objective without a
@@ -11,6 +11,9 @@
 //!   own goal line from the data (`kill`, `talk`, `interact` or `collect` with `quest Q.N`) before
 //!   that `complete`, which goes once every objective has its line. `at` is optional then: the
 //!   compiler places a written objective from the data. `label` sets the objective line's goal text.
+//!   `"complete"` anchors on the quest's `complete` line itself, for a quest finished away from the
+//!   line that claims its objective (Corrupted Sabers, #4095: the kitten is let go at the moonwell,
+//!   `use … quest 4506.1`, and the saber is clicked beside Winna).
 //! - **guide-fixes**: step content that is neither data nor route, at a goal's step:
 //!   `{ id, at: { quest, goal: "accept" | "turnin" | "complete" | "objective", objective? }, tip }`
 //!   A `collect` anchor names `quest` and `item` for a `goalNote` on that item's collection line.
@@ -134,6 +137,7 @@ fn place_anchor(r: &Value) -> Option<Anchor> {
 	match &r["objective"] {
 		Value::String(s) if s == "giver" => Some(Anchor::Giver(q)),
 		Value::String(s) if s == "ender" => Some(Anchor::Ender(q)),
+		Value::String(s) if s == "complete" => Some(Anchor::Complete(q)),
 		Value::Number(n) => Some(Anchor::Objective(q, n.as_u64()? as u32)),
 		_ => None,
 	}
@@ -1555,6 +1559,29 @@ mod tests {
 		let (again, rows) = run(&out, places, json!({}), &[3505, 90902, 99141, 1]);
 		assert_eq!(again, out);
 		assert_eq!(rows.iter().map(|r| r.state.as_str()).collect::<Vec<_>>(), ["redundant", "redundant", "redundant", "stale", "not for this start"]);
+	}
+
+	// Corrupted Sabers (#4095): the kitten is let go at the moonwell by a `use` that claims the quest's only
+	// objective, and the saber is clicked beside Winna. A record for objective 1 lands on that `use`; one for
+	// "complete" puts the point on the quest's `complete` line, where the arrow leads once the kitten is free.
+	#[test]
+	fn a_complete_place_lands_on_the_complete_line_not_the_line_claiming_the_objective() {
+		let seed = "guide forever/w\nzone Felwood\n\nstep Winna's kitten\n  use 12565 quest 4506.1 @32.3,66.6 map 1448 -- Winna's Kitten Carrier\n  complete 4506 -- Bring the Corrupted Saber to Winna Hazzard\n\nstep Winna Hazzard\n  turnin 4506\n";
+		let at = json!({ "map": 1448, "x": 34.26, "y": 52.32, "frame": "era" });
+		let (out, rows) = run(seed, json!({ "places": [{ "id": "4095-winna", "quest": 4506, "objective": "complete", "at": at }] }), json!({}), &[4506]);
+		assert!(
+			out.contains("  use 12565 quest 4506.1 @32.3,66.6 map 1448 -- Winna's Kitten Carrier\n  complete 4506 @34.26,52.32 map 1448 era -- Bring the Corrupted Saber to Winna Hazzard\n"),
+			"{out}"
+		);
+		assert_eq!(rows.iter().map(|r| r.state.as_str()).collect::<Vec<_>>(), ["applied"]);
+		let (objective, _) = run(seed, json!({ "places": [{ "id": "4095-objective", "quest": 4506, "objective": 1, "at": at }] }), json!({}), &[4506]);
+		assert!(objective.contains("  use 12565 quest 4506.1 @34.26,52.32 map 1448 era"), "objective 1 is the use's: {objective}");
+		// The checkout's record on the seed's copy of the step (Felwood 50-60/02): the guide already says it.
+		let all: Value = serde_json::from_str(include_str!("../../../../data/places.json")).unwrap();
+		let places = json!({ "places": all["places"].as_array().unwrap().iter().filter(|r| r["quest"] == 4506).collect::<Vec<_>>() });
+		let (shipped, rows) = run(include_str!("../../../../forge/seed/guides/forever/horde/50-60/02-felwood.guide"), places, json!({}), &[4506]);
+		assert_eq!(rows.iter().map(|r| r.state.as_str()).collect::<Vec<_>>(), ["redundant"], "{shipped}");
+		assert!(shipped.lines().any(|l| l.starts_with("  complete 4506 @34.26,52.32 map 1448 era")), "{shipped}");
 	}
 
 	#[test]

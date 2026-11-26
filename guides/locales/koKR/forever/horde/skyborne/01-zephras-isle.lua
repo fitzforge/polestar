@@ -96,7 +96,6 @@ return {
 
 	-- Step 14: Shen'dar Village
 	-- {area:16624} Shen'dar Village · {npc:251523} Constable Aonda · {npc:251902} Illaya Amberwind · {npc:254089} Coriella Calmbreeze · {npc:263664} Raan Wildwind · {quest:93159} The Strange Hermit
-	-- was: ["Follow the road south to {area:16624}, in the middle of the isle. {npc:251523} stands on its east side, {npc:251902} in the middle, {npc:254089} just north-west of her, {npc:263664} by the campfire on the west side. With a profession learned, {npc:263664} also offers its Camping 101: its trainer stands in the village."] = "길을 따라 남쪽으로 섬 한가운데의 {area:16624}에 가세요. {npc:251523}은(는) 마을 동쪽에, {npc:251902}은(는) 한가운데에, {npc:254089}은(는) 그녀 바로 북서쪽에, {npc:263664}은(는) 서쪽 모닥불 옆에 있습니다. 전문 기술을 배우면 {npc:263664}이(가) 해당 야영 101 퀘스트도 줍니다. 그 기술의 상급자는 마을에 있습니다."
 	["Follow the road south to {area:16624}, in the middle of the isle. {npc:251523} stands on its east side, {npc:251902} in the middle, {npc:254089} just north-west of her, {npc:263664} by the campfire on the west side. With a profession learned, {npc:263664} also offers its Camping 101: its trainer stands in the village. {quest:93159} has his own for engineers."] = "길을 따라 남쪽, 섬 한가운데의 {area:16624}(으)로 가십시오. {npc:251523}은(는) 동쪽에, {npc:251902}은(는) 가운데에, {npc:254089}은(는) 그녀의 바로 북서쪽에, {npc:263664}은(는) 서쪽 모닥불 옆에 서 있습니다. 전문 기술을 배웠다면 {npc:263664}도 해당 야영 101을 줍니다: 그 상급자는 마을에 있습니다. {quest:93159}에게는 기계공학자를 위한 퀘스트가 따로 있습니다.",
 	-- {npc:251902} Illaya Amberwind
 	["talk to {npc:251902}"] = "{npc:251902}와(과) 대화하세요",

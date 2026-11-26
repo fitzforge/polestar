@@ -128,7 +128,6 @@ return {
 	-- {spell:3320} Rough Grinding Stone
 	["{spell:3320} to 83"] = "{spell:3320} jusqu'à 83",
 	-- {spell:3320} Rough Grinding Stone · {item:2835} Rough Stone
-	-- was: ["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors."] = "{spell:3320} est vert à 75 (jaune 45, vert 65, gris 85) : environ 58 fabrications jusqu'à 83. Chaque fabrication demande 2 {item:2835}. Deux {item:2835} par fabrication. Les silex à aiguiser servent de pièces pour des plans plus tard ; le surplus se vend aux marchands."
 	["{spell:3320} is green at 75 (yellow 45, green 65, grey 85): about 58 crafts to 83. Each takes 2 {item:2835}. Two {item:2835} a craft. Grinding stones are parts for later plans; the extras sell to vendors. If you got here without learning {spell:3320}, learn it now: an earlier step teaches it."] = "{spell:3320} est vert à 75 (jaune 45, vert 65, gris 85) : environ 58 fabrications jusqu'à 83. Chacune demande 2 {item:2835}. Deux {item:2835} par fabrication. Les pierres à aiguiser sont des composants de plans ultérieurs ; le surplus se vend aux marchands. Si vous êtes arrivé ici sans apprendre {spell:3320}, apprenez-le maintenant : une étape précédente l'enseigne.",
 
 	-- Step 28: Runed Copper Belt to 100

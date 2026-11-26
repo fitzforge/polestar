@@ -16980,6 +16980,36 @@
 			"issue": 3266
 		},
 		{
+			"id": "riverglades-old-rot-chum-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 95120,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/01b-riverglades"
+			},
+			"when": "complete 95120",
+			"note": "The Wharfmaster's hand-in was offered with the Rot-Covered Harpoon still at 0/1. Wait until WANTED: Old Rot-Chum is ready to turn in.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3960"
+			}
+		},
+		{
+			"id": "riverglades-old-rot-chum-turnin-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 95120,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/01b-riverglades"
+			},
+			"when": "complete 95120",
+			"note": "The Wharfmaster's hand-in was offered with the Rot-Covered Harpoon still at 0/1. Wait until WANTED: Old Rot-Chum is ready to turn in.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3960"
+			}
+		},
+		{
 			"id": "3411-riverglades-jomjom-in-the-cave",
 			"faction": "Horde",
 			"at": {

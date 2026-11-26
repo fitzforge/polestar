@@ -2,7 +2,8 @@
 //! costs, under Lua 5.1 as the client counts it (collectgarbage("count")). The client's decoder
 //! (C_EncodingUtil) is tests/lua/stub_encoding.lua here, a decoder in Lua: its own scratch is counted out,
 //! so the figures are Polestar_Nav's own (the client decodes in C). Each figure fails the test when it grows
-//! past its budget: lower a budget when a change lowers the figure, never raise one to make a change pass.
+//! past its budget: the figure measured at the release's code freeze plus 3 %, moved only then (docs/CI.md,
+//! "Memory budgets").
 //!
 //!   load resident   after loading the maps and two full collects
 //!   load peak       the heap grown while loading, with the collector stopped
@@ -61,7 +62,11 @@ use forge_addontest::{emitted, Addon, RunAddon};
 /// 0.4.3 (#3641, the straightener: past a blocked turn the line reaches the path's next turns beyond it): Eastern
 /// Kingdoms rest 48,235 -> 48,549, allocated 61,465 -> 61,253 (Fitz's +16 KiB raise for #3732's first version is no
 /// longer needed); budgets back to 48,800 and 61,600. The other figures unchanged.
-const BUDGET: [(&str, f64); 6] = [("loadResident", 39300.0), ("loadPeak", 42100.0), ("live", 55200.0), ("allocated", 61600.0), ("rest", 48800.0), ("idle", 39400.0)];
+/// Measured on next f5bd74406e (2026-11-26, #4143; three runs reading the same, the highest of a local run and one at
+/// the post-merge runner's checkout path, which reads up to 5 KiB more), Eastern Kingdoms / Kalimdor: loadResident
+/// 30,214 / 38,893, loadPeak 32,903 / 41,728, live 54,980 / 44,049, allocated 61,047 / 7,170, rest 48,615 / 42,750,
+/// idle 31,928 / 39,046. Each budget is the higher continent's figure plus 3 % (docs/CI.md, "Memory budgets").
+const BUDGET: [(&str, f64); 6] = [("loadResident", 40100.0), ("loadPeak", 43000.0), ("live", 56700.0), ("allocated", 62900.0), ("rest", 50100.0), ("idle", 40300.0)];
 /// Milliseconds the searches' clock (Path.clock) moves at each read. The searches slice under Path.budget (3 ms) as
 /// in the client, but on this clock rather than the machine's CPU time, which made about 600 KiB of "allocated" (each
 /// slice's garbage) depend on the machine: a slower CI runner read 66,091 KiB where the same searches give 65,654 on

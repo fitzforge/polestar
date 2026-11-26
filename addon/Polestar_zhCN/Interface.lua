@@ -2468,6 +2468,8 @@ L["Use %s beside %s"] = "在 %2$s 旁使用 %1$s"
 L["All attunements and keys"] = "所有进入资格和钥匙"
 L["Every attunement and key, with how far you are"] = "每项进入资格和钥匙，以及你的进度"
 L["Not open on Forever yet"] = "Forever 上尚未开放"
+-- L["A guide to the items 1 quest in your log needs from where it is given, ending at the entrance."] = ""
+-- L["A guide to the items %d quests in your log need from where they are given, ending at the entrance."] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "就在这里"

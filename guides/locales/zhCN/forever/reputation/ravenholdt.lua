@@ -47,7 +47,6 @@ return {
 	-- {item:275706} Syndicate Uniform · {npc:266847} Anastasia Miller
 	["Put on the {item:275706} and go into Stromgarde. {npc:266847} waits on a ledge just outside the castle; players reach her by jumping from the roof of the house beside the ledge. Her stash is upstairs in a house near the keep."] = "穿上{item:275706}后进入激流堡。{npc:266847}在城堡外侧的一处台沿等候；玩家可从台沿旁房屋的屋顶跳过去。她的藏品在要塞附近一栋房子的楼上。",
 	-- {item:275709} Stolen Funds · {object:656405} Anastasia's Stash (no name in this language: may be words)
-	-- was: ["{item:275709}, in Anastasia's Stash upstairs"] = "{item:275709}，在她位于楼上的藏匿处内"
 	["{item:275709}, in {object:656405} upstairs"] = "{item:275709}，在楼上的{object:656405}里",
 
 	-- Step 7: Thoradin's Wall: the shipment

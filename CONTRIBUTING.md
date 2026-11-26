@@ -320,6 +320,12 @@ those after merging your PR.
   a string does not require any extra step from you: CI checks the existing
   locale files and the maintainer runs `i18n sync` after merge to propagate
   new strings to the locale files.
+- Memory budgets (the core at login, the guide pack, the quest database, the
+  walking maps and the others in [docs/CI.md](docs/CI.md#memory-budgets))
+  carry 3 % over the figure measured at each release's code freeze and move
+  only then. A pull request never raises one: if yours crosses a budget,
+  find what grew and trim it, or say so in the pull request and it waits
+  for the freeze.
 - **Polestar Forge** (`rust/`, the Rust pipeline that makes the routes):
   start at [docs/FORGE.md](docs/FORGE.md) and
   [docs/forge/internals.md](docs/forge/internals.md). Run `cargo fmt --all`,

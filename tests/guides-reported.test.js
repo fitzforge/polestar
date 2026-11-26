@@ -4534,6 +4534,32 @@ test(`${DARKSHORE}: Twerkjob's report: The Red Crystal leads the arrow to the cr
 	assert.ok(yards(lead.goal, crystal) < 30, `the arrow leads to the crystal (${lead.goal.x},${lead.goal.y})`);
 });
 
+// Corrupted Sabers (Gripps, #4095): the kitten is let go at the Jadefire moonwell, and the saber it turns into
+// is clicked beside Winna Hazzard at Bloodvenom Post. The `use` at the moonwell claims the quest's objective,
+// so the `complete` needs Winna's place of its own: without one its arrow fell back to the moonwell while
+// the player stood at Winna.
+test("forever/horde/50-60/03-winterspring.guide: Gripps's report: Corrupted Sabers' complete leads back to Winna Hazzard, not the moonwell (#4095)", { skip }, () => {
+	const list = goals('forever/horde/50-60/03-winterspring.guide');
+	const use = list[at(list, 'the kitten carrier at the moonwell', (g) => g.t === 'use' && g.quest === 4506)];
+	const complete = list[at(list, 'complete 4506 (Corrupted Sabers)', is('complete', 4506))];
+	assert.equal(complete.step, use.step, 'one step: the moonwell, then back to Winna');
+	assert.ok(located(complete), 'the complete has a place of its own');
+	const winna = data.quests[4506].objectives.find((o) => o.type === 'event');
+	assert.ok(yards(complete.goal, winna) < 30, `the complete leads to Winna (${complete.goal.x},${complete.goal.y})`);
+	assert.ok(yards(use.goal, complete.goal) > 300, 'the moonwell is not where the saber goes');
+});
+
+// The same shape found by #4095's sweep: The Master's Glaive's complete ("Enter the Master's Glaive", at the
+// bottom of the crater where the Scrying Bowl appears) had no place, so its arrow led to the Moonstalker pelts'
+// spot in the same step, about 240 yards north.
+test("forever/alliance/03-darkshore-return.guide: The Master's Glaive's complete leads into the crater, not to the pelts (#4095)", { skip }, () => {
+	const list = goals('forever/alliance/03-darkshore-return.guide');
+	const complete = list[at(list, "complete 944 (The Master's Glaive)", is('complete', 944))];
+	assert.ok(located(complete), 'the complete has a place of its own');
+	const glaive = data.quests[944].objectives.find((o) => o.type === 'event');
+	assert.ok(yards(complete.goal, glaive) < 30, `the complete leads to the bottom of the crater (${complete.goal.x},${complete.goal.y})`);
+});
+
 // The Blackwood Corrupted's only objective is the Talisman of Corruption, but
 // Xabraxxis' Demon Bag holds it only once the satyr is summoned: the Empty
 // Cleansing Bowl filled at the Auberdine Moonwell, a sample from each of the
@@ -19111,6 +19137,21 @@ test('What Is Love?: the figurine steps say to throw the lit torch onto the cart
 	}
 });
 
+// #3960 (AreChen): the Wharfmaster's hand-in showed with the Rot-Covered Harpoon still at 0/1. Both Riverglades
+// guides hold it until WANTED: Old Rot-Chum is complete.
+test('Riverglades (#3960): Old Rot-Chum is only handed in once the bounty is complete', { skip }, () => {
+	for (const side of ['alliance', 'horde']) {
+		const handIns = compiled(`forever/${side}/40-50/01b-riverglades.guide`).steps.filter((step) => step.goals.some(is('turnin', 95120)));
+		assert.ok(handIns.length, `${side}: the hand-in is still on the route`);
+		for (const step of handIns) {
+			for (const kind of ['onquest', 'complete']) {
+				assert.ok((step.when || []).some((p) => p.k === kind && !p.neg && [].concat(p.q).includes(95120)),
+					`${side}: the hand-in requires ${kind} 95120`);
+			}
+		}
+	}
+});
+
 // #3036 (Joogz): the Monstrous Threshadon is called up from what floats in the water at 74.4,72.4; the step followed
 // his other possible spots instead. Both factions' Riverglades guides lead there and say how.
 test('The Monster Surfaces: the head is taken where the Threshadon is called up (#3036)', { skip }, () => {
@@ -19586,7 +19627,10 @@ test('Horde 50-60 (#3884): NPC places and quest items as the data has them', { s
 // Thread, and its tip named Edna Mullby in Stormwind; neither sells it on Forever (players' merchant windows: 42 and
 // 125 people, none listing it; Forever's world data has no such sale). forever-db/corrections/items.json takes such
 // sellers off an item's vendor list, for Rune Thread and ten more items the profession guides buy. No profession
-// guide's `buy` offers one of them to pick, and no shopping tip names one for the items its step buys.
+// guide's `buy` offers one of them to pick, and no shopping tip names one for the items its step buys. The `buy`
+// candidates come from the data's vendor lists, so that half needs data built with the corrections: on an older build
+// (its list still holds a removed seller) it waits for the next one; the tips, written by the generator, are checked
+// on any data.
 test('#4040: profession guides never send a shopping step to a vendor who does not sell the item on Forever', { skip }, () => {
 	const off = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'corrections', 'items.json'), 'utf8'));
 	const removed = (item) => new Set((off[item] && off[item].removeVendors) || []);
@@ -19597,6 +19641,7 @@ test('#4040: profession guides never send a shopping step to a vendor who does n
 	for (const guide of allGuides().filter((g) => g.startsWith('forever/professions/'))) {
 		for (const { goal, s } of goals(guide)) {
 			if (goal.t !== 'buy') continue;
+			if (((items[goal.item] || {}).vendors || []).some((n) => removed(goal.item).has(n))) continue;
 			const bad = (goal.candidates || []).filter((c) => removed(goal.item).has(c.npc)).map((c) => c.npc);
 			assert.deepEqual(bad, [], `${guide} step ${s}: buy ${goal.item} offers sellers who do not sell it`);
 		}

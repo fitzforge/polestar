@@ -468,6 +468,7 @@ step Powderfuse Port
 
 step Wharfmaster Whizzbuzz
   when onquest 95120
+  when complete 95120
   turnin 95120
 
 # Polestar Experimental, Riverglades for the Alliance, part 3 of 4 (2026-11-12). Hand-written from players'

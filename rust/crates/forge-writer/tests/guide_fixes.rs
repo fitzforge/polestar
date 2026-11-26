@@ -40,6 +40,34 @@ fn assert_warning(tip: &str) {
 }
 
 #[test]
+fn riverglades_old_rot_chum_hand_in_waits_for_the_harpoon() {
+	let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../..");
+	let all = document("data/guide-fixes.json");
+	let records = json!({ "fixes": all["fixes"].as_array().unwrap().iter().filter(|r| {
+		r["at"]["quest"] == 95120 && r["at"]["goal"] == "turnin"
+	}).collect::<Vec<_>>() });
+	for (side, faction) in [("alliance", "Alliance"), ("horde", "Horde")] {
+		let file = format!("forever/{side}/40-50/01b-riverglades.guide");
+		let seed = std::fs::read_to_string(root.join("forge/seed/guides").join(&file)).unwrap();
+		// The seed carries the gate since the hand edit; the writer's input before the record is the step without it.
+		let before = seed.replace("\r\n", "\n").replacen("  when complete 95120\n", "", 1);
+		let mut tree = BTreeMap::from([(file.clone(), before.clone())]);
+		let write = |tree: &mut BTreeMap<String, String>| {
+			apply(tree, std::slice::from_ref(&file), &HashSet::from([95120]), Some(faction), Records { places: None, guide_fixes: Some(&records) }, None);
+		};
+		write(&mut tree);
+		let after = &tree[&file];
+		let hand_in = after.split("\nstep ").find(|step| step.lines().any(|line| line.trim() == "turnin 95120")).unwrap();
+		assert!(hand_in.lines().any(|line| line.trim() == "when complete 95120"), "{faction}: {hand_in}");
+		assert_eq!(after.replacen("  when complete 95120\n", "", 1), before, "{faction}: only the hand-in gate should change");
+		assert_eq!(after, &seed.replace("\r\n", "\n"), "{faction}: the record writes what the seed carries");
+		let after = after.clone();
+		write(&mut tree);
+		assert_eq!(tree[&file], after, "{faction}: the gate should not be duplicated");
+	}
+}
+
+#[test]
 fn report_2282_warns_at_arnak_and_lakota_even_when_the_writer_separates_their_steps() {
 	let old = format!("  tip Climb the path to the top of Darkcloud Pinnacle. {ESCORT}\n");
 	for (body, quests, tips) in [

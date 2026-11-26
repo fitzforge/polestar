@@ -86,7 +86,6 @@ return {
 
 	-- Step 14: Raan Wildwind
 	-- {npc:263664} Raan Wildwind · {area:16624} Shen'dar Village · {quest:93159} The Strange Hermit
-	-- was: ["With a profession learned, {npc:263664} also offers its Camping 101, which its trainer in {area:16624} takes on the village round."] = "Если вы изучили профессию, {npc:263664} также предлагает свое задание «Основы походной жизни», которое сдается учителю этой профессии здесь: {area:16624}, во время обхода деревни."
 	["With a profession learned, {npc:263664} also offers its Camping 101, which its trainer in {area:16624} takes on the village round. {quest:93159} has his own for engineers."] = "Если вы изучили профессию, {npc:263664} также предлагает ее задание «Основы походной жизни», которое принимает учитель ({area:16624}) при обходе деревни. У NPC {quest:93159} есть свое для инженеров.",
 	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
 	["/sit by {npc:263664}'s campfire until you get {spell:1229451}"] = "Сядьте (/sit) у костра {npc:263664}, пока не получите эффект «{spell:1229451}»",

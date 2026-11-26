@@ -43,6 +43,59 @@ local function add(root, id)
 	end
 end
 
+local function setupDetails()
+	local details = QuestMapFrame and QuestMapFrame.DetailsFrame
+	if not details or not MenuUtil or not MenuUtil.CreateContextMenu then return end
+	local header = details.BackFrame or details
+	local icon = "Interface\\AddOns\\" .. ADDON .. "\\Media\\UI\\logo"
+	local button = ns.CreateFrameUnder("Button", nil, header)
+	button:SetSize(26, 26)
+	local border = button:CreateTexture(nil, "BACKGROUND")
+	border:SetAllPoints()
+	border:SetTexture("Interface\\Minimap\\MiniMap-TrackingBorder")
+	border:SetTexCoord(0, 0.58, 0, 0.58)
+	local image = button:CreateTexture(nil, "ARTWORK")
+	image:SetPoint("CENTER", button, "CENTER", 1, 0)
+	image:SetSize(18, 18)
+	image:SetTexture(icon)
+	local mask = button:CreateMaskTexture()
+	mask:SetAllPoints(image)
+	mask:SetTexture("Interface\\CharacterFrame\\TempPortraitAlphaMask", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+	image:AddMaskTexture(mask)
+	button:SetHighlightTexture("Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight")
+	if header.BackButton then
+		button:SetPoint("LEFT", header.BackButton, "RIGHT", 4, 0)
+	else
+		button:SetPoint("TOPLEFT", header, "TOPLEFT", 12, -2)
+	end
+	button:HookScript("OnEnter", function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+		GameTooltip:SetText(L["Polestar"])
+		GameTooltip:AddLine(L["Click to show quest guide actions."], 1, 1, 1)
+		GameTooltip:Show()
+	end)
+	button:HookScript("OnLeave", function() GameTooltip:Hide() end)
+	button:SetFrameLevel(header:GetFrameLevel() + 3)
+	local function selectedQuest()
+		return questID(details.questID) or questID(C_QuestLog and C_QuestLog.GetSelectedQuest and C_QuestLog.GetSelectedQuest())
+	end
+	local function refresh()
+		button:SetShown(details:IsShown() and selectedQuest() ~= nil and not ns.Hidden())
+	end
+	button:SetScript("OnClick", function(self)
+		local id = selectedQuest()
+		if not id or ns.Hidden() then return end
+		MenuUtil.CreateContextMenu(self, function(_, root)
+			add(root, id)
+		end)
+	end)
+	details:HookScript("OnShow", function()
+		C_Timer.After(0, refresh)
+	end)
+	ns.On("POLESTAR_HIDDEN", refresh)
+	refresh()
+end
+
 ns.OnLogin(function()
 	if ns.GamepadUI() or not (Menu and Menu.ModifyMenu) then return end
 	Menu.ModifyMenu("MENU_QUEST_MAP_LOG_TITLE", function(owner, root)
@@ -51,4 +104,5 @@ ns.OnLogin(function()
 	Menu.ModifyMenu("MENU_QUEST_OBJECTIVE_TRACKER", function(_, root)
 		add(root, trackerQuest())
 	end)
+	setupDetails()
 end)

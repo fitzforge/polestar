@@ -1858,7 +1858,7 @@ GF.Part(function(GF)
 			-- The finished quests no open route hands in (RoutePlan.Carried):
 			-- their list, with who takes each and a hand-in guide.
 			if self.psCarried then
-				if UI.ShowQuestRoom then UI.ShowQuestRoom("carried") end
+				if UI.ShowQuestRoom then UI.ShowQuestRoom("elsewhere") end
 				return
 			end
 			-- A quest an update left behind the player (Engine.GetBehind): the

@@ -195,7 +195,6 @@ return {
 
 	-- Step 44: Clubtoe
 	-- {area:16723} Sunnyglade · {npc:260931} Clubtoe · {npc:256710} Tran'gul
-	-- was: ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Retournez à l'ouest jusqu'à {area:16723} : {npc:260931}, un mineur du Crépuscule qui veut s'en sortir, attend à la lisière est du village. Convainquez-le, puis rendez la quête de {npc:256710} ; l'un des ogres disparus se tient à quelques pas à l'ouest."
 	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits inside the cave under the town's eastern edge, a floor below the street. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "De nouveau vers l'ouest jusqu'à {area:16723} : {npc:260931}, un mineur du Crépuscule qui veut partir, attend dans la grotte sous le bord est de la ville, un étage sous la rue. Convainquez-le, puis rendez la quête de {npc:256710} ; l'un des ogres disparus se tient à quelques pas à l'ouest.",
 	-- {npc:260931} Clubtoe
 	["talk {npc:260931} round"] = "convainquez {npc:260931}",
