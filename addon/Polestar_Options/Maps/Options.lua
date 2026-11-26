@@ -34,7 +34,8 @@ if ns.Arcade then
 		{ kind = "dropdown", key = "arcade.game", label = L["Game on flights"],
 			help = L["On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed), Sky Jewels by RikyZ90, a match-three game, or Tetris by beemerwt. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade, /polestar jewels and /polestar tetris open them any time. With the game's gamepad interface on, only Tetris is offered, because it plays with the gamepad: Freedoom Arcade and Sky Jewels need the keyboard and mouse. There, slash commands are off: open Tetris from the guide window's menu or the Run a command box."],
 			search = "doom, freedoom, arcade, game, flight, taxi, petllama, sky jewels, match three, jewels, rikyz90, tetris, blocks, beemerwt, gamepad, controller, steam deck",
-			get = function() return ns.Arcade.Shown() end,
+			-- A control reads back what it wrote, except with the gamepad interface, where a saved game that can't be played shows as the one offered.
+			get = function() return ns.GamepadUI() and ns.Arcade.Shown() or ns.Get("arcade.game") end,
 			choices = function()
 				local out = {}
 				for _, g in ipairs(ARCADE) do
