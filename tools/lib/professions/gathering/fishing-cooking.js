@@ -141,6 +141,13 @@ function wantedShare(stand, want) {
 	return want.reduce((s, item) => s + (stand.fish[item] || 0), 0) / Math.max(1, stand.catches);
 }
 
+// Boat and zeppelin stops with a boarding point (travel.json): a stand within TRANSPORT_YARDS of one is a
+// dock the ship comes to (Theramore's), where a goto would have to stand on the boarding point itself (#2876).
+const TRANSPORT_YARDS = 40;
+function transportStops(ctx) {
+	return ((ctx.data.travel || {}).transports || []).flatMap((t) => ['a', 'b'].map((side) => t[side]).filter((s) => s && s.board && s.c != null).map((s) => ({ pt: { c: s.c, wx: s.wx, wy: s.wy }, yards: TRANSPORT_YARDS })));
+}
+
 // The round a group fishes at `map`: { map, level, stops: [{ pt, stand, pool }], lap, fish: { item:
 // share }, recorded, catches, pools: Map(name -> n), full }. A stand weighs its people times the share
 // of the band's fish caught there, plus two per fishing pool within POOL_NEAR yards.
@@ -157,7 +164,7 @@ function roundAt(ctx, map, faction, band) {
 	const least = levelFor(ctx, map, pts, { faction, min: band.level, need: Math.min(2, pts.length) });
 	if (least === null) throw new Error(`Fishing + Cooking: no safe stand for ${faction} in ${zoneName(ctx, map)}`);
 	const fm = flightMaster(ctx, map, faction);
-	const loopAt = (level) => buildLoop(pts, ctx.project, { radius: 10, span: SPAN, cover: 0.9, maxStops: MAX_STOPS, entry: fm ? fm.pt : null, avoid: hazards(ctx, map, { level, faction }) });
+	const loopAt = (level) => buildLoop(pts, ctx.project, { radius: 10, span: SPAN, cover: 0.9, maxStops: MAX_STOPS, entry: fm ? fm.pt : null, avoid: [...hazards(ctx, map, { level, faction }), ...transportStops(ctx)] });
 	// The least safe level, or a few more when that keeps the loop three stops long.
 	let level = least;
 	let loop = loopAt(least);
@@ -250,9 +257,12 @@ function candidateRounds(ctx, band, faction, planned, need) {
 	const first = planned.stops.length > 1 ? asLoop(ctx, band, faction, planned) : null;
 	if (!first || first.stops.length < 2) return [];
 	const rest = [];
+	// A lure closes the gap only as far as the strongest one usable at the band's first skill goes (at 75:
+	// Nightcrawlers' +50, not Bright Baubles' +75, which ask Fishing 100).
+	const reach = Math.min(band.lure, Math.max(0, ...LURES.filter(([id]) => fishing.lureSkill(ctx, id) <= band.from).map(([, b]) => b)));
 	for (const [key, w] of Object.entries(W.load())) {
 		const map = Number(key);
-		if (map === planned.map || !sideOf(map).includes(SIDE[faction]) || (w.full !== null && w.full > band.from + band.lure)) continue;
+		if (map === planned.map || !sideOf(map).includes(SIDE[faction]) || (w.full !== null && w.full > band.from + reach)) continue;
 		let round;
 		try {
 			round = roundAt(ctx, map, faction, band);
@@ -587,7 +597,7 @@ function renderBand(ctx, e, mats) {
 		step(`Lures for ${label}`, [
 			only,
 			`when !skill Fishing ${shop.full}`,
-			`tip ${loops ? 'Some of these waters lose' : 'This water loses'} fish below Fishing ${shop.full}: a lure on the pole adds to your skill for ten minutes. ${itemName(ctx, shop.lure[0])}${fishing.note(ctx, shop.lure[0], shop.lure[1], true)}${shop.lure[1] >= shop.full - band.from ? ` closes the gap from ${band.from}` : ` is the strongest you can use at ${band.from}`}: about ${shop.lures} see you to ${Math.min(shop.full, band.to)} (${Math.round((fishing.catches(band.from, Math.min(shop.full, band.to)) * CATCH_SECONDS) / 60)} minutes of fishing).`,
+			`tip ${loops ? 'Some of these waters lose' : 'This water loses'} fish below Fishing ${shop.full}: a lure on the pole adds to your skill for ten minutes. ${itemName(ctx, shop.lure[0])}${fishing.note(ctx, shop.lure[0], shop.lure[1], true)}${shop.lure[1] >= shop.full - band.from ? ` closes the gap from ${band.from}` : ` is the strongest you can use at ${band.from}`}: about ${shop.lures} ${shop.lures > 1 ? 'see' : 'sees'} you to ${Math.min(shop.full, band.to)} (${Math.round((fishing.catches(band.from, Math.min(shop.full, band.to)) * CATCH_SECONDS) / 60)} minutes of fishing).`,
 			`buy ${shop.lure[0]} x${shop.lures} nearest`,
 		]);
 	}
