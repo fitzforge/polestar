@@ -1067,7 +1067,10 @@ runs solo or in a raid.
   every guide.
   "Pick up the quests" builds a guide that collects every quest of the
   dungeon you can take, prerequisites in the order that suits the road, on
-  the shortest path from where you stand to the entrance; after the run,
+  the shortest path from where you stand to the entrance. Inside a dungeon,
+  Polestar offers a guide tab with your dungeon quests, live objective counts
+  and inside turn-ins. You can turn off the prompt in Settings → Discovery →
+  Lookup → Dungeons. The tab closes when you leave. After the run,
   "Hand in the quests" guides you to where they are turned in, starting
   from the givers nearest the way out, and takes the follow-ups there.
   Profession quests are left out when you lack the profession.

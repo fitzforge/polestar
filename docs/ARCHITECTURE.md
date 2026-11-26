@@ -8910,6 +8910,13 @@ is closed first to make room), else in a new tab. A
 finished pick-up guide's "Guide complete" panel (UI/GuideFrame.lua) offers
 "Hand in the quests" while the dungeon has quests in the log.
 
+Inside a party dungeon, `Dungeons/Run.lua` offers a quest tracker once per
+visit when a journal quest is in the log. The offer waits for combat to end
+and has its own `dungeons.runOffer` setting. The `lookup/run/<key>` planner uses
+Lookup quest goals with live counts and inside turn-ins. Its goals carry no
+waypoints. The tab rebuilds when held quests change, survives reload, and
+closes on leaving, restoring the previous tab.
+
 Attunements and keys (`addon/Polestar/Dungeons/Attune.lua`, planner kind
 `attune`, `lookup/attune/<key>:<id>`). A page's `attunement` list (Codex,
 "Dungeons and raids": `tools/lib/codex/attunements.js`) is read by

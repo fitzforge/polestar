@@ -250,6 +250,7 @@ never in saved variables.
 |---|---|---|
 | `Dungeons.lua` | `Dungeons` | A journal page per dungeon and raid: quests, bosses in kill order, entrance |
 | `Pickup.lua` | `Dungeons` | Which of a dungeon's quests this character can take before the run, and a guide that collects them |
+| `Run.lua` | `Dungeons` | Offers a guide tab with live objectives for held quests inside a dungeon |
 | `Handin.lua` | `Dungeons` | After the run: a guide to where the dungeon's finished quests are turned in, and the follow-ups taken there |
 | `Attune.lua` | `Dungeons` | Attunements and keys: this character's progress through each, and a guide through what is left |
 | `Mark.lua` | `Dungeons` | The dungeon glyph after a quest's name when it belongs to a dungeon or leads to one |
