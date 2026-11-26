@@ -21,8 +21,9 @@ zone Azeroth
 # ASSUMED: how far Mining rises on a stretch's materials is the Mining guide's expected skill-ups
 # per node on the band's loops and what players' recorded gathers gave per node, averaged over the
 # band's loops.
-# About 250 hours of mining in 19 gathering stretches; it gathers about 2950 Thorium Ore, 2490 Dense
-# Stone, 1080 Mithril Ore, 1050 Solid Stone, 490 Copper Ore and 490 Iron Ore.
+# About 209 hours of mining in 16 gathering stretches (the other way through the fork: about 125
+# hours); it gathers about 2260 Thorium Ore, 1910 Dense Stone, 1080 Mithril Ore, 1050 Solid Stone,
+# 490 Copper Ore and 490 Iron Ore.
 #
 # Blacksmithing hammers bars into plate and mail, weapons, keys, rods, and the sharpening, weight
 # and grinding stones the later recipes eat. Mining is its partner: every bar is smelted from ore,
