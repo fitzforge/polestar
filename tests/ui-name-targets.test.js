@@ -169,18 +169,22 @@ test('the NPC header follows the focused giver and ordinary guide frames stay un
 		local first = targetFor(GF.parts.person)
 		local before = first and { name = first.psName, macro = first.psMacro, holder = first:GetParent() == NT.holder,
 			root = NT.holder:GetParent() == UIParent, secure = first.secure == true }
+		local beforeMiddle = callCount("AimGoal") + callCount("SetTarget")
+		postClick(first, "MiddleButton", false)
+		local middleAimed = callCount("AimGoal") + callCount("SetTarget") > beforeMiddle
 		uistub.goal(4, 1).status, uistub.goal(4, 2).status = "done", "done"
 		uistub.update()
 		settle()
 		local next = targetFor(GF.parts.person)
 		local ordinary = not F.secure and not GF.parts.person.secure
 		for _, row in ipairs(GF.rows) do ordinary = ordinary and not row.secure end
-		emit({ before = before, next = next and next.psName, ordinary = ordinary })`);
+		emit({ before = before, next = next and next.psName, ordinary = ordinary, middleAimed = middleAimed })`);
 	assert.equal(out.before?.name, 'Marshal McBride');
 	assert.match(out.before.macro, /\/targetexact Marshal McBride(?:\n|$)/);
 	assert.equal(out.before.holder, true);
 	assert.equal(out.before.root, true);
 	assert.equal(out.before.secure, true);
+	assert.equal(out.middleAimed, false, 'middle-click on the heading leaves the arrow alone');
 	assert.equal(out.next, 'Eagan Peltskinner');
 	assert.equal(out.ordinary, true);
 });
