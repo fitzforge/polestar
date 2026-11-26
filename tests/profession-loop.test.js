@@ -174,3 +174,14 @@ test('pairing: fish kept from an earlier band count, and a gap no fish covers is
 	assert.deepEqual(segs.map((s) => [s.recipe.name, s.from, s.to, s.crafts]), [['Longjaw', 50, 60, 10]]);
 	assert.throws(() => cookingPlan([SMALLFISH, LONGJAW], 50, 70, none, { 6289: 10 }), /no fish recipe carries Cooking 60/);
 });
+
+test('farming loops: who may take a water, and which side it is on', () => {
+	const { loopOnly, sideOf } = require('../tools/lib/professions/gathering/fishing-cooking');
+	// Zephras Isle is the Skyborne start on both sides: only they reach its water.
+	assert.equal(loopOnly(2521, 'Alliance'), 'Skyborne,Alliance');
+	assert.equal(loopOnly(2521, 'Horde'), 'Skyborne,Horde');
+	assert.equal(loopOnly(1429, 'Alliance'), 'Alliance');
+	assert.equal(loopOnly(1446, 'Horde'), 'Horde');
+	// The capitals are their faction's; contested zones both sides'.
+	assert.deepEqual([sideOf(1453), sideOf(1458), sideOf(1446), sideOf(1420), sideOf(1459)], ['A', 'H', 'AH', 'H', '']);
+});
