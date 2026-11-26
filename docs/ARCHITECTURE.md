@@ -9623,6 +9623,23 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `Theme.GuideParts()` is the live window's), and `psGuideWindow` marks a
   guide window itself apart from a card painted as one. What the window
   shows now comes through `GF.View()`, `GF.State()` and `GF.TipOpen()`.
+- **Guide kinds** (`Core/Guides.lua`, `ns.GuideKinds`; docs/GUIDE_FORMAT.md,
+  "Guide kind"): one small table, kind → the window parts it leaves out
+  (`parts`: `xp`, `pace`, `skillBar` (off unless a kind turns it on),
+  `handinRow`, `whileHereQuests`, `stillToDo`), the menu entries it leaves
+  out (`menu`: `free`, `handins`, `questLog`, `materials`) and the entries
+  it puts first (`lead`: `materials`, `trainer`). `GuideKinds.Of(guide)`
+  reads the guide's compiled `kind`, else its category's;
+  `Engine.GuideKind()` is the guide in view's. The window asks
+  `GF.KindHas(part, settingKey)`: the kind has the part and its setting
+  (`guideWindow.xpLine`, `.pace`, `.stillToDo`) is on. The profession
+  kind's skill line is `GF.SkillText()` over `Engine.SkillBar()` (the
+  guide's skill line from its sections, the stretch ahead from the next
+  `craft … until`, the first `level` goal above the character), in the XP
+  row's place (`UI/GuideFrameStatus.lua`); the menu's kind entries are in
+  `UI/GuideFrameMenu.lua`, the While you're here filter in
+  `UI/GuideFrameHere.lua`. A layout that draws a kind its own way reads
+  the same table.
 - **Guide window** (`UI/GuideFrame.lua`): tab strip (each tab's close button
   faint at rest, full under the pointer; right-click for Choose guide, Close
   tab, Move left/right; middle-click closes), a slim navigator (prev,
