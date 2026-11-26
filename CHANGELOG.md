@@ -1,5 +1,164 @@
 # Changelog
 
+## 0.4.3.1 (2026-11-26)
+
+### For players
+
+- Target List uses a flat portrait or crosshair when its 3D portrait would
+  overlap the character sheet's model. The row can still target, and its 3D
+  portrait returns when it has room again (thanks RedeemedRiku for the report
+  and toniles for the fix, #2849, #4098).
+- Seeping Corruption (Horde, Azshara) says how the vials are filled: open
+  Chemist Cuely's Box of Empty Vials, then stand in each tide pool and use its
+  own vial from your bags (the pools cannot be clicked). Without the vials,
+  take the quest again from Cuely. (thanks fekz, #3707, and FurkanZhlp, #3857)
+- Stranglethorn Vale, Mok'thardin's Enchantment: the arrow to the Holy Spring
+  now leads up the hill the way players walk, instead of a straight line at
+  the cliff from the beach (thanks gidi_, #3868).
+- With ElvUI, the Polestar button in the game menu (Esc) gets a row of its own
+  right under ElvUI's button and ElvUI's look, instead of sitting on top of
+  AddOns in plain red. (thanks Commando for the report and toniles for the
+  fix, #3942, #4086)
+- Alterac Mountains & Arathi Highlands (Horde): the walk to Gol'dir in
+  Strahnbrad shows only when you carry Gol'dir's quest; without it the guide
+  goes straight on to the Dalaran ruins (thanks asdmasa).
+- A walk to a stop whose quests the guide left out for you (they need a quest
+  from an earlier guide) now passes, and the arrow goes straight on to your
+  next work: in Alterac Mountains, without The Rescue from Hillsbrad, it no
+  longer walks you up to Strahnbrad for Gol'dir before the Dalaran ruins
+  (thanks asdmasa).
+- Lookup: pick-up and quest guides now say when a quest needs an emote, such
+  as the /beckon that turns Get the Scoop's "Plucky" Johnson human, the
+  salutes of the Rogue poison quests, the Hallow's End treats and the
+  campfire /sit of The Great Outdoors (thanks Soffish, #4046).
+- Riverglades (Alliance): Delivering Closure leads you to Demar Brant in
+  Farholde Keep, who gives it after Dying Wish; the quest data had it starting
+  from an item (thanks SumnDaiy).
+- The Attunements page shows quest, item, and source names in the selected
+  language when available (#4083, thanks toniles, #4100).
+- Ashenvale & Silverpine (Horde): while you steer Va'xug's Eye of Kilrogg for
+  A Void Path, the arrow points at the road the eye has to reach (thanks
+  ItsSaulx).
+- A hand-in a giver offers only while another quest is in your log now waits
+  with that quest: without News for Fizzle, Zamek's Distraction at the Mirage
+  Raceway is passed along with Keeping Pace instead of staying open at Zamek,
+  who offers nothing (thanks PierreAnken).
+- The arrow no longer stays on "Finding a walking route" until a /reload: when
+  the walking router's next step was never run, it is started again within a
+  second, and a failure starting it now shows as an error instead of being
+  lost (thanks thmastin, #4149).
+- Blackrock Spire hand-ins: Mother's Milk is listed as not finished until
+  Mother Smolderweb has poisoned you, instead of sending you to talk to Ragged
+  John (thanks 司徒王朗).
+- Guide window: after trying the Atlas layout (What's new's Standard and
+  Atlas buttons, or Presets) and going back to Standard, the back arrow (‹)
+  before the step number shows again; it stayed hidden until a reload
+  (thanks qqname and Baked Potato, #4184).
+- Riverglades: Biting the Hand is handed in, and the escort taken, at Fuzzle's
+  cage, not in the middle of Sunnyglade (thanks LaboredGuineaPig).
+- Lookup's Kodo Roundup says to use the Kodo Kombobulator on the kodos and
+  talk to each tamed one at Smeed's camp, not to kill Aged Kodos (thanks
+  Moduki).
+- The target button and step key no longer try to take a raid icon off in a
+  fight, which the game forbids: no more "Polestar tried to call the protected
+  function SetRaidTarget()" error (thanks RoadBlock).
+- Bags: the highlight on the step's item no longer hides its stack count in
+  Baganator, where it showed as a small empty square over the number until
+  the last one was collected. It now rings the whole slot, as in the game's
+  bags, in Baganator and BagSmith too. (#4207)
+- Atlas layout: with the guide window near the top of the screen, the heads-up
+  card (new spells, old ranks on your bars, class quests) goes under the
+  window instead of landing on it, where its buttons couldn't be clicked
+  (thanks KiloEagle, #4212).
+- With the game's gamepad interface and Polestar hidden, What's new opening
+  after an update no longer takes A, B, X, Y and the D-pad from the game out
+  of sight: a Polestar window holds the gamepad only while it is on screen,
+  and What's new takes it once you show Polestar (thanks Bruatel, #4240).
+- Dungeon set quests: Bodley shows only your class group's Components of
+  Importance, More Components of Importance and Lord Valthalak's Amulet
+  quests, instead of all four versions at a step that then waited on the three
+  he doesn't offer you.
+- Dungeon set quests: Bodley's Unfortunate Fate comes up after your class's
+  Anthion's Parting Words on both sides.
+- Finished quests to hand in elsewhere: a choice of next guide further along
+  your route no longer hides them all. A quest no way on uses is listed (for
+  example a dungeon's quests on a route whose next guides never go back for
+  them); only one a way on takes, works or hands in waits for that choice.
+  Clean up quest log offers such quests too while the choice is ahead
+  (thanks TTik3r, #3766).
+- Guide window menu: with none to list but some waiting on that choice, the
+  hand-in row says "Turn-in plan depends on your next route choice" instead
+  of "None to hand in" (thanks TTik3r, #3766).
+- Bag space and selling junk: a damaged item is priced at what the merchant
+  pays for it, as its tooltip shows, so the cheapest junk is the right one and
+  the sold line adds up (thanks Liquidor, #3997).
+- Dungeon set quests: the Blackrock Spire, Scholomance, Stratholme and Dire
+  Maul pick-up guides, and the Lookup guides for the set quests, show only
+  your class's Just Compensation, Anthion's Parting Words and Saving the Best
+  for Last, once the quest before it is done, instead of every class's copy
+  at Deliana or Mokvar that the step then waited on (thanks Swiftfyre, and
+  TTik3r for tracing it).
+- Dungeon set quests: every class on both sides has its own An Earnest
+  Proposition, so the Lookup and Dungeons guides no longer send a class to
+  another class's version, and the Alliance Druid's version in the quest log
+  counts (thanks soko and fekz).
+- Felwood, Winterspring and Feralas guides: the Evoroot step names the other
+  way in, Gregan's Bait to draw Miblon Snarltooth off the door (thanks
+  Myringains).
+- Priests in Elwynn Forest, Teldrassil and Durotar: the Garments quest's
+  accept says to learn Lesser Heal (Rank 2) from its giver first, since the
+  wounded guard counts only that rank (thanks Liquidor).
+- Gear upgrade offers use the game's required level, so the Wear it prompt
+  skips gear that requires a higher level (thanks cameronmoten).
+- Mount Hyjal: the Deadwood camps step leads in through the valley from the
+  south-east, not over the cliffs from Mourning's Rest (thanks Soggy).
+- Mount Hyjal: Fine Feathered Friend waits until Celastrus the Bitter is
+  handed in, the only way Fraxinus offers it (thanks as210558).
+- Mount Hyjal: the flights to Everlook and Moonglade lead the arrow to your
+  side's flight master again (thanks fekz).
+- Horde Orgrimmar steps: Jes'rimon is at the top of a tower in the Drag, not
+  in the Cleft of Shadow (thanks rcmitchell583).
+- Legacy Challenges: the Saving the Best for Last step takes Forever's own
+  quest for Alliance Druids, Hunters, Rogues and Warriors and Horde Druids,
+  Shamans and Warriors, the one Deliana and Mokvar give.
+- Dire Maul and Scholomance pick-up guides: a Horde Paladin gets Justice and
+  Retribution only after The Divination Scryer, as Danitha Morr gives it, and
+  only Alliance Shamans get The Darkreaver Menace, after Material Assistance.
+- Dungeon pick-up guides: a quest already in your log whose items come from
+  beside its quest giver (Blueleaf Tubers' crate, manual and stick in
+  Ratchet) now gets that stop when the items aren't in your bags, even when
+  every quest of the dungeon is in your log (thanks Iriael).
+- Riverglades: both routes wait until you have the Rot-Covered Harpoon before
+  sending you to turn in WANTED: Old Rot-Chum (thanks AreChen, #3960).
+- Lookup: the tier 0.5 dungeon set pieces (Feralheart, Beastmaster's,
+  Sorcerer's, Soulforge, Virtuous, Darkmantle, The Five Thunders, Deathmist
+  and Heroism pieces) name their class's Anthion's Parting Words or Saving the
+  Best for Last as their source.
+- Shen'dralas: Powering the Pylons repairs each pylon with the Pile of Pylon
+  Parts, no longer reads as killing the Protectors, and stops sending you back
+  to the western pylon's road once that pylon is repaired. Mana Mania's step
+  says its elite comes alone and most players killed it on their own (thanks
+  gidi_).
+- Tailoring: Black Mageweave Headband is learned from Timothy Worthington or
+  Daryl Stack at 200, after the Vest takes you there; they teach nothing below
+  200, and the guide sent you at 197 (thanks Dima, divo2000 and eunichron,
+  #3923, #3708).
+- Eastern and Western Plaguelands: Egan's step in Terrordale warns of the
+  Nerubian Overseer, a level 60 elite who walks Terrordale and the Terrorweb
+  Tunnel (thanks pagb666).
+- Mage quests for Archmage Xylem (Polymorph: Pig, Destroy Morphaz, the Burning
+  Steppes guide's coral): every walk back to Xylem leads to Sanath Lim-yo, who
+  teleports you up his tower (thanks Aireil and Clownfondre).
+
+### For contributors
+
+- The Recorder marks a kill as another player's (the kill record's tapped)
+  only when it gave no XP and its corpse opened no loot window before the
+  record was written. Reading the corpse's loot rights a second after the
+  death, or a tap seen before the pull, marked as many of the player's own
+  kills as any other: 145 of 266 Grizzled Thistle Bear kills that gave XP.
+  (#4026; thanks willsarg, #4055)
+
 ## 0.4.3 (2026-11-25)
 
 ### For players
