@@ -180,7 +180,7 @@ test('replies after the filing are copied to the issue, the poster\'s marked as 
 	assert.equal(commentsOf(github, 2).length, 0);
 });
 
-test('every author\'s images and videos in a suggestions post are copied, in the filing and in later replies; other files stay links; #bugs keeps the owner-only rule', async () => {
+test('every author\'s images and videos in a suggestions post are copied, in the filing and in later replies; other files stay links, as in #bugs', async () => {
 	const { discord, github, media, sync, command, conversation } = setup();
 	const id = conversation();
 	await command(id, '!suggest');
@@ -194,13 +194,12 @@ test('every author\'s images and videos in a suggestions post are copied, in the
 	assert.match(body, /- \[notes\.txt\]\([^)]*\) \(on Discord: not an image or video, not copied\)/);
 	assert.deepEqual(media.copied.slice(before), ['discord/2001/c1-c1.png', 'discord/2001/v1-demo.mp4']);
 
-	// A #bugs post: only the poster's.
+	// A #bugs post: the same rule.
 	discord.post('3001', { owner: 'u5', content: 'a bug' });
 	await sync.newPost('3001');
 	await sync.dispatch('MESSAGE_CREATE', discord.say('3001', { author: 'u2', content: 'me too', attachments: SHOT('e1') }));
-	await sync.dispatch('MESSAGE_CREATE', discord.say('3001', { author: 'u5', content: 'mine', attachments: SHOT('e2') }));
-	assert.deepEqual(media.copied.slice(before + 2), ['discord/3001/e2-e2.png']);
-	assert.match(commentsOf(github, 2)[0].body, /\[e1\.png\]\([^)]*\) \(on Discord\)/);
+	assert.deepEqual(media.copied.slice(before + 2), ['discord/3001/e1-e1.png']);
+	assert.match(commentsOf(github, 2)[0].body, /!\[e1\.png\]\([^)]*discord\/3001\/e1-e1\.png\)/);
 });
 
 test('an edited reply and an edited first message are written again on the issue', async () => {

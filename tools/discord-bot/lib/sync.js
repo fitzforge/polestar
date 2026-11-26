@@ -272,12 +272,10 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 		return author.global_name || author.username;
 	}
 
-	// The message's attachments: images and videos copied to the media
-	// branch, the rest linked, with why. In a #bugs post only the thread
-	// owner's are copied (`copy`); in a suggestions post everyone's are, and
-	// anything else is linked on Discord. `keep`: each copied file also keeps
-	// its bytes (`data`) and type, to attach elsewhere.
-	async function files(guild, threadId, message, copy, keep = false) {
+	// The message's attachments: images and videos (anyone's) copied to the
+	// media branch, the rest linked, with why. `keep`: each copied file also
+	// keeps its bytes (`data`) and type, to attach elsewhere.
+	async function files(guild, threadId, message, keep = false) {
 		const out = [];
 		for (const a of message.attachments || []) {
 			const image = /^image\//.test(a.content_type || '');
@@ -285,14 +283,14 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			let url = null;
 			let note = null;
 			let data = null;
-			if (copy && (image || video)) {
+			if (image || video) {
 				try {
 					url = await media.copy(`discord/${threadId}/${a.id}-${safeName(a.filename)}`, a, `Media: ${video ? 'video' : 'screenshot'} from Discord thread ${threadId}`, keep ? (bytes) => (data = bytes) : null);
 				} catch (err) {
 					log.warn(`media: ${a.filename} in ${threadId} not copied: ${err.message}`);
 				}
 				if (!url) note = a.size > (video ? media.videoMaxBytes : media.maxBytes) ? `too big to copy, ${(a.size / MB).toFixed(1)} MB` : 'not copied';
-			} else if (copy) {
+			} else {
 				note = 'not an image or video, not copied';
 			}
 			const f = { name: a.filename, image, video, url, note, discordUrl: I.threadUrl(guild, threadId, message.id) };
@@ -320,7 +318,7 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			guild: thread.guild_id,
 			thread: thread.id,
 			tags: tagNames,
-			files: await files(thread.guild_id, thread.id, message, inIdeas(thread) || (message.author && message.author.id === thread.owner_id)),
+			files: await files(thread.guild_id, thread.id, message),
 		};
 	}
 
@@ -453,7 +451,7 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 	// A follow-up's comment and its author's name.
 	async function followUpBody(thread, m) {
 		const reporter = m.author.id === await reporterOf(thread);
-		const f = await files(thread.guild_id, thread.id, m, reporter || inIdeas(thread));
+		const f = await files(thread.guild_id, thread.id, m);
 		const author = await displayName(thread.guild_id, m.author, m.member);
 		return { author, body: I.followUpComment({ report: readFollowUp(m), author, reporter, guild: thread.guild_id, thread: thread.id, message: m.id, files: f }) };
 	}
@@ -685,7 +683,7 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			for (const m of run) {
 				const links = new Map();
 				for (const e of m.embeds || []) if (e.url && !String(m.content || '').includes(e.url)) links.set(e.url, { url: e.url, title: e.title });
-				messages.push({ id: m.id, at: timeOf(m), report: parseReport(I.discordToText(m.content, m.mentions)), files: await files(guild, channel, m, true, true), links: [...links.values()] });
+				messages.push({ id: m.id, at: timeOf(m), report: parseReport(I.discordToText(m.content, m.mentions)), files: await files(guild, channel, m, true), links: [...links.values()] });
 			}
 			const anchor = messages.find((m) => m.id === id);
 			const words = anchor.report.description || (messages.find((m) => m.report.description) || anchor).report.description;
