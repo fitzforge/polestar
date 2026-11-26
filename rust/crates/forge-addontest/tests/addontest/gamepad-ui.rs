@@ -37,6 +37,7 @@ emit({
 	way = SLASH_POLESTARWAY1 ~= nil,
 	recorderSlash = SlashCmdList.POLESTARREC ~= nil,
 	recorderCommand = type(PolestarRecorder_Command),
+	commandBox = type(Polestar.UI.ShowCommandBox),
 	menus = #__menus,
 	special = #special,
 	openMap = Polestar.Compat.CanOpenWorldMap(),
@@ -100,6 +101,7 @@ fn with_the_gamepad_interface_polestar_keeps_to_its_own_windows_and_its_minimap_
 		"no slash command, menu entry, UISpecialFrames entry or world map opened from addon code"
 	);
 	assert_eq!(r["recorderCommand"], "function", "the Recorder's page in Polestar's options still runs its commands");
+	assert_eq!(r["commandBox"], "function", "the command box runs Polestar's commands in place of the slash commands");
 	assert_eq!(r["minimapButton"], true, "the minimap button, on by default");
 }
 
@@ -182,8 +184,8 @@ fn lua_files(dir: &Path) -> Vec<PathBuf> {
 fn every_reach_into_the_game_s_ui_is_guarded_for_the_gamepad_interface_and_listed() {
 	let reaches = regex::Regex::new(&format!(r"\b({})\b", REACHES.join("|"))).unwrap();
 	let comment = regex::Regex::new(r"(^|\s)--.*$").unwrap();
-	// Polestar_Arcade is Freedoom Arcade, a program of its own with its own commands: Polestar never loads it
-	// with the gamepad interface on (Maps/Arcade.lua).
+	// Polestar_Arcade is Freedoom Arcade, a program of its own with its own commands: with the gamepad interface on
+	// Polestar loads it for Tetris alone (Maps/Arcade.lua) and it registers none of them (src/main.lua; tests/gamepad-arcade.test.js).
 	let skip = regex::Regex::new(r"^Polestar_(Names_|Guides|Arcade$)").unwrap();
 	let addons = addons_dir();
 	let mut found: BTreeMap<String, usize> = BTreeMap::new();

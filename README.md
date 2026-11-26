@@ -1306,7 +1306,13 @@ With the game's gamepad interface on (Options, Gamepad, Enable Gamepad UI)
 there are no slash commands: the game blocks gamepad actions after any
 addon command typed in chat, until the game freezes. Polestar's minimap
 button (on by default) and its key bindings open the guide and the
-settings instead, and Polestar keeps out of the game's own windows.
+settings instead, and Polestar keeps out of the game's own windows. To run
+a command anyway, use **Run a command**: it is in the minimap button's menu
+and on the Gamepad page of the settings, a small box of Polestar's own, not
+the chat. Type a command as you would after `/polestar` (`next`, `options`,
+`way 52 40`, `tetris`; `/ps options` and `/psrec on` work too), then press
+Enter. Escape, or B on the gamepad, closes it. It takes the keyboard while
+the gamepad interface is on.
 
 <details>
 <summary><b>Every slash command</b></summary>

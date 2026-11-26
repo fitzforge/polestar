@@ -89,7 +89,7 @@ local function action(key)
  elseif key == "Z" or key == "PAD2" then T.Rotate(-1)
  elseif key == "SPACE" or key == "PAD3" or key == "PADDUP" then T.HardDrop()
  elseif key == "C" or key == "LSHIFT" or key == "PAD4" or key == "PADLSHOULDER" then T.Hold()
- elseif key == "ESCAPE" then PolestarTetrisAPI.Close(true) end
+ elseif key == "ESCAPE" or key == "PADRSHOULDER" then PolestarTetrisAPI.Close(true) end
  render()
 end
 
@@ -122,6 +122,7 @@ local function make()
  status = label(f, "", 14, -457)
  f.KeyboardControls = label(f, L["Arrows move\nX/Z rotate  |  C hold\nSpace hard drop\nP pause  |  N new game"], 222, -215)
  f.GamepadControls = label(f, L["D-pad move\nA/B rotate  |  Y hold\nX hard drop  |  Start pause"], 222, -290)
+ f.GamepadClose = label(f, L["RB close"], 222, -338)
  pauseButton = makeButton(f, L["Pause"], 220, -360, 185, function()
   if T.Run() and T.Run().over then T.New() else T.Pause() end
   render()

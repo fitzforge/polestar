@@ -1542,7 +1542,9 @@ end
 -- Slash commands: /polestar and /pole. Not with the gamepad interface: the
 -- chat box calls a command's function and then closes itself in that
 -- function's taint, which blocks the gamepad's actions (ns.GamepadUI).
--- The minimap button and the key bindings open Polestar then.
+-- The minimap button and the key bindings open Polestar then, and the
+-- command box (UI/CommandBox.lua) runs the same commands from a box of
+-- Polestar's own: ns.RunCommand, never the chat box.
 ---------------------------------------------------------------------------
 
 local commands, commandOrder = {}, {}
@@ -1583,6 +1585,19 @@ function ns.RunCommand(msg)
 	end
 	if hidden and not c.quiet then ns.SetHidden(false) end
 	call(c.fn, rest)
+end
+
+-- The command words in the order /polestar help lists them.
+function ns.CommandNames()
+	local out = {}
+	for i = 1, #commandOrder do out[i] = commandOrder[i] end
+	return out
+end
+
+-- Whether ns.RunCommand knows the word (a bare /polestar and help count).
+function ns.HasCommand(name)
+	name = (name or ""):lower()
+	return name == "" or name == "help" or commands[name] ~= nil
 end
 if not gamepadUI then
 	SLASH_POLESTAR1 = "/polestar"

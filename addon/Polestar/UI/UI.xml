@@ -45,6 +45,7 @@
 	<Script file="WhatsNew.lua"/>
 	<Script file="LayoutCard.lua"/>
 	<Script file="Copy.lua"/>
+	<Script file="CommandBox.lua"/>
 	<Script file="QuestRoom.lua"/>
 	<Script file="Materials.lua"/>
 	<Script file="GearScales.lua"/>

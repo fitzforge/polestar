@@ -16,8 +16,12 @@
 -- Open(), Close(saveAndPause) -> saved, IsOpen()), each function checked
 -- with type() before it is called. A standalone copy without the API is
 -- opened with its slash command, only while its window is not shown (the
--- command toggles), and is never closed by us. None of the games is offered
--- with the game's gamepad interface: they play with the keyboard and mouse.
+-- command toggles), and is never closed by us. With the game's gamepad
+-- interface on, only Tetris is offered: it plays with the gamepad (the
+-- D-pad, A, B, X, Y and Start, through Polestar.Gamepad), while Freedoom
+-- Arcade and Sky Jewels play with the keyboard and mouse. A saved choice of
+-- another game stays as saved: the flight offers Tetris in its place, and
+-- playing Tetris there leaves the saved choice alone.
 --
 -- On a flight with the timer's ETA (Maps.GetFlight) at MIN_LEFT seconds or
 -- more, out of combat and outside instances, with no game open: once per
@@ -91,6 +95,7 @@ local GAMES = {
 	},
 	{
 		id = "tetris", command = "tetris", name = L["Tetris"], credit = L["Tetris by beemerwt"], play = L["Play Tetris"],
+		pad = true, -- has gamepad controls (Polestar.Gamepad): offered with the gamepad interface too
 		missing = L["Tetris can't open: its folder Polestar_Arcade is missing or turned off."],
 		afterFight = L["Tetris opens after the fight."],
 		fight = L["Tetris is saved and paused for the fight: type %s to continue."],
@@ -129,10 +134,12 @@ function Arcade.Which()
 end
 
 -- Can the game (by id) be played here? The others than Freedoom Arcade are
--- in Polestar_Arcade only, never loaded beside the standalone addon.
+-- in Polestar_Arcade only, never loaded beside the standalone addon. With
+-- the gamepad interface, only a game with gamepad controls (g.pad).
 local function available(g)
 	if g.id == "freedoom" then return Arcade.Which() ~= nil end
-	return not ns.GamepadUI() and not present(STANDALONE) and present(BUNDLED)
+	if ns.GamepadUI() and not g.pad then return false end
+	return not present(STANDALONE) and present(BUNDLED)
 end
 
 -- id given: whether that game can be played; else whether any can.
@@ -161,6 +168,15 @@ function Arcade.Choice()
 	local g = BY_ID[id]
 	if g and available(g) then return g end
 	return Arcade.Games()[1]
+end
+
+-- The game the settings' picker shows: the setting, or the game the flight
+-- offers in its place when the saved one can't be played here.
+function Arcade.Shown()
+	local id = ns.Get("arcade.game")
+	if id == "none" then return id end
+	local g = Arcade.Choice()
+	return g and g.id or id
 end
 
 -- The game the guide menu opens: the choice, else the first there.
@@ -245,7 +261,8 @@ end
 -- (the flight's part, below) wraps it.
 local function openGame(g)
 	if not available(g) then
-		ns.Print(g.missing)
+		-- With the gamepad interface the folder is there, the game needs the keyboard and mouse.
+		ns.Print(ns.GamepadUI() and not g.pad and (L["%s needs the keyboard and mouse. With the game's gamepad interface on, Tetris is the game that plays."]):format(g.name) or g.missing)
 		return false
 	end
 	if ns.Compat.InCombat() then
@@ -449,6 +466,10 @@ local function build()
 		end
 	end
 	if Theme.OnChanged then Theme.OnChanged(function() if f:IsShown() then f:Layout() end end) end
+	-- A gamepad (UI/Gamepad.lua): the card waits for the player to ask (the focus binding); B is Not now.
+	if ns.Gamepad and ns.Gamepad.Register then
+		ns.Gamepad.Register(f, { unasked = function() return true end, back = function() Arcade.NotNow() end })
+	end
 	return f
 end
 
@@ -596,7 +617,12 @@ function Arcade.Play(id)
 	if not g then return false end
 	-- Opened first: the choice's SETTING_CHANGED then finds the game open and leaves the card away.
 	local ok = Arcade.Open(g.id)
-	ns.Set("arcade.game", never and "none" or g.id)
+	if never then
+		ns.Set("arcade.game", "none")
+	elseif not (ns.GamepadUI() and BY_ID[ns.Get("arcade.game")] and not available(BY_ID[ns.Get("arcade.game")])) then
+		-- A saved game the gamepad interface can't play stays saved (Tetris was offered in its place).
+		ns.Set("arcade.game", g.id)
+	end
 	return ok
 end
 

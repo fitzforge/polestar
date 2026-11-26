@@ -475,6 +475,20 @@
 --   Fewer folders
 --   Quit the game fully and start it again: Polestar is 22 folders now, not 45.
 --   Steps fixed in dozens of zones. Found something off? Type %s.
+--
+-- Machine-translated, to be reviewed (0.4.4, 26 Nov 2026): the interface texts the command box and
+-- Tetris with the gamepad interface added, translated by an AI model (Claude Sonnet 5.5) in this
+-- file's own wording, and waiting for a native speaker's check. For the flight game picker's help
+-- the sentence added at its end is the machine-translated part. Reviewing one: keep or fix its
+-- line below, and take its key off this list. The interface texts:
+--   Run a command
+--   Type a command, such as next, options or way 52 40, and press Enter. Escape or B closes.
+--   Type help to see every command.
+--   Commands: %s
+--   With the game's gamepad interface on, slash commands are off: the game blocks gamepad actions after any addon command typed in chat. This box runs the same commands, such as next, options or way 52 40, without the chat. It also opens from the minimap button's menu.
+--   %s needs the keyboard and mouse. With the game's gamepad interface on, Tetris is the game that plays.
+--   RB close
+--   On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed), Sky Jewels by RikyZ90, a match-three game, or Tetris by beemerwt. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade, /polestar jewels and /polestar tetris open them any time.
 -- Machine-translated, to be reviewed (#3701 Free mode, the finished-quest guide #2486 and the other lines new on
 -- next since 0.4.3, 26 Nov 2026):
 -- translated by an AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native
@@ -3549,6 +3563,7 @@ L["The guide window holds the gamepad until B: the D-pad picks a line, A points 
 L["Browsing the guide needs the game's gamepad interface (Options, Gamepad, Enable Gamepad UI), or Use with the keyboard and mouse on Polestar's Gamepad page with a gamepad plugged in."] = "Чтобы листать гайд, нужен интерфейс геймпада игры (настройки игры, Геймпад) или «Использовать с клавиатурой и мышью» на странице «Геймпад» в Polestar при подключенном геймпаде."
 L["Use with the keyboard and mouse"] = "Использовать с клавиатурой и мышью"
 L["Off, Polestar uses the gamepad only with the game's gamepad interface (Options, Gamepad, Enable Gamepad UI). On, also with the keyboard and mouse interface, while the gamepad is turned on in the game's options and plugged in."] = "Выкл.: Polestar использует геймпад только с интерфейсом геймпада игры (настройки игры, Геймпад). Вкл.: также с интерфейсом клавиатуры и мыши, пока геймпад включен в настройках игры и подключен."
+L["With the game's gamepad interface on, slash commands are off: the game blocks gamepad actions after any addon command typed in chat. This box runs the same commands, such as next, options or way 52 40, without the chat. It also opens from the minimap button's menu."] = "При включенном интерфейсе геймпада игры слэш-команды отключены: игра блокирует действия геймпада после любой команды аддона, введенной в чат. Это окно выполняет те же команды, например next, options или way 52 40, без чата. Его также можно открыть из меню кнопки у миникарты."
 
 -- Core/RoutePlan.lua
 L["step %d"] = "шаг %d"
@@ -5283,7 +5298,7 @@ L["Zones and coordinates"] = "Зоны и координаты"
 L["Flight arcade"] = "Аркада в полете"
 L["Game on flights"] = "Игра в полете"
 L["None: don't offer a game"] = "Нет: не предлагать игру"
-L["On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed), Sky Jewels by RikyZ90, a match-three game, or Tetris by beemerwt. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade, /polestar jewels and /polestar tetris open them any time."] = "В полете, когда осталась минута или больше, Polestar предлагает игру на время ожидания: Freedoom Arcade от petllama (три уровня Freedoom или вся игра, если установлен аддон Freedoom Arcade), Sky Jewels от RikyZ90, игра «три в ряд», или Tetris от beemerwt. Карточка под таймером полета запускает выбранную. За 10 секунд до посадки игра сохраняется, ставится на паузу и закрывается. /polestar arcade, /polestar jewels и /polestar tetris открывают их в любое время."
+L["On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed), Sky Jewels by RikyZ90, a match-three game, or Tetris by beemerwt. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade, /polestar jewels and /polestar tetris open them any time. With the game's gamepad interface on, only Tetris is offered, because it plays with the gamepad: Freedoom Arcade and Sky Jewels need the keyboard and mouse. There, slash commands are off: open Tetris from the guide window's menu or the Run a command box."] = "В полете, когда осталась минута или больше, Polestar предлагает игру на время ожидания: Freedoom Arcade от petllama (три уровня Freedoom или вся игра, если установлен аддон Freedoom Arcade), Sky Jewels от RikyZ90, игра «три в ряд», или Tetris от beemerwt. Карточка под таймером полета запускает выбранную. За 10 секунд до посадки игра сохраняется, ставится на паузу и закрывается. /polestar arcade, /polestar jewels и /polestar tetris открывают их в любое время. При включенном интерфейсе геймпада игры предлагается только Tetris, потому что в него можно играть с геймпадом: для Freedoom Arcade и Sky Jewels нужны клавиатура и мышь. Слэш-команды при этом отключены: откройте Tetris из меню окна гайда или через окно «Выполнить команду»."
 
 -- Dungeons/Options.lua
 L["As for all dungeons"] = "Как для всех подземелий"
@@ -5543,6 +5558,7 @@ L["Tetris opens after the fight."] = "Tetris откроется после бо�
 L["Tetris is saved and paused for the fight: type %s to continue."] = "Tetris сохранен и поставлен на паузу из-за боя: введите %s, чтобы продолжить."
 L["Tetris is saved and paused."] = "Tetris сохранен и поставлен на паузу."
 L["Landed. Tetris is saved and paused: type %s to continue."] = "Посадка. Tetris сохранен и поставлен на паузу: введите %s, чтобы продолжить."
+L["%s needs the keyboard and mouse. With the game's gamepad interface on, Tetris is the game that plays."] = "Для игры «%s» нужны клавиатура и мышь. С интерфейсом геймпада игры доступен только Tetris."
 
 -- QoL/QuestXP.lua
 L["+1 level"] = "+1 уровень"
@@ -5679,6 +5695,7 @@ L["Polestar Tetris"] = "Polestar Tetris"
 L["Hold"] = "Запас"
 L["Arrows move\nX/Z rotate  |  C hold\nSpace hard drop\nP pause  |  N new game"] = "Стрелки — движение\nX/Z — поворот  |  C — запас\nПробел — сброс\nP — пауза  |  N — новая игра"
 L["D-pad move\nA/B rotate  |  Y hold\nX hard drop  |  Start pause"] = "Крестовина — движение\nA/B — поворот  |  Y — запас\nX — сброс  |  Start — пауза"
+L["RB close"] = "RB — закрыть"
 
 -- UI/TabStyles/TabStyles.lua
 L["Open guides"] = "Открытые гайды"
@@ -5710,6 +5727,11 @@ L["kept for %s"] = "оставлено для «%s»"
 L["kept"] = "оставлено"
 L["Kept for %s: the route hands it in there."] = "Оставлено для «%s»: маршрут сдает его там."
 
+-- UI/CommandBox.lua
+L["Run a command"] = "Выполнить команду"
+L["Type help to see every command."] = "Введите help, чтобы увидеть все команды."
+L["Commands: %s"] = "Команды: %s"
+L["Type a command, such as next, options or way 52 40, and press Enter. Escape or B closes."] = "Введите команду, например next, options или way 52 40, и нажмите Enter. Esc или B закрывает окно."
 -- Lookup/Handins.lua
 L["No quests in your log are ready to hand in."] = "В журнале нет заданий, готовых к сдаче."
 L["Wait until combat ends to load the quest data."] = "Дождитесь конца боя, чтобы загрузить данные заданий."

@@ -492,6 +492,20 @@
 --   Fewer folders
 --   Quit the game fully and start it again: Polestar is 22 folders now, not 45.
 --   Steps fixed in dozens of zones. Found something off? Type %s.
+--
+-- Machine-translated, to be reviewed (0.4.4, 26 Nov 2026): the interface texts the command box and
+-- Tetris with the gamepad interface added, translated by an AI model (Claude Sonnet 5.5) in this
+-- file's own wording, and waiting for a native speaker's check. For the flight game picker's help
+-- the sentence added at its end is the machine-translated part. Reviewing one: keep or fix its
+-- line below, and take its key off this list. The interface texts:
+--   Run a command
+--   Type a command, such as next, options or way 52 40, and press Enter. Escape or B closes.
+--   Type help to see every command.
+--   Commands: %s
+--   With the game's gamepad interface on, slash commands are off: the game blocks gamepad actions after any addon command typed in chat. This box runs the same commands, such as next, options or way 52 40, without the chat. It also opens from the minimap button's menu.
+--   %s needs the keyboard and mouse. With the game's gamepad interface on, Tetris is the game that plays.
+--   RB close
+--   On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed), Sky Jewels by RikyZ90, a match-three game, or Tetris by beemerwt. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade, /polestar jewels and /polestar tetris open them any time.
 -- Machine-translated, to be reviewed (#3701 Free mode, the finished-quest guide #2486 and the other lines new on
 -- next since 0.4.3, 26 Nov 2026):
 -- translated by an AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native
@@ -3565,6 +3579,7 @@ L["The guide window holds the gamepad until B: the D-pad picks a line, A points 
 L["Browsing the guide needs the game's gamepad interface (Options, Gamepad, Enable Gamepad UI), or Use with the keyboard and mouse on Polestar's Gamepad page with a gamepad plugged in."] = "Para recorrer la guía hace falta la interfaz de mando del juego (opciones del juego, Mando) o «Usar con teclado y ratón» en la página Mando de Polestar, con un mando conectado."
 L["Use with the keyboard and mouse"] = "Usar con teclado y ratón"
 L["Off, Polestar uses the gamepad only with the game's gamepad interface (Options, Gamepad, Enable Gamepad UI). On, also with the keyboard and mouse interface, while the gamepad is turned on in the game's options and plugged in."] = "Desactivado: Polestar usa el mando solo con la interfaz de mando del juego (opciones del juego, Mando). Activado: también con la interfaz de teclado y ratón, mientras el mando esté activado en las opciones del juego y conectado."
+L["With the game's gamepad interface on, slash commands are off: the game blocks gamepad actions after any addon command typed in chat. This box runs the same commands, such as next, options or way 52 40, without the chat. It also opens from the minimap button's menu."] = "Con la interfaz de mando del juego activada, los comandos de barra están desactivados: el juego bloquea las acciones del mando tras cualquier comando de un addon escrito en el chat. Este cuadro ejecuta los mismos comandos, como next, options o way 52 40, sin pasar por el chat. También se abre desde el menú del botón del minimapa."
 
 -- Core/RoutePlan.lua
 L["step %d"] = "paso %d"
@@ -5300,7 +5315,7 @@ L["Zones and coordinates"] = "Zonas y coordenadas"
 L["Flight arcade"] = "Arcade de vuelo"
 L["Game on flights"] = "Juego durante los vuelos"
 L["None: don't offer a game"] = "Ninguno: no ofrecer juego"
-L["On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed), Sky Jewels by RikyZ90, a match-three game, or Tetris by beemerwt. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade, /polestar jewels and /polestar tetris open them any time."] = "En un vuelo al que le quede un minuto o más, Polestar te ofrece un juego para la espera: Freedoom Arcade de petllama (tres niveles de Freedoom, o el juego completo si está instalado el addon Freedoom Arcade), Sky Jewels de RikyZ90, un juego de combinar tres, o Tetris de beemerwt. La tarjeta bajo el temporizador de vuelo abre el que elijas. 10 segundos antes de aterrizar, el juego se guarda, se pausa y se cierra. /polestar arcade, /polestar jewels y /polestar tetris los abren cuando quieras."
+L["On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed), Sky Jewels by RikyZ90, a match-three game, or Tetris by beemerwt. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade, /polestar jewels and /polestar tetris open them any time. With the game's gamepad interface on, only Tetris is offered, because it plays with the gamepad: Freedoom Arcade and Sky Jewels need the keyboard and mouse. There, slash commands are off: open Tetris from the guide window's menu or the Run a command box."] = "En un vuelo al que le quede un minuto o más, Polestar te ofrece un juego para la espera: Freedoom Arcade de petllama (tres niveles de Freedoom, o el juego completo si está instalado el addon Freedoom Arcade), Sky Jewels de RikyZ90, un juego de combinar tres, o Tetris de beemerwt. La tarjeta bajo el temporizador de vuelo abre el que elijas. 10 segundos antes de aterrizar, el juego se guarda, se pausa y se cierra. /polestar arcade, /polestar jewels y /polestar tetris los abren cuando quieras. Con la interfaz de mando del juego activada solo se ofrece Tetris, porque se juega con el mando: Freedoom Arcade y Sky Jewels necesitan teclado y ratón. Allí los comandos de barra están desactivados: abre Tetris desde el menú de la ventana de la guía o desde el cuadro «Ejecutar un comando»."
 
 -- Dungeons/Options.lua
 L["As for all dungeons"] = "Como todas las mazmorras"
@@ -5560,6 +5575,7 @@ L["Tetris opens after the fight."] = "Tetris se abrirá después del combate."
 L["Tetris is saved and paused for the fight: type %s to continue."] = "Tetris se ha guardado y pausado por el combate: escribe %s para continuar."
 L["Tetris is saved and paused."] = "Tetris se ha guardado y pausado."
 L["Landed. Tetris is saved and paused: type %s to continue."] = "Has aterrizado. Tetris se ha guardado y pausado: escribe %s para continuar."
+L["%s needs the keyboard and mouse. With the game's gamepad interface on, Tetris is the game that plays."] = "%s necesita teclado y ratón. Con la interfaz de mando del juego activada, Tetris es el juego que se puede jugar."
 
 -- QoL/QuestXP.lua
 L["+1 level"] = "+1 nivel"
@@ -5696,6 +5712,7 @@ L["Polestar Tetris"] = "Polestar Tetris"
 L["Hold"] = "Reservar"
 L["Arrows move\nX/Z rotate  |  C hold\nSpace hard drop\nP pause  |  N new game"] = "Flechas: mover\nX/Z: girar  |  C: reservar\nEspacio: caída rápida\nP: pausa  |  N: nueva partida"
 L["D-pad move\nA/B rotate  |  Y hold\nX hard drop  |  Start pause"] = "Cruceta: mover\nA/B: girar  |  Y: reservar\nX: caída rápida  |  Start: pausa"
+L["RB close"] = "RB: cerrar"
 
 -- UI/TabStyles/TabStyles.lua
 L["Open guides"] = "Guías abiertas"
@@ -5727,6 +5744,11 @@ L["kept for %s"] = "guardada para %s"
 L["kept"] = "guardada"
 L["Kept for %s: the route hands it in there."] = "Guardada para %s: la ruta la entrega allí."
 
+-- UI/CommandBox.lua
+L["Run a command"] = "Ejecutar un comando"
+L["Type help to see every command."] = "Escribe help para ver todos los comandos."
+L["Commands: %s"] = "Comandos: %s"
+L["Type a command, such as next, options or way 52 40, and press Enter. Escape or B closes."] = "Escribe un comando, como next, options o way 52 40, y pulsa Intro. Esc o B lo cierra."
 -- Lookup/Handins.lua
 L["No quests in your log are ready to hand in."] = "No hay misiones en tu registro listas para entregar."
 L["Wait until combat ends to load the quest data."] = "Espera a que termine el combate para cargar los datos de misiones."

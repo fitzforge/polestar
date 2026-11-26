@@ -159,6 +159,7 @@ Messages:
 | `SHOW_WHATSNEW` | — | About's "What's new", `/polestar whatsnew` → UI/WhatsNew.lua |
 | `WELCOME_CLOSED` | — | UI/Welcome.lua, Install closed (not stepped aside) → UI/WhatsNew.lua |
 | `SHOW_COPY` | title, text | `/polestar where` → UI/Copy.lua |
+| `SHOW_COMMAND_BOX` | text or nil | the minimap button's menu and the Gamepad page of the settings (gamepad interface) → UI/CommandBox.lua |
 | `SHOW_REPORT` | — | `/polestar report` → UI/Report.lua |
 | `SHOW_DISCORD` | — | `/polestar discord` → UI/Report.lua |
 | `SHOW_QUEST_ROOM` | — | `/polestar questlog`, the full-log banner's Make room → UI/QuestRoom.lua |
@@ -501,6 +502,19 @@ current level and settled board in `PolestarCharDB.skyJewels` and its mute in
 `PolestarCharDB.skyJewelsMuted`; a saved board it can't use starts a new
 board at the saved level when that level still exists. Tetris keeps its run
 and best score account-wide in `Polestar_TetrisDB`.
+
+With the game's gamepad interface on, only Tetris is offered
+(`Arcade.Available`, the picker, the flight card, the guide menu's Play
+row): it plays with the gamepad (D-pad, A, B, X, Y and Start through
+`Polestar.Gamepad`, window `PolestarTetrisFrame`), and Freedoom Arcade and
+Sky Jewels need the keyboard and mouse (`GAMES[].pad` marks a game that
+plays with the gamepad). A saved `arcade.game` of another game stays as
+saved: the flight offers Tetris instead, the picker shows Tetris
+(`Arcade.Shown`), and playing Tetris from the card leaves the saved game
+alone. The flight arcade section of the settings shows with the gamepad
+interface (a search for "arcade" finds it), its picker listing only the
+games that play there, and its help says why. Polestar_Arcade registers no
+Freedoom slash command (`/arcade`, `/doom`) with the gamepad interface on.
 
 `where` prints the player's map and position as two guide lines, `zone map
 <uiMapID>` and `goto <x>,<y> live` (two decimals, the client's live frame,
@@ -886,7 +900,7 @@ Party chat progress lines go on as before. The report's Routes line says
 ```lua
 Polestar.GamepadUI() -> bool   -- Forever's Gamepad interface style is on (read once, as the addon loads)
 Polestar.CloseOnEscape(name)   -- add a Polestar window to UISpecialFrames, except with the gamepad interface
-Polestar.RunCommand(msg)       -- what /polestar runs; registered as a slash command only with the keyboard and mouse
+Polestar.RunCommand(msg)       -- what /polestar runs; a slash command only with the keyboard and mouse, the command box's line with the gamepad interface
 ```
 
 With Forever's Gamepad interface on (Options, Gamepad, Enable Gamepad UI;
@@ -913,6 +927,20 @@ reloads the UI when it changes). With it on, Polestar:
   taint. The minimap button (`maps.minimapButton`, on by default) and
   the key bindings open Polestar; the Recorder page calls
   `PolestarRecorder_Command`;
+- has the command box (`UI/CommandBox.lua`, frame `PolestarCommandBox`,
+  `UI.ShowCommandBox(text)`, event `SHOW_COMMAND_BOX`): "Run a command" in
+  the minimap button's menu (only with the gamepad interface) and on the
+  Gamepad page of the settings, an edit box of Polestar's own that runs
+  what the player would type in chat, with or without the slash, through
+  the same `Polestar.RunCommand`: `next`, `/ps options`, `/polestar way 52
+  40`, `/way 52 40` (a `/polestar` command too) and, with the Recorder
+  loaded, `/psrec on` (`PolestarRecorder_Command`). Nothing in it touches
+  ChatFrame or ChatEdit, so no taint reaches the chat box. It takes the
+  keyboard (the box is focused as it opens), Enter runs the line and
+  closes the box (the window a command opens takes the gamepad), a word
+  nothing answers to stays with the commands that begin with it listed,
+  Escape or B closes it, and the D-pad moves between the box, Run and the
+  ✕ (`Gamepad.Register`);
 - adds no entry to the world map and minimap tracking menus
   (`Menu.ModifyMenu`, Nav/Nearby) or to the quest log and objective
   tracker menus (UI/QuestLinks);
@@ -937,7 +965,10 @@ reloads the UI when it changes). With it on, Polestar:
   key that is a gamepad button is left unbound (Core/Profiles, and the
   Profiles page refuses one); and only
   reads the gamepad's focused window, never calls into its managers
-  (UI/Gamepad, see [Gamepad](#gamepad-uigamepadlua-uigamepadguidelua)).
+  (UI/Gamepad, see [Gamepad](#gamepad-uigamepadlua-uigamepadguidelua));
+- offers Tetris on flights (the only game with gamepad controls), saves
+  Freedoom Arcade's and Sky Jewels's choice untouched, and has
+  Polestar_Arcade register no slash command (see "Commands" above).
 
 Frames under the game's frames are made through `CreateFrameUnder` and the
 maps are only read (MapCanvas) with either style. The quest automation, the
@@ -10429,6 +10460,15 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   text, opts)`): `icon` and `iconColor` put a mark before the title, `hint`
   replaces the line above the box; the Polestar Discord's invite
   (`UI.ShowDiscord`) comes with Discord's mark.
+- **Command box** (`UI/CommandBox.lua`, frame `PolestarCommandBox`,
+  `UI.ShowCommandBox(text)` or `SHOW_COMMAND_BOX`): the window of the
+  gamepad interface's "Run a command" (see [Gamepad interface](#gamepad-interface)): a
+  small window on the copy window's look with a hint, an edit box in the
+  look's edit-box skin, one line under it (the commands the first word
+  begins, from `ns.CommandNames`, or an unknown command in the danger
+  colour) and a Run button; ✕, Escape and B close it. `CommandBox.Parse`,
+  `.Known` and `.Run` take a typed line (`next`, `/ps options`, `/way 52 40`,
+  `/psrec on`) to `Polestar.RunCommand` or `PolestarRecorder_Command`.
 - **Reporting a problem** (`UI/Report.lua`, frame `PolestarReport`,
   `UI.ShowReport()` or `SHOW_REPORT`): the guide window's bug (in the
   navigator while a guide is open), its menu's "Report a problem" and
