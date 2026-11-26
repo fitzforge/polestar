@@ -8,7 +8,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { createChat, filedReply, LIMITS, NAUGHTY } = require('../tools/discord-bot/lib/chat');
 const { createSync, gatherRun } = require('../tools/discord-bot/lib/sync');
-const { fakeDiscord, fakeGitHub, fakeMedia, quietLog, FORUM, GUILD, BOT } = require('./helpers/discord-fakes');
+const { fakeDiscord, fakeGitHub, fakeMedia, quietLog, FORUM, SUGGESTIONS, GUILD, BOT } = require('./helpers/discord-fakes');
 
 const GENERAL = '1001';
 const HOUR = 60 * 60 * 1000;
@@ -119,15 +119,15 @@ test('the answer under the player\'s message: thanks and a ping when new, where 
 });
 
 // The chat over a sync, on a clock that never holds a user back.
-function filing() {
+function filing(extra = {}) {
 	let t = 0;
 	const discord = fakeDiscord();
 	const github = fakeGitHub();
 	const media = fakeMedia();
 	discord.channel('c1', 'general');
-	const config = { forumId: FORUM, botId: BOT, maintainerIds: ['fitz'] };
+	const config = { forumId: FORUM, botId: BOT, maintainerIds: ['fitz'], ...extra };
 	const sync = createSync({ discord, github, media, config, log: quietLog, sleep: async () => {}, now: () => (t += HOUR) });
-	const chat = createChat({ discord, forumId: FORUM, maintainerIds: ['fitz'], file: sync.fileChat, repo: github.repo, log: quietLog, now: () => t });
+	const chat = createChat({ discord, forumId: FORUM, suggestionsForumId: config.suggestionsForumId, maintainerIds: ['fitz'], file: sync.fileChat, repo: github.repo, log: quietLog, now: () => t });
 	// The maintainer's command, a reply to `target`, as the gateway sends it.
 	async function command(text, target, { author = 'fitz', channel = 'c1' } = {}) {
 		const m = discord.say(channel, { author, content: text, type: 19 });
@@ -314,4 +314,34 @@ test('the maintainer\'s `!bug <text>` without a reply is told how, in its own wo
 	assert.equal(github.issues.length, 0);
 	await command('!bug', null);
 	assert.match(discord.sent.at(-1).content, /Found a bug or a wrong step/);
+});
+
+test('a 170-character message files: the GitHub title whole, the Discord post name at most 100 characters', async () => {
+	const { discord, github, command } = filing();
+	const long = 'The Paladin trainer in Elwynn Forest is missing from the Northshire Abbey and I looked everywhere for him, the guide says he is inside but nobody is there at all today';
+	assert.ok(long.length >= 165 && long.length < 256);
+	const m = discord.say('c1', { author: 'u5', name: 'Alice', content: long });
+	await command('!suggest', m.id);
+	assert.equal(github.issues[0].title, long);
+	const name = discord.posts[0].name;
+	assert.ok(Array.from(name).length <= 100, name.length);
+	assert.ok(name.endsWith('\u2026') && long.startsWith(name.slice(0, -1)));
+});
+
+test('a suggestion filed from chat gets its post in the suggestions forum, tagged there; a report stays in #bugs', async () => {
+	const { discord, github, command } = filing({ suggestionsForumId: SUGGESTIONS });
+	const a = discord.say('c1', { author: 'u5', name: 'Alice', content: 'a mini map toggle please' });
+	await command('!suggest', a.id);
+	const b = discord.say('c1', { author: 'u6', name: 'Bob', content: 'the trainer is missing' });
+	await command('!report', b.id);
+	assert.equal(discord.posts[0].forum, SUGGESTIONS);
+	assert.match(github.issues[0].body, /follow-ups go to \[its suggestions post\]/);
+	assert.equal(discord.posts[1].forum, FORUM);
+	assert.deepEqual(discord.posts[1].applied_tags, ['t-tracked']);
+});
+
+test('a Discord 400 names the refused fields in the error', async () => {
+	const { createDiscord } = require('../tools/discord-bot/lib/discord');
+	const d = createDiscord({ token: 't', api: 'http://x', fetch: async () => ({ ok: false, status: 400, json: async () => ({ message: 'Invalid Form Body', code: 50035, errors: { name: { _errors: [{ code: 'BASE_TYPE_MAX_LENGTH' }] } } }), text: async () => '' }) });
+	await assert.rejects(d.getChannel('1'), /400 Invalid Form Body .*"name".*BASE_TYPE_MAX_LENGTH/);
 });

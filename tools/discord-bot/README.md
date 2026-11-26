@@ -330,6 +330,10 @@ flowchart TD
   Discord message with why ("not an image or video, not copied", "too big
   to copy, 12.3 MB"). Links Discord previewed (a GIF, a video page) that
   are not in the text already are listed under the message.
+- **The post**: a `!report` starts its post in #bugs; a `!suggest` starts it in the
+  suggestions forum when `SUGGESTIONS_FORUM_ID` is set (else #bugs). The post's
+  name is the title cut to Discord's 100 characters (the issue title keeps
+  GitHub's 256).
 - **The issue**: "**Reported by** *name* **on Discord**" (`!suggest`:
   "**Suggested by**"), linked to the replied-to message, and a line saying
   which channel it came from and linking its #bugs post. Labels: `discord`,

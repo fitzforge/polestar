@@ -9,7 +9,9 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 class DiscordError extends Error {
 	constructor(status, body, what) {
-		super(`Discord ${what}: ${status} ${body && body.message ? body.message : ''}`.trim());
+		// A 400's `errors` names the fields Discord refused: kept in the message.
+		const fields = body && body.errors ? ` ${JSON.stringify(body.errors)}` : '';
+		super(`Discord ${what}: ${status} ${body && body.message ? body.message : ''}${fields}`.trim());
 		this.status = status;
 		this.code = body && body.code;
 	}
