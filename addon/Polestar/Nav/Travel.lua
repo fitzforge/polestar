@@ -2444,7 +2444,7 @@ local function pricePaths()
 	local W = Nav.walk
 	if not (legs and W and W.LegPath) then return false end
 	local changed = false
-	local gotoLast = W.FollowsGoto and W.FollowsGoto(Nav.GetTarget())
+	local gotoLast = W.FollowsGoto and W.FollowsGoto(Nav.GetTarget(), legs[#legs] and legs[#legs].from)
 	for k = ci + 1, #legs do
 		local leg = legs[k]
 		if leg.kind == "walk" and leg.engine ~= "path" and not leg.handmade and not leg.parent and not (gotoLast and k == #legs) then

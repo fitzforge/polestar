@@ -763,7 +763,9 @@ fn the_barrens_to_ashenvale_road_plans_made_between_the_crossing_s_ends_keep_hea
 // Zone frames are rectangles: that spot lies in Ashenvale's and in Felwood's, Felwood's the smaller, so the planner
 // placed the player in Felwood, 46 yd from a Sapphire of Aku'Mai in Ashenvale, and sent them to Felwood's crossing or
 // to hearth to Camp Taurajo. The client's zone under that spot of the continent map, else the walking maps' zone at
-// it, places the player in Ashenvale: one walk. The real travel data (Nav/TravelData.lua) and the report's spot.
+// it, places the player in Ashenvale: walks only. The real travel data (Nav/TravelData.lua) and the report's spot. That
+// spot is at the top of the sunken ruins' pit, the Sapphire in the tunnels below: the walk goes by the approach chain
+// down to them (`blackfathom-sunken-ruins`, "Follow the path"), then to the Sapphire.
 #[test]
 fn a_player_the_client_puts_on_the_continent_map_walks_in_the_zone_it_stands_in_not_the_smallest_frame_1359() {
 	let out = run_raw(
@@ -807,9 +809,14 @@ fn a_player_the_client_puts_on_the_continent_map_walks_in_the_zone_it_stands_in_
 	);
 	let first = out["frames"][0].as_str().unwrap_or_default();
 	assert!(first.starts_with("hearth|Hearth to Camp Taurajo"), "placed by the frames alone, as the report: Felwood ({first})");
-	assert_eq!(out["grid"], json!(["walk|Sapphire"]), "the walking maps' zone: Ashenvale, one walk");
+	// Walks only, the last to the Sapphire: no hearth, no crossing into Felwood.
+	let walks = |v: &Value| {
+		let legs: Vec<&str> = v.as_array().map(|a| a.iter().filter_map(Value::as_str).collect()).unwrap_or_default();
+		legs.last() == Some(&"walk|Sapphire") && legs.iter().all(|l| *l == "walk|Sapphire" || *l == "walk|Follow the path")
+	};
+	assert!(walks(&out["grid"]), "the walking maps' zone: Ashenvale, walks only: {}", out["grid"]);
 	assert_eq!(out["again"], out["frames"], "the same plan without it");
-	assert_eq!(out["client"], json!(["walk|Sapphire"]), "the client's zone under the spot: Ashenvale, one walk");
+	assert!(walks(&out["client"]), "the client's zone under the spot: Ashenvale, walks only: {}", out["client"]);
 }
 
 // #1359's sweep: other cave and dungeon spots a continent-map reading put in a neighbouring zone frame, each 40 yd

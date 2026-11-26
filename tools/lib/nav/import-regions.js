@@ -15,7 +15,7 @@ const sha = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const hash = (key, bytes) => key.endsWith('.toc')
 	? sha(bytes.toString('utf8').split('\n').filter(l => !/^## (?:Version|(?:Title|Notes)(?:-[a-z]{2}[A-Z]{2})?):/.test(l)).join('\n'))
 	: sha(bytes);
-const inputManifest = 'bfe9dd8fe88f8a5610ad1395caa6f5d9590591d2be0f14750ef742002c659b2d';
+const inputManifest = '28890b551fdd96444e2d743703bb9852390a9b51c5021904a51768e8effc6713';
 const terminal = {
 	0: '38288a037e6fb2397f1cd26f36cd9f8bfa74a743508c3408e12db62ff40cff7a',
 	1: '823b7365bf07629fc79c187decf2921f18e6dd518255b9ad1266d5814e842a75',
