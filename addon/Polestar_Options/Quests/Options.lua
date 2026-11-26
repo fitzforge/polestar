@@ -128,7 +128,7 @@ end
 -- Free mode (Lookup/Free.lua): the switch (its tab), the order and what it shows.
 if ns.Free then
 	local F = ns.Free
-	local SEARCH = "free mode, no guide, own quests, quest log, nearest quest, xp per minute"
+	local SEARCH = "free mode, no guide, own quests, quest log, balanced, nearest quest, xp per minute"
 	-- Its start is a button: the tab is the character's, no setting holds it; a second press goes back.
 	local ok, err = ns.RegisterOptions({
 		page = L["Questing"], tab = L["Quests"], section = L["Free mode"],
@@ -137,8 +137,8 @@ if ns.Free then
 				help = L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."],
 				onClick = function() F.Toggle() end },
 			{ kind = "dropdown", key = "free.pick", label = L["Which quest first"], search = SEARCH,
-				choices = { { value = "near", label = L["Nearest first"] }, { value = "xp", label = L["Most XP a minute first"] } },
-				help = L["Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes."] },
+				choices = { { value = "balanced", label = L["Balanced"] }, { value = "near", label = L["Nearest first"] }, { value = "xp", label = L["Most XP a minute first"] } },
+				help = L["Balanced: the XP a quest pays for the walk and the work left, more for a quest already started, quests sharing a place or mobs, and hand-ins on the way. Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes."] },
 			{ kind = "toggle", key = "free.hints", label = L["Zone hints"], search = SEARCH .. ", zone, where to quest",
 				help = L["With no quest near, the zone with the most quests for your level comes first, the arrow to its givers."] },
 			{ kind = "toggle", key = "free.details", label = L["XP and drop rates"], search = SEARCH .. ", drop chance",

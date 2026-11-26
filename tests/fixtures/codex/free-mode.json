@@ -179,6 +179,26 @@
 				}
 			]
 		},
+		"5015": {
+			"id": 5015,
+			"name": "Field Rat",
+			"level": 19,
+			"levelMax": 19,
+			"faction": null,
+			"rare": false,
+			"elite": false,
+			"boss": false,
+			"instance": null,
+			"roles": [],
+			"spawns": [
+				{
+					"map": 9001,
+					"x": 46,
+					"y": 50,
+					"f": "e"
+				}
+			]
+		},
 		"5101": {
 			"id": 5101,
 			"name": "Scout Merrow",
@@ -310,6 +330,15 @@
 					"chance": 60
 				}
 			]
+		},
+		"8003": {
+			"id": 8003,
+			"name": "Courier's Letter",
+			"quality": 1,
+			"kind": "item",
+			"spell": null,
+			"reqLevel": null,
+			"sources": []
 		}
 	},
 	"quests": {
@@ -492,6 +521,150 @@
 			"rewards": [],
 			"choices": [],
 			"xp": 1100
+		},
+		"7006": {
+			"id": 7006,
+			"title": "Rat Problem",
+			"level": 20,
+			"minLevel": 15,
+			"faction": "A",
+			"races": null,
+			"classes": null,
+			"start": {
+				"npc": [],
+				"object": [],
+				"item": [
+					8003
+				]
+			},
+			"end": {
+				"npc": [
+					5001
+				],
+				"object": []
+			},
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 5015,
+					"count": 5,
+					"text": "Field Rat"
+				}
+			],
+			"pre": [],
+			"preAny": [],
+			"zone": 9001,
+			"rewards": [],
+			"choices": [],
+			"xp": 1200
+		},
+		"7007": {
+			"id": 7007,
+			"title": "Gnoll Bounty",
+			"level": 20,
+			"minLevel": 15,
+			"faction": "A",
+			"races": null,
+			"classes": null,
+			"start": {
+				"npc": [],
+				"object": [],
+				"item": [
+					8003
+				]
+			},
+			"end": {
+				"npc": [
+					5001
+				],
+				"object": []
+			},
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 5011,
+					"count": 3,
+					"text": "Ridge Gnoll"
+				}
+			],
+			"pre": [],
+			"preAny": [],
+			"zone": 9001,
+			"rewards": [],
+			"choices": [],
+			"xp": 900
+		},
+		"7008": {
+			"id": 7008,
+			"title": "Snare Check",
+			"level": 20,
+			"minLevel": 15,
+			"faction": "A",
+			"races": null,
+			"classes": null,
+			"start": {
+				"npc": [],
+				"object": [],
+				"item": [
+					8003
+				]
+			},
+			"end": {
+				"npc": [
+					5002
+				],
+				"object": []
+			},
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 5012,
+					"count": 1,
+					"text": "Hill Boar"
+				}
+			],
+			"pre": [],
+			"preAny": [],
+			"zone": 9001,
+			"rewards": [],
+			"choices": [],
+			"xp": 900
+		},
+		"7009": {
+			"id": 7009,
+			"title": "Tusk Tally",
+			"level": 20,
+			"minLevel": 15,
+			"faction": "A",
+			"races": null,
+			"classes": null,
+			"start": {
+				"npc": [],
+				"object": [],
+				"item": [
+					8003
+				]
+			},
+			"end": {
+				"npc": [
+					5002
+				],
+				"object": []
+			},
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 5012,
+					"count": 1,
+					"text": "Hill Boar"
+				}
+			],
+			"pre": [],
+			"preAny": [],
+			"zone": 9001,
+			"rewards": [],
+			"choices": [],
+			"xp": 1000
 		},
 		"7101": {
 			"id": 7101,

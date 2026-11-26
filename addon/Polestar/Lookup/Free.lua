@@ -10,7 +10,9 @@
 --   Free.IsGuide(id) -> bool ; Free.IsOn() -> bool   -- its guide; its tab open
 --   Free.Load() -> true | nil, reason                -- Data.Pack(Free.ADDON)
 --   Free.Start() / Free.Toggle()                      -- load, then the mode's own
---   Free.SetPick("near" | "xp")                       -- setting free.pick
+--   Free.SetPick("balanced" | "near" | "xp")         -- setting free.pick
+--   Free.Pick() -> rule ; Free.NextPick(rule?) -> rule ; Free.PickLabel(rule) -> text
+--   Free.Why() -> text | nil                         -- why Free mode's first quest is first
 --   Free.MenuItems() ; Free.RowItems(q) ; Free.ReturnTitle() ; Free.Stop()
 --   Free.Say(reason)                                  -- why it could not start, in chat
 
@@ -21,10 +23,16 @@ local Free = {}
 ns.Free = Free
 
 ns.RegisterDefaults("free", {
-	pick = "near", -- "near": the nearest quest first; "xp": the most XP a minute first
+	-- "balanced": the XP for the trip, quests started and stops shared (Polestar_FreeMode/Order.lua);
+	-- "near": the nearest quest first; "xp": the most XP a minute first
+	pick = "balanced",
 	hints = true, -- with no quest near, the zone with the most quests for your level first
 	details = true, -- the XP of each hand-in and a collect's low drop rate on its line
 })
+
+-- The orders, in the order the window's switch steps through them.
+Free.ORDERS = { "balanced", "near", "xp" }
+local ORDER_AT = { balanced = 1, near = 2, xp = 3 }
 
 Free.ADDON = "Polestar_FreeMode"
 Free.GUIDE = Lookup.GuideId("free", "log")
@@ -68,14 +76,32 @@ function door.Toggle() return via("Toggle") end
 function door.Stop() end
 function door.ReturnTitle() return nil end
 function door.RowItems() return nil end
+function door.Why() return nil end
 function door.MenuItems()
 	return { { text = L["Free mode"], icon = "icon-explore", checked = false, tip = L["Your own quests as a guide: the arrow leads to the nearest one, then the next."],
 		onClick = function() Free.Toggle() end } }
 end
 for k, fn in pairs(door) do Free[k] = fn end
 
+-- The order in use: free.pick, else its default.
+function Free.Pick()
+	local v = ns.Get("free.pick")
+	if ORDER_AT[v] then return v end
+	return ns.GetBaseDefault("free.pick")
+end
+
+-- The order after `rule` (the one in use): balanced, nearest, most XP, round again.
+function Free.NextPick(rule)
+	local i = ORDER_AT[rule or Free.Pick()] or 1
+	return Free.ORDERS[i % #Free.ORDERS + 1]
+end
+
+function Free.PickLabel(rule)
+	return (rule == "balanced" and L["Balanced"]) or (rule == "xp" and L["Most XP a minute first"]) or L["Nearest first"]
+end
+
 function Free.SetPick(rule)
-	ns.Set("free.pick", rule == "xp" and "xp" or "near")
+	ns.Set("free.pick", ORDER_AT[rule] and rule or ns.GetBaseDefault("free.pick"))
 end
 
 Lookup.RegisterPlanner("free", function()
@@ -88,4 +114,4 @@ ns.RegisterCommand("free", function(arg)
 	local ok, why = Free.Load()
 	if not ok then return Free.Say(why) end
 	Free.Command(arg)
-end, L["Free mode: follow your own quests (on, off, nearest, xp)"])
+end, L["Free mode: follow your own quests (on, off, balanced, nearest, xp)"])
