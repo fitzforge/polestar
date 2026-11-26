@@ -133,7 +133,7 @@ return {
 
 	-- Step 25: Evoroot
 	-- {item:11242} Evoroot · {npc:7775} Gregan Brewspewer · {area:1114} Ruins of Ravenwind · {npc:9467} Miblon Snarltooth
-	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall.\nOr the front door: {npc:9467} guards it, and the Bait Gregan sells draws him off when you use it beside him. Half the players in our recordings went in that way, half through the wall."] = "",
+	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall.\nOr the front door: {npc:9467} guards it, and the Bait Gregan sells draws him off when you use it beside him. Half the players in our recordings went in that way, half through the wall."] = "Die {item:11242} wächst in einem verfallenen Gebäude nördlich des Lagers von {npc:7775}, östlich der {area:1114} der Harpyien: Klettere durch die eingebrochene Stelle der Wand.\nOder durch die Vordertür: {npc:9467} bewacht sie, und der Köder, den Gregan verkauft, lockt ihn weg, wenn du ihn neben ihm benutzt. Die Hälfte der Spieler in unseren Aufzeichnungen ging so, die andere Hälfte durch die Wand.",
 
 	-- Step 26: The Videre Elixir
 	-- {npc:7775} Gregan Brewspewer · {area:976} Gadgetzan
@@ -150,7 +150,7 @@ return {
 	-- Step 29: Bluff Runner Windstrider
 	-- {npc:10881} Bluff Runner Windstrider · {npc:14728} Rumstag Proudstrider · {area:1641} Hunter Rise
 	-- was: ["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881} und {npc:14728} stehen auf {area:1641}. Jede von Rumstags Spenden nimmt sechzig Wolle, Seide oder Magiestoff aus deinen Taschen: Gib ab, was du dabeihast, den Rest überspringe."
-	["{npc:10881} and {npc:14728} stand on the central rise, not on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
+	["{npc:10881} and {npc:14728} stand on the central rise, not on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881} und {npc:14728} stehen auf der zentralen Anhöhe, nicht auf {area:1641}. Jede von Rumstags Spenden nimmt sechzig Wolle, Seide oder Magiestoff aus deinen Taschen: Gib ab, was du dabeihast, den Rest überspringe.",
 
 	-- Step 30: Ghede
 	-- {npc:9076} Ghede · {area:1639} Elder Rise
@@ -164,7 +164,7 @@ return {
 
 	-- Step 32: Bashana Runetotem
 	-- {npc:9087} Bashana Runetotem · {item:11103} Seed Voucher · {quest:3782} Morrowgrain Research · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {item:11040} Morrowgrain
-	["Hand {npc:9087} the {item:11103} for her packets of Tharlendris Seeds. {quest:3782} gives you the {item:11020}: use it with a seed packet and two {quest:3761} in your bags to grow a random herb, sometimes {item:11040}, once every ten minutes. She wants ten, so the quest is optional: take it if you have spare {quest:3761} and want to keep growing it over the next guides."] = "",
+	["Hand {npc:9087} the {item:11103} for her packets of Tharlendris Seeds. {quest:3782} gives you the {item:11020}: use it with a seed packet and two {quest:3761} in your bags to grow a random herb, sometimes {item:11040}, once every ten minutes. She wants ten, so the quest is optional: take it if you have spare {quest:3761} and want to keep growing it over the next guides."] = "Gib {npc:9087} den {item:11103} für ihre Päckchen mit Tharlendris-Samen. {quest:3782} gibt dir den {item:11020}: Benutze ihn mit einem Samenpäckchen und zwei {quest:3761} in deinen Taschen, um alle zehn Minuten ein zufälliges Kraut zu ziehen, manchmal {item:11040}. Sie will zehn, die Quest ist also optional: Nimm sie, wenn du {quest:3761} übrig hast und in den nächsten Guides weiterziehen willst.",
 
 	-- Step 34: Magatha Grimtotem
 	-- {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise

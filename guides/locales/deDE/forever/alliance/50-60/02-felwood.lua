@@ -51,7 +51,7 @@ return {
 	-- Step 8: Jaedenar
 	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge · {item:11948} Empty Tainted Ooze Jar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["{area:1763} is the ruined temple north of the glen.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him.\nTainted Oozes slide about {area:1763}'s fel pools: kill them and use the {item:11948} on their remains."] = "",
+	["{area:1763} is the ruined temple north of the glen.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him.\nTainted Oozes slide about {area:1763}'s fel pools: kill them and use the {item:11948} on their remains."] = "{area:1763} ist der zerstörte Tempel nördlich der Schlucht.\nVorsicht: Der {npc:11141} (53, Elite) spukt am Westende von {area:1763}, etwa 35,60: arbeite im Südosten, wo der Pfeil zeigt, und zieh die Kultisten und Hunde von ihm weg.\nBesudelte Brühschlammer gleiten durch die Teufelsseen von {area:1763}: Töte sie und benutze den {item:11948} auf ihre Überreste.",
 	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "{item:11949}: Tainted Oozes gleiten durch die Teufelsteiche von {area:1763}",
@@ -241,7 +241,7 @@ return {
 
 	-- Step 51: Evoroot
 	-- {item:11242} Evoroot · {npc:7765} Rockbiter · {npc:9467} Miblon Snarltooth
-	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it.\nOr the front door: {npc:9467} guards it, and the Bait Gregan sells draws him off when you use it beside him. Half the players in our recordings went in that way, half through the wall."] = "",
+	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it.\nOr the front door: {npc:9467} guards it, and the Bait Gregan sells draws him off when you use it beside him. Half the players in our recordings went in that way, half through the wall."] = "Die {item:11242} wächst in einem verfallenen Gebäude nördlich von {npc:7765}: Klettere von dem Felsvorsprung daneben durch das Loch in der Wand.\nOder durch die Vordertür: {npc:9467} bewacht sie, und der Köder, den Gregan verkauft, lockt ihn weg, wenn du ihn neben ihm benutzt. Die Hälfte der Spieler in unseren Aufzeichnungen ging so, die andere Hälfte durch die Wand.",
 
 	-- Step 52: Shay Leafrunner
 	-- {npc:7774} Shay Leafrunner · {item:9189} Shay's Bell

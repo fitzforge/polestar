@@ -65,9 +65,9 @@ return {
 
 	-- Step 14: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172959} The Drag
-	["{npc:8659} takes the ravasaur claws from Un'Goro; he is in {object:172959}, upstairs in one of its tallest buildings."] = "",
+	["{npc:8659} takes the ravasaur claws from Un'Goro; he is in {object:172959}, upstairs in one of its tallest buildings."] = "{npc:8659} nimmt die Ravasaur-Klauen aus Un'Goro; er ist in {object:172959}, oben in einem der höchsten Gebäude.",
 	-- {npc:8659} Jes'rimon · {object:172959} The Drag
-	["{npc:8659}, upstairs in {object:172959}"] = "",
+	["{npc:8659}, upstairs in {object:172959}"] = "{npc:8659}, oben in {object:172959}",
 
 	-- Step 15: Fly to Valormok
 	-- {area:1237} Valormok
@@ -88,7 +88,7 @@ return {
 
 	-- Step 18: Ruins of Eldarath
 	-- {item:10695} Box of Empty Vials · {area:1231} Southridge Beach · {npc:8390} Chemist Cuely · {zone:1458} Undercity
-	["Open Cuely's {item:10695} in your bags for the four labelled vials. The tide pools cannot be clicked: stand in each pool and use its own vial from your bags, from {area:1231} north up the coast; Spitelash naga patrol between them. No vials? Abandon the quest and take it again from {npc:8390} in the {zone:1458}."] = "",
+	["Open Cuely's {item:10695} in your bags for the four labelled vials. The tide pools cannot be clicked: stand in each pool and use its own vial from your bags, from {area:1231} north up the coast; Spitelash naga patrol between them. No vials? Abandon the quest and take it again from {npc:8390} in the {zone:1458}."] = "Öffne den {item:10695} von Cuely in deinen Taschen und nimm die vier beschrifteten Phiolen. Die Gezeitentümpel lassen sich nicht anklicken: Steh in jedem Tümpel und benutze die eigene Phiole aus deinen Taschen, von {area:1231} nach Norden die Küste entlang; zwischen ihnen patrouillieren Spitelash-Naga. Keine Phiolen? Gib die Quest auf und nimm sie erneut von {npc:8390} in {zone:1458} an.",
 	-- {item:10691} Filled Vial Labeled #1 · {area:1231} Southridge Beach
 	["{item:10691}: the tide pool on {area:1231}"] = "",
 	["#2, north along the shore"] = "",
@@ -98,7 +98,7 @@ return {
 	["Makrinni Burrowers"] = "Makrinni-Wühler",
 	-- {npc:247473} Izvi Gildfizz · {item:246683} Treasure Trowel 3000
 	-- plural, as words: Highborne Treasure Fragments = {item:246684} Highborne Treasure Fragment · Makrinni Burrowers = {npc:247470} Makrinni Burrower
-	["{npc:247473}'s {item:246683}, in your bags, digs up the Highborne Treasure Fragments: use it on the sands just east of the ruins, where the Makrinni Burrowers (50-51) dig, on the way north-east. The Burrowers and the buried caches there give fragments too."] = "",
+	["{npc:247473}'s {item:246683}, in your bags, digs up the Highborne Treasure Fragments: use it on the sands just east of the ruins, where the Makrinni Burrowers (50-51) dig, on the way north-east. The Burrowers and the buried caches there give fragments too."] = "Mit {npc:247473}s {item:246683} in deinen Taschen gräbst du Fragmente eines Hochgeborenenschatzes aus: Benutze es auf den Sand direkt östlich der Ruinen, wo die Makrinni-Buddler (50-51) graben, auf dem Weg nach Nordosten. Auch die Buddler und die vergrabenen Behälter dort liefern Fragmente.",
 
 	-- Step 20: Ekkal
 	-- {zone:1447} Azshara · {npc:235903} Ekkal
@@ -136,9 +136,9 @@ return {
 
 	-- Step 25: Magus Rimtori
 	-- {quest:91500} An Explosive Gambit · {quest:91497} Seals of the Sin'dorei
-	["Back to the Sin'dorei Tome: hand in the seals and take {quest:91500}, which gives you the {quest:91497}. Rimtori does not come from the Tome: stand beside one of the camp's tall crystals and use the {quest:91497} from your bags; its crystal explodes and draws her. Which crystal is linked to her is random: each of the other two summons a hostile infernal instead. She is level 55: start at full health."] = "",
+	["Back to the Sin'dorei Tome: hand in the seals and take {quest:91500}, which gives you the {quest:91497}. Rimtori does not come from the Tome: stand beside one of the camp's tall crystals and use the {quest:91497} from your bags; its crystal explodes and draws her. Which crystal is linked to her is random: each of the other two summons a hostile infernal instead. She is level 55: start at full health."] = "Zurück zum Sin'dorei-Buch: Gib die Siegel ab und nimm {quest:91500}, das dir {quest:91497} gibt. Rimtori kommt nicht aus dem Buch: Stell dich neben einen der hohen Kristalle des Lagers und benutze {quest:91497} aus deinen Taschen; der Kristall explodiert und lockt sie herbei. Welcher Kristall mit ihr verbunden ist, ist zufällig: die beiden anderen beschwören stattdessen einen feindlichen Inferno. Sie ist Stufe 55: Beginne mit voller Gesundheit.",
 	-- {quest:91497} Seals of the Sin'dorei · {npc:8578} Magus Rimtori
-	["Use the {quest:91497} from your bags beside a crystal: {npc:8578} (55) comes to the explosion and drops her head"] = "",
+	["Use the {quest:91497} from your bags beside a crystal: {npc:8578} (55) comes to the explosion and drops her head"] = "Benutze {quest:91497} aus deinen Taschen neben einem Kristall: {npc:8578} (55) kommt zur Explosion und lässt ihren Kopf fallen",
 	-- {quest:91538} Sin'dorei Tome of Summoning · {npc:8587} Jediga · {area:1237} Valormok
 	["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: für {npc:8587} in {area:1237}",
 
@@ -190,7 +190,7 @@ return {
 
 	-- Step 36: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:8659} Jes'rimon · {object:172959} The Drag
-	["{npc:4485} is in the {object:172958}, {npc:3326} in the {object:172960}, and {npc:8659} in {object:172959}, upstairs in one of its tallest buildings."] = "",
+	["{npc:4485} is in the {object:172958}, {npc:3326} in the {object:172960}, and {npc:8659} in {object:172959}, upstairs in one of its tallest buildings."] = "{npc:4485} ist im {object:172958}, {npc:3326} im {object:172960}, und {npc:8659} in {object:172959}, oben in einem der höchsten Gebäude.",
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow
 	["{npc:3326}, the {object:172960}"] = "{npc:3326}, {object:172960}",
 	-- {npc:8659} Jes'rimon · {npc:8587} Jediga
@@ -257,7 +257,7 @@ return {
 	-- Step 51: Irontree Woods
 	-- {area:1767} Irontree Woods · {npc:10920} Kelek Skykeeper · {npc:9529} Maybess Riverbreeze · {item:11503} Blood Amber · {area:1768} Irontree Cavern
 	-- plural, as words: Felpaw Ravagers = {npc:8961} Felpaw Ravager
-	["Follow the road north-east to {area:1767}: Angerclaw Grizzlies and Felpaw Ravagers roam the woods for Talo, and their organs are {npc:10920}'s. {npc:9529}'s {item:11503} comes from the Warpwood elementals inside {area:1768}, next."] = "",
+	["Follow the road north-east to {area:1767}: Angerclaw Grizzlies and Felpaw Ravagers roam the woods for Talo, and their organs are {npc:10920}'s. {npc:9529}'s {item:11503} comes from the Warpwood elementals inside {area:1768}, next."] = "Folge der Straße nach Nordosten zu {area:1767}: Wutklauen-Grebber und Teufelspfotenverheerer streifen für Talo durch den Wald, und ihre Organe will {npc:10920}. {npc:9529}s {item:11503} stammt von den Warpwood-Elementaren in {area:1768}, gleich danach.",
 	-- {item:277958} Putrescent Bear Organs
 	["{item:277958}, from the Angerclaw bears"] = "{item:277958}, von den Zornklauenbären",
 	-- {item:277959} Putrescent Wolf Organs
@@ -265,7 +265,7 @@ return {
 
 	-- Step 52: Irontree Woods
 	-- {area:1768} Irontree Cavern
-	["Below ground: from the Warpwood elementals inside {area:1768}"] = "",
+	["Below ground: from the Warpwood elementals inside {area:1768}"] = "Unter der Erde: von den Warpwood-Elementaren in {area:1768}",
 
 	-- Step 53: Meilosh
 	-- {npc:11557} Meilosh · {zone:1448} Felwood · {quest:6031} Runecloth · {area:1769} Timbermaw Hold

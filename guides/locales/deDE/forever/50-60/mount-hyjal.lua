@@ -106,7 +106,7 @@ return {
 
 	-- Step 19: Fine Feathered Friend
 	-- {quest:91923} Celastrus the Bitter · {npc:248366} Fraxinus · {quest:95766} Fine Feathered Friend · {npc:257753} Curious Crow · {area:17050} Felblood Scar
-	["With {quest:91923} handed in, {npc:248366} offers {quest:95766}: the {npc:257753} at {area:17050} takes it later in this guide."] = "",
+	["With {quest:91923} handed in, {npc:248366} offers {quest:95766}: the {npc:257753} at {area:17050} takes it later in this guide."] = "Ist {quest:91923} abgegeben, bietet {npc:248366} {quest:95766} an: den {npc:257753} bei {area:17050} nimmt später in diesem Guide.",
 
 	-- Step 20: The Dying Ancients
 	-- {npc:248709} Sunderbark
@@ -517,11 +517,11 @@ return {
 	["The Wormwing harpies nest on the slopes north-west of the shrine. They drop the pinfeathers and {npc:256660}'s amulets; the bangles lie in their nests, the {object:650219} in a nest on the western slope, and {npc:260826}, who has Omnuron's spear, is among them. The corrupted knots grow on the trees just north-west of the shrine."] = "Die Wurmflügel-Harpyien nisten auf den Hängen nordwestlich des Schreins. Sie lassen die Federspitzen und die Amulette von {npc:256660} fallen; die Armbänder liegen in ihren Nestern, das {object:650219} in einem Nest auf dem westlichen Hang, und {npc:260826}, der Omnurons Speer hat, ist unter ihnen. Die verderbten Knollen wachsen an den Bäumen knapp nordwestlich des Schreins.",
 
 	-- Step 117: The way into the Deadwood camps
-	["The way into the Deadwood camps"] = "",
+	["The way into the Deadwood camps"] = "Der Weg in die Totenwaldfell-Lager",
 	-- {area:17144} Malorne's Retreat · {area:16868} Mourning's Rest
-	["The Deadwood camps fill {area:17144}, a sunken valley whose northern end runs in under the cliffs: there is no way down into it from {area:16868}. Go round to the valley's mouth in the south-east and follow it west, then north up into the camps, as players do."] = "",
+	["The Deadwood camps fill {area:17144}, a sunken valley whose northern end runs in under the cliffs: there is no way down into it from {area:16868}. Go round to the valley's mouth in the south-east and follow it west, then north up into the camps, as players do."] = "Die Totenwaldfell-Lager füllen {area:17144}, ein eingesunkenes Tal, dessen Nordende unter die Klippen führt: von {area:16868} aus gibt es keinen Weg hinab. Geh um das Tal herum zum Eingang im Südosten, folge ihm nach Westen und dann nach Norden in die Lager, wie es die Spieler tun.",
 	-- {area:17144} Malorne's Retreat
-	["the mouth of the valley up into {area:17144}"] = "",
+	["the mouth of the valley up into {area:17144}"] = "der Taleingang hinauf nach {area:17144}",
 
 	-- Step 118: The Deadwood camps
 	["The Deadwood camps"] = "Die Deadwood-Lager",
