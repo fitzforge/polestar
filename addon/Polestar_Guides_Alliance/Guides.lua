@@ -10475,7 +10475,7 @@ do
 					when = { { k = "onquest", q = { 94892 } } },
 					goals = {
 						{ t = "turnin", quest = 94892, title = "Dying Wish", npc = 257558, npcName = "Demar Brant", map = 2548, x = 66.57, y = 80.96, z = 61.1 },
-						{ t = "accept", quest = 94893, title = "Delivering Closure", item = 266428, itemName = "Marshal Ryan's Crest", minLevel = 36, qlvl = 47, pre = { 94892 }, preTitles = { [94892] = "Dying Wish" }, note = "{quest:94893}: for {npc:278088} in {zone:1453}" },
+						{ t = "accept", quest = 94893, title = "Delivering Closure", npc = 257558, npcName = "Demar Brant", minLevel = 36, qlvl = 47, pre = { 94892 }, preTitles = { [94892] = "Dying Wish" }, map = 2548, x = 66.57, y = 80.96, z = 61.1, note = "{quest:94893}: for {npc:278088} in {zone:1453}" },
 					},
 				},
 				{
