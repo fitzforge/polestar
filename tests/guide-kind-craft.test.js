@@ -223,3 +223,16 @@ GF.Layout(); stub.advance(1)
 emit({ colour = m.colour, line = plain(GF.RegionFrame("stretch").MoveOn:GetText()) })`);
 	assert.deepEqual(out, { colour: 'grey', line: 'Grey now: move on' });
 });
+
+test('Open Tailoring: the click is a secure spell button outside the guide window, over the card\'s button', () => {
+	const out = run('', `
+GF.Layout(); stub.advance(1)
+local slot = GF.RegionFrame("stretch").psOpen
+slot:GetScript("OnUpdate")(slot, 1)
+local b = _G.PolestarOpenProfession
+local under = false
+local p = b and b:GetParent()
+while p do if p == GF.frame then under = true end p = p:GetParent() end
+emit({ shown = slot:IsShown(), text = slot.Label:GetText(), secure = b ~= nil, under = under, spell = b and b:GetAttribute("spell") or false })`);
+	assert.deepEqual(out, { shown: true, text: 'Open Tailoring', secure: true, under: false, spell: 'Tailoring' });
+});

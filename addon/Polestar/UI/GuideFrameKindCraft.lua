@@ -392,16 +392,58 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 	end
 
-	-- Open <Profession>: a secure spell button (the window's only one), made and shown or hidden out of combat.
-	local function openButton(f)
-		if f.psOpen or (InCombatLockdown and InCombatLockdown()) then return f.psOpen end
-		local name = GF.live and "PolestarOpenProfession" or nil
-		local b = CreateFrame("Button", name, f, "SecureActionButtonTemplate")
-		-- With the gamepad, A clicks it through an override binding (UI/GamepadGuide.lua), never from code.
-		b.psPadRedirect = name
+	-- Open <Profession>. What shows in the card is an ordinary button (`f.psOpen`, painted and laid out with the
+	-- card); the click is a secure spell button's (the window's only one) that lives outside the window's frame
+	-- tree, as the name targets' do (UI/NameTargets.lua): under a holder the client hides in combat, placed over
+	-- the card's button in UIParent's own coordinates out of combat, so the window moves, hides and repaints
+	-- freely in a fight. The live window's alone; a copy's button does nothing.
+	local secure, holder
+	local function locked() return InCombatLockdown and InCombatLockdown() end
+	local function secureButton()
+		if secure or not GF.live or locked() then return secure end
+		holder = CreateFrame("Frame", nil, UIParent, "SecureHandlerStateTemplate")
+		holder:SetSize(1, 1)
+		if RegisterStateDriver then RegisterStateDriver(holder, "visibility", "[combat] hide; show") end
+		secure = CreateFrame("Button", "PolestarOpenProfession", holder, "SecureActionButtonTemplate")
+		secure:RegisterForClicks("AnyUp", "AnyDown")
+		secure:SetAttribute("type", "spell")
+		secure:Hide()
+		-- Its look is the card's button under it: the hover lights that one.
+		secure:SetScript("OnEnter", function(self) local v = self.psSlot; if v then v.psLit = true; W.Color(v.Label, "text") end end)
+		secure:SetScript("OnLeave", function(self) local v = self.psSlot; if v then v.psLit = nil; W.Color(v.Label, "buttonText") end end)
+		return secure
+	end
+	-- The secure button over the card's (`slot`), or hidden. Out of combat only.
+	local function placeSecure(slot)
+		if locked() then return end
+		local b = secureButton()
+		if not b then return end
+		if not (slot and slot:IsVisible() and slot.psSpell) or (slot.GetEffectiveAlpha and slot:GetEffectiveAlpha() <= 0) then
+			b:Hide()
+			return
+		end
+		if b:GetAttribute("spell") ~= slot.psSpell then b:SetAttribute("spell", slot.psSpell) end
+		b.psSlot = slot
+		local left, top = slot:GetLeft(), slot:GetTop()
+		if not (left and top) then b:Hide(); return end
+		local scale = slot:GetEffectiveScale() / UIParent:GetEffectiveScale()
+		local width, height = slot:GetWidth() * scale, slot:GetHeight() * scale
+		left, top = left * scale, top * scale
+		if b.psLeft ~= left or b.psTop ~= top or b.psWidth ~= width or b.psHeight ~= height then
+			b:ClearAllPoints()
+			b:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left, top)
+			b:SetSize(width, height)
+			b.psLeft, b.psTop, b.psWidth, b.psHeight = left, top, width, height
+		end
+		local strata, level = slot:GetFrameStrata(), slot:GetFrameLevel() + 2
+		if b:GetFrameStrata() ~= strata then b:SetFrameStrata(strata) end
+		if b:GetFrameLevel() ~= level then b:SetFrameLevel(level) end
+		if not b:IsShown() then b:Show() end
+	end
+	-- The card's button: built with the card; its text, its spell, shown or not.
+	local function openSlot(f)
+		local b = CreateFrame("Button", nil, f.Card)
 		b:SetHeight(24)
-		b:RegisterForClicks("AnyUp", "AnyDown")
-		b:SetAttribute("type", "spell")
 		b.Label = W.Text(b, "label", "buttonText")
 		b.Label:SetPoint("CENTER", b, "CENTER", 0, 0)
 		b.Icon = b:CreateTexture(nil, "ARTWORK")
@@ -409,15 +451,24 @@ ns.UI.GuideFrame.Part(function(GF)
 		b.Icon:SetPoint("CENTER", b, "CENTER", 0, 0)
 		b.psTextButton = true
 		Theme.Skin(b, "button")
-		f.psOpen = b
+		-- A click is the secure button's over it; with the gamepad, A clicks that one through an override
+		-- binding (UI/GamepadGuide.lua), never from code.
+		b:SetScript("OnClick", function() end)
+		b.psPadRedirect = GF.live and "PolestarOpenProfession" or nil
+		-- It follows the window as it moves (a few times a second while it shows), out of combat.
+		b:SetScript("OnUpdate", function(self, elapsed)
+			self.psWait = (self.psWait or 0) - elapsed
+			if self.psWait > 0 then return end
+			self.psWait = 0.2
+			if GF.live then placeSecure(self) end
+		end)
+		b:SetScript("OnHide", function(self) if GF.live and secure and secure.psSlot == self then placeSecure(nil) end end)
 		return b
 	end
 	local function setOpen(f, spell, show, iconOnly)
-		if InCombatLockdown and InCombatLockdown() then return end
-		local b = openButton(f)
-		if not b then return end
+		local b = f.psOpen
 		if show and spell then
-			b:SetAttribute("spell", spell)
+			b.psSpell = spell
 			b.Label:SetText(format(L["Open %s"], spell))
 			b.Label:SetShown(not iconOnly)
 			b.Icon:SetTexture(Theme.VerbIcon("craft"))
@@ -426,6 +477,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			b:SetWidth(iconOnly and 32 or floor(b.Label:GetStringWidth() + 2 * Theme.Metric("buttonPad", 16) + 0.5))
 			b:Show()
 		else
+			b.psSpell = nil
 			b:Hide()
 		end
 	end
@@ -456,6 +508,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.Check = glyph(f.Card, "complete", 13, "success")
 			f.Check:SetTexture(Theme.Media("check"))
 			f.Make = W.Text(f.Card, "label", "success")
+			f.psOpen = openSlot(f)
 			-- The compact form: one line.
 			f.Line = W.Text(f, "goal", "text")
 			f.LineGlyph = glyph(f, "craft", 14, "accent")
@@ -1411,6 +1464,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		ns.On("MATERIALS_PRICES", again)
 		ns.On("KIND_CRAFT_MADE", again)
 		-- Open <Profession> (secure) shows or hides only out of combat: once the fight ends.
-		ns.RegisterEvent("PLAYER_REGEN_ENABLED", function() if GF.RegionShown("stretch") then again() end end)
+		ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
+			if secure and secure.psSlot then placeSecure(secure.psSlot) end
+			if GF.RegionShown("stretch") then again() end
+		end)
 	end
 end)
