@@ -454,6 +454,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- A click is the secure button's over it; with the gamepad, A clicks that one through an override
 		-- binding (UI/GamepadGuide.lua), never from code.
 		b:SetScript("OnClick", function() end)
+		-- The mouse goes to the secure button over it, never to this one.
+		b:EnableMouse(false)
 		b.psPadRedirect = GF.live and "PolestarOpenProfession" or nil
 		-- It follows the window as it moves (a few times a second while it shows), out of combat.
 		b:SetScript("OnUpdate", function(self, elapsed)
