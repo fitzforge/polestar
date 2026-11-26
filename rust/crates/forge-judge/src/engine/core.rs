@@ -182,6 +182,8 @@ pub(crate) struct Sim<'a> {
 	placed_through: FxHashSet<usize>,
 	chain_seen: FxHashSet<usize>,
 	caught_up: FxHashSet<usize>,
+	/// CharState().earlier (#86): per guide the quests placement passed as skipped earlier.
+	earlier: FxHashMap<usize, FxHashSet<u32>>,
 	context_gen: u64,
 	picks: FxHashMap<GRef, Pick>,
 	spot_chosen: FxHashMap<GRef, usize>,
@@ -404,6 +406,7 @@ impl<'a> Sim<'a> {
 			placed_through: FxHashSet::default(),
 			chain_seen: FxHashSet::default(),
 			caught_up: FxHashSet::default(),
+			earlier: FxHashMap::default(),
 			context_gen: 0,
 			picks: FxHashMap::default(),
 			spot_chosen: FxHashMap::default(),
@@ -903,7 +906,8 @@ impl<'a> Sim<'a> {
 		true
 	}
 
-	/// goalApplies: `only`, the profession gate, not orphaned (skipGrey and the catch-up are off).
+	/// goalApplies: `only`, the profession gate, not left out as skipped earlier (#86), not orphaned (skipGrey and the
+	/// catch-up are off).
 	pub fn goal_applies(&mut self, s: usize, g: usize) -> bool {
 		let goal = self.gd().goal(s, g);
 		if !self.matches(&goal.only) {
@@ -918,7 +922,18 @@ impl<'a> Sim<'a> {
 				}
 			}
 		}
+		// A quest placement passed as skipped earlier (Own.leftOut): out until the player takes it.
+		if let Some(q) = goal.quest {
+			if self.passed_earlier(q) && !self.quest_done(q) && !self.w.on_quest(q) {
+				return false;
+			}
+		}
 		!self.orphaned(s, g)
+	}
+
+	/// Whether quest q is in the open guide's list of quests skipped earlier (Own.earlierState).
+	fn passed_earlier(&self, q: u32) -> bool {
+		self.earlier.get(&self.gi()).is_some_and(|l| l.contains(&q))
 	}
 
 	// ------------------------------------------------------------------ done rules
@@ -1402,6 +1417,54 @@ impl<'a> Sim<'a> {
 		0
 	}
 
+	/// Own.earlierBefore (#86): the accept goals of the route before step `mark` that were not taken, or none
+	/// when fewer than EARLIER_SHARE of the quests before it were taken (done or in the log). A quest the game
+	/// no longer offers, or one a later accept needs as its prerequisite, counts but is not passed; a step
+	/// still asking its group question is the player's to answer.
+	fn earlier_before(&mut self, mark: usize) -> Vec<u32> {
+		const EARLIER_SHARE: f64 = 0.5;
+		let gd = self.gd();
+		let n = gd.steps.len();
+		let mut needed: FxHashSet<u32> = FxHashSet::default();
+		for s in 1..=n {
+			for goal in &gd.step(s).goals {
+				if let (T::Accept, Some(q)) = (goal.t, goal.quest) {
+					if !self.quest_done(q) {
+						needed.extend(goal.pre.iter().flatten().chain(goal.pre_all.iter().flatten()).copied());
+					}
+				}
+			}
+		}
+		let (mut seen, mut open, mut total, mut kept): (FxHashSet<u32>, Vec<u32>, usize, usize) = (FxHashSet::default(), Vec::new(), 0, 0);
+		for s in 1..mark {
+			let asking = self.group_pending(s);
+			if !self.step_applies(s) || self.is_skipped(s) {
+				continue;
+			}
+			for g in 1..=gd.step(s).goals.len() {
+				let goal = gd.goal(s, g);
+				let Some(q) = goal.quest else { continue };
+				if !(goal.t == T::Accept || goal.direct) || seen.contains(&q) || goal.optional || !self.matches(&goal.only) || self.unavailable_for(s, g, 0).is_some() {
+					continue;
+				}
+				seen.insert(q);
+				if self.quest_done(q) || self.w.on_quest(q) {
+					total += 1;
+					kept += 1;
+				} else if self.gated(goal).is_none() {
+					total += 1;
+					if !(asking || needed.contains(&q)) {
+						open.push(q);
+					}
+				}
+			}
+		}
+		if total == 0 || (kept as f64) < total as f64 * EARLIER_SHARE {
+			return Vec::new();
+		}
+		open
+	}
+
 	fn open_goal(&mut self, s: usize, g: usize) -> bool {
 		blocks(self.gd().goal(s, g)) && self.goal_applies(s, g) && self.unavailable_for(s, g, 0).is_none() && !self.goal_done(s, g).done
 	}
@@ -1426,6 +1489,12 @@ impl<'a> Sim<'a> {
 		let gi = self.gi();
 		let n = gd.steps.len();
 		let anchor = self.anchor_step();
+		// Skipped earlier (#86): the quests before the high-water mark the player never took are passed.
+		let mark = if self.log_ready && !self.every_step() { anchor } else { 0 };
+		if mark > 1 {
+			let passed = self.earlier_before(mark);
+			self.earlier.entry(gi).or_default().extend(passed);
+		}
 		let mut start = None;
 		for s in 1..=n {
 			if self.step_applies(s) && !self.is_skipped(s) && !self.step_done(s) {
@@ -1446,6 +1515,8 @@ impl<'a> Sim<'a> {
 			}
 		}
 		let limit = start.unwrap_or(anchor);
+		// The last step before the start with an accept left out: the way there passes with it.
+		let last_out = (1..limit).filter(|&s| gd.step(s).goals.iter().any(|goal| (goal.t == T::Accept || goal.direct) && goal.quest.is_some_and(|q| self.passed_earlier(q)))).max().unwrap_or(0);
 		let mut here = false;
 		if let Some(st) = start {
 			if anchor < st {
@@ -1472,7 +1543,7 @@ impl<'a> Sim<'a> {
 				for g in 1..=gd.step(s).goals.len() {
 					let goal = gd.goal(s, g);
 					let soft = is_manual(goal) || latchable(goal) || is_bag_count(goal);
-					if self.open_goal(s, g) && self.gated(goal).is_none() && !(soft && behind) && !(here && travel(goal.t)) {
+					if self.open_goal(s, g) && self.gated(goal).is_none() && !(soft && (behind || (s < last_out && travel(goal.t)))) && !(here && travel(goal.t)) {
 						passes = false;
 						break;
 					}
@@ -1507,6 +1578,10 @@ impl<'a> Sim<'a> {
 			}
 			for g in 1..=gd.step(t).goals.len() {
 				let goal = gd.goal(t, g);
+				// Leads to a quest left out as skipped earlier: the way passes with it.
+				if blocks(goal) && is_quest_goal(goal) && goal.quest.is_some_and(|q| self.passed_earlier(q)) {
+					return true;
+				}
 				if blocks(goal) && is_quest_goal(goal) && self.goal_applies(t, g) && self.gated(goal).is_none() && self.unavailable_for(t, g, 0).is_none() {
 					if self.goal_done(t, g).done {
 						return true;
