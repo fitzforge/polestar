@@ -327,3 +327,26 @@ test('the target button names a clicked While you\'re here pick-up\'s NPC first,
 		['Scout Bolain', 1, 1], ['Demar Brant', 1, 1], ['Demar Brant', 1, 1], ['Skeletal Fiend', 8, 1],
 	]);
 });
+
+test('the target button puts nearby mobs before a far step NPC after the clicked pick-up', () => {
+	const [near, far, fallback] = run(`
+		Polestar.Set("behavior.whileHereRadius", 300)
+		shown = {
+			{ t = "accept", npcName = "Demar Brant", quest = 9, step = 30, index = 2, status = "active" },
+			{ t = "kill", subject = "Roosting Duskbat", step = 31, index = 1, status = "active" },
+		}
+		q.engine.waypoint = { stepIndex = 30, goalIndex = 2 }
+		local goals = { { t = "talk", npcName = "Scout Bolain", map = 9000, x = 92, y = 92 } }
+		q.player.wx, q.player.wy = -840, -840
+		q.step(goals)
+		emit(B.TargetNames(nil, nil, true, true))
+		q.player.wx, q.player.wy = 0, 0
+		q.step(goals)
+		emit(B.TargetNames(nil, nil, true, true))
+		world(unit("Scout Bolain"), unit("Roosting Duskbat", true))
+		emit(click(PolestarTargetButton))
+	`);
+	assert.deepEqual(near, ['Demar Brant', 'Scout Bolain', 'Roosting Duskbat']);
+	assert.deepEqual(far, ['Demar Brant', 'Roosting Duskbat', 'Scout Bolain']);
+	assert.deepEqual(outcome(fallback), ['Roosting Duskbat', 8, 1]);
+});

@@ -742,9 +742,30 @@ test('a While you\'re here row targets its NPC or mob, then points the arrow the
 	assert.match(out.first.macro, /\n\/tm \[@target,exists,nodead,nocombat\]\[@target,noharm,nodead\] !1$/, 'a star on the NPC');
 	assert.deepEqual(out.calls[0], ['aim', 1]);
 	assert.equal(out.calls.length, 2);
-	assert.equal(out.calls[1][1], 1);
+	assert.deepEqual(out.calls[1], ['dismiss', 1]);
 	assert.deepEqual(out.mob, { name: 'Roosting Duskbat', kind: 'mob' });
 	assert.equal(out.close, true, 'the close button stays above the overlay');
 	assert.equal(out.middle, 12, 'a middle-click reaches the row');
 	assert.equal(out.clipped, false, 'no overlay over a clipped row');
+});
+
+test('a While you\'re here row refreshes its secure target when the panel keeps its height', () => {
+	const [out] = run(`
+		local E = Polestar.Engine
+		local shown = { { t = "kill", subject = "Wolf", step = 30, index = 2, status = "active", hereText = "Kill" } }
+		E.GetWhileHereList = function() return shown end
+		E.AlongGoal = function() return nil end
+		uistub.setGuide(uistub.elwynn, 3)
+		Polestar.Fire("WHILE_HERE_CHANGED")
+		stub.advance(1)
+		local row = GF.here.Rows[1]
+		local height = GF.here:GetHeight()
+		local before = targetFor(row):GetAttribute("macrotext1")
+		shown[1].subject = "Boar"
+		Polestar.Fire("WHILE_HERE_CHANGED")
+		local after = targetFor(row):GetAttribute("macrotext1")
+		emit({ before = before, after = after, sameHeight = height == GF.here:GetHeight() })`);
+	assert.match(out.before, /\/targetexact Wolf(?:\n|$)/);
+	assert.match(out.after, /\/targetexact Boar(?:\n|$)/);
+	assert.equal(out.sameHeight, true);
 });

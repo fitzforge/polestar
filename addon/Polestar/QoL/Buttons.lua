@@ -1600,13 +1600,13 @@ local function reverse(i, j, ...)
 	end
 end
 
--- Entries 1..k of each list (n in all) move behind entries k+1..n, each part
+-- Entries first..k of each list move behind entries k+1..n, each part
 -- in its own order.
-local function moveBehind(k, n, ...)
-	if k <= 0 or k >= n then return end
-	reverse(1, k, ...)
+local function moveBehind(first, k, n, ...)
+	if first > k or k >= n then return end
+	reverse(first, k, ...)
 	reverse(k + 1, n, ...)
-	reverse(1, n, ...)
+	reverse(first, n, ...)
 end
 
 -- What the list shows beside name (the last TargetNames call with info), or nil.
@@ -1628,8 +1628,8 @@ end
 -- the rows' mobs come first and the NPCs after (#1441, #1623). A row the
 -- arrow points at (the player clicked it) comes before the step's own goals:
 -- the player chose to go and do it (#2011). A clicked row with an NPC (a
--- pick-up, a hand-in) names that NPC first, then the step's mobs, or the
--- step's NPCs without any; the radius order below then leaves it be. -> names,
+-- pick-up, a hand-in) names that NPC first, with the remaining names in
+-- the usual radius order. -> names,
 -- verbs, npc ids (nil: not known), marks (true: elite, rare or boss by the
 -- guide's data), all by index. info: the target list's own call (the
 -- refresh); only it sets what Buttons.TargetInfo has for each name, so the
@@ -1717,10 +1717,11 @@ function Buttons.TargetNames(view, raw, npcs, here, cap, info)
 		addHereGoals(qdb, aimed)
 		arrowFirst(first)
 		interleave(first, names, nameVerb, nameNpc, nameSpecial, nameSeen)
-		if npcNamed and not aimedNpc and #names > before then
+		if npcNamed and #names > before then
 			npcSpots(goals, raws, own)
 			farWatch = npcsFar()
-			if farWatch then moveBehind(before, #names, names, nameVerb, nameNpc, nameSpecial) end
+			local firstStepNpc = aimedNpc and goalNames[1][1] and 2 or 1
+			if farWatch then moveBehind(firstStepNpc, before, #names, names, nameVerb, nameNpc, nameSpecial) end
 		end
 	end
 	TL.keep = false
@@ -3481,7 +3482,7 @@ function Buttons.StepAction(view, raw)
 			npcSpots(goals, raw, #goals)
 			local far = npcsFar()
 			farWatch = far
-			if far then moveBehind(before, #stepNames, stepNames) end
+			if far then moveBehind(1, before, #stepNames, stepNames) end
 			return "target", stepNames, npc
 		end
 		if not npc and #stepNames > 0 then return "target", stepNames end
