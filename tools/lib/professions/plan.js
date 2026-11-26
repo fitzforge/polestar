@@ -37,7 +37,22 @@
 // trainer or vendor pattern without a camp station is left); `opts.notBefore`
 // (spell -> skill) uses a recipe, to level or to make an intermediate, only from
 // that skill on (Tailoring's Runecloth recipes wait for Artisan: Runecloth drops
-// from humanoids of level 45-60, past where a tailor of 205 stands).
+// from humanoids of level 45-60, past where a tailor of 205 stands);
+// `opts.levelTo` (spell -> skill) levels on a recipe only up to that skill, while
+// it stays a part or a tool past it (Rough Grinding Stone is green from 65: 57
+// crafts for 75-83 where Runed Copper Belt is orange); `opts.use` ([{ spell,
+// from, to }]) pins the recipe that levels over [from, to), for a choice the
+// copper costs cannot see (a stone of veins above the player's level, a
+// recipe the recordings show at every trainer).
+//
+// Counts. The DP ranks chains by the expected crafts with intermediates made
+// at the same skill as the recipe; the guide says to make the intermediates
+// first, so a segment's `count` replays that order (makeFirst: the bolts
+// carry the skill before the first belt). `count90` is the crafts 9 players in
+// 10 need at most (the Classic chance per point, a normal approximation of the
+// sum): gathered and dropped materials are counted to it, so a yellow or green
+// stretch rarely sends a player back to farm; vendor goods stay at the
+// expected count (a vendor is a short trip).
 
 const { sourceOf } = require('./materials');
 
@@ -110,12 +125,54 @@ function questOf(id, quests) {
 	return { id: q.id, title: q.title, items, skill: q.skillLevel || 0, level: q.minLevel || 0, pre: q.preAny || q.pre || [] };
 }
 
+// Expected-value replay of `n` crafts of `recipe` from skill `k` (a fraction), stopping at `t`.
+function advance(recipe, k, n, t) {
+	for (let i = 0; i < n && k < t; i++) k += chance(recipe, Math.floor(k)) * (recipe.skillUps || 1);
+	return Math.min(k, t);
+}
+
+// Crafts of `r` from skill s to t when each craft's intermediates (`subs`: { recipe, n } per craft) are
+// all made first, deepest first: the smallest N whose N crafts' intermediates, then N crafts of `r`,
+// reach t, and the skill the first craft of `r` starts at. Without intermediates that give points,
+// the expected crafts (`upper`) from s.
+function makeFirst(r, s, t, subs, upper) {
+	const live = subs.filter((x) => chance(x.recipe, s) > 0);
+	const after = (n) => {
+		let k = s;
+		for (let i = live.length - 1; i >= 0; i--) k = advance(live[i].recipe, k, Math.ceil(live[i].n * n - 1e-9), t);
+		return Math.floor(k);
+	};
+	const reach = (n) => expectedCrafts(r, after(n), t) <= n;
+	if (!live.length || !reach(Math.ceil(upper))) return { n: upper, k: s };
+	let lo = 0;
+	let hi = Math.ceil(upper);
+	while (lo < hi) {
+		const mid = Math.floor((lo + hi) / 2);
+		if (reach(mid)) hi = mid;
+		else lo = mid + 1;
+	}
+	return { n: lo, k: after(lo) };
+}
+
+// The crafts 9 players in 10 need at most to go from s to t with `r` (normal approximation of a sum of
+// geometric draws, one per point).
+const Z90 = 1.2816;
+function crafts90(r, s, t, mean) {
+	let v = 0;
+	for (let k = s; k < t; k++) {
+		const p = Math.min(1, chance(r, k));
+		if (p > 0) v += (1 - p) / (p * p);
+	}
+	return Math.ceil(mean + Z90 * Math.sqrt(v / (r.skillUps || 1) ** 2) - 1e-9);
+}
+
 // `data` = { professions, npcs, objects, zones, quests }; `prof` = professions[id].
 // `opts.questRecipes` (spell -> quest id): plans a quest hands over (Derotain Mudsipper's Imperial
 // Plate plans for Thorium Bars). The data has no quest rewards, so the spec names them; the quest
 // (quests.json) gives what it asks for, its skill and level, and the quest before it. Such a recipe
 // is usable from the quest's skill, and learning it costs the items handed in plus a trip.
-function planProfession(prof, data, { from = 1, to = 300, exclude = {}, noLevel = {}, questRecipes = {}, auction = {}, notBefore = {} } = {}) {
+// `opts.tools`: tools already in the bags (a plan from a fork's skill: the hammer bought at 1).
+function planProfession(prof, data, { from = 1, to = 300, exclude = {}, noLevel = {}, questRecipes = {}, auction = {}, notBefore = {}, levelTo = {}, use = [], tools = [] } = {}) {
 	const ctx = { professions: data.professions, npcs: data.npcs || {}, objects: data.objects || {}, zones: data.zones || {}, self: prof.id };
 	const mats = prof.materials || {};
 	const excluded = [];
@@ -241,15 +298,21 @@ function planProfession(prof, data, { from = 1, to = 300, exclude = {}, noLevel 
 	const back = new Array(to + 1).fill(null);
 	best[from] = 0;
 	const order = usable.filter((r) => !noLevel[r.spell]).sort((a, b) => a.spell - b.spell);
+	// `use` pins: over [from, to) only that recipe levels, and no other segment runs across `from`.
+	const pins = use.filter((p) => p.to > from && p.from < to).sort((a, b) => a.from - b.from);
+	for (const p of pins) if (!bySpell.has(p.spell)) throw new Error(`${prof.name}: pinned recipe ${p.spell} (${p.from}-${p.to}) is not usable`);
 	for (let s = from; s < to; s++) {
 		if (!Number.isFinite(best[s])) continue;
-		const cap = Math.min(nextCap(s), to);
+		const pin = pins.find((p) => s >= p.from && s < p.to);
+		const next = pins.find((p) => p.from > s);
+		const cap = Math.min(nextCap(s), to, pin ? pin.to : next ? next.from : to);
 		for (const r of order) {
+			if (pin && r.spell !== pin.spell) continue;
 			const inf = info.get(r.spell);
-			if (!Number.isFinite(inf.cost) || inf.req > s || s >= r.grey) continue;
+			if (!Number.isFinite(inf.cost) || inf.req > s || s >= r.grey || (levelTo[r.spell] != null && s >= levelTo[r.spell])) continue;
 			const fixed = best[s] + SWITCH_BASE + SWITCH_CRAFTS * inf.cost + inf.learn;
 			let crafts = 0;
-			for (let t = s + 1; t <= cap; t++) {
+			for (let t = s + 1; t <= Math.min(cap, levelTo[r.spell] != null ? levelTo[r.spell] : cap); t++) {
 				const p = pointsAt(r, t - 1);
 				if (p <= 0) break;
 				crafts += 1 / p;
@@ -296,14 +359,16 @@ function planProfession(prof, data, { from = 1, to = 300, exclude = {}, noLevel 
 	});
 	// What a segment crafts to level (Thick Leather, Rugged Leather, a Bolt of
 	// Runecloth) stays in the bags and counts against the later segments' needs.
-	const toolsHave = new Set();
+	const toolsHave = new Set(tools);
 	const questsDone = new Set();
 	const stock = new Map(); // item -> count crafted by earlier segments, not yet used
 	segments.forEach((seg, i) => {
 		const r = bySpell.get(seg.spell);
 		seg.recipe = r;
-		seg.count = Math.ceil(seg.crafts - 1e-9);
-		seg.cost = info.get(r.spell).cost * seg.crafts;
+		const first = makeFirst(r, seg.from, seg.to, info.get(r.spell).subs, Math.ceil(seg.crafts - 1e-9));
+		seg.count = first.n;
+		seg.count90 = Math.max(seg.count, crafts90(r, first.k, seg.to, seg.count));
+		seg.cost = info.get(r.spell).cost * seg.count;
 		const need = new Map(); // item -> count to get
 		const make = []; // { recipe, count } crafted intermediates, deepest first
 		// item -> names of the recipes it goes into: the recipe, or for a tool's
@@ -341,6 +406,16 @@ function planProfession(prof, data, { from = 1, to = 300, exclude = {}, noLevel 
 			add(t, 1, 0, null);
 		}
 		for (const g of r.reagents) add(g.item, g.count * seg.count, 0, r);
+		// 9 players in 10: the gathered and dropped part of the extra crafts' materials (not their vendor
+		// goods, not what earlier segments left in the bags).
+		const more = (item, count, depth) => {
+			const u = unit(item);
+			if (u.craft && depth < 3) {
+				const n = Math.ceil(count / (u.craft.itemCount || 1));
+				for (const g of u.craft.reagents) more(g.item, g.count * n, depth + 1);
+			} else if (SIDES.some((side) => u.src[side].kind !== 'vendor') && need.has(item)) need.set(item, need.get(item) + count);
+		};
+		if (seg.count90 > seg.count) for (const g of r.reagents) more(g.item, g.count * (seg.count90 - seg.count), 0);
 		// A quest recipe's hand-in comes with the first segment that crafts it.
 		if (r.source === 'quest' && !questsDone.has(r.quest.id)) {
 			questsDone.add(r.quest.id);
