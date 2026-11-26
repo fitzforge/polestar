@@ -98,7 +98,7 @@ return {
 
 	-- Step 18: Whiskey Slim and Fin Fizracket
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
-	["{npc:2491} and {npc:2486}"] = "",
+	["{npc:2491} and {npc:2486}"] = "{npc:2491}和{npc:2486}",
 	-- {area:35} Booty Bay · {npc:2491} Whiskey Slim
 	["Under 40 on your first {area:35} visit? {npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, have their quests for you now."] = "第一次来{area:35}时还不到40级？旅店里的{npc:2491}和顶楼的“海狼”马克基雷现在就有任务给你。",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
