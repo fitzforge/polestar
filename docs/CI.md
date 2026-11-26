@@ -147,6 +147,20 @@ down to the figure plus 3 % in the same pull request; one 3 to 10 % over it
 stays. Between freezes no budget is raised: a change that crosses one finds
 what grew and trims it, or waits for the freeze.
 
+One exception so far, Fitz approved: the guide pack's budgets moved between
+the 0.4.3 and 0.4.4 freezes for the Tier 0.5 class guides (#4248, #4300;
+26 Nov 2026: "360 KB is tiny"). Measured with both, three runs reading the
+same (KiB):
+
+| Budget | Measured | Old budget | New budget | Headroom |
+|---|---:|---:|---:|---:|
+| Guide pack Alliance resident | 14,750 | 14,360 | 15,200 | 3.1 % |
+| Guide pack Alliance peak | 28,305 | 28,170 | 29,160 | 3.0 % |
+| Guide pack Alliance read | 20,620 | 20,410 | 21,240 | 3.0 % |
+| Guide pack Horde resident | 13,812 | 13,400 | 14,230 | 3.0 % |
+| Guide pack Horde peak | 25,972 | 25,660 | 26,760 | 3.0 % |
+| Guide pack Horde read | 19,880 | 19,650 | 20,480 | 3.0 % |
+
 The login figure depends on where the checkout is: the harness loads every
 file by its absolute path, and each file's chunk name and the loader's file
 lists keep that path, about 0.7 KiB for each character. The post-merge
@@ -364,13 +378,16 @@ together.
 | Guide lint | a lint error, leveling or experimental guides |
 | Addon tests | any of forge-addontest's tests, all of them (the cached test binaries) |
 | Playtest | a guide stuck or failing, leveling or experimental |
-| Route speed | a time to the arrow's first walking route over 5 s in its 7 cases, or a settled route that differs from 0.4.2's |
+| Route speed | a time to the arrow's first walking route over 5 s in its 10 cases, a settled route that differs from 0.4.2's, or a case whose Lua interpreter dies on all of its runs (a "lua5.1 died" row: a case that dies is run again, up to 5 times, and a death that a rerun clears is listed under the table, not counted) |
 | Arrow corner cadence | a case whose corner lag is worse than 0.4.1.1's (mean over 3 degrees worse and 6 or more, max over 45 and 10 worse), 24 cases |
 | Arrow stretches | a guide stretch the arrow does not walk to its end; the table compares with 0.4.2's runs |
 
 The route-speed, cadence and stretch gates' harnesses and baselines come
 from the release gates and live with the runner (`$POLESTAR_GATES`), not in
-the repository. A gate that cannot run (no data, no harness) fails like one
+the repository. Their Lua is the kit's own Lua 5.1.5 built from lua.org's source
+(`$POLESTAR_GATES/lua51/lua`, set as `LUA` by `run.sh`; the distro's `lua5.1`
+segfaulted on the runner in the route-speed `:reload` cases on 26 Nov 2026),
+and the distro's binary is the fallback when the kit has none. A gate that cannot run (no data, no harness) fails like one
 that finds something: nothing is skipped quietly.
 
 Each gate runs whatever the others did; the run's summary has a row per

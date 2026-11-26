@@ -428,6 +428,9 @@ local function decodeQuest(group, id, s)
 		elseif lead == "v" then
 			-- One of a set its giver offers one at a time (#3601: Pix's weekly In Demand quests): v<set name>.
 			rec.rotation = unesc(sub(f, 2))
+		elseif f == "n" then
+			-- No recording has shown it on Forever yet (the Nightmare Incursion missions).
+			rec.unseen = true
 		elseif f == "t" then
 			-- The kill objective before it is a beast to tame (Taming the Beast).
 			local o = rec.objectives[#rec.objectives]

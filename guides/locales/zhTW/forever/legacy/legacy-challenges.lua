@@ -90,29 +90,24 @@ return {
 	-- Step 15: Adventure: Lord Valthalak
 	-- {npc:16042} Lord Valthalak
 	["Adventure: {npc:16042}"] = "冒險：{npc:16042}",
-	-- {npc:16042} Lord Valthalak · {quest:9001} Saving the Best for Last · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
-	-- was: ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:8999}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:8999}."] = "{npc:16042}任務線值1點。這是60級地城套裝任務鏈，從「認真的提議」到你職業的{quest:8999}：{npc:16013}（{zone:1455}）或{npc:16012}（{zone:1454}）會帶你完成「尋找安希恩」和「安希恩的離別感言」，前往{area:254}的{npc:16033}，他的「烈焰三巨頭」、「瓦薩拉克護符的左半塊」和「瓦薩拉克護符的右半塊」、「最後的準備」和{quest:8995}，最後以{quest:8996}結束。{quest:8997}接著會引導至{quest:8999}。"
-	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:9001}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:9001}."] = "",
+	-- {npc:16042} Lord Valthalak · {quest:84195} Saving the Best for Last · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
+	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:84195}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:84195}."] = "{npc:16042}任務線值1點。這是60級地城套裝任務鏈，從「認真的提議」到你職業的{quest:84195}：{npc:16013}（{zone:1455}）或{npc:16012}（{zone:1454}）會帶你完成「尋找安希恩」和「安希恩的離別感言」，前往{area:254}的{npc:16033}，他的「烈焰三巨頭」、「瓦薩拉克護符的左半塊」和「瓦薩拉克護符的右半塊」、「最後的準備」和{quest:8995}，最後以{quest:8996}結束。{quest:8997}接著會引導至{quest:84195}。",
 	-- {npc:16073} Spirit of Lord Valthalak · {npc:16033} Bodley · {area:254} Blackrock Mountain
 	["{npc:16073}, inside Upper Blackrock Spire after Mea Culpa (no spawn in the data: the arrow leads to {npc:16033}'s {area:254})"] = "{npc:16073}，在黑石塔上層完成「認錯，瓦薩拉克」之後（資料中沒有重生點：箭頭指向{npc:16033}所在的{area:254}）",
 	-- {npc:16033} Bodley · {quest:8996} Return to Bodley
 	["{npc:16033} offers it once {quest:8996} is turned in"] = "{quest:8996}繳交後，{npc:16033}會提供此任務",
 
 	-- Step 16: Adventure: Saving the Best for Last (Alliance)
-	-- {quest:9001} Saving the Best for Last
-	-- was: ["Adventure: {quest:8999} (Alliance)"] = "冒險：{quest:8999}（聯盟）"
-	["Adventure: {quest:9001} (Alliance)"] = "",
-	-- {npc:16013} Deliana · {quest:9001} Saving the Best for Last
-	-- was: ["{npc:16013} then offers your class's {quest:8999}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "{npc:16013}接著會提供你職業的{quest:8999}，這是這項挑戰的最後一個任務：它會收下你職業的地城套裝頭盔和胸甲並加以升級。"
-	["{npc:16013} then offers your class's {quest:9001}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "",
+	-- {quest:84195} Saving the Best for Last
+	["Adventure: {quest:84195} (Alliance)"] = "冒險：{quest:84195}（聯盟）",
+	-- {npc:16013} Deliana · {quest:84195} Saving the Best for Last
+	["{npc:16013} then offers your class's {quest:84195}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "{npc:16013}接著會提供你職業的{quest:84195}，這是這項挑戰的最後一個任務：它會收下你職業的地城套裝頭盔和胸甲並加以升級。",
 
 	-- Step 17: Adventure: Saving the Best for Last (Horde)
-	-- {quest:9008} Saving the Best for Last
-	-- was: ["Adventure: {quest:9007} (Horde)"] = "冒險：{quest:9007}（部落）"
-	["Adventure: {quest:9008} (Horde)"] = "",
-	-- {npc:16012} Mokvar · {quest:9008} Saving the Best for Last
-	-- was: ["{npc:16012} then offers your class's {quest:9007}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "{npc:16012}接著會提供你職業的{quest:9007}，這是這項挑戰的最後一個任務：它會收下你職業的地城套裝頭盔和胸甲並加以升級。"
-	["{npc:16012} then offers your class's {quest:9008}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "",
+	-- {quest:84203} Saving the Best for Last
+	["Adventure: {quest:84203} (Horde)"] = "冒險：{quest:84203}（部落）",
+	-- {npc:16012} Mokvar · {quest:84203} Saving the Best for Last
+	["{npc:16012} then offers your class's {quest:84203}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "{npc:16012}接著會提供你職業的{quest:84203}，這是這項挑戰的最後一個任務：它會收下你職業的地城套裝頭盔和胸甲並加以升級。",
 
 	-- Step 18: Dungeons: level 15-25
 	["Dungeons: level 15-25"] = "地城：等級15-25",

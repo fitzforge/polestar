@@ -4,5 +4,6 @@ FROM node:24.22.1-alpine@sha256:06d7adf3e0ef61a13f1d28682726366f97a15aa1888c934d
 WORKDIR /app
 COPY bot.js notify.js ./
 COPY lib ./lib
+COPY faq ./faq
 USER node
 CMD ["node", "bot.js"]

@@ -29,33 +29,33 @@ const short = (id) => id.replace(/^forever\/(class\/[a-z]+\/|collectibles\/mount
 // Per class, what is alerted and what is optional. A change here is a change to what players are told about:
 // Fitz picks the worth-it list.
 const PINNED = {
-	DRUID: { prompted: ['aquatic-form', 'bear-form', 'cat-form', 'cure-poison'], optional: ['bloodpetal-poison'] },
-	HUNTER: { prompted: ['taming-the-beast-alliance', 'taming-the-beast-horde'], optional: ['rhokdelar', 'the-hunters-charm'] },
+	DRUID: { prompted: ['aquatic-form', 'bear-form', 'cat-form', 'cure-poison'], optional: ['bloodpetal-poison', 'dungeon-set-2'] },
+	HUNTER: { prompted: ['taming-the-beast-alliance', 'taming-the-beast-horde'], optional: ['dungeon-set-2', 'rhokdelar', 'the-hunters-charm'] },
 	MAGE: {
 		prompted: ['arcane-refreshment', 'celestial-orb', 'polymorph-pig', 'teleports-alliance', 'teleports-horde'],
-		optional: ['astral-knot-garment', 'atiesh', 'destroy-morphaz', 'ju-ju-heaps', 'mages-wand', 'manaweave-robe', 'nether-lace-garment', 'spellfire-robes', 'staff-or-orb-alliance'],
+		optional: ['astral-knot-garment', 'atiesh', 'destroy-morphaz', 'dungeon-set-2', 'ju-ju-heaps', 'mages-wand', 'manaweave-robe', 'nether-lace-garment', 'spellfire-robes', 'staff-or-orb-alliance'],
 	},
 	PALADIN: {
 		prompted: ['alliance/paladin-charger', 'alliance/paladin-warhorse', 'horde/paladin-warhorse', 'lumina-windsinger', 'tome-of-divinity', 'tyrs-watch', 'verigans-fist'],
-		optional: ['cloak-of-the-divine-storm', 'holy-mightstone'],
+		optional: ['cloak-of-the-divine-storm', 'dungeon-set-2', 'holy-mightstone'],
 	},
 	PRIEST: {
 		prompted: ['confounding-flash-and-contingency-plan', 'desperate-prayer-and-chastise', 'divine-grace-and-feedback', 'hex-of-weakness-and-shadowguard', 'starshards-and-elunes-grace', 'touch-of-weakness-and-dark-sacrifice'],
-		optional: ['benediction', 'blood-of-morphaz', 'priest-robes-alliance', 'priest-robes-horde'],
+		optional: ['benediction', 'blood-of-morphaz', 'dungeon-set-2', 'priest-robes-alliance', 'priest-robes-horde'],
 	},
 	ROGUE: {
 		prompted: ['poisons-alliance', 'poisons-horde', 'ravenholdt'],
-		optional: ['blade-of-cunning-alliance', 'blade-of-cunning-horde', 'certificate-of-thievery', 'plundering-the-plunderers', 'the-azure-key', 'the-eye-of-bhossca', 'the-horn-of-xelthos'],
+		optional: ['blade-of-cunning-alliance', 'blade-of-cunning-horde', 'certificate-of-thievery', 'dungeon-set-2', 'plundering-the-plunderers', 'the-azure-key', 'the-eye-of-bhossca', 'the-horn-of-xelthos'],
 	},
 	SHAMAN: {
 		prompted: ['call-of-air-alliance', 'call-of-air-horde', 'call-of-earth-alliance', 'call-of-earth-horde', 'call-of-fire-alliance', 'call-of-fire-horde', 'call-of-water-alliance', 'call-of-water-horde'],
-		optional: ['darkreaver', 'spirit-totem'],
+		optional: ['darkreaver', 'dungeon-set-2', 'spirit-totem'],
 	},
 	WARLOCK: {
 		prompted: ['felhunter-alliance', 'felhunter-horde', 'imp-alliance', 'imp-horde', 'incubus-alliance', 'incubus-horde', 'neutral/warlock-dreadsteed', 'neutral/warlock-felsteed', 'voidwalker-alliance', 'voidwalker-horde'],
-		optional: ['dread-mage-hat', 'enchanted-gold-bloodrobe', 'impsys-request', 'orb-of-orahil', 'orb-of-soranruk', 'shard-of-the-green-flame', 'tome-of-sacrifice'],
+		optional: ['dread-mage-hat', 'dungeon-set-2', 'enchanted-gold-bloodrobe', 'impsys-request', 'orb-of-orahil', 'orb-of-soranruk', 'shard-of-the-green-flame', 'tome-of-sacrifice'],
 	},
-	WARRIOR: { prompted: ['haggards-weapons', 'heirloom-weapon', 'whirlwind-weapon'], optional: ['brutal-armor', 'fire-hardened-armor', 'quelserrar', 'voodoo-feathers'] },
+	WARRIOR: { prompted: ['haggards-weapons', 'heirloom-weapon', 'whirlwind-weapon'], optional: ['brutal-armor', 'dungeon-set-2', 'fire-hardened-armor', 'quelserrar', 'voodoo-feathers'] },
 };
 
 // The hand-picked item chains worth the trip while leveling (24 Nov 2026, from public class guides and players'
