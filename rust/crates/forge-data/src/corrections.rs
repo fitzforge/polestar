@@ -1449,9 +1449,9 @@ fn check_xy(ck: &mut Ck, at: &str, x: &V, y: &V) {
 	}
 }
 
-/// data/places.json: `{ about, places: [{ id, quest, objective: N | "giver" | "ender", write?, label?, at: {
+/// data/places.json: `{ about, places: [{ id, quest, objective: N | "giver" | "ender" | "complete", write?, label?, at: {
 /// map, x, y, frame } | path: { map, frame, points: [[x, y], ...] }, note, source, issue, pr }] }`. `label`: the
-/// objective's goal text.
+/// objective's goal text. `"complete"`: the quest's `complete` line itself (#4095).
 fn check_places(ck: &mut Ck, d: &V) {
 	ck.keys("", d, &["about", "_about", "places"]);
 	let list = d.get("places");
@@ -1479,8 +1479,8 @@ fn check_places(ck: &mut Ck, d: &V) {
 		ck.refers(&format!("{at}.quest"), "quests", &r.get("quest"));
 		let o = r.get("objective");
 		match o.as_str() {
-			Some("giver" | "ender") => {}
-			Some(s) => ck.err(format!("{at}.objective"), format!("{s:?}: an objective number, \"giver\" or \"ender\"")),
+			Some("giver" | "ender" | "complete") => {}
+			Some(s) => ck.err(format!("{at}.objective"), format!("{s:?}: an objective number, \"giver\", \"ender\" or \"complete\"")),
 			None if is_id(&o) => {
 				if let Some(n) = objectives(ck, &r.get("quest")) {
 					if o.num() as usize > n.max(1) {
@@ -1488,7 +1488,7 @@ fn check_places(ck: &mut Ck, d: &V) {
 					}
 				}
 			}
-			None => ck.err(format!("{at}.objective"), format!("{}: an objective number, \"giver\" or \"ender\"", show(&o))),
+			None => ck.err(format!("{at}.objective"), format!("{}: an objective number, \"giver\", \"ender\" or \"complete\"", show(&o))),
 		}
 		let (pt, path) = (r.get("at"), r.get("path"));
 		match (pt.is_undef(), path.is_undef()) {

@@ -4534,6 +4534,32 @@ test(`${DARKSHORE}: Twerkjob's report: The Red Crystal leads the arrow to the cr
 	assert.ok(yards(lead.goal, crystal) < 30, `the arrow leads to the crystal (${lead.goal.x},${lead.goal.y})`);
 });
 
+// Corrupted Sabers (Gripps, #4095): the kitten is let go at the Jadefire moonwell, and the saber it turns into
+// is clicked beside Winna Hazzard at Bloodvenom Post. The `use` at the moonwell claims the quest's objective,
+// so the `complete` needs Winna's place of its own: without one its arrow fell back to the moonwell while
+// the player stood at Winna.
+test("forever/horde/50-60/03-winterspring.guide: Gripps's report: Corrupted Sabers' complete leads back to Winna Hazzard, not the moonwell (#4095)", { skip }, () => {
+	const list = goals('forever/horde/50-60/03-winterspring.guide');
+	const use = list[at(list, 'the kitten carrier at the moonwell', (g) => g.t === 'use' && g.quest === 4506)];
+	const complete = list[at(list, 'complete 4506 (Corrupted Sabers)', is('complete', 4506))];
+	assert.equal(complete.step, use.step, 'one step: the moonwell, then back to Winna');
+	assert.ok(located(complete), 'the complete has a place of its own');
+	const winna = data.quests[4506].objectives.find((o) => o.type === 'event');
+	assert.ok(yards(complete.goal, winna) < 30, `the complete leads to Winna (${complete.goal.x},${complete.goal.y})`);
+	assert.ok(yards(use.goal, complete.goal) > 300, 'the moonwell is not where the saber goes');
+});
+
+// The same shape found by #4095's sweep: The Master's Glaive's complete ("Enter the Master's Glaive", at the
+// bottom of the crater where the Scrying Bowl appears) had no place, so its arrow led to the Moonstalker pelts'
+// spot in the same step, about 240 yards north.
+test("forever/alliance/03-darkshore-return.guide: The Master's Glaive's complete leads into the crater, not to the pelts (#4095)", { skip }, () => {
+	const list = goals('forever/alliance/03-darkshore-return.guide');
+	const complete = list[at(list, "complete 944 (The Master's Glaive)", is('complete', 944))];
+	assert.ok(located(complete), 'the complete has a place of its own');
+	const glaive = data.quests[944].objectives.find((o) => o.type === 'event');
+	assert.ok(yards(complete.goal, glaive) < 30, `the complete leads to the bottom of the crater (${complete.goal.x},${complete.goal.y})`);
+});
+
 // The Blackwood Corrupted's only objective is the Talisman of Corruption, but
 // Xabraxxis' Demon Bag holds it only once the satyr is summoned: the Empty
 // Cleansing Bowl filled at the Auberdine Moonwell, a sample from each of the

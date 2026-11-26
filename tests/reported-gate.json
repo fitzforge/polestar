@@ -1814,6 +1814,17 @@
 		] },
 		"3644": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "the_walk_to_walton_from_the_ledge_under_his_camp_takes_the_switchback_not_the_face_3644" }
+		] },
+		"4013": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-empty-stop.rs", "test": "t_4013_without_the_rescue_the_walk_to_strahnbrad_passes_and_the_crater_leads" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-empty-stop.rs", "test": "t_4013_asdmasa_on_the_shipped_alterac_passes_the_walk_to_strahnbrad" }
+		] },
+		"4095": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "forever/horde/50-60/03-winterspring.guide: Gripps's report: Corrupted Sabers' complete leads back to Winna Hazzard, not the moonwell (#4095)" },
+			{ "node": "tests/guides-reported.test.js", "test": "forever/alliance/03-darkshore-return.guide: The Master's Glaive's complete leads into the crater, not to the pelts (#4095)" }
+		] },
+		"4124": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-direct.rs", "test": "t_4124_without_news_for_fizzle_zameks_distraction_is_passed_with_keeping_pace" }
 		] }
 	},
 	"seedDrift": {
