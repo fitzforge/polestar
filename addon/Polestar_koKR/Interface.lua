@@ -2780,6 +2780,8 @@ L["Use %s beside %s"] = "%s을(를) %s 옆에서 사용"
 L["All attunements and keys"] = "모든 입장 조건과 열쇠"
 L["Every attunement and key, with how far you are"] = "모든 입장 조건과 열쇠, 그리고 진행 상황"
 L["Not open on Forever yet"] = "Forever에서 아직 열리지 않음"
+-- L["A guide to the items 1 quest in your log needs from where it is given, ending at the entrance."] = ""
+-- L["A guide to the items %d quests in your log need from where they are given, ending at the entrance."] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "바로 여기"

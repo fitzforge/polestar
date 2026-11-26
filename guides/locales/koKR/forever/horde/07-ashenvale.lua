@@ -350,7 +350,6 @@ return {
 	-- Step 76: Highperch
 	-- {area:482} Highperch
 	-- plural, as words: Highperch Patriarchs = {npc:4110} Highperch Patriarch
-	-- was: ["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "백사장 야영지 서쪽, {area:482} 절벽에 와이번이 둥지를 틀고 있으며, 알은 둥지에 있습니다. {npc:10427}은(는) 둥지 동쪽에서 기다립니다. 풀어 주고 {area:2237}(으)로 돌아가는 동안 살려 두세요.\n주의: 28-29레벨 와이번이 머리 위를 날아다녀 예고 없이 끌려올 수 있습니다. 아래쪽 첫 번째 기둥을 지나면 와이번 셋이 기습할 수 있습니다. 우두머리 마루둥지 와이번(30-31)과 희귀 몹 심장칼날(32)도 이곳에 둥지를 틀고 있으니 피해서 끌어오세요."
 	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "백사장 야영지 서쪽, 와이번들이 {area:482} 절벽에 둥지를 틀고 알은 둥지에 있습니다.\n주의: 28-29레벨 와이번이 머리 위를 날아다니며 예고 없이 끌려올 수 있습니다. 아래쪽 첫 기둥을 지나면 와이번 세 마리가 매복할 수 있습니다. 높은둥지 족장(30-31)과 희귀 심장절단기(32)도 이곳에 둥지를 틉니다: 돌아서 가십시오.",
 
 	-- Step 77: Escort Pao'ka Swiftmountain

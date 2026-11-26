@@ -2,7 +2,7 @@
 //! the client counts it (collectgarbage("count")), with Polestar.QuestDB reading it (addon/Polestar/Quests/
 //! QuestDB.lua: the records stay LuaChunks text, decoded when read). Built by `forge data questdb` from
 //! data/forever; skipped when that data is absent. Each figure fails the test when it grows past its
-//! budget: lower a budget when a change lowers the figure, never raise one to make a change pass.
+//! budget: the figure measured at the release's code freeze plus 3 %, moved only then (docs/CI.md, "Memory budgets").
 //!
 //!   resident      after loading the files and two full collects
 //!   peak          the heap grown while loading, with the collector stopped
@@ -37,16 +37,12 @@ use forge_addontest::{emitted, Addon, RunAddon};
 /// 2,722 items): resident 1,202, peak 1,250; read 1,333 on 2026-11-06 with the reads batched (the id list and
 /// the record cache's emptied hash; 1,555 to 1,811 before, by the collector's pace).
 /// The table files of schema 1 cost 6,789 resident and 12,692 at the peak (lua5.1, the same files).
-// Raised for 0.3.8 (Fitz, 2026-11-12: "raise memory budgets, it's fine; we can always compress and review
-// later"): QuestieDB 1.0.16, EG Link and the recordings bring +658 quests (Riverglades, Mount Hyjal,
-// Shen'dralas); measured resident 1334, peak 1385, read 1474 KiB; about 5 % headroom on each.
-// `read` raised by the string table's one doubling (256 KiB, the module comment) for 0.4.3 (Main, 2026-11-23):
-// the settings set (#3730) adds enough interface strings that the reads' strings cross a doubling even with
-// the id list built first: next read 1,523, #3730 1,778 on the 0.4.3 data (resident 1,382 and peak 1,434,
-// within theirs). The table is the whole addon's, not the quest database's: measuring the pack alone is #3762.
-// Raised for the 0.4.3 data build on QuestieDB 1.1.5 (Main, 2026-11-24, reported to Fitz): +163 quests; measured
-// resident 1,422, peak 1,473, read 1,813 KiB (1,382 / 1,433 / 1,778 on the data before); about 1 % headroom on each.
-const BUDGET: [(&str, f64); 3] = [("resident", 1440.0), ("peak", 1490.0), ("read", 1850.0)];
+/// Measured on next f5bd74406e with the reference data built 2026-11-24 (2026-11-26, #4143; three runs reading
+/// the same): resident 1,420, peak 1,471, read 1,810. Each budget is that figure plus 3 % (docs/CI.md, "Memory
+/// budgets").
+/// `read` carries one doubling of the string table (256 KiB, the module comment) that the pack alone does not
+/// cause: the table is the whole addon's (#3762).
+const BUDGET: [(&str, f64); 3] = [("resident", 1470.0), ("peak", 1520.0), ("read", 1870.0)];
 
 /// Records read between full collects while `read` is measured.
 const READ_BATCH: usize = 256;

@@ -32,9 +32,10 @@ const ROOT = path.join(__dirname, '..', '..');
 // an earlier build, tests/helpers/profile.js).
 const ADDONS = process.env.POLESTAR_ADDON_DIR ? path.resolve(process.env.POLESTAR_ADDON_DIR) : path.join(ROOT, 'addon');
 const STUBS = path.join(ROOT, 'tests', 'lua');
-// Polestar's load-on-demand addons runAddon loads when asked (C_AddOns.LoadAddOn):
-// the settings and Lookup windows, our skins and layouts, and Freedoom Arcade.
-const LOAD_ON_DEMAND = ['Polestar_Options', 'Polestar_Lookup', 'Polestar_Skins', 'Polestar_Arcade'];
+// Polestar's load-on-demand addons runAddon loads when the addon asks (C_AddOns.LoadAddOn): the hand-in
+// planner (Polestar_Handins), settings window (Polestar_Options), Lookup window (Polestar_Lookup), our skins and layouts (Polestar_Skins) and Freedoom Arcade (Polestar_Arcade: the
+// first Play).
+const LOAD_ON_DEMAND = ['Polestar_Handins', 'Polestar_Options', 'Polestar_Lookup', 'Polestar_Skins', 'Polestar_Arcade'];
 
 function norm(p) {
 	return p.replace(/\\/g, '/');

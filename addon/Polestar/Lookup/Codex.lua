@@ -502,6 +502,12 @@ local function decodeQuest(group, id, s)
 			-- bramble is used on, dead): g<npc>,<npc>...
 			local o = rec.objectives[#rec.objectives]
 			if o then o.summonOn = numbers(sub(f, 2)) end
+		elseif lead == "f" then
+			-- The items the item objective before it is made from, that the
+			-- quest needs (the Codex build's madeFrom, #4148: the Essence of
+			-- Hakkar fills the Egg of Hakkar): f<item>,<item>...
+			local o = rec.objectives[#rec.objectives]
+			if o then o.madeFrom = numbers(sub(f, 2)) end
 		elseif lead == "p" then
 			-- Where the objective before it is done (an event's area): p<map>,<x>,<y>,<f>.
 			local o = rec.objectives[#rec.objectives]

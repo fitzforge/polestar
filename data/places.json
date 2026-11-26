@@ -1,5 +1,5 @@
 {
-	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
+	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\", \"ender\" or \"complete\" (the quest's complete line itself, when another line claims the objective). at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
 	"places": [
 		{
 			"id": "3036-riverglades-threshadon-summon",
@@ -3205,6 +3205,31 @@
 				{ "kind": "in-game-check", "ref": "#3825: Meta used the gem on Yenniku alive and the quest completed" }
 			],
 			"issue": 3825
+		},
+		{
+			"id": "4095-4506-winna",
+			"faction": "Horde",
+			"quest": 4506,
+			"objective": "complete",
+			"at": { "map": 1448, "x": 34.26, "y": 52.32, "frame": "era" },
+			"note": "Corrupted Sabers: the kitten is let go at the Jadefire moonwell (the use line, which claims the objective), and the saber it turns into is clicked beside Winna Hazzard at Bloodvenom Post. With no place of its own the complete line's arrow fell back to the moonwell while the player stood at Winna (#4095, Gripps).",
+			"source": [
+				{ "kind": "questie", "ref": "quest 4506 objective 1 (event, Return the corrupted cat to Winna Hazzard) at 1448 34.26,52.32; Winna Hazzard 9996 at 34.22,52.29 live" },
+				{ "kind": "recording", "ref": "quest 4506: 9 of 10 recorded players completed it and handed it in to Winna Hazzard (npc 9996) right after" }
+			],
+			"issue": 4095
+		},
+		{
+			"id": "4095-944-glaive",
+			"faction": "Alliance",
+			"quest": 944,
+			"objective": 1,
+			"at": { "map": 1439, "x": 38.48, "y": 86.45, "frame": "era" },
+			"note": "The Master's Glaive: entering the glaive is done at the bottom of the crater, where the Scrying Bowl appears. With no place of its own the complete line's arrow led to the Moonstalker pelts' spot in the same step, about 240 yards north (found in #4095's sweep of complete lines without a place).",
+			"source": [
+				{ "kind": "questie", "ref": "quest 944 objective 1 (event, Enter the Master's Glaive) at 1439 38.48,86.45; the Scrying Bowl 10076 spawns at 38.35-39.5,85.45-87.61 live" }
+			],
+			"issue": 4095
 		}
 	]
 }

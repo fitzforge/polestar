@@ -9648,7 +9648,7 @@ do
 				},
 				{
 					title = "{npc:259961}",
-					when = { { k = "onquest", q = { 95120 } } },
+					when = { { k = "onquest", q = { 95120 } }, { k = "complete", q = 95120 } },
 					goals = {
 						{ t = "turnin", quest = 95120, title = "WANTED: Old Rot-Chum", npc = 259961, npcName = "Wharfmaster Whizzbuzz", map = 2548, x = 79.34, y = 52.69, z = 3.3 },
 					},
@@ -13930,7 +13930,7 @@ do
 					note = "Take the kitten back to the Jadefire moonwell and release it there with {item:12565}; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over.",
 					goals = {
 						{ t = "use", quest = 4506, title = "Corrupted Sabers", item = 12565, itemName = "Winna's Kitten Carrier", oi = 1, map = 1448, x = 32.3, y = 66.6, f = "e", note = "{item:12565}, at the Jadefire moonwell" },
-						{ t = "complete", quest = 4506, title = "Corrupted Sabers", note = "Bring the {npc:10042} to {npc:9996} at {area:1997} and click on it to hand it over.", objs = { { text = "Return the corrupted cat to Winna Hazzard", count = 1 } }, startItem = 12565, startItemName = "Winna's Kitten Carrier" },
+						{ t = "complete", quest = 4506, title = "Corrupted Sabers", map = 1448, x = 34.26, y = 52.32, f = "e", note = "Bring the {npc:10042} to {npc:9996} at {area:1997} and click on it to hand it over.", objs = { { text = "Return the corrupted cat to Winna Hazzard", count = 1 } }, startItem = 12565, startItemName = "Winna's Kitten Carrier" },
 					},
 				},
 				{

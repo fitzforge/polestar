@@ -8,7 +8,6 @@
 return {
 	-- Guide
 	-- {area:976} Gadgetzan · {zone:1427} Searing Gorge · {npc:5955} Tooga · {area:1446} Thorium Point
-	-- was: ["{area:976} and the {zone:1427} at 46-48: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} и {zone:1427} на 46-48-м уровне: лагеря Скитальцев Пустыни, сопровождение NPC {npc:5955} и {area:1446}."
 	["{area:976} and the {zone:1427} at 47-49: the Wastewander camps, {npc:5955}'s escort and {area:1446}."] = "{area:976} и {zone:1427} на 47-49-м уровне: лагеря Скитальцев Пустыни, сопровождение NPC {npc:5955} и {area:1446}.",
 
 	-- Step 1: Fly to Gadgetzan
@@ -102,7 +101,6 @@ return {
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "Сопровождение: {npc:5955}",
 	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port · {npc:8579} Yeh'kinya
-	-- was: ["{npc:5955} waits in the valley. Walk him all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "{npc:5955} ждет в долине. Доведите его до жены ({npc:6015}, {area:977}) на северо-восток через пустыню: держитесь рядом, не спешите и отбивайтесь от нападающих. Не садитесь на транспорт и не используйте камень возвращения. {npc:8579} тоже стоит в порту."
 	["Walk {npc:5955} all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too."] = "Доведите NPC {npc:5955} до жены ({npc:6015}, {area:977}) на северо-восток через пустыню: держитесь рядом, не спешите и отбивайтесь от нападающих. Не садитесь на транспорт и не используйте камень возвращения вне его досягаемости. {npc:8579} тоже стоит в порту.",
 
 	-- Step 22: Slake That Thirst

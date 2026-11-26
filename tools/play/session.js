@@ -281,10 +281,11 @@ C_Map.GetMapArtID = function(id) local m = ART[id]; return m and m.artID end`);
 			lines.push(`stub.packs.Polestar_Nav = { ${tocFiles('Polestar_Nav').map(luaString).join(', ')} }`);
 		}
 		// Polestar's own load-on-demand addons, where the addon has them, load from their TOC when Polestar asks
-		// (C_AddOns.LoadAddOn), as in the client: the settings and Lookup windows (Polestar_Options
-		// and Polestar_Lookup, on first open), and our skins and layouts (Polestar_Skins, when one of them
-		// is picked under Theme: Theme/SkinApi.lua finds them by its TOC's `X-Polestar-Skin`, listed below).
-		for (const part of ['Polestar_Options', 'Polestar_Lookup', 'Polestar_Skins']) {
+		// (C_AddOns.LoadAddOn), as in the client and forge-addontest's run.rs: the hand-in planner, the settings window
+		// (Polestar_Options, UI/OptionsLoader.lua), the Lookup window (Polestar_Lookup, on first open) and our skins and
+		// layouts (Polestar_Skins, when one of them is picked under Theme: Theme/SkinApi.lua finds them by its TOC's
+		// `X-Polestar-Skin`, listed below).
+		for (const part of ['Polestar_Handins', 'Polestar_Options', 'Polestar_Lookup', 'Polestar_Skins']) {
 			if (fs.existsSync(path.join(ADDONS, part, `${part}.toc`))) lines.push(`stub.packs.${part} = stub.packs.${part} or { ${tocFiles(part).map(luaString).join(', ')} }`);
 		}
 		// Freedoom Arcade (Polestar_Arcade), installed as in the client, loaded on demand by the first Play

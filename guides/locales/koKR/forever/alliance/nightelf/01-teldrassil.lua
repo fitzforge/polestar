@@ -118,7 +118,6 @@ return {
 
 	-- Step 17: The Great Outdoors
 	-- {npc:265811} Lyreena Duskblade · {npc:6286} Zarrin · {skill:129} First Aid · {npc:6094} Byancie · {zone:1457} Darnassus · {area:442} Auberdine
-	-- was: ["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west."] = "전문 기술을 배웠다면 {npc:265811}에게서 야영 기초 퀘스트도 받을 수 있으며, 해당 기술의 상급자에게 가져가면 됩니다: 연금술과 약초채집은 {npc:6286} 옆, {skill:129}은(는) 여관의 {npc:6094}, 무두질과 가죽세공은 서쪽 길가의 메인위버 야영지입니다."
 	["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west, fishing and tailoring in {zone:1457}, enchanting north of the city, blacksmithing, mining and engineering in {area:442}."] = "전문 기술을 배웠다면 {npc:265811}도 해당 야영 101을 주며, 그 상급자가 받습니다: 연금술과 약초채집은 {npc:6286} 옆, {skill:129}은(는) 여관의 {npc:6094}, 무두질과 가죽세공은 서쪽 길의 갈기잣기 야영지, 낚시와 재봉술은 {zone:1457}, 마법부여는 도시 북쪽, 대장기술, 채광, 기계공학은 {area:442}.",
 	-- {npc:265811} Lyreena Duskblade · {spell:1229451} Boosted Rest
 	["/sit by {npc:265811}'s campfire until you get {spell:1229451}"] = "{spell:1229451}을(를) 얻을 때까지 {npc:265811}의 모닥불 옆에서 /앉기 하세요",

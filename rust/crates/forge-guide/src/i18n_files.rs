@@ -262,8 +262,22 @@ pub struct LocaleFile {
 /// answering its locale and ns = { L, locale, Names, AddTranslations }. Reads Polestar's layout
 /// (assignments to ns.L), Ding!'s (ns.AddTranslations(locale, t)) and a file
 /// that returns a table. entries: (file, locale). -> one LocaleFile per entry, in order.
+/// Read in batches of LOCALE_BATCH files, one Lua state each, so the LUA_MEMORY cap holds per batch however many guides
+/// a pack translates (Polestar's own pack: 2,394 files, over 50 MB of Lua, past the cap in one state).
 #[cfg(feature = "native")]
 pub fn read_locale_files(entries: &[(String, String)]) -> Result<Vec<LocaleFile>, String> {
+	let mut out = Vec::with_capacity(entries.len());
+	for batch in entries.chunks(LOCALE_BATCH) {
+		out.extend(read_locale_batch(batch)?);
+	}
+	Ok(out)
+}
+
+#[cfg(feature = "native")]
+const LOCALE_BATCH: usize = 400;
+
+#[cfg(feature = "native")]
+fn read_locale_batch(entries: &[(String, String)]) -> Result<Vec<LocaleFile>, String> {
 	if entries.is_empty() {
 		return Ok(Vec::new());
 	}

@@ -195,7 +195,6 @@ return {
 
 	-- Step 44: Clubtoe
 	-- {area:16723} Sunnyglade · {npc:260931} Clubtoe · {npc:256710} Tran'gul
-	-- was: ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "再次向西前往{area:16723}：想要脱身的暮光矿工{npc:260931}在镇子东缘等着。说服他，然后交还{npc:256710}的任务；一名失踪的食人魔就在西边几步远处。"
 	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits inside the cave under the town's eastern edge, a floor below the street. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "再次向西前往{area:16723}：想脱身的暮光矿工{npc:260931}在镇子东边下方的洞穴里等候，比街道低一层。说服他，然后交还{npc:256710}的任务；一个失踪的食人魔就在西边几步远。",
 	-- {npc:260931} Clubtoe
 	["talk {npc:260931} round"] = "说服{npc:260931}",

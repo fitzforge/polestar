@@ -604,6 +604,12 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 		if summon.truthy() && !on.items().is_empty() {
 			parts.push(format!("g{}", list(&on)?));
 		}
+		// The items an item objective is made from that the quest needs (merge.rs `made_from_items`, #4148: the
+		// Essence of Hakkar for the Filled Egg): f<item>,<item>... An older reader skips it (no objective kind is f).
+		let made = o.get("madeFrom");
+		if !made.items().is_empty() {
+			parts.push(format!("f{}", list(&made)?));
+		}
 		// The hostile elites at an object's work, per side (elites.rs): w<side><rank>,<lvl>.
 		let el = o.get("elites");
 		for side in ["A", "H"] {

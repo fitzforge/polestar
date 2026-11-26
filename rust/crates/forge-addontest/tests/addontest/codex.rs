@@ -620,7 +620,7 @@ emit({ missing = table.concat(missing, ","), stale = table.concat(stale, ","), s
 
 #[test]
 fn a_complete_install_of_one_version_says_nothing_at_login_the_optional_data_packs_may_be_absent() {
-	let out = login_with(&[("Polestar", None), ("Polestar_Guides", None), ("Polestar_Codex", None), ("Polestar_Options", None), ("Polestar_Lookup", None)]);
+	let out = login_with(&[("Polestar", None), ("Polestar_Guides", None), ("Polestar_Codex", None), ("Polestar_Handins", None), ("Polestar_Options", None), ("Polestar_Lookup", None)]);
 	assert_eq!(out["missing"], "");
 	assert_eq!(out["stale"], "");
 	assert_eq!(len(&out["said"]), 0);
@@ -628,7 +628,7 @@ fn a_complete_install_of_one_version_says_nothing_at_login_the_optional_data_pac
 
 #[test]
 fn a_missing_codex_and_a_guides_folder_from_an_old_zip_are_named_once_in_chat_with_how_to_reinstall() {
-	let out = login_with(&[("Polestar", None), ("Polestar_Guides", Some("0.2.1")), ("Polestar_QuestDB", None), ("Polestar_Options", None), ("Polestar_Lookup", None)]);
+	let out = login_with(&[("Polestar", None), ("Polestar_Guides", Some("0.2.1")), ("Polestar_QuestDB", None), ("Polestar_Handins", None), ("Polestar_Options", None), ("Polestar_Lookup", None)]);
 	assert_eq!(out["missing"], "Polestar_Codex");
 	assert_eq!(out["stale"], "Polestar_Guides 0.2.1");
 	assert_eq!(out["said"].as_array().unwrap().len(), 1);
@@ -643,7 +643,7 @@ fn a_missing_codex_and_a_guides_folder_from_an_old_zip_are_named_once_in_chat_wi
 #[test]
 fn the_folders_0_4_3_folded_left_from_an_older_install_get_one_line_to_delete_them_and_no_mixed_install() {
 	let out = emitted(&RunAddon {
-		before: r#"stub.addons = { { name = "Polestar" }, { name = "Polestar_Guides" }, { name = "Polestar_Codex" }, { name = "Polestar_Options" }, { name = "Polestar_Lookup" },
+		before: r#"stub.addons = { { name = "Polestar" }, { name = "Polestar_Guides" }, { name = "Polestar_Codex" }, { name = "Polestar_Handins" }, { name = "Polestar_Options" }, { name = "Polestar_Lookup" },
 	{ name = "Polestar_Looks" }, { name = "Polestar_Skin_Vellum" }, { name = "Polestar_Guides_Orc" }, { name = "Polestar_Experimental" }, { name = "Polestar_Skin_Example" },
 	{ name = "Polestar_Skin_Joes" } }
 for _, n in ipairs({ "Polestar_Looks", "Polestar_Skin_Vellum", "Polestar_Guides_Orc", "Polestar_Experimental", "Polestar_Skin_Example", "Polestar_Skin_Joes" }) do stub.addonMeta[n] = { Version = "0.4.2.2" } end"#
@@ -673,7 +673,7 @@ emit({ missing = table.concat(missing, ","), stale = table.concat(stale, ","), f
 fn a_missing_faction_part_of_our_guides_is_named_at_login_the_other_faction_s_is_not() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
-		before: "stub.addons = { { name = \"Polestar\" }, { name = \"Polestar_Guides\" }, { name = \"Polestar_Codex\" }, { name = \"Polestar_Options\" }, { name = \"Polestar_Lookup\" }, { name = \"Polestar_Guides_Alliance\" } }\nstub.world.faction = \"Horde\""
+		before: "stub.addons = { { name = \"Polestar\" }, { name = \"Polestar_Guides\" }, { name = \"Polestar_Codex\" }, { name = \"Polestar_Handins\" }, { name = \"Polestar_Options\" }, { name = \"Polestar_Lookup\" }, { name = \"Polestar_Guides_Alliance\" } }\nstub.world.faction = \"Horde\""
 			.into(),
 		addons: vec![files()],
 		login: true,

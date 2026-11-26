@@ -84,7 +84,6 @@ return {
 	["The {area:102}"] = "{area:102}",
 	-- {npc:268992} Zimmix Sputterspark · {item:277957} Primitive Key
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment · Bloodscalp Berserkers = {npc:597} Bloodscalp Berserker
-	-- was: ["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}, then lead him out of the ruins. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "沿海岸向北前往山丘上的廢墟：最後兩塊石板就在那裡。哥布林{npc:268992}被關在第三塊石板旁的籠子裡：任何血頂食人妖都可能掉落他的{item:277957}，之後帶他走出廢墟。遭竊的貨物在廢墟東緣。綠丘書頁掉落時順手撿起。\n小心：血頂狂戰士、獵頭者和巫醫（36-37級）盤踞廢墟中心：一次拉一隻。"
 	["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "沿海岸向北到山上的廢墟：最後兩塊石板在那裡。哥布林{npc:268992}被關在第三塊石板旁的籠子裡：任何血頂食人妖都可能掉落他的{item:277957}。被盜的貨物在廢墟東緣。掉落的綠色山谷書頁隨手撿起。\n小心：血頂狂戰士、獵頭者和巫醫（36-37）佔據廢墟中心：一次拉一隻。",
 	-- {npc:268992} Zimmix Sputterspark
 	["{npc:268992}, in his cage beside the third tablet"] = "{npc:268992}，在第三塊石板旁的籠子裡",

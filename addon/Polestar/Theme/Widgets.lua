@@ -2532,6 +2532,7 @@ function layoutMenu()
 	-- opts.short: a menu of actions, every row shown, never a filtered list.
 	local long = not opts.short and total > MENU_MAX
 	local sc = long and menuLong() or rawget(menu, "Scroll")
+	local room = long and W.ScrollBarRoom(sc) or 0
 	-- Rows hang from the menu, or from the scroll area's child in a long list.
 	local holder = long and sc.Child or menu
 	local fold = opts.searchFold or string.lower
@@ -2629,13 +2630,13 @@ function layoutMenu()
 			row.Check:ClearAllPoints()
 			row.Check:SetPoint("RIGHT", row, "RIGHT", item.preview and -32 or -10, 0)
 			local shownText = (item.font and face) or row.Text
-			width = max(width, shownText:GetStringWidth() + textX + 36 + extra + (anyPreview and 26 or 0) + (long and 10 or 0))
+			width = max(width, shownText:GetStringWidth() + textX + 36 + extra + (anyPreview and 26 or 0) + room)
 			if holds(item, needle, fold) then
 				row:ClearAllPoints()
 				row:SetHeight(rowH)
 				-- In a long list, clear of its scroll bar.
 				row:SetPoint("TOPLEFT", holder, "TOPLEFT", 1, y)
-				row:SetPoint("TOPRIGHT", holder, "TOPRIGHT", long and -10 or -1, y)
+				row:SetPoint("TOPRIGHT", holder, "TOPRIGHT", -1 - room, y)
 				row:Show()
 				shownRows = shownRows + 1
 				if item.checked then menu.psCheckedY = -y end
@@ -2644,7 +2645,7 @@ function layoutMenu()
 		end
 	end
 	width = floor(width + 0.5)
-	if barY then Bar.place(bar, holder, barY, width - (long and 10 or 0)) end
+	if barY then Bar.place(bar, holder, barY, width - room) end
 	if long then
 		local f = menu.Filter
 		f:ClearAllPoints()

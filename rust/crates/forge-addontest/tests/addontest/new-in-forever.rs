@@ -206,8 +206,9 @@ emit({ title = LK.details.Title:GetText() })"#
 	assert_eq!(text(&out[1]["title"]), "Frostsaber Provisions", "turned off, the open page drops it");
 }
 
-// The memory budget: the shipped ids resident once loaded, under Lua 5.1 as the client counts it.
-const BUDGET_KB: f64 = 16.0;
+// The memory budget: the shipped ids resident once loaded, under Lua 5.1 as the client counts it. Measured 11.7 KB
+// on next f5bd74406e (2026-11-26, #4143; three runs reading the same), plus 3 % (docs/CI.md, "Memory budgets").
+const BUDGET_KB: f64 = 12.2;
 
 #[test]
 fn the_ids_stay_within_their_memory_budget() {
