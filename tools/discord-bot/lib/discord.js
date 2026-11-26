@@ -18,25 +18,31 @@ class DiscordError extends Error {
 function createDiscord({ token, api = API, fetch: fetchImpl = fetch }) {
 	if (!token) throw new Error('DISCORD_TOKEN is not set');
 
-	async function request(method, path, body, attempt = 0) {
-		const res = await fetchImpl(api + path, {
-			method,
-			headers: {
-				Authorization: `Bot ${token}`,
-				'Content-Type': 'application/json',
-				'User-Agent': 'DiscordBot (https://github.com/fitzforge/polestar, 1)',
-			},
-			body: body === undefined ? undefined : JSON.stringify(body),
-		});
+	// `files` ({ name, type, data }): sent as attachments, the body as payload_json.
+	async function request(method, path, body, attempt = 0, files = null) {
+		const headers = {
+			Authorization: `Bot ${token}`,
+			'User-Agent': 'DiscordBot (https://github.com/fitzforge/polestar, 1)',
+		};
+		let payload;
+		if (files && files.length) {
+			payload = new FormData();
+			payload.append('payload_json', JSON.stringify(body));
+			files.forEach((f, i) => payload.append(`files[${i}]`, new Blob([f.data], { type: f.type || 'application/octet-stream' }), f.name));
+		} else {
+			headers['Content-Type'] = 'application/json';
+			payload = body === undefined ? undefined : JSON.stringify(body);
+		}
+		const res = await fetchImpl(api + path, { method, headers, body: payload });
 		if (res.status === 204) return null;
 		const data = await res.json().catch(() => null);
 		if (res.status === 429 && attempt < 5) {
 			await sleep(Math.ceil(((data && data.retry_after) || 1) * 1000));
-			return request(method, path, body, attempt + 1);
+			return request(method, path, body, attempt + 1, files);
 		}
 		if (res.status >= 500 && attempt < 3) {
 			await sleep(1000 * 2 ** attempt);
-			return request(method, path, body, attempt + 1);
+			return request(method, path, body, attempt + 1, files);
 		}
 		if (!res.ok) throw new DiscordError(res.status, data, `${method} ${path}`);
 		return data;
@@ -53,14 +59,29 @@ function createDiscord({ token, api = API, fetch: fetchImpl = fetch }) {
 		getMessage: (channel, id) => request('GET', `/channels/${channel}/messages/${id}`),
 		// Newest first; `before`: only messages older than that id.
 		getMessages: (channel, limit = 50, before = null) => request('GET', `/channels/${channel}/messages?limit=${limit}${before ? `&before=${before}` : ''}`),
+		// Newer than `after`, at most `limit` (Discord gives them newest first).
+		getMessagesAfter: (channel, after, limit = 50) => request('GET', `/channels/${channel}/messages?limit=${limit}&after=${after}`),
 		getMember: (guild, user) => request('GET', `/guilds/${guild}/members/${user}`),
 		getGuild: (id) => request('GET', `/guilds/${id}`),
 		activeThreads: (guild) => request('GET', `/guilds/${guild}/threads/active`),
 		send: (channel, content, users = [], roles = []) =>
 			request('POST', `/channels/${channel}/messages`, { content, allowed_mentions: mentions(users, roles), flags: 4 }),
+		// A reply to message `id`, its author not pinged by the reply itself.
+		reply: (channel, id, content, users = []) =>
+			request('POST', `/channels/${channel}/messages`, { content, allowed_mentions: { ...mentions(users), replied_user: false }, flags: 4, message_reference: { message_id: id, fail_if_not_exists: false } }),
+		// A new forum post started by the bot: the thread, its first message as
+		// given, with `files` attached ({ name, type, data }) and link previews
+		// on when `embeds`.
+		startPost: (forum, { name, content, users = [], applied_tags = [], files = [], embeds = false }) =>
+			request('POST', `/channels/${forum}/threads`, {
+				name,
+				applied_tags,
+				message: { content, allowed_mentions: mentions(users), flags: embeds ? 0 : 4, attachments: files.map((f, id) => ({ id, filename: f.name })) },
+			}, 0, files),
 		editMessage: (channel, id, content) =>
 			request('PATCH', `/channels/${channel}/messages/${id}`, { content, allowed_mentions: mentions(), flags: 4 }),
 		deleteMessage: (channel, id) => request('DELETE', `/channels/${channel}/messages/${id}`),
+		deleteThread: (id) => request('DELETE', `/channels/${id}`),
 		editThread: (id, fields) => request('PATCH', `/channels/${id}`, fields),
 	};
 }

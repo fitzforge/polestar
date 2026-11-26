@@ -193,6 +193,8 @@ function releaseMessage({ repo, issue, release, owner, of = null }) {
 
 // The thread an issue was filed from, or null (not the bot's issue, no
 // marker, deleted, or not in the forum named by forumId when one is given).
+// A post the bot started for `!report`/`!suggest` (its marker lists the chat
+// messages) is the bot's own: its owner_id is then the player it names.
 async function threadOf(discord, issue, forumId, log) {
 	const mk = I.issueMarker(issue);
 	if (!mk) return null;
@@ -201,6 +203,10 @@ async function threadOf(discord, issue, forumId, log) {
 		if (forumId && thread.parent_id !== forumId) {
 			log.warn(`#${issue.number}: thread ${mk.thread} is not in the #bugs forum, skipped`);
 			return null;
+		}
+		if (mk.messages) {
+			const reporter = I.reportedBy(await discord.getMessage(thread.id, thread.id).catch(() => null));
+			if (reporter) return { ...thread, owner_id: reporter };
 		}
 		return thread;
 	} catch (err) {

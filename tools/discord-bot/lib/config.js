@@ -8,6 +8,12 @@ function required(env, name) {
 	return v;
 }
 
+// Fitz's Discord user id: the one maintainer allowed `!report` and `!suggest`
+// when MAINTAINER_IDS is not set.
+const FITZ = '162893436729556992';
+
+const ids = (v) => String(v).split(/[\s,]+/).filter(Boolean);
+
 function botConfig(env = process.env) {
 	const repo = (env.GITHUB_REPO || 'fitzforge/polestar').trim();
 	const since = (env.SYNC_SINCE || '').trim();
@@ -22,7 +28,8 @@ function botConfig(env = process.env) {
 		mediaBranch: (env.MEDIA_BRANCH || 'bug-media').trim(),
 		mediaToken: (env.MEDIA_TOKEN || env.GITHUB_TOKEN).trim(),
 		since: sinceMs,
-		exemptIds: (env.RATE_EXEMPT_IDS || '').split(/[\s,]+/).filter(Boolean),
+		exemptIds: ids(env.RATE_EXEMPT_IDS || ''),
+		maintainerIds: ids((env.MAINTAINER_IDS || '').trim() || FITZ),
 	};
 }
 

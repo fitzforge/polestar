@@ -28,6 +28,8 @@ sequenceDiagram
 | A new post whose report is from an older Polestar than the latest full release (GitHub's latest release; drafts, prereleases, other releases such as the Client's, and `dev` builds never count; read at most every 10 minutes) | the bot, at once, after "Tracked as" | "You're on 0.3.6, 0.3.7 is out. Please update and tell us if it still happens. Download it from CurseForge: <link>", and the same as a comment on the issue (marked `polestar-bot:update`: never relayed back to the thread, never quoted as a maintainer's word). Once per issue: only as the post is filed |
 | An issue opened on GitHub with a bug form whose **Polestar version** is older than the latest full release | `discord-issue-sync.yml` | the same reply as a comment on the issue, once (a re-run finds the mark). Issues filed from Discord are left to the bot |
 | Anyone writes in the thread (text, screenshots, a new report) | the bot | nothing; it becomes a comment on the issue, the reporter's marked "(the reporter)". What is said before the post is filed (while it waits for the hourly limit) is copied, in order, once it is. The bot's own messages, pins, renames and a sticker or embed alone are not copied. Only the reporter's screenshots are copied to GitHub; other players' are linked on Discord. Each Discord user gets 5 new reports and 20 follow-ups (edits included) an hour; past that, the bot logs them and files them a second after the hour allows (up to 100 waiting; a restart drops the wait, and its backfill and catch-up file skipped posts and copy skipped follow-ups). A held post gets one reply, "Thanks! You've sent a few reports this hour; this one will be filed automatically in about N minutes.", which becomes the "Tracked as" reply once it is filed. Server staff (the owner, and roles with Administrator, Manage Server, Manage Messages or Manage Threads) and the users in `RATE_EXEMPT_IDS` have no limits |
+| The maintainer replies `!report` or `!suggest` to a player's message in chat (anywhere the bot can read) | the bot, at once | under their message, "Thanks @player! This has now been reported as a bug: #N. You can follow it and add details in #post" (an idea: "Your idea has been added as a suggestion"); the bot starts a #bugs post for it, which then works like any other. Anyone else gets "Naughty naughty, you're not Master Fitz." See "`!report` and `!suggest`" below |
+| Anyone types `!bug` | the bot | how to report a bug from the game; capped against spam. See "`!bug` in chat" below |
 | The reporter edits the post's first message | the bot | nothing; the issue body is written again |
 | Anyone edits a later message | the bot | nothing; its comment is written again |
 | A pull request addresses the issue for the first time (its title names `#N`, or it says `closes`/`fixes`/`resolves #N`) | `pr-links.yml` | ping: "A fix for this is open (#M). It still has to be reviewed; we'll tell you here when it's fixed.", tag **In progress**. Once per issue: more pull requests, edits and closes tell the thread nothing. On GitHub the issue gets one comment listing its pull requests, kept up to date, and the label `has-pr` (CONTRIBUTING.md, "Before you start") |
@@ -74,7 +76,9 @@ only when it has a real one's shape (`0.2.5` or `0.2.5-test.1`, a lowercase
 guide file name, a game locale); anything else gets no label.
 
 Screenshots are copied only when their bytes are a PNG, JPEG, WebP or GIF
-image of 5 MiB or less; anything else stays a link to Discord. An image
+image of 5 MiB or less, and videos when they are an MP4, MOV or WebM of
+10 MiB or less (Discord's own upload limit); anything else stays a link to
+the Discord message, saying why it was not copied. An image
 bigger than that (a full-size PNG screenshot often is) is copied as the WebP
 Discord's media proxy makes of it (`.webp`, about a tenth of the size), when
 that fits.
@@ -163,9 +167,10 @@ Problems we know about and are fixing, with what to do meanwhile. Something else
    `DISCORD_TOKEN`), turn off Public Bot, and turn on **Message Content
    Intent**.
 2. Invite it, with your application id in place of `APP_ID`:
-   `https://discord.com/oauth2/authorize?client_id=APP_ID&scope=bot+applications.commands&permissions=292057844736`
+   `https://discord.com/oauth2/authorize?client_id=APP_ID&scope=bot+applications.commands&permissions=292057893888`
    (View Channels, Send Messages, Send Messages in Threads, Manage Threads,
-   Read Message History; `applications.commands` for `/close` and
+   Read Message History, Attach Files and Embed Links for the media on the
+   posts `!report` starts; `applications.commands` for `/close` and
    `/reopen`). Should the log ever say "slash commands not registered"
    with a 403, open the link again; there is no need to remove the bot.
 3. On #bugs, add five tags: **Tracked**, **In progress**, **Fixed**,
@@ -184,6 +189,10 @@ Problems we know about and are fixing, with what to do meanwhile. Something else
    give the bot View Channel, Send Messages and Read Message History (a
    permission override for the bot's role or the bot). Copy the channel's
    id: that is `KNOWN_ISSUES_CHANNEL_ID`.
+7. For `!report` and `!suggest`: `MAINTAINER_IDS`, the Discord user ids
+   (comma separated) allowed to use them; unset, Fitz's id alone. The bot
+   needs Attach Files and Embed Links in #bugs for the media on the posts it
+   starts, and Manage Messages wherever the command should be deleted.
 
 ### 2. GitHub
 
@@ -252,6 +261,92 @@ GitHub fails to take is tried again by the same catch-up 5 minutes later,
 backing off to an hour. A post a player tagged In progress is filed like any
 other: only the status tags moderators set mean a post was handled.
 
+## `!bug` in chat
+
+Anyone who types `!bug` or `!bugs` (the whole message, any case) in a channel
+the bot can see gets how to report a bug from the game: the bug icon or
+`/polestar report`, Copy report, a new post in #bugs. Capped against spam: a
+channel gets it at most once every 10 minutes, a person can call it once an
+hour, and the server gets at most 6 answers an hour; past a cap it is ignored
+(logged as "!bug ignored (cap)"). Never in the #bugs forum or its threads
+(everything there goes to the issue), and never to a bot or a webhook. The
+text and the caps are in `lib/chat.js`.
+
+## `!report` and `!suggest`: filing someone's message from chat
+
+When a player describes a bug (or an idea) somewhere other than #bugs, the
+maintainer replies to their message with `!report` (or `!suggest`), anywhere
+the bot can read, #bugs threads included. Text after the command becomes
+the issue's title (`!report Paladin trainer missing`); without it the title
+is the player's first line, as for a post.
+
+```mermaid
+flowchart TD
+  A["Maintainer replies to a player's message: !report [title]"] --> B{In MAINTAINER_IDS?}
+  B -- no --> N["Reply to the command: Naughty naughty, you're not Master Fitz.<br/>(capped like !bug; nothing filed)"]
+  B -- yes --> C{Filed already?<br/>this message or one of its run}
+  C -- yes --> L["Already filed as #N, next to the player's message"]
+  C -- no --> G["Gather the player's run of messages around it"]
+  G --> P["New #bugs post by the bot: Reported by @player, their words and their media, tag Tracked"]
+  P --> I["GitHub issue: Reported by name on Discord (link to the message),<br/>each message quoted with its time, screenshots and videos mirrored"]
+  I --> T["'Tracked as #N' in the post; a thank-you pinging the player under their message;<br/>the command deleted (with Manage Messages)"]
+  T --> F["Follow-ups in the post, closes, fixes and releases:<br/>exactly as for a #bugs post, pinging the player"]
+```
+
+- **Who**: only the Discord users in `MAINTAINER_IDS` (default: Fitz's id).
+  Anyone else gets "Naughty naughty, you're not Master Fitz." as a reply to
+  their command, under the same caps as `!bug` (a channel once in 10
+  minutes, a person once an hour, 6 an hour for the server; past that,
+  ignored) and nothing is filed. Without a reply, the maintainer is told
+  how to use it. A bot's or a webhook's message is never filed.
+- **What is filed**: the replied-to message and the same person's messages
+  around it: theirs after it until someone else writes or more than 10
+  minutes pass between two of theirs, then the same backwards, at most 10
+  (that one and those after it first), and only as many as fit an issue.
+  `!report` and `!suggest` commands among them are passed over. Each is
+  quoted in order under its time (UTC), linked to the message. A report
+  block from the game in any of them gives the summary table, the full
+  report and the `v`/`guide:`/`locale:`/`lua-error` labels, as for a post.
+- **Files**: every attachment of every gathered message. Images are copied
+  to the media branch and embedded (a large one as WebP, as for posts);
+  videos (MP4, MOV, WebM, by their bytes) up to 10 MiB are copied and
+  linked; anything else, and media too big to copy, stays a link to the
+  Discord message with why ("not an image or video, not copied", "too big
+  to copy, 12.3 MB"). Links Discord previewed (a GIF, a video page) that
+  are not in the text already are listed under the message.
+- **The issue**: "**Reported by** *name* **on Discord**" (`!suggest`:
+  "**Suggested by**"), linked to the replied-to message, and a line saying
+  which channel it came from and linking its #bugs post. Labels: `discord`,
+  `triage`, `bug` and the report's labels for `!report`; `discord`,
+  `triage`, `enhancement` and `idea` for `!suggest`; `from-chat` on both.
+  The hidden marker lists the messages it holds.
+- **The #bugs post**: the bot starts one per issue, titled like the issue
+  and tagged **Tracked**: "**Reported by @player** in *link*" (which pings
+  them and adds them to the thread), their words, and the images and videos
+  it copied, in order, attached to the post (up to 10 files and 10 MiB;
+  needs Attach Files in #bugs). What does not fit, or everything when
+  Discord refuses the files, is listed as its link on the media branch with
+  link previews on, so Discord still shows it (needs Embed Links). From
+  there it is a #bugs post like any other: what anyone writes in it is
+  copied to the issue (the player's marked "(the reporter)", their
+  screenshots copied), and the GitHub Actions tell it about pull requests,
+  questions, closes and releases, pinging the player the post names, not
+  the bot. The post's own first message is the bot's, so editing it changes
+  nothing on GitHub.
+- **Twice**: a message already filed (or any message of a filed run) gets
+  "Already filed as #N" with its post (no ping), also after a restart (the
+  issues' markers are read back). A #bugs post's first message gives that
+  post's issue (filing it first when the bot missed it).
+- **Answers**: under the player's message, a reply that pings them: "Thanks
+  @player! This has now been reported as a bug: #N. You can follow it and
+  add details in #post, and we'll let you know there when it's fixed." (for
+  `!suggest`: "Your idea has been added as a suggestion: #N. You can follow
+  it and add details in #post."). Then the command is deleted when the bot
+  may (Manage Messages in that channel; without it the command stays). An
+  error (GitHub down, the message gone) is a reply to the command; a #bugs
+  post started for an issue GitHub then refused is removed. A maintainer's
+  command in a #bugs thread is not copied to that thread's issue.
+
 ## Closing from Discord
 
 Server administrators can close or reopen a report from its #bugs thread.
@@ -278,8 +373,8 @@ see them but not use them.
 
 ## Working on it
 
-`npm test` runs `tests/discord-bot.test.js`, `tests/discord-links.test.js`
-and `tests/discord-known.test.js` over in-memory Discord and GitHub. To run
+`npm test` runs `tests/discord-bot.test.js`, `tests/discord-chat.test.js`,
+`tests/discord-links.test.js` and `tests/discord-known.test.js` over in-memory Discord and GitHub. To run
 the bot, `notify.js`, `links.js` or `known.js` against something else,
 `DISCORD_API` and `GITHUB_API_URL` point the clients elsewhere.
 
@@ -297,6 +392,7 @@ the bot, `notify.js`, `links.js` or `known.js` against something else,
 | `lib/links.js` | Which issues a pull request addresses; the issue's pull requests comment, the overlap warning and their labels |
 | `lib/known.js` | The #known-issues board: which issues, their words made inert, grouping, the fixed sections, splitting and writing in place |
 | `lib/gateway.js`, `lib/discord.js`, `lib/github.js` | The Discord gateway and the two REST APIs; the media branch |
+| `lib/chat.js` | Chat commands: `!bug` (how to report a bug), the maintainer's `!report` and `!suggest` |
 
 A change to the report's layout in `Report.lua` needs `lib/report.js` and
 its tests to follow.
