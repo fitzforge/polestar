@@ -11,7 +11,8 @@
 //
 // Reads the event from GITHUB_EVENT_PATH (NOTIFY_EVENT_PATH first when set:
 // a manual run's stand-in); needs DISCORD_TOKEN (not for update), GITHUB_TOKEN
-// and GITHUB_REPOSITORY, and checks threads against DISCORD_FORUM_ID when set.
+// and GITHUB_REPOSITORY, and checks threads against DISCORD_FORUM_ID (and
+// SUGGESTIONS_FORUM_ID) when set.
 // A prerelease pings DISCORD_TESTER_ROLE_ID in DISCORD_TESTERS_CHANNEL_ID,
 // and tells no one when either is unset. NOTIFY_ISSUES (a manual release
 // run's "1390 1402"): exactly the issues the release ships, for those closed
@@ -35,15 +36,16 @@ async function main(mode) {
 	}
 	const discord = createDiscord({ token: required(env, 'DISCORD_TOKEN') });
 	const forumId = (env.DISCORD_FORUM_ID || '').trim() || null;
+	const suggestionsForumId = (env.SUGGESTIONS_FORUM_ID || '').trim() || null;
 	if (mode === 'issue' || mode === 'comment') {
-		await (mode === 'issue' ? onIssue : onComment)({ discord, github, event, forumId });
+		await (mode === 'issue' ? onIssue : onComment)({ discord, github, event, forumId, suggestionsForumId });
 		return 0;
 	}
 	const testersChannel = (env.DISCORD_TESTERS_CHANNEL_ID || '').trim();
 	const testerRole = (env.DISCORD_TESTER_ROLE_ID || '').trim();
 	const testers = testersChannel && testerRole ? { channel: testersChannel, role: testerRole } : null;
 	const issues = (env.NOTIFY_ISSUES || '').match(/\d+/g) || [];
-	const { failed } = await onRelease({ discord, github, event, forumId, testers, issues: issues.map(Number) });
+	const { failed } = await onRelease({ discord, github, event, forumId, suggestionsForumId, testers, issues: issues.map(Number) });
 	return failed ? 1 : 0;
 }
 

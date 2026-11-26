@@ -111,55 +111,61 @@ const NOT_PLANNED_THERE = {
 const MAX_THEIR_REASON = 300;
 
 // A duplicate's first lines: the issue it duplicates and where that stands.
-function duplicateLead(repo, of, target) {
-	if (!of) return 'This was already reported, so we\'re tracking it in another issue.';
+// `idea`: the thread is a suggestions post, its words are an idea's.
+function duplicateLead(repo, of, target, idea = false) {
+	const already = idea ? 'suggested' : 'reported';
+	if (!of) return `This was already ${already}, so we're tracking it in another issue.`;
 	const link = issueLink(repo, of);
-	if (!target) return `This was already reported, so we're tracking it in ${link}.`;
+	if (!target) return `This was already ${already}, so we're tracking it in ${link}.`;
 	const { issue, note } = target;
 	const labels = labelNames(issue);
 	const released = labels.find(isReleased);
-	if (released) return `It's the same bug as ${link}, and the fix is out in Polestar ${released.slice('released:'.length).replace(/^v/, '')}: update Polestar to get it.`;
+	const version = released && released.slice('released:'.length).replace(/^v/, '');
+	if (released) return idea ? `It's the same idea as ${link}, and it shipped in Polestar ${version}: update Polestar to get it.` : `It's the same bug as ${link}, and the fix is out in Polestar ${version}: update Polestar to get it.`;
 	if (labels.includes('fix-merged') || (issue.state === 'closed' && issue.state_reason === 'completed')) {
-		return `It's the same bug as ${link}, and that's already fixed: it ships in the next Polestar update.`;
+		return idea ? `It's the same idea as ${link}, and that's planned: it ships in the next Polestar update.` : `It's the same bug as ${link}, and that's already fixed: it ships in the next Polestar update.`;
 	}
 	if (issue.state === 'closed' && issue.state_reason === 'not_planned') {
-		const why = labels.map((l) => NOT_PLANNED_THERE[l]).find(Boolean) || 'we\'ve decided not to change it';
+		const why = idea ? 'it\'s not planned for now' : labels.map((l) => NOT_PLANNED_THERE[l]).find(Boolean) || 'we\'ve decided not to change it';
 		return note && note.length <= MAX_THEIR_REASON ? `It's the same as ${link}, and ${why}:\n${quote(note)}` : `It's the same as ${link}, and ${why}.`;
 	}
-	if (issue.state === 'open') return `This was already reported, so we're tracking it in ${link}.${labels.includes('has-pr') ? ' A fix is in progress.' : ''}`;
-	return `This was already reported in ${link}.`;
+	if (issue.state === 'open') return `This was already ${already}, so we're tracking it in ${link}.${labels.includes('has-pr') ? (idea ? ' It\'s in progress.' : ' A fix is in progress.') : ''}`;
+	return `This was already ${already} in ${link}.`;
 }
 
 // The message and status for an issue's close or reopen. duplicate, for a
 // close as a duplicate: { of, target, note } (duplicateTarget's M, its
 // duplicateStatus, the maintainer's explanation). released, for a fix that
 // is out already: { tag, release } (releasedIn's).
-function issueMessage({ repo, issue, action, owner, comments, duplicate = null, released = null }) {
+function issueMessage({ repo, issue, action, owner, comments, duplicate = null, released = null, idea = false }) {
 	const ping = owner ? `<@${owner}> ` : '';
 	const link = issueLink(repo, issue.number);
+	const thanks = idea ? 'Thanks for the idea!' : 'Thanks for the report!';
 	if (action === 'reopened') {
-		return { role: 'tracked', locked: false, content: `We've reopened this and are looking at it again. (${link})` };
+		return { role: 'tracked', locked: false, content: `We've reopened ${idea ? 'this idea' : 'this'} and are looking at it again. (${link})` };
 	}
 	if (duplicate) {
-		let content = ping + duplicateLead(repo, duplicate.of, duplicate.target);
+		let content = ping + duplicateLead(repo, duplicate.of, duplicate.target, idea);
 		// After the other issue's quoted reason, a blank line keeps the two quotes apart.
 		if (duplicate.note) content += (content.includes('\n> ') ? '\n\n' : '\n') + quote(clip(duplicate.note, MAX_REASON));
-		return { role: 'duplicate', locked: true, content: `${content}\nThanks for the report! (${link})` };
+		return { role: 'duplicate', locked: true, content: `${content}\n${thanks} (${link})` };
 	}
 	if (issue.state_reason === 'not_planned') {
 		const note = maintainerNote(comments);
-		const lead = labelNames(issue).map((l) => NOT_PLANNED[l]).find(Boolean) || 'We\'ve decided not to change this one.';
+		const lead = idea ? 'Not planned for now.' : labelNames(issue).map((l) => NOT_PLANNED[l]).find(Boolean) || 'We\'ve decided not to change this one.';
 		let content = `${ping}${lead}`;
 		if (note) content += '\n' + quote(clip(note, MAX_REASON));
-		content += `\nThanks for the report! (${link})`;
+		content += `\n${thanks} (${link})`;
 		return { role: 'wontfix', locked: true, content };
 	}
 	if (released) {
 		const name = released.release ? released.release.name || released.release.tag_name : `Polestar ${released.tag.replace(/^v/, '')}`;
 		const notes = released.release && released.release.html_url ? `[release notes](<${released.release.html_url}>), ` : '';
-		return { role: 'fixed', locked: true, content: `${ping}This is fixed, and the fix is out in **${name}**: update Polestar to get it. Thanks for the report! (${notes}${link})` };
+		const lead = idea ? `This idea has shipped in **${name}**` : `This is fixed, and the fix is out in **${name}**`;
+		return { role: 'fixed', locked: true, content: `${ping}${lead}: update Polestar to get it. ${thanks} (${notes}${link})` };
 	}
-	return { role: 'fixed', locked: true, content: `${ping}This is fixed and will ship in the next Polestar update. Thanks for the report! (${link})` };
+	const lead = idea ? 'This idea is planned and will ship in the next Polestar update.' : 'This is fixed and will ship in the next Polestar update.';
+	return { role: 'fixed', locked: true, content: `${ping}${lead} ${thanks} (${link})` };
 }
 
 // The published release a fix closed as completed is already out in, or
@@ -183,26 +189,37 @@ async function releasedIn(github, issue) {
 	return release ? { tag: release.tag_name, release, labelled: false } : null;
 }
 
-// "The fix is out"; of, for a duplicate, the issue whose fix it is.
-function releaseMessage({ repo, issue, release, owner, of = null }) {
+// "The fix is out"; of, for a duplicate, the issue whose fix it is. `idea`:
+// "This idea has shipped".
+function releaseMessage({ repo, issue, release, owner, of = null, idea = false }) {
 	const name = release.name || release.tag_name;
 	const ping = owner ? `<@${owner}> ` : '';
-	const what = of ? `The fix for ${issueLink(repo, of)}, the same bug as yours, is out` : 'The fix is out';
+	let what = of ? `The fix for ${issueLink(repo, of)}, the same bug as yours, is out` : 'The fix is out';
+	if (idea) what = of ? `The idea in ${issueLink(repo, of)}, the same as yours, has shipped` : 'This idea has shipped';
 	return `${ping}${what} in **${name}**: update Polestar to get it. ([release notes](<${release.html_url}>), ${issueLink(repo, issue.number)})`;
 }
 
 // The thread an issue was filed from, or null (not the bot's issue, no
 // marker, deleted, or not in the forum named by forumId when one is given).
-async function threadOf(discord, issue, forumId, log) {
+// A post the bot started for `!report`/`!suggest` (its marker lists the chat
+// messages) is the bot's own: its owner_id is then the player it names.
+// A post of the suggestions forum (`ideasId`, filed whole by `!suggest`) is
+// also one: its thread comes back with `idea: true`.
+async function threadOf(discord, issue, forumId, log, ideasId = null) {
 	const mk = I.issueMarker(issue);
 	if (!mk) return null;
 	try {
 		const thread = await discord.getChannel(mk.thread);
-		if (forumId && thread.parent_id !== forumId) {
+		const idea = Boolean(ideasId) && thread.parent_id === ideasId;
+		if (forumId && thread.parent_id !== forumId && !idea) {
 			log.warn(`#${issue.number}: thread ${mk.thread} is not in the #bugs forum, skipped`);
 			return null;
 		}
-		return thread;
+		if (mk.messages) {
+			const reporter = I.reportedBy(await discord.getMessage(thread.id, thread.id).catch(() => null));
+			if (reporter) return { ...thread, owner_id: reporter };
+		}
+		return idea ? { ...thread, idea: true } : thread;
 	} catch (err) {
 		if (err.status === 404 || err.status === 403) {
 			log.warn(`#${issue.number}: thread ${mk.thread} is gone`);
@@ -220,10 +237,11 @@ async function postIn(discord, thread, content, users) {
 
 // A maintainer's question, relayed when the issue gets needs-info: the
 // reporter answers in the thread, and the bot carries the answer back.
-function questionMessage({ repo, issue, owner, note }) {
+function questionMessage({ repo, issue, owner, note, idea = false }) {
 	const ping = owner ? `<@${owner}> ` : '';
-	if (note === null) return `${ping}We need a little more to go on with this one: please answer the question above here in the thread. (${issueLink(repo, issue.number)})`;
-	return `${ping}We need a little more to go on with this one:\n${quote(clip(note, MAX_REASON))}\nPlease answer here in the thread. (${issueLink(repo, issue.number)})`;
+	const lead = idea ? 'We\'d like to know a little more about this idea' : 'We need a little more to go on with this one';
+	if (note === null) return `${ping}${lead}: please answer the question above here in the thread. (${issueLink(repo, issue.number)})`;
+	return `${ping}${lead}:\n${quote(clip(note, MAX_REASON))}\nPlease answer here in the thread. (${issueLink(repo, issue.number)})`;
 }
 
 // A maintainer's reply relayed to the thread: a maintainer's comment that is
@@ -301,10 +319,10 @@ async function relayedIn(discord, thread) {
 // an edit of a comment never relayed posts nothing new. A comment a close or
 // needs-info notice quoted already (it carries the comment's link) is not
 // posted again, and its edits leave that notice alone.
-async function onComment({ discord, github, event, forumId, log = console }) {
+async function onComment({ discord, github, event, forumId, suggestionsForumId = null, log = console }) {
 	const { action, issue, comment } = event;
 	if ((action !== 'created' && action !== 'edited') || !issue || issue.pull_request || !isReply(comment)) return false;
-	const thread = await threadOf(discord, issue, forumId, log);
+	const thread = await threadOf(discord, issue, forumId, log, suggestionsForumId);
 	if (!thread) return false;
 	const content = replyMessage({ repo: github.repo, issue, comment, owner: thread.owner_id });
 	const key = commentKey(comment);
@@ -333,12 +351,12 @@ function citing(content, repo, issue, comment) {
 const RELAY_WAIT_MS = 20 * 1000;
 const RELAY_RECENT_MS = 2 * 60 * 1000;
 
-async function onIssue({ discord, github, event, forumId, log = console, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), now = Date.now }) {
+async function onIssue({ discord, github, event, forumId, suggestionsForumId = null, log = console, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), now = Date.now }) {
 	const issue = event.issue;
 	const action = event.action;
 	const asking = action === 'labeled' && event.label && event.label.name === 'needs-info';
 	if (action !== 'closed' && action !== 'reopened' && !asking) return false;
-	const thread = await threadOf(discord, issue, forumId, log);
+	const thread = await threadOf(discord, issue, forumId, log, suggestionsForumId);
 	if (!thread) return false;
 	const comments = action === 'reopened' ? [] : await github.comments(issue.number);
 	const users = thread.owner_id ? [thread.owner_id] : [];
@@ -357,7 +375,7 @@ async function onIssue({ discord, github, event, forumId, log = console, sleep =
 			log.info(`#${issue.number}: needs-info with no maintainer comment to relay`);
 			return false;
 		}
-		const content = questionMessage({ repo: github.repo, issue, owner: thread.owner_id, note: fresh ? note : null });
+		const content = questionMessage({ repo: github.repo, issue, owner: thread.owner_id, note: fresh ? note : null, idea: thread.idea });
 		await postIn(discord, thread, fresh ? citing(content, github.repo, issue, last) : content, users);
 		log.info(`#${issue.number} needs-info: asked in thread ${thread.id}`);
 		return true;
@@ -366,7 +384,7 @@ async function onIssue({ discord, github, event, forumId, log = console, sleep =
 	const dupNote = dup && fresh ? duplicateNote(comments) : null;
 	const duplicate = dup && { of: dup.of, target: dup.of ? await duplicateStatus(github, dup.of) : null, note: dupNote ? dupNote.text : null };
 	const released = action === 'closed' && !dup && issue.state_reason === 'completed' ? await releasedIn(github, issue) : null;
-	const msg = issueMessage({ repo: github.repo, issue, action, owner: thread.owner_id, comments: fresh ? comments : [], duplicate, released });
+	const msg = issueMessage({ repo: github.repo, issue, action, owner: thread.owner_id, comments: fresh ? comments : [], duplicate, released, idea: thread.idea });
 	// The comment the notice quotes, if any (a not-planned close's reason, a duplicate's explanation).
 	const quoted = dup ? dupNote && dupNote.comment : issue.state_reason === 'not_planned' && fresh ? last : null;
 	await postIn(discord, thread, citing(msg.content, github.repo, issue, quoted), users);
@@ -384,9 +402,10 @@ async function onIssue({ discord, github, event, forumId, log = console, sleep =
 
 // The message for an issue's first open pull request: someone is on it, it
 // is not reviewed yet.
-function progressMessage({ repo, issue, prs, owner }) {
+function progressMessage({ repo, issue, prs, owner, idea = false }) {
 	const ping = owner ? `<@${owner}> ` : '';
 	const links = prs.map((p) => `[#${p.number}](<https://github.com/${repo}/pull/${p.number}>)`).join(', ');
+	if (idea) return `${ping}This idea is in progress: ${prs.length > 1 ? `changes for it are open (${links})` : `a change for it is open (${links})`}. It still has to be reviewed; we'll tell you here when it ships. (${issueLink(repo, issue.number)})`;
 	const what = prs.length > 1 ? `Fixes for this are open (${links})` : `A fix for this is open (${links})`;
 	return `${ping}${what}. It still has to be reviewed; we'll tell you here when it's fixed. (${issueLink(repo, issue.number)})`;
 }
@@ -394,10 +413,10 @@ function progressMessage({ repo, issue, prs, owner }) {
 // Tells the reporter a fix is open and tags the thread In progress. True
 // when told; false when the issue has no thread, so the next run tries again
 // only if a thread appears.
-async function onProgress({ discord, github, issue, prs, forumId, log = console }) {
-	const thread = await threadOf(discord, issue, forumId, log);
+async function onProgress({ discord, github, issue, prs, forumId, suggestionsForumId = null, log = console }) {
+	const thread = await threadOf(discord, issue, forumId, log, suggestionsForumId);
 	if (!thread) return false;
-	await postIn(discord, thread, progressMessage({ repo: github.repo, issue, prs, owner: thread.owner_id }), thread.owner_id ? [thread.owner_id] : []);
+	await postIn(discord, thread, progressMessage({ repo: github.repo, issue, prs, owner: thread.owner_id, idea: thread.idea }), thread.owner_id ? [thread.owner_id] : []);
 	const forum = await discord.getChannel(thread.parent_id);
 	const tags = statusTags(forum);
 	if (tags.progress) await discord.editThread(thread.id, { applied_tags: withStatus(thread.applied_tags, tags, 'progress') });
@@ -606,7 +625,7 @@ async function listedIssues(github, numbers, log) {
 // A release published: its fixes' threads told. `issues` (a manual run's
 // list of numbers) names exactly what it ships instead, for issues closed
 // after the release run; their duplicates are told with them.
-async function onRelease({ discord, github, event, forumId, testers = null, issues: listed = null, log = console }) {
+async function onRelease({ discord, github, event, forumId, suggestionsForumId = null, testers = null, issues: listed = null, log = console }) {
 	const release = event.release;
 	if (!release || release.draft || !isAddonRelease(release)) return { told: 0, failed: 0 };
 	if (isPrerelease(release)) {
@@ -622,9 +641,9 @@ async function onRelease({ discord, github, event, forumId, testers = null, issu
 	// Tells an issue's thread and labels the issue, so no run tells it again.
 	const tell = async (issue, of = null) => {
 		try {
-			const thread = await threadOf(discord, issue, forumId, log);
+			const thread = await threadOf(discord, issue, forumId, log, suggestionsForumId);
 			if (thread) {
-				await postIn(discord, thread, releaseMessage({ repo: github.repo, issue, release, owner: thread.owner_id, of }), thread.owner_id ? [thread.owner_id] : []);
+				await postIn(discord, thread, releaseMessage({ repo: github.repo, issue, release, owner: thread.owner_id, of, idea: thread.idea }), thread.owner_id ? [thread.owner_id] : []);
 				told++;
 			}
 			await github.ensureLabels([label], I.labelInfo);

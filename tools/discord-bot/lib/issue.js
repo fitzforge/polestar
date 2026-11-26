@@ -30,6 +30,9 @@ const LABEL_INFO = {
 	triage: { color: COLORS.triage, description: 'Not looked at yet' },
 	bug: { color: COLORS.bug, description: "Something isn't working" },
 	'lua-error': { color: COLORS.error, description: 'The report lists Lua errors' },
+	'from-chat': { color: COLORS.discord, description: 'Filed with !report or !suggest from a Discord message outside #bugs' },
+	enhancement: { color: 'a2eeef', description: 'New feature or request' },
+	idea: { color: 'a2eeef', description: 'A player\u2019s suggestion' },
 };
 
 // The info for a label the bot may create: known ones, then by prefix.
@@ -121,7 +124,7 @@ function threadUrl(guild, thread, message) {
 // their first line only. Discord's titles stop at 100 characters; GitHub's at
 // 256, the only cut (never inside a character).
 const MAX_TITLE = 256;
-function issueTitle(name) {
+function issueTitle(name, fallback = 'Bug report from Discord') {
 	const words = String(name || '')
 		.replace(/```[\s\S]*$/, '')
 		.replace(/^\s*\*\*[^*\n]{1,60}[:：]\*\*\s*/, '')
@@ -131,7 +134,7 @@ function issueTitle(name) {
 		.replace(/<(https?:\/\/[^\s>]+)>/g, '$1')
 		.replace(/\s+/g, ' ')
 		.trim();
-	const t = Array.from(words || 'Bug report from Discord');
+	const t = Array.from(words || fallback);
 	return t.length > MAX_TITLE ? t.slice(0, MAX_TITLE - 3).join('').trimEnd() + '...' : t.join('');
 }
 
@@ -153,11 +156,26 @@ function labelsFor(report, forumTags = []) {
 		if (d.locale && LOCALES.has(d.locale)) labels.push('locale:' + d.locale);
 		if (d.errors && d.errors.length) labels.push('lua-error');
 	}
+	labels.push(...tagLabels(forumTags));
+	return [...new Set(labels.map((l) => l.slice(0, 50)))];
+}
+
+// The labels a post's forum tags (set by the server's admins) give: each
+// tag's name as a label, in a label's own words.
+function tagLabels(forumTags) {
+	const out = [];
 	for (const t of forumTags) {
 		const name = t.toLowerCase().replace(/[^\p{L}\p{N} _-]/gu, '').trim().replace(/\s+/g, '-');
-		if (name) labels.push(name);
+		if (name) out.push(name);
 	}
-	return [...new Set(labels.map((l) => l.slice(0, 50)))];
+	return out;
+}
+
+// Labels for a whole suggestions-forum post filed with `!suggest`: always
+// discord, triage, enhancement and idea, then the post's forum tags as a
+// #bugs post's are.
+function ideaLabels(forumTags = []) {
+	return [...new Set(['discord', 'triage', 'enhancement', 'idea', ...tagLabels(forumTags)].map((l) => l.slice(0, 50)))];
 }
 
 function summaryTable(d) {
@@ -203,20 +221,24 @@ function settingsSection(s) {
 	return [`<details><summary>Settings: ${inert(settingsSummary(s)).replace(/\s+/g, ' ')}</summary>`, '', fence(lines.join('\n')), '', '</details>'].join('\n');
 }
 
+// A message's files: images embedded, the rest as links: the copy on the
+// media branch, else the Discord message, with why it was not copied.
 function mediaSection(files) {
 	const out = [];
 	for (const f of files) {
 		if (f.url && f.image) out.push(`![${cell(f.name)}](${f.url})`);
-		else out.push(`- [${cell(f.name)}](${f.url || f.discordUrl})` + (f.url ? '' : ' (on Discord)'));
+		else if (f.url) out.push(`- [${cell(f.name)}](${f.url})` + (f.video ? ' (video)' : ''));
+		else out.push(`- [${cell(f.name)}](${f.discordUrl}) (on Discord${f.note ? `: ${f.note}` : ''})`);
 	}
 	return out.join('\n\n');
 }
 
 // The issue body. `post`: { report, reporter, guild, thread, tags, files }.
+// `kind` 'suggestion': a suggestions-forum post's ("Suggested by").
 function issueBody(post) {
-	const { report, reporter, guild, thread, tags = [], files = [] } = post;
+	const { report, reporter, guild, thread, tags = [], files = [], kind = 'report' } = post;
 	const out = [];
-	let head = `**Reported by ${cell(reporter)} on [Discord](${threadUrl(guild, thread)})**`;
+	let head = `**${kind === 'suggestion' ? 'Suggested' : 'Reported'} by ${cell(reporter)} on [Discord](${threadUrl(guild, thread)})**`;
 	if (tags.length) head += ' · ' + tags.map(cell).join(', ');
 	out.push(head, '');
 	out.push(report.description ? quote(report.description) : '_No description._', '');
@@ -258,9 +280,11 @@ function followUpMessage(comment, thread, login = (process.env.BOT_GITHUB_LOGIN 
 	return m && m[1] === thread ? m[2] : null;
 }
 
-// The bot's reply in the thread once the issue exists, and that reply read back.
-function trackedReply(repo, number) {
-	return `Tracked as [${repo}#${number}](<https://github.com/${repo}/issues/${number}>). Replies in this thread, from anyone, are copied to the issue. We'll reply here when it's fixed.`;
+// The bot's reply in the thread once the issue exists, and that reply read
+// back. A suggestions post's says it will hear when the idea moves.
+function trackedReply(repo, number, idea = false) {
+	const link = `[${repo}#${number}](<https://github.com/${repo}/issues/${number}>)`;
+	return `Tracked as ${link}. Replies in this thread, from anyone, are copied to the issue. ` + (idea ? "We'll reply here as this idea moves." : "We'll reply here when it's fixed.");
 }
 
 function readTrackedReply(content, repo) {
@@ -279,6 +303,100 @@ function heldReply(minutes) {
 
 const isHeldReply = (content) => String(content || '').startsWith(HELD_LEAD);
 
+// Filed from chat by the maintainer (`!report`, `!suggest`): labels, the
+// issue body, and the #bugs post the bot starts for the follow-ups.
+
+const MAX_BODY = 60000; // GitHub takes 65536 characters
+
+function chatLabels(kind, report) {
+	const base = kind === 'suggestion' ? ['discord', 'triage', 'enhancement', 'idea'] : labelsFor(report);
+	return [...new Set([...base, 'from-chat'])];
+}
+
+const utc = (ms) => new Date(ms).toISOString().replace('T', ' ').slice(0, 16) + ' UTC';
+
+// A link a player pasted (an embed's), when it is a plain web address.
+function linkLine(link) {
+	if (!/^https?:\/\/[^\s]+$/.test(link.url || '')) return null;
+	const url = link.url.replace(/[()<>]/g, encodeURIComponent);
+	return `- [${cell(link.title || link.url)}](${url})`;
+}
+
+// The issue body. `post`: { kind, reporter, guild, channel, channelName,
+// message (the one replied to), thread (the #bugs post), messages: [{ id,
+// at, report, files, links }] }, the messages oldest first.
+function chatIssueBody(post) {
+	const { kind, reporter, guild, channel, channelName, message, thread, messages } = post;
+	const verb = kind === 'suggestion' ? 'Suggested' : 'Reported';
+	const where = channelName ? `#${cell(channelName)}` : 'chat';
+	const head = [
+		`**${verb} by ${cell(reporter)} on [Discord](${threadUrl(guild, channel, message)})**`,
+		`_Filed from ${where} on Discord; follow-ups go to [its #bugs post](${threadUrl(guild, thread)})._`,
+		'',
+	].join('\n');
+	const first = messages.find((m) => m.report.details);
+	const tail = [];
+	if (first) {
+		tail.push(summaryTable(first.report.details), '');
+		tail.push('<details><summary>Full report</summary>', '', fence(first.report.block), '', '</details>', '');
+	}
+	const blocks = [];
+	let size = head.length + tail.join('\n').length + 300;
+	const included = [];
+	for (const m of messages) {
+		const out = [`[${utc(m.at)}](${threadUrl(guild, channel, m.id)})`];
+		if (m.report.description) out.push(quote(m.report.description));
+		if (m.report.details && m !== first) out.push('', fence(m.report.block));
+		if (m.files.length) out.push('', mediaSection(m.files));
+		const links = (m.links || []).map(linkLine).filter(Boolean);
+		if (links.length) out.push('', links.join('\n'));
+		const block = out.join('\n') + '\n';
+		if (size + block.length > MAX_BODY) break;
+		size += block.length + 1;
+		blocks.push(block);
+		included.push(m.id);
+	}
+	const left = messages.length - included.length;
+	if (left) blocks.push(`_${left} more message${left === 1 ? '' : 's'} not included: too long for an issue._\n`);
+	return [head, blocks.join('\n'), ...tail, marker({ thread, guild, messages: included })].join('\n');
+}
+
+// The first message of the #bugs post the bot starts: who it is from (the
+// player is pinged, and read back from here to be pinged again), where it
+// was said, their words, and `links`: copied media not attached to the
+// post, one per line so Discord previews them. Under Discord's 2000
+// characters: the links first, the words cut to what is left.
+function chatPostStarter({ kind, reporterId, jump, text, links = [] }) {
+	const verb = kind === 'suggestion' ? 'Suggested' : 'Reported';
+	const head = `**${verb} by <@${reporterId}>** in ${jump}`;
+	const foot = '-# Filed from chat by a maintainer. Replies here are copied to the issue.';
+	const shown = [];
+	let room = 1990 - head.length - foot.length - 400;
+	for (const url of links) {
+		if (url.length + 1 > room - 40) break;
+		shown.push(url);
+		room -= url.length + 1;
+	}
+	if (shown.length < links.length) shown.push(`-# ${links.length - shown.length} more on the issue`);
+	const media = shown.join('\n');
+	const most = Math.min(1200, 1990 - head.length - foot.length - media.length - 10);
+	const words = String(text || '').trim();
+	let quoted = words ? words.split('\n').map((l) => `> ${l}`).join('\n') : '';
+	if (quoted.length > most) quoted = quoted.slice(0, most).trimEnd() + '\u2026';
+	const out = [head];
+	if (quoted) out.push(quoted);
+	if (media) out.push(media);
+	out.push(foot);
+	return out.join('\n');
+}
+
+// The player a #bugs post the bot started is for, from its first message, or null.
+function reportedBy(message) {
+	if (!message || !message.author || !message.author.bot) return null;
+	const m = /^\*\*(?:Reported|Suggested) by <@!?([^>\s]+)>\*\*/.exec(message.content || '');
+	return m ? m[1] : null;
+}
+
 module.exports = {
 	FOLLOWUP_MARK,
 	discordToText,
@@ -289,6 +407,7 @@ module.exports = {
 	threadUrl,
 	issueTitle,
 	labelsFor,
+	ideaLabels,
 	labelInfo,
 	issueBody,
 	followUpComment,
@@ -298,5 +417,9 @@ module.exports = {
 	heldReply,
 	isHeldReply,
 	issueMarker,
+	chatLabels,
+	chatIssueBody,
+	chatPostStarter,
+	reportedBy,
 	labelNames,
 };
