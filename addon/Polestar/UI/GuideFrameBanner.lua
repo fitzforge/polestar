@@ -888,7 +888,8 @@ ns.UI.GuideFrame.Part(function(GF)
 			end
 		elseif kind == "fresh" then
 			notices.freshSeen[n.guideId] = true
-			if E and E.OpenTab then E.OpenTab(n.from, true) end
+			-- At the quests the guide follows on from, not at its first step (#4110).
+			if E and E.OpenFreshSource and not E.OpenFreshSource(n.guideId) and E.OpenTab then E.OpenTab(n.from, true) end
 		elseif kind == "outlevel" then
 			-- Finished quests the jump would leave behind: the first click asks.
 			if n.left and not n.asked then

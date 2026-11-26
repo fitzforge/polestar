@@ -12416,6 +12416,42 @@ function Engine.NextGuide(fromId)
 	return id
 end
 
+-- Where guide g's fresh-start note (Engine.FreshFor) and its link
+-- (Engine.OpenFreshSource) get their facts: g's `fresh` header, the guide it
+-- names for this character, `needs` (up to 8 quests of earlier guides) and
+-- those the character still lacks, `left`: neither done, in the log nor
+-- taken on the way (an accept of a feeder step of g's plan). Only a leveling
+-- guide below its top level, with `from` a guide for this character.
+-- -> fresh header, from guide, needs, left | nil
+function Own.freshSource(g)
+	local f = type(g) == "table" and g.fresh
+	if type(f) ~= "table" or type(f.share) ~= "number" or type(f.from) ~= "string" then return nil end
+	if not (g.category == nil or g.category == "Leveling") then return nil end
+	if not player then refreshPlayer() end
+	local lvl = player.level or 1
+	local _, top = Guides.Levels(g, player.faction)
+	if type(top) == "number" and lvl >= top then return nil end
+	local from = Guides.Get(f.from)
+	if not (from and Guides.GuideMatches(from, player)) then return nil end
+	local onWay = NONE
+	if g.base then
+		onWay = {}
+		for _, step in ipairs(g.steps) do
+			if step.feeder then
+				for _, goal in ipairs(step.goals) do
+					if goal.t == "accept" and goal.quest then onWay[goal.quest] = true end
+				end
+			end
+		end
+	end
+	local C = Compat()
+	local needs, left = type(f.needs) == "table" and f.needs or NONE, {}
+	for _, q in ipairs(needs) do
+		if not (questDone(q) or C.IsOnQuest(q) or onWay[q]) then left[#left + 1] = q end
+	end
+	return f, from, needs, left
+end
+
 -- Fresh start (#1562): a character who opens a leveling guide without the
 -- guides before it misses the quest XP that follows on from them (the
 -- quests Own.feederPlan leaves out, and the hand-ins of quests they take).
@@ -12433,32 +12469,9 @@ end
 -- (whole percent) } | nil. Guides.Suggestions ranks such a guide lower.
 function Engine.FreshFor(g)
 	local FRESH_NOTE = 30
-	local f = type(g) == "table" and g.fresh
-	if type(f) ~= "table" or type(f.share) ~= "number" or type(f.from) ~= "string" then return nil end
-	if not (g.category == nil or g.category == "Leveling") then return nil end
-	if not player then refreshPlayer() end
-	local lvl = player.level or 1
-	local _, top = Guides.Levels(g, player.faction)
-	if type(top) == "number" and lvl >= top then return nil end
-	local from = Guides.Get(f.from)
-	if not (from and Guides.GuideMatches(from, player)) then return nil end
-	-- Taken on the way: the accepts of the feeder steps the guide's plan put in.
-	local onWay = NONE
-	if g.base then
-		onWay = {}
-		for _, step in ipairs(g.steps) do
-			if step.feeder then
-				for _, goal in ipairs(step.goals) do
-					if goal.t == "accept" and goal.quest then onWay[goal.quest] = true end
-				end
-			end
-		end
-	end
-	local C = Compat()
-	local needs, left = type(f.needs) == "table" and f.needs or NONE, {}
-	for _, q in ipairs(needs) do
-		if not (questDone(q) or C.IsOnQuest(q) or onWay[q]) then left[#left + 1] = q end
-	end
+	local f, from, needs, left = Own.freshSource(g)
+	if not f then return nil end
+	local C, lvl = Compat(), player.level or 1
 	local function shareOf(n) return #needs > 0 and f.share * n / #needs or f.share end
 	if math.floor(shareOf(#left) + 0.5) < FRESH_NOTE then return nil end
 	-- Only now the levels: they read `from`'s steps (loaded for this, given back after).
@@ -12484,6 +12497,64 @@ function Engine.FreshStart()
 	if not (guide and computed and logReady) then return nil end
 	if computed > math.max(3, #guide.steps / 3) then return nil end
 	return Engine.FreshFor(Guides.Get(guide.id) or guide)
+end
+
+-- The first step of the loaded guide where the character can start on the
+-- quests of `left` (#4110): the first step with an accept (or a direct
+-- hand-in) of one of them, or of a quest one of them needs down its
+-- prerequisites (Own.needsFrom), that the character can take now (not done,
+-- in the log, skipped, or waiting on a prerequisite), or a hand-in of one
+-- they hold in the log: a hand-in of a quest they do not hold is no start.
+-- nil when no step is.
+function Own.chainStart(left)
+	local open = {}
+	for i, q in ipairs(left) do open[i] = { quest = q } end
+	local want = Own.needsFrom(Own.chainOf(guide).pres, open)
+	for _, goal in ipairs(open) do want[goal.quest] = true end
+	local C = Compat()
+	local sk = skippedFor(guide.id)
+	for s, step in ipairs(guide.steps) do
+		if stepApplies(step) and not (sk and sk[s]) then
+			for _, goal in ipairs(step.goals) do
+				local q = goal.quest
+				if q and want[q] and not goal.optional and goalApplies(goal) and not questDone(q) and not Own.questSkipped(q) then
+					local onQuest = C.IsOnQuest(q)
+					if goal.t == "turnin" and not goal.direct then
+						if onQuest then return s end
+					elseif (goal.t == "accept" or goal.direct) and not onQuest and not missingPre(goal) then
+						return s
+					end
+				end
+			end
+		end
+	end
+	return nil
+end
+
+-- The link of the fresh-start note (#4110): opens the guide guide `id`
+-- follows on from in a new tab, at the first step that starts on the quests
+-- the character lacks of it (Own.chainStart), not at its first step. The
+-- steps before it are skipped as a `skipto` jump skips them ("jump"), each
+-- to be brought back with Unskip. A guide already in a tab is only shown, as
+-- the player left it; nothing to start on: the guide's own start. Nil, and
+-- nothing opened, when the guide follows on from no guide for this character
+-- or the character lacks none of the quests it needs.
+-- -> the tab's index | nil
+function Engine.OpenFreshSource(id)
+	local f, from, _, left = Own.freshSource(id and Guides.Get(id))
+	if not f or #left == 0 then return nil end
+	local opened = tabIndexOf(from.id) == nil
+	local index = Engine.OpenTab(from.id, true)
+	if not (index and opened and guide and guide.id == from.id) then return index end
+	local start = Own.chainStart(left)
+	if start and start > 1 then
+		local sk = skippedFor(guide.id, true)
+		for s = 1, start - 1 do
+			if not sk[s] then sk[s] = "jump" end
+		end
+		evaluate()
+	end
+	return index
 end
 
 -- The choice that offers guide `id` to this character (to change route), or nil.
