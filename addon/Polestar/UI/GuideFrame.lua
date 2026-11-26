@@ -324,6 +324,9 @@ GF.Part(function(GF)
 
 	GF.LOOK = {
 		tabs = true, tabStyle = "underline", tabHeight = 1, navHeight = 1, stepCount = true, guideTitle = true, skipButton = true, reportButton = true, allStepsButton = false,
+		-- The header's other actions: on, a button in the
+		-- header; off, a row in the guide menu. nav.nearbyButton is Nearby's.
+		lookupButton = true, settingsButton = false, quickSettingsButton = false, handInButton = false, chooseGuideButton = false,
 		barTextSize = 1, stepNumberSize = 1, titleSize = 1, goalSize = 1, detailSize = 1, noteSize = 1, upSize = 1,
 		outline = "outline", padding = 0, rowSpacing = 0, lineSpacing = 0, glyphSize = 1, checkSize = 1,
 		targetBar = true, targetBarColor = false, targetBarWidth = 2,
@@ -2224,12 +2227,19 @@ GF.Part(function(GF)
 		W.Color(b.Label, "textDim", a)
 	end
 
-	-- Skip sits left of the Nearby services button, or of the bug when that
-	-- button is off (nav.nearbyButton).
-	local function anchorSkip()
+	-- The header's buttons (nav.psButtons) from the menu leftwards, each shown
+	-- one left of the one before, and Skip left of the last.
+	function GF.AnchorHeader()
+		local prev = nav.Menu
+		for _, b in ipairs(nav.psButtons) do
+			b:ClearAllPoints()
+			b:SetPoint("RIGHT", prev, "LEFT", 0, 0)
+			if b:IsShown() then prev = b end
+		end
 		nav.Skip:ClearAllPoints()
-		nav.Skip:SetPoint("RIGHT", (nav.AllSteps:IsShown() and nav.AllSteps) or (nav.Nearby:IsShown() and nav.Nearby) or (nav.Report:IsShown() and nav.Report) or nav.Menu, "LEFT", -2, 0)
+		nav.Skip:SetPoint("RIGHT", prev, "LEFT", -2, 0)
 	end
+	local function anchorSkip() GF.AnchorHeader() end
 
 	local function navigatorFor(guide, index)
 		local E = Engine()
@@ -2253,13 +2263,9 @@ GF.Part(function(GF)
 		W.SetIconState(nav.Next, false, guide ~= nil and index ~= nil)
 		GF.PaintSkip(guide ~= nil, guide ~= nil and index ~= nil)
 		nav.Report:SetShown(guide ~= nil and GF.On("reportButton"))
-		nav.Nearby:ClearAllPoints()
-		nav.Nearby:SetPoint("RIGHT", nav.Report:IsShown() and nav.Report or nav.Lookup, "LEFT", 0, 0)
 		local SL = UI.StepList
 		nav.AllSteps:SetShown(guide ~= nil and SL ~= nil and GF.On("allStepsButton"))
 		W.SetIconState(nav.AllSteps, SL and SL.On() or false, true)
-		nav.AllSteps:ClearAllPoints()
-		nav.AllSteps:SetPoint("RIGHT", nav.Nearby:IsShown() and nav.Nearby or nav.Report:IsShown() and nav.Report or nav.Lookup, "LEFT", 0, 0)
 		anchorSkip()
 		-- No guide: no steps to walk; the navigator names the addon instead.
 		nav.Steps:SetShown(guide ~= nil and GF.On("stepCount"))
@@ -3483,6 +3489,22 @@ GF.Part(function(GF)
 		nav.AllSteps.psTipLines = { L["Every step of the guide in one list. Click one to look at it."] }
 		nav.AllSteps:SetPoint("RIGHT", nav.Nearby, "LEFT", 0, 0)
 		nav.AllSteps:Hide()
+		-- Guide menu actions the player may move up to the header
+		-- (guideWindow.settingsButton and the rest); off, they stay in the menu.
+		nav.Settings = W.IconButton(nav, "gear", 24, L["Settings"], function() UI.ShowOptions() end)
+		nav.QuickSettings = W.IconButton(nav, "sliders", 24, L["Quick settings"], function(self)
+			if UI.QuickSettings then UI.QuickSettings.Show(self) end
+		end)
+		nav.HandIn = W.IconButton(nav, "icon-turnin", 24, L["Hand in finished quests"], function()
+			if ns.Handins and UI.GuideCarried then UI.GuideCarried() end
+		end)
+		nav.HandIn.psTipLines = { L["Points the arrow at every quest ready to hand in."] }
+		nav.ChooseGuide = W.IconButton(nav, "guides", 24, L["Choose guide"], function() UI.ShowPicker() end)
+		for _, b in ipairs({ nav.Settings, nav.QuickSettings, nav.HandIn, nav.ChooseGuide }) do b:Hide() end
+		-- The header's buttons right of Skip, from the menu leftwards: each
+		-- shown one sits left of the one before (GF.AnchorHeader). A layout
+		-- that sets the row out itself walks the same list.
+		nav.psButtons = { nav.Lookup, nav.Report, nav.Nearby, nav.AllSteps, nav.Settings, nav.QuickSettings, nav.HandIn, nav.ChooseGuide }
 		-- Skip: the 11px skip glyph and a Small label, a ghost button left of the
 		-- bug.
 		local skip = CreateFrame("Button", nil, nav)
@@ -3540,11 +3562,13 @@ GF.Part(function(GF)
 			GF.ScrubDone()
 			UI.StepList.Toggle()
 		end)
-		for _, b in ipairs({ nav.Menu, nav.Lookup, nav.Report, nav.Nearby, nav.AllSteps, nav.Next, nav.Prev, nav.Skip }) do hoverable(b) end
+		for _, b in ipairs({ nav.Menu, nav.Next, nav.Prev, nav.Skip }) do hoverable(b) end
+		for _, b in ipairs(nav.psButtons) do hoverable(b) end
 		-- Transparent chrome: the step number fades with its chevrons (nav.Steps
 		-- holds all three) and the title with them; a lone "3 / 8" over the world
 		-- would read as a stray number. Progress stays readable in the foot.
-		for _, c in ipairs({ nav.Menu, nav.Lookup, nav.Report, nav.Nearby, nav.AllSteps, nav.Skip, nav.Steps, nav.Title }) do chrome[#chrome + 1] = c end
+		for _, c in ipairs({ nav.Menu, nav.Skip, nav.Steps, nav.Title }) do chrome[#chrome + 1] = c end
+		for _, c in ipairs(nav.psButtons) do chrome[#chrome + 1] = c end
 
 		-- Body
 		body = CreateFrame("Frame", nil, F)

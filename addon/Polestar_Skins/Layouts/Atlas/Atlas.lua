@@ -286,14 +286,20 @@ local function pixel(f) return Theme.Pixel and Theme.Pixel(f) or 1 end
 -- The header: no backdrop and no rule; the guide's emblem and title on the
 -- left, then the step count with its arrows, Skip as its glyph alone, and
 -- the menu on the right. The player's own switches (guideWindow.skipButton,
--- .reportButton, .rules, nav.nearbyButton) say what shows; Atlas only sets
--- it out. Lookup is in the menu.
+-- .reportButton, .lookupButton, .rules, nav.nearbyButton and the rest) say
+-- what shows; Atlas only sets it out. Lookup starts in the menu (spec.defaults).
 ---------------------------------------------------------------------------
 
 on("guideTitle", function(nav, parts)
 	if parts.band then parts.band:Hide() end
 	if parts.bar then parts.bar:Hide() end
 end)
+
+-- The header's buttons between the menu and Skip, from the menu leftwards:
+-- Polestar's list (nav.psButtons), else its older fixed set.
+local function buttons(nav)
+	return nav.psButtons or { nav.Lookup, nav.Report, nav.Nearby, nav.AllSteps }
+end
 
 local function stepsMode(nav, own, mode)
 	local count = nav.Steps.Count
@@ -324,18 +330,20 @@ local function navBack(nav)
 	Theme.Font(nav.Steps.Count, "number")
 	nav.Steps:ClearAllPoints()
 	nav.Steps:SetPoint("LEFT", nav, "LEFT", 8, 0)
-	-- Polestar's own order right of the count: Skip, Nearby, Report, Lookup.
-	nav.Report:ClearAllPoints()
-	nav.Report:SetPoint("RIGHT", nav.Lookup, "LEFT", 0, 0)
-	nav.Nearby:ClearAllPoints()
-	nav.Nearby:SetPoint("RIGHT", nav.Report, "LEFT", 0, 0)
-	nav.Skip:ClearAllPoints()
-	nav.Skip:SetPoint("RIGHT", (nav.Nearby:IsShown() and nav.Nearby) or (nav.Report:IsShown() and nav.Report) or nav.Menu, "LEFT", -2, 0)
+	-- Polestar's own order right of the count (nav.psButtons): Skip, then the
+	-- buttons shown, the menu last.
 	if nav.Skip.Label then
 		nav.Skip.Label:Show()
 		nav.Skip:SetWidth(math.floor(7 + 11 + 5 + nav.Skip.Label:GetStringWidth() + 8 + 0.5))
 	end
-	nav.Lookup:Show()
+	local prev = nav.Menu
+	for _, b in ipairs(buttons(nav)) do
+		b:ClearAllPoints()
+		b:SetPoint("RIGHT", prev, "LEFT", 0, 0)
+		if b:IsShown() then prev = b end
+	end
+	nav.Skip:ClearAllPoints()
+	nav.Skip:SetPoint("RIGHT", prev, "LEFT", -2, 0)
 	Theme.Font(nav.Title, "small")
 end
 onLeave(function(parts) navBack(parts.nav) end)
@@ -387,7 +395,10 @@ local function fitRow(nav, own, prev)
 	if not steps:IsShown() or navW <= 0 then return end
 	local _, _, _, menuX = nav.Menu:GetPoint(1)
 	local right = -(tonumber(menuX) or -8) + 2
-	for _, b in ipairs({ nav.Menu, nav.Report, nav.Nearby, nav.AllSteps, nav.Skip }) do
+	for _, b in ipairs({ nav.Menu, nav.Skip }) do
+		if b:IsShown() then right = right + b:GetWidth() end
+	end
+	for _, b in ipairs(buttons(nav)) do
 		if b:IsShown() then right = right + b:GetWidth() end
 	end
 	local room = navW - (10 + 16 + 8) - right - 8
@@ -427,7 +438,10 @@ end
 
 local function navRow(nav)
 	local prev = nav.Menu
-	for _, b in ipairs({ nav.Report, nav.Nearby, nav.AllSteps, nav.Skip }) do
+	local row = {}
+	for _, b in ipairs(buttons(nav)) do row[#row + 1] = b end
+	row[#row + 1] = nav.Skip
+	for _, b in ipairs(row) do
 		if b == nav.Skip then
 			if b.Label then b.Label:Hide() end
 			b:SetWidth(SKIP_W)
@@ -464,7 +478,8 @@ local function header(parts)
 	own.emblem:ClearAllPoints()
 	own.emblem:SetPoint("LEFT", nav, "LEFT", 10, 0)
 	own.emblem:Show()
-	nav.Lookup:Hide()
+	-- A Polestar without the Lookup switch: Lookup is in the menu.
+	if not nav.psButtons then nav.Lookup:Hide() end
 	-- The step count at the title's size, beside it, at the player's size
 	-- for it (guideWindow.stepNumberSize, Atlas's default 75%); at least 40
 	-- wide at that size, so the arrows hold still as the number changes.
@@ -3180,6 +3195,8 @@ local function spec(hooks)
 			["guideWindow.tabs"] = true,
 			["guideWindow.tabStyle"] = "strip",
 			["guideWindow.reportButton"] = false,
+			-- Lookup in the guide menu: the header keeps room for the title.
+			["guideWindow.lookupButton"] = false,
 			-- Up next starts open on the rail; folded, the rail shows its heading.
 			["ui.upcomingOpen"] = true,
 			["guideWindow.allStepsButton"] = true,

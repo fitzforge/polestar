@@ -26,6 +26,7 @@ local floor, max, min, ipairs = math.floor, math.max, math.min, ipairs
 
 local PAGE = L["Guide window"]
 local NEW = "0.3.8"
+local HEADER_NEW = "0.4.4" -- the header's buttons, each in the header or the guide menu
 
 local function percent(v) return floor(v * 100 + 0.5) .. "%" end
 local function px(v) return string.format(L["%d px"], floor(v + 0.5)) end
@@ -65,7 +66,8 @@ local PREVIEW_H = 250 -- the drawing's height until its band lays it out
 -- part as the window names it (GF.Placed).
 local PART_OF = {}
 for part, keys in pairs({
-	bars = { "tabs", "tabStyle", "tabHeight", "navHeight", "barTextSize", "stepCount", "guideTitle", "skipButton", "reportButton", "allStepsButton" },
+	bars = { "tabs", "tabStyle", "tabHeight", "navHeight", "barTextSize", "stepCount", "guideTitle", "skipButton", "reportButton", "allStepsButton",
+		"lookupButton", "settingsButton", "quickSettingsButton", "handInButton", "chooseGuideButton" },
 	person = { "titleSize", "glyphSize", "lastSteps" },
 	goals = { "goalSize", "detailSize", "rowSpacing", "lineSpacing", "checkSize", "targetBar", "targetBarWidth", "targetBarColor" },
 	tip = { "noteSize" },
@@ -344,6 +346,9 @@ function UI.GuideWindowScene(band)
 			["guideWindow.tabHeight"] = { P.strip }, ["guideWindow.navHeight"] = { nav },
 			["guideWindow.barTextSize"] = bars, ["guideWindow.stepCount"] = { nav.Steps }, ["guideWindow.guideTitle"] = { nav.Title },
 			["guideWindow.skipButton"] = { nav.Skip }, ["guideWindow.reportButton"] = { nav.Report }, ["guideWindow.allStepsButton"] = { nav.AllSteps },
+			["guideWindow.lookupButton"] = { nav.Lookup }, ["guideWindow.settingsButton"] = { nav.Settings },
+			["guideWindow.quickSettingsButton"] = { nav.QuickSettings }, ["guideWindow.handInButton"] = { nav.HandIn },
+			["guideWindow.chooseGuideButton"] = { nav.ChooseGuide }, ["nav.nearbyButton"] = { nav.Nearby },
 			["guideWindow.titleSize"] = { person.Name }, ["guideWindow.lastSteps"] = { person, P.last }, ["guideWindow.goalSize"] = texts, ["guideWindow.detailSize"] = details,
 			["guideWindow.glyphSize"] = icons, ["guideWindow.rowSpacing"] = rows, ["guideWindow.lineSpacing"] = spacing,
 			["guideWindow.checkSize"] = checks, ["guideWindow.targetBar"] = marks, ["guideWindow.targetBarWidth"] = marks,
@@ -673,8 +678,22 @@ local SPECS = {
 		{ kind = "toggle", key = "guideWindow.reportButton", label = L["Report"], new = NEW,
 			help = L["The bug button that reports a problem with the step. The guide menu still has it."], search = "bug, report, problem, button, report button" },
 		{ kind = "toggle", key = "guideWindow.allStepsButton", label = L["All steps"], new = NEW,
-			help = L["A button in the step bar that opens every step of the guide in one list. The step number and the guide menu open it too."],
+			help = L["A button in the step bar that opens every step of the guide in one list. Off, the guide menu has it; the step number opens it too."],
 			search = "all steps, browse, step list, list, every step, button" },
+		-- The header's other actions: on, a button in the header; off, a row
+		-- in the guide menu.
+		{ kind = "toggle", key = "guideWindow.lookupButton", label = L["Lookup"], new = HEADER_NEW,
+			help = L["The search button in the step bar. Off, the guide menu has it."], search = "lookup, search, button, header, menu" },
+		W.Ref("toggle", "nav.nearbyButton", { label = L["Nearby services"], new = HEADER_NEW,
+			help = L["The Nearby services button in the step bar. Off, the guide menu has it."] }),
+		{ kind = "toggle", key = "guideWindow.settingsButton", label = L["Settings"], new = HEADER_NEW,
+			help = L["A Settings button in the step bar. Off, the guide menu has it."], search = "settings, options, gear, button, header, menu" },
+		{ kind = "toggle", key = "guideWindow.quickSettingsButton", label = L["Quick settings"], new = HEADER_NEW,
+			help = L["A Quick settings button in the step bar. Off, the guide menu has it."], search = "quick settings, sliders, button, header, menu" },
+		{ kind = "toggle", key = "guideWindow.handInButton", label = L["Hand in finished quests"], new = HEADER_NEW,
+			help = L["A Hand in button in the step bar. Off, the guide menu has it."], search = "hand in, turn in, finished quests, button, header, menu" },
+		{ kind = "toggle", key = "guideWindow.chooseGuideButton", label = L["Choose guide"], new = HEADER_NEW,
+			help = L["A Choose guide button in the step bar. Off, the guide menu has it."], search = "choose guide, guide picker, button, header, menu" },
 	} },
 	-- The step card, split along its parent rows: its text, its spacing, the target bar.
 	{ page = PAGE, tab = L["Parts"], section = L["Step text"], controls = {
