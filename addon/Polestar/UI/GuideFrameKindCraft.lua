@@ -70,6 +70,8 @@ ns.UI.GuideFrame.Part(function(GF)
 	local function tile(parent, size)
 		local b = CreateFrame("Button", nil, parent)
 		b:SetSize(size, size)
+		-- Not a gamepad stop: its row or card is.
+		b.psPadSkip = true
 		b.Edge = b:CreateTexture(nil, "BORDER")
 		b.Edge:SetTexture(Theme.Media("white"))
 		b.Edge:SetAllPoints(b)
@@ -102,6 +104,15 @@ ns.UI.GuideFrame.Part(function(GF)
 			b.Edge:SetVertexColor(t.r, t.g, t.b, 0.9)
 		else
 			W.Color(b.Edge, "border")
+		end
+	end
+
+	-- In the transparent window the cards and the split's well draw no ground, as the window draws none.
+	local function bareIn(frame)
+		local want = GF.Transparent() and true or nil
+		if frame.psBare ~= want then
+			frame.psBare = want
+			Theme.Repaint(frame)
 		end
 	end
 
@@ -226,8 +237,8 @@ ns.UI.GuideFrame.Part(function(GF)
 				text = ln[2] and format(L["%s to %d, then %s to %d"], a, ln[1].to, itemHex(ln[2].item, ln[2].name), ln[2].to)
 					or format(L["%s to %d"], a, ln[1].to)
 			elseif m.kind == "rep" and m.known then
-				if m.done then
-					text = L["Exalted: the end of this standing"]
+				if m.done and m.rank then
+					text = format(L["%s reached"], m.rank)
 				elseif ln.reached and ln.target then
 					text = format(L["%s reached"], ln.target)
 				elseif ln.next and ln.turnins then
@@ -382,7 +393,10 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- Open <Profession>: a secure spell button (the window's only one), made and shown or hidden out of combat.
 	local function openButton(f)
 		if f.psOpen or (InCombatLockdown and InCombatLockdown()) then return f.psOpen end
-		local b = CreateFrame("Button", nil, f, "SecureActionButtonTemplate")
+		local name = GF.live and "PolestarOpenProfession" or nil
+		local b = CreateFrame("Button", name, f, "SecureActionButtonTemplate")
+		-- With the gamepad, A clicks it through an override binding (UI/GamepadGuide.lua), never from code.
+		b.psPadRedirect = name
 		b:SetHeight(24)
 		b:RegisterForClicks("AnyUp", "AnyDown")
 		b:SetAttribute("type", "spell")
@@ -452,6 +466,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		end,
 		paint = function(f, m, mode)
 			f.psModel = m
+			bareIn(f.Card)
 			setTile(f.Tile, m.item, "craft")
 			f.Name:SetText(m.item and itemHex(m.item, m.name) or m.name)
 			if m.colour then colourChip(f.Chip, m.colour) else f.Chip:Hide() end
@@ -459,7 +474,13 @@ ns.UI.GuideFrame.Part(function(GF)
 			for _, r in ipairs(m.reagents or {}) do parts[#parts + 1] = format(L["%d %s"], r.count, itemHex(r.item, r.name)) end
 			f.Uses:SetText(table.concat(parts, " + "))
 			local exp = m.expected
-			f.Count:SetText(exp and format(L["%s of about %d made"], hexed("text", m.made), exp) or format(L["%d made"], m.made))
+			-- Under 300 wide the count's short form: numbers never cut.
+			local short = (f:GetWidth() or 340) > 1 and (f:GetWidth() or 340) < 300
+			if exp and short then
+				f.Count:SetText(format(L["%d / ~%d made"], m.made, exp))
+			else
+				f.Count:SetText(exp and format(L["%s of about %d made"], hexed("text", m.made), exp) or format(L["%d made"], m.made))
+			end
 			if m.colour == "grey" then
 				f.MoveOn:SetText(L["Grey now: move on"])
 				W.Color(f.MoveOn, "warning")
@@ -663,7 +684,9 @@ ns.UI.GuideFrame.Part(function(GF)
 
 	-- A split column: glyph, title, the big number, two small lines, a button.
 	local function column(parent, verb)
-		local c = CreateFrame("Button", nil, parent)
+		-- A frame the mouse clicks (OnMouseUp), so the gamepad stops on its button, not on it.
+		local c = CreateFrame("Frame", nil, parent)
+		c:EnableMouse(true)
 		c.Lit = c:CreateTexture(nil, "BACKGROUND", nil, 2)
 		c.Lit:SetTexture(Theme.Media("white"))
 		c.Lit:SetAllPoints(c)
@@ -678,6 +701,11 @@ ns.UI.GuideFrame.Part(function(GF)
 		c.Big = W.Text(c, "heading", "text")
 		c.Small1 = W.Text(c, "small", "textMuted")
 		c.Small2 = W.Text(c, "small", "textDim")
+		-- Names and places wrap at a narrow column; a word never runs off it.
+		for _, fs in ipairs({ c.Big, c.Small1, c.Small2 }) do
+			fs:SetWordWrap(true)
+			fs:SetJustifyV("TOP")
+		end
 		c.Button = W.Button(c, "", nil, { height = 24 })
 		return c
 	end
@@ -685,7 +713,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		c.psLit = lit
 		local r, g, b, a = Theme.Wash("selected")
 		c.Lit:SetVertexColor(r, g, b, (a or 0.08) * (lit and 1 or 0) + (lit and 0.04 or 0))
-		c.Lit:SetShown(lit)
+		c.Lit:SetShown(lit and not GF.Transparent())
 		c.Top:SetShown(lit)
 		W.Color(c.Glyph, lit and "accent" or "textDim")
 		c.Button.psPrimary = lit or nil
@@ -750,7 +778,6 @@ ns.UI.GuideFrame.Part(function(GF)
 			B.Big:SetText(L["No price yet"])
 			W.Color(B.Big, "textDim")
 			B.Small1:SetText(L["Search it once at the Auction House to see the cost."])
-			B.Small1:SetWordWrap(true)
 			B.Small2:SetText("")
 			B.Button:Show()
 		end
@@ -776,10 +803,13 @@ ns.UI.GuideFrame.Part(function(GF)
 				W.Color(Fm.Big, "textDim")
 			end
 			Fm.Small1:SetText(farm.npc and hexed("npc", farm.npc) or "")
-			Fm.Small1:SetWordWrap(false)
 			local where = farm.map and UI.MapName(farm.map)
-			local lv = farm.lvl and format(L["lvl %s"], tostring(farm.lvl)) or nil
-			Fm.Small2:SetText((where and hexed("place", where) or "") .. (where and lv and DOT or "") .. (lv or ""))
+			local lvl = farm.lvl
+			if type(lvl) == "table" then lvl = UI.LevelRange(lvl.min or lvl[1], lvl.max or lvl[2]) end
+			-- "lvl 19–23" never breaks inside.
+			local lv = lvl and (format(L["lvl %s"], tostring(lvl)):gsub(" ", "\194\160")) or nil
+			-- The level first: a long zone name wraps at its own words.
+			Fm.Small2:SetText((lv or "") .. (where and lv and DOT or "") .. (where and hexed("place", where) or ""))
 			Fm.Button:SetShown(farm.step ~= nil)
 			W.SetButtonText(Fm.Button, L["Guide me"])
 		end
@@ -826,6 +856,23 @@ ns.UI.GuideFrame.Part(function(GF)
 			end)
 			row.Seg[k] = b
 		end
+		-- The gamepad: A opens the row's split, X flips its way (UI/GamepadGuide.lua).
+		row.psPadLabel = function(self)
+			local r = self.psRow
+			return r and r.split and r.toGet > 0 and not GF.Compact() and L["Show Buy and Farm"] or nil
+		end
+		row.psPadFlipLabel = function(self)
+			local r = self.psRow
+			if not (r and r.choosable and r.toGet > 0) then return nil end
+			return r.way == "buy" and L["Farm instead"] or L["Buy instead"]
+		end
+		row.psPadFlip = function(self)
+			local r = self.psRow
+			if not (r and r.choosable and r.toGet > 0) then return false end
+			focusOf[guideId() or ""] = r.item
+			setWay(r.item, r.way == "buy" and "gather" or "buy")
+			return true
+		end
 		row:SetScript("OnEnter", function(self) self.Hover:Show() end)
 		row:SetScript("OnLeave", function(self) self.Hover:Hide() end)
 		row:SetScript("OnClick", function(self, button)
@@ -857,7 +904,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		if (p.bags or 0) > 0 then bits[#bits + 1] = format(L["bags %d"], p.bags) end
 		if (p.bank or 0) > 0 then bits[#bits + 1] = format(L["bank %d"], p.bank) end
 		if (p.mail or 0) + (p.coming or 0) > 0 then bits[#bits + 1] = format(L["mail %d"], p.mail + p.coming) end
-		if r.madeCount and r.madeCount > 0 then bits[#bits + 1] = format(L["%d %s"], r.madeCount, C().GetItemName and C().GetItemName(r.madeItem) or "") end
+		if r.madeCount and r.madeCount > 0 then bits[#bits + 1] = format(L["%d %s"], r.madeCount, r.madeName or "") end
 		if #bits == 0 then bits[1] = L["none yet"] end
 		row.Src:SetText(table.concat(bits, DOT))
 		if mode == "compact" then
@@ -994,8 +1041,8 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.Farm = column(f.Well, "collect")
 			f.ColRule = W.Divider(f.Well, true)
 			f.SplitRule = W.Divider(f.Well)
-			f.Buy:SetScript("OnClick", function() if f.psSplitRow and f.psSplitRow.split.buy then setWay(f.psSplitRow.item, "buy") end end)
-			f.Farm:SetScript("OnClick", function() if f.psSplitRow then setWay(f.psSplitRow.item, "gather") end end)
+			f.Buy:SetScript("OnMouseUp", function() if f.psSplitRow and f.psSplitRow.split.buy then setWay(f.psSplitRow.item, "buy") end end)
+			f.Farm:SetScript("OnMouseUp", function() if f.psSplitRow then setWay(f.psSplitRow.item, "gather") end end)
 			f.Buy.Button:SetScript("OnClick", function() addToBuyList(f.psSplitRow) end)
 			f.Farm.Button:SetScript("OnClick", function() if f.psSplitRow then guideMeFarm(f.psSplitRow) end end)
 			f.Farm:SetScript("OnEnter", function(self)
@@ -1009,7 +1056,7 @@ ns.UI.GuideFrame.Part(function(GF)
 					local zone = sc.map and UI.MapName(sc.map)
 					lines[#lines + 1] = zone and format(L["or %s (%s)"], sc.npcName, zone) or format(L["or %s"], sc.npcName)
 				end
-				lines[#lines + 1] = L["The arrow picks the spot nearest your level where the mobs drop it most often."]
+				lines[#lines + 1] = L["The arrow takes you to the best farm for your level."]
 				W.Tip(self, format(L["Farm %d"], r.toGet), lines)
 			end)
 			f.Farm:SetScript("OnLeave", function(self) W.TipHide(self) end)
@@ -1040,7 +1087,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			end
 			f.ModeDrop.Label:SetText(wayLabel(m.way))
 			f.ModeDrop:SetWidth(floor(f.ModeDrop.Label:GetStringWidth() + 30 + 0.5))
-			local splitOn = mode ~= "compact" and GF.Shows("split", true)
+			local splitOn = GF.Shows("split", mode ~= "compact")
 			local fr, fi = focusItem(m)
 			f.psSplitRow = splitOn and fr or nil
 			f.psSplitAt = splitOn and fi or nil
@@ -1055,6 +1102,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			for i = n + 1, #f.Rows do f.Rows[i]:Hide() end
 			f.psN = n
 			f.Well:SetShown(f.psSplitRow ~= nil)
+			bareIn(f.Well)
 			if f.psSplitRow then paintSplit(f, f.psSplitRow, f:GetWidth() > 1 and f:GetWidth() or 340) end
 		end,
 		layout = function(f, m, width, mode)
@@ -1210,6 +1258,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		end,
 		paint = function(f, m)
 			f.psModel = m
+			bareIn(f.Card)
 			f.Name:SetText(m.title)
 			if m.repeatable then W.SetChip(f.Chip, L["Repeatable"]) else f.Chip:Hide() end
 			local parts = {}
@@ -1359,5 +1408,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		ns.On("MATERIALS_CHANGED", again)
 		ns.On("MATERIALS_PRICES", again)
 		ns.On("KIND_CRAFT_MADE", again)
+		-- Open <Profession> (secure) shows or hides only out of combat: once the fight ends.
+		ns.RegisterEvent("PLAYER_REGEN_ENABLED", function() if GF.RegionShown("stretch") then again() end end)
 	end
 end)

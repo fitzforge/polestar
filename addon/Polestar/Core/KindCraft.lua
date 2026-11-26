@@ -205,7 +205,7 @@ function KC.StretchNeeds(st, rank)
 		r.need = r.need + need
 		if parts then
 			r.parts.made = r.parts.made + parts.made
-			r.madeItem, r.madeCount = parts.item, (r.madeCount or 0) + parts.count
+			r.madeItem, r.madeName, r.madeCount = parts.item, parts.name, (r.madeCount or 0) + parts.count
 		end
 	end
 	for _, rg in ipairs(goal.reagents or {}) do
@@ -217,7 +217,7 @@ function KC.StretchNeeds(st, rank)
 			local use = min(held, need)
 			for _, raw in ipairs(mk.reagents) do
 				local k = raw.count or 1
-				add(raw.item, itemName(raw.item, raw.itemName), need * k, nil, { made = use * k, item = rg.item, count = use })
+				add(raw.item, itemName(raw.item, raw.itemName), need * k, nil, { made = use * k, item = rg.item, name = itemName(rg.item, rg.itemName), count = use })
 			end
 		else
 			add(rg.item, itemName(rg.item, rg.itemName), need)
@@ -341,7 +341,7 @@ local function supplyRows(G, needs)
 	for _, n in ipairs(needs) do
 		local way, choosable, why, gg = wayOf(G, n.item, player)
 		local row = { item = n.item, name = n.name, quality = quality(n.item), have = n.have, need = n.need, parts = n.parts,
-			madeItem = n.madeItem, madeCount = n.madeCount, way = way, choosable = choosable, reason = why }
+			madeItem = n.madeItem, madeName = n.madeName, madeCount = n.madeCount, way = way, choosable = choosable, reason = why }
 		-- Cloth or meat the character still loots on the way (its mobs' levels not passed yet) counts too.
 		local w = gg and type(gg.gather) == "table" and gg.gather
 		row.routeCloth = w and not (w.skill or w.skillLine) and w.max and player and (player.level or 0) <= w.max and way == "buy" or nil

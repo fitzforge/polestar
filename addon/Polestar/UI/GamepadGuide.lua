@@ -93,16 +93,31 @@ local spec = {
 	initial = firstOpen,
 	onFocus = function(w)
 		if tipped and tipped ~= w then leave(tipped) end
-		G.Redirect("PAD1", itemRow(w) and "PolestarQuestItemButton" or nil)
+		-- A secure button of the window's own (a profession's Open <Profession>) takes A as the item button does.
+		G.Redirect("PAD1", (itemRow(w) and "PolestarQuestItemButton") or rawget(w, "psPadRedirect") or nil)
 	end,
 	actionLabel = function(w)
 		if itemRow(w) then return L["Use the item"] end
+		-- A guide kind's region widget names its own (UI/GuideFrameKindCraft.lua).
+		local own = rawget(w, "psPadLabel")
+		if type(own) == "function" then own = own(w) end
+		if own then return own end
 		local g = w.psGoal
 		if g and g.x and g.map then return L["Point the arrow"] end
 		return nil
 	end,
-	xLabel = function(w) return w:GetScript("OnEnter") and L["Details"] or nil end,
-	x = details,
+	-- X: a material's way flipped (Buy <-> Farm) on its row; elsewhere the line's details.
+	xLabel = function(w)
+		local flip = rawget(w, "psPadFlipLabel")
+		if type(flip) == "function" then flip = flip(w) end
+		if flip then return flip end
+		return w:GetScript("OnEnter") and L["Details"] or nil
+	end,
+	x = function(w)
+		local flip = rawget(w, "psPadFlip")
+		if type(flip) == "function" and flip(w) then return end
+		details(w)
+	end,
 	reset = function()
 		G.StopFocus()
 		ns.Set("ui.compact", true)

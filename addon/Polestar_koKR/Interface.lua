@@ -563,6 +563,97 @@
 --   A long farm: most of it drops as you level
 --   or the Auction House
 
+-- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
+-- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   %d / %s  \194\183  to %d
+--   %d made
+--   %d / ~%d made
+--   %d ready
+--   %d to go
+--   %d: move on to the next recipe
+--   %d: the trainer's next rank
+--   %s a turn-in
+--   %s at %d
+--   %s each
+--   %s for %s
+--   %s of about %d made
+--   %s reached
+--   %s to %d
+--   %s to %d, then %s to %d
+--   %s to %s
+--   %s to %s  \194\183  about %d turn-ins
+--   +%d each
+--   +%d once
+--   +%d reputation
+--   A long farm: bought instead
+--   Add to buy list
+--   Apprentice
+--   Artisan
+--   Auction House
+--   Bought at the Auction House.
+--   Buy %d
+--   Buy all: you buy this.
+--   Buy instead
+--   Buy list: %s
+--   Cloth from your route still counts.
+--   Expert
+--   Farm
+--   Farm %d
+--   Farm instead
+--   Gather all: you farm this.
+--   Green
+--   Grey
+--   Grey now: move on
+--   Journeyman
+--   Make
+--   Make %d %s first
+--   Materials to %d
+--   Mix buys this: farming takes about %s at your level.
+--   Mix buys this: gathering it needs a profession you don't have.
+--   Mix buys this: its mobs are above your level.
+--   Mix buys this: you're past its levels.
+--   Mix buys: farming \226\137\136 %s
+--   Mix farms this.
+--   Mix farms this: about %s here.
+--   Mix farms this: about %s here. Buying costs about %s.
+--   More reputation
+--   Next turn-in: %d more %s
+--   No farm spot in this guide
+--   No price yet
+--   Not for Self-Found characters
+--   Open list
+--   Orange
+--   Orange: every craft is a point. Yellow from %d, green from %d, grey at %d.
+--   Repeatable
+--   Route cloth still counts.
+--   Search it once at the Auction House to see the cost.
+--   Self-Found: you farm all of it.
+--   Show Buy and Farm
+--   The arrow takes you to the best farm for your level.
+--   Time not known yet
+--   Train %s now
+--   Turn in %d now
+--   Yellow
+--   You can make %d now
+--   You can make all %d now
+--   Your pick: buy.
+--   Your pick: buy. About %s.
+--   Your pick: farm.
+--   Your pick: farm. About %s for %d.
+--   bags %d
+--   bank %d
+--   lvl %s
+--   mail %d
+--   move on at %d
+--   needs level %d
+--   none yet
+--   once
+--   only %d listed
+--   repeats
+--   seen %d days ago
+--   seen %d h ago
+--   seen %d min ago
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "koKR") then return end
 local L = ns.L
@@ -5811,6 +5902,96 @@ L["Pin to the top"] = "맨 위에 고정"
 L["Free mode takes this quest first, whatever the order."] = "순서와 상관없이 자유 모드가 이 퀘스트를 먼저 합니다."
 L["Leave out of Free mode"] = "자유 모드에서 제외"
 L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "자유 모드에서 이 퀘스트를 더 이상 보여 주지 않습니다. 메뉴의 '제외한 퀘스트 되돌리기'로 다시 보여 줍니다."
+
+-- UI/GuideFrameKindCraft.lua
+L["%d / %s  \194\183  to %d"] = "%d / %s  \194\183  %d까지"
+L["%d made"] = "%d개 제작"
+L["%d / ~%d made"] = "%d / ~%d개 제작"
+L["%d ready"] = "%d개 준비"
+L["%d to go"] = "%d 남음"
+L["%d: move on to the next recipe"] = "%d: 다음 제조법으로"
+L["%d: the trainer's next rank"] = "%d: 전문기술 상급자의 다음 등급"
+L["%s a turn-in"] = "납품당 %s"
+L["%s at %d"] = "%s %d부터"
+L["%s each"] = "개당 %s"
+L["%s for %s"] = "%s (%s 달성용)"
+L["%s of about %d made"] = "%s / 약 %d개 제작"
+L["%s reached"] = "%s 달성"
+L["%s to %d"] = "%s %d까지"
+L["%s to %d, then %s to %d"] = "%s %d까지, 다음 %s %d까지"
+L["%s to %s"] = "%s → %s"
+L["%s to %s  \194\183  about %d turn-ins"] = "%s → %s  \194\183  약 %d회 납품"
+L["+%d each"] = "매번 +%d"
+L["+%d once"] = "1회 +%d"
+L["+%d reputation"] = "평판 +%d"
+L["A long farm: bought instead"] = "긴 파밍: 대신 구매"
+L["Add to buy list"] = "구매 목록에 추가"
+L["Apprentice"] = "수습"
+L["Artisan"] = "장인"
+L["Auction House"] = "경매장"
+L["Bought at the Auction House."] = "경매장에서 구매했습니다."
+L["Buy %d"] = "%d개 구매"
+L["Buy all: you buy this."] = "모두 구매: 직접 구매합니다."
+L["Buy instead"] = "대신 구매"
+L["Buy list: %s"] = "구매 목록: %s"
+L["Cloth from your route still counts."] = "동선에서 얻는 천도 계산됩니다."
+L["Expert"] = "전문가"
+L["Farm"] = "파밍"
+L["Farm %d"] = "%d개 파밍"
+L["Farm instead"] = "대신 파밍"
+L["Gather all: you farm this."] = "모두 채집: 직접 파밍합니다."
+L["Green"] = "녹색"
+L["Grey"] = "회색"
+L["Grey now: move on"] = "이제 회색: 다음으로"
+L["Journeyman"] = "숙련"
+L["Make"] = "제작"
+L["Make %d %s first"] = "먼저 %d개 %s 제작"
+L["Materials to %d"] = "%d까지 재료"
+L["Mix buys this: farming takes about %s at your level."] = "혼합은 구매: 내 레벨에서 파밍하면 약 %s 걸립니다."
+L["Mix buys this: gathering it needs a profession you don't have."] = "혼합은 구매: 채집에 없는 전문기술이 필요합니다."
+L["Mix buys this: its mobs are above your level."] = "혼합은 구매: 몬스터가 내 레벨보다 높습니다."
+L["Mix buys this: you're past its levels."] = "혼합은 구매: 이미 그 레벨을 지났습니다."
+L["Mix buys: farming \226\137\136 %s"] = "혼합은 구매: 파밍 \226\137\136 %s"
+L["Mix farms this."] = "혼합은 파밍합니다."
+L["Mix farms this: about %s here."] = "혼합은 파밍: 여기서 약 %s."
+L["Mix farms this: about %s here. Buying costs about %s."] = "혼합은 파밍: 여기서 약 %s. 구매하면 약 %s."
+L["More reputation"] = "추가 평판"
+L["Next turn-in: %d more %s"] = "다음 납품: %d개 더 %s"
+L["No farm spot in this guide"] = "이 가이드에 파밍 장소 없음"
+L["No price yet"] = "아직 가격 없음"
+L["Not for Self-Found characters"] = "자수성가 캐릭터는 불가"
+L["Open list"] = "목록 열기"
+L["Orange"] = "주황색"
+L["Orange: every craft is a point. Yellow from %d, green from %d, grey at %d."] = "주황색: 제작할 때마다 1점. %d부터 노란색, %d부터 녹색, %d에서 회색."
+L["Repeatable"] = "반복 가능"
+L["Route cloth still counts."] = "동선의 천도 계산됩니다."
+L["Search it once at the Auction House to see the cost."] = "경매장에서 한 번 검색하면 가격이 보입니다."
+L["Self-Found: you farm all of it."] = "자수성가: 모두 직접 파밍합니다."
+L["Show Buy and Farm"] = "구매와 파밍 보기"
+L["The arrow takes you to the best farm for your level."] = "화살표가 내 레벨에 가장 좋은 파밍 장소로 안내합니다."
+L["Time not known yet"] = "시간 아직 모름"
+L["Train %s now"] = "지금 %s 배우기"
+L["Turn in %d now"] = "지금 %d회 납품"
+L["Yellow"] = "노란색"
+L["You can make %d now"] = "지금 %d개 제작 가능"
+L["You can make all %d now"] = "지금 %d개 모두 제작 가능"
+L["Your pick: buy."] = "내 선택: 구매."
+L["Your pick: buy. About %s."] = "내 선택: 구매. 약 %s."
+L["Your pick: farm."] = "내 선택: 파밍."
+L["Your pick: farm. About %s for %d."] = "내 선택: 파밍. %2$d개에 약 %1$s."
+L["bags %d"] = "가방 %d"
+L["bank %d"] = "은행 %d"
+L["lvl %s"] = "레벨 %s"
+L["mail %d"] = "우편 %d"
+L["move on at %d"] = "%d에서 다음으로"
+L["needs level %d"] = "레벨 %d 필요"
+L["none yet"] = "아직 없음"
+L["once"] = "1회"
+L["only %d listed"] = "%d개만 등록됨"
+L["repeats"] = "반복"
+L["seen %d days ago"] = "%d일 전에 확인"
+L["seen %d h ago"] = "%d시간 전에 확인"
+L["seen %d min ago"] = "%d분 전에 확인"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar를 한 페이지씩 다시 설정합니다. 선택은 바로 적용됩니다."

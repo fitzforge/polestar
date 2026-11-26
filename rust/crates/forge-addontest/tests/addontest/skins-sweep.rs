@@ -4,6 +4,8 @@
 //! the skin in use (one hidden by a closed window above it as that window shows), the floating ones on the window
 //! skin (Halo's veil, not a menu's fill), and the quest item and
 //! travel buttons' hover wash follows the skin's.
+//! A profession guide's regions (UI/GuideFrameKindCraft.lua) are swept too: its stretch card, the split's well, the
+//! segments, a material's toggle and a button, in every built-in look and every look of Polestar_Skins.
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
@@ -20,6 +22,39 @@ Polestar.Nav.alerts.ShowSample()
 Polestar.Rares.Toast.Show({ kind = "rare", name = "Mother Fang", map = 1429, x = 50, y = 50 })
 Polestar.UI.ShowCopy("Copy", "text")
 Polestar.UI.Materials.Show()
+-- A profession guide in the guide window (its kind's regions, UI/GuideFrameKindCraft.lua): Tailoring 87, the
+-- stretch card, the materials' Buy · Farm · Mix segments, a material's row with its toggle, the split's well and
+-- its buttons.
+local w = stub.world
+w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
+w.moveTo(1429, 48, 42)
+Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
+Polestar.RegisterGuide({ id = "test/craft", pack = "test", title = "Tailoring 1-300", minLevel = 5, maxLevel = 60, category = "Professions",
+	sections = { { skill = "Tailoring", skillLine = 197, from = 75, to = 150 } },
+	steps = {
+		{ title = "Get Wool Cloth", section = 1, goals = {
+			{ t = "collect", item = 2592, itemName = "Wool Cloth", count = 288, gather = { min = 15, max = 30 } },
+			{ t = "auction", item = 2592, itemName = "Wool Cloth", count = 288 } } },
+		{ title = "Woolen Cape to 100", section = 1, goals = { { t = "craft", spell = 2402, spellName = "Woolen Cape", item = 2584, itemName = "Woolen Cape",
+			skillLine = 197, untilSkill = 100, yellow = 80, grey = 115, reagents = { { item = 2592, itemName = "Wool Cloth", count = 3 } } } } },
+	} })
+Polestar.Compat.GetSkillRank = function(line) if line == 197 or line == "Tailoring" then return 87, 150 end return nil end
+w.items[2592] = 9
+Polestar.Set("ui.shown", true)
+Polestar.Engine.SetGuide("test/craft")
+stub.advance(1)
+local GF = Polestar.UI.GuideFrame
+GF.Render(); GF.Layout()
+local stretch, sup = GF.RegionFrame("stretch"), GF.RegionFrame("supplies")
+local kind = {
+	stretch = stretch and stretch.Card, split = sup and sup.Well:IsShown() and sup.Well, segment = sup and sup.Modes[1],
+	toggle = sup and sup.Rows[1] and sup.Rows[1].Seg[1], button = sup and sup.Buy.Button,
+}
+local function kindSkins()
+	local k = {}
+	for name, f in pairs(kind) do k[name] = f and f.psSkin and f.psSkin.skin or false end
+	return k
+end
 -- The swept frames by global name: a name that is gone (a renamed frame) is reported missing, not skipped.
 local NAMES = {
 	timer = "PolestarFlightTimer", tracker = "PolestarInstanceTracker", party = "PolestarPartyPanel",
@@ -71,13 +106,27 @@ for _, key in ipairs(T.SKIN_ORDER) do
 	s.item = hover(PolestarQuestItemButton)
 	s.travel = hover(PolestarTravelButton)
 	s.wash = { T.Wash("hover") }
+	s.kind = kindSkins()
 	out.skins[key] = s
+end
+-- Our skins (Polestar_Skins): the guide kinds' parts painted in each.
+out.own = {}
+for _, key in ipairs({ "vellum", "lumen", "beacon", "aurora", "hairline", "umbra", "waymark", "lanterns", "sheen", "atlas" }) do
+	Polestar.Set("ui.skin", key)
+	out.own[key] = { registered = T.SkinInfo(key) ~= nil, kind = kindSkins() }
 end
 emit(out)
 "#;
 
 fn run() -> Value {
-	emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons: vec![Addon::name("Polestar")], login: true, script: SCRIPT.into(), ..Default::default() }).remove(0)
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		addons: vec![Addon::name("Polestar"), Addon::name("Polestar_Skins")],
+		login: true,
+		script: SCRIPT.into(),
+		..Default::default()
+	})
+	.remove(0)
 }
 
 #[test]
@@ -104,7 +153,24 @@ fn switching_the_skin_restyles_the_flight_timer_and_every_polestar_frame_live_13
 				assert_eq!(s[b], s["wash"], "{key}: the {b} button's hover wash is the skin's");
 			}
 		}
+		// The guide kinds' parts (UI/GuideFrameKindCraft.lua): the stretch card, the split's well, the way's
+		// segments, a material's toggle and the split's button, each in the skin in use.
+		let kind = s["kind"].as_object().unwrap();
+		assert_eq!(kind.len(), 5, "{key}: every kind part reported");
+		for (name, skin) in kind {
+			assert_eq!(skin, &json!(key), "{key}: the profession guide's {name} painted in it");
+		}
 	}
 	assert_ne!(skins["polestar"]["wash"], skins["hearth"]["wash"], "the skins' hover washes differ");
 	assert!(skins["polestar"]["item"] != json!(false), "the quest item button was built");
+	let own = out["own"].as_object().unwrap();
+	assert_eq!(own.len(), 10, "every skin of Polestar_Skins swept");
+	for (key, s) in own {
+		assert_eq!(s["registered"], true, "{key}: registered");
+		for (name, skin) in s["kind"].as_object().unwrap() {
+			// A skin drawn over another's painters names both ("atlas/polestar").
+			let skin = skin.as_str().unwrap_or("");
+			assert!(skin == key || skin.starts_with(&format!("{key}/")), "{key}: the profession guide's {name} painted in it: {skin}");
+		}
+	}
 }

@@ -90,6 +90,7 @@ function MA.Why(row)
 	if r == "skill" and w and w.rank then return format(L["Needs %s %d"], professionOf(w), w.rank) end
 	if r == "low" and w and w.min then return format(L["Drops from level %d"], w.min) end
 	if r == "past" then return L["You're past its levels"] end
+	if r == "long" then return L["A long farm: bought instead"] end
 	if r == "mode" then return row.way == "buy" and L["Buy all"] or L["Gather all"] end
 	-- Mix gathers it: what that takes.
 	if w and (w.skillLine or w.skill) and w.rank then return format(L["%s %d"], professionOf(w), w.rank) end

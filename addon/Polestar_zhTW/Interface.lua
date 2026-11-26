@@ -563,6 +563,97 @@
 --   A long farm: most of it drops as you level
 --   or the Auction House
 
+-- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
+-- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   %d / %s  \194\183  to %d
+--   %d made
+--   %d / ~%d made
+--   %d ready
+--   %d to go
+--   %d: move on to the next recipe
+--   %d: the trainer's next rank
+--   %s a turn-in
+--   %s at %d
+--   %s each
+--   %s for %s
+--   %s of about %d made
+--   %s reached
+--   %s to %d
+--   %s to %d, then %s to %d
+--   %s to %s
+--   %s to %s  \194\183  about %d turn-ins
+--   +%d each
+--   +%d once
+--   +%d reputation
+--   A long farm: bought instead
+--   Add to buy list
+--   Apprentice
+--   Artisan
+--   Auction House
+--   Bought at the Auction House.
+--   Buy %d
+--   Buy all: you buy this.
+--   Buy instead
+--   Buy list: %s
+--   Cloth from your route still counts.
+--   Expert
+--   Farm
+--   Farm %d
+--   Farm instead
+--   Gather all: you farm this.
+--   Green
+--   Grey
+--   Grey now: move on
+--   Journeyman
+--   Make
+--   Make %d %s first
+--   Materials to %d
+--   Mix buys this: farming takes about %s at your level.
+--   Mix buys this: gathering it needs a profession you don't have.
+--   Mix buys this: its mobs are above your level.
+--   Mix buys this: you're past its levels.
+--   Mix buys: farming \226\137\136 %s
+--   Mix farms this.
+--   Mix farms this: about %s here.
+--   Mix farms this: about %s here. Buying costs about %s.
+--   More reputation
+--   Next turn-in: %d more %s
+--   No farm spot in this guide
+--   No price yet
+--   Not for Self-Found characters
+--   Open list
+--   Orange
+--   Orange: every craft is a point. Yellow from %d, green from %d, grey at %d.
+--   Repeatable
+--   Route cloth still counts.
+--   Search it once at the Auction House to see the cost.
+--   Self-Found: you farm all of it.
+--   Show Buy and Farm
+--   The arrow takes you to the best farm for your level.
+--   Time not known yet
+--   Train %s now
+--   Turn in %d now
+--   Yellow
+--   You can make %d now
+--   You can make all %d now
+--   Your pick: buy.
+--   Your pick: buy. About %s.
+--   Your pick: farm.
+--   Your pick: farm. About %s for %d.
+--   bags %d
+--   bank %d
+--   lvl %s
+--   mail %d
+--   move on at %d
+--   needs level %d
+--   none yet
+--   once
+--   only %d listed
+--   repeats
+--   seen %d days ago
+--   seen %d h ago
+--   seen %d min ago
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhTW") then return end
 local L = ns.L
@@ -5811,6 +5902,96 @@ L["Pin to the top"] = "置頂"
 L["Free mode takes this quest first, whatever the order."] = "無論順序如何，自由模式都會先做這個任務。"
 L["Leave out of Free mode"] = "從自由模式中排除"
 L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "自由模式不再列出此任務。選單中的「恢復被排除的任務」會重新列出它。"
+
+-- UI/GuideFrameKindCraft.lua
+L["%d / %s  \194\183  to %d"] = "%d / %s  \194\183  至 %d"
+L["%d made"] = "已製作 %d"
+L["%d / ~%d made"] = "%d / ~%d 已製作"
+L["%d ready"] = "%d 份就緒"
+L["%d to go"] = "還差 %d"
+L["%d: move on to the next recipe"] = "%d：換下一個配方"
+L["%d: the trainer's next rank"] = "%d：訓練師的下一級"
+L["%s a turn-in"] = "每次上繳 %s"
+L["%s at %d"] = "%s（%d 起）"
+L["%s each"] = "每個 %s"
+L["%s for %s"] = "%s（%s）"
+L["%s of about %d made"] = "%s / 約 %d 已製作"
+L["%s reached"] = "已達到%s"
+L["%s to %d"] = "%s 至 %d"
+L["%s to %d, then %s to %d"] = "%s 至 %d，然後 %s 至 %d"
+L["%s to %s"] = "%s 至%s"
+L["%s to %s  \194\183  about %d turn-ins"] = "%s 至%s  \194\183  約 %d 次上繳"
+L["+%d each"] = "每次 +%d"
+L["+%d once"] = "一次 +%d"
+L["+%d reputation"] = "聲望 +%d"
+L["A long farm: bought instead"] = "刷取太久：改為購買"
+L["Add to buy list"] = "加入購物清單"
+L["Apprentice"] = "學徒"
+L["Artisan"] = "大師"
+L["Auction House"] = "拍賣場"
+L["Bought at the Auction House."] = "已在拍賣場購買。"
+L["Buy %d"] = "購買 %d"
+L["Buy all: you buy this."] = "全部購買：你購買它。"
+L["Buy instead"] = "改為購買"
+L["Buy list: %s"] = "購物清單：%s"
+L["Cloth from your route still counts."] = "路線上掉落的布也算。"
+L["Expert"] = "專家"
+L["Farm"] = "刷取"
+L["Farm %d"] = "刷取 %d"
+L["Farm instead"] = "改為刷取"
+L["Gather all: you farm this."] = "全部採集：你刷取它。"
+L["Green"] = "綠色"
+L["Grey"] = "灰色"
+L["Grey now: move on"] = "已變灰：換下一個"
+L["Journeyman"] = "工匠"
+L["Make"] = "製作"
+L["Make %d %s first"] = "先製作 %d 個%s"
+L["Materials to %d"] = "至 %d 的材料"
+L["Mix buys this: farming takes about %s at your level."] = "混合購買：以你的等級刷取約需 %s。"
+L["Mix buys this: gathering it needs a profession you don't have."] = "混合購買：採集需要你沒有的專業。"
+L["Mix buys this: its mobs are above your level."] = "混合購買：怪物等級高於你。"
+L["Mix buys this: you're past its levels."] = "混合購買：你已超過它的等級。"
+L["Mix buys: farming \226\137\136 %s"] = "混合購買：刷取 \226\137\136 %s"
+L["Mix farms this."] = "混合刷取。"
+L["Mix farms this: about %s here."] = "混合刷取：這裡約 %s。"
+L["Mix farms this: about %s here. Buying costs about %s."] = "混合刷取：這裡約 %s。購買約需 %s。"
+L["More reputation"] = "更多聲望"
+L["Next turn-in: %d more %s"] = "下次上繳：還差 %d 個%s"
+L["No farm spot in this guide"] = "本指南沒有刷取地點"
+L["No price yet"] = "暫無價格"
+L["Not for Self-Found characters"] = "獨行角色不可用"
+L["Open list"] = "開啟清單"
+L["Orange"] = "橙色"
+L["Orange: every craft is a point. Yellow from %d, green from %d, grey at %d."] = "橙色：每次製作得 1 點。%d 起黃色，%d 起綠色，%d 變灰。"
+L["Repeatable"] = "可重複"
+L["Route cloth still counts."] = "路線上的布也算。"
+L["Search it once at the Auction House to see the cost."] = "在拍賣場搜尋一次即可看到價格。"
+L["Self-Found: you farm all of it."] = "獨行：全部自己刷取。"
+L["Show Buy and Farm"] = "顯示購買與刷取"
+L["The arrow takes you to the best farm for your level."] = "箭頭會帶你去適合你等級的最佳刷取點。"
+L["Time not known yet"] = "時間暫不可知"
+L["Train %s now"] = "現在學習%s"
+L["Turn in %d now"] = "現在上繳 %d 次"
+L["Yellow"] = "黃色"
+L["You can make %d now"] = "現在可製作 %d 個"
+L["You can make all %d now"] = "現在可製作全部 %d 個"
+L["Your pick: buy."] = "你的選擇：購買。"
+L["Your pick: buy. About %s."] = "你的選擇：購買。約 %s。"
+L["Your pick: farm."] = "你的選擇：刷取。"
+L["Your pick: farm. About %s for %d."] = "你的選擇：刷取。%2$d 個約 %1$s。"
+L["bags %d"] = "背包 %d"
+L["bank %d"] = "銀行 %d"
+L["lvl %s"] = "等級 %s"
+L["mail %d"] = "郵件 %d"
+L["move on at %d"] = "%d 時換下一個"
+L["needs level %d"] = "需要等級 %d"
+L["none yet"] = "暫無"
+L["once"] = "一次"
+L["only %d listed"] = "僅有 %d 個在售"
+L["repeats"] = "可重複"
+L["seen %d days ago"] = "%d 天前查看"
+L["seen %d h ago"] = "%d 小時前查看"
+L["seen %d min ago"] = "%d 分鐘前查看"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐頁重新設定 Polestar。每項選擇立即生效。"

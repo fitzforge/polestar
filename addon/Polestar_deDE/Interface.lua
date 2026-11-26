@@ -337,6 +337,97 @@
 --   A long farm: most of it drops as you level
 --   or the Auction House
 
+-- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
+-- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   %d / %s  \194\183  to %d
+--   %d made
+--   %d / ~%d made
+--   %d ready
+--   %d to go
+--   %d: move on to the next recipe
+--   %d: the trainer's next rank
+--   %s a turn-in
+--   %s at %d
+--   %s each
+--   %s for %s
+--   %s of about %d made
+--   %s reached
+--   %s to %d
+--   %s to %d, then %s to %d
+--   %s to %s
+--   %s to %s  \194\183  about %d turn-ins
+--   +%d each
+--   +%d once
+--   +%d reputation
+--   A long farm: bought instead
+--   Add to buy list
+--   Apprentice
+--   Artisan
+--   Auction House
+--   Bought at the Auction House.
+--   Buy %d
+--   Buy all: you buy this.
+--   Buy instead
+--   Buy list: %s
+--   Cloth from your route still counts.
+--   Expert
+--   Farm
+--   Farm %d
+--   Farm instead
+--   Gather all: you farm this.
+--   Green
+--   Grey
+--   Grey now: move on
+--   Journeyman
+--   Make
+--   Make %d %s first
+--   Materials to %d
+--   Mix buys this: farming takes about %s at your level.
+--   Mix buys this: gathering it needs a profession you don't have.
+--   Mix buys this: its mobs are above your level.
+--   Mix buys this: you're past its levels.
+--   Mix buys: farming \226\137\136 %s
+--   Mix farms this.
+--   Mix farms this: about %s here.
+--   Mix farms this: about %s here. Buying costs about %s.
+--   More reputation
+--   Next turn-in: %d more %s
+--   No farm spot in this guide
+--   No price yet
+--   Not for Self-Found characters
+--   Open list
+--   Orange
+--   Orange: every craft is a point. Yellow from %d, green from %d, grey at %d.
+--   Repeatable
+--   Route cloth still counts.
+--   Search it once at the Auction House to see the cost.
+--   Self-Found: you farm all of it.
+--   Show Buy and Farm
+--   The arrow takes you to the best farm for your level.
+--   Time not known yet
+--   Train %s now
+--   Turn in %d now
+--   Yellow
+--   You can make %d now
+--   You can make all %d now
+--   Your pick: buy.
+--   Your pick: buy. About %s.
+--   Your pick: farm.
+--   Your pick: farm. About %s for %d.
+--   bags %d
+--   bank %d
+--   lvl %s
+--   mail %d
+--   move on at %d
+--   needs level %d
+--   none yet
+--   once
+--   only %d listed
+--   repeats
+--   seen %d days ago
+--   seen %d h ago
+--   seen %d min ago
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "deDE") then return end
 local L = ns.L
@@ -5581,6 +5672,96 @@ L["Pin to the top"] = "Ganz nach oben heften"
 L["Free mode takes this quest first, whatever the order."] = "Der Freimodus nimmt diese Quest zuerst, egal in welcher Reihenfolge."
 L["Leave out of Free mode"] = "Aus dem Freimodus auslassen"
 L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "Der Freimodus führt diese Quest nicht mehr auf. „Ausgelassene Quests zurückholen“ im Menü führt sie wieder auf."
+
+-- UI/GuideFrameKindCraft.lua
+L["%d / %s  \194\183  to %d"] = "%d / %s  \194\183  bis %d"
+L["%d made"] = "%d hergestellt"
+L["%d / ~%d made"] = "%d / ~%d hergestellt"
+L["%d ready"] = "%d bereit"
+L["%d to go"] = "noch %d"
+L["%d: move on to the next recipe"] = "%d: weiter zum nächsten Rezept"
+L["%d: the trainer's next rank"] = "%d: der nächste Rang beim Lehrer"
+L["%s a turn-in"] = "%s pro Abgabe"
+L["%s at %d"] = "%s ab %d"
+L["%s each"] = "%s pro Stück"
+L["%s for %s"] = "%s für %s"
+L["%s of about %d made"] = "%s von etwa %d hergestellt"
+L["%s reached"] = "%s erreicht"
+L["%s to %d"] = "%s bis %d"
+L["%s to %d, then %s to %d"] = "%s bis %d, dann %s bis %d"
+L["%s to %s"] = "%s bis %s"
+L["%s to %s  \194\183  about %d turn-ins"] = "%s bis %s  \194\183  etwa %d Abgaben"
+L["+%d each"] = "+%d je Abgabe"
+L["+%d once"] = "+%d einmalig"
+L["+%d reputation"] = "+%d Ruf"
+L["A long farm: bought instead"] = "Lange Farm: wird stattdessen gekauft"
+L["Add to buy list"] = "Auf die Kaufliste"
+L["Apprentice"] = "Lehrling"
+L["Artisan"] = "Fachmann"
+L["Auction House"] = "Auktionshaus"
+L["Bought at the Auction House."] = "Im Auktionshaus gekauft."
+L["Buy %d"] = "%d kaufen"
+L["Buy all: you buy this."] = "Alles kaufen: du kaufst es."
+L["Buy instead"] = "Stattdessen kaufen"
+L["Buy list: %s"] = "Kaufliste: %s"
+L["Cloth from your route still counts."] = "Stoff von deiner Route zählt trotzdem."
+L["Expert"] = "Experte"
+L["Farm"] = "Farmen"
+L["Farm %d"] = "%d farmen"
+L["Farm instead"] = "Stattdessen farmen"
+L["Gather all: you farm this."] = "Alles sammeln: du farmst es."
+L["Green"] = "Grün"
+L["Grey"] = "Grau"
+L["Grey now: move on"] = "Jetzt grau: weiter"
+L["Journeyman"] = "Geselle"
+L["Make"] = "Herstellen"
+L["Make %d %s first"] = "Erst %d %s herstellen"
+L["Materials to %d"] = "Material bis %d"
+L["Mix buys this: farming takes about %s at your level."] = "Gemischt kauft es: Farmen dauert auf deiner Stufe etwa %s."
+L["Mix buys this: gathering it needs a profession you don't have."] = "Gemischt kauft es: Sammeln braucht einen Beruf, den du nicht hast."
+L["Mix buys this: its mobs are above your level."] = "Gemischt kauft es: seine Gegner sind über deiner Stufe."
+L["Mix buys this: you're past its levels."] = "Gemischt kauft es: du bist über seinen Stufen."
+L["Mix buys: farming \226\137\136 %s"] = "Gemischt kauft: Farmen \226\137\136 %s"
+L["Mix farms this."] = "Gemischt farmt es."
+L["Mix farms this: about %s here."] = "Gemischt farmt es: etwa %s hier."
+L["Mix farms this: about %s here. Buying costs about %s."] = "Gemischt farmt es: etwa %s hier. Kaufen kostet etwa %s."
+L["More reputation"] = "Mehr Ruf"
+L["Next turn-in: %d more %s"] = "Nächste Abgabe: noch %d %s"
+L["No farm spot in this guide"] = "Kein Farmplatz in diesem Guide"
+L["No price yet"] = "Noch kein Preis"
+L["Not for Self-Found characters"] = "Nicht für selbstgefundene Charaktere"
+L["Open list"] = "Liste öffnen"
+L["Orange"] = "Orange"
+L["Orange: every craft is a point. Yellow from %d, green from %d, grey at %d."] = "Orange: jede Herstellung ein Punkt. Gelb ab %d, grün ab %d, grau bei %d."
+L["Repeatable"] = "Wiederholbar"
+L["Route cloth still counts."] = "Routenstoff zählt trotzdem."
+L["Search it once at the Auction House to see the cost."] = "Such es einmal im Auktionshaus, um den Preis zu sehen."
+L["Self-Found: you farm all of it."] = "Selbstgefunden: du farmst alles."
+L["Show Buy and Farm"] = "Kaufen und Farmen zeigen"
+L["The arrow takes you to the best farm for your level."] = "Der Pfeil führt dich zur besten Farm für deine Stufe."
+L["Time not known yet"] = "Zeit noch unbekannt"
+L["Train %s now"] = "%s jetzt lernen"
+L["Turn in %d now"] = "Jetzt %d abgeben"
+L["Yellow"] = "Gelb"
+L["You can make %d now"] = "Du kannst jetzt %d herstellen"
+L["You can make all %d now"] = "Du kannst jetzt alle %d herstellen"
+L["Your pick: buy."] = "Deine Wahl: kaufen."
+L["Your pick: buy. About %s."] = "Deine Wahl: kaufen. Etwa %s."
+L["Your pick: farm."] = "Deine Wahl: farmen."
+L["Your pick: farm. About %s for %d."] = "Deine Wahl: farmen. Etwa %s für %d."
+L["bags %d"] = "Taschen %d"
+L["bank %d"] = "Bank %d"
+L["lvl %s"] = "Stufe %s"
+L["mail %d"] = "Post %d"
+L["move on at %d"] = "weiter bei %d"
+L["needs level %d"] = "braucht Stufe %d"
+L["none yet"] = "noch nichts"
+L["once"] = "einmalig"
+L["only %d listed"] = "nur %d angeboten"
+L["repeats"] = "wiederholbar"
+L["seen %d days ago"] = "vor %d Tagen gesehen"
+L["seen %d h ago"] = "vor %d Std. gesehen"
+L["seen %d min ago"] = "vor %d Min. gesehen"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar neu einrichten, eine Seite nach der anderen. Jede Wahl wirkt sofort."
