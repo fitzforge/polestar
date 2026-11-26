@@ -53,8 +53,11 @@ const SIDES = ['Alliance', 'Horde'];
 // The gathering guides' farming loops that give `item` (gathering/build.js gatherLoops), as `loop` lines
 // for a Get it step's collect (docs/GUIDE_FORMAT.md, "Farming loops"): `per` of the material from one of
 // the item (a bar from its ore: the bars one ore makes), for each faction the best loop of each zone and
-// of those the LOOPS best by items a second, one line for a loop both sides share. -> { lines, skill } or
-// null: no loop gives it, or no reference data on disk (`data.dir`, draftData) to plan the loops from.
+// of those the LOOPS best by items a second, one line for a loop both sides share. When those all ask more
+// skill than some loop of the item, the loops of that lowest skill come too, one per zone (Light Leather:
+// the starting zones' Skinning 1 rounds beside the denser rounds of level 17-24), so the step serves a
+// gatherer who starts low. -> { lines, skill } or null: no loop gives it, or no reference data on disk
+// (`data.dir`, draftData) to plan the loops from.
 const LOOPS = 4;
 let loopsCache = null;
 function itemLoops(data, item, per = 1) {
@@ -69,11 +72,16 @@ function itemLoops(data, item, per = 1) {
 	const mine = all.filter((l) => l.item === item);
 	const picked = new Map();
 	for (const side of SIDES) {
-		const best = mine
-			.filter((l) => l.factions.includes(side))
+		const own = mine.filter((l) => l.factions.includes(side));
+		const best = own
+			.slice()
 			.sort((a, b) => b.yield / b.lap - a.yield / a.lap || a.map - b.map)
 			.filter((l, i, list) => list.findIndex((o) => o.map === l.map) === i)
 			.slice(0, LOOPS);
+		const low = Math.min(...own.map((l) => l.skill[0]));
+		if (best.length && Math.min(...best.map((l) => l.skill[0])) > low) {
+			for (const l of own.filter((x) => x.skill[0] === low).sort((a, b) => b.yield / b.lap - a.yield / a.lap || a.map - b.map)) if (!best.some((o) => o.map === l.map)) best.push(l);
+		}
 		for (const l of best) {
 			const key = `${l.map}|${l.pts.join(' ')}`;
 			if (!picked.has(key)) picked.set(key, { l, sides: new Set() });
@@ -842,6 +850,12 @@ function draftGuide(name, data, opts = {}) {
 		for (const seg of b.segments) for (const r of needs(seg)) if (r.source === 'vendor' && !bought.has(r.spell) && !vendorRecipes.includes(r)) vendorRecipes.push(r);
 		const firstLearn = [];
 		for (const seg of b.segments) for (const r of needs(seg)) if (r.source === 'trainer' && !learned.has(r.spell) && r.learnedAt <= b.from && !firstLearn.includes(r)) firstLearn.push(r);
+		// The bracket before a fork: the trainer recipes either way needs that are learnable already come on
+		// this visit (Dense Grinding Stone for the battleaxe, at Brikk Keencraft with Artisan), not a trip of
+		// their own after the fork.
+		if (!b.path && brackets[bi + 1] && brackets[bi + 1].path) {
+			for (const x of brackets.filter((o) => o.path)) for (const seg of x.segments) for (const r of needs(seg)) if (r.source === 'trainer' && !learned.has(r.spell) && r.learnedAt <= b.from && !firstLearn.includes(r)) firstLearn.push(r);
+		}
 		const fixed = trainRank ? fixedTrainer(rankIdx) : null;
 		// One visit: a rank only a few far-off trainers teach (Expert and Artisan
 		// Alchemy, Expert Enchanting) whose later recipes in the bracket those same
