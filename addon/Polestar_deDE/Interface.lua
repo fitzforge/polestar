@@ -266,6 +266,64 @@
 --   forever/reputation/darkspear-islands
 --   forever/reputation/hydraxian-waterlords
 --   forever/reputation/ravenholdt
+-- Machine-translated, to be reviewed (#3701 Free mode, the finished-quest guide #2486 and the other lines new on
+-- next since 0.4.3, 26 Nov 2026):
+-- translated by an AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native
+-- speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   %d quests for your level, %d of them here.
+--   %d quests for your level, all here.
+--   1 quest for your level: %s gives it.
+--   About %s XP a minute
+--   Bring back left-out quests (%d)
+--   Free mode can't start: its folder Polestar_FreeMode or the Codex is missing or turned off.
+--   Free mode starts after combat.
+--   Free mode stops listing this quest. The menu's Bring back left-out quests lists it again.
+--   Free mode takes this quest first, whatever the order.
+--   Free mode
+--   Free mode: follow your own quests (on, off, nearest, xp)
+--   Free mode: the arrow takes your own quests, nearest first.
+--   Free mode: the arrow takes your own quests, the most XP a minute first.
+--   Leave out of Free mode
+--   Low drop rate: %s
+--   Most XP a minute first
+--   Nearest first
+--   Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes.
+--   No quests to lead to
+--   Or follow your own quests: Free mode
+--   Order: most XP a minute first
+--   Order: nearest first
+--   Pick up quests and Free mode leads you to them.
+--   Pin to the top
+--   Quests for your level
+--   Return to %s
+--   The XP each hand-in pays, and a collect whose items rarely drop says so.
+--   The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled.
+--   Unpin
+--   Which quest first
+--   With no quest near, the zone with the most quests for your level comes first, the arrow to its givers.
+--   XP and drop rates
+--   Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free).
+--   Your own quests as a guide: the arrow leads to the nearest one, then the next.
+--   Zone hints
+--   No quests in your log are ready to hand in.
+--   Wait until combat ends to load the quest data.
+--   Travel time to this hand-in is unknown. Its location is still shown.
+--   Hand-ins without a known location
+--   Refining the travel order. Travel times are estimates.
+--   Travel estimates are incomplete. The order uses the estimates available and approximate distances.
+--   Waiting for your quest log.
+--   The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled.
+--   Guide me opens a travel order for all finished quests in your log, including those kept for a later guide.
+--   Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more.
+--   Quest log notices
+--   The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests.
+--   Buy a rune at %s
+--   Buy a rune and cast %s to save about %s
+--   You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route.
+--   %s: optional class quests
+--   For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route.
+--   Start quest guide
+--   Click to show quest guide actions.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "deDE") then return end
@@ -515,6 +573,9 @@ L["Kept for %s"] = "Aufgehoben für %s"
 L["Hand in %s to %s, who walks around here: look inside the circle on the map"] = "Gib %s bei %s ab (läuft hier umher): Schau im Kreis auf der Karte nach"
 L["A quest you carry that the route does not work here: its work is nearby."] = "Eine Quest aus deinem Questlog, an der die Route hier nicht arbeitet: Ihre Aufgabe ist in der Nähe."
 L["%s at %s"] = "%s bei %s"
+L["Buy a rune at %s"] = "Rune kaufen bei %s"
+L["Buy a rune and cast %s to save about %s"] = "Kauf eine Rune und wirke %s, das spart etwa %s"
+L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = "Du hast keine Runen der Teleportation mehr und dieser Händler verkauft sie: Eine kaufen und teleportieren ist schneller als der Flug auf deiner Route."
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Benötigt Polestar %s oder neuer."
@@ -1012,6 +1073,10 @@ L["Level with %s meanwhile: this guide picks up at level %d"] = "Levle derweil m
 L["%s is done."] = "%s ist erledigt."
 L["All steps"] = "Alle Schritte"
 L["Every step of the guide in one list. Click one to look at it."] = "Jeder Schritt des Guides in einer Liste. Klick einen an, um ihn anzusehen."
+L["Or follow your own quests: Free mode"] = "Oder folge deinen eigenen Quests: Freimodus"
+L["No quests to lead to"] = "Keine Quests, zu denen es geht"
+L["Pick up quests and Free mode leads you to them."] = "Nimm Quests an, und der Freimodus führt dich zu ihnen."
+L["Return to %s"] = "Zurück zu %s"
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"
@@ -1112,6 +1177,7 @@ L["Suggested"] = "Empfohlen"
 L["The guides window only. Click to pick a size; right-click to reset."] = "Nur das Guide-Fenster. Klicken, um eine Größe zu wählen; Rechtsklick zum Zurücksetzen."
 L["Quests in"] = "Quests in"
 L["Passes through"] = "Durchquert"
+L["%s: optional class quests"] = "%s: optionale Klassenquests"
 
 -- UI/Report.lua
 L["skipped"] = "übersprungen"
@@ -1896,6 +1962,7 @@ L["General"] = "Allgemein"
 L["The language Polestar shows."] = "Die Sprache, die Polestar anzeigt."
 L["Say when I've outlevelled a guide"] = "Melden, wenn ich über einen Guide hinaus bin"
 L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."] = "Ein Hinweis im Guide-Fenster, einmal pro Guide und Sitzung, wenn deine Stufe über der des Guides liegt, mit einem Guide, der zu deiner Stufe passt. Aus: kein Hinweis; der Guide bleibt, wie er ist."
+L["For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route."] = "Für einen Magier ohne Rune der Teleportation auch ein Händler in der Nähe, der eine verkauft, wenn Kaufen und Teleportieren schneller ist als die Route."
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"
@@ -2460,6 +2527,13 @@ L["Quest givers and turn-ins"] = "Questgeber und Abgaben"
 L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = "Nennt bei einem NPC die Quests, die er jetzt für dich hat, und die abgeschlossenen Quests, die du bei ihm abgeben kannst."
 L["Replace the game's quest lines"] = "Questzeilen des Spiels ersetzen"
 L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = "Lässt bei Mobs und Objekten die eigenen Zeilen des Spiels für die Quests weg, die diese Tooltips nennen, damit jede Quest nur einmal erscheint. In einer Gruppe bleiben die Zeilen des Spiels: Sie zeigen den Fortschritt deiner Gruppe."
+L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Deine eigenen Quests als Guide, in einem eigenen Tab: Der Pfeil führt zur nächsten, dann zur folgenden (/polestar free)."
+L["Which quest first"] = "Welche Quest zuerst"
+L["Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes."] = "Nächste zuerst: die Quest, die du am schnellsten erreichst, danach ihre Nachbarn. Meiste EP pro Minute zuerst: die EP einer Quest im Verhältnis zu Weg und Arbeit, die sie kostet."
+L["Zone hints"] = "Gebietstipps"
+L["With no quest near, the zone with the most quests for your level comes first, the arrow to its givers."] = "Ist keine Quest in der Nähe, kommt das Gebiet mit den meisten Quests für deine Stufe zuerst, der Pfeil zu seinen Questgebern."
+L["XP and drop rates"] = "EP und Beutechancen"
+L["The XP each hand-in pays, and a collect whose items rarely drop says so."] = "Die EP, die jede Abgabe bringt, und ein Sammelziel, dessen Gegenstände selten fallen, sagt es."
 
 -- UI/Packs.lua (the pack report lines stay English: authors read them)
 L["turned off in the AddOns list"] = "in der AddOn-Liste ausgeschaltet"
@@ -3837,6 +3911,8 @@ L["Every quest in your log is part of your route."] = "Jede Quest in deinem Ques
 L["No guide of your route takes, works or hands these in. Keep the ones you want; Abandon asks in the game's own window first."] = "Kein Guide deiner Route nimmt sie an, erledigt sie oder gibt sie ab. Behalte, was du willst; Abbrechen fragt zuerst im eigenen Fenster des Spiels."
 L["Finished: no guide of your route hands it in"] = "Erledigt: Kein Guide deiner Route gibt sie ab"
 L["Not in any guide of your route"] = "In keinem Guide deiner Route"
+L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = "„Führe mich“ öffnet eine Reisereihenfolge für alle erledigten Quests in deinem Log, auch die für einen späteren Guide behaltenen."
+L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = "Jede erledigte Quest in deinem Log, auch die auf deiner Route. „Führe mich“ schätzt eine Reisereihenfolge; Quests mit unbekanntem Ort bleiben zur Abgabe von Hand aufgelistet. Eine graue bringt kaum noch EP."
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "NEUE FÄHIGKEIT"
@@ -4755,6 +4831,8 @@ L["On the window's edge"] = "Am Fensterrand"
 L["Rows under the step for quests you still have to finish or hand in off the route: ones a guide update left behind you, and finished quests no guide ahead takes in. Off, the guide window's menu still lists the finished ones under Hand in finished quests."] = "Zeilen unter dem Schritt für Quests, die du abseits der Route noch abschließen oder abgeben musst: solche, die ein Guide-Update hinter dir gelassen hat, und abgeschlossene Quests, die kein späterer Guide abgibt. Aus: Das Menü des Guide-Fensters listet die abgeschlossenen weiter unter „Erledigte Quests abgeben“."
 L["XP line"] = "EP-Zeile"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "Die Zeile unter den Schritten: EP pro Stunde, Zeit bis zur nächsten Stufe und dein Tempo. Verbesserter Ruhebonus behält seine eigene Zeile."
+L["Quest log notices"] = "Hinweise zum Questlog"
+L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = "Die Zeilen zu deinem Questlog: Quests, die nicht zu deiner Route gehören, beim Schritt und wenn ein Guide fertig ist, und erledigte Quests, die kein späterer Guide annimmt. Aus: Das Menü des Guide-Fensters hat weiterhin „Questlog aufräumen“ und „Erledigte Quests abgeben“."
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "Alarmreihe"
@@ -5064,6 +5142,10 @@ L["Some of this guide's quests follow on from %s. Start there for the full set, 
 L["You are past this class quest's levels."] = "Du bist über die Stufen dieser Klassenquest hinaus."
 L["Escort: %s"] = "Eskorte: %s"
 L["Do it"] = "Machen"
+L["Free mode: the arrow takes your own quests, the most XP a minute first."] = "Freimodus: Der Pfeil führt zu deinen eigenen Quests, die mit den meisten EP pro Minute zuerst."
+L["Free mode: the arrow takes your own quests, nearest first."] = "Freimodus: Der Pfeil führt zu deinen eigenen Quests, die nächste zuerst."
+L["Nearest first"] = "Nächste zuerst"
+L["Most XP a minute first"] = "Meiste EP pro Minute zuerst"
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "Drück %s zum Fortsetzen oder öffne das Guide-Fenster."
@@ -5406,6 +5488,46 @@ L["Objectives"] = "Ziele"
 L["kept for %s"] = "aufgehoben für %s"
 L["kept"] = "aufgehoben"
 L["Kept for %s: the route hands it in there."] = "Aufgehoben für %s: Die Route gibt sie dort ab."
+
+-- Lookup/Handins.lua
+L["No quests in your log are ready to hand in."] = "Keine Quest in deinem Log ist bereit zur Abgabe."
+L["Wait until combat ends to load the quest data."] = "Warte bis zum Ende des Kampfes, um die Questdaten zu laden."
+L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "Der Abgabe-Guide konnte nicht geladen werden. Prüfe, ob das Addon Polestar_FreeMode installiert und aktiviert ist."
+
+-- Lookup/Free.lua
+L["Free mode starts after combat."] = "Der Freimodus startet nach dem Kampf."
+L["Free mode can't start: its folder Polestar_FreeMode or the Codex is missing or turned off."] = "Der Freimodus kann nicht starten: Sein Ordner Polestar_FreeMode oder der Codex fehlt oder ist ausgeschaltet."
+L["Free mode"] = "Freimodus"
+L["Your own quests as a guide: the arrow leads to the nearest one, then the next."] = "Deine eigenen Quests als Guide: Der Pfeil führt zur nächsten, dann zur folgenden."
+L["Free mode: follow your own quests (on, off, nearest, xp)"] = "Freimodus: deinen eigenen Quests folgen (on, off, nearest, xp)"
+
+-- UI/QuestLinks.lua
+L["Start quest guide"] = "Quest-Guide starten"
+L["Click to show quest guide actions."] = "Klicken, um die Aktionen des Quest-Guides zu zeigen."
+
+-- Handins.lua
+L["Travel time to this hand-in is unknown. Its location is still shown."] = "Die Reisezeit zu dieser Abgabe ist unbekannt. Ihr Ort wird trotzdem angezeigt."
+L["Hand-ins without a known location"] = "Abgaben ohne bekannten Ort"
+L["Refining the travel order. Travel times are estimates."] = "Die Reihenfolge wird verfeinert. Reisezeiten sind Schätzungen."
+L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = "Die Reiseschätzungen sind unvollständig. Die Reihenfolge nutzt die vorhandenen Schätzungen und ungefähre Entfernungen."
+L["Waiting for your quest log."] = "Warte auf dein Questlog."
+L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = "Der Abgabe-Guide konnte nicht geladen werden. Prüfe, ob das Addon Polestar_Codex installiert und aktiviert ist."
+
+-- Free.lua
+L["Low drop rate: %s"] = "Seltene Beute: %s"
+L["1 quest for your level: %s gives it."] = "1 Quest für deine Stufe: %s vergibt sie."
+L["%d quests for your level, all here."] = "%d Quests für deine Stufe, alle hier."
+L["%d quests for your level, %d of them here."] = "%d Quests für deine Stufe, %d davon hier."
+L["Quests for your level"] = "Quests für deine Stufe"
+L["About %s XP a minute"] = "Etwa %s EP pro Minute"
+L["Order: nearest first"] = "Reihenfolge: nächste zuerst"
+L["Order: most XP a minute first"] = "Reihenfolge: meiste EP pro Minute zuerst"
+L["Bring back left-out quests (%d)"] = "Ausgelassene Quests zurückholen (%d)"
+L["Unpin"] = "Lösen"
+L["Pin to the top"] = "Ganz nach oben heften"
+L["Free mode takes this quest first, whatever the order."] = "Der Freimodus nimmt diese Quest zuerst, egal in welcher Reihenfolge."
+L["Leave out of Free mode"] = "Aus dem Freimodus auslassen"
+L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "Der Freimodus führt diese Quest nicht mehr auf. „Ausgelassene Quests zurückholen“ im Menü führt sie wieder auf."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar neu einrichten, eine Seite nach der anderen. Jede Wahl wirkt sofort."
