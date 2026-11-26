@@ -49,6 +49,8 @@ return {
 		["action:POLESTAR_TOGGLE"] = bound("POLESTAR_TOGGLE"),
 		["action:POLESTAR_HIDE"] = bound("POLESTAR_HIDE"),
 		["action:POLESTAR_REOPEN_TAB"] = bound("POLESTAR_REOPEN_TAB"),
+		-- Run a command (UI/CommandBox.lua): the button opens the command box.
+		["Gamepad:Run a command"] = { press = true, probe = function() local f = UI.CommandBox.Frame() return f ~= nil and f:IsShown() end },
 		["action:POLESTAR_MENU"] = bound("POLESTAR_MENU"),
 		["action:POLESTAR_OPTIONS"] = bound("POLESTAR_OPTIONS"),
 		["action:POLESTAR_REPORT"] = bound("POLESTAR_REPORT"),

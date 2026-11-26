@@ -138,6 +138,10 @@ function Maps.ShowMenu(anchor)
 	items[#items + 1] = { text = L["Guides"], icon = "guides", onClick = open("SHOW_PICKER") }
 	items[#items + 1] = { text = L["Lookup"], icon = "search", onClick = open("SHOW_LOOKUP") }
 	items[#items + 1] = { text = L["Settings"], icon = "sliders", onClick = open("SHOW_OPTIONS") }
+	-- With the gamepad interface there are no slash commands: the command box (UI/CommandBox.lua) runs them.
+	if ns.GamepadUI() then
+		items[#items + 1] = { text = L["Run a command"], icon = "chevron-right", onClick = open("SHOW_COMMAND_BOX") }
+	end
 	items[#items + 1] = { separator = true }
 	items[#items + 1] = { text = L["Report a problem"], icon = "bug", onClick = open("SHOW_REPORT") }
 	W.ShowMenu(anchor, items, { point = "TOPRIGHT", relPoint = "BOTTOMLEFT", x = 4, y = 4 })

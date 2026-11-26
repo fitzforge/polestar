@@ -38,6 +38,11 @@ if G and G.BindingRow then
 				help = L["A bar under the window says what each button does, and B sits on the close button."] },
 			{ kind = "toggle", key = "gamepad.withMouse", label = L["Use with the keyboard and mouse"],
 				help = L["Off, Polestar uses the gamepad only with the game's gamepad interface (Options, Gamepad, Enable Gamepad UI). On, also with the keyboard and mouse interface, while the gamepad is turned on in the game's options and plugged in."] },
+			-- Slash commands are off with the gamepad interface (Core/Init.lua): this box runs them (UI/CommandBox.lua).
+			{ kind = "button", icon = "chevron-right", button = L["Open"], label = L["Run a command"],
+				search = "command, commands, slash, slash commands, chat, chat box, type, typing, keyboard, /polestar, /ps, /way, controller, console",
+				help = L["With the game's gamepad interface on, slash commands are off: the game blocks gamepad actions after any addon command typed in chat. This box runs the same commands, such as next, options or way 52 40, without the chat. It also opens from the minimap button's menu."],
+				onClick = function() ns.Fire("SHOW_COMMAND_BOX") end },
 		},
 	})
 
