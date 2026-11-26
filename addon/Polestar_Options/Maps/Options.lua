@@ -23,13 +23,26 @@ local function register(spec)
 end
 
 -- Integrations > Flight arcade (Maps/Arcade.lua): the game the flight card offers, there while a game is
--- (Polestar_Arcade ships them; the standalone Freedoom Arcade addon takes its place when installed).
+-- (Polestar_Arcade ships them; the standalone Freedoom Arcade addon takes its place when installed). With the
+-- game's gamepad interface on it shows too, with only the games that play there (Tetris), so a search for
+-- "arcade" finds it; a saved Freedoom Arcade or Sky Jewels stays saved and shows as the Tetris the flight offers.
+local ARCADE = {
+	{ value = "freedoom", label = L["Freedoom Arcade"] }, { value = "skyjewels", label = L["Sky Jewels"] }, { value = "tetris", label = L["Tetris"] },
+}
 if ns.Arcade then
 	register({ page = L["Integrations"], section = L["Flight arcade"], controls = {
 		{ kind = "dropdown", key = "arcade.game", label = L["Game on flights"],
-			help = L["On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed), Sky Jewels by RikyZ90, a match-three game, or Tetris by beemerwt. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade, /polestar jewels and /polestar tetris open them any time."],
-			search = "doom, freedoom, arcade, game, flight, taxi, petllama, sky jewels, match three, jewels, rikyz90, tetris, blocks, beemerwt",
-			choices = { { value = "freedoom", label = L["Freedoom Arcade"] }, { value = "skyjewels", label = L["Sky Jewels"] }, { value = "tetris", label = L["Tetris"] }, { value = "none", label = L["None: don't offer a game"] } },
+			help = L["On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed), Sky Jewels by RikyZ90, a match-three game, or Tetris by beemerwt. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade, /polestar jewels and /polestar tetris open them any time. With the game's gamepad interface on, only Tetris is offered, because it plays with the gamepad: Freedoom Arcade and Sky Jewels need the keyboard and mouse. There, slash commands are off: open Tetris from the guide window's menu or the Run a command box."],
+			search = "doom, freedoom, arcade, game, flight, taxi, petllama, sky jewels, match three, jewels, rikyz90, tetris, blocks, beemerwt, gamepad, controller, steam deck",
+			get = function() return ns.Arcade.Shown() end,
+			choices = function()
+				local out = {}
+				for _, g in ipairs(ARCADE) do
+					if not ns.GamepadUI() or ns.Arcade.Available(g.value) then out[#out + 1] = g end
+				end
+				out[#out + 1] = { value = "none", label = L["None: don't offer a game"] }
+				return out
+			end,
 			needs = function() return ns.Arcade.Available() end },
 	} })
 end

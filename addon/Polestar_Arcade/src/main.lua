@@ -483,8 +483,10 @@ local function help()
 	D.Print(UI.KEYS_HELP)
 end
 
--- A copy inside another addon leaves the commands to the standalone addon when that one has them.
-if not SlashCmdList.FREEDOOMARCADE then
+-- A copy inside another addon leaves the commands to the standalone addon when that one has them. Inside Polestar
+-- with the game's gamepad interface on (Tetris is played there), none: a slash command typed in the chat taints
+-- it and blocks the gamepad's actions (Polestar's Core/Init.lua, ns.GamepadUI). Freedoom Arcade is not offered there.
+if not SlashCmdList.FREEDOOMARCADE and not (Polestar and Polestar.GamepadUI and Polestar.GamepadUI()) then
 SLASH_FREEDOOMARCADE1 = "/arcade"
 SLASH_FREEDOOMARCADE2 = "/freedoom"
 SLASH_FREEDOOMARCADE3 = "/doom"
