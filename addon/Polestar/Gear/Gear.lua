@@ -170,7 +170,7 @@ function Client.ItemInfo(link)
 	if not C_Item then return nil end
 	if C_Item.GetItemInfo then
 		local ok, name, _, quality, _, minLevel, _, _, _, equipLoc, _, _, classID, subclassID = pcall(C_Item.GetItemInfo, link)
-		if ok and name then return equipLoc, classID, subclassID, minLevel, quality end
+		if ok and name then return equipLoc, classID, subclassID, readable(minLevel), quality end
 	end
 	if C_Item.GetItemInfoInstant then
 		local ok, id, _, _, equipLoc, _, classID, subclassID = pcall(C_Item.GetItemInfoInstant, link)
@@ -652,16 +652,8 @@ local function buildInfo(link)
 	end
 	local rec = ns.ItemDB and ns.ItemDB.Get(id)
 	local cstats = clientStats(link)
-	local inv, class, subclass, req, quality
-	if rec then
-		inv, class, subclass, req, quality = rec.inv, rec.class, rec.subclass, rec.req, rec.quality
-	end
-	if not inv or (cstats and not req) then
-		local equipLoc, cls, sub, minLevel, q = Client.ItemInfo(type(link) == "number" and ("item:" .. link) or link)
-		inv = inv or EQUIP_LOC[equipLoc or ""]
-		class, subclass = class or cls, subclass or sub
-		req, quality = req or minLevel, quality or q
-	end
+	local equipLoc, class, subclass, minLevel, quality = Client.ItemInfo(type(link) == "number" and ("item:" .. link) or link)
+	local inv = (rec and rec.inv) or EQUIP_LOC[equipLoc or ""]
 	if not (inv and SLOTS_OF[inv]) then return nil end
 	if not (cstats or rec) then return nil end
 	local stats = {}
@@ -676,8 +668,10 @@ local function buildInfo(link)
 		for k, v in pairs(rec.stats) do stats[k] = v end
 	end
 	return {
-		id = id, link = link, inv = inv, req = req or 0, quality = quality,
-		class = class, subclass = subclass,
+		id = id, link = link, inv = inv, quality = (rec and rec.quality) or quality,
+		-- The client's required level wins whenever it answers, including 0.
+		req = minLevel or (rec and rec.req) or 0,
+		class = (rec and rec.class) or class, subclass = (rec and rec.subclass) or subclass,
 		allow = rec and rec.allow or 0, unique = rec and rec.unique or false,
 		stats = stats,
 	}

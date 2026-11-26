@@ -1059,10 +1059,24 @@ pub fn emit_faction_toc(manifest: &V, faction: &str, iface: &str, races: &[&str]
 }
 
 /// The ids of guides a cutover retired (retired.json), after the pack's guides
-/// in Guides.lua: Polestar opens a saved tab of one as its successor.
-pub fn emit_retired(pack_id: &str, ids: &[String]) -> String {
-	let lines: Vec<String> = ids.iter().map(|id| format!("\t{},", lua_string(id))).collect();
+/// in Guides.lua: Polestar opens a saved tab of one as its successor. Every id
+/// is in the list part; one with a `to` names it in the hash part too
+/// (`["<old id>"] = "<new id>"`), which a Polestar from before targets reads past.
+pub fn emit_retired(pack_id: &str, ids: &[crate::project::Retired]) -> String {
+	let mut lines: Vec<String> = ids.iter().map(|r| format!("\t{},", lua_string(&r.id))).collect();
+	lines.extend(ids.iter().filter_map(|r| r.to.as_ref().map(|to| format!("\t[{}] = {},", lua_string(&r.id), lua_string(to)))));
 	format!("\nPolestar.RetireGuides({}, {{\n{}\n}})\n", lua_string(pack_id), lines.join("\n"))
+}
+
+/// Polestar's own pack: the guide ids each faction part registers, after the
+/// guides in Guides.lua, one string per part key ("Alliance": every race's,
+/// "Alliance_Human": one race's), each id on a line of its own between
+/// newlines. Polestar loads the other faction's part for a saved tab only when
+/// its key for the character lists the tab's id (Core/Guides.lua PartGuides, #3924).
+/// Called only when the Polestar reading it has it (one from before has not).
+pub fn emit_part_index(pack_id: &str, index: &[(String, Vec<String>)]) -> String {
+	let lines: Vec<String> = index.iter().map(|(k, ids)| format!("\t[{}] = {},", lua_string(k), lua_string(&format!("\n{}\n", ids.join("\n"))))).collect();
+	format!("\nif Polestar.PartGuides then Polestar.PartGuides({}, {{\n{}\n}}) end\n", lua_string(pack_id), lines.join("\n"))
 }
 
 /// A point of an experimental index entry (`start`, `focus`).

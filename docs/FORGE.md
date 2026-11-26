@@ -482,9 +482,11 @@ each objective and its turn-in, so none of them holds the route later.
   { "id": "703-shendar-rathiril", "quest": 93461, "objective": 1, "write": true, "…": "…" } ] }
 ```
 
-`objective` is the objective's number (as in `quest 3505.3`), `"giver"` or `"ender"`. The point goes
+`objective` is the objective's number (as in `quest 3505.3`), `"giver"`, `"ender"` or `"complete"`. The point goes
 on the objective's goal line, on the `goto` right before it when the step leads there with one, or on
-the quest's bare `complete`. A `path` becomes a `loop` of `goto`s before the goal. `write: true`
+the quest's bare `complete`. `"complete"` puts it on the quest's `complete` line even when another
+line claims the objective (Corrupted Sabers: the kitten is let go at the moonwell by a `use … quest
+4506.1`, and the saber is clicked beside Winna, #4095). A `path` becomes a `loop` of `goto`s before the goal. `write: true`
 gives the objective its own goal line from the data (`kill`, `talk`, `interact` or `collect … quest
 Q.N`), in the objectives' order among the step's lines, before the bare `complete`, which goes once
 every objective has one. `label` sets that line's goal text. Lines written before the data knew

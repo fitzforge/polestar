@@ -2458,10 +2458,10 @@
 		"set": {
 			"objectives": [
 				{
-					"type": "talk",
-					"id": 9563,
+					"type": "event",
+					"id": null,
 					"count": 1,
-					"text": "Ragged John"
+					"text": "Milked"
 				}
 			]
 		},
@@ -2469,9 +2469,13 @@
 			{
 				"kind": "cmangos",
 				"ref": "classic-db quest_template: no creature requirement, completed by an event"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): 8 people took Mother's Milk from Ragged John (9563); the game showed its one line as \"Milked\" at every accept"
 			}
 		],
-		"note": "Mother's Milk: the player fights Mother Smolderweb, then returns to Ragged John with her poison; Ragged John, friendly to both sides, is never killed."
+		"note": "Mother's Milk: the player gets Mother Smolderweb to poison them in Blackrock Spire, then returns to Ragged John while poisoned, and the line \"Milked\" ticks. It is an event, not a talk: talking to Ragged John without the poison does nothing, and the hand-in guide sent players to him for it (#4157). Ragged John, friendly to both sides, is never killed."
 	},
 	"4901": {
 		"set": {
@@ -4034,6 +4038,273 @@
 		],
 		"note": "A Supernatural Device (8923) follows any class's An Earnest Proposition for Mokvar in Orgrimmar: Forever's versions, the Shaman's 84160, the Warlock's 84161 and the Paladin's 97411 seen in players' logs and the rest by their bracers (#3918, the Horde side of 8922's record). The Classic copies 8913-8920 are removed (their Mokvar, 16012, is not on Forever), so only Forever's versions lead here."
 	},
+	"84163": { "set": {"classes": 1024, "preAny": [8977]},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84163 asks for Wildheart Belt, Wildheart Gloves, Druid set pieces, from npc 230319 to npc 230319"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Just Compensation for the Druid (8926) asks for the same items, is locked to that class, follows 8977 Return to Deliana"}],
+		"note": "Just Compensation 84163: the Alliance Druid's version, after Return to Deliana (8977); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84164": { "set": {"classes": 4, "preAny": [8977]},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84164 asks for Beaststalker's Belt, Beaststalker's Gloves, Hunter set pieces, from npc 230319 to npc 230319"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Just Compensation for the Hunter (8931) asks for the same items, is locked to that class, follows 8977 Return to Deliana"}],
+		"note": "Just Compensation 84164: the Alliance Hunter's version, after Return to Deliana (8977); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84165": { "set": {"classes": 128, "preAny": [8977]},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84165 asks for Magister's Belt, Magister's Gloves, Mage set pieces, from npc 230319 to npc 230319"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Just Compensation for the Mage (8932) asks for the same items, is locked to that class, follows 8977 Return to Deliana"}],
+		"note": "Just Compensation 84165: the Alliance Mage's version, after Return to Deliana (8977); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84166": { "set": {"classes": 2, "preAny": [8977]},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84166 asks for Lightforge Belt, Lightforge Gauntlets, Paladin set pieces, from npc 230319 to npc 230319"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Just Compensation for the Paladin (8933) asks for the same items, is locked to that class, follows 8977 Return to Deliana"}],
+		"note": "Just Compensation 84166: the Alliance Paladin's version, after Return to Deliana (8977); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84167": { "set": {"classes": 16, "preAny": [8977]},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84167 asks for Devout Belt, Devout Gloves, Priest set pieces, from npc 230319 to npc 230319"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Just Compensation for the Priest (8934) asks for the same items, is locked to that class, follows 8977 Return to Deliana"}],
+		"note": "Just Compensation 84167: the Alliance Priest's version, after Return to Deliana (8977); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84168": { "set": {"classes": 8, "preAny": [8977]},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84168 asks for Shadowcraft Belt, Shadowcraft Gloves, Rogue set pieces, from npc 230319 to npc 230319"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Just Compensation for the Rogue (8935) asks for the same items, is locked to that class, follows 8977 Return to Deliana"}],
+		"note": "Just Compensation 84168: the Alliance Rogue's version, after Return to Deliana (8977); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84169": { "set": {"classes": 256, "preAny": [8977]},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84169 asks for Dreadmist Belt, Dreadmist Wraps, Warlock set pieces, from npc 230319 to npc 230319"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Just Compensation for the Warlock (8936) asks for the same items, is locked to that class, follows 8977 Return to Deliana"}],
+		"note": "Just Compensation 84169: the Alliance Warlock's version, after Return to Deliana (8977); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84170": { "set": {"classes": 1, "preAny": [8977]},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84170 asks for Belt of Valor, Gauntlets of Valor, Warrior set pieces, from npc 230319 to npc 230319"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Just Compensation for the Warrior (8937) asks for the same items, is locked to that class, follows 8977 Return to Deliana"}],
+		"note": "Just Compensation 84170: the Alliance Warrior's version, after Return to Deliana (8977); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84171": { "set": {"classes": 1024, "preAny": [8978]},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84171 asks for Wildheart Belt, Wildheart Gloves, Druid set pieces, from npc 230317 to npc 230317"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Just Compensation for the Druid (8927) asks for the same items, is locked to that class, follows 8978 Return to Mokvar"}],
+		"note": "Just Compensation 84171: the Horde Druid's version, after Return to Mokvar (8978); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84172": { "set": {"classes": 4, "preAny": [8978]},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84172 asks for Beaststalker's Belt, Beaststalker's Gloves, Hunter set pieces, from npc 230317 to npc 230317"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Just Compensation for the Hunter (8938) asks for the same items, is locked to that class, follows 8978 Return to Mokvar"}],
+		"note": "Just Compensation 84172: the Horde Hunter's version, after Return to Mokvar (8978); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84173": { "set": {"classes": 128, "preAny": [8978]},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84173 asks for Magister's Belt, Magister's Gloves, Mage set pieces, from npc 230317 to npc 230317"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Just Compensation for the Mage (8939) asks for the same items, is locked to that class, follows 8978 Return to Mokvar"}],
+		"note": "Just Compensation 84173: the Horde Mage's version, after Return to Mokvar (8978); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84174": { "set": {"classes": 16, "preAny": [8978]},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84174 asks for Devout Belt, Devout Gloves, Priest set pieces, from npc 230317 to npc 230317"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Just Compensation for the Priest (8940) asks for the same items, is locked to that class, follows 8978 Return to Mokvar"}],
+		"note": "Just Compensation 84174: the Horde Priest's version, after Return to Mokvar (8978); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84175": { "set": {"classes": 8, "preAny": [8978]},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84175 asks for Shadowcraft Belt, Shadowcraft Gloves, Rogue set pieces, from npc 230317 to npc 230317"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Just Compensation for the Rogue (8941) asks for the same items, is locked to that class, follows 8978 Return to Mokvar"}],
+		"note": "Just Compensation 84175: the Horde Rogue's version, after Return to Mokvar (8978); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84176": { "set": {"classes": 64, "preAny": [8978]},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84176 asks for Cord of Elements, Gauntlets of Elements, Shaman set pieces, from npc 230317 to npc 230317"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Just Compensation for the Shaman (8942) asks for the same items, is locked to that class, follows 8978 Return to Mokvar"}],
+		"note": "Just Compensation 84176: the Horde Shaman's version, after Return to Mokvar (8978); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84177": { "set": {"classes": 256, "preAny": [8978]},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84177 asks for Dreadmist Belt, Dreadmist Wraps, Warlock set pieces, from npc 230317 to npc 230317"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Just Compensation for the Warlock (8943) asks for the same items, is locked to that class, follows 8978 Return to Mokvar"}],
+		"note": "Just Compensation 84177: the Horde Warlock's version, after Return to Mokvar (8978); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84178": { "set": {"classes": 1, "preAny": [8978]},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84178 asks for Belt of Valor, Gauntlets of Valor, Warrior set pieces, from npc 230317 to npc 230317"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Just Compensation for the Warrior (8944) asks for the same items, is locked to that class, follows 8978 Return to Mokvar"}],
+		"note": "Just Compensation 84178: the Horde Warrior's version, after Return to Mokvar (8978); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"97412": { "set": {"classes": 2, "preAny": [8978]},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 97412 asks for Lightforge Belt, Lightforge Gauntlets, Paladin set pieces, from npc 230317 to npc 230317"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): every Classic Just Compensation is locked to one class and follows 8978 Return to Mokvar on its side"}],
+		"note": "Just Compensation 97412: the Horde Paladin's version, after Return to Mokvar (8978); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"97448": { "set": {"classes": 64, "preAny": [8977], "start": {"npc": [230319], "object": [], "item": []}, "end": {"npc": [230319], "object": []}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 97448 asks for Cord of Elements, Gauntlets of Elements, Shaman set pieces"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): every Classic Just Compensation is locked to one class and follows 8977 Return to Deliana on its side"}],
+		"note": "Just Compensation 97448: the Alliance Shaman's version, after Return to Deliana (8977); without a class or prerequisite every class saw it from the first step (#4169). No giver in the data: Deliana (230319), as for every other version on its side." },
+	"84179": { "set": {"classes": 1024, "preAny": [9015], "rewards": {"items": [22107, 22111, 22112], "choices": [], "money": null}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84179 asks for Wildheart Boots, Wildheart Kilt, Wildheart Spaulders, Druid set pieces, from npc 16016 to npc 230319"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Anthion's Parting Words for the Druid (8951) asks for the same items, is locked to that class, follows 9015 The Challenge"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic copy for the same class (8951), asking the same items, rewards 22107, 22111, 22112"}],
+		"note": "Anthion's Parting Words 84179: the Alliance Druid's version, after The Challenge (9015); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84180": { "set": {"classes": 4, "preAny": [9015], "rewards": {"items": [22016, 22017, 22061], "choices": [], "money": null}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84180 asks for Beaststalker's Boots, Beaststalker's Pants, Beaststalker's Mantle, Hunter set pieces, from npc 16016 to npc 230319"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Anthion's Parting Words for the Hunter (8952) asks for the same items, is locked to that class, follows 9015 The Challenge"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic copy for the same class (8952), asking the same items, rewards 22016, 22017, 22061"}],
+		"note": "Anthion's Parting Words 84180: the Alliance Hunter's version, after The Challenge (9015); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84181": { "set": {"classes": 128, "preAny": [9015], "rewards": {"items": [22064, 22067, 22068], "choices": [], "money": null}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84181 asks for Magister's Boots, Magister's Leggings, Magister's Mantle, Mage set pieces, from npc 16016 to npc 230319"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Anthion's Parting Words for the Mage (8953) asks for the same items, is locked to that class, follows 9015 The Challenge"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic copy for the same class (8953), asking the same items, rewards 22064, 22067, 22068"}],
+		"note": "Anthion's Parting Words 84181: the Alliance Mage's version, after The Challenge (9015); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84182": { "set": {"classes": 2, "preAny": [9015], "rewards": {"items": [22087, 22092, 22093], "choices": [], "money": null}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84182 asks for Lightforge Boots, Lightforge Legplates, Lightforge Spaulders, Paladin set pieces, from npc 16016 to npc 230319"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Anthion's Parting Words for the Paladin (8954) asks for the same items, is locked to that class, follows 9015 The Challenge"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic copy for the same class (8954), asking the same items, rewards 22087, 22092, 22093"}],
+		"note": "Anthion's Parting Words 84182: the Alliance Paladin's version, after The Challenge (9015); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84183": { "set": {"classes": 16, "preAny": [9015], "rewards": {"items": [22082, 22084, 22085], "choices": [], "money": null}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84183 asks for Devout Sandals, Devout Skirt, Devout Mantle, Priest set pieces, from npc 16016 to npc 230319"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Anthion's Parting Words for the Priest (8955) asks for the same items, is locked to that class, follows 9015 The Challenge"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic copy for the same class (8955), asking the same items, rewards 22082, 22084, 22085"}],
+		"note": "Anthion's Parting Words 84183: the Alliance Priest's version, after The Challenge (9015); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84184": { "set": {"classes": 8, "preAny": [9015], "rewards": {"items": [22003, 22007, 22008], "choices": [], "money": null}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84184 asks for Shadowcraft Boots, Shadowcraft Pants, Shadowcraft Spaulders, Rogue set pieces, from npc 16016 to npc 230319"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Anthion's Parting Words for the Rogue (8956) asks for the same items, is locked to that class, follows 9015 The Challenge"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic copy for the same class (8956), asking the same items, rewards 22003, 22007, 22008"}],
+		"note": "Anthion's Parting Words 84184: the Alliance Rogue's version, after The Challenge (9015); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84186": { "set": {"classes": 1, "preAny": [9015], "rewards": {"items": [21995, 22000, 22001], "choices": [], "money": null}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84186 asks for Boots of Valor, Legplates of Valor, Spaulders of Valor, Warrior set pieces, from npc 16016 to npc 230319"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Anthion's Parting Words for the Warrior (8959) asks for the same items, is locked to that class, follows 9015 The Challenge"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic copy for the same class (8959), asking the same items, rewards 21995, 22000, 22001"}],
+		"note": "Anthion's Parting Words 84186: the Alliance Warrior's version, after The Challenge (9015); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84187": { "set": {"classes": 1024, "preAny": [9015], "rewards": {"items": [22107, 22111, 22112], "choices": [], "money": null}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84187 asks for Wildheart Boots, Wildheart Kilt, Wildheart Spaulders, Druid set pieces, from npc 16016 to npc 230317"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Anthion's Parting Words for the Druid (9016) asks for the same items, is locked to that class, follows 9015 The Challenge"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic copy for the same class (9016), asking the same items, rewards 22107, 22111, 22112"}],
+		"note": "Anthion's Parting Words 84187: the Horde Druid's version, after The Challenge (9015); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84188": { "set": {"classes": 4, "preAny": [9015], "rewards": {"items": [22016, 22017, 22061], "choices": [], "money": null}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84188 asks for Beaststalker's Boots, Beaststalker's Pants, Beaststalker's Mantle, Hunter set pieces, from npc 16016 to npc 230317"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Anthion's Parting Words for the Hunter (9017) asks for the same items, is locked to that class, follows 9015 The Challenge"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic copy for the same class (9017), asking the same items, rewards 22016, 22017, 22061"}],
+		"note": "Anthion's Parting Words 84188: the Horde Hunter's version, after The Challenge (9015); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84189": { "set": {"classes": 128, "preAny": [9015], "rewards": {"items": [22064, 22067, 22068], "choices": [], "money": null}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84189 asks for Magister's Boots, Magister's Leggings, Magister's Mantle, Mage set pieces, from npc 16016 to npc 230317"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Anthion's Parting Words for the Mage (9018) asks for the same items, is locked to that class, follows 9015 The Challenge"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic copy for the same class (9018), asking the same items, rewards 22064, 22067, 22068"}],
+		"note": "Anthion's Parting Words 84189: the Horde Mage's version, after The Challenge (9015); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84190": { "set": {"classes": 16, "preAny": [9015], "rewards": {"items": [22082, 22084, 22085], "choices": [], "money": null}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84190 asks for Devout Sandals, Devout Skirt, Devout Mantle, Priest set pieces, from npc 16016 to npc 230317"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Anthion's Parting Words for the Priest (9019) asks for the same items, is locked to that class, follows 9015 The Challenge"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic copy for the same class (9019), asking the same items, rewards 22082, 22084, 22085"}],
+		"note": "Anthion's Parting Words 84190: the Horde Priest's version, after The Challenge (9015); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84191": { "set": {"classes": 8, "preAny": [9015], "rewards": {"items": [22003, 22007, 22008], "choices": [], "money": null}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84191 asks for Shadowcraft Boots, Shadowcraft Pants, Shadowcraft Spaulders, Rogue set pieces, from npc 16016 to npc 230317"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Anthion's Parting Words for the Rogue (9020) asks for the same items, is locked to that class, follows 9015 The Challenge"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic copy for the same class (9020), asking the same items, rewards 22003, 22007, 22008"}],
+		"note": "Anthion's Parting Words 84191: the Horde Rogue's version, after The Challenge (9015); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84192": { "set": {"classes": 64, "preAny": [9015], "rewards": {"items": [22096, 22100, 22101], "choices": [], "money": null}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84192 asks for Boots of Elements, Kilt of Elements, Pauldrons of Elements, Shaman set pieces, from npc 16016 to npc 230317"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Anthion's Parting Words for the Shaman (8957) asks for the same items, is locked to that class, follows 9015 The Challenge"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic copy for the same class (8957), asking the same items, rewards 22096, 22100, 22101"}],
+		"note": "Anthion's Parting Words 84192: the Horde Shaman's version, after The Challenge (9015); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84193": { "set": {"classes": 256, "preAny": [9015], "rewards": {"items": [22072, 22073, 22076], "choices": [], "money": null}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84193 asks for Dreadmist Sandals, Dreadmist Leggings, Dreadmist Mantle, Warlock set pieces, from npc 16016 to npc 230317"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Anthion's Parting Words for the Warlock (9021) asks for the same items, is locked to that class, follows 9015 The Challenge"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic copy for the same class (9021), asking the same items, rewards 22072, 22073, 22076"}],
+		"note": "Anthion's Parting Words 84193: the Horde Warlock's version, after The Challenge (9015); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84194": { "set": {"classes": 1, "preAny": [9015], "rewards": {"items": [21995, 22000, 22001], "choices": [], "money": null}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84194 asks for Boots of Valor, Legplates of Valor, Spaulders of Valor, Warrior set pieces, from npc 16016 to npc 230317"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Anthion's Parting Words for the Warrior (9022) asks for the same items, is locked to that class, follows 9015 The Challenge"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic copy for the same class (9022), asking the same items, rewards 21995, 22000, 22001"}],
+		"note": "Anthion's Parting Words 84194: the Horde Warrior's version, after The Challenge (9015); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84195": { "set": {"classes": 1024, "preAny": [8997], "rewards": {"items": [22109, 22113], "choices": [], "money": null}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84195 asks for Wildheart Cowl, Wildheart Vest, Druid set pieces, from npc 230319 to npc 230319"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Saving the Best for Last for the Druid (8999) asks for the same items, is locked to that class, follows 8997 Back to the Beginning"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic copy for the same class (8999), asking the same items, rewards 22109, 22113"}],
+		"note": "Saving the Best for Last 84195: the Alliance Druid's version, after Back to the Beginning (8997); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84196": { "set": {"classes": 4, "preAny": [8997], "rewards": {"items": [22013, 22060], "choices": [], "money": null}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84196 asks for Beaststalker's Cap, Beaststalker's Tunic, Hunter set pieces, from npc 230319 to npc 230319"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Saving the Best for Last for the Hunter (9000) asks for the same items, is locked to that class, follows 8997 Back to the Beginning"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic copy for the same class (9000), asking the same items, rewards 22013, 22060"}],
+		"note": "Saving the Best for Last 84196: the Alliance Hunter's version, after Back to the Beginning (8997); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84200": { "set": {"classes": 8, "preAny": [8997], "rewards": {"items": [22005, 22009], "choices": [], "money": null}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84200 asks for Shadowcraft Cap, Shadowcraft Tunic, Rogue set pieces, from npc 230319 to npc 230319"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Saving the Best for Last for the Rogue (9004) asks for the same items, is locked to that class, follows 8997 Back to the Beginning"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic copy for the same class (9004), asking the same items, rewards 22005, 22009"}],
+		"note": "Saving the Best for Last 84200: the Alliance Rogue's version, after Back to the Beginning (8997); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84202": { "set": {"classes": 1, "preAny": [8997], "rewards": {"items": [21997, 21999], "choices": [], "money": null}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84202 asks for Helm of Valor, Breastplate of Valor, Warrior set pieces, from npc 230319 to npc 230319"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Saving the Best for Last for the Warrior (9006) asks for the same items, is locked to that class, follows 8997 Back to the Beginning"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic copy for the same class (9006), asking the same items, rewards 21997, 21999"}],
+		"note": "Saving the Best for Last 84202: the Alliance Warrior's version, after Back to the Beginning (8997); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84203": { "set": {"classes": 1024, "preAny": [8998], "rewards": {"items": [22109, 22113], "choices": [], "money": null}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84203 asks for Wildheart Cowl, Wildheart Vest, Druid set pieces, from npc 230317 to npc 230317"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Saving the Best for Last for the Druid (9007) asks for the same items, is locked to that class, follows 8998 Back to the Beginning"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic copy for the same class (9007), asking the same items, rewards 22109, 22113"}],
+		"note": "Saving the Best for Last 84203: the Horde Druid's version, after Back to the Beginning (8998); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84208": { "set": {"classes": 64, "preAny": [8998], "rewards": {"items": [22097, 22102], "choices": [], "money": null}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84208 asks for Coif of Elements, Vest of Elements, Shaman set pieces, from npc 230317 to npc 230317"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Saving the Best for Last for the Shaman (9011) asks for the same items, is locked to that class, follows 8998 Back to the Beginning"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic copy for the same class (9011), asking the same items, rewards 22097, 22102"}],
+		"note": "Saving the Best for Last 84208: the Horde Shaman's version, after Back to the Beginning (8998); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"84210": { "set": {"classes": 1, "preAny": [8998], "rewards": {"items": [21997, 21999], "choices": [], "money": null}},
+		"source": [{"kind": "questie", "ref": "QuestieDB (Questie-Forever): 84210 asks for Helm of Valor, Breastplate of Valor, Warrior set pieces, from npc 230317 to npc 230317"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic Saving the Best for Last for the Warrior (9013) asks for the same items, is locked to that class, follows 8998 Back to the Beginning"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Classic copy for the same class (9013), asking the same items, rewards 21997, 21999"}],
+		"note": "Saving the Best for Last 84210: the Horde Warrior's version, after Back to the Beginning (8998); without a class or prerequisite every class saw it from the first step (#4169)." },
+	"8951": { "remove": true,
+		"source": [{"kind": "recording", "ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): nobody ever saw the Classic Deliana (16013) or Mokvar (16012); Forever's Deliana (230319) was seen by 90 people and Mokvar (230317) by 95, at the same spots"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Anthion's Parting Words 84179 asks for the same items for the same class and is handed in to Forever's Deliana (230319)"}],
+		"note": "Anthion's Parting Words (Druid, Alliance): the Classic copy for the Classic 16013 (Deliana), whom players never meet on Forever; Forever's 84179 (same class, same items) stands in its place, so this copy leaves the data (#4169)." },
+	"8952": { "remove": true,
+		"source": [{"kind": "recording", "ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): nobody ever saw the Classic Deliana (16013) or Mokvar (16012); Forever's Deliana (230319) was seen by 90 people and Mokvar (230317) by 95, at the same spots"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Anthion's Parting Words 84180 asks for the same items for the same class and is handed in to Forever's Deliana (230319)"}],
+		"note": "Anthion's Parting Words (Hunter, Alliance): the Classic copy for the Classic 16013 (Deliana), whom players never meet on Forever; Forever's 84180 (same class, same items) stands in its place, so this copy leaves the data (#4169)." },
+	"8953": { "remove": true,
+		"source": [{"kind": "recording", "ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): nobody ever saw the Classic Deliana (16013) or Mokvar (16012); Forever's Deliana (230319) was seen by 90 people and Mokvar (230317) by 95, at the same spots"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Anthion's Parting Words 84181 asks for the same items for the same class and is handed in to Forever's Deliana (230319)"}],
+		"note": "Anthion's Parting Words (Mage, Alliance): the Classic copy for the Classic 16013 (Deliana), whom players never meet on Forever; Forever's 84181 (same class, same items) stands in its place, so this copy leaves the data (#4169)." },
+	"8954": { "remove": true,
+		"source": [{"kind": "recording", "ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): nobody ever saw the Classic Deliana (16013) or Mokvar (16012); Forever's Deliana (230319) was seen by 90 people and Mokvar (230317) by 95, at the same spots"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Anthion's Parting Words 84182 asks for the same items for the same class and is handed in to Forever's Deliana (230319)"}],
+		"note": "Anthion's Parting Words (Paladin, Alliance): the Classic copy for the Classic 16013 (Deliana), whom players never meet on Forever; Forever's 84182 (same class, same items) stands in its place, so this copy leaves the data (#4169)." },
+	"8955": { "remove": true,
+		"source": [{"kind": "recording", "ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): nobody ever saw the Classic Deliana (16013) or Mokvar (16012); Forever's Deliana (230319) was seen by 90 people and Mokvar (230317) by 95, at the same spots"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Anthion's Parting Words 84183 asks for the same items for the same class and is handed in to Forever's Deliana (230319)"}],
+		"note": "Anthion's Parting Words (Priest, Alliance): the Classic copy for the Classic 16013 (Deliana), whom players never meet on Forever; Forever's 84183 (same class, same items) stands in its place, so this copy leaves the data (#4169)." },
+	"8956": { "remove": true,
+		"source": [{"kind": "recording", "ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): nobody ever saw the Classic Deliana (16013) or Mokvar (16012); Forever's Deliana (230319) was seen by 90 people and Mokvar (230317) by 95, at the same spots"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Anthion's Parting Words 84184 asks for the same items for the same class and is handed in to Forever's Deliana (230319)"}],
+		"note": "Anthion's Parting Words (Rogue, Alliance): the Classic copy for the Classic 16013 (Deliana), whom players never meet on Forever; Forever's 84184 (same class, same items) stands in its place, so this copy leaves the data (#4169)." },
+	"8957": { "remove": true,
+		"source": [{"kind": "recording", "ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): nobody ever saw the Classic Deliana (16013) or Mokvar (16012); Forever's Deliana (230319) was seen by 90 people and Mokvar (230317) by 95, at the same spots"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Anthion's Parting Words 84192 asks for the same items for the same class and is handed in to Forever's Mokvar (230317)"}],
+		"note": "Anthion's Parting Words (Shaman, Horde): the Classic copy for the Classic 16012 (Mokvar), whom players never meet on Forever; Forever's 84192 (same class, same items) stands in its place, so this copy leaves the data (#4169)." },
+	"8959": { "remove": true,
+		"source": [{"kind": "recording", "ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): nobody ever saw the Classic Deliana (16013) or Mokvar (16012); Forever's Deliana (230319) was seen by 90 people and Mokvar (230317) by 95, at the same spots"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Anthion's Parting Words 84186 asks for the same items for the same class and is handed in to Forever's Deliana (230319)"}],
+		"note": "Anthion's Parting Words (Warrior, Alliance): the Classic copy for the Classic 16013 (Deliana), whom players never meet on Forever; Forever's 84186 (same class, same items) stands in its place, so this copy leaves the data (#4169)." },
+	"9016": { "remove": true,
+		"source": [{"kind": "recording", "ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): nobody ever saw the Classic Deliana (16013) or Mokvar (16012); Forever's Deliana (230319) was seen by 90 people and Mokvar (230317) by 95, at the same spots"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Anthion's Parting Words 84187 asks for the same items for the same class and is handed in to Forever's Mokvar (230317)"}],
+		"note": "Anthion's Parting Words (Druid, Horde): the Classic copy for the Classic 16012 (Mokvar), whom players never meet on Forever; Forever's 84187 (same class, same items) stands in its place, so this copy leaves the data (#4169)." },
+	"9017": { "remove": true,
+		"source": [{"kind": "recording", "ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): nobody ever saw the Classic Deliana (16013) or Mokvar (16012); Forever's Deliana (230319) was seen by 90 people and Mokvar (230317) by 95, at the same spots"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Anthion's Parting Words 84188 asks for the same items for the same class and is handed in to Forever's Mokvar (230317)"}],
+		"note": "Anthion's Parting Words (Hunter, Horde): the Classic copy for the Classic 16012 (Mokvar), whom players never meet on Forever; Forever's 84188 (same class, same items) stands in its place, so this copy leaves the data (#4169)." },
+	"9018": { "remove": true,
+		"source": [{"kind": "recording", "ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): nobody ever saw the Classic Deliana (16013) or Mokvar (16012); Forever's Deliana (230319) was seen by 90 people and Mokvar (230317) by 95, at the same spots"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Anthion's Parting Words 84189 asks for the same items for the same class and is handed in to Forever's Mokvar (230317)"}],
+		"note": "Anthion's Parting Words (Mage, Horde): the Classic copy for the Classic 16012 (Mokvar), whom players never meet on Forever; Forever's 84189 (same class, same items) stands in its place, so this copy leaves the data (#4169)." },
+	"9019": { "remove": true,
+		"source": [{"kind": "recording", "ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): nobody ever saw the Classic Deliana (16013) or Mokvar (16012); Forever's Deliana (230319) was seen by 90 people and Mokvar (230317) by 95, at the same spots"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Anthion's Parting Words 84190 asks for the same items for the same class and is handed in to Forever's Mokvar (230317)"}],
+		"note": "Anthion's Parting Words (Priest, Horde): the Classic copy for the Classic 16012 (Mokvar), whom players never meet on Forever; Forever's 84190 (same class, same items) stands in its place, so this copy leaves the data (#4169)." },
+	"9020": { "remove": true,
+		"source": [{"kind": "recording", "ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): nobody ever saw the Classic Deliana (16013) or Mokvar (16012); Forever's Deliana (230319) was seen by 90 people and Mokvar (230317) by 95, at the same spots"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Anthion's Parting Words 84191 asks for the same items for the same class and is handed in to Forever's Mokvar (230317)"}],
+		"note": "Anthion's Parting Words (Rogue, Horde): the Classic copy for the Classic 16012 (Mokvar), whom players never meet on Forever; Forever's 84191 (same class, same items) stands in its place, so this copy leaves the data (#4169)." },
+	"9021": { "remove": true,
+		"source": [{"kind": "recording", "ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): nobody ever saw the Classic Deliana (16013) or Mokvar (16012); Forever's Deliana (230319) was seen by 90 people and Mokvar (230317) by 95, at the same spots"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Anthion's Parting Words 84193 asks for the same items for the same class and is handed in to Forever's Mokvar (230317)"}],
+		"note": "Anthion's Parting Words (Warlock, Horde): the Classic copy for the Classic 16012 (Mokvar), whom players never meet on Forever; Forever's 84193 (same class, same items) stands in its place, so this copy leaves the data (#4169)." },
+	"9022": { "remove": true,
+		"source": [{"kind": "recording", "ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): nobody ever saw the Classic Deliana (16013) or Mokvar (16012); Forever's Deliana (230319) was seen by 90 people and Mokvar (230317) by 95, at the same spots"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Anthion's Parting Words 84194 asks for the same items for the same class and is handed in to Forever's Mokvar (230317)"}],
+		"note": "Anthion's Parting Words (Warrior, Horde): the Classic copy for the Classic 16012 (Mokvar), whom players never meet on Forever; Forever's 84194 (same class, same items) stands in its place, so this copy leaves the data (#4169)." },
+	"8999": { "remove": true,
+		"source": [{"kind": "recording", "ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): nobody ever saw the Classic Deliana (16013) or Mokvar (16012); Forever's Deliana (230319) was seen by 90 people and Mokvar (230317) by 95, at the same spots"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Saving the Best for Last 84195 asks for the same items for the same class and is handed in to Forever's Deliana (230319)"}],
+		"note": "Saving the Best for Last (Druid, Alliance): the Classic copy for the Classic 16013 (Deliana), whom players never meet on Forever; Forever's 84195 (same class, same items) stands in its place, so this copy leaves the data (#4169)." },
+	"9000": { "remove": true,
+		"source": [{"kind": "recording", "ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): nobody ever saw the Classic Deliana (16013) or Mokvar (16012); Forever's Deliana (230319) was seen by 90 people and Mokvar (230317) by 95, at the same spots"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Saving the Best for Last 84196 asks for the same items for the same class and is handed in to Forever's Deliana (230319)"}],
+		"note": "Saving the Best for Last (Hunter, Alliance): the Classic copy for the Classic 16013 (Deliana), whom players never meet on Forever; Forever's 84196 (same class, same items) stands in its place, so this copy leaves the data (#4169)." },
+	"9004": { "remove": true,
+		"source": [{"kind": "recording", "ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): nobody ever saw the Classic Deliana (16013) or Mokvar (16012); Forever's Deliana (230319) was seen by 90 people and Mokvar (230317) by 95, at the same spots"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Saving the Best for Last 84200 asks for the same items for the same class and is handed in to Forever's Deliana (230319)"}],
+		"note": "Saving the Best for Last (Rogue, Alliance): the Classic copy for the Classic 16013 (Deliana), whom players never meet on Forever; Forever's 84200 (same class, same items) stands in its place, so this copy leaves the data (#4169)." },
+	"9006": { "remove": true,
+		"source": [{"kind": "recording", "ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): nobody ever saw the Classic Deliana (16013) or Mokvar (16012); Forever's Deliana (230319) was seen by 90 people and Mokvar (230317) by 95, at the same spots"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Saving the Best for Last 84202 asks for the same items for the same class and is handed in to Forever's Deliana (230319)"}],
+		"note": "Saving the Best for Last (Warrior, Alliance): the Classic copy for the Classic 16013 (Deliana), whom players never meet on Forever; Forever's 84202 (same class, same items) stands in its place, so this copy leaves the data (#4169)." },
+	"9007": { "remove": true,
+		"source": [{"kind": "recording", "ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): nobody ever saw the Classic Deliana (16013) or Mokvar (16012); Forever's Deliana (230319) was seen by 90 people and Mokvar (230317) by 95, at the same spots"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Saving the Best for Last 84203 asks for the same items for the same class and is handed in to Forever's Mokvar (230317)"}],
+		"note": "Saving the Best for Last (Druid, Horde): the Classic copy for the Classic 16012 (Mokvar), whom players never meet on Forever; Forever's 84203 (same class, same items) stands in its place, so this copy leaves the data (#4169)." },
+	"9011": { "remove": true,
+		"source": [{"kind": "recording", "ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): nobody ever saw the Classic Deliana (16013) or Mokvar (16012); Forever's Deliana (230319) was seen by 90 people and Mokvar (230317) by 95, at the same spots"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Saving the Best for Last 84208 asks for the same items for the same class and is handed in to Forever's Mokvar (230317)"}],
+		"note": "Saving the Best for Last (Shaman, Horde): the Classic copy for the Classic 16012 (Mokvar), whom players never meet on Forever; Forever's 84208 (same class, same items) stands in its place, so this copy leaves the data (#4169)." },
+	"9013": { "remove": true,
+		"source": [{"kind": "recording", "ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): nobody ever saw the Classic Deliana (16013) or Mokvar (16012); Forever's Deliana (230319) was seen by 90 people and Mokvar (230317) by 95, at the same spots"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Saving the Best for Last 84210 asks for the same items for the same class and is handed in to Forever's Mokvar (230317)"}],
+		"note": "Saving the Best for Last (Warrior, Horde): the Classic copy for the Classic 16012 (Mokvar), whom players never meet on Forever; Forever's 84210 (same class, same items) stands in its place, so this copy leaves the data (#4169)." },
+	"8962": { "set": {"classes": 129},
+		"source": [{"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): Components of Importance 8962 is locked to Warrior/Mage (AllowableClasses 129)"}, {"kind": "factoruide", "ref": "Factoruide: 8962 classes Warrior/Mage (raw 129)"}],
+		"note": "Components of Importance 8962 is Bodley's version for Warrior/Mage: he gives one of four per class group. Without the class every class saw all four at his step, which waited on the three he does not offer (#4169)." },
+	"8963": { "set": {"classes": 1280},
+		"source": [{"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): Components of Importance 8963 is locked to Warlock/Druid (AllowableClasses 1280)"}, {"kind": "factoruide", "ref": "Factoruide: 8963 classes Warlock/Druid (raw 1280)"}],
+		"note": "Components of Importance 8963 is Bodley's version for Warlock/Druid: he gives one of four per class group. Without the class every class saw all four at his step, which waited on the three he does not offer (#4169)." },
+	"8964": { "set": {"classes": 12},
+		"source": [{"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): Components of Importance 8964 is locked to Hunter/Rogue (AllowableClasses 12)"}, {"kind": "factoruide", "ref": "Factoruide: 8964 classes Hunter/Rogue (raw 12)"}],
+		"note": "Components of Importance 8964 is Bodley's version for Hunter/Rogue: he gives one of four per class group. Without the class every class saw all four at his step, which waited on the three he does not offer (#4169)." },
+	"8965": { "set": {"classes": 82},
+		"source": [{"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): Components of Importance 8965 is locked to Paladin/Priest/Shaman (AllowableClasses 82)"}, {"kind": "factoruide", "ref": "Factoruide: 8965 classes Paladin/Priest/Shaman (raw 82)"}],
+		"note": "Components of Importance 8965 is Bodley's version for Paladin/Priest/Shaman: he gives one of four per class group. Without the class every class saw all four at his step, which waited on the three he does not offer (#4169)." },
+	"8966": { "set": {"classes": 129},
+		"source": [{"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): The Left Piece of Lord Valthalak's Amulet 8966 is locked to Warrior/Mage (AllowableClasses 129)"}, {"kind": "factoruide", "ref": "Factoruide: 8966 classes Warrior/Mage (raw 129)"}],
+		"note": "The Left Piece of Lord Valthalak's Amulet 8966 is Bodley's version for Warrior/Mage: he gives one of four per class group. Without the class every class saw all four at his step, which waited on the three he does not offer (#4169)." },
+	"8967": { "set": {"classes": 1280},
+		"source": [{"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): The Left Piece of Lord Valthalak's Amulet 8967 is locked to Warlock/Druid (AllowableClasses 1280)"}, {"kind": "factoruide", "ref": "Factoruide: 8967 classes Warlock/Druid (raw 1280)"}],
+		"note": "The Left Piece of Lord Valthalak's Amulet 8967 is Bodley's version for Warlock/Druid: he gives one of four per class group. Without the class every class saw all four at his step, which waited on the three he does not offer (#4169)." },
+	"8968": { "set": {"classes": 12},
+		"source": [{"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): The Left Piece of Lord Valthalak's Amulet 8968 is locked to Hunter/Rogue (AllowableClasses 12)"}, {"kind": "factoruide", "ref": "Factoruide: 8968 classes Hunter/Rogue (raw 12)"}],
+		"note": "The Left Piece of Lord Valthalak's Amulet 8968 is Bodley's version for Hunter/Rogue: he gives one of four per class group. Without the class every class saw all four at his step, which waited on the three he does not offer (#4169)." },
+	"8969": { "set": {"classes": 82},
+		"source": [{"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): The Left Piece of Lord Valthalak's Amulet 8969 is locked to Paladin/Priest/Shaman (AllowableClasses 82)"}, {"kind": "factoruide", "ref": "Factoruide: 8969 classes Paladin/Priest/Shaman (raw 82)"}],
+		"note": "The Left Piece of Lord Valthalak's Amulet 8969 is Bodley's version for Paladin/Priest/Shaman: he gives one of four per class group. Without the class every class saw all four at his step, which waited on the three he does not offer (#4169)." },
+	"8985": { "set": {"classes": 9},
+		"source": [{"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): More Components of Importance 8985 is locked to Warrior/Rogue (AllowableClasses 9)"}, {"kind": "factoruide", "ref": "Factoruide: 8985 classes Warrior/Rogue (raw 9)"}],
+		"note": "More Components of Importance 8985 is Bodley's version for Warrior/Rogue: he gives one of four per class group. Without the class every class saw all four at his step, which waited on the three he does not offer (#4169)." },
+	"8986": { "set": {"classes": 1090},
+		"source": [{"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): More Components of Importance 8986 is locked to Paladin/Shaman/Druid (AllowableClasses 1090)"}, {"kind": "factoruide", "ref": "Factoruide: 8986 classes Paladin/Shaman/Druid (raw 1090)"}],
+		"note": "More Components of Importance 8986 is Bodley's version for Paladin/Shaman/Druid: he gives one of four per class group. Without the class every class saw all four at his step, which waited on the three he does not offer (#4169)." },
+	"8987": { "set": {"classes": 144},
+		"source": [{"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): More Components of Importance 8987 is locked to Priest/Mage (AllowableClasses 144)"}, {"kind": "factoruide", "ref": "Factoruide: 8987 classes Priest/Mage (raw 144)"}],
+		"note": "More Components of Importance 8987 is Bodley's version for Priest/Mage: he gives one of four per class group. Without the class every class saw all four at his step, which waited on the three he does not offer (#4169)." },
+	"8988": { "set": {"classes": 260},
+		"source": [{"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): More Components of Importance 8988 is locked to Hunter/Warlock (AllowableClasses 260)"}, {"kind": "factoruide", "ref": "Factoruide: 8988 classes Hunter/Warlock (raw 260)"}],
+		"note": "More Components of Importance 8988 is Bodley's version for Hunter/Warlock: he gives one of four per class group. Without the class every class saw all four at his step, which waited on the three he does not offer (#4169)." },
+	"8989": { "set": {"classes": 1090},
+		"source": [{"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): The Right Piece of Lord Valthalak's Amulet 8989 is locked to Paladin/Shaman/Druid (AllowableClasses 1090)"}, {"kind": "factoruide", "ref": "Factoruide: 8989 classes Paladin/Shaman/Druid (raw 1090)"}],
+		"note": "The Right Piece of Lord Valthalak's Amulet 8989 is Bodley's version for Paladin/Shaman/Druid: he gives one of four per class group. Without the class every class saw all four at his step, which waited on the three he does not offer (#4169)." },
+	"8990": { "set": {"classes": 9},
+		"source": [{"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): The Right Piece of Lord Valthalak's Amulet 8990 is locked to Warrior/Rogue (AllowableClasses 9)"}, {"kind": "factoruide", "ref": "Factoruide: 8990 classes Warrior/Rogue (raw 9)"}],
+		"note": "The Right Piece of Lord Valthalak's Amulet 8990 is Bodley's version for Warrior/Rogue: he gives one of four per class group. Without the class every class saw all four at his step, which waited on the three he does not offer (#4169)." },
+	"8991": { "set": {"classes": 144},
+		"source": [{"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): The Right Piece of Lord Valthalak's Amulet 8991 is locked to Priest/Mage (AllowableClasses 144)"}, {"kind": "factoruide", "ref": "Factoruide: 8991 classes Priest/Mage (raw 144)"}],
+		"note": "The Right Piece of Lord Valthalak's Amulet 8991 is Bodley's version for Priest/Mage: he gives one of four per class group. Without the class every class saw all four at his step, which waited on the three he does not offer (#4169)." },
+	"8992": { "set": {"classes": 260},
+		"source": [{"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): The Right Piece of Lord Valthalak's Amulet 8992 is locked to Hunter/Warlock (AllowableClasses 260)"}, {"kind": "factoruide", "ref": "Factoruide: 8992 classes Hunter/Warlock (raw 260)"}],
+		"note": "The Right Piece of Lord Valthalak's Amulet 8992 is Bodley's version for Hunter/Warlock: he gives one of four per class group. Without the class every class saw all four at his step, which waited on the three he does not offer (#4169)." },
+	"97175": { "set": {"preAny": [97174]},
+		"source": [{"kind": "factoruide", "ref": "Factoruide (QuestieDB and EG Link rows): 97175 Due Sacrifice comes after 97174 A Worthy Endeavor (pre_any [97174])"}],
+		"note": "Due Sacrifice 97175, in the Horde Paladin's charger chain at Danitha Morr, comes after A Worthy Endeavor (97174); without it the Lookup guides read it as open from the start (#4169)." },
+	"97177": { "set": {"preAny": [97175]},
+		"source": [{"kind": "factoruide", "ref": "Factoruide (QuestieDB and EG Link rows): 97177 Acts of Mercy comes after 97175 Due Sacrifice (pre_any [97175])"}],
+		"note": "Acts of Mercy 97177, in the Horde Paladin's charger chain, comes after Due Sacrifice (97175); without it the Lookup guides read it as open from the start (#4169)." },
+	"97176": { "set": {"preAny": [97177]},
+		"source": [{"kind": "factoruide", "ref": "Factoruide (QuestieDB and EG Link rows): 97176 Exorcising Terrordale comes after 97177 Acts of Mercy (pre_any [97177])"}],
+		"note": "Exorcising Terrordale 97176, in the Horde Paladin's charger chain at Danitha Morr, comes after Acts of Mercy (97177); without it the Lookup guides read it as open from the start (#4169)." },
+	"97182": { "set": {"preAny": [97176]},
+		"source": [{"kind": "factoruide", "ref": "Factoruide (QuestieDB and EG Link rows): 97182 An Offering of Vengeance comes after 97176 Exorcising Terrordale (pre_any [97176])"}],
+		"note": "An Offering of Vengeance 97182, in the Horde Paladin's charger chain at Danitha Morr, comes after Exorcising Terrordale (97176); without it the Lookup guides read it as open from the start (#4169)." },
+	"97179": { "set": {"preAny": [97178]},
+		"source": [{"kind": "factoruide", "ref": "Factoruide (QuestieDB and EG Link rows): 97179 Collection of Goods comes after 97178 Ott of Tarren Mill (pre_any [97178])"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Alliance's Collection of Goods (7642) follows The Work of Grimand Elmore (7641), the same step of the chain"}],
+		"note": "Collection of Goods 97179, in the Horde Paladin's charger chain, comes after Ott of Tarren Mill (97178); without it the Lookup guides read it as open from the start (#4169)." },
+	"97180": { "set": {"preAny": [97179]},
+		"source": [{"kind": "factoruide", "ref": "Factoruide (QuestieDB and EG Link rows): 97180 Ott's Finest Work comes after 97179 Collection of Goods (pre_any [97179])"}],
+		"note": "Ott's Finest Work 97180, in the Horde Paladin's charger chain, comes after Collection of Goods (97179); without it the Lookup guides read it as open from the start (#4169)." },
+	"97184": { "set": {"preAny": [97183]},
+		"source": [{"kind": "factoruide", "ref": "Factoruide (QuestieDB and EG Link rows): 97184 The Divination Scryer comes after 97183 Blessed Arcanite Barding (pre_any [97183])"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Alliance's The Divination Scryer (7646) follows Blessed Arcanite Barding (7644), the same step of the chain"}],
+		"note": "The Divination Scryer 97184, in the Horde Paladin's charger chain at Danitha Morr, comes after Blessed Arcanite Barding (97183); without it the Lookup guides read it as open from the start (#4169)." },
+	"97185": { "set": {"preAny": [97184]},
+		"source": [{"kind": "factoruide", "ref": "Factoruide (QuestieDB and EG Link rows): 97185 Justice and Retribution comes after 97184 The Divination Scryer (pre_any [97184])"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Alliance's Judgment and Redemption (7647) follows The Divination Scryer (7646), the same step of the chain"}],
+		"note": "Justice and Retribution 97185, the Horde Paladin's charger quest at Danitha Morr, comes after The Divination Scryer (97184). Without it the Dire Maul and Scholomance pick-up guides sent every Horde Paladin to an accept Danitha doesn't offer before the chain, and the step waited on it (#4169)." },
+	"97169": { "set": {"classes": 64, "preAny": [97168]},
+		"source": [{"kind": "factoruide", "ref": "Factoruide (QuestieDB and EG Link rows): 97169 The Darkreaver Menace comes after 97168 Material Assistance (pre_all [97168]); both from Eldrun Stormbreaker (258098)"}, {"kind": "tdb", "ref": "Forever server data (world database dump 2026-10-14): the Horde's The Darkreaver Menace (7668) is locked to Shamans and follows Material Assistance (7667)"}],
+		"note": "The Darkreaver Menace 97169 is the Alliance Shaman's version (Eldrun Stormbreaker, after Material Assistance 97168, a Shaman quest), as the Horde's 7668 is the Shaman's after 7667. Without a class or prerequisite every Alliance class saw it on the Scholomance pick-up guide (#4169)." },
+	"8960": { "set": {"pre": [], "preAny": [84179, 84180, 84181, 84182, 84183, 84184, 84186, 8958]},
+		"source": [{"kind": "factoruide", "ref": "Factoruide (QuestieDB rows): 8960 Bodley's Unfortunate Fate comes after any class's Anthion's Parting Words (pre_any 8951-8956, 8958, 8959)"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Alliance Anthion's Parting Words are 84179-84184 and 84186, the same items per class as 8951-8956 and 8959"}],
+		"note": "Bodley's Unfortunate Fate 8960 (Alliance) follows any class's Anthion's Parting Words. Its Classic copies left the data (#4169), which left the Warlock's 8958 as its one prerequisite for every class; Forever's copies for the other classes stand in their place." },
+	"9032": { "set": {"pre": [], "preAny": [84187, 84188, 84189, 84190, 84191, 84192, 84193, 84194]},
+		"source": [{"kind": "factoruide", "ref": "Factoruide (QuestieDB rows): 9032 Bodley's Unfortunate Fate comes after any class's Anthion's Parting Words (pre_any 8957, 9016-9022)"}, {"kind": "questie", "ref": "QuestieDB (Questie-Forever): Forever's Horde Anthion's Parting Words are 84187-84194, the same items per class as 8957 and 9016-9022"}],
+		"note": "Bodley's Unfortunate Fate 9032 (Horde) follows any class's Anthion's Parting Words. Its Classic copies left the data (#4169), which left it with no prerequisite at all; Forever's copies stand in their place." },
 	"9015": {
 		"set": {
 			"objectives": [
@@ -15929,6 +16200,13 @@
 	},
 	"94893": {
 		"set": {
+			"start": {
+				"npc": [
+					257558
+				],
+				"object": [],
+				"item": []
+			},
 			"end": {
 				"npc": [
 					278088
@@ -15943,9 +16221,17 @@
 			{
 				"kind": "recording",
 				"ref": "players' recordings to 2026-11-11: 2 people accepted it, 2 handed it in"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-25: 32 of 41 people took it at Demar Brant (257558), who takes Dying Wish (94892), its prerequisite; the other accepts have no giver window recorded"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#4054 (SumnDaiy): the step's accept read 'item 266428' with no place, and the arrow had nothing to lead to"
 			}
 		],
-		"note": "Delivering Closure (94893), a Forever quest of the Riverglades: its ender, Abigail Lawson (278088), where players handed it in (the quest's own text names it)."
+		"note": "Delivering Closure (94893), a Forever quest of the Riverglades: Demar Brant (257558) in Farholde Keep gives it once Dying Wish is handed in. QuestieDB lists Marshal Ryan's Crest (266428), the item the quest delivers, as its starter, so the guide's accept had no giver to lead to (#4054). Its ender is Abigail Lawson (278088), where players handed it in (the quest's own text names it)."
 	},
 	"94894": {
 		"set": {
@@ -22116,5 +22402,291 @@
 			}
 		],
 		"note": "End of the Dark Horde is the Alliance's: it is handed in to Stormwind's Master Mathias Shaw or General Marcus Jonathan and goes on to an Alliance-only follow-up. With no race limit, the Horde's Blackrock Spire hand-in guide sent Horde players to Stormwind."
+	},
+	"86791": {
+		"set": {
+			"pre": [
+				86752
+			],
+			"preAny": [
+				86752
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Gatekeeper Rageroar offered it to 2 people (both Neutral with the Timbermaw), each right after they handed Report to Rageroar (86752) in at Rageroar"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 86752"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara): Missing Blackmaw Scouts (86791) follows Report to Rageroar (86752). The merged data had no prerequisite for any quest of the chain."
+	},
+	"86797": {
+		"set": {
+			"pre": [
+				86777
+			],
+			"preAny": [
+				86777
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Korsa gave it to 1 person on the visit where Master Feardred (86777) was handed in at Korsa"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 86777"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara): Return to Rageroar (86797) follows Master Feardred (86777). The merged data had no prerequisite for any quest of the chain."
+	},
+	"86798": {
+		"set": {
+			"pre": [
+				86797
+			],
+			"preAny": [
+				86797
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Gatekeeper Rageroar offered it to 1 person right after Return to Rageroar (86797) was handed in at Rageroar"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 86797"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara): Timbermaw Reinforcements (86798) follows Return to Rageroar (86797). The merged data had no prerequisite for any quest of the chain."
+	},
+	"86804": {
+		"set": {
+			"pre": [
+				86799
+			],
+			"preAny": [
+				86799
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Elder Bramblesnap offered it to 2 people, each right after Encroaching Corruption (86799) was handed in at Bramblesnap"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 86799"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara): An Unlikely Source (86804) follows Encroaching Corruption (86799). The merged data had no prerequisite for any quest of the chain."
+	},
+	"86925": {
+		"set": {
+			"pre": [
+				86804
+			],
+			"preAny": [
+				86804
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): the Legashi Cauldron offered it to 2 people, each right after An Unlikely Source (86804) was handed in at the cauldron"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 86804"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara): Toil and Trouble (86925) follows An Unlikely Source (86804). The merged data had no prerequisite for any quest of the chain."
+	},
+	"86926": {
+		"set": {
+			"pre": [
+				86925
+			],
+			"preAny": [
+				86925
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): the Legashi Cauldron offered it to 1 person right after Toil and Trouble (86925) was handed in at the cauldron"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 86925"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara): Felfire Burn, Cauldron Bubble (86926) follows Toil and Trouble (86925). The merged data had no prerequisite for any quest of the chain."
+	},
+	"86927": {
+		"set": {
+			"pre": [
+				86926
+			],
+			"preAny": [
+				86926
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): the Legashi Cauldron offered it to 1 person right after Felfire Burn, Cauldron Bubble (86926) was handed in at the cauldron"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 86926"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara): Running Firewater (86927) follows Felfire Burn, Cauldron Bubble (86926). The merged data had no prerequisite for any quest of the chain."
+	},
+	"86812": {
+		"set": {
+			"pre": [
+				86927
+			],
+			"preAny": [
+				86927
+			],
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 3,
+					"text": "Satyrweed Tincture tested"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Elder Bramblesnap offered it to 1 person right after Running Firewater (86927) was handed in at Bramblesnap"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 86927"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): 1 person's quest log listed 'Satyrweed Tincture tested' x3 at the accept; it ticked three times among the Mosshoof Coursers and Thunderhead Skystormers east of Ursolan (Azshara 46.3,18.9 / 48.7,18.4 / 53.7,15.4)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "requirements: Satyrweed Tincture tested x 3"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara): Transmuted Tincture (86812) follows Running Firewater (86927). The merged data had no prerequisite for any quest of the chain. Its objective is 'Satyrweed Tincture tested' x3, a line the game counts (not a kill of a named NPC); the merged data had none."
+	},
+	"86813": {
+		"set": {
+			"pre": [
+				86812
+			],
+			"preAny": [
+				86812
+			],
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Panacea administered"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Elder Bramblesnap offered it to 1 person right after Transmuted Tincture (86812) was handed in at Bramblesnap"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 86812"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): 1 person's quest log listed 'Panacea administered' x1 at the accept; it ticked at Furze's window (Azshara 45.3,22.3)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "requirements: Panacea administered"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara): Potential Panacea (86813) follows Transmuted Tincture (86812). The merged data had no prerequisite for any quest of the chain. Its objective is 'Panacea administered' x1, a line the game counts (not a kill of a named NPC); the merged data had none."
+	},
+	"87346": {
+		"set": {
+			"pre": [
+				86798
+			],
+			"preAny": [
+				86798
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Gorn One Eye gave it to 1 person right after Timbermaw Reinforcements (86798) was handed in at Gorn"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 86798"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara): Chieftain Bloodmaw (87346) follows Timbermaw Reinforcements (86798). The merged data had no prerequisite for any quest of the chain."
+	},
+	"86814": {
+		"set": {
+			"pre": [
+				87346
+			],
+			"preAny": [
+				87346
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Gorn One Eye gave it to 1 person right after Chieftain Bloodmaw (87346) was handed in at Gorn"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 87346"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara): Blackmaw Counter-Offensive (86814) follows Chieftain Bloodmaw (87346). The merged data had no prerequisite for any quest of the chain."
+	},
+	"86796": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Help Graal break out of Legashi Stronghold"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): 1 person's quest log listed one event line 'Help Graal break out of Legashi Stronghold' at the accept"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "requirements: Help Graal break out of Legashi Stronghold"
+			}
+		],
+		"note": "The Blackmaw chain (Ursolan, Azshara), quest 86796: Its objective is 'Help Graal break out of Legashi Stronghold' x1, a line the game counts (not a kill of a named NPC); the merged data had none."
 	}
 }

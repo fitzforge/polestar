@@ -1730,6 +1730,83 @@ function Theme.Approx(face)
 	return file and APPROX_FACES[file:lower()] and "\226\137\136" or "~"
 end
 
+-- The middle dot "·" (U+00B7) joins Polestar's text everywhere ("3/10 · 1/8",
+-- "Level 14  ·  New spells"), in its own strings, the translations and the
+-- guide texts. A face without it draws a box (#4015): the ruRU client font
+-- (FRIZQT___CYR), and on a Russian client a face Polestar does not know (a
+-- picked or EllesmereUI's font is often the client's own there). Such a face
+-- gets "-" in its place, which every font has. Precomputed from each file's
+-- cmap: Polestar's faces and the bundled skins' (tests/separator-glyph.test.js
+-- checks them), the enUS client font, and the Chinese and Korean client fonts
+-- (their character sets, GB2312, Big5 and KS X 1001, all have the dot).
+-- (One table: the file's main chunk is near Lua's limit of locals.)
+local Dot = {
+	CHAR = "\194\183",
+	FACES = {},
+	NONE = { ["frizqt___cyr.ttf"] = true },
+	SIDES = { "TextLeft", "TextRight" },
+	-- Theme.Font's strings drawn in a face without it (Dot.undo).
+	less = setmetatable({}, { __mode = "k" }),
+}
+for _, file in ipairs({
+	"inter-regular.ttf", "inter-medium.ttf", "inter-semibold.ttf",
+	"firasans-regular.ttf", "firasans-medium.ttf", "firasans-semibold.ttf",
+	"opensans-regular.ttf", "opensans-bold.ttf",
+	"barlowsemicondensed-light.ttf", "barlowsemicondensed-regular.ttf", "barlowsemicondensed-medium.ttf",
+	"frizqt__.ttf", "arkai_t.ttf", "arkai_c.ttf", "arhei.ttf", "2002.ttf",
+}) do Dot.FACES[file] = true end
+Theme.DOT_FACES = Dot.FACES
+
+-- Whether the font file `face` (a path; nil: the face Polestar's text is
+-- drawn in now) has "·".
+function Theme.HasDot(face)
+	if face == nil then face = Theme.FontSpec("body") end
+	local file = type(face) == "string" and face:match("([^\\/]+)$")
+	file = file and file:lower()
+	if file and Dot.FACES[file] then return true end
+	if file and Dot.NONE[file] then return false end
+	return not (GetLocale and GetLocale() == "ruRU")
+end
+
+-- -> "·" | "-": the separator for text drawn in `face` (nil: Polestar's).
+function Theme.Dot(face)
+	return Theme.HasDot(face) and Dot.CHAR or "-"
+end
+
+-- `text` as drawn in `face`: each "·" a "-" when the face has none.
+function Theme.DotText(text, face)
+	if type(text) ~= "string" or not text:find(Dot.CHAR, 1, true) or Theme.HasDot(face) then return text end
+	return (text:gsub(Dot.CHAR, "-"))
+end
+
+-- `text` as the game's tooltip font draws it (Theme.DotText), for a line
+-- Polestar adds to a game tooltip. -> text (nil and non-strings as given)
+function Theme.TipText(text)
+	if type(text) ~= "string" or not text:find(Dot.CHAR, 1, true) then return text end
+	local face = GameTooltipText and GameTooltipText.GetFont and (GameTooltipText:GetFont()) or STANDARD_TEXT_FONT
+	return Theme.DotText(text, face)
+end
+
+-- The game tooltip's lines (or another tooltip of the game's kind) as their
+-- face draws them (Theme.DotText): Polestar's tooltips take it before they
+-- show. The game's tooltip font on a Russian client has no "·".
+function Theme.TipDots(tip)
+	local name = tip and tip.NumLines and tip.GetName and tip:GetName()
+	if not name then return end
+	local n = tip:NumLines()
+	if type(n) ~= "number" then return end
+	for i = 1, n do
+		for _, side in ipairs(Dot.SIDES) do
+			local fs = _G[name .. side .. i]
+			local text = fs and fs.GetText and fs:GetText()
+			if text and text:find(Dot.CHAR, 1, true) and fs.GetFont then
+				local shown = Theme.DotText(text, (fs:GetFont()))
+				if shown ~= text then fs:SetText(shown) end
+			end
+		end
+	end
+end
+
 -- An edit box made without a template draws with a font object it shares
 -- (the chat box's, as #1896's report has it), and its font calls can write
 -- through to that object: Polestar's text size then sized the text being
@@ -1899,6 +1976,15 @@ end
 
 local retextQueued = false
 
+-- A string drawn in a face without "·" (Theme.HasDot): each "·" its text gets
+-- is drawn as "-" (#4015), whoever set it (a join, a translation, a guide
+-- text). Not an edit box: the text there is the player's, or one they copy.
+function Dot.undo(fs)
+	if not Dot.less[fs] then return end
+	local text = fs:GetText()
+	if type(text) == "string" and text:find(Dot.CHAR, 1, true) then fs:SetText((text:gsub(Dot.CHAR, "-"))) end
+end
+
 local function paintFont(fs, role)
 	local scope = Fonts.scopeOf(fs)
 	local path, size, flags
@@ -1915,8 +2001,10 @@ local function paintFont(fs, role)
 	if flat[fs] and flags then flags = flags:gsub("THICKOUTLINE", ""):gsub("OUTLINE", ""):gsub("^,+", ""):gsub(",+$", ""):gsub(",,+", ",") end
 	local changed = Theme.SetFace(fs, path, size, flags)
 	paintShadow(fs)
+	Dot.less[fs] = (not (fs.GetObjectType and fs:GetObjectType() == "EditBox") and not Theme.HasDot(path)) or nil
 	-- Its text again only after a new font (the string it drew stays as it was otherwise).
 	if changed then textAgain(fs) end
+	Dot.undo(fs)
 end
 
 -- New text in another script than the font drawn (a name in Chinese, #353):
@@ -1924,6 +2012,7 @@ end
 local function retext(fs)
 	local role = fonted[fs]
 	if role and (Theme.ScriptFont(fs:GetText()) or false) ~= scripted[fs] then paintFont(fs, role) end
+	Dot.undo(fs)
 end
 
 function Theme.Font(fs, role)

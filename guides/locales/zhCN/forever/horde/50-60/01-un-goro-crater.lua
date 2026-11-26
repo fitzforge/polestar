@@ -346,8 +346,9 @@ return {
 	["{quest:2995}'s work is not in this guide: burn the {object:144073}, Notes and Records in the elves' camps around {area:350}, in {zone:1425} & {zone:1419} (its Highvale step). Load that guide for the arrows."] = "{quest:2995}的任务不在本指南中：在{area:350}周围精灵营地里烧掉{object:144073}、笔记和记录，在{zone:1425}和{zone:1419}指南中（它的高原精灵步骤）。加载那篇指南以获得箭头。",
 
 	-- Step 75: Undercity
-	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
-	["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}，在炼金房：瓶子之后在{zone:1447}装满",
+	-- {npc:8390} Chemist Cuely · {item:10695} Box of Empty Vials · {zone:1447} Azshara
+	-- plural, as words: Empty Vials = {item:3371} Empty Vial
+	["{npc:8390}, the Apothecarium: a {item:10695} comes with the quest. Keep four bag slots free and open it for Empty Vials Labeled #1 to #4, filled in {zone:1447} later"] = "",
 	-- {npc:5204} Apothecary Zinge
 	["{npc:5204}, near Cuely in the Apothecarium"] = "{npc:5204}在炼金房，科雷附近",
 
@@ -471,6 +472,7 @@ return {
 	-- ["{npc:10927}, upstairs"] = "{npc:10927}：在楼上",
 	-- ["{npc:12250} lurks just west of {area:2262}."] = "{npc:12250}潜伏在{area:2262}正西。",
 	-- ["{npc:6522}, the {object:36073}"] = "{npc:6522}，在{object:36073}",
+	-- ["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}，在炼金房：瓶子之后在{zone:1447}装满",
 	-- ["{npc:9117}, at the back of the cave"] = "{npc:9117}，在洞穴深处",
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "{npc:9619}接下来要东北洞穴里{npc:9622}的毛皮：跳过它。",
 	-- ["{npc:9623} then wants a {item:10561}, an {skill:202} item. Skip it unless you have one."] = "{npc:9623}接着要一个{item:10561}，这是{skill:202}物品。除非你有，否则跳过。",

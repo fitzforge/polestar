@@ -81,7 +81,7 @@ step Learn Enchanting
   skill Enchanting 1
 
 step Enchanting 1-75: vendor goods
-  tip Buy the whole bracket's share in one go: 1 Copper Rod (1s 24c) and 32 Mote of Magic (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction (Stormwind City: Edna Mullby and Jessara Cordell; Orgrimmar: Felika, Kithas and Shimra).
+  tip Buy the whole bracket's share in one go: 1 Copper Rod (1s 24c) and 32 Mote of Magic (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction (Stormwind City: Jessara Cordell; Orgrimmar: Kithas).
   buy 6217 x1 nearest
   buy 247786 x32 nearest
 

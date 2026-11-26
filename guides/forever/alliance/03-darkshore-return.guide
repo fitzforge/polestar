@@ -65,7 +65,7 @@ step The Master's Glaive
   tip Moonstalker Sires prowl the woods around the glaive. The Twilight Tome sits at the bottom of the crater. For Onu's quest, use the Phial of Scrying at the bottom of the crater: it makes the Scrying Bowl, and you hand the quest in to the bowl.
   collect 5386 quest 986                      -- Fine Moonstalker Pelts
   accept 968 optional                         -- Only if a Disciple or Thug dropped Book: The Powers Below: right-click it
-  complete 944
+  complete 944 @38.48,86.45 map 1439 era
   turnin 944                                  -- The Scrying Bowl
   accept 949
   turnin 949                                  -- The Twilight Tome

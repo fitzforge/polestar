@@ -343,8 +343,9 @@ return {
 	["{quest:2995}'s work is not in this guide: burn the {object:144073}, Notes and Records in the elves' camps around {area:350}, in {zone:1425} & {zone:1419} (its Highvale step). Load that guide for the arrows."] = "El trabajo de {quest:2995} no está en esta guía: quema {object:144073}, las notas y los registros en los campamentos élficos alrededor de {area:350}, en la guía de {zone:1425} y {zone:1419} (su paso de Vallealto). Carga esa guía para las flechas.",
 
 	-- Step 75: Undercity
-	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
-	["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}, la botica real: los viales se llenan después en {zone:1447}",
+	-- {npc:8390} Chemist Cuely · {item:10695} Box of Empty Vials · {zone:1447} Azshara
+	-- plural, as words: Empty Vials = {item:3371} Empty Vial
+	["{npc:8390}, the Apothecarium: a {item:10695} comes with the quest. Keep four bag slots free and open it for Empty Vials Labeled #1 to #4, filled in {zone:1447} later"] = "",
 	-- {npc:5204} Apothecary Zinge
 	["{npc:5204}, near Cuely in the Apothecarium"] = "{npc:5204}, cerca de Cuely en el Boticarium",
 
@@ -454,6 +455,7 @@ return {
 	-- ["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "El fantasma de {npc:10926} está en las ruinas de {area:2262}, en el suroeste.",
 	-- ["{npc:12250} lurks just west of {area:2262}."] = "{npc:12250} acecha justo al oeste de {area:2262}.",
 	-- ["{npc:6522}, the {object:36073}"] = "{npc:6522}, en {object:36073}",
+	-- ["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}, la botica real: los viales se llenan después en {zone:1447}",
 	-- ["{npc:9117}, at the back of the cave"] = "{npc:9117}, al fondo de la cueva",
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "Ahora {npc:9619} pide la piel de {npc:9622}, en la cueva del noreste: omítela.",
 	-- ["{npc:9623} then wants a {item:10561}, an {skill:202} item. Skip it unless you have one."] = "Luego {npc:9623} quiere una {item:10561}, un objeto de {skill:202}. Omítela salvo que tengas una.",

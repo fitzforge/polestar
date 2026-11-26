@@ -2561,6 +2561,8 @@ L["Use %s beside %s"] = "Используйте %s рядом с %s"
 L["All attunements and keys"] = "Все допуски и ключи"
 L["Every attunement and key, with how far you are"] = "Каждый допуск и ключ с вашим прогрессом"
 L["Not open on Forever yet"] = "На Forever пока не открыто"
+-- L["A guide to the items 1 quest in your log needs from where it is given, ending at the entrance."] = ""
+-- L["A guide to the items %d quests in your log need from where they are given, ending at the entrance."] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "Прямо здесь"

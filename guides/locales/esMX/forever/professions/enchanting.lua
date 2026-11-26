@@ -15,8 +15,9 @@ return {
 	-- Step 2: Enchanting 1-75: vendor goods
 	-- {skill:333} Enchanting
 	["{skill:333} 1-75: vendor goods"] = "{skill:333} 1-75: artículos de mercader",
-	-- {item:6217} Copper Rod · {item:247786} Mote of Magic · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1318} Jessara Cordell · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3346} Kithas · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "Compra de una vez todo lo de este tramo: 1 {item:6217} (1s 24c) y 32 {item:247786} (3s 20c); unos 4s 44c en total. La flecha elige el vendedor más cercano de tu facción ({zone:1453}: {npc:1286} y {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} y {npc:5817}).",
+	-- {item:6217} Copper Rod · {item:247786} Mote of Magic · {zone:1453} Stormwind City · {npc:1318} Jessara Cordell · {zone:1454} Orgrimmar · {npc:3346} Kithas
+	-- was: ["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "Compra de una vez todo lo de este tramo: 1 {item:6217} (1s 24c) y 32 {item:247786} (3s 20c); unos 4s 44c en total. La flecha elige el vendedor más cercano de tu facción ({zone:1453}: {npc:1286} y {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} y {npc:5817})."
+	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1318}; {zone:1454}: {npc:3346})."] = "",
 
 	-- Step 3: Get Strange Dust
 	-- {item:10940} Strange Dust
@@ -278,6 +279,7 @@ return {
 	-- ["Back to an {skill:333} trainer: {spell:7426} is taught from {skill:333} 90."] = "Vuelve con un instructor de {skill:333}: {spell:7426} se enseña a partir de {skill:333} 90.",
 	-- ["Back to an {skill:333} trainer: {spell:7788} is taught from {skill:333} 120."] = "Vuelve con un instructor de {skill:333}: {spell:7788} se enseña a partir de {skill:333} 120.",
 	-- ["Back to an {skill:333} trainer: {spell:7795} is taught from {skill:333} 130."] = "Vuelve con un instructor de {skill:333}: {spell:7795} se enseña a partir de {skill:333} 130.",
+	-- ["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "Compra de una vez todo lo de este tramo: 1 {item:6217} (1s 24c) y 32 {item:247786} (3s 20c); unos 4s 44c en total. La flecha elige el vendedor más cercano de tu facción ({zone:1453}: {npc:1286} y {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} y {npc:5817}).",
 	-- ["Expert needs character level 20 and {skill:333} 125; it raises the cap to 225. Materials for 150-225 are worth about 13s in all."] = "Experto requiere nivel de personaje 20 y {skill:333} 125; sube el límite a 225. Los materiales para 150-225 valen unos 13s en total.",
 	-- ["Journeyman needs character level 10 and {skill:333} 50; it raises the cap to 150. Materials for 75-150 are worth about 7g 51s in all."] = "Oficial requiere nivel de personaje 10 y {skill:333} 50; sube el límite a 150. Los materiales para 75-150 valen unos 7g 51s en total.",
 	-- ["Open Giant Clams here. The Auction House works too."] = "Abre almejas gigantes ({object:2744}) aquí. También sirve la casa de subastas.",

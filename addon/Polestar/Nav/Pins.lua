@@ -856,6 +856,7 @@ local function showTooltip(owner, p)
 	else
 		GameTooltip:SetText(tostring(tip))
 	end
+	if ns.Theme then ns.Theme.TipDots(GameTooltip) end
 	GameTooltip:Show()
 end
 

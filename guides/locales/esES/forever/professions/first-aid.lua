@@ -22,7 +22,7 @@ return {
 	-- Step 3: Linen Bandage (1-40)
 	-- {item:1251} Linen Bandage · {item:279968} First Aid Kit · {skill:129} First Aid · {item:159} Refreshing Spring Water
 	-- plural, as words: Linen Bandages = {item:1251} Linen Bandage
-	["{item:1251} is orange from 1 (yellow at 30, green at 45, grey at 60): about 41 crafts to 40. Bandages need no fire: craft them anywhere. At 20 the trainer also teaches {item:279968} (1s; the Camping 101: {skill:129} quest at your starting area's camp teaches it free), Forever's camping item for {skill:129}: three Linen Bandages and a {item:159}; it gives a few points until 25."] = "",
+	["{item:1251} is orange from 1 (yellow at 30, green at 45, grey at 60): about 41 crafts to 40. Bandages need no fire: craft them anywhere. At 20 the trainer also teaches {item:279968} (1s; the Camping 101: {skill:129} quest at your starting area's camp teaches it free), Forever's camping item for {skill:129}: three Linen Bandages and a {item:159}; it gives a few points until 25."] = "{item:1251} aparece en naranja desde 1 (amarillo en 30, verde en 45 y gris en 60). Fabrica unas 41 vendas para llegar a 40. No necesitan fuego, así que puedes hacerlas en cualquier sitio. Al llegar a 20, el instructor también te enseña a fabricar {item:279968} por 1s. También puedes aprenderlo gratis con la misión «Campamento 101: {skill:129}» del campamento de tu zona inicial. Este objeto de acampada de Forever para {skill:129} requiere tres vendas de lino y un {item:159}, y te da unos cuantos puntos hasta 25.",
 
 	-- Step 4: Get Linen Cloth
 	-- {item:2589} Linen Cloth · {item:2581} Heavy Linen Bandage
@@ -30,7 +30,7 @@ return {
 
 	-- Step 5: Heavy Linen Bandage (40-50)
 	-- {item:2581} Heavy Linen Bandage · {skill:129} First Aid
-	["{item:2581} is orange from 40 (yellow at 50, green at 75, grey at 100): about 10 crafts to 50. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 40 for 1s; the arrow picks the nearest."] = "",
+	["{item:2581} is orange from 40 (yellow at 50, green at 75, grey at 100): about 10 crafts to 50. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 40 for 1s; the arrow picks the nearest."] = "{item:2581} aparece en naranja desde 40 (amarillo en 50, verde en 75 y gris en 100). Fabrica unas 10 vendas para llegar a 50. No necesitan fuego, así que puedes hacerlas en cualquier sitio. Cualquier instructor de {skill:129} de tu facción te enseña la receta por 1s a partir de 40 puntos de habilidad. La flecha señala al más cercano.",
 
 	-- Step 6: Journeyman First Aid
 	-- {skill:129} First Aid
@@ -54,7 +54,7 @@ return {
 
 	-- Step 10: Wool Bandage (80-115)
 	-- {spell:3277} Wool Bandage · {skill:129} First Aid · {item:6452} Anti-Venom · {item:1475} Small Venom Sac · {spell:9810} Touch of Zanzil
-	["{spell:3277} is yellow from 80 (yellow at 80, green at 115, grey at 150): about 49 crafts to 115. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 80 for 2s 50c; the arrow picks the nearest. {item:6452} ({item:1475}, from spiders) is taught at 80 too: Rogues need it for {spell:9810}, and it sells."] = "",
+	["{spell:3277} is yellow from 80 (yellow at 80, green at 115, grey at 150): about 49 crafts to 115. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 80 for 2s 50c; the arrow picks the nearest. {item:6452} ({item:1475}, from spiders) is taught at 80 too: Rogues need it for {spell:9810}, and it sells."] = "{spell:3277} aparece en amarillo desde 80 (verde en 115 y gris en 150). Fabrica unas 49 vendas para llegar a 115. No necesitan fuego, así que puedes hacerlas en cualquier sitio. Cualquier instructor de {skill:129} de tu facción te enseña la receta por 2s 50c a partir de 80 puntos de habilidad. La flecha señala al más cercano. A 80 también puedes aprender a fabricar {item:6452} con {item:1475}, que sueltan las arañas. Los pícaros lo necesitan para {spell:9810}. También puedes venderlo.",
 
 	-- Step 11: Get Wool Cloth
 	-- {item:2592} Wool Cloth · {spell:3278} Heavy Wool Bandage
@@ -62,7 +62,7 @@ return {
 
 	-- Step 12: Heavy Wool Bandage (115-125)
 	-- {spell:3278} Heavy Wool Bandage · {skill:129} First Aid · {item:929} Healing Potion · {item:2453} Bruiseweed · {item:2692} Hot Spices · {item:3372} Leaded Vial
-	["{spell:3278} is yellow from 115 (yellow at 115, green at 150, grey at 185): about 11 crafts to 125. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 115 for 10s; the arrow picks the nearest. Herbalists: {item:929} (from 110, 8s; {item:2453}, {item:2692} and a {item:3372}) is orange to 135."] = "",
+	["{spell:3278} is yellow from 115 (yellow at 115, green at 150, grey at 185): about 11 crafts to 125. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 115 for 10s; the arrow picks the nearest. Herbalists: {item:929} (from 110, 8s; {item:2453}, {item:2692} and a {item:3372}) is orange to 135."] = "{spell:3278} aparece en amarillo desde 115 (verde en 150 y gris en 185). Fabrica unas 11 vendas para llegar a 125. No necesitan fuego, así que puedes hacerlas en cualquier sitio. Cualquier instructor de {skill:129} de tu facción te enseña la receta por 10s a partir de 115 puntos de habilidad. La flecha señala al más cercano. Si tienes herboristería, {item:929} sigue en naranja hasta 135. Puedes aprender la receta a 110 por 8s y necesitas {item:2453}, {item:2692} y un {item:3372}.",
 
 	-- Step 13: Expert First Aid
 	-- {skill:129} First Aid
@@ -111,23 +111,23 @@ return {
 	-- Step 22: Trauma
 	["Trauma"] = "Traumatología",
 	-- {skill:129} First Aid · {quest:6624} Triage · {zone:1455} Ironforge · {item:14047} Runecloth
-	["Artisan {skill:129} comes from the {quest:6624} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1455} sends you to the doctor in Theramore. Bring the Mageweave (about 74) and {item:14047} (about 65) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "",
+	["Artisan {skill:129} comes from the {quest:6624} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1455} sends you to the doctor in Theramore. Bring the Mageweave (about 74) and {item:14047} (about 65) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "La misión {quest:6624} te permite aprender {skill:129} de artesano. Necesitas 225 puntos de habilidad y nivel 35. El instructor de {skill:129} de {zone:1455} te envía al médico de la Isla de Theramore. Lleva ya la tela de paño mágico (unas 74 unidades) y {item:14047} (unas 65) para subir de 225 a 300. Las vendas no necesitan fuego, así que puedes fabricarlas allí mismo, junto al médico que te enseña las recetas de artesano.",
 
 	-- Step 23: Trauma
 	-- {skill:129} First Aid · {quest:6622} Triage · {zone:1454} Orgrimmar · {area:321} Hammerfall · {item:14047} Runecloth
-	["Artisan {skill:129} comes from the {quest:6622} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1454} sends you to the doctor in {area:321}. Bring the Mageweave (about 74) and {item:14047} (about 65) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "",
+	["Artisan {skill:129} comes from the {quest:6622} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1454} sends you to the doctor in {area:321}. Bring the Mageweave (about 74) and {item:14047} (about 65) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "La misión {quest:6622} te permite aprender {skill:129} de artesano. Necesitas 225 puntos de habilidad y nivel 35. El instructor de {skill:129} de {zone:1454} te envía al médico de {area:321}. Lleva ya la tela de paño mágico (unas 74 unidades) y {item:14047} (unas 65) para subir de 225 a 300. Las vendas no necesitan fuego, así que puedes fabricarlas allí mismo, junto al médico que te enseña las recetas de artesano.",
 
 	-- Step 24: Triage
 	-- {quest:6624} Triage
 	-- plural, as words: Triage Bandages = {item:16991} Triage Bandage
-	["{quest:6624}: the doctor hands you Triage Bandages; use those, not your own. Fifteen wounded soldiers lie inside: bandage the critically injured first, then the badly injured, then the injured, before any die (show the health bars with Ctrl+V). Turn the quest in the moment fifteen are saved: the others keep dying, and too many deaths fail it even after it reads complete. If it fails, abandon it and take it again."] = "",
+	["{quest:6624}: the doctor hands you Triage Bandages; use those, not your own. Fifteen wounded soldiers lie inside: bandage the critically injured first, then the badly injured, then the injured, before any die (show the health bars with Ctrl+V). Turn the quest in the moment fifteen are saved: the others keep dying, and too many deaths fail it even after it reads complete. If it fails, abandon it and take it again."] = "{quest:6624}: usa las vendas de selección que te da el médico. Dentro hay quince soldados heridos. Venda primero a los que estén en estado crítico, después a los heridos graves y, por último, a los demás heridos. Hazlo antes de que muera ninguno (pulsa Ctrl+V para mostrar las barras de salud). Entrega la misión en cuanto hayas salvado a quince: los demás pueden seguir muriendo y, si mueren demasiados, la misión fracasa aunque figure como completada. Si fracasas, abandónala y vuelve a aceptarla.",
 	-- {skill:129} First Aid
 	["Artisan {skill:129}"] = "{skill:129} de artesano",
 
 	-- Step 25: Triage
 	-- {quest:6622} Triage
 	-- plural, as words: Triage Bandages = {item:16991} Triage Bandage
-	["{quest:6622}: the doctor hands you Triage Bandages; use those, not your own. Fifteen wounded soldiers lie on the floor inside: bandage the critically injured first, then the badly injured, then the injured, before any die (show the health bars with Ctrl+V). Turn the quest in the moment fifteen are saved: the others keep dying, and too many deaths fail it even after it reads complete. If it fails, abandon it and take it again."] = "",
+	["{quest:6622}: the doctor hands you Triage Bandages; use those, not your own. Fifteen wounded soldiers lie on the floor inside: bandage the critically injured first, then the badly injured, then the injured, before any die (show the health bars with Ctrl+V). Turn the quest in the moment fifteen are saved: the others keep dying, and too many deaths fail it even after it reads complete. If it fails, abandon it and take it again."] = "{quest:6622}: usa las vendas de selección que te da el médico. Dentro hay quince soldados heridos tendidos en el suelo. Venda primero a los que estén en estado crítico, después a los heridos graves y, por último, a los demás heridos. Hazlo antes de que muera ninguno (pulsa Ctrl+V para mostrar las barras de salud). Entrega la misión en cuanto hayas salvado a quince: los demás pueden seguir muriendo y, si mueren demasiados, la misión fracasa aunque figure como completada. Si fracasas, abandónala y vuelve a aceptarla.",
 
 	-- Step 26: Get Mageweave Cloth
 	-- {item:4338} Mageweave Cloth · {item:8544} Mageweave Bandage
@@ -140,7 +140,7 @@ return {
 
 	-- Step 28: Heavy Mageweave Bandage
 	-- {spell:10841} Heavy Mageweave Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall
-	["{spell:10841} (skill 240) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "",
+	["{spell:10841} (skill 240) is an Artisan recipe: only the {quest:6622} doctor teaches it ({npc:12939} in Theramore, {npc:12920} in {area:321})."] = "{spell:10841} (habilidad 240) es una receta de artesano. Solo la enseña el médico de {quest:6622} ({npc:12939} en la Isla de Theramore, {npc:12920} en {area:321}).",
 
 	-- Step 29: Get Mageweave Cloth
 	-- {item:4338} Mageweave Cloth · {item:8545} Heavy Mageweave Bandage

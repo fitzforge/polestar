@@ -173,6 +173,31 @@ fn the_end_card_counts_both_kinds_and_each_line_opens_its_list() {
 	assert_eq!(out["after"], json!({ "carried": "1 quest in your log carries on to a later guide", "stray": false }), "{out}");
 }
 
+// #4112: the end card's "N quests aren't part of your route" is off with the quest log notices
+// (guideWindow.questLogNotices), read as the setting changes; the quests a later guide hands in keep their line.
+#[test]
+fn the_end_card_s_off_route_line_turns_off_with_the_quest_log_notices_and_the_carried_line_stays() {
+	let out = run(r#"
+		local GF = UI.GuideFrame
+		GF.Layout(); flush()
+		local empty = GF.parts.empty
+		local function card()
+			return { carried = empty.Carried:IsShown() and plain(empty.Carried.Label:GetText()) or false,
+				stray = empty.Stray:IsShown() and plain(empty.Stray.Label:GetText()) or false }
+		end
+		local r = { on = card() }
+		Polestar.Set("guideWindow.questLogNotices", false); flush()
+		r.off = card()
+		Polestar.Set("guideWindow.questLogNotices", true); flush()
+		r.back = card()
+		emit(r)
+	"#);
+	let carried = "1 quest in your log carries on to a later guide";
+	assert_eq!(out["on"], json!({ "carried": carried, "stray": "4 quests aren't part of your route" }), "{out}");
+	assert_eq!(out["off"], json!({ "carried": carried, "stray": false }), "{out}");
+	assert_eq!(out["back"], out["on"], "{out}");
+}
+
 #[test]
 fn the_guide_end_window_lists_the_quests_not_part_of_the_route_and_opens_their_list() {
 	let out = run(r#"

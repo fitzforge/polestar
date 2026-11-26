@@ -21,7 +21,6 @@ return {
 	-- Step 3: Donova Snowden
 	-- {npc:9298} Donova Snowden · {area:2246} Frostfire Hot Springs
 	["Ride south from the tunnel: {npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "从隧道向南骑行：{npc:9298}在山谷西部{area:2246}热气腾腾的水池间扎营。",
-	["Linken's letter"] = "林克的信",
 	-- {quest:980} The New Springs
 	["{quest:980}, from Krakle in Un'Goro"] = "",
 	-- {quest:3909} The Videre Elixir · {npc:7775} Gregan Brewspewer · {zone:1444} Feralas · {npc:9298} Donova Snowden · {area:2256} Darkwhisper Gorge · {zone:1452} Winterspring
@@ -152,7 +151,8 @@ return {
 
 	-- Step 29: Bluff Runner Windstrider
 	-- {npc:10881} Bluff Runner Windstrider · {npc:14728} Rumstag Proudstrider · {area:1641} Hunter Rise
-	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881}和{npc:14728}站在{area:1641}。拉姆斯塔格的每项捐献都需要背包中六十份毛料、丝绸或魔纹布：带了什么就交什么，其余跳过。",
+	-- was: ["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881}和{npc:14728}站在{area:1641}。拉姆斯塔格的每项捐献都需要背包中六十份毛料、丝绸或魔纹布：带了什么就交什么，其余跳过。"
+	["{npc:10881} and {npc:14728} stand on the central rise, not on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
 
 	-- Step 30: Ghede
 	-- {npc:9076} Ghede · {area:1639} Elder Rise
@@ -165,8 +165,8 @@ return {
 	["{quest:1123} waits in {zone:1450}: keep it for later."] = "{quest:1123}在{zone:1450}等候：留到之后。",
 
 	-- Step 32: Bashana Runetotem
-	-- {npc:9087} Bashana Runetotem · {item:11040} Morrowgrain · {quest:3761} Un'Goro Soil · {quest:3782} Morrowgrain Research · {item:11020} Evergreen Pouch
-	["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "{npc:9087}收购用{quest:3761}种出的{item:11040}。{quest:3782}需要十份，而{item:11020}每十分钟只能尝试一次：已有足够晨光麦再接。",
+	-- {npc:9087} Bashana Runetotem · {item:11103} Seed Voucher · {quest:3782} Morrowgrain Research · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {item:11040} Morrowgrain
+	["Hand {npc:9087} the {item:11103} for her packets of Tharlendris Seeds. {quest:3782} gives you the {item:11020}: use it with a seed packet and two {quest:3761} in your bags to grow a random herb, sometimes {item:11040}, once every ten minutes. She wants ten, so the quest is optional: take it if you have spare {quest:3761} and want to keep growing it over the next guides."] = "",
 
 	-- Step 34: Magatha Grimtotem
 	-- {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise
@@ -194,6 +194,7 @@ return {
 	-- ["In the {object:172961}."] = "在{object:172961}。",
 	-- ["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "在 {object:172961} 内。每次捐赠会收取背包中的六十块毛料、丝绸或魔纹布：交还随身带的，其余跳过。",
 	-- ["Level 55.04"] = "等级 55.04",
+	-- ["Linken's letter"] = "林克的信",
 	-- ["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "冰蓟雪人女王和冰蓟雪人王攻击很重：一次引一只。",
 	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "冬泉探路者、冬泉巢穴守卫和冬泉图腾师共处于温泉周围的熊怪营地；蓬毛枭兽在营地之间的山坡上游荡。先杀冬泉图腾师。把拾取到的每一块{item:14047}都留给梅罗什。",
 	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "冬泉探路者、冬泉巢穴守卫和冬泉图腾师共处于温泉周围的熊怪营地；蓬毛枭兽在营地之间的山坡上游荡。先杀冬泉图腾师。把拾取到的每一块{item:14047}都留给梅罗什。\n小心：冬泉巢穴守卫最高56级：一次引一只，并远离营地的图腾。",
@@ -215,12 +216,14 @@ return {
 	-- ["{area:2255} is the goblin town on the east side of the valley."] = "{area:2255}是山谷东侧的地精城镇。",
 	-- ["{item:12771}, a rare drop from the Winterfall furbolgs"] = "{item:12771}，冬泉熊怪的稀有掉落",
 	-- ["{npc:10307}, beside him"] = "{npc:10307}，在他旁边",
+	-- ["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881}和{npc:14728}站在{area:1641}。拉姆斯塔格的每项捐献都需要背包中六十份毛料、丝绸或魔纹布：带了什么就交什么，其余跳过。",
 	-- ["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}：上一份指南在这里绑定炉石，所以这一步通常会立即完成",
 	-- ["{npc:11556} stands by the {zone:1452} exit of {area:1769}'s tunnel, north of the hot springs."] = "{npc:11556}站在{area:1769}隧道的{zone:1452}出口旁，在温泉北边。",
 	-- ["{npc:11754} walks around {area:2255}: look inside the circle on the map"] = "{npc:11754}在{area:2255}巡逻，请在地图标示的圆圈内寻找",
 	-- ["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}. He brews the {item:11243} only from an {item:11242} you bring him."] = "矮人{npc:7775}在{area:1099}西北的{area:1137}扎营。他只用你带来的{item:11242}调制{item:11243}。",
 	-- ["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}; he has the elixir."] = "矮人{npc:7775}在{area:1099}西北的{area:1137}扎营；他有药剂。",
 	-- ["{npc:9087} buys {item:11040} grown from your {quest:3761}."] = "{npc:9087}收购用你的{quest:3761}种出来的{item:11040}。",
+	-- ["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "{npc:9087}收购用{quest:3761}种出的{item:11040}。{quest:3782}需要十份，而{item:11020}每十分钟只能尝试一次：已有足够晨光麦再接。",
 	-- ["{npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "{npc:9298}在山谷西部{area:2246}的热气腾腾的水池间扎营。",
 	-- ["{quest:3909} comes from {npc:7775} in {zone:1444}, later in this guide."] = "{quest:3909}来自{zone:1444}的{npc:7775}，在本指南稍后。",
 	-- ["{zone:1456} flight master"] = "{zone:1456}飞行管理员",

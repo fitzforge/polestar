@@ -316,6 +316,7 @@ local function create()
 			GameTooltip:SetSpellByID(applied.id)
 		end
 		GameTooltip:AddLine(L["Right-click to skip this leg."], Nav.RGB("textDim"))
+		if ns.Theme then ns.Theme.TipDots(GameTooltip) end
 		GameTooltip:Show()
 	end)
 	b:SetScript("OnLeave", function(self)
@@ -479,6 +480,7 @@ local function hookArrow()
 			local T = Nav.travel
 			local replans = T.SkipReplans and T.SkipReplans(leg)
 			GameTooltip:AddLine(replans and L["Right-click to skip this leg."] or L["Right-click to mark this leg done."], Nav.RGB("textDim"))
+			if ns.Theme then ns.Theme.TipDots(GameTooltip) end
 			GameTooltip:Show()
 		end
 	end)

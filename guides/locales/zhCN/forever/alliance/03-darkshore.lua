@@ -18,7 +18,7 @@ return {
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston · {zone:1453} Stormwind
 	["{npc:3649}: {npc:1646}'s reply, if you brought it (Night Elves, from Night Elf Darkshore's {zone:1453} walk)"] = "",
 	-- {npc:3657} Sentinel Elissa Starbreeze · {npc:3693} Terenthis
-	["{npc:3657}, beside {npc:3693}"] = "",
+	["{npc:3657}, beside {npc:3693}"] = "{npc:3657}，在{npc:3693}旁边",
 	["The WANTED poster outside the inn"] = "旅店外的通缉布告",
 	-- {npc:3666} Wizbang Cranktoggle
 	["{npc:3666}, upstairs in the inn"] = "{npc:3666}，在旅店楼上",
@@ -98,7 +98,7 @@ return {
 
 	-- Step 14: Auberdine
 	-- {npc:3657} Sentinel Elissa Starbreeze · {npc:3693} Terenthis · {npc:3701} Tharnariun Treetender
-	["{npc:3657}, beside {npc:3693} and {npc:3701}"] = "",
+	["{npc:3657}, beside {npc:3693} and {npc:3701}"] = "{npc:3657}，在{npc:3693}和{npc:3701}旁边",
 	["Fill the tube at the moonwell in the village"] = "在村里的月亮井装满试管",
 
 	-- Step 15: A Lesson to Learn
