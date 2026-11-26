@@ -155,24 +155,22 @@ return {
 	-- Step 29: Anthion Harmon: Anthion's Parting Words
 	-- {npc:16016} Anthion Harmon · {area:2279} Stratholme · {quest:84182} Anthion's Parting Words · {item:16725} Lightforge Boots · {item:16728} Lightforge Legplates · {npc:10440} Baron Rivendare · {item:16729} Lightforge Spaulders · {npc:10430} The Beast
 	["Back to {npc:16016} at {area:2279}'s gate (Ghost Revealer). {quest:84182} takes your {item:16725}: Balnazzar in {area:2279} (about 19%), your {item:16728}: {npc:10440} in {area:2279} (about 6%), and your {item:16729}: {npc:10430} in Upper Blackrock Spire (about 18%)."] = "Zurück zu {npc:16016} am Tor von {area:2279} (Geisterenthüller). {quest:84182} nimmt dein {item:16725}: Balnazzar in {area:2279} (etwa 19 %), dein {item:16728}: {npc:10440} in {area:2279} (etwa 6 %), und dein {item:16729}: {npc:10430} in der Oberen Schwarzfelsspitze (etwa 18 %).",
-	-- {quest:84182} Anthion's Parting Words · {npc:16016} Anthion Harmon · {npc:230317} Mokvar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8961} Three Kings of Flame · {area:2079} Alcaz Island · {quest:8994} Final Preparations · {npc:16042} Lord Valthalak · {item:16727} Lightforge Helm · {item:16726} Lightforge Breastplate
-	["Horde Paladins: Polestar's quest data doesn't know Forever's {quest:84182} for you yet, so the guide stops here for you until it does. Take it from {npc:16016} and give {npc:230317} your three pieces. {npc:230317} then sends you to {npc:16033}'s ghost in {area:254} (Ghost Revealer): {quest:8961}, your class's two components and two summons, {area:2079}, {quest:8994} and {npc:16042} in Upper Blackrock Spire, then back to him for Saving the Best for Last, which takes your {item:16727} and {item:16726}."] = "Horde-Paladine: Die Questdaten von Polestar kennen {quest:84182} von Forever für dich noch nicht, daher endet der Guide für dich hier, bis sie es tun. Nimm die Quest bei {npc:16016} an und gib {npc:230317} deine drei Teile. {npc:230317} schickt dich dann zum Geist von {npc:16033} in {area:254} (Geisterenthüller): {quest:8961}, die zwei Komponenten und zwei Beschwörungen deiner Klasse, {area:2079}, {quest:8994} und {npc:16042} in der Oberen Schwarzfelsspitze, dann zurück zu ihm für „Das Beste zum Schluss“, die dir {item:16727} und {item:16726} abnimmt.",
 
-	-- Step 31: Bodley
+	-- Step 32: Bodley
 	-- {npc:16033} Bodley · {area:1583} Blackrock Spire · {area:254} Blackrock Mountain · {quest:8961} Three Kings of Flame · {item:21987} Incendicite of Incendius · {npc:9017} Lord Incendius · {area:1584} Blackrock Depths · {item:21988} Ember of Emberseer · {npc:9816} Pyroguard Emberseer · {item:21989} Cinder of Cynders · {npc:15206} Duke of Cynders · {zone:1451} Silithus · {item:22014} Hallowed Brazier · {faction:529} Argent Dawn
 	["{npc:16033}'s ghost stands on the ledge before the {area:1583} portal, high inside {area:254}: use the Ghost Revealer there. {quest:8961} wants the {item:21987} ({npc:9017} in {area:1584}), the {item:21988} ({npc:9816} in Upper Blackrock Spire), the {item:21989} (the {npc:15206} in {zone:1451}) and a {item:22014} from the {faction:529}."] = "Der Geist von {npc:16033} steht auf dem Felsvorsprung vor dem Portal nach {area:1583}, hoch oben in {area:254}: Benutze dort den Geisterenthüller. {quest:8961} verlangt {item:21987} ({npc:9017} in {area:1584}), {item:21988} ({npc:9816} in der Oberen Schwarzfelsspitze), {item:21989} ({npc:15206} in {zone:1451}) und {item:22014} von {faction:529}.",
 
-	-- Step 33: Honored with the Argent Dawn
+	-- Step 34: Honored with the Argent Dawn
 	-- {faction:529} Argent Dawn
 	["Honored with the {faction:529}"] = "Wohlwollend bei {faction:529}",
 	-- {item:22014} Hallowed Brazier · {item:12846} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:3197} Chillwind Camp · {npc:10839} Argent Officer Garush · {area:813} Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {area:2279} Stratholme · {area:2057} Scholomance
 	["The {item:22014} is sold only to Honored. Take the {item:12846} ({npc:10840} at {area:3197}, {npc:10839} at the {area:813}, or {npc:11039} at {area:2268}) and wear it: Scourgestones then drop from the Scourge, and the Argent officers take them back for reputation. Every Scourge kill in the Plaguelands counts, {area:2279}'s and {area:2057}'s undead give 5 each up to Honored, and {area:2268}'s dungeon quests give 100-200 each. Polestar's Argent Dawn Reputation guide (Reputation) walks it step by step."] = "{item:22014} wird erst ab Wohlwollend verkauft. Hol dir {item:12846} ({npc:10840} in {area:3197}, {npc:10839} bei {area:813} oder {npc:11039} in {area:2268}) und leg es an: Dann lässt die Geißel Geißelsteine fallen, und die Offiziere der Argentumdämmerung nehmen sie gegen Ruf zurück. Jeder Geißel-Kill in den Pestländern zählt, die Untoten in {area:2279} und {area:2057} geben bis Wohlwollend je 5, und die Dungeonquests von {area:2268} je 100-200. Polestars Guide zum Ruf bei der Argentumdämmerung (Ruf) führt dich Schritt für Schritt hindurch.",
 
-	-- Step 34: Hallowed Brazier
+	-- Step 35: Hallowed Brazier
 	-- {object:2160} The Argent Dawn · {area:2268} Light's Hope Chapel · {area:3197} Chillwind Camp · {area:813} Bulwark
 	["{object:2160} quartermasters ({area:2268}, {area:3197}, the {area:813}) sell it: 133 gold 33 silver, less with your reputation discount."] = "Rüstmeister von {object:2160} ({area:2268}, {area:3197}, {area:813}) verkaufen es: 133 Gold 33 Silber, weniger mit deinem Rufrabatt.",
 
-	-- Step 35: Blackrock Depths and Upper Blackrock Spire
+	-- Step 36: Blackrock Depths and Upper Blackrock Spire
 	-- {area:1584} Blackrock Depths
 	["{area:1584} and Upper Blackrock Spire"] = "{area:1584} und Obere Schwarzfelsspitze",
 	-- {npc:9017} Lord Incendius · {object:174825} Black Anvil (no name in this language: may be words) · {area:1584} Blackrock Depths · {npc:9816} Pyroguard Emberseer
@@ -180,38 +178,38 @@ return {
 	-- {npc:9816} Pyroguard Emberseer
 	["{npc:9816}, Upper Blackrock Spire"] = "{npc:9816}, Obere Schwarzfelsspitze",
 
-	-- Step 36: Duke of Cynders
+	-- Step 37: Duke of Cynders
 	-- {zone:1451} Silithus · {item:20422} Twilight Cultist Medallion of Station · {npc:15282} Aurel Goldleaf · {area:3425} Cenarion Hold · {item:14344} Large Brilliant Shard · {item:20432} Signet of Beckoning: Fire · {npc:15206} Duke of Cynders
 	-- plural, as words: Greater Wind Stones = {object:180466} Greater Wind Stone · Abyssal Crests = {item:20513} Abyssal Crest
 	["The Duke (level 62 elite, bring a group of five) only comes when someone summons him at one of the Twilight's Greater Wind Stones in {zone:1451}: the summoner wears the full Twilight Cultist set (Cowl, Mantle and Robe, from the Twilight cultists of the {zone:1451} camps), carries a {item:20422} ({npc:15282} at {area:3425}: three Abyssal Crests from summoned Templars and a {item:14344}) and a {item:20432}, which calls the {npc:15206} rather than a random Duke. Joining someone else's summon is the quick way: every player with the quest loots their own Cinder."] = "Der Fürst (Stufe 62 Elite, bring eine Gruppe aus fünf mit) kommt nur, wenn ihn jemand an einem der Großen Windsteine des Schattenhammers in {zone:1451} beschwört: Der Beschwörer trägt das komplette Kultistenset des Schattenhammers (Gugel, Mantel und Robe, von den Kultisten des Schattenhammers in den Lagern von {zone:1451}), hat {item:20422} ({npc:15282} in {area:3425}: drei Abyssische Wappen von beschworenen Templern und {item:14344}) und {item:20432} dabei, das {npc:15206} statt eines zufälligen Fürsten ruft. Bei der Beschwörung eines anderen mitzumachen ist der schnelle Weg: Jeder Spieler mit der Quest plündert seine eigene Schlacke.",
 
-	-- Step 37: Bodley: Components of Importance
+	-- Step 38: Bodley: Components of Importance
 	-- {npc:16033} Bodley
 	["{npc:16033}'s next task depends on your class: the piece the summoning brazier needs."] = "Die nächste Aufgabe von {npc:16033} hängt von deiner Klasse ab: das Teil, das die Beschwörungskohlenpfanne braucht.",
 
-	-- Step 39: Components of Importance: Soul Ashes of the Banished
+	-- Step 40: Components of Importance: Soul Ashes of the Banished
 	-- {area:896} Purgation Isle · {zone:1424} Hillsbrad Foothills · {item:22229} Soul Ashes of the Banished
 	["At {area:896}, the island off the south coast of the {zone:1424}, the Condemned and Cursed undead (level 57-60 elites), thickest by the tower on the hill drop the {item:22229} (usually 5 to 15 kills; they stun, so a healer or dispeller helps). They are elites: bring a friend or two unless your gear is good. It drops only while you have the quest; everyone in the group with it can loot one."] = "Auf {area:896}, der Insel vor der Südküste der {zone:1424}, lassen die verdammten und verfluchten Untoten (Elite der Stufe 57-60), am dichtesten beim Turm auf dem Hügel, {item:22229} fallen (meist 5 bis 15 Kills; sie betäuben, ein Heiler oder Banner hilft also). Sie sind Elite: Nimm ein, zwei Freunde mit, außer deine Ausrüstung ist gut. Es droppt nur, solange du die Quest hast; jeder in der Gruppe mit der Quest kann eines plündern.",
 
-	-- Step 41: The Left Piece of Lord Valthalak's Amulet
+	-- Step 42: The Left Piece of Lord Valthalak's Amulet
 	-- {npc:16033} Bodley · {item:22049} Brazier of Beckoning
 	["{npc:16033} gives you a {item:22049}."] = "{npc:16033} gibt dir {item:22049}.",
 
-	-- Step 42: The Left Piece of Lord Valthalak's Amulet: Kormok
+	-- Step 43: The Left Piece of Lord Valthalak's Amulet: Kormok
 	-- {npc:16033} Bodley · {item:22052} Brazier of Beckoning · {npc:16118} Kormok · {npc:10508} Ras Frostwhisper · {area:2057} Scholomance · {spell:27688} Bone Shield
 	["A dungeon run for a group of five. {npc:16033}'s {item:22052} calls {npc:16118} to {npc:10508}'s room in {area:2057}: clear the room first. Use the brazier there, kill {npc:16118} and loot the piece. He is an elite ogre spirit who keeps raising skeletons: dispel or purge his {spell:27688} and burn him down. After a wipe he stays up: come back without summoning again. Keep the brazier: {npc:16033} wants it back with the piece."] = "Ein Dungeonlauf für eine Gruppe aus fünf. {item:22052} von {npc:16033} ruft {npc:16118} in den Raum von {npc:10508} in {area:2057}: Räume zuerst den Raum. Benutze dort die Kohlenpfanne, töte {npc:16118} und plündere das Stück. Er ist ein Elite-Ogergeist, der ständig Skelette erweckt: Banne oder reinige {spell:27688} und brenn ihn nieder. Nach einem Wipe bleibt er stehen: Komm zurück, ohne ihn erneut zu beschwören. Behalte die Kohlenpfanne: {npc:16033} will sie mit dem Stück zurück.",
 	-- {item:22052} Brazier of Beckoning · {npc:16118} Kormok
 	["{item:22052}: summons {npc:16118}"] = "{item:22052}: beschwört {npc:16118}",
 
-	-- Step 45: Bloodkelp
+	-- Step 46: Bloodkelp
 	-- {area:2079} Alcaz Island · {zone:1445} Dustwallow Marsh · {npc:16072} Tidelord Rrurgaz
 	["The Strashaz naga of {area:2079}, off the north-east coast of {zone:1445}, carry it (level 59-61 elites, and {npc:16072} at 62): bring a friend or two. The Baskets of Bloodkelp on the island give 1 to 3 each without a fight. Swim over from the coast north of Theramore; elite hydras roam the water."] = "Die Naga der Strashaz auf {area:2079} vor der Nordostküste von {zone:1445} tragen es bei sich (Elite der Stufe 59-61, und {npc:16072} mit 62): Nimm ein, zwei Freunde mit. Die Blutseetangkörbe auf der Insel geben je 1 bis 3 ohne Kampf. Schwimm von der Küste nördlich von Theramore hinüber; Elite-Hydren streifen durchs Wasser.",
 
-	-- Step 48: More Components of Importance: Druidical Remains
+	-- Step 49: More Components of Importance: Druidical Remains
 	-- {area:2744} Hive'Regal · {zone:1451} Silithus · {item:22226} Druidical Remains
 	["At {area:2744}, the silithid hive in south-eastern {zone:1451}, the {area:2744} silithid (level 59-61 elites) drop the {item:22226} (players report anything from 5 to 50 kills). They are elites: bring a friend or two unless your gear is good. It drops only while you have the quest; everyone in the group with it can loot one."] = "In {area:2744}, dem Silithidenstock im Südosten von {zone:1451}, lassen die Silithiden von {area:2744} (Elite der Stufe 59-61) {item:22226} fallen (Spieler berichten von 5 bis 50 Kills). Sie sind Elite: Nimm ein, zwei Freunde mit, außer deine Ausrüstung ist gut. Es droppt nur, solange du die Quest hast; jeder in der Gruppe mit der Quest kann eines plündern.",
 
-	-- Step 51: The Right Piece of Lord Valthalak's Amulet: Mor Grayhoof
+	-- Step 52: The Right Piece of Lord Valthalak's Amulet: Mor Grayhoof
 	-- {npc:16033} Bodley · {item:22049} Brazier of Beckoning · {npc:16080} Mor Grayhoof · {npc:9237} War Master Voone · {area:254} Blackrock Mountain · {item:21984} Left Piece of Lord Valthalak's Amulet · {item:22048} Lord Valthalak's Amulet
 	["A dungeon run for a group of five. {npc:16033}'s {item:22049} calls {npc:16080} to {npc:9237}'s room in Lower Blackrock Spire, in {area:254}: clear the room and Voone first. Use the brazier there, kill {npc:16080} and loot the piece. He is an elite druid spirit: interrupt his heals and step out of his storm. Keep the brazier: {npc:16033} wants it back with the piece. Then use the {item:21984} ({npc:16033} gave it back to you) to join the pieces into {item:22048}."] = "Ein Dungeonlauf für eine Gruppe aus fünf. {item:22049} von {npc:16033} ruft {npc:16080} in den Raum von {npc:9237} in der Unteren Schwarzfelsspitze in {area:254}: Räume zuerst den Raum und Voone. Benutze dort die Kohlenpfanne, töte {npc:16080} und plündere das Stück. Er ist ein Elite-Druidengeist: Unterbrich seine Heilungen und tritt aus seinem Sturm. Behalte die Kohlenpfanne: {npc:16033} will sie mit dem Stück zurück. Benutze dann {item:21984} ({npc:16033} hat es dir zurückgegeben), um die Stücke zu {item:22048} zusammenzufügen.",
 	-- {item:22049} Brazier of Beckoning · {npc:16080} Mor Grayhoof
@@ -219,12 +217,12 @@ return {
 	-- {item:21984} Left Piece of Lord Valthalak's Amulet
 	["{item:21984}: joins the pieces"] = "{item:21984}: fügt die Teile zusammen",
 
-	-- Step 53: Final Preparations
+	-- Step 54: Final Preparations
 	-- {area:1583} Blackrock Spire · {item:13512} Flask of Supreme Power
 	-- plural, as words: Blackrock Bracers = {item:22138} Blackrock Bracer · Scarshield Grunts = {npc:9043} Scarshield Grunt
 	["40 Blackrock Bracers from the Blackrock orcs of {area:1583} (the Scarshield Grunts in the mountain's halls outside the portal, level 53-54 elites, drop them most often; Upper {area:1583}'s orcs better than Lower's), only while you have the quest, and a {item:13512} (alchemists make it at an alchemy lab; or the auction house)."] = "40 Schwarzfelsarmschienen von den Schwarzfelsorcs in {area:1583} (die Grunzer der Narbenschilde in den Hallen des Berges vor dem Portal, Elite der Stufe 53-54, lassen sie am häufigsten fallen; die Orcs in der Oberen {area:1583} sind besser als die in der Unteren), nur solange du die Quest hast, und {item:13512} (Alchemisten stellen es an einem Alchemielabor her; oder im Auktionshaus).",
 
-	-- Step 55: Upper Blackrock Spire: Lord Valthalak
+	-- Step 56: Upper Blackrock Spire: Lord Valthalak
 	-- {area:1583} Blackrock Spire · {npc:16042} Lord Valthalak
 	["Upper {area:1583}: {npc:16042}"] = "Obere {area:1583}: {npc:16042}",
 	-- {npc:10430} The Beast · {item:22056} Brazier of Beckoning · {npc:16042} Lord Valthalak · {item:22048} Lord Valthalak's Amulet · {quest:8996} Return to Bodley
@@ -234,15 +232,23 @@ return {
 	-- {item:22048} Lord Valthalak's Amulet
 	["{item:22048}, on his corpse"] = "{item:22048}, auf seinem Leichnam",
 
-	-- Step 56: Bodley: Back to the Beginning
+	-- Step 57: Bodley: Back to the Beginning
 	-- {npc:16033} Bodley · {item:22056} Brazier of Beckoning
 	["Hand {npc:16033} the {item:22056}."] = "Gib {npc:16033} {item:22056}.",
 
-	-- Step 57: Deliana: Saving the Best for Last
-	-- {npc:230319} Deliana
-	["{npc:230319}: Saving the Best for Last"] = "{npc:230319}: Das Beste zum Schluss",
-	-- {item:16727} Lightforge Helm · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16726} Lightforge Breastplate · {npc:10363} General Drakkisath
-	["Saving the Best for Last takes your {item:16727}: {npc:1853} in {area:2057} (about 6%), and your {item:16726}: {npc:10363} in Upper Blackrock Spire (about 7%)."] = "Das Beste kommt zum Schluss nimmt dein {item:16727}: {npc:1853} in {area:2057} (etwa 6 %), und dein {item:16726}: {npc:10363} in der Oberen Schwarzfelsspitze (etwa 7 %).",
-	-- {npc:234969} Alliance Paladin · {npc:230319} Deliana · {item:16727} Lightforge Helm · {item:16726} Lightforge Breastplate
-	["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:234969} yet, so this guide can't track it: {npc:230319} should offer it now. Take it from her and give her your {item:16727} and {item:16726}."] = "Die Questdaten von Polestar kennen Forevers Das Beste kommt zum Schluss für {npc:234969} noch nicht, daher kann dieser Guide es nicht verfolgen: {npc:230319} sollte es dir jetzt anbieten. Nimm es bei ihr an und gib ihr dein {item:16727} und {item:16726}.",
+	-- Step 58: Deliana: Saving the Best for Last
+	-- {quest:84198} Saving the Best for Last · {item:16727} Lightforge Helm · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16726} Lightforge Breastplate · {npc:10363} General Drakkisath
+	-- was: ["Saving the Best for Last takes your {item:16727}: {npc:1853} in {area:2057} (about 6%), and your {item:16726}: {npc:10363} in Upper Blackrock Spire (about 7%)."] = "Das Beste kommt zum Schluss nimmt dein {item:16727}: {npc:1853} in {area:2057} (etwa 6 %), und dein {item:16726}: {npc:10363} in der Oberen Schwarzfelsspitze (etwa 7 %)."
+	["{quest:84198} takes your {item:16727}: {npc:1853} in {area:2057} (about 6%), and your {item:16726}: {npc:10363} in Upper Blackrock Spire (about 7%)."] = "{quest:84198} nimmt dein {item:16727}: {npc:1853} in {area:2057} (etwa 6 %), und dein {item:16726}: {npc:10363} in der Oberen Schwarzfelsspitze (etwa 7 %).",
+
+	-- Step 59: Mokvar: Saving the Best for Last
+	-- {quest:97414} Saving the Best for Last · {item:16727} Lightforge Helm · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16726} Lightforge Breastplate · {npc:10363} General Drakkisath
+	-- was: ["Saving the Best for Last takes your {item:16727}: {npc:1853} in {area:2057} (about 6%), and your {item:16726}: {npc:10363} in Upper Blackrock Spire (about 7%)."] = "Das Beste kommt zum Schluss nimmt dein {item:16727}: {npc:1853} in {area:2057} (etwa 6 %), und dein {item:16726}: {npc:10363} in der Oberen Schwarzfelsspitze (etwa 7 %)."
+	["{quest:97414} takes your {item:16727}: {npc:1853} in {area:2057} (about 6%), and your {item:16726}: {npc:10363} in Upper Blackrock Spire (about 7%)."] = "{quest:97414} nimmt dein {item:16727}: {npc:1853} in {area:2057} (etwa 6 %), und dein {item:16726}: {npc:10363} in der Oberen Schwarzfelsspitze (etwa 7 %).",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Horde Paladins: Polestar's quest data doesn't know Forever's {quest:84182} for you yet, so the guide stops here for you until it does. Take it from {npc:16016} and give {npc:230317} your three pieces. {npc:230317} then sends you to {npc:16033}'s ghost in {area:254} (Ghost Revealer): {quest:8961}, your class's two components and two summons, {area:2079}, {quest:8994} and {npc:16042} in Upper Blackrock Spire, then back to him for Saving the Best for Last, which takes your {item:16727} and {item:16726}."] = "Horde-Paladine: Die Questdaten von Polestar kennen {quest:84182} von Forever für dich noch nicht, daher endet der Guide für dich hier, bis sie es tun. Nimm die Quest bei {npc:16016} an und gib {npc:230317} deine drei Teile. {npc:230317} schickt dich dann zum Geist von {npc:16033} in {area:254} (Geisterenthüller): {quest:8961}, die zwei Komponenten und zwei Beschwörungen deiner Klasse, {area:2079}, {quest:8994} und {npc:16042} in der Oberen Schwarzfelsspitze, dann zurück zu ihm für „Das Beste zum Schluss“, die dir {item:16727} und {item:16726} abnimmt.",
+	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:234969} yet, so this guide can't track it: {npc:230319} should offer it now. Take it from her and give her your {item:16727} and {item:16726}."] = "Die Questdaten von Polestar kennen Forevers Das Beste kommt zum Schluss für {npc:234969} noch nicht, daher kann dieser Guide es nicht verfolgen: {npc:230319} sollte es dir jetzt anbieten. Nimm es bei ihr an und gib ihr dein {item:16727} und {item:16726}.",
+	-- ["Saving the Best for Last takes your {item:16727}: {npc:1853} in {area:2057} (about 6%), and your {item:16726}: {npc:10363} in Upper Blackrock Spire (about 7%)."] = "Das Beste kommt zum Schluss nimmt dein {item:16727}: {npc:1853} in {area:2057} (etwa 6 %), und dein {item:16726}: {npc:10363} in der Oberen Schwarzfelsspitze (etwa 7 %).",
+	-- ["{npc:230319}: Saving the Best for Last"] = "{npc:230319}: Das Beste zum Schluss",
 }

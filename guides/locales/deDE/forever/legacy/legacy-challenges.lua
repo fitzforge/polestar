@@ -90,27 +90,27 @@ return {
 	-- Step 15: Adventure: Lord Valthalak
 	-- {npc:16042} Lord Valthalak
 	["Adventure: {npc:16042}"] = "Abenteuer: {npc:16042}",
-	-- {npc:16042} Lord Valthalak · {quest:9001} Saving the Best for Last · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
+	-- {npc:16042} Lord Valthalak · {quest:84195} Saving the Best for Last · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
 	-- was: ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:8999}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:8999}."] = "Die Questreihe von {npc:16042} ist einen Punkt wert. Es ist die Kette zum Dungeon-Set der Stufe 60, von An Earnest Proposition bis zur {quest:8999} deiner Klasse: {npc:16013} ({zone:1455}) oder {npc:16012} ({zone:1454}) schicken dich über In Search of Anthion und Anthion's Parting Words zu {npc:16033} am {area:254}, dessen Aufträge Three Kings of Flame, die linke und rechte Hälfte von Lord Valthalak's Amulet, Final Preparations und {quest:8995} mit {quest:8996} enden. {quest:8997} führt dich dann zu {quest:8999}."
-	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:9001}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:9001}."] = "",
+	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:84195}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:84195}."] = "Die Questreihe von {npc:16042} ist einen Punkt wert. Es ist die Kette zum Dungeon-Set der Stufe 60, von An Earnest Proposition bis zur {quest:84195} deiner Klasse: {npc:16013} ({zone:1455}) oder {npc:16012} ({zone:1454}) schicken dich über In Search of Anthion und Anthion's Parting Words zu {npc:16033} am {area:254}, dessen Aufträge Three Kings of Flame, die linke und rechte Hälfte von Lord Valthalak's Amulet, Final Preparations und {quest:8995} mit {quest:8996} enden. {quest:8997} führt dich dann zu {quest:84195}.",
 	-- {npc:16073} Spirit of Lord Valthalak · {npc:16033} Bodley · {area:254} Blackrock Mountain
 	["{npc:16073}, inside Upper Blackrock Spire after Mea Culpa (no spawn in the data: the arrow leads to {npc:16033}'s {area:254})"] = "{npc:16073}, in der Oberen Blackrockspitze nach Mea Culpa (kein Fundort in den Daten: Der Pfeil führt zu {npc:16033} am {area:254})",
 	-- {npc:16033} Bodley · {quest:8996} Return to Bodley
 	["{npc:16033} offers it once {quest:8996} is turned in"] = "{npc:16033} bietet sie an, sobald {quest:8996} abgegeben ist",
 
 	-- Step 16: Adventure: Saving the Best for Last (Alliance)
-	-- {quest:9001} Saving the Best for Last
-	["Adventure: {quest:9001} (Alliance)"] = "",
-	-- {npc:16013} Deliana · {quest:9001} Saving the Best for Last
+	-- {quest:84195} Saving the Best for Last
+	["Adventure: {quest:84195} (Alliance)"] = "Abenteuer: {quest:84195} (Allianz)",
+	-- {npc:16013} Deliana · {quest:84195} Saving the Best for Last
 	-- was: ["{npc:16013} then offers your class's {quest:8999}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "{npc:16013} bietet dir dann die {quest:8999} deiner Klasse an, die letzte Quest der Herausforderung: Sie nimmt den Dungeon-Set-Helm und die Brustplatte deiner Klasse und wertet sie auf."
-	["{npc:16013} then offers your class's {quest:9001}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "",
+	["{npc:16013} then offers your class's {quest:84195}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "{npc:16013} bietet dir dann die {quest:84195} deiner Klasse an, die letzte Quest der Herausforderung: Sie nimmt den Dungeon-Set-Helm und die Brustplatte deiner Klasse und wertet sie auf.",
 
 	-- Step 17: Adventure: Saving the Best for Last (Horde)
-	-- {quest:9008} Saving the Best for Last
-	["Adventure: {quest:9008} (Horde)"] = "",
-	-- {npc:16012} Mokvar · {quest:9008} Saving the Best for Last
+	-- {quest:84203} Saving the Best for Last
+	["Adventure: {quest:84203} (Horde)"] = "Abenteuer: {quest:84203} (Horde)",
+	-- {npc:16012} Mokvar · {quest:84203} Saving the Best for Last
 	-- was: ["{npc:16012} then offers your class's {quest:9007}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "{npc:16012} bietet dir dann die {quest:9007} deiner Klasse an, die letzte Quest der Herausforderung: Sie nimmt den Dungeon-Set-Helm und die Brustplatte deiner Klasse und wertet sie auf."
-	["{npc:16012} then offers your class's {quest:9008}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "",
+	["{npc:16012} then offers your class's {quest:84203}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "{npc:16012} bietet dir dann die {quest:84203} deiner Klasse an, die letzte Quest der Herausforderung: Sie nimmt den Dungeon-Set-Helm und die Brustplatte deiner Klasse und wertet sie auf.",
 
 	-- Step 18: Dungeons: level 15-25
 	["Dungeons: level 15-25"] = "Dungeons: Stufe 15-25",

@@ -240,16 +240,19 @@ return {
 	["Hand {npc:16033} the {item:22056}."] = "Remettez le {item:22056} à {npc:16033}.",
 
 	-- Step 58: Deliana: Saving the Best for Last
-	-- {npc:230319} Deliana
-	["{npc:230319}: Saving the Best for Last"] = "{npc:230319} : Le meilleur pour la fin",
-	-- {item:16686} Magister's Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16688} Magister's Robes · {npc:10363} General Drakkisath
-	["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "Garder le meilleur pour la fin prend votre {item:16686} : {npc:1853} à {area:2057} (environ 13 %), et votre {item:16688} : {npc:10363} au sommet du pic Rochenoire (environ 11 %).",
-	-- {npc:234963} Alliance Mage · {npc:230319} Deliana · {item:16686} Magister's Crown · {item:16688} Magister's Robes
-	["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:234963} yet, so this guide can't track it: {npc:230319} should offer it now. Take it from her and give her your {item:16686} and {item:16688}."] = "Les données de quête de Polestar ne connaissent pas encore la quête de Forever Garder le meilleur pour la fin pour {npc:234963}, ce Guide ne peut donc pas la suivre : {npc:230319} devrait vous la proposer maintenant. Acceptez-la et remettez-lui vos {item:16686} et {item:16688}.",
+	-- {quest:84197} Saving the Best for Last · {item:16686} Magister's Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16688} Magister's Robes · {npc:10363} General Drakkisath
+	-- was: ["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "Garder le meilleur pour la fin prend votre {item:16686} : {npc:1853} à {area:2057} (environ 13 %), et votre {item:16688} : {npc:10363} au sommet du pic Rochenoire (environ 11 %)."
+	["{quest:84197} takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84197} prend votre {item:16686} : {npc:1853} à {area:2057} (environ 13 %), et votre {item:16688} : {npc:10363} au sommet du pic Rochenoire (environ 11 %).",
 
 	-- Step 59: Mokvar: Saving the Best for Last
-	-- {npc:230317} Mokvar
-	["{npc:230317}: Saving the Best for Last"] = "{npc:230317} : Le meilleur pour la fin",
-	-- {npc:235048} Horde Mage · {npc:230317} Mokvar · {item:16686} Magister's Crown · {item:16688} Magister's Robes
-	["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:235048} yet, so this guide can't track it: {npc:230317} should offer it now. Take it from him and give him your {item:16686} and {item:16688}."] = "Les données de quête de Polestar ne connaissent pas encore la quête de Forever Garder le meilleur pour la fin pour {npc:235048}, ce Guide ne peut donc pas la suivre : {npc:230317} devrait vous la proposer maintenant. Acceptez-la et remettez-lui vos {item:16686} et {item:16688}.",
+	-- {quest:84205} Saving the Best for Last · {item:16686} Magister's Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16688} Magister's Robes · {npc:10363} General Drakkisath
+	-- was: ["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "Garder le meilleur pour la fin prend votre {item:16686} : {npc:1853} à {area:2057} (environ 13 %), et votre {item:16688} : {npc:10363} au sommet du pic Rochenoire (environ 11 %)."
+	["{quest:84205} takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84205} prend votre {item:16686} : {npc:1853} à {area:2057} (environ 13 %), et votre {item:16688} : {npc:10363} au sommet du pic Rochenoire (environ 11 %).",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:234963} yet, so this guide can't track it: {npc:230319} should offer it now. Take it from her and give her your {item:16686} and {item:16688}."] = "Les données de quête de Polestar ne connaissent pas encore la quête de Forever Garder le meilleur pour la fin pour {npc:234963}, ce Guide ne peut donc pas la suivre : {npc:230319} devrait vous la proposer maintenant. Acceptez-la et remettez-lui vos {item:16686} et {item:16688}.",
+	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:235048} yet, so this guide can't track it: {npc:230317} should offer it now. Take it from him and give him your {item:16686} and {item:16688}."] = "Les données de quête de Polestar ne connaissent pas encore la quête de Forever Garder le meilleur pour la fin pour {npc:235048}, ce Guide ne peut donc pas la suivre : {npc:230317} devrait vous la proposer maintenant. Acceptez-la et remettez-lui vos {item:16686} et {item:16688}.",
+	-- ["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "Garder le meilleur pour la fin prend votre {item:16686} : {npc:1853} à {area:2057} (environ 13 %), et votre {item:16688} : {npc:10363} au sommet du pic Rochenoire (environ 11 %).",
+	-- ["{npc:230317}: Saving the Best for Last"] = "{npc:230317} : Le meilleur pour la fin",
+	-- ["{npc:230319}: Saving the Best for Last"] = "{npc:230319} : Le meilleur pour la fin",
 }

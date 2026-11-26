@@ -240,16 +240,19 @@ return {
 	["Hand {npc:16033} the {item:22056}."] = "Dale a {npc:16033} el {item:22056}.",
 
 	-- Step 58: Deliana: Saving the Best for Last
-	-- {npc:230319} Deliana
-	["{npc:230319}: Saving the Best for Last"] = "{npc:230319}: Lo mejor para el final",
-	-- {item:16693} Devout Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16690} Devout Robe · {npc:10363} General Drakkisath
-	["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "Lo mejor para el final pide tu {item:16693}: {npc:1853} en {area:2057} (alrededor del 12 %), y tu {item:16690}: {npc:10363} en Cumbre de Roca Negra Superior (alrededor del 11 %).",
-	-- {npc:234973} Alliance Priest · {npc:230319} Deliana · {item:16693} Devout Crown · {item:16690} Devout Robe
-	["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:234973} yet, so this guide can't track it: {npc:230319} should offer it now. Take it from her and give her your {item:16693} and {item:16690}."] = "Los datos de misiones de Polestar aún no conocen la misión de Forever Lo mejor para el final para {npc:234973}, así que esta guía no puede seguirla: {npc:230319} debería ofrecértela ahora. Acéptala y dale tu {item:16693} y tu {item:16690}.",
+	-- {quest:84199} Saving the Best for Last · {item:16693} Devout Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16690} Devout Robe · {npc:10363} General Drakkisath
+	-- was: ["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "Lo mejor para el final pide tu {item:16693}: {npc:1853} en {area:2057} (alrededor del 12 %), y tu {item:16690}: {npc:10363} en Cumbre de Roca Negra Superior (alrededor del 11 %)."
+	["{quest:84199} takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84199} pide tu {item:16693}: {npc:1853} en {area:2057} (alrededor del 12 %), y tu {item:16690}: {npc:10363} en la Cumbre de Roca Negra Superior (alrededor del 11 %).",
 
 	-- Step 59: Mokvar: Saving the Best for Last
-	-- {npc:230317} Mokvar
-	["{npc:230317}: Saving the Best for Last"] = "{npc:230317}: Lo mejor para el final",
-	-- {npc:235047} Horde Priest · {npc:230317} Mokvar · {item:16693} Devout Crown · {item:16690} Devout Robe
-	["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:235047} yet, so this guide can't track it: {npc:230317} should offer it now. Take it from him and give him your {item:16693} and {item:16690}."] = "Los datos de misiones de Polestar aún no conocen la misión de Forever Lo mejor para el final para {npc:235047}, así que esta guía no puede seguirla: {npc:230317} debería ofrecértela ahora. Acéptala y dale tu {item:16693} y tu {item:16690}.",
+	-- {quest:84206} Saving the Best for Last · {item:16693} Devout Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16690} Devout Robe · {npc:10363} General Drakkisath
+	-- was: ["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "Lo mejor para el final pide tu {item:16693}: {npc:1853} en {area:2057} (alrededor del 12 %), y tu {item:16690}: {npc:10363} en Cumbre de Roca Negra Superior (alrededor del 11 %)."
+	["{quest:84206} takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84206} pide tu {item:16693}: {npc:1853} en {area:2057} (alrededor del 12 %), y tu {item:16690}: {npc:10363} en la Cumbre de Roca Negra Superior (alrededor del 11 %).",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:234973} yet, so this guide can't track it: {npc:230319} should offer it now. Take it from her and give her your {item:16693} and {item:16690}."] = "Los datos de misiones de Polestar aún no conocen la misión de Forever Lo mejor para el final para {npc:234973}, así que esta guía no puede seguirla: {npc:230319} debería ofrecértela ahora. Acéptala y dale tu {item:16693} y tu {item:16690}.",
+	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:235047} yet, so this guide can't track it: {npc:230317} should offer it now. Take it from him and give him your {item:16693} and {item:16690}."] = "Los datos de misiones de Polestar aún no conocen la misión de Forever Lo mejor para el final para {npc:235047}, así que esta guía no puede seguirla: {npc:230317} debería ofrecértela ahora. Acéptala y dale tu {item:16693} y tu {item:16690}.",
+	-- ["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "Lo mejor para el final pide tu {item:16693}: {npc:1853} en {area:2057} (alrededor del 12 %), y tu {item:16690}: {npc:10363} en Cumbre de Roca Negra Superior (alrededor del 11 %).",
+	-- ["{npc:230317}: Saving the Best for Last"] = "{npc:230317}: Lo mejor para el final",
+	-- ["{npc:230319}: Saving the Best for Last"] = "{npc:230319}: Lo mejor para el final",
 }

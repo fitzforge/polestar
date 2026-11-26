@@ -155,24 +155,22 @@ return {
 	-- Step 29: Anthion Harmon: Anthion's Parting Words
 	-- {npc:16016} Anthion Harmon · {area:2279} Stratholme · {quest:84192} Anthion's Parting Words · {item:16670} Boots of Elements · {npc:9196} Highlord Omokk · {item:16668} Kilt of Elements · {npc:10440} Baron Rivendare · {item:16669} Pauldrons of Elements
 	["Back to {npc:16016} at {area:2279}'s gate (Ghost Revealer). {quest:84192} takes your {item:16670}: {npc:9196} in Lower Blackrock Spire (about 11%), your {item:16668}: {npc:10440} in {area:2279} (about 5%), and your {item:16669}: Gyth in Upper Blackrock Spire (about 19%)."] = "回到{area:2279}門口的{npc:16016}（幽靈顯形器）。{quest:84192}收取你的{item:16670}：黑石塔下層的{npc:9196}（約11%）、你的{item:16668}：{area:2279}的{npc:10440}（約5%），以及你的{item:16669}：黑石塔上層的蓋斯（約19%）。",
-	-- {quest:84192} Anthion's Parting Words · {npc:16016} Anthion Harmon · {npc:230319} Deliana · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8961} Three Kings of Flame · {area:2079} Alcaz Island · {quest:8994} Final Preparations · {npc:16042} Lord Valthalak · {quest:84208} Saving the Best for Last · {item:16667} Coif of Elements · {item:16666} Vest of Elements
-	["Alliance Shamans: Polestar's quest data doesn't know Forever's {quest:84192} for you yet, so the guide stops here for you until it does. Take it from {npc:16016} and give {npc:230319} your three pieces. {npc:230319} then sends you to {npc:16033}'s ghost in {area:254} (Ghost Revealer): {quest:8961}, your class's two components and two summons, {area:2079}, {quest:8994} and {npc:16042} in Upper Blackrock Spire, then back to her for {quest:84208}, which takes your {item:16667} and {item:16666}."] = "聯盟薩滿：Polestar的任務資料還不認得Forever為你提供的{quest:84192}，所以在資料更新前，指南會在這裡為你停下。從{npc:16016}那裡接取，然後把你的三件裝備交給{npc:230319}。接著{npc:230319}會派你去找{area:254}中{npc:16033}的鬼魂（需要顯靈器）：{quest:8961}、你職業的兩個材料和兩次召喚、{area:2079}、{quest:8994}，以及黑石塔上層的{npc:16042}，然後回到她那裡完成{quest:84208}，這會收走你的{item:16667}和{item:16666}。",
 
-	-- Step 31: Bodley
+	-- Step 32: Bodley
 	-- {npc:16033} Bodley · {area:1583} Blackrock Spire · {area:254} Blackrock Mountain · {quest:8961} Three Kings of Flame · {item:21987} Incendicite of Incendius · {npc:9017} Lord Incendius · {area:1584} Blackrock Depths · {item:21988} Ember of Emberseer · {npc:9816} Pyroguard Emberseer · {item:21989} Cinder of Cynders · {npc:15206} Duke of Cynders · {zone:1451} Silithus · {item:22014} Hallowed Brazier · {faction:529} Argent Dawn
 	["{npc:16033}'s ghost stands on the ledge before the {area:1583} portal, high inside {area:254}: use the Ghost Revealer there. {quest:8961} wants the {item:21987} ({npc:9017} in {area:1584}), the {item:21988} ({npc:9816} in Upper Blackrock Spire), the {item:21989} (the {npc:15206} in {zone:1451}) and a {item:22014} from the {faction:529}."] = "{npc:16033}的鬼魂站在{area:254}高處、{area:1583}傳送門前的平台上：在那裡使用鬼魂顯形器。{quest:8961}需要{item:21987}（{area:1584}的{npc:9017}）、{item:21988}（黑石塔上層的{npc:9816}）、{item:21989}（{zone:1451}的{npc:15206}），以及{faction:529}的一個{item:22014}。",
 
-	-- Step 33: Honored with the Argent Dawn
+	-- Step 34: Honored with the Argent Dawn
 	-- {faction:529} Argent Dawn
 	["Honored with the {faction:529}"] = "{faction:529}尊敬",
 	-- {item:22014} Hallowed Brazier · {item:12846} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:3197} Chillwind Camp · {npc:10839} Argent Officer Garush · {area:813} Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {area:2279} Stratholme · {area:2057} Scholomance
 	["The {item:22014} is sold only to Honored. Take the {item:12846} ({npc:10840} at {area:3197}, {npc:10839} at the {area:813}, or {npc:11039} at {area:2268}) and wear it: Scourgestones then drop from the Scourge, and the Argent officers take them back for reputation. Every Scourge kill in the Plaguelands counts, {area:2279}'s and {area:2057}'s undead give 5 each up to Honored, and {area:2268}'s dungeon quests give 100-200 each. Polestar's Argent Dawn Reputation guide (Reputation) walks it step by step."] = "{item:22014}只賣給尊敬以上。拿取{item:12846}（{area:3197}的{npc:10840}、{area:813}的{npc:10839}，或{area:2268}的{npc:11039}）並戴上：之後天譴軍會掉落天譴石，銀色黎明的軍官會收下換取聲望。瘟疫之地中每次擊殺天譴軍都算，{area:2279}和{area:2057}的不死生物到尊敬前每隻給5點，{area:2268}的地城任務每個給100-200點。Polestar的銀色黎明聲望指南（聲望）會一步步帶你完成。",
 
-	-- Step 34: Hallowed Brazier
+	-- Step 35: Hallowed Brazier
 	-- {object:2160} The Argent Dawn · {area:2268} Light's Hope Chapel · {area:3197} Chillwind Camp · {area:813} Bulwark
 	["{object:2160} quartermasters ({area:2268}, {area:3197}, the {area:813}) sell it: 133 gold 33 silver, less with your reputation discount."] = "{object:2160}軍需官（{area:2268}、{area:3197}、{area:813}）有售：133金33銀，有聲望折扣會更便宜。",
 
-	-- Step 35: Blackrock Depths and Upper Blackrock Spire
+	-- Step 36: Blackrock Depths and Upper Blackrock Spire
 	-- {area:1584} Blackrock Depths
 	["{area:1584} and Upper Blackrock Spire"] = "{area:1584}和黑石塔上層",
 	-- {npc:9017} Lord Incendius · {object:174825} Black Anvil (no name in this language: may be words) · {area:1584} Blackrock Depths · {npc:9816} Pyroguard Emberseer
@@ -180,38 +178,38 @@ return {
 	-- {npc:9816} Pyroguard Emberseer
 	["{npc:9816}, Upper Blackrock Spire"] = "{npc:9816}，黑石塔上層",
 
-	-- Step 36: Duke of Cynders
+	-- Step 37: Duke of Cynders
 	-- {zone:1451} Silithus · {item:20422} Twilight Cultist Medallion of Station · {npc:15282} Aurel Goldleaf · {area:3425} Cenarion Hold · {item:14344} Large Brilliant Shard · {item:20432} Signet of Beckoning: Fire · {npc:15206} Duke of Cynders
 	-- plural, as words: Greater Wind Stones = {object:180466} Greater Wind Stone · Abyssal Crests = {item:20513} Abyssal Crest
 	["The Duke (level 62 elite, bring a group of five) only comes when someone summons him at one of the Twilight's Greater Wind Stones in {zone:1451}: the summoner wears the full Twilight Cultist set (Cowl, Mantle and Robe, from the Twilight cultists of the {zone:1451} camps), carries a {item:20422} ({npc:15282} at {area:3425}: three Abyssal Crests from summoned Templars and a {item:14344}) and a {item:20432}, which calls the {npc:15206} rather than a random Duke. Joining someone else's summon is the quick way: every player with the quest loots their own Cinder."] = "這位公爵（62級精英，帶五人小隊）只有在有人於{zone:1451}的暮光巨型風之石召喚時才會出現：召喚者須穿著完整的暮光教徒套裝（頭巾、肩甲和長袍，來自{zone:1451}營地的暮光教徒），並攜帶{item:20422}（{area:3425}的{npc:15282}：用召喚出的聖殿騎士掉落的三個深淵徽記和一個{item:14344}換取）以及{item:20432}，它會召喚{npc:15206}而不是隨機公爵。加入別人的召喚最快：每個有任務的玩家都能拾取自己的餘燼。",
 
-	-- Step 37: Bodley: Components of Importance
+	-- Step 38: Bodley: Components of Importance
 	-- {npc:16033} Bodley
 	["{npc:16033}'s next task depends on your class: the piece the summoning brazier needs."] = "{npc:16033}的下一個任務取決於你的職業：召喚火盆所需的部件。",
 
-	-- Step 39: Components of Importance: Soul Ashes of the Banished
+	-- Step 40: Components of Importance: Soul Ashes of the Banished
 	-- {area:896} Purgation Isle · {zone:1424} Hillsbrad Foothills · {item:22229} Soul Ashes of the Banished
 	["At {area:896}, the island off the south coast of the {zone:1424}, the Condemned and Cursed undead (level 57-60 elites), thickest by the tower on the hill drop the {item:22229} (usually 5 to 15 kills; they stun, so a healer or dispeller helps). They are elites: bring a friend or two unless your gear is good. It drops only while you have the quest; everyone in the group with it can loot one."] = "在{zone:1424}南岸外的小島{area:896}，被詛咒和受詛的不死生物（57-60級精英），以山丘上的高塔附近最密集，會掉落{item:22229}（通常5到15隻；牠們會擊暈，所以有治療者或驅散者會有幫助）。牠們是精英：除非裝備夠好，否則帶一兩個朋友。只在你身上有任務時才會掉落；小隊中每個有任務的人都能拾取一個。",
 
-	-- Step 41: The Left Piece of Lord Valthalak's Amulet
+	-- Step 42: The Left Piece of Lord Valthalak's Amulet
 	-- {npc:16033} Bodley · {item:22049} Brazier of Beckoning
 	["{npc:16033} gives you a {item:22049}."] = "{npc:16033}給你一個{item:22049}。",
 
-	-- Step 42: The Left Piece of Lord Valthalak's Amulet: Kormok
+	-- Step 43: The Left Piece of Lord Valthalak's Amulet: Kormok
 	-- {npc:16033} Bodley · {item:22052} Brazier of Beckoning · {npc:16118} Kormok · {npc:10508} Ras Frostwhisper · {area:2057} Scholomance · {spell:27688} Bone Shield
 	["A dungeon run for a group of five. {npc:16033}'s {item:22052} calls {npc:16118} to {npc:10508}'s room in {area:2057}: clear the room first. Use the brazier there, kill {npc:16118} and loot the piece. He is an elite ogre spirit who keeps raising skeletons: dispel or purge his {spell:27688} and burn him down. After a wipe he stays up: come back without summoning again. Keep the brazier: {npc:16033} wants it back with the piece."] = "五人小隊的地城行程。{npc:16033}的{item:22052}會把{npc:16118}召喚到{area:2057}中{npc:10508}的房間：先清空房間。使用那裡的火盆，殺掉{npc:16118}並拾取碎片。他是精英食人魔靈魂，會不斷召喚骷髏：驅散或淨化他的{spell:27688}，然後集火打死他。滅團後他會留在原地：回來時不用再召喚。保留火盆：{npc:16033}要你連同碎片一起帶回去。",
 	-- {item:22052} Brazier of Beckoning · {npc:16118} Kormok
 	["{item:22052}: summons {npc:16118}"] = "{item:22052}：召喚{npc:16118}",
 
-	-- Step 45: Bloodkelp
+	-- Step 46: Bloodkelp
 	-- {area:2079} Alcaz Island · {zone:1445} Dustwallow Marsh · {npc:16072} Tidelord Rrurgaz
 	["The Strashaz naga of {area:2079}, off the north-east coast of {zone:1445}, carry it (level 59-61 elites, and {npc:16072} at 62): bring a friend or two. The Baskets of Bloodkelp on the island give 1 to 3 each without a fight. Swim over from the coast north of Theramore; elite hydras roam the water."] = "{zone:1445}東北海岸外{area:2079}的斯特拉沙茲納迦身上有它（59-61級精英，{npc:16072}為62級）：帶一兩個朋友。島上的血藻籃不用戰鬥，每個可得1到3個。從塞拉摩以北的海岸游過去；水中有精英九頭蛇遊蕩。",
 
-	-- Step 48: More Components of Importance: Druidical Remains
+	-- Step 49: More Components of Importance: Druidical Remains
 	-- {area:2744} Hive'Regal · {zone:1451} Silithus · {item:22226} Druidical Remains
 	["At {area:2744}, the silithid hive in south-eastern {zone:1451}, the {area:2744} silithid (level 59-61 elites) drop the {item:22226} (players report anything from 5 to 50 kills). They are elites: bring a friend or two unless your gear is good. It drops only while you have the quest; everyone in the group with it can loot one."] = "在{zone:1451}東南部的異種蟲巢穴{area:2744}，{area:2744}的異種蟲（59-61級精英）會掉落{item:22226}（玩家回報要殺5到50隻不等）。牠們是精英：除非裝備夠好，否則帶一兩個朋友。只在你身上有任務時才會掉落；小隊中每個有任務的人都能拾取一個。",
 
-	-- Step 51: The Right Piece of Lord Valthalak's Amulet: Mor Grayhoof
+	-- Step 52: The Right Piece of Lord Valthalak's Amulet: Mor Grayhoof
 	-- {npc:16033} Bodley · {item:22049} Brazier of Beckoning · {npc:16080} Mor Grayhoof · {npc:9237} War Master Voone · {area:254} Blackrock Mountain · {item:21984} Left Piece of Lord Valthalak's Amulet · {item:22048} Lord Valthalak's Amulet
 	["A dungeon run for a group of five. {npc:16033}'s {item:22049} calls {npc:16080} to {npc:9237}'s room in Lower Blackrock Spire, in {area:254}: clear the room and Voone first. Use the brazier there, kill {npc:16080} and loot the piece. He is an elite druid spirit: interrupt his heals and step out of his storm. Keep the brazier: {npc:16033} wants it back with the piece. Then use the {item:21984} ({npc:16033} gave it back to you) to join the pieces into {item:22048}."] = "五人小隊的地城行程。{npc:16033}的{item:22049}會把{npc:16080}召喚到{area:254}黑石塔下層{npc:9237}的房間：先清掉房間和沃恩。使用那裡的火盆，殺掉{npc:16080}並拾取碎片。他是精英德魯伊靈魂：打斷他的治療，離開他的風暴。保留火盆：{npc:16033}要你連同碎片一起帶回去。然後使用{item:21984}（{npc:16033}已還給你）把碎片合成{item:22048}。",
 	-- {item:22049} Brazier of Beckoning · {npc:16080} Mor Grayhoof
@@ -219,12 +217,12 @@ return {
 	-- {item:21984} Left Piece of Lord Valthalak's Amulet
 	["{item:21984}: joins the pieces"] = "{item:21984}：組合碎片",
 
-	-- Step 53: Final Preparations
+	-- Step 54: Final Preparations
 	-- {area:1583} Blackrock Spire · {item:13512} Flask of Supreme Power
 	-- plural, as words: Blackrock Bracers = {item:22138} Blackrock Bracer · Scarshield Grunts = {npc:9043} Scarshield Grunt
 	["40 Blackrock Bracers from the Blackrock orcs of {area:1583} (the Scarshield Grunts in the mountain's halls outside the portal, level 53-54 elites, drop them most often; Upper {area:1583}'s orcs better than Lower's), only while you have the quest, and a {item:13512} (alchemists make it at an alchemy lab; or the auction house)."] = "從{area:1583}的黑石獸人身上取得40個黑石護腕（傳送門外山中大廳的裂盾步兵最常掉落，53-54級精英；{area:1583}上層的獸人比下層的好），只在你身上有任務時才會掉落；另外還要一個{item:13512}（鍊金師在鍊金實驗室製作；或從拍賣行買）。",
 
-	-- Step 55: Upper Blackrock Spire: Lord Valthalak
+	-- Step 56: Upper Blackrock Spire: Lord Valthalak
 	-- {area:1583} Blackrock Spire · {npc:16042} Lord Valthalak
 	["Upper {area:1583}: {npc:16042}"] = "{area:1583}上層：{npc:16042}",
 	-- {npc:10430} The Beast · {item:22056} Brazier of Beckoning · {npc:16042} Lord Valthalak · {item:22048} Lord Valthalak's Amulet · {quest:8996} Return to Bodley
@@ -234,11 +232,18 @@ return {
 	-- {item:22048} Lord Valthalak's Amulet
 	["{item:22048}, on his corpse"] = "{item:22048}，用在他的屍體上",
 
-	-- Step 56: Bodley: Back to the Beginning
+	-- Step 57: Bodley: Back to the Beginning
 	-- {npc:16033} Bodley · {item:22056} Brazier of Beckoning
 	["Hand {npc:16033} the {item:22056}."] = "把{item:22056}交給{npc:16033}。",
 
-	-- Step 57: Mokvar: Saving the Best for Last
+	-- Step 58: Deliana: Saving the Best for Last
+	-- {quest:97450} Saving the Best for Last · {item:16667} Coif of Elements · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16666} Vest of Elements · {npc:10363} General Drakkisath
+	["{quest:97450} takes your {item:16667}: {npc:1853} in {area:2057} (about 5%), and your {item:16666}: {npc:10363} in Upper Blackrock Spire (about 5%)."] = "{quest:97450}需要你的{item:16667}：{area:2057}的{npc:1853}（約5%），以及你的{item:16666}：黑石塔上層的{npc:10363}（約5%）。",
+
+	-- Step 59: Mokvar: Saving the Best for Last
 	-- {quest:84208} Saving the Best for Last · {item:16667} Coif of Elements · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16666} Vest of Elements · {npc:10363} General Drakkisath
 	["{quest:84208} takes your {item:16667}: {npc:1853} in {area:2057} (about 5%), and your {item:16666}: {npc:10363} in Upper Blackrock Spire (about 5%)."] = "{quest:84208}需要你的{item:16667}：{area:2057}的{npc:1853}（約5%），以及你的{item:16666}：黑石塔上層的{npc:10363}（約5%）。",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Alliance Shamans: Polestar's quest data doesn't know Forever's {quest:84192} for you yet, so the guide stops here for you until it does. Take it from {npc:16016} and give {npc:230319} your three pieces. {npc:230319} then sends you to {npc:16033}'s ghost in {area:254} (Ghost Revealer): {quest:8961}, your class's two components and two summons, {area:2079}, {quest:8994} and {npc:16042} in Upper Blackrock Spire, then back to her for {quest:84208}, which takes your {item:16667} and {item:16666}."] = "聯盟薩滿：Polestar的任務資料還不認得Forever為你提供的{quest:84192}，所以在資料更新前，指南會在這裡為你停下。從{npc:16016}那裡接取，然後把你的三件裝備交給{npc:230319}。接著{npc:230319}會派你去找{area:254}中{npc:16033}的鬼魂（需要顯靈器）：{quest:8961}、你職業的兩個材料和兩次召喚、{area:2079}、{quest:8994}，以及黑石塔上層的{npc:16042}，然後回到她那裡完成{quest:84208}，這會收走你的{item:16667}和{item:16666}。",
 }

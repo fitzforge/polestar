@@ -245,6 +245,9 @@ return {
 	["{quest:84200} takes your {item:16707}: {npc:1853} in {area:2057} (about 11%), and your {item:16721}: {npc:10363} in Upper Blackrock Spire (about 10%)."] = "{quest:84200}에는 {item:16707}({area:2057}의 {npc:1853}, 약 11%)과 {item:16721}(검은바위 첨탑 상층의 {npc:10363}, 약 10%)이(가) 필요합니다.",
 
 	-- Step 59: Mokvar: Saving the Best for Last
-	-- {quest:84200} Saving the Best for Last · {npc:235044} Horde Rogue · {npc:230317} Mokvar · {item:16707} Shadowcraft Cap · {item:16721} Shadowcraft Tunic
-	["Polestar's quest data doesn't know Forever's {quest:84200} for the {npc:235044} yet, so this guide can't track it: {npc:230317} should offer it now. Take it from him and give him your {item:16707} and {item:16721}."] = "Polestar의 퀘스트 데이터가 아직 {npc:235044}용 Forever의 {quest:84200}을(를) 모르므로 이 가이드가 추적할 수 없습니다. 이제 {npc:230317}이(가) 퀘스트를 줄 것입니다. 그에게 받고 {item:16707}과(와) {item:16721}을(를) 건네세요.",
+	-- {quest:84207} Saving the Best for Last · {item:16707} Shadowcraft Cap · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16721} Shadowcraft Tunic · {npc:10363} General Drakkisath
+	["{quest:84207} takes your {item:16707}: {npc:1853} in {area:2057} (about 11%), and your {item:16721}: {npc:10363} in Upper Blackrock Spire (about 10%)."] = "{quest:84207}에는 {item:16707}({area:2057}의 {npc:1853}, 약 11%)과 {item:16721}(검은바위 첨탑 상층의 {npc:10363}, 약 10%)이(가) 필요합니다.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Polestar's quest data doesn't know Forever's {quest:84200} for the {npc:235044} yet, so this guide can't track it: {npc:230317} should offer it now. Take it from him and give him your {item:16707} and {item:16721}."] = "Polestar의 퀘스트 데이터가 아직 {npc:235044}용 Forever의 {quest:84200}을(를) 모르므로 이 가이드가 추적할 수 없습니다. 이제 {npc:230317}이(가) 퀘스트를 줄 것입니다. 그에게 받고 {item:16707}과(와) {item:16721}을(를) 건네세요.",
 }

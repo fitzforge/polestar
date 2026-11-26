@@ -90,27 +90,27 @@ return {
 	-- Step 15: Adventure: Lord Valthalak
 	-- {npc:16042} Lord Valthalak
 	["Adventure: {npc:16042}"] = "모험: {npc:16042}",
-	-- {npc:16042} Lord Valthalak · {quest:9001} Saving the Best for Last · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
+	-- {npc:16042} Lord Valthalak · {quest:84195} Saving the Best for Last · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
 	-- was: ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:8999}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:8999}."] = "{npc:16042} 퀘스트 라인은 1점입니다. 레벨 60 던전 세트 연계 퀘스트로, '진지한 제안'부터 직업별 {quest:8999}까지입니다. {npc:16013}({zone:1455}) 또는 {npc:16012}({zone:1454})이(가) 안시온 찾기와 안시온의 작별 인사를 거쳐 {area:254}의 {npc:16033}에게 보냅니다. 그의 세 고위 정령의 불꽃, 군주 발타라크의 아뮬렛의 왼쪽 조각과 오른쪽 조각, 마지막 준비, {quest:8995}을(를) 거쳐 {quest:8996}(으)로 끝납니다. 그다음 {quest:8997}이(가) {quest:8999}(으)로 이어집니다."
-	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:9001}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:9001}."] = "",
+	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:84195}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:84195}."] = "{npc:16042} 퀘스트 라인은 1점입니다. 레벨 60 던전 세트 연계 퀘스트로, '진지한 제안'부터 직업별 {quest:84195}까지입니다. {npc:16013}({zone:1455}) 또는 {npc:16012}({zone:1454})이(가) 안시온 찾기와 안시온의 작별 인사를 거쳐 {area:254}의 {npc:16033}에게 보냅니다. 그의 세 고위 정령의 불꽃, 군주 발타라크의 아뮬렛의 왼쪽 조각과 오른쪽 조각, 마지막 준비, {quest:8995}을(를) 거쳐 {quest:8996}(으)로 끝납니다. 그다음 {quest:8997}이(가) {quest:84195}(으)로 이어집니다.",
 	-- {npc:16073} Spirit of Lord Valthalak · {npc:16033} Bodley · {area:254} Blackrock Mountain
 	["{npc:16073}, inside Upper Blackrock Spire after Mea Culpa (no spawn in the data: the arrow leads to {npc:16033}'s {area:254})"] = "검은바위 첨탑 상층에서 '군주 발타라크여, 내 탓이오.' 이후의 {npc:16073} (데이터에 생성 위치 없음: 화살표는 {npc:16033}이(가) 있는 {area:254}(으)로 안내합니다)",
 	-- {npc:16033} Bodley · {quest:8996} Return to Bodley
 	["{npc:16033} offers it once {quest:8996} is turned in"] = "{quest:8996}을(를) 제출하면 {npc:16033}이(가) 줍니다",
 
 	-- Step 16: Adventure: Saving the Best for Last (Alliance)
-	-- {quest:9001} Saving the Best for Last
-	["Adventure: {quest:9001} (Alliance)"] = "",
-	-- {npc:16013} Deliana · {quest:9001} Saving the Best for Last
+	-- {quest:84195} Saving the Best for Last
+	["Adventure: {quest:84195} (Alliance)"] = "모험: {quest:84195} (얼라이언스)",
+	-- {npc:16013} Deliana · {quest:84195} Saving the Best for Last
 	-- was: ["{npc:16013} then offers your class's {quest:8999}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "그다음 {npc:16013}이(가) 직업별 {quest:8999}을(를) 줍니다. 이 도전의 마지막 퀘스트로, 직업별 던전 세트 투구와 가슴 방어구를 받아 강화해 줍니다."
-	["{npc:16013} then offers your class's {quest:9001}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "",
+	["{npc:16013} then offers your class's {quest:84195}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "그다음 {npc:16013}이(가) 직업별 {quest:84195}을(를) 줍니다. 이 도전의 마지막 퀘스트로, 직업별 던전 세트 투구와 가슴 방어구를 받아 강화해 줍니다.",
 
 	-- Step 17: Adventure: Saving the Best for Last (Horde)
-	-- {quest:9008} Saving the Best for Last
-	["Adventure: {quest:9008} (Horde)"] = "",
-	-- {npc:16012} Mokvar · {quest:9008} Saving the Best for Last
+	-- {quest:84203} Saving the Best for Last
+	["Adventure: {quest:84203} (Horde)"] = "모험: {quest:84203} (호드)",
+	-- {npc:16012} Mokvar · {quest:84203} Saving the Best for Last
 	-- was: ["{npc:16012} then offers your class's {quest:9007}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "그다음 {npc:16012}이(가) 직업별 {quest:9007}을(를) 줍니다. 이 도전의 마지막 퀘스트로, 직업별 던전 세트 투구와 가슴 방어구를 받아 강화해 줍니다."
-	["{npc:16012} then offers your class's {quest:9008}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "",
+	["{npc:16012} then offers your class's {quest:84203}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "그다음 {npc:16012}이(가) 직업별 {quest:84203}을(를) 줍니다. 이 도전의 마지막 퀘스트로, 직업별 던전 세트 투구와 가슴 방어구를 받아 강화해 줍니다.",
 
 	-- Step 18: Dungeons: level 15-25
 	["Dungeons: level 15-25"] = "던전: 레벨 15-25",

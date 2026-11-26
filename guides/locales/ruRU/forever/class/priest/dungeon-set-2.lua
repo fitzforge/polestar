@@ -240,16 +240,19 @@ return {
 	["Hand {npc:16033} the {item:22056}."] = "Отдайте {npc:16033} {item:22056}.",
 
 	-- Step 58: Deliana: Saving the Best for Last
-	-- {npc:230319} Deliana
-	["{npc:230319}: Saving the Best for Last"] = "{npc:230319}: Лучшее напоследок",
-	-- {item:16693} Devout Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16690} Devout Robe · {npc:10363} General Drakkisath
-	["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "«Лучшее напоследок» требует {item:16693}: {npc:1853} в подземелье {area:2057} (около 12%), и {item:16690}: {npc:10363} в Верхней части пика Черной горы (около 11%).",
-	-- {npc:234973} Alliance Priest · {npc:230319} Deliana · {item:16693} Devout Crown · {item:16690} Devout Robe
-	["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:234973} yet, so this guide can't track it: {npc:230319} should offer it now. Take it from her and give her your {item:16693} and {item:16690}."] = "Данные заданий Polestar пока не знают задание Forever «Лучшее напоследок» для {npc:234973}, поэтому гайд не может его отслеживать: {npc:230319} должна предложить его сейчас. Возьмите его у нее и отдайте ей {item:16693} и {item:16690}.",
+	-- {quest:84199} Saving the Best for Last · {item:16693} Devout Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16690} Devout Robe · {npc:10363} General Drakkisath
+	-- was: ["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "«Лучшее напоследок» требует {item:16693}: {npc:1853} в подземелье {area:2057} (около 12%), и {item:16690}: {npc:10363} в Верхней части пика Черной горы (около 11%)."
+	["{quest:84199} takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84199} забирает {item:16693}: {npc:1853} в подземелье {area:2057} (около 12%), и {item:16690}: {npc:10363} в Верхней части пика Черной горы (около 11%).",
 
 	-- Step 59: Mokvar: Saving the Best for Last
-	-- {npc:230317} Mokvar
-	["{npc:230317}: Saving the Best for Last"] = "{npc:230317}: Лучшее напоследок",
-	-- {npc:235047} Horde Priest · {npc:230317} Mokvar · {item:16693} Devout Crown · {item:16690} Devout Robe
-	["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:235047} yet, so this guide can't track it: {npc:230317} should offer it now. Take it from him and give him your {item:16693} and {item:16690}."] = "Данные заданий Polestar пока не знают задание Forever «Лучшее напоследок» для {npc:235047}, поэтому гайд не может его отслеживать: {npc:230317} должен предложить его сейчас. Возьмите его у него и отдайте ему {item:16693} и {item:16690}.",
+	-- {quest:84206} Saving the Best for Last · {item:16693} Devout Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16690} Devout Robe · {npc:10363} General Drakkisath
+	-- was: ["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "«Лучшее напоследок» требует {item:16693}: {npc:1853} в подземелье {area:2057} (около 12%), и {item:16690}: {npc:10363} в Верхней части пика Черной горы (около 11%)."
+	["{quest:84206} takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84206} забирает {item:16693}: {npc:1853} в подземелье {area:2057} (около 12%), и {item:16690}: {npc:10363} в Верхней части пика Черной горы (около 11%).",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:234973} yet, so this guide can't track it: {npc:230319} should offer it now. Take it from her and give her your {item:16693} and {item:16690}."] = "Данные заданий Polestar пока не знают задание Forever «Лучшее напоследок» для {npc:234973}, поэтому гайд не может его отслеживать: {npc:230319} должна предложить его сейчас. Возьмите его у нее и отдайте ей {item:16693} и {item:16690}.",
+	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:235047} yet, so this guide can't track it: {npc:230317} should offer it now. Take it from him and give him your {item:16693} and {item:16690}."] = "Данные заданий Polestar пока не знают задание Forever «Лучшее напоследок» для {npc:235047}, поэтому гайд не может его отслеживать: {npc:230317} должен предложить его сейчас. Возьмите его у него и отдайте ему {item:16693} и {item:16690}.",
+	-- ["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "«Лучшее напоследок» требует {item:16693}: {npc:1853} в подземелье {area:2057} (около 12%), и {item:16690}: {npc:10363} в Верхней части пика Черной горы (около 11%).",
+	-- ["{npc:230317}: Saving the Best for Last"] = "{npc:230317}: Лучшее напоследок",
+	-- ["{npc:230319}: Saving the Best for Last"] = "{npc:230319}: Лучшее напоследок",
 }

@@ -240,16 +240,19 @@ return {
 	["Hand {npc:16033} the {item:22056}."] = "{npc:16033}에게 {item:22056}을(를) 건네세요.",
 
 	-- Step 58: Deliana: Saving the Best for Last
-	-- {npc:230319} Deliana
-	["{npc:230319}: Saving the Best for Last"] = "{npc:230319}: 최고는 마지막에",
-	-- {item:16693} Devout Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16690} Devout Robe · {npc:10363} General Drakkisath
-	["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "'최고는 마지막에'에는 {item:16693}({area:2057}의 {npc:1853}, 약 12%)과 {item:16690}(검은바위 첨탑 상층의 {npc:10363}, 약 11%)이 필요합니다.",
-	-- {npc:234973} Alliance Priest · {npc:230319} Deliana · {item:16693} Devout Crown · {item:16690} Devout Robe
-	["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:234973} yet, so this guide can't track it: {npc:230319} should offer it now. Take it from her and give her your {item:16693} and {item:16690}."] = "Polestar의 퀘스트 데이터가 아직 {npc:234973}용 Forever의 '최고는 마지막에'를 모르므로 이 가이드가 추적할 수 없습니다. 이제 {npc:230319}이(가) 퀘스트를 줄 것입니다. 그녀에게 받고 {item:16693}과(와) {item:16690}을(를) 건네세요.",
+	-- {quest:84199} Saving the Best for Last · {item:16693} Devout Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16690} Devout Robe · {npc:10363} General Drakkisath
+	-- was: ["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "'최고는 마지막에'에는 {item:16693}({area:2057}의 {npc:1853}, 약 12%)과 {item:16690}(검은바위 첨탑 상층의 {npc:10363}, 약 11%)이 필요합니다."
+	["{quest:84199} takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84199}에는 {item:16693}({area:2057}의 {npc:1853}, 약 12%)과 {item:16690}(검은바위 첨탑 상층의 {npc:10363}, 약 11%)이(가) 필요합니다.",
 
 	-- Step 59: Mokvar: Saving the Best for Last
-	-- {npc:230317} Mokvar
-	["{npc:230317}: Saving the Best for Last"] = "{npc:230317}: 최고는 마지막에",
-	-- {npc:235047} Horde Priest · {npc:230317} Mokvar · {item:16693} Devout Crown · {item:16690} Devout Robe
-	["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:235047} yet, so this guide can't track it: {npc:230317} should offer it now. Take it from him and give him your {item:16693} and {item:16690}."] = "Polestar의 퀘스트 데이터가 아직 {npc:235047}용 Forever의 '최고는 마지막에'를 모르므로 이 가이드가 추적할 수 없습니다. 이제 {npc:230317}이(가) 퀘스트를 줄 것입니다. 그에게 받고 {item:16693}과(와) {item:16690}을(를) 건네세요.",
+	-- {quest:84206} Saving the Best for Last · {item:16693} Devout Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16690} Devout Robe · {npc:10363} General Drakkisath
+	-- was: ["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "'최고는 마지막에'에는 {item:16693}({area:2057}의 {npc:1853}, 약 12%)과 {item:16690}(검은바위 첨탑 상층의 {npc:10363}, 약 11%)이 필요합니다."
+	["{quest:84206} takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84206}에는 {item:16693}({area:2057}의 {npc:1853}, 약 12%)과 {item:16690}(검은바위 첨탑 상층의 {npc:10363}, 약 11%)이(가) 필요합니다.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:234973} yet, so this guide can't track it: {npc:230319} should offer it now. Take it from her and give her your {item:16693} and {item:16690}."] = "Polestar의 퀘스트 데이터가 아직 {npc:234973}용 Forever의 '최고는 마지막에'를 모르므로 이 가이드가 추적할 수 없습니다. 이제 {npc:230319}이(가) 퀘스트를 줄 것입니다. 그녀에게 받고 {item:16693}과(와) {item:16690}을(를) 건네세요.",
+	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:235047} yet, so this guide can't track it: {npc:230317} should offer it now. Take it from him and give him your {item:16693} and {item:16690}."] = "Polestar의 퀘스트 데이터가 아직 {npc:235047}용 Forever의 '최고는 마지막에'를 모르므로 이 가이드가 추적할 수 없습니다. 이제 {npc:230317}이(가) 퀘스트를 줄 것입니다. 그에게 받고 {item:16693}과(와) {item:16690}을(를) 건네세요.",
+	-- ["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "'최고는 마지막에'에는 {item:16693}({area:2057}의 {npc:1853}, 약 12%)과 {item:16690}(검은바위 첨탑 상층의 {npc:10363}, 약 11%)이 필요합니다.",
+	-- ["{npc:230317}: Saving the Best for Last"] = "{npc:230317}: 최고는 마지막에",
+	-- ["{npc:230319}: Saving the Best for Last"] = "{npc:230319}: 최고는 마지막에",
 }

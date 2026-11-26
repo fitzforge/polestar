@@ -240,16 +240,19 @@ return {
 	["Hand {npc:16033} the {item:22056}."] = "把{item:22056}交給{npc:16033}。",
 
 	-- Step 58: Deliana: Saving the Best for Last
-	-- {npc:230319} Deliana
-	["{npc:230319}: Saving the Best for Last"] = "{npc:230319}：好戲留在最後",
-	-- {item:16693} Devout Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16690} Devout Robe · {npc:10363} General Drakkisath
-	["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "「留到最後」需要你的{item:16693}：{area:2057}的{npc:1853}掉落（約12%），以及你的{item:16690}：黑石塔上層的{npc:10363}掉落（約11%）。",
-	-- {npc:234973} Alliance Priest · {npc:230319} Deliana · {item:16693} Devout Crown · {item:16690} Devout Robe
-	["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:234973} yet, so this guide can't track it: {npc:230319} should offer it now. Take it from her and give her your {item:16693} and {item:16690}."] = "Polestar的任務資料還不知道Forever中{npc:234973}的「留到最後」任務，所以本指南無法追蹤它：{npc:230319}現在應該會提供這個任務。從她那裡接取，並把你的{item:16693}和{item:16690}交給她。",
+	-- {quest:84199} Saving the Best for Last · {item:16693} Devout Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16690} Devout Robe · {npc:10363} General Drakkisath
+	-- was: ["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "「留到最後」需要你的{item:16693}：{area:2057}的{npc:1853}掉落（約12%），以及你的{item:16690}：黑石塔上層的{npc:10363}掉落（約11%）。"
+	["{quest:84199} takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84199}需要你的{item:16693}：{area:2057}的{npc:1853}（約12%），以及你的{item:16690}：黑石塔上層的{npc:10363}（約11%）。",
 
 	-- Step 59: Mokvar: Saving the Best for Last
-	-- {npc:230317} Mokvar
-	["{npc:230317}: Saving the Best for Last"] = "{npc:230317}：好戲留在最後",
-	-- {npc:235047} Horde Priest · {npc:230317} Mokvar · {item:16693} Devout Crown · {item:16690} Devout Robe
-	["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:235047} yet, so this guide can't track it: {npc:230317} should offer it now. Take it from him and give him your {item:16693} and {item:16690}."] = "Polestar的任務資料還不知道Forever中{npc:235047}的「留到最後」任務，所以本指南無法追蹤它：{npc:230317}現在應該會提供這個任務。從他那裡接取，並把你的{item:16693}和{item:16690}交給他。",
+	-- {quest:84206} Saving the Best for Last · {item:16693} Devout Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16690} Devout Robe · {npc:10363} General Drakkisath
+	-- was: ["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "「留到最後」需要你的{item:16693}：{area:2057}的{npc:1853}掉落（約12%），以及你的{item:16690}：黑石塔上層的{npc:10363}掉落（約11%）。"
+	["{quest:84206} takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84206}需要你的{item:16693}：{area:2057}的{npc:1853}（約12%），以及你的{item:16690}：黑石塔上層的{npc:10363}（約11%）。",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:234973} yet, so this guide can't track it: {npc:230319} should offer it now. Take it from her and give her your {item:16693} and {item:16690}."] = "Polestar的任務資料還不知道Forever中{npc:234973}的「留到最後」任務，所以本指南無法追蹤它：{npc:230319}現在應該會提供這個任務。從她那裡接取，並把你的{item:16693}和{item:16690}交給她。",
+	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:235047} yet, so this guide can't track it: {npc:230317} should offer it now. Take it from him and give him your {item:16693} and {item:16690}."] = "Polestar的任務資料還不知道Forever中{npc:235047}的「留到最後」任務，所以本指南無法追蹤它：{npc:230317}現在應該會提供這個任務。從他那裡接取，並把你的{item:16693}和{item:16690}交給他。",
+	-- ["Saving the Best for Last takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "「留到最後」需要你的{item:16693}：{area:2057}的{npc:1853}掉落（約12%），以及你的{item:16690}：黑石塔上層的{npc:10363}掉落（約11%）。",
+	-- ["{npc:230317}: Saving the Best for Last"] = "{npc:230317}：好戲留在最後",
+	-- ["{npc:230319}: Saving the Best for Last"] = "{npc:230319}：好戲留在最後",
 }

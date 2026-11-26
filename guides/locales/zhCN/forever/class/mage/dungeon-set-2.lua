@@ -240,16 +240,19 @@ return {
 	["Hand {npc:16033} the {item:22056}."] = "把 {item:22056} 交给 {npc:16033}。",
 
 	-- Step 58: Deliana: Saving the Best for Last
-	-- {npc:230319} Deliana
-	["{npc:230319}: Saving the Best for Last"] = "{npc:230319}：最好的留到最后",
-	-- {item:16686} Magister's Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16688} Magister's Robes · {npc:10363} General Drakkisath
-	["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "“最好的留在最后”需要你的 {item:16686}：{area:2057} 的 {npc:1853} 掉落（约13%），以及你的 {item:16688}：黑石塔上层的 {npc:10363} 掉落（约11%）。",
-	-- {npc:234963} Alliance Mage · {npc:230319} Deliana · {item:16686} Magister's Crown · {item:16688} Magister's Robes
-	["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:234963} yet, so this guide can't track it: {npc:230319} should offer it now. Take it from her and give her your {item:16686} and {item:16688}."] = "北极星的任务数据还不认识无限服中 {npc:234963} 的“最好的留在最后”，所以本指南无法追踪：{npc:230319} 现在应该会提供该任务。从她那里接受，并把你的 {item:16686} 和 {item:16688} 交给她。",
+	-- {quest:84197} Saving the Best for Last · {item:16686} Magister's Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16688} Magister's Robes · {npc:10363} General Drakkisath
+	-- was: ["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "“最好的留在最后”需要你的 {item:16686}：{area:2057} 的 {npc:1853} 掉落（约13%），以及你的 {item:16688}：黑石塔上层的 {npc:10363} 掉落（约11%）。"
+	["{quest:84197} takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84197} 需要你的 {item:16686}：{area:2057} 的 {npc:1853} 掉落（约 13%），以及你的 {item:16688}：黑石塔上层的 {npc:10363} 掉落（约 11%）。",
 
 	-- Step 59: Mokvar: Saving the Best for Last
-	-- {npc:230317} Mokvar
-	["{npc:230317}: Saving the Best for Last"] = "{npc:230317}：最好的留到最后",
-	-- {npc:235048} Horde Mage · {npc:230317} Mokvar · {item:16686} Magister's Crown · {item:16688} Magister's Robes
-	["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:235048} yet, so this guide can't track it: {npc:230317} should offer it now. Take it from him and give him your {item:16686} and {item:16688}."] = "北极星的任务数据还不认识无限服中 {npc:235048} 的“最好的留在最后”，所以本指南无法追踪：{npc:230317} 现在应该会提供该任务。从他那里接受，并把你的 {item:16686} 和 {item:16688} 交给他。",
+	-- {quest:84205} Saving the Best for Last · {item:16686} Magister's Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16688} Magister's Robes · {npc:10363} General Drakkisath
+	-- was: ["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "“最好的留在最后”需要你的 {item:16686}：{area:2057} 的 {npc:1853} 掉落（约13%），以及你的 {item:16688}：黑石塔上层的 {npc:10363} 掉落（约11%）。"
+	["{quest:84205} takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84205} 需要你的 {item:16686}：{area:2057} 的 {npc:1853} 掉落（约 13%），以及你的 {item:16688}：黑石塔上层的 {npc:10363} 掉落（约 11%）。",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:234963} yet, so this guide can't track it: {npc:230319} should offer it now. Take it from her and give her your {item:16686} and {item:16688}."] = "北极星的任务数据还不认识无限服中 {npc:234963} 的“最好的留在最后”，所以本指南无法追踪：{npc:230319} 现在应该会提供该任务。从她那里接受，并把你的 {item:16686} 和 {item:16688} 交给她。",
+	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:235048} yet, so this guide can't track it: {npc:230317} should offer it now. Take it from him and give him your {item:16686} and {item:16688}."] = "北极星的任务数据还不认识无限服中 {npc:235048} 的“最好的留在最后”，所以本指南无法追踪：{npc:230317} 现在应该会提供该任务。从他那里接受，并把你的 {item:16686} 和 {item:16688} 交给他。",
+	-- ["Saving the Best for Last takes your {item:16686}: {npc:1853} in {area:2057} (about 13%), and your {item:16688}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "“最好的留在最后”需要你的 {item:16686}：{area:2057} 的 {npc:1853} 掉落（约13%），以及你的 {item:16688}：黑石塔上层的 {npc:10363} 掉落（约11%）。",
+	-- ["{npc:230317}: Saving the Best for Last"] = "{npc:230317}：最好的留到最后",
+	-- ["{npc:230319}: Saving the Best for Last"] = "{npc:230319}：最好的留到最后",
 }

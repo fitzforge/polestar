@@ -244,6 +244,9 @@ return {
 	["{quest:84196} takes your {item:16677}: {npc:1853} in {area:2057} (about 13%), and your {item:16674}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84196} prend votre {item:16677} : {npc:1853} à {area:2057} (environ 13 %), et votre {item:16674} : {npc:10363} au sommet du pic Rochenoire (environ 11 %).",
 
 	-- Step 59: Mokvar: Saving the Best for Last
-	-- {quest:84196} Saving the Best for Last · {npc:235049} Horde Hunter · {npc:230317} Mokvar · {item:16677} Beaststalker's Cap · {item:16674} Beaststalker's Tunic
-	["Polestar's quest data doesn't know Forever's {quest:84196} for the {npc:235049} yet, so this guide can't track it: {npc:230317} should offer it now. Take it from him and give him your {item:16677} and {item:16674}."] = "Les données de quête de Polestar ne connaissent pas encore la quête de Forever {quest:84196} pour {npc:235049}, ce Guide ne peut donc pas la suivre : {npc:230317} devrait vous la proposer maintenant. Acceptez-la et remettez-lui vos {item:16677} et {item:16674}.",
+	-- {quest:84204} Saving the Best for Last · {item:16677} Beaststalker's Cap · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16674} Beaststalker's Tunic · {npc:10363} General Drakkisath
+	["{quest:84204} takes your {item:16677}: {npc:1853} in {area:2057} (about 13%), and your {item:16674}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84204} prend votre {item:16677} : {npc:1853} à {area:2057} (environ 13 %), et votre {item:16674} : {npc:10363} au sommet du pic Rochenoire (environ 11 %).",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Polestar's quest data doesn't know Forever's {quest:84196} for the {npc:235049} yet, so this guide can't track it: {npc:230317} should offer it now. Take it from him and give him your {item:16677} and {item:16674}."] = "Les données de quête de Polestar ne connaissent pas encore la quête de Forever {quest:84196} pour {npc:235049}, ce Guide ne peut donc pas la suivre : {npc:230317} devrait vous la proposer maintenant. Acceptez-la et remettez-lui vos {item:16677} et {item:16674}.",
 }
