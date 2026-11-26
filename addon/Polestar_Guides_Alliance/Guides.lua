@@ -15044,6 +15044,7 @@ do
 					goals = {
 						{ t = "turnin", quest = 5220, title = "Return to Chillwind Camp", npc = 11053, npcName = "High Priestess MacDonnell", map = 1422, x = 42.88, y = 84.39, z = 64 },
 						{ t = "accept", quest = 5222, title = "Target: Writhing Haunt", npc = 11053, npcName = "High Priestess MacDonnell", minLevel = 50, qlvl = 55, pre = { 5220 }, preTitles = { [5220] = "Return to Chillwind Camp" }, map = 1422, x = 42.88, y = 84.39, z = 64 },
+						{ t = "level", level = 55 },
 						{ t = "accept", quest = 5533, title = "Scholomance", npc = 10838, npcName = "Commander Ashlam Valorfist", minLevel = 55, qlvl = 55, pre = { 5097 }, preTitles = { [5097] = "All Along the Watchtowers" }, map = 1422, x = 42.71, y = 83.93, z = 66.3, note = "{npc:10838} (from level 55)" },
 						{ t = "turnin", quest = 5533, title = "Scholomance", npc = 11056, npcName = "Alchemist Arbington", map = 1422, x = 42.68, y = 83.79, z = 66.6 },
 						{ t = "accept", quest = 5537, title = "Skeletal Fragments", npc = 11056, npcName = "Alchemist Arbington", minLevel = 55, qlvl = 57, pre = { 5533 }, preTitles = { [5533] = "Scholomance" }, map = 1422, x = 42.68, y = 83.79, z = 66.6, note = "The skeletons of Andorhal, next on this guide" },

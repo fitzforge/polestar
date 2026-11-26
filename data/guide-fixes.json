@@ -18428,6 +18428,24 @@
 				{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): 173 shaman players (Dwarf 71, Orc 29, Troll 11, Tauren 35, Horde Skyborne 27), no Gnome; 94373 taken by 20 Dwarf shamans" },
 				{ "kind": "questie", "ref": "QuestieDB 1.1.5: quest 94373 requiredRaces 4 (Dwarf; 1.1.2: the Alliance races)" }
 			]
+		},
+		{
+			"id": "wpl-scholomance-5533-level-55",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5533,
+				"goal": "accept",
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"level": 55,
+			"note": "Scholomance (5533) needs level 55 (its minimum level in Forever's quest data). It is taken on the third Chillwind Camp stop, right before Andorhal, where the level model (QuestieDB 1.1.5 data) reaches it at 54.93 in 21 of 28 Alliance runs (refused). A level 55 hold right before the accept, after the stop's hand-ins: about 0.07 of a level (the model grinds it in about 43 minutes and needs about 79 fewer at the end of the Silithus guide, 0.5 hours less to 60), and Scholomance and the Skeletal Fragments after it stay on the same visit, right before Andorhal.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 5533 minimum level 55 (quests.json)"
+				}
+			],
+			"issue": 3974
 		}
 	]
 }

@@ -2923,6 +2923,42 @@ test('forever/reputation/argent-dawn.guide: The Archivist burns the Scarlet Arch
 	assert.equal(list[archive].s, list[galford].s, 'in the Stratholme step');
 	assert.ok(archive < at(list, 'turnin 5251', is('turnin', 5251)), 'before the hand-in');
 });
+// #3974 (0.4.4 route round): the Blackmaw furbolgs of Ursolan (Azshara) give their quests only from Neutral with the
+// Timbermaw (players' recordings to 2026-11-20: 10 people met them hostile below Neutral, the 2 who did the chain
+// were just past it; 0 of 32 recorded characters were Neutral by level 53). The leveling routes pass Azshara before
+// any Timbermaw quest, so the chain lives in the reputation guide, after its Neutral goal: every accept and hand-in
+// of it, in the chain's order, with its first accepts held for Neutral.
+test('forever/reputation/timbermaw-hold.guide: the Blackmaw chain comes after Neutral, accepts before hand-ins (#3974)', { skip }, () => {
+	const G = 'forever/reputation/timbermaw-hold.guide';
+	const list = goals(G);
+	const neutral = at(list, 'rep 576 Neutral', (g) => g.t === 'rep' && g.faction === 576 && g.standing === 4);
+	const chain = [86752, 86799, 86791, 86804, 86925, 86926, 86777, 86792, 86796, 86797, 86927, 86798, 86812, 86813, 87346];
+	for (const q of chain) {
+		const take = at(list, `accept ${q}`, is('accept', q));
+		const hand = at(list, `turnin ${q}`, is('turnin', q));
+		assert.ok(take > neutral, `${q}: taken after the Neutral goal`);
+		assert.ok(take < hand, `${q}: accepted before its hand-in`);
+	}
+	const neutralGate = (step) => (step.when || []).some((p) => p.k === 'rep' && !p.neg && p.faction === 576 && p.standing >= 4);
+	for (const q of [86752, 86799, 86791, 86796]) {
+		const { step } = list[at(list, `accept ${q}`, is('accept', q))];
+		assert.ok(neutralGate(step), `${q}: its step shows only from Neutral with the Timbermaw`);
+	}
+	for (const [q, pre] of [[86791, 86752], [86804, 86799], [86925, 86804], [86926, 86925], [86927, 86926], [86812, 86927], [86813, 86812], [86797, 86777], [86798, 86797], [87346, 86798]]) {
+		assert.ok(at(list, `turnin ${pre}`, is('turnin', pre)) < at(list, `accept ${q}`, is('accept', q)), `${q} after ${pre} is handed in`);
+	}
+});
+// #3974 follow-up: Scholomance (5533) needs level 55; the level model reached its accept on 04-western-plaguelands'
+// third Chillwind Camp stop at 54.93 in 21 of 28 Alliance runs (refused). A level 55 hold sits right before the
+// accept in the same step, after the stop's hand-ins, so no player is sent to Valorfist below 55.
+test('forever/alliance/50-60/04-western-plaguelands.guide: Scholomance waits for level 55 at its accept (#3974)', { skip }, () => {
+	const list = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	const take = at(list, 'accept 5533', is('accept', 5533));
+	const gate = list.slice(0, take).findLastIndex(({ goal, s }) => s === list[take].s && goal.t === 'level');
+	assert.ok(gate >= 0, 'a level goal before the accept, in the same step');
+	assert.ok(list[gate].goal.level >= data.quests[5533].minLevel, `level ${list[gate].goal.level} >= the quest's minimum ${data.quests[5533].minLevel}`);
+	assert.equal(list[take + 1]?.goal.t === 'turnin' && list[take + 1].goal.quest, 5533, 'handed in on the same visit');
+});
 // Partially Digested Collar (93568) is started by the collar and counts the collar as its objective: the accept
 // leaves it in the bags (players' recordings: 10 people, "item x1 Partially Digested Collar" at the accept, handed
 // in to Liranne). So the Liranne step may wait on the collar and hold the accept and the hand-in together; the
@@ -12840,6 +12876,10 @@ for (const [guide, quests] of Object.entries(ALLIANCE_5060_VOLUME)) test(`${guid
 	for (const q of quests) assert.ok(here.some(({ goal }) => goal.t === 'turnin' && goal.quest === q && !goal.optional), `turnin ${q} is in ${guide}, not optional`);
 });
 
+// A level goal on the Plaguelands guide other than the level 55 gate right before Scholomance's accept (#3974: its
+// minimum level, about 0.07 of a level for the model there) counts as a top-up.
+const topUp04 = ({ goal }, i, list) => goal.t === 'level' && !(goal.level === 55 && !goal.grind && list[i + 1]?.goal.t === 'accept' && list[i + 1].goal.quest === 5533);
+
 // (0.4.3 fix round: Flint and the Marris Stead are on the Plaguelands sweep at about 56-57; the top-up to 59.85 that
 // left the Chillwind hand-ins their XP is gone, and Flint takes the agents' insignia on the last Chillwind stop.)
 test('Alliance 50-60: The Eastern Plagues is taken with Flint Shadowmore and the last top-up stops short of 60 for the Chillwind hand-ins', { skip }, () => {
@@ -12850,7 +12890,7 @@ test('Alliance 50-60: The Eastern Plagues is taken with Flint Shadowmore and the
 	const work = at(g, 'complete 6185', (x) => x.t === 'complete' && x.quest === 6185);
 	const hand = at(g, 'turnin 6185', is('turnin', 6185));
 	assert.ok(take < work && work < hand, 'accept, the Marris Stead, then the hand-in');
-	assert.ok(!g.some(({ goal }) => goal.t === 'level'), 'no top-up on the Plaguelands guide');
+	assert.ok(!g.some(topUp04), 'no top-up on the Plaguelands guide (only Scholomance\'s level 55 gate)');
 });
 
 // --- Alliance 40-60 quest volume, 0.3.7 (2026-11-09) ---
@@ -17144,7 +17184,7 @@ test('Alliance 50-60: danger warnings at Dreadmaul Rock, the Blackrock camps, Ku
 // Mount Hyjal: no top-up on either guide (the level model ends Silithus at about 59.5; 06 ends with one dungeon step,
 // no mob camp, for a player still under 60).
 test('Alliance 50-60/06: the last top-up right after Egan, before the Marris Stead', { skip }, () => {
-	assert.ok(!goals('forever/alliance/50-60/04-western-plaguelands.guide').some(({ goal }) => goal.t === 'level'), '04: no top-up');
+	assert.ok(!goals('forever/alliance/50-60/04-western-plaguelands.guide').some(topUp04), '04: no top-up (only Scholomance\'s level 55 gate)');
 	const six = goals('forever/alliance/50-60/06-silithus.guide').filter(({ goal }) => goal.t === 'level');
 	assert.ok(six.every(({ goal }) => !goal.grind && goal.level === 60), '06: only the level-60 dungeon step, no grind camp');
 	const g = goals('forever/alliance/50-60/04-western-plaguelands.guide');
