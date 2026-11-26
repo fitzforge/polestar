@@ -410,6 +410,23 @@
 --   Fewer folders
 --   Quit the game fully and start it again: Polestar is 22 folders now, not 45.
 --   Steps fixed in dozens of zones. Found something off? Type %s.
+--
+-- Machine-translated, to be reviewed (0.4.4 Dungeon Set 2 guides, 26 Nov 2026): translated by an AI model
+-- (Claude Opus 5.5) and waiting for a native speaker's check. Reviewing one: keep or fix it, and take it
+-- off this list. These guides' texts in guides/locales/ptBR/:
+--   forever/class/druid/dungeon-set-2
+--   forever/class/hunter/dungeon-set-2
+--   forever/class/mage/dungeon-set-2
+--   forever/class/paladin/dungeon-set-2
+--   forever/class/priest/dungeon-set-2
+--   forever/class/rogue/dungeon-set-2
+--   forever/class/shaman/dungeon-set-2
+--   forever/class/warlock/dungeon-set-2
+--   forever/class/warrior/dungeon-set-2
+--
+-- Machine-translated, to be reviewed (0.4.4 Lookup, 26 Nov 2026): translated by an AI model (Claude Opus 5.5)
+-- and waiting for a native speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   Not seen on Forever yet
 -- Machine-translated, to be reviewed (#3701 Free mode, the finished-quest guide #2486 and the other lines new on
 -- next since 0.4.3, 26 Nov 2026):
 -- translated by an AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native
@@ -2434,6 +2451,7 @@ L["Finished, %d skipped"] = "Concluída, puladas: %d"
 L["All %d done"] = "Todas as %d feitas"
 L["Click to open its page."] = "Clique para abrir a página dela."
 L["Then any of: %s"] = "Depois, qualquer uma de: %s"
+L["Not seen on Forever yet"] = "Ainda não visto no Forever"
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Pronta para entregar"
@@ -4082,7 +4100,6 @@ L["Clean up quest log"] = "Limpar registro de missões"
 L["Grey: no XP any more"] = "Cinza: não dá mais EXP"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "A rota não precisa destas: nunca as entrega, ou não dão mais EXP. Abandonar pergunta antes na janela do próprio jogo."
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "Lista as missões do seu registro de que a rota não precisa: as que ela nunca entrega e as cinzas que não dão mais EXP. Cada uma tem um botão Abandonar que pergunta antes. O menu da janela do guia também mostra isso enquanto houver alguma."
-L["None of these has a known place to hand it in."] = "Nenhuma delas tem um lugar conhecido para entregar."
 L["Where it is turned in is not known"] = "Não se sabe onde é entregue"
 L["Finished quests you're still carrying"] = "Missões concluídas que você ainda carrega"
 L["The route hands in every finished quest in your log."] = "A rota entrega todas as missões concluídas do seu registro."
@@ -5645,7 +5662,7 @@ L["kept for %s"] = "guardada para %s"
 L["kept"] = "guardada"
 L["Kept for %s: the route hands it in there."] = "Guardada para %s: a rota a entrega lá."
 
--- Lookup/Handins.lua
+-- Handins.lua
 L["No quests in your log are ready to hand in."] = "Nenhuma missão no seu registro está pronta para entregar."
 L["Wait until combat ends to load the quest data."] = "Espere o combate acabar para carregar os dados das missões."
 L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "O guia de entregas não pôde carregar. Verifique se o addon Polestar_FreeMode está instalado e ativado."
@@ -5660,30 +5677,6 @@ L["Free mode: follow your own quests (on, off, nearest, xp)"] = "Modo livre: sig
 -- UI/QuestLinks.lua
 L["Start quest guide"] = "Iniciar guia de missão"
 L["Click to show quest guide actions."] = "Clique para mostrar as ações do guia de missão."
-
--- Handins.lua
-L["Travel time to this hand-in is unknown. Its location is still shown."] = "O tempo de viagem até esta entrega é desconhecido. O local dela continua aparecendo."
-L["Hand-ins without a known location"] = "Entregas sem local conhecido"
-L["Refining the travel order. Travel times are estimates."] = "Refinando a ordem de viagem. Os tempos de viagem são estimativas."
-L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = "As estimativas de viagem estão incompletas. A ordem usa as estimativas disponíveis e distâncias aproximadas."
-L["Waiting for your quest log."] = "Esperando o seu registro de missões."
-L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = "O guia de entregas não pôde carregar. Verifique se o addon Polestar_Codex está instalado e ativado."
-
--- Free.lua
-L["Low drop rate: %s"] = "Chance de saque baixa: %s"
-L["1 quest for your level: %s gives it."] = "1 missão para o seu nível: %s a dá."
-L["%d quests for your level, all here."] = "%d missões para o seu nível, todas aqui."
-L["%d quests for your level, %d of them here."] = "%d missões para o seu nível, %d delas aqui."
-L["Quests for your level"] = "Missões para o seu nível"
-L["About %s XP a minute"] = "Cerca de %s de EXP por minuto"
-L["Order: nearest first"] = "Ordem: a mais próxima primeiro"
-L["Order: most XP a minute first"] = "Ordem: mais EXP por minuto primeiro"
-L["Bring back left-out quests (%d)"] = "Trazer de volta as missões deixadas de fora (%d)"
-L["Unpin"] = "Desafixar"
-L["Pin to the top"] = "Fixar no topo"
-L["Free mode takes this quest first, whatever the order."] = "O modo livre faz esta missão primeiro, seja qual for a ordem."
-L["Leave out of Free mode"] = "Deixar de fora do modo livre"
-L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "O modo livre para de listar esta missão. \"Trazer de volta as missões deixadas de fora\" no menu a lista de novo."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Configurar o Polestar de novo, uma página por vez. Cada escolha vale na hora."
@@ -5967,3 +5960,24 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 -- L["Max height"] = "Altura máxima"
 -- L["%s: on this step"] = "%s: nesta etapa"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Suas próprias missões como guia, em uma aba própria: a seta leva à mais próxima e depois à seguinte (/polestar free)."
+-- L["None of these has a known place to hand it in."] = "Nenhuma delas tem um lugar conhecido para entregar."
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = "O tempo de viagem até esta entrega é desconhecido. O local dela continua aparecendo."
+-- L["Hand-ins without a known location"] = "Entregas sem local conhecido"
+-- L["Refining the travel order. Travel times are estimates."] = "Refinando a ordem de viagem. Os tempos de viagem são estimativas."
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = "As estimativas de viagem estão incompletas. A ordem usa as estimativas disponíveis e distâncias aproximadas."
+-- L["Waiting for your quest log."] = "Esperando o seu registro de missões."
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = "O guia de entregas não pôde carregar. Verifique se o addon Polestar_Codex está instalado e ativado."
+-- L["Low drop rate: %s"] = "Chance de saque baixa: %s"
+-- L["1 quest for your level: %s gives it."] = "1 missão para o seu nível: %s a dá."
+-- L["%d quests for your level, all here."] = "%d missões para o seu nível, todas aqui."
+-- L["%d quests for your level, %d of them here."] = "%d missões para o seu nível, %d delas aqui."
+-- L["Quests for your level"] = "Missões para o seu nível"
+-- L["About %s XP a minute"] = "Cerca de %s de EXP por minuto"
+-- L["Order: nearest first"] = "Ordem: a mais próxima primeiro"
+-- L["Order: most XP a minute first"] = "Ordem: mais EXP por minuto primeiro"
+-- L["Bring back left-out quests (%d)"] = "Trazer de volta as missões deixadas de fora (%d)"
+-- L["Unpin"] = "Desafixar"
+-- L["Pin to the top"] = "Fixar no topo"
+-- L["Free mode takes this quest first, whatever the order."] = "O modo livre faz esta missão primeiro, seja qual for a ordem."
+-- L["Leave out of Free mode"] = "Deixar de fora do modo livre"
+-- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "O modo livre para de listar esta missão. \"Trazer de volta as missões deixadas de fora\" no menu a lista de novo."

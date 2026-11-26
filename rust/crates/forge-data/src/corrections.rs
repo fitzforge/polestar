@@ -527,7 +527,7 @@ pub const KINDS: [&str; 14] = [
 	"other",
 ];
 
-const QUEST_FIELDS: [&str; 28] = [
+const QUEST_FIELDS: [&str; 29] = [
 	"title",
 	"level",
 	"minLevel",
@@ -567,6 +567,9 @@ const QUEST_FIELDS: [&str; 28] = [
 	// Codex makes each item's quest source from them (#4169: Forever's copies of the dungeon set quests, whose
 	// Classic copies left the data with the only source of their tier 0.5 pieces).
 	"rewards",
+	// No recording or player report has shown the quest on Forever yet: kept in the data (Lookup shows it, marked "Not
+	// seen on Forever yet"), and the data build drops the flag once a recording shows the quest (build.rs).
+	"unseen",
 ];
 
 struct Ck<'a> {
@@ -866,7 +869,7 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 						ck.err(&a, "must be text");
 					}
 				}
-				"escort" | "direct" => {
+				"escort" | "direct" | "unseen" => {
 					if !matches!(v, V::Bool(_)) {
 						ck.err(&a, format!("{k} is true or false"));
 					}
@@ -2274,6 +2277,15 @@ mod tests {
 			None,
 		);
 		assert_eq!(bad.len(), 4, "an unknown quest twice, an empty set name, ghostOnly not a flag: {bad:?}");
+	}
+
+	// A quest no recording has shown on Forever yet (the Nightmare Incursion missions): a flag, true or false.
+	#[test]
+	fn unseen_is_a_flag() {
+		let src = r#""source": { "kind": "recording", "ref": "no run" }, "note": "never recorded""#;
+		assert_eq!(findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "unseen": true }}, {src} }} }} }}"#)), None, None), Vec::<String>::new());
+		let bad = findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "unseen": "yes" }}, {src} }} }} }}"#)), None, None);
+		assert_eq!(bad.len(), 1, "{bad:?}");
 	}
 
 	#[test]
