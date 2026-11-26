@@ -122,8 +122,9 @@ const SPECS = {
 		// with the Steel Bars the next stretch uses (Solid Stone from Mithril Deposits waits: Mining 175, zones
 		// of 40-50); Heavy Mithril Gauntlet (Bengus Deepforge and Saru Steelfury, from 180) is orange to 200
 		// where the bracers are green from 197.
-		// Heavy Mithril Breastplate stays at 205-225 over Mithril Coif (same colours and teacher): the coif
-		// trades 120 Mithril Bars for 120 Mageweave Cloth, a second farm for a smith who mines.
+		// From 200 the plan takes Steel Plate Helm (Steel Bars) to 215 and Heavy Mithril Boots to 225, about
+		// 150 Mithril Bars where Heavy Mithril Breastplate took 320; Mithril Coif (Mageweave for Mithril) is no
+		// better for a smith who mines.
 		use: [
 			{ spell: 2666, from: 75, to: 100 },
 			{ spell: 2672, from: 100, to: 125 },
