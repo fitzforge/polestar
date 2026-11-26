@@ -479,6 +479,9 @@ local BUILTIN = {
 			children = {
 				H({ kind = "toggle", key = "nav.teleports", label = L["Class teleports"], help = L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags, unless a talent does away with it (Reagent Economy)."],
 					search = "teleport, portal, mage, druid, moonglade, shaman, astral recall" }),
+				-- Nav/LiminalScroll.lua and UI/LiminalCard.lua (#4341).
+				H({ kind = "toggle", key = "nav.liminalScroll", label = L["Liminal Passage tips"], help = L["A Mage on a long trip, resting in an inn or a city, is told when a Scroll of Liminal Passage would take them to a party member at an inn and save time, or when to buy scrolls at the auction house. It only tells you: you use the scroll yourself."],
+					search = "liminal passage, scroll, mage, teleport, party, inn, auction house, travel" }),
 				-- 0.3.7's detour captions in the journey (Nav/Journey.lua).
 				H({ kind = "toggle", key = "nav.detourCaption", label = L["Detour captions"], help = L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."],
 					search = "detour, enemy town, hostile town, avoid, go round, journey" }),

@@ -39,6 +39,7 @@
 --   UI.AuctionBuys.Show() / .Hide() / .Layout()      the list window
 --   UI.AuctionBuys.CardModel(kind, list, town) -> model   kind "guide" | "town"
 --   UI.AuctionBuys.CheckGuide(id) / .CheckTown() -> true when a card shows
+--   UI.AuctionBuys.AuctioneerHere(load) -> the auctioneer's place | nil: the town the character is in has one
 --   UI.AuctionBuys.MenuItem() -> the guide menu's entry | nil
 
 local ADDON, ns = ...
@@ -203,7 +204,7 @@ end
 -- The auctioneer of the town the character is in, or nil: one in its zone
 -- within REACH yards while it rests there (the town's rest area), else
 -- within NEAR yards. Loads the Codex only when `load`.
-local function auctioneerHere(load)
+function AU.AuctioneerHere(load)
 	local X = ns.Codex
 	local N = ns.Nav and ns.Nav.nearby
 	if not (X and X.IsLoaded and N and N.Near) then return nil end
@@ -223,7 +224,7 @@ function AU.CheckTown()
 	local loaded = X and X.IsLoaded and X.IsLoaded()
 	local place
 	if loaded then
-		place = auctioneerHere(false)
+		place = AU.AuctioneerHere(false)
 		-- Out of every auctioneer's reach: the visit is over.
 		if not place then
 			st.auctionVisit = nil
@@ -241,7 +242,7 @@ function AU.CheckTown()
 	if (E and E.EscortRunning and E.EscortRunning()) or not windowShown() then return false end
 	local list = AB().List("all")
 	if #list == 0 then return false end
-	place = place or auctioneerHere(true)
+	place = place or AU.AuctioneerHere(true)
 	if not place or st.auctionVisit == place.map then return false end
 	local town = C.GetMapName(place.map) or (GetRealZoneText and GetRealZoneText()) or ""
 	if showCard(AU.CardModel("town", list, town), AU.CheckTown) then
