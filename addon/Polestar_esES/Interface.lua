@@ -550,6 +550,8 @@
 --   For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route.
 --   Start quest guide
 --   Click to show quest guide actions.
+--   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
+--   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "esES") then return end
@@ -2640,8 +2642,8 @@ L["Use %s beside %s"] = "Usa %s junto a %s"
 L["All attunements and keys"] = "Todas las armonizaciones y llaves"
 L["Every attunement and key, with how far you are"] = "Cada armonización y llave, con lo que te falta"
 L["Not open on Forever yet"] = "Aún no abierto en Forever"
--- L["A guide to the items 1 quest in your log needs from where it is given, ending at the entrance."] = ""
--- L["A guide to the items %d quests in your log need from where they are given, ending at the entrance."] = ""
+L["A guide to the items 1 quest in your log needs from where it is given, ending at the entrance."] = "Una guía hasta los objetos que necesita 1 misión de tu registro, desde donde se consiguen, que acaba en la entrada."
+L["A guide to the items %d quests in your log need from where they are given, ending at the entrance."] = "Una guía hasta los objetos que necesitan %d misiones de tu registro, desde donde se consiguen, que acaba en la entrada."
 
 -- UI/RouteChoice.lua
 L["Right here"] = "Justo aquí"

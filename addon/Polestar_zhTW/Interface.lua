@@ -550,6 +550,8 @@
 --   For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route.
 --   Start quest guide
 --   Click to show quest guide actions.
+--   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
+--   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhTW") then return end
@@ -2640,8 +2642,8 @@ L["Use %s beside %s"] = "在 %2$s 旁使用 %1$s"
 L["All attunements and keys"] = "所有副本鑰匙任務和鑰匙"
 L["Every attunement and key, with how far you are"] = "每項副本鑰匙任務和鑰匙，以及你的進度"
 L["Not open on Forever yet"] = "Forever 上尚未開放"
--- L["A guide to the items 1 quest in your log needs from where it is given, ending at the entrance."] = ""
--- L["A guide to the items %d quests in your log need from where they are given, ending at the entrance."] = ""
+L["A guide to the items 1 quest in your log needs from where it is given, ending at the entrance."] = "帶你去取日誌中 1 個任務所需物品的指南，從取得處出發，終點是入口。"
+L["A guide to the items %d quests in your log need from where they are given, ending at the entrance."] = "帶你去取日誌中 %d 個任務所需物品的指南，從取得處出發，終點是入口。"
 
 -- UI/RouteChoice.lua
 L["Right here"] = "就在這裡"
