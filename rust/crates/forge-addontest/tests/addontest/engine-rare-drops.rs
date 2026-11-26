@@ -52,18 +52,7 @@ fn run(setting: Option<&str>, before: &str, script: &str) -> Value {
 		before: format!("{WORLD}{before}"),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		saved: [("Polestar".to_string(), r#"PolestarCharDB = { schema = 1, guide = "test/drops" }"#.to_string())].into_iter().collect(),
-		script: [
-			TEST_PACK,
-			TEST_SOURCE,
-			GUIDE,
-			HELPERS,
-			"stub.login()",
-			r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
-			"flush()",
-			&set,
-			script,
-		]
-		.join("\n"),
+		script: [TEST_PACK, TEST_SOURCE, GUIDE, HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, "flush()", &set, script].join("\n"),
 		..Default::default()
 	})
 	.remove(0)

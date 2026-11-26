@@ -160,8 +160,6 @@ mod engine_level_wait;
 mod engine_lost_quest;
 #[path = "engine-manual.rs"]
 mod engine_manual;
-#[path = "engine-rare-drops.rs"]
-mod engine_rare_drops;
 #[path = "engine-materials.rs"]
 mod engine_materials;
 #[path = "engine-meet-kills.rs"]
@@ -180,6 +178,8 @@ mod engine_packs;
 mod engine_pin;
 #[path = "engine-professions.rs"]
 mod engine_professions;
+#[path = "engine-rare-drops.rs"]
+mod engine_rare_drops;
 #[path = "engine-repeatable.rs"]
 mod engine_repeatable;
 #[path = "engine-reset.rs"]
