@@ -92,7 +92,8 @@ pub fn zone_safety(data: &Data, map: &V) -> Option<String> {
 	}
 }
 
-/// Town markers per map (map key -> [[x, y], ...]): every spawn of a faction-tagged or service npc.
+/// Town markers per map (map key -> [{ x, y, npc, service }, ...]): every spawn of a faction-tagged or service npc,
+/// with its npc id (a tagged mob that drops the item is a farm, not a town: see farm_spots_of).
 fn town_points(data: &Data) -> V {
 	if let Some(v) = data.memo.borrow().get("farmspots.towns") {
 		return v.clone();
@@ -108,6 +109,7 @@ fn town_points(data: &Data) -> V {
 		if !tagged && !service {
 			continue;
 		}
+		let id = crate::js::str_to_num(&n.get("id").to_js_string());
 		for s in data.spawns("npc", &n.get("id")) {
 			let key = s.get("map").to_js_string();
 			if !by_map.has(&key) {
@@ -115,7 +117,7 @@ fn town_points(data: &Data) -> V {
 			}
 			let list = by_map.get(&key);
 			for p in s.get("pts").items() {
-				list.push(p);
+				list.push(obj! { "x" => p.at(0).num(), "y" => p.at(1).num(), "npc" => id, "service" => service });
 			}
 		}
 	}
@@ -209,7 +211,15 @@ fn farm_spots_of(data: &Data, item_id: &V) -> V {
 	let drops = if it.truthy() && it.get("drops").truthy() && it.get("drops").get("npc").truthy() { it.get("drops").get("npc") } else { V::obj() };
 	let yield_item = yield_of(crate::js::str_to_num(&item_id.to_js_string()));
 	let towns = town_points(data);
-	let mut all: Vec<Cand> = Vec::new();
+	// The droppers (farmspots.js): normal or rare, no service, never a Timbermaw furbolg; an untagged mob is each
+	// side's where the zone is safe for it, a mob tagged for one faction is the other side's, one tagged for both nobody's.
+	struct Dropper {
+		id: f64,
+		npc: V,
+		chance: f64,
+		foe: &'static str,
+	}
+	let mut droppers: Vec<Dropper> = Vec::new();
 	let mut ids: Vec<f64> = drops.keys().iter().map(|k| crate::js::str_to_num(k)).collect();
 	ids.sort_by(|a, b| sign(a - b));
 	for id in ids {
@@ -227,49 +237,126 @@ fn farm_spots_of(data: &Data, item_id: &V) -> V {
 		if !(rank.is_nullish() || rank.as_num() == Some(0.0) || rank.as_num() == Some(4.0)) {
 			continue;
 		}
-		if npc.get("faction").truthy() {
-			continue;
-		}
 		if is_service(&npc.get("roles")) {
 			continue;
 		}
-		let spawns = data.spawns("npc", &idv);
+		let f = npc.get("faction");
+		let foe = match f.as_str() {
+			Some("A") => "H",
+			Some("H") => "A",
+			_ if f.truthy() => continue,
+			_ => "AH",
+		};
+		droppers.push(Dropper { id, npc, chance, foe });
+	}
+	let farmers: Vec<f64> = droppers.iter().map(|d| d.id).collect();
+	struct Camp {
+		d: usize,
+		map: V,
+		f: V,
+		side: String,
+		open: Vec<V>,
+		lo: f64,
+		hi: f64,
+	}
+	struct Member {
+		x: f64,
+		y: f64,
+		rate: f64,
+		lo: f64,
+		hi: f64,
+		npc: f64,
+		name: String,
+	}
+	let mut camps: Vec<Camp> = Vec::new();
+	let mut by_map_side: Vec<(String, Vec<Member>)> = Vec::new();
+	for (di, d) in droppers.iter().enumerate() {
+		let spawns = data.spawns("npc", &V::Num(d.id));
 		let seen_over = overlap_maps(data, &spawns);
 		for s in spawns {
 			let map = s.get("map");
 			if seen_over.contains(&map.num()) {
 				continue;
 			}
-			let Some(faction) = zone_safety(data, &map) else { continue };
+			let Some(zone) = zone_safety(data, &map) else { continue };
+			let side = if d.foe == "AH" {
+				zone.clone()
+			} else if zone == "AH" || zone == d.foe {
+				d.foe.to_string()
+			} else {
+				continue;
+			};
 			let (sx, sy) = yard_scale(data, &map);
-			let markers = towns.get(&map.to_js_string()).items();
-			let open: Vec<V> =
-				s.get("pts").items().into_iter().filter(|p| !markers.iter().any(|m| hypot((p.at(0).num() - m.at(0).num()) * sx, (p.at(1).num() - m.at(1).num()) * sy) <= TOWN_YARDS)).collect();
+			let markers: Vec<V> = towns.get(&map.to_js_string()).items().into_iter().filter(|m| m.get("service").truthy() || !farmers.contains(&m.get("npc").num())).collect();
+			let mut pts = s.get("pts").items();
+			pts.extend(s.get("more").items());
+			let open: Vec<V> = pts.into_iter().filter(|p| !markers.iter().any(|m| hypot((p.at(0).num() - m.get("x").num()) * sx, (p.at(1).num() - m.get("y").num()) * sy) <= TOWN_YARDS)).collect();
 			if open.is_empty() {
 				continue;
 			}
-			let fr = data.frame(&map);
-			let era = s.get("f").as_str() == Some("e") && (data.era_frame(&map).truthy() || data.map_frames.get("era").keys().is_empty());
-			for c in cluster_points(&open, &fr, CLUSTER_YARDS, PER_NPC_MAP, 0.0) {
-				let spot = obj! { "map" => map.clone(), "x" => round2(c.get("x").num()), "y" => round2(c.get("y").num()) };
-				if era {
-					spot.set("f", "e");
+			let l = d.npc.get("level").num();
+			let lo = if l != 0.0 && !l.is_nan() { l } else { 1.0 };
+			let lm = d.npc.get("levelMax").num();
+			let lm = if lm != 0.0 && !lm.is_nan() { lm } else { lo };
+			let hi = if lm.is_nan() { lm } else { lo.max(lm) };
+			let key = format!("{}|{}", map.to_js_string(), side);
+			let rate = (d.chance / 100.0) * yield_item;
+			let at = match by_map_side.iter().position(|e| e.0 == key) {
+				Some(i) => i,
+				None => {
+					by_map_side.push((key, Vec::new()));
+					by_map_side.len() - 1
 				}
-				spot.set("faction", faction.as_str());
-				spot.set("npc", id);
-				spot.set("npcName", npc.get("name").to_js_string());
-				let l = npc.get("level").num();
-				let lo = if l != 0.0 && !l.is_nan() { l } else { 1.0 };
-				let lm = npc.get("levelMax").num();
-				let lm = if lm != 0.0 && !lm.is_nan() { lm } else { lo };
-				let hi = if lm.is_nan() { lm } else { lo.max(lm) };
-				spot.set("lvl", obj! { "min" => lo, "max" => hi });
-				let rate = round3((chance / 100.0) * yield_item);
-				spot.set("rate", rate);
-				let n = c.get("n").num();
-				spot.set("spawns", n);
-				all.push(Cand { spot: spot.into(), c: if fr.truthy() { fr.get("c") } else { V::Null }, score: rate * n });
+			};
+			for p in &open {
+				by_map_side[at].1.push(Member { x: p.at(0).num(), y: p.at(1).num(), rate, lo, hi, npc: d.id, name: d.npc.get("name").to_js_string() });
 			}
+			camps.push(Camp { d: di, map: map.clone(), f: s.get("f"), side, open, lo, hi });
+		}
+	}
+	let mut all: Vec<Cand> = Vec::new();
+	for k in &camps {
+		let d = &droppers[k.d];
+		let fr = data.frame(&k.map);
+		let (sx, sy) = yard_scale(data, &k.map);
+		let era = k.f.as_str() == Some("e") && (data.era_frame(&k.map).truthy() || data.map_frames.get("era").keys().is_empty());
+		let key = format!("{}|{}", k.map.to_js_string(), k.side);
+		let pool = &by_map_side.iter().find(|e| e.0 == key).unwrap().1;
+		for c in cluster_points(&k.open, &fr, CLUSTER_YARDS, PER_NPC_MAP, 0.0) {
+			let (cx, cy) = (c.get("x").num(), c.get("y").num());
+			let members: Vec<&Member> = pool.iter().filter(|m| hypot((m.x - cx) * sx, (m.y - cy) * sy) <= CLUSTER_YARDS).collect();
+			let spot = obj! { "map" => k.map.clone(), "x" => round2(cx), "y" => round2(cy) };
+			if era {
+				spot.set("f", "e");
+			}
+			spot.set("faction", k.side.as_str());
+			// Named for the kind most of the camp is (the lowest id on a tie; first-seen order as a JS Map).
+			let mut kinds: Vec<(f64, usize)> = Vec::new();
+			for m in &members {
+				match kinds.iter_mut().find(|e| e.0 == m.npc) {
+					Some(e) => e.1 += 1,
+					None => kinds.push((m.npc, 1)),
+				}
+			}
+			let count = |id: f64, kinds: &Vec<(f64, usize)>| kinds.iter().find(|e| e.0 == id).map_or(0, |e| e.1);
+			let mut main = d.id;
+			for &(id, n) in &kinds {
+				let cur = count(main, &kinds);
+				if n > cur || (n == cur && id < main) {
+					main = id;
+				}
+			}
+			spot.set("npc", main);
+			let name = if main == d.id { d.npc.get("name").to_js_string() } else { members.iter().find(|m| m.npc == main).unwrap().name.clone() };
+			spot.set("npcName", name);
+			let lo = members.iter().fold(k.lo, |a, m| a.min(m.lo));
+			let hi = members.iter().fold(k.hi, |a, m| a.max(m.hi));
+			spot.set("lvl", obj! { "min" => lo, "max" => hi });
+			let rate = if members.is_empty() { round3((d.chance / 100.0) * yield_item) } else { round3(members.iter().fold(0.0, |a, m| a + m.rate) / members.len() as f64) };
+			spot.set("rate", rate);
+			let n = c.get("n").num().max(members.len() as f64);
+			spot.set("spawns", n);
+			all.push(Cand { spot: spot.into(), c: if fr.truthy() { fr.get("c") } else { V::Null }, score: rate * n });
 		}
 	}
 	let mut by_continent: Vec<(V, Vec<usize>)> = Vec::new();

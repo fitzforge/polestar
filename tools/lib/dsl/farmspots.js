@@ -5,21 +5,26 @@
 //   spot = { map, x, y, f, faction, npc, npcName, lvl = { min, max }, rate, spawns }
 //
 // Droppers: npcs with a drop chance of at least MIN_CHANCE percent, normal or
-// rare (no elites, rare elites or bosses), hostile to everyone (no faction tag
-// and no service role). Their spawn points inside towns and guard posts (within
-// TOWN_YARDS of any faction-tagged or service npc) are dropped; the rest are
-// clustered per npc and map (70-yd clusters, as in the quest database).
-// `faction` is the zone's safety: "A"/"H" in a faction's own zones, "AH" in
-// contested ones. `rate` is the items a looted kill yields: the drop chance
-// times the item's YIELD (below). A cluster of fewer than MIN_SPAWNS mobs is
-// no farm while the continent has another. Of the rest, each zone keeps its
-// best cluster per safety and 5-level band (by rate × spawns), so every zone
-// that has droppers keeps a camp for each level range (Linen Cloth: the
-// Defias of Elwynn Forest and of Westfall, not only Dun Morogh's trolls). Per
-// continent at most MAX_PER_CONTINENT of those are kept, taken round-robin
-// over (safety, 10-level band) groups, so every faction and level range keeps
-// its best spots (the Engine drops spots 2+ levels above the player, so a set
-// of only level-50 camps helps nobody at 10).
+// rare (no elites, rare elites or bosses), with no service role, never a
+// Timbermaw furbolg. An untagged mob is hostile to everyone; a mob tagged for
+// one faction (Hillsbrad's farmers) is the other faction's farm. Spawn points
+// inside towns and guard posts (within TOWN_YARDS of a service npc, or of a
+// faction-tagged one that is no dropper itself) are dropped; the rest (every
+// spawn, not only the evenly spread sample) are clustered per npc and map
+// (70-yd clusters, as in the quest database), and a cluster's camp counts every
+// dropper of the item within 70 yd of its centre: `spawns` all of them, `rate`
+// their mean items per looted kill (the drop chance times the item's YIELD),
+// `lvl` their range. `faction` is who may farm it: the zone's safety ("A"/"H" in
+// a faction's own zones, "AH" in contested ones), or the one side a tagged mob
+// is hostile to. A camp of fewer than MIN_SPAWNS mobs is no farm while the
+// continent has another. Of the rest, each zone keeps its best camp per safety
+// and 5-level band (by rate × spawns), so every zone that has droppers keeps a
+// camp for each level range (Linen Cloth: the Defias of Elwynn Forest and of
+// Westfall, not only Dun Morogh's trolls). Per continent at most
+// MAX_PER_CONTINENT of those are kept, taken round-robin over (safety, 10-level
+// band) groups, so every faction and level range keeps its best spots (the
+// Engine drops spots 2+ levels above the player, so a set of only level-50
+// camps helps nobody at 10).
 
 const { clusterPoints } = require('../questdb/cluster');
 const { ZONES } = require('../professions/gathering/tables');
@@ -95,8 +100,9 @@ function zoneSafety(data, map) {
 	return info && info.type === 3 && fr && (fr.c === 0 || fr.c === 1) ? 'AH' : null;
 }
 
-// Town markers per map, in yards: every spawn of an npc that is
-// faction-tagged or offers a service. Cached per data object.
+// Town markers per map: every spawn of an npc that is faction-tagged or
+// offers a service, with its npc id (a tagged mob that drops the item is a
+// farm, not a town: see farmSpotsOf). Cached per data object.
 const townCache = new WeakMap();
 function townPoints(data) {
 	if (townCache.has(data)) return townCache.get(data);
@@ -108,7 +114,7 @@ function townPoints(data) {
 		if (!tagged && !service) continue;
 		for (const s of data.spawns('npc', n.id)) {
 			if (!byMap.has(s.map)) byMap.set(s.map, []);
-			byMap.get(s.map).push(...s.pts);
+			for (const p of s.pts) byMap.get(s.map).push({ x: p[0], y: p[1], npc: Number(n.id), service });
 		}
 	}
 	townCache.set(data, byMap);
@@ -165,39 +171,74 @@ function farmSpotsOf(data, itemId) {
 	const drops = (it && it.drops && it.drops.npc) || {};
 	const yieldOf = YIELD[Number(itemId)] || 1;
 	const towns = townPoints(data);
-	const all = [];
+	// The droppers: normal or rare, no service, never a Timbermaw furbolg. An
+	// untagged mob is hostile to everyone: each side farms it where the zone is
+	// safe for that side. A mob tagged for one faction (Hillsbrad's farmers,
+	// Northwatch's marines) is the other side's farm, in that side's own or a
+	// contested zone; one tagged for both is nobody's.
+	const farmers = new Set();
+	const droppers = [];
 	for (const id of Object.keys(drops).map(Number).sort((a, b) => a - b)) {
 		const chance = Number(drops[id]) || 0;
 		if (chance < MIN_CHANCE) continue;
 		const npc = data.npc(id);
 		if (!npc || !FARMABLE_RANKS.has(npc.rank) || PROTECTED_MOBS.has(id)) continue;
-		if (npc.faction) continue;
 		if (Array.isArray(npc.roles) && npc.roles.some((r) => SERVICE_ROLES.has(r))) continue;
-		const spawns = data.spawns('npc', id);
+		const foe = npc.faction === 'A' ? 'H' : npc.faction === 'H' ? 'A' : npc.faction ? null : 'AH';
+		if (!foe) continue;
+		farmers.add(id);
+		droppers.push({ id, npc, chance, foe });
+	}
+	// Each dropper's points outside towns (every spawn: the evenly spread
+	// sample and the rest), per map and side: a camp counts every dropper of
+	// the item standing in it (the Lost Ones of Swamp of Sorrows are one camp,
+	// whatever their kind).
+	const camps = []; // { d, map, f, side, open }
+	const byMapSide = new Map(); // `${map}|${side}` -> [{ x, y, rate, lo, hi }]
+	for (const d of droppers) {
+		const spawns = data.spawns('npc', d.id);
 		const seenOver = overlapMaps(data, spawns);
 		for (const s of spawns) {
 			if (seenOver.has(s.map)) continue;
-			const faction = zoneSafety(data, s.map);
-			if (!faction) continue;
+			const zone = zoneSafety(data, s.map);
+			if (!zone) continue;
+			const side = d.foe === 'AH' ? zone : zone === 'AH' || zone === d.foe ? d.foe : null;
+			if (!side) continue;
 			const { sx, sy } = yardScale(data, s.map);
-			const markers = towns.get(s.map) || [];
-			const open = s.pts.filter((p) => !markers.some((m) => Math.hypot((p[0] - m[0]) * sx, (p[1] - m[1]) * sy) <= TOWN_YARDS));
+			const markers = (towns.get(s.map) || []).filter((m) => m.service || !farmers.has(m.npc));
+			const open = [...s.pts, ...s.more].filter((p) => !markers.some((m) => Math.hypot((p[0] - m.x) * sx, (p[1] - m.y) * sy) <= TOWN_YARDS));
 			if (!open.length) continue;
-			const fr = data.frame(s.map);
-			const era = s.f === 'e' && (data.eraFrame(s.map) || !Object.keys(data.mapFrames.era || {}).length);
-			for (const c of clusterPoints(open, fr, { radius: CLUSTER_YARDS, cap: PER_NPC_MAP })) {
-				const spot = { map: s.map, x: round2(c.x), y: round2(c.y) };
-				if (era) spot.f = 'e';
-				spot.faction = faction;
-				spot.npc = id;
-				spot.npcName = String(npc.name);
-				const lo = Number(npc.level) || 1;
-				const hi = Math.max(lo, Number(npc.levelMax) || lo);
-				spot.lvl = { min: lo, max: hi };
-				spot.rate = round3((chance / 100) * yieldOf);
-				spot.spawns = c.n;
-				all.push({ spot, c: fr ? fr.c : null, score: spot.rate * spot.spawns });
-			}
+			const lo = Number(d.npc.level) || 1;
+			const hi = Math.max(lo, Number(d.npc.levelMax) || lo);
+			const key = `${s.map}|${side}`;
+			if (!byMapSide.has(key)) byMapSide.set(key, []);
+			for (const p of open) byMapSide.get(key).push({ x: p[0], y: p[1], rate: (d.chance / 100) * yieldOf, lo, hi, npc: d.id, name: String(d.npc.name) });
+			camps.push({ d, map: s.map, f: s.f, side, open, lo, hi });
+		}
+	}
+	const all = [];
+	for (const k of camps) {
+		const fr = data.frame(k.map);
+		const { sx, sy } = yardScale(data, k.map);
+		const era = k.f === 'e' && (data.eraFrame(k.map) || !Object.keys(data.mapFrames.era || {}).length);
+		const pool = byMapSide.get(`${k.map}|${k.side}`);
+		for (const c of clusterPoints(k.open, fr, { radius: CLUSTER_YARDS, cap: PER_NPC_MAP })) {
+			const members = pool.filter((p) => Math.hypot((p.x - c.x) * sx, (p.y - c.y) * sy) <= CLUSTER_YARDS);
+			const spot = { map: k.map, x: round2(c.x), y: round2(c.y) };
+			if (era) spot.f = 'e';
+			spot.faction = k.side;
+			// Named for the kind most of the camp is (the lowest id on a tie): the
+			// Burning Blade camp is its cultists', not the one named mob among them.
+			const kinds = new Map();
+			for (const m of members) kinds.set(m.npc, (kinds.get(m.npc) || 0) + 1);
+			let main = k.d.id;
+			for (const [id, n] of kinds) if (n > (kinds.get(main) || 0) || (n === (kinds.get(main) || 0) && id < main)) main = id;
+			spot.npc = main;
+			spot.npcName = main === k.d.id ? String(k.d.npc.name) : members.find((m) => m.npc === main).name;
+			spot.lvl = { min: Math.min(k.lo, ...members.map((m) => m.lo)), max: Math.max(k.hi, ...members.map((m) => m.hi)) };
+			spot.rate = round3(members.length ? members.reduce((a, m) => a + m.rate, 0) / members.length : (k.d.chance / 100) * yieldOf);
+			spot.spawns = Math.max(c.n, members.length);
+			all.push({ spot, c: fr ? fr.c : null, score: spot.rate * spot.spawns });
 		}
 	}
 	const byContinent = new Map();
