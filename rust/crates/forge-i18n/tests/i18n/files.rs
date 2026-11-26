@@ -189,9 +189,8 @@ fn the_reader_takes_polestars_layout_dings_add_translations_and_a_returned_table
 fn the_reader_reads_a_pack_of_many_files_in_batches_each_file_its_own_result_in_order() {
 	// Polestar's own pack translates 2,394 files; read in one Lua state they passed its memory cap.
 	let t = forge_addontest::tmp::TempDir::new("polestar-i18n-many-");
-	let entries: Vec<(String, String)> = (0..1000)
-		.map(|i| (write(t.path(), &format!("g{i}.lua"), &format!("return {{ [\"Accept {i}\"] = \"Accepter {i}\" }}\n")).to_string_lossy().into_owned(), "frFR".to_string()))
-		.collect();
+	let entries: Vec<(String, String)> =
+		(0..1000).map(|i| (write(t.path(), &format!("g{i}.lua"), &format!("return {{ [\"Accept {i}\"] = \"Accepter {i}\" }}\n")).to_string_lossy().into_owned(), "frFR".to_string())).collect();
 	let r = read_locale_files(&entries).unwrap();
 	assert_eq!(r.len(), 1000);
 	for (i, x) in r.iter().enumerate() {
