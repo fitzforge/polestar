@@ -44,7 +44,7 @@ return {
 	-- Step 5: Auberdine
 	-- {quest:3524} Washed Ashore
 	-- plural, as words: Beached Sea Turtles = {quest:4722} Beached Sea Turtle
-	["{quest:3524}: the Beached Sea Turtles up the coast offer their quests only once it is handed in"] = "{quest:3524}: Die Beached Sea Turtles weiter oben an der Küste bieten ihre Quests erst an, wenn sie abgegeben ist",
+	["{quest:3524}: the Beached Sea Turtles up the coast offer their quests only once it is handed in"] = "{quest:3524}: Die gestrandeten Meeresschildkröten weiter oben an der Küste bieten ihre Quests erst an, wenn sie abgegeben ist",
 
 	-- Step 6: The skeletal turtle
 	["The skeletal turtle"] = "Die Skelettschildkröte",
@@ -58,7 +58,7 @@ return {
 	["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "Tollwütige Distelbären streifen durch die Hügel gleich östlich von {area:442}. Benutze {quest:2139} an einem und führe ihn zu ihm zurück.",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["the Rabid Thistle Bears nearest {npc:3701}"] = "die Rabid Thistle Bears in der Nähe von {npc:3701}",
+	["the Rabid Thistle Bears nearest {npc:3701}"] = "die tollwütigen Distelbären in der Nähe von {npc:3701}",
 
 	-- Step 8: Rabid Thistle Bear on the way
 	-- {npc:2164} Rabid Thistle Bear
@@ -112,7 +112,7 @@ return {
 	-- Step 19: Trial of the Lake
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri · {quest:29} Trial of the Lake · {area:442} Auberdine
 	-- plural, as words: Shrine Baubles = {item:15877} Shrine Bauble
-	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. {quest:29} runs on a timer: no teleport or Hearthstone until {npc:11799} has it. Then fly back to {area:442} from {area:2361}."] = "{npc:11802} steht oben in seinem Gebäude in {area:2361}: Geh drinnen nach oben, der Pfeil kann die Stockwerke nicht unterscheiden. Shrine Baubles liegen in den Behältern auf dem Grund von {area:656}, unterhalb von {area:2361}: Bring eines zum {area:2362} im Nordwesten, benutze es dort und sprich mit {npc:11799}. {quest:29} läuft auf Zeit: Kein Teleport und kein Ruhestein, bis {npc:11799} sie hat. Flieg danach von {area:2361} zurück nach {area:442}.",
+	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. {quest:29} runs on a timer: no teleport or Hearthstone until {npc:11799} has it. Then fly back to {area:442} from {area:2361}."] = "{npc:11802} steht oben in seinem Gebäude in {area:2361}: Geh drinnen nach oben, der Pfeil kann die Stockwerke nicht unterscheiden. Schrein-Schmuckstücke liegen in den Behältern auf dem Grund von {area:656}, unterhalb von {area:2361}: Bring eines zum {area:2362} im Nordwesten, benutze es dort und sprich mit {npc:11799}. {quest:29} läuft auf Zeit: Kein Teleport und kein Ruhestein, bis {npc:11799} sie hat. Flieg danach von {area:2361} zurück nach {area:442}.",
 	-- {quest:6122} The Principal Source · {area:445} Cliffspring Falls
 	["{quest:6122}: fill the sampler at {area:445}"] = "{quest:6122}: Fülle das Probenfläschchen an den {area:445}",
 	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
@@ -153,13 +153,13 @@ return {
 
 	-- Step 26: Mist's Edge
 	-- plural, as words: Thresher Eyes = {item:5412} Thresher Eye
-	["Thresher Eyes; underwater"] = "Thresher Eyes; unter Wasser",
+	["Thresher Eyes; underwater"] = "Drescheraugen; unter Wasser",
 
 	-- Step 27: The bay wrecks
 	["The bay wrecks"] = "Die Wracks in der Bucht",
 	-- {area:442} Auberdine
 	-- plural, as words: Reef Crawlers = {npc:2235} Reef Crawler · Encrusted Tide Crawlers = {npc:2233} Encrusted Tide Crawler
-	["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore.\nCareful: The murlocs inside the wrecks are close together and fast. They often swim through the hull walls and holes, so you will usually pull extra murlocs."] = "Zwei Wracks liegen auf dem Meeresgrund in der Bucht nördlich von {area:442}; jedes enthält eine Schließkassette. Reef Crawlers und Encrusted Tide Crawlers säumen dieses Ufer.\nVorsicht: Die Murlocs in den Wracks stehen dicht beieinander und sind schnell. Sie schwimmen oft durch die Rumpfwände und Löcher, du ziehst also meist zusätzliche Murlocs.",
+	["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore.\nCareful: The murlocs inside the wrecks are close together and fast. They often swim through the hull walls and holes, so you will usually pull extra murlocs."] = "Zwei Wracks liegen auf dem Meeresgrund in der Bucht nördlich von {area:442}; jedes enthält eine Schließkassette. Riffkriecher und verkrustete Gezeitenkriecher säumen dieses Ufer.\nVorsicht: Die Murlocs in den Wracks stehen dicht beieinander und sind schnell. Sie schwimmen oft durch die Rumpfwände und Löcher, du ziehst also meist zusätzliche Murlocs.",
 	-- {item:12191} Silver Dawning's Lockbox
 	["{item:12191}; underwater"] = "{item:12191}; unter Wasser",
 	-- {item:12192} Mist Veil's Lockbox
@@ -195,7 +195,7 @@ return {
 	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
 	["The cave lies south of the falls: Scaber Stalks grow all through it, the {item:5270} at the very back. The {npc:6788} lairs in the hills south of the falls."] = "Die Höhle liegt südlich der Fälle: Überall darin wachsen Schorfstängel, {item:5270} ganz hinten. {npc:6788} haust in den Hügeln südlich der Fälle.",
 	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
-	["Scaber Stalks; below ground"] = "Scaber Stalks; unter der Erde",
+	["Scaber Stalks; below ground"] = "Schorfstänglinge; unter der Erde",
 	-- {item:5270} Death Cap
 	["{item:5270}; below ground"] = "{item:5270}; unter der Erde",
 
