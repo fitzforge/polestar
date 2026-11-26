@@ -45,7 +45,7 @@ return {
 
 	-- Step 8: Zilzibin Drumlore
 	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {area:976} Gadgetzan · {zone:1451} Silithus · {zone:2482} Mount Hyjal
-	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1451} guide's first stop, after {zone:2482}."] = "",
+	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1451} guide's first stop, after {zone:2482}."] = "Nur falls {quest:4494} noch nicht gemacht ist: {npc:7010} arbeitet im Drag. Pestlezugg nimmt sie in {area:976} beim ersten Stopp des {zone:1451}-Führers an, nach {zone:2482}.",
 
 	-- Step 9: Vehena
 	-- {object:172961} Valley of Spirits

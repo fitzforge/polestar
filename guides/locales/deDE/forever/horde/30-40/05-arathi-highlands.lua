@@ -26,7 +26,7 @@ return {
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "Flieg nach {area:272}",
 	-- {npc:4486} Genavie Callow · {area:340} Kargath
-	["Warriors, Paladins, Rogues, Priests, Mages and Warlocks (not Hunters, Shamans or Druids): {npc:4486} stands beside the flight master. The Dabyrie family's farm lies on the road east through Arathi later in this guide, and your level 40 training brings you back to this flight master from {area:340}: she takes the heads then."] = "",
+	["Warriors, Paladins, Rogues, Priests, Mages and Warlocks (not Hunters, Shamans or Druids): {npc:4486} stands beside the flight master. The Dabyrie family's farm lies on the road east through Arathi later in this guide, and your level 40 training brings you back to this flight master from {area:340}: she takes the heads then."] = "Krieger, Paladine, Schurken, Priester, Magier und Hexenmeister (keine Jäger, Schamanen oder Druiden): {npc:4486} steht neben dem Flugmeister. Der Hof der Dabyries liegt später in diesem Guide an der Straße nach Osten durch Arathi, und dein Training auf Stufe 40 bringt dich von {area:340} zu diesem Flugmeister zurück: Dann nimmt sie die Köpfe entgegen.",
 	-- {npc:4486} Genavie Callow
 	["{npc:4486}, beside the flight master"] = "{npc:4486}, neben dem Flugmeister",
 	-- {zone:1458} Undercity
@@ -123,13 +123,13 @@ return {
 
 	-- Step 20: Dabyrie's Farmstead
 	-- {npc:4481} Marcel Dabyrie · {npc:4479} Fardel Dabyrie · {npc:4480} Kenata Dabyrie
-	["On along the road east: the Dabyrie farm lies just north of it. {npc:4481} (34) and {npc:4479} (33) Dabyrie walk the farm's western yard among their Laborers and Militia (30-32); {npc:4480} (35) stands at the farm's north-eastern edge."] = "",
+	["On along the road east: the Dabyrie farm lies just north of it. {npc:4481} (34) and {npc:4479} (33) Dabyrie walk the farm's western yard among their Laborers and Militia (30-32); {npc:4480} (35) stands at the farm's north-eastern edge."] = "Weiter entlang der Straße nach Osten: die Dabyrie-Farm liegt direkt nördlich davon. {npc:4481} (34) und {npc:4479} (33) Dabyrie laufen im westlichen Hof der Farm zwischen ihren Laborers und Militia (30-32) umher; {npc:4480} (35) steht am nordöstlichen Rand der Farm.",
 	-- {item:5832} Marcel's Head · {npc:4481} Marcel Dabyrie
-	["{item:5832}, from {npc:4481}"] = "",
+	["{item:5832}, from {npc:4481}"] = "{item:5832}, von {npc:4481}",
 	-- {item:5831} Fardel's Head · {npc:4479} Fardel Dabyrie
-	["{item:5831}, from {npc:4479}"] = "",
+	["{item:5831}, from {npc:4479}"] = "{item:5831}, von {npc:4479}",
 	-- {item:5830} Kenata's Head · {npc:4480} Kenata Dabyrie
-	["{item:5830}, from {npc:4480}"] = "",
+	["{item:5830}, from {npc:4480}"] = "{item:5830}, von {npc:4480}",
 
 	-- Step 21: The Shards of Myzrael
 	-- {object:138492} Shards of Myzrael
@@ -246,7 +246,7 @@ return {
 	-- {area:328} The Drowned Reef
 	["{area:328}: kill these as you meet them"] = "{area:328}: Töte diese, sobald sie dir begegnen",
 	-- plural, as words: Daggerspine Raiders = {npc:2595} Daggerspine Raider
-	["Careful: west of the cove the Daggerspine Raiders and Sorceresses (38-40) stand close together on the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "",
+	["Careful: west of the cove the Daggerspine Raiders and Sorceresses (38-40) stand close together on the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "Vorsicht: Westlich der Bucht stehen die Daggerspine Räuber und Zauberhexerinnen (38-40) dicht gedrängt am Ufer: Zieh sie einzeln. Die beiden Wracks liegen in den Untiefen davor, die Karten und Logbücher darin; die Edelsteine liegen auf dem Meeresboden um die Wracks herum.\nVorsicht: Die Karten und Logbücher liegen tief in den Wracks: Achte auf deine Atemleiste und komm zwischen ihnen wieder hoch; ein Unterwasseratmungstrank macht es leicht.",
 	["Underwater"] = "Unter Wasser",
 
 	-- Step 43: Faldir's Cove

@@ -62,7 +62,7 @@ return {
 
 	-- Step 13: Laris Geardawdle
 	-- {npc:9616} Laris Geardawdle
-	["{npc:9616}' next task fills his jars in Un'Goro, behind the route now: skip it."] = "",
+	["{npc:9616}' next task fills his jars in Un'Goro, behind the route now: skip it."] = "{npc:9616}s nächste Aufgabe füllt seine Krüge in Un'Goro, hinter der aktuellen Route: Überspringe sie.",
 
 	-- Step 14: Ironforge
 	-- {npc:14724} Bubulo Acerbus · {npc:14723} Mistina Steelshield · {item:14047} Runecloth
