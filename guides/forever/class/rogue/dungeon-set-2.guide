@@ -24,8 +24,6 @@ why The level 60 upgrade of your Shadowcraft Armor: a long chain across Kalimdor
 # Dawn to buy it (the client's item tables). Quest drops are quest-only loot, so nothing is gathered early
 # but what can be bought or crafted.
 # Group content: every quest whose work is a dungeon, a summoned boss or elites asks first (`when group`).
-# Not in our quest data yet: Forever's Saving the Best for Last for the Horde Rogue.
-# Those steps are notes until it is, so the guide never waits on a quest the giver doesn't offer.
 
 step Deliana
   only Alliance
@@ -446,4 +444,7 @@ step Mokvar: Saving the Best for Last
   zone Orgrimmar
   tip Saving the Best for Last takes your Shadowcraft Cap: Darkmaster Gandling in Scholomance (about 11%), and your Shadowcraft Tunic: General Drakkisath in Upper Blackrock Spire (about 10%).
   turnin 8998 npc 230317
-  note "Polestar's quest data doesn't know Forever's Saving the Best for Last for the Horde Rogue yet, so this guide can't track it: Mokvar should offer it now. Take it from him and give him your Shadowcraft Cap and Shadowcraft Tunic."
+  accept 84207
+  collect 16707 quest 84207.1 @34.7,38.1 live  -- Shadowcraft Cap
+  collect 16721 quest 84207.2 @34.7,38.1 live  -- Shadowcraft Tunic
+  turnin 84207

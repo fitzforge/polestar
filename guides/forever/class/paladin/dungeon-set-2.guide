@@ -24,10 +24,6 @@ why The level 60 upgrade of your Lightforge Armor: a long chain across Kalimdor 
 # Dawn to buy it (the client's item tables). Quest drops are quest-only loot, so nothing is gathered early
 # but what can be bought or crafted.
 # Group content: every quest whose work is a dungeon, a summoned boss or elites asks first (`when group`).
-# Not in our quest data yet: Forever's Anthion's Parting Words for the Horde Paladin.
-# Those steps are notes until it is, so the guide never waits on a quest the giver doesn't offer.
-# Not in our quest data yet: Forever's Saving the Best for Last for the Alliance and Horde Paladin.
-# Those steps are notes until it is, so the guide never waits on a quest the giver doesn't offer.
 
 step Deliana
   only Alliance
@@ -239,7 +235,7 @@ step Anthion Harmon: Anthion's Parting Words
   tip Back to Anthion at Stratholme's gate (Ghost Revealer). Anthion's Parting Words takes your Lightforge Boots: Balnazzar in Stratholme (about 19%), your Lightforge Legplates: Baron Rivendare in Stratholme (about 6%), and your Lightforge Spaulders: The Beast in Upper Blackrock Spire (about 18%).
   turnin 9015
   accept 84182 only Alliance
-  note "Horde Paladins: Polestar's quest data doesn't know Forever's Anthion's Parting Words for you yet, so the guide stops here for you until it does. Take it from Anthion and give Mokvar your three pieces. Mokvar then sends you to Bodley's ghost in Blackrock Mountain (Ghost Revealer): Three Kings of Flame, your class's two components and two summons, Alcaz Island, Final Preparations and Lord Valthalak in Upper Blackrock Spire, then back to him for Saving the Best for Last, which takes your Lightforge Helm and Lightforge Breastplate." only Horde
+  accept 97413 only Horde
 
 step Deliana: Bodley's Unfortunate Fate
   when group 9015
@@ -251,21 +247,29 @@ step Deliana: Bodley's Unfortunate Fate
   turnin 84182
   accept 8960 npc 230319
 
+step Mokvar: Bodley's Unfortunate Fate
+  when group 9015
+  only Horde
+  zone Orgrimmar
+  collect 16725 quest 97413.1 @34.7,38.1 live  -- Lightforge Boots
+  collect 16728 quest 97413.2 @34.7,38.1 live  -- Lightforge Legplates
+  collect 16729 quest 97413.3 @34.7,38.1 live  -- Lightforge Spaulders
+  turnin 97413
+  accept 9032
+
 step Bodley
   when group 9015
-  only Alliance
   zone Burning Steppes
   tip Bodley's ghost stands on the ledge before the Blackrock Spire portal, high inside Blackrock Mountain: use the Ghost Revealer there. Three Kings of Flame wants the Incendicite of Incendius (Lord Incendius in Blackrock Depths), the Ember of Emberseer (Pyroguard Emberseer in Upper Blackrock Spire), the Cinder of Cynders (the Duke of Cynders in Silithus) and a Hallowed Brazier from the Argent Dawn.
   turnin 8960 only Alliance
+  turnin 9032 only Horde
 
 step Three Kings of Flame
-  only Alliance
   when group 8961
   zone Burning Steppes
   accept 8961
 
 step Honored with the Argent Dawn
-  only Alliance
   when onquest 8961
   when !rep "Argent Dawn" Honored
   zone Eastern Plaguelands
@@ -273,7 +277,6 @@ step Honored with the Argent Dawn
   rep 529 Honored
 
 step Hallowed Brazier
-  only Alliance
   when onquest 8961
   zone Eastern Plaguelands
   tip The Argent Dawn quartermasters (Light's Hope Chapel, Chillwind Camp, the Bulwark) sell it: 133 gold 33 silver, less with your reputation discount.
@@ -281,7 +284,6 @@ step Hallowed Brazier
 
 step Blackrock Depths and Upper Blackrock Spire
   when group 8961
-  only Alliance
   zone Searing Gorge
   tip Lord Incendius guards the Black Anvil in Blackrock Depths (a group of five). Pyroguard Emberseer is the first boss of Upper Blackrock Spire, a group of up to ten. Each player with the quest loots their own.
   kill 9017 @34.8,85.3 live group 5  -- Lord Incendius, Blackrock Depths
@@ -291,7 +293,6 @@ step Blackrock Depths and Upper Blackrock Spire
 
 step The Duke of Cynders
   when group 8961
-  only Alliance
   zone Silithus
   tip The Duke (level 62 elite, bring a group of five) only comes when someone summons him at one of the Twilight's Greater Wind Stones in Silithus: the summoner wears the full Twilight Cultist set (Cowl, Mantle and Robe, from the Twilight cultists of the Silithus camps), carries a Twilight Cultist Medallion of Station (Aurel Goldleaf at Cenarion Hold: three Abyssal Crests from summoned Templars and a Large Brilliant Shard) and a Signet of Beckoning: Fire, which calls the Duke of Cynders rather than a random Duke. Joining someone else's summon is the quick way: every player with the quest loots their own Cinder.
   kill 15206 group 5  -- The Duke of Cynders
@@ -299,33 +300,28 @@ step The Duke of Cynders
 
 step Bodley: Components of Importance
   when group 8961
-  only Alliance
   zone Burning Steppes
   tip Bodley's next task depends on your class: the piece the summoning brazier needs.
   collect 22014 quest 8961.4 @32.2,25.8  -- Hallowed Brazier
   turnin 8961
 
 step Components of Importance
-  only Alliance
   when group 8965
   zone Burning Steppes
   accept 8965
 
 step Components of Importance: Soul Ashes of the Banished
   when group 8965
-  only Alliance
   zone Hillsbrad Foothills
   tip At Purgation Isle, the island off the south coast of the Hillsbrad Foothills, the Condemned and Cursed undead (level 57-60 elites), thickest by the tower on the hill drop the Soul Ashes of the Banished (usually 5 to 15 kills; they stun, so a healer or dispeller helps). They are elites: bring a friend or two unless your gear is good. It drops only while you have the quest; everyone in the group with it can loot one.
   collect 22229 quest 8965.1 group 3  -- Soul Ashes of the Banished
 
 step Bodley: The Left Piece of Lord Valthalak's Amulet
   when group 8965
-  only Alliance
   zone Burning Steppes
   turnin 8965
 
 step The Left Piece of Lord Valthalak's Amulet
-  only Alliance
   when group 8969
   zone Burning Steppes
   tip Bodley gives you a Brazier of Beckoning.
@@ -333,7 +329,6 @@ step The Left Piece of Lord Valthalak's Amulet
 
 step The Left Piece of Lord Valthalak's Amulet: Kormok
   when group 8969
-  only Alliance
   zone Western Plaguelands
   tip A dungeon run for a group of five. Bodley's Brazier of Beckoning calls Kormok to Ras Frostwhisper's room in Scholomance: clear the room first. Use the brazier there, kill Kormok and loot the piece. He is an elite ogre spirit who keeps raising skeletons: dispel or purge his Bone Shield and burn him down. After a wipe he stays up: come back without summoning again. Keep the brazier: Bodley wants it back with the piece.
   use 22052 @69.7,73.2 live group 5  -- Brazier of Beckoning: summons Kormok
@@ -342,50 +337,42 @@ step The Left Piece of Lord Valthalak's Amulet: Kormok
 
 step Bodley: I See Alcaz Island In Your Future...
   when group 8969
-  only Alliance
   zone Burning Steppes
   turnin 8969
 
 step I See Alcaz Island In Your Future...
-  only Alliance
   when group 8970
   zone Burning Steppes
   accept 8970
 
 step Bloodkelp
   when group 8970
-  only Alliance
   zone Dustwallow Marsh
   tip The Strashaz naga of Alcaz Island, off the north-east coast of Dustwallow Marsh, carry it (level 59-61 elites, and Tidelord Rrurgaz at 62): bring a friend or two. The Baskets of Bloodkelp on the island give 1 to 3 each without a fight. Swim over from the coast north of Theramore; elite hydras roam the water.
   collect 22094 quest 8970.1 group 3
 
 step Bodley: More Components of Importance
   when group 8970
-  only Alliance
   zone Burning Steppes
   turnin 8970
 
 step More Components of Importance
-  only Alliance
   when group 8986
   zone Burning Steppes
   accept 8986
 
 step More Components of Importance: Druidical Remains
   when group 8986
-  only Alliance
   zone Silithus
   tip At Hive'Regal, the silithid hive in south-eastern Silithus, the Hive'Regal silithid (level 59-61 elites) drop the Druidical Remains (players report anything from 5 to 50 kills). They are elites: bring a friend or two unless your gear is good. It drops only while you have the quest; everyone in the group with it can loot one.
   collect 22226 quest 8986.1 group 3  -- Druidical Remains
 
 step Bodley: The Right Piece of Lord Valthalak's Amulet
   when group 8986
-  only Alliance
   zone Burning Steppes
   turnin 8986
 
 step The Right Piece of Lord Valthalak's Amulet
-  only Alliance
   when group 8989
   zone Burning Steppes
   accept 8989
@@ -393,7 +380,6 @@ step The Right Piece of Lord Valthalak's Amulet
 step The Right Piece of Lord Valthalak's Amulet: Mor Grayhoof
   when group 8989
   when group 8970
-  only Alliance
   zone Searing Gorge
   tip A dungeon run for a group of five. Bodley's Brazier of Beckoning calls Mor Grayhoof to War Master Voone's room in Lower Blackrock Spire, in Blackrock Mountain: clear the room and Voone first. Use the brazier there, kill Mor Grayhoof and loot the piece. He is an elite druid spirit: interrupt his heals and step out of his storm. Keep the brazier: Bodley wants it back with the piece. Then use the Left Piece of Lord Valthalak's Amulet (Bodley gave it back to you) to join the pieces into Lord Valthalak's Amulet.
   use 22049 @34.8,85.3 live group 5  -- Brazier of Beckoning: summons Mor Grayhoof
@@ -404,12 +390,10 @@ step The Right Piece of Lord Valthalak's Amulet: Mor Grayhoof
 
 step Bodley: Final Preparations
   when group 8989
-  only Alliance
   zone Burning Steppes
   turnin 8989
 
 step Final Preparations
-  only Alliance
   when group 8994
   zone Burning Steppes
   tip 40 Blackrock Bracers from the Blackrock orcs of Blackrock Spire (the Scarshield Grunts in the mountain's halls outside the portal, level 53-54 elites, drop them most often; Upper Blackrock Spire's orcs better than Lower's), only while you have the quest, and a Flask of Supreme Power (alchemists make it at an alchemy lab; or the auction house).
@@ -419,7 +403,6 @@ step Final Preparations
   turnin 8994
 
 step Mea Culpa, Lord Valthalak
-  only Alliance
   when group 8995
   zone Burning Steppes
   accept 8995
@@ -427,7 +410,6 @@ step Mea Culpa, Lord Valthalak
 step Upper Blackrock Spire: Lord Valthalak
   when group 8995
   when group 8994
-  only Alliance
   zone Searing Gorge
   tip A raid of up to ten in Upper Blackrock Spire. Clear to The Beast's room and kill The Beast, then use the Brazier of Beckoning there to call Lord Valthalak (level 63 boss). Kill his shades quickly; in his last phase he hits the whole room hard. Use Lord Valthalak's Amulet on his corpse: his spirit appears. Give him the amulet, then take Return to Bodley from him.
   use 22056 @34.8,85.3 live group 10  -- Brazier of Beckoning, in The Beast's room
@@ -438,11 +420,11 @@ step Upper Blackrock Spire: Lord Valthalak
 
 step Bodley: Back to the Beginning
   when group 8995
-  only Alliance
   zone Burning Steppes
   tip Hand Bodley the Brazier of Beckoning.
   turnin 8996
   accept 8997 only Alliance
+  accept 8998 only Horde
 
 step Deliana: Saving the Best for Last
   when group 8995
@@ -450,4 +432,18 @@ step Deliana: Saving the Best for Last
   zone Ironforge
   tip Saving the Best for Last takes your Lightforge Helm: Darkmaster Gandling in Scholomance (about 6%), and your Lightforge Breastplate: General Drakkisath in Upper Blackrock Spire (about 7%).
   turnin 8997 npc 230319
-  note "Polestar's quest data doesn't know Forever's Saving the Best for Last for the Alliance Paladin yet, so this guide can't track it: Deliana should offer it now. Take it from her and give her your Lightforge Helm and Lightforge Breastplate."
+  accept 84198
+  collect 16727 quest 84198.1 @43.6,52.7  -- Lightforge Helm
+  collect 16726 quest 84198.2 @43.6,52.7  -- Lightforge Breastplate
+  turnin 84198
+
+step Mokvar: Saving the Best for Last
+  when group 8995
+  only Horde
+  zone Orgrimmar
+  tip Saving the Best for Last takes your Lightforge Helm: Darkmaster Gandling in Scholomance (about 6%), and your Lightforge Breastplate: General Drakkisath in Upper Blackrock Spire (about 7%).
+  turnin 8998 npc 230317
+  accept 97414
+  collect 16727 quest 97414.1 @34.7,38.1 live  -- Lightforge Helm
+  collect 16726 quest 97414.2 @34.7,38.1 live  -- Lightforge Breastplate
+  turnin 97414

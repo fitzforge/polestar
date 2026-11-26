@@ -24,8 +24,6 @@ why The level 60 upgrade of your Magister's Regalia: a long chain across Kalimdo
 # Dawn to buy it (the client's item tables). Quest drops are quest-only loot, so nothing is gathered early
 # but what can be bought or crafted.
 # Group content: every quest whose work is a dungeon, a summoned boss or elites asks first (`when group`).
-# Not in our quest data yet: Forever's Saving the Best for Last for the Alliance and Horde Mage.
-# Those steps are notes until it is, so the guide never waits on a quest the giver doesn't offer.
 
 step Deliana
   only Alliance
@@ -435,7 +433,10 @@ step Deliana: Saving the Best for Last
   zone Ironforge
   tip Saving the Best for Last takes your Magister's Crown: Darkmaster Gandling in Scholomance (about 13%), and your Magister's Robes: General Drakkisath in Upper Blackrock Spire (about 11%).
   turnin 8997 npc 230319
-  note "Polestar's quest data doesn't know Forever's Saving the Best for Last for the Alliance Mage yet, so this guide can't track it: Deliana should offer it now. Take it from her and give her your Magister's Crown and Magister's Robes."
+  accept 84197
+  collect 16686 quest 84197.1 @43.6,52.7  -- Magister's Crown
+  collect 16688 quest 84197.2 @43.6,52.7  -- Magister's Robes
+  turnin 84197
 
 step Mokvar: Saving the Best for Last
   when group 8995
@@ -443,4 +444,7 @@ step Mokvar: Saving the Best for Last
   zone Orgrimmar
   tip Saving the Best for Last takes your Magister's Crown: Darkmaster Gandling in Scholomance (about 13%), and your Magister's Robes: General Drakkisath in Upper Blackrock Spire (about 11%).
   turnin 8998 npc 230317
-  note "Polestar's quest data doesn't know Forever's Saving the Best for Last for the Horde Mage yet, so this guide can't track it: Mokvar should offer it now. Take it from him and give him your Magister's Crown and Magister's Robes."
+  accept 84205
+  collect 16686 quest 84205.1 @34.7,38.1 live  -- Magister's Crown
+  collect 16688 quest 84205.2 @34.7,38.1 live  -- Magister's Robes
+  turnin 84205
