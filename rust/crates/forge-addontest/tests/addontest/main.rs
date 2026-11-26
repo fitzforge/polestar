@@ -333,6 +333,8 @@ mod nav_e2e;
 mod nav_handoff;
 #[path = "nav-journey.rs"]
 mod nav_journey;
+#[path = "nav-liminal-scroll.rs"]
+mod nav_liminal_scroll;
 #[path = "nav-load.rs"]
 mod nav_load;
 #[path = "nav-mapcanvas.rs"]
@@ -359,8 +361,6 @@ mod nav_route_look;
 mod nav_route_sparkle;
 #[path = "nav-router.rs"]
 mod nav_router;
-#[path = "nav-liminal-scroll.rs"]
-mod nav_liminal_scroll;
 #[path = "nav-rune-stop.rs"]
 mod nav_rune_stop;
 #[path = "nav-spf.rs"]
@@ -500,8 +500,6 @@ mod ui_dungeons;
 mod ui_game_menu;
 #[path = "ui-group-mark.rs"]
 mod ui_group_mark;
-#[path = "ui-liminal-card.rs"]
-mod ui_liminal_card;
 #[path = "ui-guide-end.rs"]
 mod ui_guide_end;
 #[path = "ui-headsup-card.rs"]
@@ -516,6 +514,8 @@ mod ui_layers;
 mod ui_layout_card;
 #[path = "ui-left-out.rs"]
 mod ui_left_out;
+#[path = "ui-liminal-card.rs"]
+mod ui_liminal_card;
 #[path = "ui-long-translations.rs"]
 mod ui_long_translations;
 #[path = "ui-look-buttons.rs"]
