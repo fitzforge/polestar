@@ -234,9 +234,10 @@ local function settingStep()
 		else
 			local v = list[rand(#list)]
 			note(idOf(c) .. " = " .. show(v))
+			local want = expectedWrite(c, v)
 			write(c, v)
 			local back = current(c)
-			if not same(back, v) then error(idOf(c) .. ": wrote " .. show(v) .. ", reads " .. show(back)) end
+			if not same(back, want) then error(idOf(c) .. ": wrote " .. show(v) .. ", expected " .. show(want) .. ", reads " .. show(back)) end
 		end
 	end
 end

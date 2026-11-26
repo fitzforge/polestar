@@ -97,6 +97,13 @@ end
 function write(c, v)
 	if c.set then c.set(v) elseif c.key then Polestar.Set(c.key, v) end
 end
+-- The walk also writes disabled rows directly, unlike a player's click. A
+-- hidden tracker rejects docking, keeping the saved switch off; check that
+-- result rather than omitting the control or accepting any value it returns.
+function expectedWrite(c, v)
+	if c.key == "ui.trackerDock" and v == true and Polestar.Get("qol.hideQuestTracker") then return false end
+	return v
+end
 function same(a, b, depth)
 	if type(a) == "number" and type(b) == "number" then return math.abs(a - b) < 1e-6 end
 	if type(a) ~= type(b) then return false end
@@ -193,9 +200,10 @@ fn every_control_reads_back_what_it_writes_and_keeps_it_through_a_reload() {
 		for _, c in ipairs(list) do
 			local v = other(c)
 			if v == nil then bad[#bad + 1] = idOf(c) .. ": no other value to write" else
+				local want = expectedWrite(c, v)
 				write(c, v)
 				local back = current(c)
-				if not same(back, v) then bad[#bad + 1] = idOf(c) .. ": wrote " .. show(v) .. ", reads " .. show(back) end
+				if not same(back, want) then bad[#bad + 1] = idOf(c) .. ": wrote " .. show(v) .. ", expected " .. show(want) .. ", reads " .. show(back) end
 			end
 		end
 		stub.advance(0.5)
@@ -224,6 +232,34 @@ fn every_control_reads_back_what_it_writes_and_keeps_it_through_a_reload() {
 	assert!(again["n"].as_f64().unwrap() >= 570.0, "every control read after the reload: {}", again["n"]);
 	let bad = list(&again["bad"]);
 	assert!(bad.is_empty(), "{} controls lose their value in a reload:\n{}", bad.len(), bad.join("\n"));
+}
+
+#[test]
+fn hiding_the_tracker_turns_docking_off_and_rejects_enabling_it_until_the_tracker_is_visible() {
+	let first = run(r#"
+		Polestar.Set("qol.hideQuestTracker", false)
+		Polestar.Set("ui.trackerDock", true)
+		assert(Polestar.Get("ui.trackerDock") == true, "visible tracker allows docking")
+		Polestar.Set("qol.hideQuestTracker", true)
+		assert(Polestar.Get("ui.trackerDock") == false, "hiding the tracker switches docking off")
+		Polestar.Set("ui.trackerDock", true)
+		assert(Polestar.Get("ui.trackerDock") == false, "a direct write must not bypass the hidden tracker")
+		Polestar.Set("qol.hideQuestTracker", false)
+		assert(Polestar.Get("ui.trackerDock") == false, "showing the tracker does not enable docking automatically")
+		Polestar.Set("ui.trackerDock", true)
+		assert(Polestar.Get("ui.trackerDock") == true, "docking can be enabled again")
+		Polestar.Set("qol.hideQuestTracker", true)
+		emit({ db = "PolestarDB = " .. ser(PolestarDB), char = "PolestarCharDB = " .. ser(PolestarCharDB) })"#);
+	let saved = format!("{}\n{}", text(&first["db"]), text(&first["char"]));
+	let again = run_saved(
+		Some(saved),
+		r#"
+		local row
+		for _, c in ipairs(settingControls()) do if c.key == "ui.trackerDock" then row = c end end
+		assert(row, "the docking control is still covered")
+		emit({ hidden = Polestar.Get("qol.hideQuestTracker"), docked = current(row), disabled = row.disabled() and true or false })"#,
+	);
+	assert_eq!(again, serde_json::json!({ "hidden": true, "docked": false, "disabled": true }));
 }
 
 #[test]
