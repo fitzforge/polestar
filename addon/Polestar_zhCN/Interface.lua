@@ -452,6 +452,32 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+-- Machine-translated, to be reviewed (the Free mode page, the hand-in row and Import in Settings, 26 Nov 2026):
+-- translated by an AI model (Claude Sonnet 5.5) in this file's own wording, and waiting for a native
+-- speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   Every finished quest in your log, none of them part of this step.
+--   Click for the shortest trip through their hand-ins
+--   Hides this line until the number of finished quests changes.
+--   %d quests ready to hand in
+--   Finished quests
+--   Import a guide
+--   Hand-in row
+--   A slim line under the step when 2 or more quests in your log are finished and none is part of this step: how many, and Route, the shortest trip through their hand-ins. Its close button hides it until that number changes.
+--   Click to unpin it from Free mode
+--   Click to make it Free mode's first quest
+--   Hand in finished quests
+--   The shortest trip through the hand-ins of every finished quest in your log, in a guide of its own.
+--   Leave out a zone
+--   Every quest of a zone at once. Tick one again to bring it back.
+--   Leave out group quests
+--   Quests that take a group: an elite, a boss or an instance.
+--   Ready to hand in
+--   Left out of Free mode. Click to bring it back.
+--   In Free mode. Click to leave it out.
+--   Bring back
+--   Leave out
+--   Stop
+--   Your quests
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhCN") then return end
@@ -1060,6 +1086,8 @@ L["Done"] = "完成"
 L["Not done"] = "未完成"
 L["Hand-ins"] = "交还任务"
 L["Objectives"] = "目标"
+L["Click to unpin it from Free mode"] = "点击将其从自由模式中取消置顶"
+L["Click to make it Free mode's first quest"] = "点击让自由模式优先处理此任务"
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "开始任务"
@@ -2188,6 +2216,11 @@ L["Or follow your own quests: Free mode"] = "或者跟随你自己的任务：�
 L["No quests to lead to"] = "没有可前往的任务"
 L["Pick up quests and Free mode leads you to them."] = "接取任务，自由模式会带你前往。"
 L["Return to %s"] = "返回%s"
+L["Every finished quest in your log, none of them part of this step."] = "任务日志中所有已完成的任务，其中没有属于此步骤的。"
+L["Click for the shortest trip through their hand-ins"] = "点击查看依次交还它们的最短路线"
+L["Hides this line until the number of finished quests changes."] = "隐藏此行，直到已完成任务的数量发生变化。"
+L["%d quests ready to hand in"] = "%d 个任务可交还"
+L["Finished quests"] = "已完成的任务"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "乘升降梯前往%s"
@@ -2311,6 +2344,7 @@ L["The guides window only. Click to pick a size; right-click to reset."] = "仅�
 L["Quests in"] = "任务地区"
 L["Passes through"] = "途经"
 L["%s: optional class quests"] = "%s：可选职业任务"
+L["Import a guide"] = "导入指南"
 
 -- UI/Lookup.lua
 L["Companion"] = "小伙伴"
@@ -3732,28 +3766,16 @@ L["Updated %s."] = "已更新 %s。"
 L["Imported %s. Find it in the guide menu under Community guides, Imported."] = "已导入 %s。可在指南菜单的“社区指南”、“已导入”中找到。"
 L["Paste an import string here (Ctrl+V)"] = "在此粘贴导入字符串（Ctrl+V）"
 L["Delete"] = "删除"
-L["Two ways to bring someone else's guides into Polestar. Pick the one that fits."] = "将他人的指南加入 Polestar 有两种方式。选择适合的一种。"
 L["Import string"] = "导入字符串"
 L["One small guide: a quest chain, an item, a mount, an errand."] = "一份小指南：一条任务线、一件物品、一个坐骑、一项差事。"
 L["Its author shares it as text, anywhere. Paste it below."] = "作者以文本形式在任何地方分享。粘贴到下方即可。"
 L["Updates: paste the newer string, then Update."] = "更新：粘贴较新的字符串，然后点击“更新”。"
 L["One guide of up to %d steps."] = "一份指南，最多 %d 个步骤。"
-L["Community addon"] = "社区插件"
-L["A whole route or a set of guides: a leveling route, every profession."] = "完整路线或一组指南：一条练级路线、所有专业。"
-L["Install it like any addon, then restart the game."] = "像其他插件一样安装，然后重启游戏。"
-L["Updates: your addon app updates it."] = "更新：由你的插件管理程序更新。"
-L["No size limit."] = "无大小限制。"
-L["Paste a string"] = "粘贴字符串"
 L["Import"] = "导入"
 L["No imported guides yet."] = "尚未导入任何指南。"
-L["Want more than one guide?"] = "需要不止一份指南？"
-L["A set of guides, or one too big for a string, comes as a community addon:"] = "一组指南，或一份字符串装不下的大指南，以社区插件形式发布："
-L["Get it from wherever its author publishes it."] = "从作者发布的地方获取。"
-L["Its guides appear in the guide menu under Community guides, with the author's name. Settings, Community guides turns it on or off."] = "其指南会显示在指南菜单的“社区指南”下，并附作者名。在“设置”、“社区指南”中可开启或关闭。"
 L["Update"] = "更新"
 L["Your imported guides"] = "你导入的指南"
 L["version %s"] = "版本 %s"
-L["Guides someone shared with you, as an import string or a community addon."] = "他人以导入字符串或社区插件分享给你的指南。"
 L["The author differs from the stored guide's."] = "作者与已存储指南的作者不同。"
 L["The licence differs from the stored guide's."] = "许可证与已存储指南的许可证不同。"
 
@@ -4982,6 +5004,8 @@ L["XP line"] = "经验行"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "步骤下方的一行：每小时经验、升级时间和你的节奏。强化休息保留自己的一行。"
 L["Quest log notices"] = "任务日志提示"
 L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = "关于任务日志的提示行：不在你路线上的任务（在步骤中以及指南完成时），以及之后没有指南会接收的已完成任务。关闭后，指南窗口的菜单中仍有“清理任务日志”和“交还已完成的任务”。"
+L["Hand-in row"] = "交还提示行"
+L["A slim line under the step when 2 or more quests in your log are finished and none is part of this step: how many, and Route, the shortest trip through their hand-ins. Its close button hides it until that number changes."] = "当任务日志中有 2 个或更多任务已完成，且其中没有属于当前步骤的任务时，在步骤下方显示的一行：数量，以及路线（依次交还它们的最短路线）。关闭按钮会将其隐藏，直到该数量发生变化。"
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "提醒队列"
@@ -5667,6 +5691,21 @@ L["Free mode takes this quest first, whatever the order."] = "无论顺序如何
 L["Leave out of Free mode"] = "从自由模式中排除"
 L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "自由模式不再列出此任务。菜单中的“恢复被排除的任务”会重新列出它。"
 
+-- Page.lua
+L["Hand in finished quests"] = "交还已完成的任务"
+L["The shortest trip through the hand-ins of every finished quest in your log, in a guide of its own."] = "依次交还任务日志中所有已完成任务的最短路线，在单独的指南中显示。"
+L["Leave out a zone"] = "排除一个地区"
+L["Every quest of a zone at once. Tick one again to bring it back."] = "一次排除一个地区的所有任务。再次勾选其中一个即可恢复。"
+L["Leave out group quests"] = "排除组队任务"
+L["Quests that take a group: an elite, a boss or an instance."] = "需要组队的任务：精英、首领或副本。"
+L["Ready to hand in"] = "可交还"
+L["Left out of Free mode. Click to bring it back."] = "已从自由模式中排除。点击恢复。"
+L["In Free mode. Click to leave it out."] = "在自由模式中。点击将其排除。"
+L["Bring back"] = "恢复"
+L["Leave out"] = "排除"
+L["Stop"] = "停止"
+L["Your quests"] = "你的任务"
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐页重新设置 Polestar。每项选择立即生效。"
 -- L["New"] = "新"
@@ -5944,3 +5983,15 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 -- L["Max height"] = "最大高度"
 -- L["%s: on this step"] = "%s：在此步骤"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "把你自己的任务当作指南，在单独的标签页中：箭头指向最近的任务，然后是下一个（/polestar free）。"
+-- L["Two ways to bring someone else's guides into Polestar. Pick the one that fits."] = "将他人的指南加入 Polestar 有两种方式。选择适合的一种。"
+-- L["Community addon"] = "社区插件"
+-- L["A whole route or a set of guides: a leveling route, every profession."] = "完整路线或一组指南：一条练级路线、所有专业。"
+-- L["Install it like any addon, then restart the game."] = "像其他插件一样安装，然后重启游戏。"
+-- L["Updates: your addon app updates it."] = "更新：由你的插件管理程序更新。"
+-- L["No size limit."] = "无大小限制。"
+-- L["Paste a string"] = "粘贴字符串"
+-- L["Want more than one guide?"] = "需要不止一份指南？"
+-- L["A set of guides, or one too big for a string, comes as a community addon:"] = "一组指南，或一份字符串装不下的大指南，以社区插件形式发布："
+-- L["Get it from wherever its author publishes it."] = "从作者发布的地方获取。"
+-- L["Its guides appear in the guide menu under Community guides, with the author's name. Settings, Community guides turns it on or off."] = "其指南会显示在指南菜单的“社区指南”下，并附作者名。在“设置”、“社区指南”中可开启或关闭。"
+-- L["Guides someone shared with you, as an import string or a community addon."] = "他人以导入字符串或社区插件分享给你的指南。"

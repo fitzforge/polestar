@@ -334,7 +334,7 @@ race, another level range).
 
 A single small guide (a quest chain, an item, a mount, an errand) can go to
 players as one line of text instead of a zip. They paste it on Polestar's
-Import page (`/polestar import`, or **Import** above Options in the hub);
+Settings > Community guides, Import a guide (`/polestar import`, or the last row of the guide menu's Community guides list);
 nothing to install, no restart.
 
 ```sh
@@ -431,7 +431,7 @@ copy window, with the address selected to copy.
 
 ### Import strings that are turned down
 
-The Import page reads a pasted string and shows what it holds before
+The Import a guide section reads a pasted string and shows what it holds before
 anything is saved. A string it cannot take is turned down with one of these
 messages, and nothing is saved:
 
@@ -450,7 +450,7 @@ messages, and nothing is saved:
 | This game client cannot read import strings. | the client lacks the decoding Polestar needs (`C_EncodingUtil`): publish a community addon for that client |
 
 `/polestar import delete <guide-id>` removes one imported guide, and
-`/polestar import clear` removes them all; the Import page's **Delete**
+`/polestar import clear` removes them all; the section's **Delete**
 buttons do the same.
 
 ## Lint messages

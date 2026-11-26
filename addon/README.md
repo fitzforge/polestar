@@ -280,7 +280,8 @@ never in saved variables.
 | `Movers.lua` | `Movers` | `/polestar unlock` and `lock`; the Move frames mode itself is in `Polestar_Options` |
 | `GameMenu.lua` | `UI.GameMenu` | The Polestar button in the game menu (Esc) |
 | `Gamepad.lua`, `GamepadGuide.lua` | `Gamepad` | Playing Polestar with a gamepad (adapted from Ding! by Yendi, GPL-3.0) |
-| `Import.lua` | `UI.Import` | The Import page at the foot of the hub's rail |
+| `Import.lua` | `UI.Import` | Import a guide, a section of Settings > Community guides |
+| `FreeMode.lua` | `UI.ShowFreeMode` | The Free mode section of the hub (its page is in `Polestar_FreeMode`) |
 | `QuestieTurnIns.lua` | `QuestieTurnIns` | Optional captions on Questie's tracker (Options > Integrations, off by default) |
 | `Thanks.lua` | `UI.Thanks` | Guiding Stars: the people behind Polestar, an options page |
 | `Launcher.lua` | `UI.Launcher` | The optional floating Polestar button: show or hide the window, menu, drag |

@@ -535,6 +535,32 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+-- Machine-translated, to be reviewed (the Free mode page, the hand-in row and Import in Settings, 26 Nov 2026):
+-- translated by an AI model (Claude Sonnet 5.5) in this file's own wording, and waiting for a native
+-- speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   Every finished quest in your log, none of them part of this step.
+--   Click for the shortest trip through their hand-ins
+--   Hides this line until the number of finished quests changes.
+--   %d quests ready to hand in
+--   Finished quests
+--   Import a guide
+--   Hand-in row
+--   A slim line under the step when 2 or more quests in your log are finished and none is part of this step: how many, and Route, the shortest trip through their hand-ins. Its close button hides it until that number changes.
+--   Click to unpin it from Free mode
+--   Click to make it Free mode's first quest
+--   Hand in finished quests
+--   The shortest trip through the hand-ins of every finished quest in your log, in a guide of its own.
+--   Leave out a zone
+--   Every quest of a zone at once. Tick one again to bring it back.
+--   Leave out group quests
+--   Quests that take a group: an elite, a boss or an instance.
+--   Ready to hand in
+--   Left out of Free mode. Click to bring it back.
+--   In Free mode. Click to leave it out.
+--   Bring back
+--   Leave out
+--   Stop
+--   Your quests
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "ruRU") then return end
@@ -1143,6 +1169,8 @@ L["Done"] = "Готово"
 L["Not done"] = "Не готово"
 L["Hand-ins"] = "Сдача заданий"
 L["Objectives"] = "Задачи"
+L["Click to unpin it from Free mode"] = "Нажмите, чтобы открепить его от свободного режима"
+L["Click to make it Free mode's first quest"] = "Нажмите, чтобы свободный режим взял это задание первым"
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "Начинает задание"
@@ -2271,6 +2299,11 @@ L["Or follow your own quests: Free mode"] = "Или следуйте своим 
 L["No quests to lead to"] = "Нет заданий, к которым вести"
 L["Pick up quests and Free mode leads you to them."] = "Возьмите задания, и свободный режим проведет вас к ним."
 L["Return to %s"] = "Вернуться к %s"
+L["Every finished quest in your log, none of them part of this step."] = "Все выполненные задания в вашем журнале; ни одно не входит в этот шаг."
+L["Click for the shortest trip through their hand-ins"] = "Нажмите, чтобы увидеть кратчайший путь по местам их сдачи"
+L["Hides this line until the number of finished quests changes."] = "Скрывает эту строку, пока не изменится число выполненных заданий."
+L["%d quests ready to hand in"] = "Заданий, готовых к сдаче: %d"
+L["Finished quests"] = "Выполненные задания"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"
@@ -2394,6 +2427,7 @@ L["The guides window only. Click to pick a size; right-click to reset."] = "То
 L["Quests in"] = "Задания в"
 L["Passes through"] = "Проходит через"
 L["%s: optional class quests"] = "%s: необязательные классовые задания"
+L["Import a guide"] = "Импортировать гайд"
 
 -- UI/Lookup.lua
 L["Companion"] = "Питомец"
@@ -3815,28 +3849,16 @@ L["Updated %s."] = "Гайд %s обновлен."
 L["Imported %s. Find it in the guide menu under Community guides, Imported."] = "Гайд %s импортирован. Он в меню гайдов: «Гайды сообщества», «Импортированные»."
 L["Paste an import string here (Ctrl+V)"] = "Вставьте сюда строку импорта (Ctrl+V)"
 L["Delete"] = "Удалить"
-L["Two ways to bring someone else's guides into Polestar. Pick the one that fits."] = "Два способа добавить в Polestar чужие гайды. Выберите подходящий."
 L["Import string"] = "Строка импорта"
 L["One small guide: a quest chain, an item, a mount, an errand."] = "Один небольшой гайд: цепочка заданий, предмет, транспорт, поручение."
 L["Its author shares it as text, anywhere. Paste it below."] = "Автор делится им как текстом где угодно. Вставьте его ниже."
 L["Updates: paste the newer string, then Update."] = "Обновления: вставьте новую строку и нажмите «Обновить»."
 L["One guide of up to %d steps."] = "Один гайд, не больше %d шагов."
-L["Community addon"] = "Аддон сообщества"
-L["A whole route or a set of guides: a leveling route, every profession."] = "Целый маршрут или набор гайдов: маршрут прокачки, все профессии."
-L["Install it like any addon, then restart the game."] = "Установите его как любой аддон и перезапустите игру."
-L["Updates: your addon app updates it."] = "Обновления: его обновляет ваше приложение для аддонов."
-L["No size limit."] = "Без ограничения размера."
-L["Paste a string"] = "Вставить строку"
 L["Import"] = "Импорт"
 L["No imported guides yet."] = "Импортированных гайдов пока нет."
-L["Want more than one guide?"] = "Нужно больше одного гайда?"
-L["A set of guides, or one too big for a string, comes as a community addon:"] = "Набор гайдов или гайд, слишком большой для строки, распространяется как аддон сообщества:"
-L["Get it from wherever its author publishes it."] = "Скачайте его там, где его публикует автор."
-L["Its guides appear in the guide menu under Community guides, with the author's name. Settings, Community guides turns it on or off."] = "Его гайды появятся в меню гайдов в разделе «Гайды сообщества» с именем автора. Включить или выключить его можно в «Настройки», «Гайды сообщества»."
 L["Update"] = "Обновить"
 L["Your imported guides"] = "Ваши импортированные гайды"
 L["version %s"] = "версия %s"
-L["Guides someone shared with you, as an import string or a community addon."] = "Гайды, которыми с вами поделились: строкой импорта или аддоном сообщества."
 L["The author differs from the stored guide's."] = "Автор отличается от автора сохраненного гайда."
 L["The licence differs from the stored guide's."] = "Лицензия отличается от лицензии сохраненного гайда."
 
@@ -5065,6 +5087,8 @@ L["XP line"] = "Строка опыта"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "Строка под шагами: опыт в час, время до уровня и ваш темп. У Улучшенного отдыха своя строка."
 L["Quest log notices"] = "Заметки о журнале заданий"
 L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = "Строки о журнале заданий: задания вне вашего маршрута — на шаге и когда гайд завершен, — и выполненные задания, которые не примет ни один следующий гайд. Если выключено, в меню окна гайда остаются «Очистить журнал заданий» и «Сдать выполненные задания»."
+L["Hand-in row"] = "Строка сдачи"
+L["A slim line under the step when 2 or more quests in your log are finished and none is part of this step: how many, and Route, the shortest trip through their hand-ins. Its close button hides it until that number changes."] = "Тонкая строка под шагом, когда в журнале 2 или больше выполненных заданий и ни одно не входит в этот шаг: сколько их и Маршрут — кратчайший путь по местам их сдачи. Кнопка закрытия скрывает её, пока это число не изменится."
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "Стопка оповещений"
@@ -5750,6 +5774,21 @@ L["Free mode takes this quest first, whatever the order."] = "Свободный
 L["Leave out of Free mode"] = "Исключить из свободного режима"
 L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "Свободный режим больше не показывает это задание. Пункт меню «Вернуть исключенные задания» вернет его в список."
 
+-- Page.lua
+L["Hand in finished quests"] = "Сдать выполненные задания"
+L["The shortest trip through the hand-ins of every finished quest in your log, in a guide of its own."] = "Кратчайший путь по местам сдачи всех выполненных заданий в вашем журнале — в отдельном гайде."
+L["Leave out a zone"] = "Исключить зону"
+L["Every quest of a zone at once. Tick one again to bring it back."] = "Все задания зоны сразу. Отметьте одно снова, чтобы вернуть его."
+L["Leave out group quests"] = "Исключить групповые задания"
+L["Quests that take a group: an elite, a boss or an instance."] = "Задания, для которых нужна группа: элитный противник, босс или подземелье."
+L["Ready to hand in"] = "Можно сдать"
+L["Left out of Free mode. Click to bring it back."] = "Исключено из свободного режима. Нажмите, чтобы вернуть."
+L["In Free mode. Click to leave it out."] = "В свободном режиме. Нажмите, чтобы исключить."
+L["Bring back"] = "Вернуть"
+L["Leave out"] = "Исключить"
+L["Stop"] = "Остановить"
+L["Your quests"] = "Ваши задания"
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Заново настроить Polestar, страница за страницей. Каждый выбор действует сразу."
 -- L["New"] = "Новое"
@@ -6025,3 +6064,15 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 -- L["Max height"] = "Макс. высота"
 -- L["%s: on this step"] = "%s: на этом шаге"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Ваши собственные задания как гайд, на отдельной вкладке: стрелка ведет к ближайшему, затем к следующему (/polestar free)."
+-- L["Two ways to bring someone else's guides into Polestar. Pick the one that fits."] = "Два способа добавить в Polestar чужие гайды. Выберите подходящий."
+-- L["Community addon"] = "Аддон сообщества"
+-- L["A whole route or a set of guides: a leveling route, every profession."] = "Целый маршрут или набор гайдов: маршрут прокачки, все профессии."
+-- L["Install it like any addon, then restart the game."] = "Установите его как любой аддон и перезапустите игру."
+-- L["Updates: your addon app updates it."] = "Обновления: его обновляет ваше приложение для аддонов."
+-- L["No size limit."] = "Без ограничения размера."
+-- L["Paste a string"] = "Вставить строку"
+-- L["Want more than one guide?"] = "Нужно больше одного гайда?"
+-- L["A set of guides, or one too big for a string, comes as a community addon:"] = "Набор гайдов или гайд, слишком большой для строки, распространяется как аддон сообщества:"
+-- L["Get it from wherever its author publishes it."] = "Скачайте его там, где его публикует автор."
+-- L["Its guides appear in the guide menu under Community guides, with the author's name. Settings, Community guides turns it on or off."] = "Его гайды появятся в меню гайдов в разделе «Гайды сообщества» с именем автора. Включить или выключить его можно в «Настройки», «Гайды сообщества»."
+-- L["Guides someone shared with you, as an import string or a community addon."] = "Гайды, которыми с вами поделились: строкой импорта или аддоном сообщества."

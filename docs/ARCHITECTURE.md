@@ -162,7 +162,8 @@ Messages:
 | `SHOW_REPORT` | — | `/polestar report` → UI/Report.lua |
 | `SHOW_DISCORD` | — | `/polestar discord` → UI/Report.lua |
 | `SHOW_QUEST_ROOM` | — | `/polestar questlog`, the full-log banner's Make room → UI/QuestRoom.lua |
-| `SHOW_IMPORT` | — | `/polestar import` (Core/Import.lua) → UI/Import.lua: the hub at Import |
+| `SHOW_IMPORT` | — | `/polestar import` (Core/Import.lua) → UI/Import.lua: Settings > Community guides at its Import a guide section |
+| `FREE_CHANGED` | — | Free mode's pin or left-out quests changed (Polestar_FreeMode/Free.lua) → its page (Page.lua) draws again |
 | `TOGGLE_PICKER` / `TOGGLE_OPTIONS` | — | key bindings and gamepad chords (`POLESTAR_MENU`, `POLESTAR_OPTIONS`) → UI: open, or close when open |
 | `TOGGLE_FOCUS` | — | `POLESTAR_FOCUS` → UI/GamepadGuide.lua (focus mode) |
 
@@ -202,7 +203,7 @@ keeps yards for whoever reads it.
 `PolestarCharDB = { schema = 1, guide = id|nil, tabs = { guideId, ... }, activeTab = n, absentAt = { [guideId] = place }, closedTabs = { { id, at }, ... }, manual = { [guideId] = { ["s:g"] = true|"tick" } }, skipped = { [guideId] = { [stepIndex] = true, ["s:g"] = true } }, pins = { [guideId] = { step, done } }, offers = { [questID] = true }, skippedQuests = { [questID] = true }, shapes = { [guideId] = shape }, stepKeys = { [guideId] = { hash, ... } }, guideDone = { [guideId] = true }, flags = { fp = { [name] = true }, ... }, dungeons = { [mapId] = true }, welcomeSeen = 0|1 }`
 
 `packs[<id>].off` hides a pack's guides account-wide (the Community guides page's
-switch). `imports` holds the guides pasted on the Import page, as decoded
+switch). `imports` holds the guides pasted in Settings, Community guides, Import a guide, as decoded
 ("The guide registry", imported guides). `welcomeSeen` (UI/Welcome.lua) is the version of Install (the
 welcome it grew out of, whose flag it keeps) last seen: in `PolestarDB`, the account has had its Install
 (later characters get only their own choices: the stat weights); in `PolestarCharDB`, this character has
@@ -1780,8 +1781,8 @@ Polestar.Guides.DropImported(id) -> bool    -- takes an imported guide out (Impo
 ```
 
 **Imported guides** (`Core/Import.lua`; the string's format: PACK_FORMAT.md,
-"Import strings"). A guide shared as one line of text and pasted on the
-Import page belongs to the reserved pack `imported`, which Import.lua
+"Import strings"). A guide shared as one line of text and pasted in Settings, Community guides,
+Import a guide, belongs to the reserved pack `imported`, which Import.lua
 registers (`imported = true`) as its file loads, before any pack can. Its
 guides keep their authors' ids (`yendi/cozy-sleeping-bag`), carry
 `license` (the string's) and are kept in `PolestarDB.imports[id]` as
@@ -8633,7 +8634,9 @@ Polestar.Free.Toggle() ; Polestar.Free.IsOn() -> bool ; Polestar.Free.IsGuide(id
 Polestar.Free.ReturnTitle() -> title | nil      -- the guide Stop hands back to
 Polestar.Free.Pin(questID, on) ; Polestar.Free.Pinned() -> questID | nil
 Polestar.Free.LeaveOut(questID, on) ; Polestar.Free.LeftOut() -> { questID, ... }
-Polestar.Free.SetPick("near" | "xp")            -- setting free.pick
+Polestar.Free.SetPick("near" | "xp" | "balanced") -- setting free.pick
+Polestar.Free.Quests() -> rows ; Polestar.Free.Zones()      -- the quests page's rows (quest, title, level, zone, zoneName, ready, group, out, pinned); the zones of those in the loop
+Polestar.Free.LeaveOutZone(map) ; Polestar.Free.LeaveOutGroup() ; Polestar.Free.BringBack()  -- the quick actions
 Polestar.Free.Steps(from?) -> steps, info       -- a plan as it stands (info.rows in order, info.hint, info.first)
 Polestar.Free.Plan(force?)                      -- plan again when what it reads moved
 Polestar.Free.MenuItems() ; Polestar.Free.RowItems(questID) -- the guide window's menu rows; a quest line's right-click rows
@@ -8692,6 +8695,36 @@ Polestar.Free.MenuItems() ; Polestar.Free.RowItems(questID) -- the guide window'
   Pin to the top / Unpin and Leave out of Free mode in place of Skip this
   quest. Settings: Questing > Quests > Free mode (the switch, `free.pick`,
   `free.hints`, `free.details`).
+- **The page** (`Polestar_FreeMode/Page.lua`, door `UI/FreeMode.lua`, a hub
+  section under Guides with the glyph `icon-ownpath`; `Free.Page.Build(parent,
+  hub)`, `Render()`, `Shown()`). Loads with the folder, the first time the page
+  shows (without it the page says why). Start, or Return to <guide> while it is
+  on (Stop when there is no other tab); Which quest first (Nearest first | Most XP
+  a minute first | Balanced, `free.pick`); the tile "Hand in finished quests (N)
+  . Route" (`UI.GuideCarried`, the shortest-trip hand-in guide; "None to hand
+  in" and disabled with none); then "Your quests": one row for every quest in
+  the log (`Free.Quests()`: the Codex is loaded for its zone and its elite and
+  instance objectives), a tick (ticked: in the loop; unticked: left out,
+  `Free.LeaveOut`), the title, "Ready to hand in", its zone, its level and a pin
+  (`Free.Pin`). Quick actions: Leave out a zone (a menu of the zones of the
+  quests in the loop, `Free.LeaveOutZone`), Leave out group quests
+  (`Free.LeaveOutGroup`: a quest still to do with an elite, a boss or an
+  instance objective), Bring back left-out quests (N). All of it is the saved
+  state of Free mode (`CharState().free`, per character, kept over /reload and
+  logout); nothing is stored by the page. A change fires `FREE_CHANGED`, which
+  draws an open page again. With a gamepad A on a row ticks or unticks it and X
+  pins it (`psPadX` on the row, handed over by the guide menu's X).
+- **The world map.** A left click on a held quest's pin or objective area on
+  Polestar's own map pins (the objective and hand-in layers of
+  `Quests/Tracker.lua`; areas and hulls take it through `Nav/Pins.lua`'s
+  release test, `world.areaAt`; not with Shift, Alt or Ctrl, not on the
+  minimap) is Pin to the top for its first quest (or the one pinned when several
+  meet), and again unpins it. The pin's tooltip says which.
+- **The guide window's hand-in row** (`guideWindow.handinRow`, Guide window >
+  Parts > Quest log notices): with 2 or more quests in the log finished (`Handins.Ready()`)
+  and none of them a goal of the step on screen, a slim line "N quests ready to
+  hand in . Route" under the step's lines; a click opens the hand-in guide
+  (`UI.GuideCarried`), its close button hides it until the number changes.
 - **After /reload.** A saved Free mode tab is rebuilt by Lookup's planner tabs
   at ADDON_LOADED (the Codex loads then) and fills at the first quest-log event.
 
@@ -10101,18 +10134,25 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   A section registered with `foot = true` sits at the rail's foot, above
   Options, instead of among the sections (`P.FootItems(onOptions)`: Options,
   then each foot section, from the bottom up).
-- **Import** (`UI/Import.lua`, a foot section, order 90; `/polestar import`
-  and `SHOW_IMPORT` open it). The two ways to bring someone else's guides
-  into Polestar side by side (an import string for one small guide, a
-  community addon for a route or a set), then a single-line box: what is
-  pasted is read at once (`Import.Preview`) and shown before anything is
-  saved ("Title · by Author · N steps · levels a–b · faction · licence"),
-  with Import (Update when an older version is imported; nothing for the
-  same or a newer one, with a line saying so) and Cancel, or the reason it
-  is refused. Enter imports. Below, "Your imported guides" (title, "By
-  author · version · licence", why a stored guide did not register,
-  Delete with a second click to confirm), then "Want more than one guide?"
-  (community addons in three steps and the GUIDE_PACKS.md link).
+- **Free mode** (`UI/FreeMode.lua` the door, `Polestar_FreeMode/Page.lua` the
+  page; order 15, right under Guides). See "Free mode".
+- **Import** is no section of the hub (it was a foot section until 0.4.4). Its
+  code (`UI/Import.lua`, `UI.Import`) is built into Settings > Community guides
+  (`UI/Packs.lua`: `UI.Import.Build(view)` once, `UI.Import.Layout(x, y,
+  width)` with each layout of the page, `UI.Import.onChange` for the page to lay
+  out again), as the section "Import a guide" between the installed community
+  addons and the suggestions. `/polestar import`, `SHOW_IMPORT`, `UI.Import.Show()`,
+  Home's "Import a guide" button and the guide list's last row, "+ Import a
+  guide" (under the Community guides heading, which now always shows; not a
+  category: `P.categories` leaves it out), open that page scrolled to it. The
+  section is the way in for one small guide: what is pasted is read at once
+  (`Import.Preview`) and shown before anything is saved ("Title · by Author · N
+  steps · levels a–b · faction · licence"), with Import (Update when an older
+  version is imported; nothing for the same or a newer one, with a line saying
+  so) and Cancel, or the reason it is refused. Enter imports. Below, "Your
+  imported guides" (title, "By author · version · licence", why a stored guide
+  did not register, Delete with a second click to confirm). A community addon,
+  for a route or a set, is the page's own "About community guides".
 - **Guide menu** (the Guides section): three panes. Left: the categories with
   counts. Middle: Home (continue and suggested), Browse, Current (open tabs),
   Recent (the tabs closed, newest first, then the last guides loaded) tabs

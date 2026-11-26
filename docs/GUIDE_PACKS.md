@@ -363,7 +363,7 @@ Polestar reads both.
 ### Import strings
 
 A single small guide can go to players as one line of text instead of an
-addon: they paste it on Polestar's Import page (`/polestar import`). Use it
+addon: they paste it under Polestar's Settings, Community guides, Import a guide (`/polestar import`). Use it
 for a quest chain, an item, a mount, an errand; a route or a set of guides is
 a community addon.
 
@@ -371,7 +371,7 @@ a community addon.
 |---|---|---|
 | **For** | one small guide | a whole route or a set of guides |
 | **You run** | `polestar export <file.guide>` | `forge release pack` |
-| **Players** | paste it on the Import page | install it, then restart the game |
+| **Players** | paste it under Settings, Community guides, Import a guide | install it, then restart the game |
 | **Updates** | raise the guide's `version` and share the new string: players press Update | raise `version` in `pack.json` and upload the new zip |
 | **Size** | one guide of at most 60 steps (and 50,000 characters) | no limit |
 

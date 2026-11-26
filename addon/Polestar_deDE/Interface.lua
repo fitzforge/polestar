@@ -326,6 +326,32 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+-- Machine-translated, to be reviewed (the Free mode page, the hand-in row and Import in Settings, 26 Nov 2026):
+-- translated by an AI model (Claude Sonnet 5.5) in this file's own wording, and waiting for a native
+-- speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   Every finished quest in your log, none of them part of this step.
+--   Click for the shortest trip through their hand-ins
+--   Hides this line until the number of finished quests changes.
+--   %d quests ready to hand in
+--   Finished quests
+--   Import a guide
+--   Hand-in row
+--   A slim line under the step when 2 or more quests in your log are finished and none is part of this step: how many, and Route, the shortest trip through their hand-ins. Its close button hides it until that number changes.
+--   Click to unpin it from Free mode
+--   Click to make it Free mode's first quest
+--   Hand in finished quests
+--   The shortest trip through the hand-ins of every finished quest in your log, in a guide of its own.
+--   Leave out a zone
+--   Every quest of a zone at once. Tick one again to bring it back.
+--   Leave out group quests
+--   Quests that take a group: an elite, a boss or an instance.
+--   Ready to hand in
+--   Left out of Free mode. Click to bring it back.
+--   In Free mode. Click to leave it out.
+--   Bring back
+--   Leave out
+--   Stop
+--   Your quests
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "deDE") then return end
@@ -1079,6 +1105,11 @@ L["Or follow your own quests: Free mode"] = "Oder folge deinen eigenen Quests: F
 L["No quests to lead to"] = "Keine Quests, zu denen es geht"
 L["Pick up quests and Free mode leads you to them."] = "Nimm Quests an, und der Freimodus führt dich zu ihnen."
 L["Return to %s"] = "Zurück zu %s"
+L["Every finished quest in your log, none of them part of this step."] = "Jede erledigte Quest in deinem Questlog, keine davon gehört zu diesem Schritt."
+L["Click for the shortest trip through their hand-ins"] = "Klicken für den kürzesten Weg durch ihre Abgaben"
+L["Hides this line until the number of finished quests changes."] = "Blendet diese Zeile aus, bis sich die Zahl der erledigten Quests ändert."
+L["%d quests ready to hand in"] = "%d Quests zur Abgabe bereit"
+L["Finished quests"] = "Erledigte Quests"
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"
@@ -1180,6 +1211,7 @@ L["The guides window only. Click to pick a size; right-click to reset."] = "Nur 
 L["Quests in"] = "Quests in"
 L["Passes through"] = "Durchquert"
 L["%s: optional class quests"] = "%s: optionale Klassenquests"
+L["Import a guide"] = "Guide importieren"
 
 -- UI/Report.lua
 L["skipped"] = "übersprungen"
@@ -3515,28 +3547,16 @@ L["Updated %s."] = "%s aktualisiert."
 L["Imported %s. Find it in the guide menu under Community guides, Imported."] = "%s importiert. Du findest ihn im Guide-Menü unter Community-Guides, Importiert."
 L["Paste an import string here (Ctrl+V)"] = "Importtext hier einfügen (Strg+V)"
 L["Delete"] = "Löschen"
-L["Two ways to bring someone else's guides into Polestar. Pick the one that fits."] = "Zwei Wege, Guides von anderen in Polestar zu holen. Wähle den passenden."
 L["Import string"] = "Importtext"
 L["One small guide: a quest chain, an item, a mount, an errand."] = "Ein kleiner Guide: eine Questreihe, ein Gegenstand, ein Reittier, eine Besorgung."
 L["Its author shares it as text, anywhere. Paste it below."] = "Sein Autor teilt ihn als Text, irgendwo. Füge ihn unten ein."
 L["Updates: paste the newer string, then Update."] = "Updates: Füge den neueren Text ein, dann „Aktualisieren“."
 L["One guide of up to %d steps."] = "Ein Guide mit bis zu %d Schritten."
-L["Community addon"] = "Community-Addon"
-L["A whole route or a set of guides: a leveling route, every profession."] = "Eine ganze Route oder mehrere Guides: eine Leveling-Route, jeder Beruf."
-L["Install it like any addon, then restart the game."] = "Installiere es wie jedes Addon, dann starte das Spiel neu."
-L["Updates: your addon app updates it."] = "Updates: Deine Addon-App aktualisiert es."
-L["No size limit."] = "Keine Größengrenze."
-L["Paste a string"] = "Text einfügen"
 L["Import"] = "Import"
 L["No imported guides yet."] = "Noch keine importierten Guides."
-L["Want more than one guide?"] = "Mehr als ein Guide?"
-L["A set of guides, or one too big for a string, comes as a community addon:"] = "Mehrere Guides, oder einer, der zu groß für einen Text ist, kommen als Community-Addon:"
-L["Get it from wherever its author publishes it."] = "Hol es dort, wo sein Autor es veröffentlicht."
-L["Its guides appear in the guide menu under Community guides, with the author's name. Settings, Community guides turns it on or off."] = "Seine Guides erscheinen im Guide-Menü unter Community-Guides, mit dem Namen des Autors. Unter Einstellungen, Community-Guides schaltest du es ein oder aus."
 L["Update"] = "Aktualisieren"
 L["Your imported guides"] = "Deine importierten Guides"
 L["version %s"] = "Version %s"
-L["Guides someone shared with you, as an import string or a community addon."] = "Guides, die jemand mit dir teilt, als Importtext oder als Community-Addon."
 L["The author differs from the stored guide's."] = "Der Autor weicht von dem des gespeicherten Guides ab."
 L["The licence differs from the stored guide's."] = "Die Lizenz weicht von der des gespeicherten Guides ab."
 
@@ -4841,6 +4861,8 @@ L["XP line"] = "EP-Zeile"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "Die Zeile unter den Schritten: EP pro Stunde, Zeit bis zur nächsten Stufe und dein Tempo. Verbesserter Ruhebonus behält seine eigene Zeile."
 L["Quest log notices"] = "Hinweise zum Questlog"
 L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = "Die Zeilen zu deinem Questlog: Quests, die nicht zu deiner Route gehören, beim Schritt und wenn ein Guide fertig ist, und erledigte Quests, die kein späterer Guide annimmt. Aus: Das Menü des Guide-Fensters hat weiterhin „Questlog aufräumen“ und „Erledigte Quests abgeben“."
+L["Hand-in row"] = "Abgabe-Zeile"
+L["A slim line under the step when 2 or more quests in your log are finished and none is part of this step: how many, and Route, the shortest trip through their hand-ins. Its close button hides it until that number changes."] = "Eine schmale Zeile unter dem Schritt, wenn 2 oder mehr Quests in deinem Questlog erledigt sind und keine davon zu diesem Schritt gehört: wie viele, und Route, der kürzeste Weg durch ihre Abgaben. Der Schließen-Knopf blendet sie aus, bis sich diese Zahl ändert."
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "Alarmreihe"
@@ -5491,6 +5513,8 @@ L["(your current)"] = "(dein aktuelles)"
 -- Quests/Tracker.lua
 L["Hand-ins"] = "Abgaben"
 L["Objectives"] = "Ziele"
+L["Click to unpin it from Free mode"] = "Klicken, um sie vom Freimodus zu lösen"
+L["Click to make it Free mode's first quest"] = "Klicken, damit der Freimodus diese Quest zuerst nimmt"
 
 -- Quests/KeptFor.lua
 L["kept for %s"] = "aufgehoben für %s"
@@ -5536,6 +5560,21 @@ L["Pin to the top"] = "Ganz nach oben heften"
 L["Free mode takes this quest first, whatever the order."] = "Der Freimodus nimmt diese Quest zuerst, egal in welcher Reihenfolge."
 L["Leave out of Free mode"] = "Aus dem Freimodus auslassen"
 L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "Der Freimodus führt diese Quest nicht mehr auf. „Ausgelassene Quests zurückholen“ im Menü führt sie wieder auf."
+
+-- Page.lua
+L["Hand in finished quests"] = "Erledigte Quests abgeben"
+L["The shortest trip through the hand-ins of every finished quest in your log, in a guide of its own."] = "Der kürzeste Weg durch die Abgaben aller erledigten Quests in deinem Questlog, in einem eigenen Guide."
+L["Leave out a zone"] = "Ein Gebiet auslassen"
+L["Every quest of a zone at once. Tick one again to bring it back."] = "Alle Quests eines Gebiets auf einmal. Hake eine wieder an, um sie zurückzuholen."
+L["Leave out group quests"] = "Gruppenquests auslassen"
+L["Quests that take a group: an elite, a boss or an instance."] = "Quests, die eine Gruppe brauchen: ein Elite, ein Boss oder eine Instanz."
+L["Ready to hand in"] = "Zur Abgabe bereit"
+L["Left out of Free mode. Click to bring it back."] = "Aus dem Freimodus ausgelassen. Klicken, um sie zurückzuholen."
+L["In Free mode. Click to leave it out."] = "Im Freimodus. Klicken, um sie auszulassen."
+L["Bring back"] = "Zurückholen"
+L["Leave out"] = "Auslassen"
+L["Stop"] = "Beenden"
+L["Your quests"] = "Deine Quests"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar neu einrichten, eine Seite nach der anderen. Jede Wahl wirkt sofort."
@@ -5853,3 +5892,15 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 -- L["Layout"] = "Layout"
 -- L["Your current design"] = "Dein aktuelles Design"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Deine eigenen Quests als Guide, in einem eigenen Tab: Der Pfeil führt zur nächsten, dann zur folgenden (/polestar free)."
+-- L["Two ways to bring someone else's guides into Polestar. Pick the one that fits."] = "Zwei Wege, Guides von anderen in Polestar zu holen. Wähle den passenden."
+-- L["Community addon"] = "Community-Addon"
+-- L["A whole route or a set of guides: a leveling route, every profession."] = "Eine ganze Route oder mehrere Guides: eine Leveling-Route, jeder Beruf."
+-- L["Install it like any addon, then restart the game."] = "Installiere es wie jedes Addon, dann starte das Spiel neu."
+-- L["Updates: your addon app updates it."] = "Updates: Deine Addon-App aktualisiert es."
+-- L["No size limit."] = "Keine Größengrenze."
+-- L["Paste a string"] = "Text einfügen"
+-- L["Want more than one guide?"] = "Mehr als ein Guide?"
+-- L["A set of guides, or one too big for a string, comes as a community addon:"] = "Mehrere Guides, oder einer, der zu groß für einen Text ist, kommen als Community-Addon:"
+-- L["Get it from wherever its author publishes it."] = "Hol es dort, wo sein Autor es veröffentlicht."
+-- L["Its guides appear in the guide menu under Community guides, with the author's name. Settings, Community guides turns it on or off."] = "Seine Guides erscheinen im Guide-Menü unter Community-Guides, mit dem Namen des Autors. Unter Einstellungen, Community-Guides schaltest du es ein oder aus."
+-- L["Guides someone shared with you, as an import string or a community addon."] = "Guides, die jemand mit dir teilt, als Importtext oder als Community-Addon."
