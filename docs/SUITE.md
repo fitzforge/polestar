@@ -126,7 +126,9 @@ world; they never introduce another look.
 Small windows outside the hub share its look: the guide window, the route
 choice, the welcome for new characters (`UI/Welcome.lua`), the copy window
 (`UI/Copy.lua`, `PolestarCopy`: text to copy, such as `/polestar where`'s
-lines), the report window (`UI/Report.lua`, `PolestarReport`: the guide
+lines), the command box (`UI/CommandBox.lua`, `PolestarCommandBox`: Polestar's
+commands typed in a box of its own, for the gamepad interface, which has no
+slash commands), the report window (`UI/Report.lua`, `PolestarReport`: the guide
 window's bug writes a report on the step on screen to paste on the Polestar
 Discord) and the rare alert. Options carries a Community guides page
 (`UI/Packs.lua`) and a Gamepad page (`UI/GamepadGuide.lua`); every window

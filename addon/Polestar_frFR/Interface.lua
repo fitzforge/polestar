@@ -504,6 +504,20 @@
 --   Fewer folders
 --   Quit the game fully and start it again: Polestar is 22 folders now, not 45.
 --   Steps fixed in dozens of zones. Found something off? Type %s.
+--
+-- Machine-translated, to be reviewed (0.4.4, 26 Nov 2026): the interface texts the command box and
+-- Tetris with the gamepad interface added, translated by an AI model (Claude Sonnet 5.5) in this
+-- file's own wording, and waiting for a native speaker's check. For the flight game picker's help
+-- the sentence added at its end is the machine-translated part. Reviewing one: keep or fix its
+-- line below, and take its key off this list. The interface texts:
+--   Run a command
+--   Type a command, such as next, options or way 52 40, and press Enter. Escape or B closes.
+--   Type help to see every command.
+--   Commands: %s
+--   With the game's gamepad interface on, slash commands are off: the game blocks gamepad actions after any addon command typed in chat. This box runs the same commands, such as next, options or way 52 40, without the chat. It also opens from the minimap button's menu.
+--   %s needs the keyboard and mouse. With the game's gamepad interface on, Tetris is the game that plays.
+--   RB close
+--   On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed), Sky Jewels by RikyZ90, a match-three game, or Tetris by beemerwt. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade, /polestar jewels and /polestar tetris open them any time.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "frFR") then return end
@@ -3501,6 +3515,7 @@ L["The guide window holds the gamepad until B: the D-pad picks a line, A points 
 L["Browsing the guide needs the game's gamepad interface (Options, Gamepad, Enable Gamepad UI), or Use with the keyboard and mouse on Polestar's Gamepad page with a gamepad plugged in."] = "Pour parcourir le guide, il faut l’interface manette du jeu (options du jeu, Manette) ou « Utiliser avec le clavier et la souris » sur la page Manette de Polestar, avec une manette branchée."
 L["Use with the keyboard and mouse"] = "Utiliser avec le clavier et la souris"
 L["Off, Polestar uses the gamepad only with the game's gamepad interface (Options, Gamepad, Enable Gamepad UI). On, also with the keyboard and mouse interface, while the gamepad is turned on in the game's options and plugged in."] = "Désactivé : Polestar n’utilise la manette qu’avec l’interface manette du jeu (options du jeu, Manette). Activé : aussi avec l’interface clavier et souris, tant que la manette est activée dans les options du jeu et branchée."
+L["With the game's gamepad interface on, slash commands are off: the game blocks gamepad actions after any addon command typed in chat. This box runs the same commands, such as next, options or way 52 40, without the chat. It also opens from the minimap button's menu."] = "Avec l'interface manette du jeu activée, les commandes slash sont désactivées : le jeu bloque les actions de la manette après toute commande d'addon saisie dans le chat. Cette fenêtre exécute les mêmes commandes, comme next, options ou way 52 40, sans passer par le chat. Elle s'ouvre aussi depuis le menu du bouton de la minicarte."
 
 -- Core/RoutePlan.lua
 L["step %d"] = "étape %d"
@@ -5232,7 +5247,7 @@ L["Zones and coordinates"] = "Zones et coordonnées"
 L["Flight arcade"] = "Arcade en vol"
 L["Game on flights"] = "Jeu pendant les vols"
 L["None: don't offer a game"] = "Aucun : ne pas proposer de jeu"
-L["On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed), Sky Jewels by RikyZ90, a match-three game, or Tetris by beemerwt. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade, /polestar jewels and /polestar tetris open them any time."] = "Sur un vol d'une minute ou plus, Polestar propose un jeu pour patienter : Freedoom Arcade de petllama (trois niveaux de Freedoom, ou le jeu complet si l'addon Freedoom Arcade est installé), Sky Jewels de RikyZ90, un jeu de type trois à la suite, ou Tetris de beemerwt. La carte sous le minuteur de vol lance celui que vous choisissez. 10 secondes avant l'atterrissage, le jeu est sauvegardé, mis en pause et fermé. /polestar arcade, /polestar jewels et /polestar tetris les ouvrent à tout moment."
+L["On a flight with a minute or more to go, Polestar offers a game to play while you wait: Freedoom Arcade by petllama (three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed), Sky Jewels by RikyZ90, a match-three game, or Tetris by beemerwt. The card under the flight timer plays the one you pick. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade, /polestar jewels and /polestar tetris open them any time. With the game's gamepad interface on, only Tetris is offered, because it plays with the gamepad: Freedoom Arcade and Sky Jewels need the keyboard and mouse. There, slash commands are off: open Tetris from the guide window's menu or the Run a command box."] = "Sur un vol d'une minute ou plus, Polestar propose un jeu pour patienter : Freedoom Arcade de petllama (trois niveaux de Freedoom, ou le jeu complet si l'addon Freedoom Arcade est installé), Sky Jewels de RikyZ90, un jeu de type trois à la suite, ou Tetris de beemerwt. La carte sous le minuteur de vol lance celui que vous choisissez. 10 secondes avant l'atterrissage, le jeu est sauvegardé, mis en pause et fermé. /polestar arcade, /polestar jewels et /polestar tetris les ouvrent à tout moment. Avec l'interface manette du jeu, seul Tetris est proposé, car il se joue à la manette : Freedoom Arcade et Sky Jewels demandent le clavier et la souris. Les commandes slash y sont désactivées : ouvrez Tetris depuis le menu de la fenêtre du guide ou la fenêtre « Exécuter une commande »."
 
 -- Dungeons/Options.lua
 L["As for all dungeons"] = "Comme pour tous les donjons"
@@ -5488,6 +5503,7 @@ L["Tetris opens after the fight."] = "Tetris s'ouvrira après le combat."
 L["Tetris is saved and paused for the fight: type %s to continue."] = "Tetris est sauvegardé et en pause pour le combat : tapez %s pour continuer."
 L["Tetris is saved and paused."] = "Tetris est sauvegardé et en pause."
 L["Landed. Tetris is saved and paused: type %s to continue."] = "Atterri. Tetris est sauvegardé et en pause : tapez %s pour continuer."
+L["%s needs the keyboard and mouse. With the game's gamepad interface on, Tetris is the game that plays."] = "%s demande le clavier et la souris. Avec l'interface manette du jeu, Tetris est le jeu jouable."
 
 -- QoL/QuestXP.lua
 L["+1 level"] = "+1 niveau"
@@ -5624,6 +5640,7 @@ L["Polestar Tetris"] = "Polestar Tetris"
 L["Hold"] = "Réserve"
 L["Arrows move\nX/Z rotate  |  C hold\nSpace hard drop\nP pause  |  N new game"] = "Flèches : déplacer\nX/Z : tourner  |  C : réserve\nEspace : chute directe\nP : pause  |  N : nouvelle partie"
 L["D-pad move\nA/B rotate  |  Y hold\nX hard drop  |  Start pause"] = "Croix : déplacer\nA/B : tourner  |  Y : réserve\nX : chute directe  |  Start : pause"
+L["RB close"] = "RB : fermer"
 
 -- UI/TabStyles/TabStyles.lua
 L["Open guides"] = "Guides ouverts"
@@ -5654,6 +5671,12 @@ L["(your current)"] = "(la vôtre)"
 L["kept for %s"] = "gardée pour %s"
 L["kept"] = "gardée"
 L["Kept for %s: the route hands it in there."] = "Gardée pour %s : l'itinéraire la rend là-bas."
+
+-- UI/CommandBox.lua
+L["Run a command"] = "Exécuter une commande"
+L["Type help to see every command."] = "Saisissez help pour voir toutes les commandes."
+L["Commands: %s"] = "Commandes : %s"
+L["Type a command, such as next, options or way 52 40, and press Enter. Escape or B closes."] = "Saisissez une commande, par exemple next, options ou way 52 40, puis appuyez sur Entrée. Échap ou B ferme la fenêtre."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Reconfigurer Polestar, une page à la fois. Chaque choix s'applique tout de suite."
