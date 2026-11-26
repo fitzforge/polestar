@@ -100,7 +100,6 @@ return {
 
 	-- Step 16: Adventure: Saving the Best for Last (Alliance)
 	-- {quest:9001} Saving the Best for Last
-	-- was: ["Adventure: {quest:8999} (Alliance)"] = "모험: {quest:8999}(얼라이언스)"
 	["Adventure: {quest:9001} (Alliance)"] = "",
 	-- {npc:16013} Deliana · {quest:9001} Saving the Best for Last
 	-- was: ["{npc:16013} then offers your class's {quest:8999}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "그다음 {npc:16013}이(가) 직업별 {quest:8999}을(를) 줍니다. 이 도전의 마지막 퀘스트로, 직업별 던전 세트 투구와 가슴 방어구를 받아 강화해 줍니다."
@@ -108,7 +107,6 @@ return {
 
 	-- Step 17: Adventure: Saving the Best for Last (Horde)
 	-- {quest:9008} Saving the Best for Last
-	-- was: ["Adventure: {quest:9007} (Horde)"] = "모험: {quest:9007}(호드)"
 	["Adventure: {quest:9008} (Horde)"] = "",
 	-- {npc:16012} Mokvar · {quest:9008} Saving the Best for Last
 	-- was: ["{npc:16012} then offers your class's {quest:9007}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "그다음 {npc:16012}이(가) 직업별 {quest:9007}을(를) 줍니다. 이 도전의 마지막 퀘스트로, 직업별 던전 세트 투구와 가슴 방어구를 받아 강화해 줍니다."

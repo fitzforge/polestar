@@ -100,7 +100,6 @@ return {
 
 	-- Step 16: Adventure: Saving the Best for Last (Alliance)
 	-- {quest:9001} Saving the Best for Last
-	-- was: ["Adventure: {quest:8999} (Alliance)"] = "Aventura: {quest:8999} (Aliança)"
 	["Adventure: {quest:9001} (Alliance)"] = "",
 	-- {npc:16013} Deliana · {quest:9001} Saving the Best for Last
 	-- was: ["{npc:16013} then offers your class's {quest:8999}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "{npc:16013} oferece então {quest:8999} da sua classe, a última missão do desafio: ela pega o elmo e o peitoral do conjunto de masmorra da sua classe e os melhora."
@@ -108,7 +107,6 @@ return {
 
 	-- Step 17: Adventure: Saving the Best for Last (Horde)
 	-- {quest:9008} Saving the Best for Last
-	-- was: ["Adventure: {quest:9007} (Horde)"] = "Aventura: {quest:9007} (Horda)"
 	["Adventure: {quest:9008} (Horde)"] = "",
 	-- {npc:16012} Mokvar · {quest:9008} Saving the Best for Last
 	-- was: ["{npc:16012} then offers your class's {quest:9007}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "{npc:16012} oferece então {quest:9007} da sua classe, a última missão do desafio: ela pega o elmo e o peitoral do conjunto de masmorra da sua classe e os melhora."
