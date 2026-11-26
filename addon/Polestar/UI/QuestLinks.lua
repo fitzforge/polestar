@@ -72,6 +72,7 @@ local function setupDetails()
 		GameTooltip:SetOwner(self, "ANCHOR_LEFT")
 		GameTooltip:SetText(L["Polestar"])
 		GameTooltip:AddLine(L["Click to show quest guide actions."], 1, 1, 1)
+		if ns.Theme then ns.Theme.TipDots(GameTooltip) end
 		GameTooltip:Show()
 	end)
 	button:HookScript("OnLeave", function() GameTooltip:Hide() end)
