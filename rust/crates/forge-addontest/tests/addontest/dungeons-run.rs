@@ -85,6 +85,19 @@ fn run_with(before: &str, saved: &str, script: &str) -> Value {
 }
 
 #[test]
+fn the_tracker_accepts_tabs_changed_without_a_list() {
+	let out = run_with(
+		"",
+		"",
+		r#"
+		P.Fire("TABS_CHANGED")
+		emit(true)
+	"#,
+	);
+	assert_eq!(out, true);
+}
+
+#[test]
 fn offer_opens_and_rebuilds_the_run_tab_with_live_quest_progress_then_restores_the_previous_tab() {
 	let out = run_with(
 		"hides(); w.onQuest(166, { 1 }, 'The Defias Brotherhood')",
