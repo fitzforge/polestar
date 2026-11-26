@@ -205,6 +205,41 @@ test('no quest loses all its prerequisites to a removal without a record that gi
 	assert.deepEqual(bad, []);
 });
 
+// #4169's hotfix build: with the Classic Anthion's Parting Words and Saving the Best for Last copies gone, the tier
+// 0.5 pieces they reward had no quest source left (Lookup: "no known source"). Each Forever copy that replaces one
+// rewards what the Classic copy for that class does (the server dump's RewardItem1-4).
+test('Forever\'s Set 2 copies reward the pieces of the Classic copies they replace (#4169)', () => {
+	const rewards = { 84179: [22107, 22111, 22112], 84187: [22107, 22111, 22112], 84180: [22016, 22017, 22061], 84188: [22016, 22017, 22061],
+		84181: [22064, 22067, 22068], 84189: [22064, 22067, 22068], 84182: [22087, 22092, 22093], 84183: [22082, 22084, 22085], 84190: [22082, 22084, 22085],
+		84184: [22003, 22007, 22008], 84191: [22003, 22007, 22008], 84192: [22096, 22100, 22101], 84193: [22072, 22073, 22076],
+		84186: [21995, 22000, 22001], 84194: [21995, 22000, 22001], 84195: [22109, 22113], 84203: [22109, 22113], 84196: [22013, 22060],
+		84200: [22005, 22009], 84202: [21997, 21999], 84210: [21997, 21999], 84208: [22097, 22102] };
+	for (const [id, items] of Object.entries(rewards)) {
+		const r = corrections.quests[id] && corrections.quests[id].set && corrections.quests[id].set.rewards;
+		assert.deepEqual(r && r.items, items, `${id}'s reward items`);
+	}
+});
+
+// The check behind it: an item whose only sources in the built Codex are quests the corrections remove must get a
+// quest source back from a record (a `set.rewards` naming it), or Lookup reads "no known source" after the next
+// build. Reads the built Codex (skips without it).
+test('no item loses its only quest sources to a removal without a record that rewards it again (#4169)', { skip: require('./helpers/data').needs('codex/items.json') }, () => {
+	const items = JSON.parse(fs.readFileSync(path.join(require('./helpers/data').DATA, 'codex', 'items.json'), 'utf8'));
+	const removed = new Set(Object.entries(corrections.quests).filter(([, e]) => e && e.remove).map(([id]) => Number(id)));
+	const rewarded = new Set();
+	for (const e of Object.values(corrections.quests)) {
+		const r = e && e.set && e.set.rewards;
+		for (const it of [...((r && r.items) || []), ...((r && r.choices) || [])]) rewarded.add(it);
+	}
+	const bad = [];
+	for (const [id, it] of Object.entries(items)) {
+		const sources = it.sources || [];
+		if (!sources.length || !sources.every((s) => s.type === 'quest' && removed.has(s.quest))) continue;
+		if (!rewarded.has(Number(id))) bad.push(`${id} ${it.name}: only from ${sources.map((s) => s.quest).join(', ')}`);
+	}
+	assert.deepEqual(bad, []);
+});
+
 // #4169's hotfix build: the corrections removed the Classic Saving the Best for Last copies (8999, 9000, 9004,
 // 9006, 9007, 9011, 9013) that the Legacy Challenges guide still accepted, and the guide no longer compiled
 // ("quest 8999 is not in data"). No guide (guides/, experimental/) may accept, turn in or name in a `quest N`
