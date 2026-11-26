@@ -878,5 +878,43 @@
 		"source": [
 			"fixture"
 		]
+	},
+	"125": {
+		"id": 125,
+		"title": "Lamps for the Farm",
+		"level": 3,
+		"minLevel": 1,
+		"races": null,
+		"classes": null,
+		"start": {
+			"npc": [
+				2
+			],
+			"object": [],
+			"item": []
+		},
+		"end": {
+			"npc": [
+				2
+			],
+			"object": []
+		},
+		"pre": [],
+		"excl": [],
+		"next": null,
+		"objectives": [
+			{
+				"type": "item",
+				"id": 703,
+				"count": 5,
+				"text": "Lamp Oil"
+			}
+		],
+		"objectiveText": "",
+		"zone": 9001,
+		"xp": null,
+		"source": [
+			"fixture"
+		]
 	}
 }
