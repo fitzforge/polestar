@@ -38,7 +38,8 @@ zone Azeroth
 #    51-75  Embossed Leather Gloves, about 25 (trainer 1s 50c): 3 Light Leather and 2 Coarse Thread each
 #    75-102 Fine Leather Belt, about 35 (trainer 3s): 6 Light Leather and 2 Coarse Thread each
 #   102-125 Nimble Leather Gloves, about 24 (trainer 5s): 1 Elixir of Minor Agility, 6 Medium Leather and 1 Fine Thread each
-#   125-150 Heavy Armor Kit, about 26 (trainer 7s 50c): 5 Heavy Leather and 1 Fine Thread each
+#   125-140 Cured Heavy Hide, about 17 (trainer 5s): 1 Heavy Hide and 3 Salt each
+#   140-150 Heavy Armor Kit, about 11 (trainer 7s 50c): 5 Heavy Leather and 1 Fine Thread each
 #   150-158 Heavy Armor Kit, about 15 (trainer 7s 50c): 5 Heavy Leather and 1 Fine Thread each
 #   158-165 Barbaric Shoulders, about 7 (trainer): 8 Heavy Leather, 1 Cured Heavy Hide and 2 Fine Thread each
 #   165-180 Guardian Gloves, about 15 (trainer): 4 Heavy Leather, 1 Cured Heavy Hide and 1 Silken Thread each
@@ -51,10 +52,10 @@ zone Azeroth
 # Shopping per bracket (vendor goods at vendor prices; gathered or dropped materials by count, enough for 9 players in 10):
 # 1-75: Apprentice 10c, recipes 1s 50c, vendor goods 5s; gather or buy 352 Light Leather and 57
 # Ruined Leather Scraps.
-# 75-150: Journeyman 5s, recipes 15s 50c, vendor goods 57s; gather or buy 150 Medium Leather, 25
-# Elixir of Minor Agility and 356 Heavy Leather.
-# 150-225: recipes 5s plus unpriced trainer recipes, vendor goods 7g 87s; gather or buy 22 Heavy
-# Hide and 398 Thick Leather.
+# 75-150: Journeyman 5s, recipes 20s 50c, vendor goods 67s 50c; gather or buy 150 Medium Leather, 25
+# Elixir of Minor Agility, 281 Heavy Leather and 24 Heavy Hide.
+# 150-225: trainer recipes (prices not in the data), vendor goods 7g 61s 50c; gather or buy 398
+# Thick Leather.
 # 225-300: recipes 3g 40s plus unpriced trainer recipes, vendor goods 44g 90s; gather or buy 1205
 # Rugged Leather and 500 Runecloth.
 #
@@ -89,7 +90,7 @@ step Leatherworking 1-75: vendor goods
   buy 2320 x50 nearest
 
 step Get Light Leather
-  tip You need 352 Light Leather for Leatherworking 1-75: Light Armor Kit, Embossed Leather Gloves and Fine Leather Belt (240 of them for 75-150: get them all now). Skinning: beasts of level 5-20. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 352 Light Leather for Leatherworking 1-75: 53 Light Armor Kits, 26 Embossed Leather Gloves and 40 Fine Leather Belts (240 of them for 75-150: get them all now). Skinning: beasts of level 5-20. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 2318 x352 gather Skinning 50
   loop Loch Modan lvl 17 lap 914 yield 41.1 only Alliance r 80 at 66.9,40.3 64.9,34.5 64.4,29.5 62.3,33.9 61.3,40.2 61.9,45.4 62.4,51.5 65.3,47.6 72.9,44.7 71.8,37.6
   loop Darkshore lvl 17 lap 1214 yield 46.8 only Alliance r 80 at 39.4,68.3 38.3,69.1 38.2,72.8 38.4,74.7 40.5,70.5 43.4,70.8 43.6,68.3 44.5,66.4 43.1,64.9 41.9,66.3 38.7,60.7 39.0,65.2
@@ -102,7 +103,7 @@ step Get Light Leather
   auction 2318 x352
 
 step Get Ruined Leather Scraps
-  tip You need 57 Ruined Leather Scraps for Leatherworking 1-75: Light Leather. Skinning: beasts of level 1-15. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 57 Ruined Leather Scraps for Leatherworking 1-75: 19 Light Leather. Skinning: beasts of level 1-15. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 2934 x57 gather Skinning 1
   loop Zephras Isle lvl 5 lap 2171 yield 126.0 live r 80 at 41.0,27.0 43.3,26.8 45.3,28.7 45.9,26.5 47.6,25.2 46.1,23.0 45.3,20.4 44.0,22.2 36.6,24.3 35.4,25.5 38.3,27.6 39.2,30.1
   loop Dun Morogh lvl 4 lap 1786 yield 103.6 only Alliance r 80 at 29.0,74.5 30.9,74.3 31.7,70.2 27.9,71.8 25.9,69.8 23.5,68.8 21.5,70.9 20.1,74.4 21.5,78.0 23.9,78.5 26.9,76.0 28.9,77.7
@@ -135,18 +136,19 @@ step Embossed Leather Gloves to 75
 section Leatherworking 75-150
 
 step Journeyman Leatherworking
-  tip Journeyman raises the cap from 75 to 150 for 5s; it needs Leatherworking 50 and character level 10, so you can take it on any visit from 50. Not every Leatherworking trainer teaches it: Alliance Aayndia Floralwind (Ashenvale), Emerii Tallgust (Zephras Isle), Faldron (Darnassus), Fimble Finespindle (Ironforge) and Simon Tanner (Stormwind City); Horde Arthur Moore (Undercity), Brawn (Stranglethorn Vale), Emerii Tallgust (Zephras Isle), Karolek (Orgrimmar), Krulmoo Fullmoon (The Barrens), Narv Hidecrafter (Desolace) and Tarn (Thunder Bluff). The arrow picks the nearest of your faction. Learn now: Fine Leather Belt (from 55, 3s). 75-150 takes about 15s 50c of recipes and 57s of vendor goods, plus 150 Medium Leather, 25 Elixir of Minor Agility and 356 Heavy Leather to gather or buy.
+  tip Journeyman raises the cap from 75 to 150 for 5s; it needs Leatherworking 50 and character level 10, so you can take it on any visit from 50. Not every Leatherworking trainer teaches it: Alliance Aayndia Floralwind (Ashenvale), Emerii Tallgust (Zephras Isle), Faldron (Darnassus), Fimble Finespindle (Ironforge) and Simon Tanner (Stormwind City); Horde Arthur Moore (Undercity), Brawn (Stranglethorn Vale), Emerii Tallgust (Zephras Isle), Karolek (Orgrimmar), Krulmoo Fullmoon (The Barrens), Narv Hidecrafter (Desolace) and Tarn (Thunder Bluff). The arrow picks the nearest of your faction. Learn now: Fine Leather Belt (from 55, 3s). 75-150 takes about 20s 50c of recipes and 67s 50c of vendor goods, plus 150 Medium Leather, 25 Elixir of Minor Agility, 281 Heavy Leather and 24 Heavy Hide to gather or buy.
   level 10
   train Leatherworking Journeyman
   learn 3763
 
 step Leatherworking 75-150: vendor goods
-  tip Buy the whole bracket's share in one go: 70 Coarse Thread (7s) and 50 Fine Thread (50s); about 57s in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero, Edna Mullby and Jillian Tanner; Orgrimmar: Borya, Felika and Shimra).
+  tip Buy the whole bracket's share in one go: 70 Coarse Thread (7s), 35 Fine Thread (35s) and 51 Salt (25s 50c); about 67s 50c in all. The arrow picks the nearest seller of your faction (Stormwind City: Edna Mullby and Jillian Tanner; Orgrimmar: Felika, Shimra and Tamar).
   buy 2320 x70 nearest
-  buy 2321 x50 nearest
+  buy 2321 x35 nearest
+  buy 4289 x51 nearest
 
 step Get Medium Leather
-  tip You need 150 Medium Leather for Leatherworking 75-150: Nimble Leather Gloves. Skinning: beasts of level 18-30. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 150 Medium Leather for Leatherworking 75-150: 25 Nimble Leather Gloves. Skinning: beasts of level 18-30. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 2319 x150 gather Skinning 50
   loop Stranglethorn Vale lvl 32 lap 1071 yield 39.1 only Alliance r 80 at 41.2,13.0 43.0,13.0 42.2,10.2 41.2,8.1 39.4,7.5 35.9,7.7 31.5,8.7 33.8,10.1 34.5,13.0 37.0,11.0 39.3,11.4 38.8,14.3
   loop Wetlands lvl 30 lap 943 yield 32.8 only Alliance r 80 at 69.2,31.6 69.3,28.2 65.1,28.7 66.5,30.7 68.3,36.5 71.0,38.9
@@ -161,13 +163,13 @@ step Get Medium Leather
   auction 2319 x150
 
 step Get Elixir of Minor Agility
-  tip You need 25 Elixir of Minor Agility for Leatherworking 75-150: Nimble Leather Gloves. Alchemy: Elixir of Minor Agility. Or buy them at the Auction House.
+  tip 25 Elixir of Minor Agility for Leatherworking 75-150: 25 Nimble Leather Gloves. Alchemy: Elixir of Minor Agility. Or buy them at the Auction House.
   collect 2457 x25 anywhere gather Alchemy 50
   auction 2457 x25
 
 step Get Heavy Leather
-  tip You need 356 Heavy Leather for Leatherworking 75-150: Heavy Armor Kit, Barbaric Shoulders and Guardian Gloves (216 of them for 150-225: get them all now). Skinning: beasts of level 28-40. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
-  collect 4234 x356 gather Skinning 150
+  tip 281 Heavy Leather for Leatherworking 75-150: 33 Heavy Armor Kits, 7 Barbaric Shoulders and 15 Guardian Gloves (216 of them for 150-225: get them all now). Skinning: beasts of level 28-40. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 4234 x281 gather Skinning 150
   loop Swamp of Sorrows lvl 42 lap 3514 yield 151.3 only Alliance r 80 at 70.7,10.0 72.1,17.5 76.9,11.5 82.2,16.5 84.6,22.3 86.7,28.5 89.1,37.0 74.6,25.5 69.0,24.4 61.4,32.4 68.2,13.7 66.3,9.6
   loop Dustwallow Marsh lvl 41 lap 1000 yield 35.1 r 80 at 32.6,65.1 34.0,71.5 34.2,69.0 35.6,66.4 35.3,61.0 36.4,58.7 39.4,58.7 38.9,53.4 37.3,51.5 34.4,49.5 35.0,55.4 34.8,58.4
   loop Stranglethorn Vale lvl 41 lap 700 yield 19.9 r 80 at 33.1,66.3 32.3,68.4 31.3,66.9 31.7,59.9 32.4,58.0 33.7,63.3 34.7,65.5
@@ -178,9 +180,38 @@ step Get Heavy Leather
   loop Desolace lvl 35 lap 786 yield 17.9 only Horde r 80 at 70.3,59.5 72.3,55.2 74.0,58.9 72.0,63.7 69.3,65.6 66.9,69.5 65.8,61.0 64.1,57.7 66.1,56.5 65.6,52.8 68.5,54.2 68.1,57.2
   loop Arathi Highlands lvl 33 lap 643 yield 5.0 only Horde r 80 at 65.3,42.3 62.9,45.8 64.0,50.5 67.1,56.3 70.6,51.0 74.0,48.3 69.1,38.5 69.9,31.0 67.2,34.1 65.7,37.2
   loop Alterac Mountains lvl 31 lap 543 yield 3.2 only Horde r 80 at 80.0,58.9 76.8,63.7 73.5,67.0 84.3,51.6 90.0,46.5
-  auction 4234 x356
+  auction 4234 x281
+
+step Get Heavy Hide (Alterac Mountains)
+  only Human,Dwarf,Gnome,Skyborne,Alliance
+  zone Alterac Mountains
+  tip 24 Heavy Hide for Leatherworking 75-150: 19 Cured Heavy Hides and 15 Guardian Gloves (5 of them for 150-225: get them all now). Skinning: beasts of level 28-40. Skin Cave Yeti, Ferocious Yeti, Giant Yeti, Hulking Mountain Lion, Mountain Lion, Mountain Yeti and Snapjaw here (level 28-40); the Skinning guide routes this. Or buy them at the Auction House.
+  collect 4235 x24 @38.2,91.9 era gather Skinning 140
+  auction 4235 x24
+
+step Get Heavy Hide (Thousand Needles)
+  only NightElf
+  zone Thousand Needles
+  tip 24 Heavy Hide for Leatherworking 75-150: 19 Cured Heavy Hides and 15 Guardian Gloves (5 of them for 150-225: get them all now). Skinning: beasts of level 28-40. Skin Highperch Wyvern, Saltstone Basilisk, Scorpid Reaver, Scorpid Terror, Sparkleshell Snapper and Sparkleshell Tortoise here (level 28-40); the Skinning guide routes this. Or buy them at the Auction House.
+  collect 4235 x24 @78.5,59 era gather Skinning 140
+  auction 4235 x24
+
+step Get Heavy Hide (Thousand Needles)
+  only Orc,Troll,Tauren,Skyborne,Horde
+  zone Thousand Needles
+  tip 24 Heavy Hide for Leatherworking 75-150: 19 Cured Heavy Hides and 15 Guardian Gloves (5 of them for 150-225: get them all now). Skinning: beasts of level 28-40. Skin Highperch Wyvern, Saltstone Basilisk, Scorpid Reaver, Scorpid Terror, Sparkleshell Snapper and Sparkleshell Tortoise here (level 28-40); the Skinning guide routes this. Or buy them at the Auction House.
+  collect 4235 x24 @78.5,59 era gather Skinning 140
+  auction 4235 x24
+
+step Get Heavy Hide (Alterac Mountains)
+  only Undead
+  zone Alterac Mountains
+  tip 24 Heavy Hide for Leatherworking 75-150: 19 Cured Heavy Hides and 15 Guardian Gloves (5 of them for 150-225: get them all now). Skinning: beasts of level 28-40. Skin Cave Yeti, Ferocious Yeti, Giant Yeti, Hulking Mountain Lion, Mountain Lion, Mountain Yeti and Snapjaw here (level 28-40); the Skinning guide routes this. Or buy them at the Auction House.
+  collect 4235 x24 @38.2,91.9 era gather Skinning 140
+  auction 4235 x24
 
 step Fine Leather Belt to 102
+  zone Azeroth
   tip Fine Leather Belt is orange at 75 (yellow 85, green 100, grey 115): about 35 crafts to 102, up to 40 for 9 players in 10 (the gathered materials above count that many). Each takes 6 Light Leather and 2 Coarse Thread. Forever teaches Fine Leather Belt from 55.
   craft 3763 until 102
 
@@ -193,11 +224,16 @@ step Nimble Leather Gloves to 125
   craft 9074 until 125
 
 step Leatherworking recipes at 125
-  tip Back to a Leatherworking trainer: Heavy Armor Kit (from 125, 7s 50c).
+  tip Back to a Leatherworking trainer: Cured Heavy Hide (from 125, 5s) and Heavy Armor Kit (from 125, 7s 50c).
+  learn 3818
   learn 3780
 
+step Cured Heavy Hide to 140
+  tip Cured Heavy Hide is orange at 125 (yellow 135, green 140, grey 145): about 17 crafts to 140, up to 19 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Heavy Hide and 3 Salt. The trainer teaches it, and it is the cheapest way through these points in the data.
+  craft 3818 until 140
+
 step Heavy Armor Kit to 150
-  tip Heavy Armor Kit is orange at 125 (yellow 145, green 155, grey 165): about 26 crafts to 150, up to 28 for 9 players in 10 (the gathered materials above count that many). Each takes 5 Heavy Leather and 1 Fine Thread. Five Heavy Leather a craft (beasts of level 28-40); the kits sell to vendors. Leatherworking 150 is a Legacy System milestone.
+  tip Heavy Armor Kit is orange at 140 (yellow 145, green 155, grey 165): about 11 crafts to 150, up to 13 for 9 players in 10 (the gathered materials above count that many). Each takes 5 Heavy Leather and 1 Fine Thread. Five Heavy Leather a craft (beasts of level 28-40); the kits sell to vendors. Leatherworking 150 is a Legacy System milestone.
   craft 3780 until 150
   skill Leatherworking 150
 
@@ -205,28 +241,13 @@ step Heavy Armor Kit to 150
 section Leatherworking 150-225
 
 step Leatherworking 150-225: vendor goods
-  tip Buy the whole bracket's share in one go: 29 Fine Thread (29s), 66 Salt (33s) and 145 Silken Thread (7g 25s); about 7g 87s in all. The arrow picks the nearest seller of your faction (Stormwind City: Edna Mullby and Jillian Tanner; Orgrimmar: Felika, Shimra and Tamar).
+  tip Buy the whole bracket's share in one go: 29 Fine Thread (29s), 15 Salt (7s 50c) and 145 Silken Thread (7g 25s); about 7g 61s 50c in all. The arrow picks the nearest seller of your faction (Stormwind City: Edna Mullby and Jillian Tanner; Orgrimmar: Felika, Shimra and Tamar).
   buy 2321 x29 nearest
-  buy 4289 x66 nearest
+  buy 4289 x15 nearest
   buy 4291 x145 nearest
 
-step Get Heavy Hide (Alliance)
-  only Alliance
-  zone Alterac Mountains
-  tip You need 22 Heavy Hide for Leatherworking 150-225: Barbaric Shoulders and Guardian Gloves. Skinning: beasts of level 28-40. Skin Cave Yeti, Ferocious Yeti, Giant Yeti, Hulking Mountain Lion, Mountain Lion, Mountain Yeti and Snapjaw here (level 28-40); the Skinning guide routes this. Or buy them at the Auction House.
-  collect 4235 x22 @38.2,91.9 era gather Skinning 140
-  auction 4235 x22
-
-step Get Heavy Hide (Horde)
-  only Horde
-  zone Thousand Needles
-  tip You need 22 Heavy Hide for Leatherworking 150-225: Barbaric Shoulders and Guardian Gloves. Skinning: beasts of level 28-40. Skin Highperch Wyvern, Saltstone Basilisk, Scorpid Reaver, Scorpid Terror, Sparkleshell Snapper and Sparkleshell Tortoise here (level 28-40); the Skinning guide routes this. Or buy them at the Auction House.
-  collect 4235 x22 @78.5,59 era gather Skinning 140
-  auction 4235 x22
-
 step Get Thick Leather
-  zone Azeroth
-  tip You need 398 Thick Leather for Leatherworking 150-225: Nightscape Headband and Nightscape Pants. Skinning: beasts of level 38-50. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 398 Thick Leather for Leatherworking 150-225: 46 Nightscape Headbands and 12 Nightscape Pants. Skinning: beasts of level 38-50. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 4304 x398 gather Skinning 200
   loop The Hinterlands lvl 51 lap 2600 yield 110.5 r 80 at 63.7,51.0 67.2,50.9 69.5,54.7 72.0,58.6 66.0,58.2 61.9,55.3 58.7,52.2 54.1,53.1 54.7,44.6 57.4,48.1 62.1,44.3 61.1,48.6
   loop Un'Goro Crater lvl 51 lap 1229 yield 49.6 r 80 at 60.7,73.5 62.1,66.6 64.1,61.1 63.2,53.9 69.6,56.6 67.3,60.7 66.8,66.2 66.8,71.5 67.1,78.3 64.2,77.2 61.7,79.0 58.6,79.7
@@ -239,12 +260,10 @@ step Get Thick Leather
   auction 4304 x398
 
 step Expert Leatherworking
-  tip Expert raises the cap from 150 to 225; it needs Leatherworking 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance Telonis (Darnassus); Horde Una (Thunder Bluff). This route trains it at Telonis (Darnassus) for the Alliance and Una (Thunder Bluff) for the Horde, who also teach the recipes of 150-225: one trainer for every visit. Learn now: Cured Heavy Hide (from 125, 5s) and Barbaric Shoulders (from 150). 150-225 takes about 5s of recipes and 7g 87s of vendor goods, plus 22 Heavy Hide and 398 Thick Leather to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach Guardian Gloves (from 165) and Nightscape Headband (from 180), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3. Nightscape Pants (from 210) takes a second trip, to other trainers (below).
+  tip Expert raises the cap from 150 to 225; it needs Leatherworking 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance Telonis (Darnassus); Horde Una (Thunder Bluff). This route trains it at Telonis (Darnassus) for the Alliance and Una (Thunder Bluff) for the Horde, who also teach the recipes of 150-225: one trainer for every visit. Learn now: Barbaric Shoulders (from 150). 150-225 takes about 7g 61s 50c of vendor goods, plus 398 Thick Leather to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach Guardian Gloves (from 165) and Nightscape Headband (from 180), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3. Nightscape Pants (from 210) takes a second trip, to other trainers (below).
   level 20
   train Leatherworking Expert npc 4212 only Alliance
   train Leatherworking Expert npc 3007 only Horde
-  learn 3818 npc 4212 only Alliance
-  learn 3818 npc 3007 only Horde
   learn 7151 npc 4212 only Alliance
   learn 7151 npc 3007 only Horde
 
@@ -254,8 +273,7 @@ step Heavy Armor Kit to 158
   craft 3780 until 158
 
 step Barbaric Shoulders to 165
-  tip Barbaric Shoulders is orange at 158 (yellow 170, green 180, grey 190): about 7 crafts to 165, a point every craft. Each takes 8 Heavy Leather, 1 Cured Heavy Hide and 2 Fine Thread. Make the 7 Cured Heavy Hide first. The trainer teaches it, and it is the cheapest way through these points in the data.
-  craft 3818 x7
+  tip Barbaric Shoulders is orange at 158 (yellow 170, green 180, grey 190): about 7 crafts to 165, a point every craft. Each takes 8 Heavy Leather, 1 Cured Heavy Hide and 2 Fine Thread. Use the 7 Cured Heavy Hide you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data.
   craft 7151 until 165
 
 step Leatherworking recipes at 165
@@ -264,8 +282,9 @@ step Leatherworking recipes at 165
   learn 7156 npc 3007 only Horde
 
 step Guardian Gloves to 180
-  tip Guardian Gloves is orange at 165 (yellow 185, green 195, grey 205): about 15 crafts to 180, a point every craft. Each takes 4 Heavy Leather, 1 Cured Heavy Hide and 1 Silken Thread. Make the 15 Cured Heavy Hide first. The trainer teaches it, and it is the cheapest way through these points in the data.
-  craft 3818 x15
+  tip Guardian Gloves is orange at 165 (yellow 185, green 195, grey 205): about 15 crafts to 180, a point every craft. Each takes 4 Heavy Leather, 1 Cured Heavy Hide and 1 Silken Thread. Make the 5 Cured Heavy Hide first. Use the 10 Cured Heavy Hide you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. If you got here without learning Cured Heavy Hide, learn it now: an earlier step teaches it.
+  learn 3818
+  craft 3818 x5
   craft 7156 until 180
 
 step Leatherworking recipes at 180
@@ -313,7 +332,7 @@ step Pattern: Runic Leather Headband
   buy 15756 nearest
 
 step Get Rugged Leather
-  tip You need 1205 Rugged Leather for Leatherworking 225-300: Rugged Armor Kit, Wicked Leather Gauntlets and Runic Leather Headband. Skinning: beasts of level 48-60. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 1205 Rugged Leather for Leatherworking 225-300: 29 Rugged Armor Kits, 45 Wicked Leather Gauntlets and 50 Runic Leather Headbands. Skinning: beasts of level 48-60. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 8170 x1205 gather Skinning 225
   loop Un'Goro Crater lvl 55 lap 1371 yield 30.8 r 80 at 67.4,15.5 69.1,17.6 70.7,21.4 68.3,21.3 62.5,17.6 64.9,16.8
   loop Western Plaguelands lvl 54 lap 700 yield 14.3 r 80 at 45.7,44.0 46.8,39.8 45.4,37.2 43.5,40.2 43.1,46.8 44.9,49.5 46.6,47.3 51.1,47.0
@@ -323,7 +342,7 @@ step Get Rugged Leather
   auction 8170 x1205
 
 step Get Runecloth
-  tip You need 500 Runecloth for Leatherworking 225-300: Runic Leather Headband. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Runecloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  tip 500 Runecloth for Leatherworking 225-300: 50 Runic Leather Headbands. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Runecloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
   collect 14047 x500 nearest gather levels 45-60
   auction 14047 x500
 

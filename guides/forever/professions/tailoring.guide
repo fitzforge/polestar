@@ -27,10 +27,12 @@ zone Azeroth
 # Hillsbrad), from 200.
 #
 # Route (crafts are expected counts; yellow and green crafts can take more):
-#     1-15  Linen Cloak, about 7 (known): 1 Bolt of Linen Cloth and 1 Coarse Thread each
-#    15-75  Linen Belt, about 48 (trainer 50c): 1 Bolt of Linen Cloth and 1 Coarse Thread each
-#    75-104 Woolen Cape, about 36 (trainer 2s 50c): 1 Bolt of Woolen Cloth and 1 Fine Thread each
-#   104-135 Stylish Red Shirt, about 49 (trainer 2s 50c): 3 Bolt of Woolen Cloth, 2 Red Dye and 1 Fine Thread each
+#     1-15  Bolt of Linen Cloth, about 14 (known): 2 Linen Cloth each
+#    15-55  Linen Belt, about 41 (trainer 50c): 1 Bolt of Linen Cloth and 1 Coarse Thread each
+#    55-75  Bolt of Woolen Cloth, about 21 (trainer 1s): 3 Wool Cloth each
+#    75-100 Woolen Cape, about 34 (trainer 2s 50c): 1 Bolt of Woolen Cloth and 1 Fine Thread each
+#   100-120 Bolt of Silk Cloth, about 40 (trainer 5s): 4 Silk Cloth each
+#   120-135 Azure Silk Hood, about 17 (trainer 6s): 2 Bolt of Silk Cloth, 2 Blue Dye and 1 Fine Thread each
 #   135-150 Formal White Shirt, about 17 (trainer): 3 Bolt of Silk Cloth, 2 Bleach and 1 Fine Thread each
 #   150-170 Azure Silk Cloak, about 22 (recipe 15s): 3 Bolt of Silk Cloth, 2 Blue Dye and 2 Fine Thread each
 #   170-200 Black Mageweave Vest, about 36 (trainer): 2 Bolt of Mageweave and 3 Silken Thread each
@@ -43,9 +45,10 @@ zone Azeroth
 #     280-300 no trainer or vendor recipe gives points without a camp station (see the last step)
 #
 # Shopping per bracket (vendor goods at vendor prices; gathered or dropped materials by count, enough for 9 players in 10):
-# 1-75: Apprentice 10c, recipes 50c, vendor goods 5s 50c; gather or buy 128 Linen Cloth.
-# 75-150: Journeyman 5s, recipes 11s plus unpriced trainer recipes, vendor goods 1g 59s 50c; gather
-# or buy 654 Wool Cloth and 228 Silk Cloth.
+# 1-75: Apprentice 10c, recipes 1s 50c, vendor goods 4s 10c; gather or buy 84 Linen Cloth and 69
+# Wool Cloth.
+# 75-150: Journeyman 5s, recipes 13s 50c plus unpriced trainer recipes, vendor goods 93s 50c; gather
+# or buy 57 Wool Cloth and 424 Silk Cloth.
 # 150-225: recipes 15s plus unpriced trainer recipes, vendor goods 20g 86s; gather or buy 300 Silk
 # Cloth and 1060 Mageweave Cloth.
 # 225-300: recipes 1g 60s plus unpriced trainer recipes, vendor goods 27g; gather or buy 200 Rugged
@@ -71,84 +74,102 @@ zone Azeroth
 section Tailoring 1-75
 
 step Learn Tailoring
-  tip Apprentice Tailoring lets you craft up to 75 for 10c, at any character level. Any Tailoring trainer of your faction teaches it; the arrow picks the nearest. Keep every Linen Cloth you loot: humanoids of level 5-20 drop it. 1-75 takes about 50c of recipes and 5s 50c of vendor goods, plus 128 Linen Cloth to gather or buy.
+  tip Apprentice Tailoring lets you craft up to 75 for 10c, at any character level. Any Tailoring trainer of your faction teaches it; the arrow picks the nearest. Keep every Linen Cloth you loot: humanoids of level 5-20 drop it. 1-75 takes about 1s 50c of recipes and 4s 10c of vendor goods, plus 84 Linen Cloth and 69 Wool Cloth to gather or buy.
   train Tailoring Apprentice
   skill Tailoring 1
 
 step Tailoring 1-75: vendor goods
-  tip Buy the whole bracket's share in one go: 55 Coarse Thread (5s 50c); about 5s 50c in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero, Edna Mullby and Jillian Tanner; Orgrimmar: Borya, Felika and Shimra).
-  buy 2320 x55 nearest
+  tip Buy the whole bracket's share in one go: 41 Coarse Thread (4s 10c); about 4s 10c in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero, Edna Mullby and Jillian Tanner; Orgrimmar: Borya, Felika and Shimra).
+  buy 2320 x41 nearest
 
 step Get Linen Cloth
-  tip You need 128 Linen Cloth for Tailoring 1-75: Linen Cloak and Linen Belt. Humanoids of level 5-20 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Linen Cloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
-  collect 2589 x128 nearest gather levels 5-20
-  auction 2589 x128
+  tip 84 Linen Cloth for Tailoring 1-75: 14 Bolts of Linen Cloth and 42 Linen Belts. Humanoids of level 5-20 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Linen Cloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  collect 2589 x84 nearest gather levels 5-20
+  auction 2589 x84
 
-step Linen Cloak to 15
-  tip Linen Cloak is orange at 1 (yellow 35, green 47, grey 60): about 7 crafts to 15, a point every craft. Each takes 1 Bolt of Linen Cloth and 1 Coarse Thread. Make the 7 Bolt of Linen Cloth first: it gives points too while not grey. The trainer teaches it, and it is the cheapest way through these points in the data.
-  craft 2963 x7
-  craft 2387 until 15
+step Get Wool Cloth
+  tip 69 Wool Cloth for Tailoring 1-75: 23 Bolts of Woolen Cloth. Humanoids of level 15-30 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Wool Cloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  collect 2592 x69 nearest gather levels 15-30
+  auction 2592 x69
+
+step Bolt of Linen Cloth to 15
+  tip Bolt of Linen Cloth is orange at 1 (yellow 25, green 37, grey 50): about 14 crafts to 15, a point every craft. Each takes 2 Linen Cloth. Keep the bolts: the Linen Belts from 15 take one each.
+  craft 2963 until 15
 
 step Tailoring recipes at 15
   tip Back to a Tailoring trainer: Linen Belt (from 15, 50c).
   learn 8776
 
-step Linen Belt to 75
-  tip Linen Belt is orange at 15 (yellow 50, green 67, grey 85): about 48 crafts to 75, up to 57 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Bolt of Linen Cloth and 1 Coarse Thread. Make the 48 Bolt of Linen Cloth first: it gives points too while not grey. Each belt takes one bolt; the belts sell to vendors.
-  craft 2963 x48
-  craft 8776 until 75
+step Linen Belt to 55
+  tip Linen Belt is orange at 15 (yellow 50, green 67, grey 85): about 41 crafts to 55, up to 42 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Bolt of Linen Cloth and 1 Coarse Thread. Make the 27 Bolt of Linen Cloth first: it gives points too while not grey. Use the 14 Bolt of Linen Cloth you made earlier; the counts above leave them out. Each belt takes one bolt; the belts sell to vendors.
+  craft 2963 x27
+  craft 8776 until 55
+
+step Tailoring recipes at 55
+  tip Back to a Tailoring trainer: Bolt of Woolen Cloth (from 55, 1s). Also learn Faction Banner (1s): Forever's Tailoring camp item, a Bolt of Linen Cloth and a Coarse Thread; each faction has its own. The Camping 101: Tailoring quest from your starting area's camping guide (after The Great Outdoors) sends you to a tailoring trainer who teaches it free.
+  learn 2964
+  learn 1263425 only Alliance
+  learn 1229504 only Horde
+
+step Bolt of Woolen Cloth to 75
+  tip Bolt of Woolen Cloth is orange at 55 (yellow 70, green 77, grey 85): about 21 crafts to 75, up to 23 for 9 players in 10 (the gathered materials above count that many). Each takes 3 Wool Cloth. Keep the bolts: the Woolen Capes from 75 take one each, so these points cost no extra Wool Cloth.
+  craft 2964 until 75
   skill Tailoring 75
 
 # ---------------------------------------------------------------- Journeyman (75-150)
 section Tailoring 75-150
 
 step Journeyman Tailoring
-  tip Journeyman raises the cap from 75 to 150 for 5s; it needs Tailoring 50 and character level 10, so you can take it on any visit from 50. Not every Tailoring trainer teaches it: Alliance Charles Worth (Alterac Mountains), Grarnik Goodstitch (Stranglethorn Vale), Jormund Stonebrow (Ironforge), Me'lynn (Darnassus), Othesia Evengale (Zephras Isle), Sellandus (Stormwind City) and Taleen Shimmerthread (Zephras Isle); Horde Grarnik Goodstitch (Stranglethorn Vale), Magar (Orgrimmar), Mahani (The Barrens), Othesia Evengale (Zephras Isle), Rhiannon Davis (Undercity), Taleen Shimmerthread (Zephras Isle) and Tepa (Thunder Bluff). The arrow picks the nearest of your faction. Learn now: Bolt of Woolen Cloth (from 55, 1s) and Woolen Cape (from 55, 2s 50c). Also learn Faction Banner (1s): Forever's Tailoring camp item, a Bolt of Linen Cloth and a Coarse Thread; each faction has its own. The Camping 101: Tailoring quest from your starting area's camping guide (after The Great Outdoors) sends you to a tailoring trainer who teaches it free. 75-150 takes about 11s of recipes and 1g 59s 50c of vendor goods, plus 654 Wool Cloth and 228 Silk Cloth to gather or buy.
+  tip Journeyman raises the cap from 75 to 150 for 5s; it needs Tailoring 50 and character level 10, so you can take it on any visit from 50. Not every Tailoring trainer teaches it: Alliance Charles Worth (Alterac Mountains), Grarnik Goodstitch (Stranglethorn Vale), Jormund Stonebrow (Ironforge), Me'lynn (Darnassus), Othesia Evengale (Zephras Isle), Sellandus (Stormwind City) and Taleen Shimmerthread (Zephras Isle); Horde Grarnik Goodstitch (Stranglethorn Vale), Magar (Orgrimmar), Mahani (The Barrens), Othesia Evengale (Zephras Isle), Rhiannon Davis (Undercity), Taleen Shimmerthread (Zephras Isle) and Tepa (Thunder Bluff). The arrow picks the nearest of your faction. Learn now: Woolen Cape (from 55, 2s 50c). 75-150 takes about 13s 50c of recipes and 93s 50c of vendor goods, plus 57 Wool Cloth and 424 Silk Cloth to gather or buy.
   level 10
   train Tailoring Journeyman
-  learn 2964
   learn 2402
-  learn 1263425 only Alliance
-  learn 1229504 only Horde
 
 step Tailoring 75-150: vendor goods
-  tip Buy the whole bracket's share in one go: 102 Fine Thread (1g 2s), 34 Bleach (8s 50c) and 98 Red Dye (49s); about 1g 59s 50c in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero and Edna Mullby; Orgrimmar: Borya, Felika and Shimra).
-  buy 2321 x102 nearest
+  tip Buy the whole bracket's share in one go: 68 Fine Thread (68s), 34 Bleach (8s 50c) and 34 Blue Dye (17s); about 93s 50c in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero and Edna Mullby; Orgrimmar: Borya, Felika and Shimra).
+  buy 2321 x68 nearest
   buy 2324 x34 nearest
-  buy 2604 x98 nearest
+  buy 6260 x34 nearest
 
 step Get Wool Cloth
-  tip You need 654 Wool Cloth for Tailoring 75-150: Woolen Cape and Stylish Red Shirt. Humanoids of level 15-30 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Wool Cloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
-  collect 2592 x654 nearest gather levels 15-30
-  auction 2592 x654
+  tip 57 Wool Cloth for Tailoring 75-150: 40 Woolen Capes. Humanoids of level 15-30 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Wool Cloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  collect 2592 x57 nearest gather levels 15-30
+  auction 2592 x57
 
 step Get Silk Cloth
-  tip You need 228 Silk Cloth for Tailoring 75-150: Formal White Shirt. Humanoids of level 25-45 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Silk Cloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
-  collect 4306 x228 nearest gather levels 25-45
-  auction 4306 x228
+  tip 424 Silk Cloth for Tailoring 75-150: 55 Bolts of Silk Cloth and 19 Formal White Shirts. Humanoids of level 25-45 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Silk Cloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  collect 4306 x424 nearest gather levels 25-45
+  auction 4306 x424
 
-step Woolen Cape to 104
-  tip Woolen Cape is orange at 75 (yellow 80, green 97, grey 115): about 36 crafts to 104, up to 44 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Bolt of Woolen Cloth and 1 Fine Thread. Make the 36 Bolt of Woolen Cloth first: it gives points too while not grey. Bolt of Woolen Cloth is taught from 55 on Forever.
-  craft 2964 x36
-  craft 2402 until 104
+step Woolen Cape to 100
+  tip Woolen Cape is orange at 75 (yellow 80, green 97, grey 115): about 34 crafts to 100, up to 40 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Bolt of Woolen Cloth and 1 Fine Thread. Make the 13 Bolt of Woolen Cloth first: it gives points too while not grey. Use the 21 Bolt of Woolen Cloth you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. If you got here without learning Bolt of Woolen Cloth, learn it now: an earlier step teaches it.
+  learn 2964
+  craft 2964 x13
+  craft 2402 until 100
 
-step Tailoring recipes at 104
-  tip Back to a Tailoring trainer: Stylish Red Shirt (from 85, 2s 50c) and Bolt of Silk Cloth (from 100, 5s).
-  learn 3866
+step Tailoring recipes at 100
+  tip Back to a Tailoring trainer: Bolt of Silk Cloth (from 100, 5s).
   learn 3839
 
-step Stylish Red Shirt to 135
-  tip Stylish Red Shirt is orange at 104 (yellow 110, green 127, grey 145): about 49 crafts to 135, up to 58 for 9 players in 10 (the gathered materials above count that many). Each takes 3 Bolt of Woolen Cloth, 2 Red Dye and 1 Fine Thread. Make the 147 Bolt of Woolen Cloth first. Three woolen bolts and two Red Dye a shirt; Wool Cloth drops from humanoids of level 15-30.
-  craft 2964 x147
-  craft 3866 until 135
+step Bolt of Silk Cloth to 120
+  tip Bolt of Silk Cloth is orange at 100 (yellow 110, green 115, grey 120): about 40 crafts to 120, up to 55 for 9 players in 10 (the gathered materials above count that many). Each takes 4 Silk Cloth. Silk Cloth drops from humanoids of level 25-45. Keep every bolt: the hoods and shirts to 150 take them, so these points cost no extra Silk Cloth.
+  craft 3839 until 120
+
+step Tailoring recipes at 120
+  tip Back to a Tailoring trainer: Azure Silk Hood (from 120, 6s).
+  learn 8760
+
+step Azure Silk Hood to 135
+  tip Azure Silk Hood is orange at 120 (yellow 130, green 135, grey 140): about 17 crafts to 135, up to 19 for 9 players in 10 (the gathered materials above count that many). Each takes 2 Bolt of Silk Cloth, 2 Blue Dye and 1 Fine Thread. Use the 34 Bolt of Silk Cloth you made earlier; the counts above leave them out. Two silk bolts and two Blue Dye a hood: orange to 130, a point every craft.
+  craft 8760 until 135
 
 step Tailoring recipes at 135
   tip Back to a Tailoring trainer: Formal White Shirt (from 135).
   learn 3871
 
 step Formal White Shirt to 150
-  tip Formal White Shirt is orange at 135 (yellow 145, green 150, grey 155): about 17 crafts to 150, up to 19 for 9 players in 10 (the gathered materials above count that many). Each takes 3 Bolt of Silk Cloth, 2 Bleach and 1 Fine Thread. Make the 51 Bolt of Silk Cloth first. Silk bolts from here on: Silk Cloth drops from humanoids of level 25-45. Bleach from tailoring and trade supplies vendors. Tailoring 150 is a Legacy System milestone.
-  craft 3839 x51
+  tip Formal White Shirt is orange at 135 (yellow 145, green 150, grey 155): about 17 crafts to 150, up to 19 for 9 players in 10 (the gathered materials above count that many). Each takes 3 Bolt of Silk Cloth, 2 Bleach and 1 Fine Thread. Make the 45 Bolt of Silk Cloth first. Use the 6 Bolt of Silk Cloth you made earlier; the counts above leave them out. Bleach from tailoring and trade supplies vendors. Tailoring 150 is a Legacy System milestone.
+  craft 3839 x45
   craft 3871 until 150
   skill Tailoring 150
 
@@ -167,12 +188,12 @@ step Pattern: Azure Silk Cloak
   buy 7089 nearest
 
 step Get Silk Cloth
-  tip You need 300 Silk Cloth for Tailoring 150-225: Azure Silk Cloak. Humanoids of level 25-45 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Silk Cloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  tip 300 Silk Cloth for Tailoring 150-225: 25 Azure Silk Cloaks. Humanoids of level 25-45 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Silk Cloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
   collect 4306 x300 nearest gather levels 25-45
   auction 4306 x300
 
 step Get Mageweave Cloth
-  tip You need 1060 Mageweave Cloth for Tailoring 150-225: Black Mageweave Vest and Black Mageweave Headband. Humanoids of level 35-50 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Mageweave Cloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  tip 1060 Mageweave Cloth for Tailoring 150-225: 40 Black Mageweave Vests and 44 Black Mageweave Headbands. Humanoids of level 35-50 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Mageweave Cloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
   collect 4338 x1060 nearest gather levels 35-50
   auction 4338 x1060
 
@@ -235,7 +256,7 @@ step Pattern: Runecloth Gloves
   buy 14481 nearest
 
 step Get Rugged Leather
-  tip You need 200 Rugged Leather for Tailoring 225-300: Runecloth Gloves. Skinning: beasts of level 48-60. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 200 Rugged Leather for Tailoring 225-300: 50 Runecloth Gloves. Skinning: beasts of level 48-60. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 8170 x200 gather Skinning 225
   loop Un'Goro Crater lvl 55 lap 1371 yield 30.8 r 80 at 67.4,15.5 69.1,17.6 70.7,21.4 68.3,21.3 62.5,17.6 64.9,16.8
   loop Western Plaguelands lvl 54 lap 700 yield 14.3 r 80 at 45.7,44.0 46.8,39.8 45.4,37.2 43.5,40.2 43.1,46.8 44.9,49.5 46.6,47.3 51.1,47.0
@@ -245,7 +266,7 @@ step Get Rugged Leather
   auction 8170 x200
 
 step Get Runecloth
-  tip You need 1195 Runecloth for Tailoring 225-300: Runecloth Belt and Runecloth Gloves. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Runecloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  tip 1195 Runecloth for Tailoring 225-300: 13 Runecloth Belts and 50 Runecloth Gloves. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Runecloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
   collect 14047 x1195 nearest gather levels 45-60
   auction 14047 x1195
 
@@ -275,7 +296,7 @@ step Tailoring 265-300: vendor goods
 
 step Get Rugged Leather
   when knows 18449
-  tip You need 296 Rugged Leather for Tailoring 265-300: Runecloth Shoulders. Skinning: beasts of level 48-60. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 296 Rugged Leather for Tailoring 265-300: 74 Runecloth Shoulders. Skinning: beasts of level 48-60. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 8170 x296 gather Skinning 225
   loop Un'Goro Crater lvl 55 lap 1371 yield 30.8 r 80 at 67.4,15.5 69.1,17.6 70.7,21.4 68.3,21.3 62.5,17.6 64.9,16.8
   loop Western Plaguelands lvl 54 lap 700 yield 14.3 r 80 at 45.7,44.0 46.8,39.8 45.4,37.2 43.5,40.2 43.1,46.8 44.9,49.5 46.6,47.3 51.1,47.0
@@ -286,13 +307,13 @@ step Get Rugged Leather
 
 step Get Runecloth
   when knows 18449
-  tip You need 2590 Runecloth for Tailoring 265-300: Runecloth Shoulders. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Runecloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  tip 2590 Runecloth for Tailoring 265-300: 74 Runecloth Shoulders. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Runecloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
   collect 14047 x2590 nearest gather levels 45-60
   auction 14047 x2590
 
 step Get Ironweb Spider Silk
   when knows 18449
-  tip You need 148 Ironweb Spider Silk for Tailoring 265-300: Runecloth Shoulders. Ironweb Spider Silk drops most from Plague Lurker, Rock Stalker and Searing Lava Spider, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Ironweb Spider Silk per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  tip 148 Ironweb Spider Silk for Tailoring 265-300: 74 Runecloth Shoulders. Ironweb Spider Silk drops most from Plague Lurker, Rock Stalker and Searing Lava Spider, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Ironweb Spider Silk per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
   collect 14227 x148 nearest gather levels 45-59
   auction 14227 x148
 
@@ -320,7 +341,7 @@ step Pattern: Runecloth Boots
 
 step Get Rugged Leather
   when !knows 18449
-  tip You need 588 Rugged Leather for Tailoring 265-300: Runecloth Boots. Skinning: beasts of level 48-60. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 588 Rugged Leather for Tailoring 265-300: 147 Runecloth Boots. Skinning: beasts of level 48-60. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 8170 x588 gather Skinning 225
   loop Un'Goro Crater lvl 55 lap 1371 yield 30.8 r 80 at 67.4,15.5 69.1,17.6 70.7,21.4 68.3,21.3 62.5,17.6 64.9,16.8
   loop Western Plaguelands lvl 54 lap 700 yield 14.3 r 80 at 45.7,44.0 46.8,39.8 45.4,37.2 43.5,40.2 43.1,46.8 44.9,49.5 46.6,47.3 51.1,47.0
@@ -331,13 +352,13 @@ step Get Rugged Leather
 
 step Get Runecloth
   when !knows 18449
-  tip You need 2940 Runecloth for Tailoring 265-300: Runecloth Boots. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Runecloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  tip 2940 Runecloth for Tailoring 265-300: 147 Runecloth Boots. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Runecloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
   collect 14047 x2940 nearest gather levels 45-60
   auction 14047 x2940
 
 step Get Ironweb Spider Silk
   when !knows 18449
-  tip You need 294 Ironweb Spider Silk for Tailoring 265-300: Runecloth Boots. Ironweb Spider Silk drops most from Plague Lurker, Rock Stalker and Searing Lava Spider, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Ironweb Spider Silk per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  tip 294 Ironweb Spider Silk for Tailoring 265-300: 147 Runecloth Boots. Ironweb Spider Silk drops most from Plague Lurker, Rock Stalker and Searing Lava Spider, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Ironweb Spider Silk per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
   collect 14227 x294 nearest gather levels 45-59
   auction 14227 x294
 

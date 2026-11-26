@@ -42,7 +42,7 @@ zone Azeroth
 #   185-200 Heavy Mithril Gauntlet, about 15 (trainer): 6 Mithril Bar and 4 Mageweave Cloth each
 #   200-215 Steel Plate Helm, about 16 (trainer): 14 Steel Bar and 1 Solid Grinding Stone each
 #   215-225 Heavy Mithril Boots, about 10 (trainer): 14 Mithril Bar and 4 Thick Leather each
-#   225-235 Dense Weightstone, about 17 (trainer): 1 Dense Stone each
+#   225-235 Dense Grinding Stone, about 17 (trainer): 4 Dense Stone each
 #   235-247 Heavy Mithril Boots, about 30 (trainer): 14 Mithril Bar and 4 Thick Leather each
 #   247-250 Big Black Mace, about 11 (trainer): 16 Mithril Bar, 1 Black Pearl, 4 Shadowgem, 1 Solid Grinding Stone and 2 Thick Leather each
 #   250-255 Ornate Thorium Handaxe, about 5 (recipe 1g 60s): 20 Thorium Bar, 2 Large Opal, 2 Dense Grinding Stone and 4 Rugged Leather each
@@ -61,10 +61,9 @@ zone Azeroth
 # gather or buy 60 Heavy Stone, 186 Iron Bar, 302 Steel Bar, 230 Mithril Bar, 236 Thick Leather, 60
 # Mageweave Cloth and 144 Solid Stone.
 # 225-300: Artisan 5g (Classic price), trainer recipes (prices not in the data); gather or buy 72
-# Shadowgem, 848 Mithril Bar, 18 Black Pearl and 24 Dense Stone.
-# 250-300 (with Magnus Frostwake's plans): recipes 3g 60s plus unpriced trainer recipes; gather or
-# buy 22 Aquamarine, 22 Star Ruby, 212 Rugged Leather, 2168 Thorium Bar, 808 Dense Stone and 10
-# Large Opal.
+# Shadowgem, 848 Mithril Bar, 18 Black Pearl and 96 Dense Stone.
+# 250-300 (with Magnus Frostwake's plans): recipes 3g 60s; gather or buy 22 Aquamarine, 22 Star
+# Ruby, 212 Rugged Leather, 2168 Thorium Bar, 740 Dense Stone and 10 Large Opal.
 # 250-300 (with Auction House plans): nothing to buy; gather or buy 196 Heart of Fire and 806
 # Thorium Bar.
 #
@@ -75,8 +74,7 @@ zone Azeroth
 # rank recipes against each other, never as a price forecast.
 # Learn skills players' recordings bear out (estimated from Classic's lists; the lowest skill
 # players learned each at, never below): Green Iron Bracers 140 (19 players), Solid Grinding Stone
-# 175 (8 players), Dense Weightstone 225 (4 players), Big Black Mace 205 (4 players) and Dense
-# Grinding Stone 225 (5 players).
+# 175 (8 players), Dense Grinding Stone 225 (5 players) and Big Black Mace 205 (4 players).
 # ASSUMED: learn skills of Golden Scale Bracers 160, Heavy Mithril Gauntlet 180, Steel Plate Helm
 # 190 and Heavy Mithril Boots 210 (no sniffed Forever list teaches them: Classic's trainer skill
 # moved as far as Forever moved the recipe's colours, which the sniffed lists bear out on 126 of 129
@@ -100,7 +98,7 @@ step Learn Blacksmithing
   skill Blacksmithing 1
 
 step Get Rough Stone
-  tip You need 195 Rough Stone for Blacksmithing 1-75: Rough Sharpening Stone and Rough Grinding Stone. Mining: Copper Vein (skill 1) in Dun Morogh (1-10), Elwynn Forest (1-10) and Zephras Isle (1-15). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 195 Rough Stone for Blacksmithing 1-75: 47 Rough Sharpening Stones and 74 Rough Grinding Stones. Mining: Copper Vein (skill 1) in Dun Morogh (1-10), Elwynn Forest (1-10) and Zephras Isle (1-15). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 2835 x195 gather Mining 1
   loop Zephras Isle lvl 5 lap 310 yield 31.5 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
   loop Teldrassil lvl 11 lap 569 yield 45.4 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 51.4,49.1 52.3,51.7 54.5,51.9 52.9,49.3 56.8,31.9 57.7,29.1 58.2,27.2
@@ -141,7 +139,7 @@ step Blacksmithing 75-150: vendor goods
   buy 5956 nearest -- a tool, keep it in your bags
 
 step Get Medium Leather
-  tip You need 25 Medium Leather for Blacksmithing 75-150: Bronze Warhammer. Skinning: beasts of level 18-30. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 25 Medium Leather for Blacksmithing 75-150: 25 Bronze Warhammers. Skinning: beasts of level 18-30. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 2319 x25 gather Skinning 50
   loop Stranglethorn Vale lvl 32 lap 1071 yield 39.1 only Alliance r 80 at 41.2,13.0 43.0,13.0 42.2,10.2 41.2,8.1 39.4,7.5 35.9,7.7 31.5,8.7 33.8,10.1 34.5,13.0 37.0,11.0 39.3,11.4 38.8,14.3
   loop Wetlands lvl 30 lap 943 yield 32.8 only Alliance r 80 at 69.2,31.6 69.3,28.2 65.1,28.7 66.5,30.7 68.3,36.5 71.0,38.9
@@ -156,7 +154,7 @@ step Get Medium Leather
   auction 2319 x25
 
 step Get Coarse Stone
-  tip You need 100 Coarse Stone for Blacksmithing 75-150: Patterned Bronze Bracers. Mining: Tin Vein (skill 65) in Ashenvale (18-30), Hillsbrad Foothills (20-30) and Wetlands (20-30). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 100 Coarse Stone for Blacksmithing 75-150: 25 Patterned Bronze Bracers. Mining: Tin Vein (skill 65) in Ashenvale (18-30), Hillsbrad Foothills (20-30) and Wetlands (20-30). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 2836 x100 gather Mining 65
   loop Wetlands lvl 29 lap 481 yield 2.4 only Alliance r 60 at 50.6,61.8 48.6,62.3 46.7,62.8 45.8,65.1 45.7,60.3 47.5,60.0 49.1,59.1 50.9,59.2 54.2,58.2 55.9,58.7 53.6,62.4 53.4,66.9
   loop Darkshore lvl 18 lap 405 yield 1.8 only Alliance r 60 at 56.0,34.3 55.7,36.3 54.6,37.0 52.4,36.3 49.1,37.9 47.8,32.8 48.2,29.1 51.3,30.3 51.7,28.1 50.7,26.2 52.1,26.1 53.7,26.0
@@ -169,7 +167,7 @@ step Get Coarse Stone
   auction 2836 x100
 
 step Get Copper Bar
-  tip You need 320 Copper Bar for Blacksmithing 75-150: Runed Copper Belt. Mine Copper Ore and smelt it at a forge (Mining 1). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 320 Copper Bar for Blacksmithing 75-150: 32 Runed Copper Belts. Mine Copper Ore and smelt it at a forge (Mining 1). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 2840 x320 gather Mining 1
   loop Zephras Isle lvl 5 lap 310 yield 36.4 live r 60 at 37.6,25.4 35.7,23.1 36.7,22.7 37.8,23.9 39.5,26.7 40.6,27.8 38.6,28.4 37.2,30.2
   loop Teldrassil lvl 11 lap 569 yield 42.5 only Alliance r 60 at 56.9,26.3 56.0,25.0 56.2,28.8 51.4,49.1 52.3,51.7 54.5,51.9 52.9,49.3 56.8,31.9 57.7,29.1 58.2,27.2
@@ -181,7 +179,7 @@ step Get Copper Bar
   auction 2840 x320
 
 step Get Bronze Bar
-  tip You need 325 Bronze Bar for Blacksmithing 75-150: Patterned Bronze Bracers and Bronze Warhammer. Mining: smelt Copper Bar and Tin Bar. Or buy them at the Auction House.
+  tip 325 Bronze Bar for Blacksmithing 75-150: 25 Patterned Bronze Bracers and 25 Bronze Warhammers. Mining: smelt Copper Bar and Tin Bar. Or buy them at the Auction House.
   collect 2841 x325 anywhere gather Mining 65
   auction 2841 x325
 
@@ -223,7 +221,7 @@ step Blacksmithing 150-225: vendor goods
   buy 3857 x302 nearest optional
 
 step Get Heavy Stone
-  tip You need 60 Heavy Stone for Blacksmithing 150-225: Golden Scale Bracers. Mining: Iron Deposit (skill 125) in Arathi Highlands (30-40), Stranglethorn Vale (30-45) and Riverglades (38-47). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 60 Heavy Stone for Blacksmithing 150-225: 10 Golden Scale Bracers. Mining: Iron Deposit (skill 125) in Arathi Highlands (30-40), Stranglethorn Vale (30-45) and Riverglades (38-47). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 2838 x60 gather Mining 125
   loop Alterac Mountains lvl 37 lap 631 yield 4.1 only Alliance r 60 at 52.4,46.3 52.9,49.8 37.6,67.0 33.7,55.3 31.8,53.6 33.2,47.2 32.9,39.9 39.5,38.0 40.2,30.7 47.9,33.2 45.2,39.2 49.8,44.0
   loop Thousand Needles lvl 31 lap 624 yield 2.9 only Alliance r 60 at 26.9,53.2 26.3,55.7 16.6,40.9 21.8,41.2 23.7,44.8 26.4,47.0 28.8,49.0 30.1,45.9 33.0,51.2 35.9,50.7 37.0,54.3 34.4,53.4
@@ -238,7 +236,7 @@ step Get Heavy Stone
   auction 2838 x60
 
 step Get Iron Bar
-  tip You need 186 Iron Bar for Blacksmithing 150-225: Green Iron Bracers. Mine Iron Ore and smelt it at a forge (Mining 125). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 186 Iron Bar for Blacksmithing 150-225: 31 Green Iron Bracers. Mine Iron Ore and smelt it at a forge (Mining 125). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 3575 x186 gather Mining 125
   loop Alterac Mountains lvl 37 lap 631 yield 5.2 only Alliance r 60 at 52.4,46.3 52.9,49.8 37.6,67.0 33.7,55.3 31.8,53.6 33.2,47.2 32.9,39.9 39.5,38.0 40.2,30.7 47.9,33.2 45.2,39.2 49.8,44.0
   loop Thousand Needles lvl 31 lap 624 yield 3.7 only Alliance r 60 at 26.9,53.2 26.3,55.7 16.6,40.9 21.8,41.2 23.7,44.8 26.4,47.0 28.8,49.0 30.1,45.9 33.0,51.2 35.9,50.7 37.0,54.3 34.4,53.4
@@ -253,7 +251,7 @@ step Get Iron Bar
   auction 3575 x186
 
 step Get Steel Bar
-  tip You need 302 Steel Bar for Blacksmithing 150-225: Golden Scale Bracers and Steel Plate Helm. Smelting makes them from Iron Ore (Mining 165): about 302 Iron Ore for 302. The loops below are for the Iron Ore; the Mining guide's loops give the rest. The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 302 Steel Bar for Blacksmithing 150-225: 10 Golden Scale Bracers and 18 Steel Plate Helms. Smelting makes them from Iron Ore (Mining 165): about 302 Iron Ore for 302. The loops below are for the Iron Ore; the Mining guide's loops give the rest. The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 3859 x302 gather Mining 165
   loop Alterac Mountains lvl 37 lap 631 yield 5.2 only Alliance r 60 at 52.4,46.3 52.9,49.8 37.6,67.0 33.7,55.3 31.8,53.6 33.2,47.2 32.9,39.9 39.5,38.0 40.2,30.7 47.9,33.2 45.2,39.2 49.8,44.0
   loop Thousand Needles lvl 31 lap 624 yield 3.7 only Alliance r 60 at 26.9,53.2 26.3,55.7 16.6,40.9 21.8,41.2 23.7,44.8 26.4,47.0 28.8,49.0 30.1,45.9 33.0,51.2 35.9,50.7 37.0,54.3 34.4,53.4
@@ -268,7 +266,7 @@ step Get Steel Bar
   auction 3859 x302
 
 step Get Mithril Bar
-  tip You need 230 Mithril Bar for Blacksmithing 150-225: Heavy Mithril Gauntlet and Heavy Mithril Boots. Mine Mithril Ore and smelt it at a forge (Mining 175). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 230 Mithril Bar for Blacksmithing 150-225: 15 Heavy Mithril Gauntlets and 10 Heavy Mithril Boots. Mine Mithril Ore and smelt it at a forge (Mining 175). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 3860 x230 gather Mining 175
   loop Badlands lvl 45 lap 633 yield 5.9 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
   loop Desolace lvl 43 lap 627 yield 4.7 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
@@ -279,7 +277,7 @@ step Get Mithril Bar
   auction 3860 x230
 
 step Get Thick Leather
-  tip You need 236 Thick Leather for Blacksmithing 150-225: Heavy Mithril Boots and Big Black Mace (196 of them for 225-300: get them all now). Skinning: beasts of level 38-50. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 236 Thick Leather for Blacksmithing 150-225: 50 Heavy Mithril Boots and 18 Big Black Maces (196 of them for 225-300: get them all now). Skinning: beasts of level 38-50. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 4304 x236 gather Skinning 200
   loop The Hinterlands lvl 51 lap 2600 yield 110.5 r 80 at 63.7,51.0 67.2,50.9 69.5,54.7 72.0,58.6 66.0,58.2 61.9,55.3 58.7,52.2 54.1,53.1 54.7,44.6 57.4,48.1 62.1,44.3 61.1,48.6
   loop Un'Goro Crater lvl 51 lap 1229 yield 49.6 r 80 at 60.7,73.5 62.1,66.6 64.1,61.1 63.2,53.9 69.6,56.6 67.3,60.7 66.8,66.2 66.8,71.5 67.1,78.3 64.2,77.2 61.7,79.0 58.6,79.7
@@ -292,12 +290,12 @@ step Get Thick Leather
   auction 4304 x236
 
 step Get Mageweave Cloth
-  tip You need 60 Mageweave Cloth for Blacksmithing 150-225: Heavy Mithril Gauntlet. Humanoids of level 35-50 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Mageweave Cloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  tip 60 Mageweave Cloth for Blacksmithing 150-225: 15 Heavy Mithril Gauntlets. Humanoids of level 35-50 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Mageweave Cloth per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
   collect 4338 x60 nearest gather levels 35-50
   auction 4338 x60
 
 step Get Solid Stone
-  tip You need 144 Solid Stone for Blacksmithing 150-225: Steel Plate Helm and Big Black Mace (72 of them for 225-300: get them all now). Mining: Mithril Deposit (skill 175) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 144 Solid Stone for Blacksmithing 150-225: 18 Steel Plate Helms and 18 Big Black Maces (72 of them for 225-300: get them all now). Mining: Mithril Deposit (skill 175) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 7912 x144 gather Mining 175
   loop Badlands lvl 45 lap 633 yield 5.7 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
   loop Desolace lvl 43 lap 627 yield 4.5 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
@@ -357,24 +355,22 @@ step Heavy Mithril Boots to 225
 section Blacksmithing 225-300
 
 step Artisan Blacksmithing
-  tip Artisan raises the cap from 225 to 300 for 5g (Classic's price; Forever's is not in the data); it needs Blacksmithing 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance Brikk Keencraft (Stranglethorn Vale); Horde Brikk Keencraft (Stranglethorn Vale). This route trains it at Brikk Keencraft (Stranglethorn Vale) for the Alliance and Brikk Keencraft (Stranglethorn Vale) for the Horde, who also teach the recipes of 225-300: one trainer for every visit. Learn now: Dense Weightstone (from 225), Big Black Mace (from 205) and Dense Grinding Stone (from 225). 225-300 takes 72 Shadowgem, 848 Mithril Bar, 18 Black Pearl and 24 Dense Stone to gather or buy. From 250 the route splits: with Magnus Frostwake's plans, about 55 more crafts and 22 Aquamarine, 22 Star Ruby, 212 Rugged Leather, 2168 Thorium Bar, 808 Dense Stone and 10 Large Opal; with Auction House plans, about 55 crafts and 196 Heart of Fire and 806 Thorium Bar.
+  tip Artisan raises the cap from 225 to 300 for 5g (Classic's price; Forever's is not in the data); it needs Blacksmithing 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance Brikk Keencraft (Stranglethorn Vale); Horde Brikk Keencraft (Stranglethorn Vale). This route trains it at Brikk Keencraft (Stranglethorn Vale) for the Alliance and Brikk Keencraft (Stranglethorn Vale) for the Horde, who also teach the recipes of 225-300: one trainer for every visit. Learn now: Dense Grinding Stone (from 225) and Big Black Mace (from 205). 225-300 takes 72 Shadowgem, 848 Mithril Bar, 18 Black Pearl and 96 Dense Stone to gather or buy. From 250 the route splits: with Magnus Frostwake's plans, about 55 more crafts and 22 Aquamarine, 22 Star Ruby, 212 Rugged Leather, 2168 Thorium Bar, 740 Dense Stone and 10 Large Opal; with Auction House plans, about 55 crafts and 196 Heart of Fire and 806 Thorium Bar.
   level 35
   train Blacksmithing Artisan npc 2836 only Alliance
   train Blacksmithing Artisan npc 2836 only Horde
-  learn 16640 npc 2836 only Alliance
-  learn 16640 npc 2836 only Horde
-  learn 10001 npc 2836 only Alliance
-  learn 10001 npc 2836 only Horde
   learn 16639 npc 2836 only Alliance
   learn 16639 npc 2836 only Horde
+  learn 10001 npc 2836 only Alliance
+  learn 10001 npc 2836 only Horde
 
 step Get Shadowgem
-  tip You need 72 Shadowgem for Blacksmithing 225-300: Big Black Mace. Shadowgem turns up in about one Copper Vein, Tin Vein or Silver Vein in 100: keep the ones you find while mining. Or buy them at the Auction House.
+  tip 72 Shadowgem for Blacksmithing 225-300: 18 Big Black Maces. Shadowgem turns up in about one Copper Vein, Tin Vein or Silver Vein in 100: keep the ones you find while mining. Or buy them at the Auction House.
   collect 1210 x72 anywhere gather Mining 1
   auction 1210 x72
 
 step Get Mithril Bar
-  tip You need 848 Mithril Bar for Blacksmithing 225-300: Heavy Mithril Boots and Big Black Mace. Mine Mithril Ore and smelt it at a forge (Mining 175). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 848 Mithril Bar for Blacksmithing 225-300: 40 Heavy Mithril Boots and 18 Big Black Maces. Mine Mithril Ore and smelt it at a forge (Mining 175). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 3860 x848 gather Mining 175
   loop Badlands lvl 45 lap 633 yield 5.9 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
   loop Desolace lvl 43 lap 627 yield 4.7 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
@@ -385,23 +381,23 @@ step Get Mithril Bar
   auction 3860 x848
 
 step Get Dense Stone
-  tip You need 24 Dense Stone for Blacksmithing 225-300: Dense Weightstone. Mining: Small Thorium Vein (skill 245) in Felwood (48-55), Silithus (55-60) and Winterspring (55-60). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
-  collect 12365 x24 gather Mining 245
+  tip 96 Dense Stone for Blacksmithing 225-300: 24 Dense Grinding Stones. Mining: Small Thorium Vein (skill 245) in Felwood (48-55), Silithus (55-60) and Winterspring (55-60). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 12365 x96 gather Mining 245
   loop Winterspring lvl 59 lap 705 yield 4.7 only Alliance r 60 at 70.4,40.3 69.1,39.8 56.3,25.6 57.3,32.8 56.0,49.0 55.5,50.7 54.1,50.4 56.0,53.8 57.8,61.1 56.9,50.4 58.4,46.6 69.4,41.9
   loop Un'Goro Crater lvl 56 lap 621 yield 3.6 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
   loop Felwood lvl 54 lap 811 yield 3.4 only Alliance r 60 at 57.6,17.3 59.2,19.4 61.3,21.3 58.7,22.8 43.8,62.1 38.9,55.1 43.2,46.7 43.4,41.2 38.1,32.2 39.8,22.3 46.2,13.5 48.6,23.8
   loop Burning Steppes lvl 53 lap 615 yield 1.8 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
   loop Winterspring lvl 58 lap 621 yield 3.4 only Horde r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop The Hinterlands lvl 51 lap 718 yield 2.1 only Horde r 60 at 54.9,67.3 52.1,65.4 33.7,65.0 37.1,67.5 57.9,84.2 72.6,61.9 65.5,41.2 59.1,41.5 57.0,43.1 66.8,52.4 64.4,64.2 56.6,68.6
-  auction 12365 x24
+  auction 12365 x96
 
 step Blacksmithing 225-300: Auction House
   tip What 225-300 takes that the Auction House sells and no step above farms: 18 Black Pearl. The counts drop by what your bags, bank and mail hold.
   auction 7971 x18
 
-step Dense Weightstone to 235
-  tip Dense Weightstone is orange at 225 (yellow 230, green 232, grey 235): about 17 crafts to 235, up to 24 for 9 players in 10 (the gathered materials above count that many). Each takes 1 Dense Stone. One Dense Stone a craft (Thorium veins): cheap points at the start of Artisan.
-  craft 16640 until 235
+step Dense Grinding Stone to 235
+  tip Dense Grinding Stone is orange at 225 (yellow 230, green 232, grey 235): about 17 crafts to 235, up to 24 for 9 players in 10 (the gathered materials above count that many). Each takes 4 Dense Stone. The trainer teaches it, and it is the cheapest way through these points in the data.
+  craft 16639 until 235
 
 step Heavy Mithril Boots to 247
   tip Heavy Mithril Boots is yellow at 235 (yellow 230, green 240, grey 250): about 30 crafts to 247, up to 40 for 9 players in 10 (the gathered materials above count that many). Each takes 14 Mithril Bar and 4 Thick Leather. Mithril Bars from Mithril Deposits; Thick Leather from skinners or the Auction House. Needs an anvil nearby. If you got here without learning Heavy Mithril Boots, learn it now: an earlier step teaches it.
@@ -428,19 +424,19 @@ step Blacksmithing 250: Magnus Frostwake's plans
 
 step Get Aquamarine
   when knows 16971
-  tip You need 22 Aquamarine for Blacksmithing 250-300: Imperial Plate Boots. Aquamarine turns up in about one Truesilver Deposit or Ooze Covered Truesilver Deposit in 500: keep the ones you find while mining. Or buy them at the Auction House.
+  tip 22 Aquamarine for Blacksmithing 250-300: 22 Imperial Plate Boots. Aquamarine turns up in about one Truesilver Deposit or Ooze Covered Truesilver Deposit in 500: keep the ones you find while mining. Or buy them at the Auction House.
   collect 7909 x22 anywhere gather Mining 125
   auction 7909 x22
 
 step Get Star Ruby
   when knows 16971
-  tip You need 22 Star Ruby for Blacksmithing 250-300: Imperial Plate Boots. Star Ruby turns up in about one Truesilver Deposit or Ooze Covered Truesilver Deposit in 143: keep the ones you find while mining. Or buy them at the Auction House.
+  tip 22 Star Ruby for Blacksmithing 250-300: 22 Imperial Plate Boots. Star Ruby turns up in about one Truesilver Deposit or Ooze Covered Truesilver Deposit in 143: keep the ones you find while mining. Or buy them at the Auction House.
   collect 7910 x22 anywhere gather Mining 175
   auction 7910 x22
 
 step Get Rugged Leather
   when knows 16971
-  tip You need 212 Rugged Leather for Blacksmithing 250-300: Ornate Thorium Handaxe and Huge Thorium Battleaxe. Skinning: beasts of level 48-60. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 212 Rugged Leather for Blacksmithing 250-300: 5 Ornate Thorium Handaxes and 32 Huge Thorium Battleaxes. Skinning: beasts of level 48-60. The arrow takes the Skinning loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 8170 x212 gather Skinning 225
   loop Un'Goro Crater lvl 55 lap 1371 yield 30.8 r 80 at 67.4,15.5 69.1,17.6 70.7,21.4 68.3,21.3 62.5,17.6 64.9,16.8
   loop Western Plaguelands lvl 54 lap 700 yield 14.3 r 80 at 45.7,44.0 46.8,39.8 45.4,37.2 43.5,40.2 43.1,46.8 44.9,49.5 46.6,47.3 51.1,47.0
@@ -451,7 +447,7 @@ step Get Rugged Leather
 
 step Get Thorium Bar
   when knows 16971
-  tip You need 2168 Thorium Bar for Blacksmithing 250-300: Ornate Thorium Handaxe, Huge Thorium Battleaxe and Imperial Plate Boots. Mine Thorium Ore and smelt it at a forge (Mining 250). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 2168 Thorium Bar for Blacksmithing 250-300: 5 Ornate Thorium Handaxes, 32 Huge Thorium Battleaxes and 22 Imperial Plate Boots. Mine Thorium Ore and smelt it at a forge (Mining 250). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 12359 x2168 gather Mining 250
   loop Winterspring lvl 59 lap 705 yield 4.9 only Alliance r 60 at 70.4,40.3 69.1,39.8 56.3,25.6 57.3,32.8 56.0,49.0 55.5,50.7 54.1,50.4 56.0,53.8 57.8,61.1 56.9,50.4 58.4,46.6 69.4,41.9
   loop Un'Goro Crater lvl 56 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
@@ -466,36 +462,33 @@ step Get Thorium Bar
 
 step Get Dense Stone
   when knows 16971
-  tip You need 808 Dense Stone for Blacksmithing 250-300: Ornate Thorium Handaxe and Huge Thorium Battleaxe. Mining: Small Thorium Vein (skill 245) in Felwood (48-55), Silithus (55-60) and Winterspring (55-60). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
-  collect 12365 x808 gather Mining 245
+  tip 740 Dense Stone for Blacksmithing 250-300: 32 Huge Thorium Battleaxes. Mining: Small Thorium Vein (skill 245) in Felwood (48-55), Silithus (55-60) and Winterspring (55-60). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  collect 12365 x740 gather Mining 245
   loop Winterspring lvl 59 lap 705 yield 4.7 only Alliance r 60 at 70.4,40.3 69.1,39.8 56.3,25.6 57.3,32.8 56.0,49.0 55.5,50.7 54.1,50.4 56.0,53.8 57.8,61.1 56.9,50.4 58.4,46.6 69.4,41.9
   loop Un'Goro Crater lvl 56 lap 621 yield 3.6 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0
   loop Felwood lvl 54 lap 811 yield 3.4 only Alliance r 60 at 57.6,17.3 59.2,19.4 61.3,21.3 58.7,22.8 43.8,62.1 38.9,55.1 43.2,46.7 43.4,41.2 38.1,32.2 39.8,22.3 46.2,13.5 48.6,23.8
   loop Burning Steppes lvl 53 lap 615 yield 1.8 r 60 at 80.4,44.7 76.7,47.4 77.5,42.8 81.0,40.2 80.2,35.4 86.0,37.1 83.2,41.3 83.7,46.1 84.8,48.8 80.9,48.5
   loop Winterspring lvl 58 lap 621 yield 3.4 only Horde r 60 at 70.5,40.2 69.6,42.0 69.1,39.8 67.7,38.6 66.5,37.5 64.6,34.6 64.6,29.7 63.6,25.6 66.7,28.2 68.0,35.6 68.8,37.3 70.9,37.4
   loop The Hinterlands lvl 51 lap 718 yield 2.1 only Horde r 60 at 54.9,67.3 52.1,65.4 33.7,65.0 37.1,67.5 57.9,84.2 72.6,61.9 65.5,41.2 59.1,41.5 57.0,43.1 66.8,52.4 64.4,64.2 56.6,68.6
-  auction 12365 x808
+  auction 12365 x740
 
 step Get Large Opal
   when knows 16971
-  tip You need 10 Large Opal for Blacksmithing 250-300: Ornate Thorium Handaxe. Large Opal turns up in about one Rich Thorium Vein, Ooze Covered Rich Thorium Vein or Hakkari Thorium Vein in 143: keep the ones you find while mining. Or buy them at the Auction House.
+  tip 10 Large Opal for Blacksmithing 250-300: 5 Ornate Thorium Handaxes. Large Opal turns up in about one Rich Thorium Vein, Ooze Covered Rich Thorium Vein or Hakkari Thorium Vein in 143: keep the ones you find while mining. Or buy them at the Auction House.
   collect 12799 x10 anywhere gather Mining 245
   auction 12799 x10
 
 step Ornate Thorium Handaxe to 255
   when knows 16971
-  tip Ornate Thorium Handaxe is orange at 250 (yellow 275, green 287, grey 300): about 5 crafts to 255, a point every craft. Each takes 20 Thorium Bar, 2 Large Opal, 2 Dense Grinding Stone and 4 Rugged Leather. Make the 10 Dense Grinding Stone first. Large Opal turns up in about one Thorium vein in 130: buy the ten at the Auction House. Five crafts only, until the battleaxe plans can be used at 255. Needs an anvil nearby. If you got here without learning Dense Grinding Stone, learn it now: an earlier step teaches it.
-  learn 16639 npc 2836 only Alliance
-  learn 16639 npc 2836 only Horde
-  craft 16639 x10
+  tip Ornate Thorium Handaxe is orange at 250 (yellow 275, green 287, grey 300): about 5 crafts to 255, a point every craft. Each takes 20 Thorium Bar, 2 Large Opal, 2 Dense Grinding Stone and 4 Rugged Leather. Use the 10 Dense Grinding Stone you made earlier; the counts above leave them out. Large Opal turns up in about one Thorium vein in 130: buy the ten at the Auction House. Five crafts only, until the battleaxe plans can be used at 255. Needs an anvil nearby.
   craft 16969 until 255
 
 step Huge Thorium Battleaxe to 285
   when knows 16971
-  tip Huge Thorium Battleaxe is orange at 255 (yellow 280, green 292, grey 305): about 31 crafts to 285, up to 32 for 9 players in 10 (the gathered materials above count that many). Each takes 40 Thorium Bar, 6 Dense Grinding Stone and 6 Rugged Leather. Make the 186 Dense Grinding Stone first. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the Imperial Plate Boots take over. Needs an anvil nearby. If you got here without learning Dense Grinding Stone, learn it now: an earlier step teaches it.
+  tip Huge Thorium Battleaxe is orange at 255 (yellow 280, green 292, grey 305): about 31 crafts to 285, up to 32 for 9 players in 10 (the gathered materials above count that many). Each takes 40 Thorium Bar, 6 Dense Grinding Stone and 6 Rugged Leather. Make the 179 Dense Grinding Stone first. Use the 7 Dense Grinding Stone you made earlier; the counts above leave them out. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the Imperial Plate Boots take over. Needs an anvil nearby. If you got here without learning Dense Grinding Stone, learn it now: an earlier step teaches it.
   learn 16639 npc 2836 only Alliance
   learn 16639 npc 2836 only Horde
-  craft 16639 x186
+  craft 16639 x179
   craft 16971 until 285
 
 step Plans: Imperial Plate Boots
@@ -521,13 +514,13 @@ section Blacksmithing 250-300
 
 step Get Heart of Fire
   when !knows 16971
-  tip You need 196 Heart of Fire for Blacksmithing 250-300: Radiant Belt, Radiant Boots and Radiant Leggings. Heart of Fire drops most from Entropic Beast, Scorching Elemental and Magma Elemental, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Heart of Fire per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
+  tip 196 Heart of Fire for Blacksmithing 250-300: 22 Radiant Belts, 29 Radiant Boots and 9 Radiant Leggings. Heart of Fire drops most from Entropic Beast, Scorching Elemental and Magma Elemental, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most Heart of Fire per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House.
   collect 7077 x196 nearest gather levels 44-55
   auction 7077 x196
 
 step Get Thorium Bar
   when !knows 16971
-  tip You need 806 Thorium Bar for Blacksmithing 250-300: Radiant Belt, Radiant Boots and Radiant Leggings. Mine Thorium Ore and smelt it at a forge (Mining 250). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 806 Thorium Bar for Blacksmithing 250-300: 22 Radiant Belts, 29 Radiant Boots and 9 Radiant Leggings. Mine Thorium Ore and smelt it at a forge (Mining 250). The arrow takes the Mining loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 12359 x806 gather Mining 250
   loop Winterspring lvl 59 lap 705 yield 4.9 only Alliance r 60 at 70.4,40.3 69.1,39.8 56.3,25.6 57.3,32.8 56.0,49.0 55.5,50.7 54.1,50.4 56.0,53.8 57.8,61.1 56.9,50.4 58.4,46.6 69.4,41.9
   loop Un'Goro Crater lvl 56 lap 621 yield 4.0 r 60 at 68.5,16.1 66.4,14.2 50.1,13.3 39.1,15.4 37.8,35.3 46.0,53.0 53.9,51.9 54.0,46.6 51.4,48.1 46.6,44.9 45.4,35.2 52.2,32.0

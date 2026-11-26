@@ -90,7 +90,7 @@ step Enchanting 1-75: vendor goods
   buy 247786 x32 nearest
 
 step Get Strange Dust
-  tip You need 52 Strange Dust for Enchanting 1-75: Enchant Chest - Inferior Stamina. Enchanting: disenchant green items of item level 5-20. Or buy them at the Auction House.
+  tip 52 Strange Dust for Enchanting 1-75: 52 Enchant Chest - Inferior Stamina. Enchanting: disenchant green items of item level 5-20. Or buy them at the Auction House.
   collect 10940 x52 anywhere gather Enchanting 1
   auction 10940 x52
 
@@ -123,22 +123,22 @@ step Enchanting 75-150: vendor goods
   buy 10938 x4 nearest only Horde
 
 step Get Shadowgem
-  tip You need 1 Shadowgem for Enchanting 75-150: Runed Silver Rod. Shadowgem turns up in about one Copper Vein, Tin Vein or Silver Vein in 100: keep the ones you find while mining. Or buy it at the Auction House.
+  tip 1 Shadowgem for Enchanting 75-150: Runed Silver Rod. Shadowgem turns up in about one Copper Vein, Tin Vein or Silver Vein in 100: keep the ones you find while mining. Or buy it at the Auction House.
   collect 1210 x1 anywhere gather Mining 1
   auction 1210 x1
 
 step Get Silver Rod
-  tip You need 1 Silver Rod for Enchanting 75-150: Runed Silver Rod. Blacksmithing: Silver Rod. Or buy it at the Auction House.
+  tip 1 Silver Rod for Enchanting 75-150: Runed Silver Rod. Blacksmithing: Silver Rod. Or buy it at the Auction House.
   collect 6338 x1 anywhere gather Blacksmithing 75
   auction 6338 x1
 
 step Get Strange Dust
-  tip You need 136 Strange Dust for Enchanting 75-150: Enchant Chest - Inferior Stamina, Enchant Cloak - Minor Protection and Runed Silver Rod. Enchanting: disenchant green items of item level 5-20. Or buy them at the Auction House.
+  tip 136 Strange Dust for Enchanting 75-150: 27 Enchant Chest - Inferior Stamina, 53 Enchant Cloak - Minor Protection and Runed Silver Rod. Enchanting: disenchant green items of item level 5-20. Or buy them at the Auction House.
   collect 10940 x136 anywhere gather Enchanting 1
   auction 10940 x136
 
 step Get Soul Dust
-  tip You need 20 Soul Dust for Enchanting 75-150: Enchant Bracer - Lesser Stamina. Enchanting: disenchant green items of item level 21-30. Or buy them at the Auction House.
+  tip 20 Soul Dust for Enchanting 75-150: 20 Enchant Bracer - Lesser Stamina. Enchanting: disenchant green items of item level 21-30. Or buy them at the Auction House.
   collect 11083 x20 anywhere gather Enchanting 1
   auction 11083 x20
 
@@ -172,50 +172,50 @@ section Enchanting 150-225
 step Get Iridescent Pearl (Alliance)
   only Alliance
   zone Wetlands
-  tip You need 1 Iridescent Pearl for Enchanting 150-225: Runed Golden Rod. Open the Giant Clams at the marked spot. Or buy it at the Auction House.
+  tip 1 Iridescent Pearl for Enchanting 150-225: Runed Golden Rod. Open the Giant Clams at the marked spot. Or buy it at the Auction House.
   collect 5500 x1 @20.7,18.1 era gather
   auction 5500 x1
 
 step Get Iridescent Pearl (Horde)
   only Horde
   zone Ashenvale
-  tip You need 1 Iridescent Pearl for Enchanting 150-225: Runed Golden Rod. Open the Giant Clams at the marked spot. Or buy it at the Auction House.
+  tip 1 Iridescent Pearl for Enchanting 150-225: Runed Golden Rod. Open the Giant Clams at the marked spot. Or buy it at the Auction House.
   collect 5500 x1 @12.3,10 era gather
   auction 5500 x1
 
 step Get Greater Astral Essence
   zone Azeroth
-  tip You need 1 Greater Astral Essence for Enchanting 150-225: Runed Golden Rod. Enchanting: disenchant green items of item level 16-25. Or buy it at the Auction House.
+  tip 1 Greater Astral Essence for Enchanting 150-225: Runed Golden Rod. Enchanting: disenchant green items of item level 16-25. Or buy it at the Auction House.
   collect 11082 x1 anywhere gather Enchanting 1
   auction 11082 x1
 
 step Get Soul Dust
-  tip You need 55 Soul Dust for Enchanting 150-225: Runed Golden Rod, Enchant Bracer - Lesser Stamina and Enchant Boots - Lesser Agility. Enchanting: disenchant green items of item level 21-30. Or buy them at the Auction House.
+  tip 55 Soul Dust for Enchanting 150-225: Runed Golden Rod, 12 Enchant Bracer - Lesser Stamina and 42 Enchant Boots - Lesser Agility. Enchanting: disenchant green items of item level 21-30. Or buy them at the Auction House.
   collect 11083 x55 anywhere gather Enchanting 1
   auction 11083 x55
 
 step Get Golden Rod
-  tip You need 1 Golden Rod for Enchanting 150-225: Runed Golden Rod. Blacksmithing: Golden Rod. Or buy it at the Auction House.
+  tip 1 Golden Rod for Enchanting 150-225: Runed Golden Rod. Blacksmithing: Golden Rod. Or buy it at the Auction House.
   collect 11128 x1 anywhere gather Blacksmithing 125
   auction 11128 x1
 
 step Get Lesser Mystic Essence
-  tip You need 10 Lesser Mystic Essence for Enchanting 150-225: Enchant Chest - Greater Intellect. Enchanting: disenchant green items of item level 26-35. Or buy them at the Auction House.
+  tip 10 Lesser Mystic Essence for Enchanting 150-225: 10 Enchant Chest - Greater Intellect. Enchanting: disenchant green items of item level 26-35. Or buy them at the Auction House.
   collect 11134 x10 anywhere gather Enchanting 1
   auction 11134 x10
 
 step Get Greater Mystic Essence
-  tip You need 1 Greater Mystic Essence for Enchanting 150-225: Runed Truesilver Rod. Enchanting: disenchant green items of item level 26-35. Or buy it at the Auction House.
+  tip 1 Greater Mystic Essence for Enchanting 150-225: Runed Truesilver Rod. Enchanting: disenchant green items of item level 26-35. Or buy it at the Auction House.
   collect 11135 x1 anywhere gather Enchanting 1
   auction 11135 x1
 
 step Get Vision Dust
-  tip You need 21 Vision Dust for Enchanting 150-225: Runed Truesilver Rod and Enchant Cloak - Greater Defense. Enchanting: disenchant green items of item level 31-40. Or buy them at the Auction House.
+  tip 21 Vision Dust for Enchanting 150-225: Runed Truesilver Rod and 20 Enchant Cloak - Greater Defense. Enchanting: disenchant green items of item level 31-40. Or buy them at the Auction House.
   collect 11137 x21 anywhere gather Enchanting 1
   auction 11137 x21
 
 step Get Truesilver Rod
-  tip You need 1 Truesilver Rod for Enchanting 150-225: Runed Truesilver Rod. Blacksmithing: Truesilver Rod. Or buy it at the Auction House.
+  tip 1 Truesilver Rod for Enchanting 150-225: Runed Truesilver Rod. Blacksmithing: Truesilver Rod. Or buy it at the Auction House.
   collect 11144 x1 anywhere gather Blacksmithing 175
   auction 11144 x1
 
@@ -290,7 +290,7 @@ step Formula: Enchant Shield - Greater Stamina
   buy 16217 nearest
 
 step Get Purple Lotus
-  tip You need 41 Purple Lotus for Enchanting 225-300: Lesser Mana Oil. Herbalism: Purple Lotus (skill 210) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 41 Purple Lotus for Enchanting 225-300: 41 Lesser Mana Oils. Herbalism: Purple Lotus (skill 210) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 8831 x41 gather Herbalism 210
   loop Feralas lvl 47 lap 367 yield 6.5 r 60 at 55.6,73.8 59.5,73.8 60.7,68.9 59.9,66.9 60.1,64.5 60.2,60.5 60.2,57.6 58.4,55.7 58.5,58.2 57.2,61.0 57.0,65.2 54.1,66.7
   loop Tanaris lvl 43 lap 318 yield 4.6 r 60 at 60.2,23.6 60.8,22.7 61.7,24.1 65.7,20.1 65.6,29.2 64.2,32.2 63.3,35.0 61.7,29.8 57.0,24.8
@@ -300,12 +300,12 @@ step Get Purple Lotus
   auction 8831 x41
 
 step Get Vision Dust
-  tip You need 45 Vision Dust for Enchanting 225-300: Enchant Gloves - Agility. Enchanting: disenchant green items of item level 31-40. Or buy them at the Auction House.
+  tip 45 Vision Dust for Enchanting 225-300: 45 Enchant Gloves - Agility. Enchanting: disenchant green items of item level 31-40. Or buy them at the Auction House.
   collect 11137 x45 anywhere gather Enchanting 1
   auction 11137 x45
 
 step Get Dream Dust
-  tip You need 233 Dream Dust for Enchanting 225-300: Lesser Mana Oil and Enchant Shield - Greater Stamina. Enchanting: disenchant green items of item level 41-50. Or buy them at the Auction House.
+  tip 233 Dream Dust for Enchanting 225-300: 41 Lesser Mana Oils and 32 Enchant Shield - Greater Stamina. Enchanting: disenchant green items of item level 41-50. Or buy them at the Auction House.
   collect 11176 x233 anywhere gather Enchanting 1
   auction 11176 x233
 

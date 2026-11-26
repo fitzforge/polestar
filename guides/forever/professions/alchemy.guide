@@ -86,7 +86,7 @@ step Alchemy 1-75: vendor goods
   buy 3371 x82 nearest
 
 step Get Silverleaf
-  tip You need 87 Silverleaf for Alchemy 1-75: Elixir of Minor Defense. Herbalism: Silverleaf (skill 1) in Dun Morogh (1-10), Elwynn Forest (1-10) and Zephras Isle (1-15). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 87 Silverleaf for Alchemy 1-75: 87 Elixirs of Minor Defense. Herbalism: Silverleaf (skill 1) in Dun Morogh (1-10), Elwynn Forest (1-10) and Zephras Isle (1-15). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 765 x87 gather Herbalism 1
   loop Zephras Isle lvl 11 lap 460 yield 34.3 live r 60 at 59.6,42.4 64.0,39.2 62.2,36.4 60.3,36.2 60.8,38.5 58.6,38.8 55.9,36.5 55.9,41.4 57.6,48.1 58.1,50.5 59.4,52.5 59.5,49.6
   loop Dun Morogh lvl 4 lap 382 yield 18.0 only Alliance r 60 at 32.2,72.6 33.9,71.7 31.5,69.4 28.6,71.6 26.3,72.8 22.2,72.7 20.6,72.8 23.3,76.4 25.9,77.6 28.1,77.7 30.1,76.6 29.6,73.7
@@ -98,7 +98,7 @@ step Get Silverleaf
   auction 765 x87
 
 step Get Peacebloom
-  tip You need 110 Peacebloom for Alchemy 1-75: Elixir of Minor Defense and Elixir of Minor Fortitude (23 of them for 75-150: get them all now). Herbalism: Peacebloom (skill 1) in Dun Morogh (1-10), Elwynn Forest (1-10) and Zephras Isle (1-15). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 110 Peacebloom for Alchemy 1-75: 87 Elixirs of Minor Defense and 23 Elixirs of Minor Fortitude (23 of them for 75-150: get them all now). Herbalism: Peacebloom (skill 1) in Dun Morogh (1-10), Elwynn Forest (1-10) and Zephras Isle (1-15). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 2447 x110 gather Herbalism 1
   loop Zephras Isle lvl 4 lap 331 yield 48.0 live r 60 at 44.8,26.2 43.8,28.2 41.9,27.4 41.4,24.9 42.2,21.4 43.4,21.2 44.6,20.9 45.0,22.9 46.4,22.0 46.8,23.8 47.8,28.8 46.4,26.6
   loop Elwynn Forest lvl 4 lap 381 yield 15.0 only Alliance r 60 at 55.3,39.7 52.8,34.7 50.3,36.1 50.5,31.0 46.1,31.5 45.3,38.8 45.7,42.7 46.8,46.4 49.1,48.5 52.1,51.2 51.1,47.0 52.4,43.6
@@ -130,7 +130,7 @@ step Alchemy 75-150: vendor goods
   buy 3372 x15 nearest
 
 step Get Mageroyal
-  tip You need 50 Mageroyal for Alchemy 75-150: Elixir of Wisdom. Herbalism: Mageroyal (skill 50) in Teldrassil (1-10), Zephras Isle (1-15) and Darkshore (10-20). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 50 Mageroyal for Alchemy 75-150: 50 Elixirs of Wisdom. Herbalism: Mageroyal (skill 50) in Teldrassil (1-10), Zephras Isle (1-15) and Darkshore (10-20). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 785 x50 gather Herbalism 50
   loop Zephras Isle lvl 11 lap 458 yield 36.9 live r 60 at 59.6,42.4 58.6,38.8 55.9,36.5 55.9,41.4 57.6,48.1 58.1,50.5 59.5,49.6 62.1,49.4 64.0,39.2 62.2,36.4 60.3,36.2 60.8,38.5
   loop Darkshore lvl 20 lap 710 yield 8.8 only Alliance r 60 at 34.7,89.8 35.2,84.8 34.6,81.8 36.3,80.0 38.9,49.4 46.9,48.9 42.1,67.6 42.3,72.3 40.2,71.9 38.7,77.7 38.7,86.9 38.1,88.9
@@ -142,7 +142,7 @@ step Get Mageroyal
   auction 785 x50
 
 step Get Earthroot
-  tip You need 46 Earthroot for Alchemy 75-150: Elixir of Minor Fortitude. Herbalism: Earthroot (skill 15) in Dun Morogh (1-10), Zephras Isle (1-15) and Redridge Mountains (15-25). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 46 Earthroot for Alchemy 75-150: 23 Elixirs of Minor Fortitude. Herbalism: Earthroot (skill 15) in Dun Morogh (1-10), Zephras Isle (1-15) and Redridge Mountains (15-25). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 2449 x46 gather Herbalism 15
   loop Zephras Isle lvl 6 lap 558 yield 38.0 only Alliance live r 60 at 44.8,26.2 44.2,28.5 40.2,29.9 39.0,32.3 38.0,34.5 35.3,34.1 37.0,29.6 39.4,27.3 41.9,27.4 41.3,24.9 47.0,19.3 45.0,22.9
   loop Westfall lvl 18 lap 341 yield 6.8 only Alliance r 60 at 39.6,32.9 42.2,33.1 46.1,28.7 42.8,38.8 38.9,38.4 31.9,44.1 30.7,38.2 28.6,32.2 32.5,25.5 36.6,22.1 36.6,26.5 37.0,32.8
@@ -155,7 +155,7 @@ step Get Earthroot
   auction 2449 x46
 
 step Get Briarthorn
-  tip You need 158 Briarthorn for Alchemy 75-150: Elixir of Wisdom and Lesser Troll's Blood Elixir (28 of them for 150-225: get them all now). Herbalism: Briarthorn (skill 70) in Westfall (10-20), Ashenvale (18-30) and Wetlands (20-30). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 158 Briarthorn for Alchemy 75-150: 50 Elixirs of Wisdom and 29 Lesser Troll's Blood Elixirs (28 of them for 150-225: get them all now). Herbalism: Briarthorn (skill 70) in Westfall (10-20), Ashenvale (18-30) and Wetlands (20-30). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 2450 x158 gather Herbalism 70
   loop Loch Modan lvl 18 lap 332 yield 7.0 only Alliance r 60 at 76.0,65.6 70.6,72.4 66.1,72.4 62.1,58.0 64.4,54.1 69.9,51.9 67.3,48.4 64.6,44.3 66.8,37.8 71.8,37.9 74.0,41.6 77.0,43.6
   loop Westfall lvl 16 lap 348 yield 5.6 only Alliance r 60 at 36.1,37.0 34.4,38.3 31.6,43.5 29.7,49.2 37.3,46.1 38.9,38.4 46.4,30.9 42.6,31.9 40.4,29.7 39.5,32.7 34.6,26.3 37.1,33.3
@@ -168,7 +168,7 @@ step Get Briarthorn
   auction 2450 x158
 
 step Get Bruiseweed
-  tip You need 58 Bruiseweed for Alchemy 75-150: Lesser Troll's Blood Elixir (28 of them for 150-225: get them all now). Herbalism: Bruiseweed (skill 100) in Stonetalon Mountains (15-27), Duskwood (18-30) and Ashenvale (18-30). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 58 Bruiseweed for Alchemy 75-150: 29 Lesser Troll's Blood Elixirs (28 of them for 150-225: get them all now). Herbalism: Bruiseweed (skill 100) in Stonetalon Mountains (15-27), Duskwood (18-30) and Ashenvale (18-30). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 2453 x58 gather Herbalism 100
   loop Loch Modan lvl 20 lap 421 yield 14.3 only Alliance r 60 at 71.0,17.3 65.0,23.3 68.1,27.3 71.1,29.1 68.1,32.6 71.6,44.8 69.9,51.6 73.5,57.8 79.6,76.6 81.6,64.5 80.8,39.9 77.8,26.5
   loop Redridge Mountains lvl 22 lap 332 yield 6.6 only Alliance r 60 at 72.5,73.4 65.0,82.9 61.2,79.3 59.5,75.3 56.8,72.5 60.1,69.7 59.5,63.3 63.0,69.6 67.8,62.6 75.9,63.3 85.4,61.1 76.6,72.8
@@ -209,7 +209,7 @@ step Alchemy 150-225: vendor goods
   buy 3372 x83 nearest
 
 step Get Wild Steelbloom
-  tip You need 45 Wild Steelbloom for Alchemy 150-225: Elixir of Defense (11 of them for 225-300: get them all now). Herbalism: Wild Steelbloom (skill 115) in Stonetalon Mountains (15-27), Arathi Highlands (30-40) and Stranglethorn Vale (30-45). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 45 Wild Steelbloom for Alchemy 150-225: 45 Elixirs of Defense (11 of them for 225-300: get them all now). Herbalism: Wild Steelbloom (skill 115) in Stonetalon Mountains (15-27), Arathi Highlands (30-40) and Stranglethorn Vale (30-45). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 3355 x45 gather Herbalism 115
   loop Stonetalon Mountains lvl 25 lap 343 yield 5.3 only Alliance r 60 at 34.3,17.8 33.1,20.5 31.9,17.1 29.3,12.1 30.1,9.0 31.5,5.3 36.7,5.5 44.0,15.0 40.1,19.2 38.6,21.5 36.3,22.2 37.0,16.5
   loop Arathi Highlands lvl 37 lap 333 yield 1.6 only Alliance r 60 at 65.3,70.0 66.7,64.2 71.2,59.2 71.5,62.7 72.5,65.8 69.1,69.0 67.3,70.5 69.0,75.1 62.3,72.5 56.1,70.2 54.9,64.5 62.1,68.9
@@ -222,7 +222,7 @@ step Get Wild Steelbloom
   auction 3355 x45
 
 step Get Kingsblood
-  tip You need 42 Kingsblood for Alchemy 150-225: Mana Potion. Herbalism: Kingsblood (skill 125) in Wetlands (20-30), Stranglethorn Vale (30-45) and Riverglades (38-47). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 42 Kingsblood for Alchemy 150-225: 42 Mana Potions. Herbalism: Kingsblood (skill 125) in Wetlands (20-30), Stranglethorn Vale (30-45) and Riverglades (38-47). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 3356 x42 gather Herbalism 125
   loop Riverglades lvl 39 lap 333 yield 8.0 only Alliance live r 60 at 46.1,82.1 44.2,82.7 37.9,77.3 37.1,73.8 35.4,75.0 35.7,71.8 34.0,69.8 37.5,60.7 38.2,58.8 38.9,64.8 38.6,70.6 40.2,75.4
   loop Wetlands lvl 32 lap 660 yield 9.3 only Alliance r 60 at 43.8,25.6 32.6,28.8 22.7,27.8 30.9,45.0 34.0,44.4 37.7,41.0 44.6,34.5 44.9,42.4 49.7,52.0 62.1,39.3 60.3,33.1 55.3,29.8
@@ -235,7 +235,7 @@ step Get Kingsblood
   auction 3356 x42
 
 step Get Stranglekelp
-  tip You need 42 Stranglekelp for Alchemy 150-225: Mana Potion. Herbalism: Stranglekelp (skill 85) in Wetlands (20-30), Stranglethorn Vale (30-45) and The Hinterlands (40-50). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 42 Stranglekelp for Alchemy 150-225: 42 Mana Potions. Herbalism: Stranglekelp (skill 85) in Wetlands (20-30), Stranglethorn Vale (30-45) and The Hinterlands (40-50). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 3820 x42 gather Herbalism 100
   loop Stranglethorn Vale lvl 41 lap 334 yield 13.4 r 60 at 21.4,53.3 22.0,51.3 22.6,49.0 22.2,45.7 23.6,47.0 24.9,48.5 25.9,47.8 25.4,57.0 23.9,58.5 22.8,59.3 21.6,60.4 22.1,56.5
   loop Westfall lvl 19 lap 538 yield 6.1 only Alliance r 60 at 36.1,37.0 36.9,33.0 39.5,32.7 45.3,25.1 34.4,16.2 32.7,18.8 25.9,38.6 24.5,55.2 36.9,57.1 43.7,55.5 37.3,45.7 31.5,43.9
@@ -244,7 +244,7 @@ step Get Stranglekelp
   auction 3820 x42
 
 step Get Goldthorn
-  tip You need 45 Goldthorn for Alchemy 150-225: Elixir of Defense (11 of them for 225-300: get them all now). Herbalism: Goldthorn (skill 170) in Riverglades (38-47), The Hinterlands (40-50) and Feralas (40-50). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 45 Goldthorn for Alchemy 150-225: 45 Elixirs of Defense (11 of them for 225-300: get them all now). Herbalism: Goldthorn (skill 170) in Riverglades (38-47), The Hinterlands (40-50) and Feralas (40-50). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 3821 x45 gather Herbalism 170
   loop Riverglades lvl 39 lap 338 yield 7.1 only Alliance live r 60 at 38.6,65.1 37.1,61.6 39.0,57.7 32.1,59.5 33.7,70.2 35.9,71.7 37.1,74.3 36.4,77.0 38.1,76.5 40.1,74.9 38.7,72.9 38.6,68.9
   loop Alterac Mountains lvl 43 lap 432 yield 7.1 r 60 at 58.2,41.8 53.8,42.0 48.1,41.9 39.3,59.2 33.6,52.4 36.1,47.9 36.8,26.1 37.3,13.6 39.6,16.8 47.3,15.3 52.5,18.5 50.2,29.5
@@ -302,7 +302,7 @@ step Recipe: Elixir of Superior Defense
   buy 13478 nearest
 
 step Get Purple Lotus
-  tip You need 144 Purple Lotus for Alchemy 225-300: Dreamless Sleep Potion. Herbalism: Purple Lotus (skill 210) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 144 Purple Lotus for Alchemy 225-300: 48 Dreamless Sleep Potions. Herbalism: Purple Lotus (skill 210) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 8831 x144 gather Herbalism 210
   loop Feralas lvl 47 lap 367 yield 6.5 r 60 at 55.6,73.8 59.5,73.8 60.7,68.9 59.9,66.9 60.1,64.5 60.2,60.5 60.2,57.6 58.4,55.7 58.5,58.2 57.2,61.0 57.0,65.2 54.1,66.7
   loop Tanaris lvl 43 lap 318 yield 4.6 r 60 at 60.2,23.6 60.8,22.7 61.7,24.1 65.7,20.1 65.6,29.2 64.2,32.2 63.3,35.0 61.7,29.8 57.0,24.8
@@ -312,7 +312,7 @@ step Get Purple Lotus
   auction 8831 x144
 
 step Get Sungrass
-  tip You need 48 Sungrass for Alchemy 225-300: Elixir of Greater Defense. Herbalism: Sungrass (skill 230) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
+  tip 48 Sungrass for Alchemy 225-300: 48 Elixirs of Greater Defense. Herbalism: Sungrass (skill 230) in The Hinterlands (40-50), Feralas (40-50) and Azshara (45-55). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 8838 x48 gather Herbalism 230
   loop The Hinterlands lvl 45 lap 344 yield 11.6 only Alliance r 60 at 22.3,56.8 18.4,54.3 18.2,51.0 22.0,52.6 26.1,54.8 28.5,53.9 30.4,53.4 34.4,46.8 36.3,58.3 31.4,63.7 29.7,65.5 27.0,62.4
   loop Feralas lvl 47 lap 367 yield 8.3 r 60 at 55.6,73.8 59.5,73.8 60.7,68.9 59.9,66.9 60.1,64.5 60.2,60.5 60.2,57.6 58.4,55.7 58.5,58.2 57.2,61.0 57.0,65.2 54.1,66.7
@@ -324,7 +324,7 @@ step Get Sungrass
 
 step Get Stonescale Eel
   zone Stranglethorn Vale
-  tip You need 48 Stonescale Eel for Alchemy 225-300: Elixir of Greater Defense. Fish them from the Stonescale Eel Swarm pools at the marked spot. Or buy them at the Auction House.
+  tip 48 Stonescale Eel for Alchemy 225-300: 48 Elixirs of Greater Defense. Fish them from the Stonescale Eel Swarm pools at the marked spot. Or buy them at the Auction House.
   collect 13422 x48 @27.5,76.5 era gather Fishing 225
   auction 13422 x48
 
