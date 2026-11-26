@@ -2752,8 +2752,6 @@ L["Choose this reward:"] = "Wähle diese Belohnung:"
 L["Search every item, mount, pet, NPC and quest, and see where it comes from (/pole lookup)."] = "Durchsuche jeden Gegenstand, jedes Reittier, Haustier, jeden NPC und jede Quest und sieh, woher sie kommen (/pole lookup)."
 L["Sources on item tooltips"] = "Quellen auf Gegenstands-Tooltips"
 L["The best one or two places to get an item, ranked for this character."] = "Die besten ein oder zwei Orte, einen Gegenstand zu bekommen, für diesen Charakter sortiert."
-L["Alt-click an item for a guide"] = "Alt-Klick auf einen Gegenstand für einen Guide"
-L["Alt-click an item link, bag item or loot to open a guide that gets it."] = "Alt-Klick auf einen Gegenstandslink, Taschengegenstand oder Beute öffnet einen Guide, der ihn besorgt."
 L["Spot other players' mounts"] = "Reittiere anderer Spieler erkennen"
 L["Name the mount of a player you target or point at, and where it comes from (/pole mount)."] = "Nennt das Reittier eines Spielers, den du anvisierst oder auf den du zeigst, und woher es kommt (/pole mount)."
 L["From"] = "Von"
@@ -5530,6 +5528,15 @@ L["Free mode: follow your own quests (on, off, nearest, xp)"] = "Freimodus: dein
 L["Start quest guide"] = "Quest-Guide starten"
 L["Click to show quest guide actions."] = "Klicken, um die Aktionen des Quest-Guides zu zeigen."
 
+-- Lookup/Spotter.lua
+-- L["Ctrl+Alt-click: guide me"] = ""
+
+-- Lookup/Options.lua
+-- L["Click an item for a guide"] = ""
+-- L["Alt-click an item link, bag item or loot to open a guide that gets it. You can require Ctrl as well below."] = ""
+-- L["Require Ctrl+Alt-click"] = ""
+-- L["Use Ctrl+Alt-click for Lookup instead of Alt-click. This replaces Ctrl+Alt-click item marking; the marking keys still work."] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar neu einrichten, eine Seite nach der anderen. Jede Wahl wirkt sofort."
 -- L["New"] = "Neu"
@@ -5846,6 +5853,8 @@ L["Click to show quest guide actions."] = "Klicken, um die Aktionen des Quest-Gu
 -- L["Layout"] = "Layout"
 -- L["Your current design"] = "Dein aktuelles Design"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Deine eigenen Quests als Guide, in einem eigenen Tab: Der Pfeil führt zur nächsten, dann zur folgenden (/polestar free)."
+-- L["Alt-click an item for a guide"] = "Alt-Klick auf einen Gegenstand für einen Guide"
+-- L["Alt-click an item link, bag item or loot to open a guide that gets it."] = "Alt-Klick auf einen Gegenstandslink, Taschengegenstand oder Beute öffnet einen Guide, der ihn besorgt."
 -- L["None of these has a known place to hand it in."] = "Für keine davon ist bekannt, wo man sie abgibt."
 -- L["Travel time to this hand-in is unknown. Its location is still shown."] = "Die Reisezeit zu dieser Abgabe ist unbekannt. Ihr Ort wird trotzdem angezeigt."
 -- L["Hand-ins without a known location"] = "Abgaben ohne bekannten Ort"

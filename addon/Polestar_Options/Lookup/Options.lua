@@ -19,8 +19,11 @@ local ok, err = ns.RegisterOptions({
 	controls = {
 		{ kind = "toggle", key = "lookup.tooltip", label = L["Sources on item tooltips"], disabled = disabled, search = "drop source, where it drops, tooltip",
 			help = L["The best one or two places to get an item, ranked for this character."] },
-		{ kind = "toggle", key = "lookup.altClick", label = L["Alt-click an item for a guide"], disabled = disabled,
-			help = L["Alt-click an item link, bag item or loot to open a guide that gets it."] },
+		{ kind = "toggle", key = "lookup.altClick", label = L["Click an item for a guide"], disabled = disabled,
+			help = L["Alt-click an item link, bag item or loot to open a guide that gets it. You can require Ctrl as well below."] },
+		{ kind = "toggle", key = "lookup.ctrlAltClick", label = L["Require Ctrl+Alt-click"], child = true,
+			disabled = function() return disabled() or not ns.Get("lookup.altClick") end,
+			help = L["Use Ctrl+Alt-click for Lookup instead of Alt-click. This replaces Ctrl+Alt-click item marking; the marking keys still work."] },
 		{ kind = "toggle", key = "lookup.mounts", label = L["Spot other players' mounts"], disabled = disabled,
 			help = L["Name the mount of a player you target or point at, and where it comes from (/pole mount)."] },
 	},

@@ -94,6 +94,7 @@ end
 -- (qol.itemMarksClick).
 function Marks.OnItemClick(link, id)
 	if not (QoL.On("itemMarks") and QoL.On("itemMarksClick") and ctrlAltOnly()) then return end
+	if ns.Get("lookup.enabled") and ns.Get("lookup.altClick") and ns.Get("lookup.ctrlAltClick") then return end
 	local mark = NEXT[Marks.Get(id) or false] or nil
 	Marks.Set(id, mark)
 	ns.Hooks.RefreshItem(id)

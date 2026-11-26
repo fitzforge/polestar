@@ -1594,10 +1594,11 @@ end)
 -- Alt-click
 ---------------------------------------------------------------------------
 
-local function altOnly()
+local function lookupClick()
 	if not (IsAltKeyDown and IsAltKeyDown()) then return false end
 	if IsShiftKeyDown and IsShiftKeyDown() then return false end
-	if IsControlKeyDown and IsControlKeyDown() then return false end
+	local ctrl = IsControlKeyDown and IsControlKeyDown() or false
+	if ctrl ~= (ns.Get("lookup.ctrlAltClick") and true or false) then return false end
 	if GetMouseButtonClicked then
 		local button = GetMouseButtonClicked()
 		if button and button ~= "" and button ~= "LeftButton" then return false end
@@ -1606,7 +1607,7 @@ local function altOnly()
 end
 
 function Lookup.OnItemClick(link, itemID)
-	if not (enabled() and ns.Get("lookup.altClick") and altOnly()) then return end
+	if not (enabled() and ns.Get("lookup.altClick") and lookupClick()) then return end
 	local C = Codex()
 	if C and not C.IsLoaded() then C.Load() end
 	local item = C and C.IsLoaded() and C.Item(itemID)

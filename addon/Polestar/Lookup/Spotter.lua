@@ -202,7 +202,8 @@ function Lookup.ItemTooltip(tooltip, link, itemID)
 	-- A mount is guided to only by a curated guide (Lookup.Guide); Alt-click
 	-- opens its Lookup page otherwise, so the line promises nothing.
 	if ns.Get("lookup.altClick") and ((guideable(list) and not Lookup.IsMount(item)) or Lookup.CuratedGuide(kind, itemID)) then
-		H.AddLine(tooltip, L["Alt-click: guide me"], nil, color("textMuted", 0.5, 0.54, 0.63))
+		local hint = ns.Get("lookup.ctrlAltClick") and L["Ctrl+Alt-click: guide me"] or L["Alt-click: guide me"]
+		H.AddLine(tooltip, hint, nil, color("textMuted", 0.5, 0.54, 0.63))
 	end
 end
 
