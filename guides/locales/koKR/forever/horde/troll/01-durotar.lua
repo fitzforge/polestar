@@ -122,7 +122,6 @@ return {
 	-- {npc:265809} Brakk
 	["{npc:265809}'s campfire"] = "{npc:265809}의 모닥불",
 	-- {npc:265809} Brakk · {area:362} Razor Hill · {spell:1229451} Boosted Rest · {area:367} Sen'jin Village · {zone:1454} Orgrimmar
-	-- was: ["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362} or in {zone:1454} at the start of the next guide."] = "{npc:265809}은(는) {area:362} 바로 남쪽에 야영하고 있습니다. {spell:1229451} 효과가 나타날 때까지 그의 모닥불 옆에 앉으세요(/sit). 전문 기술을 배웠다면 {npc:265809}이(가) 야영 101 퀘스트도 줍니다. 해당 기술 전문가에게 전달하세요. 전문가는 {area:362}에 있거나, 다음 가이드 시작 지점인 {zone:1454}에 있습니다."
 	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362}, by {area:367} for fishing, or in {zone:1454} at the start of the next guide."] = "{npc:265809}은(는) {area:362} 바로 남쪽에서 야영합니다. {spell:1229451} 효과가 나타날 때까지 그의 모닥불 옆에 앉으십시오(/sit). 전문 기술을 배웠다면 {npc:265809}도 해당 야영 101을 주며, 그 상급자가 받습니다: {area:362}에서, 낚시는 {area:367} 옆에서, 또는 다음 가이드 시작 때 {zone:1454}에서.",
 
 	-- Step 24: Camping 101: Mining

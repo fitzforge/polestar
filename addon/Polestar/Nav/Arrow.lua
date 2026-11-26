@@ -1249,6 +1249,7 @@ frame:SetScript("OnEnter", function(self)
 	GameTooltip:AddLine(ns.Get("ui.lockHud") and L["Shift-drag to move."] or L["Drag to move."], Nav.RGB("text"))
 	local target = Nav.GetTarget()
 	if target and target.spots then GameTooltip:AddLine(L["Click for the next spot."], Nav.RGB("text")) end
+	if ns.Theme then ns.Theme.TipDots(GameTooltip) end
 	GameTooltip:Show()
 end)
 

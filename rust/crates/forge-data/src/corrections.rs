@@ -527,7 +527,7 @@ pub const KINDS: [&str; 14] = [
 	"other",
 ];
 
-const QUEST_FIELDS: [&str; 27] = [
+const QUEST_FIELDS: [&str; 28] = [
 	"title",
 	"level",
 	"minLevel",
@@ -563,6 +563,10 @@ const QUEST_FIELDS: [&str; 27] = [
 	// The set of quests the game offers one of at a time, the same name on each (#3601: Pix's weekly In Demand
 	// quests). The Codex's `v<name>`: a pick-up guide takes such a quest as optional.
 	"rotation",
+	// The items the quest hands out at the turn-in, { items, choices, money } as the built quests have them: the
+	// Codex makes each item's quest source from them (#4169: Forever's copies of the dungeon set quests, whose
+	// Classic copies left the data with the only source of their tier 0.5 pieces).
+	"rewards",
 ];
 
 struct Ck<'a> {
@@ -917,6 +921,22 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 							};
 							ck.refers(&format!("{oa}.id"), t, &o.get("id"));
 						}
+					}
+				}
+				"rewards" => {
+					if !v.is_obj() {
+						ck.err(&a, "rewards is { items, choices, money }");
+						continue;
+					}
+					ck.keys(&a, &v, &["items", "choices", "money"]);
+					for kk in ["items", "choices"] {
+						if v.has(kk) {
+							ck.ids(&format!("{a}.{kk}"), "items", &v.get(kk));
+						}
+					}
+					let m = v.get("money");
+					if !(m.is_nullish() || m.as_num().is_some_and(|n| n >= 0.0 && n.fract() == 0.0)) {
+						ck.err(format!("{a}.money"), format!("{} must be a whole number or null", show(&m)));
 					}
 				}
 				_ => ck.err(&a, format!("not a quest field (fields: {})", QUEST_FIELDS.join(", "))),
@@ -1449,9 +1469,9 @@ fn check_xy(ck: &mut Ck, at: &str, x: &V, y: &V) {
 	}
 }
 
-/// data/places.json: `{ about, places: [{ id, quest, objective: N | "giver" | "ender", write?, label?, at: {
+/// data/places.json: `{ about, places: [{ id, quest, objective: N | "giver" | "ender" | "complete", write?, label?, at: {
 /// map, x, y, frame } | path: { map, frame, points: [[x, y], ...] }, note, source, issue, pr }] }`. `label`: the
-/// objective's goal text.
+/// objective's goal text. `"complete"`: the quest's `complete` line itself (#4095).
 fn check_places(ck: &mut Ck, d: &V) {
 	ck.keys("", d, &["about", "_about", "places"]);
 	let list = d.get("places");
@@ -1479,8 +1499,8 @@ fn check_places(ck: &mut Ck, d: &V) {
 		ck.refers(&format!("{at}.quest"), "quests", &r.get("quest"));
 		let o = r.get("objective");
 		match o.as_str() {
-			Some("giver" | "ender") => {}
-			Some(s) => ck.err(format!("{at}.objective"), format!("{s:?}: an objective number, \"giver\" or \"ender\"")),
+			Some("giver" | "ender" | "complete") => {}
+			Some(s) => ck.err(format!("{at}.objective"), format!("{s:?}: an objective number, \"giver\", \"ender\" or \"complete\"")),
 			None if is_id(&o) => {
 				if let Some(n) = objectives(ck, &r.get("quest")) {
 					if o.num() as usize > n.max(1) {
@@ -1488,7 +1508,7 @@ fn check_places(ck: &mut Ck, d: &V) {
 					}
 				}
 			}
-			None => ck.err(format!("{at}.objective"), format!("{}: an objective number, \"giver\" or \"ender\"", show(&o))),
+			None => ck.err(format!("{at}.objective"), format!("{}: an objective number, \"giver\", \"ender\" or \"complete\"", show(&o))),
 		}
 		let (pt, path) = (r.get("at"), r.get("path"));
 		match (pt.is_undef(), path.is_undef()) {
@@ -2220,6 +2240,20 @@ mod tests {
 		assert_eq!(findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "limit": 600 }}, {src} }} }} }}"#)), None, None), Vec::<String>::new());
 		let bad = findings(Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "limit": "10 min" }}, {src} }}, "11": {{ "set": {{ "limit": 1.5 }}, {src} }} }} }}"#)), None, None);
 		assert_eq!(bad.len(), 2, "{bad:?}");
+	}
+
+	// #4169: Forever's dungeon set copies take their Classic copies' rewards, the only quest source of the pieces.
+	#[test]
+	fn rewards_name_known_items() {
+		let src = r#""source": { "kind": "tdb", "ref": "the Classic copy's rewards" }, "note": "set pieces""#;
+		let ok = format!(r#"{{ "quests": {{ "10": {{ "set": {{ "rewards": {{ "items": [40], "choices": [], "money": null }} }}, {src} }} }} }}"#);
+		assert_eq!(findings(Some(&ok), None, None), Vec::<String>::new());
+		let bad = findings(
+			Some(&format!(r#"{{ "quests": {{ "10": {{ "set": {{ "rewards": {{ "items": [999], "money": 1.5 }} }}, {src} }}, "11": {{ "set": {{ "rewards": [40] }}, {src} }} }} }}"#)),
+			None,
+			None,
+		);
+		assert_eq!(bad.len(), 3, "{bad:?}");
 	}
 
 	// #2465 (doneBy), #3601 (rotation), #3138 (vendorAfter), #558 (ghostOnly): the condition fields the engine reads.

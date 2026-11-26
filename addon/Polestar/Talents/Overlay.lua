@@ -171,6 +171,7 @@ onEnter = function(button)
 	if not text then return end
 	local r, g, b = Theme.Color(color)
 	GameTooltip:AddLine(text, r, g, b, true)
+	Theme.TipDots(GameTooltip)
 	GameTooltip:Show()
 end
 O.OnEnter = onEnter

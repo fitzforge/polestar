@@ -40,7 +40,6 @@ return {
 	-- Step 6: The Master's Glaive
 	-- {object:12666} Twilight Tome · {quest:948} Onu · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	-- was: ["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater; {npc:3584} stands on its north side. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "Espreitalunas Machos rondam a mata ao redor da glaive. {object:12666} fica no fundo da cratera; {npc:3584} fica no lado norte. Para a missão de {quest:948}, use {item:5251} no fundo da cratera: isso cria {object:10076}, e você entrega a missão na tigela."
 	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "Grandes Espreitadores da Lua rondam a floresta ao redor da glaive. {object:12666} fica no fundo da cratera. Para a missão de {quest:948}, use {item:5251} no fundo da cratera: isso cria {object:10076}, e você entrega a missão à tigela.",
 	-- plural, as words: Fine Moonstalker Pelts = {item:5386} Fine Moonstalker Pelt
 	["Fine Moonstalker Pelts"] = "Pelagens de Espreitaluna Finas",

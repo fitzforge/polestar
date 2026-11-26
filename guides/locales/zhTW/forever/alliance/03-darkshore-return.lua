@@ -40,7 +40,6 @@ return {
 	-- Step 6: The Master's Glaive
 	-- {object:12666} Twilight Tome · {quest:948} Onu · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	-- was: ["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater; {npc:3584} stands on its north side. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "月夜雄虎在月刃周圍的樹林中徘徊。{object:12666}在坑底；{npc:3584}站在北側。進行{quest:948}的任務時，在坑底使用{item:5251}：它會變出{object:10076}，然後把任務交給這個碗。"
 	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "月夜獵豹雄獸在月刃周圍的樹林中遊蕩。{object:12666}在彈坑底部。為了{quest:948}的任務，在彈坑底部使用{item:5251}：它會產生{object:10076}，你把任務繳交給這個碗。",
 	-- plural, as words: Fine Moonstalker Pelts = {item:5386} Fine Moonstalker Pelt
 	["Fine Moonstalker Pelts"] = "優質月夜猛虎毛皮",

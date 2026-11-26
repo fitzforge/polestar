@@ -327,6 +327,7 @@ step Chillwind Camp
   tip Ride back south from Dalson's Tears to the camp.
   turnin 5220                         -- High Priestess MacDonnell
   accept 5222
+  level 55
   accept 5533                         -- Commander Ashlam Valorfist (from level 55)
   turnin 5533                         -- Alchemist Arbington
   accept 5537                         -- The skeletons of Andorhal, next on this guide

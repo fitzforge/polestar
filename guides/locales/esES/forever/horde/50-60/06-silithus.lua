@@ -44,6 +44,8 @@ return {
 	["Inside"] = "Dentro",
 
 	-- Step 9: Gaeriyan
+	-- {object:148504} A Conspicuous Gravestone · {area:976} Gadgetzan · {npc:8737} Linken
+	["Alive again, go to {object:148504} in the graveyard just east of {area:976} and use it: it takes the quest. {npc:8737}'s sword goes back to {npc:8737} in Un'Goro: keep it."] = "",
 	-- {quest:3914} Linken's Sword · {npc:8737} Linken
 	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914} se entrega a {npc:8737} en el Cráter de Un'Goro: guárdala.",
 
@@ -168,8 +170,8 @@ return {
 	["{npc:15196}, Terror of the Sands, is a level 59 elite scorpid patrolling the mountains by {npc:15190}'s satchel, at your level: a group choice. The wanted poster stands in the middle of the Hold; {npc:15182} pays out."] = "",
 
 	-- Step 34: Hermit Ortell
-	-- {area:3447} Ortell's Hideout
-	["Ride north-east to {area:3447}."] = "Cabalga al noreste hasta {area:3447}.",
+	-- {area:3447} Ortell's Hideout · {area:2738} Southwind Village
+	["Ride south-east to {area:3447}, in the mountains south of {area:2738}."] = "",
 
 	-- Step 35: Noggle's Lost Satchel
 	-- {npc:15196} Deathclasp
@@ -187,9 +189,9 @@ return {
 	["{npc:15170}, if Brann's letter dropped for you"] = "",
 
 	-- Step 38: Twilight Base Camp
-	-- {npc:15306} Bor Wildmane
+	-- {npc:15306} Bor Wildmane · {area:2739} Twilight Base Camp · {area:3425} Cenarion Hold
 	-- plural, as words: Encrypted Twilight Texts = {item:20404} Encrypted Twilight Text · Twilight Avengers = {npc:11880} Twilight Avenger
-	["Collect twenty Encrypted Twilight Texts from the cultists here, ten for {npc:15306} and ten for Ortell. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60)."] = "Consigue veinte Textos crepusculares codificados de los fieles de aquí, diez para {npc:15306} y diez para Ortell. Cógelos de los Vengadores Crepusculares y los Geoseñores; deja a los Atracallamas y los Clamapiedras (59-60).",
+	["Collect twenty Encrypted Twilight Texts, ten for {npc:15306} and ten for Ortell. The {area:2739} holds only elementals: the texts drop from the Twilight's Hammer cultists of the Vanguard in the far south-west, the Post in the west and the Outpost west of {area:3425}. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60)."] = "",
 	-- {npc:15306} Bor Wildmane
 	["ten for each quest: {npc:15306} takes his ten before Ortell"] = "diez para cada misión: {npc:15306} recibe los suyos antes que Ortell",
 
@@ -244,8 +246,8 @@ return {
 	["Keep the bait for {npc:9684}'s lair, next (he is level 56)."] = "",
 
 	-- Step 52: Lar'korwi
-	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder
-	["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "La guarida de {npc:9684} está justo al sur del pilón. Usa allí el cebo de {npc:9619}; {npc:9684} es de nivel 56 y pega fuerte, así que empieza con la salud al máximo.",
+	-- {item:11568} Torwa's Pouch · {npc:9684} Lar'korwi
+	["Open {item:11568}: it holds the meat and the pheromone mixture. {npc:9684}'s lair is the bone-strewn valley just south of the pylon: place the meat among the bones, then use the mixture on it to call {npc:9684}. He is level 56 and hits hard, so start at full health."] = "",
 
 	-- Step 53: Ringo
 	-- {npc:9999} Ringo
@@ -286,6 +288,7 @@ return {
 	-- ["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "Hay un pergamino roto en la entrada de {area:2261}, la cripta al sur de {area:2260}.",
 	-- ["Andorhal watchtowers and silos"] = "Atalayas y silos de Andorhal",
 	-- ["Back east past the {area:202} to {area:201}, the farm under the eastern hills: {npc:11078} guards its cauldron. Kill him for the key, then use the cauldron."] = "De vuelta al este pasando {area:202} hasta {area:201}, la granja bajo las colinas del este: {npc:11078} custodia su caldero. Mátalo para conseguir la llave y luego usa el caldero.",
+	-- ["Collect twenty Encrypted Twilight Texts from the cultists here, ten for {npc:15306} and ten for Ortell. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60)."] = "Consigue veinte Textos crepusculares codificados de los fieles de aquí, diez para {npc:15306} y diez para Ortell. Cógelos de los Vengadores Crepusculares y los Geoseñores; deja a los Atracallamas y los Clamapiedras (59-60).",
 	-- ["Diseased Grizzlies"] = "Griseznos malsanos",
 	-- ["Dithers offers {item:14619} ({quest:838}). Skip it."] = "El Boticario Dithers ofrece {item:14619} ({quest:838}). Sáltatela.",
 	-- ["Dredge Strikers"] = "Artilleros de arrastre",
@@ -316,6 +319,7 @@ return {
 	-- ["Ride east along the road to the {area:152} on the border."] = "Cabalga al este por el camino hasta {area:152}, en la frontera.",
 	-- ["Ride east to {npc:1855}'s hut by the {area:2619} and hear him out."] = "Cabalga al este hasta la cabaña de {npc:1855} junto al {area:2619} y escúchalo.",
 	-- ["Ride north-east to {area:2276} by {area:2275}: the high elf Rangers, Pathstriders and Woodsmen guard it and the Registry lies inside. Careful: the Pathstriders are 57-58 but the Rangers reach 60: pull one at a time and take the Rangers last."] = "Cabalga al noreste hasta {area:2276}, junto a {area:2275}: los Especialistas, Zancaminos y Leñadores altos elfos la vigilan y el Registro está dentro. Cuidado: los Zancaminos son de 57-58, pero los Especialistas llegan a 60: atráelos de uno en uno y deja a los Especialistas para el final.",
+	-- ["Ride north-east to {area:3447}."] = "Cabalga al noreste hasta {area:3447}.",
 	-- ["Ride north-west to {npc:1855}'s hut."] = "Cabalga al noroeste hasta la cabaña de {npc:1855}.",
 	-- ["Ride south into Andorhal. {npc:10667} waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the {item:12815} to mark it; keep to the edges of town. Use the {item:12627} by the silos in the middle of town to bring out Temporal Parasites."] = "Cabalga al sur hasta Andorhal. {npc:10667} espera en la posada en ruinas del oeste del pueblo. Ponte en la entrada de cada una de las cuatro torres con la {item:12815} para marcarla; ve por los bordes del pueblo. Usa el {item:12627} junto a los silos del centro del pueblo para hacer salir a los Parásitos temporales.",
 	-- ["Ride south-east from {npc:1855} to the {area:2260} farmhouse."] = "Cabalga al sureste desde {npc:1855} hasta la granja de {area:2260}.",
@@ -376,5 +380,6 @@ return {
 	-- ["{npc:8565} walks around {area:2276}: look inside the circle on the map"] = "{npc:8565} da vueltas por {area:2276}: búscalo dentro del círculo del mapa",
 	-- ["{npc:9117} is inside the cave."] = "{npc:9117} está dentro de la cueva.",
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "Ahora {npc:9619} pide la piel de {npc:9622}, en la cueva del noreste: omítela.",
+	-- ["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "La guarida de {npc:9684} está justo al sur del pilón. Usa allí el cebo de {npc:9619}; {npc:9684} es de nivel 56 y pega fuerte, así que empieza con la salud al máximo.",
 	-- ["{quest:105}'s shard lies at {npc:1852}'s feet, in the middle of Andorhal: he is a level 61 elite with elite Skeletal Warlords about him, a fight for a group."] = "El fragmento de {quest:105} está a los pies de {npc:1852}, en el centro de Andorhal: es un élite de nivel 61 rodeado de Señores de la guerra esqueléticos élite, un combate para grupo.",
 }

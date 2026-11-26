@@ -122,7 +122,6 @@ return {
 	-- {npc:265809} Brakk
 	["{npc:265809}'s campfire"] = "Костер: {npc:265809}",
 	-- {npc:265809} Brakk · {area:362} Razor Hill · {spell:1229451} Boosted Rest · {area:367} Sen'jin Village · {zone:1454} Orgrimmar
-	-- was: ["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362} or in {zone:1454} at the start of the next guide."] = "{npc:265809} разбил лагерь чуть к югу от места {area:362}. Сядьте у его костра (/sit), пока не появится эффект {spell:1229451}. Если вы изучили профессию, {npc:265809} также предлагает свое задание «Походное дело 101» – сдайте его учителю этой профессии: здесь ({area:362}) или в начале следующего руководства ({zone:1454})."
 	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362}, by {area:367} for fishing, or in {zone:1454} at the start of the next guide."] = "{npc:265809} стоит лагерем чуть к югу от места {area:362}. Сядьте у его костра (/sit), пока не появится эффект {spell:1229451}. Если вы изучили профессию, {npc:265809} также предлагает ее задание «Основы походной жизни», которое принимает учитель: в месте {area:362}, у NPC {area:367} для рыбной ловли или в городе {zone:1454} в начале следующего гайда.",
 
 	-- Step 24: Camping 101: Mining

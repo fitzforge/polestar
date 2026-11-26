@@ -2936,6 +2936,42 @@ test('forever/reputation/argent-dawn.guide: The Archivist burns the Scarlet Arch
 	assert.equal(list[archive].s, list[galford].s, 'in the Stratholme step');
 	assert.ok(archive < at(list, 'turnin 5251', is('turnin', 5251)), 'before the hand-in');
 });
+// #3974 (0.4.4 route round): the Blackmaw furbolgs of Ursolan (Azshara) give their quests only from Neutral with the
+// Timbermaw (players' recordings to 2026-11-20: 10 people met them hostile below Neutral, the 2 who did the chain
+// were just past it; 0 of 32 recorded characters were Neutral by level 53). The leveling routes pass Azshara before
+// any Timbermaw quest, so the chain lives in the reputation guide, after its Neutral goal: every accept and hand-in
+// of it, in the chain's order, with its first accepts held for Neutral.
+test('forever/reputation/timbermaw-hold.guide: the Blackmaw chain comes after Neutral, accepts before hand-ins (#3974)', { skip }, () => {
+	const G = 'forever/reputation/timbermaw-hold.guide';
+	const list = goals(G);
+	const neutral = at(list, 'rep 576 Neutral', (g) => g.t === 'rep' && g.faction === 576 && g.standing === 4);
+	const chain = [86752, 86799, 86791, 86804, 86925, 86926, 86777, 86792, 86796, 86797, 86927, 86798, 86812, 86813, 87346];
+	for (const q of chain) {
+		const take = at(list, `accept ${q}`, is('accept', q));
+		const hand = at(list, `turnin ${q}`, is('turnin', q));
+		assert.ok(take > neutral, `${q}: taken after the Neutral goal`);
+		assert.ok(take < hand, `${q}: accepted before its hand-in`);
+	}
+	const neutralGate = (step) => (step.when || []).some((p) => p.k === 'rep' && !p.neg && p.faction === 576 && p.standing >= 4);
+	for (const q of [86752, 86799, 86791, 86796]) {
+		const { step } = list[at(list, `accept ${q}`, is('accept', q))];
+		assert.ok(neutralGate(step), `${q}: its step shows only from Neutral with the Timbermaw`);
+	}
+	for (const [q, pre] of [[86791, 86752], [86804, 86799], [86925, 86804], [86926, 86925], [86927, 86926], [86812, 86927], [86813, 86812], [86797, 86777], [86798, 86797], [87346, 86798]]) {
+		assert.ok(at(list, `turnin ${pre}`, is('turnin', pre)) < at(list, `accept ${q}`, is('accept', q)), `${q} after ${pre} is handed in`);
+	}
+});
+// #3974 follow-up: Scholomance (5533) needs level 55; the level model reached its accept on 04-western-plaguelands'
+// third Chillwind Camp stop at 54.93 in 21 of 28 Alliance runs (refused). A level 55 hold sits right before the
+// accept in the same step, after the stop's hand-ins, so no player is sent to Valorfist below 55.
+test('forever/alliance/50-60/04-western-plaguelands.guide: Scholomance waits for level 55 at its accept (#3974)', { skip }, () => {
+	const list = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	const take = at(list, 'accept 5533', is('accept', 5533));
+	const gate = list.slice(0, take).findLastIndex(({ goal, s }) => s === list[take].s && goal.t === 'level');
+	assert.ok(gate >= 0, 'a level goal before the accept, in the same step');
+	assert.ok(list[gate].goal.level >= data.quests[5533].minLevel, `level ${list[gate].goal.level} >= the quest's minimum ${data.quests[5533].minLevel}`);
+	assert.equal(list[take + 1]?.goal.t === 'turnin' && list[take + 1].goal.quest, 5533, 'handed in on the same visit');
+});
 // Partially Digested Collar (93568) is started by the collar and counts the collar as its objective: the accept
 // leaves it in the bags (players' recordings: 10 people, "item x1 Partially Digested Collar" at the accept, handed
 // in to Liranne). So the Liranne step may wait on the collar and hold the accept and the hand-in together; the
@@ -4545,6 +4581,32 @@ test(`${DARKSHORE}: Twerkjob's report: The Red Crystal leads the arrow to the cr
 	// "Locate the large, red crystal on Darkshore's eastern mountain range", the quest's area trigger.
 	const crystal = data.quests[4811].objectives.find((o) => o.type === 'event');
 	assert.ok(yards(lead.goal, crystal) < 30, `the arrow leads to the crystal (${lead.goal.x},${lead.goal.y})`);
+});
+
+// Corrupted Sabers (Gripps, #4095): the kitten is let go at the Jadefire moonwell, and the saber it turns into
+// is clicked beside Winna Hazzard at Bloodvenom Post. The `use` at the moonwell claims the quest's objective,
+// so the `complete` needs Winna's place of its own: without one its arrow fell back to the moonwell while
+// the player stood at Winna.
+test("forever/horde/50-60/03-winterspring.guide: Gripps's report: Corrupted Sabers' complete leads back to Winna Hazzard, not the moonwell (#4095)", { skip }, () => {
+	const list = goals('forever/horde/50-60/03-winterspring.guide');
+	const use = list[at(list, 'the kitten carrier at the moonwell', (g) => g.t === 'use' && g.quest === 4506)];
+	const complete = list[at(list, 'complete 4506 (Corrupted Sabers)', is('complete', 4506))];
+	assert.equal(complete.step, use.step, 'one step: the moonwell, then back to Winna');
+	assert.ok(located(complete), 'the complete has a place of its own');
+	const winna = data.quests[4506].objectives.find((o) => o.type === 'event');
+	assert.ok(yards(complete.goal, winna) < 30, `the complete leads to Winna (${complete.goal.x},${complete.goal.y})`);
+	assert.ok(yards(use.goal, complete.goal) > 300, 'the moonwell is not where the saber goes');
+});
+
+// The same shape found by #4095's sweep: The Master's Glaive's complete ("Enter the Master's Glaive", at the
+// bottom of the crater where the Scrying Bowl appears) had no place, so its arrow led to the Moonstalker pelts'
+// spot in the same step, about 240 yards north.
+test("forever/alliance/03-darkshore-return.guide: The Master's Glaive's complete leads into the crater, not to the pelts (#4095)", { skip }, () => {
+	const list = goals('forever/alliance/03-darkshore-return.guide');
+	const complete = list[at(list, "complete 944 (The Master's Glaive)", is('complete', 944))];
+	assert.ok(located(complete), 'the complete has a place of its own');
+	const glaive = data.quests[944].objectives.find((o) => o.type === 'event');
+	assert.ok(yards(complete.goal, glaive) < 30, `the complete leads to the bottom of the crater (${complete.goal.x},${complete.goal.y})`);
 });
 
 // The Blackwood Corrupted's only objective is the Talisman of Corruption, but
@@ -12827,6 +12889,10 @@ for (const [guide, quests] of Object.entries(ALLIANCE_5060_VOLUME)) test(`${guid
 	for (const q of quests) assert.ok(here.some(({ goal }) => goal.t === 'turnin' && goal.quest === q && !goal.optional), `turnin ${q} is in ${guide}, not optional`);
 });
 
+// A level goal on the Plaguelands guide other than the level 55 gate right before Scholomance's accept (#3974: its
+// minimum level, about 0.07 of a level for the model there) counts as a top-up.
+const topUp04 = ({ goal }, i, list) => goal.t === 'level' && !(goal.level === 55 && !goal.grind && list[i + 1]?.goal.t === 'accept' && list[i + 1].goal.quest === 5533);
+
 // (0.4.3 fix round: Flint and the Marris Stead are on the Plaguelands sweep at about 56-57; the top-up to 59.85 that
 // left the Chillwind hand-ins their XP is gone, and Flint takes the agents' insignia on the last Chillwind stop.)
 test('Alliance 50-60: The Eastern Plagues is taken with Flint Shadowmore and the last top-up stops short of 60 for the Chillwind hand-ins', { skip }, () => {
@@ -12837,7 +12903,7 @@ test('Alliance 50-60: The Eastern Plagues is taken with Flint Shadowmore and the
 	const work = at(g, 'complete 6185', (x) => x.t === 'complete' && x.quest === 6185);
 	const hand = at(g, 'turnin 6185', is('turnin', 6185));
 	assert.ok(take < work && work < hand, 'accept, the Marris Stead, then the hand-in');
-	assert.ok(!g.some(({ goal }) => goal.t === 'level'), 'no top-up on the Plaguelands guide');
+	assert.ok(!g.some(topUp04), 'no top-up on the Plaguelands guide (only Scholomance\'s level 55 gate)');
 });
 
 // --- Alliance 40-60 quest volume, 0.3.7 (2026-11-09) ---
@@ -17131,7 +17197,7 @@ test('Alliance 50-60: danger warnings at Dreadmaul Rock, the Blackrock camps, Ku
 // Mount Hyjal: no top-up on either guide (the level model ends Silithus at about 59.5; 06 ends with one dungeon step,
 // no mob camp, for a player still under 60).
 test('Alliance 50-60/06: the last top-up right after Egan, before the Marris Stead', { skip }, () => {
-	assert.ok(!goals('forever/alliance/50-60/04-western-plaguelands.guide').some(({ goal }) => goal.t === 'level'), '04: no top-up');
+	assert.ok(!goals('forever/alliance/50-60/04-western-plaguelands.guide').some(topUp04), '04: no top-up (only Scholomance\'s level 55 gate)');
 	const six = goals('forever/alliance/50-60/06-silithus.guide').filter(({ goal }) => goal.t === 'level');
 	assert.ok(six.every(({ goal }) => !goal.grind && goal.level === 60), '06: only the level-60 dungeon step, no grind camp');
 	const g = goals('forever/alliance/50-60/04-western-plaguelands.guide');
@@ -18463,6 +18529,21 @@ for (const guide of ['forever/alliance/40-50/01b-riverglades.guide', 'forever/ho
 	});
 }
 
+// #4187 (LaboredGuineaPig, 0.4.3): the first part's hand-in and the escort's accept are at Fuzzle's cage too, where 82
+// recorded people did both. Without a point the arrow's spots were his spawns' (47.1,50.6 between two of them, then
+// the middle of Sunnyglade, 45.6,47.8), and the arrow left the cage for them.
+for (const guide of ['forever/alliance/40-50/01b-riverglades.guide', 'forever/horde/40-50/01b-riverglades.guide']) {
+	test(`${guide}: Biting the Hand is handed in and the escort taken at Fuzzle's cage (#4187)`, { skip }, () => {
+		const list = goals(guide);
+		for (const [label, t, q] of [['turnin 94961', 'turnin', 94961], ['accept 94963', 'accept', 94963]]) {
+			const { goal } = list[at(list, label, is(t, q))];
+			assert.ok(goal.map === 2548 && Math.hypot(goal.x - 47.2, goal.y - 51.2) <= 0.5, `${label} is at the cage (${goal.x},${goal.y})`);
+			const arrow = (goal.spots || []).filter((s) => !s.alt);
+			assert.ok(arrow.length && arrow.every((s) => Math.hypot(s.x - 47.2, s.y - 51.2) <= 0.2), `${label}: the arrow leads to the cage alone: ${JSON.stringify(goal.spots)}`);
+		}
+	});
+}
+
 // #3001 (Edet, 0.4.1): the second Counting Out Time (4973) is repeatable, and the game never flags a repeatable quest as
 // completed, so after a relog the guide went back to it. The repeat is out of the route; the first one (4972) stays.
 test('forever/alliance/50-60/04-western-plaguelands.guide: no repeatable Counting Out Time (#3001)', { skip }, () => {
@@ -18643,6 +18724,22 @@ test('forever/horde/50-60/02-felwood.guide: Cuely\'s four vials, each at its tid
 		return i;
 	});
 	assert.deepEqual(idx, [...idx].sort((a, b) => a - b), 'in order, south to north');
+});
+
+// #3707 (fekz) and #3857: the pools are spell-focus objects, so clicking one does nothing; each Empty Vial Labeled #N
+// (10687-10690, from the Box of Empty Vials the quest hands over) is used at its own pool. The accept says to open the
+// box, and each pool has the vial's `use` right before its collect, in the same step.
+test('Seeping Corruption: the box at the accept, and each empty vial used at its own pool (#3707, #3857)', { skip }, () => {
+	const un = goals('forever/horde/50-60/01-un-goro-crater.guide');
+	assert.match(un[at(un, 'accept 3568', is('accept', 3568))].goal.note || '', /Box of Empty Vials/, 'the accept names the box');
+	const list = goals('forever/horde/50-60/02-felwood.guide');
+	[10687, 10688, 10689, 10690].forEach((item, n) => {
+		const use = at(list, `use vial ${n + 1}`, (g) => g.t === 'use' && g.item === item && g.quest === 3568);
+		const fill = at(list, `vial ${n + 1}`, (g) => g.t === 'collect' && g.item === 10691 + n && g.quest === 3568);
+		assert.equal(use, fill - 1, `vial ${n + 1}: used right before its collect`);
+		assert.equal(list[use].s, list[fill].s, `vial ${n + 1}: in the same step`);
+		assert.ok(Math.hypot(list[use].goal.x - list[fill].goal.x, list[use].goal.y - list[fill].goal.y) <= 0.1, `vial ${n + 1}: at its pool`);
+	});
 });
 
 // #3172 (Yunra, 0.4.1.1): Admiral Lamora walks the middle ship's top deck and her loot chest is below deck (players'
@@ -19108,6 +19205,21 @@ test('What Is Love?: the figurine steps say to throw the lit torch onto the cart
 	}
 });
 
+// #3960 (AreChen): the Wharfmaster's hand-in showed with the Rot-Covered Harpoon still at 0/1. Both Riverglades
+// guides hold it until WANTED: Old Rot-Chum is complete.
+test('Riverglades (#3960): Old Rot-Chum is only handed in once the bounty is complete', { skip }, () => {
+	for (const side of ['alliance', 'horde']) {
+		const handIns = compiled(`forever/${side}/40-50/01b-riverglades.guide`).steps.filter((step) => step.goals.some(is('turnin', 95120)));
+		assert.ok(handIns.length, `${side}: the hand-in is still on the route`);
+		for (const step of handIns) {
+			for (const kind of ['onquest', 'complete']) {
+				assert.ok((step.when || []).some((p) => p.k === kind && !p.neg && [].concat(p.q).includes(95120)),
+					`${side}: the hand-in requires ${kind} 95120`);
+			}
+		}
+	}
+});
+
 // #3036 (Joogz): the Monstrous Threshadon is called up from what floats in the water at 74.4,72.4; the step followed
 // his other possible spots instead. Both factions' Riverglades guides lead there and say how.
 test('The Monster Surfaces: the head is taken where the Threshadon is called up (#3036)', { skip }, () => {
@@ -19557,4 +19669,122 @@ test('#3927 Mount Hyjal: the Tainted Shrubbery are killed after Leaves to Ligatu
 		const tip = [step.note, step.tip].flat().filter(Boolean).join(' ');
 		assert.doesNotMatch(tip, /\bkill[^.:;]*Tainted Shrubbery/i, `${step.title}: no shrub kills before the accept`);
 	}
+});
+
+// #3884 (FurkanZhlp): the Horde 50-60 steps checked against the quests: where the NPCs stand (our spawn data) and the
+// items the quests hand over. A sample of the records, as the compiled guides show them.
+test('Horde 50-60 (#3884): NPC places and quest items as the data has them', { skip }, () => {
+	const text = (list, i) => [list[i].step.note, list[i].step.tip, list[i].goal.note].flat().filter(Boolean).join(' ');
+	const felwood = goals('forever/horde/50-60/02-felwood.guide');
+	for (const q of [4300, 3541]) {
+		const t = text(felwood, at(felwood, `turnin ${q}`, is('turnin', q)));
+		assert.match(t, /The Drag/, `${q}: Jes'rimon is in The Drag`);
+		assert.doesNotMatch(t, /Jes'rimon[^.;]*Cleft of Shadow/, `${q}: not in the Cleft of Shadow`);
+	}
+	assert.match(text(felwood, at(felwood, 'Head of Magus Rimtori', (g) => g.t === 'collect' && g.item === 10597)), /Seals of the Sin'dorei[^.]*crystal/, 'Rimtori comes to the seals at a crystal');
+	const azshara = goals('forever/horde/50-60/04-azshara.guide');
+	assert.match(text(azshara, at(azshara, 'turnin 5158', is('turnin', 5158))), /south of Ratchet/, 'Islen is south of Ratchet');
+	assert.match(text(azshara, at(azshara, 'turnin 3542', is('turnin', 3542))), /Apothecarium/, 'Andron Gant is by the Apothecarium');
+	const epl = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	assert.match(text(epl, at(epl, 'brazier', (g) => g.t === 'interact' && g.quest === 5165)), /Purified Moonwell Water/, 'the braziers take the Purified Moonwell Water');
+	const silithus = goals('forever/horde/50-60/06-silithus.guide');
+	assert.match(text(silithus, at(silithus, 'turnin 3913', is('turnin', 3913))), /Conspicuous Gravestone/, 'A Grave Situation ends at the gravestone');
+});
+
+// Type1Insulin (#4040): the Tailoring guide's 225-300 shopping sent a player to Helenia Olden in Theramore for Rune
+// Thread, and its tip named Edna Mullby in Stormwind; neither sells it on Forever (players' merchant windows: 42 and
+// 125 people, none listing it; Forever's world data has no such sale). forever-db/corrections/items.json takes such
+// sellers off an item's vendor list, for Rune Thread and ten more items the profession guides buy. No profession
+// guide's `buy` offers one of them to pick, and no shopping tip names one for the items its step buys. The `buy`
+// candidates come from the data's vendor lists, so that half needs data built with the corrections: on an older build
+// (its list still holds a removed seller) it waits for the next one; the tips, written by the generator, are checked
+// on any data.
+test('#4040: profession guides never send a shopping step to a vendor who does not sell the item on Forever', { skip }, () => {
+	const off = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'corrections', 'items.json'), 'utf8'));
+	const removed = (item) => new Set((off[item] && off[item].removeVendors) || []);
+	const items = JSON.parse(fs.readFileSync(path.join(DATA, 'items.json'), 'utf8'));
+	const npcs = JSON.parse(fs.readFileSync(path.join(DATA, 'npcs.json'), 'utf8'));
+	const sells = (npc, item) => ((items[item] || {}).vendors || []).includes(npc) && !removed(item).has(npc);
+	let checked = 0;
+	for (const guide of allGuides().filter((g) => g.startsWith('forever/professions/'))) {
+		for (const { goal, s } of goals(guide)) {
+			if (goal.t !== 'buy') continue;
+			if (((items[goal.item] || {}).vendors || []).some((n) => removed(goal.item).has(n))) continue;
+			const bad = (goal.candidates || []).filter((c) => removed(goal.item).has(c.npc)).map((c) => c.npc);
+			assert.deepEqual(bad, [], `${guide} step ${s}: buy ${goal.item} offers sellers who do not sell it`);
+		}
+		const text = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8');
+		for (const block of text.split(/\nstep /).slice(1)) {
+			const bought = [...block.matchAll(/\n {2}buy (\d+)/g)].map((m) => m[1]);
+			const tip = [...block.matchAll(/\n {2}tip (.*)/g)].map((m) => m[1]).join(' ');
+			for (const item of bought) {
+				for (const npc of removed(item)) {
+					const name = (npcs[npc] || {}).name;
+					if (!name || bought.some((other) => sells(npc, other))) continue;
+					checked++;
+					assert.ok(!tip.includes(name), `${guide} step "${block.split('\n')[0]}": the tip names ${name}, who does not sell item ${item}`);
+				}
+			}
+		}
+	}
+	assert.ok(checked > 0, 'some shopping steps buy an item the corrections take sellers off');
+});
+
+// Dima (#3923) and divo2000 (#3708): the Tailoring guide sent players to Timothy Worthington or Daryl Stack for Black
+// Mageweave Headband at 197; they teach nothing below 200 (players' recordings: every recipe learned from them at 200 or
+// more). Every profession guide: a recipe only a later rank's trainers teach is learned once the skill reaches that rank's.
+test('#3708, #3923: profession guides learn a recipe only the Artisan trainers teach from their skill on', { skip }, () => {
+	const { SPECS } = require('../tools/lib/professions/specs');
+	const profs = JSON.parse(fs.readFileSync(path.join(DATA, 'professions.json'), 'utf8'));
+	let checked = 0;
+	for (const [name, spec] of Object.entries(SPECS)) {
+		const prof = Object.values(profs).find((p) => p && p.name === name);
+		if (!prof || !spec.taughtBy) continue;
+		const text = fs.readFileSync(path.join(OFFICIAL_DIR, `forever/professions/${name.toLowerCase()}.guide`), 'utf8');
+		let skill = 1;
+		for (const line of text.split('\n')) {
+			const reach = line.match(/^ {2}(?:craft \d+ until|skill \S+) (\d+)/);
+			if (reach) skill = Math.max(skill, Number(reach[1]));
+			const learn = line.match(/^ {2}learn (\d+)/);
+			const rank = learn && prof.ranks.find((r) => r.name === spec.taughtBy[learn[1]]);
+			if (!rank) continue;
+			checked++;
+			assert.ok(skill >= rank.minSkill, `${name}: learn ${learn[1]} at ${skill}, below ${rank.name}'s ${rank.minSkill}`);
+		}
+	}
+	assert.ok(checked > 0, 'the Artisan-only recipes the guides learn');
+});
+// #4115 (ItsSaulx, 0.4.2.2): A Void Path's one objective is steering Va'xug's Eye of Kilrogg out of the ravine to
+// the main road, where the quest is handed in to the Eye of Kilrogg; the bare complete had no place, so the arrow
+// showed nothing while the player steered. It leads to the road (data/places.json 4115-98252-1).
+test(`${STONETALON_HORDE}: ItsSaulx's report: A Void Path leads the arrow to the road while you steer the eye (#4115)`, { skip }, () => {
+	const list = goals(STONETALON_HORDE);
+	const complete = list[at(list, 'complete 98252 (A Void Path)', is('complete', 98252))];
+	const turnin = list[at(list, 'turnin 98252 (A Void Path)', is('turnin', 98252))];
+	assert.ok(located(complete), 'the complete has a place for the arrow');
+	assert.ok(yards(complete.goal, turnin.goal) < 15, `it is the road where the eye is handed in (${complete.goal.x},${complete.goal.y})`);
+});
+
+// #4013 (asdmasa, 0.4.2.2): a Horde player without Gol'dir (503: its feeder The Rescue comes from the Hillsbrad
+// guide) walked from Tarren Mill to Strahnbrad for a stop hidden from him, while the Bracers of Binding are at the
+// Dalaran ruins. The walk to Gol'dir is for whoever carries the quest, as the stop is (guide-fixes 4013).
+test("forever/horde/30-40/05-arathi-highlands.guide: asdmasa's report: the walk to Gol'dir is only for Gol'dir's carriers (#4013)", { skip }, () => {
+	const list = goals('forever/horde/30-40/05-arathi-highlands.guide');
+	const goldir = list[at(list, 'turnin 503 (Gol\'dir)', is('turnin', 503))];
+	const steps = compiled('forever/horde/30-40/05-arathi-highlands.guide').steps;
+	const walk = steps[steps.indexOf(goldir.step) - 1];
+	assert.ok(walk.goals.length && walk.goals.every((g) => g.t === 'goto'), `the step before Gol'dir is the walk there (${walk.title})`);
+	assert.ok(holdsQuest(walk, 503), 'the walk shows only with Gol\'dir in the log');
+});
+
+// #3983 (EmberVixen, 0.4.2.2): off the Shadowprey flight master the stop took Taiga Wisemane at the village's far
+// end, back to Drulzegar Skraghook on the docks, then out past Taiga again to Aka'rai. Drulzegar, by the flight
+// master, comes first; Taiga and Aka'rai, side by side, on the way out east (guide-fixes 3983).
+test("forever/horde/30-40/04-dustwallow-marsh.guide: EmberVixen's report: Shadowprey is walked docks first, then Taiga and Aka'rai (#3983)", { skip }, () => {
+	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
+	const drulzegar = at(list, 'accept 6143 (Drulzegar Skraghook)', is('accept', 6143));
+	const taiga = at(list, 'accept 5381 (Taiga Wisemane)', is('accept', 5381));
+	const akarai = at(list, 'accept 97265 (Aka\'rai)', is('accept', 97265));
+	assert.ok(drulzegar < taiga && taiga < akarai, 'Drulzegar, then Taiga, then Aka\'rai');
+	assert.ok(yards(list[taiga].goal, list[akarai].goal) < yards(list[drulzegar].goal, list[akarai].goal), 'Taiga stands nearer Aka\'rai than the docks do');
 });

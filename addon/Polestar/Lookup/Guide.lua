@@ -795,6 +795,16 @@ local function questStep(q, from, isTarget, opts)
 			local name = (C.Name("item", o.id)) or o.text or itemName(o.id)
 			local s, source, spawns, dropper = itemSpot(o.id, here, inside, direct)
 			if source then mark(s, name) end
+			-- Made from an item the quest needs (the Codex's madeFrom), with no
+			-- place of its own: where that one comes from, so the arrow leaves
+			-- the giver (#4148: the Filled Egg of Hakkar, filled with the Essence
+			-- of Hakkar from inside the Sunken Temple).
+			for _, from in ipairs(not s and not (o.map and o.x and o.y) and o.madeFrom or {}) do
+				local fromName = (C.Name("item", from)) or itemName(from)
+				s, source, spawns, dropper = itemSpot(from, here, inside, direct)
+				if source then mark(s, fromName) end
+				if s then break end
+			end
 			if not s then
 				-- Nothing places a source: the objective's own place, where
 				-- players' recordings show it collected (A Dynamite Plan's

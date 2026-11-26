@@ -109,7 +109,6 @@ return {
 	["Mistvale gorillas"] = "迷霧谷猩猩",
 	-- {quest:348} Stranglethorn Fever
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
-	-- was: ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "猩猩在溫巴瓦周圍的山谷遊蕩。老邁的猩猩掉落內臟；任何一隻都可能掉落尖牙：留十顆給溫巴瓦，他的莫克（44級）等你約45級回到荊棘谷時再打。\n小心：老邁的迷霧谷猩猩（40-41級）在山谷中站得很近：一次拉一隻。"
 	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: if you will take {quest:348} with a group, keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "大猩猩在安巴格瓦周圍的山谷裡遊蕩。長者掉落內臟；任何一隻都可能掉落獠牙：如果你要和小隊一起接{quest:348}，就為安巴格瓦留十個，他的莫克（44）在你大約45級的荊棘谷那一站等著。\n小心：薄霧谷長者大猩猩（40-41）在山谷裡站得很近：一次拉一隻。",
 	-- {quest:348} Stranglethorn Fever
 	["Keep fangs from these same elders for Unbagwa ({quest:348}, with a group)."] = "從這些長者身上留著獠牙給安巴格瓦（{quest:348}，需要小隊）。",

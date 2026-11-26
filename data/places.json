@@ -1,5 +1,5 @@
 {
-	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
+	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\", \"ender\" or \"complete\" (the quest's complete line itself, when another line claims the objective). at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
 	"places": [
 		{
 			"id": "3036-riverglades-threshadon-summon",
@@ -3091,6 +3091,52 @@
 			"issue": 3078
 		},
 		{
+			"id": "4187-fuzzle-hands-in-at-his-cage",
+			"quest": 94961,
+			"objective": "ender",
+			"at": {
+				"map": 2548,
+				"x": 47.2,
+				"y": 51.2,
+				"frame": "live"
+			},
+			"note": "#4187: Biting the Hand's first part is handed in to Fuzzle (259158) at his cage in Sunnyglade, where he gave it (3078-fuzzle-in-his-cage), not at the middle of the town, his first spawn point, where the arrow sent players.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): 82 people handed in Biting the Hand (94961) to Fuzzle, all 83 hand-ins at 47.26-47.42,51.26-51.51"
+				},
+				{
+					"kind": "client",
+					"ref": "npcs.json 259158 Fuzzle on map 2548: 45.6,47.8; 47.0,50.0; 47.2,51.2"
+				}
+			],
+			"issue": 4187
+		},
+		{
+			"id": "4187-fuzzle-gives-the-escort-at-his-cage",
+			"quest": 94963,
+			"objective": "giver",
+			"at": {
+				"map": 2548,
+				"x": 47.2,
+				"y": 51.2,
+				"frame": "live"
+			},
+			"note": "#4187: Fuzzle (259158) gives Biting the Hand's second part, the escort, from his cage in Sunnyglade, right after the first part's hand-in, not from a point between his spawns.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): 82 people took Biting the Hand (94963) from Fuzzle, all 96 accepts at 47.23-47.43,51.24-51.51"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#4187 (0.4.3): the reporter took it at 47.33,51.30"
+				}
+			],
+			"issue": 4187
+		},
+		{
 			"id": "3231-twilight-tablet-fragments-on-the-ground",
 			"quest": 8284,
 			"objective": 1,
@@ -3216,6 +3262,44 @@
 				{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-25): 11 people looted Holy Spring Water at a median of 28.91,61.98, each walking up from 27.1,62.9 by 27.9,62.75 and 28.55,62.35" }
 			],
 			"issue": 3868
+		},
+		{
+			"id": "4095-4506-winna",
+			"faction": "Horde",
+			"quest": 4506,
+			"objective": "complete",
+			"at": { "map": 1448, "x": 34.26, "y": 52.32, "frame": "era" },
+			"note": "Corrupted Sabers: the kitten is let go at the Jadefire moonwell (the use line, which claims the objective), and the saber it turns into is clicked beside Winna Hazzard at Bloodvenom Post. With no place of its own the complete line's arrow fell back to the moonwell while the player stood at Winna (#4095, Gripps).",
+			"source": [
+				{ "kind": "questie", "ref": "quest 4506 objective 1 (event, Return the corrupted cat to Winna Hazzard) at 1448 34.26,52.32; Winna Hazzard 9996 at 34.22,52.29 live" },
+				{ "kind": "recording", "ref": "quest 4506: 9 of 10 recorded players completed it and handed it in to Winna Hazzard (npc 9996) right after" }
+			],
+			"issue": 4095
+		},
+		{
+			"id": "4095-944-glaive",
+			"faction": "Alliance",
+			"quest": 944,
+			"objective": 1,
+			"at": { "map": 1439, "x": 38.48, "y": 86.45, "frame": "era" },
+			"note": "The Master's Glaive: entering the glaive is done at the bottom of the crater, where the Scrying Bowl appears. With no place of its own the complete line's arrow led to the Moonstalker pelts' spot in the same step, about 240 yards north (found in #4095's sweep of complete lines without a place).",
+			"source": [
+				{ "kind": "questie", "ref": "quest 944 objective 1 (event, Enter the Master's Glaive) at 1439 38.48,86.45; the Scrying Bowl 10076 spawns at 38.35-39.5,85.45-87.61 live" }
+			],
+			"issue": 4095
+		},
+		{
+			"id": "4115-98252-1",
+			"faction": "Horde",
+			"quest": 98252,
+			"objective": 1,
+			"at": { "map": 1440, "x": 38.2, "y": 58.1, "frame": "era" },
+			"note": "A Void Path: the one objective is steering Va'xug's Eye of Kilrogg out of the ravine to the main road, where the quest is handed in to the Eye of Kilrogg (271181, 38.2,58.1). The data has no place for it, so the step's bare complete had no arrow while the player steered (#4115, ItsSaulx).",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#4115: the reporter's /polestar report, Arrow: none on Complete A Void Path" },
+				{ "kind": "recording", "ref": "players' recordings: 'Eye of Kilrogg guided to the road' ticks, then the hand-in at npc 271181 on the road" }
+			],
+			"issue": 4115
 		}
 	]
 }

@@ -22,7 +22,6 @@ return {
 
 	-- Step 2: Pyroguard Emberseer
 	-- {npc:9816} Pyroguard Emberseer · {area:254} Blackrock Mountain · {item:12344} Seal of Ascension
-	-- was: ["{npc:9816} is a boss in Upper Blackrock Spire, inside {area:254}: a group of up to ten, and someone needs the {item:12344} to open the door. He drops the Eye and pays 50 reputation per kill up to 11,999 of 12,000 Honored. {npc:9017} in {area:1584} pays 15 the same way."] = "{npc:9816}是{area:254}內黑石塔上層的首領：最多十人，需要有人帶著{item:12344}才能開門。他掉落“眼睛”，並且每次擊殺給50聲望，直到尊敬11,999/12,000。{area:1584}的{npc:9017}以同樣方式給15點。"
 	["{npc:9816} is a boss in Upper Blackrock Spire, inside {area:254}: a group of up to ten, and someone needs the {item:12344} to open the door. He pays 50 reputation per kill up to 11,999 of 12,000 Honored."] = "{npc:9816}是黑石塔上層的首領，在{area:254}裡面：最多十人的小隊，需要有人帶著{item:12344}才能開門。每次擊殺他給50聲望，直到尊敬11,999/12,000。",
 	-- {npc:9816} Pyroguard Emberseer
 	["{npc:9816}: raid of ten"] = "{npc:9816}：十人團隊",
