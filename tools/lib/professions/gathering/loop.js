@@ -60,6 +60,7 @@ function buildLoop(points, project, { radius = 30, span = 250, cover = 0.9, maxS
 const SERVICE = new Set(['vendor', 'innkeeper', 'repair', 'flightmaster', 'banker', 'stablemaster', 'auctioneer', 'battlemaster', 'spirithealer', 'trainer', 'questgiver']);
 const TOWN_MATES = 2;
 const SCALING = 5;
+const MAX_LEVEL = 63;
 // Rare creatures (Blizzard ranks 2 rare elite, 4 rare) come and go; the round does not move for them.
 const RARE = new Set([2, 4]);
 // Per data object: the ids of the NPCs some item drops from.
@@ -84,7 +85,11 @@ function mapSpawns(ctx, map) {
 			if (!s || (!n.faction && Array.isArray(n.roles) && n.roles.some((r) => SERVICE.has(r)))) continue;
 			if (!n.faction && (!kills.has(Number(n.id)) || RARE.has(n.rank))) continue;
 			const lo = Number(n.level) || 0;
-			const hi = Math.max(lo, Number(n.levelMax) || 0);
+			// Level 9999 (9000-9999) is the data's placeholder for event creatures that scale (Ashenvale's
+			// battle NPCs): no level to go by, so a hostile one asks none ("Ashenvale lvl 9999"); one of a
+			// side still marks its camp.
+			if (!n.faction && lo > MAX_LEVEL) continue;
+			const hi = Math.min(MAX_LEVEL, Math.max(lo, Number(n.levelMax) || 0));
 			const level = hi - lo > SCALING ? lo : hi;
 			for (const [x, y] of allPoints(s)) out.push({ id: n.id, pt: ctx.project.point(map, x, y, s.f), level, faction: n.faction || null });
 		}

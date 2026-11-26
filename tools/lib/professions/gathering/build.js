@@ -379,7 +379,7 @@ function render(ctx, prof) {
 			const on = e.loops.flatMap((l) => l.farm.on);
 			const nodes = nodeSummary(prof, on, e.from, e.to);
 			L.push('');
-			L.push(`step ${prof.bandTitle(nodes, e)} (${e.from}-${e.to})${e.cont ? ' cont.' : ''}`);
+			L.push(`step ${prof.bandTitle(nodes, e)} (${e.from}-${e.to})`);
 			let tip = `${prof.bandTip(nodes, e, ctx)} ${PICK_TIP}`;
 			const need = prof.countNodes ? nodesNeeded(nodes, e.from, e.to) : null;
 			if (need) {

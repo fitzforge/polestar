@@ -210,6 +210,13 @@ const herbalism = {
 		if (names.has('Ghost Mushroom')) extra.push('Ghost Mushroom grows in caves and dark hollows: look inside as well.');
 		if (names.has('Purple Lotus')) extra.push('Purple Lotus sometimes gives a Wildvine as well.');
 		if (names.has('Gromsblood')) extra.push('Gromsblood grows near demon and satyr camps: pull carefully.');
+		// A loop without the herb that is orange at the band's start gives fewer points a lap; say which,
+		// so the lower-level zone is a choice (Loch Modan's loop at 125-150 has Bruiseweed, no Kingsblood).
+		const orange = nodes.filter((n) => n.color === 'orange' && !n.rare && !n.later).map((n) => n.name);
+		for (const herb of orange) {
+			const zones = [...new Set(e.loops.filter((l) => !l.farm.on.some((p) => p.name === herb)).map((l) => zoneName(ctx, l.zone)))];
+			if (zones.length && zones.length < e.loops.length) extra.push(`The ${zones.join(', ')} ${zones.length > 1 ? 'loops have' : 'loop has'} no ${herb}, so fewer points a lap: worth it only when the zone suits your level better.`);
+		}
 		return `Walk the loop and pick every ${list(nodes, (n) => n)} on the way until Herbalism ${e.to}.${extra.length ? ` ${extra.join(' ')}` : ''}${skillQuests(ctx, 182, e)}`;
 	},
 	header: [
