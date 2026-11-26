@@ -10715,7 +10715,8 @@ Tests: `ui-look-toasts.rs`.
 
 Ported from Ding! by Yendi (@moust4ki), GPL-3.0, and rebuilt on the Theme.
 No Polestar window takes a button from the game while it is merely shown:
-a window holds the gamepad only while it is the newest one open, out of
+a window holds the gamepad only while it is the newest one open on screen
+(a window shown under a hidden Polestar takes nothing until Polestar shows), out of
 combat, with a gamepad active (the game's gamepad interface, or
 `gamepad.withMouse` on with the keyboard and mouse) and `gamepad.navigate` on (focus mode needs
 only a gamepad), through a frame that reads the buttons first
