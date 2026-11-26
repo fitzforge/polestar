@@ -102,15 +102,28 @@ step Mageroyal & Briarthorn (70-100) cont.
 # ---------------------------------------------------------------- Herbalism 100-125
 section Herbalism 100-125
 
-step Briarthorn & Bruiseweed (100-125)
-  tip Walk the loop and pick every Peacebloom (1, green, rare), Silverleaf (1, green), Earthroot (15, green), Mageroyal (50, green), Briarthorn (70, yellow), Stranglekelp (85, orange), Bruiseweed (100, orange) on the way until Herbalism 125. Mageroyal and Briarthorn sometimes give a Swiftthistle as well. Stranglekelp grows underwater along the shore: watch your breath. A quest in these zones needs Herbalism: Root Samples (level 16, Mebok Mizzyrix, The Barrens). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 40 herbs for these 25 points: about 35 Bruiseweed, 15 Briarthorn, 10 Mageroyal, 5 Earthroot, 5 Swiftthistle, 5 Stranglekelp, 5 Silverleaf and 5 Frilled Lichen. For Alchemy: about 55 Bruiseweed, 150 Briarthorn, 75 Mageroyal, 40 Stranglekelp and 80 Silverleaf in all.
-  loop Loch Modan lvl 20 lap 421 gain 8.1 only Alliance r 60 at 71.0,17.3 65.0,23.3 68.1,27.3 71.1,29.1 68.1,32.6 71.6,44.8 69.9,51.6 73.5,57.8 79.6,76.6 81.6,64.5 80.8,39.9 77.8,26.5
-  loop Westfall lvl 19 lap 538 gain 6.1 only Alliance r 60 at 36.1,37.0 36.9,33.0 39.5,32.7 45.3,25.1 34.4,16.2 32.7,18.8 25.9,38.6 24.5,55.2 36.9,57.1 43.7,55.5 37.3,45.7 31.5,43.9
+step Stranglekelp & Bruiseweed (100-115)
+  tip Walk the loop and pick every Peacebloom (1, green, rare), Silverleaf (1, green, rare), Earthroot (15, green, rare), Mageroyal (50, green), Briarthorn (70, yellow), Stranglekelp (85, orange), Bruiseweed (100, orange) on the way until Herbalism 115. Mageroyal and Briarthorn sometimes give a Swiftthistle as well. Stranglekelp grows underwater along the shore: watch your breath. A quest in these zones needs Herbalism: Root Samples (level 16, Mebok Mizzyrix, The Barrens). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 20 herbs for these 15 points: about 15 Bruiseweed, 10 Stranglekelp, 5 Briarthorn, 5 Mageroyal and 5 Swiftthistle. For Alchemy: about 55 Bruiseweed, 40 Stranglekelp, 150 Briarthorn and 75 Mageroyal in all.
+  loop Loch Modan lvl 20 lap 421 gain 8.3 only Alliance r 60 at 71.0,17.3 65.0,23.3 68.1,27.3 71.1,29.1 68.1,32.6 71.6,44.8 69.9,51.6 73.5,57.8 79.6,76.6 81.6,64.5 80.8,39.9 77.8,26.5
+  loop Westfall lvl 19 lap 538 gain 6.8 only Alliance r 60 at 36.1,37.0 36.9,33.0 39.5,32.7 45.3,25.1 34.4,16.2 32.7,18.8 25.9,38.6 24.5,55.2 36.9,57.1 43.7,55.5 37.3,45.7 31.5,43.9
   loop Stonetalon Mountains lvl 17 lap 321 gain 3.1 only Horde r 60 at 84.0,85.2 81.3,89.1 81.7,91.6 79.8,93.2 78.5,94.2 76.8,95.7 75.6,93.8 69.4,90.7 74.1,89.8 76.1,89.4 77.5,90.0 78.9,85.1
+  loop Redridge Mountains lvl 22 lap 332 gain 4.3 only Alliance r 60 at 72.5,73.4 65.0,82.9 61.2,79.3 59.5,75.3 56.8,72.5 60.1,69.7 59.5,63.3 63.0,69.6 67.8,62.6 75.9,63.3 85.4,61.1 76.6,72.8
   loop The Barrens lvl 18 lap 325 gain 3.1 only Horde r 60 at 45.9,33.2 46.5,34.5 47.3,34.0 47.9,32.6 49.3,33.0 48.8,35.0 46.4,36.2 45.7,35.3 45.3,36.2 43.0,33.7 42.5,32.6 45.3,30.9
-  loop Redridge Mountains lvl 22 lap 332 gain 4.1 only Alliance r 60 at 72.5,73.4 65.0,82.9 61.2,79.3 59.5,75.3 56.8,72.5 60.1,69.7 59.5,63.3 63.0,69.6 67.8,62.6 75.9,63.3 85.4,61.1 76.6,72.8
-  loop Stonetalon Mountains lvl 17 lap 319 gain 2.5 only Alliance r 60 at 84.0,85.2 82.7,84.0 81.1,84.5 78.9,85.1 76.2,83.0 74.1,89.8 76.1,89.4 77.5,90.0 78.5,94.2 79.8,93.2 81.7,91.6 81.3,89.1
-  loop Silverpine Forest lvl 18 lap 338 gain 2.7 only Horde r 60 at 46.2,54.1 47.6,55.3 49.3,57.5 50.5,55.4 52.2,56.0 54.0,42.1 53.7,30.9 49.2,30.2 49.6,36.0 48.9,46.7 46.9,51.4 45.2,52.3
+  loop Stonetalon Mountains lvl 17 lap 319 gain 2.6 only Alliance r 60 at 84.0,85.2 82.7,84.0 81.1,84.5 78.9,85.1 76.2,83.0 74.1,89.8 76.1,89.4 77.5,90.0 78.5,94.2 79.8,93.2 81.7,91.6 81.3,89.1
+  loop The Hinterlands lvl 2 lap 312 gain 2.1 only Horde r 60 at 80.4,88.7 82.4,88.0 83.0,81.4 77.2,89.6
+  loop Stranglethorn Vale lvl 41 lap 334 gain 5.9 r 60 at 21.4,53.3 22.0,51.3 22.6,49.0 22.2,45.7 23.6,47.0 24.9,48.5 25.9,47.8 25.4,57.0 23.9,58.5 22.8,59.3 21.6,60.4 22.1,56.5
+  skill Herbalism 115
+
+step Stranglekelp & Bruiseweed (115-125) cont.
+  tip Walk the loop and pick every Mageroyal (50, green), Briarthorn (70, yellow), Stranglekelp (85, yellow), Bruiseweed (100, orange), Wild Steelbloom (115, orange) on the way until Herbalism 125. Mageroyal and Briarthorn sometimes give a Swiftthistle as well. Stranglekelp grows underwater along the shore: watch your breath. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 10 herbs for these 10 points: about 10 Bruiseweed, 5 Stranglekelp and 5 Briarthorn. For Alchemy: about 55 Bruiseweed, 40 Stranglekelp and 150 Briarthorn in all.
+  loop Loch Modan lvl 20 lap 385 gain 7.2 only Alliance r 60 at 71.0,17.3 65.0,23.3 68.1,27.3 71.1,29.1 68.1,32.6 64.6,43.6 71.6,44.8 69.9,51.6 73.5,57.8 76.0,65.6 80.8,39.9 77.8,26.5
+  loop Stonetalon Mountains lvl 17 lap 327 gain 4.3 only Horde r 60 at 77.2,95.5 79.8,93.2 83.6,89.3 85.5,85.1 84.0,85.2 81.3,89.1 80.3,87.4 78.2,87.4 75.8,83.1 75.0,88.1 72.4,88.7 73.0,91.4
+  loop Redridge Mountains lvl 23 lap 326 gain 3.7 only Alliance r 60 at 72.5,73.4 76.6,72.8 75.9,63.3 67.8,62.6 64.9,55.6 59.5,63.3 56.8,72.5 59.5,75.3 61.5,79.0 65.0,82.1 60.1,69.7 63.0,69.6
+  loop Westfall lvl 18 lap 332 gain 3.4 only Alliance r 60 at 59.8,22.4 61.6,25.3 61.0,18.1 58.9,15.2 52.2,6.4 44.1,16.7 43.2,26.1 45.0,24.2 48.3,25.0 55.9,31.0 55.1,27.6 56.6,19.3
+  loop The Barrens lvl 18 lap 322 gain 3.0 only Horde r 60 at 45.9,33.2 46.5,34.5 47.3,34.0 47.9,32.6 49.3,33.0 48.8,35.0 46.4,36.2 45.7,35.3 45.3,36.2 43.0,33.7 42.5,32.6 45.3,30.8
+  loop Stonetalon Mountains lvl 22 lap 766 gain 6.8 only Alliance r 60 at 73.3,58.7 78.6,51.9 76.6,43.7 66.7,51.8 58.8,82.9 75.8,83.1 75.0,88.1 78.2,94.7 79.8,93.2 81.3,89.1 80.3,87.4 84.0,85.2
+  loop The Hinterlands lvl 2 lap 312 gain 1.4 only Horde r 60 at 80.4,88.7 82.4,88.0 83.0,81.4 77.2,89.6
+  loop Stranglethorn Vale lvl 41 lap 334 gain 4.1 r 60 at 21.4,53.3 22.0,51.3 22.6,49.0 22.2,45.7 23.6,47.0 24.9,48.5 25.9,47.8 25.4,57.0 23.9,58.5 22.8,59.3 21.6,60.4 22.1,56.5
   skill Herbalism 125
 
 # ---------------------------------------------------------------- Herbalism 125-160
@@ -121,30 +134,34 @@ step Expert Herbalism
   train Herbalism Expert
 
 step Bruiseweed & Kingsblood (125-150)
-  tip Walk the loop and pick every Mageroyal (50, green), Briarthorn (70, green), Bruiseweed (100, yellow), Wild Steelbloom (115, orange), Grave Moss (120, orange, rare), Kingsblood (125, orange) on the way until Herbalism 150. Mageroyal and Briarthorn sometimes give a Swiftthistle as well. Grave Moss grows in graveyards and crypts. A quest in these zones needs Herbalism: Root Samples (level 16, Mebok Mizzyrix, The Barrens). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 40 herbs for these 25 points: about 30 Bruiseweed, 15 Kingsblood, 15 Briarthorn, 10 Wild Steelbloom, 10 Mageroyal, 5 Swiftthistle, 5 Grave Moss and 5 Frilled Lichen. For Alchemy: about 55 Bruiseweed, 40 Kingsblood, 150 Briarthorn, 40 Wild Steelbloom and 75 Mageroyal in all.
+  tip Walk the loop and pick every Mageroyal (50, green), Briarthorn (70, green), Bruiseweed (100, yellow), Wild Steelbloom (115, orange), Grave Moss (120, orange, rare), Kingsblood (125, orange) on the way until Herbalism 150. Mageroyal and Briarthorn sometimes give a Swiftthistle as well. Grave Moss grows in graveyards and crypts. A quest in these zones needs Herbalism: Root Samples (level 16, Mebok Mizzyrix, The Barrens). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 40 herbs for these 25 points: about 25 Bruiseweed, 25 Kingsblood, 10 Briarthorn, 10 Wild Steelbloom, 5 Mageroyal, 5 Swiftthistle, 5 Grave Moss and 5 Frilled Lichen. For Alchemy: about 55 Bruiseweed, 40 Kingsblood, 150 Briarthorn, 40 Wild Steelbloom and 75 Mageroyal in all.
   loop Loch Modan lvl 20 lap 385 gain 4.2 only Alliance r 60 at 71.0,17.3 65.0,23.3 68.1,27.3 71.1,29.1 68.1,32.6 64.6,43.6 71.6,44.8 69.9,51.6 73.5,57.8 76.0,65.6 80.8,39.9 77.8,26.5
   loop Stonetalon Mountains lvl 17 lap 329 gain 3.5 only Horde r 60 at 81.3,90.7 79.8,93.8 77.2,95.5 73.0,91.4 72.4,88.7 71.4,86.7 75.0,88.1 75.8,83.1 78.2,87.4 80.3,87.4 84.0,85.2 83.6,89.3
   loop Stonetalon Mountains lvl 25 lap 325 gain 3.4 only Alliance r 60 at 34.3,17.8 33.1,20.5 36.3,22.2 38.6,21.5 40.1,19.2 37.0,16.5 40.1,11.1 34.8,9.3 32.2,11.7 30.1,9.0 29.3,12.1 31.9,17.1
   loop The Barrens lvl 18 lap 328 gain 3.1 only Horde r 60 at 47.5,34.0 47.9,32.6 48.6,32.0 49.3,33.0 48.8,35.0 46.5,34.5 45.7,35.3 45.3,36.2 43.1,37.6 42.3,38.0 45.8,33.8 46.1,32.7
   loop Hillsbrad Foothills lvl 26 lap 315 gain 2.1 only Horde r 60 at 70.8,55.8 72.6,52.0 75.7,52.7 76.5,57.3 74.9,59.5 72.1,60.6 71.1,64.8 69.1,63.7 66.7,56.0 63.8,53.8 69.9,47.9 69.3,51.1
+  loop Riverglades lvl 2 lap 307 gain 1.5 only Horde live r 60 at 39.8,40.1 38.4,39.2 44.6,39.8 48.0,41.1 46.7,41.4 44.2,41.7
   loop Wetlands lvl 32 lap 660 gain 8.9 only Alliance r 60 at 43.8,25.6 32.6,28.8 22.7,27.8 30.9,45.0 34.0,44.4 37.7,41.0 44.6,34.5 44.9,42.4 49.7,52.0 62.1,39.3 60.3,33.1 55.3,29.8
+  loop Riverglades lvl 39 lap 333 gain 4.0 only Alliance live r 60 at 46.1,82.1 44.2,82.7 37.9,77.3 37.1,73.8 35.4,75.0 35.7,71.8 34.0,69.8 37.5,60.7 38.2,58.8 38.9,64.8 38.6,70.6 40.2,75.4
   skill Herbalism 150
 
-step Wild Steelbloom & Liferoot (150-160) cont.
-  tip Walk the loop and pick every Briarthorn (70, green), Bruiseweed (100, green), Wild Steelbloom (115, yellow), Grave Moss (120, yellow), Kingsblood (125, yellow), Liferoot (150, orange) on the way until Herbalism 160. Mageroyal and Briarthorn sometimes give a Swiftthistle as well. Grave Moss grows in graveyards and crypts. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 20 herbs for these 10 points: about 15 Bruiseweed, 5 Briarthorn, 5 Wild Steelbloom, 5 Liferoot and 5 Kingsblood. For Alchemy: about 55 Bruiseweed, 150 Briarthorn, 40 Wild Steelbloom and 40 Kingsblood in all.
+step Kingsblood & Liferoot (150-160) cont.
+  tip Walk the loop and pick every Briarthorn (70, green), Bruiseweed (100, green), Wild Steelbloom (115, yellow), Grave Moss (120, yellow, rare), Kingsblood (125, yellow), Liferoot (150, orange) on the way until Herbalism 160. Mageroyal and Briarthorn sometimes give a Swiftthistle as well. Grave Moss grows in graveyards and crypts. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 20 herbs for these 10 points: about 10 Bruiseweed, 10 Kingsblood, 5 Briarthorn, 5 Wild Steelbloom and 5 Liferoot. For Alchemy: about 55 Bruiseweed, 40 Kingsblood, 150 Briarthorn and 40 Wild Steelbloom in all.
   loop Wetlands lvl 32 lap 342 gain 5.7 only Alliance r 60 at 43.8,25.6 44.6,29.3 47.6,31.9 51.4,31.6 51.1,34.3 46.9,34.3 44.5,34.2 40.2,33.7 37.9,32.8 40.1,28.7 37.7,27.1 40.2,19.6
   loop Hillsbrad Foothills lvl 31 lap 323 gain 3.0 only Horde r 60 at 63.8,53.8 59.3,46.0 61.7,44.2 64.1,39.1 66.3,38.7 66.9,35.8 68.1,32.4 67.5,29.4 68.7,22.5 68.8,27.2 69.2,37.8 72.1,60.6
   loop Stonetalon Mountains lvl 25 lap 343 gain 2.6 only Alliance r 60 at 34.3,17.8 33.1,20.5 31.9,17.1 29.3,12.1 30.1,9.0 31.5,5.3 36.7,5.5 44.0,15.0 40.1,19.2 38.6,21.5 36.3,22.2 37.0,16.5
   loop Stonetalon Mountains lvl 25 lap 375 gain 1.8 only Horde r 60 at 38.6,21.5 36.3,22.2 33.1,20.5 44.5,34.6 46.8,32.7 43.7,26.9 45.2,22.6 46.8,21.3 44.0,21.6 44.0,15.0 42.2,11.5 40.1,19.2
   loop The Barrens lvl 18 lap 321 gain 1.2 only Horde r 60 at 46.1,32.6 47.9,32.6 48.6,32.0 49.2,32.7 48.8,35.0 47.9,34.5 47.3,33.6 46.5,34.3 45.7,35.3 45.3,36.2 43.1,37.6 45.8,33.6
   loop Loch Modan lvl 20 lap 369 gain 1.3 only Alliance r 60 at 70.3,51.7 65.0,42.8 68.4,32.0 68.1,27.3 65.0,23.3 71.0,17.3 77.8,26.5 71.1,29.1 71.8,37.9 71.6,44.8 76.0,65.6 73.5,57.8
+  loop Riverglades lvl 2 lap 307 gain 0.9 only Horde live r 60 at 39.8,40.1 38.4,39.2 44.6,39.8 48.0,41.1 46.7,41.4 44.2,41.7
+  loop Riverglades lvl 38 lap 312 gain 1.4 only Alliance live r 60 at 46.1,82.1 44.2,82.7 42.6,81.0 40.2,75.4 43.2,77.4 45.5,76.1 46.4,77.7
   skill Herbalism 160
 
 # ---------------------------------------------------------------- Herbalism 160-185
 section Herbalism 160-185
 
 step Kingsblood & Liferoot (160-170)
-  tip Walk the loop and pick every Briarthorn (70, green), Stranglekelp (85, green, rare), Bruiseweed (100, green), Wild Steelbloom (115, yellow), Grave Moss (120, yellow, rare), Kingsblood (125, yellow), Liferoot (150, orange), Fadeleaf (160, orange) on the way until Herbalism 170. Mageroyal and Briarthorn sometimes give a Swiftthistle as well. Stranglekelp grows underwater along the shore: watch your breath. Grave Moss grows in graveyards and crypts. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 10 herbs for these 10 points: about 10 Liferoot and 5 Kingsblood. For Alchemy: about 40 Kingsblood in all.
+  tip Walk the loop and pick every Briarthorn (70, green), Stranglekelp (85, green, rare), Bruiseweed (100, green, rare), Wild Steelbloom (115, yellow), Grave Moss (120, yellow, rare), Kingsblood (125, yellow), Liferoot (150, orange), Fadeleaf (160, orange) on the way until Herbalism 170. Mageroyal and Briarthorn sometimes give a Swiftthistle as well. Stranglekelp grows underwater along the shore: watch your breath. Grave Moss grows in graveyards and crypts. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 10 herbs for these 10 points: about 10 Liferoot and 5 Kingsblood. For Alchemy: about 40 Kingsblood in all.
   loop Wetlands lvl 32 lap 422 gain 7.4 only Alliance r 60 at 43.8,25.6 53.9,30.3 55.7,36.4 51.4,31.6 44.5,34.2 40.2,33.7 37.9,32.8 31.6,33.9 31.4,27.2 31.3,22.6 37.7,27.1 40.1,28.7
   loop Hillsbrad Foothills lvl 31 lap 323 gain 2.9 only Horde r 60 at 59.3,46.0 61.7,44.2 64.1,39.1 66.3,38.7 66.9,35.8 68.1,32.4 67.5,29.4 68.7,22.5 68.8,27.2 72.6,52.0 72.1,60.6 63.8,53.8
   loop Alterac Mountains lvl 34 lap 318 gain 3.6 only Horde r 60 at 79.5,51.8 77.4,43.3 62.2,54.9 72.5,69.3 74.0,65.2 76.8,63.4 78.9,59.1 81.1,56.3 83.5,52.6
@@ -153,15 +170,21 @@ step Kingsblood & Liferoot (160-170)
   loop Ashenvale lvl 27 lap 331 gain 1.3 only Alliance r 60 at 63.8,54.8 66.6,54.0 66.6,57.2 67.5,55.6 70.2,56.7 69.7,50.8 68.9,49.0 68.5,50.6 67.2,50.4 63.9,47.4 58.5,56.8 62.2,61.1
   loop Stranglethorn Vale lvl 38 lap 433 gain 6.2 only Horde r 60 at 35.6,23.5 37.8,16.8 41.5,11.7 40.1,12.0 34.0,11.4 26.8,13.9 28.4,14.5 31.2,16.4 33.4,18.8 33.2,21.4 30.3,24.7 34.3,23.0
   loop Stranglethorn Vale lvl 38 lap 326 gain 4.5 only Alliance r 60 at 35.6,23.5 34.3,23.0 34.6,20.9 33.2,21.4 33.4,18.8 34.3,16.7 37.8,16.8 39.6,22.1 39.3,25.2 38.9,27.3 38.9,29.4 36.0,32.4
+  loop Riverglades lvl 2 lap 307 gain 0.9 only Horde live r 60 at 39.8,40.1 38.4,39.2 44.6,39.8 48.0,41.1 46.7,41.4 44.2,41.7
+  loop Swamp of Sorrows lvl 38 lap 319 gain 3.8 only Horde r 60 at 15.2,58.8 21.6,60.6 29.0,50.4 32.2,52.1 38.4,46.7 40.0,38.2 34.3,31.1 32.6,37.3 32.0,46.4 30.5,40.7 26.0,35.9 24.7,43.4
+  loop Riverglades lvl 38 lap 312 gain 1.4 only Alliance live r 60 at 46.1,82.1 44.2,82.7 42.6,81.0 40.2,75.4 43.2,77.4 45.5,76.1 46.4,77.7
   skill Herbalism 170
 
-step Liferoot (170-185) cont.
-  tip Walk the loop and pick every Stranglekelp (85, green, rare), Bruiseweed (100, green, rare), Wild Steelbloom (115, green), Grave Moss (120, green), Kingsblood (125, yellow), Liferoot (150, orange), Fadeleaf (160, orange), Goldthorn (170, orange) on the way until Herbalism 185. Stranglekelp grows underwater along the shore: watch your breath. Grave Moss grows in graveyards and crypts. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 herbs for these 15 points: about 30 Liferoot, 5 Kingsblood, 5 Wild Steelbloom, 5 Goldthorn, 5 Fadeleaf, 5 Grave Moss and 5 Bruiseweed. For Alchemy: about 40 Kingsblood, 40 Wild Steelbloom, 40 Goldthorn and 55 Bruiseweed in all.
+step Liferoot & Goldthorn (170-185) cont.
+  tip Walk the loop and pick every Stranglekelp (85, green, rare), Bruiseweed (100, green, rare), Wild Steelbloom (115, green), Grave Moss (120, green, rare), Kingsblood (125, yellow), Liferoot (150, orange), Fadeleaf (160, orange), Goldthorn (170, orange) on the way until Herbalism 185. Stranglekelp grows underwater along the shore: watch your breath. Grave Moss grows in graveyards and crypts. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 20 herbs for these 15 points: about 15 Liferoot, 10 Goldthorn, 5 Kingsblood, 5 Fadeleaf and 5 Wild Steelbloom. For Alchemy: about 40 Goldthorn, 40 Kingsblood and 40 Wild Steelbloom in all.
   loop Wetlands lvl 32 lap 441 gain 4.6 only Alliance r 60 at 44.5,34.0 40.7,33.5 37.9,32.8 31.6,33.9 31.4,27.2 33.5,25.0 37.7,27.1 39.8,28.9 43.8,25.7 44.6,29.3 53.9,30.3 55.7,45.6
   loop Alterac Mountains lvl 34 lap 317 gain 2.8 r 60 at 79.5,51.8 83.5,52.6 81.1,56.3 78.9,59.1 76.8,63.4 72.5,69.3 74.0,65.2 77.4,43.3
   loop Stranglethorn Vale lvl 37 lap 333 gain 4.5 only Alliance r 60 at 35.6,23.5 36.7,23.8 39.7,22.7 39.9,19.5 41.7,15.0 40.1,12.0 37.8,16.8 34.2,16.4 31.7,16.6 29.9,19.9 33.2,21.4 34.3,23.0
+  loop Swamp of Sorrows lvl 38 lap 326 gain 4.7 only Horde r 60 at 21.9,62.0 24.6,59.1 28.2,62.2 32.2,52.1 38.4,46.7 43.9,41.7 40.0,38.2 35.1,29.8 30.3,31.6 20.8,42.3 21.2,55.3 13.8,61.8
   loop Hillsbrad Foothills lvl 35 lap 348 gain 2.0 only Horde r 60 at 51.4,5.4 54.3,4.9 58.2,2.7 68.7,22.5 68.8,27.2 67.5,29.4 68.1,32.4 66.9,35.8 66.3,38.7 64.1,39.1 61.7,44.2 59.3,46.0
   loop Stranglethorn Vale lvl 38 lap 332 gain 4.1 only Horde r 60 at 35.6,23.5 36.7,23.8 39.7,22.7 39.9,19.5 37.8,16.8 34.2,16.4 31.7,16.6 29.9,19.9 30.3,24.7 34.3,26.1 33.2,21.4 34.3,23.0
+  loop Riverglades lvl 39 lap 325 gain 3.9 only Alliance live r 60 at 40.1,74.9 39.0,73.0 38.6,68.9 38.9,64.9 38.5,58.0 36.5,62.4 36.8,65.2 33.6,65.0 32.9,69.8 34.3,71.1 36.0,71.5 37.3,74.1
+  loop Riverglades lvl 42 lap 415 gain 11.1 only Horde live r 60 at 60.5,35.8 60.7,32.3 59.0,32.9 56.9,36.6 53.2,43.4 45.4,53.7 51.1,53.0 51.6,50.7 54.7,46.9 56.4,43.3 61.7,39.8 63.5,37.0
   loop Ashenvale lvl 47 lap 797 gain 1.4 only Horde r 60 at 99.8,30.8 100.3,40.8 92.4,59.8 90.2,76.9 88.3,77.0 85.4,76.9 82.4,70.1 79.5,61.9 73.0,58.2 70.2,56.7 74.5,51.0 79.6,44.9
   loop Ashenvale lvl 9999 lap 414 gain 0.5 only Alliance r 60 at 99.8,30.8 100.3,40.8 79.6,44.9
   skill Herbalism 185
@@ -180,6 +203,7 @@ step Goldthorn & Khadgar's Whisker (185-200)
   loop Dustwallow Marsh lvl 39 lap 341 gain 3.8 only Alliance r 60 at 42.4,18.6 40.0,14.0 36.2,12.5 37.2,15.8 38.4,19.2 40.1,21.9 38.0,25.6 41.5,25.6 48.2,21.7 49.1,16.4 47.5,15.9 43.8,20.4
   loop Riverglades lvl 42 lap 439 gain 10.4 only Horde live r 60 at 51.2,53.1 51.6,50.7 54.7,46.9 56.4,43.3 61.7,39.8 63.5,37.0 60.5,35.8 60.7,32.3 59.0,32.9 56.9,36.6 46.7,41.4 45.4,53.7
   loop Dustwallow Marsh lvl 40 lap 703 gain 7.7 only Horde r 60 at 42.4,18.6 47.5,15.9 59.1,25.9 44.8,38.0 42.8,38.9 46.5,46.0 42.3,53.7 38.4,55.4 39.1,52.1 34.6,46.6 40.1,21.9 38.4,19.2
+  loop The Hinterlands lvl 46 lap 308 gain 1.2 only Alliance r 60 at 43.0,45.8 39.3,52.4 33.9,53.1 42.3,59.2 45.1,56.0
   skill Herbalism 200
 
 step Artisan Herbalism
@@ -197,6 +221,7 @@ step Goldthorn & Khadgar's Whisker (200-210)
   loop Stranglethorn Vale lvl 40 lap 550 gain 4.6 only Alliance r 60 at 41.7,11.7 31.4,12.1 27.9,14.8 30.2,20.3 32.3,18.5 34.1,16.0 37.6,17.4 39.6,19.3 45.0,30.9 46.3,29.4 48.1,24.8 44.1,18.6
   loop Dustwallow Marsh lvl 40 lap 727 gain 6.0 only Horde r 60 at 42.4,18.6 38.4,19.2 34.6,46.6 39.1,52.1 38.4,55.4 42.0,59.5 46.5,46.0 45.7,42.4 42.8,38.9 44.8,38.0 59.1,25.9 47.5,15.9
   loop Dustwallow Marsh lvl 39 lap 337 gain 2.7 only Alliance r 60 at 42.4,18.6 43.8,20.4 43.6,23.9 44.1,27.2 41.5,25.6 40.1,21.9 38.4,19.2 36.2,12.5 41.4,15.4 42.8,12.8 47.5,15.9 49.1,16.4
+  loop The Hinterlands lvl 46 lap 308 gain 1.0 only Alliance r 60 at 43.0,45.8 39.3,52.4 33.9,53.1 42.3,59.2 45.1,56.0
   skill Herbalism 210
 
 # ---------------------------------------------------------------- Herbalism 210-230

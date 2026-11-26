@@ -136,7 +136,7 @@ step Get Mageroyal
   loop Westfall lvl 18 lap 341 yield 4.0 only Alliance r 60 at 39.6,32.9 42.2,33.1 46.1,28.7 42.8,38.8 38.9,38.4 31.9,44.1 30.7,38.2 28.6,32.2 32.5,25.5 36.6,22.1 36.6,26.5 37.0,32.8
   loop Loch Modan lvl 18 lap 332 yield 2.6 only Alliance r 60 at 76.0,65.6 70.6,72.4 66.1,72.4 62.1,58.0 64.4,54.1 69.9,51.9 67.3,48.4 64.6,44.3 66.8,37.8 71.8,37.9 74.0,41.6 77.0,43.6
   loop Silverpine Forest lvl 16 lap 430 yield 8.4 only Horde r 60 at 49.2,30.2 45.2,27.0 47.6,27.0 55.9,19.2 58.9,16.4 56.2,22.5 53.6,29.4 55.4,36.1 54.0,42.1 51.6,49.4 53.3,35.5 49.6,36.0
-  loop The Barrens lvl 18 lap 325 yield 2.6 only Horde r 60 at 45.9,33.2 46.5,34.5 47.3,34.0 47.9,32.6 49.3,33.0 48.8,35.0 46.4,36.2 45.7,35.3 45.3,36.2 43.0,33.7 42.5,32.6 45.3,30.9
+  loop The Barrens lvl 18 lap 322 yield 2.6 only Horde r 60 at 45.9,33.2 46.5,34.5 47.3,34.0 47.9,32.6 49.3,33.0 48.8,35.0 46.4,36.2 45.7,35.3 45.3,36.2 43.0,33.7 42.5,32.6 45.3,30.8
   loop Stonetalon Mountains lvl 17 lap 321 yield 1.7 only Horde r 60 at 84.0,85.2 81.3,89.1 81.7,91.6 79.8,93.2 78.5,94.2 76.8,95.7 75.6,93.8 69.4,90.7 74.1,89.8 76.1,89.4 77.5,90.0 78.9,85.1
   auction 785 x77
 
@@ -146,9 +146,9 @@ step Get Briarthorn
   loop Loch Modan lvl 18 lap 332 yield 7.0 only Alliance r 60 at 76.0,65.6 70.6,72.4 66.1,72.4 62.1,58.0 64.4,54.1 69.9,51.9 67.3,48.4 64.6,44.3 66.8,37.8 71.8,37.9 74.0,41.6 77.0,43.6
   loop Westfall lvl 16 lap 348 yield 5.6 only Alliance r 60 at 36.1,37.0 34.4,38.3 31.6,43.5 29.7,49.2 37.3,46.1 38.9,38.4 46.4,30.9 42.6,31.9 40.4,29.7 39.5,32.7 34.6,26.3 37.1,33.3
   loop Wetlands lvl 32 lap 422 yield 4.6 only Alliance r 60 at 43.8,25.6 53.9,30.3 55.7,36.4 51.4,31.6 44.5,34.2 40.2,33.7 37.9,32.8 31.6,33.9 31.4,27.2 31.3,22.6 37.7,27.1 40.1,28.7
-  loop Darkshore lvl 19 lap 592 yield 5.9 only Alliance r 60 at 35.1,90.2 38.7,86.9 43.2,66.4 39.6,54.9 38.9,51.4 39.3,58.9 39.1,65.0 39.6,68.9 38.9,70.9 37.6,70.4 38.8,74.2 38.9,82.3
-  loop Silverpine Forest lvl 18 lap 338 yield 4.3 only Horde r 60 at 46.2,54.1 47.6,55.3 49.3,57.5 50.5,55.4 52.2,56.0 54.0,42.1 53.7,30.9 49.2,30.2 49.6,36.0 48.9,46.7 46.9,51.4 45.2,52.3
+  loop Redridge Mountains lvl 23 lap 326 yield 3.3 only Alliance r 60 at 72.5,73.4 76.6,72.8 75.9,63.3 67.8,62.6 64.9,55.6 59.5,63.3 56.8,72.5 59.5,75.3 61.5,79.0 65.0,82.1 60.1,69.7 63.0,69.6
   loop The Barrens lvl 16 lap 411 yield 3.3 only Horde r 60 at 40.1,19.2 41.5,18.5 42.8,21.2 44.5,19.0 44.3,23.0 43.7,27.3 42.1,29.0 40.5,32.2 39.0,30.5 40.3,28.2 41.6,24.6 40.7,21.6
+  loop Silverpine Forest lvl 16 lap 430 yield 2.8 only Horde r 60 at 49.2,30.2 45.2,27.0 47.6,27.0 55.9,19.2 58.9,16.4 56.2,22.5 53.6,29.4 55.4,36.1 54.0,42.1 51.6,49.4 53.3,35.5 49.6,36.0
   loop Stonetalon Mountains lvl 25 lap 375 yield 1.5 only Horde r 60 at 38.6,21.5 36.3,22.2 33.1,20.5 44.5,34.6 46.8,32.7 43.7,26.9 45.2,22.6 46.8,21.3 44.0,21.6 44.0,15.0 42.2,11.5 40.1,19.2
   loop Hillsbrad Foothills lvl 26 lap 315 yield 1.1 only Horde r 60 at 70.8,55.8 72.6,52.0 75.7,52.7 76.5,57.3 74.9,59.5 72.1,60.6 71.1,64.8 69.1,63.7 66.7,56.0 63.8,53.8 69.9,47.9 69.3,51.1
   auction 2450 x152
@@ -158,12 +158,12 @@ step Get Bruiseweed
   collect 2453 x54 gather Herbalism 100
   loop Loch Modan lvl 20 lap 421 yield 14.3 only Alliance r 60 at 71.0,17.3 65.0,23.3 68.1,27.3 71.1,29.1 68.1,32.6 71.6,44.8 69.9,51.6 73.5,57.8 79.6,76.6 81.6,64.5 80.8,39.9 77.8,26.5
   loop Redridge Mountains lvl 22 lap 332 yield 6.6 only Alliance r 60 at 72.5,73.4 65.0,82.9 61.2,79.3 59.5,75.3 56.8,72.5 60.1,69.7 59.5,63.3 63.0,69.6 67.8,62.6 75.9,63.3 85.4,61.1 76.6,72.8
+  loop Westfall lvl 18 lap 332 yield 6.1 only Alliance r 60 at 59.8,22.4 61.6,25.3 61.0,18.1 58.9,15.2 52.2,6.4 44.1,16.7 43.2,26.1 45.0,24.2 48.3,25.0 55.9,31.0 55.1,27.6 56.6,19.3
   loop Stonetalon Mountains lvl 17 lap 319 yield 4.2 only Alliance r 60 at 84.0,85.2 82.7,84.0 81.1,84.5 78.9,85.1 76.2,83.0 74.1,89.8 76.1,89.4 77.5,90.0 78.5,94.2 79.8,93.2 81.7,91.6 81.3,89.1
-  loop Ashenvale lvl 27 lap 331 yield 2.2 only Alliance r 60 at 63.8,54.8 66.6,54.0 66.6,57.2 67.5,55.6 70.2,56.7 69.7,50.8 68.9,49.0 68.5,50.6 67.2,50.4 63.9,47.4 58.5,56.8 62.2,61.1
   loop Stonetalon Mountains lvl 17 lap 321 yield 5.4 only Horde r 60 at 84.0,85.2 81.3,89.1 81.7,91.6 79.8,93.2 78.5,94.2 76.8,95.7 75.6,93.8 69.4,90.7 74.1,89.8 76.1,89.4 77.5,90.0 78.9,85.1
   loop The Barrens lvl 18 lap 321 yield 5.3 only Horde r 60 at 46.1,32.6 47.9,32.6 48.6,32.0 49.2,32.7 48.8,35.0 47.9,34.5 47.3,33.6 46.5,34.3 45.7,35.3 45.3,36.2 43.1,37.6 45.8,33.6
-  loop Silverpine Forest lvl 18 lap 338 yield 2.2 only Horde r 60 at 46.2,54.1 47.6,55.3 49.3,57.5 50.5,55.4 52.2,56.0 54.0,42.1 53.7,30.9 49.2,30.2 49.6,36.0 48.9,46.7 46.9,51.4 45.2,52.3
   loop Hillsbrad Foothills lvl 26 lap 315 yield 1.8 only Horde r 60 at 70.8,55.8 72.6,52.0 75.7,52.7 76.5,57.3 74.9,59.5 72.1,60.6 71.1,64.8 69.1,63.7 66.7,56.0 63.8,53.8 69.9,47.9 69.3,51.1
+  loop Ashenvale lvl 47 lap 797 yield 1.8 only Horde r 60 at 99.8,30.8 100.3,40.8 92.4,59.8 90.2,76.9 88.3,77.0 85.4,76.9 82.4,70.1 79.5,61.9 73.0,58.2 70.2,56.7 74.5,51.0 79.6,44.9
   auction 2453 x54
 
 step Minor Mana Potion to 90
@@ -196,12 +196,12 @@ step Alchemy 150-225: vendor goods
 
 step Get Wild Steelbloom
   tip You need 40 Wild Steelbloom for Alchemy 150-225: Elixir of Defense (8 of them for 225-300: get them all now). Herbalism: Wild Steelbloom (skill 115) in Stonetalon Mountains (15-27), Arathi Highlands (30-40) and Stranglethorn Vale (30-45). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
-  collect 3355 x40 gather Herbalism 125
+  collect 3355 x40 gather Herbalism 115
   loop Stonetalon Mountains lvl 25 lap 343 yield 5.3 only Alliance r 60 at 34.3,17.8 33.1,20.5 31.9,17.1 29.3,12.1 30.1,9.0 31.5,5.3 36.7,5.5 44.0,15.0 40.1,19.2 38.6,21.5 36.3,22.2 37.0,16.5
   loop Arathi Highlands lvl 37 lap 333 yield 1.6 only Alliance r 60 at 65.3,70.0 66.7,64.2 71.2,59.2 71.5,62.7 72.5,65.8 69.1,69.0 67.3,70.5 69.0,75.1 62.3,72.5 56.1,70.2 54.9,64.5 62.1,68.9
   loop Wetlands lvl 32 lap 660 yield 3.0 only Alliance r 60 at 43.8,25.6 32.6,28.8 22.7,27.8 30.9,45.0 34.0,44.4 37.7,41.0 44.6,34.5 44.9,42.4 49.7,52.0 62.1,39.3 60.3,33.1 55.3,29.8
   loop Stranglethorn Vale lvl 37 lap 333 yield 1.0 only Alliance r 60 at 35.6,23.5 36.7,23.8 39.7,22.7 39.9,19.5 41.7,15.0 40.1,12.0 37.8,16.8 34.2,16.4 31.7,16.6 29.9,19.9 33.2,21.4 34.3,23.0
-  loop Stonetalon Mountains lvl 17 lap 329 yield 4.0 only Horde r 60 at 81.3,90.7 79.8,93.8 77.2,95.5 73.0,91.4 72.4,88.7 71.4,86.7 75.0,88.1 75.8,83.1 78.2,87.4 80.3,87.4 84.0,85.2 83.6,89.3
+  loop Stonetalon Mountains lvl 17 lap 327 yield 4.4 only Horde r 60 at 77.2,95.5 79.8,93.2 83.6,89.3 85.5,85.1 84.0,85.2 81.3,89.1 80.3,87.4 78.2,87.4 75.8,83.1 75.0,88.1 72.4,88.7 73.0,91.4
   loop Hillsbrad Foothills lvl 31 lap 323 yield 1.9 only Horde r 60 at 63.8,53.8 59.3,46.0 61.7,44.2 64.1,39.1 66.3,38.7 66.9,35.8 68.1,32.4 67.5,29.4 68.7,22.5 68.8,27.2 69.2,37.8 72.1,60.6
   loop Riverglades lvl 42 lap 484 yield 2.3 only Horde live r 60 at 51.2,53.1 45.4,53.7 46.7,41.4 53.2,43.4 56.9,36.6 59.9,34.1 60.7,32.3 61.2,36.7 61.7,39.8 55.8,43.0 57.2,48.1 58.5,54.3
   loop Ashenvale lvl 47 lap 797 yield 3.7 only Horde r 60 at 99.8,30.8 100.3,40.8 92.4,59.8 90.2,76.9 88.3,77.0 85.4,76.9 82.4,70.1 79.5,61.9 73.0,58.2 70.2,56.7 74.5,51.0 79.6,44.9
@@ -210,8 +210,8 @@ step Get Wild Steelbloom
 step Get Kingsblood
   tip You need 39 Kingsblood for Alchemy 150-225: Mana Potion. Herbalism: Kingsblood (skill 125) in Wetlands (20-30), Stranglethorn Vale (30-45) and Riverglades (38-47). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 3356 x39 gather Herbalism 125
+  loop Riverglades lvl 39 lap 333 yield 8.0 only Alliance live r 60 at 46.1,82.1 44.2,82.7 37.9,77.3 37.1,73.8 35.4,75.0 35.7,71.8 34.0,69.8 37.5,60.7 38.2,58.8 38.9,64.8 38.6,70.6 40.2,75.4
   loop Wetlands lvl 32 lap 660 yield 9.3 only Alliance r 60 at 43.8,25.6 32.6,28.8 22.7,27.8 30.9,45.0 34.0,44.4 37.7,41.0 44.6,34.5 44.9,42.4 49.7,52.0 62.1,39.3 60.3,33.1 55.3,29.8
-  loop Riverglades lvl 39 lap 338 yield 4.6 only Alliance live r 60 at 38.6,65.1 37.1,61.6 39.0,57.7 32.1,59.5 33.7,70.2 35.9,71.7 37.1,74.3 36.4,77.0 38.1,76.5 40.1,74.9 38.7,72.9 38.6,68.9
   loop Stranglethorn Vale lvl 40 lap 550 yield 7.1 only Alliance r 60 at 41.7,11.7 31.4,12.1 27.9,14.8 30.2,20.3 32.3,18.5 34.1,16.0 37.6,17.4 39.6,19.3 45.0,30.9 46.3,29.4 48.1,24.8 44.1,18.6
   loop Ashenvale lvl 27 lap 331 yield 2.7 only Alliance r 60 at 63.8,54.8 66.6,54.0 66.6,57.2 67.5,55.6 70.2,56.7 69.7,50.8 68.9,49.0 68.5,50.6 67.2,50.4 63.9,47.4 58.5,56.8 62.2,61.1
   loop Stranglethorn Vale lvl 38 lap 433 yield 5.3 only Horde r 60 at 35.6,23.5 37.8,16.8 41.5,11.7 40.1,12.0 34.0,11.4 26.8,13.9 28.4,14.5 31.2,16.4 33.4,18.8 33.2,21.4 30.3,24.7 34.3,23.0
@@ -223,7 +223,9 @@ step Get Kingsblood
 step Get Stranglekelp
   tip You need 39 Stranglekelp for Alchemy 150-225: Mana Potion. Herbalism: Stranglekelp (skill 85) in Wetlands (20-30), Stranglethorn Vale (30-45) and The Hinterlands (40-50). The arrow takes the Herbalism loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House.
   collect 3820 x39 gather Herbalism 100
+  loop Stranglethorn Vale lvl 41 lap 334 yield 13.4 r 60 at 21.4,53.3 22.0,51.3 22.6,49.0 22.2,45.7 23.6,47.0 24.9,48.5 25.9,47.8 25.4,57.0 23.9,58.5 22.8,59.3 21.6,60.4 22.1,56.5
   loop Westfall lvl 19 lap 538 yield 6.1 only Alliance r 60 at 36.1,37.0 36.9,33.0 39.5,32.7 45.3,25.1 34.4,16.2 32.7,18.8 25.9,38.6 24.5,55.2 36.9,57.1 43.7,55.5 37.3,45.7 31.5,43.9
+  loop The Hinterlands lvl 2 lap 312 yield 4.6 only Horde r 60 at 80.4,88.7 82.4,88.0 83.0,81.4 77.2,89.6
   loop Ashenvale lvl 30 lap 529 yield 2.1 only Horde r 60 at 73.0,58.2 70.2,56.7 69.9,61.2 67.5,63.3 65.6,65.7 63.8,54.8 74.4,46.0 78.6,53.2 79.5,61.9 81.6,64.1 81.4,66.4 79.4,70.0
   auction 3820 x39
 

@@ -76,8 +76,8 @@ step Smelt Bronze & Smelt Tin
   learn 2659
   learn 3304
 
-step Copper & Tin (65-125)
-  tip Walk the loop and mine every Copper (1, green), Tin (65, orange) node on the way until Mining 125. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70), Smelt Tin (grey at 75), Smelt Bronze (grey at 115) give points too. Smelt Bronze takes a Copper Bar and a Tin Bar each: keep bars from the smelts before it. A quest in these zones needs Mining: Ingredients for the Forge (level 30, Morhan Coppertongue, Loch Modan; Alliance). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 220 nodes for these 60 points: about 150 Copper Ore, 100 Rough Stone, 65 Tin Ore, 45 Coarse Stone, 20 Blood Shard and 5 Pyrite. For Blacksmithing: about 370 Copper Ore, 285 Rough Stone, 160 Tin Ore and 255 Coarse Stone in all. For Engineering: about 230 Copper Ore, 45 Rough Stone, 80 Tin Ore and 45 Coarse Stone in all. Smelt Silver (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a Mining trainer, it is not worth a trip of its own.
+step Tin (65-125)
+  tip Walk the loop and mine every Copper (1, green), Incendicite (65, orange), Tin (65, orange) node on the way until Mining 125. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70), Smelt Tin (grey at 75), Smelt Bronze (grey at 115) give points too. Smelt Bronze takes a Copper Bar and a Tin Bar each: keep bars from the smelts before it. A quest in these zones needs Mining: Ingredients for the Forge (level 30, Morhan Coppertongue, Loch Modan; Alliance). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 160 nodes for these 60 points: about 80 Copper Ore, 60 Tin Ore, 55 Rough Stone, 40 Coarse Stone, 15 Incendicite Ore, 15 Blood Shard and 5 Pyrite. For Blacksmithing: about 370 Copper Ore, 160 Tin Ore, 285 Rough Stone and 255 Coarse Stone in all. For Engineering: about 230 Copper Ore, 80 Tin Ore, 45 Rough Stone and 45 Coarse Stone in all. Smelt Silver (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a Mining trainer, it is not worth a trip of its own.
   loop Loch Modan lvl 15 lap 465 gain 1.6 only Alliance r 60 at 25.7,45.5 26.0,50.9 26.7,57.4 29.3,72.4 35.1,57.1 45.8,61.5 36.2,23.3 36.0,16.8 23.1,24.5 22.7,31.5 26.0,31.3 23.7,36.7
   loop The Barrens lvl 14 lap 371 gain 0.7 only Horde r 60 at 45.0,23.0 43.7,22.7 43.0,21.1 44.8,21.3 45.3,22.3 46.2,20.7 47.2,22.7 44.9,25.1
   loop Darkshore lvl 18 lap 405 gain 2.2 only Alliance r 60 at 56.0,34.3 55.7,36.3 54.6,37.0 52.4,36.3 49.1,37.9 47.8,32.8 48.2,29.1 51.3,30.3 51.7,28.1 50.7,26.2 52.1,26.1 53.7,26.0
@@ -85,6 +85,9 @@ step Copper & Tin (65-125)
   loop Silverpine Forest lvl 16 lap 397 gain 0.8 only Horde r 60 at 35.4,10.1 35.0,13.0 33.3,15.4 34.9,18.5 33.1,20.5 35.4,20.7 39.7,32.5 49.6,24.4 41.0,15.9 38.2,17.2 36.8,19.1 36.8,13.2
   loop Stonetalon Mountains lvl 2 lap 379 gain 0.2 only Horde r 60 at 59.6,89.0 59.1,82.1 66.1,89.8
   loop Ashenvale lvl 24 lap 497 gain 2.1 only Horde r 60 at 40.5,36.4 39.6,33.9 38.1,30.5 33.1,36.0 35.4,37.1 40.5,40.7 45.0,44.3 47.1,45.8 46.3,42.8 43.8,40.8 42.2,37.1 40.2,37.9
+  loop Hillsbrad Foothills lvl 22 lap 479 gain 0.9 only Horde r 60 at 62.7,10.8 67.2,4.4 68.0,8.3 64.7,11.5 64.7,15.3 58.0,11.9
+  loop Wetlands lvl 29 lap 481 gain 5.5 only Alliance r 60 at 50.6,61.8 48.6,62.3 46.7,62.8 45.8,65.1 45.7,60.3 47.5,60.0 49.1,59.1 50.9,59.2 54.2,58.2 55.9,58.7 53.6,62.4 53.4,66.9
+  loop Riverglades lvl 39 lap 313 gain 1.8 only Horde live r 60 at 21.3,68.9 19.9,71.6 16.9,71.3 17.2,68.9 20.4,64.4 22.0,64.7 24.2,63.4 25.3,58.2 29.7,56.3 29.9,61.9 26.4,61.0 26.7,63.9
   skill Mining 125
 
 # ---------------------------------------------------------------- Mining 125-155
@@ -96,13 +99,15 @@ step Expert Mining
   learn 3307
 
 step Iron (125-155)
-  tip Walk the loop and mine every Tin (65, green), Silver (75, green, rare), Iron (125, orange) node on the way until Mining 155. Smelt at a forge when your bags fill: Smelt Iron (orange to 130, grey at 140) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 50 nodes for these 30 points: about 25 Iron Ore, 20 Tin Ore, 20 Heavy Stone, 15 Coarse Stone and 5 Blood Shard. For Blacksmithing: about 365 Iron Ore, 160 Tin Ore, 260 Heavy Stone and 255 Coarse Stone in all. For Engineering: about 80 Iron Ore, 80 Tin Ore, 100 Heavy Stone and 45 Coarse Stone in all.
+  tip Walk the loop and mine every Tin (65, green), Silver (75, green, rare), Iron (125, orange) node on the way until Mining 155. Smelt at a forge when your bags fill: Smelt Iron (orange to 130, grey at 140) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 50 nodes for these 30 points: about 30 Iron Ore, 20 Heavy Stone, 20 Tin Ore and 10 Coarse Stone. For Blacksmithing: about 365 Iron Ore, 260 Heavy Stone, 160 Tin Ore and 255 Coarse Stone in all. For Engineering: about 80 Iron Ore, 100 Heavy Stone, 80 Tin Ore and 45 Coarse Stone in all.
   loop Thousand Needles lvl 28 lap 626 gain 3.0 only Horde r 60 at 42.7,33.7 44.6,39.3 40.2,50.8 37.0,54.3 35.8,50.7 34.4,53.4 33.0,51.2 30.1,45.9 23.7,44.8 23.9,23.4 28.1,28.1 34.6,26.7
   loop Duskwood lvl 25 lap 611 gain 1.1 only Alliance r 60 at 86.1,48.7 85.5,54.0 84.1,58.3 82.7,53.0 79.5,40.5 82.9,35.9
   loop Thousand Needles lvl 30 lap 621 gain 3.0 only Alliance r 60 at 26.9,52.6 16.6,40.9 21.8,41.2 23.7,44.8 26.4,47.0 28.8,49.0 30.1,45.9 33.0,51.2 35.8,50.7 38.2,51.5 37.0,54.3 34.4,53.4
   loop Wetlands lvl 30 lap 560 gain 2.2 only Alliance r 60 at 69.5,28.9 71.1,29.9 69.6,33.1 68.0,31.7 65.6,34.4 64.9,30.9 64.2,26.7 67.3,28.2
   loop The Barrens lvl 20 lap 606 gain 0.5 only Horde r 60 at 54.8,60.4 51.7,58.1 50.9,57.8 51.4,54.7 53.6,54.6 60.5,61.2
   loop Hillsbrad Foothills lvl 22 lap 610 gain 0.4 only Horde r 60 at 66.9,4.1 67.3,9.1 66.6,14.7 64.7,15.3 64.7,11.5 62.7,9.6
+  loop Stranglethorn Vale lvl 35 lap 617 gain 2.2 r 60 at 46.2,7.4 30.5,7.6 27.0,10.1 27.4,13.6 25.7,15.4 26.3,18.0 27.6,18.0 30.0,17.7 29.3,15.3 31.3,13.8 29.8,12.1 31.3,9.5
+  loop Riverglades lvl 38 lap 308 gain 1.5 only Horde live r 60 at 69.3,61.7 71.3,60.1 72.6,58.5 69.9,54.1 64.4,66.6 65.7,71.9 66.7,68.3 67.8,65.1
   skill Mining 155
 
 # ---------------------------------------------------------------- Mining 155-175
@@ -113,13 +118,16 @@ step Smelt Gold
   learn 3308
 
 step Iron (155-175)
-  tip Walk the loop and mine every Incendicite (65, green), Tin (65, green), Silver (75, green, rare), Iron (125, yellow), Gold (155, orange, rare) node on the way until Mining 175. Smelt at a forge when your bags fill: Smelt Gold (orange to 170, grey at 185) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 50 nodes for these 20 points: about 25 Iron Ore, 20 Heavy Stone, 15 Tin Ore, 10 Coarse Stone and 5 Incendicite Ore. For Blacksmithing: about 365 Iron Ore, 260 Heavy Stone, 160 Tin Ore and 255 Coarse Stone in all. For Engineering: about 80 Iron Ore, 100 Heavy Stone, 80 Tin Ore and 45 Coarse Stone in all.
+  tip Walk the loop and mine every Incendicite (65, green), Tin (65, green), Silver (75, green), Iron (125, yellow), Gold (155, orange, rare) node on the way until Mining 175. Smelt at a forge when your bags fill: Smelt Gold (orange to 170, grey at 185) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 50 nodes for these 20 points: about 30 Iron Ore, 25 Heavy Stone, 15 Tin Ore, 10 Coarse Stone and 5 Incendicite Ore. For Blacksmithing: about 365 Iron Ore, 260 Heavy Stone, 160 Tin Ore and 255 Coarse Stone in all. For Engineering: about 80 Iron Ore, 100 Heavy Stone, 80 Tin Ore and 45 Coarse Stone in all.
   loop Thousand Needles lvl 31 lap 715 gain 4.0 only Horde r 60 at 26.9,53.2 26.3,55.7 11.1,38.5 10.1,36.0 10.9,32.2 23.9,23.4 34.6,26.9 42.6,33.4 44.7,39.2 53.9,45.6 55.6,49.6 35.9,50.7
   loop Wetlands lvl 32 lap 619 gain 2.7 only Alliance r 60 at 69.5,28.9 63.0,25.2 61.5,24.0 53.2,52.1 49.4,52.2 48.6,50.3 41.9,46.2 38.1,45.4 46.7,62.8 50.6,61.9 69.6,33.2 67.9,31.6
   loop Thousand Needles lvl 31 lap 624 gain 2.5 only Alliance r 60 at 26.9,53.2 26.3,55.7 16.6,40.9 21.8,41.2 23.7,44.8 26.4,47.0 28.8,49.0 30.1,45.9 33.0,51.2 35.9,50.7 37.0,54.3 34.4,53.4
+  loop Duskwood lvl 30 lap 690 gain 2.1 only Alliance r 60 at 86.2,48.6 79.5,40.5 77.3,38.8 57.7,46.8 30.3,76.7 25.2,80.3 26.7,37.7 58.6,37.7 78.7,29.0 81.2,28.7 85.2,32.5 82.9,35.9
   loop Ashenvale lvl 30 lap 623 gain 1.6 only Horde r 60 at 78.9,62.9 85.4,74.3 90.3,76.4 88.9,79.2 85.0,78.9 84.6,76.5 83.1,77.3 82.9,80.1 81.5,77.8 78.4,80.2 80.5,73.4 71.0,53.3
   loop Hillsbrad Foothills lvl 34 lap 624 gain 2.1 only Horde r 60 at 44.0,29.2 45.4,27.0 48.9,26.5 54.6,19.8 54.9,23.7 53.8,28.0 50.9,29.4 45.6,32.3 43.4,34.6 41.8,32.2 38.4,26.0
   loop Alterac Mountains lvl 37 lap 631 gain 3.8 only Alliance r 60 at 52.4,46.3 52.9,49.8 37.6,67.0 33.7,55.3 31.8,53.6 33.2,47.2 32.9,39.9 39.5,38.0 40.2,30.7 47.9,33.2 45.2,39.2 49.8,44.0
+  loop Stranglethorn Vale lvl 35 lap 618 gain 1.6 r 60 at 46.2,7.4 30.5,7.6 27.0,10.1 27.4,13.6 25.7,15.4 26.3,18.0 27.6,18.0 30.0,17.7 29.3,15.3 31.3,13.8 29.8,12.1 31.3,9.5
+  loop Badlands lvl 42 lap 628 gain 3.4 only Horde r 60 at 15.6,34.9 14.8,48.6 15.0,54.5 20.2,63.0 23.7,61.3 34.9,53.0 42.2,78.9 22.6,73.3 18.5,74.8 18.0,70.3 12.9,58.9 10.8,55.3
   skill Mining 175
 
 # ---------------------------------------------------------------- Mining 175-230
@@ -148,23 +156,28 @@ step Mithril (200-230)
 # ---------------------------------------------------------------- Mining 230-245
 section Mining 230-245
 
-step Mithril & Truesilver (230-245)
-  tip Walk the loop and mine every Gold (155, green), Mithril (175, green), Truesilver (230, orange) node on the way until Mining 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 80 nodes for these 15 points: about 70 Mithril Ore, 65 Solid Stone, 5 Gold Ore and 5 Truesilver Ore. For Blacksmithing: about 915 Mithril Ore and 75 Solid Stone in all. For Engineering: about 135 Mithril Ore and 275 Solid Stone in all.
+step Mithril & Dark Iron (230-245)
+  tip Walk the loop and mine every Gold (155, green), Mithril (175, green), Dark Iron (230, orange), Truesilver (230, orange) node on the way until Mining 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Dark Iron Ore smelts only at the Black Forge in Blackrock Depths (8 ore a bar). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 60 nodes for these 15 points: about 50 Mithril Ore, 50 Solid Stone, 5 Gold Ore, 5 Dark Iron Ore and 5 Truesilver Ore. For Blacksmithing: about 915 Mithril Ore and 75 Solid Stone in all. For Engineering: about 135 Mithril Ore and 275 Solid Stone in all.
   loop Badlands lvl 45 lap 633 gain 1.2 r 60 at 8.6,90.3 7.5,95.6 15.1,92.1 15.7,87.0 42.2,80.0 34.4,23.3 15.6,35.2 12.1,35.1 14.3,39.8 7.6,73.3 6.1,77.3 4.0,80.4
   loop Alterac Mountains lvl 37 lap 628 gain 1.1 only Alliance r 60 at 50.9,44.2 53.6,48.5 37.0,73.7 32.3,65.0 30.8,56.5 33.3,43.9 35.6,39.7 37.9,32.5 42.8,34.7 45.6,40.6 48.1,33.1 52.7,36.8
   loop Desolace lvl 43 lap 627 gain 1.1 r 60 at 29.3,57.8 27.1,58.2 29.3,61.8 30.7,60.4 31.6,65.6 34.5,67.2 54.9,79.6 55.4,73.8 36.4,60.2 33.1,61.7 33.0,53.0 31.2,52.2
+  loop Burning Steppes lvl 53 lap 617 gain 1.4 r 60 at 80.3,44.7 76.7,47.4 77.3,42.9 81.5,40.0 80.2,35.4 86.0,37.1 83.2,42.0 83.7,46.1 84.8,48.8 80.9,48.5
+  loop Searing Gorge lvl 57 lap 616 gain 1.0 r 60 at 64.1,61.6 57.5,68.4 57.1,81.6 49.5,75.9 48.7,51.7 52.0,49.5 55.0,51.2 61.1,42.8 56.9,41.2 56.0,30.6 67.9,32.3 73.2,73.0
   skill Mining 245
 
 # ---------------------------------------------------------------- Mining 245-275
 section Mining 245-275
 
 step Small Thorium (245-275)
-  tip Walk the loop and mine every Gold (155, green, rare), Mithril (175, green), Truesilver (230, orange, rare), Small Thorium (245, orange) node on the way until Mining 275. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Quests in these zones need Mining: Salve via Mining (level 55, Arathandris Silversky, Felwood; Alliance), Salve via Mining (level 55, Maybess Riverbreeze, Felwood; Horde). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 50 nodes for these 30 points: about 30 Thorium Ore, 25 Dense Stone, 20 Mithril Ore and 20 Solid Stone. For Blacksmithing: about 2025 Thorium Ore, 800 Dense Stone, 915 Mithril Ore and 75 Solid Stone in all. For Engineering: about 155 Thorium Ore, 135 Mithril Ore and 275 Solid Stone in all.
+  tip Walk the loop and mine every Gold (155, green, rare), Mithril (175, green), Dark Iron (230, orange, rare), Truesilver (230, orange), Small Thorium (245, orange) node on the way until Mining 275. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Dark Iron Ore smelts only at the Black Forge in Blackrock Depths (8 ore a bar). Quests in these zones need Mining: Salve via Mining (level 55, Arathandris Silversky, Felwood; Alliance), Salve via Mining (level 55, Maybess Riverbreeze, Felwood; Horde). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 40 nodes for these 30 points: about 25 Thorium Ore, 25 Dense Stone, 10 Mithril Ore and 10 Solid Stone. For Blacksmithing: about 2025 Thorium Ore, 800 Dense Stone, 915 Mithril Ore and 75 Solid Stone in all. For Engineering: about 155 Thorium Ore, 135 Mithril Ore and 275 Solid Stone in all.
   loop Tanaris lvl 50 lap 965 gain 3.1 r 60 at 57.2,68.7 56.5,73.2 55.4,73.0 29.7,68.4 29.4,64.8 31.0,63.8 33.4,46.1 35.1,46.8 62.7,48.5 64.4,47.1 65.5,52.3 64.0,53.3
   loop The Hinterlands lvl 51 lap 718 gain 3.0 r 60 at 54.9,67.3 52.1,65.4 33.7,65.0 37.1,67.5 57.9,84.2 72.6,61.9 65.5,41.2 59.1,41.5 57.0,43.1 66.8,52.4 64.4,64.2 56.6,68.6
+  loop Burning Steppes lvl 53 lap 627 gain 2.9 r 60 at 80.3,44.7 80.9,48.5 84.8,48.8 83.7,46.1 82.8,42.4 82.3,40.2 86.0,37.1 80.2,35.4 80.3,40.7 77.4,42.9 76.7,47.4
   loop Felwood lvl 52 lap 616 gain 2.0 only Horde r 60 at 36.2,68.9 37.9,68.0 38.3,70.6 40.1,74.1 42.1,78.4 39.7,81.0 42.8,84.1 44.9,85.5 47.3,76.1 45.2,66.6 43.8,62.1 36.6,62.7
   loop Un'Goro Crater lvl 54 lap 620 gain 3.4 r 60 at 68.5,16.1 69.8,19.2 75.5,33.1 75.3,39.6 63.1,33.4 55.4,35.2 52.2,32.0 50.1,13.3 56.6,11.7 63.8,16.2 66.2,17.7 66.4,14.2
   loop Felwood lvl 54 lap 811 gain 3.6 only Alliance r 60 at 57.6,17.3 59.2,19.4 61.3,21.3 58.7,22.8 43.8,62.1 38.9,55.1 43.2,46.7 43.4,41.2 38.1,32.2 39.8,22.3 46.2,13.5 48.6,23.8
+  loop Winterspring lvl 59 lap 705 gain 4.9 only Alliance r 60 at 70.4,40.3 69.1,39.8 56.3,25.6 57.3,32.8 56.0,49.0 55.5,50.7 54.1,50.4 56.0,53.8 57.8,61.1 56.9,50.4 58.4,46.6 69.4,41.9
+  loop Winterspring lvl 58 lap 615 gain 2.7 only Horde r 60 at 70.4,40.3 70.9,37.5 66.7,28.2 63.6,25.6 64.6,29.7 64.6,34.6 66.5,37.5 68.0,35.6 67.7,38.6 67.7,41.5 69.4,41.9 69.1,39.8
   skill Mining 275
 
 # ---------------------------------------------------------------- Mining 275-300
