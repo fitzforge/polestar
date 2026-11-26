@@ -12,34 +12,34 @@
 	"maps": {
 		"0": {
 			"leffe": {
-				"floors": 2939413,
+				"floors": 2939426,
 				"droppedFloors": 649605,
 				"jumps": 761193,
 				"drops": 3208,
 				"climbs": 3208,
-				"arcs": 438774,
+				"arcs": 438794,
 				"droppedEdges": 21,
 				"closedSteps": 151,
-				"areaSurfaces": 310532,
+				"areaSurfaces": 310548,
 				"hubBits": {
-					"nodes": 101464,
+					"nodes": 101461,
 					"clusters": 114,
 					"edges": 22882
 				},
 				"joins": {
-					"ways": 270,
+					"ways": 276,
 					"refused": 3,
 					"falls": 9,
 					"floors": 25,
-					"arcs": 361,
+					"arcs": 373,
 					"entrances": 3,
 					"edges": 14534,
 					"components": 25
 				},
-				"places": 630,
+				"places": 642,
 				"unplaced": 10,
-				"unreachedFloors": 48446,
-				"unreachedBases": 22710,
+				"unreachedFloors": 48433,
+				"unreachedBases": 22707,
 				"unreachedEntrances": 1039
 			},
 			"chokepoints": 352,
@@ -51,8 +51,8 @@
 			"components": 2665,
 			"clampedCosts": 0,
 			"maxDegree": 63,
-			"rawBytes": 40903139,
-			"packedBytes": 20845727,
+			"rawBytes": 40903381,
+			"packedBytes": 20845927,
 			"files": 42,
 			"hubs": 111,
 			"roads": {
@@ -66,7 +66,7 @@
 			},
 			"areas": 1894,
 			"occupiedFloor": {
-				"sourceManifestSha256": "baebcb9390ef28030af0201d79ba68faca9fcb5973656cf920015ca650bff2d1",
+				"sourceManifestSha256": "c4ce1b211bc9117b10505aa60c6ad192661f370ffe9ae7d24392c155b69045dd",
 				"cluster": 471,
 				"cell": 15594,
 				"layer": 1,
@@ -199,7 +199,7 @@
 		},
 		"1": {
 			"leffe": {
-				"floors": 3689820,
+				"floors": 3689824,
 				"droppedFloors": 879565,
 				"jumps": 684233,
 				"drops": 4735,
@@ -207,32 +207,32 @@
 				"arcs": 387569,
 				"droppedEdges": 12,
 				"closedSteps": 295,
-				"areaSurfaces": 241534,
+				"areaSurfaces": 241536,
 				"hubBits": {
-					"nodes": 47363,
+					"nodes": 47379,
 					"clusters": 92,
 					"edges": 8652
 				},
 				"joins": {
-					"ways": 181,
+					"ways": 191,
 					"refused": 11,
 					"falls": 16,
-					"floors": 27,
-					"arcs": 267,
+					"floors": 43,
+					"arcs": 299,
 					"entrances": 4,
 					"edges": 24030,
 					"components": 25
 				},
 				"cuts": {
-					"cuts": 2,
-					"moves": 21,
-					"arcs": 21,
+					"cuts": 4,
+					"moves": 43,
+					"arcs": 40,
 					"dearer": 23,
-					"gone": 0
+					"gone": 49
 				},
-				"places": 563,
-				"unplaced": 0,
-				"unreachedFloors": 82193,
+				"places": 583,
+				"unplaced": 6,
+				"unreachedFloors": 82189,
 				"unreachedBases": 61574,
 				"unreachedEntrances": 1917
 			},
@@ -245,8 +245,8 @@
 			"components": 3391,
 			"clampedCosts": 0,
 			"maxDegree": 63,
-			"rawBytes": 51236311,
-			"packedBytes": 25794702,
+			"rawBytes": 51236011,
+			"packedBytes": 25794566,
 			"files": 51,
 			"hubs": 94,
 			"roads": {
@@ -258,7 +258,7 @@
 				"bridgedColumns": 12384,
 				"refused": 91
 			},
-			"areas": 1110
+			"areas": 1111
 		},
 		"2991": {
 			"leffe": {
@@ -313,7 +313,7 @@
 		"Polestar_Nav_EK/Nav0_8.lua": "1579e3a45547a5d206484ffe7823ce9d5bf0d91e25edbc2f6ce076eeb36d4309",
 		"Polestar_Nav_EK/Nav0_9.lua": "89988e7d714b2b57287bfb81de16132a59f8cf47df7c710e5fb071438fe32d03",
 		"Polestar_Nav_EK/Nav0_10.lua": "baf4c7e7bc7565aad0d2922213b4a8fa5f5e122e79f39b044254ab7c28460d16",
-		"Polestar_Nav_EK/Nav0_11.lua": "6711e283986a18f1777bdce4ebd593b8e86b50107bba69e0cc63ef332d599a6b",
+		"Polestar_Nav_EK/Nav0_11.lua": "3dff6f2583d266898624bf0d7477d6da77a51a9a9538dfd88e9c2df8ba534d60",
 		"Polestar_Nav_EK/Nav0_12.lua": "b66cffb5c1bfd91bab6702af7bbaf43f742ae9da9ed8a3f5e50639ac7f5ea995",
 		"Polestar_Nav_EK/Nav0_13.lua": "856a62450a32eabf4b452dd8d4be530d87737d4a8f55095e40e1ade4889b4c44",
 		"Polestar_Nav_EK/Nav0_14.lua": "394861fc479b385a2c5262e91ea1190714b250bd93590455ee4cfad79cd2a276",
@@ -324,7 +324,7 @@
 		"Polestar_Nav_EK/Nav0_19.lua": "b1f45a6c2f8e13ceea20d697db7f6d0af546bfd70ed955bf5573b990104a1841",
 		"Polestar_Nav_EK/Nav0_20.lua": "8e7ce47db5c1c2f3801b2955053439aa70700f9493e23d7cf17b48650cb3fad5",
 		"Polestar_Nav_EK/Nav0_21.lua": "73a6b9fe1cb82749c9d29881c6466e0d37732436949fffb1ce966f93e1d0cc21",
-		"Polestar_Nav_EK/Nav0_22.lua": "f58cd51ff3b435ea290793cdb9a4153d62d91fa0d8a6dcd66860b0ddab9b511c",
+		"Polestar_Nav_EK/Nav0_22.lua": "d35dfed26ccb0fb8dff9b68d9f058814af9e441fdbb72e9f6ba2ca3f7914f903",
 		"Polestar_Nav_EK/Nav0_23.lua": "f482266f852c20a857ba7b68ea932a3e88a7aa0ed630f228a3f3b0306f7e9d1e",
 		"Polestar_Nav_EK/Nav0_24.lua": "a054ebab9e63cb8ef9614d39c23c0d97eec46161910084e6fd75d718b83b1559",
 		"Polestar_Nav_EK/Nav0_25.lua": "9e0b16085680de89c695cfe870b4121d3af9ed012b786dec356ca97ce7203442",
@@ -344,7 +344,7 @@
 		"Polestar_Nav_EK/Nav0_39.lua": "eb30f69a7cb43bbc8bef613548248eb9c988e09735096ee2e384e4b3bd8b9c30",
 		"Polestar_Nav_EK/Nav0_40.lua": "f2f77eff68b9f75d668cc32d1ed287ada649754cf94e3b61ac6cc42a5a69602e",
 		"Polestar_Nav_EK/Nav0_41.lua": "da86847ab7e63b90be8984ff969b39d3c3c8005e48d7ce15ee211325483852e5",
-		"Nav/Nav1.lua": "252e860b5319cafee4bd968a70777571c10d6cdb735b8eb516ab2af844d8403e",
+		"Nav/Nav1.lua": "9c8977d20f58fc2a1253753a0cf78cef8fb5ce0b40f8d86b0bf8f9077064d599",
 		"Polestar_Nav_Kalimdor/Nav1_1.lua": "28061816d5b1a729a3700dcba5a0be565e5f99a74c4f5c3832a37ce500f30833",
 		"Polestar_Nav_Kalimdor/Nav1_2.lua": "f75b4a9db506323dc6c01166e31ec7fcf66079c2bceef00613dd77bec5360818",
 		"Polestar_Nav_Kalimdor/Nav1_3.lua": "b30cfc121bfda6c7a4d1002ce2b898a33c017a22e94a78520192f70a90f577ee",
@@ -359,7 +359,7 @@
 		"Polestar_Nav_Kalimdor/Nav1_12.lua": "1a178a038d37e4a34409662bf60e6d2117ba5f92ecc09a72bbc0ee62de6bc632",
 		"Polestar_Nav_Kalimdor/Nav1_13.lua": "df1625cadf685d0d04f398185051c8012df260fdd1026bab051fb10331b263b6",
 		"Polestar_Nav_Kalimdor/Nav1_14.lua": "06811ae3b55fc31ab6c48cfb7e0ef5df8efc1e6d626c61e23c1a64da214a131b",
-		"Polestar_Nav_Kalimdor/Nav1_15.lua": "9886f83560f69afbcc3b8ca12ee8ed9783f330599f5f8fdcbfe7371959ba10a5",
+		"Polestar_Nav_Kalimdor/Nav1_15.lua": "0856859d3fd28a4c243df13f57933e5639a3659698e0d140003b83d53955307d",
 		"Polestar_Nav_Kalimdor/Nav1_16.lua": "fdef88cc0b7f4da8b1584c88db08d7ad64c40a6c5a8f96cb49561a1160c38ccc",
 		"Polestar_Nav_Kalimdor/Nav1_17.lua": "f67120820491fcf2a0aea52ea8f2aa1919a44659a3bbdf5ab7ffee1a32b0029a",
 		"Polestar_Nav_Kalimdor/Nav1_18.lua": "8654151cfae909f790992a0a0832f079544b3c4d4b26ec03955b84f6bbe680fa",
@@ -373,7 +373,7 @@
 		"Polestar_Nav_Kalimdor/Nav1_26.lua": "72d997c4b6cba495fb50c2666ca32071bfc099d663a78970693fcee5155f40d2",
 		"Polestar_Nav_Kalimdor/Nav1_27.lua": "da76da55598d236ef0eb47c7323f9535d6f11124a8d8c70e520257e244f4818e",
 		"Polestar_Nav_Kalimdor/Nav1_28.lua": "2ab07265dad7d7d7cc12e55a086922c4f041be308a7369fe89f66963b18bc343",
-		"Polestar_Nav_Kalimdor/Nav1_29.lua": "190e909a043e9f6daf74b7f3ba63ef6046a93f4ead0a54f6fdd91423a8a08f33",
+		"Polestar_Nav_Kalimdor/Nav1_29.lua": "c162f1b09513fe2637e3b7f114d1cea490b3133cd2c4e035e64a889f35223fbb",
 		"Polestar_Nav_Kalimdor/Nav1_30.lua": "1a6ad7f819d2789363ae448a5fda054c9b3ca5d690fe14e1018d2fbc0456e8d1",
 		"Polestar_Nav_Kalimdor/Nav1_31.lua": "03be8e90a8192283c983bc0e7a1a0be5fa221026548bf290a09c36ecbb160336",
 		"Polestar_Nav_Kalimdor/Nav1_32.lua": "d5b3809c70ac5fd7b24517f2cc2f320da08822fca12b54828d3a69a9f91c6897",
@@ -410,7 +410,7 @@
 		"Polestar_Nav_EK/Region0_11_9.lua": "341b2767cfa97b5cc6918ef2a05293031364d744d141805c2980e84dd3ac2d91",
 		"Polestar_Nav_EK/Region0_12_10.lua": "7946ca227aed8474d1e75b545e5ec4a67882945064693c0df60cae28ab17ca40",
 		"Polestar_Nav_EK/Region0_12_6.lua": "6189df30452e8914dc424be1aa38d9642fe9ca0800ff48d05a4162649baa335b",
-		"Polestar_Nav_EK/Region0_12_7.lua": "b8384a459a57e6ecc58f6700f659138ec3671ced2c22e3cee097095a68accacf",
+		"Polestar_Nav_EK/Region0_12_7.lua": "f620f18d8d5ddd7ec6bc7eefca3b81069c7a6efcec85db8f808bcb6751c76345",
 		"Polestar_Nav_EK/Region0_12_8.lua": "a7c3b3f1a2b471c3d4ebc6e30a512641d8ab730f19378580b790d0b1a03e39e3",
 		"Polestar_Nav_EK/Region0_12_9.lua": "388bbfc4d6e98a45094cf54747ad1fdfdc2a2d624ea1c6b3891772ef315bf79b",
 		"Polestar_Nav_EK/Region0_13_10.lua": "214eaacaaf36728b6ebafa51126005277c5f8c333aefa7f671eac60ecaf551c3",
@@ -456,7 +456,7 @@
 		"Polestar_Nav_Kalimdor/Region1_0_0.lua": "a54f317ba225a3412edc7017b7a3f21c840b82b09ffe4110e03c0392b02f847d",
 		"Polestar_Nav_Kalimdor/Region1_10_10.lua": "7eae39c2a6ec3c19abdd2d01b04809319c6b33e9580741483863860163f60d2b",
 		"Polestar_Nav_Kalimdor/Region1_10_6.lua": "721a57c5281097a4da73e7992143a8cf0d7aae813f28156eeff864634b1bdc90",
-		"Polestar_Nav_Kalimdor/Region1_10_7.lua": "e5bf2127577fd80b886a0ea4f05392816938805ca76252abb9aef932b493967c",
+		"Polestar_Nav_Kalimdor/Region1_10_7.lua": "611259012244c9a5b33f472a7884569577175d6996b6d514d4ead372a4357e4d",
 		"Polestar_Nav_Kalimdor/Region1_10_8.lua": "f5863a19596a67aa2ba93f723c168ef76ebc49f2f0adddf4f1f1d58eef135ebf",
 		"Polestar_Nav_Kalimdor/Region1_10_9.lua": "dcf145bbed9a058059237372125b14ac07051864c38e3f384bc108926d1a7153",
 		"Polestar_Nav_Kalimdor/Region1_11_10.lua": "74402c8ad685f1011b233e9410bae723436b932954a2ec9b259637bf74f88909",
@@ -495,7 +495,7 @@
 		"Polestar_Nav_Kalimdor/Region1_5_7.lua": "e34abd0f0c03f938e1ebcce61b70b06ed2c2d04007059f1de7fe23b22efda494",
 		"Polestar_Nav_Kalimdor/Region1_5_8.lua": "3858e8c9804db4e9689c374f47f3aba3fc5f396aa6507e6d346a8a0225ced202",
 		"Polestar_Nav_Kalimdor/Region1_5_9.lua": "5220f38a6354f23660f3ffb1e6c138a059b1b6e4ee9aa0cf7a4e6cebb13667e9",
-		"Polestar_Nav_Kalimdor/Region1_6_10.lua": "db6ddbc0225d98a4151db8617fa0e7193cb1480b2e88212acfe286efddb80a1c",
+		"Polestar_Nav_Kalimdor/Region1_6_10.lua": "dbdb74aeb198acc70c59dbb7c183e71709a5abcfc0d30822b39fa28c67fb646c",
 		"Polestar_Nav_Kalimdor/Region1_6_11.lua": "d33ab8b037659b42ffac14d1d40dc7f9eb4d6ba2257eb2a3bd76f19a5867e1b4",
 		"Polestar_Nav_Kalimdor/Region1_6_6.lua": "7b2fbf5914a746356ffff342cce6de5797d9f07d82d4917e6661fc75391c97ca",
 		"Polestar_Nav_Kalimdor/Region1_6_7.lua": "f6073780c79b8a0922635edd795b592e8a339ab5e5f7389933af7d55d8d0030d",
@@ -535,7 +535,7 @@
 	},
 	"import": {
 		"command": "node tools/lib/nav/import-regions.js",
-		"manifestSha256": "2517c1d6771f0bc311be697d623034773622e803f94444b2531ba136b6c33cf5",
+		"manifestSha256": "bfe9dd8fe88f8a5610ad1395caa6f5d9590591d2be0f14750ef742002c659b2d",
 		"terminalSha256": {
 			"0": "38288a037e6fb2397f1cd26f36cd9f8bfa74a743508c3408e12db62ff40cff7a",
 			"1": "823b7365bf07629fc79c187decf2921f18e6dd518255b9ad1266d5814e842a75",
@@ -558,9 +558,9 @@
 			"data/forever/spawnz.json": "266d149082242e4fd987107099ebfcf8ebbece8b4078349ca9af9f82dc214036",
 			"data/sources/wago/1.60.1.70888/AreaTable.csv": "6e34c93426bf9ba46dfc8f7dd1b140bb556c1bf2a6ace8a1a3556f434c8c6989",
 			"data/crossings.json": "f6f5ba01fd539c351bb7f26de4c16021d6d44f12358eb0e084c5ffe131f7e85e",
-			"joins.json": "db1438cb703da808e93d132d57d2ebc1b188e6ee31a34d50c8a5cfeda1211e6e"
+			"joins.json": "3f4951b1b5b65fce3c9f650920723e868f1e73b3112cc8a57b19961eda861f8b"
 		},
-		"packManifestSha256": "131901f0c4e5568faa4a8a6c3311686b45f68995dd8f7896b8647f189a1d9e9e",
+		"packManifestSha256": "40cca6c683eabd85901e8c5191c742f4fbe7897aea3192243c5d7d1f8b20876c",
 		"graft": {
 			"baseManifestSha256": "bcbe88bbe5a93e8d483150433273ca606721c35d84570d8c8525825f2bec3088",
 			"plainManifestSha256": "03b28056dafa3619f6241105d73b2a42a18ff454cd3fa54720b04242572db1db",
@@ -570,7 +570,7 @@
 				"Polestar_Nav_Kalimdor/TerminalGround.lua"
 			]
 		},
-		"derivedManifestSha256": "baebcb9390ef28030af0201d79ba68faca9fcb5973656cf920015ca650bff2d1",
-		"rebuiltManifestSha256": "2517c1d6771f0bc311be697d623034773622e803f94444b2531ba136b6c33cf5"
+		"derivedManifestSha256": "c4ce1b211bc9117b10505aa60c6ad192661f370ffe9ae7d24392c155b69045dd",
+		"rebuiltManifestSha256": "bfe9dd8fe88f8a5610ad1395caa6f5d9590591d2be0f14750ef742002c659b2d"
 	}
 }
