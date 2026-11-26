@@ -15,15 +15,15 @@ return {
 	-- Step 2: Booty Bay
 	-- {npc:4631} Wharfmaster Lozgil
 	-- was: ["Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "在旅店绑定炉石：路线末尾从丛林北边返回这里就靠它。"
-	["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "",
+	["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "{npc:4631}站在船靠岸的码头上。在旅店绑定炉石：这条路线最后从丛林北边返回时，就靠它回到这里。",
 	-- {npc:4631} Wharfmaster Lozgil
-	["{npc:4631}, on the dock"] = "",
+	["{npc:4631}, on the dock"] = "{npc:4631}，在码头上",
 	-- {npc:4631} Wharfmaster Lozgil · {npc:2496} Baron Revilgaz
-	["{npc:4631}: for {npc:2496}, upstairs in the tavern"] = "",
+	["{npc:4631}: for {npc:2496}, upstairs in the tavern"] = "{npc:4631}：带给酒馆楼上的{npc:2496}",
 	-- {npc:3945} Caravaneer Ruzzgot
-	["{npc:3945}, on the dock"] = "",
+	["{npc:3945}, on the dock"] = "{npc:3945}，在码头上",
 	-- {npc:3945} Caravaneer Ruzzgot · {npc:267} Clerk Daltry · {area:42} Darkshire
-	["{npc:3945}: for {npc:267} in {area:42}, where the second Stranglethorn loop starts"] = "",
+	["{npc:3945}: for {npc:267} in {area:42}, where the second Stranglethorn loop starts"] = "{npc:3945}：带给{area:42}的{npc:267}，荆棘谷第二段路线从那里开始",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, by the bank; inside"] = "{npc:2495}，位于银行旁的屋内",
 	-- {npc:2498} Crank Fizzlebub
@@ -42,7 +42,7 @@ return {
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496}，在旅店楼上",
 	-- {npc:250660} The Baron · {area:37} Lake Nazferiti
 	-- plural, as words: Venture Co. Agents = {npc:260429} Venture Co. Agent
-	["{npc:250660}'s next errand sends you into the Venture Co. house at {area:37}, among Venture Co. Agents (39): leave it."] = "",
+	["{npc:250660}'s next errand sends you into the Venture Co. house at {area:37}, among Venture Co. Agents (39): leave it."] = "{npc:250660}的下一件差事会把你送进{area:37}的风险投资公司小屋，屋里有风险投资公司特工（39级）：别接。",
 
 	-- Step 3: North to Nesingwary's Expedition
 	-- {area:100} Nesingwary's Expedition
