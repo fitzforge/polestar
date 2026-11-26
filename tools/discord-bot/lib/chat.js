@@ -14,7 +14,12 @@
 // the issue's title. Anyone else is told off, under the same caps as `!bug`,
 // and nothing is filed.
 //
-//   const chat = createChat({ discord, forumId, maintainerIds, file: sync.fileChat, repo, log });
+// `!suggest` inside a post of the suggestions forum (SUGGESTIONS_FORUM_ID),
+// by the maintainer and with no reply needed, files the whole post: its first
+// message and every reply (lib/sync.js fileIdea). A second one answers
+// "Already filed as #N".
+//
+//   const chat = createChat({ discord, forumId, suggestionsForumId, maintainerIds, file: sync.fileChat, fileIdea: sync.fileIdea, repo, log });
 //   chat.dispatch(type, d);   // every gateway event, beside the sync
 
 const HOUR_MS = 60 * 60 * 1000;
@@ -76,7 +81,7 @@ function createCaps(limits, now) {
 	};
 }
 
-function createChat({ discord, forumId, maintainerIds = [], file = null, repo = 'fitzforge/polestar', log = console, now = Date.now, limits = LIMITS }) {
+function createChat({ discord, forumId, suggestionsForumId = null, maintainerIds = [], file = null, fileIdea = null, repo = 'fitzforge/polestar', log = console, now = Date.now, limits = LIMITS }) {
 	const maintainers = new Set(maintainerIds);
 	const takeHelp = createCaps(limits, now);
 	const takeNaughty = createCaps(limits, now);
@@ -114,6 +119,7 @@ function createChat({ discord, forumId, maintainerIds = [], file = null, repo = 
 			await discord.reply(d.channel_id, d.id, NAUGHTY);
 			return true;
 		}
+		if (kind === 'suggestion' && suggestionsForumId && fileIdea && (await parentOf(d.channel_id)) === suggestionsForumId) return filePost(d, title);
 		const ref = d.message_reference;
 		if (!ref || !ref.message_id || (ref.type || 0) !== 0 || !file) {
 			await discord.reply(d.channel_id, d.id, `Reply to the message you want filed with \`${name}\`, and a title after it if you like.`);
@@ -135,11 +141,36 @@ function createChat({ discord, forumId, maintainerIds = [], file = null, repo = 
 		// Next to the player's message: a thank-you that pings them (newly
 		// filed), or where it is already (no ping); the command itself goes.
 		await discord.reply(channel, ref.message_id, ...filedReply(kind, repo, result));
+		await dropCommand(d, name);
+		return true;
+	}
+
+	// The command goes when the bot may delete it (Manage Messages).
+	async function dropCommand(d, name) {
 		try {
 			await discord.deleteMessage(d.channel_id, d.id);
 		} catch (err) {
 			if (err.status !== 403 && err.status !== 404) log.warn(`${name}: command not deleted: ${err.message}`);
 		}
+	}
+
+	// `!suggest` in a suggestions post: the whole post filed. Newly filed, the
+	// bot's "Tracked as #N" in the post is the answer; filed before, it says so.
+	async function filePost(d, title) {
+		let result;
+		try {
+			result = await fileIdea(d.channel_id, { title: title.split('\n')[0] });
+		} catch (err) {
+			log.error('!suggest:', err.message);
+			await discord.reply(d.channel_id, d.id, `That didn\u2019t work: ${err.message}`);
+			return false;
+		}
+		if (result.error) {
+			await discord.reply(d.channel_id, d.id, result.error);
+			return false;
+		}
+		if (result.existing) await discord.send(d.channel_id, filedReply('suggestion', repo, { ...result, thread: null })[0]);
+		await dropCommand(d, '!suggest');
 		return true;
 	}
 

@@ -74,6 +74,8 @@ const RETRIES = 6;
 // left to a one-off backfill), at most this many pages of 100.
 const CATCH_UP_MS = 7 * 24 * HOUR;
 const CATCH_UP_PAGES = 10;
+// The whole of a thread (a suggestions post filed with `!suggest`): at most this many pages of 100.
+const CATCH_ALL_PAGES = 30;
 
 // What `!report` and `!suggest` gather: the author's run of messages around
 // the one replied to, each within 10 minutes of the next, at most 10.
@@ -113,7 +115,7 @@ function gatherRun(messages, anchorId, { gapMs, max } = GATHER) {
 }
 
 function createSync({ discord, github, media, config, log = console, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), now = Date.now, setTimer = (fn, ms) => setTimeout(fn, ms).unref(), latest = U.cachedLatest(github, { now, log }) }) {
-	const { forumId, since = null } = config;
+	const { forumId, suggestionsForumId = null, since = null } = config;
 	const exemptIds = new Set(config.exemptIds || []);
 	const maintainers = new Set(config.maintainerIds || []);
 	const takePost = rateLimit(LIMITS.posts, HOUR, now);
@@ -130,6 +132,7 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 	const sources = new Map(); // a message filed from chat -> { number, thread }
 	const reporters = new Map(); // a #bugs post the bot started -> the player it is for
 	let forum = null;
+	let ideasForum = null;
 	let botId = config.botId || null;
 
 	// The guild's owner and roles, from GUILD_CREATE or the API, kept a while.
@@ -198,6 +201,11 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 		return forum;
 	}
 
+	async function getIdeasForum(refresh) {
+		if (!ideasForum || refresh) ideasForum = await discord.getChannel(suggestionsForumId);
+		return ideasForum;
+	}
+
 	async function getThread(id, fresh) {
 		if (!fresh && threads.has(id)) return threads.get(id);
 		let t;
@@ -212,6 +220,12 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 	}
 
 	const inForum = (t) => t && t.parent_id === forumId;
+	// A post of the suggestions forum: followed once `!suggest` filed it, never filed by itself.
+	const inIdeas = (t) => Boolean(suggestionsForumId) && Boolean(t) && t.parent_id === suggestionsForumId;
+	const tracked = (t) => inForum(t) || inIdeas(t);
+	// The issue filed for a followed thread: a #bugs post's is found in the bot's
+	// reply there too; a suggestions post's is the index's (the issues' markers).
+	const issueOf = (t) => (inIdeas(t) ? Promise.resolve(issues.get(t.id) || null) : issueFor(t.id));
 
 	// The issue filed for a thread: known, or found in the bot's reply there.
 	async function issueFor(threadId) {
@@ -290,8 +304,8 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 
 	const signature = (m) => JSON.stringify([m.content, (m.attachments || []).map((a) => a.id)]);
 
-	async function postFor(thread, message) {
-		const f = await getForum();
+	async function postFor(thread, message, parent = null) {
+		const f = parent || await getForum();
 		const status = new Set(Object.values(statusTags(f)));
 		const tagNames = (thread.applied_tags || [])
 			.filter((id) => !status.has(id))
@@ -307,6 +321,12 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			tags: tagNames,
 			files: await files(thread.guild_id, thread.id, message, message.author && message.author.id === thread.owner_id),
 		};
+	}
+
+	// The issue body a post's first message makes: a suggestions post's says "Suggested by".
+	async function bodyOf(thread, message) {
+		if (!inIdeas(thread)) return I.issueBody(await postFor(thread, message));
+		return I.issueBody({ ...(await postFor(thread, message, await getIdeasForum())), kind: 'suggestion' });
 	}
 
 	// Files a post. `backfill`: found on start, not seen being made, so
@@ -360,8 +380,8 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 	}
 
 	// "Tracked as #N": the held reply edited into it when there is one, else a new reply.
-	async function trackedReply(threadId, number) {
-		const text = I.trackedReply(repo, number);
+	async function trackedReply(threadId, number, idea = false) {
+		const text = I.trackedReply(repo, number, idea);
 		const heldId = held.get(threadId);
 		held.delete(threadId);
 		if (heldId) {
@@ -439,9 +459,9 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 
 	// Copies one follow-up to issue n, inside the thread's job. Null when it
 	// is there already, says nothing, or waits for the user's hourly limit.
-	async function followUp(thread, n, m) {
+	async function followUp(thread, n, m, force = false) {
 		if (copied.has(m.id) || saysNothing(m)) return null;
-		if (!(await allowed(takeFollowUp, thread.guild_id, m.author.id, m.member))) {
+		if (!force && !(await allowed(takeFollowUp, thread.guild_id, m.author.id, m.member))) {
 			log.warn(`#${n}: ${m.author.id} sent ${LIMITS.followUps} follow-ups this hour, ${m.id} copied when the hour allows`);
 			retryLater(`message ${m.id}`, takeFollowUp, m.author.id, () => message(m));
 			return null;
@@ -453,12 +473,13 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 		return n;
 	}
 
-	// A thread's messages of the catch-up window, newest first.
-	async function threadMessages(threadId) {
-		const from = now() - CATCH_UP_MS;
+	// A thread's messages, newest first: of the catch-up window, or with `all`
+	// every one (a suggestions post filed whole).
+	async function threadMessages(threadId, all = false) {
+		const from = all ? 0 : now() - CATCH_UP_MS;
 		const out = [];
 		let before = null;
-		for (let page = 0; page < CATCH_UP_PAGES; page++) {
+		for (let page = 0; page < (all ? CATCH_ALL_PAGES : CATCH_UP_PAGES); page++) {
 			const got = await discord.getMessages(threadId, 100, before);
 			out.push(...got.filter((m) => sentAt(m.id) >= from));
 			if (got.length < 100 || sentAt(got[got.length - 1].id) < from) break;
@@ -469,8 +490,10 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 
 	// Copies, oldest first, the thread's recent follow-ups its issue lacks;
 	// the issue's comments say which are there. Runs inside the thread's job.
-	async function catchUp(thread, n) {
-		const waiting = (await threadMessages(thread.id)).filter((m) => m.id !== thread.id && relayable(m) && !copied.has(m.id));
+	// `all`: every message of the thread, past the week's window and the
+	// hourly limits (a maintainer's `!suggest` filing a whole post).
+	async function catchUp(thread, n, all = false) {
+		const waiting = (await threadMessages(thread.id, all)).filter((m) => m.id !== thread.id && relayable(m) && !copied.has(m.id));
 		if (!waiting.length) return 0;
 		for (const c of await github.comments(n)) {
 			const id = I.followUpMessage(c, thread.id);
@@ -478,25 +501,25 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 		}
 		let done = 0;
 		for (const m of waiting.sort(byId)) {
-			if (await followUp(thread, n, m)) done++;
+			if (await followUp(thread, n, m, all)) done++;
 		}
 		if (done) log.info(`#${n}: caught up ${done} follow-up(s) from ${thread.id}`);
 		return done;
 	}
 
 	// A catch-up whose failure is logged and tried again later.
-	async function tryCatchUp(thread, n) {
+	async function tryCatchUp(thread, n, all = false) {
 		try {
-			return await catchUp(thread, n);
+			return await catchUp(thread, n, all);
 		} catch (err) {
 			log.error(`#${n}: catch-up of ${thread.id} failed:`, err.message);
-			catchUpLater(thread, n);
+			catchUpLater(thread, n, 0, all);
 			return 0;
 		}
 	}
 
 	// After a failed copy: the thread's catch-up a while later, backing off.
-	function catchUpLater(thread, n, attempt = 0) {
+	function catchUpLater(thread, n, attempt = 0, all = false) {
 		const key = `catch-up ${thread.id}`;
 		if (deferred.has(key)) return;
 		if (attempt >= RETRIES) {
@@ -506,9 +529,9 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 		deferred.add(key);
 		setTimer(() => {
 			deferred.delete(key);
-			serial(thread.id, () => catchUp(thread, n)).catch((err) => {
+			serial(thread.id, () => catchUp(thread, n, all)).catch((err) => {
 				log.error(`#${n}: catch-up of ${thread.id} failed:`, err.message);
-				catchUpLater(thread, n, attempt + 1);
+				catchUpLater(thread, n, attempt + 1, all);
 			});
 		}, Math.min(HOUR, RETRY_MS * 2 ** attempt));
 	}
@@ -520,10 +543,10 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 		if (m.channel_id === m.id) return newPost(m.id);
 		if (!relayable(m)) return null;
 		const thread = await getThread(m.channel_id);
-		if (!inForum(thread)) return null;
+		if (!tracked(thread)) return null;
 		return serial(thread.id, async () => {
 			// Not filed yet (waiting for the hourly limit): the catch-up copies it once it is.
-			const n = await issueFor(thread.id);
+			const n = await issueOf(thread);
 			if (!n) return null;
 			try {
 				return await followUp(thread, n, m);
@@ -540,9 +563,9 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 	async function edit(m) {
 		if (m.channel_id !== m.id) return editFollowUp(m);
 		const thread = await getThread(m.id);
-		if (!inForum(thread)) return null;
+		if (!tracked(thread)) return null;
 		return serial(m.id, async () => {
-			const n = await issueFor(m.id);
+			const n = await issueOf(thread);
 			if (!n) return null;
 			const message = await discord.getMessage(m.id, m.id);
 			// A post the bot started (`!report`): its issue is the chat messages', not this.
@@ -554,7 +577,7 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 				return null;
 			}
 			const fresh = await getThread(m.id, true);
-			await github.updateIssue(n, { body: I.issueBody(await postFor(fresh, message)) });
+			await github.updateIssue(n, { body: await bodyOf(fresh, message) });
 			seen.set(m.id, signature(message));
 			log.info(`#${n}: body updated from an edit`);
 			return n;
@@ -566,9 +589,9 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 	async function editFollowUp(m) {
 		if (!m.edited_timestamp || !relayable(m)) return null;
 		const thread = await getThread(m.channel_id);
-		if (!inForum(thread)) return null;
+		if (!tracked(thread)) return null;
 		return serial(thread.id, async () => {
-			const n = await issueFor(thread.id);
+			const n = await issueOf(thread);
 			if (!n) return null;
 			const message = await discord.getMessage(thread.id, m.id);
 			const comment = (await github.comments(n)).find((c) => I.followUpMessage(c, thread.id) === m.id);
@@ -721,6 +744,47 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 		});
 	}
 
+	// The maintainer's `!suggest` inside a post of the suggestions forum: the
+	// whole post filed as one issue. Its first message is the body, credited to
+	// its author; every later message, anyone's, a comment in order, the
+	// original poster's marked "(the reporter)"; the labels are discord, triage,
+	// enhancement, idea and the post's forum tags as a #bugs post's are. The
+	// post is then followed like a #bugs post (replies copied, closes and
+	// releases told) and answered "Tracked as #N". Filed already: its issue.
+	// `title`: the maintainer's, else the post's own.
+	// { number, thread, existing } or { error }.
+	function fileIdea(threadId, { title = '' } = {}) {
+		return serial(threadId, async () => {
+			const thread = await getThread(threadId, true);
+			if (!inIdeas(thread)) return { error: 'That isn\u2019t a post in the suggestions forum.' };
+			const filed = issues.get(threadId) || (await issueFor(threadId));
+			if (filed) return { number: filed, thread: threadId, existing: true };
+			const first = await starter(threadId);
+			if (!first) return { error: 'The post\u2019s first message can\u2019t be read.' };
+			if (!first.author || first.author.bot || first.webhook_id) return { error: 'That\u2019s a bot\u2019s post; only a person\u2019s can be filed.' };
+			const parent = await getIdeasForum(true);
+			const post = { ...(await postFor(thread, first, parent)), kind: 'suggestion' };
+			const labels = I.ideaLabels(post.tags);
+			await github.ensureLabels(labels, I.labelInfo);
+			const issue = await github.createIssue({ title: I.issueTitle(title || thread.name, 'Suggestion from Discord'), body: I.issueBody(post), labels });
+			issues.set(threadId, issue.number);
+			seen.set(threadId, signature(first));
+			log.info(`filed #${issue.number} for the suggestions post "${thread.name}" (${threadId})`);
+			await trackedReply(threadId, issue.number, true);
+			const tags = statusTags(parent);
+			if (tags.tracked) {
+				try {
+					await discord.editThread(threadId, { applied_tags: withStatus(thread.applied_tags, tags, 'tracked') });
+				} catch (err) {
+					log.warn(`#${issue.number}: ${threadId} not tagged Tracked: ${err.message}`);
+				}
+			}
+			// Everything said in the post so far, in order.
+			await tryCatchUp(thread, issue.number, true);
+			return { number: issue.number, thread: threadId, existing: false };
+		});
+	}
+
 	// Open posts made while the bot was away, and what their threads said
 	// meanwhile.
 	async function backfill() {
@@ -738,7 +802,19 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 				log.error(`backfill: ${t.id} failed:`, err.message);
 			}
 		}
-		log.info(`backfill: ${mine.length} open posts, ${filed} filed, ${caught} follow-ups caught up`);
+		// Suggestions posts already filed: what their threads said meanwhile.
+		const ideas = suggestionsForumId ? active.filter((t) => t.parent_id === suggestionsForumId).sort(byId) : [];
+		let ideasCaught = 0;
+		for (const t of ideas) {
+			threads.set(t.id, t);
+			if (!issues.has(t.id)) continue;
+			try {
+				ideasCaught += await serial(t.id, () => tryCatchUp(t, issues.get(t.id)));
+			} catch (err) {
+				log.error(`backfill: ${t.id} failed:`, err.message);
+			}
+		}
+		log.info(`backfill: ${mine.length} open posts, ${filed} filed, ${caught} follow-ups caught up` + (suggestionsForumId ? `; ${ideas.length} open suggestions, ${ideasCaught} follow-ups caught up` : ''));
 	}
 
 	function dispatch(type, d) {
@@ -773,7 +849,7 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 		}
 	}
 
-	return { dispatch, loadIndex, backfill, refresh, newPost, message, edit, issues, issueFor, fileChat };
+	return { dispatch, loadIndex, backfill, refresh, newPost, message, edit, issues, issueFor, fileChat, fileIdea };
 }
 
 module.exports = { createSync, gatherRun };

@@ -8,6 +8,13 @@ function required(env, name) {
 	return v;
 }
 
+// An optional channel id: null when unset, an error when it is no id.
+function optionalId(env, name) {
+	const v = (env[name] || '').trim();
+	if (v && !/^\d+$/.test(v)) throw new Error(`${name} is not a channel id: ${v}`);
+	return v || null;
+}
+
 // Fitz's Discord user id: the one maintainer allowed `!report` and `!suggest`
 // when MAINTAINER_IDS is not set.
 const FITZ = '162893436729556992';
@@ -30,6 +37,7 @@ function botConfig(env = process.env) {
 		since: sinceMs,
 		exemptIds: ids(env.RATE_EXEMPT_IDS || ''),
 		maintainerIds: ids((env.MAINTAINER_IDS || '').trim() || FITZ),
+		suggestionsForumId: optionalId(env, 'SUGGESTIONS_FORUM_ID'),
 	};
 }
 

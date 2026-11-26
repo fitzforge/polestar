@@ -156,11 +156,26 @@ function labelsFor(report, forumTags = []) {
 		if (d.locale && LOCALES.has(d.locale)) labels.push('locale:' + d.locale);
 		if (d.errors && d.errors.length) labels.push('lua-error');
 	}
+	labels.push(...tagLabels(forumTags));
+	return [...new Set(labels.map((l) => l.slice(0, 50)))];
+}
+
+// The labels a post's forum tags (set by the server's admins) give: each
+// tag's name as a label, in a label's own words.
+function tagLabels(forumTags) {
+	const out = [];
 	for (const t of forumTags) {
 		const name = t.toLowerCase().replace(/[^\p{L}\p{N} _-]/gu, '').trim().replace(/\s+/g, '-');
-		if (name) labels.push(name);
+		if (name) out.push(name);
 	}
-	return [...new Set(labels.map((l) => l.slice(0, 50)))];
+	return out;
+}
+
+// Labels for a whole suggestions-forum post filed with `!suggest`: always
+// discord, triage, enhancement and idea, then the post's forum tags as a
+// #bugs post's are.
+function ideaLabels(forumTags = []) {
+	return [...new Set(['discord', 'triage', 'enhancement', 'idea', ...tagLabels(forumTags)].map((l) => l.slice(0, 50)))];
 }
 
 function summaryTable(d) {
@@ -219,10 +234,11 @@ function mediaSection(files) {
 }
 
 // The issue body. `post`: { report, reporter, guild, thread, tags, files }.
+// `kind` 'suggestion': a suggestions-forum post's ("Suggested by").
 function issueBody(post) {
-	const { report, reporter, guild, thread, tags = [], files = [] } = post;
+	const { report, reporter, guild, thread, tags = [], files = [], kind = 'report' } = post;
 	const out = [];
-	let head = `**Reported by ${cell(reporter)} on [Discord](${threadUrl(guild, thread)})**`;
+	let head = `**${kind === 'suggestion' ? 'Suggested' : 'Reported'} by ${cell(reporter)} on [Discord](${threadUrl(guild, thread)})**`;
 	if (tags.length) head += ' · ' + tags.map(cell).join(', ');
 	out.push(head, '');
 	out.push(report.description ? quote(report.description) : '_No description._', '');
@@ -264,9 +280,11 @@ function followUpMessage(comment, thread, login = (process.env.BOT_GITHUB_LOGIN 
 	return m && m[1] === thread ? m[2] : null;
 }
 
-// The bot's reply in the thread once the issue exists, and that reply read back.
-function trackedReply(repo, number) {
-	return `Tracked as [${repo}#${number}](<https://github.com/${repo}/issues/${number}>). Replies in this thread, from anyone, are copied to the issue. We'll reply here when it's fixed.`;
+// The bot's reply in the thread once the issue exists, and that reply read
+// back. A suggestions post's says it will hear when the idea moves.
+function trackedReply(repo, number, idea = false) {
+	const link = `[${repo}#${number}](<https://github.com/${repo}/issues/${number}>)`;
+	return `Tracked as ${link}. Replies in this thread, from anyone, are copied to the issue. ` + (idea ? "We'll reply here as this idea moves." : "We'll reply here when it's fixed.");
 }
 
 function readTrackedReply(content, repo) {
@@ -389,6 +407,7 @@ module.exports = {
 	threadUrl,
 	issueTitle,
 	labelsFor,
+	ideaLabels,
 	labelInfo,
 	issueBody,
 	followUpComment,

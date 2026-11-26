@@ -3,6 +3,7 @@
 // tools/discord-bot/lib makes, over plain maps, recording what was written.
 
 const FORUM = '900';
+const SUGGESTIONS = '910'; // the suggestions forum
 const GUILD = '800';
 const BOT = '700';
 const TAGS = [
@@ -13,6 +14,15 @@ const TAGS = [
 	{ id: 't-dup', name: 'Duplicate', moderated: true },
 ];
 
+// The suggestions forum's tags: one of the post's own, and the status ones only moderators set.
+const IDEA_TAGS = [
+	{ id: 's-ui', name: 'UI' },
+	{ id: 's-tracked', name: 'Tracked', moderated: true },
+	{ id: 's-progress', name: 'In progress', moderated: true },
+	{ id: 's-fixed', name: 'Fixed', moderated: true },
+	{ id: 's-wontfix', name: 'Won\u2019t fix', moderated: true },
+];
+
 function httpError(status) {
 	const err = new Error(`HTTP ${status}`);
 	err.status = status;
@@ -20,7 +30,10 @@ function httpError(status) {
 }
 
 function fakeDiscord() {
-	const channels = new Map([[FORUM, { id: FORUM, type: 15, name: 'bugs', guild_id: GUILD, available_tags: TAGS }]]);
+	const channels = new Map([
+		[FORUM, { id: FORUM, type: 15, name: 'bugs', guild_id: GUILD, available_tags: TAGS }],
+		[SUGGESTIONS, { id: SUGGESTIONS, type: 15, name: 'suggestions', guild_id: GUILD, available_tags: IDEA_TAGS }],
+	]);
 	const messages = new Map(); // channel -> [message]
 	const sent = [];
 	const edits = [];
@@ -51,8 +64,8 @@ function fakeDiscord() {
 			return null;
 		},
 		// A forum post: its thread and its first message (same id).
-		post(id, { owner = 'u1', name = 'A bug', content = '', tags = [], attachments = [], meta = {}, author = {} } = {}) {
-			channels.set(id, { id, parent_id: FORUM, guild_id: GUILD, owner_id: owner, name, applied_tags: tags, thread_metadata: meta });
+		post(id, { owner = 'u1', name = 'A bug', content = '', tags = [], attachments = [], meta = {}, author = {}, forum = FORUM } = {}) {
+			channels.set(id, { id, parent_id: forum, guild_id: GUILD, owner_id: owner, name, applied_tags: tags, thread_metadata: meta });
 			const msg = { id, channel_id: id, content, attachments, mentions: [], author: { id: owner, username: 'savagehands', global_name: 'SavageHands', ...author } };
 			messages.set(id, [msg]);
 			return msg;
@@ -281,4 +294,4 @@ function fakeMedia() {
 
 const quietLog = { info() {}, warn() {}, error() {} };
 
-module.exports = { fakeDiscord, fakeGitHub, fakeMedia, quietLog, FORUM, GUILD, BOT };
+module.exports = { fakeDiscord, fakeGitHub, fakeMedia, quietLog, FORUM, SUGGESTIONS, GUILD, BOT };

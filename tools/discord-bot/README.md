@@ -29,6 +29,7 @@ sequenceDiagram
 | An issue opened on GitHub with a bug form whose **Polestar version** is older than the latest full release | `discord-issue-sync.yml` | the same reply as a comment on the issue, once (a re-run finds the mark). Issues filed from Discord are left to the bot |
 | Anyone writes in the thread (text, screenshots, a new report) | the bot | nothing; it becomes a comment on the issue, the reporter's marked "(the reporter)". What is said before the post is filed (while it waits for the hourly limit) is copied, in order, once it is. The bot's own messages, pins, renames and a sticker or embed alone are not copied. Only the reporter's screenshots are copied to GitHub; other players' are linked on Discord. Each Discord user gets 5 new reports and 20 follow-ups (edits included) an hour; past that, the bot logs them and files them a second after the hour allows (up to 100 waiting; a restart drops the wait, and its backfill and catch-up file skipped posts and copy skipped follow-ups). A held post gets one reply, "Thanks! You've sent a few reports this hour; this one will be filed automatically in about N minutes.", which becomes the "Tracked as" reply once it is filed. Server staff (the owner, and roles with Administrator, Manage Server, Manage Messages or Manage Threads) and the users in `RATE_EXEMPT_IDS` have no limits |
 | The maintainer replies `!report` or `!suggest` to a player's message in chat (anywhere the bot can read) | the bot, at once | under their message, "Thanks @player! This has now been reported as a bug: #N. You can follow it and add details in #post" (an idea: "Your idea has been added as a suggestion"); the bot starts a #bugs post for it, which then works like any other. Anyone else gets "Naughty naughty, you're not Master Fitz." See "`!report` and `!suggest`" below |
+| The maintainer types `!suggest` in a post of the suggestions forum | the bot, at once | the whole post filed as one issue (the first message and every reply); "Tracked as #N" in the post and the forum's **Tracked** tag; a second one says "Already filed as #N". See "`!suggest` in the suggestions forum" below |
 | Anyone types `!bug` | the bot | how to report a bug from the game; capped against spam. See "`!bug` in chat" below |
 | The reporter edits the post's first message | the bot | nothing; the issue body is written again |
 | Anyone edits a later message | the bot | nothing; its comment is written again |
@@ -193,6 +194,14 @@ Problems we know about and are fixing, with what to do meanwhile. Something else
    (comma separated) allowed to use them; unset, Fitz's id alone. The bot
    needs Attach Files and Embed Links in #bugs for the media on the posts it
    starts, and Manage Messages wherever the command should be deleted.
+8. For the suggestions forum: copy its channel id (right-click it, Copy
+   Channel ID): that is `SUGGESTIONS_FORUM_ID`. The bot needs View Channel,
+   Send Messages in Threads, Read Message History and Manage Threads there
+   (for its Tracked tag). A **Tracked** tag on that forum, with "Only allow
+   moderators to apply this tag", is put on a post once it is filed; its
+   other status tags (**In progress**, **Fixed**, **Won't fix**,
+   **Duplicate**) are set by the Actions as for #bugs, and a missing one is
+   skipped.
 
 ### 2. GitHub
 
@@ -213,7 +222,8 @@ Problems we know about and are fixing, with what to do meanwhile. Something else
    `name[bot]`), in `.env` and as an Actions variable: only issues that
    account opened are then tied to a Discord thread.
 2. In the repository's Settings, Secrets and variables, Actions: the secret
-   `DISCORD_TOKEN` (the same bot token) and the variable `DISCORD_FORUM_ID`;
+   `DISCORD_TOKEN` (the same bot token) and the variable `DISCORD_FORUM_ID`
+   (and `SUGGESTIONS_FORUM_ID`, so their notices reach suggestions posts);
    for release candidates, the variables `DISCORD_TESTERS_CHANNEL_ID` and
    `DISCORD_TESTER_ROLE_ID`. Without both, a prerelease's run logs that no
    one is told and succeeds. For the known-issues board, the variable
@@ -347,6 +357,66 @@ flowchart TD
   post started for an issue GitHub then refused is removed. A maintainer's
   command in a #bugs thread is not copied to that thread's issue.
 
+## `!suggest` in the suggestions forum: filing a whole post
+
+With `SUGGESTIONS_FORUM_ID` set, the maintainer types `!suggest` anywhere
+inside a post of that forum (no reply needed; a reply to any message in it
+files the whole post all the same) and the bot files **the whole post**: the
+original and all the commentary.
+
+```mermaid
+flowchart TD
+  A["Maintainer in a suggestions post: !suggest [title]"] --> B{In MAINTAINER_IDS?}
+  B -- no --> N["Naughty naughty, you're not Master Fitz.<br/>(capped like !bug; nothing filed)"]
+  B -- yes --> C{Filed already?}
+  C -- yes --> L["Already filed as #N (the command is deleted)"]
+  C -- no --> I["GitHub issue: the post's title (or yours), the first message as the body<br/>with its author, every reply a comment in order with its author"]
+  I --> T["'Tracked as #N' in the post, the forum's Tracked tag"]
+  T --> F["New replies copied to the issue; closes, pull requests,<br/>questions and releases told in the post, in an idea's words"]
+```
+
+- **The issue**: the title is the post's (text after the command
+  overrides it, first line only). The body is "**Suggested by** *name* **on
+  Discord**" (linked to the post, then the post's forum tags), the first
+  message quoted, and its files as for any post (the poster's images and
+  videos copied to the media branch, anyone's other files linked). Every
+  later message, from anyone, is a comment in order, headed by its author:
+  "**name** commented on Discord", the poster's "**name** (the reporter)
+  added on Discord", with their files as for #bugs follow-ups. Bots' messages,
+  empty ones and the maintainer's `!report`/`!suggest` commands are not
+  copied. Labels: `discord`, `triage`, `enhancement`, `idea` and the post's
+  forum tags as a #bugs post's are (not the status tags). No `from-chat`
+  label, and no extra #bugs post: the suggestions post itself is followed.
+- **Everything said so far** is copied at once, whatever its age (up to
+  3,000 messages) and without the per-user hourly limits; the comments after
+  that are the ordinary follow-ups: copied as they come with the same limits
+  (20 an hour a person), an edit rewriting its comment, an edit of the first
+  message rewriting the body, and a catch-up on every new connection and
+  after a failed copy.
+- **In the post**: "Tracked as #N. Replies in this thread, from anyone, are
+  copied to the issue. We'll reply here as this idea moves." and the forum's
+  **Tracked** tag. A second `!suggest` answers "Already filed as #N" (also
+  after a restart, read back from the issue's marker).
+- **Notices** (the GitHub Actions, which need `SUGGESTIONS_FORUM_ID` as a
+  repository variable), pinging the poster, in an idea's words:
+
+  | On GitHub | In the post |
+  |---|---|
+  | A pull request addresses it | "This idea is in progress: a change for it is open (#M). It still has to be reviewed; we'll tell you here when it ships." |
+  | Closed as completed | "This idea is planned and will ship in the next Polestar update." |
+  | Closed as completed, its release already out, or the release published | "This idea has shipped in **Polestar X**: update Polestar to get it." |
+  | Closed as not planned | "Not planned for now." and the maintainer's last note |
+  | Closed as a duplicate | "This was already suggested, so we're tracking it in #M." |
+  | Labelled needs-info | "We'd like to know a little more about this idea:" and the maintainer's question |
+  | Reopened | "We've reopened this idea and are looking at it again." |
+  | A maintainer comments | "Reply on GitHub (#N):" and the comment |
+
+  The post gets the forum's status tags and is locked while the issue is
+  closed, as a #bugs post is.
+- **Unchanged**: `!suggest` as a reply anywhere else, and `!report`, work as
+  above. A suggestions post nobody filed is never filed by itself and its
+  messages are ignored. `refresh` leaves these issues alone.
+
 ## Closing from Discord
 
 Server administrators can close or reopen a report from its #bugs thread.
@@ -374,7 +444,8 @@ see them but not use them.
 ## Working on it
 
 `npm test` runs `tests/discord-bot.test.js`, `tests/discord-chat.test.js`,
-`tests/discord-links.test.js` and `tests/discord-known.test.js` over in-memory Discord and GitHub. To run
+`tests/discord-suggest.test.js`, `tests/discord-links.test.js` and
+`tests/discord-known.test.js` over in-memory Discord and GitHub. To run
 the bot, `notify.js`, `links.js` or `known.js` against something else,
 `DISCORD_API` and `GITHUB_API_URL` point the clients elsewhere.
 
