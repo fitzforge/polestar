@@ -43,5 +43,22 @@ return {
 			stub.advance(0.1)
 			return out
 		end },
+		["dungeons.runOffer"] = function()
+			local D = Polestar.Dungeons
+			local locate, get, quests = D.CurrentInstance, D.Get, D.Quests
+			D.CurrentInstance = function() return "party", "ragefire-chasm", 389 end
+			D.Get = function() return { name = "Ragefire Chasm" } end
+			D.Quests = function() return { { id = 5722 } } end
+			w.onQuest(5722)
+			stub.fire("PLAYER_ENTERING_WORLD", false, false)
+			stub.runTimers()
+			local f = stub.frame("PolestarDungeonRunOffer")
+			local shown = f and f:IsShown() or false
+			D.CurrentInstance, D.Get, D.Quests = locate, get, quests
+			w.abandon(5722)
+			stub.fire("PLAYER_ENTERING_WORLD", false, false)
+			stub.runTimers()
+			return shown
+		end,
 	},
 }

@@ -204,7 +204,10 @@ return {
 		-- two others watched: the game's quest watch list inside.
 		["qol.instanceTrack"] = { prepare = function()
 			Polestar.Dungeons = {
-				ForMap = function(map) if map == 389 then return "ragefire-chasm" end end,
+				CurrentInstance = function()
+					local inside, kind = Polestar.Compat.IsInInstance()
+					if inside then return kind, Polestar.Compat.GetInstanceMapID() == 389 and "ragefire-chasm" or nil end
+				end,
 				Quests = function(key) return key == "ragefire-chasm" and { { id = 5722 }, { id = 5723 } } or {} end,
 			}
 			for _, id in ipairs({ 100, 5722, 101, 5723 }) do q.log[id] = true end

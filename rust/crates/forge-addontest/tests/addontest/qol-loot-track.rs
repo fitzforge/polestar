@@ -5,7 +5,7 @@
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
 
-const FILES: [&str; 4] = ["Core/Init.lua", "Core/Compat.lua", "Theme/Theme.xml", "QoL/QoL.xml"];
+const FILES: [&str; 5] = ["Core/Init.lua", "Core/Compat.lua", "Theme/Theme.xml", "QoL/QoL.xml", "Dungeons/Dungeons.lua"];
 
 fn run_with(script: &str, before: &str, saved: Option<&str>) -> Vec<Value> {
 	emitted(&RunAddon {
@@ -170,13 +170,13 @@ fn quest_loot_without_the_quest_database_nothing_is_offered_race_and_class_are_u
 const DUNGEONS: &str = r#"
 local q = stub.qol
 local RFC = { { id = 5722 }, { id = 5723 }, { id = 5728 }, { id = 5761 } }
-local fake = {
-	ForMap = function(map) if map == 389 then return "ragefire-chasm" end end,
-	Quests = function(key) return key == "ragefire-chasm" and RFC or {} end,
-}
 local loaded = stub.addonLoaded
 function stub.addonLoaded(name)
-	if name == "Polestar" and Polestar then Polestar.Dungeons = fake end
+	if name == "Polestar" and Polestar then
+		local D = Polestar.Dungeons
+		D.ForMap = function(map) if map == 389 then return "ragefire-chasm" end end
+		D.Quests = function(key) return key == "ragefire-chasm" and RFC or {} end
+	end
 	return loaded(name)
 end
 for _, id in ipairs({ 100, 5722, 101, 5723, 102, 103, 5728, 104, 105 }) do q.log[id] = true end

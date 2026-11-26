@@ -22,6 +22,7 @@
 --       group size where the wings differ, Upper Blackrock Spire's 10)
 --   Dungeons.Get(key) -> { key, name, kind, forever, minLevel, maxLevel, floor, players, playersMax, map, zone, zoneName, entrance } | nil
 --   Dungeons.ForMap(mapID) -> key | nil   -- the dungeon or raid whose instance map that is (Compat.GetInstanceMapID)
+--   Dungeons.CurrentInstance([kind]) -> kind, key, mapID   -- nil kind outside a dungeon or raid
 --   Dungeons.Entrance(key) -> map, x, y, f | nil   -- this character's way in: where the instance has other doors
 --       open to both sides (Blackrock Mountain's), the one nearest the player (Get's and GuideTo's entrance too)
 --   Dungeons.BestAt(key) -> level | nil   -- the level it suits best, inside its range from its floor up:
@@ -92,7 +93,7 @@ local type, pairs, ipairs, pcall, tostring = type, pairs, ipairs, pcall, tostrin
 local find, lower, format, gsub = string.find, string.lower, string.format, string.gsub
 local sort, floor = table.sort, math.floor
 
-ns.RegisterDefaults("dungeons", { enabled = true, headsUp = true }) -- headsUp: UI/DungeonToast.lua
+ns.RegisterDefaults("dungeons", { enabled = true, headsUp = true, runOffer = true })
 
 local function enabled() return ns.Get("dungeons.enabled") and true or false end
 Dungeons.IsEnabled = enabled
@@ -337,6 +338,15 @@ function Dungeons.ForMap(mapID)
 		if s.map == mapID then return key end
 	end
 	return nil
+end
+
+-- The kind and map can be known before the journal is ready to give a key.
+function Dungeons.CurrentInstance(onlyKind)
+	local C = ns.Compat
+	local inside, kind = C.IsInInstance()
+	if not inside or (kind ~= "party" and kind ~= "raid") or (onlyKind and kind ~= onlyKind) then return nil end
+	local map = C.GetInstanceMapID()
+	return kind, Dungeons.ForMap(map), map
 end
 
 -- The level a dungeon suits best (a player asked why Uldaman, 35-47, was "for

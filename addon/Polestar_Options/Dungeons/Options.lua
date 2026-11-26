@@ -21,6 +21,9 @@ local ok, err = ns.RegisterOptions({
 		{ kind = "toggle", key = "dungeons.headsUp", label = L["Tell me when a dungeon opens up"], disabled = function() return not ns.Get("dungeons.enabled") end,
 			search = "dungeon, heads up, notification, card",
 			help = L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab. On a step that grinds to a level, a line under it names a dungeon at your level and its quests."] },
+		{ kind = "toggle", key = "dungeons.runOffer", label = L["Offer a quest tracker when entering a dungeon"],
+			disabled = function() return not ns.Get("dungeons.enabled") end,
+			help = L["When you enter a dungeon with its quests in your log, offer a guide tab with their objectives. The tab closes when you leave."] },
 	},
 })
 if not ok and geterrorhandler then geterrorhandler()(err) end

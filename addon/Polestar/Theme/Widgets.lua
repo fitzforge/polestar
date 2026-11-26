@@ -923,6 +923,23 @@ function W.Checkbox(parent, onClick)
 	return c
 end
 
+-- Bottom row of an optional offer (the flight Arcade and dungeon tracker).
+-- The label's right edge leaves room for a primary button when supplied.
+function W.OfferFooter(parent, dismiss, pad, height, primary)
+	local later = W.Button(parent, L["Not now"], dismiss, { height = height })
+	later:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", -pad, pad)
+	if primary then primary:SetPoint("RIGHT", later, "LEFT", -6, 0) end
+	local never = W.Checkbox(parent)
+	never:SetPoint("BOTTOMLEFT", parent, "BOTTOMLEFT", pad, pad + (height - 18) / 2)
+	local label = W.Text(parent, "note", "textDim")
+	label:SetPoint("LEFT", never, "RIGHT", 6, 0)
+	label:SetPoint("RIGHT", primary or later, "LEFT", -8, 0)
+	label:SetJustifyH("LEFT")
+	label:SetWordWrap(false)
+	label:SetText(L["Don't ask again"])
+	return later, never, label
+end
+
 ---------------------------------------------------------------------------
 -- Pills and chips
 ---------------------------------------------------------------------------

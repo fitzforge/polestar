@@ -10,11 +10,11 @@
 --       guides list their quests); one that fits the character first
 --   Lookup.BuildGuide(kind, id, ranked) -> def | nil, reason
 --       ranked: a row of Lookup.Sources(kind, id), its index, or nil (best)
---   Lookup.Guide(kind, id, index) -> guideId | nil, reason
+--   Lookup.Guide(kind, id, index[, activate]) -> guideId | nil, reason
 --       curated when one collects it (index nil), else built from source
 --       `index` (default: the best available guideable one), registered
 --       unsaved (pack "lookup", category "Lookup", id "lookup/<kind>/<id>")
---       and opened in a tab. A mount (Lookup.IsMount) without a curated guide
+--       and opened in a tab (activate defaults to true). A mount (Lookup.IsMount) without a curated guide
 --       is not built from its best source (index nil): nil, "mount"
 --   Lookup.Show(query, kind, id)   -- fires SHOW_LOOKUP(query, kind, id) for the UI
 --   Lookup.RegisterPlanner(kind, build)
@@ -22,7 +22,7 @@
 --       holds title and steps (the rest as above); Lookup.BuildGuide and
 --       Lookup.Guide then build `kind` with it, whatever lookup.enabled says
 --       (the module gates itself), and its saved tabs come back after /reload.
---       Dungeons' "pickup", "handin" and "attune" kinds are three (Dungeons/Pickup.lua, Handin.lua, Attune.lua).
+--       Dungeons registers the "pickup", "handin", "attune" and "run" kinds.
 --   Lookup.QuestChain(questId, player) -> { quest, ... }
 --       the quest after all its open prerequisites, in the order they are done
 --   Lookup.QuestStep(quest, from, opts) -> step   -- accept, objectives, turn-in
@@ -39,6 +39,8 @@
 --       opts.needed: the guide is there to get the quest done (Dungeons'
 --       attunement guides), so an accept or turn-in at an NPC only the dead
 --       see stays to do (Lookup.GhostOnly)
+--       opts.dungeon: a held quest tracked inside this dungeon key, with
+--       unplaced objectives and an optional journal endpoint (opts.turnin).
 --   Lookup.DropQuestSteps(source, player, from, direct?) -> steps | nil, reason, quest
 --       obtain every source.requiresQuests quest not held or completed;
 --       finish its ordinary prerequisites, then only accept the root.
@@ -314,10 +316,11 @@ end
 -- that need no group when there are any, as itemSpot), best
 -- chance first: named when there are at most two (each one is where it
 -- drops), else when the best gives it NAMED_CHANCE percent of the time or
--- more, with a second of the same kind that does too. -> goal
+-- more, with a second of the same kind that does too. Inside a dungeon, use
+-- its sources, which can have names and no outdoor spawns. -> goal
 local NAMED_CHANCE = 50
 
-local function itemFrom(goal, itemId)
+local function itemFrom(goal, itemId, dungeon)
 	local C = Codex()
 	local item = C.Item(itemId)
 	if not item then return goal end
@@ -329,10 +332,11 @@ local function itemFrom(goal, itemId)
 		elseif src.type == "object" and src.object then
 			kind, rec = "object", C.Object(src.object)
 		end
-		if rec and rec.name and rec.spawns and #rec.spawns > 0 then
+		local inDungeon = dungeon and (src.instance or (rec and rec.instance)) == dungeon
+		if rec and rec.name and (inDungeon or (not dungeon and rec.spawns and #rec.spawns > 0)) then
 			local s = { kind = kind, id = src.npc or src.object, rec = rec, chance = src.chance or 0 }
 			located[#located + 1] = s
-			if soloSource(kind, rec, src.chance) then solo[#solo + 1] = s end
+			if not dungeon and soloSource(kind, rec, src.chance) then solo[#solo + 1] = s end
 		end
 	end
 	if #solo > 0 then located = solo end
@@ -669,6 +673,7 @@ end
 local function questStep(q, from, isTarget, opts)
 	local C = Codex()
 	local inside = opts and opts.inside
+	local dungeon = opts and opts.dungeon
 	local direct = opts and opts.direct
 	local within, order = {}, {}
 	local function mark(p, name)
@@ -684,36 +689,41 @@ local function questStep(q, from, isTarget, opts)
 		end
 		list[#list + 1] = name
 	end
-	local giver = Lookup.QuestEnd(q.start, from, nil, direct)
-	if not giver then
-		giver = insideEnd(q.start, inside)
-		if giver then mark(giver.spawn, giver.name) end
+	local goals, giver, finish = {}
+	if not dungeon then
+		giver = Lookup.QuestEnd(q.start, from, nil, direct)
+		if not giver then
+			giver = insideEnd(q.start, inside)
+			if giver then mark(giver.spawn, giver.name) end
+		end
+		local startItem = q.start and q.start.item and q.start.item[1]
+		finish = Lookup.QuestEnd(q["end"], giver and giver.spawn or from, nil, direct)
+		if not finish then
+			finish = insideEnd(q["end"], inside)
+			if finish then mark(finish.spawn, finish.name) end
+		end
+		if inside and not (opts and opts.entrances) then
+			giver = giver or (not startItem and bareEnd(q.start)) or nil
+			finish = finish or bareEnd(q["end"])
+		end
+		if not finish or not (giver or startItem) then
+			if isTarget then return nil, "nolocation" end
+			return { title = q.title, goals = { { t = "note", text = L["First do the quest"] .. " " .. ns.Quoted(q.title) } } }
+		end
+		local accept
+		if giver then
+			accept = endGoal("accept", q, giver, opts and opts.needed)
+			if giver.npc then accept.candidates = Lookup.GiverCandidates(q.start, from, direct) end
+		else
+			accept = { t = "accept", quest = q.id, title = q.title, item = startItem, itemName = itemName(startItem) }
+		end
+		accept.minLevel = q.minLevel
+		Lookup.AcceptPre(accept, q)
+		goals[1] = accept
+	elseif opts.turnin then
+		local e = opts.turnin
+		finish = { npc = e.kind == "npc" and e.id or nil, object = e.kind == "object" and e.id or nil, name = e.name }
 	end
-	local startItem = q.start and q.start.item and q.start.item[1]
-	local finish = Lookup.QuestEnd(q["end"], giver and giver.spawn or from, nil, direct)
-	if not finish then
-		finish = insideEnd(q["end"], inside)
-		if finish then mark(finish.spawn, finish.name) end
-	end
-	if inside and not (opts and opts.entrances) then
-		giver = giver or (not startItem and bareEnd(q.start)) or nil
-		finish = finish or bareEnd(q["end"])
-	end
-	if not finish or not (giver or startItem) then
-		if isTarget then return nil, "nolocation" end
-		return { title = q.title, goals = { { t = "note", text = L["First do the quest"] .. " " .. ns.Quoted(q.title) } } }
-	end
-	local goals = {}
-	local accept
-	if giver then
-		accept = endGoal("accept", q, giver, opts and opts.needed)
-		if giver.npc then accept.candidates = Lookup.GiverCandidates(q.start, from, direct) end
-	else
-		accept = { t = "accept", quest = q.id, title = q.title, item = startItem, itemName = itemName(startItem) }
-	end
-	accept.minLevel = q.minLevel
-	Lookup.AcceptPre(accept, q)
-	goals[1] = accept
 	local here = giver and giver.spawn or from
 	local event, eventAt = nil, nil
 	-- Objectives with no target the data names (events) share one `complete`
@@ -813,7 +823,7 @@ local function questStep(q, from, isTarget, opts)
 				made[#made + 1] = madeLine(o.id, name)
 			end
 			goals[#goals + 1] = spawnSpots(at(itemFrom({ t = "collect", item = o.id, itemName = name,
-				quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(dropper) or eliteMark(o) }, o.id), s), spawns)
+				quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(dropper) or eliteMark(o) }, o.id, dungeon), s), spawns)
 		elseif o.type == "talk" and o.id then
 			-- Speak to an NPC (Hidden Enemies: Neeru Fireblade): the engine counts it by the
 			-- quest's objective line, so it holds the step until done.
@@ -837,7 +847,7 @@ local function questStep(q, from, isTarget, opts)
 			end
 			goals[#goals + 1] = spawnSpots(at({ t = "interact", object = o.id, objName = objName,
 				quest = q.id, oi = oi, count = count, title = q.title, group = eliteMark(o) }, s), obj and obj.spawns)
-		elseif placedEvents >= 2 and o.map and o.x and o.y then
+		elseif dungeon or (placedEvents >= 2 and o.map and o.x and o.y) then
 			goals[#goals + 1] = at({ t = "kill", logLine = true, target = o.text or q.title, quest = q.id, oi = oi, count = count, title = q.title }, o)
 		else
 			if not event then event, eventAt = o, #goals + 1 end
@@ -846,7 +856,18 @@ local function questStep(q, from, isTarget, opts)
 	if event then
 		table.insert(goals, eventAt, at({ t = "complete", quest = q.id, title = q.title, text = event.text }, event))
 	end
-	goals[#goals + 1] = endGoal("turnin", q, finish, opts and opts.needed)
+	if dungeon and #goals == 0 then
+		for i, o in ipairs(ns.Compat.GetQuestObjectives(q.id) or {}) do
+			goals[i] = { t = "kill", logLine = true, quest = q.id, oi = i, count = o.numRequired, title = q.title }
+		end
+	end
+	if finish then goals[#goals + 1] = endGoal("turnin", q, finish, opts and opts.needed) end
+	if dungeon then
+		if #goals == 0 then goals[1] = { t = "complete", quest = q.id, title = q.title } end
+		for _, g in ipairs(goals) do
+			g.map, g.x, g.y, g.f, g.z, g.spots, g.spread = nil, nil, nil, nil, nil, nil, nil
+		end
+	end
 	local step = { title = q.title, goals = goals }
 	-- How the quest is done beyond its objectives (the Codex's `how`, our
 	-- public words: Powering the Pylons' mana from the rifts, #2714), first.
@@ -1524,27 +1545,27 @@ end
 -- nil, "tabs" (its callers say "Six tabs is the limit"), as the guide menu
 -- and the class heads-up do; the active tab, often the leveling guide, is
 -- never replaced (#1328).
-local function openTab(guideId, rebuilt)
+local function openTab(guideId, rebuilt, activate)
 	local E = ns.Engine
 	if not (E and ns.IsLoggedIn()) then return nil, "login" end
 	local tabs = E.GetTabs()
 	for i, t in ipairs(tabs) do
 		if t.guideId == guideId then
 			if not rebuilt then
-				E.SelectTab(i)
+				if activate ~= false then E.SelectTab(i) end
 				return guideId
 			end
 			E.CloseTab(i, true)
-			local index = E.OpenTab(guideId, true)
+			local index = E.OpenTab(guideId, activate)
 			if index and index ~= i then E.MoveTab(index, i) end
 			return index and guideId or nil, index == nil and "tabs" or nil
 		end
 	end
-	if E.OpenTab(guideId, true) then return guideId end
+	if E.OpenTab(guideId, activate) then return guideId end
 	return nil, "tabs"
 end
 
-function Lookup.Guide(kind, id, index)
+function Lookup.Guide(kind, id, index, activate)
 	local planned = planners[kind] ~= nil
 	if not (planned or enabled()) then return nil, "disabled" end
 	local C = Codex()
@@ -1553,7 +1574,7 @@ function Lookup.Guide(kind, id, index)
 	if not loaded then return nil, reason end
 	if index == nil and not planned then
 		local curated = Lookup.CuratedGuide(kind, id)
-		if curated then return openTab(curated, false) end
+		if curated then return openTab(curated, false, activate) end
 		-- A guide built from a mount's best source would leave out level 40,
 		-- riding and the gold: the Lookup page says what it takes instead.
 		local record = (kind == "spell" and C.Spell(id)) or (ITEM_KINDS[kind] and C.Item(id)) or nil
@@ -1568,7 +1589,7 @@ function Lookup.Guide(kind, id, index)
 	if not def then return nil, err end
 	local ok, regErr = register(def)
 	if not ok then return nil, regErr end
-	return openTab(def.id, true)
+	return openTab(def.id, true, activate)
 end
 
 -- Saved tabs of generated guides come back after /reload: rebuild them

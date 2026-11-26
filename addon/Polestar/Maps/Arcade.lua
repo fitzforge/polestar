@@ -374,15 +374,7 @@ local function build()
 	for _, g in ipairs(GAMES) do
 		q.Games[g.id] = W.Button(q, g.name, function() Arcade.Play(g.id) end, { primary = true, height = BTN_H })
 	end
-	q.Later = W.Button(q, L["Not now"], function() Arcade.NotNow() end, { height = BTN_H })
-	q.Later:SetPoint("BOTTOMRIGHT", q, "BOTTOMRIGHT", -PAD, PAD)
-	q.Never = W.Checkbox(q)
-	q.Never:SetPoint("BOTTOMLEFT", q, "BOTTOMLEFT", PAD, PAD + (BTN_H - 18) / 2)
-	q.NeverText = W.Text(q, "note", "textDim")
-	q.NeverText:SetPoint("LEFT", q.Never, "RIGHT", 6, 0)
-	q.NeverText:SetPoint("RIGHT", q.Later, "LEFT", -8, 0)
-	q.NeverText:SetJustifyH("LEFT")
-	q.NeverText:SetWordWrap(false)
+	q.Later, q.Never, q.NeverText = W.OfferFooter(q, function() Arcade.NotNow() end, PAD, BTN_H)
 
 	-- The row: Play <the chosen game>.
 	local row = W.Button(f, "", function() Arcade.Play() end, { ghost = true, icon = "gamepad", height = BTN_H })

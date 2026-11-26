@@ -68,11 +68,10 @@ end
 
 -- "out", or "in" and the instance's key; "unknown" inside one not named.
 local function locate()
-	local C = ns.Compat
-	local inside, kind = C.IsInInstance()
-	if not inside or (kind ~= "party" and kind ~= "raid") then return "out" end
 	local D = ns.Dungeons
-	local key = D and D.ForMap and D.ForMap(C.GetInstanceMapID())
+	if not (D and D.CurrentInstance) then return "out" end
+	local kind, key = D.CurrentInstance()
+	if not kind then return "out" end
 	if not key then return "unknown" end
 	return "in", key
 end

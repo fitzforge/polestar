@@ -64,6 +64,8 @@ mod dungeons_attune;
 mod dungeons_forever_quests;
 #[path = "dungeons-pickup.rs"]
 mod dungeons_pickup;
+#[path = "dungeons-run.rs"]
+mod dungeons_run;
 #[path = "dungeons-runtime.rs"]
 mod dungeons_runtime;
 #[path = "dungeons-sides.rs"]
