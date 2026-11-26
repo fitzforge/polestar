@@ -20,7 +20,7 @@
 ## Title-zhTW: Polestar 查詢
 ## Notes-zhTW: Polestar 的一部分：查詢視窗。開啟查詢時載入。
 ## Author: Polestar
-## Version: 0.4.2.2
+## Version: 0.4.3
 ## Category: Polestar
 ## Group: Polestar
 ## LoadOnDemand: 1
