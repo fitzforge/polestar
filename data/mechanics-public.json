@@ -1124,6 +1124,22 @@
 				{ "n": 4, "action": "use-item", "item": 10690, "target": { "type": "object", "id": 152606 }, "place": { "map": 1447, "x": 47.4, "y": 46.3, "f": "e" }, "fact": "Stand in the Fourth Tide Pool, the northernmost, and use Empty Vial Labeled #4 (from the Box of Empty Vials): the vial fills; the pool itself cannot be clicked.", "confidence": "high" }
 			],
 			"note": "Seeping Corruption (3568): the quest's source item is the Box of Empty Vials (10695, the game's quest data), which holds Empty Vial Labeled #1-#4 (10687-10690); the four tide pools (152598, 152604, 152605, 152606) are spell-focus objects (type 8 in forever-db's object.jsonl), so each vial fills when it is used at its own pool. Source: the in-game check on #3857 (a level 54 Horde hunter at the Second Tide Pool: clicking the pool does nothing); the places are the #3211 record's, south to north."
+		},
+		"5561": {
+			"kinds": [
+				{
+					"kind": "use-item-on-mob",
+					"confidence": "high"
+				}
+			],
+			"params": [
+				{ "kind": "use-item-on-mob", "item": 13892, "npcs": [4700, 4701, 4702] }
+			],
+			"steps": [
+				{ "n": 1, "action": "use-item", "target": { "type": "npc", "id": 4700 }, "item": { "id": 13892 }, "fact": "Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo in the Kodo Graveyard: it becomes a tamed kodo that follows you. Don't kill it.", "confidence": "high" },
+				{ "n": 2, "action": "talk", "target": { "type": "npc", "id": 4700 }, "fact": "Walk the tamed kodo back to Smeed's camp and talk to it there: that counts it. Five kodos, one at a time.", "place": { "map": 1443, "x": 60.6, "y": 61.6, "f": "l" }, "confidence": "high" }
+			],
+			"note": "Kodo Roundup (5561): the five kodos are tamed with the Kodo Kombobulator (13892, given with the quest) and each counts once talked to at Smeed Scrabblescrew's camp; the game stores the objective as a kill credit (Aged, Dying or Ancient Kodo), so Lookup's quest guide said \"Kill Aged Kodo\" (#4188). Source: players' in-game recordings to 2026-11-10: 8 people ran it and the line ticked as they talked to a tamed Aged (13 times), Dying (19) or Ancient Kodo (9), never on a kill (correction 5561, #1614)."
 		}
 	}
 }

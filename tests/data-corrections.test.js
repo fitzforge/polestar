@@ -1128,3 +1128,14 @@ test("Mother's Milk (4866) is an event, not a talk at Ragged John (#4157)", () =
 	assert.deepEqual([objs[0].type, objs[0].id, objs[0].text], ['event', null, 'Milked']);
 	assert.ok(!('map' in objs[0]), 'no place: the hand-in guide lists it as not finished');
 });
+
+// Moduki (#4188): Kodo Roundup's kodos are tamed with the Kodo Kombobulator and counted at Smeed's camp; the quest
+// guide said "Kill Aged Kodo".
+test('Kodo Roundup (5561) is a use of the Kodo Kombobulator on the kodos, then a talk at the camp (#4188)', () => {
+	const m = require('../data/mechanics-public.json').quests[5561];
+	assert.ok(m.kinds.some((k) => k.kind === 'use-item-on-mob' && k.confidence === 'high'));
+	const [p] = m.params;
+	assert.deepEqual([p.item, p.npcs], [13892, corrections.quests[5561].set.objectives[0].credit]);
+	assert.deepEqual(m.steps.map((s) => s.action), ['use-item', 'talk']);
+	assert.match(m.steps[0].fact, /Don't kill it/);
+});
