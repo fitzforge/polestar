@@ -258,6 +258,24 @@ test('the Nightmare Incursion quests are marked unseen, with their objective cou
 // The check behind it: an item whose only sources in the built Codex are quests the corrections remove must get a
 // quest source back from a record (a `set.rewards` naming it), or Lookup reads "no known source" after the next
 // build. Reads the built Codex (skips without it).
+//
+// One stated exception, these 45 items by name: Classic's Dungeon Set 2 boots, legs, shoulders, helm and chest, the
+// rewards of the Classic copies of Anthion's Parting Words (8951-8959, 9016-9022) and Saving the Best for Last
+// (8999-9014). Forever's own copies of those two quests reward a choice of each spec's set boxes (227xxx) or the
+// class's new pieces (226xxx) instead (their records in forever-db/corrections/quests.json), so on Forever these 22xxx
+// pieces have no quest source, and "no known source" is the truth for them.
+const SET2_CLASSIC_PIECES = {
+	21995: 'Boots of Heroism', 21997: 'Breastplate of Heroism', 21999: 'Helm of Heroism', 22000: 'Legplates of Heroism', 22001: 'Spaulders of Heroism',
+	22003: 'Darkmantle Boots', 22005: 'Darkmantle Cap', 22007: 'Darkmantle Pants', 22008: 'Darkmantle Spaulders', 22009: 'Darkmantle Tunic',
+	22013: "Beastmaster's Cap", 22016: "Beastmaster's Mantle", 22017: "Beastmaster's Pants", 22060: "Beastmaster's Tunic", 22061: "Beastmaster's Boots",
+	22064: "Sorcerer's Boots", 22065: "Sorcerer's Crown", 22067: "Sorcerer's Leggings", 22068: "Sorcerer's Mantle", 22069: "Sorcerer's Robes",
+	22072: 'Deathmist Leggings', 22073: 'Deathmist Mantle', 22074: 'Deathmist Mask', 22075: 'Deathmist Robe', 22076: 'Deathmist Sandals',
+	22080: 'Virtuous Crown', 22082: 'Virtuous Mantle', 22083: 'Virtuous Robe', 22084: 'Virtuous Sandals', 22085: 'Virtuous Skirt',
+	22087: 'Soulforge Boots', 22089: 'Soulforge Breastplate', 22091: 'Soulforge Helm', 22092: 'Soulforge Legplates', 22093: 'Soulforge Spaulders',
+	22096: 'Boots of The Five Thunders', 22097: 'Coif of The Five Thunders', 22100: 'Kilt of The Five Thunders', 22101: 'Pauldrons of The Five Thunders', 22102: 'Vest of The Five Thunders',
+	22107: 'Feralheart Boots', 22109: 'Feralheart Cowl', 22111: 'Feralheart Kilt', 22112: 'Feralheart Spaulders', 22113: 'Feralheart Vest',
+};
+
 test('no item loses its only quest sources to a removal without a record that rewards it again (#4169)', { skip: require('./helpers/data').needs('codex/items.json') }, () => {
 	const items = JSON.parse(fs.readFileSync(path.join(require('./helpers/data').DATA, 'codex', 'items.json'), 'utf8'));
 	const removed = new Set(Object.entries(corrections.quests).filter(([, e]) => e && e.remove).map(([id]) => Number(id)));
@@ -270,6 +288,11 @@ test('no item loses its only quest sources to a removal without a record that re
 	for (const [id, it] of Object.entries(items)) {
 		const sources = it.sources || [];
 		if (!sources.length || !sources.every((s) => s.type === 'quest' && removed.has(s.quest))) continue;
+		if (SET2_CLASSIC_PIECES[id]) {
+			// The exception names each item: an id that is some other item now is an error, not a pass.
+			assert.equal(it.name, SET2_CLASSIC_PIECES[id], `item ${id} is the exception's ${SET2_CLASSIC_PIECES[id]}`);
+			continue;
+		}
 		if (!rewarded.has(Number(id))) bad.push(`${id} ${it.name}: only from ${sources.map((s) => s.quest).join(', ')}`);
 	}
 	assert.deepEqual(bad, []);
