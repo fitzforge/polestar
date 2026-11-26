@@ -10,8 +10,9 @@
 --   Free.IsGuide(id) -> bool ; Free.IsOn() -> bool   -- its guide; its tab open
 --   Free.Load() -> true | nil, reason                -- Data.Pack(Free.ADDON)
 --   Free.Start() / Free.Toggle()                      -- load, then the mode's own
---   Free.SetPick("near" | "xp")                       -- setting free.pick
+--   Free.SetPick("near" | "xp" | "balanced")                       -- setting free.pick
 --   Free.MenuItems() ; Free.RowItems(q) ; Free.ReturnTitle() ; Free.Stop()
+--   Free.Pinned() ; Free.Pin(q, on)                   -- the quest Free mode takes first (the world map's click)
 --   Free.Say(reason)                                  -- why it could not start, in chat
 
 local ADDON, ns = ...
@@ -67,15 +68,21 @@ function door.Start() return via("Start") end
 function door.Toggle() return via("Toggle") end
 function door.Stop() end
 function door.ReturnTitle() return nil end
+-- The pinned quest is saved state (CharState().free.pin): readable before the folder loads.
+function door.Pinned()
+	local f = ns.CharState().free
+	return type(f) == "table" and f.pin or nil
+end
+function door.Pin(q, on) return via("Pin", q, on) end
 function door.RowItems() return nil end
 function door.MenuItems()
-	return { { text = L["Free mode"], icon = "icon-explore", checked = false, tip = L["Your own quests as a guide: the arrow leads to the nearest one, then the next."],
+	return { { text = L["Free mode"], icon = "icon-ownpath", checked = false, tip = L["Your own quests as a guide: the arrow leads to the nearest one, then the next."],
 		onClick = function() Free.Toggle() end } }
 end
 for k, fn in pairs(door) do Free[k] = fn end
 
 function Free.SetPick(rule)
-	ns.Set("free.pick", rule == "xp" and "xp" or "near")
+	ns.Set("free.pick", (rule == "xp" or rule == "balanced") and rule or "near")
 end
 
 Lookup.RegisterPlanner("free", function()

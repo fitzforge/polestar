@@ -783,7 +783,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			placeLink(banner.Later, L["Not this one"], w + 10, -4)
 			banner.Close:Show()
 		elseif kind == "free" then
-			banner.Icon:SetTexture(Theme.Media("icon-explore"))
+			banner.Icon:SetTexture(Theme.Media("icon-ownpath"))
 			banner.Text:SetText(n.xp and L["Free mode: the arrow takes your own quests, the most XP a minute first."]
 				or L["Free mode: the arrow takes your own quests, nearest first."])
 			local other = n.xp and L["Nearest first"] or L["Most XP a minute first"]

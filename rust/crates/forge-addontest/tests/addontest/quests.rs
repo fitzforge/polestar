@@ -325,8 +325,9 @@ emit({ sq.pins.layers["quests.objectives"] == nil, sq.pins.layers["quests.turnin
 		"w.complete({ 783 })",
 	);
 	assert_eq!(out[0], json!(["Kobold Vermin@47.8,35.8:map:kill", "Kobold Vermin@50.3,35.8:map:kill", "Kobold Vermin@70.3,70.2:map:kill"]));
-	assert_eq!(out[1], json!(["Kobold Vermin", "Kobold Camp Cleanup", "  Kobold Vermin: 0/10"]));
-	assert_eq!(out[2], json!(["Kobold Vermin", "Kobold Camp Cleanup", "  Kobold Vermin: 4/10"]));
+	// The last line is the world map's click on a held quest's pin (Free mode's Pin to the top).
+	assert_eq!(out[1], json!(["Kobold Vermin", "Kobold Camp Cleanup", "  Kobold Vermin: 0/10", "Click to make it Free mode's first quest"]));
+	assert_eq!(out[2], json!(["Kobold Vermin", "Kobold Camp Cleanup", "  Kobold Vermin: 4/10", "Click to make it Free mode's first quest"]));
 	let ready = &out[3];
 	assert_eq!(ready[0], json!({}), "no objective markers once complete");
 	assert_eq!(ready[1], json!(["Marshal McBride@48.9,41.6:map:quest-turnin"]));

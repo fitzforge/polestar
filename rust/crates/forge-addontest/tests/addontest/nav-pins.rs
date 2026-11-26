@@ -339,6 +339,47 @@ fn a_pin_s_area_draws_a_disc_of_its_radius_in_yards_under_the_world_map_pins() {
 	assert_eq!(out["cleared"], 0);
 }
 
+// The objective areas of held quests (Quests/Tracker.lua) are no frames the mouse reads: a left click released within
+// a few pixels of its press, on the map and on no pin or button, goes to the pin of the disc or hull under it.
+#[test]
+fn a_left_click_on_an_area_or_a_hull_whose_pin_has_a_click_is_that_pin_s_click_a_drag_and_the_right_button_are_not() {
+	let out = run(r#"
+		WorldMapFrame.Child:SetSize(1000, 1000)
+		local clicks = {}
+		local function named(name) return function(button, owner) clicks[#clicks + 1] = name .. ":" .. tostring(button) .. ":" .. tostring(owner) end end
+		local function yards(wx, wy) local _, x, y = nav.mapPoint(wx, wy); return x, y end
+		local dx, dy = yards(400, -400)
+		Pins.SetLayer("quests.objectives", {
+			{ map = 9000, x = 30, y = 30, area = 60, areaOnly = true, onClick = named("disc") },
+			{ map = 9000, x = dx, y = dy, area = 1, areaOnly = true, hull = { 360, -360, 440, -360, 440, -440, 360, -440 }, onClick = named("hull") },
+			{ map = 9000, x = 80, y = 80, area = 60, areaOnly = true },
+		})
+		nav.showWorldMap(9000)
+		WorldMapFrame.ScrollContainer.IsMouseOver = function() return true end
+		local c = WorldMapFrame.Child
+		local l, t, s = c:GetLeft() or 0, c:GetTop() or 0, c:GetEffectiveScale() or 1
+		local function at(px, py, up)
+			stub.cursor = { (l + px / 100 * 1000) * s, (t - py / 100 * 1000) * s }
+			stub.fire("GLOBAL_MOUSE_DOWN", "LeftButton")
+			if up then stub.cursor = { stub.cursor[1] + up, stub.cursor[2] } end
+			stub.fire("GLOBAL_MOUSE_UP", "LeftButton")
+		end
+		at(30, 30)                      -- the disc's centre
+		at(31, 30)                      -- inside the disc
+		at(36, 30)                      -- outside it
+		at(dx, dy)                      -- the hull's centre
+		at(dx + 6, dy)                  -- beyond its edge
+		at(80, 80)                      -- an area with no click
+		at(30, 30, 10)                  -- a drag
+		local drag = #clicks
+		stub.fire("GLOBAL_MOUSE_DOWN", "RightButton"); stub.fire("GLOBAL_MOUSE_UP", "RightButton")
+		emit({ clicks = clicks, drag = drag, after = #clicks })"#);
+	let clicks: Vec<String> = out["clicks"].as_array().unwrap_or(&vec![]).iter().map(|c| c.as_str().unwrap().to_string()).collect();
+	assert_eq!(clicks, vec!["disc:LeftButton:nil", "disc:LeftButton:nil", "hull:LeftButton:nil"], "{out}");
+	assert_eq!(out["drag"], 3, "a drag is the map's panning");
+	assert_eq!(out["after"], 3, "so is the right button");
+}
+
 #[test]
 fn a_layer_with_minimapareas_draws_its_areas_on_the_minimap_too_cut_at_the_rim_areaonly_pins_draw_no_pin() {
 	let out = run(r#"

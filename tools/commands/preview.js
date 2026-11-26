@@ -365,6 +365,35 @@ function raresScene(script) {
 const RARES_FILES = [...FILES, 'Rares/Rares.xml'];
 // The founder's card needs QoL's buttons for its Target button (Buttons.FounderMacro).
 const FOUNDER_FILES = [...FILES, 'QoL/QoL.xml', 'Rares/Rares.xml'];
+// Free mode scenes (panel.free): the synthetic Codex the Free mode addontests
+// use (tests/fixtures/codex/free-mode.json: Hale's Reach and Merrow Fields) and
+// a quest log of six quests in it, one ready to hand in: a level 20 Human
+// Warrior at Marshal Hale's camp. Free mode's folder loads as the page shows.
+let freePack = null;
+function freeStub() {
+	if (!freePack) freePack = writeCodexPack(JSON.parse(fs.readFileSync(path.join(ROOT, 'tests', 'fixtures', 'codex', 'free-mode.json'), 'utf8')));
+	return freePack.stubLua;
+}
+const FREE_SETUP = `uistub.player.level, uistub.player.race, uistub.player.class, uistub.player.faction = 20, "Human", "WARRIOR", "Alliance"
+UnitRace = function() return "Human", "Human", 1 end
+UnitFactionGroup = function() return "Alliance", "Alliance" end
+UnitLevel = function() return 20 end
+local K = Polestar.Compat
+local HELD = { 7003, 7001, 7002, 7004, 7101, 7102 }
+local TITLE = { [7001] = "Gnoll Trouble", [7002] = "Boar Hunt", [7003] = "Lurkers in the Marsh", [7004] = "Ogre Menace", [7101] = "Merrow's Errand", [7102] = "Oake's Fields" }
+local LEVEL = { [7001] = 20, [7002] = 21, [7003] = 19, [7004] = 26, [7101] = 20, [7102] = 21 }
+K.GetLogQuests = function() return HELD end
+K.IsOnQuest = function(id) return TITLE[id] ~= nil end
+K.GetQuestTitle = function(id) return TITLE[id] end
+K.GetQuestLevel = function(id) return LEVEL[id] end
+K.IsQuestReadyForTurnIn = function(id) return id == 7101 end
+K.GetPlayerMapPosition = function() return 9001, 50, 50 end
+local MAPS = { [9001] = "Hale's Reach", [9002] = "Merrow Fields" }
+K.MapName = function(id) return MAPS[id] end
+Polestar.Free.Load()`;
+function freeScene(script) {
+	return `${FREE_SETUP}\nPolestar.UI.ShowPicker()\n${script}`;
+}
 // The Characters scene (panel.alts): three characters of this account, the
 // one playing live and two as of their last logout (names, places and
 // numbers are samples written for the preview).
@@ -2174,6 +2203,14 @@ local r = b.Chains[1]; r:GetScript("OnEnter")(r)`) },
 		],
 	},
 	{
+		file: 'free-mode.svg',
+		title: 'The Free mode section of the hub, right under Guides: Start and which quest first, the hand-in route tile, then every quest in the log with its tick, zone, level and pin (Merrow\'s Errand ready to hand in); with Free mode on, Boar Hunt pinned and Ogre Menace left out, in Hearth',
+		panels: [
+			{ free: true, roots: PICKER, script: freeScene('Polestar.UI.ShowFreeMode()') },
+			{ free: true, roots: PICKER, script: freeScene('Polestar.Set("ui.skin", "hearth"); Polestar.Free.Pin(7002, true); Polestar.Free.LeaveOut(7004, true); Polestar.Free.IsOn = function() return true end; Polestar.Free.ReturnTitle = function() return "Elwynn Forest (1-13)" end; Polestar.UI.ShowFreeMode()') },
+		],
+	},
+	{
 		file: 'rares.svg',
 		title: 'Rares in the hub: Elwynn Forest\'s rares by zone, Thuros Lightfingers with its signature drop, its spawns and when it was last met; the Seen list',
 		panels: [
@@ -2262,6 +2299,7 @@ function panelBefore(panel, prelude) {
 	if (panel.levels) before.push(levelsStub());
 	if (panel.dungeons) before.push(dungeonsStub());
 	if (panel.rares) before.push(raresStub());
+	if (panel.free) before.push(freeStub());
 	return before.join('\n');
 }
 
@@ -2291,6 +2329,8 @@ function cleanupPacks() {
 	dungeonsPack = null;
 	if (raresPack) raresPack.cleanup();
 	raresPack = null;
+	if (freePack) freePack.cleanup();
+	freePack = null;
 }
 
 async function run(argv) {

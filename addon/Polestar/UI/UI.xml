@@ -39,6 +39,7 @@
 	<Script file="Lookup.lua"/>
 	<Script file="Dungeons.lua"/>
 	<Script file="Attunements.lua"/>
+	<Script file="FreeMode.lua"/>
 	<Script file="RouteChoice.lua"/>
 	<Script file="GuideEnd.lua"/>
 	<Script file="Welcome.lua"/>

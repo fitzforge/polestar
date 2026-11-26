@@ -28,6 +28,14 @@
 --   Free.Plan(force?)                   -- plan again now if anything it reads moved
 --   Free.MenuItems() -> { item, ... }   -- the guide window menu's rows
 --   Free.RowItems(questID) -> { item, ... } | nil  -- a quest line's right-click rows
+--   Free.BringBack()                    -- every quest left out is listed again
+--   Free.Quests() -> { row, ... }       -- every quest in the log for the quests
+--                                          page (Page.lua): { quest, title, level,
+--                                          zone, zoneName, ready, group, out, pinned }
+--   Free.Zones() -> { { zone, name, quests }, ... }  -- the zones of those in the loop
+--   Free.LeaveOutZone(zone) ; Free.LeaveOutGroup()   -- the quick actions
+--   Free.Page                           -- the quests page (Page.lua)
+--   Fires FREE_CHANGED when a pin or a left-out quest changes.
 
 local ns = Polestar
 
@@ -749,6 +757,13 @@ function Free.Pinned()
 	return saved().pin
 end
 
+-- The choices are the character's saved state; the quests page (Page.lua)
+-- and the world map's click draw again on FREE_CHANGED.
+local function changed()
+	Free.Plan(true)
+	ns.Fire("FREE_CHANGED")
+end
+
 function Free.Pin(q, on)
 	local f = saved()
 	if on then
@@ -757,14 +772,14 @@ function Free.Pin(q, on)
 	elseif f.pin == q then
 		f.pin = nil
 	end
-	Free.Plan(true)
+	changed()
 end
 
 function Free.LeaveOut(q, on)
 	local f = saved()
 	f.out[q] = on and true or nil
 	if on and f.pin == q then f.pin = nil end
-	Free.Plan(true)
+	changed()
 end
 
 function Free.LeftOut()
@@ -774,6 +789,121 @@ function Free.LeftOut()
 	return out
 end
 
+function Free.BringBack()
+	saved().out = {}
+	changed()
+end
+
+---------------------------------------------------------------------------
+-- The quests page: every quest in the log, with what the page shows of it
+-- and the quick actions that leave out many at once (Page.lua)
+---------------------------------------------------------------------------
+
+-- Whether a quest takes a group: an objective on an elite or a boss, or
+-- inside an instance (a friendly one is no fight), or one the Codex marks
+-- elite for this side. Read from the quest's record, once it is known.
+local groupOf = {}
+local function takesGroup(q, rec)
+	local known = groupOf[q]
+	if known ~= nil then return known end
+	if not rec then return false end
+	local C, code = Codex(), Lookup.PlayerInfo().code
+	local group = false
+	for _, o in ipairs(rec.objectives or {}) do
+		local npc = o.type == "kill" and C.Npc(o.id) or nil
+		if npc and (npc.elite or npc.boss or npc.instance) and not npc.faction then group = true end
+		local mark = o.elites and code and o.elites[code]
+		if mark and mark.rank then group = true end
+	end
+	groupOf[q] = group
+	return group
+end
+
+-- Every quest in the log -> { { quest, title, level, zone (map id) | nil,
+-- zoneName | nil, ready, group (a quest still to do that takes a group), out,
+-- pinned }, ... }: those in the loop first, by zone, level and title, then
+-- those left out. The Codex is loaded when it can be (zones and groups come
+-- from it); without it a row has its title, level and state alone.
+function Free.Quests()
+	local f, K, C = saved(), ns.Compat, Codex()
+	if C and not C.IsLoaded() then C.Load() end
+	local known = C and C.IsLoaded()
+	local rows = {}
+	for _, q in ipairs(heldQuests()) do
+		local rec = known and C.Quest(q) or nil
+		local ready = K.IsQuestReadyForTurnIn(q) and true or false
+		rows[#rows + 1] = {
+			quest = q,
+			title = K.GetQuestTitle(q) or (rec and rec.title) or ("#" .. q),
+			level = K.GetQuestLevel(q) or (rec and rec.level),
+			zone = rec and rec.zone or nil,
+			zoneName = rec and rec.zone and K.MapName(rec.zone) or nil,
+			ready = ready,
+			group = not ready and takesGroup(q, rec),
+			out = f.out[q] and true or false,
+			pinned = f.pin == q,
+		}
+	end
+	sort(rows, function(a, b)
+		if a.out ~= b.out then return not a.out end
+		local za, zb = a.zoneName or "", b.zoneName or ""
+		if za ~= zb then return za < zb end
+		if (a.level or 0) ~= (b.level or 0) then return (a.level or 0) < (b.level or 0) end
+		if a.title ~= b.title then return a.title < b.title end
+		return a.quest < b.quest
+	end)
+	return rows
+end
+
+-- The zones of the quests in the loop, each with its quests: the zone with
+-- the most first -> { { zone, name, quests = { questID, ... } }, ... }.
+function Free.Zones()
+	local by, list = {}, {}
+	for _, r in ipairs(Free.Quests()) do
+		if r.zone and r.zoneName and not r.out then
+			local z = by[r.zone]
+			if not z then
+				z = { zone = r.zone, name = r.zoneName, quests = {} }
+				by[r.zone] = z
+				list[#list + 1] = z
+			end
+			z.quests[#z.quests + 1] = r.quest
+		end
+	end
+	sort(list, function(a, b)
+		if #a.quests ~= #b.quests then return #a.quests > #b.quests end
+		return a.name < b.name
+	end)
+	return list
+end
+
+local function leaveOutAll(list)
+	local f = saved()
+	for _, q in ipairs(list) do
+		f.out[q] = true
+		if f.pin == q then f.pin = nil end
+	end
+	changed()
+end
+
+-- Leaves out every quest of a zone (a map id) in the loop.
+function Free.LeaveOutZone(zone)
+	local list = {}
+	for _, z in ipairs(Free.Zones()) do
+		if z.zone == zone then list = z.quests end
+	end
+	leaveOutAll(list)
+end
+
+-- Leaves out every quest in the loop that takes a group and is still to do.
+function Free.LeaveOutGroup()
+	local list = {}
+	for _, r in ipairs(Free.Quests()) do
+		if r.group and not r.out then list[#list + 1] = r.quest end
+	end
+	leaveOutAll(list)
+end
+
 ---------------------------------------------------------------------------
 -- The guide window's rows (UI/GuideFrameMenu.lua, UI/GuideFrame.lua)
 ---------------------------------------------------------------------------
@@ -781,7 +911,7 @@ end
 function Free.MenuItems()
 	local items = {}
 	local on = Free.IsOn()
-	items[1] = { text = L["Free mode"], icon = "icon-explore", checked = on, tip = L["Your own quests as a guide: the arrow leads to the nearest one, then the next."],
+	items[1] = { text = L["Free mode"], icon = "icon-ownpath", checked = on, tip = L["Your own quests as a guide: the arrow leads to the nearest one, then the next."],
 		onClick = function() if on then Free.Stop() else Free.Toggle() end end }
 	if on then
 		local xp = pick() == "xp"
@@ -789,10 +919,7 @@ function Free.MenuItems()
 			onClick = function() Free.SetPick(xp and "near" or "xp") end }
 		local out = Free.LeftOut()
 		if #out > 0 then
-			items[#items + 1] = { text = format(L["Bring back left-out quests (%d)"], #out), icon = "reset", onClick = function()
-				saved().out = {}
-				Free.Plan(true)
-			end }
+			items[#items + 1] = { text = format(L["Bring back left-out quests (%d)"], #out), icon = "reset", onClick = Free.BringBack }
 		end
 	end
 	return items
