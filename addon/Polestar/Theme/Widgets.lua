@@ -68,9 +68,17 @@ function W.Color(region, name, alpha)
 	if region.psMutedFrom and name ~= "textMuted" then
 		region.psMutedFrom, name = name, "textMuted"
 	end
-	file(region, name)
+	-- Subject colours supplied by a caller (e.g. an item's quality) are
+	-- already resolved. Only palette names participate in palette repaints.
+	local r, g, b, a
+	if type(name) == "table" then
+		file(region, nil)
+		r, g, b, a = unpack(name)
+	else
+		file(region, name)
+		r, g, b, a = Theme.Color(name)
+	end
 	region.psAlpha = alpha
-	local r, g, b, a = Theme.Color(name)
 	a = region.psVeiled and 0 or (a or 1) * (alpha or 1)
 	if region:GetObjectType() == "Texture" then
 		region:SetVertexColor(r, g, b, a)
@@ -923,6 +931,37 @@ function W.Checkbox(parent, onClick)
 	return c
 end
 
+-- Validation belongs to the owner, which can commit several fields together.
+function W.NumberBox(parent, opts)
+	local box = CreateFrame("EditBox", nil, parent)
+	box:SetAutoFocus(false)
+	box:SetSize(42, 26)
+	box:SetTextInsets(5, 5, 0, 0)
+	Theme.Font(box, "label")
+	W.Color(box, "text")
+	Theme.Skin(box, "editbox")
+	box.Hint = W.Text(box, "label", "textMuted")
+	box.Hint:SetPoint("LEFT", box, "LEFT", 5, 0)
+	box.Hint:SetWidth(32)
+	box.Hint:SetWordWrap(false)
+	box.Hint:SetText(opts.placeholder)
+	box:SetScript("OnTextChanged", function(self, user)
+		self.Hint:SetShown((self:GetText() or "") == "")
+		if opts.onEdit then opts.onEdit(self, user) end
+	end)
+	box:SetScript("OnEnterPressed", opts.onCommit)
+	box:SetScript("OnEscapePressed", opts.onCancel)
+	box:SetScript("OnEditFocusGained", function(self) Theme.SetFocused(self, true) end)
+	box:SetScript("OnEditFocusLost", function(self)
+		Theme.SetFocused(self, false)
+		if opts.onCommit then opts.onCommit(self) end
+	end)
+	box:SetScript("OnEnter", simpleTip)
+	box:SetScript("OnLeave", hideTip)
+	box:SetScript("OnHide", hideTip)
+	return box
+end
+
 ---------------------------------------------------------------------------
 -- Pills and chips
 ---------------------------------------------------------------------------
@@ -1055,21 +1094,21 @@ W.Capsule, W.Pill = capsule, capsule
 -- content) | "experimental" (one of Polestar's experimental guides: its own
 -- purple, the `experimental` token of every look).
 W.CHIP_H = 20
-function W.Chip(parent)
+function W.Chip(parent, height)
 	local c = CreateFrame("Frame", nil, parent)
-	c:SetHeight(W.CHIP_H)
-	c.Bg = capsule(c, 40, W.CHIP_H)
+	c:SetHeight(height or W.CHIP_H)
+	c.Bg = capsule(c, 40, c:GetHeight())
 	c.Bg:SetAllPoints(c)
 	c.Text = W.Text(c, "caption", "textDim")
 	c.Text:SetPoint("CENTER", c, "CENTER", 0, 0)
 	return c
 end
 
-function W.SetChip(c, text, kind)
+function W.SetChip(c, text, kind, width)
 	c.Text:SetText(text)
-	local w = floor(c.Text:GetStringWidth() + 18 + 0.5)
+	local w = width or floor(c.Text:GetStringWidth() + 18 + 0.5)
 	c:SetWidth(w)
-	c.Bg:SetSize(w, W.CHIP_H)
+	c.Bg:SetSize(w, c:GetHeight())
 	if kind == "accent" then
 		local r, g, b = Theme.Accent()
 		c.Bg:SetColor(r, g, b, 0.16)
@@ -1270,6 +1309,7 @@ local function settingRow(parent, label, desc)
 	row.psTipAnchor = "ANCHOR_TOPLEFT"
 	return row
 end
+W.SettingRow = settingRow
 
 -- Bound the label on the left of a row's control. span(row, width) -> the
 -- width the control takes from the row's right edge, its 12px inset and the
@@ -2153,6 +2193,8 @@ local function paintMenuRow(row, lit)
 end
 W.PaintMenuRow = paintMenuRow
 
+local layoutMenu -- (): the open list's rows laid out anew (below)
+
 -- Items with confirm = true need a second click: the first relabels the row
 -- and keeps the menu open.
 local function menuRowClick(self)
@@ -2164,8 +2206,25 @@ local function menuRowClick(self)
 		W.Color(self.Text, "danger")
 		return
 	end
+	if item.keepOpen then
+		local relayout = item.onClick and item.onClick(item)
+		if menu:IsShown() and self.psItem == item then
+			if relayout then layoutMenu() else W.RepaintMenuChecks(menu) end
+		end
+		return
+	end
 	W.HideMenu()
 	if item.onClick then item.onClick(item) end
+end
+
+-- A kept-open choice can change several checks (for example "Any rarity").
+function W.RepaintMenuChecks(popup)
+	for _, row in ipairs(popup.rows) do
+		if row:IsShown() and row.psItem then
+			row.Check:SetShown(row.psItem.checked and true or false)
+			paintMenuRow(row, row:IsMouseOver())
+		end
+	end
 end
 
 -- item.preview(item): a choice heard (or seen) without picking it, a sound
@@ -2198,7 +2257,8 @@ end
 
 local function menuRowEnter(self)
 	if not self.psArmed then paintMenuRow(self, true) end
-	if self.psItem and self.psItem.tip then W.Tooltip(self, "ANCHOR_RIGHT", self.psItem.text, { self.psItem.tip }) end
+	local item = self.psItem
+	if item and (item.tip or self.psClipped) then W.Tooltip(self, "ANCHOR_RIGHT", item.text, item.tip and { item.tip }) end
 	previewSoon(self)
 end
 
@@ -2288,7 +2348,6 @@ end
 -- opened a menu on the run typed "wwww" into it): Enter picks the first one
 -- left, Escape empties the box, then closes the list.
 local MENU_MAX, MENU_FILTER = 12, 26
-local layoutMenu -- (): the open list's rows laid out anew (below)
 
 -- { bar = { entry, ... }, caption = text, captionColor = token }: a row of
 -- icon toggles across the menu, its caption under it (no caption, no row: a
@@ -2447,11 +2506,18 @@ local function menuLong()
 	return sc
 end
 
--- Does an item hold the filter's text (any case)?
-local function holds(item, needle)
+-- Does the label or any extra search term hold the filter's text?
+local function holds(item, needle, fold)
 	if needle == "" then return true end
-	local text = item.text and tostring(item.text):lower()
-	return text ~= nil and text:find(needle, 1, true) ~= nil
+	local text = item.text and fold(tostring(item.text))
+	if text and text:find(needle, 1, true) then return true end
+	if item.searchText then
+		-- Keep newline-separated aliases independent when the fold normalizes whitespace.
+		for term in item.searchText:gmatch("[^\n]+") do
+			if fold(term):find(needle, 1, true) then return true end
+		end
+	end
+	return false
 end
 
 function layoutMenu()
@@ -2471,7 +2537,8 @@ function layoutMenu()
 	local room = long and W.ScrollBarRoom(sc) or 0
 	-- Rows hang from the menu, or from the scroll area's child in a long list.
 	local holder = long and sc.Child or menu
-	local needle = long and (menu.Filter:GetText() or ""):lower() or ""
+	local fold = opts.searchFold or string.lower
+	local needle = long and fold(menu.Filter:GetText() or "") or ""
 	local y = long and 0 or -pad
 	local nrow, nsep, shownRows = 0, 0, 0
 	menu.psCheckedY = nil
@@ -2566,7 +2633,7 @@ function layoutMenu()
 			row.Check:SetPoint("RIGHT", row, "RIGHT", item.preview and -32 or -10, 0)
 			local shownText = (item.font and face) or row.Text
 			width = max(width, shownText:GetStringWidth() + textX + 36 + extra + (anyPreview and 26 or 0) + room)
-			if holds(item, needle) then
+			if holds(item, needle, fold) then
 				row:ClearAllPoints()
 				row:SetHeight(rowH)
 				-- In a long list, clear of its scroll bar.
@@ -2612,13 +2679,17 @@ function layoutMenu()
 end
 end -- the block with Bar
 
--- items: { { text, icon, checked, disabled, onClick, tip, color, confirm, preview }, { separator = true },
+-- items: { { text, icon, checked, disabled, onClick, tip, color, confirm, preview, keepOpen, searchText }, { separator = true },
 -- { bar = { { icon, text, checked, disabled, onClick }, ... }, caption, captionColor } (the toggle bar, above), ... }
+-- With keepOpen, onClick updates the item checks and the rows repaint in place.
+-- It can return true to lay out the list again if its choices changed.
 -- (W.MenuRows, when an addon sets it, places and paints rows of its own kinds:
 -- { place = fn(row, item, textX) -> textX, extra width; paint = fn(row, item, lit) })
--- opts: { point = "TOPRIGHT", relPoint = "BOTTOMRIGHT", x = 0, y = -4, minWidth = 168, current = true, short = true }
+-- opts: { point = "TOPRIGHT", relPoint = "BOTTOMRIGHT", x = 0, y = -4, minWidth = 168, current = true, short = true, searchFold }
 -- opts.short: a menu of actions whose rows all show, never a long list's
 -- filter and scroll.
+-- opts.searchFold normalizes the query and label. Matching folds each newline-separated
+-- term in extra searchText with the same function.
 -- opts.current: a list of choices whose checked row is the current one; a
 -- long one opens scrolled to it. Any other menu (actions, toggles) opens at
 -- its top, whatever its ticks (#2647: the guide window's menu opened centred
@@ -2640,12 +2711,24 @@ function W.ShowMenu(anchor, items, opts)
 	menu:ClearAllPoints()
 	menu.psOwner = anchor
 	local point, relPoint = opts.point or "TOPRIGHT", opts.relPoint or "BOTTOMRIGHT"
-	Anim.Anchor(menu, point, anchor, relPoint, opts.x or 0, opts.y or -4)
+	local y, offset = opts.y or -4, 4
+	if not (opts.point or opts.relPoint or opts.y) then
+		local bottom, top = anchor:GetBottom(), anchor:GetTop()
+		if bottom and top then
+			local scale, screenScale = anchor:GetEffectiveScale(), UIParent:GetEffectiveScale()
+			local below = bottom * scale - UIParent:GetBottom() * screenScale
+			local above = UIParent:GetTop() * screenScale - top * scale
+			if below < (menu:GetHeight() + 4) * menu:GetEffectiveScale() and above > below then
+				point, relPoint, y, offset = "BOTTOMRIGHT", "TOPRIGHT", 4, -4
+			end
+		end
+	end
+	Anim.Anchor(menu, point, anchor, relPoint, opts.x or 0, y)
 	catcher:Show()
 	menu:Show()
-	-- Popovers grow out of their trigger: a short fade with a 4px drop.
+	-- Popovers move out from their trigger with a short fade.
 	Anim.To(menu, "alpha", 0, 1, Anim.FAST, "out")
-	Anim.To(menu, "offset", 4, 0, Anim.FAST, "out")
+	Anim.To(menu, "offset", offset, 0, Anim.FAST, "out")
 	return menu
 end
 
@@ -2667,6 +2750,7 @@ end)
 ---------------------------------------------------------------------------
 -- Dropdown: a button showing the current choice; the list is the menu.
 -- choices: a list or a function returning one (choices that come and go).
+-- A choice can carry a menu text colour, or disabled for a group heading.
 -- opts.get() / opts.set(value) stand in for reading and writing the path
 -- when the shown value is derived (the font: Inter, or EllesmereUI's while
 -- following it).
@@ -2687,7 +2771,8 @@ end
 
 local function choiceText(choices, v)
 	for i = 1, #choices do
-		if choices[i].value == v then return choices[i].text end
+		local choice = choices[i]
+		if not choice.disabled and choice.value == v then return choice.text end
 	end
 	return tostring(v == nil and "" or v)
 end
@@ -2695,7 +2780,13 @@ end
 local DROPDOWN_ARROW = "Interface\\ChatFrame\\UI-ChatIcon-ScrollDown-Up"
 
 local function dropdownRefresh(self)
-	self.Button.Label:SetText(choiceText(choicesOf(self), valueOf(self)))
+	if self.psDisplay then
+		local text, color = self.psDisplay()
+		self.Button.Label:SetText(text)
+		W.Color(self.Button.Label, color or "text")
+	else
+		self.Button.Label:SetText(choiceText(choicesOf(self), valueOf(self)))
+	end
 	self:SetHeight(keptHeight(self))
 	local b = self.Button
 	b:SetSize(self.psBoxW or Theme.Metric("dropdownW", DROPDOWN_W), Theme.Metric("dropdownH", 28))
@@ -2737,21 +2828,26 @@ end
 
 local function openChoices(self)
 	local row = self.psRow
+	if row.psOpenMenu then return row.psOpenMenu(self) end
 	if W.MenuShown(self) then return W.HideMenu() end
 	local items = {}
 	local cur = valueOf(row)
 	local list = choicesOf(row)
 	for i = 1, #list do
 		local c = list[i]
-		items[i] = { text = c.text, checked = c.value == cur, font = row.psFaces and c.font or nil, onClick = function()
-			-- State that is no setting (get/set) fires no SETTING_CHANGED: the row redraws itself.
-			if row.psSet then
-				row.psSet(c.value)
-				row:Refresh()
-			else
-				ns.Set(row.psPath, c.value)
-			end
-		end, preview = c.preview and function() c.preview(c.value) end }
+		items[i] = {
+			text = c.text, color = c.color, disabled = c.disabled, checked = not c.disabled and c.value == cur,
+			font = row.psFaces and c.font or nil, preview = c.preview and function() c.preview(c.value) end,
+			onClick = function()
+				-- State that is no setting (get/set) fires no SETTING_CHANGED: the row redraws itself.
+				if row.psSet then
+					row.psSet(c.value)
+					row:Refresh()
+				else
+					ns.Set(row.psPath, c.value)
+				end
+			end,
+		}
 	end
 	W.ShowMenu(self, items, { minWidth = self:GetWidth(), current = true })
 end
@@ -2771,8 +2867,12 @@ end
 local function dropdownSpan(row, width)
 	local b = row.Button
 	local shown = b.Label:GetText()
-	local need = 0
-	for _, c in ipairs(choicesOf(row)) do need = max(need, textWidth(b.Label, c.text)) end
+	local need = row.psDisplay and textWidth(b.Label) or 0
+	if row.psChoices then
+		for _, c in ipairs(choicesOf(row)) do
+			if not c.disabled then need = max(need, textWidth(b.Label, c.text)) end
+		end
+	end
 	b.Label:SetText(shown or "")
 	local desired = max(DROPDOWN_W, math.ceil(need) + 36)
 	local room = width - 12 - 10 - 12 - math.ceil(widestWord(row))
@@ -2785,6 +2885,9 @@ end
 function W.Dropdown(parent, label, path, choices, desc, depends, opts)
 	local row = settingRow(parent, label, desc)
 	row.psChoices = choices
+	-- openMenu(button) replaces the stock popup for a custom picker.
+	-- display() supplies the current label and optional colour when needed.
+	row.psOpenMenu, row.psDisplay = opts and opts.openMenu, opts and opts.display
 	row.psGet, row.psSet = opts and opts.get, opts and opts.set
 	-- opts.faces: a font list, each choice ({ value, text, font = path })
 	-- drawn in its own face, in the box and in the list. opts.reset: state
@@ -4010,6 +4113,8 @@ end
 -- row with `dot` carries a warning dot at its right edge (no count then).
 -- { heading = true, label } is a muted heading over the rows after it, at
 -- the text edge, not a choice.
+-- Selectable tree rows can supply depth, rowH, folded and onToggle.
+-- onToggle(key) gives the row a separate disclosure button.
 --
 -- A tree: { group = true, key, label, folded } is a group's header (32px, a
 -- muted label on the text edge, a chevron at the right: down open, right
@@ -4030,15 +4135,54 @@ end
 -- card, a fill: Polestar_Options/UI/Kit.lua); W.NavRowAfter(b, item, on) may
 -- lay a plain row out again (the rail, a page's tabs as a tree).
 local NAV_SEP, NAV_GROUP, NAV_INDENT = 17, 32, 12
+
 W.NavParts = {}
 
-local function navRow(b, item, on)
+-- navRow, and the tree rows' disclosure button it alone uses, in a block:
+-- the file is near Lua's 200 locals.
+local navRow
+do
+local NAV_TOGGLE = 24
+
+local function navToggle(b, pad, item)
+	local hit = rawget(b, "Toggle")
+	if not item.onToggle then
+		if hit then hit:Hide() end
+		return
+	end
+	if not hit then
+		hit = CreateFrame("Button", nil, b)
+		hit:SetSize(NAV_TOGGLE, NAV_TOGGLE)
+		hit:SetScript("OnEnter", function(self)
+			local row = b.psItem
+			W.Tip(self, string.format(row.folded and L["Expand %s"] or L["Collapse %s"], row.label))
+		end)
+		hit:SetScript("OnLeave", W.TipHide)
+		hit:SetScript("OnHide", W.TipHide)
+		hit:SetScript("OnClick", function(self)
+			W.TipHide(self)
+			b.psItem.onToggle(b.psKey)
+		end)
+		b.Toggle = hit
+	end
+	hit:SetPoint("RIGHT", b, "RIGHT", -pad, 0)
+	b.Chevron:ClearAllPoints()
+	b.Chevron:SetPoint("CENTER", hit, "CENTER", 0, 0)
+	b.Chevron:SetTexture(Theme.Media(item.folded and "chevron-right" or "chevron-down"))
+	W.Color(b.Chevron, "textMuted")
+	b.Chevron:Show()
+	hit:Show()
+end
+
+function navRow(b, item, on)
 	b.psKey, b.psItem, b.psOn = item.key, item, on
 	-- The right edge's parts keep their place on the sidebar when the rows
 	-- end at the scroll bar (W.ShellNav): their margin gives up that strip,
 	-- down to 12 clear of the bar (a game look's bar is wide).
 	local pad = max(12, SHELL.side - (b.psShell.psNavRoom or 0))
 	local empty = item.count == 0
+	local child = item.depth and item.depth > 0
+	local countPad = pad + (item.onToggle and NAV_TOGGLE + 8 or 0)
 	b.Icon:SetTexture(Theme.Media(item.icon or "compact"))
 	b.Icon:ClearAllPoints()
 	b.Icon:SetPoint("LEFT", b, "LEFT", SHELL.side + (item.indent and NAV_INDENT or 0), 0)
@@ -4049,7 +4193,7 @@ local function navRow(b, item, on)
 	if item.dot then b.Count:Hide() end
 	b.psTip, b.psTipAnchor = item.markTip, "ANCHOR_RIGHT"
 	b.Count:ClearAllPoints()
-	b.Count:SetPoint("RIGHT", b, "RIGHT", -pad, 0)
+	b.Count:SetPoint("RIGHT", b, "RIGHT", -countPad, 0)
 	b.Dot:ClearAllPoints()
 	b.Dot:SetPoint("RIGHT", b, "RIGHT", -pad, 0)
 	b.Chevron:ClearAllPoints()
@@ -4078,7 +4222,7 @@ local function navRow(b, item, on)
 	b.psEmpty = empty
 	b.psHeading = item.heading and true or false
 	b.psGroup = item.group and true or false
-	b.Icon:SetShown(not (item.heading or item.group))
+	b.Icon:SetShown(not (item.heading or item.group or child))
 	-- The label ends short of the count (or dot), as wide as that is, and
 	-- takes a second line rather than run under it or off the sidebar.
 	b.Label:ClearAllPoints()
@@ -4097,22 +4241,28 @@ local function navRow(b, item, on)
 	else
 		local reserve = edge > 0 and edge + 8 or 0
 		if b.Changed:IsShown() then reserve = reserve + 6 + 8 end
-		b.Label:SetPoint("LEFT", b.Icon, "RIGHT", 12, 0)
+		if child then
+			b.Label:SetPoint("LEFT", b, "LEFT", SHELL.side + 16 + 12 + item.depth * NAV_INDENT, 0)
+		else
+			b.Label:SetPoint("LEFT", b.Icon, "RIGHT", 12, 0)
+		end
 		if item.oneLine then
 			-- Its width set, not anchored, so it measures where it is cut.
-			local room = (b.psShell.psSidebar or SHELL.sidebar) - 1 - (b.psShell.psNavRoom or 0)
-				- (SHELL.side + (item.indent and NAV_INDENT or 0)) - 16 - 12 - pad - reserve
+			local left = SHELL.side + 16 + 12 + (child and item.depth * NAV_INDENT or item.indent and NAV_INDENT or 0)
+			local room = (b.psShell.psSidebar or SHELL.sidebar) - 1 - (b.psShell.psNavRoom or 0) - left - countPad - reserve
 			b.Label:SetWidth(max(1, room))
 		else
-			b.Label:SetPoint("RIGHT", b, "RIGHT", -(pad + reserve), 0)
+			b.Label:SetPoint("RIGHT", b, "RIGHT", -(countPad + reserve), 0)
 		end
-		b.psRight = pad + reserve
+		b.psRight = countPad + reserve
 		b:Enable()
 	end
 	b.Label:SetWordWrap(not item.oneLine)
 	b.Label:SetMaxLines(item.oneLine and 0 or 2)
+	navToggle(b, pad, item)
 	if W.NavRowAfter then W.NavRowAfter(b, item, on, pad) end
 end
+end -- the block with navRow
 
 -- A row's height: a part's own, a hairline's, a group header's (shorter), a
 -- row's (item.rowH).
@@ -4143,7 +4293,7 @@ end
 function W.ShellNav(f, items, active, onSelect)
 	f.psOnNav = onSelect
 	local sf = f.NavScroll
-	local y, activeY = 0, nil
+	local y, activeY, activeH = 0, nil, nil
 	local rules = rawget(f, "navRules") or {}
 	f.navRules = rules
 	local bi, ri = 0, 0
@@ -4168,14 +4318,15 @@ function W.ShellNav(f, items, active, onSelect)
 			bi = bi + 1
 			local b = navButton(f, bi)
 			local on = item.key == active
+			local height = navRowH(item)
 			navRow(b, item, on)
 			b:ClearAllPoints()
-			b:SetHeight(navRowH(item))
+			b:SetHeight(height)
 			b:SetPoint("TOPLEFT", sf.Child, "TOPLEFT", 0, -y)
 			b:SetPoint("TOPRIGHT", sf.Child, "TOPRIGHT", 0, -y)
 			b:Show()
-			if on then activeY = y end
-			y = y + navRowH(item)
+			if on then activeY, activeH = y, item.depth and height or NAV_ROW end
+			y = y + height
 		end
 	end
 	for i = bi + 1, #f.navButtons do f.navButtons[i]:Hide() end
@@ -4190,8 +4341,8 @@ function W.ShellNav(f, items, active, onSelect)
 		local cur = sf:GetVerticalScroll()
 		if activeY < cur then
 			W.ScrollTo(sf, activeY)
-		elseif activeY + NAV_ROW > cur + view then
-			W.ScrollTo(sf, activeY + NAV_ROW - view)
+		elseif activeY + activeH > cur + view then
+			W.ScrollTo(sf, activeY + activeH - view)
 		end
 	end
 	sf.psActive = active

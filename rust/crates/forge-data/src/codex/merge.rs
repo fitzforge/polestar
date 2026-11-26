@@ -8,6 +8,7 @@ use forge_guide::js::{str_to_num, Obj, V};
 use forge_guide::races::CLASSES;
 use rustc_hash::{FxHashMap, FxHashSet};
 
+use super::client::ClientItem;
 use super::instances::{build_instances, Ctx};
 use super::spawns::{spawns_of, spawns_v};
 use super::util::{by_num, int, junk, key, kstr, math_round, norm_name, nums, oentries, opt, or_m1, ord, round1, slug};
@@ -1718,6 +1719,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 	}
 
 	// Collectible classification.
+	let is_companion_pet = |it: &ClientItem| it.class_id == Some(15.0) && it.subclass_id == Some(2.0);
 	let mut mount_items: FxHashSet<i64> = FxHashSet::default();
 	let mut pet_items: FxHashSet<i64> = FxHashSet::default();
 	let mut tabard_items: FxHashSet<i64> = FxHashSet::default();
@@ -1768,9 +1770,12 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 				if !names.get(&ids).truthy() && !it.era {
 					names.set(&ids, it.name.as_deref().map(V::str).unwrap_or(V::Null));
 				}
-			} else if (it.class_id == Some(15.0) && it.subclass_id == Some(2.0) && learn.is_some()) || spell.is_some_and(|s| cl.pet_spells.contains(&s)) {
-				pet_items.insert(id);
-				if !names.get(&ids).truthy() && !it.era {
+			} else {
+				let pet_by_spell = spell.is_some_and(|s| cl.pet_spells.contains(&s));
+				if pet_by_spell {
+					pet_items.insert(id);
+				}
+				if (pet_by_spell || is_companion_pet(it)) && !names.get(&ids).truthy() && !it.era {
 					names.set(&ids, it.name.as_deref().map(V::str).unwrap_or(V::Null));
 				}
 			}
@@ -1961,9 +1966,13 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 				source.set("requiresQuests", V::from(quests.items()));
 			}
 		}
+		let sparse = c.filter(|c| !c.era);
+		let item = cl.and_then(|cl| cl.item_only.get(&id)).or(sparse);
+		let companion = item.or(c).is_some_and(is_companion_pet);
+		let known_pet = pet_items.contains(&id);
 		let kind = if mount_items.contains(&id) {
 			"mount"
-		} else if pet_items.contains(&id) {
+		} else if known_pet || companion {
 			"pet"
 		} else if c.is_some_and(|c| c.class_id == Some(9.0)) || recipe_spell.get(&ids).truthy() {
 			"recipe"
@@ -1973,6 +1982,8 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			"item"
 		};
 		let spell = match kind {
+			// Class-only companions keep the learn spell from the detail record, if it has one.
+			"pet" if !known_pet => opt(c.and_then(|c| c.learn)),
 			"mount" | "pet" => opt(c.and_then(|c| c.learn.or(c.use_))),
 			"recipe" => {
 				let r = recipe_spell.get(&ids);
@@ -2007,7 +2018,42 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		);
 		o.set("kind", kind);
 		o.set("spell", spell);
-		o.set("reqLevel", opt(c.and_then(|c| c.req_level)));
+		// levelsSource covers reqLevel, itemLevel, quality and allowClass. typeSource covers
+		// itemClass, itemSubclass and slot. The values are client, forever and era. An absent
+		// flag means the group is unknown, though a legacy Era CSV or dungeon display value may exist.
+		if sparse.is_some_and(|c| c.req_level.is_some() || c.item_level.is_some() || c.quality.is_some() || c.allow_class.is_some()) {
+			o.set("levelsSource", "client");
+		}
+		if item.is_some_and(|c| c.class_id.is_some() || c.subclass_id.is_some() || c.inventory_type.is_some()) {
+			o.set("typeSource", "client");
+		}
+		// Era items keep their legacy nonzero level requirements. The new facts come from Forever.
+		let req_level = c.and_then(|c| c.req_level.filter(|&level| !c.era || level != 0.0));
+		for (field, value) in [
+			("reqLevel", req_level),
+			("itemLevel", sparse.and_then(|c| c.item_level)),
+			("allowClass", sparse.and_then(|c| c.allow_class)),
+			("itemClass", item.and_then(|c| c.class_id)),
+			("itemSubclass", item.and_then(|c| c.subclass_id)),
+			("slot", item.and_then(|c| c.inventory_type)),
+		] {
+			if let Some(value) = value {
+				o.set(field, value);
+			}
+		}
+		// reqSource, itemLevelSource, qualitySource and allowSource name a fact's own source when
+		// it is not levelsSource's ("none": no table vouches for it). The Era CSV alone supplies
+		// a level and rarity as Classic Era's; a rarity only a dungeon page displays has no source.
+		if c.is_some_and(|c| c.era) {
+			if req_level.is_some() {
+				o.set("reqSource", "era");
+			}
+			if c.and_then(|c| c.quality).is_some() {
+				o.set("qualitySource", "era");
+			}
+		} else if c.and_then(|c| c.quality).is_none() && o.get("levelsSource").as_str() == Some("client") {
+			o.set("qualitySource", "none");
+		}
 		o.set("repFaction", rep_faction);
 		o.set("repStanding", rep_standing);
 		o.set("reqSkill", opt(c.and_then(|c| c.req_skill)));
@@ -2584,7 +2630,9 @@ impl OrObj for V {
 #[cfg(test)]
 mod tests {
 	use super::*;
+	use crate::codex::client::{client_facts, Tables};
 	use crate::codex::Forever;
+	use crate::tables::parse_csv;
 	use forge_guide::js::parse_json;
 
 	fn inputs(quests: &str, mechanics: &str) -> Inputs {
@@ -2610,6 +2658,7 @@ mod tests {
 			recorded: V::obj(),
 			learned: Default::default(),
 			client: None,
+			item_db: Default::default(),
 			web: None,
 			curated: Vec::new(),
 			curated_gates: V::Null,
@@ -2625,6 +2674,85 @@ mod tests {
 			mechanics_public: V::Null,
 			warnings: Vec::new(),
 		}
+	}
+
+	#[test]
+	fn companion_pet_without_a_spell_is_a_pet() {
+		let mut tables = Tables::default();
+		tables.insert("Item", parse_csv("ID,ClassID,SubclassID,InventoryType\n1,15,2,0\n2,15,2,0\n3,15,2,0\n").unwrap());
+		tables.insert("ItemSparse", parse_csv("ID,Display_lang\n1,Companion Pet\n3,Companion With Use Spell\n").unwrap());
+		tables.insert("ItemEffect", parse_csv("ID,ParentItemID,SpellID,TriggerType\n1,3,42,0\n2,2,43,6\n").unwrap());
+		let mut i = inputs("{}", "{}");
+		i.client = Some(client_facts(&tables, "fixture"));
+		i.forever.items = parse_json(r#"{ "2": { "name": "Companion Without Sparse Data" } }"#).unwrap();
+
+		let items = merge_codex(&i).items;
+		for id in ["1", "2", "3"] {
+			let item = items.get(id);
+			assert_eq!(item.get("kind").as_str(), Some("pet"), "item {id}");
+			assert!(matches!(item.get("spell"), V::Null), "item {id}");
+		}
+	}
+
+	#[test]
+	fn item_filter_fields_preserve_known_zeroes_and_omit_unknowns() {
+		let mut tables = Tables::default();
+		tables.insert(
+			"ItemSparse",
+			parse_csv("ID,Display_lang,RequiredLevel,ItemLevel,AllowableClass\n19019,Thunderfury,60,80,-1\n6948,Hearthstone,0,1,-1\n1,Unusable,0,0,32\n2,Priest Only,0,1,16\n").unwrap(),
+		);
+		tables.insert("Item", parse_csv("ID,ClassID,SubclassID,InventoryType\n19019,2,7,13\n6948,15,0,0\n3,4,1,5\n").unwrap());
+		let mut i = inputs("{}", "{}");
+		i.client = Some(client_facts(&tables, "fixture"));
+		i.forever.items = parse_json(
+			r#"{ "19019": { "name": "Thunderfury" }, "6948": { "name": "Hearthstone" }, "1": { "name": "Unusable" },
+				"2": { "name": "Priest Only" }, "3": { "name": "Item Only" }, "4": { "name": "No Client Data" } }"#,
+		)
+		.unwrap();
+		let items = merge_codex(&i).items;
+		for (id, known, unknown) in [
+			("19019", &[("reqLevel", 60.0), ("itemLevel", 80.0), ("allowClass", 1503.0), ("itemClass", 2.0), ("itemSubclass", 7.0), ("slot", 13.0)][..], &[][..]),
+			("6948", &[("reqLevel", 0.0), ("itemSubclass", 0.0), ("slot", 0.0)], &[]),
+			("1", &[("allowClass", 0.0), ("itemLevel", 0.0)], &["itemClass", "itemSubclass", "slot"]),
+			("2", &[("allowClass", 16.0)], &[]),
+			("3", &[("itemClass", 4.0), ("itemSubclass", 1.0), ("slot", 5.0)], &["reqLevel", "itemLevel", "allowClass"]),
+			("4", &[], &["reqLevel", "itemLevel", "allowClass", "itemClass", "itemSubclass", "slot"]),
+		] {
+			let item = items.get(id);
+			assert!(item.truthy(), "missing item {id}");
+			for &(field, value) in known {
+				assert!(item.get(field).strict_eq(&V::Num(value)), "{id}.{field}: expected {value}, got {:?}", item.get(field));
+			}
+			for field in unknown {
+				assert!(!item.has(field), "{id}.{field} should be absent");
+			}
+		}
+	}
+
+	#[test]
+	fn era_items_keep_legacy_quality_and_level_requirements() {
+		let mut tables = Tables::default();
+		tables.insert("Item", parse_csv("ID,ClassID,SubclassID,InventoryType\n1,4,1,5\n2,15,0,0\n").unwrap());
+		tables.insert("ItemSparse", parse_csv("ID,OverallQualityID,RequiredLevel,ItemLevel,AllowableClass\n1,4,52,57,-1\n2,1,0,1,-1\n").unwrap());
+		let mut era = client_facts(&tables, "era fixture");
+		for item in era.items.values_mut() {
+			item.era = true;
+		}
+		let mut i = inputs("{}", "{}");
+		i.client = Some(era);
+		i.forever.items = parse_json(r#"{ "1": { "name": "Era Gear" }, "2": { "name": "Era Miscellaneous" } }"#).unwrap();
+		let items = merge_codex(&i).items;
+		let gear = items.get("1");
+		assert_eq!(gear.get("quality").num(), 4.0);
+		assert_eq!(gear.get("reqLevel").num(), 52.0);
+		for field in ["itemLevel", "allowClass", "itemClass", "itemSubclass", "slot"] {
+			assert!(!gear.has(field), "Era gear should omit {field}");
+		}
+		// What the Era table alone gave is named for it, with no levelsSource.
+		assert!(gear.get("reqSource").strict_eq(&V::str("era")) && gear.get("qualitySource").strict_eq(&V::str("era")) && !gear.has("levelsSource"));
+		let misc = items.get("2");
+		assert_eq!(misc.get("quality").num(), 1.0);
+		assert!(!misc.has("reqLevel") && !misc.has("reqSource") && misc.get("qualitySource").strict_eq(&V::str("era")));
 	}
 
 	#[test]

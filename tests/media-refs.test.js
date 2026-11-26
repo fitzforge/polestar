@@ -1,7 +1,7 @@
 'use strict';
 // Every texture shipped in addon/Polestar/Media is used: its name appears in
-// the Lua, XML or TOC of the addon or of the settings window (Polestar_Options,
-// which draws with core's Media), as a quoted name or the end of a path, or it
+// the Lua, XML or TOC of the core or its settings and Lookup windows,
+// as a quoted name or the end of a path, or it
 // is a goal verb's icon, which Theme.lua builds as "icon-" .. verb, or a map
 // mark (Media/Map/icon-<name>) named as "map:<name>" or by its bare name (a
 // service category's glyph), or one size of an art family Theme.SharpMedia
@@ -15,7 +15,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const ADDON = path.join(__dirname, '..', 'addon', 'Polestar');
-const OPTIONS = path.join(__dirname, '..', 'addon', 'Polestar_Options');
+const WINDOWS = ['Polestar_Options', 'Polestar_Lookup'].map((name) => path.join(path.dirname(ADDON), name));
 
 function sources(dir, out = []) {
 	for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -27,7 +27,7 @@ function sources(dir, out = []) {
 }
 
 test('every texture in Media is named by the addon', () => {
-	const text = sources(ADDON, sources(OPTIONS)).join('\n');
+	const text = [ADDON, ...WINDOWS].flatMap((dir) => sources(dir)).join('\n');
 	const theme = fs.readFileSync(path.join(ADDON, 'Theme', 'Theme.lua'), 'utf8');
 	const verbs = /for _, v in ipairs\(\{([^}]*)\}\) do\s+VERB_ICON\[v\]/.exec(theme);
 	assert.ok(verbs, 'Theme.lua builds VERB_ICON from a verb list');

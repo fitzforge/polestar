@@ -2,20 +2,90 @@
 -- the guide menu's search box and the Lookup window. Contract:
 -- docs/ARCHITECTURE.md, "Core services: Data, Hooks, Search".
 --
---   Search.Query(text, opts) -> results, counts, more
---     opts = { kinds = { item = true, ... } | nil (all), limit = 60, perKind = n,
---              offset = n (per kind, for paging), subtitles = false (leave them to Search.Subtitle) }
+--   Search.Query(text, opts) -> results, counts, error|nil
+--     opts = { kinds = { item = true, ... } | nil (all), resultKind = nil,
+--              order = "best" | "az" | "most", sortStat = code, baseOrder = "best" | "az",
+--              hideRetired = false, hideNoSource = false,
+--              limit = 60, perKind = n, offset = n, subtitles = false, ids = false }
+--     With ids = true, a positive decimal item ID adds exact index matches in
+--     item, mount, pet, recipe and tabard. Prefix it with # for ID matches only.
+--     Outer whitespace and leading zeroes are allowed. Malformed # queries
+--     return empty results and counts with "id-syntax" as the third value.
+--     With ids enabled and a numeric query, rows are not re-sorted across
+--     kinds. Within a kind, the ID hit counts once and comes first in Best
+--     match, in its usual place in A to Z, or by stat amount in Most.
+--     Lookup's ids option also adds item-backed hits for a complete folded
+--     stat label or alias. Best match puts them after name hits in each kind,
+--     by standing, folded name and numeric ID. A to Z uses Browse's order.
+--     resultKind restricts the returned rows, with counts still filled for
+--     all requested kinds. offset pages within each kind. A to Z uses
+--     Browse's order; with several kinds, the rows stay in Search.KINDS
+--     order, each kind's first perKind A to Z.
 --     result = { kind, id, title, subtitle|nil, quality|nil, score, status|nil, curated|nil }
 --       status: Codex item status ("retired" = no longer obtainable, "nosource");
 --       curated: a guide of the suggestion source or Polestar's own `collects`
 --       the item, as Lookup's curated guide looks
---     Order: items a curated guide collects first, then everything else,
+--     Best match: items a curated guide collects first, then everything else,
 --     then retired or sourceless items; then exact > prefix > word prefix >
 --     substring (> every word somewhere), then Search.KINDS order, then
---     shorter names. counts[kind] = matches of that kind before the caps
---     (perKind: 20 with several kinds, else limit). A one-letter query
---     matches the first 250 name prefixes per kind only; more[kind] = true
---     when there were more (counts then say "at least").
+--     shorter names, title and id. counts[kind] is the exact positive total
+--     after visibility filters and before paging or preview limits
+--     (perKind: 20 with several result kinds, else limit). A one-letter
+--     Codex query matches name prefixes only.
+--   Search.Browse(kind, opts) -> results, count
+--     opts = { offset = 0, limit = 60, subtitles = false, hideRetired = false, hideNoSource = false }
+--     Results have the same fields without a score, A to Z with unavailable
+--     entries last. The order is cached on first use, and only the page is named.
+--   Query and Browse accept order = "most" with a numeric sortStat from
+--     Search.StatCodes(), independent of filters.stat. Most orders each item
+--     kind after query and visibility filters, before paging. If the code or
+--     pack's stat support is missing, or the kind is not item-backed, Query
+--     uses baseOrder (default "best") and Browse uses A to Z.
+--     With Most results, Everything keeps Search.KINDS order. Item-backed
+--     rows have statBucket: 1 known amount (descending, statAmount set),
+--     2 present with unknown amount, 3 known absent, 4 unknown coverage.
+--     Ties use folded displayed name and numeric ID. Most rows have no
+--     score or eagerly decoded subtitle.
+--   Search.BrowseCount(kind, opts) -> count|nil   -- same visibility filters; no sorting or loading
+--   All three take opts.filters = { reqMin, reqMax, ilvlMin, ilvlMax,
+--     quality = { [quality] = true }, slot, class, stat, category = { class, subclass } }.
+--     Absent fields are unrestricted. Inclusive level bounds are integers
+--     0..999. Invalid bounds are dropped individually and inverted pairs
+--     are dropped together. Only true entries at integer qualities 0..8
+--     are kept. An empty set is unrestricted. Slot is an integer 0..34.
+--     Class is a Gear class file token (e.g. "MAGE"); unknown tokens are ignored.
+--     Stat is a raw code from Search.StatCodes(). It requires presence, with
+--     or without an amount, and is dormant when the pack has no stat data.
+--     Category IDs are integers (class 0..255, subclass 0..254). Invalid
+--     slots and category classes are dropped. An invalid subclass leaves a
+--     class predicate. A valid empty category still matches zero rows.
+--     The category scopes Items. Drawer predicates apply to item, mount,
+--     pet, recipe and tabard rows.
+--     Each active predicate requires a known value for its own field.
+--   With opts.filters supplied or opts.categoryTotals = true, an additional
+--     info result follows the regular returns (4th for Query, 3rd for
+--     Browse, 2nd for BrowseCount). Treat its tables as read-only.
+--     info.filtersAvailable is true when Codex.HasFilters() is true.
+--     info.filtersApplied is true when the call enables a normalized category
+--     or drawer predicate in an indexed item kind. It is false with old packs.
+--     info.classFilterDormant is true when a nonempty class token was requested
+--     and Gear's class or proficiency table is unavailable.
+--     info.preFilterCounts[kind] counts query + visibility + category for
+--     item kinds, before drawer predicates and paging.
+--     info.categoryTotals, requested by opts.categoryTotals = true, is
+--     available for indexed Items with filter data. It counts query +
+--     visibility + all item predicates except category and has fields
+--     root, classes[raw class], subclasses[packed category ID]. Omitted
+--     nodes have zero matches. Rows without a class contribute only to root.
+--   Search.ClassEligible(token, allowClass, itemClass, itemSubclass, slot) -> eligible, usedItemType
+--     Uses the same mask and trainable proficiencies as the drawer. Nil means
+--     the available facts cannot establish eligibility, or the class is unavailable.
+--     The second result is true when armor or weapon rules decided eligibility.
+--   Search.StatLabel(code) -> localized label|nil
+--   Search.StatCodes([text]) -> codes in localized label order, optionally filtered by substring
+--   Search.StatSearchText(code) -> folded English label and aliases for a picker row
+--   Search.MatchStat(text) -> code|nil for a complete folded label or alias
+--   Search.Release()   -- frees per-search caches and Codex stat maps on hub hide
 --   Search.Subtitle(result) -> text|nil   -- guides "Zone · 1-6"; Codex entities Lookup.Subtitle
 --   Search.KINDS = { { key, label }, ... }   -- display order
 --   Search.Status() -> codexLoaded, reason   -- reason: Data.Pack's code
@@ -24,12 +94,27 @@
 --     off (lookup.enabled): then queries list guides only and never load the Codex.
 --
 -- Speed: the Codex ships a prebuilt index per kind (Codex.Index: one string
--- of folded names), so a keystroke is a handful of plain string.find calls
--- over it and never decodes a record; only the results returned are named
--- (Codex.Name) and, unless asked not to, given subtitles. Guide headers are
+-- of folded names), so a keystroke jumps between hits with plain string.find
+-- and never decodes a record. Only returned rows and Best match ties that
+-- can affect the page need display names. Subtitle decoding is separate
+-- and can wait until the UI draws the row. Guide headers are
 -- folded once, again when the guide list changes. Guide keywords match one
 -- tier below the title. Generated Lookup guides (ids "lookup/...") are not
 -- listed.
+--
+-- Filtered name/ID hits find their packed row by binary search in a lazy
+-- array of metadata offsets (one Lua array slot per row, O(index bytes) to
+-- build, O(log rows) per hit). On 64-bit Lua 5.1, ~22,000 rows reserve
+-- 32,768 slots at 16 bytes each (524,288 bytes). Localised clients also map
+-- translated offsets to base offsets in one forward pass. The sparse map
+-- needs about 40 bytes per allocated hash slot, rounded up to a power of
+-- two (40,960 bytes for 1,000 translated rows). Search.Release() drops both
+-- when the hub hides. A new base index replaces both, and a new translated
+-- index replaces its map on next use. Browse
+-- scans rows in index order, O(index bytes) with no offset array. A filtered
+-- Browse page caches one offset per matching row after projecting a temporary
+-- set of matches onto the base A to Z order. Counts alone need neither. The
+-- matcher reads packed fields without allocating or decoding detail records.
 --
 -- On a client in another language a quest, NPC, item, treasure or zone is
 -- also found by its name in that language (Polestar.Names, the client's map
@@ -44,7 +129,8 @@ ns.Search = Search
 local L = ns.L
 local type, ipairs, tostring, tonumber = type, ipairs, tostring, tonumber
 local find, sub, gsub, lower, byte, match, gmatch = string.find, string.sub, string.gsub, string.lower, string.byte, string.match, string.gmatch
-local min = math.min
+local char = string.char
+local min, max, floor, huge = math.min, math.max, math.floor, math.huge
 
 local STATUS = { r = "retired", n = "nosource" }
 
@@ -122,10 +208,135 @@ end
 Search.Fold = fold
 
 ---------------------------------------------------------------------------
+-- Stat labels and English aliases, shared by Search and Lookup's UI.
+---------------------------------------------------------------------------
+
+-- Each entry starts with the localized label, then its English label and aliases.
+local statLabels = {
+	[3] = { L["Agility"], "Agility" },
+	[4] = { L["Strength"], "Strength" },
+	[5] = { L["Intellect"], "Intellect" },
+	[6] = { L["Spirit"], "Spirit" },
+	[7] = { L["Stamina"], "Stamina" },
+	[12] = { L["Defense"], "Defense", "defense rating" },
+	[13] = { L["Dodge"], "Dodge", "dodge rating" },
+	[14] = { L["Parry"], "Parry", "parry rating" },
+	[15] = { L["Block Rating"], "Block Rating" },
+	[31] = { L["Hit"], "Hit", "hit rating" },
+	[32] = { L["Crit"], "Crit", "crit rating", "critical strike" },
+	[36] = { L["Haste"], "Haste", "haste rating" },
+	[37] = { L["Expertise"], "Expertise" },
+	[38] = { L["Attack Power"], "Attack Power" },
+	[39] = { L["Ranged Attack Power"], "Ranged Attack Power" },
+	[41] = { L["Spell Healing"], "Spell Healing", "healing power" },
+	[42] = { L["Spell Damage"], "Spell Damage" },
+	[43] = { L["Mana Regeneration"], "Mana Regeneration", "mana per 5", "mp5" },
+	[45] = { L["Spell Power"], "Spell Power" },
+	[46] = { L["Health Regeneration"], "Health Regeneration", "health per 5", "hp5" },
+	[47] = { L["Spell Penetration"], "Spell Penetration" },
+	[48] = { L["Block Value"], "Block Value" },
+	[50] = { L["Extra Armor"], "Extra Armor" },
+	[51] = { L["Fire Resistance"], "Fire Resistance" },
+	[52] = { L["Frost Resistance"], "Frost Resistance" },
+	[53] = { L["Holy Resistance"], "Holy Resistance" },
+	[54] = { L["Shadow Resistance"], "Shadow Resistance" },
+	[55] = { L["Nature Resistance"], "Nature Resistance" },
+	[56] = { L["Arcane Resistance"], "Arcane Resistance" },
+	[83] = { L["Physical Damage Done"], "Physical Damage Done" },
+	[84] = { L["Holy Damage Done"], "Holy Damage Done" },
+	[85] = { L["Fire Damage Done"], "Fire Damage Done" },
+	[86] = { L["Nature Damage Done"], "Nature Damage Done" },
+	[87] = { L["Frost Damage Done"], "Frost Damage Done" },
+	[88] = { L["Shadow Damage Done"], "Shadow Damage Done" },
+	[89] = { L["Arcane Damage Done"], "Arcane Damage Done", "arcane spell damage" },
+	[90] = { L["Two-Handed Axes Skill"], "Two-Handed Axes Skill" },
+	[91] = { L["Two-Handed Maces Skill"], "Two-Handed Maces Skill" },
+	[92] = { L["Two-Handed Swords Skill"], "Two-Handed Swords Skill" },
+	[96] = { L["Daggers Skill"], "Daggers Skill" },
+	[98] = { L["Fist Weapons Skill"], "Fist Weapons Skill" },
+	[112] = { L["Herbalism Skill"], "Herbalism Skill" },
+	[113] = { L["Mining Skill"], "Mining Skill" },
+	[114] = { L["Skinning Skill"], "Skinning Skill" },
+	[115] = { L["Cooking Skill"], "Cooking Skill" },
+	[117] = { L["Fishing Skill"], "Fishing Skill" },
+	[119] = { L["Fire Penetration"], "Fire Penetration" },
+	[121] = { L["Frost Penetration"], "Frost Penetration" },
+	[124] = { L["All Resistances"], "All Resistances" },
+	[127] = { L["Attack Power vs Demon"], "Attack Power vs Demon" },
+	[128] = { L["Attack Power vs Undead"], "Attack Power vs Undead" },
+	[131] = { L["Attack Power vs Beast"], "Attack Power vs Beast" },
+	[132] = { L["Attack Power vs Mechanical"], "Attack Power vs Mechanical" },
+	[135] = { L["Spell Damage vs Demon"], "Spell Damage vs Demon" },
+	[136] = { L["Spell Damage vs Undead"], "Spell Damage vs Undead" },
+}
+
+local statOrder, statExact = {}, {}
+do
+	local function index(term, code)
+		local prior = statExact[term]
+		-- A translation can make two keys ambiguous. The picker still lists both.
+		if prior == nil then statExact[term] = code
+		elseif prior ~= code then statExact[term] = false end
+	end
+	for code, entry in pairs(statLabels) do
+		entry.folded = fold(entry[1])
+		statOrder[#statOrder + 1] = code
+		index(entry.folded, code)
+		for i = 2, #entry do
+			entry[i] = fold(entry[i])
+			index(entry[i], code)
+		end
+	end
+	table.sort(statOrder, function(a, b)
+		local left, right = statLabels[a].folded, statLabels[b].folded
+		if left ~= right then return left < right end
+		return a < b
+	end)
+end
+
+-- Search.StatLabel(code) -> localized label | nil
+function Search.StatLabel(code)
+	local entry = statLabels[code]
+	return entry and entry[1]
+end
+
+function Search.StatSearchText(code)
+	local entry = statLabels[code]
+	return entry and table.concat(entry, "\n", 2)
+end
+
+-- Search.StatCodes([text]) -> fresh list of codes in localized label order.
+-- Nonempty text matches any label or English alias by folded substring.
+function Search.StatCodes(text)
+	local needle = type(text) == "string" and sub(fold(text), 2) or ""
+	local codes = {}
+	for _, code in ipairs(statOrder) do
+		local entry = statLabels[code]
+		if needle == "" or find(entry.folded, needle, 1, true) then
+			codes[#codes + 1] = code
+		else
+			for i = 2, #entry do
+				if find(entry[i], needle, 1, true) then
+					codes[#codes + 1] = code
+					break
+				end
+			end
+		end
+	end
+	return codes
+end
+
+-- Search.MatchStat(text) -> code | nil for a complete folded label or alias.
+function Search.MatchStat(text)
+	if type(text) == "string" then return statExact[fold(text)] or nil end
+end
+
+---------------------------------------------------------------------------
 -- Matching
 ---------------------------------------------------------------------------
 
 local EXACT, PREFIX, WORD, SUBSTRING, WORDS = 4, 3, 2, 1, 0
+local ID_MATCH = EXACT + 1
 
 -- q: a folded query (" black stallion"); words: its words with a leading
 -- space each, when it has several. -> tier | nil
@@ -155,15 +366,25 @@ end
 -- source. It outranks the match tier, so among items the ones a guide covers
 -- come first and a retired mount never sits above the ones on sale. (The
 -- UIs group results by kind, so this mostly reorders within a kind.)
+-- The Codex scan scores name matches with a kind weight worked out once
+-- per kind (KIND_W * its KINDS position). The ID score outranks every name.
+local STANDING_W, TIER_W, KIND_W = 10000000, 1000000, 10000
+local ID_SCORE = 3 * STANDING_W
+local STAT_SCORE = -3 * STANDING_W -- even curated stat hits come after every name hit
+local function rankScore(standing, t, kindWeight, len)
+	return standing * STANDING_W + t * TIER_W - kindWeight - min(len, 9999)
+end
 local function score(t, kind, len, standing)
-	return (standing or 1) * 10000000 + t * 1000000 - (KIND_INDEX[kind] or 99) * 10000 - min(len, 9999)
+	return rankScore(standing or 1, t, (KIND_INDEX[kind] or 99) * KIND_W, len)
 end
 
 ---------------------------------------------------------------------------
 -- Indexes
 ---------------------------------------------------------------------------
 
-local guideIndex, guideCount, guideSource
+local guideIndex, guideCount, guideSource, pagedSearch, pagedMostBrowse
+-- kind -> Browse's A to Z order of its Codex lines (orderedCodex)
+local browseIndexes = {}
 -- item id -> true when a guide of the suggestion source or ours `collects` it
 local curated = {}
 
@@ -279,103 +500,655 @@ if ns.On then
 	-- Guides.List leaves hidden packs' guides out: re-index when one switches.
 	ns.On("GUIDES_REGISTERED", function() guideIndex = nil end)
 	ns.On("PACKS_CHANGED", function() guideIndex = nil end)
+	-- Dungeons sort by their map names, which no translated index line
+	-- carries into Browse's cache key: sort them again when the names change.
+	ns.On("NAMES_LOADED", function() localIndex, pagedSearch, pagedMostBrowse, browseIndexes.instance = {}, nil, nil, nil end)
+	ns.On("CODEX_LOADED", function() pagedSearch, pagedMostBrowse = nil, nil end)
+	-- A name learned from a unit renames its entity: translate that kind's
+	-- index again, which re-sorts its Browse order (keyed by the translations).
+	ns.On("NAME_LEARNED", function(nameKind)
+		for kind, nk in pairs(NAMES_KIND) do
+			if nk == nameKind then localIndex[kind] = nil end
+		end
+	end)
+end
+
+local META = "^([^,]*),(%d*),(%a?),(%d+)"
+local RANK_META = "^([^,]*),%d*,(%a?),(%d+)"
+local RANK_NO_ID = "^[^,]*,%d*,(%a?),(%d+)"
+local RAW_ID = "^[^,]*"
+
+-- Item-backed index IDs are decimal. Read them without allocating a capture
+-- for each row in a stat scan or presence filter.
+local function itemIdAt(blob, at)
+	local id = 0
+	local digit = byte(blob, at)
+	while digit and digit >= 48 and digit <= 57 do
+		id = id * 10 + digit - 48
+		at = at + 1
+		digit = byte(blob, at)
+	end
+	return id
+end
+
+local function hidden(st, opts)
+	return (st == "r" and opts.hideRetired) or (st == "n" and opts.hideNoSource)
+end
+
+local function loadCodex()
+	local C = ns.Codex
+	if codexOn() and C and C.IsLoaded and not C.IsLoaded() and C.Load then C.Load() end
+end
+
+-- The name a localised client's row shows, or nil for the pack's English:
+-- localName first (what Lookup's rows paint, Search.LocalName), then for an
+-- item the client's item cache (Codex.Name). Sort keys and titles both use it.
+local function displayedName(kind, id)
+	local name = localName(kind, id)
+	if name then return name end
+	if NAMES_KIND[kind] == "item" and type(id) == "number" then return ns.Compat.GetItemName(id) end
+end
+
+local function codexTitle(kind, id, rawId, localNames)
+	return (localNames and displayedName(kind, id)) or ns.Codex.Name(kind, id) or rawId
+end
+
+local function codexRow(kind, blob, at, title)
+	local rawId, quality, st = match(blob, META, at)
+	local id = kind == "instance" and rawId or tonumber(rawId)
+	return { kind = kind, id = id, title = title or codexTitle(kind, id, rawId, localised()),
+		quality = tonumber(quality), status = STATUS[st], curated = curated[id] or nil }
+end
+
+---------------------------------------------------------------------------
+-- Item filters
+---------------------------------------------------------------------------
+
+local weaponProficiency, modeledWeapons
+local function classProficiency(token)
+	if type(token) ~= "string" then return end
+	-- Core loads before Gear, so resolve the tables when a class is requested.
+	local gear = ns.Gear
+	if not (gear and gear.CLASSES and gear.PROFICIENCY) then return end
+	local class, prof = gear.CLASSES[token], gear.PROFICIENCY[token]
+	if not (class and prof) then return end
+	if weaponProficiency ~= gear.PROFICIENCY then
+		-- A subclass trained by any class is modeled. Others have unknown proficiency.
+		weaponProficiency, modeledWeapons = gear.PROFICIENCY, {}
+		for _, rules in pairs(weaponProficiency) do
+			for subclass in pairs(rules.weapons) do modeledWeapons[subclass] = true end
+		end
+	end
+	return class.bit, prof, modeledWeapons
+end
+
+local function classEligible(bit, prof, modeled, allowClass, itemClass, itemSubclass, slot)
+	if allowClass == nil then return nil end
+	if floor(allowClass / bit) % 2 == 0 then return false end
+	if slot == 0 then return true end
+	if itemClass == nil then return nil end
+	if itemClass == 4 then -- Armor
+		local anyArmor = ns.Gear.ANY_ARMOR_INV
+		if anyArmor and anyArmor[slot] then return true, true end
+		if itemSubclass == nil then return nil end
+		if itemSubclass >= 1 and itemSubclass <= 4 then
+			return itemSubclass <= max(prof.armor, prof.armorAt40 or prof.armor), true
+		end
+		if itemSubclass == 6 then return prof.shield == true, true end
+		if itemSubclass >= 7 and itemSubclass <= 9 then return prof.relic == itemSubclass, true end
+		if itemSubclass == 0 or itemSubclass == 5 then return true, true end -- Miscellaneous or Cosmetic
+		return nil
+	end
+	if itemClass == 2 then -- Weapon
+		if itemSubclass == 14 or itemSubclass == 20 then return true, true end -- Miscellaneous or Fishing Pole
+		if not modeled[itemSubclass] then return nil end
+		if slot == nil and not prof.dualWield and prof.weapons[itemSubclass] == true then return nil end
+		return prof.weapons[itemSubclass] == true and (slot ~= 22 or not not prof.dualWield), true
+	end
+	return true
+end
+
+function Search.ClassEligible(token, allowClass, itemClass, itemSubclass, slot)
+	local bit, prof, modeled = classProficiency(token)
+	if bit then return classEligible(bit, prof, modeled, allowClass, itemClass, itemSubclass, slot) end
+end
+
+local function integer(value, max)
+	if type(value) == "number" and value >= 0 and value <= max and value % 1 == 0 then
+		return value == 0 and 0 or value -- canonicalize negative zero for the key
+	end
+end
+
+-- Keep all maps used by one call alive across Codex's two-entry cache.
+-- Memoize misses too, so a code shared by several roles is asked for once.
+local function statItems(code, maps)
+	if not maps then return ns.Codex.StatItems(code) end
+	local items = maps[code]
+	if items == nil then
+		items = ns.Codex.StatItems(code) or false
+		maps[code] = items
+	end
+	return items or nil
+end
+
+local function normalizeFilters(input, statGeneration)
+	if type(input) ~= "table" then return end
+	local reqMin, reqMax = integer(input.reqMin, 999), integer(input.reqMax, 999)
+	local ilvlMin, ilvlMax = integer(input.ilvlMin, 999), integer(input.ilvlMax, 999)
+	if reqMin and reqMax and reqMin > reqMax then reqMin, reqMax = nil, nil end
+	if ilvlMin and ilvlMax and ilvlMin > ilvlMax then ilvlMin, ilvlMax = nil, nil end
+	local slot = integer(input.slot, 34)
+	local category
+	if type(input.category) == "table" then
+		local class = integer(input.category.class, 255)
+		if class then
+			local subclass = integer(input.category.subclass, 254)
+			category = { class = class, subclass = subclass, key = class * 256 + (subclass or 255) }
+		end
+	end
+	local qualities, qualityMask = nil, 0
+	if type(input.quality) == "table" then
+		for q = 0, 8 do
+			if input.quality[q] == true then
+				qualities = qualities or {}
+				qualities[48 + q] = true -- Index byte for this quality
+				qualityMask = qualityMask + 2 ^ q
+			end
+		end
+	end
+	local classBit, prof, modeled = classProficiency(input.class)
+	local stat = statGeneration and statLabels[input.stat] and input.stat or nil
+	local packed = reqMin or reqMax or ilvlMin or ilvlMax or slot or classBit
+	if not (packed or qualities or stat) then return nil, category end
+	return {
+		reqMin = reqMin, reqMax = reqMax, ilvlMin = ilvlMin, ilvlMax = ilvlMax,
+		slot = slot, qualities = qualities, packed = packed ~= nil,
+		classBit = classBit, prof = prof, modeledWeapons = modeled,
+		stat = stat,
+		key = table.concat({ reqMin or "", reqMax or "", ilvlMin or "", ilvlMax or "", qualityMask, slot or "",
+			classBit and input.class or "", stat or "", stat and statGeneration or "" }, ":"),
+	}, category
+end
+
+local function filterInfo(opts)
+	if opts and (opts.filters ~= nil or opts.categoryTotals == true) then
+		local C, gear = ns.Codex, ns.Gear
+		local token = type(opts.filters) == "table" and opts.filters.class
+		return { filtersAvailable = C and C.HasFilters and C.HasFilters() or false,
+			classFilterDormant = type(token) == "string" and token ~= "" and not (gear and gear.CLASSES and gear.PROFICIENCY),
+			filtersApplied = false, preFilterCounts = {} }
+	end
+end
+
+local function newCategoryTotals()
+	return { root = 0, classes = {}, subclasses = {} }
+end
+
+local function inRange(value, lo, hi)
+	return (not lo and not hi) or (value ~= nil and (not lo or value >= lo) and (not hi or value <= hi))
+end
+
+local function matchesItem(filters, req, ilvl, slot, blob, at)
+	if filters.qualities then
+		local qualityAt = find(blob, ",", at, true) + 1
+		local quality, comma = byte(blob, qualityAt, qualityAt + 1)
+		if comma ~= 44 or not filters.qualities[quality] then return false end
+	end
+	return inRange(req, filters.reqMin, filters.reqMax)
+		and inRange(ilvl, filters.ilvlMin, filters.ilvlMax)
+		and (not filters.slot or filters.slot == slot)
+		and (not filters.stat or (filters.statItems and filters.statItems[itemIdAt(blob, at)] ~= nil))
+end
+
+-- Count the category scope before drawer predicates, and tally the sidebar
+-- categories from every drawer match. Both paths share the packed decode.
+local function filterItem(filters, category, column, row, blob, at, totals)
+	local req, ilvl, allowClass, slot, categoryId
+	if category or totals or (filters and filters.packed) then
+		req, ilvl, allowClass, slot, categoryId = ns.Codex.DecodeFilter(column, row)
+	end
+	local classBit = filters and filters.classBit
+	local class, subclass
+	if categoryId and (category or totals or classBit) then
+		class, subclass = ns.Codex.FilterCategory(categoryId)
+	end
+	local inScope = not category or (class == category.class and (not category.subclass or subclass == category.subclass))
+	if not (inScope or totals) then return false, false end
+	if filters and not matchesItem(filters, req, ilvl, slot, blob, at) then return inScope, false end
+	if classBit and not classEligible(classBit, filters.prof, filters.modeledWeapons, allowClass, class, subclass, slot) then
+		return inScope, false
+	end
+	if totals then
+		totals.root = totals.root + 1
+		if class then totals.classes[class] = (totals.classes[class] or 0) + 1 end
+		if subclass then totals.subclasses[categoryId] = (totals.subclasses[categoryId] or 0) + 1 end
+	end
+	return inScope, inScope
+end
+
+local filterOffsets = {}
+
+local function itemOffsets(kind, blob, extra)
+	local cached = filterOffsets[kind]
+	if not cached or cached.blob ~= blob then
+		local offsets = {}
+		for at in gmatch(blob, "\1()") do offsets[#offsets + 1] = at end
+		cached = { blob = blob, offsets = offsets }
+		filterOffsets[kind] = cached
+	end
+	if extra and cached.extra ~= extra then
+		local translated, start = {}, 1
+		-- translatedBlob emits a subset of the base index, in the same order.
+		for at, id in gmatch(extra, "\1()([^,]*),") do
+			local base = find(blob, "\1" .. id .. ",", start, true)
+			translated[at], start = base + 1, base + 1
+		end
+		cached.extra, cached.translated = extra, translated
+	end
+	return cached.offsets, extra and cached.translated
+end
+
+local function rowAt(offsets, at)
+	local lo, hi = 1, #offsets
+	while lo <= hi do
+		local mid = floor((lo + hi) / 2)
+		local offset = offsets[mid]
+		if offset == at then return mid end
+		if offset < at then lo = mid + 1 else hi = mid - 1 end
+	end
+end
+
+---------------------------------------------------------------------------
+-- Most <stat>
+---------------------------------------------------------------------------
+
+local function mostStatCode(opts)
+	if opts.order == "most" and statLabels[opts.sortStat] then return opts.sortStat end
+end
+
+-- Both stat orders use the folded displayed name (the row's title, from
+-- displayedName) and a decimal ID whose width sorts first, so equally folded
+-- names tie by numeric ID.
+local function statOrderKey(kind, blob, at, rawId, useLocalName)
+	local shown = useLocalName and displayedName(kind, tonumber(rawId))
+	local folded
+	if shown then
+		folded = sub(fold(shown), 2)
+	else
+		local start = at - 2
+		while byte(blob, start) ~= 2 do start = start - 1 end
+		folded = sub(blob, start + 1, at - 2)
+	end
+	return folded .. "\0" .. char(#rawId) .. rawId
+end
+
+local function keepMost(order, groups, at, amount, column, row)
+	local levelsSource = not amount and column and ns.Codex.FilterLevelsSource(column, row)
+	local key = amount or (levelsSource and "absent" or "unknown")
+	local bucket = groups[key]
+	if not bucket then
+		bucket = { statBucket = amount and (amount == 0 and 2 or 1) or (levelsSource and 3 or 4),
+			statAmount = amount ~= 0 and amount or nil }
+		groups[key] = bucket
+		order[#order + 1] = bucket
+	end
+	bucket[#bucket + 1] = at
+end
+
+local function mostFirst(a, b)
+	if a.statBucket ~= b.statBucket then return a.statBucket < b.statBucket end
+	return a.statBucket == 1 and a.statAmount > b.statAmount
+end
+
+-- Sort only ties that intersect the page, with the same offset list reused
+-- on later pages. Keep offsets and bucket metadata, not names or stat maps.
+local function appendMostPage(results, kind, blob, hits, offset, cap)
+	local start, stop = offset + 1, offset + cap
+	for _, bucket in ipairs(hits) do
+		if start <= #bucket and stop >= 1 then
+			if #bucket > 1 and not bucket.ordered then
+				local trailerWidth, useLocalName = #tostring(#blob) + 1, localised()
+				for i, at in ipairs(bucket) do
+					bucket[i] = statOrderKey(kind, blob, at, match(blob, RAW_ID, at), useLocalName) .. "\0" .. at
+				end
+				table.sort(bucket)
+				for i, key in ipairs(bucket) do bucket[i] = tonumber(match(key, "%z(%d+)$", -trailerWidth)) end
+				bucket.ordered = true
+			end
+			for i = max(start, 1), min(stop, #bucket) do
+				local row = codexRow(kind, blob, bucket[i])
+				row.statBucket, row.statAmount = bucket.statBucket, bucket.statAmount
+				results[#results + 1] = row
+			end
+		end
+		start, stop = start - #bucket, stop - #bucket
+		if stop <= 0 then return end
+	end
+end
+
+---------------------------------------------------------------------------
+-- Browse
+---------------------------------------------------------------------------
+
+local browseCounts = {}
+local filteredBrowseCache = {}
+local guideBrowseSource, guideOrder
+local BROWSE_LINE = "\2([^\1]*)\1()([^,]*),%d*,(%a?),(%d+)\n"
+local FILTER_BROWSE_LINE = "\1()[^,]*,%d*,(%a?),%d+\n"
+local MOST_BROWSE_LINE = "\2[^\1]*\1()(%d+),%d*,(%a?),%d+\n"
+
+local function baseBrowseCount(kind, blob, opts)
+	local cached = browseCounts[kind]
+	if not cached or cached.blob ~= blob then
+		local count = 0
+		for _ in gmatch(blob, "\n") do count = count + 1 end
+		cached = { blob = blob, count = count }
+		browseCounts[kind] = cached
+	end
+	local count = cached.count
+	if opts and (opts.hideRetired or opts.hideNoSource) then
+		if not cached.r then
+			local retired, nosource = 0, 0
+			for st in gmatch(blob, ",([rn]),%d+\n") do
+				if st == "r" then retired = retired + 1 else nosource = nosource + 1 end
+			end
+			cached.r, cached.n = retired, nosource
+		end
+		if opts.hideRetired then count = count - cached.r end
+		if opts.hideNoSource then count = count - cached.n end
+	end
+	return count
+end
+
+local function filteredBrowse(kind, blob, opts, info, sorted, sortCode, generation, extra)
+	local available = info and info.filtersAvailable and NAMES_KIND[kind] == "item"
+	if not (available or sortCode) then return end
+	local C = ns.Codex
+	local filters, category
+	if available then filters, category = normalizeFilters(opts.filters, generation or C.StatGeneration and C.StatGeneration()) end
+	if kind ~= "item" then category = nil end
+	local wantTotals = available and kind == "item" and opts.categoryTotals == true
+	local hasPredicates = (filters or category) ~= nil
+	if not (hasPredicates or wantTotals or sortCode) then return end
+	local key = filters and filters.key
+	local categoryKey = category and category.key
+	local column = C.FilterColumn(kind)
+	local cached = sortCode and pagedMostBrowse or filteredBrowseCache[kind]
+	if not (cached and cached.blob == blob and cached.column == column and cached.key == key and cached.categoryKey == categoryKey
+		and cached.kind == kind and cached.sortCode == sortCode and cached.generation == generation and cached.extra == extra
+		and cached.hideRetired == opts.hideRetired and cached.hideNoSource == opts.hideNoSource
+		and (cached.wantTotals or not wantTotals) and (not (sorted and hasPredicates) or cached.sorted == sorted)) then
+		local totals = wantTotals and newCategoryTotals() or nil
+		local row, count, before = 0, 0, 0
+		local matched = sorted and hasPredicates and {}
+		local order, groups, amounts
+		local statMaps = sortCode and filters and filters.stat and {}
+		if filters and filters.stat then filters.statItems = statItems(filters.stat, statMaps) end
+		if sortCode then order, groups, amounts = {}, {}, statItems(sortCode, statMaps) end
+		for at, idOrStatus, status in gmatch(blob, sortCode and MOST_BROWSE_LINE or FILTER_BROWSE_LINE) do
+			row = row + 1
+			if not hidden(status or idOrStatus, opts) then
+				local inScope, matches = true, true
+				if hasPredicates or totals then inScope, matches = filterItem(filters, category, column, row, blob, at, totals) end
+				if inScope then before = before + 1 end
+				if matches then
+					count = count + 1
+					if matched then matched[at] = true end
+					if sortCode then
+						local amount = amounts and amounts[tonumber(idOrStatus)]
+						keepMost(order, groups, at, amount, column, row)
+					end
+				end
+			end
+		end
+		if matched then
+			order = {}
+			for _, at in ipairs(sorted.order) do
+				if matched[at] then order[#order + 1] = at end
+			end
+		end
+		if sortCode then table.sort(order, mostFirst) end
+		cached = { kind = kind, blob = blob, column = column, key = key, categoryKey = categoryKey,
+			sortCode = sortCode, generation = generation, extra = extra,
+			hideRetired = opts.hideRetired, hideNoSource = opts.hideNoSource,
+			wantTotals = wantTotals, sorted = sorted, order = order, count = count, before = before, totals = totals }
+		if sortCode then pagedMostBrowse = cached else filteredBrowseCache[kind] = cached end
+	end
+	if info then
+		info.filtersApplied = hasPredicates
+		info.preFilterCounts[kind] = cached.before
+		if wantTotals then info.categoryTotals = cached.totals end
+	end
+	return cached
+end
+
+function Search.BrowseCount(kind, opts)
+	local info = filterInfo(opts)
+	local count
+	if kind == "guide" then
+		count = #guideList()
+	else
+		local blob = codexBlob(kind)
+		if blob then
+			local filtered = filteredBrowse(kind, blob, opts, info)
+			count = filtered and filtered.count or baseBrowseCount(kind, blob, opts)
+		elseif Search.Status() and ns.Codex.Index then
+			count = 0
+		end
+		if info and NAMES_KIND[kind] == "item" and info.preFilterCounts[kind] == nil then
+			info.preFilterCounts[kind] = count
+		end
+	end
+	if info then return count, info end
+	return count
+end
+
+local function orderedGuides(list)
+	if guideBrowseSource == list then return guideOrder end
+	local order = {}
+	for i = 1, #list do order[i] = i end
+	table.sort(order, function(i, j)
+		local a, b = list[i], list[j]
+		if a.folded ~= b.folded then return a.folded < b.folded end
+		if #a.title ~= #b.title then return #a.title < #b.title end
+		return a.id < b.id
+	end)
+	guideBrowseSource, guideOrder = list, order
+	return order
+end
+
+local function orderedCodex(kind, blob, extra)
+	local cached = browseIndexes[kind]
+	if cached and cached.blob == blob and cached.extra == extra then return cached end
+
+	local translations = {}
+	if extra then
+		for folded, _, id, _, len in gmatch(extra, BROWSE_LINE) do
+			translations[id] = { folded = folded, len = len }
+		end
+	end
+	local order, translatedAt = {}, {}
+	local stringIds = kind == "instance"
+	-- Dungeons have no translated index lines; their client names (the ones
+	-- the rows show) come from the map names, so sort by those.
+	local mapNames = stringIds and localised()
+	local retired, nosource = 0, 0
+	for folded, at, rawId, st, len in gmatch(blob, BROWSE_LINE) do
+		local translation = translations[rawId]
+		if translation then
+			folded, len = translation.folded, translation.len
+			translatedAt[rawId] = at
+		elseif mapNames then
+			local shown = localName(kind, rawId)
+			if shown then folded, len = sub(fold(shown), 2), tostring(#shown) end
+		end
+		if st == "r" then retired = retired + 1 elseif st == "n" then nosource = nosource + 1 end
+		local availability = STATUS[st] and "1" or "0"
+		-- NUL ends the folded name before any longer name with the same prefix.
+		-- Lengths and numeric game IDs are plain decimal, so digit count then digits sorts by value.
+		local idWidth = stringIds and "" or char(#rawId)
+		order[#order + 1] = availability .. folded .. "\0" .. char(#len) .. len .. idWidth .. rawId .. "\0" .. st .. at
+	end
+	table.sort(order)
+	-- The two status-specific tails share the same available prefix.
+	local tails, available = { r = {}, n = {} }, #order - retired - nosource
+	local trailerWidth = #tostring(#blob) + 2 -- offset digits, optional status and NUL
+	for i, key in ipairs(order) do
+		local st, offset = match(key, "%z(%a?)(%d+)$", -trailerWidth)
+		local at = tonumber(offset)
+		order[i] = at
+		if i > available then
+			local tail = tails[st]
+			tail[#tail + 1] = at
+		end
+	end
+	cached = { blob = blob, extra = extra, order = order, available = available, tails = tails, translations = translatedAt }
+	browseIndexes[kind] = cached
+	browseCounts[kind] = { blob = blob, count = #order, r = retired, n = nosource }
+	return cached
+end
+
+function Search.Browse(kind, opts)
+	opts = opts or {}
+	if kind ~= "guide" then loadCodex() end
+	local info = filterInfo(opts)
+	local results = {}
+	local offset, limit = opts.offset or 0, opts.limit or DEFAULT_LIMIT
+	if kind == "guide" then
+		local list = guideList()
+		local order = orderedGuides(list)
+		for i = offset + 1, min(#order, offset + limit) do
+			local g = list[order[i]]
+			results[#results + 1] = { kind = kind, id = g.id, title = g.title, subtitle = g.subtitle }
+		end
+		if info then return results, #order, info end
+		return results, #order
+	end
+
+	local blob = codexBlob(kind)
+	if not blob then
+		if info then
+			if NAMES_KIND[kind] == "item" then info.preFilterCounts[kind] = 0 end
+			return results, 0, info
+		end
+		return results, 0
+	end
+	guideList() -- fills the curated set, also used by Query
+	local extra = translatedBlob(kind, blob)
+	local sortCode = NAMES_KIND[kind] == "item" and mostStatCode(opts)
+	local C = ns.Codex
+	local generation = sortCode and C.StatGeneration and C.StatGeneration()
+	if generation then
+		local sorted = filteredBrowse(kind, blob, opts, info, nil, sortCode, generation, extra)
+		appendMostPage(results, kind, blob, sorted.order, offset, limit)
+		if info then return results, sorted.count, info end
+		return results, sorted.count
+	end
+	local sorted = orderedCodex(kind, blob, extra)
+	local filtered = filteredBrowse(kind, blob, opts, info, sorted)
+	local order = filtered and filtered.order or sorted.order
+	local split, tail = #order
+	if order == sorted.order and (opts.hideRetired or opts.hideNoSource) then
+		split = sorted.available
+		if not opts.hideRetired then tail = sorted.tails.r
+		elseif not opts.hideNoSource then tail = sorted.tails.n end
+	end
+	local count = split + (tail and #tail or 0)
+	for i = offset + 1, min(count, offset + limit) do
+		local result = codexRow(kind, blob, i <= split and order[i] or tail[i - split])
+		if opts.subtitles ~= false then Search.Subtitle(result) end
+		results[#results + 1] = result
+	end
+	if info then
+		if NAMES_KIND[kind] == "item" and not filtered then info.preFilterCounts[kind] = count end
+		return results, count, info
+	end
+	return results, count
 end
 
 ---------------------------------------------------------------------------
 -- Query
 ---------------------------------------------------------------------------
 
--- Keeps the best `cap` (score, key) pairs of one kind, best first.
-local function keep(top, cap, s, i)
-	local n = top.n
-	if n >= cap and s <= top.s[n] then return end
-	local scores, idx = top.s, top.i
-	local pos = n < cap and n + 1 or n
-	while pos > 1 and scores[pos - 1] < s do
-		scores[pos], idx[pos] = scores[pos - 1], idx[pos - 1]
-		pos = pos - 1
+-- Fold once per query. For several words, scan for the longest word and
+-- check each candidate's name for the complete phrase or all its words.
+local function queryTerms(text, ids)
+	if type(text) ~= "string" then return end
+	local id
+	if ids then
+		local prefix
+		prefix, id = match(text, "^%s*(#?)0*([1-9][0-9]*)%s*$")
+		if prefix == "#" then return { id = id } end
+		if not id and find(text, "^%s*#") then return nil, "id-syntax" end
 	end
-	scores[pos], idx[pos] = s, i
-	if n < cap then top.n = n + 1 end
+	local q = fold(text)
+	if q == "" then return end
+	local body = sub(q, 2)
+	local short = #body == 1
+	local words, needle = nil, short and ("\2" .. body) or body
+	if find(body, " ", 1, true) then
+		words, needle = {}, ""
+		for word in gmatch(body, "%S+") do
+			words[#words + 1] = word
+			if #word > #needle then needle = word end
+		end
+	end
+	return { q = q, body = body, short = short, words = words, needle = needle, id = id,
+		stat = ids and statExact[q] or nil }
 end
 
-local META = "^([^,]*),(%d*),(%a?),(%d+)"
-
--- Candidates read per kind and query, best tiers first. A broad query ("s",
--- "in", "gar eth") can touch thousands of names; past this the rest only
--- counts as "more", which keeps a keystroke within a few milliseconds.
-local BUDGET = 200
-
--- Reuse the tier checks across queries; building closures for each kind and
--- tier made even English guide-menu searches allocate more garbage.
-local function matchTier(t, at, e, blob, blen, words)
-	if t == PREFIX then return e == at + 1 + blen and EXACT or PREFIX end
-	if t ~= WORDS then return t end
-	local s = at
-	while byte(blob, s) ~= 2 do s = s - 1 end
-	local f = sub(blob, s + 1, e - 1)
-	for i = 1, #words do
-		if not find(f, words[i], 1, true) then return nil end
-	end
-	return WORDS
-end
-
--- One kind's matches in its English and translated blobs, best `cap` kept in
--- `top` (offsets in the English blob, then the translation's offsets plus the
--- English length). Match both languages at each tier: name prefixes, then (2+
--- letters) word prefixes (" " .. q), anywhere, and (several words) lines
--- holding every word. A line counts once, at its best tier. -> matches, more
-local function scanBlob(base, extra, kind, body, short, words, cap, top)
-	local seen, ids, n, reads = {}, {}, 0, 0
-	local blen = #body
-	local function hit(blob, e, key, t)
-		seen[key] = true
-		local id, _, st, len = match(blob, META, e + 1)
-		-- An id found by its English and its localised name counts once, at
-		-- the better tier (the tiers run best first).
-		if ids[id] then return end
-		ids[id] = true
-		n = n + 1
-		local standing = st ~= "" and 0 or curated[tonumber(id)] and 2 or 1
-		keep(top, cap, score(t, kind, tonumber(len) or 0, standing), key)
-	end
-	-- -> true when the budget ran out with candidates left
-	local function each(q, tier)
-		for part = 1, extra and 2 or 1 do
-			local blob, offset = base, 0
-			if part == 2 then blob, offset = extra, #base end
-			local at = find(blob, q, 1, true)
-			while at do
-				local e = find(blob, "\1", at, true)
-				if not e then break end
-				-- A match in a line's metadata precedes the next name marker.
-				local s2 = find(blob, "\2", at + 1, true)
-				if s2 and s2 < e then
-					at = find(blob, q, s2, true)
-				else
-					local key = e + offset
-					if not seen[key] then
-						if reads >= BUDGET then return true end
-						reads = reads + 1
-						local t = matchTier(tier, at, e, blob, blen, words)
-						if t then hit(blob, e, key, t) end
+-- Visit each matching line once. For count-only searches a simple query
+-- needs neither the full name nor its metadata; skip straight to the next hit.
+local function scanNames(blob, kind, terms, ranked, hit)
+	local needle, words, short = terms.needle, terms.words, terms.short
+	local nameOnly = short or (kind ~= "instance" and #needle > 1 and not find(needle, "%d"))
+	local at, last = find(blob, needle, 1, true)
+	local n = 0
+	-- Several words: each word's first place in the blob past the last line
+	-- checked. Lines come in blob order, so each word is searched for about
+	-- once across the blob, and a line missing a word is passed over without
+	-- copying its name (tier would find no match in it).
+	local nextAt = words and {}
+	while at do
+		local e = find(blob, "\1", last + 1, true)
+		if not e then break end
+		local nl = not nameOnly and find(blob, "\n", at, true)
+		if nl and nl < e then
+			at, last = find(blob, needle, nl + 1, true)
+		else
+			local t = SUBSTRING
+			if words then
+				local start = at - 1
+				while byte(blob, start) ~= 2 do start = start - 1 end
+				t = nil
+				local all = true
+				for i = 1, #words do
+					local p = nextAt[i]
+					if not p or p <= start then
+						p = find(blob, words[i], start + 1, true) or huge
+						nextAt[i] = p
 					end
-					at = find(blob, q, e, true)
+					if p >= e then all = false; break end
+				end
+				if all then t = tier(" " .. sub(blob, start + 1, e - 1), terms.q, terms.body, false, words) end
+			elseif ranked then
+				local b = byte(blob, at - 1)
+				if short or b == 2 then
+					t = last + 1 == e and EXACT or PREFIX
+				elseif b == 32 or find(sub(blob, at, e - 1), terms.q, 1, true) then
+					t = WORD
 				end
 			end
+			if t then
+				-- The name runs at least from the match to its end (past a
+				-- short needle's marker): fold never lengthens a name, so
+				-- this never exceeds the title length the score uses.
+				if hit then hit(e + 1, t, nil, nil, short and e - at - 1 or e - at) else n = n + 1 end
+			end
+			at, last = find(blob, needle, (nl or e) + 1, true)
 		end
-		return false
 	end
-	if each("\2" .. body, PREFIX) then return n, true end
-	if short then return n, false end
-	if each(" " .. body, WORD) then return n, true end
-	if each(body, SUBSTRING) then return n, true end
-	if words then
-		local longest = words[1]
-		for i = 2, #words do if #words[i] > #longest then longest = words[i] end end
-		if each(longest, WORDS) then return n, true end
-	end
-	return n, false
+	return n
 end
 
 local function wants(kinds, kind)
@@ -400,88 +1173,469 @@ local function guideTier(g, q, body, short, words)
 	return best
 end
 
+-- Best match order: score, then title, then id. searchCodex's before and
+-- keep, and orderBucket's sort keys, give this same order; they repeat it
+-- inline because they run for every hit that ties (a call there cost a
+-- keystroke about 5%).
+local function bestFirst(a, b)
+	if a.score ~= b.score then return a.score > b.score end
+	if a.title ~= b.title then return a.title < b.title end
+	return tostring(a.id) < tostring(b.id)
+end
+
+local function searchGuides(list, terms, az, show)
+	local hits, n = {}, 0
+	local order = az and orderedGuides(list)
+	for i = 1, #list do
+		local g = list[order and order[i] or i]
+		local t = guideTier(g, terms.q, terms.body, terms.short, terms.words)
+		if t then
+			n = n + 1
+			if show then
+				hits[n] = { kind = "guide", id = g.id, title = g.title, subtitle = g.subtitle,
+					score = not az and score(t, "guide", #g.title) or nil }
+			end
+		end
+	end
+	if show and not az then table.sort(hits, bestFirst) end
+	return hits, n
+end
+
+-- A later keystroke often finds lines the last one found too. Cache the
+-- query-independent part of their score by offset, without storing names.
+-- It makes an Everything keystroke about a third faster and grows to about
+-- 50 bytes a Codex line (some 2 MB with every line), so Search.Release
+-- drops it when the searches close.
+local scoreIndexes = {}
+
+-- Free transient ranks, matches and filter data. The base A to Z orders
+-- stay (they are slow to rebuild).
+function Search.Release()
+	scoreIndexes, pagedSearch = {}, nil
+	filterOffsets, filteredBrowseCache, pagedMostBrowse = {}, {}, nil
+	local C = ns.Codex
+	if C and C.ReleaseStatItems then C.ReleaseStatItems() end
+end
+
+-- A few plain index probes cost less than parsing every decimal ID. For
+-- larger posting lists use one forward pass, independent of the list size.
+local function sparseStatItems(items)
+	local id
+	for _ = 1, 17 do
+		id = next(items, id)
+		if not id then return true end
+	end
+	return false
+end
+
+local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full, cap, filters, category, wantTotals, most, statMaps)
+	local hideRetired, hideNoSource = opts.hideRetired, opts.hideNoSource
+	local useLocalName = show and not az and not most and localised()
+	local checkItems = filters or category or wantTotals
+	local key = filters and filters.key
+	local categoryKey = category and category.key
+	local column = (checkItems or most) and ns.Codex.FilterColumn(kind)
+	local statGeneration = NAMES_KIND[kind] == "item" and terms.statGeneration
+	local sortCode, sortGeneration = most and most.code, most and most.generation
+	-- Only the paged kind needs a complete ordered list. The guide index
+	-- participates in its key because its curated set affects item scores.
+	local cached = full and pagedSearch
+	if cached and cached.kind == kind and cached.blob == blob and cached.extra == extra
+		and cached.guides == list and cached.q == terms.q and cached.id == terms.id and cached.az == az
+		and cached.localNames == useLocalName and cached.statGeneration == statGeneration
+		and cached.sortCode == sortCode and cached.sortGeneration == sortGeneration
+		and cached.filterKey == key and cached.categoryKey == categoryKey and cached.column == column and cached.wantTotals == wantTotals
+		and cached.hideRetired == hideRetired and cached.hideNoSource == hideNoSource then
+		return cached.hits, cached.n, cached.before, cached.totals
+	end
+	-- The separators anchor the decimal ID to the index line's metadata.
+	local idAt = terms.id and NAMES_KIND[kind] == "item" and find(blob, "\1" .. terms.id .. ",", 1, true)
+	if idAt then idAt = idAt + 1 end
+	local totals = wantTotals and newCategoryTotals() or nil
+	if not (terms.q or idAt) then return {}, 0, 0, totals end
+	local textItems = statGeneration and statItems(terms.stat, statMaps)
+	if textItems and terms.sparseStatItems == nil then terms.sparseStatItems = sparseStatItems(textItems) end
+	if not (show or extra or hideRetired or hideNoSource or idAt or textItems or checkItems) then
+		return nil, scanNames(blob, kind, terms, false)
+	end
+	-- Most kinds hold no line with the query (scanNames looks for this same
+	-- needle): their result needs none of the lists and closures below, which
+	-- a keystroke would otherwise build for every kind.
+	if not (idAt or textItems) and not find(blob, terms.needle, 1, true)
+		and not (extra and find(extra, terms.needle, 1, true)) then
+		return {}, 0, checkItems and 0, totals
+	end
+	if filters and filters.stat then filters.statItems = statItems(filters.stat, statMaps) end
+
+	local offsets, translated
+	if category or wantTotals or (filters and filters.packed) or (most and extra) then
+		offsets, translated = itemOffsets(kind, blob, extra)
+	end
+	local ranked = show and not az and not most
+	local hits, n, beforeFilters = {}, 0, 0
+	local groups = most and {}
+	local amounts = most and statItems(sortCode, statMaps)
+	local buckets = ranked and full and {}
+	local seen = (extra or idAt or textItems) and {} or nil
+	local sorted = az and orderedCodex(kind, blob, extra)
+	local marked = az and {}
+	local usesCurated = ranked and next(curated) ~= nil
+	local kindWeight = (KIND_INDEX[kind] or 99) * KIND_W
+	local filter = hideRetired or hideNoSource
+	-- rankScore without the length for each standing and tier, worked out
+	-- once rather than for every hit (a call there costs a filtered keystroke
+	-- about 5%). A hit scores this minus min(len, 9999), rankScore's length
+	-- term. tierCeiling is the best any line can reach at a tier: ceiling[2]
+	-- while a guide collects items, else ceiling[1] (uncurated).
+	local ceiling = {}
+	for standing = 0, 2 do
+		ceiling[standing] = {}
+		for t = WORDS, EXACT do ceiling[standing][t] = rankScore(standing, t, kindWeight, 0) end
+	end
+	local tierCeiling = ceiling[usesCurated and 2 or 1]
+	local floorScore
+	local baseScores
+	if ranked and not (seen or filter or checkItems) then
+		local cached = scoreIndexes[kind]
+		if not cached or cached.blob ~= blob or cached.guides ~= list then
+			cached = { blob = blob, guides = list, scores = {} }
+			scoreIndexes[kind] = cached
+		end
+		baseScores = cached.scores
+	end
+	local function name(rawId)
+		local id = kind == "instance" and rawId or tonumber(rawId)
+		return codexTitle(kind, id, rawId, useLocalName)
+	end
+	local function tieKey(at, id, statOnly)
+		if statOnly then return statOrderKey(kind, blob, at, id, useLocalName) end
+		return name(id)
+	end
+	local function entryKey(entry)
+		if not entry.key then entry.key = tieKey(entry.at, entry.id, entry.statOnly) end
+		return entry.key
+	end
+	-- bestFirst's order, naming rows only when their scores tie.
+	local function before(a, b)
+		if a.score ~= b.score then return a.score > b.score end
+		local an, bn = entryKey(a), entryKey(b)
+		if an ~= bn then return an < bn end
+		return a.id < b.id
+	end
+	local function keep(at, id, s, translation, statOnly)
+		if buckets then
+			local bucket = buckets[s]
+			if not bucket then
+				bucket = { score = s, statOnly = statOnly }
+				buckets[s] = bucket
+				hits[#hits + 1] = bucket
+			end
+			bucket[#bucket + 1] = translation and -at or at
+			return
+		end
+		if floorScore and s < floorScore then return end
+		local last = #hits
+		local tail = last == cap and hits[last]
+		-- A full list takes it only when it ranks above the last entry (s is
+		-- at least the floor); names are asked for only when the scores tie.
+		local key
+		if tail and s == tail.score then
+			key = tieKey(at, id, statOnly)
+			local against = entryKey(tail) -- not before(entry, tail): no entry yet
+			if key > against or (key == against and id >= tail.id) then return end
+		end
+		local entry = { at = at, id = id, score = s, translation = translation, key = key, statOnly = statOnly }
+		local pos = tail and last or last + 1
+		while pos > 1 and before(entry, hits[pos - 1]) do
+			hits[pos] = hits[pos - 1]
+			pos = pos - 1
+		end
+		hits[pos] = entry
+		if #hits == cap then floorScore = hits[cap].score end
+	end
+	-- Hits that only add to the count when they cannot make the list (no
+	-- duplicate, visibility or filter check needs their metadata).
+	local prunable = not (seen or filter or checkItems)
+	local function scan(source, translation, statsOnly)
+		local function hit(at, t, row, rawId, minLen)
+			-- Below the kept list's floor even at its tier's best score for
+			-- a name this long: only counted, its metadata never read. This
+			-- runs for nearly every hit of a broad query, so no calls.
+			if floorScore and prunable then
+				local len = minLen or 0
+				if len > 9999 then len = 9999 end
+				if floorScore > tierCeiling[t] - len then
+					n = n + 1
+					return
+				end
+			end
+			if baseScores then
+				n = n + 1
+				local base = baseScores[at]
+				if not base then
+					local st, len = match(source, RANK_NO_ID, at)
+					local standing = st ~= "" and 0 or 1
+					if standing == 1 and usesCurated and curated[tonumber(match(source, RAW_ID, at))] then standing = 2 end
+					-- The tier is the only part that depends on the query.
+					base = rankScore(standing, 0, kindWeight, tonumber(len))
+					baseScores[at] = base
+				end
+				local s = base + t * TIER_W
+				-- A bucket keeps only the offset (a paged kind names its rows later).
+				if not floorScore or s >= floorScore then keep(at, not buckets and match(source, RAW_ID, at), s) end
+				return
+			end
+			local st, len
+			if (seen and not rawId) or usesCurated then
+				rawId, st, len = match(source, RANK_META, at)
+			elseif ranked or filter then
+				st, len = match(source, RANK_NO_ID, at)
+			end
+			if filter and hidden(st, opts) then return end
+			local prior = seen and seen[rawId]
+			if prior == false then return end -- already rejected by category or drawer predicates
+			if prior and (statsOnly or most) then return end -- a name or ID hit already represents this row
+			local baseAt
+			if checkItems or most then baseAt = translation and translated and translated[at] or at end
+			if not prior then
+				if checkItems then
+					row = row or (offsets and rowAt(offsets, baseAt))
+					local inScope, matches = filterItem(filters, category, column, row, source, at, totals)
+					if inScope then beforeFilters = beforeFilters + 1 end
+					if not matches then
+						if seen and not statsOnly then seen[rawId] = false end
+						return
+					end
+				end
+				n = n + 1
+			end
+			if ranked then
+				local standing = st ~= "" and 0 or usesCurated and curated[tonumber(rawId)] and 2 or 1
+				if statsOnly then
+					keep(at, rawId, STAT_SCORE + standing * STANDING_W, false, true)
+					return
+				end
+				local s = t == ID_MATCH and ID_SCORE or ceiling[standing][t] - min(tonumber(len), 9999)
+				if not seen then
+					if not floorScore or s >= floorScore then
+						keep(at, rawId or (not buckets and match(source, RAW_ID, at)), s)
+					end
+				elseif not prior or prior.tier < t then
+					seen[rawId] = { at = at, id = rawId, score = s, tier = t, translation = translation }
+				end
+			else
+				if seen and not statsOnly then seen[rawId] = true end
+				if az then
+					marked[translation and sorted.translations[rawId] or at] = true
+				elseif most then
+					local amount = amounts and amounts[rawId and tonumber(rawId) or itemIdAt(blob, baseAt)]
+					if not amount and column and not row then
+						offsets = offsets or itemOffsets(kind, blob)
+						row = rowAt(offsets, baseAt)
+					end
+					keepMost(hits, groups, baseAt, amount, column, row)
+				end
+			end
+		end
+		if statsOnly then
+			if terms.sparseStatItems then
+				for id in pairs(textItems) do
+					local at = find(source, "\1" .. id .. ",", 1, true)
+					if at then hit(at + 1) end
+				end
+			elseif most then
+				local row = 0
+				for at, rawId in gmatch(source, "\1()(%d+),") do
+					row = row + 1
+					if textItems[tonumber(rawId)] ~= nil then hit(at, nil, row, rawId) end
+				end
+			else
+				local row = 0
+				for at in gmatch(source, "\1()") do
+					row = row + 1
+					if textItems[itemIdAt(source, at)] ~= nil then hit(at, nil, row) end
+				end
+			end
+		else
+			if not translation and idAt then hit(idAt, ID_MATCH) end
+			if terms.q then scanNames(source, kind, terms, ranked, hit) end
+		end
+	end
+	scan(blob, false)
+	if extra then scan(extra, true) end
+	if ranked and seen then
+		for _, entry in pairs(seen) do
+			if entry then keep(entry.at, entry.id, entry.score, entry.translation) end
+		end
+	end
+	if textItems then scan(blob, false, true) end
+	if az then
+		-- Filter Browse's cached offsets in their existing order. A kind's
+		-- first few (Everything) stop there: the count is already known.
+		for _, at in ipairs(sorted.order) do
+			if marked[at] then
+				hits[#hits + 1] = at
+				if not full and #hits >= cap then break end
+			end
+		end
+	elseif most then
+		table.sort(hits, mostFirst)
+	elseif full then
+		table.sort(hits, function(a, b) return a.score > b.score end)
+	end
+	if full then
+		pagedSearch = { kind = kind, blob = blob, extra = extra, guides = list, q = terms.q, id = terms.id, az = az,
+			localNames = useLocalName, statGeneration = statGeneration, hideRetired = hideRetired, hideNoSource = hideNoSource, hits = hits, n = n,
+			sortCode = sortCode, sortGeneration = sortGeneration,
+			filterKey = key, categoryKey = categoryKey, column = column, wantTotals = wantTotals,
+			before = checkItems and beforeFilters, totals = totals }
+	end
+	return hits, n, checkItems and beforeFilters, totals
+end
+
+-- Only name equal-score groups that overlap a requested page. Their keys
+-- compare by title and id in C, and preserve the source and offset to page.
+local function orderBucket(kind, blob, extra, bucket)
+	local useLocalName = localised()
+	for i, at in ipairs(bucket) do
+		local rawId = at < 0 and match(extra, RAW_ID, -at) or match(blob, RAW_ID, at)
+		local key
+		if bucket.statOnly then
+			key = statOrderKey(kind, blob, at, rawId, useLocalName)
+		else
+			local id = kind == "instance" and rawId or tonumber(rawId)
+			key = codexTitle(kind, id, rawId, useLocalName) .. "\0" .. rawId
+		end
+		bucket[i] = key .. "\0" .. at
+	end
+	table.sort(bucket)
+	bucket.ordered = true
+end
+
+local function appendRankedPage(results, kind, blob, extra, hits, offset, cap)
+	local start, stop = offset + 1, offset + cap
+	for _, bucket in ipairs(hits) do
+		if start <= #bucket then
+			if #bucket > 1 and not bucket.ordered then orderBucket(kind, blob, extra, bucket) end
+			for i = math.max(start, 1), min(stop, #bucket) do
+				local at, title = bucket[i], nil
+				if bucket.ordered then
+					title, at = match(at, "^([^%z]*)%z[^%z]*%z(-?%d+)$")
+					at = tonumber(at)
+					if bucket.statOnly then title = nil end
+				end
+				local r = at < 0 and codexRow(kind, extra, -at, title) or codexRow(kind, blob, at, title)
+				r.score = bucket.score
+				results[#results + 1] = r
+			end
+		end
+		start, stop = start - #bucket, stop - #bucket
+		if stop <= 0 then return end
+	end
+end
+
 function Search.Query(text, opts)
 	opts = opts or {}
-	local results, counts, more = {}, {}, {}
-	if type(text) ~= "string" then return results, counts, more end
-	local q = fold(text)
-	if q == "" or q == " " then return results, counts, more end
-	local body = sub(q, 2)
-	local short = #body < 2
-	local words
-	if find(body, " ", 1, true) then
-		words = {}
-		for w in body:gmatch("%S+") do words[#words + 1] = w end
+	local results, counts = {}, {}
+	local terms, syntaxError = queryTerms(text, opts.ids)
+	if not terms then
+		local info = filterInfo(opts)
+		if info then return results, counts, syntaxError, info end
+		if syntaxError then return results, counts, syntaxError end
+		return results, counts
 	end
 	local kinds = opts.kinds
-	local limit = opts.limit or DEFAULT_LIMIT
-	local offset = opts.offset or 0
-	local several = 0
-	for _, k in ipairs(Search.KINDS) do
-		if wants(kinds, k.key) then several = several + 1 end
-	end
-	local cap = opts.perKind or (several > 1 and min(DEFAULT_PER_KIND, limit) or limit)
-	local keepN = cap + offset
-
-	-- Built (and cached) even when guides are not asked for: it holds the
-	-- curated `collects` set that ranks items.
-	local list = guideList()
-	if wants(kinds, "guide") then
-		local top, n = { n = 0, s = {}, i = {} }, 0
-		for i = 1, #list do
-			local g = list[i]
-			local t = guideTier(g, q, body, short, words)
-			if t then
-				n = n + 1
-				keep(top, keepN, score(t, "guide", #g.title), i)
+	local limit, offset = opts.limit or DEFAULT_LIMIT, opts.offset or 0
+	local only = opts.resultKind
+	if not only and kinds then
+		for _, k in ipairs(Search.KINDS) do
+			if kinds[k.key] then
+				if only then only = nil; break end
+				only = k.key
 			end
 		end
+	end
+	local cap = opts.perKind or (only and limit or min(DEFAULT_PER_KIND, limit))
+	-- A to Z holds for every kind searched: with several (Everything), each
+	-- kind's first few in its A to Z order, kept apart by kind.
+	local az = opts.order == "az" or (opts.order == "most" and opts.baseOrder == "az")
+	local sortCode = mostStatCode(opts)
+
+	-- Built even when guides are not asked for: it holds the curated set.
+	local list = guideList()
+	if terms.q and wants(kinds, "guide") then
+		local show = not only or only == "guide"
+		local hits, n = searchGuides(list, terms, az and show, show)
 		if n > 0 then counts.guide = n end
-		for j = offset + 1, top.n do
-			local g = list[top.i[j]]
-			results[#results + 1] = { kind = "guide", id = g.id, title = g.title, subtitle = g.subtitle, score = top.s[j] }
-		end
+		for j = offset + 1, min(#hits, offset + cap) do results[#results + 1] = hits[j] end
 	end
 
-	-- The Codex kinds load the Codex pack on the first query that wants them.
-	local wantCodex = false
 	for _, k in ipairs(Search.KINDS) do
-		if k.key ~= "guide" and wants(kinds, k.key) and codexOn() then wantCodex = true end
+		if k.key ~= "guide" and (terms.q or NAMES_KIND[k.key] == "item") and wants(kinds, k.key) then loadCodex(); break end
 	end
+	local info = filterInfo(opts)
+	local available = info and info.filtersAvailable
 	local C = ns.Codex
-	if wantCodex and C and C.IsLoaded and not C.IsLoaded() and C.Load then C.Load() end
+	local generation = (terms.stat or available or sortCode) and codexOn() and C and C.StatGeneration and C.StatGeneration()
+	terms.statGeneration = terms.stat and generation
+	local filters, category
+	if available then filters, category = normalizeFilters(opts.filters, generation) end
+	local statMaps = (terms.statGeneration or (filters and filters.stat) or (generation and sortCode)) and {}
+	local most, hasMost
 	for _, k in ipairs(Search.KINDS) do
 		local kind = k.key
-		local blob = kind ~= "guide" and wants(kinds, kind) and codexBlob(kind)
+		local itemKind = NAMES_KIND[kind] == "item"
+		local blob = kind ~= "guide" and (terms.q or NAMES_KIND[kind] == "item") and wants(kinds, kind) and codexBlob(kind)
+		if info and itemKind and wants(kinds, kind) then info.preFilterCounts[kind] = 0 end
 		if blob then
 			local extra = translatedBlob(kind, blob)
-			local top = { n = 0, s = {}, i = {} }
-			local n, capped = scanBlob(blob, extra, kind, body, short, words, keepN, top)
+			local show = (not only or only == kind) and cap > 0
+			local full = show and only ~= nil
+			local itemMost
+			if show and itemKind and generation and sortCode then
+				most = most or { code = sortCode, generation = generation }
+				itemMost = most
+			end
+			local alpha = show and az and not itemMost
+			local itemFilters = itemKind and filters or nil
+			local itemCategory = kind == "item" and category or nil
+			local wantTotals = available and kind == "item" and opts.categoryTotals == true or nil
+			local hits, n, before, totals = searchCodex(kind, blob, extra, list, terms, opts, show, alpha, full,
+				cap + offset, itemFilters, itemCategory, wantTotals, itemMost, statMaps)
+			if info and itemKind then
+				if itemFilters or itemCategory then info.filtersApplied = true end
+				info.preFilterCounts[kind] = before or n
+				if totals then info.categoryTotals = totals end
+			end
 			if n > 0 then counts[kind] = n end
-			if capped then more[kind] = true end
-			for j = offset + 1, top.n do
-				local source, at = blob, top.i[j]
-				if at > #blob then source, at = extra, at - #blob end
-				local rawId, quality, st = match(source, META, at + 1)
-				local id = kind == "instance" and rawId or tonumber(rawId)
-				results[#results + 1] = {
-					kind = kind, id = id, title = (localised() and localName(kind, id)) or C.Name(kind, id) or rawId, quality = tonumber(quality), score = top.s[j],
-					status = STATUS[st], curated = curated[id] or nil,
-				}
+			if itemMost then
+				appendMostPage(results, kind, blob, hits, offset, cap)
+				hasMost = hasMost or n > 0
+			elseif full and not alpha then
+				appendRankedPage(results, kind, blob, extra, hits, offset, cap)
+			elseif show then
+				for j = offset + 1, min(#hits, offset + cap) do
+					local hit = hits[j]
+					local source = not alpha and hit.translation and extra or blob
+					local r = codexRow(kind, source, alpha and hit or hit.at, not alpha and not hit.statOnly and hit.key or nil)
+					if not alpha then r.score = hit.score end
+					results[#results + 1] = r
+				end
 			end
 		end
 	end
 
-	table.sort(results, function(a, b)
-		if a.score ~= b.score then return a.score > b.score end
-		if a.title ~= b.title then return a.title < b.title end
-		return tostring(a.id) < tostring(b.id)
-	end)
+	if not (only or az or hasMost or terms.id or (terms.statGeneration and statItems(terms.stat, statMaps))) then
+		table.sort(results, bestFirst)
+	end
 	for i = #results, limit + 1, -1 do results[i] = nil end
 	if opts.subtitles ~= false then
-		for _, r in ipairs(results) do Search.Subtitle(r) end
+		for _, r in ipairs(results) do
+			if not r.statBucket then Search.Subtitle(r) end
+		end
 	end
-	return results, counts, more
+	if info then return results, counts, nil, info end
+	return results, counts
 end
 
 -- A result's name in the client's language (Polestar.Names, the client's map

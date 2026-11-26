@@ -73,6 +73,145 @@ fn codex_matches_golden() {
 	check.finish("codex build");
 }
 
+#[test]
+fn itemdb_fills_missing_codex_item_groups_and_packs_rarity() {
+	use serde_json::{json, Value};
+	use std::fs;
+
+	let (root, data) = setup("codex-itemdb");
+	let mut opts = options(&root, &data);
+	let sources = root.join("data/sources");
+	common::copy_tree(&opts.sources_dir, &sources);
+	opts.sources_dir = sources;
+	let file = opts.sources_dir.join("wago/1.60.1.70450/Item.csv");
+	let mut client_items = fs::read_to_string(&file).unwrap();
+	client_items.push_str("\n12413,4,1,1,5,0,-1,0,0,0,0,0,0,0,0,0,0\n");
+	fs::write(file, client_items).unwrap();
+
+	let file = data.join("items.json");
+	let mut items: Value = serde_json::from_str(&fs::read_to_string(&file).unwrap()).unwrap();
+	for (id, name) in [(645, "Unknown Item"), (647, "Destiny"), (744, "Thunderbrew's Boot Flask"), (3456, "Dog Whistle"), (6948, "Hearthstone"), (12413, "Thorium Leggings"), (246164, "Skullthumper")]
+	{
+		items[id.to_string()] = json!({ "id": id, "name": name });
+	}
+	fs::write(file, items.to_string()).unwrap();
+	let build = || codex::build_logged(&opts, &|_| {}).unwrap();
+	let item_records = |out: &codex::Output| -> Value { serde_json::from_str(&out.json.iter().find(|(name, _)| name == "items.json").unwrap().1).unwrap() };
+	let before = build();
+	let before_items = item_records(&before);
+	let itemdb = root.join("addon/Polestar_ItemDB");
+	fs::create_dir_all(&itemdb).unwrap();
+	fs::write(
+		itemdb.join("Forever.lua"),
+		r#"DB.Register(nil, {
+[744]="19 44 0 2 9 0 cls0",
+[3456]="12 30 25 3 4 0",
+[6948]="17 99 99 4 2 8 cls16",
+[246164]="21 13 7 2 2 4 dmin12 dmax23 speed2500 cls32",
+})
+DB.RegisterLeveling({}, { names = { npcs = {
+[645]="Cookie",
+[647]="Captain Greenskin",
+} } })"#,
+	)
+	.unwrap();
+	fs::write(
+		itemdb.join("Items.lua"),
+		r#"DB.Register({ schema = 1, build = "1.15.9.70576", count = 3 }, {
+[647]="17 57 52 4 2 8 dmin112 dmax168 speed2600",
+[744]="12 99 10 3 4 1",
+[12413]="17 55 45 0 2 8 cls16",
+})"#,
+	)
+	.unwrap();
+
+	let after = build();
+	let items = item_records(&after);
+	let expect = |id: &str, facts: Value| {
+		for (field, value) in facts.as_object().unwrap() {
+			assert_eq!(&items[id][field], value, "{id}.{field}");
+		}
+		for field in ["kind", "status", "sources"] {
+			assert_eq!(items[id][field], before_items[id][field], "{id}.{field}");
+		}
+	};
+	expect(
+		"647",
+		json!({ "levelsSource": "era", "reqLevel": 52, "itemLevel": 57, "quality": 4, "allowClass": 1503,
+		"typeSource": "era", "itemClass": 2, "itemSubclass": 8, "slot": 17 }),
+	);
+	expect("3456", json!({ "levelsSource": "forever", "itemLevel": 30, "typeSource": "forever" }));
+	expect(
+		"744",
+		json!({ "levelsSource": "forever", "reqLevel": 0, "itemLevel": 44, "quality": 2, "allowClass": 1503,
+		"typeSource": "forever", "itemClass": 9, "itemSubclass": 0, "slot": 19 }),
+	);
+	expect(
+		"12413",
+		json!({ "levelsSource": "era", "quality": 0, "allowClass": 16,
+		"typeSource": "client", "itemClass": 4, "itemSubclass": 1, "slot": 5 }),
+	);
+	expect("246164", json!({ "levelsSource": "forever", "allowClass": 0 }));
+	expect("6948", json!({ "levelsSource": "client", "typeSource": "client" }));
+	for field in ["reqLevel", "itemLevel", "quality", "allowClass", "itemClass", "itemSubclass", "slot"] {
+		assert_eq!(items["6948"][field], before_items["6948"][field], "6948.{field}");
+	}
+	assert_eq!(items["645"], before_items["645"]);
+	assert!(items["645"].get("levelsSource").is_none());
+	assert!(items["645"].get("typeSource").is_none());
+	for name in ["npcs.json", "objects.json", "instances.json", "journal.json"] {
+		assert_eq!(after.json.iter().find(|(n, _)| n == name), before.json.iter().find(|(n, _)| n == name), "{name}");
+	}
+	let index = &after.pack.iter().find(|(name, _)| name == "Index.lua").unwrap().1;
+	assert!(index.contains(r"\002destiny\001647,4,n,7\n"));
+}
+
+// The Era CSV (the cached Classic Era ItemSparse) can be the only table that knows an item: its level and rarity
+// are kept as a fallback and named Classic Era's, with no levelsSource (so no stat coverage claim). Fel Steed Saddlebags (#932) is the case; its
+// values in this test are the fixture's own (a copy of an Era row of the golden input with new numbers).
+#[test]
+fn the_era_csv_alone_supplies_a_labelled_level_and_rarity() {
+	use serde_json::{json, Value};
+	use std::fs;
+
+	let (root, data) = setup("codex-era-csv-fields");
+	let mut opts = options(&root, &data);
+	let sources = root.join("data/sources");
+	common::copy_tree(&opts.sources_dir, &sources);
+	opts.sources_dir = sources;
+	let file = opts.sources_dir.join("wago/1.15.9.70003/ItemSparse.csv");
+	let csv = fs::read_to_string(&file).unwrap();
+	let line = csv.lines().find(|l| l.starts_with("1041,")).expect("an Era row to copy").to_string();
+	let row = line.replacen("1041,", "932,", 1).replace("\"Horn of the Black Wolf\"", "\"Fel Steed Saddlebags\"");
+	let row = row.strip_suffix(",1,0,40").expect("the row ends with quality 1, no ammunition, level 40").to_string() + ",3,0,25";
+	// Rockslicer (#872) also has an Era row, but a Forever ItemDB row replaces its level and rarity.
+	let rockslicer = row.replacen("932,", "872,", 1).replace("\"Fel Steed Saddlebags\"", "\"Rockslicer\"").replace(",3,0,25", ",2,0,16");
+	fs::write(&file, format!("{}\n{row}\n{rockslicer}\n", csv.trim_end())).unwrap();
+	let itemdb = root.join("addon/Polestar_ItemDB");
+	fs::create_dir_all(&itemdb).unwrap();
+	fs::write(itemdb.join("Forever.lua"), "DB.Register(nil, {\n[872]=\"17 23 18 3 2 1\",\n})\n").unwrap();
+
+	let file = data.join("items.json");
+	let mut items: Value = serde_json::from_str(&fs::read_to_string(&file).unwrap()).unwrap();
+	items["932"] = json!({ "id": 932, "name": "Fel Steed Saddlebags" });
+	items["872"] = json!({ "id": 872, "name": "Rockslicer" });
+	fs::write(file, items.to_string()).unwrap();
+
+	let out = codex::build_logged(&opts, &|_| {}).unwrap();
+	let items: Value = serde_json::from_str(&out.json.iter().find(|(name, _)| name == "items.json").unwrap().1).unwrap();
+	let bags = &items["932"];
+	assert_eq!((bags["reqLevel"].clone(), bags["quality"].clone()), (json!(25), json!(3)));
+	assert_eq!((bags["reqSource"].clone(), bags["qualitySource"].clone()), (json!("era"), json!("era")));
+	assert!(bags.get("levelsSource").is_none() && bags.get("itemLevelSource").is_none() && bags.get("allowSource").is_none(), "{bags}");
+	let rockslicer = &items["872"];
+	assert_eq!((rockslicer["levelsSource"].clone(), rockslicer["reqLevel"].clone(), rockslicer["quality"].clone()), (json!("forever"), json!(18), json!(3)));
+	assert!(["reqSource", "itemLevelSource", "qualitySource", "allowSource"].iter().all(|field| rockslicer.get(field).is_none()), "{rockslicer}");
+	let pack: String = out.pack.iter().map(|(_, text)| text.as_str()).collect();
+	let record = pack.match_indices(r"\n932\t").map(|(at, found)| &pack[at + found.len()..]).filter_map(|rest| rest.split(r"\n").next()).find(|record| record.contains(';')).expect("932's record");
+	let fields: Vec<&str> = record.split(';').collect();
+	assert!(fields[0].starts_with('3') && fields[1] == "25", "{record}");
+}
+
 /// Every quest on the release build's dungeon pages: (id, its XP).
 fn page_xp(journal: &str) -> Vec<(i64, Option<f64>)> {
 	let j: serde_json::Value = serde_json::from_str(journal).unwrap();

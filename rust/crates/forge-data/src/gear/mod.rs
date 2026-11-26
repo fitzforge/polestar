@@ -131,7 +131,7 @@ pub fn build_logged(opts: &Options, log: &dyn Fn(&str)) -> Result<Output, String
 		gaps.push(format!("no client hotfixes for {} (sources/hotfix/{}): items the server pushed are missing", t.build, t.build));
 	}
 	let ex = forever::extract(&t);
-	let era = leveling::read_era_items(&read_text(&era_file)?)?;
+	let era = leveling::read_item_rows(&read_text(&era_file)?, |_, _| true)?;
 	let (overlay, ov) = forever::overlay(&ex.items, &era);
 	let gear: FxHashSet<u64> = era.keys().copied().chain(ex.items.iter().map(|r| r.id as u64)).collect();
 	let names: FxHashMap<u64, String> = t.get("ItemSparse").iter().map(|r| (crate::itemdb::int(r, "ID") as u64, crate::jsv::col_str(r, "Display_lang").to_string())).collect();

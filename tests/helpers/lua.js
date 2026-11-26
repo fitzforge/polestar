@@ -33,9 +33,9 @@ const ROOT = path.join(__dirname, '..', '..');
 const ADDONS = process.env.POLESTAR_ADDON_DIR ? path.resolve(process.env.POLESTAR_ADDON_DIR) : path.join(ROOT, 'addon');
 const STUBS = path.join(ROOT, 'tests', 'lua');
 // Polestar's load-on-demand addons runAddon loads when the addon asks (C_AddOns.LoadAddOn): the hand-in
-// planner (Polestar_Handins), settings window (Polestar_Options), our skins and layouts (Polestar_Skins) and Freedoom Arcade (Polestar_Arcade: the
+// planner (Polestar_Handins), settings window (Polestar_Options), Lookup window (Polestar_Lookup), our skins and layouts (Polestar_Skins) and Freedoom Arcade (Polestar_Arcade: the
 // first Play).
-const LOAD_ON_DEMAND = ['Polestar_Handins', 'Polestar_Options', 'Polestar_Skins', 'Polestar_Arcade'];
+const LOAD_ON_DEMAND = ['Polestar_Handins', 'Polestar_Options', 'Polestar_Lookup', 'Polestar_Skins', 'Polestar_Arcade'];
 
 function norm(p) {
 	return p.replace(/\\/g, '/');
@@ -112,10 +112,8 @@ function buildProgram(opts) {
   stub.addonLoaded(name)
   return ns
 end`);
-	// The settings window (Polestar_Options, load on demand: UI/OptionsLoader.lua asks for it the first time
-	// the settings open), our skins and layouts (Polestar_Skins: Theme/SkinApi.lua, when one of them is wanted)
-	// and Freedoom Arcade, loaded from their TOC when asked, as the client loads them (forge-addontest's run.rs
-	// does the same; a test's own stub.packs entry, stub_packs.lua, wins).
+	// Load from the TOC when asked, as in the client and forge-addontest's run.rs.
+	// A test's own stub.packs entry (stub_packs.lua) wins.
 	const lod = LOAD_ON_DEMAND.filter((n) => !(opts.addons || []).some((e) => (typeof e === 'string' ? e : e.name) === n) && fs.existsSync(path.join(ADDONS, n, `${n}.toc`)));
 	if (lod.length) {
 		lines.push(`do

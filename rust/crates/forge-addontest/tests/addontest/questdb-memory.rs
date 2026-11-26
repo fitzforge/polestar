@@ -21,6 +21,13 @@
 //! 3,000 below a doubling. Built with the collector stopped, the id list's throwaway strings crossed it and
 //! `read` kept 32,768 slots more, 256 KiB exactly (2026-11-20: 1,779 KiB, and 1,770 with 0.4.1.1's own QuestDB;
 //! 1,523 and 1,514 with the list built first). The 1,555 -> 1,811 above was the same 256 KiB.
+//!
+//! So the string table is settled before `base`: SETTLE_STRINGS throwaway strings grow it far past the addon's
+//! own, and collects halve it back until it holds a quarter or more live strings, which leaves it between two
+//! and four slots per live string, one doubling above where the addon's strings alone put it. The reads' few
+//! thousand strings never fill that, so no doubling falls inside a figure, wherever the addon's string count
+//! sits; the quest database's own strings still count in full. Without it, the addon's strings drifting up
+//! crossed the doubling again (2026-11-22, the Lookup filters with next: `read` 1,723 KiB, 1,467 settled).
 
 use forge_addontest::questdb::build_db;
 use forge_addontest::run::root;
@@ -40,6 +47,10 @@ const BUDGET: [(&str, f64); 3] = [("resident", 1470.0), ("peak", 1520.0), ("read
 /// Records read between full collects while `read` is measured.
 const READ_BATCH: usize = 256;
 
+/// Throwaway strings that grow the string table past any size the addon's own strings reach (some 30,000 in
+/// 2026-11) before `base` is measured.
+const SETTLE_STRINGS: usize = 200_000;
+
 #[test]
 fn the_quest_database_stays_within_its_memory_budget_693() {
 	let data = root().join("data/forever");
@@ -53,7 +64,13 @@ fn the_quest_database_stays_within_its_memory_budget_693() {
 local Q = Polestar.QuestDB
 local files = {files}
 local function full() collectgarbage("collect"); collectgarbage("collect"); return collectgarbage("count") end
-local base = full()
+-- The string table settled one doubling above the addon's own strings (see the top of this file): grown far past
+-- them by throwaway strings, then halved one collect at a time until the heap stops shrinking.
+collectgarbage("stop")
+for i = 1, {settle} do local _ = "questdb-settle-" .. i end
+collectgarbage("restart")
+local base, last = full()
+repeat last = base; collectgarbage("collect"); base = collectgarbage("count") until base == last
 collectgarbage("stop")
 for _, f in ipairs(files) do assert(loadfile(f))("Polestar_QuestDB", {{}}) end
 local peak = collectgarbage("count") - base
@@ -71,7 +88,8 @@ collectgarbage("restart")
 local read = full() - base
 emit({{ resident = resident, peak = peak, read = read, quests = n, loaded = Q.IsLoaded() }})"#,
 		files = db.lua_files(),
-		batch = READ_BATCH
+		batch = READ_BATCH,
+		settle = SETTLE_STRINGS
 	);
 	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua", "stub_quests.lua"], addons: vec![Addon::name("Polestar")], script, ..Default::default() });
 	let m = &out[0];

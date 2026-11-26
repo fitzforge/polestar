@@ -264,6 +264,311 @@ fn the_built_codex_is_release_safe_and_in_game_lookup_finds_items_mounts_and_npc
 	assert!(out["dm"][2].as_f64().unwrap() > 0.0, "VanCleef's loot");
 }
 
+#[test]
+fn usable_by_class_counts_mage_and_warrior_items_in_the_built_codex() {
+	if !toc().exists() {
+		eprintln!("skipped: Codex pack not built (forge data codex)");
+		return;
+	}
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: pack_lua(),
+		addons: vec!["Polestar".into()],
+		script: r#"
+stub.login()
+local C, S = Polestar.Codex, Polestar.Search
+assert(C.Load() and C.HasFilters(), "rebuild the Codex with forge data codex")
+local opts = { filters = { class = "MAGE" } }
+local mage, mageInfo = S.BrowseCount("item", opts)
+opts.filters.class = "WARRIOR"
+local warrior, warriorInfo = S.BrowseCount("item", opts)
+assert(mageInfo.filtersApplied and warriorInfo.filtersApplied)
+emit({ mage = mage, warrior = warrior })"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	let mage = out["mage"].as_f64().unwrap();
+	let warrior = out["warrior"].as_f64().unwrap();
+	println!("Real Codex Items usable by Mage: {mage}, Warrior: {warrior}");
+	assert!(mage > 0.0 && mage < warrior);
+}
+
+#[test]
+fn stat_name_search_finds_forever_items_in_the_built_codex() {
+	if !toc().exists() {
+		eprintln!("skipped: Codex pack not built (forge data codex)");
+		return;
+	}
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: pack_lua(),
+		addons: vec!["Polestar".into()],
+		script: r#"
+stub.login()
+local C, S = Polestar.Codex, Polestar.Search
+assert(C.Load() and C.StatCodes(), "rebuild the Codex with forge data codex")
+local function check(query, ...)
+	local rows, counts = S.Query(query, { ids = true, kinds = { item = true }, subtitles = false, limit = 100 })
+	local found, matched = {}, {}
+	for _, row in ipairs(rows) do found[row.id] = true end
+	for i = 1, select('#', ...) do
+		local id = select(i, ...)
+		assert(found[id], query .. ": missing item " .. id)
+		matched[i] = id
+	end
+	return { count = counts.item, matched = matched }
+end
+local haste = check("haste", 17142)
+local undead = check("spell damage vs undead", 23084, 23207)
+emit({ haste = haste, undead = undead })
+
+local function timeView(view, opts)
+	local samples = { { query = "stamina", times = {} }, { query = "intellect", times = {} } }
+	for _, sample in ipairs(samples) do
+		S.Release()
+		local start = os.clock()
+		local rows, counts = S.Query(sample.query, opts)
+		sample.coldMs = (os.clock() - start) * 1000
+		sample.count = counts.item
+		assert(#rows > 0 and sample.count > 50, sample.query .. ": expected more than one page of Items")
+	end
+	-- Alternate queries to keep the posting maps warm while missing the page cache.
+	S.Query("stamina", opts)
+	S.Query("intellect", opts)
+	for i = 1, 7 do
+		for _, sample in ipairs(samples) do
+			local start = os.clock()
+			S.Query(sample.query, opts)
+			sample.times[i] = (os.clock() - start) * 1000
+		end
+	end
+	for _, sample in ipairs(samples) do
+		table.sort(sample.times)
+		emit({ query = sample.query, view = view, count = sample.count, coldMs = sample.coldMs, warmMs = sample.times[4] })
+	end
+end
+
+timeView("Everything Best match",
+	{ ids = true, order = "best", perKind = 5, limit = 5 * #S.KINDS, subtitles = false })
+timeView("Items A to Z",
+	{ ids = true, order = "az", resultKind = "item", limit = 50, subtitles = false })
+"#
+		.into(),
+		..Default::default()
+	});
+	println!("Real Codex stat-name matches: haste {}, spell damage vs undead {}", out[0]["haste"], out[0]["undead"]);
+	for result in &out[1..] {
+		let query = result["query"].as_str().unwrap();
+		let view = result["view"].as_str().unwrap();
+		let count = result["count"].as_u64().unwrap();
+		let cold = result["coldMs"].as_f64().unwrap();
+		let warm = result["warmMs"].as_f64().unwrap();
+		println!("Real Codex {view} for {query} ({count} Items): after release {cold:.3} ms, warm median {warm:.3} ms");
+		// First-use A to Z can also build the base Browse order, which Release keeps.
+		forge_addontest::assert_timing!(warm < 50.0, "{view} for {query}: warm median keystroke took {warm:.3} ms");
+	}
+}
+
+#[test]
+fn most_stamina_browses_the_largest_amounts_and_times_items_and_everything_in_the_built_codex() {
+	if !toc().exists() {
+		eprintln!("skipped: Codex pack not built (forge data codex)");
+		return;
+	}
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: pack_lua(),
+		addons: vec!["Polestar".into()],
+		script: r#"
+stub.login()
+local C, S = Polestar.Codex, Polestar.Search
+assert(C.Load() and C.StatCodes(), "rebuild the Codex with forge data codex")
+local opts = { order = "most", sortStat = 7, limit = 50, subtitles = false }
+S.Release()
+local start = os.clock()
+local rows, count = S.Browse("item", opts)
+local browseMs = (os.clock() - start) * 1000
+opts.offset = 50
+start = os.clock()
+local page, paged = S.Browse("item", opts)
+local pageMs = (os.clock() - start) * 1000
+assert(#rows == 50 and #page == 50 and count == paged and count == S.BrowseCount("item"))
+local amounts, expected = C.StatItems(7), {}
+for id in C.Index("item"):gmatch("\1(%d+),") do
+	local amount = amounts[tonumber(id)]
+	if amount and amount ~= 0 then expected[#expected + 1] = amount end
+end
+table.sort(expected, function(a, b) return a > b end)
+local top = {}
+for i, row in ipairs(rows) do
+	assert(row.statBucket == 1 and row.statAmount == expected[i] and row.statAmount == amounts[row.id],
+		"Stamina order at row " .. i .. " (" .. row.title .. ")")
+	if i <= 5 then top[i] = row.title .. " +" .. row.statAmount end
+end
+for i, row in ipairs(page) do assert(row.statAmount == expected[i + 50]) end
+
+-- Release keeps the base A to Z order. This is its first build in the script.
+S.Release()
+start = os.clock()
+local az, azCount = S.Browse("item", { limit = 50 })
+local azMs = (os.clock() - start) * 1000
+assert(#az == 50 and azCount == count)
+emit({ top = top, count = count, browseMs = browseMs, pageMs = pageMs, azMs = azMs })
+
+opts.offset, opts.limit, opts.perKind, opts.ids = nil, 5 * #S.KINDS, 5, true
+S.Release()
+start = os.clock()
+local matches, counts = S.Query("stamina", opts)
+local coldMs = (os.clock() - start) * 1000
+assert(counts.item > 50)
+local previous = math.huge
+for _, row in ipairs(matches) do
+	if row.kind == "item" then
+		assert(row.statBucket == 1 and row.statAmount <= previous)
+		previous = row.statAmount
+	end
+end
+assert(previous < math.huge)
+local times = {}
+for i = 1, 7 do
+	start = os.clock()
+	S.Query("stamina", opts)
+	times[i] = (os.clock() - start) * 1000
+end
+table.sort(times)
+emit({ count = counts.item, coldMs = coldMs, warmMs = times[4] })
+"#
+		.into(),
+		..Default::default()
+	});
+	let browse_ms = out[0]["browseMs"].as_f64().unwrap();
+	let page_ms = out[0]["pageMs"].as_f64().unwrap();
+	let az_ms = out[0]["azMs"].as_f64().unwrap();
+	let cold_ms = out[1]["coldMs"].as_f64().unwrap();
+	let warm_ms = out[1]["warmMs"].as_f64().unwrap();
+	println!("Real Codex Most Stamina top five: {}", strs(&out[0]["top"]).join(", "));
+	println!("Real Codex Most Stamina Items browse ({} Items): after release {browse_ms:.3} ms, cached page {page_ms:.3} ms, first A to Z {az_ms:.3} ms", out[0]["count"]);
+	println!("Real Codex Most Stamina Everything query for stamina ({} Items): after release {cold_ms:.3} ms, warm median {warm_ms:.3} ms", out[1]["count"]);
+	forge_addontest::assert_timing!(browse_ms < az_ms, "Most Stamina Items first browse took {browse_ms:.3} ms, expected under first A to Z ({az_ms:.3} ms)");
+	forge_addontest::assert_timing!(page_ms < 50.0, "Most Stamina Items cached page took {page_ms:.3} ms");
+	forge_addontest::assert_timing!(warm_ms < 50.0, "Most Stamina Everything query warm median took {warm_ms:.3} ms");
+}
+
+#[test]
+fn filtered_browse_counts_the_full_built_item_catalogue_and_pages_its_matches() {
+	if skip() {
+		return;
+	}
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: pack_lua(),
+		addons: vec!["Polestar".into()],
+		script: r#"
+stub.login()
+local C, S = Polestar.Codex, Polestar.Search
+assert(C.Load() and C.HasFilters(), "rebuild the Codex with forge data codex")
+local column, total = C.FilterColumn("item")
+local expected = 0
+for i = 1, total do
+	local req = C.DecodeFilter(column, i)
+	if req == 0 then expected = expected + 1 end
+end
+assert(expected > 50 and expected < total)
+local opts = { filters = { reqMax = 0 }, categoryTotals = true, limit = 50, subtitles = false }
+local start = os.clock()
+local count, info = S.BrowseCount("item", opts)
+local counted = os.clock()
+local first, listed = S.Browse("item", opts)
+local browsed = os.clock()
+opts.offset = 50
+local second, paged = S.Browse("item", opts)
+local finished = os.clock()
+assert(count == expected and listed == count and paged == count)
+assert(info.filtersAvailable and info.filtersApplied and info.preFilterCounts.item == total and info.categoryTotals.root == count)
+assert(#first == 50 and #second == math.min(50, count - 50))
+local seen = {}
+for _, page in ipairs({ first, second }) do
+	for _, row in ipairs(page) do
+		assert(not seen[row.id] and C.FilterFacts("item", row.id).reqLevel == 0)
+		seen[row.id] = true
+	end
+end
+emit({ total = total, matches = count, countMs = (counted - start) * 1000,
+	browseMs = (browsed - counted) * 1000, pageMs = (finished - browsed) * 1000 })
+
+-- Everything shows five results per kind. Warm the packed row offsets
+-- before timing successive keystrokes, which never use the page cache.
+local queryOpts = { order = "best", perKind = 5, subtitles = false,
+	filters = { reqMax = 40, quality = { [1] = true, [2] = true, [3] = true } } }
+local function keystroke(query)
+	local rows, counts, _, info = S.Query(query, queryOpts)
+	assert(#rows > 0 and info.filtersApplied and counts.item and counts.item < info.preFilterCounts.item)
+	local times = {}
+	for i = 1, 7 do
+		local at = os.clock()
+		S.Query(query, queryOpts)
+		times[i] = (os.clock() - at) * 1000
+	end
+	table.sort(times)
+	return times[4]
+end
+emit({ keystroke1 = keystroke("s"), keystroke2 = keystroke("sh") })
+"#
+		.into(),
+		..Default::default()
+	});
+	println!("filtered full-catalogue Browse: {}", out[0]);
+	let one = out[1]["keystroke1"].as_f64().unwrap();
+	let two = out[1]["keystroke2"].as_f64().unwrap();
+	println!("filtered Everything Best match: 1-letter keystroke {one:.3} ms, 2-letter keystroke {two:.3} ms");
+	forge_addontest::assert_timing!(one < 50.0, "filtered Everything Best match: 1-letter keystroke took {one:.3} ms");
+	forge_addontest::assert_timing!(two < 50.0, "filtered Everything Best match: 2-letter keystroke took {two:.3} ms");
+}
+
+#[test]
+fn everything_most_one_letter_keystroke_in_the_built_codex() {
+	if !toc().exists() {
+		eprintln!("skipped: Codex pack not built (forge data codex)");
+		return;
+	}
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: pack_lua(),
+		addons: vec!["Polestar".into()],
+		script: r#"
+stub.login()
+local C, S = Polestar.Codex, Polestar.Search
+assert(C.Load() and C.StatCodes(), "rebuild the Codex with forge data codex")
+local opts = { ids = true, order = "most", sortStat = 7, perKind = 5, limit = 5 * #S.KINDS, subtitles = false }
+local rows, counts = S.Query("s", opts)
+assert(counts.item > 50)
+local itemHits = 0
+for _, row in ipairs(rows) do
+	if row.kind == "item" then
+		assert(row.statBucket == 1)
+		itemHits = itemHits + 1
+	end
+end
+assert(itemHits == opts.perKind)
+-- Warm the posting map and row offsets. Everything has no page cache.
+local times = {}
+for i = 1, 7 do
+	local start = os.clock()
+	S.Query("s", opts)
+	times[i] = (os.clock() - start) * 1000
+end
+table.sort(times)
+emit({ count = counts.item, warmMs = times[4] })
+"#
+		.into(),
+		..Default::default()
+	});
+	let warm_ms = out[0]["warmMs"].as_f64().unwrap();
+	println!("Real Codex Everything Most Stamina for s ({} Items): warm median 1-letter keystroke {warm_ms:.3} ms", out[0]["count"]);
+	forge_addontest::assert_timing!(warm_ms < 50.0, "Everything Most Stamina 1-letter keystroke took {warm_ms:.3} ms");
+}
+
 const KP_SCRIPT: &str = r#"
 stub.login()
 local D = Polestar.Dungeons

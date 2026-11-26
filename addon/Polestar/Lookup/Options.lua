@@ -11,4 +11,6 @@ ns.RegisterDefaults("lookup", {
 	tooltip = true,
 	altClick = true,
 	mounts = true,
+	hideRetired = false,
+	hideNoSource = false,
 })

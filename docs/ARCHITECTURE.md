@@ -37,6 +37,7 @@ one into the other. The addons:
 | `Polestar_Nav_EK`, `Polestar_Nav_Kalimdor` (`addon/Polestar_Nav_EK/`, `addon/Polestar_Nav_Kalimdor/`) | The map parts of each continent's walking maps when they are Leffe's (maps format 5; their metadata stays in Polestar_Nav); loaded on demand by Polestar_Nav's router the first time it searches that continent (Polestar searches only the player's continent and those already loaded), never in combat ("Leffe's navigation maps in game") | `forge nav pack --leffe` | yes | yes, when written |
 | `Polestar_Travel` (`addon/Polestar_Travel/`) | Zone crossings for the travel planner, from an optional local crossings file; loaded with Polestar | `travel build` | no (local, gitignored) | no, never packaged (Nav, "Travel planner and zone crossings") |
 | `Polestar_Options` (`addon/Polestar_Options/`) | The settings window, its Look pages and previews, the Profiles page and profile strings, Move frames; loaded on demand the first time the settings open (`UI/OptionsLoader.lua` is its door in the core) | hand-written | yes | yes |
+| `Polestar_Lookup` (`addon/Polestar_Lookup/`) | The hub's Lookup window. The core loads it on first open and keeps the guide menu's Codex rows available before then. | hand-written | yes | yes |
 | `Polestar_Handins` (`addon/Polestar_Handins/`) | Builds and updates the finished-quest guide. Opening or restoring the guide loads this addon. The guide menu counts ready quests in the core. | hand-written | yes | yes |
 | `Polestar_Skins` (`addon/Polestar_Skins/`) | The ten skins that ship (`Skins/<Name>/`: Vellum, Lumen, Beacon, Aurora, Hairline, Umbra, Waymark, Lanterns, Sheen, Atlas, on the Skin API, named in its TOC's `## X-Polestar-Skin`) and the guide window's layout Atlas on Skin API 2 (`Layouts/Atlas/`, `## X-Polestar-Layout`: the step on a timeline with cards above the window, a beta), each its own addon before 0.4.3; loaded on demand when one of them is wanted (`Theme.LoadSkinAddon`: the saved skin or layout at login, a pick, the settings listing the skins); `Polestar_Skin_Example` never ships (docs/SKINS-API.md) | hand-written | yes | yes |
 | `Polestar_Arcade` (`addon/Polestar_Arcade/`) | The games offered on flights by `Maps/Arcade.lua` (one picker, `arcade.game`), loaded on demand the first time Play is pressed. Freedoom Arcade by petllama, a program of its own (GPL-2.0-or-later, its `LICENSE` and `CREDITS.md`): his DOOM engine port and three Freedoom levels; Polestar talks to it only through `LoadAddOn` and `FreedoomArcadeAPI`. Sky Jewels by RikyZ90 (`games/skyjewels/`, GPL-3.0-only, its `CREDITS.md`), a match-three game with 60 levels, progress in `PolestarCharDB.skyJewels`; Tetris by beemerwt (`games/tetris/`, GPL-3.0-only, its `LICENSE`), its run and best score in `Polestar_TetrisDB`. Each hands `Arcade.Register` its `Open`, `Close` and `IsOpen`. The folder is never loaded when the standalone `FreedoomArcade` addon is installed and enabled (one engine, the same globals): then Freedoom Arcade is the only game offered | `git subtree` of github.com/petllama/FreedoomArcade with our commits on top; assets by its `tools/build_assets.py` and `tools/subset.py`; Sky Jewels' levels by `tools/sky-jewels.lua`, its textures by `tools/media/sky-jewels.js` | yes | yes |
@@ -1472,9 +1473,13 @@ Polestar.BagSlots.Painter(owner, fn(button, view, itemID, link))  -- view "clien
 Polestar.BagSlots.Widget(owner, id, label, show, make, corner, bagsmithCorner)  -- show(details) -> bool, make(button) -> region; Baganator and BagSmith, registered once each
 Polestar.BagSlots.Redraw(owner)  -- that owner's shown client slots and active corner widgets; EllesmereUI's shown slots with every painter
 
-Polestar.Search.Query(text, opts) -> results, counts, more   -- opts = { kinds, limit = 60, perKind, offset, subtitles = false }
-   -- result = { kind, id, title, subtitle, quality, score, status, curated }; exact > prefix > word prefix > substring
+Polestar.Search.Query(text, opts) -> results, counts
+   -- opts = { kinds, resultKind, order = "best", limit = 60, perKind, offset, subtitles = false, hideRetired, hideNoSource }
+   -- result = { kind, id, title, subtitle, quality, score, status, curated }; score is present in Best match order
+Polestar.Search.Browse(kind, opts) -> results, count   -- opts = { offset = 0, limit = 60, subtitles = false, hideRetired, hideNoSource }
+Polestar.Search.BrowseCount(kind, opts) -> count|nil   -- opts = { hideRetired, hideNoSource }; nil when the Codex cannot be read
 Polestar.Search.Subtitle(result) ; Search.KINDS ; Search.Status() -> codexLoaded, reason
+Polestar.Search.Release()   -- frees the per-search caches (score cache, the paged kind's matches); the hub calls it when it hides
 ```
 
 `Hooks` owns the client hooks: `TooltipDataProcessor.AddTooltipPostCall`
@@ -1484,18 +1489,43 @@ Polestar.Search.Subtitle(result) ; Search.KINDS ; Search.Status() -> codexLoaded
 each in its own `pcall`; forbidden tooltips and secret values are skipped.
 `Search` matches guides (titles, `keywords`, folded once per guide list) and
 the Codex kinds through the pack's prebuilt index (`Codex.Index(kind)`: one
-string of folded names per kind), so a keystroke is a few plain `string.find`
-calls and never decodes a record. Each kind reads at most 200 candidates per
-query, best tiers first (`more[kind]` says there were more); a one-letter
-query matches name prefixes only. Only the results returned are named, and
-subtitles are filled per shown row (`Search.Subtitle`). Generated `lookup/`
-guides are not listed.
+string of folded names per kind). Plain `string.find` jumps between hits,
+and a one-letter Codex query matches name prefixes only. `counts` gives the
+exact positive totals after the visibility filters, with a translated and
+English match for the same id counted once. `resultKind` requests one kind's
+rows and still counts all kinds included by `kinds`. Everything keeps a
+small Best match preview per kind. Best match ranks by availability and
+whether a guide collects the item, then exact, prefix, word prefix,
+substring or all words, kind, display length, title and id. For a single
+Codex kind, the ordered offsets are cached for paging. Best match orders
+equal-score groups by title as pages need them. With `order = "az"`,
+the search filters Browse's cached order. Search decodes no records while
+matching. An Everything search caches each matched line's
+query-independent score by offset, which makes a keystroke about a third
+faster and costs about 50 bytes a line (some 2 MB with the whole Codex).
+Every search runs in the hub, so the hub's `OnHide` calls `Search.Release`
+to drop that cache and the paged kind's matches. Browse's A to Z orders
+stay. Lookup uses `Search.Subtitle` when a row comes into view.
+Generated `lookup/` guides are not listed.
+
+`Search.Browse` pages through one kind in folded-name order, with retired
+and no-source entries after obtainable entries. It uses translated folded
+names where the index has them. The first browse or alphabetical search
+sorts the kind and caches its line offsets. Browse pages name only their
+own entries, except that a non-English client's first dungeon browse reads
+every dungeon record for its map name to sort by. A name learned from a unit
+(`NAME_LEARNED`) drops that kind's translated index, so the next search or
+browse translates and sorts it again. Guides use the
+filtered guide list for this character. Both browse APIs accept the same
+retired and no-source filters as `Search.Query`. `Search.BrowseCount`
+caches index totals by blob and can subtract either status without sorting
+or loading a pack.
 
 Measured with the real pack (lua5.1, `rust/crates/forge-addontest/tests/addontest/lookup-codex.rs` setup):
-the pack loads in about 20 ms (4.4 MB; it never loads at login), the first
-query costs 7 ms (guide headers), a keystroke 1.5–4 ms (1 to 8 letters), a
-detail page (`Lookup.Sources`) 0.1 ms for a mount up to 10 ms for an item
-with 40 drop sources.
+the pack loads in about 20 ms (4.4 MB and loaded on demand). A detail page
+(`Lookup.Sources`) takes 0.1 ms for a mount up to 10 ms for an item with
+40 drop sources. The synthetic Lookup tests measure keystrokes and paging
+at 25,000 entries in both search orders.
 
 ### Guide data (compiled Lua) — the toolchain/Engine contract
 
@@ -8411,6 +8441,32 @@ Options). Everything is off with `lookup.enabled`; `lookup.tooltip`,
 Polestar.Codex.Load() / IsLoaded() / Meta()       -- the local Polestar_Codex pack through Data.Pack; CODEX_LOADED(meta)
 Polestar.Codex.Item(id) / Npc(id) / Object(id) / Quest(id) / Instance(key) / Zone(id) / Faction(id) / Spell(spellId) / Profession(skillLine)
 Polestar.Codex.Name(kind, id) ; Codex.WithRole(role) ; Codex.Loot(kind, id) ; Codex.Each(kind, fn(id, name, quality, status))
+Polestar.Codex.HasFilters() -> bool
+Polestar.Codex.FiltersTooNew() -> bool
+Polestar.Codex.FilterColumn(kind) -> blob, rowCount | nil
+Polestar.Codex.DecodeFilter(blob, row) -> reqLevel, itemLevel, allowClass, slot, category, levelsSource, typeSource
+Polestar.Codex.FilterLevelsSource(blob, row) -> levelsSource | nil
+Polestar.Codex.FilterFacts(kind, id) -> { reqLevel, itemLevel, allowClass, slot, category, itemClass, itemSubclass, levelsSource, typeSource,
+                                          [reqSource, itemLevelSource, qualitySource, allowSource] } | nil
+Polestar.Codex.FactSource(facts, "req" | "itemLevel" | "quality" | "allow") -> "client" | "forever" | "era" | nil
+Polestar.Codex.FilterCategory(category) -> itemClass, itemSubclass | nil
+Polestar.Codex.FilterCategoryId(itemClass, itemSubclass) -> category | nil
+Polestar.Codex.FilterSource(code) -> "client" | "forever" | "era" | nil
+Polestar.Codex.StatCodes() -> { code, ... } | nil
+Polestar.Codex.StatGeneration() -> number | nil
+Polestar.Codex.StatItems(code) -> { [itemId] = amount } | nil
+Polestar.Codex.StatAmountSource(code, id) -> "client" | "forever" | "era" | nil
+Polestar.Codex.ItemStats(id) -> { { code, amount, amountSource }, ... } | nil
+Polestar.Codex.ReleaseStatItems()
+
+Polestar.Search.Query(text, opts) -> results, counts, error|nil, info|nil
+Polestar.Search.Browse(kind, opts) -> results, count, info|nil
+Polestar.Search.BrowseCount(kind, opts) -> count|nil, info|nil
+Polestar.Search.ClassEligible(token, allowClass, itemClass, itemSubclass, slot) -> eligible, usedItemType
+Polestar.Search.StatLabel(code) -> localized label|nil
+Polestar.Search.StatCodes([text]) -> codes
+Polestar.Search.StatSearchText(code) -> folded English label and aliases
+Polestar.Search.MatchStat(text) -> code|nil
 
 Polestar.Lookup.Sources(kind, id, direct) -> rows, entity  -- ranked for this character; direct: straight-line travel, no route plan (tooltips)
    -- row = { type, src, label, detail, zone, map, x, y, f, travel, effort, cost, available, why, whyText,
@@ -8429,6 +8485,108 @@ Polestar.Lookup.QuestStep(quest, from) -> step         -- accept, objectives, tu
 Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the quest's pre (preAll), preAny (pre, the character's own) and preTitles
 ```
 
+- **Item filter data.** `RegisterFilters(version, categories, columns)`
+  enables `HasFilters` when the pack supplies a supported column for each
+  item-backed kind (`item`, `mount`, `pet`, `recipe`, `tabard`) with
+  row counts matching their indexes. A newer version sets `FiltersTooNew`.
+  `DecodeFilter` reads a 1-based index row without allocating, returning
+  numeric source codes and Blizzard class bits. `FilterLevelsSource`
+  reads just the final byte. `FilterFacts` scans the index for an id
+  without keeping a row map or decoding the item record, expands the
+  category and source codes, and returns an empty table for an indexed
+  row whose facts are all unknown. Quality is in the index and item record.
+  A fact whose source is not `levelsSource` has its own field
+  (`reqSource`, `itemLevelSource`, `qualitySource`, `allowSource`: a source,
+  or `false` for none); `FactSource` returns the one that applies, and an
+  old pack, with none of them, reads every fact as `levelsSource`'s.
+  Category ids start at 1, with a nil subclass for a class-only entry.
+  These accessors never load the pack.
+- **Stat data.** `StatCodes` lists raw codes in numeric order and
+  `StatGeneration` keys caches to the current registration. `StatItems`
+  decodes one posting list on demand to a read-only id → amount map, with
+  0 for presence with an unknown amount. The two most recent maps stay
+  cached until `ReleaseStatItems` (also called by `Search.Release` on hub
+  hide). `StatAmountSource` scans a list up to the id and returns a source
+  for a known amount. `ItemStats` scans the lists for one item and returns
+  stats in code order, with nil amount and amount source for presence only.
+  It returns an empty table for known-empty coverage and nil for unknown
+  coverage. The presence source is `FilterFacts(...).levelsSource`.
+- **Item search.** In `Query`, `opts.ids = true` adds exact index hits
+  for a positive decimal item id, accepting outer spaces and leading
+  zeroes. A leading `#` makes it id-only, with `"id-syntax"` as the
+  third result for malformed input. Best match puts an id hit first in
+  its kind and counts it once. The same option adds hits for a complete
+  folded stat label or alias, after name hits in Best match. `StatLabel`
+  localizes a code, `StatCodes([text])` lists codes ordered by localized
+  label with optional substring matching, and `StatSearchText` gives
+  the picker's English label and aliases. `MatchStat` matches a complete
+  folded label or alias.
+- **Predicates and counts.** `Query`, `Browse` and `BrowseCount` accept
+  `opts.filters = { reqMin, reqMax, ilvlMin, ilvlMax, quality, slot, class,
+  stat, category = { class, subclass } }`. Level bounds are inclusive
+  integers in 0..999, quality is a set of integer keys 0..8 mapped to
+  true, slot is raw InventoryType (0..34), class is a Gear class file
+  token, and stat is a raw code requiring presence. Absent fields are
+  unrestricted. Active predicates require a known value for their own
+  field. Category scopes Items, and Search supports the other predicates for all
+  five item-backed kinds. `ClassEligible` uses the mask and trainable
+  armor and weapon proficiencies, returning nil if eligibility cannot
+  be established and a second result indicating whether item type
+  decided it. The optional read-only `info` (with `opts.filters` or
+  `opts.categoryTotals`) gives `filtersAvailable`, `filtersApplied`,
+  `classFilterDormant` (Gear class or proficiency data unavailable)
+  and `preFilterCounts[kind]` (after query, visibility and category,
+  before drawer predicates and paging). Requested `categoryTotals`
+  are available for indexed Items with filter data. They apply query,
+  visibility and all drawer predicates and give `root`, `classes[raw
+  class]` and `subclasses[packed category id]`. Items without a class
+  count only at the root. Search checks the packed fields before paging
+  without decoding detail records.
+- **Most order.** `Query` and `Browse` take `order = "most"` and a
+  numeric `sortStat` independent of `filters.stat`. Each item-backed
+  kind sorts after matching and filtering, before paging. Results carry
+  `statBucket`: known amounts first (descending, with `statAmount`),
+  then present with unknown amount, known absent, and unknown coverage.
+  Ties use the folded name the row shows (its localised name, or an
+  item's name from the client's item cache, else the pack's) and the
+  numeric id. Everything keeps
+  `Search.KINDS` order. Without a supported stat or for other kinds,
+  Query uses `baseOrder` (default `"best"`) and Browse uses A to Z.
+- **Lookup controls** (`Polestar_Lookup/UI/LookupWindow.lua`). Items expands to selectable
+  classes and subclasses with counts from `categoryTotals`. The
+  Filters drawer holds the two level ranges, class, rarity and availability
+  controls. Filter row tooltips show the label and help text on hover.
+  Clear all filters uses the default auto-width button below Availability.
+  It clears the category, availability and the drawer filters that apply
+  in the current view. The Filters button counts those same active groups
+  ("Filters (2)").
+  Items and Everything also offer the Slot and Stat filters and
+  the Most order with a separate stat picker. Mounts, Pets, Recipes and
+  Tabards use the base sort for search and A to Z for browse. They omit
+  Slot and Stat from both the drawer and the results' filter predicates.
+  Clear all there keeps Slot and Stat, and returning to Items or Everything
+  reapplies the stat order and filters. With Slot or Stat set, the sidebar
+  counts the kinds on the other side of that line with their own view's
+  filters, so each count is the total its row opens. Drawer item filters
+  save to `CharState().ui.lookupItemFilters`. Item details show a summary
+  line (rarity, item level, required level), the game's own tooltip lines
+  (`Compat.ItemTooltipLines`) and the usable classes. An item not yet cached
+  shows only the summary and classes until `GET_ITEM_INFO_RECEIVED`. Details
+  show no source labels. Packs without a supported filter column keep the
+  flat sidebar, availability controls and legacy details.
+  Usable by and Slot use stock dropdown choices, including Slot's disabled
+  group headings. Filter and sort menus align to the right edge of their
+  buttons and widen to fit their labels.
+- **Widgets** (`Theme/Widgets.lua`). `W.NumberBox(parent, opts)` makes
+  a themed number edit box with `placeholder`, `onEdit(self, user)`,
+  `onCommit(self)` on Enter or focus loss and `onCancel(self)` on
+  Escape. The caller validates the ranges. `W.ShellNav` rows accept
+  `depth` for indentation, `rowHeight`, `folded` and `onToggle(key)`
+  for a chevron separate from row selection. In `W.ShowMenu`, an item's
+  `keepOpen` repaints checks in place after its click, and the click can
+  return true to lay out the list again. `opts.searchFold` folds the query,
+  labels and each newline-separated term in an item's `searchText`
+  so the stat picker can find aliases.
 - **Chain progress** (`Lookup.ChainProgress`, #2554): the main line through
   a quest, back through its prerequisites (all of `pre`; of `preAny`, the one
   done, else the one `QuestChain` would pick) and forward through
@@ -10059,27 +10217,50 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   picking one opens the Lookup section at it. The round Polestar button
   in the quest details header opens the shared quest menu and follows
   Polestar's visibility setting.
-- **Lookup** (`UI/Lookup.lua`, the hub section "Lookup", order 20;
+- **Lookup** (`Polestar_Lookup/UI/LookupWindow.lua`, the hub section "Lookup", order 20;
   `UI.ShowLookup({ query, kind, id })` and `SHOW_LOOKUP(query, kind, id)` open
-  the hub at it). Search only, never browsing: the hub's search box drives it
-  (`Search.Query`, run when typing pauses for 0.15 s; the section's `search`,
-  `enter`, `step` hooks); an empty search lists the recent lookups
+  the hub at it). The core's `UI/Lookup.lua` registers the rail entry. Picker
+  loads the window before selecting the section and retries a request made
+  in combat once combat ends. `Search.Query` runs when typing pauses for 0.15 s. The
+  sidebar shows Everything, the matched kinds with exact counts, and the current
+  kind. With an empty search box, Everything lists the recent lookups
   (`CharState().ui.recentLookups`, newest first, at most 10, kept when the
-  player opens a page) and a hint. Sidebar (its `nav`): Everything and the
-  kinds the search found, with counts; a kind filters the results only.
-  Left: the results grouped by kind (five per kind under Everything with a
-  "Show all" line; under one kind pages of 50, `opts.offset` for "Show more"),
-  one line each (item icon or kind glyph in the gutter, the name in its
+  player opens a page) and a hint. Pick a kind on the scrollable sidebar to
+  browse it A to Z with `Search.Browse`. The sidebar shows each nonempty
+  kind in `Search.KINDS` order with its `Search.BrowseCount` total. While
+  the Codex is loading or waiting to load, all kinds show without counts.
+  If it is unavailable, the sidebar offers Everything and Guides.
+  Everything groups search results by kind with up to five rows and a
+  "Show all" line per kind. A single kind shows 50 rows at a time for
+  search or browse. "Show more" gives the remaining count and advances
+  `opts.offset` until the list is complete. During a search, on a kind or
+  on Everything, the header offers Best match (default) and A to Z; under
+  Everything each kind's five rows are the top of the list its "Show all"
+  opens. The order is not saved: it holds while the hub is open, and the
+  hub closing with its search box empty goes back to Best match. Closed on
+  a search, the hub reopens on it in the same order. On every kind and on Everything during
+  search, Filters can hide no longer obtainable and no known source entries
+  independently. The list and counts reflect both filters. Filters save to
+  `lookup.hideRetired` and `lookup.hideNoSource`.
+  On a gamepad, the D-pad reaches the buttons and A opens a menu or picks a
+  choice.
+  Each row has an item icon or kind
+  glyph in the gutter, the name in its
   quality colour lifted to 4.5:1 or its subject colour, a muted "No longer
   obtainable" / "No known source" chip for `status`, the subtitle right);
   only the rows in view are drawn, and only they get a subtitle
-  (`Search.Subtitle`). Lookup has no tabs, so no tab row: it comes back only
-  to say why the Codex is not there to search ("Loading the Codex…"
-  re-queries on `CODEX_LOADED`); Enter is named in each row's tooltip. Right: the selection
-  on a band (the zone art of its best located source), facts, the ranked
+  (`Search.Subtitle`). Lookup uses the tab row to show Codex availability.
+  On `CODEX_LOADED` it refreshes the list and sidebar counts. Enter is
+  named in each row's tooltip. The pane on the right shows the selection's
+  band (the zone art of its best located source) and facts. For an item,
+  the scroll pane shows the Codex rarity and levels, the game's tooltip
+  lines in order without the name, then any Codex class restrictions in class
+  colours above "Where to get it". It adds a missing required level and a
+  known sell price in their tooltip positions. The tooltip fills in on
+  `GET_ITEM_INFO_RECEIVED` when the item was not cached. The ranked
   sources of `Lookup.Sources` (asked once per selection; label, detail,
   travel, chance / price / standing; ones this character cannot use dimmed
-  with `whyText`), a "Guide" button on the selected source, and pinned
+  with `whyText`) follow, with a "Guide" button on the selected source and a pinned
   "Guide me" ("Open guide" when `Lookup.CuratedGuide` has one) calling
   `Lookup.Guide`; nothing guides to an unobtainable entity, and a mount
   without a curated guide has no "Guide me", only a note pointing at its
@@ -11191,7 +11372,7 @@ holding every table the Codex reads; `meta.json` records it), the item
 sources players' recordings show (`data/codex/recorded.json`) and Polestar's
 own guides into
 `data/forever/codex/*.json`, then emits the load-on-demand pack
-`addon/Polestar_Codex/` (`tools/lib/codex/pack.js`) with its
+`addon/Polestar_Codex/` (`rust/crates/forge-data/src/codex/pack.rs`) with its
 `LICENSE-DATA.txt`, which lists every source with its version and licence.
 Both are build products (gitignored); the pack is part of the release:
 `pack` puts it in the zip and fails without it, `install` copies it when
@@ -11261,6 +11442,67 @@ was already built without it.
   `ContentTuning`, `GroupFinderActivity`; the Classic Era `Item`, `ItemSparse`,
   `ItemEffect` and `Map` fill items Forever's tables lack and tell Forever's
   own instances apart.
+- Item facts (`codex/client.rs`, `merge.rs`, `itemdb.rs`): Forever's
+  `ItemSparse` gives `reqLevel`, `itemLevel`, `quality` and `allowClass`
+  (the Blizzard class mask limited to the supported classes). Forever's
+  `Item` gives `itemClass`, `itemSubclass` and `slot` (InventoryType).
+  A known `reqLevel` of 0 means no level required and is kept. Legacy
+  Era client rows can still supply a nonzero requirement. The two
+  groups carry `levelsSource` and `typeSource` respectively. A group
+  with Forever client facts is marked `client`, and ItemDB does not override it.
+  For each unmarked group the build fills from the first ItemDB row
+  for that id, `addon/Polestar_ItemDB/Forever.lua` (`forever`) then
+  `Items.lua` (`era`). Both groups use that same selected row, and a
+  zero ItemDB class mask becomes all supported classes. Without one
+  of those sources the group has no source flag, even if a legacy
+  display value exists. `levelsSource` is the default source of its
+  four facts; one that differs has its own `reqSource`, `itemLevelSource`,
+  `qualitySource` or `allowSource` (`none`: no table vouches for it).
+  The merge sets only two of them. An item the Era client tables alone
+  supply gets `reqSource` and `qualitySource` `era` for the level and
+  rarity they give, and no `levelsSource`. A Forever client item with
+  `levelsSource = "client"` but no rarity gets `qualitySource = "none"`.
+  An ItemDB row that fills the levels group replaces all four facts and
+  removes these per-fact labels, so its facts all take its `levelsSource`.
+  The pack carries them in the per-fact source byte (packed filters,
+  below). `FilterFacts` sets a fact's own source only where it differs
+  from `levelsSource` (`false` for `none`), and `Codex.FactSource`
+  returns it, else `levelsSource`.
+- Item stats (`codex/itemdb.rs`): for `levelsSource = "client"`, the
+  Forever client's stat codes determine presence and the selected
+  ItemDB row supplies matching amounts where the units agree. A stat
+  slot whose `StatPercentEditor` allocation is 0 grants nothing and is
+  left out; a missing or blank allocation keeps the code. The caster
+  bits of `ItemSparse` `Flags_4` add spell codes: 0x400 gives healing
+  and spell damage (41, 42), and 0x200 gives spell power (45), or 41 and
+  42 when the ItemDB row states unequal `sp` and `heal`. For
+  ItemDB-backed levels, the selected row's mapped stats supply presence
+  and amounts. `stats` maps raw codes to signed amounts, with 0 for
+  presence only. `statAmountSource` names the selected ItemDB source
+  for all nonzero amounts on that item. The presence source is
+  `levelsSource`: an omitted map means known empty when that flag is
+  set, and unknown otherwise.
+- Packed filters and stats (`codex/pack.rs`, `Lookup/Codex.lua`):
+  after `RegisterIndex`, `RegisterFilters(1, categories, columns)`
+  supplies a directory of raw class/subclass pairs and a five-byte
+  column row per item-backed index line, in index order. The first
+  three bytes hold two 7-bit levels (127 means unknown) and a 10-bit
+  class mask (nine class bits, 512 means unknown). The last two hold
+  `categoryId * 36 + slotCode` in 12 bits and the two 2-bit source codes
+  (0 unknown, 1 client, 2 forever, 3 era). Category 0 and slot code 0
+  mean unknown, and a known slot code is InventoryType + 1. Quality
+  stays in the index. `RegisterStats(1, directory, postings)` requires
+  a supported filter column. Each raw stat code has a 24-bit offset
+  into the postings, a list spanning the five item-backed kinds.
+  Entries are unsigned LEB128 pairs of item id delta and amount word.
+  The word holds a ZigZag signed amount above the low two source bits,
+  or is zero for presence with an unknown amount. Coverage comes from
+  the filter row's `levelsSource`. The two registrations have their
+  own versions and leave the existing detail records readable. A column
+  whose facts differ in source adds a third element, one byte per row
+  (two bits each for level, item level, quality and classes, lowest first,
+  same codes); only `FilterFacts` reads it, and an old reader or pack
+  ignores it.
 - Dungeons and raids (`tools/lib/codex/instances.js`, release build): every
   `Map` instance that Forever's dungeon finder (`LFGDungeons`) names, or that
   belongs to the original game (map id below 1000) and has `DungeonEncounter`
@@ -11416,7 +11658,9 @@ was already built without it.
   = items with at least one source, `pack` = files, bytes and measured
   memory), `items.json`
   (`{ id, name, quality, kind: item|mount|pet|recipe|tabard, spell, reqLevel,
-  repFaction, repStanding, reqSkill, reqSkillRank, status, sources }`; a source
+  itemLevel, allowClass, itemClass, itemSubclass, slot, levelsSource,
+  typeSource, stats, statAmountSource, repFaction, repStanding, reqSkill,
+  reqSkillRank, status, sources }`; a source
   is `{ type: vendor|drop|object|quest|craft|rep|pvp|
   container|world, from, ... }`), `npcs.json`, `objects.json`, `quests.json`
   (with `pre` = every blocking prerequisite, `preAny`, rewards from recordings,

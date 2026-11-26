@@ -5,10 +5,11 @@
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::Path;
 
-use forge_guide::races::CLASSES;
+use forge_guide::races::{ALL_CLASSES, CLASSES};
 use rustc_hash::{FxHashMap, FxHashSet};
 
 use super::util::{int_s, norm_s, num0_s};
+use crate::gear::forever::{CASTER_HEAL, CASTER_SPELL};
 use crate::jsv::{to_int32, Row, Rows};
 use crate::tables::{compare_versions, parse_csv};
 
@@ -96,11 +97,85 @@ fn key(n: Option<f64>) -> i64 {
 	n.map(|x| x as i64).unwrap_or(i64::MIN)
 }
 
+/// The stats an item grants: each slot's code (`StatModifier_bonusStat_i`) read with its allocation
+/// (`StatPercentEditor_i`). A slot whose allocation is 0 grants nothing in the game and is left out
+/// (as the gear extractor does); a missing column or blank cell means the allocation is unknown,
+/// so the code is kept. Slots are filtered before dedup, so a code repeated in a zero slot and a
+/// granting slot still counts.
+fn stat_codes(row: &Row) -> Vec<i64> {
+	let mut codes: Vec<_> = (0..10)
+		.filter(|i| row.get(&format!("StatPercentEditor_{i}")).and_then(|a| a.parse::<i64>().ok()) != Some(0))
+		.filter_map(|i| row.get(&format!("StatModifier_bonusStat_{i}"))?.parse::<i64>().ok())
+		.filter(|&code| code >= 0)
+		.collect();
+	codes.sort_unstable();
+	codes.dedup();
+	codes
+}
+
+#[cfg(test)]
+#[test]
+fn item_sparse_stat_codes_are_nonnegative_unique_and_sorted() {
+	let mut tables = Tables::default();
+	tables.insert(
+		"ItemSparse",
+		parse_csv("ID,StatModifier_bonusStat_0,StatModifier_bonusStat_1,StatModifier_bonusStat_2,StatModifier_bonusStat_3,StatModifier_bonusStat_4,StatModifier_bonusStat_9\n19019,7,-1,7,0,,3\n6948,-1,-1,-1,-1,-1,-1\n").unwrap(),
+	);
+	let client = client_facts(&tables, "test");
+	assert_eq!(client.items[&19019].stat_codes, [0, 3, 7]);
+	assert!(client.items[&6948].stat_codes.is_empty());
+}
+
+#[cfg(test)]
+#[test]
+fn item_sparse_stat_codes_skip_slots_with_zero_allocation() {
+	let mut tables = Tables::default();
+	// 250556 (Officer's Belt): Spirit (6) sits in a slot with allocation 0 and grants nothing.
+	// 1: Stamina (7) zero in slot 0, positive in slot 1. 2: positive allocation, blank allocation.
+	// 3: no StatPercentEditor column at all (slot 4), so its code is kept.
+	tables.insert(
+		"ItemSparse",
+		parse_csv(concat!(
+			"ID,StatModifier_bonusStat_0,StatPercentEditor_0,StatModifier_bonusStat_1,StatPercentEditor_1,StatModifier_bonusStat_2,StatPercentEditor_2,StatModifier_bonusStat_3,StatPercentEditor_3,StatModifier_bonusStat_4\n",
+			"250556,3,3899,6,0,7,4767,4,6666,\n",
+			"1,7,0,7,5000,-1,0,-1,0,\n",
+			"2,5,2500,6,,-1,0,-1,0,\n",
+			"3,-1,0,-1,0,-1,0,-1,0,4\n",
+		))
+		.unwrap(),
+	);
+	let client = client_facts(&tables, "test");
+	assert_eq!(client.items[&250556].stat_codes, [3, 4, 7]);
+	assert_eq!(client.items[&1].stat_codes, [7]);
+	assert_eq!(client.items[&2].stat_codes, [5, 6]);
+	assert_eq!(client.items[&3].stat_codes, [4]);
+}
+
+#[cfg(test)]
+#[test]
+fn item_sparse_keeps_the_caster_bits_of_flags_4() {
+	let mut tables = Tables::default();
+	// 3446 (Darkwood Staff): 0x100 | 0x200. 18608 (Benediction): 0x100 | 0x400. 1: other bits only.
+	tables.insert("ItemSparse", parse_csv(concat!("ID,Flags_4,StatModifier_bonusStat_0,StatPercentEditor_0\n", "3446,768,7,10000\n", "18608,1280,5,2000\n", "1,4352,-1,0\n", "2,,-1,0\n")).unwrap());
+	let client = client_facts(&tables, "test");
+	assert_eq!(client.items[&3446].caster_flags, 0x200);
+	assert_eq!(client.items[&3446].stat_codes, [7]);
+	assert_eq!(client.items[&18608].caster_flags, 0x400);
+	assert_eq!(client.items[&1].caster_flags, 0);
+	assert_eq!(client.items[&2].caster_flags, 0);
+}
+
 #[derive(Clone, Debug, Default)]
 pub struct ClientItem {
 	pub name: Option<String>,
 	pub quality: Option<f64>,
 	pub req_level: Option<f64>,
+	pub item_level: Option<f64>,
+	pub allow_class: Option<f64>,
+	pub stat_codes: Vec<i64>,
+	/// The caster bits of `Flags_4` (`gear::forever::CASTER_SPELL`, `CASTER_HEAL`): spell power the
+	/// item grants outside its stat slots; codex/itemdb.rs turns them into spell codes.
+	pub caster_flags: i64,
 	pub buy_price: Option<f64>,
 	pub min_faction: Option<f64>,
 	pub min_standing: Option<f64>,
@@ -151,7 +226,11 @@ pub fn client_facts(tables: &Tables, build: &str) -> ClientFacts {
 			ClientItem {
 				name: col(r, "Display_lang").filter(|s| !s.is_empty()).cloned(),
 				quality: int(r, "OverallQualityID"),
-				req_level: truthy_int(r, "RequiredLevel"),
+				req_level: int(r, "RequiredLevel"),
+				item_level: int(r, "ItemLevel"),
+				allow_class: int(r, "AllowableClass").map(|mask| f64::from(to_int32(mask) & ALL_CLASSES as i32)),
+				stat_codes: stat_codes(r),
+				caster_flags: int(r, "Flags_4").map_or(0, |f| to_int32(f) as i64 & (CASTER_SPELL | CASTER_HEAL)),
 				buy_price: truthy_int(r, "BuyPrice"),
 				min_faction: mf,
 				min_standing: mf.map(|_| int(r, "MinReputation").filter(|n| *n != 0.0).unwrap_or(0.0) + 1.0),

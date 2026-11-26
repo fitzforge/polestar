@@ -19,6 +19,7 @@ Inputs:
   - items: the world slice's, the items of the gear golden's synthetic item list (from when the Codex read it), and the items that teach the first 10 mounts and pets and those skills' spells;
   - the spell rows those need.
 - `root/data/codex/*.json`: copies of this checkout's curated tables (attunements, entrances, journal quests, dungeon levels, rep gates). The Rust build reads them from its root; regen.js checks that they match the JS tree's.
+- The byte-comparison fixture has no ItemDB files in `root/addon/Polestar_ItemDB`, so it records client provenance and the missing-file warnings. A separate integration test supplies small Forever and Era item tables in its scratch root and checks fallback and packed rarity.
 - There is no web quest database cache (`sources/web`).
 
 expected/: `codex/*.json`, `Polestar_Codex/*` and `warnings.txt`. Files over 64 KiB are gzipped (`<name>.gz`).

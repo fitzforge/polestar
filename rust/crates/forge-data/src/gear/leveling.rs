@@ -155,11 +155,14 @@ pub fn decode(id: f64, s: &str) -> Result<Rec, String> {
 	Ok(rec)
 }
 
-/// Era Items.lua text -> id -> record.
-pub fn read_era_items(text: &str) -> Result<FxHashMap<u64, Rec>, String> {
+/// Generated ItemDB item rows, keyed by item ID. Filter raw rows before decoding them.
+pub(crate) fn read_item_rows(text: &str, mut keep: impl FnMut(&str, &str) -> bool) -> Result<FxHashMap<u64, Rec>, String> {
 	let re = regex::Regex::new(r#"\[(\d+)\]="([^"]*)""#).unwrap();
 	let mut out = FxHashMap::default();
 	for m in re.captures_iter(text) {
+		if !keep(&m[1], &m[2]) {
+			continue;
+		}
 		let id = str_to_num(&m[1]);
 		out.insert(id as u64, decode(id, &m[2])?);
 	}

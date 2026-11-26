@@ -1,7 +1,11 @@
 //! tools/lib/codex/pack.js `emitPack`: the Codex -> the load-on-demand addon Polestar_Codex
 //! (record strings in long Lua string literals, decoded by addon/Polestar/Lookup/Codex.lua).
 
+use std::collections::{BTreeMap, BTreeSet};
+use std::fmt::Write as _;
+
 use forge_guide::js::{num_str, str_to_num, V};
+use forge_guide::races::CLASSES;
 
 use super::util::{by_num, kstr, math_round, oentries};
 
@@ -10,6 +14,15 @@ pub const ADDON: &str = "Polestar_Codex";
 const CHUNK: usize = 4000;
 const ITEM_KINDS: [&str; 5] = ["item", "mount", "pet", "recipe", "tabard"];
 const SEARCH_KINDS: [&str; 11] = ["mount", "pet", "item", "recipe", "tabard", "quest", "npc", "rare", "instance", "zone", "treasure"];
+const FILTER_VERSION: u8 = 1;
+const FILTER_BYTES: usize = 5;
+const SLOT_CODES: u16 = 36; // unknown + InventoryType 0..34
+const MAX_CATEGORIES: usize = (4096 / SLOT_CODES as usize) - 1; // id 0 is unknown
+const UNKNOWN_SUBCLASS: u8 = 255;
+const STAT_VERSION: u8 = 1;
+const MAX_STAT_OFFSET: usize = 0xFF_FFFF;
+const MIN_STAT_AMOUNT: f64 = -536_870_912.0;
+const MAX_STAT_AMOUNT: f64 = 536_870_911.0;
 
 fn from_letter(f: &str) -> Result<char, String> {
 	Ok(match f {
@@ -94,6 +107,156 @@ fn lua_blob(s: &str) -> String {
 	}
 	out.push('"');
 	out
+}
+
+/// Lua short-string literal for arbitrary bytes, independent of source encoding.
+fn lua_bytes(bytes: &[u8]) -> String {
+	let mut out = String::with_capacity(bytes.len() * 4 + 2);
+	out.push('"');
+	for &b in bytes {
+		match b {
+			b'\\' => out.push_str("\\\\"),
+			b'"' => out.push_str("\\\""),
+			b' '..=b'~' => out.push(char::from(b)),
+			_ => write!(out, "\\{b:03}").unwrap(),
+		}
+	}
+	out.push('"');
+	out
+}
+
+fn filter_number(item: &V, field: &str, max: u16) -> Result<Option<u16>, String> {
+	let value = item.get(field);
+	if value.is_nullish() {
+		return Ok(None);
+	}
+	value
+		.as_num()
+		.filter(|&n| (0.0..=f64::from(max)).contains(&n) && n.fract() == 0.0)
+		.map(|n| Some(n as u16))
+		.ok_or_else(|| format!("codex item filter: item {} has {field} = {value:?}, expected an integer in 0..={max}", item.get("id").to_js_string()))
+}
+
+fn item_category(item: &V) -> Result<Option<(u8, u8)>, String> {
+	let Some(class) = filter_number(item, "itemClass", u8::MAX.into())? else { return Ok(None) };
+	let subclass = filter_number(item, "itemSubclass", (UNKNOWN_SUBCLASS - 1).into())?;
+	Ok(Some((class as u8, subclass.map_or(UNKNOWN_SUBCLASS, |n| n as u8))))
+}
+
+fn filter_source(item: &V, field: &str) -> u16 {
+	match item.get(field).as_str() {
+		Some("client") => 1,
+		Some("forever") => 2,
+		Some("era") => 3,
+		_ => 0,
+	}
+}
+
+/// Five bytes per Index row, little-endian within each group:
+/// - 24 bits: 7 required level, 7 item level (127 = unknown), 10 class mask (512 = unknown).
+///   Class bits 0..8 follow CLASSES: Warrior, Paladin, Hunter, Rogue, Priest, Shaman, Mage,
+///   Warlock, Druid. The decoder expands them back to the client's sparse mask.
+/// - 16 bits: 12 for categoryId * 36 + slotCode (0 = unknown, 1..35 = InventoryType + 1),
+///   then 2 levelsSource and 2 typeSource. The mixed radix fits slot and category in one
+///   fewer bit, so one Lua string.byte call reads the row and no sixth byte is needed.
+fn encode_filter(item: &V, categories: &[(u8, u8)]) -> Result<[u8; FILTER_BYTES], String> {
+	let req = filter_number(item, "reqLevel", 126)?.unwrap_or(127);
+	let ilvl = filter_number(item, "itemLevel", 126)?.unwrap_or(127);
+	let mask = filter_number(item, "allowClass", u16::MAX)?.map_or(512, |mask| CLASSES.iter().enumerate().filter(|(_, class)| mask & class.bit as u16 != 0).map(|(i, _)| 1 << i).sum::<u16>());
+	let slot = filter_number(item, "slot", 34)?.map_or(0, |n| n + 1);
+	let category = item_category(item)?.map_or(0, |pair| (categories.binary_search(&pair).expect("category collected from Index rows") + 1) as u16);
+	let levels = u32::from(req) | (u32::from(ilvl) << 7) | (u32::from(mask) << 14);
+	let type_and_sources = (category * SLOT_CODES + slot) | (filter_source(item, "levelsSource") << 12) | (filter_source(item, "typeSource") << 14);
+	let [a, b, c, _] = levels.to_le_bytes();
+	let [d, e] = type_and_sources.to_le_bytes();
+	Ok([a, b, c, d, e])
+}
+
+/// One byte per Index row beside the filter column, for a column where a fact's own source is not
+/// levelsSource's: the sources (the same 2-bit codes) of the required level, item level, rarity and
+/// class mask, lowest bits first. A fact without `reqSource`, `itemLevelSource`, `qualitySource` or
+/// `allowSource` takes levelsSource's code.
+fn encode_field_sources(item: &V) -> u8 {
+	let group = filter_source(item, "levelsSource");
+	let of = |field: &str| if item.has(field) { filter_source(item, field) } else { group };
+	(of("reqSource") | (of("itemLevelSource") << 2) | (of("qualitySource") << 4) | (of("allowSource") << 6)) as u8
+}
+
+fn stat_varint(out: &mut Vec<u8>, mut value: u32) {
+	while value >= 128 {
+		out.push((value as u8 & 127) | 128);
+		value >>= 7;
+	}
+	out.push(value as u8);
+}
+
+fn stat_offset(offset: usize) -> Result<[u8; 3], String> {
+	if offset > MAX_STAT_OFFSET {
+		return Err(format!("codex item stats: postings exceed the version {STAT_VERSION} limit of {MAX_STAT_OFFSET} bytes"));
+	}
+	let [a, b, c, _] = (offset as u32).to_le_bytes();
+	Ok([a, b, c])
+}
+
+/// Stat pack v1 uses one directory entry per code: u8 raw code, u24 LE byte
+/// offset into the postings blob. Each list ends at the next offset or blob
+/// end. Lists span all searchable item-backed kinds since item IDs are unique
+/// across them. In each list, ID starts at 0 and rows are `(delta, amountWord)`
+/// as unsigned 32-bit LEB128. `amountWord` puts a ZigZag signed amount in the
+/// high bits and the 2-bit filter source code in the low bits. A zero word
+/// means present with unknown amount. Coverage comes from Index levelsSource.
+fn encode_stats<'a>(items: &V, ids: impl Iterator<Item = &'a str>) -> Result<(Vec<u8>, Vec<u8>), String> {
+	let mut by_code: BTreeMap<u8, Vec<(u32, u32)>> = BTreeMap::new();
+	for id in ids {
+		let item = items.get(id);
+		let stats = item.get("stats");
+		if stats.is_nullish() {
+			continue;
+		}
+		let error = |details: &str| format!("codex item stats: item {id} {details}");
+		let stats = stats.as_obj().ok_or_else(|| error("requires a stats object"))?;
+		if stats.keys().is_empty() {
+			continue;
+		}
+		let numeric_id = id.parse::<u32>().ok().filter(|&id| id != 0).ok_or_else(|| error("ID is outside 1..=4294967295"))?;
+		if filter_source(&item, "levelsSource") == 0 {
+			return Err(error("has stats without levelsSource"));
+		}
+		let source = u32::from(filter_source(&item, "statAmountSource"));
+		for (code, amount) in stats.entries() {
+			let code = code.parse::<u8>().map_err(|_| error(&format!("stat code {code} is outside 0..=255")))?;
+			let amount = amount
+				.as_num()
+				.filter(|n| (MIN_STAT_AMOUNT..=MAX_STAT_AMOUNT).contains(n) && n.fract() == 0.0)
+				.ok_or_else(|| error(&format!("stat {code} amount {amount:?} must be an integer in {MIN_STAT_AMOUNT}..={MAX_STAT_AMOUNT}")))? as i32;
+			let word = if amount == 0 {
+				0
+			} else {
+				if source == 0 {
+					return Err(error(&format!("stat {code} has a known amount without statAmountSource")));
+				}
+				let zigzag = ((amount << 1) ^ (amount >> 31)) as u32;
+				(zigzag << 2) | source
+			};
+			by_code.entry(code).or_default().push((numeric_id, word));
+		}
+	}
+	let mut directory = Vec::with_capacity(by_code.len() * 4);
+	let mut postings = Vec::new();
+	for (code, mut list) in by_code {
+		directory.push(code);
+		directory.extend(stat_offset(postings.len())?);
+		list.sort_unstable();
+		let mut previous = 0;
+		for (id, word) in list {
+			let delta = id.checked_sub(previous).filter(|&delta| delta > 0).ok_or_else(|| format!("codex item stats: duplicate item {id} for code {code}"))?;
+			stat_varint(&mut postings, delta);
+			stat_varint(&mut postings, word);
+			previous = id;
+		}
+	}
+	stat_offset(postings.len())?;
+	Ok((directory, postings))
 }
 
 fn one_line(v: &V) -> String {
@@ -291,9 +454,14 @@ fn status_letter(rec: &V) -> &'static str {
 }
 
 fn encode_item(rec: &V) -> Result<String, String> {
+	// Keep the legacy Lua header empty for items with no level requirement.
+	let req_level = match rec.get("reqLevel") {
+		V::Num(0.0) => String::new(),
+		level => num(&level)?,
+	};
 	let mut parts = vec![
 		num(&rec.get("quality"))? + status_letter(rec),
-		num(&rec.get("reqLevel"))?,
+		req_level,
 		num(&rec.get("spell"))?,
 		num(&rec.get("repFaction"))?,
 		num(&rec.get("repStanding"))?,
@@ -859,17 +1027,53 @@ pub fn emit_pack(codex: &PackCodex, version: &str, build: &V, extra_files: &[(St
 	let mut lines = header();
 	lines.push("if not C.RegisterIndex then return end".into());
 	lines.push(String::new());
+	let index_entries = |kind| index.iter().rev().find(|(k, _)| *k == kind).map(|(_, entries)| entries.as_slice()).unwrap_or(&[]);
+	let item_entries = || ITEM_KINDS.into_iter().flat_map(index_entries);
+	let categories = item_entries().filter_map(|(id, ..)| item_category(&items.get(id)).transpose()).collect::<Result<BTreeSet<_>, _>>()?;
+	if categories.len() > MAX_CATEGORIES {
+		return Err(format!("codex item filter: {} categories exceed the version {FILTER_VERSION} limit of {MAX_CATEGORIES}", categories.len()));
+	}
+	let categories: Vec<_> = categories.into_iter().collect();
+	let mut filter_lines = Vec::new();
 	for kind in SEARCH_KINDS {
-		let entries = index.iter().rev().find(|(k, _)| *k == kind).map(|(_, e)| e.as_slice()).unwrap_or(&[]);
+		let entries = index_entries(kind);
+		let item_backed = ITEM_KINDS.contains(&kind);
 		let mut blob = String::new();
+		let mut filters = Vec::with_capacity(if item_backed { entries.len() * FILTER_BYTES } else { 0 });
+		let mut field_sources = Vec::with_capacity(if item_backed { entries.len() } else { 0 });
+		let mut varied = false;
 		for (id, name, quality, status) in entries {
 			blob.push('\x02');
 			blob.push_str(&fold_name(name));
 			blob.push('\x01');
 			blob.push_str(&format!("{id},{},{status},{}\n", num(quality)?, one_line(name).len()));
+			if item_backed {
+				let item = items.get(id);
+				filters.extend(encode_filter(&item, &categories)?);
+				let byte = encode_field_sources(&item);
+				varied |= u16::from(byte) != filter_source(&item, "levelsSource") * 0x55;
+				field_sources.push(byte);
+			}
 		}
 		lines.push(format!("C.RegisterIndex({}, {})", lua_str(kind), lua_blob(&blob)));
+		if item_backed {
+			// The third element is left out while every fact's source is levelsSource's.
+			let sources = if varied { format!(", {}", lua_bytes(&field_sources)) } else { String::new() };
+			filter_lines.push(format!("\t\t{kind} = {{ {}, {}{sources} }},", entries.len(), lua_bytes(&filters)));
+		}
 	}
+	let directory: Vec<_> = categories.into_iter().flat_map(|(class, subclass)| [class, subclass]).collect();
+	lines.push(String::new());
+	lines.push("if C.RegisterFilters then".into());
+	lines.push(format!("\tC.RegisterFilters({FILTER_VERSION}, {}, {{", lua_bytes(&directory)));
+	lines.extend(filter_lines);
+	lines.push("\t})".into());
+	lines.push("end".into());
+	lines.push(String::new());
+	let (directory, postings) = encode_stats(items, item_entries().map(|(id, ..)| id.as_str()))?;
+	lines.push("if C.RegisterStats then".into());
+	lines.push(format!("\tC.RegisterStats({STAT_VERSION}, {}, {})", lua_bytes(&directory), lua_bytes(&postings)));
+	lines.push("end".into());
 	lines.push(String::new());
 	out.push(("Index.lua".into(), lines.join("\n")));
 	order.push("Index.lua".into());
@@ -951,6 +1155,258 @@ pub fn pack_order(files: &[(String, String)]) -> Vec<String> {
 #[cfg(test)]
 mod tests {
 	use super::*;
+	use forge_guide::js::parse_json;
+	use mlua::{Function, Lua, Table};
+
+	fn filter_lua() -> (Lua, Table) {
+		let lua = Lua::new();
+		let ns = lua.create_table().unwrap();
+		lua.load(include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/../../../addon/Polestar/Lookup/Codex.lua"))).call::<()>(("Polestar", ns.clone())).unwrap();
+		lua.globals().set("Polestar", ns.clone()).unwrap();
+		let codex = ns.get("Codex").unwrap();
+		(lua, codex)
+	}
+
+	type FilterFields = (Option<u16>, Option<u16>, Option<u16>, Option<u16>, Option<u16>, Option<u16>, Option<u16>);
+
+	#[test]
+	fn filter_row_round_trips_zero_unknown_and_each_source() {
+		let (lua, codex) = filter_lua();
+		let decode: Function = codex.get("DecodeFilter").unwrap();
+		let row = |item| {
+			let bytes = encode_filter(&item, &[(2, 7)]).unwrap();
+			// Exercise the byte-safe Lua source emitter, including NUL and high bytes.
+			let blob: mlua::String = lua.load(format!("return {}", lua_bytes(&bytes))).eval().unwrap();
+			assert_eq!(blob.as_bytes().as_ref(), bytes);
+			decode.call::<FilterFields>((blob, 1)).unwrap()
+		};
+		assert_eq!(row(V::obj()), (None, None, None, None, None, None, None));
+		let zeroes = parse_json(r#"{"reqLevel":0,"itemLevel":0,"allowClass":0,"slot":0}"#).unwrap();
+		assert_eq!(row(zeroes), (Some(0), Some(0), Some(0), Some(0), None, None, None));
+		for (code, source) in [(1, "client"), (2, "forever"), (3, "era")] {
+			let item = parse_json(r#"{"reqLevel":126,"itemLevel":100,"allowClass":1503,"slot":34,"itemClass":2,"itemSubclass":7}"#).unwrap();
+			item.set("levelsSource", source);
+			item.set("typeSource", source);
+			assert_eq!(row(item), (Some(126), Some(100), Some(1503), Some(34), Some(1), Some(code), Some(code)));
+		}
+		for class in &CLASSES {
+			let item = V::obj();
+			item.set("allowClass", class.bit);
+			assert_eq!(row(item).2, Some(class.bit as u16), "{}", class.file);
+		}
+		let bytes: Vec<u8> = (0..=255).collect();
+		let blob: mlua::String = lua.load(format!("return {}", lua_bytes(&bytes))).eval().unwrap();
+		assert_eq!(blob.as_bytes().as_ref(), bytes);
+	}
+
+	#[test]
+	fn filter_directory_and_columns_follow_searchable_index_rows() {
+		let items = parse_json(
+			r#"{
+				"10":{"name":"Axe","itemClass":2,"itemSubclass":0,"reqLevel":10},
+				"2":{"name":"Robe","itemClass":4,"itemSubclass":1,"reqLevel":2},
+				"4":{"name":"Ahn'Qiraj Wand [PH]","itemClass":1,"itemSubclass":0,"reqLevel":4},
+				"6":{"name":"Sword","itemClass":2,"itemSubclass":7,"reqLevel":6},
+				"12":{"name":"Retired Sword","status":"retired","itemClass":2,"itemSubclass":7,"reqLevel":12},
+				"13":{"name":"Recipe","kind":"recipe","itemClass":9,"itemSubclass":0,"reqLevel":13},
+				"14":{"name":"Mount","kind":"mount","itemClass":15,"itemSubclass":0,"reqLevel":14},
+				"15":{"name":"Pet","kind":"pet","itemClass":15,"itemSubclass":2,"reqLevel":15},
+				"16":{"name":"Tabard","kind":"tabard","itemClass":4,"itemSubclass":0,"reqLevel":16}
+			}"#,
+		)
+		.unwrap();
+		let empty = V::obj();
+		let pack = PackCodex {
+			items: &items,
+			npcs: &empty,
+			objects: &empty,
+			quests: &empty,
+			instances: &empty,
+			zones: &empty,
+			factions: &empty,
+			spells: &empty,
+			professions: &empty,
+			meta: &empty,
+			frames: &empty,
+		};
+		let files = emit_pack(&pack, "1", &V::Null, &[]).unwrap();
+		let (lua, codex) = filter_lua();
+		let index_lua = &files.iter().find(|(name, _)| name == "Index.lua").unwrap().1;
+		lua.load(index_lua).exec().unwrap();
+
+		let category: Function = codex.get("FilterCategory").unwrap();
+		for (i, pair) in [(2, 0), (2, 7), (4, 0), (4, 1), (9, 0), (15, 0), (15, 2)].into_iter().enumerate() {
+			assert_eq!(category.call::<(u8, u8)>(i + 1).unwrap(), pair);
+		}
+		assert_eq!(category.call::<Option<u8>>(8).unwrap(), None);
+		let index: Function = codex.get("Index").unwrap();
+		let column: Function = codex.get("FilterColumn").unwrap();
+		let decode: Function = codex.get("DecodeFilter").unwrap();
+		for (kind, expected) in [("item", &[(2, 4), (6, 2), (10, 1), (12, 2)][..]), ("mount", &[(14, 6)]), ("pet", &[(15, 7)]), ("recipe", &[(13, 5)]), ("tabard", &[(16, 3)])] {
+			let text: String = index.call(kind).unwrap();
+			let (bytes, count): (mlua::String, usize) = column.call(kind).unwrap();
+			assert_eq!(count, expected.len(), "{kind}");
+			assert_eq!(bytes.as_bytes().len(), FILTER_BYTES * count, "{kind}");
+			let rows: Vec<_> = text.lines().collect();
+			assert_eq!(rows.len(), count);
+			for (i, (line, &(id, cat))) in rows.iter().zip(expected).enumerate() {
+				let id_text = line.split_once('\x01').unwrap().1.split(',').next().unwrap();
+				assert_eq!(id_text.parse::<u16>().unwrap(), id, "{kind} row {}", i + 1);
+				let facts = decode.call::<FilterFields>((bytes.clone(), i + 1)).unwrap();
+				assert_eq!((facts.0, facts.4), (Some(id), Some(cat)), "{kind} row {}", i + 1);
+			}
+		}
+	}
+
+	// Required level, item level, rarity and classes each carry their own source beside the filter
+	// column (leaving it out while they all take levelsSource's).
+	#[test]
+	fn field_sources_label_each_fact() {
+		let items = parse_json(
+			r#"{
+				"5200":{"name":"Impaling Harpoon","itemClass":2,"itemSubclass":6,"slot":17,"reqLevel":20,"itemLevel":22,"allowClass":1503,"quality":3,"levelsSource":"forever","typeSource":"forever","reqSource":"era","qualitySource":"none"},
+				"932":{"name":"Fel Steed Saddlebags","itemClass":1,"itemSubclass":0,"reqLevel":25,"quality":3,"reqSource":"era","qualitySource":"era"},
+				"6948":{"name":"Hearthstone","itemClass":15,"itemSubclass":0,"reqLevel":0,"levelsSource":"client","typeSource":"client"}
+			}"#,
+		)
+		.unwrap();
+		let empty = V::obj();
+		let pack = PackCodex {
+			items: &items,
+			npcs: &empty,
+			objects: &empty,
+			quests: &empty,
+			instances: &empty,
+			zones: &empty,
+			factions: &empty,
+			spells: &empty,
+			professions: &empty,
+			meta: &empty,
+			frames: &empty,
+		};
+		let files = emit_pack(&pack, "1", &V::Null, &[]).unwrap();
+		let (lua, _) = filter_lua();
+		lua.load(&files.iter().find(|(name, _)| name == "Index.lua").unwrap().1).exec().unwrap();
+		let shown: String = lua
+			.load(
+				r#"
+local C = Polestar.Codex
+local function v(x) if x == nil then return '-' elseif x == false then return 'none' end return x end
+local function s(id)
+	local f = C.FilterFacts('item', id)
+	return table.concat({ v(f.levelsSource), v(f.reqSource), v(f.itemLevelSource), v(f.qualitySource), v(f.allowSource) }, ',')
+end
+return s(5200) .. ' ' .. s(932) .. ' ' .. s(6948)"#,
+			)
+			.eval()
+			.unwrap();
+		assert_eq!(shown, "forever,era,-,none,- -,era,-,era,- client,-,-,-,-");
+
+		let plain = |json: &str| encode_field_sources(&parse_json(json).unwrap());
+		assert_eq!(plain(r#"{"levelsSource":"client"}"#), 0x55);
+		assert_eq!(plain(r#"{"levelsSource":"forever","reqSource":"era","qualitySource":"none","allowSource":"client"}"#), 0x4B);
+	}
+
+	// Rockslicer (#872) has an Era client row (level 16, rarity 2) and a Forever ItemDB row (level 18,
+	// rarity 3). After the ItemDB fill, the addon names Forever for the level and rarity it shows.
+	#[test]
+	fn an_itemdb_fill_packs_its_own_source_for_the_facts_it_replaced() {
+		let db = super::super::itemdb::ItemDb::load(&std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../.."), &mut Vec::new()).unwrap();
+		let items = parse_json(
+			r#"{
+				"872":{"id":872,"name":"Rockslicer","reqLevel":16,"quality":2,"reqSource":"era","qualitySource":"era"},
+				"932":{"id":932,"name":"Fel Steed Saddlebags","reqLevel":25,"quality":3,"reqSource":"era","qualitySource":"era"}
+			}"#,
+		)
+		.unwrap();
+		db.fill(items.as_obj().unwrap(), None);
+		let empty = V::obj();
+		let pack = PackCodex {
+			items: &items,
+			npcs: &empty,
+			objects: &empty,
+			quests: &empty,
+			instances: &empty,
+			zones: &empty,
+			factions: &empty,
+			spells: &empty,
+			professions: &empty,
+			meta: &empty,
+			frames: &empty,
+		};
+		let files = emit_pack(&pack, "1", &V::Null, &[]).unwrap();
+		let (lua, _) = filter_lua();
+		lua.load(&files.iter().find(|(name, _)| name == "Index.lua").unwrap().1).exec().unwrap();
+		let shown: String = lua
+			.load(
+				r#"
+local C = Polestar.Codex
+local function s(id)
+	local f = C.FilterFacts('item', id)
+	return table.concat({ f.reqLevel or '-', tostring(C.FactSource(f, 'req')), tostring(C.FactSource(f, 'quality')) }, ',')
+end
+return s(872) .. ' ' .. s(932)"#,
+			)
+			.eval()
+			.unwrap();
+		assert_eq!(shown, "18,forever,forever 25,era,era");
+		assert_eq!(items.get("872").get("quality").as_num(), Some(3.0));
+	}
+
+	#[test]
+	fn stat_postings_round_trip_signed_amounts_and_every_source() {
+		let (lua, _) = filter_lua();
+		let items = parse_json(
+			r#"{
+			"2":{"levelsSource":"client","statAmountSource":"client","stats":{"7":5}},
+			"19019":{"levelsSource":"client","statAmountSource":"forever","stats":{"7":8,"51":0}},
+			"25001":{"levelsSource":"client","stats":{"7":0}},
+			"4294967295":{"levelsSource":"era","statAmountSource":"era","stats":{"7":-536870912,"51":536870911}}
+		}"#,
+		)
+		.unwrap();
+		let (dir, postings) = encode_stats(&items, ["4294967295", "25001", "2", "19019"].into_iter()).unwrap();
+		assert_eq!(dir[0], 7);
+		assert_eq!(dir[4], 51);
+		lua.load(format!(
+			r#"
+local C = Polestar.Codex
+local columns = {{}}
+for _, kind in ipairs({{ 'item', 'mount', 'pet', 'recipe', 'tabard' }}) do
+	C.RegisterIndex(kind, '')
+	columns[kind] = {{ 0, '' }}
+end
+C.RegisterFilters(1, '', columns)
+C.RegisterStats({STAT_VERSION}, {}, {})
+local stats = C.StatItems(7)
+assert(stats[2] == 5 and stats[19019] == 8 and stats[25001] == 0 and stats[4294967295] == -536870912)
+assert(C.StatAmountSource(7, 2) == 'client' and C.StatAmountSource(7, 19019) == 'forever')
+assert(C.StatAmountSource(7, 25001) == nil and C.StatAmountSource(7, 4294967295) == 'era')
+stats = C.StatItems(51)
+assert(stats[19019] == 0 and stats[4294967295] == 536870911 and stats[2] == nil)
+"#,
+			lua_bytes(&dir),
+			lua_bytes(&postings)
+		))
+		.exec()
+		.unwrap();
+	}
+
+	#[test]
+	fn stat_postings_reject_overflow() {
+		for (id, code, amount, expected) in [
+			("4294967296", "7", "8", "ID is outside"),
+			("1", "256", "8", "stat code 256 is outside"),
+			("1", "7", "536870912", "must be an integer in"),
+			("1", "7", "-536870913", "must be an integer in"),
+		] {
+			let items = parse_json(&format!(r#"{{"{id}":{{"levelsSource":"client","statAmountSource":"era","stats":{{"{code}":{amount}}}}}}}"#)).unwrap();
+			let error = encode_stats(&items, std::iter::once(id)).unwrap_err();
+			assert!(error.contains(expected), "{error}");
+		}
+		assert_eq!(stat_offset(MAX_STAT_OFFSET).unwrap(), [255; 3]);
+		assert!(stat_offset(MAX_STAT_OFFSET + 1).unwrap_err().contains("postings exceed"));
+	}
 
 	#[test]
 	fn folds_names() {
@@ -958,6 +1414,16 @@ mod tests {
 		assert_eq!(fold_name(&V::str("Ragnaros' Heart")), "ragnaros heart");
 		assert_eq!(fold_name(&V::str("Caf\u{e9}")), "cafe");
 		assert_eq!(esc(&V::str("a;b,c%")), "a%3Bb%2Cc%25");
+	}
+
+	#[test]
+	fn a_zero_item_requirement_leaves_the_legacy_header_empty() {
+		let item = forge_guide::js::parse_json(r#"{"quality":1}"#).unwrap();
+		assert_eq!(encode_item(&item).unwrap(), "1;;;;;;");
+		item.set("reqLevel", 0.0);
+		assert_eq!(encode_item(&item).unwrap(), "1;;;;;;");
+		item.set("reqLevel", 60.0);
+		assert_eq!(encode_item(&item).unwrap(), "1;60;;;;;");
 	}
 
 	#[test]

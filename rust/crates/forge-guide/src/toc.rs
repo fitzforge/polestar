@@ -164,6 +164,21 @@ static TEXT: &[(&str, [&str; 9], [&str; 9])] = &[
 			"Polestar 的一部分：設定視窗、外觀頁面及其預覽。開啟設定時載入。",
 		],
 	),
+	(
+		"Polestar_Lookup",
+		["Polestar-Nachschlagen", "Polestar: buscador", "Polestar: buscador", "Polestar : recherche", "Polestar 찾아보기", "Polestar: consulta", "Polestar: поиск", "Polestar 查询", "Polestar 查詢"],
+		[
+			"Teil von Polestar: das Nachschlagefenster. Wird beim Öffnen geladen.",
+			"Parte de Polestar: la ventana del buscador. Se carga al abrir el buscador.",
+			"Parte de Polestar: la ventana del buscador. Se carga al abrir el buscador.",
+			"Fait partie de Polestar : la fenêtre de recherche. Chargé à l'ouverture de la recherche.",
+			"Polestar의 일부: 찾아보기 창. 찾아보기를 열 때 불러옵니다.",
+			"Parte do Polestar: a janela de consulta. Carregado ao abrir a consulta.",
+			"Часть Polestar: окно поиска. Загружается при открытии поиска.",
+			"Polestar 的组成部分：查询窗口。打开查询时加载。",
+			"Polestar 的一部分：查詢視窗。開啟查詢時載入。",
+		],
+	),
 	// Polestar's ten skins and the Atlas layout (one folder since 0.4.3, #3507): loaded with the first one used or
 	// listed.
 	(

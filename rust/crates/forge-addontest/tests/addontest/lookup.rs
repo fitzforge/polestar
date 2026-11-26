@@ -5,7 +5,7 @@
 //! loads it.
 
 use forge_addontest::codex::{fixture, write_codex_pack, CodexOpts, CodexPack};
-use forge_addontest::{emitted, is_match, text, truthy, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
+use forge_addontest::{emitted, fake_locale, is_match, text, truthy, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::{json, Value};
 
 fn codex() -> Value {
@@ -13,6 +13,7 @@ fn codex() -> Value {
 }
 
 const ADDON_FILES: &[&str] = &["Core/Core.xml", "Lookup/Lookup.xml"];
+const ADDON_FILES_WITH_GEAR: &[&str] = &["Core/Core.xml", "Gear/Weights.lua", "Lookup/Lookup.xml"];
 
 // The stub world draws the fixture's maps with the same bounds as their Era frames, so live and Era
 // coordinates agree.
@@ -861,11 +862,11 @@ fn search_an_item_only_a_third_pack_collects_ranks_as_curated_only_while_that_pa
 }
 
 #[test]
-fn search_one_letter_queries_read_name_prefixes_only_capped_paging_with_offset_lazy_subtitles() {
+fn search_one_letter_queries_count_all_name_prefixes_paging_with_offset_lazy_subtitles() {
 	let [one, page1, page2, lazy] = first::<4>(run_with(
 		r#"
 		local names = {}
-		for i = 1, 400 do names[i] = { 100000 + i, (i % 2 == 0 and "Kestrel " or "Old Kestrel ") .. i } end
+		for i = 1, 600 do names[i] = { 100000 + i, (i % 2 == 0 and "Kestrel " or "Old Kestrel ") .. i } end
 		local lines = {}
 		for i, e in ipairs(names) do lines[i] = "\2" .. Polestar.Search.Fold(e[2]):sub(2) .. "\1" .. e[1] .. ",2,," .. #e[2] .. "\n" end
 		local blob = table.concat(lines)
@@ -876,8 +877,8 @@ fn search_one_letter_queries_read_name_prefixes_only_capped_paging_with_offset_l
 			Index = function(kind) if kind == "item" then return blob end end,
 			Name = function(kind, id) return byId[id] end,
 			Item = none, Npc = none, Quest = none, Object = none, Instance = none, Zone = none, Faction = none, Spell = none }
-		local res, counts, more = Polestar.Search.Query("k", { kinds = { item = true } })
-		emit({ n = #res, count = counts.item, more = more.item or false, first = res[1] and res[1].title })
+		local res, counts = Polestar.Search.Query("k", { kinds = { item = true } })
+		emit({ n = #res, count = counts.item, first = res[1] and res[1].title })
 		local a = Polestar.Search.Query("kestrel", { kinds = { item = true }, perKind = 50, subtitles = false })
 		local b = Polestar.Search.Query("kestrel", { kinds = { item = true }, perKind = 50, offset = 50, subtitles = false })
 		emit({ n = #a, first = a[1].title, last = a[#a].title }); emit({ n = #b, first = b[1].title })
@@ -890,7 +891,7 @@ fn search_one_letter_queries_read_name_prefixes_only_capped_paging_with_offset_l
 	"#,
 		&Opts { with_pack: false, ..Default::default() },
 	));
-	assert_eq!(one, json!({ "n": 60, "count": 200, "more": false, "first": "Kestrel 2" }), "one letter: names starting with k only, not the word \"Kestrel\" in \"Old Kestrel\"");
+	assert_eq!(one, json!({ "n": 60, "count": 300, "first": "Kestrel 2" }), "one letter: names starting with k only, not the word \"Kestrel\" in \"Old Kestrel\"");
 	assert_eq!(page1, json!({ "n": 50, "first": "Kestrel 2", "last": "Kestrel 100" }));
 	assert_eq!(page2["n"], 50);
 	assert_ne!(page2["first"], page1["first"]);
@@ -932,13 +933,13 @@ fn translated_search_keeps_only_the_extra_names_and_ranks_them_with_english() {
 		ready = true
 		Polestar.Search.Query("unmatched", opts)
 		emit((retainedKiB() - before) * 1024 / #base)
-		local rows, counts, more = Polestar.Search.Query("silver blade", opts)
-		emit({ rows[1].id, rows[1].title, counts.item, more.item })
+		local rows, counts = Polestar.Search.Query("silver blade", opts)
+		emit({ rows[1].id, rows[1].title, counts.item })
 	"#,
 		&Opts { with_pack: false, ..Default::default() },
 	));
 	assert!(num(&kept) < 0.5, "one translated name should not retain a second whole English catalogue: {kept} copies");
-	assert_eq!(matches, json!([1, "Silver Blade", 199, true]), "exact translation before English word matches, one id once, one shared read limit");
+	assert_eq!(matches, json!([1, "Silver Blade", 5000]), "exact translation before English word matches, one id once");
 }
 
 #[test]
@@ -1034,10 +1035,1337 @@ fn search_a_keystroke_costs_a_few_scans_of_the_names_and_grows_linearly_from_2_5
 		&Opts { with_pack: false, ..Default::default() },
 	));
 	let ms = |t: &Value| format!("keystroke {:.3} ms, one scan {:.3} ms", num(&t["key"]), num(&t["scan"]));
+	println!("2,500 names: {}; 25,000 names: {}", ms(&small), ms(&large));
 	// Here (Linux, lua5.1): a keystroke ~3 scans, 25,000 names ~2.5x 2,500; a Lua pass over every line alone
 	// costs ~35 scans.
 	forge_addontest::assert_timing!(num(&large["key"]) < 12.0 * num(&large["scan"]).max(0.01), "25,000 names: {}: more than 12 scans a keystroke", ms(&large));
 	forge_addontest::assert_timing!(num(&large["key"]) < 15.0 * num(&small["key"]).max(0.01), "25,000 names {} vs 2,500 {}: grows faster than the names", ms(&large), ms(&small));
+}
+
+// ---------------------------------------------------------------------------
+// Browsing
+// ---------------------------------------------------------------------------
+
+const BROWSE_LUA: &str = r#"
+local S, C = Polestar.Search, Polestar.Codex
+local function line(id, name, status)
+	return "\2" .. S.Fold(name):sub(2) .. "\1" .. id .. ",2," .. (status or "") .. "," .. #name .. "\n"
+end
+local function ids(rows)
+	local out = {}
+	for i, row in ipairs(rows) do out[i] = row.id end
+	return out
+end
+local function index(entries, indexedKind)
+	local lines, names = {}, {}
+	for i, e in ipairs(entries) do
+		lines[i] = line(e[1], e[2], e[3])
+		names[e[1]] = e[2]
+	end
+	local blob = table.concat(lines)
+	C.IsLoaded = function() return true end
+	C.Index = function(kind) if kind == (indexedKind or "item") then return blob end end
+	C.Name = function(_, id) return names[id] end
+end
+"#;
+
+fn browse(script: &str) -> Vec<Value> {
+	run_with(&[BROWSE_LUA, script].concat(), &Opts { with_pack: false, ..Default::default() })
+}
+
+#[test]
+fn search_item_ids_rank_first_in_best_match_and_page_in_the_selected_order() {
+	let [legacy, legacy_hash, best, first_page, second_page, az, exact, padded] = first::<8>(browse(
+		r##"
+		index({ { 19019, "Thunderfury" }, { 1, "19019" }, { 2, "Ring 19019" }, { 3, "Wand 19019" } })
+		local opts = { resultKind = "item", subtitles = false }
+		local function query(text)
+			local rows, counts = S.Query(text, opts)
+			emit({ ids(rows), counts.item })
+		end
+		query("19019")
+		query("#19019")
+		opts.ids = true
+		query("19019")
+		opts.perKind, opts.limit = 2, 2
+		query("19019")
+		opts.offset = 2
+		query("19019")
+		opts.order, opts.offset, opts.perKind, opts.limit = "az", nil, nil, nil
+		query("19019")
+		query("#19019")
+		query("  #019019  ")
+	"##,
+	));
+	assert_eq!(legacy, json!([[1, 2, 3], 3]));
+	assert_eq!(legacy_hash, legacy);
+	assert_eq!(best, json!([[19019, 1, 2, 3], 4]));
+	assert_eq!(first_page, json!([[19019, 1], 4]));
+	assert_eq!(second_page, json!([[2, 3], 4]));
+	assert_eq!(az, json!([[1, 2, 19019, 3], 4]));
+	assert_eq!(exact, json!([[19019], 1]));
+	assert_eq!(padded, exact);
+}
+
+fn run_filter_lookup(script: &str) {
+	let data = json!({
+		"items": {
+			"1": { "name": "Sample Alpha", "reqLevel": 0, "itemLevel": 10, "quality": 0, "slot": 0, "itemClass": 2, "itemSubclass": 7 },
+			"2": { "name": "Sample Beta", "reqLevel": 10, "itemLevel": 20, "quality": 2, "slot": 13, "itemClass": 2, "itemSubclass": 8 },
+			"3": { "name": "Sample Gamma", "reqLevel": 10, "slot": 0, "itemClass": 4, "itemSubclass": 1 },
+			"4": { "name": "Sample Delta", "itemLevel": 20, "quality": 2 },
+			"5": { "name": "Sample Epsilon", "reqLevel": 20, "itemLevel": 30, "quality": 2, "slot": 13, "itemClass": 2, "status": "retired" },
+			"6": { "name": "Unrelated Item", "itemLevel": 20, "quality": 2, "itemClass": 0, "itemSubclass": 0 },
+			"7": { "name": "Sample Mount", "kind": "mount", "quality": 0 },
+			"8": { "name": "Sample Pet", "kind": "pet", "reqLevel": 0 },
+			"9": { "name": "Sample Recipe", "kind": "recipe", "quality": 0 },
+			"10": { "name": "Sample Tabard", "kind": "tabard", "quality": 2 }
+		},
+		"quests": { "11": { "title": "Sample Quest" } }
+	});
+	let pack = write_codex_pack(&data, &CodexOpts::default());
+	run_with(&[BROWSE_LUA, "\nassert(C.Load() and C.HasFilters())\n", script].concat(), &Opts { with_pack: false, setup: pack.stub_lua.clone(), ..Default::default() });
+}
+
+#[test]
+fn item_filters_match_known_values_independently_in_search_and_browse() {
+	run_filter_lookup(
+		r##"
+		local function check(filters, expected)
+			local opts = { filters = filters, kinds = { item = true }, order = "az", subtitles = false }
+			local rows, counts = S.Query("sample", opts)
+			assert(table.concat(ids(rows), ",") == expected, table.concat(ids(rows), ","))
+			assert(counts.item == #rows)
+			local listed, count = S.Browse("item", opts)
+			assert(count == #listed and count == S.BrowseCount("item", opts))
+			local samples = {}
+			for _, row in ipairs(listed) do if row.id ~= 6 then samples[#samples + 1] = row end end
+			assert(table.concat(ids(samples), ",") == expected)
+		end
+		check({ reqMax = 0 }, "1")
+		check({ reqMin = 10 }, "2,3,5")
+		check({ reqMin = 0, reqMax = 10 }, "1,2,3")
+		check({ ilvlMin = 20, ilvlMax = 20 }, "2,4")
+		check({ ilvlMax = 20 }, "1,2,4")
+		check({ quality = { [0] = true, [2] = true } }, "1,2,4,5")
+		check({ quality = { [0] = true } }, "1")
+		check({ slot = 0 }, "1,3")
+		check({ category = { class = 2 } }, "1,2,5")
+		check({ category = { class = 2, subclass = 7 } }, "1")
+		check({ category = { class = 2, subclass = 8 }, slot = 13, reqMin = 10, ilvlMax = 20, quality = { [2] = true } }, "2")
+		check({ reqMin = 21, reqMax = 0, ilvlMin = -1, ilvlMax = 1000, slot = 1.5, category = { class = "2" },
+			quality = { [0] = true, [2] = false, [9] = true, ["2"] = true } }, "1")
+		check({ quality = {}, slot = 35 }, "1,2,4,3,5")
+		local opts = { categoryTotals = true, kinds = { item = true }, subtitles = false }
+		local _, counts, _, info = S.Query("sample", opts)
+		assert(counts.item == 5 and info.categoryTotals.root == 5 and info.categoryTotals.classes[2] == 3)
+		assert(info.filtersAvailable == true and info.preFilterCounts.item == 5 and not info.filtersApplied)
+		local _, _, _, questInfo = S.Query("sample", { kinds = { quest = true }, filters = { reqMax = 0 } })
+		assert(questInfo.filtersAvailable == true and not questInfo.filtersApplied)
+		local rows = S.Query("#1", { ids = true, filters = { reqMin = 1 }, subtitles = false })
+		assert(#rows == 0)
+	"##,
+	);
+}
+
+#[test]
+fn item_filter_counts_exclude_paging_and_count_canonical_rows_across_kinds() {
+	run_filter_lookup(
+		r#"
+		Polestar.Names.Localised = function() return true end
+		Polestar.Names.Cached = function(_, id)
+			if id == 1 then return "Sample Translated" end
+			if id == 2 then return "Localized Blade" end
+			if id == 3 then return "Sample Alias" end
+		end
+		local opts = { filters = { quality = { [0] = true, [2] = true }, category = { class = 2, subclass = 7 } },
+			categoryTotals = true, hideRetired = true, resultKind = "item", limit = 1, subtitles = false }
+		local sword, other = C.FilterCategoryId(2, 7), C.FilterCategoryId(2, 8)
+		local function totals(info, root, classes, swords, others)
+			local t = assert(info.categoryTotals)
+			assert(t.root == root and t.classes[2] == classes and t.classes[4] == nil)
+			assert(t.subclasses[sword] == swords and t.subclasses[other] == others)
+		end
+		local rows, counts, err, info = S.Query("sample", opts)
+		assert(not err and rows[1].id == 1 and counts.item == 1 and counts.quest == 1)
+		assert(info.filtersApplied and info.preFilterCounts.item == 1 and info.preFilterCounts.quest == nil)
+		for _, kind in ipairs({ "mount", "pet", "recipe", "tabard" }) do
+			assert(info.preFilterCounts[kind] == 1)
+		end
+		assert(counts.mount == 1 and counts.pet == nil and counts.recipe == 1 and counts.tabard == 1)
+		totals(info, 3, 2, 1, 1)
+		opts.filters.category = nil
+		rows, counts, err, info = S.Query("sample", opts)
+		assert(counts.item == 3 and counts.mount == 1 and counts.pet == nil and counts.recipe == 1 and counts.tabard == 1 and counts.quest == 1)
+		assert(#rows == 1 and info.preFilterCounts.item == 4)
+		local firstId = rows[1].id
+		opts.offset = 1
+		rows, counts, err, info = S.Query("sample", opts)
+		assert(#rows == 1 and counts.item == 3 and rows[1].id ~= firstId)
+		totals(info, 3, 2, 1, 1)
+		opts.offset, opts.order = nil, "az"
+		rows, counts = S.Query("localized", opts)
+		assert(rows[1].id == 2 and counts.item == 1)
+		opts.filters.category = { class = 2, subclass = 7 }
+		rows, counts, err, info = S.Query("localized", opts)
+		assert(#rows == 0 and counts.item == nil and info.categoryTotals.subclasses[other] == 1)
+		assert(info.preFilterCounts.item == 0)
+		local count, before = S.BrowseCount("item", opts)
+		assert(count == 1 and before.preFilterCounts.item == 1)
+		totals(before, 4, 2, 1, 1)
+		assert(before.categoryTotals.classes[0] == 1)
+		rows, count, info = S.Browse("item", opts)
+		assert(rows[1].id == 1 and count == 1 and info.preFilterCounts.item == 1)
+		totals(info, 4, 2, 1, 1)
+		opts.filters.category.subclass = 8
+		rows, count, info = S.Browse("item", opts)
+		assert(rows[1].id == 2 and count == 1 and S.BrowseCount("item", opts) == 1)
+		totals(info, 4, 2, 1, 1)
+		opts.filters.quality = { [0] = true }
+		rows, counts, err, info = S.Query("localized", opts)
+		assert(#rows == 0 and counts.item == nil and info.preFilterCounts.item == 1)
+		rows, count, info = S.Browse("item", opts)
+		assert(#rows == 0 and count == 0 and info.preFilterCounts.item == 1)
+		count, info = S.BrowseCount("item", opts)
+		assert(count == 0 and info.preFilterCounts.item == 1)
+		opts.filters.category.subclass = 99
+		count, info = S.BrowseCount("item", opts)
+		assert(count == 0 and info.preFilterCounts.item == 0)
+		opts.categoryTotals = false
+		rows, counts, err, info = S.Query("sample", opts)
+		assert(#rows == 0 and counts.item == nil and info.categoryTotals == nil and info.preFilterCounts.item == 0)
+		opts.filters = nil
+		rows, counts, err, info = S.Query("sample", opts)
+		assert(#rows == 1 and counts.item == 4 and not info)
+		S.Release()
+		opts.filters = { slot = 0 }
+		rows, count, info = S.Browse("item", opts)
+		assert(#rows == 1 and count == 2 and info.preFilterCounts.item == 5)
+	"#,
+	);
+}
+
+#[test]
+fn item_filter_browse_reuses_a_cached_order_and_totals_for_smaller_requests() {
+	run_filter_lookup(
+		r#"
+		local opts = { filters = { reqMin = 10 }, categoryTotals = true, limit = 1, subtitles = false }
+		local rows, count, info = S.Browse("item", opts)
+		assert(rows[1].id == 2 and count == 3 and info.categoryTotals.root == count)
+		local decode = C.DecodeFilter
+		C.DecodeFilter = function() error("re-scanned cached filters") end
+		opts.categoryTotals = nil
+		local counted, countInfo = S.BrowseCount("item", opts)
+		assert(counted == count and countInfo.preFilterCounts.item == 6 and countInfo.categoryTotals == nil)
+		opts.offset = 1
+		rows, count, info = S.Browse("item", opts)
+		assert(rows[1].id == 3 and count == counted and info.categoryTotals == nil)
+		opts.categoryTotals = true
+		counted, countInfo = S.BrowseCount("item", opts)
+		assert(counted == count and countInfo.categoryTotals.root == count)
+		C.DecodeFilter = decode
+	"#,
+	);
+}
+
+#[test]
+fn item_filters_usable_by_combines_the_class_mask_and_trainable_proficiencies() {
+	let data = json!({
+		"items": {
+			"1": { "name": "Sample 01 Plate", "allowClass": 1503, "itemClass": 4, "itemSubclass": 4, "slot": 5, "quality": 3 },
+			"2": { "name": "Sample 02 Mail", "allowClass": 1503, "itemClass": 4, "itemSubclass": 3, "slot": 5, "quality": 2 },
+			"3": { "name": "Sample 03 Shield", "allowClass": 1503, "itemClass": 4, "itemSubclass": 6, "slot": 14, "quality": 2 },
+			"2919": { "name": "Sample 04 Priest Relic", "allowClass": 16, "itemClass": 4, "itemSubclass": 0, "slot": 12, "quality": 1 },
+			"5": { "name": "Sample 05 Libram", "allowClass": 1503, "itemClass": 4, "itemSubclass": 7, "slot": 28, "quality": 2 },
+			"6": { "name": "Sample 06 Wand", "allowClass": 1503, "itemClass": 2, "itemSubclass": 19, "slot": 26, "quality": 3 },
+			"7": { "name": "Sample 07 Off-Hand Dagger", "allowClass": 1503, "itemClass": 2, "itemSubclass": 15, "slot": 22, "quality": 2 },
+			"8": { "name": "Sample 08 Fishing Pole", "allowClass": 1503, "itemClass": 2, "itemSubclass": 20, "slot": 17, "quality": 2 },
+			"9": { "name": "Sample 09 Warglaive", "allowClass": 1503, "itemClass": 2, "itemSubclass": 9, "slot": 13, "quality": 2 },
+			"10": { "name": "Sample 10 Unknown Mask", "itemClass": 4, "itemSubclass": 1, "slot": 5, "quality": 2 },
+			"11": { "name": "Sample 11 Unknown Category", "allowClass": 1503, "slot": 13, "quality": 2 },
+			"12": { "name": "Sample 12 Non-equippable", "allowClass": 1503, "slot": 0, "quality": 2 },
+			"13": { "name": "Sample 13 Non-gear", "allowClass": 1503, "itemClass": 0, "quality": 1 },
+			"14": { "name": "Sample 14 Zero Mask", "allowClass": 0, "slot": 0, "quality": 2 },
+			"15": { "name": "Sample Mount", "kind": "mount", "allowClass": 128, "slot": 0 }
+		},
+		"quests": { "16": { "title": "Sample Quest" } }
+	});
+	let pack = write_codex_pack(&data, &CodexOpts::default());
+	let script = r##"
+		assert(C.Load() and C.HasFilters())
+		local opts = { kinds = { item = true }, order = "az", subtitles = false, categoryTotals = true, filters = {} }
+		local function check(class, expected, before, total)
+			opts.filters.class = class
+			local rows, counts, _, info = S.Query("sample", opts)
+			assert(table.concat(ids(rows), ",") == expected, tostring(class) .. ": " .. table.concat(ids(rows), ","))
+			assert(counts.item == #rows and info.preFilterCounts.item == before and info.categoryTotals.root == total)
+			local listed, count, browseInfo = S.Browse("item", opts)
+			assert(table.concat(ids(listed), ",") == expected and count == #rows)
+			local counted, countInfo = S.BrowseCount("item", opts)
+			assert(counted == count)
+			for _, details in ipairs({ info, browseInfo, countInfo }) do
+				assert(details.filtersApplied == info.filtersApplied and not details.classFilterDormant)
+				assert(details.preFilterCounts.item == before and details.categoryTotals.root == total)
+			end
+			return info
+		end
+		assert(check("MAGE", "6,8,12,13", 14, 4).filtersApplied)
+		check("WARRIOR", "1,2,3,7,8,12,13", 14, 7)
+		check("HUNTER", "2,7,8,12,13", 14, 5)
+		check("SHAMAN", "2,3,8,12,13", 14, 5)
+		check("PALADIN", "1,2,3,5,8,12,13", 14, 7)
+		check("ROGUE", "7,8,12,13", 14, 4)
+		check("PRIEST", "2919,6,8,12,13", 14, 5)
+		check("WARLOCK", "6,8,12,13", 14, 4)
+		check("DRUID", "8,12,13", 14, 3)
+		local all = "1,2,3,2919,5,6,7,8,9,10,11,12,13,14"
+		assert(not check(nil, all, 14, 14).filtersApplied)
+		assert(not check("UNKNOWN", all, 14, 14).filtersApplied)
+
+		opts.filters.quality = { [2] = true }
+		check("MAGE", "8,12", 14, 2)
+		opts.filters.category = { class = 4 }
+		local info = check("WARRIOR", "2,3", 6, 5)
+		assert(info.categoryTotals.classes[4] == 2 and info.categoryTotals.classes[2] == 2)
+		assert(info.categoryTotals.subclasses[C.FilterCategoryId(4, 3)] == 1)
+		assert(info.categoryTotals.subclasses[C.FilterCategoryId(4, 4)] == nil)
+		assert(info.categoryTotals.subclasses[C.FilterCategoryId(2, 15)] == 1)
+
+		opts.filters, opts.kinds = { class = "MAGE" }, { item = true, mount = true, quest = true }
+		local _, counts = S.Query("sample", opts)
+		assert(counts.item == 4 and counts.mount == 1 and counts.quest == 1,
+			"Mage counts: " .. tostring(counts.item) .. "," .. tostring(counts.mount) .. "," .. tostring(counts.quest))
+		opts.filters.class = "WARRIOR"
+		_, counts = S.Query("sample", opts)
+		assert(counts.item == 7 and counts.mount == nil and counts.quest == 1)
+		opts.ids, opts.kinds = true, { item = true }
+		_, counts = S.Query("#2919", opts)
+		assert(counts.item == nil)
+		opts.filters.class = "PRIEST"
+		local rows = S.Query("#2919", opts)
+		assert(#rows == 1 and rows[1].id == 2919)
+
+		local E = S.ClassEligible
+		for _, case in ipairs({
+			{ "MAGE", 1503, 4, 4, 5, false }, { "WARRIOR", 1503, 4, 4, 5, true },
+			{ "HUNTER", 1503, 4, 3, 5, true }, { "SHAMAN", 1503, 4, 3, 5, true },
+			{ "PALADIN", 1503, 4, 6, 14, true }, { "ROGUE", 1503, 4, 6, 14, false },
+			{ "PRIEST", 16, 4, 0, 12, true }, { "WARRIOR", 16, 4, 0, 12, false },
+			{ "PALADIN", 1503, 4, 7, 28, true }, { "PRIEST", 1503, 4, 7, 28, false },
+			{ "DRUID", 1503, 4, 8, 28, true }, { "SHAMAN", 1503, 4, 9, 28, true },
+			{ "MAGE", 1503, 4, 5, 4, true }, { "MAGE", 1503, 4, nil, 5, nil },
+			{ "MAGE", 1503, 4, 4, 16, true }, { "MAGE", 1503, 4, nil, 23, true },
+			{ "MAGE", 16, 4, 4, 2, false },
+			{ "MAGE", 1503, 2, 19, 26, true }, { "WARRIOR", 1503, 2, 19, 26, false },
+			{ "ROGUE", 1503, 2, 15, 22, true }, { "PRIEST", 1503, 2, 15, 22, false },
+			{ "ROGUE", 1503, 2, 15, nil, true }, { "PRIEST", 1503, 2, 15, nil, nil },
+			{ "PRIEST", 1503, 2, 20, nil, true }, { "MAGE", 1503, 2, 0, nil, false },
+			{ "MAGE", 1503, 2, 14, 13, true }, { "MAGE", 1503, 2, 17, 13, nil },
+			{ "MAGE", 1503, 2, 9, 13, nil }, { "MAGE", 16, 2, 9, 13, false },
+			{ "MAGE", nil, 4, 1, 5, nil }, { "MAGE", nil, nil, nil, 0, nil },
+			{ "MAGE", 1503, nil, nil, 0, true }, { "MAGE", 1503, 0, nil, nil, true },
+			{ "MAGE", 1503, nil, nil, nil, nil }, { "MAGE", 0, nil, nil, nil, false },
+			{ "UNKNOWN", 1503, 4, 1, 5, nil },
+		}) do
+			assert(E(case[1], case[2], case[3], case[4], case[5]) == case[6], case[1] .. " subclass " .. tostring(case[4]))
+		end
+		for class in pairs(Polestar.Gear.CLASSES) do assert(E(class, 1503, 2, 20, 17) == true) end
+	"##;
+	run_with(&[BROWSE_LUA, script].concat(), &Opts { with_pack: false, files: ADDON_FILES_WITH_GEAR, setup: pack.stub_lua.clone(), ..Default::default() });
+}
+
+#[test]
+fn item_filters_usable_by_stays_dormant_until_gear_is_available() {
+	run_filter_lookup(
+		r#"
+		local opts = { kinds = { item = true }, subtitles = false, filters = { class = "MAGE" } }
+		assert(not Polestar.Gear)
+		local _, counts, _, info = S.Query("sample", opts)
+		assert(counts.item == 5 and info.filtersAvailable and info.classFilterDormant and not info.filtersApplied)
+		local _, count, browseInfo = S.Browse("item", opts)
+		assert(count == 6 and browseInfo.classFilterDormant and not browseInfo.filtersApplied)
+		local counted, countInfo = S.BrowseCount("item", opts)
+		assert(counted == 6 and countInfo.classFilterDormant and not countInfo.filtersApplied)
+		assert(S.ClassEligible("MAGE", 1503, 4, 1, 5) == nil)
+		opts.filters.quality = { [0] = true }
+		counted, countInfo = S.BrowseCount("item", opts)
+		assert(counted == 1 and countInfo.classFilterDormant and countInfo.filtersApplied)
+	"#,
+	);
+}
+
+#[test]
+fn item_filters_stay_dormant_on_an_old_pack() {
+	let script = r#"
+		index({ { 1, "Sample Sword" }, { 2, "Sample Ring", "r" } })
+		assert(not C.HasFilters())
+		assert(S.ClassEligible("MAGE", 1503, 4, 1, 5) == true)
+		local opts = { kinds = { item = true }, subtitles = false, hideRetired = true }
+		local legacy, legacyCounts = S.Query("sample", opts)
+		opts.filters, opts.categoryTotals = { reqMax = 0, class = "MAGE", stat = 36 }, true
+		local rows, counts, err, info = S.Query("sample", opts)
+		assert(not err and table.concat(ids(rows)) == table.concat(ids(legacy)) and counts.item == legacyCounts.item)
+		assert(info.filtersAvailable == false and info.filtersApplied == false and not info.classFilterDormant)
+		assert(info.preFilterCounts.item == 1 and info.categoryTotals == nil)
+		local count
+		rows, count, info = S.Browse("item", opts)
+		assert(count == 1 and rows[1].id == 1 and info.filtersAvailable == false and info.filtersApplied == false and info.preFilterCounts.item == 1)
+		count, info = S.BrowseCount("item", opts)
+		assert(count == 1 and info.filtersAvailable == false and info.filtersApplied == false and info.preFilterCounts.item == 1 and info.categoryTotals == nil)
+	"#;
+	run_with(&[BROWSE_LUA, script].concat(), &Opts { with_pack: false, files: ADDON_FILES_WITH_GEAR, ..Default::default() });
+}
+
+#[test]
+fn stat_labels_are_unique_sorted_and_match_their_aliases() {
+	run(r#"
+		local S = Polestar.Search
+		local codes, seen, previous = S.StatCodes(), {}, ""
+		assert(#codes == 55 and S.StatLabel(255) == nil)
+		for _, code in ipairs(codes) do
+			local label = S.StatLabel(code)
+			assert(not seen[label] and previous < S.Fold(label) and S.MatchStat(label) == code, label)
+			seen[label], previous = true, S.Fold(label)
+		end
+		for alias, code in pairs({ ["arcane damage done"] = 89, ["spell damage vs undead"] = 136,
+			["arcane spell damage"] = 89, ["defense rating"] = 12, ["dodge rating"] = 13, ["parry rating"] = 14,
+			["hit"] = 31, ["hit rating"] = 31, ["crit rating"] = 32, ["critical strike"] = 32,
+			["haste"] = 36, ["haste rating"] = 36, ["healing power"] = 41,
+			["mana per 5"] = 43, mp5 = 43, ["health per 5"] = 46, hp5 = 46 }) do
+			assert(S.MatchStat(alias) == code, alias)
+		end
+		assert(S.MatchStat(" Hít-Rating ") == 31 and S.MatchStat("haste sword") == nil)
+		assert(#S.StatCodes("dam") > 3 and table.concat(S.StatCodes("rating"), ","):find("31", 1, true))
+		assert(#S.StatCodes("zzzz") == 0 and #S.StatCodes(" ") == 55)
+	"#);
+}
+
+#[test]
+fn translated_stat_labels_also_match_english() {
+	run_with(
+		r#"
+		local S = Polestar.Search
+		assert(GetLocale() == "itIT" and S.StatLabel(36) == "Rapidità" and S.StatLabel(7) == "Tempra")
+		assert(S.MatchStat("rapidità") == 36 and S.MatchStat("haste") == 36)
+		assert(S.MatchStat("tempra") == 7 and S.MatchStat("stamina") == 7)
+		assert(table.concat(S.StatCodes("pidi"), ",") == "36")
+		assert(table.concat(S.StatCodes("amin"), ",") == "7")
+		"#,
+		&Opts { with_pack: false, setup: fake_locale("itIT", &[("Haste", "Rapidità"), ("Stamina", "Tempra")]), ..Default::default() },
+	);
+}
+
+fn run_stat_lookup(script: &str) {
+	let mut data = json!({ "items": {
+		"1": { "name": "Haste Charm", "levelsSource": "client", "quality": 2 },
+		"2": { "name": "Zulu Blade", "levelsSource": "client", "quality": 2, "allowClass": 1503,
+			"slot": 13, "itemClass": 2, "itemSubclass": 7, "statAmountSource": "era", "stats": { "36": 8 } },
+		"3": { "name": "Alpha Hood", "levelsSource": "client", "quality": 2, "allowClass": 1503,
+			"slot": 1, "itemClass": 4, "itemSubclass": 1, "stats": { "36": 0 } },
+		"4": { "name": "Haste Sword", "levelsSource": "client", "quality": 3, "allowClass": 1503,
+			"slot": 13, "itemClass": 2, "itemSubclass": 7, "stats": { "36": 0 } },
+		"5": { "name": "Beta Band", "levelsSource": "client", "quality": 2 },
+		"6": { "name": "Delta Vest", "quality": 2 },
+		"7": { "name": "Emerald Stone", "levelsSource": "client", "stats": { "31": 0 } },
+		"8": { "name": "Aardvark Charm", "levelsSource": "client", "status": "retired", "stats": { "36": 0 } },
+		"9": { "name": "Zephyr Charm", "levelsSource": "client", "stats": { "36": 0 } },
+		"10": { "name": "Alpha Hood!", "levelsSource": "client", "quality": 2, "allowClass": 1503,
+			"slot": 1, "itemClass": 4, "itemSubclass": 4, "stats": { "36": 0 } },
+		"20": { "name": "Fast Mount", "kind": "mount", "levelsSource": "client", "stats": { "36": 0 } }
+	}, "quests": { "21": { "title": "Haste Request" } } });
+	for id in 100..120 {
+		data["items"][id.to_string()] = json!({ "name": format!("Quick Pet {id}"), "kind": "pet", "levelsSource": "client", "stats": { "43": 0 } });
+	}
+	let pack = write_codex_pack(&data, &CodexOpts::default());
+	let script = [BROWSE_LUA, "\nassert(C.Load() and C.HasFilters())\n", TEST_PACK, "\n", TEST_SOURCE, "\n", script].concat();
+	run_with(&script, &Opts { with_pack: false, files: ADDON_FILES_WITH_GEAR, setup: pack.stub_lua.clone(), ..Default::default() });
+}
+
+#[test]
+fn stat_filter_waits_for_a_pack_with_postings_support() {
+	browse(
+		r#"
+		C.Register("meta", { schema = 1 })
+		for _, kind in ipairs({ "item", "mount", "pet", "recipe", "tabard" }) do
+			C.RegisterIndex(kind, kind == "item" and line(1, "Haste Charm") or "")
+		end
+		C.RegisterFilters(1, "", { item = { 1, string.rep("\0", 5) }, mount = { 0, "" }, pet = { 0, "" },
+			recipe = { 0, "" }, tabard = { 0, "" } })
+		assert(C.Load() and C.HasFilters() and C.StatCodes() == nil)
+		local opts = { ids = true, filters = { stat = 36 }, kinds = { item = true }, subtitles = false }
+		local rows, counts, _, info = S.Query("haste", opts)
+		assert(rows[1].id == 1 and counts.item == 1 and info.filtersAvailable and not info.filtersApplied)
+		local count, details = S.BrowseCount("item", opts)
+		assert(count == 1 and not details.filtersApplied)
+		C.RegisterStats(1, "", "") -- a pack that supports stats but has no postings
+		rows, counts, _, info = S.Query("haste", opts)
+		assert(#rows == 0 and counts.item == nil and info.filtersApplied and info.preFilterCounts.item == 1)
+		count, details = S.BrowseCount("item", opts)
+		assert(count == 0 and details.filtersApplied and details.preFilterCounts.item == 1)
+	"#,
+	);
+}
+
+#[test]
+fn lookup_stat_filters_use_the_corrected_forever_ring_stats() {
+	use forge_addontest::{run::root, tmp::TempDir};
+	use forge_data::codex::{self, client, pack::ADDON};
+	use std::fs;
+
+	let golden = root().join("rust/tests/golden");
+	let mut opts = codex::Options::new(&golden.join("codex/input/root"));
+	opts.data_dir = golden.join("world/root/data/forever");
+	opts.sources_dir = golden.join("codex/input/sources");
+	opts.version = Some("0.0.0-test".into());
+	opts.measure = false;
+	let mut inputs = codex::load_inputs(&opts, &|_| {}).unwrap();
+	inputs.forever.items = forge_guide::js::parse_json(r#"{"272406":{"id":272406,"name":"Channeler's Ring"},"272407":{"id":272407,"name":"Blessed Band of Light"}}"#).unwrap();
+	let build = "1.60.1.70938";
+	let mut tables = client::Tables::default();
+	// A minimal ItemSparse fixture with the two corrected stat-code sets from push 114062.
+	tables.insert(
+		"ItemSparse",
+		forge_data::tables::parse_csv(concat!(
+			"ID,RequiredLevel,StatModifier_bonusStat_0,StatModifier_bonusStat_1,StatModifier_bonusStat_2,StatModifier_bonusStat_3\n",
+			"272406,1,5,31,45,-1\n",
+			"272407,1,6,7,41,42\n",
+		))
+		.unwrap(),
+	);
+	inputs.client = Some(client::client_facts(&tables, build));
+	let out = codex::build_inputs(&opts, &inputs).unwrap();
+	let scratch = TempDir::new("polestar-lookup-ring-stats-");
+	let pack = scratch.path().join(ADDON);
+	fs::create_dir(&pack).unwrap();
+	for (name, content) in out.pack {
+		fs::write(pack.join(name), content).unwrap();
+	}
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		addons: vec![Addon::files("Polestar", ADDON_FILES), Addon::dir(ADDON, pack)],
+		script: r##"
+		local S, C = Polestar.Search, Polestar.Codex
+		assert(C.Load() and C.HasFilters() and C.StatCodes())
+		local function finds(id, stat)
+			local rows = S.Query("#" .. id, { ids = true, resultKind = "item", subtitles = false, filters = stat and { stat = stat } })
+			return #rows == 1 and rows[1].id == id
+		end
+		assert(finds(272406, 45), "Channeler's Ring has Spell Power")
+		assert(not finds(272406, 6), "Channeler's Ring has no Spirit")
+		assert(finds(272407), "Blessed Band of Light is searchable")
+		assert(finds(272407, 6), "Blessed Band of Light has Spirit")
+		assert(not finds(272407, 31), "Blessed Band of Light has no Hit")
+		"##
+		.into(),
+		..Default::default()
+	});
+}
+
+#[test]
+fn stat_filters_require_presence_and_share_counts_across_search_and_browse() {
+	run_stat_lookup(
+		r##"
+		assert(C.StatItems(36)[2] == 8 and C.StatItems(36)[3] == 0)
+		assert(next(C.ItemStats(5)) == nil and C.ItemStats(6) == nil)
+		local opts = { ids = true, kinds = { item = true }, subtitles = false, categoryTotals = true,
+			filters = { stat = 36 } }
+		local calls, statItems = 0, C.StatItems
+		C.StatItems = function(code) calls = calls + 1; return statItems(code) end
+		local rows, count, info = S.Browse("item", opts)
+		assert(count == 6 and table.concat(ids(rows), ",") == "3,10,4,9,2,8")
+		assert(info.filtersApplied and info.preFilterCounts.item == 10 and info.categoryTotals.root == count and calls == 1)
+		opts.filters.class, opts.filters.quality = "MAGE", { [2] = true }
+		opts.filters.category = { class = 2, subclass = 7 }
+		rows, count, info = S.Browse("item", opts)
+		assert(count == 1 and rows[1].id == 2 and calls == 2 and info.preFilterCounts.item == 2)
+		assert(info.categoryTotals.root == 2 and info.categoryTotals.classes[2] == 1 and info.categoryTotals.classes[4] == 1)
+		count, info = S.BrowseCount("item", opts)
+		assert(count == 1 and info.preFilterCounts.item == 2 and info.categoryTotals.root == 2)
+		local before = calls
+		local counts, err
+		rows, counts, err, info = S.Query("haste", opts)
+		assert(not err and counts.item == 1 and rows[1].id == 2 and calls == before + 1)
+		assert(info.preFilterCounts.item == 2 and info.categoryTotals.root == 2)
+		assert(#S.Query("#5", opts) == 0 and #S.Query("#6", opts) == 0)
+		opts.filters = { stat = 31 }
+		assert(S.BrowseCount("item", opts) == 1 and #S.Query("haste", opts) == 0)
+		opts.filters.stat = 136 -- known code with no postings in this pack
+		count, info = S.BrowseCount("item", opts)
+		assert(count == 0 and info.filtersApplied and info.preFilterCounts.item == 10)
+		opts.filters.stat = "36" -- invalid saved value
+		count, info = S.BrowseCount("item", opts)
+		assert(count == 10 and not info.filtersApplied)
+		local haste, hit = C.StatItems(36), C.StatItems(31)
+		S.Release()
+		assert(C.StatItems(36) ~= haste and C.StatItems(31) ~= hit)
+		assert(#S.Query("haste", opts) > 2)
+	"##,
+	);
+}
+
+#[test]
+fn stat_text_search_adds_a_deduplicated_lane_and_preserves_paging_and_order() {
+	run_stat_lookup(
+		r#"
+		assert(Polestar.RegisterGuide({ id = "test/charms", pack = "test", title = "Charms", collects = { 9 },
+			steps = { { goals = { { t = "note", text = "x" } } } } }))
+		Polestar.Names.Localised = function() return true end
+		Polestar.Names.Ready = function() return true end
+		Polestar.Names.Cached = function(_, id) if id == 4 then return "Haste Blade" end end
+		local opts = { ids = true, resultKind = "item", subtitles = false }
+		local function query(text, expected, count)
+			local rows, counts = S.Query(text, opts)
+			local actual = table.concat(ids(rows), ",")
+			assert(actual == expected and counts.item == count, text .. ": " .. actual)
+			return counts
+		end
+		local best = "4,1,9,3,10,2,8"
+		local counts = query(" Haste ", best, 7)
+		assert(counts.mount == 1 and counts.quest == 1)
+		query("haste rating", "9,3,10,4,2,8", 6)
+		query("haste sword", "4", 1)
+		query("hit rating", "7", 1)
+		query("haste", best, 7)
+		opts.ids = nil
+		query("haste", "4,1", 2)
+		opts.ids, opts.limit, opts.offset = true, 3, 2
+		query("haste", "9,3,10", 7)
+		opts.limit, opts.offset, opts.order = nil, nil, "az"
+		query("haste", "3,10,4,1,9,2,8", 7)
+		opts.resultKind, opts.order, opts.perKind = nil, "best", 7
+		query("haste", "20," .. best .. ",21", 7)
+		opts.resultKind, opts.hideRetired = "item", true
+		opts.filters = { quality = { [2] = true } }
+		query("haste", "1,3,10,2", 4)
+		opts.resultKind, opts.filters, opts.perKind = "pet", { stat = 43 }, 2
+		local rows, petCounts, _, info = S.Query("mp5", opts)
+		assert(table.concat(ids(rows), ",") == "100,101" and petCounts.pet == 20 and info.preFilterCounts.pet == 20)
+	"#,
+	);
+}
+
+#[test]
+fn most_stat_sorts_filtered_hits_and_pages_the_same_four_buckets_in_browse_and_search() {
+	let data = json!({
+		"items": {
+			"1": { "name": "Charm Aaron", "levelsSource": "client", "statAmountSource": "client",
+				"slot": 5, "itemClass": 4, "itemSubclass": 1, "stats": { "7": 12, "31": 0 } },
+			"2": { "name": "Charm Alpha!", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 12 } },
+			"3": { "name": "Charm Delta", "levelsSource": "client",
+				"slot": 13, "itemClass": 2, "itemSubclass": 7, "stats": { "7": 0, "31": 0 } },
+			"4": { "name": "Charm Beta", "levelsSource": "client", "stats": { "31": 0 } },
+			"5": { "name": "Charm Aardvark" },
+			"6": { "name": "Charm Retired", "status": "retired", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 50, "31": 0 } },
+			"7": { "name": "Charm Sourceless", "status": "nosource", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 40 } },
+			"8": { "name": "Charm Negative", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": -2 } },
+			"10": { "name": "Charm Alpha", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 12 } },
+			"11": { "name": "Charm Epsilon", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 5 } },
+			"20": { "name": "Charm Ram", "kind": "mount", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 18 } },
+			"21": { "name": "Charm Elk", "kind": "mount", "levelsSource": "client" },
+			"22": { "name": "Charm Falcon", "kind": "pet", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 18 } },
+			"23": { "name": "Charm Recipe", "kind": "recipe", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 18 } },
+			"24": { "name": "Charm Tabard", "kind": "tabard", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 18 } }
+		},
+		"quests": { "30": { "title": "A Charm" }, "31": { "title": "Charm Quest" } }
+	});
+	let pack = write_codex_pack(&data, &CodexOpts::default());
+	let script = [
+		BROWSE_LUA,
+		r#"
+		assert(C.Load() and C.StatCodes())
+		Polestar.Names.Localised = function() return true end
+		Polestar.Names.Ready = function() return true end
+		Polestar.Names.Cached = function(_, id) if id == 1 then return "Charm Omega" end end
+		local function check(rows, expectedIds, expectedBuckets, expectedAmounts)
+			local buckets, amounts = {}, {}
+			for i, row in ipairs(rows) do
+				buckets[i], amounts[i] = row.statBucket or "-", row.statAmount or "-"
+			end
+			local actual = table.concat(ids(rows), ",")
+			assert(actual == expectedIds, "IDs: " .. actual .. " expected " .. expectedIds)
+			assert(table.concat(buckets, ",") == expectedBuckets, "stat buckets: " .. table.concat(buckets, ","))
+			assert(table.concat(amounts, ",") == expectedAmounts, "stat amounts: " .. table.concat(amounts, ","))
+		end
+		local opts = { order = "most", sortStat = 7, kinds = { item = true }, subtitles = false, categoryTotals = true }
+		local function totals(count, info, expectedBefore, expectedAfter)
+			assert(count == expectedAfter and info.preFilterCounts.item == expectedBefore)
+			assert(info.categoryTotals.root == expectedAfter)
+		end
+		for _, list in ipairs({
+			function(o) return S.Browse("item", o) end,
+			function(o) local rows, counts, _, info = S.Query("charm", o); return rows, counts.item, info end,
+		}) do
+			opts.limit, opts.offset = 7, 0
+			local rows, count, info = list(opts)
+			check(rows, "6,7,2,10,1,11,8", "1,1,1,1,1,1,1", "50,40,12,12,12,5,-2")
+			assert(rows[1].status == "retired" and rows[2].status == "nosource" and rows[5].title == "Charm Omega")
+			totals(count, info, 10, 10)
+			opts.offset = 7
+			rows, count, info = list(opts)
+			check(rows, "3,4,5", "2,3,4", "-,-,-")
+			totals(count, info, 10, 10)
+			opts.limit, opts.offset, opts.hideRetired, opts.hideNoSource = 50, 0, true, true
+			rows, count, info = list(opts)
+			check(rows, "2,10,1,11,8,3,4,5", "1,1,1,1,1,2,3,4", "12,12,12,5,-2,-,-,-")
+			totals(count, info, 8, 8)
+			opts.filters = { stat = 31 }
+			rows, count, info = list(opts)
+			check(rows, "1,3,4", "1,2,3", "12,-,-")
+			totals(count, info, 8, 3)
+			opts.filters.category = { class = 4 }
+			rows, count, info = list(opts)
+			check(rows, "1", "1", "12")
+			assert(count == 1 and info.preFilterCounts.item == 1 and info.categoryTotals.root == 3)
+			assert(info.categoryTotals.classes[2] == 1 and info.categoryTotals.classes[4] == 1)
+			opts.filters.category = nil
+			opts.sortStat = 31
+			rows, count, info = list(opts)
+			check(rows, "4,3,1", "2,2,2", "-,-,-")
+			totals(count, info, 8, 3)
+			opts.sortStat, opts.filters.stat = 7, 7
+			rows, count, info = list(opts)
+			check(rows, "2,10,1,11,8,3", "1,1,1,1,1,2", "12,12,12,5,-2,-")
+			totals(count, info, 8, 6)
+			assert(S.BrowseCount("item", opts) == 6)
+			opts.order = "best"
+			local base, baseCount, baseInfo = list(opts)
+			totals(baseCount, baseInfo, 8, 6)
+			opts.order, opts.sortStat = "most", "7"
+			rows, count, info = list(opts)
+			assert(table.concat(ids(rows), ",") == table.concat(ids(base), ",") and rows[1].statBucket == nil)
+			totals(count, info, 8, 6)
+			opts.sortStat, opts.filters, opts.hideRetired, opts.hideNoSource = 7, nil, nil, nil
+		end
+		opts.kinds, opts.perKind = nil, 2
+		local rows, counts = S.Query("charm", opts)
+		check(rows, "20,21,22,6,7,23,24,31,30", "1,3,1,1,1,1,1,-,-", "18,-,18,50,40,18,18,-,-")
+		assert(counts.item == 10 and counts.mount == 2 and counts.quest == 2)
+		local translated = S.Query("omega", { order = "most", sortStat = 7, kinds = { item = true }, subtitles = false })
+		check(translated, "1", "1", "12")
+		local subtitle = Polestar.Lookup.Subtitle
+		Polestar.Lookup.Subtitle = function() error("Most rows already have their subtitle data") end
+		local onlyItems = { order = "most", sortStat = 7, kinds = { item = true }, limit = 1 }
+		check(S.Query("charm", onlyItems), "6", "1", "50")
+		check(S.Browse("item", onlyItems), "6", "1", "50")
+		Polestar.Lookup.Subtitle = subtitle
+		opts.resultKind, opts.baseOrder = "quest", "az"
+		check(S.Query("charm", opts), "30,31", "-,-", "-,-")
+		check(S.Browse("quest", opts), "30,31", "-,-", "-,-")
+		opts.resultKind, opts.baseOrder = nil, nil
+		-- A new posting generation must invalidate both page orders even with the same column and options.
+		assert(S.Query("charm", { order = "most", sortStat = 7, resultKind = "item", subtitles = false })[1].id == 6)
+		assert(S.Browse("item", opts)[1].id == 6)
+		C.RegisterStats(1, string.char(7, 0, 0, 0), string.char(5, 8))
+		local replaced = S.Query("charm", { order = "most", sortStat = 7, resultKind = "item", subtitles = false })
+		assert(replaced[1].id == 5 and replaced[1].statAmount == 1)
+		assert(S.Browse("item", opts)[1].id == 5)
+		"#,
+	]
+	.concat();
+	run_with(&script, &Opts { with_pack: false, setup: pack.stub_lua.clone(), ..Default::default() });
+}
+
+#[test]
+fn most_stat_reuses_postings_across_typed_filter_and_sort_stat_roles() {
+	let data = json!({ "items": {
+		"1": { "name": "Blade", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 12, "31": 0, "36": 0 } },
+		"2": { "name": "Mount", "kind": "mount", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 10, "31": 0, "36": 0 } },
+		"3": { "name": "Pet", "kind": "pet", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 8, "31": 0, "36": 0 } },
+		"4": { "name": "Axe", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 6, "31": 0, "36": 0 } }
+	} });
+	let pack = write_codex_pack(&data, &CodexOpts::default());
+	let script = [
+		BROWSE_LUA,
+		r#"
+		assert(C.Load() and C.StatCodes())
+		local fetch, calls = C.StatItems, {}
+		C.StatItems = function(code)
+			calls[code] = (calls[code] or 0) + 1
+			return fetch(code)
+		end
+		local opts = { ids = true, order = "most", sortStat = 7, filters = { stat = 31 }, subtitles = false }
+		local rows = S.Query("haste", opts)
+		assert(table.concat(ids(rows), ",") == "2,3,1,4")
+		assert(rows[1].statAmount == 10 and rows[2].statAmount == 8 and rows[3].statAmount == 12)
+		assert(calls[7] == 1 and calls[31] == 1 and calls[36] == 1)
+
+		-- The first page also counts other kinds. Show more requests only Items.
+		calls, opts.resultKind, opts.limit = {}, "item", 1
+		local first, counts = S.Query("haste", opts)
+		assert(#first == 1 and first[1].id == 1 and counts.item == 2 and counts.mount == 1 and counts.pet == 1)
+		assert(calls[7] == 1 and calls[31] == 1 and calls[36] == 1)
+		calls, opts.resultKind, opts.kinds, opts.offset = {}, nil, { item = true }, 1
+		local page, pagedCounts = S.Query("haste", opts)
+		assert(#page == 1 and page[1].id == 4 and page[1].statAmount == 6 and pagedCounts.item == 2)
+		assert(next(calls) == nil, "Show more fetched stat postings")
+
+		opts.kinds, opts.offset, opts.limit = nil, nil, nil
+		calls, opts.sortStat, opts.filters.stat = {}, 36, 36
+		rows = S.Query("haste", opts)
+		assert(#rows == 4 and rows[1].statBucket == 2)
+		assert(calls[36] == 1)
+		"#,
+	]
+	.concat();
+	run_with(&script, &Opts { with_pack: false, setup: pack.stub_lua.clone(), ..Default::default() });
+}
+
+#[test]
+fn search_item_ids_deduplicate_translations_and_match_only_the_five_item_backed_kinds() {
+	let [best, alpha, exact, limited] = first::<4>(browse(
+		r##"
+		local blob = line(19019, "19019") .. line(190190, "Other")
+		local indexed = { item = true, mount = true, pet = true, recipe = true, tabard = true, quest = true }
+		C.IsLoaded = function() return true end
+		C.Index = function(kind) if indexed[kind] then return blob end end
+		C.Name = function() return "19019" end
+		Polestar.Names.Localised = function() return true end
+		Polestar.Names.Ready = function() return true end
+		Polestar.Names.Cached = function(_, id) if id == 19019 then return "19019 traduit" end end
+		local opts = { ids = true, subtitles = false }
+		local function query(text)
+			local rows, counts = S.Query(text, opts)
+			local kinds = {}
+			for i, row in ipairs(rows) do
+				assert(row.id == 19019)
+				kinds[i] = row.kind
+			end
+			emit({ kinds, counts })
+		end
+		query("19019")
+		opts.order = "az"
+		query("19019")
+		query("#19019")
+		opts.resultKind = "item"
+		query("#19019")
+	"##,
+	));
+	let counts = json!({ "mount": 1, "pet": 1, "item": 1, "recipe": 1, "tabard": 1 });
+	assert_eq!(exact, json!([["mount", "pet", "item", "recipe", "tabard"], counts]));
+	assert_eq!(limited, json!([["item"], counts]));
+	assert_eq!(
+		best,
+		json!([["mount", "pet", "item", "recipe", "tabard", "quest"], {
+			"mount": 1, "pet": 1, "item": 1, "recipe": 1, "tabard": 1, "quest": 1
+		}])
+	);
+	assert_eq!(best, alpha);
+}
+
+#[test]
+fn search_item_ids_report_invalid_hash_syntax_and_respect_index_visibility() {
+	let [invalid, visible, filtered, absent] = first::<4>(browse(
+		r##"
+		index({ { 19019, "Thunderfury", "r" }, { 1, "19019" }, { 2, "Sourceless", "n" } })
+		local opts = { ids = true, subtitles = false }
+		local errors = {}
+		for i, text in ipairs({ "#abc", "#", "#0", "#12 34", "#-5" }) do
+			local rows, counts, err = S.Query(text, opts)
+			assert(#rows == 0 and next(counts) == nil)
+			errors[i] = err
+		end
+		emit(errors)
+		local rows, counts = S.Query("19019", opts)
+		emit({ ids(rows), counts.item })
+		opts.hideRetired, opts.hideNoSource = true, true
+		rows, counts = S.Query("19019", opts)
+		emit({ ids(rows), counts.item })
+		local missed = {}
+		for i, text in ipairs({ "#19019", "#2", "#3" }) do
+			local rows, counts, err = S.Query(text, opts)
+			missed[i] = #rows == 0 and next(counts) == nil and err == nil
+		end
+		emit(missed)
+	"##,
+	));
+	assert_eq!(invalid, json!(["id-syntax", "id-syntax", "id-syntax", "id-syntax", "id-syntax"]));
+	assert_eq!(visible, json!([[19019, 1], 2]));
+	assert_eq!(filtered, json!([[1], 1]));
+	assert_eq!(absent, json!([true, true, true]));
+}
+
+#[test]
+fn search_finds_the_best_match_beyond_200_and_pages_the_same_matches_in_browse_order() {
+	let [best, all, az, total, ranked] = first::<5>(browse(
+		r#"
+		local entries = {}
+		for i = 1, 235 do entries[i] = { i, ("Ring %03d"):format(236 - i) } end
+		entries[236], entries[237], entries[238] = { 236, "Ring" }, { 237, "A Ring", "r" }, { 238, "B Ring", "n" }
+		index(entries)
+		local opts = { kinds = { item = true }, limit = 50, subtitles = false }
+		local best, counts = S.Query("ring", opts)
+		emit({ best[1].id, counts.item })
+		local all, totals = S.Query("ring", { perKind = 5, subtitles = false })
+		emit({ all[1].id, totals.item, #all })
+		opts.order = "az"
+		local pages = {}
+		for offset = 0, 200, 50 do
+			opts.offset = offset
+			local page, counts = S.Query("ring", opts)
+			for _, row in ipairs(page) do pages[#pages + 1] = row.id end
+			assert(counts.item == 238, "every page counts all matches")
+		end
+		emit(pages)
+		emit(ids(S.Browse("item", { limit = 300, subtitles = false })))
+		opts.order, opts.offset = "best", 200
+		emit(ids(S.Query("ring", opts)))
+	"#,
+	));
+	assert_eq!(best, json!([236, 238]));
+	assert_eq!(all, json!([236, 238, 5]));
+	assert_eq!(az, total);
+	assert_eq!(arr(&az).len(), 238);
+	assert_eq!(arr(&ranked).as_slice(), &arr(&total)[200..], "Best match reaches the same tail in this fixture");
+}
+
+#[test]
+fn search_alphabetises_translated_names_and_guides_without_changing_the_matches() {
+	let [initial, translated, guides] = first::<3>(browse(
+		&[
+			TEST_PACK,
+			r#"
+		index({ { 1, "Ring of Valor" }, { 2, "Ring of Agility" }, { 3, "Band of Power" } })
+		local opts = { kinds = { item = true }, order = "az", subtitles = false }
+		emit(ids(S.Query("ring", opts)))
+		Polestar.Names.Localised = function() return true end
+		Polestar.Names.Ready = function() return true end
+		Polestar.Names.Cached = function(_, id) return ({ "Anneau", "Z Ring", "B Ring" })[id] end
+		Polestar.Fire("NAMES_LOADED")
+		local rows, counts = S.Query("ring", opts)
+		emit({ ids(rows), counts.item })
+		for i, title in ipairs({ "Ring", "A Ring", "Z Ring" }) do
+			assert(Polestar.RegisterGuide({ id = "test/ring-" .. i, pack = "test", title = title, steps = { { goals = { { t = "note", text = "x" } } } } }))
+		end
+		opts.kinds = { guide = true }
+		emit(ids(S.Query("ring", opts)))
+	"#,
+		]
+		.concat(),
+	));
+	assert_eq!(initial, json!([2, 1]));
+	assert_eq!(translated, json!([[1, 3, 2], 3]));
+	assert_eq!(guides, json!(["test/ring-2", "test/ring-1", "test/ring-3"]));
+}
+
+#[test]
+fn search_and_browse_count_only_entries_with_visible_statuses() {
+	let [retired, nosource, both, restored] = first::<4>(browse(
+		r#"
+		index({ { 1, "Ring" }, { 2, "A Ring", "r" }, { 3, "B Ring", "n" }, { 4, "Z Ring" }, { 5, "Blade" } })
+		local function check(hideRetired, hideNoSource)
+			local opts = { hideRetired = hideRetired, hideNoSource = hideNoSource, subtitles = false }
+			local search, counts = S.Query("ring", opts)
+			local rows, count = S.Browse("item", opts)
+			opts.order, opts.kinds = "az", { item = true }
+			local az, azCounts = S.Query("ring", opts)
+			return { ids(search), counts.item, ids(rows), count, S.BrowseCount("item", opts), ids(az), azCounts.item }
+		end
+		emit(check(true, false)); emit(check(false, true)); emit(check(true, true)); emit(check(false, false))
+	"#,
+	));
+	assert_eq!(retired, json!([[1, 4, 3], 3, [5, 1, 4, 3], 4, 4, [1, 4, 3], 3]));
+	assert_eq!(nosource, json!([[1, 4, 2], 3, [5, 1, 4, 2], 4, 4, [1, 4, 2], 3]));
+	assert_eq!(both, json!([[1, 4], 2, [5, 1, 4], 3, 3, [1, 4], 2]));
+	assert_eq!(restored, json!([[1, 4, 2, 3], 4, [5, 1, 4, 2, 3], 5, 5, [1, 4, 2, 3], 4]));
+}
+
+#[test]
+fn search_kind_keystrokes_and_more_pages_at_25_000_entries_in_both_orders() {
+	let [best, az] = first::<2>(browse(
+		r#"
+		local entries = {}
+		for i = 1, 25000 do
+			entries[i] = { i, ("Ring %05d of %s"):format(25001 - i, i % 2 == 0 and "Valor" or "Agility") }
+		end
+		index(entries)
+		S.Browse("item", { limit = 1, subtitles = false }) -- warm the shared A to Z order
+		local function median(times)
+			table.sort(times)
+			return times[math.ceil(#times / 2)]
+		end
+		local function measure(order)
+			local opts = { resultKind = "item", order = order, limit = 50, perKind = 50, subtitles = false }
+			local key, page, counts = {}, {}
+			for i = 1, 7 do
+				local at = os.clock()
+				for _, query in ipairs({ "r", "ring", "valor", "ring agility" }) do
+					opts.offset = 0
+					local rows
+					rows, counts = S.Query(query, opts)
+					if #rows ~= 50 then return { count = counts.item, pageRows = #rows, query = query } end
+				end
+				key[i] = (os.clock() - at) * 1000 / 4
+				at = os.clock()
+				for j = 1, 30 do
+					opts.offset = j * 50
+					local rows = S.Query("ring agility", opts)
+					if #rows ~= 50 then return { count = counts.item, pageRows = #rows } end
+				end
+				page[i] = (os.clock() - at) * 1000 / 30
+			end
+			return { count = counts.item, key = median(key), page = median(page) }
+		end
+		emit(measure("best")); emit(measure("az"))
+	"#,
+	));
+	for (order, times) in [("Best match", best), ("A to Z", az)] {
+		assert_eq!(times["count"], 12500, "{order}: every match is available to page: {times}");
+		let (key, page) = (num(&times["key"]), num(&times["page"]));
+		println!("{order}, 25,000 entries: keystroke {key:.3} ms, Show more {page:.3} ms");
+		forge_addontest::assert_timing!(key < 50.0, "{order}: kind keystroke took {key:.3} ms");
+		forge_addontest::assert_timing!(page < 1.0, "{order}: the cached page took {page:.3} ms");
+	}
+}
+
+#[test]
+fn browse_orders_folded_names_by_availability_then_name_length_and_id() {
+	let [order, counts, flags] = first::<3>(browse(
+		r#"
+		index({ { 4, "Zebra", "n" }, { 10, "AMBERS" }, { 11, "\195\129mber's" }, { 3, "Aardvark", "r" },
+			{ 21, "Amber.Zest" }, { 23, "amber-zest" }, { 22, "amber zest" }, { 2, "ambers" },
+			{ 6, "Zebra" }, { 9, "Bear", "n" } })
+		local rows, count = S.Browse("item", { subtitles = false })
+		emit(ids(rows)); emit({ count, S.BrowseCount("item"), S.BrowseCount("npc") })
+		emit({ rows[1].kind, rows[1].title, rows[1].quality, rows[8].status, rows[9].status, rows[10].status })
+	"#,
+	));
+	assert_eq!(order, json!([21, 22, 23, 2, 10, 11, 6, 3, 9, 4]));
+	assert_eq!(counts, json!([10, 10, 0]));
+	assert_eq!(flags, json!(["item", "Amber.Zest", 2, "retired", "nosource", "nosource"]));
+}
+
+#[test]
+fn browse_order_matches_the_lua_comparator_for_numeric_and_string_ids() {
+	let [items, instances] = first::<2>(browse(
+		r#"
+		local translated = "Жар"
+		Polestar.Names.Localised = function() return true end
+		Polestar.Names.Ready = function() return true end
+		Polestar.Names.Cached = function(_, id) if id == 30 then return translated end end
+		local function check(kind, entries)
+			index(entries, kind)
+			local expected = {}
+			for i, e in ipairs(entries) do
+				local name = e[1] == 30 and translated or e[2]
+				expected[i] = { id = e[1], folded = S.Fold(name):sub(2), len = #name,
+					unavailable = e[3] == "r" or e[3] == "n" }
+			end
+			table.sort(expected, function(a, b)
+				if a.unavailable ~= b.unavailable then return not a.unavailable end
+				if a.folded ~= b.folded then return a.folded < b.folded end
+				if a.len ~= b.len then return a.len < b.len end
+				return a.id < b.id
+			end)
+			emit({ ids(S.Browse(kind, { subtitles = false })), ids(expected) })
+		end
+		check("item", { { 100, "Amber" }, { 10, "AMBER" }, { 9, "amber" }, { 1, "Amber!!!" },
+			{ 2, "Amber Ring" }, { 3, "Aardvark", "n" }, { 4, "Bear", "r" },
+			{ 30, "Abacus" }, { 31, "Жар" }, { 32, "Жары" } })
+		check("instance", { { "hall-9", "Hall" }, { "hall-10", "Hall" },
+			{ "hall-100", "Hall" }, { "hall", "Hall" }, { "vault", "Vault" } })
+	"#,
+	));
+	assert_eq!(items[0], items[1]);
+	assert_eq!(instances[0], instances[1]);
+}
+
+#[test]
+fn browse_offsets_page_consecutively_naming_only_the_returned_rows_and_deferring_subtitles() {
+	let [page1, page2, counts, lazy] = first::<4>(browse(
+		r#"
+		index({ { 70, "Echo" }, { 2, "Alpha" }, { 25, "Charlie" }, { 9, "Bravo" }, { 50, "Delta" } })
+		local named, subtitles = 0, 0
+		local name = C.Name
+		C.Name = function(...) named = named + 1; return name(...) end
+		Polestar.Lookup = { Subtitle = function(_, id) subtitles = subtitles + 1; return "Sub " .. id end }
+		local a, n = S.Browse("item", { limit = 2, subtitles = false })
+		local b, m = S.Browse("item", { offset = 2, limit = 2, subtitles = false })
+		local tail, last = S.Browse("item", { offset = 4, limit = 2, subtitles = false })
+		local empty = S.Browse("item", { offset = 5, limit = 2, subtitles = false })
+		local before = subtitles
+		local sub = S.Subtitle(tail[1]); S.Subtitle(tail[1])
+		emit(ids(a)); emit(ids(b)); emit({ n, m, last, #tail, tail[1].id, #empty })
+		emit({ named, before, subtitles, sub })
+	"#,
+	));
+	assert_eq!(page1, json!([2, 9]));
+	assert_eq!(page2, json!([25, 50]));
+	assert_eq!(counts, json!([5, 5, 5, 1, 70, 0]));
+	assert_eq!(lazy, json!([5, 0, 1, "Sub 70"]));
+}
+
+#[test]
+fn browse_reuses_translated_names_for_order_and_refreshes_when_the_names_change() {
+	let [initial, later, english, calls] = first::<4>(browse(
+		r#"
+		index({ { 1, "Zebra" }, { 2, "Drum" }, { 3, "Yoke" } })
+		local lang, cachedCalls = true, 0
+		local translated = "Aardvark"
+		Polestar.Names.Localised = function() return lang end
+		Polestar.Names.Ready = function() return true end
+		Polestar.Names.Cached = function(_, id)
+			cachedCalls = cachedCalls + 1
+			if id == 1 then return translated end
+		end
+		local opts = { limit = 2, subtitles = false }
+		S.Query("nothing", { kinds = { item = true }, subtitles = false })
+		local prepared = cachedCalls
+		local a = S.Browse("item", opts)
+		emit({ a[1].id, a[1].title, a[2].id, cachedCalls - prepared })
+		translated = "Xylophone"
+		Polestar.Fire("NAMES_LOADED")
+		local b = S.Browse("item", opts)
+		emit({ b[1].id, b[2].id, b[2].title })
+		lang = false
+		local c = S.Browse("item", opts)
+		emit(ids(c)); emit(prepared)
+	"#,
+	));
+	assert_eq!(initial, json!([1, "Aardvark", 2, 2]), "browsing names only the page when Query has built the translated blob");
+	assert_eq!(later, json!([2, 1, "Xylophone"]));
+	assert_eq!(english, json!([2, 3]));
+	assert_eq!(calls, 3);
+}
+
+#[test]
+fn an_everything_search_in_a_to_z_gives_each_kind_its_first_few_in_browse_order() {
+	let [az, best] = first::<2>(browse(
+		r#"
+		index({ { 1, "Ring" }, { 2, "A Ring", "r" }, { 3, "B Ring", "n" }, { 4, "Z Ring" }, { 5, "Blade" }, { 6, "M Ring" } })
+		local rows, counts = S.Query("ring", { order = "az", perKind = 2, subtitles = false })
+		emit({ ids(rows), counts.item })
+		emit(ids(S.Query("ring", { perKind = 2, subtitles = false })))
+	"#,
+	));
+	assert_eq!(az, json!([[6, 1], 5]), "the top of the item kind's A to Z list, the count unchanged");
+	assert_eq!(best, json!([1, 6]));
+}
+
+#[test]
+fn a_learned_npc_name_re_sorts_browse_and_is_found_by_search() {
+	let [before, after, found, other] = first::<4>(browse(
+		r#"
+		index({ { 1, "Alpha" }, { 2, "Bravo" } }, "npc")
+		local learned = {}
+		Polestar.Names.Localised = function() return true end
+		Polestar.Names.Ready = function() return true end
+		Polestar.Names.Cached = function(_, id) return learned[id] end
+		local opts = { limit = 2, subtitles = false }
+		local function titles(rows) local out = {} for i, r in ipairs(rows) do out[i] = r.title end return out end
+		emit(titles(S.Browse("npc", opts)))
+		learned[1] = "Zulu"
+		Polestar.Fire("NAME_LEARNED", "object", 1)
+		local stale = titles(S.Browse("npc", opts))
+		Polestar.Fire("NAME_LEARNED", "npc", 1)
+		emit(titles(S.Browse("npc", opts)))
+		emit(ids(S.Query("zulu", { kinds = { npc = true }, subtitles = false })))
+		emit(stale)
+	"#,
+	));
+	assert_eq!(before, json!(["Alpha", "Bravo"]));
+	assert_eq!(after, json!(["Bravo", "Zulu"]), "the learned name sorts where it reads");
+	assert_eq!(found, json!([1]));
+	assert_eq!(other, json!(["Zulu", "Bravo"]), "an object's name leaves the NPC order as it was");
+}
+
+#[test]
+fn browse_orders_dungeons_by_the_client_names_their_rows_show() {
+	let [early, translated, english] = first::<3>(browse(
+		r#"
+		index({ { "alpha-keep", "Alpha Keep" }, { "bravo-halls", "Bravo Halls" }, { "charlie-vault", "Charlie Vault" } }, "instance")
+		local maps = { ["alpha-keep"] = 1, ["bravo-halls"] = 2, ["charlie-vault"] = 3 }
+		local shown = { "Zitadelle Alpha", "Bravohallen", "Charlie-Gewölbe" }
+		C.Instance = function(id) return maps[id] and { map = maps[id] } end
+		local lang, pack = true, false
+		Polestar.Names.Localised = function() return lang end
+		Polestar.Names.Instance = function(map) return lang and pack and shown[map] or nil end
+		local function page()
+			local out = {}
+			for i, row in ipairs(S.Browse("instance", { limit = 3, subtitles = false })) do out[i] = row.title end
+			return out
+		end
+		-- Before the names pack: the English names, in their order.
+		emit(page())
+		-- The same index, sorted again once the map names arrive.
+		pack = true
+		Polestar.Fire("NAMES_LOADED")
+		emit(page())
+		-- An English client (a new index, so a new sort) keeps the English order.
+		lang = false
+		index({ { "charlie-vault", "Charlie Vault" }, { "alpha-keep", "Alpha Keep" }, { "bravo-halls", "Bravo Halls" } }, "instance")
+		emit(page())
+	"#,
+	));
+	assert_eq!(early, json!(["Alpha Keep", "Bravo Halls", "Charlie Vault"]));
+	assert_eq!(translated, json!(["Bravohallen", "Charlie-Gewölbe", "Zitadelle Alpha"]), "A to Z by the names the rows show, after NAMES_LOADED");
+	assert_eq!(english, json!(["Alpha Keep", "Bravo Halls", "Charlie Vault"]));
+}
+
+#[test]
+fn browse_guides_respects_the_character_filter_and_updates_when_guides_register() {
+	let [a, b, counts] = first::<3>(run(&(guides()
+		+ r#"
+		g("test/zulu", { title = "Zulu" })
+		g("test/alpha", { title = "\195\129lpha", faction = "Alliance", classes = { "WARRIOR" } })
+		g("test/priest", { title = "A Priest", classes = { "PRIEST" } })
+		local S = Polestar.Search
+		local rows, count = S.Browse("guide", { limit = 2 })
+		emit({ rows[1].id, rows[2].id })
+		local counted = S.BrowseCount("guide")
+		g("test/aardvark", { title = "Aardvark" })
+		local after, newCount = S.Browse("guide", { limit = 2 })
+		emit({ after[1].id, after[2].id }); emit({ count, counted, newCount })
+	"#)));
+	assert_eq!(a, json!(["test/alpha", "test/alliance-strider"]));
+	assert_eq!(b, json!(["test/aardvark", "test/alpha"]));
+	assert_eq!(counts, json!([5, 5, 6]));
+}
+
+#[test]
+fn release_frees_the_score_cache_and_the_next_search_finds_the_same_rows() {
+	let [kb, before, after] = first::<3>(browse(
+		r#"
+		local entries = {}
+		for i = 1, 5000 do entries[i] = { i, ("Ring %04d"):format(i) } end
+		index(entries)
+		local function top() return ids(S.Query("r", { perKind = 5, subtitles = false })) end
+		-- A one-letter prefix matches every line, so every line's score is cached.
+		local first = top()
+		collectgarbage(); collectgarbage()
+		local held = collectgarbage("count")
+		S.Release()
+		collectgarbage(); collectgarbage()
+		emit(held - collectgarbage("count"))
+		emit(first)
+		emit(top())
+	"#,
+	));
+	assert!(num(&kb) > 100.0, "5,000 cached scores freed only {kb} KB");
+	assert_eq!(after, before, "released caches change no results");
+}
+
+#[test]
+fn browse_rebuilds_for_a_changed_blob_and_shares_one_sort_across_pages() {
+	let [before, next, after, sorts] = first::<4>(browse(
+		r#"
+		local original = table.sort
+		local sorted = 0
+		table.sort = function(...) sorted = sorted + 1; return original(...) end
+		index({ { 1, "Zulu" }, { 2, "Alpha" } })
+		local a = S.Browse("item", { limit = 1, subtitles = false })
+		local b = S.Browse("item", { offset = 1, limit = 1, subtitles = false })
+		local first = sorted
+		index({ { 1, "Charlie" }, { 2, "Zulu" }, { 3, "Bravo" } })
+		local count = S.BrowseCount("item")
+		local c = S.Browse("item", { limit = 2, subtitles = false })
+		emit(ids(a)); emit(ids(b)); emit(ids(c)); emit({ first, sorted, count })
+	"#,
+	));
+	assert_eq!(before, json!([2]));
+	assert_eq!(next, json!([1]));
+	assert_eq!(after, json!([3, 1]));
+	assert_eq!(sorts, json!([1, 2, 3]));
+}
+
+#[test]
+fn browse_requests_a_codex_load_and_count_waits_without_loading_the_pack() {
+	let [waiting, loaded, off] = first::<3>(browse(
+		r#"
+		local loads = 0
+		C.IsLoaded = function() return false end
+		C.Load = function() loads = loads + 1 end
+		local unknown = S.BrowseCount("item") == nil
+		local before = loads
+		local none, n = S.Browse("item")
+		emit({ unknown, before, #none, n, loads })
+		index({ { 1, "Alpha" } })
+		local rows, total = S.Browse("item", { subtitles = false })
+		emit({ rows[1].title, total, loads })
+		Polestar.Set("lookup.enabled", false)
+		C.IsLoaded = function() return false end
+		local unavailable, count = S.Browse("item")
+		emit({ S.BrowseCount("item") == nil, #unavailable, count, loads })
+	"#,
+	));
+	assert_eq!(waiting, json!([true, 0, 0, 0, 1]));
+	assert_eq!(loaded, json!(["Alpha", 1, 1]));
+	assert_eq!(off, json!([true, 0, 0, 1]));
+}
+
+#[test]
+fn browse_pages_cost_the_same_at_2_500_and_25_000_entries_and_sidebar_counts_do_not_sort() {
+	let [small, large] = first::<2>(browse(
+		r#"
+		-- Time the previous per-row allocation and Lua sort against the same catalogue.
+		local function comparatorTime(blob)
+			local status = { r = true, n = true }
+			local samples = {}
+			for i = 1, 5 do
+				collectgarbage()
+				local start = os.clock()
+				local order = {}
+				for folded, at, id, st, len in blob:gmatch("\2([^\1]*)\1()([^,]*),%d*,(%a?),(%d+)\n") do
+					order[#order + 1] = { folded = folded, at = at, id = tonumber(id), status = st, len = tonumber(len) }
+				end
+				table.sort(order, function(a, b)
+					local unavailableA, unavailableB = status[a.status] ~= nil, status[b.status] ~= nil
+					if unavailableA ~= unavailableB then return not unavailableA end
+					if a.folded ~= b.folded then return a.folded < b.folded end
+					if a.len ~= b.len then return a.len < b.len end
+					return a.id < b.id
+				end)
+				samples[i] = os.clock() - start
+			end
+			table.sort(samples)
+			return samples[3] * 1000
+		end
+
+		local function measure(n)
+			local entries = {}
+			for i = 1, n do entries[i] = { i, string.format("Item %05d", (i * 7919) % n) } end
+			index(entries)
+			local named, sorts, original = 0, 0, table.sort
+			local name = C.Name
+			C.Name = function(...) named = named + 1; return name(...) end
+			table.sort = function(...) sorts = sorts + 1; return original(...) end
+			local count = S.BrowseCount("item")
+			local countSorts, countNames = sorts, named
+			local opts = { limit = 50, subtitles = false }
+			collectgarbage()
+			local start = os.clock()
+			local first = S.Browse("item", opts)
+			local cold = os.clock() - start
+			local batches = {}
+			for b = 1, 7 do
+				start = os.clock()
+				for page = 1, 400 do
+					opts.offset = (1 + page % (n / 50 - 1)) * 50
+					S.Browse("item", opts)
+				end
+				batches[b] = os.clock() - start
+			end
+			table.sort = original
+			original(batches)
+			return { count = count, countSorts = countSorts, countNames = countNames, sorts = sorts, first = #first,
+				names = named, cold = cold * 1000, warm = batches[4] * 1000 / 400,
+				comparator = n == 25000 and comparatorTime(C.Index("item")) or nil }
+		end
+		emit(measure(2500)); emit(measure(25000))
+	"#,
+	));
+	for (measurement, count) in [(&small, 2500), (&large, 25000)] {
+		assert_eq!(measurement["count"], count);
+		assert_eq!(measurement["countSorts"], 0);
+		assert_eq!(measurement["countNames"], 0);
+		assert_eq!(measurement["sorts"], 1);
+		assert_eq!(measurement["first"], 50);
+		assert_eq!(measurement["names"], 50 * (1 + 7 * 400));
+	}
+	let comparator = num(&large["comparator"]);
+	let (cold, small, large) = (num(&large["cold"]), num(&small["warm"]), num(&large["warm"]));
+	println!("25,000 entries: first browse {cold:.3} ms, Lua comparator baseline {comparator:.3} ms; later pages {large:.3} ms (2,500 entries: {small:.3} ms)");
+	forge_addontest::assert_timing!(cold < 0.8 * comparator, "first browse: {cold:.3} ms at 25,000, expected under 80% of the Lua comparator baseline ({comparator:.3} ms)");
+	forge_addontest::assert_timing!(large < 2.5 * small.max(0.01), "warm browse: {large:.3} ms at 25,000 vs {small:.3} ms at 2,500");
 }
 
 // ---------------------------------------------------------------------------
@@ -1600,4 +2928,45 @@ fn an_era_spawn_at_the_same_place_as_a_live_spawn_on_another_map_is_the_live_one
 		emit({ twin = twin.map, apart = apart.map, unplaced = unplaced.map })"#)
 	.remove(0);
 	assert_eq!(out, json!({ "twin": 9002, "apart": 9001, "unplaced": 9002 }));
+}
+
+#[test]
+fn most_stat_ties_follow_the_displayed_item_cache_name_across_pages() {
+	let data = json!({
+		"items": {
+			"1": { "name": "Charm Alpha", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 12 } },
+			"2": { "name": "Charm Bravo", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 12 } },
+			"3": { "name": "Charm Charlie", "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 12 } }
+		}
+	});
+	let pack = write_codex_pack(&data, &CodexOpts::default());
+	let script = [
+		BROWSE_LUA,
+		r#"
+		assert(C.Load() and C.StatCodes())
+		Polestar.Names.Localised = function() return true end
+		Polestar.Names.Ready = function() return true end
+		-- The names pack knows only item 3; the client's item cache knows all three.
+		Polestar.Names.Cached = function(kind, id) if kind == "item" and id == 3 then return "Mu" end end
+		local cache = { [1] = "Zeta", [2] = "Eta", [3] = "Alpha" }
+		Polestar.Compat.GetItemName = function(id) return cache[id] end
+		for _, list in ipairs({
+			function(o) return S.Browse("item", o) end,
+			function(o) return S.Query("charm", o) end,
+		}) do
+			local opts = { order = "most", sortStat = 7, resultKind = "item", kinds = { item = true }, subtitles = false, limit = 1 }
+			local shown = {}
+			for offset = 0, 2 do
+				opts.offset = offset
+				local rows = list(opts)
+				assert(#rows == 1 and rows[1].statAmount == 12)
+				shown[#shown + 1] = S.LocalName("item", rows[1].id) or rows[1].title
+				assert(rows[1].title == shown[#shown], "title " .. tostring(rows[1].title))
+			end
+			assert(table.concat(shown, ",") == "Eta,Mu,Zeta", table.concat(shown, ","))
+		end
+		"#,
+	]
+	.concat();
+	run_with(&script, &Opts { with_pack: false, setup: pack.stub_lua.clone(), ..Default::default() });
 }

@@ -87,6 +87,188 @@ fn emit_codex(codex: &Value) -> Vec<(String, String)> {
 }
 
 #[test]
+fn codex_filter_facts_round_trip() {
+	let codex = json!({ "items": {
+		"647": { "name": "Destiny", "reqLevel": 52, "itemLevel": 57, "allowClass": 1503, "slot": 17, "itemClass": 2, "itemSubclass": 8,
+			"levelsSource": "era", "typeSource": "forever" },
+		"6948": { "name": "Hearthstone", "reqLevel": 0, "slot": 0, "allowClass": 0, "itemClass": 15, "itemSubclass": 0 },
+		"19019": { "name": "Thunderfury", "reqLevel": 60, "itemLevel": 80, "allowClass": 1503, "slot": 13, "itemClass": 2, "itemSubclass": 7,
+			"levelsSource": "client", "typeSource": "client" },
+		"20000": { "name": "An unknown item" },
+		"20001": { "name": "Other Mount", "kind": "mount", "allowClass": 1216, "slot": 34, "itemClass": 15 },
+	} });
+	let pack = write_codex_pack(&codex, &CodexOpts::default());
+	let out = run(
+		r#"
+local C = Polestar.Codex
+assert(not C.HasFilters() and C.FilterColumn('item') == nil and C.FilterFacts('item', 19019) == nil and not C.IsLoaded())
+assert(C.Load() and C.HasFilters())
+local blob, count = C.FilterColumn('item')
+assert(count == 4 and #blob == 20)
+assert(C.DecodeFilter(blob, 0) == nil and C.DecodeFilter(blob, 5) == nil)
+emit({ C.DecodeFilter(blob, 3) })
+local req, ilvl, mask, slot, cat, levels, types = C.DecodeFilter(blob, 4)
+assert(req == nil and ilvl == nil and mask == nil and slot == nil and cat == nil and levels == nil and types == nil)
+local class, subclass = C.FilterCategory(1)
+assert(class == 2 and subclass == 7 and C.FilterCategoryId(2, 7) == 1)
+assert(C.FilterCategory(0) == nil and C.FilterCategory(5) == nil and C.FilterCategoryId(2, 0) == nil)
+assert(C.FilterCategoryId(15, nil) == 4)
+assert(C.FilterSource(0) == nil and C.FilterSource(4) == nil)
+assert(C.FilterFacts('item', 1) == nil and C.FilterFacts('mount', 19019) == nil)
+emit(C.FilterFacts('item', '19019'))
+emit(C.FilterFacts('item', 6948))
+emit(C.FilterFacts('item', 647))
+assert(next(C.FilterFacts('item', 20000)) == nil)
+emit(C.FilterFacts('mount', 20001))
+assert(C.Item(6948).reqLevel == nil)
+"#,
+		"",
+		Some(&pack),
+	);
+	assert_eq!(out[0], json!([60, 80, 1503, 13, 1, 1, 1]));
+	assert_eq!(
+		out[1],
+		json!({ "reqLevel": 60, "itemLevel": 80, "allowClass": 1503, "slot": 13, "category": 1, "itemClass": 2, "itemSubclass": 7,
+		"levelsSource": "client", "typeSource": "client" })
+	);
+	assert_eq!(out[2], json!({ "reqLevel": 0, "allowClass": 0, "slot": 0, "category": 3, "itemClass": 15, "itemSubclass": 0 }));
+	assert_eq!(
+		out[3],
+		json!({ "reqLevel": 52, "itemLevel": 57, "allowClass": 1503, "slot": 17, "category": 2, "itemClass": 2, "itemSubclass": 8,
+		"levelsSource": "era", "typeSource": "forever" })
+	);
+	assert_eq!(out[4], json!({ "allowClass": 1216, "slot": 34, "category": 4, "itemClass": 15 }));
+}
+
+// Required level, item level, rarity and classes carry their own source beside levelsSource: Impaling Harpoon's
+// level is Classic Era's though Forever's list holds the row, Fel Steed Saddlebags' level and rarity come from the
+// Era CSV alone (no levelsSource), and rows with no own source read as levelsSource's, as they do in an old pack.
+#[test]
+fn codex_field_sources_label_mixed_rows_and_default_to_levels_source() {
+	let codex = json!({ "items": {
+		"5200": { "name": "Impaling Harpoon", "quality": 3, "reqLevel": 20, "itemLevel": 22, "allowClass": 1503, "slot": 17, "itemClass": 2, "itemSubclass": 6,
+			"levelsSource": "forever", "typeSource": "forever", "reqSource": "era", "qualitySource": "none" },
+		"932": { "name": "Fel Steed Saddlebags", "quality": 3, "reqLevel": 25, "reqSource": "era", "qualitySource": "era" },
+		"19019": { "name": "Thunderfury", "quality": 5, "reqLevel": 60, "itemLevel": 80, "allowClass": 1503, "levelsSource": "client", "typeSource": "client" },
+		"647": { "name": "Destiny", "quality": 4, "reqLevel": 52, "itemLevel": 57, "allowClass": 1503, "levelsSource": "era", "typeSource": "era" },
+	} });
+	let pack = write_codex_pack(&codex, &CodexOpts::default());
+	let out = run(
+		r#"
+local C = Polestar.Codex
+assert(C.Load() and C.HasFilters())
+local blob, count = C.FilterColumn('item')
+assert(count == 4 and #blob == 5 * count)
+local function row(id)
+	local facts, text = C.FilterFacts('item', id), {}
+	for i, fact in ipairs({ 'req', 'itemLevel', 'quality', 'allow' }) do text[i] = C.FactSource(facts, fact) or '-' end
+	return table.concat(text, ',')
+end
+local harpoon, saddlebags, control = C.FilterFacts('item', 5200), C.FilterFacts('item', 932), C.FilterFacts('item', 19019)
+assert(harpoon.levelsSource == 'forever' and harpoon.reqSource == 'era' and harpoon.qualitySource == false)
+assert(harpoon.itemLevelSource == nil and harpoon.allowSource == nil)
+assert(saddlebags.levelsSource == nil and saddlebags.reqLevel == 25 and saddlebags.reqSource == 'era' and saddlebags.qualitySource == 'era')
+assert(control.reqSource == nil and control.qualitySource == nil and C.FilterFacts('item', 647).reqSource == nil)
+emit({ row(5200), row(932), row(19019), row(647) })
+assert(C.Item(19019).reqLevel == 60 and C.Item(5200).reqLevel == 20)
+assert(C.Item(932).reqLevel == 25 and C.Item(647).reqLevel == 52)
+"#,
+		"",
+		Some(&pack),
+	);
+	assert_eq!(out[0], json!(["era,forever,-,forever", "era,-,era,-", "client,client,client,client", "era,era,era,era"]));
+}
+
+#[test]
+fn codex_stat_postings_cover_item_kinds_and_preserve_amount_sources() {
+	let codex = json!({ "items": {
+		"647": { "name": "Destiny", "levelsSource": "era" },
+		"17142": { "name": "Shard of the Defiler", "levelsSource": "client", "stats": { "32": 0, "36": 0 } },
+		"19019": { "name": "Thunderfury", "levelsSource": "client", "statAmountSource": "forever", "stats": { "3": 5, "7": 8 } },
+		"20257": { "name": "Seafury Gauntlets", "levelsSource": "era", "statAmountSource": "era", "stats": { "4": 10, "5": 9, "7": 9, "32": 0, "43": 7 } },
+		"20000": { "name": "An unknown item" },
+		"20001": { "name": "A mount", "kind": "mount", "levelsSource": "client", "statAmountSource": "era", "stats": { "7": 10 } },
+		"20002": { "name": "Ahn'Qiraj Wand [PH]", "levelsSource": "client", "stats": { "7": 0 } },
+	} });
+	let pack = write_codex_pack(&codex, &CodexOpts::default());
+	let out = run(
+		r#"
+local C = Polestar.Codex
+assert(C.StatCodes() == nil and C.StatItems(7) == nil and C.ItemStats(19019) == nil and not C.IsLoaded())
+assert(C.Load())
+emit(C.StatCodes())
+local stamina = C.StatItems(7)
+assert(stamina[19019] == 8 and stamina[20001] == 10 and stamina[647] == nil and stamina[20002] == nil)
+assert(C.StatItems(99) == nil and C.StatAmountSource(99, 19019) == nil)
+assert(C.StatAmountSource(7, '19019') == 'forever' and C.StatAmountSource(7, 20001) == 'era')
+assert(C.StatItems(36)[17142] == 0 and C.StatAmountSource(36, 17142) == nil)
+assert(C.StatItems(7) == stamina) -- touching this entry keeps it resident
+assert(C.StatItems(3)[19019] == 5 and C.StatItems(7) == stamina)
+assert(C.StatItems(32)[17142] == 0 and C.StatItems(7) == stamina)
+local crit = C.StatItems(32)
+assert(crit[20257] == 0 and C.StatAmountSource(32, 17142) == nil and C.StatAmountSource(32, 20257) == nil)
+assert(C.StatItems(3)[19019] == 5 and C.StatItems(36)[17142] == 0)
+assert(C.StatItems(32) ~= crit) -- two other lists evicted it
+emit(C.ItemStats('19019'))
+emit(C.ItemStats(17142))
+emit(C.ItemStats(20001))
+emit(C.ItemStats(20257))
+local empty = C.ItemStats(647)
+assert(type(empty) == 'table' and next(empty) == nil)
+assert(C.ItemStats(20000) == nil and C.ItemStats(20002) == nil and C.ItemStats(12345) == nil)
+assert(C.FilterFacts('item', 19019).levelsSource == 'client' and C.FilterFacts('mount', 20001).levelsSource == 'client')
+C.RegisterIndex('mount', '')
+assert(C.StatCodes() == nil and C.StatItems(7) == nil and C.ItemStats(19019) == nil)
+"#,
+		"",
+		Some(&pack),
+	);
+	assert_eq!(out[0], json!([3, 4, 5, 7, 32, 36, 43]));
+	assert_eq!(out[1], json!([{ "code": 3, "amount": 5, "amountSource": "forever" }, { "code": 7, "amount": 8, "amountSource": "forever" }]));
+	assert_eq!(out[2], json!([{ "code": 32 }, { "code": 36 }]));
+	assert_eq!(out[3], json!([{ "code": 7, "amount": 10, "amountSource": "era" }]));
+	assert_eq!(
+		out[4],
+		json!([{ "code": 4, "amount": 10, "amountSource": "era" }, { "code": 5, "amount": 9, "amountSource": "era" },
+			{ "code": 7, "amount": 9, "amountSource": "era" }, { "code": 32 }, { "code": 43, "amount": 7, "amountSource": "era" }])
+	);
+}
+
+#[test]
+fn codex_filter_facts_are_dormant_with_an_old_or_misaligned_index() {
+	run(
+		r#"
+local C = Polestar.Codex
+C.Register('meta', { schema = 1 })
+C.Register('item', '\n19019\t4\tThunderfury', '\n19019\t4;60;;;;;')
+local index = '\2thunderfury\00119019,4,,11\n'
+C.RegisterIndex('item', index)
+assert(C.Load() and C.Index('item') == index and C.Item(19019).reqLevel == 60)
+assert(not C.HasFilters() and C.FilterColumn('item') == nil and C.FilterFacts('item', 19019) == nil)
+assert(C.StatCodes() == nil and C.StatItems(7) == nil and C.StatAmountSource(7, 19019) == nil and C.ItemStats(19019) == nil)
+assert(C.DecodeFilter(nil, 1) == nil and C.FilterCategory(1) == nil and C.FilterCategoryId(2, 7) == nil)
+for _, kind in ipairs({ 'mount', 'pet', 'recipe', 'tabard' }) do C.RegisterIndex(kind, '') end
+local columns = { item = {2, string.rep('\0', 10)}, mount = {0, ''}, pet = {0, ''}, recipe = {0, ''}, tabard = {0, ''} }
+C.RegisterFilters(1, '', columns)
+assert(not C.HasFilters() and C.Index('item') == index and C.FilterColumn('item') == nil)
+columns.item = {1, string.rep('\0', 5)}
+C.RegisterFilters(2, '', columns)
+assert(not C.HasFilters())
+C.RegisterFilters(1, '', columns)
+assert(C.HasFilters() and C.FilterFacts('item', 19019) ~= nil)
+C.RegisterStats(2, '', '')
+assert(C.StatCodes() == nil and C.ItemStats(19019) == nil)
+C.RegisterStats(1, '', '')
+assert(#C.StatCodes() == 0 and C.ItemStats(19019) == nil)
+C.RegisterIndex('item', '\2other\0011,0,,5\n')
+assert(not C.HasFilters() and C.FilterFacts('item', 19019) == nil)
+"#,
+		"",
+		None,
+	);
+}
+
+#[test]
 fn emitpack_round_trips_every_record_through_codex_lua() {
 	let mut codex = sample_codex();
 	// A child quest's parent, needed in the log (the Valik rule): the `u` field.
@@ -438,7 +620,7 @@ emit({ missing = table.concat(missing, ","), stale = table.concat(stale, ","), s
 
 #[test]
 fn a_complete_install_of_one_version_says_nothing_at_login_the_optional_data_packs_may_be_absent() {
-	let out = login_with(&[("Polestar", None), ("Polestar_Guides", None), ("Polestar_Codex", None), ("Polestar_Handins", None), ("Polestar_Options", None)]);
+	let out = login_with(&[("Polestar", None), ("Polestar_Guides", None), ("Polestar_Codex", None), ("Polestar_Handins", None), ("Polestar_Options", None), ("Polestar_Lookup", None)]);
 	assert_eq!(out["missing"], "");
 	assert_eq!(out["stale"], "");
 	assert_eq!(len(&out["said"]), 0);
@@ -446,7 +628,7 @@ fn a_complete_install_of_one_version_says_nothing_at_login_the_optional_data_pac
 
 #[test]
 fn a_missing_codex_and_a_guides_folder_from_an_old_zip_are_named_once_in_chat_with_how_to_reinstall() {
-	let out = login_with(&[("Polestar", None), ("Polestar_Guides", Some("0.2.1")), ("Polestar_QuestDB", None), ("Polestar_Handins", None), ("Polestar_Options", None)]);
+	let out = login_with(&[("Polestar", None), ("Polestar_Guides", Some("0.2.1")), ("Polestar_QuestDB", None), ("Polestar_Handins", None), ("Polestar_Options", None), ("Polestar_Lookup", None)]);
 	assert_eq!(out["missing"], "Polestar_Codex");
 	assert_eq!(out["stale"], "Polestar_Guides 0.2.1");
 	assert_eq!(out["said"].as_array().unwrap().len(), 1);
@@ -461,7 +643,7 @@ fn a_missing_codex_and_a_guides_folder_from_an_old_zip_are_named_once_in_chat_wi
 #[test]
 fn the_folders_0_4_3_folded_left_from_an_older_install_get_one_line_to_delete_them_and_no_mixed_install() {
 	let out = emitted(&RunAddon {
-		before: r#"stub.addons = { { name = "Polestar" }, { name = "Polestar_Guides" }, { name = "Polestar_Codex" }, { name = "Polestar_Handins" }, { name = "Polestar_Options" },
+		before: r#"stub.addons = { { name = "Polestar" }, { name = "Polestar_Guides" }, { name = "Polestar_Codex" }, { name = "Polestar_Handins" }, { name = "Polestar_Options" }, { name = "Polestar_Lookup" },
 	{ name = "Polestar_Looks" }, { name = "Polestar_Skin_Vellum" }, { name = "Polestar_Guides_Orc" }, { name = "Polestar_Experimental" }, { name = "Polestar_Skin_Example" },
 	{ name = "Polestar_Skin_Joes" } }
 for _, n in ipairs({ "Polestar_Looks", "Polestar_Skin_Vellum", "Polestar_Guides_Orc", "Polestar_Experimental", "Polestar_Skin_Example", "Polestar_Skin_Joes" }) do stub.addonMeta[n] = { Version = "0.4.2.2" } end"#
@@ -491,7 +673,7 @@ emit({ missing = table.concat(missing, ","), stale = table.concat(stale, ","), f
 fn a_missing_faction_part_of_our_guides_is_named_at_login_the_other_faction_s_is_not() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
-		before: "stub.addons = { { name = \"Polestar\" }, { name = \"Polestar_Guides\" }, { name = \"Polestar_Codex\" }, { name = \"Polestar_Handins\" }, { name = \"Polestar_Options\" }, { name = \"Polestar_Guides_Alliance\" } }\nstub.world.faction = \"Horde\""
+		before: "stub.addons = { { name = \"Polestar\" }, { name = \"Polestar_Guides\" }, { name = \"Polestar_Codex\" }, { name = \"Polestar_Handins\" }, { name = \"Polestar_Options\" }, { name = \"Polestar_Lookup\" }, { name = \"Polestar_Guides_Alliance\" } }\nstub.world.faction = \"Horde\""
 			.into(),
 		addons: vec![files()],
 		login: true,
@@ -744,6 +926,7 @@ fn inputs(s: Synth) -> Inputs {
 		recorded: v(&s.recorded),
 		learned: Default::default(),
 		client: Some(s.client),
+		item_db: Default::default(),
 		web: s.web.as_ref().map(v),
 		curated: s.curated,
 		curated_gates: V::obj(),
@@ -781,23 +964,7 @@ fn merged(s: Synth) -> Value {
 
 /// `{ ...b, name }` of a client item.
 fn like(b: &ClientItem, name: &str) -> ClientItem {
-	ClientItem {
-		name: Some(name.to_string()),
-		quality: b.quality,
-		req_level: b.req_level,
-		buy_price: b.buy_price,
-		min_faction: b.min_faction,
-		min_standing: b.min_standing,
-		pvp_rank: b.pvp_rank,
-		req_skill: b.req_skill,
-		req_skill_rank: b.req_skill_rank,
-		class_id: b.class_id,
-		subclass_id: b.subclass_id,
-		inventory_type: b.inventory_type,
-		learn: b.learn,
-		use_: b.use_,
-		era: b.era,
-	}
+	ClientItem { name: Some(name.to_string()), ..b.clone() }
 }
 
 fn find_type(sources: &Value, ty: &str) -> Value {

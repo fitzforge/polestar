@@ -2323,6 +2323,7 @@ end
 --   UI.RegisterSection({
 --     key, label, icon, order,
 --     build = fn(parent, hub), render = fn(),
+--     load = fn(retry) -> ready,      -- may supply build and render on first use
 --     nav = fn() -> items, activeKey,  -- optional: its index ({ key, label, icon, count })
 --     onNav = fn(key),                 -- with nav: set the state, then UI.Picker.Render()
 --     search = fn(text), enter = fn(), step = fn(delta), -- optional: the hub search drives it
@@ -2338,7 +2339,8 @@ P.GUIDES = GUIDES.key
 -- built afresh on every render they were garbage each time the menu opened.
 local railItems, footItems
 function UI.RegisterSection(spec)
-	if type(spec) ~= "table" or type(spec.key) ~= "string" or type(spec.build) ~= "function" or type(spec.render) ~= "function" then return false end
+	if type(spec) ~= "table" or type(spec.key) ~= "string" then return false end
+	if type(spec.load) ~= "function" and (type(spec.build) ~= "function" or type(spec.render) ~= "function") then return false end
 	if spec.key == GUIDES.key then return false end
 	for i = #sections, 1, -1 do if sections[i].key == spec.key then table.remove(sections, i) end end
 	sections[#sections + 1] = spec
@@ -2351,11 +2353,12 @@ end
 function P.Sections() return sections end
 function P.Section() return section or GUIDES.key end
 
-local function activeSection()
-	if not section then return nil end
-	for _, s in ipairs(sections) do if s.key == section and not s.builtin then return s end end
+local function sectionFor(key)
+	if not key then return nil end
+	for _, s in ipairs(sections) do if s.key == key and not s.builtin then return s end end
 	return nil
 end
+local function activeSection() return sectionFor(section) end
 P.ActiveSection = activeSection
 
 function P.Query() return query end
@@ -2364,6 +2367,11 @@ function P.Query() return query end
 -- empty in every section.
 function P.ShowSection(key)
 	if key == GUIDES.key then key = nil end
+	local s = sectionFor(key)
+	-- Finish loading before changing the search or building the section frame.
+	if s and s.load and not s.build then
+		if not s.load(function() P.ShowSection(key) end) then return end
+	end
 	if key ~= section and win then
 		query = ""
 		win.Search:SetText("")
@@ -2464,6 +2472,11 @@ local function sectionNav(s)
 	if not ok or type(items) ~= "table" then items, activeKey = {}, nil end
 	-- onNav changes the section's state and re-renders the hub (P.Render).
 	W.ShellNav(win, items, activeKey, function(key) if s.onNav then s.onNav(key) end end)
+end
+
+function P.RenderSectionNav()
+	local s = activeSection()
+	if s and win and win:IsVisible() then sectionNav(s) end
 end
 
 -- Home's list (the header comment's "resume first"), from the body's top.
@@ -3012,6 +3025,12 @@ local function build()
 
 	buildDetails()
 	win:HookScript("OnShow", function() P.Render() end)
+	-- Every search (Lookup and the guide list's Codex rows) runs in the hub:
+	-- closing it frees what only a search in progress needs.
+	win:HookScript("OnHide", function()
+		local S = ns.Search
+		if S and S.Release then S.Release() end
+	end)
 	-- A gamepad moves through the hub (UI/Gamepad.lua): LB / RB step the
 	-- rail's sections, X loads the guide on a focused row, Y closes a
 	-- Continue card's tab.
