@@ -130,6 +130,23 @@ function KC.Colour(goal, k)
 	return "grey", green
 end
 
+-- While the game's trade skill window is open it knows the recipe's colour (Forever's numbers, a recipe that
+-- turned grey early): "orange" | "yellow" | "green" | "grey", or nil when it is shut or does not list it.
+local DIFFICULTY = { optimal = "orange", medium = "yellow", easy = "green", trivial = "grey" }
+function KC.WindowColour(goal)
+	if not (goal.spell and GetNumTradeSkills and GetTradeSkillInfo) then return nil end
+	local spellName = (C_Spell and C_Spell.GetSpellName) or (GetSpellInfo and function(id) return (GetSpellInfo(id)) end)
+	local ok, name = pcall(spellName or function() return nil end, goal.spell)
+	if not ok or type(name) ~= "string" then return nil end
+	local okN, n = pcall(GetNumTradeSkills)
+	if not okN or type(n) ~= "number" then return nil end
+	for i = 1, n do
+		local okI, label, kind = pcall(GetTradeSkillInfo, i)
+		if okI and label == name then return DIFFICULTY[kind] end
+	end
+	return nil
+end
+
 -- The guide's craft goal that makes `item` (a bolt of cloth), with reagents: the intermediate's recipe.
 local function maker(G, item)
 	for _, step in ipairs(G.steps) do
@@ -451,6 +468,7 @@ M.stretch = function(view, kind)
 	local G = a.guide()
 	local goal = st.goal
 	local colour, green = KC.Colour(goal, rank)
+	colour = KC.WindowColour(goal) or colour
 	local expected = goal.yellow and a.craftsFrom(goal, st.from, st.from) or nil
 	local left = goal.yellow and a.craftsFrom(goal, st.from, max(rank, st.from)) or nil
 	local made = expected and left and max(0, floor(expected - left + 0.5)) or 0
@@ -511,6 +529,11 @@ local function professionSupplies(view)
 end
 
 M.supplies = function(view, kind)
+	-- A standing at its end needs no more items.
+	if kind == "reputation" then
+		local meter = KC.RepMeter(view)
+		if meter and meter.done then return nil end
+	end
 	if kind == "profession" then return professionSupplies(view) end
 	if kind == "reputation" then return KC.RepSupplies(view) end
 	return nil
@@ -520,6 +543,13 @@ M.buyList = function(view, kind)
 	if kind ~= "profession" then return nil end
 	local s = M.supplies(view, kind)
 	return s and s.buyList or nil
+end
+
+-- The trade skill window's colours come and go with it.
+if ns.RegisterEvent then
+	for _, e in ipairs({ "TRADE_SKILL_SHOW", "TRADE_SKILL_UPDATE", "TRADE_SKILL_CLOSE" }) do
+		ns.RegisterEvent(e, function() ns.Fire("KIND_CRAFT_MADE") end)
+	end
 end
 
 -- The casts of the stretch's recipe, counted per character (stretch.made).

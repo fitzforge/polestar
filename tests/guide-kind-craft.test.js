@@ -212,3 +212,14 @@ emit({ supplies = sup:GetParent() ~= GF.parts.card, buyList = list:GetParent() =
 	}).emitted[0];
 	assert.deepEqual(out, { supplies: true, buyList: true, meter: true, head: 'MATERIALS TO 115' });
 });
+
+test('the trade skill window open: its own colour for the recipe wins ("Grey now: move on")', () => {
+	const out = run(`GetSpellInfo = function(id) if id == 2402 then return "Woolen Cape" end end
+C_Spell = nil
+GetNumTradeSkills = function() return 2 end
+GetTradeSkillInfo = function(i) if i == 2 then return "Woolen Cape", "trivial" end return "Bolt of Woolen Cloth", "easy" end`, `
+local m = E.KindModel("stretch", view, "profession")
+GF.Layout(); stub.advance(1)
+emit({ colour = m.colour, line = plain(GF.RegionFrame("stretch").MoveOn:GetText()) })`);
+	assert.deepEqual(out, { colour: 'grey', line: 'Grey now: move on' });
+});
