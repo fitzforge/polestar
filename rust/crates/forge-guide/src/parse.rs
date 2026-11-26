@@ -52,8 +52,8 @@ fn is_num(s: &str) -> bool {
 	}
 }
 
-pub const HEADER_KEYS: [&str; 20] =
-	["guide", "title", "levels", "zone", "faction", "race", "class", "next", "category", "folder", "keywords", "collects", "reward", "why", "author", "version", "coords", "pitch", "pro", "con"];
+pub const HEADER_KEYS: [&str; 21] =
+	["guide", "title", "levels", "zone", "faction", "race", "class", "next", "category", "kind", "folder", "keywords", "collects", "reward", "why", "author", "version", "coords", "pitch", "pro", "con"];
 /// Lines inside a step that are not goals.
 /// `loop`: the step's `goto` points are the spawn areas of its kill, collect
 /// and interact goals (resolve.rs, applyLoop). `loop <zone> … at <x,y> …`: one
@@ -844,7 +844,7 @@ fn parse_header(guide: &V, kw: &str, line: &[u16], lex: &Lex, ln: f64, cx: &mut 
 			}
 			guide.set("id", toks[1].text.as_str());
 		}
-		"title" | "category" | "author" | "pitch" | "why" | "folder" => h.set(kw, rest.as_str()),
+		"title" | "category" | "kind" | "author" | "pitch" | "why" | "folder" => h.set(kw, rest.as_str()),
 		"keywords" => {
 			// `keywords a, b, c`: extra search words for the guide menu.
 			let words: Vec<&str> = rest.split(',').map(js_trim).collect();

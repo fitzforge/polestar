@@ -17,9 +17,11 @@
 --     overlay), in the theme's accent colour, pulsing unless ui.reduceMotion
 --     is on. Glows and locks are
 --     kept here by button; nothing is written into the button's table.
---   * Baganator and BagSmith: corner widgets, the lock bottom-left. The glow
---     is bottom-right in Baganator, bottom-left in BagSmith to leave its
---     protected stack count visible.
+--   * Baganator and BagSmith: corner widgets, both bottom-left (a glowing
+--     step item never gets the lock). The glow widget is an empty frame
+--     holding the same full-slot ring as the client's bags, not pulsing; it
+--     stays out of the bottom-right corner, where both addons draw the stack
+--     count and Baganator shows only one widget per corner (#4207).
 --   * EllesmereUI Bags: the full-slot glow is centred on _textOverlay or the
 --     button; the lock is in the top-right corner, moved left of the quest
 --     icon on a slot that shows one.
@@ -42,7 +44,10 @@ QoL.BagGlow = BagGlow
 local TEXTURE = "Interface\\Buttons\\UI-ActionButton-Border"
 local SCALE = 1.9 -- the border texture's size against the item button's
 local LAYER = 2 -- OVERLAY sublevel: under the upgrade arrow (3) and the search overlay (4)
-local WIDGET = "polestar_step_item" -- bag addon corner widget id
+-- Bag addon corner widget id of the glow. A new id (it was polestar_step_item,
+-- a small square bottom-right in Baganator, drawn there instead of the stack
+-- count): placed at its default corner once per id, as the lock's below.
+local WIDGET = "polestar_step_glow"
 local LOCK = "Interface\\PetBattles\\PetBattle-LockIcon"
 local LOCK_SIZE = 14
 -- Bag addon corner widget id of the lock. A new id (it was polestar_kept_item):
@@ -129,19 +134,25 @@ local function pulse(t)
 	t.pulse = ag
 end
 
+-- The action button border ringing a slot of `button`'s size, centred on `anchor`.
+local function ring(parent, anchor, button)
+	local t = parent:CreateTexture(nil, "OVERLAY", nil, LAYER)
+	local w, h = 37, 37
+	if button.GetSize then w, h = button:GetSize() end
+	t:SetSize((w and w > 0 and w or 37) * SCALE, (h and h > 0 and h or 37) * SCALE)
+	t:SetPoint("CENTER", anchor, "CENTER", 0, 0)
+	t:SetTexture(TEXTURE)
+	if t.SetBlendMode then t:SetBlendMode("ADD") end
+	paint(t)
+	return t
+end
+
 local function glowFor(button, view)
 	local cache = view == "ellesmere" and eGlows or glows
 	local t = cache[button]
 	if t then return t end
 	local host = view == "ellesmere" and (button._textOverlay or button) or button
-	t = host:CreateTexture(nil, "OVERLAY", nil, LAYER)
-	local w, h = 37, 37
-	if button.GetSize then w, h = button:GetSize() end
-	t:SetSize((w or 37) * SCALE, (h or 37) * SCALE)
-	t:SetPoint("CENTER", host, "CENTER", 0, 0)
-	t:SetTexture(TEXTURE)
-	if t.SetBlendMode then t:SetBlendMode("ADD") end
-	paint(t)
+	t = ring(host, host, button)
 	pulse(t)
 	cache[button] = t
 	return t
@@ -195,15 +206,13 @@ local function showStepItem(details)
 	return glowing() and type(details) == "table" and wanted(details.itemID) or false
 end
 
+-- The bag addon places, shows and hides the frame; the ring is its child, on the whole slot.
 local function makeStepItem(button)
-	local t = button:CreateTexture(nil, "OVERLAY")
-	local w = button.GetWidth and button:GetWidth() or 37
-	t:SetSize(w * 0.6, w * 0.6)
-	t:SetTexture(TEXTURE)
-	if t.SetBlendMode then t:SetBlendMode("ADD") end
-	paint(t)
-	widgets[t] = true
-	return t
+	local frame = CreateFrame("Frame")
+	frame:SetParent(button)
+	frame:SetSize(1, 1)
+	widgets[ring(frame, button, button)] = true
+	return frame
 end
 
 local function showKeptItem(details)
@@ -219,8 +228,8 @@ end
 
 if Slots then
 	Slots.Painter("step-glow", paintBagSlot)
-	-- BagSmith shares bottom-left: locked excludes wanted, so glow and lock never compete.
-	Slots.Widget("step-glow", WIDGET, L["Polestar: step item"], showStepItem, makeStepItem, "bottom_right", "bottom_left")
+	-- Bottom-left, with the lock: locked excludes wanted, so glow and lock never compete.
+	Slots.Widget("step-glow", WIDGET, L["Polestar: step item"], showStepItem, makeStepItem, "bottom_left")
 	Slots.Widget("step-glow", KEEP_WIDGET, L["Polestar: kept for the guide"], showKeptItem, makeKeptItem, "bottom_left")
 end
 

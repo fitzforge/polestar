@@ -1,0 +1,33 @@
+## Interface: 16001
+## Title: Polestar Free Mode
+## Notes: Part of Polestar: Free mode, your own quests as a guide, and the guide that hands in your finished quests. Loaded when one of them opens.
+## Title-deDE: Polestar-Freimodus
+## Notes-deDE: Teil von Polestar: der Freimodus, deine eigenen Quests als Guide, und der Guide zum Abgeben erledigter Quests. Wird geladen, wenn einer davon geöffnet wird.
+## Title-esES: Polestar: modo libre
+## Notes-esES: Parte de Polestar: el modo libre, tus propias misiones como guía, y la guía para entregar tus misiones completadas. Se carga al abrir uno de ellos.
+## Title-esMX: Polestar: modo libre
+## Notes-esMX: Parte de Polestar: el modo libre, tus propias misiones como guía, y la guía para entregar tus misiones terminadas. Se carga al abrir uno de ellos.
+## Title-frFR: Polestar : mode libre
+## Notes-frFR: Fait partie de Polestar : le mode libre, vos propres quêtes comme guide, et le guide pour rendre vos quêtes terminées. Chargé à l'ouverture de l'un d'eux.
+## Title-koKR: Polestar 자유 모드
+## Notes-koKR: Polestar의 일부: 자유 모드(내가 받은 퀘스트를 가이드로)와 완료한 퀘스트 제출 가이드. 둘 중 하나를 열 때 불러옵니다.
+## Title-ptBR: Polestar: modo livre
+## Notes-ptBR: Parte do Polestar: o modo livre, suas próprias missões como guia, e o guia para entregar suas missões concluídas. Carregado ao abrir um deles.
+## Title-ruRU: Polestar: свободный режим
+## Notes-ruRU: Часть Polestar: свободный режим, ваши собственные задания как гайд, и гайд для сдачи выполненных заданий. Загружается при открытии одного из них.
+## Title-zhCN: Polestar 自由模式
+## Notes-zhCN: Polestar 的组成部分：自由模式（把你自己的任务当作指南）和交还已完成任务的指南。打开其中之一时加载。
+## Title-zhTW: Polestar 自由模式
+## Notes-zhTW: Polestar 的一部分：自由模式（把你自己的任務當作指南）和繳交已完成任務的指南。開啟其中之一時載入。
+## Author: Polestar
+## Version: 0.4.3.1
+## Category: Polestar
+## Group: Polestar
+## LoadOnDemand: 1
+## Dependencies: Polestar
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+
+Route.lua
+Handins.lua
+Free.lua

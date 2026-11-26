@@ -70,8 +70,39 @@ ns.UI.GuideFrame.Part(function(GF)
 		}
 		local function add(it) items[#items + 1] = it end
 		local function group() if #items > 0 and not items[#items].separator then add({ separator = true }) end end
+		-- The guide's kind (Core/Guides.lua, GuideKinds) leaves entries out (a
+		-- profession guide has no Free mode or quest hand-ins) and puts its own
+		-- first: a profession guide's materials and its nearest trainer.
+		local K = ns.GuideKinds
+		local kind = E and E.GuideKind and E.GuideKind() or "leveling"
+		local function has(entry) return not K or K.Menu(kind, entry) end
+		local led = {}
+		local lead = {}
+		for _, entry in ipairs(K and K.Lead(kind) or {}) do
+			if entry == "materials" then
+				local mats = UI.Materials and UI.Materials.MenuItems()
+				for _, it in ipairs(mats or {}) do lead[#lead + 1] = it end
+				led.materials = true
+			elseif entry == "trainer" then
+				local line = K.SkillLine(hasGuide)
+				local Nearby = ns.Nav and ns.Nav.nearby
+				if line and Nearby and Nearby.Go then
+					lead[#lead + 1] = { text = string.format(L["Nearest %s trainer"], Nearby.ProfessionName(line)), icon = "icon-skill",
+						onClick = function() Nearby.Go("trainer", line) end }
+				end
+			end
+		end
+		if #lead > 0 then
+			-- After the window's toggles and their separator.
+			for i, it in ipairs(lead) do table.insert(items, 2 + i, it) end
+			table.insert(items, 3 + #lead, { separator = true })
+		end
 		local reopen = not several and GF.ReopenItem()
 		if reopen then add(reopen) end
+		-- Free mode (Lookup/Free.lua): on or off, and while on its order and the quests left out.
+		if has("free") then
+			for _, it in ipairs(ns.Free and ns.Free.MenuItems() or {}) do add(it) end
+		end
 		-- A header with no Lookup (a skin's layout hid it) has it here.
 		if not inHeader("Lookup") then
 			add({ text = L["Lookup"], icon = "search", onClick = function() UI.ShowLookup() end })
@@ -87,25 +118,31 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- Every ready quest, even with no guide or a hand-in already planned.
 		-- Count the live quest ids without building their recipient rows; the
 		-- shared Guide me action opens the one carried/log planner.
-		local ready = ns.Handins and ns.Handins.Ready()
-		if ready and #ready > 0 then
-			add({ text = L["Hand in finished quests (%d)"]:format(#ready), icon = "icon-turnin", onClick = function() UI.GuideCarried() end })
-		else
-			add({ text = L["None to hand in"], icon = "icon-turnin", disabled = true })
+		if has("handins") then
+			local ready = ns.Handins and ns.Handins.Ready()
+			if ready and #ready > 0 then
+				add({ text = L["Hand in finished quests (%d)"]:format(#ready), icon = "icon-turnin", onClick = function() UI.GuideCarried() end })
+			else
+				add({ text = L["None to hand in"], icon = "icon-turnin", disabled = true })
+			end
 		end
 		-- The quest log cleanup (UI/QuestRoom.lua), over the quests it can list.
-		local unneeded = ns.RoutePlan and ns.RoutePlan.Unneeded() or nil
-		if unneeded and #unneeded > 0 then
-			add({ text = L["Clean up quest log (%d)"]:format(#unneeded), icon = "cross", onClick = function() UI.ShowQuestRoom() end })
-		else
-			add({ text = L["Quest log is clean"], icon = "cross", disabled = true })
+		if has("questLog") then
+			local unneeded = ns.RoutePlan and ns.RoutePlan.Unneeded() or nil
+			if unneeded and #unneeded > 0 then
+				add({ text = L["Clean up quest log (%d)"]:format(#unneeded), icon = "cross", onClick = function() UI.ShowQuestRoom() end })
+			else
+				add({ text = L["Quest log is clean"], icon = "cross", disabled = true })
+			end
 		end
 		-- The quest items to buy at the auction house (UI/AuctionBuys.lua), while there are any.
 		local ah = UI.AuctionBuys and UI.AuctionBuys.MenuItem()
 		if ah then add(ah) end
-		-- Gather, buy or mix, for a guide with a material to choose a way for (UI/Materials.lua).
-		local mats = UI.Materials and UI.Materials.MenuItems()
-		for _, it in ipairs(mats or {}) do add(it) end
+		-- Gather, buy or mix, for a guide with a material to choose a way for (UI/Materials.lua), unless the kind led with them.
+		if has("materials") and not led.materials then
+			local mats = UI.Materials and UI.Materials.MenuItems()
+			for _, it in ipairs(mats or {}) do add(it) end
+		end
 		group()
 		-- The few settings changed mid-play (UI/QuickSettings.lua), by the button, just before Settings.
 		if UI.QuickSettings then

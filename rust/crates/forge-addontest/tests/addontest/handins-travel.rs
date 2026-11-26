@@ -8,7 +8,7 @@ fn run(script: &str) -> Value {
 		stubs: vec!["stub_nav.lua"],
 		addons: vec![
 			Addon::files("Polestar", &["Core/Init.lua", "Core/LuaChunks.lua", "Core/Names.lua", "Core/Guides.lua", "Nav/Nav.xml", "Dungeons/Dungeons.lua", "Dungeons/Pickup.lua"]),
-			Addon::files("Polestar_Handins", &["Route.lua"]),
+			Addon::files("Polestar_FreeMode", &["Route.lua"]),
 		],
 		login: true,
 		script: script.into(),

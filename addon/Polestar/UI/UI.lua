@@ -417,7 +417,11 @@ end
 -- still missing take there, then the second choice ("or Riverpaw Gnoll
 -- (Westfall)"). A farming loop instead names itself, its zone and lap, the
 -- laps left and the second choice's zone ("Mining loop · Westfall · 5 min a
--- lap · about 4 laps · or Loch Modan"). Nil without one.
+-- lap · about 4 laps · or Loch Modan"). A (non-loop) farm longer than
+-- UI.FARM_LONG minutes is no plan to send a player on: it says where the rest
+-- really comes from instead ("Most of it drops as you level 15-30  ·  or the
+-- Auction House"), no kills, minutes or second farm. Nil without one.
+UI.FARM_LONG = 60
 function UI.FarmLine(goal)
 	local f = type(goal.farm) == "table" and goal.farm
 	if not f then return nil end
@@ -427,6 +431,12 @@ function UI.FarmLine(goal)
 		parts[#parts + 1] = string.format(L["No farm at your level: %d levels above you"], above)
 	elseif above and above > 0 then
 		parts[#parts + 1] = L["1 level above you: careful"]
+	end
+	if not f.loop and f.minutes and f.minutes > UI.FARM_LONG then
+		local lv = type(f.levels) == "table" and UI.LevelRange(f.levels[1], f.levels[2])
+		parts[#parts + 1] = lv and string.format(L["Most of it drops as you level %s"], lv) or L["A long farm: most of it drops as you level"]
+		if f.market then parts[#parts + 1] = L["or the Auction House"] end
+		return table.concat(parts, "  \194\183  ")
 	end
 	if f.loop then
 		local what = type(goal.subject) == "string" and goal.subject ~= "" and goal.subject or nil

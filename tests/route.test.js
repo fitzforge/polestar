@@ -345,6 +345,31 @@ test('object objectives: interact with the quest link, no count', () => {
 	assert.deepEqual([g.object, g.quest, g.oi, g.count], [52, 124, 1, undefined]);
 });
 
+test('vendor items: buy at the nearest vendor, planned at the friendly one nearest the quest giver', () => {
+	// Lamp Oil (703): Peddler Voss (13, the first listed, far corner), Grocer Hale
+	// (14, by Farmer Bell), Trader Zug (15, Horde), Chandler Roe (16, Farshore).
+	const both = run({ zones: ['Testvale', 'Farshore'] });
+	const line = both.text.split('\n').find((l) => /^\s+buy 703\b/.test(l));
+	assert.equal(line.trim(), 'buy 703 x5 nearest -- for Lamps for the Farm', 'the vendor is the game\'s pick, not one NPC id');
+	const step = parse(both.text).steps.find((s) => s.goals.some((g) => g.verb === 'buy'));
+	assert.equal(step.title, 'Buy Lamp Oil', 'named for the item, not for one vendor');
+	assert.deepEqual(step.goals.map((g) => g.verb), ['buy'], 'no goto: a smart target takes no place');
+	const ev = both.plan.events.find((e) => (e.goals || []).some((g) => g.verb === 'buy'));
+	assert.deepEqual([ev.pt.map, ev.pt.x, ev.pt.y], [9001, 56, 54], 'the route stops at Grocer Hale, not at the first vendor listed');
+	assertOrder(both.text, fixture());
+	// The compiled goal carries every friendly vendor the data places.
+	const buy = compileDraft(both.text).find((g) => g.t === 'buy');
+	assert.deepEqual([buy.item, buy.count], [703, 5]);
+	assert.deepEqual(buy.candidates.map((c) => c.npc).sort((a, b) => a - b), [13, 14, 16]);
+	// One vendor in the zones: still `nearest`.
+	const one = fixture();
+	one.items['703'].vendors = [13];
+	const single = run({}, one);
+	assert.ok(single.text.includes('\n  buy 703 x5 nearest -- for Lamps for the Farm\n'));
+	const at = single.plan.events.find((e) => (e.goals || []).some((g) => g.verb === 'buy'));
+	assert.deepEqual([at.pt.x, at.pt.y], [90, 90]);
+});
+
 test('coordinates from live-frame (recorded) spawns are marked live', () => {
 	const data = fixture();
 	data.npcs['10'].spawns['9001'].f = 'l';

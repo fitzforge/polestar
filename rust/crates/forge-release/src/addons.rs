@@ -4,8 +4,8 @@ use std::path::Path;
 
 /// Always in the release: the addon (with the game looks and Hearth, the Skin API's checks, the tab styles and
 /// our experimental guides inside it since 0.4.3), our guides, the walking router and maps, and the settings
-/// window and finished-quest planner (loaded on demand; all committed).
-pub const RELEASE_ADDONS: [&str; 5] = ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_Handins", "Polestar_Options"];
+/// window and the quest-log modes, Free mode and the finished-quest planner (loaded on demand; all committed).
+pub const RELEASE_ADDONS: [&str; 5] = ["Polestar", "Polestar_Guides", "Polestar_Nav", "Polestar_FreeMode", "Polestar_Options"];
 /// Our ten skins and the Atlas layout, one folder loaded on demand with the first one used or listed (#3507:
 /// their own folders before 0.4.3; not in the settings folder, so a player on one of them never loads the
 /// settings for it); shipped when present (committed), right after the settings.
@@ -77,7 +77,7 @@ fn has_toc(addons: &Path, name: &str) -> bool {
 /// Leffe's, loaded on demand by Polestar_Nav's router).
 pub const NAV_PARTS: [&str; 2] = ["Polestar_Nav_EK", "Polestar_Nav_Kalimdor"];
 
-/// The release's folders: the four always shipped, our skins and Freedoom Arcade's folder when there, the walking
+/// The release's folders: the five always shipped, our skins and Freedoom Arcade's folder when there, the walking
 /// maps' part addons when written, our guides' faction parts once built (with their races' guides and legs
 /// inside), then the data addons that are built (our guides' texts are in the language folders).
 pub fn release_addons(addons: &Path) -> Result<Release, String> {
@@ -230,7 +230,7 @@ mod tests {
 				"Polestar",
 				"Polestar_Guides",
 				"Polestar_Nav",
-				"Polestar_Handins",
+				"Polestar_FreeMode",
 				"Polestar_Options",
 				"Polestar_Skins",
 				"Polestar_Guides_Alliance",

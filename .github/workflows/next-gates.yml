@@ -203,8 +203,9 @@ jobs:
             echo "Run: $RUN"
             echo
             for f in routespeed cadence arrow; do [ -f "$g/$f.md" ] && { cat "$g/$f.md"; echo; }; done
-            if [ -f "$g/playtest.log" ]; then echo '### Playtest: stuck or failed'; echo; echo '```'; grep -E '^(stuck|fail) ' "$g/playtest.log" | head -n 40; echo '```'; fi
-            if [ -f "$g/addontest.log" ]; then echo '### Addon tests: failed'; echo; echo '```'; grep -E ' \.\.\. FAILED$' "$g/addontest.log" | head -n 40; echo '```'; fi
+            # awk, not grep | head: an empty excerpt (every gate green) must not fail the step under pipefail.
+            if [ -f "$g/playtest.log" ]; then echo '### Playtest: stuck or failed'; echo; echo '```'; awk '/^(stuck|fail) / && ++n <= 40' "$g/playtest.log"; echo '```'; fi
+            if [ -f "$g/addontest.log" ]; then echo '### Addon tests: failed'; echo; echo '```'; awk '/ \.\.\. FAILED$/ && ++n <= 40' "$g/addontest.log"; echo '```'; fi
           } > "$g/summary.md"
           echo "$bad" > "$g/failed.txt"
           cat "$g/summary.md" >> "$GITHUB_STEP_SUMMARY"

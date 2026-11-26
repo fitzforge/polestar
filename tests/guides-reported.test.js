@@ -19913,3 +19913,14 @@ test("forever/horde/30-40/04-dustwallow-marsh.guide: EmberVixen's report: Shadow
 	assert.ok(drulzegar < taiga && taiga < akarai, 'Drulzegar, then Taiga, then Aka\'rai');
 	assert.ok(yards(list[taiga].goal, list[akarai].goal) < yards(list[drulzegar].goal, list[akarai].goal), 'Taiga stands nearer Aka\'rai than the docks do');
 });
+
+// #4231 (Pokey, 0.4.3): A Little Slime Goes a Long Way's jars are filled by using the empty jar on an ooze's remains.
+// Jadefire Glen's step said so for the Cursed Oozes; Jaedenar's, where the Tainted Oozes are, only listed the jar
+// (guide-fixes 4231-tainted-ooze-jar-use). Both ooze steps say how to fill their jar.
+test("forever/alliance/50-60/02-felwood.guide: Pokey's report: both ooze steps say to use the empty jar on the remains (#4231)", { skip }, () => {
+	const list = goals('forever/alliance/50-60/02-felwood.guide');
+	for (const oi of [1, 2]) {
+		const jar = list[at(list, `collect 4512.${oi}`, (g) => g.t === 'collect' && g.quest === 4512 && g.oi === oi)];
+		assert.match(jar.step.note || '', /use (Laris's|the) Empty (Tainted )?Ooze Jar on their remains/, `the jar of objective ${oi}: how to fill it`);
+	}
+});

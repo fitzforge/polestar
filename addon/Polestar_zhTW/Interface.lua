@@ -492,6 +492,76 @@
 --   Fewer folders
 --   Quit the game fully and start it again: Polestar is 22 folders now, not 45.
 --   Steps fixed in dozens of zones. Found something off? Type %s.
+-- Machine-translated, to be reviewed (#3701 Free mode, the finished-quest guide #2486 and the other lines new on
+-- next since 0.4.3, 26 Nov 2026):
+-- translated by an AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native
+-- speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   %d quests for your level, %d of them here.
+--   %d quests for your level, all here.
+--   1 quest for your level: %s gives it.
+--   About %s XP a minute
+--   Bring back left-out quests (%d)
+--   Free mode can't start: its folder Polestar_FreeMode or the Codex is missing or turned off.
+--   Free mode starts after combat.
+--   Free mode stops listing this quest. The menu's Bring back left-out quests lists it again.
+--   Free mode takes this quest first, whatever the order.
+--   Free mode
+--   Free mode: follow your own quests (on, off, nearest, xp)
+--   Free mode: the arrow takes your own quests, nearest first.
+--   Free mode: the arrow takes your own quests, the most XP a minute first.
+--   Leave out of Free mode
+--   Low drop rate: %s
+--   Most XP a minute first
+--   Nearest first
+--   Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes.
+--   No quests to lead to
+--   Or follow your own quests: Free mode
+--   Order: most XP a minute first
+--   Order: nearest first
+--   Pick up quests and Free mode leads you to them.
+--   Pin to the top
+--   Quests for your level
+--   Return to %s
+--   The XP each hand-in pays, and a collect whose items rarely drop says so.
+--   The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled.
+--   Unpin
+--   Which quest first
+--   With no quest near, the zone with the most quests for your level comes first, the arrow to its givers.
+--   XP and drop rates
+--   Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide.
+--   Your own quests as a guide: the arrow leads to the nearest one, then the next.
+--   Zone hints
+--   No quests in your log are ready to hand in.
+--   Wait until combat ends to load the quest data.
+--   Travel time to this hand-in is unknown. Its location is still shown.
+--   Hand-ins without a known location
+--   Refining the travel order. Travel times are estimates.
+--   Travel estimates are incomplete. The order uses the estimates available and approximate distances.
+--   Waiting for your quest log.
+--   The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled.
+--   Guide me opens a travel order for all finished quests in your log, including those kept for a later guide.
+--   Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more.
+--   Quest log notices
+--   The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests.
+--   Buy a rune at %s
+--   Buy a rune and cast %s to save about %s
+--   You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route.
+--   %s: optional class quests
+--   For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route.
+--   Start quest guide
+--   Click to show quest guide actions.
+--   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
+--   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+-- Machine-translated, to be reviewed (guide kinds and the long farm line, 26 Nov 2026): translated by an AI
+-- model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   next stretch to %d
+--   step %d needs level %d (%s)
+--   step %d needs level %d
+--   Nearest %s trainer
+--   Most of it drops as you level %s
+--   A long farm: most of it drops as you level
+--   or the Auction House
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhTW") then return end
@@ -733,6 +803,9 @@ L["%s at %s"] = "%2$s 處的 %1$s"
 -- L["Buy a rune at %s"] = ""
 -- L["Buy a rune and cast %s to save about %s"] = ""
 -- L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = ""
+L["Buy a rune at %s"] = "在%s處購買符文"
+L["Buy a rune and cast %s to save about %s"] = "購買符文並施放%s，約可節省%s"
+L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = "你的傳送符文用完了，而這位商人有販售：買一個再傳送比你路線上的飛行更快。"
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "選擇一項獎勵以完成繳交。"
@@ -1165,6 +1238,13 @@ L["Quest givers and turn-ins"] = "任務發布者與繳交"
 L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = "在 NPC 上列出它現在可給你的任務，以及你可以向它繳交的已完成任務。"
 L["Replace the game's quest lines"] = "取代遊戲的任務行"
 L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = "在怪物和物件上，略過遊戲自身針對這些滑鼠提示所列任務的行，讓每個任務只顯示一次。在小隊中遊戲的行會保留：它們會顯示隊伍的進度。"
+L["Which quest first"] = "先做哪個任務"
+L["Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes."] = "最近的優先：最快能到達的任務，然後是它附近的任務。每分鐘經驗最多的優先：任務給的經驗與路程和所需工作相比。"
+L["Zone hints"] = "地區提示"
+L["With no quest near, the zone with the most quests for your level comes first, the arrow to its givers."] = "附近沒有任務時，適合你等級任務最多的地區排在最前，箭頭指向發布任務的人。"
+L["XP and drop rates"] = "經驗和掉落率"
+L["The XP each hand-in pays, and a collect whose items rarely drop says so."] = "每次交任務獲得的經驗，以及物品很少掉落的收集目標會註明。"
+L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "把你自己的任務當作指南，在單獨的分頁中：箭頭指向最近的任務，然後是下一個（/polestar free）。再按一次返回你的指南。"
 
 -- Quests/Party.lua
 L["%s done"] = "%s 已完成"
@@ -1949,6 +2029,9 @@ L["1 level above you: careful"] = "高你1級：小心"
 L["about %d kills, %d min"] = "約%d次擊殺，%d分鐘"
 L["about %d kills"] = "約%d次擊殺"
 L["or %s (%s)"] = "或%s（%s）"
+L["Most of it drops as you level %s"] = "大部分會在你升到 %s 級的途中掉落"
+L["A long farm: most of it drops as you level"] = "耗時很長：大部分會在升級途中掉落"
+L["or the Auction House"] = "或拍賣場"
 L["or %s"] = "或%s"
 -- L["%s loop"] = ""
 -- L["Farming loop"] = ""
@@ -2111,6 +2194,10 @@ L["Quest log full: this step takes %d, and there is room for %d."] = "任務日�
 L["Room to make: %s"] = "需騰出空間：%s"
 L["Make room"] = "騰出空間"
 L["On pace for level %s by step %d"] = "進度可在第 %2$d 步時達到 %1$s 級"
+L["next stretch to %d"] = "下一段至 %d"
+L["step %d needs level %d (%s)"] = "第 %d 步需要等級 %d（%s）"
+L["step %d needs level %d"] = "第 %d 步需要等級 %d"
+L["Nearest %s trainer"] = "最近的%s訓練師"
 L["Your class quest is done. Back to %s."] = "你的職業任務已完成。返回 %s。"
 L["Close and return"] = "關閉並返回"
 L["The guide has no class training ahead."] = "指南後續沒有職業訓練。"
@@ -2220,6 +2307,10 @@ L["Level with %s meanwhile: this guide picks up at level %d"] = "在此期間用
 L["%s is done."] = "%s 已完成。"
 L["All steps"] = "所有步驟"
 L["Every step of the guide in one list. Click one to look at it."] = "指南的所有步驟列在一個清單裡。點擊其中一個查看。"
+L["Or follow your own quests: Free mode"] = "或者跟隨你自己的任務：自由模式"
+L["No quests to lead to"] = "沒有可前往的任務"
+L["Pick up quests and Free mode leads you to them."] = "接取任務，自由模式會帶你前往。"
+L["Return to %s"] = "返回%s"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "前往 %s 的升降梯"
@@ -2343,6 +2434,7 @@ L["The guides window only. Click to pick a size; right-click to reset."] = "僅�
 L["Quests in"] = "任務地區"
 L["Passes through"] = "途經"
 -- L["%s: optional class quests"] = ""
+L["%s: optional class quests"] = "%s：選擇性職業任務"
 
 -- UI/Lookup.lua
 L["Companion"] = "小寵物"
@@ -2581,8 +2673,8 @@ L["Use %s beside %s"] = "在 %2$s 旁使用 %1$s"
 L["All attunements and keys"] = "所有副本鑰匙任務和鑰匙"
 L["Every attunement and key, with how far you are"] = "每項副本鑰匙任務和鑰匙，以及你的進度"
 L["Not open on Forever yet"] = "Forever 上尚未開放"
--- L["A guide to the items 1 quest in your log needs from where it is given, ending at the entrance."] = ""
--- L["A guide to the items %d quests in your log need from where they are given, ending at the entrance."] = ""
+L["A guide to the items 1 quest in your log needs from where it is given, ending at the entrance."] = "帶你去取日誌中 1 個任務所需物品的指南，從取得處出發，終點是入口。"
+L["A guide to the items %d quests in your log need from where they are given, ending at the entrance."] = "帶你去取日誌中 %d 個任務所需物品的指南，從取得處出發，終點是入口。"
 
 -- UI/RouteChoice.lua
 L["Right here"] = "就在這裡"
@@ -3204,6 +3296,7 @@ L["The language Polestar shows."] = "Polestar 顯示的語言。"
 L["Say when I've outlevelled a guide"] = "我的等級超過指南時提醒"
 L["A notice in the guide window, once per guide each session, when your level is past the guide's, with a guide that fits your level. Off: no notice; the guide stays as it is."] = "當你的等級超過指南的等級時，在指南視窗顯示提醒，每個指南每次登入一次，並附上適合你等級的指南。關閉：不提醒；指南保持不變。"
 -- L["For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route."] = ""
+L["For a Mage with no Rune of Teleportation, also a vendor nearby who sells one, when buying it and teleporting beats the route."] = "對於沒有傳送符文的法師，當購買並傳送比路線更快時，也顯示附近販售符文的商人。"
 
 -- Rares/Rares.lua
 L["Raid warning"] = "團隊警告"
@@ -4113,6 +4206,8 @@ L["Finished: no guide of your route hands it in"] = "已完成：路線中沒有
 L["Not in any guide of your route"] = "不在你路線中的任何指南裡"
 -- L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = ""
 -- L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = ""
+L["Guide me opens a travel order for all finished quests in your log, including those kept for a later guide."] = "「指引我」會為任務日誌中所有已完成的任務開啟路線順序，包括留給之後指南的任務。"
+L["Every finished quest in your log, including those on your route. Guide me estimates a travel order; quests with unknown locations stay listed for manual hand-in. A grey one gives almost no XP any more."] = "任務日誌中每個已完成的任務，包括你路線上的任務。「指引我」會估算路線順序；位置未知的任務仍留在列表中供手動繳交。灰色任務幾乎不再給經驗。"
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "新技能"
@@ -5014,6 +5109,8 @@ L["XP line"] = "經驗列"
 L["The line under the steps: XP per hour, time to level and your pace. Boosted Rest keeps its own line."] = "步驟下方的一行：每小時經驗、升級時間和你的節奏。加強休息保留自己的一行。"
 -- L["Quest log notices"] = ""
 -- L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = ""
+L["Quest log notices"] = "任務日誌提示"
+L["The lines about your quest log: quests that aren't part of your route, on the step and when a guide is complete, and finished quests no guide ahead takes in. Off, the guide window's menu still has Clean up quest log and Hand in finished quests."] = "關於任務日誌的提示行：不在你路線上的任務（在步驟中以及指南完成時），以及之後沒有指南會接收的已完成任務。關閉後，指南視窗的選單中仍有「清理任務日誌」和「繳交已完成的任務」。"
 
 -- UI/Looks/Toasts.lua
 L["Alert line"] = "警示列"
@@ -5320,6 +5417,10 @@ L["Some of this guide's quests follow on from %s. Start there for the full set, 
 L["You are past this class quest's levels."] = "你已超過這個職業任務的等級。"
 L["Escort: %s"] = "護送：%s"
 L["Do it"] = "去做"
+L["Free mode: the arrow takes your own quests, the most XP a minute first."] = "自由模式：箭頭指向你自己的任務，每分鐘經驗最多的優先。"
+L["Free mode: the arrow takes your own quests, nearest first."] = "自由模式：箭頭指向你自己的任務，最近的優先。"
+L["Nearest first"] = "最近的優先"
+L["Most XP a minute first"] = "每分鐘經驗最多的優先"
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "按 %s 恢復，或打開指南視窗。"
@@ -5672,6 +5773,44 @@ L["Kept for %s: the route hands it in there."] = "保留給 %s：路線會在那
 -- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = ""
 -- L["Waiting for your quest log."] = ""
 -- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = ""
+L["No quests in your log are ready to hand in."] = "任務日誌中沒有可繳交的任務。"
+L["Wait until combat ends to load the quest data."] = "請等戰鬥結束後再載入任務資料。"
+L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "繳交任務指南無法載入。請檢查插件 Polestar_FreeMode 是否已安裝並啟用。"
+
+-- Lookup/Free.lua
+L["Free mode starts after combat."] = "自由模式將在戰鬥結束後啟動。"
+L["Free mode can't start: its folder Polestar_FreeMode or the Codex is missing or turned off."] = "自由模式無法啟動：它的資料夾 Polestar_FreeMode 或 Codex 遺失或已關閉。"
+L["Free mode"] = "自由模式"
+L["Your own quests as a guide: the arrow leads to the nearest one, then the next."] = "把你自己的任務當作指南：箭頭指向最近的任務，然後是下一個。"
+L["Free mode: follow your own quests (on, off, nearest, xp)"] = "自由模式：跟隨你自己的任務（on、off、nearest、xp）"
+
+-- UI/QuestLinks.lua
+L["Start quest guide"] = "開始任務指南"
+L["Click to show quest guide actions."] = "點擊顯示任務指南操作。"
+
+-- Handins.lua
+L["Travel time to this hand-in is unknown. Its location is still shown."] = "前往此繳交處的路程時間未知。仍會顯示它的位置。"
+L["Hand-ins without a known location"] = "位置未知的繳交任務"
+L["Refining the travel order. Travel times are estimates."] = "正在優化路線順序。路程時間為估算值。"
+L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = "路程估算不完整。順序使用現有的估算和大致距離。"
+L["Waiting for your quest log."] = "正在等待你的任務日誌。"
+L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = "繳交任務指南無法載入。請檢查插件 Polestar_Codex 是否已安裝並啟用。"
+
+-- Free.lua
+L["Low drop rate: %s"] = "掉落率低：%s"
+L["1 quest for your level: %s gives it."] = "適合你等級的任務 1 個：由%s發布。"
+L["%d quests for your level, all here."] = "適合你等級的任務有 %d 個，全都在這裡。"
+L["%d quests for your level, %d of them here."] = "適合你等級的任務有 %d 個，其中 %d 個在這裡。"
+L["Quests for your level"] = "適合你等級的任務"
+L["About %s XP a minute"] = "每分鐘約 %s 經驗"
+L["Order: nearest first"] = "順序：最近的優先"
+L["Order: most XP a minute first"] = "順序：每分鐘經驗最多的優先"
+L["Bring back left-out quests (%d)"] = "恢復被排除的任務（%d）"
+L["Unpin"] = "取消置頂"
+L["Pin to the top"] = "置頂"
+L["Free mode takes this quest first, whatever the order."] = "無論順序如何，自由模式都會先做這個任務。"
+L["Leave out of Free mode"] = "從自由模式中排除"
+L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "自由模式不再列出此任務。選單中的「恢復被排除的任務」會重新列出它。"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐頁重新設定 Polestar。每項選擇立即生效。"
@@ -5940,3 +6079,4 @@ L["Kept for %s: the route hands it in there."] = "保留給 %s：路線會在那
 -- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "視窗最多能長到多高，以螢幕高度的比例計。較長的步驟可捲動查看。"
 -- L["Max height"] = "最大高度"
 -- L["%s: on this step"] = "%s：在此步驟"
+-- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "把你自己的任務當作指南，在單獨的分頁中：箭頭指向最近的任務，然後是下一個（/polestar free）。"

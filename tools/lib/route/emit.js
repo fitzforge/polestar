@@ -63,7 +63,9 @@ function goalLine(g) {
 			// The objective link carries the count; interact takes no xN.
 			return { s: `interact ${g.o.id} quest ${q.id}.${g.o.oi}` };
 		case 'buy':
-			return { s: `buy ${g.o.id} x${g.o.count} npc ${g.o.ent.id}`, note: `for ${q.title}` };
+			// The nearest vendor of the player's faction when the step comes up,
+			// not the one the route was planned at.
+			return { s: `buy ${g.o.id} x${g.o.count} nearest`, note: `for ${q.title}` };
 		case 'goto': {
 			const note = g.o.type !== 'event' ? null : g.o.label === q.title ? 'Exploration objective' : `Explore for ${q.title}`;
 			return { s: gotoLine(g.o.pt, g.o.label), note };
@@ -78,7 +80,11 @@ function goalLine(g) {
 function stepTitle(ev) {
 	if (ev.type === 'npc' || ev.type === 'train') return ev.ent.name;
 	if (ev.type === 'level') return `Grind to level ${ev.level}`;
-	return joinNames(ev.goals.map((g) => (g.pickup ? g.pickup.ent.name : g.o.label)));
+	// Buys are named for their items ("Buy Holy Candle"): the vendor is the game's pick.
+	const names = ev.goals.filter((g) => g.verb !== 'buy').map((g) => (g.pickup ? g.pickup.ent.name : g.o.label));
+	const buys = ev.goals.filter((g) => g.verb === 'buy').map((g) => g.o.label);
+	if (buys.length) names.push(`Buy ${joinNames(buys)}`);
+	return joinNames(names);
 }
 
 function emitGuide(plan, h) {
@@ -115,8 +121,9 @@ function emitGuide(plan, h) {
 			continue;
 		}
 		// Kill, drop and object goals get their spawn areas from the data, so the
-		// arrow leads to them without a goto (lint warns on one there).
-		const located = ev.goals.length && ['kill', 'collect', 'interact'].includes(ev.goals[0].verb);
+		// arrow leads to them without a goto (lint warns on one there). A buy
+		// leads to the nearest vendor: a goto would fix the place again.
+		const located = ev.goals.length && ['kill', 'collect', 'interact', 'buy'].includes(ev.goals[0].verb);
 		const ownGoto = ev.goals.some((g) => g.verb === 'goto' && coord(g.o.pt) === coord(ev.pt) && g.o.pt.map === ev.pt.map);
 		if (ev.type === 'obj' && !ownGoto && !located) lines.push(`  ${gotoLine(ev.pt, stepTitle(ev))}`);
 		ev.goals.forEach((g, i) => {

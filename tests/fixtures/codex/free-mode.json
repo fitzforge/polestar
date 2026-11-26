@@ -1,0 +1,760 @@
+{
+	"meta": {
+		"schema": 1,
+		"builtAt": "2026-11-25T00:00:00Z",
+		"build": "1.60.1.70338",
+		"sources": [
+			{
+				"name": "synthetic",
+				"version": "1",
+				"licence": "MIT"
+			}
+		]
+	},
+	"frames": {
+		"9001": {
+			"c": 0,
+			"left": 1000,
+			"right": -1000,
+			"top": 1000,
+			"bottom": -1000
+		},
+		"9002": {
+			"c": 0,
+			"left": -1000,
+			"right": -3000,
+			"top": 1000,
+			"bottom": -1000
+		},
+		"9003": {
+			"c": 1,
+			"left": 1000,
+			"right": -1000,
+			"top": 1000,
+			"bottom": -1000
+		}
+	},
+	"zones": {
+		"9001": {
+			"id": 9001,
+			"name": "Hale's Reach"
+		},
+		"9002": {
+			"id": 9002,
+			"name": "Merrow Fields"
+		},
+		"9003": {
+			"id": 9003,
+			"name": "Far Isle"
+		}
+	},
+	"factions": {},
+	"objects": {},
+	"instances": {},
+	"spells": {},
+	"npcs": {
+		"5001": {
+			"id": 5001,
+			"name": "Marshal Hale",
+			"level": 30,
+			"levelMax": 30,
+			"faction": "A",
+			"rare": false,
+			"elite": false,
+			"boss": false,
+			"instance": null,
+			"roles": [],
+			"spawns": [
+				{
+					"map": 9001,
+					"x": 50,
+					"y": 52,
+					"f": "e"
+				}
+			]
+		},
+		"5002": {
+			"id": 5002,
+			"name": "Ranger Ilse",
+			"level": 30,
+			"levelMax": 30,
+			"faction": "A",
+			"rare": false,
+			"elite": false,
+			"boss": false,
+			"instance": null,
+			"roles": [],
+			"spawns": [
+				{
+					"map": 9001,
+					"x": 80,
+					"y": 80,
+					"f": "e"
+				}
+			]
+		},
+		"5011": {
+			"id": 5011,
+			"name": "Ridge Gnoll",
+			"level": 19,
+			"levelMax": 19,
+			"faction": null,
+			"rare": false,
+			"elite": false,
+			"boss": false,
+			"instance": null,
+			"roles": [],
+			"spawns": [
+				{
+					"map": 9001,
+					"x": 55,
+					"y": 50,
+					"f": "e"
+				},
+				{
+					"map": 9001,
+					"x": 56,
+					"y": 51,
+					"f": "e"
+				}
+			]
+		},
+		"5012": {
+			"id": 5012,
+			"name": "Hill Boar",
+			"level": 20,
+			"levelMax": 20,
+			"faction": null,
+			"rare": false,
+			"elite": false,
+			"boss": false,
+			"instance": null,
+			"roles": [],
+			"spawns": [
+				{
+					"map": 9001,
+					"x": 30,
+					"y": 50,
+					"f": "e"
+				}
+			]
+		},
+		"5013": {
+			"id": 5013,
+			"name": "Marsh Lurker",
+			"level": 19,
+			"levelMax": 19,
+			"faction": null,
+			"rare": false,
+			"elite": false,
+			"boss": false,
+			"instance": null,
+			"roles": [],
+			"spawns": [
+				{
+					"map": 9001,
+					"x": 15,
+					"y": 15,
+					"f": "e"
+				}
+			]
+		},
+		"5014": {
+			"id": 5014,
+			"name": "Highland Ogre",
+			"level": 26,
+			"levelMax": 26,
+			"faction": null,
+			"rare": false,
+			"elite": false,
+			"boss": false,
+			"instance": null,
+			"roles": [],
+			"spawns": [
+				{
+					"map": 9001,
+					"x": 52,
+					"y": 49,
+					"f": "e"
+				}
+			]
+		},
+		"5101": {
+			"id": 5101,
+			"name": "Scout Merrow",
+			"level": 30,
+			"levelMax": 30,
+			"faction": "A",
+			"rare": false,
+			"elite": false,
+			"boss": false,
+			"instance": null,
+			"roles": [],
+			"spawns": [
+				{
+					"map": 9002,
+					"x": 60,
+					"y": 40,
+					"f": "e"
+				}
+			]
+		},
+		"5102": {
+			"id": 5102,
+			"name": "Farmer Oake",
+			"level": 30,
+			"levelMax": 30,
+			"faction": "A",
+			"rare": false,
+			"elite": false,
+			"boss": false,
+			"instance": null,
+			"roles": [],
+			"spawns": [
+				{
+					"map": 9002,
+					"x": 61,
+					"y": 41,
+					"f": "e"
+				}
+			]
+		},
+		"5103": {
+			"id": 5103,
+			"name": "Warden Pell",
+			"level": 30,
+			"levelMax": 30,
+			"faction": "A",
+			"rare": false,
+			"elite": false,
+			"boss": false,
+			"instance": null,
+			"roles": [],
+			"spawns": [
+				{
+					"map": 9002,
+					"x": 62,
+					"y": 40,
+					"f": "e"
+				}
+			]
+		},
+		"5104": {
+			"id": 5104,
+			"name": "Hunter Vann",
+			"level": 30,
+			"levelMax": 30,
+			"faction": "A",
+			"rare": false,
+			"elite": false,
+			"boss": false,
+			"instance": null,
+			"roles": [],
+			"spawns": [
+				{
+					"map": 9002,
+					"x": 20,
+					"y": 80,
+					"f": "e"
+				}
+			]
+		},
+		"5105": {
+			"id": 5105,
+			"name": "Grunt Rokk",
+			"level": 30,
+			"levelMax": 30,
+			"faction": "H",
+			"rare": false,
+			"elite": false,
+			"boss": false,
+			"instance": null,
+			"roles": [],
+			"spawns": [
+				{
+					"map": 9002,
+					"x": 60,
+					"y": 42,
+					"f": "e"
+				}
+			]
+		}
+	},
+	"items": {
+		"8001": {
+			"id": 8001,
+			"name": "Gnoll Ear",
+			"quality": 1,
+			"kind": "item",
+			"spell": null,
+			"reqLevel": null,
+			"sources": [
+				{
+					"type": "drop",
+					"npc": 5011,
+					"chance": 8
+				}
+			]
+		},
+		"8002": {
+			"id": 8002,
+			"name": "Boar Tusk",
+			"quality": 1,
+			"kind": "item",
+			"spell": null,
+			"reqLevel": null,
+			"sources": [
+				{
+					"type": "drop",
+					"npc": 5012,
+					"chance": 60
+				}
+			]
+		}
+	},
+	"quests": {
+		"7001": {
+			"id": 7001,
+			"title": "Gnoll Trouble",
+			"level": 20,
+			"minLevel": 15,
+			"faction": "A",
+			"races": null,
+			"classes": null,
+			"start": {
+				"npc": [
+					5001
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					5001
+				],
+				"object": []
+			},
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 5011,
+					"count": 5,
+					"text": "Ridge Gnoll"
+				}
+			],
+			"pre": [],
+			"preAny": [],
+			"zone": 9001,
+			"rewards": [],
+			"choices": [],
+			"xp": 1200
+		},
+		"7002": {
+			"id": 7002,
+			"title": "Boar Hunt",
+			"level": 21,
+			"minLevel": 15,
+			"faction": "A",
+			"races": null,
+			"classes": null,
+			"start": {
+				"npc": [
+					5001
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					5002
+				],
+				"object": []
+			},
+			"objectives": [
+				{
+					"type": "item",
+					"id": 8002,
+					"count": 4,
+					"text": "Boar Tusk"
+				}
+			],
+			"pre": [],
+			"preAny": [],
+			"zone": 9001,
+			"rewards": [],
+			"choices": [],
+			"xp": 2400
+		},
+		"7003": {
+			"id": 7003,
+			"title": "Lurkers in the Marsh",
+			"level": 19,
+			"minLevel": 15,
+			"faction": "A",
+			"races": null,
+			"classes": null,
+			"start": {
+				"npc": [
+					5001
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					5001
+				],
+				"object": []
+			},
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 5013,
+					"count": 6,
+					"text": "Marsh Lurker"
+				}
+			],
+			"pre": [],
+			"preAny": [],
+			"zone": 9001,
+			"rewards": [],
+			"choices": [],
+			"xp": 900
+		},
+		"7004": {
+			"id": 7004,
+			"title": "Ogre Menace",
+			"level": 26,
+			"minLevel": 22,
+			"faction": "A",
+			"races": null,
+			"classes": null,
+			"start": {
+				"npc": [
+					5001
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					5001
+				],
+				"object": []
+			},
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 5014,
+					"count": 3,
+					"text": "Highland Ogre"
+				}
+			],
+			"pre": [],
+			"preAny": [],
+			"zone": 9001,
+			"rewards": [],
+			"choices": [],
+			"xp": 3000
+		},
+		"7005": {
+			"id": 7005,
+			"title": "Gnoll Ears",
+			"level": 20,
+			"minLevel": 15,
+			"faction": "A",
+			"races": null,
+			"classes": null,
+			"start": {
+				"npc": [
+					5001
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					5001
+				],
+				"object": []
+			},
+			"objectives": [
+				{
+					"type": "item",
+					"id": 8001,
+					"count": 6,
+					"text": "Gnoll Ear"
+				}
+			],
+			"pre": [],
+			"preAny": [],
+			"zone": 9001,
+			"rewards": [],
+			"choices": [],
+			"xp": 1100
+		},
+		"7101": {
+			"id": 7101,
+			"title": "Merrow's Errand",
+			"level": 20,
+			"minLevel": 15,
+			"faction": "A",
+			"races": null,
+			"classes": null,
+			"start": {
+				"npc": [
+					5101
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					5101
+				],
+				"object": []
+			},
+			"objectives": [],
+			"pre": [],
+			"preAny": [],
+			"zone": 9002,
+			"rewards": [],
+			"choices": [],
+			"xp": 1000
+		},
+		"7102": {
+			"id": 7102,
+			"title": "Oake's Fields",
+			"level": 21,
+			"minLevel": 15,
+			"faction": "A",
+			"races": null,
+			"classes": null,
+			"start": {
+				"npc": [
+					5102
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					5102
+				],
+				"object": []
+			},
+			"objectives": [],
+			"pre": [],
+			"preAny": [],
+			"zone": 9002,
+			"rewards": [],
+			"choices": [],
+			"xp": 1000
+		},
+		"7103": {
+			"id": 7103,
+			"title": "Pell's Watch",
+			"level": 19,
+			"minLevel": 15,
+			"faction": "A",
+			"races": null,
+			"classes": null,
+			"start": {
+				"npc": [
+					5103
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					5103
+				],
+				"object": []
+			},
+			"objectives": [],
+			"pre": [],
+			"preAny": [],
+			"zone": 9002,
+			"rewards": [],
+			"choices": [],
+			"xp": 1000
+		},
+		"7104": {
+			"id": 7104,
+			"title": "Vann's Trail",
+			"level": 20,
+			"minLevel": 15,
+			"faction": "A",
+			"races": null,
+			"classes": null,
+			"start": {
+				"npc": [
+					5104
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					5104
+				],
+				"object": []
+			},
+			"objectives": [],
+			"pre": [],
+			"preAny": [],
+			"zone": 9002,
+			"rewards": [],
+			"choices": [],
+			"xp": 1000
+		},
+		"7105": {
+			"id": 7105,
+			"title": "For the Horde",
+			"level": 20,
+			"minLevel": 15,
+			"faction": "H",
+			"races": null,
+			"classes": null,
+			"start": {
+				"npc": [
+					5105
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					5105
+				],
+				"object": []
+			},
+			"objectives": [],
+			"pre": [],
+			"preAny": [],
+			"zone": 9002,
+			"rewards": [],
+			"choices": [],
+			"xp": 1000
+		},
+		"7106": {
+			"id": 7106,
+			"title": "Old News",
+			"level": 20,
+			"minLevel": 15,
+			"faction": "A",
+			"races": null,
+			"classes": null,
+			"start": {
+				"npc": [
+					5101
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					5101
+				],
+				"object": []
+			},
+			"objectives": [],
+			"pre": [],
+			"preAny": [],
+			"zone": 9002,
+			"rewards": [],
+			"choices": [],
+			"xp": 1000
+		},
+		"7107": {
+			"id": 7107,
+			"title": "Too Soon",
+			"level": 30,
+			"minLevel": 28,
+			"faction": "A",
+			"races": null,
+			"classes": null,
+			"start": {
+				"npc": [
+					5101
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					5101
+				],
+				"object": []
+			},
+			"objectives": [],
+			"pre": [],
+			"preAny": [],
+			"zone": 9002,
+			"rewards": [],
+			"choices": [],
+			"xp": 1000
+		},
+		"7108": {
+			"id": 7108,
+			"title": "After the Errand",
+			"level": 21,
+			"minLevel": 15,
+			"faction": "A",
+			"races": null,
+			"classes": null,
+			"start": {
+				"npc": [
+					5102
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					5102
+				],
+				"object": []
+			},
+			"objectives": [],
+			"pre": [
+				7999
+			],
+			"preAny": [],
+			"zone": 9002,
+			"rewards": [],
+			"choices": [],
+			"xp": 1000
+		},
+		"7110": {
+			"id": 7110,
+			"title": "Hale's Request",
+			"level": 20,
+			"minLevel": 15,
+			"faction": "A",
+			"races": null,
+			"classes": null,
+			"start": {
+				"npc": [
+					5001
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					5001
+				],
+				"object": []
+			},
+			"objectives": [],
+			"pre": [],
+			"preAny": [],
+			"zone": 9001,
+			"rewards": [],
+			"choices": [],
+			"xp": 1000
+		}
+	}
+}

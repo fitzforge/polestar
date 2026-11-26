@@ -13,7 +13,7 @@ end
 
 local build, start
 local function load()
-	local ok, why = ns.Data.Pack("Polestar_Handins")
+	local ok, why = ns.Data.Pack("Polestar_FreeMode")
 	if not ok then return nil, why end
 	if Handins.BuildGuide == build or Handins.Start == start then return nil, "error" end
 	return true
@@ -36,7 +36,7 @@ start = function()
 	if why == "combat" then
 		ns.Print(L["Wait until combat ends to load the quest data."])
 	else
-		ns.Print(L["The hand-in guide could not load. Check that the Polestar_Handins addon is installed and enabled."])
+		ns.Print(L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."])
 	end
 	return nil, why
 end

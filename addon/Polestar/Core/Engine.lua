@@ -3395,6 +3395,10 @@ function Own.farmView(goal)
 		minutes = secs < Own.UNMEASURED and math.max(1, math.floor(secs / 60 + 0.5)) or nil,
 		above = gap > 0 and gap or nil,
 		second = second and { npcName = second.npcName, map = second.map, lvl = second.lvl } or nil,
+		-- A material's mob levels (`collect … gather levels a-b`) and whether the Auction House sells it
+		-- (a `gather` goal is one it sells): the window's words for a farm too long to send a player on.
+		levels = type(goal.gather) == "table" and goal.gather.min and goal.gather.max and { goal.gather.min, goal.gather.max } or nil,
+		market = goal.gather ~= nil or nil,
 	}
 end
 
@@ -11672,6 +11676,46 @@ end
 ---------------------------------------------------------------------------
 
 function Engine.GetGuide() return guide end
+
+-- The guide's kind (Core/Guides.lua, GuideKinds.Of): what the guide window
+-- shows for it. "leveling" with no guide.
+function Engine.GuideKind()
+	local K = ns.GuideKinds
+	return K and guide and K.Of(guide) or "leveling"
+end
+
+-- A profession guide's skill for the guide window's skill line, or nil (no
+-- skill line, no guide): { line, rank, max, next, gate = { step, level, title } }.
+-- `next`: the end of the stretch ahead (the first `craft … until` above the
+-- skill from the current step on); `gate`: the first step ahead whose `level`
+-- goal the character is under (a rank its trainer teaches from that level),
+-- with the step's title when the step trains a rank.
+function Engine.SkillBar()
+	local K = ns.GuideKinds
+	local line = guide and K and K.SkillLine(guide)
+	if not line then return nil end
+	local C = Compat()
+	local rank, max = C.GetSkillRank(line)
+	local out = { line = line, rank = rank or 0, max = max }
+	local level = UnitLevel and UnitLevel("player") or 0
+	for s = current or 1, #(guide.steps or {}) do
+		local step = guide.steps[s]
+		if stepApplies(step) then
+			local trains = false
+			for _, g in ipairs(step.goals or {}) do
+				if g.t == "train" then trains = true end
+			end
+			for _, g in ipairs(step.goals or {}) do
+				if not out.next and type(g.untilSkill) == "number" and g.untilSkill > out.rank then out.next = g.untilSkill end
+				if not out.gate and g.t == "level" and type(g.level) == "number" and g.level > level then
+					out.gate = { step = s, level = g.level, title = trains and step.title or nil }
+				end
+			end
+		end
+		if out.next and out.gate then break end
+	end
+	return out
+end
 
 -- Replaces the active tab's guide (opens a first tab when none is open); a
 -- guide already open in another tab is selected instead of duplicated. The
