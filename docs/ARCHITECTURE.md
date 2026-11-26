@@ -9640,6 +9640,67 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `UI/GuideFrameMenu.lua`, the While you're here filter in
   `UI/GuideFrameHere.lua`. A layout that draws a kind its own way reads
   the same table.
+- **Guide kind regions** (`UI/GuideFrameRegions.lua`; design in
+  docs/DESIGN.md, "The Guide Window"): a kind with regions shows them where
+  the card's header and goal rows sit, in order, after the banner and before
+  Then:, Up next and the foot; a kind without (leveling, class, collectible,
+  exploration, misc) keeps today's card. The contract every kind's files share:
+
+  ```lua
+  GF.REGIONS = {
+    profession = { "meter", "trainer", "stretch", "supplies", "buyList" },
+    reputation = { "meter", "turnin", "supplies", "more" },
+    dungeon    = { "brief", "ready", "pickups", "entrance" },   -- outside its instance
+  }
+  GF.RegionOverride(view, kind) -> { id, ... } | nil   -- a part taking the card for any kind
+                                                      -- (the docked dungeon tracker: { "tracker" })
+  GF.RegionsFor(view, kind) = (GF.RegionOverride and GF.RegionOverride(view, kind)) or GF.REGIONS[kind]
+  GF.RegisterRegion(id, {
+    build  = function(parent) -> frame,                -- once; frames per window (live + settings copy)
+    model  = function(view, kind) -> model | nil,      -- nil: the region is left out (and its height)
+    paint  = function(frame, model, mode),             -- optional: text and colours, on a render only
+    layout = function(frame, model, width, mode) -> h, -- mode "standard" | "compact"; measures and anchors only
+  })
+  Engine.KindModel(region, view[, kind]) -> model     -- pure data, no frames: the window, tests, preview
+  Engine.KindModels[region] = function(view, kind)    -- each kind's model makers (Core/KindCraft.lua,
+                                                      -- Core/KindDungeon.lua)
+  ```
+
+  A model's `covers` (goal indexes of the step, a list or a set) takes those
+  goals' rows off the card; with every open goal covered the step's header
+  goes too. A region frame is a part in `Theme.GuideParts()` under its id and
+  is offered to `guidePlace` by its id (Atlas places `meter`, `supplies`,
+  `turnin`, `pickups` and `trainer` in cards). `layout` never builds
+  strings: `paint` does, on a render, not on a drag-resize. Model shapes:
+
+  ```lua
+  meter    = { kind = "skill"|"rep", name, nameKind, value, max, rank, frac, seg = { a, b }, ticks = { { at, what } }, line }
+  trainer  = { title, level, npc, map, due, toGo }
+  stretch  = { item, recipe, name, quality, colour = "orange"|"yellow"|"green"|"grey", yellow, green, grey,
+               reagents = { { item, count } }, made, expected, moveOn, canMake, spell }
+  supplies = { title, way = "mix"|"buy"|"gather", rows = { { item, name, quality, have, need,
+               parts = { bags, bank, mail, coming, made }, way = "buy"|"gather"|"vendor"|"make", choosable,
+               reason, split = { buy = { count, copper, each, age, source } | false,
+                                 farm = { count, minutes, kills, npc, map, lvl, second, above } | false,
+                                 verdict = "buy"|"farm"|"pick"|"selfFound", long } } }, buyList = { count, copper } }
+  turnin   = { quest, title, repeatable, items = { { item, count } }, rep, npc, map, ready }
+  more     = { { quest, title, rep, once, progress, from } }
+  brief    = { key, name, lo, hi, best, players, zone }      ready = { level, best, floor, group = { n, max, names } }
+  pickups  = { held, total, missing = { { quest, title, npc, where, onWay, minutesOff, xp } } }
+  entrance = { map, x, y, eta, cap = { used, max }, needs }
+  tracker  = { key, name, bossesDone, bossesTotal, elapsed, loot = { { item, boss, quest, how, until } },
+               quests = { { id, title, done, objectives = { { text, cur, max, done, boss, pending } } } },
+               bosses = { { order, name, npc, state = "dead"|"next"|"ahead", role, ties = { { how, item, quest } } } },
+               use = { { item, quest } } }
+  ```
+
+  Skin API names the regions add (each behind its capability): parts in
+  `Theme.GuideParts()` (`guideParts.kind`), hooks `guideKindRow(row, item,
+  info)` and `guideMeter(meter, info)`, `guidePlace` names `meter`,
+  `supplies`, `turnin`, `pickups`, `trainer`, `guideShows` names `split` and
+  `trainer`, `guideSpace` names `supplyRow`, `splitGap`, `bossRow`, tokens
+  `craftOrange`, `craftYellow`, `craftGreen`, `craftGrey`, `coin`; the
+  dungeon tracker's `trackerPlace(name, frame, width, height)`.
 - **Guide window** (`UI/GuideFrame.lua`): tab strip (each tab's close button
   faint at rest, full under the pointer; right-click for Choose guide, Close
   tab, Move left/right; middle-click closes), a slim navigator (prev,

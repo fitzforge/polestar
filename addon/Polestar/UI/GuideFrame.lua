@@ -2607,7 +2607,7 @@ GF.Part(function(GF)
 			local goal = v.goals[gi]
 			local ran, taken
 			if goal then ran, taken = GF.HookValue("guideTakes", goal) end
-			if goal and goal.status ~= "na" and not goal.folded and not (ran and taken == true) then
+			if goal and goal.status ~= "na" and not goal.folded and not (ran and taken == true) and not GF.RegionCovers(v, gi) then
 				list[#list + 1] = UI.ReadingGoal(v, goal)
 				if not goal.header then others = others + 1 end
 			end
@@ -2637,7 +2637,7 @@ GF.Part(function(GF)
 		local fold = CC and E and E.GetGuide and CC.Fold(E.GetGuide(), v)
 		local list = {}
 		for gi, goal in ipairs(v.goals) do
-			if goal.status ~= "na" and not goal.folded and gi ~= fold and not (header and header.index == gi) then
+			if goal.status ~= "na" and not goal.folded and gi ~= fold and not (header and header.index == gi) and not GF.RegionCovers(v, gi) then
 				list[#list + 1] = UI.ReadingGoal(v, goal)
 			end
 		end
@@ -2734,6 +2734,9 @@ GF.Part(function(GF)
 	-- (with "Show the whole step", or on a done step, every goal as written).
 	-- sameFocus = repaint in place; a goal that just turned done pops and folds.
 	local function fillCard(sameFocus)
+		-- The guide kind's regions (UI/GuideFrameRegions.lua) first: the goals they
+		-- stand for leave the rows below.
+		GF.FillRegions(view)
 		local groups, focus = UI.StepGroups(view)
 		local g = shownGroup(view, groups, focus)
 		focusGroup = g
@@ -2753,7 +2756,8 @@ GF.Part(function(GF)
 		local sv = view.section
 		card.Section:SetText(sv and sv.title or "")
 		if sv then W.Color(card.Section, sv.state == "current" and "accent" or "textDim") end
-		card.Section:SetShown(sv ~= nil)
+		-- The kind's skill meter (UI/GuideFrameKindCraft.lua) says it already.
+		card.Section:SetShown(sv ~= nil and not GF.RegionShown("meter"))
 		person:Show()
 		-- A class quest's step: the class card, its colour on the step's quest
 		-- names (the live window's alone).
@@ -3133,6 +3137,8 @@ GF.Part(function(GF)
 			-- Read afresh once the line is back on.
 			model.offRoute = nil
 		end
+		-- With the regions standing for every goal, the step's header goes too.
+		if n == 0 and GF.RegionsActive() then person:Hide() end
 		for gi, goal in ipairs(view.goals) do model.last[gi] = goal.status end
 		for i = n + 1, #rows do
 			local r = rows[i]

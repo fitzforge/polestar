@@ -11648,6 +11648,17 @@ function Engine.SkillBar()
 	return out
 end
 
+-- A guide kind's region models for the guide window (UI/GuideFrameRegions.lua; docs/ARCHITECTURE.md, "Guide
+-- kinds"): pure data, no frames, what the window, the tests and the preview read. Each region's model maker sits
+-- in Engine.KindModels by its region id (Core/KindCraft.lua's profession and reputation ones, Core/KindDungeon.lua's
+-- dungeon ones); it takes the step's view and the guide's kind. -> the model, or nil: the region is left out.
+Engine.KindModels = Engine.KindModels or {}
+function Engine.KindModel(region, view, kind)
+	local f = Engine.KindModels[region]
+	if not f then return nil end
+	return f(view, kind or Engine.GuideKind())
+end
+
 -- Replaces the active tab's guide (opens a first tab when none is open); a
 -- guide already open in another tab is selected instead of duplicated. The
 -- guide replaced goes to the closed tabs, and a closed one loaded comes
