@@ -65,7 +65,9 @@ warning: Alchemy Alliance trainer "Kylanna Windwhisper": not in npcs.json for th
 warning: Alchemy Horde trainer "Doctor Herbert Halsey": not in npcs.json for this side
 warning: Alchemy Horde trainer "Rogvar": not in npcs.json for this side
 warning: Alchemy Alliance trainer "Kylanna Windwhisper": not in npcs.json for this side
+warning: Alchemy Alliance trainer "Master Mycologist Shurome": not in npcs.json for this side
 warning: Alchemy Horde trainer "Rogvar": not in npcs.json for this side
+warning: Alchemy Horde trainer "Master Mycologist Shurome": not in npcs.json for this side
 warning: Alchemy Alliance trainer "Vosur Brakthel": not in npcs.json for this side
 warning: Alchemy Alliance trainer "Ghak Healtouch": not in npcs.json for this side
 warning: Alchemy Alliance trainer "Cyndra Kindwhisper": not in npcs.json for this side
@@ -136,6 +138,7 @@ warning: Tailoring Horde trainer "Josef Gregorian": not in npcs.json for this si
 warning: Tailoring Horde trainer "Tepa": not in npcs.json for this side
 warning: Tailoring Horde trainer "Grarnik Goodstitch": not in npcs.json for this side
 warning: Tailoring Alliance trainer "Timothy Worthington": not in npcs.json for this side
+warning: Tailoring Alliance trainer "Charles Worth": not in npcs.json for this side
 warning: Tailoring Horde trainer "Josef Gregorian": not in npcs.json for this side
 warning: Tailoring Horde trainer "Daryl Stack": not in npcs.json for this side
 warning: Tailoring Alliance trainer "Timothy Worthington": not in npcs.json for this side
