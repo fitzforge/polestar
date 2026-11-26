@@ -28,6 +28,8 @@
 --
 -- HasteRating, ExpertiseRating and ArmorPenetration (Forever's ratings, #1529)
 -- map to haste, expertise and armorPen, converted as CritRating above.
+-- SpellPenetration maps to spellPen one for one: points of resistance, not a
+-- rating (#4301).
 
 local ADDON, ns = ...
 
@@ -76,6 +78,7 @@ Gear.PAWN_STATS = {
 	{ pawn = "HasteRating", to = { "haste" } },
 	{ pawn = "ExpertiseRating", to = { "expertise" } },
 	{ pawn = "ArmorPenetration", to = { "armorPen" } },
+	{ pawn = "SpellPenetration", to = { "spellPen" } },
 }
 
 -- Keys of a Pawn string that describe the scale, not a stat. Any key whose

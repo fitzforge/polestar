@@ -99,6 +99,7 @@ local STAT_LABEL = {
 	defense = L["Defense skill"], dodge = L["Dodge (%)"], parry = L["Parry (%)"], block = L["Block (%)"],
 	blockValue = L["Block value"],
 	haste = L["Haste (%)"], expertise = L["Expertise (%)"], armorPen = L["Armor penetration (%)"],
+	spellPen = L["Spell penetration"],
 }
 
 local function nameOf(key) return STAT_LABEL[key] or gear().Pawn.NameOf(key) end

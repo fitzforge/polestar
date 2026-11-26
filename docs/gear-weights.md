@@ -56,8 +56,9 @@ is on (the default) and Stat weights is Automatic. What it takes, by the API's
   a missing one is 0; crit and hit per 1% count as spell crit and spell hit
   for casters and healers, as crit and hit for the rest; spell power splits
   into damage and healing; expertise per rating point becomes per 1%. Feral
-  attack power, spell penetration, bonus armor and its weapon speed weights
-  have no place in Polestar's scoring and are left aside. They are asked for
+  attack power, bonus armor and its weapon speed weights have no place in
+  Polestar's scoring, and its spell penetration weight is not taken over
+  (Polestar's `spellPen` is the player's own, #4301): they are left aside. They are asked for
   its spec and weapon setup (only Enhancement's differ by setup).
 - **Its Bear and melee Survival** are Polestar's Feral and Survival, and keep
   their own names in "Scored by Forever Leveling BiS (Bear)".

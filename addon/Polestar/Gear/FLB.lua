@@ -184,9 +184,10 @@ end
 -- to crit and hit for the rest; spell power splits into damage (sp) and
 -- healing (heal); expertise is per point of rating, which Polestar counts per
 -- 1% (Gear.RATING_RATE: 10 points, gametables/combatratings.txt). Feral
--- attack power, spell penetration, bonus armor and the weapon speed weights
--- are not read from items by Polestar (it scores weapons by their DPS), and a
--- stat it adds later is not known here: those stay its own.
+-- attack power, bonus armor and the weapon speed weights are not read from
+-- items by Polestar (it scores weapons by their DPS), its spell penetration
+-- weight is not taken over (Polestar's spellPen, #4301, is the player's own),
+-- and a stat it adds later is not known here: those stay its own.
 local NAMES = {
 	str = "str", agi = "agi", sta = "sta", int = "int", spi = "spi", armor = "armor",
 	atkpwr = "ap", rgdatkpwr = "rap",
