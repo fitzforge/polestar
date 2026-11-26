@@ -486,7 +486,6 @@
 -- keep or fix its line below, and take its key off this list.
 --   %d / %s  \194\183  to %d
 --   %d made
---   %d / ~%d made
 --   %d ready
 --   %d to go
 --   %d: move on to the next recipe
@@ -5824,7 +5823,6 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 -- UI/GuideFrameKindCraft.lua
 L["%d / %s  \194\183  to %d"] = "%d / %s  \194\183  até %d"
 L["%d made"] = "%d feitos"
-L["%d / ~%d made"] = "%d / ~%d feitos"
 L["%d ready"] = "%d prontas"
 L["%d to go"] = "faltam %d"
 L["%d: move on to the next recipe"] = "%d: passe para a próxima receita"

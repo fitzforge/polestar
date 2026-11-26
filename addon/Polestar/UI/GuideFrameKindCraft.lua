@@ -531,13 +531,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			for _, r in ipairs(m.reagents or {}) do parts[#parts + 1] = format(L["%d %s"], r.count, itemHex(r.item, r.name)) end
 			f.Uses:SetText(table.concat(parts, " + "))
 			local exp = m.expected
-			-- Under 300 wide the count's short form: numbers never cut.
-			local short = (f:GetWidth() or 340) > 1 and (f:GetWidth() or 340) < 300
-			if exp and short then
-				f.Count:SetText(format(L["%d / ~%d made"], m.made, exp))
-			else
-				f.Count:SetText(exp and format(L["%s of about %d made"], hexed("text", m.made), exp) or format(L["%d made"], m.made))
-			end
+			-- Under 300 wide the count's short form (layout picks): numbers never cut.
+			f.psCountLong = exp and format(L["%s of about %d made"], hexed("text", m.made), exp) or format(L["%d made"], m.made)
+			f.psCountShort = exp and format("%d / ~%d", m.made, exp) or f.psCountLong
 			if m.colour == "grey" then
 				f.MoveOn:SetText(L["Grey now: move on"])
 				W.Color(f.MoveOn, "warning")
@@ -606,6 +602,8 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.Progress:SetWidth(cw - tx - inner)
 			W.SetProgress(f.Progress, m.expected and m.expected > 0 and m.made / m.expected or 0, cw - tx - inner)
 			y = y + 2 + 6
+			local countText = narrow(width) and f.psCountShort or f.psCountLong
+			if f.Count:GetText() ~= countText then f.Count:SetText(countText) end
 			f.Count:ClearAllPoints()
 			f.Count:SetPoint("TOPLEFT", f.Card, "TOPLEFT", tx, -y)
 			f.MoveOn:ClearAllPoints()
@@ -810,7 +808,9 @@ ns.UI.GuideFrame.Part(function(GF)
 
 	local function paintSplit(f, r, width)
 		local s = r.split
-		f.Verdict:SetText(verdictText(r, narrow(width)))
+		-- Both forms now; the layout shows the one its width takes.
+		f.psVerdictLong, f.psVerdictShort = verdictText(r, false), verdictText(r, true)
+		f.Verdict:SetText(f.psVerdictLong)
 		local buy, farm = s.buy, s.farm
 		local B, Fm = f.Buy, f.Farm
 		-- Buy
@@ -1217,7 +1217,9 @@ ns.UI.GuideFrame.Part(function(GF)
 					f.Verdict:ClearAllPoints()
 					f.Verdict:SetPoint("TOPLEFT", well, "TOPLEFT", 30, -10)
 					f.Verdict:SetWidth(ww - 30 - 10)
-					local vh = min(f.Verdict:GetStringHeight(), f.Verdict:GetLineHeight() * 2 + 2)
+					local vt = narrow(width) and f.psVerdictShort or f.psVerdictLong
+					if vt and f.Verdict:GetText() ~= vt then f.Verdict:SetText(vt) end
+					local vh = f.Verdict:GetStringHeight()
 					local top = 10 + vh + 10
 					f.SplitRule:ClearAllPoints()
 					f.SplitRule:SetPoint("TOPLEFT", well, "TOPLEFT", 0, -top)
