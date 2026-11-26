@@ -326,6 +326,16 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+-- Machine-translated, to be reviewed (guide kinds and the long farm line, 26 Nov 2026): translated by an AI
+-- model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   next stretch to %d
+--   step %d needs level %d (%s)
+--   step %d needs level %d
+--   Nearest %s trainer
+--   Most of it drops as you level %s
+--   A long farm: most of it drops as you level
+--   or the Auction House
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "deDE") then return end
@@ -1276,6 +1286,9 @@ L["1 level above you: careful"] = "1 Stufe über dir: Vorsicht"
 L["about %d kills, %d min"] = "etwa %d Kills, %d Min."
 L["about %d kills"] = "etwa %d Kills"
 L["or %s (%s)"] = "oder %s (%s)"
+L["Most of it drops as you level %s"] = "Das meiste fällt beim Leveln auf Stufe %s"
+L["A long farm: most of it drops as you level"] = "Lange Farm: das meiste fällt beim Leveln"
+L["or the Auction House"] = "oder das Auktionshaus"
 L["or %s"] = "oder %s"
 
 -- UI/Welcome.lua

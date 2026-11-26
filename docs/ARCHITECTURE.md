@@ -3046,12 +3046,16 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   spot's `map`, `x`, `y`, `f`, `npcName`, `lvl` and `alternatives`, and, for
   an open goal with items still missing, `farm` (`Own.farmView`): `kills`
   (missing / rate, rounded up), `minutes` (the farm seconds), `above` (levels
-  the weakest mobs are above the player, when they are) and `second` (the
+  the weakest mobs are above the player, when they are), `second` (the
   next spot of the ranking on another map, else the next one: `npcName`,
-  `map`, `lvl`). The guide window adds them to the farm line
-  (`UI.FarmLine`: "1 level above you: careful", or "No farm at your level: 3
-  levels above you"; "about 60 kills, 25 min"; "or Riverpaw Gnoll
-  (Westfall)"). `CycleCandidate` walks the ranking.
+  `map`, `lvl`), `levels` (the `gather levels` of a material the Auction
+  House sells) and `market` (it sells there). The guide window adds them to
+  the farm line (`UI.FarmLine`: "1 level above you: careful", or "No farm at
+  your level: 3 levels above you"; "about 60 kills, 25 min"; "or Riverpaw
+  Gnoll (Westfall)"). A farm over `UI.FARM_LONG` (60) minutes is no plan to
+  send a player on: the line says "Most of it drops as you level 15–30 · or
+  the Auction House" instead of its kills, minutes and second spot.
+  `CycleCandidate` walks the ranking.
 
 #### Steps the character has
 

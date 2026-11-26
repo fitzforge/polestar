@@ -3352,6 +3352,10 @@ function Own.farmView(goal)
 		minutes = secs < Own.UNMEASURED and math.max(1, math.floor(secs / 60 + 0.5)) or nil,
 		above = gap > 0 and gap or nil,
 		second = second and { npcName = second.npcName, map = second.map, lvl = second.lvl } or nil,
+		-- A material's mob levels (`collect … gather levels a-b`) and whether the Auction House sells it
+		-- (a `gather` goal is one it sells): the window's words for a farm too long to send a player on.
+		levels = type(goal.gather) == "table" and goal.gather.min and goal.gather.max and { goal.gather.min, goal.gather.max } or nil,
+		market = goal.gather ~= nil or nil,
 	}
 end
 

@@ -535,6 +535,16 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+-- Machine-translated, to be reviewed (guide kinds and the long farm line, 26 Nov 2026): translated by an AI
+-- model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   next stretch to %d
+--   step %d needs level %d (%s)
+--   step %d needs level %d
+--   Nearest %s trainer
+--   Most of it drops as you level %s
+--   A long farm: most of it drops as you level
+--   or the Auction House
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "ruRU") then return end
@@ -2000,6 +2010,9 @@ L["1 level above you: careful"] = "На 1 уровень выше: осторо�
 L["about %d kills, %d min"] = "около %d убийств, %d мин"
 L["about %d kills"] = "около %d убийств"
 L["or %s (%s)"] = "или %s (%s)"
+L["Most of it drops as you level %s"] = "Большая часть выпадет, пока вы проходите уровни %s"
+L["A long farm: most of it drops as you level"] = "Долгий фарм: большая часть выпадет по ходу прокачки"
+L["or the Auction House"] = "или аукцион"
 L["or %s"] = "или %s"
 
 -- UI/GuideFrame.lua
