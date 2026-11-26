@@ -10256,22 +10256,15 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   opens `Dungeons.Attune` in a new tab as the pick-up guide does) and a row per
   step of the filter's side (state glyph, the quest in its difficulty colour
   or what drops it, its state, giver and zone or chance and instance; a click
-  sets the arrow there); the other side's entries carry no state. Map: the dungeon's own loading
-  screen (`Dungeons.Screen(key)`: its file and kind, from `Dungeons/ArtFiles.lua`, drawn by
-  `ZoneArt.Screen`) under the entrance line; a button on the picture's corner
-  (`pg.MapToggle`: a compass, "Show the map: entrance and quest giver"; on the map a framed
-  window, "Show the loading screen"; a clickable under the hub's window, so the gamepad reaches it
-  and A clicks it) swaps it for the map, the entrance and the quest givers on its zone painting
-  (`shown.map` "screen" | "entrance" | "zone" | "none", `shown.toggle`), and back. The button shows
-  only where both exist: a dungeon with no screen of its own (an instance on a continent's own
-  loading screen: the Searing Basin, Caverns of Time) keeps the map, and one whose zone the
-  client does not paint keeps the screen. The choice is the session's (`DS.ToggleMap`), for every dungeon and
-  tab until the next reload. A dungeon whose entrance is not known
+  sets the arrow there); the other side's entries carry no state. Map: the entrance and the quest givers on its zone painting. A dungeon whose entrance is not known
   paints its page's `zone` (the Codex takes it from the client's AreaTable: an
   open-world area of the instance's name, Forever's Blackmaw Hold in Azshara)
-  whole on its card, header and the map, names it in the facts, and the Map tab
-  says where it lies; one with no zone either wears its loading screen on its card
-  (`Dungeons.Art`, through `ZoneArt.Picture`). Blocks, rows, tiles, chips and cards
+  whole on its card, header and Map tab, names it in the facts, and the Map tab
+  says where it lies; one with no zone either wears its loading screen
+  (`Dungeons.Art`, through `ZoneArt.Picture`). The list cards and the page header wear
+  the dungeon's loading screen (`Dungeons.Art`'s crop, `paintBanner`) wherever it has one
+  and the map's painting where it has none (the continent-shared instances); the Map tab
+  is the map alone. Blocks, rows, tiles, chips and cards
   are pooled; quest states refresh on QUEST_ACCEPTED, QUEST_REMOVED,
   QUEST_TURNED_IN and PLAYER_LEVEL_UP, the Attunement tab also on
   BAG_UPDATE_DELAYED and UPDATE_FACTION. `UI.DungeonsSection` exposes
@@ -10304,14 +10297,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `UI.ZoneArt.Picture(art, { file, l, r, t, b })` fills the band with a
   picture instead (a dungeon's loading screen, the crop square on screen, the
   band showing the picture's full width at its scale); the next `Paint`
-  replaces it. `UI.ZoneArt.Screen(art, file, kind) -> ok` fills it with the
-  whole painting of a loading screen instead, "narrow" (Classic's: a 4:3
-  picture stored in a square file, its painting in rows 0.23-0.80 between the
-  logo band and the parchment) or "wide" (Forever's: 2992x1684, rows 0.162-0.838
-  between black bars; `ZA.SCREENS`): the painting's aspect kept, cropped to fill
-  the band, centred, in its own colours, with no fade (`art.Fade` is hidden until
-  the next `Paint` or `Picture`). `UI.ZoneArt.Has(uiMapID)` says whether the client
-  paints a map (`Paint` would not fall back to the night band).
+  replaces it.
   `tests/zone-art-coverage.test.js` checks every shipped guide's
   zone, every recorded dungeon door's zone and the fixed paintings against
   the maps the client paints, and that every dungeon has a loading screen.

@@ -255,7 +255,7 @@ never in saved variables.
 | `Mark.lua` | `Dungeons` | The dungeon glyph after a quest's name when it belongs to a dungeon or leads to one |
 | `XP.lua` | `Dungeons` | How far a dungeon's quests take this character, for the page's level chip |
 | `ArtFiles.lua` | `Dungeons` | Each dungeon's and raid's loading screen file (generated: `forge data maps art`) |
-| `Art.lua` | `Dungeons` | Each dungeon's loading screen: the whole screen for the Dungeons page's Map tab, crops for the cards and the dungeon heads-up |
+| `Art.lua` | `Dungeons` | Each dungeon's loading screen: crops for the list cards, the page header and the dungeon heads-up |
 
 ### UI
 

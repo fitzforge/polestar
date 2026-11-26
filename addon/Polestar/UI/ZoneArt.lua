@@ -31,15 +31,6 @@
 --     screen, Dungeons.Art's loading screens) where no zone is known, so a
 --     dungeon card never falls back to the night band; the next Paint
 --     replaces it.
---   ZoneArt.Screen(art, file, kind) -> true | false
---     a dungeon's loading screen (Dungeons.Screen: its file id and kind,
---     "narrow" Classic's 4:3 picture in a square file, "wide" Forever's
---     16:9): the painting inside its frame of logo or bars, in the colours
---     it has, its aspect kept and cropped to fill the band, centred; no
---     fade over it (art.Fade hides until the next Paint or Picture).
---     false for a kind not known.
---   ZoneArt.Has(uiMapID) -> true when the client paints that map (Paint
---     would not fall back to the night band).
 --   ZoneArt.RegisterOverlays(build, arts)
 --     arts: { [uiMapArtID] = { tileWidth, tileHeight, { textureWidth,
 --     textureHeight, offsetX, offsetY, fileDataID, ... (row-major) }, ... } }
@@ -119,17 +110,6 @@ function ZA.Create(parent, width, height, ground, fadeShare)
 	return a
 end
 
--- The painting's rectangle in each kind of loading screen file (texture
--- coordinates), and the file's own shape on screen: aspect = its width over
--- its height as the client shows it. A classic screen is a 4:3 picture
--- stored in a square texture, its painting between the logo band (which
--- reaches down to 0.225) and the parchment (from 0.805); Forever's are
--- 2992x1684 with the painting in rows 266-1418.
-ZA.SCREENS = {
-	narrow = { aspect = 4 / 3, l = 0, r = 1, t = 0.23, b = 0.8 },
-	wide = { aspect = 2992 / 1684, l = 0, r = 1, t = 0.162, b = 0.838 },
-}
-
 -- The client's first art layer for a map and its tile textures, or nil.
 local function artLayer(uiMapID)
 	local M = C_Map
@@ -141,10 +121,6 @@ local function artLayer(uiMapID)
 	local ok2, list = pcall(M.GetMapArtLayerTextures, uiMapID, 1)
 	if not (ok2 and type(list) == "table" and #list > 0) then return nil end
 	return info, list
-end
-
-function ZA.Has(uiMapID)
-	return artLayer(uiMapID) ~= nil
 end
 
 -- The overlay table of the art the client shows for a map, when it was built
@@ -275,7 +251,6 @@ function ZA.Paint(a, uiMapID, focusX, focusY, index)
 	local info, textures = artLayer(uiMapID)
 	local tiles, shapes = a.Tiles, a.Shapes
 	if a.psPic then a.psPic:Hide() end
-	a.Fade:Show()
 	if not info then
 		for i = 1, #tiles do tiles[i]:Hide() end
 		for i = 1, #shapes do shapes[i]:Hide() end
@@ -349,7 +324,6 @@ function ZA.Picture(a, pic)
 	for i = 1, #a.Tiles do a.Tiles[i]:Hide() end
 	for i = 1, #a.Shapes do a.Shapes[i]:Hide() end
 	a.Band:Hide()
-	a.Fade:Show()
 	a.psCanvas = nil
 	local t = a.psPic
 	if not t then
@@ -371,41 +345,6 @@ function ZA.Picture(a, pic)
 	t:SetTexture(pic.file, nil, nil, "TRILINEAR")
 	t:SetTexCoord(x0, x0 + dx, y0, y0 + dy)
 	shadeTile(a, t)
-	t:Show()
-	return true
-end
-
--- A dungeon's loading screen (see the header): the painting's rectangle
--- cropped to the band's shape, centred.
-function ZA.Screen(a, file, kind)
-	local s = ZA.SCREENS[kind]
-	if not (s and file) then return false end
-	local w, h = a.psW, a.psH
-	for i = 1, #a.Tiles do a.Tiles[i]:Hide() end
-	for i = 1, #a.Shapes do a.Shapes[i]:Hide() end
-	a.Band:Hide()
-	a.Fade:Hide()
-	a.psCanvas = nil
-	local t = a.psPic
-	if not t then
-		t = a.Canvas:CreateTexture(nil, "BACKGROUND")
-		t:SetAllPoints(a)
-		a.psPic = t
-	end
-	-- The painting on screen is pw wide for ph tall (units of the file's
-	-- height); the band keeps its whole height or its whole width of it.
-	local dx, dy = s.r - s.l, s.b - s.t
-	local pw = dx * s.aspect
-	if pw / dy > w / h then
-		dx = dy * (w / h) / s.aspect
-	else
-		dy = pw * h / w
-	end
-	local x0, y0 = (s.l + s.r - dx) / 2, (s.t + s.b - dy) / 2
-	t:SetTexture(file, nil, nil, "TRILINEAR")
-	t:SetTexCoord(x0, x0 + dx, y0, y0 + dy)
-	if t.SetDesaturation then t:SetDesaturation(0) end
-	t:SetVertexColor(1, 1, 1, 1)
 	t:Show()
 	return true
 end

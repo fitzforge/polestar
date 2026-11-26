@@ -470,13 +470,6 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
---
--- Machine-translated, to be reviewed (0.4.4, 26 Nov 2026): the interface texts the Dungeons page's loading
--- screen added, translated by an AI model (Claude Sonnet 5.5) in this file's own wording, and waiting for a
--- native speaker's check. Reviewing one: keep or fix its line below, and take its key off this list. The
--- interface texts:
---   Show the map: entrance and quest giver
---   Show the loading screen
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "ptBR") then return end
@@ -2529,8 +2522,6 @@ L["The quest giver nearby is marked; hover for their quests."] = "O recrutador d
 L["The %d quest givers nearby are marked; hover for their quests."] = "Os %d recrutadores de missões próximos estão marcados; passe o mouse para ver as missões."
 L["The entrance of this dungeon is not known yet."] = "A entrada desta masmorra ainda não é conhecida."
 L["The entrance of this dungeon is not known yet; it lies in %s."] = "A entrada desta masmorra ainda não é conhecida; ela fica em %s."
-L["Show the map: entrance and quest giver"] = "Mostrar o mapa: entrada e recrutador de missões"
-L["Show the loading screen"] = "Mostrar a tela de carregamento"
 L["Attunement"] = "Sintonização"
 L["Key"] = "Chave"
 L["%s from %s"] = "%s de %s"

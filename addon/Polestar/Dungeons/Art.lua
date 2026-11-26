@@ -6,8 +6,7 @@
 -- loading screen is the one picture every dungeon has. A dungeon on a
 -- continent's own screen (the Searing Basin, Caverns of Time) has none.
 --
--- The Map tab shows the whole painting (Dungeons.Screen, UI/ZoneArt.lua's
--- Screen). Cards, the header and the dungeon heads-up (UI/DungeonToast.lua,
+-- The list cards, the page header and the dungeon heads-up (UI/DungeonToast.lua,
 -- in its ring) wear a crop square on screen around what the picture shows
 -- (a boss, the ship, the lava): the crops below (texture coordinates l, r,
 -- t, b) were picked by eye. A classic screen is a 4:3 picture stored in a
@@ -21,7 +20,6 @@
 -- brighter part of the same picture still shows the place.
 --
 --   Dungeons.Art(key) -> { file, l, r, t, b, lift } | nil   -- nil: a dungeon this table doesn't know
---   Dungeons.Screen(key) -> { file, kind } | nil   -- the whole screen: kind "narrow" | "wide" (ArtFiles.lua); nil: none of its own
 
 local ADDON, ns = ...
 local Dungeons = ns.Dungeons
@@ -76,13 +74,4 @@ end
 function Dungeons.Art(key)
 	local d = Dungeons.Get(key)
 	return d and d.map and ART[d.map] or nil
-end
-
-function Dungeons.Screen(key)
-	local d = Dungeons.Get(key)
-	local map = d and d.map
-	if not map then return nil end
-	if narrow[map] then return { file = narrow[map], kind = "narrow" } end
-	if wide[map] then return { file = wide[map], kind = "wide" } end
-	return nil
 end
