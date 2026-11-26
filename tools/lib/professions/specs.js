@@ -33,6 +33,13 @@
 //   notBefore: { spell: skill }    recipes used (to level or for an intermediate) only from
 //                                   that skill on: a cloth the character cannot farm yet
 //   lastRoute: text                 the route table's line past the plan's reach
+//   levelTo: { spell: skill }       recipes levelled on only up to that skill (still parts past it)
+//   use:     [{ spell, from, to }]  the recipe the plan must level on over [from, to) (plan.js pins)
+//   fork:    { at, key, keys, name, title, tip, other }
+//                                   from `at` two ways: path A (the plan, `when knows key`) and path
+//                                   B (`when !knows key`), a plan without the key recipes; a step at
+//                                   `at` buys or learns `keys` (optional). other: { name, exclude,
+//                                   auction, use, tips, last, lastRoute } for path B
 
 const CAMPING_101 = (prof) =>
 	`The Camping 101: ${prof} quest from your starting area's camping guide (after The Great Outdoors) sends you to ${/^[aeiou]/i.test(prof) ? 'an' : 'a'} ${prof.toLowerCase()} trainer who teaches it free.`;
@@ -45,7 +52,7 @@ const SPECS = {
 			'Alchemy turns herbs into elixirs, potions and oils. Herbalism is its partner: every reagent below is a herb, a vial from an alchemy or trade supplies vendor, or (three times) a fish.',
 			"Forever's changes: the healing potions moved to First Aid. Alchemy keeps a Discolored healing line that needs a Murloc Eye per potion (a drop) and has no confirmed learn skill, so this route leaves it out. New: Minor Arcane Elixir and Elixir of Minor Force (orange to 10), Elixir of Minor Fortitude at 50 (trainer), Cerulean Dye and Sulfuric Acid at 40 (Frilled Lichen and Pyrite are scarce finds while gathering), Magenta and Viridian Dye, and dozens of new elixirs that are only five points wide or sold for Merchant's Favor by Apothecary Durelle near the Crossroads. Several Classic recipes kept their spell but changed name: Elixir of Lion's Strength is Elixir of Minor Strength, Elixir of Greater Defense is Elixir of Defense, Elixir of Superior Defense is Elixir of Greater Defense, Elixir of Detect Undead is Draught of Detect Undead.",
 			'Camping: Mana Well (skill 20) is the Alchemy camp item. The Fermenter (skill 140) is a camp station from a blueprint that Rath\'mael drops in the Ruins of Lordaeron; Shadow Oil, Frost Oil, Goblin Rocket Fuel, Ghost Dye and Viridian Dye need it, so this route leaves them out. The skill-300 Alchemy Laboratory (flasks) has no known blueprint source yet.',
-			'Ranks: trainers teach by tier and train only from their tier\'s skill: Journeyman at the city trainers, from skill 50; Expert only at Ainethil (Darnassus) and Doctor Herbert Halsey (Undercity), from 125; Artisan only at Kylanna Windwhisper (Feathermoon Stronghold, Feralas) and Rogvar (Stonard, Swamp of Sorrows), from 200. Alchemy has no specialisation. Transmutes and the Philosopher\'s Stone come from Alchemist Pestlezugg in Gadgetzan.',
+			"Ranks: trainers teach by tier and train only from their tier's skill: Journeyman at the city trainers, from skill 50; Expert only at Ainethil (Darnassus) and Doctor Herbert Halsey (Undercity), from 125; Artisan only at Kylanna Windwhisper (Feathermoon Stronghold, Feralas), Rogvar (Stonard, Swamp of Sorrows) and, for both factions, Master Mycologist Shurome (the Emerald Circle, Felwood: Forever's own trainer, seen training Artisan in players' recordings), from 200. Alchemy has no specialisation. Transmutes and the Philosopher's Stone come from Alchemist Pestlezugg in Gadgetzan.",
 			"The route keeps to trainer recipes from 75 to 265. Holy Protection Potion (100) and Shadow Protection Potion (135) would cost about the same, but their recipes come from limited-stock sellers (Kzixx, Xandar Goodbeard and Hula'mahi; Harklan Moongrove and Christoph Jeffcoat) and bind when picked up, and Holy Protection takes a Swiftthistle per craft, a find on about two Briarthorn in five.",
 		],
 		apprentice: 'Pair it with Herbalism: Peacebloom and Silverleaf grow in every starting zone, and Empty Vials cost 4c at any alchemy or trade supplies vendor.',
@@ -67,14 +74,23 @@ const SPECS = {
 			7255: "a limited-stock recipe that binds when picked up, and a Swiftthistle per craft (a find on two Briarthorn in five): about 150 Briarthorn for 58 crafts; the trainer's Elixir of Wisdom covers the same points",
 			7256: "a limited-stock recipe that binds when picked up (Harklan Moongrove in Ashenvale, Christoph Jeffcoat in Tarren Mill); the trainer's Lesser Troll's Blood Elixir and Mana Potion cover the same points",
 		},
+		// Minor Mana Potion is yellow from 65 (players' recordings: 65% of its yellow crafts gave a point, 46%
+		// of its green ones, over 408 crafts): from 75 the trainer's Elixir of Minor Fortitude (from 50, orange
+		// to 80) takes over.
+		levelTo: { 2331: 75 },
+		// Dreamless Sleep Potion has Draught of Detect Undead's colours and trainers (players learned it at 230
+		// from Kylanna Windwhisper, Rogvar and Shurome) and takes Purple Lotus, which the Herbalism loops of
+		// the Hinterlands and Feralas give at level 44-47; Arthas' Tears grow among level 53-61 mobs (the
+		// Plaguelands, Jaedenar in Felwood), above an Artisan alchemist from level 35.
+		use: [{ spell: 15833, from: 230, to: 265 }],
 		tips: {
 			7183: 'Known from the start and the cheapest way through the Apprentice range. Keep the elixirs (armour while you level) or sell them.',
-			2331: 'The trainer teaches it from 25. It is yellow already, so count on about two crafts a point until Elixir of Wisdom takes over at 90. Mageroyal grows in the 10-25 zones.',
+			2334: 'Two Earthroot and a Peacebloom a craft, herbs of the starting zones and the 10-20 zones; orange to 80.',
 			3171: 'Two Briarthorn and a Mageroyal a craft, both from the 10-25 zones; orange to 120.',
 			3176: 'Two Bruiseweed and two Briarthorn a craft; Bruiseweed grows in the 15-30 zones.',
 			3452: 'Stranglekelp grows under water along the coasts: bring a water breathing elixir or come up for air. Kingsblood grows in the 20-40 zones.',
 			11450: 'Wild Steelbloom and Goldthorn are the herbs of the 30-45 zones (Stranglethorn, Arathi, the Badlands).',
-			11460: "Arthas' Tears grow in the Plaguelands and Felwood (Herbalism 220); Crystal Vials come from alchemy vendors.",
+			15833: "Three Purple Lotus a craft (Herbalism 210: the Hinterlands and Feralas, mobs of level 44-47) and a Crystal Vial from an alchemy vendor. The Herbalism guide's loops there give Sungrass for the last stretch too.",
 			17554: 'Stonescale Eel comes from the Stonescale Eel schools on the coasts of the 40-55 zones, or the Auction House (fishers sell them in stacks). Sungrass grows in the 40-55 zones.',
 		},
 	},
@@ -97,6 +113,44 @@ const SPECS = {
 		taughtBy: { 9959: 'Artisan', 9961: 'Artisan', 9968: 'Artisan', 10001: 'Artisan', 16639: 'Artisan', 16640: 'Artisan', 16641: 'Artisan' },
 		// Expert 50s (a Forever beta guide tested to 225; Classic's list asks 45s), Artisan 5g (Classic's list).
 		rankCost: { Expert: 5000, Artisan: 50000 },
+		// Recipes the route uses over these ranges, from players' recordings and the colours: Runed Copper Belt
+		// is orange to 85 where Rough Grinding Stone is green from 65 (57 crafts for 75-83; 30% of players'
+		// green crafts gave a point, over 1,052); Patterned Bronze Bracers (learned at 95 and 96 in the
+		// recordings) is orange to 125, so the Heavy Stone of Iron Deposits (Mining 125, zones of level 30-47)
+		// waits; Bronze Warhammer (every Journeyman city trainer from 100; 212 of 212 recorded orange crafts gave
+		// a point) is orange to 155 where the bracers are yellow from 125; Golden Scale Bracers is orange to 185
+		// with the Steel Bars the next stretch uses (Solid Stone from Mithril Deposits waits: Mining 175, zones
+		// of 40-50); Heavy Mithril Gauntlet (Bengus Deepforge and Saru Steelfury, from 180) is orange to 200
+		// where the bracers are green from 197.
+		// Heavy Mithril Breastplate stays at 205-225 over Mithril Coif (same colours and teacher): the coif
+		// trades 120 Mithril Bars for 120 Mageweave Cloth, a second farm for a smith who mines.
+		use: [
+			{ spell: 2666, from: 75, to: 100 },
+			{ spell: 2672, from: 100, to: 125 },
+			{ spell: 9985, from: 125, to: 150 },
+			{ spell: 7223, from: 175, to: 185 },
+			{ spell: 9928, from: 185, to: 200 },
+		],
+		// From 250 the plans come from Magnus Frostwake (a ghost seen only with the Spectral Essence, from a
+		// level-55 dungeon chain), or from the Auction House: the Radiant plans drop in the world and do not bind.
+		fork: {
+			at: 250,
+			key: 16971,
+			keys: [16969, 16971],
+			name: "with Magnus Frostwake's plans",
+			title: "Blacksmithing 250: Magnus Frostwake's plans",
+			tip: "From 250 the route has two ways. Magnus Frostwake in Caer Darrow (Western Plaguelands) sells Plans: Ornate Thorium Handaxe and Plans: Huge Thorium Battleaxe (unlimited stock; they bind when picked up), but he is a ghost you see only with the Spectral Essence on (put it on inside Caer Darrow): the reward of Eva Sarkhoff's Scholomance chain that ends with Kirtonos the Herald, level 55 and a dungeon group. With the battleaxe plans learned, the steps after this take you to 300 on them. Without them, skip this step: the next steps go on with Radiant plans from the Auction House (world drops that do not bind), whose crafts take Hearts of Fire instead of Dense Stone.",
+			other: {
+				name: 'with Auction House plans',
+				exclude: { 16969: "Magnus Frostwake's plans", 16971: "Magnus Frostwake's plans" },
+				auction: { 16645: 250, 16656: 265, 16725: 280 },
+				tips: {
+					16645: 'Ten Thorium Bars and two Hearts of Fire a craft; orange to 255.',
+					16656: 'Fourteen Thorium Bars and four Hearts of Fire a craft; orange to 285.',
+					16725: 'The last points: buy the plans when you reach 280; until then the boots carry you.',
+				},
+			},
+		},
 		assumed: [
 			"ASSUMED: Derotain Mudsipper's Imperial Plate quests ask Blacksmithing 265 and character level 50 (Forever's quest data, as in Classic, though Forever moved the plans themselves 25 points down to 240-270). In-game check: the skill his quests ask; a lower one lets the Imperial Plate Bracers (orange to 265) take over from the battleaxe sooner.",
 			"ASSUMED: rank prices Expert 50s and Artisan 5g (Classic's trainer lists; Forever's sniffed lists price only Apprentice 10c and Journeyman 5s, as in Classic). In-game check: what Expert and Artisan cost.",
@@ -107,21 +161,18 @@ const SPECS = {
 			2660: 'One Rough Stone a craft, a point every craft to 15.',
 			3320: 'Two Rough Stone a craft. Grinding stones are parts for later plans; the extras sell to vendors.',
 			2666: 'Forever teaches Runed Copper Belt from 45; it stays orange to 85. Ten Copper Bars a craft: smelt your Copper Ore.',
-			2674: 'Heavy Stone comes from Iron Deposits; one a craft.',
+			9985: 'Eight Bronze Bars, a Strong Flux (blacksmithing suppliers) and a Medium Leather a craft; every Journeyman trainer in the capitals teaches it from 100.',
 			2672: 'Each bracer takes two Coarse Grinding Stones (Coarse Stone from Tin Veins): make them first; they give points too.',
 			3501: 'Six Iron Bars and a Green Dye a craft; Green Dye comes from tailoring, leatherworking and trade supplies vendors. Orange to 165 on Forever, so a point every craft for the first fifteen.',
-			9918: 'One Solid Stone a craft (Mithril Deposits): cheap points between the iron and the steel bracers. Use the stones on your weapons or sell them.',
+			9928: 'Six Mithril Bars and four Mageweave Cloth a craft; Bengus Deepforge (Ironforge) and Saru Steelfury (Orgrimmar) teach it from 180.',
 			7223: 'Steel Bars are smelted from an Iron Bar and a Coal (Mining 165; Coal from trade and blacksmithing suppliers), so each bracer is five of each. Each bracer takes two Heavy Grinding Stones: make them first.',
 			9959: 'Sixteen Mithril Bars a craft and nothing else; orange to 225 on Forever, so a point every craft to the Artisan cap.',
 			16640: 'One Dense Stone a craft (Thorium veins): cheap points at the start of Artisan.',
 			9968: 'Mithril Bars from Mithril Deposits; Thick Leather from skinners or the Auction House.',
 			10001: 'Only about 11 crafts to bridge 247-250, but each wants four Shadowgems (about one Tin Vein in a hundred) and a Black Pearl: buy those at the Auction House unless your bags already hold them.',
 			16969: 'Large Opal turns up in about one Thorium vein in 130: buy the ten at the Auction House. Five crafts only, until the battleaxe plans can be used at 255.',
-			16971: 'Plans from Magnus Frostwake in Caer Darrow (Western Plaguelands): he is a ghost you see only with the Spectral Essence trinket on (put it on inside Caer Darrow), the reward of Eva Sarkhoff\'s Scholomance chain that ends with Kirtonos the Herald (level 55, a dungeon group). Unlimited stock, but the plans bind when picked up. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the Imperial Plate Boots take over. Without the trinket, the other ways through: world-drop plans from the Auction House (the Radiant pieces: about 820 Thorium Bars and 190 Hearts of Fire for the Radiant route) or the Merchant\'s Favor sets.',
+			16971: 'Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the Imperial Plate Boots take over.',
 			16657: 'About 34 Thorium Bars a craft against the battleaxe\'s 40 and its grinding stones, orange to 290. Below character level 50 Derotain has no quest for you: keep making Huge Thorium Battleaxes to 300 instead (yellow to 292, grey at 305: about twice the Thorium Bars).',
-		},
-		sellerNotes: {
-			11278: { text: 'Magnus is a ghost: you see him only with the Spectral Essence on (from Eva Sarkhoff\'s Scholomance chain, level 55, a group), so skip this without it.', optional: true },
 		},
 		notes: [
 			{
@@ -143,12 +194,16 @@ const SPECS = {
 		// Classic's trainer lists: Journeyman 5s, Expert 50s, Artisan (Annora) 5g.
 		rankCost: { Journeyman: 500, Expert: 5000, Artisan: 50000 },
 		assumed: ["ASSUMED: rank prices Journeyman 5s, Expert 50s and Artisan 5g (Classic's trainer lists; Forever's sniffed lists price only Apprentice, 10c as in Classic). In-game check: what each rank costs."],
+		// Boots - Lesser Agility is green from 200 (about 20 crafts for 195-205); Chest - Greater Intellect (the
+		// trainer from 185; ten players' recordings learned it there) is orange to 205.
+		use: [{ spell: 13663, from: 195, to: 205 }],
 		tips: {
 			7418: 'One Mote of Magic (10c) a craft; grey at 25 on Forever.',
 			7420: 'One Strange Dust a craft: the dust most level 5-20 greens break into, armour above all. Lesser Magic Essence (from weapons) does the same job through Bracer - Minor Deflect or Chest - Minor Absorption if you have more of it.',
 			7771: 'Two Strange Dust a craft (the trainer teaches it from 70 for 2s); keep disenchanting the greens of the 10-20 zones.',
 			13501: 'One Soul Dust a craft (level 21-30 greens).',
 			13637: 'Soul Dust again.',
+			13663: 'One Lesser Mystic Essence a craft (weapons of level 31-40 break into essences); orange to 205, a point every craft.',
 			13746: 'One Vision Dust a craft (level 31-40 greens).',
 			13815: "Annora teaches it with Artisan: learn it on that visit. Vision Dust again; bring about 40.",
 			25127: 'One Dream Dust (level 41-50 greens) and one Purple Lotus (herbalists) a craft; the oil sells well. Kania sells the formula at the inn of Cenarion Hold (Silithus): fly there, the mobs around it are level 55 and up.',
@@ -197,6 +252,10 @@ const SPECS = {
 				at: 200,
 				text: 'Specialisation (optional): at 200 and character level 30, Springspindle Fizzlegear (Ironforge), Lilliam Sparkspindle (Stormwind), Graham Van Talen (Undercity) or Tinkerwiz (Ratchet) sends you to Gnomish Engineering (Tinkmaster Overspark, Ironforge, or Oglethorpe Obnoticus, Booty Bay: 6 Mithril Tubes, an Accurate Scope and 2 Advanced Target Dummies) or Goblin Engineering (Nixx Sprocketspring, Gadgetzan: 20 Big Iron Bombs, 20 Solid Dynamite and 5 Explosive Sheep). The Accurate Scope schematic now binds when picked up, but the quest takes a scope someone else made. The membership card lasts 14 days of play; renewing it costs 2g. You can take only one; neither is needed for 300, and the beta never tested them (it stopped at level 30).',
 			},
+			{
+				at: 230,
+				text: 'The slow part: the slugs turn green at 230, so 225-245 takes about 60 crafts for 20 points. Nothing in the data is cheaper here (Mithril Casing takes three times the Mithril; the rest need Truesilver or parts).',
+			},
 		],
 	},
 
@@ -205,11 +264,16 @@ const SPECS = {
 			'Leatherworking turns the leather and hides that Skinning gives into armor kits, leather and mail armour, quivers and ammo pouches, and cures hides with Salt. Skinning is its partner. Thread, Salt and dyes come from leatherworking and trade supplies vendors.',
 			"Forever's changes: nearly every pattern moved 25 points down: trainers teach it 25 points earlier (Embossed Leather Gloves at 40, Fine Leather Belt at 55, Heavy Leather at 125) and it greys 25 points sooner. Spell 2167 is now Gray Leather Boots; Forever's Dark Leather Boots is a new pattern at 35. Many 125-225 patterns, Cured Rugged Hide and the specialisation patterns need a Tanning Rack, a camp station from a blueprint Razorclaw the Butcher drops in Shadowfang Keep; no town has one, so this route leaves them out. The 270+ dungeon patterns need a Sewing Machine (no known blueprint source). New stat sets and the Forceful Thick Armor Kit are sold for Merchant's Favor by Pawani near the Crossroads and Daniel Stitchsong at Three Corners (Redridge). " + FAVOR,
 			'Camping: Camp Tent (skill 20, 5 Light Leather) is the Leatherworking camp item and still gives points until 25. Tanning Rack (125 since Forever\'s 2026-11-06 hotfixes) and Sewing Machine (300) as above.',
-			'Ranks: Journeyman needs character level 10 (Forever\'s sniffed lists). Trainers teach by tier and train only from their tier\'s skill: Journeyman at the city trainers, from skill 50; Expert only at Telonis (Darnassus) and Una (Thunder Bluff), from 125; Artisan only at Drakk Stonehand (Aerie Peak, the Hinterlands) and Hahrana Ironhide (Camp Mojache, Feralas), from 200. Specialisation at 225 and level 40: Dragonscale (Peter Galen, Azshara / Thorkaf Dragoneye, Badlands), Elemental (Sarah Tanner, Searing Gorge / Brumn Winterhoof, Arathi Highlands) or Tribal (at 235: Caryssia Moonhunter, Feralas / Se\'Jib, Stranglethorn Vale).',
+			'Ranks: Journeyman needs character level 10 (Forever\'s sniffed lists). Trainers teach by tier and train only from their tier\'s skill: Journeyman at the city trainers, from skill 50; Expert only at Telonis (Darnassus) and Una (Thunder Bluff), from 125; Artisan only at Drakk Stonehand (Aerie Peak, the Hinterlands) and Hahrana Ironhide (Camp Mojache, Feralas), from 200. Specialisation at 225 and level 40: Dragonscale (Peter Galen, Azshara / Thorkaf Dragoneye, Badlands), Elemental (Sarah Tanner, Searing Gorge / Brumn Winterhoof, Arathi Highlands) or Tribal (Caryssia Moonhunter, Feralas / Se\'Jib, Stranglethorn Vale, after the Wild Leather quests).',
 		],
 		apprentice: 'Pair it with Skinning: Light Leather comes from the beasts of every starting zone. Coarse Thread and Salt are sold by leatherworking and trade supplies vendors.',
 		camp: { spell: 1229432, at: 20, tip: `Also learn Camp Tent (1s): Forever's Leatherworking camp item, 5 Light Leather, placed at a campsite beside a campfire. ${CAMPING_101('Leatherworking')}` },
+		// Light Leather from Ruined Leather Scraps (the trainer, from 1; orange to 20): every beast a low
+		// skinner skins gives the scraps, and players' recordings show 139 people making it (1,564 orange
+		// crafts, each a point).
+		use: [{ spell: 2881, from: 1, to: 20 }],
 		tips: {
+			2881: 'Three Ruined Leather Scraps a craft: the beasts of the starting zones give them as you skin. Orange to 20, and the Light Leather goes into the kits next.',
 			2152: 'One Light Leather a craft; the kits sell to vendors.',
 			3756: 'Forever teaches Embossed Leather Gloves from 40.',
 			3763: 'Forever teaches Fine Leather Belt from 55.',
@@ -234,7 +298,7 @@ const SPECS = {
 		notes: [
 			{
 				at: 225,
-				text: 'Specialisation (optional): at 225 and character level 40. Dragonscale: Peter Galen (Azshara) or Thorkaf Dragoneye (Badlands) wants 2 Tough Scorpid Breastplates, 2 Tough Scorpid Gloves (patterns drop from the Wastewander bandits in Tanaris) and 10 Worn Dragonscale. Elemental: Sarah Tanner (Searing Gorge) or Brumn Winterhoof (Arathi Highlands) wants 2 each of Heart of Fire, Globe of Water, Core of Earth and Breath of Wind. Tribal (from 235): Caryssia Moonhunter (Feralas) or Se\'Jib (Stranglethorn Vale) wants a Wild Leather Vest and Helmet, after the Wild Leather quests from Pratt McGrubben or Jangdor Swiftstrider in Feralas. On Forever the specialisation patterns need a Tanning Rack. You can take only one; none is needed for 300, and the beta never tested them (it stopped at level 30).',
+				text: 'Specialisation (optional): at 225 and character level 40. Dragonscale: Peter Galen (Azshara) or Thorkaf Dragoneye (Badlands) wants 2 Tough Scorpid Breastplates, 2 Tough Scorpid Gloves (patterns drop from the Wastewander bandits in Tanaris) and 10 Worn Dragonscale. Elemental: Sarah Tanner (Searing Gorge) or Brumn Winterhoof (Arathi Highlands) wants 2 each of Heart of Fire, Globe of Water, Core of Earth and Breath of Wind. Tribal (also from 225, as Forever\'s quest data asks): Caryssia Moonhunter (Feralas) or Se\'Jib (Stranglethorn Vale) wants a Wild Leather Vest and Helmet, after the Wild Leather quests from Pratt McGrubben or Jangdor Swiftstrider in Feralas. On Forever the specialisation patterns need a Tanning Rack. You can take only one; none is needed for 300, and the beta never tested them (it stopped at level 30).',
 			},
 		],
 	},
@@ -243,7 +307,7 @@ const SPECS = {
 		intro: [
 			'Tailoring sews cloth into bolts and the bolts into cloth armour, bags and shirts. It needs no gathering profession: humanoids drop the cloth of their level as you quest. Thread and dyes come from tailoring and trade supplies vendors.',
 			"Forever's changes: nearly every pattern moved 25 points down: trainers teach it 25 points earlier (Bolt of Silk Cloth at 100, Gloves of Meditation at 105) and it greys sooner. Forever adds school sets (sashes, slippers, belts and more), reagent bags, and the Faction Banner camp item. 74 patterns need a Spinning Wheel, a camp station (skill 140) from a blueprint the Unstable Sentinel drops in the City of Dalaran; 43 more need the skill-300 Loom (no known source); Mooncloth needs a Moonwell. New patterns are also sold for Merchant's Favor by Jim'bek near the Crossroads and Mivin Shadowweave at Three Corners (Redridge). " + FAVOR + ' Tailoring has no specialisation on Forever.',
-			'Ranks: Journeyman needs character level 10 (Forever\'s sniffed lists). Trainers teach by tier and train only from their tier\'s skill: Journeyman at the city trainers, from skill 50; Expert only at Georgio Bolero (Stormwind) and Josef Gregorian (Undercity), from 125; Artisan only at Timothy Worthington (Theramore, Dustwallow Marsh) and Daryl Stack (Tarren Mill, Hillsbrad), from 200.',
+			'Ranks: Journeyman needs character level 10 (Forever\'s sniffed lists). Trainers teach by tier and train only from their tier\'s skill: Journeyman at the city trainers, from skill 50; Expert only at Georgio Bolero (Stormwind), Charles Worth (Alterac Mountains: Forever\'s own trainer, Alliance, seen training Expert in players\' recordings) and Josef Gregorian (Undercity), from 125; Artisan only at Timothy Worthington (Theramore, Dustwallow Marsh) and Daryl Stack (Tarren Mill, Hillsbrad), from 200.',
 		],
 		apprentice: 'Keep every Linen Cloth you loot: humanoids of level 5-20 drop it.',
 		camp: {
@@ -274,12 +338,25 @@ const SPECS = {
 		// 44 and 225 at 47. Mageweave (35-50) carries 205-225 as both web routes do, and the
 		// Runecloth recipes start with Artisan.
 		notBefore: { 18401: 225, 18402: 225 },
-		notes: [
-			{
-				at: 266,
-				text: "No pattern on the Auction House? Runecloth Gloves still give a point now and then to 275, and Runecloth Boots (Darnall, Moonglade) to 280, at 4 bolts a craft. Mooncloth (pattern from Qia or Evie Whirlbrew in Everlook; 2 Felcloth at a Moonwell) stays orange to 270 and yellow to 285, but it can be made once every four days. The Spinning Wheel patterns (Merchant's Favor sandals and waistcords from Jim'bek or Mivin Shadowweave; the wheel's blueprint drops from the Unstable Sentinel in the City of Dalaran) and Runecloth Cuffs (Pexmit in Mount Hyjal, 10g; we could not confirm that vendor yet) are the other ways on.",
+		// No Auction House pattern: the furthest a pattern anyone can always get goes is Runecloth Boots to
+		// 280. Mooncloth (Qia, Evie Whirlbrew) is no way through: one craft every four days, about a month
+		// for its last five points; nothing else without a station, a reputation or a drop gives points.
+		fork: {
+			at: 265,
+			key: 18449,
+			keys: [18449],
+			name: 'with Pattern: Runecloth Shoulders',
+			title: 'Tailoring 265: Pattern: Runecloth Shoulders',
+			tip: 'From 265 the route has two ways. Pattern: Runecloth Shoulders drops from mobs all over the world and does not bind, so the Auction House often lists it: with it, Runecloth Shoulders (orange to 275, yellow to 290) takes you to 300. No pattern for sale? Skip this step: the next steps go on with Runecloth Boots, from a vendor pattern, to 280, and say what is left after that. Buy the shoulders pattern whenever it turns up: it gives points to 305.',
+			other: {
+				name: 'without the pattern',
+				exclude: { 18449: 'a pattern from the Auction House', 18444: 'a pattern from the Auction House' },
+				tips: {
+					18423: 'Four Bolts of Runecloth, four Rugged Leather and two Ironweb Spider Silk a craft, and green the whole way: the long way, but its pattern can always be bought.',
+				},
+				last: "Past 280 no pattern you can always get gives Tailoring points on Forever without a camp station. The world-drop patterns come from the Auction House: check it again, as Runecloth Shoulders, Felcloth Shoulders, Felcloth Robe and Wizardweave Turban each finish the route (Runecloth Headband and Felcloth Hood give points to 290-295). The Spinning Wheel patterns (Merchant's Favor sandals and waistcords from Jim'bek or Mivin Shadowweave) need the camp wheel, whose blueprint drops from the Unstable Sentinel in the City of Dalaran. Mooncloth (Qia or Evie Whirlbrew in Everlook; 2 Felcloth at a Moonwell, yellow to 285) can be made once every four days: about a month for the five points it gives here.",
 			},
-		],
+		},
 		tips: {
 			2963: 'The bolts give points too while they are not grey.',
 			8776: 'Each belt takes one bolt; the belts sell to vendors.',

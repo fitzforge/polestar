@@ -39,12 +39,14 @@
 const { planProfession, CAPS } = require('./plan');
 const { homeMap } = require('./materials');
 const { ZONES } = require('./gathering/tables');
+const WATERS = require('./gathering/fishing-waters.json');
 const { byBanners } = require('./sections');
 const { BEASTS } = require('./gathering/skinning');
 const { RACE_GROUPS, TWO_SIDED, raceCondition, maxZoneLevel } = require('./gathering/groups');
 const { header } = require('../generated');
 const D = require('./describe');
 const { SPECS } = require('./specs');
+const RECORDED = require('./recorded-learns.json');
 
 const SIDES = ['Alliance', 'Horde'];
 
@@ -336,6 +338,14 @@ function farmSpot(itemId, kind, side, home, data, minChance = 0, opts = {}) {
 	}
 	if (!cands.length) return null;
 	cands.sort((a, b) => b.score - a.score || a.id - b.id || a.map - b.map);
+	// Fish: the water where the fewest catches get away (fishing-waters.json `full`, the skill from which
+	// none do: Stranglethorn's eel schools from 225, Feralas' from 300), for both factions alike.
+	if (kind === 'fishing') {
+		const full = (c) => ((WATERS.maps || {})[c.map] || {}).full || 999;
+		const pick = cands.slice().sort((a, b) => full(a) - full(b) || b.score - a.score || a.map - b.map)[0];
+		const [fx, fy] = densest(pick.pts);
+		return { map: pick.map, x: round1(fx), y: round1(fy), label: pick.label, level: pick.level, object: !pick.level, id: pick.id, chance: pick.chance, frame: pick.f === 'l' ? 'live' : 'era', full: full(pick) < 999 ? full(pick) : null };
+	}
 	const lvl = (c) => (ZONES[c.map] ? ZONES[c.map].min : 99);
 	// `opts.maxZone`: zones a character of that level works in (ZONES min level), kept while
 	// their best is at least half the overall best (Goldthorn at Expert: Arathi, not Feralas;
@@ -463,7 +473,16 @@ function draftGuide(name, data, opts = {}) {
 	// recipes past it cost far more per point than anything a player would do).
 	const planTo = Math.min(opts.to || 300, spec.to || 300);
 	const auction = spec.auction || {};
-	const plan = planProfession(prof, data, { from: opts.from, to: planTo, exclude: { ...(spec.exclude || {}), ...(opts.exclude || {}) }, noLevel: spec.noLevel || {}, questRecipes: spec.questRecipes || {}, auction, notBefore: spec.notBefore || {} });
+	const planOpts = { exclude: { ...(spec.exclude || {}), ...(opts.exclude || {}) }, noLevel: spec.noLevel || {}, questRecipes: spec.questRecipes || {}, auction, notBefore: spec.notBefore || {}, levelTo: spec.levelTo || {}, use: spec.use || [] };
+	const plan = planProfession(prof, data, { ...planOpts, from: opts.from, to: planTo });
+	// spec.fork: from `at` the route splits in two (docs in specs.js). Path A is the plan above, path B a
+	// plan from `at` without the fork's key recipes; each path's steps carry their `when`.
+	const fork = spec.fork && (opts.from || 1) < spec.fork.at ? spec.fork : null;
+	const alt = fork
+		? planProfession(prof, data, { ...planOpts, exclude: { ...planOpts.exclude, ...fork.other.exclude }, auction: fork.other.auction || {}, use: fork.other.use || [], from: fork.at, to: planTo, tools: plan.segments.filter((s) => s.from < spec.fork.at).flatMap((s) => s.tools.map((t) => t.item)) })
+		: null;
+	if (fork && !plan.segments.some((s) => s.from === fork.at)) throw new Error(`${found.name}: no segment starts at the fork (${fork.at})`);
+	const forkWhen = fork ? { A: `knows ${fork.key}`, B: `!knows ${fork.key}` } : {};
 	const goal = opts.to || 300;
 	const npcs = data.npcs || {};
 	const zones = data.zones || {};
@@ -481,6 +500,8 @@ function draftGuide(name, data, opts = {}) {
 	const taught = new Map(); // spell -> { bi, lines }
 	let curBi = 0;
 	let repeating = false;
+	// The `when` every step line written gets (a fork path's), or null.
+	let curWhen = null;
 	const line = (s = '') => {
 		const m = !repeating && /^ {2}learn (\d+)/.exec(s);
 		if (m) {
@@ -489,6 +510,7 @@ function draftGuide(name, data, opts = {}) {
 			else if (t.bi === curBi) t.lines.push(s);
 		}
 		sink.push(s);
+		if (curWhen && /^step /.test(s)) sink.push(`  when ${curWhen}`);
 	};
 	// The recipes of craft step `seg` taught in an earlier section than bracket `bi`.
 	const againOf = (seg, bi) => [...new Set([...seg.make.map((m) => m.recipe), seg.recipe])].filter((r) => taught.has(r.spell) && taught.get(r.spell).bi < bi);
@@ -568,14 +590,16 @@ function draftGuide(name, data, opts = {}) {
 		return c ? { cost: c, classic: true } : null;
 	};
 
-	// Brackets and their totals.
+	// Brackets and their totals: one per rank range, and past a fork one per path (`path` A or B).
 	const brackets = [];
-	for (const seg of plan.segments) {
+	const addSeg = (seg, path) => {
 		const cap = CAPS.find((c) => c > seg.from) || 300;
 		let b = brackets[brackets.length - 1];
-		if (!b || b.cap !== cap) brackets.push((b = { cap, from: seg.from, segments: [] }));
+		if (!b || b.cap !== cap || b.path !== path) brackets.push((b = { cap, from: seg.from, segments: [], path }));
 		b.segments.push(seg);
-	}
+	};
+	for (const seg of plan.segments) addSeg(seg, fork && seg.from >= fork.at ? 'A' : null);
+	for (const seg of alt ? alt.segments : []) addSeg(seg, 'B');
 	const needs = (seg) => {
 		const seen = new Set();
 		return [...seg.make.map((m) => m.recipe), seg.recipe].filter((r) => (seen.has(r.spell) ? false : (seen.add(r.spell), true)));
@@ -613,6 +637,8 @@ function draftGuide(name, data, opts = {}) {
 	for (let i = brackets.length - 1; i > 0; i--) {
 		const b = brackets[i];
 		const prev = brackets[i - 1];
+		// A fork path gathers its own: the other path's players never need it.
+		if (b.path) continue;
 		for (const t of b.gathered.slice()) {
 			if (!SIDES.every((s) => NODE.has(t.src[s].kind))) continue;
 			const p = prev.gathered.find((x) => x.item === t.item);
@@ -639,32 +665,48 @@ function draftGuide(name, data, opts = {}) {
 		line('#');
 	}
 	line('# Route (crafts are expected counts; yellow and green crafts can take more):');
-	for (const s of plan.segments) {
-		const r = s.recipe;
-		const how = auction[r.spell] ? 'pattern from the Auction House' : r.source === 'vendor' ? `recipe ${priceOf(r)}` : r.source === 'quest' ? `quest, ${D.list(r.quest.items.map((g) => `${g.count} ${matName(g.item)}`))}` : r.learnedAt <= 1 && !r.cost ? 'known' : `trainer${r.cost != null ? ` ${D.money(r.cost)}` : ''}`;
-		line(`#   ${String(s.from).padStart(3)}-${String(s.to).padEnd(3)} ${r.name}, about ${s.count} (${how}): ${reagentList(r, matName)} each`);
+	const routeLines = (p, indent) => {
+		for (const s of p.segments) {
+			const r = s.recipe;
+			const auc = p === alt ? fork.other.auction || {} : auction;
+			const how = auc[r.spell] ? 'pattern from the Auction House' : r.source === 'vendor' ? `recipe ${priceOf(r)}` : r.source === 'quest' ? `quest, ${D.list(r.quest.items.map((g) => `${g.count} ${matName(g.item)}`))}` : r.learnedAt <= 1 && !r.cost ? 'known' : `trainer${r.cost != null ? ` ${D.money(r.cost)}` : ''}`;
+			line(`#   ${indent}${String(s.from).padStart(3)}-${String(s.to).padEnd(3)} ${r.name}, about ${s.count} (${how}): ${reagentList(r, matName)} each`);
+		}
+		if (p.reach < goal) line(`#   ${indent}${String(p.reach).padStart(3)}-${goal} ${(p === alt ? fork.other.lastRoute : spec.lastRoute) || 'no trainer or vendor recipe gives points without a camp station'} (see the last step)`);
+	};
+	routeLines(plan, '');
+	if (alt) {
+		line(`#   ${fork.other.name}:`);
+		routeLines(alt, '  ');
 	}
-	if (plan.reach < goal) line(`#   ${String(plan.reach).padStart(3)}-${goal} ${spec.lastRoute || 'no trainer or vendor recipe gives points without a camp station'} (see the last step)`);
 	line('#');
-	line('# Shopping per bracket (vendor goods at vendor prices; gathered or dropped materials by count):');
+	line('# Shopping per bracket (vendor goods at vendor prices; gathered or dropped materials by count, enough for 9 players in 10):');
 	for (const b of brackets) {
 		const rank = prof.ranks[CAPS.indexOf(b.cap)] || {};
 		const parts = [];
-		const rp = rankPrice(rank);
+		const rp = b.path ? null : rankPrice(rank);
 		if (rp) parts.push(`${rank.name} ${D.money(rp.cost)}${rp.classic ? ' (Classic price)' : ''}`);
 		if (b.learnCost) parts.push(`recipes ${D.money(b.learnCost)}${b.unpriced.length ? ' plus unpriced trainer recipes' : ''}`);
 		else if (b.unpriced.length) parts.push('trainer recipes (prices not in the data)');
 		if (b.vendorCost) parts.push(`vendor goods ${D.money(b.vendorCost)}`);
 		const g = b.gathered.map((t) => `${t.count} ${matName(t.item)}`);
-		for (const l of commentLines(`  ${b.from}-${b.cap}: ${parts.join(', ') || 'nothing to buy'}${g.length ? `; gather or buy ${D.list(g)}` : ''}.`)) line(l);
+		const label = b.path ? ` (${b.path === 'A' ? fork.name : fork.other.name})` : '';
+		for (const l of commentLines(`  ${b.from}-${b.cap}${label}: ${parts.join(', ') || 'nothing to buy'}${g.length ? `; gather or buy ${D.list(g)}` : ''}.`)) line(l);
 	}
 	line('#');
-	const estimated = plan.segments.flatMap((s) => needs(s)).filter((r, i, a) => r.learnedAtEstimated && a.indexOf(r) === i);
+	const estimated = [...plan.segments, ...(alt ? alt.segments : [])].flatMap((s) => needs(s)).filter((r, i, a) => r.learnedAtEstimated && a.indexOf(r) === i);
+	// recorded-learns.json (spell -> players): estimated learn skills that players' recordings bear out.
+	const seen = RECORDED[P] || {};
+	const recorded = estimated.filter((r) => seen[r.spell]);
+	const unproven = estimated.filter((r) => !seen[r.spell]);
 	const notes = [
 		"Data: recipes, colours and reagents from the Forever client's tables; trainer learn skills and prices from Forever's sniffed trainer lists (they reach skill 50-150); vendors, stock and drops from data/forever. Materials are valued at about four times their vendor sell price (cloth and leather by the square root of it, hides four times higher; tools/lib/professions/materials.js) to rank recipes against each other, never as a price forecast.",
-		...(estimated.length
+		...(recorded.length
+			? [`Learn skills players' recordings bear out (estimated from Classic's lists; the lowest skill players learned each at, never below): ${D.list(recorded.map((r) => `${r.name} ${r.learnedAt} (${seen[r.spell]} ${seen[r.spell] > 1 ? 'players' : 'player'})`))}.`]
+			: []),
+		...(unproven.length
 			? [
-					`ASSUMED: learn skills of ${D.list(estimated.map((r) => `${r.name} ${r.learnedAt}`))} (no sniffed Forever list teaches them: Classic's trainer skill moved as far as Forever moved the recipe's colours, which the sniffed lists bear out on 126 of 129 recipes). In-game check: the skill the trainer asks; their prices are not in the data.`,
+					`ASSUMED: learn skills of ${D.list(unproven.map((r) => `${r.name} ${r.learnedAt}`))} (no sniffed Forever list teaches them: Classic's trainer skill moved as far as Forever moved the recipe's colours, which the sniffed lists bear out on 126 of 129 recipes). In-game check: the skill the trainer asks; their prices are not in the data.`,
 				]
 			: []),
 		// Forever's sniffed trainer lists ask level 1 for Apprentice, and 10 for Journeyman only in
@@ -702,18 +744,98 @@ function draftGuide(name, data, opts = {}) {
 		return idx > 0 && prof.ranks[idx] ? { idx, rank: prof.ranks[idx] } : null;
 	};
 	// Pin each faction to its teacher, and keep a trainer who spawns over a zone border on their home map.
+	const mapPin = (id) => (Object.keys((npcs[id] || {}).spawns || {}).length > 1 && homeMap(npcs[id]) != null ? ` map ${homeMap(npcs[id])}` : '');
 	const learnAtRank = (r, rank) => {
 		const ids = SIDES.map((s) => (rank.trainers && rank.trainers[s]) || []);
 		if (!ids.every((l) => l.length === 1)) return line(`  learn ${r.spell}`);
-		const mapPin = (id) => (Object.keys((npcs[id] || {}).spawns || {}).length > 1 && homeMap(npcs[id]) != null ? ` map ${homeMap(npcs[id])}` : '');
 		SIDES.forEach((s, i) => line(`  learn ${r.spell} npc ${ids[i][0]} only ${s}${mapPin(ids[i][0])}`));
+	};
+	// Whether trainer `id` teaches recipe `r` on `side`: it trains a rank whose range holds the recipe's skill.
+	const teaches = (id, side, r) => prof.ranks.some((x) => x && x.minSkill <= r.learnedAt && r.learnedAt < x.max && ((x.trainers || {})[side] || []).includes(id));
+	// One trainer per side for a bracket of a rank only a few trainers teach (Expert and Artisan): the one
+	// that teaches every recipe the bracket learns from trainers, in a zone no harder than the rank's
+	// level, in a capital (the city trainers are the ones players' recordings show training the ranks)
+	// and nearest the profession's main trainer. The rank and every learn of the bracket are pinned
+	// to them, so the visits of one bracket go to one trainer (a free pick per goal sent Horde tailors from
+	// Josef Gregorian to Magar and back). -> { Alliance, Horde } or null.
+	const CAPITALS = new Set([1453, 1454, 1455, 1456, 1457, 1458]);
+	const homeTrainers = (rank, recipes) => {
+		const out = {};
+		for (const side of SIDES) {
+			const main = anchor(npcs[(prof.mainTrainer || {})[side]]);
+			const mainC = main && frames[main.map] ? frames[main.map].c : null;
+			const away = (id) => {
+				const at = anchor(npcs[id]);
+				return (at && frames[at.map] ? frames[at.map].c : null) !== mainC;
+			};
+			const hard = (id) => ((ZONES[homeMap(npcs[id])] || {}).min || 0) > rank.minLevel;
+			const town = (id) => !CAPITALS.has(homeMap(npcs[id]));
+			const ids = ((rank.trainers || {})[side] || []).filter((id) => anchor(npcs[id]) && recipes.every((r) => teaches(id, side, r)));
+			ids.sort((a, c) => hard(a) - hard(c) || town(a) - town(c) || away(a) - away(c));
+			if (!ids.length) return null;
+			out[side] = ids[0];
+		}
+		return out;
+	};
+	const pinnedLearn = (r, home) => SIDES.forEach((s) => line(`  learn ${r.spell} npc ${home[s]} only ${s}${mapPin(home[s])}`));
+
+	// A fork's two paths start from the same state: what path A learned, bought or noted is not done on
+	// path B.
+	let forkState = null;
+	const snapshot = () => ({ learned: new Set(learned), toolsDone: new Set(toolsDone), bought: new Set(bought), optionalBuys: new Set(optionalBuys), questsTaken: new Set(questsTaken), gate, campDone, pendingNotes: pendingNotes.slice() });
+	const restore = (s) => {
+		for (const k of ['learned', 'toolsDone', 'bought', 'optionalBuys', 'questsTaken']) {
+			const set = { learned, toolsDone, bought, optionalBuys, questsTaken }[k];
+			set.clear();
+			for (const x of s[k]) set.add(x);
+		}
+		gate = s.gate;
+		campDone = s.campDone;
+		pendingNotes.splice(0, pendingNotes.length, ...s.pendingNotes);
+	};
+	const lastOf = (path) => brackets.map((x) => x.path).lastIndexOf(path);
+	// Past a plan's reach every recipe that still gives a point is one the
+	// planner leaves out: name the ones the player could use at that skill.
+	const pastReach = (p, last) => {
+		const why = new Map(p.excluded.map((e) => [e.spell, e.why.replace(/^recipe is a item$/, 'recipe from an item')]));
+		const open = prof.recipes.filter((r) => why.has(r.spell) && r.grey > p.reach && r.learnedAt <= p.reach && !r.races && !r.classes);
+		const names = [...new Map(open.map((r) => [r.name, `${r.name} (${why.get(r.spell)})`])).values()].slice(0, 5);
+		line('');
+		line(`step ${P} ${p.reach}-${goal}`);
+		world();
+		line(`  tip ${last || `On Forever no recipe a trainer teaches or both factions' vendors sell gives ${P} points past ${p.reach}, so Polestar has no route for the last points.${names.length ? ` Recipes that still do: ${names.join(', ')}.` : ''}`}`);
+		line(`  skill ${pq} ${goal}`);
 	};
 
 	brackets.forEach((b, bi) => {
 		curBi = bi;
+		// The Auction House patterns of this bracket's path.
+		const auc = b.path === 'B' ? fork.other.auction || {} : auction;
 		const rankIdx = CAPS.indexOf(b.cap);
 		const rank = prof.ranks[rankIdx] || { name: RANK_NAMES[rankIdx], max: b.cap, minLevel: 1, minSkill: 0 };
-		const trainRank = bi === 0 || b.from >= ((prof.ranks[rankIdx - 1] || {}).max || CAPS[rankIdx - 1]);
+		const trainRank = !b.path && (bi === 0 || b.from >= ((prof.ranks[rankIdx - 1] || {}).max || CAPS[rankIdx - 1]));
+		const firstOfPath = b.path && (bi === 0 || brackets[bi - 1].path !== b.path);
+		if (firstOfPath) {
+			line('');
+			line(`# ---------------------------------------------------------------- ${rank.name}, ${b.path === 'A' ? fork.name : fork.other.name} (${b.from}-${b.cap})`);
+			if (b.path === 'A') {
+				// The fork: the key recipes, bought or learned if the player can; the paths' `when` follows them.
+				forkState = snapshot();
+				line('');
+				line(`step ${fork.title}`);
+				world();
+				line(`  tip ${fork.tip}`);
+				for (const spell of fork.keys) {
+					const r = prof.recipes.find((x) => x.spell === spell);
+					if (r.source === 'vendor') line(`  buy ${r.recipeItem} nearest optional`);
+					else if (auction[spell]) line(`  auction ${r.recipeItem} x1 optional`);
+					line(`  learn ${spell} optional`);
+					learned.add(spell);
+					bought.add(spell);
+				}
+			} else restore(forkState);
+			curWhen = forkWhen[b.path];
+		}
 		const tools = [];
 		for (const seg of b.segments) for (const t of seg.tools) if (!t.craft && !toolsDone.has(t.item)) tools.push(t.item);
 		const vendorRecipes = [];
@@ -749,14 +871,21 @@ function draftGuide(name, data, opts = {}) {
 			(!pinnedLate.length || Math.min(...lateFrom(pinnedLate)) > Math.max(...lateFrom(lateHere))) &&
 			!b.segments.some((seg) => needs(seg).some((r) => r.focus));
 		const visits = new Set(lateFrom(lateHere)).size + 1;
+		const home = rankIdx >= 2 && !fixed && few ? homeTrainers(rank, [...firstLearn, ...lateAll].filter((r) => !onlyAt(r))) : null;
 
-		line('');
-		line(`# ---------------------------------------------------------------- ${rank.name} (${b.from}-${b.cap})`);
+		if (!firstOfPath) {
+			line('');
+			line(`# ---------------------------------------------------------------- ${rank.name}${b.path ? `, ${b.path === 'A' ? fork.name : fork.other.name}` : ''} (${b.from}-${b.cap})`);
+		}
 
 		// 1. The rank and the recipes learnable now (held back to after the
 		// gathering on a one-visit bracket).
 		const held = [];
 		if (oneVisit) sink = held;
+		// A fork path's bracket with nothing to learn at its start has no step of its own there.
+		const dropRank = !oneVisit && b.path && !trainRank && !firstLearn.length;
+		const zoneBefore = curZone;
+		if (dropRank) sink = [];
 		line('');
 		line(`step ${trainRank ? (bi === 0 ? `Learn ${P}` : `${rank.name} ${P}`) : `${P} recipes for ${b.from}-${b.cap}`}`);
 		if (!oneVisit) world();
@@ -774,8 +903,9 @@ function draftGuide(name, data, opts = {}) {
 			})();
 			const rp = rankPrice(rank);
 			const price = rp ? ` for ${D.money(rp.cost)}${rp.classic ? " (Classic's price; Forever's is not in the data)" : ''}` : '';
-			if (bi === 0) tip.push(`${rank.name} ${P} lets you craft up to ${rank.max}${price}, ${rank.minLevel > 1 ? `from character level ${rank.minLevel}` : 'at any character level'}. ${who}.`);
-			else tip.push(`${rank.name} raises the cap from ${(prof.ranks[rankIdx - 1] || {}).max || CAPS[rankIdx - 1]} to ${rank.max}${price}; it needs ${P} ${rank.minSkill} and character level ${rank.minLevel}, so you can take it on any visit from ${rank.minSkill}. ${who}.`);
+			const where = home ? ` This route trains it at ${D.npcPlace(data, home.Alliance)} for the Alliance and ${D.npcPlace(data, home.Horde)} for the Horde, who also teach the recipes of ${b.from}-${b.cap}: one trainer for every visit` : '';
+			if (bi === 0) tip.push(`${rank.name} ${P} lets you craft up to ${rank.max}${price}, ${rank.minLevel > 1 ? `from character level ${rank.minLevel}` : 'at any character level'}. ${who}.${where ? `${where}.` : ''}`);
+			else tip.push(`${rank.name} raises the cap from ${(prof.ranks[rankIdx - 1] || {}).max || CAPS[rankIdx - 1]} to ${rank.max}${price}; it needs ${P} ${rank.minSkill} and character level ${rank.minLevel}, so you can take it on any visit from ${rank.minSkill}. ${(home ? who.replace(/\. The arrow picks the nearest of your faction$/, '') : who)}.${where ? `${where}.` : ''}`);
 		}
 		if (firstLearn.length) tip.push(`Learn now: ${D.list(firstLearn.map(learnWhen))}.`);
 		if (bi === 0 && spec.apprentice) tip.push(spec.apprentice);
@@ -789,6 +919,12 @@ function draftGuide(name, data, opts = {}) {
 		if (mny.length) shopping.push(`about ${D.list(mny)}`);
 		if (b.gathered.length) shopping.push(`${D.list(b.gathered.map((t) => `${t.count} ${matName(t.item)}`))} to gather or buy`);
 		if (shopping.length) tip.push(`${b.from}-${b.cap} takes ${shopping.join(', plus ')}.`);
+		// The rank before a fork says what each path takes, before the player starts gathering (T-S1).
+		if (fork && !b.path && b.cap === (CAPS.find((c) => c > fork.at) || 300) && brackets.some((x) => x.path)) {
+			const of = (path) => brackets.filter((x) => x.path === path).flatMap((x) => x.gathered.map((t) => `${t.count} ${matName(t.item)}`));
+			const crafts = (p) => p.segments.filter((s) => s.from >= fork.at).reduce((a, s) => a + s.count, 0);
+			tip.push(`From ${fork.at} the route splits: ${fork.name}, about ${crafts(plan)} more crafts and ${D.list(of('A'))}; ${fork.other.name}, about ${crafts(alt)} crafts and ${D.list(of('B'))}${alt.reach < goal ? ` (to ${alt.reach})` : ''}.`);
+		}
 		if (oneVisit) {
 			const later = pinnedLate.length ? ` ${D.list(pinnedLate.map(learnWhen))} takes a second trip, to other trainers (below).` : '';
 			tip.push(`Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach ${D.list(lateHere.map(learnWhen))}, and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of ${visits}.${later}`);
@@ -800,6 +936,7 @@ function draftGuide(name, data, opts = {}) {
 		}
 		if (trainRank) {
 			if (fixed) line(`  train ${fixed}`);
+			else if (home) SIDES.forEach((s) => line(`  train ${pq} ${rank.name} npc ${home[s]} only ${s}${mapPin(home[s])}`));
 			else line(`  train ${pq} ${rank.name}`);
 			if (bi === 0) line(`  skill ${pq} 1`);
 		}
@@ -808,11 +945,13 @@ function draftGuide(name, data, opts = {}) {
 		for (const r of firstLearn) {
 			const at = onlyAt(r);
 			if (at) learnAtRank(r, at.rank);
+			else if (home) pinnedLearn(r, home);
 			else line(`  learn ${r.spell}${fixed ? ` npc ${fixed}` : ''}`);
 		}
 		if (!campDone && spec.camp && b.from >= spec.camp.at) for (const l of campLearn()) line(l);
 		for (const r of firstLearn) learned.add(r.spell);
 		sink = out;
+		if (dropRank) curZone = zoneBefore;
 
 		// 2. Vendor goods for the whole bracket, and (optional) the vendor half of a bar a miner
 		// smelts (Coal for Steel Bars: Smelt Steel takes an Iron Bar and a Coal).
@@ -873,8 +1012,10 @@ function draftGuide(name, data, opts = {}) {
 			bought.add(r.spell);
 			const m = mats[r.recipeItem] || {};
 			const perSide = SIDES.map((side) => {
-				const free = ((m.vendors && m.vendors[side]) || []).map((id) => D.npcPlace(data, id)).filter(Boolean);
-				const lim = ((m.limitedVendors && m.limitedVendors[side]) || []).map((id) => D.npcPlace(data, id)).filter(Boolean);
+				// A seller of one faction only serves that side (Kor'gar in Riverglades is Alliance).
+				const serves = (id) => !(npcs[id] || {}).faction || npcs[id].faction === 'AH' || npcs[id].faction === side[0];
+				const free = ((m.vendors && m.vendors[side]) || []).filter(serves).map((id) => D.npcPlace(data, id)).filter(Boolean);
+				const lim = ((m.limitedVendors && m.limitedVendors[side]) || []).filter(serves).map((id) => D.npcPlace(data, id)).filter(Boolean);
 				return D.list([...new Set([...free, ...lim.map((n) => `${n}, limited stock`)])].sort().slice(0, 4));
 			});
 			const sellers = perSide[0] === perSide[1] ? [perSide[0]] : SIDES.map((side, i) => (perSide[i] ? `${side}: ${perSide[i]}` : null)).filter(Boolean);
@@ -903,7 +1044,7 @@ function draftGuide(name, data, opts = {}) {
 		// buys there, come in one Auction House step after the Get it steps.
 		const market = b.list.filter((t) => SIDES.some((s) => t.src[s].kind !== 'vendor') && !(mats[t.item] || {}).bop);
 		const sold = new Set(market.map((t) => t.item));
-		const patterns = b.recipes.filter((r) => auction[r.spell] && r.recipeItem);
+		const patterns = b.recipes.filter((r) => auc[r.spell] && r.recipeItem && !(fork && fork.keys.includes(r.spell)));
 		const boughtInStep = new Set(); // items whose `auction` goal ends their Get it step
 		const auctionLine = (t) => {
 			const sides = SIDES.filter((s) => t.src[s].kind !== 'vendor');
@@ -987,22 +1128,42 @@ function draftGuide(name, data, opts = {}) {
 				);
 				continue;
 			}
-			// Herbs and ore, and a bar smelted from ore: the farming loops of the Herbalism and Mining guides
-			// that give it, the engine picking one where the player is (itemLoops). A gem a vein gives one time
-			// in a hundred has none.
+			// Herbs, ore and skinned leather, and a bar smelted from ore: the farming loops of the Herbalism,
+			// Mining and Skinning guides that give it, the engine picking one where the player is (itemLoops),
+			// each at a level its creatures allow. A gem a vein gives one time in a hundred has none.
 			// A bar that chests or mobs drop too (Silver Bar) stays a bag count, as below.
 			const drops = (((data.items || {})[t.item] || {}).drops) || {};
 			const smelt = need.every((side) => t.src[side].kind === 'crafted') && !Object.keys(drops.npc || {}).length && !Object.keys(drops.object || {}).length ? madeBy(t.item) : null;
+			const mines = ((profs[186] || {}).recipes || []);
 			const ore = smelt && smelt.name === 'Mining' ? oreOf(t.item) : null;
-			const smeltRecipe = ore ? ((profs[186] || {}).recipes || []).find((r) => r.item === t.item && (r.reagents || []).some((g) => g.item === ore)) : null;
+			const smeltRecipe = ore ? mines.find((r) => r.item === t.item && (r.reagents || []).some((g) => g.item === ore)) : null;
 			const orePer = smeltRecipe ? (smeltRecipe.itemCount || 1) / smeltRecipe.reagents.find((g) => g.item === ore).count : 0;
-			const loops = need.every((side) => NODE_KINDS.has(t.src[side].kind)) ? itemLoops(data, t.item) : orePer ? itemLoops(data, ore, orePer) : null;
+			// A bar smelted from bars (Bronze from a Copper and a Tin Bar): the loops of the scarcer ore, and
+			// the tip says how much of each ore it takes.
+			const fromBars = [];
+			if (smelt && smelt.name === 'Mining' && !ore) {
+				const sr = mines.find((r) => r.item === t.item && (r.reagents || []).length);
+				for (const g of (sr && sr.reagents) || []) {
+					const o = oreOf(g.item);
+					const br = o && mines.find((r) => r.item === g.item && (r.reagents || []).some((x) => x.item === o));
+					if (!br) continue;
+					const per = ((sr.itemCount || 1) / g.count) * ((br.itemCount || 1) / br.reagents.find((x) => x.item === o).count);
+					const l = itemLoops(data, o, per);
+					if (l) fromBars.push({ ore: o, per, loops: l, rank: Math.max(sr.learnedAt || 1, br.learnedAt || 1) });
+				}
+			}
+			const leather = need.every((side) => t.src[side].kind === 'skinning');
+			const viaBar = fromBars.length ? fromBars.sort((a, c) => a.loops.lines.length - c.loops.lines.length || a.ore - c.ore)[0] : null;
+			const loops = need.every((side) => NODE_KINDS.has(t.src[side].kind)) || leather ? itemLoops(data, t.item) : orePer ? itemLoops(data, ore, orePer) : viaBar ? viaBar.loops : null;
 			if (loops) {
-				const skill = need.some((side) => t.src[side].kind === 'herb') ? 'Herbalism' : 'Mining';
-				const facts = ore ? ` Mining ${Math.max(loops.skill, smelt.rank)}` : ` ${skill} ${loops.skill}`;
+				const skill = leather ? 'Skinning' : need.some((side) => t.src[side].kind === 'herb') ? 'Herbalism' : 'Mining';
+				const facts = ore ? ` Mining ${Math.max(loops.skill, smelt.rank)}` : viaBar ? ` Mining ${Math.max(loops.skill, viaBar.rank)}` : ` ${skill} ${loops.skill}`;
+				const oreName = (id) => ((data.items || {})[id] || {}).name || matName(id);
 				const about = ore
-					? `Mine ${((data.items || {})[ore] || {}).name || matName(ore)} and smelt it at a forge (Mining ${smelt.rank}).`
-					: `${capital(D.sourceText(data, t.item, mats[t.item], t.src[need[0]], need[0], { market: false }))}.`;
+					? `Mine ${oreName(ore)} and smelt it at a forge (Mining ${smelt.rank}).`
+					: viaBar
+						? `Smelting makes them from ${D.list(fromBars.map((x) => oreName(x.ore)))} (Mining ${viaBar.rank}): about ${D.list(fromBars.map((x) => `${Math.ceil(t.count / x.per)} ${oreName(x.ore)}`))} for ${t.count}. The loops below are for the ${oreName(viaBar.ore)}; the Mining guide's loops give the rest.`
+						: `${capital(D.sourceText(data, t.item, mats[t.item], t.src[need[0]], need[0], { market: false }))}.`;
 				getIt(
 					matName(t.item),
 					farmHead,
@@ -1156,7 +1317,8 @@ function draftGuide(name, data, opts = {}) {
 				const facts = {
 					herb: () => ` Herbalism ${D.nodeSkill(s.label) ?? 1}`,
 					mine: () => ` Mining ${D.nodeSkill(s.label) ?? 1}`,
-					fishing: () => ' Fishing 1',
+					// Fish need no skill to catch, but below the water's `full` skill most get away.
+					fishing: () => ` Fishing ${s.full || 1}`,
 					skinning: () => ` Skinning ${skinSkill(s.min != null ? s.min : parseInt(String(s.level), 10) || 1)}`,
 				}[s0.kind];
 				getIt(title, head, dropAbout || `${about ? `${about} ` : ''}${here}.`, `  collect ${t.item} x${t.count} @${s.x},${s.y} ${s.frame || 'era'}${mark(facts ? facts() : s.object ? '' : levelsOf(s.level))}`);
@@ -1193,10 +1355,15 @@ function draftGuide(name, data, opts = {}) {
 				// spec.taughtBy: recipes only a later rank's trainers teach (Rugged
 				// Leather at Drakk Stonehand or Hahrana Ironhide): the learn is pinned
 				// to them, and the rank itself is offered there when the skill allows.
+				// The bracket's later trainer recipes already learnable here come on this visit too (Bolt of Silk
+				// Cloth with Stylish Red Shirt at 104, not on a visit of its own at 135).
+				const later = b.segments.slice(b.segments.indexOf(seg) + 1).flatMap(needs).filter((x) => x.source === 'trainer' && !learned.has(x.spell) && !late.includes(x) && x.learnedAt <= seg.from && !onlyAt(x));
+				late.push(...later.filter((x, i) => later.indexOf(x) === i));
 				const anywhere = late.filter((r) => !onlyAt(r));
 				const pinned = late.filter((r) => onlyAt(r));
 				const parts = [];
-				if (anywhere.length) parts.push(oneVisit ? `Still at the ${rank.name} trainer: ${D.list(anywhere.map(learnWhen))}.` : `Back to ${D.article(P)} trainer: ${D.list(anywhere.map(learnWhen))}.`);
+				const there = home ? `${D.npcPlace(data, home.Alliance)} (Alliance) or ${D.npcPlace(data, home.Horde)} (Horde)` : null;
+				if (anywhere.length) parts.push(oneVisit ? `Still at the ${rank.name} trainer: ${D.list(anywhere.map(learnWhen))}.` : `Back to ${there || `${D.article(P)} trainer`}: ${D.list(anywhere.map(learnWhen))}.`);
 				let offer = null;
 				for (const r of pinned) {
 					const { idx, rank } = onlyAt(r);
@@ -1206,7 +1373,10 @@ function draftGuide(name, data, opts = {}) {
 				}
 				if (offer) parts.push(`You can train ${offer.rank.name} there now if you are level ${offer.rank.minLevel} (it needs ${P} ${offer.rank.minSkill}), which saves the trip at ${CAPS[offer.idx - 1]}.`);
 				line(`  tip ${parts.join(' ')}${camp ? ` ${campTip(seg.from)}` : ''}`);
-				for (const r of anywhere) line(`  learn ${r.spell}${pin(r, fx)}`);
+				for (const r of anywhere) {
+					if (home && !fx) pinnedLearn(r, home);
+					else line(`  learn ${r.spell}${pin(r, fx)}`);
+				}
 				for (const r of pinned) learnAtRank(r, onlyAt(r).rank);
 				if (offer) line(`  train ${pq} ${offer.rank.name} optional`);
 				if (camp) for (const l of campLearn()) line(l);
@@ -1250,7 +1420,7 @@ function draftGuide(name, data, opts = {}) {
 			world();
 			const notes = [];
 			const color = colorAt(r, seg.from);
-			notes.push(`${r.name} is ${color} at ${seg.from} (yellow ${r.yellow}, green ${r.green}, grey ${r.grey}): about ${seg.count} crafts to ${seg.to}${color === 'orange' && seg.to <= r.yellow ? ', a point every craft' : ''}.`);
+			notes.push(`${r.name} is ${color} at ${seg.from} (yellow ${r.yellow}, green ${r.green}, grey ${r.grey}): about ${seg.count} crafts to ${seg.to}${color === 'orange' && seg.to <= r.yellow ? ', a point every craft' : ''}${seg.count90 > seg.count ? `, up to ${seg.count90} for 9 players in 10 (the gathered materials above count that many)` : ''}.`);
 			notes.push(`Each takes ${reagentList(r, matName)}${(r.itemCount || 1) > 1 ? ` and makes ${r.itemCount}` : ''}.`);
 			if (seg.make.length) {
 				// Counts are items, not crafts (a Stonescale Oil craft makes two), and
@@ -1265,12 +1435,12 @@ function draftGuide(name, data, opts = {}) {
 				if (parts.length) notes.push(`Make the ${D.list(parts)} first${pts}.`);
 			}
 			if (seg.fromStock) notes.push(`Use the ${D.list(seg.fromStock.map((s) => `${s.count} ${matName(s.item)}`))} you made earlier; the counts above leave them out.`);
-			const why = (spec.tips || {})[r.spell];
-			if (auction[r.spell]) notes.push(`Its pattern (${matName(r.recipeItem)}) drops from mobs all over the world and does not bind: buy it at the Auction House.`);
+			const why = (b.path === 'B' && (fork.other.tips || {})[r.spell]) || (spec.tips || {})[r.spell];
+			if (auc[r.spell]) notes.push(`Its pattern (${matName(r.recipeItem)}) drops from mobs all over the world and does not bind: buy it at the Auction House.`);
 			if (why) notes.push(why);
 			else if (r.source === 'vendor') notes.push('Its recipe is the one bought above; it is the cheapest way through these points in the data.');
 			else if (r.source === 'quest') notes.push('Its plans are the quest reward above; it is the cheapest way through these points in the data.');
-			else if (!auction[r.spell]) notes.push('The trainer teaches it, and it is the cheapest way through these points in the data.');
+			else if (!auc[r.spell]) notes.push('The trainer teaches it, and it is the cheapest way through these points in the data.');
 			while (pendingNotes.length && pendingNotes[0].at < seg.to) notes.push(pendingNotes.shift().text);
 			if (r.focus) notes.push(`Needs ${D.article(r.focus.toLowerCase())} nearby.`);
 			// A tool made here for a later recipe (plan.js makes it while it still gives a point).
@@ -1287,8 +1457,8 @@ function draftGuide(name, data, opts = {}) {
 			if (again.length) notes.push(`If you got here without learning ${D.list(again.map((x) => x.name))}, learn ${again.length > 1 ? 'them' : 'it'} now: an earlier step teaches ${again.length > 1 ? 'them' : 'it'}.`);
 			line(`  tip ${notes.join(' ')}`);
 			for (const r2 of needs(seg)) {
-				if ((r2.source === 'vendor' || r2.source === 'quest' || auction[r2.spell]) && !learned.has(r2.spell)) {
-					line(`  learn ${r2.spell}${optionalBuys.has(r2.spell) ? ' optional' : ''} -- from the ${auction[r2.spell] ? 'pattern bought at the Auction House' : 'recipe in your bags'}`);
+				if ((r2.source === 'vendor' || r2.source === 'quest' || auc[r2.spell]) && !learned.has(r2.spell)) {
+					line(`  learn ${r2.spell}${optionalBuys.has(r2.spell) ? ' optional' : ''} -- from the ${auc[r2.spell] ? 'pattern bought at the Auction House' : 'recipe in your bags'}`);
 					learned.add(r2.spell);
 				}
 			}
@@ -1301,23 +1471,18 @@ function draftGuide(name, data, opts = {}) {
 			line(`  craft ${r.spell} until ${seg.to}`);
 			if (CAPS.includes(seg.to)) line(`  skill ${pq} ${seg.to}`);
 		}
+		if (b.path && bi === lastOf(b.path)) {
+			const p = b.path === 'B' ? alt : plan;
+			if (p.reach < goal) pastReach(p, b.path === 'B' ? fork.other.last : spec.last);
+		}
 	});
-	// Past the plan's reach every recipe that still gives a point is one the
-	// planner leaves out: name the ones the player could use at that skill.
-	if (plan.reach < goal) {
-		const why = new Map(plan.excluded.map((e) => [e.spell, e.why.replace(/^recipe is a item$/, 'recipe from an item')]));
-		const open = prof.recipes.filter((r) => why.has(r.spell) && r.grey > plan.reach && r.learnedAt <= plan.reach && !r.races && !r.classes);
-		const names = [...new Map(open.map((r) => [r.name, `${r.name} (${why.get(r.spell)})`])).values()].slice(0, 5);
-		line('');
-		line(`step ${P} ${plan.reach}-${goal}`);
-		world();
-		line(`  tip ${spec.last || `On Forever no recipe a trainer teaches or both factions' vendors sell gives ${P} points past ${plan.reach}, so Polestar has no route for the last points.${names.length ? ` Recipes that still do: ${names.join(', ')}.` : ''}`}`);
-		line(`  skill ${pq} ${goal}`);
-	}
+	curWhen = null;
+	if (!fork && plan.reach < goal) pastReach(plan, spec.last);
 	// Each bracket's range is a section (the guide window's heading; the guide starts at the player's skill).
 	// `materials`: what each rank bracket's Get it steps ask for (the gathering guides' band tips count
 	// against it): [{ from, cap, items: [{ item, name, count, uses }] }], after the moves between brackets.
-	const materials = brackets.map((b) => ({ from: b.from, cap: b.cap, items: b.list.filter((t) => SIDES.some((s) => t.src[s].kind !== 'vendor')).map((t) => ({ item: t.item, name: matName(t.item), count: t.count, uses: t.uses.slice() })) }));
+	// Path B's materials are the other way through, not more of them: the gathering guides count path A's.
+	const materials = brackets.filter((b) => b.path !== 'B').map((b) => ({ from: b.from, cap: b.cap, items: b.list.filter((t) => SIDES.some((s) => t.src[s].kind !== 'vendor')).map((t) => ({ item: t.item, name: matName(t.item), count: t.count, uses: t.uses.slice() })) }));
 	return { text: `${byBanners(out.join('\n'), P)}\n`, plan, materials };
 }
 
