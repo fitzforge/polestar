@@ -2458,10 +2458,10 @@
 		"set": {
 			"objectives": [
 				{
-					"type": "talk",
-					"id": 9563,
+					"type": "event",
+					"id": null,
 					"count": 1,
-					"text": "Ragged John"
+					"text": "Milked"
 				}
 			]
 		},
@@ -2469,9 +2469,13 @@
 			{
 				"kind": "cmangos",
 				"ref": "classic-db quest_template: no creature requirement, completed by an event"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): 8 people took Mother's Milk from Ragged John (9563); the game showed its one line as \"Milked\" at every accept"
 			}
 		],
-		"note": "Mother's Milk: the player fights Mother Smolderweb, then returns to Ragged John with her poison; Ragged John, friendly to both sides, is never killed."
+		"note": "Mother's Milk: the player gets Mother Smolderweb to poison them in Blackrock Spire, then returns to Ragged John while poisoned, and the line \"Milked\" ticks. It is an event, not a talk: talking to Ragged John without the poison does nothing, and the hand-in guide sent players to him for it (#4157). Ragged John, friendly to both sides, is never killed."
 	},
 	"4901": {
 		"set": {

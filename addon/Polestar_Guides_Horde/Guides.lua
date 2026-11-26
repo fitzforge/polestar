@@ -9340,8 +9340,8 @@ do
 					title = "{npc:259158}",
 					note = "{npc:259158} wants out of {area:16723}: lead him west to his treasure at the edge of town and keep the cultists off him.",
 					goals = {
-						{ t = "turnin", quest = 94961, title = "Biting the Hand", npc = 259158, npcName = "Fuzzle", map = 2548, x = 47.2, y = 51.2, z = 32.1, spotsPacked = "47.1,50.6,,20,2;45.6,47.8,,15,1" },
-						{ t = "accept", quest = 94963, title = "Biting the Hand", npc = 259158, npcName = "Fuzzle", minLevel = 36, qlvl = 40, pre = { 94961 }, preTitles = { [94961] = "Biting the Hand" }, map = 2548, x = 47.2, y = 51.2, z = 32.1, spotsPacked = "47.1,50.6,,20,2;45.6,47.8,,15,1", note = "{quest:94961}", escort = true },
+						{ t = "turnin", quest = 94961, title = "Biting the Hand", npc = 259158, npcName = "Fuzzle", map = 2548, x = 47.2, y = 51.2, z = 32.1, spotsPacked = "47.2,51.2,32.1,40,2;45.6,47.8,,15,1,1", note = "{npc:259158} in his cage" },
+						{ t = "accept", quest = 94963, title = "Biting the Hand", npc = 259158, npcName = "Fuzzle", minLevel = 36, qlvl = 40, pre = { 94961 }, preTitles = { [94961] = "Biting the Hand" }, map = 2548, x = 47.2, y = 51.2, z = 32.1, spotsPacked = "47.2,51.2,32.1,40,2;45.6,47.8,,15,1,1", note = "{quest:94961}", escort = true },
 						{ t = "complete", quest = 94963, title = "Biting the Hand", map = 2548, x = 41.6, y = 47.7, note = "lead {npc:259158} out of {area:16723} to his treasure, west of the town", escort = true, objs = { { text = "Help Fuzzle escape Sunnyglade.", count = 1 } } },
 						{ t = "turnin", quest = 94963, title = "Biting the Hand", object = 625582, objName = "Fuzzle's Treasure", map = 2548, x = 41.6, y = 47.7 },
 					},
