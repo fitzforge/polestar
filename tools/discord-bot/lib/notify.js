@@ -210,8 +210,10 @@ async function threadOf(discord, issue, forumId, log, ideasId = null) {
 	if (!mk) return null;
 	try {
 		const thread = await discord.getChannel(mk.thread);
-		const idea = Boolean(ideasId) && thread.parent_id === ideasId;
-		if (forumId && thread.parent_id !== forumId && !idea) {
+		const inIdeasForum = Boolean(ideasId) && thread.parent_id === ideasId;
+		// A suggestions post filed as a bug (`!report`) is told as a bug.
+		const idea = inIdeasForum && I.labelNames(issue).includes('idea');
+		if (forumId && thread.parent_id !== forumId && !inIdeasForum) {
 			log.warn(`#${issue.number}: thread ${mk.thread} is not in the #bugs forum, skipped`);
 			return null;
 		}

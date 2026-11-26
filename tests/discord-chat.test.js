@@ -37,7 +37,7 @@ test('!bug and !bugs answer with how to report, linking the #bugs forum', async 
 
 test('the command is matched whole and in any case', async () => {
 	const { discord, say } = setup();
-	for (const text of ['!bugsplat', 'my !bug', '!bug please', 'bug']) assert.equal(await say(GENERAL, text), false, text);
+	for (const text of ['!bugsplat', 'my !bug', 'bug']) assert.equal(await say(GENERAL, text), false, text);
 	assert.equal(await say(GENERAL, '  !BUGS '), true);
 	assert.equal(discord.sent.length, 1);
 });
@@ -283,4 +283,35 @@ test('a #bugs post\'s own first message under !report gives that post\'s issue',
 	assert.equal(github.issues.length, 1);
 	assert.equal(discord.posts.length, 0);
 	assert.match(discord.sent.find((s) => s.replyTo === '3001').content, /^Already filed as/);
+});
+
+test('the maintainer\'s `!bug <text>` is `!report <text>`: filed as a bug, the text its title; for anyone else it is the plain help, filing and telling off nothing', async () => {
+	const { discord, github, command } = filing();
+	const m = discord.say('c1', { author: 'u5', name: 'Alice', content: 'Library books do not complete when picked up' });
+	await command('!bug Library books guide doesn\'t mark as complete', m.id);
+	assert.equal(github.issues.length, 1);
+	assert.equal(github.issues[0].title, 'Library books guide doesn\'t mark as complete');
+	assert.deepEqual(github.issues[0].labels.map((l) => l.name), ['discord', 'triage', 'bug', 'from-chat']);
+	assert.match(github.issues[0].body, /^\*\*Reported by Alice on/);
+	assert.match(discord.sent.find((s) => s.replyTo === m.id).content, /^Thanks <@u5>! This has now been reported as a bug: \[#1\]/);
+	assert.ok(!github.commentsByIssue.has(1), 'the command is not a comment');
+
+	// Anyone else: the help, no filing, no "Naughty naughty".
+	const other = discord.say('c1', { author: 'u6', content: 'something else' });
+	const before = discord.sent.length;
+	await command('!bug something is broken', other.id, { author: 'u7' });
+	assert.equal(discord.sent.length, before + 1);
+	assert.match(discord.sent.at(-1).content, /Found a bug or a wrong step/);
+	assert.ok(!discord.sent.some((s) => s.content === NAUGHTY));
+	assert.equal(github.issues.length, 1);
+	assert.equal(discord.posts.length, 1);
+});
+
+test('the maintainer\'s `!bug <text>` without a reply is told how, in its own words; bare `!bug` is the help for everyone', async () => {
+	const { discord, github, command } = filing();
+	await command('!bug it broke', null);
+	assert.match(discord.sent.at(-1).content, /^Reply to the message you want filed with `!bug`/);
+	assert.equal(github.issues.length, 0);
+	await command('!bug', null);
+	assert.match(discord.sent.at(-1).content, /Found a bug or a wrong step/);
 });
