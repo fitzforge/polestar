@@ -967,6 +967,17 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		if (KINDS.includes(h.kind)) guide.kind = h.kind;
 		else err(ast.lines.kind, `unknown kind "${h.kind}" (known: ${KINDS.join(', ')})`);
 	}
+	// `skills`: the skill lines the guide levels (docs/GUIDE_FORMAT.md, "Guide kind"), as `skillLines`; a paired
+	// profession guide names both, so the window can show two skill bars.
+	if (h.skills && data.hasProfessions) {
+		const lines = [];
+		for (const name of h.skills) {
+			const p = data.professionNamed(name);
+			if (p) lines.push(p.id);
+			else err(ast.lines.skills, `unknown profession "${name}" in \`skills\``);
+		}
+		if (lines.length === h.skills.length) guide.skillLines = lines;
+	}
 	setIf(guide, 'folder', h.folder);
 	setIf(guide, 'keywords', h.keywords);
 	if (h.collects) {

@@ -6,7 +6,7 @@
 const { FORMAT, NEEDS, TOC_MARKER, TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX } = require('../pack/format');
 const { header } = require('../generated');
 
-const GUIDE_KEYS = ['id', 'pack', 'title', 'faction', 'races', 'classes', 'minLevel', 'maxLevel', 'factionLevels', 'category', 'kind', 'folder', 'keywords', 'collects', 'reward', 'why', 'zone', 'zoneName', 'next', 'nextChoices', 'nextWhen', 'pitch', 'pros', 'cons', 'author', 'version', 'group', 'names', 'written', 'sections', 'steps'];
+const GUIDE_KEYS = ['id', 'pack', 'title', 'faction', 'races', 'classes', 'minLevel', 'maxLevel', 'factionLevels', 'category', 'kind', 'skillLines', 'folder', 'keywords', 'collects', 'reward', 'why', 'zone', 'zoneName', 'next', 'nextChoices', 'nextWhen', 'pitch', 'pros', 'cons', 'author', 'version', 'group', 'names', 'written', 'sections', 'steps'];
 // `image` follows note, so a step without one is emitted as before; so does `section`.
 const STEP_KEYS = ['title', 'note', 'image', 'label', 'only', 'when', 'along', 'skipto', 'section', 'goals'];
 // A step's picture: its path in the pack's addon folder (no extension) and its size in pixels.

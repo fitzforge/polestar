@@ -1834,6 +1834,23 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 			r.err(&ast.get("lines").get("kind"), format!("unknown kind \"{}\" (known: {})", k, KINDS.join(", ")), None);
 		}
 	}
+	// `skills`: the skill lines the guide levels (docs/GUIDE_FORMAT.md, "Guide kind"), as `skillLines`; a paired
+	// profession guide names both, so the window can show two skill bars.
+	let skills = h.get("skills");
+	if skills.truthy() && data.has_professions {
+		let mut lines = Vec::new();
+		for name in skills.items() {
+			let p = data.profession_named(&name.to_js_string());
+			if p.truthy() {
+				lines.push(p.get("id"));
+			} else {
+				r.err(&ast.get("lines").get("skills"), format!("unknown profession \"{}\" in `skills`", name.to_js_string()), None);
+			}
+		}
+		if lines.len() == skills.items().len() {
+			guide.set("skillLines", lines);
+		}
+	}
 	set_if(&guide, "folder", h.get("folder"));
 	set_if(&guide, "keywords", h.get("keywords"));
 	if h.get("collects").truthy() {
