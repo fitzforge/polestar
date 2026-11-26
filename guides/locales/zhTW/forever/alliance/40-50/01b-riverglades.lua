@@ -366,10 +366,10 @@ return {
 	["Most beasts in the {zone:2548} drop {item:268632} for {npc:260231}: the shore crawlers on this coast and the boars on the ridge west of the pirates.\nCareful: {npc:257001} (elite, 42), Komuk (a Horde elite, 45) and {npc:263380} (elite, 42) range over the zone's wilds: take your beasts away from them."] = "{zone:2548}的大多數野獸都會掉落{npc:260231}要的{item:268632}：這片海岸的海岸爬行者，以及海盜西邊山脊上的野豬。\n小心：{npc:257001}（精英，42）、科穆克（部落精英，45）和{npc:263380}（精英，42）在這個地區的荒野中遊蕩：把野獸拉離他們再打。",
 
 	-- Step 69: Level 44 on the Eastsea pirates
-	["Level 44 on the Eastsea pirates"] = "",
+	["Level 44 on the Eastsea pirates"] = "打東海海盜升到 44 級",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash · {area:1517} Uldaman
 	-- was: ["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "打第二波之前：低於44.4時，第二波的突襲者和投彈手（43-45）以及之後的海盜船都會比你高一級。在第一個營地西南端、遠離港口的地方，打海盜和火槍手（41-43）補足經驗。{npc:259758}是49級的稀有精英，在這片懸崖遊蕩：如果看到他，請遠遠避開。或者，有小隊的話，改打{area:1517}地城。"
-	["Before the second wave: its raiders (44-45), bombardiers (43-44) and {quest:95124}'s ships after them (45) are more than a level over you below 44. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	["Before the second wave: its raiders (44-45), bombardiers (43-44) and {quest:95124}'s ships after them (45) are more than a level over you below 44. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "未到 44 級時，第二波的突襲者（44-45 級）、投彈手（43-44 級），以及後續任務「{quest:95124}」的船上敵人（45 級），有些會高出你一級以上。先到第一個營地遠離港口的西南端，打海盜和火槍手（41-43 級）補經驗。49 級的稀有精英 {npc:259758} 會在這片懸崖遊蕩，看到就離遠一點。有隊伍的話，也可以改打 {area:1517} 地城。",
 	-- {npc:257901} Eastsea Buccaneer
 	["grind on {npc:257901}"] = "刷{npc:257901}",
 

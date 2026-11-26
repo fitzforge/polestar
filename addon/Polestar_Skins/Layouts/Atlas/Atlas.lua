@@ -61,8 +61,13 @@ function Core.gap(key, px)
 	if v and v >= 0 then return math.floor(v + 0.5) end
 	return px
 end
--- Polestar's own strings (its locale table), English when it has none.
-function Core.tr(s) local L = P.L; return (L and L[s]) or s end
+-- Polestar's own strings, with an optional shorter English label.
+function Core.tr(s, fallback)
+	local L = P.L
+	local translated = L and L[s]
+	if translated and translated ~= s then return translated end
+	return fallback or s
+end
 -- Capitals as the client's language writes them (Polestar.Upper): Lua's
 -- upper() knows ASCII alone, so "Fällig" would read "FäLLIG".
 function Core.upper(s) return (P.Upper and P.Upper(s)) or string.upper(s or "") end
@@ -1224,7 +1229,9 @@ local function alongRows(along, height)
 		if type(facts) == "table" and (facts.quest or facts.text) then
 			own._orig = own._orig or text
 			-- The finished quests carried: the card's heading says they are still to do.
-			local carried = facts.count and (facts.count == 1 and Core.tr("1 quest off-guide") or string.format(Core.tr("%d quests off-guide"), facts.count))
+			local carried = facts.count and (facts.count == 1
+				and Core.tr("1 quest isn't part of your route", "1 quest off-guide")
+				or string.format(Core.tr("%d quests aren't part of your route", "%d quests off-guide"), facts.count))
 			-- A click lists them (QuestRoom "carried"): one line, as Optional's
 			-- rows are, its View on the right while the pointer is on the card.
 			own.view = carried and not facts.quest and true or nil
@@ -1232,7 +1239,7 @@ local function alongRows(along, height)
 			if facts.zone then
 				factsMeta = facts.yards and (facts.zone .. "  \194\183  " .. (Core.distanceText(facts.yards) or "")) or facts.zone
 			elseif facts.xp and P.Thousands then
-				factsMeta = P.Thousands(facts.xp) .. " XP"
+				factsMeta = string.format(Core.tr("%s XP"), P.Thousands(facts.xp))
 			end
 		end
 		r.Text:SetTextColor(Theme.Color("text"))
