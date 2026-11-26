@@ -20046,6 +20046,7 @@ test('#3309 follow-up: Defenders of Darrowshire\'s spirits are freed in Corin\'s
 	const place = read('places.json').places.find((p) => p.quest === 5211 && p.objective === 1);
 	assert.ok(place, 'data/places.json places Defenders of Darrowshire objective 1');
 	assert.equal(place.at.map, 1423, 'in the Eastern Plaguelands');
+	assert.equal(place.at.frame, 'live', 'in the live frame, as the goto of the step (52.3,58.2 live) and the spots of its kill lines');
 	assert.ok(Math.hypot(place.at.x - 52.3, place.at.y - 58.2) < 3, `in Corin's Crossing, by the step's goto (${place.at.x},${place.at.y})`);
 	const fix = read('guide-fixes.json').fixes.find((f) => f.at && f.at.quest === 5211 && f.at.goal === 'objective' && f.at.objective === 1 && f.goalNote);
 	assert.ok(fix, 'data/guide-fixes.json notes the talk line');
