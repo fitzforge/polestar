@@ -2912,6 +2912,10 @@ L["about %d kills, %d min"] = "unas %d muertes, %d min"
 L["about %d kills"] = "unas %d muertes"
 L["or %s (%s)"] = "o %s (%s)"
 L["or %s"] = "o %s"
+-- L["%s loop"] = ""
+-- L["Farming loop"] = ""
+-- L["%d min a lap"] = ""
+-- L["about %d laps"] = ""
 
 -- UI/Welcome.lua
 L["level %d %s"] = "personaje de nivel %d (%s)"

@@ -1866,6 +1866,10 @@ L["about %d kills, %d min"] = "cerca de %d abates, %d min"
 L["about %d kills"] = "cerca de %d abates"
 L["or %s (%s)"] = "ou %s (%s)"
 L["or %s"] = "ou %s"
+-- L["%s loop"] = ""
+-- L["Farming loop"] = ""
+-- L["%d min a lap"] = ""
+-- L["about %d laps"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "Local"

@@ -1854,6 +1854,10 @@ L["about %d kills, %d min"] = "约%d次击杀，%d分钟"
 L["about %d kills"] = "约%d次击杀"
 L["or %s (%s)"] = "或%s（%s）"
 L["or %s"] = "或%s"
+-- L["%s loop"] = ""
+-- L["Farming loop"] = ""
+-- L["%d min a lap"] = ""
+-- L["about %d laps"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"

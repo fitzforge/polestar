@@ -1931,6 +1931,10 @@ L["about %d kills, %d min"] = "около %d убийств, %d мин"
 L["about %d kills"] = "около %d убийств"
 L["or %s (%s)"] = "или %s (%s)"
 L["or %s"] = "или %s"
+-- L["%s loop"] = ""
+-- L["Farming loop"] = ""
+-- L["%d min a lap"] = ""
+-- L["about %d laps"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "Место"

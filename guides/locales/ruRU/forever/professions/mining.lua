@@ -13,208 +13,90 @@ return {
 	-- plural, as words: Poor Copper Veins = {object:562111} Poor Copper Vein
 	["Any {skill:186} trainer of your faction teaches Apprentice {skill:186} at any level (10c), and so does the Junior Mining Trainer in each starting area; the arrow picks the nearest. Buy a {item:2901} from a trade goods or general vendor: keep it in your bags, you cannot mine without it. Turn on {spell:2580} (spellbook, General tab) so veins show on the minimap. Forever's starting areas also have Poor Copper Veins ({item:2770} and {item:2835}, from skill 1). The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's {item:11584}, A Humble Task, Marla's Last Wish) offers {item:247840} as a reward: reading it gives 2 skill, up to 15. Trade goods vendors and the junior trainers sell the {item:277115}, a four-slot bag for ore and stone (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: {skill:186}: hand it in to the mining trainer it names once you reach skill 20, for the {spell:1230161} recipe."] = "",
 
-	-- Step 2: Copper & Poor Copper: Elwynn Forest (1-50)
-	-- {zone:1429} Elwynn Forest
-	-- was: ["Copper: {zone:1429} (1-50)"] = "Медная жила: {zone:1429} (1-50)"
-	["Copper & Poor Copper: {zone:1429} (1-50)"] = "",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {item:2770} Copper Ore · {item:2835} Rough Stone · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Copper (1, orange), Poor Copper (1, orange) node on the way until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. The loop asks level 5: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,800 yards, 5 minutes with the stops; the arrow leads stop to stop. Expect about 60 nodes for these 49 points: about 60 {item:2770} and 55 {item:2835}. For {skill:164}: about 370 {item:2770} and 285 {item:2835} in all. For {skill:202}: about 230 {item:2770} and 45 {item:2835} in all."] = "",
+	-- Step 2: Chunk of Amber & Poor Copper (1-50)
+	-- {object:656332} Chunk of Amber
+	["{object:656332} & Poor Copper (1-50)"] = "",
+	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper · {item:2770} Copper Ore · {item:2835} Rough Stone · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every {object:656332} (1, orange), Copper (1, orange), {object:656333} (1, orange), Poor Copper (1, orange) node on the way until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 60 nodes for these 49 points: about 55 {item:2770} and 55 {item:2835}. For {skill:164}: about 370 {item:2770} and 285 {item:2835} in all. For {skill:202}: about 230 {item:2770} and 45 {item:2835} in all."] = "",
 
-	-- Step 3: Poor Copper: Dun Morogh (1-50)
-	-- {zone:1426} Dun Morogh
-	-- was: ["Copper & Poor Copper: {zone:1426} (1-50)"] = "Медная и бедная медная жилы: {zone:1426} (1-50)"
-	["Poor Copper: {zone:1426} (1-50)"] = "",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {item:2770} Copper Ore · {item:2835} Rough Stone · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Poor Copper (1, orange) node on the way until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. The loop asks level 4: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,800 yards, 6 minutes with the stops; the arrow leads stop to stop. Expect about 60 nodes for these 49 points: about 60 {item:2770} and 55 {item:2835}. For {skill:164}: about 370 {item:2770} and 285 {item:2835} in all. For {skill:202}: about 230 {item:2770} and 45 {item:2835} in all."] = "",
-
-	-- Step 4: Large Chunk of Amber: Teldrassil (1-50)
-	-- {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper · {item:2770} Copper Ore · {item:2835} Rough Stone · {item:779} Shiny Seashell · {item:774} Malachite · {item:275843} Tuft of Hair · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every {object:656333} (1, orange) node on the way until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. The loop keeps clear of the other faction's towns. A lap is about 1,000 yards, 3 minutes with the stops; the arrow leads stop to stop. Expect about 60 nodes for these 49 points: about 50 {item:2770}, 45 {item:2835}, 5 {item:779}, 5 {item:774} and 5 {item:275843}. For {skill:164}: about 370 {item:2770} and 285 {item:2835} in all. For {skill:202}: about 230 {item:2770} and 45 {item:2835} in all."] = "",
-
-	-- Step 5: Copper & Poor Copper: Zephras Isle (1-50)
-	-- {zone:2521} Zephras Isle
-	-- was: ["Copper: {zone:2521} (1-50)"] = "Медная жила: {zone:2521} (1-50)"
-	["Copper & Poor Copper: {zone:2521} (1-50)"] = "",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {item:2770} Copper Ore · {item:2835} Rough Stone · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Copper (1, orange), Poor Copper (1, orange) node on the way until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. The loop asks level 2: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 900 yards, 4 minutes with the stops; the arrow leads stop to stop. Expect about 60 nodes for these 49 points: about 60 {item:2770} and 50 {item:2835}. For {skill:164}: about 370 {item:2770} and 285 {item:2835} in all. For {skill:202}: about 230 {item:2770} and 45 {item:2835} in all."] = "",
-
-	-- Step 6: Poor Copper: Durotar (1-50)
-	-- {zone:1411} Durotar
-	-- was: ["Copper & Poor Copper: {zone:1411} (1-50)"] = "Медная и бедная медная жилы: {zone:1411} (1-50)"
-	["Poor Copper: {zone:1411} (1-50)"] = "",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {item:2770} Copper Ore · {item:2835} Rough Stone · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Poor Copper (1, orange) node on the way until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. The loop asks level 3: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,100 yards, 4 minutes with the stops; the arrow leads stop to stop. Expect about 60 nodes for these 49 points: about 60 {item:2770} and 55 {item:2835}. For {skill:164}: about 370 {item:2770} and 285 {item:2835} in all. For {skill:202}: about 230 {item:2770} and 45 {item:2835} in all."] = "",
-
-	-- Step 7: Copper & Poor Copper: Mulgore (1-50)
-	-- {zone:1412} Mulgore
-	["Copper & Poor Copper: {zone:1412} (1-50)"] = "",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {item:2770} Copper Ore · {item:2835} Rough Stone · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Copper (1, orange), Poor Copper (1, orange) node on the way until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. The loop asks level 5: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 2,500 yards, 7 minutes with the stops; the arrow leads stop to stop. Expect about 60 nodes for these 49 points: about 60 {item:2770} and 55 {item:2835}. For {skill:164}: about 370 {item:2770} and 285 {item:2835} in all. For {skill:202}: about 230 {item:2770} and 45 {item:2835} in all."] = "",
-
-	-- Step 8: Poor Copper: Tirisfal Glades (1-50)
-	-- {zone:1420} Tirisfal Glades
-	-- was: ["Copper & Poor Copper: {zone:1420} (1-50)"] = "Медная и бедная медная жилы: {zone:1420} (1-50)"
-	["Poor Copper: {zone:1420} (1-50)"] = "",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {item:2770} Copper Ore · {item:2835} Rough Stone · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Poor Copper (1, orange) node on the way until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. The loop asks level 4: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,700 yards, 5 minutes with the stops; the arrow leads stop to stop. Expect about 60 nodes for these 49 points: about 60 {item:2770} and 55 {item:2835}. For {skill:164}: about 370 {item:2770} and 285 {item:2835} in all. For {skill:202}: about 230 {item:2770} and 45 {item:2835} in all."] = "",
-
-	-- Step 9: Journeyman Mining
+	-- Step 3: Journeyman Mining
 	-- {skill:186} Mining
 	["Journeyman {skill:186}"] = "{skill:186}: Подмастерье",
 	-- {skill:186} Mining · {spell:1230161} Lodestone · {item:2835} Rough Stone · {item:2840} Copper Bar
 	["Journeyman {skill:186} raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest {skill:186} trainer of your faction. {spell:1230161}, Forever's camping item for {skill:186}, is taught from skill 20 (1s, or free from Camping 101: {skill:186}): a {item:2835} and a {item:2840} each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour."] = "Подмастерье {skill:186} поднимает предел до 150; требуется 50 навыка и любой уровень персонажа, стоит 5s: учите, как только достигнете 50. Стрелка укажет ближайшего наставника {skill:186} вашей фракции. {spell:1230161}, кемпинговый предмет Forever для {skill:186}, изучается с 20 навыка (1s, или бесплатно через Camping 101: {skill:186}): по одному {item:2835} и {item:2840}, даёт очки до 25; поставленный у костра, он даёт всем в лагере усиление на час.",
 
-	-- Step 10: Copper & Poor Copper: Elwynn Forest (50-65) cont.
-	-- {zone:1429} Elwynn Forest
-	-- was: ["Copper: {zone:1429} (50-65) cont."] = "Медная жила: {zone:1429} (50-65), продолжение"
-	["Copper & Poor Copper: {zone:1429} (50-65) cont."] = "",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {item:2770} Copper Ore · {item:2835} Rough Stone · {item:5075} Blood Shard · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Copper (1, yellow), Poor Copper (1, yellow) node on the way until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. The loop asks level 9: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 3,100 yards, 8 minutes with the stops; the arrow leads stop to stop. Expect about 80 nodes for these 15 points: about 80 {item:2770}, 65 {item:2835} and 5 {item:5075}. For {skill:164}: about 370 {item:2770} and 285 {item:2835} in all. For {skill:202}: about 230 {item:2770} and 45 {item:2835} in all."] = "",
+	-- Step 4: Chunk of Amber & Poor Copper (50-65)
+	-- {object:656332} Chunk of Amber
+	["{object:656332} & Poor Copper (50-65)"] = "",
+	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper · {item:2770} Copper Ore · {item:2835} Rough Stone · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every {object:656332} (1, yellow), Copper (1, yellow), {object:656333} (1, yellow), Poor Copper (1, yellow) node on the way until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 80 nodes for these 15 points: about 75 {item:2770} and 70 {item:2835}. For {skill:164}: about 370 {item:2770} and 285 {item:2835} in all. For {skill:202}: about 230 {item:2770} and 45 {item:2835} in all."] = "",
 
-	-- Step 11: Poor Copper: Dun Morogh (50-65) cont.
-	-- {zone:1426} Dun Morogh
-	-- was: ["Copper & Poor Copper: {zone:1426} (50-65) cont."] = "Медная и бедная медная жилы: {zone:1426} (50-65), продолжение"
-	["Poor Copper: {zone:1426} (50-65) cont."] = "",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {item:2770} Copper Ore · {item:2835} Rough Stone · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Poor Copper (1, yellow) node on the way until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. The loop asks level 4: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,800 yards, 6 minutes with the stops; the arrow leads stop to stop. Expect about 80 nodes for these 15 points: about 80 {item:2770} and 75 {item:2835}. For {skill:164}: about 370 {item:2770} and 285 {item:2835} in all. For {skill:202}: about 230 {item:2770} and 45 {item:2835} in all."] = "",
-
-	-- Step 12: Large Chunk of Amber: Teldrassil (50-65) cont.
-	-- {object:656333} Large Chunk of Amber · {zone:1438} Teldrassil
-	-- was: ["{object:656332} & {object:656333}: {zone:1438} (50-65) cont."] = "{object:656332} и {object:656333}: {zone:1438} (50-65), продолжение"
-	["{object:656333}: {zone:1438} (50-65) cont."] = "",
-	-- {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper · {item:2770} Copper Ore · {item:2835} Rough Stone · {item:779} Shiny Seashell · {item:774} Malachite · {item:275843} Tuft of Hair · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every {object:656333} (1, yellow) node on the way until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. The loop keeps clear of the other faction's towns. A lap is about 1,000 yards, 3 minutes with the stops; the arrow leads stop to stop. Expect about 80 nodes for these 15 points: about 70 {item:2770}, 60 {item:2835}, 5 {item:779}, 5 {item:774} and 5 {item:275843}. For {skill:164}: about 370 {item:2770} and 285 {item:2835} in all. For {skill:202}: about 230 {item:2770} and 45 {item:2835} in all."] = "",
-
-	-- Step 13: Copper & Poor Copper: Zephras Isle (50-65) cont.
-	-- {zone:2521} Zephras Isle
-	-- was: ["Copper: {zone:2521} (50-65) cont."] = "Медная жила: {zone:2521} (50-65), продолжение"
-	["Copper & Poor Copper: {zone:2521} (50-65) cont."] = "",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {item:2770} Copper Ore · {item:2835} Rough Stone · {item:5075} Blood Shard · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Copper (1, yellow), Poor Copper (1, yellow) node on the way until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. The loop asks level 2: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 900 yards, 4 minutes with the stops; the arrow leads stop to stop. Expect about 80 nodes for these 15 points: about 80 {item:2770}, 65 {item:2835} and 5 {item:5075}. For {skill:164}: about 370 {item:2770} and 285 {item:2835} in all. For {skill:202}: about 230 {item:2770} and 45 {item:2835} in all."] = "",
-
-	-- Step 14: Poor Copper: Durotar (50-65) cont.
-	-- {zone:1411} Durotar
-	-- was: ["Copper & Poor Copper: {zone:1411} (50-65) cont."] = "Медная и бедная медная жилы: {zone:1411} (50-65), продолжение"
-	["Poor Copper: {zone:1411} (50-65) cont."] = "",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {item:2770} Copper Ore · {item:2835} Rough Stone · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Poor Copper (1, yellow) node on the way until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. The loop asks level 3: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,100 yards, 4 minutes with the stops; the arrow leads stop to stop. Expect about 80 nodes for these 15 points: about 80 {item:2770} and 75 {item:2835}. For {skill:164}: about 370 {item:2770} and 285 {item:2835} in all. For {skill:202}: about 230 {item:2770} and 45 {item:2835} in all."] = "",
-
-	-- Step 15: Copper & Poor Copper: Mulgore (50-65) cont.
-	-- {zone:1412} Mulgore
-	-- was: ["Copper: {zone:1412} (50-65) cont."] = "Медная жила: {zone:1412} (50-65), продолжение"
-	["Copper & Poor Copper: {zone:1412} (50-65) cont."] = "",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {item:2770} Copper Ore · {item:2835} Rough Stone · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Copper (1, yellow), Poor Copper (1, yellow) node on the way until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. The loop asks level 7: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 3,000 yards, 8 minutes with the stops; the arrow leads stop to stop. Expect about 80 nodes for these 15 points: about 80 {item:2770} and 65 {item:2835}. For {skill:164}: about 370 {item:2770} and 285 {item:2835} in all. For {skill:202}: about 230 {item:2770} and 45 {item:2835} in all."] = "",
-
-	-- Step 16: Poor Copper: Tirisfal Glades (50-65) cont.
-	-- {zone:1420} Tirisfal Glades
-	-- was: ["Copper & Poor Copper: {zone:1420} (50-65) cont."] = "Медная и бедная медная жилы: {zone:1420} (50-65), продолжение"
-	["Poor Copper: {zone:1420} (50-65) cont."] = "",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {item:2770} Copper Ore · {item:2835} Rough Stone · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Poor Copper (1, yellow) node on the way until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. The loop asks level 4: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,700 yards, 5 minutes with the stops; the arrow leads stop to stop. Expect about 80 nodes for these 15 points: about 80 {item:2770} and 75 {item:2835}. For {skill:164}: about 370 {item:2770} and 285 {item:2835} in all. For {skill:202}: about 230 {item:2770} and 45 {item:2835} in all."] = "",
-
-	-- Step 17: Smelt Bronze & Smelt Tin
+	-- Step 5: Smelt Bronze & Smelt Tin
 	-- {skill:186} Mining · {spell:2659} Smelt Bronze · {spell:3304} Smelt Tin
 	["At 65 a {skill:186} trainer teaches {spell:2659} (2s; grey at 115) and {spell:3304} (50c; grey at 75): smelting at a forge raises {skill:186} too, so smelt what you mine."] = "",
 
-	-- Step 18: Copper & Tin: Loch Modan (65-125)
-	-- {zone:1432} Loch Modan
-	["Copper & Tin: {zone:1432} (65-125)"] = "",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {npc:167} Morhan Coppertongue · {item:2770} Copper Ore · {item:2835} Rough Stone · {item:2771} Tin Ore · {item:2836} Coarse Stone · {item:5075} Blood Shard · {item:249391} Pyrite · {skill:164} Blacksmithing · {skill:202} Engineering · {spell:2658} Smelt Silver
-	["Walk the loop and mine every Copper (1, green), Tin (65, orange) node on the way until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. A quest here needs {skill:186}: Ingredients for the Forge (level 30, {npc:167}). The loop asks level 14: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 2,800 yards, 7 minutes with the stops; the arrow leads stop to stop. Expect about 360 nodes for these 60 points: about 305 {item:2770}, 210 {item:2835}, 45 {item:2771}, 30 {item:2836}, 25 {item:5075} and 10 {item:249391}. For {skill:164}: about 370 {item:2770}, 285 {item:2835}, 160 {item:2771} and 255 {item:2836} in all. For {skill:202}: about 230 {item:2770}, 45 {item:2835}, 80 {item:2771} and 45 {item:2836} in all. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "",
+	-- Step 6: Copper & Tin (65-125)
+	-- was: ["Tin: {zone:1424} (65-125)"] = "Оловянная жила: {zone:1424} (65-125)"
+	["Copper & Tin (65-125)"] = "",
+	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {npc:167} Morhan Coppertongue · {zone:1432} Loch Modan · {item:2770} Copper Ore · {item:2835} Rough Stone · {item:2771} Tin Ore · {item:2836} Coarse Stone · {item:5075} Blood Shard · {item:249391} Pyrite · {skill:164} Blacksmithing · {skill:202} Engineering · {spell:2658} Smelt Silver
+	["Walk the loop and mine every Copper (1, green), Tin (65, orange) node on the way until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. A quest in these zones needs {skill:186}: Ingredients for the Forge (level 30, {npc:167}, {zone:1432}; Alliance). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 220 nodes for these 60 points: about 150 {item:2770}, 100 {item:2835}, 65 {item:2771}, 45 {item:2836}, 20 {item:5075} and 5 {item:249391}. For {skill:164}: about 370 {item:2770}, 285 {item:2835}, 160 {item:2771} and 255 {item:2836} in all. For {skill:202}: about 230 {item:2770}, 45 {item:2835}, 80 {item:2771} and 45 {item:2836} in all. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "",
 
-	-- Step 19: Tin: Darkshore (65-125)
-	-- {zone:1439} Darkshore
-	["Tin: {zone:1439} (65-125)"] = "",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {item:2770} Copper Ore · {item:2835} Rough Stone · {item:2771} Tin Ore · {item:2836} Coarse Stone · {item:5075} Blood Shard · {item:249391} Pyrite · {skill:164} Blacksmithing · {skill:202} Engineering · {spell:2658} Smelt Silver
-	["Walk the loop and mine every Copper (1, green), Tin (65, orange) node on the way until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. The loop asks level 17: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,600 yards, 4 minutes with the stops; the arrow leads stop to stop. Expect about 190 nodes for these 60 points: about 115 {item:2770}, 80 {item:2835}, 70 {item:2771}, 45 {item:2836}, 15 {item:5075} and 5 {item:249391}. For {skill:164}: about 370 {item:2770}, 285 {item:2835}, 160 {item:2771} and 255 {item:2836} in all. For {skill:202}: about 230 {item:2770}, 45 {item:2835}, 80 {item:2771} and 45 {item:2836} in all. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "",
-
-	-- Step 20: Copper & Tin: The Barrens (65-125)
-	-- {zone:1413} The Barrens
-	["Copper & Tin: {zone:1413} (65-125)"] = "",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {item:2770} Copper Ore · {item:2835} Rough Stone · {item:2771} Tin Ore · {item:2836} Coarse Stone · {item:5075} Blood Shard · {item:249391} Pyrite · {skill:164} Blacksmithing · {skill:202} Engineering · {spell:2658} Smelt Silver
-	["Walk the loop and mine every Copper (1, green), Tin (65, orange) node on the way until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. The loop asks level 13: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,500 yards, 4 minutes with the stops; the arrow leads stop to stop. Expect about 220 nodes for these 60 points: about 150 {item:2770}, 105 {item:2835}, 65 {item:2771}, 45 {item:2836}, 20 {item:5075} and 5 {item:249391}. For {skill:164}: about 370 {item:2770}, 285 {item:2835}, 160 {item:2771} and 255 {item:2836} in all. For {skill:202}: about 230 {item:2770}, 45 {item:2835}, 80 {item:2771} and 45 {item:2836} in all. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "",
-
-	-- Step 21: Tin: Silverpine Forest (65-125)
-	-- {zone:1421} Silverpine Forest
-	["Tin: {zone:1421} (65-125)"] = "",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {item:2770} Copper Ore · {item:2771} Tin Ore · {item:2835} Rough Stone · {item:2836} Coarse Stone · {item:5075} Blood Shard · {item:249391} Pyrite · {skill:164} Blacksmithing · {skill:202} Engineering · {spell:2658} Smelt Silver
-	["Walk the loop and mine every Copper (1, green), Tin (65, orange) node on the way until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. The loop asks level 18: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,600 yards, 4 minutes with the stops; the arrow leads stop to stop. Expect about 170 nodes for these 60 points: about 95 {item:2770}, 70 {item:2771}, 65 {item:2835}, 45 {item:2836}, 15 {item:5075} and 5 {item:249391}. For {skill:164}: about 370 {item:2770}, 160 {item:2771}, 285 {item:2835} and 255 {item:2836} in all. For {skill:202}: about 230 {item:2770}, 80 {item:2771}, 45 {item:2835} and 45 {item:2836} in all. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "",
-
-	-- Step 22: Expert Mining
+	-- Step 7: Expert Mining
 	-- {skill:186} Mining
 	["Expert {skill:186}"] = "{skill:186}: Умелец",
 	-- {skill:186} Mining · {spell:3307} Smelt Iron
 	["Expert {skill:186} raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest {skill:186} trainer of your faction. Learn {spell:3307} (5s; orange to 130, grey at 140) on the same visit: smelting at a forge raises {skill:186} too, so smelt what you mine."] = "Эксперт по {skill:186} поднимает предел до 225; требуется 125 навыка и любой уровень персонажа, стоит 50s: учите, как только достигнете 125. Стрелка укажет ближайшего наставника {skill:186} вашей фракции. На том же визите изучите {spell:3307} (5s; оранжевый до 130, серый с 140): плавка в кузнице тоже поднимает {skill:186}, так что плавите добытое.",
 
-	-- Step 23: Iron: Duskwood (125-155)
-	-- {zone:1431} Duskwood
-	-- was: ["Iron: {zone:1431} (125-155)"] = "Залежи железа: {zone:1431} (125-155)"
-	["Iron: {zone:1431} (125-155)"] = "",
-	-- {skill:186} Mining · {spell:3307} Smelt Iron · {item:2771} Tin Ore · {item:2772} Iron Ore · {item:2838} Heavy Stone · {item:2836} Coarse Stone · {item:5075} Blood Shard · {item:2775} Silver Ore · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Tin (65, green), Silver (75, green), Iron (125, orange) node on the way until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. The loop asks level 24: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 900 yards, 2 minutes with the stops; the arrow leads stop to stop. Expect about 60 nodes for these 30 points: about 30 {item:2771}, 25 {item:2772}, 20 {item:2838}, 20 {item:2836}, 5 {item:5075} and 5 {item:2775}. For {skill:164}: about 160 {item:2771}, 365 {item:2772}, 260 {item:2838} and 255 {item:2836} in all. For {skill:202}: about 80 {item:2771}, 80 {item:2772}, 100 {item:2838}, 45 {item:2836} and 10 {item:2775} in all."] = "",
+	-- Step 8: Iron (125-155)
+	-- was: ["Iron: {zone:1416} (125-155)"] = "Залежи железа: {zone:1416} (125-155)"
+	["Iron (125-155)"] = "",
+	-- {skill:186} Mining · {spell:3307} Smelt Iron · {item:2772} Iron Ore · {item:2771} Tin Ore · {item:2838} Heavy Stone · {item:2836} Coarse Stone · {item:5075} Blood Shard · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every Tin (65, green), Silver (75, green, rare), Iron (125, orange) node on the way until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 50 nodes for these 30 points: about 25 {item:2772}, 20 {item:2771}, 20 {item:2838}, 15 {item:2836} and 5 {item:5075}. For {skill:164}: about 365 {item:2772}, 160 {item:2771}, 260 {item:2838} and 255 {item:2836} in all. For {skill:202}: about 80 {item:2772}, 80 {item:2771}, 100 {item:2838} and 45 {item:2836} in all."] = "",
 
-	-- Step 24: Iron: Thousand Needles (125-155)
-	-- {zone:1441} Thousand Needles
-	["Iron: {zone:1441} (125-155)"] = "",
-	-- {skill:186} Mining · {spell:3307} Smelt Iron · {item:2771} Tin Ore · {item:2772} Iron Ore · {item:2838} Heavy Stone · {item:2836} Coarse Stone · {item:5075} Blood Shard · {item:2775} Silver Ore · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Tin (65, green), Silver (75, green, rare), Iron (125, orange) node on the way until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. The loop asks level 29: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 3,700 yards, 9 minutes with the stops; the arrow leads stop to stop. Expect about 60 nodes for these 30 points: about 30 {item:2771}, 25 {item:2772}, 20 {item:2838}, 20 {item:2836}, 5 {item:5075} and 5 {item:2775}. For {skill:164}: about 160 {item:2771}, 365 {item:2772}, 260 {item:2838} and 255 {item:2836} in all. For {skill:202}: about 80 {item:2771}, 80 {item:2772}, 100 {item:2838}, 45 {item:2836} and 10 {item:2775} in all."] = "",
+	-- Step 9: Smelt Gold
+	-- {skill:186} Mining · {spell:3308} Smelt Gold
+	["At 155 a {skill:186} trainer teaches {spell:3308} (25s; orange to 170, grey at 185): smelting at a forge raises {skill:186} too, so smelt what you mine."] = "",
 
-	-- Step 25: Iron: Thousand Needles (155-175)
-	-- {zone:1441} Thousand Needles
-	["Iron: {zone:1441} (155-175)"] = "",
-	-- {skill:186} Mining · {spell:3308} Smelt Gold · {item:2772} Iron Ore · {item:2838} Heavy Stone · {item:2771} Tin Ore · {item:2836} Coarse Stone · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Tin (65, green), Silver (75, green, rare), Iron (125, yellow), Gold (155, orange, rare) node on the way until {skill:186} 175. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. The loop asks level 30: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 2,000 yards, 5 minutes with the stops; the arrow leads stop to stop. Expect about 40 nodes for these 20 points: about 30 {item:2772}, 25 {item:2838}, 5 {item:2771} and 5 {item:2836}. For {skill:164}: about 365 {item:2772}, 260 {item:2838}, 160 {item:2771} and 255 {item:2836} in all. For {skill:202}: about 80 {item:2772}, 100 {item:2838}, 80 {item:2771} and 45 {item:2836} in all. {spell:3308} (25s; orange to 170, grey at 185) is taught from 155: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "",
+	-- Step 10: Iron (155-175)
+	-- was: ["Iron: {zone:1417} (155-175)"] = "Железо: {zone:1417} (155-175)"
+	["Iron (155-175)"] = "",
+	-- {skill:186} Mining · {spell:3308} Smelt Gold · {item:2772} Iron Ore · {item:2838} Heavy Stone · {item:2771} Tin Ore · {item:2836} Coarse Stone · {item:3340} Incendicite Ore · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every Incendicite (65, green), Tin (65, green), Silver (75, green, rare), Iron (125, yellow), Gold (155, orange, rare) node on the way until {skill:186} 175. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 50 nodes for these 20 points: about 25 {item:2772}, 20 {item:2838}, 15 {item:2771}, 10 {item:2836} and 5 {item:3340}. For {skill:164}: about 365 {item:2772}, 260 {item:2838}, 160 {item:2771} and 255 {item:2836} in all. For {skill:202}: about 80 {item:2772}, 100 {item:2838}, 80 {item:2771} and 45 {item:2836} in all."] = "",
 
-	-- Step 26: Iron: Thousand Needles (155-175)
-	-- {skill:186} Mining · {spell:3308} Smelt Gold · {item:2772} Iron Ore · {item:2838} Heavy Stone · {item:2771} Tin Ore · {item:2836} Coarse Stone · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Tin (65, green), Silver (75, green, rare), Iron (125, yellow), Gold (155, orange, rare) node on the way until {skill:186} 175. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. The loop asks level 30: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 2,100 yards, 5 minutes with the stops; the arrow leads stop to stop. Expect about 40 nodes for these 20 points: about 30 {item:2772}, 25 {item:2838}, 5 {item:2771} and 5 {item:2836}. For {skill:164}: about 365 {item:2772}, 260 {item:2838}, 160 {item:2771} and 255 {item:2836} in all. For {skill:202}: about 80 {item:2772}, 100 {item:2838}, 80 {item:2771} and 45 {item:2836} in all. {spell:3308} (25s; orange to 170, grey at 185) is taught from 155: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "",
+	-- Step 11: Mithril (175-200)
+	-- was: ["Mithril: {zone:1418} (175-200)"] = "Мифрил: {zone:1418} (175-200)"
+	["Mithril (175-200)"] = "",
+	-- {skill:186} Mining · {spell:3308} Smelt Gold · {item:3858} Mithril Ore · {item:7912} Solid Stone · {item:2772} Iron Ore · {item:2838} Heavy Stone · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node on the way until {skill:186} 200. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 40 nodes for these 25 points: about 20 {item:3858}, 20 {item:7912}, 15 {item:2772} and 15 {item:2838}. For {skill:164}: about 915 {item:3858}, 75 {item:7912}, 365 {item:2772} and 260 {item:2838} in all. For {skill:202}: about 135 {item:3858}, 275 {item:7912}, 80 {item:2772} and 100 {item:2838} in all."] = "",
 
-	-- Step 27: Mithril: Alterac Mountains (175-200)
-	-- {zone:1416} Alterac Mountains
-	["Mithril: {zone:1416} (175-200)"] = "",
-	-- {skill:186} Mining · {spell:3308} Smelt Gold · {item:3858} Mithril Ore · {item:7912} Solid Stone · {item:2772} Iron Ore · {item:2838} Heavy Stone · {item:2776} Gold Ore · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node on the way until {skill:186} 200. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. The loop asks level 35: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 900 yards, 3 minutes with the stops; the arrow leads stop to stop. Expect about 40 nodes for these 25 points: about 20 {item:3858}, 20 {item:7912}, 15 {item:2772}, 15 {item:2838} and 5 {item:2776}. For {skill:164}: about 915 {item:3858}, 75 {item:7912}, 365 {item:2772} and 260 {item:2838} in all. For {skill:202}: about 135 {item:3858}, 275 {item:7912}, 80 {item:2772} and 100 {item:2838} in all."] = "",
-
-	-- Step 28: Artisan Mining
+	-- Step 12: Artisan Mining
 	-- {skill:186} Mining
 	["Artisan {skill:186}"] = "{skill:186}: Искусник",
 	-- {skill:186} Mining
 	["Artisan {skill:186} raises the cap to 300; it needs skill 200 and no character level, and costs 5g: train it as soon as you reach 200. The arrow picks the nearest {skill:186} trainer of your faction."] = "{skill:186}, ранг «Искусник»: предел 300; нужен навык 200, уровень персонажа не важен, стоит 5 з: обучитесь, как только достигнете 200. Стрелка ведет к ближайшему учителю вашей фракции ({skill:186}).",
 
-	-- Step 29: Iron & Mithril: Alterac Mountains (200-230) cont.
-	-- {zone:1416} Alterac Mountains
-	["Iron & Mithril: {zone:1416} (200-230) cont."] = "",
-	-- {skill:186} Mining · {item:2772} Iron Ore · {item:3858} Mithril Ore · {item:7912} Solid Stone · {item:2838} Heavy Stone · {item:2776} Gold Ore · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Iron (125, green), Gold (155, yellow), Mithril (175, yellow) node on the way until {skill:186} 230. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. The loop asks level 39: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,900 yards, 5 minutes with the stops; the arrow leads stop to stop. Expect about 100 nodes for these 30 points: about 50 {item:2772}, 40 {item:3858}, 40 {item:7912}, 40 {item:2838} and 5 {item:2776}. For {skill:164}: about 365 {item:2772}, 915 {item:3858}, 75 {item:7912} and 260 {item:2838} in all. For {skill:202}: about 80 {item:2772}, 135 {item:3858}, 275 {item:7912} and 100 {item:2838} in all."] = "",
+	-- Step 13: Mithril (200-230)
+	-- was: ["Mithril: {zone:1418} (200-230) cont."] = "Мифрил: {zone:1418} (200-230), продолжение"
+	["Mithril (200-230)"] = "",
+	-- {skill:186} Mining · {item:3858} Mithril Ore · {item:7912} Solid Stone · {item:2772} Iron Ore · {item:2838} Heavy Stone · {item:2776} Gold Ore · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every Iron (125, green), Gold (155, yellow), Mithril (175, yellow) node on the way until {skill:186} 230. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 90 nodes for these 30 points: about 45 {item:3858}, 45 {item:7912}, 40 {item:2772}, 30 {item:2838} and 5 {item:2776}. For {skill:164}: about 915 {item:3858}, 75 {item:7912}, 365 {item:2772} and 260 {item:2838} in all. For {skill:202}: about 135 {item:3858}, 275 {item:7912}, 80 {item:2772} and 100 {item:2838} in all."] = "",
 
-	-- Step 30: Mithril: Alterac Mountains (200-230) cont.
-	-- {zone:1416} Alterac Mountains
-	["Mithril: {zone:1416} (200-230) cont."] = "",
-	-- {skill:186} Mining · {item:2772} Iron Ore · {item:3858} Mithril Ore · {item:7912} Solid Stone · {item:2838} Heavy Stone · {item:2776} Gold Ore · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Iron (125, green), Gold (155, yellow), Mithril (175, yellow) node on the way until {skill:186} 230. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. The loop asks level 38: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,500 yards, 4 minutes with the stops; the arrow leads stop to stop. Expect about 100 nodes for these 30 points: about 45 {item:2772}, 45 {item:3858}, 45 {item:7912}, 35 {item:2838} and 5 {item:2776}. For {skill:164}: about 365 {item:2772}, 915 {item:3858}, 75 {item:7912} and 260 {item:2838} in all. For {skill:202}: about 80 {item:2772}, 135 {item:3858}, 275 {item:7912} and 100 {item:2838} in all."] = "",
-
-	-- Step 31: Mithril & Truesilver: Alterac Mountains (230-245)
-	-- {zone:1416} Alterac Mountains
-	["Mithril & Truesilver: {zone:1416} (230-245)"] = "",
+	-- Step 14: Mithril & Truesilver (230-245)
+	["Mithril & Truesilver (230-245)"] = "",
 	-- {skill:186} Mining · {item:3858} Mithril Ore · {item:7912} Solid Stone · {item:2776} Gold Ore · {item:7911} Truesilver Ore · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Gold (155, green), Mithril (175, green), Truesilver (230, orange) node on the way until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. The loop asks level 39: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 2,000 yards, 5 minutes with the stops; the arrow leads stop to stop. Expect about 70 nodes for these 15 points: about 55 {item:3858}, 55 {item:7912}, 10 {item:2776} and 5 {item:7911}. For {skill:164}: about 915 {item:3858} and 75 {item:7912} in all. For {skill:202}: about 135 {item:3858} and 275 {item:7912} in all."] = "",
+	["Walk the loop and mine every Gold (155, green), Mithril (175, green), Truesilver (230, orange) node on the way until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 80 nodes for these 15 points: about 70 {item:3858}, 65 {item:7912}, 5 {item:2776} and 5 {item:7911}. For {skill:164}: about 915 {item:3858} and 75 {item:7912} in all. For {skill:202}: about 135 {item:3858} and 275 {item:7912} in all."] = "",
 
-	-- Step 32: Mithril & Truesilver: Alterac Mountains (230-245)
-	-- {skill:186} Mining · {item:3858} Mithril Ore · {item:7912} Solid Stone · {item:2776} Gold Ore · {item:7911} Truesilver Ore · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Gold (155, green), Mithril (175, green), Truesilver (230, orange) node on the way until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. The loop asks level 38: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,500 yards, 4 minutes with the stops; the arrow leads stop to stop. Expect about 70 nodes for these 15 points: about 55 {item:3858}, 55 {item:7912}, 10 {item:2776} and 5 {item:7911}. For {skill:164}: about 915 {item:3858} and 75 {item:7912} in all. For {skill:202}: about 135 {item:3858} and 275 {item:7912} in all."] = "",
+	-- Step 15: Small Thorium (245-275)
+	-- was: ["Truesilver & Small Thorium: {zone:1419} (245-275)"] = "Залежи истинного серебра и малая ториевая жила: {zone:1419} (245-275)"
+	["Small Thorium (245-275)"] = "",
+	-- {skill:186} Mining · {npc:9528} Arathandris Silversky · {zone:1448} Felwood · {npc:9529} Maybess Riverbreeze · {item:10620} Thorium Ore · {item:12365} Dense Stone · {item:3858} Mithril Ore · {item:7912} Solid Stone · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every Gold (155, green, rare), Mithril (175, green), Truesilver (230, orange, rare), Small Thorium (245, orange) node on the way until {skill:186} 275. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Quests in these zones need {skill:186}: Salve via {skill:186} (level 55, {npc:9528}, {zone:1448}; Alliance), Salve via {skill:186} (level 55, {npc:9529}, {zone:1448}; Horde). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 50 nodes for these 30 points: about 30 {item:10620}, 25 {item:12365}, 20 {item:3858} and 20 {item:7912}. For {skill:164}: about 2025 {item:10620}, 800 {item:12365}, 915 {item:3858} and 75 {item:7912} in all. For {skill:202}: about 155 {item:10620}, 135 {item:3858} and 275 {item:7912} in all."] = "",
 
-	-- Step 33: Mithril & Small Thorium: The Hinterlands (245-275)
-	-- {zone:1425} The Hinterlands
-	["Mithril & Small Thorium: {zone:1425} (245-275)"] = "",
-	-- {skill:186} Mining · {item:3858} Mithril Ore · {item:7912} Solid Stone · {item:10620} Thorium Ore · {item:12365} Dense Stone · {item:7911} Truesilver Ore · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Gold (155, green, rare), Mithril (175, green), Truesilver (230, orange, rare), Small Thorium (245, orange) node on the way until {skill:186} 275. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. The loop asks level 50: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 2,700 yards, 7 minutes with the stops; the arrow leads stop to stop. Expect about 70 nodes for these 30 points: about 40 {item:3858}, 40 {item:7912}, 25 {item:10620}, 25 {item:12365} and 5 {item:7911}. For {skill:164}: about 915 {item:3858}, 75 {item:7912}, 2025 {item:10620} and 800 {item:12365} in all. For {skill:202}: about 135 {item:3858}, 275 {item:7912} and 155 {item:10620} in all."] = "",
-
-	-- Step 34: Rich Thorium: Azshara (275-300)
-	-- {zone:1447} Azshara
-	["Rich Thorium: {zone:1447} (275-300)"] = "",
-	-- {skill:186} Mining · {item:10620} Thorium Ore · {item:12365} Dense Stone · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Truesilver (230, yellow), Rich Thorium (275, orange) node on the way until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. The loop asks level 54: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 3,500 yards, 9 minutes with the stops; the arrow leads stop to stop. Expect about 30 nodes for these 25 points: about 30 {item:10620} and 20 {item:12365}. For {skill:164}: about 2025 {item:10620} and 800 {item:12365} in all. For {skill:202}: about 155 {item:10620} in all."] = "",
+	-- Step 16: Small Thorium & Rich Thorium (275-300)
+	-- was: ["Small Thorium & Rich Thorium: {zone:1423} (275-300)"] = "Малая и богатая ториевые жилы: {zone:1423} (275-300)"
+	["Small Thorium & Rich Thorium (275-300)"] = "",
+	-- {object:147516} Dark Iron · {skill:186} Mining · {item:11099} Dark Iron Ore · {object:174824} Black Forge (no name in this language: may be words) · {area:1584} Blackrock Depths · {item:10620} Thorium Ore · {item:12365} Dense Stone · {skill:164} Blacksmithing · {skill:202} Engineering
+	["Walk the loop and mine every {object:147516} (230, yellow), Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node on the way until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 40 nodes for these 25 points: about 35 {item:10620} and 30 {item:12365}. For {skill:164}: about 2025 {item:10620} and 800 {item:12365} in all. For {skill:202}: about 155 {item:10620} in all."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:186} trainer of your faction teaches Apprentice {skill:186} (character level 5); the arrow picks the nearest. Buy a {item:2901} from a trade goods or general vendor: keep it in your bags, you cannot mine without it."] = "Любой учитель вашей фракции ({skill:186}) обучает навыку {skill:186}, ранг «Ученик» (уровень персонажа 5); стрелка ведет к ближайшему. Купите у торговца товарами или припасами: {item:2901} – и держите в сумке, без нее добывать руду нельзя.",

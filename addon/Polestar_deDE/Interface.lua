@@ -1209,6 +1209,10 @@ L["about %d kills, %d min"] = "etwa %d Kills, %d Min."
 L["about %d kills"] = "etwa %d Kills"
 L["or %s (%s)"] = "oder %s (%s)"
 L["or %s"] = "oder %s"
+-- L["%s loop"] = ""
+-- L["Farming loop"] = ""
+-- L["%d min a lap"] = ""
+-- L["about %d laps"] = ""
 
 -- UI/Welcome.lua
 L["level %d %s"] = "Stufe %d, %s"

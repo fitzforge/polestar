@@ -1959,6 +1959,10 @@ L["about %d kills, %d min"] = "environ %d victimes, %d min"
 L["about %d kills"] = "environ %d victimes"
 L["or %s (%s)"] = "ou %s (%s)"
 L["or %s"] = "ou %s"
+-- L["%s loop"] = ""
+-- L["Farming loop"] = ""
+-- L["%d min a lap"] = ""
+-- L["about %d laps"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "Lieu"

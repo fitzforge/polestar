@@ -12,238 +12,80 @@ return {
 	-- {skill:393} Skinning · {item:7005} Skinning Knife · {item:11584} Cactus Apple Surprise · {item:247846} Pelt Collecting for Beginners · {item:277114} Apprentice's Skinning Satchel · {spell:1229517} Camp Chair
 	["Any {skill:393} trainer of your faction teaches Apprentice {skill:393} at any level (10c), and so does the Junior Skinning Trainer in each starting area; the arrow picks the nearest. Buy a {item:7005} from a trade goods or general vendor: keep it in your bags, you cannot skin without it. The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's {item:11584}, A Humble Task, Marla's Last Wish) offers {item:247846} as a reward: reading it gives 2 skill, up to 15. Trade goods vendors and the junior trainers sell the {item:277114}, a four-slot bag for leather and hides (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: {skill:393}: hand it in to the skinning trainer it names once you reach skill 20, for the {spell:1229517} recipe."] = "",
 
-	-- Step 2: Beasts 1-4: Elwynn Forest (1-50)
-	-- {zone:1429} Elwynn Forest
-	["Beasts 1-4: {zone:1429} (1-50)"] = "",
-	-- {npc:525} Mangy Wolf · {npc:69} Timber Wolf · {npc:299} Young Wolf · {skill:393} Skinning · {npc:6306} Helene Peltskinner · {item:2934} Ruined Leather Scraps
+	-- Step 2: Beasts 1-5 (1-50)
+	["Beasts 1-5 (1-50)"] = "",
+	-- {npc:1125} Crag Boar · {npc:1199} Juvenile Snow Leopard · {npc:250873} Juvenile Vuldren · {npc:1513} Mangy Duskbat · {npc:2032} Mangy Nightsaber · {npc:525} Mangy Wolf · {npc:3098} Mottled Boar · {npc:2961} Mountain Cougar · {npc:704} Ragged Timber Wolf · {npc:705} Ragged Young Wolf · {npc:3124} Scorpid Worker · {npc:250926} Scrawny Ursera · {npc:708} Small Crag Boar · {npc:1985} Thistle Boar · {npc:69} Timber Wolf · {npc:250937} Ursera Scavenger · {npc:1128} Young Black Bear · {npc:2031} Young Nightsaber · {npc:1984} Young Thistle Boar · {npc:299} Young Wolf · {skill:393} Skinning · {npc:3050} Veren Tallstrider · {zone:1412} Mulgore · {npc:6306} Helene Peltskinner · {zone:1429} Elwynn Forest · {item:2934} Ruined Leather Scraps
 	-- plural, as words: Rough Wolf Pelts = {item:247877} Rough Wolf Pelt
-	["Walk the loop and kill and skin {npc:525} (4), {npc:69} (2), {npc:299} (1) until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. A quest here needs {skill:393}: Rough Wolf Pelts (level 8, {npc:6306}). The loop asks level 5: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,500 yards, 18 minutes with the stops; the arrow leads stop to stop. Expect about 60 beasts for these 49 points: about 60 {item:2934}."] = "",
+	["Walk the loop and kill and skin Battleboar (3), {npc:1125} (5), Duskbat (1), {npc:1199} (5), {npc:250873} (1), {npc:1513} (3), {npc:2032} (2), {npc:525} (4), {npc:3098} (1), {npc:2961} (3), Plainstrider (1), {npc:704} (2), {npc:705} (1), {npc:3124} (3), {npc:250926} (3), {npc:708} (3), {npc:1985} (2), {npc:69} (2), {npc:250937} (4), {npc:1128} (5), {npc:2031} (1), {npc:1984} (1), {npc:299} (1) until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Quests in these zones need {skill:393}: Gathering Leather (level 8, {npc:3050}, {zone:1412}; Horde), Rough Wolf Pelts (level 8, {npc:6306}, {zone:1429}; Alliance). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 60 beasts for these 49 points: about 60 {item:2934}."] = "",
 
-	-- Step 3: Beasts 1-5: Dun Morogh (1-50)
-	-- {zone:1426} Dun Morogh
-	["Beasts 1-5: {zone:1426} (1-50)"] = "",
-	-- {npc:1125} Crag Boar · {npc:1199} Juvenile Snow Leopard · {npc:704} Ragged Timber Wolf · {npc:705} Ragged Young Wolf · {npc:708} Small Crag Boar · {npc:1128} Young Black Bear · {skill:393} Skinning · {item:2934} Ruined Leather Scraps · {item:2318} Light Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:1125} (5), {npc:1199} (5), {npc:704} (2), {npc:705} (1), {npc:708} (3), {npc:1128} (5) until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 5: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 2,800 yards, 41 minutes with the stops; the arrow leads stop to stop. Expect about 60 beasts for these 49 points: about 55 {item:2934} and 5 {item:2318}. For {skill:165}: about 350 {item:2318} in all."] = "",
-
-	-- Step 4: Beasts 1-5: Teldrassil (1-50)
-	-- {zone:1438} Teldrassil
-	["Beasts 1-5: {zone:1438} (1-50)"] = "",
-	-- {npc:2032} Mangy Nightsaber · {npc:1985} Thistle Boar · {npc:2031} Young Nightsaber · {npc:1984} Young Thistle Boar · {skill:393} Skinning · {item:2934} Ruined Leather Scraps
-	["Walk the loop and kill and skin {npc:2032} (2), Nightsaber (5), {npc:1985} (2), {npc:2031} (1), {npc:1984} (1) until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 5: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 2,000 yards, 24 minutes with the stops; the arrow leads stop to stop. Expect about 60 beasts for these 49 points: about 60 {item:2934}."] = "",
-
-	-- Step 5: Beasts 1-4: Zephras Isle (1-50)
-	-- {zone:2521} Zephras Isle
-	["Beasts 1-4: {zone:2521} (1-50)"] = "",
-	-- {npc:250873} Juvenile Vuldren · {npc:250926} Scrawny Ursera · {npc:250937} Ursera Scavenger · {skill:393} Skinning · {item:2934} Ruined Leather Scraps
-	["Walk the loop and kill and skin {npc:250873} (1), {npc:250926} (3), {npc:250937} (4) until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 4: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,400 yards, 33 minutes with the stops; the arrow leads stop to stop. Expect about 60 beasts for these 49 points: about 60 {item:2934}."] = "",
-
-	-- Step 6: Beasts 5-6: Zephras Isle (1-50)
-	-- {zone:2521} Zephras Isle
-	["Beasts 5-6: {zone:2521} (1-50)"] = "",
-	-- {npc:251291} Hippogryph Youth · {skill:393} Skinning · {item:2934} Ruined Leather Scraps · {item:2318} Light Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin Cloudrunner (6), Galestrider (5), {npc:251291} (6), Prideclaw (5), Vuldren (6) until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 5: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,000 yards, 60 minutes with the stops; the arrow leads stop to stop. Expect about 60 beasts for these 49 points: about 40 {item:2934} and 20 {item:2318}. For {skill:165}: about 350 {item:2318} in all."] = "",
-
-	-- Step 7: Beasts 1-3: Durotar (1-50)
-	-- {zone:1411} Durotar
-	["Beasts 1-3: {zone:1411} (1-50)"] = "",
-	-- {npc:3098} Mottled Boar · {npc:3124} Scorpid Worker · {skill:393} Skinning · {item:2934} Ruined Leather Scraps
-	["Walk the loop and kill and skin {npc:3098} (1), {npc:3124} (3) until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 3: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,300 yards, 30 minutes with the stops; the arrow leads stop to stop. Expect about 60 beasts for these 49 points: about 60 {item:2934}."] = "",
-
-	-- Step 8: Beasts 1-3: Mulgore (1-50)
-	-- {zone:1412} Mulgore
-	["Beasts 1-3: {zone:1412} (1-50)"] = "",
-	-- {npc:2961} Mountain Cougar · {skill:393} Skinning · {npc:3050} Veren Tallstrider · {item:2934} Ruined Leather Scraps
-	["Walk the loop and kill and skin Battleboar (3), {npc:2961} (3), Plainstrider (1) until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. A quest here needs {skill:393}: Gathering Leather (level 8, {npc:3050}). The loop asks level 3: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,900 yards, 35 minutes with the stops; the arrow leads stop to stop. Expect about 60 beasts for these 49 points: about 60 {item:2934}."] = "",
-
-	-- Step 9: Beasts 1-3: Tirisfal Glades (1-50)
-	-- {zone:1420} Tirisfal Glades
-	["Beasts 1-3: {zone:1420} (1-50)"] = "",
-	-- {npc:1513} Mangy Duskbat · {skill:393} Skinning · {item:2934} Ruined Leather Scraps
-	["Walk the loop and kill and skin Duskbat (1), {npc:1513} (3) until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 4: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,200 yards, 16 minutes with the stops; the arrow leads stop to stop. Expect about 60 beasts for these 49 points: about 60 {item:2934}."] = "",
-
-	-- Step 10: Journeyman Skinning
+	-- Step 3: Journeyman Skinning
 	-- {skill:393} Skinning
 	["Journeyman {skill:393}"] = "{skill:393}: Подмастерье",
 	-- {skill:393} Skinning · {spell:1229517} Camp Chair · {item:2318} Light Leather · {item:4470} Simple Wood
 	["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest {skill:393} trainer of your faction. {spell:1229517}, Forever's camping item for {skill:393}, is taught from skill 20 (1s, or free from Camping 101: {skill:393}): three {item:2318} and two {item:4470} each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour."] = "Подмастерье {skill:393} поднимает предел до 150; требуется 50 навыка и любой уровень персонажа, стоит 5s: учите, как только достигнете 50. Стрелка укажет ближайшего наставника {skill:393} вашей фракции. {spell:1229517}, кемпинговый предмет Forever для {skill:393}, изучается с 20 навыка (1s, или бесплатно через Camping 101: {skill:393}): три {item:2318} и два {item:4470}, даёт очки до 25; поставленный у костра, он даёт всем в лагере усиление на час.",
 
-	-- Step 11: Beasts 10-14: Westfall (50-75)
-	-- {zone:1436} Westfall
-	["Beasts 10-14: {zone:1436} (50-75)"] = "",
-	-- {npc:833} Coyote Packleader · {npc:454} Young Goretusk · {skill:393} Skinning · {item:2318} Light Leather · {item:2934} Ruined Leather Scraps · {skill:165} Leatherworking
-	["Walk the loop and kill and skin Coyote (10), {npc:833} (10), {npc:454} (12), Goretusk (14) until {skill:393} 75; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 14: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 400 yards, 4 minutes with the stops; the arrow leads stop to stop. Expect about 50 beasts for these 25 points: about 30 {item:2318} and 20 {item:2934}. For {skill:165}: about 350 {item:2318} in all."] = "",
+	-- Step 4: Beasts 4-14 (50-75)
+	["Beasts 4-14 (50-75)"] = "",
+	-- {npc:833} Coyote Packleader · {npc:1922} Gray Forest Wolf · {npc:250928} Highlands Ursera · {npc:251284} Hippogryph Protector · {npc:251291} Hippogryph Youth · {npc:525} Mangy Wolf · {npc:2070} Moonstalker Runt · {npc:1190} Mountain Boar · {npc:524} Rockhide Boar · {npc:254588} Windsong Crawler · {npc:822} Young Forest Bear · {npc:1186} Elder Black Bear · {npc:3244} Greater Plainstrider · {npc:3415} Savannah Huntress · {npc:2163} Thistle Bear · {npc:454} Young Goretusk · {skill:393} Skinning · {npc:6306} Helene Peltskinner · {zone:1429} Elwynn Forest · {item:2934} Ruined Leather Scraps · {item:2318} Light Leather · {skill:165} Leatherworking
+	-- plural, as words: Rough Wolf Pelts = {item:247877} Rough Wolf Pelt
+	["Walk the loop and kill and skin Cloudrunner (6), Coyote (10), {npc:833} (10), Galestrider (5), {npc:1922} (7), {npc:250928} (7), {npc:251284} (6), {npc:251291} (6), {npc:525} (4), {npc:2070} (10), {npc:1190} (10), Prideclaw (5), Prowler (9), {npc:524} (7), Vuldren (6), {npc:254588} (8), Worg (10), {npc:822} (8), {npc:1186} (11), {npc:3244} (11), {npc:3415} (11), {npc:2163} (11), {npc:454} (12), Goretusk (14) until {skill:393} 75; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. A quest in these zones needs {skill:393}: Rough Wolf Pelts (level 8, {npc:6306}, {zone:1429}; Alliance). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 140 beasts for these 25 points: about 85 {item:2934} and 55 {item:2318}. For {skill:165}: about 350 {item:2318} in all."] = "",
 
-	-- Step 12: Beasts 10-11: Loch Modan (50-75)
-	-- {zone:1432} Loch Modan
-	["Beasts 10-11: {zone:1432} (50-75)"] = "",
-	-- {npc:1190} Mountain Boar · {npc:1186} Elder Black Bear · {skill:393} Skinning · {item:2318} Light Leather · {item:2934} Ruined Leather Scraps · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:1190} (10), {npc:1186} (11) until {skill:393} 75; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 11: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,900 yards, 14 minutes with the stops; the arrow leads stop to stop. Expect about 110 beasts for these 25 points: about 65 {item:2318} and 50 {item:2934}. For {skill:165}: about 350 {item:2318} in all."] = "",
+	-- Step 5: Beasts 5-17 (75-100)
+	["Beasts 5-17 (75-100)"] = "",
+	-- {npc:833} Coyote Packleader · {npc:250928} Highlands Ursera · {npc:251284} Hippogryph Protector · {npc:251291} Hippogryph Youth · {npc:254588} Windsong Crawler · {npc:3244} Greater Plainstrider · {npc:3254} Sunscale Lashtail · {npc:454} Young Goretusk · {npc:1188} Grizzled Black Bear · {npc:2164} Rabid Thistle Bear · {npc:1693} Loch Crocolisk · {npc:1191} Mangy Mountain Boar · {npc:3241} Savannah Patriarch · {npc:1189} Black Bear Patriarch · {npc:1923} Bloodsnout Worg · {npc:1192} Elder Mountain Boar · {npc:3245} Ornery Plainstrider · {npc:3256} Sunscale Scytheclaw · {npc:3426} Zhevra Charger · {skill:393} Skinning · {item:2934} Ruined Leather Scraps · {item:2318} Light Leather · {skill:165} Leatherworking
+	["Walk the loop and kill and skin Cloudrunner (6), Coyote (10), {npc:833} (10), Galestrider (5), {npc:250928} (7), {npc:251284} (6), {npc:251291} (6), Prideclaw (5), Vuldren (6), {npc:254588} (8), {npc:3244} (11), {npc:3254} (11), {npc:454} (12), {npc:1188} (13), {npc:2164} (13), Goretusk (14), {npc:1693} (14), {npc:1191} (14), Moonstalker (14), {npc:3241} (15), {npc:1189} (16), {npc:1923} (16), {npc:1192} (16), {npc:3245} (16), {npc:3256} (16), {npc:3426} (17) until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 120 beasts for these 25 points: about 65 {item:2934} and 55 {item:2318}. For {skill:165}: about 350 {item:2318} in all."] = "",
 
-	-- Step 13: Beasts 10-11: Darkshore (50-75)
-	-- {zone:1439} Darkshore
-	["Beasts 10-11: {zone:1439} (50-75)"] = "",
-	-- {npc:2070} Moonstalker Runt · {npc:2163} Thistle Bear · {skill:393} Skinning · {item:2318} Light Leather · {item:2934} Ruined Leather Scraps · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:2070} (10), {npc:2163} (11) until {skill:393} 75; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 12: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,300 yards, 12 minutes with the stops; the arrow leads stop to stop. Expect about 90 beasts for these 25 points: about 60 {item:2318} and 35 {item:2934}. For {skill:165}: about 350 {item:2318} in all."] = "",
+	-- Step 6: Beasts 11-20 (100-125)
+	["Beasts 11-20 (100-125)"] = "",
+	-- {npc:3244} Greater Plainstrider · {npc:3254} Sunscale Lashtail · {npc:3246} Fleeting Plainstrider · {npc:3255} Sunscale Screecher · {npc:3234} Lost Barrens Kodo · {npc:3241} Savannah Patriarch · {npc:1923} Bloodsnout Worg · {npc:3245} Ornery Plainstrider · {npc:3256} Sunscale Scytheclaw · {npc:3426} Zhevra Charger · {npc:3823} Ghostpaw Runner · {npc:213} Starving Dire Wolf · {npc:3809} Ashenvale Bear · {skill:393} Skinning · {item:2318} Light Leather · {item:2319} Medium Leather · {skill:165} Leatherworking
+	["Walk the loop and kill and skin {npc:3244} (11), {npc:3254} (11), {npc:3246} (12), {npc:3255} (13), {npc:3234} (14), {npc:3241} (15), {npc:1923} (16), {npc:3245} (16), {npc:3256} (16), {npc:3426} (17), {npc:3823} (19), {npc:213} (19), {npc:3809} (20) until {skill:393} 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 40 beasts for these 25 points: about 40 {item:2318} and 10 {item:2319}. For {skill:165}: about 350 {item:2318} and 145 {item:2319} in all."] = "",
 
-	-- Step 14: Beasts 11-12: The Barrens (50-75)
-	-- {zone:1413} The Barrens
-	["Beasts 11-12: {zone:1413} (50-75)"] = "",
-	-- {npc:3244} Greater Plainstrider · {npc:3415} Savannah Huntress · {npc:3254} Sunscale Lashtail · {npc:3246} Fleeting Plainstrider · {npc:3243} Savannah Highmane · {skill:393} Skinning · {item:2318} Light Leather · {item:2934} Ruined Leather Scraps · {item:783} Light Hide · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:3244} (11), {npc:3415} (11), {npc:3254} (11), {npc:3246} (12), {npc:3243} (12) until {skill:393} 75; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 12: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 2,400 yards, 24 minutes with the stops; the arrow leads stop to stop. Expect about 60 beasts for these 25 points: about 45 {item:2318}, 20 {item:2934} and 5 {item:783}. For {skill:165}: about 350 {item:2318} in all."] = "",
-
-	-- Step 15: Beasts 10-10: Silverpine Forest (50-75)
-	-- {zone:1421} Silverpine Forest
-	["Beasts 10-10: {zone:1421} (50-75)"] = "",
-	-- {skill:393} Skinning · {item:2934} Ruined Leather Scraps · {item:2318} Light Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin Worg (10) until {skill:393} 75; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 10: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 500 yards, 6 minutes with the stops; the arrow leads stop to stop. Expect about 150 beasts for these 25 points: about 80 {item:2934} and 70 {item:2318}. For {skill:165}: about 350 {item:2318} in all."] = "",
-
-	-- Step 16: Beasts 10-14: Westfall (75-100)
-	-- {zone:1436} Westfall
-	["Beasts 10-14: {zone:1436} (75-100)"] = "",
-	-- {npc:833} Coyote Packleader · {npc:454} Young Goretusk · {skill:393} Skinning · {item:2318} Light Leather · {item:2934} Ruined Leather Scraps · {item:783} Light Hide · {skill:165} Leatherworking
-	["Walk the loop and kill and skin Coyote (10), {npc:833} (10), {npc:454} (12), Goretusk (14) until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 14: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 400 yards, 4 minutes with the stops; the arrow leads stop to stop. Expect about 100 beasts for these 25 points: about 65 {item:2318}, 40 {item:2934} and 5 {item:783}. For {skill:165}: about 350 {item:2318} in all."] = "",
-
-	-- Step 17: Beasts 13-16: Loch Modan (75-100)
-	-- {zone:1432} Loch Modan
-	["Beasts 13-16: {zone:1432} (75-100)"] = "",
-	-- {npc:1188} Grizzled Black Bear · {npc:1693} Loch Crocolisk · {npc:1191} Mangy Mountain Boar · {npc:1189} Black Bear Patriarch · {npc:1192} Elder Mountain Boar · {skill:393} Skinning · {item:2318} Light Leather · {item:2319} Medium Leather · {item:2934} Ruined Leather Scraps · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:1188} (13), {npc:1693} (14), {npc:1191} (14), {npc:1189} (16), {npc:1192} (16) until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 16: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,100 yards, 13 minutes with the stops; the arrow leads stop to stop. Expect about 40 beasts for these 25 points: about 40 {item:2318}, 5 {item:2319} and 5 {item:2934}. For {skill:165}: about 350 {item:2318} and 145 {item:2319} in all."] = "",
-
-	-- Step 18: Beasts 13-14: Darkshore (75-100)
-	-- {zone:1439} Darkshore
-	["Beasts 13-14: {zone:1439} (75-100)"] = "",
-	-- {npc:2164} Rabid Thistle Bear · {skill:393} Skinning · {item:2318} Light Leather · {item:2934} Ruined Leather Scraps · {item:783} Light Hide · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:2164} (13), Moonstalker (14) until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 16: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,600 yards, 18 minutes with the stops; the arrow leads stop to stop. Expect about 80 beasts for these 25 points: about 60 {item:2318}, 30 {item:2934} and 5 {item:783}. For {skill:165}: about 350 {item:2318} in all."] = "",
-
-	-- Step 19: Beasts 11-17: The Barrens (75-100)
-	-- {zone:1413} The Barrens
-	["Beasts 11-17: {zone:1413} (75-100)"] = "",
-	-- {npc:3244} Greater Plainstrider · {npc:3254} Sunscale Lashtail · {npc:3255} Sunscale Screecher · {npc:3234} Lost Barrens Kodo · {npc:3241} Savannah Patriarch · {npc:3245} Ornery Plainstrider · {npc:3256} Sunscale Scytheclaw · {npc:3426} Zhevra Charger · {skill:393} Skinning · {item:2318} Light Leather · {item:2319} Medium Leather · {item:2934} Ruined Leather Scraps · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:3244} (11), {npc:3254} (11), {npc:3255} (13), {npc:3234} (14), {npc:3241} (15), {npc:3245} (16), {npc:3256} (16), {npc:3426} (17) until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 17: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,600 yards, 16 minutes with the stops; the arrow leads stop to stop. Expect about 40 beasts for these 25 points: about 40 {item:2318}, 5 {item:2319} and 5 {item:2934}. For {skill:165}: about 350 {item:2318} and 145 {item:2319} in all."] = "",
-
-	-- Step 20: Beasts 16-16: Silverpine Forest (75-100)
-	-- {zone:1421} Silverpine Forest
-	["Beasts 16-16: {zone:1421} (75-100)"] = "",
-	-- {npc:1923} Bloodsnout Worg · {skill:393} Skinning · {item:2318} Light Leather · {item:2319} Medium Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:1923} (16) until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 16: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 400 yards, 3 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 30 {item:2318} and 5 {item:2319}. For {skill:165}: about 350 {item:2318} and 145 {item:2319} in all."] = "",
-
-	-- Step 21: Beasts 19-19: Duskwood (100-125)
-	-- {zone:1431} Duskwood
-	["Beasts 19-19: {zone:1431} (100-125)"] = "",
-	-- {npc:213} Starving Dire Wolf · {skill:393} Skinning · {item:2318} Light Leather · {item:2319} Medium Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:213} (19) until {skill:393} 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 19: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 500 yards, 4 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 30 {item:2318} and 5 {item:2319}. For {skill:165}: about 350 {item:2318} and 145 {item:2319} in all."] = "",
-
-	-- Step 22: Beasts 19-19: Ashenvale (100-125)
-	-- {zone:1440} Ashenvale
-	["Beasts 19-19: {zone:1440} (100-125)"] = "",
-	-- {npc:3823} Ghostpaw Runner · {skill:393} Skinning · {item:2318} Light Leather · {item:2319} Medium Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:3823} (19) until {skill:393} 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 20: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 2,200 yards, 11 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 30 {item:2318} and 5 {item:2319}. For {skill:165}: about 350 {item:2318} and 145 {item:2319} in all."] = "",
-
-	-- Step 23: Beasts 20-21: Ashenvale (100-125)
-	-- {zone:1440} Ashenvale
-	["Beasts 20-21: {zone:1440} (100-125)"] = "",
-	-- {npc:3809} Ashenvale Bear · {npc:3817} Shadowhorn Stag · {skill:393} Skinning · {item:2318} Light Leather · {item:2319} Medium Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:3809} (20), {npc:3817} (21, needs 105) until {skill:393} 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 22: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,200 yards, 14 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 25 {item:2318} and 15 {item:2319}. For {skill:165}: about 350 {item:2318} and 145 {item:2319} in all."] = "",
-
-	-- Step 24: Beasts 16-16: Silverpine Forest (100-105)
-	-- {zone:1421} Silverpine Forest
-	["Beasts 16-16: {zone:1421} (100-105)"] = "",
-	-- {npc:1923} Bloodsnout Worg · {skill:393} Skinning · {item:2318} Light Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:1923} (16) until {skill:393} 105; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 16: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 400 yards, 3 minutes with the stops; the arrow leads stop to stop. Expect about 10 beasts for these 5 points: about 10 {item:2318}. For {skill:165}: about 350 {item:2318} in all."] = "",
-
-	-- Step 25: Beasts 21-21: Hillsbrad Foothills (105-125)
-	-- {zone:1424} Hillsbrad Foothills
-	["Beasts 21-21: {zone:1424} (105-125)"] = "",
-	-- {npc:2351} Gray Bear · {skill:393} Skinning · {item:2318} Light Leather · {item:2319} Medium Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:2351} (21) until {skill:393} 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 24: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,100 yards, 8 minutes with the stops; the arrow leads stop to stop. Expect about 20 beasts for these 20 points: about 10 {item:2318} and 10 {item:2319}. For {skill:165}: about 350 {item:2318} and 145 {item:2319} in all."] = "",
-
-	-- Step 26: Expert Skinning
+	-- Step 7: Expert Skinning
 	-- {skill:393} Skinning
 	["Expert {skill:393}"] = "{skill:393}: Умелец",
 	-- {skill:393} Skinning
 	["Expert {skill:393} raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest {skill:393} trainer of your faction."] = "{skill:393}, ранг «Умелец»: предел 225; нужен навык 125, уровень персонажа не важен, стоит 50 с: обучитесь, как только достигнете 125. Стрелка ведет к ближайшему учителю вашей фракции ({skill:393}).",
 
-	-- Step 27: Beasts 22-23: Hillsbrad Foothills (125-150)
-	-- {zone:1424} Hillsbrad Foothills
-	["Beasts 22-23: {zone:1424} (125-150)"] = "",
-	-- {npc:2354} Vicious Gray Bear · {npc:2384} Starving Mountain Lion · {skill:393} Skinning · {item:2318} Light Leather · {item:2319} Medium Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:2354} (22), {npc:2384} (23) until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 23: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,400 yards, 19 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 20 {item:2318} and 15 {item:2319}. For {skill:165}: about 350 {item:2318} and 145 {item:2319} in all."] = "",
+	-- Step 8: Beasts 21-25 (125-150)
+	["Beasts 21-25 (125-150)"] = "",
+	-- {npc:2351} Gray Bear · {npc:3817} Shadowhorn Stag · {npc:1020} Mottled Raptor · {npc:2354} Vicious Gray Bear · {npc:2384} Starving Mountain Lion · {npc:3810} Elder Ashenvale Bear · {skill:393} Skinning · {item:2318} Light Leather · {item:2319} Medium Leather · {skill:165} Leatherworking
+	["Walk the loop and kill and skin {npc:2351} (21), {npc:3817} (21), {npc:1020} (22), {npc:2354} (22), {npc:2384} (23), {npc:3810} (25) until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 20 {item:2318} and 15 {item:2319}. For {skill:165}: about 350 {item:2318} and 145 {item:2319} in all."] = "",
 
-	-- Step 28: Beasts 21-25: Ashenvale (125-150)
-	-- {zone:1440} Ashenvale
-	["Beasts 21-25: {zone:1440} (125-150)"] = "",
-	-- {npc:3817} Shadowhorn Stag · {npc:3810} Elder Ashenvale Bear · {skill:393} Skinning · {item:2318} Light Leather · {item:2319} Medium Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:3817} (21), {npc:3810} (25) until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 25: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,500 yards, 8 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 15 {item:2318} and 15 {item:2319}. For {skill:165}: about 350 {item:2318} and 145 {item:2319} in all."] = "",
+	-- Step 9: Beasts 25-30 (150-175)
+	["Beasts 25-30 (150-175)"] = "",
+	-- {npc:4126} Crag Stalker · {npc:4248} Pesterhide Hyena · {npc:1018} Highland Razormaw · {npc:4124} Needles Cougar · {npc:4107} Highperch Wyvern · {npc:1019} Elder Razormaw · {npc:681} Young Stranglethorn Tiger · {npc:1150} River Crocolisk · {npc:683} Young Panther · {skill:393} Skinning · {item:2319} Medium Leather · {item:4234} Heavy Leather · {skill:165} Leatherworking
+	["Walk the loop and kill and skin {npc:4126} (25), {npc:4248} (26), {npc:1018} (27), {npc:4124} (27), {npc:4107} (28), {npc:1019} (29), {npc:681} (29), {npc:1150} (30), {npc:683} (30) until {skill:393} 175; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 20 {item:2319} and 5 {item:4234}. For {skill:165}: about 145 {item:2319} and 320 {item:4234} in all."] = "",
 
-	-- Step 29: Beasts 25-25: Ashenvale (125-150)
-	-- {zone:1440} Ashenvale
-	["Beasts 25-25: {zone:1440} (125-150)"] = "",
-	-- {npc:3810} Elder Ashenvale Bear · {skill:393} Skinning · {item:2318} Light Leather · {item:2319} Medium Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:3810} (25) until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 25: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,200 yards, 8 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 15 {item:2318} and 15 {item:2319}. For {skill:165}: about 350 {item:2318} and 145 {item:2319} in all."] = "",
+	-- Step 10: Beasts 25-35 (175-200)
+	["Beasts 25-35 (175-200)"] = "",
+	-- {npc:2356} Elder Gray Bear · {npc:681} Young Stranglethorn Tiger · {npc:2248} Cave Yeti · {npc:1150} River Crocolisk · {npc:4147} Saltstone Basilisk · {npc:4142} Sparkleshell Tortoise · {npc:683} Young Panther · {npc:855} Young Stranglethorn Raptor · {npc:2249} Ferocious Yeti · {npc:4140} Scorpid Reaver · {npc:1108} Mistvale Gorilla · {npc:2406} Mountain Lion · {npc:2250} Mountain Yeti · {npc:682} Stranglethorn Tiger · {npc:2251} Giant Yeti · {npc:2407} Hulking Mountain Lion · {npc:4726} Raging Thunder Lizard · {npc:4139} Scorpid Terror · {npc:4143} Sparkleshell Snapper · {npc:685} Stranglethorn Raptor · {npc:689} Crystal Spine Basilisk · {npc:1085} Elder Stranglethorn Tiger · {npc:4697} Scorpashi Lasher · {npc:686} Lashtail Raptor · {npc:1151} Saltwater Crocolisk · {npc:1152} Snapjaw Crocolisk · {skill:393} Skinning · {item:2319} Medium Leather · {item:4234} Heavy Leather · {skill:165} Leatherworking
+	["Walk the loop and kill and skin {npc:2356} (25), {npc:681} (29), {npc:2248} (30), {npc:1150} (30), {npc:4147} (30), {npc:4142} (30), {npc:683} (30), {npc:855} (30), {npc:2249} (31), {npc:4140} (31), {npc:1108} (32), {npc:2406} (32), {npc:2250} (32), Panther (32), {npc:682} (32), {npc:2251} (33), {npc:2407} (33), {npc:4726} (33), {npc:4139} (33), {npc:4143} (33), {npc:685} (33), {npc:689} (34), {npc:1085} (34), {npc:4697} (34), {npc:686} (35), {npc:1151} (35), {npc:1152} (35) until {skill:393} 200; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 15 {item:2319} and 15 {item:4234}. For {skill:165}: about 145 {item:2319} and 320 {item:4234} in all."] = "",
 
-	-- Step 30: Beasts 21-22: Hillsbrad Foothills (125-150)
-	-- {zone:1424} Hillsbrad Foothills
-	["Beasts 21-22: {zone:1424} (125-150)"] = "",
-	-- {npc:2351} Gray Bear · {npc:2354} Vicious Gray Bear · {skill:393} Skinning · {item:2318} Light Leather · {item:2319} Medium Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:2351} (21), {npc:2354} (22) until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 24: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 2,000 yards, 12 minutes with the stops; the arrow leads stop to stop. Expect about 40 beasts for these 25 points: about 25 {item:2318} and 20 {item:2319}. For {skill:165}: about 350 {item:2318} and 145 {item:2319} in all."] = "",
-
-	-- Step 31: Beasts 27-29: Wetlands (150-175)
-	-- {zone:1437} Wetlands
-	["Beasts 27-29: {zone:1437} (150-175)"] = "",
-	-- {npc:1018} Highland Razormaw · {npc:1019} Elder Razormaw · {skill:393} Skinning · {item:2319} Medium Leather · {item:4234} Heavy Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:1018} (27), {npc:1019} (29) until {skill:393} 175; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 29: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 900 yards, 13 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 20 {item:2319} and 5 {item:4234}. For {skill:165}: about 145 {item:2319} and 320 {item:4234} in all."] = "",
-
-	-- Step 32: Beasts 25-28: Thousand Needles (150-175)
-	-- {zone:1441} Thousand Needles
-	["Beasts 25-28: {zone:1441} (150-175)"] = "",
-	-- {npc:4126} Crag Stalker · {npc:4248} Pesterhide Hyena · {npc:4124} Needles Cougar · {npc:4107} Highperch Wyvern · {skill:393} Skinning · {item:2319} Medium Leather · {item:4234} Heavy Leather · {item:2318} Light Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:4126} (25), {npc:4248} (26), {npc:4124} (27), {npc:4107} (28) until {skill:393} 175; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 28: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 2,000 yards, 14 minutes with the stops; the arrow leads stop to stop. Expect about 40 beasts for these 25 points: about 30 {item:2319}, 10 {item:4234} and 5 {item:2318}. For {skill:165}: about 145 {item:2319}, 320 {item:4234} and 350 {item:2318} in all."] = "",
-
-	-- Step 33: Beasts 29-35: Stranglethorn Vale (175-200)
-	-- {zone:1434} Stranglethorn Vale
-	["Beasts 29-35: {zone:1434} (175-200)"] = "",
-	-- {npc:681} Young Stranglethorn Tiger · {npc:683} Young Panther · {npc:855} Young Stranglethorn Raptor · {npc:1108} Mistvale Gorilla · {npc:682} Stranglethorn Tiger · {npc:685} Stranglethorn Raptor · {npc:689} Crystal Spine Basilisk · {npc:1085} Elder Stranglethorn Tiger · {npc:686} Lashtail Raptor · {npc:1151} Saltwater Crocolisk · {skill:393} Skinning · {item:2319} Medium Leather · {item:4234} Heavy Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:681} (29), {npc:683} (30), {npc:855} (30), {npc:1108} (32), Panther (32), {npc:682} (32), {npc:685} (33), {npc:689} (34), {npc:1085} (34), {npc:686} (35), {npc:1151} (35) until {skill:393} 200; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 35: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 2,100 yards, 34 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 15 {item:2319} and 15 {item:4234}. For {skill:165}: about 145 {item:2319} and 320 {item:4234} in all."] = "",
-
-	-- Step 34: Beasts 29-35: Stranglethorn Vale (175-200)
-	-- {npc:681} Young Stranglethorn Tiger · {npc:1150} River Crocolisk · {npc:683} Young Panther · {npc:682} Stranglethorn Tiger · {npc:685} Stranglethorn Raptor · {npc:689} Crystal Spine Basilisk · {npc:1085} Elder Stranglethorn Tiger · {npc:1151} Saltwater Crocolisk · {skill:393} Skinning · {item:2319} Medium Leather · {item:4234} Heavy Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:681} (29), {npc:1150} (30), {npc:683} (30), Panther (32), {npc:682} (32), {npc:685} (33), {npc:689} (34), {npc:1085} (34), {npc:1151} (35) until {skill:393} 200; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 35: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,500 yards, 24 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 15 {item:2319} and 15 {item:4234}. For {skill:165}: about 145 {item:2319} and 320 {item:4234} in all."] = "",
-
-	-- Step 35: Artisan Skinning
+	-- Step 11: Artisan Skinning
 	-- {skill:393} Skinning
 	["Artisan {skill:393}"] = "{skill:393}: Искусник",
 	-- {skill:393} Skinning
 	["Artisan {skill:393} raises the cap to 300; it needs skill 200 and no character level, and costs 5g: train it as soon as you reach 200. The arrow picks the nearest {skill:393} trainer of your faction."] = "{skill:393}, ранг «Искусник»: предел 300; нужен навык 200, уровень персонажа не важен, стоит 5 з: обучитесь, как только достигнете 200. Стрелка ведет к ближайшему учителю вашей фракции ({skill:393}).",
 
-	-- Step 36: Beasts 38-41: Swamp of Sorrows (200-225)
-	-- {zone:1435} Swamp of Sorrows
-	["Beasts 38-41: {zone:1435} (200-225)"] = "",
-	-- {npc:1082} Sawtooth Crocolisk · {npc:768} Shadow Panther · {npc:1087} Sawtooth Snapper · {skill:393} Skinning · {item:4234} Heavy Leather · {item:4304} Thick Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:1082} (38), {npc:768} (39), {npc:1087} (41, needs 205) until {skill:393} 225; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 41: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,400 yards, 58 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 20 {item:4234} and 10 {item:4304}. For {skill:165}: about 320 {item:4234} and 375 {item:4304} in all."] = "",
+	-- Step 12: Beasts 37-40 (200-225)
+	["Beasts 37-40 (200-225)"] = "",
+	-- {npc:4343} Drywallow Snapper · {npc:4344} Mottled Drywallow Crocolisk · {npc:1082} Sawtooth Crocolisk · {npc:4356} Bloodfen Razormaw · {npc:768} Shadow Panther · {npc:4357} Bloodfen Lashtail · {npc:1557} Elder Mistvale Gorilla · {skill:393} Skinning · {item:4234} Heavy Leather · {item:4304} Thick Leather · {skill:165} Leatherworking
+	["Walk the loop and kill and skin {npc:4343} (37), {npc:4344} (38), {npc:1082} (38), {npc:4356} (39), {npc:768} (39), {npc:4357} (40), {npc:1557} (40) until {skill:393} 225; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 20 {item:4234} and 10 {item:4304}. For {skill:165}: about 320 {item:4234} and 375 {item:4304} in all."] = "",
 
-	-- Step 37: Beasts 42-44: The Hinterlands (225-250)
-	-- {zone:1425} The Hinterlands
-	["Beasts 42-44: {zone:1425} (225-250)"] = "",
-	-- {npc:2927} Vicious Owlbeast · {npc:2924} Silvermane Wolf · {npc:2928} Primitive Owlbeast · {skill:393} Skinning · {item:4304} Thick Leather · {item:4234} Heavy Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:2927} (42), {npc:2924} (43), {npc:2928} (44) until {skill:393} 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 45: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,800 yards, 21 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 15 {item:4304} and 15 {item:4234}. For {skill:165}: about 375 {item:4304} and 320 {item:4234} in all."] = "",
+	-- Step 13: Beasts 40-44 (225-250)
+	["Beasts 40-44 (225-250)"] = "",
+	-- {npc:5422} Scorpid Hunter · {npc:5268} Ironfur Bear · {npc:5419} Glasshide Basilisk · {npc:5260} Groddoc Ape · {npc:5423} Scorpid Tail Lasher · {npc:2927} Vicious Owlbeast · {npc:5426} Blisterpaw Hyena · {npc:5292} Feral Scar Yeti · {npc:5300} Frayfeather Hippogryph · {npc:2924} Silvermane Wolf · {npc:5304} Frayfeather Stagwing · {npc:2928} Primitive Owlbeast · {skill:393} Skinning · {item:4304} Thick Leather · {item:4234} Heavy Leather · {skill:165} Leatherworking
+	["Walk the loop and kill and skin {npc:5422} (40), {npc:5268} (41), {npc:5419} (42), {npc:5260} (42), {npc:5423} (42), {npc:2927} (42), {npc:5426} (43), {npc:5292} (43), {npc:5300} (43), {npc:2924} (43), {npc:5304} (44), {npc:2928} (44) until {skill:393} 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 15 {item:4304} and 15 {item:4234}. For {skill:165}: about 375 {item:4304} and 320 {item:4234} in all."] = "",
 
-	-- Step 38: Beasts 41-44: Feralas (225-250)
-	-- {zone:1444} Feralas
-	["Beasts 41-44: {zone:1444} (225-250)"] = "",
-	-- {npc:5268} Ironfur Bear · {npc:5260} Groddoc Ape · {npc:5292} Feral Scar Yeti · {npc:5300} Frayfeather Hippogryph · {npc:5304} Frayfeather Stagwing · {skill:393} Skinning · {item:4304} Thick Leather · {item:4234} Heavy Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:5268} (41), {npc:5260} (42), {npc:5292} (43), {npc:5300} (43), {npc:5304} (44) until {skill:393} 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 45: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,900 yards, 19 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 15 {item:4304} and 15 {item:4234}. For {skill:165}: about 375 {item:4304} and 320 {item:4234} in all."] = "",
+	-- Step 14: Beasts 44-49 (250-275)
+	["Beasts 44-49 (250-275)"] = "",
+	-- {npc:2928} Primitive Owlbeast · {npc:2929} Savage Owlbeast · {npc:2926} Silvermane Stalker · {npc:6507} Ravasaur Hunter · {npc:6506} Ravasaur Runner · {npc:2505} Saltwater Snapjaw · {skill:393} Skinning · {item:4304} Thick Leather · {item:8170} Rugged Leather · {skill:165} Leatherworking
+	["Walk the loop and kill and skin {npc:2928} (44), {npc:2929} (46), {npc:2926} (47), Ravasaur (48), {npc:6507} (49), {npc:6506} (49), {npc:2505} (49) until {skill:393} 275; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 20 {item:4304} and 10 {item:8170}. For {skill:165}: about 375 {item:4304} and 1030 {item:8170} in all."] = "",
 
-	-- Step 39: Beasts 48-50: Un'Goro Crater (250-275)
-	-- {zone:1449} Un'Goro Crater
-	["Beasts 48-50: {zone:1449} (250-275)"] = "",
-	-- {npc:9165} Fledgling Pterrordax · {npc:6507} Ravasaur Hunter · {npc:6506} Ravasaur Runner · {npc:6508} Venomhide Ravasaur · {skill:393} Skinning · {item:4304} Thick Leather · {item:8170} Rugged Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:9165} (48), Ravasaur (48), {npc:6507} (49), {npc:6506} (49), {npc:6508} (50) until {skill:393} 275; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 50: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 2,500 yards, 27 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 20 {item:4304} and 5 {item:8170}. For {skill:165}: about 375 {item:4304} and 1030 {item:8170} in all."] = "",
-
-	-- Step 40: Beasts 53-55: Western Plaguelands (275-300)
-	-- {zone:1422} Western Plaguelands
-	["Beasts 53-55: {zone:1422} (275-300)"] = "",
-	-- {npc:1817} Diseased Wolf · {npc:1816} Diseased Grizzly · {skill:393} Skinning · {item:8170} Rugged Leather · {item:4304} Thick Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:1817} (53), {npc:1816} (55) until {skill:393} 300; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 55: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,600 yards, 17 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 15 {item:8170} and 5 {item:4304}. For {skill:165}: about 1030 {item:8170} and 375 {item:4304} in all."] = "",
+	-- Step 15: Beasts 53-55 (275-300)
+	["Beasts 53-55 (275-300)"] = "",
+	-- {npc:1817} Diseased Wolf · {npc:7450} Ragged Owlbeast · {npc:7444} Shardtooth Bear · {npc:11735} Stonelash Scorpid · {npc:1816} Diseased Grizzly · {skill:393} Skinning · {item:8170} Rugged Leather · {item:4304} Thick Leather · {item:15408} Heavy Scorpid Scale · {skill:165} Leatherworking
+	["Walk the loop and kill and skin {npc:1817} (53), {npc:7450} (53), {npc:7444} (53), {npc:11735} (54), {npc:1816} (55) until {skill:393} 300; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 15 {item:8170}, 10 {item:4304} and 5 {item:15408}. For {skill:165}: about 1030 {item:8170} and 375 {item:4304} in all."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:393} trainer of your faction teaches Apprentice {skill:393} (character level 5); the arrow picks the nearest. Buy a {item:7005} from a trade goods or general vendor: keep it in your bags, you cannot skin without it."] = "Любой учитель вашей фракции ({skill:393}) обучает навыку {skill:393}, ранг «Ученик» (уровень персонажа 5); стрелка ведет к ближайшему. Купите у торговца товарами или припасами: {item:7005} – и держите в сумке, без него снимать шкуры нельзя.",
