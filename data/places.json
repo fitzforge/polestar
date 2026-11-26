@@ -3091,6 +3091,52 @@
 			"issue": 3078
 		},
 		{
+			"id": "4187-fuzzle-hands-in-at-his-cage",
+			"quest": 94961,
+			"objective": "ender",
+			"at": {
+				"map": 2548,
+				"x": 47.2,
+				"y": 51.2,
+				"frame": "live"
+			},
+			"note": "#4187: Biting the Hand's first part is handed in to Fuzzle (259158) at his cage in Sunnyglade, where he gave it (3078-fuzzle-in-his-cage), not at the middle of the town, his first spawn point, where the arrow sent players.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): 82 people handed in Biting the Hand (94961) to Fuzzle, all 83 hand-ins at 47.26-47.42,51.26-51.51"
+				},
+				{
+					"kind": "client",
+					"ref": "npcs.json 259158 Fuzzle on map 2548: 45.6,47.8; 47.0,50.0; 47.2,51.2"
+				}
+			],
+			"issue": 4187
+		},
+		{
+			"id": "4187-fuzzle-gives-the-escort-at-his-cage",
+			"quest": 94963,
+			"objective": "giver",
+			"at": {
+				"map": 2548,
+				"x": 47.2,
+				"y": 51.2,
+				"frame": "live"
+			},
+			"note": "#4187: Fuzzle (259158) gives Biting the Hand's second part, the escort, from his cage in Sunnyglade, right after the first part's hand-in, not from a point between his spawns.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): 82 people took Biting the Hand (94963) from Fuzzle, all 96 accepts at 47.23-47.43,51.24-51.51"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#4187 (0.4.3): the reporter took it at 47.33,51.30"
+				}
+			],
+			"issue": 4187
+		},
+		{
 			"id": "3231-twilight-tablet-fragments-on-the-ground",
 			"quest": 8284,
 			"objective": 1,
