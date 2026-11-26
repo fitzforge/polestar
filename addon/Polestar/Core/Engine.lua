@@ -5485,7 +5485,8 @@ end
 Own.EARLIER_SHARE = 0.5
 
 -- The accept goals of the loaded guide's route before step `mark` that were
--- not taken, or nil when too few quests before it were: { goal, ... }.
+-- not taken, or nil when too few quests before it were: { goal, ... }. A
+-- quest the game no longer offers (closed, Own.unavailable) is none of them.
 function Own.earlierBefore(mark, gated)
 	local C, steps, sk = Compat(), guide.steps, skippedFor(guide.id)
 	local seen, open, total, kept = {}, {}, 0, 0
@@ -5494,7 +5495,7 @@ function Own.earlierBefore(mark, gated)
 			for _, goal in ipairs(steps[s].goals) do
 				local q = goal.quest
 				if (goal.t == "accept" or goal.direct) and q and not seen[q] and not goal.optional and Guides.Matches(goal.only, player)
-					and greyNeed(goal) ~= false then
+					and greyNeed(goal) ~= false and not unavailableFor(goal) then
 					seen[q] = true
 					if questDone(q) or C.IsOnQuest(q) then
 						total, kept = total + 1, kept + 1
