@@ -143,8 +143,8 @@ step Dran Droffers
 
 step Orgrimmar
   zone Orgrimmar
-  tip Jes'rimon, in the Cleft of Shadow, has Bone-Bladed Weapons for later; then your class trainer before you leave for Azshara.
-  accept 4300                           -- Jes'rimon, the Cleft of Shadow
+  tip Jes'rimon, in The Drag, upstairs in one of its tallest buildings, has Bone-Bladed Weapons for later; then your class trainer before you leave for Azshara.
+  accept 4300 -- Jes'rimon, upstairs in The Drag
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 step Zor Lonetree

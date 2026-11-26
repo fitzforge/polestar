@@ -181,6 +181,7 @@ step Gregan Brewspewer
 step Evoroot
   when onquest 3909
   tip The Evoroot grows inside a ruined building north of Gregan's camp, east of the harpies' Ruins of Ravenwind: climb in through the broken part of its wall.
+  tip Or the front door: Miblon Snarltooth guards it, and the Bait Gregan sells draws him off when you use it beside him. Half the players in our recordings went in that way, half through the wall.
   collect 11242 quest 4041.1 @44.5,10.2 map 1444
 
 step Fly to Camp Mojache
