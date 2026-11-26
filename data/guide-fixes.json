@@ -19018,6 +19018,17 @@
 				{ "kind": "client", "ref": "TaxiNodes: Shadowprey Village flight master at 21.6,74 (map 1443)" }
 			],
 			"issue": 3983
+		},
+		{
+			"id": "4231-tainted-ooze-jar-use",
+			"faction": "Alliance",
+			"at": { "quest": 4512, "goal": "objective", "objective": 2, "guide": "forever/alliance/50-60/02-felwood" },
+			"tip": "Tainted Oozes slide about Jaedenar's fel pools: kill them and use the Empty Tainted Ooze Jar on their remains.",
+			"note": "#4231: a Filled Tainted Ooze Jar is made by using an Empty Tainted Ooze Jar (from Laris's package) on a Tainted Ooze's remains, as the Cursed Ooze tip of Jadefire Glen says for its jar; the Jaedenar step named the oozes only in a comment, so the player was told to kill them and nothing more.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#4231 (Pokey): the jars in the bags are used on the ooze's corpse to fill them" }
+			],
+			"issue": 4231
 		}
 	]
 }

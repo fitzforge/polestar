@@ -176,6 +176,48 @@ fn with_no_room_over_or_under_the_window_the_card_stands_beside_it() {
 	assert_eq!(out["nearLeft"], serde_json::json!({ "side": "right", "at": "TOPLEFT>window.TOPRIGHT@20,0" }), "near the left edge: on its right");
 }
 
+// A skin that draws its own cards above the window (Skin API 2's guideAnchor: the Atlas layout's stack) gives the
+// card their frame to sit on. With no room over them (the window near the screen's top), the card goes under the
+// window, never under that frame: there it lay on the window, behind it, its buttons out of reach (#4212, the level-up
+// and old-rank spell cards). With room it still sits on the skin's cards; the house look keeps its place under the
+// window (the test above).
+#[test]
+fn under_a_skin_s_cards_above_the_window_the_card_never_lands_on_the_window_4212() {
+	let out = run(r#"
+		CT.Show(1506)
+		stub.advance(1)
+		local w = GF.frame
+		local stack = CreateFrame("Frame", nil, UIParent)
+		local ok, why = Polestar.Theme.RegisterSkin("stacked", { name = "Stacked", addon = "Test_Stacked", base = "polestar",
+			hooks = { guideAnchor = function() return stack end } })
+		Polestar.Set("ui.skin", "stacked")
+		-- The card's box from its first anchor (to the window or the skin's frame), against the window's.
+		local function at()
+			local f = CT.frame
+			local p, rel, rp, x, y = f:GetPoint(1)
+			local ref = rp:find("^BOTTOM") and rel:GetBottom() or rel:GetTop()
+			local bottom = p:find("^BOTTOM") and ref + y or ref + y - f:GetHeight() * f:GetScale()
+			local top = bottom + f:GetHeight() * f:GetScale()
+			return { side = CT.side, on = rel == w and "window" or rel == stack and "stack" or tostring(rel),
+				overWindow = bottom < w:GetTop() and top > w:GetBottom() }
+		end
+		local function place(y)
+			w.y = y
+			stack.x, stack.y = w.x, w:GetTop()
+			stack:SetSize(w:GetWidth(), 70)
+			CT.Place()
+			return at()
+		end
+		-- Room over the skin's cards: on them.
+		local room = place(200)
+		-- The window near the screen's top, the cards over it up to the edge: under the window.
+		local top = place(UIParent.height - w:GetHeight() - 75)
+		emit({ ok = ok, why = why or false, room = room, top = top })"#);
+	assert_eq!(out["ok"], true, "registered: {}", out["why"]);
+	assert_eq!(out["room"], serde_json::json!({ "side": "above", "on": "stack", "overWindow": false }), "room over the cards: on them");
+	assert_eq!(out["top"], serde_json::json!({ "side": "below", "on": "window", "overWindow": false }), "no room over the cards: under the window, clear of it");
+}
+
 // A spot of its own: the card leaves the window for its saved place (the screen's top middle until it is moved),
 // stays on screen, and Move frames offers its box only while it has a spot of its own.
 #[test]
