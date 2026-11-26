@@ -819,7 +819,14 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		// Fishing) have no trainers object on Expert and Artisan, so they get no record.
 		let ranks = p.get("ranks").items();
 		let sided = |r: &V| r.get("trainers").is_obj() && (r.get("trainers").has("Alliance") || r.get("trainers").has("Horde"));
-		if ranks.len() == 4 && ranks.iter().all(sided) {
+		let recipe_trainers = Obj::new();
+		for recipe in p.get("recipes").items() {
+			if recipe.get("trainers").is_obj() {
+				recipe_trainers.set(&kstr(&recipe.get("spell")), recipe.get("trainers"));
+			}
+		}
+		let has_ranks = ranks.len() == 4 && ranks.iter().all(sided);
+		if has_ranks || !recipe_trainers.is_empty() {
 			let ids_of = |r: &V, side: &str| {
 				let mut v: Vec<f64> = r.get("trainers").get(side).items().iter().filter_map(int).collect();
 				v.sort_by(|a, b| by_num(*a, *b));
@@ -828,6 +835,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			};
 			let rank_vs: Vec<V> = ranks
 				.iter()
+				.filter(|_| has_ranks)
 				.map(|r| {
 					let o = Obj::new();
 					let nn = |v: V| if v.is_nullish() { V::Num(0.0) } else { v };
@@ -846,6 +854,9 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			rec.set("ranks", V::Arr(forge_guide::js::Arr::from_vec(rank_vs)));
 			let gates = p.get("trainerSkill");
 			rec.set("trainerSkill", if gates.is_obj() { gates } else { V::obj() });
+			if !recipe_trainers.is_empty() {
+				rec.set("recipeTrainers", recipe_trainers);
+			}
 			professions.set(&id, V::Obj(rec));
 		}
 		let mut trainers: Vec<V> = Vec::new();

@@ -270,6 +270,59 @@ fn sources_a_crafts_trainer_teaches_the_rank_it_needs_3784() {
 	assert_eq!(trainer(json!([]), json!({}), "60, 75"), Value::Null, "no trainer teaches the rank: none, not the wrong one");
 }
 
+// #4214: the nearby profession trainer is not evidence that they teach this recipe.
+// Exact teachers survive the public Codex pack; faction and gossip skill gates still apply.
+#[test]
+fn crafting_uses_exact_recipe_teachers_or_no_recipe_waypoint_4214() {
+	for (faction, teacher) in [("Alliance", 5011), ("Horde", 5012)] {
+		for (skill, gate, expected) in [(120, 100, Some(teacher)), (120, 125, None), (130, 125, Some(teacher))] {
+			let mut c = codex();
+			for (id, side) in [(5011, "A"), (5012, "H")] {
+				let mut npc = c["npcs"]["5010"].clone();
+				npc["id"] = json!(id);
+				npc["faction"] = json!(side);
+				npc["spawns"] = json!([{ "map": 9001, "x": 70, "y": 70, "f": "e" }]);
+				c["npcs"][id.to_string()] = npc;
+			}
+			c["professions"] = json!({ "197": { "id": 197, "name": "Tailoring", "ranks": [],
+				"trainerSkill": { "5011": gate, "5012": gate },
+				"recipeTrainers": { "9601": { "Alliance": [5011], "Horde": [5012] } } } });
+			let pack = write_codex_pack(&c, &CodexOpts::default());
+			let out = run_with(
+				r#"
+local rows = Polestar.Lookup.Sources("item", 8005)
+Polestar.Lookup.Guide("item", 8005)
+local goals = Polestar.Engine.GetGuide().steps[1].goals
+emit({ teacher = rows[1].recipeTrainer, map = rows[1].map, learn = goals[1], craft = goals[2] })
+"#,
+				&Opts { with_pack: false, faction, setup: format!("{}\nw.learnSkill(197, \"Tailoring\", {skill}, 150)", pack.stub_lua), ..Default::default() },
+			)
+			.remove(0);
+			assert_eq!(out["teacher"], json!(expected), "{faction}, skill {skill}, gate {gate}");
+			assert_eq!(out["learn"]["npc"], json!(expected));
+			assert_eq!(out["learn"]["t"], "learn");
+			assert_eq!(out["craft"]["t"], "craft");
+			assert_eq!(out["map"].is_null(), expected.is_none());
+			assert_eq!(out["learn"]["map"].is_null(), expected.is_none());
+		}
+	}
+	// A pack with profession roles but no exact recipe relation keeps learn/craft,
+	// without claiming its nearest profession trainer teaches the recipe.
+	let out = run_with(
+		r#"
+local rows = Polestar.Lookup.Sources("item", 8005)
+Polestar.Lookup.Guide("item", 8005)
+emit({ map = rows[1].map, goals = Polestar.Engine.GetGuide().steps[1].goals })
+"#,
+		&Opts { setup: "w.learnSkill(197, \"Tailoring\", 120, 150)".into(), ..Default::default() },
+	)
+	.remove(0);
+	assert!(out["map"].is_null());
+	assert_eq!(out["goals"][0]["t"], "learn");
+	assert!(out["goals"][0]["npc"].is_null() && out["goals"][0]["map"].is_null());
+	assert_eq!(out["goals"][1]["t"], "craft");
+}
+
 #[test]
 fn sources_reputation_and_the_faction_of_a_reputation_gate_a_source() {
 	let [before, wolf] = first::<2>(run(r#"emit((rows("tabard", 8006))); emit((rows("mount", 8012)))"#));
