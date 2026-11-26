@@ -37,15 +37,21 @@ return {
 		stub.advance(1)
 	end,
 	probes = {
-		-- The order: nearest first (the gnolls), or the most XP a minute first (the boars).
+		-- The order: balanced (the gnolls, then the boars), nearest first (the gnolls, then their ears) or the most
+		-- XP a minute first (the boars).
 		["free.pick"] = { prepare = on, probe = steps },
-		-- Far from every quest (the map's far corner), the zone hint comes first.
+		-- Far from every quest (Merrow Fields' far corner, over 2,800 yd off: more than 300 s), the zone hint comes first.
 		["free.hints"] = { prepare = function()
-			w.moveTo(9001, 98, 2)
+			w.moveTo(9002, 98, 98)
 			on()
 			free().Plan(true)
 			stub.advance(1)
-		end, cleanup = function() w.moveTo(9001, 50, 50) end, probe = function()
+		end, cleanup = function()
+			-- Back at the camp; moving plans nothing by itself, so the next probe starts from a plan made here.
+			w.moveTo(9001, 50, 50)
+			free().Plan(true)
+			stub.advance(1)
+		end, probe = function()
 			free().Plan(true)
 			stub.advance(1)
 			return steps()

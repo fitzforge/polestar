@@ -704,6 +704,11 @@ fn questing_bagmarks() {
 }
 
 #[test]
+fn questing_freemode() {
+	check("questing_freemode");
+}
+
+#[test]
 fn guide_window() {
 	check("guide_window");
 }

@@ -634,8 +634,9 @@ end)
 for _, event in ipairs({ "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_TURNED_IN", "ZONE_CHANGED_NEW_AREA", "PLAYER_ENTERING_WORLD", "PLAYER_LEVEL_UP" }) do
 	ns.RegisterEvent(event, changed)
 end
+-- A free.* setting, or many at once ("": a profile switched, a page reset).
 ns.On("SETTING_CHANGED", function(path)
-	if open and type(path) == "string" and path:find("^free") then Free.Plan(true) end
+	if open and type(path) == "string" and (path == "" or path:find("^free")) then Free.Plan(true) end
 end)
 
 ---------------------------------------------------------------------------
