@@ -1054,7 +1054,7 @@ const PAINTED: &str = r#"
 		local function pic(art) return { file = art.psPic and art.psPic.texture, shown = art.psPic ~= nil and art.psPic:IsShown(), tc = art.psPic and art.psPic.texCoord } end
 "#;
 
-// Fitz, 2026-11-26: the Dungeons page shows the dungeon's loading screen, not the map. The Map tab opens on it (Wailing
+// The Dungeons page shows the dungeon's loading screen, not the map. The Map tab opens on it (Wailing
 // Caverns' own file, 131882, from the client's tables: Dungeons/ArtFiles.lua), cropped to the frame's shape with its
 // aspect kept, under the entrance line alone (the quest givers are marked on the map only), and a button on the
 // picture's corner offers the map.
@@ -1185,7 +1185,7 @@ fn the_dungeon_screens_come_from_the_client_files_narrow_for_classic_wide_for_fo
 // Shaper's Terrace showed the bare night band and no zone. A dungeon whose door nobody has recorded takes the zone
 // the client's areas name it in (Blackmaw Hold: Azshara): its card and page paint that zone and name it, and the Map
 // tab says the door isn't known yet but where the dungeon lies. One with no zone at all (Alcaz Prison) wears its own
-// loading screen (Dungeons.Art), never the bare night band. Fitz, 2026-11-26: the Map tab opens on the loading screen
+// loading screen (Dungeons.Art), never the bare night band. Since 0.4.4 the Map tab opens on the loading screen
 // where there is one (the zone is the button's other picture, where the client paints it).
 #[test]
 fn a_dungeon_without_a_known_door_paints_its_zone_and_names_it_else_its_loading_screen_never_the_bare_band() {
