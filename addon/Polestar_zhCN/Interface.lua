@@ -406,14 +406,12 @@
 --   Free mode stops listing this quest. The menu's Bring back left-out quests lists it again.
 --   Free mode takes this quest first, whatever the order.
 --   Free mode
---   Free mode: follow your own quests (on, off, nearest, xp)
 --   Free mode: the arrow takes your own quests, nearest first.
 --   Free mode: the arrow takes your own quests, the most XP a minute first.
 --   Leave out of Free mode
 --   Low drop rate: %s
 --   Most XP a minute first
 --   Nearest first
---   Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes.
 --   No quests to lead to
 --   Or follow your own quests: Free mode
 --   Order: most XP a minute first
@@ -452,6 +450,23 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+-- Machine-translated, to be reviewed (Free mode's Balanced order and its why line, 0.4.4, 26 Nov 2026):
+-- translated by an AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native
+-- speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   Balanced: the XP a quest pays for the walk and the work left, more for a quest already started, quests sharing a place or mobs, and hand-ins on the way. Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes.
+--   Free mode: the arrow takes your own quests, the best trip first: XP, progress and stops shared.
+--   Free mode: follow your own quests (on, off, balanced, nearest, xp)
+--   pinned
+--   %d hand-ins at one stop
+--   %d of your quests here
+--   hand-in on the way
+--   started
+--   nearest
+--   most XP for the trip
+--   kept while you walk
+--   Why %s first: %s
+--   Order: balanced
+--   ready to hand in
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhCN") then return end
@@ -1126,12 +1141,12 @@ L["On an NPC, name the quests it has for you now and the finished quests you can
 L["Replace the game's quest lines"] = "替换游戏的任务行"
 L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = "若 Polestar 已在怪物或物体的悬浮提示中列出某项任务，就隐藏游戏自带的对应条目，避免重复显示。组队时会保留游戏自带条目，以便查看队友的任务进度。"
 L["Which quest first"] = "先做哪个任务"
-L["Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes."] = "最近的优先：最快能到达的任务，然后是它附近的任务。每分钟经验最多的优先：任务给的经验与路程和所需工作相比。"
 L["Zone hints"] = "地区提示"
 L["With no quest near, the zone with the most quests for your level comes first, the arrow to its givers."] = "附近没有任务时，适合你等级任务最多的地区排在最前，箭头指向发布任务的人。"
 L["XP and drop rates"] = "经验和掉落率"
 L["The XP each hand-in pays, and a collect whose items rarely drop says so."] = "每次交任务获得的经验，以及物品很少掉落的收集目标会注明。"
 L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "把你自己的任务当作指南，在单独的标签页中：箭头指向最近的任务，然后是下一个（/polestar free）。再按一次返回你的指南。"
+L["Balanced: the XP a quest pays for the walk and the work left, more for a quest already started, quests sharing a place or mobs, and hand-ins on the way. Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes."] = "均衡：任务给的经验与路程和剩余工作相比；已经开始的任务、地点或怪物相同的任务、以及顺路交还的任务排得更前。最近的优先：最快能到达的任务，然后是它附近的任务。每分钟经验最多的优先：任务给的经验与路程和所需工作相比。"
 
 -- Quests/Party.lua
 L["%s done"] = "%s 已完成"
@@ -5291,6 +5306,7 @@ L["Free mode: the arrow takes your own quests, the most XP a minute first."] = "
 L["Free mode: the arrow takes your own quests, nearest first."] = "自由模式：箭头指向你自己的任务，最近的优先。"
 L["Nearest first"] = "最近的优先"
 L["Most XP a minute first"] = "每分钟经验最多的优先"
+L["Free mode: the arrow takes your own quests, the best trip first: XP, progress and stops shared."] = "自由模式：箭头指向你自己的任务，最划算的行程优先：经验、进度和共用的地点。"
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "按 %s 恢复，或打开指南窗口。"
@@ -5637,7 +5653,7 @@ L["Free mode starts after combat."] = "自由模式将在战斗结束后启动�
 L["Free mode can't start: its folder Polestar_FreeMode or the Codex is missing or turned off."] = "自由模式无法启动：它的文件夹 Polestar_FreeMode 或 Codex 缺失或已关闭。"
 L["Free mode"] = "自由模式"
 L["Your own quests as a guide: the arrow leads to the nearest one, then the next."] = "把你自己的任务当作指南：箭头指向最近的任务，然后是下一个。"
-L["Free mode: follow your own quests (on, off, nearest, xp)"] = "自由模式：跟随你自己的任务（on、off、nearest、xp）"
+L["Free mode: follow your own quests (on, off, balanced, nearest, xp)"] = "自由模式：跟随你自己的任务（on、off、balanced、nearest、xp）"
 
 -- UI/QuestLinks.lua
 L["Start quest guide"] = "开始任务指南"
@@ -5666,6 +5682,17 @@ L["Pin to the top"] = "置顶"
 L["Free mode takes this quest first, whatever the order."] = "无论顺序如何，自由模式都会先做这个任务。"
 L["Leave out of Free mode"] = "从自由模式中排除"
 L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "自由模式不再列出此任务。菜单中的“恢复被排除的任务”会重新列出它。"
+L["pinned"] = "已置顶"
+L["%d hand-ins at one stop"] = "一处交还 %d 个任务"
+L["%d of your quests here"] = "这里有你的 %d 个任务"
+L["hand-in on the way"] = "顺路交还"
+L["started"] = "已开始"
+L["nearest"] = "最近"
+L["most XP for the trip"] = "这趟经验最多"
+L["kept while you walk"] = "行走时保持不变"
+L["Why %s first: %s"] = "为什么先做%s：%s"
+L["Order: balanced"] = "顺序：均衡"
+L["ready to hand in"] = "可以交还"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐页重新设置 Polestar。每项选择立即生效。"
@@ -5944,3 +5971,5 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 -- L["Max height"] = "最大高度"
 -- L["%s: on this step"] = "%s：在此步骤"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "把你自己的任务当作指南，在单独的标签页中：箭头指向最近的任务，然后是下一个（/polestar free）。"
+-- L["Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes."] = "最近的优先：最快能到达的任务，然后是它附近的任务。每分钟经验最多的优先：任务给的经验与路程和所需工作相比。"
+-- L["Free mode: follow your own quests (on, off, nearest, xp)"] = "自由模式：跟随你自己的任务（on、off、nearest、xp）"

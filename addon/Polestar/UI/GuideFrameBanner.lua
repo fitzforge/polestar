@@ -225,11 +225,11 @@ ns.UI.GuideFrame.Part(function(GF)
 		if bags then return "bags", bags end
 		local wear = Q and Q.Wear and Q.Wear.Offer and Q.Wear.Offer()
 		if wear then return "wear", wear end
-		-- Free mode (Lookup/Free.lua) shown: what leads the arrow, the way back to the
-		-- guide and the other order; until closed for the session.
+		-- Free mode (Lookup/Free.lua) shown: what leads the arrow and why, the way
+		-- back to the guide and the next order; until closed for the session.
 		local FM = ns.Free
 		if FM and g ~= nil and FM.IsGuide(g.id) and not notices.freeSeen then
-			return "free", { back = FM.ReturnTitle(), xp = ns.Get("free.pick") == "xp" }
+			return "free", { back = FM.ReturnTitle(), pick = FM.Pick(), why = FM.Why() }
 		end
 		-- A newer Polestar (UI/UpdateCard.lua): last, so it waits for every other.
 		local UC = UI.UpdateCard
@@ -784,9 +784,13 @@ ns.UI.GuideFrame.Part(function(GF)
 			banner.Close:Show()
 		elseif kind == "free" then
 			banner.Icon:SetTexture(Theme.Media("icon-explore"))
-			banner.Text:SetText(n.xp and L["Free mode: the arrow takes your own quests, the most XP a minute first."]
-				or L["Free mode: the arrow takes your own quests, nearest first."])
-			local other = n.xp and L["Nearest first"] or L["Most XP a minute first"]
+			local RULE = {
+				balanced = L["Free mode: the arrow takes your own quests, the best trip first: XP, progress and stops shared."],
+				xp = L["Free mode: the arrow takes your own quests, the most XP a minute first."],
+				near = L["Free mode: the arrow takes your own quests, nearest first."],
+			}
+			banner.Text:SetText(n.why and (RULE[n.pick] .. "\n" .. n.why) or RULE[n.pick])
+			local other = ns.Free.PickLabel(ns.Free.NextPick(n.pick))
 			if n.back then
 				local w = placeLink(banner.Jump, string.format(L["Return to %s"], n.back), 0, -4)
 				placeLink(banner.Later, other, w + 10, -4)
@@ -931,7 +935,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		elseif kind == "wear" then
 			ns.QoL.Wear.Take()
 		elseif kind == "free" then
-			if n.back then ns.Free.Stop() else ns.Free.SetPick(n.xp and "near" or "xp") end
+			if n.back then ns.Free.Stop() else ns.Free.SetPick(ns.Free.NextPick(n.pick)) end
 		elseif kind == "update" then
 			UI.UpdateCard.Show(true)
 		end
@@ -957,7 +961,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			ns.QoL.Wear.Decline()
 			GF.Layout()
 		elseif kind == "free" then
-			ns.Free.SetPick(n.xp and "near" or "xp")
+			ns.Free.SetPick(ns.Free.NextPick(n.pick))
 			GF.Layout()
 		elseif kind == "away" and n.live then
 			-- A skipped step looked at: back to the live one, the skip kept.
