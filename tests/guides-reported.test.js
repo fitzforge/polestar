@@ -19741,3 +19741,37 @@ test('#3708, #3923: profession guides learn a recipe only the Artisan trainers t
 	}
 	assert.ok(checked > 0, 'the Artisan-only recipes the guides learn');
 });
+// #4115 (ItsSaulx, 0.4.2.2): A Void Path's one objective is steering Va'xug's Eye of Kilrogg out of the ravine to
+// the main road, where the quest is handed in to the Eye of Kilrogg; the bare complete had no place, so the arrow
+// showed nothing while the player steered. It leads to the road (data/places.json 4115-98252-1).
+test(`${STONETALON_HORDE}: ItsSaulx's report: A Void Path leads the arrow to the road while you steer the eye (#4115)`, { skip }, () => {
+	const list = goals(STONETALON_HORDE);
+	const complete = list[at(list, 'complete 98252 (A Void Path)', is('complete', 98252))];
+	const turnin = list[at(list, 'turnin 98252 (A Void Path)', is('turnin', 98252))];
+	assert.ok(located(complete), 'the complete has a place for the arrow');
+	assert.ok(yards(complete.goal, turnin.goal) < 15, `it is the road where the eye is handed in (${complete.goal.x},${complete.goal.y})`);
+});
+
+// #4013 (asdmasa, 0.4.2.2): a Horde player without Gol'dir (503: its feeder The Rescue comes from the Hillsbrad
+// guide) walked from Tarren Mill to Strahnbrad for a stop hidden from him, while the Bracers of Binding are at the
+// Dalaran ruins. The walk to Gol'dir is for whoever carries the quest, as the stop is (guide-fixes 4013).
+test("forever/horde/30-40/05-arathi-highlands.guide: asdmasa's report: the walk to Gol'dir is only for Gol'dir's carriers (#4013)", { skip }, () => {
+	const list = goals('forever/horde/30-40/05-arathi-highlands.guide');
+	const goldir = list[at(list, 'turnin 503 (Gol\'dir)', is('turnin', 503))];
+	const steps = compiled('forever/horde/30-40/05-arathi-highlands.guide').steps;
+	const walk = steps[steps.indexOf(goldir.step) - 1];
+	assert.ok(walk.goals.length && walk.goals.every((g) => g.t === 'goto'), `the step before Gol'dir is the walk there (${walk.title})`);
+	assert.ok(holdsQuest(walk, 503), 'the walk shows only with Gol\'dir in the log');
+});
+
+// #3983 (EmberVixen, 0.4.2.2): off the Shadowprey flight master the stop took Taiga Wisemane at the village's far
+// end, back to Drulzegar Skraghook on the docks, then out past Taiga again to Aka'rai. Drulzegar, by the flight
+// master, comes first; Taiga and Aka'rai, side by side, on the way out east (guide-fixes 3983).
+test("forever/horde/30-40/04-dustwallow-marsh.guide: EmberVixen's report: Shadowprey is walked docks first, then Taiga and Aka'rai (#3983)", { skip }, () => {
+	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
+	const drulzegar = at(list, 'accept 6143 (Drulzegar Skraghook)', is('accept', 6143));
+	const taiga = at(list, 'accept 5381 (Taiga Wisemane)', is('accept', 5381));
+	const akarai = at(list, 'accept 97265 (Aka\'rai)', is('accept', 97265));
+	assert.ok(drulzegar < taiga && taiga < akarai, 'Drulzegar, then Taiga, then Aka\'rai');
+	assert.ok(yards(list[taiga].goal, list[akarai].goal) < yards(list[drulzegar].goal, list[akarai].goal), 'Taiga stands nearer Aka\'rai than the docks do');
+});

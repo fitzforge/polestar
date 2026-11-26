@@ -4189,7 +4189,7 @@ do
 					title = "{quest:98252}",
 					note = "Steer {npc:267214}'s {npc:271181} out of the ravine to the main road within four minutes; if the channel breaks, ask {npc:267214} again.",
 					goals = {
-						{ t = "complete", quest = 98252, title = "A Void Path", group = { kind = "raid", map = 2832, name = "Nightmare Grove" }, objs = { { text = "Eye of Kilrogg guided to the road", count = 1 } } },
+						{ t = "complete", quest = 98252, title = "A Void Path", map = 1440, x = 38.2, y = 58.1, f = "e", group = { kind = "raid", map = 2832, name = "Nightmare Grove" }, objs = { { text = "Eye of Kilrogg guided to the road", count = 1 } } },
 						{ t = "turnin", quest = 98252, title = "A Void Path", npc = 271181, npcName = "Eye of Kilrogg", map = 1440, x = 38.2, y = 58.1, z = 112.9, f = "e", note = "{npc:271181}, on the road", group = { kind = "raid", map = 2832, name = "Nightmare Grove" } },
 					},
 				},
@@ -7471,8 +7471,8 @@ do
 					title = "{area:2408}",
 					note = "{npc:11624} and {npc:12340} stand in the village.",
 					goals = {
-						{ t = "accept", quest = 5381, title = "Hand of Iruxos", npc = 11624, npcName = "Taiga Wisemane", minLevel = 32, qlvl = 38, map = 1443, x = 25.69, y = 68.16, z = 49.1, note = "{npc:11624}: the {quest:5381}, at {area:599} later on this visit" },
 						{ t = "accept", quest = 6143, title = "Other Fish to Fry", npc = 12340, npcName = "Drulzegar Skraghook", minLevel = 32, qlvl = 36, map = 1443, x = 23.21, y = 72.88, z = 4.1, note = "{npc:12340}: the Slitherblade of Sar'theris Strand, on the way back from {area:599}" },
+						{ t = "accept", quest = 5381, title = "Hand of Iruxos", npc = 11624, npcName = "Taiga Wisemane", minLevel = 32, qlvl = 38, map = 1443, x = 25.69, y = 68.16, z = 49.1, note = "{npc:11624}: the {quest:5381}, at {area:599} later on this visit" },
 					},
 				},
 				{
@@ -7772,6 +7772,7 @@ do
 				},
 				{
 					title = "{zone:1416}",
+					when = { { k = "onquest", q = { 503 } } },
 					goals = {
 						{ t = "goto", text = "{quest:503}", map = 1416, x = 60, y = 43.7, z = 171.9, f = "e" },
 					},
