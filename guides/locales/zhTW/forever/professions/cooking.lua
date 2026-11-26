@@ -95,11 +95,12 @@ return {
 	-- {item:2674} Crawler Meat
 	["Get {item:2674}"] = "",
 	-- {item:2674} Crawler Meat · {spell:2544} Crab Cake · {npc:830} Sand Crawler · {zone:1436} Westfall
-	["You need 44 {item:2674} for {spell:2544} (90-130). It drops from {npc:830} (43%) in {zone:1436}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 47 {item:2674} for {spell:2544} (90-130). It drops from {npc:830} (43%) in {zone:1436}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
 	-- Step 22: Crab Cake (90-130)
 	-- {spell:2544} Crab Cake · {object:29784} Basic Campfire · {skill:185} Cooking · {zone:1436} Westfall · {spell:3376} Curiously Tasty Omelet
-	["{spell:2544} is orange from 90 (yellow at 115, green at 135, grey at 155): about 44 crafts to 130. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 75 for 2s. Crawlers line the whole {zone:1436} coast. Cook it to 130, where {spell:3376} takes over."] = "{spell:2544}從90起為橙色（115黃、135綠、155灰）：做到130約需44次。在任何火堆旁烹飪：城鎮爐火或你自己的{object:29784}。任何{skill:185}訓練師都會從技能75起以2銀教授它。爬行者遍佈{zone:1436}整條海岸。做到130，之後改用{spell:3376}。",
+	-- was: ["{spell:2544} is orange from 90 (yellow at 115, green at 135, grey at 155): about 44 crafts to 130. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 75 for 2s. Crawlers line the whole {zone:1436} coast. Cook it to 130, where {spell:3376} takes over."] = "{spell:2544}從90起為橙色（115黃、135綠、155灰）：做到130約需44次。在任何火堆旁烹飪：城鎮爐火或你自己的{object:29784}。任何{skill:185}訓練師都會從技能75起以2銀教授它。爬行者遍佈{zone:1436}整條海岸。做到130，之後改用{spell:3376}。"
+	["{spell:2544} is orange from 90 (yellow at 115, green at 135, grey at 155): about 44 crafts to 130, up to 47 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 75 for 2s. Crawlers line the whole {zone:1436} coast. Cook it to 130, where {spell:3376} takes over."] = "",
 
 	-- Step 23: Smoked Bear Meat: shopping
 	-- {item:6890} Smoked Bear Meat
@@ -126,11 +127,12 @@ return {
 	-- {item:2677} Boar Ribs
 	["Get {item:2677}"] = "",
 	-- {item:2677} Boar Ribs · {spell:2546} Dry Pork Ribs · {npc:1191} Mangy Mountain Boar · {zone:1432} Loch Modan
-	["You need 52 {item:2677} for {spell:2546} (80-130). It drops from {npc:1191} (31%) in {zone:1432}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 53 {item:2677} for {spell:2546} (80-130). It drops from {npc:1191} (31%) in {zone:1432}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
 	-- Step 28: Dry Pork Ribs (80-130)
 	-- {spell:2546} Dry Pork Ribs · {object:29784} Basic Campfire · {skill:185} Cooking · {zone:1432} Loch Modan · {spell:3376} Curiously Tasty Omelet
-	["{spell:2546} is orange from 80 (yellow at 120, green at 140, grey at 160): about 52 crafts to 130. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 80 for 1s 50c. Mountain boars roam all of {zone:1432}. Cook it to 130, where {spell:3376} takes over."] = "{spell:2546}從80起為橙色（120黃、140綠、160灰）：做到130約需52次。在任何火堆旁烹飪：城鎮爐火或你自己的{object:29784}。任何{skill:185}訓練師都會從技能80起以1銀50銅教授它。山地野豬遍佈{zone:1432}。做到130，之後改用{spell:3376}。",
+	-- was: ["{spell:2546} is orange from 80 (yellow at 120, green at 140, grey at 160): about 52 crafts to 130. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 80 for 1s 50c. Mountain boars roam all of {zone:1432}. Cook it to 130, where {spell:3376} takes over."] = "{spell:2546}從80起為橙色（120黃、140綠、160灰）：做到130約需52次。在任何火堆旁烹飪：城鎮爐火或你自己的{object:29784}。任何{skill:185}訓練師都會從技能80起以1銀50銅教授它。山地野豬遍佈{zone:1432}。做到130，之後改用{spell:3376}。"
+	["{spell:2546} is orange from 80 (yellow at 120, green at 140, grey at 160): about 52 crafts to 130, up to 53 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 80 for 1s 50c. Mountain boars roam all of {zone:1432}. Cook it to 130, where {spell:3376} takes over."] = "",
 
 	-- Step 29: Boiled Clams: shopping
 	-- {item:5525} Boiled Clams
@@ -151,11 +153,12 @@ return {
 
 	-- Step 33: Get Crawler Meat
 	-- {item:2674} Crawler Meat · {spell:2544} Crab Cake · {npc:3814} Spined Crawler · {npc:3812} Clattering Crawler · {zone:1439} Darkshore
-	["You need 44 {item:2674} for {spell:2544} (90-130). It drops from {npc:3814} (42%), {npc:3812} (40%) in {zone:1439}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 47 {item:2674} for {spell:2544} (90-130). It drops from {npc:3814} (42%), {npc:3812} (40%) in {zone:1439}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
 	-- Step 34: Crab Cake (90-130)
 	-- {spell:2544} Crab Cake · {object:29784} Basic Campfire · {skill:185} Cooking · {zone:1439} Darkshore · {spell:3376} Curiously Tasty Omelet
-	["{spell:2544} is orange from 90 (yellow at 115, green at 135, grey at 155): about 44 crafts to 130. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 75 for 2s. Crawlers line the whole {zone:1439} coast. Cook it to 130, where {spell:3376} takes over."] = "{spell:2544}從90起為橙色（115黃、135綠、155灰）：做到130約需44次。在任何火堆旁烹飪：城鎮爐火或你自己的{object:29784}。任何{skill:185}訓練師都會從技能75起以2銀教授它。爬行者遍佈{zone:1439}整條海岸。做到130，之後改用{spell:3376}。",
+	-- was: ["{spell:2544} is orange from 90 (yellow at 115, green at 135, grey at 155): about 44 crafts to 130. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 75 for 2s. Crawlers line the whole {zone:1439} coast. Cook it to 130, where {spell:3376} takes over."] = "{spell:2544}從90起為橙色（115黃、135綠、155灰）：做到130約需44次。在任何火堆旁烹飪：城鎮爐火或你自己的{object:29784}。任何{skill:185}訓練師都會從技能75起以2銀教授它。爬行者遍佈{zone:1439}整條海岸。做到130，之後改用{spell:3376}。"
+	["{spell:2544} is orange from 90 (yellow at 115, green at 135, grey at 155): about 44 crafts to 130, up to 47 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 75 for 2s. Crawlers line the whole {zone:1439} coast. Cook it to 130, where {spell:3376} takes over."] = "",
 
 	-- Step 35: Strider Stew: shopping
 	-- {item:5477} Strider Stew
@@ -167,11 +170,12 @@ return {
 	-- {item:5469} Strider Meat
 	["Get {item:5469}"] = "",
 	-- {item:5469} Strider Meat · {item:5477} Strider Stew · {npc:3246} Fleeting Plainstrider · {zone:1413} The Barrens
-	["You need 52 {item:5469} for {item:5477} (50-100). It drops from {npc:3246} (32%) in {zone:1413}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 53 {item:5469} for {item:5477} (50-100). It drops from {npc:3246} (32%) in {zone:1413}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
 	-- Step 37: Strider Stew (50-100)
 	-- {item:5477} Strider Stew · {object:29784} Basic Campfire · {item:5486} Recipe: Strider Stew
-	["{item:5477} is orange from 50 (yellow at 90, green at 110, grey at 130): about 52 crafts to 100. Cook at any fire: a town hearth or your own {object:29784}. {item:5486} costs 4s 40c at its vendor; the arrow picks the nearest one of your faction."] = "{item:5477}從50起為橘色（90變黃，110變綠，130變灰）：製作約52次到100。在任何火堆旁都能烹飪：城鎮的爐火或你自己的{object:29784}。{item:5486}在商人處售價4銀40銅；箭頭會選擇你陣營最近的一位。",
+	-- was: ["{item:5477} is orange from 50 (yellow at 90, green at 110, grey at 130): about 52 crafts to 100. Cook at any fire: a town hearth or your own {object:29784}. {item:5486} costs 4s 40c at its vendor; the arrow picks the nearest one of your faction."] = "{item:5477}從50起為橘色（90變黃，110變綠，130變灰）：製作約52次到100。在任何火堆旁都能烹飪：城鎮的爐火或你自己的{object:29784}。{item:5486}在商人處售價4銀40銅；箭頭會選擇你陣營最近的一位。"
+	["{item:5477} is orange from 50 (yellow at 90, green at 110, grey at 130): about 52 crafts to 100, up to 53 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own {object:29784}. {item:5486} costs 4s 40c at its vendor; the arrow picks the nearest one of your faction."] = "",
 
 	-- Step 38: Crispy Lizard Tail: shopping
 	-- {item:5479} Crispy Lizard Tail
@@ -192,8 +196,8 @@ return {
 	-- Step 41: Expert Cooking
 	-- {skill:185} Cooking
 	["Expert {skill:185}"] = "高級{skill:185}",
-	-- {skill:185} Cooking · {item:16072} Expert Cookbook
-	["Expert {skill:185} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16072} (1g); the arrow picks its nearest seller for your faction. Buy it and read it."] = "高級{skill:185}將上限提高到225；需要技能125和角色等級20：它是一本書，{item:16072}（1金）；箭頭會指向你陣營最近的賣家。買下並閱讀。",
+	-- {skill:185} Cooking · {item:16072} Expert Cookbook · {npc:3955} Shandrina · {zone:1440} Ashenvale · {npc:12033} Wulan · {zone:1443} Desolace
+	["Expert {skill:185} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16072} (1g); the arrow picks its nearest seller for your faction. Buy it and read it. The cookbook's sellers stand above a level-20 character: {npc:3955} in {zone:1440} (creatures of level 18-30) and {npc:12033} in {zone:1443} (30-40). Take the flight path or keep to the road, buy, and leave the same way."] = "",
 	-- {item:16072} Expert Cookbook · {skill:185} Cooking
 	["Buy and read {item:16072} (Expert {skill:185})"] = "購買並閱讀{item:16072}（高級{skill:185}）",
 
@@ -240,11 +244,12 @@ return {
 	-- {item:12184} Raptor Flesh
 	["Get {item:12184}"] = "",
 	-- {item:12184} Raptor Flesh · {item:12210} Roast Raptor · {npc:2560} Highland Thrasher · {zone:1417} Arathi Highlands
-	["You need 52 {item:12184} for {item:12210} (175-225). It drops from {npc:2560} (38%) in {zone:1417}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 53 {item:12184} for {item:12210} (175-225). It drops from {npc:2560} (38%) in {zone:1417}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
 	-- Step 50: Roast Raptor (175-225)
 	-- {item:12210} Roast Raptor · {object:29784} Basic Campfire · {item:12228} Recipe: Roast Raptor · {zone:1417} Arathi Highlands · {npc:2810} Hammon Karwn · {area:320} Refuge Pointe · {npc:2821} Keena · {area:321} Hammerfall · {item:2692} Hot Spices · {item:17222} Spider Sausage · {item:12205} White Spider Meat
-	["{item:12210} is orange from 175 (yellow at 215, green at 235, grey at 255): about 52 crafts to 225. Cook at any fire: a town hearth or your own {object:29784}. {item:12228} costs 50s at its vendor; the arrow picks the nearest one of your faction. {zone:1417}: {npc:2810} at {area:320} (Alliance) and {npc:2821} at {area:321} (Horde) sell the recipe and {item:2692} beside the raptors. {item:17222} (any trainer from 200, 40s) is the alternative, but it takes two {item:12205} a craft and Dustwallow's spiders drop one about two kills in five."] = "{item:12210}從175起為橙色（215黃、235綠、255灰）：做到225約需52次。在任何火堆旁烹飪：城鎮爐火或你自己的{object:29784}。{item:12228}在商人處售價50銀；箭頭會指向本陣營最近的一位。{zone:1417}：{area:320}的{npc:2810}（聯盟）和{area:321}的{npc:2821}（部落）在迅猛龍旁出售配方和{item:2692}。替代品是{item:17222}（200點起任何訓練師可教，40銀），但每次需要兩個{item:12205}，而塵泥沼澤的蜘蛛約每五次擊殺掉落兩次。",
+	-- was: ["{item:12210} is orange from 175 (yellow at 215, green at 235, grey at 255): about 52 crafts to 225. Cook at any fire: a town hearth or your own {object:29784}. {item:12228} costs 50s at its vendor; the arrow picks the nearest one of your faction. {zone:1417}: {npc:2810} at {area:320} (Alliance) and {npc:2821} at {area:321} (Horde) sell the recipe and {item:2692} beside the raptors. {item:17222} (any trainer from 200, 40s) is the alternative, but it takes two {item:12205} a craft and Dustwallow's spiders drop one about two kills in five."] = "{item:12210}從175起為橙色（215黃、235綠、255灰）：做到225約需52次。在任何火堆旁烹飪：城鎮爐火或你自己的{object:29784}。{item:12228}在商人處售價50銀；箭頭會指向本陣營最近的一位。{zone:1417}：{area:320}的{npc:2810}（聯盟）和{area:321}的{npc:2821}（部落）在迅猛龍旁出售配方和{item:2692}。替代品是{item:17222}（200點起任何訓練師可教，40銀），但每次需要兩個{item:12205}，而塵泥沼澤的蜘蛛約每五次擊殺掉落兩次。"
+	["{item:12210} is orange from 175 (yellow at 215, green at 235, grey at 255): about 52 crafts to 225, up to 53 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own {object:29784}. {item:12228} costs 50s at its vendor; the arrow picks the nearest one of your faction. {zone:1417}: {npc:2810} at {area:320} (Alliance) and {npc:2821} at {area:321} (Horde) sell the recipe and {item:2692} beside the raptors. {item:17222} (any trainer from 200, 40s) is the alternative, but it takes two {item:12205} a craft and Dustwallow's spiders drop one about two kills in five."] = "",
 
 	-- Step 51: Dirge Quikcleave
 	-- {skill:185} Cooking · {npc:8125} Dirge Quikcleave · {area:976} Gadgetzan · {zone:1446} Tanaris · {zone:1455} Ironforge
@@ -284,17 +289,19 @@ return {
 	-- {item:12207} Giant Egg
 	["Get {item:12207}"] = "",
 	-- {item:12207} Giant Egg · {item:12218} Monster Omelet · {npc:2929} Savage Owlbeast · {zone:1425} The Hinterlands
-	["You need 120 {item:12207} for {item:12218} (225-300). It drops from {npc:2929} (54%) in {zone:1425}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 137 {item:12207} for {item:12218} (225-300). It drops from {npc:2929} (54%) in {zone:1425}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
 	-- Step 59: Monster Omelet (225-300)
-	-- {item:12218} Monster Omelet · {object:29784} Basic Campfire · {item:16110} Recipe: Monster Omelet · {item:13931} Nightfin Soup · {npc:8137} Gikkix · {area:977} Steamwheedle Port · {item:13932} Poached Sunscale Salmon · {item:279982} Iron Oven
-	["{item:12218} is orange from 225 (yellow at 265, green at 285, grey at 305): about 120 crafts to 300. Cook at any fire: a town hearth or your own {object:29784}. {item:16110} costs 1g 20s at its vendor; the arrow picks the nearest one of your faction. {item:12218} is orange to 265 and green from 285, yet it still carries you to 300. Fishers can finish on {item:13931} ({npc:8137}, {area:977}; yellow to 310) instead; {item:13932} needs an {item:279982} on Forever."] = "{item:12218}從225起為橙色（265黃、285綠、305灰）：做到300約需120次。在任何火堆旁烹飪：城鎮爐火或你自己的{object:29784}。{item:16110}在商人處售價1金20銀；箭頭會指向本陣營最近的一位。{item:12218}到265仍是橙色、285起轉綠，但仍能一路帶到300。漁夫可以改用{item:13931}收尾（{npc:8137}，{area:977}；到310仍為黃色）；{item:13932}在Forever需要一個{item:279982}。",
+	-- {item:12218} Monster Omelet · {object:29784} Basic Campfire · {item:16110} Recipe: Monster Omelet · {item:12207} Giant Egg · {item:3713} Soothing Spices · {item:279982} Iron Oven · {item:13931} Nightfin Soup · {npc:8137} Gikkix · {area:977} Steamwheedle Port · {item:13932} Poached Sunscale Salmon
+	-- plural, as words: Monster Omelets = {item:12218} Monster Omelet
+	["{item:12218} is orange from 225 (yellow at 265, green at 285, grey at 305): about 120 crafts to 300, up to 137 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own {object:29784}. {item:16110} costs 1g 20s at its vendor; the arrow picks the nearest one of your faction. The longest stretch of the guide: about 120 Monster Omelets (up to 137), a {item:12207} and two {item:3713} each, and the last points green (orange to 265, green from 285); no recipe without fish or an {item:279982} does better. Fishers can finish on {item:13931} ({npc:8137}, {area:977}; yellow to 310) instead, though Nightfin Snapper bites only in waters that lose fish below 300; {item:13932} needs an {item:279982} on Forever."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:185} trainer of your faction teaches Apprentice {skill:185} (character level 5); the arrow picks the nearest."] = "你陣營的任何{skill:185}訓練師都能教初級{skill:185}（角色等級5）；箭頭會指向最近的一位。",
 	-- ["Catch about 50 {item:6291} here by fishing (see the {skill:356} guide)."] = "在這裡釣約50條{item:6291}（見{skill:356}指南）。",
 	-- ["Catch about 68 {item:6361} here by fishing (see the {skill:356} guide)."] = "在這裡釣約68條{item:6361}（見{skill:356}指南）。",
 	-- ["Coyote (54%), {npc:833} (51%) in {zone:1436}, or wherever the arrow points"] = "{zone:1436}的山狗（54%）、{npc:833}（51%），或箭頭指向的地方",
+	-- ["Expert {skill:185} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16072} (1g); the arrow picks its nearest seller for your faction. Buy it and read it."] = "高級{skill:185}將上限提高到225；需要技能125和角色等級20：它是一本書，{item:16072}（1金）；箭頭會指向你陣營最近的賣家。買下並閱讀。",
 	-- ["Giant Eggs drop from the Ironbeak owls of {zone:1448}."] = "巨蛋由{zone:1448}的鐵喙貓頭鷹掉落。",
 	-- ["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:185} trainer of your faction."] = "中級{skill:185}將上限提高到150；需要技能50和角色等級10：箭頭會指向你陣營最近的{skill:185}訓練師。",
 	-- ["Prowler (86%) in {zone:1429}, or wherever the arrow points"] = "{zone:1429}的覓食的灰狼（86%），或箭頭指向的地方",
@@ -314,6 +321,7 @@ return {
 	-- ["What {spell:3398} takes that the Auction House sells: 45 {item:3731}. The counts drop by what your bags, bank and mail hold."] = "{spell:3398}所需的材料中，拍賣場有賣的：45個{item:3731}。數量會扣除你背包、銀行和郵件中已有的。",
 	-- ["{area:442} docks"] = "{area:442}碼頭",
 	-- ["{area:702} docks"] = "{area:702}碼頭",
+	-- ["{item:12210} is orange from 175 (yellow at 215, green at 235, grey at 255): about 52 crafts to 225. Cook at any fire: a town hearth or your own {object:29784}. {item:12228} costs 50s at its vendor; the arrow picks the nearest one of your faction. {zone:1417}: {npc:2810} at {area:320} (Alliance) and {npc:2821} at {area:321} (Horde) sell the recipe and {item:2692} beside the raptors. {item:17222} (any trainer from 200, 40s) is the alternative, but it takes two {item:12205} a craft and Dustwallow's spiders drop one about two kills in five."] = "{item:12210}從175起為橙色（215黃、235綠、255灰）：做到225約需52次。在任何火堆旁烹飪：城鎮爐火或你自己的{object:29784}。{item:12228}在商人處售價50銀；箭頭會指向本陣營最近的一位。{zone:1417}：{area:320}的{npc:2810}（聯盟）和{area:321}的{npc:2821}（部落）在迅猛龍旁出售配方和{item:2692}。替代品是{item:17222}（200點起任何訓練師可教，40銀），但每次需要兩個{item:12205}，而塵泥沼澤的蜘蛛約每五次擊殺掉落兩次。",
 	-- ["{item:12210} is orange from 175 (yellow at 215, grey at 255): about 40 crafts to 215. Cook at any fire: {object:29784} comes with {skill:185}."] = "{item:12210}從175起為橘色（215變黃，255變灰）：製作約40次到215。在任何火堆旁都能烹飪：{object:29784}隨{skill:185}一起學會。",
 	-- ["{item:12210}: Auction House"] = "{item:12210}：拍賣場",
 	-- ["{item:12210}: ingredients"] = "{item:12210}：材料",
@@ -321,12 +329,14 @@ return {
 	-- ["{item:12215} is orange from 225 (yellow at 240, grey at 280): about 15 crafts to 240. Cook at any fire: {object:29784} comes with {skill:185}."] = "{item:12215}從225起為橘色（240變黃，280變灰）：製作約15次到240。在任何火堆旁都能烹飪：{object:29784}隨{skill:185}一起學會。",
 	-- ["{item:12215}: ingredients"] = "{item:12215}：材料",
 	-- ["{item:12215}: shopping"] = "{item:12215}：購買",
+	-- ["{item:12218} is orange from 225 (yellow at 265, green at 285, grey at 305): about 120 crafts to 300. Cook at any fire: a town hearth or your own {object:29784}. {item:16110} costs 1g 20s at its vendor; the arrow picks the nearest one of your faction. {item:12218} is orange to 265 and green from 285, yet it still carries you to 300. Fishers can finish on {item:13931} ({npc:8137}, {area:977}; yellow to 310) instead; {item:13932} needs an {item:279982} on Forever."] = "{item:12218}從225起為橙色（265黃、285綠、305灰）：做到300約需120次。在任何火堆旁烹飪：城鎮爐火或你自己的{object:29784}。{item:16110}在商人處售價1金20銀；箭頭會指向本陣營最近的一位。{item:12218}到265仍是橙色、285起轉綠，但仍能一路帶到300。漁夫可以改用{item:13931}收尾（{npc:8137}，{area:977}；到310仍為黃色）；{item:13932}在Forever需要一個{item:279982}。",
 	-- ["{item:12218} is orange from 240 (yellow at 265, grey at 305): about 105 crafts to 300. Cook at any fire: {object:29784} comes with {skill:185}."] = "{item:12218}從240起為橘色（265變黃，305變灰）：製作約105次到300。在任何火堆旁都能烹飪：{object:29784}隨{skill:185}一起學會。",
 	-- ["{item:12218}: Auction House"] = "{item:12218}：拍賣場",
 	-- ["{item:12218}: ingredients"] = "{item:12218}：材料",
 	-- ["{item:5095} is orange from 50 (yellow at 90, grey at 130): about 68 crafts to 110. Cook at any fire: {object:29784} comes with {skill:185}. {skill:356} off the {area:442} docks catches {item:6361}."] = "{item:5095}從50起為橘色（90變黃，130變灰）：製作約68次到110。在任何火堆旁都能烹飪：{object:29784}隨{skill:185}一起學會。在{area:442}碼頭{skill:356}可釣到{item:6361}。",
 	-- ["{item:5095}: ingredients"] = "{item:5095}：材料",
 	-- ["{item:5095}: shopping"] = "{item:5095}：購買",
+	-- ["{item:5477} is orange from 50 (yellow at 90, green at 110, grey at 130): about 52 crafts to 100. Cook at any fire: a town hearth or your own {object:29784}. {item:5486} costs 4s 40c at its vendor; the arrow picks the nearest one of your faction."] = "{item:5477}從50起為橘色（90變黃，110變綠，130變灰）：製作約52次到100。在任何火堆旁都能烹飪：城鎮的爐火或你自己的{object:29784}。{item:5486}在商人處售價4銀40銅；箭頭會選擇你陣營最近的一位。",
 	-- ["{item:5477}: Auction House"] = "{item:5477}：拍賣場",
 	-- ["{item:5477}: ingredients"] = "{item:5477}：材料",
 	-- ["{item:5479} is orange from 100 (yellow at 140, grey at 180): about 25 crafts to 125. Cook at any fire: {object:29784} comes with {skill:185}."] = "{item:5479}從100起為橘色（140變黃，180變灰）：製作約25次到125。在任何火堆旁都能烹飪：{object:29784}隨{skill:185}一起學會。",
@@ -378,8 +388,11 @@ return {
 	-- ["{spell:2540}: ingredients"] = "{spell:2540}：材料",
 	-- ["{spell:2541}: Auction House"] = "{spell:2541}：拍賣場",
 	-- ["{spell:2541}: ingredients"] = "{spell:2541}：材料",
+	-- ["{spell:2544} is orange from 90 (yellow at 115, green at 135, grey at 155): about 44 crafts to 130. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 75 for 2s. Crawlers line the whole {zone:1436} coast. Cook it to 130, where {spell:3376} takes over."] = "{spell:2544}從90起為橙色（115黃、135綠、155灰）：做到130約需44次。在任何火堆旁烹飪：城鎮爐火或你自己的{object:29784}。任何{skill:185}訓練師都會從技能75起以2銀教授它。爬行者遍佈{zone:1436}整條海岸。做到130，之後改用{spell:3376}。",
+	-- ["{spell:2544} is orange from 90 (yellow at 115, green at 135, grey at 155): about 44 crafts to 130. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 75 for 2s. Crawlers line the whole {zone:1439} coast. Cook it to 130, where {spell:3376} takes over."] = "{spell:2544}從90起為橙色（115黃、135綠、155灰）：做到130約需44次。在任何火堆旁烹飪：城鎮爐火或你自己的{object:29784}。任何{skill:185}訓練師都會從技能75起以2銀教授它。爬行者遍佈{zone:1439}整條海岸。做到130，之後改用{spell:3376}。",
 	-- ["{spell:2544}: Auction House"] = "{spell:2544}：拍賣場",
 	-- ["{spell:2544}: ingredients"] = "{spell:2544}：材料",
+	-- ["{spell:2546} is orange from 80 (yellow at 120, green at 140, grey at 160): about 52 crafts to 130. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 80 for 1s 50c. Mountain boars roam all of {zone:1432}. Cook it to 130, where {spell:3376} takes over."] = "{spell:2546}從80起為橙色（120黃、140綠、160灰）：做到130約需52次。在任何火堆旁烹飪：城鎮爐火或你自己的{object:29784}。任何{skill:185}訓練師都會從技能80起以1銀50銅教授它。山地野豬遍佈{zone:1432}。做到130，之後改用{spell:3376}。",
 	-- ["{spell:2546}: Auction House"] = "{spell:2546}：拍賣場",
 	-- ["{spell:2546}: ingredients"] = "{spell:2546}：材料",
 	-- ["{spell:3370} is orange from 100 (yellow at 120, grey at 160): about 26 crafts to 125. Cook at any fire: {object:29784} comes with {skill:185}."] = "{spell:3370}從100起為橘色（120變黃，160變灰）：製作約26次到125。在任何火堆旁都能烹飪：{object:29784}隨{skill:185}一起學會。",

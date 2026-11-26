@@ -22,7 +22,7 @@ return {
 	-- {skill:356} Fishing
 	["Lures for {skill:356} 1-75"] = "",
 	-- {skill:356} Fishing · {item:6529} Shiny Bauble
-	["Some of these waters lose fish below {skill:356} 25: a lure on the pole adds to your skill for ten minutes. {item:6529} (+25, 50c each) closes the gap from 1; three see you through."] = "",
+	["Some of these waters lose fish below {skill:356} 25: a lure on the pole adds to your skill for ten minutes. {item:6529} (+25, 50c each) closes the gap from 1: about 1 sees you to 25 (6 minutes of fishing)."] = "",
 
 	-- Step 4: Fishing 1-75
 	-- {skill:356} Fishing · {item:6291} Raw Brilliant Smallfish · {zone:1429} Elwynn Forest · {zone:2521} Zephras Isle
@@ -54,7 +54,7 @@ return {
 	-- {zone:1426} Dun Morogh
 	["Lures for {zone:1426}"] = "",
 	-- {skill:356} Fishing · {item:6529} Shiny Bauble
-	["This water loses fish below {skill:356} 25: a lure on the pole adds to your skill for ten minutes. {item:6529} (+25, 50c each) closes the gap from 1; three see you through."] = "",
+	["This water loses fish below {skill:356} 25: a lure on the pole adds to your skill for ten minutes. {item:6529} (+25, 50c each) closes the gap from 1: about 1 sees you to 25 (6 minutes of fishing)."] = "",
 
 	-- Step 10: Fishing: Dun Morogh (1-75)
 	-- {skill:356} Fishing · {item:6291} Raw Brilliant Smallfish · {item:6289} Raw Longjaw Mud Snapper
@@ -72,7 +72,7 @@ return {
 
 	-- Step 16: Fishing: Teldrassil (1-75)
 	-- {skill:356} Fishing · {item:6303} Raw Slitherskin Mackerel · {object:2843} Battered Chest
-	["Fish the round until {skill:356} 75 and until your bags hold 50 {item:6303} for the cooking: about 70 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:6303} (96%), {object:2843} (4%). This water loses fish below skill 25: keep a lure on the pole until then."] = "",
+	["Fish the round until {skill:356} 75 and until your bags hold 50 {item:6303} for the cooking: about 70 catches (below 75 every catch raises the skill). What bites here (players' catches at these stands): {item:6303} (96%), {object:2843} (4%). This water loses fish below skill 25: keep a lure on the pole until then."] = "",
 
 	-- Step 18: Cook Slitherskin Mackerel (1-50)
 	-- {item:787} Slitherskin Mackerel
@@ -140,41 +140,35 @@ return {
 	-- {item:6328} Recipe: Longjaw Mud Snapper · {skill:185} Cooking · {npc:66} Tharynn Bouden · {zone:1429} Elwynn Forest · {npc:5162} Tansy Puddlefizz · {zone:1455} Ironforge · {item:6330} Recipe: Bristle Whisker Catfish · {npc:5494} Catherine Leland · {zone:1453} Stormwind City · {npc:260487} Gritta Chumwater · {zone:2548} Riverglades
 	["Before the round: {item:6328} ({skill:185} 50, 4s: {npc:66}, {zone:1429}, or {npc:5162}, {zone:1455}) and {item:6330} ({skill:185} 100, 12s: {npc:5494}, {zone:1453}, or {npc:260487}, {zone:2548}). A recipe teaches itself when you use it from your bags."] = "",
 
-	-- Step 52: Lures for Fishing 75-150
-	-- {skill:356} Fishing
-	["Lures for {skill:356} 75-150"] = "",
-	-- {skill:356} Fishing · {item:6532} Bright Baubles
-	["Some of these waters lose fish below {skill:356} 150: a lure on the pole adds to your skill for ten minutes. {item:6532} (+75 from skill 100, 2s 50c each) closes the gap from 75; three see you through."] = "",
+	-- Step 52: Fishing 75-150
+	-- {skill:356} Fishing · {item:6289} Raw Longjaw Mud Snapper · {item:6308} Raw Bristle Whisker Catfish · {zone:1453} Stormwind City · {zone:1436} Westfall · {npc:267118} Gilbert Gray · {item:6529} Shiny Bauble · {item:6530} Nightcrawlers
+	["Fish the round until {skill:356} 150 and until your bags hold 52 {item:6289} and 40 {item:6308} for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: {zone:1453} ({item:6289} 61%, {item:6308} 21%); {zone:1436} ({item:6289} 11%, {item:6308} 6%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. From level 7, {npc:267118} at the {zone:1453} harbor gives Fishin' Time: bring 1 {item:6529} and 3 {item:6530} for cooked fish."] = "",
 
 	-- Step 53: Fishing 75-150
-	-- {skill:356} Fishing · {item:6289} Raw Longjaw Mud Snapper · {item:6308} Raw Bristle Whisker Catfish · {zone:1453} Stormwind City · {zone:1442} Stonetalon Mountains · {zone:1433} Redridge Mountains · {zone:1436} Westfall · {npc:267118} Gilbert Gray · {item:6529} Shiny Bauble · {item:6530} Nightcrawlers
-	["Fish the round until {skill:356} 150 and until your bags hold 52 {item:6289} and 40 {item:6308} for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: {zone:1453} ({item:6289} 61%, {item:6308} 21%); {zone:1442} ({item:6289} 24%, {item:6308} 44%); {zone:1433} ({item:6289} 33%, {item:6308} 65%); {zone:1436} ({item:6289} 11%, {item:6308} 6%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. {zone:1442} and {zone:1433} lose fish below skill 150: keep a lure on the pole there until then. From level 7, {npc:267118} at the {zone:1453} harbor gives Fishin' Time: bring 1 {item:6529} and 3 {item:6530} for cooked fish."] = "",
-
-	-- Step 54: Fishing 75-150
 	-- {skill:185} Cooking · {skill:356} Fishing
 	["Your {skill:185} is past 140, so there are no fish to keep: fish the round until {skill:356} 150, about 190 catches."] = "",
 
-	-- Step 55: Cook Longjaw Mud Snapper (50-100)
+	-- Step 54: Cook Longjaw Mud Snapper (50-100)
 	-- {item:4592} Longjaw Mud Snapper
 	["Cook {item:4592} (50-100)"] = "",
 	-- {item:4592} Longjaw Mud Snapper · {item:6289} Raw Longjaw Mud Snapper · {object:29784} Basic Campfire
 	["{item:4592} is orange from 50 (yellow at 90, green at 110, grey at 130): about 52 crafts to 100, 52 {item:6289}. Cook at any fire: a town hearth or your own {object:29784}. Short of fish: fish the round a little longer."] = "",
 
-	-- Step 56: Cook Bristle Whisker Catfish (100-140)
+	-- Step 55: Cook Bristle Whisker Catfish (100-140)
 	-- {item:4593} Bristle Whisker Catfish
 	["Cook {item:4593} (100-140)"] = "",
 	-- {item:4593} Bristle Whisker Catfish · {item:6308} Raw Bristle Whisker Catfish · {object:29784} Basic Campfire
 	["{item:4593} is orange from 100 (yellow at 140, green at 160, grey at 180): about 40 crafts to 140, 40 {item:6308}. Cook at any fire: a town hearth or your own {object:29784}. Short of fish: fish the round a little longer."] = "",
 
-	-- Step 57: Recipes for Fishing 75-150 (Cooking to 140)
+	-- Step 56: Recipes for Fishing 75-150 (Cooking to 140)
 	-- {item:6328} Recipe: Longjaw Mud Snapper · {skill:185} Cooking · {npc:3027} Naal Mistrunner · {zone:1456} Thunder Bluff · {npc:5940} Harn Longcast · {zone:1412} Mulgore · {item:6330} Recipe: Bristle Whisker Catfish · {npc:3497} Kilxx · {zone:1413} The Barrens · {npc:3029} Sewa Mistrunner
 	["Before the round: {item:6328} ({skill:185} 50, 4s: {npc:3027}, {zone:1456}, or {npc:5940}, {zone:1412}) and {item:6330} ({skill:185} 100, 12s: {npc:3497}, {zone:1413}, or {npc:3029}, {zone:1456}). A recipe teaches itself when you use it from your bags."] = "",
 
-	-- Step 59: Fishing 75-150
-	-- {skill:356} Fishing · {item:6289} Raw Longjaw Mud Snapper · {item:6308} Raw Bristle Whisker Catfish · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {zone:1458} Undercity · {zone:1442} Stonetalon Mountains · {zone:1421} Silverpine Forest
-	["Fish the round until {skill:356} 150 and until your bags hold 52 {item:6289} and 40 {item:6308} for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: {zone:1454} ({item:6289} 60%, {item:6308} 20%); {zone:1456} ({item:6289} 56%, {item:6308} 23%); {zone:1458} ({item:6289} 45%, {item:6308} 15%); {zone:1442} ({item:6289} 24%, {item:6308} 44%); {zone:1421} ({item:6289} 44%, {item:6308} 16%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. {zone:1442} loses fish below skill 150: keep a lure on the pole there until then."] = "",
+	-- Step 57: Fishing 75-150
+	-- {skill:356} Fishing · {item:6289} Raw Longjaw Mud Snapper · {item:6308} Raw Bristle Whisker Catfish · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {zone:1458} Undercity · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
+	["Fish the round until {skill:356} 150 and until your bags hold 52 {item:6289} and 40 {item:6308} for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: {zone:1454} ({item:6289} 60%, {item:6308} 20%); {zone:1456} ({item:6289} 56%, {item:6308} 23%); {zone:1458} ({item:6289} 45%, {item:6308} 15%); {zone:1421} ({item:6289} 44%, {item:6308} 16%); {zone:1413} ({item:6289} 33%, {item:6308} 16%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy."] = "",
 
-	-- Step 63: Expert Fishing
+	-- Step 61: Expert Fishing
 	-- {skill:356} Fishing
 	["Expert {skill:356}"] = "{skill:356}: Умелец",
 	-- {skill:356} Fishing · {item:16083} Expert Fishing - The Bass and You · {npc:2626} Old Man Heming · {zone:1434} Stranglethorn Vale · {area:35} Booty Bay · {area:392} Ratchet · {zone:1413} The Barrens · {item:6532} Bright Baubles · {item:279965} Fishing Rack · {area:2797} Blackfathom Deeps
@@ -182,7 +176,7 @@ return {
 	-- {item:16083} Expert Fishing - The Bass and You · {skill:356} Fishing
 	["Buy and read {item:16083} (Expert {skill:356})"] = "Купите и прочитайте: {item:16083} ({skill:356}, «Умелец»)",
 
-	-- Step 64: Expert Cooking
+	-- Step 62: Expert Cooking
 	-- {skill:185} Cooking
 	["Expert {skill:185}"] = "{skill:185}: Умелец",
 	-- {skill:185} Cooking · {item:16072} Expert Cookbook · {npc:3955} Shandrina · {zone:1440} Ashenvale · {npc:12033} Wulan · {zone:1443} Desolace
@@ -190,151 +184,145 @@ return {
 	-- {item:16072} Expert Cookbook · {skill:185} Cooking
 	["Buy and read {item:16072} (Expert {skill:185})"] = "Купите и прочитайте: {item:16072} ({skill:185}, «Умелец»)",
 
-	-- Step 65: Lures for Fishing 150-190
+	-- Step 63: Lures for Fishing 150-190
 	-- {skill:356} Fishing
 	["Lures for {skill:356} 150-190"] = "",
 	-- {skill:356} Fishing · {item:6532} Bright Baubles
-	["Some of these waters lose fish below {skill:356} 225: a lure on the pole adds to your skill for ten minutes. {item:6532} (+75 from skill 100, 2s 50c each) closes the gap from 150; three see you through."] = "",
+	["Some of these waters lose fish below {skill:356} 225: a lure on the pole adds to your skill for ten minutes. {item:6532} (+75 from skill 100, 2s 50c each) closes the gap from 150: about 5 see you to 190 (48 minutes of fishing)."] = "",
 
-	-- Step 66: Fishing 150-190
+	-- Step 64: Fishing 150-190
 	-- {skill:356} Fishing · {item:6308} Raw Bristle Whisker Catfish · {zone:1440} Ashenvale · {zone:1453} Stormwind City · {zone:1442} Stonetalon Mountains · {zone:1433} Redridge Mountains · {zone:1434} Stranglethorn Vale · {npc:267118} Gilbert Gray · {item:6529} Shiny Bauble · {item:6530} Nightcrawlers
 	["Fish the round until {skill:356} 190 and until your bags hold 80 {item:6308} for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: {zone:1440} ({item:6308} 42%); {zone:1453} ({item:6308} 21%); {zone:1442} ({item:6308} 44%); {zone:1433} ({item:6308} 65%); {zone:1434} ({item:6308} 20%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. {zone:1434} loses fish below skill 225: keep a lure on the pole there until then. From level 7, {npc:267118} at the {zone:1453} harbor gives Fishin' Time: bring 1 {item:6529} and 3 {item:6530} for cooked fish."] = "",
 
-	-- Step 67: Fishing 150-190
+	-- Step 65: Fishing 150-190
 	-- {skill:185} Cooking · {skill:356} Fishing
 	["Your {skill:185} is past 175, so there are no fish to keep: fish the round until {skill:356} 190, about 190 catches."] = "",
 
-	-- Step 68: Cook Bristle Whisker Catfish (140-175)
+	-- Step 66: Cook Bristle Whisker Catfish (140-175)
 	-- {item:4593} Bristle Whisker Catfish
 	["Cook {item:4593} (140-175)"] = "",
 	-- {item:4593} Bristle Whisker Catfish · {item:6308} Raw Bristle Whisker Catfish · {object:29784} Basic Campfire
 	["{item:4593} is yellow from 140 (yellow at 140, green at 160, grey at 180): about 80 crafts to 175, 80 {item:6308}. Cook at any fire: a town hearth or your own {object:29784}. Short of fish: fish the round a little longer."] = "",
 
-	-- Step 70: Fishing 150-190
+	-- Step 68: Fishing 150-190
 	-- {skill:356} Fishing · {item:6308} Raw Bristle Whisker Catfish · {zone:1443} Desolace · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {zone:1458} Undercity · {zone:1442} Stonetalon Mountains
 	["Fish the round until {skill:356} 190 and until your bags hold 80 {item:6308} for the cooking: about 250 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: {zone:1443} ({item:6308} 33%); {zone:1454} ({item:6308} 20%); {zone:1456} ({item:6308} 23%); {zone:1458} ({item:6308} 15%); {zone:1442} ({item:6308} 44%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. {zone:1443} loses fish below skill 225: keep a lure on the pole there until then."] = "",
 
-	-- Step 73: Recipes for Fishing 190-225 (Cooking to 225)
+	-- Step 71: Recipes for Fishing 190-225 (Cooking to 225)
 	-- {skill:356} Fishing · {skill:185} Cooking
 	["Recipes for {skill:356} 190-225 ({skill:185} to 225)"] = "",
 	-- {item:17062} Recipe: Mithril Head Trout · {skill:185} Cooking · {npc:2664} Kelsey Yance · {zone:1434} Stranglethorn Vale · {npc:5162} Tansy Puddlefizz · {zone:1455} Ironforge
 	["Before the round: {item:17062} ({skill:185} 175, 22s: {npc:2664}, {zone:1434}, or {npc:5162}, {zone:1455}). A recipe teaches itself when you use it from your bags."] = "",
 
-	-- Step 74: Lures for Fishing 190-225
+	-- Step 72: Lures for Fishing 190-225
 	-- {skill:356} Fishing
 	["Lures for {skill:356} 190-225"] = "",
 	-- {skill:356} Fishing · {item:6530} Nightcrawlers
-	["Some of these waters lose fish below {skill:356} 225: a lure on the pole adds to your skill for ten minutes. {item:6530} (+50 from skill 50, 1s each) closes the gap from 190; three see you through."] = "",
+	["Some of these waters lose fish below {skill:356} 225: a lure on the pole adds to your skill for ten minutes. {item:6530} (+50 from skill 50, 1s each) closes the gap from 190: about 6 see you to 225 (55 minutes of fishing)."] = "",
 
-	-- Step 75: Fishing 190-225
-	-- {skill:356} Fishing · {item:8365} Raw Mithril Head Trout · {zone:1434} Stranglethorn Vale · {zone:1443} Desolace · {zone:1416} Alterac Mountains · {zone:1417} Arathi Highlands · {zone:1445} Dustwallow Marsh
-	["Fish the round until {skill:356} 225 and until your bags hold 52 {item:8365} for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: {zone:1434} ({item:8365} 43%); {zone:1443} ({item:8365} 42%); {zone:1416} ({item:8365} 29%); {zone:1417} ({item:8365} 60%); {zone:1445} ({item:8365} 5%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. {zone:1434}, {zone:1443}, {zone:1416}, {zone:1417} and {zone:1445} lose fish below skill 225: keep a lure on the pole there until then."] = "",
+	-- Step 73: Fishing 190-225
+	-- {skill:356} Fishing · {item:8365} Raw Mithril Head Trout · {zone:1434} Stranglethorn Vale · {zone:1443} Desolace · {zone:1416} Alterac Mountains · {zone:1417} Arathi Highlands
+	["Fish the round until {skill:356} 225 and until your bags hold 52 {item:8365} for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: {zone:1434} ({item:8365} 43%); {zone:1443} ({item:8365} 42%); {zone:1416} ({item:8365} 29%); {zone:1417} ({item:8365} 60%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. {zone:1434}, {zone:1443}, {zone:1416} and {zone:1417} lose fish below skill 225: keep a lure on the pole there until then."] = "",
 
-	-- Step 76: Fishing 190-225
+	-- Step 74: Fishing 190-225
 	-- {skill:185} Cooking · {skill:356} Fishing
 	["Your {skill:185} is past 225, so there are no fish to keep: fish the round until {skill:356} 225, about 200 catches."] = "",
 
-	-- Step 77: Cook Mithril Headed Trout (175-225)
+	-- Step 75: Cook Mithril Headed Trout (175-225)
 	-- {spell:20916} Mithril Headed Trout
 	["Cook {spell:20916} (175-225)"] = "",
 	-- {spell:20916} Mithril Headed Trout · {item:8365} Raw Mithril Head Trout · {object:29784} Basic Campfire
 	["{spell:20916} is orange from 175 (yellow at 215, green at 235, grey at 255): about 52 crafts to 225, 52 {item:8365}. Cook at any fire: a town hearth or your own {object:29784}. Short of fish: fish the round a little longer."] = "",
 
-	-- Step 78: Recipes for Fishing 190-225 (Cooking to 225)
+	-- Step 76: Recipes for Fishing 190-225 (Cooking to 225)
 	-- {item:17062} Recipe: Mithril Head Trout · {skill:185} Cooking · {npc:12033} Wulan · {zone:1443} Desolace · {npc:12962} Wik'Tar · {zone:1440} Ashenvale
 	["Before the round: {item:17062} ({skill:185} 175, 22s: {npc:12033}, {zone:1443}, or {npc:12962}, {zone:1440}). A recipe teaches itself when you use it from your bags."] = "",
 
-	-- Step 80: Fishing 190-225
+	-- Step 78: Fishing 190-225
 	-- {skill:356} Fishing · {item:8365} Raw Mithril Head Trout · {zone:1443} Desolace · {zone:1434} Stranglethorn Vale · {zone:1417} Arathi Highlands · {zone:1416} Alterac Mountains
 	["Fish the round until {skill:356} 225 and until your bags hold 52 {item:8365} for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: {zone:1443} ({item:8365} 59%); {zone:1434} ({item:8365} 43%); {zone:1417} ({item:8365} 60%); {zone:1416} ({item:8365} 29%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. {zone:1443}, {zone:1434}, {zone:1417} and {zone:1416} lose fish below skill 225: keep a lure on the pole there until then."] = "",
 
-	-- Step 83: Nat Pagle, Angler Extreme
+	-- Step 81: Nat Pagle, Angler Extreme
 	-- {skill:356} Fishing · {npc:12919} Nat Pagle · {zone:1445} Dustwallow Marsh · {zone:1455} Ironforge
 	["Artisan {skill:356} (cap 300) comes from {npc:12919} in {zone:1445}. The fishing trainer in {zone:1455} sends you to him; the quest needs skill 225 and level 35."] = "{skill:356}, ранг «Искусник» (предел 300): {npc:12919} – {zone:1445}. К нему направляет учитель рыбной ловли (город {zone:1455}); для задания нужен навык 225 и уровень 35.",
 
-	-- Step 84: Nat Pagle, Angler Extreme
+	-- Step 82: Nat Pagle, Angler Extreme
 	-- {skill:356} Fishing · {npc:12919} Nat Pagle · {zone:1445} Dustwallow Marsh · {zone:1454} Orgrimmar
 	["Artisan {skill:356} (cap 300) comes from {npc:12919} in {zone:1445}. The fishing trainer in {zone:1454} sends you to him; the quest needs skill 225 and level 35."] = "{skill:356}, ранг «Искусник» (предел 300): {npc:12919} – {zone:1445}. К нему направляет учитель рыбной ловли (город {zone:1454}); для задания нужен навык 225 и уровень 35.",
 
-	-- Step 85: Nat Pagle
+	-- Step 83: Nat Pagle
 	-- {npc:12919} Nat Pagle
 	["{npc:12919} fishes from the shore of a small island off the east coast, south of Theramore; swim over from the coast."] = "{npc:12919} рыбачит с берега небольшого острова у восточного побережья, к югу от Терамора; доплывите туда с берега.",
 
-	-- Step 86: Sar'theris Striker
+	-- Step 84: Sar'theris Striker
 	-- {zone:1443} Desolace · {area:598} Sar'theris Strand · {area:2408} Shadowprey Village · {item:16968} Sar'theris Striker
 	["Fish along the coast of {zone:1443} ({area:598} in the north-west, or the shore west of {area:2408}) until you catch a {item:16968}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "",
 
-	-- Step 88: Feralas Ahi
+	-- Step 86: Feralas Ahi
 	-- {area:2521} Verdantis River · {zone:1444} Feralas · {area:2577} Dire Maul · {item:16967} Feralas Ahi · {item:6532} Bright Baubles
 	["Fish along the {area:2521} in {zone:1444} (south-east of {area:2577}) until you catch a {item:16967}: about one catch in five there brings it up, and it bites nowhere else. This water loses fish below skill 300: at 225 most get away, so put {item:6532} (+75) on the pole first."] = "",
 
-	-- Step 89: Savage Coast Blue Sailfin
+	-- Step 87: Savage Coast Blue Sailfin
 	-- {zone:1434} Stranglethorn Vale · {area:301} Savage Coast · {item:16969} Savage Coast Blue Sailfin
 	["Fish along {zone:1434}'s {area:301} (the west shore) until you catch a {item:16969}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "",
 
-	-- Step 91: Misty Reed Mahi Mahi
+	-- Step 89: Misty Reed Mahi Mahi
 	-- {area:300} Misty Reed Strand · {zone:1435} Swamp of Sorrows · {item:16970} Misty Reed Mahi Mahi
 	["Fish along the {area:300} (the east shore of {zone:1435}) until you catch a {item:16970}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "",
 
-	-- Step 92: Nat Pagle
+	-- Step 90: Nat Pagle
 	-- {skill:356} Fishing
 	["Artisan {skill:356}"] = "{skill:356}: Искусник",
 
-	-- Step 93: Dirge Quikcleave
+	-- Step 91: Dirge Quikcleave
 	-- {skill:185} Cooking · {npc:8125} Dirge Quikcleave · {area:976} Gadgetzan · {zone:1446} Tanaris · {zone:1455} Ironforge
 	["Artisan {skill:185} comes from {npc:8125} in {area:976} ({zone:1446}). The cooking trainer in {zone:1455} sends you; it needs skill 225 and level 35."] = "{skill:185}, ранг «Искусник»: {npc:8125} – {area:976} ({zone:1446}). Туда направляет учитель кулинарии (город {zone:1455}); нужен навык 225 и уровень 35.",
 
-	-- Step 94: Dirge Quikcleave
+	-- Step 92: Dirge Quikcleave
 	-- {skill:185} Cooking · {npc:8125} Dirge Quikcleave · {area:976} Gadgetzan · {zone:1446} Tanaris · {zone:1454} Orgrimmar
 	["Artisan {skill:185} comes from {npc:8125} in {area:976} ({zone:1446}). The cooking trainer in {zone:1454} sends you; it needs skill 225 and level 35."] = "{skill:185}, ранг «Искусник»: {npc:8125} – {area:976} ({zone:1446}). Туда направляет учитель кулинарии (город {zone:1454}); нужен навык 225 и уровень 35.",
 
-	-- Step 95: Giant Eggs
+	-- Step 93: Giant Eggs
 	-- plural, as words: Giant Eggs = {item:12207} Giant Egg
 	["Giant Eggs"] = "Гигантские яйца ({item:12207})",
 	-- {quest:6610} Clamlette Surprise · {item:7974} Zesty Clam Meat · {item:8932} Alterac Swiss · {zone:1446} Tanaris · {zone:1425} The Hinterlands · {npc:2929} Savage Owlbeast
 	-- plural, as words: Giant Eggs = {item:12207} Giant Egg
 	["{quest:6610} asks for 12 Giant Eggs, 10 {item:7974} and 20 {item:8932}: bring all three before you go to {zone:1446}, so you make the trip once. Giant Eggs drop from the owlbeasts of {zone:1425}: {npc:2929} (54%)."] = "",
 
-	-- Step 96: Alterac Swiss
+	-- Step 94: Alterac Swiss
 	-- {item:8932} Alterac Swiss
 	["Innkeepers and food vendors sell {item:8932}; the arrow picks the nearest."] = "",
 
-	-- Step 97: Zesty Clam Meat
+	-- Step 95: Zesty Clam Meat
 	-- {item:7974} Zesty Clam Meat · {zone:1445} Dustwallow Marsh · {zone:1446} Tanaris
 	-- plural, as words: Big-mouth Clams = {item:7973} Big-mouth Clam · Steeljaw Snappers = {npc:14123} Steeljaw Snapper
 	["{item:7974} comes from Big-mouth Clams: open each one, every clam holds one. The Muckshell crabs on the {zone:1445} coast south-west of Theramore drop a clam about seven kills in ten, so ten clams take about fifteen kills, on your way to {zone:1446}. The Steeljaw Snappers on {zone:1446}'s east coast drop them about one kill in three."] = "",
 
-	-- Step 98: Clamlette Surprise
+	-- Step 96: Clamlette Surprise
 	-- {skill:185} Cooking
 	["Artisan {skill:185}"] = "{skill:185}: Искусник",
 
-	-- Step 99: Recipes for Fishing 225-300 (Cooking to 300)
+	-- Step 97: Recipes for Fishing 225-300 (Cooking to 300)
 	-- {skill:356} Fishing · {skill:185} Cooking
 	["Recipes for {skill:356} 225-300 ({skill:185} to 300)"] = "",
 	-- {item:13939} Recipe: Spotted Yellowtail · {skill:185} Cooking · {npc:8137} Gikkix · {zone:1446} Tanaris
 	["Before the round: {item:13939} ({skill:185} 225, 1g 60s: {npc:8137}, {zone:1446}). A recipe teaches itself when you use it from your bags."] = "",
 
-	-- Step 100: Lures for Fishing 225-300
-	-- {skill:356} Fishing
-	["Lures for {skill:356} 225-300"] = "",
-	-- {skill:356} Fishing · {item:6532} Bright Baubles
-	["Some of these waters lose fish below {skill:356} 300: a lure on the pole adds to your skill for ten minutes. {item:6532} (+75 from skill 100, 2s 50c each) closes the gap from 225; three see you through."] = "",
+	-- Step 98: Fishing 225-300
+	-- {skill:356} Fishing · {item:4603} Raw Spotted Yellowtail · {zone:1445} Dustwallow Marsh · {zone:1434} Stranglethorn Vale · {zone:2548} Riverglades · {zone:1435} Swamp of Sorrows
+	["Fish the round until {skill:356} 300 and until your bags hold 120 {item:4603} for the cooking: about 650 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: {zone:1445} ({item:4603} 21%); {zone:1434} ({item:4603} 10%); {zone:2548} ({item:4603} 18%); {zone:1435} ({item:4603} 15%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy."] = "",
 
-	-- Step 101: Fishing 225-300
-	-- {skill:356} Fishing · {item:4603} Raw Spotted Yellowtail · {zone:1446} Tanaris · {zone:1434} Stranglethorn Vale · {zone:1447} Azshara · {zone:2548} Riverglades · {zone:1435} Swamp of Sorrows
-	["Fish the round until {skill:356} 300 and until your bags hold 120 {item:4603} for the cooking: about 650 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: {zone:1446} ({item:4603} 42%); {zone:1434} ({item:4603} 10%); {zone:1447} ({item:4603} 18%); {zone:2548} ({item:4603} 18%); {zone:1435} ({item:4603} 15%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. {zone:1446} and {zone:1447} lose fish below skill 300: keep a lure on the pole there until then."] = "",
-
-	-- Step 102: Fishing 225-300
+	-- Step 99: Fishing 225-300
 	-- {skill:185} Cooking · {skill:356} Fishing
 	["Your {skill:185} is past 300, so there are no fish to keep: fish the round until {skill:356} 300, about 650 catches."] = "",
 
-	-- Step 103: Cook Spotted Yellowtail (225-300)
+	-- Step 100: Cook Spotted Yellowtail (225-300)
 	-- {item:6887} Spotted Yellowtail
 	["Cook {item:6887} (225-300)"] = "",
 	-- {item:6887} Spotted Yellowtail · {item:4603} Raw Spotted Yellowtail · {object:29784} Basic Campfire
 	["{item:6887} is orange from 225 (yellow at 265, green at 285, grey at 305): about 120 crafts to 300, 120 {item:4603}. Cook at any fire: a town hearth or your own {object:29784}. Short of fish: fish the round a little longer."] = "",
 
-	-- Step 106: Fishing 225-300
-	-- {skill:356} Fishing · {item:4603} Raw Spotted Yellowtail · {zone:1446} Tanaris · {zone:1445} Dustwallow Marsh · {zone:1443} Desolace · {zone:1434} Stranglethorn Vale · {zone:1447} Azshara
-	["Fish the round until {skill:356} 300 and until your bags hold 120 {item:4603} for the cooking: about 650 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: {zone:1446} ({item:4603} 42%); {zone:1445} ({item:4603} 21%); {zone:1443} ({item:4603} 20%); {zone:1434} ({item:4603} 10%); {zone:1447} ({item:4603} 18%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. {zone:1446} and {zone:1447} lose fish below skill 300: keep a lure on the pole there until then."] = "",
+	-- Step 102: Fishing 225-300
+	-- {skill:356} Fishing · {item:4603} Raw Spotted Yellowtail · {zone:1445} Dustwallow Marsh · {zone:1443} Desolace · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["Fish the round until {skill:356} 300 and until your bags hold 120 {item:4603} for the cooking: about 650 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow takes the water that gets you there soonest from where you are, and picks again when you change zones: {zone:1445} ({item:4603} 21%); {zone:1443} ({item:4603} 20%); {zone:1434} ({item:4603} 10%); {zone:1435} ({item:4603} 15%). At each it leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy."] = "",
 }

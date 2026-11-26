@@ -95,11 +95,12 @@ return {
 	-- {item:2674} Crawler Meat
 	["Get {item:2674}"] = "",
 	-- {item:2674} Crawler Meat · {spell:2544} Crab Cake · {npc:830} Sand Crawler · {zone:1436} Westfall
-	["You need 44 {item:2674} for {spell:2544} (90-130). It drops from {npc:830} (43%) in {zone:1436}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 47 {item:2674} for {spell:2544} (90-130). It drops from {npc:830} (43%) in {zone:1436}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
 	-- Step 22: Crab Cake (90-130)
 	-- {spell:2544} Crab Cake · {object:29784} Basic Campfire · {skill:185} Cooking · {zone:1436} Westfall · {spell:3376} Curiously Tasty Omelet
-	["{spell:2544} is orange from 90 (yellow at 115, green at 135, grey at 155): about 44 crafts to 130. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 75 for 2s. Crawlers line the whole {zone:1436} coast. Cook it to 130, where {spell:3376} takes over."] = "{spell:2544}은(는) 90부터 주황색입니다(노랑 115, 초록 135, 회색 155). 130까지 약 44번 만드세요 아무 불에서나 요리하세요. 마을 화로나 직접 만든 {object:29784}이(가) 있습니다. 어떤 {skill:185} 상급자든 75에서 2실버에 가르칩니다. 게가 {zone:1436} 해안 전체에 있습니다. 130까지 만들면 {spell:3376}이(가) 이어받습니다.",
+	-- was: ["{spell:2544} is orange from 90 (yellow at 115, green at 135, grey at 155): about 44 crafts to 130. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 75 for 2s. Crawlers line the whole {zone:1436} coast. Cook it to 130, where {spell:3376} takes over."] = "{spell:2544}은(는) 90부터 주황색입니다(노랑 115, 초록 135, 회색 155). 130까지 약 44번 만드세요 아무 불에서나 요리하세요. 마을 화로나 직접 만든 {object:29784}이(가) 있습니다. 어떤 {skill:185} 상급자든 75에서 2실버에 가르칩니다. 게가 {zone:1436} 해안 전체에 있습니다. 130까지 만들면 {spell:3376}이(가) 이어받습니다."
+	["{spell:2544} is orange from 90 (yellow at 115, green at 135, grey at 155): about 44 crafts to 130, up to 47 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 75 for 2s. Crawlers line the whole {zone:1436} coast. Cook it to 130, where {spell:3376} takes over."] = "",
 
 	-- Step 23: Smoked Bear Meat: shopping
 	-- {item:6890} Smoked Bear Meat
@@ -126,11 +127,12 @@ return {
 	-- {item:2677} Boar Ribs
 	["Get {item:2677}"] = "",
 	-- {item:2677} Boar Ribs · {spell:2546} Dry Pork Ribs · {npc:1191} Mangy Mountain Boar · {zone:1432} Loch Modan
-	["You need 52 {item:2677} for {spell:2546} (80-130). It drops from {npc:1191} (31%) in {zone:1432}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 53 {item:2677} for {spell:2546} (80-130). It drops from {npc:1191} (31%) in {zone:1432}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
 	-- Step 28: Dry Pork Ribs (80-130)
 	-- {spell:2546} Dry Pork Ribs · {object:29784} Basic Campfire · {skill:185} Cooking · {zone:1432} Loch Modan · {spell:3376} Curiously Tasty Omelet
-	["{spell:2546} is orange from 80 (yellow at 120, green at 140, grey at 160): about 52 crafts to 130. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 80 for 1s 50c. Mountain boars roam all of {zone:1432}. Cook it to 130, where {spell:3376} takes over."] = "{spell:2546}은(는) 80부터 주황색입니다(노랑 120, 초록 140, 회색 160). 130까지 약 52번 만드세요 아무 불에서나 요리하세요. 마을 화로나 직접 만든 {object:29784}이(가) 있습니다. 어떤 {skill:185} 상급자든 80에서 1실버 50코퍼에 가르칩니다. 산돼지가 {zone:1432} 전체를 돌아다닙니다. 130까지 만들면 {spell:3376}이(가) 이어받습니다.",
+	-- was: ["{spell:2546} is orange from 80 (yellow at 120, green at 140, grey at 160): about 52 crafts to 130. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 80 for 1s 50c. Mountain boars roam all of {zone:1432}. Cook it to 130, where {spell:3376} takes over."] = "{spell:2546}은(는) 80부터 주황색입니다(노랑 120, 초록 140, 회색 160). 130까지 약 52번 만드세요 아무 불에서나 요리하세요. 마을 화로나 직접 만든 {object:29784}이(가) 있습니다. 어떤 {skill:185} 상급자든 80에서 1실버 50코퍼에 가르칩니다. 산돼지가 {zone:1432} 전체를 돌아다닙니다. 130까지 만들면 {spell:3376}이(가) 이어받습니다."
+	["{spell:2546} is orange from 80 (yellow at 120, green at 140, grey at 160): about 52 crafts to 130, up to 53 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 80 for 1s 50c. Mountain boars roam all of {zone:1432}. Cook it to 130, where {spell:3376} takes over."] = "",
 
 	-- Step 29: Boiled Clams: shopping
 	-- {item:5525} Boiled Clams
@@ -151,11 +153,12 @@ return {
 
 	-- Step 33: Get Crawler Meat
 	-- {item:2674} Crawler Meat · {spell:2544} Crab Cake · {npc:3814} Spined Crawler · {npc:3812} Clattering Crawler · {zone:1439} Darkshore
-	["You need 44 {item:2674} for {spell:2544} (90-130). It drops from {npc:3814} (42%), {npc:3812} (40%) in {zone:1439}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 47 {item:2674} for {spell:2544} (90-130). It drops from {npc:3814} (42%), {npc:3812} (40%) in {zone:1439}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
 	-- Step 34: Crab Cake (90-130)
 	-- {spell:2544} Crab Cake · {object:29784} Basic Campfire · {skill:185} Cooking · {zone:1439} Darkshore · {spell:3376} Curiously Tasty Omelet
-	["{spell:2544} is orange from 90 (yellow at 115, green at 135, grey at 155): about 44 crafts to 130. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 75 for 2s. Crawlers line the whole {zone:1439} coast. Cook it to 130, where {spell:3376} takes over."] = "{spell:2544}은(는) 90부터 주황색입니다(노랑 115, 초록 135, 회색 155). 130까지 약 44번 만드세요 아무 불에서나 요리하세요. 마을 화로나 직접 만든 {object:29784}이(가) 있습니다. 어떤 {skill:185} 상급자든 75에서 2실버에 가르칩니다. 게가 {zone:1439} 해안 전체에 있습니다. 130까지 만들면 {spell:3376}이(가) 이어받습니다.",
+	-- was: ["{spell:2544} is orange from 90 (yellow at 115, green at 135, grey at 155): about 44 crafts to 130. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 75 for 2s. Crawlers line the whole {zone:1439} coast. Cook it to 130, where {spell:3376} takes over."] = "{spell:2544}은(는) 90부터 주황색입니다(노랑 115, 초록 135, 회색 155). 130까지 약 44번 만드세요 아무 불에서나 요리하세요. 마을 화로나 직접 만든 {object:29784}이(가) 있습니다. 어떤 {skill:185} 상급자든 75에서 2실버에 가르칩니다. 게가 {zone:1439} 해안 전체에 있습니다. 130까지 만들면 {spell:3376}이(가) 이어받습니다."
+	["{spell:2544} is orange from 90 (yellow at 115, green at 135, grey at 155): about 44 crafts to 130, up to 47 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 75 for 2s. Crawlers line the whole {zone:1439} coast. Cook it to 130, where {spell:3376} takes over."] = "",
 
 	-- Step 35: Strider Stew: shopping
 	-- {item:5477} Strider Stew
@@ -167,11 +170,12 @@ return {
 	-- {item:5469} Strider Meat
 	["Get {item:5469}"] = "",
 	-- {item:5469} Strider Meat · {item:5477} Strider Stew · {npc:3246} Fleeting Plainstrider · {zone:1413} The Barrens
-	["You need 52 {item:5469} for {item:5477} (50-100). It drops from {npc:3246} (32%) in {zone:1413}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 53 {item:5469} for {item:5477} (50-100). It drops from {npc:3246} (32%) in {zone:1413}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
 	-- Step 37: Strider Stew (50-100)
 	-- {item:5477} Strider Stew · {object:29784} Basic Campfire · {item:5486} Recipe: Strider Stew
-	["{item:5477} is orange from 50 (yellow at 90, green at 110, grey at 130): about 52 crafts to 100. Cook at any fire: a town hearth or your own {object:29784}. {item:5486} costs 4s 40c at its vendor; the arrow picks the nearest one of your faction."] = "{item:5477}은(는) 50부터 주황색입니다(노란색 90, 초록색 110, 회색 130). 100까지 약 52번 만드세요. 아무 불에서나 요리하세요: 마을 화로나 직접 피운 {object:29784}. {item:5486}은(는) 상인에게서 4실버 40코퍼에 팝니다. 화살표가 진영의 가장 가까운 상인을 가리킵니다.",
+	-- was: ["{item:5477} is orange from 50 (yellow at 90, green at 110, grey at 130): about 52 crafts to 100. Cook at any fire: a town hearth or your own {object:29784}. {item:5486} costs 4s 40c at its vendor; the arrow picks the nearest one of your faction."] = "{item:5477}은(는) 50부터 주황색입니다(노란색 90, 초록색 110, 회색 130). 100까지 약 52번 만드세요. 아무 불에서나 요리하세요: 마을 화로나 직접 피운 {object:29784}. {item:5486}은(는) 상인에게서 4실버 40코퍼에 팝니다. 화살표가 진영의 가장 가까운 상인을 가리킵니다."
+	["{item:5477} is orange from 50 (yellow at 90, green at 110, grey at 130): about 52 crafts to 100, up to 53 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own {object:29784}. {item:5486} costs 4s 40c at its vendor; the arrow picks the nearest one of your faction."] = "",
 
 	-- Step 38: Crispy Lizard Tail: shopping
 	-- {item:5479} Crispy Lizard Tail
@@ -192,8 +196,8 @@ return {
 	-- Step 41: Expert Cooking
 	-- {skill:185} Cooking
 	["Expert {skill:185}"] = "숙련 {skill:185}",
-	-- {skill:185} Cooking · {item:16072} Expert Cookbook
-	["Expert {skill:185} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16072} (1g); the arrow picks its nearest seller for your faction. Buy it and read it."] = "숙련 {skill:185}은(는) 최대 숙련도를 225로 올립니다. 숙련도 125, 캐릭터 레벨 20이 필요합니다. 책 {item:16072}(1골드)(으)로 배우며, 화살표가 진영의 가장 가까운 판매 상인을 가리킵니다. 사서 읽으세요.",
+	-- {skill:185} Cooking · {item:16072} Expert Cookbook · {npc:3955} Shandrina · {zone:1440} Ashenvale · {npc:12033} Wulan · {zone:1443} Desolace
+	["Expert {skill:185} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16072} (1g); the arrow picks its nearest seller for your faction. Buy it and read it. The cookbook's sellers stand above a level-20 character: {npc:3955} in {zone:1440} (creatures of level 18-30) and {npc:12033} in {zone:1443} (30-40). Take the flight path or keep to the road, buy, and leave the same way."] = "",
 	-- {item:16072} Expert Cookbook · {skill:185} Cooking
 	["Buy and read {item:16072} (Expert {skill:185})"] = "{item:16072} 사서 읽기 (숙련 {skill:185})",
 
@@ -240,11 +244,12 @@ return {
 	-- {item:12184} Raptor Flesh
 	["Get {item:12184}"] = "",
 	-- {item:12184} Raptor Flesh · {item:12210} Roast Raptor · {npc:2560} Highland Thrasher · {zone:1417} Arathi Highlands
-	["You need 52 {item:12184} for {item:12210} (175-225). It drops from {npc:2560} (38%) in {zone:1417}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 53 {item:12184} for {item:12210} (175-225). It drops from {npc:2560} (38%) in {zone:1417}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
 	-- Step 50: Roast Raptor (175-225)
 	-- {item:12210} Roast Raptor · {object:29784} Basic Campfire · {item:12228} Recipe: Roast Raptor · {zone:1417} Arathi Highlands · {npc:2810} Hammon Karwn · {area:320} Refuge Pointe · {npc:2821} Keena · {area:321} Hammerfall · {item:2692} Hot Spices · {item:17222} Spider Sausage · {item:12205} White Spider Meat
-	["{item:12210} is orange from 175 (yellow at 215, green at 235, grey at 255): about 52 crafts to 225. Cook at any fire: a town hearth or your own {object:29784}. {item:12228} costs 50s at its vendor; the arrow picks the nearest one of your faction. {zone:1417}: {npc:2810} at {area:320} (Alliance) and {npc:2821} at {area:321} (Horde) sell the recipe and {item:2692} beside the raptors. {item:17222} (any trainer from 200, 40s) is the alternative, but it takes two {item:12205} a craft and Dustwallow's spiders drop one about two kills in five."] = "{item:12210}은(는) 175부터 주황색입니다(노랑 215, 초록 235, 회색 255). 225까지 약 52번 만드세요 아무 불에서나 요리하세요. 마을 화로나 직접 만든 {object:29784}이(가) 있습니다. {item:12228}은(는) 상인에게 50실버이며, 화살표가 당신 진영의 가장 가까운 상인을 가리킵니다. {zone:1417}: {area:320}의 {npc:2810}(얼라이언스)과(와) {area:321}의 {npc:2821}(호드)이(가) 랩터 옆에서 제조법과 {item:2692}를(을) 팝니다. {item:17222}(200부터 어떤 상급자든, 40실버)가 대안이지만 제작당 {item:12205} 두 개가 들고, 더스트왈로의 거미가 다섯 마리 중 두 마리에서 떨어뜨립니다.",
+	-- was: ["{item:12210} is orange from 175 (yellow at 215, green at 235, grey at 255): about 52 crafts to 225. Cook at any fire: a town hearth or your own {object:29784}. {item:12228} costs 50s at its vendor; the arrow picks the nearest one of your faction. {zone:1417}: {npc:2810} at {area:320} (Alliance) and {npc:2821} at {area:321} (Horde) sell the recipe and {item:2692} beside the raptors. {item:17222} (any trainer from 200, 40s) is the alternative, but it takes two {item:12205} a craft and Dustwallow's spiders drop one about two kills in five."] = "{item:12210}은(는) 175부터 주황색입니다(노랑 215, 초록 235, 회색 255). 225까지 약 52번 만드세요 아무 불에서나 요리하세요. 마을 화로나 직접 만든 {object:29784}이(가) 있습니다. {item:12228}은(는) 상인에게 50실버이며, 화살표가 당신 진영의 가장 가까운 상인을 가리킵니다. {zone:1417}: {area:320}의 {npc:2810}(얼라이언스)과(와) {area:321}의 {npc:2821}(호드)이(가) 랩터 옆에서 제조법과 {item:2692}를(을) 팝니다. {item:17222}(200부터 어떤 상급자든, 40실버)가 대안이지만 제작당 {item:12205} 두 개가 들고, 더스트왈로의 거미가 다섯 마리 중 두 마리에서 떨어뜨립니다."
+	["{item:12210} is orange from 175 (yellow at 215, green at 235, grey at 255): about 52 crafts to 225, up to 53 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own {object:29784}. {item:12228} costs 50s at its vendor; the arrow picks the nearest one of your faction. {zone:1417}: {npc:2810} at {area:320} (Alliance) and {npc:2821} at {area:321} (Horde) sell the recipe and {item:2692} beside the raptors. {item:17222} (any trainer from 200, 40s) is the alternative, but it takes two {item:12205} a craft and Dustwallow's spiders drop one about two kills in five."] = "",
 
 	-- Step 51: Dirge Quikcleave
 	-- {skill:185} Cooking · {npc:8125} Dirge Quikcleave · {area:976} Gadgetzan · {zone:1446} Tanaris · {zone:1455} Ironforge
@@ -284,17 +289,19 @@ return {
 	-- {item:12207} Giant Egg
 	["Get {item:12207}"] = "",
 	-- {item:12207} Giant Egg · {item:12218} Monster Omelet · {npc:2929} Savage Owlbeast · {zone:1425} The Hinterlands
-	["You need 120 {item:12207} for {item:12218} (225-300). It drops from {npc:2929} (54%) in {zone:1425}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["You need 137 {item:12207} for {item:12218} (225-300). It drops from {npc:2929} (54%) in {zone:1425}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
 	-- Step 59: Monster Omelet (225-300)
-	-- {item:12218} Monster Omelet · {object:29784} Basic Campfire · {item:16110} Recipe: Monster Omelet · {item:13931} Nightfin Soup · {npc:8137} Gikkix · {area:977} Steamwheedle Port · {item:13932} Poached Sunscale Salmon · {item:279982} Iron Oven
-	["{item:12218} is orange from 225 (yellow at 265, green at 285, grey at 305): about 120 crafts to 300. Cook at any fire: a town hearth or your own {object:29784}. {item:16110} costs 1g 20s at its vendor; the arrow picks the nearest one of your faction. {item:12218} is orange to 265 and green from 285, yet it still carries you to 300. Fishers can finish on {item:13931} ({npc:8137}, {area:977}; yellow to 310) instead; {item:13932} needs an {item:279982} on Forever."] = "{item:12218}은(는) 225부터 주황색입니다(노랑 265, 초록 285, 회색 305). 300까지 약 120번 만드세요 아무 불에서나 요리하세요. 마을 화로나 직접 만든 {object:29784}이(가) 있습니다. {item:16110}은(는) 상인에게 1골드 20실버이며, 화살표가 당신 진영의 가장 가까운 상인을 가리킵니다. {item:12218}은(는) 265까지 주황색이고 285부터 초록색이지만 그래도 300까지 갑니다. 낚시꾼은 대신 {item:13931}({npc:8137}, {area:977}; 310까지 노란색)로 끝낼 수 있습니다. {item:13932}은(는) Forever에서 {item:279982}이(가) 필요합니다.",
+	-- {item:12218} Monster Omelet · {object:29784} Basic Campfire · {item:16110} Recipe: Monster Omelet · {item:12207} Giant Egg · {item:3713} Soothing Spices · {item:279982} Iron Oven · {item:13931} Nightfin Soup · {npc:8137} Gikkix · {area:977} Steamwheedle Port · {item:13932} Poached Sunscale Salmon
+	-- plural, as words: Monster Omelets = {item:12218} Monster Omelet
+	["{item:12218} is orange from 225 (yellow at 265, green at 285, grey at 305): about 120 crafts to 300, up to 137 for 9 players in 10 (the ingredients to farm count that many). Cook at any fire: a town hearth or your own {object:29784}. {item:16110} costs 1g 20s at its vendor; the arrow picks the nearest one of your faction. The longest stretch of the guide: about 120 Monster Omelets (up to 137), a {item:12207} and two {item:3713} each, and the last points green (orange to 265, green from 285); no recipe without fish or an {item:279982} does better. Fishers can finish on {item:13931} ({npc:8137}, {area:977}; yellow to 310) instead, though Nightfin Snapper bites only in waters that lose fish below 300; {item:13932} needs an {item:279982} on Forever."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:185} trainer of your faction teaches Apprentice {skill:185} (character level 5); the arrow picks the nearest."] = "진영의 모든 {skill:185} 상급자가 초급 {skill:185}을(를) 가르칩니다(캐릭터 레벨 5). 화살표가 가장 가까운 곳을 가리킵니다.",
 	-- ["Catch about 50 {item:6291} here by fishing (see the {skill:356} guide)."] = "이곳에서 낚시로 {item:6291} 약 50개를 잡으세요({skill:356} 가이드 참고).",
 	-- ["Catch about 68 {item:6361} here by fishing (see the {skill:356} guide)."] = "이곳에서 낚시로 {item:6361} 약 68개를 잡으세요({skill:356} 가이드 참고).",
 	-- ["Coyote (54%), {npc:833} (51%) in {zone:1436}, or wherever the arrow points"] = "{zone:1436}의 코요테 (54%), {npc:833} (51%), 또는 화살표가 가리키는 곳",
+	-- ["Expert {skill:185} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16072} (1g); the arrow picks its nearest seller for your faction. Buy it and read it."] = "숙련 {skill:185}은(는) 최대 숙련도를 225로 올립니다. 숙련도 125, 캐릭터 레벨 20이 필요합니다. 책 {item:16072}(1골드)(으)로 배우며, 화살표가 진영의 가장 가까운 판매 상인을 가리킵니다. 사서 읽으세요.",
 	-- ["Giant Eggs drop from the Ironbeak owls of {zone:1448}."] = "거대한 알은 {zone:1448}의 무쇠부리 올빼미가 떨어뜨립니다.",
 	-- ["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:185} trainer of your faction."] = "수습 {skill:185}은(는) 최대 숙련도를 150으로 올립니다. 숙련도 50, 캐릭터 레벨 10이 필요합니다. 화살표가 진영의 가장 가까운 {skill:185} 상급자를 가리킵니다.",
 	-- ["Prowler (86%) in {zone:1429}, or wherever the arrow points"] = "{zone:1429}의 굶주린 늑대 (86%), 또는 화살표가 가리키는 곳",
@@ -314,6 +321,7 @@ return {
 	-- ["What {spell:3398} takes that the Auction House sells: 45 {item:3731}. The counts drop by what your bags, bank and mail hold."] = "{spell:3398}에 필요한 것 중 경매장에서 파는 것: {item:3731} 45개. 가방, 은행, 우편함에 있는 만큼 수량이 줄어듭니다.",
 	-- ["{area:442} docks"] = "{area:442} 부두",
 	-- ["{area:702} docks"] = "{area:702} 부두",
+	-- ["{item:12210} is orange from 175 (yellow at 215, green at 235, grey at 255): about 52 crafts to 225. Cook at any fire: a town hearth or your own {object:29784}. {item:12228} costs 50s at its vendor; the arrow picks the nearest one of your faction. {zone:1417}: {npc:2810} at {area:320} (Alliance) and {npc:2821} at {area:321} (Horde) sell the recipe and {item:2692} beside the raptors. {item:17222} (any trainer from 200, 40s) is the alternative, but it takes two {item:12205} a craft and Dustwallow's spiders drop one about two kills in five."] = "{item:12210}은(는) 175부터 주황색입니다(노랑 215, 초록 235, 회색 255). 225까지 약 52번 만드세요 아무 불에서나 요리하세요. 마을 화로나 직접 만든 {object:29784}이(가) 있습니다. {item:12228}은(는) 상인에게 50실버이며, 화살표가 당신 진영의 가장 가까운 상인을 가리킵니다. {zone:1417}: {area:320}의 {npc:2810}(얼라이언스)과(와) {area:321}의 {npc:2821}(호드)이(가) 랩터 옆에서 제조법과 {item:2692}를(을) 팝니다. {item:17222}(200부터 어떤 상급자든, 40실버)가 대안이지만 제작당 {item:12205} 두 개가 들고, 더스트왈로의 거미가 다섯 마리 중 두 마리에서 떨어뜨립니다.",
 	-- ["{item:12210} is orange from 175 (yellow at 215, grey at 255): about 40 crafts to 215. Cook at any fire: {object:29784} comes with {skill:185}."] = "{item:12210}은(는) 175부터 주황색입니다(노란색 215, 회색 255). 215까지 약 40번 만드세요. 아무 불에서나 요리하세요. {object:29784}은(는) {skill:185}와(과) 함께 배웁니다.",
 	-- ["{item:12210}: Auction House"] = "{item:12210}: 경매장",
 	-- ["{item:12210}: ingredients"] = "{item:12210}: 재료",
@@ -321,12 +329,14 @@ return {
 	-- ["{item:12215} is orange from 225 (yellow at 240, grey at 280): about 15 crafts to 240. Cook at any fire: {object:29784} comes with {skill:185}."] = "{item:12215}은(는) 225부터 주황색입니다(노란색 240, 회색 280). 240까지 약 15번 만드세요. 아무 불에서나 요리하세요. {object:29784}은(는) {skill:185}와(과) 함께 배웁니다.",
 	-- ["{item:12215}: ingredients"] = "{item:12215}: 재료",
 	-- ["{item:12215}: shopping"] = "{item:12215}: 구매",
+	-- ["{item:12218} is orange from 225 (yellow at 265, green at 285, grey at 305): about 120 crafts to 300. Cook at any fire: a town hearth or your own {object:29784}. {item:16110} costs 1g 20s at its vendor; the arrow picks the nearest one of your faction. {item:12218} is orange to 265 and green from 285, yet it still carries you to 300. Fishers can finish on {item:13931} ({npc:8137}, {area:977}; yellow to 310) instead; {item:13932} needs an {item:279982} on Forever."] = "{item:12218}은(는) 225부터 주황색입니다(노랑 265, 초록 285, 회색 305). 300까지 약 120번 만드세요 아무 불에서나 요리하세요. 마을 화로나 직접 만든 {object:29784}이(가) 있습니다. {item:16110}은(는) 상인에게 1골드 20실버이며, 화살표가 당신 진영의 가장 가까운 상인을 가리킵니다. {item:12218}은(는) 265까지 주황색이고 285부터 초록색이지만 그래도 300까지 갑니다. 낚시꾼은 대신 {item:13931}({npc:8137}, {area:977}; 310까지 노란색)로 끝낼 수 있습니다. {item:13932}은(는) Forever에서 {item:279982}이(가) 필요합니다.",
 	-- ["{item:12218} is orange from 240 (yellow at 265, grey at 305): about 105 crafts to 300. Cook at any fire: {object:29784} comes with {skill:185}."] = "{item:12218}은(는) 240부터 주황색입니다(노란색 265, 회색 305). 300까지 약 105번 만드세요. 아무 불에서나 요리하세요. {object:29784}은(는) {skill:185}와(과) 함께 배웁니다.",
 	-- ["{item:12218}: Auction House"] = "{item:12218}: 경매장",
 	-- ["{item:12218}: ingredients"] = "{item:12218}: 재료",
 	-- ["{item:5095} is orange from 50 (yellow at 90, grey at 130): about 68 crafts to 110. Cook at any fire: {object:29784} comes with {skill:185}. {skill:356} off the {area:442} docks catches {item:6361}."] = "{item:5095}은(는) 50부터 주황색입니다(노란색 90, 회색 130). 110까지 약 68번 만드세요. 아무 불에서나 요리하세요. {object:29784}은(는) {skill:185}와(과) 함께 배웁니다. {area:442} 부두에서 {skill:356}을(를) 하면 {item:6361}이(가) 낚입니다.",
 	-- ["{item:5095}: ingredients"] = "{item:5095}: 재료",
 	-- ["{item:5095}: shopping"] = "{item:5095}: 구매",
+	-- ["{item:5477} is orange from 50 (yellow at 90, green at 110, grey at 130): about 52 crafts to 100. Cook at any fire: a town hearth or your own {object:29784}. {item:5486} costs 4s 40c at its vendor; the arrow picks the nearest one of your faction."] = "{item:5477}은(는) 50부터 주황색입니다(노란색 90, 초록색 110, 회색 130). 100까지 약 52번 만드세요. 아무 불에서나 요리하세요: 마을 화로나 직접 피운 {object:29784}. {item:5486}은(는) 상인에게서 4실버 40코퍼에 팝니다. 화살표가 진영의 가장 가까운 상인을 가리킵니다.",
 	-- ["{item:5477}: Auction House"] = "{item:5477}: 경매장",
 	-- ["{item:5477}: ingredients"] = "{item:5477}: 재료",
 	-- ["{item:5479} is orange from 100 (yellow at 140, grey at 180): about 25 crafts to 125. Cook at any fire: {object:29784} comes with {skill:185}."] = "{item:5479}은(는) 100부터 주황색입니다(노란색 140, 회색 180). 125까지 약 25번 만드세요. 아무 불에서나 요리하세요. {object:29784}은(는) {skill:185}와(과) 함께 배웁니다.",
@@ -378,8 +388,11 @@ return {
 	-- ["{spell:2540}: ingredients"] = "{spell:2540}: 재료",
 	-- ["{spell:2541}: Auction House"] = "{spell:2541}: 경매장",
 	-- ["{spell:2541}: ingredients"] = "{spell:2541}: 재료",
+	-- ["{spell:2544} is orange from 90 (yellow at 115, green at 135, grey at 155): about 44 crafts to 130. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 75 for 2s. Crawlers line the whole {zone:1436} coast. Cook it to 130, where {spell:3376} takes over."] = "{spell:2544}은(는) 90부터 주황색입니다(노랑 115, 초록 135, 회색 155). 130까지 약 44번 만드세요 아무 불에서나 요리하세요. 마을 화로나 직접 만든 {object:29784}이(가) 있습니다. 어떤 {skill:185} 상급자든 75에서 2실버에 가르칩니다. 게가 {zone:1436} 해안 전체에 있습니다. 130까지 만들면 {spell:3376}이(가) 이어받습니다.",
+	-- ["{spell:2544} is orange from 90 (yellow at 115, green at 135, grey at 155): about 44 crafts to 130. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 75 for 2s. Crawlers line the whole {zone:1439} coast. Cook it to 130, where {spell:3376} takes over."] = "{spell:2544}은(는) 90부터 주황색입니다(노랑 115, 초록 135, 회색 155). 130까지 약 44번 만드세요 아무 불에서나 요리하세요. 마을 화로나 직접 만든 {object:29784}이(가) 있습니다. 어떤 {skill:185} 상급자든 75에서 2실버에 가르칩니다. 게가 {zone:1439} 해안 전체에 있습니다. 130까지 만들면 {spell:3376}이(가) 이어받습니다.",
 	-- ["{spell:2544}: Auction House"] = "{spell:2544}: 경매장",
 	-- ["{spell:2544}: ingredients"] = "{spell:2544}: 재료",
+	-- ["{spell:2546} is orange from 80 (yellow at 120, green at 140, grey at 160): about 52 crafts to 130. Cook at any fire: a town hearth or your own {object:29784}. Any {skill:185} trainer teaches it from skill 80 for 1s 50c. Mountain boars roam all of {zone:1432}. Cook it to 130, where {spell:3376} takes over."] = "{spell:2546}은(는) 80부터 주황색입니다(노랑 120, 초록 140, 회색 160). 130까지 약 52번 만드세요 아무 불에서나 요리하세요. 마을 화로나 직접 만든 {object:29784}이(가) 있습니다. 어떤 {skill:185} 상급자든 80에서 1실버 50코퍼에 가르칩니다. 산돼지가 {zone:1432} 전체를 돌아다닙니다. 130까지 만들면 {spell:3376}이(가) 이어받습니다.",
 	-- ["{spell:2546}: Auction House"] = "{spell:2546}: 경매장",
 	-- ["{spell:2546}: ingredients"] = "{spell:2546}: 재료",
 	-- ["{spell:3370} is orange from 100 (yellow at 120, grey at 160): about 26 crafts to 125. Cook at any fire: {object:29784} comes with {skill:185}."] = "{spell:3370}은(는) 100부터 주황색입니다(노란색 120, 회색 160). 125까지 약 26번 만드세요. 아무 불에서나 요리하세요. {object:29784}은(는) {skill:185}와(과) 함께 배웁니다.",
