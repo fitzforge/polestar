@@ -118,7 +118,6 @@ return {
 
 	-- Step 17: The Great Outdoors
 	-- {npc:265811} Lyreena Duskblade · {npc:6286} Zarrin · {skill:129} First Aid · {npc:6094} Byancie · {zone:1457} Darnassus · {area:442} Auberdine
-	-- was: ["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west."] = "学会一项专业后，{npc:265811}还会提供对应的露营 101 任务，交给该专业的训练师：炼金术和草药学在{npc:6286}旁边，{skill:129}找旅店里的{npc:6094}，剥皮和制皮在西边路旁织鬃家族的营地。"
 	["With a profession learned, {npc:265811} also offers its Camping 101, which its trainer takes: alchemy and herbalism beside {npc:6286}, {skill:129} with {npc:6094} in the inn, skinning and leatherworking at the Maneweavers' camp on the road west, fishing and tailoring in {zone:1457}, enchanting north of the city, blacksmithing, mining and engineering in {area:442}."] = "学会一项专业后，{npc:265811}还会提供该专业的露营 101，由其训练师接收：炼金术和草药学在{npc:6286}旁边，{skill:129}找旅店里的{npc:6094}，剥皮和制皮在西边路上的鬃织营地，钓鱼和裁缝在{zone:1457}，附魔在城市北边，锻造、采矿和工程学在{area:442}。",
 	-- {npc:265811} Lyreena Duskblade · {spell:1229451} Boosted Rest
 	["/sit by {npc:265811}'s campfire until you get {spell:1229451}"] = "在{npc:265811}的篝火旁 /sit，直到获得{spell:1229451}",
@@ -207,6 +206,8 @@ return {
 	["{npc:6094}, in the inn"] = "{npc:6094}，在旅店里",
 
 	-- Step 33: Dolanaar
+	-- {quest:5621} Garments of the Moon · {spell:613} Lesser Heal · {npc:3600} Laurna Morninglight
+	["Priests: {quest:5621} counts only {spell:613} (Rank 2). {npc:3600} trains priests too: learn it from her now if you have not yet."] = "",
 	-- {npc:3515} Corithras Moonrage
 	["{npc:3515}, south of the inn"] = "{npc:3515}，在旅店南边",
 	-- {npc:3608} Aldia

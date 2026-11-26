@@ -242,8 +242,8 @@ return {
 	["The giant {npc:7765} sits just north-west of {npc:7775}'s camp."] = "巨人{npc:7765}就在{npc:7775}营地的西北侧。",
 
 	-- Step 51: Evoroot
-	-- {item:11242} Evoroot · {npc:7765} Rockbiter
-	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "{item:11242}长在{npc:7765}北边的一座废墟建筑里：从旁边的岩架穿过墙上的缺口爬进去。",
+	-- {item:11242} Evoroot · {npc:7765} Rockbiter · {npc:9467} Miblon Snarltooth
+	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it.\nOr the front door: {npc:9467} guards it, and the Bait Gregan sells draws him off when you use it beside him. Half the players in our recordings went in that way, half through the wall."] = "",
 
 	-- Step 52: Shay Leafrunner
 	-- {npc:7774} Shay Leafrunner · {item:9189} Shay's Bell
@@ -292,6 +292,7 @@ return {
 	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back."] = "碧火萨特占据道路西边的山谷，{npc:9454}在山谷深处。",
 	-- ["The vial is filled in {zone:1457}: keep it"] = "药瓶在{zone:1457}装满：留着",
 	-- ["The vial is filled in {zone:1457}: keep it; inside"] = "药瓶需在{zone:1457}装满，先保留；任务在屋内接取",
+	-- ["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "{item:11242}长在{npc:7765}北边的一座废墟建筑里：从旁边的岩架穿过墙上的缺口爬进去。",
 	-- ["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53."] = "在这里补到52.69级，再去{area:1763}交任务，交完会升到53级。",
 	-- ["Top up here to level 52.9 before the hand-ins at {area:2479}: they take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "在这里补到52.9级，再去{area:2479}交任务，交完会升到53级。也可以组队去{area:1417}副本或{area:2100}副本。",
 	-- ["Trey Lightforge's remains lie beside her."] = "特雷·莱弗治的残骸的遗骸就在她身旁。",

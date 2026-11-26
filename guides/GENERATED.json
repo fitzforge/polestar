@@ -51,13 +51,13 @@
     "forever/horde/30-40/06-badlands.guide": "de875a43265f28268d62439325554a7f798a1b2baedb29a4bfa0b80de98ce555",
     "forever/horde/40-50/01-stranglethorn-vale.guide": "8636d1d75dcb0d42e4f27c8f2d6a887dc2cf23f3cb8e83fbe28279939d629cdf",
     "forever/horde/40-50/01b-riverglades.guide": "8d0a654e425a20650ec6b2b7ae93eae9f02cfecd4c6ac892ada2e67484fd6358",
-    "forever/horde/40-50/02-feralas.guide": "e2e1a7177dc0f45ad23bfb6e2bdfc6d51fec0b9f1c4c822a0ff980d46bb91490",
+    "forever/horde/40-50/02-feralas.guide": "fd4428fcff9bc8bd44991adb259fa42c6a37793a82a51fca4aa4420388b3772a",
     "forever/horde/40-50/03-feralas.guide": "2beb2417b86b216fd38899ea04acf3412266b37c204d0fb4cb4b167a7135442c",
     "forever/horde/40-50/04-tanaris.guide": "44711a3be7b50ef50ab61ab5ecec489499339f949715af388a148654dc4a3a89",
     "forever/horde/40-50/05-the-hinterlands.guide": "c542a46840980b921ba76d4f608f4cb15124f003b794828bf4049cbde0c69851",
     "forever/horde/40-50/06-azshara.guide": "96a01f759b6096e05e20693174434dac143a26679c9b11e68f4a699b369ae162",
-    "forever/horde/50-60/01-un-goro-crater.guide": "377889fa1b8aee1d2b5dd101d124353564a8a2693ce83477a3b01c9c7de9e84a",
-    "forever/horde/50-60/02-felwood.guide": "73b6c3576550ed934e4a86afae6a29f9b080a695aa4fc34f1465e2513241c29c",
+    "forever/horde/50-60/01-un-goro-crater.guide": "26382562f5989b5c4eb1124cbd1bd7c288a2f616f5653bf90f20159277ecf07c",
+    "forever/horde/50-60/02-felwood.guide": "5f3ebd0c5d79ce132b33457df05c6e2d3ad6e92eb286894a65d059001796ecc8",
     "forever/horde/50-60/03-winterspring.guide": "75bb6e0d4906e8a66ef58583f06470e602cd7f13993947785000c3c93105e165",
     "forever/horde/50-60/04-azshara.guide": "6da6f5c86bdda96c57a321e2ea4b224ed1e88e6a4dab3a97ff7315e053b1f9bb",
     "forever/horde/50-60/05-eastern-plaguelands.guide": "c6685e4eb13ae2dbd264949e6a51e2eaa659e5063a7e89d0e7f1bcaf0651c6fb",
@@ -68,6 +68,6 @@
     "forever/horde/tauren/01-mulgore.guide": "c66cd413900e5d38491a98c17dc264222738285287f9c15f06d95050d3a8c896",
     "forever/horde/troll/01-durotar.guide": "c79c06cdacfef0345fc226810ffd94fd7de025c8f211be1e0de4f83e1a535bf8",
     "forever/horde/undead/01-tirisfal-glades.guide": "7fc8afa4ebf4de7ad8108bcb4427777f9d63e3f6c0586169728e7e49648f8138",
-    "legs.json": "ad5a89cb61fc669273183c7389a141028fdfe8440f65f0fbe4f5049fedc74046"
+    "legs.json": "dced1ab856f57c90d51a8c8c56e8b387662469ea2076b8eebf3b4f321f571472"
   }
 }

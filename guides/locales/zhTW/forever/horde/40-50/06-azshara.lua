@@ -83,10 +83,10 @@ return {
 	["{npc:6986}, the Drag"] = "{npc:6986}，在城裡",
 
 	-- Step 23: Orgrimmar
-	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow · {quest:4300} Bone-Bladed Weapons · {zone:1447} Azshara
-	["{npc:8659}, in the {object:172960}, has {quest:4300} for later; then your class trainer before you leave for {zone:1447}."] = "",
-	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
-	["{npc:8659}, the {object:172960}"] = "{npc:8659}，{object:172960}",
+	-- {npc:8659} Jes'rimon · {quest:4300} Bone-Bladed Weapons · {zone:1447} Azshara
+	["{npc:8659}, at the top of a tower in the Drag, has {quest:4300} for later; then your class trainer before you leave for {zone:1447}."] = "",
+	-- {npc:8659} Jes'rimon
+	["{npc:8659}, at the top of a tower in the Drag"] = "",
 
 	-- Step 24: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {object:172957} Valley of Wisdom · {npc:4791} Nazeer Bloodpike · {zone:1445} Dustwallow Marsh
@@ -323,6 +323,7 @@ return {
 	-- ["{npc:7825} stands in the {object:36082}."] = "{npc:7825}站在{object:36082}。",
 	-- ["{npc:7876}'s tar and Pestlezugg's samples come from {zone:1449}."] = "{npc:7876}的焦油和匹斯特蘇格的樣本都來自{zone:1449}。",
 	-- ["{npc:8395}, at the east edge of the camp: no experience, only a teleport to Azshara Tower"] = "{npc:8395}，在營地東緣：沒有經驗值，只能傳送到艾薩拉的高塔",
+	-- ["{npc:8659}, the {object:172960}"] = "{npc:8659}，{object:172960}",
 	-- ["{quest:3761} is gathered in the next guide; {npc:4046}'s payment goes back to {npc:8587} later."] = "{quest:3761}在下一份指南中收集；{npc:4046}的報酬稍後交回給{npc:8587}。",
 	-- ["{quest:4494} needs level 50: {npc:7010}, in the Drag, gives it from then on. Under 50, the {zone:1447} guide at 55 offers it again."] = "{quest:4494}需要50級：之後可向暗巷區的{npc:7010}接受。未滿50級的話，55級的{zone:1447}指南會再提供一次。",
 }

@@ -184,6 +184,8 @@ return {
 	-- Step 42: Fuzzle
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["{npc:259158} wants out of {area:16723}: lead him west to his treasure at the edge of town and keep the cultists off him."] = "{npc:259158}想離開{area:16723}：帶他向西走到城鎮邊緣的寶藏處，別讓教徒靠近他。",
+	-- {npc:259158} Fuzzle
+	["{npc:259158} in his cage"] = "",
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["lead {npc:259158} out of {area:16723} to his treasure, west of the town"] = "帶{npc:259158}離開{area:16723}，前往城鎮西邊他的寶藏",
 
@@ -195,7 +197,6 @@ return {
 
 	-- Step 44: Clubtoe
 	-- {area:16723} Sunnyglade · {npc:260931} Clubtoe · {npc:256710} Tran'gul
-	-- was: ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "再次向西前往{area:16723}：想脫離教派的暮光礦工{npc:260931}在村子東緣等著。說服他，然後繳交{npc:256710}的任務；其中一名失蹤的食人魔就站在西邊幾步遠。"
 	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits inside the cave under the town's eastern edge, a floor below the street. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "再次向西前往{area:16723}：想脫身的暮光礦工{npc:260931}在城鎮東邊下方的洞穴裡等候，比街道低一層。說服他，然後繳交{npc:256710}的任務；一個失蹤的巨魔就在西邊幾步遠。",
 	-- {npc:260931} Clubtoe
 	["talk {npc:260931} round"] = "說服{npc:260931}",
