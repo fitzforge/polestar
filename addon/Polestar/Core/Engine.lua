@@ -4241,7 +4241,9 @@ function Own.materialWay(goal)
 	local w = c[goal.item]
 	if not w then
 		if not player then refreshPlayer() end
-		local way, why = M.Way(guide, goal.item, player)
+		-- Mix buys a farm too long (Materials.LONG): its minutes for what is still needed (Core/KindCraft.lua).
+		local item = goal.item
+		local way, why = M.Way(guide, item, player, Engine.FarmMinutes and function() return Engine.FarmMinutes(item) end)
 		w = { way = way, why = why }
 		c[goal.item] = w
 	end
@@ -11727,6 +11729,30 @@ function Engine.KindModel(region, view, kind)
 	if not f then return nil end
 	return f(view, kind or Engine.GuideKind())
 end
+
+-- What Core/KindCraft.lua reads to build the profession and reputation regions' models: this file's own view of
+-- the guide, the skill, the materials and their farm spots, live (each reads the state as it is when called).
+Engine.KindAccess = {
+	guide = function() return guide end,
+	current = function() return current end,
+	player = function()
+		if not player then refreshPlayer() end
+		return player
+	end,
+	stepApplies = function(step) return stepApplies(step) end,
+	goalApplies = function(goal) return goalApplies(goal) end,
+	goalDone = function(s, g, goal) return goalDone(s, g, goal) end,
+	skillRank = function(goal) return skillRank(goal) end,
+	skillName = function(goal) return skillName(goal) end,
+	rankCap = function(goal) return rankCap(goal) end,
+	craftsFrom = function(goal, start, k) return Own.craftsFrom(goal, start, k) end,
+	chosen = function(goal) return chosen(goal) end,
+	farm = function(goal) return Own.farmView(goal) end,
+	needOf = function(goal) return Own.needOf(goal) end,
+	materialWay = function(goal) return Own.materialWay(goal) end,
+	sectionOf = function(s) return Own.sectionOf(s) end,
+	generation = function() return generation end,
+}
 
 -- Replaces the active tab's guide (opens a first tab when none is open); a
 -- guide already open in another tab is selected instead of duplicated. The

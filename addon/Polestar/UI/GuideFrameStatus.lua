@@ -107,7 +107,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		local parts = {}
 		-- A profession guide's skill line first (GF.SkillText), where its kind
 		-- has one (Core/Guides.lua, GuideKinds).
-		local skill = GF.KindHas("skillBar") and GF.SkillText()
+		-- The kind's skill meter (UI/GuideFrameKindCraft.lua) says it instead while it shows.
+		local skill = GF.KindHas("skillBar") and not GF.RegionShown("meter") and GF.SkillText()
 		if skill then parts[#parts + 1] = skill end
 		-- The XP line (XP an hour, time to level, the pace) unless turned off
 		-- (guideWindow.xpLine, #3304) or the guide's kind has none; Boosted

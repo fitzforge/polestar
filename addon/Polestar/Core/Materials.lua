@@ -5,7 +5,7 @@
 -- the levels of the mobs it drops from) and buys the rest. The Engine applies only the goals of the way an item
 -- takes (Engine.lua, Own.materialApplies); the windows read the counts and prices here.
 --
---   Materials.Way(guide, item, player) -> "gather" | "buy", reason
+--   Materials.Way(guide, item, player[, farmMinutes]) -> "gather" | "buy", reason
 --   Materials.Mode(guideId[, item]) -> mode ("gather" | "buy" | "mix"), answered, pick ("gather" | "buy" | nil)
 --   Materials.Asks(guideId) -> true while the guide's way is still to ask for (no answer, Options' default "ask",
 --     not dismissed with Later: Materials.Dismiss(guideId))
@@ -28,7 +28,8 @@
 -- "noGather" (nothing gathers it in this guide), "picked" (the player's pick), "mode" (the guide's way), "skill"
 -- (the profession or rank its gather way takes is missing), "low" (its mobs more than Materials.LOW levels above
 -- the character), "past" (looted while levelling, cloth or meat, and the character Materials.PAST levels beyond
--- its mobs), "mix" (Mix gathers it).
+-- its mobs), "mix" (Mix gathers it), "long" (Mix buys it: farming what is still needed takes over Materials.LONG
+-- minutes).
 --
 -- Counts: the bags live; the bank live while it is open, else as at the character's last visit (BANKFRAME_OPENED,
 -- PLAYERBANKSLOTS_CHANGED, BANKFRAME_CLOSED; before the first, what the client reports); the mail as at the last
@@ -58,7 +59,8 @@ ns.RegisterDefaults("professions", {
 })
 
 local MODES = { gather = true, buy = true, mix = true }
-Materials.LOW, Materials.PAST = 2, 5
+-- LONG: minutes of farming past which Mix buys a material instead.
+Materials.LOW, Materials.PAST, Materials.LONG = 2, 5, 45
 local PRICE_DAYS = 14
 local PRICE_ROWS = 40 -- listings kept per item, cheapest first: enough to price a bracket's cloth
 local CALLER = "Polestar" -- the caller id Auctionator's API asks for
@@ -210,7 +212,9 @@ function Materials.Choosable(guide)
 	return false
 end
 
-function Materials.Way(guide, item, player)
+-- farmMinutes (optional): a function giving the minutes farming what is still needed takes (nil: not known); Mix
+-- buys a material whose farm is longer than Materials.LONG ("long") when it can be bought.
+function Materials.Way(guide, item, player, farmMinutes)
 	local e = guide and item and Materials.Index(guide)[item]
 	if not e then return "gather", "noBuy" end
 	if Materials.SelfFound() then return "gather", "selfFound" end
@@ -227,6 +231,10 @@ function Materials.Way(guide, item, player)
 		return "gather", "mode"
 	end
 	if not can then return "buy", why end
+	if mode == "mix" and type(farmMinutes) == "function" then
+		local m = farmMinutes()
+		if type(m) == "number" and m > Materials.LONG then return "buy", "long" end
+	end
 	return "gather", "mix"
 end
 

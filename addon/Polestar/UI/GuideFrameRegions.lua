@@ -84,6 +84,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local kind = E and E.GuideKind and E.GuideKind() or "leveling"
 		local list = view and GF.RegionsFor(view, kind) or nil
 		covered, coveredView = {}, view
+		local hadMeter = GF.RegionShown("meter")
 		local n, m = 0, mode()
 		for _, id in ipairs(list or {}) do
 			local def = defs[id]
@@ -100,6 +101,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		for i = n + 1, #active do active[i] = nil end
 		active.n = n
+		-- The XP row leaves the skill out while the meter shows (UI/GuideFrameStatus.lua).
+		if hadMeter ~= GF.RegionShown("meter") and GF.UpdateXP then GF.UpdateXP() end
 		local on = {}
 		for i = 1, n do on[active[i].id] = true end
 		for id, f in pairs(frames) do
