@@ -39,7 +39,7 @@ const COORD_RE = /^(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)$/;
 // A step label (`label camp`, `along until camp`): letters, digits, `-` and `_`, as written.
 const LABEL_RE = /^[A-Za-z0-9_-]+$/;
 
-const HEADER_KEYS = ['guide', 'title', 'levels', 'zone', 'faction', 'race', 'class', 'next', 'category', 'kind', 'folder', 'keywords', 'collects', 'reward', 'why', 'author', 'version', 'coords', 'pitch', 'pro', 'con'];
+const HEADER_KEYS = ['guide', 'title', 'levels', 'zone', 'faction', 'race', 'class', 'next', 'category', 'kind', 'skills', 'folder', 'keywords', 'collects', 'reward', 'why', 'author', 'version', 'coords', 'pitch', 'pro', 'con'];
 // Lines inside a step that are not goals.
 // `loop`: the step's `goto` points are the spawn areas of its kill, collect
 // and interact goals (resolve.js, applyLoop).
@@ -601,6 +601,20 @@ function parseHeader(guide, kw, line, lex, ln, err, warn) {
 		case 'kind':
 			h[kw] = rest;
 			return;
+		case 'skills': {
+			// `skills Skinning, Leatherworking`: the skill lines a profession guide levels (a paired guide: both).
+			const names = rest.split(',').map((w) => w.trim().replace(/^"(.*)"$/, '$1'));
+			if (names.some((w) => !w)) {
+				err(ln, '`skills` has an empty entry (expected a comma list of professions)');
+				return;
+			}
+			if (new Set(names.map((w) => w.toLowerCase())).size !== names.length) {
+				err(ln, '`skills` names the same profession twice');
+				return;
+			}
+			h.skills = names;
+			return;
+		}
 		case 'keywords': {
 			// `keywords a, b, c`: extra search words for the guide menu.
 			const words = rest.split(',').map((w) => w.trim());
