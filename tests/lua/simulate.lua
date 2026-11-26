@@ -79,7 +79,15 @@ local function act(i, g, r)
 		if w.log[q] then w.finish(q) end
 	-- An auction goal: bought at the Auction House, a bag count as a buy is.
 	elseif (t == "collect" or t == "buy" or t == "auction") and g.item then
+		if r.fresh then
+			if t == "buy" then w.merchant(r.npc)
+			elseif r.npc then w.gossip(r.npc)
+			else stub.fire("LOOT_OPENED") end
+		end
 		w.addItem(g.item, (g.progress and g.progress.max) or 1)
+		if r.fresh then
+			if r.npc then w.close() else stub.fire("LOOT_CLOSED") end
+		end
 	elseif t == "goto" then
 		w.moveTo(g.map, g.x, g.y, g.z)
 	elseif t == "talk" then
@@ -128,7 +136,9 @@ local function act(i, g, r)
 			ensureSkill(r, line)
 			w.skillUp(line, r.untilSkill, math.max(r.untilSkill, w.skills[line].maxRank or 0))
 		elseif r.item then
+			if r.fresh then stub.fire("UNIT_SPELLCAST_START", "player", "Cast-3-0-0-0-" .. r.spell .. "-0", r.spell) end
 			w.addItem(r.item, r.count or 1)
+			if r.fresh then w.cast(r.spell) end
 		end
 	elseif t == "rep" then
 		-- Points inside the standing (a rep goal with +points): that far along its bar.

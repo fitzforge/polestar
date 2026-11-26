@@ -10,7 +10,7 @@
 use forge_addontest::codex::{fixture, write_codex_pack, CodexOpts, CodexPack};
 use forge_addontest::playtest::SIMULATE;
 use forge_addontest::run::root;
-use forge_addontest::{emitted, lua_value, truthy, RunAddon};
+use forge_addontest::{emitted, lua_value, truthy, RunAddon, TEST_PACK};
 use serde_json::{json, Map, Value};
 
 const REAL: [(i64, i64); 3] = [(9001, 1429), (9002, 1436), (9003, 1438)];
@@ -260,9 +260,120 @@ fn a_vendor_mount_go_to_the_vendor_and_buy_it() {
 }
 
 #[test]
+fn held_ankh_lookup_waits_for_a_purchase_at_keldric_boucher() {
+	// Forever Codex records for the reported item, vendor and Stormwind frame.
+	let mut codex = fixture("lookup.json");
+	codex["items"]["17030"] = json!({ "id": 17030, "name": "Ankh", "kind": "item", "quality": 1,
+		"sources": [{ "type": "vendor", "npc": 1257, "cost": 2000 }] });
+	codex["npcs"]["1257"] = json!({ "id": 1257, "name": "Keldric Boucher", "level": 30, "faction": "A", "roles": ["vendor"],
+		"spawns": [{ "map": 1453, "x": 62.8, "y": 75.03, "z": 96.2 }] });
+	codex["frames"]["1453"] = json!({ "c": 0, "left": 1380.971, "right": 36.701, "top": -8278.851, "bottom": -9175.205 });
+	codex["zones"]["1453"] = json!({ "id": 1453, "name": "Stormwind City" });
+	let pack = write_codex_pack(&codex, &CodexOpts::default());
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: pack.stub_lua.clone()
+			+ r#"
+local w = stub.world
+w.addMap(1453, { name = "Stormwind City", c = 0, left = 1380.971, right = 36.701, top = -8278.851, bottom = -9175.205 })
+w.moveTo(1453, 62.33, 70.65)
+w.items[17030] = 1
+"#,
+		addons: vec!["Polestar".into()],
+		script: [
+			TEST_PACK,
+			r#"
+stub.login()
+local P, w = Polestar, stub.world
+local E = P.Engine
+local id = assert(P.Lookup.Guide("item", 17030))
+local function status()
+	stub.advance(0.6)
+	local goals = E.GetStepView(1).goals
+	return { goals[1].status, goals[2].status, E.GetStepIndex() ~= nil }
+end
+local r = { reported = status() }
+w.moveTo(1453, 62.8, 75.03, 96.2)
+r.arrived = status()
+w.merchant(1257)
+r.open = status()
+w.close()
+w.addItem(17030, 1)
+r.closed = status()
+w.merchant(5001) -- a vendor from the fixture, not Keldric
+w.addItem(17030, 1)
+r.wrong = status()
+w.close()
+w.merchant(1257)
+w.addItem(17030, 1)
+r.bought = status()
+w.close()
+w.removeItem(17030)
+E.SetGuide(id)
+r.again = status()
+assert(P.RegisterGuide({ id = "test/ankh", pack = "test", title = "Ankh", steps = {
+	{ goals = { { t = "buy", item = 17030, itemName = "Ankh", count = 1 } } },
+} }))
+w.addItem(17030, 1)
+assert(E.SetGuide("test/ankh"))
+r.handwritten = E.GetStepView(1).goals[1].status
+emit(r)
+"#,
+		]
+		.join("\n"),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(
+		out,
+		json!({
+			"reported": ["active", "active", true], "arrived": ["done", "active", true],
+			"open": ["done", "active", true], "closed": ["done", "active", true], "wrong": ["done", "active", true],
+			"bought": ["done", "done", false], "again": ["done", "done", false], "handwritten": "done"
+		})
+	);
+}
+
+#[test]
 fn a_drop_go_to_the_mob_kill_it_loot_the_item() {
 	let c = ctx();
 	assert_plays(&c, "item", 8004, json!([{ "title": "Bristle Boar", "goals": "goto kill collect" }]), "");
+}
+
+#[test]
+fn held_drop_lookup_waits_for_an_increase_while_looting() {
+	let c = ctx();
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: world(&c, &format!("w.moveTo({}, 50, 50)\nw.items[8004] = 1", c.home)),
+		addons: vec!["Polestar".into()],
+		script: r#"
+stub.login()
+local w, E = stub.world, Polestar.Engine
+assert(Polestar.Lookup.Guide("item", 8004))
+local function done()
+	stub.advance(0.6)
+	return E.GetStepView(1).goals[3].status == "done"
+end
+local r = { held = done() }
+w.addItem(8004, 1)
+r.outside = done()
+stub.fire("LOOT_OPENED")
+r.open = done()
+stub.fire("LOOT_CLOSED")
+w.addItem(8004, 1)
+r.closed = done()
+stub.fire("LOOT_OPENED")
+w.addItem(8004, 1)
+stub.fire("LOOT_CLOSED")
+r.looted = done()
+emit(r)
+"#
+		.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out, json!({ "held": false, "outside": false, "open": false, "closed": false, "looted": true }));
 }
 
 #[test]
@@ -363,6 +474,89 @@ fn a_craft_learn_the_profession_at_its_trainer_skill_up_learn_the_recipe_craft()
 	let c = ctx();
 	assert_plays(&c, "item", 8005, json!([{ "title": "Tailoring", "goals": "train skill learn craft" }]), "");
 	assert_plays(&c, "item", 8005, json!([{ "title": "Tailoring", "goals": "learn craft" }]), r#"w.learnSkill(197, "Tailoring", 120, 150)"#);
+}
+
+#[test]
+fn held_craft_lookup_requires_the_matching_cast_to_succeed() {
+	let c = ctx();
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: world(&c, &format!("w.moveTo({}, 50, 50)\nw.learnSkill(197, 'Tailoring', 120, 150)\nw.learnSpell(9601)\nw.items[8005] = 1", c.home)),
+		addons: vec!["Polestar".into()],
+		script: r#"
+stub.login()
+local w, E = stub.world, Polestar.Engine
+assert(Polestar.Lookup.Guide("item", 8005))
+local function done()
+	stub.advance(0.6)
+	return E.GetStepView(1).goals[1].status == "done"
+end
+local r = { held = done() }
+w.cast(9601)
+r.noStart = done()
+stub.fire("UNIT_SPELLCAST_START", "player", "first", 9601)
+w.addItem(8005, 1)
+r.pending = done()
+stub.fire("UNIT_SPELLCAST_INTERRUPTED", "player", "first", 9601)
+r.interrupted = done()
+stub.fire("UNIT_SPELLCAST_START", "player", "second", 9601)
+stub.fire("UNIT_SPELLCAST_SUCCEEDED", "player", "second", 9601)
+r.noItem = done()
+stub.fire("UNIT_SPELLCAST_START", "player", "third", 9601)
+w.addItem(8005, 1)
+stub.fire("UNIT_SPELLCAST_SUCCEEDED", "player", "different", 9601)
+r.wrongCast = done()
+stub.fire("UNIT_SPELLCAST_SUCCEEDED", "player", "third", 9601)
+r.crafted = done()
+emit(r)
+"#
+		.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out, json!({ "held": false, "noStart": false, "pending": false, "interrupted": false, "noItem": false, "wrongCast": false, "crafted": true }));
+}
+
+#[test]
+fn held_gift_lookup_only_counts_the_giver_and_its_close_grace() {
+	let c = ctx();
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: world(&c, &format!("w.moveTo({}, 50, 50)\nw.items[8004] = 1", c.home)),
+		addons: vec!["Polestar".into()],
+		script: r#"
+stub.login()
+local P, w = Polestar, stub.world
+assert(P.Codex.Load())
+P.Codex.Item(8004).sources = {{ type = "gift", npc = 5008 }}
+assert(P.Lookup.Guide("item", 8004))
+local function done()
+	stub.advance(0.6)
+	return P.Engine.GetStepView(1).goals[3].status == "done"
+end
+local r = { held = done() }
+w.gossip(5009)
+w.addItem(8004, 1)
+r.wrongNpc = done()
+w.close()
+w.gossip(5008)
+r.open = done()
+w.close()
+stub.advance(2.1)
+w.addItem(8004, 1)
+r.expired = done()
+w.gossip(5008)
+w.close()
+stub.advance(0.5)
+w.addItem(8004, 1)
+r.given = done()
+emit(r)
+"#
+		.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out, json!({ "held": false, "wrongNpc": false, "open": false, "expired": false, "given": true }));
 }
 
 // #2326 (Stompsville, Zul'Farrak's pick-up guide): Screecher Spirits read "Kill Screecher Spirit", though the spirit
