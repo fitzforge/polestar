@@ -879,8 +879,10 @@ else in it does):
   character lacks, or a lower rank, is bought), and Mix, the default, gathers
   what the character can (the profession and rank `gather` names; the levels:
   from 2 below `min`, and for a bag count with no place, cloth looted while
-  levelling, up to 5 past `max`) and buys the rest. A character in Self-Found
-  mode gathers everything.
+  levelling, up to 5 past `max`) and buys the rest, and buys too what would
+  take more than 45 minutes to farm (what the recipe levelled now still
+  needs, at the farm spot the arrow picks). A character in Self-Found mode
+  gathers everything.
 
 The counts work as for any `collect` or `buy` under a section (above), so an
 `auction` goal asks only for what the section's crafts still need. Lint warns
