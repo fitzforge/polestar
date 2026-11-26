@@ -19137,6 +19137,18 @@
 				{ "kind": "in-game-check", "ref": "#4435 (foggel, 0.4.3.1): handing in Tabetha's Task in Dustwallow Marsh made Hadoken offer Stinglasher; #4487 (Akuma) and #4491 (ArcticWildWolf): the accept was not offered" }
 			],
 			"issue": 4487
+		},
+		{
+			"id": "darrowshire-spirits-rise-from-kills-note",
+			"faction": "Horde",
+			"at": { "quest": 5211, "goal": "objective", "objective": 1 },
+			"goalNote": "each spirit rises where a Cannibal Ghoul, Gibbering Ghoul or Diseased Flayer dies: talk to it before it fades",
+			"note": "Defenders of Darrowshire: the talk line read only Free Darrowshire Spirits: talk to them, with the three kills that leave the spirits as optional lines below it, so a player at the arrow looked for spirits standing in the world (a follow-up to #3309). The line's note says where they come from.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "Iroh Hulk (Horde Hunter 57, 0.4.3 with next at c352d8ff8): on Corin's Crossing's step the arrow left the town for 57.3,33.7, in the north-east, and said Arrived there with no spirit in sight" },
+				{ "kind": "questie", "ref": "Darrowshire Spirit (11064) has no spawn of its own: one rises where a Cannibal Ghoul (8530), Gibbering Ghoul (8531) or Diseased Flayer (8532) dies; the step's Gibbering Ghoul kill line has its spots at 53.4,56.8 and 52.2,62.1, in Corin's Crossing" }
+			],
+			"issue": 3309
 		}
 	]
 }

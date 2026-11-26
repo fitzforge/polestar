@@ -3313,6 +3313,19 @@
 				{ "kind": "in-game-check", "ref": "#4381 (GustavoCampos1999, 0.4.3.1): the quest is taken up on the tower, the reporter standing at 31.99,46.36" }
 			],
 			"issue": 4381
+		},
+		{
+			"id": "darrowshire-spirits-corins-crossing",
+			"faction": "Horde",
+			"quest": 5211,
+			"objective": 1,
+			"at": { "map": 1423, "x": 53.4, "y": 56.8, "frame": "era" },
+			"note": "Defenders of Darrowshire: the spirits are freed on Corin's Crossing's step, among the Gibbering Ghouls the same step kills for Living Rot. With no place of its own the talk line's arrow took the first spot a spirit was seen at, 57.3,33.7 among the Diseased Flayers about 25 map percent to the north-east, and said Arrived there, away from the step's town (a follow-up to #3309).",
+			"source": [
+				{ "kind": "in-game-check", "ref": "Iroh Hulk (Horde Hunter 57, 0.4.3 with next at c352d8ff8): on Corin's Crossing's step the arrow left the town for 57.3,33.7, in the north-east, and said Arrived there with no spirit in sight" },
+				{ "kind": "questie", "ref": "Darrowshire Spirit (11064) has no spawn of its own: one rises where a Cannibal Ghoul (8530), Gibbering Ghoul (8531) or Diseased Flayer (8532) dies; the step's Gibbering Ghoul kill line has its spots at 53.4,56.8 and 52.2,62.1, in Corin's Crossing" }
+			],
+			"issue": 3309
 		}
 	]
 }
