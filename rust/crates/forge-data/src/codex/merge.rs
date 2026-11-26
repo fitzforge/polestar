@@ -430,7 +430,7 @@ fn finalize_sources(cands: &[&Cand], npc_level: &dyn Fn(&V) -> Option<(f64, f64)
 	kept
 }
 
-fn objective_of(o: &V, escort: bool, tame: bool, use_item: Option<f64>, summon_item: Option<(f64, Vec<f64>)>) -> V {
+fn objective_of(o: &V, escort: bool, tame: bool, use_item: Option<f64>, summon_item: Option<(f64, Vec<f64>)>, made_from: &[f64]) -> V {
 	let out = Obj::new();
 	out.set("type", o.get("type"));
 	let nn = |v: V| if v.is_nullish() { V::Null } else { v };
@@ -453,6 +453,11 @@ fn objective_of(o: &V, escort: bool, tame: bool, use_item: Option<f64>, summon_i
 				out.set("summonOn", nums(&on));
 			}
 		}
+	}
+	// The items an item objective is made from that the quest needs (made_from_items, #4148: the Filled Egg of
+	// Hakkar, from the Essence of Hakkar that drops inside the Sunken Temple).
+	if o.get("type").as_str() == Some("item") && !made_from.is_empty() {
+		out.set("madeFrom", nums(made_from));
 	}
 	let fin = |v: V| matches!(v, V::Num(n) if n.is_finite());
 	if o.get("type").as_str() == Some("event") && !escort && int(&o.get("map")).is_some_and(|m| m != 0.0) && fin(o.get("x")) && fin(o.get("y")) {
@@ -548,6 +553,33 @@ fn summon_item_for(mechanics: &V, quest_id: f64, npc: Option<f64>) -> Option<(f6
 	let p = e.get("params").items().into_iter().find(|p| p.get("kind").as_str() == Some("summon-by-item") && int(&p.get("npc")) == Some(npc))?;
 	let item = whole_id(&p.get("item"))?;
 	Some((item, p.get("on").items().iter().filter_map(whole_id).collect()))
+}
+
+/// The items an item objective is made from (#4148): the reagents of a driving `crafted` params entry for that
+/// item (the server's spell: Fill the Egg of Hakkar uses the Egg and the Essence of Hakkar) that are also among the
+/// quest's `requiredItems` (the server's items the quest needs that drop: the Essence, not the Egg the giver hands
+/// over). Empty for anything else: a Darkmoon deck's eight cards are no quest's required items.
+fn made_from_items(mechanics: &V, q: &V, item: Option<f64>) -> Vec<f64> {
+	let Some(item) = item.filter(|n| *n > 0.0 && n.fract() == 0.0) else { return Vec::new() };
+	let needed: Vec<f64> = q.get("requiredItems").items().iter().filter_map(whole_id).collect();
+	if needed.is_empty() {
+		return Vec::new();
+	}
+	let e = mechanics_entry(mechanics, q.get("id").num());
+	let mut out = Vec::new();
+	for p in e.get("params").items() {
+		if p.get("kind").as_str() != Some("crafted") || !p.get("drives").truthy() || whole_id(&p.get("item")) != Some(item) {
+			continue;
+		}
+		for r in p.get("reagents").items() {
+			if let Some(id) = whole_id(&r.at(0)) {
+				if needed.contains(&id) && !out.contains(&id) {
+					out.push(id);
+				}
+			}
+		}
+	}
+	out
 }
 
 pub struct Merged {
@@ -2228,7 +2260,8 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 					let kill = !tame && o.get("type").as_str() == Some("kill");
 					let use_item = if kill { use_item_on(&inputs.mechanics, idf, int(&o.get("id"))) } else { None };
 					let summon_item = if kill { summon_item_for(&inputs.mechanics, idf, int(&o.get("id"))) } else { None };
-					objective_of(o, escort, tame, use_item, summon_item)
+					let made_from = if o.get("type").as_str() == Some("item") { made_from_items(&inputs.mechanics, &q, int(&o.get("id"))) } else { Vec::new() };
+					objective_of(o, escort, tame, use_item, summon_item, &made_from)
 				})
 				.collect();
 			if learned.truthy() {
@@ -2664,6 +2697,29 @@ mod tests {
 		assert!(obj("88005").get("summonOn").is_nullish() && obj("88006").get("summonOn").is_nullish());
 		assert!(obj("88005").get("summonItem").is_nullish(), "a kind that does not drive");
 		assert!(obj("88006").get("summonItem").is_nullish(), "the item calls up another NPC");
+	}
+
+	// #4148: The God Hakkar's Filled Egg of Hakkar has no source; the server's spell fills the Egg with the Essence
+	// of Hakkar, which the quest needs (its requiredItems) and which drops inside the Sunken Temple. The item
+	// objective keeps madeFrom: the reagents the quest needs, not the Egg it hands over; a deck made of cards no quest
+	// needs, or a params entry for another item, gets none.
+	#[test]
+	fn an_item_objective_made_from_an_item_the_quest_needs_keeps_made_from_4148_the_god_hakkar() {
+		let quests = r#"{
+			"3528": { "id": 3528, "title": "The God Hakkar", "requiredItems": [10663], "objectives": [{ "type": "item", "id": 10662, "count": 1, "text": "Filled Egg of Hakkar" }] },
+			"88007": { "id": 88007, "title": "Deck", "objectives": [{ "type": "item", "id": 19228, "count": 1 }] },
+			"88008": { "id": 88008, "title": "Other item", "requiredItems": [10663], "objectives": [{ "type": "item", "id": 5, "count": 1 }] }
+		}"#;
+		let mechanics = r#"{ "quests": {
+			"3528": { "params": [{ "kind": "crafted", "item": 10662, "spell": 12735, "reagents": [[10465, 1], [10663, 1]], "drives": true }] },
+			"88007": { "params": [{ "kind": "crafted", "item": 19228, "reagents": [[19227, 1], [19230, 1]], "drives": true }] },
+			"88008": { "params": [{ "kind": "crafted", "item": 10662, "reagents": [[10663, 1]], "drives": true }] }
+		} }"#;
+		let codex = merge_codex(&inputs(quests, mechanics));
+		let made = |id: &str| codex.quests.get(id).get("objectives").at(0).get("madeFrom");
+		assert_eq!(made("3528").items().iter().map(V::num).collect::<Vec<_>>(), vec![10663.0], "the Essence, not the Egg");
+		assert!(made("88007").is_nullish(), "cards no quest needs");
+		assert!(made("88008").is_nullish(), "the params are for another item");
 	}
 
 	// #2719: Red Dye has 101 sellers in the data; the Codex kept the ten lowest ids (none in Ironforge) and Lookup

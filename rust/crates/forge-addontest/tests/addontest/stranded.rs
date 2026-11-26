@@ -106,6 +106,37 @@ fn run_before(before: &str, script: &str) -> Value {
 }
 
 #[test]
+fn the_finished_list_can_include_every_ready_quest_without_a_selected_route() {
+	let out = run(r#"
+		local function quests(all)
+			local out = {}
+			for _, c in ipairs(Polestar.RoutePlan.Carried(all) or {}) do out[#out + 1] = c.quest end
+			return out
+		end
+		local advisory, all = quests(false), quests(true)
+		local changes = 0
+		Polestar.On("CARRIED_CHANGED", function() changes = changes + 1 end)
+		Polestar.RoutePlan.CheckCarried()
+		local stable = changes
+		-- A live-log change before the row redraws: reading the all-ready list
+		-- must neither overwrite nor acknowledge the off-route row's answer.
+		local held = w.log[40]
+		w.log[40] = nil
+		quests(true); Polestar.RoutePlan.CheckCarried()
+		local removed = changes
+		w.log[40] = held
+		quests(true); Polestar.RoutePlan.CheckCarried()
+		local restored = changes
+		while #E.GetTabs() > 0 do E.CloseTab(1) end
+		emit({ advisory = advisory, all = all, withoutGuide = quests(true), changes = { stable, removed, restored } })
+	"#);
+	assert_eq!(out["advisory"], json!([40]), "the off-route reminder keeps its meaning");
+	assert_eq!(out["all"], json!([40, 41, 44, 45]), "the requested hand-in list includes this route, later guides and carried quests");
+	assert_eq!(out["withoutGuide"], json!([40, 41, 44, 45]), "ready quests do not depend on a selected leveling guide");
+	assert_eq!(out["changes"], json!([0, 1, 2]), "the all-ready list must not corrupt off-route change notifications");
+}
+
+#[test]
 fn a_finished_quest_no_route_hands_in_is_listed_with_its_ender_and_handed_in_while_here() {
 	let out = run(r#"
 		local r = {}
@@ -122,7 +153,7 @@ fn a_finished_quest_no_route_hands_in_is_listed_with_its_ender_and_handed_in_whi
 		F.Switch:Click()
 		r.room = { plain(F.Title:GetText()), plain(F.rows[1].Title:GetText()), plain(F.rows[1].Why:GetText()), F.rows[1].Abandon:IsShown(), F.GuideMe:IsShown(),
 			plain(F.Switch.Label:GetText()) }
-		-- Guide me: a hand-in guide, one stop at Dughan.
+		-- Guide me: Dughan, then the other finished quests whose enders are unknown.
 		F.GuideMe:Click(); flush()
 		local g = E.GetGuide()
 		r.guide = { g.id, g.steps[1].title, g.steps[1].goals[1].t, g.steps[1].goals[1].quest, #g.steps }
@@ -130,13 +161,13 @@ fn a_finished_quest_no_route_hands_in_is_listed_with_its_ender_and_handed_in_whi
 	"#);
 	assert_eq!(out["carried"], json!([[40, "unplanned", true, 800]]), "{out}");
 	assert_eq!(out["here"], json!([[-2, 40, "Hand in “A Fishy Peril” to Marshal Dughan", "Not handed in on the route ahead"]]), "{out}");
-	assert_eq!(out["switch"], json!([true, "Finished quests you're still carrying (1)"]), "{out}");
+	assert_eq!(out["switch"], json!([true, "Finished quests you're still carrying (4)"]), "{out}");
 	assert_eq!(
 		out["room"],
 		json!(["Finished quests you're still carrying", "A Fishy Peril", "Grey: no XP any more  ·  Marshal Dughan, Elwynn Forest", true, true, "Make room in your quest log"]),
 		"{out}"
 	);
-	assert_eq!(out["guide"], json!(["lookup/carried/log", "Marshal Dughan", "turnin", 40, 1]), "{out}");
+	assert_eq!(out["guide"], json!(["lookup/carried/log", "Marshal Dughan", "turnin", 40, 2]), "{out}");
 }
 
 // #3019 (Shuurajou): a finished quest's ender who walks about. Nikova Raskol walks a round of Old Town, which the
@@ -309,11 +340,30 @@ fn the_guide_window_lists_the_finished_quests_no_route_hands_in_in_one_row_that_
 		row:GetScript("OnClick")(row, "LeftButton"); flush()
 		local F = PolestarQuestRoom
 		r.room = { F:IsShown(), plain(F.Title:GetText()), plain(F.rows[1].Title:GetText()) }
+		local function shownQuests()
+			local out = {}
+			for _, x in ipairs(F.rows) do if x:IsShown() then out[#out + 1] = x.psQuest end end
+			return out
+		end
+		r.elsewhere, r.hint = shownQuests(), plain(F.Hint:GetText())
+		r.guideTip = table.concat(F.GuideMe.psTipLines or {}, " ")
+		F.GuideMe:Click(); flush()
+		local quests = {}
+		for _, step in ipairs(E.GetGuide().steps) do
+			for _, goal in ipairs(step.goals) do if goal.t == "turnin" then quests[#quests + 1] = goal.quest end end
+		end
+		table.sort(quests); r.guided = quests
+		UI.ShowQuestRoom("carried"); r.all = shownQuests()
 		emit(r)
 	"#);
 	assert_eq!(out["rows"], json!(["1 finished quest to hand in elsewhere (800 XP)"]), "{out}");
 	assert_eq!(out["header"], "Still to do", "{out}");
 	assert_eq!(out["room"], json!([true, "Finished quests you're still carrying", "A Fishy Peril"]), "{out}");
+	assert_eq!(out["elsewhere"], json!([40]), "the row's list must contain exactly the off-route subset");
+	assert!(text(&out["hint"]).contains("the route ahead never hands these in"), "the hint describes the off-route subset: {out}");
+	assert!(text(&out["guideTip"]).contains("all finished quests"), "Guide me explains its broader route: {out}");
+	assert_eq!(out["guided"], json!([40, 41, 44, 45]), "Guide me opens the shared all-ready route");
+	assert_eq!(out["all"], json!([40, 41, 44, 45]), "the ordinary carried view still includes on-route quests");
 }
 
 // #3303: the Still to do rows have their own switch (guideWindow.stillToDo, on by default): off, neither the finished
@@ -351,6 +401,68 @@ fn the_still_to_do_rows_turn_off_with_their_switch_and_come_back_on() {
 	assert_eq!(out["off"]["n"], 0, "{out}");
 	assert_eq!(out["carried"], 1, "the menu's list keeps them: {out}");
 	assert_eq!(out["back"], out["on"], "{out}");
+}
+
+// #4112: the quest log notices have one switch (guideWindow.questLogNotices, on by default). Stray Errand (50, not
+// finished, on no guide) makes three quests off the route with 40 and 42: the card's cleanup line shows, and 40 is
+// the finished quests' row. Off, neither shows, read as the setting changes (no render of the test's own), and the
+// quest an update left behind keeps its Still to do row; the guide menu still has Hand in finished quests (every
+// finished quest in the log, 4, since #2486) and Clean up quest log, both enabled; on again, both lines are back. A
+// quest taken while off (51, on no guide) is counted
+// once the switch is on again.
+#[test]
+fn the_quest_log_notices_switch_hides_the_cleanup_line_and_the_finished_quests_row_and_keeps_the_menu_entries() {
+	let out = run_before(
+		&[WORLD, "w.onQuest(50, { 1 }, \"Stray Errand\")\n"].concat(),
+		r#"
+		local GF = Polestar.UI.GuideFrame
+		E.GetBehind = function() return { { quest = 33, step = 1, goal = 1, title = "Wolves Across the Border", zone = "Elwynn Forest" } } end
+		GF.Render(); flush()
+		local function shown()
+			local r = { off = false, carried = false, behind = false }
+			for _, l in ipairs(GF.lines) do
+				if l:IsShown() and l.psRoom then r.off = plain(l.Text:GetText()) end
+			end
+			for _, x in ipairs(GF.alongRows) do
+				if x:IsShown() and x.psCarried then r.carried = plain(x.Text:GetText()) end
+				if x:IsShown() and x.psBehind then r.behind = plain(x.Text:GetText()) end
+			end
+			return r
+		end
+		local function menu()
+			GF.menuButton:Click()
+			local out = {}
+			for _, m in ipairs(PolestarMenu.rows) do
+				if m:IsShown() and m.psItem and not m.psItem.disabled then out[#out + 1] = plain(m.Text:GetText()) end
+			end
+			GF.menuButton:Click()
+			return out
+		end
+		local r = { default = Polestar.Get("guideWindow.questLogNotices"), on = shown(), menuOn = menu() }
+		Polestar.Set("guideWindow.questLogNotices", false); flush()
+		r.off = shown()
+		r.menuOff = menu()
+		Polestar.Set("guideWindow.questLogNotices", true); flush()
+		r.back = shown()
+		Polestar.Set("guideWindow.questLogNotices", false); flush()
+		w.onQuest(51, { 1 }, "Second Stray")
+		stub.fire("QUEST_LOG_UPDATE"); flush()
+		Polestar.Set("guideWindow.questLogNotices", true); flush()
+		r.taken = shown()
+		emit(r)
+	"#,
+	);
+	assert_eq!(out["default"], true, "{out}");
+	let behind = "Still to do: \u{201c}Wolves Across the Border\u{201d}, back in Elwynn Forest";
+	assert_eq!(out["on"], json!({ "off": "3 quests aren't part of your route", "carried": "1 finished quest to hand in elsewhere (800 XP)", "behind": behind }), "{out}");
+	assert_eq!(out["off"], json!({ "off": false, "carried": false, "behind": behind }), "{out}");
+	for key in ["menuOn", "menuOff"] {
+		let items = out[key].as_array().unwrap_or_else(|| panic!("{out}"));
+		assert!(items.iter().any(|s| s == "Hand in finished quests (4)"), "{key}: {out}");
+		assert!(items.iter().any(|s| is_match(text(s), r"^Clean up quest log \(\d+\)$")), "{key}: {out}");
+	}
+	assert_eq!(out["back"], out["on"], "{out}");
+	assert_eq!(out["taken"]["off"], "4 quests aren't part of your route", "{out}");
 }
 
 // #3568 (LaboredGuineaPig), #3410 (Megabite): the row said 2 finished quests to hand in elsewhere while the list it

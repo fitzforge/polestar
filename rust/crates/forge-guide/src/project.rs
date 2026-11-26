@@ -182,8 +182,17 @@ fn is_guide_id(s: &str) -> bool {
 	!s.is_empty() && s.split('/').all(|p| !p.is_empty() && p.bytes().all(|b| b.is_ascii_lowercase() || b.is_ascii_digit() || b == b'_' || b == b'-'))
 }
 
-/// readRetired on retired.json's text (None: no file). `file` names it in diagnostics.
-pub fn read_retired_text(text: Option<&str>, file: &str, guides: &[V], diag: &mut Diagnostics) -> Vec<String> {
+/// A retired guide id (retired.json) and where it went: `to`, the guide of the pack a saved tab of it opens;
+/// None for the pack's leveling guide for the character then (Guides.Successor).
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct Retired {
+	pub id: String,
+	pub to: Option<String>,
+}
+
+/// readRetired on retired.json's text (None: no file). `file` names it in diagnostics. An entry is a guide id,
+/// or `{ "id": <old id>, "to": <the pack's guide it became> }`.
+pub fn read_retired_text(text: Option<&str>, file: &str, guides: &[V], diag: &mut Diagnostics) -> Vec<Retired> {
 	let Some(text) = text else { return Vec::new() };
 	let list = match crate::js::parse_json(text) {
 		Ok(v) => v,
@@ -192,24 +201,43 @@ pub fn read_retired_text(text: Option<&str>, file: &str, guides: &[V], diag: &mu
 			return Vec::new();
 		}
 	};
-	if !list.is_arr() || !list.items().iter().all(|id| id.as_str().is_some_and(is_guide_id)) {
-		diag.error(file, 1.0, "retired.json must be a list of guide ids", Some("write [\"forever/horde/02-the-barrens\", ...]".into()));
+	let entry = |v: &V| -> Option<Retired> {
+		if let Some(id) = v.as_str() {
+			return is_guide_id(id).then(|| Retired { id: id.to_string(), to: None });
+		}
+		let (id, to) = (v.get("id"), v.get("to"));
+		let ok = v.is_object() && id.as_str().is_some_and(is_guide_id) && to.as_str().is_some_and(is_guide_id) && v.keys().len() == 2;
+		ok.then(|| Retired { id: id.to_js_string(), to: Some(to.to_js_string()) })
+	};
+	let entries: Option<Vec<Retired>> = if list.is_arr() { list.items().iter().map(entry).collect() } else { None };
+	let Some(entries) = entries else {
+		diag.error(
+			file,
+			1.0,
+			"retired.json must be a list of guide ids, or of { \"id\": <old id>, \"to\": <new id> }",
+			Some("write [\"forever/horde/02-the-barrens\", { \"id\": \"forever/class/old-name\", \"to\": \"forever/miscellaneous/new-name\" }, ...]".into()),
+		);
 		return Vec::new();
-	}
+	};
 	let live: rustc_hash::FxHashSet<String> = guides.iter().map(|g| g.get("id").to_js_string()).collect();
-	let ids: Vec<String> = list.items().iter().map(|v| v.to_js_string()).collect();
-	for id in &ids {
-		if live.contains(id) {
-			diag.warn(file, 1.0, format!("retired guide id \"{id}\" is still a guide of the pack: Polestar keeps opening it"), None);
+	let mut out: Vec<Retired> = Vec::new();
+	for r in entries {
+		if live.contains(&r.id) {
+			diag.warn(file, 1.0, format!("retired guide id \"{}\" is still a guide of the pack: Polestar keeps opening it", r.id), None);
+		}
+		if let Some(to) = r.to.as_ref().filter(|to| !live.contains(*to)) {
+			diag.error(file, 1.0, format!("retired guide id \"{}\" goes to \"{to}\", which is not a guide of the pack", r.id), Some("name the guide it became, or leave `to` out".into()));
+		}
+		match out.iter_mut().find(|o| o.id == r.id) {
+			Some(o) => {
+				if o.to.is_none() {
+					o.to = r.to;
+				}
+			}
+			None => out.push(r),
 		}
 	}
-	let mut out: Vec<String> = Vec::new();
-	for id in ids {
-		if !out.contains(&id) {
-			out.push(id);
-		}
-	}
-	out.sort_by(|a, b| crate::js::cmp_utf16(a, b));
+	out.sort_by(|a, b| crate::js::cmp_utf16(&a.id, &b.id));
 	out
 }
 
@@ -747,7 +775,7 @@ pub fn build_pack_files(
 	data: &Data,
 	license: Option<&str>,
 	translations: &V,
-	retired: &[String],
+	retired: &[Retired],
 	offers: &[V],
 	iface: &str,
 	images: Vec<(String, Vec<u8>)>,
@@ -850,10 +878,42 @@ pub fn build_pack_files(
 		}
 	}
 	files.push(("MapFrames.lua".into(), t(crate::emit::emit_map_frames(&frames, &id))));
+	// The sides a race's guide is for: the guide's faction, else every side the race is played on.
+	let sides = |race: &str, g: &V| -> Vec<&'static str> {
+		match FACTION_PARTS.into_iter().find(|f| g.get("faction").as_str() == Some(*f)) {
+			Some(f) => vec![f],
+			None => FACTION_PARTS.into_iter().filter(|f| crate::races::race_by_file_ref(race).is_some_and(|x| x.sides.iter().any(|s| s.0 == *f))).collect(),
+		}
+	};
+	// Polestar's own pack: the ids each faction part registers (`<faction>`: for every race, `<faction>_<race>`:
+	// for that race only), so a saved tab loads the other faction's part only for a guide it has (#3924).
+	let mut part_index: Vec<(String, Vec<String>)> = Vec::new();
+	if ours {
+		let mut put = |key: String, id: String| match part_index.iter_mut().find(|(k, _)| *k == key) {
+			Some((_, l)) => l.push(id),
+			None => part_index.push((key, vec![id])),
+		};
+		for (f, list) in &factions {
+			for g in list {
+				put(f.to_string(), g.get("id").to_js_string());
+			}
+		}
+		for (race, list) in &parts {
+			for g in list {
+				for f in sides(race, g) {
+					put(format!("{f}_{race}"), g.get("id").to_js_string());
+				}
+			}
+		}
+		part_index.sort_by(|a, b| crate::js::cmp_utf16(&a.0, &b.0));
+	}
 	let main_entries: Vec<V> = main.iter().map(entry).collect();
 	let mut gl = if ours { crate::emit::emit_own_guides(&main_entries) } else { crate::emit::emit_guides_with(&main_entries, false, false) };
 	if !retired.is_empty() {
 		gl.push_str(&crate::emit::emit_retired(&id, retired));
+	}
+	if !part_index.is_empty() {
+		gl.push_str(&crate::emit::emit_part_index(&id, &part_index));
 	}
 	gl.push_str(&crate::emit::emit_experimental(offers));
 	// One of Polestar's own extra packs: its guides come in when it is first shown (Core/Guides.lua DeferGuides).
@@ -874,13 +934,6 @@ pub fn build_pack_files(
 	races.dedup();
 	let mut faction_files: Vec<(&'static str, String, String)> = Vec::new();
 	if ours {
-		// The sides a race's guide is for: the guide's faction, else every side the race is played on.
-		let sides = |race: &str, g: &V| -> Vec<&'static str> {
-			match FACTION_PARTS.into_iter().find(|f| g.get("faction").as_str() == Some(*f)) {
-				Some(f) => vec![f],
-				None => FACTION_PARTS.into_iter().filter(|f| crate::races::race_by_file_ref(race).is_some_and(|x| x.sides.iter().any(|s| s.0 == *f))).collect(),
-			}
-		};
 		for race in &races {
 			for faction in FACTION_PARTS {
 				let pick = |m: &Vec<(String, Vec<V>)>| -> Vec<V> {
@@ -1087,7 +1140,7 @@ mod native {
 		pub guides: Vec<V>,
 		pub diag: Diagnostics,
 		pub sources: Vec<String>,
-		pub retired: Vec<String>,
+		pub retired: Vec<Retired>,
 		pub tokens: V,
 		/// Leveling guides whose baked legs are stale (read_legs_text): they ship without legs.
 		pub stale_legs: Vec<String>,

@@ -21,7 +21,7 @@ return {
 
 	-- Step 3: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
-	["{npc:5901} camps on the shore just north of {area:392}."] = "{npc:5901}은(는) {area:392} 바로 북쪽 해안에 야영하고 있습니다.",
+	["{npc:5901} camps on the shore just south of {area:392}, at the water's edge."] = "",
 	-- {area:2479} Emerald Sanctuary · {zone:1448} Felwood
 	["Cleansed Water goes to the {area:2479} in {zone:1448}: keep it for later."] = "정화된 물은 {zone:1448}의 {area:2479}(으)로 갑니다. 나중을 위해 보관하세요.",
 
@@ -32,12 +32,12 @@ return {
 	["{area:392} flight master"] = "{area:392} 비행 조련사",
 
 	-- Step 5: Jes'rimon
-	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
-	["{npc:8659}, the {object:172960}"] = "{object:172960}의 {npc:8659}",
+	-- {npc:8659} Jes'rimon · {object:172959} The Drag
+	["{npc:8659}, upstairs in {object:172959}"] = "",
 
 	-- Step 6: Orgrimmar
-	-- {npc:15188} Cenarion Emissary Blackhoof · {object:172957} Valley of Wisdom · {zone:1451} Silithus
-	["{npc:15188}, {object:172957}: keep it for {zone:1451}"] = "{object:172957}의 {npc:15188}: {zone:1451}을(를) 위해 보관하세요",
+	-- {npc:15188} Cenarion Emissary Blackhoof · {object:172982} Valley of Strength · {zone:1451} Silithus
+	["{npc:15188}, {object:172982}: keep it for {zone:1451}"] = "",
 
 	-- Step 7: Zilzibin Drumlore
 	-- {npc:7010} Zilzibin Drumlore
@@ -85,12 +85,16 @@ return {
 	["{npc:8393}, beside him"] = "그 옆의 {npc:8393}",
 
 	-- Step 17: Andron Gant
-	-- {npc:6522} Andron Gant · {object:36073} Rogues' Quarter
-	["{npc:6522} stands in the {object:36073}."] = "{npc:6522}은(는) {object:36073}에 서 있습니다.",
+	-- {npc:6522} Andron Gant · {object:36126} Royal Quarter
+	["{npc:6522} stands just outside the Apothecarium, on the way to the {object:36126}."] = "",
 
 	-- Step 18: The Undercity
 	-- {object:36126} Royal Quarter
 	["Lady Sylvanas holds the {object:36126}."] = "실바나스 여왕은 {object:36126}에 있습니다.",
+
+	-- Step 19: Royal Quarter
+	-- {npc:10781} Royal Overseer Bauhaus · {object:36078} Trade Quarter
+	["{npc:10781} keeps the census in the {object:36078}, beside the guild and tabard registrars near the bank."] = "",
 
 	-- Step 21: Jeremiah Payson
 	-- {npc:8403} Jeremiah Payson
@@ -113,11 +117,16 @@ return {
 
 	-- Step 27: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
-	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
-	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "{npc:10778}의 농장은 {area:152} 동쪽 첫 번째 농장입니다. 농장의 수다떨는 구울이 부적의 나머지 절반을 지니고 있고, {npc:11075}이(가) 들판의 가마솥을 지킵니다.\n주의: 보통 언데드 한두 마리가 그와 함께 싸우며, 가마솥을 사용한 뒤 다른 가마솥 군주가 나타날 수 있습니다.",
+	-- was: ["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "{npc:10778}의 농장은 {area:152} 동쪽 첫 번째 농장입니다. 농장의 수다떨는 구울이 부적의 나머지 절반을 지니고 있고, {npc:11075}이(가) 들판의 가마솥을 지킵니다.\n주의: 보통 언데드 한두 마리가 그와 함께 싸우며, 가마솥을 사용한 뒤 다른 가마솥 군주가 나타날 수 있습니다."
+	["{npc:10778}'s farm is the first one east of the {area:152}. {npc:11075} guards the cauldron in the field. Careful: one or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "",
 
 	-- Step 28: Janice Felstone
 	["Upstairs"] = "위층",
+
+	-- Step 30: Good Luck Other-Half-Charm
+	-- {item:12722} Good Luck Other-Half-Charm · {item:12723} Good Luck Charm · {npc:10778} Janice Felstone
+	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
+	["Jabbering Ghouls on Felstone Farm carry the {item:12722}: kill them until one drops it, then right-click the halves in your bags to join them into the {item:12723}, and take it to {npc:10778} upstairs."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back north to {npc:8420} with the rune, then south-west along the road."] = "룬을 가지고 북쪽의 {npc:8420}에게 돌아간 뒤, 길을 따라 남서쪽으로 가세요.",
@@ -159,14 +168,19 @@ return {
 	-- ["{item:246721}, from {npc:246991}"] = "{npc:246991}에게서 얻는 {item:246721}",
 	-- ["{item:246722}, from {npc:247013}"] = "{npc:247013}에게서 얻는 {item:246722}",
 	-- ["{item:246725}, from {npc:247006}"] = "{npc:247006}에게서 얻는 {item:246725}",
+	-- ["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "{npc:10778}의 농장은 {area:152} 동쪽 첫 번째 농장입니다. 농장의 수다떨는 구울이 부적의 나머지 절반을 지니고 있고, {npc:11075}이(가) 들판의 가마솥을 지킵니다.\n주의: 보통 언데드 한두 마리가 그와 함께 싸우며, 가마솥을 사용한 뒤 다른 가마솥 군주가 나타날 수 있습니다.",
 	-- ["{npc:11044}, in the Apothecarium"] = "연금술 실험실의 {npc:11044}",
+	-- ["{npc:15188}, {object:172957}: keep it for {zone:1451}"] = "{object:172957}의 {npc:15188}: {zone:1451}을(를) 위해 보관하세요",
 	-- ["{npc:235903}: {quest:86746}, the satyrs north of the blood elves' camp"] = "{npc:235903}: {quest:86746}, 블러드 엘프 야영지 북쪽의 사티로스",
 	-- ["{npc:247473}: {quest:91569}, a wand from the blood elves' arcanists"] = "{npc:247473}: {quest:91569}, 블러드 엘프 비전술사의 마법봉",
 	-- ["{npc:256386}'s crates"] = "{npc:256386}의 상자",
 	-- ["{npc:3326}, the {object:172960}"] = "{object:172960}의 {npc:3326}",
+	-- ["{npc:5901} camps on the shore just north of {area:392}."] = "{npc:5901}은(는) {area:392} 바로 북쪽 해안에 야영하고 있습니다.",
+	-- ["{npc:6522} stands in the {object:36073}."] = "{npc:6522}은(는) {object:36073}에 서 있습니다.",
 	-- ["{npc:8576}: {quest:91531}, for {npc:4485} in {zone:1454}"] = "{npc:8576}: {quest:91531}, {zone:1454}의 {npc:4485}에게",
 	-- ["{npc:8578}'s camp"] = "{npc:8578}의 야영지",
 	-- ["{npc:8587}: the tome goes to {npc:3326} in {zone:1454}"] = "{npc:8587}: 고서는 {zone:1454}의 {npc:3326}에게 갑니다",
+	-- ["{npc:8659}, the {object:172960}"] = "{object:172960}의 {npc:8659}",
 	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050}은(는) {area:28}의 {npc:10778}에게 돌아갑니다. 보관하세요.",
 	-- ["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: {area:1237}의 {npc:8587}에게",
 	-- ["{zone:1454} flight master"] = "{zone:1454} 비행 조련사",

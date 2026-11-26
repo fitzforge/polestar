@@ -96,7 +96,6 @@ return {
 
 	-- Step 14: Shen'dar Village
 	-- {area:16624} Shen'dar Village · {npc:251523} Constable Aonda · {npc:251902} Illaya Amberwind · {npc:254089} Coriella Calmbreeze · {npc:263664} Raan Wildwind · {quest:93159} The Strange Hermit
-	-- was: ["Follow the road south to {area:16624}, in the middle of the isle. {npc:251523} stands on its east side, {npc:251902} in the middle, {npc:254089} just north-west of her, {npc:263664} by the campfire on the west side. With a profession learned, {npc:263664} also offers its Camping 101: its trainer stands in the village."] = "沿道路向南到岛屿中部的{area:16624}。{npc:251523}站在村子东侧，{npc:251902}在中央，{npc:254089}在她西北边不远处，{npc:263664}在西侧的营火旁。学会专业技能后，{npc:263664}还会提供对应的露营 101 任务：该专业的训练师就在村子里。"
 	["Follow the road south to {area:16624}, in the middle of the isle. {npc:251523} stands on its east side, {npc:251902} in the middle, {npc:254089} just north-west of her, {npc:263664} by the campfire on the west side. With a profession learned, {npc:263664} also offers its Camping 101: its trainer stands in the village. {quest:93159} has his own for engineers."] = "沿路向南前往岛屿中央的{area:16624}。{npc:251523}站在东侧，{npc:251902}在中间，{npc:254089}在她西北边不远处，{npc:263664}在西侧的营火旁。学会一项专业后，{npc:263664}还会提供该专业的露营 101：其训练师就在村子里。{quest:93159}为工程师准备了自己的任务。",
 	-- {npc:251902} Illaya Amberwind
 	["talk to {npc:251902}"] = "与{npc:251902}交谈",

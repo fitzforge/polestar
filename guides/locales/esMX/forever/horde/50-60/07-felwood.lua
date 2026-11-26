@@ -33,12 +33,8 @@ return {
 	["{quest:4084}'s {item:11172} and {item:11173} come from {area:1767} on this guide's ride north; {npc:9116} takes them at the end of the guide, back here."] = "Las {item:11172} y el {item:11173} de {quest:4084} salen de {area:1767} en la cabalgata al norte de esta guía; {npc:9116} los recibe al final de la guía, de vuelta aquí.",
 
 	-- Step 7: Rakaiah
-	-- {npc:11019} Jessir Moonbow · {npc:9518} Rakaiah · {item:13140} Blood Red Key · {area:1763} Jaedenar
-	["Only if {npc:11019} sent you after {npc:9518} (the {item:13140}'s chain): on the ride north, turn west into {area:1763}. {npc:9518} (56) stands by the remains of Trey Lightforge at the edge of the camp, well under you now; Trey's remains go back to {npc:11019} at the end of this guide."] = "Solo si {npc:11019} te mandó tras {npc:9518} (la cadena de la {item:13140}): en la cabalgata al norte, gira al oeste hacia {area:1763}. {npc:9518} (56) está junto a los restos de Trey Lightforge en el borde del campamento, muy por debajo de ti ahora; los restos de Trey vuelven a {npc:11019} al final de esta guía.",
-
-	-- Step 8: Remains of Trey Lightforge
-	-- {area:1763} Jaedenar · {npc:11019} Jessir Moonbow
-	["Trey Lightforge's remains lie at the edge of the {area:1763} camp, west of the road: they go back to {npc:11019} at the end of this guide."] = "Los restos de Trey Lightforge están en el borde del campamento de {area:1763}, al oeste del camino: vuelven a {npc:11019} al final de esta guía.",
+	-- {npc:11019} Jessir Moonbow · {npc:9518} Rakaiah · {item:13140} Blood Red Key · {area:1763} Jaedenar · {area:1770} Shadow Hold
+	["Only if {npc:11019} sent you after {npc:9518} (the {item:13140}'s chain): on the ride north, turn west into {area:1763} and go into {area:1770}, the cave at the back of the camp. {npc:9518} (56) and the remains of Trey Lightforge are inside: kill her first, then the remains take her quest and give the next, which goes back to {npc:11019} at the end of this guide."] = "",
 
 	-- Step 9: Trull Failbane
 	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post
@@ -207,6 +203,7 @@ return {
 	-- ["Level 59.9"] = "Nivel 59.9",
 	-- ["On the way back south to Greta, {npc:9529} takes the shards on the west side of the Sanctuary."] = "De regreso al sur hacia Greta, {npc:9529} recibe los fragmentos en el lado oeste del Santuario.",
 	-- ["Only if you carry {quest:5087}: the runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate."] = "Solo si llevas {quest:5087}: los corredores recorren el camino de {area:1769} hacia {area:2244} en grupos pequeños; espera junto al camino cerca de {npc:9298} y mátalos al pasar. Cada uno lleva un cajón.",
+	-- ["Only if {npc:11019} sent you after {npc:9518} (the {item:13140}'s chain): on the ride north, turn west into {area:1763}. {npc:9518} (56) stands by the remains of Trey Lightforge at the edge of the camp, well under you now; Trey's remains go back to {npc:11019} at the end of this guide."] = "Solo si {npc:11019} te mandó tras {npc:9518} (la cadena de la {item:13140}): en la cabalgata al norte, gira al oeste hacia {area:1763}. {npc:9518} (56) está junto a los restos de Trey Lightforge en el borde del campamento, muy por debajo de ti ahora; los restos de Trey vuelven a {npc:11019} al final de esta guía.",
 	-- ["Only if {npc:9298} gave you {quest:5086}: ride north up the {area:361} road to {area:1767}; the {quest:5086} ooze between the trees."] = "Solo si {npc:9298} te dio {quest:5086}: cabalga al norte por el camino de {area:361} hasta {area:1767}; los {quest:5086} rezuman entre los árboles.",
 	-- ["Only with 30 {quest:6031}, and only at Neutral with the Timbermaw: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "Solo con 30 {quest:6031} y solo en Neutral con los Fauces de Madera: sigue el camino al norte hasta {area:1769}; {npc:11557} comercia justo dentro de la entrada.",
 	-- ["Optional. Running {area:2279}, {area:2057}, Lower Blackrock Spire or {area:1584} with a group instead of grinding gets you there faster."] = "Opcional. Hacer {area:2279}, {area:2057}, la parte baja de Cumbre de Roca Negra o {area:1584} en grupo en lugar de farmear te lleva allí más rápido.",
@@ -225,6 +222,7 @@ return {
 	-- ["The zeppelin towers"] = "Las torres del zepelín",
 	-- ["Through the Timbermaw tunnel to {area:493}. {npc:11939} reads in a house in {area:2361}."] = "Cruza el túnel de los Fauces de Madera hasta {area:493}. {npc:11939} lee en una casa de {area:2361}.",
 	-- ["Top up here to level 59.9 before the hand-ins at {zone:1452}: they take you to level 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "Completa aquí hasta el nivel 59.9 antes de las entregas en {zone:1452}: te llevan al nivel 60. Los dientefilados rabiosos (59) de {area:2249}, justo al norte de la fuente extraña, dan mucha más experiencia que los fúrbolgs junto a {area:1769}. O, en grupo, haz la mazmorra {area:2057} o la mazmorra {area:2279}.",
+	-- ["Trey Lightforge's remains lie at the edge of the {area:1763} camp, west of the road: they go back to {npc:11019} at the end of this guide."] = "Los restos de Trey Lightforge están en el borde del campamento de {area:1763}, al oeste del camino: vuelven a {npc:11019} al final de esta guía.",
 	-- ["Zeppelin to {zone:1454}"] = "Zepelín a {zone:1454}",
 	-- ["grind on {npc:7446} at {area:2249}, {area:618}"] = "mata {npc:7446} en {area:2249}, {area:618}",
 	-- ["grind on {npc:7446} at {area:2249}, {zone:1452}"] = "mata {npc:7446} en {area:2249}, {zone:1452}",

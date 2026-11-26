@@ -437,7 +437,6 @@ return {
 	-- {npc:240} Marshal Dughan
 	["{npc:240}, while William brews"] = "{npc:240}，趁威廉釀酒時",
 	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind · {zone:1436} Westfall
-	-- was: ["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}，在杜漢旁邊的鐵匠鋪：由{zone:1453}的{npc:1416}接收（02-westfall）"
 	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (the {zone:1436} guide)"] = "{npc:514}，在杜漢旁邊的鐵匠鋪：{zone:1453}的{npc:1416}接收它（{zone:1436}指南）",
 	-- {npc:253} William Pestle
 	["{npc:253}, back in the inn"] = "{npc:253}，回到旅店裡",

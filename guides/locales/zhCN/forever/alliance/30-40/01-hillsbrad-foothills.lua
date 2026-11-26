@@ -76,7 +76,6 @@ return {
 
 	-- Step 15: Captive Fire Elemental
 	-- {npc:275049} Captive Fire Elemental · {object:147516} Dark Iron · {npc:1364} Balgaras the Foul · {npc:1072} Roggo Harlbarrow
-	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:271481} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "这些是精英怪物：建议寻找其他玩家组队。{npc:271481}被关在{object:147516}废墟最西端，需先穿过27-30级精英矮人，{npc:1364}（34级精英）也可能在其中。带它向东离开废墟，再交给营地里的{npc:1072}。如果只有自己，就跳过。"
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. The {npc:275049} is held at the far west end of the {object:147516} ruins, past level 27-30 elite dwarves, and {npc:1364} (34, elite) can be among them. Lead it east out of the ruins, then hand it in to {npc:1072} in the camp. Skip it if you are alone."] = "这些是精英怪物：鼓励组队，找人一起做。{npc:275049}被关在{object:147516}废墟的最西端，要经过27-30级的精英矮人，{npc:1364}（34，精英）也可能在其中。带它向东离开废墟，然后在营地交给{npc:1072}。如果你是单人，就跳过。",
 
 	-- Step 16: Modr

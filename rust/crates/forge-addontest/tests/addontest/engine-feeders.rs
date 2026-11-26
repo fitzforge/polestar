@@ -1121,3 +1121,32 @@ fn a_left_out_accept_names_the_earlier_guide_s_quest_it_lacks_never_one_of_its_o
 	assert_eq!(fresh["906"], json!({ "need": 5052, "title": "Blood Shards of Agamaggan", "from": "The Barrens" }), "{fresh}");
 	assert_eq!((&fresh["873"], &fresh["906"]), (&passed["873"], &passed["906"]), "the same line whether an update passed 874 and 879 or not");
 }
+
+// #3925 (Fitz, 24 Nov): an optional class chain (items only, not on the worth-it list: Core/ClassQuestList.lua) is
+// never required. Senani's two accepts, here a class chain listed optional, bring no feeder: the hunt stays out and
+// the two accepts are left out with their hand-ins. A player who holds one of them has the chain under way: it stays.
+#[test]
+fn an_optional_class_chain_brings_no_feeder_and_is_left_out_unless_under_way_3925() {
+	const OPTIONAL: &str = r#"
+Polestar.ClassQuestList = { OptionalGuide = function() return false end, OptionalQuest = function(q) return q == 23 or q == 24 end }
+Polestar.ClassRewards = { rewards = {}, quests = { [23] = { 1024, 23, 0 }, [24] = { 1024, 23, 0 } } }
+"#;
+	let fresh = run("", NEAR, &format!("{OPTIONAL}{OPEN}\nemit(r)"));
+	assert_eq!(
+		fresh["shape"],
+		json!([
+			"Zoram'gar Outpost <test/05 3> accept:216",
+			"Thistlefur Village <test/05 4> kill:216",
+			"Zoram'gar Outpost <test/05 5> turnin:216",
+			"Zoram'gar Outpost accept:6442 accept:99",
+			"Splintertree Post accept:25",
+			"Karang Amakkar goto accept:6621",
+			"Night Run turnin:25",
+		]),
+		"{fresh}"
+	);
+	assert_eq!(fresh["hidden"], json!([23, 24]), "{fresh}");
+	let held = run("w.onQuest(23, {})", NEAR, &format!("{OPTIONAL}{OPEN}\nemit(r)"));
+	assert!(held["shape"].as_array().unwrap().iter().any(|s| s.as_str().unwrap().contains("turnin:23")), "the chain under way keeps its hand-in: {held}");
+	assert!(!held["hidden"].as_array().unwrap().iter().any(|q| q == 23), "{held}");
+}

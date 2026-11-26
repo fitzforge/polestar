@@ -60,4 +60,5 @@ mod placeholders;
 mod places;
 mod radius;
 mod recorded_areas;
+mod retired_ids;
 mod tokens_pre_titles;

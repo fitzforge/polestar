@@ -149,7 +149,6 @@ return {
 
 	-- Step 26: Eleanor Shackleton
 	-- {area:159} Brill · {zone:1458} Undercity
-	-- was: ["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, at Linnea's camp, or in the {zone:1458} in the next guide."] = "她在城鎮西南方紮營。學會專業技能後，艾莉諾也會提供對應的「露營入門」任務，交給該專業的訓練師：在{area:159}、林奈的營地，或下一份指南中的{zone:1458}。"
 	["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, east of {area:159} for fishing, at Linnea's camp, or in the {zone:1458} in the next guide."] = "艾莉諾在城鎮西南邊不遠處紮營。學會一項專業後，她還會提供該專業的露營 101，由其訓練師接收：在{area:159}、釣魚在{area:159}東邊、在琳妮婭的營地，或在下一份指南中的{zone:1458}。",
 	-- {spell:1229451} Boosted Rest
 	["/sit by her campfire until you get {spell:1229451}"] = "在她的營火旁/sit，直到獲得{spell:1229451}",

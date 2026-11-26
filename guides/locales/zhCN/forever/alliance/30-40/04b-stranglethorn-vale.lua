@@ -43,7 +43,7 @@ return {
 	-- {npc:717} Ajeck Rouack
 	["South along the road: the hunters' tents stand just west of it. {npc:717} and Hemet gave you these on the first loop: take them now only if you didn't."] = "沿道路向南：猎人的帐篷就在道路西边。{npc:717}和赫米特在第一轮已给过这些任务：只有当时没接才现在接取。",
 	-- {npc:717} Ajeck Rouack · {npc:729} Sin'Dall
-	["{npc:717}. Keep it for the later visit if you skip {npc:729} on the raptor hill."] = "",
+	["{npc:717}. Keep it for the later visit if you skip {npc:729} on the raptor hill."] = "{npc:717}。如果没打迅猛龙附近山丘上的{npc:729}，就把任务留到下次再做。",
 	-- {npc:715} Hemet Nesingwary
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["{npc:715}, if the first Stranglethorn loop didn't give it: the Lashtail Raptors, after the jungle ruins"] = "",
@@ -84,7 +84,6 @@ return {
 	["The {area:102}"] = "{area:102}",
 	-- {npc:268992} Zimmix Sputterspark · {item:277957} Primitive Key
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment · Bloodscalp Berserkers = {npc:597} Bloodscalp Berserker
-	-- was: ["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}, then lead him out of the ruins. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "沿海岸向北前往山丘上的废墟：最后两块石板在那里。地精{npc:268992}被关在第三块石板旁的笼子里：任何血顶巨魔都可能掉落他的{item:277957}，之后护送他离开废墟。被盗的货物在废墟东边缘。掉落《荆棘谷的青山》书页时记得拾取。\n小心：血顶狂战士、猎头者和巫医（36-37级）占据废墟中心：一次拉一个。"
 	["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "沿海岸向北到山上的废墟：最后两块石板在那里。地精{npc:268992}被关在第三块石板旁的笼子里：任何血顶巨魔都可能掉落他的{item:277957}。被盗的货物在废墟东缘。掉落的绿色山谷书页随手捡起。\n小心：血顶狂战士、猎头者和巫医（36-37）占据废墟中心：一次拉一只。",
 	-- {npc:268992} Zimmix Sputterspark
 	["{npc:268992}, in his cage beside the third tablet"] = "{npc:268992}，在第三块石板旁的笼子里",
@@ -101,23 +100,23 @@ return {
 
 	-- Step 15: Sin'Dall on the raptor hill
 	-- {npc:729} Sin'Dall
-	["{npc:729} on the raptor hill"] = "",
+	["{npc:729} on the raptor hill"] = "迅猛龙附近山丘上的{npc:729}",
 	-- {npc:729} Sin'Dall · {npc:717} Ajeck Rouack
-	["Check the hilltop on your way to the raptors. If {npc:729} isn't here or you can't pull her alone, keep moving; {npc:717} can take the paw on the later visit."] = "",
+	["Check the hilltop on your way to the raptors. If {npc:729} isn't here or you can't pull her alone, keep moving; {npc:717} can take the paw on the later visit."] = "去打迅猛龙时顺路看看山顶。如果{npc:729}不在，或没法单独把她拉出来，就继续赶路。下次再来时可以把爪子交给{npc:717}。",
 	-- {npc:729} Sin'Dall
-	["{npc:729}'s hill"] = "",
+	["{npc:729}'s hill"] = "{npc:729}所在的山丘",
 	-- {npc:729} Sin'Dall
-	["{npc:729} (37) prowls the hilltop."] = "",
+	["{npc:729} (37) prowls the hilltop."] = "{npc:729}（37级）在山顶游荡。",
 
 	-- Step 16: The Lashtail raptors
 	["The Lashtail raptors"] = "鞭尾迅猛龙",
 	-- {quest:187} Tiger Mastery · {npc:729} Sin'Dall
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you have {quest:187}, are at least 36 and see {npc:729} (37) alone, you can take her paw here or leave the hunt for your next visit."] = "",
+	["East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you have {quest:187}, are at least 36 and see {npc:729} (37) alone, you can take her paw here or leave the hunt for your next visit."] = "从废墟向东，到奈辛瓦里营地西南的山丘附近猎杀鞭尾迅猛龙。如果已接{quest:187}、至少36级，又看到{npc:729}（37级）落单，可以现在打她拿爪子，也可以留到下次再打。",
 
 	-- Step 17: Ajeck Rouack
 	-- {npc:717} Ajeck Rouack
-	["Hand the paw to {npc:717} beside Hemet."] = "",
+	["Hand the paw to {npc:717} beside Hemet."] = "把爪子交给赫米特·奈辛瓦里旁边的{npc:717}。",
 
 	-- Step 18: Nesingwary's Expedition
 	-- {npc:715} Hemet Nesingwary

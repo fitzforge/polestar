@@ -1,27 +1,35 @@
 name: Release data
 
-# The tests that read the reference data, on the release data, on the maintainers' self-hosted runner for pull
-# requests (labels self-hosted, polestar-data; docs/CI.md "Reference data"). The data never leaves that machine, so
-# only this repository's own branches run here: a fork's pull request skips this job (the runner refuses one too)
-# and has the public data in ci.yml's Tests only. A draft skips it too, until it is marked ready. Its tests fail on
-# any failure: the release data is the one the release gates read. Not a required check: the runner is one machine
-# that may be off.
+# The tests that read the reference data, on the release data, on the maintainers' self-hosted runner (labels
+# self-hosted, polestar-data; docs/CI.md "Reference data"), for the changes that can move what they read and once at
+# freeze: a pull request that changes the data (data/, forever-db/), each push to a release branch (the cut, then
+# any fix on the frozen tree) and a run started by hand. Every other pull request has the public data in ci.yml's
+# Tests and the post-merge gates; it never waits on this machine. The data never leaves that machine, so only this
+# repository's own branches run here: a fork's pull request skips this job (the runner refuses one too). A draft
+# skips it too, until it is marked ready. Its tests fail on any failure: the release data is the one the release
+# gates read. Not a required check: the runner is one machine that may be off.
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
+    paths:
+      - "data/**"
+      - "forever-db/**"
+  push:
+    branches: ["release/**"]
+  workflow_dispatch:
 
 permissions:
   contents: read
 
-# A newer push replaces the pull request's older run, waiting or running.
+# A newer push replaces the pull request's (or the branch's) older run, waiting or running.
 concurrency:
-  group: release-data-${{ github.event.pull_request.number }}
+  group: release-data-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
   release-data:
     name: Release data
-    if: github.event.pull_request.head.repo.full_name == github.repository && !github.event.pull_request.draft
+    if: github.event_name != 'pull_request' || (github.event.pull_request.head.repo.full_name == github.repository && !github.event.pull_request.draft)
     runs-on: [self-hosted, polestar-data]
     timeout-minutes: 120
     # pull-requests: write for the route-integrity table's comment (this repository's own branches only: the job
@@ -45,11 +53,15 @@ jobs:
 
       # As ci.yml's Tests job: the lane from the base's own copy of the script. Then what there is to run on the
       # data: the tests that read it (tools/ci-data-tests.js; the others run the same without it, and Tests runs
-      # them) and the guide texts of the languages touched. Nothing to run: the job ends here.
+      # them) and the guide texts of the languages touched. Nothing to run: the job ends here. A push or a run by
+      # hand is a whole tree: everything.
       - name: Lane
         id: lane
+        env:
+          EVENT: ${{ github.event_name }}
         run: |
-          changed="$RUNNER_TEMP/changed.txt" base="$RUNNER_TEMP/base" from=$(git rev-parse HEAD^1) || from=
+          changed="$RUNNER_TEMP/changed.txt" base="$RUNNER_TEMP/base" from=
+          [ "$EVENT" = pull_request ] && { from=$(git rev-parse HEAD^1) || from=; }
           if [ -n "$from" ] && git diff --no-renames --name-only "$from" HEAD > "$changed" \
             && git worktree add --detach --quiet "$base" "$from" && [ -f "$base/tools/ci-lane.js" ]; then
             node "$base/tools/ci-lane.js" --github --files "$changed"
@@ -127,12 +139,12 @@ jobs:
           LOCALES: ${{ steps.lane.outputs.locales }}
         run: tools/ci-guide-texts.sh "" "$LOCALES"
 
-      # The route-integrity gate (#3654, docs/CI.md "Route integrity"): for an edit to a leveling guide, its chain
-      # played, the honest playtest, what the guides lose and the level model, against the base. The table goes to
-      # the run's summary and to one comment on the pull request, kept up to date.
+      # The route-integrity gate (#3654, docs/CI.md "Route integrity"): for an edit to a leveling guide in a pull
+      # request, its chain played, the honest playtest, what the guides lose and the level model, against the base.
+      # The table goes to the run's summary and to one comment on the pull request, kept up to date.
       - name: Route integrity
         id: route
-        if: ${{ !cancelled() && steps.plan.outputs.run == 'yes' && (steps.lane.outputs.lane == 'full' || contains(steps.lane.outputs.areas, 'guides')) }}
+        if: ${{ !cancelled() && github.event_name == 'pull_request' && steps.plan.outputs.run == 'yes' && (steps.lane.outputs.lane == 'full' || contains(steps.lane.outputs.areas, 'guides')) }}
         env:
           PR_BODY: ${{ github.event.pull_request.body }}
         run: |

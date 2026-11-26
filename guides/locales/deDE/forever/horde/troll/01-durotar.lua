@@ -122,7 +122,6 @@ return {
 	-- {npc:265809} Brakk
 	["{npc:265809}'s campfire"] = "Lagerfeuer von {npc:265809}",
 	-- {npc:265809} Brakk · {area:362} Razor Hill · {spell:1229451} Boosted Rest · {area:367} Sen'jin Village · {zone:1454} Orgrimmar
-	-- was: ["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the Boosted Rest buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362} or in {zone:1454} at the start of the next guide."] = "{npc:265809} lagert direkt südlich von {area:362}. Setz dich an sein Lagerfeuer (/sit), bis der Buff Verbesserter Ruhebonus erscheint. Wenn du einen Beruf gelernt hast, bietet {npc:265809} auch sein Camping 101 an, das sein Lehrer abnimmt: in {area:362} oder in {zone:1454} am Anfang des nächsten Guides."
 	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362}, by {area:367} for fishing, or in {zone:1454} at the start of the next guide."] = "{npc:265809} lagert direkt südlich von {area:362}. Setz dich an sein Lagerfeuer (/sit), bis der Buff {spell:1229451} erscheint. Mit einem erlernten Beruf bietet {npc:265809} auch dessen Camping 101 an, das sein Lehrer annimmt: in {area:362}, bei {area:367} fürs Angeln oder in {zone:1454} zu Beginn des nächsten Guides.",
 
 	-- Step 24: Camping 101: Mining

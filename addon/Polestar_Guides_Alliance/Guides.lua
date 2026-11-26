@@ -1507,9 +1507,9 @@ do
 					goals = {
 						{ t = "collect", quest = 986, title = "A Lost Master", item = 5386, itemName = "Fine Moonstalker Pelt", count = 5, oi = 1, map = 1439, x = 39.89, y = 81.36, z = 50.7, f = "e", spotsPacked = "40.6,82.5,,80,3,,18;43.7,81.8,55.6,83,6,,18;42.21,88.74,,28;39.5,90.9,,66,4,,20;40.11,93.9,,15;37.4,92.7,,64,2,,20;36.2,90.1,,97,4,,20;36.17,81.72,,26,1,,18;38.53,77.1,31.7,41,1,,18;40.19,76.11,,15;39.8,70.7,29.2,64,1,,18;44.47,93.07,,16;61.17,9.38,,108,1,,18", spread = true, note = "Fine Moonstalker Pelts", from = "Moonstalker Sire", fromKind = "npc", fromAlso = "Moonstalker Matriarch", fromId = 2237, fromAlsoId = 2071, fromNpcs = { { npc = 2237, npcName = "Moonstalker Sire" }, { npc = 2071, npcName = "Moonstalker Matriarch" } } },
 						{ t = "accept", quest = 968, title = "The Powers Below", item = 5352, itemName = "Book: The Powers Below", minLevel = 10, qlvl = 18, optional = true, note = "Only if a Disciple or Thug dropped {item:5352}: right-click it" },
-						{ t = "complete", quest = 944, title = "The Master's Glaive", objs = { { text = "Enter the Master's Glaive", count = 1 } }, startItem = 5251, startItemName = "Phial of Scrying" },
-						{ t = "turnin", quest = 944, title = "The Master's Glaive", object = 10076, objName = "Scrying Bowl", map = 1439, x = 38.73, y = 85.66, spotsPacked = "38.8,86.5,,55,11", note = "The {object:10076}" },
-						{ t = "accept", quest = 949, title = "The Twilight Camp", object = 10076, objName = "Scrying Bowl", minLevel = 12, qlvl = 17, pre = { 944 }, preTitles = { [944] = "The Master's Glaive" }, map = 1439, x = 38.73, y = 85.66, spotsPacked = "38.8,86.5,,55,11" },
+						{ t = "complete", quest = 944, title = "The Master's Glaive", map = 1439, x = 38.48, y = 86.45, f = "e", objs = { { text = "Enter the Master's Glaive", count = 1 } }, startItem = 5251, startItemName = "Phial of Scrying" },
+						{ t = "turnin", quest = 944, title = "The Master's Glaive", object = 10076, objName = "Scrying Bowl", map = 1439, x = 38.39, y = 86.3, spotsPacked = "38.8,86.5,,55,11", note = "The {object:10076}" },
+						{ t = "accept", quest = 949, title = "The Twilight Camp", object = 10076, objName = "Scrying Bowl", minLevel = 12, qlvl = 17, pre = { 944 }, preTitles = { [944] = "The Master's Glaive" }, map = 1439, x = 38.39, y = 86.3, spotsPacked = "38.8,86.5,,55,11" },
 						{ t = "turnin", quest = 949, title = "The Twilight Camp", object = 12666, objName = "Twilight Tome", map = 1439, x = 38.47, y = 86.03, z = 34.9, note = "The {object:12666}" },
 						{ t = "accept", quest = 950, title = "Return to Onu", object = 12666, objName = "Twilight Tome", minLevel = 12, qlvl = 17, pre = { 949 }, preTitles = { [949] = "The Twilight Camp" }, map = 1439, x = 38.47, y = 86.03, z = 34.9 },
 						{ t = "accept", quest = 98042, title = "It's All Fun and Games Until...", object = 12666, objName = "Twilight Tome", minLevel = 12, qlvl = 17, pre = { 949 }, preTitles = { [949] = "The Twilight Camp" }, map = 1439, x = 38.47, y = 86.03, z = 34.9, note = "The {object:12666}, once it has {quest:949}" },
@@ -10154,7 +10154,7 @@ do
 				},
 				{
 					title = "{npc:259961}",
-					when = { { k = "onquest", q = { 95120 } } },
+					when = { { k = "onquest", q = { 95120 } }, { k = "complete", q = 95120 } },
 					goals = {
 						{ t = "turnin", quest = 95120, title = "WANTED: Old Rot-Chum", npc = 259961, npcName = "Wharfmaster Whizzbuzz", map = 2548, x = 79.34, y = 52.69, z = 3.3 },
 					},
@@ -15044,6 +15044,7 @@ do
 					goals = {
 						{ t = "turnin", quest = 5220, title = "Return to Chillwind Camp", npc = 11053, npcName = "High Priestess MacDonnell", map = 1422, x = 42.88, y = 84.39, z = 64 },
 						{ t = "accept", quest = 5222, title = "Target: Writhing Haunt", npc = 11053, npcName = "High Priestess MacDonnell", minLevel = 50, qlvl = 55, pre = { 5220 }, preTitles = { [5220] = "Return to Chillwind Camp" }, map = 1422, x = 42.88, y = 84.39, z = 64 },
+						{ t = "level", level = 55 },
 						{ t = "accept", quest = 5533, title = "Scholomance", npc = 10838, npcName = "Commander Ashlam Valorfist", minLevel = 55, qlvl = 55, pre = { 5097 }, preTitles = { [5097] = "All Along the Watchtowers" }, map = 1422, x = 42.71, y = 83.93, z = 66.3, note = "{npc:10838} (from level 55)" },
 						{ t = "turnin", quest = 5533, title = "Scholomance", npc = 11056, npcName = "Alchemist Arbington", map = 1422, x = 42.68, y = 83.79, z = 66.6 },
 						{ t = "accept", quest = 5537, title = "Skeletal Fragments", npc = 11056, npcName = "Alchemist Arbington", minLevel = 55, qlvl = 57, pre = { 5533 }, preTitles = { [5533] = "Scholomance" }, map = 1422, x = 42.68, y = 83.79, z = 66.6, note = "The skeletons of Andorhal, next on this guide" },

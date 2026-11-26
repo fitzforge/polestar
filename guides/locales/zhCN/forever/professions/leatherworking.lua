@@ -26,7 +26,6 @@ return {
 
 	-- Step 4: Light Leather (Elwynn Forest)
 	-- {item:2318} Light Leather · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning · {npc:1922} Gray Forest Wolf · {npc:524} Rockhide Boar · {npc:113} Stonetusk Boar · {npc:822} Young Forest Bear
-	-- was: ["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, {npc:525}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "准备349个{item:2318}制作{spell:2152}、{spell:3756}和{spell:3763}（其中210个用于75-150阶段：现在一次收齐）：{skill:393}：剥取5-20级野兽。在这里剥取{npc:1922}、{npc:525}、觅食的灰狼、{npc:524}、{npc:113}和{npc:822}（5-20级）；{skill:393}指南有对应路线。"
 	["349 {item:2318} for {spell:2152}, {spell:3756} and {spell:3763} (210 of them for 75-150: pick them all now): {skill:393}: beasts of level 5-20. Skin {npc:1922}, Prowler, {npc:524}, {npc:113} and {npc:822} here (level 5-20); the {skill:393} guide routes this."] = "349个{item:2318}用于{spell:2152}、{spell:3756}和{spell:3763}（其中210个用于75-150：现在全部捡起）：{skill:393}：5-20级野兽。在这里剥{npc:1922}、潜行者、{npc:524}、{npc:113}和{npc:822}的皮（5-20级）；{skill:393}指南会安排路线。",
 
 	-- Step 5: Light Leather (Dun Morogh)
@@ -146,8 +145,9 @@ return {
 	-- Step 31: Leatherworking 150-225: vendor goods
 	-- {skill:165} Leatherworking
 	["{skill:165} 150-225: vendor goods"] = "{skill:165} 150–225：商人材料",
-	-- {item:2321} Fine Thread · {item:4291} Silken Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 29 {item:2321} (29s), 66 Salt (33s) and 145 {item:4291} (7g 25s); about 7g 87s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "一次买齐本阶段所需：29个{item:2321}（29银）、66份盐（33银）和145个{item:4291}（7金25银）；总计约7金87银。箭头指向本阵营最近的出售者（{zone:1453}：{npc:1347}、{npc:1286}和{npc:5565}；{zone:1454}：{npc:3364}、{npc:3367}和{npc:5817}）。",
+	-- {item:2321} Fine Thread · {item:4291} Silken Thread · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:5817} Shimra · {npc:3366} Tamar
+	-- was: ["Buy the whole bracket's share in one go: 29 {item:2321} (29s), 66 Salt (33s) and 145 {item:4291} (7g 25s); about 7g 87s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "一次买齐本阶段所需：29个{item:2321}（29银）、66份盐（33银）和145个{item:4291}（7金25银）；总计约7金87银。箭头指向本阵营最近的出售者（{zone:1453}：{npc:1347}、{npc:1286}和{npc:5565}；{zone:1454}：{npc:3364}、{npc:3367}和{npc:5817}）。"
+	["Buy the whole bracket's share in one go: 29 {item:2321} (29s), 66 Salt (33s) and 145 {item:4291} (7g 25s); about 7g 87s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:5565}; {zone:1454}: {npc:3367}, {npc:5817} and {npc:3366})."] = "",
 
 	-- Step 32: Leatherworking 150-225: Auction House
 	-- {skill:165} Leatherworking
@@ -189,7 +189,6 @@ return {
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 158"] = "{spell:3780}做到158",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread
-	-- was: ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors."] = "{spell:3780} 在技能 150 时为黄色（145 变黄、155 变绿、165 变灰）：约制作 15 次可到 158。每次需要 5 个 {item:4234} 和 1 个 {item:2321}。即每次五个 {item:4234}（来自 28-40 级野兽）；做出的护甲片可卖给商人。"
 	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "{spell:3780}在150时为黄色（黄色145，绿色155，灰色165）：大约制作15次到158。每次需要5个{item:4234}和1个{item:2321}。每次五个{item:4234}（28-40级野兽）；护甲片可以卖给商人。如果你到这里还没学会{spell:3780}，现在就学：之前的步骤会教。",
 
 	-- Step 39: Barbaric Shoulders to 165
@@ -243,8 +242,9 @@ return {
 	-- Step 47: Leatherworking 225-300: vendor goods
 	-- {skill:165} Leatherworking
 	["{skill:165} 225-300: vendor goods"] = "{skill:165} 225–300：商人材料",
-	-- {item:2325} Black Dye · {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "一次买齐本阶段所需：39个{item:2325}（3金90银）和82个{item:14341}（41金币）；总计约44金90银。箭头指向本阵营最近的出售者（{zone:1453}：{npc:1347}、{npc:1286}和{npc:5565}；{zone:1454}：{npc:3364}、{npc:3367}和{npc:5817}）。",
+	-- {item:2325} Black Dye · {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3366} Tamar
+	-- was: ["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "一次买齐本阶段所需：39个{item:2325}（3金90银）和82个{item:14341}（41金币）；总计约44金90银。箭头指向本阵营最近的出售者（{zone:1453}：{npc:1347}、{npc:1286}和{npc:5565}；{zone:1454}：{npc:3364}、{npc:3367}和{npc:5817}）。"
+	["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:5565}; {zone:1454}: {npc:3364} and {npc:3366})."] = "",
 
 	-- Step 48: Pattern: Wicked Leather Gauntlets
 	-- {item:15725} Pattern: Wicked Leather Gauntlets · {item:15083} Wicked Leather Gauntlets · {skill:165} Leatherworking · {npc:12942} Leonard Porter · {zone:1422} Western Plaguelands · {npc:12943} Werg Thickblade
@@ -320,6 +320,8 @@ return {
 	-- ["Back to a {skill:165} trainer: {spell:9062} is taught from {skill:165} 55."] = "回到{skill:165}训练师处：{skill:165}达到55可学习{spell:9062}。",
 	-- ["Back to a {skill:165} trainer: {spell:9068} is taught from {skill:165} 100."] = "回到{skill:165}训练师处：{skill:165}达到100可学习{spell:9068}。",
 	-- ["Back to a {skill:165} trainer: {spell:9074} is taught from {skill:165} 120."] = "回到{skill:165}训练师处：{skill:165}达到120可学习{spell:9074}。",
+	-- ["Buy the whole bracket's share in one go: 29 {item:2321} (29s), 66 Salt (33s) and 145 {item:4291} (7g 25s); about 7g 87s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "一次买齐本阶段所需：29个{item:2321}（29银）、66份盐（33银）和145个{item:4291}（7金25银）；总计约7金87银。箭头指向本阵营最近的出售者（{zone:1453}：{npc:1347}、{npc:1286}和{npc:5565}；{zone:1454}：{npc:3364}、{npc:3367}和{npc:5817}）。",
+	-- ["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "一次买齐本阶段所需：39个{item:2325}（3金90银）和82个{item:14341}（41金币）；总计约44金90银。箭头指向本阵营最近的出售者（{zone:1453}：{npc:1347}、{npc:1286}和{npc:5565}；{zone:1454}：{npc:3364}、{npc:3367}和{npc:5817}）。",
 	-- ["Buy the whole bracket's share in one go: 8 {item:2321} (8s) and 32 {item:4291} (1g 60s); about 1g 68s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "一次买齐本阶段所需：8个{item:2321}（8银币）和32个{item:4291}（1金60银）；总计约1金68银。箭头指向本阵营最近的出售者（{zone:1453}：{npc:1347}、{npc:1286}和{npc:5565}；{zone:1454}：{npc:3364}、{npc:3367}和{npc:5817}）。",
 	-- ["Expert needs character level 20 and {skill:165} 125; it raises the cap to 225. Materials for 150-225 are worth about 61g in all."] = "高级需要角色等级20和{skill:165}125；上限提升到225。150-225的材料总价约61金。",
 	-- ["Expert raises the cap from 150 to 225; it needs {skill:165} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:11097} ({zone:1425}) and {npc:4212} ({zone:1457}); Horde {npc:11098} ({zone:1444}) and {npc:3007} ({zone:1456}). The arrow picks the nearest of your faction. 150-225 takes about 1g 68s of vendor goods, plus 257 {item:4304} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:4304} (from 155) and {item:8173} (from 175), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3. {item:8170} (from 205) takes a second trip, to other trainers (below)."] = "高级将上限从150提高到225；需要{skill:165}125、角色20级，因此达到125后每次路过都可学习。只有少数训练师教授：联盟为{npc:11097}（{zone:1425}）和{npc:4212}（{zone:1457}）；部落为{npc:11098}（{zone:1444}）和{npc:3007}（{zone:1456}）。箭头会选择本阵营最近的一位。150-225约需1金68银购买商人物品，另需收集或购买257个{item:4304}。来之前把材料全部放进背包（按上面的步骤准备，其余从拍卖行购买）：这些训练师也教授{item:4304}（155起）和{item:8173}（175起），而制作无需工作台，因此可以就在这里制作，达到所需技能时就学新配方。原本要跑 3 趟的事，现在一趟即可完成。{item:8170}（205起）则需要再跑一趟，去找其他训练师（见下文）。",

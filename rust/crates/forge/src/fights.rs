@@ -23,9 +23,26 @@
 //! one camp for hours is one cell there. A player is calibrate.rs's: the session's server
 //! `cohort`, else its `contributor`, else `local`. Cells of under [`CELL_MIN`] samples are dropped.
 //!
-//! **The fit** is additive in log seconds: ln(cell) = A[level] + G[gap] + C[class] + E·elite,
-//! solved by backfitting (each term in turn the weighted mean of what the others leave), with
-//! G[0] = 0 and the classes' C centred on 0. From it:
+//! **The fit** is in log seconds, in two steps. Players choose their fights: a strong character
+//! goes for mobs above it and for elites, a weak one does not. Set against each other, the hard
+//! mobs then look fast because strong players fought them. So mob level and rank are measured
+//! inside one player's kills at one level, and only level and class across players.
+//!
+//! 1. *Mob level and rank.* The normal cells of one (player, class, level) are a group, and
+//!    ln(cell) = S[group] + G[gap] with G[0] = 0, over the groups with two or more mob levels:
+//!    S is taken out group by group, which leaves a small linear system in G, solved exactly.
+//!    G is how much longer the same character at the same level takes on a mob that many levels
+//!    away. A mob level no chain of groups ties to even-level mobs has no G. E is the weighted
+//!    mean, over the elite cells, of ln(cell) − G[gap] less the same group's normal cells' mean of
+//!    the same; an elite cell without one is left out of E.
+//! 2. *Level and class.* ln(cell) − G[gap] − E·elite = A[level] + C[class], by backfitting (each
+//!    term in turn the weighted mean of what the other leaves), the classes' C centred on 0. Only
+//!    a cell with its G, and for an elite cell an E, can be in it: a cell at a mob level without
+//!    a G is in no level or class, and neither is any elite cell when no elite cell gave an E. An
+//!    elite cell that was left out of E is in it, with the E of the others taken out. The report
+//!    counts the cells this step used (`cellsUsed`) beside all of them (`cells`).
+//!
+//! From it:
 //! - `classFactor`: exp(C), each class against the geometric mean of the classes recorded;
 //! - `killUp`, `killDown`: the slope through 0 of exp(G) − 1 over the levels above, and of
 //!   1 − exp(G) over the levels below;
@@ -35,6 +52,16 @@
 //!
 //! A term with nothing recorded for it (no elite kills, no mobs above the character, one level)
 //! is absent from the report.
+//!
+//! What step 1 does not take out: one player's own choice from fight to fight (the mob above
+//! that happens to be a weak kind, the elite fought with cooldowns up), and the window (a fight
+//! that with the rest after it takes over [`GAP_MAX`] seconds is no sample). `killUp` and
+//! `eliteTime` are still the fights players took, not the fights a route would send them to.
+//!
+//! **Every player against every other.** The report also gives `killUp`, `killDown` and
+//! `eliteTime` as one additive fit over every cell reads them, ln(cell) = A[level] + G[gap] +
+//! C[class] + E·elite ([`AllPlayers`]). That is how far the choice of fights between players moves
+//! the three terms: where the two readings agree, it is not what makes a term read low.
 
 use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
@@ -81,6 +108,7 @@ pub struct GapFit {
 	pub gap: i64,
 	/// exp(G): kill time against an even-level mob.
 	pub ratio: f64,
+	/// Samples of the cells set against another mob level of the same player and level.
 	pub samples: usize,
 }
 
@@ -92,16 +120,34 @@ pub struct LevelFit {
 	pub samples: usize,
 }
 
+/// `killUp`, `killDown` and `eliteTime` with every player set against every other: the fit before mob
+/// level and rank were measured inside one player's kills. Reported beside those, so one run shows how
+/// far apart the two are.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct AllPlayers {
+	pub kill_up: Option<f64>,
+	pub kill_down: Option<f64>,
+	pub elite_time: Option<f64>,
+}
+
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct FightFit {
 	pub sessions: usize,
 	pub samples: usize,
 	pub voters: usize,
 	pub cells: usize,
+	/// The cells in the level and class fit: `cells` less those at a mob level with no ratio, and
+	/// the elite cells when there is no `eliteTime` to take out of them.
+	pub cells_used: usize,
+	/// The (player, class, level) groups with two or more mob levels: what `killUp` and `killDown` rest on.
+	pub groups: usize,
+	/// The elite cells set against normal kills of the same player and level: what `eliteTime` rests on.
+	pub elite_cells: usize,
 	pub kill_sec: Option<(f64, f64)>,
 	pub kill_up: Option<f64>,
 	pub kill_down: Option<f64>,
 	pub elite_time: Option<f64>,
+	pub all_players: AllPlayers,
 	pub classes: Vec<ClassFit>,
 	pub gaps: Vec<GapFit>,
 	pub levels: Vec<LevelFit>,
@@ -200,10 +246,10 @@ pub fn read_samples(dir: &Path) -> (usize, Vec<Sample>) {
 	(sessions, out)
 }
 
-struct Cell {
-	class: usize,
-	level: usize,
-	gap: usize,
+struct Cell<'a> {
+	/// The player, class and level: the group its mob level and rank are compared in.
+	group: (&'a str, &'a str, i64),
+	gap: i64,
 	elite: bool,
 	z: f64,
 	w: f64,
@@ -214,6 +260,93 @@ struct Cell {
 fn slope0(pts: &[(f64, f64, f64)]) -> Option<f64> {
 	let (num, den) = pts.iter().fold((0.0, 0.0), |(n, d), &(x, y, w)| (n + w * x * y, d + w * x * x));
 	(den > 0.0).then(|| num / den)
+}
+
+fn idx<T: PartialEq>(v: &mut Vec<T>, x: T) -> usize {
+	v.iter().position(|y| *y == x).unwrap_or_else(|| {
+		v.push(x);
+		v.len() - 1
+	})
+}
+
+fn find(root: &mut [usize], mut i: usize) -> usize {
+	while root[i] != i {
+		root[i] = root[root[i]];
+		i = root[i];
+	}
+	i
+}
+
+/// The solution of a k × k linear system, each row with its right-hand side as column k (Gaussian
+/// elimination with partial pivoting). None when the rows do not fix every unknown.
+fn solve(mut m: Vec<Vec<f64>>) -> Option<Vec<f64>> {
+	let k = m.len();
+	for i in 0..k {
+		let p = (i..k).max_by(|&a, &b| m[a][i].abs().total_cmp(&m[b][i].abs()))?;
+		if m[p][i].abs() < 1e-12 {
+			return None;
+		}
+		m.swap(i, p);
+		let pivot = m[i].clone();
+		for (r, row) in m.iter_mut().enumerate() {
+			let f = row[i] / pivot[i];
+			if r != i && f != 0.0 {
+				row.iter_mut().zip(&pivot).skip(i).for_each(|(x, p)| *x -= f * p);
+			}
+		}
+	}
+	Some(m.iter().enumerate().map(|(i, row)| row[k] / row[i]).collect())
+}
+
+/// ln(cell) = A[level] + G[gap] + C[class] + E·elite over every cell, by backfitting, with G[0] = 0
+/// and the classes' C centred on 0: mob level and rank read across players (module docs).
+fn all_players(cells: &[Cell]) -> AllPlayers {
+	let (mut levels, mut gaps, mut classes): (Vec<i64>, Vec<i64>, Vec<&str>) = (Vec::new(), Vec::new(), Vec::new());
+	// Per cell: its level, mob level and class.
+	let at: Vec<(usize, usize, usize)> = cells.iter().map(|x| (idx(&mut levels, x.group.2), idx(&mut gaps, x.gap), idx(&mut classes, x.group.1))).collect();
+	let Some(g0) = gaps.iter().position(|g| *g == 0) else { return AllPlayers::default() };
+	let (mut a, mut g, mut c, mut el) = (vec![0.0; levels.len()], vec![0.0; gaps.len()], vec![0.0; classes.len()], 0.0);
+	let has_elite = cells.iter().any(|x| x.elite);
+	for _ in 0..500 {
+		let before = (a.clone(), g.clone(), c.clone(), el);
+		let wmean = |n: usize, key: &dyn Fn(usize) -> usize, rest: &dyn Fn(usize) -> f64| -> Vec<f64> {
+			let mut s = vec![(0.0, 0.0); n];
+			for (i, x) in cells.iter().enumerate() {
+				s[key(i)].0 += x.w * (x.z - rest(i));
+				s[key(i)].1 += x.w;
+			}
+			s.into_iter().map(|(v, w)| if w > 0.0 { v / w } else { 0.0 }).collect()
+		};
+		let e = |i: usize| if cells[i].elite { el } else { 0.0 };
+		a = wmean(levels.len(), &|i| at[i].0, &|i| g[at[i].1] + c[at[i].2] + e(i));
+		g = wmean(gaps.len(), &|i| at[i].1, &|i| a[at[i].0] + c[at[i].2] + e(i));
+		// G[0] = 0: what the even-level cells leave goes to the levels.
+		let shift = g[g0];
+		g.iter_mut().for_each(|v| *v -= shift);
+		a.iter_mut().for_each(|v| *v += shift);
+		c = wmean(classes.len(), &|i| at[i].2, &|i| a[at[i].0] + g[at[i].1] + e(i));
+		let mean = c.iter().sum::<f64>() / c.len() as f64;
+		c.iter_mut().for_each(|v| *v -= mean);
+		a.iter_mut().for_each(|v| *v += mean);
+		if has_elite {
+			let (v, w) = cells.iter().zip(&at).filter(|(x, _)| x.elite).fold((0.0, 0.0), |(v, w), (x, p)| (v + x.w * (x.z - a[p.0] - g[p.1] - c[p.2]), w + x.w));
+			el = v / w;
+		}
+		let moved = a.iter().zip(&before.0).chain(g.iter().zip(&before.1)).chain(c.iter().zip(&before.2)).map(|(x, y)| (x - y).abs()).fold((el - before.3).abs(), f64::max);
+		if moved < 1e-10 {
+			break;
+		}
+	}
+	let (mut up, mut down) = (Vec::new(), Vec::new());
+	for (i, &d) in gaps.iter().enumerate() {
+		let w: f64 = cells.iter().zip(&at).filter(|(_, p)| p.1 == i).map(|(x, _)| x.w).sum();
+		if d > 0 {
+			up.push((d as f64, g[i].exp() - 1.0, w));
+		} else if d < 0 {
+			down.push((-d as f64, 1.0 - g[i].exp(), w));
+		}
+	}
+	AllPlayers { kill_up: slope0(&up), kill_down: slope0(&down), elite_time: has_elite.then(|| el.exp()) }
 }
 
 /// The fit of `samples` (module docs).
@@ -227,93 +360,154 @@ pub fn fit(sessions: usize, samples: &[Sample]) -> FightFit {
 	voters.dedup();
 	let mut out = FightFit { sessions, samples: samples.len(), voters: voters.len(), ..FightFit::default() };
 
-	let (mut classes, mut levels, mut gaps): (Vec<&str>, Vec<i64>, Vec<i64>) = (Vec::new(), Vec::new(), Vec::new());
-	let idx = |v: &mut Vec<i64>, x: i64| {
-		v.iter().position(|y| *y == x).unwrap_or_else(|| {
-			v.push(x);
-			v.len() - 1
-		})
-	};
 	let mut cells = Vec::new();
-	// Per class and per gap: samples kept, and the class's players.
-	let mut class_n: Vec<(usize, Vec<&str>)> = Vec::new();
 	for (&(voter, class, level, gap, elite), secs) in &mut by {
-		if secs.len() < CELL_MIN {
-			continue;
-		}
-		let ci = classes.iter().position(|c| *c == class).unwrap_or_else(|| {
-			classes.push(class);
-			class_n.push((0, Vec::new()));
-			classes.len() - 1
-		});
-		class_n[ci].0 += secs.len();
-		if !class_n[ci].1.contains(&voter) {
-			class_n[ci].1.push(voter);
-		}
 		let n = secs.len();
-		cells.push(Cell { class: ci, level: idx(&mut levels, level), gap: idx(&mut gaps, gap), elite, z: median(secs).ln(), w: n.min(CELL_CAP) as f64, n });
+		if n >= CELL_MIN {
+			cells.push(Cell { group: (voter, class, level), gap, elite, z: median(secs).ln(), w: n.min(CELL_CAP) as f64, n });
+		}
 	}
 	out.cells = cells.len();
-	let Some(g0) = gaps.iter().position(|g| *g == 0) else { return out };
-	if cells.is_empty() {
+	out.all_players = all_players(&cells);
+
+	// Step 1: mob level, inside one player's normal kills at one level.
+	let mut groups: BTreeMap<(&str, &str, i64), Vec<&Cell>> = BTreeMap::new();
+	for c in cells.iter().filter(|c| !c.elite) {
+		groups.entry(c.group).or_default().push(c);
+	}
+	let mut gaps: Vec<i64> = cells.iter().filter(|c| !c.elite).map(|c| c.gap).collect();
+	gaps.sort_unstable();
+	gaps.dedup();
+	let gi = |gap: i64| gaps.binary_search(&gap).ok();
+	let Some(g0) = gi(0) else { return out };
+	// The mob levels a chain of groups ties to even-level mobs.
+	let mut root: Vec<usize> = (0..gaps.len()).collect();
+	for members in groups.values().filter(|m| m.len() >= 2) {
+		let first = find(&mut root, gi(members[0].gap).expect("a normal cell's gap"));
+		for c in &members[1..] {
+			let r = find(&mut root, gi(c.gap).expect("a normal cell's gap"));
+			root[r] = first;
+		}
+	}
+	let r0 = find(&mut root, g0);
+	let known: Vec<bool> = (0..gaps.len()).map(|i| find(&mut root, i) == r0).collect();
+	let compared: Vec<&Vec<&Cell>> = groups.values().filter(|m| m.len() >= 2 && gi(m[0].gap).is_some_and(|i| known[i])).collect();
+	out.groups = compared.len();
+	// S[group] taken out group by group leaves a linear system in G over the known mob levels but 0.
+	let mut col = vec![None; gaps.len()];
+	let mut k = 0;
+	for i in (0..gaps.len()).filter(|&i| known[i] && i != g0) {
+		col[i] = Some(k);
+		k += 1;
+	}
+	let mut m = vec![vec![0.0; k + 1]; k];
+	// Per mob level: the weight and samples of the cells that were set against another mob level.
+	let mut gap_n = vec![(0.0, 0usize); gaps.len()];
+	for members in &compared {
+		let wsum: f64 = members.iter().map(|c| c.w).sum();
+		let zbar = members.iter().map(|c| c.w * c.z).sum::<f64>() / wsum;
+		for a in members.iter() {
+			let ia = gi(a.gap).expect("a normal cell's gap");
+			gap_n[ia].0 += a.w;
+			gap_n[ia].1 += a.n;
+			let Some(ra) = col[ia] else { continue };
+			m[ra][k] += a.w * (a.z - zbar);
+			m[ra][ra] += a.w;
+			for b in members.iter() {
+				if let Some(cb) = gi(b.gap).and_then(|i| col[i]) {
+					m[ra][cb] -= a.w * b.w / wsum;
+				}
+			}
+		}
+	}
+	let Some(sol) = solve(m) else { return out };
+	// G by mob level: 0 for even-level mobs, None where nothing ties the level to them.
+	let g = |gap: i64| -> Option<f64> {
+		let i = gi(gap).filter(|&i| known[i])?;
+		Some(col[i].map_or(0.0, |c| sol[c]))
+	};
+
+	// The rank: an elite cell against its own group's normal cells.
+	let (mut ev, mut ew) = (0.0, 0.0);
+	for c in cells.iter().filter(|c| c.elite) {
+		let (Some(ge), Some(members)) = (g(c.gap), groups.get(&c.group)) else { continue };
+		let (sv, sw) = members.iter().filter_map(|n| g(n.gap).map(|gn| (n.w * (n.z - gn), n.w))).fold((0.0, 0.0), |(v, w), (x, y)| (v + x, w + y));
+		if sw > 0.0 {
+			// The weight of a difference of two means: the smaller side counts.
+			let w = c.w * sw / (c.w + sw);
+			ev += w * (c.z - ge - sv / sw);
+			ew += w;
+			out.elite_cells += 1;
+		}
+	}
+	let el = (ew > 0.0).then(|| ev / ew);
+
+	// Step 2: level and class, across players, from what step 1 leaves of each cell.
+	struct Rest<'a> {
+		voter: &'a str,
+		class: usize,
+		level: usize,
+		r: f64,
+		w: f64,
+		n: usize,
+	}
+	let (mut classes, mut levels): (Vec<&str>, Vec<i64>) = (Vec::new(), Vec::new());
+	let mut rest = Vec::new();
+	for c in &cells {
+		let (Some(gc), Some(e)) = (g(c.gap), if c.elite { el } else { Some(0.0) }) else { continue };
+		rest.push(Rest { voter: c.group.0, class: idx(&mut classes, c.group.1), level: idx(&mut levels, c.group.2), r: c.z - gc - e, w: c.w, n: c.n });
+	}
+	if rest.is_empty() {
 		return out;
 	}
-
-	let (mut a, mut g, mut c, mut el) = (vec![0.0; levels.len()], vec![0.0; gaps.len()], vec![0.0; classes.len()], 0.0);
-	let has_elite = cells.iter().any(|x| x.elite);
+	out.cells_used = rest.len();
+	let (mut a, mut c) = (vec![0.0; levels.len()], vec![0.0; classes.len()]);
 	for _ in 0..500 {
-		let before = (a.clone(), g.clone(), c.clone(), el);
-		let wmean = |n: usize, key: &dyn Fn(&Cell) -> usize, rest: &dyn Fn(&Cell) -> f64| -> Vec<f64> {
+		let before = (a.clone(), c.clone());
+		let wmean = |n: usize, key: &dyn Fn(&Rest) -> usize, other: &dyn Fn(&Rest) -> f64| -> Vec<f64> {
 			let mut s = vec![(0.0, 0.0); n];
-			for x in &cells {
+			for x in &rest {
 				let k = key(x);
-				s[k].0 += x.w * (x.z - rest(x));
+				s[k].0 += x.w * (x.r - other(x));
 				s[k].1 += x.w;
 			}
 			s.into_iter().map(|(v, w)| if w > 0.0 { v / w } else { 0.0 }).collect()
 		};
-		let e = |x: &Cell| if x.elite { el } else { 0.0 };
-		a = wmean(levels.len(), &|x| x.level, &|x| g[x.gap] + c[x.class] + e(x));
-		g = wmean(gaps.len(), &|x| x.gap, &|x| a[x.level] + c[x.class] + e(x));
-		// G[0] = 0: what the even-level cells leave goes to the levels.
-		let shift = g[g0];
-		g.iter_mut().for_each(|v| *v -= shift);
-		a.iter_mut().for_each(|v| *v += shift);
-		c = wmean(classes.len(), &|x| x.class, &|x| a[x.level] + g[x.gap] + e(x));
+		a = wmean(levels.len(), &|x| x.level, &|x| c[x.class]);
+		c = wmean(classes.len(), &|x| x.class, &|x| a[x.level]);
+		// The classes centred on 0: their mean goes to the levels.
 		let mean = c.iter().sum::<f64>() / c.len() as f64;
 		c.iter_mut().for_each(|v| *v -= mean);
 		a.iter_mut().for_each(|v| *v += mean);
-		if has_elite {
-			let (v, w) = cells.iter().filter(|x| x.elite).fold((0.0, 0.0), |(v, w), x| (v + x.w * (x.z - a[x.level] - g[x.gap] - c[x.class]), w + x.w));
-			el = v / w;
-		}
-		let moved = a.iter().zip(&before.0).chain(g.iter().zip(&before.1)).chain(c.iter().zip(&before.2)).map(|(x, y)| (x - y).abs()).fold((el - before.3).abs(), f64::max);
+		let moved = a.iter().zip(&before.0).chain(c.iter().zip(&before.1)).map(|(x, y)| (x - y).abs()).fold(0.0, f64::max);
 		if moved < 1e-10 {
 			break;
 		}
 	}
 
-	let weight = |key: &dyn Fn(&Cell) -> bool| cells.iter().filter(|x| key(x)).fold((0.0, 0usize), |(w, n), x| (w + x.w, n + x.n));
-	out.classes = classes.iter().enumerate().map(|(i, name)| ClassFit { class: (*name).to_string(), factor: c[i].exp(), samples: class_n[i].0, voters: class_n[i].1.len() }).collect();
+	for (i, name) in classes.iter().enumerate() {
+		let mut players: Vec<&str> = rest.iter().filter(|x| x.class == i).map(|x| x.voter).collect();
+		players.sort_unstable();
+		players.dedup();
+		out.classes.push(ClassFit { class: (*name).to_string(), factor: c[i].exp(), samples: rest.iter().filter(|x| x.class == i).map(|x| x.n).sum(), voters: players.len() });
+	}
 	out.classes.sort_by(|x, y| x.class.cmp(&y.class));
-	let mut up = Vec::new();
-	let mut down = Vec::new();
+	let (mut up, mut down) = (Vec::new(), Vec::new());
 	for (i, &d) in gaps.iter().enumerate() {
-		let (w, n) = weight(&|x| x.gap == i);
-		out.gaps.push(GapFit { gap: d, ratio: g[i].exp(), samples: n });
+		let Some(gd) = g(d) else { continue };
+		out.gaps.push(GapFit { gap: d, ratio: gd.exp(), samples: gap_n[i].1 });
 		if d > 0 {
-			up.push((d as f64, g[i].exp() - 1.0, w));
+			up.push((d as f64, gd.exp() - 1.0, gap_n[i].0));
 		} else if d < 0 {
-			down.push((-d as f64, 1.0 - g[i].exp(), w));
+			down.push((-d as f64, 1.0 - gd.exp(), gap_n[i].0));
 		}
 	}
-	out.gaps.sort_by_key(|x| x.gap);
 	out.kill_up = slope0(&up);
 	out.kill_down = slope0(&down);
-	out.elite_time = has_elite.then(|| el.exp());
+	out.elite_time = el.map(f64::exp);
 	let mut pts = Vec::new();
 	for (i, &l) in levels.iter().enumerate() {
-		let (w, n) = weight(&|x| x.level == i);
+		let (w, n) = rest.iter().filter(|x| x.level == i).fold((0.0, 0usize), |(w, n), x| (w + x.w, n + x.n));
 		out.levels.push(LevelFit { level: l, sec: a[i].exp(), samples: n });
 		pts.push(((l - 1) as f64, a[i].exp(), w));
 	}
@@ -343,18 +537,22 @@ pub fn report(f: &FightFit, at: &str, class_priors: &[(&str, f64)], priors: &[(&
 		classes.insert(c.class.clone(), json!({ "factor": round(c.factor), "prior": p, "samples": c.samples, "voters": c.voters }));
 	}
 	json!({
-		"schema": 1,
+		"schema": 2,
 		"at": at,
-		"about": "Kill time with the walk between mobs taken out, split by level, mob level, class and rank (forge sim fights; rust/crates/forge/src/fights.rs). A report to read against the priors, not a params.json.",
+		"about": "Kill time with the walk between mobs taken out. Mob level and rank are measured inside one player's kills at one level (groups, eliteCells: how many groups of kills and elite cells that rests on), level and class across players (cellsUsed: how many of the cells are in that fit). allPlayers: killUp, killDown and eliteTime with every player set against every other, as schema 1 fitted them (forge sim fights; rust/crates/forge/src/fights.rs). A report to read against the priors, not a params.json.",
 		"sessions": f.sessions,
 		"samples": f.samples,
 		"voters": f.voters,
 		"cells": f.cells,
+		"cellsUsed": f.cells_used,
+		"groups": f.groups,
+		"eliteCells": f.elite_cells,
 		"killSec1": term("killSec1", f.kill_sec.map(|k| k.0)),
 		"killSec60": term("killSec60", f.kill_sec.map(|k| k.1)),
 		"killUp": term("killUp", f.kill_up),
 		"killDown": term("killDown", f.kill_down),
 		"eliteTime": term("eliteTime", f.elite_time),
+		"allPlayers": { "killUp": f.all_players.kill_up.map(round), "killDown": f.all_players.kill_down.map(round), "eliteTime": f.all_players.elite_time.map(round) },
 		"classFactor": classes,
 		"byGap": f.gaps.iter().map(|g| json!({ "gap": g.gap, "ratio": round(g.ratio), "samples": g.samples })).collect::<Vec<_>>(),
 		"byLevel": f.levels.iter().map(|l| json!({ "level": l.level, "sec": round(l.sec), "samples": l.samples })).collect::<Vec<_>>(),

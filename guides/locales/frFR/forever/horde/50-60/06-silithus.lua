@@ -44,6 +44,8 @@ return {
 	["Inside"] = "À l'intérieur",
 
 	-- Step 9: Gaeriyan
+	-- {object:148504} A Conspicuous Gravestone · {area:976} Gadgetzan · {npc:8737} Linken
+	["Alive again, go to {object:148504} in the graveyard just east of {area:976} and use it: it takes the quest. {npc:8737}'s sword goes back to {npc:8737} in Un'Goro: keep it."] = "",
 	-- {quest:3914} Linken's Sword · {npc:8737} Linken
 	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914} se rend à {npc:8737}, dans le Cratère d'Un'Goro : gardez-la.",
 
@@ -168,8 +170,8 @@ return {
 	["{npc:15196}, Terror of the Sands, is a level 59 elite scorpid patrolling the mountains by {npc:15190}'s satchel, at your level: a group choice. The wanted poster stands in the middle of the Hold; {npc:15182} pays out."] = "",
 
 	-- Step 34: Hermit Ortell
-	-- {area:3447} Ortell's Hideout
-	["Ride north-east to {area:3447}."] = "Allez vers le nord-est jusqu'à {area:3447}.",
+	-- {area:3447} Ortell's Hideout · {area:2738} Southwind Village
+	["Ride south-east to {area:3447}, in the mountains south of {area:2738}."] = "",
 
 	-- Step 35: Noggle's Lost Satchel
 	-- {npc:15196} Deathclasp
@@ -187,9 +189,9 @@ return {
 	["{npc:15170}, if Brann's letter dropped for you"] = "",
 
 	-- Step 38: Twilight Base Camp
-	-- {npc:15306} Bor Wildmane
+	-- {npc:15306} Bor Wildmane · {area:2739} Twilight Base Camp · {area:3425} Cenarion Hold
 	-- plural, as words: Encrypted Twilight Texts = {item:20404} Encrypted Twilight Text · Twilight Avengers = {npc:11880} Twilight Avenger
-	["Collect twenty Encrypted Twilight Texts from the cultists here, ten for {npc:15306} and ten for Ortell. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60)."] = "Récupérez vingt Textes du crépuscule cryptés sur les cultistes d'ici, dix pour {npc:15306} et dix pour Ortell. Prenez-les sur les Vengeurs du crépuscule et les Géoseigneurs ; laissez les Saccageurs des flammes et les Implorateurs de pierre (59-60).",
+	["Collect twenty Encrypted Twilight Texts, ten for {npc:15306} and ten for Ortell. The {area:2739} holds only elementals: the texts drop from the Twilight's Hammer cultists of the Vanguard in the far south-west, the Post in the west and the Outpost west of {area:3425}. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60)."] = "",
 	-- {npc:15306} Bor Wildmane
 	["ten for each quest: {npc:15306} takes his ten before Ortell"] = "dix pour chaque quête : {npc:15306} prend ses dix avant Ortell",
 
@@ -244,8 +246,8 @@ return {
 	["Keep the bait for {npc:9684}'s lair, next (he is level 56)."] = "",
 
 	-- Step 52: Lar'korwi
-	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder
-	["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "Le repaire de {npc:9684} est juste au sud du pylône. Utilisez-y l'appât de {npc:9619} ; {npc:9684} est de niveau 56 et frappe fort, commencez donc avec toute votre vie.",
+	-- {item:11568} Torwa's Pouch · {npc:9684} Lar'korwi
+	["Open {item:11568}: it holds the meat and the pheromone mixture. {npc:9684}'s lair is the bone-strewn valley just south of the pylon: place the meat among the bones, then use the mixture on it to call {npc:9684}. He is level 56 and hits hard, so start at full health."] = "",
 
 	-- Step 53: Ringo
 	-- {npc:9999} Ringo
@@ -289,6 +291,7 @@ return {
 	-- ["Back to Southwind and climb the tower. Stirring the hive at the top brings out {area:2742} Ambushers; one carries the {item:17346}."] = "Retournez à Sudevent et montez dans la tour. Remuer la ruche au sommet fait sortir des Embusquées de la {area:2742} ; l'une d'elles porte {item:17346}.",
 	-- ["Careful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "Attention : les Gorilles d'Un'Goro (niveau 50-51) appellent à l'aide leurs alliés à moins de 20 m dès qu'ils tombent à 25 % de vie. Une grotte pleine de singes se trouve dans le coin, et y combattre attire de nombreux renforts.",
 	-- ["Collect twenty Encrypted Twilight Texts from the cultists here, ten for {npc:15306} and ten for Ortell."] = "Récupérez vingt Textes cryptés du Crépuscule sur les cultistes d'ici, dix pour {npc:15306} et dix pour Ortell.",
+	-- ["Collect twenty Encrypted Twilight Texts from the cultists here, ten for {npc:15306} and ten for Ortell. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60)."] = "Récupérez vingt Textes du crépuscule cryptés sur les cultistes d'ici, dix pour {npc:15306} et dix pour Ortell. Prenez-les sur les Vengeurs du crépuscule et les Géoseigneurs ; laissez les Saccageurs des flammes et les Implorateurs de pierre (59-60).",
 	-- ["Collie is inside it."] = "Collie se trouve à l'intérieur.",
 	-- ["Diseased Grizzlies"] = "Grizzlys malades",
 	-- ["Dithers offers {item:14619} ({quest:838}). Skip it."] = "Dithers propose {item:14619} ({quest:838}). Passez-la.",
@@ -326,6 +329,7 @@ return {
 	-- ["Ride east along the road to the {area:152} on the border."] = "Suivez la route vers l'est jusqu'à la {area:152}, à la frontière.",
 	-- ["Ride east to {npc:1855}'s hut by the {area:2619} and hear him out."] = "Allez vers l'est jusqu'à la cabane de {npc:1855}, au bord de {area:2619}, et écoutez-le.",
 	-- ["Ride north-east to {area:2276} by {area:2275}: the high elf Rangers, Pathstriders and Woodsmen guard it and the Registry lies inside. Careful: the Pathstriders are 57-58 but the Rangers reach 60: pull one at a time and take the Rangers last."] = "Allez au nord-est jusqu'à {area:2276}, près de {area:2275} : les Forestiers, Éclaireurs et Forestiers bûcherons hauts-elfes la gardent et le Registre se trouve à l'intérieur. Attention : les Éclaireurs sont 57-58 mais les Forestiers montent jusqu'à 60 : attirez-les un par un et gardez les Forestiers pour la fin.",
+	-- ["Ride north-east to {area:3447}."] = "Allez vers le nord-est jusqu'à {area:3447}.",
 	-- ["Ride north-west to {npc:1855}'s hut."] = "Allez vers le nord-ouest jusqu'à la cabane de {npc:1855}.",
 	-- ["Ride south into Andorhal. {npc:10667} waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the {item:12815} to mark it; keep to the edges of town. Use the {item:12627} by the silos in the middle of town to bring out Temporal Parasites."] = "Allez vers le sud jusqu'à Andorhal. {npc:10667} attend dans l'auberge en ruine à l'ouest de la ville. Placez-vous sur le seuil de chacune des quatre tours avec {item:12815} pour la marquer ; restez en bordure de la ville. Utilisez {item:12627} près des silos au centre de la ville pour faire apparaître des Parasites temporels.",
 	-- ["Ride south-east from {npc:1855} to the {area:2260} farmhouse."] = "Partez vers le sud-est depuis {npc:1855} jusqu'à la ferme de {area:2260}.",
@@ -393,6 +397,7 @@ return {
 	-- ["{npc:9117} is inside the cave."] = "{npc:9117} est dans la grotte.",
 	-- ["{npc:9167} walks around here: look inside the circle on the map"] = "{npc:9167} se promène par ici : cherchez dans le cercle sur la carte",
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "{npc:9619} demande maintenant la peau d'{npc:9622}, dans la grotte du nord-est : passez-la.",
+	-- ["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "Le repaire de {npc:9684} est juste au sud du pylône. Utilisez-y l'appât de {npc:9619} ; {npc:9684} est de niveau 56 et frappe fort, commencez donc avec toute votre vie.",
 	-- ["{quest:105}'s shard lies at {npc:1852}'s feet, in the middle of Andorhal: he is a level 61 elite with elite Skeletal Warlords about him, a fight for a group."] = "Le fragment de {quest:105} gît aux pieds de {npc:1852}, au milieu d'Andorhal : c'est un élite de niveau 61 entouré de Seigneurs de guerre squelettes élites, un combat de groupe.",
 	-- ["{zone:1449}: kill these as you meet them"] = "{zone:1449} : tuez-les au passage",
 }

@@ -85,7 +85,7 @@ step Learn Engineering
   skill Engineering 1
 
 step Engineering 1-75: vendor goods
-  tip Buy the whole bracket's share in one go: 18 Weak Flux (18s) and Blacksmith Hammer (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction (Stormwind City: Billibub Cogspinner, Brooke Stonebraid and Edna Mullby).
+  tip Buy the whole bracket's share in one go: 18 Weak Flux (18s) and Blacksmith Hammer (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction (Stormwind City: Billibub Cogspinner, Edna Mullby and Kaita Deepforge).
   buy 2880 x18 nearest
   buy 5956 nearest -- a tool, keep it in your bags
 
