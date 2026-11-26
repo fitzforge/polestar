@@ -378,11 +378,13 @@ flowchart TD
 - **The issue**: the title is the post's (text after the command
   overrides it, first line only). The body is "**Suggested by** *name* **on
   Discord**" (linked to the post, then the post's forum tags), the first
-  message quoted, and its files as for any post (the poster's images and
-  videos copied to the media branch, anyone's other files linked). Every
-  later message, from anyone, is a comment in order, headed by its author:
-  "**name** commented on Discord", the poster's "**name** (the reporter)
-  added on Discord", with their files as for #bugs follow-ups. Bots' messages,
+  message quoted. Every later message, from anyone, is a comment in order,
+  headed by its author: "**name** commented on Discord", the poster's
+  "**name** (the reporter) added on Discord". **Everyone's** images and
+  videos in the post, in the first message, the comments and later replies,
+  are copied to the media branch and embedded (same size limits and WebP
+  rule as for #bugs; a #bugs post copies only its poster's); other files stay
+  a link to the Discord message. Bots' messages,
   empty ones and the maintainer's `!report`/`!suggest` commands are not
   copied. Labels: `discord`, `triage`, `enhancement`, `idea` and the post's
   forum tags as a #bugs post's are (not the status tags). No `from-chat`
