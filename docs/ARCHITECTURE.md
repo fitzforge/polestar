@@ -9686,7 +9686,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
                                  farm = { count, minutes, kills, npc, map, lvl, second, above } | false,
                                  verdict = "buy"|"farm"|"pick"|"selfFound", long } } }, buyList = { count, copper } }
   turnin   = { quest, title, repeatable, items = { { item, count } }, rep, npc, map, ready }
-  more     = { { quest, title, rep, once, progress, from } }
+  more     = { { quest, title, rep, once, progress = { cur, max }, from, current, step, goalIndex }, covers = { goal index, ... } }
   brief    = { key, name, lo, hi, best, players, zone }      ready = { level, best, floor, group = { n, max, names } }
   pickups  = { held, total, missing = { { quest, title, npc, where, onWay, minutesOff, xp } } }
   entrance = { map, x, y, eta, cap = { used, max }, needs }

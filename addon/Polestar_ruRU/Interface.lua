@@ -636,6 +636,9 @@
 --   seen %d days ago
 --   seen %d h ago
 --   seen %d min ago
+--   %d more
+--   About %s for %d at your level.
+--   %d %s already made
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "ruRU") then return end
 local L = ns.L
@@ -5973,6 +5976,9 @@ L["repeats"] = "повторяется"
 L["seen %d days ago"] = "видели %d дн. назад"
 L["seen %d h ago"] = "видели %d ч назад"
 L["seen %d min ago"] = "видели %d мин назад"
+L["%d more"] = "ещё %d"
+L["About %s for %d at your level."] = "Около %s на %d на вашем уровне."
+L["%d %s already made"] = "%d %s уже изготовлено"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Заново настроить Polestar, страница за страницей. Каждый выбор действует сразу."

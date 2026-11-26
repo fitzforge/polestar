@@ -45,7 +45,7 @@ E.SetGuide("test/craft")
 stub.advance(1)
 local GF = Polestar.UI.GuideFrame
 local view = E.GetStepView(E.GetStepIndex())
-local function plain(s) return s and (s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) or s end
+local function plain(s) return s and (s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("\\194\\160", " ")) or s end
 ${body}`;
 
 const run = (setup, body) => runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar'], script: script(setup, body) }).emitted[0];
@@ -87,7 +87,7 @@ test('Mix buys a material whose farm takes over 45 minutes; no price is "No pric
 	// 200 min for the 206 the step still lacks (264 of its 288 once the crafts made to 87 are counted, less the 58 in
 	// the bags); the stretch lacks 226: 219 min.
 	assert.equal(wool.minutes, 219);
-	assert.equal(wool.text, 'Mix buys this: farming takes about 3 h 39 min at your level. Cloth from your route still counts.');
+	assert.equal(wool.text, 'Mix buys this: farming takes about 4 h at your level. Cloth from your route still counts.', 'past two hours the verdict says whole hours (3 h 39 min stays in the Farm column)');
 	assert.deepEqual(out.buyList, { count: 226, copper: false });
 });
 
@@ -103,11 +103,11 @@ test('a short farm stays a farm; a searched price shows; the player\'s pick wins
 	const picked = run('Polestar.Materials.SetWay("test/craft", 2592, "gather")', MODELS);
 	const kw = picked.rows.find((r) => r.item === 2592);
 	assert.deepEqual([kw.way, kw.verdict], ['gather', 'pick']);
-	assert.equal(kw.text, 'Your pick: farm. About 3 h 39 min for 226.');
+	assert.equal(kw.text, 'Your pick: farm. About 4 h for 226.');
 	const sf = run('C_PlayerInfo = C_PlayerInfo or {}; C_PlayerInfo.IsSelfFoundActive = function() return true end', MODELS);
 	const sw = sf.rows.find((r) => r.item === 2592);
 	assert.deepEqual([sw.way, sw.verdict, sw.buy], ['gather', 'selfFound', false]);
-	assert.equal(sw.text, 'Self-Found: you farm all of it.');
+	assert.equal(sw.text, 'About 4 h for 226 at your level.', 'Self-Found: the time farming all of it takes');
 });
 
 const WINDOW = `
@@ -132,7 +132,7 @@ test('the window: the regions in place of the step header, the split open on the
 	assert.equal(out.make, 'You can make 3 now');
 	assert.equal(out.count, '12 of about 47 made');
 	assert.equal(out.head, 'Materials to 115');
-	assert.match(out.verdict, /^Mix buys this: farming takes about 3 h 39 min/);
+	assert.match(out.verdict, /^Mix buys this: farming takes about 4 h/);
 	assert.ok(!out.xp || !String(out.xp).includes('Tailoring'), 'the skill sits in the meter, not the XP row');
 });
 
@@ -184,6 +184,111 @@ emit({ kind = E.GuideKind(), meter = { name = m.name, value = m.value, max = m.m
 	assert.equal(out.rows, 1);
 	assert.equal(out.need, 60);
 	assert.equal(out.more, 'The Balance of Nature');
+});
+
+const REP_SIDE = REP.replace(
+	'{ t = "rep", faction = 69, factionName = "Darnassus", standing = 6 } } },',
+	`{ t = "rep", faction = 69, factionName = "Darnassus", standing = 6 },
+			{ t = "accept", quest = 7800, title = "Friend of the Crown", npc = 14725, npcName = "Raedon Duskstriker" },
+			{ t = "turnin", quest = 7800, title = "Friend of the Crown", npc = 14725, npcName = "Raedon Duskstriker",
+				rewards = { rep = { { faction = 69, value = 500 } } } } } },`,
+);
+const repRun = (setup, body) => runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar'], script: `
+w = stub.world
+w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
+w.moveTo(1429, 48, 42)
+w.setLevel(24)
+Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
+Polestar.RegisterGuide(${REP_SIDE})
+stub.login()
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)
+Polestar.Set("ui.shown", true)
+w.setRep(69, "Darnassus", 5, 5150, 3000, 9000)
+w.items[2592] = 130
+${setup}
+local E = Polestar.Engine
+E.SetGuide("test/rep")
+stub.advance(1)
+local GF = Polestar.UI.GuideFrame
+local view = E.GetStepView(E.GetStepIndex())
+local function plain(s) return s and (s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("\\194\\160", " ")) or s end
+${body}` }).emitted[0];
+
+test('reputation: More reputation takes in the step\'s own quests that pay the faction; the step has no header or rows left', () => {
+	const out = repRun('', `
+local more = E.KindModel("more", view, "reputation")
+GF.Layout(); stub.advance(1)
+local meter, turnin, mf = GF.RegionFrame("meter"), GF.RegionFrame("turnin"), GF.RegionFrame("more")
+emit({ first = more[1].title, rep = more[1].rep, current = more[1].current or false, covers = more.covers, next = more[2] and more[2].title or false,
+	person = GF.parts.person:IsShown(), rowsShown = mf.psN, right = plain(mf.Rows[1].Right:GetText()),
+	value = meter.Value:GetText(), max = meter.Max:GetText(), line = plain(meter.Line:GetText()), check = turnin.Check:IsShown() })`);
+	assert.equal(out.first, 'Friend of the Crown');
+	assert.equal(out.rep, 500);
+	assert.equal(out.current, true);
+	assert.equal(out.covers.length, 2, 'its accept and its turn-in leave the card');
+	assert.equal(out.next, 'The Balance of Nature');
+	assert.equal(out.person, false, 'every goal of the step stands in a region: no header over them');
+	assert.match(out.right, /^\+500 once/);
+	assert.equal(out.value, '2,150');
+	assert.equal(out.max, '/ 6,000');
+	assert.equal(out.line, '3,850 to Honored', 'thousands as the client writes them');
+	assert.equal(out.check, true, 'a turn-in ready reads with the same check as "You can make 2 now"');
+});
+
+test('reputation, compact: the standing word, how many are ready or short, and no leftover goal rows', () => {
+	const out = repRun('Polestar.Set("ui.compact", true)', `
+GF.Layout(); stub.advance(1)
+local meter, turnin = GF.RegionFrame("meter"), GF.RegionFrame("turnin")
+emit({ name = meter.Name:GetText(), right = turnin.LineRight:GetText(), person = GF.parts.person:IsShown(),
+	more = GF.RegionFrame("more") and GF.RegionFrame("more"):IsShown() or false })`);
+	assert.equal(out.name, 'Friendly', 'the standing, not the faction\'s name');
+	assert.equal(out.right, '2 ready');
+	assert.equal(out.person, false);
+	assert.equal(out.more, false, 'the list itself waits for the standard window');
+	const short = repRun('Polestar.Set("ui.compact", true); w.items[2592] = 20', `
+GF.Layout(); stub.advance(1)
+emit({ right = GF.RegionFrame("turnin").LineRight:GetText() })`);
+	assert.equal(short.right, '40 more');
+});
+
+test('Self-Found: the row offers Farm alone, the Buy column is dimmed with no count; a made count is "10 made", never cut', () => {
+	const out = run('C_PlayerInfo = C_PlayerInfo or {}; C_PlayerInfo.IsSelfFoundActive = function() return true end', `
+GF.Layout(); stub.advance(1)
+local sup = GF.RegionFrame("supplies")
+local row = sup.Rows[1]
+emit({ toggle = row.Seg[1]:IsShown(), way = row.Way:IsShown() and row.Way:GetText() or false, flip = row.psPadFlipLabel(row) or false,
+	src = plain(row.Src:GetText()), tip = row.psMade, buyTitle = sup.Buy.Title:GetText(), buyBig = sup.Buy.Big:GetText(),
+	verdict = plain(sup.Verdict:GetText()), lines = sup.Verdict:GetNumLines() })`);
+	assert.equal(out.toggle, false);
+	assert.equal(out.way, 'Farm');
+	assert.equal(out.flip, false);
+	assert.equal(out.src.replace(/ +/g, ' '), 'bags 58 · bank 10 · 10 made');
+	assert.equal(out.tip, '10 Bolt of Woolen Cloth already made');
+	assert.equal(out.buyTitle, 'Buy');
+	assert.equal(out.buyBig, 'Not for Self-Found characters');
+	assert.match(out.verdict, /^About 4 h for 226 at your level\.$/);
+	assert.ok(out.lines <= 2, 'the advice is two lines at most');
+});
+
+test('the Farm column reads the zone first, then the level; Blizzard marks the chosen segment', () => {
+	const out = run('w.addMap(1433, { name = "Redridge Mountains", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 }); Polestar.Set("ui.skin", "blizzard")', `
+local real = E.KindModel
+E.KindModel = function(id, v, k)
+	local m = real(id, v, k)
+	if id == "supplies" and m then
+		m.rows[1].split.farm = { count = 226, minutes = 38, npc = "Blackrock Grunt", map = 1433, lvl = { min = 19, max = 23 }, step = 1, index = 1 }
+	end
+	return m
+end
+GF.Render(); GF.Layout(); stub.advance(1)
+local sup = GF.RegionFrame("supplies")
+local Fm = sup.Farm
+local marks = {}
+for k, b in ipairs(sup.Rows[1].Seg) do marks[k] = { b.psMarked or false, b.psUnder and b.psUnder:IsShown() or false } end
+emit({ zone = plain(Fm.Small2:GetText()), level = plain(Fm.psLevel:GetText()), marks = marks })`);
+	assert.equal(out.zone, 'Redridge Mountains');
+	assert.match(out.level, /^( {2}· {2})?lvl 19–23$/, 'after the zone on its line, or alone on the line under it where both do not fit');
+	assert.deepEqual(out.marks, [[true, true], [false, false]]);
 });
 
 test('gamepad: X on a material row flips its way (Buy to Farm), A opens its split', () => {

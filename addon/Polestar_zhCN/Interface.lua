@@ -553,6 +553,9 @@
 --   seen %d days ago
 --   seen %d h ago
 --   seen %d min ago
+--   %d more
+--   About %s for %d at your level.
+--   %d %s already made
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhCN") then return end
 local L = ns.L
@@ -5890,6 +5893,9 @@ L["repeats"] = "可重复"
 L["seen %d days ago"] = "%d 天前查看"
 L["seen %d h ago"] = "%d 小时前查看"
 L["seen %d min ago"] = "%d 分钟前查看"
+L["%d more"] = "还差 %d"
+L["About %s for %d at your level."] = "以你的等级，%2$d 个约需 %1$s。"
+L["%d %s already made"] = "已制作 %d 个%s"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐页重新设置 Polestar。每项选择立即生效。"

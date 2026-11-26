@@ -653,6 +653,9 @@
 --   seen %d days ago
 --   seen %d h ago
 --   seen %d min ago
+--   %d more
+--   About %s for %d at your level.
+--   %d %s already made
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "koKR") then return end
 local L = ns.L
@@ -5990,6 +5993,9 @@ L["repeats"] = "반복"
 L["seen %d days ago"] = "%d일 전에 확인"
 L["seen %d h ago"] = "%d시간 전에 확인"
 L["seen %d min ago"] = "%d분 전에 확인"
+L["%d more"] = "%d개 더"
+L["About %s for %d at your level."] = "내 레벨에서 %2$d개에 약 %1$s."
+L["%d %s already made"] = "%d개 %s 이미 제작됨"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar를 한 페이지씩 다시 설정합니다. 선택은 바로 적용됩니다."

@@ -1257,6 +1257,10 @@ uistub.update()`;
 function kindRep(state = 'short') {
 	return `${KIND_MAPS}
 ${TABS}
+local sg = uistub.guides[uistub.stormwindRep]
+-- The sample step's area goal is the guide's own business, not the cloth drive's: the step's goals are the
+-- standing, the wool and the drive's achievement, which More reputation takes in.
+table.remove(sg.steps[2].goals, 3)
 uistub.setGuide(uistub.stormwindRep, 2)
 local S = ${JSON.stringify(state)}
 local wool = { item = 2592, name = "Wool Cloth", have = S == "ready" and 60 or 30, need = 60, toGet = S == "ready" and 0 or 30,
@@ -1269,7 +1273,8 @@ local models = {
 	turnin = { quest = 7791, title = "A Donation of Wool", items = { { item = 2592, count = 60, name = "Wool Cloth" } }, npc = "Clavicus Knavingham", map = 1453,
 		ready = S == "ready" and 1 or 0, short = S ~= "ready" and { item = 2592, name = "Wool Cloth", count = 30 } or nil, step = 2, goalIndex = 2 },
 	supplies = { title = "Honored", titleKind = "standing", items = { { item = 2592, name = "Wool Cloth", count = 60 } }, way = "mix", rows = { wool }, choosable = true },
-	more = { { quest = 7793, title = "A Donation of Silk", once = true }, { quest = 7794, title = "A Donation of Mageweave", once = true },
+	more = { covers = { 3 }, { quest = 9001, title = "Friend of the Crown", rep = 500, once = true, progress = { cur = 3, max = 5 }, current = true, step = 2, goalIndex = 3 },
+		{ quest = 7793, title = "A Donation of Silk", once = true }, { quest = 7794, title = "A Donation of Mageweave", once = true },
 		{ quest = 7795, title = "A Donation of Runecloth", once = true } },
 }
 local E = Polestar.Engine

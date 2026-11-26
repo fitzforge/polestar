@@ -427,6 +427,9 @@
 --   seen %d days ago
 --   seen %d h ago
 --   seen %d min ago
+--   %d more
+--   About %s for %d at your level.
+--   %d %s already made
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "deDE") then return end
 local L = ns.L
@@ -5760,6 +5763,9 @@ L["repeats"] = "wiederholbar"
 L["seen %d days ago"] = "vor %d Tagen gesehen"
 L["seen %d h ago"] = "vor %d Std. gesehen"
 L["seen %d min ago"] = "vor %d Min. gesehen"
+L["%d more"] = "noch %d"
+L["About %s for %d at your level."] = "Etwa %s für %d auf deiner Stufe."
+L["%d %s already made"] = "%d %s bereits hergestellt"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar neu einrichten, eine Seite nach der anderen. Jede Wahl wirkt sofort."

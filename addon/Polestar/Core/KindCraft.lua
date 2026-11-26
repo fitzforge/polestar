@@ -176,7 +176,15 @@ local function nextTrain(index, cap)
 	return nil
 end
 
-local RANK_TITLES = { "Apprentice", "Journeyman", "Expert", "Artisan" }
+-- A profession rank's title, a literal key each (the translations' check finds only those).
+local function rankTitle(rank)
+	local L = ns.L
+	if rank == 1 then return L["Apprentice"] end
+	if rank == 2 then return L["Journeyman"] end
+	if rank == 3 then return L["Expert"] end
+	if rank == 4 then return L["Artisan"] end
+	return nil
+end
 
 -- Where a goal is done: its chosen candidate's NPC and map, else the goal's own.
 local function placeOf(goal)
@@ -453,7 +461,7 @@ M.trainer = function(view, kind)
 	local npc, map = placeOf(tr.goal)
 	local due = not rank or (rank or 0) >= tr.level or (rank and cap and rank >= cap) or false
 	local gate = b.gate
-	return { title = RANK_TITLES[tr.rank or 0] and ns.L[RANK_TITLES[tr.rank]] or tostring(tr.goal.rank or ""), rank = tr.rank, level = tr.level,
+	return { title = rankTitle(tr.rank) or tostring(tr.goal.rank or ""), rank = tr.rank, level = tr.level,
 		npc = npc, map = map, due = due, toGo = max(0, tr.level - (rank or 0)), step = tr.s, goalIndex = tr.g,
 		needsLevel = gate and gate.step == tr.s and gate.level or nil, covers = covers }
 end
@@ -728,6 +736,9 @@ function KC.RepSupplies(view)
 		items = t.items, way = mode, rows = rows, focus = focus, buyList = buyListOf(rows), selfFound = Materials.SelfFound(), covers = {} }
 end
 
+-- "More reputation": the step's own other quests that pay this faction (beside the turn-in card: each with its
+-- progress; their goal rows, and with them the step's header, leave the card), then the quests of the steps
+-- ahead. `covers`: the step's goals the rows stand for.
 M.more = function(view, kind)
 	if kind ~= "reputation" then return nil end
 	local goal = repGoal(view)
@@ -735,11 +746,49 @@ M.more = function(view, kind)
 	local a = access()
 	local G = a.guide()
 	local here = view and view.index or 1
-	local out, seen = {}, {}
+	local out, seen, covers = {}, {}, {}
+	local function finish()
+		if #out == 0 then return nil end
+		out.covers = covers
+		return out
+	end
+	local step = G.steps[here]
+	local t = step and stepTurnin(view, goal.faction)
+	if t then
+		local taken = {}
+		for _, gi in ipairs(t.covers) do taken[gi] = true end
+		for _, gi in ipairs(coverTypes(view, { rep = true })) do taken[gi] = true end
+		for gi, o in ipairs(step.goals or {}) do
+			if #out < 4 and not taken[gi] and o.quest and not seen[o.quest] and a.goalApplies(o) then
+				-- Every goal of the quest in this step (its accept, its objectives, its turn-in): the reputation is
+				-- on whichever the guide or the Codex gives it to.
+				local mine, rep, progress, open = {}, nil, nil, false
+				for gj, p in ipairs(step.goals) do
+					if p.quest == o.quest and not taken[gj] and a.goalApplies(p) then
+						mine[#mine + 1] = gj
+						rep = rep or repValue(p, o.quest, goal.faction)
+						local gv = view.goals and view.goals[gj]
+						local st = gv and gv.status
+						if st ~= "done" and st ~= "skipped" and st ~= "na" then open = true end
+						if gv and type(gv.progress) == "table" and p.t ~= "accept" and p.t ~= "turnin" and not progress then
+							progress = { cur = gv.progress.cur, max = gv.progress.max }
+						end
+					end
+				end
+				if rep and open then
+					seen[o.quest] = true
+					local rec = ns.Codex and ns.Codex.Quest and ns.Codex.Quest(o.quest)
+					out[#out + 1] = { quest = o.quest, title = o.title or (rec and rec.title) or ("#" .. o.quest), rep = rep,
+						once = not (o.repeatable or (rec and rec.repeatable)), progress = progress, current = true, step = here, goalIndex = gi }
+					for _, gj in ipairs(mine) do covers[#covers + 1] = gj end
+				end
+			end
+		end
+	end
 	for s = here + 1, #G.steps do
-		local step = G.steps[s]
-		if a.stepApplies(step) then
-			for g, o in ipairs(step.goals or {}) do
+		local ahead = G.steps[s]
+		if a.stepApplies(ahead) then
+			for g, o in ipairs(ahead.goals or {}) do
 				if o.t == "turnin" and o.quest and not seen[o.quest] and a.goalApplies(o) and not a.goalDone(s, g, o) then
 					seen[o.quest] = true
 					local rec = ns.Codex and ns.Codex.Quest and ns.Codex.Quest(o.quest)
@@ -748,12 +797,12 @@ M.more = function(view, kind)
 					if from and standing and rec.repStanding <= standing then from = nil end
 					out[#out + 1] = { quest = o.quest, title = o.title or (rec and rec.title) or ("#" .. o.quest), rep = repValue(o, o.quest, goal.faction),
 						once = not (o.repeatable or (rec and rec.repeatable)), from = from, step = s }
-					if #out >= 4 then return out end
+					if #out >= 4 then return finish() end
 				end
 			end
 		end
 	end
-	return #out > 0 and out or nil
+	return finish()
 end
 
 return KC
