@@ -5528,30 +5528,6 @@ L["Free mode: follow your own quests (on, off, nearest, xp)"] = "Freimodus: dein
 L["Start quest guide"] = "Quest-Guide starten"
 L["Click to show quest guide actions."] = "Klicken, um die Aktionen des Quest-Guides zu zeigen."
 
--- Handins.lua
-L["Travel time to this hand-in is unknown. Its location is still shown."] = "Die Reisezeit zu dieser Abgabe ist unbekannt. Ihr Ort wird trotzdem angezeigt."
-L["Hand-ins without a known location"] = "Abgaben ohne bekannten Ort"
-L["Refining the travel order. Travel times are estimates."] = "Die Reihenfolge wird verfeinert. Reisezeiten sind Schätzungen."
-L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = "Die Reiseschätzungen sind unvollständig. Die Reihenfolge nutzt die vorhandenen Schätzungen und ungefähre Entfernungen."
-L["Waiting for your quest log."] = "Warte auf dein Questlog."
-L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = "Der Abgabe-Guide konnte nicht geladen werden. Prüfe, ob das Addon Polestar_Codex installiert und aktiviert ist."
-
--- Free.lua
-L["Low drop rate: %s"] = "Seltene Beute: %s"
-L["1 quest for your level: %s gives it."] = "1 Quest für deine Stufe: %s vergibt sie."
-L["%d quests for your level, all here."] = "%d Quests für deine Stufe, alle hier."
-L["%d quests for your level, %d of them here."] = "%d Quests für deine Stufe, %d davon hier."
-L["Quests for your level"] = "Quests für deine Stufe"
-L["About %s XP a minute"] = "Etwa %s EP pro Minute"
-L["Order: nearest first"] = "Reihenfolge: nächste zuerst"
-L["Order: most XP a minute first"] = "Reihenfolge: meiste EP pro Minute zuerst"
-L["Bring back left-out quests (%d)"] = "Ausgelassene Quests zurückholen (%d)"
-L["Unpin"] = "Lösen"
-L["Pin to the top"] = "Ganz nach oben heften"
-L["Free mode takes this quest first, whatever the order."] = "Der Freimodus nimmt diese Quest zuerst, egal in welcher Reihenfolge."
-L["Leave out of Free mode"] = "Aus dem Freimodus auslassen"
-L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "Der Freimodus führt diese Quest nicht mehr auf. „Ausgelassene Quests zurückholen“ im Menü führt sie wieder auf."
-
 -- Lookup/Spotter.lua
 -- L["Ctrl+Alt-click: guide me"] = ""
 
