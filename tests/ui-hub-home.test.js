@@ -273,8 +273,8 @@ test('a new character: Start here with Load guide, the other guides for the leve
 		['Exploration: Eastern Kingdoms 1-30', 'Fits level 4'],
 		['Legacy Challenges', 'Fits level 4'],
 	]);
-	assert.deepEqual(out.acts.map((a) => [a.text, a.count]), [['Leveling', '6'], ['Professions', '3'], ['Import', false]],
-		'the categories with guides for this character (the scenes have no Class guide), then Import');
+	assert.deepEqual(out.acts.map((a) => [a.text, a.count]), [['Leveling', '6'], ['Professions', '3'], ['Import a guide', false]],
+		'the categories with guides for this character (the scenes have no Class guide), then Import a guide (Settings)');
 	assert.ok(out.acts.every((a) => a.x >= 32), 'on the text column');
 	const find = out.labels.find((l) => l.text === 'Find more');
 	assert.equal(out.acts[0].y, find.y + 16 + 8);
