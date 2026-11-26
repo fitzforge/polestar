@@ -8,7 +8,7 @@ const { parseArgs } = require('node:util');
 const { ROOT, DATA } = require('../lib/paths');
 
 const usage = `usage: node tools/polestar.js profession draft <Profession> [options]
-       node tools/polestar.js profession gathering build|check|abundance|spots [options]
+       node tools/polestar.js profession gathering build|check|abundance|nodes|spots|waters [options]
 
 (profession build was retired: forge data professions [--data DIR] [--sources DIR] [--build V] [--out FILE])
 
@@ -22,8 +22,8 @@ checkpoints at 75/150/225/300.
   --out [file]         write the guide (default guides/forever/professions/<name>.guide)
   --quiet              no plan summary on stderr
 
-gathering build: rewrites the six generated guides in guides/forever/professions
-(mining, herbalism, skinning, fishing, cooking, first-aid) from their specs in
+gathering build: rewrites the seven generated guides in guides/forever/professions
+(mining, herbalism, skinning, fishing, cooking, first-aid, fishing-cooking) from their specs in
 tools/lib/professions/gathering/specs.js and data/forever (node spawns,
 professions, items, npcs, objects). Run \`compile\` afterwards.
 gathering check: builds them in memory and exits 1 when a committed guide
@@ -31,12 +31,22 @@ differs (writes nothing).
 gathering abundance: rewrites tools/lib/professions/gathering/node-abundance.json,
 the nodes of each kind a zone holds at once, from the spawn pools of the
 Forever TrinityCore world database (data/local/forever-tdb/world.sqlite).
+gathering nodes: rewrites tools/lib/professions/gathering/gathering-nodes.json,
+every herb and ore spawn of the world database with the chance the spawn pools
+keep it up, and what a node or a skinned beast gives from players' gathers in
+the recordings archive's session files (--recordings): the farming loops of the
+Herbalism, Mining and Skinning guides.
 gathering spots: rewrites addon/Polestar/Core/GatherData.lua, where each herb,
 ore and fishing pool can spawn and the skill it asks, for While you're here's
 gathering spots (--check: exit 1 when it differs, writes nothing).
+gathering waters: rewrites tools/lib/professions/gathering/fishing-waters.json,
+each zone's fishing loot and the Fishing skill from which it loses no fish
+(the world database), and where players stood when they caught fish (the
+recordings archive's session files, --recordings).
 
   --data <dir>         reference data (default data/forever)
-  --tdb <file>         world database (abundance only)
+  --tdb <file>         world database (abundance, nodes and waters)
+  --recordings <dir>   the recordings archive's session files (nodes and waters)
   --stdout             print the guides instead of writing them (build only)
   --check              compare instead of writing (spots only)`;
 
@@ -89,19 +99,24 @@ function runGathering(rest) {
 	let values;
 	let positionals;
 	try {
-		({ values, positionals } = parseArgs({ args: rest, options: { data: { type: 'string' }, stdout: { type: 'boolean' }, tdb: { type: 'string' }, check: { type: 'boolean' } }, allowPositionals: true, strict: true }));
+		({ values, positionals } = parseArgs({ args: rest, options: { data: { type: 'string' }, stdout: { type: 'boolean' }, tdb: { type: 'string' }, recordings: { type: 'string' }, check: { type: 'boolean' } }, allowPositionals: true, strict: true }));
 	} catch (err) {
 		return fail(err.message);
 	}
 	const [mode, ...extra] = positionals;
-	if (mode !== 'build' && mode !== 'check' && mode !== 'abundance' && mode !== 'spots') return fail(mode ? `unknown gathering subcommand "${mode}"` : 'gathering needs build, check, abundance or spots');
+	if (!['build', 'check', 'abundance', 'nodes', 'spots', 'waters'].includes(mode)) return fail(mode ? `unknown gathering subcommand "${mode}"` : 'gathering needs build, check, abundance, nodes, spots or waters');
 	if (extra.length) return fail(`unexpected argument "${extra[0]}"`);
 	if (values.stdout && mode !== 'build') return fail('--stdout goes with gathering build');
-	if (values.tdb && mode !== 'abundance') return fail('--tdb goes with gathering abundance');
+	if (values.tdb && mode !== 'abundance' && mode !== 'waters' && mode !== 'nodes') return fail('--tdb goes with gathering abundance, nodes or waters');
+	if (values.recordings && mode !== 'waters' && mode !== 'nodes') return fail('--recordings goes with gathering nodes or waters');
+	if ((mode === 'waters' || mode === 'nodes') && !values.recordings) return fail(`gathering ${mode} needs --recordings <dir>`);
 	if (values.check && mode !== 'spots') return fail('--check goes with gathering spots');
 	const { context } = require('../lib/professions/gathering/common');
 	const ctx = context(values.data ? path.resolve(values.data) : undefined);
-	if (mode === 'abundance') return writeAbundance(ctx, values.tdb ? path.resolve(values.tdb) : path.join(ROOT, 'data', 'local', 'forever-tdb', 'world.sqlite'));
+	const tdb = values.tdb ? path.resolve(values.tdb) : path.join(ROOT, 'data', 'local', 'forever-tdb', 'world.sqlite');
+	if (mode === 'abundance') return writeAbundance(ctx, tdb);
+	if (mode === 'waters') return writeWaters(ctx, tdb, path.resolve(values.recordings));
+	if (mode === 'nodes') return writeNodes(ctx, tdb, path.resolve(values.recordings));
 	const { reportSync } = require('../lib/generated');
 	if (mode === 'spots') {
 		const S = require('../lib/professions/gathering/spots');
@@ -132,6 +147,30 @@ function writeAbundance(ctx, tdb) {
 	lines.push('\t}', '}', '');
 	fs.writeFileSync(A.FILE, lines.join('\n'));
 	console.error(`wrote ${path.relative(process.cwd(), A.FILE)}: ${ids.length} zones`);
+	return 0;
+}
+
+// gathering-nodes.json: one line per zone map and node kind, per yield and per skin level.
+function writeNodes(ctx, tdb, recordingsDir) {
+	if (!fs.existsSync(tdb)) return fail(`${path.relative(process.cwd(), tdb)} missing`);
+	if (!fs.existsSync(recordingsDir)) return fail(`${recordingsDir} missing`);
+	const N = require('../lib/professions/gathering/nodes');
+	const table = N.derive({ tdbFile: tdb, recordingsDir, objects: ctx.data.objects, npcs: ctx.data.npcs, project: ctx.project, frames: ctx.data.mapFrames || ctx.data['map-frames'] || {} });
+	fs.writeFileSync(N.FILE, N.render(table));
+	const spawns = Object.values(table.maps).reduce((s, z) => s + Object.values(z.kinds).reduce((t, k) => t + (k.pts ? k.pts.split(' ').length : 0), 0), 0);
+	console.error(`wrote ${path.relative(process.cwd(), N.FILE)}: ${Object.keys(table.maps).length} zones, ${spawns} spawns, ${Object.keys(table.yields).length} node kinds and ${Object.keys(table.skins).length} beast levels with yields`);
+	return 0;
+}
+
+// fishing-waters.json: one line per zone's numbers and one per stand.
+function writeWaters(ctx, tdb, recordingsDir) {
+	if (!fs.existsSync(tdb)) return fail(`${path.relative(process.cwd(), tdb)} missing`);
+	if (!fs.existsSync(recordingsDir)) return fail(`${recordingsDir} missing`);
+	const Wt = require('../lib/professions/gathering/waters');
+	const table = Wt.derive({ tdbFile: tdb, recordingsDir, zones: ctx.data.zones, project: ctx.project });
+	fs.writeFileSync(Wt.FILE, Wt.render(table));
+	const maps = Object.values(table.maps);
+	console.error(`wrote ${path.relative(process.cwd(), Wt.FILE)}: ${maps.length} zones, ${maps.reduce((s, z) => s + (z.stands || []).length, 0)} stands`);
 	return 0;
 }
 

@@ -217,46 +217,36 @@ return {
 	-- {item:16217} Formula: Enchant Shield - Greater Stamina · {spell:20017} Enchant Shield - Greater Stamina · {skill:333} Enchanting · {npc:4229} Mythrin'dir · {zone:1457} Darnassus · {npc:4561} Daniel Bartlett · {zone:1458} Undercity
 	["{item:16217} teaches {spell:20017} ({skill:333} 265) for 1g 20s. Sold by Alliance: {npc:4229} ({zone:1457}), limited stock; Horde: {npc:4561} ({zone:1458}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "{item:16217} bringt dir {spell:20017} ({skill:333} 265) für 1g 20s bei. Verkauft von Allianz: {npc:4229} ({zone:1457}), begrenzter Vorrat; Horde: {npc:4561} ({zone:1458}), begrenzter Vorrat. Die Händler haben ein oder zwei auf Lager, die einige Zeit nach einem Verkauf wiederkommen; es ist beim Aufheben gebunden, das Auktionshaus hat es also nie.",
 
-	-- Step 37: Get Purple Lotus (Alliance)
+	-- Step 37: Get Purple Lotus
 	-- {item:8831} Purple Lotus
-	-- was: ["{item:8831} (Alliance)"] = "{item:8831} (Allianz)"
-	["Get {item:8831} (Alliance)"] = "",
+	["Get {item:8831}"] = "",
 	-- {item:8831} Purple Lotus · {skill:333} Enchanting · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	-- was: ["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked."] = "34 {item:8831} für {item:20747}: {skill:182}: {item:8831} (Fertigkeit 210) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55). Das dichteste Vorkommen von {item:8831} in {zone:1425} ist markiert."
-	["You need 34 {item:8831} for {skill:333} 225-300: {item:20747}. {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked. Or buy them at the Auction House."] = "",
+	["You need 34 {item:8831} for {skill:333} 225-300: {item:20747}. {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 38: Get Purple Lotus (Horde)
-	-- {item:8831} Purple Lotus
-	-- was: ["{item:8831} (Horde)"] = "{item:8831} (Horde)"
-	["Get {item:8831} (Horde)"] = "",
-	-- {item:8831} Purple Lotus · {skill:333} Enchanting · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	-- was: ["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked."] = "34 {item:8831} für {item:20747}: {skill:182}: {item:8831} (Fertigkeit 210) in {zone:1425} (40-50), {zone:1444} (40-50) und {zone:1447} (45-55). Das dichteste Vorkommen von {item:8831} in {zone:1444} ist markiert."
-	["You need 34 {item:8831} for {skill:333} 225-300: {item:20747}. {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked. Or buy them at the Auction House."] = "",
-
-	-- Step 39: Get Vision Dust
+	-- Step 38: Get Vision Dust
 	-- {item:11137} Vision Dust · {skill:333} Enchanting · {spell:13815} Enchant Gloves - Agility
 	["You need 39 {item:11137} for {skill:333} 225-300: {spell:13815}. {skill:333}: disenchant green items of item level 31-40. Or buy them at the Auction House."] = "",
 
-	-- Step 40: Get Dream Dust
+	-- Step 39: Get Dream Dust
 	-- {item:11176} Dream Dust
 	["Get {item:11176}"] = "",
 	-- {item:11176} Dream Dust · {skill:333} Enchanting · {item:20747} Lesser Mana Oil · {spell:20017} Enchant Shield - Greater Stamina
 	["You need 208 {item:11176} for {skill:333} 225-300: {item:20747} and {spell:20017}. {skill:333}: disenchant green items of item level 41-50. Or buy them at the Auction House."] = "",
 
-	-- Step 41: Enchant Gloves - Agility to 253
+	-- Step 40: Enchant Gloves - Agility to 253
 	-- {spell:13815} Enchant Gloves - Agility
 	["{spell:13815} to 253"] = "{spell:13815} bis 253",
 	-- {spell:13815} Enchant Gloves - Agility · {item:11137} Vision Dust · {npc:11073} Annora
 	["{spell:13815} is orange at 225 (yellow 230, green 250, grey 270): about 39 crafts to 253. Each takes 1 {item:11137}. {npc:11073} teaches it with Artisan: learn it on that visit. {item:11137} again; bring about 40. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13815} ist bei 225 orange (gelb 230, grün 250, grau 270): etwa 39 Herstellungen bis 253. Jede benötigt 1 {item:11137}. {npc:11073} bringt es mit der Meisterstufe bei: Lerne es bei diesem Besuch. Wieder {item:11137}; bring etwa 40 mit. Verzauber irgendeinen Gegenstand für diesen Platz in deinen Taschen, auch einen grauen.",
 
-	-- Step 42: Lesser Mana Oil to 275
+	-- Step 41: Lesser Mana Oil to 275
 	-- {item:20747} Lesser Mana Oil
 	["{item:20747} to 275"] = "{item:20747} bis 275",
 	-- {item:20747} Lesser Mana Oil · {item:11176} Dream Dust · {item:8831} Purple Lotus · {item:8925} Crystal Vial · {npc:15419} Kania · {area:3425} Cenarion Hold · {zone:1451} Silithus
 	["{item:20747} is orange at 253 (yellow 260, green 270, grey 280): about 34 crafts to 275. Each takes 1 {item:11176}, 1 {item:8831} and 1 {item:8925}. One {item:11176} (level 41-50 greens) and one {item:8831} (herbalists) a craft; the oil sells well. {npc:15419} sells the formula at the inn of {area:3425} ({zone:1451}): fly there, the mobs around it are level 55 and up."] = "{item:20747} ist bei 253 orange (gelb 260, grün 270, grau 280): etwa 34 Herstellungen bis 275. Jede benötigt 1 {item:11176}, 1 {item:8831} und 1 {item:8925}. Ein {item:11176} (grüne Gegenstände der Stufen 41-50) und ein {item:8831} (von Kräuterkundigen) pro Herstellung; das Öl verkauft sich gut. {npc:15419} verkauft die Formel im Gasthaus von {area:3425} ({zone:1451}): Flieg hin, die Mobs in der Umgebung sind Stufe 55 und höher.",
 	["from the recipe in your bags"] = "aus dem Rezept in deinen Taschen",
 
-	-- Step 43: Enchant Shield - Greater Stamina to 300
+	-- Step 42: Enchant Shield - Greater Stamina to 300
 	-- {spell:20017} Enchant Shield - Greater Stamina
 	["{spell:20017} to 300"] = "{spell:20017} bis 300",
 	-- {spell:20017} Enchant Shield - Greater Stamina · {item:11176} Dream Dust · {skill:333} Enchanting

@@ -468,6 +468,17 @@ Own.PACKED = { __index = function(goal, k)
 	return spots
 end }
 
+-- A farming loop candidate's stops (`spotsPacked`: `loop <zone> …`, docs/GUIDE_FORMAT.md "Farming
+-- loops") as spawn areas, built once and shared like a goal's (Own.spotsShared). Nil for none.
+function Guides.CandidateSpots(c)
+	local s = type(c) == "table" and rawget(c, "spotsPacked")
+	if type(s) ~= "string" then return nil end
+	local lists = sharedSpots(c)
+	local spots = lists[s] or Own.unpackSpots(s)
+	if spots then lists[s] = spots end
+	return spots
+end
+
 -- Checked steps: their goals with packed spots read them through Own.PACKED.
 function Own.packedGoals(steps)
 	for _, step in ipairs(steps) do
@@ -550,6 +561,10 @@ local function checkGoal(goal)
 			if type(c) ~= "table" or not (isNum(c.map) and isNum(c.x) and isNum(c.y)) then return "bad candidate " .. i end
 			if c.faction ~= nil and c.faction ~= "A" and c.faction ~= "H" and c.faction ~= "AH" then
 				return "bad candidate faction " .. i
+			end
+			-- A farming loop: its lap in seconds, what a lap gives and its stops.
+			if c.spotsPacked ~= nil and not (Own.spotsPackedOk(c.spotsPacked) and isNum(c.lap) and c.lap > 0 and (isNum(c.gain) or isNum(c.yield))) then
+				return "bad candidate loop " .. i
 			end
 		end
 	end
