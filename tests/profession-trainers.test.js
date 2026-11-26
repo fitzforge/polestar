@@ -173,8 +173,9 @@ test("Pyzx's report (#1956): recipes only the Artisan trainers teach are learned
 test('the Artisan Blacksmithing visit learns Brikk’s recipes from him for both factions (#3136)', () => {
 	const guide = fs.readFileSync(path.join(__dirname, '..', 'guides', 'forever', 'professions', 'blacksmithing.guide'), 'utf8');
 	const visit = guide.split('\nstep Artisan Blacksmithing\n')[1].split('\nstep ')[0];
-	// Heavy Mithril Boots (9968) is learned at 215 now, from Brikk too (the #1956 test above).
-	for (const spell of [16639, 16640, 10001]) {
+	// Heavy Mithril Boots (9968) is learned at 215 now, from Brikk too (the #1956 test above). Dense Grinding
+	// Stone (16639) carries 225-235: the axes of 250-285 take the stones.
+	for (const spell of [16639, 10001]) {
 		const learns = visit.split('\n').filter((line) => new RegExp(`^\\s*learn ${spell}\\b`).test(line));
 		assert.deepEqual(learns, ['Alliance', 'Horde'].map((side) => `  learn ${spell} npc 2836 only ${side}`));
 	}

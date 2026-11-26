@@ -168,7 +168,7 @@ const SPECS = {
 			9928: 'Six Mithril Bars and four Mageweave Cloth a craft; Bengus Deepforge (Ironforge) and Saru Steelfury (Orgrimmar) teach it from 180.',
 			7223: 'Steel Bars are smelted from an Iron Bar and a Coal (Mining 165; Coal from trade and blacksmithing suppliers), so each bracer is five of each. Each bracer takes two Heavy Grinding Stones: make them first.',
 			9959: 'Sixteen Mithril Bars a craft and nothing else; orange to 225 on Forever, so a point every craft to the Artisan cap.',
-			16640: 'One Dense Stone a craft (Thorium veins): cheap points at the start of Artisan.',
+			16639: 'Four Dense Stones a craft (Thorium veins). Keep the stones: the thorium axes from 250 take two and six each, so these points cost no extra stone.',
 			9968: 'Mithril Bars from Mithril Deposits; Thick Leather from skinners or the Auction House.',
 			10001: 'Only about 11 crafts to bridge 247-250, but each wants four Shadowgems (about one Tin Vein in a hundred) and a Black Pearl: buy those at the Auction House unless your bags already hold them.',
 			16969: 'Large Opal turns up in about one Thorium vein in 130: buy the ten at the Auction House. Five crafts only, until the battleaxe plans can be used at 255.',
@@ -339,6 +339,12 @@ const SPECS = {
 		// 44 and 225 at 47. Mageweave (35-50) carries 205-225 as both web routes do, and the
 		// Runecloth recipes start with Artisan.
 		notBefore: { 18401: 225, 18402: 225 },
+		// Azure Silk Hood (two silk bolts, orange to 130) carries 120-135: about 16 crafts and 130 Silk Cloth,
+		// where Stylish Red Shirt (three woolen bolts, green from 127) takes about 32 and 290 Wool Cloth. The
+		// copper costs price a Silk Cloth at twice a Wool Cloth, yet a piece of either takes about as many
+		// kills at the level it drops; players' recordings make the hood the most-crafted recipe of 120-135
+		// (27 tailors, against 14 for the shirt), after the silk bolts that carry 100-120.
+		use: [{ spell: 8760, from: 120, to: 135 }],
 		// No Auction House pattern: the furthest a pattern anyone can always get goes is Runecloth Boots to
 		// 280. Mooncloth (Qia, Evie Whirlbrew) is no way through: one craft every four days, about a month
 		// for its last five points; nothing else without a station, a reputation or a drop gives points.
@@ -359,11 +365,12 @@ const SPECS = {
 			},
 		},
 		tips: {
-			2963: 'The bolts give points too while they are not grey.',
+			2963: 'Keep the bolts: the Linen Belts from 15 take one each.',
 			8776: 'Each belt takes one bolt; the belts sell to vendors.',
-			2402: 'Bolt of Woolen Cloth is taught from 55 on Forever.',
-			3866: 'Three woolen bolts and two Red Dye a shirt; Wool Cloth drops from humanoids of level 15-30.',
-			3871: 'Silk bolts from here on: Silk Cloth drops from humanoids of level 25-45. Bleach from tailoring and trade supplies vendors.',
+			2964: 'Keep the bolts: the Woolen Capes from 75 take one each, so these points cost no extra Wool Cloth.',
+			3839: 'Silk Cloth drops from humanoids of level 25-45. Keep every bolt: the hoods and shirts to 150 take them, so these points cost no extra Silk Cloth.',
+			8760: 'Two silk bolts and two Blue Dye a hood: orange to 130, a point every craft.',
+			3871: 'Bleach from tailoring and trade supplies vendors.',
 			18401: 'Runecloth comes from humanoids of level 45-60.',
 			18402: 'Rune Thread from tailoring vendors.',
 			18417: 'Qia in Everlook keeps one pattern at a time; the Timbermaw Hold tunnel from Felwood is the road in, so never kill Timbermaw furbolgs on the way.',

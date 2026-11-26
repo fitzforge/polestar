@@ -202,8 +202,8 @@ test('a bracket of a rank few trainers teach goes to one trainer per side; Tailo
 	const horde = (re) => expert.lines.filter((l) => re.test(l) && / only Horde/.test(l)).map((l) => / npc (\d+)/.exec(l)[1]);
 	assert.equal(new Set([...horde(/^train /), ...horde(/^learn 3865 /)]).size, 1, 'Bolt of Mageweave at the Expert trainer');
 	const silk = steps(t).findIndex((s) => s.lines.includes('learn 3839'));
-	const shirt = steps(t).findIndex((s) => s.lines.some((l) => /^craft 3866 until/.test(l)));
-	assert.ok(silk >= 0 && silk < shirt, 'Bolt of Silk Cloth learned before the Stylish Red Shirts');
+	const bolts = steps(t).findIndex((s) => s.lines.some((l) => /^craft 3839 /.test(l)));
+	assert.ok(silk >= 0 && silk < bolts, 'Bolt of Silk Cloth learned on the visit before the silk bolts carry 100-120');
 });
 
 test('a fork: path A and path B steps carry their when, and each path reaches 300 or says what is left', { skip }, () => {
@@ -219,6 +219,36 @@ test('a fork: path A and path B steps carry their when, and each path reaches 30
 		for (const w of [`when knows ${key}`, `when !knows ${key}`]) {
 			const path = after.filter((s) => s.lines[0] === w);
 			assert.ok(path.some((s) => s.lines.some((l) => /^skill \S+ 300$/.test(l))), `${name} ${w}: reaches 300`);
+		}
+	}
+});
+
+// Fitz, 0.4.4 try 4: "624 Wool Cloth to get from 75-150 is absurd". The bolts a later stretch needs anyway are
+// made while they still give points (plan.js `later`): Bolt of Silk Cloth carries 100-120 and the bolts go into
+// the hoods and shirts, Azure Silk Hood 120-135 (players' recordings: the most-crafted recipe there).
+test('Tailoring 75-150 levels on the bolts the later stretches use: under 300 Wool Cloth, no Stylish Red Shirt grind', { skip }, () => {
+	const all = steps(read('tailoring'));
+	const band = all.filter((s) => s.section && s.section[0] === 75 && s.section[1] === 150);
+	const wool = band.find((s) => s.title === 'Get Wool Cloth');
+	const n = Number(/^collect 2592 x(\d+)/.exec(wool.lines.find((l) => /^collect 2592 /.test(l)))[1]);
+	assert.ok(n <= 300, `75-150 asks ${n} Wool Cloth`);
+	assert.ok(band.some((s) => s.lines.some((l) => /^craft 3839 until 120$/.test(l))), 'Bolt of Silk Cloth to 120');
+	assert.ok(band.some((s) => s.lines.some((l) => /^craft 8760 until 135$/.test(l))), 'Azure Silk Hood to 135');
+	assert.ok(!band.some((s) => s.lines.some((l) => /^craft 3866 until/.test(l))), 'no Stylish Red Shirt stretch');
+});
+
+// Every Get it step's tip starts with why: the count, the band and the crafts it goes into ("57 Wool Cloth for
+// Tailoring 75-150: 40 Woolen Capes."), the count the same as its collect line's.
+test('every Get it step leads with its count and what it is for', { skip }, () => {
+	for (const name of CRAFTING) {
+		for (const s of steps(read(name)).filter((x) => /^Get /.test(x.title))) {
+			const collect = s.lines.find((l) => /^collect \d+ x\d+/.test(l));
+			if (!collect) continue;
+			const tip = s.lines.find((l) => /^tip /.test(l));
+			const m = /^tip (\d+) (.+?) for \S+(?: \S+)? (\d+)-(\d+): ([^.]+)\./.exec(tip || '');
+			assert.ok(m, `${name} ${s.title}: ${tip}`);
+			assert.equal(m[1], /x(\d+)/.exec(collect)[1], `${name} ${s.title}: the tip's count is the collect's`);
+			assert.ok(s.title.startsWith(`Get ${m[2]}`), `${name} ${s.title}: names its material`);
 		}
 	}
 });
