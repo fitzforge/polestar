@@ -169,9 +169,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		return b
 	end
 
-	-- A tab's glyph: its guide's category glyph, as the picker draws it.
+	-- A tab's glyph: a planned guide's own (Free mode, the hand-in route), else
+	-- its guide's category glyph, as the picker draws it.
 	local function tabIcon(t, guide)
-		return UI.CategoryIcon(guide or (ns.Guides and ns.Guides.Get and ns.Guides.Get(t.guideId)) or t.category, true)
+		return UI.GuideGlyph(t.guideId) or UI.CategoryIcon(guide or (ns.Guides and ns.Guides.Get and ns.Guides.Get(t.guideId)) or t.category, true)
 	end
 
 	-- A tab's facts on its button `b`, from the tab `t` (Engine.GetTabs):

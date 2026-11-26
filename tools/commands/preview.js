@@ -367,8 +367,9 @@ const RARES_FILES = [...FILES, 'Rares/Rares.xml'];
 const FOUNDER_FILES = [...FILES, 'QoL/QoL.xml', 'Rares/Rares.xml'];
 // Free mode scenes (panel.free): the synthetic Codex the Free mode addontests
 // use (tests/fixtures/codex/free-mode.json: Hale's Reach and Merrow Fields) and
-// a quest log of six quests in it, one ready to hand in: a level 20 Human
-// Warrior at Marshal Hale's camp. Free mode's folder loads as the page shows.
+// a quest log of six quests in it, three ready to hand in (two of them to
+// Marshal Hale) and three under way: a level 20 Human Warrior at Marshal
+// Hale's camp. Free mode's folder loads as the page shows.
 let freePack = null;
 function freeStub() {
 	if (!freePack) freePack = writeCodexPack(JSON.parse(fs.readFileSync(path.join(ROOT, 'tests', 'fixtures', 'codex', 'free-mode.json'), 'utf8')));
@@ -379,14 +380,27 @@ UnitRace = function() return "Human", "Human", 1 end
 UnitFactionGroup = function() return "Alliance", "Alliance" end
 UnitLevel = function() return 20 end
 local K = Polestar.Compat
-local HELD = { 7003, 7001, 7002, 7004, 7101, 7102 }
-local TITLE = { [7001] = "Gnoll Trouble", [7002] = "Boar Hunt", [7003] = "Lurkers in the Marsh", [7004] = "Ogre Menace", [7101] = "Merrow's Errand", [7102] = "Oake's Fields" }
-local LEVEL = { [7001] = 20, [7002] = 21, [7003] = 19, [7004] = 26, [7101] = 20, [7102] = 21 }
+local HELD = { 7003, 7001, 7007, 7002, 7004, 7101 }
+local TITLE = { [7001] = "Gnoll Trouble", [7002] = "Boar Hunt", [7003] = "Lurkers in the Marsh", [7004] = "Ogre Menace", [7007] = "Gnoll Bounty", [7101] = "Merrow's Errand" }
+local LEVEL = { [7001] = 20, [7002] = 21, [7003] = 19, [7004] = 26, [7007] = 20, [7101] = 20 }
+local READY = { [7001] = true, [7007] = true, [7101] = true }
+local OBJ = {
+	[7002] = { { text = "Boar Tusk: 2/4", numFulfilled = 2, numRequired = 4, finished = false } },
+	[7003] = { { text = "Marsh Lurker slain: 1/6", numFulfilled = 1, numRequired = 6, finished = false } },
+	[7004] = { { text = "Highland Ogre slain: 0/3", numFulfilled = 0, numRequired = 3, finished = false } },
+}
 K.GetLogQuests = function() return HELD end
 K.IsOnQuest = function(id) return TITLE[id] ~= nil end
 K.GetQuestTitle = function(id) return TITLE[id] end
 K.GetQuestLevel = function(id) return LEVEL[id] end
-K.IsQuestReadyForTurnIn = function(id) return id == 7101 end
+K.IsQuestReadyForTurnIn = function(id) return READY[id] == true end
+K.GetQuestObjectives = function(id) return OBJ[id] or {} end
+K.ObjectiveLabel = function(text) return ((text or ""):gsub("%s*:%s*%d+%s*/%s*%d+%s*$", "")) end
+-- The fixture's maps are 2,000 yards across (20 a map percent), Merrow Fields 3,000 yards east of Hale's Reach.
+K.MapToWorld = function(map, x, y) if not (map and x and y) then return nil end return 1, x * 20 + (map == 9002 and 3000 or 0), y * 20 end
+K.GetPlayerLevel = function() return 20 end
+QuestDifficultyColors = { impossible = { r = 1, g = 0.1, b = 0.1 }, verydifficult = { r = 1, g = 0.5, b = 0.25 }, difficult = { r = 1, g = 0.82, b = 0 },
+	standard = { r = 0.25, g = 0.75, b = 0.25 }, trivial = { r = 0.5, g = 0.5, b = 0.5 } }
 K.GetPlayerMapPosition = function() return 9001, 50, 50 end
 local MAPS = { [9001] = "Hale's Reach", [9002] = "Merrow Fields" }
 K.MapName = function(id) return MAPS[id] end
@@ -394,6 +408,24 @@ Polestar.Free.Load()`;
 function freeScene(script) {
 	return `${FREE_SETUP}\nPolestar.UI.ShowPicker()\n${script}`;
 }
+// Started before on this account; Free mode on (its tab stands in for the
+// Engine's), Ogre Menace left out, the way back the leveling guide's.
+const FREE_USED = 'Polestar.DB().freeUsed = true';
+const FREE_ON = `${FREE_USED}; Polestar.Free.LeaveOut(7004, true); Polestar.Free.IsOn = function() return true end; Polestar.Free.ReturnTitle = function() return "Hillsbrad Foothills (20-25)" end`;
+// The guide window in Free mode: a leveling tab and Free mode's, its first
+// step the two hand-ins at Marshal Hale with why they come first, and the
+// line Free mode's start shows once.
+const FREE_TAB = `local U = uistub.guides
+local map = U[uistub.elwynn].zone
+U["lookup/free/log"] = { id = "lookup/free/log", pack = "lookup", title = "Free mode", category = "Lookup", steps = {
+	{ title = "Marshal Hale", chosen = "Why first: 2 hand-ins at one stop \\194\\183 most XP for the trip", goals = {
+		{ t = "turnin", verb = "Turn in", subject = "Gnoll Trouble", subjectKind = "quest", quest = 7001, npc = 5001, npcName = "Marshal Hale", map = map, x = 48.9, y = 41.6, status = "active" },
+		{ t = "turnin", verb = "Turn in", subject = "Gnoll Bounty", subjectKind = "quest", quest = 7007, npc = 5001, npcName = "Marshal Hale", map = map, x = 48.9, y = 41.6, status = "pending" },
+	} },
+	{ title = "Boar Hunt", goals = { { t = "note", text = "Step 2", status = "pending" } } },
+} }
+uistub.openTabs({ { uistub.elwynn, 3 }, { "lookup/free/log", 1 } }, 2)
+Polestar.Fire("FREE_MODE", true)`;
 // The Characters scene (panel.alts): three characters of this account, the
 // one playing live and two as of their last logout (names, places and
 // numbers are samples written for the preview).
@@ -2204,10 +2236,28 @@ local r = b.Chains[1]; r:GetScript("OnEnter")(r)`) },
 	},
 	{
 		file: 'free-mode.svg',
-		title: 'The Free mode section of the hub, right under Guides: Start and which quest first, the hand-in route tile, then every quest in the log with its tick, zone, level and pin (Merrow\'s Errand ready to hand in); with Free mode on, Boar Hunt pinned and Ogre Menace left out, in Hearth',
+		title: 'The Free mode section of the hub, by who arrives: never started (what Free mode is, three points, when it suits and the way back, beside the log\'s first three quests in Free mode\'s order and one Start); started before (Start with the order beside it, the first three, What is Free mode? folded); on (following six quests, Back to the guide, the order, the hand-in card, the route numbered with the current quest marked, two hand-ins under Marshal Hale, Ogre Menace left out)',
 		panels: [
 			{ free: true, roots: PICKER, script: freeScene('Polestar.UI.ShowFreeMode()') },
-			{ free: true, roots: PICKER, script: freeScene('Polestar.Set("ui.skin", "hearth"); Polestar.Free.Pin(7002, true); Polestar.Free.LeaveOut(7004, true); Polestar.Free.IsOn = function() return true end; Polestar.Free.ReturnTitle = function() return "Elwynn Forest (1-13)" end; Polestar.UI.ShowFreeMode()') },
+			{ free: true, roots: PICKER, script: freeScene(`${FREE_USED}; Polestar.UI.ShowFreeMode()`) },
+			{ free: true, roots: PICKER, script: freeScene(`${FREE_ON}; Polestar.UI.ShowFreeMode()`) },
+		],
+	},
+	{
+		file: 'free-mode-looks.svg',
+		title: 'The Free mode page never started and on, in every other built-in look: Halo, Hearth, WoW Forever, Blizzard and Classic',
+		panels: ['halo', 'hearth', 'forever', 'blizzard', 'classic'].flatMap((look) => [
+			{ free: true, roots: PICKER, script: freeScene(`Polestar.Set("ui.skin", "${look}"); Polestar.UI.ShowFreeMode()`) },
+			{ free: true, roots: PICKER, script: freeScene(`Polestar.Set("ui.skin", "${look}"); ${FREE_ON}; Polestar.UI.ShowFreeMode()`) },
+		]),
+	},
+	{
+		file: 'guide-free.svg',
+		title: 'The guide window in Free mode: its tab wears the running figure beside a leveling tab\'s chevrons, the line its start shows once, why the first quest is first under the step\'s header; its menu with the way back and the three orders',
+		backdrop: 'terrain',
+		panels: [
+			{ free: true, roots: GUIDE, script: `${FREE_SETUP}\n${FREE_TAB}` },
+			{ free: true, roots: [...GUIDE, 'PolestarMenu'], script: `${FREE_SETUP}\n${FREE_TAB}\nstub.RunScript(Polestar.UI.GuideFrame.menuButton, "OnClick", "LeftButton")` },
 		],
 	},
 	{

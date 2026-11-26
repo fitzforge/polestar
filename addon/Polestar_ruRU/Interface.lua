@@ -489,8 +489,6 @@
 --   Free mode stops listing this quest. The menu's Bring back left-out quests lists it again.
 --   Free mode takes this quest first, whatever the order.
 --   Free mode
---   Free mode: the arrow takes your own quests, nearest first.
---   Free mode: the arrow takes your own quests, the most XP a minute first.
 --   Leave out of Free mode
 --   Low drop rate: %s
 --   Most XP a minute first
@@ -502,7 +500,6 @@
 --   Pick up quests and Free mode leads you to them.
 --   Pin to the top
 --   Quests for your level
---   Return to %s
 --   The XP each hand-in pays, and a collect whose items rarely drop says so.
 --   The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled.
 --   Unpin
@@ -549,25 +546,19 @@
 --   Hand in finished quests
 --   The shortest trip through the hand-ins of every finished quest in your log, in a guide of its own.
 --   Leave out a zone
---   Every quest of a zone at once. Tick one again to bring it back.
 --   Leave out group quests
 --   Quests that take a group: an elite, a boss or an instance.
---   Ready to hand in
---   Left out of Free mode. Click to bring it back.
 --   In Free mode. Click to leave it out.
 --   Bring back
 --   Leave out
---   Stop
 --   Your quests
 --   Open Settings, Community guides, Import a guide; import clear / import delete <id>: remove imports
 --   This is a guide import string: paste it under Settings, Community guides, Import a guide.
---   Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute).
 --   Your own quests as a guide, in a tab of its own: the arrow takes them in the order that gets the most done for the walk, or nearest first, or the most XP a minute (/polestar free). Press again to go back to your guide.
 -- Machine-translated, to be reviewed (Free mode's Balanced order and its why line, 0.4.4, 26 Nov 2026):
 -- translated by an AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native
 -- speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
 --   Balanced: the XP a quest pays for the walk and the work left, more for a quest already started, quests sharing a place or mobs, and hand-ins on the way. Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes.
---   Free mode: the arrow takes your own quests, the best trip first: XP, progress and stops shared.
 --   Free mode: follow your own quests (on, off, balanced, nearest, xp)
 --   pinned
 --   %d hand-ins at one stop
@@ -580,6 +571,45 @@
 --   Why %s first: %s
 --   Order: balanced
 --   ready to hand in
+-- Machine-translated, to be reviewed (the Free mode page by who arrives, its start line, the way back and the running figure, 0.4.4, 26 Nov 2026):
+-- translated by an AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native
+-- speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   About %s, %d stops
+--   About %s, 1 stop
+--   About Free mode
+--   Any quest, anywhere: Free mode follows your quest log, not a guide.
+--   Back to %s
+--   Back to your guide any time, from the guide window's menu or this page.
+--   Every quest of a zone at once. Bring one back from Left out.
+--   First up
+--   Free mode is on · following %d quests
+--   Free mode is on · following 1 quest
+--   Free mode page
+--   Good for when you're off your guide's route, questing with friends, or doing your own thing.
+--   Hand in to %s
+--   Left out
+--   Pick up whatever quests you like. Free mode puts them in a smart order and the arrow takes you through them, one after another.
+--   Polestar plans the order
+--   Quest your own way
+--   Ready
+--   Start Free mode
+--   Stop Free mode
+--   The arrow leads
+--   The best trip first: XP for the walk, quests started and stops shared.
+--   The best trip for the walk, planned again whenever your log changes.
+--   The most XP for each minute of walking and work first.
+--   The quest you reach soonest first, its neighbours after it.
+--   To each objective and hand-in in turn, as in any guide.
+--   What is Free mode?
+--   Why first: %s
+--   With your %d quests, Free mode starts with %s.
+--   With your quest, Free mode starts with %s.
+--   You pick up quests
+--   You're in Free mode: your own quests, planned for you.
+--   Your own quests, planned for you.
+--   Your own quests, planned for you: pick up what you like, Polestar orders them and the arrow leads.
+--   Your quests in Free mode
+--   Your route, the order and the quests left out.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "ruRU") then return end
@@ -1261,7 +1291,6 @@ L["With no quest near, the zone with the most quests for your level comes first,
 L["XP and drop rates"] = "Опыт и шанс добычи"
 L["The XP each hand-in pays, and a collect whose items rarely drop says so."] = "Опыт, который дает каждая сдача, и пометка у задания на сбор, если предметы выпадают редко."
 L["Your own quests as a guide, in a tab of its own: the arrow takes them in the order that gets the most done for the walk, or nearest first, or the most XP a minute (/polestar free). Press again to go back to your guide."] = "Ваши задания как гайд, в отдельной вкладке: стрелка ведёт по ним в порядке, который даёт больше всего за дорогу, или ближайшее первым, или больше опыта в минуту (/polestar free). Нажмите ещё раз, чтобы вернуться к своему гайду."
-L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "Ваши собственные задания как гайд, на отдельной вкладке: стрелка ведет к ближайшему, затем к следующему (/polestar free). Нажмите еще раз, чтобы вернуться к своему гайду."
 L["Balanced: the XP a quest pays for the walk and the work left, more for a quest already started, quests sharing a place or mobs, and hand-ins on the way. Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes."] = "Баланс: опыт за задание с учетом пути и оставшейся работы; выше для уже начатого задания, для заданий с общим местом или противниками и для сдачи по пути. Ближайшее — первым: задание, до которого быстрее всего добраться, затем соседние. Больше опыта в минуту — первым: опыт за задание с учетом пути и работы, которую оно требует."
 
 -- Quests/Party.lua
@@ -2318,12 +2347,12 @@ L["Every step of the guide in one list. Click one to look at it."] = "Все ш�
 L["Or follow your own quests: Free mode"] = "Или следуйте своим заданиям: свободный режим"
 L["No quests to lead to"] = "Нет заданий, к которым вести"
 L["Pick up quests and Free mode leads you to them."] = "Возьмите задания, и свободный режим проведет вас к ним."
-L["Return to %s"] = "Вернуться к %s"
 L["Every finished quest in your log, none of them part of this step."] = "Все выполненные задания в вашем журнале; ни одно не входит в этот шаг."
 L["Click for the shortest trip through their hand-ins"] = "Нажмите, чтобы увидеть кратчайший путь по местам их сдачи"
 L["Hides this line until the number of finished quests changes."] = "Скрывает эту строку, пока не изменится число выполненных заданий."
 L["%d quests ready to hand in"] = "Заданий, готовых к сдаче: %d"
 L["Finished quests"] = "Выполненные задания"
+L["Back to %s"] = "Назад к %s"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"
@@ -5413,11 +5442,9 @@ L["Some of this guide's quests follow on from %s. Start there for the full set, 
 L["You are past this class quest's levels."] = "Вы переросли уровни этого классового задания."
 L["Escort: %s"] = "Сопровождение: %s"
 L["Do it"] = "Выполнить"
-L["Free mode: the arrow takes your own quests, the most XP a minute first."] = "Свободный режим: стрелка ведет к вашим заданиям, сначала к тому, что дает больше всего опыта в минуту."
-L["Free mode: the arrow takes your own quests, nearest first."] = "Свободный режим: стрелка ведет к вашим заданиям, сначала к ближайшему."
 L["Nearest first"] = "Ближайшее — первым"
 L["Most XP a minute first"] = "Больше опыта в минуту — первым"
-L["Free mode: the arrow takes your own quests, the best trip first: XP, progress and stops shared."] = "Свободный режим: стрелка ведет к вашим заданиям, сначала лучший маршрут: опыт, прогресс и общие остановки."
+L["You're in Free mode: your own quests, planned for you."] = "Включен свободный режим: ваши задания, спланированные для вас."
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "Нажмите %s, чтобы продолжить, или откройте окно гайда."
@@ -5764,10 +5791,11 @@ L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is i
 L["Free mode starts after combat."] = "Свободный режим запустится после боя."
 L["Free mode can't start: its folder Polestar_FreeMode or the Codex is missing or turned off."] = "Свободный режим не может запуститься: папка Polestar_FreeMode или Codex отсутствует или отключена."
 L["Free mode"] = "Свободный режим"
-L["Free mode: follow your own quests (on, off, nearest, xp)"] = "Свободный режим: следовать своим заданиям (on, off, nearest, xp)"
-L["Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute)."] = "Ваши задания как гайд: стрелка ведёт по ним в порядке, который даёт больше всего за дорогу (или ближайшее первым, или больше опыта в минуту)."
-L["Your own quests as a guide: the arrow leads to the nearest one, then the next."] = "Ваши собственные задания как гайд: стрелка ведет к ближайшему, затем к следующему."
 L["Free mode: follow your own quests (on, off, balanced, nearest, xp)"] = "Свободный режим: следовать своим заданиям (on, off, balanced, nearest, xp)"
+L["Your own quests, planned for you: pick up what you like, Polestar orders them and the arrow leads."] = "Ваши задания, спланированные для вас: берите что хотите, Polestar выстроит порядок, а стрелка поведет."
+L["The best trip first: XP for the walk, quests started and stops shared."] = "Сначала лучший маршрут: опыт за путь, начатые задания и общие остановки."
+L["The most XP for each minute of walking and work first."] = "Сначала больше всего опыта за минуту пути и работы."
+L["The quest you reach soonest first, its neighbours after it."] = "Сначала задание, до которого быстрее дойти, затем соседние."
 
 -- UI/QuestLinks.lua
 L["Start quest guide"] = "Начать гайд по заданию"
@@ -5807,21 +5835,49 @@ L["kept while you walk"] = "сохраняется, пока вы идете"
 L["Why %s first: %s"] = "Почему %s первым: %s"
 L["Order: balanced"] = "Порядок: баланс"
 L["ready to hand in"] = "готово к сдаче"
+L["Why first: %s"] = "Почему первым: %s"
+L["Free mode page"] = "Страница свободного режима"
+L["Your route, the order and the quests left out."] = "Ваш маршрут, порядок и исключенные задания."
+L["Stop Free mode"] = "Выключить свободный режим"
 
 -- Page.lua
 L["Hand in finished quests"] = "Сдать выполненные задания"
 L["The shortest trip through the hand-ins of every finished quest in your log, in a guide of its own."] = "Кратчайший путь по местам сдачи всех выполненных заданий в вашем журнале — в отдельном гайде."
 L["Leave out a zone"] = "Исключить зону"
-L["Every quest of a zone at once. Tick one again to bring it back."] = "Все задания зоны сразу. Отметьте одно снова, чтобы вернуть его."
 L["Leave out group quests"] = "Исключить групповые задания"
 L["Quests that take a group: an elite, a boss or an instance."] = "Задания, для которых нужна группа: элитный противник, босс или подземелье."
-L["Ready to hand in"] = "Можно сдать"
-L["Left out of Free mode. Click to bring it back."] = "Исключено из свободного режима. Нажмите, чтобы вернуть."
 L["In Free mode. Click to leave it out."] = "В свободном режиме. Нажмите, чтобы исключить."
 L["Bring back"] = "Вернуть"
 L["Leave out"] = "Исключить"
-L["Stop"] = "Остановить"
 L["Your quests"] = "Ваши задания"
+L["Quest your own way"] = "Выполняйте задания по-своему"
+L["Pick up whatever quests you like. Free mode puts them in a smart order and the arrow takes you through them, one after another."] = "Берите любые задания. Свободный режим выстроит их в разумном порядке, а стрелка проведет по ним одно за другим."
+L["You pick up quests"] = "Вы берете задания"
+L["Any quest, anywhere: Free mode follows your quest log, not a guide."] = "Любые задания, где угодно: свободный режим следует вашему журналу заданий, а не гайду."
+L["Polestar plans the order"] = "Polestar планирует порядок"
+L["The best trip for the walk, planned again whenever your log changes."] = "Лучший маршрут по пути, заново при каждом изменении журнала."
+L["The arrow leads"] = "Стрелка ведет"
+L["To each objective and hand-in in turn, as in any guide."] = "К каждой цели и сдаче по очереди, как в любом гайде."
+L["Good for when you're off your guide's route, questing with friends, or doing your own thing."] = "Удобно, когда вы ушли с маршрута гайда, играете с друзьями или делаете что хотите."
+L["Back to your guide any time, from the guide window's menu or this page."] = "Вернуться к гайду можно в любой момент: через меню окна гайда или на этой странице."
+L["What is Free mode?"] = "Что такое свободный режим?"
+L["Start Free mode"] = "Включить свободный режим"
+L["Left out"] = "Исключенные"
+L["Every quest of a zone at once. Bring one back from Left out."] = "Все задания зоны сразу. Вернуть отдельное можно в разделе «Исключенные»."
+L["Ready"] = "Готово"
+L["About %s, 1 stop"] = "Около %s, 1 остановка"
+L["About %s, %d stops"] = "Около %s, остановок: %d"
+L["Hand in to %s"] = "Сдать: %s"
+L["Your quests in Free mode"] = "Ваши задания в свободном режиме"
+L["With your quest, Free mode starts with %s."] = "Свободный режим начнет с вашего задания %s."
+L["With your %d quests, Free mode starts with %s."] = "Заданий у вас: %d. Свободный режим начнет с %s."
+L["Free mode is on · following 1 quest"] = "Свободный режим включен · 1 задание в маршруте"
+L["Free mode is on · following %d quests"] = "Свободный режим включен · заданий в маршруте: %d"
+L["First up"] = "Сначала"
+L["About Free mode"] = "О свободном режиме"
+
+-- UI/FreeMode.lua
+L["Your own quests, planned for you."] = "Ваши задания, спланированные для вас."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Заново настроить Polestar, страница за страницей. Каждый выбор действует сразу."
@@ -6116,3 +6172,15 @@ L["Your quests"] = "Ваши задания"
 -- L["Your own quests as a guide: the arrow leads to the nearest one, then the next."] = "Ваши собственные задания как гайд: стрелка ведет к ближайшему, затем к следующему."
 -- L["Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes."] = "Ближайшее — первым: задание, до которого быстрее всего добраться, затем соседние. Больше опыта в минуту — первым: опыт за задание в сравнении с дорогой и работой, которых оно требует."
 -- L["Free mode: follow your own quests (on, off, nearest, xp)"] = "Свободный режим: следовать своим заданиям (on, off, nearest, xp)"
+-- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "Ваши собственные задания как гайд, на отдельной вкладке: стрелка ведет к ближайшему, затем к следующему (/polestar free). Нажмите еще раз, чтобы вернуться к своему гайду."
+-- L["Return to %s"] = "Вернуться к %s"
+-- L["Free mode: the arrow takes your own quests, the most XP a minute first."] = "Свободный режим: стрелка ведет к вашим заданиям, сначала к тому, что дает больше всего опыта в минуту."
+-- L["Free mode: the arrow takes your own quests, nearest first."] = "Свободный режим: стрелка ведет к вашим заданиям, сначала к ближайшему."
+-- L["Free mode: the arrow takes your own quests, the best trip first: XP, progress and stops shared."] = "Свободный режим: стрелка ведет к вашим заданиям, сначала лучший маршрут: опыт, прогресс и общие остановки."
+-- L["Free mode: follow your own quests (on, off, nearest, xp)"] = "Свободный режим: следовать своим заданиям (on, off, nearest, xp)"
+-- L["Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute)."] = "Ваши задания как гайд: стрелка ведёт по ним в порядке, который даёт больше всего за дорогу (или ближайшее первым, или больше опыта в минуту)."
+-- L["Your own quests as a guide: the arrow leads to the nearest one, then the next."] = "Ваши собственные задания как гайд: стрелка ведет к ближайшему, затем к следующему."
+-- L["Every quest of a zone at once. Tick one again to bring it back."] = "Все задания зоны сразу. Отметьте одно снова, чтобы вернуть его."
+-- L["Ready to hand in"] = "Можно сдать"
+-- L["Left out of Free mode. Click to bring it back."] = "Исключено из свободного режима. Нажмите, чтобы вернуть."
+-- L["Stop"] = "Остановить"

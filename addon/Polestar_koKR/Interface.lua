@@ -506,8 +506,6 @@
 --   Free mode stops listing this quest. The menu's Bring back left-out quests lists it again.
 --   Free mode takes this quest first, whatever the order.
 --   Free mode
---   Free mode: the arrow takes your own quests, nearest first.
---   Free mode: the arrow takes your own quests, the most XP a minute first.
 --   Leave out of Free mode
 --   Low drop rate: %s
 --   Most XP a minute first
@@ -519,7 +517,6 @@
 --   Pick up quests and Free mode leads you to them.
 --   Pin to the top
 --   Quests for your level
---   Return to %s
 --   The XP each hand-in pays, and a collect whose items rarely drop says so.
 --   The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled.
 --   Unpin
@@ -566,25 +563,19 @@
 --   Hand in finished quests
 --   The shortest trip through the hand-ins of every finished quest in your log, in a guide of its own.
 --   Leave out a zone
---   Every quest of a zone at once. Tick one again to bring it back.
 --   Leave out group quests
 --   Quests that take a group: an elite, a boss or an instance.
---   Ready to hand in
---   Left out of Free mode. Click to bring it back.
 --   In Free mode. Click to leave it out.
 --   Bring back
 --   Leave out
---   Stop
 --   Your quests
 --   Open Settings, Community guides, Import a guide; import clear / import delete <id>: remove imports
 --   This is a guide import string: paste it under Settings, Community guides, Import a guide.
---   Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute).
 --   Your own quests as a guide, in a tab of its own: the arrow takes them in the order that gets the most done for the walk, or nearest first, or the most XP a minute (/polestar free). Press again to go back to your guide.
 -- Machine-translated, to be reviewed (Free mode's Balanced order and its why line, 0.4.4, 26 Nov 2026):
 -- translated by an AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native
 -- speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
 --   Balanced: the XP a quest pays for the walk and the work left, more for a quest already started, quests sharing a place or mobs, and hand-ins on the way. Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes.
---   Free mode: the arrow takes your own quests, the best trip first: XP, progress and stops shared.
 --   Free mode: follow your own quests (on, off, balanced, nearest, xp)
 --   pinned
 --   %d hand-ins at one stop
@@ -597,6 +588,45 @@
 --   Why %s first: %s
 --   Order: balanced
 --   ready to hand in
+-- Machine-translated, to be reviewed (the Free mode page by who arrives, its start line, the way back and the running figure, 0.4.4, 26 Nov 2026):
+-- translated by an AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native
+-- speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   About %s, %d stops
+--   About %s, 1 stop
+--   About Free mode
+--   Any quest, anywhere: Free mode follows your quest log, not a guide.
+--   Back to %s
+--   Back to your guide any time, from the guide window's menu or this page.
+--   Every quest of a zone at once. Bring one back from Left out.
+--   First up
+--   Free mode is on · following %d quests
+--   Free mode is on · following 1 quest
+--   Free mode page
+--   Good for when you're off your guide's route, questing with friends, or doing your own thing.
+--   Hand in to %s
+--   Left out
+--   Pick up whatever quests you like. Free mode puts them in a smart order and the arrow takes you through them, one after another.
+--   Polestar plans the order
+--   Quest your own way
+--   Ready
+--   Start Free mode
+--   Stop Free mode
+--   The arrow leads
+--   The best trip first: XP for the walk, quests started and stops shared.
+--   The best trip for the walk, planned again whenever your log changes.
+--   The most XP for each minute of walking and work first.
+--   The quest you reach soonest first, its neighbours after it.
+--   To each objective and hand-in in turn, as in any guide.
+--   What is Free mode?
+--   Why first: %s
+--   With your %d quests, Free mode starts with %s.
+--   With your quest, Free mode starts with %s.
+--   You pick up quests
+--   You're in Free mode: your own quests, planned for you.
+--   Your own quests, planned for you.
+--   Your own quests, planned for you: pick up what you like, Polestar orders them and the arrow leads.
+--   Your quests in Free mode
+--   Your route, the order and the quests left out.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "koKR") then return end
@@ -1278,7 +1308,6 @@ L["With no quest near, the zone with the most quests for your level comes first,
 L["XP and drop rates"] = "경험치와 획득 확률"
 L["The XP each hand-in pays, and a collect whose items rarely drop says so."] = "각 퀘스트 완료 시 받는 경험치, 그리고 아이템이 드물게 나오는 수집 목표에는 그렇다고 표시합니다."
 L["Your own quests as a guide, in a tab of its own: the arrow takes them in the order that gets the most done for the walk, or nearest first, or the most XP a minute (/polestar free). Press again to go back to your guide."] = "내 퀘스트를 별도의 탭에서 가이드로: 화살표가 이동 거리 대비 가장 많이 해낼 수 있는 순서로, 또는 가까운 순, 분당 경험치 많은 순으로 안내합니다 (/polestar free). 다시 누르면 원래 가이드로 돌아갑니다."
-L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "내가 받은 퀘스트를 자체 탭의 가이드로: 화살표가 가장 가까운 퀘스트로, 그다음 퀘스트로 안내합니다 (/polestar free). 다시 누르면 가이드로 돌아갑니다."
 L["Balanced: the XP a quest pays for the walk and the work left, more for a quest already started, quests sharing a place or mobs, and hand-ins on the way. Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes."] = "균형: 이동과 남은 작업 대비 퀘스트가 주는 경험치. 이미 시작한 퀘스트, 장소나 몬스터가 겹치는 퀘스트, 가는 길의 제출에는 더 높게. 가까운 순: 가장 빨리 닿는 퀘스트, 그다음 그 주변 퀘스트. 분당 경험치 많은 순: 이동과 작업에 드는 시간 대비 퀘스트가 주는 경험치."
 
 -- Quests/Party.lua
@@ -2334,12 +2363,12 @@ L["Every step of the guide in one list. Click one to look at it."] = "가이드�
 L["Or follow your own quests: Free mode"] = "또는 내가 받은 퀘스트를 따라가기: 자유 모드"
 L["No quests to lead to"] = "안내할 퀘스트가 없습니다"
 L["Pick up quests and Free mode leads you to them."] = "퀘스트를 받으면 자유 모드가 그곳으로 안내합니다."
-L["Return to %s"] = "%s(으)로 돌아가기"
 L["Every finished quest in your log, none of them part of this step."] = "퀘스트 목록의 완료한 모든 퀘스트입니다. 이 단계에 포함된 것은 없습니다."
 L["Click for the shortest trip through their hand-ins"] = "클릭하면 제출 장소를 도는 가장 짧은 경로를 안내합니다"
 L["Hides this line until the number of finished quests changes."] = "완료한 퀘스트 수가 바뀔 때까지 이 줄을 숨깁니다."
 L["%d quests ready to hand in"] = "%d개의 퀘스트를 제출할 수 있음"
 L["Finished quests"] = "완료한 퀘스트"
+L["Back to %s"] = "%s(으)로 돌아가기"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"
@@ -5430,11 +5459,9 @@ L["Some of this guide's quests follow on from %s. Start there for the full set, 
 L["You are past this class quest's levels."] = "이 직업 퀘스트의 레벨을 넘어섰습니다."
 L["Escort: %s"] = "호위: %s"
 L["Do it"] = "하기"
-L["Free mode: the arrow takes your own quests, the most XP a minute first."] = "자유 모드: 화살표가 내가 받은 퀘스트로 안내합니다. 분당 경험치가 가장 많은 것부터."
-L["Free mode: the arrow takes your own quests, nearest first."] = "자유 모드: 화살표가 내가 받은 퀘스트로 안내합니다. 가까운 것부터."
 L["Nearest first"] = "가까운 순"
 L["Most XP a minute first"] = "분당 경험치 많은 순"
-L["Free mode: the arrow takes your own quests, the best trip first: XP, progress and stops shared."] = "자유 모드: 화살표가 내가 받은 퀘스트로 안내합니다. 가장 좋은 경로부터: 경험치, 진행도, 겹치는 장소."
+L["You're in Free mode: your own quests, planned for you."] = "자유 모드입니다: 내 퀘스트를 나에게 맞게 계획합니다."
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "%s 키를 눌러 다시 시작하거나 가이드 창을 여십시오."
@@ -5781,10 +5808,11 @@ L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is i
 L["Free mode starts after combat."] = "자유 모드는 전투가 끝난 뒤 시작합니다."
 L["Free mode can't start: its folder Polestar_FreeMode or the Codex is missing or turned off."] = "자유 모드를 시작할 수 없습니다: Polestar_FreeMode 폴더나 Codex가 없거나 꺼져 있습니다."
 L["Free mode"] = "자유 모드"
-L["Free mode: follow your own quests (on, off, nearest, xp)"] = "자유 모드: 내가 받은 퀘스트를 따라가기 (on, off, nearest, xp)"
-L["Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute)."] = "내 퀘스트를 가이드로: 화살표가 이동 거리 대비 가장 많이 해낼 수 있는 순서로 안내합니다(또는 가까운 순, 분당 경험치 많은 순)."
-L["Your own quests as a guide: the arrow leads to the nearest one, then the next."] = "내가 받은 퀘스트를 가이드로: 화살표가 가장 가까운 퀘스트로, 그다음 퀘스트로 안내합니다."
 L["Free mode: follow your own quests (on, off, balanced, nearest, xp)"] = "자유 모드: 내가 받은 퀘스트를 따라가기 (on, off, balanced, nearest, xp)"
+L["Your own quests, planned for you: pick up what you like, Polestar orders them and the arrow leads."] = "내 퀘스트를 나에게 맞게 계획합니다: 원하는 퀘스트를 받으면 Polestar가 순서를 정하고 화살표가 안내합니다."
+L["The best trip first: XP for the walk, quests started and stops shared."] = "가장 좋은 동선 먼저: 이동 대비 경험치, 시작한 퀘스트, 함께 들르는 곳."
+L["The most XP for each minute of walking and work first."] = "이동과 작업 1분당 경험치가 가장 많은 것 먼저."
+L["The quest you reach soonest first, its neighbours after it."] = "가장 빨리 닿는 퀘스트 먼저, 그다음 근처 퀘스트."
 
 -- UI/QuestLinks.lua
 L["Start quest guide"] = "퀘스트 가이드 시작"
@@ -5824,21 +5852,49 @@ L["kept while you walk"] = "이동 중 유지"
 L["Why %s first: %s"] = "%s 먼저인 이유: %s"
 L["Order: balanced"] = "순서: 균형"
 L["ready to hand in"] = "제출 준비됨"
+L["Why first: %s"] = "먼저인 이유: %s"
+L["Free mode page"] = "자유 모드 페이지"
+L["Your route, the order and the quests left out."] = "내 경로, 순서, 제외한 퀘스트."
+L["Stop Free mode"] = "자유 모드 끄기"
 
 -- Page.lua
 L["Hand in finished quests"] = "완료한 퀘스트 제출"
 L["The shortest trip through the hand-ins of every finished quest in your log, in a guide of its own."] = "퀘스트 목록의 완료한 모든 퀘스트의 제출 장소를 도는 가장 짧은 경로를 별도의 가이드로 안내합니다."
 L["Leave out a zone"] = "지역 제외"
-L["Every quest of a zone at once. Tick one again to bring it back."] = "한 지역의 퀘스트를 한 번에 제외합니다. 다시 체크하면 되돌립니다."
 L["Leave out group quests"] = "그룹 퀘스트 제외"
 L["Quests that take a group: an elite, a boss or an instance."] = "그룹이 필요한 퀘스트: 정예, 우두머리 또는 던전."
-L["Ready to hand in"] = "제출 가능"
-L["Left out of Free mode. Click to bring it back."] = "자유 모드에서 제외됨. 클릭하면 되돌립니다."
 L["In Free mode. Click to leave it out."] = "자유 모드에 포함됨. 클릭하면 제외합니다."
 L["Bring back"] = "되돌리기"
 L["Leave out"] = "제외"
-L["Stop"] = "중지"
 L["Your quests"] = "내 퀘스트"
+L["Quest your own way"] = "나만의 방식으로 퀘스트"
+L["Pick up whatever quests you like. Free mode puts them in a smart order and the arrow takes you through them, one after another."] = "원하는 퀘스트를 받으세요. 자유 모드가 똑똑한 순서로 정리하고 화살표가 하나씩 안내합니다."
+L["You pick up quests"] = "퀘스트는 직접 받습니다"
+L["Any quest, anywhere: Free mode follows your quest log, not a guide."] = "어떤 퀘스트든, 어디서든: 자유 모드는 가이드가 아니라 퀘스트 목록을 따릅니다."
+L["Polestar plans the order"] = "Polestar가 순서를 계획합니다"
+L["The best trip for the walk, planned again whenever your log changes."] = "이동에 가장 좋은 동선, 퀘스트 목록이 바뀔 때마다 다시 계획합니다."
+L["The arrow leads"] = "화살표가 안내합니다"
+L["To each objective and hand-in in turn, as in any guide."] = "가이드처럼 각 임무와 제출 장소로 차례대로 안내합니다."
+L["Good for when you're off your guide's route, questing with friends, or doing your own thing."] = "가이드 경로를 벗어났을 때, 친구와 퀘스트할 때, 마음대로 하고 싶을 때 좋습니다."
+L["Back to your guide any time, from the guide window's menu or this page."] = "가이드 창 메뉴나 이 페이지에서 언제든 가이드로 돌아갈 수 있습니다."
+L["What is Free mode?"] = "자유 모드란?"
+L["Start Free mode"] = "자유 모드 시작"
+L["Left out"] = "제외됨"
+L["Every quest of a zone at once. Bring one back from Left out."] = "한 지역의 모든 퀘스트를 한 번에. 제외됨에서 하나씩 되돌릴 수 있습니다."
+L["Ready"] = "준비됨"
+L["About %s, 1 stop"] = "약 %s, 1곳"
+L["About %s, %d stops"] = "약 %s, %d곳"
+L["Hand in to %s"] = "%s에게 제출"
+L["Your quests in Free mode"] = "자유 모드의 내 퀘스트"
+L["With your quest, Free mode starts with %s."] = "이 퀘스트로 자유 모드는 %s부터 시작합니다."
+L["With your %d quests, Free mode starts with %s."] = "퀘스트 %d개로 자유 모드는 %s부터 시작합니다."
+L["Free mode is on · following 1 quest"] = "자유 모드 켜짐 · 퀘스트 1개 진행 중"
+L["Free mode is on · following %d quests"] = "자유 모드 켜짐 · 퀘스트 %d개 진행 중"
+L["First up"] = "먼저 할 일"
+L["About Free mode"] = "자유 모드 소개"
+
+-- UI/FreeMode.lua
+L["Your own quests, planned for you."] = "내 퀘스트를 나에게 맞게 계획합니다."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar를 한 페이지씩 다시 설정합니다. 선택은 바로 적용됩니다."
@@ -6126,3 +6182,15 @@ L["Your quests"] = "내 퀘스트"
 -- L["Your own quests as a guide: the arrow leads to the nearest one, then the next."] = "내가 받은 퀘스트를 가이드로: 화살표가 가장 가까운 퀘스트로, 그다음 퀘스트로 안내합니다."
 -- L["Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes."] = "가까운 순: 가장 빨리 닿는 퀘스트, 그다음 그 주변 퀘스트. 분당 경험치 많은 순: 이동과 작업에 드는 시간 대비 퀘스트가 주는 경험치."
 -- L["Free mode: follow your own quests (on, off, nearest, xp)"] = "자유 모드: 내가 받은 퀘스트를 따라가기 (on, off, nearest, xp)"
+-- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "내가 받은 퀘스트를 자체 탭의 가이드로: 화살표가 가장 가까운 퀘스트로, 그다음 퀘스트로 안내합니다 (/polestar free). 다시 누르면 가이드로 돌아갑니다."
+-- L["Return to %s"] = "%s(으)로 돌아가기"
+-- L["Free mode: the arrow takes your own quests, the most XP a minute first."] = "자유 모드: 화살표가 내가 받은 퀘스트로 안내합니다. 분당 경험치가 가장 많은 것부터."
+-- L["Free mode: the arrow takes your own quests, nearest first."] = "자유 모드: 화살표가 내가 받은 퀘스트로 안내합니다. 가까운 것부터."
+-- L["Free mode: the arrow takes your own quests, the best trip first: XP, progress and stops shared."] = "자유 모드: 화살표가 내가 받은 퀘스트로 안내합니다. 가장 좋은 경로부터: 경험치, 진행도, 겹치는 장소."
+-- L["Free mode: follow your own quests (on, off, nearest, xp)"] = "자유 모드: 내가 받은 퀘스트를 따라가기 (on, off, nearest, xp)"
+-- L["Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute)."] = "내 퀘스트를 가이드로: 화살표가 이동 거리 대비 가장 많이 해낼 수 있는 순서로 안내합니다(또는 가까운 순, 분당 경험치 많은 순)."
+-- L["Your own quests as a guide: the arrow leads to the nearest one, then the next."] = "내가 받은 퀘스트를 가이드로: 화살표가 가장 가까운 퀘스트로, 그다음 퀘스트로 안내합니다."
+-- L["Every quest of a zone at once. Tick one again to bring it back."] = "한 지역의 퀘스트를 한 번에 제외합니다. 다시 체크하면 되돌립니다."
+-- L["Ready to hand in"] = "제출 가능"
+-- L["Left out of Free mode. Click to bring it back."] = "자유 모드에서 제외됨. 클릭하면 되돌립니다."
+-- L["Stop"] = "중지"

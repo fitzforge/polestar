@@ -2093,7 +2093,7 @@ GF.Part(function(GF)
 			if ns.Free then
 				if not rawget(empty, "FreeLink") then
 					empty.FreeLink = W.Link(empty, "", empty.act, { role = "note" })
-					empty.FreeLink.psTip = L["Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute)."]
+					empty.FreeLink.psTip = L["Your own quests, planned for you: pick up what you like, Polestar orders them and the arrow leads."]
 				end
 				W.SetLinkText(empty.FreeLink, L["Or follow your own quests: Free mode"])
 				empty.FreeLink.psAction = function() ns.Free.Toggle() end
@@ -2156,11 +2156,11 @@ GF.Part(function(GF)
 		elseif kind == "complete" and ns.Free and E and E.GetGuide and ns.Free.IsGuide((E.GetGuide() or {}).id) then
 			-- Free mode with nothing in the log to lead to: pick up quests, or go
 			-- back to a guide.
-			glyph = "icon-ownpath"
+			glyph = "icon-freemode"
 			empty.Title:SetText(L["No quests to lead to"])
 			empty.Text:SetText(L["Pick up quests and Free mode leads you to them."])
 			local back = ns.Free.ReturnTitle()
-			W.SetButtonText(empty.Primary, back and string.format(L["Return to %s"], back) or L["Choose a guide"])
+			W.SetButtonText(empty.Primary, back and string.format(L["Back to %s"], back) or L["Choose a guide"])
 			empty.Primary.psAction = function() if back then ns.Free.Stop() else UI.ShowPicker() end end
 			empty.Primary:Show()
 			if back then
@@ -2742,8 +2742,9 @@ GF.Part(function(GF)
 		person.psHeaderGoal = header
 		paintPerson(g)
 		-- Under the header: why a step that depends on what the player does
-		-- holds nothing for them now (the Engine's `why`, #942).
-		local why = view.why
+		-- holds nothing for them now (the Engine's `why`, #942), else why a
+		-- planner put it here (Free mode's first quest: `chosen`).
+		local why = view.why or view.chosen
 		person.Why:SetText(why or "")
 		person.Why:SetShown(why ~= nil)
 		local E = Engine()

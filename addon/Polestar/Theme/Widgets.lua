@@ -572,6 +572,27 @@ end
 function W.ItemTip(owner, itemID, extra, place) setGameTip(owner, "item", itemID, extra, place) end
 function W.SpellTip(owner, spellID, extra, place) setGameTip(owner, "spell", spellID, extra, place) end
 
+-- The game's own tooltip of a quest in the log (its link: title, the
+-- objectives as the client words them), then extra(tooltip)'s lines.
+--   W.QuestTip(owner, questID, extra?, place?)
+function W.QuestTip(owner, questID, extra, place)
+	local tip = GameTooltip
+	if not (tip and owner and type(questID) == "number") then return end
+	local C = ns.Compat
+	local link = GetQuestLink and GetQuestLink(questID)
+	if type(link) ~= "string" or link == "" or C.IsSecret(link) then link = "quest:" .. questID end
+	local anchor = type(place) == "string" and place or nil
+	tip:SetOwner(owner, anchor or (place and "ANCHOR_NONE") or "ANCHOR_RIGHT")
+	if place and not anchor then
+		tip:ClearAllPoints()
+		place(tip)
+	end
+	tip:SetHyperlink(link)
+	if extra then extra(tip) end
+	Theme.TipDots(tip)
+	tip:Show()
+end
+
 local function owns(owner)
 	local tip = GameTooltip
 	if not tip then return false end

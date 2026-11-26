@@ -1,11 +1,15 @@
 //! Free mode in the main window (addon/Polestar/UI/FreeMode.lua, Polestar_FreeMode/Page.lua): its menu item right under
-//! Guides with its own icon, the page (Start or Return to <guide>, which quest first, the hand-in route, every quest in
-//! the log with a tick and a pin, the quick actions), the hand-in row in the guide window, a gamepad on the page and
-//! the world map's click on a held quest's pin. The choices are Free mode's own saved state (CharState().free).
+//! Guides with its running figure, the page laid out by who arrives (never started on this account: what Free mode is
+//! beside a preview of the log in its order and one Start; started before: Start with the order and the first three
+//! quests; on: the route numbered in Free mode's order, the quest it leads to marked, Back to <guide>), the hand-in
+//! card and the NPC lines over finished quests, the quests left out folded with Bring back, the game's quest tooltip
+//! on hover and gamepad focus, the sidebar's sections, the tab and header glyphs, the hand-in row in the guide window,
+//! a gamepad on the page and the world map's click on a held quest's pin. The choices are Free mode's own saved state
+//! (CharState().free); whether it was ever started is the account's (PolestarDB.freeUsed).
 //!
 //! The Codex is tests/fixtures/codex/free-mode.json with the Highland Ogre an elite (Ogre Menace takes a group): a
-//! Human Warrior at level 20 at Marshal Hale's camp (map 9001), 7001-7005 around it and 7101-7108 in Merrow Fields
-//! (map 9002).
+//! Human Warrior at level 20 at Marshal Hale's camp (map 9001), 7001-7007 around it (Marshal Hale takes 7001 and
+//! 7007) and 7101-7108 in Merrow Fields (map 9002).
 
 use forge_addontest::codex::{fixture, write_codex_pack, CodexOpts, CodexPack};
 use forge_addontest::questdb::{build_db, fixture_dir};
@@ -51,9 +55,19 @@ local Q = {
 	[7004] = { { text = "Highland Ogre slain: 0/3", required = 3 } },
 	[7101] = { { text = "Thing: 0/1", required = 1 } },
 	[7102] = { { text = "Thing: 0/1", required = 1 } },
+	[7007] = { { text = "Ridge Gnoll slain: 0/3", required = 3 } },
 }
 local TITLE = { [7001] = "Gnoll Trouble", [7002] = "Boar Hunt", [7003] = "Lurkers in the Marsh", [7004] = "Ogre Menace",
-	[7101] = "Merrow's Errand", [7102] = "Oake's Fields" }
+	[7101] = "Merrow's Errand", [7102] = "Oake's Fields", [7007] = "Gnoll Bounty" }
+-- Started before on this account: the page's layout for those who know it.
+local function used() Polestar.DB().freeUsed = true end
+local function route()
+	Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
+	assert(Polestar.RegisterGuide({ id = "test/route", pack = "test", title = "Route", minLevel = 1, maxLevel = 60, steps = {
+		{ title = "Go west", goals = { { t = "goto", map = 9001, x = 10, y = 90, text = "West camp" } } },
+	} }))
+	E.SetGuide("test/route")
+end
 local function take(...)
 	for _, q in ipairs({ ... }) do w.accept(q, Q[q], TITLE[q]) end
 	stub.advance(1)
@@ -102,7 +116,7 @@ fn strs(v: &Value) -> Vec<String> {
 }
 
 #[test]
-fn free_mode_is_a_menu_item_right_under_guides_with_its_own_icon_and_a_page() {
+fn free_mode_is_a_menu_item_right_under_guides_with_its_running_figure_and_a_page_whose_header_fits() {
 	let out = run(r#"
 UI.ShowPicker()
 stub.advance(0.3)
@@ -118,7 +132,10 @@ for _, b in ipairs(PolestarPicker.railButtons or {}) do
 end
 P.ShowSection("FreeMode")
 stub.advance(0.3)
-emit({ keys = keys, rail = rail, icon = icon, label = label, section = P.Section(), page = F.Page ~= nil, title = PolestarPicker.Title:GetText() })
+local nav = {}
+for _, b in ipairs(PolestarPicker.navButtons or {}) do if b:IsShown() then nav[#nav + 1] = b.psKey end end
+emit({ keys = keys, rail = rail, icon = icon, label = label, section = P.Section(), page = F.Page ~= nil, title = PolestarPicker.Title:GetText(),
+	subtitle = PolestarPicker.Subtitle:GetText(), nav = nav })
 "#);
 	let o = &out[0];
 	let keys = strs(&o["keys"]);
@@ -126,123 +143,215 @@ emit({ keys = keys, rail = rail, icon = icon, label = label, section = P.Section
 	assert_eq!(keys[1], "FreeMode", "right under Guides: {keys:?}");
 	assert_eq!(keys[2], "Lookup", "and before Lookup: {keys:?}");
 	assert_eq!(strs(&o["rail"])[..2], ["Guides", "FreeMode"]);
-	assert_eq!(text(&o["icon"]), "icon-ownpath", "its own glyph, not the Exploration compass");
+	assert_eq!(text(&o["icon"]), "icon-freemode", "the running figure");
 	assert_eq!(text(&o["label"]), "Free mode");
 	assert_eq!(text(&o["section"]), "FreeMode");
 	assert!(truthy(&o["page"]), "the page loads with its folder");
 	assert_eq!(text(&o["title"]), "Free mode");
+	assert_eq!(text(&o["subtitle"]), "Your own quests, planned for you.", "whole, no ellipsis (try4 cut it off)");
+	assert_eq!(strs(&o["nav"]), ["about", "route"], "the sidebar holds the page's sections, not a lone Free mode row");
 }
 
 #[test]
-fn the_page_with_free_mode_off_lists_every_quest_with_its_zone_level_and_state_and_offers_start() {
+fn never_started_the_page_says_what_free_mode_is_previews_the_log_in_its_order_and_offers_one_start() {
 	let out = run(r#"
-take(7001, 7002, 7101)
-finish(7101)
-Polestar.Set("free.pick", "near")
-page()
-local s = F.Page.Shown()
-local rows = {}
-for _, r in ipairs(s) do rows[#rows + 1] = { r.title, r.zone, r.level, r.checked, r.ready, r.pinned } end
-emit({ start = s.start, on = s.on, pick = s.pick, handin = s.handin, rows = rows, actions = s.actions })
-"#);
-	let o = &out[0];
-	assert_eq!(text(&o["start"]), "Start");
-	assert!(!truthy(&o["on"]));
-	assert_eq!(text(&o["pick"]), "near");
-	assert_eq!(o["handin"]["count"], 1);
-	assert_eq!(text(&o["handin"]["text"]), "Hand in finished quests (1)");
-	assert_eq!(
-		o["rows"],
-		json!([["Gnoll Trouble", "Hale's Reach", 20, true, false, false], ["Boar Hunt", "Hale's Reach", 21, true, false, false], ["Merrow's Errand", "Merrow Fields", 20, true, true, false]]),
-		"by zone, level and title: one row each, ticked, Merrow's Errand ready to hand in"
-	);
-	assert_eq!(o["actions"], json!({ "zones": 2, "group": 0, "out": 0 }));
-}
-
-#[test]
-fn the_page_with_free_mode_on_says_return_to_the_guide_it_came_from_and_the_button_goes_back_to_it() {
-	let out = run(r#"
-Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
-assert(Polestar.RegisterGuide({ id = "test/route", pack = "test", title = "Route", minLevel = 1, maxLevel = 60, steps = {
-	{ title = "Go west", goals = { { t = "goto", map = 9001, x = 10, y = 90, text = "West camp" } } },
-} }))
-E.SetGuide("test/route")
-take(7001)
-Polestar.Set("free.pick", "near")
+take(7001, 7002, 7003, 7101)
 local P = page()
-local off = P.Shown().start
+local s = P.Shown()
+local order = {}
+for _, r in ipairs(F.Route()) do order[#order + 1] = r.title end
+local rows = {}
+for _, r in ipairs(s) do rows[#rows + 1] = { r.n, r.title } end
+local got = { mode = s.mode, lead = s.lead, more = s.more, start = s.start, rows = rows, order = order,
+	intro = { P.parts.IntroTitle:IsShown(), P.parts.Points[1]:IsShown(), P.parts.Points[3]:IsShown(), P.parts.When:IsShown(), P.parts.BackNote:IsShown() },
+	button = P.parts.Start:IsShown() and P.parts.Start.Label:GetText() or false, order_shown = P.parts.Near:IsShown(), about = P.parts.About:IsShown() }
 P.parts.Start:Click()
 stub.advance(1)
-local on = { start = P.Shown().start, on = P.Shown().on, guide = E.GetGuide().id, state = P.Shown().state }
-P.parts.Start:Click()
-stub.advance(1)
-emit({ off = off, on = on, after = E.GetGuide().id, running = F.IsOn(), start = P.Shown().start })
+got.on, got.used, got.after = F.IsOn(), Polestar.DB().freeUsed, P.Shown().mode
+emit(got)
 "#);
 	let o = &out[0];
-	assert_eq!(text(&o["off"]), "Start");
-	assert_eq!(text(&o["on"]["start"]), "Return to Route");
-	assert!(truthy(&o["on"]["on"]));
-	assert_eq!(text(&o["on"]["guide"]), "lookup/free/log");
-	assert_eq!(text(&o["on"]["state"]), "Free mode: the arrow takes your own quests, nearest first.");
-	assert_eq!(text(&o["after"]), "test/route", "Return to hands the arrow back");
-	assert!(!truthy(&o["running"]));
-	assert_eq!(text(&o["start"]), "Start");
+	assert_eq!(text(&o["mode"]), "intro");
+	assert_eq!(o["intro"], json!([true, true, true, true, true]), "the title, the three points, when it suits, the way back");
+	let order = strs(&o["order"]);
+	assert_eq!(o["rows"], json!([[1, order[0]], [2, order[1]], [3, order[2]]]), "the first three in Free mode's own order");
+	let lead = text(&o["lead"]);
+	assert!(lead.starts_with("With your 4 quests, Free mode starts with ") && lead.contains(&order[0]), "{lead}");
+	assert_eq!(o["more"], 1);
+	assert_eq!(text(&o["button"]), "Start Free mode", "one big Start");
+	assert_eq!(o["order_shown"], false, "no order to choose before it is known");
+	assert_eq!(o["about"], false, "the intro is whole, nothing folded");
+	assert!(truthy(&o["on"]));
+	assert_eq!(o["used"], true, "started once on this account");
+	assert_eq!(text(&o["after"]), "on");
 }
 
 #[test]
-fn the_order_choice_on_the_page_is_the_free_pick_setting() {
+fn started_before_and_off_the_page_leads_with_start_and_the_order_then_the_first_three_quests() {
 	let out = run(r#"
+used()
+take(7001, 7002, 7003, 7101)
+local P = page()
+local s = P.Shown()
+local got = { mode = s.mode, start = s.start, pick = s.pick, rule = s.rule, more = s.more, count = #s, about = s.about,
+	intro = P.parts.IntroTitle:IsShown(), order_shown = P.parts.Near:IsShown() }
+P.parts.About:Click()
+stub.advance(0.1)
+got.open = { P.Shown().about, P.parts.Points[1]:IsShown(), P.parts.IntroTitle:IsShown() }
+emit(got)
+"#);
+	let o = &out[0];
+	assert_eq!(text(&o["mode"]), "ready");
+	assert_eq!(text(&o["start"]), "Start Free mode");
+	assert_eq!(text(&o["pick"]), "balanced");
+	assert_eq!(o["order_shown"], true, "the order beside Start");
+	assert_eq!(text(&o["rule"]), "The best trip first: XP for the walk, quests started and stops shared.");
+	assert_eq!(o["count"], 3, "the first three it would take");
+	assert_eq!(o["more"], 1);
+	assert_eq!(o["about"], false, "What is Free mode? folded");
+	assert_eq!(o["intro"], false);
+	assert_eq!(o["open"], json!([true, true, false]), "unfolded: the points, under the fold's own heading");
+}
+
+#[test]
+fn on_the_page_follows_the_route_numbered_in_free_mode_s_order_the_current_quest_marked_with_back_to_the_guide() {
+	let out = run(r#"
+route()
+take(7001, 7002, 7003)
+finish(7001, 2)
+assert(F.Start())
+stub.advance(1)
+local P = page()
+local s = P.Shown()
+local rows, byTitle = {}, {}
+for _, r in ipairs(s) do
+	rows[#rows + 1] = { n = r.n, title = r.title, current = r.current and true or false }
+	byTitle[r.title] = { progress = r.progress, zone = r.zone, walk = r.travel ~= nil, xp = (r.xp or 0) > 0, why = r.why ~= nil }
+end
+local first = rowOf(s[1].quest)
+local second = rowOf(s[2].quest)
+local got = { mode = s.mode, status = s.status, back = s.back, rows = rows, gnoll = byTitle["Gnoll Trouble"], steps = titles(),
+	marked = { first.Sel:IsShown(), first.Bar:IsShown(), second.Sel:IsShown() } }
+P.parts.Back:Click()
+stub.advance(1)
+got.after, got.on, got.mode2 = E.GetGuide().id, F.IsOn(), P.Shown().mode
+emit(got)
+"#);
+	let o = &out[0];
+	assert_eq!(text(&o["mode"]), "on");
+	assert_eq!(text(&o["status"]), "Free mode is on \u{b7} following 3 quests");
+	assert_eq!(text(&o["back"]), "Back to Route");
+	let steps = strs(&o["steps"]);
+	let rows = o["rows"].as_array().unwrap();
+	for (i, r) in rows.iter().enumerate() {
+		assert_eq!(r["n"], i + 1);
+		assert_eq!(text(&r["title"]), steps[i], "numbered in the order the arrow takes them: {o}");
+		assert_eq!(r["current"], i == 0, "only the quest the arrow leads to now is marked");
+	}
+	assert_eq!(o["marked"], json!([true, true, false]));
+	assert_eq!(o["gnoll"], json!({ "progress": "2/5", "zone": "Hale's Reach", "walk": true, "xp": true, "why": true }));
+	assert_eq!(text(&o["after"]), "test/route", "Back hands the arrow back");
+	assert!(!truthy(&o["on"]));
+	assert_eq!(text(&o["mode2"]), "ready");
+}
+
+#[test]
+fn finished_quests_one_npc_takes_stand_under_its_name_and_the_hand_in_card_counts_them_with_the_trip() {
+	let out = run(r#"
+used()
+take(7001, 7007, 7002, 7003)
+finish(7001, 5)
+finish(7007, 3)
+assert(F.Start())
+stub.advance(1)
+local P = page()
+local s = P.Shown()
+local ready = {}
+for _, r in ipairs(s) do if r.ready then ready[#ready + 1] = r.progress end end
+emit({ groups = s.groups, line = P.groups[1] and P.groups[1].Text:GetText() or false, ready = ready, handin = s.handin })
+"#);
+	let o = &out[0];
+	let groups = o["groups"].as_array().unwrap();
+	assert_eq!(groups.len(), 1, "{o}");
+	assert_eq!(text(&groups[0]["npc"]), "Marshal Hale");
+	let mut qs: Vec<i64> = groups[0]["quests"].as_array().unwrap().iter().map(|v| v.as_i64().unwrap()).collect();
+	qs.sort();
+	assert_eq!(qs, [7001, 7007], "both finished quests under the NPC who takes them");
+	assert!(text(&o["line"]).contains("Marshal Hale"), "{o}");
+	assert_eq!(strs(&o["ready"]), ["ready", "ready"]);
+	assert_eq!(o["handin"]["count"], 2);
+	assert_eq!(text(&o["handin"]["text"]), "Hand in finished quests (2)");
+	let sub = text(&o["handin"]["sub"]);
+	assert!(sub.starts_with("About ") && sub.ends_with(" min, 1 stop"), "the trip's time and its one stop: {sub}");
+}
+
+#[test]
+fn the_order_choice_is_the_free_pick_setting_with_a_line_on_what_it_does() {
+	let out = run(r#"
+used()
 take(7001, 7002)
 local P = page()
 P.parts.XP:Click()
 stub.advance(0.5)
-local xp = { Polestar.Get("free.pick"), P.Shown().pick }
+local xp = { Polestar.Get("free.pick"), P.Shown().pick, P.Shown().rule }
 P.parts.Near:Click()
 stub.advance(0.5)
-emit({ xp = xp, near = { Polestar.Get("free.pick"), P.Shown().pick } })
+emit({ xp = xp, near = { Polestar.Get("free.pick"), P.Shown().pick, P.Shown().rule } })
 "#);
-	assert_eq!(out[0]["xp"], json!(["xp", "xp"]));
-	assert_eq!(out[0]["near"], json!(["near", "near"]));
+	assert_eq!(out[0]["xp"], json!(["xp", "xp", "The most XP for each minute of walking and work first."]));
+	assert_eq!(out[0]["near"], json!(["near", "near", "The quest you reach soonest first, its neighbours after it."]));
 }
 
 #[test]
-fn ticking_and_pinning_a_row_changes_free_mode_s_order_and_the_choices_live_in_the_character_s_saved_state() {
+fn the_tick_leaves_a_quest_out_into_its_folded_section_bring_back_returns_it_and_the_flag_pins_it_first() {
 	let out = run(r#"
 take(7001, 7002, 7003)
 assert(F.Start())
 stub.advance(1)
 local normal = titles()
-page()
--- Untick Gnoll Trouble: left out of the loop, its row dimmed and unticked.
-rowOf(7001):Click()
+local P = page()
+-- Untick Gnoll Trouble: out of the route, under Left out (folded).
+rowOf(7001).Check:Click()
 stub.advance(1)
-local left = { titles = titles(), shown = shownTitles(), out = F.LeftOut(), ticked = rowOf(7001).Check:GetChecked() and true or false }
-rowOf(7001):Click()
+local left = { titles = titles(), shown = shownTitles(), out = F.LeftOut(), section = P.Shown().out, open = P.Shown().outOpen, count = P.parts.OutH.Count:GetText() }
+P.parts.OutH:Click()
+stub.advance(0.1)
+left.opened = P.Shown().outOpen
+local orow
+for _, r in ipairs(P.outRows) do if r:IsShown() then orow = r end end
+left.row = orow.Title:GetText()
+orow.Back:Click()
 stub.advance(1)
-local back = { titles = titles(), out = F.LeftOut(), ticked = rowOf(7001).Check:GetChecked() and true or false }
+local back = { titles = titles(), out = F.LeftOut(), shown = shownTitles() }
 -- Pin the far one: it comes first, whatever the order.
 rowOf(7003).Pin:Click()
 stub.advance(1)
-local pinned = { titles = titles(), pinned = F.Pinned() }
+local pinned = { titles = titles(), pinned = F.Pinned(), first = P.Shown()[1].title, flag = P.Shown()[1].pinned }
 local saved = Polestar.CharState().free
 local state = { pin = saved.pin, out = saved.out[7001] }
-rowOf(7003).Pin:Click()
+rowOf(7003):Click()
 stub.advance(1)
 emit({ normal = normal, left = left, back = back, pinned = pinned, state = state, unpinned = { titles = titles(), pinned = F.Pinned() or false } })
 "#);
 	let o = &out[0];
 	assert_eq!(strs(&o["normal"])[0], "Gnoll Trouble");
-	assert_eq!(strs(&o["left"]["titles"]), vec!["Boar Hunt".to_string(), "Lurkers in the Marsh".to_string()], "{o}");
-	assert_eq!(o["left"]["shown"].as_array().unwrap().len(), 3, "a quest left out keeps its row");
+	assert_eq!(strs(&o["left"]["titles"]), ["Boar Hunt", "Lurkers in the Marsh"], "{o}");
+	assert_eq!(o["left"]["shown"], o["left"]["titles"], "the route shows what the arrow takes");
 	assert_eq!(nums(&o["left"]["out"]), vec![7001]);
-	assert_eq!(o["left"]["ticked"], false);
-	assert!(nums(&o["back"]["out"]).is_empty());
-	assert_eq!(o["back"]["ticked"], true);
+	assert_eq!(nums(&o["left"]["section"]), vec![7001], "under Left out");
+	assert_eq!(o["left"]["open"], false, "folded");
+	assert_eq!(text(&o["left"]["count"]), "1");
+	assert_eq!(o["left"]["opened"], true);
+	assert_eq!(text(&o["left"]["row"]), "Gnoll Trouble");
+	assert!(nums(&o["back"]["out"]).is_empty(), "Bring back");
 	assert_eq!(strs(&o["back"]["titles"])[0], "Gnoll Trouble");
+	assert_eq!(o["back"]["shown"], o["back"]["titles"]);
 	assert_eq!(strs(&o["pinned"]["titles"])[0], "Lurkers in the Marsh");
 	assert_eq!(o["pinned"]["pinned"], 7003);
+	assert_eq!(text(&o["pinned"]["first"]), "Lurkers in the Marsh");
+	assert_eq!(o["pinned"]["flag"], true);
 	assert_eq!(o["state"], json!({ "pin": 7003 }), "Free mode's own saved state, no second store");
-	assert_eq!(strs(&o["unpinned"]["titles"])[0], "Gnoll Trouble");
+	assert_eq!(strs(&o["unpinned"]["titles"])[0], "Gnoll Trouble", "a click on the pinned row unpins it");
 	assert_eq!(o["unpinned"]["pinned"], false);
 }
 
@@ -266,8 +375,8 @@ local items = {}
 for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then items[#items + 1] = r.Text:GetText() end end
 for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText():find("Merrow", 1, true) then r:Click() break end end
 stub.advance(1)
-local zone = { out = F.LeftOut(), titles = titles(), actions = P.Shown().actions, back = P.parts.Back.Label:GetText() }
-P.parts.Back:Click()
+local zone = { out = F.LeftOut(), titles = titles(), actions = P.Shown().actions, back = P.parts.BackAll.Label:GetText() }
+P.parts.BackAll:Click()
 stub.advance(1)
 emit({ zones = zones, before = before, group = group, items = items, zone = zone, after = { out = F.LeftOut(), titles = titles() } })
 "#);
@@ -286,15 +395,16 @@ emit({ zones = zones, before = before, group = group, items = items, zone = zone
 }
 
 #[test]
-fn the_hand_in_tile_counts_the_finished_quests_and_opens_the_shortest_trip_guide() {
+fn the_hand_in_card_shows_only_with_finished_quests_and_opens_the_shortest_trip_guide() {
 	let out = run(r#"
+used()
 take(7001, 7002)
 local P = page()
-local none = { P.Shown().handin.text, P.Shown().handin.enabled }
+local none = { P.Shown().handin.shown, P.parts.Handin:IsShown() }
 finish(7001, 5)
 finish(7002, 4)
 stub.advance(0.5)
-local two = { P.Shown().handin.text, P.Shown().handin.enabled }
+local two = { P.Shown().handin.text, P.Shown().handin.shown }
 P.parts.Handin:Click()
 stub.advance(1)
 local tabs = {}
@@ -302,112 +412,112 @@ for _, t in ipairs(E.GetTabs()) do tabs[#tabs + 1] = t.guideId end
 emit({ none = none, two = two, tabs = tabs, guide = E.GetGuide().id })
 "#);
 	let o = &out[0];
-	assert_eq!(o["none"], json!(["None to hand in", false]));
+	assert_eq!(o["none"], json!([false, false]), "no card with nothing to hand in");
 	assert_eq!(o["two"], json!(["Hand in finished quests (2)", true]));
 	assert_eq!(text(&o["guide"]), "lookup/carried/log");
 	assert!(strs(&o["tabs"]).contains(&"lookup/carried/log".to_string()));
 }
 
 #[test]
-fn the_guide_window_s_hand_in_row_shows_from_two_finished_quests_none_in_the_step_hides_until_the_count_changes_and_opens_the_hand_in_tab() {
+fn hovering_a_row_or_a_gamepad_focus_on_it_shows_the_game_s_quest_tooltip_with_where_why_and_objectives() {
 	let out = run(r#"
-Polestar.RegisterPack({ addon = "Polestar_Test", id = "test", format = 1, title = "Test", author = "Test", version = "1", license = "MIT" })
-assert(Polestar.RegisterGuide({ id = "test/route", pack = "test", title = "Route", minLevel = 1, maxLevel = 60, steps = {
-	{ title = "Go west", goals = { { t = "goto", map = 9001, x = 10, y = 90, text = "West camp" } } },
-	{ title = "Hale", goals = { { t = "turnin", quest = 7001, title = "Gnoll Trouble", npc = 5001, npcName = "Marshal Hale", map = 9001, x = 50, y = 52 } } },
-} }))
-E.SetGuide("test/route")
-local GF = UI.GuideFrame
-local function row()
-	for _, l in ipairs(GF.lines) do
-		if l:IsShown() and l.psHandins then return l end
-	end
-end
-local function said() local l = row(); return l and l.Text:GetText() or false end
-take(7001, 7002, 7003)
+used()
+take(7001, 7002)
+finish(7001, 2)
+assert(F.Start())
 stub.advance(1)
-local none = said()
-finish(7002, 4)
-local one = said()
-finish(7003, 6)
-local two = said()
-local line = row()
--- Its close button hides it; the same count keeps it hidden, a new one shows it again.
-line.Close:Click()
-local closed = said()
-take(7101)
-finish(7101)
-local three = said()
--- Route opens the hand-in tab.
-row():Click()
-stub.advance(1)
-local guide = E.GetGuide().id
--- The setting turns it off.
-E.SetGuide("test/route")
-GF.handinClosed = nil
-GF.Refill()
-local on = said()
-Polestar.Set("guideWindow.handinRow", false)
-stub.advance(0.5)
-GF.Refill()
-local off = said()
-Polestar.Set("guideWindow.handinRow", true)
--- A finished quest that is part of the step keeps the row away.
-E.Goto(2)
-stub.advance(1)
-finish(7001, 5)
-GF.handinClosed = nil
-GF.Refill()
-emit({ none = none, one = one, two = two, closed = closed, three = three, guide = guide, on = on, off = off, inStep = said() })
+local P = page()
+local r = rowOf(7001)
+r:GetScript("OnEnter")(r)
+local hover = { owner = GameTooltip:GetOwner() == r, link = GameTooltip.link, lines = GameTooltip.lines, shown = P.Shown().tip }
+r:GetScript("OnLeave")(r)
+local gone = P.Shown().tip or false
+local r2 = rowOf(7002)
+r2.psOnPadFocus(r2, true)
+local pad = { owner = GameTooltip:GetOwner() == r2, link = GameTooltip.link }
+r2.psOnPadFocus(r2, false)
+emit({ hover = hover, gone = gone, pad = pad, padGone = P.Shown().tip or false })
 "#);
 	let o = &out[0];
-	assert_eq!(o["none"], false);
-	assert_eq!(o["one"], false, "one finished quest is no row");
-	assert!(text(&o["two"]).starts_with("2 quests ready to hand in"), "{o}");
-	assert_eq!(o["closed"], false, "the close button hides it");
-	assert!(text(&o["three"]).starts_with("3 quests ready to hand in"), "a new count shows it again: {o}");
-	assert_eq!(text(&o["guide"]), "lookup/carried/log", "Route opens the hand-in tab");
-	assert!(text(&o["on"]).starts_with("3 quests ready"), "{o}");
-	assert_eq!(o["off"], false, "Settings > Guide window > Parts > Hand-in row");
-	assert_eq!(o["inStep"], false, "a finished quest of the step on screen: no row");
+	assert_eq!(o["hover"]["owner"], true);
+	assert_eq!(text(&o["hover"]["link"]), "quest:7001", "the game's own quest tooltip");
+	let lines = strs(&o["hover"]["lines"]);
+	assert!(lines.iter().any(|l| l.starts_with("Hale's Reach")), "where: {lines:?}");
+	assert!(lines.iter().any(|l| l.contains("Ridge Gnoll slain")), "the objectives: {lines:?}");
+	assert_eq!(o["hover"]["shown"], 7001);
+	assert_eq!(o["gone"], false);
+	assert_eq!(o["pad"], json!({ "owner": true, "link": "quest:7002" }), "a gamepad's focus shows it too");
+	assert_eq!(o["padGone"], false);
 }
 
 #[test]
-fn a_gamepad_reaches_the_start_button_the_order_and_every_row_a_ticks_or_unticks_a_row_and_x_pins_it() {
+fn the_sidebar_lists_the_page_s_sections_and_a_click_opens_and_scrolls_to_one() {
+	let out = run(r#"
+used()
+take(7001, 7002)
+finish(7001, 5)
+assert(F.Start())
+stub.advance(1)
+F.LeaveOut(7002, true)
+stub.advance(1)
+page()
+local items = {}
+local out
+for _, b in ipairs(PolestarPicker.navButtons) do
+	if b:IsShown() then
+		items[#items + 1] = { b.psKey, b.Count:IsShown() and b.Count:GetText() or "" }
+		if b.psKey == "out" then out = b end
+	end
+end
+local before = F.Page.Shown().outOpen
+out:Click()
+stub.advance(0.1)
+local active
+for _, b in ipairs(PolestarPicker.navButtons) do if b:IsShown() and b.psOn then active = b.psKey end end
+emit({ items = items, before = before, after = F.Page.Shown().outOpen, active = active })
+"#);
+	let o = &out[0];
+	assert_eq!(o["items"], json!([["route", "1"], ["handins", "1"], ["out", "1"], ["about", ""]]));
+	assert_eq!(o["before"], false);
+	assert_eq!(o["after"], true, "Left out opens");
+	assert_eq!(text(&o["active"]), "out");
+}
+
+#[test]
+fn a_gamepad_reaches_start_the_order_and_every_row_a_pins_a_row_x_leaves_it_out_and_its_focus_shows_the_tooltip() {
 	let out = run_with(
 		r#"
 Polestar.Set("gamepad.withMouse", true)
 stub.advance(3)
 if PolestarWelcome then PolestarWelcome:Hide() end
+used()
 take(7001, 7002, 7003)
 local G = Polestar.Gamepad
 page()
 stub.advance(0.3)
 local owner = G.owner and G.owner:GetName()
--- What the focus can reach: the buttons and one stop a row (a row's own pin is the mouse's, X is the gamepad's).
 local reach = {}
 for _, c in ipairs(G.Collect(PolestarPicker)) do
 	if c.psQuest then reach[#reach + 1] = c.psQuest elseif c == F.Page.parts.Start then reach[#reach + 1] = "start" elseif c == F.Page.parts.Near then reach[#reach + 1] = "near" end
 end
--- Until a button is pressed the focus follows the window's first stop: a press settles it, then the D-pad's target is the row.
 stub.press("PADDDOWN")
 local row = rowOf(7002)
 G.SetFocus(PolestarPicker, row)
 stub.advance(0.1)
 local focused = G.Focused(PolestarPicker) == row
+local tip = GameTooltip:GetOwner() == row
+local label = row.psPadLabel
 stub.press("PAD1")
-stub.advance(0.5)
-local left = F.LeftOut()
-stub.press("PAD1")
-stub.advance(0.5)
-local back = F.LeftOut()
-stub.press("PAD3")
 stub.advance(0.5)
 local pinned = F.Pinned()
+local still = G.Focused(PolestarPicker) == rowOf(7002)
+stub.press("PAD1")
+stub.advance(0.5)
+local unpinned = F.Pinned() or false
 local xlabel = row.psPadXLabel()
 stub.press("PAD3")
 stub.advance(0.5)
-emit({ reach = reach, focused = focused, left = left, back = back, pinned = pinned, unpinned = F.Pinned() or false, label = row.psPadLabel, xlabel = xlabel, owner = owner })
+emit({ reach = reach, focused = focused, tip = tip, label = label, pinned = pinned, still = still, unpinned = unpinned, xlabel = xlabel, left = F.LeftOut(), owner = owner })
 "#,
 		vec!["stub_world.lua", "stub_gamepad.lua"],
 	);
@@ -418,11 +528,75 @@ emit({ reach = reach, focused = focused, left = left, back = back, pinned = pinn
 	}
 	assert_eq!(text(&o["owner"]), "PolestarPicker");
 	assert_eq!(o["focused"], true);
-	assert_eq!(nums(&o["left"]), vec![7002], "A unticks it");
-	assert!(nums(&o["back"]).is_empty(), "A ticks it again");
-	assert_eq!(o["pinned"], 7002, "X pins it");
-	assert_eq!(text(&o["xlabel"]), "Unpin", "the hint says what X does next");
-	assert_eq!(o["unpinned"], false, "X again unpins it");
+	assert_eq!(o["tip"], true, "the focus shows the quest's tooltip");
+	assert_eq!(text(&o["label"]), "Pin to the top");
+	assert_eq!(o["pinned"], 7002, "A pins it");
+	assert_eq!(o["still"], true, "the focus stays on its quest as the route reorders");
+	assert_eq!(o["unpinned"], false, "A again unpins it");
+	assert_eq!(text(&o["xlabel"]), "Leave out", "the hint says what X does");
+	assert_eq!(nums(&o["left"]), vec![7002], "X leaves it out");
+}
+
+#[test]
+fn the_free_mode_tab_and_header_wear_the_running_figure_the_hand_in_tab_its_question_mark_a_leveling_tab_its_chevrons() {
+	let out = run(r#"
+route()
+take(7001)
+finish(7001, 5)
+assert(Polestar.Handins.Start())
+stub.advance(1)
+assert(F.Start())
+stub.advance(1)
+local GF = UI.GuideFrame
+GF.Layout()
+local icons = {}
+for i, t in ipairs(E.GetTabs()) do
+	local b = GF.tabs[i]
+	icons[#icons + 1] = { t.guideId, b and b.psIcon or false }
+end
+emit({ icons = icons, header = UI.GuideGlyph() or false, leveling = UI.GuideGlyph("test/route") or false })
+"#);
+	let o = &out[0];
+	assert_eq!(o["icons"], json!([["test/route", "icon-level"], ["lookup/carried/log", "icon-turnin"], ["lookup/free/log", "icon-freemode"]]));
+	assert_eq!(text(&o["header"]), "icon-freemode", "the window's header glyph while Free mode is in front (Atlas's emblem spot)");
+	assert_eq!(o["leveling"], false, "a leveling guide keeps the emblem");
+}
+
+#[test]
+fn the_running_figure_is_one_32_px_glyph_wherever_free_mode_shows() {
+	// The texture: drawn in tools/media/ui.js, 32×32 (a power of two), 32-bit, white and tinted at runtime; the dotted
+	// route it replaces is gone.
+	let media = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../../addon/Polestar/Media/UI");
+	let tga = std::fs::read(media.join("icon-freemode.tga")).expect("icon-freemode.tga");
+	let (w, h, bpp) = (u16::from_le_bytes([tga[12], tga[13]]), u16::from_le_bytes([tga[14], tga[15]]), tga[16]);
+	assert_eq!((w, h, bpp), (32, 32, 32));
+	assert!(!media.join("icon-ownpath.tga").exists(), "the old glyph is gone");
+	let out = run(r#"
+route()
+take(7001)
+local menuOff = F.MenuItems()[1].icon
+assert(F.Start())
+stub.advance(1)
+local GF = UI.GuideFrame
+GF.Refill()
+local banner = tostring(GF.parts.banner.Icon:GetTexture())
+local menuOn = F.MenuItems()[1].icon
+local section
+for _, s in ipairs(UI.Picker.Sections()) do if s.key == "FreeMode" then section = s.icon end end
+Polestar.Fire("SHOW_OPTIONS")
+stub.advance(0.3)
+local settings
+for _, x in ipairs(Polestar.UI.Options.AllControls()) do if x.kind == "button" and x.label == "Free mode" then settings = x.icon end end
+local P = page()
+emit({ menuOff = menuOff, menuOn = menuOn, banner = banner, section = section, settings = settings, start = tostring(P.parts.Start.Icon:GetTexture()) })
+"#);
+	let o = &out[0];
+	for k in ["menuOff", "menuOn", "section", "settings"] {
+		assert_eq!(text(&o[k]), "icon-freemode", "{k}");
+	}
+	for k in ["banner", "start"] {
+		assert!(text(&o[k]).ends_with("icon-freemode"), "{k}: {}", o[k]);
+	}
 }
 
 #[test]

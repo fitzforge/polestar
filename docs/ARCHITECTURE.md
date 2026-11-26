@@ -8629,14 +8629,19 @@ hand-in guide behind the guide menu's "Hand in finished quests" is in it.
 ```lua
 Polestar.Free.GUIDE                            -- "lookup/free/log"
 Polestar.Free.Start() -> true | nil, reason     -- the Codex loads, the tab opens active; reason "combat" | "missing" | "login"
-Polestar.Free.Stop()                            -- the tab closes; the tab the player came from (else the first other) is active
+Polestar.Free.Stop()                            -- the tab closes; the way back (below) is active
 Polestar.Free.Toggle() ; Polestar.Free.IsOn() -> bool ; Polestar.Free.IsGuide(id) -> bool
 Polestar.Free.ReturnTitle() -> title | nil      -- the guide Stop hands back to
+Polestar.Free.State() -> CharState().free ; Polestar.Free.IsBackTarget(guideId) -> bool
+Polestar.Free.Used() -> bool ; Polestar.Free.MarkUsed()   -- started once on this account (PolestarDB.freeUsed)
 Polestar.Free.Pin(questID, on) ; Polestar.Free.Pinned() -> questID | nil
 Polestar.Free.LeaveOut(questID, on) ; Polestar.Free.LeftOut() -> { questID, ... }
 Polestar.Free.SetPick("balanced" | "near" | "xp") -- setting free.pick
-Polestar.Free.Pick() -> rule ; Polestar.Free.NextPick(rule?) -> rule ; Polestar.Free.PickLabel(rule) -> text
+Polestar.Free.Pick() -> rule ; Polestar.Free.NextPick(rule?) -> rule ; Polestar.Free.PickLabel(rule) -> text ; Polestar.Free.PickRule(rule) -> text
 Polestar.Free.Why() -> text | nil              -- "Why <quest> first: <reasons>", the last plan's
+Polestar.Free.Reasons(rows, i) -> text | nil   -- why rows[i] comes where it does ("ready to hand in · most XP for the trip")
+Polestar.Free.Route() -> rows, info            -- the quests in Free mode's order: the last plan's while on, else the plan Start would make
+Polestar.Free.HandinTrip() -> seconds, stops | nil  -- the finished quests' trip, the page's hand-in card
 Polestar.Free.Quests() -> rows ; Polestar.Free.Zones()      -- the quests page's rows (quest, title, level, zone, zoneName, ready, group, out, pinned); the zones of those in the loop
 Polestar.Free.LeaveOutZone(map) ; Polestar.Free.LeaveOutGroup() ; Polestar.Free.BringBack()  -- the quick actions
 Polestar.Free.Steps(from?) -> steps, info       -- a plan as it stands (info.rows in order, info.hint, info.first, info.why)
@@ -8655,7 +8660,7 @@ Polestar.FreeOrder.Sort(rows, rule, pin, last, dist) ; .Why(rows, rule, pin) ; .
   `rewards.xp` (the Codex's XP times `Levels.Share` at the player's level) and a
   collect whose best placed source gives the item under 20% says "Low drop
   rate: N%". An empty plan is one note step ("Pick up quests…"), and the
-  window's finished card then reads "No quests to lead to" with Return to
+  window's finished card then reads "No quests to lead to" with Back to
   <guide> or Choose a guide.
 - **The pick rule** (`free.pick`, `Order.lua`: its numbers in one table each,
   `Order.EFFORT`, `Order.NEAR`, `Order.HOLD`, `Order.BALANCED`). Each quest's
@@ -8686,11 +8691,20 @@ Polestar.FreeOrder.Sort(rows, rule, pin, last, dist) ; .Why(rows, rule, pin) ; .
   (`CharState().free.out`) are not listed. Both go when the quest leaves the
   log. The straight lines a plan measures read each place's world position
   once a plan.
-- **Why** (`Order.Why`, `Free.Why`). The 1-3 strongest reasons the first quest
-  is first: pinned; N hand-ins at one stop; ready to hand in; N of your quests
-  here; hand-in on the way; started; nearest; most XP for the trip (the
-  order's own score: Balanced's with its weights); kept while you walk (the
-  hold, when nothing else says it).
+- **Why** (`Order.Why`, `Free.Why`, `Free.Reasons`). The 1-3 strongest reasons
+  a quest comes where it does, against the quests after it: pinned; N
+  hand-ins at one stop; ready to hand in; N of your quests here; hand-in on
+  the way; started; nearest; most XP for the trip (the order's own score:
+  Balanced's with its weights); kept while you walk (the hold, when nothing
+  else says it). The first quest's step carries them as `chosen` ("Why first:
+  …"), the Engine's view passes it on and the guide window shows it as one dim
+  line under the step's header (in `person.Why`, after the Engine's own `why`).
+- **The way back** (`CharState().free.from`, the door's `TABS_CHANGED`): the
+  last guide of a pack the player had in front, whatever tab Free mode starts
+  from; a tab Polestar builds (`lookup/<kind>/<id>`: the hand-in route, a
+  dungeon's pick-up run, a Lookup "Guide me") is never one. Stop selects it if
+  its tab is open, else the first open tab of a pack; with none, Stop just
+  closes Free mode's tab and the window offers Stop Free mode, not Back to.
 - **Zone hints** (`free.hints`). With no quest placed, or the first more than
   300 s away, the first step is "Quests for your level": a `goto` to the hub of
   the zone with the most quests for the trip (its count over 1 + the straight
@@ -8709,36 +8723,63 @@ Polestar.FreeOrder.Sort(rows, rule, pin, last, dist) ; .Why(rows, rule, pin) ; .
   `MoveTab`), as Lookup's generated guides reopen: placed from the quest log,
   the first open quest live. While no Free mode tab is open the quest log's
   events cost one flag test (`TABS_CHANGED` keeps it).
-- **The window.** The guide menu's "Free mode" row (on/off) and, while it is on,
-  the next order and "Bring back left-out quests (N)"; with no guide open, the
-  empty card's "Or follow your own quests: Free mode"; while it is the guide
-  shown, the banner (after every other notice but the update's) "Free mode: the
-  arrow takes your own quests, the best trip first: XP, progress and stops
-  shared." (or the order chosen's) and under it the why line, with Return to
-  <guide> and the next order (balanced, nearest, most XP, round again), closed
-  for the session by its ×; a quest line's right-click has
-  Pin to the top / Unpin and Leave out of Free mode in place of Skip this
-  quest. Settings: Questing > Quests > Free mode (the switch, `free.pick`,
-  `free.hints`, `free.details`).
+- **The window.** The guide menu's "Free mode" row starts it; while it is on
+  the menu holds "Free mode page", "Back to <guide>" (or "Stop Free mode"), the
+  three orders ("Order: balanced", "Order: nearest first", "Order: most XP a
+  minute first", the one in use checked) and "Bring back left-out quests (N)";
+  with no guide open, the empty card's "Or follow your own quests: Free mode".
+  When Free mode starts (`FREE_MODE` true) the banner says once "You're in Free
+  mode: your own quests, planned for you." with its × and no links; closed, it
+  is gone until the next start (a saved tab coming back after /reload is no
+  start). Free mode's tab and, in Atlas, the window's header glyph are the
+  running figure (`icon-freemode`, `UI.GuideGlyph`); the hand-in route's tab
+  wears the "?" (`icon-turnin`). A quest line's right-click has Pin to the top
+  / Unpin and Leave out of Free mode in place of Skip this quest. Settings:
+  Questing > Quests > Free mode (the switch, `free.pick`, `free.hints`,
+  `free.details`).
 - **The page** (`Polestar_FreeMode/Page.lua`, door `UI/FreeMode.lua`, a hub
-  section under Guides with the glyph `icon-ownpath`; `Free.Page.Build(parent,
-  hub)`, `Render()`, `Shown()`). Loads with the folder, the first time the page
-  shows (without it the page says why). Start, or Return to <guide> while it is
-  on (Stop when there is no other tab); Which quest first (Balanced | Nearest first |
-  Most XP a minute first, `free.pick`); the tile "Hand in finished quests (N)
-  . Route" (`UI.GuideCarried`, the shortest-trip hand-in guide; "None to hand
-  in" and disabled with none); then "Your quests": one row for every quest in
-  the log (`Free.Quests()`: the Codex is loaded for its zone and its elite and
-  instance objectives), a tick (ticked: in the loop; unticked: left out,
-  `Free.LeaveOut`), the title, "Ready to hand in", its zone, its level and a pin
-  (`Free.Pin`). Quick actions: Leave out a zone (a menu of the zones of the
-  quests in the loop, `Free.LeaveOutZone`), Leave out group quests
-  (`Free.LeaveOutGroup`: a quest still to do with an elite, a boss or an
-  instance objective), Bring back left-out quests (N). All of it is the saved
-  state of Free mode (`CharState().free`, per character, kept over /reload and
-  logout); nothing is stored by the page. A change fires `FREE_CHANGED`, which
-  draws an open page again. With a gamepad A on a row ticks or unticks it and X
-  pins it (`psPadX` on the row, handed over by the guide menu's X).
+  section under Guides with the glyph `icon-freemode`; `Free.Page.Build(parent,
+  hub)`, `Render()`, `Shown()`, `Nav()`, `Jump(key)`). Loads with the folder,
+  the first time the page shows (without it the page says why). Its header:
+  "Free mode", "Your own quests, planned for you." Laid out by who arrives:
+  **intro** (never started on this account, `PolestarDB.freeUsed` unset): "Quest
+  your own way", three points (you pick up quests; Polestar plans the order;
+  the arrow leads), when it suits and the way back, with "Start Free mode";
+  beside it "Your quests in Free mode": "With your N quests, Free mode starts
+  with <quest>." and the first three in its order (`Free.Route()`: the plan
+  Start would make). **ready** (started before, off): Start with Which quest
+  first beside it (Balanced | Nearest first | Most XP a minute first,
+  `free.pick`, one line under it on what the order does, `Free.PickRule`),
+  then "First up", the first three. **on**: "Free mode is on · following N
+  quests" with Back to <guide> (or Stop Free mode), the order, then "Your
+  route": every quest in the plan's order, numbered, the one the arrow leads to
+  now (the first, unless a zone hint leads) on the selection wash with the 2px
+  accent bar; each row the title in the quest log's difficulty colour
+  (`UI.QuestDifficulty`), its reasons (`Free.Reasons`), its progress (the
+  objective counts summed, "3/8" and a slim bar; "Ready"), its walk ("4 min"),
+  its XP and zone, then a quiet flag (`Free.Pin`) and tick (leaving it out,
+  `Free.LeaveOut`); a click on the row pins it. Finished quests one after
+  another for the same NPC stand under "Hand in to <NPC> · <zone>". In every
+  layout the hand-in card while quests are finished: "Hand in finished quests
+  (N)", "About 6 min, 2 stops" (`Free.HandinTrip`: the nearest NPC next,
+  straight lines' running time, 6 s a quest), Route (`UI.GuideCarried`); none
+  with nothing finished. In ready and on: "Left out (N)", folded, a row each
+  with Bring back, and at its right the quick actions Leave out a zone (a menu
+  of the zones of the quests in the loop, `Free.LeaveOutZone`), Leave out group
+  quests (`Free.LeaveOutGroup`: a quest still to do with an elite, a boss or an
+  instance objective), Bring back left-out quests (N); last "What is Free
+  mode?", folded, the intro's points under it. Hovering a row, or a gamepad's
+  focus on it (`psOnPadFocus`), shows the game's quest tooltip (`W.QuestTip`:
+  the quest's link) with Polestar's lines: its zone and walk, its reasons, its
+  objectives with their counts. The sidebar lists the page's sections (Your
+  route or First up, Hand-ins, Left out, About Free mode; never started:
+  About Free mode, Your quests in Free mode); a click opens a folded one and
+  scrolls to it. All of it is the saved state of Free mode (`CharState().free`,
+  per character, kept over /reload and logout); nothing is stored by the page.
+  A change fires `FREE_CHANGED`, which draws an open page again. With a
+  gamepad A on a row pins it, X leaves it out (`psPadX`, handed over by the
+  guide menu's X); a row is one frame per quest, so the focus stays on its
+  quest as the route reorders.
 - **The world map.** A left click on a held quest's pin or objective area on
   Polestar's own map pins (the objective and hand-in layers of
   `Quests/Tracker.lua`; areas and hulls take it through `Nav/Pins.lua`'s

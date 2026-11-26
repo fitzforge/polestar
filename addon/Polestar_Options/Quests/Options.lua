@@ -133,7 +133,7 @@ if ns.Free then
 	local ok, err = ns.RegisterOptions({
 		page = L["Questing"], tab = L["Quests"], section = L["Free mode"],
 		controls = {
-			{ kind = "button", icon = "icon-ownpath", button = L["Start"], label = L["Free mode"], search = SEARCH,
+			{ kind = "button", icon = "icon-freemode", button = L["Start"], label = L["Free mode"], search = SEARCH,
 				help = L["Your own quests as a guide, in a tab of its own: the arrow takes them in the order that gets the most done for the walk, or nearest first, or the most XP a minute (/polestar free). Press again to go back to your guide."],
 				onClick = function() F.Toggle() end },
 			{ kind = "dropdown", key = "free.pick", label = L["Which quest first"], search = SEARCH,

@@ -200,6 +200,37 @@ function UI.Category(guide)
 	return c
 end
 
+-- The client's difficulty colour for a quest level against the player's, as
+-- the quest log draws it (GetQuestDifficultyColor; its QuestDifficultyColors
+-- by level gap otherwise), moved toward the text colour until it reads at
+-- 4.5:1 on the lightest ground (Theme.Legible) -> r, g, b. The quest colour
+-- for a quest of no known level.
+function UI.QuestDifficulty(level, plevel)
+	local r, g, b
+	if type(level) == "number" then
+		if GetQuestDifficultyColor then
+			local ok, c = pcall(GetQuestDifficultyColor, level)
+			if ok and type(c) == "table" and type(c.r) == "number" and not ns.Compat.IsSecret(c.r) then r, g, b = c.r, c.g, c.b end
+		end
+		local t = not r and QuestDifficultyColors
+		if type(t) == "table" and type(plevel) == "number" then
+			local d = level - plevel
+			local key
+			if d >= 5 then key = "impossible"
+			elseif d >= 3 then key = "verydifficult"
+			elseif d >= -4 then key = "difficult"
+			else
+				local C = ns.Compat
+				key = (C and C.IsQuestTrivial and C.IsQuestTrivial(level, plevel)) and "trivial" or "standard"
+			end
+			local c = t[key]
+			if type(c) == "table" and type(c.r) == "number" then r, g, b = c.r, c.g, c.b end
+		end
+	end
+	if not r then r, g, b = Theme.Color("quest") end
+	return Theme.Legible(r, g, b)
+end
+
 -- The glyph (a Media/UI name) each guide category wears: in the picker's
 -- list of categories and on a guide's tab. Dungeons is the dungeon guides'
 -- own mark (the hub's), Favorites and Lookup the picker's two extra entries.
@@ -213,11 +244,34 @@ UI.CATEGORY_ICON = {
 -- Leveling's chevrons, since a magnifier there reads as a search control.
 local PICKER_ONLY = { Favorites = true, Lookup = true }
 
+-- The guides Polestar plans as it goes that wear a glyph of their own, by
+-- planner kind (Lookup.GuideId): Free mode the running figure, the hand-in
+-- route the "?" of a quest to hand in.
+local PLANNER_ICON = { free = "icon-freemode", carried = "icon-turnin" }
+
+-- A guide's own glyph (on its tab and in the window's header), or nil: a
+-- guide id, a guide, or none for the guide in the window.
+function UI.GuideGlyph(guide)
+	if guide == nil then
+		local E = ns.Engine
+		guide = E and E.GetGuide and E.GetGuide()
+	end
+	local id = type(guide) == "table" and guide.id or guide
+	local Lk = ns.Lookup
+	local kind = Lk and Lk.ParseGuideId and Lk.ParseGuideId(id)
+	return kind and PLANNER_ICON[kind] or nil
+end
+
 -- The glyph of a category name ("Class"), or of a guide (its category, the
--- dungeon mark for a dungeon guide, whatever its category); an unknown
--- category wears Leveling's. `onTab`: for a guide's tab (PICKER_ONLY left out).
+-- dungeon mark for a dungeon guide, whatever its category; a planned guide's
+-- own, UI.GuideGlyph); an unknown category wears Leveling's. `onTab`: for a
+-- guide's tab (PICKER_ONLY left out).
 function UI.CategoryIcon(c, onTab)
-	if type(c) == "table" then c = c.dungeon and "Dungeons" or UI.Category(c) end
+	if type(c) == "table" then
+		local own = UI.GuideGlyph(c)
+		if own then return own end
+		c = c.dungeon and "Dungeons" or UI.Category(c)
+	end
 	if onTab and PICKER_ONLY[c] then c = nil end
 	return UI.CATEGORY_ICON[c] or UI.CATEGORY_ICON.Leveling
 end

@@ -12,10 +12,19 @@
 --   Free.Start() / Free.Toggle()                      -- load, then the mode's own
 --   Free.SetPick("balanced" | "near" | "xp")         -- setting free.pick
 --   Free.Pick() -> rule ; Free.NextPick(rule?) -> rule ; Free.PickLabel(rule) -> text
+--   Free.PickRule(rule) -> text                       -- one line on what an order does
 --   Free.Why() -> text | nil                         -- why Free mode's first quest is first
 --   Free.MenuItems() ; Free.RowItems(q) ; Free.ReturnTitle() ; Free.Stop()
 --   Free.Pinned() ; Free.Pin(q, on)                   -- the quest Free mode takes first (the world map's click)
 --   Free.Say(reason)                                  -- why it could not start, in chat
+--   Free.State() -> CharState().free                  -- { pin, out = { [questID] = true }, from = guideId }
+--   Free.IsBackTarget(guideId) -> bool                -- a guide of a pack, not one Polestar builds
+--   Free.Used() -> bool ; Free.MarkUsed()             -- started once on this account (PolestarDB.freeUsed)
+--
+-- The way back: while any tab is active, the last guide of a pack the player
+-- had in front is CharState().free.from, so Free mode's "Back to <guide>"
+-- never names a tab Polestar built (the hand-in route, a dungeon's pick-up
+-- run, a Lookup "Guide me").
 
 local ADDON, ns = ...
 
@@ -39,6 +48,32 @@ Free.ADDON = "Polestar_FreeMode"
 Free.GUIDE = Lookup.GuideId("free", "log")
 
 function Free.IsGuide(id) return id == Free.GUIDE end
+
+-- Free mode's saved state for this character.
+function Free.State()
+	local s = ns.CharState()
+	local f = s.free
+	if type(f) ~= "table" then
+		f = {}
+		s.free = f
+	end
+	if type(f.out) ~= "table" then f.out = {} end
+	return f
+end
+
+-- A guide of a pack (a leveling route, a class guide, an imported one), not
+-- one Polestar builds as it goes (Lookup's "lookup/<kind>/<id>").
+function Free.IsBackTarget(id)
+	return type(id) == "string" and Lookup.ParseGuideId(id) == nil
+end
+
+function Free.Used() return ns.DB().freeUsed == true end
+function Free.MarkUsed() ns.DB().freeUsed = true end
+
+ns.On("TABS_CHANGED", function(list, active)
+	local t = type(list) == "table" and list[active] or nil
+	if t and Free.IsBackTarget(t.guideId) then Free.State().from = t.guideId end
+end)
 
 function Free.IsOn()
 	local E = ns.Engine
@@ -85,7 +120,7 @@ function door.Pin(q, on) return via("Pin", q, on) end
 function door.RowItems() return nil end
 function door.Why() return nil end
 function door.MenuItems()
-	return { { text = L["Free mode"], icon = "icon-ownpath", checked = false, tip = L["Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute)."],
+	return { { text = L["Free mode"], icon = "icon-freemode", checked = false, tip = L["Your own quests, planned for you: pick up what you like, Polestar orders them and the arrow leads."],
 		onClick = function() Free.Toggle() end } }
 end
 for k, fn in pairs(door) do Free[k] = fn end
@@ -105,6 +140,13 @@ end
 
 function Free.PickLabel(rule)
 	return (rule == "balanced" and L["Balanced"]) or (rule == "xp" and L["Most XP a minute first"]) or L["Nearest first"]
+end
+
+-- What an order does, in one line (the page, under its switch).
+function Free.PickRule(rule)
+	return (rule == "balanced" and L["The best trip first: XP for the walk, quests started and stops shared."])
+		or (rule == "xp" and L["The most XP for each minute of walking and work first."])
+		or L["The quest you reach soonest first, its neighbours after it."]
 end
 
 function Free.SetPick(rule)
