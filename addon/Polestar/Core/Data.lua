@@ -13,7 +13,7 @@
 --     client hides it).
 --   Data.CheckInstall() -> missing, stale, retired, regions, folded
 --     The release zip's folders beside Polestar: names of the required ones
---     (Polestar_Guides, Polestar_Codex, Polestar_Handins, Polestar_Options, the player's faction part) that are
+--     (Polestar_Guides, Polestar_Codex, Polestar_FreeMode, Polestar_Options, the player's faction part) that are
 --     not installed, and "name version" for every Polestar_* folder in the
 --     AddOns list, loaded or not, whose TOC version differs from Polestar's
 --     (Polestar_Recorder, released on its own, left out; a folder or a
@@ -117,7 +117,7 @@ function Data.Info(name)
 end
 
 -- Folders the release zip puts beside Polestar. The first four must be
--- there (Polestar_Handins and Polestar_Options load on demand but are part
+-- there (Polestar_FreeMode, the quest-log modes, and Polestar_Options load on demand but are part
 -- of every release); our skins and layouts (Polestar_Skins: a player on none
 -- of them never loads it), the walking routes (Polestar_Nav), Freedoom Arcade
 -- (Polestar_Arcade: without it there is no game to offer), quest and item
@@ -126,8 +126,8 @@ end
 -- interface, names and guide texts to English; a
 -- source install may not build the packs), but when present they must be the
 -- same version.
-local COMPANIONS = { "Polestar_Guides", "Polestar_Codex", "Polestar_Handins", "Polestar_Options", "Polestar_Skins", "Polestar_Nav", "Polestar_Arcade", "Polestar_FreeMode", "Polestar_QuestDB", "Polestar_ItemDB" }
-local REQUIRED = { Polestar_Guides = true, Polestar_Codex = true, Polestar_Handins = true, Polestar_Options = true }
+local COMPANIONS = { "Polestar_Guides", "Polestar_Codex", "Polestar_FreeMode", "Polestar_Options", "Polestar_Skins", "Polestar_Nav", "Polestar_Arcade", "Polestar_QuestDB", "Polestar_ItemDB" }
+local REQUIRED = { Polestar_Guides = true, Polestar_Codex = true, Polestar_FreeMode = true, Polestar_Options = true }
 
 -- The folders 0.4.3 folded into others (#3507): the game's looks, the Skin
 -- API's checks, the tab styles and the experimental guides into Polestar;

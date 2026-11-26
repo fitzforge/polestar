@@ -32,9 +32,9 @@ pub fn stubs_dir() -> PathBuf {
 }
 
 /// Polestar's own load-on-demand addons besides the walking maps' parts, which [`run_addon`] loads from their
-/// TOC when the addon asks (C_AddOns.LoadAddOn): the hand-in planner, settings window, our skins and layouts, and Freedoom Arcade
+/// TOC when the addon asks (C_AddOns.LoadAddOn): the quest-log modes (Free mode, the hand-in planner), settings window, our skins and layouts, and Freedoom Arcade
 /// (the first Play).
-pub const LOAD_ON_DEMAND: &[&str] = &["Polestar_Handins", "Polestar_Options", "Polestar_Skins", "Polestar_Arcade", "Polestar_FreeMode"];
+pub const LOAD_ON_DEMAND: &[&str] = &["Polestar_FreeMode", "Polestar_Options", "Polestar_Skins", "Polestar_Arcade"];
 
 /// An addon to load, as the client loads it.
 #[derive(Clone, Debug)]
@@ -205,7 +205,7 @@ end"
 	// asks for one the first time it searches its continent), the settings window (Polestar_Options:
 	// UI/OptionsLoader.lua asks for it the first time the settings open), our skins and layouts (Polestar_Skins:
 	// Theme/SkinApi.lua, when one of them is wanted), Freedoom Arcade (Polestar_Arcade: Maps/Arcade.lua, the
-	// first Play) and Free mode (Polestar_FreeMode: Lookup/Free.lua, when it starts).
+	// first Play) and the quest-log modes (Polestar_FreeMode: Lookup/Free.lua or Lookup/Handins.lua, when one opens).
 	static PART_FILES: LazyLock<Result<Vec<(String, String)>, String>> = LazyLock::new(|| {
 		let names = forge_nav::pack::PARTS.iter().map(|(_, p)| *p).chain(LOAD_ON_DEMAND.iter().copied());
 		Ok(names
