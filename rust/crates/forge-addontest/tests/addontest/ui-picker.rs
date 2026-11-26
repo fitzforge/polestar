@@ -323,7 +323,10 @@ fn left_pane_the_rail_holds_the_sections_and_options_the_sidebar_holds_the_categ
 	rail.extend(out["sections"].as_array().unwrap()[1..].iter().cloned());
 	assert_eq!(out["rail"], Value::Array(rail));
 	// Leveling counts the other races' starting zones (Dun Morogh, Teldrassil, Zephras Isle) too.
-	assert_eq!(out["labels"], json!(["All guides 16", "Leveling 9", "Professions 3", "Reputation 1", "Exploration 1", "Legacy 1", "Collectibles 1", "Favourites 0", "Community guides ", "Import a guide "]));
+	assert_eq!(
+		out["labels"],
+		json!(["All guides 16", "Leveling 9", "Professions 3", "Reputation 1", "Exploration 1", "Legacy 1", "Collectibles 1", "Favourites 0", "Community guides ", "Import a guide "])
+	);
 	assert!(is_match_icon(text(&out["icon"])));
 	assert_eq!(
 		out["r"],

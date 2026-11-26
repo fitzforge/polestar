@@ -478,6 +478,8 @@
 --   Leave out
 --   Stop
 --   Your quests
+--   Open Settings, Community guides, Import a guide; import clear / import delete <id>: remove imports
+--   This is a guide import string: paste it under Settings, Community guides, Import a guide.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhCN") then return end
@@ -3750,8 +3752,8 @@ L["Removed %d imported guide(s)."] = "已移除 %d 个导入指南。"
 L["Usage: /polestar import delete <guide-id>"] = "用法：/polestar import delete <指南ID>"
 L["Removed imported guide %s."] = "已移除导入指南 %s。"
 L["No imported guide with id %s."] = "没有 ID 为 %s 的导入指南。"
-L["Open the Import page; import clear / import delete <id>: remove imports"] = "打开导入页面；import clear / import delete <ID>：移除导入内容"
 L["Its guide has %d entries in %s; an import string holds %d there at most."] = "其指南中有 %d 个条目位于 %s；导入字符串在此处最多容纳 %d 个。"
+L["Open Settings, Community guides, Import a guide; import clear / import delete <id>: remove imports"] = "打开 设置、社区指南、导入指南；import clear / import delete <id>：移除导入"
 
 -- UI/Import.lua
 L["by %s"] = "作者 %s"
@@ -4396,7 +4398,6 @@ L["This profile is in use. Switch to another one first."] = "此配置正在使�
 L["This profile string is damaged or incomplete. Copy the whole string again."] = "此配置字符串已损坏或不完整。请重新复制完整的字符串。"
 L["This profile string holds too much to be a Polestar profile."] = "此配置字符串内容过多，不可能是 Polestar 配置。"
 L["Paste a profile string."] = "请粘贴配置字符串。"
-L["This is a guide import string: paste it on the Import page."] = "这是指南导入字符串：请粘贴到“导入”页面。"
 L["This is not a Polestar profile string."] = "这不是 Polestar 配置字符串。"
 L["This profile string needs a newer Polestar."] = "此配置字符串需要更新版本的 Polestar。"
 L["Nothing to apply: every part of the string is unticked."] = "没有可应用的内容：字符串的所有部分都未勾选。"
@@ -5452,6 +5453,7 @@ L["Moved"] = "已移动"
 L["Not moved"] = "未移动"
 L["From the look"] = "跟随外观"
 L["Nothing to apply: the parts ticked are the same as yours."] = "无可应用：勾选的部分与你的设置相同。"
+L["This is a guide import string: paste it under Settings, Community guides, Import a guide."] = "这是指南导入字符串：请粘贴到 设置、社区指南、导入指南 中。"
 
 -- Maps/Arcade.lua
 L["Freedoom Arcade can't open: its folder Polestar_Arcade is missing or turned off."] = "无法打开 Freedoom Arcade：它的文件夹 Polestar_Arcade 缺失或已停用。"
@@ -5995,3 +5997,5 @@ L["Your quests"] = "你的任务"
 -- L["Get it from wherever its author publishes it."] = "从作者发布的地方获取。"
 -- L["Its guides appear in the guide menu under Community guides, with the author's name. Settings, Community guides turns it on or off."] = "其指南会显示在指南菜单的“社区指南”下，并附作者名。在“设置”、“社区指南”中可开启或关闭。"
 -- L["Guides someone shared with you, as an import string or a community addon."] = "他人以导入字符串或社区插件分享给你的指南。"
+-- L["Open the Import page; import clear / import delete <id>: remove imports"] = "打开导入页面；import clear / import delete <ID>：移除导入内容"
+-- L["This is a guide import string: paste it on the Import page."] = "这是指南导入字符串：请粘贴到“导入”页面。"

@@ -387,6 +387,8 @@ local reach = {}
 for _, c in ipairs(G.Collect(PolestarPicker)) do
 	if c.psQuest then reach[#reach + 1] = c.psQuest elseif c == F.Page.parts.Start then reach[#reach + 1] = "start" elseif c == F.Page.parts.Near then reach[#reach + 1] = "near" end
 end
+-- Until a button is pressed the focus follows the window's first stop: a press settles it, then the D-pad's target is the row.
+stub.press("PADDDOWN")
 local row = rowOf(7002)
 G.SetFocus(PolestarPicker, row)
 stub.advance(0.1)
@@ -417,7 +419,7 @@ emit({ reach = reach, focused = focused, left = left, back = back, pinned = pinn
 	assert_eq!(nums(&o["left"]), vec![7002], "A unticks it");
 	assert!(nums(&o["back"]).is_empty(), "A ticks it again");
 	assert_eq!(o["pinned"], 7002, "X pins it");
-	assert_eq!(text(&o["xlabel"]), "Pin to the top");
+	assert_eq!(text(&o["xlabel"]), "Unpin", "the hint says what X does next");
 	assert_eq!(o["unpinned"], false, "X again unpins it");
 }
 

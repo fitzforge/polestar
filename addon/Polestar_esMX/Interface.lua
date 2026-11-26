@@ -467,6 +467,8 @@
 --   Leave out
 --   Stop
 --   Your quests
+--   Open Settings, Community guides, Import a guide; import clear / import delete <id>: remove imports
+--   This is a guide import string: paste it under Settings, Community guides, Import a guide.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "esMX") then return end
@@ -3738,8 +3740,8 @@ L["Removed %d imported guide(s)."] = "Se quitaron %d guía(s) importada(s)."
 L["Usage: /polestar import delete <guide-id>"] = "Uso: /polestar import delete <guide-id>"
 L["Removed imported guide %s."] = "Se quitó la guía importada %s."
 L["No imported guide with id %s."] = "No hay ninguna guía importada con el ID %s."
-L["Open the Import page; import clear / import delete <id>: remove imports"] = "Abrir la página Importar; import clear / import delete <id>: quitar importaciones"
 L["Its guide has %d entries in %s; an import string holds %d there at most."] = "Su guía tiene %d entradas en %s; un texto de importación admite %d allí como máximo."
+L["Open Settings, Community guides, Import a guide; import clear / import delete <id>: remove imports"] = "Abre Configuración, Guías de la comunidad, Importar una guía; import clear / import delete <id>: elimina importaciones"
 
 -- UI/Import.lua
 L["by %s"] = "de %s"
@@ -4384,7 +4386,6 @@ L["This profile is in use. Switch to another one first."] = "Este perfil está e
 L["This profile string is damaged or incomplete. Copy the whole string again."] = "Este texto de perfil está dañado o incompleto. Vuelve a copiar el texto completo."
 L["This profile string holds too much to be a Polestar profile."] = "Este texto contiene demasiado para ser un perfil de Polestar."
 L["Paste a profile string."] = "Pega un texto de perfil."
-L["This is a guide import string: paste it on the Import page."] = "Este es un texto para importar guías: pégalo en la página Importar."
 L["This is not a Polestar profile string."] = "Este no es un texto de perfil de Polestar."
 L["This profile string needs a newer Polestar."] = "Este texto de perfil necesita un Polestar más reciente."
 L["Nothing to apply: every part of the string is unticked."] = "Nada que aplicar: todas las partes del texto están desmarcadas."
@@ -5441,6 +5442,7 @@ L["Moved"] = "Movido"
 L["Not moved"] = "Sin mover"
 L["From the look"] = "Del aspecto"
 L["Nothing to apply: the parts ticked are the same as yours."] = "Nada que aplicar: las partes marcadas son iguales a las tuyas."
+L["This is a guide import string: paste it under Settings, Community guides, Import a guide."] = "Esto es un texto de importación de guía: pégalo en Configuración, Guías de la comunidad, Importar una guía."
 
 -- Maps/Arcade.lua
 L["Freedoom Arcade can't open: its folder Polestar_Arcade is missing or turned off."] = "Freedoom Arcade no puede abrirse: falta su carpeta Polestar_Arcade o está desactivada."
@@ -6016,3 +6018,5 @@ L["Your quests"] = "Tus misiones"
 -- L["Get it from wherever its author publishes it."] = "Consíguelo donde lo publique su autor."
 -- L["Its guides appear in the guide menu under Community guides, with the author's name. Settings, Community guides turns it on or off."] = "Sus guías aparecen en el menú de guías, en Guías de la comunidad, con el nombre del autor. En Configuración, Guías de la comunidad lo activas o desactivas."
 -- L["Guides someone shared with you, as an import string or a community addon."] = "Guías que alguien compartió contigo, como texto de importación o como AddOn de la comunidad."
+-- L["Open the Import page; import clear / import delete <id>: remove imports"] = "Abrir la página Importar; import clear / import delete <id>: quitar importaciones"
+-- L["This is a guide import string: paste it on the Import page."] = "Este es un texto para importar guías: pégalo en la página Importar."

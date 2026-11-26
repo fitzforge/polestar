@@ -719,7 +719,7 @@ end
 
 -- An edit box lays out its whole text, which freezes the game for a long
 -- string: the box holds little; a paste's characters come one by one in the
--- same frame (OnChar) and are joined on the next (as the Import page).
+-- same frame (OnChar) and are joined on the next (as the Import a guide section).
 local PASTE_BOX_BYTES = 2500
 local PASTE_MIN = 20
 

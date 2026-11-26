@@ -561,6 +561,8 @@
 --   Leave out
 --   Stop
 --   Your quests
+--   Open Settings, Community guides, Import a guide; import clear / import delete <id>: remove imports
+--   This is a guide import string: paste it under Settings, Community guides, Import a guide.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "ruRU") then return end
@@ -3833,8 +3835,8 @@ L["Removed %d imported guide(s)."] = "Удалено импортированн�
 L["Usage: /polestar import delete <guide-id>"] = "Использование: /polestar import delete <id-гайда>"
 L["Removed imported guide %s."] = "Импортированный гайд %s удален."
 L["No imported guide with id %s."] = "Нет импортированного гайда с id %s."
-L["Open the Import page; import clear / import delete <id>: remove imports"] = "Открыть страницу импорта; import clear / import delete <id>: удалить импортированное"
 L["Its guide has %d entries in %s; an import string holds %d there at most."] = "В гайде %d записей в разделе %s, а строка импорта вмещает там не больше %d."
+L["Open Settings, Community guides, Import a guide; import clear / import delete <id>: remove imports"] = "Открыть Настройки, Гайды сообщества, Импортировать гайд; import clear / import delete <id>: удалить импортированное"
 
 -- UI/Import.lua
 L["by %s"] = "автор: %s"
@@ -4479,7 +4481,6 @@ L["This profile is in use. Switch to another one first."] = "Этот профи
 L["This profile string is damaged or incomplete. Copy the whole string again."] = "Строка профиля повреждена или неполна. Скопируйте всю строку заново."
 L["This profile string holds too much to be a Polestar profile."] = "В этой строке слишком много данных для профиля Polestar."
 L["Paste a profile string."] = "Вставьте строку профиля."
-L["This is a guide import string: paste it on the Import page."] = "Это строка импорта гайда: вставьте ее на странице «Импорт»."
 L["This is not a Polestar profile string."] = "Это не строка профиля Polestar."
 L["This profile string needs a newer Polestar."] = "Для этой строки профиля нужна более новая версия Polestar."
 L["Nothing to apply: every part of the string is unticked."] = "Нечего применять: все части строки отключены."
@@ -5535,6 +5536,7 @@ L["Moved"] = "Перемещено"
 L["Not moved"] = "Не перемещено"
 L["From the look"] = "Из вида"
 L["Nothing to apply: the parts ticked are the same as yours."] = "Нечего применять: отмеченные части совпадают с вашими."
+L["This is a guide import string: paste it under Settings, Community guides, Import a guide."] = "Это строка импорта гайда: вставьте её в Настройки, Гайды сообщества, Импортировать гайд."
 
 -- Maps/Arcade.lua
 L["Freedoom Arcade can't open: its folder Polestar_Arcade is missing or turned off."] = "Freedoom Arcade не открывается: папки Polestar_Arcade нет или она отключена."
@@ -6076,3 +6078,5 @@ L["Your quests"] = "Ваши задания"
 -- L["Get it from wherever its author publishes it."] = "Скачайте его там, где его публикует автор."
 -- L["Its guides appear in the guide menu under Community guides, with the author's name. Settings, Community guides turns it on or off."] = "Его гайды появятся в меню гайдов в разделе «Гайды сообщества» с именем автора. Включить или выключить его можно в «Настройки», «Гайды сообщества»."
 -- L["Guides someone shared with you, as an import string or a community addon."] = "Гайды, которыми с вами поделились: строкой импорта или аддоном сообщества."
+-- L["Open the Import page; import clear / import delete <id>: remove imports"] = "Открыть страницу импорта; import clear / import delete <id>: удалить импортированное"
+-- L["This is a guide import string: paste it on the Import page."] = "Это строка импорта гайда: вставьте ее на странице «Импорт»."

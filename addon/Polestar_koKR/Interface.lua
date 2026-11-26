@@ -578,6 +578,8 @@
 --   Leave out
 --   Stop
 --   Your quests
+--   Open Settings, Community guides, Import a guide; import clear / import delete <id>: remove imports
+--   This is a guide import string: paste it under Settings, Community guides, Import a guide.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "koKR") then return end
@@ -3849,8 +3851,8 @@ L["Removed %d imported guide(s)."] = "가져온 가이드 %d개를 삭제했습�
 L["Usage: /polestar import delete <guide-id>"] = "사용법: /polestar import delete <가이드-ID>"
 L["Removed imported guide %s."] = "가져온 가이드 %s 삭제했습니다."
 L["No imported guide with id %s."] = "ID가 %s인 가져온 가이드가 없습니다."
-L["Open the Import page; import clear / import delete <id>: remove imports"] = "가져오기 페이지 열기; import clear / import delete <ID>: 가져온 항목 삭제"
 L["Its guide has %d entries in %s; an import string holds %d there at most."] = "%2$s에 가이드 항목이 %1$d개입니다. 가져오기 문자열에는 최대 %3$d개까지 담을 수 있습니다."
+L["Open Settings, Community guides, Import a guide; import clear / import delete <id>: remove imports"] = "설정, 커뮤니티 가이드, 가이드 가져오기 열기; import clear / import delete <id>: 가져온 가이드 제거"
 
 -- UI/Import.lua
 L["by %s"] = "작성자 %s"
@@ -4495,7 +4497,6 @@ L["This profile is in use. Switch to another one first."] = "이 프로필은 �
 L["This profile string is damaged or incomplete. Copy the whole string again."] = "이 프로필 문자열은 손상되었거나 불완전합니다. 문자열 전체를 다시 복사하십시오."
 L["This profile string holds too much to be a Polestar profile."] = "이 프로필 문자열은 Polestar 프로필이라기에는 내용이 너무 많습니다."
 L["Paste a profile string."] = "프로필 문자열을 붙여 넣으십시오."
-L["This is a guide import string: paste it on the Import page."] = "가이드 가져오기 문자열입니다: 가져오기 페이지에 붙여 넣으십시오."
 L["This is not a Polestar profile string."] = "Polestar 프로필 문자열이 아닙니다."
 L["This profile string needs a newer Polestar."] = "이 프로필 문자열에는 최신 Polestar가 필요합니다."
 L["Nothing to apply: every part of the string is unticked."] = "적용할 것이 없습니다: 문자열의 모든 부분이 선택 해제되어 있습니다."
@@ -5552,6 +5553,7 @@ L["Moved"] = "이동됨"
 L["Not moved"] = "이동 안 함"
 L["From the look"] = "모양에 따름"
 L["Nothing to apply: the parts ticked are the same as yours."] = "적용할 것이 없습니다: 선택한 항목이 내 설정과 같습니다."
+L["This is a guide import string: paste it under Settings, Community guides, Import a guide."] = "가이드 가져오기용 문자열입니다. 설정, 커뮤니티 가이드, 가이드 가져오기에 붙여넣으세요."
 
 -- Maps/Arcade.lua
 L["Freedoom Arcade can't open: its folder Polestar_Arcade is missing or turned off."] = "Freedoom Arcade를 열 수 없습니다: Polestar_Arcade 폴더가 없거나 꺼져 있습니다."
@@ -6086,3 +6088,5 @@ L["Your quests"] = "내 퀘스트"
 -- L["Get it from wherever its author publishes it."] = "작성자가 배포하는 곳에서 받으세요."
 -- L["Its guides appear in the guide menu under Community guides, with the author's name. Settings, Community guides turns it on or off."] = "가이드는 작성자 이름과 함께 가이드 메뉴의 커뮤니티 가이드에 나타납니다. 설정, 커뮤니티 가이드에서 켜거나 끕니다."
 -- L["Guides someone shared with you, as an import string or a community addon."] = "누군가 가져오기 문자열이나 커뮤니티 애드온으로 공유한 가이드."
+-- L["Open the Import page; import clear / import delete <id>: remove imports"] = "가져오기 페이지 열기; import clear / import delete <ID>: 가져온 항목 삭제"
+-- L["This is a guide import string: paste it on the Import page."] = "가이드 가져오기 문자열입니다: 가져오기 페이지에 붙여 넣으십시오."
