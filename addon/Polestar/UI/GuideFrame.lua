@@ -673,6 +673,10 @@ GF.Part(function(GF)
 		end
 		local show = ns.QuestLogMenuItem and ns.QuestLogMenuItem(goal.quest)
 		if show then items[#items + 1] = show end
+		local AU = UI.AuctionBuys
+		if AU and AU.CanBuyGoal(goal) then
+			items[#items + 1] = { text = L["Auction house buys"], icon = "icon-buy", onClick = AU.Show }
+		end
 		-- In Free mode (Lookup/Free.lua) pin it first or leave it out of the
 		-- list, in place of Skip, which skips it in every guide.
 		local free = ns.Free and ns.Free.RowItems(goal.quest)
@@ -4044,6 +4048,7 @@ GF.Part(function(GF)
 		ns.On("GUIDE_CHANGED", whenReady(GF.Render))
 		ns.On("STEP_CHANGED", whenReady(GF.Render))
 		ns.On("STEP_UPDATED", whenReady(GF.Update))
+		ns.On("AUCTION_BUYS_CHANGED", whenReady(GF.Refill))
 		ns.On("PARTY_PROGRESS", whenReady(GF.Update))
 		-- The finished quests to hand in elsewhere changed off the step (RoutePlan, #3568): the row follows.
 		ns.On("CARRIED_CHANGED", whenReady(GF.Update))

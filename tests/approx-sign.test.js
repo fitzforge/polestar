@@ -96,7 +96,7 @@ P.UI.AuctionBuys.Show()
 emit({
 	goal = P.UI.MaterialsLine({ t = "auction", materials = { bank = 0, mail = 0, alts = {}, toGet = 5, price = 87 } }),
 	row = P.UI.Materials.RowText({ toGet = 5, held = 0, way = "buy", price = 87, reason = "picked" }),
-	quest = PolestarAuctionBuys.rows[1].Why:GetText(),
+	quest = PolestarAuctionBuys.rows[1].Price:GetText(),
 	profession = PolestarAuctionBuys.mrows[1].Why:GetText(),
 })`;
 	const [inter] = lua(script);
