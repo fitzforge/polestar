@@ -21,7 +21,6 @@ return {
 	-- Step 3: Donova Snowden
 	-- {npc:9298} Donova Snowden · {area:2246} Frostfire Hot Springs
 	["Ride south from the tunnel: {npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "Chevauchez vers le sud depuis le tunnel : {npc:9298} campe parmi les bassins fumants des {area:2246}, à l'ouest de la vallée.",
-	["Linken's letter"] = "La lettre de Linken",
 	-- {quest:980} The New Springs
 	["{quest:980}, from Krakle in Un'Goro"] = "",
 	-- {quest:3909} The Videre Elixir · {npc:7775} Gregan Brewspewer · {zone:1444} Feralas · {npc:9298} Donova Snowden · {area:2256} Darkwhisper Gorge · {zone:1452} Winterspring
@@ -152,7 +151,8 @@ return {
 
 	-- Step 29: Bluff Runner Windstrider
 	-- {npc:10881} Bluff Runner Windstrider · {npc:14728} Rumstag Proudstrider · {area:1641} Hunter Rise
-	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881} et {npc:14728} se tiennent sur {area:1641}. Chaque don de Rumstag prend soixante étoffes de laine, de soie ou de tisse-mage dans vos sacs : rendez ce que vous avez, passez le reste.",
+	-- was: ["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881} et {npc:14728} se tiennent sur {area:1641}. Chaque don de Rumstag prend soixante étoffes de laine, de soie ou de tisse-mage dans vos sacs : rendez ce que vous avez, passez le reste."
+	["{npc:10881} and {npc:14728} stand on the central rise, not on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
 
 	-- Step 30: Ghede
 	-- {npc:9076} Ghede · {area:1639} Elder Rise
@@ -165,8 +165,8 @@ return {
 	["{quest:1123} waits in {zone:1450}: keep it for later."] = "{quest:1123} attend à {zone:1450} : gardez-la pour plus tard.",
 
 	-- Step 32: Bashana Runetotem
-	-- {npc:9087} Bashana Runetotem · {item:11040} Morrowgrain · {quest:3761} Un'Goro Soil · {quest:3782} Morrowgrain Research · {item:11020} Evergreen Pouch
-	["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "{npc:9087} achète le {item:11040} cultivé à partir de votre {quest:3761}. {quest:3782} en demande dix, et la {item:11020} permet un essai toutes les dix minutes : ne la prenez que si vous avez déjà le grain.",
+	-- {npc:9087} Bashana Runetotem · {item:11103} Seed Voucher · {quest:3782} Morrowgrain Research · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {item:11040} Morrowgrain
+	["Hand {npc:9087} the {item:11103} for her packets of Tharlendris Seeds. {quest:3782} gives you the {item:11020}: use it with a seed packet and two {quest:3761} in your bags to grow a random herb, sometimes {item:11040}, once every ten minutes. She wants ten, so the quest is optional: take it if you have spare {quest:3761} and want to keep growing it over the next guides."] = "",
 
 	-- Step 34: Magatha Grimtotem
 	-- {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise
@@ -197,6 +197,7 @@ return {
 	-- ["In the {object:172961}."] = "Dans {object:172961}.",
 	-- ["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "Dans {object:172961}. Chaque don prend soixante étoffes de laine, de soie ou de tisse-mage dans vos sacs : rendez celles que vous avez sur vous, ignorez les autres.",
 	-- ["Level 55.04"] = "Niveau 55.04",
+	-- ["Linken's letter"] = "La lettre de Linken",
 	-- ["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "Les Matriarches et Patriarches frappent fort : attirez-les un par un.",
 	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "Guides, Protecteurs et Totémiques se partagent les camps de furbolgs autour des sources chaudes ; des Chouettards éreintés parcourent les pentes entre eux. Tuez d'abord les Totémiques. Gardez chaque {item:14047} ramassée pour Meilosh.",
 	-- ["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "Guides, Protecteurs et Totémiques se partagent les camps de furbolgs autour des sources chaudes ; des Chouettards éreintés parcourent les pentes entre eux. Tuez d'abord les Totémiques. Gardez chaque {item:14047} ramassée pour Meilosh.\nAttention : les Protecteurs vont jusqu'au niveau 56 : attirez-les un par un et tenez-vous à l'écart des totems des camps.",
@@ -219,6 +220,7 @@ return {
 	-- ["grind on {npc:7458}"] = "tuez en boucle : {npc:7458}",
 	-- ["{item:12771}, a rare drop from the Winterfall furbolgs"] = "{item:12771}, un butin rare des furbolgs Tombe-hiver",
 	-- ["{npc:10307}, beside him"] = "{npc:10307}, à côté de lui",
+	-- ["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881} et {npc:14728} se tiennent sur {area:1641}. Chaque don de Rumstag prend soixante étoffes de laine, de soie ou de tisse-mage dans vos sacs : rendez ce que vous avez, passez le reste.",
 	-- ["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118} : le guide précédent vous lie ici, cette étape se coche donc généralement aussitôt",
 	-- ["{npc:11556} stands by the {area:618} exit of {area:1769}'s tunnel, north of the hot springs."] = "{npc:11556} se tient à la sortie du tunnel de {area:1769} côté {area:618}, au nord des sources chaudes.",
 	-- ["{npc:11754} walks around {area:2255}: look inside the circle on the map"] = "{npc:11754} se promène autour de {area:2255} : cherchez dans le cercle sur la carte",
@@ -229,6 +231,7 @@ return {
 	-- ["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}; he has the elixir."] = "{npc:7775}, un nain, campe dans les {area:1137} au nord-ouest du {area:1099} ; il a l'élixir.",
 	-- ["{npc:9087} buys {item:11040} grown from your {quest:3761}."] = "{npc:9087} achète la {item:11040} cultivée à partir de votre {quest:3761}.",
 	-- ["{npc:9087} buys {item:11040} grown from your {quest:3761}.\nCareful: Gorishi Workers and Stingers cast {spell:8137}, and Hive Guards cast {spell:14120}. When a Worker drops to 45% health, it has a 50% chance to call for help from mobs within 25 yd."] = "{npc:9087} achète le {item:11040} cultivé à partir de votre {quest:3761}.\nAttention : les Ouvriers et Dards Gorishi lancent {spell:8137}, et les Gardes de la ruche lancent {spell:14120}. Quand un Ouvrier tombe à 45 % de vie, il a 50 % de chances d'appeler à l'aide les monstres à moins de 25 m.",
+	-- ["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "{npc:9087} achète le {item:11040} cultivé à partir de votre {quest:3761}. {quest:3782} en demande dix, et la {item:11020} permet un essai toutes les dix minutes : ne la prenez que si vous avez déjà le grain.",
 	-- ["{quest:3909} comes from {npc:7775} in {zone:1444}, later in this guide."] = "{quest:3909} vient de {npc:7775} en {zone:1444}, plus loin dans ce guide.",
 	-- ["{zone:1456} flight master"] = "Maître de vol : {zone:1456}",
 }

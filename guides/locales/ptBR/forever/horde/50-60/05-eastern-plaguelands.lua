@@ -68,8 +68,8 @@ return {
 	["Inside"] = "Lá dentro",
 
 	-- Step 16: Mulgris Deepriver
-	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
-	["{npc:10739} camps by the {area:202}, beside the cauldron; his bears roam the hills north and east of it."] = "",
+	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {zone:1423} Eastern Plaguelands
+	["{npc:10739} waits inside the farmhouse at the {area:202}, by the cauldron; his bears roam the hills north and east of it, towards the {zone:1423}."] = "",
 
 	-- Step 17: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Ursos-cinzentos Doentes",
@@ -165,8 +165,11 @@ return {
 	-- Step 38: Eastern Plaguelands: kill these as you meet them
 	-- {zone:1423} Eastern Plaguelands
 	["{zone:1423}: kill these as you meet them"] = "{zone:1423}: vá matando estes pelo caminho",
+	-- {item:12957} Shattered Sword of Marduk · {area:2264} Corin's Crossing
 	-- plural, as words: Plaguehounds = {npc:8597} Plaguehound · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub
-	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. Careful: the biggest Plaguehounds are 56, pull them one at a time.\nThe shattered sword lies on the ground north-west of the lake."] = "Os Cães Pestilentos e seus filhotes miúdos andam pelas margens do lago a sudoeste da capela; Quirópragos e Vermes Carniceiros dividem o terreno. Cuidado: os maiores Cães Pestilentos são de nível 56, puxe um de cada vez.\nA espada estilhaçada está no chão, a noroeste do lago.",
+	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. The {item:12957} lies at the bottom of the gorge west of {area:2264}. Careful: the biggest Plaguehounds are 56, pull them one at a time."] = "",
+	-- {area:2264} Corin's Crossing
+	["At the bottom of the gorge west of {area:2264}"] = "",
 
 	-- Step 39: Nathanos Blightcaller
 	-- {npc:15193} The Banshee Queen · {area:2260} Marris Stead · {area:2261} Undercroft
@@ -262,8 +265,8 @@ return {
 
 	-- Step 58: Scarlet Crusade
 	["Scarlet Crusade"] = "Cruzada Escarlate",
-	-- {area:192} Northridge Lumber Camp · {npc:11615} Mickey Levine · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
-	["Back north-east to the {area:192}: knights and magi work the camp, the medics and hunters camp south of it. Set {npc:11615}'s termite barrel down in the middle of the lumber mill while you are there.\nCareful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "",
+	-- {area:192} Northridge Lumber Camp · {npc:11615} Mickey Levine · {item:15044} Barrel of Plagueland Termites · {object:177491} Termite Barrel · {quest:5902} A Plague Upon Thee · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
+	["Back north-east to the {area:192}: knights and magi work the camp, the medics and hunters camp south of it. In the middle of the lumber mill, stand by the crate and use {npc:11615}'s {item:15044} from your bags to set it on top; then click the {object:177491} that appears: it finishes {quest:5902} and gives the next part for {npc:11615}. Careful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "",
 
 	-- Step 60: Radley and Durgen
 	["Radley and Durgen"] = "Eiras e Durgen",
@@ -338,15 +341,16 @@ return {
 	["{npc:10922}: the Cleansed Water from Islen in the {zone:1413}"] = "",
 
 	-- Step 75: Dousing the Flames of Protection
-	-- {area:1763} Jaedenar
-	["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in linked groups, many with stuns: pull them one group at a time."] = "",
+	-- {area:1763} Jaedenar · {area:1770} Shadow Hold · {item:12906} Purified Moonwell Water
+	["Ride north-west to {area:1763} and go down into {area:1770}, the cave in its north: the four braziers stand inside. Use Greta's {item:12906} from your bags on each one. Careful: Shadow Council mobs of level 53-55 fill the cave and often come in linked groups, many with stuns: pull them one group at a time."] = "",
 
 	-- Step 76: Greta Mosshoof
 	["Back south to the Sanctuary, a short ride."] = "Volte para o sul até o Santuário, perto daqui.",
 
 	-- Step 77: A Final Blow
-	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {area:1763} Jaedenar
-	["{npc:9861}, {npc:9860} and {npc:9517} (57) wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "",
+	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {area:1763} Jaedenar · {npc:9529} Maybess Riverbreeze · {item:11511} Cenarion Beacon
+	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
+	["{npc:9861}, {npc:9860} and {npc:9517} (57) wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go. Careful: the three bosses fight as a group: kill the nearby mobs first so you don't pull extra enemies. The cultists' Corrupted Soul Shards show only while you carry {npc:9529}'s {item:11511} (from Cleansing Felwood): without it, skip them."] = "",
 	-- {npc:9529} Maybess Riverbreeze
 	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
 	["Corrupted Soul Shards from the cultists, for {npc:9529}' Salve via Hunting"] = "",
@@ -364,7 +368,7 @@ return {
 
 	-- Step 80: Rescue From Jaedenar
 	-- {npc:11018} Arko'narin · {npc:11019} Jessir Moonbow · {area:2479} Emerald Sanctuary
-	["Lead {npc:11018} out through the cave: she fights beside you, and the cultists you didn't clear on the way in come at you both. {npc:11019} takes her report at the {area:2479}, next."] = "",
+	["Escort {npc:11018}: she first goes to where Lightforge and her gear are held, then out through the cave. Keep her alive: she fights beside you, and the cultists you didn't clear on the way in come at you both. {npc:11019} takes her report at the {area:2479}, next."] = "",
 	-- {area:1770} Shadow Hold
 	["out of {area:1770}, at its mouth"] = "",
 
@@ -457,6 +461,7 @@ return {
 	-- ["Only if you still carry {quest:2741}: ride south from {area:1099}; the hippogryph nests are in the south of {zone:1444}, each holds an egg for the Egg-O-Matic."] = "Só se você ainda tiver {quest:2741}: cavalgue para o sul a partir de {area:1099}; os ninhos de hipogrifo ficam no sul de {zone:1444}, e cada um guarda um ovo para o Ovo-O-Mático.",
 	-- ["Plaguehounds and their runts roam the shores of the lake south-west of the chapel."] = "Cães Pestilentos e seus filhotes vagam pelas margens do lago a sudoeste da capela.",
 	-- ["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground.\nThe shattered sword lies on the ground north-west of the lake."] = "Os Cães Pestilentos e seus filhotes miúdos andam pelas margens do lago a sudoeste da capela; Quirópragos e Vermes Carniceiros dividem o terreno.\nA espada estilhaçada está no chão, a noroeste do lago.",
+	-- ["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. Careful: the biggest Plaguehounds are 56, pull them one at a time.\nThe shattered sword lies on the ground north-west of the lake."] = "Os Cães Pestilentos e seus filhotes miúdos andam pelas margens do lago a sudoeste da capela; Quirópragos e Vermes Carniceiros dividem o terreno. Cuidado: os maiores Cães Pestilentos são de nível 56, puxe um de cada vez.\nA espada estilhaçada está no chão, a noroeste do lago.",
 	-- ["Ride east out of the {area:1497} along the road; the {area:152} guards the way into the {area:28}."] = "Siga a cavalo para leste, saindo da {area:1497}, pela estrada; {area:152} guarda o caminho para {area:28}.",
 	-- ["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Pull them one at a time.\nCareful: Hailspite, level 60 elites, gather in the snowfields south-east of {area:2255}, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town."] = "Siga para leste até {area:2255} e saia dela para o norte; as Ferujas Lunamarcas vagam pelas colinas das encostas sul de {area:2241}. Puxe uma de cada vez.\nCuidado: os Hailspite, elites de nível 60, se juntam nos campos de neve a sudeste de {area:2255}, onde também vagam algumas Ferujas Lunamarcas: fique nas encostas ao norte da cidade.",
 	-- ["Ride north up the road. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "Suba a estrada para o norte. O caldeirão fica em {area:1762}, logo a sudoeste de {area:1769}; os furbolgs Lenha Morta de lá são hostis.",

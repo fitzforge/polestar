@@ -83,10 +83,10 @@ return {
 	["{npc:6986}, the Drag"] = "{npc:6986}, no Drag",
 
 	-- Step 23: Orgrimmar
-	-- {npc:8659} Jes'rimon · {quest:4300} Bone-Bladed Weapons · {zone:1447} Azshara
-	["{npc:8659}, at the top of a tower in the Drag, has {quest:4300} for later; then your class trainer before you leave for {zone:1447}."] = "",
-	-- {npc:8659} Jes'rimon
-	["{npc:8659}, at the top of a tower in the Drag"] = "",
+	-- {npc:8659} Jes'rimon · {object:172959} The Drag (no name in this language: may be words) · {quest:4300} Bone-Bladed Weapons · {zone:1447} Azshara
+	["{npc:8659}, in {object:172959}, upstairs in one of its tallest buildings, has {quest:4300} for later; then your class trainer before you leave for {zone:1447}."] = "",
+	-- {npc:8659} Jes'rimon · {object:172959} The Drag (no name in this language: may be words)
+	["{npc:8659}, upstairs in {object:172959}"] = "",
 
 	-- Step 24: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {object:172957} Valley of Wisdom (no name in this language: may be words) · {npc:4791} Nazeer Bloodpike · {zone:1445} Dustwallow Marsh

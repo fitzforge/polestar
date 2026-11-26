@@ -5,10 +5,10 @@
 // #3507) keep resident once Polestar.RegisterLegs has taken them, and the heap
 // they grow while loading, under Lua 5.1 as the client counts it
 // (collectgarbage("count")), with Polestar and its guides loaded as in game,
-// for a character of that race. A figure past its budget fails the test: lower
-// a budget when the legs shrink. A budget may grow (Fitz, 0.4.0: memory
-// budgets may grow) only with its reason written next to it (what grew, the
-// measured figure and the date); a bake that grows without such a reason
+// for a character of that race. A figure past its budget fails the test. The
+// resident budget is the architecture's 1 MB a race; the peak is the figure
+// measured at the release's code freeze plus 3 %, moved only then
+// (docs/CI.md, "Memory budgets"). A bake that grows past it between freezes
 // needs a leaner leg (forge-nav bake.rs), not a larger budget.
 //
 // Every race file of our pack's faction parts is measured (none until the
@@ -23,12 +23,10 @@ const path = require('node:path');
 const { runAddon, ADDONS } = require('./helpers/lua');
 const { RACE_FILES, RACE_BY_FILE } = require('../tools/lib/game/races');
 
-// KiB (Lua 5.1, 64-bit). Peak raised from 1536 to 1670 (measured 1,619 + ~3%, 2026-10-31, c19p): the
-// routes now ship 1-60 for all ten starts, and Skyborne's part holds the legs of both factions. Raised to 1800
-// (measured 1,746 + ~3%, 2026-11-16) with 0.4.0's integrated routes: the Riverglades and Shen'dralas joined both
-// factions' routes, whose legs Skyborne's part carries (more route, not a heavier leg); the other parts stay
-// under 920. Under Fitz's 0.4.0 OK that memory budgets may grow.
-const BUDGET = { resident: 1024, peak: 1800 };
+// KiB (Lua 5.1, 64-bit). Peak: the worst race file measured on next
+// f5bd74406e (2026-11-26, #4143: Night Elf, 943; since 0.4.3 each side's part
+// holds only its own races' legs, #3507), plus 3 %.
+const BUDGET = { resident: 1024, peak: 972 };
 
 // Each race's legs file in the part of each side it is played on (Skyborne's on both).
 const parts = RACE_FILES.flatMap((race) => Object.keys(RACE_BY_FILE[race].sides).map((side) => ({ race, side, file: path.join(ADDONS, `Polestar_Guides_${side}`, `Legs_${race}.lua`) }))).filter((p) => fs.existsSync(p.file));

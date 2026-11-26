@@ -31,8 +31,8 @@ zone Azeroth
 #   104-135 Stylish Red Shirt, about 49 (trainer 2s 50c): 3 Bolt of Woolen Cloth, 2 Red Dye and 1 Fine Thread each
 #   135-150 Formal White Shirt, about 17 (trainer): 3 Bolt of Silk Cloth, 2 Bleach and 1 Fine Thread each
 #   150-170 Azure Silk Cloak, about 22 (recipe 15s): 3 Bolt of Silk Cloth, 2 Blue Dye and 2 Fine Thread each
-#   170-197 Black Mageweave Vest, about 30 (trainer): 2 Bolt of Mageweave and 3 Silken Thread each
-#   197-225 Black Mageweave Headband, about 40 (trainer): 3 Bolt of Mageweave and 2 Heavy Silken Thread each
+#   170-200 Black Mageweave Vest, about 36 (trainer): 2 Bolt of Mageweave and 3 Silken Thread each
+#   200-225 Black Mageweave Headband, about 37 (trainer): 3 Bolt of Mageweave and 2 Heavy Silken Thread each
 #   225-234 Runecloth Belt, about 11 (trainer): 3 Bolt of Runecloth and 1 Rune Thread each
 #   234-265 Runecloth Gloves, about 43 (recipe 1g 60s): 4 Bolt of Runecloth, 4 Rugged Leather and 1 Rune Thread each
 #   265-300 Runecloth Shoulders, about 62 (pattern from the Auction House): 7 Bolt of Runecloth, 2 Ironweb Spider Silk, 4 Rugged Leather and 1 Rune Thread each
@@ -41,8 +41,8 @@ zone Azeroth
 # 1-75: Apprentice 10c, recipes 50c, vendor goods 7s 20c; gather or buy 144 Linen Cloth.
 # 75-150: Journeyman 5s, recipes 11s plus unpriced trainer recipes, vendor goods 1g 65s 50c; gather
 # or buy 567 Wool Cloth and 204 Silk Cloth.
-# 150-225: recipes 15s plus unpriced trainer recipes, vendor goods 21g 16s; gather or buy 264 Silk
-# Cloth and 900 Mageweave Cloth.
+# 150-225: recipes 15s plus unpriced trainer recipes, vendor goods 20g 86s; gather or buy 264 Silk
+# Cloth and 915 Mageweave Cloth.
 # 225-300: recipes 1g 60s plus unpriced trainer recipes, vendor goods 58g; gather or buy 420 Rugged
 # Leather, 3195 Runecloth and 124 Ironweb Spider Silk.
 #
@@ -52,10 +52,10 @@ zone Azeroth
 # leather by the square root of it, hides four times higher; tools/lib/professions/materials.js) to
 # rank recipes against each other, never as a price forecast.
 # ASSUMED: learn skills of Formal White Shirt 135, Bolt of Mageweave 140, Black Mageweave Vest 170,
-# Black Mageweave Headband 190, Bolt of Runecloth 205 and Runecloth Belt 210 (no sniffed Forever
-# list teaches them: Classic's trainer skill moved as far as Forever moved the recipe's colours,
-# which the sniffed lists bear out on 126 of 129 recipes). In-game check: the skill the trainer
-# asks; their prices are not in the data.
+# Bolt of Runecloth 205 and Runecloth Belt 210 (no sniffed Forever list teaches them: Classic's
+# trainer skill moved as far as Forever moved the recipe's colours, which the sniffed lists bear out
+# on 126 of 129 recipes). In-game check: the skill the trainer asks; their prices are not in the
+# data.
 # ASSUMED: rank level gates Expert 20 and Artisan 35 (Classic's; Forever's sniffed lists ask level 1
 # for Apprentice and 10 for Journeyman). In-game check: the level each trainer asks.
 
@@ -107,7 +107,7 @@ step Journeyman Tailoring
   learn 1229504 only Horde
 
 step Tailoring 75-150: vendor goods
-  tip Buy the whole bracket's share in one go: 108 Fine Thread (1g 8s), 34 Bleach (8s 50c) and 98 Red Dye (49s); about 1g 65s 50c in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero, Edna Mullby and Jillian Tanner; Orgrimmar: Borya, Felika and Shimra).
+  tip Buy the whole bracket's share in one go: 108 Fine Thread (1g 8s), 34 Bleach (8s 50c) and 98 Red Dye (49s); about 1g 65s 50c in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero and Edna Mullby; Orgrimmar: Borya, Felika and Shimra).
   buy 2321 x108 nearest
   buy 2324 x34 nearest
   buy 2604 x98 nearest
@@ -154,31 +154,31 @@ step Formal White Shirt to 150
 section Tailoring 150-225
 
 step Tailoring 150-225: vendor goods
-  tip Buy the whole bracket's share in one go: 44 Fine Thread (44s), 90 Silken Thread (4g 50s), 44 Blue Dye (22s) and 80 Heavy Silken Thread (16g); about 21g 16s in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero, Edna Mullby and Jillian Tanner; Orgrimmar: Borya, Felika and Shimra).
+  tip Buy the whole bracket's share in one go: 44 Fine Thread (44s), 108 Silken Thread (5g 40s), 44 Blue Dye (22s) and 74 Heavy Silken Thread (14g 80s); about 20g 86s in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero, Edna Mullby and Jillian Tanner; Orgrimmar: Borya, Felika and Shimra).
   buy 2321 x44 nearest
-  buy 4291 x90 nearest
+  buy 4291 x108 nearest
   buy 6260 x44 nearest
-  buy 8343 x80 nearest
+  buy 8343 x74 nearest
 
 step Pattern: Azure Silk Cloak
   tip Pattern: Azure Silk Cloak teaches Azure Silk Cloak (Tailoring 140) for 15s. Sold by Alliance: Brienna Starglow (Feralas), limited stock and Norvin Alderman (Alterac Mountains); Horde: Jun'ha (Arathi Highlands), limited stock and Norvin Alderman (Alterac Mountains).
   buy 7089 nearest
 
 step Tailoring 150-225: Auction House
-  tip What 150-225 takes that the Auction House sells: 264 Silk Cloth and 900 Mageweave Cloth. The counts drop by what your bags, bank and mail hold.
+  tip What 150-225 takes that the Auction House sells: 264 Silk Cloth and 915 Mageweave Cloth. The counts drop by what your bags, bank and mail hold.
   auction 4306 x264
-  auction 4338 x900
+  auction 4338 x915
 
 step Silk Cloth
   tip 264 Silk Cloth for Azure Silk Cloak: humanoids of level 25-45 drop it. Keep what you loot as you level, or take it from your bank.
   collect 4306 x264 anywhere gather levels 25-45
 
 step Mageweave Cloth
-  tip 900 Mageweave Cloth for Black Mageweave Vest and Black Mageweave Headband: humanoids of level 35-50 drop it. Keep what you loot as you level, or take it from your bank.
-  collect 4338 x900 anywhere gather levels 35-50
+  tip 915 Mageweave Cloth for Black Mageweave Vest and Black Mageweave Headband: humanoids of level 35-50 drop it. Keep what you loot as you level, or take it from your bank.
+  collect 4338 x915 anywhere gather levels 35-50
 
 step Expert Tailoring
-  tip Expert raises the cap from 150 to 225; it needs Tailoring 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance Georgio Bolero (Stormwind City); Horde Josef Gregorian (Undercity). The arrow picks the nearest of your faction. Learn now: Bolt of Mageweave (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 Silk Cloth and 900 Mageweave Cloth to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach Black Mageweave Vest (from 170), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 2. Black Mageweave Headband (from 190) takes a second trip, to other trainers (below).
+  tip Expert raises the cap from 150 to 225; it needs Tailoring 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance Georgio Bolero (Stormwind City); Horde Josef Gregorian (Undercity). The arrow picks the nearest of your faction. Learn now: Bolt of Mageweave (from 140). 150-225 takes about 15s of recipes and 20g 86s of vendor goods, plus 264 Silk Cloth and 915 Mageweave Cloth to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach Black Mageweave Vest (from 170), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 2. Black Mageweave Headband (from 200) takes a second trip, to other trainers (below).
   level 20
   train Tailoring Expert
   learn 3865
@@ -194,19 +194,20 @@ step Tailoring recipes at 170
   tip Still at the Expert trainer: Black Mageweave Vest (from 170).
   learn 12048
 
-step Black Mageweave Vest to 197
-  tip Black Mageweave Vest is orange at 170 (yellow 185, green 200, grey 215): about 30 crafts to 197. Each takes 2 Bolt of Mageweave and 3 Silken Thread. Make the 60 Bolt of Mageweave first. The trainer teaches it, and it is the cheapest way through these points in the data.
-  craft 3865 x60
-  craft 12048 until 197
+step Black Mageweave Vest to 200
+  tip Black Mageweave Vest is orange at 170 (yellow 185, green 200, grey 215): about 36 crafts to 200. Each takes 2 Bolt of Mageweave and 3 Silken Thread. Make the 72 Bolt of Mageweave first. The trainer teaches it, and it is the cheapest way through these points in the data.
+  craft 3865 x72
+  craft 12048 until 200
 
-step Tailoring recipes at 197
-  tip Black Mageweave Headband (from 190) is taught only by the Artisan trainers: Alliance Timothy Worthington (Dustwallow Marsh); Horde Daryl Stack (Hillsbrad Foothills).
+step Tailoring recipes at 200
+  tip Black Mageweave Headband (from 200) is taught only by the Artisan trainers: Alliance Timothy Worthington (Dustwallow Marsh); Horde Daryl Stack (Hillsbrad Foothills). You can train Artisan there now if you are level 35 (it needs Tailoring 200), which saves the trip at 225.
   learn 12072 npc 11052 only Alliance
   learn 12072 npc 2399 only Horde map 1424
+  train Tailoring Artisan optional
 
 step Black Mageweave Headband to 225
-  tip Black Mageweave Headband is orange at 197 (yellow 205, green 220, grey 235): about 40 crafts to 225. Each takes 3 Bolt of Mageweave and 2 Heavy Silken Thread. Make the 120 Bolt of Mageweave first. The trainer teaches it, and it is the cheapest way through these points in the data. Tailoring 225 is a Legacy System milestone.
-  craft 3865 x120
+  tip Black Mageweave Headband is orange at 200 (yellow 205, green 220, grey 235): about 37 crafts to 225. Each takes 3 Bolt of Mageweave and 2 Heavy Silken Thread. Make the 111 Bolt of Mageweave first. The trainer teaches it, and it is the cheapest way through these points in the data. Tailoring 225 is a Legacy System milestone.
+  craft 3865 x111
   craft 12072 until 225
   skill Tailoring 225
 
@@ -223,7 +224,7 @@ step Artisan Tailoring
   learn 18402 npc 2399 only Horde map 1424
 
 step Tailoring 225-300: vendor goods
-  tip Buy the whole bracket's share in one go: 116 Rune Thread (58g); about 58g in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero, Edna Mullby and Jillian Tanner; Orgrimmar: Borya, Felika and Shimra).
+  tip Buy the whole bracket's share in one go: 116 Rune Thread (58g); about 58g in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero and Jillian Tanner; Orgrimmar: Borya and Tamar).
   buy 14341 x116 nearest
 
 step Pattern: Runecloth Gloves

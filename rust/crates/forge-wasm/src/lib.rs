@@ -16,7 +16,7 @@ use forge_core::MapFrames;
 use forge_guide::data::Data;
 use forge_guide::diag::{Diag, Diagnostics};
 use forge_guide::js::{cmp_utf16, parse_json, stringify, V};
-use forge_guide::project::{build_pack_files, compile_sources, read_legs_text, read_retired_text, CompileOpts, FileContent, Source};
+use forge_guide::project::{build_pack_files, compile_sources, read_legs_text, read_retired_text, CompileOpts, FileContent, Retired, Source};
 use forge_judge::levels::SimLevels;
 use forge_judge::walk::{background, walk_chain, Chain, Ctx, WalkGoal};
 use rustc_hash::FxHashMap;
@@ -246,7 +246,7 @@ impl Planner {
 	}
 
 	/// The pack compiled as `compile_project` does (every guide, cross-guide checks, retired.json, legs.json).
-	fn project(&self) -> (Vec<V>, Diagnostics, Vec<String>) {
+	fn project(&self) -> (Vec<V>, Diagnostics, Vec<Retired>) {
 		let mut diag = Diagnostics::new();
 		let c = compile_sources(&self.sources(), &self.data, &mut diag, &self.opts());
 		let retired = read_retired_text(self.pack.retired.as_deref(), "retired.json", &c.guides, &mut diag);

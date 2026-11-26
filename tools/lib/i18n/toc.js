@@ -177,6 +177,10 @@ const TEXT = {
 			zhTW: '在遊戲時記錄任務、路線與世界資料，用於撰寫 Polestar 指南。/psrec',
 		},
 	},
+	Polestar_Handins: {
+		title: { deDE: 'Polestar: Abgaben', esES: 'Polestar: Entregas', esMX: 'Polestar: Entregas', frFR: 'Polestar : Quêtes à rendre', koKR: 'Polestar 제출', ptBR: 'Polestar: Entregas', ruRU: 'Polestar: Сдача', zhCN: 'Polestar 交还', zhTW: 'Polestar 繳交' },
+		notes: { deDE: 'Erledigte Quests abgeben', esES: 'Entrega tus misiones completadas', esMX: 'Entrega tus misiones terminadas', frFR: 'Rendre vos quêtes terminées', koKR: '완료한 퀘스트 제출', ptBR: 'Entregue suas missões concluídas', ruRU: 'Сдайте выполненные задания', zhCN: '交还已完成的任务', zhTW: '繳交已完成的任務' },
+	},
 	// The games to play on a flight (Maps/Arcade.lua): loaded the first time Play is pressed.
 	Polestar_Arcade: {
 		title: { deDE: 'Polestar Arcade', esES: 'Polestar: arcade', esMX: 'Polestar: arcade', frFR: 'Polestar : arcade', koKR: 'Polestar 아케이드', ptBR: 'Polestar: arcade', ruRU: 'Polestar: аркада', zhCN: 'Polestar 街机', zhTW: 'Polestar 街機' },

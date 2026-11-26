@@ -6,7 +6,7 @@
 -- entry and the command), here on Polestar's own data.
 -- Portions Copyright (C) 2026 Cillian Berragan (Shortest Path Forever, GPL-3.0-or-later); adapted for Polestar, 2026-10-15.
 --
---   /polestar near <kind> [profession]   kinds: trainer, class, repair, reagents, vendor,
+--   /polestar near <kind> [profession]   kinds: trainer, class, riding, repair, reagents, vendor,
 --                                        innkeeper, bank, mailbox, auction, flight, stable, transmog;
 --                                        `/polestar near mining` = trainer mining
 --   Nearby.Find(kind, line) -> place, seconds, rank | nil, reason, rank
@@ -56,7 +56,7 @@ ns.RegisterDefaults("nav", { nearbyMenu = true, nearbyButton = true })
 local RANKED = 6
 local RUN_SPEED = 7
 local SAME_PLACE = 50 -- yards: one spawn on two maps (the Codex's SAME_PLACE)
-local RIDING = 762 -- Compat.SKILL_LINES' riding: no trainer role
+local RIDING = 762 -- Riding has its own service, outside the profession list.
 local FACTION = { Alliance = "A", Horde = "H" }
 
 -- `stop`: the stop kind the target carries (Nav.SetTarget), for Shortest Path Forever's badge.
@@ -71,6 +71,7 @@ local KINDS = {
 	{ key = "trainer", label = L["Profession trainer"], stop = "trainer" },
 	{ key = "class", label = L["Class trainer"], stop = "trainer" },
 	{ key = "weapon", label = L["Weapon master"], stop = "trainer" },
+	{ key = "riding", label = L["Riding trainer"], stop = "trainer" },
 	{ key = "repair", role = "repair", label = L["Repair"] },
 	{ key = "reagents", role = "vendor", only = "reagentVendors", label = L["Reagents"] },
 	{ key = "vendor", role = "vendor", without = "trainer", titled = true, label = L["Vendor"] },
@@ -355,6 +356,17 @@ ns.On("NAME_LEARNED", function(kind) if kind == "npc" then index = {} end end)
 
 -- The candidate places of a kind: list | nil, reason.
 local function candidates(kind, line)
+	if kind.key == "riding" then
+		local C, Q, N = ns.Compat, ns.QoL, ns.Names
+		local info = C.GetPlayerInfo and C.GetPlayerInfo()
+		local trainer = Q and Q.Riding and info and Q.Riding.TrainerFor(info.race, info.faction)
+		if not trainer then return nil, "none" end
+		local c, wx, wy = C.MapToWorld(trainer.map, trainer.x, trainer.y, trainer.f)
+		if not c then return nil, "none" end
+		local name = (N and N.Npc and N.Npc(trainer.npc)) or trainer.npcName
+		return { { id = trainer.npc, name = name, map = trainer.map, x = trainer.x, y = trainer.y,
+			f = trainer.f, c = c, wx = wx, wy = wy } }
+	end
 	local ok, why = codexReady()
 	if not ok then return nil, why end
 	if kind.key == "trainer" then
@@ -568,7 +580,7 @@ function Nearby.Go(key, line)
 	if not place then
 		local why = seconds
 		if why == "kind" then
-			ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | general | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] .. " | transmog")
+			ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | general | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] .. " | transmog | riding")
 		elseif why == "combat" then
 			ns.Print(L["Nearby services can be looked up after combat."])
 		elseif why == "missing" then
@@ -604,12 +616,34 @@ function Nearby.Go(key, line)
 	return true
 end
 
+-- The friendly vendors on continent c that the Codex says sell item `id`
+-- (their spawns, as PlacesOn's): the list, kept until the index is dropped |
+-- nil, reason.
+function Nearby.Sellers(id, c)
+	local at = "sells:" .. tostring(id) .. ":" .. tostring(c)
+	if index[at] then return index[at] end
+	local ok, why = codexReady()
+	if not ok then return nil, why end
+	local item = ns.Codex.Item(id)
+	if not item then return nil, "none" end
+	local sells = {}
+	for _, s in ipairs(item.sources or {}) do
+		if s.type == "vendor" and s.npc then sells[s.npc] = true end
+	end
+	local list = {}
+	for _, p in ipairs(rolePlaces("vendor")) do
+		if p.c == c and sells[p.id] then list[#list + 1] = p end
+	end
+	index[at] = list
+	return list
+end
+
 -- "/polestar near <kind> [profession]"; a profession alone means its trainer.
 function Nearby.Command(rest)
 	local text = lower((rest or ""):match("^%s*(.-)%s*$"))
 	local word, more = text:match("^(%S+)%s*(.-)$")
 	if not word then
-		ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | general | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] .. " | transmog")
+		ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | general | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] .. " | transmog | riding")
 		return
 	end
 	local key = ALIAS[word] or word
@@ -676,9 +710,9 @@ Nearby.AddMenu = addMenu
 -- profession trainer when it has none), then the rest. Each entry is
 -- { key, line, label, icon }, for Nearby.Go(key, line); the vendor and the
 -- weapon master are pages of their own (`page`, `weapons`).
-local BUTTON_ORDER = { "vendor", "repair", "innkeeper", "flight", "class", "trainer", "weapon", "-", "reagents", "bank", "mailbox", "auction", "stable", "transmogrifier" }
+local BUTTON_ORDER = { "vendor", "repair", "innkeeper", "flight", "class", "trainer", "riding", "weapon", "-", "reagents", "bank", "mailbox", "auction", "stable", "transmogrifier" }
 local ICONS = { vendor = "icon-vendor", repair = "icon-buy", innkeeper = "icon-sethome", flight = "icon-fly",
-	class = "icon-train", trainer = "icon-skill", weapon = "icon-train" }
+	class = "icon-train", trainer = "icon-skill", riding = "icon-train", weapon = "icon-train" }
 
 function Nearby.MenuItems()
 	local items = {}

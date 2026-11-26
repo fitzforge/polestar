@@ -68,8 +68,8 @@ return {
 	["Inside"] = "在裡面",
 
 	-- Step 16: Mulgris Deepriver
-	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
-	["{npc:10739} camps by the {area:202}, beside the cauldron; his bears roam the hills north and east of it."] = "",
+	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {zone:1423} Eastern Plaguelands
+	["{npc:10739} waits inside the farmhouse at the {area:202}, by the cauldron; his bears roam the hills north and east of it, towards the {zone:1423}."] = "",
 
 	-- Step 17: Diseased Grizzlies
 	["Diseased Grizzlies"] = "生病的灰熊",
@@ -165,8 +165,11 @@ return {
 	-- Step 38: Eastern Plaguelands: kill these as you meet them
 	-- {zone:1423} Eastern Plaguelands
 	["{zone:1423}: kill these as you meet them"] = "{zone:1423}：遇到這些就殺",
+	-- {item:12957} Shattered Sword of Marduk · {area:2264} Corin's Crossing
 	-- plural, as words: Plaguehounds = {npc:8597} Plaguehound · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub
-	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. Careful: the biggest Plaguehounds are 56, pull them one at a time.\nThe shattered sword lies on the ground north-west of the lake."] = "瘟疫犬和牠們的幼犬在禮拜堂西南方的湖岸遊蕩；瘟疫蝙蝠和腐肉蟲也在同一區域。小心：最大的瘟疫犬是56級，一次只拉一隻。\n破碎的劍在湖的西北方地上。",
+	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. The {item:12957} lies at the bottom of the gorge west of {area:2264}. Careful: the biggest Plaguehounds are 56, pull them one at a time."] = "",
+	-- {area:2264} Corin's Crossing
+	["At the bottom of the gorge west of {area:2264}"] = "",
 
 	-- Step 39: Nathanos Blightcaller
 	-- {npc:15193} The Banshee Queen · {area:2260} Marris Stead · {area:2261} Undercroft
@@ -262,8 +265,8 @@ return {
 
 	-- Step 58: Scarlet Crusade
 	["Scarlet Crusade"] = "血色十字軍",
-	-- {area:192} Northridge Lumber Camp · {npc:11615} Mickey Levine · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
-	["Back north-east to the {area:192}: knights and magi work the camp, the medics and hunters camp south of it. Set {npc:11615}'s termite barrel down in the middle of the lumber mill while you are there.\nCareful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "",
+	-- {area:192} Northridge Lumber Camp · {npc:11615} Mickey Levine · {item:15044} Barrel of Plagueland Termites · {object:177491} Termite Barrel · {quest:5902} A Plague Upon Thee · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
+	["Back north-east to the {area:192}: knights and magi work the camp, the medics and hunters camp south of it. In the middle of the lumber mill, stand by the crate and use {npc:11615}'s {item:15044} from your bags to set it on top; then click the {object:177491} that appears: it finishes {quest:5902} and gives the next part for {npc:11615}. Careful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "",
 
 	-- Step 60: Radley and Durgen
 	["Radley and Durgen"] = "萊德雷與杜爾根",
@@ -338,15 +341,16 @@ return {
 	["{npc:10922}: the Cleansed Water from Islen in the {zone:1413}"] = "",
 
 	-- Step 75: Dousing the Flames of Protection
-	-- {area:1763} Jaedenar
-	["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in linked groups, many with stuns: pull them one group at a time."] = "",
+	-- {area:1763} Jaedenar · {area:1770} Shadow Hold · {item:12906} Purified Moonwell Water
+	["Ride north-west to {area:1763} and go down into {area:1770}, the cave in its north: the four braziers stand inside. Use Greta's {item:12906} from your bags on each one. Careful: Shadow Council mobs of level 53-55 fill the cave and often come in linked groups, many with stuns: pull them one group at a time."] = "",
 
 	-- Step 76: Greta Mosshoof
 	["Back south to the Sanctuary, a short ride."] = "向南回到聖地，路程很短。",
 
 	-- Step 77: A Final Blow
-	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {area:1763} Jaedenar
-	["{npc:9861}, {npc:9860} and {npc:9517} (57) wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "",
+	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {area:1763} Jaedenar · {npc:9529} Maybess Riverbreeze · {item:11511} Cenarion Beacon
+	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
+	["{npc:9861}, {npc:9860} and {npc:9517} (57) wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go. Careful: the three bosses fight as a group: kill the nearby mobs first so you don't pull extra enemies. The cultists' Corrupted Soul Shards show only while you carry {npc:9529}'s {item:11511} (from Cleansing Felwood): without it, skip them."] = "",
 	-- {npc:9529} Maybess Riverbreeze
 	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
 	["Corrupted Soul Shards from the cultists, for {npc:9529}' Salve via Hunting"] = "",
@@ -364,7 +368,7 @@ return {
 
 	-- Step 80: Rescue From Jaedenar
 	-- {npc:11018} Arko'narin · {npc:11019} Jessir Moonbow · {area:2479} Emerald Sanctuary
-	["Lead {npc:11018} out through the cave: she fights beside you, and the cultists you didn't clear on the way in come at you both. {npc:11019} takes her report at the {area:2479}, next."] = "",
+	["Escort {npc:11018}: she first goes to where Lightforge and her gear are held, then out through the cave. Keep her alive: she fights beside you, and the cultists you didn't clear on the way in come at you both. {npc:11019} takes her report at the {area:2479}, next."] = "",
 	-- {area:1770} Shadow Hold
 	["out of {area:1770}, at its mouth"] = "",
 
@@ -454,6 +458,7 @@ return {
 	-- ["Only if a {quest:8471} dropped for you: {npc:11558} waits at the {zone:1448} entrance of {area:1769}, and speaks to you only at Neutral with the Timbermaw."] = "只有在掉落了{quest:8471}時：{npc:11558}在{area:1769}的{zone:1448}入口等著，而且只有在你對木喉熊怪為中立時才會和你交談。",
 	-- ["Only if you still carry {quest:2741}: ride south from {area:1099}; the hippogryph nests are in the south of {zone:1444}, each holds an egg for the Egg-O-Matic."] = "只有在你仍帶著{quest:2741}時：從{area:1099}往南騎；角鷹獸巢在{zone:1444}南部，每個巢都有一顆蛋可放進超級蛋蛋機。",
 	-- ["Plaguehounds and their runts roam the shores of the lake south-west of the chapel."] = "瘟疫犬和瘟疫幼犬在禮拜堂西南方的湖岸邊遊蕩。",
+	-- ["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. Careful: the biggest Plaguehounds are 56, pull them one at a time.\nThe shattered sword lies on the ground north-west of the lake."] = "瘟疫犬和牠們的幼犬在禮拜堂西南方的湖岸遊蕩；瘟疫蝙蝠和腐肉蟲也在同一區域。小心：最大的瘟疫犬是56級，一次只拉一隻。\n破碎的劍在湖的西北方地上。",
 	-- ["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Pull them one at a time.\nCareful: Hailspite, level 60 elites, gather in the snowfields south-east of {area:2255}, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town."] = "向東騎到{area:2255}再向北出城；月光梟獸在{area:2241}南坡的丘陵遊蕩。一次只拉一隻。\n小心：60級精英Hailspite聚集在{area:2255}東南方的雪原上，那裡也有少數月光梟獸遊蕩：待在城鎮北邊的山坡上。",
 	-- ["Ride north up the road. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "沿道路向北騎。大鍋在{area:1769}西南方不遠的{area:1762}；那裡的死木熊怪是敵對的。",
 	-- ["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the end of the Un'Goro guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "從小屋沿道路向南騎到{area:2264}。{item:15447}十分鐘內就會腐壞：快速擊殺鎮上的天譴軍團，並立刻用{item:15454}磨碎七份。\n小心：隱形僕從的生命值降到40%時，會向25碼內的同伴求救。脫離戰鬥時，牠們還會用{spell:10228}隱形。如果在鎮內發生求救，可能會有大量怪物加入戰鬥。在城鎮外圍戰鬥可以降低這個風險。\n如果任務日誌中有{quest:5211}（來自安戈洛指南結尾的{npc:11063}），鎮子周圍的天譴軍團會留下達隆郡之魂：和每一個交談來解放它們。在開始收集{item:15447}之前先解放它們。",

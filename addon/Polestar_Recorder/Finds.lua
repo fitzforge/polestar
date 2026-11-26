@@ -384,8 +384,17 @@ local function finish(k)
 		if pending[i] == k then table.remove(pending, i) end
 	end
 	if not (k.keep or k.q[1] or k.xp) then return end
+	-- Someone else's only when the kill gave no XP and its corpse opened no
+	-- loot window: CanLootUnit a second after the death and a tap read
+	-- before the pull mark the player's own kills too (#4026).
 	local tapped
-	if k.denied ~= nil then tapped = k.denied elseif k.tapped ~= nil then tapped = k.tapped end
+	if k.xp or k.looted then
+		tapped = false
+	elseif k.denied ~= nil then
+		tapped = k.denied
+	elseif k.tapped ~= nil then
+		tapped = k.tapped
+	end
 	if ns.RecAt(k.t, "kill", k.npc, k.lvl, ns.Cls(k.cls), k.p, k.xp, k.rested, tapped, k.q[1] and concat(k.q, ";") or nil) then
 		local uid = spawnUid(k.guid)
 		if uid then ns.RecAt(k.t, "spawn", k.npc, uid, k.p) end
@@ -427,7 +436,8 @@ local function onDeath(guid, byPlayer, keep)
 	pending[#pending + 1] = k
 	if CanLootUnit then
 		C_Timer.After(LOOT_CHECK, function()
-			-- A tapped or round-robin corpse is someone else's loot.
+			-- A corpse not the player's to loot: one reading toward `tapped`,
+			-- which finish() drops when the kill gave XP or opened a loot window.
 			local ok, hasLoot, canLoot = pcall(CanLootUnit, guid)
 			if ok and ns.Value(hasLoot) == true and ns.Value(canLoot) == false then k.denied = true end
 		end)
@@ -662,8 +672,14 @@ local function readLoot()
 		local s = bySource[key]
 		local kind, id = ns.RefOfGUID(s.guid)
 		if kind == "c" or kind == "o" or kind == "i" then
-			-- a corpse looted is a kill counted, so loots never outnumber kills
-			if kind == "c" and not gather then onDeath(s.guid, false, true) end
+			-- a corpse looted is a kill counted, so loots never outnumber kills;
+			-- a loot window is the player's loot rights on that kill
+			if kind == "c" and not gather then
+				onDeath(s.guid, false, true)
+				for _, k in ipairs(pending) do
+					if k.guid == s.guid then k.looted = true end
+				end
+			end
 			markLooted(key)
 			if ns.Rec("loot", kind, id, p, gather, itemList(s.items), wanted) and kind == "o" then
 				noteGather(s.guid, id, picked and "l" or gather, p)

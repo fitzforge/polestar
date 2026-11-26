@@ -21,7 +21,7 @@ return {
 
 	-- Step 3: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
-	["{npc:5901} camps on the shore just north of {area:392}."] = "{npc:5901}在{area:392}正北的海岸上扎营。",
+	["{npc:5901} camps on the shore just south of {area:392}, at the water's edge."] = "",
 	-- {area:2479} Emerald Sanctuary · {zone:1448} Felwood
 	["Cleansed Water goes to the {area:2479} in {zone:1448}: keep it for later."] = "净化后的水要送到{zone:1448}的{area:2479}：留到之后。",
 
@@ -32,12 +32,12 @@ return {
 	["{area:392} flight master"] = "{area:392}的飞行管理员",
 
 	-- Step 5: Jes'rimon
-	-- {npc:8659} Jes'rimon
-	["{npc:8659}, at the top of a tower in the Drag"] = "",
+	-- {npc:8659} Jes'rimon · {object:172959} The Drag
+	["{npc:8659}, upstairs in {object:172959}"] = "",
 
 	-- Step 6: Orgrimmar
-	-- {npc:15188} Cenarion Emissary Blackhoof · {object:172957} Valley of Wisdom · {zone:1451} Silithus
-	["{npc:15188}, {object:172957}: keep it for {zone:1451}"] = "{npc:15188}，在{object:172957}：留着它去{zone:1451}",
+	-- {npc:15188} Cenarion Emissary Blackhoof · {object:172982} Valley of Strength · {zone:1451} Silithus
+	["{npc:15188}, {object:172982}: keep it for {zone:1451}"] = "",
 
 	-- Step 7: Zilzibin Drumlore
 	-- {npc:7010} Zilzibin Drumlore
@@ -85,12 +85,16 @@ return {
 	["{npc:8393}, beside him"] = "{npc:8393}，在他旁边",
 
 	-- Step 17: Andron Gant
-	-- {npc:6522} Andron Gant · {object:36073} Rogues' Quarter
-	["{npc:6522} stands in the {object:36073}."] = "{npc:6522}站在{object:36073}。",
+	-- {npc:6522} Andron Gant · {object:36126} Royal Quarter
+	["{npc:6522} stands just outside the Apothecarium, on the way to the {object:36126}."] = "",
 
 	-- Step 18: The Undercity
 	-- {object:36126} Royal Quarter
 	["Lady Sylvanas holds the {object:36126}."] = "希尔瓦娜斯女士在{object:36126}。",
+
+	-- Step 19: Royal Quarter
+	-- {npc:10781} Royal Overseer Bauhaus · {object:36078} Trade Quarter
+	["{npc:10781} keeps the census in the {object:36078}, beside the guild and tabard registrars near the bank."] = "",
 
 	-- Step 21: Jeremiah Payson
 	-- {npc:8403} Jeremiah Payson
@@ -113,11 +117,16 @@ return {
 
 	-- Step 27: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
-	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
-	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "{npc:10778}的农场是{area:152}以东第一座农场。农场里的喋喋不休的食尸鬼携带她护符的另一半；{npc:11075}守着田里的大锅。\n小心：通常有一两只亡灵与他并肩战斗，使用大锅后还可能有更多护锅者来袭。",
+	-- was: ["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "{npc:10778}的农场是{area:152}以东第一座农场。农场里的喋喋不休的食尸鬼携带她护符的另一半；{npc:11075}守着田里的大锅。\n小心：通常有一两只亡灵与他并肩战斗，使用大锅后还可能有更多护锅者来袭。"
+	["{npc:10778}'s farm is the first one east of the {area:152}. {npc:11075} guards the cauldron in the field. Careful: one or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "",
 
 	-- Step 28: Janice Felstone
 	["Upstairs"] = "在楼上",
+
+	-- Step 30: Good Luck Other-Half-Charm
+	-- {item:12722} Good Luck Other-Half-Charm · {item:12723} Good Luck Charm · {npc:10778} Janice Felstone
+	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
+	["Jabbering Ghouls on Felstone Farm carry the {item:12722}: kill them until one drops it, then right-click the halves in your bags to join them into the {item:12723}, and take it to {npc:10778} upstairs."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back north to {npc:8420} with the rune, then south-west along the road."] = "带着符文向北回到{npc:8420}处，然后沿道路向西南走。",
@@ -163,13 +172,17 @@ return {
 	-- ["{item:246721}, from {npc:246991}"] = "{item:246721}，来自{npc:246991}",
 	-- ["{item:246722}, from {npc:247013}"] = "{item:246722}，来自{npc:247013}",
 	-- ["{item:246725}, from {npc:247006}"] = "{item:246725}，来自{npc:247006}",
+	-- ["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "{npc:10778}的农场是{area:152}以东第一座农场。农场里的喋喋不休的食尸鬼携带她护符的另一半；{npc:11075}守着田里的大锅。\n小心：通常有一两只亡灵与他并肩战斗，使用大锅后还可能有更多护锅者来袭。",
 	-- ["{npc:11044}, in the Apothecarium"] = "{npc:11044}，在炼金房",
+	-- ["{npc:15188}, {object:172957}: keep it for {zone:1451}"] = "{npc:15188}，在{object:172957}：留着它去{zone:1451}",
 	-- ["{npc:235903}: {quest:86746}, the satyrs north of the blood elves' camp"] = "{npc:235903}：{quest:86746}，血精灵营地北边的萨特",
 	-- ["{npc:247473}: {quest:91569}, a wand from the blood elves' arcanists"] = "{npc:247473}：{quest:91569}，从血精灵奥术师身上获取一根魔杖",
 	-- ["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386}站在{area:380}。打开她交给你的每一个箱子，把里面的东西带回来。",
 	-- ["{npc:256386}'s crates"] = "{npc:256386}的箱子",
 	-- ["{npc:3326}, the {object:172960}"] = "{npc:3326}，在{object:172960}",
 	-- ["{npc:4485}, {object:172958}: carried from the first {zone:1447} visit, else take it here for {npc:8576} in {area:1237}"] = "{npc:4485}在{object:172958}：首次去{zone:1447}时应已接取并保留；否则在这里接取，带给{area:1237}的{npc:8576}",
+	-- ["{npc:5901} camps on the shore just north of {area:392}."] = "{npc:5901}在{area:392}正北的海岸上扎营。",
+	-- ["{npc:6522} stands in the {object:36073}."] = "{npc:6522}站在{object:36073}。",
 	-- ["{npc:8576}: {quest:91531}, for {npc:4485} in {zone:1454}"] = "{npc:8576}：{quest:91531}，交给{zone:1454}的{npc:4485}",
 	-- ["{npc:8578}'s camp"] = "{npc:8578}的营地",
 	-- ["{npc:8587}: the tome goes to {npc:3326} in {zone:1454}"] = "{npc:8587}：宝典要交给{zone:1454}的{npc:3326}",

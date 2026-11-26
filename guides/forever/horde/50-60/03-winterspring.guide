@@ -29,7 +29,7 @@ step Salfa
 
 step Donova Snowden
   tip Ride south from the tunnel: Donova camps among the steaming pools of Frostfire Hot Springs, in the west of the valley.
-  turnin 3908                         -- Linken's letter
+  turnin 3908 -- Linken's Training Sword
   accept 3909
   accept 5082
   turnin 980                          -- The New Springs, from Krakle in Un'Goro
@@ -208,7 +208,7 @@ step Bloodvenom Post
 step Winna's kitten
   tip Take the kitten back to the Jadefire moonwell and release it there with Winna's Kitten Carrier; once it has turned into a Corrupted Saber, bring it back to Winna and click on it to hand it over.
   use 12565 quest 4506.1 @32.3,66.6 map 1448 -- Winna's Kitten Carrier, at the Jadefire moonwell
-  complete 4506 -- Bring the Corrupted Saber to Winna Hazzard at Bloodvenom Post and click on it to hand it over.
+  complete 4506 @34.26,52.32 map 1448 era -- Bring the Corrupted Saber to Winna Hazzard at Bloodvenom Post and click on it to hand it over.
 
 step Winna Hazzard
   turnin 4506
@@ -253,7 +253,7 @@ step Fly to Thunder Bluff
 
 step Bluff Runner Windstrider
   accept 1000
-  tip Bluff Runner Windstrider and Rumstag Proudstrider stand on Hunter Rise. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest.
+  tip Bluff Runner Windstrider and Rumstag Proudstrider stand on the central rise, not on Hunter Rise. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest.
   turnin 7820 direct optional
   turnin 7821 direct optional
   turnin 7822 direct optional
@@ -271,7 +271,7 @@ step Elder Rise
   note Rabine Saturna waits in Moonglade: keep it for later.
 
 step Bashana Runetotem
-  tip Bashana buys Morrowgrain grown from your Un'Goro Soil. Morrowgrain Research wants ten, and the Evergreen Pouch gives one try every ten minutes: take it only if you already have the grain.
+  tip Hand Bashana the Seed Voucher for her packets of Tharlendris Seeds. Morrowgrain Research gives you the Evergreen Pouch: use it with a seed packet and two Un'Goro Soil in your bags to grow a random herb, sometimes Morrowgrain, once every ten minutes. She wants ten, so the quest is optional: take it if you have spare Un'Goro Soil and want to keep growing it over the next guides.
   turnin 3782
   accept 3786 optional
   complete 3786 optional

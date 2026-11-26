@@ -347,8 +347,9 @@ return {
 	["{quest:2995}'s work is not in this guide: burn the {object:144073}, Notes and Records in the elves' camps around {area:350}, in {zone:1425} & {zone:1419} (its Highvale step). Load that guide for the arrows."] = "{quest:2995}의 일은 이 가이드에 없습니다: {zone:1425} & {zone:1419} 가이드(깊은골짜기 단계)에서 {area:350} 주변 엘프 야영지의 {object:144073}, 쪽지, 기록을 태우십시오. 화살표가 필요하면 그 가이드를 불러오십시오.",
 
 	-- Step 75: Undercity
-	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
-	["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "연금술 실험실의 {npc:8390}: 약병은 나중에 {zone:1447}에서 채웁니다",
+	-- {npc:8390} Chemist Cuely · {item:10695} Box of Empty Vials · {zone:1447} Azshara
+	-- plural, as words: Empty Vials = {item:3371} Empty Vial
+	["{npc:8390}, the Apothecarium: a {item:10695} comes with the quest. Keep four bag slots free and open it for Empty Vials Labeled #1 to #4, filled in {zone:1447} later"] = "",
 	-- {npc:5204} Apothecary Zinge
 	["{npc:5204}, near Cuely in the Apothecarium"] = "{npc:5204}, 연금술사 구역의 큘리 곁",
 
@@ -446,6 +447,7 @@ return {
 	-- ["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "{npc:10926}의 유령은 남서쪽 {area:2262} 폐허에 있습니다.",
 	-- ["{npc:12250} lurks just west of {area:2262}."] = "{npc:12250}은(는) {area:2262} 바로 서쪽에 숨어 있습니다.",
 	-- ["{npc:6522}, the {object:36073}"] = "{object:36073}의 {npc:6522}",
+	-- ["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "연금술 실험실의 {npc:8390}: 약병은 나중에 {zone:1447}에서 채웁니다",
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "이제 {npc:9619}이(가) 북동쪽 동굴에 있는 {npc:9622}의 가죽을 요구합니다. 건너뛰세요.",
 	-- ["{npc:9623} then wants a {item:10561}, an {skill:202} item. Skip it unless you have one."] = "그다음 {npc:9623}은(는) {skill:202} 아이템인 {item:10561}을(를) 원합니다. 가지고 있지 않으면 건너뛰세요.",
 	-- ["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "{npc:9684}의 소굴은 수정탑 바로 남쪽에 있습니다. 그곳에서 {npc:9619}의 미끼를 사용하세요. {npc:9684}은(는) 레벨 56이고 공격이 강하니 생명력을 가득 채우고 시작하세요.",

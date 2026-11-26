@@ -15,8 +15,9 @@ return {
 	-- Step 2: Enchanting 1-75: vendor goods
 	-- {skill:333} Enchanting
 	["{skill:333} 1-75: vendor goods"] = "{skill:333} 1-75: 상인 재료",
-	-- {item:6217} Copper Rod · {item:247786} Mote of Magic · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1318} Jessara Cordell · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3346} Kithas · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:6217} 1개(1실버 24코퍼)와(과) {item:247786} 32개(3실버 20코퍼). 모두 약 4실버 44코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1286}, {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346}, {npc:5817}).",
+	-- {item:6217} Copper Rod · {item:247786} Mote of Magic · {zone:1453} Stormwind City · {npc:1318} Jessara Cordell · {zone:1454} Orgrimmar · {npc:3346} Kithas
+	-- was: ["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:6217} 1개(1실버 24코퍼)와(과) {item:247786} 32개(3실버 20코퍼). 모두 약 4실버 44코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1286}, {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346}, {npc:5817})."
+	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1318}; {zone:1454}: {npc:3346})."] = "",
 
 	-- Step 3: Enchanting 1-75: Auction House
 	-- {skill:333} Enchanting
@@ -256,6 +257,7 @@ return {
 	-- ["Back to an {skill:333} trainer: {spell:13948} is taught from {skill:333} 270."] = "{skill:333} 상급자에게 돌아가세요. {spell:13948}은(는) {skill:333} 270부터 배울 수 있습니다.",
 	-- ["Back to an {skill:333} trainer: {spell:7426} is taught from {skill:333} 90."] = "{skill:333} 상급자에게 돌아가세요. {spell:7426}은(는) {skill:333} 90부터 배울 수 있습니다.",
 	-- ["Back to an {skill:333} trainer: {spell:7788} is taught from {skill:333} 120."] = "{skill:333} 상급자에게 돌아가세요. {spell:7788}은(는) {skill:333} 120부터 배울 수 있습니다.",
+	-- ["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:6217} 1개(1실버 24코퍼)와(과) {item:247786} 32개(3실버 20코퍼). 모두 약 4실버 44코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1286}, {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346}, {npc:5817}).",
 	-- ["Expert needs character level 20 and {skill:333} 125; it raises the cap to 225. Materials for 150-225 are worth about 13s in all."] = "숙련은(는) 캐릭터 레벨 20, {skill:333} 125이(가) 필요하며 최대 숙련도를 225(으)로 올립니다. 150-225 재료는 모두 약 13실버입니다.",
 	-- ["Journeyman needs character level 10 and {skill:333} 50; it raises the cap to 150. Materials for 75-150 are worth about 7g 51s in all."] = "수습은(는) 캐릭터 레벨 10, {skill:333} 50이(가) 필요하며 최대 숙련도를 150(으)로 올립니다. 75-150 재료는 모두 약 7골드 51실버입니다.",
 	-- ["Open Giant Clams here. The Auction House works too."] = "이곳에서 {object:2744}을(를) 여세요. 경매장도 됩니다.",

@@ -72,13 +72,13 @@ step Light's Hope Chapel
 # ---------------------------------------------------------------- The south
 
 step Lake Mereldar
-  tip Plaguehounds and their runts roam the shores of the lake south-west of the chapel.
+  tip Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. The Shattered Sword of Marduk lies at the bottom of the gorge west of Corin's Crossing. Careful: the biggest Plaguehounds are 56, pull them one at a time.
   kill 8596 quest 5542.1
   kill 8597 quest 5542.2
 
 step Sword of Marduk
   tip The shattered sword lies on the ground north-west of the lake.
-  collect 12957 quest 5181.2
+  collect 12957 quest 5181.2 -- At the bottom of the gorge west of Corin's Crossing
 
 step The Pestilent Scar
   tip The skull sits in the Pestilent Scar, among Blighted Horrors and Plague Monstrosities.
@@ -222,7 +222,7 @@ step Sprinkle
 
 step Gaeriyan
   when onquest 3912
-  tip Drink the Videre Elixir at the graveyard just east of Gadgetzan: it kills you, and only as a ghost can you see Gaeriyan, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard.
+  tip Alive again, go to A Conspicuous Gravestone in the graveyard just east of Gadgetzan and use it: it takes the quest. Linken's sword goes back to Linken in Un'Goro: keep it.
   use 11243 @54.0,28.7 map 1446         -- Videre Elixir
   turnin 3912
   accept 3913

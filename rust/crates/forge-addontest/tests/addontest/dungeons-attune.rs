@@ -888,7 +888,8 @@ emit({{ steps = describe(def), ghost = ghost }})
 D.Attune("wailing-caverns", "fang")
 stub.advance(0.6)
 SIM_GUIDE = Polestar.Engine.GetGuide()
-{SIMULATE}"#
+{SIMULATE}"#,
+			SIMULATE = SIMULATE.as_str()
 		),
 		"Horde",
 		"Tauren",
@@ -946,6 +947,37 @@ emit({ why = why or false, goals = goals, note = def and def.steps[1].note or fa
 	assert_eq!(out[0]["why"], json!(false));
 	assert_eq!(out[0]["goals"], json!(["accept 1413 52.2 31.9", "collect 1413 46 36.4", "turnin 1413 52.2 31.9"]), "the head at the caverns' entrance");
 	assert_eq!(out[0]["note"], json!("Head of Kresh: inside Wailing Caverns."), "the step says what is inside where");
+}
+
+// The God Hakkar: Lookup's guide for the quest left the arrow on Yeh'kinya for "Collect Filled Egg of Hakkar"; no
+// source gives the egg, it is filled with the Essence of Hakkar, which drops inside the Sunken Temple (#4148). An
+// item objective the Codex says is made from an item the quest needs (madeFrom) goes where that item comes from:
+// the instance's entrance, the step saying what is inside.
+#[test]
+fn issue_4148_a_lookup_quest_guide_sends_an_item_made_from_a_drop_inside_an_instance_to_its_entrance() {
+	let f = Fx::new();
+	let mut c = f.codex.clone();
+	c["items"]["90061"] =
+		json!({ "id": 90061, "name": "Essence of Kresh", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [{ "type": "drop", "npc": 3653, "chance": 100 }] });
+	c["items"]["90063"] = json!({ "id": 90063, "name": "Filled Egg", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [] });
+	c["quests"]["90062"] = json!({ "id": 90062, "title": "The God Kresh", "level": 18, "minLevel": 10, "faction": null, "races": null, "classes": null,
+		"start": { "npc": [3448], "object": [], "item": [] }, "end": { "npc": [3448], "object": [] },
+		"objectives": [{ "type": "item", "id": 90063, "count": 1, "text": "Filled Egg", "madeFrom": [90061] }], "pre": [], "preAny": [], "rewards": [], "choices": [] });
+	let pk = pack_of(&c, &f.inputs);
+	let out = f.run(
+		&pk,
+		r#"
+Polestar.Set("lookup.enabled", true)
+local def, why = Polestar.Lookup.BuildGuide("quest", 90062)
+local goals = {}
+for i, goal in ipairs(def and def.steps[1].goals or {}) do goals[i] = goal.t .. " " .. (goal.map and table.concat({ goal.map, goal.x, goal.y }, " ") or "nowhere") end
+emit({ why = why or false, goals = goals, note = def and def.steps[1].note or false })"#,
+		"Horde",
+		"Tauren",
+	);
+	assert_eq!(out[0]["why"], json!(false));
+	assert_eq!(out[0]["goals"], json!(["accept 1413 52.2 31.9", "collect 1413 46 36.4", "turnin 1413 52.2 31.9"]), "the egg at the caverns' entrance, not the giver");
+	assert_eq!(out[0]["note"], json!("Essence of Kresh: inside Wailing Caverns."), "the step says what is inside where");
 }
 
 #[test]
@@ -1140,6 +1172,41 @@ emit(Polestar.UI.Attunements.StepWords(step, "open"))"#,
 		&fake_locale("itIT", &[("%s from %s", "%s da %s")]),
 	);
 	assert_eq!(out, vec![json!("Black Tome da Black Tome"), json!("Black Tome da Tomo nero")]);
+}
+
+#[test]
+fn the_next_step_uses_client_names_for_quest_givers_items_and_their_sources() {
+	let f = Fx::new();
+	let out = f.run_ui(
+		r#"
+local stepWords, names = Polestar.UI.Attunements.StepWords, Polestar.Names
+local npc = { kind = "npc", id = 31, name = "Elizabeth" }
+local item = { id = 42, name = "Key" }
+local object = { kind = "object", id = 53, name = "Door" }
+local quest = { kind = "quest", id = 64, title = "The quest", start = npc }
+local function lines()
+	return {
+		stepWords(quest, "open"),
+		stepWords({ kind = "drop", item = item, npc = npc }, "open"),
+		stepWords({ kind = "gift", item = item, npc = npc }, "open"),
+		stepWords({ kind = "use", from = item, at = object }, "open"),
+	}
+end
+emit(lines())
+names.AddChunk("itIT", "npc", 31, 31, "\n31\tElisabetta\n")
+names.AddChunk("itIT", "item", 42, 42, "\n42\tChiave\n")
+names.AddChunk("itIT", "object", 53, 53, "\n53\tPorta\n")
+names.AddChunk("itIT", "quest", 64, 64, "\n64\tLa missione\n")
+emit(lines())"#,
+		&fake_locale("itIT", &[("Pick up %s from %s", "Accetta %s da %s"), ("%s from %s", "%s da %s"), ("%s gives you %s", "%s ti dà %s"), ("Use %s beside %s", "Usa %s accanto a %s")]),
+	);
+	assert_eq!(
+		out,
+		vec![
+			json!(["Accetta The quest da Elizabeth", "Key da Elizabeth", "Elizabeth ti dà Key", "Usa Key accanto a Door"]),
+			json!(["Accetta La missione da Elisabetta", "Chiave da Elisabetta", "Elisabetta ti dà Chiave", "Usa Chiave accanto a Porta"]),
+		]
+	);
 }
 
 // ---------------------------------------------------------------------------

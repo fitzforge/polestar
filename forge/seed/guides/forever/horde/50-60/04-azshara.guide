@@ -44,8 +44,9 @@ pitch Ratchet, Orgrimmar and the Undercity, then into the Plaguelands.
 
 step Orgrimmar
   zone Orgrimmar
-  turnin 4300                         -- Jes'rimon, at the top of a tower in the Drag
-  accept 8276                         -- Cenarion Emissary Blackhoof, Valley of Wisdom: keep it for Silithus
+  tip Jes'rimon takes the ravasaur claws from Un'Goro; he is in The Drag, upstairs in one of its tallest buildings.
+  turnin 4300 -- Jes'rimon, upstairs in The Drag
+  accept 8276 -- Cenarion Emissary Blackhoof, Valley of Strength: keep it for Silithus
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 # ---------------------------------------------------------------- The Barrens
@@ -60,7 +61,7 @@ step Liv Rizzlefix
   collect 10556 quest 3444.1          -- Stone Circle: Marvon's Chest
 
 step Islen Waterseer
-  tip Islen camps on the shore just north of Ratchet.
+  tip Islen camps on the shore just south of Ratchet, at the water's edge.
   turnin 5158
   accept 5159
   note Cleansed Water goes to the Emerald Sanctuary in Felwood: keep it for later.
@@ -100,10 +101,14 @@ step Valormok
   accept 3505
 
 step Ruins of Eldarath
-  tip Fill Cuely's four vials at the tide pools on the shore, from Southridge Beach north up the coast; Spitelash naga patrol between them.
+  tip Open Cuely's Box of Empty Vials in your bags for the four labelled vials. The tide pools cannot be clicked: stand in each pool and use its own vial from your bags, from Southridge Beach north up the coast; Spitelash naga patrol between them. No vials? Abandon the quest and take it again from Chemist Cuely in the Undercity.
+  use 10687 quest 3568.1 @48.0,60.6 map 1447
   collect 10691 quest 3568.1 @48.0,60.6 map 1447 -- Filled Vial Labeled #1: the tide pool on Southridge Beach
+  use 10688 quest 3568.2 @48.0,51.2 map 1447
   collect 10692 quest 3568.2 @48.0,51.2 map 1447 -- #2, north along the shore
+  use 10689 quest 3568.3 @48.7,48.4 map 1447
   collect 10693 quest 3568.3 @48.7,48.4 map 1447 -- #3
+  use 10690 quest 3568.4 @47.4,46.3 map 1447
   collect 10694 quest 3568.4 @47.4,46.3 map 1447 -- #4
 
 step Thalassian Base Camp
@@ -145,6 +150,7 @@ step The Apothecarium
   turnin 3570
 
 step Royal Quarter
+  tip Royal Overseer Bauhaus keeps the census in the Trade Quarter, beside the guild and tabard registrars near the bank.
   turnin 5023                         -- Royal Overseer Bauhaus
   accept 5049
   turnin 5049                         -- Jeremiah Payson, nearby

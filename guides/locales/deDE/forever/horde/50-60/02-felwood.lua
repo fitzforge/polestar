@@ -64,10 +64,10 @@ return {
 	["The middle of {zone:1454}"] = "Die Mitte von {zone:1454}",
 
 	-- Step 14: Jes'rimon
-	-- {npc:8659} Jes'rimon
-	["{npc:8659} takes the ravasaur claws from Un'Goro; he stands at the top of a tower in the Drag."] = "",
-	-- {npc:8659} Jes'rimon
-	["{npc:8659}, at the top of a tower in the Drag"] = "",
+	-- {npc:8659} Jes'rimon · {object:172959} The Drag
+	["{npc:8659} takes the ravasaur claws from Un'Goro; he is in {object:172959}, upstairs in one of its tallest buildings."] = "",
+	-- {npc:8659} Jes'rimon · {object:172959} The Drag
+	["{npc:8659}, upstairs in {object:172959}"] = "",
 
 	-- Step 15: Fly to Valormok
 	-- {area:1237} Valormok
@@ -87,8 +87,8 @@ return {
 	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (52-55): pull them one at a time."] = "Reite nach Osten zu den Ruinen an der Küste. Die vier Tafeln liegen zwischen den Ruinen, bewacht von Naga der Grollflossen (52-55): Zieh sie einzeln.",
 
 	-- Step 18: Ruins of Eldarath
-	-- {area:1231} Southridge Beach
-	["Fill Cuely's four vials at the tide pools on the shore, from {area:1231} north up the coast; Spitelash naga patrol between them."] = "",
+	-- {item:10695} Box of Empty Vials · {area:1231} Southridge Beach · {npc:8390} Chemist Cuely · {zone:1458} Undercity
+	["Open Cuely's {item:10695} in your bags for the four labelled vials. The tide pools cannot be clicked: stand in each pool and use its own vial from your bags, from {area:1231} north up the coast; Spitelash naga patrol between them. No vials? Abandon the quest and take it again from {npc:8390} in the {zone:1458}."] = "",
 	-- {item:10691} Filled Vial Labeled #1 · {area:1231} Southridge Beach
 	["{item:10691}: the tide pool on {area:1231}"] = "",
 	["#2, north along the shore"] = "",
@@ -96,8 +96,9 @@ return {
 	-- Step 19: Makrinni Burrowers
 	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower
 	["Makrinni Burrowers"] = "Makrinni-Wühler",
-	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower · Highborne Treasure Fragments = {item:246684} Highborne Treasure Fragment
-	["The Makrinni Burrowers (50-51) dig in the sands just east of the ruins, on the way north-east; they and the buried caches there give up the Highborne Treasure Fragments."] = "Die Makrinni-Wühler (50-51) graben im Sand gleich östlich der Ruinen, auf dem Weg nach Nordosten; sie und die vergrabenen Verstecke dort liefern die Fragmente eines Hochgeborenenschatzes.",
+	-- {npc:247473} Izvi Gildfizz · {item:246683} Treasure Trowel 3000
+	-- plural, as words: Highborne Treasure Fragments = {item:246684} Highborne Treasure Fragment · Makrinni Burrowers = {npc:247470} Makrinni Burrower
+	["{npc:247473}'s {item:246683}, in your bags, digs up the Highborne Treasure Fragments: use it on the sands just east of the ruins, where the Makrinni Burrowers (50-51) dig, on the way north-east. The Burrowers and the buried caches there give fragments too."] = "",
 
 	-- Step 20: Ekkal
 	-- {zone:1447} Azshara · {npc:235903} Ekkal
@@ -134,8 +135,10 @@ return {
 	["{item:246722}, from {npc:247013}"] = "{item:246722}, von {npc:247013}",
 
 	-- Step 25: Magus Rimtori
-	-- {npc:8578} Magus Rimtori
-	["Back to the Sin'dorei Tome: hand in the seals, then use it to call {npc:8578}.\nCareful: Rimtori is level 55, and which crystal is linked to him is random: each of the other two summons a hostile infernal instead. Start at full health."] = "",
+	-- {quest:91500} An Explosive Gambit · {quest:91497} Seals of the Sin'dorei
+	["Back to the Sin'dorei Tome: hand in the seals and take {quest:91500}, which gives you the {quest:91497}. Rimtori does not come from the Tome: stand beside one of the camp's tall crystals and use the {quest:91497} from your bags; its crystal explodes and draws her. Which crystal is linked to her is random: each of the other two summons a hostile infernal instead. She is level 55: start at full health."] = "",
+	-- {quest:91497} Seals of the Sin'dorei · {npc:8578} Magus Rimtori
+	["Use the {quest:91497} from your bags beside a crystal: {npc:8578} (55) comes to the explosion and drops her head"] = "",
 	-- {quest:91538} Sin'dorei Tome of Summoning · {npc:8587} Jediga · {area:1237} Valormok
 	["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: für {npc:8587} in {area:1237}",
 
@@ -186,8 +189,8 @@ return {
 	["{area:1237} flight master"] = "Flugmeister in {area:1237}",
 
 	-- Step 36: Belgrom Rockmaul
-	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:8659} Jes'rimon
-	["{npc:4485} is in the {object:172958}, {npc:3326} in the {object:172960} and {npc:8659} at the top of a tower in the Drag."] = "",
+	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:8659} Jes'rimon · {object:172959} The Drag
+	["{npc:4485} is in the {object:172958}, {npc:3326} in the {object:172960}, and {npc:8659} in {object:172959}, upstairs in one of its tallest buildings."] = "",
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow
 	["{npc:3326}, the {object:172960}"] = "{npc:3326}, {object:172960}",
 	-- {npc:8659} Jes'rimon · {npc:8587} Jediga
@@ -252,17 +255,17 @@ return {
 	["The {object:661778} stands just south of the vale, by the road north: its bauble starts a quest for {npc:9996} at {area:1997}."] = "Die Statue von Malorne ({object:661778}) steht gleich südlich des Tals an der Straße nach Norden: Ihr Schmuckstück startet eine Quest für {npc:9996} am {area:1997}.",
 
 	-- Step 51: Irontree Woods
-	-- {area:1767} Irontree Woods · {item:11503} Blood Amber · {npc:10920} Kelek Skykeeper
-	-- plural, as words: Warpwood Moss Flayers = {npc:7100} Warpwood Moss Flayer · Felpaw Ravagers = {npc:8961} Felpaw Ravager
-	-- was: ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo."] = "Folge der Straße nach Nordosten zum {area:1767}. Die Wucherborkenschinder und -schredder auf der Ostseite des Waldes tragen je einen {item:11503}; Wutklauengrizzlys und Teufelspfotenverheerer streifen für Talo durch denselben Wald."
-	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s."] = "",
+	-- {area:1767} Irontree Woods · {npc:10920} Kelek Skykeeper · {npc:9529} Maybess Riverbreeze · {item:11503} Blood Amber · {area:1768} Irontree Cavern
+	-- plural, as words: Felpaw Ravagers = {npc:8961} Felpaw Ravager
+	["Follow the road north-east to {area:1767}: Angerclaw Grizzlies and Felpaw Ravagers roam the woods for Talo, and their organs are {npc:10920}'s. {npc:9529}'s {item:11503} comes from the Warpwood elementals inside {area:1768}, next."] = "",
 	-- {item:277958} Putrescent Bear Organs
 	["{item:277958}, from the Angerclaw bears"] = "{item:277958}, von den Zornklauenbären",
 	-- {item:277959} Putrescent Wolf Organs
 	["{item:277959}, from the Felpaw wolves"] = "{item:277959}, von den Teufelspfotenwölfen",
 
 	-- Step 52: Irontree Woods
-	["Below ground"] = "Unter der Erde",
+	-- {area:1768} Irontree Cavern
+	["Below ground: from the Warpwood elementals inside {area:1768}"] = "",
 
 	-- Step 53: Meilosh
 	-- {npc:11557} Meilosh · {zone:1448} Felwood · {quest:6031} Runecloth · {area:1769} Timbermaw Hold
@@ -295,6 +298,7 @@ return {
 	-- ["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "Ein {item:13140} ist gefallen: Benutze ihn, um die Quest zu starten, und befreie dann {npc:11018} aus ihrem Käfig in {area:1770}, der Höhle am Nordende von {area:1763}.",
 	-- ["Back at the {area:2479}."] = "Zurück bei {area:2479}.",
 	-- ["Back at {area:1762}, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation."] = "Zurück in {area:1762}: Die Furbolgs der Totenwaldfelle (53-54) sind nah am Tunnel, und jeder Kill erhöht deinen Ruf bei der Holzschlundfeste.",
+	-- ["Below ground"] = "Unter der Erde",
 	-- ["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "Vorsicht: Höhlenbehüter sind Stufe 53-54 und die Rächer der Totenwaldfelle 54-55; sie rufen nahe Verbündete im Umkreis von 25 yd zu Hilfe, sobald sie unter 50% Gesundheit sind, und rennen unter 15% los, um Hilfe zu holen.\nTöte sie weiter, bis einer ein {quest:8470} fallen lässt, ungefähr bei jedem dreißigsten Kill, und klick es dann rechts an: {npc:11558} in {area:1769} nimmt es, sobald die Holzschlundfeste dir gegenüber Neutral ist, jetzt, wenn sie es schon ist, oder wenn der letzte Guide mit 59 wieder an der Höhle vorbeikommt.",
 	-- ["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nBelow level 54.54, keep fighting the Deadwood here after {npc:15395}'s count: the hand-ins at {area:1769} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "Vorsicht: Den Watchers sind Stufe 53-54; sie rufen nahe Verbündete im Umkreis von 25 yd zu Hilfe, sobald sie unter 50% Gesundheit sind, und rennen unter 15% los, um Hilfe zu holen.\nSolange du unter Stufe 54,54 bist, kämpfe hier nach {npc:15395}s Zählung weiter gegen die Deadwood: Die Abgaben bei {area:1769} und {area:2479} bringen dich auf Stufe 55. Oder lauf stattdessen mit einer Gruppe den Dungeon {area:1584} oder den Dungeon {area:1417}.\nTöte sie weiter, bis einer ein {quest:8470} fallen lässt, ungefähr bei jedem dreißigsten Kill, und klick es dann rechts an: {npc:11558} in {area:1769} nimmt es, sobald die Timbermaw dir gegenüber Neutral sind, jetzt, wenn sie es schon sind, oder wenn der letzte Guide mit 59 wieder an der Höhle vorbeikommt.",
 	-- ["Cross the river east into {area:2627}, the ruined town in the north-west of the {zone:1423}. {npc:12384} sits in a hut at its edge."] = "Überquere den Fluss nach Osten nach {area:2627}, der zerstörten Stadt im Nordwesten der {zone:1423}. {npc:12384} sitzt in einer Hütte an ihrem Rand.",
@@ -351,6 +355,7 @@ return {
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Das Furbolg-Dorf der Deadwood liegt direkt südlich des Sanctuary. Jeder Kill bei den Deadwood erhöht auch deinen Ruf bei {area:1769}; behalte die Kopfschmuck-Federn. Töte sie weiter bis Stufe 53,92: Die nächsten Abgaben im Sanctuary und bei {area:1763} brauchen sie. Oder lauf stattdessen mit einer Gruppe den Dungeon {area:1417} oder den Dungeon {area:1584}.",
 	-- ["The Jadefire moonwell"] = "Der Mondbrunnen der Jadefeuersatyrn",
 	-- ["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind."] = "Die Satyrn der Legashi (51-52) halten die Hügel nördlich des Lagers der Blutelfen: {npc:235903} will fünf von jeder Art.",
+	-- ["The Makrinni Burrowers (50-51) dig in the sands just east of the ruins, on the way north-east; they and the buried caches there give up the Highborne Treasure Fragments."] = "Die Makrinni-Wühler (50-51) graben im Sand gleich östlich der Ruinen, auf dem Weg nach Nordosten; sie und die vergrabenen Verstecke dort liefern die Fragmente eines Hochgeborenenschatzes.",
 	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Die Zelte des Scharlachroten Kreuzzugs stehen zwischen {area:199} und {area:200}. Zünde das Kommandozelt mit {object:176092} an und pflanz das Banner der Geißel auf.",
 	-- ["The bears roam the hills north and east of the {area:202}."] = "Die Bären streifen durch die Hügel nördlich und östlich vom {area:202}.",
 	-- ["The bears roam the hills north and east of the {area:202}. Below level 53.02, keep hunting them after the eighth: the hand-ins at the {area:202} take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Die Bären streifen durch die Hügel nördlich und östlich von {area:202}. Solange du unter Stufe 53,02 bist, jage sie nach dem achten weiter: Die Abgaben bei {area:202} bringen dich auf Stufe 54. Oder lauf stattdessen mit einer Gruppe den Dungeon {area:1417} oder den Dungeon {area:1584}.",

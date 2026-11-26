@@ -26,7 +26,7 @@ return {
 	["{area:346}: kill these as you meet them"] = "{area:346}：沿途击杀以下目标",
 	-- {npc:269577} Dorgaron
 	-- plural, as words: Crag Coyotes = {npc:2727} Crag Coyote · Shadowforge Ruffians = {npc:4845} Shadowforge Ruffian
-	["The Shadowforge dwarves camp just north of the digsite; the crumpled map and {npc:269577}'s mining helmet lie among their tents. Tunnelers and Darkweavers carry Ryedol's pick and {npc:269577}'s artifacts. Crag Coyotes roam the slopes around it. Careful: Shadowforge Ruffians (36-37, elite) walk among them, most on the slopes between the pass and the camp: pull the Tunnelers and Darkweavers away from them."] = "",
+	["The Shadowforge dwarves camp just north of the digsite; the crumpled map and {npc:269577}'s mining helmet lie among their tents. Tunnelers and Darkweavers carry Ryedol's pick and {npc:269577}'s artifacts. Crag Coyotes roam the slopes around it. Careful: Shadowforge Ruffians (36-37, elite) walk among them, most on the slopes between the pass and the camp: pull the Tunnelers and Darkweavers away from them."] = "暗炉矮人就在挖掘场北边扎营，揉皱的地图和{npc:269577}的采矿头盔都在帐篷之间。暗炉隧道工和暗炉巫师身上有勘察员雷杜尔的镐和{npc:269577}的文物。峭壁山狗在营地周围的山坡上游荡。小心，暗炉恶棍（36–37级精英）也在附近走动，多数在山口和营地之间的坡上。把暗炉隧道工和暗炉巫师拉离这些精英再打。",
 	-- {item:278403} Explorers' League Mining Helmet
 	["{item:278403}, in the Shadowforge camp"] = "{item:278403}，在暗炉营地里",
 	-- {item:7847} Buzzard Gizzard

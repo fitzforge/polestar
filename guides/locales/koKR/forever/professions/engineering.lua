@@ -15,8 +15,9 @@ return {
 	-- Step 2: Engineering 1-75: vendor goods
 	-- {skill:202} Engineering
 	["{skill:202} 1-75: vendor goods"] = "{skill:202} 1-75: 상인 재료",
-	-- {item:2880} Weak Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:5514} Brooke Stonebraid · {npc:1286} Edna Mullby
-	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:2880} 18개(18실버)와(과) {item:5956}(도구: 하나를 사서 가방에 두세요, 18코퍼). 모두 약 18실버 18코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:5519}, {npc:5514}, {npc:1286}).",
+	-- {item:2880} Weak Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:1286} Edna Mullby · {npc:5512} Kaita Deepforge
+	-- was: ["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:2880} 18개(18실버)와(과) {item:5956}(도구: 하나를 사서 가방에 두세요, 18코퍼). 모두 약 18실버 18코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:5519}, {npc:5514}, {npc:1286})."
+	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:1286} and {npc:5512})."] = "",
 	["a tool, keep it in your bags"] = "도구이니 가방에 두세요",
 
 	-- Step 3: Engineering 1-75: Auction House
@@ -423,6 +424,7 @@ return {
 	-- ["Back to an {skill:202} trainer: {spell:3922} is taught from {skill:202} 45."] = "{skill:202} 상급자에게 돌아가세요. {spell:3922}은(는) {skill:202} 45부터 배울 수 있습니다.",
 	-- ["Back to an {skill:202} trainer: {spell:3926} is taught from {skill:202} 95."] = "{skill:202} 상급자에게 돌아가세요. {spell:3926}은(는) {skill:202} 95부터 배울 수 있습니다.",
 	-- ["Back to an {skill:202} trainer: {spell:3942} is taught from {skill:202} 125."] = "{skill:202} 상급자에게 돌아가세요. {spell:3942}은(는) {skill:202} 125부터 배울 수 있습니다.",
+	-- ["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:2880} 18개(18실버)와(과) {item:5956}(도구: 하나를 사서 가방에 두세요, 18코퍼). 모두 약 18실버 18코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:5519}, {npc:5514}, {npc:1286}).",
 	-- ["Expert needs character level 20 and {skill:202} 125; it raises the cap to 225. Materials for 150-225 are worth about 15g in all."] = "숙련은(는) 캐릭터 레벨 20, {skill:202} 125이(가) 필요하며 최대 숙련도를 225(으)로 올립니다. 150-225 재료는 모두 약 15골드입니다.",
 	-- ["Journeyman needs character level 10 and {skill:202} 50; it raises the cap to 150. Materials for 75-150 are worth about 3g 23s in all."] = "수습은(는) 캐릭터 레벨 10, {skill:202} 50이(가) 필요하며 최대 숙련도를 150(으)로 올립니다. 75-150 재료는 모두 약 3골드 23실버입니다.",
 	-- ["Kill the mobs that drop it at the farm spot Polestar picks for your level and faction. The Auction House works too."] = "Polestar가 레벨과 진영에 맞춰 고른 사냥터에서 이것을 떨어뜨리는 몹을 처치하세요. 경매장도 됩니다.",

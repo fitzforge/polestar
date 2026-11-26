@@ -2861,6 +2861,8 @@ fn every_page_keeps_the_layout_rules_at_defaults() {
 		local ONE_ROW = { ["Level pace"] = true, ["Step errands"] = true, ["Along the route"] = true, ["Other waypoints"] = true,
 			["Step spacing"] = true, ["Up next"] = true, ["Still to do"] = true, ["All alerts"] = true, ["Experience"] = true, ["XP tracker"] = true,
 			["Dungeon Journal"] = true, ["Characters"] = true,
+			-- Guide window > Parts > Quest log notices (#4112): the off-route line and the finished quests' row.
+			["Quest log notices"] = true,
 			-- Setup > General > Language (#3643): the one setting players look for under that name.
 			["Language"] = true }
 		local bad, seen = {}, 0

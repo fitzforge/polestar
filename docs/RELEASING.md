@@ -349,6 +349,18 @@ version throughout.
    rust/scripts/timing-budgets.sh
    ```
 
+   Then the memory budgets, the release's one move of them (CI.md, "Memory
+   budgets"): run the memory tests three times on the frozen tree, the
+   login figure at a checkout path of the post-merge runner's length, and
+   set every budget to its highest figure plus 3 % in one pull request into
+   the release branch, with one table (budget, measured, old budget, new
+   budget, headroom):
+
+   ```sh
+   cargo test -p forge-addontest --test addontest -- options_memory guides_memory questdb_memory nav_memory names_memory memory_session new_in_forever --test-threads 1 --nocapture
+   node --test tests/legs-memory.test.js
+   ```
+
    Then the reported-problems gate: every player-reported problem that was
    fixed stays fixed. It runs the tests `tests/reported-gate.json` names for
    each confirmed report, the whole of `tests/guides-reported.test.js`, the

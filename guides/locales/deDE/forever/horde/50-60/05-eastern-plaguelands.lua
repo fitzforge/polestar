@@ -68,8 +68,8 @@ return {
 	["Inside"] = "Drinnen",
 
 	-- Step 16: Mulgris Deepriver
-	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
-	["{npc:10739} camps by the {area:202}, beside the cauldron; his bears roam the hills north and east of it."] = "{npc:10739} lagert am {area:202}, neben dem Kessel; seine Bären streifen durch die Hügel nördlich und östlich davon.",
+	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {zone:1423} Eastern Plaguelands
+	["{npc:10739} waits inside the farmhouse at the {area:202}, by the cauldron; his bears roam the hills north and east of it, towards the {zone:1423}."] = "",
 
 	-- Step 17: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Kranke Grizzlys",
@@ -165,8 +165,11 @@ return {
 	-- Step 38: Eastern Plaguelands: kill these as you meet them
 	-- {zone:1423} Eastern Plaguelands
 	["{zone:1423}: kill these as you meet them"] = "{zone:1423}: Töte sie, wenn du ihnen begegnest",
+	-- {item:12957} Shattered Sword of Marduk · {area:2264} Corin's Crossing
 	-- plural, as words: Plaguehounds = {npc:8597} Plaguehound · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub
-	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. Careful: the biggest Plaguehounds are 56, pull them one at a time.\nThe shattered sword lies on the ground north-west of the lake."] = "Seuchenhunde und ihre kleinen Artgenossen streifen an den Ufern des Sees südwestlich der Kapelle umher; Seuchenfledermäuse und Aaslarven teilen sich das Gelände. Vorsicht: Die größten Seuchenhunde sind Stufe 56, zieh sie einzeln.\nDas zerbrochene Schwert liegt am Boden nordwestlich des Sees.",
+	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. The {item:12957} lies at the bottom of the gorge west of {area:2264}. Careful: the biggest Plaguehounds are 56, pull them one at a time."] = "",
+	-- {area:2264} Corin's Crossing
+	["At the bottom of the gorge west of {area:2264}"] = "",
 
 	-- Step 39: Nathanos Blightcaller
 	-- {npc:15193} The Banshee Queen · {area:2260} Marris Stead · {area:2261} Undercroft
@@ -262,8 +265,8 @@ return {
 
 	-- Step 58: Scarlet Crusade
 	["Scarlet Crusade"] = "Scharlachroter Kreuzzug",
-	-- {area:192} Northridge Lumber Camp · {npc:11615} Mickey Levine · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
-	["Back north-east to the {area:192}: knights and magi work the camp, the medics and hunters camp south of it. Set {npc:11615}'s termite barrel down in the middle of the lumber mill while you are there.\nCareful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "Zurück nach Nordosten zum {area:192}: Ritter und Magier arbeiten im Holzlager, die Sanitäter und Jäger lagern südlich davon. Stell {npc:11615}s Termitenfass in der Mitte der Sägerei ab, während du dort bist.\nVorsicht: Ein {npc:10996}, ein Elite der Stufe 58-59, kann im Sägewerk stehen, wie an vielen anderen Stellen der {zone:1422}: Lass ihm Raum.",
+	-- {area:192} Northridge Lumber Camp · {npc:11615} Mickey Levine · {item:15044} Barrel of Plagueland Termites · {object:177491} Termite Barrel · {quest:5902} A Plague Upon Thee · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
+	["Back north-east to the {area:192}: knights and magi work the camp, the medics and hunters camp south of it. In the middle of the lumber mill, stand by the crate and use {npc:11615}'s {item:15044} from your bags to set it on top; then click the {object:177491} that appears: it finishes {quest:5902} and gives the next part for {npc:11615}. Careful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "",
 
 	-- Step 60: Radley and Durgen
 	["Radley and Durgen"] = "Radley und Durgen",
@@ -338,15 +341,17 @@ return {
 	["{npc:10922}: the Cleansed Water from Islen in the {zone:1413}"] = "{npc:10922}: das gereinigte Wasser von Islen in der {zone:1413}",
 
 	-- Step 75: Dousing the Flames of Protection
-	-- {area:1763} Jaedenar
-	["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in linked groups, many with stuns: pull them one group at a time."] = "Reite nach Nordwesten zum {area:1763}. Die vier Feuerschalen stehen zwischen den Gebäuden des Schattenrates; benutze das gereinigte Wasser an jeder von ihnen.\nVorsicht: Mobs des Schattenrates der Stufe 53-55 füllen die Höhle und kommen oft in verbundenen Gruppen, viele mit Betäubungen: Zieh sie eine Gruppe nach der anderen.",
+	-- {area:1763} Jaedenar · {area:1770} Shadow Hold · {item:12906} Purified Moonwell Water
+	["Ride north-west to {area:1763} and go down into {area:1770}, the cave in its north: the four braziers stand inside. Use Greta's {item:12906} from your bags on each one. Careful: Shadow Council mobs of level 53-55 fill the cave and often come in linked groups, many with stuns: pull them one group at a time."] = "",
 
 	-- Step 76: Greta Mosshoof
 	["Back south to the Sanctuary, a short ride."] = "Zurück nach Süden zum Refugium, ein kurzer Ritt.",
 
 	-- Step 77: A Final Blow
-	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {area:1763} Jaedenar
-	["{npc:9861}, {npc:9860} and {npc:9517} (57) wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "{npc:9861}, {npc:9860} und {npc:9517} (57) warten am Ende von {area:1770}, der Höhle im Norden von {area:1763}. Räume den Tunnel auf dem Weg ab.\nVorsicht: Die drei Bosse kämpfen als Gruppe. Töte zuerst die nahen Mobs, damit du keine zusätzlichen Gegner anziehst.",
+	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {area:1763} Jaedenar · {npc:9529} Maybess Riverbreeze · {item:11511} Cenarion Beacon
+	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
+	-- was: ["{npc:9861}, {npc:9860} and {npc:9517} (57) wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "{npc:9861}, {npc:9860} und {npc:9517} (57) warten am Ende von {area:1770}, der Höhle im Norden von {area:1763}. Räume den Tunnel auf dem Weg ab.\nVorsicht: Die drei Bosse kämpfen als Gruppe. Töte zuerst die nahen Mobs, damit du keine zusätzlichen Gegner anziehst."
+	["{npc:9861}, {npc:9860} and {npc:9517} (57) wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go. Careful: the three bosses fight as a group: kill the nearby mobs first so you don't pull extra enemies. The cultists' Corrupted Soul Shards show only while you carry {npc:9529}'s {item:11511} (from Cleansing Felwood): without it, skip them."] = "",
 	-- {npc:9529} Maybess Riverbreeze
 	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
 	["Corrupted Soul Shards from the cultists, for {npc:9529}' Salve via Hunting"] = "Verdorbene Seelensplitter von den Kultisten, für {npc:9529}s Salve via Hunting",
@@ -364,7 +369,7 @@ return {
 
 	-- Step 80: Rescue From Jaedenar
 	-- {npc:11018} Arko'narin · {npc:11019} Jessir Moonbow · {area:2479} Emerald Sanctuary
-	["Lead {npc:11018} out through the cave: she fights beside you, and the cultists you didn't clear on the way in come at you both. {npc:11019} takes her report at the {area:2479}, next."] = "Führe {npc:11018} durch die Höhle hinaus: Sie kämpft an deiner Seite, und die Kultisten, die du auf dem Weg hinein nicht geräumt hast, kommen auf euch beide zu. {npc:11019} nimmt ihren Bericht am {area:2479} entgegen, als nächstes.",
+	["Escort {npc:11018}: she first goes to where Lightforge and her gear are held, then out through the cave. Keep her alive: she fights beside you, and the cultists you didn't clear on the way in come at you both. {npc:11019} takes her report at the {area:2479}, next."] = "",
 	-- {area:1770} Shadow Hold
 	["out of {area:1770}, at its mouth"] = "aus {area:1770}, am Eingang",
 
@@ -423,6 +428,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "Eine zerrissene Schriftrolle liegt am Eingang von {area:2261}, der Gruft südlich von {area:2260}.",
+	-- ["Back north-east to the {area:192}: knights and magi work the camp, the medics and hunters camp south of it. Set {npc:11615}'s termite barrel down in the middle of the lumber mill while you are there.\nCareful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "Zurück nach Nordosten zum {area:192}: Ritter und Magier arbeiten im Holzlager, die Sanitäter und Jäger lagern südlich davon. Stell {npc:11615}s Termitenfass in der Mitte der Sägerei ab, während du dort bist.\nVorsicht: Ein {npc:10996}, ein Elite der Stufe 58-59, kann im Sägewerk stehen, wie an vielen anderen Stellen der {zone:1422}: Lass ihm Raum.",
 	-- ["Back through the tunnel and take the {area:618} exit, then ride south to {area:2246}."] = "Zurück durch den Tunnel, nimm den Ausgang nach {area:618} und reite dann nach Süden zu {area:2246}.",
 	-- ["Back through the tunnel and take the {zone:1452} exit: {npc:11556} stands right where it comes out."] = "Zurück durch den Tunnel, nimm den Ausgang nach {zone:1452}: {npc:11556} steht genau dort, wo er herauskommt.",
 	-- ["Back to {area:1638}"] = "Zurück nach {area:1638}",
@@ -448,6 +454,7 @@ return {
 	-- ["Hippogryph eggs"] = "Hippogryphen-Eier",
 	-- ["Inside: {quest:4493}, if you took it in {zone:1454} on the {zone:1447} guide"] = "Drinnen: {quest:4493}, falls du sie im Guide für {zone:1447} in {zone:1454} angenommen hast",
 	-- ["Keep the termites: {npc:11615} at the {area:813} takes them on the next guide's ride into the {zone:1422}."] = "Behalte die Termiten: {npc:11615} am {area:813} nimmt sie beim Ritt in die {zone:1422} im nächsten Guide an.",
+	-- ["Lead {npc:11018} out through the cave: she fights beside you, and the cultists you didn't clear on the way in come at you both. {npc:11019} takes her report at the {area:2479}, next."] = "Führe {npc:11018} durch die Höhle hinaus: Sie kämpft an deiner Seite, und die Kultisten, die du auf dem Weg hinein nicht geräumt hast, kommen auf euch beide zu. {npc:11019} nimmt ihren Bericht am {area:2479} entgegen, als nächstes.",
 	-- ["Level 56"] = "Stufe 56",
 	-- ["On to {zone:1451}"] = "Weiter nach {zone:1451}",
 	-- ["On {area:1641}. Have the Wool, Silk and Mageweave in your bags."] = "Auf der {area:1641}. Hab Wolle, Seide und Magiestoff in deinen Taschen.",
@@ -456,8 +463,10 @@ return {
 	-- ["Only if you still carry {quest:2741}: ride south from {area:1099}; the hippogryph nests are in the south of {zone:1444}, each holds an egg for the Egg-O-Matic."] = "Nur wenn du {quest:2741} noch dabeihast: Reite vom {area:1099} nach Süden; die Hippogryphennester sind im Süden von {zone:1444}, jedes enthält ein Ei für den Eiomaten.",
 	-- ["Plaguehounds and their runts roam the shores of the lake south-west of the chapel."] = "Seuchenhunde und ihre Kleinen streifen an den Ufern des Sees südwestlich der Kapelle umher.",
 	-- ["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground.\nThe shattered sword lies on the ground north-west of the lake."] = "Plaguehounds und ihre Runts streifen an den Ufern des Sees südwestlich der Kapelle umher; Plaguebats und Carrion Grubs teilen sich das Gelände.\nDas zerbrochene Schwert liegt am Boden nordwestlich des Sees.",
+	-- ["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. Careful: the biggest Plaguehounds are 56, pull them one at a time.\nThe shattered sword lies on the ground north-west of the lake."] = "Seuchenhunde und ihre kleinen Artgenossen streifen an den Ufern des Sees südwestlich der Kapelle umher; Seuchenfledermäuse und Aaslarven teilen sich das Gelände. Vorsicht: Die größten Seuchenhunde sind Stufe 56, zieh sie einzeln.\nDas zerbrochene Schwert liegt am Boden nordwestlich des Sees.",
 	-- ["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Pull them one at a time.\nCareful: Hailspite, level 60 elites, gather in the snowfields south-east of {area:2255}, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town."] = "Reite nach Osten nach {area:2255} und von dort nach Norden; die Mondbestrahlten Eulenbestien streifen durch die Hügel an den Südhängen von {area:2241}. Zieh sie einzeln.\nVorsicht: Hailspite, Elites der Stufe 60, sammeln sich in den Schneefeldern südöstlich von {area:2255}, wo auch ein paar Mondbestrahlte Eulenbestien umherstreifen: Bleib an den Hängen nördlich der Stadt.",
 	-- ["Ride north up the road. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "Reite die Straße nach Norden. Der Kessel steht in {area:1762}, direkt südwestlich von {area:1769}; die Deadwood-Furbolgs dort sind feindlich.",
+	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in linked groups, many with stuns: pull them one group at a time."] = "Reite nach Nordwesten zum {area:1763}. Die vier Feuerschalen stehen zwischen den Gebäuden des Schattenrates; benutze das gereinigte Wasser an jeder von ihnen.\nVorsicht: Mobs des Schattenrates der Stufe 53-55 füllen die Höhle und kommen oft in verbundenen Gruppen, viele mit Betäubungen: Zieh sie eine Gruppe nach der anderen.",
 	-- ["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with Greater Invisibility. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "Reite von der Lodge nach Süden nach {area:2264}, an der Straße. {item:15447} verdirbt innerhalb von zehn Minuten: Töte das Scourge der Stadt schnell und grinde die sieben Stücke sofort mit {item:15454}.\nVorsicht: Unseen Servants rufen Verbündete im Umkreis von 25 yd zu Hilfe, sobald sie auf 40% Gesundheit fallen. Außerhalb des Kampfes werden sie außerdem mit Große Unsichtbarkeit unsichtbar. Wenn ein Hilferuf in der Stadt geschieht, kann eine große Zahl Mobs in den Kampf eingreifen. Kämpfen am Stadtrand senkt dieses Risiko.\nMit {quest:5211} in deinem Log (von {npc:11063} am Anfang dieses Guides) hinterlassen die Scourge rund um die Stadt Darrowshire Spirits: Sprich mit jedem, um ihn zu befreien. Befreie sie, bevor du dich an {item:15447} machst.",
 	-- ["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the end of the Un'Goro guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "Reite von der Lodge auf der Straße nach Süden zu {area:2264}. {item:15447} verdirbt binnen zehn Minuten: Töte die Geißel des Orts zügig und zerreibe die sieben Stücke sofort mit {item:15454}.\nVorsicht: Unsichtbare Diener rufen im Umkreis von 25 Metern um Hilfe, sobald sie auf 40 % Gesundheit fallen. Außerhalb des Kampfes werden sie außerdem mit {spell:10228} unsichtbar. Wenn innerhalb des Orts um Hilfe gerufen wird, können sich sehr viele Gegner dem Kampf anschließen. Am Ortsrand zu kämpfen senkt dieses Risiko.\nMit {quest:5211} in deinem Questlog (von {npc:11063} am Ende des Un'Goro-Guides) hinterlässt die Geißel rund um den Ort Geister von Darrowehr: Sprich jeden an, um ihn zu befreien. Befreie sie, bevor du mit {item:15447} anfängst.",
 	-- ["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "Reite von der Lodge auf der Straße nach Süden zu {area:2264}. {item:15447} verdirbt binnen zehn Minuten: Töte die Geißel des Orts zügig und zerreibe die sieben Stücke sofort mit {item:15454}.\nVorsicht: Unsichtbare Diener rufen im Umkreis von 25 Metern um Hilfe, sobald sie auf 40 % Gesundheit fallen. Außerhalb des Kampfes werden sie außerdem mit {spell:10228} unsichtbar. Wenn innerhalb des Orts um Hilfe gerufen wird, können sich sehr viele Gegner dem Kampf anschließen. Am Ortsrand zu kämpfen senkt dieses Risiko.\nMit {quest:5211} in deinem Questlog (von {npc:11063} zu Beginn dieses Guides) hinterlässt die Geißel rund um den Ort Geister von Darrowehr: Sprich jeden an, um ihn zu befreien. Befreie sie, bevor du mit {item:15447} anfängst.",
@@ -487,6 +496,7 @@ return {
 	-- ["{area:2255} flight master"] = "Flugmeister in {area:2255}",
 	-- ["{area:976} flight master"] = "Flugmeister von {area:976}",
 	-- ["{item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once."] = "{item:15447} verdirbt binnen zehn Minuten: Töte die Geißel des Orts zügig und zerreibe die sieben Stücke sofort mit {item:15454}.",
+	-- ["{npc:10739} camps by the {area:202}, beside the cauldron; his bears roam the hills north and east of it."] = "{npc:10739} lagert am {area:202}, neben dem Kessel; seine Bären streifen durch die Hügel nördlich und östlich davon.",
 	-- ["{npc:10880} walks the {object:172982} and the streets off it: look for him on the way to the flight master's tower; the circle on the map is his walk."] = "{npc:10880} läuft durch das {object:172982} und die angrenzenden Straßen: Halte auf dem Weg zum Turm des Flugmeisters nach ihm Ausschau; der Kreis auf der Karte ist sein Laufweg.",
 	-- ["{npc:10880}: for {npc:7776} at {quest:7492}, at the end of this guide"] = "{npc:10880}: für {npc:7776} im {quest:7492}, am Ende dieses Guides",
 	-- ["{npc:11140} the ghost stands by a hut in {area:2627}, in the north-west corner."] = "Der Geist {npc:11140} steht bei einer Hütte im {area:2627}, in der Nordwestecke.",
@@ -498,6 +508,7 @@ return {
 	-- ["{npc:7771} camps by the {area:1336} road, south of {area:976}."] = "{npc:7771} lagert an der Straße zur {area:1336}, südlich von {area:976}.",
 	-- ["{npc:8565} walks around {area:2276}: look inside the circle on the map"] = "{npc:8565} läuft um {area:2276} herum: schau in den Kreis auf der Karte",
 	-- ["{npc:9299} is a ghost at the graveyard just north of {area:976}; the Conspicuous Gravestone is south of it, outside the town wall."] = "{npc:9299} ist ein Geist auf dem Friedhof gleich nördlich von {area:976}; Ein verdächtiger Grabstein liegt südlich davon, außerhalb der Stadtmauer.",
+	-- ["{npc:9861}, {npc:9860} and {npc:9517} (57) wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "{npc:9861}, {npc:9860} und {npc:9517} (57) warten am Ende von {area:1770}, der Höhle im Norden von {area:1763}. Räume den Tunnel auf dem Weg ab.\nVorsicht: Die drei Bosse kämpfen als Gruppe. Töte zuerst die nahen Mobs, damit du keine zusätzlichen Gegner anziehst.",
 	-- ["{object:1661}'s flight master is in the {object:36078}'s west tower, outside the walls."] = "Der Flugmeister von {object:1661} ist im Westturm des {object:36078}, außerhalb der Mauern.",
 	-- ["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914} geht zurück zu {npc:8737} in Un'Goro: Behalte sie.",
 	-- ["{quest:3941} goes to {npc:9117} in the cave here, on the next guide's return to {area:541}: keep it."] = "{quest:3941} geht an {npc:9117} in der Höhle hier, bei der Rückkehr des nächsten Guides nach {area:541}: Behalte sie.",

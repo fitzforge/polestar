@@ -15,8 +15,9 @@ return {
 	-- Step 2: Engineering 1-75: vendor goods
 	-- {skill:202} Engineering
 	["{skill:202} 1-75: vendor goods"] = "{skill:202} 1-75：商人貨物",
-	-- {item:2880} Weak Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:5514} Brooke Stonebraid · {npc:1286} Edna Mullby
-	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "一次買齊這個技能階段所需的物資：18 個 {item:2880}（18 銀幣）和 {item:5956}（工具：只要一個，放在揹包裡保留，18 銅幣）；總計約 18 銀 18 銅。箭頭會選擇本陣營最近的商人（{zone:1453}：{npc:5519}、{npc:5514} 和 {npc:1286}）。",
+	-- {item:2880} Weak Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:1286} Edna Mullby · {npc:5512} Kaita Deepforge
+	-- was: ["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "一次買齊這個技能階段所需的物資：18 個 {item:2880}（18 銀幣）和 {item:5956}（工具：只要一個，放在揹包裡保留，18 銅幣）；總計約 18 銀 18 銅。箭頭會選擇本陣營最近的商人（{zone:1453}：{npc:5519}、{npc:5514} 和 {npc:1286}）。"
+	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:1286} and {npc:5512})."] = "",
 	["a tool, keep it in your bags"] = "一件工具，放在包裡",
 
 	-- Step 3: Engineering 1-75: Auction House
@@ -423,6 +424,7 @@ return {
 	-- ["Back to an {skill:202} trainer: {spell:3922} is taught from {skill:202} 45."] = "回到{skill:202}訓練師處：{skill:202} 45 起可學{spell:3922}。",
 	-- ["Back to an {skill:202} trainer: {spell:3926} is taught from {skill:202} 95."] = "回到{skill:202}訓練師處：{skill:202} 95 起可學{spell:3926}。",
 	-- ["Back to an {skill:202} trainer: {spell:3942} is taught from {skill:202} 125."] = "回到{skill:202}訓練師處：{skill:202} 125 起可學{spell:3942}。",
+	-- ["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "一次買齊這個技能階段所需的物資：18 個 {item:2880}（18 銀幣）和 {item:5956}（工具：只要一個，放在揹包裡保留，18 銅幣）；總計約 18 銀 18 銅。箭頭會選擇本陣營最近的商人（{zone:1453}：{npc:5519}、{npc:5514} 和 {npc:1286}）。",
 	-- ["Expert needs character level 20 and {skill:202} 125; it raises the cap to 225. Materials for 150-225 are worth about 15g in all."] = "高級需要角色等級 20 且{skill:202} 125；上限提高到 225。150-225 的材料總值約 15g。",
 	-- ["Journeyman needs character level 10 and {skill:202} 50; it raises the cap to 150. Materials for 75-150 are worth about 3g 23s in all."] = "中級需要角色等級 10 且{skill:202} 50；上限提高到 150。75-150 的材料總值約 3g 23s。",
 	-- ["Kill the mobs that drop it at the farm spot Polestar picks for your level and faction. The Auction House works too."] = "在 Polestar 依你的等級和陣營挑選的刷怪點擊殺會掉落它的怪物。也可以在拍賣場購買。",
