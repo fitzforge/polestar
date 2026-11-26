@@ -515,8 +515,12 @@ function DT.NewSandbox(parent)
 	return f
 end
 
+-- Its own switches (on, Only what's left, Without quests too): UI.Trackers redraws the look; whether it shows
+-- and what it lists is its own.
+local OWN = { ["trackers.dungeon.enabled"] = true, ["trackers.dungeon.compact"] = true, ["trackers.dungeon.bossesAlone"] = true }
 ns.On("SETTING_CHANGED", function(path)
 	if path == "trackers.dungeon.pos" and frame then frame.Place() end
+	if OWN[path] then DT.Refresh() end
 end)
 
 local function current()

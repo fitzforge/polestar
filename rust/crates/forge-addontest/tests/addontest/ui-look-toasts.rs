@@ -410,7 +410,8 @@ fn the_look_pages_put_switches_in_section_headers_colours_beside_their_sliders_a
 			"alerts/Transport alert/Transport alert": "nav.alerts",
 			"trackers/Travel/Flight timer": "maps.flightTimer",
 			"trackers/Instances & XP/Instance tracker": "maps.instances",
-			"trackers/Party panel/Party panel": "party.panel"
+			"trackers/Party panel/Party panel": "party.panel",
+			"trackers/Dungeon tracker/Dungeon tracker": "trackers.dungeon.enabled"
 		})
 	);
 	assert_eq!(o["extras"]["toasts.rare.bgAlpha"], "toasts.rare.bg");
