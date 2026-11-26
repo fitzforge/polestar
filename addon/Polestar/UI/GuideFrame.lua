@@ -2160,6 +2160,10 @@ GF.Part(function(GF)
 		elseif kind == "complete" then
 			glyph, color = "check", "success"
 			local guide = E and E.GetGuide and E.GetGuide()
+			local lookup = guide and guide.lookup
+			-- A zone hand-in guide with no stops is a single informational step.
+			local step = lookup and lookup.kind == "carried" and type(lookup.id) == "number" and #guide.steps == 1 and guide.steps[1]
+			local note = step and step.goals[1]
 			-- Where the hand-off goes now: the remembered or only option offered (an
 			-- option with `when` only while it holds), nil with none.
 			local nextId = guide and (E.NextGuide and E.NextGuide(guide.id) or not E.NextGuide and guide.next)
@@ -2170,7 +2174,11 @@ GF.Part(function(GF)
 			-- in a tab of its own: close it and go back to the guide it came from.
 			local back = guide and not choiceFrom and not afterRun and GF.ClassReturn(guide.id)
 			empty.Title:SetText(L["Guide complete"])
-			if back then
+			if note and note.t == "note" then
+				glyph, color = "emblem", "accent"
+				empty.Title:SetText(guide.title)
+				empty.Text:SetText(note.text)
+			elseif back then
 				empty.Text:SetText(string.format(L["Your class quest is done. Back to %s."], "|c" .. Theme.Hex("text") .. back.title .. "|r"))
 				W.SetButtonText(empty.Primary, L["Close and return"])
 				empty.Primary.psAction = function() GF.CloseAndReturn(guide.id) end

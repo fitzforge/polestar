@@ -239,17 +239,22 @@ end
 
 -- The spawn the player reaches soonest -> spawn, travel | nil. Without a
 -- player position (instances, loading) the first spawn, travel nil.
-local function nearest(spawns, from, direct)
+local function nearest(spawns, from, direct, accepts)
 	if type(spawns) ~= "table" or #spawns == 0 then return nil end
-	if not from then return liveTwin(spawns, spawns[1]), nil end
-	local best, bestT
+	if not from and not accepts then return liveTwin(spawns, spawns[1]), nil end
+	local first, best, bestT
 	for i = 1, #spawns do
-		local s = spawns[i]
-		if s.map and s.x and s.y then
+		-- Filter the live location before ranking. The Era copy of a border
+		-- spawn must not qualify for the zone on the other side.
+		local s = accepts and liveTwin(spawns, spawns[i]) or spawns[i]
+		if s.map and s.x and s.y and (not accepts or accepts(s)) then
+			if not from then return s end
+			first = first or s
 			local t = travel(from, s, direct)
 			if t and (not bestT or t < bestT) then best, bestT = s, t end
 		end
 	end
+	if accepts then return best or first, bestT end
 	if not best then return liveTwin(spawns, spawns[1]), nil end
 	local twin = liveTwin(spawns, best)
 	if twin ~= best then return twin, travel(from, twin, direct) or bestT end
@@ -257,19 +262,19 @@ local function nearest(spawns, from, direct)
 end
 Lookup.Nearest = nearest
 
-local function npcSpawn(npcId, from, direct)
+local function npcSpawn(npcId, from, direct, accepts)
 	local C = Codex()
 	local npc = npcId and C.Npc(npcId)
 	if not npc then return nil end
-	local s, t = nearest(npc.spawns, from, direct)
+	local s, t = nearest(npc.spawns, from, direct, accepts)
 	return npc, s, t
 end
 
-local function objectSpawn(objectId, from, direct)
+local function objectSpawn(objectId, from, direct, accepts)
 	local C = Codex()
 	local obj = objectId and C.Object(objectId)
 	if not obj then return nil end
-	local s, t = nearest(obj.spawns, from, direct)
+	local s, t = nearest(obj.spawns, from, direct, accepts)
 	return obj, s, t
 end
 
@@ -283,19 +288,19 @@ local function closer(best, c)
 	return best
 end
 
-local function questEnd(ends, from, p, direct)
+local function questEnd(ends, from, p, direct, accepts)
 	if type(ends) ~= "table" then return nil end
 	p = p or playerInfo()
 	local best, other
 	for _, id in ipairs(ends.npc or {}) do
-		local npc, s, t = npcSpawn(id, from, direct)
+		local npc, s, t = npcSpawn(id, from, direct, accepts)
 		if npc and s then
 			local c = { npc = npc.id, name = npc.name, spawn = s, travel = t }
 			if sideOK(npc.faction, p) then best = closer(best, c) else c.faction = npc.faction; other = closer(other, c) end
 		end
 	end
 	for _, id in ipairs(ends.object or {}) do
-		local obj, s, t = objectSpawn(id, from, direct)
+		local obj, s, t = objectSpawn(id, from, direct, accepts)
 		if obj and s then best = closer(best, { object = obj.id, name = obj.name, spawn = s, travel = t }) end
 	end
 	if best then return best end

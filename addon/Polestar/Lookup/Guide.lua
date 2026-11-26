@@ -1470,7 +1470,7 @@ local function plannedGuide(kind, id)
 	def.category = def.category or "Lookup"
 	def.author, def.version = "Polestar", 1
 	def.lookup = { kind = kind, id = id }
-	return placeGuide(def)
+	return def.zone and def or placeGuide(def)
 end
 
 function Lookup.BuildGuide(kind, id, ranked)

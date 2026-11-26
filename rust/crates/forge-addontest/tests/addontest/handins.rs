@@ -17,6 +17,9 @@ mod readiness;
 #[path = "handins-loading.rs"]
 mod loading;
 
+#[path = "handins-zone.rs"]
+mod zone;
+
 fn codex() -> Value {
 	let mut c = fixture("lookup.json");
 	c["quests"] = json!({});
@@ -97,13 +100,21 @@ fn run(before: &str, saved: Option<String>, script: &str) -> Value {
 }
 
 fn run_with(data: &Value, before: &str, saved: Option<String>, script: &str) -> Value {
+	run_scenario(data, before, saved, script, false)
+}
+
+fn run_scenario(data: &Value, before: &str, saved: Option<String>, script: &str, ui: bool) -> Value {
 	let pack = write_codex_pack(data, &CodexOpts::default());
 	let names: serde_json::Map<String, Value> = data["quests"].as_object().unwrap().iter().map(|(id, q)| (id.clone(), q["title"].clone())).collect();
 	let names = lua_value(&Value::Object(names));
+	let mut files = vec!["Core/Core.xml", "Lookup/Lookup.xml", "Dungeons/Dungeons.xml"];
+	if ui {
+		files.extend(["Theme/Theme.xml", "UI/UI.xml"]);
+	}
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: format!("{}\n{WORLD}\nfor q,title in pairs({names}) do w.titles[tonumber(q)] = title end\n{before}", pack.stub_lua),
-		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Lookup/Lookup.xml", "Dungeons/Dungeons.xml"])],
+		addons: vec![Addon::files("Polestar", &files)],
 		saved: saved.map(|s| ("Polestar".into(), s)).into_iter().collect(),
 		login: true,
 		script: format!("{HELPERS}\n{script}"),

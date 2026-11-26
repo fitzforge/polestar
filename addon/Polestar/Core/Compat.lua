@@ -1224,15 +1224,30 @@ end
 -- through the parentMapID chain past caves, towns and other micro maps; nil
 -- when the client does not say (an instance, no C_Map).
 local ZONE_TYPE = 3
-function Compat.GetUnitZone(unit)
-	local map = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit(unit)
-	if not map then return nil end
+local function zoneMap(map, strict)
 	for _ = 1, 12 do
 		local info = C_Map.GetMapInfo and C_Map.GetMapInfo(map)
-		if not info or (info.mapType or ZONE_TYPE) <= ZONE_TYPE or not info.parentMapID or info.parentMapID == 0 then break end
-		map = info.parentMapID
+		local kind = info and info.mapType
+		if kind == ZONE_TYPE then return map end
+		if not kind or kind < ZONE_TYPE then break end
+		local parent = info.parentMapID
+		if not parent or parent == 0 or parent == map then break end
+		map = parent
 	end
-	return map
+	return not strict and map or nil
+end
+
+-- Require a known zone. A continent or an unclassified map cannot stand
+-- in for a zone when filtering destinations.
+function Compat.GetZoneMap(map)
+	if not (map and C_Map) then return nil end
+	return zoneMap(map, true)
+end
+
+function Compat.GetUnitZone(unit, strict)
+	local map = C_Map and C_Map.GetBestMapForUnit and readable(C_Map.GetBestMapForUnit(unit))
+	if not map then return nil end
+	return zoneMap(map, strict)
 end
 
 -- Where the player stands, as guide lines ready to paste into a step: the

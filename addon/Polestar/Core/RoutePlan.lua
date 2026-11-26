@@ -611,14 +611,16 @@ end
 -- Where quest q is handed in for this character: the Codex's ender of the
 -- character's side nearest the player (Lookup.QuestEnd), as { npc | object,
 -- name, map, x, y, f, z, zone }, else one inside a dungeon (insideEnder); nil
--- when unknown or the other side's.
-function Plan.Ender(q)
+-- when unknown or the other side's. With a zone, require a recipient's
+-- actual spawn there; a waypoint at a dungeon entrance is only a proxy.
+function Plan.Ender(q, zone)
 	local X, Lk = ns.Codex, ns.Lookup
 	local rec = X and X.Quest and Lk and Lk.QuestEnd and X.Quest(q)
-	local e = rec and Lk.QuestEnd(rec["end"], ns.PlayerPoint(), nil, true)
+	local accepts = zone and function(s) return ns.Compat.GetZoneMap(s.map) == zone end
+	local e = rec and Lk.QuestEnd(rec["end"], ns.PlayerPoint(), nil, true, accepts)
 	if e and e.hostile then return nil end
 	local s = e and e.spawn
-	if not (s and s.map and s.x and s.y) then return rec and insideEnder(rec["end"]) or nil end
+	if not (s and s.map and s.x and s.y) then return not zone and rec and insideEnder(rec["end"]) or nil end
 	-- Guide goals use "e" for Era and no f for live coordinates; the Codex's
 	-- explicit "l" is the same live frame, but is not a valid guide-goal value.
 	return { npc = e.npc, object = e.object, name = e.name, map = s.map, x = s.x, y = s.y,

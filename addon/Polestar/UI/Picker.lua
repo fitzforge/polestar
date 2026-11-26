@@ -2266,6 +2266,7 @@ end
 -- with none for this character stays, faded by ShellNav).
 local function navItems(counts, total)
 	local exists, packs, seen = {}, {}, {}
+	if ns.Handins then exists.Lookup = true end
 	local player = playerInfo()
 	-- Another side's guide (an old saved tab's) makes no category or pack.
 	for _, g in ipairs(ns.Guides and ns.Guides.List and ns.Guides.List() or {}) do
@@ -2290,7 +2291,9 @@ local function navItems(counts, total)
 	end
 	table.sort(extra)
 	for _, c in ipairs(extra) do
-		items[#items + 1] = { key = c, label = L[c], icon = CATEGORY_ICON[c] or "compact", count = counts[c] or 0 }
+		local count = counts[c] or 0
+		if c == "Lookup" and ns.Handins and count == 0 then count = nil end
+		items[#items + 1] = { key = c, label = L[c], icon = CATEGORY_ICON[c] or "compact", count = count }
 	end
 	items[#items + 1] = { key = "Favorites", label = L["Favourites"], icon = CATEGORY_ICON.Favorites, count = counts.Favorites or 0 }
 	-- Community guides: one entry per shown pack with guides, "<title> · <author>",
@@ -2607,7 +2610,7 @@ local function render()
 		local r = packOfKey(category)
 		local own = r and ns.Guides.OWN_EXTRA and ns.Guides.OWN_EXTRA[r.id]
 		if own or not (r and r.status == "on" and (r.guideCount or 0) > 0) then category = "All" end
-	elseif category ~= "All" and category ~= "Favorites" then
+	elseif category ~= "All" and category ~= "Favorites" and not (category == "Lookup" and ns.Handins) then
 		local shown = false
 		for _, g in ipairs(ns.Guides and ns.Guides.List and ns.Guides.List() or {}) do
 			if not packOf(g) and categoryOf(g) == category then
@@ -2618,6 +2621,7 @@ local function render()
 		if not shown then category = "All" end
 	end
 	local entries, n, counts = P.Entries(query, view == "browse" and category or "All")
+	local zoneHandins = view == "browse" and category == "Lookup" and query == "" and ns.Handins ~= nil
 	local total = 0
 	for c, k in pairs(counts) do if c ~= "Favorites" then total = total + k end end
 	W.ShellNav(win, navItems(counts, total), view == "browse" and category or nil, function(key) P.SetCategory(key) end)
@@ -2638,7 +2642,8 @@ local function render()
 			subtitle = n == 1 and string.format(L["1 result for \226\128\156%s\226\128\157"], query)
 				or string.format(L["%d results for \226\128\156%s\226\128\157"], n, query)
 		else
-			local parts = { n == 1 and L["1 guide"] or string.format(L["%d guides"], n) }
+			local parts = {}
+			if n > 0 or not zoneHandins then parts[1] = n == 1 and L["1 guide"] or string.format(L["%d guides"], n) end
 			local mine = UI.PlayerFaction()
 			if mine then table.insert(parts, 1, ns.FactionName(mine)) end
 			local open = tabs and #tabs or 0
@@ -2714,6 +2719,13 @@ local function render()
 		visibleIds[#visibleIds + 1] = g.id
 	end
 	local empty, turnOn
+	win.ZoneHandins:SetShown(zoneHandins)
+	if zoneHandins then
+		W.SetButtonText(win.ZoneHandins, L["Hand in quests in this zone"])
+		win.ZoneHandins:ClearAllPoints()
+		win.ZoneHandins:SetPoint("TOPLEFT", win.Body, "TOPLEFT", ROW_X, -y)
+		y = y + win.ZoneHandins:GetHeight() + 12
+	end
 	-- The last search's Codex matches go away first; a browse with a query
 	-- draws them again below.
 	if UI.HideLookupRows then UI.HideLookupRows(win.Body) end
@@ -2748,7 +2760,7 @@ local function render()
 					n == 1 and L["1 guide"] or string.format(L["%d guides"], n), codex, query))
 			end
 		end
-		if n == 0 and not (query ~= "" and UI.LookupCount and UI.LookupCount() > 0) then
+		if n == 0 and not zoneHandins and not (query ~= "" and UI.LookupCount and UI.LookupCount() > 0) then
 			if #(ns.Guides and ns.Guides.List and ns.Guides.List() or {}) == 0 then
 				local Pk = UI.Packs
 				if Pk and Pk.OwnGuidesOff() then
@@ -2997,6 +3009,10 @@ local function build()
 		if UI.Packs then UI.Packs.TurnOnOwnGuides() end
 	end, { primary = true })
 	win.TurnOn:Hide()
+	win.ZoneHandins = W.Button(win.Body, "", function()
+		if ns.Handins.StartZone() then win:Hide() end
+	end, { height = 32 })
+	win.ZoneHandins:Hide()
 	-- Home's "Show all N" / "Show fewer" on the Other tabs label.
 	win.CardsMore = W.Button(win.Body, "", function()
 		allCards = not allCards
