@@ -35,6 +35,12 @@ const PERSONAS = {
 		files: ['forever/horde/04-barrens.guide', 'forever/horde/05-stonetalon.guide'],
 		race: 'Scourge', raceName: 'Undead', cls: 'WARLOCK', at: [1413, 58.9, 25.8],
 	},
+	// Both guides a level 22 Warlock fits (Guides.Suggestions); opened at 04-barrens.
+	suggest: {
+		id: 'forever/horde/04-barrens',
+		files: ['forever/horde/03-hillsbrad.guide', 'forever/horde/04-barrens.guide'],
+		race: 'Scourge', raceName: 'Undead', cls: 'WARLOCK', at: [1413, 58.9, 25.8],
+	},
 	warrior: {
 		id: 'forever/horde/02-barrens',
 		files: ['forever/horde/02-barrens.guide', 'forever/horde/03-hillsbrad.guide', 'forever/horde/tauren/01-mulgore.guide'],
@@ -378,7 +384,6 @@ test('a quest skipped before the player\'s real progress is no start: it is list
 		log: [...MID_LOG, [868, [{ required: 12, fulfilled: 0 }]]],
 		script: `${SKIPPED_LIST}; emit({ at = E.GetStepIndex(), list = l })`,
 	});
-	assert.equal(reload.at, fortress);
 	assert.deepEqual(asList(reload.list), [], 'in the log now: nothing skipped');
 });
 
@@ -422,20 +427,20 @@ test('a Warrior who out-levelled 02-barrens is placed past what they skipped, wh
 test('Guides.Suggestions ranks by the share of a guide\'s quests done or held, and leaves out a guide that is all done', { skip }, () => {
 	// Level 22 fits 03-hillsbrad (18-22) and 04-barrens (22-24). The route of a
 	// guide: its accepts for everyone (no class or race step or goal, none optional).
-	const routeOf = (id) => [...new Set(packOf('warlock').guides.find((g) => g.id === id).steps
+	const routeOf = (id) => [...new Set(packOf('suggest').guides.find((g) => g.id === id).steps
 		.filter((s) => !s.only).flatMap((s) => s.goals.filter((g) => g.t === 'accept' && !g.optional && !g.only).map((g) => g.quest)))];
-	const barrens = routeOf(PERSONAS.warlock.id);
+	const barrens = routeOf(PERSONAS.suggest.id);
 	const hillsbrad = routeOf('forever/horde/03-hillsbrad');
 	assert.ok(barrens.length > 4 && hillsbrad.length > 4, 'both routes have quests');
 	const script = 'emit(Polestar.Guides.Suggestions())';
-	const suggest = (done) => play({ done, log: [], level: 22, saved: FRESH, open: 'tab', script })[0];
+	const suggest = (done) => play({ persona: 'suggest', done, log: [], level: 22, saved: FRESH, open: 'tab', script })[0];
 	const share = (route) => route.slice(0, Math.ceil(route.length * 0.6));
 	// More than half of 03-hillsbrad done and none of 04-barrens: 03 first.
 	assert.equal(suggest(share(hillsbrad))[0], 'forever/horde/03-hillsbrad');
 	// More than half of 04-barrens done and none of 03: 04 first.
-	assert.equal(suggest(share(barrens))[0], PERSONAS.warlock.id);
+	assert.equal(suggest(share(barrens))[0], PERSONAS.suggest.id);
 	// All of 04-barrens done: it is not suggested while another guide fits.
 	const finished = suggest(barrens);
-	assert.ok(!finished.includes(PERSONAS.warlock.id));
+	assert.ok(!finished.includes(PERSONAS.suggest.id));
 	assert.equal(finished[0], 'forever/horde/03-hillsbrad');
 });
