@@ -299,6 +299,10 @@ const skinning = {
 	],
 };
 
-const SPECS = [mining, herbalism, skinning, fishing, secondary.cooking, secondary.firstAid, fishingCooking];
+// The paired guides (a gathering profession with the crafting one it feeds, and Tailoring + Enchanting):
+// built from the single guides' plans (../pairs.js).
+const { PAIR_SPECS } = require('../pairs');
+
+const SPECS = [mining, herbalism, skinning, fishing, secondary.cooking, secondary.firstAid, fishingCooking, ...PAIR_SPECS];
 
 module.exports = { SPECS };

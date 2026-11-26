@@ -514,4 +514,4 @@ function buildAll(ctx) {
 	return out;
 }
 
-module.exports = { plan, render, buildAll, gatherLoops, zonePicks, partLoops, partPoints, rareKinds, startParts, bandYield, coversTop, OUT_DIR };
+module.exports = { plan, render, buildAll, gatherLoops, zonePicks, partLoops, partPoints, rareKinds, startParts, bandYield, coversTop, loopLine, lapSeconds, nodeSummary, OUT_DIR };

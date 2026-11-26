@@ -22,10 +22,13 @@ checkpoints at 75/150/225/300.
   --out [file]         write the guide (default guides/forever/professions/<name>.guide)
   --quiet              no plan summary on stderr
 
-gathering build: rewrites the seven generated guides in guides/forever/professions
-(mining, herbalism, skinning, fishing, cooking, first-aid, fishing-cooking) from their specs in
+gathering build: rewrites the twelve generated guides in guides/forever/professions
+(mining, herbalism, skinning, fishing, cooking, first-aid, fishing-cooking, and the paired
+herbalism-alchemy, mining-blacksmithing, mining-engineering, skinning-leatherworking and
+tailoring-enchanting, tools/lib/professions/pairs.js) from their specs in
 tools/lib/professions/gathering/specs.js and data/forever (node spawns,
-professions, items, npcs, objects). Run \`compile\` afterwards.
+professions, items, npcs, objects). Run \`compile\` afterwards. The rules every
+profession guide keeps: docs/forge/professions.md.
 gathering check: builds them in memory and exits 1 when a committed guide
 differs (writes nothing).
 gathering abundance: rewrites tools/lib/professions/gathering/node-abundance.json,

@@ -15,20 +15,33 @@ const { DATA, needs } = require('./helpers/data');
 
 const GUIDES = path.join(__dirname, '..', 'guides', 'forever', 'professions');
 const CRAFTING = ['alchemy', 'blacksmithing', 'enchanting', 'engineering', 'leatherworking', 'tailoring'];
+// Each crafting guide, and each paired guide with the crafting professions whose steps it holds.
+const PROF_GUIDES = [
+	...CRAFTING.map((n) => [n, [n]]),
+	['herbalism-alchemy', ['alchemy']],
+	['mining-blacksmithing', ['blacksmithing']],
+	['mining-engineering', ['engineering']],
+	['skinning-leatherworking', ['leatherworking']],
+	['tailoring-enchanting', ['tailoring', 'enchanting']],
+];
 const skip = needs('professions.json', 'npcs.json', 'items.json', 'zones.json', 'objects.json', 'quests.json');
 
 const read = (name) => fs.readFileSync(path.join(GUIDES, `${name}.guide`), 'utf8');
 const json = (name) => JSON.parse(fs.readFileSync(path.join(DATA, `${name}.json`), 'utf8'));
 
-// The steps of a guide: { title, lines, section }.
+// The steps of a guide: { title, lines, section, sectionOf } (sectionOf: the section's line, its profession too).
 function steps(text) {
 	const out = [];
 	let section = null;
+	let sectionOf = null;
 	for (const l of text.split('\n')) {
 		const sec = /^section \S+(?: \S+)? (\d+)-(\d+)$/.exec(l) || /^section .* (\d+)-(\d+)$/.exec(l);
-		if (sec) section = [Number(sec[1]), Number(sec[2])];
+		if (sec) {
+			section = [Number(sec[1]), Number(sec[2])];
+			sectionOf = l.slice(8);
+		}
 		const m = /^step (.*)$/.exec(l);
-		if (m) out.push({ title: m[1], lines: [], section });
+		if (m) out.push({ title: m[1], lines: [], section, sectionOf });
 		else if (out.length && /^ {2}\S/.test(l)) out[out.length - 1].lines.push(l.trim());
 	}
 	return out;
@@ -61,23 +74,25 @@ test('every NPC a profession step is pinned to can do what the step asks', { ski
 		return !f || f === 'AH' || f === side[0];
 	};
 	const bad = [];
-	for (const name of CRAFTING) {
+	for (const [file, names] of PROF_GUIDES) for (const name of names) {
 		const prof = Object.values(professions).find((p) => p.name.toLowerCase() === name);
 		const recipe = new Map(prof.recipes.map((r) => [r.spell, r]));
+		// A paired guide's other profession's recipes are checked against that profession.
+		const other = new Set(Object.values(professions).filter((p) => names.includes(p.name.toLowerCase()) && p !== prof).flatMap((p) => p.recipes.map((r) => r.spell)));
 		const teaches = (id, side, r) => prof.ranks.some((x) => x.minSkill <= r.learnedAt && r.learnedAt < x.max && ((x.trainers || {})[side] || []).includes(id));
-		for (const s of steps(read(name))) {
+		for (const s of steps(read(file))) {
 			for (const l of s.lines) {
 				const learn = /^learn (\d+) npc (\d+) only (Alliance|Horde)/.exec(l);
-				if (learn) {
+				if (learn && !other.has(Number(learn[1]))) {
 					const r = recipe.get(Number(learn[1]));
 					const id = Number(learn[2]);
 					if (!serves(id, learn[3]) || !r || (r.source === 'trainer' && !teaches(id, learn[3], { ...r, learnedAt: Math.max(r.learnedAt, 1) }) && !prof.ranks.some((x) => ((x.trainers || {})[learn[3]] || []).includes(id))))
-						bad.push(`${name}: ${s.title}: ${l}`);
+						bad.push(`${file}: ${s.title}: ${l}`);
 				}
-				const train = /^train .+ (Apprentice|Journeyman|Expert|Artisan) npc (\d+) only (Alliance|Horde)/.exec(l);
-				if (train) {
-					const rank = prof.ranks.find((x) => x.name === train[1]);
-					if (!serves(Number(train[2]), train[3]) || !((rank.trainers || {})[train[3]] || []).includes(Number(train[2]))) bad.push(`${name}: ${s.title}: ${l}`);
+				const train = /^train (.+?) (Apprentice|Journeyman|Expert|Artisan) npc (\d+) only (Alliance|Horde)/.exec(l);
+				if (train && train[1] === prof.name) {
+					const rank = prof.ranks.find((x) => x.name === train[2]);
+					if (!serves(Number(train[3]), train[4]) || !((rank.trainers || {})[train[4]] || []).includes(Number(train[3]))) bad.push(`${file}: ${s.title}: ${l}`);
 				}
 			}
 			// A recipe's sellers by side: a seller of one faction is never named for the other.
@@ -88,7 +103,7 @@ test('every NPC a profession step is pinned to can do what the step asks', { ski
 						const item = Number(/^buy (\d+)/.exec(s.lines.find((x) => /^buy \d+ nearest/.test(x)))[1]);
 						const m = prof.materials[item] || {};
 						const sells = (side) => [...((m.vendors || {})[side] || []), ...((m.limitedVendors || {})[side] || [])].includes(n.id);
-						if (sells('Alliance') || sells('Horde')) bad.push(`${name}: ${s.title}: ${n.name} (${n.faction}) named for both sides`);
+						if (sells('Alliance') || sells('Horde')) bad.push(`${file}: ${s.title}: ${n.name} (${n.faction}) named for both sides`);
 					}
 				}
 			}
@@ -114,15 +129,16 @@ test('every NPC a profession step is pinned to can do what the step asks', { ski
 test('no crafting band runs past the skill where its recipe turns grey', { skip }, () => {
 	const professions = json('professions');
 	const bad = [];
-	for (const name of CRAFTING) {
+	for (const [file, names] of PROF_GUIDES) for (const name of names) {
 		const prof = Object.values(professions).find((p) => p.name.toLowerCase() === name);
 		const recipe = new Map(prof.recipes.map((r) => [r.spell, r]));
-		for (const s of steps(read(name))) {
+		for (const s of steps(read(file))) {
 			for (const l of s.lines) {
 				const m = /^craft (\d+) until (\d+)/.exec(l);
 				if (!m) continue;
 				const r = recipe.get(Number(m[1]));
-				if (!r || !(r.grey > Number(m[2]) - 1)) bad.push(`${name}: ${s.title}: ${l} (grey at ${r && r.grey})`);
+				if (names.length > 1 && !r) continue; // the pair's other profession
+				if (!r || !(r.grey > Number(m[2]) - 1)) bad.push(`${file}: ${s.title}: ${l} (grey at ${r && r.grey})`);
 			}
 		}
 	}
@@ -181,7 +197,7 @@ test('gathered materials are counted for 9 players in 10, vendor goods at the ex
 });
 
 test('a bracket of a rank few trainers teach goes to one trainer per side; Tailoring learns Bolt of Silk Cloth on the visit before it needs it', { skip }, () => {
-	for (const name of CRAFTING) {
+	for (const [name] of PROF_GUIDES) {
 		const bySection = new Map();
 		for (const s of steps(read(name))) {
 			if (!s.section) continue;
@@ -190,7 +206,7 @@ test('a bracket of a rank few trainers teach goes to one trainer per side; Tailo
 				// Pins of a recipe only a later rank teaches (taughtBy) and the optional rank offered there are
 				// the next rank's trip, counted apart.
 				if (!m || /train .* optional/.test(l)) continue;
-				const key = `${s.section.join('-')} ${m[2]}`;
+				const key = `${s.sectionOf} ${m[2]}`;
 				if (!bySection.has(key)) bySection.set(key, new Set());
 				bySection.get(key).add(m[1]);
 			}
@@ -210,6 +226,7 @@ test('a fork: path A and path B steps carry their when, and each path reaches 30
 	for (const [name, key] of [
 		['blacksmithing', 16971],
 		['tailoring', 18449],
+		['mining-blacksmithing', 16971],
 	]) {
 		const all = steps(read(name));
 		const at = all.findIndex((s) => s.lines.includes(`learn ${key} optional`));

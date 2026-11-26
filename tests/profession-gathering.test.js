@@ -404,7 +404,20 @@ test('generated profession guides are up to date and compile', { skip: hasData ?
 	const { format } = require('../tools/lib/dsl/diag');
 	const ctx = context(DATA);
 	const files = buildAll(ctx);
-	assert.deepEqual(Object.keys(files).sort(), ['cooking.guide', 'first-aid.guide', 'fishing-cooking.guide', 'fishing.guide', 'herbalism.guide', 'mining.guide', 'skinning.guide']);
+	assert.deepEqual(Object.keys(files).sort(), [
+		'cooking.guide',
+		'first-aid.guide',
+		'fishing-cooking.guide',
+		'fishing.guide',
+		'herbalism-alchemy.guide',
+		'herbalism.guide',
+		'mining-blacksmithing.guide',
+		'mining-engineering.guide',
+		'mining.guide',
+		'skinning-leatherworking.guide',
+		'skinning.guide',
+		'tailoring-enchanting.guide',
+	]);
 	const stale = Object.entries(files)
 		.filter(([name, text]) => !fs.existsSync(path.join(OUT_DIR, name)) || fs.readFileSync(path.join(OUT_DIR, name), 'utf8') !== text)
 		.map(([name]) => name);
