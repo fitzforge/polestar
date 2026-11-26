@@ -18240,7 +18240,12 @@ end
 -- comes back from the step list (Engine.Goto opens a skipped step). At that
 -- step and after, everything goes, as before. With the quest log not read
 -- yet, nothing is kept.
-function Engine.ResetProgress()
+--
+-- everything (#4111): nothing is kept, so a step skipped long ago comes back
+-- too and the guide starts at the first quest the player can still take. The
+-- saved view and the quests held for the player's answer (Own.lostHere) go
+-- as well.
+function Engine.ResetProgress(everything)
 	if not guide then return end
 	refreshPlayer()
 	local state = ns.CharState()
@@ -18255,9 +18260,14 @@ function Engine.ResetProgress()
 		if type(state[f]) == "table" then state[f][id] = nil end
 	end
 	Own.goneGen = Own.goneGen + 1
+	if everything then
+		for _, f in ipairs({ "pins", "lostQuests" }) do
+			if type(state[f]) == "table" then state[f][id] = nil end
+		end
+	end
 	-- Keys are a step's number ("skipped", "when") or "step:goal" ("manual",
-	-- an optional goal's skip).
-	local anchor = logReady and anchorStep(nil) or 0
+	-- an optional goal's skip). Nothing is behind anchor 0.
+	local anchor = not everything and logReady and anchorStep(nil) or 0
 	for field, t in pairs(held) do
 		for k, v in pairs(type(t) == "table" and t or NONE) do
 			local s = type(k) == "number" and k or tonumber(tostring(k):match("^(%d+)"))

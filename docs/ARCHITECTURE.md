@@ -3805,7 +3805,12 @@ step with quest progress the game shows (`anchorStep`, read with every mark
 gone); the player's own marks and skips before it stay, so a step skipped
 long ago, its quests never taken, does not become the start and send the
 guide back (#1764); `Goto` brings one back. With the quest log not read yet,
-everything is cleared.
+everything is cleared. `Engine.ResetProgress(true)` (Reset everything, `/ps
+reset`, #4111) keeps nothing: it also clears the marks before the last quest
+progress, the saved view (`pins`) and the quests held for the player's
+answer (`lostQuests`), so the guide starts at the first quest the player can
+still take. Reset from here (`/ps resetfrom`) is the call without the
+argument.
 
 Waypoint:
 

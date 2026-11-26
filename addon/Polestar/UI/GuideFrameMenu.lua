@@ -129,8 +129,14 @@ ns.UI.GuideFrame.Part(function(GF)
 			add({ text = L["Recorder window"], icon = "record", onClick = function() PolestarRecorder_Command("ui") end })
 		end
 		group()
-		add({ text = L["Reset guide progress"], icon = "reset", color = "danger", confirm = true, disabled = not hasGuide, tip = L["Clears your manual check-offs and skipped steps in this guide from your last quest progress on. The guide stays where your quests put you."],
-			onClick = function() if E and E.ResetProgress then E.ResetProgress() end end })
+		-- Two resets (#4111): from the last quest progress on, and everything.
+		for _, reset in ipairs({
+			{ text = L["Reset from here"], tip = L["Clears your manual check-offs and skipped steps in this guide from your last quest progress on. The guide stays where your quests put you."] },
+			{ text = L["Reset everything"], everything = true, tip = L["Clears every check-off, skipped step and saved step in this guide, also those before your last quest progress. The guide starts at the first quest you can take."] },
+		}) do
+			add({ text = reset.text, icon = "reset", color = "danger", confirm = true, disabled = not hasGuide, tip = reset.tip,
+				onClick = function() if E and E.ResetProgress then E.ResetProgress(reset.everything) end end })
+		end
 		-- A skin's own entries (Skin API 2, hooks.guideMenu(items, button)): it
 		-- may add, remove or reorder them; the list is made anew at each opening.
 		GF.Hook("guideMenu", items, button)
