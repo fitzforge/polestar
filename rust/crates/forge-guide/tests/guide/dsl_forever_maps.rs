@@ -67,8 +67,7 @@ fn farm_spots_on_a_forever_only_zone_of_eastern_kingdoms_contested_clustered_in_
 	let dir = data_dir_with("fm-farm", &data_dir(), |raw| {
 		raw.get_mut("map-frames.json").unwrap()["forever"] = json!({ "2548": { "c": 0, "left": -1891.666, "right": -6741.666, "top": -6466.666, "bottom": -9700 } });
 		raw.get_mut("zones.json").unwrap()["2548"] = json!({ "areaId": 16591, "id": 2548, "name": "Riverglades", "parent": 1415, "type": 3 });
-		raw.get_mut("npcs.json").unwrap()["92001"] =
-			json!({ "faction": null, "id": 92001, "level": 30, "name": "Glade Lurker", "spawns": { "2548": { "f": "l", "pts": [[40, 50], [40.2, 50.2], [40.1, 50.4], [42, 50], [42.2, 50.2], [42.1, 50.4]] } } });
+		raw.get_mut("npcs.json").unwrap()["92001"] = json!({ "faction": null, "id": 92001, "level": 30, "name": "Glade Lurker", "spawns": { "2548": { "f": "l", "pts": [[40, 50], [40.2, 50.2], [40.1, 50.4], [42, 50], [42.2, 50.2], [42.1, 50.4]] } } });
 		raw.get_mut("items.json").unwrap()["4306"]["drops"]["npc"]["92001"] = json!(30);
 	});
 	let data = load_data(&dir).unwrap();

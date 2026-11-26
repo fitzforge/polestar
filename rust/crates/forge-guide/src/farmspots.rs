@@ -301,11 +301,8 @@ fn farm_spots_of(data: &Data, item_id: &V) -> V {
 	});
 	let out = V::arr();
 	for (_, members) in by_continent {
-		let members: Vec<usize> = if members.iter().any(|i| all[*i].spot.get("spawns").num() >= MIN_SPAWNS) {
-			members.into_iter().filter(|i| all[*i].spot.get("spawns").num() >= MIN_SPAWNS).collect()
-		} else {
-			members
-		};
+		let members: Vec<usize> =
+			if members.iter().any(|i| all[*i].spot.get("spawns").num() >= MIN_SPAWNS) { members.into_iter().filter(|i| all[*i].spot.get("spawns").num() >= MIN_SPAWNS).collect() } else { members };
 		// Each zone's best camp per safety and level band (first-seen key order, as a JS Map).
 		let mut best: Vec<(String, usize)> = Vec::new();
 		for i in members {
