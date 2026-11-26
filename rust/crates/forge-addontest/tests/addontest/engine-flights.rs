@@ -571,6 +571,40 @@ fn with_the_arrow_off_a_flight_to_a_landing_never_learned_reads_go_to_and_is_don
 	assert_eq!(known, json!([1, 1453, "goto", "Go to Stormwind flight master"]), "a known landing holds as written with the arrow off");
 }
 
+// #4192 (Bang, Night Elf Hunter 51): with the way handed to Shortest Path Forever, "Fly to Nethergarde Keep" stayed a
+// flight without that flight path, and the hand-off was sent to Morgan's Vigil's flight master. Handed off, a landing
+// the character never learned leads there as travel, as with Polestar's own arrow: "Go to", the waypoint at the
+// landing, done on arriving there. A known landing, and TomTom's arrow, hold as written.
+#[test]
+fn handed_off_a_flight_to_a_landing_never_learned_reads_go_to_and_leads_there_4192() {
+	let handed = |known: &str, extra: &str| {
+		run(
+			MENETHIL,
+			&format!(
+				r#"{MENETHIL_NAV}
+				Polestar.Nav.HandedOff = function() return true end
+				{extra}
+				KNOWN = {known}
+				E.SetGuide("test/menethil"); flush()
+				local r = {{ lead = at() }}
+				stub.world.moveTo(1437, 9.5, 59.7); stub.advance(1)
+				r.arrived = at()
+				emit(r)
+				"#
+			),
+		)
+	};
+	assert_eq!(
+		handed("{ [2] = true }", ""),
+		json!({
+			"lead": [1, 1437, "fly", "Go to Menethil Harbor"],
+			"arrived": [2, 1437, "getfp", "Get the flight path at Menethil Harbor"],
+		})
+	);
+	assert_eq!(handed("{ [2] = true, [7] = true }", "")["lead"], json!([1, 1453, "goto", "Go to Stormwind flight master"]), "a known landing holds as written");
+	assert_eq!(handed("{ [2] = true }", "TOMTOM = true")["lead"], json!([1, 1453, "goto", "Go to Stormwind flight master"]), "TomTom's arrow holds as written (#1756)");
+}
+
 // #1795: a landing the character may have though Polestar doesn't know it (Nav.TaxiMaybe: no flight map opened on that
 // continent yet) stays a flight: "Fly to Menethil Harbor", led to its end like a known one, for the planner to fly
 // there at a cost; landing there ends the step, as a known landing does (#1530); the first flight map settles it.

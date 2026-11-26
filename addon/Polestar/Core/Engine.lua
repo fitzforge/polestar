@@ -12442,8 +12442,10 @@ end
 -- A landing it may have though Polestar doesn't know it (Nav.TaxiMaybe: no
 -- flight map opened on that continent yet, #1795) stays a flight: the
 -- planner flies there at a cost. With the planner off the guide's steps hold
--- as written, and with TomTom's arrow or a hand-off a landing not known does
--- too (#1756).
+-- as written, and with TomTom's arrow a landing not known does too (#1756).
+-- Handed to Shortest Path Forever, a landing not known leads there as travel
+-- (#4192: "Fly to Nethergarde Keep" without that flight path sent the hand-off
+-- to Morgan's Vigil's flight master): the hand-off plans its own way to it.
 ---------------------------------------------------------------------------
 
 Own.FLY_MARGIN, Own.FLY_SHARE = 60, 0.1 -- seconds, and share of the trip via the flight's end
@@ -12453,17 +12455,18 @@ Own.flyVerdicts = setmetatable({}, { __mode = "k" }) -- guide -> { [step] = { pa
 -- the flight master", "Fly to ...") show only there. TomTom's arrow and the
 -- hand-off to Shortest Path Forever get the target alone.
 function Own.plannerFlies()
-	return ns.Get("nav.arrow") ~= false and Own.travelsToLanding()
+	local nav = ns.Nav
+	return ns.Get("nav.arrow") ~= false and Own.travelsToLanding() and not (nav.HandedOff and nav.HandedOff())
 end
 
 -- A flight step to a landing the character has no flight path to leads there
--- as travel (Own.unknownLanding): the planner on, and neither TomTom's arrow
--- nor a hand-off leading; Polestar's own arrow on (Own.plannerFlies) or off.
+-- as travel (Own.unknownLanding): the planner on and TomTom's arrow not
+-- leading; Polestar's own arrow on (Own.plannerFlies) or off, or the way
+-- handed to Shortest Path Forever.
 function Own.travelsToLanding()
 	local nav = ns.Nav
 	if not (nav and nav.GetKnownTaxiNodes and nav.GetTaxiNode and ns.Get("nav.travel")) then return false end
-	if nav.UsingTomTomArrow and nav.UsingTomTomArrow() then return false end
-	return not (nav.HandedOff and nav.HandedOff())
+	return not (nav.UsingTomTomArrow and nav.UsingTomTomArrow())
 end
 
 -- "fly", "walk" or nil: step s's open goals for the character are travel

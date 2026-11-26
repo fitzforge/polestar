@@ -3162,7 +3162,9 @@ map are as written, so no step moves. With the planner leading
   more than `Own.KEEP_NEAR` (400 yd) from the bound inn, work by that inn:
   the route comes back there and wants the Hearthstone then.
 
-Planner off, TomTom's arrow or a hand-off: the step leads as written.
+Planner off, TomTom's arrow or a hand-off: the step leads as written, except that a flight to a landing the
+character never learned leads there as travel ("Go to") when the way is handed to Shortest Path Forever too, as
+with Polestar's arrow on or off (#4192): the hand-off then plans its own way to the landing (`Own.travelsToLanding`).
 
 #### Focus: one person at a time
 
