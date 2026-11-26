@@ -1978,7 +1978,10 @@ end
 -- after it, puts that icon back (none: SetRaidTarget 0) on a target the
 -- press left in place whose name is none of the macro's
 -- (Buttons.UndoStrayMark). A unit the press moved to, or one of its names
--- it kept, keeps the mark. Only the press that runs the macro counts: the
+-- it kept, keeps the mark. SetRaidTarget is protected in combat (#4201:
+-- ADDON_ACTION_FORBIDDEN on every such press), so under combat lockdown the
+-- mark stays: only a press the macro read as in a fight while the lockdown
+-- had not begun yet is put back. Only the press that runs the macro counts: the
 -- secure click acts on the press when useOnKeyDown (nil: the
 -- ActionButtonUseKeyDown CVar) says so, else on the release. (Fields, not
 -- locals: the file is at Lua's local limit.)
@@ -2006,7 +2009,7 @@ end
 function Buttons.UndoStrayMark(b, attr)
 	local guid, was = b.psMarkGuid, b.psMarkWas
 	b.psMarkGuid, b.psMarkWas = nil, nil
-	if not (guid and SetRaidTarget and UnitGUID) then return end
+	if not (guid and SetRaidTarget and UnitGUID) or QoL.InLockdown() then return end
 	if b:GetAttribute(attr == "macrotext1" and "type1" or "type") ~= "macro" then return end
 	local text = b:GetAttribute(attr)
 	if type(text) ~= "string" or not ("\n" .. text):find("\n/tm ", 1, true) then return end
@@ -2345,6 +2348,24 @@ do
 		return true
 	end
 
+	local characterModel, characterLeft, characterBottom, characterRight, characterTop
+	local function screenRect(region, owner)
+		local left, bottom, width, height = region:GetRect()
+		if not (left and bottom and width and height and width > 0 and height > 0) then return end
+		local scale = owner:GetEffectiveScale() or 1
+		return left * scale, bottom * scale, (left + width) * scale, (bottom + height) * scale
+	end
+	local function characterRect()
+		if characterModel and characterModel:IsVisible() and TL.rows[1]:IsVisible() then
+			return screenRect(characterModel, characterModel)
+		end
+	end
+	local function overlapsCharacter(r)
+		if not characterLeft then return false end
+		local left, bottom, right, top = screenRect(r.Face, r)
+		return left and right > characterLeft and left < characterRight and top > characterBottom and bottom < characterTop
+	end
+
 	-- true while the row's model waits for its creature.
 	local function paintRowFace(r, units)
 		local unit = units[r.applied]
@@ -2375,7 +2396,9 @@ do
 		local learned = flat and not st.noFace and r.flatOf ~= nil
 		r.Flat:SetShown(learned)
 		local drawn
-		if r.npc and m.SetCreature and not (st.noFace or flat) then
+		-- Overlapping 3D portraits can cut a rectangle out of the character
+		-- sheet's model (#2849). Keep the row and use its usual portrait fallback.
+		if r.npc and m.SetCreature and not (st.noFace or flat or overlapsCharacter(r)) then
 			drawn = paintModel(r, m, near)
 		else
 			m:Hide()
@@ -2420,6 +2443,7 @@ do
 
 	local function paintFaces()
 		if not (TL.rows[1] and TL.rows[1].applied) then return end
+		characterLeft, characterBottom, characterRight, characterTop = characterRect()
 		local units = closeUnits()
 		-- A folded row shows the first of its macro's names that is close, else
 		-- its first: plain text and textures, so it follows in combat too.
@@ -2470,6 +2494,32 @@ do
 	end
 	local paintFacesSoon = QoL.Coalesce(paintFaces)
 	TL.paintFacesSoon = paintFacesSoon
+	local function characterLayoutChanged()
+		if not (TL.rows[1] and TL.rows[1]:IsVisible() and ns.Get("qol.targetPortraits") ~= "flat") then return end
+		local left, bottom, right, top = characterRect()
+		if left ~= characterLeft or bottom ~= characterBottom or right ~= characterRight or top ~= characterTop then
+			paintFacesSoon()
+		end
+	end
+	local function watchCharacterModel()
+		local m = _G.CharacterModelFrame
+		if not (m and m.HookScript) or m == characterModel then return end
+		characterModel = m
+		m:HookScript("OnShow", characterLayoutChanged)
+		m:HookScript("OnHide", characterLayoutChanged)
+		-- The pane can move while shown. This hook runs only on the visible
+		-- model and asks for a repaint only when its position or size changes.
+		m:HookScript("OnUpdate", characterLayoutChanged)
+		characterLayoutChanged()
+	end
+	watchCharacterModel()
+	ns.RegisterEvent("ADDON_LOADED", function(_, name)
+		if name == "Blizzard_CharacterFrame" then watchCharacterModel() end
+	end)
+	ns.On("QUEST_BUTTONS_PLACED", function()
+		local row = TL.rows[1]
+		if row and row:IsVisible() and characterModel and characterModel:IsVisible() then paintFacesSoon() end
+	end)
 	for _, event in ipairs({ "PLAYER_TARGET_CHANGED", "NAME_PLATE_UNIT_ADDED", "NAME_PLATE_UNIT_REMOVED", "UNIT_NAME_UPDATE" }) do
 		ns.RegisterEvent(event, paintFacesSoon)
 	end

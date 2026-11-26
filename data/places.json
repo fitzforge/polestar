@@ -3091,6 +3091,52 @@
 			"issue": 3078
 		},
 		{
+			"id": "4187-fuzzle-hands-in-at-his-cage",
+			"quest": 94961,
+			"objective": "ender",
+			"at": {
+				"map": 2548,
+				"x": 47.2,
+				"y": 51.2,
+				"frame": "live"
+			},
+			"note": "#4187: Biting the Hand's first part is handed in to Fuzzle (259158) at his cage in Sunnyglade, where he gave it (3078-fuzzle-in-his-cage), not at the middle of the town, his first spawn point, where the arrow sent players.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): 82 people handed in Biting the Hand (94961) to Fuzzle, all 83 hand-ins at 47.26-47.42,51.26-51.51"
+				},
+				{
+					"kind": "client",
+					"ref": "npcs.json 259158 Fuzzle on map 2548: 45.6,47.8; 47.0,50.0; 47.2,51.2"
+				}
+			],
+			"issue": 4187
+		},
+		{
+			"id": "4187-fuzzle-gives-the-escort-at-his-cage",
+			"quest": 94963,
+			"objective": "giver",
+			"at": {
+				"map": 2548,
+				"x": 47.2,
+				"y": 51.2,
+				"frame": "live"
+			},
+			"note": "#4187: Fuzzle (259158) gives Biting the Hand's second part, the escort, from his cage in Sunnyglade, right after the first part's hand-in, not from a point between his spawns.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-25; excluded contributors left out): 82 people took Biting the Hand (94963) from Fuzzle, all 96 accepts at 47.23-47.43,51.24-51.51"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#4187 (0.4.3): the reporter took it at 47.33,51.30"
+				}
+			],
+			"issue": 4187
+		},
+		{
 			"id": "3231-twilight-tablet-fragments-on-the-ground",
 			"quest": 8284,
 			"objective": 1,
@@ -3205,6 +3251,30 @@
 				{ "kind": "in-game-check", "ref": "#3825: Meta used the gem on Yenniku alive and the quest completed" }
 			],
 			"issue": 3825
+		},
+		{
+			"id": "3868-573-2",
+			"quest": 573,
+			"objective": 2,
+			"at": { "map": 1434, "x": 28.9, "y": 61.96, "frame": "era" },
+			"note": "Mok'thardin's Enchantment: the Holy Spring itself, on the hilltop, where players fill the water. The point the step had (29.0,61.9) lies on the rocks above the spring, ground no walk reaches, so from the beach the arrow drew a straight line at the cliff; at the spring the walk goes up the hill by the way players take from the south-west (#3868, gidi_).",
+			"source": [
+				{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-25): 11 people looted Holy Spring Water at a median of 28.91,61.98, each walking up from 27.1,62.9 by 27.9,62.75 and 28.55,62.35" }
+			],
+			"issue": 3868
+		},
+		{
+			"id": "4115-98252-1",
+			"faction": "Horde",
+			"quest": 98252,
+			"objective": 1,
+			"at": { "map": 1440, "x": 38.2, "y": 58.1, "frame": "era" },
+			"note": "A Void Path: the one objective is steering Va'xug's Eye of Kilrogg out of the ravine to the main road, where the quest is handed in to the Eye of Kilrogg (271181, 38.2,58.1). The data has no place for it, so the step's bare complete had no arrow while the player steered (#4115, ItsSaulx).",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#4115: the reporter's /polestar report, Arrow: none on Complete A Void Path" },
+				{ "kind": "recording", "ref": "players' recordings: 'Eye of Kilrogg guided to the road' ticks, then the hand-in at npc 271181 on the road" }
+			],
+			"issue": 4115
 		}
 	]
 }

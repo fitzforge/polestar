@@ -10,7 +10,7 @@
 --       (Dungeons.OFFER_MARGIN) waits for its level less one, as `later`;
 --       without it (the pick-up guide, however it is opened) every quest the
 --       game gives now or by the dungeon's lowest level.
---       plan = { dungeon, take = { { quest, rec, giver, pre = { rec, ... } } }, carried = { quest, ... },
+--       plan = { dungeon, take = { { quest, rec, giver, pre = { rec, ... } } }, carried = { quest, ... }, fetch = { { quest, rec, giver, fetch = true } },
 --         done = n, later = n, waiting = { { quest, level, needs = rec | nil } }, closedBy = { [questId] = { questId } },
 --         breadcrumbs = { { id, targets = { questId }, detour = seconds | nil, far, sea, taken } } | nil }
 --       take: quests that apply (faction, race, class), not done, not in the log,
@@ -61,14 +61,18 @@
 --       before its accept (the last of its `pre`): the game holds a quest back
 --       while its breadcrumb is in the log (Gnogaine while The Day After is,
 --       #2046).
---       carried: the page's quests already in the log. giver: a point
+--       carried: the page's quests already in the log. fetch: those of them
+--       (not ready to hand in) whose items come from objects at their giver
+--       (atGiver) and are not in the bags: the guide goes to that giver for
+--       the items, with no accept (#4042: Blueleaf Tubers carried, its crate,
+--       manual and stick still in Ratchet); none with `offer`. giver: a point
 --       { kind, id, name, map, x, y, f }, or a drop point (kind "drop",
 --       Dungeons.DropPoint): the step collects the item there, then takes
 --       the quest from it. Each accept carries the page's `closedBy`, so the
 --       Engine passes it once taken on the way.
 --   Dungeons.OfferLevel(pq, rec) -> level   -- the level the heads-up offers page quest pq from
 --   Dungeons.PreDone(rec) -> bool   -- every prerequisite of Codex quest rec done (all of `pre`, one of `preAny`)
---   Dungeons.PickupGuide(key) -> def | nil, reason   -- "nothing" when there is nothing to take;
+--   Dungeons.PickupGuide(key) -> def | nil, reason   -- "nothing" when there is nothing to take or fetch;
 --       every quest the game gives now: a player who opens it chose the run, so
 --       a quest two levels up comes along (Fitz, #3063: Corruption of Earth and
 --       Seed at 49, which the heads-up's rule held back to 50)
@@ -808,6 +812,30 @@ local function moneyOnly(pq, rec)
 	return true
 end
 
+-- The items quest record `rec` asks for that an object at giver point g
+-- gives (Lookup.QuestStep's collect goals from an object, within AT_GIVER
+-- yards of the giver): Blueleaf Tubers' crate, owner's manual and command
+-- stick at Mebok Mizzyrix's feet in Ratchet (#2439), taken with the quest,
+-- before the run. -> { goal, ... }
+local AT_GIVER = 25 -- yards
+local function yards(a, b)
+	local W = ns.Compat.MapToWorld
+	local c1, x1, y1 = W(a.map, a.x, a.y, a.f)
+	local c2, x2, y2 = W(b.map, b.x, b.y, b.f)
+	if not (c1 and c2) or c1 ~= c2 then return nil end
+	return math.sqrt((x2 - x1) ^ 2 + (y2 - y1) ^ 2)
+end
+local function atGiver(rec, g)
+	local out = {}
+	if not (rec and g.kind ~= "drop" and located(g)) then return out end
+	local step = LK().QuestStep(rec, g)
+	for _, goal in ipairs(step and step.goals or {}) do
+		local d = goal.t == "collect" and goal.fromKind == "object" and located(goal) and yards(goal, g)
+		if d and d <= AT_GIVER then out[#out + 1] = goal end
+	end
+	return out
+end
+
 function Dungeons.PickupPlan(key, offer)
 	local d = Dungeons.Get(key)
 	if not d then return nil, "unknown" end
@@ -954,7 +982,23 @@ function Dungeons.PickupPlan(key, offer)
 		end
 		plan.carried = carried
 	end
-	return crumbsFirst(dropDetours(plan, from, p), key)
+	plan = crumbsFirst(dropDetours(plan, from, p), key)
+	-- A quest in the log whose items come from objects at its giver, missing
+	-- from the bags, still takes the guide to that giver (#4042: Blueleaf
+	-- Tubers carried, and the crate, manual and stick left in Ratchet). Not
+	-- for the heads-up (`offer`), which only counts quests to take.
+	plan.fetch = {}
+	for _, pq in ipairs(offer and {} or plan.carried) do
+		local rec = C.Quest(pq.id)
+		local g = rec and not ns.Compat.IsQuestReadyForTurnIn(pq.id) and Dungeons.Giver(pq, from, rec)
+		for _, goal in ipairs(g and atGiver(rec, g) or {}) do
+			if (tonumber(ns.Compat.GetItemCount(goal.item, true)) or 0) < (goal.count or 1) then
+				plan.fetch[#plan.fetch + 1] = { quest = pq, rec = rec, giver = g, fetch = true }
+				break
+			end
+		end
+	end
+	return plan
 end
 
 -- The lowest level a waiting quest opens at; same: all open at that level.
@@ -1063,30 +1107,6 @@ local function collectGoal(d)
 		end
 	end
 	return goal
-end
-
--- The items quest record `rec` asks for that an object at giver point g
--- gives (Lookup.QuestStep's collect goals from an object, within AT_GIVER
--- yards of the giver): Blueleaf Tubers' crate, owner's manual and command
--- stick at Mebok Mizzyrix's feet in Ratchet (#2439), taken with the quest,
--- before the run. -> { goal, ... }
-local AT_GIVER = 25 -- yards
-local function yards(a, b)
-	local W = ns.Compat.MapToWorld
-	local c1, x1, y1 = W(a.map, a.x, a.y, a.f)
-	local c2, x2, y2 = W(b.map, b.x, b.y, b.f)
-	if not (c1 and c2) or c1 ~= c2 then return nil end
-	return math.sqrt((x2 - x1) ^ 2 + (y2 - y1) ^ 2)
-end
-local function atGiver(rec, g)
-	local out = {}
-	if not (rec and g.kind ~= "drop" and located(g)) then return out end
-	local step = LK().QuestStep(rec, g)
-	for _, goal in ipairs(step and step.goals or {}) do
-		local d = goal.t == "collect" and goal.fromKind == "object" and located(goal) and yards(goal, g)
-		if d and d <= AT_GIVER then out[#out + 1] = goal end
-	end
-	return out
 end
 
 ---------------------------------------------------------------------------
@@ -1461,7 +1481,7 @@ local function stopsOf(plan, from)
 		for _, t in ipairs(s.accepts) do if t.quest.id == take.quest.id then return k end end
 		s.accepts[#s.accepts + 1] = take
 		local held = true
-		for _, t in ipairs(s.accepts) do if not inLog(t.quest.id) then held = false; break end end
+		for _, t in ipairs(s.accepts) do if t.fetch or not inLog(t.quest.id) then held = false; break end end
 		s.inP, s.outP = held and from or g, held and from or g
 		return k
 	end
@@ -1519,6 +1539,8 @@ local function stopsOf(plan, from)
 		if dropKey then deps[#deps + 1] = dropKey end
 		giverStop(g, deps, t)
 	end
+	-- A carried quest's items at its giver (plan.fetch, #4042): a stop there.
+	for _, t in ipairs(plan.fetch or {}) do giverStop(t.giver, {}, t) end
 	return stops
 end
 
@@ -1676,8 +1698,10 @@ local function splitStops(whole, from)
 	for i, s in ipairs(whole) do
 		local list = {}
 		if s.giver then
+			local takes = 0
+			for _, t in ipairs(s.accepts) do if not t.fetch then takes = takes + 1 end end
 			list[1] = add({ key = s.key, kind = "giver", giverKey = s.giverKey, giver = s.giver, inP = s.inP, outP = s.outP,
-				accepts = s.accepts, log = #s.accepts, deps = {} })
+				accepts = s.accepts, log = takes, deps = {} })
 		else
 			local r = s.rec
 			local step = Lk.QuestStep(r, s.inP or from)
@@ -1803,12 +1827,13 @@ local function route(key, plan)
 			local u = { npcKey = s.giverKey, lone = true, title = s.giver.name or L["Quest giver"], goals = {} }
 			if s.giver.kind == "drop" then u.goals[#u.goals + 1] = collectGoal(s.giver) end
 			for _, t in ipairs(s.accepts) do
-				local a = acceptGoal(t.quest, t.rec, s.giver)
-				u.goals[#u.goals + 1] = a
+				-- A carried quest (plan.fetch) only collects its items here.
+				local a = not t.fetch and acceptGoal(t.quest, t.rec, s.giver) or nil
+				if a then u.goals[#u.goals + 1] = a end
 				for _, g in ipairs(atGiver(t.rec, s.giver)) do u.goals[#u.goals + 1] = g end
 				-- One quest several NPCs give: the step is named after it, not after
 				-- the giver the Engine may pick another over (#3368).
-				if a.candidates and #s.accepts == 1 then u.title = t.quest.title or (t.rec and t.rec.title) or u.title end
+				if a and a.candidates and #s.accepts == 1 then u.title = t.quest.title or (t.rec and t.rec.title) or u.title end
 			end
 			units[#units + 1] = u
 			last = nil
@@ -1887,7 +1912,7 @@ end
 function Dungeons.PickupGuide(key)
 	local plan, err = Dungeons.PickupPlan(key)
 	if not plan then return nil, err end
-	if #plan.take == 0 then return nil, "nothing" end
+	if #plan.take == 0 and #plan.fetch == 0 then return nil, "nothing" end
 	local d = plan.dungeon
 	local steps, pre = route(key, plan)
 	if #steps == 0 then return nil, "nothing" end

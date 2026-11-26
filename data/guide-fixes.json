@@ -16443,6 +16443,36 @@
 			"issue": 3266
 		},
 		{
+			"id": "riverglades-old-rot-chum-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 95120,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/01b-riverglades"
+			},
+			"when": "complete 95120",
+			"note": "The Wharfmaster's hand-in was offered with the Rot-Covered Harpoon still at 0/1. Wait until WANTED: Old Rot-Chum is ready to turn in.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3960"
+			}
+		},
+		{
+			"id": "riverglades-old-rot-chum-turnin-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 95120,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/01b-riverglades"
+			},
+			"when": "complete 95120",
+			"note": "The Wharfmaster's hand-in was offered with the Rot-Covered Harpoon still at 0/1. Wait until WANTED: Old Rot-Chum is ready to turn in.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3960"
+			}
+		},
+		{
 			"id": "3411-riverglades-jomjom-in-the-cave",
 			"faction": "Horde",
 			"at": {
@@ -16754,7 +16784,7 @@
 				"objective": 1,
 				"guide": "forever/horde/50-60/02-felwood"
 			},
-			"tip": "Fill Cuely's four vials at the tide pools on the shore, from Southridge Beach north up the coast; Spitelash naga patrol between them.",
+			"tip": "Open Cuely's Box of Empty Vials in your bags for the four labelled vials. The tide pools cannot be clicked: stand in each pool and use its own vial from your bags, from Southridge Beach north up the coast; Spitelash naga patrol between them. No vials? Abandon the quest and take it again from Chemist Cuely in the Undercity.",
 			"note": "#3211: Seeping Corruption's step pointed at the Ruins of Eldarath (35.0,55.0) with a bare complete, so the arrow never led to the four tide pools on the shore east of them. Each vial is a goal at its own pool (the First to Fourth Tide Pool objects, 152598, 152604, 152605, 152606), south to north: 48.0,60.6 on Southridge Beach, then 48.0,51.2, 48.7,48.4 and 47.4,46.3; the seed's copy of the step (50-60/04) carries the same lines.",
 			"source": [
 				{
@@ -16763,6 +16793,27 @@
 				}
 			],
 			"issue": 3211
+		},
+		{
+			"id": "3707-cuely-box-of-empty-vials",
+			"faction": "Horde",
+			"at": {
+				"quest": 3568,
+				"goal": "accept"
+			},
+			"goalNote": "Chemist Cuely, the Apothecarium: a Box of Empty Vials comes with the quest. Keep four bag slots free and open it for Empty Vials Labeled #1 to #4, filled in Azshara later",
+			"note": "#3707 asked how to get the filled vials; an in-game check (#3857: a level 54 Horde hunter at the Second Tide Pool) found no vials in the bags, so nothing could be filled. The quest provides a Box of Empty Vials (10695) that holds the four Empty Vials Labeled #1-#4 (10687-10690); the accept never said so.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3857: a level 54 Horde hunter at the Second Tide Pool (47.9,51.1) with no vials in the bags; clicking the pool did nothing"
+				},
+				{
+					"kind": "questie",
+					"ref": "Quest 3568's source item is the Box of Empty Vials (10695), which holds Empty Vial Labeled #1-#4 (10687-10690)."
+				}
+			],
+			"issue": 3707
 		},
 		{
 			"id": "3172-lamora-loot-below-deck",
@@ -18377,6 +18428,29 @@
 				{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20; excluded and suspect contributors left out): 173 shaman players (Dwarf 71, Orc 29, Troll 11, Tauren 35, Horde Skyborne 27), no Gnome; 94373 taken by 20 Dwarf shamans" },
 				{ "kind": "questie", "ref": "QuestieDB 1.1.5: quest 94373 requiredRaces 4 (Dwarf; 1.1.2: the Alliance races)" }
 			]
+		},
+		{
+			"id": "garments-lesser-heal-rank2-5648-3992",
+			"faction": "Horde",
+			"at": { "quest": 5648, "goal": "accept", "guide": "forever/horde/troll/01-durotar" },
+			"tip": "Priests: Garments of Spirituality counts only Lesser Heal (Rank 2). Tai'jin trains priests too: learn it from her now if you have not yet.",
+			"note": "#3992: a priest reached the wounded guard of Garments of the Light without Lesser Heal (Rank 2), which the quest's objective asks for. The Garments quests' givers are priest trainers, so the accept says to learn it there. The Elwynn and Teldrassil guides carry the same tip from their seeds; the Dun Morogh guides already train at Maxan Anvol, and Tirisfal Glades says it at Dark Cleric Duesten.",
+			"source": [
+				{ "kind": "client", "ref": "quest 5648's objective text (\"heal her wounds using Lesser Heal (Rank 2)\"); training.json: Lesser Heal 2052 from level 4; npcs.json: Tai'jin (3706) a trainer" },
+				{ "kind": "in-game-check", "ref": "#3992" }
+			],
+			"issue": 3992
+		},
+		{
+			"id": "4013-goldir-walk-with-the-quest",
+			"faction": "Horde",
+			"at": { "quest": 503, "goal": "turnin", "guide": "forever/horde/30-40/05-arathi-highlands" },
+			"way": { "when": "onquest 503" },
+			"note": "#4013: the walk from Tarren Mill to Gol'dir in Strahnbrad showed to a player without Gol'dir (503), whose stop was hidden because its feeder The Rescue (533) comes from the Hillsbrad guide; the next work, the Bracers of Binding at the Dalaran ruins, lies the other way. The walk is for whoever carries the quest, as the stop already was.",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#4013 (asdmasa): /polestar report at step 12 'Go to Gol'dir' with 503 hidden (needs The Rescue) and 557 Bracers of Binding in the log" }
+			],
+			"issue": 4013
 		}
 	]
 }

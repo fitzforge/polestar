@@ -32,8 +32,8 @@ return {
 	["{area:392} flight master"] = "Mestre de voo de {area:392}",
 
 	-- Step 5: Jes'rimon
-	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow (no name in this language: may be words)
-	["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
+	-- {npc:8659} Jes'rimon
+	["{npc:8659}, at the top of a tower in the Drag"] = "",
 
 	-- Step 6: Orgrimmar
 	-- {npc:15188} Cenarion Emissary Blackhoof · {object:172957} Valley of Wisdom (no name in this language: may be words) · {zone:1451} Silithus
@@ -174,6 +174,7 @@ return {
 	-- ["{npc:8576}: {quest:91531}, for {npc:4485} in {zone:1454}"] = "{npc:8576}: {quest:91531}, para {npc:4485} em {zone:1454}",
 	-- ["{npc:8578}'s camp"] = "O acampamento da {npc:8578}",
 	-- ["{npc:8587}: the tome goes to {npc:3326} in {zone:1454}"] = "{npc:8587}: o tomo vai para {npc:3326} em {zone:1454}",
+	-- ["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050} volta para {npc:10778} em {area:28}: guarde-a.",
 	-- ["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: para {npc:8587} em {area:1237}",
 	-- ["{zone:1454} flight master"] = "Mestre de voo de {zone:1454}",

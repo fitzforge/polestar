@@ -32,8 +32,8 @@ return {
 	["{area:392} flight master"] = "{area:392}飛行管理員",
 
 	-- Step 5: Jes'rimon
-	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
-	["{npc:8659}, the {object:172960}"] = "{npc:8659}，{object:172960}",
+	-- {npc:8659} Jes'rimon
+	["{npc:8659}, at the top of a tower in the Drag"] = "",
 
 	-- Step 6: Orgrimmar
 	-- {npc:15188} Cenarion Emissary Blackhoof · {object:172957} Valley of Wisdom · {zone:1451} Silithus
@@ -167,6 +167,7 @@ return {
 	-- ["{npc:8576}: {quest:91531}, for {npc:4485} in {zone:1454}"] = "{npc:8576}：{quest:91531}，交給{zone:1454}的{npc:4485}",
 	-- ["{npc:8578}'s camp"] = "{npc:8578}的營地",
 	-- ["{npc:8587}: the tome goes to {npc:3326} in {zone:1454}"] = "{npc:8587}：這本書要交給{zone:1454}的{npc:3326}",
+	-- ["{npc:8659}, the {object:172960}"] = "{npc:8659}，{object:172960}",
 	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050}要交回給{area:28}的{npc:10778}：保留此任務。",
 	-- ["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}：交給{area:1237}的{npc:8587}",
 	-- ["{zone:1454} flight master"] = "{zone:1454}的飛行管理員",

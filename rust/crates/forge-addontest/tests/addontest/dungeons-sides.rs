@@ -258,3 +258,88 @@ fn ragefire_chasm_pick_up_at_13_15_and_16_for_both_factions_takes_the_five_horde
 		assert_eq!(a["later"], json!(0), "Alliance {level}: none waiting either: {a}");
 	}
 }
+
+const COPIES: &str = r#"
+stub.login()
+local D, C, Q = Polestar.Dungeons, Polestar.Codex, Polestar.QuestDB
+if Q and Q.Load then Q.Load() end
+local BIT = { WARRIOR = 1, PALADIN = 2, HUNTER = 4, ROGUE = 8, PRIEST = 16, SHAMAN = 64, MAGE = 128, WARLOCK = 256, DRUID = 1024 }
+local mine = BIT[stub.world.class]
+local bad, n = {}, 0
+for _, d in ipairs(D.List()) do
+	local def = D.PickupGuide(d.key)
+	if def then n = n + 1 end
+	for i, s in ipairs(def and def.steps or {}) do
+		local seen = {}
+		for _, g in ipairs(s.goals) do
+			if g.t == "accept" and g.quest then
+				local q = C.Quest(g.quest)
+				local key = tostring(g.title) .. "@" .. tostring(g.npc or g.object or g.item or "")
+				-- Two different quests of one title (the same quest listed again is another matter: one accept takes both).
+				if seen[key] and seen[key] ~= g.quest then
+					bad[#bad + 1] = string.format("%s step %d: %q twice at one giver (%d, %d)", d.key, i, tostring(g.title), seen[key], g.quest)
+				end
+				seen[key] = g.quest
+				local cls = q and tonumber(q.classes)
+				if cls and cls > 0 and mine and math.floor(cls / mine) % 2 == 0 then
+					bad[#bad + 1] = string.format("%s step %d: accept %d %q is for classes %d", d.key, i, g.quest, tostring(g.title), cls)
+				end
+			end
+		end
+	end
+end
+table.sort(bad)
+emit({ bad = bad, pickups = n })
+"#;
+
+/// (race, class, faction, map, x, y): every class of each side, in its capital.
+const EVERY_CLASS: [Character; 18] = [
+	("Human", "WARRIOR", "Alliance", 1453, 60, 70),
+	("Human", "PALADIN", "Alliance", 1453, 60, 70),
+	("NightElf", "HUNTER", "Alliance", 1455, 45, 50),
+	("Human", "ROGUE", "Alliance", 1453, 60, 70),
+	("Human", "PRIEST", "Alliance", 1453, 60, 70),
+	("Dwarf", "SHAMAN", "Alliance", 1455, 45, 50),
+	("Gnome", "MAGE", "Alliance", 1455, 45, 50),
+	("Gnome", "WARLOCK", "Alliance", 1455, 45, 50),
+	("NightElf", "DRUID", "Alliance", 1455, 45, 50),
+	("Orc", "WARRIOR", "Horde", 1454, 40, 40),
+	("Scourge", "PALADIN", "Horde", 1454, 40, 40),
+	("Troll", "HUNTER", "Horde", 1454, 40, 40),
+	("Scourge", "ROGUE", "Horde", 1454, 40, 40),
+	("Troll", "PRIEST", "Horde", 1454, 40, 40),
+	("Troll", "SHAMAN", "Horde", 1454, 40, 40),
+	("Troll", "MAGE", "Horde", 1454, 40, 40),
+	("Scourge", "WARLOCK", "Horde", 1454, 40, 40),
+	("Tauren", "DRUID", "Horde", 1454, 40, 40),
+];
+
+// #4169 (Swiftfyre, Skyborne Hunter 58, 0.4.3): the Blackrock Spire pick-up guide's first step at Deliana held
+// eight accepts of Just Compensation, one per class's Forever copy, none of them offered; the Engine never skips
+// an accept the giver doesn't list when the data gives no reason, so the step waited. On a real Codex
+// ($POLESTAR_CODEX_DIR), every dungeon's pick-up guide for each class of each side at 58 and 60: no step holds
+// two accepts of one title at one giver, and none an accept of a quest locked to other classes. Fails on 0.4.3's
+// Codex (Forever's Dungeon Set 2 copies have no class and no prerequisite).
+#[test]
+fn every_class_at_58_and_60_sees_each_dungeon_pick_up_quest_once_and_only_its_own_class_copy() {
+	if skip() {
+		return;
+	}
+	let mut bad: Vec<String> = Vec::new();
+	for level in [58, 60] {
+		for (race, cls, faction, map, x, y) in EVERY_CLASS {
+			let before = format!(
+				"{}\nlocal w = stub.world\n{}\nw.level, w.race, w.raceName, w.faction = {level}, {race:?}, {race:?}, {faction:?}\nw.class, w.className = {cls:?}, {cls:?}\nw.moveTo({map}, {x}, {y})",
+				packs_lua(),
+				maps_lua()
+			);
+			let out = emitted(&RunAddon { stubs: vec!["stub_world.lua", "stub_quests.lua"], before, addons: vec![Addon::name("Polestar")], login: false, script: COPIES.into(), ..Default::default() })
+				.remove(0);
+			assert!(out["pickups"].as_i64().unwrap_or(0) > 0, "{race} {cls} {level}: no pick-up guide built at all");
+			for b in out["bad"].as_array().into_iter().flatten() {
+				bad.push(format!("{race} {cls} {level}: {}", b.as_str().unwrap_or("")));
+			}
+		}
+	}
+	assert!(bad.is_empty(), "{} pick-up steps with another class's copy or one title twice:\n{}", bad.len(), bad.join("\n"));
+}

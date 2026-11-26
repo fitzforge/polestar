@@ -297,13 +297,15 @@ end)
 
 local function stepsMode(nav, own, mode)
 	local count = nav.Steps.Count
-	if not own.countPts then own.countPts = { count:GetPoint(1) } end
+	-- The count's own anchor (Polestar's ‹ button in it): "_", never hidden
+	-- when the layout leaves (hideAll), or the ‹ went with it (#4184).
+	if not own._countPts then own._countPts = { count:GetPoint(1) } end
 	local arrows = mode == 0
 	nav.Prev:SetShown(arrows)
 	nav.Next:SetShown(arrows)
 	count:ClearAllPoints()
 	if arrows then
-		count:SetPoint(unpack(own.countPts))
+		count:SetPoint(unpack(own._countPts))
 	else
 		count:SetPoint("LEFT", nav.Steps, "LEFT", 0, 0)
 	end
@@ -2954,13 +2956,13 @@ local function xpBack(xp)
 	if line then xp.Text:SetText(line) end
 	xp.Icon:SetTexture(Theme.Media("icon-level"))
 	xp.Icon:SetVertexColor(Theme.Color("textMuted"))
-	local pts = own.points
+	local pts = own._points
 	if pts then
 		xp.Icon:ClearAllPoints()
 		xp.Icon:SetPoint(unpack(pts.icon))
 		xp.Text:ClearAllPoints()
 		for _, p in ipairs(pts.text) do xp.Text:SetPoint(unpack(p)) end
-		own.points = nil
+		own._points = nil
 	end
 end
 
@@ -2986,10 +2988,11 @@ local function xpLook(xp)
 	-- step's title (stepHeader's inset in the card).
 	if has("guideInset") then
 		local own = store(xp)
-		if not own.points then
+		-- Polestar's anchors (the row and its icon in them): "_", never hidden.
+		if not own._points then
 			local text = {}
 			for i = 1, xp.Text:GetNumPoints() do text[i] = { xp.Text:GetPoint(i) } end
-			own.points = { icon = { xp.Icon:GetPoint(1) }, text = text }
+			own._points = { icon = { xp.Icon:GetPoint(1) }, text = text }
 		end
 		-- 2px under the row's middle: with the row's 2px more height
 		-- (xpRowHeight) the line clears the rule over it. Boosted Rest's line

@@ -930,18 +930,22 @@ function CT.Place(animate)
 	else
 		f:SetClampedToScreen(false)
 		-- A skin's own frame around the window (its cards above it: Skin API 2,
-		-- hooks.guideAnchor) is the edge the card sits on instead.
+		-- hooks.guideAnchor) is the edge the card sits on instead; under the
+		-- window it is always the window's own foot. Under the skin's cards
+		-- the card lay on the window, behind it, its buttons out of reach
+		-- (#4212: Atlas's stack, the window near the screen's top).
 		local ran, own = Theme.SkinHookValue("guideAnchor")
 		local edge = ran and type(own) == "table" and own.GetTop and own or w
 		-- The gaps in the edge's units; the card's anchors take them in its own (k).
 		local r = reach(edge)
+		local rw = edge == w and r or reach(w)
 		-- The window's own parts past its edges (the edge tab style's tabs).
 		if edge == w then
 			r.top = math.max(r.top, tonumber(w.psTopReach) or 0)
-			r.bottom = math.max(r.bottom, tonumber(w.psBottomReach) or 0)
 		end
-		local gap = { above = r.top + GAP, below = r.bottom + GAP, left = r.left + GAP, right = r.right + GAP }
-		local top, bottom, left, right = edge:GetTop(), edge:GetBottom(), edge:GetLeft(), edge:GetRight()
+		local under = math.max(rw.bottom, tonumber(w.psBottomReach) or 0)
+		local gap = { above = r.top + GAP, below = under + GAP, left = r.left + GAP, right = r.right + GAP }
+		local top, bottom, left, right = edge:GetTop(), w:GetBottom(), edge:GetLeft(), edge:GetRight()
 		local s, us = w:GetEffectiveScale() or 1, UIParent:GetEffectiveScale() or 1
 		local sw, sh = UIParent:GetRight(), UIParent:GetTop()
 		local cw = f:GetWidth() * k
@@ -994,7 +998,7 @@ function CT.Place(animate)
 			Anim.Anchor(f, "BOTTOMLEFT", edge, "TOPLEFT", 0, g)
 			dy = -(h + g)
 		elseif side == "below" then
-			Anim.Anchor(f, "TOPLEFT", edge, "BOTTOMLEFT", 0, -g)
+			Anim.Anchor(f, "TOPLEFT", w, "BOTTOMLEFT", 0, -g)
 			dy = h + g
 		elseif side == "left" then
 			Anim.Anchor(f, "TOPRIGHT", edge, "TOPLEFT", -g, 0)

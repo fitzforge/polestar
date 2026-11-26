@@ -12,7 +12,10 @@
 -- a small section of its own after Shop. With EllesmereUI's button shown
 -- there (EllesmereUI anchors its buttons below Shop and moves the menu's
 -- buttons down to make room), ours goes right under EllesmereUI's last
--- button, and a spacer of ours in the layout keeps the room for it.
+-- button, and a spacer of ours in the layout keeps the room for it. With
+-- ElvUI's button shown (ElvUI anchors it below Macros after each layout and
+-- moves the menu's buttons by hand around it), ours goes right under ElvUI's,
+-- our spacer after Macros: a row of its own that moves with its neighbours.
 --
 -- Look: ours is made from the menu's own button template (its buttonTemplate,
 -- GameMenuFrameButtonTemplate: the plain client's red three-slice button),
@@ -25,7 +28,9 @@
 -- hidden) gets the skin's own button art when it set one (ClassicUI
 -- Forever's red 1.x button, #2109), else a flat inset of ours behind the
 -- label in the skin's colour and border (when EllesmereUI is loaded, through
--- its own border function on our frame).
+-- its own border function on our frame). A neighbour ElvUI skinned (its
+-- slices hidden, its backdrop on) gets ours skinned by ElvUI's own button
+-- skin, as ElvUI skins its own menu button.
 --
 -- Taint: nothing of Blizzard's is written or moved. Our frames are made
 -- under UIParent and then set under the menu; the hook after InitButtons
@@ -86,19 +91,21 @@ local function build(menu, template)
 	return button
 end
 
--- The pooled button ours follows: Shop, else Options; and the next layout
--- index after it (the next button's, or one more).
-local function anchorButton(menu)
+-- The pooled button ours follows: the one labelled `text` if given, else
+-- Shop, else Options; and the next layout index after it (the next button's,
+-- or one more).
+local function anchorButton(menu, text)
 	local pool = menu.buttonPool
 	if not (pool and pool.EnumerateActive) then return nil end
-	local shop, options, indexes = nil, nil, {}
+	local byText, indexes = {}, {}
 	for b in pool:EnumerateActive() do
-		local text = b.GetText and b:GetText()
-		if text ~= nil and text == _G.BLIZZARD_STORE then shop = b end
-		if text ~= nil and text == _G.GAMEMENU_OPTIONS then options = b end
+		local t = b.GetText and b:GetText()
+		if t ~= nil then byText[t] = b end
 		if type(b.layoutIndex) == "number" then indexes[#indexes + 1] = b.layoutIndex end
 	end
-	local after = shop or options
+	local after
+	if text ~= nil then after = byText[text]
+	else after = (_G.BLIZZARD_STORE ~= nil and byText[_G.BLIZZARD_STORE]) or (_G.GAMEMENU_OPTIONS ~= nil and byText[_G.GAMEMENU_OPTIONS]) end
 	if not (after and type(after.layoutIndex) == "number") then return nil end
 	local nextIndex = after.layoutIndex + 1
 	for _, i in ipairs(indexes) do
@@ -120,17 +127,34 @@ local function ellesmereLast()
 	return nil
 end
 
+-- ElvUI's own button, shown below Macros (in combat too), or nil.
+local function elvuiButton()
+	local b = _G.ElvUI_GameMenuButton
+	if b and b.IsShown and b:IsShown() then return b end
+	return nil
+end
+
+-- ElvUI's skins module, when ElvUI is loaded (its ElvUI global, E first).
+local function elvuiSkins()
+	local engine = _G.ElvUI
+	local E = type(engine) == "table" and engine[1]
+	if type(E) ~= "table" or type(E.GetModule) ~= "function" then return nil end
+	local ok, S = pcall(E.GetModule, E, "Skins", true)
+	return ok and type(S) == "table" and type(S.HandleButton) == "function" and S or nil
+end
+
 -- The template's three slices (BigRedThreeSlice names its middle Center; the
 -- older templates Middle).
 local SLICES = { "Left", "Middle", "Center", "Right" }
 
--- A skinned menu button: its three-slice parts are there and hidden.
+-- A skinned menu button: its three-slice parts are there and hidden (faded,
+-- or hidden as ElvUI's skin does).
 local function skinned(r)
 	local parts = 0
 	for _, k in ipairs(SLICES) do
 		local t = r[k]
 		if type(t) == "table" and t.GetAlpha then
-			if (t:GetAlpha() or 1) > 0 then return false end
+			if (t:GetAlpha() or 1) > 0 and not (t.IsShown and not t:IsShown()) then return false end
 			parts = parts + 1
 		end
 	end
@@ -217,6 +241,15 @@ function GameMenu.Mirror(b, r)
 	local w, h = r:GetWidth(), r:GetHeight()
 	if w and w > 0 and h and h > 0 and (w ~= b:GetWidth() or h ~= b:GetHeight()) then b:SetSize(w, h) end
 	local skin = skinned(r)
+	-- Skinned by ElvUI (its backdrop on the button): ElvUI's button skin on
+	-- ours, as it skins its own menu button.
+	local S = skin and type(r.backdrop) == "table" and elvuiSkins()
+	if S and pcall(S.HandleButton, S, b, nil, nil, nil, true) then
+		if type(b.backdrop) == "table" and type(b.backdrop.SetInside) == "function" then pcall(b.backdrop.SetInside, b.backdrop, nil, 1, 1) end
+		copyFont(b, r)
+		if look then look.frame:Hide(); look.hl:Hide() end
+		return
+	end
 	if skin and skinArt(r) then
 		for _, k in ipairs(SLICES) do
 			local t = b[k]
@@ -271,20 +304,27 @@ local function place(menu)
 	ref = after
 	local w, h = after:GetWidth(), after:GetHeight()
 	if w and w > 0 and h and h > 0 then b:SetSize(w, h) end
+	local eui, gap = ellesmereLast(), GAP
+	if not eui and elvuiButton() and _G.MACROS ~= nil then
+		-- ElvUI's button sits right below Macros: ours right below it, our
+		-- spacer after Macros.
+		local macros, i, n = anchorButton(menu, _G.MACROS)
+		if macros then eui, gap, index, nextIndex = elvuiButton(), 0, i, n end
+	end
 	local mid = index + (nextIndex - index) / 2
-	local eui = ellesmereLast()
 	b:ClearAllPoints()
 	if eui then
-		-- Under EllesmereUI's buttons; our spacer holds our room in the layout.
+		-- Under EllesmereUI's or ElvUI's button; our spacer holds our room in
+		-- the layout.
 		if not spacer then
 			spacer = CreateFrame("Frame", nil, UIParent)
 			spacer:SetParent(menu)
 		end
-		spacer:SetSize(1, b:GetHeight() + GAP)
+		spacer:SetSize(1, b:GetHeight() + gap)
 		spacer.layoutIndex, spacer.topPadding = mid, nil
 		spacer:Show()
 		b.layoutIndex, b.topPadding = nil, nil
-		b:SetPoint("TOP", eui, "BOTTOM", 0, -GAP)
+		b:SetPoint("TOP", eui, "BOTTOM", 0, -gap)
 	else
 		if spacer then spacer:Hide() end
 		b.layoutIndex, b.topPadding = mid, SECTION

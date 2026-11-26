@@ -122,7 +122,6 @@ return {
 	-- {npc:265809} Brakk
 	["{npc:265809}'s campfire"] = "A fogueira de {npc:265809}",
 	-- {npc:265809} Brakk · {area:362} Razor Hill · {spell:1229451} Boosted Rest · {area:367} Sen'jin Village · {zone:1454} Orgrimmar
-	-- was: ["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362} or in {zone:1454} at the start of the next guide."] = "{npc:265809} acampa logo ao sul de {area:362}. Sente na fogueira dele (/sit) até aparecer o bônus {spell:1229451}. Com uma profissão aprendida, {npc:265809} também oferece a sua Introdução ao acampamento, que o instrutor dessa profissão recebe: em {area:362} ou em {zone:1454}, no início do próximo guia."
 	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362}, by {area:367} for fishing, or in {zone:1454} at the start of the next guide."] = "{npc:265809} acampa logo ao sul de {area:362}. Sente-se junto à fogueira dele (/sit) até aparecer o bônus {spell:1229451}. Com uma profissão aprendida, {npc:265809} também oferece a Introdução ao acampamento dela, que o instrutor recebe: em {area:362}, perto de {area:367} para pesca, ou em {zone:1454} no começo do próximo guia.",
 
 	-- Step 24: Camping 101: Mining
@@ -170,6 +169,8 @@ return {
 	["{npc:265809}: for {npc:5941}, on the shore south of Sen'jin"] = "{npc:265809}: para {npc:5941}, na praia ao sul de Sen'jin",
 
 	-- Step 33: Razor Hill
+	-- {quest:5648} Garments of Spirituality · {spell:613} Lesser Heal · {npc:3706} Tai'jin
+	["Priests: {quest:5648} counts only {spell:613} (Rank 2). {npc:3706} trains priests too: learn it from her now if you have not yet."] = "",
 	-- {npc:266940} Turroc
 	["{npc:266940}, on the east side of town; inside"] = "{npc:266940}, no lado leste da cidade; lá dentro",
 	-- {npc:3706} Tai'jin · {npc:266940} Turroc

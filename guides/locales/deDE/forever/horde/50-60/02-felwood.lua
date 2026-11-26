@@ -64,10 +64,10 @@ return {
 	["The middle of {zone:1454}"] = "Die Mitte von {zone:1454}",
 
 	-- Step 14: Jes'rimon
-	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
-	["{npc:8659} takes the ravasaur claws from Un'Goro; he stands in the {object:172960}, a short walk from the middle of the city."] = "{npc:8659} nimmt die Ravasaurusklauen aus Un'Goro an; er steht in {object:172960}, ein kurzer Weg von der Stadtmitte.",
-	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
-	["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
+	-- {npc:8659} Jes'rimon
+	["{npc:8659} takes the ravasaur claws from Un'Goro; he stands at the top of a tower in the Drag."] = "",
+	-- {npc:8659} Jes'rimon
+	["{npc:8659}, at the top of a tower in the Drag"] = "",
 
 	-- Step 15: Fly to Valormok
 	-- {area:1237} Valormok
@@ -87,8 +87,8 @@ return {
 	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (52-55): pull them one at a time."] = "Reite nach Osten zu den Ruinen an der Küste. Die vier Tafeln liegen zwischen den Ruinen, bewacht von Naga der Grollflossen (52-55): Zieh sie einzeln.",
 
 	-- Step 18: Ruins of Eldarath
-	-- {area:1231} Southridge Beach
-	["Fill Cuely's four vials at the tide pools on the shore, from {area:1231} north up the coast; Spitelash naga patrol between them."] = "",
+	-- {item:10695} Box of Empty Vials · {area:1231} Southridge Beach · {npc:8390} Chemist Cuely · {zone:1458} Undercity
+	["Open Cuely's {item:10695} in your bags for the four labelled vials. The tide pools cannot be clicked: stand in each pool and use its own vial from your bags, from {area:1231} north up the coast; Spitelash naga patrol between them. No vials? Abandon the quest and take it again from {npc:8390} in the {zone:1458}."] = "",
 	-- {item:10691} Filled Vial Labeled #1 · {area:1231} Southridge Beach
 	["{item:10691}: the tide pool on {area:1231}"] = "",
 	["#2, north along the shore"] = "",
@@ -186,8 +186,8 @@ return {
 	["{area:1237} flight master"] = "Flugmeister in {area:1237}",
 
 	-- Step 36: Belgrom Rockmaul
-	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {npc:3326} Zevrost · {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
-	["{npc:4485} is in the {object:172958}, {npc:3326} and {npc:8659} in the {object:172960}."] = "",
+	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:8659} Jes'rimon
+	["{npc:4485} is in the {object:172958}, {npc:3326} in the {object:172960} and {npc:8659} at the top of a tower in the Drag."] = "",
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow
 	["{npc:3326}, the {object:172960}"] = "{npc:3326}, {object:172960}",
 	-- {npc:8659} Jes'rimon · {npc:8587} Jediga
@@ -395,6 +395,8 @@ return {
 	-- ["{npc:11610}'s last task needs level 53. The Scarlet Knights and Magi (54-55) working the lumber camp just south-west of her are the closest camp."] = "{npc:11610}s letzte Aufgabe erfordert Stufe 53. Die Scharlachroten Ritter und Magier (54-55) im Holzfällerlager gleich südwestlich von ihr sind das nächste Lager.",
 	-- ["{npc:11613} stands east of the lumber camp; {npc:11611} guards the road north-east of {npc:11610}, toward {area:190}."] = "{npc:11613} steht östlich des Holzfällerlagers; {npc:11611} bewacht die Straße nordöstlich von {npc:11610}, Richtung {area:190}.",
 	-- ["{npc:1855}'s hunts are in the {zone:1423}: keep them for later."] = "{npc:1855}s Jagden sind in den {zone:1423}: Behalte sie für später.",
+	-- ["{npc:8659} takes the ravasaur claws from Un'Goro; he stands in the {object:172960}, a short walk from the middle of the city."] = "{npc:8659} nimmt die Ravasaurusklauen aus Un'Goro an; er steht in {object:172960}, ein kurzer Weg von der Stadtmitte.",
+	-- ["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 	-- ["{npc:9529}, just west of the camp"] = "{npc:9529}, gleich westlich des Lagers",
 	-- ["{npc:9529}, on the west side of the Sanctuary"] = "{npc:9529}, auf der Westseite des Refugiums",
 	-- ["{npc:9996}'s kitten"] = "{npc:9996}s Kätzchen",

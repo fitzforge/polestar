@@ -8,6 +8,7 @@ ns.RoutePlan = Plan
 local plans = {} -- guide -> its route (build), until Plan.Invalidate
 local others -- the other tabs' routes and the open dungeons' quests (elsewhere), until Plan.Invalidate
 local uses = {} -- guide id -> its chain's quests (chainQuests; false: it can't say), until Plan.Invalidate
+local chainQuests -- (g) -> the quests g's chain uses, every option of a route choice | nil: defined below
 
 local function nextGuide(g, player)
 	local G = ns.Guides
@@ -156,6 +157,14 @@ local function turnIn(plan, questId, step)
 	if to then
 		local later = ns.Guides.Get(to)
 		return { status = "later", guide = to, title = later and later.title or nil, carried = true }
+	end
+	-- A route choice ahead can only decide a quest one of its options uses
+	-- (takes, works, hands in or names): one no guide of the chain uses,
+	-- whichever option is taken, is not on the route (chainQuests walks
+	-- every option).
+	if plan.pending and not plan.missing then
+		local all = chainQuests(plan.active)
+		if all and not all[questId] then return { status = "unplanned" } end
 	end
 	return { status = plan.pending and "choice" or plan.missing and "unloaded" or "unplanned" }
 end
@@ -317,8 +326,9 @@ end
 
 -- The quests in the log no open route needs: { { quest, title, status
 -- = "missed" | "skipped" | "unplanned" | "grey" }, ... } in log order; nil
--- while the plan cannot say (no guide, a route choice to make, a guide not
--- loaded). Those it never hands in, and the grey ones it doesn't hand in
+-- while the plan cannot say (no guide, a quest in the log that an option of
+-- a route choice ahead uses, a guide not loaded). A quest no option of that
+-- choice uses is "unplanned", so it is listed while a choice is ahead. Those it never hands in, and the grey ones it doesn't hand in
 -- in this chapter (one it does is still worth its reward or its chain);
 -- "grey" wins over the other three. A grey quest a later guide hands in
 -- is listed only when that guide leaves it out too (Skip grey quests on and
@@ -447,35 +457,42 @@ local function xpNow(C, q, level)
 	return math.floor(rec.xp * Lv.Share(level or 1, qlvl) + 0.5)
 end
 
--- What Plan.Carried last answered (its quest ids, "?" when it could not say;
--- nil: never asked), for CARRIED_CHANGED below.
+-- What Plan.Carried last answered (its quest ids and how many wait on a
+-- route choice, "?" when it could not say; nil: never asked), for
+-- CARRIED_CHANGED below.
 local carriedSig
 
 -- The finished quests in the log (ready to hand in) no open route hands in
 -- (GetTurnIn "missed", "skipped" or "unplanned"; a later guide's `carriedTo`
 -- quest is "later" and another tab's or an open dungeon's is "other", so
 -- neither is here, but for a dungeon's page quest only its pick-up guide has
--- open: that guide hands nothing in, so a finished one is here): { { quest, title, status, grey, xp }, ... } in log order
--- (xp nil when unknown); nil while the plan cannot say (no guide, a route
--- choice to make, a guide not loaded).
+-- open: that guide hands nothing in, so a finished one is here): { { quest,
+-- title, status, grey, xp }, ... } in log order (xp nil when unknown), and
+-- how many finished quests wait on a route choice one of its options uses
+-- ("choice"; not listed); nil while the plan cannot say (no guide, a
+-- guide not loaded).
 function Plan.Carried()
-	local C, out, ids = ns.Compat, {}, {}
+	local C, out, ids, waiting = ns.Compat, {}, {}, 0
 	local level = (C.GetPlayerInfo() or {}).level
 	for _, q in ipairs(C.GetLogQuests() or {}) do
 		if C.IsQuestReadyForTurnIn(q) then
 			local r = Plan.GetTurnIn(q)
-			if r.status == "noGuide" or r.status == "choice" or r.status == "unloaded" then
+			if r.status == "noGuide" or r.status == "unloaded" then
 				carriedSig = "?"
 				return nil
 			end
-			if NEVER[r.status] or r.pickupOnly then
+			-- One a route choice ahead may still use waits for it; the
+			-- others are listed all the same.
+			if r.status == "choice" then
+				waiting = waiting + 1
+			elseif NEVER[r.status] or r.pickupOnly then
 				out[#out + 1] = { quest = q, title = C.GetQuestTitle(q), status = r.status, grey = grey(C, q, level), xp = xpNow(C, q, level) }
 				ids[#ids + 1] = q
 			end
 		end
 	end
-	carriedSig = table.concat(ids, ",")
-	return out
+	carriedSig = table.concat(ids, ",") .. "/" .. waiting
+	return out, waiting
 end
 
 -- Why a quest the route leaves is worth dropping or keeping, in plain words,
@@ -599,7 +616,7 @@ end
 -- it or hands it in, names it in a `when`, or needs it before an accept
 -- (`pre`, `preAll`, `crumbs`). nil when it can't say: a guide of the chain
 -- not loaded.
-local function chainQuests(g)
+function chainQuests(g)
 	local set = uses[g.id]
 	if set ~= nil then return set or nil end
 	local G, E, player = ns.Guides, ns.Engine, ns.Compat.GetPlayerInfo() or {}

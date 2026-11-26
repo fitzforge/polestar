@@ -90,24 +90,27 @@ return {
 	-- Step 15: Adventure: Lord Valthalak
 	-- {npc:16042} Lord Valthalak
 	["Adventure: {npc:16042}"] = "冒险：{npc:16042}",
-	-- {npc:16042} Lord Valthalak · {quest:8999} Saving the Best for Last · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
-	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:8999}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:8999}."] = "完成 {npc:16042} 任务线可获得一点。这是 60 级地下城套装任务链，从“热心的建议”一直到你所属职业的 {quest:8999}：{npc:16013}（{zone:1455}）或 {npc:16012}（{zone:1454}）会让你依次完成“寻找安泰恩”和“告别安泰恩”，前往 {area:254} 的 {npc:16033} 处；他提供的“烈焰之王”、瓦塔拉克饰品的左半部分和右半部分、“最后的准备”及 {quest:8995}，最终通向 {quest:8996}。随后 {quest:8997} 会引向 {quest:8999}。",
+	-- {npc:16042} Lord Valthalak · {quest:9001} Saving the Best for Last · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
+	-- was: ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:8999}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:8999}."] = "完成 {npc:16042} 任务线可获得一点。这是 60 级地下城套装任务链，从“热心的建议”一直到你所属职业的 {quest:8999}：{npc:16013}（{zone:1455}）或 {npc:16012}（{zone:1454}）会让你依次完成“寻找安泰恩”和“告别安泰恩”，前往 {area:254} 的 {npc:16033} 处；他提供的“烈焰之王”、瓦塔拉克饰品的左半部分和右半部分、“最后的准备”及 {quest:8995}，最终通向 {quest:8996}。随后 {quest:8997} 会引向 {quest:8999}。"
+	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:9001}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:9001}."] = "",
 	-- {npc:16073} Spirit of Lord Valthalak · {npc:16033} Bodley · {area:254} Blackrock Mountain
 	["{npc:16073}, inside Upper Blackrock Spire after Mea Culpa (no spawn in the data: the arrow leads to {npc:16033}'s {area:254})"] = "{npc:16073}，在黑石塔上层完成“瓦塔拉克公爵”之后（数据中没有刷新点：箭头指向{npc:16033}所在的{area:254}）",
 	-- {npc:16033} Bodley · {quest:8996} Return to Bodley
 	["{npc:16033} offers it once {quest:8996} is turned in"] = "交还{quest:8996}后，{npc:16033}会提供此任务",
 
 	-- Step 16: Adventure: Saving the Best for Last (Alliance)
-	-- {quest:8999} Saving the Best for Last
-	["Adventure: {quest:8999} (Alliance)"] = "冒险：{quest:8999}（联盟）",
-	-- {npc:16013} Deliana · {quest:8999} Saving the Best for Last
-	["{npc:16013} then offers your class's {quest:8999}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "随后 {npc:16013} 会提供你职业对应的 {quest:8999}，这是挑战的最后一个任务：收取本职业地下城套装的头盔和胸甲，并将其升级。",
+	-- {quest:9001} Saving the Best for Last
+	["Adventure: {quest:9001} (Alliance)"] = "",
+	-- {npc:16013} Deliana · {quest:9001} Saving the Best for Last
+	-- was: ["{npc:16013} then offers your class's {quest:8999}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "随后 {npc:16013} 会提供你职业对应的 {quest:8999}，这是挑战的最后一个任务：收取本职业地下城套装的头盔和胸甲，并将其升级。"
+	["{npc:16013} then offers your class's {quest:9001}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "",
 
 	-- Step 17: Adventure: Saving the Best for Last (Horde)
-	-- {quest:9007} Saving the Best for Last
-	["Adventure: {quest:9007} (Horde)"] = "冒险：{quest:9007}（部落）",
-	-- {npc:16012} Mokvar · {quest:9007} Saving the Best for Last
-	["{npc:16012} then offers your class's {quest:9007}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "随后 {npc:16012} 会提供你职业对应的 {quest:9007}，这是挑战的最后一个任务：收取本职业地下城套装的头盔和胸甲，并将其升级。",
+	-- {quest:9008} Saving the Best for Last
+	["Adventure: {quest:9008} (Horde)"] = "",
+	-- {npc:16012} Mokvar · {quest:9008} Saving the Best for Last
+	-- was: ["{npc:16012} then offers your class's {quest:9007}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "随后 {npc:16012} 会提供你职业对应的 {quest:9007}，这是挑战的最后一个任务：收取本职业地下城套装的头盔和胸甲，并将其升级。"
+	["{npc:16012} then offers your class's {quest:9008}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "",
 
 	-- Step 18: Dungeons: level 15-25
 	["Dungeons: level 15-25"] = "地下城：15-25级",
@@ -186,6 +189,8 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Adventure: {quest:8997} (Alliance)"] = "冒险：{quest:8997}（联盟）",
 	-- ["Adventure: {quest:8998} (Horde)"] = "冒险：{quest:8998}（部落）",
+	-- ["Adventure: {quest:8999} (Alliance)"] = "冒险：{quest:8999}（联盟）",
+	-- ["Adventure: {quest:9007} (Horde)"] = "冒险：{quest:9007}（部落）",
 	-- ["All 13 Hyjal Summit bosses are a point. Hyjal Summit is a new Forever raid; its bosses are not in our data, so tick it off once all 13 are down."] = "击败 Hyjal Summit 全部13个首领计1点。Hyjal Summit 是 Forever 新增的团队副本；它的首领不在我们的数据中，所以全部13个都击败后请自行勾选。",
 	-- ["All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new Forever raid; its bosses are not in our data, so tick it off once all 8 are down."] = "击败 Barrow Deeps 全部8个首领计1点。Barrow Deeps 是 Forever 新增的团队副本；它的首领不在我们的数据中，所以全部8个都击败后请自行勾选。",
 	-- ["Blizzard counts four battleground reputations, but our faction data has three per side ({zone:1460}, {zone:1461}, {zone:1459}). The fourth is likely tied to Forever's new PvP content; check the in-game Legacy panel."] = "暴雪计算了四个战场声望，但我们的阵营数据中每方只有三个（{zone:1460}、{zone:1461}、{zone:1459}）。第四个可能与 Forever 新的PvP内容有关；请查看游戏内的传承面板。",
@@ -198,6 +203,7 @@ return {
 	-- ["The final boss of every level 15-25 dungeon earns one point together. Tick each boss off when you kill it; the grouping follows the usual Classic level ranges, so check the in-game Legacy panel for the exact list."] = "每个15-25级地下城的最终首领合计1点。击杀每个首领后勾选；分组按照经典版常见的等级范围，具体名单请查看游戏内的传承面板。",
 	-- ["The final boss of every level 26-45 dungeon earns one point together."] = "每个26-45级地下城的最终首领合计1点。",
 	-- ["The final boss of every level 46-60 dungeon earns one point together."] = "每个46-60级地下城的最终首领合计1点。",
+	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:8999}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:8999}."] = "完成 {npc:16042} 任务线可获得一点。这是 60 级地下城套装任务链，从“热心的建议”一直到你所属职业的 {quest:8999}：{npc:16013}（{zone:1455}）或 {npc:16012}（{zone:1454}）会让你依次完成“寻找安泰恩”和“告别安泰恩”，前往 {area:254} 的 {npc:16033} 处；他提供的“烈焰之王”、瓦塔拉克饰品的左半部分和右半部分、“最后的准备”及 {quest:8995}，最终通向 {quest:8996}。随后 {quest:8997} 会引向 {quest:8999}。",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and Mea Culpa, {npc:16042} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "{npc:16042}任务线计1点。这是60级地下城套装任务链：{npc:16013}（{zone:1455}）或{npc:16012}（{zone:1454}）通过“寻找安泰恩”和“告别安泰恩”把你送到{area:254}的{npc:16033}处，他的“烈焰之王”、瓦塔拉克公爵的护符左瓣和右瓣、“最后的准备”和“{npc:16042}”，最终以{quest:8996}结束。之后{quest:8997}会引向各职业的最终套装升级任务。",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "{npc:16042}任务线计1点。这是60级地下城套装任务链：{npc:16013}（{zone:1455}）或{npc:16012}（{zone:1454}）通过“寻找安泰恩”和“告别安泰恩”把你送到{area:254}的{npc:16033}处，他的“烈焰之王”、瓦塔拉克饰品的左瓣和右瓣、“最后的准备”和{quest:8995}，最终以{quest:8996}结束。之后{quest:8997}会引向各职业的“最后的奖赏”任务。",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of {item:22048}, Final Preparations and Mea Culpa, {npc:16042} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "{npc:16042}任务线计1点。这是60级地下城套装任务链：{npc:16013}（{zone:1455}）或{npc:16012}（{zone:1454}）通过“寻找安泰恩”和“告别安泰恩”把你送到{area:254}的{npc:16033}处，他的“烈焰之王”、{item:22048}的左瓣和右瓣、“最后的准备”和“{npc:16042}”，最终以{quest:8996}结束。之后{quest:8997}会引向各职业的最终套装升级任务。",
@@ -208,5 +214,7 @@ return {
 	-- ["{area:16919} and {area:153} are new in Forever. Their bosses, levels and Legacy bracket are not in our data, so tick them off yourself."] = "{area:16919}和{area:153}是 Forever 新增的。它们的首领、等级和传承等级段不在我们的数据中，所以请自行勾选。",
 	-- ["{area:717}: the usual last kill; the {area:717} has no fixed final boss"] = "{area:717}：通常的最后一个击杀；{area:717}没有固定的最终首领",
 	-- ["{npc:16012} then offers your class's Saving the Best for Last, the final upgrade of the dungeon set."] = "随后{npc:16012}会提供你职业的最终升级任务，即地下城套装的最后一次升级。",
+	-- ["{npc:16012} then offers your class's {quest:9007}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "随后 {npc:16012} 会提供你职业对应的 {quest:9007}，这是挑战的最后一个任务：收取本职业地下城套装的头盔和胸甲，并将其升级。",
 	-- ["{npc:16013} then offers your class's Saving the Best for Last, the final upgrade of the dungeon set."] = "随后{npc:16013}会提供你职业的最终升级任务，即地下城套装的最后一次升级。",
+	-- ["{npc:16013} then offers your class's {quest:8999}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "随后 {npc:16013} 会提供你职业对应的 {quest:8999}，这是挑战的最后一个任务：收取本职业地下城套装的头盔和胸甲，并将其升级。",
 }

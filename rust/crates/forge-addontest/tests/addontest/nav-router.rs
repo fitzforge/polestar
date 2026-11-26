@@ -503,6 +503,101 @@ emit({{ order = order, sketchFrame = sketchFrame }})"#,
 	assert!(got["sketchFrame"].as_i64().unwrap() <= 2, "the sketch's answer within a frame of its slice: {got}");
 }
 
+// #4149: a pump the router armed (Path.after) and never ran left every search waiting until a reload, "Finding a
+// walking route" for good: Routing/PathJobs.lua's flag said a pump was coming, so no search armed another. Each
+// case: two searches, one job a frame (a zero budget), frames as the client runs them (OnUpdate scripts, then the
+// timers the frame before armed, each in its own protected call); `setup` breaks one thing first.
+fn stall(setup: &str) -> Value {
+	let map = map_files(&layout(3, Cls::default(), Cls::default()), true, Opts::default());
+	let script = format!(
+		r#"
+local Path = Polestar_NavEngine
+local frames, arms, lose, fail, held = {{}}, 0, 0, 0, nil
+Path.after = function(fn)
+	arms = arms + 1
+	if fail > 0 then fail = fail - 1 error("Path.after failed") end
+	if lose > 0 then lose = lose - 1 held = fn return end
+	frames[#frames + 1] = fn
+end
+local errors = {{}}
+geterrorhandler = function() return function(e) errors[#errors + 1] = tostring(e) end end
+local function frame()
+	local due = frames
+	frames = {{}}
+	stub.advance(0.05)
+	for _, fn in ipairs(due) do
+		local ok, e = pcall(fn)
+		if not ok then errors[#errors + 1] = tostring(e) end
+	end
+end
+Path.budget = 0
+local A, B = {a}, {b}
+local t0 = stub.now
+local first, second, at
+local function ask()
+	return Path.Find({MAP}, A, B, function(points, reason) first, at = points and "walk" or tostring(reason), stub.now - t0 end, nil)
+end
+local function also()
+	return Path.Find({MAP}, B, A, function(points, reason) second = points and "walk" or tostring(reason) end, nil)
+end
+local late, most = nil, 0
+{setup}
+for _ = 1, 200 do
+	frame()
+	if late then most = math.max(most, #frames) end
+	if held and not late and arms > 1 then late = true frames[#frames + 1] = held end
+	if first and second then break end
+end
+Path.Busy()
+emit({{ first = first, second = second, seconds = at, errors = errors, asked = asked, most = most, late = late, idle = not Path.Busy() }})"#,
+		a = lua(from()),
+		b = lua(to()),
+	);
+	emitted(&RunAddon { stubs: vec!["stub_encoding.lua"], before: map.dofiles(), addons: vec![ours()], script, ..Default::default() }).remove(0)
+}
+
+#[test]
+fn a_pump_whose_timer_never_fires_is_armed_again_and_the_walk_still_arrives_4149() {
+	let got = stall("lose = 1\nask()\nalso()");
+	assert_eq!((got["first"].as_str(), got["second"].as_str()), (Some("walk"), Some("walk")), "both walks arrive: {got}");
+	let s = got["seconds"].as_f64().unwrap();
+	assert!(s <= 2.0, "within a second or two of the ask: {s} s, {got}");
+	assert_eq!(got["late"], true, "the lost timer turned up after all, after the pump was armed again: {got}");
+	assert_eq!(got["most"], 1, "it ran nothing: one pump a frame, never two: {got}");
+	assert_eq!(got["idle"], true, "the queue empties: {got}");
+}
+
+#[test]
+fn path_after_failing_once_is_reported_and_the_walk_still_arrives_4149() {
+	// Nav/Walk.lua asks under pcall: a failure thrown back to it was lost without a word.
+	let got = stall("fail = 1\nasked = pcall(ask)\nalso()");
+	assert_eq!(got["asked"], true, "the ask itself doesn't fail: {got}");
+	assert_eq!((got["first"].as_str(), got["second"].as_str()), (Some("walk"), Some("walk")), "both walks arrive: {got}");
+	assert!(got["seconds"].as_f64().unwrap() <= 2.0, "within a second or two: {got}");
+	let errors = got["errors"].as_array().unwrap();
+	assert!(errors.len() == 1 && errors[0].as_str().unwrap().contains("Path.after failed"), "reported once to the error frame: {got}");
+	assert_eq!(got["idle"], true, "{got}");
+}
+
+#[test]
+fn a_pump_failing_between_a_job_s_slice_and_its_answer_answers_it_and_runs_the_rest_4149() {
+	// The failure comes in the pump's own bookkeeping after a slice (Path.clock, outside any search's coroutine).
+	let got = stall(
+		r#"local job, real = nil, Path.clock
+Path.clock = function()
+	if job and job.frames >= 1 and not coroutine.running() then job = nil error("slice bookkeeping failed") end
+	return real()
+end
+job = ask()
+also()"#,
+	);
+	assert_eq!(got["first"], "error", "the search it was slicing is answered, as one failing in its slice: {got}");
+	assert_eq!(got["second"], "walk", "the one queued behind it still runs: {got}");
+	let errors = got["errors"].as_array().unwrap();
+	assert!(errors.len() == 1 && errors[0].as_str().unwrap().contains("slice bookkeeping failed"), "the error still reaches the error frame: {got}");
+	assert_eq!(got["idle"], true, "{got}");
+}
+
 #[test]
 fn the_fifth_argument_a_boolean_is_waterwalking_a_table_is_opts() {
 	let map = map_files(&layout(4, val(2), Cls::default()), true, Opts::default());

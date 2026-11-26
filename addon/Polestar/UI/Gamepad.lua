@@ -1762,11 +1762,14 @@ local function paintWaiting(e)
 	return true
 end
 
--- The newest open window; nil when none is shown.
+-- The newest open window on screen; nil when none is. A window shown under
+-- a hidden parent (Polestar hidden, its layer with it) is out of sight and
+-- takes no button: What's new opening by itself on a hidden Polestar held
+-- every face button and the D-pad from the game (#4240).
 local function newest()
 	for i = #stack, 1, -1 do
 		local e = stack[i]
-		if e.frame:IsShown() then return e end
+		if e.frame:IsVisible() then return e end
 	end
 	return nil
 end
@@ -1920,5 +1923,7 @@ ns.On("SETTING_CHANGED", function(path)
 	if (path == "gamepad.hints" or path == "gamepad.glyphs" or path == "gamepad") and G.entry then paint(G.entry) end
 end)
 ns.On("GAMEPAD_BINDINGS_CHANGED", function() if waitingShown then refresh() end end)
+-- Polestar hidden or shown: its windows leave the screen or come back with it.
+ns.On("POLESTAR_HIDDEN", function() refresh() end)
 
 ns.OnLogin(updateDriver)

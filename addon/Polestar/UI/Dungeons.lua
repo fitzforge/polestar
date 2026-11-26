@@ -1379,11 +1379,13 @@ local function pageHeader(d)
 	local plan = hd.plan or nil
 	local hplan = hd.hplan or nil
 	local take = plan and #plan.take or 0
+	-- Quests in the log whose items wait at their giver (#4042) need the guide too.
+	local fetch = plan and #(plan.fetch or {}) or 0
 	local hand = hplan and #hplan.hand + #(hplan.errands or {}) or 0
 	local logged = hplan and #hplan.hand + #hplan.unfinished + #hplan.inside + #hplan.unplaced or 0
-	local lead = hand > 0 and "handin" or take > 0 and "pickup" or "go"
+	local lead = hand > 0 and "handin" or (take > 0 or fetch > 0) and "pickup" or "go"
 	local side = SIDE[UI.PlayerFaction() or ""]
-	local none = plan ~= nil and take == 0 and #Dg.Quests(d.key, side) > 0 and lead == "go"
+	local none = plan ~= nil and take == 0 and fetch == 0 and #Dg.Quests(d.key, side) > 0 and lead == "go"
 	-- The quests that wait for a level say so on the button and in its tip
 	-- (Dungeons.PickupLabel, WaitingLines: "3 now · 2 at level 16").
 	local waiting = plan and Dg.WaitingLines and Dg.WaitingLines(plan) or {}
@@ -1395,11 +1397,17 @@ local function pageHeader(d)
 		end
 		return lines
 	end
-	if take > 0 then
-		local lines = { format(take == 1 and L["A guide to the 1 quest here you can take, with what comes before it, ending at the entrance."]
-			or L["A guide to the %d quests here you can take, with what comes before them, ending at the entrance."], take) }
-		local carried = #plan.carried
-		if carried > 0 then lines[#lines + 1] = carried == 1 and L["1 more is in your log already."] or format(L["%d more are in your log already."], carried) end
+	if take > 0 or fetch > 0 then
+		local lines
+		if take > 0 then
+			lines = { format(take == 1 and L["A guide to the 1 quest here you can take, with what comes before it, ending at the entrance."]
+				or L["A guide to the %d quests here you can take, with what comes before them, ending at the entrance."], take) }
+			local carried = #plan.carried
+			if carried > 0 then lines[#lines + 1] = carried == 1 and L["1 more is in your log already."] or format(L["%d more are in your log already."], carried) end
+		else
+			lines = { fetch == 1 and L["A guide to the items 1 quest in your log needs from where it is given, ending at the entrance."]
+				or format(L["A guide to the items %d quests in your log need from where they are given, ending at the entrance."], fetch) }
+		end
 		withWaiting(lines)
 		lines[#lines + 1] = L["It opens in a new tab."]
 		for _, b in ipairs({ pg.Pickup, pg.PickupQuiet }) do
@@ -1426,7 +1434,7 @@ local function pageHeader(d)
 	pg.HandIn:SetShown(lead == "handin")
 	pg.HandInQuiet:SetShown(lead ~= "handin" and logged > 0)
 	pg.Pickup:SetShown(lead == "pickup")
-	pg.PickupQuiet:SetShown(lead == "handin" and take > 0)
+	pg.PickupQuiet:SetShown(lead == "handin" and (take > 0 or fetch > 0))
 	pg.PickupNone:SetShown(none)
 	pg.Go:SetShown(go and lead == "go")
 	pg.GoQuiet:SetShown(go and lead ~= "go")

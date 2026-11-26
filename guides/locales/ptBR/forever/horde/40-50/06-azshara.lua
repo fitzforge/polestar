@@ -83,10 +83,10 @@ return {
 	["{npc:6986}, the Drag"] = "{npc:6986}, no Drag",
 
 	-- Step 23: Orgrimmar
-	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow (no name in this language: may be words) · {quest:4300} Bone-Bladed Weapons · {zone:1447} Azshara
-	["{npc:8659}, in the {object:172960}, has {quest:4300} for later; then your class trainer before you leave for {zone:1447}."] = "",
-	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow (no name in this language: may be words)
-	["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
+	-- {npc:8659} Jes'rimon · {quest:4300} Bone-Bladed Weapons · {zone:1447} Azshara
+	["{npc:8659}, at the top of a tower in the Drag, has {quest:4300} for later; then your class trainer before you leave for {zone:1447}."] = "",
+	-- {npc:8659} Jes'rimon
+	["{npc:8659}, at the top of a tower in the Drag"] = "",
 
 	-- Step 24: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {object:172957} Valley of Wisdom (no name in this language: may be words) · {npc:4791} Nazeer Bloodpike · {zone:1445} Dustwallow Marsh
@@ -328,6 +328,7 @@ return {
 	-- ["{npc:7825} stands in the {object:36082}."] = "{npc:7825} fica no {object:36082}.",
 	-- ["{npc:7876}'s tar and Pestlezugg's samples come from {zone:1449}."] = "O piche de {npc:7876} e as amostras de Almofarrista vêm de {zone:1449}.",
 	-- ["{npc:8395}, at the east edge of the camp: no experience, only a teleport to Azshara Tower"] = "{npc:8395}, na borda leste do acampamento: não dá experiência, só um teleporte para a Torre de Azshara",
+	-- ["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 	-- ["{object:3202} flight master"] = "Mestre de voo de {object:3202}",
 	-- ["{quest:3761} is gathered in the next guide; {npc:4046}'s payment goes back to {npc:8587} later."] = "{quest:3761} é coletado no próximo guia; o pagamento de {npc:4046} volta para {npc:8587} depois.",
 	-- ["{quest:4494} needs level 50: {npc:7010}, in the Drag, gives it from then on. Under 50, the {zone:1447} guide at 55 offers it again."] = "{quest:4494} exige nível 50: {npc:7010}, no Drag, a oferece a partir daí. Abaixo do 50, o Guia de {zone:1447} no nível 55 a oferece de novo.",

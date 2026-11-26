@@ -113,8 +113,8 @@ return {
 	["{npc:6774}, by the stables south of the Abbey"] = "{npc:6774}, junto a los establos al sur de la abadía",
 
 	-- Step 19: Goldshire
-	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:295} Innkeeper Farley · {npc:253} William Pestle
-	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road."] = "Sigue el camino al sur, saliendo del valle, hasta {area:87}. {npc:240} está afuera de la herrería, al oeste del camino, {npc:241} junto al camino al sur de ella, y {npc:295} y {npc:253} en la Posada Orgullo de León, al otro lado del camino.",
+	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:295} Innkeeper Farley · {npc:253} William Pestle · {quest:5624} Garments of the Light · {spell:613} Lesser Heal · {npc:377} Priestess Josetta
+	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road.\nPriests: {quest:5624} counts only {spell:613} (Rank 2). {npc:377} trains priests too: learn it from her now if you have not yet."] = "",
 	-- {npc:295} Innkeeper Farley
 	["{npc:295}, inside"] = "{npc:295}, adentro",
 	-- {npc:253} William Pestle
@@ -542,6 +542,7 @@ return {
 	-- ["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "Sigue el sendero hacia el norte hasta la mina. Los Trabajadores kóbold pululan afuera; cualquier kóbold del valle puede soltar {object:83763}.",
 	-- ["Follow the road east past the {area:91} to the bridge."] = "Sigue el camino hacia el este pasando {area:91} hasta el puente.",
 	-- ["Follow the road north from {area:87} into {zone:1453}. {npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in {object:2100} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "Sigue el camino hacia el norte desde {area:87} hasta {zone:1453}. {npc:6171} y {npc:6173} están en la Cathedral of Light; {npc:6174} está en {object:2100} y pide diez de {item:2589} (lo sueltan los humanoides; la casa de subastas lo vende).",
+	-- ["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road."] = "Sigue el camino al sur, saliendo del valle, hasta {area:87}. {npc:240} está afuera de la herrería, al oeste del camino, {npc:241} junto al camino al sur de ella, y {npc:295} y {npc:253} en la Posada Orgullo de León, al otro lado del camino.",
 	-- ["Follow the road south out of the valley to {area:87}. {npc:295} is in the Lion's Pride Inn; {npc:240} stands outside the smithy across the road, {npc:253} at the inn's front and {npc:241} by the road south of it."] = "Sigue el camino hacia el sur fuera del valle hasta {area:87}. {npc:295} está en la Lion's Pride Inn; {npc:240} está afuera de la herrería, al otro lado del camino; {npc:253}, frente a la posada; y {npc:241}, junto al camino, al sur.",
 	-- ["Follow the road west back to {area:87}."] = "Sigue el camino hacia el oeste de regreso a {area:87}.",
 	-- ["Follow the road west back to {area:87}; {npc:6306} and Jason stand on the lake shore before town."] = "Sigue el camino hacia el oeste de regreso a {area:87}; {npc:6306} y Jason están en la orilla del lago antes del pueblo.",

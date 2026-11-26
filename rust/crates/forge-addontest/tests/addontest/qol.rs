@@ -1505,21 +1505,28 @@ fn target_button_step_key_and_rows_a_press_on_a_living_one_of_their_names_moves_
 // Auto Shot), so a press that found none of its names kept the Harvest Sentry the player had, and the macro's /tm
 // line put the skull on it. A macro cannot test a name: the press notes the target and its icon first and, after it,
 // puts that icon back on a target it left in place whose name is none of the macro's. A unit it moved to, or one of
-// its names it kept, keeps the mark. Here the macro is played as the client would: `to` is where the press leaves
-// the target (false: cleared), then the /tm line marks a living hostile one.
+// its names it kept, keeps the mark. #4201 (RoadBlock): SetRaidTarget is protected in combat, so that put-back made
+// every such press in a fight an ADDON_ACTION_FORBIDDEN; under combat lockdown the press never calls it (the skull
+// stays), and only a press the macro read as in a fight before the lockdown began puts the icon back. Here the macro
+// is played as the client would: `to` is where the press leaves the target (false: cleared, nil: kept), then the /tm
+// line marks a living hostile one; SetRaidTarget under lockdown is counted as the game's refusal.
 #[test]
-fn target_button_and_step_key_in_a_fight_a_press_that_finds_none_of_its_names_leaves_the_kept_target_unmarked_2968() {
+fn target_button_and_step_key_never_call_set_raid_target_in_combat_and_put_a_stray_mark_back_only_outside_it_2968_4201() {
 	let out = run(r#"
 		set("markTarget", true)
 		q.step({ { t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 }, { t = "kill", target = "Kobold Worker", quest = 7, oi = 2 } })
 		stub.runTimers()
-		local guid, sets, to = UnitGUID, {}, nil
+		local guid, sets, to, forbidden = UnitGUID, {}, nil, 0
 		function UnitGUID(unit)
 			if unit == "target" then return type(q.target) == "table" and q.target.guid or nil end
 			return guid and guid(unit)
 		end
 		function GetRaidTargetIndex(unit) if unit == "target" and type(q.target) == "table" then return q.target.mark end end
 		function SetRaidTarget(unit, i)
+			if InCombatLockdown() then
+				forbidden = forbidden + 1
+				return
+			end
 			sets[#sets + 1] = i
 			if unit == "target" and type(q.target) == "table" then q.target.mark = i ~= 0 and i or nil end
 		end
@@ -1545,22 +1552,31 @@ fn target_button_and_step_key_in_a_fight_a_press_that_finds_none_of_its_names_le
 		out.kept = press(PolestarTargetButton, { name = "Kobold Worker", hostile = true, guid = "W" })
 		out.step = press(PolestarStepButton, sentry())
 		q.combat(false)
+		-- The macro read the fight (the target kept) while the lockdown had not begun.
+		out.early = press(PolestarTargetButton, sentry())
+		out.earlyMoon = press(PolestarTargetButton, sentry(5))
 		out.calm = press(PolestarTargetButton, sentry(), false)
+		out.forbidden = forbidden
 		emit(out)
 	"#);
 	let o = &out[0];
-	for case in ["stray", "moon", "moved", "kept", "step", "calm"] {
+	for case in ["stray", "moon", "moved", "kept", "step", "early", "earlyMoon", "calm"] {
 		assert_eq!(o[case]["ran"], json!(true), "{case}: the macro ran");
 	}
+	assert_eq!(o["forbidden"], json!(0), "#4201: no SetRaidTarget call under combat lockdown");
 	assert_eq!(o["stray"]["target"], json!("Harvest Sentry"), "the kept target");
-	assert_eq!(o["stray"]["mark"], json!(false), "the report: no skull on the Harvest Sentry");
-	assert_eq!(o["stray"]["sets"], json!("0"), "taken off once, on the press that ran the macro");
-	assert_eq!(o["moon"]["mark"], json!(5), "the icon it had is put back");
+	assert_eq!(o["stray"]["mark"], json!(8), "in combat the skull stays: the game forbids taking it off");
+	assert_eq!(o["stray"]["sets"], json!(""));
+	assert_eq!(o["moon"]["sets"], json!(""));
+	assert_eq!(o["step"]["sets"], json!(""), "the step key too");
 	assert_eq!(o["moved"]["mark"], json!(8), "a Kobold Vermin the press found keeps the skull");
 	assert_eq!(o["moved"]["sets"], json!(""));
 	assert_eq!(o["kept"]["mark"], json!(8), "a Kobold Worker kept (one of its names) keeps the skull");
 	assert_eq!(o["kept"]["sets"], json!(""));
-	assert_eq!(o["step"]["mark"], json!(false), "the step key too");
+	assert_eq!(o["early"]["target"], json!("Harvest Sentry"));
+	assert_eq!(o["early"]["mark"], json!(false), "#2968: outside the lockdown the stray skull comes off");
+	assert_eq!(o["early"]["sets"], json!("0"), "taken off once, on the press that ran the macro");
+	assert_eq!(o["earlyMoon"]["mark"], json!(5), "the icon it had is put back");
 	assert_eq!(o["calm"]["target"], json!(false), "out of a fight the press starts from nothing");
 	assert_eq!(o["calm"]["sets"], json!(""), "nothing to take back");
 }

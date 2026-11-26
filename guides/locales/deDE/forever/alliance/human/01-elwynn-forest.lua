@@ -113,8 +113,8 @@ return {
 	["{npc:6774}, by the stables south of the Abbey"] = "{npc:6774}, bei den Ställen südlich der Abtei",
 
 	-- Step 19: Goldshire
-	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:295} Innkeeper Farley · {npc:253} William Pestle
-	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road."] = "Folge der Straße nach Süden aus dem Tal hinaus nach {area:87}. {npc:240} steht vor der Schmiede auf der Westseite der Straße, {npc:241} an der Straße südlich davon, und {npc:295} und {npc:253} im Lion's Pride Inn auf der anderen Straßenseite.",
+	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:295} Innkeeper Farley · {npc:253} William Pestle · {quest:5624} Garments of the Light · {spell:613} Lesser Heal · {npc:377} Priestess Josetta
+	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road.\nPriests: {quest:5624} counts only {spell:613} (Rank 2). {npc:377} trains priests too: learn it from her now if you have not yet."] = "",
 	-- {npc:295} Innkeeper Farley
 	["{npc:295}, inside"] = "{npc:295}, drinnen",
 	-- {npc:253} William Pestle
@@ -437,7 +437,6 @@ return {
 	-- {npc:240} Marshal Dughan
 	["{npc:240}, while William brews"] = "{npc:240}, während William braut",
 	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind · {zone:1436} Westfall
-	-- was: ["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, an der Schmiede neben Dughan: {npc:1416} in {zone:1453} nimmt sie an (02-westfall)"
 	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (the {zone:1436} guide)"] = "{npc:514}, in der Schmiede neben Dughan: {npc:1416} in {zone:1453} nimmt es an (der Guide für {zone:1436})",
 	-- {npc:253} William Pestle
 	["{npc:253}, back in the inn"] = "{npc:253}, zurück im Gasthaus",
@@ -543,6 +542,7 @@ return {
 	-- ["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "Folge dem Weg nach Norden zur Mine. Davor wimmelt es von Koboldtagelöhnern; jeder Kobold im Tal kann {object:83763} fallen lassen.",
 	-- ["Follow the road east past the {area:91} to the bridge."] = "Folge der Straße nach Osten an {area:91} vorbei zur Brücke.",
 	-- ["Follow the road north from {area:87} into {zone:1453}. {npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in {object:2100} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "Folge der Straße nach Norden von {area:87} nach {zone:1453}. {npc:6171} und {npc:6173} sind in der Kathedrale des Lichts; {npc:6174} steht in {object:2100} und bittet um zehn {item:2589} (Humanoide lassen ihn fallen; das Auktionshaus verkauft ihn).",
+	-- ["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road."] = "Folge der Straße nach Süden aus dem Tal hinaus nach {area:87}. {npc:240} steht vor der Schmiede auf der Westseite der Straße, {npc:241} an der Straße südlich davon, und {npc:295} und {npc:253} im Lion's Pride Inn auf der anderen Straßenseite.",
 	-- ["Follow the road south out of the valley to {area:87}. {npc:295} is in the Lion's Pride Inn; {npc:240} stands outside the smithy across the road, {npc:253} at the inn's front and {npc:241} by the road south of it."] = "Folge der Straße nach Süden aus dem Tal nach {area:87}. {npc:295} ist im Gasthaus „Zur Höhle des Löwen“; {npc:240} steht vor der Schmiede auf der anderen Straßenseite, {npc:253} vor dem Gasthaus und {npc:241} an der Straße südlich davon.",
 	-- ["Follow the road west back to {area:87}."] = "Folge der Straße nach Westen zurück nach {area:87}.",
 	-- ["Follow the road west back to {area:87}; {npc:6306} and Jason stand on the lake shore before town."] = "Folge der Straße nach Westen zurück nach {area:87}; {npc:6306} und Jason stehen vor dem Ort am Seeufer.",
