@@ -504,6 +504,19 @@
 --   Fewer folders
 --   Quit the game fully and start it again: Polestar is 22 folders now, not 45.
 --   Steps fixed in dozens of zones. Found something off? Type %s.
+--
+-- Machine-translated, to be reviewed (0.4.4 Dungeon Set 2 guides, 26 Nov 2026): translated by an AI model
+-- (Claude Opus 5.5) and waiting for a native speaker's check. Reviewing one: keep or fix it, and take it
+-- off this list. These guides' texts in guides/locales/frFR/:
+--   forever/class/druid/dungeon-set-2
+--   forever/class/hunter/dungeon-set-2
+--   forever/class/mage/dungeon-set-2
+--   forever/class/paladin/dungeon-set-2
+--   forever/class/priest/dungeon-set-2
+--   forever/class/rogue/dungeon-set-2
+--   forever/class/shaman/dungeon-set-2
+--   forever/class/warlock/dungeon-set-2
+--   forever/class/warrior/dungeon-set-2
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "frFR") then return end
