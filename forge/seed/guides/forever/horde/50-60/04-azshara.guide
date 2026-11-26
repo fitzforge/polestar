@@ -44,8 +44,9 @@ pitch Ratchet, Orgrimmar and the Undercity, then into the Plaguelands.
 
 step Orgrimmar
   zone Orgrimmar
-  turnin 4300                         -- Jes'rimon, the Cleft of Shadow
-  accept 8276                         -- Cenarion Emissary Blackhoof, Valley of Wisdom: keep it for Silithus
+  tip Jes'rimon takes the ravasaur claws from Un'Goro; he is in The Drag, upstairs in one of its tallest buildings.
+  turnin 4300 -- Jes'rimon, upstairs in The Drag
+  accept 8276 -- Cenarion Emissary Blackhoof, Valley of Strength: keep it for Silithus
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 # ---------------------------------------------------------------- The Barrens
@@ -60,7 +61,7 @@ step Liv Rizzlefix
   collect 10556 quest 3444.1          -- Stone Circle: Marvon's Chest
 
 step Islen Waterseer
-  tip Islen camps on the shore just north of Ratchet.
+  tip Islen camps on the shore just south of Ratchet, at the water's edge.
   turnin 5158
   accept 5159
   note Cleansed Water goes to the Emerald Sanctuary in Felwood: keep it for later.
@@ -149,6 +150,7 @@ step The Apothecarium
   turnin 3570
 
 step Royal Quarter
+  tip Royal Overseer Bauhaus keeps the census in the Trade Quarter, beside the guild and tabard registrars near the bank.
   turnin 5023                         -- Royal Overseer Bauhaus
   accept 5049
   turnin 5049                         -- Jeremiah Payson, nearby

@@ -64,10 +64,10 @@ return {
 	["The middle of {zone:1454}"] = "{zone:1454} 중앙",
 
 	-- Step 14: Jes'rimon
-	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
-	["{npc:8659} takes the ravasaur claws from Un'Goro; he stands in the {object:172960}, a short walk from the middle of the city."] = "{npc:8659}이(가) 운고로의 랩터사우루스 발톱을 받습니다. 그는 도시 중앙에서 조금 걸어가면 나오는 {object:172960}에 있습니다.",
-	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
-	["{npc:8659}, the {object:172960}"] = "{object:172960}의 {npc:8659}",
+	-- {npc:8659} Jes'rimon · {object:172959} The Drag
+	["{npc:8659} takes the ravasaur claws from Un'Goro; he is in {object:172959}, upstairs in one of its tallest buildings."] = "",
+	-- {npc:8659} Jes'rimon · {object:172959} The Drag
+	["{npc:8659}, upstairs in {object:172959}"] = "",
 
 	-- Step 15: Fly to Valormok
 	-- {area:1237} Valormok
@@ -96,8 +96,9 @@ return {
 	-- Step 19: Makrinni Burrowers
 	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower
 	["Makrinni Burrowers"] = "마크리니 굴파기",
-	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower · Highborne Treasure Fragments = {item:246684} Highborne Treasure Fragment
-	["The Makrinni Burrowers (50-51) dig in the sands just east of the ruins, on the way north-east; they and the buried caches there give up the Highborne Treasure Fragments."] = "마크리니 굴파기(50-51)는 폐허 바로 동쪽, 북동쪽으로 가는 길의 모래밭을 파고 있습니다. 이들과 그곳에 묻힌 은닉물에서 명가 보물 조각을 얻습니다.",
+	-- {npc:247473} Izvi Gildfizz · {item:246683} Treasure Trowel 3000
+	-- plural, as words: Highborne Treasure Fragments = {item:246684} Highborne Treasure Fragment · Makrinni Burrowers = {npc:247470} Makrinni Burrower
+	["{npc:247473}'s {item:246683}, in your bags, digs up the Highborne Treasure Fragments: use it on the sands just east of the ruins, where the Makrinni Burrowers (50-51) dig, on the way north-east. The Burrowers and the buried caches there give fragments too."] = "",
 
 	-- Step 20: Ekkal
 	-- {zone:1447} Azshara · {npc:235903} Ekkal
@@ -134,8 +135,10 @@ return {
 	["{item:246722}, from {npc:247013}"] = "{npc:247013}에게서 얻는 {item:246722}",
 
 	-- Step 25: Magus Rimtori
-	-- {npc:8578} Magus Rimtori
-	["Back to the Sin'dorei Tome: hand in the seals, then use it to call {npc:8578}.\nCareful: Rimtori is level 55, and which crystal is linked to him is random: each of the other two summons a hostile infernal instead. Start at full health."] = "",
+	-- {quest:91500} An Explosive Gambit · {quest:91497} Seals of the Sin'dorei
+	["Back to the Sin'dorei Tome: hand in the seals and take {quest:91500}, which gives you the {quest:91497}. Rimtori does not come from the Tome: stand beside one of the camp's tall crystals and use the {quest:91497} from your bags; its crystal explodes and draws her. Which crystal is linked to her is random: each of the other two summons a hostile infernal instead. She is level 55: start at full health."] = "",
+	-- {quest:91497} Seals of the Sin'dorei · {npc:8578} Magus Rimtori
+	["Use the {quest:91497} from your bags beside a crystal: {npc:8578} (55) comes to the explosion and drops her head"] = "",
 	-- {quest:91538} Sin'dorei Tome of Summoning · {npc:8587} Jediga · {area:1237} Valormok
 	["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: {area:1237}의 {npc:8587}에게",
 
@@ -186,8 +189,8 @@ return {
 	["{area:1237} flight master"] = "{area:1237} 비행 조련사",
 
 	-- Step 36: Belgrom Rockmaul
-	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {npc:3326} Zevrost · {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
-	["{npc:4485} is in the {object:172958}, {npc:3326} and {npc:8659} in the {object:172960}."] = "",
+	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:8659} Jes'rimon · {object:172959} The Drag
+	["{npc:4485} is in the {object:172958}, {npc:3326} in the {object:172960}, and {npc:8659} in {object:172959}, upstairs in one of its tallest buildings."] = "",
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow
 	["{npc:3326}, the {object:172960}"] = "{object:172960}의 {npc:3326}",
 	-- {npc:8659} Jes'rimon · {npc:8587} Jediga
@@ -252,16 +255,17 @@ return {
 	["The {object:661778} stands just south of the vale, by the road north: its bauble starts a quest for {npc:9996} at {area:1997}."] = "{object:661778}은(는) 골짜기 바로 남쪽, 북쪽으로 가는 길가에 있습니다. 석상의 장신구로 {area:1997}의 {npc:9996}에게 가는 퀘스트가 시작됩니다.",
 
 	-- Step 51: Irontree Woods
-	-- {area:1767} Irontree Woods · {item:11503} Blood Amber · {npc:10920} Kelek Skykeeper
-	-- plural, as words: Warpwood Moss Flayers = {npc:7100} Warpwood Moss Flayer · Felpaw Ravagers = {npc:8961} Felpaw Ravager
-	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s."] = "",
+	-- {area:1767} Irontree Woods · {npc:10920} Kelek Skykeeper · {npc:9529} Maybess Riverbreeze · {item:11503} Blood Amber · {area:1768} Irontree Cavern
+	-- plural, as words: Felpaw Ravagers = {npc:8961} Felpaw Ravager
+	["Follow the road north-east to {area:1767}: Angerclaw Grizzlies and Felpaw Ravagers roam the woods for Talo, and their organs are {npc:10920}'s. {npc:9529}'s {item:11503} comes from the Warpwood elementals inside {area:1768}, next."] = "",
 	-- {item:277958} Putrescent Bear Organs
 	["{item:277958}, from the Angerclaw bears"] = "성난발톱 곰에게서 {item:277958}",
 	-- {item:277959} Putrescent Wolf Organs
 	["{item:277959}, from the Felpaw wolves"] = "악령발 늑대에게서 {item:277959}",
 
 	-- Step 52: Irontree Woods
-	["Below ground"] = "지하",
+	-- {area:1768} Irontree Cavern
+	["Below ground: from the Warpwood elementals inside {area:1768}"] = "",
 
 	-- Step 53: Meilosh
 	-- {npc:11557} Meilosh · {zone:1448} Felwood · {quest:6031} Runecloth · {area:1769} Timbermaw Hold
@@ -293,6 +297,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "{item:13140}을(를) 얻었다면: 사용해 퀘스트를 시작한 뒤, {area:1763} 북쪽 끝 동굴인 {area:1770}의 우리에서 {npc:11018}을(를) 풀어 주세요.",
 	-- ["Back at {area:1762}, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation."] = "{area:1762}에 돌아오면 마른가지일족 털보숭이(53-54)가 터널 가까이 있고, 처치할 때마다 나무구렁 평판이 오릅니다.",
+	-- ["Below ground"] = "지하",
 	-- ["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "주의: 보초는 53-54레벨, 마른가지일족 복수자는 54-55레벨입니다. 생명력이 50% 미만이 되면 25미터 내의 동료를 부르고, 15% 미만이면 도움을 청하러 달아납니다.\n{quest:8470}이(가) 나올 때까지 계속 처치하세요(약 30마리에 하나). 나오면 우클릭하세요. {area:1769}의 {npc:11558}은(는) 나무구렁 일족이 중립이 되면 받아 줍니다. 이미 중립이라면 지금, 아니면 마지막 가이드에서 59레벨에 동굴을 다시 지날 때 제출하세요.",
 	-- ["Cross the river east into {area:2627}, the ruined town in the north-west of the {zone:1423}. {npc:12384} sits in a hut at its edge."] = "강을 건너 동쪽의 {area:2627}(으)로 가세요. {zone:1423} 북서쪽의 폐허가 된 마을입니다. {npc:12384}은(는) 마을 가장자리의 오두막에 앉아 있습니다.",
 	-- ["Derrington's watchtowers, Vandis' cauldron and {npc:11615}'s barrel are done on a later visit: keep them."] = "데링턴의 감시탑, 반디스의 가마솥, {npc:11615}의 통은 나중에 들를 때 처리합니다. 보관하세요.",
@@ -340,6 +345,7 @@ return {
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "마른가지일족 털보숭이 마을은 성소 바로 남쪽에 있습니다. 마른가지일족을 처치할 때마다 {area:1769} 평판도 오릅니다. 깃털 머리장식은 보관하세요. 53.92레벨이 될 때까지 계속 처치하세요. 성소의 다음 제출 퀘스트와 {area:1763}에 그 레벨이 필요합니다. 또는 파티가 있다면 대신 {area:1417} 던전이나 {area:1584} 던전을 도세요.",
 	-- ["The Jadefire moonwell"] = "비취불꽃 달샘",
 	-- ["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind."] = "레가시 사티로스(51-52)가 블러드 엘프 야영지 북쪽 언덕을 차지하고 있습니다. {npc:235903}은(는) 종류별로 다섯 마리씩 원합니다.",
+	-- ["The Makrinni Burrowers (50-51) dig in the sands just east of the ruins, on the way north-east; they and the buried caches there give up the Highborne Treasure Fragments."] = "마크리니 굴파기(50-51)는 폐허 바로 동쪽, 북동쪽으로 가는 길의 모래밭을 파고 있습니다. 이들과 그곳에 묻힌 은닉물에서 명가 보물 조각을 얻습니다.",
 	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "붉은십자군의 천막은 {area:199}와(과) {area:200} 사이에 있습니다. {object:176092}(으)로 지휘 천막을 불태우고 스컬지 깃발을 꽂으세요.",
 	-- ["The bears roam the hills north and east of the {area:202}."] = "곰은 {area:202} 북쪽과 동쪽 언덕을 돌아다닙니다.",
 	-- ["The book lies in the ruined inn of {area:2627}; the undead in the town are 54-56, so pull them one at a time.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "책은 {area:2627}의 무너진 여관에 있습니다. 마을의 언데드는 54-56레벨이니 한 마리씩 끌어오세요.\n커다란 흰개미 둔덕은 {area:2627} 동쪽 언덕 곳곳에 있습니다. 지나가는 둔덕마다 {item:15042}을(를) 사용하세요.",
@@ -366,6 +372,8 @@ return {
 	-- ["{npc:11610}'s last task needs level 53. The Scarlet Knights and Magi (54-55) working the lumber camp just south-west of her are the closest camp."] = "{npc:11610}의 마지막 임무는 53레벨이 필요합니다. 그녀 바로 남서쪽 벌목지에서 일하는 붉은십자군 기사와 학자(54-55)가 가장 가까운 사냥터입니다.",
 	-- ["{npc:11613} stands east of the lumber camp; {npc:11611} guards the road north-east of {npc:11610}, toward {area:190}."] = "{npc:11613}은(는) 벌목지 동쪽에 서 있고, {npc:11611}은(는) {npc:11610} 북동쪽, {area:190}(으)로 가는 길을 지키고 있습니다.",
 	-- ["{npc:1855}'s hunts are in the {zone:1423}: keep them for later."] = "{npc:1855}의 사냥은 {zone:1423}에서 합니다. 나중을 위해 보관하세요.",
+	-- ["{npc:8659} takes the ravasaur claws from Un'Goro; he stands in the {object:172960}, a short walk from the middle of the city."] = "{npc:8659}이(가) 운고로의 랩터사우루스 발톱을 받습니다. 그는 도시 중앙에서 조금 걸어가면 나오는 {object:172960}에 있습니다.",
+	-- ["{npc:8659}, the {object:172960}"] = "{object:172960}의 {npc:8659}",
 	-- ["{npc:9529}, just west of the camp"] = "야영지 바로 서쪽의 {npc:9529}",
 	-- ["{npc:9529}, on the west side of the Sanctuary"] = "성소 서쪽의 {npc:9529}",
 	-- ["{npc:9996}'s kitten"] = "{npc:9996}의 새끼 고양이",

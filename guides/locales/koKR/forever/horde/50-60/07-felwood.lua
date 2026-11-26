@@ -33,12 +33,8 @@ return {
 	["{quest:4084}'s {item:11172} and {item:11173} come from {area:1767} on this guide's ride north; {npc:9116} takes them at the end of the guide, back here."] = "",
 
 	-- Step 7: Rakaiah
-	-- {npc:11019} Jessir Moonbow · {npc:9518} Rakaiah · {item:13140} Blood Red Key · {area:1763} Jaedenar
-	["Only if {npc:11019} sent you after {npc:9518} (the {item:13140}'s chain): on the ride north, turn west into {area:1763}. {npc:9518} (56) stands by the remains of Trey Lightforge at the edge of the camp, well under you now; Trey's remains go back to {npc:11019} at the end of this guide."] = "",
-
-	-- Step 8: Remains of Trey Lightforge
-	-- {area:1763} Jaedenar · {npc:11019} Jessir Moonbow
-	["Trey Lightforge's remains lie at the edge of the {area:1763} camp, west of the road: they go back to {npc:11019} at the end of this guide."] = "트레이 라이트포지의 유해는 길 서쪽 {area:1763} 야영지 가장자리에 있습니다: 이 가이드가 끝날 때 {npc:11019}에게 돌아갑니다.",
+	-- {npc:11019} Jessir Moonbow · {npc:9518} Rakaiah · {item:13140} Blood Red Key · {area:1763} Jaedenar · {area:1770} Shadow Hold
+	["Only if {npc:11019} sent you after {npc:9518} (the {item:13140}'s chain): on the ride north, turn west into {area:1763} and go into {area:1770}, the cave at the back of the camp. {npc:9518} (56) and the remains of Trey Lightforge are inside: kill her first, then the remains take her quest and give the next, which goes back to {npc:11019} at the end of this guide."] = "",
 
 	-- Step 9: Trull Failbane
 	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post
@@ -220,6 +216,7 @@ return {
 	-- ["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {area:618}, south of the road from {area:2255}."] = "여기서 퀘스트가 끝납니다. 광포한 톱니이빨곰이 {area:618} 남쪽, {area:2255}에서 오는 길 남쪽의 {area:2249}을(를) 돌아다닙니다.",
 	-- ["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {zone:1452}, south of the road from {area:2255}."] = "여기서 퀘스트가 끝납니다. 광포한 톱니이빨곰이 {zone:1452} 남쪽, {area:2255}에서 오는 길 남쪽의 {area:2249}을(를) 돌아다닙니다.",
 	-- ["Through the Timbermaw tunnel to {area:493}. {npc:11939} reads in a house in {area:2361}."] = "나무구렁일족 동굴을 지나 {area:493}(으)로 가세요. {npc:11939}은(는) {area:2361}의 한 집에서 책을 읽고 있습니다.",
+	-- ["Trey Lightforge's remains lie at the edge of the {area:1763} camp, west of the road: they go back to {npc:11019} at the end of this guide."] = "트레이 라이트포지의 유해는 길 서쪽 {area:1763} 야영지 가장자리에 있습니다: 이 가이드가 끝날 때 {npc:11019}에게 돌아갑니다.",
 	-- ["Zeppelin to {zone:1454}"] = "{zone:1454}행 비행선",
 	-- ["grind on {npc:7446} at {area:2249}, {area:618}"] = "{area:618}, {area:2249}에서 {npc:7446} 사냥",
 	-- ["grind on {npc:7446} at {area:2249}, {zone:1452}"] = "{zone:1452}, {area:2249}에서 {npc:7446} 사냥",

@@ -105,7 +105,7 @@ step The Emerald Sanctuary
 step Rakaiah
   when onquest 5204
   zone Felwood
-  tip Only if Jessir Moonbow sent you after Rakaiah (the Blood Red Key's chain): on the ride north, turn west into Jaedenar. Rakaiah (56) stands by the remains of Trey Lightforge at the edge of the camp, well under you now; Trey's remains go back to Jessir at the end of this guide.
+  tip Only if Jessir Moonbow sent you after Rakaiah (the Blood Red Key's chain): on the ride north, turn west into Jaedenar and go into Shadow Hold, the cave at the back of the camp. Rakaiah (56) and the remains of Trey Lightforge are inside: kill her first, then the remains take her quest and give the next, which goes back to Jessir at the end of this guide.
   kill 9518 quest 5204.1              -- Rakaiah
   turnin 5204                         -- Remains of Trey Lightforge
   accept 5385
@@ -114,7 +114,7 @@ step Remains of Trey Lightforge
   when turnedin 5204
   when available 5385
   zone Felwood
-  tip Trey Lightforge's remains lie at the edge of the Jaedenar camp, west of the road: they go back to Jessir at the end of this guide.
+  tip Only if Jessir Moonbow sent you after Rakaiah (the Blood Red Key's chain): on the ride north, turn west into Jaedenar and go into Shadow Hold, the cave at the back of the camp. Rakaiah (56) and the remains of Trey Lightforge are inside: kill her first, then the remains take her quest and give the next, which goes back to Jessir at the end of this guide.
   accept 5385
 
 step Trull Failbane

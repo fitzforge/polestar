@@ -76,6 +76,7 @@ step Alchemist Pestlezugg
 # ---------------------------------------------------------------- Tanaris
 
 step Gaeriyan
+  tip Alive again, go to A Conspicuous Gravestone in the graveyard just east of Gadgetzan and use it: it takes the quest. Linken's sword goes back to Linken in Un'Goro: keep it.
   turnin 3913                         -- A Conspicuous Gravestone
   accept 3914
   note Linken's Sword goes back to Linken in Un'Goro: keep it.
@@ -221,7 +222,7 @@ step Wanted: Deathclasp
   accept 8283 object 180448            -- Wanted Poster: Deathclasp
 
 step Hermit Ortell
-  tip Ride north-east to Ortell's Hideout.
+  tip Ride south-east to Ortell's Hideout, in the mountains south of Southwind Village.
   turnin 8279                         -- Below ground
   accept 8287
   accept 8323
@@ -246,7 +247,7 @@ step Dearest Natalia
 
 step Twilight Base Camp
   when onquest 8318
-  tip Collect twenty Encrypted Twilight Texts from the cultists here, ten for Bor Wildmane and ten for Ortell. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60).
+  tip Collect twenty Encrypted Twilight Texts, ten for Bor Wildmane and ten for Ortell. The Twilight Base Camp holds only elementals: the texts drop from the Twilight's Hammer cultists of the Vanguard in the far south-west, the Post in the west and the Outpost west of Cenarion Hold. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60).
   collect 20404 quest 8318.1
   collect 20404 x20                   -- ten for each quest: Bor Wildmane takes his ten before Ortell
 
@@ -320,7 +321,7 @@ step Torwa Pathfinder
   note Keep the bait for Lar'korwi's lair, next (he is level 56).
 
 step Lar'korwi
-  tip Lar'korwi's lair is just south of the pylon. Use Torwa's bait there; Lar'korwi is level 56 and hits hard, so start at full health.
+  tip Open Torwa's Pouch: it holds the meat and the pheromone mixture. Lar'korwi's lair is the bone-strewn valley just south of the pylon: place the meat among the bones, then use the mixture on it to call Lar'korwi. He is level 56 and hits hard, so start at full health.
   collect 11510 quest 4292
 
 step Ringo
