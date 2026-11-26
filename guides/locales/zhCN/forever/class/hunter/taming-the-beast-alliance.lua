@@ -157,9 +157,8 @@ return {
 
 	-- Step 20: Your first pet
 	["Your first pet"] = "你的第一只宠物",
-	-- {spell:1515} Tame Beast
-	-- was: ["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and {spell:17253}) and a boar takes more punishment."] = "{spell:1515} 的用法与驯兽棒相同：目标必须是等级不高于你的野兽，引导期间不能移动，而野兽会一直攻击你。宠物在驯服后保留原有等级，并随你一起升级；它的等级永远不能超过你，因此尽量驯服等级接近自己的野兽。在无限服，每个宠物家族都有专属技能（例如野猪的冲锋）。练级时，猫科伤害最高（爪击和 {spell:17253}），野猪则更耐打。"
-	["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and Bite) and a boar takes more punishment."] = "",
+	-- {spell:1515} Tame Beast · {spell:17253} Bite
+	["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and {spell:17253}) and a boar takes more punishment."] = "{spell:1515} 的用法与驯兽棒相同：目标必须是等级不高于你的野兽，引导期间不能移动，而野兽会一直攻击你。宠物在驯服后保留原有等级，并随你一起升级；它的等级永远不能超过你，因此尽量驯服等级接近自己的野兽。在无限服，每个宠物家族都有专属技能（例如野猪的冲锋）。练级时，猫科伤害最高（爪击和 {spell:17253}），野猪则更耐打。",
 	["Tame a beast of your level to keep"] = "驯服一只与你同级的野兽，作为长期宠物。",
 	-- {area:87} Goldshire · {zone:1436} Westfall
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
@@ -184,7 +183,4 @@ return {
 	["Pet trainers sell {spell:1853} ranks and resistances. Alliance: {npc:258930} in {area:87}, {npc:2879} by the hunter trainers in {zone:1453}'s {object:28027}, {npc:2878} in {area:131}, {npc:10090} in {zone:1455}'s {object:32390}, Keldas in {area:186}, Silvaria in {zone:1457}' Cenarion Enclave, {npc:254411} in {area:16638}."] = "宠物训练师出售各等级的{spell:1853}及抗性技能。联盟：{area:87}的{npc:258930}、{zone:1453}的{object:28027}中猎人训练师旁的{npc:2879}、{area:131}的{npc:2878}、{zone:1455}的{object:32390}中的{npc:10090}、{area:186}的凯尔达斯、{zone:1457}塞纳里奥区的西尔瓦莉雅，以及{area:16638}的{npc:254411}。",
 	-- {spell:883} Call Pet · {spell:2641} Dismiss Pet · {spell:982} Revive Pet · {spell:136} Mend Pet
 	["{spell:883}, {spell:2641} and {spell:982} are in your spellbook now; {spell:136} comes from your trainer at 12. A dead pet needs {spell:982}; one that is away more than about 100 yards is dismissed and comes back with {spell:883}."] = "现在你的法术书中已有 {spell:883}、{spell:2641} 和 {spell:982}；到12级时，可以找训练师学习 {spell:136}。宠物死亡后需要用 {spell:982}；离你超过约100码时，宠物会被解散，可用 {spell:883} 再次召回。",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and {spell:17253}) and a boar takes more punishment."] = "{spell:1515} 的用法与驯兽棒相同：目标必须是等级不高于你的野兽，引导期间不能移动，而野兽会一直攻击你。宠物在驯服后保留原有等级，并随你一起升级；它的等级永远不能超过你，因此尽量驯服等级接近自己的野兽。在无限服，每个宠物家族都有专属技能（例如野猪的冲锋）。练级时，猫科伤害最高（爪击和 {spell:17253}），野猪则更耐打。",
 }
