@@ -426,14 +426,18 @@ test('a Warrior who out-levelled 02-barrens is placed past what they skipped, wh
 
 test('Guides.Suggestions ranks by the share of a guide\'s quests done or held, and leaves out a guide that is all done', { skip }, () => {
 	// Level 22 fits 03-hillsbrad (18-22) and 04-barrens (22-24). The route of a
-	// guide: its accepts for everyone (no class or race step or goal, none optional).
+	// guide: its accepts for an Undead Warlock (class and race steps and goals
+	// that let them in), none optional, as Engine.ProgressOf counts them.
+	const p = PERSONAS.suggest;
+	const mine = (only) => !only || ((!only.classes || only.classes.includes(p.cls)) && (!only.races || only.races.includes(p.race)));
 	const routeOf = (id) => [...new Set(packOf('suggest').guides.find((g) => g.id === id).steps
-		.filter((s) => !s.only).flatMap((s) => s.goals.filter((g) => g.t === 'accept' && !g.optional && !g.only).map((g) => g.quest)))];
+		.filter((s) => mine(s.only)).flatMap((s) => s.goals.filter((g) => g.t === 'accept' && !g.optional && mine(g.only)).map((g) => g.quest)))];
 	const barrens = routeOf(PERSONAS.suggest.id);
 	const hillsbrad = routeOf('forever/horde/03-hillsbrad');
 	assert.ok(barrens.length > 4 && hillsbrad.length > 4, 'both routes have quests');
 	const script = 'emit(Polestar.Guides.Suggestions())';
-	const suggest = (done) => play({ persona: 'suggest', done, log: [], level: 22, saved: FRESH, open: 'tab', script })[0];
+	// No guide opened: the registry's guides as shipped, without a plan's feeder steps.
+	const suggest = (done) => play({ persona: 'suggest', done, log: [], level: 22, saved: FRESH, script })[0];
 	const share = (route) => route.slice(0, Math.ceil(route.length * 0.6));
 	// More than half of 03-hillsbrad done and none of 04-barrens: 03 first.
 	assert.equal(suggest(share(hillsbrad))[0], 'forever/horde/03-hillsbrad');
