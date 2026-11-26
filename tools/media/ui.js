@@ -186,6 +186,31 @@ const GLYPHS = {
 		ring(12, 12, 9, 1.8),
 		subtract(poly([[12, 4.6], [15, 12], [12, 19.4], [9, 12]]), dot(12, 12, 1.1)),
 	),
+	// Free mode, your own path: a dotted route winding down to the "!" of a
+	// quest, the dots spaced along a smooth curve through the waypoints.
+	'icon-ownpath': (() => {
+		const way = [[3.5, 20], [9, 20], [11, 13], [4, 9], [10, 3.8]];
+		const curve = [];
+		const pts = [way[0], ...way, way[way.length - 1]];
+		for (let i = 1; i < pts.length - 2; i++) {
+			for (let s = 0; s < 40; s++) {
+				const t = s / 40, t2 = t * t, t3 = t2 * t;
+				const at = (k) => 0.5 * (2 * pts[i][k] + (-pts[i - 1][k] + pts[i + 1][k]) * t + (2 * pts[i - 1][k] - 5 * pts[i][k] + 4 * pts[i + 1][k] - pts[i + 2][k]) * t2 + (-pts[i - 1][k] + 3 * pts[i][k] - 3 * pts[i + 1][k] + pts[i + 2][k]) * t3);
+				curve.push([at(0), at(1)]);
+			}
+		}
+		curve.push(way[way.length - 1]);
+		const dots = [dot(...curve[0], 1.4)];
+		let run = 0;
+		for (let i = 1; i < curve.length; i++) {
+			run += Math.hypot(curve[i][0] - curve[i - 1][0], curve[i][1] - curve[i - 1][1]);
+			if (run >= 4) {
+				dots.push(dot(...curve[i], 1.4));
+				run = 0;
+			}
+		}
+		return union(...dots, line(19.8, 3, 19.8, 13, 3.6), dot(19.8, 19.2, 2.1));
+	})(),
 	// A dungeon or raid entrance: an archway open at the ground, a portal
 	// spark inside it.
 	'icon-dungeon': union(
