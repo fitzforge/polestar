@@ -298,7 +298,7 @@ end)
 local function stepsMode(nav, own, mode)
 	local count = nav.Steps.Count
 	-- The count's own anchor (Polestar's ‹ button in it): "_", never hidden
-	-- when the layout leaves (hideAll), or the ‹ went with it (#4191).
+	-- when the layout leaves (hideAll), or the ‹ went with it (#4184).
 	if not own._countPts then own._countPts = { count:GetPoint(1) } end
 	local arrows = mode == 0
 	nav.Prev:SetShown(arrows)
