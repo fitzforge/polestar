@@ -114,37 +114,41 @@ return {
 	["{npc:16031}, in the Baron's room"] = "{npc:16031}, na sala do Barão",
 	["she gives you her locket"] = "ela dá o medalhão dela a você",
 
-	-- Step 21: Anthion Harmon: Anthion's Strange Request
-	-- {item:12810} Enchanted Leather · {item:14342} Mooncloth
-	-- plural, as words: Dark Iron Bars = {item:11371} Dark Iron Bar · Cured Rugged Hides = {item:15407} Cured Rugged Hide
-	["Back at the bridge (Ghost Revealer again). His Strange Request is the cloth and leather on your shopping list: 3 Dark Iron Bars, 20 {item:12810}, 3 {item:14342} and 4 Cured Rugged Hides; Lhara at the Darkmoon Faire sells {item:12810}."] = "De volta à ponte (Revelador de Fantasmas de novo). O Pedido Estranho dele é o tecido e o couro da sua lista de compras: 3 Barras de Ferro Negro, 20 {item:12810}, 3 {item:14342} e 4 Couros Rústicos Curtidos; Lhara, na Feira de Negraluna, vende {item:12810}.",
+	-- Step 21: Lhara
+	-- {quest:8947} Anthion's Strange Request · {item:12810} Enchanted Leather · {npc:14846} Lhara · {zone:1429} Elwynn Forest · {zone:1412} Mulgore
+	["{quest:8947} takes 20 {item:12810}. Enchanters make it and the auction house has it; {npc:14846} sells it at the Darkmoon Faire, which stands in {zone:1429} or {zone:1412} in turn: go to the one where it is now."] = "{quest:8947} pede 20 {item:12810}. Encantadores o fabricam e a casa de leilões o tem; {npc:14846} o vende na Feira de Negraluna, que se instala alternadamente em {zone:1429} ou {zone:1412}: vá aonde ela estiver agora.",
 
-	-- Step 22: Anthion's Old Friend
+	-- Step 23: Anthion Harmon: Anthion's Strange Request
+	-- {item:12810} Enchanted Leather · {item:14342} Mooncloth · {npc:14846} Lhara
+	-- plural, as words: Dark Iron Bars = {item:11371} Dark Iron Bar · Cured Rugged Hides = {item:15407} Cured Rugged Hide
+	["Back at the bridge (Ghost Revealer again). His Strange Request is the cloth and leather on your shopping list: 3 Dark Iron Bars, 20 {item:12810}, 3 {item:14342} and 4 Cured Rugged Hides; {npc:14846} at the Darkmoon Faire sells {item:12810}."] = "De volta à ponte (Revelador de Fantasmas de novo). O Pedido Estranho dele é o tecido e o couro da sua lista de compras: 3 Barras de Ferro Negro, 20 {item:12810}, 3 {item:14342} e 4 Couros Rústicos Curtidos; {npc:14846}, na Feira de Negraluna, vende {item:12810}.",
+
+	-- Step 24: Anthion's Old Friend
 	-- {npc:16016} Anthion Harmon · {item:21986} Banner of Provocation · {npc:16032} Falrin Treeshaper
 	["{npc:16016} sends his incomplete {item:21986} to {npc:16032} in the Athenaeum of Dire Maul West, a dungeon for a group of five."] = "{npc:16016} envia seu {item:21986} incompleto a {npc:16032}, no Ateneu de Gládio Cruel Oeste, uma masmorra para um grupo de cinco.",
 
-	-- Step 23: Falrin Treeshaper
+	-- Step 25: Falrin Treeshaper
 	-- {area:2577} Dire Maul · {area:1136} High Wilderness · {zone:1444} Feralas · {npc:16032} Falrin Treeshaper · {item:18249} Crescent Key · {quest:8949} Falrin's Vendetta · {item:21982} Ogre Warbeads
 	["{area:2577} is in the {area:1136} of central {zone:1444}. {npc:16032} waits in the Athenaeum, the library at the far end of Dire Maul West: the West door needs the {item:18249} (Pusillin in Dire Maul East drops it) or a rogue's lockpicking. {quest:8949}: 25 {item:21982} from the Gordok ogres of Dire Maul North (a full run, not a tribute run, pays best; the Spirestone ogres of Lower Blackrock Spire drop them too, less often). They only drop while you have the quest."] = "{area:2577} fica em {area:1136}, no centro de {zone:1444}. {npc:16032} espera no Ateneu, a biblioteca no fundo de Gládio Cruel Oeste: a porta do Oeste precisa de {item:18249} (Pusillin, em Gládio Cruel Leste, solta) ou de um ladino para arrombar. {quest:8949}: 25 {item:21982} dos ogros Gordok de Gládio Cruel Norte (uma incursão completa, não de tributo, rende mais; os ogros Pedrapico do Pico da Rocha Negra Inferior também soltam, com menos frequência). Só caem enquanto você tem a missão.",
 	-- {npc:16032} Falrin Treeshaper
 	["{npc:16032}, in the Athenaeum"] = "{npc:16032}, no Ateneu",
 
-	-- Step 25: Ogre Warbeads
+	-- Step 27: Ogre Warbeads
 	-- {npc:11501} King Gordok
 	["A Dire Maul North run with a group of five: kill every Gordok ogre on the way to {npc:11501}."] = "Uma incursão em Gládio Cruel Norte com um grupo de cinco: mate todo ogro Gordok no caminho até {npc:11501}.",
 	-- {npc:16032} Falrin Treeshaper
 	["{npc:16032}: choose your reward"] = "{npc:16032}: escolha sua recompensa",
 
-	-- Step 26: The Instigator's Enchantment
+	-- Step 28: The Instigator's Enchantment
 	-- {npc:16032} Falrin Treeshaper · {item:22224} Jeering Spectre's Essence · {npc:11496} Immol'thar · {area:2057} Scholomance · {item:13704} Skeleton Key
 	-- plural, as words: Eldreth Seethers = {npc:11469} Eldreth Seether · Dark Runes = {item:20520} Dark Rune · Large Brilliant Shards = {item:14344} Large Brilliant Shard
 	["{npc:16032} wants a {item:22224} (the Eldreth ghosts of Dire Maul West, best the Eldreth Seethers, and the invisible spectres around {npc:11496}'s prison), 4 Dark Runes (the necromancers and summoners of {area:2057}, whose gate opens to a {item:13704}: one in the group is enough; or the auction house) and 8 Large Brilliant Shards (enchanters, or the auction house)."] = "{npc:16032} quer {item:22224} (os fantasmas Eldreth de Gládio Cruel Oeste, de preferência os Eldreth Fervilhantes, e os espectros invisíveis em volta da prisão de {npc:11496}), 4 Runas Sombrias (os necromantes e invocadores de {area:2057}, cujo portão abre com {item:13704}: basta um no grupo; ou a Casa de Leilões) e 8 Fragmentos Brilhantes Grandes (encantadores, ou a Casa de Leilões).",
 
-	-- Step 27: The Challenge
+	-- Step 29: The Challenge
 	-- {npc:16032} Falrin Treeshaper · {item:21986} Banner of Provocation · {area:1584} Blackrock Depths
 	["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} termina {item:21986}: plante-o no Ringue da Lei em {area:1584}.",
 
-	-- Step 28: Blackrock Depths: the Ring of Law
+	-- Step 30: Blackrock Depths: the Ring of Law
 	-- {area:1584} Blackrock Depths
 	["{area:1584}: the Ring of Law"] = "{area:1584}: o Círculo da Lei",
 	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {zone:1427} Searing Gorge · {zone:1428} Burning Steppes · {npc:10096} High Justice Grimstone · {item:21986} Banner of Provocation · {npc:16059} Theldren · {item:22047} Top Piece of Lord Valthalak's Amulet
@@ -152,25 +156,25 @@ return {
 	-- {item:21986} Banner of Provocation
 	["{item:21986}, in the ring"] = "{item:21986}, no círculo",
 
-	-- Step 29: Anthion Harmon: Anthion's Parting Words
+	-- Step 31: Anthion Harmon: Anthion's Parting Words
 	-- {npc:16016} Anthion Harmon · {area:2279} Stratholme · {quest:84180} Anthion's Parting Words · {item:16675} Beaststalker's Boots · {npc:10437} Nerub'enkan · {item:16678} Beaststalker's Pants · {npc:10440} Baron Rivendare · {item:16679} Beaststalker's Mantle · {npc:9568} Overlord Wyrmthalak
 	["Back to {npc:16016} at {area:2279}'s gate (Ghost Revealer). {quest:84180} takes your {item:16675}: {npc:10437} in {area:2279} (about 18%), your {item:16678}: {npc:10440} in {area:2279} (about 10%), and your {item:16679}: {npc:9568} in Lower Blackrock Spire (about 17%)."] = "De volta a {npc:16016} no portão de {area:2279} (Revelador de Fantasmas). {quest:84180} pede seu {item:16675}: {npc:10437} em {area:2279} (cerca de 18%), seu {item:16678}: {npc:10440} em {area:2279} (cerca de 10%), e seu {item:16679}: {npc:9568} no Pico da Rocha Negra Inferior (cerca de 17%).",
 
-	-- Step 32: Bodley
+	-- Step 34: Bodley
 	-- {npc:16033} Bodley · {area:1583} Blackrock Spire · {area:254} Blackrock Mountain · {quest:8961} Three Kings of Flame · {item:21987} Incendicite of Incendius · {npc:9017} Lord Incendius · {area:1584} Blackrock Depths · {item:21988} Ember of Emberseer · {npc:9816} Pyroguard Emberseer · {item:21989} Cinder of Cynders · {npc:15206} Duke of Cynders · {zone:1451} Silithus · {item:22014} Hallowed Brazier · {faction:529} Argent Dawn
 	["{npc:16033}'s ghost stands on the ledge before the {area:1583} portal, high inside {area:254}: use the Ghost Revealer there. {quest:8961} wants the {item:21987} ({npc:9017} in {area:1584}), the {item:21988} ({npc:9816} in Upper Blackrock Spire), the {item:21989} (the {npc:15206} in {zone:1451}) and a {item:22014} from the {faction:529}."] = "O fantasma de {npc:16033} fica na saliência diante do portal de {area:1583}, no alto, dentro de {area:254}: use o Revelador de Fantasmas ali. {quest:8961} pede {item:21987} ({npc:9017} em {area:1584}), {item:21988} ({npc:9816} no Pico da Rocha Negra Superior), {item:21989} ({npc:15206} em {zone:1451}) e {item:22014} da facção {faction:529}.",
 
-	-- Step 34: Honored with the Argent Dawn
+	-- Step 36: Honored with the Argent Dawn
 	-- {faction:529} Argent Dawn
 	["Honored with the {faction:529}"] = "Honrado com {faction:529}",
 	-- {item:22014} Hallowed Brazier · {item:12846} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:3197} Chillwind Camp · {npc:10839} Argent Officer Garush · {area:813} Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {area:2279} Stratholme · {area:2057} Scholomance
 	["The {item:22014} is sold only to Honored. Take the {item:12846} ({npc:10840} at {area:3197}, {npc:10839} at the {area:813}, or {npc:11039} at {area:2268}) and wear it: Scourgestones then drop from the Scourge, and the Argent officers take them back for reputation. Every Scourge kill in the Plaguelands counts, {area:2279}'s and {area:2057}'s undead give 5 each up to Honored, and {area:2268}'s dungeon quests give 100-200 each. Polestar's Argent Dawn Reputation guide (Reputation) walks it step by step."] = "{item:22014} só é vendido a partir de Honrado. Pegue {item:12846} ({npc:10840} em {area:3197}, {npc:10839} em {area:813} ou {npc:11039} em {area:2268}) e equipe: aí os Flagelos passam a soltar Pedras do Flagelo, e os oficiais Argênteos as aceitam em troca de reputação. Toda morte de Flagelo nas Terras Pestilentas conta, os mortos-vivos de {area:2279} e {area:2057} dão 5 cada até Honrado, e as missões de masmorra de {area:2268} dão 100-200 cada. O guia de Reputação da Aurora Argêntea do Polestar (Reputação) mostra tudo etapa por etapa.",
 
-	-- Step 35: Hallowed Brazier
+	-- Step 37: Hallowed Brazier
 	-- {object:2160} The Argent Dawn · {area:2268} Light's Hope Chapel · {area:3197} Chillwind Camp · {area:813} Bulwark
 	["{object:2160} quartermasters ({area:2268}, {area:3197}, the {area:813}) sell it: 133 gold 33 silver, less with your reputation discount."] = "Os intendentes de {object:2160} ({area:2268}, {area:3197}, {area:813}) vendem: 133 de ouro e 33 de prata, menos com o desconto da sua reputação.",
 
-	-- Step 36: Blackrock Depths and Upper Blackrock Spire
+	-- Step 38: Blackrock Depths and Upper Blackrock Spire
 	-- {area:1584} Blackrock Depths
 	["{area:1584} and Upper Blackrock Spire"] = "{area:1584} e Pico da Rocha Negra Superior",
 	-- {npc:9017} Lord Incendius · {object:174825} Black Anvil (no name in this language: may be words) · {area:1584} Blackrock Depths · {npc:9816} Pyroguard Emberseer
@@ -178,25 +182,25 @@ return {
 	-- {npc:9816} Pyroguard Emberseer
 	["{npc:9816}, Upper Blackrock Spire"] = "{npc:9816}, Pico da Rocha Negra Superior",
 
-	-- Step 37: Duke of Cynders
+	-- Step 39: Duke of Cynders
 	-- {zone:1451} Silithus · {item:20422} Twilight Cultist Medallion of Station · {npc:15282} Aurel Goldleaf · {area:3425} Cenarion Hold · {item:14344} Large Brilliant Shard · {item:20432} Signet of Beckoning: Fire · {npc:15206} Duke of Cynders
 	-- plural, as words: Greater Wind Stones = {object:180466} Greater Wind Stone · Abyssal Crests = {item:20513} Abyssal Crest
 	["The Duke (level 62 elite, bring a group of five) only comes when someone summons him at one of the Twilight's Greater Wind Stones in {zone:1451}: the summoner wears the full Twilight Cultist set (Cowl, Mantle and Robe, from the Twilight cultists of the {zone:1451} camps), carries a {item:20422} ({npc:15282} at {area:3425}: three Abyssal Crests from summoned Templars and a {item:14344}) and a {item:20432}, which calls the {npc:15206} rather than a random Duke. Joining someone else's summon is the quick way: every player with the quest loots their own Cinder."] = "O Duque (Elite de nível 62, leve um grupo de cinco) só aparece quando alguém o invoca em uma das Pedras do Vento Maiores do Crepúsculo em {zone:1451}: quem invoca veste o conjunto completo de Cultista do Crepúsculo (Capuz, Manto e Túnica, dos cultistas do Crepúsculo nos acampamentos de {zone:1451}), carrega {item:20422} ({npc:15282} em {area:3425}: três Brasões Abissais de Templários invocados e {item:14344}) e {item:20432}, que chama {npc:15206} em vez de um Duque aleatório. Entrar na invocação de outra pessoa é o jeito rápido: cada jogador com a missão saqueia a própria Cinza.",
 
-	-- Step 38: Bodley: Components of Importance
+	-- Step 40: Bodley: Components of Importance
 	-- {npc:16033} Bodley
 	["{npc:16033}'s next task depends on your class: the piece the summoning brazier needs."] = "A próxima tarefa de {npc:16033} depende da sua classe: a peça de que o braseiro de invocação precisa.",
 
-	-- Step 40: Components of Importance: Brilliant Sword of Zealotry
+	-- Step 42: Components of Importance: Brilliant Sword of Zealotry
 	-- {area:2266} Tyr's Hand · {zone:1423} Eastern Plaguelands · {item:22228} Brilliant Sword of Zealotry
 	-- plural, as words: Scarlet Praetorians = {npc:9448} Scarlet Praetorian
 	["At {area:2266}, the Scarlet town in the south-east of the {zone:1423}, the Scarlet Praetorians (level 56-57 elites) of its upper courtyard drop the {item:22228} (a rare drop: up to about 50 kills). They are elites: bring a friend or two unless your gear is good. It drops only while you have the quest; everyone in the group with it can loot one."] = "Em {area:2266}, a cidade Escarlate no sudeste de {zone:1423}, os Pretorianos Escarlates (elites de nível 56-57) do pátio superior soltam {item:22228} (saque raro: até umas 50 mortes). São elites: leve um ou dois amigos, a menos que seu equipamento seja bom. Só cai enquanto você tiver a missão; todos no grupo com ela podem saquear um.",
 
-	-- Step 42: The Left Piece of Lord Valthalak's Amulet
+	-- Step 44: The Left Piece of Lord Valthalak's Amulet
 	-- {npc:16033} Bodley · {item:22051} Brazier of Beckoning
 	["{npc:16033} gives you a {item:22051}."] = "{npc:16033} entrega {item:22051} a você.",
 
-	-- Step 43: The Left Piece of Lord Valthalak's Amulet: Jarien and Sothos
+	-- Step 45: The Left Piece of Lord Valthalak's Amulet: Jarien and Sothos
 	-- {quest:8968} The Left Piece of Lord Valthalak's Amulet · {npc:16101} Jarien · {npc:16102} Sothos
 	["{quest:8968}: {npc:16101} and {npc:16102}"] = "{quest:8968}: {npc:16101} e {npc:16102}",
 	-- {npc:16033} Bodley · {item:22051} Brazier of Beckoning · {npc:16101} Jarien · {npc:16102} Sothos · {area:2279} Stratholme
@@ -204,15 +208,15 @@ return {
 	-- {item:22051} Brazier of Beckoning · {npc:16101} Jarien · {npc:16102} Sothos
 	["{item:22051}: summons {npc:16101} and {npc:16102}"] = "{item:22051}: invoca {npc:16101} e {npc:16102}",
 
-	-- Step 46: Bloodkelp
+	-- Step 48: Bloodkelp
 	-- {area:2079} Alcaz Island · {zone:1445} Dustwallow Marsh · {npc:16072} Tidelord Rrurgaz
 	["The Strashaz naga of {area:2079}, off the north-east coast of {zone:1445}, carry it (level 59-61 elites, and {npc:16072} at 62): bring a friend or two. The Baskets of Bloodkelp on the island give 1 to 3 each without a fight. Swim over from the coast north of Theramore; elite hydras roam the water."] = "As nagas Strashaz de {area:2079}, ao largo da costa nordeste de {zone:1445}, carregam isso (Elites de nível 59-61, e {npc:16072} no 62): leve um ou dois amigos. Os Cestos de Algassangue na ilha dão de 1 a 3 cada, sem luta. Nade desde a costa ao norte de Theramore; hidras Elite circulam pela água.",
 
-	-- Step 49: More Components of Importance: Soul Ashes of the Banished
+	-- Step 51: More Components of Importance: Soul Ashes of the Banished
 	-- {area:896} Purgation Isle · {zone:1424} Hillsbrad Foothills · {item:22229} Soul Ashes of the Banished
 	["At {area:896}, the island off the south coast of the {zone:1424}, the Condemned and Cursed undead (level 57-60 elites), thickest by the tower on the hill drop the {item:22229} (usually 5 to 15 kills; they stun, so a healer or dispeller helps). They are elites: bring a friend or two unless your gear is good. It drops only while you have the quest; everyone in the group with it can loot one."] = "Em {area:896}, a ilha na costa sul de {zone:1424}, os mortos-vivos Condenados e Amaldiçoados (elites de nível 57-60), mais densos perto da torre no morro, soltam {item:22229} (em geral de 5 a 15 mortes; eles atordoam, então um curador ou dissipador ajuda). São elites: leve um ou dois amigos, a menos que seu equipamento seja bom. Só cai enquanto você tiver a missão; todos no grupo com ela podem saquear um.",
 
-	-- Step 52: The Right Piece of Lord Valthalak's Amulet: Kormok
+	-- Step 54: The Right Piece of Lord Valthalak's Amulet: Kormok
 	-- {npc:16033} Bodley · {item:22052} Brazier of Beckoning · {npc:16118} Kormok · {npc:10508} Ras Frostwhisper · {area:2057} Scholomance · {spell:27688} Bone Shield · {item:21984} Left Piece of Lord Valthalak's Amulet · {item:22048} Lord Valthalak's Amulet
 	["A dungeon run for a group of five. {npc:16033}'s {item:22052} calls {npc:16118} to {npc:10508}'s room in {area:2057}: clear the room first. Use the brazier there, kill {npc:16118} and loot the piece. He is an elite ogre spirit who keeps raising skeletons: dispel or purge his {spell:27688} and burn him down. After a wipe he stays up: come back without summoning again. Keep the brazier: {npc:16033} wants it back with the piece. Then use the {item:21984} ({npc:16033} gave it back to you) to join the pieces into {item:22048}."] = "Uma incursão de masmorra para um grupo de cinco. {item:22052} de {npc:16033} invoca {npc:16118} na sala de {npc:10508} em {area:2057}: limpe a sala antes. Use o braseiro lá, mate {npc:16118} e saqueie a peça. Ele é um espírito de ogro elite que fica erguendo esqueletos: dissipe ou expurgue {spell:27688} dele e derrube-o rápido. Depois de um wipe ele continua lá: volte sem invocar de novo. Guarde o braseiro: {npc:16033} quer de volta junto com a peça. Depois use {item:21984} ({npc:16033} devolveu a você) para juntar as peças em {item:22048}.",
 	-- {item:22052} Brazier of Beckoning · {npc:16118} Kormok
@@ -220,12 +224,12 @@ return {
 	-- {item:21984} Left Piece of Lord Valthalak's Amulet
 	["{item:21984}: joins the pieces"] = "{item:21984}: une as peças",
 
-	-- Step 54: Final Preparations
+	-- Step 56: Final Preparations
 	-- {area:1583} Blackrock Spire · {item:13512} Flask of Supreme Power
 	-- plural, as words: Blackrock Bracers = {item:22138} Blackrock Bracer · Scarshield Grunts = {npc:9043} Scarshield Grunt
 	["40 Blackrock Bracers from the Blackrock orcs of {area:1583} (the Scarshield Grunts in the mountain's halls outside the portal, level 53-54 elites, drop them most often; Upper {area:1583}'s orcs better than Lower's), only while you have the quest, and a {item:13512} (alchemists make it at an alchemy lab; or the auction house)."] = "40 Braçadeiras Rocha Negra dos orcs Rocha Negra de {area:1583} (os Grunhentos Escudo Cicatriz nos salões da montanha fora do portal, elites de nível 53-54, são os que mais soltam; os orcs da parte Superior de {area:1583} são melhores que os da Inferior), só enquanto você tiver a missão, e um {item:13512} (alquimistas fazem num laboratório de alquimia; ou na Casa de Leilões).",
 
-	-- Step 56: Upper Blackrock Spire: Lord Valthalak
+	-- Step 58: Upper Blackrock Spire: Lord Valthalak
 	-- {area:1583} Blackrock Spire · {npc:16042} Lord Valthalak
 	["Upper {area:1583}: {npc:16042}"] = "{area:1583} Superior: {npc:16042}",
 	-- {npc:10430} The Beast · {item:22056} Brazier of Beckoning · {npc:16042} Lord Valthalak · {item:22048} Lord Valthalak's Amulet · {quest:8996} Return to Bodley
@@ -235,15 +239,15 @@ return {
 	-- {item:22048} Lord Valthalak's Amulet
 	["{item:22048}, on his corpse"] = "{item:22048}, no cadáver dele",
 
-	-- Step 57: Bodley: Back to the Beginning
+	-- Step 59: Bodley: Back to the Beginning
 	-- {npc:16033} Bodley · {item:22056} Brazier of Beckoning
 	["Hand {npc:16033} the {item:22056}."] = "Entregue {item:22056} a {npc:16033}.",
 
-	-- Step 58: Deliana: Saving the Best for Last
+	-- Step 60: Deliana: Saving the Best for Last
 	-- {quest:84196} Saving the Best for Last · {item:16677} Beaststalker's Cap · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16674} Beaststalker's Tunic · {npc:10363} General Drakkisath
 	["{quest:84196} takes your {item:16677}: {npc:1853} in {area:2057} (about 13%), and your {item:16674}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84196} pega seu {item:16677}: {npc:1853} em {area:2057} (cerca de 13%), e seu {item:16674}: {npc:10363} no Pico da Rocha Negra Superior (cerca de 11%).",
 
-	-- Step 59: Mokvar: Saving the Best for Last
+	-- Step 61: Mokvar: Saving the Best for Last
 	-- {quest:84204} Saving the Best for Last · {item:16677} Beaststalker's Cap · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16674} Beaststalker's Tunic · {npc:10363} General Drakkisath
 	["{quest:84204} takes your {item:16677}: {npc:1853} in {area:2057} (about 13%), and your {item:16674}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84204} pega seu {item:16677}: {npc:1853} em {area:2057} (cerca de 13%), e seu {item:16674}: {npc:10363} no Pico da Rocha Negra Superior (cerca de 11%).",
 

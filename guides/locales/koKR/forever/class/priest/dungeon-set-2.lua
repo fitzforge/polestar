@@ -114,37 +114,41 @@ return {
 	["{npc:16031}, in the Baron's room"] = "남작의 방에 있는 {npc:16031}",
 	["she gives you her locket"] = "그녀가 로켓을 줍니다",
 
-	-- Step 21: Anthion Harmon: Anthion's Strange Request
-	-- {item:12810} Enchanted Leather · {item:14342} Mooncloth
-	-- plural, as words: Dark Iron Bars = {item:11371} Dark Iron Bar · Cured Rugged Hides = {item:15407} Cured Rugged Hide
-	["Back at the bridge (Ghost Revealer again). His Strange Request is the cloth and leather on your shopping list: 3 Dark Iron Bars, 20 {item:12810}, 3 {item:14342} and 4 Cured Rugged Hides; Lhara at the Darkmoon Faire sells {item:12810}."] = "다리로 돌아가세요(다시 유령 탐지기). 그의 이상한 부탁은 구매 목록의 천과 가죽입니다: 검은무쇠 주괴 3개, {item:12810} 20개, {item:14342} 3개, 질긴 가죽 4개. 다크문 축제의 라라가 {item:12810}을(를) 팝니다.",
+	-- Step 21: Lhara
+	-- {quest:8947} Anthion's Strange Request · {item:12810} Enchanted Leather · {npc:14846} Lhara · {zone:1429} Elwynn Forest · {zone:1412} Mulgore
+	["{quest:8947} takes 20 {item:12810}. Enchanters make it and the auction house has it; {npc:14846} sells it at the Darkmoon Faire, which stands in {zone:1429} or {zone:1412} in turn: go to the one where it is now."] = "{quest:8947}에는 {item:12810} 20개가 필요합니다. 마법부여사가 만들 수 있고 경매장에서도 구할 수 있습니다. 다크문 축제의 {npc:14846}가 팔며, 축제는 {zone:1429}와(과) {zone:1412}에서 번갈아 열립니다. 지금 열린 곳으로 가세요.",
 
-	-- Step 22: Anthion's Old Friend
+	-- Step 23: Anthion Harmon: Anthion's Strange Request
+	-- {item:12810} Enchanted Leather · {item:14342} Mooncloth · {npc:14846} Lhara
+	-- plural, as words: Dark Iron Bars = {item:11371} Dark Iron Bar · Cured Rugged Hides = {item:15407} Cured Rugged Hide
+	["Back at the bridge (Ghost Revealer again). His Strange Request is the cloth and leather on your shopping list: 3 Dark Iron Bars, 20 {item:12810}, 3 {item:14342} and 4 Cured Rugged Hides; {npc:14846} at the Darkmoon Faire sells {item:12810}."] = "다리로 돌아가세요(다시 유령 탐지기). 그의 이상한 부탁은 구매 목록의 천과 가죽입니다: 검은무쇠 주괴 3개, {item:12810} 20개, {item:14342} 3개, 질긴 가죽 4개. 다크문 축제의 {npc:14846}가 {item:12810}을(를) 팝니다.",
+
+	-- Step 24: Anthion's Old Friend
 	-- {npc:16016} Anthion Harmon · {item:21986} Banner of Provocation · {npc:16032} Falrin Treeshaper
 	["{npc:16016} sends his incomplete {item:21986} to {npc:16032} in the Athenaeum of Dire Maul West, a dungeon for a group of five."] = "{npc:16016}이(가) 미완성 {item:21986}을(를) 5인 파티 던전인 혈투의 전장 서쪽 아테나에움의 {npc:16032}에게 보냅니다.",
 
-	-- Step 23: Falrin Treeshaper
+	-- Step 25: Falrin Treeshaper
 	-- {area:2577} Dire Maul · {area:1136} High Wilderness · {zone:1444} Feralas · {npc:16032} Falrin Treeshaper · {item:18249} Crescent Key · {quest:8949} Falrin's Vendetta · {item:21982} Ogre Warbeads
 	["{area:2577} is in the {area:1136} of central {zone:1444}. {npc:16032} waits in the Athenaeum, the library at the far end of Dire Maul West: the West door needs the {item:18249} (Pusillin in Dire Maul East drops it) or a rogue's lockpicking. {quest:8949}: 25 {item:21982} from the Gordok ogres of Dire Maul North (a full run, not a tribute run, pays best; the Spirestone ogres of Lower Blackrock Spire drop them too, less often). They only drop while you have the quest."] = "{area:2577}은(는) {zone:1444} 중앙의 {area:1136}에 있습니다. {npc:16032}은(는) 혈투의 전장 서쪽 맨 끝 도서관인 아테나에움에서 기다립니다. 서쪽 문은 {item:18249}(혈투의 전장 동쪽의 푸실린이 떨어뜨림)이나 도적의 자물쇠 따기가 필요합니다. {quest:8949}: 혈투의 전장 북쪽의 고르독 오우거에게서 {item:21982} 25개(공물 런보다 전체 런이 효율적이며, 검은바위 첨탑 하층의 뾰족바위 오우거도 드물게 떨어뜨립니다). 퀘스트가 있을 때만 떨어집니다.",
 	-- {npc:16032} Falrin Treeshaper
 	["{npc:16032}, in the Athenaeum"] = "아테나에움의 {npc:16032}",
 
-	-- Step 25: Ogre Warbeads
+	-- Step 27: Ogre Warbeads
 	-- {npc:11501} King Gordok
 	["A Dire Maul North run with a group of five: kill every Gordok ogre on the way to {npc:11501}."] = "5인 파티로 혈투의 전장 북부를 돕니다. {npc:11501}에게 가는 길의 고르독 오우거를 모두 처치하세요.",
 	-- {npc:16032} Falrin Treeshaper
 	["{npc:16032}: choose your reward"] = "{npc:16032}: 보상을 선택하세요",
 
-	-- Step 26: The Instigator's Enchantment
+	-- Step 28: The Instigator's Enchantment
 	-- {npc:16032} Falrin Treeshaper · {item:22224} Jeering Spectre's Essence · {npc:11496} Immol'thar · {area:2057} Scholomance · {item:13704} Skeleton Key
 	-- plural, as words: Eldreth Seethers = {npc:11469} Eldreth Seether · Dark Runes = {item:20520} Dark Rune · Large Brilliant Shards = {item:14344} Large Brilliant Shard
 	["{npc:16032} wants a {item:22224} (the Eldreth ghosts of Dire Maul West, best the Eldreth Seethers, and the invisible spectres around {npc:11496}'s prison), 4 Dark Runes (the necromancers and summoners of {area:2057}, whose gate opens to a {item:13704}: one in the group is enough; or the auction house) and 8 Large Brilliant Shards (enchanters, or the auction house)."] = "{npc:16032}은(는) {item:22224}(혈투의 전장 서부의 엘드레스 유령들, 특히 엘드레스 격노령과 {npc:11496}의 감옥 주변의 보이지 않는 망령), 어둠의 룬 4개({area:2057}의 강령술사와 소환사. 그 문은 {item:13704}(으)로 열리며 파티에 한 명만 있으면 됩니다. 또는 경매장), 큰 찬란한 결정 8개(마법부여사 또는 경매장)를 원합니다.",
 
-	-- Step 27: The Challenge
+	-- Step 29: The Challenge
 	-- {npc:16032} Falrin Treeshaper · {item:21986} Banner of Provocation · {area:1584} Blackrock Depths
 	["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032}이(가) {item:21986}을(를) 완성합니다. {area:1584}의 법의 심판장에 심으세요.",
 
-	-- Step 28: Blackrock Depths: the Ring of Law
+	-- Step 30: Blackrock Depths: the Ring of Law
 	-- {area:1584} Blackrock Depths
 	["{area:1584}: the Ring of Law"] = "{area:1584}: 법의 심판장",
 	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {zone:1427} Searing Gorge · {zone:1428} Burning Steppes · {npc:10096} High Justice Grimstone · {item:21986} Banner of Provocation · {npc:16059} Theldren · {item:22047} Top Piece of Lord Valthalak's Amulet
@@ -152,25 +156,25 @@ return {
 	-- {item:21986} Banner of Provocation
 	["{item:21986}, in the ring"] = "심판장에 {item:21986} 꽂기",
 
-	-- Step 29: Anthion Harmon: Anthion's Parting Words
+	-- Step 31: Anthion Harmon: Anthion's Parting Words
 	-- {npc:16016} Anthion Harmon · {area:2279} Stratholme · {quest:84183} Anthion's Parting Words · {item:16691} Devout Sandals · {npc:10438} Maleki the Pallid · {item:16694} Devout Skirt · {npc:10440} Baron Rivendare · {item:16695} Devout Mantle · {npc:10264} Solakar Flamewreath
 	["Back to {npc:16016} at {area:2279}'s gate (Ghost Revealer). {quest:84183} takes your {item:16691}: {npc:10438} in {area:2279} (about 18%), your {item:16694}: {npc:10440} in {area:2279} (about 10%), and your {item:16695}: {npc:10264} in Upper Blackrock Spire (about 18%)."] = "{area:2279} 입구의 {npc:16016}에게 돌아가세요(유령 탐지기). {quest:84183}에는 {item:16691}: {area:2279}의 {npc:10438}(약 18%), {item:16694}: {area:2279}의 {npc:10440}(약 10%), {item:16695}: 검은바위 첨탑 상층의 {npc:10264}(약 18%)이(가) 필요합니다.",
 
-	-- Step 32: Bodley
+	-- Step 34: Bodley
 	-- {npc:16033} Bodley · {area:1583} Blackrock Spire · {area:254} Blackrock Mountain · {quest:8961} Three Kings of Flame · {item:21987} Incendicite of Incendius · {npc:9017} Lord Incendius · {area:1584} Blackrock Depths · {item:21988} Ember of Emberseer · {npc:9816} Pyroguard Emberseer · {item:21989} Cinder of Cynders · {npc:15206} Duke of Cynders · {zone:1451} Silithus · {item:22014} Hallowed Brazier · {faction:529} Argent Dawn
 	["{npc:16033}'s ghost stands on the ledge before the {area:1583} portal, high inside {area:254}: use the Ghost Revealer there. {quest:8961} wants the {item:21987} ({npc:9017} in {area:1584}), the {item:21988} ({npc:9816} in Upper Blackrock Spire), the {item:21989} (the {npc:15206} in {zone:1451}) and a {item:22014} from the {faction:529}."] = "{npc:16033}의 유령은 {area:254} 안쪽 높은 곳, {area:1583} 차원문 앞 바위턱에 서 있습니다. 그곳에서 유령 감지기를 사용하세요. {quest:8961}에는 {item:21987}({area:1584}의 {npc:9017}), {item:21988}(검은바위 첨탑 상층의 {npc:9816}), {item:21989}({zone:1451}의 {npc:15206}), {faction:529}의 {item:22014}이(가) 필요합니다.",
 
-	-- Step 34: Honored with the Argent Dawn
+	-- Step 36: Honored with the Argent Dawn
 	-- {faction:529} Argent Dawn
 	["Honored with the {faction:529}"] = "{faction:529} 우호적",
 	-- {item:22014} Hallowed Brazier · {item:12846} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:3197} Chillwind Camp · {npc:10839} Argent Officer Garush · {area:813} Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {area:2279} Stratholme · {area:2057} Scholomance
 	["The {item:22014} is sold only to Honored. Take the {item:12846} ({npc:10840} at {area:3197}, {npc:10839} at the {area:813}, or {npc:11039} at {area:2268}) and wear it: Scourgestones then drop from the Scourge, and the Argent officers take them back for reputation. Every Scourge kill in the Plaguelands counts, {area:2279}'s and {area:2057}'s undead give 5 each up to Honored, and {area:2268}'s dungeon quests give 100-200 each. Polestar's Argent Dawn Reputation guide (Reputation) walks it step by step."] = "{item:22014}은(는) 우호적 이상에게만 판매됩니다. {item:12846}을(를) 받아({area:3197}의 {npc:10840}, {area:813}의 {npc:10839}, 또는 {area:2268}의 {npc:11039}) 착용하세요. 그러면 스컬지에게서 스컬지석이 떨어지고, 은빛 여명회 장교들이 이를 받고 평판을 줍니다. 역병지대의 모든 스컬지 처치가 인정되며, {area:2279}와(과) {area:2057}의 언데드는 우호적까지 마리당 5를 주고, {area:2268}의 던전 퀘스트는 각각 100-200을 줍니다. Polestar의 은빛 여명회 평판 가이드(평판)가 단계별로 안내합니다.",
 
-	-- Step 35: Hallowed Brazier
+	-- Step 37: Hallowed Brazier
 	-- {object:2160} The Argent Dawn · {area:2268} Light's Hope Chapel · {area:3197} Chillwind Camp · {area:813} Bulwark
 	["{object:2160} quartermasters ({area:2268}, {area:3197}, the {area:813}) sell it: 133 gold 33 silver, less with your reputation discount."] = "{object:2160} 병참장교({area:2268}, {area:3197}, {area:813})가 판매합니다. 133골드 33실버이며 평판 할인으로 더 저렴해집니다.",
 
-	-- Step 36: Blackrock Depths and Upper Blackrock Spire
+	-- Step 38: Blackrock Depths and Upper Blackrock Spire
 	-- {area:1584} Blackrock Depths
 	["{area:1584} and Upper Blackrock Spire"] = "{area:1584}와(과) 검은바위 첨탑 상층",
 	-- {npc:9017} Lord Incendius · {object:174825} Black Anvil (no name in this language: may be words) · {area:1584} Blackrock Depths · {npc:9816} Pyroguard Emberseer
@@ -178,39 +182,39 @@ return {
 	-- {npc:9816} Pyroguard Emberseer
 	["{npc:9816}, Upper Blackrock Spire"] = "검은바위 첨탑 상층의 {npc:9816}",
 
-	-- Step 37: Duke of Cynders
+	-- Step 39: Duke of Cynders
 	-- {zone:1451} Silithus · {item:20422} Twilight Cultist Medallion of Station · {npc:15282} Aurel Goldleaf · {area:3425} Cenarion Hold · {item:14344} Large Brilliant Shard · {item:20432} Signet of Beckoning: Fire · {npc:15206} Duke of Cynders
 	-- plural, as words: Greater Wind Stones = {object:180466} Greater Wind Stone · Abyssal Crests = {item:20513} Abyssal Crest
 	["The Duke (level 62 elite, bring a group of five) only comes when someone summons him at one of the Twilight's Greater Wind Stones in {zone:1451}: the summoner wears the full Twilight Cultist set (Cowl, Mantle and Robe, from the Twilight cultists of the {zone:1451} camps), carries a {item:20422} ({npc:15282} at {area:3425}: three Abyssal Crests from summoned Templars and a {item:14344}) and a {item:20432}, which calls the {npc:15206} rather than a random Duke. Joining someone else's summon is the quick way: every player with the quest loots their own Cinder."] = "공작(62레벨 정예, 5인 파티 필요)은 누군가 {zone:1451}의 황혼의 상급 바람석 중 하나에서 소환해야만 나타납니다. 소환자는 황혼의 이교도 세트 전체(두건, 어깨보호구, 로브. {zone:1451} 야영지의 황혼의 이교도에게서 획득)를 착용하고, {item:20422}({area:3425}의 {npc:15282}: 소환된 기사단원에게서 얻는 심연의 문장 세 개와 {item:14344} 필요)와(과) {item:20432}을(를) 가지고 있어야 합니다. 이것으로 무작위 공작 대신 {npc:15206}을(를) 소환합니다. 다른 사람의 소환에 합류하는 것이 빠릅니다. 퀘스트가 있는 플레이어는 각자 자기 잿더미를 획득합니다.",
 
-	-- Step 38: Bodley: Components of Importance
+	-- Step 40: Bodley: Components of Importance
 	-- {npc:16033} Bodley
 	["{npc:16033}'s next task depends on your class: the piece the summoning brazier needs."] = "{npc:16033}의 다음 임무는 직업에 따라 다릅니다. 소환 화로에 필요한 조각입니다.",
 
-	-- Step 40: Components of Importance: Soul Ashes of the Banished
+	-- Step 42: Components of Importance: Soul Ashes of the Banished
 	-- {area:896} Purgation Isle · {zone:1424} Hillsbrad Foothills · {item:22229} Soul Ashes of the Banished
 	["At {area:896}, the island off the south coast of the {zone:1424}, the Condemned and Cursed undead (level 57-60 elites), thickest by the tower on the hill drop the {item:22229} (usually 5 to 15 kills; they stun, so a healer or dispeller helps). They are elites: bring a friend or two unless your gear is good. It drops only while you have the quest; everyone in the group with it can loot one."] = "{zone:1424} 남쪽 해안 앞바다의 섬 {area:896}에서 언덕 위 탑 근처에 가장 많은 저주받은 언데드(57-60레벨 정예)가 {item:22229}을(를) 떨어뜨립니다(보통 5-15번. 기절을 거니 치유사나 해제할 수 있는 사람이 도움이 됩니다). 정예이니 장비가 좋지 않다면 한두 명과 함께 가세요. 퀘스트가 있는 동안에만 떨어지며, 퀘스트를 가진 파티원은 각자 하나씩 획득할 수 있습니다.",
 
-	-- Step 42: The Left Piece of Lord Valthalak's Amulet
+	-- Step 44: The Left Piece of Lord Valthalak's Amulet
 	-- {npc:16033} Bodley · {item:22051} Brazier of Beckoning
 	["{npc:16033} gives you a {item:22051}."] = "{npc:16033}이(가) {item:22051}을(를) 줍니다.",
 
-	-- Step 43: The Left Piece of Lord Valthalak's Amulet: Kormok
+	-- Step 45: The Left Piece of Lord Valthalak's Amulet: Kormok
 	-- {npc:16033} Bodley · {item:22052} Brazier of Beckoning · {npc:16118} Kormok · {npc:10508} Ras Frostwhisper · {area:2057} Scholomance · {spell:27688} Bone Shield
 	["A dungeon run for a group of five. {npc:16033}'s {item:22052} calls {npc:16118} to {npc:10508}'s room in {area:2057}: clear the room first. Use the brazier there, kill {npc:16118} and loot the piece. He is an elite ogre spirit who keeps raising skeletons: dispel or purge his {spell:27688} and burn him down. After a wipe he stays up: come back without summoning again. Keep the brazier: {npc:16033} wants it back with the piece."] = "5인 파티 던전입니다. {npc:16033}의 {item:22052}은(는) {area:2057}의 {npc:10508}의 방으로 {npc:16118}을(를) 불러냅니다. 먼저 방을 정리하세요. 그곳에서 화로를 사용하고 {npc:16118}을(를) 처치해 조각을 획득하세요. 그는 계속 해골을 일으키는 정예 오우거 영혼입니다. {spell:27688}을(를) 해제하거나 정화하고 빠르게 잡으세요. 전멸해도 그는 남아 있으니 다시 소환하지 말고 돌아오세요. 화로는 버리지 마세요. {npc:16033}이(가) 조각과 함께 돌려받기를 원합니다.",
 	-- {item:22052} Brazier of Beckoning · {npc:16118} Kormok
 	["{item:22052}: summons {npc:16118}"] = "{item:22052}: {npc:16118} 소환",
 
-	-- Step 46: Bloodkelp
+	-- Step 48: Bloodkelp
 	-- {area:2079} Alcaz Island · {zone:1445} Dustwallow Marsh · {npc:16072} Tidelord Rrurgaz
 	["The Strashaz naga of {area:2079}, off the north-east coast of {zone:1445}, carry it (level 59-61 elites, and {npc:16072} at 62): bring a friend or two. The Baskets of Bloodkelp on the island give 1 to 3 each without a fight. Swim over from the coast north of Theramore; elite hydras roam the water."] = "{zone:1445} 북동쪽 해안 앞 {area:2079}의 스트라샤즈 나가가 지니고 있습니다(59-61레벨 정예, {npc:16072}은(는) 62레벨). 친구 한두 명을 데려가세요. 섬의 피다시마 바구니는 전투 없이 각각 1~3개를 줍니다. 테라모어 북쪽 해안에서 헤엄쳐 건너가세요. 물속에 정예 히드라가 돌아다닙니다.",
 
-	-- Step 49: More Components of Importance: Brilliant Sword of Zealotry
+	-- Step 51: More Components of Importance: Brilliant Sword of Zealotry
 	-- {area:2266} Tyr's Hand · {zone:1423} Eastern Plaguelands · {item:22228} Brilliant Sword of Zealotry
 	-- plural, as words: Scarlet Praetorians = {npc:9448} Scarlet Praetorian
 	["At {area:2266}, the Scarlet town in the south-east of the {zone:1423}, the Scarlet Praetorians (level 56-57 elites) of its upper courtyard drop the {item:22228} (a rare drop: up to about 50 kills). They are elites: bring a friend or two unless your gear is good. It drops only while you have the quest; everyone in the group with it can loot one."] = "{zone:1423} 남동부의 붉은십자군 마을 {area:2266}에서 위쪽 안뜰의 붉은십자군 근위병(56-57레벨 정예)이 {item:22228}을(를) 떨어뜨립니다(희귀 드롭: 최대 50번 정도). 정예이니 장비가 좋지 않다면 한두 명과 함께 가세요. 퀘스트가 있는 동안에만 떨어지며, 퀘스트를 가진 파티원은 각자 하나씩 획득할 수 있습니다.",
 
-	-- Step 52: The Right Piece of Lord Valthalak's Amulet: Jarien and Sothos
+	-- Step 54: The Right Piece of Lord Valthalak's Amulet: Jarien and Sothos
 	-- {quest:8991} The Right Piece of Lord Valthalak's Amulet · {npc:16101} Jarien · {npc:16102} Sothos
 	["{quest:8991}: {npc:16101} and {npc:16102}"] = "{quest:8991}: {npc:16101}와(과) {npc:16102}",
 	-- {npc:16033} Bodley · {item:22051} Brazier of Beckoning · {npc:16101} Jarien · {npc:16102} Sothos · {area:2279} Stratholme · {item:21984} Left Piece of Lord Valthalak's Amulet · {item:22048} Lord Valthalak's Amulet
@@ -220,12 +224,12 @@ return {
 	-- {item:21984} Left Piece of Lord Valthalak's Amulet
 	["{item:21984}: joins the pieces"] = "{item:21984}: 조각 합치기",
 
-	-- Step 54: Final Preparations
+	-- Step 56: Final Preparations
 	-- {area:1583} Blackrock Spire · {item:13512} Flask of Supreme Power
 	-- plural, as words: Blackrock Bracers = {item:22138} Blackrock Bracer · Scarshield Grunts = {npc:9043} Scarshield Grunt
 	["40 Blackrock Bracers from the Blackrock orcs of {area:1583} (the Scarshield Grunts in the mountain's halls outside the portal, level 53-54 elites, drop them most often; Upper {area:1583}'s orcs better than Lower's), only while you have the quest, and a {item:13512} (alchemists make it at an alchemy lab; or the auction house)."] = "{area:1583}의 검은바위 오크에게서 검은바위 팔보호구 40개(차원문 밖 산 회랑의 상처방패 투사(53-54레벨 정예)가 가장 자주 떨어뜨리며, 상층 {area:1583}의 오크가 하층보다 낫습니다)를 퀘스트가 있는 동안에만 얻고, {item:13512} 하나(연금술사가 연금술 실험대에서 만들거나 경매장)를 준비하세요.",
 
-	-- Step 56: Upper Blackrock Spire: Lord Valthalak
+	-- Step 58: Upper Blackrock Spire: Lord Valthalak
 	-- {area:1583} Blackrock Spire · {npc:16042} Lord Valthalak
 	["Upper {area:1583}: {npc:16042}"] = "상층 {area:1583}: {npc:16042}",
 	-- {npc:10430} The Beast · {item:22056} Brazier of Beckoning · {npc:16042} Lord Valthalak · {item:22048} Lord Valthalak's Amulet · {quest:8996} Return to Bodley
@@ -235,15 +239,15 @@ return {
 	-- {item:22048} Lord Valthalak's Amulet
 	["{item:22048}, on his corpse"] = "그의 시체에 {item:22048}",
 
-	-- Step 57: Bodley: Back to the Beginning
+	-- Step 59: Bodley: Back to the Beginning
 	-- {npc:16033} Bodley · {item:22056} Brazier of Beckoning
 	["Hand {npc:16033} the {item:22056}."] = "{npc:16033}에게 {item:22056}을(를) 건네세요.",
 
-	-- Step 58: Deliana: Saving the Best for Last
+	-- Step 60: Deliana: Saving the Best for Last
 	-- {quest:84199} Saving the Best for Last · {item:16693} Devout Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16690} Devout Robe · {npc:10363} General Drakkisath
 	["{quest:84199} takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84199}에는 {item:16693}({area:2057}의 {npc:1853}, 약 12%)과 {item:16690}(검은바위 첨탑 상층의 {npc:10363}, 약 11%)이(가) 필요합니다.",
 
-	-- Step 59: Mokvar: Saving the Best for Last
+	-- Step 61: Mokvar: Saving the Best for Last
 	-- {quest:84206} Saving the Best for Last · {item:16693} Devout Crown · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16690} Devout Robe · {npc:10363} General Drakkisath
 	["{quest:84206} takes your {item:16693}: {npc:1853} in {area:2057} (about 12%), and your {item:16690}: {npc:10363} in Upper Blackrock Spire (about 11%)."] = "{quest:84206}에는 {item:16693}({area:2057}의 {npc:1853}, 약 12%)과 {item:16690}(검은바위 첨탑 상층의 {npc:10363}, 약 11%)이(가) 필요합니다.",
 
