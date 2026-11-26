@@ -364,7 +364,7 @@ together.
 | Guide lint | a lint error, leveling or experimental guides |
 | Addon tests | any of forge-addontest's tests, all of them (the cached test binaries) |
 | Playtest | a guide stuck or failing, leveling or experimental |
-| Route speed | a time to the arrow's first walking route over 5 s in its 7 cases, or a settled route that differs from 0.4.2's |
+| Route speed | a time to the arrow's first walking route over 5 s in its 10 cases, a settled route that differs from 0.4.2's, or a case whose Lua interpreter dies on all of its runs (a "lua5.1 died" row: a case that dies is run again, up to 5 times, and a death that a rerun clears is listed under the table, not counted) |
 | Arrow corner cadence | a case whose corner lag is worse than 0.4.1.1's (mean over 3 degrees worse and 6 or more, max over 45 and 10 worse), 24 cases |
 | Arrow stretches | a guide stretch the arrow does not walk to its end; the table compares with 0.4.2's runs |
 
