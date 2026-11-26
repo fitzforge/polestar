@@ -185,3 +185,30 @@ emit({ kind = E.GuideKind(), meter = { name = m.name, value = m.value, max = m.m
 	assert.equal(out.need, 60);
 	assert.equal(out.more, 'The Balance of Nature');
 });
+
+test('gamepad: X on a material row flips its way (Buy to Farm), A opens its split', () => {
+	const out = run('', `
+GF.Layout(); stub.advance(1)
+local sup = GF.RegionFrame("supplies")
+local row = sup.Rows[1]
+local before = { flip = row.psPadFlipLabel(row), action = row.psPadLabel(row) }
+row.psPadFlip(row)
+stub.advance(1)
+local _, _, pick = Polestar.Materials.Mode("test/craft", 2592)
+emit({ before = before, pick = pick or false })`);
+	assert.deepEqual(out.before, { flip: 'Farm instead', action: 'Show Buy and Farm' });
+	assert.equal(out.pick, 'gather', 'the flip is the player\'s pick, remembered');
+});
+
+test('Atlas sets the materials and the buy list on a card above the window', () => {
+	const out = runAddon({
+		stubs: ['stub_world.lua'],
+		addons: ['Polestar', { name: 'Polestar_Skins', files: ['Layouts/Atlas/Atlas.lua'] }],
+		script: script('Polestar.Set("ui.layout", "atlas")', `
+GF.Layout(); stub.advance(1); GF.Layout()
+local sup, list, meter = GF.RegionFrame("supplies"), GF.RegionFrame("buyList"), GF.RegionFrame("meter")
+emit({ supplies = sup:GetParent() ~= GF.parts.card, buyList = list:GetParent() == sup, meter = meter:GetParent() == GF.parts.card,
+	head = sup.Head:GetText() })`),
+	}).emitted[0];
+	assert.deepEqual(out, { supplies: true, buyList: true, meter: true, head: 'MATERIALS TO 115' });
+});

@@ -109,7 +109,9 @@ ns.UI.GuideFrame.Part(function(GF)
 
 	-- In the transparent window the cards and the split's well draw no ground, as the window draws none.
 	local function bareIn(frame)
-		local want = GF.Transparent() and true or nil
+		-- So does a card a layout set on a card of its own (psHosted: GF.LayoutRegions), never a card in a card.
+		local host = frame:GetParent()
+		local want = (GF.Transparent() or (host and host.psHosted)) and true or nil
 		if frame.psBare ~= want then
 			frame.psBare = want
 			Theme.Repaint(frame)

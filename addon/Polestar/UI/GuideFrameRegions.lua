@@ -148,7 +148,17 @@ ns.UI.GuideFrame.Part(function(GF)
 			if h > 0 then
 				f:SetHeight(h)
 				f:Show()
-				if not GF.Claimed(a.id, f, width, h) then
+				local hosted = GF.Claimed(a.id, f, width, h) or nil
+				-- A region on a card of the layout's own draws no card of its own (UI/GuideFrameKindCraft.lua).
+				if f.psHosted ~= hosted then
+					f.psHosted = hosted
+					local card = rawget(f, "Card")
+					if card then
+						card.psBare = (hosted or GF.Transparent()) and true or nil
+						ns.Theme.Repaint(card)
+					end
+				end
+				if not hosted then
 					f:ClearAllPoints()
 					f:SetPoint("TOPLEFT", card, "TOPLEFT", 0, -y)
 					f:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, -y)

@@ -118,12 +118,24 @@ local spec = {
 		if type(flip) == "function" and flip(w) then return end
 		details(w)
 	end,
+	-- Y: a profession or reputation guide with something set to Buy opens its buy list (UI/AuctionBuys.lua);
+	-- else the window goes to compact mode.
 	reset = function()
+		local GF = UI.GuideFrame
+		local AB = UI.AuctionBuys
+		if GF and GF.RegionShown and GF.RegionShown("buyList") and AB and AB.Show then
+			AB.Show()
+			return true
+		end
 		G.StopFocus()
 		ns.Set("ui.compact", true)
 		return true
 	end,
-	resetLabel = function() return L["Minimize"] end,
+	resetLabel = function()
+		local GF = UI.GuideFrame
+		if GF and GF.RegionShown and GF.RegionShown("buyList") then return L["Open list"] end
+		return L["Minimize"]
+	end,
 	prevTab = function() local E = engine(); if E and E.Prev then E.Prev() end end,
 	nextTab = function() local E = engine(); if E and E.Next then E.Next() end end,
 	tabsLabel = L["Steps"],
