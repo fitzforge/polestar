@@ -11342,16 +11342,22 @@ function Engine.Outgrown(g, p)
 	return true
 end
 
--- Evaluate every tab, the active one last.
+-- Evaluate every tab, the active one last. In combat, background tabs wait for
+-- PLAYER_REGEN_ENABLED to avoid frame hitches.
+Own.backgroundTabsDirty = false
 local function evaluate()
 	lastEval = GetTime()
 	generation = generation + 1
 	refreshPlayer()
-	for i = 1, #tabs do
-		if i ~= activeIndex then
-			use(tabs[i])
-			evaluateLoaded(false)
+	if not Compat().InCombat() then
+		for i = 1, #tabs do
+			if i ~= activeIndex then
+				use(tabs[i])
+				evaluateLoaded(false)
+			end
 		end
+	else
+		Own.backgroundTabsDirty = true
 	end
 	useActive()
 	evaluateLoaded(true)
@@ -15182,11 +15188,18 @@ end
 -- The build an evaluation queued (evaluate), the frame after it; nothing
 -- when an earlier build has caught up. The arrival poll runs while there are
 -- candidates to measure (updateTicker), and a clicked line that went asks
--- for one more evaluation, as when the build ran inside it.
+-- for one more evaluation, as when the build ran inside it. In a fight it
+-- waits for the fight's end (Own.hereOwed, PLAYER_REGEN_ENABLED): the lines
+-- hold through a fight (Own.hereTick).
 Own.hereQueued = false
 function Own.hereLater()
 	Own.hereQueued = false
 	if not (Own.hereDirty or Own.hereGuide ~= guide) then return end
+	if Compat().InCombat() then
+		Own.hereOwed = true
+		return
+	end
+	Own.hereOwed = false
 	local aimed = Own.hereBuild()
 	updateTicker()
 	if aimed then requestUpdate() end
@@ -15199,6 +15212,7 @@ end
 -- line the player had clicked went (the arrow goes back to the guide).
 function Own.hereBuild()
 	Own.hereDirty = false
+	Own.hereOwed = false
 	local pc = Compat().GetPlayerWorldPosition()
 	local aimed = false
 	if Own.hereGuide ~= guide then
@@ -17042,11 +17056,20 @@ ns.RegisterEvent("BAG_UPDATE_DELAYED", function()
 	end
 end)
 
--- The places were asked for in a fight (the Codex loads only out of it): again now.
+-- The places were asked for in a fight (the Codex loads only out of it),
+-- or background tabs waited: again now. A build a fight held back
+-- (Own.hereLater) runs a moment after it, apart from the fight's end's own
+-- frame.
+Own.HERE_AFTER_FIGHT = 0.2
 ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
-	if Own.hereVendorRetry then
-		Own.hereDirty = true
+	if Own.backgroundTabsDirty or Own.hereVendorRetry then
+		Own.backgroundTabsDirty = false
+		if Own.hereVendorRetry then Own.hereDirty = true end
 		requestUpdate()
+	end
+	if Own.hereOwed and not Own.hereQueued then
+		Own.hereQueued = true
+		ns.After(Own.HERE_AFTER_FIGHT, Own.hereLater)
 	end
 end)
 

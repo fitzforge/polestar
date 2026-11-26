@@ -516,7 +516,10 @@ local function surfaces()
 	return ns.Get("nav.worldPins") and true or false, ns.Get("nav.minimapPins") and true or false
 end
 
+local pendingCombatUpdate = false
+
 function Layers.Update()
+	pendingCombatUpdate = false
 	local world, minimap = surfaces()
 	-- Paused with "Hide the step's map pins while paused" (pause.map): the
 	-- step's goals, their areas and the while-here pins go; the target's pin
@@ -547,9 +550,24 @@ Layers.OnTarget = Layers.Update
 Layers.OnSettings = Layers.Update
 Layers.OnTheme = Layers.Update
 
-ns.On("STEP_UPDATED", Layers.Update)
-ns.On("ROUTE_CHANGED", Layers.Update)
-ns.On("WHILE_HERE_CHANGED", Layers.Update)
+local function onCombatDeferrableUpdate()
+	local C = ns.Compat
+	if C and C.InCombat and C.InCombat() then
+		pendingCombatUpdate = true
+		return
+	end
+	Layers.Update()
+end
+
+ns.On("STEP_UPDATED", onCombatDeferrableUpdate)
+ns.On("ROUTE_CHANGED", onCombatDeferrableUpdate)
+ns.On("WHILE_HERE_CHANGED", onCombatDeferrableUpdate)
+ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
+	if pendingCombatUpdate then
+		pendingCombatUpdate = false
+		Layers.Update()
+	end
+end)
 ns.On("POLESTAR_PAUSED", Layers.Update)
 ns.On("SETTING_CHANGED", function(path)
 	if path == "pause.map" or path == "pause" then Layers.Update() end
