@@ -8617,9 +8617,9 @@ it unchanged (the arrow, the target button, While you're here, auto accept
 and hand-in, party, Make room). Built from ideas and tests of AreChen's
 prototype (#4104).
 
-Its code is the load-on-demand folder `Polestar_FreeMode` (`Free.lua`), the
-quest-log modes' one folder, beside the finished-quest guide's planner
-(`Route.lua`, `Handins.lua`, #2486); `Lookup/Free.lua` in the core is its
+Its code is the load-on-demand folder `Polestar_FreeMode` (`Order.lua`, the
+pick rule; `Free.lua`), the quest-log modes' one folder, beside the
+finished-quest guide's planner (`Route.lua`, `Handins.lua`, #2486); `Lookup/Free.lua` in the core is its
 door (settings, `/polestar free`, the planner kind, the window's rows before
 it loads), `Lookup/Handins.lua` the hand-in guide's. Either guide opening (or
 its saved tab coming back) loads the folder. It ships in every release and the
@@ -8634,13 +8634,16 @@ Polestar.Free.Toggle() ; Polestar.Free.IsOn() -> bool ; Polestar.Free.IsGuide(id
 Polestar.Free.ReturnTitle() -> title | nil      -- the guide Stop hands back to
 Polestar.Free.Pin(questID, on) ; Polestar.Free.Pinned() -> questID | nil
 Polestar.Free.LeaveOut(questID, on) ; Polestar.Free.LeftOut() -> { questID, ... }
-Polestar.Free.SetPick("near" | "xp" | "balanced") -- setting free.pick
+Polestar.Free.SetPick("balanced" | "near" | "xp") -- setting free.pick
+Polestar.Free.Pick() -> rule ; Polestar.Free.NextPick(rule?) -> rule ; Polestar.Free.PickLabel(rule) -> text
+Polestar.Free.Why() -> text | nil              -- "Why <quest> first: <reasons>", the last plan's
 Polestar.Free.Quests() -> rows ; Polestar.Free.Zones()      -- the quests page's rows (quest, title, level, zone, zoneName, ready, group, out, pinned); the zones of those in the loop
 Polestar.Free.LeaveOutZone(map) ; Polestar.Free.LeaveOutGroup() ; Polestar.Free.BringBack()  -- the quick actions
-Polestar.Free.Steps(from?) -> steps, info       -- a plan as it stands (info.rows in order, info.hint, info.first)
+Polestar.Free.Steps(from?) -> steps, info       -- a plan as it stands (info.rows in order, info.hint, info.first, info.why)
 Polestar.Free.Plan(force?)                      -- plan again when what it reads moved
 Polestar.Free.MenuItems() ; Polestar.Free.RowItems(questID) -- the guide window's menu rows; a quest line's right-click rows
-/polestar free [on | off | back | nearest | xp]
+Polestar.FreeOrder.Sort(rows, rule, pin, last, dist) ; .Why(rows, rule, pin) ; .Effort(lines, ready, level) -- Order.lua, pure
+/polestar free [on | off | back | balanced | nearest | xp]
 ```
 
 - **Steps.** One per held quest (the log as listed, plus quests under a folded
@@ -8654,20 +8657,40 @@ Polestar.Free.MenuItems() ; Polestar.Free.RowItems(questID) -- the guide window'
   rate: N%". An empty plan is one note step ("Pick up quests…"), and the
   window's finished card then reads "No quests to lead to" with Return to
   <guide> or Choose a guide.
-- **The pick rule** (`free.pick`). Each quest's next place: the hand-in when
-  ready, else its open objective nearest in a straight line; its travel is the
-  walking planner's (`Nav.EstimateTravel`, budgeted; else the straight line).
-  Tiers first: at the player's level on this continent; then a quest 3+ levels
-  above or with an elite target; then another continent or nowhere placed.
-  Nearest first: the travel less 10 s for each other quest's place within 150
-  yd (at most 3) and 6 s for a hand-in; after the first, each next quest is
-  the nearest to the last one's place, tier by tier. Most XP a minute: XP times
-  60 over the travel and the work left (15 s, then 27 s a kill, 22 s an item,
-  12 s anything else; 6 s a hand-in). The last plan's first quest stays first
-  while it scores within 1.2 times the best and 6 s (nearest; most XP: a rate
-  within a fifth), so a few yards never flip the arrow. A pinned quest
-  (`CharState().free.pin`) comes first; quests left out (`CharState().free.out`)
-  are not listed. Both go when the quest leaves the log.
+- **The pick rule** (`free.pick`, `Order.lua`: its numbers in one table each,
+  `Order.EFFORT`, `Order.NEAR`, `Order.HOLD`, `Order.BALANCED`). Each quest's
+  next place: the hand-in when ready, else its open objective nearest in a
+  straight line; its travel is the walking planner's (`Nav.EstimateTravel`,
+  budgeted; else the straight line). Tiers first: at the player's level on
+  this continent; then a quest 3+ levels above or with an elite target; then
+  another continent or nowhere placed. The work left: 15 s, then each count
+  left of an open line at the seconds players' recordings show one takes at
+  the player's level (a kill 23 s at levels 1-9 up to 48 s at 50-60, an item
+  36 s up to 67 s), 12 s anything else; 6 s a hand-in.
+  **Balanced** (the default): the XP a stop pays a minute of the walk times 2
+  and the work left, the XP raised by 0.35 for each other held quest with an
+  open objective within 150 yd or the same mobs (at most 3), 0.15 for progress
+  made and 0.25 for an NPC on the way that takes 2+ finished quests; a
+  finished quest's stop counts every finished quest that NPC takes; while
+  another open quest is within 45 s, a stop further than that also costs 4
+  times its walk (the way back). Each stop scores the better of itself and
+  itself with the best next stop from its place; after the first, each next
+  quest scores from the last one's place, tier by tier.
+  **Nearest first**: the travel less 10 s for each other quest's place within
+  150 yd (at most 3) and 6 s for a hand-in; after the first, each next quest
+  is the nearest to the last one's place, tier by tier. **Most XP a minute**:
+  XP times 60 over the travel and the work left. The last plan's first quest
+  stays first while it scores within 1.2 times the best and 6 s (nearest;
+  balanced and most XP: a rate within a fifth), so a few yards never flip the
+  arrow. A pinned quest (`CharState().free.pin`) comes first; quests left out
+  (`CharState().free.out`) are not listed. Both go when the quest leaves the
+  log. The straight lines a plan measures read each place's world position
+  once a plan.
+- **Why** (`Order.Why`, `Free.Why`). The 1-3 strongest reasons the first quest
+  is first: pinned; N hand-ins at one stop; ready to hand in; N of your quests
+  here; hand-in on the way; started; nearest; most XP for the trip (the
+  order's own score: Balanced's with its weights); kept while you walk (the
+  hold, when nothing else says it).
 - **Zone hints** (`free.hints`). With no quest placed, or the first more than
   300 s away, the first step is "Quests for your level": a `goto` to the hub of
   the zone with the most quests for the trip (its count over 1 + the straight
@@ -8687,11 +8710,13 @@ Polestar.Free.MenuItems() ; Polestar.Free.RowItems(questID) -- the guide window'
   the first open quest live. While no Free mode tab is open the quest log's
   events cost one flag test (`TABS_CHANGED` keeps it).
 - **The window.** The guide menu's "Free mode" row (on/off) and, while it is on,
-  the other order and "Bring back left-out quests (N)"; with no guide open, the
+  the next order and "Bring back left-out quests (N)"; with no guide open, the
   empty card's "Or follow your own quests: Free mode"; while it is the guide
   shown, the banner (after every other notice but the update's) "Free mode: the
-  arrow takes your own quests, nearest first." with Return to <guide> and the
-  other order, closed for the session by its ×; a quest line's right-click has
+  arrow takes your own quests, the best trip first: XP, progress and stops
+  shared." (or the order chosen's) and under it the why line, with Return to
+  <guide> and the next order (balanced, nearest, most XP, round again), closed
+  for the session by its ×; a quest line's right-click has
   Pin to the top / Unpin and Leave out of Free mode in place of Skip this
   quest. Settings: Questing > Quests > Free mode (the switch, `free.pick`,
   `free.hints`, `free.details`).

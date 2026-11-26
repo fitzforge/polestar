@@ -16,7 +16,7 @@
 --   Free.Start() -> true | nil, reason  -- open it in a tab and make it active
 --   Free.Stop()                         -- close its tab; the tab the player came
 --                                          from (else none) is active again
---   Free.Toggle() ; Free.Command(arg)   -- /polestar free [on | off | back | nearest | xp]
+--   Free.Toggle() ; Free.Command(arg)   -- /polestar free [on | off | back | balanced | nearest | xp]
 --   Free.ReturnTitle() -> title | nil   -- the guide Stop hands back to
 --   Free.Pin(questID, on)               -- that quest first, whatever the rule
 --   Free.LeaveOut(questID, on)          -- not listed (on = false: back)
@@ -24,7 +24,8 @@
 --   Free.Steps(from?) -> steps, info    -- what a plan holds now (the planner's
 --                                          build; info.rows: the quests in order,
 --                                          each { quest, title, travel, xp, tier,
---                                          score, place }; info.hint)
+--                                          score, place }; info.hint; info.why)
+--   Free.Why() -> text | nil            -- why the last plan's first quest is first
 --   Free.Plan(force?)                   -- plan again now if anything it reads moved
 --   Free.MenuItems() -> { item, ... }   -- the guide window menu's rows
 --   Free.RowItems(questID) -> { item, ... } | nil  -- a quest line's right-click rows
@@ -48,17 +49,12 @@ local format, floor, min, max, sort, concat = string.format, math.floor, math.mi
 local KIND, ID = "free", "log"
 local GID = Free.GUIDE
 
--- The pick rule's numbers (DESIGN: AreChen's prototype, #4104, gave the
--- shape: tiers, the work left, the hold).
-local RUN = 7 -- yards a second, as Guides' travel estimate runs
-local NEAR_YARDS = 150 -- another quest's place this close: the same area
-local NEAR_BONUS, NEAR_MAX = 10, 3 -- seconds off a quest per such neighbour, at most this many
-local READY_BONUS = 6 -- seconds off a hand-in
+-- The pick rule is Order.lua's (ns.FreeOrder): its numbers, every order's.
+local Order = ns.FreeOrder
+local RUN = Order.RUN
 local FAR_SECONDS = 300 -- the nearest quest further than this: a zone hint first
 local LOW_CHANCE = 20 -- a collect whose best source gives it under this percent says so
-local HOLD_SHARE, HOLD_SECONDS = 1.2, 6 -- the first quest stays unless another scores this much better
 local HARD_ABOVE = 3 -- a quest this many levels above the player ranks after the rest
-local EFFORT = { monster = 27, item = 22, other = 12, start = 15, ready = 6 } -- seconds of work
 local HINT_ABOVE = 3 -- a zone hint counts quests up to this many levels above the player
 local HUB_YARDS = 150 -- givers this close to one another make one hub
 local HINT_SLICE = 300 -- Codex quests judged per frame while a hint is worked out
@@ -83,8 +79,9 @@ local function saved()
 	return f
 end
 
+-- The order (setting free.pick, the door's Free.Pick): "balanced" | "near" | "xp".
 local function pick()
-	return ns.Get("free.pick") == "xp" and "xp" or "near"
+	return Free.Pick()
 end
 
 ---------------------------------------------------------------------------
@@ -162,7 +159,29 @@ local function places(g, out)
 	return out
 end
 
-local direct = ns.DirectTravelCost
+local CROSS = ns.TRAVEL_CROSS_CONTINENT or 3600
+
+-- The straight line's seconds between two places, as ns.DirectTravelCost
+-- (running time on one continent, CROSS across), each place's world position
+-- worked out once a plan (Free.Steps starts a new cache): the Balanced order
+-- asks for thousands of pairs, and a live-frame map position is a client call.
+local worldAt = {}
+local function world(p)
+	local w = worldAt[p]
+	if w == nil then
+		local c, x, y = ns.Compat.MapToWorld(p.map, p.x, p.y, p.f)
+		w = c and { c, x, y } or false
+		worldAt[p] = w
+	end
+	return w
+end
+local function direct(a, b)
+	local wa, wb = world(a), world(b)
+	if not (wa and wb) then return nil end
+	if wa[1] ~= wb[1] then return CROSS end
+	local dx, dy = wb[2] - wa[2], wb[3] - wa[3]
+	return (dx * dx + dy * dy) ^ 0.5 / RUN
+end
 
 -- The walking planner's seconds from the player (Nav.EstimateTravel, budgeted:
 -- once this frame's planning time is spent, or with no answer, the straight
@@ -214,22 +233,10 @@ local function questXP(rec, qlvl, level)
 	return floor(rec.xp * (share and share(level, qlvl) or 1) + 0.5)
 end
 
--- The seconds of work left in a quest: per count left of each open line.
-local function effort(lines, ready)
-	if ready then return EFFORT.ready end
-	local s = EFFORT.start
-	for _, line in ipairs(lines or {}) do
-		if not line.finished then
-			local left = max(1, (line.numRequired or 1) - (line.numFulfilled or 0))
-			s = s + left * (EFFORT[line.type] or EFFORT.other)
-		end
-	end
-	return s
-end
-
 -- One held quest -> its row { quest, title, step, ready, xp, effort, qlvl,
--- hard, place, travel }: its step is Lookup's quest step (the giver's accept
--- left out: it is held) with the open goals' places measured from `from`.
+-- hard, started, place, travel, open, mobs, ender } (Order.lua's row): its
+-- step is Lookup's quest step (the giver's accept left out: it is held) with
+-- the open goals' places measured from `from`.
 local function questRow(q, from, p, details)
 	local C, K = Codex(), ns.Compat
 	local rec = C and C.Quest(q)
@@ -237,9 +244,12 @@ local function questRow(q, from, p, details)
 	local ready = K.IsQuestReadyForTurnIn(q) and true or false
 	local lines = not ready and K.GetQuestObjectives(q) or nil
 	local qlvl = K.GetQuestLevel(q) or (rec and rec.level)
-	local row = { quest = q, title = title, ready = ready, qlvl = qlvl, effort = effort(lines, ready) }
+	local row = { quest = q, title = title, ready = ready, qlvl = qlvl, effort = Order.Effort(lines, ready, p.level) }
 	row.xp = questXP(rec, qlvl, p.level)
 	row.hard = (qlvl and qlvl >= p.level + HARD_ABOVE) and true or false
+	for _, line in ipairs(lines or {}) do
+		if line.finished or (line.numFulfilled or 0) > 0 then row.started = true end
+	end
 	local goals = {}
 	local built = rec and Lookup.QuestStep(rec, from, { direct = true })
 	for _, g in ipairs(built and built.goals or {}) do
@@ -269,110 +279,52 @@ local function questRow(q, from, p, details)
 	row.step = { title = title, goals = goals, note = built and built.note or nil }
 	-- Its next place: the hand-in when ready, else the open objective the
 	-- player reaches soonest (straight lines among them, the walk to the one).
+	-- Balanced reads the rest too: every open place, the mobs the open lines
+	-- are had from, and the NPC a finished quest goes to.
 	if from then
-		local best, bestD
+		local best, bestD, open, mobs = nil, nil, {}, {}
 		for _, g in ipairs(goals) do
 			if goalOpen(g, ready, lines) then
 				for _, pt in ipairs(places(g, {})) do
+					open[#open + 1] = pt
 					local d = direct(from, pt)
 					if d and (not bestD or d < bestD) then best, bestD = pt, d end
 				end
+				if g.t == "kill" and g.npc then mobs["n" .. g.npc] = true end
+				if g.t == "collect" and g.fromKind == "npc" then
+					if g.fromId then mobs["n" .. g.fromId] = true end
+					if g.fromAlsoId then mobs["n" .. g.fromAlsoId] = true end
+				end
+				if g.t == "turnin" then row.ender = (g.npc and "n" .. g.npc) or (g.object and "o" .. g.object) or nil end
 			end
 		end
+		row.open, row.mobs = open, mobs
 		if best then row.place, row.travel = best, walk(from, best) or bestD end
 	end
 	return row
 end
 
 ---------------------------------------------------------------------------
--- The pick rule
+-- Why the first quest is first (Order.Why), as the card's line
 ---------------------------------------------------------------------------
 
-local CROSS = ns.TRAVEL_CROSS_CONTINENT or 3600
+local WHY = {
+	pinned = function() return L["pinned"] end,
+	stop = function(n) return format(L["%d hand-ins at one stop"], n) end,
+	ready = function() return L["ready to hand in"] end,
+	shared = function(n) return format(L["%d of your quests here"], n) end,
+	way = function() return L["hand-in on the way"] end,
+	started = function() return L["started"] end,
+	nearest = function() return L["nearest"] end,
+	xp = function() return L["most XP for the trip"] end,
+	held = function() return L["kept while you walk"] end,
+}
 
-local function tierOf(r)
-	if not r.place or not r.travel or r.travel >= CROSS then return 2 end
-	return r.hard and 1 or 0
-end
-
-local function before(a, b)
-	if a.tier ~= b.tier then return a.tier < b.tier end
-	if a.score ~= b.score then return a.score < b.score end
-	return a.quest < b.quest
-end
-
--- The quests in the order Free mode takes them. Nearest: tiers (at your
--- level here; then hard; then elsewhere), then the walk less a little for
--- each other quest's place nearby and for a hand-in; after the first, each
--- next one nearest the last one's place. Best XP a minute: tiers, then XP
--- over the walk and the work left. A pinned quest first; the first of the
--- last plan stays first unless another beats it clearly (`last`).
-local function order(rows, rule, pin, last)
-	for _, r in ipairs(rows) do
-		r.tier = tierOf(r)
-		local near = 0
-		for _, o in ipairs(rows) do
-			if o ~= r and r.place and o.place then
-				local d = direct(r.place, o.place)
-				if d and d * RUN <= NEAR_YARDS then near = near + 1 end
-			end
-		end
-		local t = r.travel or CROSS
-		r.score = max(1, t - min(near, NEAR_MAX) * NEAR_BONUS - (r.ready and READY_BONUS or 0))
-		if rule == "xp" then
-			r.rate = (r.xp or 0) * 60 / max(1, t + r.effort)
-			-- Higher rate first: a score as low as the rate is high.
-			r.score = -r.rate
-		end
-	end
-	sort(rows, before)
-	local best = rows[1]
-	-- The hold: the last plan's first quest keeps its place while it scores
-	-- within HOLD_SHARE and HOLD_SECONDS of the best (so a few yards never flip
-	-- the arrow).
-	if best and last and best.quest ~= last then
-		for i, r in ipairs(rows) do
-			if r.quest == last and r.tier == best.tier then
-				local holds
-				if rule == "xp" then
-					holds = r.rate * HOLD_SHARE + 1 >= best.rate
-				else
-					holds = r.score <= best.score * HOLD_SHARE + HOLD_SECONDS
-				end
-				if holds then
-					table.remove(rows, i)
-					table.insert(rows, 1, r)
-				end
-				break
-			end
-		end
-	end
-	if rule ~= "xp" then
-		-- Nearest-next from the first, tier by tier: an area's quests stay together.
-		local out, left = { rows[1] }, {}
-		for i = 2, #rows do left[#left + 1] = rows[i] end
-		while #left > 0 do
-			local prev, bi, bd = out[#out], nil, nil
-			for i, r in ipairs(left) do
-				local d = (prev.place and r.place) and direct(prev.place, r.place) or CROSS
-				if not bi or r.tier < left[bi].tier or (r.tier == left[bi].tier and (d < bd or (d == bd and r.quest < left[bi].quest))) then
-					bi, bd = i, d
-				end
-			end
-			out[#out + 1] = table.remove(left, bi)
-		end
-		rows = out
-	end
-	if pin then
-		for i, r in ipairs(rows) do
-			if r.quest == pin then
-				table.remove(rows, i)
-				table.insert(rows, 1, r)
-				break
-			end
-		end
-	end
-	return rows
+local function whyText(rows, rule, pin)
+	local parts = {}
+	for _, e in ipairs(Order.Why(rows, rule, pin)) do parts[#parts + 1] = WHY[e.key](e.n) end
+	if #parts == 0 then return nil end
+	return format(L["Why %s first: %s"], rows[1].title, concat(parts, " \194\183 "))
 end
 
 ---------------------------------------------------------------------------
@@ -531,10 +483,11 @@ end
 -- The guide
 ---------------------------------------------------------------------------
 
-local lastFirst -- the first quest of the last plan (the hold)
+local lastFirst, lastWhy -- the first quest of the last plan (the hold), and why it is first
 
 function Free.Steps(from)
 	from = from or ns.PlayerPoint()
+	worldAt = {}
 	local f, p = saved(), Lookup.PlayerInfo()
 	local details = ns.Get("free.details") and true or false
 	local rows = {}
@@ -542,8 +495,8 @@ function Free.Steps(from)
 		if not f.out[q] then rows[#rows + 1] = questRow(q, from, p, details) end
 	end
 	local rule = pick()
-	rows = order(rows, rule, f.pin, lastFirst)
-	local steps, info = {}, { rows = rows }
+	rows = Order.Sort(rows, rule, f.pin, lastFirst, direct)
+	local steps, info = {}, { rows = rows, why = whyText(rows, rule, f.pin) }
 	local first = rows[1]
 	local far = not (first and first.place and first.travel and first.travel <= FAR_SECONDS)
 	if far and ns.Get("free.hints") then
@@ -574,8 +527,14 @@ function Free.Build()
 	local C = Codex()
 	if not (C and C.Load()) then return nil, "missing" end
 	local steps, info = Free.Steps()
-	lastFirst = info.first
+	lastFirst, lastWhy = info.first, info.why
 	return { title = L["Free mode"], steps = steps, category = "Lookup" }
+end
+
+-- Why the last plan's first quest is first: "Why <quest> first: <reasons>",
+-- nil with no quest.
+function Free.Why()
+	return lastWhy
 end
 
 local function tabIndex()
@@ -683,8 +642,9 @@ end)
 for _, event in ipairs({ "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_TURNED_IN", "ZONE_CHANGED_NEW_AREA", "PLAYER_ENTERING_WORLD", "PLAYER_LEVEL_UP" }) do
 	ns.RegisterEvent(event, changed)
 end
+-- A free.* setting, or many at once ("": a profile switched, a page reset).
 ns.On("SETTING_CHANGED", function(path)
-	if open and type(path) == "string" and path:find("^free") then Free.Plan(true) end
+	if open and type(path) == "string" and (path == "" or path:find("^free")) then Free.Plan(true) end
 end)
 
 ---------------------------------------------------------------------------
@@ -704,7 +664,7 @@ function Free.Start()
 	if not loaded then return nil, reason end
 	local cur = active and tabs[active]
 	saved().from = cur and cur.guideId or nil
-	lastFirst = nil
+	lastFirst, lastWhy = nil, nil
 	local ok, err = Lookup.Guide(KIND, ID)
 	if not ok then return nil, err end
 	planned = signature()
@@ -742,7 +702,7 @@ function Free.Stop()
 	end
 	E.CloseTab(i, true)
 	saved().from = nil
-	planned, lastFirst = nil, nil
+	planned, lastFirst, lastWhy = nil, nil, nil
 	ns.Fire("FREE_MODE", false)
 end
 
@@ -914,9 +874,10 @@ function Free.MenuItems()
 	items[1] = { text = L["Free mode"], icon = "icon-ownpath", checked = on, tip = L["Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute)."],
 		onClick = function() if on then Free.Stop() else Free.Toggle() end end }
 	if on then
-		local xp = pick() == "xp"
-		items[#items + 1] = { text = xp and L["Order: nearest first"] or L["Order: most XP a minute first"], icon = "sliders",
-			onClick = function() Free.SetPick(xp and "near" or "xp") end }
+		-- The next order (balanced, nearest, most XP, round again).
+		local nextRule = Free.NextPick()
+		local ORDER_ROW = { balanced = L["Order: balanced"], near = L["Order: nearest first"], xp = L["Order: most XP a minute first"] }
+		items[#items + 1] = { text = ORDER_ROW[nextRule], icon = "sliders", onClick = function() Free.SetPick(nextRule) end }
 		local out = Free.LeftOut()
 		if #out > 0 then
 			items[#items + 1] = { text = format(L["Bring back left-out quests (%d)"], #out), icon = "reset", onClick = Free.BringBack }
@@ -944,6 +905,7 @@ end
 function Free.Command(arg)
 	arg = type(arg) == "string" and arg:lower():match("^%s*(%S*)") or ""
 	if arg == "off" or arg == "back" then return Free.Stop() end
+	if arg == "balanced" then return Free.SetPick("balanced") end
 	if arg == "nearest" or arg == "near" then return Free.SetPick("near") end
 	if arg == "xp" then return Free.SetPick("xp") end
 	if arg == "on" then

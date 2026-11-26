@@ -1,6 +1,9 @@
 //! Free mode (#3701, addon/Polestar/Lookup/Free.lua): the character's own quest log as a guide in a tab of its own,
-//! the quests in the order of the pick rule (nearest first, or most XP a minute first), a pinned quest first, a quest
-//! left out not listed, a zone hint when the log has nothing near, and the way back to the guide the player came from.
+//! the quests in the order of the pick rule (balanced, the default; nearest first; or most XP a minute first), a
+//! pinned quest first, a quest left out not listed, a zone hint when the log has nothing near, and the way back to the
+//! guide the player came from. Balanced's order and its why line (Polestar_FreeMode/Order.lua): a stop shared by
+//! several quests, a quest started and a hand-in stop for several quests come first, and the first holds while the
+//! player walks.
 //! The cases grew from AreChen's prototype's (#4104): objective progress moving the arrow on, and handing the arrow
 //! back to the guide.
 //!
@@ -11,6 +14,10 @@
 //!   7003 Lurkers in the Marsh  6 Marsh Lurkers, 1,000 yd north-west (900 XP)
 //!   7004 Ogre Menace           level 26: 3 Highland Ogres right beside the camp (3,000 XP)
 //!   7005 Gnoll Ears            6 Gnoll Ears, 8% from the Ridge Gnolls (1,100 XP)
+//!   7006 Rat Problem           kill 5 Field Rats, 80 yd west; Hale (1,200 XP)
+//!   7007 Gnoll Bounty          kill 3 Ridge Gnolls; Hale (900 XP)
+//!   7008 Snare Check, 7009 Tusk Tally   a Hill Boar each; Ranger Ilse (900 and 1,000 XP)
+//! (7006-7009 start from a letter, so no zone hint counts them),
 //! and quests to take: 7110 at Marshal Hale; four in Merrow Fields (map 9002), three of them around Scout Merrow;
 //! one there for the Horde, one done, one too high, one behind a prerequisite not done.
 
@@ -54,8 +61,13 @@ local Q = {
 	[7003] = { { text = "Marsh Lurker slain: 0/6", required = 6 } },
 	[7004] = { { text = "Highland Ogre slain: 0/3", required = 3 } },
 	[7005] = { { text = "Gnoll Ear: 0/6", required = 6, type = "item" } },
+	[7006] = { { text = "Field Rat slain: 0/5", required = 5 } },
+	[7007] = { { text = "Ridge Gnoll slain: 0/3", required = 3 } },
+	[7008] = { { text = "Hill Boar slain: 0/1", required = 1 } },
+	[7009] = { { text = "Hill Boar slain: 0/1", required = 1 } },
 }
-local TITLE = { [7001] = "Gnoll Trouble", [7002] = "Boar Hunt", [7003] = "Lurkers in the Marsh", [7004] = "Ogre Menace", [7005] = "Gnoll Ears" }
+local TITLE = { [7001] = "Gnoll Trouble", [7002] = "Boar Hunt", [7003] = "Lurkers in the Marsh", [7004] = "Ogre Menace", [7005] = "Gnoll Ears",
+	[7006] = "Rat Problem", [7007] = "Gnoll Bounty", [7008] = "Snare Check", [7009] = "Tusk Tally" }
 local function take(...)
 	for _, q in ipairs({ ... }) do w.accept(q, Q[q], TITLE[q]) end
 	stub.advance(1)
@@ -118,6 +130,7 @@ fn strs(v: &Value) -> Vec<String> {
 #[test]
 fn the_arrow_takes_the_nearest_quest_then_the_next_once_it_is_handed_in() {
 	let out = run(r#"
+Polestar.Set("free.pick", "near")
 take(7001, 7002, 7003)
 assert(F.Start())
 stub.advance(1)
@@ -152,7 +165,8 @@ Polestar.Set("free.pick", "near")
 stub.advance(1)
 emit({ titles = titles() })
 "#);
-	// Boar Hunt: 2,400 XP over about 57 s of walking and 103 s of work, ahead of Gnoll Trouble's 1,200 over 164 s.
+	// Boar Hunt: 2,400 XP over about 57 s of walking and 239 s of work (4 tusks at 56 s, the item's time at levels
+	// 20-29), ahead of Gnoll Trouble's 1,200 over 209 s.
 	assert_eq!(strs(&out[0]["titles"])[0], "Boar Hunt");
 	assert!(text(&out[0]["note"]).starts_with("About "), "{}", out[0]["note"]);
 	assert!(text(&out[0]["note"]).contains("XP a minute"), "{}", out[0]["note"]);
@@ -173,6 +187,7 @@ emit({ titles = titles() })
 #[test]
 fn a_pinned_quest_comes_first_and_a_left_out_one_goes_until_it_leaves_the_log() {
 	let out = run(r#"
+Polestar.Set("free.pick", "near")
 take(7001, 7002, 7003)
 assert(F.Start())
 stub.advance(1)
@@ -202,9 +217,10 @@ emit({ titles = titles(), out = F.LeftOut() })
 
 #[test]
 fn the_first_quest_holds_against_a_small_move_and_gives_way_to_a_clear_one() {
-	// Gnoll Trouble's gnolls 100 yd east, Boar Hunt's boars 400 yd west. 160 yd west the boars are 20 yd nearer
-	// than the gnolls: too little to move the arrow off them. Standing by the boars, they come first.
+	// Nearest first: Gnoll Trouble's gnolls 100 yd east, Boar Hunt's boars 400 yd west. 160 yd west the boars are
+	// 20 yd nearer than the gnolls: too little to move the arrow off them. Standing by the boars, they come first.
 	let out = run(r#"
+Polestar.Set("free.pick", "near")
 take(7001, 7002)
 assert(F.Start())
 stub.advance(1)
@@ -401,8 +417,8 @@ for _, it in ipairs(F.MenuItems()) do menuOn[#menuOn + 1] = it.text end
 for _, it in ipairs(F.RowItems(7001) or {}) do rowsOn[#rowsOn + 1] = it.text end
 GF.TakeBanner()
 stub.advance(1)
-emit({ empty = empty, menuOff = menuOff, rowsOff = rowsOff, banner = kind, back = n and n.back, menuOn = menuOn, rowsOn = rowsOn,
-	after = E.GetGuide().id, on = F.IsOn() })
+emit({ empty = empty, menuOff = menuOff, rowsOff = rowsOff, banner = kind, back = n and n.back, pick = n and n.pick, why = n and n.why,
+	menuOn = menuOn, rowsOn = rowsOn, after = E.GetGuide().id, on = F.IsOn() })
 "#,
 		&Opts { files: None, ..Default::default() },
 	);
@@ -411,7 +427,10 @@ emit({ empty = empty, menuOff = menuOff, rowsOff = rowsOff, banner = kind, back 
 	assert!(o["rowsOff"].is_null());
 	assert_eq!(text(&o["banner"]), "free");
 	assert_eq!(text(&o["back"]), "Route");
-	assert_eq!(strs(&o["menuOn"]), ["Free mode", "Order: most XP a minute first"]);
+	// Balanced by default; the card says why its first quest is first, and the menu offers the next order.
+	assert_eq!(text(&o["pick"]), "balanced");
+	assert_eq!(text(&o["why"]), "Why Gnoll Trouble first: nearest \u{b7} most XP for the trip");
+	assert_eq!(strs(&o["menuOn"]), ["Free mode", "Order: nearest first"]);
 	assert_eq!(strs(&o["rowsOn"]), ["Pin to the top", "Leave out of Free mode"]);
 	assert_eq!(text(&o["after"]), "test/route");
 	assert!(!truthy(&o["on"]));
@@ -427,14 +446,17 @@ SlashCmdList.POLESTAR("free")
 stub.advance(1)
 local on, first = F.IsOn(), titles()[1]
 SlashCmdList.POLESTAR("free nearest")
+local near = Polestar.Get("free.pick")
+SlashCmdList.POLESTAR("free balanced")
 SlashCmdList.POLESTAR("free off")
 stub.advance(1)
-emit({ xp = xp, on = on, first = first, pick = Polestar.Get("free.pick"), off = F.IsOn() })
+emit({ xp = xp, on = on, first = first, near = near, pick = Polestar.Get("free.pick"), off = F.IsOn() })
 "#);
 	assert_eq!(text(&out[0]["xp"]), "xp");
 	assert!(truthy(&out[0]["on"]));
 	assert_eq!(text(&out[0]["first"]), "Boar Hunt");
-	assert_eq!(text(&out[0]["pick"]), "near");
+	assert_eq!(text(&out[0]["near"]), "near");
+	assert_eq!(text(&out[0]["pick"]), "balanced");
 	assert!(!truthy(&out[0]["off"]));
 }
 
@@ -462,7 +484,10 @@ stub.advance(1)
 local on, guide = F.IsOn(), E.GetGuide().id
 start.onClick()
 stub.advance(1)
-emit({ page = c.page.key, tab = c.tab, hints = rows["free.hints"] ~= nil, details = rows["free.details"] ~= nil, on = on, guide = guide, after = F.IsOn() })
+local choices = {}
+for _, ch in ipairs(c.choices) do choices[#choices + 1] = ch.value end
+emit({ page = c.page.key, tab = c.tab, hints = rows["free.hints"] ~= nil, details = rows["free.details"] ~= nil, on = on, guide = guide, after = F.IsOn(),
+	choices = choices, default = Polestar.GetDefault("free.pick") })
 "#,
 		&Opts { files: None, ..Default::default() },
 	);
@@ -470,7 +495,112 @@ emit({ page = c.page.key, tab = c.tab, hints = rows["free.hints"] ~= nil, detail
 	assert_eq!(text(&o["page"]), "questing");
 	assert_eq!(text(&o["tab"]), "Quests");
 	assert!(truthy(&o["hints"]) && truthy(&o["details"]));
+	assert_eq!(strs(&o["choices"]), ["balanced", "near", "xp"]);
+	assert_eq!(text(&o["default"]), "balanced");
 	assert!(truthy(&o["on"]));
 	assert_eq!(text(&o["guide"]), "lookup/free/log");
 	assert!(!truthy(&o["after"]));
+}
+
+// Balanced (Polestar_FreeMode/Order.lua), from 45,50: the Field Rats 20 yd west, the Ridge Gnolls 200 yd east.
+// Gnoll Trouble alone loses to the nearer Rat Problem; with Gnoll Ears and Gnoll Bounty on the same gnolls, the
+// gnolls are one stop for three quests and come first. Nearest takes the rats either way.
+#[test]
+fn balanced_takes_a_stop_several_quests_share_before_a_nearer_lone_one() {
+	let script = |quests: &str, rule: &str| {
+		run(&format!(
+			r#"
+w.moveTo(9001, 45, 50)
+Polestar.Set("free.pick", "{rule}")
+take({quests})
+assert(F.Start())
+stub.advance(1)
+emit({{ first = titles()[1], why = F.Why() }})
+"#
+		))
+	};
+	let alone = script("7006, 7001", "balanced");
+	let shared = script("7006, 7001, 7005, 7007", "balanced");
+	let near = script("7006, 7001, 7005, 7007", "near");
+	assert_eq!(text(&alone[0]["first"]), "Rat Problem");
+	assert_eq!(text(&shared[0]["first"]), "Gnoll Trouble");
+	assert_eq!(text(&shared[0]["why"]), "Why Gnoll Trouble first: 3 of your quests here \u{b7} most XP for the trip");
+	assert_eq!(text(&near[0]["first"]), "Rat Problem");
+}
+
+// Rat Problem 20 yd west, Gnoll Trouble 200 yd east: with three of its five gnolls down, Gnoll Trouble (less left
+// to do, the mobs found) comes first under Balanced; Nearest keeps the rats.
+#[test]
+fn balanced_takes_a_quest_already_started_first() {
+	let script = |rule: &str, kills: u32| {
+		run(&format!(
+			r#"
+w.moveTo(9001, 45, 50)
+Polestar.Set("free.pick", "{rule}")
+take(7006, 7001)
+w.progress(7001, 1, {kills})
+stub.advance(1)
+assert(F.Start())
+stub.advance(1)
+emit({{ first = titles()[1], why = F.Why() }})
+"#
+		))
+	};
+	assert_eq!(text(&script("balanced", 0)[0]["first"]), "Rat Problem");
+	let started = script("balanced", 3);
+	assert_eq!(text(&started[0]["first"]), "Gnoll Trouble");
+	assert_eq!(text(&started[0]["why"]), "Why Gnoll Trouble first: started \u{b7} most XP for the trip");
+	assert_eq!(text(&script("near", 3)[0]["first"]), "Rat Problem");
+}
+
+// Finished quests only, from 56.5,68.3: Marshal Hale (Gnoll Ears, 1,100 XP) about 50 s away, Ranger Ilse about 75 s.
+// Ilse taking two of them (Snare Check and Tusk Tally, 1,900 XP) is the better stop; taking one, Hale is.
+// Nearest goes to Hale.
+#[test]
+fn balanced_takes_the_npc_that_takes_several_finished_quests_first() {
+	let script = |rule: &str, quests: &str| {
+		run(&format!(
+			r#"
+w.moveTo(9001, 56.5, 68.3)
+Polestar.Set("free.pick", "{rule}")
+take({quests})
+w.progress(7005, 1, 6)
+for _, q in ipairs({{ {quests} }}) do if q ~= 7005 then w.progress(q, 1, 1) end end
+stub.advance(1)
+assert(F.Start())
+stub.advance(1)
+emit({{ first = titles()[1], why = F.Why() }})
+"#
+		))
+	};
+	let two = script("balanced", "7005, 7008, 7009");
+	assert_eq!(text(&two[0]["first"]), "Snare Check");
+	assert_eq!(text(&two[0]["why"]), "Why Snare Check first: 2 hand-ins at one stop \u{b7} most XP for the trip");
+	assert_eq!(text(&script("balanced", "7005, 7009")[0]["first"]), "Gnoll Ears");
+	assert_eq!(text(&script("near", "7005, 7008, 7009")[0]["first"]), "Gnoll Ears");
+}
+
+// Balanced holds its first quest while the player walks: Rat Problem (80 yd west) first from the camp; 30 yd east
+// Gnoll Trouble scores a little better, too little to move the arrow (the card says why); standing by the gnolls,
+// they come first.
+#[test]
+fn balanced_holds_the_first_quest_while_the_player_walks() {
+	let out = run(r#"
+take(7006, 7001)
+assert(F.Start())
+stub.advance(1)
+local first = titles()[1]
+w.moveTo(9001, 51.5, 50)
+F.Plan(true)
+stub.advance(1)
+local small, why = titles()[1], F.Why()
+w.moveTo(9001, 55, 50)
+F.Plan(true)
+stub.advance(1)
+emit({ first = first, small = small, why = why, there = titles()[1] })
+"#);
+	assert_eq!(text(&out[0]["first"]), "Rat Problem");
+	assert_eq!(text(&out[0]["small"]), "Rat Problem");
+	assert_eq!(text(&out[0]["why"]), "Why Rat Problem first: kept while you walk");
+	assert_eq!(text(&out[0]["there"]), "Gnoll Trouble");
 }
