@@ -9648,7 +9648,7 @@ do
 				},
 				{
 					title = "{npc:259961}",
-					when = { { k = "onquest", q = { 95120 } } },
+					when = { { k = "onquest", q = { 95120 } }, { k = "complete", q = 95120 } },
 					goals = {
 						{ t = "turnin", quest = 95120, title = "WANTED: Old Rot-Chum", npc = 259961, npcName = "Wharfmaster Whizzbuzz", map = 2548, x = 79.34, y = 52.69, z = 3.3 },
 					},
