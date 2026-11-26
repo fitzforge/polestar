@@ -972,3 +972,12 @@ test('Horde Triage (6622) is completed at Doctor Gregory Victor in Hammerfall (#
 	assert.equal(objs[0].map, 1417);
 	assert.deepEqual([objs[0].x, objs[0].y], [73.4, 36.8]);
 });
+
+// 司徒王朗 (#4157): Mother's Milk's line "Milked" ticks when Ragged John milks a player Mother Smolderweb has poisoned;
+// typed as a talk, the Blackrock Spire hand-in guide sent players to talk to him without the poison.
+test("Mother's Milk (4866) is an event, not a talk at Ragged John (#4157)", () => {
+	const objs = corrections.quests[4866].set.objectives;
+	assert.equal(objs.length, 1, 'one objective');
+	assert.deepEqual([objs[0].type, objs[0].id, objs[0].text], ['event', null, 'Milked']);
+	assert.ok(!('map' in objs[0]), 'no place: the hand-in guide lists it as not finished');
+});
