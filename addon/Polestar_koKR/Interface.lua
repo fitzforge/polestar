@@ -580,6 +580,8 @@
 --   Your quests
 --   Open Settings, Community guides, Import a guide; import clear / import delete <id>: remove imports
 --   This is a guide import string: paste it under Settings, Community guides, Import a guide.
+--   Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute).
+--   Your own quests as a guide, in a tab of its own: the arrow takes them in the order that gets the most done for the walk, or nearest first, or the most XP a minute (/polestar free). Press again to go back to your guide.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "koKR") then return end
@@ -1261,7 +1263,7 @@ L["Zone hints"] = "지역 추천"
 L["With no quest near, the zone with the most quests for your level comes first, the arrow to its givers."] = "가까운 퀘스트가 없으면, 레벨에 맞는 퀘스트가 가장 많은 지역이 먼저 나오고 화살표가 퀘스트를 주는 NPC로 안내합니다."
 L["XP and drop rates"] = "경험치와 획득 확률"
 L["The XP each hand-in pays, and a collect whose items rarely drop says so."] = "각 퀘스트 완료 시 받는 경험치, 그리고 아이템이 드물게 나오는 수집 목표에는 그렇다고 표시합니다."
-L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "내가 받은 퀘스트를 자체 탭의 가이드로: 화살표가 가장 가까운 퀘스트로, 그다음 퀘스트로 안내합니다 (/polestar free). 다시 누르면 가이드로 돌아갑니다."
+L["Your own quests as a guide, in a tab of its own: the arrow takes them in the order that gets the most done for the walk, or nearest first, or the most XP a minute (/polestar free). Press again to go back to your guide."] = "내 퀘스트를 별도의 탭에서 가이드로: 화살표가 이동 거리 대비 가장 많이 해낼 수 있는 순서로, 또는 가까운 순, 분당 경험치 많은 순으로 안내합니다 (/polestar free). 다시 누르면 원래 가이드로 돌아갑니다."
 
 -- Quests/Party.lua
 L["%s done"] = "%s 완료"
@@ -5762,8 +5764,8 @@ L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is i
 L["Free mode starts after combat."] = "자유 모드는 전투가 끝난 뒤 시작합니다."
 L["Free mode can't start: its folder Polestar_FreeMode or the Codex is missing or turned off."] = "자유 모드를 시작할 수 없습니다: Polestar_FreeMode 폴더나 Codex가 없거나 꺼져 있습니다."
 L["Free mode"] = "자유 모드"
-L["Your own quests as a guide: the arrow leads to the nearest one, then the next."] = "내가 받은 퀘스트를 가이드로: 화살표가 가장 가까운 퀘스트로, 그다음 퀘스트로 안내합니다."
 L["Free mode: follow your own quests (on, off, nearest, xp)"] = "자유 모드: 내가 받은 퀘스트를 따라가기 (on, off, nearest, xp)"
+L["Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute)."] = "내 퀘스트를 가이드로: 화살표가 이동 거리 대비 가장 많이 해낼 수 있는 순서로 안내합니다(또는 가까운 순, 분당 경험치 많은 순)."
 
 -- UI/QuestLinks.lua
 L["Start quest guide"] = "퀘스트 가이드 시작"
@@ -6090,3 +6092,5 @@ L["Your quests"] = "내 퀘스트"
 -- L["Guides someone shared with you, as an import string or a community addon."] = "누군가 가져오기 문자열이나 커뮤니티 애드온으로 공유한 가이드."
 -- L["Open the Import page; import clear / import delete <id>: remove imports"] = "가져오기 페이지 열기; import clear / import delete <ID>: 가져온 항목 삭제"
 -- L["This is a guide import string: paste it on the Import page."] = "가이드 가져오기 문자열입니다: 가져오기 페이지에 붙여 넣으십시오."
+-- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "내가 받은 퀘스트를 자체 탭의 가이드로: 화살표가 가장 가까운 퀘스트로, 그다음 퀘스트로 안내합니다 (/polestar free). 다시 누르면 가이드로 돌아갑니다."
+-- L["Your own quests as a guide: the arrow leads to the nearest one, then the next."] = "내가 받은 퀘스트를 가이드로: 화살표가 가장 가까운 퀘스트로, 그다음 퀘스트로 안내합니다."

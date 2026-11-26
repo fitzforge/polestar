@@ -138,6 +138,7 @@ fn the_page_with_free_mode_off_lists_every_quest_with_its_zone_level_and_state_a
 	let out = run(r#"
 take(7001, 7002, 7101)
 finish(7101)
+Polestar.Set("free.pick", "near")
 page()
 local s = F.Page.Shown()
 local rows = {}
@@ -167,6 +168,7 @@ assert(Polestar.RegisterGuide({ id = "test/route", pack = "test", title = "Route
 } }))
 E.SetGuide("test/route")
 take(7001)
+Polestar.Set("free.pick", "near")
 local P = page()
 local off = P.Shown().start
 P.parts.Start:Click()

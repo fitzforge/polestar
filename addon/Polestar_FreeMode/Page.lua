@@ -152,9 +152,9 @@ function P.Build(parent, shell)
 	parts.State = wrapped(W.Text(body, "note", "textDim"))
 	parts.PickLabel = oneLine(W.Text(body, "label", "textDim"))
 	parts.PickLabel:SetText(L["Which quest first"])
+	parts.Balanced = segment(L["Balanced"], "balanced")
 	parts.Near = segment(L["Nearest first"], "near")
 	parts.XP = segment(L["Most XP a minute first"], "xp")
-	parts.Balanced = segment(L["Balanced"], "balanced")
 
 	-- The hand-in route: a tile, the finished quests' count and "Route".
 	local h = CreateFrame("Button", nil, body)
@@ -246,7 +246,7 @@ end
 function P.Render()
 	if not root then return end
 	for k in pairs(shown) do shown[k] = nil end
-	W.ShellTitle(hub, L["Free mode"], L["Your own quests as a guide: the arrow leads to the nearest one, then the next."])
+	W.ShellTitle(hub, L["Free mode"], L["Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute)."])
 	local MW = mainWidth()
 	body:SetWidth(MW)
 	local width = MW - PAD * 2
@@ -277,7 +277,7 @@ function P.Render()
 	parts.PickLabel:SetPoint("LEFT", body, "TOPLEFT", PAD, -(y + 14))
 	local lw = math.ceil(W.TextWidth(parts.PickLabel)) + 16
 	local sx = PAD + lw
-	for _, b in ipairs({ parts.Near, parts.XP, parts.Balanced }) do
+	for _, b in ipairs({ parts.Balanced, parts.Near, parts.XP }) do
 		paintSegment(b, b.psKey == pick)
 		b:ClearAllPoints()
 		b:SetPoint("TOPLEFT", body, "TOPLEFT", sx, -y)

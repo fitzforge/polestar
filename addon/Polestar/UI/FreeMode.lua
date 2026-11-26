@@ -50,7 +50,7 @@ local function render()
 		Free.Page.Render()
 		return
 	end
-	W.ShellTitle(hub, L["Free mode"], L["Your own quests as a guide: the arrow leads to the nearest one, then the next."])
+	W.ShellTitle(hub, L["Free mode"], L["Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute)."])
 	note:SetWidth(mainWidth() - SH.pad * 2)
 	note:SetText(why == "combat" and L["Free mode starts after combat."]
 		or L["Free mode can't start: its folder Polestar_FreeMode or the Codex is missing or turned off."])

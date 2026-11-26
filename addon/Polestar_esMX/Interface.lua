@@ -469,6 +469,8 @@
 --   Your quests
 --   Open Settings, Community guides, Import a guide; import clear / import delete <id>: remove imports
 --   This is a guide import string: paste it under Settings, Community guides, Import a guide.
+--   Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute).
+--   Your own quests as a guide, in a tab of its own: the arrow takes them in the order that gets the most done for the walk, or nearest first, or the most XP a minute (/polestar free). Press again to go back to your guide.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "esMX") then return end
@@ -1616,7 +1618,7 @@ L["Zone hints"] = "Pistas de zona"
 L["With no quest near, the zone with the most quests for your level comes first, the arrow to its givers."] = "Sin misiones cerca, la zona con más misiones para tu nivel va primero, con la flecha hacia quienes las dan."
 L["XP and drop rates"] = "PE y probabilidad de botín"
 L["The XP each hand-in pays, and a collect whose items rarely drop says so."] = "Los PE que da cada entrega, y un objetivo de recolección cuyos objetos rara vez caen lo indica."
-L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "Tus propias misiones como guía, en una pestaña propia: la flecha va a la más cercana y luego a la siguiente (/polestar free). Presiónalo de nuevo para volver a tu guía."
+L["Your own quests as a guide, in a tab of its own: the arrow takes them in the order that gets the most done for the walk, or nearest first, or the most XP a minute (/polestar free). Press again to go back to your guide."] = "Tus propias misiones como guía, en una pestaña propia: la flecha las toma en el orden que más avanza por el camino, o la más cercana primero, o más PE por minuto (/polestar free). Pulsa de nuevo para volver a tu guía."
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "Inicia una misión"
@@ -5651,8 +5653,8 @@ L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is i
 L["Free mode starts after combat."] = "El modo libre se inicia después del combate."
 L["Free mode can't start: its folder Polestar_FreeMode or the Codex is missing or turned off."] = "El modo libre no puede iniciarse: falta su carpeta Polestar_FreeMode o el Codex, o están desactivados."
 L["Free mode"] = "Modo libre"
-L["Your own quests as a guide: the arrow leads to the nearest one, then the next."] = "Tus propias misiones como guía: la flecha va a la más cercana y luego a la siguiente."
 L["Free mode: follow your own quests (on, off, nearest, xp)"] = "Modo libre: sigue tus propias misiones (on, off, nearest, xp)"
+L["Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute)."] = "Tus propias misiones como guía: la flecha las toma en el orden que más avanza por el camino (o la más cercana primero, o más PE por minuto)."
 
 -- UI/QuestLinks.lua
 L["Start quest guide"] = "Iniciar guía de misión"
@@ -6020,3 +6022,5 @@ L["Your quests"] = "Tus misiones"
 -- L["Guides someone shared with you, as an import string or a community addon."] = "Guías que alguien compartió contigo, como texto de importación o como AddOn de la comunidad."
 -- L["Open the Import page; import clear / import delete <id>: remove imports"] = "Abrir la página Importar; import clear / import delete <id>: quitar importaciones"
 -- L["This is a guide import string: paste it on the Import page."] = "Este es un texto para importar guías: pégalo en la página Importar."
+-- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "Tus propias misiones como guía, en una pestaña propia: la flecha va a la más cercana y luego a la siguiente (/polestar free). Presiónalo de nuevo para volver a tu guía."
+-- L["Your own quests as a guide: the arrow leads to the nearest one, then the next."] = "Tus propias misiones como guía: la flecha va a la más cercana y luego a la siguiente."

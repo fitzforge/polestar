@@ -8699,8 +8699,8 @@ Polestar.Free.MenuItems() ; Polestar.Free.RowItems(questID) -- the guide window'
   section under Guides with the glyph `icon-ownpath`; `Free.Page.Build(parent,
   hub)`, `Render()`, `Shown()`). Loads with the folder, the first time the page
   shows (without it the page says why). Start, or Return to <guide> while it is
-  on (Stop when there is no other tab); Which quest first (Nearest first | Most XP
-  a minute first | Balanced, `free.pick`); the tile "Hand in finished quests (N)
+  on (Stop when there is no other tab); Which quest first (Balanced | Nearest first |
+  Most XP a minute first, `free.pick`); the tile "Hand in finished quests (N)
   . Route" (`UI.GuideCarried`, the shortest-trip hand-in guide; "None to hand
   in" and disabled with none); then "Your quests": one row for every quest in
   the log (`Free.Quests()`: the Codex is loaded for its zone and its elite and

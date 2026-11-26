@@ -563,6 +563,8 @@
 --   Your quests
 --   Open Settings, Community guides, Import a guide; import clear / import delete <id>: remove imports
 --   This is a guide import string: paste it under Settings, Community guides, Import a guide.
+--   Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute).
+--   Your own quests as a guide, in a tab of its own: the arrow takes them in the order that gets the most done for the walk, or nearest first, or the most XP a minute (/polestar free). Press again to go back to your guide.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "ruRU") then return end
@@ -1244,7 +1246,7 @@ L["Zone hints"] = "Подсказки по зонам"
 L["With no quest near, the zone with the most quests for your level comes first, the arrow to its givers."] = "Если рядом нет заданий, первой идет зона с наибольшим числом заданий для вашего уровня, а стрелка ведет к тем, кто их дает."
 L["XP and drop rates"] = "Опыт и шанс добычи"
 L["The XP each hand-in pays, and a collect whose items rarely drop says so."] = "Опыт, который дает каждая сдача, и пометка у задания на сбор, если предметы выпадают редко."
-L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "Ваши собственные задания как гайд, на отдельной вкладке: стрелка ведет к ближайшему, затем к следующему (/polestar free). Нажмите еще раз, чтобы вернуться к своему гайду."
+L["Your own quests as a guide, in a tab of its own: the arrow takes them in the order that gets the most done for the walk, or nearest first, or the most XP a minute (/polestar free). Press again to go back to your guide."] = "Ваши задания как гайд, в отдельной вкладке: стрелка ведёт по ним в порядке, который даёт больше всего за дорогу, или ближайшее первым, или больше опыта в минуту (/polestar free). Нажмите ещё раз, чтобы вернуться к своему гайду."
 
 -- Quests/Party.lua
 L["%s done"] = "%s: готово"
@@ -5745,8 +5747,8 @@ L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is i
 L["Free mode starts after combat."] = "Свободный режим запустится после боя."
 L["Free mode can't start: its folder Polestar_FreeMode or the Codex is missing or turned off."] = "Свободный режим не может запуститься: папка Polestar_FreeMode или Codex отсутствует или отключена."
 L["Free mode"] = "Свободный режим"
-L["Your own quests as a guide: the arrow leads to the nearest one, then the next."] = "Ваши собственные задания как гайд: стрелка ведет к ближайшему, затем к следующему."
 L["Free mode: follow your own quests (on, off, nearest, xp)"] = "Свободный режим: следовать своим заданиям (on, off, nearest, xp)"
+L["Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute)."] = "Ваши задания как гайд: стрелка ведёт по ним в порядке, который даёт больше всего за дорогу (или ближайшее первым, или больше опыта в минуту)."
 
 -- UI/QuestLinks.lua
 L["Start quest guide"] = "Начать гайд по заданию"
@@ -6080,3 +6082,5 @@ L["Your quests"] = "Ваши задания"
 -- L["Guides someone shared with you, as an import string or a community addon."] = "Гайды, которыми с вами поделились: строкой импорта или аддоном сообщества."
 -- L["Open the Import page; import clear / import delete <id>: remove imports"] = "Открыть страницу импорта; import clear / import delete <id>: удалить импортированное"
 -- L["This is a guide import string: paste it on the Import page."] = "Это строка импорта гайда: вставьте ее на странице «Импорт»."
+-- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "Ваши собственные задания как гайд, на отдельной вкладке: стрелка ведет к ближайшему, затем к следующему (/polestar free). Нажмите еще раз, чтобы вернуться к своему гайду."
+-- L["Your own quests as a guide: the arrow leads to the nearest one, then the next."] = "Ваши собственные задания как гайд: стрелка ведет к ближайшему, затем к следующему."

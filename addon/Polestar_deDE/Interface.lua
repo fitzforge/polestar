@@ -354,6 +354,8 @@
 --   Your quests
 --   Open Settings, Community guides, Import a guide; import clear / import delete <id>: remove imports
 --   This is a guide import string: paste it under Settings, Community guides, Import a guide.
+--   Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute).
+--   Your own quests as a guide, in a tab of its own: the arrow takes them in the order that gets the most done for the walk, or nearest first, or the most XP a minute (/polestar free). Press again to go back to your guide.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "deDE") then return end
@@ -2575,7 +2577,7 @@ L["Zone hints"] = "Gebietstipps"
 L["With no quest near, the zone with the most quests for your level comes first, the arrow to its givers."] = "Ist keine Quest in der Nähe, kommt das Gebiet mit den meisten Quests für deine Stufe zuerst, der Pfeil zu seinen Questgebern."
 L["XP and drop rates"] = "EP und Beutechancen"
 L["The XP each hand-in pays, and a collect whose items rarely drop says so."] = "Die EP, die jede Abgabe bringt, und ein Sammelziel, dessen Gegenstände selten fallen, sagt es."
-L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "Deine eigenen Quests als Guide, in einem eigenen Tab: Der Pfeil führt zur nächsten, dann zur folgenden (/polestar free). Erneut drücken, um zu deinem Guide zurückzukehren."
+L["Your own quests as a guide, in a tab of its own: the arrow takes them in the order that gets the most done for the walk, or nearest first, or the most XP a minute (/polestar free). Press again to go back to your guide."] = "Deine eigenen Quests als Guide, in einem eigenen Tab: Der Pfeil nimmt sie in der Reihenfolge, die für den Weg am meisten erledigt, oder die nächste zuerst, oder die meisten EP pro Minute (/polestar free). Erneut drücken, um zu deinem Guide zurückzukehren."
 
 -- UI/Packs.lua (the pack report lines stay English: authors read them)
 L["turned off in the AddOns list"] = "in der AddOn-Liste ausgeschaltet"
@@ -5532,8 +5534,8 @@ L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is i
 L["Free mode starts after combat."] = "Der Freimodus startet nach dem Kampf."
 L["Free mode can't start: its folder Polestar_FreeMode or the Codex is missing or turned off."] = "Der Freimodus kann nicht starten: Sein Ordner Polestar_FreeMode oder der Codex fehlt oder ist ausgeschaltet."
 L["Free mode"] = "Freimodus"
-L["Your own quests as a guide: the arrow leads to the nearest one, then the next."] = "Deine eigenen Quests als Guide: Der Pfeil führt zur nächsten, dann zur folgenden."
 L["Free mode: follow your own quests (on, off, nearest, xp)"] = "Freimodus: deinen eigenen Quests folgen (on, off, nearest, xp)"
+L["Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute)."] = "Deine eigenen Quests als Guide: Der Pfeil nimmt sie in der Reihenfolge, die für den Weg am meisten erledigt (oder die nächste zuerst, oder die meisten EP pro Minute)."
 
 -- UI/QuestLinks.lua
 L["Start quest guide"] = "Quest-Guide starten"
@@ -5908,3 +5910,5 @@ L["Your quests"] = "Deine Quests"
 -- L["Guides someone shared with you, as an import string or a community addon."] = "Guides, die jemand mit dir teilt, als Importtext oder als Community-Addon."
 -- L["Open the Import page; import clear / import delete <id>: remove imports"] = "Die Import-Seite öffnen; import clear / import delete <id>: Importe entfernen"
 -- L["This is a guide import string: paste it on the Import page."] = "Das ist ein Guide-Import-String: Füge ihn auf der Seite „Import“ ein."
+-- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "Deine eigenen Quests als Guide, in einem eigenen Tab: Der Pfeil führt zur nächsten, dann zur folgenden (/polestar free). Erneut drücken, um zu deinem Guide zurückzukehren."
+-- L["Your own quests as a guide: the arrow leads to the nearest one, then the next."] = "Deine eigenen Quests als Guide: Der Pfeil führt zur nächsten, dann zur folgenden."

@@ -480,6 +480,8 @@
 --   Your quests
 --   Open Settings, Community guides, Import a guide; import clear / import delete <id>: remove imports
 --   This is a guide import string: paste it under Settings, Community guides, Import a guide.
+--   Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute).
+--   Your own quests as a guide, in a tab of its own: the arrow takes them in the order that gets the most done for the walk, or nearest first, or the most XP a minute (/polestar free). Press again to go back to your guide.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhCN") then return end
@@ -1161,7 +1163,7 @@ L["Zone hints"] = "地区提示"
 L["With no quest near, the zone with the most quests for your level comes first, the arrow to its givers."] = "附近没有任务时，适合你等级任务最多的地区排在最前，箭头指向发布任务的人。"
 L["XP and drop rates"] = "经验和掉落率"
 L["The XP each hand-in pays, and a collect whose items rarely drop says so."] = "每次交任务获得的经验，以及物品很少掉落的收集目标会注明。"
-L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "把你自己的任务当作指南，在单独的标签页中：箭头指向最近的任务，然后是下一个（/polestar free）。再按一次返回你的指南。"
+L["Your own quests as a guide, in a tab of its own: the arrow takes them in the order that gets the most done for the walk, or nearest first, or the most XP a minute (/polestar free). Press again to go back to your guide."] = "把你自己的任务当作指南，在单独的标签页中：箭头按路程上完成最多的顺序带你去，或最近的优先，或每分钟经验最多的优先（/polestar free）。再按一次回到你的指南。"
 
 -- Quests/Party.lua
 L["%s done"] = "%s 已完成"
@@ -5662,8 +5664,8 @@ L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is i
 L["Free mode starts after combat."] = "自由模式将在战斗结束后启动。"
 L["Free mode can't start: its folder Polestar_FreeMode or the Codex is missing or turned off."] = "自由模式无法启动：它的文件夹 Polestar_FreeMode 或 Codex 缺失或已关闭。"
 L["Free mode"] = "自由模式"
-L["Your own quests as a guide: the arrow leads to the nearest one, then the next."] = "把你自己的任务当作指南：箭头指向最近的任务，然后是下一个。"
 L["Free mode: follow your own quests (on, off, nearest, xp)"] = "自由模式：跟随你自己的任务（on、off、nearest、xp）"
+L["Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute)."] = "把你自己的任务当作指南：箭头按路程上完成最多的顺序带你去（或最近的优先，或每分钟经验最多的优先）。"
 
 -- UI/QuestLinks.lua
 L["Start quest guide"] = "开始任务指南"
@@ -5999,3 +6001,5 @@ L["Your quests"] = "你的任务"
 -- L["Guides someone shared with you, as an import string or a community addon."] = "他人以导入字符串或社区插件分享给你的指南。"
 -- L["Open the Import page; import clear / import delete <id>: remove imports"] = "打开导入页面；import clear / import delete <ID>：移除导入内容"
 -- L["This is a guide import string: paste it on the Import page."] = "这是指南导入字符串：请粘贴到“导入”页面。"
+-- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "把你自己的任务当作指南，在单独的标签页中：箭头指向最近的任务，然后是下一个（/polestar free）。再按一次返回你的指南。"
+-- L["Your own quests as a guide: the arrow leads to the nearest one, then the next."] = "把你自己的任务当作指南：箭头指向最近的任务，然后是下一个。"

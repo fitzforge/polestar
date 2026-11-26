@@ -2093,7 +2093,7 @@ GF.Part(function(GF)
 			if ns.Free then
 				if not rawget(empty, "FreeLink") then
 					empty.FreeLink = W.Link(empty, "", empty.act, { role = "note" })
-					empty.FreeLink.psTip = L["Your own quests as a guide: the arrow leads to the nearest one, then the next."]
+					empty.FreeLink.psTip = L["Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute)."]
 				end
 				W.SetLinkText(empty.FreeLink, L["Or follow your own quests: Free mode"])
 				empty.FreeLink.psAction = function() ns.Free.Toggle() end

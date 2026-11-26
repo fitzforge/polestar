@@ -498,6 +498,8 @@
 --   Your quests
 --   Open Settings, Community guides, Import a guide; import clear / import delete <id>: remove imports
 --   This is a guide import string: paste it under Settings, Community guides, Import a guide.
+--   Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute).
+--   Your own quests as a guide, in a tab of its own: the arrow takes them in the order that gets the most done for the walk, or nearest first, or the most XP a minute (/polestar free). Press again to go back to your guide.
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "ptBR") then return end
@@ -1179,7 +1181,7 @@ L["Zone hints"] = "Dicas de zona"
 L["With no quest near, the zone with the most quests for your level comes first, the arrow to its givers."] = "Sem missões por perto, a zona com mais missões para o seu nível vem primeiro, com a seta até quem as dá."
 L["XP and drop rates"] = "EXP e chances de saque"
 L["The XP each hand-in pays, and a collect whose items rarely drop says so."] = "O EXP que cada entrega dá, e um objetivo de coleta cujos itens raramente caem avisa isso."
-L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "Suas próprias missões como guia, em uma aba própria: a seta leva à mais próxima e depois à seguinte (/polestar free). Pressione de novo para voltar ao seu guia."
+L["Your own quests as a guide, in a tab of its own: the arrow takes them in the order that gets the most done for the walk, or nearest first, or the most XP a minute (/polestar free). Press again to go back to your guide."] = "Suas próprias missões como guia, em uma aba própria: a seta as leva na ordem que mais rende pelo caminho, ou a mais próxima primeiro, ou mais EXP por minuto (/polestar free). Pressione de novo para voltar ao seu guia."
 
 -- Quests/Party.lua
 L["%s done"] = "%s concluiu"
@@ -5680,8 +5682,8 @@ L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is i
 L["Free mode starts after combat."] = "O modo livre começa depois do combate."
 L["Free mode can't start: its folder Polestar_FreeMode or the Codex is missing or turned off."] = "O modo livre não pode começar: a pasta Polestar_FreeMode ou o Codex está faltando ou desativado."
 L["Free mode"] = "Modo livre"
-L["Your own quests as a guide: the arrow leads to the nearest one, then the next."] = "Suas próprias missões como guia: a seta leva à mais próxima e depois à seguinte."
 L["Free mode: follow your own quests (on, off, nearest, xp)"] = "Modo livre: siga suas próprias missões (on, off, nearest, xp)"
+L["Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute)."] = "Suas próprias missões como guia: a seta as leva na ordem que mais rende pelo caminho (ou a mais próxima primeiro, ou mais EXP por minuto)."
 
 -- UI/QuestLinks.lua
 L["Start quest guide"] = "Iniciar guia de missão"
@@ -6022,3 +6024,5 @@ L["Your quests"] = "Suas missões"
 -- L["Guides someone shared with you, as an import string or a community addon."] = "Guias que alguém compartilhou com você, como texto de importação ou addon da comunidade."
 -- L["Open the Import page; import clear / import delete <id>: remove imports"] = "Abre a página Importar; import clear / import delete <id>: remove importações"
 -- L["This is a guide import string: paste it on the Import page."] = "Este é um texto de importação de guia: cole-o na página Importar."
+-- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "Suas próprias missões como guia, em uma aba própria: a seta leva à mais próxima e depois à seguinte (/polestar free). Pressione de novo para voltar ao seu guia."
+-- L["Your own quests as a guide: the arrow leads to the nearest one, then the next."] = "Suas próprias missões como guia: a seta leva à mais próxima e depois à seguinte."

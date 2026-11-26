@@ -911,7 +911,7 @@ end
 function Free.MenuItems()
 	local items = {}
 	local on = Free.IsOn()
-	items[1] = { text = L["Free mode"], icon = "icon-ownpath", checked = on, tip = L["Your own quests as a guide: the arrow leads to the nearest one, then the next."],
+	items[1] = { text = L["Free mode"], icon = "icon-ownpath", checked = on, tip = L["Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute)."],
 		onClick = function() if on then Free.Stop() else Free.Toggle() end end }
 	if on then
 		local xp = pick() == "xp"

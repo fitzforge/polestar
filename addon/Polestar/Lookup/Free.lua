@@ -76,7 +76,7 @@ end
 function door.Pin(q, on) return via("Pin", q, on) end
 function door.RowItems() return nil end
 function door.MenuItems()
-	return { { text = L["Free mode"], icon = "icon-ownpath", checked = false, tip = L["Your own quests as a guide: the arrow leads to the nearest one, then the next."],
+	return { { text = L["Free mode"], icon = "icon-ownpath", checked = false, tip = L["Your own quests as a guide: the arrow takes them in the order that gets the most done for the walk (or nearest first, or the most XP a minute)."],
 		onClick = function() Free.Toggle() end } }
 end
 for k, fn in pairs(door) do Free[k] = fn end
