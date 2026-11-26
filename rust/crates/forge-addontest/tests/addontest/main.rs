@@ -414,6 +414,8 @@ mod qol_spells;
 mod qol_target_list;
 #[path = "quest-links.rs"]
 mod quest_links;
+#[path = "quest-races.rs"]
+mod quest_races;
 #[path = "questdb-memory.rs"]
 mod questdb_memory;
 mod quests;
