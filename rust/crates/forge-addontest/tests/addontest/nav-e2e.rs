@@ -823,7 +823,10 @@ fn the_route_line_draws_the_walks_sketch_while_its_search_is_still_out() {
 // continents): a journey to the other continent searches and measures only the walks on the player's own, so only its
 // part of Polestar_Nav loads (Polestar_Nav_EK in Brill, its regions inside it, unpacked as its walks touch them); the
 // walk at the far end keeps the planner's straight estimate. The other part loads once the player is there
-// (Nav/Walk.lua canSearch, Path.Resident). No other addon loads: 0.4.2's region addons are gone (#3396).
+// (Nav/Walk.lua canSearch, Path.Resident). No other walking-map addon loads: 0.4.2's region addons are gone (#3396).
+// Only Polestar_Nav's parts are counted: the level-up to 20 runs the dungeon card's check (UI/DungeonToast.lua), which
+// loads the Codex by design once no class quest card holds the level-up (#3940 made the Warrior's level-20 chain
+// optional, so nothing does any more).
 #[test]
 fn a_journey_to_the_other_continent_loads_only_the_players_continents_walking_maps_the_other_part_on_arrival() {
 	skip_unless_ready!();
@@ -837,7 +840,7 @@ fn a_journey_to_the_other_continent_loads_only_the_players_continents_walking_ma
 		w.faction = "Horde"
 		local loads, asked = {}, {}
 		local load = C_AddOns.LoadAddOn
-		C_AddOns.LoadAddOn = function(name) loads[#loads + 1] = name return load(name) end
+		C_AddOns.LoadAddOn = function(name) if name:find("^Polestar_Nav") then loads[#loads + 1] = name end return load(name) end
 		for _, name in ipairs({ "FindMany", "FindCoarse", "FindCost" }) do
 			local real = E[name]
 			E[name] = function(map, ...) asked[map] = (asked[map] or 0) + 1 return real(map, ...) end
