@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {zone:1423} Eastern Plaguelands · {zone:1448} Felwood
-	["Western & {zone:1423} & {zone:1448}"] = "西瘟疫之地, {zone:1423} & {zone:1448}",
+	["Western & {zone:1423} & {zone:1448}"] = "西瘟疫之地、{zone:1423}、{zone:1448}",
 	-- {area:152} The Bulwark · {zone:1448} Felwood · {zone:1452} Winterspring
 	["{area:152} and both Plaguelands, then {zone:1448} and {zone:1452}."] = "{area:152}和东西两片瘟疫之地，然后是{zone:1448}和{zone:1452}。",
 
