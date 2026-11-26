@@ -39,132 +39,15 @@ step Learn Skinning
 
 # ---------------------------------------------------------------- Skinning 1-50
 
-step Beasts 1-4: Elwynn Forest (1-50)
-  only Human
-  zone Elwynn Forest
-  tip Walk the loop and kill and skin Mangy Wolf (4), Timber Wolf (2), Young Wolf (1) until Skinning 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. A quest here needs Skinning: Rough Wolf Pelts (level 8, Helene Peltskinner). The loop asks level 5: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,500 yards, 18 minutes with the stops; the arrow leads stop to stop. Expect about 60 beasts for these 49 points: about 60 Ruined Leather Scraps.
-  level 5
-  loop
-  goto 46.8,38.0 "Young Wolf, Timber Wolf" r 80
-  goto 47.1,34.5 "Timber Wolf" r 80
-  goto 50.9,36.3 "Timber Wolf" r 80
-  goto 52.1,41.2 "Timber Wolf, Young Wolf" r 80
-  goto 49.6,46.2 "Timber Wolf, Young Wolf" r 80
-  goto 45.0,56.9 "Young Wolf, Mangy Wolf" r 80
-  goto 42.4,60.8 "Young Wolf, Mangy Wolf" r 80
-  goto 45.9,43.3 "Young Wolf" r 80
-  skill Skinning 50
-
-step Beasts 1-5: Dun Morogh (1-50)
-  only Dwarf,Gnome
-  zone Dun Morogh
-  tip Walk the loop and kill and skin Crag Boar (5), Juvenile Snow Leopard (5), Ragged Timber Wolf (2), Ragged Young Wolf (1), Small Crag Boar (3), Young Black Bear (5) until Skinning 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 5: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 2,800 yards, 41 minutes with the stops; the arrow leads stop to stop. Expect about 60 beasts for these 49 points: about 55 Ruined Leather Scraps and 5 Light Leather. For Leatherworking: about 350 Light Leather in all.
-  level 5
-  loop
-  goto 29.0,74.5 "Ragged Young Wolf, Ragged Timber Wolf" r 80
-  goto 23.9,78.5 "Ragged Timber Wolf, Small Crag Boar" r 80
-  goto 20.1,74.4 "Small Crag Boar" r 80
-  goto 21.5,70.9 "Small Crag Boar" r 80
-  goto 25.9,69.8 "Small Crag Boar, Ragged Young Wolf" r 80
-  goto 39.5,60.4 "Juvenile Snow Leopard, Young Black Bear" r 80
-  goto 42.3,59.6 "Juvenile Snow Leopard, Crag Boar" r 80
-  goto 44.9,65.6 "Crag Boar" r 80
-  skill Skinning 50
-
-step Beasts 1-5: Teldrassil (1-50)
-  only NightElf
-  zone Teldrassil
-  tip Walk the loop and kill and skin Mangy Nightsaber (2), Nightsaber (5), Thistle Boar (2), Young Nightsaber (1), Young Thistle Boar (1) until Skinning 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 5: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 2,000 yards, 24 minutes with the stops; the arrow leads stop to stop. Expect about 60 beasts for these 49 points: about 60 Ruined Leather Scraps.
-  level 5
-  loop
-  goto 60.3,35.5 "Mangy Nightsaber, Thistle Boar" r 80
-  goto 62.3,37.9 "Mangy Nightsaber, Thistle Boar" r 80
-  goto 62.1,42.6 "Young Nightsaber, Young Thistle Boar" r 80
-  goto 60.5,45.6 "Young Nightsaber, Young Thistle Boar" r 80
-  goto 62.3,60.4 "Nightsaber" r 80
-  goto 58.0,44.8 "Young Thistle Boar, Young Nightsaber" r 80
-  goto 55.7,42.4 "Young Thistle Boar" r 80
-  goto 56.3,38.2 "Thistle Boar, Young Thistle Boar" r 80
-  skill Skinning 50
-
-step Beasts 1-4: Zephras Isle (1-50)
-  only Skyborne,Alliance
-  zone Zephras Isle
-  tip Walk the loop and kill and skin Juvenile Vuldren (1), Scrawny Ursera (3), Ursera Scavenger (4) until Skinning 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 4: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,400 yards, 33 minutes with the stops; the arrow leads stop to stop. Expect about 60 beasts for these 49 points: about 60 Ruined Leather Scraps.
-  level 4
-  loop
-  goto 41.0,27.0 live "Scrawny Ursera, Ursera Scavenger" r 80
-  goto 43.3,26.8 live "Juvenile Vuldren, Scrawny Ursera" r 80
-  goto 45.9,26.5 live "Juvenile Vuldren" r 80
-  goto 46.1,23.0 live "Juvenile Vuldren" r 80
-  goto 44.0,22.2 live "Juvenile Vuldren" r 80
-  goto 36.6,24.3 live "Ursera Scavenger, Scrawny Ursera" r 80
-  goto 38.3,27.6 live "Ursera Scavenger, Scrawny Ursera" r 80
-  goto 39.2,30.1 live "Scrawny Ursera, Ursera Scavenger" r 80
-  skill Skinning 50
-
-step Beasts 5-6: Zephras Isle (1-50)
-  only Skyborne,Horde
-  zone Zephras Isle
-  tip Walk the loop and kill and skin Cloudrunner (6), Galestrider (5), Hippogryph Youth (6), Prideclaw (5), Vuldren (6) until Skinning 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 5: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,000 yards, 60 minutes with the stops; the arrow leads stop to stop. Expect about 60 beasts for these 49 points: about 40 Ruined Leather Scraps and 20 Light Leather. For Leatherworking: about 350 Light Leather in all.
-  level 5
-  loop
-  goto 40.5,54.7 live "Hippogryph Youth, Prideclaw" r 80
-  goto 38.9,55.4 live "Galestrider, Hippogryph Youth" r 80
-  goto 39.4,57.7 live "Hippogryph Youth, Prideclaw" r 80
-  goto 41.5,60.2 live "Galestrider, Vuldren" r 80
-  goto 42.5,56.5 live "Galestrider, Prideclaw" r 80
-  goto 43.8,50.8 live "Prideclaw, Vuldren" r 80
-  goto 42.3,49.7 live "Prideclaw, Vuldren" r 80
-  goto 40.8,52.1 live "Prideclaw, Cloudrunner" r 80
-  skill Skinning 50
-
-step Beasts 1-3: Durotar (1-50)
-  only Orc,Troll
-  zone Durotar
-  tip Walk the loop and kill and skin Mottled Boar (1), Scorpid Worker (3) until Skinning 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 3: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,300 yards, 30 minutes with the stops; the arrow leads stop to stop. Expect about 60 beasts for these 49 points: about 60 Ruined Leather Scraps.
-  level 3
-  loop
-  goto 44.4,64.1 "Mottled Boar" r 80
-  goto 46.3,66.9 "Mottled Boar" r 80
-  goto 43.9,72.1 "Mottled Boar, Scorpid Worker" r 80
-  goto 41.5,71.4 "Mottled Boar, Scorpid Worker" r 80
-  goto 40.8,67.0 "Scorpid Worker" r 80
-  goto 40.9,62.9 "Scorpid Worker, Mottled Boar" r 80
-  goto 43.8,60.2 "Mottled Boar, Scorpid Worker" r 80
-  goto 46.4,61.1 "Scorpid Worker, Mottled Boar" r 80
-  skill Skinning 50
-
-step Beasts 1-3: Mulgore (1-50)
-  only Tauren
-  zone Mulgore
-  tip Walk the loop and kill and skin Battleboar (3), Mountain Cougar (3), Plainstrider (1) until Skinning 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. A quest here needs Skinning: Gathering Leather (level 8, Veren Tallstrider). The loop asks level 3: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,900 yards, 35 minutes with the stops; the arrow leads stop to stop. Expect about 60 beasts for these 49 points: about 60 Ruined Leather Scraps.
-  level 3
-  loop
-  goto 48.6,90.1 "Mountain Cougar, Plainstrider" r 80
-  goto 52.7,89.4 "Mountain Cougar, Plainstrider" r 80
-  goto 56.5,90.7 "Mountain Cougar, Battleboar" r 80
-  goto 56.2,86.3 "Battleboar" r 80
-  goto 54.0,82.4 "Battleboar, Plainstrider" r 80
-  goto 51.8,76.7 "Plainstrider, Battleboar" r 80
-  goto 45.2,85.1 "Plainstrider" r 80
-  goto 42.1,88.7 "Mountain Cougar" r 80
-  skill Skinning 50
-
-step Beasts 1-3: Tirisfal Glades (1-50)
-  only Undead
-  zone Tirisfal Glades
-  tip Walk the loop and kill and skin Duskbat (1), Mangy Duskbat (3) until Skinning 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 4: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,200 yards, 16 minutes with the stops; the arrow leads stop to stop. Expect about 60 beasts for these 49 points: about 60 Ruined Leather Scraps.
-  level 4
-  loop
-  goto 29.5,63.4 "Duskbat" r 80
-  goto 29.0,68.4 "Duskbat" r 80
-  goto 32.0,71.2 "Duskbat" r 80
-  goto 34.7,68.6 "Duskbat, Mangy Duskbat" r 80
-  goto 35.0,62.5 "Mangy Duskbat" r 80
-  goto 37.3,60.0 "Mangy Duskbat" r 80
-  goto 34.2,57.8 "Mangy Duskbat, Duskbat" r 80
-  goto 31.2,58.0 "Duskbat" r 80
+step Beasts 1-5 (1-50)
+  tip Walk the loop and kill and skin Battleboar (3), Crag Boar (5), Duskbat (1), Juvenile Snow Leopard (5), Juvenile Vuldren (1), Mangy Duskbat (3), Mangy Nightsaber (2), Mangy Wolf (4), Mottled Boar (1), Mountain Cougar (3), Plainstrider (1), Ragged Timber Wolf (2), Ragged Young Wolf (1), Scorpid Worker (3), Scrawny Ursera (3), Small Crag Boar (3), Thistle Boar (2), Timber Wolf (2), Ursera Scavenger (4), Young Black Bear (5), Young Nightsaber (1), Young Thistle Boar (1), Young Wolf (1) until Skinning 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Quests in these zones need Skinning: Gathering Leather (level 8, Veren Tallstrider, Mulgore; Horde), Rough Wolf Pelts (level 8, Helene Peltskinner, Elwynn Forest; Alliance). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 60 beasts for these 49 points: about 60 Ruined Leather Scraps.
+  loop Mulgore lvl 4 lap 2352 gain 114.2 only Horde r 80 at 48.6,90.1 45.4,88.6 42.1,88.7 42.5,83.3 45.2,85.1 49.4,80.4 47.8,76.9 51.8,76.7 54.0,82.4 56.2,86.3 56.5,90.7 52.7,89.4
+  loop Zephras Isle lvl 5 lap 2171 gain 105.3 live r 80 at 41.0,27.0 43.3,26.8 45.3,28.7 45.9,26.5 47.6,25.2 46.1,23.0 45.3,20.4 44.0,22.2 36.6,24.3 35.4,25.5 38.3,27.6 39.2,30.1
+  loop Durotar lvl 4 lap 1971 gain 94.1 only Horde r 80 at 44.4,64.1 46.3,66.9 45.4,69.7 43.9,72.1 41.5,71.4 40.8,67.0 40.9,62.9 41.7,60.8 42.4,57.6 43.8,60.2 46.4,61.1 47.2,64.1
+  loop Dun Morogh lvl 6 lap 2673 gain 125.4 only Alliance r 80 at 29.0,74.5 26.9,76.0 23.9,78.5 20.1,74.4 21.5,70.9 25.9,69.8 27.9,71.8 31.9,57.2 35.6,60.1 39.5,60.4 42.3,59.6 44.9,65.6
+  loop Teldrassil lvl 4 lap 1486 gain 66.7 only Alliance r 80 at 60.3,35.5 62.2,34.3 62.3,37.9 64.3,41.3 62.1,42.6 60.5,45.6 58.0,44.8 55.7,42.4 56.3,38.2 57.9,39.0 57.7,35.3 59.6,31.5
+  loop Elwynn Forest lvl 6 lap 1200 gain 50.7 only Alliance r 80 at 46.8,38.0 47.1,34.5 50.9,36.3 52.1,41.2 49.6,46.2 49.6,59.6 45.0,56.9 42.4,60.8 42.9,55.2 45.9,43.3
+  loop Tirisfal Glades lvl 5 lap 1129 gain 46.6 only Horde r 80 at 29.5,63.4 27.8,64.2 29.0,68.4 30.7,69.3 29.4,72.5 32.0,71.2 35.5,71.2 34.7,68.6 35.0,62.5 37.3,60.0 34.2,57.8 31.2,58.0
   skill Skinning 50
 
 # ---------------------------------------------------------------- Skinning 50-75
@@ -175,221 +58,41 @@ step Journeyman Skinning
   train Skinning Journeyman
   learn 1229517
 
-step Beasts 10-14: Westfall (50-75)
-  only Human,Skyborne,Alliance
-  zone Westfall
-  tip Walk the loop and kill and skin Coyote (10), Coyote Packleader (10), Young Goretusk (12), Goretusk (14) until Skinning 75; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 14: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 400 yards, 4 minutes with the stops; the arrow leads stop to stop. Expect about 50 beasts for these 25 points: about 30 Light Leather and 20 Ruined Leather Scraps. For Leatherworking: about 350 Light Leather in all.
-  level 14
-  loop
-  goto 60.7,44.5 "Goretusk, Coyote Packleader" r 80
-  goto 63.2,38.2 "Young Goretusk" r 80
-  goto 60.9,36.7 "Coyote, Young Goretusk" r 80
-  skill Skinning 75
-
-step Beasts 10-11: Loch Modan (50-75)
-  only Dwarf,Gnome
-  zone Loch Modan
-  tip Walk the loop and kill and skin Mountain Boar (10), Elder Black Bear (11) until Skinning 75; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 11: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,900 yards, 14 minutes with the stops; the arrow leads stop to stop. Expect about 110 beasts for these 25 points: about 65 Light Leather and 50 Ruined Leather Scraps. For Leatherworking: about 350 Light Leather in all.
-  level 11
-  loop
-  goto 37.2,35.1 "Mountain Boar, Elder Black Bear" r 80
-  goto 33.5,31.5 "Mountain Boar, Elder Black Bear" r 80
-  goto 29.2,13.4 "Elder Black Bear, Mountain Boar" r 80
-  goto 24.0,23.4 "Elder Black Bear, Mountain Boar" r 80
-  goto 28.5,25.8 "Elder Black Bear, Mountain Boar" r 80
-  goto 29.5,34.6 "Mountain Boar" r 80
-  goto 27.7,39.9 "Elder Black Bear, Mountain Boar" r 80
-  goto 37.7,54.4 "Elder Black Bear" r 80
-  skill Skinning 75
-
-step Beasts 10-11: Darkshore (50-75)
-  only NightElf
-  zone Darkshore
-  tip Walk the loop and kill and skin Moonstalker Runt (10), Thistle Bear (11) until Skinning 75; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 12: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,300 yards, 12 minutes with the stops; the arrow leads stop to stop. Expect about 90 beasts for these 25 points: about 60 Light Leather and 35 Ruined Leather Scraps. For Leatherworking: about 350 Light Leather in all.
-  level 12
-  loop
-  goto 39.8,37.8 "Thistle Bear, Moonstalker Runt" r 80
-  goto 39.5,39.8 "Moonstalker Runt, Thistle Bear" r 80
-  goto 40.8,42.0 "Moonstalker Runt, Thistle Bear" r 80
-  goto 43.7,43.0 "Thistle Bear, Moonstalker Runt" r 80
-  goto 45.2,41.4 "Moonstalker Runt, Thistle Bear" r 80
-  goto 43.5,33.5 "Thistle Bear" r 80
-  goto 40.9,34.2 "Thistle Bear, Moonstalker Runt" r 80
-  goto 39.4,33.9 "Moonstalker Runt" r 80
-  skill Skinning 75
-
-step Beasts 11-12: The Barrens (50-75)
-  only Orc,Troll,Tauren,Skyborne,Horde
-  zone The Barrens
-  tip Walk the loop and kill and skin Greater Plainstrider (11), Savannah Huntress (11), Sunscale Lashtail (11), Fleeting Plainstrider (12), Savannah Highmane (12) until Skinning 75; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 12: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 2,400 yards, 24 minutes with the stops; the arrow leads stop to stop. Expect about 60 beasts for these 25 points: about 45 Light Leather, 20 Ruined Leather Scraps and 5 Light Hide. For Leatherworking: about 350 Light Leather in all.
-  level 12
-  loop
-  goto 57.0,30.5 "Fleeting Plainstrider" r 80
-  goto 57.9,31.0 "Fleeting Plainstrider" r 80
-  goto 56.9,28.5 "Fleeting Plainstrider" r 80
-  goto 51.6,20.7 "Savannah Huntress, Greater Plainstrider" r 80
-  goto 51.4,22.9 "Greater Plainstrider, Savannah Huntress" r 80
-  goto 51.4,27.2 "Greater Plainstrider, Savannah Huntress" r 80
-  goto 53.4,32.9 "Greater Plainstrider, Fleeting Plainstrider" r 80
-  goto 54.8,30.2 "Savannah Huntress, Savannah Highmane" r 80
-  skill Skinning 75
-
-step Beasts 10-10: Silverpine Forest (50-75)
-  only Undead
-  zone Silverpine Forest
-  tip Walk the loop and kill and skin Worg (10) until Skinning 75; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 10: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 500 yards, 6 minutes with the stops; the arrow leads stop to stop. Expect about 150 beasts for these 25 points: about 80 Ruined Leather Scraps and 70 Light Leather. For Leatherworking: about 350 Light Leather in all.
-  level 10
-  loop
-  goto 66.3,7.0 "Worg" r 80
-  goto 64.1,7.7 "Worg" r 80
-  goto 66.0,10.4 "Worg" r 80
-  goto 69.4,6.6 "Worg" r 80
+step Beasts 4-14 (50-75)
+  tip Walk the loop and kill and skin Cloudrunner (6), Coyote (10), Coyote Packleader (10), Galestrider (5), Gray Forest Wolf (7), Highlands Ursera (7), Hippogryph Protector (6), Hippogryph Youth (6), Mangy Wolf (4), Moonstalker Runt (10), Mountain Boar (10), Prideclaw (5), Prowler (9), Rockhide Boar (7), Vuldren (6), Windsong Crawler (8), Worg (10), Young Forest Bear (8), Elder Black Bear (11), Greater Plainstrider (11), Savannah Huntress (11), Thistle Bear (11), Young Goretusk (12), Goretusk (14) until Skinning 75; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. A quest in these zones needs Skinning: Rough Wolf Pelts (level 8, Helene Peltskinner, Elwynn Forest; Alliance). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 140 beasts for these 25 points: about 85 Ruined Leather Scraps and 55 Light Leather. For Leatherworking: about 350 Light Leather in all.
+  loop The Barrens lvl 12 lap 1277 gain 21.5 only Horde r 80 at 54.6,30.4 53.6,29.5 54.0,22.9 53.0,22.6 51.0,23.6 52.9,26.5 51.4,27.3 49.3,27.4 49.2,29.9 50.5,31.3 50.8,33.2 53.3,32.3
+  loop Zephras Isle lvl 9 lap 12066 gain 137.9 only Horde live r 80 at 40.5,52.7 40.4,56.3 42.1,61.7 46.3,58.0 47.0,53.4 42.3,49.7 42.4,44.9 39.3,43.6 37.2,47.1 37.9,52.0 35.2,55.5 37.6,56.5
+  loop Zephras Isle lvl 8 lap 6271 gain 70.2 only Alliance live r 80 at 40.5,52.7 40.0,50.4 37.9,52.0 36.4,53.8 37.6,56.5 38.9,54.8 40.4,56.3 40.1,59.2 43.3,57.5 44.9,52.4 42.9,50.6 42.0,54.4
+  loop Elwynn Forest lvl 11 lap 2945 gain 29.9 only Alliance r 80 at 70.5,63.4 74.0,66.5 79.8,60.5 87.2,66.2 77.3,77.1 73.0,81.4 65.4,78.2 61.6,78.0 55.5,76.1 56.7,60.5 59.9,66.1 65.1,63.3
+  loop Loch Modan lvl 12 lap 941 gain 10.6 only Alliance r 80 at 37.2,35.1 33.5,31.5 29.2,13.4 25.3,13.9 24.0,23.4 28.5,25.8 29.5,34.6 24.8,36.5 27.7,39.9 30.6,53.9 37.7,54.4 40.8,52.5
+  loop Darkshore lvl 13 lap 900 gain 11.4 only Alliance r 80 at 39.8,37.8 39.5,39.8 40.8,42.0 42.1,45.3 43.7,43.0 45.2,41.4 43.5,33.5 40.9,34.2 39.4,33.9 38.1,36.9
+  loop Silverpine Forest lvl 11 lap 571 gain 3.2 only Horde r 80 at 66.3,7.0 64.1,7.7 66.0,10.4 69.4,6.6
+  loop Westfall lvl 15 lap 486 gain 6.6 only Alliance r 80 at 60.7,44.5 63.2,38.2 60.9,36.7
   skill Skinning 75
 
 # ---------------------------------------------------------------- Skinning 75-100
 section Skinning 75-100
 
-step Beasts 10-14: Westfall (75-100)
-  only Human,Skyborne,Alliance
-  zone Westfall
-  tip Walk the loop and kill and skin Coyote (10), Coyote Packleader (10), Young Goretusk (12), Goretusk (14) until Skinning 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 14: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 400 yards, 4 minutes with the stops; the arrow leads stop to stop. Expect about 100 beasts for these 25 points: about 65 Light Leather, 40 Ruined Leather Scraps and 5 Light Hide. For Leatherworking: about 350 Light Leather in all.
-  level 14
-  loop
-  goto 60.7,44.5 "Goretusk, Coyote Packleader" r 80
-  goto 63.2,38.2 "Young Goretusk" r 80
-  goto 60.9,36.7 "Coyote, Young Goretusk" r 80
-  skill Skinning 100
-
-step Beasts 13-16: Loch Modan (75-100)
-  only Dwarf,Gnome
-  zone Loch Modan
-  tip Walk the loop and kill and skin Grizzled Black Bear (13), Loch Crocolisk (14), Mangy Mountain Boar (14), Black Bear Patriarch (16), Elder Mountain Boar (16) until Skinning 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 16: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,100 yards, 13 minutes with the stops; the arrow leads stop to stop. Expect about 40 beasts for these 25 points: about 40 Light Leather, 5 Medium Leather and 5 Ruined Leather Scraps. For Leatherworking: about 350 Light Leather and 145 Medium Leather in all.
-  level 16
-  loop
-  goto 66.9,40.3 "Elder Mountain Boar, Black Bear Patriarch" r 80
-  goto 64.9,34.5 "Black Bear Patriarch" r 80
-  goto 64.4,29.5 "Black Bear Patriarch" r 80
-  goto 62.3,33.9 "Black Bear Patriarch, Elder Mountain Boar" r 80
-  goto 61.3,40.2 "Elder Mountain Boar, Loch Crocolisk" r 80
-  goto 65.3,47.6 "Grizzled Black Bear, Mangy Mountain Boar" r 80
-  goto 72.9,44.7 "Black Bear Patriarch" r 80
-  goto 71.8,37.6 "Black Bear Patriarch, Elder Mountain Boar" r 80
-  skill Skinning 100
-
-step Beasts 13-14: Darkshore (75-100)
-  only NightElf
-  zone Darkshore
-  tip Walk the loop and kill and skin Rabid Thistle Bear (13), Moonstalker (14) until Skinning 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 16: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,600 yards, 18 minutes with the stops; the arrow leads stop to stop. Expect about 80 beasts for these 25 points: about 60 Light Leather, 30 Ruined Leather Scraps and 5 Light Hide. For Leatherworking: about 350 Light Leather in all.
-  level 16
-  loop
-  goto 39.4,68.3 "Moonstalker, Rabid Thistle Bear" r 80
-  goto 38.2,72.8 "Rabid Thistle Bear, Moonstalker" r 80
-  goto 43.4,70.8 "Moonstalker, Rabid Thistle Bear" r 80
-  goto 43.6,68.3 "Moonstalker, Rabid Thistle Bear" r 80
-  goto 43.1,64.9 "Moonstalker, Rabid Thistle Bear" r 80
-  goto 41.9,66.3 "Rabid Thistle Bear, Moonstalker" r 80
-  goto 38.7,60.7 "Rabid Thistle Bear, Moonstalker" r 80
-  goto 39.0,65.2 "Rabid Thistle Bear, Moonstalker" r 80
-  skill Skinning 100
-
-step Beasts 11-17: The Barrens (75-100)
-  only Orc,Troll,Tauren,Skyborne,Horde
-  zone The Barrens
-  tip Walk the loop and kill and skin Greater Plainstrider (11), Sunscale Lashtail (11), Sunscale Screecher (13), Lost Barrens Kodo (14), Savannah Patriarch (15), Ornery Plainstrider (16), Sunscale Scytheclaw (16), Zhevra Charger (17) until Skinning 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 17: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,600 yards, 16 minutes with the stops; the arrow leads stop to stop. Expect about 40 beasts for these 25 points: about 40 Light Leather, 5 Medium Leather and 5 Ruined Leather Scraps. For Leatherworking: about 350 Light Leather and 145 Medium Leather in all.
-  level 17
-  loop
-  goto 44.8,14.2 "Ornery Plainstrider, Zhevra Charger" r 80
-  goto 43.5,14.5 "Zhevra Charger, Ornery Plainstrider" r 80
-  goto 42.3,15.8 "Ornery Plainstrider, Sunscale Scytheclaw" r 80
-  goto 44.0,19.2 "Sunscale Screecher, Lost Barrens Kodo" r 80
-  goto 44.1,16.2 "Ornery Plainstrider, Savannah Patriarch" r 80
-  goto 45.5,15.3 "Ornery Plainstrider, Sunscale Scytheclaw" r 80
-  goto 47.0,14.4 "Greater Plainstrider, Savannah Patriarch" r 80
-  goto 48.0,12.3 "Sunscale Scytheclaw, Zhevra Charger" r 80
-  skill Skinning 100
-
-step Beasts 16-16: Silverpine Forest (75-100)
-  only Undead
-  zone Silverpine Forest
-  tip Walk the loop and kill and skin Bloodsnout Worg (16) until Skinning 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 16: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 400 yards, 3 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 30 Light Leather and 5 Medium Leather. For Leatherworking: about 350 Light Leather and 145 Medium Leather in all.
-  level 16
-  loop
-  goto 51.7,77.7 "Bloodsnout Worg" r 80
-  goto 52.5,81.9 "Bloodsnout Worg" r 80
-  goto 55.0,80.3 "Bloodsnout Worg" r 80
+step Beasts 5-17 (75-100)
+  tip Walk the loop and kill and skin Cloudrunner (6), Coyote (10), Coyote Packleader (10), Galestrider (5), Highlands Ursera (7), Hippogryph Protector (6), Hippogryph Youth (6), Prideclaw (5), Vuldren (6), Windsong Crawler (8), Greater Plainstrider (11), Sunscale Lashtail (11), Young Goretusk (12), Grizzled Black Bear (13), Rabid Thistle Bear (13), Goretusk (14), Loch Crocolisk (14), Mangy Mountain Boar (14), Moonstalker (14), Savannah Patriarch (15), Black Bear Patriarch (16), Bloodsnout Worg (16), Elder Mountain Boar (16), Ornery Plainstrider (16), Sunscale Scytheclaw (16), Zhevra Charger (17) until Skinning 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 120 beasts for these 25 points: about 65 Ruined Leather Scraps and 55 Light Leather. For Leatherworking: about 350 Light Leather in all.
+  loop Loch Modan lvl 17 lap 914 gain 27.2 only Alliance r 80 at 66.9,40.3 64.9,34.5 64.4,29.5 62.3,33.9 61.3,40.2 61.9,45.4 62.4,51.5 65.3,47.6 72.9,44.7 71.8,37.6
+  loop The Barrens lvl 18 lap 886 gain 28.4 only Horde r 80 at 44.8,14.2 43.5,14.5 44.1,16.2 45.5,16.9 47.0,14.4 46.8,12.8 45.5,15.3
+  loop Darkshore lvl 17 lap 1214 gain 19.9 only Alliance r 80 at 39.4,68.3 38.3,69.1 38.2,72.8 38.4,74.7 40.5,70.5 43.4,70.8 43.6,68.3 44.5,66.4 43.1,64.9 41.9,66.3 38.7,60.7 39.0,65.2
+  loop Zephras Isle lvl 9 lap 12066 gain 123.2 only Horde live r 80 at 40.5,52.7 40.4,56.3 42.1,61.7 46.3,58.0 47.0,53.4 42.3,49.7 42.4,44.9 39.3,43.6 37.2,47.1 37.9,52.0 35.2,55.5 37.6,56.5
+  loop Silverpine Forest lvl 17 lap 400 gain 5.3 only Horde r 80 at 51.7,77.7 52.5,81.9 55.0,80.3
+  loop Westfall lvl 15 lap 486 gain 3.3 only Alliance r 80 at 60.7,44.5 63.2,38.2 60.9,36.7
   skill Skinning 100
 
 # ---------------------------------------------------------------- Skinning 100-125
 section Skinning 100-125
 
-step Beasts 19-19: Duskwood (100-125)
-  only Human,Dwarf,Gnome,Skyborne,Alliance
-  zone Duskwood
-  tip Walk the loop and kill and skin Starving Dire Wolf (19) until Skinning 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 19: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 500 yards, 4 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 30 Light Leather and 5 Medium Leather. For Leatherworking: about 350 Light Leather and 145 Medium Leather in all.
-  level 19
-  loop
-  goto 33.3,24.1 "Starving Dire Wolf" r 80
-  goto 36.8,20.6 "Starving Dire Wolf" r 80
-  goto 28.7,26.0 "Starving Dire Wolf" r 80
-  skill Skinning 125
-
-step Beasts 19-19: Ashenvale (100-125)
-  only NightElf
-  zone Ashenvale
-  tip Walk the loop and kill and skin Ghostpaw Runner (19) until Skinning 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 20: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 2,200 yards, 11 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 30 Light Leather and 5 Medium Leather. For Leatherworking: about 350 Light Leather and 145 Medium Leather in all.
-  level 20
-  loop
-  goto 25.5,53.2 "Ghostpaw Runner" r 80
-  goto 27.6,54.2 "Ghostpaw Runner" r 80
-  goto 30.1,55.8 "Ghostpaw Runner" r 80
-  goto 31.4,50.8 "Ghostpaw Runner" r 80
-  goto 22.4,47.1 "Ghostpaw Runner" r 80
-  goto 16.7,45.8 "Ghostpaw Runner" r 80
-  goto 17.8,50.8 "Ghostpaw Runner" r 80
-  goto 19.2,57.4 "Ghostpaw Runner" r 80
-  skill Skinning 125
-
-step Beasts 20-21: Ashenvale (100-125)
-  only Orc,Troll,Tauren,Skyborne,Horde
-  zone Ashenvale
-  tip Walk the loop and kill and skin Ashenvale Bear (20), Shadowhorn Stag (21, needs 105) until Skinning 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 22: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,200 yards, 14 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 25 Light Leather and 15 Medium Leather. For Leatherworking: about 350 Light Leather and 145 Medium Leather in all.
-  level 22
-  loop
-  goto 39.6,65.2 "Ashenvale Bear, Shadowhorn Stag" r 80
-  goto 37.9,61.4 "Ashenvale Bear, Shadowhorn Stag" r 80
-  goto 39.4,62.6 "Ashenvale Bear, Shadowhorn Stag" r 80
-  goto 42.3,61.6 "Ashenvale Bear, Shadowhorn Stag" r 80
-  goto 41.5,65.6 "Ashenvale Bear, Shadowhorn Stag" r 80
-  goto 41.4,70.8 "Ashenvale Bear, Shadowhorn Stag" r 80
-  goto 38.7,70.6 "Ashenvale Bear, Shadowhorn Stag" r 80
-  goto 38.5,67.8 "Shadowhorn Stag" r 80
-  skill Skinning 125
-
-step Beasts 16-16: Silverpine Forest (100-105)
-  only Undead
-  zone Silverpine Forest
-  tip Walk the loop and kill and skin Bloodsnout Worg (16) until Skinning 105; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 16: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 400 yards, 3 minutes with the stops; the arrow leads stop to stop. Expect about 10 beasts for these 5 points: about 10 Light Leather. For Leatherworking: about 350 Light Leather in all.
-  level 16
-  loop
-  goto 51.7,77.7 "Bloodsnout Worg" r 80
-  goto 52.5,81.9 "Bloodsnout Worg" r 80
-  goto 55.0,80.3 "Bloodsnout Worg" r 80
-  skill Skinning 105
-
-step Beasts 21-21: Hillsbrad Foothills (105-125)
-  only Undead
-  zone Hillsbrad Foothills
-  tip Walk the loop and kill and skin Gray Bear (21) until Skinning 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 24: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,100 yards, 8 minutes with the stops; the arrow leads stop to stop. Expect about 20 beasts for these 20 points: about 10 Light Leather and 10 Medium Leather. For Leatherworking: about 350 Light Leather and 145 Medium Leather in all.
-  level 24
-  loop
-  goto 65.2,35.5 "Gray Bear" r 80
-  goto 61.8,36.1 "Gray Bear" r 80
-  goto 58.9,34.5 "Gray Bear" r 80
-  goto 59.8,30.9 "Gray Bear" r 80
-  goto 57.2,28.5 "Gray Bear" r 80
-  goto 57.6,23.6 "Gray Bear" r 80
-  goto 66.8,22.9 "Gray Bear" r 80
-  goto 63.7,29.5 "Gray Bear" r 80
+step Beasts 11-20 (100-125)
+  tip Walk the loop and kill and skin Greater Plainstrider (11), Sunscale Lashtail (11), Fleeting Plainstrider (12), Sunscale Screecher (13), Lost Barrens Kodo (14), Savannah Patriarch (15), Bloodsnout Worg (16), Ornery Plainstrider (16), Sunscale Scytheclaw (16), Zhevra Charger (17), Ghostpaw Runner (19), Starving Dire Wolf (19), Ashenvale Bear (20) until Skinning 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 40 beasts for these 25 points: about 40 Light Leather and 10 Medium Leather. For Leatherworking: about 350 Light Leather and 145 Medium Leather in all.
+  loop Ashenvale lvl 21 lap 614 gain 18.5 only Alliance r 80 at 25.5,53.2 27.6,54.2 30.1,55.8 31.4,50.8 30.1,48.0 24.5,49.1 22.4,47.1 20.1,49.0 19.3,54.1 19.2,57.4 23.2,56.0
+  loop Ashenvale lvl 23 lap 686 gain 27.0 only Horde r 80 at 39.9,65.4 41.2,66.8 41.5,70.3 38.7,70.4 36.6,69.2 37.9,61.7 39.5,62.2 42.3,61.5 42.1,64.5
+  loop Duskwood lvl 20 lap 471 gain 10.1 only Alliance r 80 at 33.3,24.1 36.8,20.6 28.7,26.0
+  loop The Barrens lvl 18 lap 1159 gain 16.7 only Horde r 80 at 44.8,14.2 45.5,15.3 45.5,16.9 44.1,16.2 43.5,14.5 42.3,15.8 44.0,19.2 46.5,19.4 47.0,14.4 48.0,14.4 48.0,12.3 46.8,12.8
+  loop Silverpine Forest lvl 17 lap 400 gain 2.3 only Horde r 80 at 51.7,77.7 52.5,81.9 55.0,80.3
   skill Skinning 125
 
 # ---------------------------------------------------------------- Skinning 125-150
@@ -399,133 +102,37 @@ step Expert Skinning
   tip Expert Skinning raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest Skinning trainer of your faction.
   train Skinning Expert
 
-step Beasts 22-23: Hillsbrad Foothills (125-150)
-  only Human,Dwarf,Gnome,Skyborne,Alliance
-  zone Hillsbrad Foothills
-  tip Walk the loop and kill and skin Vicious Gray Bear (22), Starving Mountain Lion (23) until Skinning 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 23: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,400 yards, 19 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 20 Light Leather and 15 Medium Leather. For Leatherworking: about 350 Light Leather and 145 Medium Leather in all.
-  level 23
-  loop
-  goto 53.3,39.0 "Starving Mountain Lion, Vicious Gray Bear" r 80
-  goto 50.3,33.5 "Starving Mountain Lion, Vicious Gray Bear" r 80
-  goto 44.7,39.4 "Vicious Gray Bear, Starving Mountain Lion" r 80
-  goto 39.5,38.1 "Starving Mountain Lion, Vicious Gray Bear" r 80
-  goto 39.4,44.8 "Starving Mountain Lion, Vicious Gray Bear" r 80
-  goto 45.8,46.6 "Vicious Gray Bear, Starving Mountain Lion" r 80
-  goto 54.0,44.8 "Starving Mountain Lion, Vicious Gray Bear" r 80
-  goto 57.3,41.0 "Vicious Gray Bear, Starving Mountain Lion" r 80
-  skill Skinning 150
-
-step Beasts 21-25: Ashenvale (125-150)
-  only NightElf
-  zone Ashenvale
-  tip Walk the loop and kill and skin Shadowhorn Stag (21), Elder Ashenvale Bear (25) until Skinning 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 25: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,500 yards, 8 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 15 Light Leather and 15 Medium Leather. For Leatherworking: about 350 Light Leather and 145 Medium Leather in all.
-  level 25
-  loop
-  goto 62.1,63.1 "Elder Ashenvale Bear" r 80
-  goto 62.7,67.6 "Elder Ashenvale Bear" r 80
-  goto 65.6,63.1 "Elder Ashenvale Bear" r 80
-  goto 65.2,60.0 "Elder Ashenvale Bear" r 80
-  goto 64.3,56.9 "Elder Ashenvale Bear" r 80
-  goto 63.9,53.7 "Elder Ashenvale Bear" r 80
-  goto 58.0,57.7 "Shadowhorn Stag" r 80
-  skill Skinning 150
-
-step Beasts 25-25: Ashenvale (125-150)
-  only Orc,Troll,Tauren,Skyborne,Horde
-  zone Ashenvale
-  tip Walk the loop and kill and skin Elder Ashenvale Bear (25) until Skinning 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 25: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,200 yards, 8 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 15 Light Leather and 15 Medium Leather. For Leatherworking: about 350 Light Leather and 145 Medium Leather in all.
-  level 25
-  loop
-  goto 62.1,63.1 "Elder Ashenvale Bear" r 80
-  goto 62.7,67.6 "Elder Ashenvale Bear" r 80
-  goto 66.3,62.8 "Elder Ashenvale Bear" r 80
-  goto 68.5,61.5 "Elder Ashenvale Bear" r 80
-  goto 65.2,60.0 "Elder Ashenvale Bear" r 80
-  goto 64.3,56.9 "Elder Ashenvale Bear" r 80
-  skill Skinning 150
-
-step Beasts 21-22: Hillsbrad Foothills (125-150)
-  only Undead
-  zone Hillsbrad Foothills
-  tip Walk the loop and kill and skin Gray Bear (21), Vicious Gray Bear (22) until Skinning 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 24: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 2,000 yards, 12 minutes with the stops; the arrow leads stop to stop. Expect about 40 beasts for these 25 points: about 25 Light Leather and 20 Medium Leather. For Leatherworking: about 350 Light Leather and 145 Medium Leather in all.
-  level 24
-  loop
-  goto 50.6,33.8 "Vicious Gray Bear" r 80
-  goto 46.3,37.4 "Vicious Gray Bear" r 80
-  goto 58.9,34.5 "Gray Bear" r 80
-  goto 61.8,36.1 "Gray Bear" r 80
-  goto 65.2,35.5 "Gray Bear" r 80
-  goto 66.8,22.9 "Gray Bear" r 80
-  goto 55.9,14.8 "Gray Bear" r 80
-  goto 57.2,28.5 "Gray Bear" r 80
+step Beasts 21-25 (125-150)
+  tip Walk the loop and kill and skin Gray Bear (21), Shadowhorn Stag (21), Mottled Raptor (22), Vicious Gray Bear (22), Starving Mountain Lion (23), Elder Ashenvale Bear (25) until Skinning 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 20 Light Leather and 15 Medium Leather. For Leatherworking: about 350 Light Leather and 145 Medium Leather in all.
+  loop Hillsbrad Foothills lvl 24 lap 886 gain 32.8 only Alliance r 80 at 53.3,39.0 50.3,33.5 47.8,36.4 49.4,43.8 52.9,48.9 54.0,44.8 57.3,41.0
+  loop Ashenvale lvl 26 lap 614 gain 22.0 only Horde r 80 at 62.1,63.1 62.7,67.6 66.3,62.8 68.5,61.5 65.2,60.0 64.3,56.9
+  loop Ashenvale lvl 26 lap 586 gain 19.7 only Alliance r 80 at 62.1,63.1 62.7,67.6 65.6,63.1 65.2,60.0 64.3,56.9 63.9,53.7 58.0,57.7
+  loop Hillsbrad Foothills lvl 24 lap 771 gain 25.8 only Horde r 80 at 51.9,33.2 53.4,36.6 57.8,40.0 58.9,34.5 57.1,25.9 55.4,29.3 47.6,26.1 49.8,30.9 48.0,36.7
+  loop Wetlands lvl 25 lap 414 gain 6.1 only Alliance r 80 at 25.9,47.4 24.1,50.4 23.2,54.1 29.5,46.5
   skill Skinning 150
 
 # ---------------------------------------------------------------- Skinning 150-175
 section Skinning 150-175
 
-step Beasts 27-29: Wetlands (150-175)
-  only Alliance
-  zone Wetlands
-  tip Walk the loop and kill and skin Highland Razormaw (27), Elder Razormaw (29) until Skinning 175; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 29: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 900 yards, 13 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 20 Medium Leather and 5 Heavy Leather. For Leatherworking: about 145 Medium Leather and 320 Heavy Leather in all.
-  level 29
-  loop
-  goto 69.2,31.6 "Elder Razormaw, Highland Razormaw" r 80
-  goto 69.3,28.2 "Elder Razormaw, Highland Razormaw" r 80
-  goto 65.1,28.7 "Highland Razormaw" r 80
-  goto 66.5,30.7 "Highland Razormaw" r 80
-  goto 68.3,36.5 "Highland Razormaw" r 80
-  goto 71.0,38.9 "Highland Razormaw" r 80
-  skill Skinning 175
-
-step Beasts 25-28: Thousand Needles (150-175)
-  only Horde
-  zone Thousand Needles
-  tip Walk the loop and kill and skin Crag Stalker (25), Pesterhide Hyena (26), Needles Cougar (27), Highperch Wyvern (28) until Skinning 175; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 28: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 2,000 yards, 14 minutes with the stops; the arrow leads stop to stop. Expect about 40 beasts for these 25 points: about 30 Medium Leather, 10 Heavy Leather and 5 Light Leather. For Leatherworking: about 145 Medium Leather, 320 Heavy Leather and 350 Light Leather in all.
-  level 28
-  loop
-  goto 25.6,28.2 "Pesterhide Hyena, Needles Cougar" r 80
-  goto 27.8,28.7 "Pesterhide Hyena" r 80
-  goto 35.3,29.4 "Pesterhide Hyena, Crag Stalker" r 80
-  goto 28.0,41.2 "Pesterhide Hyena, Needles Cougar" r 80
-  goto 24.7,44.6 "Pesterhide Hyena, Needles Cougar" r 80
-  goto 17.0,41.7 "Highperch Wyvern" r 80
-  goto 21.0,40.6 "Needles Cougar, Pesterhide Hyena" r 80
-  goto 22.4,37.7 "Needles Cougar, Pesterhide Hyena" r 80
+step Beasts 25-30 (150-175)
+  tip Walk the loop and kill and skin Crag Stalker (25), Pesterhide Hyena (26), Highland Razormaw (27), Needles Cougar (27), Highperch Wyvern (28), Elder Razormaw (29), Young Stranglethorn Tiger (29), River Crocolisk (30), Young Panther (30) until Skinning 175; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 20 Medium Leather and 5 Heavy Leather. For Leatherworking: about 145 Medium Leather and 320 Heavy Leather in all.
+  loop Wetlands lvl 30 lap 943 gain 36.4 only Alliance r 80 at 69.2,31.6 69.3,28.2 65.1,28.7 66.5,30.7 68.3,36.5 71.0,38.9
+  loop Stranglethorn Vale lvl 32 lap 1071 gain 52.0 only Alliance r 80 at 41.2,13.0 43.0,13.0 42.2,10.2 41.2,8.1 39.4,7.5 35.9,7.7 31.5,8.7 33.8,10.1 34.5,13.0 37.0,11.0 39.3,11.4 38.8,14.3
+  loop Stranglethorn Vale lvl 32 lap 1043 gain 50.1 only Horde r 80 at 41.2,13.0 43.0,13.0 42.2,10.2 40.2,8.1 37.3,8.3 35.9,7.7 31.5,8.7 33.8,10.1 34.5,13.0 37.0,11.0 39.3,11.4 38.8,14.3
+  loop Thousand Needles lvl 30 lap 1043 gain 31.3 only Horde r 80 at 25.6,28.2 27.8,28.7 35.3,29.4 28.0,41.2 24.7,44.6 22.4,37.7 21.0,40.6 17.0,41.7 15.1,32.6 14.4,26.7 14.9,19.6 15.8,16.6
+  loop Thousand Needles lvl 30 lap 1026 gain 30.5 only Alliance r 80 at 25.6,28.2 27.8,28.7 35.3,29.4 28.0,41.2 24.7,44.6 22.5,38.0 21.0,40.6 17.0,41.7 15.1,32.6 14.4,26.7 14.9,19.6 15.8,16.6
   skill Skinning 175
 
 # ---------------------------------------------------------------- Skinning 175-200
 section Skinning 175-200
 
-step Beasts 29-35: Stranglethorn Vale (175-200)
-  only Alliance
-  zone Stranglethorn Vale
-  tip Walk the loop and kill and skin Young Stranglethorn Tiger (29), Young Panther (30), Young Stranglethorn Raptor (30), Mistvale Gorilla (32), Panther (32), Stranglethorn Tiger (32), Stranglethorn Raptor (33), Crystal Spine Basilisk (34), Elder Stranglethorn Tiger (34), Lashtail Raptor (35), Saltwater Crocolisk (35) until Skinning 200; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 35: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 2,100 yards, 34 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 15 Medium Leather and 15 Heavy Leather. For Leatherworking: about 145 Medium Leather and 320 Heavy Leather in all.
-  level 35
-  loop
-  goto 30.0,10.0 "Panther, Stranglethorn Tiger" r 80
-  goto 34.8,13.6 "Young Stranglethorn Tiger, Stranglethorn Tiger" r 80
-  goto 37.2,13.2 "Young Stranglethorn Tiger, Stranglethorn Tiger" r 80
-  goto 35.4,18.5 "Elder Stranglethorn Tiger, Mistvale Gorilla" r 80
-  goto 32.0,19.2 "Elder Stranglethorn Tiger, Lashtail Raptor" r 80
-  goto 30.2,15.1 "Panther, Stranglethorn Tiger" r 80
-  goto 26.7,17.6 "Stranglethorn Raptor, Crystal Spine Basilisk" r 80
-  goto 24.1,16.6 "Crystal Spine Basilisk, Stranglethorn Raptor" r 80
-  skill Skinning 200
-
-step Beasts 29-35: Stranglethorn Vale (175-200)
-  only Horde
-  zone Stranglethorn Vale
-  tip Walk the loop and kill and skin Young Stranglethorn Tiger (29), River Crocolisk (30), Young Panther (30), Panther (32), Stranglethorn Tiger (32), Stranglethorn Raptor (33), Crystal Spine Basilisk (34), Elder Stranglethorn Tiger (34), Saltwater Crocolisk (35) until Skinning 200; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 35: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,500 yards, 24 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 15 Medium Leather and 15 Heavy Leather. For Leatherworking: about 145 Medium Leather and 320 Heavy Leather in all.
-  level 35
-  loop
-  goto 30.0,10.0 "Panther, Stranglethorn Tiger" r 80
-  goto 28.3,10.5 "Panther, Stranglethorn Tiger" r 80
-  goto 28.4,14.6 "Panther, Stranglethorn Raptor" r 80
-  goto 26.7,17.6 "Stranglethorn Raptor, Crystal Spine Basilisk" r 80
-  goto 30.2,15.1 "Panther, Stranglethorn Tiger" r 80
-  goto 34.8,13.6 "Young Stranglethorn Tiger, Stranglethorn Tiger" r 80
-  goto 33.8,10.1 "Young Stranglethorn Tiger, River Crocolisk" r 80
-  goto 30.4,12.5 "Panther, Stranglethorn Tiger" r 80
+step Beasts 25-35 (175-200)
+  tip Walk the loop and kill and skin Elder Gray Bear (25), Young Stranglethorn Tiger (29), Cave Yeti (30), River Crocolisk (30), Saltstone Basilisk (30), Sparkleshell Tortoise (30), Young Panther (30), Young Stranglethorn Raptor (30), Ferocious Yeti (31), Scorpid Reaver (31), Mistvale Gorilla (32), Mountain Lion (32), Mountain Yeti (32), Panther (32), Stranglethorn Tiger (32), Giant Yeti (33), Hulking Mountain Lion (33), Raging Thunder Lizard (33), Scorpid Terror (33), Sparkleshell Snapper (33), Stranglethorn Raptor (33), Crystal Spine Basilisk (34), Elder Stranglethorn Tiger (34), Scorpashi Lasher (34), Lashtail Raptor (35), Saltwater Crocolisk (35), Snapjaw Crocolisk (35) until Skinning 200; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 15 Medium Leather and 15 Heavy Leather. For Leatherworking: about 145 Medium Leather and 320 Heavy Leather in all.
+  loop Stranglethorn Vale lvl 36 lap 2438 gain 111.2 only Horde r 80 at 30.0,10.0 28.3,10.5 24.1,16.6 26.7,17.6 28.4,14.6 30.2,15.1 30.5,23.5 32.0,19.2 35.4,18.5 38.7,18.2 37.2,13.2 34.8,13.6
+  loop Stranglethorn Vale lvl 36 lap 2473 gain 110.8 only Alliance r 80 at 30.0,10.0 34.8,13.6 37.2,13.2 41.0,13.6 38.7,18.2 35.4,18.5 32.0,19.2 30.2,15.1 26.7,17.6 24.1,16.6 28.4,14.6 28.3,10.5
+  loop Alterac Mountains lvl 36 lap 1843 gain 78.0 only Alliance r 80 at 40.1,90.9 40.5,95.9 36.1,85.1 30.1,87.4 32.3,82.5 30.0,73.6 30.5,62.2 32.9,67.1 35.5,70.5 39.7,70.4 41.7,64.9 44.1,78.4
+  loop Thousand Needles lvl 35 lap 1405 gain 54.2 only Horde r 80 at 82.3,54.5 77.4,53.7 76.7,57.7 73.2,56.2 74.8,60.9 77.2,68.3 80.1,66.4 83.4,72.5 87.3,69.6 84.0,66.2 86.6,61.1 83.7,60.6
+  loop Desolace lvl 35 lap 786 gain 29.4 r 80 at 70.3,59.5 72.3,55.2 74.0,58.9 72.0,63.7 69.3,65.6 66.9,69.5 65.8,61.0 64.1,57.7 66.1,56.5 65.6,52.8 68.5,54.2 68.1,57.2
   skill Skinning 200
 
 # ---------------------------------------------------------------- Skinning 200-225
@@ -535,88 +142,40 @@ step Artisan Skinning
   tip Artisan Skinning raises the cap to 300; it needs skill 200 and no character level, and costs 5g: train it as soon as you reach 200. The arrow picks the nearest Skinning trainer of your faction.
   train Skinning Artisan
 
-step Beasts 38-41: Swamp of Sorrows (200-225)
-  zone Swamp of Sorrows
-  tip Walk the loop and kill and skin Sawtooth Crocolisk (38), Shadow Panther (39), Sawtooth Snapper (41, needs 205) until Skinning 225; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 41: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,400 yards, 58 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 20 Heavy Leather and 10 Thick Leather. For Leatherworking: about 320 Heavy Leather and 375 Thick Leather in all.
-  level 41
-  loop
-  goto 70.7,10.0 "Shadow Panther" r 80
-  goto 77.1,11.4 "Shadow Panther, Sawtooth Snapper" r 80
-  goto 82.3,16.4 "Shadow Panther, Sawtooth Snapper" r 80
-  goto 84.2,22.7 "Shadow Panther, Sawtooth Snapper" r 80
-  goto 86.7,28.5 "Shadow Panther" r 80
-  goto 88.9,36.9 "Shadow Panther, Sawtooth Snapper" r 80
-  goto 74.6,25.5 "Shadow Panther" r 80
-  goto 69.0,24.4 "Shadow Panther, Sawtooth Crocolisk" r 80
+step Beasts 37-40 (200-225)
+  tip Walk the loop and kill and skin Drywallow Snapper (37), Mottled Drywallow Crocolisk (38), Sawtooth Crocolisk (38), Bloodfen Razormaw (39), Shadow Panther (39), Bloodfen Lashtail (40), Elder Mistvale Gorilla (40) until Skinning 225; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 20 Heavy Leather and 10 Thick Leather. For Leatherworking: about 320 Heavy Leather and 375 Thick Leather in all.
+  loop Dustwallow Marsh lvl 41 lap 1762 gain 80.2 r 80 at 32.6,65.1 34.0,71.5 39.4,58.7 42.9,56.7 43.4,49.4 39.4,41.8 34.1,41.7 35.7,43.9 35.7,47.9 38.6,48.9 38.9,53.4 36.4,58.7
+  loop Swamp of Sorrows lvl 42 lap 3514 gain 206.4 only Alliance r 80 at 70.7,10.0 72.1,17.5 76.9,11.5 82.2,16.5 84.6,22.3 86.7,28.5 89.1,37.0 74.6,25.5 69.0,24.4 61.4,32.4 68.2,13.7 66.3,9.6
+  loop Swamp of Sorrows lvl 42 lap 3621 gain 211.4 only Horde r 80 at 70.7,10.0 76.9,11.5 82.2,16.5 84.6,22.3 86.7,28.5 89.1,37.0 74.6,25.5 69.0,24.4 61.4,32.4 54.4,40.1 68.2,13.7 66.3,9.6
+  loop Stranglethorn Vale lvl 41 lap 700 gain 28.0 r 80 at 33.1,66.3 32.3,68.4 31.3,66.9 31.7,59.9 32.4,58.0 33.7,63.3 34.7,65.5
   skill Skinning 225
 
 # ---------------------------------------------------------------- Skinning 225-250
 section Skinning 225-250
 
-step Beasts 42-44: The Hinterlands (225-250)
-  only Alliance
-  zone The Hinterlands
-  tip Walk the loop and kill and skin Vicious Owlbeast (42), Silvermane Wolf (43), Primitive Owlbeast (44) until Skinning 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 45: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,800 yards, 21 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 15 Thick Leather and 15 Heavy Leather. For Leatherworking: about 375 Thick Leather and 320 Heavy Leather in all.
-  level 45
-  loop
-  goto 35.9,51.0 "Silvermane Wolf, Vicious Owlbeast" r 80
-  goto 35.9,45.3 "Silvermane Wolf, Vicious Owlbeast" r 80
-  goto 39.8,46.0 "Primitive Owlbeast" r 80
-  goto 43.4,55.8 "Primitive Owlbeast" r 80
-  goto 37.3,57.3 "Primitive Owlbeast, Silvermane Wolf" r 80
-  goto 34.0,61.2 "Silvermane Wolf, Vicious Owlbeast" r 80
-  goto 27.7,63.1 "Vicious Owlbeast, Silvermane Wolf" r 80
-  goto 26.6,54.6 "Silvermane Wolf, Vicious Owlbeast" r 80
-  skill Skinning 250
-
-step Beasts 41-44: Feralas (225-250)
-  only Horde
-  zone Feralas
-  tip Walk the loop and kill and skin Ironfur Bear (41), Groddoc Ape (42), Feral Scar Yeti (43), Frayfeather Hippogryph (43), Frayfeather Stagwing (44) until Skinning 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 45: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,900 yards, 19 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 15 Thick Leather and 15 Heavy Leather. For Leatherworking: about 375 Thick Leather and 320 Heavy Leather in all.
-  level 45
-  loop
-  goto 55.8,63.6 "Frayfeather Hippogryph, Frayfeather Stagwing" r 80
-  goto 54.5,68.3 "Frayfeather Stagwing" r 80
-  goto 54.2,65.9 "Frayfeather Stagwing" r 80
-  goto 52.6,57.3 "Feral Scar Yeti" r 80
-  goto 55.7,56.2 "Feral Scar Yeti, Groddoc Ape" r 80
-  goto 61.0,61.0 "Groddoc Ape, Ironfur Bear" r 80
-  goto 58.8,60.2 "Groddoc Ape, Ironfur Bear" r 80
-  goto 55.3,61.3 "Frayfeather Hippogryph" r 80
+step Beasts 40-44 (225-250)
+  tip Walk the loop and kill and skin Scorpid Hunter (40), Ironfur Bear (41), Glasshide Basilisk (42), Groddoc Ape (42), Scorpid Tail Lasher (42), Vicious Owlbeast (42), Blisterpaw Hyena (43), Feral Scar Yeti (43), Frayfeather Hippogryph (43), Silvermane Wolf (43), Frayfeather Stagwing (44), Primitive Owlbeast (44) until Skinning 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 15 Thick Leather and 15 Heavy Leather. For Leatherworking: about 375 Thick Leather and 320 Heavy Leather in all.
+  loop The Hinterlands lvl 46 lap 1456 gain 66.5 only Alliance r 80 at 35.9,51.0 38.6,51.9 41.3,63.3 43.4,55.8 42.3,45.0 39.8,46.0 35.9,45.3 26.6,54.6 27.7,63.1 31.5,62.9 34.0,61.2 37.3,57.3
+  loop Feralas lvl 46 lap 1303 gain 57.0 r 80 at 55.8,63.6 55.3,61.3 56.7,59.9 58.8,60.2 61.0,61.0 57.8,57.9 57.7,54.8 55.7,56.2 52.6,57.3 54.2,65.9 54.5,68.3 56.2,66.1
+  loop Tanaris lvl 45 lap 1578 gain 67.6 only Horde r 80 at 45.4,39.2 43.4,37.4 41.4,35.5 45.3,30.8 45.7,35.1 47.9,39.0 51.2,36.4 53.1,38.6 51.1,39.8 49.4,41.6 48.0,46.0 45.2,42.2
+  loop The Hinterlands lvl 46 lap 871 gain 36.2 only Horde r 80 at 39.8,46.0 38.4,49.5 40.0,52.4 40.3,56.4 37.7,54.7 36.1,59.5 38.1,61.3 44.4,59.7 43.4,55.8 45.9,54.2 42.3,45.0 38.6,43.3
   skill Skinning 250
 
 # ---------------------------------------------------------------- Skinning 250-275
 section Skinning 250-275
 
-step Beasts 48-50: Un'Goro Crater (250-275)
-  zone Un'Goro Crater
-  tip Walk the loop and kill and skin Fledgling Pterrordax (48), Ravasaur (48), Ravasaur Hunter (49), Ravasaur Runner (49), Venomhide Ravasaur (50) until Skinning 275; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 50: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 2,500 yards, 27 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 20 Thick Leather and 5 Rugged Leather. For Leatherworking: about 375 Thick Leather and 1030 Rugged Leather in all.
-  level 50
-  loop
-  goto 65.7,49.3 "Ravasaur Hunter, Venomhide Ravasaur" r 80
-  goto 64.1,61.1 "Ravasaur Runner, Ravasaur" r 80
-  goto 60.7,73.5 "Ravasaur, Ravasaur Runner" r 80
-  goto 61.7,79.0 "Ravasaur, Ravasaur Runner" r 80
-  goto 66.8,71.5 "Ravasaur, Ravasaur Runner" r 80
-  goto 68.5,55.2 "Venomhide Ravasaur, Ravasaur Hunter" r 80
-  goto 71.0,51.7 "Venomhide Ravasaur, Ravasaur Hunter" r 80
-  goto 79.0,40.0 "Fledgling Pterrordax" r 80
+step Beasts 44-49 (250-275)
+  tip Walk the loop and kill and skin Primitive Owlbeast (44), Savage Owlbeast (46), Silvermane Stalker (47), Ravasaur (48), Ravasaur Hunter (49), Ravasaur Runner (49), Saltwater Snapjaw (49) until Skinning 275; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 20 Thick Leather and 10 Rugged Leather. For Leatherworking: about 375 Thick Leather and 1030 Rugged Leather in all.
+  loop Un'Goro Crater lvl 51 lap 1229 gain 56.8 r 80 at 60.7,73.5 62.1,66.6 64.1,61.1 63.2,53.9 69.6,56.6 67.3,60.7 66.8,66.2 66.8,71.5 67.1,78.3 64.2,77.2 61.7,79.0 58.6,79.7
+  loop The Hinterlands lvl 51 lap 3708 gain 164.7 r 80 at 63.7,51.0 62.0,45.4 54.9,44.4 52.4,48.7 51.9,58.6 54.1,53.1 58.2,47.5 58.7,52.2 61.9,55.3 77.2,69.4 78.9,61.3 82.1,52.7
   skill Skinning 275
 
 # ---------------------------------------------------------------- Skinning 275-300
 section Skinning 275-300
 
-step Beasts 53-55: Western Plaguelands (275-300)
-  zone Western Plaguelands
-  tip Walk the loop and kill and skin Diseased Wolf (53), Diseased Grizzly (55) until Skinning 300; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The loop asks level 55: no creature on it is more than a level above that, and it keeps clear of the other faction's towns. A lap is about 1,600 yards, 17 minutes with the stops; the arrow leads stop to stop. Expect about 30 beasts for these 25 points: about 15 Rugged Leather and 5 Thick Leather. For Leatherworking: about 1030 Rugged Leather and 375 Thick Leather in all.
-  level 55
-  loop
-  goto 55.9,51.9 "Diseased Grizzly" r 80
-  goto 60.5,51.8 "Diseased Grizzly" r 80
-  goto 63.5,49.7 "Diseased Grizzly" r 80
-  goto 58.1,60.2 "Diseased Grizzly" r 80
-  goto 55.2,62.4 "Diseased Grizzly" r 80
-  goto 52.3,60.0 "Diseased Grizzly, Diseased Wolf" r 80
-  goto 48.9,60.0 "Diseased Wolf" r 80
-  goto 53.0,50.0 "Diseased Grizzly, Diseased Wolf" r 80
+step Beasts 53-55 (275-300)
+  tip Walk the loop and kill and skin Diseased Wolf (53), Ragged Owlbeast (53), Shardtooth Bear (53), Stonelash Scorpid (54), Diseased Grizzly (55) until Skinning 300; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 15 Rugged Leather, 10 Thick Leather and 5 Heavy Scorpid Scale. For Leatherworking: about 1030 Rugged Leather and 375 Thick Leather in all.
+  loop Western Plaguelands lvl 56 lap 1186 gain 60.4 r 80 at 55.9,51.9 58.4,53.4 60.5,51.8 63.5,49.7 58.1,60.2 56.2,58.1 55.2,62.4 52.3,60.0 48.9,60.0 53.0,50.0 51.1,47.0 54.6,46.5
+  loop Silithus lvl 56 lap 886 gain 37.7 r 80 at 60.1,25.8 59.8,19.7 63.5,17.0 61.4,14.9 54.7,14.0 51.3,19.6 55.3,23.4 53.0,29.1 56.5,32.2 61.3,41.6 64.2,31.3 65.5,27.8
+  loop Winterspring lvl 55 lap 1145 gain 37.8 r 80 at 39.0,38.4 42.2,36.7 42.9,34.3 44.5,38.0 45.7,35.4 47.7,35.8 50.7,39.5 48.1,45.9 45.8,46.3 45.3,42.9 30.4,39.2 33.4,39.3
   skill Skinning 300
