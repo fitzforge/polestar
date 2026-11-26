@@ -117,6 +117,8 @@ nav.hearthCooldown = nil -- { start, duration }
 nav.taxiMap = nil -- { mapID = n, nodes = { nodeID | { nodeID, state }, ... } } while the flight map is open (state 1 = Reachable)
 
 function GetUnitSpeed(unit) if unit == "player" then return 0, nav.runSpeed, 0, 0 end end
+-- GetUnitSpeed's run speed (a mount's while mounted), as Core/Compat.lua reads it.
+function Compat.GetRunSpeed() return select(2, GetUnitSpeed("player")) end
 C_Container = {}
 function C_Container.GetItemCooldown(id)
 	local cd = id == 6948 and nav.hearthCooldown
