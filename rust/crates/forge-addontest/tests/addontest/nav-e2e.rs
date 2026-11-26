@@ -4874,3 +4874,46 @@ fn border_sweep() {
 	let flips: f64 = results.iter().map(|r| r["flips"].as_f64().unwrap_or(0.0)).sum();
 	eprintln!("border sweep: {} starts, {arrived} arrived, {stalled} stalled, {flips} flips -> {out_file}", results.len());
 }
+
+/// #4035 (Dillon, Human Priest 45, 0.4.2.2): the Magenta Cap Clusters grow in the Uldaman dig's tunnels under the
+/// Badlands' northern edge, below ground the walking maps give to Loch Modan (the hills above them). 0.4.2.2's planner
+/// put such a target in Loch Modan, so from the Badlands it sent the player up the pass into Loch Modan and back
+/// ("Ride to Loch Modan" twice) and the arrow stayed on the pass. Since #3018's rule (a walk the engine measured into a
+/// target from its own map's zone competes) the route walks in by the dig's mouth: from the middle of the Badlands and
+/// from Kargath, no leg goes through the Loch Modan crossing and a leg ends at the dig's mouth.
+#[test]
+fn t_4035_from_the_badlands_the_route_to_the_uldaman_dig_s_magenta_caps_goes_in_by_the_dig_s_mouth_not_through_loch_modan() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Alliance"
+		w.race, w.raceName = "Human", "Human"
+		w.setLevel(45)
+		local MOUTH = { -6089.9, -3175.2 } -- the dig's mouth, Badlands 44.06, 12.08
+		local function route(px, py, tx, ty, tz)
+			N.ClearTarget()
+			local _, v = C_Map.GetWorldPosFromMapPos(1418, CreateVector2D(px / 100, py / 100))
+			place(1418, v.x, v.y, 0)
+			stub.fire("ZONE_CHANGED_NEW_AREA")
+			stub.advance(1)
+			N.Sample()
+			N.SetTarget(1418, tx, ty, "Magenta Cap Clusters", "e", nil, tz)
+			for _ = 1, 200 do N.Sample(); stub.advance(0.05) end
+			local legs, ci = N.GetRoute()
+			local r = { legs = {}, crossing = false, mouth = false }
+			for i = ci or 1, #(legs or {}) do
+				local l = legs[i]
+				r.legs[#r.legs + 1] = l.kind .. "|" .. (l.step or "")
+				if l.crossing or l.step == "crossing" then r.crossing = true end
+				if l.to and l.to.wx and dist(l.to.wx, l.to.wy, MOUTH[1], MOUTH[2]) < 15 then r.mouth = true end
+			end
+			return r
+		end
+		emit({ middle = route(42.0, 40.0, 36.04, 12.84, 207.4), kargath = route(5.0, 47.0, 37.49, 15.09, 220.4) })"#,
+		true,
+	);
+	for from in ["middle", "kargath"] {
+		assert_eq!(out[from]["crossing"], false, "from {from}: no leg through the Loch Modan crossing: {out}");
+		assert_eq!(out[from]["mouth"], true, "from {from}: the route goes in by the dig's mouth: {out}");
+	}
+}
