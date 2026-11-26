@@ -260,7 +260,7 @@ return {
 	-- {area:16638} Valanaar
 	["{area:16638}, the turncoat"] = "{area:16638}，叛徒",
 	-- {npc:252448} Alvarion Windfield · {npc:252359} Lotheluum Starbreeze · {npc:259012} Ealaane Nimbuswalker
-	["Speak to {npc:252448} by the inn on the west side, then cross town to {npc:252359} and {npc:259012}."] = "",
+	["Speak to {npc:252448} by the inn on the west side, then cross town to {npc:252359} and {npc:259012}."] = "先到镇西边的旅店旁找{npc:252448}交谈，再穿过镇子去找{npc:252359}和{npc:259012}。",
 	-- {npc:252448} Alvarion Windfield
 	["Listen to {npc:252448}'s story"] = "听{npc:252448}讲述他的故事",
 

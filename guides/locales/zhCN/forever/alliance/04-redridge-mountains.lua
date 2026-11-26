@@ -73,7 +73,7 @@ return {
 	-- {npc:267} Clerk Daltry
 	["{npc:267}, in the town hall"] = "{npc:267}，在市政厅",
 	-- {npc:267} Clerk Daltry · {quest:66} The Legend of Stalvan · {zone:1436} Westfall · {area:20} Moonbrook · {zone:1431} Duskwood
-	["{npc:267}: {quest:66}, the footlocker in {zone:1436}'s {area:20}, at the west end of your next {zone:1431} loop (the {zone:1431} guide)"] = "",
+	["{npc:267}: {quest:66}, the footlocker in {zone:1436}'s {area:20}, at the west end of your next {zone:1431} loop (the {zone:1431} guide)"] = "{npc:267}：{quest:66}要找的提箱在{zone:1436}的{area:20}。下次走{zone:1431}环线时，去最西端顺路取（见{zone:1431}指南）。",
 	-- {npc:264} Commander Althea Ebonlocke
 	["{npc:264}, in the town hall"] = "{npc:264}，在市政厅",
 	-- {npc:268} Sirra Von'Indi
@@ -159,7 +159,7 @@ return {
 	-- plural, as words: Gooey Spider Legs = {item:2251} Gooey Spider Leg
 	["{npc:272}: six Gooey Spider Legs, which {zone:1431}'s spiders drop even without the quest"] = "{npc:272}：六条粘糊的蜘蛛腿，{zone:1431}的蜘蛛没接任务也会掉",
 	-- {npc:272} Chef Grual · {area:1097} The Hushed Bank
-	["{npc:272}: the six legs from the {area:1097}"] = "",
+	["{npc:272}: the six legs from the {area:1097}"] = "{npc:272}：交上在{area:1097}收集的6条蜘蛛腿。",
 	-- {npc:288} Jitters · {quest:163} Raven Hill · {zone:1431} Duskwood
 	["For {npc:288}, at {quest:163} on the next {zone:1431} loop"] = "留给{npc:288}：等下一圈回到{zone:1431}的{quest:163}时再交。",
 	-- {npc:663} Calor

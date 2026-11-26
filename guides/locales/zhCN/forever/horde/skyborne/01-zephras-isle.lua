@@ -522,21 +522,21 @@ return {
 
 	-- Step 118: Rezlak
 	-- {npc:3293} Rezlak · {zone:1454} Orgrimmar · {area:370} Drygulch Ravine
-	["{npc:3293} camps beside the road north to {zone:1454}, below {area:370}. The stolen sacks lie along the road just east of him."] = "",
+	["{npc:3293} camps beside the road north to {zone:1454}, below {area:370}. The stolen sacks lie along the road just east of him."] = "{npc:3293}在通往{zone:1454}的北向道路旁扎营，位置在{area:370}下方。被偷的货袋就在他东边的路旁。",
 
 	-- Step 119: Drygulch Ravine
 	-- {area:370} Drygulch Ravine · {npc:3293} Rezlak · {item:277661} Dull Storm Orb · {quest:97281} A Simmering Storm
-	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}, which starts {quest:97281}."] = "",
+	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}, which starts {quest:97281}."] = "{npc:3293}东边的{area:370}是尘风暴徒和尘风雷巫的巢穴。尘风雷巫会掉落{item:277661}，可用来开启{quest:97281}。",
 
 	-- Step 120: Rezlak
 	-- {npc:3293} Rezlak
-	["Back to {npc:3293} by the road."] = "",
+	["Back to {npc:3293} by the road."] = "回到路旁找{npc:3293}。",
 
 	-- Step 121: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "前往{zone:1454}",
 	-- {npc:3293} Rezlak · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From {npc:3293}'s camp, go on to {zone:1454}'s main gate, a few hundred yards away. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "",
+	["From {npc:3293}'s camp, go on to {zone:1454}'s main gate, a few hundred yards away. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "从{npc:3293}的营地继续走几百码，到{zone:1454}正门。下一段路线从{zone:1454}开始：把{quest:95350}交给萨尔，再乘飞艇前往{zone:1420}和{zone:1421}。",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{zone:1454}的{object:172982}",
 
