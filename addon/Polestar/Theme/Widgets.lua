@@ -384,6 +384,7 @@ function W.Tooltip(owner, anchor, title, lines)
 	GameTooltip:SetOwner(owner, anchor or "ANCHOR_RIGHT")
 	GameTooltip:SetText(title or "", 1, 1, 1, 1, true)
 	W.TooltipLines(GameTooltip, lines)
+	Theme.TipDots(GameTooltip)
 	GameTooltip:Show()
 end
 
@@ -563,6 +564,7 @@ local function setGameTip(owner, kind, id, extra, place)
 	end
 	if kind == "item" then tip:SetHyperlink(link or ("item:" .. id)) else tip:SetSpellByID(id) end
 	if extra then extra(tip) end
+	Theme.TipDots(tip)
 	tip:Show()
 	gameTip = { owner = owner, kind = kind, id = id, extra = extra, place = anchor or place }
 end
@@ -2466,6 +2468,7 @@ function layoutMenu()
 	-- opts.short: a menu of actions, every row shown, never a filtered list.
 	local long = not opts.short and total > MENU_MAX
 	local sc = long and menuLong() or rawget(menu, "Scroll")
+	local room = long and W.ScrollBarRoom(sc) or 0
 	-- Rows hang from the menu, or from the scroll area's child in a long list.
 	local holder = long and sc.Child or menu
 	local needle = long and (menu.Filter:GetText() or ""):lower() or ""
@@ -2562,13 +2565,13 @@ function layoutMenu()
 			row.Check:ClearAllPoints()
 			row.Check:SetPoint("RIGHT", row, "RIGHT", item.preview and -32 or -10, 0)
 			local shownText = (item.font and face) or row.Text
-			width = max(width, shownText:GetStringWidth() + textX + 36 + extra + (anyPreview and 26 or 0) + (long and 10 or 0))
+			width = max(width, shownText:GetStringWidth() + textX + 36 + extra + (anyPreview and 26 or 0) + room)
 			if holds(item, needle) then
 				row:ClearAllPoints()
 				row:SetHeight(rowH)
 				-- In a long list, clear of its scroll bar.
 				row:SetPoint("TOPLEFT", holder, "TOPLEFT", 1, y)
-				row:SetPoint("TOPRIGHT", holder, "TOPRIGHT", long and -10 or -1, y)
+				row:SetPoint("TOPRIGHT", holder, "TOPRIGHT", -1 - room, y)
 				row:Show()
 				shownRows = shownRows + 1
 				if item.checked then menu.psCheckedY = -y end
@@ -2577,7 +2580,7 @@ function layoutMenu()
 		end
 	end
 	width = floor(width + 0.5)
-	if barY then Bar.place(bar, holder, barY, width - (long and 10 or 0)) end
+	if barY then Bar.place(bar, holder, barY, width - room) end
 	if long then
 		local f = menu.Filter
 		f:ClearAllPoints()

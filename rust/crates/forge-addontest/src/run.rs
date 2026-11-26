@@ -6,10 +6,19 @@ use std::path::{Path, PathBuf};
 use std::rc::Rc;
 use std::sync::LazyLock;
 
-/// The repository root (the checkout this crate is in).
+/// The repository root: the checkout the tests run in (cargo test runs them from the crate's folder), found when
+/// they run, not when they are built, so a target folder shared by two checkouts never tests the other one's addon.
 pub fn root() -> &'static Path {
-	static ROOT: LazyLock<PathBuf> = LazyLock::new(|| Path::new(env!("CARGO_MANIFEST_DIR")).join("../../..").canonicalize().expect("repository root"));
+	static ROOT: LazyLock<PathBuf> = LazyLock::new(|| {
+		let cwd = std::env::current_dir().expect("working directory");
+		checkout_root(&cwd).unwrap_or_else(|| panic!("no Polestar checkout (tests/lua/wow_stub.lua) at or above {}", cwd.display()))
+	});
 	&ROOT
+}
+
+/// The nearest folder at or above `from` holding the client stub, canonical.
+fn checkout_root(from: &Path) -> Option<PathBuf> {
+	from.ancestors().find(|d| d.join("tests/lua/wow_stub.lua").is_file()).and_then(|d| d.canonicalize().ok())
 }
 
 /// addon/: the addons tests load by name.
@@ -23,9 +32,9 @@ pub fn stubs_dir() -> PathBuf {
 }
 
 /// Polestar's own load-on-demand addons besides the walking maps' parts, which [`run_addon`] loads from their
-/// TOC when the addon asks (C_AddOns.LoadAddOn): the settings window, our skins and layouts, and Freedoom Arcade
+/// TOC when the addon asks (C_AddOns.LoadAddOn): the hand-in planner, settings window, our skins and layouts, and Freedoom Arcade
 /// (the first Play).
-pub const LOAD_ON_DEMAND: &[&str] = &["Polestar_Options", "Polestar_Skins", "Polestar_Arcade", "Polestar_FreeMode"];
+pub const LOAD_ON_DEMAND: &[&str] = &["Polestar_Handins", "Polestar_Options", "Polestar_Skins", "Polestar_Arcade", "Polestar_FreeMode"];
 
 /// An addon to load, as the client loads it.
 #[derive(Clone, Debug)]
@@ -398,4 +407,42 @@ fn thread_cpu_seconds() -> f64 {
 fn thread_cpu_seconds() -> f64 {
 	thread_local!(static START: std::time::Instant = std::time::Instant::now());
 	START.with(|s| s.elapsed().as_secs_f64())
+}
+
+#[cfg(test)]
+mod tests {
+	use super::checkout_root;
+	use crate::tmp::TempDir;
+
+	#[test]
+	fn the_root_is_the_checkout_the_tests_run_in_not_the_one_they_were_built_in() {
+		let other = TempDir::new("polestar-checkout-");
+		std::fs::create_dir_all(other.path().join("tests/lua")).unwrap();
+		std::fs::write(other.path().join("tests/lua/wow_stub.lua"), "").unwrap();
+		let crate_dir = other.path().join("rust/crates/forge-addontest");
+		std::fs::create_dir_all(&crate_dir).unwrap();
+		assert_eq!(checkout_root(&crate_dir), Some(other.path().canonicalize().unwrap()));
+		assert_eq!(checkout_root(other.path().parent().unwrap()), None);
+	}
+
+	/// The crate's own sources never reach the checkout through the folder they were built in (the manifest
+	/// folder cargo hands the compiler): a test binary built in one checkout and run in another would read the
+	/// first one's files. Everything goes through `root()`.
+	#[test]
+	fn no_source_reads_the_checkout_through_the_folder_it_was_built_in() {
+		let needle = concat!("CARGO_", "MANIFEST_DIR");
+		let crate_dir = super::root().join("rust/crates/forge-addontest");
+		let (mut dirs, mut hits) = (vec![crate_dir.join("src"), crate_dir.join("tests")], Vec::new());
+		while let Some(dir) = dirs.pop() {
+			for path in std::fs::read_dir(&dir).unwrap().map(|e| e.unwrap().path()) {
+				if path.is_dir() {
+					dirs.push(path);
+				} else if path.extension().is_some_and(|x| x == "rs") && std::fs::read_to_string(&path).unwrap().contains(needle) {
+					hits.push(path.strip_prefix(&crate_dir).unwrap().display().to_string());
+				}
+			}
+		}
+		hits.sort();
+		assert!(hits.is_empty(), "read the checkout through run::root(), not the build-time manifest folder: {hits:?}");
+	}
 }

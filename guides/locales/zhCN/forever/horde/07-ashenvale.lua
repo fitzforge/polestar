@@ -49,7 +49,6 @@ return {
 
 	-- Step 9: Ruul Snowhoof
 	-- {npc:12818} Ruul Snowhoof · {area:428} Night Run · {npc:3987} Dal Bloodclaw
-	-- was: ["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "据点内部的隧道沿线有巨魔的箱子。{npc:12818}被囚禁在深处：释放他并一路保护他离开，之后他会跑回{area:428}的家。\n小心：会触发两次固定伏击，每次由3名蓟皮熊怪组成（一名萨满祭司、一名探路者，以及一名复仇者、巨熊战士或巢穴守卫）：第一处在洞内返回隧道岔口时，第二处在越过{npc:3987}游荡的大门后不远处。"
 	["{npc:12818} is held deep inside Thistlefur Hold: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "{npc:12818}被关在蓟皮熊怪的巢穴深处：救出他，一路保护他出去，然后他会跑回{area:428}的家。\n小心：会有两次脚本伏击，每次三只蓟皮熊怪（一个萨满、一个探路者，以及一个复仇者、乌萨或巢穴守卫）：第一次在你回到洞穴内隧道岔口时，第二次就在{npc:3987}游荡的大门外。",
 	-- {npc:12818} Ruul Snowhoof
 	["{npc:12818}, below ground"] = "{npc:12818}：在地下",
@@ -351,7 +350,6 @@ return {
 	-- Step 76: Highperch
 	-- {area:482} Highperch
 	-- plural, as words: Highperch Patriarchs = {npc:4110} Highperch Patriarch
-	-- was: ["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "在白沙岗哨西边，双足飞龙在{area:482}的悬崖上筑巢；蛋就在巢里。{npc:10427}在筑巢地东侧等候：救出他，并在走回{area:2237}的路上保护他。\n小心：28-29级的双足飞龙在头顶飞行，可能毫无预警地被引来。经过底部第一根石柱后，可能遭到三只双足飞龙的伏击。雌性风巢飞龙（30-31级）和稀有怪心刃（32级）也栖息在这里：绕开它们拉怪。"
 	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "白沙岗哨以西，双足飞龙在{area:482}的悬崖上筑巢；蛋在巢里。\n小心：28-29级的双足飞龙在头顶飞过，可能毫无预警地被拉到。经过底部第一根柱子后，三只双足飞龙可能会一起伏击你。高崖族长（30-31）和稀有的裂心者（32）也在这里筑巢：绕开它们。",
 
 	-- Step 77: Escort Pao'ka Swiftmountain

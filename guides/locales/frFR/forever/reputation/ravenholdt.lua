@@ -47,7 +47,6 @@ return {
 	-- {item:275706} Syndicate Uniform · {npc:266847} Anastasia Miller
 	["Put on the {item:275706} and go into Stromgarde. {npc:266847} waits on a ledge just outside the castle; players reach her by jumping from the roof of the house beside the ledge. Her stash is upstairs in a house near the keep."] = "Revêtez l'{item:275706} et entrez dans Stromgarde. {npc:266847} attend sur une corniche juste à l'extérieur du château ; on la rejoint en sautant depuis le toit de la maison voisine. Sa cachette est à l'étage d'une maison près du donjon.",
 	-- {item:275709} Stolen Funds · {object:656405} Anastasia's Stash (no name in this language: may be words)
-	-- was: ["{item:275709}, in Anastasia's Stash upstairs"] = "{item:275709}, dans la cachette d'Anastasia à l'étage"
 	["{item:275709}, in {object:656405} upstairs"] = "{item:275709}, dans {object:656405} à l'étage",
 
 	-- Step 7: Thoradin's Wall: the shipment

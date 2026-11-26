@@ -234,14 +234,8 @@ fn compact_draws_the_card_on_one_line_and_off_again_the_full_card_is_back() {
 	assert_eq!(out["giver"], true);
 }
 
-// The card with the quest buttons and their target list (QoL/Buttons.lua) on one screen (#2629: Drasi's list drawn
-// over the card and its buttons). The stub keeps a frame's anchors but never lays them out, so here the window, the
-// buttons, the list's rows and mark and the card read their edges off their anchors as the client does (the frame
-// each hangs from, every scale counted). The screen is 1366 x 768 pixels; UIParent's units follow the UI scale.
-// The step has five mobs, so the list shows five rows.
-const ON_SCREEN: &str = r#"
-local B, QoL = Polestar.QoL.Buttons, Polestar.QoL
-local w = GF.frame
+// A frame's edges as the client gives them: its box in its own units from its first anchor.
+const LIVE: &str = r#"
 local function at(pt, wd, ht)
 	return (pt:find("LEFT") and 0 or pt:find("RIGHT") and 1 or 0.5) * wd, (pt:find("BOTTOM") and 0 or pt:find("TOP") and 1 or 0.5) * ht
 end
@@ -266,6 +260,77 @@ local function live(o)
 		return (b[1] + b[3]) / 2 / e, (b[2] + b[4]) / 2 / e
 	end
 end
+"#;
+
+// Dragging the heads-up card directly with the mouse frees it from the window, sets toasts.headsup.place to "free",
+// and records its new drop position. With ui.lockHud, a plain drag does not move it and Shift-drag does.
+#[test]
+fn dragging_the_heads_up_card_switches_its_place_to_free_and_saves_its_spot_2629() {
+	let out = run(&[
+		LIVE,
+		r#"
+		CT.Show(1506)
+		stub.advance(1)
+		local f = CT.frame
+		live(f)
+		local movable = f:IsMovable() and true or false
+		local placeBefore = Polestar.Get("toasts.headsup.place")
+		-- A drag on the card (pressed, moved, released)
+		stub.cursor = { 500, 500 }
+		stub.RunScript(f, "OnMouseDown", "LeftButton")
+		stub.advance(0.016)
+		stub.cursor = { 550, 450 }
+		stub.advance(0.016)
+		stub.RunScript(f, "OnMouseUp", "LeftButton")
+		local pos = Polestar.Get("toasts.headsup.pos")
+		local placeAfter = Polestar.Get("toasts.headsup.place")
+
+		-- With ui.lockHud, a plain drag does nothing
+		Polestar.Set("ui.lockHud", true)
+		local savedPos = { pos[1], pos[2], pos[3] }
+		stub.cursor = { 550, 450 }
+		stub.RunScript(f, "OnMouseDown", "LeftButton")
+		stub.advance(0.016)
+		stub.cursor = { 600, 400 }
+		stub.advance(0.016)
+		stub.RunScript(f, "OnMouseUp", "LeftButton")
+		local posLocked = Polestar.Get("toasts.headsup.pos")
+		local lockedStayed = posLocked[1] == savedPos[1] and posLocked[2] == savedPos[2] and posLocked[3] == savedPos[3]
+
+		-- With ui.lockHud, Shift-drag moves it
+		stub.keys.shift = true
+		stub.cursor = { 550, 450 }
+		stub.RunScript(f, "OnMouseDown", "LeftButton")
+		stub.advance(0.016)
+		stub.cursor = { 600, 400 }
+		stub.advance(0.016)
+		stub.RunScript(f, "OnMouseUp", "LeftButton")
+		stub.keys.shift = false
+		local posShift = Polestar.Get("toasts.headsup.pos")
+		local shiftMoved = posShift[2] ~= savedPos[2] or posShift[3] ~= savedPos[3]
+
+		emit({ movable = movable, placeBefore = placeBefore, placeAfter = placeAfter,
+			side = CT.side, pos = type(pos) == "table" and pos[1] or false,
+			lockedStayed = lockedStayed, shiftMoved = shiftMoved })"#,
+	]
+	.join("\n"));
+	assert_eq!(out["movable"], true, "card is movable");
+	assert_eq!(out["placeBefore"], "above");
+	assert_eq!(out["placeAfter"], "free", "dragging frees the card from the window");
+	assert_eq!(out["side"], "free");
+	assert_eq!(out["pos"], "TOP", "saved on its drop point");
+	assert_eq!(out["lockedStayed"], true, "locked (ui.lockHud): a plain drag leaves the card");
+	assert_eq!(out["shiftMoved"], true, "locked (ui.lockHud): Shift-drag moves it");
+}
+
+// The card with the quest buttons and their target list (QoL/Buttons.lua) on one screen (#2629: Drasi's list drawn
+// over the card and its buttons). The stub keeps a frame's anchors but never lays them out, so here the window, the
+// buttons, the list's rows and mark and the card read their edges off their anchors as the client does (the frame
+// each hangs from, every scale counted). The screen is 1366 x 768 pixels; UIParent's units follow the UI scale.
+// The step has five mobs, so the list shows five rows.
+const ON_SCREEN: &str = r#"
+local B, QoL = Polestar.QoL.Buttons, Polestar.QoL
+local w = GF.frame
 local function screen(scale) UIParent.scale, UIParent.width, UIParent.height = scale, 1366 / scale, 768 / scale end
 local function kill(name, id) return G("kill", { verb = "Kill", subject = name, subjectKind = "npc", npc = id, status = "active" }) end
 add({ id = "test/boars", pack = "guides", title = "Boars", faction = "Horde", category = "Leveling", minLevel = 1, maxLevel = 12,
@@ -304,7 +369,7 @@ fn run_on_screen(script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "QoL/QoL.xml", "UI/UI.xml"])],
-		script: format!("{pre}{DUMP}{ON_SCREEN}{script}"),
+		script: format!("{pre}{DUMP}{LIVE}{ON_SCREEN}{script}"),
 		..Default::default()
 	})
 	.remove(0)

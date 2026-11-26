@@ -92,6 +92,8 @@ mod engine_carried_work;
 mod engine_cast;
 #[path = "engine-catchup.rs"]
 mod engine_catchup;
+#[path = "engine-current-log.rs"]
+mod engine_current_log;
 #[path = "engine-die.rs"]
 mod engine_die;
 #[path = "engine-direct.rs"]
@@ -276,6 +278,7 @@ mod guides_end_early;
 mod guides_end_places;
 #[path = "guides-memory.rs"]
 mod guides_memory;
+mod handins;
 mod harness;
 #[path = "hide-all.rs"]
 mod hide_all;
@@ -356,6 +359,8 @@ mod nav_route_look;
 mod nav_route_sparkle;
 #[path = "nav-router.rs"]
 mod nav_router;
+#[path = "nav-rune-stop.rs"]
+mod nav_rune_stop;
 #[path = "nav-spf.rs"]
 mod nav_spf;
 #[path = "nav-trail.rs"]

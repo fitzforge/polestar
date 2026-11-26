@@ -184,6 +184,8 @@ return {
 	-- Step 42: Fuzzle
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["{npc:259158} wants out of {area:16723}: lead him west to his treasure at the edge of town and keep the cultists off him."] = "{npc:259158} veut quitter {area:16723} : escortez-le vers l'ouest jusqu'à son trésor à la lisière du village et protégez-le des cultistes.",
+	-- {npc:259158} Fuzzle
+	["{npc:259158} in his cage"] = "",
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["lead {npc:259158} out of {area:16723} to his treasure, west of the town"] = "menez {npc:259158} hors de {area:16723} jusqu'à son trésor, à l'ouest de la ville",
 
@@ -195,7 +197,6 @@ return {
 
 	-- Step 44: Clubtoe
 	-- {area:16723} Sunnyglade · {npc:260931} Clubtoe · {npc:256710} Tran'gul
-	-- was: ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Retournez à l'ouest jusqu'à {area:16723} : {npc:260931}, un mineur du Crépuscule qui veut s'en sortir, attend à la lisière est du village. Convainquez-le, puis rendez la quête de {npc:256710} ; l'un des ogres disparus se tient à quelques pas à l'ouest."
 	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits inside the cave under the town's eastern edge, a floor below the street. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "De nouveau vers l'ouest jusqu'à {area:16723} : {npc:260931}, un mineur du Crépuscule qui veut partir, attend dans la grotte sous le bord est de la ville, un étage sous la rue. Convainquez-le, puis rendez la quête de {npc:256710} ; l'un des ogres disparus se tient à quelques pas à l'ouest.",
 	-- {npc:260931} Clubtoe
 	["talk {npc:260931} round"] = "convainquez {npc:260931}",

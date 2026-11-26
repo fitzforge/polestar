@@ -127,7 +127,7 @@ return {
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["{npc:2535} and {npc:2536} stand together in the hills just north of Zanzil's village."] = "{npc:2535}和{npc:2536}一起站在赞吉尔村子北边不远处的山丘上。",
 	-- {item:3925} Jon-Jon's Golden Spyglass · {npc:2536} Jon-Jon the Crow
-	["{item:3925}, from {npc:2536}"] = "",
+	["{item:3925}, from {npc:2536}"] = "从{npc:2536}身上取得{item:3925}。",
 
 	-- Step 26: Gorilla hills
 	["Gorilla hills"] = "猩猩山丘",

@@ -22,6 +22,7 @@ page says which part is which.
 | `Polestar_Nav_EK`, `Polestar_Nav_Kalimdor` | Each continent's map parts of Leffe's maps; Polestar_Nav's router loads the player's continent's the first time it searches there (never in combat). | `forge nav pack --leffe` | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar_Travel` | Zone crossings for the travel planner, from the optional local crossings file `data/local/crossings.json`. Loads with Polestar. | `travel build` | no (gitignored, built locally) | no: `install` copies it when built, `pack` never packages it |
 | `Polestar_Options` | The settings window: its pages, the Look pages with their previews and presets, the Profiles page and profile strings, Move frames. Loaded on demand the first time the settings open (`UI/OptionsLoader.lua` in `Polestar` is its door). | Hand-written | yes | yes, in `Polestar-<version>.zip` |
+| `Polestar_Handins` | Groups finished quests by recipient and orders their stops by estimated travel time. Opening or restoring the hand-in guide loads it. | Hand-written | yes | yes, in `Polestar-<version>.zip` |
 | `Polestar_FreeMode` | Free mode (#3701): the character's own quest log as a guide in a tab of its own, the pick rule, pins and quests left out, zone hints. Loaded on demand the first time Free mode starts, or when a saved Free mode tab comes back (`Lookup/Free.lua` in `Polestar` is its door). | Hand-written | yes | yes, in `Polestar-<version>.zip` |
 | `Polestar_Skins` | The ten skins that ship with Polestar (`Skins/<Name>`: Vellum, Lumen, Beacon, Aurora, Hairline, Umbra, Waymark, Lanterns, Sheen, Atlas, named in its TOC's `## X-Polestar-Skin`) and the Atlas layout (`Layouts/Atlas`), each its own addon before 0.4.3. Loaded on demand when one of them is wanted: at login when one is in use, on a pick, and when the settings list the skins. | Hand-written | yes | yes, in `Polestar-<version>.zip` |
 | `Polestar_Recorder` | An optional, standalone recorder (no dependency on Polestar): quests, routes, world data and, while Polestar runs, guide progress, as compact records into `PolestarRecorderDB` (schema 2, [docs/RECORDING.md](../docs/RECORDING.md)). Off until turned on (`/psrec on`, or Polestar Client's share flag: sharing is on by default in the client; `/psrec off` always wins). Polestar Client sends it; `forge record import` reads what it wrote. `Ack.lua` is the client's acknowledgement and share flag, shipped empty. | Hand-written | yes | yes, as its own `Polestar_Recorder-<version>.zip`; `install --recorder` |
@@ -240,6 +241,7 @@ never in saved variables.
 | `Codex.lua` | `Codex` | Reads `Polestar_Codex`, chunk by chunk |
 | `Sources.lua` | `Lookup` | Where an item, mount or pet comes from (and where an NPC, quest, dungeon or treasure is), ranked for this character |
 | `Guide.lua` | `Lookup` | Opens the curated guide for an item, or builds one from a ranked source |
+| `Handins.lua` | `Handins` | Counts ready quests for the menu and loads `Polestar_Handins` on first open or saved-tab restore |
 | `Spotter.lua` | `Lookup` | What mount another player rides; where-from lines on tooltips |
 | `Options.lua` | (registers options) | The Lookup settings |
 
@@ -287,7 +289,7 @@ never in saved variables.
 | `GearScales.lua` | `UI.ShowScales` | The custom stat weights window |
 | `GearAdjust.lua` | `UI.ShowAdjust` | The Adjust weights window |
 | `Picker.lua` | `UI.Picker` | The hub: its section rail, sidebar and search, and its built-in Guides section (the guide menu); defines `UI.RegisterSection` |
-| `QuestLinks.lua` | (local) | Quest log and objective tracker menu entries: open the guide search at that quest, with its matching steps |
+| `QuestLinks.lua` | (local) | Quest actions in the quest log and objective tracker menus and behind the round button in the quest details header: open guide search or start a quest guide, falling back to search if needed |
 | `Lookup.lua` | `UI.Lookup` | The hub's Lookup section |
 | `Dungeons.lua` | `UI.DungeonsSection` | The hub's Dungeons section |
 | `RouteChoice.lua` | `UI.RouteChoice` | "Choose your path": one card per zone where a guide offers several next guides |

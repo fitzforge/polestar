@@ -99,6 +99,7 @@
 	"guideWindow.progressColor",
 	"guideWindow.progressHeight",
 	"guideWindow.progressPct",
+	"guideWindow.questLogNotices",
 	"guideWindow.reportButton",
 	"guideWindow.rowSpacing",
 	"guideWindow.rules",

@@ -114,6 +114,9 @@ end
 
 function Hooks.AddLine(tooltip, left, right, r, g, b, rr, rg, rb)
 	if not tooltip or left == nil then return end
+	-- As the tooltip's face draws them (a Russian client's has no "·", #4015).
+	local T = ns.Theme
+	if T and T.TipText then left, right = T.TipText(left), T.TipText(right) end
 	if right ~= nil and tooltip.AddDoubleLine then
 		tooltip:AddDoubleLine(left, right, r, g, b, rr, rg, rb)
 	elseif tooltip.AddLine then

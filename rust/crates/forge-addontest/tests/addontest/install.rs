@@ -37,6 +37,7 @@ const RELEASE: &[&str] = &[
 	"Polestar_Nav",
 	"Polestar_Nav_EK",
 	"Polestar_Nav_Kalimdor",
+	"Polestar_Handins",
 	"Polestar_Options",
 	"Polestar_Skins",
 	"Polestar_Arcade",
@@ -155,6 +156,17 @@ fn a_copy_without_the_settings_folder_is_named_at_login() {
 	let said = said(&out);
 	assert_eq!(said.len(), 1, "one line: {said:?}");
 	assert!(is_match(&said[0], r"Polestar_Options not installed"), "{}", said[0]);
+}
+
+#[test]
+fn a_copy_without_the_handin_planner_folder_is_named_at_login() {
+	let without: Vec<String> = RELEASE.iter().filter(|n| **n != "Polestar_Handins").map(|s| s.to_string()).collect();
+	let out = login(&without);
+	assert_eq!(out["missing"], "Polestar_Handins");
+	assert_eq!(out["stale"], "");
+	let said = said(&out);
+	assert_eq!(said.len(), 1, "one line: {said:?}");
+	assert!(is_match(&said[0], r"Polestar_Handins not installed"), "{}", said[0]);
 }
 
 #[test]

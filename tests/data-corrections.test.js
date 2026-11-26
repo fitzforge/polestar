@@ -103,6 +103,176 @@ test('A Supernatural Device follows every recorded class version of An Earnest P
 	}
 });
 
+// #4025 (Tauren Druid, 84155), #3765 (Night Elf Druid, 84147), #4016: the versions no recording had yet carried no
+// class, so the Lookup chain sent every class without one in its log to the first of them (the Hunter's 84148, the
+// Druid's 84155), which the giver never offers it; and the Alliance Druid's 84147 had left the data. Each side's
+// A Supernatural Device now follows one version per class, and each version names its class and that class's bracers.
+test('A Supernatural Device follows one class-locked An Earnest Proposition per class on each side (#4025, #3765)', () => {
+	const BRACERS = { 1: 16735, 2: 16722, 4: 16681, 8: 16710, 16: 16697, 64: 16671, 128: 16683, 256: 16703, 1024: 16714 };
+	const SAMPLE = { 8922: 21928, 8923: 22381 };
+	for (const device of [8922, 8923]) {
+		const classes = [];
+		for (const id of corrections.quests[device].set.preAny) {
+			const entry = corrections.quests[id];
+			assert.ok(entry && entry.set && !entry.remove, `${id} has a record and stays in the data`);
+			const { classes: cls, next, objectives } = entry.set;
+			assert.ok(BRACERS[cls], `${id} names one class`);
+			classes.push(cls);
+			assert.equal(next, device, `${id} leads to ${device}`);
+			assert.deepEqual(objectives.map((o) => [o.id, o.count]), [[SAMPLE[device], 15], [BRACERS[cls], 1]], `${id}: the samples and its class's bracers`);
+		}
+		assert.deepEqual(classes.slice().sort((a, b) => a - b), Object.keys(BRACERS).map(Number), `${device}: one version per class`);
+	}
+	assert.ok(corrections.quests[8922].set.preAny.includes(84147), 'the Alliance Druid version 84147 leads to 8922');
+});
+
+// #4169 (Swiftfyre, Skyborne Hunter 58): the Blackrock Spire pick-up guide's step at Deliana listed five copies of
+// Just Compensation, none of them offered, and waited on them. Forever's copies of the Dungeon Set 2 chain's
+// class quests had no class and no prerequisite, so every class saw every copy from the first step. Each copy now
+// names its class (by its set pieces) and the quest before it (as the Classic copy for that class has it), and
+// the Classic copies that a Forever copy for the same class replaces, at the Classic Deliana or Mokvar whom
+// players never meet, leave the data.
+test('Dungeon Set 2: each Forever copy of Just Compensation, Anthion\'s Parting Words and Saving the Best for Last has its class and prerequisite (#4169)', () => {
+	// id: [class, the quest before it]
+	const copies = { 84163: [1024, 8977], 84164: [4, 8977], 84165: [128, 8977], 84166: [2, 8977], 84167: [16, 8977], 84168: [8, 8977], 84169: [256, 8977], 84170: [1, 8977], 97448: [64, 8977],
+		84171: [1024, 8978], 84172: [4, 8978], 84173: [128, 8978], 84174: [16, 8978], 84175: [8, 8978], 84176: [64, 8978], 84177: [256, 8978], 84178: [1, 8978], 97412: [2, 8978],
+		84179: [1024, 9015], 84180: [4, 9015], 84181: [128, 9015], 84182: [2, 9015], 84183: [16, 9015], 84184: [8, 9015], 84186: [1, 9015],
+		84187: [1024, 9015], 84188: [4, 9015], 84189: [128, 9015], 84190: [16, 9015], 84191: [8, 9015], 84192: [64, 9015], 84193: [256, 9015], 84194: [1, 9015],
+		84195: [1024, 8997], 84196: [4, 8997], 84200: [8, 8997], 84202: [1, 8997], 84203: [1024, 8998], 84208: [64, 8998], 84210: [1, 8998] };
+	for (const [id, [cls, pre]] of Object.entries(copies)) {
+		const entry = corrections.quests[id];
+		assert.ok(entry && entry.set && !entry.remove, `${id} has a record`);
+		assert.equal(entry.set.classes, cls, `${id}'s class`);
+		assert.deepEqual(entry.set.preAny, [pre], `${id} after ${pre}`);
+	}
+	for (const id of [8951, 8952, 8953, 8954, 8955, 8956, 8957, 8959, 9016, 9017, 9018, 9019, 9020, 9021, 9022, 8999, 9000, 9004, 9006, 9007, 9011, 9013]) {
+		assert.equal(corrections.quests[id] && corrections.quests[id].remove, true, `the Classic copy ${id} leaves the data`);
+	}
+});
+
+// #4169's sweep: Bodley's class-group quests (four versions each, by class group, per the server's world database
+// and Factoruide) had no class in the data, so every class saw all four at his step, as at Deliana.
+test('Bodley gives each class group its own Components of Importance and Valthalak amulet quests (#4169)', () => {
+	const groups = { 8962: 129, 8963: 1280, 8964: 12, 8965: 82, 8966: 129, 8967: 1280, 8968: 12, 8969: 82,
+		8985: 9, 8986: 1090, 8987: 144, 8988: 260, 8989: 1090, 8990: 9, 8991: 144, 8992: 260 };
+	for (const [id, cls] of Object.entries(groups)) {
+		assert.equal(corrections.quests[id] && corrections.quests[id].set && corrections.quests[id].set.classes, cls, `${id}'s classes`);
+	}
+	// The four of each set together are every class, once.
+	for (const set of [[8962, 8963, 8964, 8965], [8966, 8967, 8968, 8969], [8985, 8986, 8987, 8988], [8989, 8990, 8991, 8992]]) {
+		assert.equal(set.reduce((m, id) => m + groups[id], 0), 1503, `${set}: every class once`);
+	}
+});
+
+// #4169's sweep: Forever's Horde Paladin charger chain at Danitha Morr had no prerequisites, so Justice and
+// Retribution (97185, on the Dire Maul and Scholomance pick-up pages) read as open for every Horde Paladin; and
+// the Alliance's The Darkreaver Menace (97169, Scholomance) had no class or prerequisite, unlike the Horde's
+// Shaman-only 7668 after 7667.
+test('the Horde Paladin charger chain and the Alliance Darkreaver Menace have their prerequisites (#4169)', () => {
+	const after = { 97175: 97174, 97177: 97175, 97176: 97177, 97182: 97176, 97179: 97178, 97180: 97179, 97184: 97183, 97185: 97184, 97169: 97168 };
+	for (const [id, pre] of Object.entries(after)) {
+		assert.deepEqual(corrections.quests[id] && corrections.quests[id].set && corrections.quests[id].set.preAny, [pre], `${id} after ${pre}`);
+	}
+	assert.equal(corrections.quests[97169].set.classes, 64, 'The Darkreaver Menace 97169 is the Shaman\'s');
+});
+
+// #4169's hotfix build: removing the Classic Anthion's Parting Words copies took Bodley's Unfortunate Fate's
+// prerequisites with them (the Horde's 9032 had none left, the Alliance's 8960 only the Warlock's 8958). It
+// follows any class's Forever copy now.
+test('Bodley\'s Unfortunate Fate follows Forever\'s Anthion\'s Parting Words on each side (#4169)', () => {
+	assert.deepEqual(corrections.quests[8960].set.preAny, [84179, 84180, 84181, 84182, 84183, 84184, 84186, 8958]);
+	assert.deepEqual(corrections.quests[9032].set.preAny, [84187, 84188, 84189, 84190, 84191, 84192, 84193, 84194]);
+	for (const id of [8960, 9032]) assert.deepEqual(corrections.quests[id].set.pre, [], `${id}: no all-of prerequisite left over`);
+});
+
+// The check behind it: a quest whose prerequisite the corrections remove keeps a prerequisite the corrections
+// give it, unless another of its prerequisites stays. Reads the built data (skips without it).
+test('no quest loses all its prerequisites to a removal without a record that gives it new ones (#4169)', { skip: require('./helpers/data').needs('quests.json') }, () => {
+	const built = JSON.parse(fs.readFileSync(path.join(require('./helpers/data').DATA, 'quests.json'), 'utf8'));
+	const removed = new Set(Object.entries(corrections.quests).filter(([, e]) => e && e.remove).map(([id]) => Number(id)));
+	const bad = [];
+	for (const [id, q] of Object.entries(built)) {
+		if (removed.has(Number(id))) continue;
+		const set = (corrections.quests[id] && corrections.quests[id].set) || {};
+		for (const f of ['pre', 'preAny', 'preAll']) {
+			const v = Array.isArray(q[f]) ? q[f] : [];
+			if (!v.some((x) => removed.has(x))) continue;
+			const left = v.filter((x) => !removed.has(x));
+			const given = ['pre', 'preAny', 'preAll'].some((k) => Array.isArray(set[k]) && set[k].length && !set[k].some((x) => removed.has(x)));
+			if (!given && (left.length === 0 || left.length < v.length / 2)) bad.push(`${id} ${f}: ${v.join(',')} -> ${left.join(',') || 'none'}`);
+		}
+	}
+	assert.deepEqual(bad, []);
+});
+
+// #4169's hotfix build: with the Classic Anthion's Parting Words and Saving the Best for Last copies gone, the tier
+// 0.5 pieces they reward had no quest source left (Lookup: "no known source"). Each Forever copy that replaces one
+// rewards what the Classic copy for that class does (the server dump's RewardItem1-4).
+test('Forever\'s Set 2 copies reward the pieces of the Classic copies they replace (#4169)', () => {
+	const rewards = { 84179: [22107, 22111, 22112], 84187: [22107, 22111, 22112], 84180: [22016, 22017, 22061], 84188: [22016, 22017, 22061],
+		84181: [22064, 22067, 22068], 84189: [22064, 22067, 22068], 84182: [22087, 22092, 22093], 84183: [22082, 22084, 22085], 84190: [22082, 22084, 22085],
+		84184: [22003, 22007, 22008], 84191: [22003, 22007, 22008], 84192: [22096, 22100, 22101], 84193: [22072, 22073, 22076],
+		84186: [21995, 22000, 22001], 84194: [21995, 22000, 22001], 84195: [22109, 22113], 84203: [22109, 22113], 84196: [22013, 22060],
+		84200: [22005, 22009], 84202: [21997, 21999], 84210: [21997, 21999], 84208: [22097, 22102] };
+	for (const [id, items] of Object.entries(rewards)) {
+		const r = corrections.quests[id] && corrections.quests[id].set && corrections.quests[id].set.rewards;
+		assert.deepEqual(r && r.items, items, `${id}'s reward items`);
+	}
+});
+
+// The check behind it: an item whose only sources in the built Codex are quests the corrections remove must get a
+// quest source back from a record (a `set.rewards` naming it), or Lookup reads "no known source" after the next
+// build. Reads the built Codex (skips without it).
+test('no item loses its only quest sources to a removal without a record that rewards it again (#4169)', { skip: require('./helpers/data').needs('codex/items.json') }, () => {
+	const items = JSON.parse(fs.readFileSync(path.join(require('./helpers/data').DATA, 'codex', 'items.json'), 'utf8'));
+	const removed = new Set(Object.entries(corrections.quests).filter(([, e]) => e && e.remove).map(([id]) => Number(id)));
+	const rewarded = new Set();
+	for (const e of Object.values(corrections.quests)) {
+		const r = e && e.set && e.set.rewards;
+		for (const it of [...((r && r.items) || []), ...((r && r.choices) || [])]) rewarded.add(it);
+	}
+	const bad = [];
+	for (const [id, it] of Object.entries(items)) {
+		const sources = it.sources || [];
+		if (!sources.length || !sources.every((s) => s.type === 'quest' && removed.has(s.quest))) continue;
+		if (!rewarded.has(Number(id))) bad.push(`${id} ${it.name}: only from ${sources.map((s) => s.quest).join(', ')}`);
+	}
+	assert.deepEqual(bad, []);
+});
+
+// #4169's hotfix build: the corrections removed the Classic Saving the Best for Last copies (8999, 9000, 9004,
+// 9006, 9007, 9011, 9013) that the Legacy Challenges guide still accepted, and the guide no longer compiled
+// ("quest 8999 is not in data"). No guide (guides/, experimental/) may accept, turn in or name in a `quest N`
+// objective a quest the corrections remove.
+test('no guide accepts, turns in or works on a quest the corrections remove (#4169)', () => {
+	const removed = new Set(Object.entries(corrections.quests).filter(([, e]) => e && e.remove).map(([id]) => Number(id)));
+	const root = path.join(__dirname, '..');
+	const files = [];
+	const walk = (dir) => {
+		if (!fs.existsSync(dir)) return;
+		for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+			const p = path.join(dir, e.name);
+			if (e.isDirectory()) walk(p);
+			else if (e.name.endsWith('.guide')) files.push(p);
+		}
+	};
+	walk(path.join(root, 'guides'));
+	walk(path.join(root, 'experimental'));
+	const bad = [];
+	for (const file of files) {
+		fs.readFileSync(file, 'utf8').split('\n').forEach((line, i) => {
+			const code = line.split('--')[0];
+			if (code.trimStart().startsWith('#')) return;
+			for (const m of code.matchAll(/^\s*(?:accept|turnin)\s+(\d+)|\bquest\s+(\d+)/g)) {
+				const id = Number(m[1] || m[2]);
+				if (removed.has(id)) bad.push(`${path.relative(root, file)}:${i + 1}: ${id}`);
+			}
+		});
+	}
+	assert.ok(files.length > 100, 'the guides are read');
+	assert.deepEqual(bad, []);
+});
+
 test('the overlay takes mechanics flat or under quests; mechanics 603 and 1064 stay private', () => {
 	const out = overlayCorrections({ mechanics: {} }, { mechanics: { quests: { 603: { note: 'nested' } }, 1064: { note: 'flat' } } });
 	assert.deepEqual(Object.keys(out.mechanics).sort(), ['1064', '603']);
@@ -948,4 +1118,24 @@ test('Horde Triage (6622) is completed at Doctor Gregory Victor in Hammerfall (#
 	assert.equal(objs[0].type, 'event');
 	assert.equal(objs[0].map, 1417);
 	assert.deepEqual([objs[0].x, objs[0].y], [73.4, 36.8]);
+});
+
+// 司徒王朗 (#4157): Mother's Milk's line "Milked" ticks when Ragged John milks a player Mother Smolderweb has poisoned;
+// typed as a talk, the Blackrock Spire hand-in guide sent players to talk to him without the poison.
+test("Mother's Milk (4866) is an event, not a talk at Ragged John (#4157)", () => {
+	const objs = corrections.quests[4866].set.objectives;
+	assert.equal(objs.length, 1, 'one objective');
+	assert.deepEqual([objs[0].type, objs[0].id, objs[0].text], ['event', null, 'Milked']);
+	assert.ok(!('map' in objs[0]), 'no place: the hand-in guide lists it as not finished');
+});
+
+// Moduki (#4188): Kodo Roundup's kodos are tamed with the Kodo Kombobulator and counted at Smeed's camp; the quest
+// guide said "Kill Aged Kodo".
+test('Kodo Roundup (5561) is a use of the Kodo Kombobulator on the kodos, then a talk at the camp (#4188)', () => {
+	const m = require('../data/mechanics-public.json').quests[5561];
+	assert.ok(m.kinds.some((k) => k.kind === 'use-item-on-mob' && k.confidence === 'high'));
+	const [p] = m.params;
+	assert.deepEqual([p.item, p.npcs], [13892, corrections.quests[5561].set.objectives[0].credit]);
+	assert.deepEqual(m.steps.map((s) => s.action), ['use-item', 'talk']);
+	assert.match(m.steps[0].fact, /Don't kill it/);
 });

@@ -224,8 +224,8 @@ step Fly to Shadowprey Village
 step Shadowprey Village
   zone Desolace
   tip Taiga Wisemane and Drulzegar Skraghook stand in the village.
-  accept 5381                         -- Taiga Wisemane: the Hand of Iruxos, at Thunder Axe Fortress later on this visit
   accept 6143                         -- Drulzegar Skraghook: the Slitherblade of Sar'theris Strand, on the way back from Thunder Axe Fortress
+  accept 5381                         -- Taiga Wisemane: the Hand of Iruxos, at Thunder Axe Fortress later on this visit
 
 step Aka'rai
   zone Desolace

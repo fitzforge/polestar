@@ -143,7 +143,7 @@ const ALLOWED: &[(&str, usize, &str)] = &[
 	("Polestar/Nav/Journey.lua", 8, "the map's canvas click handler and /way, neither with the gamepad interface, and the same handler on the maps MapCanvas.Add hands over; wayTaken only reads"),
 	("Polestar/Nav/Nearby.lua", 3, "the tracking menus, not with the gamepad interface"),
 	("Polestar/Maps/Services.lua", 3, "the service tracking menus, not with the gamepad interface"),
-	("Polestar/UI/QuestLinks.lua", 3, "the quest menus, not with the gamepad interface"),
+	("Polestar/UI/QuestLinks.lua", 5, "the quest menus and quest details button, not with the gamepad interface"),
 	("Polestar/UI/GuideFrameMenu.lua", 2, "the quest log menu's pin entry, not with the gamepad interface"),
 	("Polestar/QoL/QoL.lua", 2, "dialogs closed for the player (QoL.ClosePopup), never with the gamepad interface (its focus owns them)"),
 	("Polestar/Quests/DeleteWarning.lua", 2, "a line added to the delete dialog, never with the gamepad interface (its focus owns the dialogs)"),

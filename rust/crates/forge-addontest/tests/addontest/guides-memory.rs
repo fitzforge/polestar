@@ -5,8 +5,8 @@
 //! (Polestar_Guides_Alliance, _Horde) of which only the player's faction's loads, a goal's spawn spots as
 //! one string, built into tables on the goal's first read of `spots`, and the side shelves (every guide that
 //! is not a leveling guide) with their steps as one source string, read in when the guide is opened. Each
-//! figure fails the test when it grows past its budget: lower a budget when a change lowers the figure, never
-//! raise one to make a change pass.
+//! figure fails the test when it grows past its budget: the figure measured at the release's code freeze plus
+//! 3 %, moved only then (docs/CI.md, "Memory budgets").
 //!
 //!   resident      after loading the pack (and the part it loads) and two full collects
 //!   peak          the heap grown while loading them, with the collector stopped
@@ -41,76 +41,12 @@ fn pack_files(name: &str) -> String {
 /// resident 10,499, peak 22,119, read 15,833; Horde resident 10,249, peak 21,665, read 16,146. The format-4
 /// pack (every guide in Polestar_Guides, spots as tables) cost 24,378 resident and 47,362 at the peak for
 /// either faction (the same harness, the same runtime).
-/// 0.3.0 (2026-11-02, Fitz accepted the rise for 0.3.0): the generated 1-60 routes for all ten starts (each
-/// faction's shared route once) and the new class, profession, reputation and collectible guides measure
-/// Alliance resident 15,199, peak 31,641, read 22,598; Horde resident 14,153, peak 29,782, read 21,861.
-/// Budgets are those plus ~3%. The release build (Release: 0.3.0, the final routes and the release-check
-/// fixes) measures Alliance peak 32,742 and Horde peak 30,963, so the peaks are those plus ~3% too.
-/// Loading the side shelves on demand (0.3.x) should bring them back down.
-/// 0.3.5 shipped at 15661 KiB (kb data); raised for the 0.3.6 hotfix; bring back down in 0.3.7.
-/// 0.3.6 round 2 measured 15838/33949/23334 KiB (Westfall Alba chain for Humans, new entrance/route steps,
-/// corrections); raised for the hotfix; trim in 0.3.7.
-/// 0.3.6 round 4, the pack compiled from it (`forge guide compile`): Alliance resident 15,927, peak 34,104, read
-/// 21,778; Horde resident 14,588, peak 31,470, read 21,309 (round 2 compiled the same way: 15,911 / 34,086 / 23,548
-/// and 14,575 / 31,440 / 22,933; goals with the same spots now share one list). Every budget is that plus ~1%:
-/// resident and the Alliance peak raised (round 2 compiled was already over them), the Horde peak and reads lowered.
-/// 0.3.6 round 5 (the 0.3.7 work folded in), the pack compiled from it at 6f9421be0: Alliance resident 16,043, peak
-/// 34,451, read 21,908; Horde resident 14,682, peak 31,659, read 21,363 (fab904a87 compiled the same way: 15,914 /
-/// 34,089 / 21,655 and 14,578 / 31,455 / 20,655). Budgets: those plus ~1%.
-/// 0.3.6 final (b67f42b45, release data 17:37:10Z, Library Books / Valik / upgrade steps folded): Alliance resident
-/// 16,040, peak 34,458, read 22,224; Horde resident 14,673, peak 31,676, read 21,151. Only the Alliance read was over:
-/// raised to that plus ~1% (22,450); trim in 0.3.7 with the rest.
-/// 0.3.6 night review (fb6c4dce8, 8 bracket reviews: Camping 101 at every start, Thunder Bluff stop, Velarok chain,
-/// Goblin Sponsorship, failed-quest notices, data 01:43Z): Alliance resident 16,231, peak 34,791, read 22,448; Horde
-/// resident 14,955, peak 32,214, read 21,496. Budgets: those plus ~1% (Horde read unchanged); trim in 0.3.7.
-/// 0.3.6 late folds (d5ca0ee23: Camping 101 auto-taken #1559, timed-quest countdown, #1557, best-at dungeons): Alliance
-/// resident 16,280, peak 35,041, read 22,497; Horde resident 15,040, peak 32,468, read 21,581. Only the Horde read was
-/// over (by 1 KiB): raised to that plus ~1% (21,800); the rest unchanged. Trim in 0.3.7.
-/// 0.3.7 final (release data 2026-11-11T03:28Z, every 0.3.7 guide change and the regenerated profession guides):
-/// Alliance resident 16,279, peak 35,132, read 22,497; Horde resident 15,039, peak 32,583, read 21,569, against the
-/// 0.3.6 pack's 16,278 / 35,038 / 22,503 and 15,039 / 32,468 / 21,593. No key trimmed: the new keys (fromNpcsAt,
-/// carriedTo, limit, parent) cost tens of KiB, and the pack is back at 0.3.6's size but for the Horde peak (+115).
-/// Budgets: those plus ~1%. Read raised for #1944's exact points (measured 23,186 / 22,311; Fitz, 2026-11-12:
-/// raise memory budgets while 0.3.8's content grows, review once it is final): those plus ~5%.
-/// 0.4.0 release build (release data 2026-11-15, the packs compiled on it): Alliance resident 17,870, peak 38,199,
-/// read 25,099; Horde resident 16,024, peak 34,592, read 23,989, against dev-040's committed pack's 16,297 / 35,202
-/// / 23,415 and 15,054 / 32,649 / 22,489. The same 183 / 173 guides; the 0.4.0 data brings more spots (+14%),
-/// heights, notes and points per goal, and 4% more steps. Fitz OK'd size growth for 0.4.0 (2026-11-15): budgets
-/// are those plus ~1%.
-/// 0.4.0 integrated routes (2026-11-16: both factions' reworked 1-60, the Riverglades and Shen'dralas in both
-/// routes, release data of the same day): Alliance resident 18,483, peak 39,627, read 26,303; Horde resident 17,058,
-/// peak 36,334, read 25,088 (two more guides per faction and ~7% more tips). Under the same 0.4.0 OK: those plus ~1%.
-/// 0.4.2 Horde route round (2026-11-20, the pack compiled on next with #3291 merged): Horde resident 17,520, peak
-/// 37,096, read 25,597 against budgets 17,230 / 36,700 / 25,340: quests in place of grind steps, Mount Hyjal in the
-/// route and their tips. Budgets: those plus ~1% (a reported raise, for Fitz to confirm in the pull request).
-/// 0.4.2 Alliance route round (2026-11-20, the pack compiled on next with both route rounds): Alliance resident 18,722
-/// and read 26,578 against budgets 18,670 / 26,570 (peak 39,937, under its 40,020): about 89 more quests handed in
-/// along the route and their tips. Resident and read: those plus ~1% (a reported raise, for Fitz to confirm in the
-/// pull request); the peak stays.
-/// 0.4.2 triage guide fixes (2026-11-21, #3332 on next: 26 player reports' tips, steps and goals in both routes):
-/// Alliance peak 40,053 against its 40,020. The peak: that plus ~1% (a reported raise, for Fitz to confirm in the pull
-/// request); the rest stays.
-/// 0.4.3 step-condition sweep (2026-11-23, #3696 on next: 80 steps added, carried hand-ins split to wait for their
-/// quest's completion and follow-ups' fallback steps): Alliance read 26,862 against 26,845, Horde read 25,880 against
-/// 25,860. The reads: those plus ~1% (a reported raise, for Fitz to confirm in the pull request); the rest stays.
-/// 0.4.3 fewer folders (2026-11-23, #3507): each race's legs file is in its faction part, no longer a race part of its
-/// own, so the part's load reads and compiles the races' files too (each returning at once but for the player's):
-/// Alliance resident 19,024 and peak 40,692, Horde resident 17,701 (next without it 17,597: +104) and peak 37,502.
-/// Fitz approved Alliance resident 19,100 and peak 40,800, Horde resident 17,800 and peak 37,600; the reads stay.
-/// 0.4.3 Camping 101 at every start campfire (2026-11-24, #3963: 27 quests behind their profession, handed in at the
-/// trainers): Horde peak 37,607 against its 37,600. The peak: that plus ~1% (a reported raise, for Fitz to confirm in
-/// the pull request); the rest stays.
-/// 0.4.3 data build and legs bake (2026-11-24): the legs bake writes 3,586 legs, 720-750 KB per race file; the budgets
-/// above were set with most leveling guides' legs stale (79 KB and 53 KB per race file). Measured on the baked pack:
-/// Alliance resident 19,678, peak 42,006, read 27,492; Horde resident 18,412, peak 38,946, read 26,563 (the same data
-/// with the stale legs: Alliance 19,017 / 40,573 / 26,830, Horde 17,719 / 37,502 / 25,871). Budgets: those plus ~1%,
-/// reported to Fitz (Main, 2026-11-24).
-/// 0.4.3 side shelves (#1863, 2026-11-25, the pack compiled with them on next 78fa260855, the 0.4.3 data on
-/// QuestieDB 1.1.5): every guide that is not a leveling guide keeps its steps as source until it is opened. Alliance
-/// resident 13,938, peak 27,341, read 19,838; Horde resident 13,004, peak 24,903, read 19,095 (next without them:
-/// 19,674 / 42,018 / 27,580 and 18,393 / 38,940 / 26,648). Budgets: those plus ~1%.
+/// The 1-60 routes and their baked legs grew the pack; 0.4.3's side shelves (#1863) took about 5,700 KiB a faction
+/// back. Measured on next f5bd74406e (2026-11-26, #4143; three runs reading the same): Alliance
+/// resident 13,938, peak 27,342, read 19,808; Horde resident 13,004, peak 24,904, read 19,070. Each budget is that
+/// figure plus 3 % (docs/CI.md, "Memory budgets").
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 14080.0), ("peak", 27620.0), ("read", 20040.0)]), ("Horde", "Orc", [("resident", 13140.0), ("peak", 25160.0), ("read", 19290.0)])];
+	[("Alliance", "Human", [("resident", 14360.0), ("peak", 28170.0), ("read", 20410.0)]), ("Horde", "Orc", [("resident", 13400.0), ("peak", 25660.0), ("read", 19650.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {
@@ -225,6 +161,49 @@ fn the_other_faction_s_part_stays_out_unless_a_saved_tab_needs_it() {
 		r#"emit({ loads = stub.packLoads.Polestar_Guides_Alliance or 0, guide = Polestar.Engine.GetGuide() and Polestar.Engine.GetGuide().id or false })"#,
 	);
 	assert_eq!(saved[0], serde_json::json!({ "loads": 1, "guide": "forever/alliance/02-westfall" }), "the saved tab of an Alliance guide comes back on a Horde character");
+}
+
+// #3924: a saved tab of a guide no part has (renamed or taken out of Polestar) loaded both faction parts at every
+// login, so an Alliance character carried the Horde part and the other way round. The other faction's part comes
+// in only for a guide it has (the pack's PartGuides index); a tab of a guide no part has loads nothing, and a
+// retired one opens the guide it became, of the character's own faction.
+#[test]
+fn a_saved_tab_of_a_guide_no_part_has_never_loads_the_other_faction_s_part_3924() {
+	let run = |faction: &str, race: &str, tabs: &str| {
+		emitted(&RunAddon {
+			stubs: vec!["stub_world.lua", "stub_packs.lua"],
+			before: format!(
+				"{}\n{}\nlocal w = stub.world\nw.faction, w.race, w.raceName = {}, {}, {}",
+				pack_files("Polestar_Guides_Alliance"),
+				pack_files("Polestar_Guides_Horde"),
+				lua_string(faction),
+				lua_string(race),
+				lua_string(race)
+			),
+			addons: vec![Addon::name("Polestar"), Addon::name("Polestar_Guides")],
+			saved: vec![("Polestar".into(), format!("PolestarCharDB = {{ schema = 1, tabs = {{ {tabs} }}, activeTab = 1 }}"))],
+			login: true,
+			script: r#"local g = Polestar.Engine.GetGuide()
+emit({ alliance = stub.packLoads.Polestar_Guides_Alliance or 0, horde = stub.packLoads.Polestar_Guides_Horde or 0, guide = g and g.id or false })"#
+				.into(),
+		})[0]
+			.clone()
+	};
+	// A guide no release ever had: nothing loads, on either side.
+	let none = run("Horde", "Tauren", r#""forever/class/druid/no-such-guide""#);
+	assert_eq!((none["alliance"].as_i64(), none["horde"].as_i64()), (Some(0), Some(1)), "a Horde character with a tab of an unknown guide: {none}");
+	let none = run("Alliance", "Human", r#""forever/horde/40-50/no-such-guide""#);
+	assert_eq!((none["alliance"].as_i64(), none["horde"].as_i64()), (Some(1), Some(0)), "an Alliance character with a tab of an unknown guide: {none}");
+	// Taken out in 0.4.3 (retired): no other part, the character's own leveling guide in its place.
+	let drowned = run("Horde", "Tauren", r#""forever/miscellaneous/the-drowned-city-alliance""#);
+	assert_eq!(drowned["alliance"], 0, "{drowned}");
+	assert!(drowned["guide"].as_str().is_some_and(|g| g.starts_with("forever/horde/")), "the Horde leveling guide for the character: {drowned}");
+	// Moved in 0.3.3 (retired with its new id): the guide it became.
+	let stalk = run("Horde", "Tauren", r#""forever/class/shaman/stalk-with-the-earthmother""#);
+	assert_eq!(stalk, serde_json::json!({ "alliance": 0, "horde": 1, "guide": "forever/miscellaneous/stalk-with-the-earthmother" }));
+	// Another race's guide of the character's own faction (in its own part): the other part stays out.
+	let other_race = run("Alliance", "Dwarf", r#""forever/alliance/human/01-elwynn-forest""#);
+	assert_eq!(other_race["horde"], 0, "{other_race}");
 }
 
 // Baked legs in Polestar's own pack (formats 7 and 8, #3507): an Alliance zone guide ships in the faction part,

@@ -4,7 +4,7 @@ category Reputation
 folder Reputation · World
 levels 48-60
 zone Felwood
-keywords Timbermaw Hold, furbolg, Grazle, Nafien, Salfa, Meilosh, Gorn One Eye, Kernda, Deadwood Headdress Feather, Winterfall Spirit Beads, Deadwood Ritual Totem, Winterfall Ritual Totem, Defender of the Timbermaw, The Root of All Evil, Enchant Weapon - Agility, Warbear Harness, Mantle of the Timbermaw, Wintersaber Trainers
+keywords Timbermaw Hold, furbolg, Grazle, Nafien, Salfa, Meilosh, Gorn One Eye, Kernda, Deadwood Headdress Feather, Winterfall Spirit Beads, Deadwood Ritual Totem, Winterfall Ritual Totem, Defender of the Timbermaw, The Root of All Evil, Enchant Weapon - Agility, Warbear Harness, Mantle of the Timbermaw, Wintersaber Trainers, Blackmaw, Ursolan, Gatekeeper Rageroar, Elder Bramblesnap, Korsa
 reward item 21326
 reward item 19445
 reward text Recipes for Leatherworkers, Tailors, Enchanters and Alchemists from Friendly to Revered
@@ -38,6 +38,10 @@ why Safe passage through the tunnels, agility enchants and furbolg recipes; the 
 # Numbers are base values; the Legacy perk Diplomat adds up to 10%.
 # INGAME: Forever's new Blackmaw Hold furbolgs (Azshara): does killing them
 # count for or against the Timbermaw? Forever's data has no reputation for them.
+# The Blackmaw part (Ursolan, Azshara; Gorn One Eye in the tunnel): order, places and XP from players'
+# recordings of the two characters who did it just past Neutral; every character below Neutral met the
+# Blackmaw hostile. The leveling routes pass Azshara before any Timbermaw quest (Neutral is out of reach
+# there), so the block lives here, behind the Neutral goal.
 # INGAME: Formula: Enchant Shield - Law of Nature and Plans: Stormcarver and
 # Bagh Nakh need Revered with the Timbermaw in the Forever client, but no
 # vendor in Forever's data sells them. In-game check: Meilosh's list at Revered.
@@ -126,6 +130,180 @@ step Kernda: the Winterfall totem
   when onquest 8471
   zone Felwood
   turnin 8471
+
+step To Azshara
+  when rep "Timbermaw Hold" Neutral
+  zone Azshara
+  tip Neutral opens Ursolan, the camp of the Blackmaw furbolgs in northern Azshara: their quests and Gorn One Eye's in Timbermaw Hold are levels 53-55, about 50,000 experience below level 60, all outdoors. Below Neutral the Blackmaw attack you. The nearest flight masters are Valormok (Horde) and Talrendis Point (Alliance); Ekkal camps by the road between them and Ursolan.
+  goto 41.9,38.9 "Ekkal's camp"
+
+step Ekkal
+  when rep "Timbermaw Hold" Neutral
+  when !turnedin 86746
+  zone Azshara
+  tip Ekkal camps by the road in the middle of Azshara. His satyrs come first: the Legashi Satyrs, Rogues and Hellcallers (51-53) of the Legashi Encampment, north-east of him.
+  accept 86746
+
+step The Legashi Encampment
+  when onquest 86746
+  zone Azshara
+  level 52
+  kill 6200 quest 86746.1             -- Legashi Satyr
+  kill 6201 quest 86746.2             -- Legashi Rogue
+  kill 6202 quest 86746.3             -- Legashi Hellcaller
+
+step Ekkal
+  when onquest 86746
+  zone Azshara
+  turnin 86746
+
+step Ekkal: Report to Rageroar
+  when rep "Timbermaw Hold" Neutral
+  when !turnedin 86752
+  zone Azshara
+  accept 86752
+
+step Ursolan
+  when rep "Timbermaw Hold" Neutral
+  zone Azshara
+  tip Ride north up the road to Ursolan. Furze sits on the camp's south-east side; Gatekeeper Rageroar and Elder Bramblesnap stand together on its west side.
+  accept 86799                        -- Furze
+  turnin 86752                        -- Gatekeeper Rageroar
+  accept 86791
+  turnin 86799                        -- Elder Bramblesnap
+  accept 86804
+
+step The Legashi Cauldron
+  when onquest 86804
+  zone Azshara
+  tip Ride east to the Legashi Encampment: the satyrs' cauldron stands in the middle of their camp.
+  turnin 86804 object 506307
+  accept 86925 object 506307
+
+step The Legashi Encampment
+  when onquest 86925
+  zone Azshara
+  level 52
+  tip Any of the encampment's satyrs may carry the recipe.
+  collect 235645 quest 86925.1        -- Legashi Firewater Recipe
+
+step The Legashi Cauldron
+  when onquest 86925
+  zone Azshara
+  turnin 86925 object 506307
+  accept 86926 object 506307
+
+step Satyrweed
+  when onquest 86926
+  zone Azshara
+  tip The Satyrweed Brambles grow all around the encampment.
+  collect 235470 x5 quest 86926.1     -- Satyrweed
+
+step Korsa
+  when onquest 86791
+  zone Azshara
+  tip East to the Legashi Stronghold: Korsa, the missing Blackmaw scout, waits outside it.
+  turnin 86791
+  accept 86777
+  accept 86792
+
+step Graal
+  when rep "Timbermaw Hold" Neutral
+  when !turnedin 86796
+  zone Azshara
+  tip Graal is held at the north end of the stronghold: free Graal and see the breakout through. Careful: Prince Halanox (55, elite) stands just south of there, around 67,19.
+  accept 86796
+  complete 86796 @66.6,14.6
+
+step The Legashi Stronghold: kill these as you meet them
+  when onquest 86792
+  zone Azshara
+  level 53
+  tip The Hellraisers, Soulstealers and Blackguards (53-54) hold the stronghold. Careful: Prince Halanox (55, elite) stands at its north-east end, around 67,19: leave him be.
+  kill 236874 quest 86792.1           -- Legashi Hellraiser
+  kill 236867 quest 86792.2           -- Legashi Soulstealer
+  kill 236876 quest 86792.3           -- Legashi Blackguard
+
+step Master Feardred
+  when onquest 86777
+  zone Azshara
+  level 52
+  tip Master Feardred (53) walks the stronghold's south side; the Fel Mote floats nearby.
+  collect 235334 quest 86777.1        -- Feardred's Amulet
+  collect 235471 quest 86926.2        -- Fel Mote
+
+step Korsa
+  when onquest 86777
+  zone Azshara
+  turnin 86777
+  turnin 86792
+  turnin 86796
+  accept 86797
+
+step The Legashi Cauldron
+  when onquest 86926
+  zone Azshara
+  tip Back west to the cauldron.
+  turnin 86926 object 506307
+  accept 86927 object 506307
+
+step Ursolan
+  when onquest 86797
+  zone Azshara
+  tip Back west to Ursolan.
+  turnin 86797                        -- Gatekeeper Rageroar
+  accept 86798                        -- For Gorn One Eye in Timbermaw Hold, at the end of this part
+  turnin 86927                        -- Elder Bramblesnap
+  accept 86812
+
+step Mosshoof Coursers
+  when onquest 86812
+  zone Azshara
+  tip The Mosshoof Coursers (52-53) and Thunderhead Skystormers (50-52) graze just east of Ursolan: bring one low, then use the Satyrweed Tincture on it. Three times.
+  complete 86812 @48.7,18.4
+
+step Elder Bramblesnap
+  when onquest 86812
+  zone Azshara
+  turnin 86812
+  accept 86813
+
+step Furze
+  when onquest 86813
+  zone Azshara
+  tip Give Furze the panacea.
+  complete 86813 @45.3,22.3
+
+step Elder Bramblesnap
+  when onquest 86813
+  zone Azshara
+  turnin 86813
+
+step To Timbermaw Hold
+  when onquest 86798
+  zone Felwood
+  tip Back to Felwood: fly to Bloodvenom Post (Horde) or Talonbranch Glade (Alliance) and ride north up the road to the Felwood mouth of the tunnel.
+  goto 64.7,8.1 "Timbermaw Hold"
+
+step Gorn One Eye
+  when onquest 86798
+  zone Felwood
+  tip Gorn One Eye stands just inside the tunnel, by Kernda and Meilosh.
+  turnin 86798
+  accept 87346
+
+step Chieftain Bloodmaw
+  when onquest 87346
+  zone Felwood
+  level 55
+  tip Chieftain Bloodmaw (55-56) leads the Deadwood of Felpaw Village, just west of the tunnel.
+  collect 236631 quest 87346.1        -- Bloodmaw's Basher
+
+step Gorn One Eye
+  when onquest 87346
+  zone Felwood
+  turnin 87346
+  note His next task, Blackmaw Counter-Offensive, sends you back to Azshara against Prince Halanox, a level 55 elite: bring a friend.
 
 step Neutral to Friendly
   tip Neutral to Friendly is 3,000: 600 kills. Keep all feathers and beads.

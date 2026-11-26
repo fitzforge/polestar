@@ -122,7 +122,6 @@ return {
 	-- {npc:265809} Brakk
 	["{npc:265809}'s campfire"] = "{npc:265809}的营火",
 	-- {npc:265809} Brakk · {area:362} Razor Hill · {spell:1229451} Boosted Rest · {area:367} Sen'jin Village · {zone:1454} Orgrimmar
-	-- was: ["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362} or in {zone:1454} at the start of the next guide."] = "{npc:265809}在{area:362}南面不远处扎营。坐在他的营火旁（/sit），直到出现{spell:1229451}增益效果。学会一项专业技能后，{npc:265809}还会提供对应的露营 101 任务，交给该专业的训练师：在{area:362}，或在下篇指南开头的{zone:1454}。"
 	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362}, by {area:367} for fishing, or in {zone:1454} at the start of the next guide."] = "{npc:265809}在{area:362}南边不远处扎营。坐在他的营火旁（/sit），直到出现{spell:1229451}增益效果。学会一项专业后，{npc:265809}还会提供该专业的露营 101，由其训练师接收：在{area:362}，钓鱼找{area:367}，或在下一篇指南开始时的{zone:1454}。",
 
 	-- Step 24: Camping 101: Mining

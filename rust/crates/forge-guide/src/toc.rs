@@ -227,6 +227,21 @@ static TEXT: &[(&str, [&str; 9], [&str; 9])] = &[
 			"在遊戲時記錄任務、路線與世界資料，用於撰寫 Polestar 指南。/psrec",
 		],
 	),
+	(
+		"Polestar_Handins",
+		["Polestar: Abgaben", "Polestar: Entregas", "Polestar: Entregas", "Polestar : Quêtes à rendre", "Polestar 제출", "Polestar: Entregas", "Polestar: Сдача", "Polestar 交还", "Polestar 繳交"],
+		[
+			"Erledigte Quests abgeben",
+			"Entrega tus misiones completadas",
+			"Entrega tus misiones terminadas",
+			"Rendre vos quêtes terminées",
+			"완료한 퀘스트 제출",
+			"Entregue suas missões concluídas",
+			"Сдайте выполненные задания",
+			"交还已完成的任务",
+			"繳交已完成的任務",
+		],
+	),
 	// The games to play on a flight (Maps/Arcade.lua): loaded the first time Play is pressed.
 	(
 		"Polestar_Arcade",

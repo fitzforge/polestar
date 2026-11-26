@@ -152,8 +152,9 @@ jobs:
           MATCHED: ${{ steps.data.outputs.cache-matched-key }}
           BASE: ${{ steps.lane.outputs.base }}
           # This repository's own branches: a failure of a test neither next's baseline nor the base checkout has (one
-          # the pull request adds or renames) only warns here, since their Release data job runs it on the release
-          # data (tools/ci-failures.js --unseen-ok). One the base has is run there too (tools/ci-tests.sh).
+          # the pull request adds or renames) only warns here, since the release data's runs check it (Release data
+          # for a change to the data, the post-merge gates after the merge; tools/ci-failures.js --unseen-ok). One
+          # the base has is run there too (tools/ci-tests.sh).
           OWN: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository }}
         run: |
           if [ -f .ci/baseline.jsonl ]; then
@@ -208,7 +209,7 @@ jobs:
           LOCALES: ${{ steps.lane.outputs.locales }}
         run: |
           if [ -z "${BASELINE:-}" ] || [ ! -d "$RUNNER_TEMP/base" ]; then
-            echo "::notice::No reference data or base checkout in this run: the Release data job and the post-merge gates check the guide texts."
+            echo "::notice::No reference data or base checkout in this run: the post-merge gates (and Release data, for a change to the data) check the guide texts."
             exit 0
           fi
           tools/ci-guide-texts.sh "$RUNNER_TEMP/base" "$LOCALES"

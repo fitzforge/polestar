@@ -184,6 +184,8 @@ return {
 	-- Step 42: Fuzzle
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["{npc:259158} wants out of {area:16723}: lead him west to his treasure at the edge of town and keep the cultists off him."] = "{npc:259158} хочет выбраться из города {area:16723}: отведите его на запад к его сокровищу на окраине и не подпускайте к нему культистов.",
+	-- {npc:259158} Fuzzle
+	["{npc:259158} in his cage"] = "",
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["lead {npc:259158} out of {area:16723} to his treasure, west of the town"] = "выведите {npc:259158} из города {area:16723} к его сокровищу к западу от города",
 
@@ -195,7 +197,6 @@ return {
 
 	-- Step 44: Clubtoe
 	-- {area:16723} Sunnyglade · {npc:260931} Clubtoe · {npc:256710} Tran'gul
-	-- was: ["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Снова на запад: {area:16723}. {npc:260931}, сумеречный рудокоп, который хочет уйти, ждет на восточной окраине городка. Переубедите его, затем сдайте задание ({npc:256710}); один из пропавших огров стоит в нескольких шагах к западу."
 	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits inside the cave under the town's eastern edge, a floor below the street. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "Снова на запад: {area:16723}. {npc:260931}, сумеречный рудокоп, который хочет уйти, ждет в пещере под восточной окраиной городка, этажом ниже улицы. Переубедите его, затем сдайте задание ({npc:256710}); один из пропавших огров стоит в нескольких шагах к западу.",
 	-- {npc:260931} Clubtoe
 	["talk {npc:260931} round"] = "переубедить: {npc:260931}",

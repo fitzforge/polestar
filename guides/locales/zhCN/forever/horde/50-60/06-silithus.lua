@@ -44,6 +44,8 @@ return {
 	["Inside"] = "在里面",
 
 	-- Step 9: Gaeriyan
+	-- {object:148504} A Conspicuous Gravestone · {area:976} Gadgetzan · {npc:8737} Linken
+	["Alive again, go to {object:148504} in the graveyard just east of {area:976} and use it: it takes the quest. {npc:8737}'s sword goes back to {npc:8737} in Un'Goro: keep it."] = "",
 	-- {quest:3914} Linken's Sword · {npc:8737} Linken
 	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914}要交还给安戈洛的{npc:8737}：留着它。",
 
@@ -168,8 +170,8 @@ return {
 	["{npc:15196}, Terror of the Sands, is a level 59 elite scorpid patrolling the mountains by {npc:15190}'s satchel, at your level: a group choice. The wanted poster stands in the middle of the Hold; {npc:15182} pays out."] = "",
 
 	-- Step 34: Hermit Ortell
-	-- {area:3447} Ortell's Hideout
-	["Ride north-east to {area:3447}."] = "向东北骑往{area:3447}。",
+	-- {area:3447} Ortell's Hideout · {area:2738} Southwind Village
+	["Ride south-east to {area:3447}, in the mountains south of {area:2738}."] = "",
 
 	-- Step 35: Noggle's Lost Satchel
 	-- {npc:15196} Deathclasp
@@ -187,9 +189,9 @@ return {
 	["{npc:15170}, if Brann's letter dropped for you"] = "",
 
 	-- Step 38: Twilight Base Camp
-	-- {npc:15306} Bor Wildmane
+	-- {npc:15306} Bor Wildmane · {area:2739} Twilight Base Camp · {area:3425} Cenarion Hold
 	-- plural, as words: Encrypted Twilight Texts = {item:20404} Encrypted Twilight Text · Twilight Avengers = {npc:11880} Twilight Avenger
-	["Collect twenty Encrypted Twilight Texts from the cultists here, ten for {npc:15306} and ten for Ortell. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60)."] = "从这里的信徒身上收集二十份暮光密文信，十份交给{npc:15306}，十份交给奥泰尔。从暮光复仇者和暮光地卜师身上获取；别碰烈焰掠夺者和唤石者（59-60级）。",
+	["Collect twenty Encrypted Twilight Texts, ten for {npc:15306} and ten for Ortell. The {area:2739} holds only elementals: the texts drop from the Twilight's Hammer cultists of the Vanguard in the far south-west, the Post in the west and the Outpost west of {area:3425}. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60)."] = "",
 	-- {npc:15306} Bor Wildmane
 	["ten for each quest: {npc:15306} takes his ten before Ortell"] = "每个任务各需十份：先给{npc:15306}十份，再给隐士奥泰尔",
 
@@ -244,8 +246,8 @@ return {
 	["Keep the bait for {npc:9684}'s lair, next (he is level 56)."] = "",
 
 	-- Step 52: Lar'korwi
-	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder
-	["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "{npc:9684}的巢穴就在水晶塔正南。在那里使用{npc:9619}的诱饵；{npc:9684}是56级，攻击很重，所以满血再开始。",
+	-- {item:11568} Torwa's Pouch · {npc:9684} Lar'korwi
+	["Open {item:11568}: it holds the meat and the pheromone mixture. {npc:9684}'s lair is the bone-strewn valley just south of the pylon: place the meat among the bones, then use the mixture on it to call {npc:9684}. He is level 56 and hits hard, so start at full health."] = "",
 
 	-- Step 53: Ringo
 	-- {npc:9999} Ringo
@@ -288,6 +290,7 @@ return {
 	-- ["Back east past the {area:202} to {area:201}, the farm under the eastern hills: {npc:11078} guards its cauldron. Kill him for the key, then use the cauldron."] = "向东返回，经过{area:202}后到达{area:201}，即东侧丘陵下的农场：{npc:11078}守着那里的瘟疫之锅。击杀他取得钥匙，再使用瘟疫之锅。",
 	-- ["Careful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "小心：安戈洛猩猩（50-51 级）的生命值降到 25% 时，会呼叫 20 码内的同伴援助。此地有一座满是猩猩的洞穴，在里面战斗会引来许多额外怪物。",
 	-- ["Collect twenty Encrypted Twilight Texts from the cultists here, ten for {npc:15306} and ten for Ortell."] = "从这里的信徒身上收集二十份暮光密文信，十份交给{npc:15306}，十份交给奥泰尔。",
+	-- ["Collect twenty Encrypted Twilight Texts from the cultists here, ten for {npc:15306} and ten for Ortell. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60)."] = "从这里的信徒身上收集二十份暮光密文信，十份交给{npc:15306}，十份交给奥泰尔。从暮光复仇者和暮光地卜师身上获取；别碰烈焰掠夺者和唤石者（59-60级）。",
 	-- ["Diseased Grizzlies"] = "生病的灰熊",
 	-- ["Dithers offers {item:14619} ({quest:838}). Skip it."] = "迪瑟斯提供{item:14619}（{quest:838}）。跳过它。",
 	-- ["Dredge Strikers"] = "掘泥打击者",
@@ -322,6 +325,7 @@ return {
 	-- ["Ride east along the road to the {area:152} on the border."] = "沿道路向东骑往边境上的{area:152}。",
 	-- ["Ride east to {npc:1855}'s hut by the {area:2619} and hear him out."] = "向东骑往{area:2619}旁{npc:1855}的小屋，听他把话说完。",
 	-- ["Ride north-east to {area:2276} by {area:2275}: the high elf Rangers, Pathstriders and Woodsmen guard it and the Registry lies inside. Careful: the Pathstriders are 57-58 but the Rangers reach 60: pull one at a time and take the Rangers last."] = "向东北骑往{area:2275}旁的{area:2276}：高等精灵游侠、巡路者和林业人守在那里，登记簿就在屋内。小心：巡路者是57-58级，但游侠可达60级：一次拉一只，最后再打游侠。",
+	-- ["Ride north-east to {area:3447}."] = "向东北骑往{area:3447}。",
 	-- ["Ride north-west to {npc:1855}'s hut."] = "向西北骑往{npc:1855}的小屋。",
 	-- ["Ride south into Andorhal. {npc:10667} waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the {item:12815} to mark it; keep to the edges of town. Use the {item:12627} by the silos in the middle of town to bring out Temporal Parasites."] = "向南骑进安多哈尔。{npc:10667}在城镇西侧被毁的旅店里等候。拿着{item:12815}站在四座塔的每一个门口来标记它；沿城镇边缘走。在镇中央的粮仓旁使用{item:12627}引出时光寄生虫。",
 	-- ["Ride south-east from {npc:1855} to the {area:2260} farmhouse."] = "从{npc:1855}处向东南骑往{area:2260}的农舍。",
@@ -394,6 +398,7 @@ return {
 	-- ["{npc:9117} is inside the cave."] = "{npc:9117} 在洞穴内。",
 	-- ["{npc:9167} walks around here: look inside the circle on the map"] = "{npc:9167}在附近巡逻，请在地图标示的圆圈内寻找",
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "{npc:9619}接下来要东北洞穴里{npc:9622}的毛皮：跳过它。",
+	-- ["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "{npc:9684}的巢穴就在水晶塔正南。在那里使用{npc:9619}的诱饵；{npc:9684}是56级，攻击很重，所以满血再开始。",
 	-- ["{quest:105}'s shard lies at {npc:1852}'s feet, in the middle of Andorhal: he is a level 61 elite with elite Skeletal Warlords about him, a fight for a group."] = "{quest:105}的碎片就在{npc:1852}脚下，位于安多哈尔中央：他是61级精英，周围还有精英骷髅督军，需要组队应战。",
 	-- ["{zone:1449}: kill these as you meet them"] = "{zone:1449}：沿途击杀以下目标",
 }
