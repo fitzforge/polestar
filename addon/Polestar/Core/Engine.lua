@@ -5492,7 +5492,20 @@ function Own.earlierBefore(mark, gated)
 	local C, steps, sk = Compat(), guide.steps, skippedFor(guide.id)
 	local caught = Own.leftOut[guide.id] or NONE
 	local seen, open, total, kept = {}, {}, 0, 0
+	-- A quest an accept still to take lists as its prerequisite stays: passing it would shut that accept.
+	local needed = {}
+	for _, step in ipairs(steps) do
+		for _, goal in ipairs(step.goals) do
+			if goal.t == "accept" and goal.quest and not questDone(goal.quest) then
+				for _, list in ipairs({ goal.pre or NONE, goal.preAll or NONE }) do
+					for _, q in ipairs(list) do needed[q] = true end
+				end
+			end
+		end
+	end
 	for s = 1, mark - 1 do
+		-- A step still asking its group question is the player's to answer, not passed.
+		local asking = Own.groupPending(steps[s]) ~= nil
 		if stepApplies(steps[s]) and not (sk and sk[s]) then
 			for _, goal in ipairs(steps[s].goals) do
 				local q = goal.quest
@@ -5502,7 +5515,8 @@ function Own.earlierBefore(mark, gated)
 					if questDone(q) or C.IsOnQuest(q) then
 						total, kept = total + 1, kept + 1
 					elseif not gated(goal) then
-						total, open[#open + 1] = total + 1, goal
+						total = total + 1
+						if not (asking or needed[q]) then open[#open + 1] = goal end
 					end
 				end
 			end
