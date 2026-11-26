@@ -663,6 +663,11 @@ local function bareEnd(ends)
 	return nil
 end
 
+local function logLineGoal(q, oi, count, label)
+	local target = label and label ~= "" and label or q.title
+	return { t = "kill", logLine = true, target = target, quest = q.id, oi = oi, count = count, title = q.title }
+end
+
 -- One step per quest: accept, objectives, turn-in. -> step | nil, reason
 -- opts.inside(kind, id) -> point { map, x, y, f, name } | nil: where an NPC
 -- or object without a known spawn is (Dungeons' attunement guides: the
@@ -835,7 +840,11 @@ local function questStep(q, from, isTarget, opts)
 				s = inside("npc", o.id)
 				mark(s, who)
 			end
-			goals[#goals + 1] = at({ t = "talk", npc = not credit and o.id or nil, npcName = who, logLine = credit or nil, quest = q.id, oi = oi, title = q.title }, s)
+			if dungeon and credit then
+				goals[#goals + 1] = logLineGoal(q, oi, count, who)
+			else
+				goals[#goals + 1] = at({ t = "talk", npc = not credit and o.id or nil, npcName = who, logLine = credit or nil, quest = q.id, oi = oi, title = q.title }, s)
+			end
 			if not credit then talks[#talks + 1] = who end
 		elseif o.type == "object" and o.id then
 			local obj = C.Object(o.id)
@@ -848,7 +857,7 @@ local function questStep(q, from, isTarget, opts)
 			goals[#goals + 1] = spawnSpots(at({ t = "interact", object = o.id, objName = objName,
 				quest = q.id, oi = oi, count = count, title = q.title, group = eliteMark(o) }, s), obj and obj.spawns)
 		elseif dungeon or (placedEvents >= 2 and o.map and o.x and o.y) then
-			goals[#goals + 1] = at({ t = "kill", logLine = true, target = o.text or q.title, quest = q.id, oi = oi, count = count, title = q.title }, o)
+			goals[#goals + 1] = at(logLineGoal(q, oi, count, o.text), o)
 		else
 			if not event then event, eventAt = o, #goals + 1 end
 		end
@@ -858,7 +867,7 @@ local function questStep(q, from, isTarget, opts)
 	end
 	if dungeon and #goals == 0 then
 		for i, o in ipairs(ns.Compat.GetQuestObjectives(q.id) or {}) do
-			goals[i] = { t = "kill", logLine = true, quest = q.id, oi = i, count = o.numRequired, title = q.title }
+			goals[i] = logLineGoal(q, i, o.numRequired, ns.Compat.ObjectiveLabel(o.text))
 		end
 	end
 	if finish then goals[#goals + 1] = endGoal("turnin", q, finish, opts and opts.needed) end

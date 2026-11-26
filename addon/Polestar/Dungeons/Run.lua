@@ -75,9 +75,9 @@ local function answer(open)
 	local saved = pendingOffer
 	pendingOffer = nil
 	card:Hide()
+	if card.Never:GetChecked() then ns.Set(SETTING, false) end
 	local _, current = D.CurrentInstance("party")
 	if not saved or current ~= saved.key or C.InCombat() then return end
-	if card.Never:GetChecked() then ns.Set(SETTING, false) end
 	if not open then return end
 	local previous = E.GetGuide()
 	local id, reason = Lookup.Guide(KIND, saved.key)
@@ -88,6 +88,8 @@ local function answer(open)
 		ns.Fire("SHOW_FRAME")
 	elseif reason == "tabs" then
 		ns.Print(L["Six tabs is the limit. Close one to open another."])
+	else
+		ns.Print(L["The dungeon quest tracker could not be opened (%s)."]:format(tostring(reason or "unknown")))
 	end
 end
 

@@ -86,6 +86,7 @@ fn offer_opens_and_rebuilds_the_run_tab_with_live_quest_progress_then_restores_t
 		local before = { shown = F:IsShown(), title = offer().Title:GetText() }
 		offer().Open:Click()
 		local g = E.GetGuide()
+		assert(g and g == P.Guides.Get(id), "Open should register and activate the Codex-backed guide")
 		local goal = E.GetStepView(E.GetLiveStep()).goals[1]
 		local opened = { id = active(), shown = F:IsShown(), steps = #g.steps, quest = goal.quest,
 			goals = #g.steps[1].goals, source = g.steps[1].goals[1].from,
@@ -125,6 +126,98 @@ fn offer_opens_and_rebuilds_the_run_tab_with_live_quest_progress_then_restores_t
 	assert_eq!(out["left"], "lookup/leveling");
 	assert_eq!(out["tabs"], 2);
 	assert_eq!(out["closed"], 0);
+}
+
+#[test]
+fn open_registers_quest_log_goals_when_the_codex_has_no_objectives() {
+	let out = run_with(
+		"",
+		"",
+		r#"
+		-- Scourge of the Downs has an inside turn-in and no Codex objectives.
+		local key, qid, title = "razorfen-downs", 3523, "Scourge of the Downs"
+		P.Dungeons.Register("dungeon", { [key] = { name = "Razorfen Downs", map = 129, kind = "dungeon" } },
+			{ [key] = [=[return { quests = { { id = 3523, title = "Scourge of the Downs",
+				finish = { kind = "npc", id = 8516, name = "Belnistrasz", inside = true } } } }]=] })
+		local quest = P.Codex.Quest
+		P.Codex.Quest = function(q)
+			if q == qid then return { id = q, title = title, objectives = {} } end
+			return quest(q)
+		end
+		w.onQuest(qid, { 1, 1 }, title)
+		local objectives = C_QuestLog.GetQuestObjectives
+		C_QuestLog.GetQuestObjectives = function(q)
+			if q == qid then return {
+				{ text = "Razorfen Battleguard slain: 2/8", type = "monster", numFulfilled = 2, numRequired = 8 },
+				{ text = "", type = "event", numFulfilled = 0, numRequired = 1 },
+			} end
+			return objectives(q)
+		end
+		enter("party", 129)
+		assert(asked())
+		offer().Open:Click()
+		local run = P.Guides.Get("lookup/run/" .. key)
+		assert(run, "Open should register the run guide: " .. tostring(P.Guides.Validate(P.Lookup.BuildGuide("run", key))))
+		local goals = run.steps[1].goals
+		assert(#goals == 3 and goals[3].t == "turnin")
+		assert(E.GetGuide() == run and F:IsShown() and #E.GetTabs() == 1)
+		emit({ goals[1].target, goals[2].target })
+	"#,
+	);
+	assert_eq!(out, json!(["Razorfen Battleguard", "Scourge of the Downs"]));
+}
+
+#[test]
+fn open_registers_legacy_codex_talk_credit_as_a_log_line() {
+	let out = run_with(
+		"hides()",
+		"",
+		r#"
+		-- Simulate an older Codex with a talk objective backed by a credit marker.
+		P.Codex.Quest = function(q)
+			return { id = q, title = "Deviate Hides", objectives = { { type = "talk", id = 13756, text = "Speak to Nalpak" } } }
+		end
+		P.Codex.Npc = function(q) return { id = q, name = "PvP Graveyard Credit Marker" } end
+		enter("party", 43)
+		offer().Open:Click()
+		local run = P.Guides.Get(id)
+		assert(run, "Open should register the credit objective: " .. tostring(P.Guides.Validate(P.Lookup.BuildGuide("run", "wailing-caverns"))))
+		local goal = run.steps[1].goals[1]
+		assert(E.GetGuide() == run and goal.logLine and goal.npc == nil and goal.oi == 1)
+		emit(goal.target)
+	"#,
+	);
+	assert_eq!(out, "Speak to Nalpak");
+}
+
+#[test]
+fn open_reports_lookup_failure_and_keeps_the_tab_limit_message() {
+	let out = run_with(
+		"hides()",
+		"",
+		r#"
+		local function clickAndReadMessage()
+			assert(asked())
+			local before = #stub.messages
+			offer().Open:Click()
+			local messages = {}
+			for i = before + 1, #stub.messages do messages[#messages + 1] = stub.messages[i]:gsub("^.-|r: ", "") end
+			assert(active() ~= id and not asked())
+			return messages
+		end
+		enter("party", 43)
+		local load = P.Codex.Load
+		P.Codex.Load = function() return false, "nodata" end
+		local failed = clickAndReadMessage()
+		P.Codex.Load = load
+		enter(nil)
+		for i = 1, 6 do guide("tab" .. i) end
+		enter("party", 43)
+		emit({ failure = failed, limit = clickAndReadMessage() })
+	"#,
+	);
+	assert_eq!(out["failure"], json!(["The dungeon quest tracker could not be opened (nodata)."]));
+	assert_eq!(out["limit"], json!(["Six tabs is the limit. Close one to open another."]));
 }
 
 #[test]
@@ -204,6 +297,34 @@ fn dont_ask_again_saves_from_either_button_and_the_options_checkbox_turns_it_bac
 			end
 			assert(P.Get("dungeons.runOffer") == true)
 			enter(nil)
+		end
+		emit(true)
+	"#,
+	);
+	assert_eq!(out, true);
+}
+
+#[test]
+fn dont_ask_again_saves_if_the_player_leaves_or_enters_combat_before_the_click() {
+	let out = run_with(
+		"hides()",
+		"",
+		r#"
+		guide("leveling")
+		for _, button in ipairs({ "Open", "Later" }) do
+			for _, combat in ipairs({ false, true }) do
+				P.Set("dungeons.runOffer", true)
+				enter("party", 43)
+				assert(asked())
+				offer().Never:SetChecked(true)
+				-- Change client state before the event that would hide the card.
+				if combat then stub.inCombat = true else w.instanceKind, w.instanceMap = nil, nil end
+				offer()[button]:Click()
+				assert(P.Get("dungeons.runOffer") == false, "should save the opt-out after the player state changes")
+				assert(active() == "lookup/leveling" and #E.GetTabs() == 1 and not asked())
+				stub.inCombat = false
+				enter(nil)
+			end
 		end
 		emit(true)
 	"#,
