@@ -20,7 +20,7 @@
 ## Title-zhTW: Polestar 自由模式
 ## Notes-zhTW: Polestar 的一部分：自由模式（把你自己的任務當作指南）和繳交已完成任務的指南。開啟其中之一時載入。
 ## Author: Polestar
-## Version: 0.4.3
+## Version: 0.4.3.1
 ## Category: Polestar
 ## Group: Polestar
 ## LoadOnDemand: 1
