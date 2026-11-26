@@ -390,6 +390,28 @@ fn documented_categories_are_accepted_case_insensitively_others_warn_and_pass_th
 }
 
 #[test]
+fn kind_is_one_of_the_known_kinds_and_is_written_only_when_set() {
+	let base = |extra: &[&str]| {
+		let mut l = vec!["guide t/k", "title K", "levels 1-5", "zone Elwynn Forest", "category Professions"];
+		l.extend_from_slice(extra);
+		l.extend(["", "step S", "  level 2"]);
+		guide_text(&l)
+	};
+	// Without `kind` the addon takes it from the category: nothing written.
+	let plain = compile(&base(&[]));
+	assert!(plain.errors.is_empty(), "{}", plain.text);
+	assert!(plain.guides[0].get("kind").is_undef());
+	for k in ["leveling", "profession", "reputation", "dungeon", "class", "collectible", "exploration", "misc"] {
+		let line = format!("kind {k}");
+		let r = compile(&base(&[line.as_str()]));
+		assert!(r.errors.is_empty(), "{k}: {:?}", r.errors);
+		assert_eq!(r.guides[0].get("kind").to_js_string(), k);
+	}
+	let odd = compile(&base(&["kind fishing"]));
+	assert_eq!(odd.errors, ["test.guide:6: unknown kind \"fishing\" (known: leveling, profession, reputation, dungeon, class, collectible, exploration, misc)"]);
+}
+
+#[test]
 fn new_verbs_emit_reagents_as_nested_tables() {
 	let r = compile(&guide_text(&[
 		"guide t/prof",
