@@ -7,9 +7,10 @@
 --       button._textOverlay or button); itemID and link nil on an empty slot.
 --       One painter per owner, replaced in place, in registration order, each
 --       through ns.SafeCall so one module's error never costs another its marks.
---   BagSlots.Widget(owner, id, label, show, make, corner, bagsmithCorner)
+--   BagSlots.Widget(owner, id, label, show, make, corner)
 --       show(details) -> bool; make(button) -> region; corner top_left,
---       top_right, bottom_left or bottom_right; bagsmithCorner overrides it.
+--       top_right or bottom_left. Not bottom_right: both addons draw the stack
+--       count there, and Baganator shows one widget per corner (#4207).
 --       Registered once per addon, present now or on its ADDON_LOADED.
 --   BagSlots.Redraw(owner) -- repaint that owner's shown slots and active widgets
 --       (EllesmereUI Bags' shown slots with every painter)
@@ -145,10 +146,9 @@ local function cornerAPI(name)
 end
 
 local function registerSpec(API, name, spec)
-	local corner = name == "BagSmith" and spec.bagsmithCorner or spec.corner
 	API.RegisterCornerWidget(spec.label, spec.id, function(_, details)
 		return spec.show(details)
-	end, spec.make, { corner = corner, priority = 1 }, nil, name == "BagSmith" and { listRows = true } or nil)
+	end, spec.make, { corner = spec.corner, priority = 1 }, nil, name == "BagSmith" and { listRows = true } or nil)
 	registered[name][spec.id] = true
 end
 
@@ -160,11 +160,8 @@ local function registerWith(name)
 	end
 end
 
-function Slots.Widget(owner, id, label, show, make, corner, bagsmithCorner)
-	specs[#specs + 1] = {
-		owner = owner, id = id, label = label, show = show, make = make,
-		corner = corner, bagsmithCorner = bagsmithCorner,
-	}
+function Slots.Widget(owner, id, label, show, make, corner)
+	specs[#specs + 1] = { owner = owner, id = id, label = label, show = show, make = make, corner = corner }
 	registerWith("Baganator")
 	registerWith("BagSmith")
 end
