@@ -10,6 +10,7 @@
 const { createChat } = require('./lib/chat');
 const { botConfig } = require('./lib/config');
 const { createCommands } = require('./lib/commands');
+const { loadFaq, FAQ_DIR } = require('./lib/faq');
 const { createDiscord } = require('./lib/discord');
 const { createGateway } = require('./lib/gateway');
 const { createGitHub, createMedia } = require('./lib/github');
@@ -24,6 +25,8 @@ const log = {
 
 async function main() {
 	const config = botConfig();
+	const faq = loadFaq(FAQ_DIR);
+	log.info(`faq: ${faq.map((e) => e.commands.join(' ')).join(', ') || 'none'}`);
 	const discord = createDiscord({ token: config.discordToken });
 	const github = createGitHub({ token: config.githubToken, repo: config.repo });
 	const mediaGitHub = config.mediaRepo === config.repo && config.mediaToken === config.githubToken
@@ -32,7 +35,7 @@ async function main() {
 	const media = createMedia({ github: mediaGitHub, branch: config.mediaBranch });
 	const sync = createSync({ discord, github, media, config, log });
 	const commands = createCommands({ discord, github, issueFor: sync.issueFor, log });
-	const chat = createChat({ discord, forumId: config.forumId, suggestionsForumId: config.suggestionsForumId, maintainerIds: config.maintainerIds, file: sync.fileChat, fileIdea: sync.fileIdea, repo: config.repo, log });
+	const chat = createChat({ discord, forumId: config.forumId, suggestionsForumId: config.suggestionsForumId, maintainerIds: config.maintainerIds, file: sync.fileChat, fileIdea: sync.fileIdea, repo: config.repo, faq, log });
 
 	const forum = await discord.getChannel(config.forumId);
 	if (forum.type !== 15) throw new Error(`DISCORD_FORUM_ID ${config.forumId} is not a forum channel (#${forum.name})`);
