@@ -243,6 +243,10 @@ const skinning = {
 	tool: { item: 7005, name: 'Skinning Knife', why: 'keep it in your bags, you cannot skin without it.' },
 	radius: 80,
 	minPoints: 4,
+	// The longest lap a round may have, in yards: past it the round never comes back to a beast that
+	// respawned (rounds of 2.4-12 km before: Zephras Isle's Horde round was 12,066 yards; the herb and ore
+	// rounds stay under 1,000).
+	maxLap: 2000,
 	// The world database respawns most skinnable beasts in 300 seconds (the median spawn).
 	respawn: 300,
 	// Yields per skinning by beast level (gathering-nodes.json `skins`).

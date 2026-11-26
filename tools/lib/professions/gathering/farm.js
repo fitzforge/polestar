@@ -29,11 +29,6 @@ const { buildLoop, pointLevels, roundLevel } = require('./loop');
 const { weightedClusters } = require('./route');
 const { ZONES } = require('./tables');
 
-// The longest lap a loop may have, in yards: past it the round never comes back to what respawned
-// (Skinning's beast rounds reached 2.4-12 km: Zephras Isle's Horde round was 12,066 yards); the herb and
-// ore rounds stay under 1,000.
-const MAX_LAP = 2000;
-
 // Loop sizes tried: a camp's worth up to most of a zone (sparse veins: a lap shorter than their respawn
 // only waits for them).
 const SPANS = [250, 400, 600, 900, 1400, 2000];
@@ -104,7 +99,8 @@ function farm(ctx, prof, map, points, { faction = null, respawn = 300, level: pl
 		const clusters = weightedClusters(open, radius, ctx.project);
 		for (const span of SPANS) {
 			const loop = buildLoop(open, ctx.project, { radius, span, cover: 1, maxStops: MAX_STOPS, clusters });
-			if (loop.stops.length < 2 || loop.lap > MAX_LAP) continue;
+			// `prof.maxLap` (yards): past it the round never comes back to what respawned (Skinning).
+			if (loop.stops.length < 2 || loop.lap > (prof.maxLap || Infinity)) continue;
 			const walk = roundLevel(ctx, map, loop.stops, faction);
 			if (walk === null) continue;
 			found.push({ ...loop, ...worth(loop, open, opts), level: Math.max(level, walk, floorOf(map)), span, respawn });
