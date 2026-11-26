@@ -3708,6 +3708,18 @@ holds at its opening, see "Not yet available"):
   (`Engine.TakeEarlier`), the × dismisses it (`Engine.DismissEarlier`).
   `/polestar reset` forgets the list. The Rust engine does not mirror this
   yet.
+- Placement undo. `place` writes into the same saved tables as the player's
+  own check-offs (`manual`, `skipped`, `when`, `earlier`). The keys it adds
+  are kept apart in `CharState().placementUndo[guideId].put`
+  (`Own.notePlacement`), so one table holds them and a reset can clear it.
+  `Engine.PlacementReport` and `Engine.PlacementLine` say what was marked;
+  the banner shows the line with an Undo (`PLACEMENT_RECORDED`), and
+  `/polestar placement` prints it. `Engine.UndoPlacement` removes exactly
+  those keys (never the player's own), clears the session's left-out quests
+  and stores `{ undone = true }`: `place` then skips the guide, also on a
+  reload or in a new tab, until `Engine.RedoPlacement`
+  (`/polestar placement redo`, the banner's "Place me again").
+  `Engine.ResetProgress` clears the record.
 - Before the start (with no start: before the last quest progress), a step
   passes when every open goal is an accept the character cannot take yet
   (level, prerequisite; marked unavailable for the session, so it comes back

@@ -5647,7 +5647,10 @@ end
 -- or the guide is passed for the player (opened for them, Own.opened), where
 -- it passes for the session only (Own.passedNow).
 local function place()
+	-- The player undid this guide's placement (Engine.UndoPlacement): it stays unplaced until Engine.RedoPlacement.
+	if Own.placementUndone(guide.id) then return end
 	local steps, C = guide.steps, Compat()
+	local before = Own.placementMarks(guide.id)
 	local level = player.level or 1
 	local sk = skippedFor(guide.id)
 	local catchUp = ns.Get("behavior.skipGrey") and not Own.everyStep(guide)
@@ -5818,6 +5821,7 @@ local function place()
 	end
 	-- After an update: its steps behind the player's place pass (Own.passAdded).
 	Own.safely("pass", guide.id, Own.passAdded)
+	Own.notePlacement(guide.id, before)
 end
 
 -- `skipto` jumps (format 5; docs/GUIDE_FORMAT.md, "Jumps"): the route has
@@ -11355,6 +11359,11 @@ local function evaluateLoaded(active)
 		local chain = Own.placedChain
 		Own.chainSeen, Own.placedChain, Own.opened[guide.id] = {}, {}, nil
 		if active and opened then ns.Fire("GUIDE_PLACED", guide.id, computed, chain) end
+		-- What placement just marked (Engine.PlacementReport), for the window's note and its undo.
+		if Own.placedNote[guide.id] then
+			Own.placedNote[guide.id] = nil
+			if active then ns.Fire("PLACEMENT_RECORDED", guide.id) end
+		end
 	end
 end
 
@@ -17889,6 +17898,22 @@ function Own.setEarlier(q, state)
 	return true
 end
 
+-- The accepts of the loaded guide's route whose quest ok(q) lets through, once
+-- each: { { quest, title }, ... } in route order.
+function Own.routeQuests(ok)
+	local out, seen = {}, {}
+	for _, step in ipairs(guide.steps) do
+		for _, goal in ipairs(step.goals) do
+			local q = goal.quest
+			if q and not seen[q] and (goal.t == "accept" or goal.direct) and ok(q) then
+				seen[q] = true
+				out[#out + 1] = { quest = q, title = titleOfQuest(q, goal.preTitles) }
+			end
+		end
+	end
+	return out
+end
+
 -- The quests placement passed as skipped earlier (#86), still open to take:
 -- { { quest, title }, ... } in route order. Kept for the evaluation (the
 -- guide window asks on every refill).
@@ -17898,16 +17923,8 @@ function Engine.SkippedEarlier()
 	if not mine then return {} end
 	local cache = Own.earlierCache
 	if cache.gen == generation and cache.guide == guide then return cache.list end
-	local C, out, seen = Compat(), {}, {}
-	for _, step in ipairs(guide.steps) do
-		for _, goal in ipairs(step.goals) do
-			local q = goal.quest
-			if q and mine[q] == true and not seen[q] and (goal.t == "accept" or goal.direct) and not (C.IsOnQuest(q) or questDone(q)) then
-				seen[q] = true
-				out[#out + 1] = { quest = q, title = titleOfQuest(q, goal.preTitles) }
-			end
-		end
-	end
+	local C = Compat()
+	local out = Own.routeQuests(function(q) return mine[q] == true and not (C.IsOnQuest(q) or questDone(q)) end)
 	cache.gen, cache.guide, cache.list = generation, guide, out
 	return out
 end
@@ -17915,6 +17932,138 @@ end
 -- Take: the quest is part of the route again. Dismiss: it stays out, unlisted.
 function Engine.TakeEarlier(q) return Own.setEarlier(q, "taken") end
 function Engine.DismissEarlier(q) return Own.setEarlier(q, "dismissed") end
+
+-- Placement undo. place() writes its passes into the same saved tables as the
+-- player's own check-offs and skips (CharState().manual, skipped, when, and
+-- the skipped-earlier list). What it added is kept apart, per guide, in
+-- CharState().placementUndo[guideId] = { put = { field = { key = value } } },
+-- so the player can take exactly that back and nothing they did themselves.
+-- After an undo the record reads { undone = true }: the guide is not placed
+-- again, on a reload or in a new tab, until Engine.RedoPlacement. A reset
+-- (Engine.ResetProgress) clears the record.
+Own.PLACED_FIELDS = { "manual", "skipped", "when", "earlier" }
+-- Guides whose placement just wrote something (guideId -> true), until the
+-- window is told (PLACEMENT_RECORDED).
+Own.placedNote = {}
+
+-- A copy of guide `id`'s saved marks that placement writes: { field = { key = value } }.
+function Own.placementMarks(id)
+	local st, out = ns.CharState(), {}
+	for _, f in ipairs(Own.PLACED_FIELDS) do
+		out[f] = {}
+		local mine = type(st[f]) == "table" and st[f][id]
+		for k, v in pairs(type(mine) == "table" and mine or NONE) do out[f][k] = v end
+	end
+	return out
+end
+
+function Own.placementUndone(id)
+	local rec = ns.CharState().placementUndo[id]
+	return rec ~= nil and rec.undone == true
+end
+
+-- Keeps what place() added to guide `id` since `before` (Own.placementMarks)
+-- with the guide's earlier placements.
+function Own.notePlacement(id, before)
+	local added = {}
+	for f, marks in pairs(Own.placementMarks(id)) do
+		for k, v in pairs(marks) do
+			if before[f][k] == nil then
+				added[f] = added[f] or {}
+				added[f][k] = v
+			end
+		end
+	end
+	if not next(added) then return end
+	local all = ns.CharState().placementUndo
+	local rec = all[id] or { put = {} }
+	all[id] = rec
+	for f, marks in pairs(added) do
+		rec.put[f] = rec.put[f] or {}
+		for k, v in pairs(marks) do rec.put[f][k] = v end
+	end
+	Own.placedNote[id] = true
+end
+
+-- What placement marked in the loaded guide: { steps = { { index, number,
+-- title }, ... }, quests = { { quest, title }, ... } } (steps with a goal
+-- ticked or the step skipped, in order; the quests skipped earlier, in route
+-- order), or nil when it marked nothing or the player undid it.
+function Engine.PlacementReport()
+	local rec = guide and ns.CharState().placementUndo[guide.id]
+	local put = rec and rec.put
+	if not put then return nil end
+	local marked = {}
+	for _, f in ipairs({ "manual", "skipped" }) do
+		for k in pairs(put[f] or NONE) do
+			local s = tonumber(tostring(k):match("^(%d+)"))
+			if s and guide.steps[s] then marked[s] = true end
+		end
+	end
+	local steps = {}
+	for s in pairs(marked) do steps[#steps + 1] = s end
+	table.sort(steps)
+	for i, s in ipairs(steps) do
+		steps[i] = { index = s, number = Engine.StepNumber(s), title = guide.steps[s].title }
+	end
+	local listed = put.earlier or NONE
+	return { steps = steps, quests = Own.routeQuests(function(q) return listed[q] ~= nil end) }
+end
+
+-- The report as one line for the player ("Placed you at step 14: 13 steps
+-- marked done, 3 quests skipped earlier."), or nil with nothing to say.
+function Engine.PlacementLine()
+	local r = Engine.PlacementReport()
+	if not (r and (#r.steps > 0 or #r.quests > 0)) then return nil end
+	local parts = {}
+	if #r.steps > 0 then
+		parts[#parts + 1] = #r.steps == 1 and L["1 step marked done"] or string.format(L["%d steps marked done"], #r.steps)
+	end
+	if #r.quests > 0 then
+		parts[#parts + 1] = #r.quests == 1 and L["1 quest skipped earlier"] or string.format(L["%d quests skipped earlier"], #r.quests)
+	end
+	local list = table.concat(parts, ", ")
+	return computed and string.format(L["Placed you at step %d: %s."], Engine.StepNumber(computed), list)
+		or string.format(L["Placed you: %s."], list)
+end
+
+-- Takes back what placement marked in the loaded guide: the check-offs and
+-- skips it added, the quests it listed as skipped earlier and the quests the
+-- catch-up left out. The player's own marks stay. The guide is then
+-- unplaced, also after a reload, until Engine.RedoPlacement. True if there
+-- was a placement to undo.
+function Engine.UndoPlacement()
+	local rec = guide and ns.CharState().placementUndo[guide.id]
+	if not (rec and rec.put) then return false end
+	local st, id = ns.CharState(), guide.id
+	for f, marks in pairs(rec.put) do
+		local mine = type(st[f]) == "table" and st[f][id]
+		if type(mine) == "table" then
+			for k, v in pairs(marks) do
+				if mine[k] == v then mine[k] = nil end
+			end
+			if not next(mine) then st[f][id] = nil end
+		end
+	end
+	st.placementUndo[id] = { undone = true }
+	Own.leftOut[id], Own.leftOutWhy[id], Own.passedNow[id], Own.passedWhole[id], Own.placedThrough[id] = nil, nil, nil, nil, nil
+	refreshPlayer()
+	pin, pinDone, aim, passedUpTo, placing = nil, nil, nil, 0, nil
+	evaluate()
+	ns.Fire("PLACEMENT_UNDONE", id)
+	return true
+end
+
+-- Places the loaded guide again after an undo (Engine.UndoPlacement), as when
+-- it was just opened. True if the player had undone its placement.
+function Engine.RedoPlacement()
+	if not (guide and Own.placementUndone(guide.id)) then return false end
+	ns.CharState().placementUndo[guide.id] = nil
+	refreshPlayer()
+	pin, pinDone, aim, passedUpTo, placing = nil, nil, nil, 0, GetTime() + PLACE_SECONDS
+	evaluate()
+	return true
+end
 
 -- How much of guide g's route the character has done (#86): the share of its
 -- quests (accepts for them, not optional) turned in or in the log, and whether
@@ -18415,7 +18564,7 @@ function Engine.ResetProgress()
 	state.when[id] = nil
 	if type(state.skipStored) == "table" then state.skipStored[id] = nil end
 	-- What an update passed or left behind (Own.passAdded), and the pick-ups a profession opened (Own.noteOpened), come back too.
-	for _, f in ipairs({ "added", "gone", "behind", "passedBefore", "opened", "earlier" }) do
+	for _, f in ipairs({ "added", "gone", "behind", "passedBefore", "opened", "earlier", "placementUndo" }) do
 		if type(state[f]) == "table" then state[f][id] = nil end
 	end
 	Own.goneGen = Own.goneGen + 1
