@@ -149,7 +149,6 @@ return {
 
 	-- Step 26: Eleanor Shackleton
 	-- {area:159} Brill · {zone:1458} Undercity
-	-- was: ["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, at Linnea's camp, or in the {zone:1458} in the next guide."] = "Eleanor lagert direkt südwestlich des Ortes. Wenn du einen Beruf erlernt hast, bietet sie auch das passende Camping 101 an, das sein Lehrer annimmt: in {area:159}, in Linneas Lager oder in {zone:1458} im nächsten Guide."
 	["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, east of {area:159} for fishing, at Linnea's camp, or in the {zone:1458} in the next guide."] = "Eleanor lagert direkt südwestlich des Ortes. Mit einem erlernten Beruf bietet sie auch dessen Camping 101 an, das sein Lehrer annimmt: in {area:159}, östlich von {area:159} fürs Angeln, in Linneas Lager oder in {zone:1458} im nächsten Guide.",
 	-- {spell:1229451} Boosted Rest
 	["/sit by her campfire until you get {spell:1229451}"] = "/sit an ihrem Lagerfeuer, bis du {spell:1229451} bekommst",

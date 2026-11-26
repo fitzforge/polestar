@@ -56,7 +56,6 @@ return {
 
 	-- Step 10: Vorsha the Lasher
 	-- {npc:12717} Muglash · {npc:12940} Vorsha the Lasher · {npc:12719} Marukai
-	-- was: ["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717}沿著海灘向北走到一個納迦火盆旁。熄滅火盆，然後在納迦一波波來襲時保護他，直到鞭笞者沃爾沙死去；怒尾納迦會掉落{npc:12719}要的首級。"
 	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until {npc:12940} is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717}沿著海灘向北走到一個納迦火盆。熄滅火盆，然後在納迦一波波來襲時保護他，直到{npc:12940}死亡；怒尾納迦會掉落{npc:12719}要的頭顱。",
 	["Naga brazier"] = "納迦火盆",
 

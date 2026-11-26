@@ -109,7 +109,7 @@ step Light Leather (Zephras Isle)
   only Skyborne
   zone Zephras Isle
   tip 349 Light Leather for Light Armor Kit, Embossed Leather Gloves and Fine Leather Belt (210 of them for 75-150: pick them all now): Skinning: beasts of level 5-20. Skin Cloudrunner, Galestrider, Highlands Ursera, Hippogryph Protector, Hippogryph Youth, Ornery Galestrider, Prideclaw, Shadowgale Shriekling, Shriekling Fledgling, Vuldren, Vuldren Alpha and Windsong Crawler here (level 5-20); the Skinning guide routes this.
-  collect 2318 x349 @48.6,64.1 live gather Skinning 1
+  collect 2318 x349 @51,64.2 live gather Skinning 1
 
 step Light Leather (Durotar)
   only Orc,Troll
@@ -243,7 +243,7 @@ step Heavy Armor Kit to 150
 section Leatherworking 150-225
 
 step Leatherworking 150-225: vendor goods
-  tip Buy the whole bracket's share in one go: 29 Fine Thread (29s), 66 Salt (33s) and 145 Silken Thread (7g 25s); about 7g 87s in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero, Edna Mullby and Jillian Tanner; Orgrimmar: Borya, Felika and Shimra).
+  tip Buy the whole bracket's share in one go: 29 Fine Thread (29s), 66 Salt (33s) and 145 Silken Thread (7g 25s); about 7g 87s in all. The arrow picks the nearest seller of your faction (Stormwind City: Edna Mullby and Jillian Tanner; Orgrimmar: Felika, Shimra and Tamar).
   buy 2321 x29 nearest
   buy 4289 x66 nearest
   buy 4291 x145 nearest
@@ -334,7 +334,7 @@ step Artisan Leatherworking
   learn 19058 npc 11098 only Horde
 
 step Leatherworking 225-300: vendor goods
-  tip Buy the whole bracket's share in one go: 39 Black Dye (3g 90s) and 82 Rune Thread (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero, Edna Mullby and Jillian Tanner; Orgrimmar: Borya, Felika and Shimra).
+  tip Buy the whole bracket's share in one go: 39 Black Dye (3g 90s) and 82 Rune Thread (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero and Jillian Tanner; Orgrimmar: Borya and Tamar).
   buy 2325 x39 nearest
   buy 14341 x82 nearest
 

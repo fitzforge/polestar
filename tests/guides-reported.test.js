@@ -18672,6 +18672,22 @@ test('forever/horde/50-60/02-felwood.guide: Cuely\'s four vials, each at its tid
 	assert.deepEqual(idx, [...idx].sort((a, b) => a - b), 'in order, south to north');
 });
 
+// #3707 (fekz) and #3857: the pools are spell-focus objects, so clicking one does nothing; each Empty Vial Labeled #N
+// (10687-10690, from the Box of Empty Vials the quest hands over) is used at its own pool. The accept says to open the
+// box, and each pool has the vial's `use` right before its collect, in the same step.
+test('Seeping Corruption: the box at the accept, and each empty vial used at its own pool (#3707, #3857)', { skip }, () => {
+	const un = goals('forever/horde/50-60/01-un-goro-crater.guide');
+	assert.match(un[at(un, 'accept 3568', is('accept', 3568))].goal.note || '', /Box of Empty Vials/, 'the accept names the box');
+	const list = goals('forever/horde/50-60/02-felwood.guide');
+	[10687, 10688, 10689, 10690].forEach((item, n) => {
+		const use = at(list, `use vial ${n + 1}`, (g) => g.t === 'use' && g.item === item && g.quest === 3568);
+		const fill = at(list, `vial ${n + 1}`, (g) => g.t === 'collect' && g.item === 10691 + n && g.quest === 3568);
+		assert.equal(use, fill - 1, `vial ${n + 1}: used right before its collect`);
+		assert.equal(list[use].s, list[fill].s, `vial ${n + 1}: in the same step`);
+		assert.ok(Math.hypot(list[use].goal.x - list[fill].goal.x, list[use].goal.y - list[fill].goal.y) <= 0.1, `vial ${n + 1}: at its pool`);
+	});
+});
+
 // #3172 (Yunra, 0.4.1.1): Admiral Lamora walks the middle ship's top deck and her loot chest is below deck (players'
 // recordings: 40 of 40 Lamora's Loot ticks indoors); both sides' steps said the chest stands beside her.
 for (const guide of ['forever/alliance/40-50/01b-riverglades.guide', 'forever/horde/40-50/01b-riverglades.guide']) {
@@ -19135,6 +19151,21 @@ test('What Is Love?: the figurine steps say to throw the lit torch onto the cart
 	}
 });
 
+// #3960 (AreChen): the Wharfmaster's hand-in showed with the Rot-Covered Harpoon still at 0/1. Both Riverglades
+// guides hold it until WANTED: Old Rot-Chum is complete.
+test('Riverglades (#3960): Old Rot-Chum is only handed in once the bounty is complete', { skip }, () => {
+	for (const side of ['alliance', 'horde']) {
+		const handIns = compiled(`forever/${side}/40-50/01b-riverglades.guide`).steps.filter((step) => step.goals.some(is('turnin', 95120)));
+		assert.ok(handIns.length, `${side}: the hand-in is still on the route`);
+		for (const step of handIns) {
+			for (const kind of ['onquest', 'complete']) {
+				assert.ok((step.when || []).some((p) => p.k === kind && !p.neg && [].concat(p.q).includes(95120)),
+					`${side}: the hand-in requires ${kind} 95120`);
+			}
+		}
+	}
+});
+
 // #3036 (Joogz): the Monstrous Threshadon is called up from what floats in the water at 74.4,72.4; the step followed
 // his other possible spots instead. Both factions' Riverglades guides lead there and say how.
 test('The Monster Surfaces: the head is taken where the Threshadon is called up (#3036)', { skip }, () => {
@@ -19584,4 +19615,64 @@ test('#3927 Mount Hyjal: the Tainted Shrubbery are killed after Leaves to Ligatu
 		const tip = [step.note, step.tip].flat().filter(Boolean).join(' ');
 		assert.doesNotMatch(tip, /\bkill[^.:;]*Tainted Shrubbery/i, `${step.title}: no shrub kills before the accept`);
 	}
+});
+
+// Type1Insulin (#4040): the Tailoring guide's 225-300 shopping sent a player to Helenia Olden in Theramore for Rune
+// Thread, and its tip named Edna Mullby in Stormwind; neither sells it on Forever (players' merchant windows: 42 and
+// 125 people, none listing it; Forever's world data has no such sale). forever-db/corrections/items.json takes such
+// sellers off an item's vendor list, for Rune Thread and ten more items the profession guides buy. No profession
+// guide's `buy` offers one of them to pick, and no shopping tip names one for the items its step buys.
+test('#4040: profession guides never send a shopping step to a vendor who does not sell the item on Forever', { skip }, () => {
+	const off = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'corrections', 'items.json'), 'utf8'));
+	const removed = (item) => new Set((off[item] && off[item].removeVendors) || []);
+	const items = JSON.parse(fs.readFileSync(path.join(DATA, 'items.json'), 'utf8'));
+	const npcs = JSON.parse(fs.readFileSync(path.join(DATA, 'npcs.json'), 'utf8'));
+	const sells = (npc, item) => ((items[item] || {}).vendors || []).includes(npc) && !removed(item).has(npc);
+	let checked = 0;
+	for (const guide of allGuides().filter((g) => g.startsWith('forever/professions/'))) {
+		for (const { goal, s } of goals(guide)) {
+			if (goal.t !== 'buy') continue;
+			const bad = (goal.candidates || []).filter((c) => removed(goal.item).has(c.npc)).map((c) => c.npc);
+			assert.deepEqual(bad, [], `${guide} step ${s}: buy ${goal.item} offers sellers who do not sell it`);
+		}
+		const text = fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8');
+		for (const block of text.split(/\nstep /).slice(1)) {
+			const bought = [...block.matchAll(/\n {2}buy (\d+)/g)].map((m) => m[1]);
+			const tip = [...block.matchAll(/\n {2}tip (.*)/g)].map((m) => m[1]).join(' ');
+			for (const item of bought) {
+				for (const npc of removed(item)) {
+					const name = (npcs[npc] || {}).name;
+					if (!name || bought.some((other) => sells(npc, other))) continue;
+					checked++;
+					assert.ok(!tip.includes(name), `${guide} step "${block.split('\n')[0]}": the tip names ${name}, who does not sell item ${item}`);
+				}
+			}
+		}
+	}
+	assert.ok(checked > 0, 'some shopping steps buy an item the corrections take sellers off');
+});
+
+// Dima (#3923) and divo2000 (#3708): the Tailoring guide sent players to Timothy Worthington or Daryl Stack for Black
+// Mageweave Headband at 197; they teach nothing below 200 (players' recordings: every recipe learned from them at 200 or
+// more). Every profession guide: a recipe only a later rank's trainers teach is learned once the skill reaches that rank's.
+test('#3708, #3923: profession guides learn a recipe only the Artisan trainers teach from their skill on', { skip }, () => {
+	const { SPECS } = require('../tools/lib/professions/specs');
+	const profs = JSON.parse(fs.readFileSync(path.join(DATA, 'professions.json'), 'utf8'));
+	let checked = 0;
+	for (const [name, spec] of Object.entries(SPECS)) {
+		const prof = Object.values(profs).find((p) => p && p.name === name);
+		if (!prof || !spec.taughtBy) continue;
+		const text = fs.readFileSync(path.join(OFFICIAL_DIR, `forever/professions/${name.toLowerCase()}.guide`), 'utf8');
+		let skill = 1;
+		for (const line of text.split('\n')) {
+			const reach = line.match(/^ {2}(?:craft \d+ until|skill \S+) (\d+)/);
+			if (reach) skill = Math.max(skill, Number(reach[1]));
+			const learn = line.match(/^ {2}learn (\d+)/);
+			const rank = learn && prof.ranks.find((r) => r.name === spec.taughtBy[learn[1]]);
+			if (!rank) continue;
+			checked++;
+			assert.ok(skill >= rank.minSkill, `${name}: learn ${learn[1]} at ${skill}, below ${rank.name}'s ${rank.minSkill}`);
+		}
+	}
+	assert.ok(checked > 0, 'the Artisan-only recipes the guides learn');
 });

@@ -149,7 +149,6 @@ return {
 
 	-- Step 26: Eleanor Shackleton
 	-- {area:159} Brill · {zone:1458} Undercity
-	-- was: ["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, at Linnea's camp, or in the {zone:1458} in the next guide."] = "엘리노어 섀클턴은 마을 바로 남서쪽에서 야영합니다. 전문 기술을 배웠다면 그녀가 해당 야영 기초 퀘스트도 주며, 그 기술의 상급자에게 가져가면 됩니다. 상급자는 {area:159}, 리니아의 야영지, 또는 다음 가이드의 {zone:1458}에 있습니다."
 	["Eleanor camps just south-west of town. With a profession learned, she also offers its Camping 101, which its trainer takes: in {area:159}, east of {area:159} for fishing, at Linnea's camp, or in the {zone:1458} in the next guide."] = "엘리노어는 마을 바로 남서쪽에서 야영합니다. 전문 기술을 배웠다면 그녀도 해당 야영 101을 주며, 그 상급자가 받습니다: {area:159}에서, 낚시는 {area:159} 동쪽에서, 린니아의 야영지에서, 또는 다음 가이드의 {zone:1458}에서.",
 	-- {spell:1229451} Boosted Rest
 	["/sit by her campfire until you get {spell:1229451}"] = "{spell:1229451}을(를) 얻을 때까지 그녀의 모닥불 옆에서 /앉기 하세요",

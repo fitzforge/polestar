@@ -22,7 +22,6 @@ return {
 
 	-- Step 2: Pyroguard Emberseer
 	-- {npc:9816} Pyroguard Emberseer · {area:254} Blackrock Mountain · {item:12344} Seal of Ascension
-	-- was: ["{npc:9816} is a boss in Upper Blackrock Spire, inside {area:254}: a group of up to ten, and someone needs the {item:12344} to open the door. He drops the Eye and pays 50 reputation per kill up to 11,999 of 12,000 Honored. {npc:9017} in {area:1584} pays 15 the same way."] = "{npc:9816} é um chefe do Pico da Rocha Negra Superior, dentro de {area:254}: um grupo de até dez, e alguém precisa do {item:12344} para abrir a porta. Ele solta o Olho e rende 50 de reputação por morte até 11.999 de 12.000 de Honrado. {npc:9017} em {area:1584} rende 15 do mesmo jeito."
 	["{npc:9816} is a boss in Upper Blackrock Spire, inside {area:254}: a group of up to ten, and someone needs the {item:12344} to open the door. He pays 50 reputation per kill up to 11,999 of 12,000 Honored."] = "{npc:9816} é um chefe do Pico da Rocha Negra Superior, dentro de {area:254}: um grupo de até dez, e alguém precisa de {item:12344} para abrir a porta. Ele dá 50 de reputação por abate até 11.999 de 12.000 Honrado.",
 	-- {npc:9816} Pyroguard Emberseer
 	["{npc:9816}: raid of ten"] = "{npc:9816}: raide de dez",

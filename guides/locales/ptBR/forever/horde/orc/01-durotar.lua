@@ -124,7 +124,6 @@ return {
 	-- {npc:265809} Brakk
 	["{npc:265809}'s campfire"] = "A fogueira de {npc:265809}",
 	-- {npc:265809} Brakk · {area:362} Razor Hill · {spell:1229451} Boosted Rest · {area:367} Sen'jin Village · {zone:1454} Orgrimmar
-	-- was: ["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362} or in {zone:1454} at the start of the next guide."] = "{npc:265809} acampa logo ao sul de {area:362}. Sente na fogueira dele (/sit) até aparecer o bônus {spell:1229451}. Com uma profissão aprendida, {npc:265809} também oferece a Introdução ao acampamento dessa profissão, que é entregue ao instrutor dela: em {area:362} ou em {zone:1454}, no início do próximo guia."
 	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362}, by {area:367} for fishing, or in {zone:1454} at the start of the next guide."] = "{npc:265809} acampa logo ao sul de {area:362}. Sente-se junto à fogueira dele (/sit) até aparecer o bônus {spell:1229451}. Com uma profissão aprendida, {npc:265809} também oferece a Introdução ao acampamento dela, que o instrutor recebe: em {area:362}, perto de {area:367} para pesca, ou em {zone:1454} no começo do próximo guia.",
 
 	-- Step 23: Camping 101: Mining
