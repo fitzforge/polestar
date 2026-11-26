@@ -252,3 +252,27 @@ test('Iron Bar: one Get it step whose Mining loops give Iron Ore in zones of eac
 		assert.match(g.lines.at(-1), /^ {2}auction 3575 x\d+$/);
 	}
 });
+
+test('a crafting guide\'s herb or ore that grows in one zone only has a Get it loop there (Icecap: Winterspring)', { skip }, () => {
+	const { ZONES } = require('../tools/lib/professions/gathering/tables');
+	const nodes = require('../tools/lib/professions/gathering/gathering-nodes.json');
+	const { data } = world();
+	const zonesOf = (kind) => Object.keys(nodes.maps).filter((m) => ZONES[m] && nodes.maps[m].kinds[kind]).map((m) => ZONES[m].name);
+	let checked = 0;
+	const missing = [];
+	for (const name of ['alchemy', 'blacksmithing', 'enchanting', 'engineering', 'leatherworking', 'tailoring']) {
+		const text = fs.readFileSync(path.join(__dirname, '..', 'guides/forever/professions', `${name}.guide`), 'utf8');
+		for (const block of text.split('\n\n').filter((b) => b.startsWith('step Get '))) {
+			const m = block.match(/^ {2}collect (\d+) x\d+.* gather (Herbalism|Mining) \d+$/m);
+			if (!m) continue;
+			const mat = (data.professionNamed(m[2]).materials || {})[m[1]];
+			const ids = mat && mat.gather ? Object.values(mat.gather).flat() : [];
+			const kinds = [...new Set(ids.map((id) => (data.objects[id] || {}).name).filter(Boolean))];
+			const zones = [...new Set(kinds.flatMap(zonesOf))];
+			checked++;
+			if (zones.length === 1 && !block.includes(`\n  loop ${zones[0]} `)) missing.push(`${name}: ${block.split('\n')[0]} needs a loop in ${zones[0]}`);
+		}
+	}
+	assert.ok(checked > 20, `${checked} gathered Get it steps`);
+	assert.deepEqual(missing, []);
+});
