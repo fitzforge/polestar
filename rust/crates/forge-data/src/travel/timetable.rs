@@ -11,7 +11,7 @@ use rustc_hash::{FxHashMap, FxHashSet};
 
 use super::geo::{round, Frames, W};
 use super::taxi::LiveFrames;
-use super::transports::{end_height, in_zone, number, End, Nav, Transport};
+use super::transports::{end_height, in_zone, number, zone_frame, End, Nav, Transport};
 use crate::jsv::{to_int32, Row, Rows};
 
 const SPEED: f64 = 30.0;
@@ -666,12 +666,20 @@ struct ObjectPortalDef {
 	to_area: f64,
 	b: (i64, f64, f64, Option<f64>),
 	landing: &'static str,
+	/// Click and loading screen, in seconds.
+	seconds: f64,
+	/// Which of the two ends' heights stand as given (a place no walking map has a floor in: the Wizard's Sanctum's
+	/// chamber), instead of snapping to the nearest walkable surface.
+	exact: (bool, bool),
+	/// Who may take it: a faction mask (1 Alliance, 2 Horde; None: both) and a race (UnitRace's token; None: any).
+	faction: Option<f64>,
+	race: Option<&'static str>,
 }
 
 // Zephras Isle (#1674): the shrine's portal up to the Rohashi Spires, and the portal beside
 // Lorthuna's terrace back down to Valanaar. Without them the planner walked or hearthed off the
 // heights the portal leaves in five seconds. Zephras Isle (2521) is a Forever-only map: live frame.
-const OBJECT_PORTALS: [ObjectPortalDef; 2] = [
+const OBJECT_PORTALS: [ObjectPortalDef; 4] = [
 	ObjectPortalDef {
 		object: 586726,
 		id: "portal-rohashi-spires",
@@ -682,6 +690,10 @@ const OBJECT_PORTALS: [ObjectPortalDef; 2] = [
 		to_area: 16630.0,
 		b: (2521, 68.4, 50.6, None),
 		landing: "15 recorded arrivals at 2521:68.3-68.5,50.5-50.6 (6 people)",
+		seconds: PORTAL_SECONDS,
+		exact: (false, false),
+		faction: None,
+		race: None,
 	},
 	ObjectPortalDef {
 		object: 617085,
@@ -693,8 +705,51 @@ const OBJECT_PORTALS: [ObjectPortalDef; 2] = [
 		to_area: 16638.0,
 		b: (2521, 66.3, 79.7, Some(658.0)),
 		landing: "recorded arrivals at 2521:66.3,79.7 beside Elaadrin Evengale (3 people)",
+		seconds: PORTAL_SECONDS,
+		exact: (false, false),
+		faction: None,
+		race: None,
+	},
+	// Dalaran's Skyborne Portals: the Skyborne Portal to Stormwind in the Sky Enclave, Alterac Mountains 12.04,56.21
+	// (object 631299, Forever's world DB: 450.7, 446.3, 110.7), sets the player down in the Wizard's Sanctum's
+	// chamber in Stormwind (a place only portals reach: its height 29.6, as the tower's portals have it), and the
+	// Skyborne Portal to Dalaran there (object 654168: -9003.4, 853.4, 29.6) leads back. The way in is recorded:
+	// 52 uses by 35 High Order Skyborne (level 10 to 44, addon 0.3.1 to 0.4.3) stand at the portal and are seconds
+	// later at 1453:49.87,86.67 every time, 6.5 s at the median from standing at the portal. No one but a High Order
+	// Skyborne is recorded to use it, so only they are sent; no use of the way back is recorded yet, its Dalaran end is
+	// taken as the portal's own spot (the way in lands within 5 yd of the Stormwind portal).
+	ObjectPortalDef {
+		object: 631299,
+		id: "portal-skyborne-stormwind",
+		from: "Dalaran",
+		from_area: 279.0,
+		a: (1416, 12.04, 56.21, Some(110.7)),
+		to: "Stormwind City",
+		to_area: 1519.0,
+		b: (1453, 49.87, 86.67, Some(29.6)),
+		landing: "52 recorded arrivals, every one at 1453:49.87,86.67 (35 High Order Skyborne)",
+		seconds: SKYBORNE_PORTAL_SECONDS,
+		exact: (false, true),
+		faction: Some(1.0),
+		race: Some("Skyborne"),
+	},
+	ObjectPortalDef {
+		object: 654168,
+		id: "portal-skyborne-dalaran",
+		from: "Wizard's Sanctum",
+		from_area: 0.0,
+		a: (1453, 50.04, 86.98, Some(29.6)),
+		to: "Dalaran",
+		to_area: 279.0,
+		b: (1416, 12.04, 56.21, Some(110.7)),
+		landing: "no recorded arrival yet: the Dalaran portal's own spot",
+		seconds: SKYBORNE_PORTAL_SECONDS,
+		exact: (true, false),
+		faction: Some(1.0),
+		race: Some("Skyborne"),
 	},
 ];
+const SKYBORNE_PORTAL_SECONDS: f64 = 6.5;
 
 /// A teleport an NPC casts on the player who asks (a gossip option): one way, from where the NPC stands (its spawn)
 /// to its spell's target (classic-db spell_target_position). Planned as a portal whose ride is the talk; the arrow
@@ -715,16 +770,13 @@ struct NpcPortalDef {
 // way back down is the attendant's at the top (spell 12520, which lands beside Sanath).
 const NPC_PORTALS: [NpcPortalDef; 1] = [NpcPortalDef { npc: 8395, name: "Sanath Lim-yo", id: "portal-azshara-tower", at: (1.0, 3648.01, -4702.71, 121.06), spell: 12510, to: "Azshara Tower" }];
 
-/// An object portal's end on its map (live frame first, as spawn_points reads a live spawn), or None
+/// An object portal's end on its map (its live frame where Forever redrew the map, else its Era frame), or None
 /// when the data has no frame for the map.
 fn map_end(name: &str, area: f64, (map, x, y, _): (i64, f64, f64, Option<f64>), frames: &Frames, live: &LiveFrames) -> Option<End> {
-	let (b, f) = match live.get(&map) {
-		Some(b) => (*b, "l"),
-		None => (frames.frame(map)?, "e"),
-	};
+	let (b, f) = zone_frame(frames, live, map)?;
 	Some(End {
 		name: name.to_string(),
-		area: Some(area),
+		area: Some(area).filter(|&a| a != 0.0),
 		c: b.c,
 		wx: round(b.top + (b.bottom - b.top) * (y / 100.0), 1),
 		wy: round(b.left + (b.right - b.left) * (x / 100.0), 1),
@@ -780,6 +832,9 @@ pub struct Portal {
 	pub item: Option<f64>,
 	/// The NPC who casts the teleport (NpcPortalDef), None for a portal the player walks into.
 	pub npc: Option<String>,
+	/// Who may take it: a faction mask (1 Alliance, 2 Horde; None: both) and a race (UnitRace's token; None: any).
+	pub faction: Option<f64>,
+	pub race: Option<String>,
 	pub source: String,
 }
 
@@ -822,18 +877,24 @@ fn build_portals(area_triggers: &Rows, db: &V, frames: &Frames, live: &LiveFrame
 			seconds: PORTAL_SECONDS,
 			item: p.item,
 			npc: None,
+			faction: None,
+			race: None,
 			source: format!("AreaTrigger {} -> classic-db areatrigger_teleport {}", p.trigger, p.trigger),
 		});
 	}
 	for p in &OBJECT_PORTALS {
 		let mut a = map_end(p.from, p.from_area, p.a, frames, live);
 		let mut b = map_end(p.to, p.to_area, p.b, frames, live);
-		if let (Some(a), Some(b), Some(nav)) = (a.as_mut(), b.as_mut(), nav) {
-			for (e, z) in [(a, p.a.3), (b, p.b.3)] {
+		if let (Some(a), Some(b)) = (a.as_mut(), b.as_mut()) {
+			for (e, z, exact) in [(a, p.a.3, p.exact.0), (b, p.b.3, p.exact.1)] {
 				let Some(z) = z else { continue };
-				match end_height(nav, e.c, e.wx, e.wy, Some(z)) {
-					Some(h) => e.z = Some(h),
-					None => warnings.push(format!("{}: the {} end has no walkable surface near its height {}", p.id, e.name, num_str(round(z, 1)))),
+				if exact {
+					e.z = Some(z);
+				} else if let Some(nav) = nav {
+					match end_height(nav, e.c, e.wx, e.wy, Some(z)) {
+						Some(h) => e.z = Some(h),
+						None => warnings.push(format!("{}: the {} end has no walkable surface near its height {}", p.id, e.name, num_str(round(z, 1)))),
+					}
 				}
 			}
 		}
@@ -847,9 +908,11 @@ fn build_portals(area_triggers: &Rows, db: &V, frames: &Frames, live: &LiveFrame
 			area: p.to_area,
 			a,
 			b,
-			seconds: PORTAL_SECONDS,
+			seconds: p.seconds,
 			item: None,
 			npc: None,
+			faction: p.faction,
+			race: p.race.map(str::to_string),
 			source: format!("gameobject {} spawn (Forever world DB) -> {}", p.object, p.landing),
 		});
 	}
@@ -883,6 +946,8 @@ fn build_portals(area_triggers: &Rows, db: &V, frames: &Frames, live: &LiveFrame
 			seconds: PORTAL_SECONDS,
 			item: None,
 			npc: Some(p.name.to_string()),
+			faction: None,
+			race: None,
 			source: format!("creature {} spawn (classic-db) -> spell_target_position {}", p.npc, p.spell),
 		});
 	}

@@ -114,7 +114,7 @@
 		"recordedCrossings": 0,
 		"shippedCrossings": 54,
 		"timetables": 15,
-		"portals": 9,
+		"portals": 11,
 		"teleports": 8
 	},
 	"taxi": {
@@ -7352,6 +7352,69 @@
 				},
 				"seconds": 5,
 				"source": "gameobject 617085 spawn (Forever world DB) -> recorded arrivals at 2521:66.3,79.7 beside Elaadrin Evengale (3 people)"
+			},
+			{
+				"id": "portal-skyborne-stormwind",
+				"name": "Stormwind City",
+				"area": 1519,
+				"a": {
+					"name": "Dalaran",
+					"area": 279,
+					"c": 0,
+					"wx": 450.7,
+					"wy": 446.2,
+					"map": 1416,
+					"x": 12.04,
+					"y": 56.21,
+					"f": "e"
+				},
+				"b": {
+					"name": "Stormwind City",
+					"area": 1519,
+					"c": 0,
+					"wx": -8999.8,
+					"wy": 856.4,
+					"map": 1453,
+					"x": 49.87,
+					"y": 86.67,
+					"f": "l",
+					"z": 29.6
+				},
+				"seconds": 6.5,
+				"faction": 1,
+				"race": "Skyborne",
+				"source": "gameobject 631299 spawn (Forever world DB) -> 52 recorded arrivals, every one at 1453:49.87,86.67 (35 High Order Skyborne)"
+			},
+			{
+				"id": "portal-skyborne-dalaran",
+				"name": "Dalaran",
+				"area": 279,
+				"a": {
+					"name": "Wizard's Sanctum",
+					"c": 0,
+					"wx": -9003.4,
+					"wy": 853.5,
+					"map": 1453,
+					"x": 50.04,
+					"y": 86.98,
+					"f": "l",
+					"z": 29.6
+				},
+				"b": {
+					"name": "Dalaran",
+					"area": 279,
+					"c": 0,
+					"wx": 450.7,
+					"wy": 446.2,
+					"map": 1416,
+					"x": 12.04,
+					"y": 56.21,
+					"f": "e"
+				},
+				"seconds": 6.5,
+				"faction": 1,
+				"race": "Skyborne",
+				"source": "gameobject 654168 spawn (Forever world DB) -> no recorded arrival yet: the Dalaran portal's own spot"
 			},
 			{
 				"id": "portal-azshara-tower",
