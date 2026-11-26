@@ -180,7 +180,7 @@ test('replies after the filing are copied to the issue, the poster\'s marked as 
 	assert.equal(commentsOf(github, 2).length, 0);
 });
 
-test('every author\'s images and videos in a suggestions post are copied, in the filing and in later replies; other files stay links; #bugs keeps the owner-only rule', async () => {
+test('every author\'s images and videos in a suggestions post are copied, in the filing and in later replies; other files stay links, as in #bugs', async () => {
 	const { discord, github, media, sync, command, conversation } = setup();
 	const id = conversation();
 	await command(id, '!suggest');
@@ -194,13 +194,12 @@ test('every author\'s images and videos in a suggestions post are copied, in the
 	assert.match(body, /- \[notes\.txt\]\([^)]*\) \(on Discord: not an image or video, not copied\)/);
 	assert.deepEqual(media.copied.slice(before), ['discord/2001/c1-c1.png', 'discord/2001/v1-demo.mp4']);
 
-	// A #bugs post: only the poster's.
+	// A #bugs post: the same rule.
 	discord.post('3001', { owner: 'u5', content: 'a bug' });
 	await sync.newPost('3001');
 	await sync.dispatch('MESSAGE_CREATE', discord.say('3001', { author: 'u2', content: 'me too', attachments: SHOT('e1') }));
-	await sync.dispatch('MESSAGE_CREATE', discord.say('3001', { author: 'u5', content: 'mine', attachments: SHOT('e2') }));
-	assert.deepEqual(media.copied.slice(before + 2), ['discord/3001/e2-e2.png']);
-	assert.match(commentsOf(github, 2)[0].body, /\[e1\.png\]\([^)]*\) \(on Discord\)/);
+	assert.deepEqual(media.copied.slice(before + 2), ['discord/3001/e1-e1.png']);
+	assert.match(commentsOf(github, 2)[0].body, /!\[e1\.png\]\([^)]*discord\/3001\/e1-e1\.png\)/);
 });
 
 test('an edited reply and an edited first message are written again on the issue', async () => {
@@ -335,4 +334,78 @@ test('without SUGGESTIONS_FORUM_ID the Actions leave a suggestions post alone; a
 	const bug = { ...s.github.issues[1], state: 'closed', state_reason: 'completed' };
 	await onIssue({ ...notify(s), event: { action: 'closed', issue: bug } });
 	assert.match(told(s.discord, '1001').content, /^<@u1> This is fixed and will ship in the next Polestar update\. Thanks for the report!/);
+});
+
+test('!report in a suggestions post files the whole post as a bug: Reported by, bug labels, every author\'s media, thanked, tracked there, no extra post', async () => {
+	const { discord, github, media, command, conversation } = setup();
+	const id = conversation();
+	const cmd = await command(id, '!report');
+	assert.equal(github.issues.length, 1);
+	const issue = github.issues[0];
+	assert.equal(issue.title, 'Mini map toggle');
+	assert.deepEqual(issue.labels.map((l) => l.name), ['discord', 'triage', 'bug', 'ui']);
+	assert.match(issue.body, /^\*\*Reported by Opal on \[Discord\]\(https:\/\/discord\.com\/channels\/800\/2001\)\*\* · UI/);
+	assert.equal(commentsOf(github).length, 3);
+	assert.match(commentsOf(github)[0].body, /!\[b1\.png\]/);
+	assert.deepEqual(media.copied, ['discord/2001/a1-a1.png', 'discord/2001/b1-b1.png', 'discord/2001/a2-a2.png']);
+	assert.equal(discord.posts.length, 0);
+	const said = discord.sent.filter((s) => s.channel === id);
+	assert.match(said[0].content, /^Tracked as \[fitzforge\/polestar#1\].*We'll reply here when it's fixed\.$/);
+	assert.match(said[1].content, /^Thanks <@op>! This has now been reported as a bug: \[#1\]\(<https:\/\/github\.com\/fitzforge\/polestar\/issues\/1>\)\.$/);
+	assert.deepEqual(said[1].users, ['op']);
+	assert.equal(said[1].replyTo, id);
+	assert.deepEqual(discord.channels.get(id).applied_tags, ['s-ui', 's-tracked']);
+	assert.ok(discord.edits.some((e) => e.deleted && e.message === cmd.id));
+});
+
+test('`!bug <text>` by the maintainer in a suggestions post is `!report <text>`: the whole post, the text its title', async () => {
+	const { github, command, conversation } = setup();
+	const id = conversation();
+	await command(id, '!bug Library books guide doesn\'t mark as complete automatically');
+	assert.equal(github.issues.length, 1);
+	assert.equal(github.issues[0].title, 'Library books guide doesn\'t mark as complete automatically');
+	assert.match(github.issues[0].body, /^\*\*Reported by Opal/);
+	assert.equal(commentsOf(github).length, 3);
+	assert.ok(commentsOf(github).every((c) => !c.body.includes('!bug')), 'the command is not copied');
+});
+
+test('a post filed one way answers "Already filed as #N" to the other command; non-maintainers filing with `!bug <text>` get the help only', async () => {
+	const { discord, github, command, conversation } = setup();
+	const id = conversation();
+	await command(id, '!suggest');
+	for (const text of ['!report', '!bug again please', '!suggest']) {
+		const before = discord.sent.length;
+		await command(id, text);
+		assert.equal(discord.sent[before].content, 'Already filed as [fitzforge/polestar#1](<https://github.com/fitzforge/polestar/issues/1>).', text);
+	}
+	assert.equal(github.issues.length, 1);
+
+	const other = setup();
+	const id2 = other.conversation();
+	const before = other.discord.sent.length;
+	await other.command(id2, '!bug the map is broken', { author: 'u2' });
+	assert.match(other.discord.sent[before].content, /Found a bug or a wrong step/);
+	assert.equal(other.github.issues.length, 0);
+});
+
+test('a suggestions post filed as a bug is followed and told as a bug, its first-message edit keeps "Reported by"; one filed as an idea is told as an idea', async () => {
+	const { discord, github, sync, command, conversation, make } = setup();
+	const id = conversation();
+	await command(id, '!report');
+	await sync.dispatch('MESSAGE_CREATE', discord.say(id, { author: 'u2', name: 'Bea', content: 'still here' }));
+	assert.equal(commentsOf(github).length, 4);
+	discord.messages.get(id)[0].content = 'The mini map covers the tracker.';
+	await sync.dispatch('MESSAGE_UPDATE', { ...discord.messages.get(id)[0], channel_id: id, edited_timestamp: '2026-11-20T00:01:00Z' });
+	assert.match(github.issues[0].body, /^\*\*Reported by Opal/);
+
+	// After a restart the index remembers it is a bug.
+	const again = make();
+	await again.loadIndex();
+	discord.messages.get(id)[0].content = 'The mini map covers the tracker, again.';
+	await again.dispatch('MESSAGE_UPDATE', { ...discord.messages.get(id)[0], channel_id: id, edited_timestamp: '2026-11-20T00:02:00Z' });
+	assert.match(github.issues[0].body, /^\*\*Reported by Opal/);
+
+	const issue = { ...github.issues[0], state: 'closed', state_reason: 'completed' };
+	await onIssue({ discord, github, forumId: FORUM, suggestionsForumId: SUGGESTIONS, log: quietLog, event: { action: 'closed', issue } });
+	assert.match(told(discord, id).content, /^<@op> This is fixed and will ship in the next Polestar update\. Thanks for the report!/);
 });

@@ -131,6 +131,7 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 	const queues = new Map();
 	const sources = new Map(); // a message filed from chat -> { number, thread }
 	const reporters = new Map(); // a #bugs post the bot started -> the player it is for
+	const bugPosts = new Set(); // suggestions-forum posts filed as bugs (`!report`), not as ideas
 	let forum = null;
 	let ideasForum = null;
 	let botId = config.botId || null;
@@ -272,12 +273,10 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 		return author.global_name || author.username;
 	}
 
-	// The message's attachments: images and videos copied to the media
-	// branch, the rest linked, with why. In a #bugs post only the thread
-	// owner's are copied (`copy`); in a suggestions post everyone's are, and
-	// anything else is linked on Discord. `keep`: each copied file also keeps
-	// its bytes (`data`) and type, to attach elsewhere.
-	async function files(guild, threadId, message, copy, keep = false) {
+	// The message's attachments: images and videos (anyone's) copied to the
+	// media branch, the rest linked, with why. `keep`: each copied file also
+	// keeps its bytes (`data`) and type, to attach elsewhere.
+	async function files(guild, threadId, message, keep = false) {
 		const out = [];
 		for (const a of message.attachments || []) {
 			const image = /^image\//.test(a.content_type || '');
@@ -285,14 +284,14 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			let url = null;
 			let note = null;
 			let data = null;
-			if (copy && (image || video)) {
+			if (image || video) {
 				try {
 					url = await media.copy(`discord/${threadId}/${a.id}-${safeName(a.filename)}`, a, `Media: ${video ? 'video' : 'screenshot'} from Discord thread ${threadId}`, keep ? (bytes) => (data = bytes) : null);
 				} catch (err) {
 					log.warn(`media: ${a.filename} in ${threadId} not copied: ${err.message}`);
 				}
 				if (!url) note = a.size > (video ? media.videoMaxBytes : media.maxBytes) ? `too big to copy, ${(a.size / MB).toFixed(1)} MB` : 'not copied';
-			} else if (copy) {
+			} else {
 				note = 'not an image or video, not copied';
 			}
 			const f = { name: a.filename, image, video, url, note, discordUrl: I.threadUrl(guild, threadId, message.id) };
@@ -320,14 +319,15 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			guild: thread.guild_id,
 			thread: thread.id,
 			tags: tagNames,
-			files: await files(thread.guild_id, thread.id, message, inIdeas(thread) || (message.author && message.author.id === thread.owner_id)),
+			files: await files(thread.guild_id, thread.id, message),
 		};
 	}
 
-	// The issue body a post's first message makes: a suggestions post's says "Suggested by".
+	// The issue body a post's first message makes: a suggestions post's says
+	// "Suggested by", or "Reported by" when it was filed as a bug.
 	async function bodyOf(thread, message) {
 		if (!inIdeas(thread)) return I.issueBody(await postFor(thread, message));
-		return I.issueBody({ ...(await postFor(thread, message, await getIdeasForum())), kind: 'suggestion' });
+		return I.issueBody({ ...(await postFor(thread, message, await getIdeasForum())), kind: bugPosts.has(thread.id) ? 'report' : 'suggestion' });
 	}
 
 	// Files a post. `backfill`: found on start, not seen being made, so
@@ -453,7 +453,7 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 	// A follow-up's comment and its author's name.
 	async function followUpBody(thread, m) {
 		const reporter = m.author.id === await reporterOf(thread);
-		const f = await files(thread.guild_id, thread.id, m, reporter || inIdeas(thread));
+		const f = await files(thread.guild_id, thread.id, m);
 		const author = await displayName(thread.guild_id, m.author, m.member);
 		return { author, body: I.followUpComment({ report: readFollowUp(m), author, reporter, guild: thread.guild_id, thread: thread.id, message: m.id, files: f }) };
 	}
@@ -643,6 +643,7 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 		for (const issue of await github.issuesLabelled('discord', { max: 1000 })) {
 			const mk = I.issueMarker(issue);
 			if (mk && !issues.has(mk.thread)) issues.set(mk.thread, issue.number);
+			if (mk && !I.labelNames(issue).includes('idea')) bugPosts.add(mk.thread);
 			for (const id of (mk && Array.isArray(mk.messages) ? mk.messages : [])) {
 				if (/^\d+$/.test(String(id)) && !sources.has(String(id))) sources.set(String(id), { number: issue.number, thread: mk.thread });
 			}
@@ -685,7 +686,7 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			for (const m of run) {
 				const links = new Map();
 				for (const e of m.embeds || []) if (e.url && !String(m.content || '').includes(e.url)) links.set(e.url, { url: e.url, title: e.title });
-				messages.push({ id: m.id, at: timeOf(m), report: parseReport(I.discordToText(m.content, m.mentions)), files: await files(guild, channel, m, true, true), links: [...links.values()] });
+				messages.push({ id: m.id, at: timeOf(m), report: parseReport(I.discordToText(m.content, m.mentions)), files: await files(guild, channel, m, true), links: [...links.values()] });
 			}
 			const anchor = messages.find((m) => m.id === id);
 			const words = anchor.report.description || (messages.find((m) => m.report.description) || anchor).report.description;
@@ -745,16 +746,17 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 		});
 	}
 
-	// The maintainer's `!suggest` inside a post of the suggestions forum: the
-	// whole post filed as one issue. Its first message is the body, credited to
-	// its author; every later message, anyone's, a comment in order, the
-	// original poster's marked "(the reporter)"; the labels are discord, triage,
-	// enhancement, idea and the post's forum tags as a #bugs post's are. The
-	// post is then followed like a #bugs post (replies copied, closes and
-	// releases told) and answered "Tracked as #N". Filed already: its issue.
-	// `title`: the maintainer's, else the post's own.
-	// { number, thread, existing } or { error }.
-	function fileIdea(threadId, { title = '' } = {}) {
+	// The maintainer's `!suggest` or `!report` inside a post of the suggestions
+	// forum: the whole post filed as one issue. Its first message is the body,
+	// credited to its author; every later message, anyone's, a comment in
+	// order, the original poster's marked "(the reporter)". `kind` 'suggestion':
+	// labels discord, triage, enhancement, idea and the post's forum tags;
+	// 'report': a bug, labelled as a #bugs post is (bug, discord, triage, forum
+	// tags). The post is then followed like a #bugs post (replies copied,
+	// closes and releases told) and answered "Tracked as #N". Filed already
+	// (either way): its issue. `title`: the maintainer's, else the post's own.
+	// { number, thread, existing, reporter } or { error }.
+	function fileIdea(threadId, { title = '', kind = 'suggestion' } = {}) {
 		return serial(threadId, async () => {
 			const thread = await getThread(threadId, true);
 			if (!inIdeas(thread)) return { error: 'That isn\u2019t a post in the suggestions forum.' };
@@ -764,14 +766,16 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			if (!first) return { error: 'The post\u2019s first message can\u2019t be read.' };
 			if (!first.author || first.author.bot || first.webhook_id) return { error: 'That\u2019s a bot\u2019s post; only a person\u2019s can be filed.' };
 			const parent = await getIdeasForum(true);
-			const post = { ...(await postFor(thread, first, parent)), kind: 'suggestion' };
-			const labels = I.ideaLabels(post.tags);
+			const post = { ...(await postFor(thread, first, parent)), kind };
+			const idea = kind === 'suggestion';
+			const labels = idea ? I.ideaLabels(post.tags) : I.labelsFor(post.report, post.tags);
 			await github.ensureLabels(labels, I.labelInfo);
-			const issue = await github.createIssue({ title: I.issueTitle(title || thread.name, 'Suggestion from Discord'), body: I.issueBody(post), labels });
+			const issue = await github.createIssue({ title: I.issueTitle(title || thread.name, idea ? 'Suggestion from Discord' : 'Bug report from Discord'), body: I.issueBody(post), labels });
+			if (!idea) bugPosts.add(threadId);
 			issues.set(threadId, issue.number);
 			seen.set(threadId, signature(first));
-			log.info(`filed #${issue.number} for the suggestions post "${thread.name}" (${threadId})`);
-			await trackedReply(threadId, issue.number, true);
+			log.info(`filed #${issue.number} for the suggestions post "${thread.name}" (${threadId}) as ${idea ? 'a suggestion' : 'a bug'}`);
+			await trackedReply(threadId, issue.number, idea);
 			const tags = statusTags(parent);
 			if (tags.tracked) {
 				try {
@@ -782,7 +786,7 @@ function createSync({ discord, github, media, config, log = console, sleep = (ms
 			}
 			// Everything said in the post so far, in order.
 			await tryCatchUp(thread, issue.number, true);
-			return { number: issue.number, thread: threadId, existing: false };
+			return { number: issue.number, thread: threadId, existing: false, reporter: first.author.id };
 		});
 	}
 

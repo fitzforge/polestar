@@ -391,7 +391,7 @@ test("the reporter's full-size screenshot in a follow-up is mirrored and embedde
 	assert.equal(puts.length, 1);
 });
 
-test("only the thread owner's screenshots are copied; reports and follow-ups are capped per user an hour", async () => {
+test("every author's screenshots are copied; reports and follow-ups are capped per user an hour", async () => {
 	let t = 0;
 	const discord = fakeDiscord();
 	const github = fakeGitHub();
@@ -402,8 +402,9 @@ test("only the thread owner's screenshots are copied; reports and follow-ups are
 	const shot = (id) => [{ id, filename: 'x.png', content_type: 'image/png', size: 5, url: 'y' }];
 	await sync.message(discord.say('1001', { author: 'u2', content: 'me too', attachments: shot('a2') }));
 	await sync.message(discord.say('1001', { author: 'u1', content: 'here', attachments: shot('a1') }));
-	assert.deepEqual(media.copied, ['discord/1001/a1-x.png']);
-	assert.match(github.commentsByIssue.get(1)[0].body, /\[x\.png\]\(https:\/\/discord\.com\/channels\/800\/1001\/\d+\) \(on Discord\)/);
+	assert.deepEqual(media.copied, ['discord/1001/a2-x.png', 'discord/1001/a1-x.png']);
+	assert.match(github.commentsByIssue.get(1)[0].body, /!\[x\.png\]\(https:\/\/raw\.githubusercontent\.com\/fitzforge\/polestar\/bug-media\/discord\/1001\/a2-x\.png\)/);
+	assert.doesNotMatch(github.commentsByIssue.get(1)[0].body, /\(on Discord\)/);
 
 	for (let i = 0; i < 25; i++) await sync.message(discord.say('1001', { author: 'u2', content: `spam ${i}` }));
 	assert.equal(github.commentsByIssue.get(1).length, 2 + 19, 'u2 gets 20 an hour');
@@ -628,7 +629,7 @@ test('after a restart or a new gateway session, follow-ups sent while the bot wa
 	assert.equal(bodies().length, 3);
 	assert.match(bodies()[0], /seen live/);
 	assert.match(bodies()[1], /\(the reporter\) added[\s\S]*still broken after a reload/);
-	assert.match(bodies()[2], /\[c\.png\]\(https:\/\/discord\.com\/channels\/800\/1001\/\d+\) \(on Discord\)/);
+	assert.match(bodies()[2], /!\[c\.png\]\(https:\/\/raw\.githubusercontent\.com\/[^)]*\/discord\/1001\/a7-c\.png\)/, 'another player\'s image is copied too');
 
 	// The session lost again (READY, not RESUMED), and another restart: nothing twice.
 	await again.dispatch('READY', { user: { id: BOT, username: 'Polestar Bot' } });

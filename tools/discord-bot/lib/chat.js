@@ -14,9 +14,13 @@
 // the issue's title. Anyone else is told off, under the same caps as `!bug`,
 // and nothing is filed.
 //
-// `!suggest` inside a post of the suggestions forum (SUGGESTIONS_FORUM_ID),
-// by the maintainer and with no reply needed, files the whole post: its first
-// message and every reply (lib/sync.js fileIdea). A second one answers
+// `!bug <text>` by the maintainer is `!report <text>`; for anyone else it is
+// the plain `!bug` help (no filing, no telling-off).
+//
+// `!suggest` or `!report` inside a post of the suggestions forum
+// (SUGGESTIONS_FORUM_ID), by the maintainer and with no reply needed, files
+// the whole post, its first message and every reply (lib/sync.js fileIdea),
+// as a suggestion or as a bug. A post filed already (either way) answers
 // "Already filed as #N".
 //
 //   const chat = createChat({ discord, forumId, suggestionsForumId, maintainerIds, file: sync.fileChat, fileIdea: sync.fileIdea, repo, log });
@@ -26,10 +30,12 @@ const HOUR_MS = 60 * 60 * 1000;
 const LIMITS = { channelMs: 10 * 60 * 1000, userMs: HOUR_MS, perHour: 6 };
 const COMMANDS = new Set(['!bug', '!bugs']);
 const FILE_COMMAND = /^!(report|suggest)(?:\s+([\s\S]*))?$/i;
+// `!bug` or `!bugs` with text after it.
+const BUG_TEXT = /^!bugs?\s+(\S[\s\S]*)$/i;
 const NAUGHTY = "Naughty naughty, you're not Master Fitz.";
 
-// Whether a message is a `!report` or `!suggest` command.
-const isChatCommand = (content) => FILE_COMMAND.test(String(content || '').trim());
+// Whether a message is a `!report`, `!suggest` or `!bug <text>` command.
+const isChatCommand = (content) => FILE_COMMAND.test(String(content || '').trim()) || BUG_TEXT.test(String(content || '').trim());
 
 // The answer, in Discord's Markdown; <#id> shows as a link to the forum.
 function bugHelp(forumId) {
@@ -106,10 +112,10 @@ function createChat({ discord, forumId, suggestionsForumId = null, maintainerIds
 		return true;
 	}
 
-	// `!report`/`!suggest`: `kind` 'report' or 'suggestion', `title` the text after it.
-	async function fileCommand(d, kind, title) {
+	// `!report`/`!suggest`/`!bug <text>`: `kind` 'report' or 'suggestion', `title`
+	// the text after it, `name` what was typed.
+	async function fileCommand(d, kind, title, name = kind === 'suggestion' ? '!suggest' : '!report') {
 		const user = d.author && d.author.id;
-		const name = kind === 'suggestion' ? '!suggest' : '!report';
 		if (!maintainers.has(user)) {
 			if (!takeNaughty(d.channel_id, user)) {
 				log.info(`${name} from ${user || '?'} ignored (not the maintainer, cap) in ${d.channel_id}`);
@@ -119,7 +125,7 @@ function createChat({ discord, forumId, suggestionsForumId = null, maintainerIds
 			await discord.reply(d.channel_id, d.id, NAUGHTY);
 			return true;
 		}
-		if (kind === 'suggestion' && suggestionsForumId && fileIdea && (await parentOf(d.channel_id)) === suggestionsForumId) return filePost(d, title);
+		if (suggestionsForumId && fileIdea && (await parentOf(d.channel_id)) === suggestionsForumId) return filePost(d, kind, title, name);
 		const ref = d.message_reference;
 		if (!ref || !ref.message_id || (ref.type || 0) !== 0 || !file) {
 			await discord.reply(d.channel_id, d.id, `Reply to the message you want filed with \`${name}\`, and a title after it if you like.`);
@@ -154,14 +160,16 @@ function createChat({ discord, forumId, suggestionsForumId = null, maintainerIds
 		}
 	}
 
-	// `!suggest` in a suggestions post: the whole post filed. Newly filed, the
-	// bot's "Tracked as #N" in the post is the answer; filed before, it says so.
-	async function filePost(d, title) {
+	// `!suggest`/`!report` in a suggestions post: the whole post filed as a
+	// suggestion or a bug. Newly filed, the bot's "Tracked as #N" in the post
+	// is the answer (a bug also gets its thank-you under the first message);
+	// filed before, it says so.
+	async function filePost(d, kind, title, name) {
 		let result;
 		try {
-			result = await fileIdea(d.channel_id, { title: title.split('\n')[0] });
+			result = await fileIdea(d.channel_id, { kind, title: title.split('\n')[0] });
 		} catch (err) {
-			log.error('!suggest:', err.message);
+			log.error(`${name}:`, err.message);
 			await discord.reply(d.channel_id, d.id, `That didn\u2019t work: ${err.message}`);
 			return false;
 		}
@@ -169,8 +177,9 @@ function createChat({ discord, forumId, suggestionsForumId = null, maintainerIds
 			await discord.reply(d.channel_id, d.id, result.error);
 			return false;
 		}
-		if (result.existing) await discord.send(d.channel_id, filedReply('suggestion', repo, { ...result, thread: null })[0]);
-		await dropCommand(d, '!suggest');
+		if (result.existing) await discord.send(d.channel_id, filedReply(kind, repo, { ...result, thread: null })[0]);
+		else if (kind === 'report' && result.reporter) await discord.reply(d.channel_id, d.channel_id, ...filedReply(kind, repo, { ...result, thread: null }));
+		await dropCommand(d, name);
 		return true;
 	}
 
@@ -179,7 +188,10 @@ function createChat({ discord, forumId, suggestionsForumId = null, maintainerIds
 		const text = (d.content || '').trim();
 		const command = text.match(FILE_COMMAND);
 		if (command) return fileCommand(d, command[1].toLowerCase() === 'suggest' ? 'suggestion' : 'report', (command[2] || '').trim());
-		if (!COMMANDS.has(text.toLowerCase())) return false;
+		// `!bug <text>`: the maintainer's is `!report <text>`; anyone's else the plain help.
+		const bug = text.match(BUG_TEXT);
+		if (bug && maintainers.has(d.author && d.author.id)) return fileCommand(d, 'report', bug[1].trim(), '!bug');
+		if (!bug && !COMMANDS.has(text.toLowerCase())) return false;
 		return help(d);
 	}
 

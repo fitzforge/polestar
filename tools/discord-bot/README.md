@@ -27,9 +27,9 @@ sequenceDiagram
 | A new post | the bot, at once | "Tracked as fitzforge/polestar#N. Replies in this thread, from anyone, are copied to the issue.", tag **Tracked** |
 | A new post whose report is from an older Polestar than the latest full release (GitHub's latest release; drafts, prereleases, other releases such as the Client's, and `dev` builds never count; read at most every 10 minutes) | the bot, at once, after "Tracked as" | "You're on 0.3.6, 0.3.7 is out. Please update and tell us if it still happens. Download it from CurseForge: <link>", and the same as a comment on the issue (marked `polestar-bot:update`: never relayed back to the thread, never quoted as a maintainer's word). Once per issue: only as the post is filed |
 | An issue opened on GitHub with a bug form whose **Polestar version** is older than the latest full release | `discord-issue-sync.yml` | the same reply as a comment on the issue, once (a re-run finds the mark). Issues filed from Discord are left to the bot |
-| Anyone writes in the thread (text, screenshots, a new report) | the bot | nothing; it becomes a comment on the issue, the reporter's marked "(the reporter)". What is said before the post is filed (while it waits for the hourly limit) is copied, in order, once it is. The bot's own messages, pins, renames and a sticker or embed alone are not copied. Only the reporter's screenshots are copied to GitHub; other players' are linked on Discord. Each Discord user gets 5 new reports and 20 follow-ups (edits included) an hour; past that, the bot logs them and files them a second after the hour allows (up to 100 waiting; a restart drops the wait, and its backfill and catch-up file skipped posts and copy skipped follow-ups). A held post gets one reply, "Thanks! You've sent a few reports this hour; this one will be filed automatically in about N minutes.", which becomes the "Tracked as" reply once it is filed. Server staff (the owner, and roles with Administrator, Manage Server, Manage Messages or Manage Threads) and the users in `RATE_EXEMPT_IDS` have no limits |
+| Anyone writes in the thread (text, screenshots, a new report) | the bot | nothing; it becomes a comment on the issue, the reporter's marked "(the reporter)". What is said before the post is filed (while it waits for the hourly limit) is copied, in order, once it is. The bot's own messages, pins, renames and a sticker or embed alone are not copied. Everyone's images and videos are copied to GitHub (the reporter's and other players'); other files are linked on Discord. Each Discord user gets 5 new reports and 20 follow-ups (edits included) an hour; past that, the bot logs them and files them a second after the hour allows (up to 100 waiting; a restart drops the wait, and its backfill and catch-up file skipped posts and copy skipped follow-ups). A held post gets one reply, "Thanks! You've sent a few reports this hour; this one will be filed automatically in about N minutes.", which becomes the "Tracked as" reply once it is filed. Server staff (the owner, and roles with Administrator, Manage Server, Manage Messages or Manage Threads) and the users in `RATE_EXEMPT_IDS` have no limits |
 | The maintainer replies `!report` or `!suggest` to a player's message in chat (anywhere the bot can read) | the bot, at once | under their message, "Thanks @player! This has now been reported as a bug: #N. You can follow it and add details in #post" (an idea: "Your idea has been added as a suggestion"); the bot starts a #bugs post for it, which then works like any other. Anyone else gets "Naughty naughty, you're not Master Fitz." See "`!report` and `!suggest`" below |
-| The maintainer types `!suggest` in a post of the suggestions forum | the bot, at once | the whole post filed as one issue (the first message and every reply); "Tracked as #N" in the post and the forum's **Tracked** tag; a second one says "Already filed as #N". See "`!suggest` in the suggestions forum" below |
+| The maintainer types `!suggest` (an idea) or `!report` / `!bug <text>` (a bug) in a post of the suggestions forum | the bot, at once | the whole post filed as one issue (the first message and every reply); "Tracked as #N" in the post and the forum's **Tracked** tag (a bug also gets "This has now been reported as a bug: #N"); a second command says "Already filed as #N". See "`!suggest` in the suggestions forum" below |
 | Anyone types `!bug` | the bot | how to report a bug from the game; capped against spam. See "`!bug` in chat" below |
 | The reporter edits the post's first message | the bot | nothing; the issue body is written again |
 | Anyone edits a later message | the bot | nothing; its comment is written again |
@@ -282,6 +282,12 @@ hour, and the server gets at most 6 answers an hour; past a cap it is ignored
 (everything there goes to the issue), and never to a bot or a webhook. The
 text and the caps are in `lib/chat.js`.
 
+With text after it, `!bug Paladin trainer missing` is the maintainer's
+shorthand for `!report Paladin trainer missing` (below), in both places that
+works: as a reply to a player's message, and inside a suggestions post. For
+anyone else it is the plain `!bug` help, under the same caps: nothing is
+filed and nobody is told off.
+
 ## `!report` and `!suggest`: filing someone's message from chat
 
 When a player describes a bug (or an idea) somewhere other than #bugs, the
@@ -383,8 +389,8 @@ flowchart TD
   "**name** (the reporter) added on Discord". **Everyone's** images and
   videos in the post, in the first message, the comments and later replies,
   are copied to the media branch and embedded (same size limits and WebP
-  rule as for #bugs; a #bugs post copies only its poster's); other files stay
-  a link to the Discord message. Bots' messages,
+  rule as for #bugs, which copies everyone's too); other files stay a link
+  to the Discord message. Bots' messages,
   empty ones and the maintainer's `!report`/`!suggest` commands are not
   copied. Labels: `discord`, `triage`, `enhancement`, `idea` and the post's
   forum tags as a #bugs post's are (not the status tags). No `from-chat`
@@ -415,8 +421,17 @@ flowchart TD
 
   The post gets the forum's status tags and is locked while the issue is
   closed, as a #bugs post is.
-- **Unchanged**: `!suggest` as a reply anywhere else, and `!report`, work as
-  above. A suggestions post nobody filed is never filed by itself and its
+- **As a bug**: `!report` (or the maintainer's `!bug <text>`) in a
+  suggestions post files the whole post the same way, but as a bug: "**Reported
+  by** *name*", the labels a #bugs post gets (`discord`, `triage`, `bug`, the
+  report's labels when the post holds one, and the forum tags), no `idea`
+  label; the post answers "Tracked as #N" and, under its first message,
+  "Thanks @poster! This has now been reported as a bug: #N". Its notices are
+  a bug's ("This is fixed…"), not an idea's. A post filed either way answers
+  "Already filed as #N" to the other command. The text after the command is
+  the title.
+- **Unchanged**: `!suggest` as a reply anywhere else, and `!report` as a reply
+  outside the suggestions forum, work as above. A suggestions post nobody filed is never filed by itself and its
   messages are ignored. `refresh` leaves these issues alone.
 
 ## Closing from Discord
