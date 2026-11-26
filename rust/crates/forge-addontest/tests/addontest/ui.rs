@@ -2754,6 +2754,19 @@ fn a_farm_spot_collect_goal_names_its_mobs_their_levels_and_zone_and_cycles_to_t
 	assert_eq!(out["call"], json!(["CycleCandidate", 3, 4]));
 }
 
+// A farming loop (`loop <zone> …`, #3661): the window names the loop, its zone and lap, the laps left and the
+// next choice's zone, once (not the zone again as a chosen candidate's).
+#[test]
+fn a_farming_loop_goal_names_its_loop_zone_lap_and_laps_and_the_next_zone() {
+	let out = run(r#"
+		local loop = { t = "skill", subject = "Mining", status = "active", map = 1436, alternatives = 2, farm = { loop = true, lap = 5, laps = 23, second = { map = 1429 } } }
+		local high = { t = "skill", subject = "Mining", status = "active", map = 1436, alternatives = 1, farm = { loop = true, lap = 6, above = 3 } }
+		emit({ loop = UI.GoalDetail(loop), high = UI.GoalDetail(high) })"#)
+	.remove(0);
+	assert_eq!(out["loop"], "Mining loop  \u{b7}  Westfall  \u{b7}  5 min a lap  \u{b7}  about 23 laps  \u{b7}  or Elwynn Forest");
+	assert_eq!(out["high"], "No farm at your level: 3 levels above you  \u{b7}  Mining loop  \u{b7}  Westfall  \u{b7}  6 min a lap");
+}
+
 #[test]
 fn an_area_objective_says_its_mobs_are_all_over_the_area_and_its_row_button_moves_to_the_next_spot() {
 	let out = run(r#"

@@ -1203,6 +1203,16 @@ L["Group, or careful: a group is advised"] = "Gruppe oder Vorsicht: Eine Gruppe 
 L["Careful: elites nearby"] = "Vorsicht: Elite in der Nähe"
 L["Careful: elites, below your level"] = "Vorsicht: Elite, unter deiner Stufe"
 L["%s · kept for %s"] = "%s · aufgehoben für %s"
+L["No farm at your level: %d levels above you"] = "Keine Farmstelle auf deiner Stufe: %d Stufen über dir"
+L["1 level above you: careful"] = "1 Stufe über dir: Vorsicht"
+L["about %d kills, %d min"] = "etwa %d Kills, %d Min."
+L["about %d kills"] = "etwa %d Kills"
+L["or %s (%s)"] = "oder %s (%s)"
+L["or %s"] = "oder %s"
+-- L["%s loop"] = ""
+-- L["Farming loop"] = ""
+-- L["%d min a lap"] = ""
+-- L["about %d laps"] = ""
 
 -- UI/Welcome.lua
 L["level %d %s"] = "Stufe %d, %s"

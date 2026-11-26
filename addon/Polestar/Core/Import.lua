@@ -240,7 +240,7 @@ local GOAL = rec({
 	from = S, fromKind = S, fromRank = N, fromFaction = S, fromAlso = S, fromId = N, fromAlsoId = N,
 	fromNpcs = list(rec({ npc = N, npcName = S })), fromNpcsAt = S,
 	candidates = list(rec({ npc = N, npcName = S, map = N, x = N, y = N, z = N, f = S, faction = S, races = LS, classes = LS,
-		lvl = rec({ min = N, max = N }), rate = N, spawns = N })),
+		lvl = rec({ min = N, max = N }), rate = N, spawns = N, lap = N, gain = N, yield = N, spotsPacked = S })),
 	rewards = rec({ choices = list(REWARD_ITEM), items = list(REWARD_ITEM), xp = N, money = N }),
 	group = rec({ kind = S, rank = N, name = S, size = N, map = N, lvl = N }),
 	direct = B, repeatable = B, escort = B, escortSecs = N, escortFail = N, gossip = N, seconds = N, either = B, off = B, points = N, upto = N,

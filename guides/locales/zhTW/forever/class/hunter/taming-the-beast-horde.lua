@@ -125,8 +125,9 @@ return {
 
 	-- Step 16: Your first pet
 	["Your first pet"] = "你的第一隻寵物",
-	-- {spell:1515} Tame Beast · {spell:17253} Bite
-	["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and {spell:17253}) and a boar takes more punishment."] = "{spell:1515}的用法和魔杖一樣：目標須是與你同級或更低階的野獸，引導期間不能移動，野獸會一直攻擊你。寵物會保持你馴服它時的等級，並隨你一起升級；它永遠不會高於你的等級，所以抓一隻等級接近你的。在Forever上每個科系都有自己的技能（比如野豬的衝鋒）。練級時，貓科傷害最高（爪擊與{spell:17253}），野豬則更耐打。",
+	-- {spell:1515} Tame Beast
+	-- was: ["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and {spell:17253}) and a boar takes more punishment."] = "{spell:1515}的用法和魔杖一樣：目標須是與你同級或更低階的野獸，引導期間不能移動，野獸會一直攻擊你。寵物會保持你馴服它時的等級，並隨你一起升級；它永遠不會高於你的等級，所以抓一隻等級接近你的。在Forever上每個科系都有自己的技能（比如野豬的衝鋒）。練級時，貓科傷害最高（爪擊與{spell:17253}），野豬則更耐打。"
+	["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and Bite) and a boar takes more punishment."] = "",
 	["Tame a beast of your level to keep"] = "馴服一隻與你等級相當的野獸作為永久寵物",
 	-- {area:362} Razor Hill · {zone:1411} Durotar · {area:367} Sen'jin Village · {zone:1454} Orgrimmar · {zone:1413} Barrens
 	-- plural, as words: Durotar Tigers = {npc:3121} Durotar Tiger · Venomtail Scorpids = {npc:3127} Venomtail Scorpid
@@ -148,4 +149,7 @@ return {
 	["Pet trainers sell {spell:1853} ranks and resistances. Horde: Harruk in {area:362}, {npc:3688} at Bloodhoof, {npc:10088} in {zone:1454}'s {object:172958}, {npc:10086} on {zone:1456}'s {area:1641}, {npc:254411} in {area:16638}, later Grokor in {area:75} and Zudd at {object:3202}."] = "寵物訓練師出售{spell:1853}的各級和抗性。部落：{area:362}的哈魯克、血蹄村的{npc:3688}、{zone:1454}的{object:172958}裡的{npc:10088}、{zone:1456}的{area:1641}上的{npc:10086}、{area:16638}的{npc:254411}，之後還有{area:75}的格羅科爾和{object:3202}的祖德。",
 	-- {spell:883} Call Pet · {spell:2641} Dismiss Pet · {spell:982} Revive Pet · {spell:136} Mend Pet
 	["{spell:883}, {spell:2641} and {spell:982} are in your spellbook now; {spell:136} comes from your trainer at 12. A dead pet needs {spell:982}; one that is away more than about 100 yards is dismissed and comes back with {spell:883}."] = "{spell:883}、{spell:2641}和{spell:982}現在已在你的法術書裡；{spell:136}會在12級時由訓練師教你。死掉的寵物需要{spell:982}；離你超過約100碼的寵物會被解散，用{spell:883}召回。",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and {spell:17253}) and a boar takes more punishment."] = "{spell:1515}的用法和魔杖一樣：目標須是與你同級或更低階的野獸，引導期間不能移動，野獸會一直攻擊你。寵物會保持你馴服它時的等級，並隨你一起升級；它永遠不會高於你的等級，所以抓一隻等級接近你的。在Forever上每個科系都有自己的技能（比如野豬的衝鋒）。練級時，貓科傷害最高（爪擊與{spell:17253}），野豬則更耐打。",
 }

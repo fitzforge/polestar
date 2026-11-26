@@ -3166,13 +3166,42 @@ Own.OUTGROWN = 8 -- tiers an outgrown class trainer drops (after continent, zone
 Own.trainerTop = {} -- class trainer npc -> the highest level it teaches, below the cap (ns.RegisterClassTrainerTops)
 -- Farm spots (`collect … nearest`): seconds to farm the items still missing
 -- there, and how many levels the spot's weakest mobs are above the player
--- (3 or more: too high).
-Own.TOO_HIGH = 3
+-- (2 or more: too high, the route rule "never send a solo player at mobs 2+
+-- levels above them"; Polestar 0.4.4, #3661).
+Own.TOO_HIGH = 2
+-- Farming loops (`loop <zone> …`, docs/GUIDE_FORMAT.md "Farming loops";
+-- #3661): candidates with `lap` (the seconds a lap takes) and `gain` (skill
+-- points a lap, a `skill` goal) or `yield` (the goal's items a lap, a
+-- `collect` goal); `lvl` is the strongest creature along the walk. A goal
+-- whose candidates are loops ranks them as farm spots.
+function Own.isLoopGoal(goal)
+	local c = goal.candidates and goal.candidates[1]
+	return c ~= nil and c.lap ~= nil
+end
+
+-- What a loop goal still needs: skill points to its `skill` target, or items.
+function Own.loopNeed(goal)
+	local C = Compat()
+	if goal.t == "skill" then
+		local rank = C.GetSkillRank and ((goal.skillLine and C.GetSkillRank(goal.skillLine)) or (goal.skill and C.GetSkillRank(goal.skill))) or 0
+		return (tonumber(goal.level) or 0) - rank
+	end
+	return Own.needOf(goal) - (goal.item and C.GetItemCount(goal.item) or 0)
+end
+
 local function farmSeconds(goal, c)
 	local level = player.level or 1
 	local lo, hi = level, level
 	if type(c.lvl) == "table" then lo, hi = c.lvl[1] or c.lvl.min or level, c.lvl[2] or c.lvl.max or level end
 	local gap = lo - level
+	-- A loop: laps to finish times its lap.
+	if c.lap then
+		local per = tonumber(goal.t == "skill" and c.gain or c.yield) or 0
+		if per <= 0 then return Own.UNMEASURED, gap end
+		local need = Own.loopNeed(goal)
+		if need < 1 then need = 1 end
+		return need / per * c.lap, gap
+	end
 	local mob = math.floor((lo + hi) / 2 + 0.5)
 	local diff = mob - level
 	local kpm
@@ -3201,7 +3230,7 @@ local function pickFor(goal)
 	local hereCont = here and C.GetContinentMap and C.GetContinentMap(here.map)
 	local hc, hx, hy
 	if here then hc, hx, hy = C.MapToWorld(here.map, here.x, here.y, here.f) end
-	local farm = goal.t == "collect" and not goal.quest
+	local farm = (goal.t == "collect" and not goal.quest) or Own.isLoopGoal(goal)
 	local zoneLevels = ns.Maps and ns.Maps.GetZoneLevels
 	local list, tier, cost, extra, order, gap = {}, {}, {}, {}, {}, {}
 	local reasonable = false
@@ -3285,6 +3314,7 @@ local function pickFor(goal)
 	end
 	p = { list = list, i = #list > 0 and 1 or 0, gen = contextGen, tier = tier }
 	picks[goal] = p
+	Own.applyLoop(goal, list[p.i])
 	return p
 end
 
@@ -3293,6 +3323,54 @@ local function chosen(goal)
 	if not goal.candidates then return nil end
 	local p = pickFor(goal)
 	return p.list[p.i]
+end
+
+-- A farm spot's numbers for the guide window (#3661): the kills and minutes
+-- the items still missing take at the chosen spot (`rate`: items a looted
+-- kill yields), how many levels its weakest mobs are above the player (nil at
+-- or below), and the second choice: the next spot of the ranking on another
+-- map, else the next one. A farming loop instead: `loop` (what it gathers:
+-- the skill, or the item), its lap in minutes, the laps and minutes left.
+-- Nil for no farm goal, no usable spot, or nothing left to farm.
+function Own.farmView(goal)
+	if not goal.candidates then return nil end
+	local loop = Own.isLoopGoal(goal)
+	if not loop and (goal.t ~= "collect" or goal.quest) then return nil end
+	local p = pickFor(goal)
+	local c = p.list[p.i]
+	if not c then return nil end
+	local need = loop and Own.loopNeed(goal) or Own.needOf(goal) - (goal.item and Compat().GetItemCount(goal.item) or 0)
+	if need < 1 then return nil end
+	local secs, gap = farmSeconds(goal, c)
+	local rate = tonumber(c.rate) or 1
+	local n = #p.list
+	local second, after
+	for k = 1, n - 1 do
+		local o = p.list[(p.i - 1 + k) % n + 1]
+		after = after or o
+		if o.map ~= c.map then
+			second = o
+			break
+		end
+	end
+	second = second or after
+	if loop then
+		local per = tonumber(goal.t == "skill" and c.gain or c.yield) or 0
+		return {
+			loop = true,
+			lap = math.max(1, math.floor(c.lap / 60 + 0.5)),
+			laps = per > 0 and math.ceil(need / per) or nil,
+			minutes = secs < Own.UNMEASURED and math.max(1, math.floor(secs / 60 + 0.5)) or nil,
+			above = gap > 0 and gap or nil,
+			second = second and { map = second.map, lvl = second.lvl } or nil,
+		}
+	end
+	return {
+		kills = rate > 0 and math.ceil(need / rate) or nil,
+		minutes = secs < Own.UNMEASURED and math.max(1, math.floor(secs / 60 + 0.5)) or nil,
+		above = gap > 0 and gap or nil,
+		second = second and { npcName = second.npcName, map = second.map, lvl = second.lvl } or nil,
+	}
 end
 
 -- The NPC a goal is done with (the chosen candidate's, if any; the banker
@@ -3372,6 +3450,22 @@ local Spots = {
 	world = setmetatable({}, { __mode = "k" }), -- spot -> { c, wx, wy } | false
 	points = setmetatable({}, { __mode = "k" }), -- spot list -> whether its spots are exact points (Spots.exact)
 }
+
+-- The farming loop a goal's pick chose (`loop <zone> …`, pickFor): its stops
+-- become the goal's spawn areas and its first stop the goal's point, so the
+-- arrow walks that loop as a `loop` step's (Spots). A new loop starts with no
+-- spot chosen. No-op for another candidate or the loop already on.
+Own.loopOn = setmetatable({}, { __mode = "k" }) -- goal -> its candidate on
+function Own.applyLoop(goal, c)
+	if not (c and c.lap) or Own.loopOn[goal] == c then return end
+	local spots = Guides.CandidateSpots(c)
+	if not spots then return end
+	goal.map, goal.x, goal.y, goal.f = c.map, c.x, c.y, c.f
+	rawset(goal, "spots", spots)
+	goal.spread = true
+	Spots.chosen[goal], Spots.pinned[goal], Spots.stay[goal] = nil, nil, nil
+	Own.loopOn[goal] = c
+end
 
 -- Whether goal's spots are exact points: every one's radius 0 (a packed
 -- point reads it through Own.POINT, Core/Guides.lua). Kept per list.
@@ -3639,7 +3733,8 @@ local function posOf(goal)
 	local shop = Own.recipeVendor(goal)
 	if shop then return posOf(shop) end
 	local c = chosen(goal)
-	if c then return c.map, c.x, c.y, c.f, nil, c.z end
+	-- A farming loop's place is its spawn areas (Own.applyLoop), below.
+	if c and not c.lap then return c.map, c.x, c.y, c.f, nil, c.z end
 	local s = goal.spots and Spots.get(goal)
 	if s and Own.onePlace(goal) then
 		if #goal.spots == 1 and goal.x then return goal.map, goal.x, goal.y, goal.f, nil, goal.z end
@@ -6692,6 +6787,8 @@ local function goalView(s, g, goal, stepStatus, group)
 		alternatives = alternatives,
 		spots = goal.spots and #goal.spots or nil, spread = goal.spread or nil, exact = goal.spots and Spots.exact(goal) or nil,
 		lvl = goal.candidates and chosen(goal) and chosen(goal).lvl or nil,
+		-- A farm spot's kills, minutes, level gap and second choice (Own.farmView).
+		farm = (status == "active" or status == "pending") and Own.farmView(goal) or nil,
 		unavailable = unavail and unavail.reason or nil,
 		waitsLevel = waitsLevel,
 		unavailableText = unavail and unavailableText(unavail) or nil,
@@ -7324,7 +7421,8 @@ function Own.isGrind(goal)
 end
 
 function Own.isField(goal)
-	return (Own.FIELD[goal.t] == true or Own.isGrind(goal)) and not goal.candidates and (goal.spots ~= nil or (goal.map ~= nil and goal.x ~= nil and goal.y ~= nil))
+	-- A farming loop (Own.applyLoop) is fought over like any spawn areas; other candidates are one NPC each.
+	return (Own.FIELD[goal.t] == true or Own.isGrind(goal)) and (not goal.candidates or Own.isLoopGoal(goal)) and (goal.spots ~= nil or (goal.map ~= nil and goal.x ~= nil and goal.y ~= nil))
 end
 
 -- A search goal follows its loop points without being a field goal: gathering
@@ -18014,6 +18112,7 @@ function Engine.CycleCandidate(stepIndex, goalIndex)
 	local p = pickFor(goal)
 	if #p.list < 2 then return p.i > 0 and p.i or nil end
 	p.i = p.i % #p.list + 1
+	Own.applyLoop(goal, p.list[p.i])
 	if stepIndex == current then aim = goal else ns.Fire("STEP_UPDATED", current) end
 	evaluate()
 	return p.i

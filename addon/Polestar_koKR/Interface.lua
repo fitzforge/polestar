@@ -1941,6 +1941,16 @@ L["Group, or careful: a group is advised"] = "파티 또는 주의: 파티 권�
 L["Careful: elites nearby"] = "주의: 근처에 정예"
 L["Careful: elites, below your level"] = "주의: 정예, 내 레벨보다 낮음"
 L["%s · kept for %s"] = "%s · %s용으로 보관"
+L["No farm at your level: %d levels above you"] = "내 레벨의 사냥터 없음: %d레벨 높음"
+L["1 level above you: careful"] = "1레벨 높음: 주의"
+L["about %d kills, %d min"] = "약 %d마리, %d분"
+L["about %d kills"] = "약 %d마리"
+L["or %s (%s)"] = "또는 %s (%s)"
+L["or %s"] = "또는 %s"
+-- L["%s loop"] = ""
+-- L["Farming loop"] = ""
+-- L["%d min a lap"] = ""
+-- L["about %d laps"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "위치"

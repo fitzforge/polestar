@@ -145,4 +145,4 @@ function load() {
 	return cached;
 }
 
-module.exports = { FILE, ABOUT, poolOdds, derive, load };
+module.exports = { FILE, ABOUT, poolOdds, nodeGrid, nearestMap, derive, load };

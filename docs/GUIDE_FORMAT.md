@@ -135,6 +135,7 @@ Step directives:
 | `tip <text>` | Player-facing step note (compiled to `step.note`). |
 | `image <path> [<w>x<h>]` | A picture shown in the guide window under the step's tip, while the tip is open, scaled to the window's width (at most 160 high): a screenshot of a spot that is hard to find, such as a cave mouth. `<path>` is the file's place in the pack folder, `/` between folders (`media/fargodeep-mine.tga`), a `.tga` or `.blp` file; without the extension the `.tga`, else the `.blp`. The file ships in the pack's addon folder at that path. `<w>x<h>` is the size it is drawn at (only the ratio counts: `512x256` is twice as wide as high); without it the compiler reads the file's own. One per step; a step with no `tip` reads "Picture of this spot" above it. See "Pictures" in the Cookbook. |
 | `loop` | The step's `goto` points, in order, are the places to search for its kill, collect, interact, skill and `use … quest Q.O` goals (or, with none of those, for the NPC of its accept, turnin and talk goals) instead of a path to walk: see "Spawn areas", Loop. |
+| `loop <zone> lvl <n> lap <s> gain\|yield <n> [only <conditions>] [live] [r <yards>] at <x,y> …` | One of several farming loops the step's `skill` or `collect` goal picks from where the player is: see "Spawn areas", Farming loops. |
 
 A step must contain at least one goal.
 
@@ -151,7 +152,7 @@ A step must contain at least one goal.
 | `complete` | `<questId> ["Title"]` | Finish all objectives. The guide window shows the quest's objective lines from the quest log in the game's words, each with its count ("Rabid Thistle Bear Captured 0/1"), starting with "Use Tharnariun's Hope:" while the item the quest hands over is in the bags and usable; looked at ahead, before the quest is in the log, the quest data's objectives (the compiler writes them, and the item, onto the goal); "Complete <quest>" only when neither has any. A `--` note stays the line under it. |
 | `abandon` | `<questId> ["Title"]` | Drop a quest from the log (a quest the guide takes only to turn it in elsewhere, a chain you skip). Done once the quest is out of the log, and it stays done for the rest of its step. The quest's `accept` stays done too, so abandoning on the guide's say-so does not send the route back to the giver. A character that does not have the quest has it done at once, and once the route has passed the step it stays done: taking the quest again later does not reopen it. Lint counts it as the end of the quest, like a turn-in. Pack format 5. |
 | `kill` | `<npcId>` or `"Target name"` | Pair with `quest Q.O` to track a quest objective (`talk` takes it too, for an objective that is speaking with someone). |
-| `collect` | `<itemId> ["Item name"]` | Pair with `quest Q.O` when the item is one of the quest's objectives; otherwise tracked by bag count `xN` (an item the quest only uses). `npc <id>` names the NPC who hands the item over, for an item nothing drops and no data lists a source for (a quest report given in a gossip window): the target button then has someone to target, and the point is that NPC's spawn unless you place it. `collect <item> xN nearest` (no `quest`) compiles to farm spots: clusters of normal or rare mobs that drop the item at 2% or more, outside towns and guard posts, each with the zone's safety (`A`/`H` faction zone, `AH` contested), mob level range, items per kill and spawn count; at most 16 per continent, spread over safety and 10-level bands. The engine picks one by the player's level, faction and travel time. `collect <item> xN anywhere` (no `quest`, no place) is a bag count the arrow never leads to: otherwise a bag count is placed at one of the item's sources, which for cloth is one humanoid of hundreds, near wherever the guide happens to be (Polestar 0.3.7). |
+| `collect` | `<itemId> ["Item name"]` | Pair with `quest Q.O` when the item is one of the quest's objectives; otherwise tracked by bag count `xN` (an item the quest only uses). `npc <id>` names the NPC who hands the item over, for an item nothing drops and no data lists a source for (a quest report given in a gossip window): the target button then has someone to target, and the point is that NPC's spawn unless you place it. `collect <item> xN nearest` (no `quest`) compiles to farm spots: clusters of normal or rare mobs that drop the item at 2% or more, outside towns and guard posts, each with the zone's safety (`A`/`H` faction zone, `AH` contested), mob level range, items per looted kill (the drop chance times the item's yield from players' recordings: cloth drops one to three at a time) and spawn count; a camp of fewer than 3 mobs only where the continent has no other; each zone's best camp per safety and 5-level band, at most 32 per continent, spread over safety and 10-level bands; never Timbermaw furbolgs (their kills cost reputation). The engine picks one by the player's level (never mobs 2+ levels above them while another spot is left), faction, farm time and travel time, again on level-up, and the guide window shows the kills and minutes it takes, a second choice, and how far above the player the spot is when it is (Polestar 0.4.4). `collect <item> xN anywhere` (no `quest`, no place) is a bag count the arrow never leads to: otherwise a bag count is placed at one of the item's sources, which for cloth is one humanoid of hundreds, near wherever the guide happens to be (Polestar 0.3.7). |
 | `goto` | `<x>,<y> ["Label"]` | Coordinates are mandatory here. A label that is a subzone's name as the game spells it (`"Fargodeep Mine"`, not `"Fargodeep Mine's mouth"`) gets its area ("Places by ID"); at a cave's or mine's mouth the goto then also counts as arrived once the player walks into it past the point (in that subzone and indoors). |
 | `talk` | `<npcId>` | Speak with an NPC. With `quest Q.O` it is that quest objective ("Speak with Valennia"): done once the quest log line is finished or the quest is ready to hand in, and the guide window reads "Talk to <npc>" for the quest; `quest Q` takes the index from the objective for that NPC. A line the game shows only once the one before it is done ticks when the player talks to the NPC. A `kill … quest Q.O` naming the same NPC's talk objective (older guides) still compiles. |
 | `interact` | `<objectId>` | Click a game object. |
@@ -824,21 +825,21 @@ guide (Gather, Buy or Mix) and per material, and changes it any time (the card
 a guide with such materials shows once, the Materials window, `/polestar
 materials`, or the guide window's menu; Options > Guide > Professions sets the
 way of a guide never answered). A section writes both ways for each material it needs that the Auction House
-sells: an `auction` goal (usually all of them in one step after the vendor
-goods) and the item's `collect` steps marked `gather`:
+sells: the item's `collect` marked `gather` and an `auction` goal. Polestar's
+profession guides write one "Get it" step per material, the farm first and
+the Auction House as its last line (#3661); what no step farms (a pattern)
+goes in one Auction House step after them:
 
 ```
 section Tailoring 75-150
 
-step Tailoring 75-150: Auction House
+step Get Wool Cloth
+  collect 2592 x567 nearest gather levels 15-30
   auction 2592 x567
+
+step Get Silk Cloth
+  collect 4306 x204 nearest gather levels 25-45
   auction 4306 x204
-
-step Wool Cloth
-  collect 2592 x567 anywhere gather levels 15-30
-
-step Silk Cloth
-  collect 4306 x204 anywhere gather levels 25-45
 ```
 
 Polestar applies one way per item, never both, and a goal of the other way
@@ -1128,6 +1129,26 @@ gets no `spots`, except an NPC who walks around:
     goto 49.0,32.4 r 20
     goto 52.3,26.8
     kill 6 x10 quest 7.1
+  ```
+- **Farming loops** (`loop <zone> …` lines, one per loop; a step holds no bare
+  `loop` and no `goto` beside them): the step's one unpinned `skill` goal (each
+  loop with `gain`: the skill points a lap gives) or `collect` goal (`yield`:
+  the goal's items a lap gives) gets one candidate per loop, and the Engine
+  picks one when the step comes up, again on a zone change, a level-up and
+  from the window's "Other": travel there from where the player is plus the
+  laps left times `lap` (seconds a lap takes), as for farm spots (`collect …
+  nearest`), with a loop whose `lvl` (its strongest creature) is 2 or more
+  above the player only when every loop is. The picked loop's points, in
+  order, each `r` yards wide (default 30), are the goal's spawn areas, as in a
+  Loop step; `only` limits a loop to some characters (the other faction's
+  towns differ). Points are Era-frame unless `live`. The window names the loop,
+  its zone, its lap and the laps left, and the next choice.
+
+  ```
+  step Copper & Tin (65-125)
+    loop Westfall lvl 18 lap 420 gain 3.5 r 60 at 52.1,61.3 49.8,64.0 47.0,60.2
+    loop Loch Modan lvl 16 lap 380 gain 3.1 only Alliance r 60 at 33.1,25.0 36.4,22.8 38.0,30.1
+    skill Mining 125
   ```
 - **Recorded** (a `kill`, `collect` or `interact` bound to a quest objective,
   `quest Q.O`, outside a `loop` step, that players' recordings place:
@@ -1635,7 +1656,8 @@ Warnings:
 - a `craft` before any `learn` of that spell earlier in the chain (free starter
   recipes excepted); `until <N>` past the recipe's grey skill
 - a coordinate on a map other than the step's zone that the guide never sets as
-  a zone (catches a target resolved onto another continent)
+  a zone (catches a target resolved onto another continent); a step on the
+  world map (`zone Azeroth`) spans every zone and never warns
 - coordinates without `map` on a zone set in a step for some characters only,
   when the other characters who see them are in another zone (a class trip's
   `zone Moonglade` holding for the rest of Darkshore)

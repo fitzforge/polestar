@@ -68,7 +68,7 @@ step Fishing: Elwynn Forest (1-75)
   only Human
   when !skill Cooking 50
   zone Elwynn Forest
-  tip Fish the round until Fishing 75 and until your bags hold 50 Raw Brilliant Smallfish for the cooking: about 80 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Brilliant Smallfish (61%), Raw Longjaw Mud Snapper (37%). This water loses fish below skill 25: keep a lure on the pole until then.
+  tip Fish the round until Fishing 75 and until your bags hold 50 Raw Brilliant Smallfish for the cooking: about 80 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Brilliant Smallfish (61%), Raw Longjaw Mud Snapper (37%). This water loses fish below skill 25: keep a lure on the pole until then.
   loop
   goto 47.1,64.0 r 15
   goto 48.8,63.3 r 15
@@ -160,7 +160,7 @@ step Fishing: Teldrassil (1-75)
   only NightElf
   when !skill Cooking 50
   zone Teldrassil
-  tip Fish the round until Fishing 75 and until your bags hold 50 Raw Slitherskin Mackerel for the cooking: about 70 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Slitherskin Mackerel (96%), Battered Chest (4%). This water loses fish below skill 25: keep a lure on the pole until then.
+  tip Fish the round until Fishing 75 and until your bags hold 50 Raw Slitherskin Mackerel for the cooking: about 70 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Slitherskin Mackerel (96%), Battered Chest (4%). This water loses fish below skill 25: keep a lure on the pole until then.
   loop
   goto 55.7,93.5 r 15
   goto 54.8,97.6 r 15
@@ -199,7 +199,7 @@ step Fishing: Zephras Isle (1-75)
   only Skyborne
   when !skill Cooking 50
   zone Zephras Isle
-  tip Fish the round until Fishing 75 and until your bags hold 50 Raw Brilliant Smallfish for the cooking: about 80 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Brilliant Smallfish (59%), Raw Longjaw Mud Snapper (39%).
+  tip Fish the round until Fishing 75 and until your bags hold 50 Raw Brilliant Smallfish for the cooking: about 80 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Brilliant Smallfish (59%), Raw Longjaw Mud Snapper (39%).
   level 5
   loop
   goto 46.8,48.9 live r 15
@@ -330,7 +330,7 @@ step Fishing: Tirisfal Glades (1-75)
   only Undead
   when !skill Cooking 50
   zone Tirisfal Glades
-  tip Fish the round until Fishing 75 and until your bags hold 50 Raw Brilliant Smallfish for the cooking: about 100 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Brilliant Smallfish (48%), Raw Longjaw Mud Snapper (29%), Sickly Looking Fish (15%), Old Skull (5%). This water loses fish below skill 25: keep a lure on the pole until then.
+  tip Fish the round until Fishing 75 and until your bags hold 50 Raw Brilliant Smallfish for the cooking: about 100 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Brilliant Smallfish (48%), Raw Longjaw Mud Snapper (29%), Sickly Looking Fish (15%), Old Skull (5%). This water loses fish below skill 25: keep a lure on the pole until then.
   level 6
   loop
   goto 67.4,51.4 r 15
@@ -381,7 +381,7 @@ step Fishing: Stormwind City (75-150)
   only Human,Skyborne,Alliance
   when !skill Cooking 140
   zone Stormwind City
-  tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Longjaw Mud Snapper (61%), Raw Bristle Whisker Catfish (21%), Raw Brilliant Smallfish (17%). From skill 75 this water loses no fish. From level 7, Gilbert Gray at the harbor gives Fishin' Time: bring 1 Shiny Bauble and 3 Nightcrawlers for cooked fish.
+  tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Longjaw Mud Snapper (61%), Raw Bristle Whisker Catfish (21%), Raw Brilliant Smallfish (17%). From skill 75 this water loses no fish. From level 7, Gilbert Gray at the harbor gives Fishin' Time: bring 1 Shiny Bauble and 3 Nightcrawlers for cooked fish.
   loop
   goto 61.7,50.8 r 15
   goto 46.9,58.9 r 15
@@ -503,7 +503,7 @@ step Fishing: Orgrimmar (75-150)
   only Orc,Troll,Skyborne,Horde
   when !skill Cooking 140
   zone Orgrimmar
-  tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Longjaw Mud Snapper (60%), Raw Bristle Whisker Catfish (20%), Raw Brilliant Smallfish (19%). From skill 75 this water loses no fish.
+  tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Longjaw Mud Snapper (60%), Raw Bristle Whisker Catfish (20%), Raw Brilliant Smallfish (19%). From skill 75 this water loses no fish.
   loop
   goto 68.4,34.8 r 15
   goto 66.6,31.7 r 15
@@ -551,7 +551,7 @@ step Fishing: Thunder Bluff (75-150)
   only Tauren
   when !skill Cooking 140
   zone Thunder Bluff
-  tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Longjaw Mud Snapper (56%), Raw Bristle Whisker Catfish (23%), Raw Brilliant Smallfish (20%). From skill 75 this water loses no fish.
+  tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Longjaw Mud Snapper (56%), Raw Bristle Whisker Catfish (23%), Raw Brilliant Smallfish (20%). From skill 75 this water loses no fish.
   loop
   goto 41.6,58.1 r 15
   goto 39.9,61.2 r 15
@@ -593,7 +593,7 @@ step Fishing: Undercity (75-150)
   only Undead
   when !skill Cooking 140
   zone Undercity
-  tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 250 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Longjaw Mud Snapper (45%), Sickly Looking Fish (15%), Raw Bristle Whisker Catfish (15%), Old Skull (14%), Raw Brilliant Smallfish (11%). From skill 75 this water loses no fish.
+  tip Fish the round until Fishing 150 and until your bags hold 52 Raw Longjaw Mud Snapper and 40 Raw Bristle Whisker Catfish for the cooking: about 250 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Longjaw Mud Snapper (45%), Sickly Looking Fish (15%), Raw Bristle Whisker Catfish (15%), Old Skull (14%), Raw Brilliant Smallfish (11%). From skill 75 this water loses no fish.
   loop
   goto 65.4,47.5 r 15
   goto 64.9,41.2 r 15
@@ -643,7 +643,7 @@ step Fishing: Ashenvale (150-190)
   only Alliance
   when !skill Cooking 175
   zone Ashenvale
-  tip Fish the round until Fishing 190 and until your bags hold 80 Raw Bristle Whisker Catfish for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (the zone's fishing loot): Raw Bristle Whisker Catfish (42%), Raw Longjaw Mud Snapper (23%), Raw Rainbow Fin Albacore (15%), Raw Sagefish (9%), Oily Blackmouth (6%). Fishing pools by the round: Sagefish School. From skill 150 this water loses no fish.
+  tip Fish the round until Fishing 190 and until your bags hold 80 Raw Bristle Whisker Catfish for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (the zone's fishing loot): Raw Bristle Whisker Catfish (42%), Raw Longjaw Mud Snapper (23%), Raw Rainbow Fin Albacore (15%), Raw Sagefish (9%), Oily Blackmouth (6%). Fishing pools by the round: Sagefish School. From skill 150 this water loses no fish.
   loop
   goto 44.5,70.2 r 15
   goto 48.8,68.3 r 15
@@ -676,7 +676,7 @@ step Fishing: Desolace (150-190)
   only Horde
   when !skill Cooking 175
   zone Desolace
-  tip Fish the round until Fishing 190 and until your bags hold 80 Raw Bristle Whisker Catfish for the cooking: about 250 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Mithril Head Trout (64%), Raw Bristle Whisker Catfish (33%). Fishing pools by the round: Firefin Snapper School, Floating Wreckage and Oily Blackmouth School. This water loses fish below skill 225: keep a lure on the pole until then.
+  tip Fish the round until Fishing 190 and until your bags hold 80 Raw Bristle Whisker Catfish for the cooking: about 250 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Mithril Head Trout (64%), Raw Bristle Whisker Catfish (33%). Fishing pools by the round: Firefin Snapper School, Floating Wreckage and Oily Blackmouth School. This water loses fish below skill 225: keep a lure on the pole until then.
   loop
   goto 21.6,73.7 r 15
   goto 22.3,72.3 r 15
@@ -720,7 +720,7 @@ step Fishing: Stranglethorn Vale (190-225)
   only Alliance
   when !skill Cooking 225
   zone Stranglethorn Vale
-  tip Fish the round until Fishing 225 and until your bags hold 52 Raw Mithril Head Trout for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Mithril Head Trout (43%), Raw Greater Sagefish (32%), Raw Bristle Whisker Catfish (17%), Stranglekelp (10%), Iron Bound Trunk (4%), Rumsey Rum Black Label (3%). Fishing pools by the round: Floating Wreckage and Greater Sagefish School. This water loses fish below skill 225: keep a lure on the pole until then.
+  tip Fish the round until Fishing 225 and until your bags hold 52 Raw Mithril Head Trout for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Mithril Head Trout (43%), Raw Greater Sagefish (32%), Raw Bristle Whisker Catfish (17%), Stranglekelp (10%), Iron Bound Trunk (4%), Rumsey Rum Black Label (3%). Fishing pools by the round: Floating Wreckage and Greater Sagefish School. This water loses fish below skill 225: keep a lure on the pole until then.
   loop
   goto 35.4,10.3 r 15
   goto 35.6,9.9 r 15
@@ -764,7 +764,7 @@ step Fishing: Desolace (190-225)
   only Horde
   when !skill Cooking 225
   zone Desolace
-  tip Fish the round until Fishing 225 and until your bags hold 52 Raw Mithril Head Trout for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Mithril Head Trout (59%), Raw Bristle Whisker Catfish (31%), Raw Rockscale Cod (4%). Fishing pools by the round: Firefin Snapper School, Floating Wreckage and Oily Blackmouth School. This water loses fish below skill 225: keep a lure on the pole until then.
+  tip Fish the round until Fishing 225 and until your bags hold 52 Raw Mithril Head Trout for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Mithril Head Trout (59%), Raw Bristle Whisker Catfish (31%), Raw Rockscale Cod (4%). Fishing pools by the round: Firefin Snapper School, Floating Wreckage and Oily Blackmouth School. This water loses fish below skill 225: keep a lure on the pole until then.
   loop
   goto 21.6,73.7 r 15
   goto 22.3,72.3 r 15
@@ -908,7 +908,7 @@ step Lures for Tanaris
 step Fishing: Tanaris (225-300)
   when !skill Cooking 300
   zone Tanaris
-  tip Fish the round until Fishing 300 and until your bags hold 120 Raw Spotted Yellowtail for the cooking: about 650 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Spotted Yellowtail (42%), Stonescale Eel (15%), Firefin Snapper (11%), Raw Winter Squid (10%, in its season only), Big-mouth Clam (9%), Raw Rockscale Cod (9%). Fishing pools by the round: Firefin Snapper School, Floating Wreckage, Oily Blackmouth School and Stonescale Eel Swarm. This water loses fish below skill 300: keep a lure on the pole until then.
+  tip Fish the round until Fishing 300 and until your bags hold 120 Raw Spotted Yellowtail for the cooking: about 650 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): Raw Spotted Yellowtail (42%), Stonescale Eel (15%), Firefin Snapper (11%), Raw Winter Squid (10%, in its season only), Big-mouth Clam (9%), Raw Rockscale Cod (9%). Fishing pools by the round: Firefin Snapper School, Floating Wreckage, Oily Blackmouth School and Stonescale Eel Swarm. This water loses fish below skill 300: keep a lure on the pole until then.
   level 37
   loop
   goto 67.3,25.5 r 15

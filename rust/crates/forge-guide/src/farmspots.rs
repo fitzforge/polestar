@@ -1,6 +1,9 @@
 //! Port of tools/lib/dsl/farmspots.js.
 //! Farm spots for `collect <item> xN nearest` (docs/ARCHITECTURE.md, "Smart logic", Farm spots): where to
-//! kill mobs that drop the item. spot = { map, x, y, f, faction, npc, npcName, lvl = { min, max }, rate, spawns }.
+//! kill mobs that drop the item. spot = { map, x, y, f, faction, npc, npcName, lvl = { min, max }, rate, spawns };
+//! `rate` is items per looted kill (the drop chance times `yield_of`). Clusters of fewer than MIN_SPAWNS go while
+//! the continent has others; each zone keeps its best cluster per safety and 5-level band; MAX_PER_CONTINENT of
+//! those per continent, round-robin over (safety, 10-level band).
 
 use crate::cluster::cluster_points;
 use crate::data::Data;
@@ -11,9 +14,41 @@ use std::cmp::Ordering;
 pub const MIN_CHANCE: f64 = 2.0;
 pub const TOWN_YARDS: f64 = 90.0;
 const CLUSTER_YARDS: f64 = 70.0;
-pub const MAX_PER_CONTINENT: usize = 16;
+pub const MAX_PER_CONTINENT: usize = 32;
+pub const MIN_SPAWNS: f64 = 3.0;
+const BAND: f64 = 5.0;
 const PER_NPC_MAP: f64 = 4.0;
 const SERVICE_ROLES: [&str; 9] = ["vendor", "innkeeper", "repair", "flightmaster", "banker", "stablemaster", "auctioneer", "battlemaster", "spirithealer"];
+/// Mobs whose kill costs reputation a player wants (Timbermaw furbolgs): never a farm spot.
+pub const PROTECTED_MOBS: [f64; 13] = [6184.0, 6185.0, 6186.0, 6187.0, 6188.0, 6189.0, 6651.0, 11516.0, 11552.0, 11553.0, 11555.0, 11557.0, 11558.0];
+/// A map's copy of an npc's spawns whose every point lies this close (yards) to another copy's is that spot seen over the border.
+const DUP_YARDS: f64 = 30.0;
+
+/// Items a looted kill yields per drop chance, from players' recordings (farmspots.js YIELD); 1 for any other item.
+pub fn yield_of(item: f64) -> f64 {
+	match item as i64 {
+		769 => 0.77,
+		2589 => 1.53,
+		2592 => 1.54,
+		2672 => 0.83,
+		2673 => 0.78,
+		2674 => 0.95,
+		2677 => 0.61,
+		3173 => 0.72,
+		3685 => 0.43,
+		3731 => 0.56,
+		4306 => 1.56,
+		4338 => 1.48,
+		5469 => 0.73,
+		5470 => 0.45,
+		6889 => 0.97,
+		12184 => 0.59,
+		12207 => 0.81,
+		14047 => 1.47,
+		14227 => 2.2,
+		_ => 1.0,
+	}
+}
 
 fn round2(n: f64) -> f64 {
 	let r = math_round(n * 100.0) / 100.0;
@@ -96,6 +131,49 @@ fn yard_scale(data: &Data, map: &V) -> (f64, f64) {
 	((fr.get("right").num() - fr.get("left").num()).abs() / 100.0, (fr.get("bottom").num() - fr.get("top").num()).abs() / 100.0)
 }
 
+/// The maps where an npc's spawns are only another map's spawns seen over the zone border (farmspots.js overlapMaps):
+/// of two Era-frame copies on one continent whose points all lie within DUP_YARDS of the other's, the one nearer its
+/// map's edge goes (the higher map id on a tie).
+fn overlap_maps(data: &Data, spawns: &[V]) -> Vec<f64> {
+	struct Copy {
+		map: f64,
+		c: V,
+		world: Vec<(f64, f64)>,
+		edge: f64,
+	}
+	let mut copies: Vec<Copy> = Vec::new();
+	for s in spawns {
+		let map = s.get("map");
+		if s.get("f").as_str() != Some("e") {
+			continue;
+		}
+		let fr = data.era_frame(&map);
+		if !fr.truthy() {
+			continue;
+		}
+		let mut pts = s.get("pts").items();
+		pts.extend(s.get("more").items());
+		let (top, bottom, left, right) = (fr.get("top").num(), fr.get("bottom").num(), fr.get("left").num(), fr.get("right").num());
+		let world = pts.iter().map(|p| (top + (bottom - top) * p.at(1).num() / 100.0, left + (right - left) * p.at(0).num() / 100.0)).collect();
+		let edge = pts.iter().map(|p| p.at(0).num().min(100.0 - p.at(0).num()).min(p.at(1).num()).min(100.0 - p.at(1).num())).fold(f64::NEG_INFINITY, f64::max);
+		copies.push(Copy { map: map.num(), c: fr.get("c"), world, edge });
+	}
+	let mut out: Vec<f64> = Vec::new();
+	for (i, a) in copies.iter().enumerate() {
+		for (k, b) in copies.iter().enumerate() {
+			if i == k || !a.c.strict_eq(&b.c) || out.contains(&b.map) {
+				continue;
+			}
+			let nearer = a.edge < b.edge || (a.edge == b.edge && a.map > b.map);
+			if nearer && a.world.iter().all(|p| b.world.iter().any(|q| hypot(p.0 - q.0, p.1 - q.1) <= DUP_YARDS)) {
+				out.push(a.map);
+				break;
+			}
+		}
+	}
+	out
+}
+
 /// `farmSpots(data, itemId)`: [spot] sorted by continent, then rate × spawns (best first), map, x, y.
 /// Memoised per data and item (the item id keyed by type and value, like a JS Map).
 pub fn farm_spots(data: &Data, item_id: &V) -> V {
@@ -129,6 +207,7 @@ struct Cand {
 fn farm_spots_of(data: &Data, item_id: &V) -> V {
 	let it = data.item(item_id);
 	let drops = if it.truthy() && it.get("drops").truthy() && it.get("drops").get("npc").truthy() { it.get("drops").get("npc") } else { V::obj() };
+	let yield_item = yield_of(crate::js::str_to_num(&item_id.to_js_string()));
 	let towns = town_points(data);
 	let mut all: Vec<Cand> = Vec::new();
 	let mut ids: Vec<f64> = drops.keys().iter().map(|k| crate::js::str_to_num(k)).collect();
@@ -141,7 +220,7 @@ fn farm_spots_of(data: &Data, item_id: &V) -> V {
 			continue;
 		}
 		let npc = data.npc(&idv);
-		if !npc.truthy() {
+		if !npc.truthy() || PROTECTED_MOBS.contains(&id) {
 			continue;
 		}
 		let rank = npc.get("rank");
@@ -154,8 +233,13 @@ fn farm_spots_of(data: &Data, item_id: &V) -> V {
 		if is_service(&npc.get("roles")) {
 			continue;
 		}
-		for s in data.spawns("npc", &idv) {
+		let spawns = data.spawns("npc", &idv);
+		let seen_over = overlap_maps(data, &spawns);
+		for s in spawns {
 			let map = s.get("map");
+			if seen_over.contains(&map.num()) {
+				continue;
+			}
 			let Some(faction) = zone_safety(data, &map) else { continue };
 			let (sx, sy) = yard_scale(data, &map);
 			let markers = towns.get(&map.to_js_string()).items();
@@ -180,7 +264,7 @@ fn farm_spots_of(data: &Data, item_id: &V) -> V {
 				let lm = if lm != 0.0 && !lm.is_nan() { lm } else { lo };
 				let hi = if lm.is_nan() { lm } else { lo.max(lm) };
 				spot.set("lvl", obj! { "min" => lo, "max" => hi });
-				let rate = round3((chance / 100.0).min(1.0));
+				let rate = round3((chance / 100.0) * yield_item);
 				spot.set("rate", rate);
 				let n = c.get("n").num();
 				spot.set("spawns", n);
@@ -217,8 +301,27 @@ fn farm_spots_of(data: &Data, item_id: &V) -> V {
 	});
 	let out = V::arr();
 	for (_, members) in by_continent {
-		let mut groups: Vec<(String, Vec<usize>)> = Vec::new();
+		let members: Vec<usize> = if members.iter().any(|i| all[*i].spot.get("spawns").num() >= MIN_SPAWNS) {
+			members.into_iter().filter(|i| all[*i].spot.get("spawns").num() >= MIN_SPAWNS).collect()
+		} else {
+			members
+		};
+		// Each zone's best camp per safety and level band (first-seen key order, as a JS Map).
+		let mut best: Vec<(String, usize)> = Vec::new();
 		for i in members {
+			let s = &all[i].spot;
+			let key = format!("{}|{}|{}", s.get("faction").to_js_string(), s.get("map").to_js_string(), num_str((s.get("lvl").get("min").num() / BAND).floor()));
+			match best.iter_mut().find(|b| b.0 == key) {
+				Some(b) => {
+					if order(&i, &b.1) == Ordering::Less {
+						b.1 = i;
+					}
+				}
+				None => best.push((key, i)),
+			}
+		}
+		let mut groups: Vec<(String, Vec<usize>)> = Vec::new();
+		for (_, i) in best {
 			let s = &all[i].spot;
 			let key = format!("{}|{}", s.get("faction").to_js_string(), num_str((s.get("lvl").get("min").num() / 10.0).floor()));
 			match groups.iter_mut().find(|g| g.0 == key) {

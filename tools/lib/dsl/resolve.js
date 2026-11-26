@@ -842,6 +842,61 @@ function applyNearest(step, s, err, faction) {
 	step.goals = step.goals.filter((g) => g.t !== 'goto');
 }
 
+// `loop <zone> … at …` lines (parse.js parseLoopCandidate; resolve.rs apply_loop_candidates): farming loops
+// the step's `skill` goal (with `gain`) or unpinned `collect` goal (with `yield`) picks from at runtime, the
+// Engine's farm ranking (pickFor): one `candidates` entry per loop, { map, x, y, f, faction, races, classes,
+// lvl: [n, n], lap, gain | yield, spotsPacked } with its stops as packed spawn areas (emit.rs pack_spots). The
+// goal's own place and spawn areas are the first loop's until the Engine picks.
+function applyLoopCandidates(step, s, err, faction, resolveZone) {
+	const { luaNumber } = require('./emit');
+	const firstLine = s.loops[0].line;
+	const targets = [];
+	step.goals.forEach((g, i) => {
+		const free = !s.goals[i].explicitCoords && !s.goals[i].anywhere && !g.candidates;
+		if (free && g.t === 'skill') targets.push([g, 'gain']);
+		else if (free && g.t === 'collect') targets.push([g, 'yield']);
+	});
+	if (targets.length !== 1) return err(firstLine, 'farming loops (`loop <zone> …`) need exactly one unpinned `skill` or `collect` goal in their step', 'the loops pick the place of that one goal');
+	if (step.goals.some((g) => g.t === 'goto')) return err(firstLine, 'farming loops (`loop <zone> …`) carry their own points: drop the step\'s `goto` lines');
+	const [goal, per] = targets[0];
+	const out = [];
+	for (const l of s.loops) {
+		if (!l[per]) {
+			err(l.line, `a loop for a \`${goal.t}\` goal takes \`${per}\`, not \`${per === 'gain' ? 'yield' : 'gain'}\``);
+			continue;
+		}
+		const zone = resolveZone(l.zone);
+		if (!zone) continue;
+		const r = l.r || LOOP_RADIUS;
+		const spots = l.pts.map(([x, y]) => ({ x, y, r }));
+		const c = { map: zone.id, x: spots[0].x, y: spots[0].y };
+		// A compiled point is Era-frame with `f: 'e'`, Forever's own frame without `f`.
+		if (!l.live) c.f = 'e';
+		const o = l.only || {};
+		const sides = o.factions || (faction ? [faction] : null);
+		c.faction = sides && sides.length === 1 ? SIDE_TAG[sides[0]] : 'AH';
+		if (o.races) c.races = o.races;
+		if (o.classes) c.classes = o.classes;
+		c.lvl = { min: l.lvl, max: l.lvl };
+		c.lap = l.lap;
+		c[per] = l[per];
+		c.spotsPacked = spots.map((p) => [p.x, p.y, '', p.r].map((v) => (v === '' ? v : luaNumber(v, 2))).join(',')).join(';');
+		out.push({ c, spots });
+	}
+	if (!out.length) return;
+	const { c: c0, spots: spots0 } = out[0];
+	goal.map = c0.map;
+	goal.x = c0.x;
+	goal.y = c0.y;
+	if (c0.f) goal.f = c0.f;
+	else delete goal.f;
+	goal.spots = spots0;
+	goal.spread = true;
+	delete goal.lvl;
+	delete goal.z;
+	goal.candidates = out.map((e) => e.c);
+}
+
 // The levels a guide's header spans: its plain `levels` and every `levels <min>-<max> <Faction>` together. -> [min, max] | null
 function guideLevels(h) {
 	const ranges = [h.levels, ...Object.values(h.factionLevels || {})].filter(Boolean);
@@ -1095,6 +1150,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 				prof: profProgress,
 				zoneId,
 				loop: !!s.loop,
+				loops: !!s.loops,
 			};
 			const goal = resolveGoal(g, zoneId, at.prev, data, err, warn, ctx);
 			hidden(goal, '_line', g.line);
@@ -1116,7 +1172,10 @@ function resolveGuide(ast, data, diag, opts = {}) {
 			}
 			// A `skill … nearest` step's gotos are its places, each on its own map: no zone to match.
 			const nearestPlace = g.verb === 'goto' && s.goals.some((x) => x.verb === 'skill' && x.nearest);
-			if (goal.map !== undefined && zoneId !== null && goal.map !== zoneId && !zonesSet.has(goal.map) && !nearestPlace) {
+			// A step on the world map (`zone Azeroth`: a profession guide's trainer visit, which pins each faction
+			// to its teacher in another zone) spans every zone.
+			const worldStep = zoneId !== null && ((data.zone(zoneId) || {}).type ?? 3) <= 1;
+			if (goal.map !== undefined && zoneId !== null && goal.map !== zoneId && !zonesSet.has(goal.map) && !nearestPlace && !worldStep) {
 				const name = (id) => {
 					const z = data.zone(id);
 					return z && z.name ? `${id} (${z.name})` : String(id);
@@ -1154,6 +1213,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 			const last = step.goals.findLast((goal) => goal.x !== undefined);
 			if (last) for (const c of moves) c.prev = { map: last.map, x: last.x, y: last.y };
 		}
+		if (s.loops) applyLoopCandidates(step, s, err, guide.faction, resolveZone);
 		applyNearest(step, s, err, guide.faction);
 		guide.steps.push(step);
 	}
@@ -2471,7 +2531,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 	setIf(goal, 'node', goalNode(data, goal, smartSides(ctx.sides, applicable(ctx.layers || []))));
 
 	// An authored search will place its targets after all its gotos are resolved.
-	if ((v === 'kill' || v === 'collect' || v === 'interact' || v === 'use') && goal.x === undefined && !goal.candidates && !g.nearest && !g.anywhere && !(ctx.loop && loopTarget(goal))) {
+	if ((v === 'kill' || v === 'collect' || v === 'interact' || v === 'use') && goal.x === undefined && !goal.candidates && !g.nearest && !g.anywhere && !(ctx.loop && loopTarget(goal)) && !(ctx.loops && v === 'collect')) {
 		warn(ln, `\`${v}\` has no coordinates (no known spawns; add @x,y)`, 'add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there');
 	}
 	if (goal.grind !== undefined && goal.x === undefined) warn(ln, `\`grind ${goal.grind}\` has no known spawns here: the arrow keeps the step's goto`);

@@ -26,7 +26,7 @@ return {
 
 	-- Step 4: Fishing: Elwynn Forest (1-75)
 	-- {skill:356} Fishing · {item:6291} Raw Brilliant Smallfish · {item:6289} Raw Longjaw Mud Snapper
-	["Fish the round until {skill:356} 75 and until your bags hold 50 {item:6291} for the cooking: about 80 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:6291} (61%), {item:6289} (37%). This water loses fish below skill 25: keep a lure on the pole until then."] = "",
+	["Fish the round until {skill:356} 75 and until your bags hold 50 {item:6291} for the cooking: about 80 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:6291} (61%), {item:6289} (37%). This water loses fish below skill 25: keep a lure on the pole until then."] = "",
 
 	-- Step 5: Fishing: Elwynn Forest (1-75)
 	-- {skill:185} Cooking · {skill:356} Fishing
@@ -70,7 +70,7 @@ return {
 
 	-- Step 16: Fishing: Teldrassil (1-75)
 	-- {skill:356} Fishing · {item:6303} Raw Slitherskin Mackerel · {object:2843} Battered Chest
-	["Fish the round until {skill:356} 75 and until your bags hold 50 {item:6303} for the cooking: about 70 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:6303} (96%), {object:2843} (4%). This water loses fish below skill 25: keep a lure on the pole until then."] = "",
+	["Fish the round until {skill:356} 75 and until your bags hold 50 {item:6303} for the cooking: about 70 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:6303} (96%), {object:2843} (4%). This water loses fish below skill 25: keep a lure on the pole until then."] = "",
 
 	-- Step 18: Cook Slitherskin Mackerel (1-50)
 	-- {item:787} Slitherskin Mackerel
@@ -86,7 +86,7 @@ return {
 
 	-- Step 21: Fishing: Zephras Isle (1-75)
 	-- {skill:356} Fishing · {item:6291} Raw Brilliant Smallfish · {item:6289} Raw Longjaw Mud Snapper
-	["Fish the round until {skill:356} 75 and until your bags hold 50 {item:6291} for the cooking: about 80 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:6291} (59%), {item:6289} (39%)."] = "",
+	["Fish the round until {skill:356} 75 and until your bags hold 50 {item:6291} for the cooking: about 80 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:6291} (59%), {item:6289} (39%)."] = "",
 
 	-- Step 25: Recipes for Durotar (Cooking to 50)
 	-- {zone:1411} Durotar · {skill:185} Cooking
@@ -128,7 +128,7 @@ return {
 
 	-- Step 39: Fishing: Tirisfal Glades (1-75)
 	-- {skill:356} Fishing · {item:6291} Raw Brilliant Smallfish · {item:6289} Raw Longjaw Mud Snapper · {item:6299} Sickly Looking Fish · {item:6297} Old Skull
-	["Fish the round until {skill:356} 75 and until your bags hold 50 {item:6291} for the cooking: about 100 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:6291} (48%), {item:6289} (29%), {item:6299} (15%), {item:6297} (5%). This water loses fish below skill 25: keep a lure on the pole until then."] = "",
+	["Fish the round until {skill:356} 75 and until your bags hold 50 {item:6291} for the cooking: about 100 catches (below 75 every catch raises the skill). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:6291} (48%), {item:6289} (29%), {item:6299} (15%), {item:6297} (5%). This water loses fish below skill 25: keep a lure on the pole until then."] = "",
 
 	-- Step 43: Journeyman Fishing
 	-- {skill:356} Fishing
@@ -144,7 +144,7 @@ return {
 
 	-- Step 45: Fishing: Stormwind City (75-150)
 	-- {skill:356} Fishing · {item:6289} Raw Longjaw Mud Snapper · {item:6308} Raw Bristle Whisker Catfish · {item:6291} Raw Brilliant Smallfish · {npc:267118} Gilbert Gray · {item:6529} Shiny Bauble · {item:6530} Nightcrawlers
-	["Fish the round until {skill:356} 150 and until your bags hold 52 {item:6289} and 40 {item:6308} for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:6289} (61%), {item:6308} (21%), {item:6291} (17%). From skill 75 this water loses no fish. From level 7, {npc:267118} at the harbor gives Fishin' Time: bring 1 {item:6529} and 3 {item:6530} for cooked fish."] = "",
+	["Fish the round until {skill:356} 150 and until your bags hold 52 {item:6289} and 40 {item:6308} for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:6289} (61%), {item:6308} (21%), {item:6291} (17%). From skill 75 this water loses no fish. From level 7, {npc:267118} at the harbor gives Fishin' Time: bring 1 {item:6529} and 3 {item:6530} for cooked fish."] = "",
 
 	-- Step 46: Fishing: Stormwind City (75-150)
 	-- {skill:185} Cooking · {skill:356} Fishing
@@ -190,7 +190,7 @@ return {
 
 	-- Step 60: Fishing: Orgrimmar (75-150)
 	-- {skill:356} Fishing · {item:6289} Raw Longjaw Mud Snapper · {item:6308} Raw Bristle Whisker Catfish · {item:6291} Raw Brilliant Smallfish
-	["Fish the round until {skill:356} 150 and until your bags hold 52 {item:6289} and 40 {item:6308} for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:6289} (60%), {item:6308} (20%), {item:6291} (19%). From skill 75 this water loses no fish."] = "",
+	["Fish the round until {skill:356} 150 and until your bags hold 52 {item:6289} and 40 {item:6308} for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:6289} (60%), {item:6308} (20%), {item:6291} (19%). From skill 75 this water loses no fish."] = "",
 
 	-- Step 64: Recipes for Thunder Bluff (Cooking to 140)
 	-- {zone:1456} Thunder Bluff · {skill:185} Cooking
@@ -200,7 +200,7 @@ return {
 
 	-- Step 65: Fishing: Thunder Bluff (75-150)
 	-- {skill:356} Fishing · {item:6289} Raw Longjaw Mud Snapper · {item:6308} Raw Bristle Whisker Catfish · {item:6291} Raw Brilliant Smallfish
-	["Fish the round until {skill:356} 150 and until your bags hold 52 {item:6289} and 40 {item:6308} for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:6289} (56%), {item:6308} (23%), {item:6291} (20%). From skill 75 this water loses no fish."] = "",
+	["Fish the round until {skill:356} 150 and until your bags hold 52 {item:6289} and 40 {item:6308} for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:6289} (56%), {item:6308} (23%), {item:6291} (20%). From skill 75 this water loses no fish."] = "",
 
 	-- Step 69: Recipes for Undercity (Cooking to 140)
 	-- {zone:1458} Undercity · {skill:185} Cooking
@@ -210,7 +210,7 @@ return {
 
 	-- Step 70: Fishing: Undercity (75-150)
 	-- {skill:356} Fishing · {item:6289} Raw Longjaw Mud Snapper · {item:6308} Raw Bristle Whisker Catfish · {item:6299} Sickly Looking Fish · {item:6297} Old Skull · {item:6291} Raw Brilliant Smallfish
-	["Fish the round until {skill:356} 150 and until your bags hold 52 {item:6289} and 40 {item:6308} for the cooking: about 250 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:6289} (45%), {item:6299} (15%), {item:6308} (15%), {item:6297} (14%), {item:6291} (11%). From skill 75 this water loses no fish."] = "",
+	["Fish the round until {skill:356} 150 and until your bags hold 52 {item:6289} and 40 {item:6308} for the cooking: about 250 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:6289} (45%), {item:6299} (15%), {item:6308} (15%), {item:6297} (14%), {item:6291} (11%). From skill 75 this water loses no fish."] = "",
 
 	-- Step 74: Expert Fishing
 	-- {skill:356} Fishing
@@ -230,7 +230,7 @@ return {
 
 	-- Step 76: Fishing: Ashenvale (150-190)
 	-- {skill:356} Fishing · {item:6308} Raw Bristle Whisker Catfish · {item:6289} Raw Longjaw Mud Snapper · {item:6361} Raw Rainbow Fin Albacore · {item:21071} Raw Sagefish · {item:6358} Oily Blackmouth · {object:180656} Sagefish School
-	["Fish the round until {skill:356} 190 and until your bags hold 80 {item:6308} for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (the zone's fishing loot): {item:6308} (42%), {item:6289} (23%), {item:6361} (15%), {item:21071} (9%), {item:6358} (6%). {skill:356} pools by the round: {object:180656}. From skill 150 this water loses no fish."] = "",
+	["Fish the round until {skill:356} 190 and until your bags hold 80 {item:6308} for the cooking: about 190 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (the zone's fishing loot): {item:6308} (42%), {item:6289} (23%), {item:6361} (15%), {item:21071} (9%), {item:6358} (6%). {skill:356} pools by the round: {object:180656}. From skill 150 this water loses no fish."] = "",
 
 	-- Step 77: Fishing: Ashenvale (150-190)
 	-- {skill:185} Cooking · {skill:356} Fishing
@@ -250,7 +250,7 @@ return {
 
 	-- Step 80: Fishing: Desolace (150-190)
 	-- {skill:356} Fishing · {item:6308} Raw Bristle Whisker Catfish · {item:8365} Raw Mithril Head Trout · {object:180657} Firefin Snapper School · {object:180662} Floating Wreckage · {object:180582} Oily Blackmouth School
-	["Fish the round until {skill:356} 190 and until your bags hold 80 {item:6308} for the cooking: about 250 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:8365} (64%), {item:6308} (33%). {skill:356} pools by the round: {object:180657}, {object:180662} and {object:180582}. This water loses fish below skill 225: keep a lure on the pole until then."] = "",
+	["Fish the round until {skill:356} 190 and until your bags hold 80 {item:6308} for the cooking: about 250 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:8365} (64%), {item:6308} (33%). {skill:356} pools by the round: {object:180657}, {object:180662} and {object:180582}. This water loses fish below skill 225: keep a lure on the pole until then."] = "",
 
 	-- Step 83: Recipes for Stranglethorn Vale (Cooking to 225)
 	-- {zone:1434} Stranglethorn Vale · {skill:185} Cooking
@@ -266,7 +266,7 @@ return {
 
 	-- Step 85: Fishing: Stranglethorn Vale (190-225)
 	-- {skill:356} Fishing · {item:8365} Raw Mithril Head Trout · {item:21153} Raw Greater Sagefish · {item:6308} Raw Bristle Whisker Catfish · {item:3820} Stranglekelp · {item:21150} Iron Bound Trunk · {item:21151} Rumsey Rum Black Label · {object:180662} Floating Wreckage · {object:180684} Greater Sagefish School
-	["Fish the round until {skill:356} 225 and until your bags hold 52 {item:8365} for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:8365} (43%), {item:21153} (32%), {item:6308} (17%), {item:3820} (10%), {item:21150} (4%), {item:21151} (3%). {skill:356} pools by the round: {object:180662} and {object:180684}. This water loses fish below skill 225: keep a lure on the pole until then."] = "",
+	["Fish the round until {skill:356} 225 and until your bags hold 52 {item:8365} for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:8365} (43%), {item:21153} (32%), {item:6308} (17%), {item:3820} (10%), {item:21150} (4%), {item:21151} (3%). {skill:356} pools by the round: {object:180662} and {object:180684}. This water loses fish below skill 225: keep a lure on the pole until then."] = "",
 
 	-- Step 86: Fishing: Stranglethorn Vale (190-225)
 	-- {skill:185} Cooking · {skill:356} Fishing
@@ -286,7 +286,7 @@ return {
 
 	-- Step 90: Fishing: Desolace (190-225)
 	-- {skill:356} Fishing · {item:8365} Raw Mithril Head Trout · {item:6308} Raw Bristle Whisker Catfish · {item:6362} Raw Rockscale Cod · {object:180657} Firefin Snapper School · {object:180662} Floating Wreckage · {object:180582} Oily Blackmouth School
-	["Fish the round until {skill:356} 225 and until your bags hold 52 {item:8365} for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:8365} (59%), {item:6308} (31%), {item:6362} (4%). {skill:356} pools by the round: {object:180657}, {object:180662} and {object:180582}. This water loses fish below skill 225: keep a lure on the pole until then."] = "",
+	["Fish the round until {skill:356} 225 and until your bags hold 52 {item:8365} for the cooking: about 200 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:8365} (59%), {item:6308} (31%), {item:6362} (4%). {skill:356} pools by the round: {object:180657}, {object:180662} and {object:180582}. This water loses fish below skill 225: keep a lure on the pole until then."] = "",
 
 	-- Step 93: Nat Pagle, Angler Extreme
 	-- {skill:356} Fishing · {npc:12919} Nat Pagle · {zone:1445} Dustwallow Marsh · {zone:1455} Ironforge
@@ -362,7 +362,7 @@ return {
 
 	-- Step 111: Fishing: Tanaris (225-300)
 	-- {skill:356} Fishing · {item:4603} Raw Spotted Yellowtail · {item:13422} Stonescale Eel · {item:6359} Firefin Snapper · {item:13755} Raw Winter Squid · {item:7973} Big-mouth Clam · {item:6362} Raw Rockscale Cod · {object:180657} Firefin Snapper School · {object:180662} Floating Wreckage · {object:180582} Oily Blackmouth School · {object:180712} Stonescale Eel Swarm
-	["Fish the round until {skill:356} 300 and until your bags hold 120 {item:4603} for the cooking: about 650 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while you catch fish (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:4603} (42%), {item:13422} (15%), {item:6359} (11%), {item:13755} (10%, in its season only), {item:7973} (9%), {item:6362} (9%). {skill:356} pools by the round: {object:180657}, {object:180662}, {object:180582} and {object:180712}. This water loses fish below skill 300: keep a lure on the pole until then."] = "",
+	["Fish the round until {skill:356} 300 and until your bags hold 120 {item:4603} for the cooking: about 650 catches (from 75 a catch raises the skill less often: one in two by 100, one in seven by 225). The arrow leads stand to stand: stay while the fish bite (casting holds the arrow there), walk on when a pool is fished out or the spot is busy. What bites here (players' catches at these stands): {item:4603} (42%), {item:13422} (15%), {item:6359} (11%), {item:13755} (10%, in its season only), {item:7973} (9%), {item:6362} (9%). {skill:356} pools by the round: {object:180657}, {object:180662}, {object:180582} and {object:180712}. This water loses fish below skill 300: keep a lure on the pole until then."] = "",
 
 	-- Step 112: Fishing: Tanaris (225-300)
 	-- {skill:185} Cooking · {skill:356} Fishing
