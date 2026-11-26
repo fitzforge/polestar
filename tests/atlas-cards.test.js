@@ -199,3 +199,34 @@ emit({ house = house, classic = classic })`,
 	assert.equal(out.house.lineX, 0, 'the house look: the progress line from the window\'s edge');
 	assert.equal(out.classic.lineX, out.classic.seam, 'Classic: the progress line starts inside the rim');
 });
+
+// guideWindow.cardsPlace "below": the stack hangs under the window (or under
+// the Journey's card), the card nearest the step on top, the heads-up card
+// back on the window, and the room under the window (GF.Below) holds it.
+test('with the cards below, the stack hangs under the window, nearest card on top', () => {
+	const out = run(`
+local function where()
+	draw()
+	local p, rel, rp, _, y = stack:GetPoint(1)
+	local first = stack.cards[1]
+	local fp, _, _, _, fy = first:GetPoint(1)
+	local ran, anchor = T.SkinHookValue("guideAnchor")
+	return { p = p, rp = rp, onWindow = rel == parts.window or rel:GetParent() == parts.window, y = y,
+		fp = fp, fy = fy, n = #stack.cards, anchor = (ran and anchor) and true or false,
+		below = GF.Below(), h = math.floor(stack:GetHeight() + 0.5) }
+end
+local above = where()
+Polestar.Set("guideWindow.cardsPlace", "below")
+local below = where()
+emit({ above = above, below = below })`);
+	assert.equal(out.above.p, 'BOTTOMLEFT', JSON.stringify(out));
+	assert.equal(out.above.rp, 'TOPLEFT');
+	assert.equal(out.above.anchor, true, 'above: the heads-up card stands on the stack');
+	assert.equal(out.below.p, 'TOPLEFT', JSON.stringify(out));
+	assert.equal(out.below.rp, 'BOTTOMLEFT');
+	assert.ok(out.below.onWindow, 'under the window or its Journey card');
+	assert.ok(out.below.y < 0, 'a gap under it');
+	assert.equal(out.below.fp, 'TOPLEFT', 'cards laid down from the stack\'s top');
+	assert.equal(out.below.anchor, false, 'below: the heads-up card goes back to the window');
+	assert.ok(out.below.below >= out.below.h, 'GF.Below holds the stack: ' + JSON.stringify(out.below));
+});

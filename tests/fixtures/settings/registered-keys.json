@@ -79,6 +79,7 @@
 	"guideWindow.bgColor",
 	"guideWindow.bgOpacity",
 	"guideWindow.border",
+	"guideWindow.cardsPlace",
 	"guideWindow.checkSize",
 	"guideWindow.combatAlpha",
 	"guideWindow.detailSize",
