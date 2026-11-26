@@ -125,9 +125,9 @@ return {
 
 	-- Step 16: Your first pet
 	["Your first pet"] = "Seu primeiro ajudante",
-	-- {spell:1515} Tame Beast
+	-- {spell:1515} Tame Beast · {spell:17253} Bite
 	-- was: ["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and {spell:17253}) and a boar takes more punishment."] = "{spell:1515} funciona como o bastão: uma fera do seu nível ou abaixo, uma canalização em que você não pode se mexer, e a fera batendo em você o tempo todo. O ajudante fica no nível em que foi domado e sobe junto com você; ele nunca passa do seu nível, então dome um perto do seu. Cada família tem a própria habilidade no Forever (a Investida do javali, por exemplo). Para upar, o felino bate mais forte (Garra e {spell:17253}) e o javali aguenta mais pancada."
-	["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and Bite) and a boar takes more punishment."] = "",
+	["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and {spell:17253}) and a boar takes more punishment."] = "",
 	["Tame a beast of your level to keep"] = "Dome uma fera do seu nível para ficar com ela",
 	-- {area:362} Razor Hill · {zone:1411} Durotar · {area:367} Sen'jin Village · {zone:1454} Orgrimmar · {zone:1413} Barrens
 	-- plural, as words: Durotar Tigers = {npc:3121} Durotar Tiger · Venomtail Scorpids = {npc:3127} Venomtail Scorpid

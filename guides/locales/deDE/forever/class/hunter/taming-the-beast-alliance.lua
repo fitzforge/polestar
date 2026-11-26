@@ -157,9 +157,9 @@ return {
 
 	-- Step 20: Your first pet
 	["Your first pet"] = "Dein erster Begleiter",
-	-- {spell:1515} Tame Beast
+	-- {spell:1515} Tame Beast · {spell:17253} Bite
 	-- was: ["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and Bite) and a boar takes more punishment."] = "{spell:1515} funktioniert wie der Stab: ein Tier deiner Stufe oder niedriger, ein Kanalisieren, bei dem du dich nicht bewegen darfst, und das Tier schlägt dich die ganze Zeit. Ein Begleiter behält die Stufe, auf der du ihn zähmst, und steigt mit dir auf; er kann nie über deiner Stufe liegen, also zähm einen nahe bei deiner. Jede Familie hat auf Forever ihre eigene Fähigkeit (zum Beispiel der Ansturm eines Ebers). Zum Leveln schlägt eine Katze am härtesten zu (Klaue und Biss), und ein Eber hält mehr aus."
-	["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and Bite) and a boar takes more punishment."] = "",
+	["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and {spell:17253}) and a boar takes more punishment."] = "",
 	["Tame a beast of your level to keep"] = "Zähme ein Tier deiner Stufe, das du behältst",
 	-- {area:87} Goldshire · {zone:1436} Westfall
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk

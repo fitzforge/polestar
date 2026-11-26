@@ -125,9 +125,9 @@ return {
 
 	-- Step 16: Your first pet
 	["Your first pet"] = "你的第一只宠物",
-	-- {spell:1515} Tame Beast
+	-- {spell:1515} Tame Beast · {spell:17253} Bite
 	-- was: ["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and {spell:17253}) and a boar takes more punishment."] = "{spell:1515} 的用法与驯兽棒相同：目标必须是等级不高于你的野兽，引导期间不能移动，而野兽会一直攻击你。宠物在驯服后保留原有等级，并随你一起升级；它的等级永远不能超过你，因此尽量驯服等级接近自己的野兽。在无限服，每个宠物家族都有专属技能（例如野猪的冲锋）。练级时，猫科伤害最高（爪击和 {spell:17253}），野猪则更耐打。"
-	["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and Bite) and a boar takes more punishment."] = "",
+	["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and {spell:17253}) and a boar takes more punishment."] = "",
 	["Tame a beast of your level to keep"] = "驯服一只与你同级的野兽，作为长期宠物。",
 	-- {area:362} Razor Hill · {zone:1411} Durotar · {area:367} Sen'jin Village · {zone:1454} Orgrimmar · {zone:1413} Barrens
 	-- plural, as words: Durotar Tigers = {npc:3121} Durotar Tiger · Venomtail Scorpids = {npc:3127} Venomtail Scorpid

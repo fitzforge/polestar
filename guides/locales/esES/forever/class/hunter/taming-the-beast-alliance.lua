@@ -157,9 +157,9 @@ return {
 
 	-- Step 20: Your first pet
 	["Your first pet"] = "Tu primera mascota",
-	-- {spell:1515} Tame Beast
+	-- {spell:1515} Tame Beast · {spell:17253} Bite
 	-- was: ["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and {spell:17253}) and a boar takes more punishment."] = "{spell:1515} funciona como la vara: una bestia de tu nivel o menor, una canalización durante la que no puedes moverte, y la bestia pegándote todo el tiempo. Una mascota conserva el nivel al que la domas y sube de nivel contigo; nunca puede superar tu nivel, así que doma una cercana al tuyo. Cada familia tiene su propia habilidad en Forever (la Carga de un jabalí, por ejemplo). Para subir de nivel, un felino es el que más pega (Zarpa y {spell:17253}) y un jabalí aguanta más castigo."
-	["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and Bite) and a boar takes more punishment."] = "",
+	["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and {spell:17253}) and a boar takes more punishment."] = "",
 	["Tame a beast of your level to keep"] = "Doma una bestia de tu nivel para quedártela",
 	-- {area:87} Goldshire · {zone:1436} Westfall
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk

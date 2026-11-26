@@ -157,9 +157,9 @@ return {
 
 	-- Step 20: Your first pet
 	["Your first pet"] = "你的第一隻寵物",
-	-- {spell:1515} Tame Beast
+	-- {spell:1515} Tame Beast · {spell:17253} Bite
 	-- was: ["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and {spell:17253}) and a boar takes more punishment."] = "{spell:1515}的用法和魔杖一樣：目標須是與你同級或更低階的野獸，引導期間不能移動，野獸會一直攻擊你。寵物會保持你馴服它時的等級，並隨你一起升級；它永遠不會高於你的等級，所以抓一隻等級接近你的。在Forever上每個科系都有自己的技能（比如野豬的衝鋒）。練級時，貓科傷害最高（爪擊與{spell:17253}），野豬則更耐打。"
-	["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and Bite) and a boar takes more punishment."] = "",
+	["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and {spell:17253}) and a boar takes more punishment."] = "",
 	["Tame a beast of your level to keep"] = "馴服一隻與你等級相當的野獸作為永久寵物",
 	-- {area:87} Goldshire · {zone:1436} Westfall
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk

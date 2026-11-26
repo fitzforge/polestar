@@ -125,9 +125,9 @@ return {
 
 	-- Step 16: Your first pet
 	["Your first pet"] = "Votre premier familier",
-	-- {spell:1515} Tame Beast
+	-- {spell:1515} Tame Beast · {spell:17253} Bite
 	-- was: ["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and {spell:17253}) and a boar takes more punishment."] = "{spell:1515} fonctionne comme le bâtonnet : une bête de votre niveau ou moins, une canalisation pendant laquelle vous ne devez pas bouger, la bête vous frappant tout du long. Un familier garde le niveau auquel vous l'avez dompté et monte de niveau avec vous ; il ne peut jamais dépasser votre niveau, alors domptez-en un proche du vôtre. Chaque famille a sa propre technique sur Forever (la Charge du sanglier, par exemple). Pour monter de niveau, un félin frappe le plus fort (Griffe et {spell:17253}) et un sanglier encaisse davantage."
-	["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and Bite) and a boar takes more punishment."] = "",
+	["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and {spell:17253}) and a boar takes more punishment."] = "",
 	["Tame a beast of your level to keep"] = "Domptez une bête de votre niveau à garder",
 	-- {area:362} Razor Hill · {zone:1411} Durotar · {area:367} Sen'jin Village · {zone:1454} Orgrimmar · {zone:1413} Barrens
 	-- plural, as words: Durotar Tigers = {npc:3121} Durotar Tiger · Venomtail Scorpids = {npc:3127} Venomtail Scorpid
