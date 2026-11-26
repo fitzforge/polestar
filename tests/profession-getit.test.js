@@ -235,18 +235,53 @@ test('Light and Medium Leather: a Get it step per starting area or faction, at b
 	}
 });
 
-test('Iron Bar: each faction mines Iron Deposits in a zone of its own side or a contested one, and smelts them; the Auction House last', { skip }, () => {
+test('Iron Bar: one Get it step whose Mining loops give Iron Ore in zones of each faction\'s side or contested ones, smelted; the Auction House last', { skip }, () => {
 	const { ZONES } = require('../tools/lib/professions/gathering/tables');
 	const { data } = world();
 	const iron = getIts(draft('Blacksmithing'), 'Iron Bar');
-	assert.deepEqual(iron.map((g) => g.only).sort(), ['Alliance', 'Horde']);
+	assert.ok(iron.length >= 1);
 	for (const g of iron) {
-		const map = Object.keys(ZONES).find((m) => (data.zone(Number(m)) || {}).name === g.zone);
-		assert.ok(map && (ZONES[map].side === 'AH' || ZONES[map].side === g.only[0]), `${g.title}: ${g.zone}`);
-		assert.match(g.lines.join('\n'), /Mine Iron Deposit \(Mining 125\) for Iron Ore and smelt it at a forge/);
-		assert.match(g.lines.at(-2), /^ {2}collect 3575 x\d+ @[\d.]+,[\d.]+ era gather Mining 125$/);
+		assert.match(g.lines.join('\n'), /Mine Iron Ore and smelt it at a forge \(Mining \d+\)/);
+		const at = g.lines.findIndex((l) => l.startsWith('  collect 3575 '));
+		assert.match(g.lines[at], /^ {2}collect 3575 x\d+ gather Mining \d+$/);
+		const loops = g.lines.filter((l) => l.startsWith('  loop '));
+		assert.ok(loops.length >= 2, g.lines.join('\n'));
+		const sides = new Set();
+		for (const l of loops) {
+			const m = l.match(/^ {2}loop (.+?) lvl \d+ lap \d+ yield [\d.]+(?: only (Alliance|Horde))?/);
+			assert.ok(m, l);
+			const map = Object.keys(ZONES).find((z) => (data.zone(Number(z)) || {}).name === m[1]);
+			const side = m[2] ? m[2][0] : null;
+			assert.ok(map && (ZONES[map].side === 'AH' || ZONES[map].side === side), l);
+			for (const s of side ? [side] : ['A', 'H']) sides.add(s);
+		}
+		assert.deepEqual([...sides].sort(), ['A', 'H'], 'a loop for each faction');
 		assert.match(g.lines.at(-1), /^ {2}auction 3575 x\d+$/);
 	}
+});
+
+test('a crafting guide\'s herb or ore that grows in one zone only has a Get it loop there (Icecap: Winterspring)', { skip }, () => {
+	const { ZONES } = require('../tools/lib/professions/gathering/tables');
+	const nodes = require('../tools/lib/professions/gathering/gathering-nodes.json');
+	const { data } = world();
+	const zonesOf = (kind) => Object.keys(nodes.maps).filter((m) => ZONES[m] && nodes.maps[m].kinds[kind]).map((m) => ZONES[m].name);
+	let checked = 0;
+	const missing = [];
+	for (const name of ['alchemy', 'blacksmithing', 'enchanting', 'engineering', 'leatherworking', 'tailoring']) {
+		const text = fs.readFileSync(path.join(__dirname, '..', 'guides/forever/professions', `${name}.guide`), 'utf8');
+		for (const block of text.split('\n\n').filter((b) => b.startsWith('step Get '))) {
+			const m = block.match(/^ {2}collect (\d+) x\d+.* gather (Herbalism|Mining) \d+$/m);
+			if (!m) continue;
+			const mat = (data.professionNamed(m[2]).materials || {})[m[1]];
+			const ids = mat && mat.gather ? Object.values(mat.gather).flat() : [];
+			const kinds = [...new Set(ids.map((id) => (data.objects[id] || {}).name).filter(Boolean))];
+			const zones = [...new Set(kinds.flatMap(zonesOf))];
+			checked++;
+			if (zones.length === 1 && !block.includes(`\n  loop ${zones[0]} `)) missing.push(`${name}: ${block.split('\n')[0]} needs a loop in ${zones[0]}`);
+		}
+	}
+	assert.ok(checked > 20, `${checked} gathered Get it steps`);
+	assert.deepEqual(missing, []);
 });
 
 test('the farm is ranked by the travel planner from where the player stands (flights, Hearthstone), not from a point', { skip }, () => {

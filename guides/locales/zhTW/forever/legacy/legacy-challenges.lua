@@ -100,7 +100,6 @@ return {
 
 	-- Step 16: Adventure: Saving the Best for Last (Alliance)
 	-- {quest:9001} Saving the Best for Last
-	-- was: ["Adventure: {quest:8999} (Alliance)"] = "冒險：{quest:8999}（聯盟）"
 	["Adventure: {quest:9001} (Alliance)"] = "",
 	-- {npc:16013} Deliana · {quest:9001} Saving the Best for Last
 	-- was: ["{npc:16013} then offers your class's {quest:8999}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "{npc:16013}接著會提供你職業的{quest:8999}，這是這項挑戰的最後一個任務：它會收下你職業的地城套裝頭盔和胸甲並加以升級。"
@@ -108,7 +107,6 @@ return {
 
 	-- Step 17: Adventure: Saving the Best for Last (Horde)
 	-- {quest:9008} Saving the Best for Last
-	-- was: ["Adventure: {quest:9007} (Horde)"] = "冒險：{quest:9007}（部落）"
 	["Adventure: {quest:9008} (Horde)"] = "",
 	-- {npc:16012} Mokvar · {quest:9008} Saving the Best for Last
 	-- was: ["{npc:16012} then offers your class's {quest:9007}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "{npc:16012}接著會提供你職業的{quest:9007}，這是這項挑戰的最後一個任務：它會收下你職業的地城套裝頭盔和胸甲並加以升級。"

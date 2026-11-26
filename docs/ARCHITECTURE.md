@@ -1575,7 +1575,9 @@ goals carry its `goto` points instead, in order, with `spread = true` and no
 `n` or alternatives (compile-time: `resolve.js` applyLoop): its kill, collect,
 interact and skill goals, or with none of those its accept, turnin and talk
 goals. A skill, accept, turnin or talk goal with them is no field goal, but
-the dwell moves the arrow along its points all the same (`Own.isSearch`). A
+the dwell moves the arrow along its points all the same (`Own.isSearch`); a
+channelled spell (fishing at a round's stand) counts as work there, as a fight
+does (`Own.channelling`). A
 kill, collect or interact bound to a quest objective that players' recordings
 place (`data/recorded/quests.json`) takes its places from the trusted recorded
 spots (an area of a spot's own size, no `n` where no spawn of the target lies

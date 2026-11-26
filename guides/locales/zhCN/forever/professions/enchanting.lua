@@ -217,46 +217,36 @@ return {
 	-- {item:16217} Formula: Enchant Shield - Greater Stamina · {spell:20017} Enchant Shield - Greater Stamina · {skill:333} Enchanting · {npc:4229} Mythrin'dir · {zone:1457} Darnassus · {npc:4561} Daniel Bartlett · {zone:1458} Undercity
 	["{item:16217} teaches {spell:20017} ({skill:333} 265) for 1g 20s. Sold by Alliance: {npc:4229} ({zone:1457}), limited stock; Horde: {npc:4561} ({zone:1458}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "{item:16217} 可教你 {spell:20017}（{skill:333} 265），售价1金币20银币。联盟商人：{npc:4229}（{zone:1457}），限量供应；部落商人：{npc:4561}（{zone:1458}），限量供应。商人通常只有一两份库存，售出一段时间后才会补货；该物品拾取绑定，所以拍卖行不会有售。",
 
-	-- Step 37: Get Purple Lotus (Alliance)
+	-- Step 37: Get Purple Lotus
 	-- {item:8831} Purple Lotus
-	-- was: ["{item:8831} (Alliance)"] = "{item:8831}（联盟）"
-	["Get {item:8831} (Alliance)"] = "",
+	["Get {item:8831}"] = "",
 	-- {item:8831} Purple Lotus · {skill:333} Enchanting · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	-- was: ["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked."] = "为{item:20747}准备34个{item:8831}：通过{skill:182}在{zone:1425}（40-50级）、{zone:1444}（40-50级）和{zone:1447}（45-55级）采集{item:8831}（需要技能210）。已标记{zone:1425}中{item:8831}最密集的区域。"
-	["You need 34 {item:8831} for {skill:333} 225-300: {item:20747}. {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked. Or buy them at the Auction House."] = "",
+	["You need 34 {item:8831} for {skill:333} 225-300: {item:20747}. {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 38: Get Purple Lotus (Horde)
-	-- {item:8831} Purple Lotus
-	-- was: ["{item:8831} (Horde)"] = "{item:8831}（部落）"
-	["Get {item:8831} (Horde)"] = "",
-	-- {item:8831} Purple Lotus · {skill:333} Enchanting · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	-- was: ["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked."] = "准备34个{item:8831}制作{item:20747}：{skill:182}：在{zone:1425}（40-50级）、{zone:1444}（40-50级）和{zone:1447}（45-55级）采集{item:8831}（技能210）。已标记{zone:1444}中{item:8831}最密集的位置。"
-	["You need 34 {item:8831} for {skill:333} 225-300: {item:20747}. {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked. Or buy them at the Auction House."] = "",
-
-	-- Step 39: Get Vision Dust
+	-- Step 38: Get Vision Dust
 	-- {item:11137} Vision Dust · {skill:333} Enchanting · {spell:13815} Enchant Gloves - Agility
 	["You need 39 {item:11137} for {skill:333} 225-300: {spell:13815}. {skill:333}: disenchant green items of item level 31-40. Or buy them at the Auction House."] = "",
 
-	-- Step 40: Get Dream Dust
+	-- Step 39: Get Dream Dust
 	-- {item:11176} Dream Dust
 	["Get {item:11176}"] = "",
 	-- {item:11176} Dream Dust · {skill:333} Enchanting · {item:20747} Lesser Mana Oil · {spell:20017} Enchant Shield - Greater Stamina
 	["You need 208 {item:11176} for {skill:333} 225-300: {item:20747} and {spell:20017}. {skill:333}: disenchant green items of item level 41-50. Or buy them at the Auction House."] = "",
 
-	-- Step 41: Enchant Gloves - Agility to 253
+	-- Step 40: Enchant Gloves - Agility to 253
 	-- {spell:13815} Enchant Gloves - Agility
 	["{spell:13815} to 253"] = "制作{spell:13815}，提升至 253",
 	-- {spell:13815} Enchant Gloves - Agility · {item:11137} Vision Dust · {npc:11073} Annora
 	["{spell:13815} is orange at 225 (yellow 230, green 250, grey 270): about 39 crafts to 253. Each takes 1 {item:11137}. {npc:11073} teaches it with Artisan: learn it on that visit. {item:11137} again; bring about 40. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13815}在225时为橙色（230变黄，250变绿，270变灰）：约制作39次可升至253。每次需要1个{item:11137}。{npc:11073}在教授大师级时也会教这个配方：那次就一起学。继续使用{item:11137}，带约40个。背包里对应部位的任意物品都能附魔，即使是灰色物品。",
 
-	-- Step 42: Lesser Mana Oil to 275
+	-- Step 41: Lesser Mana Oil to 275
 	-- {item:20747} Lesser Mana Oil
 	["{item:20747} to 275"] = "制作{item:20747}，提升至 275",
 	-- {item:20747} Lesser Mana Oil · {item:11176} Dream Dust · {item:8831} Purple Lotus · {item:8925} Crystal Vial · {npc:15419} Kania · {area:3425} Cenarion Hold · {zone:1451} Silithus
 	["{item:20747} is orange at 253 (yellow 260, green 270, grey 280): about 34 crafts to 275. Each takes 1 {item:11176}, 1 {item:8831} and 1 {item:8925}. One {item:11176} (level 41-50 greens) and one {item:8831} (herbalists) a craft; the oil sells well. {npc:15419} sells the formula at the inn of {area:3425} ({zone:1451}): fly there, the mobs around it are level 55 and up."] = "{item:20747}在技能253时为橙色（260变黄，270变绿，280变灰）：约制作34次可到275。每次需要1个{item:11176}、1个{item:8831}和1个{item:8925}。也就是每次1个{item:11176}（来自41-50级绿色物品）及1个{item:8831}（草药师采集）；这种油很好卖。{npc:15419}在{area:3425}（{zone:1451}）的旅店出售公式：飞过去，周围怪物为55级及以上。",
 	["from the recipe in your bags"] = "使用背包里的配方",
 
-	-- Step 43: Enchant Shield - Greater Stamina to 300
+	-- Step 42: Enchant Shield - Greater Stamina to 300
 	-- {spell:20017} Enchant Shield - Greater Stamina
 	["{spell:20017} to 300"] = "{spell:20017}练到300",
 	-- {spell:20017} Enchant Shield - Greater Stamina · {item:11176} Dream Dust · {skill:333} Enchanting

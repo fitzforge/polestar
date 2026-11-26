@@ -90,6 +90,31 @@ test('a `skill` goal on a gathering round is searched the same way', () => {
 	assert.deepEqual([out.first, out.second, out.third], [30, 50, 75]);
 });
 
+// A fishing round (the Fishing + Cooking guide): casting is a channel, and most catches raise no skill,
+// so a channel counts as work at the stand. The player fishes at the first point for 20 s (a channel,
+// then a short gap, as between casts): the arrow stays; after walking on (and Spots.SETTLE), the next
+// point takes over.
+test('a `skill` goal: channelling (fishing) at a point holds the arrow there', () => {
+	const out = run(
+		'test/veins',
+		`at(30)
+local first = arrow()
+channel = true
+wait(9)
+channel = false
+wait(2)
+channel = true
+wait(9)
+local fishing = arrow()
+channel = false
+at(50)
+wait(6)
+emit({ first = first, fishing = fishing, next = arrow() })`,
+		'function UnitChannelInfo(unit) if unit == "player" and channel then return "Fishing" end end',
+	);
+	assert.deepEqual([out.first, out.fishing, out.next], [30, 30, 50]);
+});
+
 test('a quest item before its kill leads the arrow through each search point', () => {
 	const out = run('test/rifts', SEARCH, 'w.onQuest(4971, { { required = 15, fulfilled = 10 } })');
 	assert.equal(out.goal, 1, 'the quest item leads');
