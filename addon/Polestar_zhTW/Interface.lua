@@ -552,6 +552,16 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+-- Machine-translated, to be reviewed (guide kinds and the long farm line, 26 Nov 2026): translated by an AI
+-- model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   next stretch to %d
+--   step %d needs level %d (%s)
+--   step %d needs level %d
+--   Nearest %s trainer
+--   Most of it drops as you level %s
+--   A long farm: most of it drops as you level
+--   or the Auction House
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhTW") then return end
@@ -2016,6 +2026,9 @@ L["1 level above you: careful"] = "高你1級：小心"
 L["about %d kills, %d min"] = "約%d次擊殺，%d分鐘"
 L["about %d kills"] = "約%d次擊殺"
 L["or %s (%s)"] = "或%s（%s）"
+L["Most of it drops as you level %s"] = "大部分會在你升到 %s 級的途中掉落"
+L["A long farm: most of it drops as you level"] = "耗時很長：大部分會在升級途中掉落"
+L["or the Auction House"] = "或拍賣場"
 L["or %s"] = "或%s"
 
 -- UI/GuideFrame.lua
@@ -2174,6 +2187,10 @@ L["Quest log full: this step takes %d, and there is room for %d."] = "任務日�
 L["Room to make: %s"] = "需騰出空間：%s"
 L["Make room"] = "騰出空間"
 L["On pace for level %s by step %d"] = "進度可在第 %2$d 步時達到 %1$s 級"
+L["next stretch to %d"] = "下一段至 %d"
+L["step %d needs level %d (%s)"] = "第 %d 步需要等級 %d（%s）"
+L["step %d needs level %d"] = "第 %d 步需要等級 %d"
+L["Nearest %s trainer"] = "最近的%s訓練師"
 L["Your class quest is done. Back to %s."] = "你的職業任務已完成。返回 %s。"
 L["Close and return"] = "關閉並返回"
 L["The guide has no class training ahead."] = "指南後續沒有職業訓練。"

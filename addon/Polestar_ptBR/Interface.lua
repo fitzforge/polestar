@@ -470,6 +470,16 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+-- Machine-translated, to be reviewed (guide kinds and the long farm line, 26 Nov 2026): translated by an AI
+-- model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   next stretch to %d
+--   step %d needs level %d (%s)
+--   step %d needs level %d
+--   Nearest %s trainer
+--   Most of it drops as you level %s
+--   A long farm: most of it drops as you level
+--   or the Auction House
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "ptBR") then return end
@@ -1935,6 +1945,9 @@ L["1 level above you: careful"] = "1 nível acima: cuidado"
 L["about %d kills, %d min"] = "cerca de %d abates, %d min"
 L["about %d kills"] = "cerca de %d abates"
 L["or %s (%s)"] = "ou %s (%s)"
+L["Most of it drops as you level %s"] = "A maior parte cai enquanto você sobe os níveis %s"
+L["A long farm: most of it drops as you level"] = "Farm longo: a maior parte cai enquanto você sobe de nível"
+L["or the Auction House"] = "ou a casa de leilões"
 L["or %s"] = "ou %s"
 
 -- UI/GuideFrame.lua
@@ -2093,6 +2106,10 @@ L["Quest log full: this step takes %d, and there is room for %d."] = "Registro d
 L["Room to make: %s"] = "Espaço a liberar: %s"
 L["Make room"] = "Liberar espaço"
 L["On pace for level %s by step %d"] = "No ritmo para o nível %s na etapa %d"
+L["next stretch to %d"] = "próximo trecho até %d"
+L["step %d needs level %d (%s)"] = "a etapa %d exige nível %d (%s)"
+L["step %d needs level %d"] = "a etapa %d exige nível %d"
+L["Nearest %s trainer"] = "Instrutor de %s mais próximo"
 L["Your class quest is done. Back to %s."] = "Sua missão de classe foi concluída. De volta a %s."
 L["Close and return"] = "Fechar e voltar"
 L["The guide has no class training ahead."] = "O guia não tem treinamento de classe pela frente."

@@ -415,7 +415,11 @@ end
 -- first ("1 level above you: careful"; with no spot at their level, "No farm
 -- at your level: 3 levels above you"), then the kills and minutes the items
 -- still missing take there, then the second choice ("or Riverpaw Gnoll
--- (Westfall)"). Nil without one.
+-- (Westfall)"). A farm longer than UI.FARM_LONG minutes is no plan to send
+-- a player on: it says where the rest really comes from instead ("Most of it
+-- drops as you level 15-30  ·  or the Auction House"), no kills, minutes or
+-- second farm. Nil without one.
+UI.FARM_LONG = 60
 function UI.FarmLine(goal)
 	local f = type(goal.farm) == "table" and goal.farm
 	if not f then return nil end
@@ -425,6 +429,12 @@ function UI.FarmLine(goal)
 		parts[#parts + 1] = string.format(L["No farm at your level: %d levels above you"], above)
 	elseif above and above > 0 then
 		parts[#parts + 1] = L["1 level above you: careful"]
+	end
+	if f.minutes and f.minutes > UI.FARM_LONG then
+		local lv = type(f.levels) == "table" and UI.LevelRange(f.levels[1], f.levels[2])
+		parts[#parts + 1] = lv and string.format(L["Most of it drops as you level %s"], lv) or L["A long farm: most of it drops as you level"]
+		if f.market then parts[#parts + 1] = L["or the Auction House"] end
+		return table.concat(parts, "  \194\183  ")
 	end
 	if f.kills and f.minutes then
 		parts[#parts + 1] = string.format(L["about %d kills, %d min"], f.kills, f.minutes)

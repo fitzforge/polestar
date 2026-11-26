@@ -20,7 +20,7 @@
 ## Title-zhTW: Polestar 街機
 ## Notes-zhTW: Polestar 的一部分：飛行途中可玩的遊戲。點擊「開始遊戲」時載入。
 ## Author: Polestar; Freedoom Arcade by petllama; Sky Jewels by RikyZ90; Tetris by beemerwt
-## Version: 0.4.3
+## Version: 0.4.3.1
 ## Category: Polestar
 ## Group: Polestar
 ## LoadOnDemand: 1

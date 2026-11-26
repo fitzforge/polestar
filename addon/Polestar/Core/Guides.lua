@@ -634,6 +634,7 @@ local function validate(def)
 	if def.next ~= nil and not isStr(def.next) then return "bad next" end
 	if def.faction ~= nil and not isStr(def.faction) then return "bad faction" end
 	if def.category ~= nil and not isStr(def.category) then return "bad category" end
+	if def.kind ~= nil and not isStr(def.kind) then return "bad kind" end
 	if def.pitch ~= nil and not isStr(def.pitch) then return "bad pitch" end
 	if def.folder ~= nil and not isStr(def.folder) then return "bad folder" end
 	if def.collects ~= nil then
@@ -2308,6 +2309,91 @@ function Own.loadForSaved()
 	need(s.guide)
 	for _, id in ipairs(type(s.tabs) == "table" and s.tabs or {}) do need(id) end
 	for _, name in ipairs(names) do ns.Data.Pack(name) end
+end
+
+---------------------------------------------------------------------------
+-- Guide kinds (docs/GUIDE_FORMAT.md, "Guide kind"): what the guide window
+-- shows for a guide. A guide's `kind` (compiled from its header), else its
+-- category's. Each kind leaves parts of the window and entries of its menu
+-- out (a part or entry not named is shown); `lead` puts menu entries first.
+-- Parts: "xp" (the XP line), "pace" (the route's pace), "skillBar" (the
+-- profession's skill, off unless a kind turns it on), "handinRow" (the
+-- finished quests' row), "whileHereQuests" (While you're here rows of quests),
+-- "stillToDo" (Still to do rows). Menu entries: "free" (Free mode), "handins"
+-- (Hand in finished quests), "questLog" (Clean up quest log), "materials"
+-- (Gather, buy or mix), "trainer" (the profession's nearest trainer).
+-- A part's own setting (guideWindow.xpLine, .pace, .stillToDo) still turns it off for every kind (GF.KindHas).
+---------------------------------------------------------------------------
+
+local GuideKinds = {}
+ns.GuideKinds = GuideKinds
+
+GuideKinds.KINDS = {
+	leveling = {},
+	profession = {
+		parts = { xp = false, pace = false, skillBar = true, handinRow = false, whileHereQuests = false, stillToDo = false },
+		menu = { free = false, handins = false, questLog = false },
+		lead = { "materials", "trainer" },
+	},
+	reputation = { parts = { pace = false } },
+	dungeon = { parts = { pace = false } },
+	class = { parts = { pace = false } },
+	collectible = { parts = { pace = false } },
+	exploration = { parts = { pace = false } },
+	misc = { parts = { pace = false } },
+}
+-- Parts a kind shows only when it says so.
+GuideKinds.OFF_BY_DEFAULT = { skillBar = true }
+GuideKinds.BY_CATEGORY = {
+	Leveling = "leveling", Professions = "profession", Reputation = "reputation", Dungeons = "dungeon", Class = "class",
+	Collectibles = "collectible", Exploration = "exploration", Miscellaneous = "misc", Legacy = "misc",
+}
+
+-- The kind of guide `def` (a guide table or its id): its own `kind` when
+-- Polestar knows it, else its category's; "leveling" with no category, "misc"
+-- for a category Polestar does not know.
+function GuideKinds.Of(def)
+	if type(def) == "string" then def = Guides.Get(def) end
+	if type(def) ~= "table" then return "leveling" end
+	if GuideKinds.KINDS[def.kind] then return def.kind end
+	if def.category == nil then return "leveling" end
+	return GuideKinds.BY_CATEGORY[def.category] or "misc"
+end
+
+-- Whether kind `kind` shows window part `part`.
+function GuideKinds.Has(kind, part)
+	local k = GuideKinds.KINDS[kind] or GuideKinds.KINDS.leveling
+	local v = k.parts and k.parts[part]
+	if v ~= nil then return v end
+	return not GuideKinds.OFF_BY_DEFAULT[part]
+end
+
+-- Whether kind `kind`'s guide menu has entry `entry`.
+function GuideKinds.Menu(kind, entry)
+	local k = GuideKinds.KINDS[kind] or GuideKinds.KINDS.leveling
+	return not (k.menu and k.menu[entry] == false)
+end
+
+-- The menu entries kind `kind` puts first, in order (none for most kinds).
+function GuideKinds.Lead(kind)
+	local k = GuideKinds.KINDS[kind] or GuideKinds.KINDS.leveling
+	return k.lead or {}
+end
+
+-- The skill line a profession guide levels: its sections' (a `section` named
+-- for a profession band), else its first `skill`, `train` or `craft … until`
+-- goal's, or nil.
+function GuideKinds.SkillLine(def)
+	if type(def) ~= "table" then return nil end
+	for _, s in ipairs(type(def.sections) == "table" and def.sections or {}) do
+		if type(s.skillLine) == "number" then return s.skillLine end
+	end
+	for _, step in ipairs(type(def.steps) == "table" and def.steps or {}) do
+		for _, g in ipairs(step.goals or {}) do
+			if type(g.skillLine) == "number" and (g.t == "skill" or g.t == "train" or g.untilSkill) then return g.skillLine end
+		end
+	end
+	return nil
 end
 
 ns.OnLogin(function()

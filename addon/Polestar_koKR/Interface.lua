@@ -552,6 +552,16 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+-- Machine-translated, to be reviewed (guide kinds and the long farm line, 26 Nov 2026): translated by an AI
+-- model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
+-- keep or fix its line below, and take its key off this list.
+--   next stretch to %d
+--   step %d needs level %d (%s)
+--   step %d needs level %d
+--   Nearest %s trainer
+--   Most of it drops as you level %s
+--   A long farm: most of it drops as you level
+--   or the Auction House
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "koKR") then return end
@@ -2016,6 +2026,9 @@ L["1 level above you: careful"] = "1레벨 높음: 주의"
 L["about %d kills, %d min"] = "약 %d마리, %d분"
 L["about %d kills"] = "약 %d마리"
 L["or %s (%s)"] = "또는 %s (%s)"
+L["Most of it drops as you level %s"] = "대부분은 레벨 %s 구간을 올리며 얻습니다"
+L["A long farm: most of it drops as you level"] = "긴 파밍: 대부분은 레벨을 올리며 얻습니다"
+L["or the Auction House"] = "또는 경매장"
 L["or %s"] = "또는 %s"
 
 -- UI/GuideFrame.lua
@@ -2174,6 +2187,10 @@ L["Quest log full: this step takes %d, and there is room for %d."] = "퀘스트 
 L["Room to make: %s"] = "확보할 자리: %s"
 L["Make room"] = "자리 만들기"
 L["On pace for level %s by step %d"] = "%2$d단계까지 레벨 %1$s 도달 예상"
+L["next stretch to %d"] = "다음 구간: %d까지"
+L["step %d needs level %d (%s)"] = "%d단계에 레벨 %d 필요 (%s)"
+L["step %d needs level %d"] = "%d단계에 레벨 %d 필요"
+L["Nearest %s trainer"] = "가장 가까운 %s 훈련사"
 L["Your class quest is done. Back to %s."] = "직업 퀘스트를 마쳤습니다. %s(으)로 돌아갑니다."
 L["Close and return"] = "닫고 돌아가기"
 L["The guide has no class training ahead."] = "앞으로 가이드에 직업 훈련이 없습니다."

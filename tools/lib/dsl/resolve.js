@@ -906,6 +906,12 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		}
 	}
 	guide.category = canonicalCategory(h.category, ast, warn);
+	// `kind`: what the guide window shows for it (docs/GUIDE_FORMAT.md, "Guide kind"); written out only when set,
+	// the addon takes it from the category otherwise.
+	if (h.kind !== undefined) {
+		if (KINDS.includes(h.kind)) guide.kind = h.kind;
+		else err(ast.lines.kind, `unknown kind "${h.kind}" (known: ${KINDS.join(', ')})`);
+	}
 	setIf(guide, 'folder', h.folder);
 	setIf(guide, 'keywords', h.keywords);
 	if (h.collects) {
@@ -1505,6 +1511,9 @@ function objectiveFor(q, kind, id) {
 }
 
 const CATEGORIES = ['Leveling', 'Class', 'Professions', 'Reputation', 'Legacy', 'Exploration', 'Collectibles', 'Miscellaneous', 'Dungeons'];
+
+// Guide kinds (`kind`), each a set of guide window parts and menu entries (addon Core/GuideKinds.lua).
+const KINDS = ['leveling', 'profession', 'reputation', 'dungeon', 'class', 'collectible', 'exploration', 'misc'];
 
 // Documented categories are matched case-insensitively; others pass through with a warning.
 function canonicalCategory(raw, ast, warn) {

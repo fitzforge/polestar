@@ -3046,12 +3046,16 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   spot's `map`, `x`, `y`, `f`, `npcName`, `lvl` and `alternatives`, and, for
   an open goal with items still missing, `farm` (`Own.farmView`): `kills`
   (missing / rate, rounded up), `minutes` (the farm seconds), `above` (levels
-  the weakest mobs are above the player, when they are) and `second` (the
+  the weakest mobs are above the player, when they are), `second` (the
   next spot of the ranking on another map, else the next one: `npcName`,
-  `map`, `lvl`). The guide window adds them to the farm line
-  (`UI.FarmLine`: "1 level above you: careful", or "No farm at your level: 3
-  levels above you"; "about 60 kills, 25 min"; "or Riverpaw Gnoll
-  (Westfall)"). `CycleCandidate` walks the ranking.
+  `map`, `lvl`), `levels` (the `gather levels` of a material the Auction
+  House sells) and `market` (it sells there). The guide window adds them to
+  the farm line (`UI.FarmLine`: "1 level above you: careful", or "No farm at
+  your level: 3 levels above you"; "about 60 kills, 25 min"; "or Riverpaw
+  Gnoll (Westfall)"). A farm over `UI.FARM_LONG` (60) minutes is no plan to
+  send a player on: the line says "Most of it drops as you level 15–30 · or
+  the Auction House" instead of its kills, minutes and second spot.
+  `CycleCandidate` walks the ranking.
 
 #### Steps the character has
 
@@ -9619,6 +9623,23 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `Theme.GuideParts()` is the live window's), and `psGuideWindow` marks a
   guide window itself apart from a card painted as one. What the window
   shows now comes through `GF.View()`, `GF.State()` and `GF.TipOpen()`.
+- **Guide kinds** (`Core/Guides.lua`, `ns.GuideKinds`; docs/GUIDE_FORMAT.md,
+  "Guide kind"): one small table, kind → the window parts it leaves out
+  (`parts`: `xp`, `pace`, `skillBar` (off unless a kind turns it on),
+  `handinRow`, `whileHereQuests`, `stillToDo`), the menu entries it leaves
+  out (`menu`: `free`, `handins`, `questLog`, `materials`) and the entries
+  it puts first (`lead`: `materials`, `trainer`). `GuideKinds.Of(guide)`
+  reads the guide's compiled `kind`, else its category's;
+  `Engine.GuideKind()` is the guide in view's. The window asks
+  `GF.KindHas(part, settingKey)`: the kind has the part and its setting
+  (`guideWindow.xpLine`, `.pace`, `.stillToDo`) is on. The profession
+  kind's skill line is `GF.SkillText()` over `Engine.SkillBar()` (the
+  guide's skill line from its sections, the stretch ahead from the next
+  `craft … until`, the first `level` goal above the character), in the XP
+  row's place (`UI/GuideFrameStatus.lua`); the menu's kind entries are in
+  `UI/GuideFrameMenu.lua`, the While you're here filter in
+  `UI/GuideFrameHere.lua`. A layout that draws a kind its own way reads
+  the same table.
 - **Guide window** (`UI/GuideFrame.lua`): tab strip (each tab's close button
   faint at rest, full under the pointer; right-click for Choose guide, Close
   tab, Move left/right; middle-click closes), a slim navigator (prev,

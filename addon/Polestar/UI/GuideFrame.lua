@@ -352,6 +352,16 @@ GF.Part(function(GF)
 	if GF.live then ns.RegisterDefaults("guideWindow", GF.LOOK) end
 
 	function GF.On(key) return ns.Get("guideWindow." .. key) ~= false end
+	-- Whether the window shows part `part` for the guide in view (Core/Guides.lua, GuideKinds:
+	-- "xp", "pace", "skillBar", "handinRow", "whileHereQuests", "stillToDo"): its kind has it, and
+	-- `key`'s setting (guideWindow.<key>), when it has one, is on. The setting still turns the part
+	-- off for every kind.
+	function GF.KindHas(part, key)
+		local E, K = GF.Engine(), ns.GuideKinds
+		local kind = E and E.GuideKind and E.GuideKind() or "leveling"
+		if K and not K.Has(kind, part) then return false end
+		return key == nil or GF.On(key)
+	end
 	function GF.Num(key) return tonumber(ns.Get("guideWindow." .. key)) or GF.LOOK[key] end
 	-- A colour setting: r, g, b, or nil to follow the theme.
 	function GF.Rgb(key)
@@ -2451,8 +2461,9 @@ GF.Part(function(GF)
 		end
 		local n, untilStep, mixed = 0, nil, false
 		-- Still to do (both kinds below) unless turned off (guideWindow.stillToDo,
-		-- #3303); the finished ones stay in the menu's Hand in finished quests.
-		local stillToDo = GF.On("stillToDo")
+		-- #3303) or the guide's kind has none (a profession guide); the finished
+		-- ones stay in the menu's Hand in finished quests.
+		local stillToDo = GF.KindHas("stillToDo", "stillToDo")
 		-- First the quests an update left behind the player (Engine.GetBehind):
 		-- "Still to do: <quest>, back in <zone>, 240 yd".
 		local back = 0
