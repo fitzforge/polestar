@@ -9,126 +9,158 @@ return {
 	-- Step 1: Learn Tailoring
 	-- {skill:197} Tailoring
 	["Learn {skill:197}"] = "Aprende {skill:197}",
-	-- {skill:197} Tailoring · {item:2589} Linen Cloth
+	-- {skill:197} Tailoring · {item:2589} Linen Cloth · {item:2592} Wool Cloth
 	-- was: ["Apprentice {skill:197} lets you craft up to 75 for 10c, at any character level. Any {skill:197} trainer of your faction teaches it; the arrow picks the nearest. Keep every {item:2589} you loot: humanoids of level 5-20 drop it. 1-75 takes about 50c of recipes and 7s 20c of vendor goods, plus 144 {item:2589} to gather or buy."] = "Aprendiz de {skill:197} te deja fabricar hasta 75 por 10c, con cualquier nivel de personaje. Cualquier instructor de {skill:197} de tu facción lo enseña; la flecha elige el más cercano. Guarda cada {item:2589} que saquees: lo sueltan los humanoides de nivel 5-20. De 1 a 75 hacen falta unos 50c en recetas y 7s 20c en artículos de mercader, además de 144 {item:2589} que recolectar o comprar."
-	["Apprentice {skill:197} lets you craft up to 75 for 10c, at any character level. Any {skill:197} trainer of your faction teaches it; the arrow picks the nearest. Keep every {item:2589} you loot: humanoids of level 5-20 drop it. 1-75 takes about 50c of recipes and 5s 50c of vendor goods, plus 128 {item:2589} to gather or buy."] = "",
+	["Apprentice {skill:197} lets you craft up to 75 for 10c, at any character level. Any {skill:197} trainer of your faction teaches it; the arrow picks the nearest. Keep every {item:2589} you loot: humanoids of level 5-20 drop it. 1-75 takes about 1s 50c of recipes and 4s 10c of vendor goods, plus 84 {item:2589} and 69 {item:2592} to gather or buy."] = "",
 
 	-- Step 2: Tailoring 1-75: vendor goods
 	-- {skill:197} Tailoring
 	["{skill:197} 1-75: vendor goods"] = "{skill:197} 1-75: artículos de mercader",
 	-- {item:2320} Coarse Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
 	-- was: ["Buy the whole bracket's share in one go: 72 {item:2320} (7s 20c); about 7s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "Compra de una vez todo lo de este tramo: 72 {item:2320} (7s 20c); unos 7s 20c en total. La flecha elige el vendedor más cercano de tu facción ({zone:1453}: {npc:1347}, {npc:1286} y {npc:5565}; {zone:1454}: {npc:3364}, Felika y {npc:5817})."
-	["Buy the whole bracket's share in one go: 55 {item:2320} (5s 50c); about 5s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "",
+	["Buy the whole bracket's share in one go: 41 {item:2320} (4s 10c); about 4s 10c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "",
 
 	-- Step 3: Get Linen Cloth
 	-- {item:2589} Linen Cloth
 	["Get {item:2589}"] = "",
-	-- {item:2589} Linen Cloth · {skill:197} Tailoring · {spell:2387} Linen Cloak · {item:7026} Linen Belt
-	["You need 128 {item:2589} for {skill:197} 1-75: {spell:2387} and {item:7026}. Humanoids of level 5-20 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2589} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- {item:2589} Linen Cloth · {skill:197} Tailoring
+	-- plural, as words: Linen Belts = {item:7026} Linen Belt
+	["84 {item:2589} for {skill:197} 1-75: 14 Bolts of Linen Cloth and 42 Linen Belts. Humanoids of level 5-20 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2589} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
-	-- Step 4: Linen Cloak to 15
-	-- {spell:2387} Linen Cloak
-	["{spell:2387} to 15"] = "{spell:2387} hasta 15",
-	-- {spell:2387} Linen Cloak · {spell:2963} Bolt of Linen Cloth · {item:2320} Coarse Thread
-	["{spell:2387} is orange at 1 (yellow 35, green 47, grey 60): about 7 crafts to 15, a point every craft. Each takes 1 {spell:2963} and 1 {item:2320}. Make the 7 {spell:2963} first: it gives points too while not grey. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{spell:2387} es naranja a 1 (amarillo 35, verde 47, gris 60): unas 7 fabricaciones hasta 15, un punto por fabricación. Cada una lleva 1 {spell:2963} y 1 {item:2320}. Haz primero los 7 {spell:2963}: también da puntos mientras no sea gris. Lo enseña el instructor, y según los datos es la forma más barata de conseguir estos puntos.",
+	-- Step 4: Get Wool Cloth
+	-- {item:2592} Wool Cloth
+	["Get {item:2592}"] = "",
+	-- {item:2592} Wool Cloth · {skill:197} Tailoring
+	["69 {item:2592} for {skill:197} 1-75: 23 Bolts of Woolen Cloth. Humanoids of level 15-30 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
-	-- Step 5: Tailoring recipes at 15
+	-- Step 5: Bolt of Linen Cloth to 15
+	-- {spell:2963} Bolt of Linen Cloth
+	["{spell:2963} to 15"] = "",
+	-- {spell:2963} Bolt of Linen Cloth · {item:2589} Linen Cloth
+	-- plural, as words: Linen Belts = {item:7026} Linen Belt
+	["{spell:2963} is orange at 1 (yellow 25, green 37, grey 50): about 14 crafts to 15, a point every craft. Each takes 2 {item:2589}. Keep the bolts: the Linen Belts from 15 take one each."] = "",
+
+	-- Step 6: Tailoring recipes at 15
 	-- {skill:197} Tailoring
 	["{skill:197} recipes at 15"] = "Recetas de {skill:197} a 15",
 	-- {skill:197} Tailoring · {spell:8776} Linen Belt
 	["Back to a {skill:197} trainer: {spell:8776} (from 15, 50c)."] = "Vuelve con un instructor de {skill:197}: {spell:8776} (desde 15, 50c).",
 
-	-- Step 6: Linen Belt to 75
+	-- Step 7: Linen Belt to 55
 	-- {item:7026} Linen Belt
-	["{item:7026} to 75"] = "{item:7026} hasta 75",
+	["{item:7026} to 55"] = "",
 	-- {item:7026} Linen Belt · {spell:2963} Bolt of Linen Cloth · {item:2320} Coarse Thread
-	["{item:7026} is orange at 15 (yellow 50, green 67, grey 85): about 48 crafts to 75, up to 57 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {spell:2963} and 1 {item:2320}. Make the 48 {spell:2963} first: it gives points too while not grey. Each belt takes one bolt; the belts sell to vendors."] = "",
+	["{item:7026} is orange at 15 (yellow 50, green 67, grey 85): about 41 crafts to 55, up to 42 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {spell:2963} and 1 {item:2320}. Make the 27 {spell:2963} first: it gives points too while not grey. Use the 14 {spell:2963} you made earlier; the counts above leave them out. Each belt takes one bolt; the belts sell to vendors."] = "",
 
-	-- Step 7: Journeyman Tailoring
+	-- Step 8: Tailoring recipes at 55
+	-- {skill:197} Tailoring
+	["{skill:197} recipes at 55"] = "",
+	-- {skill:197} Tailoring · {spell:2964} Bolt of Woolen Cloth · {spell:1229504} Faction Banner · {spell:2963} Bolt of Linen Cloth · {item:2320} Coarse Thread
+	["Back to a {skill:197} trainer: {spell:2964} (from 55, 1s). Also learn {spell:1229504} (1s): Forever's {skill:197} camp item, a {spell:2963} and a {item:2320}; each faction has its own. The Camping 101: {skill:197} quest from your starting area's camping guide (after The Great Outdoors) sends you to a tailoring trainer who teaches it free."] = "",
+
+	-- Step 9: Bolt of Woolen Cloth to 75
+	-- {spell:2964} Bolt of Woolen Cloth
+	["{spell:2964} to 75"] = "",
+	-- {spell:2964} Bolt of Woolen Cloth · {item:2592} Wool Cloth
+	-- plural, as words: Woolen Capes = {spell:2402} Woolen Cape
+	["{spell:2964} is orange at 55 (yellow 70, green 77, grey 85): about 21 crafts to 75, up to 23 for 9 players in 10 (the gathered materials above count that many). Each takes 3 {item:2592}. Keep the bolts: the Woolen Capes from 75 take one each, so these points cost no extra {item:2592}."] = "",
+
+	-- Step 10: Journeyman Tailoring
 	-- {skill:197} Tailoring
 	["Journeyman {skill:197}"] = "{skill:197} de oficial",
-	-- {skill:197} Tailoring · {npc:251972} Charles Worth · {zone:1416} Alterac Mountains · {npc:2627} Grarnik Goodstitch · {zone:1434} Stranglethorn Vale · {npc:5153} Jormund Stonebrow · {zone:1455} Ironforge · {npc:4159} Me'lynn · {zone:1457} Darnassus · {npc:252380} Othesia Evengale · {npc:5567} Sellandus · {zone:1453} Stormwind City · {npc:251991} Taleen Shimmerthread · {npc:3363} Magar · {zone:1454} Orgrimmar · {npc:3704} Mahani · {zone:1413} The Barrens · {npc:11049} Rhiannon Davis · {zone:1458} Undercity · {npc:3004} Tepa · {zone:1456} Thunder Bluff · {spell:2964} Bolt of Woolen Cloth · {spell:2402} Woolen Cape · {spell:1229504} Faction Banner · {spell:2963} Bolt of Linen Cloth · {item:2320} Coarse Thread · {item:2592} Wool Cloth · {item:4306} Silk Cloth
-	-- was: ["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:197} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:197} trainer teaches it: Alliance {npc:2627} ({zone:1434}), {npc:5153} ({zone:1455}), {npc:4159} ({zone:1457}), {npc:252380} (Zephras Isle), {npc:5567} ({zone:1453}) and {npc:251991} (Zephras Isle); Horde {npc:2627} ({zone:1434}), {npc:3363} ({zone:1454}), {npc:3704} ({zone:1413}), {npc:252380} (Zephras Isle), {npc:11049} ({zone:1458}), {npc:251991} (Zephras Isle) and {npc:3004} ({zone:1456}). The arrow picks the nearest of your faction. Learn now: {spell:2964} (from 55, 1s) and {spell:2402} (from 55, 2s 50c). Also learn {spell:1229504} (1s): Forever's {skill:197} camp item, a {spell:2963} and a {item:2320}; each faction has its own. The Camping 101: {skill:197} quest from your starting area's camping guide (after The Great Outdoors) sends you to a tailoring trainer who teaches it free. 75-150 takes about 11s of recipes and 1g 65s 50c of vendor goods, plus 567 {item:2592} and 204 {item:4306} to gather or buy."] = "Oficial sube el límite de 75 a 150 por 5s; requiere {skill:197} 50 y nivel de personaje 10, así que puedes aprenderlo en cualquier visita a partir de 50. No todos los instructores de {skill:197} lo enseñan: Alianza: {npc:2627} ({zone:1434}), {npc:5153} ({zone:1455}), {npc:4159} ({zone:1457}), {npc:252380} (Isla Zephras), {npc:5567} ({zone:1453}) y {npc:251991} (Isla Zephras); Horda: {npc:2627} ({zone:1434}), {npc:3363} ({zone:1454}), {npc:3704} ({zone:1413}), {npc:252380} (Isla Zephras), {npc:11049} ({zone:1458}), {npc:251991} (Isla Zephras) y {npc:3004} ({zone:1456}). La flecha elige el más cercano de tu facción. Aprende ahora: {spell:2964} (desde 55, 1s) y {spell:2402} (desde 55, 2s 50c). Aprende también {spell:1229504} (1s): el objeto de campamento de {skill:197} de Forever, con un {spell:2963} y un {item:2320}; cada facción tiene el suyo. La misión “Campamento básico: {skill:197}” del guía de campamento de tu zona inicial (después de “Bendita naturaleza”) te envía a un instructor de sastrería que lo enseña gratis. De 75 a 150 hacen falta unos 11s en recetas y 1g 65s 50c en artículos de mercader, además de 567 {item:2592} y 204 {item:4306} que recolectar o comprar."
-	["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:197} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:197} trainer teaches it: Alliance {npc:251972} ({zone:1416}), {npc:2627} ({zone:1434}), {npc:5153} ({zone:1455}), {npc:4159} ({zone:1457}), {npc:252380} (Zephras Isle), {npc:5567} ({zone:1453}) and {npc:251991} (Zephras Isle); Horde {npc:2627} ({zone:1434}), {npc:3363} ({zone:1454}), {npc:3704} ({zone:1413}), {npc:252380} (Zephras Isle), {npc:11049} ({zone:1458}), {npc:251991} (Zephras Isle) and {npc:3004} ({zone:1456}). The arrow picks the nearest of your faction. Learn now: {spell:2964} (from 55, 1s) and {spell:2402} (from 55, 2s 50c). Also learn {spell:1229504} (1s): Forever's {skill:197} camp item, a {spell:2963} and a {item:2320}; each faction has its own. The Camping 101: {skill:197} quest from your starting area's camping guide (after The Great Outdoors) sends you to a tailoring trainer who teaches it free. 75-150 takes about 11s of recipes and 1g 59s 50c of vendor goods, plus 654 {item:2592} and 228 {item:4306} to gather or buy."] = "",
+	-- {skill:197} Tailoring · {npc:251972} Charles Worth · {zone:1416} Alterac Mountains · {npc:2627} Grarnik Goodstitch · {zone:1434} Stranglethorn Vale · {npc:5153} Jormund Stonebrow · {zone:1455} Ironforge · {npc:4159} Me'lynn · {zone:1457} Darnassus · {npc:252380} Othesia Evengale · {npc:5567} Sellandus · {zone:1453} Stormwind City · {npc:251991} Taleen Shimmerthread · {npc:3363} Magar · {zone:1454} Orgrimmar · {npc:3704} Mahani · {zone:1413} The Barrens · {npc:11049} Rhiannon Davis · {zone:1458} Undercity · {npc:3004} Tepa · {zone:1456} Thunder Bluff · {spell:2402} Woolen Cape · {item:2592} Wool Cloth · {item:4306} Silk Cloth
+	["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:197} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:197} trainer teaches it: Alliance {npc:251972} ({zone:1416}), {npc:2627} ({zone:1434}), {npc:5153} ({zone:1455}), {npc:4159} ({zone:1457}), {npc:252380} (Zephras Isle), {npc:5567} ({zone:1453}) and {npc:251991} (Zephras Isle); Horde {npc:2627} ({zone:1434}), {npc:3363} ({zone:1454}), {npc:3704} ({zone:1413}), {npc:252380} (Zephras Isle), {npc:11049} ({zone:1458}), {npc:251991} (Zephras Isle) and {npc:3004} ({zone:1456}). The arrow picks the nearest of your faction. Learn now: {spell:2402} (from 55, 2s 50c). 75-150 takes about 13s 50c of recipes and 93s 50c of vendor goods, plus 57 {item:2592} and 424 {item:4306} to gather or buy."] = "",
 
-	-- Step 8: Tailoring 75-150: vendor goods
+	-- Step 11: Tailoring 75-150: vendor goods
 	-- {skill:197} Tailoring
 	["{skill:197} 75-150: vendor goods"] = "{skill:197} 75-150: artículos de mercader",
-	-- {item:2321} Fine Thread · {item:2324} Bleach · {item:2604} Red Dye · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 102 {item:2321} (1g 2s), 34 {item:2324} (8s 50c) and 98 {item:2604} (49s); about 1g 59s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:1286}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "",
+	-- {item:2321} Fine Thread · {item:2324} Bleach · {item:6260} Blue Dye · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
+	["Buy the whole bracket's share in one go: 68 {item:2321} (68s), 34 {item:2324} (8s 50c) and 34 {item:6260} (17s); about 93s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:1286}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "",
 
-	-- Step 9: Get Wool Cloth
-	-- {item:2592} Wool Cloth
-	["Get {item:2592}"] = "",
-	-- {item:2592} Wool Cloth · {skill:197} Tailoring · {spell:2402} Woolen Cape · {spell:3866} Stylish Red Shirt
-	["You need 654 {item:2592} for {skill:197} 75-150: {spell:2402} and {spell:3866}. Humanoids of level 15-30 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- Step 12: Get Wool Cloth
+	-- {item:2592} Wool Cloth · {skill:197} Tailoring
+	-- plural, as words: Woolen Capes = {spell:2402} Woolen Cape
+	["57 {item:2592} for {skill:197} 75-150: 40 Woolen Capes. Humanoids of level 15-30 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:2592} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
-	-- Step 10: Get Silk Cloth
+	-- Step 13: Get Silk Cloth
 	-- {item:4306} Silk Cloth
 	["Get {item:4306}"] = "",
-	-- {item:4306} Silk Cloth · {skill:197} Tailoring · {spell:3871} Formal White Shirt
-	["You need 228 {item:4306} for {skill:197} 75-150: {spell:3871}. Humanoids of level 25-45 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4306} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- {item:4306} Silk Cloth · {skill:197} Tailoring
+	-- plural, as words: Formal White Shirts = {spell:3871} Formal White Shirt
+	["424 {item:4306} for {skill:197} 75-150: 55 Bolts of Silk Cloth and 19 Formal White Shirts. Humanoids of level 25-45 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4306} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
-	-- Step 11: Woolen Cape to 104
+	-- Step 14: Woolen Cape to 100
 	-- {spell:2402} Woolen Cape
-	["{spell:2402} to 104"] = "{spell:2402} hasta 104",
+	["{spell:2402} to 100"] = "",
 	-- {spell:2402} Woolen Cape · {spell:2964} Bolt of Woolen Cloth · {item:2321} Fine Thread
-	["{spell:2402} is orange at 75 (yellow 80, green 97, grey 115): about 36 crafts to 104, up to 44 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {spell:2964} and 1 {item:2321}. Make the 36 {spell:2964} first: it gives points too while not grey. {spell:2964} is taught from 55 on Forever."] = "",
+	["{spell:2402} is orange at 75 (yellow 80, green 97, grey 115): about 34 crafts to 100, up to 40 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {spell:2964} and 1 {item:2321}. Make the 13 {spell:2964} first: it gives points too while not grey. Use the 21 {spell:2964} you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. If you got here without learning {spell:2964}, learn it now: an earlier step teaches it."] = "",
 
-	-- Step 12: Tailoring recipes at 104
+	-- Step 15: Tailoring recipes at 100
 	-- {skill:197} Tailoring
-	["{skill:197} recipes at 104"] = "Recetas de {skill:197} a 104",
-	-- {skill:197} Tailoring · {spell:3866} Stylish Red Shirt · {spell:3839} Bolt of Silk Cloth
-	["Back to a {skill:197} trainer: {spell:3866} (from 85, 2s 50c) and {spell:3839} (from 100, 5s)."] = "",
+	["{skill:197} recipes at 100"] = "",
+	-- {skill:197} Tailoring · {spell:3839} Bolt of Silk Cloth
+	["Back to a {skill:197} trainer: {spell:3839} (from 100, 5s)."] = "",
 
-	-- Step 13: Stylish Red Shirt to 135
-	-- {spell:3866} Stylish Red Shirt
-	["{spell:3866} to 135"] = "{spell:3866} hasta 135",
-	-- {spell:3866} Stylish Red Shirt · {spell:2964} Bolt of Woolen Cloth · {item:2604} Red Dye · {item:2321} Fine Thread · {item:2592} Wool Cloth
-	-- was: ["{spell:3866} is orange at 104 (yellow 110, green 127, grey 145): about 49 crafts to 135. Each takes 3 {spell:2964}, 2 {item:2604} and 1 {item:2321}. Make the 147 {spell:2964} first. Three woolen bolts and two {item:2604} a shirt; {item:2592} drops from humanoids of level 15-30."] = "{spell:3866} es naranja a 104 (amarillo 110, verde 127, gris 145): unas 49 fabricaciones hasta 135. Cada una lleva 3 {spell:2964}, 2 {item:2604} y 1 {item:2321}. Haz primero los 147 {spell:2964}. Tres rollos de lana y dos {item:2604} por camisa; los humanoides de nivel 15-30 sueltan {item:2592}."
-	["{spell:3866} is orange at 104 (yellow 110, green 127, grey 145): about 49 crafts to 135, up to 58 for 9 players in 10 (the gathered materials above count that many). Each takes 3 {spell:2964}, 2 {item:2604} and 1 {item:2321}. Make the 147 {spell:2964} first. Three woolen bolts and two {item:2604} a shirt; {item:2592} drops from humanoids of level 15-30."] = "",
+	-- Step 16: Bolt of Silk Cloth to 120
+	-- {spell:3839} Bolt of Silk Cloth
+	["{spell:3839} to 120"] = "",
+	-- {spell:3839} Bolt of Silk Cloth · {item:4306} Silk Cloth
+	["{spell:3839} is orange at 100 (yellow 110, green 115, grey 120): about 40 crafts to 120, up to 55 for 9 players in 10 (the gathered materials above count that many). Each takes 4 {item:4306}. {item:4306} drops from humanoids of level 25-45. Keep every bolt: the hoods and shirts to 150 take them, so these points cost no extra {item:4306}."] = "",
 
-	-- Step 14: Tailoring recipes at 135
+	-- Step 17: Tailoring recipes at 120
+	-- {skill:197} Tailoring
+	["{skill:197} recipes at 120"] = "",
+	-- {skill:197} Tailoring · {spell:8760} Azure Silk Hood
+	["Back to a {skill:197} trainer: {spell:8760} (from 120, 6s)."] = "",
+
+	-- Step 18: Azure Silk Hood to 135
+	-- {item:7048} Azure Silk Hood
+	["{item:7048} to 135"] = "",
+	-- {item:7048} Azure Silk Hood · {item:4305} Bolt of Silk Cloth · {item:6260} Blue Dye · {item:2321} Fine Thread
+	["{item:7048} is orange at 120 (yellow 130, green 135, grey 140): about 17 crafts to 135, up to 19 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {item:4305}, 2 {item:6260} and 1 {item:2321}. Use the 34 {item:4305} you made earlier; the counts above leave them out. Two silk bolts and two {item:6260} a hood: orange to 130, a point every craft."] = "",
+
+	-- Step 19: Tailoring recipes at 135
 	-- {skill:197} Tailoring
 	["{skill:197} recipes at 135"] = "Recetas de {skill:197} a 135",
 	-- {skill:197} Tailoring · {spell:3871} Formal White Shirt
 	["Back to a {skill:197} trainer: {spell:3871} (from 135)."] = "",
 
-	-- Step 15: Formal White Shirt to 150
+	-- Step 20: Formal White Shirt to 150
 	-- {spell:3871} Formal White Shirt
 	["{spell:3871} to 150"] = "{spell:3871} hasta 150",
-	-- {spell:3871} Formal White Shirt · {spell:3839} Bolt of Silk Cloth · {item:2324} Bleach · {item:2321} Fine Thread · {item:4306} Silk Cloth · {skill:197} Tailoring
-	-- was: ["{spell:3871} is orange at 135 (yellow 145, green 150, grey 155): about 17 crafts to 150. Each takes 3 {spell:3839}, 2 {item:2324} and 1 {item:2321}. Make the 51 {spell:3839} first. Silk bolts from here on: {item:4306} drops from humanoids of level 25-45. {item:2324} from tailoring and trade supplies vendors. {skill:197} 150 is a Legacy System milestone."] = "{spell:3871} es naranja a 135 (amarillo 145, verde 150, gris 155): unas 17 fabricaciones hasta 150. Cada una lleva 3 {spell:3839}, 2 {item:2324} y 1 {item:2321}. Haz primero los 51 {spell:3839}. Rollos de seda de aquí en adelante: los humanoides de nivel 25-45 sueltan {item:4306}. {item:2324}, de los mercaderes de sastrería y suministros de comercio. {skill:197} 150 es un hito del Sistema de Legado."
-	["{spell:3871} is orange at 135 (yellow 145, green 150, grey 155): about 17 crafts to 150, up to 19 for 9 players in 10 (the gathered materials above count that many). Each takes 3 {spell:3839}, 2 {item:2324} and 1 {item:2321}. Make the 51 {spell:3839} first. Silk bolts from here on: {item:4306} drops from humanoids of level 25-45. {item:2324} from tailoring and trade supplies vendors. {skill:197} 150 is a Legacy System milestone."] = "",
+	-- {spell:3871} Formal White Shirt · {spell:3839} Bolt of Silk Cloth · {item:2324} Bleach · {item:2321} Fine Thread · {skill:197} Tailoring
+	["{spell:3871} is orange at 135 (yellow 145, green 150, grey 155): about 17 crafts to 150, up to 19 for 9 players in 10 (the gathered materials above count that many). Each takes 3 {spell:3839}, 2 {item:2324} and 1 {item:2321}. Make the 45 {spell:3839} first. Use the 6 {spell:3839} you made earlier; the counts above leave them out. {item:2324} from tailoring and trade supplies vendors. {skill:197} 150 is a Legacy System milestone."] = "",
 
-	-- Step 16: Tailoring 150-225: vendor goods
+	-- Step 21: Tailoring 150-225: vendor goods
 	-- {skill:197} Tailoring
 	["{skill:197} 150-225: vendor goods"] = "{skill:197} 150-225: artículos de mercader",
 	-- {item:2321} Fine Thread · {item:4291} Silken Thread · {item:6260} Blue Dye · {item:8343} Heavy Silken Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
 	["Buy the whole bracket's share in one go: 44 {item:2321} (44s), 108 {item:4291} (5g 40s), 44 {item:6260} (22s) and 74 {item:8343} (14g 80s); about 20g 86s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "",
 
-	-- Step 17: Pattern: Azure Silk Cloak
+	-- Step 22: Pattern: Azure Silk Cloak
 	-- {item:7089} Pattern: Azure Silk Cloak · {item:7053} Azure Silk Cloak · {skill:197} Tailoring · {npc:6576} Brienna Starglow · {zone:1444} Feralas · {npc:251997} Norvin Alderman · {zone:1416} Alterac Mountains · {npc:6574} Jun'ha · {zone:1417} Arathi Highlands
 	["{item:7089} teaches {item:7053} ({skill:197} 140) for 15s. Sold by Alliance: {npc:6576} ({zone:1444}), limited stock and {npc:251997} ({zone:1416}); Horde: {npc:6574} ({zone:1417}), limited stock and {npc:251997} ({zone:1416})."] = "{item:7089} enseña {item:7053} ({skill:197} 140) por 15s. Lo venden: Alianza: {npc:6576} ({zone:1444}), existencias limitadas y {npc:251997} ({zone:1416}); Horda: {npc:6574} ({zone:1417}), existencias limitadas y {npc:251997} ({zone:1416}).",
 
-	-- Step 18: Get Silk Cloth
-	-- {item:4306} Silk Cloth · {skill:197} Tailoring · {item:7053} Azure Silk Cloak
-	["You need 300 {item:4306} for {skill:197} 150-225: {item:7053}. Humanoids of level 25-45 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4306} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- Step 23: Get Silk Cloth
+	-- {item:4306} Silk Cloth · {skill:197} Tailoring
+	-- plural, as words: Azure Silk Cloaks = {item:7053} Azure Silk Cloak
+	["300 {item:4306} for {skill:197} 150-225: 25 Azure Silk Cloaks. Humanoids of level 25-45 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4306} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
-	-- Step 19: Get Mageweave Cloth
+	-- Step 24: Get Mageweave Cloth
 	-- {item:4338} Mageweave Cloth
 	["Get {item:4338}"] = "",
-	-- {item:4338} Mageweave Cloth · {skill:197} Tailoring · {item:9998} Black Mageweave Vest · {item:10024} Black Mageweave Headband
-	["You need 1060 {item:4338} for {skill:197} 150-225: {item:9998} and {item:10024}. Humanoids of level 35-50 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4338} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- {item:4338} Mageweave Cloth · {skill:197} Tailoring
+	-- plural, as words: Black Mageweave Vests = {item:9998} Black Mageweave Vest · Black Mageweave Headbands = {item:10024} Black Mageweave Headband
+	["1060 {item:4338} for {skill:197} 150-225: 40 Black Mageweave Vests and 44 Black Mageweave Headbands. Humanoids of level 35-50 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4338} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
-	-- Step 20: Expert Tailoring
+	-- Step 25: Expert Tailoring
 	-- {skill:197} Tailoring
 	["Expert {skill:197}"] = "Experto de {skill:197}",
 	-- {skill:197} Tailoring · {npc:251972} Charles Worth · {zone:1416} Alterac Mountains · {npc:1346} Georgio Bolero · {zone:1453} Stormwind City · {npc:4576} Josef Gregorian · {zone:1458} Undercity · {spell:3865} Bolt of Mageweave · {item:4306} Silk Cloth · {item:4338} Mageweave Cloth · {item:9998} Black Mageweave Vest · {item:10024} Black Mageweave Headband
 	-- was: ["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). The arrow picks the nearest of your faction. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 {item:4306} and 900 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 2. {item:10024} (from 190) takes a second trip, to other trainers (below)."] = "Experto sube el límite de 150 a 225; requiere {skill:197} 125 y nivel de personaje 20, así que puedes aprenderlo en cualquier visita a partir de 125. Solo lo enseñan unos pocos instructores: Alianza: {npc:1346} ({zone:1453}); Horda: {npc:4576} ({zone:1458}). La flecha elige el más cercano de tu facción. Aprende ahora: {spell:3865} (desde 140). De 150 a 225 hacen falta unos 15s en recetas y 21g 16s en artículos de mercader, además de 264 {item:4306} y 900 {item:4338} que recolectar o comprar. Ven con todo en las bolsas (los pasos de arriba; el resto, de la casa de subastas): estos instructores también enseñan {item:9998} (desde 170), y las fabricaciones no necesitan estación, así que fabrica aquí mismo y aprende cada receta al alcanzar su habilidad. Un viaje en lugar de 2. {item:10024} (desde 190) requiere un segundo viaje, a otros instructores (abajo)."
 	["Expert raises the cap from 150 to 225; it needs {skill:197} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:251972} ({zone:1416}) and {npc:1346} ({zone:1453}); Horde {npc:4576} ({zone:1458}). This route trains it at {npc:1346} ({zone:1453}) for the Alliance and {npc:4576} ({zone:1458}) for the Horde, who also teach the recipes of 150-225: one trainer for every visit. Learn now: {spell:3865} (from 140). 150-225 takes about 15s of recipes and 20g 86s of vendor goods, plus 300 {item:4306} and 1060 {item:4338} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:9998} (from 170), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 2. {item:10024} (from 200) takes a second trip, to other trainers (below)."] = "",
 
-	-- Step 21: Azure Silk Cloak to 170
+	-- Step 26: Azure Silk Cloak to 170
 	-- {item:7053} Azure Silk Cloak
 	["{item:7053} to 170"] = "{item:7053} hasta 170",
 	-- {item:7053} Azure Silk Cloak · {spell:3839} Bolt of Silk Cloth · {item:6260} Blue Dye · {item:2321} Fine Thread
@@ -136,129 +168,130 @@ return {
 	["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170, up to 25 for 9 players in 10 (the gathered materials above count that many). Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data. If you got here without learning {spell:3839}, learn it now: an earlier step teaches it."] = "",
 	["from the recipe in your bags"] = "con la receta de tus bolsas",
 
-	-- Step 22: Tailoring recipes at 170
+	-- Step 27: Tailoring recipes at 170
 	-- {skill:197} Tailoring
 	["{skill:197} recipes at 170"] = "Recetas de {skill:197} a 170",
 	-- {spell:12048} Black Mageweave Vest
 	["Still at the Expert trainer: {spell:12048} (from 170)."] = "Todavía con el instructor de Experto: {spell:12048} (desde 170).",
 
-	-- Step 23: Black Mageweave Vest to 200
+	-- Step 28: Black Mageweave Vest to 200
 	-- {item:9998} Black Mageweave Vest
 	["{item:9998} to 200"] = "",
 	-- {item:9998} Black Mageweave Vest · {spell:3865} Bolt of Mageweave · {item:4291} Silken Thread
 	["{item:9998} is orange at 170 (yellow 185, green 200, grey 215): about 36 crafts to 200, up to 40 for 9 players in 10 (the gathered materials above count that many). Each takes 2 {spell:3865} and 3 {item:4291}. Make the 72 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "",
 
-	-- Step 24: Tailoring recipes at 200
+	-- Step 29: Tailoring recipes at 200
 	-- {skill:197} Tailoring
 	["{skill:197} recipes at 200"] = "",
 	-- {spell:12072} Black Mageweave Headband · {npc:11052} Timothy Worthington · {zone:1445} Dustwallow Marsh · {npc:2399} Daryl Stack · {zone:1424} Hillsbrad Foothills · {skill:197} Tailoring
 	["{spell:12072} (from 200) is taught only by the Artisan trainers: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}). You can train Artisan there now if you are level 35 (it needs {skill:197} 200), which saves the trip at 225."] = "",
 
-	-- Step 25: Black Mageweave Headband to 225
+	-- Step 30: Black Mageweave Headband to 225
 	-- {item:10024} Black Mageweave Headband
 	["{item:10024} to 225"] = "{item:10024} hasta 225",
 	-- {item:10024} Black Mageweave Headband · {spell:3865} Bolt of Mageweave · {item:8343} Heavy Silken Thread · {skill:197} Tailoring
 	["{item:10024} is orange at 200 (yellow 205, green 220, grey 235): about 37 crafts to 225, up to 44 for 9 players in 10 (the gathered materials above count that many). Each takes 3 {spell:3865} and 2 {item:8343}. Make the 111 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data. {skill:197} 225 is a Legacy System milestone."] = "",
 
-	-- Step 26: Artisan Tailoring
+	-- Step 31: Artisan Tailoring
 	-- {skill:197} Tailoring
 	["Artisan {skill:197}"] = "Artesano de {skill:197}",
 	-- {skill:197} Tailoring · {npc:11052} Timothy Worthington · {zone:1445} Dustwallow Marsh · {npc:2399} Daryl Stack · {zone:1424} Hillsbrad Foothills · {spell:18401} Bolt of Runecloth · {spell:18402} Runecloth Belt · {item:8170} Rugged Leather · {item:14047} Runecloth · {item:14504} Pattern: Runecloth Shoulders · {item:14227} Ironweb Spider Silk
 	["Artisan raises the cap from 225 to 300; it needs {skill:197} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}). This route trains it at {npc:11052} ({zone:1445}) for the Alliance and {npc:2399} ({zone:1424}) for the Horde, who also teach the recipes of 225-300: one trainer for every visit. Learn now: {spell:18401} (from 205) and {spell:18402} (from 210). 225-300 takes about 1g 60s of recipes and 27g of vendor goods, plus 200 {item:8170} and 1195 {item:14047} to gather or buy. From 265 the route splits: with {item:14504}, about 62 more crafts and 296 {item:8170}, 2590 {item:14047} and 148 {item:14227}; without the pattern, about 100 crafts and 588 {item:8170}, 2940 {item:14047} and 294 {item:14227} (to 280)."] = "",
 
-	-- Step 27: Tailoring 225-300: vendor goods
+	-- Step 32: Tailoring 225-300: vendor goods
 	-- {skill:197} Tailoring
 	["{skill:197} 225-300: vendor goods"] = "{skill:197} 225-300: artículos de mercader",
 	-- {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya
 	["Buy the whole bracket's share in one go: 54 {item:14341} (27g); about 27g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:5565}; {zone:1454}: {npc:3364} and Tamar)."] = "",
 
-	-- Step 28: Pattern: Runecloth Gloves
+	-- Step 33: Pattern: Runecloth Gloves
 	-- {item:14481} Pattern: Runecloth Gloves · {item:13863} Runecloth Gloves · {skill:197} Tailoring · {npc:11189} Qia · {zone:1452} Winterspring
 	["{item:14481} teaches {item:13863} ({skill:197} 230) for 1g 60s. Sold by {npc:11189} ({zone:1452}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "{item:14481} enseña {item:13863} ({skill:197} 230) por 1g 60s. Lo venden {npc:11189} ({zone:1452}), con existencias limitadas. Sus vendedores tienen una o dos en existencia, que se reponen un tiempo después de cada venta; se liga al recogerla, así que la casa de subastas nunca la tiene.",
 
-	-- Step 29: Get Rugged Leather
+	-- Step 34: Get Rugged Leather
 	-- {item:8170} Rugged Leather
 	["Get {item:8170}"] = "",
 	-- {item:8170} Rugged Leather · {skill:197} Tailoring · {item:13863} Runecloth Gloves · {skill:393} Skinning
-	["You need 200 {item:8170} for {skill:197} 225-300: {item:13863}. {skill:393}: beasts of level 48-60. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["200 {item:8170} for {skill:197} 225-300: 50 {item:13863}. {skill:393}: beasts of level 48-60. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 30: Get Runecloth
+	-- Step 35: Get Runecloth
 	-- {item:14047} Runecloth
 	["Get {item:14047}"] = "",
-	-- {item:14047} Runecloth · {skill:197} Tailoring · {item:13856} Runecloth Belt · {item:13863} Runecloth Gloves
-	["You need 1195 {item:14047} for {skill:197} 225-300: {item:13856} and {item:13863}. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- {item:14047} Runecloth · {skill:197} Tailoring · {item:13863} Runecloth Gloves
+	-- plural, as words: Runecloth Belts = {item:13856} Runecloth Belt
+	["1195 {item:14047} for {skill:197} 225-300: 13 Runecloth Belts and 50 {item:13863}. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
-	-- Step 31: Runecloth Belt to 234
+	-- Step 36: Runecloth Belt to 234
 	-- {item:13856} Runecloth Belt
 	["{item:13856} to 234"] = "{item:13856} hasta 234",
 	-- {item:13856} Runecloth Belt · {item:14048} Bolt of Runecloth · {item:14341} Rune Thread
 	-- was: ["{item:13856} is yellow at 225 (yellow 225, green 240, grey 255): about 11 crafts to 234. Each takes 3 {item:14048} and 1 {item:14341}. Make the 33 {item:14048} first. {item:14341} from tailoring vendors."] = "{item:13856} es amarillo a 225 (amarillo 225, verde 240, gris 255): unas 11 fabricaciones hasta 234. Cada una lleva 3 {item:14048} y 1 {item:14341}. Haz primero los 33 {item:14048}. {item:14341}, de los mercaderes de sastrería."
 	["{item:13856} is yellow at 225 (yellow 225, green 240, grey 255): about 11 crafts to 234, up to 13 for 9 players in 10 (the gathered materials above count that many). Each takes 3 {item:14048} and 1 {item:14341}. Make the 33 {item:14048} first. {item:14341} from tailoring vendors."] = "",
 
-	-- Step 32: Runecloth Gloves to 265
+	-- Step 37: Runecloth Gloves to 265
 	-- {item:13863} Runecloth Gloves
 	["{item:13863} to 265"] = "{item:13863} hasta 265",
 	-- {item:13863} Runecloth Gloves · {item:14048} Bolt of Runecloth · {item:8170} Rugged Leather · {item:14341} Rune Thread · {npc:11189} Qia · {area:2255} Everlook · {area:1769} Timbermaw Hold · {zone:1448} Felwood
 	-- was: ["{item:13863} is orange at 234 (yellow 245, green 260, grey 275): about 43 crafts to 265. Each takes 4 {item:14048}, 4 {item:8170} and 1 {item:14341}. Make the 172 {item:14048} first. {npc:11189} in {area:2255} keeps one pattern at a time; the {area:1769} tunnel from {zone:1448} is the road in, so never kill Timbermaw furbolgs on the way."] = "{item:13863} es naranja a 234 (amarillo 245, verde 260, gris 275): unas 43 fabricaciones hasta 265. Cada una lleva 4 {item:14048}, 4 {item:8170} y 1 {item:14341}. Haz primero los 172 {item:14048}. {npc:11189} en {area:2255} tiene un patrón a la vez; el túnel de {area:1769} desde {zone:1448} es el camino de entrada, así que nunca mates fúrbolgs Fauces de Madera por el camino."
 	["{item:13863} is orange at 234 (yellow 245, green 260, grey 275): about 43 crafts to 265, up to 50 for 9 players in 10 (the gathered materials above count that many). Each takes 4 {item:14048}, 4 {item:8170} and 1 {item:14341}. Make the 172 {item:14048} first. {npc:11189} in {area:2255} keeps one pattern at a time; the {area:1769} tunnel from {zone:1448} is the road in, so never kill Timbermaw furbolgs on the way."] = "",
 
-	-- Step 33: Tailoring 265: Pattern: Runecloth Shoulders
+	-- Step 38: Tailoring 265: Pattern: Runecloth Shoulders
 	-- {item:14504} Pattern: Runecloth Shoulders · {spell:18449} Runecloth Shoulders · {item:13864} Runecloth Boots
 	["From 265 the route has two ways. {item:14504} drops from mobs all over the world and does not bind, so the Auction House often lists it: with it, {spell:18449} (orange to 275, yellow to 290) takes you to 300. No pattern for sale? Skip this step: the next steps go on with {item:13864}, from a vendor pattern, to 280, and say what is left after that. Buy the shoulders pattern whenever it turns up: it gives points to 305."] = "",
 
-	-- Step 34: Tailoring 265-300: vendor goods
+	-- Step 39: Tailoring 265-300: vendor goods
 	-- {skill:197} Tailoring
 	["{skill:197} 265-300: vendor goods"] = "",
 	-- {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya
 	["Buy the whole bracket's share in one go: 62 {item:14341} (31g); about 31g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:5565}; {zone:1454}: {npc:3364} and Tamar)."] = "",
 
-	-- Step 35: Get Rugged Leather
+	-- Step 40: Get Rugged Leather
 	-- {item:8170} Rugged Leather · {skill:197} Tailoring · {item:13867} Runecloth Shoulders · {skill:393} Skinning
-	["You need 296 {item:8170} for {skill:197} 265-300: {item:13867}. {skill:393}: beasts of level 48-60. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["296 {item:8170} for {skill:197} 265-300: 74 {item:13867}. {skill:393}: beasts of level 48-60. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 36: Get Runecloth
+	-- Step 41: Get Runecloth
 	-- {item:14047} Runecloth · {skill:197} Tailoring · {item:13867} Runecloth Shoulders
-	["You need 2590 {item:14047} for {skill:197} 265-300: {item:13867}. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["2590 {item:14047} for {skill:197} 265-300: 74 {item:13867}. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
-	-- Step 37: Get Ironweb Spider Silk
+	-- Step 42: Get Ironweb Spider Silk
 	-- {item:14227} Ironweb Spider Silk
 	["Get {item:14227}"] = "",
 	-- {item:14227} Ironweb Spider Silk · {skill:197} Tailoring · {item:13867} Runecloth Shoulders · {npc:1824} Plague Lurker · {npc:11739} Rock Stalker · {npc:5857} Searing Lava Spider
-	["You need 148 {item:14227} for {skill:197} 265-300: {item:13867}. {item:14227} drops most from {npc:1824}, {npc:11739} and {npc:5857}, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14227} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["148 {item:14227} for {skill:197} 265-300: 74 {item:13867}. {item:14227} drops most from {npc:1824}, {npc:11739} and {npc:5857}, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14227} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
-	-- Step 38: Runecloth Shoulders to 300
+	-- Step 43: Runecloth Shoulders to 300
 	-- {item:13867} Runecloth Shoulders
 	["{item:13867} to 300"] = "{item:13867} hasta 300",
 	-- {item:13867} Runecloth Shoulders · {item:14048} Bolt of Runecloth · {item:14227} Ironweb Spider Silk · {item:8170} Rugged Leather · {item:14341} Rune Thread · {item:14504} Pattern: Runecloth Shoulders · {zone:1422} Western Plaguelands · {zone:1451} Silithus · {skill:197} Tailoring
 	["{item:13867} is orange at 265 (yellow 275, green 290, grey 305): about 62 crafts to 300, up to 74 for 9 players in 10 (the gathered materials above count that many). Each takes 7 {item:14048}, 2 {item:14227}, 4 {item:8170} and 1 {item:14341}. Make the 434 {item:14048} first. Its pattern ({item:14504}) drops from mobs all over the world and does not bind: buy it at the Auction House. Seven bolts, two {item:14227} and four {item:8170} a craft: the dearest stretch. The spiders of {zone:1422} and {zone:1451} drop the silk (the marked spots), or the Auction House. {skill:197} 300 is a Legacy System milestone. If you got here without learning {item:14048}, learn it now: an earlier step teaches it."] = "",
 
-	-- Step 39: Tailoring 265-300: vendor goods
+	-- Step 44: Tailoring 265-300: vendor goods
 	-- {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya
 	["Buy the whole bracket's share in one go: 100 {item:14341} (50g); about 50g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:5565}; {zone:1454}: {npc:3364} and Tamar)."] = "",
 
-	-- Step 40: Pattern: Runecloth Boots
+	-- Step 45: Pattern: Runecloth Boots
 	-- {item:14488} Pattern: Runecloth Boots · {item:13864} Runecloth Boots · {skill:197} Tailoring · {npc:7940} Darnall · {zone:1450} Moonglade
 	["{item:14488} teaches {item:13864} ({skill:197} 235) for 2g. Sold by {npc:7940} ({zone:1450}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "",
 
-	-- Step 41: Get Rugged Leather
+	-- Step 46: Get Rugged Leather
 	-- {item:8170} Rugged Leather · {skill:197} Tailoring · {item:13864} Runecloth Boots · {skill:393} Skinning
-	["You need 588 {item:8170} for {skill:197} 265-300: {item:13864}. {skill:393}: beasts of level 48-60. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["588 {item:8170} for {skill:197} 265-300: 147 {item:13864}. {skill:393}: beasts of level 48-60. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 42: Get Runecloth
+	-- Step 47: Get Runecloth
 	-- {item:14047} Runecloth · {skill:197} Tailoring · {item:13864} Runecloth Boots
-	["You need 2940 {item:14047} for {skill:197} 265-300: {item:13864}. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["2940 {item:14047} for {skill:197} 265-300: 147 {item:13864}. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
-	-- Step 43: Get Ironweb Spider Silk
+	-- Step 48: Get Ironweb Spider Silk
 	-- {item:14227} Ironweb Spider Silk · {skill:197} Tailoring · {item:13864} Runecloth Boots · {npc:1824} Plague Lurker · {npc:11739} Rock Stalker · {npc:5857} Searing Lava Spider
-	["You need 294 {item:14227} for {skill:197} 265-300: {item:13864}. {item:14227} drops most from {npc:1824}, {npc:11739} and {npc:5857}, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14227} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	["294 {item:14227} for {skill:197} 265-300: 147 {item:13864}. {item:14227} drops most from {npc:1824}, {npc:11739} and {npc:5857}, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14227} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
-	-- Step 44: Runecloth Boots to 280
+	-- Step 49: Runecloth Boots to 280
 	-- {item:13864} Runecloth Boots
 	["{item:13864} to 280"] = "",
 	-- {item:13864} Runecloth Boots · {item:14048} Bolt of Runecloth · {item:14227} Ironweb Spider Silk · {item:8170} Rugged Leather · {item:14341} Rune Thread
 	["{item:13864} is green at 265 (yellow 250, green 265, grey 280): about 100 crafts to 280, up to 147 for 9 players in 10 (the gathered materials above count that many). Each takes 4 {item:14048}, 2 {item:14227}, 4 {item:8170} and 1 {item:14341}. Make the 400 {item:14048} first. Four Bolts of Runecloth, four {item:8170} and two {item:14227} a craft, and green the whole way: the long way, but its pattern can always be bought. If you got here without learning {item:14048}, learn it now: an earlier step teaches it."] = "",
 
-	-- Step 45: Tailoring 280-300
+	-- Step 50: Tailoring 280-300
 	-- {skill:197} Tailoring · {item:13867} Runecloth Shoulders · {item:14112} Felcloth Shoulders · {item:14106} Felcloth Robe · {item:14130} Wizardweave Turban · {item:13866} Runecloth Headband · {item:14111} Felcloth Hood · {item:279943} Spinning Wheel · {npc:248202} Jim'bek · {npc:256735} Mivin Shadowweave · {npc:246017} Unstable Sentinel · {item:14342} Mooncloth · {npc:11189} Qia · {npc:11188} Evie Whirlbrew · {area:2255} Everlook · {item:14256} Felcloth
 	["Past 280 no pattern you can always get gives {skill:197} points on Forever without a camp station. The world-drop patterns come from the Auction House: check it again, as {item:13867}, {item:14112}, {item:14106} and {item:14130} each finish the route ({item:13866} and {item:14111} give points to 290-295). The {item:279943} patterns (Merchant's Favor sandals and waistcords from {npc:248202} or {npc:256735}) need the camp wheel, whose blueprint drops from the {npc:246017} in the City of Dalaran. {item:14342} ({npc:11189} or {npc:11188} in {area:2255}; 2 {item:14256} at a Moonwell, yellow to 285) can be made once every four days: about a month for the five points it gives here."] = "",
 
@@ -338,6 +371,7 @@ return {
 	-- ["{item:4338} (Alliance)"] = "{item:4338} (Alianza)",
 	-- ["{item:4338} (Horde)"] = "{item:4338} (Horda)",
 	-- ["{item:7026} is orange at 15 (yellow 50, green 67, grey 85): about 65 crafts to 75. Each takes 1 {spell:2963} and 1 {item:2320}. Make the 65 {spell:2963} first: it gives points too while not grey. Each belt takes one bolt; the belts sell to vendors."] = "{item:7026} es naranja a 15 (amarillo 50, verde 67, gris 85): unas 65 fabricaciones hasta 75. Cada una lleva 1 {spell:2963} y 1 {item:2320}. Haz primero los 65 {spell:2963}: también da puntos mientras no sea gris. Cada cinturón lleva un rollo; los cinturones se venden a los mercaderes.",
+	-- ["{item:7026} to 75"] = "{item:7026} hasta 75",
 	-- ["{item:7026} to 80"] = "{item:7026} hasta 80",
 	-- ["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053} es naranja a 150 (amarillo 160, verde 175, gris 190): unas 22 fabricaciones hasta 170. Cada una lleva 3 {spell:3839}, 2 {item:6260} y 2 {item:2321}. Haz primero los 66 {spell:3839}. Su receta es la que compraste arriba; según los datos es la forma más barata de conseguir estos puntos.",
 	-- ["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data. If you got here without learning {spell:3839}, learn it now: an earlier step teaches it."] = "{item:7053} es naranja en 150 (amarillo 160, verde 175, gris 190): unas 22 fabricaciones hasta 170. Cada una lleva 3 {spell:3839}, 2 {item:6260} y 2 {item:2321}. Haz primero los 66 {spell:3839}. Su receta es la comprada arriba; según los datos es la vía más barata para estos puntos. Si llegaste aquí sin aprender {spell:3839}, apréndelo ahora: lo enseña un paso anterior.",
@@ -362,6 +396,7 @@ return {
 	-- ["{skill:197} 225-300: Auction House"] = "{skill:197} 225-300: casa de subastas",
 	-- ["{skill:197} 75-150: Auction House"] = "{skill:197} 75-150: casa de subastas",
 	-- ["{skill:197} materials for 75-150"] = "Materiales de {skill:197} para 75-150",
+	-- ["{skill:197} recipes at 104"] = "Recetas de {skill:197} a 104",
 	-- ["{skill:197} recipes at 110"] = "Recetas de {skill:197} a 110",
 	-- ["{skill:197} recipes at 125"] = "Recetas de {skill:197} a 125",
 	-- ["{skill:197} recipes at 180"] = "Recetas de {skill:197} a 180",
@@ -372,10 +407,14 @@ return {
 	-- ["{skill:197} recipes at 80"] = "Recetas de {skill:197} a 80",
 	-- ["{skill:197} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 1g 8s in all."] = "{skill:197} avanza junto con la subida de nivel. El Sistema de Legado de Forever recompensa las profesiones de fabricación con habilidad 150, 225 y 300 (los límites de Oficial, Experto y Artesano), así que cada uno de esos hitos cuenta. Los materiales para 1-75 valen unos 1g 8s en total.",
 	-- ["{spell:12072} (from 190) is taught only by the Artisan trainers: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424})."] = "{spell:12072} (desde 190) solo lo enseñan los instructores de Artesano: Alianza {npc:11052} ({zone:1445}); Horda {npc:2399} ({zone:1424}).",
+	-- ["{spell:2387} is orange at 1 (yellow 35, green 47, grey 60): about 7 crafts to 15, a point every craft. Each takes 1 {spell:2963} and 1 {item:2320}. Make the 7 {spell:2963} first: it gives points too while not grey. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{spell:2387} es naranja a 1 (amarillo 35, verde 47, gris 60): unas 7 fabricaciones hasta 15, un punto por fabricación. Cada una lleva 1 {spell:2963} y 1 {item:2320}. Haz primero los 7 {spell:2963}: también da puntos mientras no sea gris. Lo enseña el instructor, y según los datos es la forma más barata de conseguir estos puntos.",
+	-- ["{spell:2387} to 15"] = "{spell:2387} hasta 15",
 	-- ["{spell:2402} is orange at 75 (yellow 80, green 97, grey 115): about 42 crafts to 104. Each takes 1 {spell:2964} and 1 {item:2321}. Make the 42 {spell:2964} first: it gives points too while not grey. {spell:2964} is taught from 55 on Forever."] = "{spell:2402} es naranja a 75 (amarillo 80, verde 97, gris 115): unas 42 fabricaciones hasta 104. Cada una lleva 1 {spell:2964} y 1 {item:2321}. Haz primero los 42 {spell:2964}: también da puntos mientras no sea gris. En Forever, {spell:2964} se enseña desde 55.",
+	-- ["{spell:2402} to 104"] = "{spell:2402} hasta 104",
 	-- ["{spell:2402} to 110"] = "{spell:2402} hasta 110",
 	-- ["{spell:3848} to 125"] = "{spell:3848} hasta 125",
 	-- ["{spell:3852} to 150"] = "{spell:3852} hasta 150",
 	-- ["{spell:3866} is orange at 104 (yellow 110, green 127, grey 145): about 49 crafts to 135. Each takes 3 {spell:2964}, 2 {item:2604} and 1 {item:2321}. Make the 147 {spell:2964} first. Three woolen bolts and two {item:2604} a shirt; {item:2592} drops from humanoids of level 15-30."] = "{spell:3866} es naranja a 104 (amarillo 110, verde 127, gris 145): unas 49 fabricaciones hasta 135. Cada una lleva 3 {spell:2964}, 2 {item:2604} y 1 {item:2321}. Haz primero los 147 {spell:2964}. Tres rollos de lana y dos {item:2604} por camisa; los humanoides de nivel 15-30 sueltan {item:2592}.",
+	-- ["{spell:3866} to 135"] = "{spell:3866} hasta 135",
 	-- ["{spell:3871} is orange at 135 (yellow 145, green 150, grey 155): about 17 crafts to 150. Each takes 3 {spell:3839}, 2 {item:2324} and 1 {item:2321}. Make the 51 {spell:3839} first. Silk bolts from here on: {item:4306} drops from humanoids of level 25-45. {item:2324} from tailoring and trade supplies vendors. {skill:197} 150 is a Legacy System milestone."] = "{spell:3871} es naranja a 135 (amarillo 145, verde 150, gris 155): unas 17 fabricaciones hasta 150. Cada una lleva 3 {spell:3839}, 2 {item:2324} y 1 {item:2321}. Haz primero los 51 {spell:3839}. Rollos de seda de aquí en adelante: los humanoides de nivel 25-45 sueltan {item:4306}. {item:2324}, de los mercaderes de sastrería y suministros de comercio. {skill:197} 150 es un hito del Sistema de Legado.",
 }

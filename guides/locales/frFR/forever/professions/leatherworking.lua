@@ -22,14 +22,15 @@ return {
 	-- Step 3: Get Light Leather
 	-- {item:2318} Light Leather
 	["Get {item:2318}"] = "",
-	-- {item:2318} Light Leather · {skill:165} Leatherworking · {spell:2152} Light Armor Kit · {spell:3756} Embossed Leather Gloves · {spell:3763} Fine Leather Belt · {skill:393} Skinning
-	["You need 352 {item:2318} for {skill:165} 1-75: {spell:2152}, {spell:3756} and {spell:3763} (240 of them for 75-150: get them all now). {skill:393}: beasts of level 5-20. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:2318} Light Leather · {skill:165} Leatherworking · {spell:3756} Embossed Leather Gloves · {skill:393} Skinning
+	-- plural, as words: Light Armor Kits = {spell:2152} Light Armor Kit · Fine Leather Belts = {spell:3763} Fine Leather Belt
+	["352 {item:2318} for {skill:165} 1-75: 53 Light Armor Kits, 26 {spell:3756} and 40 Fine Leather Belts (240 of them for 75-150: get them all now). {skill:393}: beasts of level 5-20. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 4: Get Ruined Leather Scraps
 	-- {item:2934} Ruined Leather Scraps
 	["Get {item:2934}"] = "",
 	-- {item:2934} Ruined Leather Scraps · {skill:165} Leatherworking · {item:2318} Light Leather · {skill:393} Skinning
-	["You need 57 {item:2934} for {skill:165} 1-75: {item:2318}. {skill:393}: beasts of level 1-15. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["57 {item:2934} for {skill:165} 1-75: 19 {item:2318}. {skill:393}: beasts of level 1-15. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 5: Light Leather to 20
 	-- {item:2318} Light Leather
@@ -58,186 +59,192 @@ return {
 	-- Step 9: Journeyman Leatherworking
 	-- {skill:165} Leatherworking
 	["Journeyman {skill:165}"] = "{skill:165} (Compagnon)",
-	-- {skill:165} Leatherworking · {npc:3967} Aayndia Floralwind · {zone:1440} Ashenvale · {npc:252376} Emerii Tallgust · {zone:2521} Zephras Isle · {npc:11081} Faldron · {zone:1457} Darnassus · {npc:5127} Fimble Finespindle · {zone:1455} Ironforge · {npc:5564} Simon Tanner · {zone:1453} Stormwind City · {npc:4588} Arthur Moore · {zone:1458} Undercity · {npc:1385} Brawn · {zone:1434} Stranglethorn Vale · {npc:3365} Karolek · {zone:1454} Orgrimmar · {npc:3703} Krulmoo Fullmoon · {zone:1413} The Barrens · {npc:8153} Narv Hidecrafter · {zone:1443} Desolace · {npc:11084} Tarn · {zone:1456} Thunder Bluff · {spell:3763} Fine Leather Belt · {item:2319} Medium Leather · {item:2457} Elixir of Minor Agility · {item:4234} Heavy Leather
+	-- {skill:165} Leatherworking · {npc:3967} Aayndia Floralwind · {zone:1440} Ashenvale · {npc:252376} Emerii Tallgust · {zone:2521} Zephras Isle · {npc:11081} Faldron · {zone:1457} Darnassus · {npc:5127} Fimble Finespindle · {zone:1455} Ironforge · {npc:5564} Simon Tanner · {zone:1453} Stormwind City · {npc:4588} Arthur Moore · {zone:1458} Undercity · {npc:1385} Brawn · {zone:1434} Stranglethorn Vale · {npc:3365} Karolek · {zone:1454} Orgrimmar · {npc:3703} Krulmoo Fullmoon · {zone:1413} The Barrens · {npc:8153} Narv Hidecrafter · {zone:1443} Desolace · {npc:11084} Tarn · {zone:1456} Thunder Bluff · {spell:3763} Fine Leather Belt · {item:2319} Medium Leather · {item:2457} Elixir of Minor Agility · {item:4234} Heavy Leather · {item:4235} Heavy Hide
 	-- was: ["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:165} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:165} trainer teaches it: Alliance {npc:3967} ({zone:1440}), {npc:252376} ({zone:2521}), {npc:11081} ({zone:1457}), {npc:5127} ({zone:1455}) and {npc:5564} ({zone:1453}); Horde {npc:4588} ({zone:1458}), {npc:1385} ({zone:1434}), {npc:252376} ({zone:2521}), {npc:3365} ({zone:1454}), {npc:3703} ({zone:1413}), {npc:8153} ({zone:1443}) and {npc:11084} ({zone:1456}). The arrow picks the nearest of your faction. Learn now: {spell:3763} (from 55, 3s). 75-150 takes about 15s 50c of recipes and 57s of vendor goods, plus 144 {item:2319}, 24 {item:2457} and 321 {item:4234} to gather or buy."] = "Compagnon porte le plafond de 75 à 150 pour 5 pa ; il demande {skill:165} 50 et le niveau 10, vous pouvez donc l'apprendre à n'importe quelle visite dès 50. Tous les maîtres de {skill:165} ne l'enseignent pas : Alliance {npc:3967} ({zone:1440}), {npc:252376} ({zone:2521}), {npc:11081} ({zone:1457}), {npc:5127} ({zone:1455}) et {npc:5564} ({zone:1453}) ; Horde {npc:4588} ({zone:1458}), {npc:1385} ({zone:1434}), {npc:252376} ({zone:2521}), {npc:3365} ({zone:1454}), {npc:3703} ({zone:1413}), {npc:8153} ({zone:1443}) et {npc:11084} ({zone:1456}). La flèche indique le plus proche de votre faction. Apprenez maintenant : {spell:3763} (dès 55, 3 pa). 75-150 demande environ 15 pa 50 pc de recettes et 57 pa de fournitures de marchand, plus 144 {item:2319}, 24 {item:2457} et 321 {item:4234} à récolter ou acheter."
-	["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:165} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:165} trainer teaches it: Alliance {npc:3967} ({zone:1440}), {npc:252376} ({zone:2521}), {npc:11081} ({zone:1457}), {npc:5127} ({zone:1455}) and {npc:5564} ({zone:1453}); Horde {npc:4588} ({zone:1458}), {npc:1385} ({zone:1434}), {npc:252376} ({zone:2521}), {npc:3365} ({zone:1454}), {npc:3703} ({zone:1413}), {npc:8153} ({zone:1443}) and {npc:11084} ({zone:1456}). The arrow picks the nearest of your faction. Learn now: {spell:3763} (from 55, 3s). 75-150 takes about 15s 50c of recipes and 57s of vendor goods, plus 150 {item:2319}, 25 {item:2457} and 356 {item:4234} to gather or buy."] = "",
+	["Journeyman raises the cap from 75 to 150 for 5s; it needs {skill:165} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:165} trainer teaches it: Alliance {npc:3967} ({zone:1440}), {npc:252376} ({zone:2521}), {npc:11081} ({zone:1457}), {npc:5127} ({zone:1455}) and {npc:5564} ({zone:1453}); Horde {npc:4588} ({zone:1458}), {npc:1385} ({zone:1434}), {npc:252376} ({zone:2521}), {npc:3365} ({zone:1454}), {npc:3703} ({zone:1413}), {npc:8153} ({zone:1443}) and {npc:11084} ({zone:1456}). The arrow picks the nearest of your faction. Learn now: {spell:3763} (from 55, 3s). 75-150 takes about 20s 50c of recipes and 67s 50c of vendor goods, plus 150 {item:2319}, 25 {item:2457}, 281 {item:4234} and 24 {item:4235} to gather or buy."] = "",
 
 	-- Step 10: Leatherworking 75-150: vendor goods
 	-- {skill:165} Leatherworking
 	["{skill:165} 75-150: vendor goods"] = "{skill:165} 75-150 : fournitures de marchand",
-	-- {item:2320} Coarse Thread · {item:2321} Fine Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 70 {item:2320} (7s) and 50 {item:2321} (50s); about 57s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Achetez d'un coup toute la part de cette tranche : 70 {item:2320} (7 pa) et 50 {item:2321} (50 pa) ; environ 57 pa au total. La flèche indique le vendeur de votre faction le plus proche ({zone:1453} : {npc:1347}, {npc:1286} et {npc:5565} ; {zone:1454} : {npc:3364}, {npc:3367} et {npc:5817}).",
+	-- {item:2320} Coarse Thread · {item:2321} Fine Thread · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:5817} Shimra · {npc:3366} Tamar
+	["Buy the whole bracket's share in one go: 70 {item:2320} (7s), 35 {item:2321} (35s) and 51 Salt (25s 50c); about 67s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:5565}; {zone:1454}: {npc:3367}, {npc:5817} and {npc:3366})."] = "",
 
 	-- Step 11: Get Medium Leather
 	-- {item:2319} Medium Leather
 	["Get {item:2319}"] = "",
 	-- {item:2319} Medium Leather · {skill:165} Leatherworking · {item:7285} Nimble Leather Gloves · {skill:393} Skinning
-	["You need 150 {item:2319} for {skill:165} 75-150: {item:7285}. {skill:393}: beasts of level 18-30. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["150 {item:2319} for {skill:165} 75-150: 25 {item:7285}. {skill:393}: beasts of level 18-30. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 12: Get Elixir of Minor Agility
 	-- {item:2457} Elixir of Minor Agility
 	["Get {item:2457}"] = "",
 	-- {item:2457} Elixir of Minor Agility · {skill:165} Leatherworking · {item:7285} Nimble Leather Gloves · {skill:171} Alchemy
-	["You need 25 {item:2457} for {skill:165} 75-150: {item:7285}. {skill:171}: {item:2457}. Or buy them at the Auction House."] = "",
+	["25 {item:2457} for {skill:165} 75-150: 25 {item:7285}. {skill:171}: {item:2457}. Or buy them at the Auction House."] = "",
 
 	-- Step 13: Get Heavy Leather
 	-- {item:4234} Heavy Leather
 	["Get {item:4234}"] = "",
-	-- {item:4234} Heavy Leather · {skill:165} Leatherworking · {spell:3780} Heavy Armor Kit · {item:5964} Barbaric Shoulders · {item:5966} Guardian Gloves · {skill:393} Skinning
-	["You need 356 {item:4234} for {skill:165} 75-150: {spell:3780}, {item:5964} and {item:5966} (216 of them for 150-225: get them all now). {skill:393}: beasts of level 28-40. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:4234} Heavy Leather · {skill:165} Leatherworking · {item:5964} Barbaric Shoulders · {item:5966} Guardian Gloves · {skill:393} Skinning
+	-- plural, as words: Heavy Armor Kits = {spell:3780} Heavy Armor Kit
+	["281 {item:4234} for {skill:165} 75-150: 33 Heavy Armor Kits, 7 {item:5964} and 15 {item:5966} (216 of them for 150-225: get them all now). {skill:393}: beasts of level 28-40. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 14: Fine Leather Belt to 102
+	-- Step 14: Get Heavy Hide (Alterac Mountains)
+	-- {item:4235} Heavy Hide · {zone:1416} Alterac Mountains
+	["Get {item:4235} ({zone:1416})"] = "",
+	-- {item:4235} Heavy Hide · {skill:165} Leatherworking · {item:5966} Guardian Gloves · {skill:393} Skinning · {npc:2248} Cave Yeti · {npc:2249} Ferocious Yeti · {npc:2251} Giant Yeti · {npc:2407} Hulking Mountain Lion · {npc:2406} Mountain Lion · {npc:2250} Mountain Yeti
+	-- plural, as words: Cured Heavy Hides = {spell:3818} Cured Heavy Hide
+	["24 {item:4235} for {skill:165} 75-150: 19 Cured Heavy Hides and 15 {item:5966} (5 of them for 150-225: get them all now). {skill:393}: beasts of level 28-40. Skin {npc:2248}, {npc:2249}, {npc:2251}, {npc:2407}, {npc:2406}, {npc:2250} and Snapjaw here (level 28-40); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",
+
+	-- Step 15: Get Heavy Hide (Thousand Needles)
+	-- {item:4235} Heavy Hide · {zone:1441} Thousand Needles
+	["Get {item:4235} ({zone:1441})"] = "",
+	-- {item:4235} Heavy Hide · {skill:165} Leatherworking · {item:5966} Guardian Gloves · {skill:393} Skinning · {npc:4107} Highperch Wyvern · {npc:4147} Saltstone Basilisk · {npc:4140} Scorpid Reaver · {npc:4139} Scorpid Terror · {npc:4143} Sparkleshell Snapper · {npc:4142} Sparkleshell Tortoise
+	-- plural, as words: Cured Heavy Hides = {spell:3818} Cured Heavy Hide
+	["24 {item:4235} for {skill:165} 75-150: 19 Cured Heavy Hides and 15 {item:5966} (5 of them for 150-225: get them all now). {skill:393}: beasts of level 28-40. Skin {npc:4107}, {npc:4147}, {npc:4140}, {npc:4139}, {npc:4143} and {npc:4142} here (level 28-40); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",
+
+	-- Step 18: Fine Leather Belt to 102
 	-- {spell:3763} Fine Leather Belt
 	["{spell:3763} to 102"] = "{spell:3763} jusqu'à 102",
 	-- {spell:3763} Fine Leather Belt · {item:2318} Light Leather · {item:2320} Coarse Thread
 	["{spell:3763} is orange at 75 (yellow 85, green 100, grey 115): about 35 crafts to 102, up to 40 for 9 players in 10 (the gathered materials above count that many). Each takes 6 {item:2318} and 2 {item:2320}. Forever teaches {spell:3763} from 55."] = "",
 
-	-- Step 15: Leatherworking recipes at 102
+	-- Step 19: Leatherworking recipes at 102
 	-- {skill:165} Leatherworking
 	["{skill:165} recipes at 102"] = "{skill:165} : recettes à 102",
 	-- {skill:165} Leatherworking · {spell:9074} Nimble Leather Gloves
 	["Back to a {skill:165} trainer: {spell:9074} (from 95, 5s)."] = "Retournez voir un maître de métier ({skill:165}) : {spell:9074} (dès 95, 5 pa).",
 
-	-- Step 16: Nimble Leather Gloves to 125
+	-- Step 20: Nimble Leather Gloves to 125
 	-- {item:7285} Nimble Leather Gloves
 	["{item:7285} to 125"] = "{item:7285} jusqu'à 125",
 	-- {item:7285} Nimble Leather Gloves · {item:2457} Elixir of Minor Agility · {item:2319} Medium Leather · {item:2321} Fine Thread · {item:2452} Swiftthistle · {item:765} Silverleaf · {spell:3763} Fine Leather Belt · {item:2316} Dark Leather Cloak · {item:4340} Gray Dye
 	-- was: ["{item:7285} is orange at 102 (yellow 120, green 132, grey 145): about 24 crafts to 125. Each takes 1 {item:2457}, 6 {item:2319} and 1 {item:2321}. Each takes an {item:2457}: an alchemist makes it from a {item:2452} and a {item:765}, and the Auction House has it cheap. With no elixirs, take {spell:3763} on to 105 and {item:2316} (from 85: 8 {item:2319}, a {item:4340} and a {item:2321}) to 125: about 28 cloaks, 224 {item:2319} in all."] = "{item:7285} est orange à 102 (jaune 120, vert 132, gris 145) : environ 24 fabrications jusqu'à 125. Chaque fabrication demande 1 {item:2457}, 6 {item:2319} et 1 {item:2321}. Chacune demande un {item:2457} : un alchimiste le fabrique avec un {item:2452} et une {item:765}, et l'hôtel des ventes l'a à bas prix. Sans élixirs, poursuivez {spell:3763} jusqu'à 105 et {item:2316} (dès 85 : 8 {item:2319}, une {item:4340} et une {item:2321}) jusqu'à 125 : environ 28 capes, 224 {item:2319} au total."
 	["{item:7285} is orange at 102 (yellow 120, green 132, grey 145): about 24 crafts to 125, up to 25 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:2457}, 6 {item:2319} and 1 {item:2321}. Each takes an {item:2457}: an alchemist makes it from a {item:2452} and a {item:765}, and the Auction House has it cheap. With no elixirs, take {spell:3763} on to 105 and {item:2316} (from 85: 8 {item:2319}, a {item:4340} and a {item:2321}) to 125: about 28 cloaks, 224 {item:2319} in all."] = "",
 
-	-- Step 17: Leatherworking recipes at 125
+	-- Step 21: Leatherworking recipes at 125
 	-- {skill:165} Leatherworking
 	["{skill:165} recipes at 125"] = "{skill:165} : recettes à 125",
-	-- {skill:165} Leatherworking · {spell:3780} Heavy Armor Kit
-	["Back to a {skill:165} trainer: {spell:3780} (from 125, 7s 50c)."] = "Retournez voir un maître de métier ({skill:165}) : {spell:3780} (dès 125, 7 pa 50 pc).",
+	-- {skill:165} Leatherworking · {spell:3818} Cured Heavy Hide · {spell:3780} Heavy Armor Kit
+	["Back to a {skill:165} trainer: {spell:3818} (from 125, 5s) and {spell:3780} (from 125, 7s 50c)."] = "",
 
-	-- Step 18: Heavy Armor Kit to 150
+	-- Step 22: Cured Heavy Hide to 140
+	-- {spell:3818} Cured Heavy Hide
+	["{spell:3818} to 140"] = "",
+	-- {spell:3818} Cured Heavy Hide · {item:4235} Heavy Hide
+	["{spell:3818} is orange at 125 (yellow 135, green 140, grey 145): about 17 crafts to 140, up to 19 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:4235} and 3 Salt. The trainer teaches it, and it is the cheapest way through these points in the data."] = "",
+
+	-- Step 23: Heavy Armor Kit to 150
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 150"] = "{spell:3780} jusqu'à 150",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread · {skill:165} Leatherworking
-	-- was: ["{spell:3780} is orange at 125 (yellow 145, green 155, grey 165): about 26 crafts to 150. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. {skill:165} 150 is a Legacy System milestone."] = "{spell:3780} est orange à 125 (jaune 145, vert 155, gris 165) : environ 26 fabrications jusqu'à 150. Chaque fabrication demande 5 {item:4234} et 1 {item:2321}. Cinq {item:4234} par fabrication (bêtes de niveau 28-40) ; les renforts se vendent aux marchands. {skill:165} 150 est un palier du système d'Héritage."
-	["{spell:3780} is orange at 125 (yellow 145, green 155, grey 165): about 26 crafts to 150, up to 28 for 9 players in 10 (the gathered materials above count that many). Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. {skill:165} 150 is a Legacy System milestone."] = "",
+	["{spell:3780} is orange at 140 (yellow 145, green 155, grey 165): about 11 crafts to 150, up to 13 for 9 players in 10 (the gathered materials above count that many). Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. {skill:165} 150 is a Legacy System milestone."] = "",
 
-	-- Step 19: Leatherworking 150-225: vendor goods
+	-- Step 24: Leatherworking 150-225: vendor goods
 	-- {skill:165} Leatherworking
 	["{skill:165} 150-225: vendor goods"] = "{skill:165} 150-225 : fournitures de marchand",
-	-- {item:2321} Fine Thread · {item:4291} Silken Thread · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:5817} Shimra
-	-- was: ["Buy the whole bracket's share in one go: 29 {item:2321} (29s), 66 Salt (33s) and 145 {item:4291} (7g 25s); about 7g 87s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Achetez d'un coup toute la part de cette tranche : 29 {item:2321} (29 pa), 66 Sel (33 pa) et 145 {item:4291} (7 po 25 pa) ; environ 7 po 87 pa au total. La flèche indique le vendeur de votre faction le plus proche ({zone:1453} : {npc:1347}, {npc:1286} et {npc:5565} ; {zone:1454} : {npc:3364}, {npc:3367} et {npc:5817})."
-	["Buy the whole bracket's share in one go: 29 {item:2321} (29s), 66 Salt (33s) and 145 {item:4291} (7g 25s); about 7g 87s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:5565}; {zone:1454}: {npc:3367}, {npc:5817} and Tamar)."] = "",
+	-- {item:2321} Fine Thread · {item:4291} Silken Thread · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:5817} Shimra · {npc:3366} Tamar
+	["Buy the whole bracket's share in one go: 29 {item:2321} (29s), 15 Salt (7s 50c) and 145 {item:4291} (7g 25s); about 7g 61s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:5565}; {zone:1454}: {npc:3367}, {npc:5817} and {npc:3366})."] = "",
 
-	-- Step 20: Get Heavy Hide (Alliance)
-	-- {item:4235} Heavy Hide
-	-- was: ["{item:4235} (Alliance)"] = "{item:4235} (Alliance)"
-	["Get {item:4235} (Alliance)"] = "",
-	-- {item:4235} Heavy Hide · {skill:165} Leatherworking · {item:5964} Barbaric Shoulders · {item:5966} Guardian Gloves · {skill:393} Skinning · {npc:2248} Cave Yeti · {npc:2249} Ferocious Yeti · {npc:2251} Giant Yeti · {npc:2407} Hulking Mountain Lion · {npc:2406} Mountain Lion · {npc:2250} Mountain Yeti
-	-- was: ["22 {item:4235} for {item:5964} and {item:5966}: {skill:393}: beasts of level 28-40. Skin {npc:2248}, {npc:2249}, {npc:2251}, {npc:2407}, {npc:2406}, {npc:2250} and Snapjaw here (level 28-40); the {skill:393} guide routes this."] = "22 {item:4235} pour {item:5964} et {item:5966} : {skill:393} : bêtes de niveau 28-40. Dépecez {npc:2248}, {npc:2249}, {npc:2251}, {npc:2407}, {npc:2406}, {npc:2250} et Gueule d'acier ici (niveau 28-40) ; le guide de {skill:393} en donne le parcours."
-	["You need 22 {item:4235} for {skill:165} 150-225: {item:5964} and {item:5966}. {skill:393}: beasts of level 28-40. Skin {npc:2248}, {npc:2249}, {npc:2251}, {npc:2407}, {npc:2406}, {npc:2250} and Snapjaw here (level 28-40); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",
-
-	-- Step 21: Get Heavy Hide (Horde)
-	-- {item:4235} Heavy Hide
-	-- was: ["{item:4235} (Horde)"] = "{item:4235} (Horde)"
-	["Get {item:4235} (Horde)"] = "",
-	-- {item:4235} Heavy Hide · {skill:165} Leatherworking · {item:5964} Barbaric Shoulders · {item:5966} Guardian Gloves · {skill:393} Skinning · {npc:4107} Highperch Wyvern · {npc:4147} Saltstone Basilisk · {npc:4140} Scorpid Reaver · {npc:4139} Scorpid Terror · {npc:4143} Sparkleshell Snapper · {npc:4142} Sparkleshell Tortoise
-	-- was: ["22 {item:4235} for {item:5964} and {item:5966}: {skill:393}: beasts of level 28-40. Skin {npc:4107}, {npc:4147}, {npc:4140}, {npc:4139}, {npc:4143} and {npc:4142} here (level 28-40); the {skill:393} guide routes this."] = "22 {item:4235} pour {item:5964} et {item:5966} : {skill:393} : bêtes de niveau 28-40. Dépecez {npc:4107}, {npc:4147}, {npc:4140}, {npc:4139}, {npc:4143} et {npc:4142} ici (niveau 28-40) ; le guide de {skill:393} en donne le parcours."
-	["You need 22 {item:4235} for {skill:165} 150-225: {item:5964} and {item:5966}. {skill:393}: beasts of level 28-40. Skin {npc:4107}, {npc:4147}, {npc:4140}, {npc:4139}, {npc:4143} and {npc:4142} here (level 28-40); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",
-
-	-- Step 22: Get Thick Leather
+	-- Step 25: Get Thick Leather
 	-- {item:4304} Thick Leather
 	["Get {item:4304}"] = "",
-	-- {item:4304} Thick Leather · {skill:165} Leatherworking · {item:8176} Nightscape Headband · {item:8193} Nightscape Pants · {skill:393} Skinning
-	["You need 398 {item:4304} for {skill:165} 150-225: {item:8176} and {item:8193}. {skill:393}: beasts of level 38-50. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:4304} Thick Leather · {skill:165} Leatherworking · {item:8193} Nightscape Pants · {skill:393} Skinning
+	-- plural, as words: Nightscape Headbands = {item:8176} Nightscape Headband
+	["398 {item:4304} for {skill:165} 150-225: 46 Nightscape Headbands and 12 {item:8193}. {skill:393}: beasts of level 38-50. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 23: Expert Leatherworking
+	-- Step 26: Expert Leatherworking
 	-- {skill:165} Leatherworking
 	["Expert {skill:165}"] = "{skill:165} (Expert)",
-	-- {skill:165} Leatherworking · {npc:4212} Telonis · {zone:1457} Darnassus · {npc:3007} Una · {zone:1456} Thunder Bluff · {spell:3818} Cured Heavy Hide · {spell:7151} Barbaric Shoulders · {item:4235} Heavy Hide · {item:4304} Thick Leather · {item:5966} Guardian Gloves · {item:8176} Nightscape Headband · {item:8193} Nightscape Pants
-	-- was: ["Expert raises the cap from 150 to 225; it needs {skill:165} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:4212} ({zone:1457}); Horde {npc:3007} ({zone:1456}). The arrow picks the nearest of your faction. Learn now: {spell:3818} (from 125, 5s) and {spell:7151} (from 150). 150-225 takes about 5s of recipes and 7g 87s of vendor goods, plus 22 {item:4235} and 373 {item:4304} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:5966} (from 165) and {item:8176} (from 180), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3. {item:8193} (from 210) takes a second trip, to other trainers (below)."] = "Expert porte le plafond de 150 à 225 ; il demande {skill:165} 125 et le niveau 20, vous pouvez donc l'apprendre à n'importe quelle visite dès 125. Seuls quelques maîtres l'enseignent : Alliance {npc:4212} ({zone:1457}) ; Horde {npc:3007} ({zone:1456}). La flèche indique le plus proche de votre faction. Apprenez maintenant : {spell:3818} (dès 125, 5 pa) et {spell:7151} (dès 150). 150-225 demande environ 5 pa de recettes et 7 po 87 pa de fournitures de marchand, plus 22 {item:4235} et 373 {item:4304} à récolter ou acheter. Venez avec tout cela dans vos sacs (les étapes ci-dessus, le reste à l'hôtel des ventes) : ces maîtres enseignent aussi {item:5966} (dès 165) et {item:8176} (dès 180), et les fabrications ne demandent aucun atelier, alors fabriquez sur place et apprenez chaque recette dès que vous atteignez sa compétence. Un seul trajet au lieu de 3. {item:8193} (dès 210) demande un second trajet, vers d'autres maîtres (ci-dessous)."
-	["Expert raises the cap from 150 to 225; it needs {skill:165} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:4212} ({zone:1457}); Horde {npc:3007} ({zone:1456}). This route trains it at {npc:4212} ({zone:1457}) for the Alliance and {npc:3007} ({zone:1456}) for the Horde, who also teach the recipes of 150-225: one trainer for every visit. Learn now: {spell:3818} (from 125, 5s) and {spell:7151} (from 150). 150-225 takes about 5s of recipes and 7g 87s of vendor goods, plus 22 {item:4235} and 398 {item:4304} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:5966} (from 165) and {item:8176} (from 180), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3. {item:8193} (from 210) takes a second trip, to other trainers (below)."] = "",
+	-- {skill:165} Leatherworking · {npc:4212} Telonis · {zone:1457} Darnassus · {npc:3007} Una · {zone:1456} Thunder Bluff · {spell:7151} Barbaric Shoulders · {item:4304} Thick Leather · {item:5966} Guardian Gloves · {item:8176} Nightscape Headband · {item:8193} Nightscape Pants
+	["Expert raises the cap from 150 to 225; it needs {skill:165} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:4212} ({zone:1457}); Horde {npc:3007} ({zone:1456}). This route trains it at {npc:4212} ({zone:1457}) for the Alliance and {npc:3007} ({zone:1456}) for the Horde, who also teach the recipes of 150-225: one trainer for every visit. Learn now: {spell:7151} (from 150). 150-225 takes about 7g 61s 50c of vendor goods, plus 398 {item:4304} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:5966} (from 165) and {item:8176} (from 180), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3. {item:8193} (from 210) takes a second trip, to other trainers (below)."] = "",
 
-	-- Step 24: Heavy Armor Kit to 158
+	-- Step 27: Heavy Armor Kit to 158
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 158"] = "{spell:3780} jusqu'à 158",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread
 	-- was: ["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158. Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "{spell:3780} est jaune à 150 (jaune 145, vert 155, gris 165) : environ 15 fabrications jusqu'à 158. Chacune demande 5 {item:4234} et 1 {item:2321}. Cinq {item:4234} par fabrication (bêtes de niveau 28-40) ; les nécessaires se vendent aux marchands. Si vous êtes arrivé ici sans apprendre {spell:3780}, apprenez-le maintenant : une étape précédente l'enseigne."
 	["{spell:3780} is yellow at 150 (yellow 145, green 155, grey 165): about 15 crafts to 158, up to 20 for 9 players in 10 (the gathered materials above count that many). Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. If you got here without learning {spell:3780}, learn it now: an earlier step teaches it."] = "",
 
-	-- Step 25: Barbaric Shoulders to 165
+	-- Step 28: Barbaric Shoulders to 165
 	-- {item:5964} Barbaric Shoulders
 	["{item:5964} to 165"] = "{item:5964} jusqu'à 165",
-	-- {item:5964} Barbaric Shoulders · {item:4234} Heavy Leather · {spell:3818} Cured Heavy Hide · {item:2321} Fine Thread
-	["{item:5964} is orange at 158 (yellow 170, green 180, grey 190): about 7 crafts to 165, a point every craft. Each takes 8 {item:4234}, 1 {spell:3818} and 2 {item:2321}. Make the 7 {spell:3818} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{item:5964} est orange à 158 (jaune 170, vert 180, gris 190) : environ 7 fabrications jusqu'à 165, un point par fabrication. Chaque fabrication demande 8 {item:4234}, 1 {spell:3818} et 2 {item:2321}. Fabriquez d'abord les 7 {spell:3818}. Le maître l'enseigne, et c'est la façon la moins chère de passer ces points selon les données.",
+	-- {item:5964} Barbaric Shoulders · {item:4234} Heavy Leather · {item:4236} Cured Heavy Hide · {item:2321} Fine Thread
+	-- was: ["{item:5964} is orange at 158 (yellow 170, green 180, grey 190): about 7 crafts to 165, a point every craft. Each takes 8 {item:4234}, 1 {spell:3818} and 2 {item:2321}. Make the 7 {spell:3818} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{item:5964} est orange à 158 (jaune 170, vert 180, gris 190) : environ 7 fabrications jusqu'à 165, un point par fabrication. Chaque fabrication demande 8 {item:4234}, 1 {spell:3818} et 2 {item:2321}. Fabriquez d'abord les 7 {spell:3818}. Le maître l'enseigne, et c'est la façon la moins chère de passer ces points selon les données."
+	["{item:5964} is orange at 158 (yellow 170, green 180, grey 190): about 7 crafts to 165, a point every craft. Each takes 8 {item:4234}, 1 {item:4236} and 2 {item:2321}. Use the 7 {item:4236} you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data."] = "",
 
-	-- Step 26: Leatherworking recipes at 165
+	-- Step 29: Leatherworking recipes at 165
 	-- {skill:165} Leatherworking
 	["{skill:165} recipes at 165"] = "Recettes de {skill:165} à 165",
 	-- {spell:7156} Guardian Gloves
 	["Still at the Expert trainer: {spell:7156} (from 165)."] = "Toujours chez le maître Expert : {spell:7156} (dès 165).",
 
-	-- Step 27: Guardian Gloves to 180
+	-- Step 30: Guardian Gloves to 180
 	-- {item:5966} Guardian Gloves
 	["{item:5966} to 180"] = "{item:5966} jusqu'à 180",
 	-- {item:5966} Guardian Gloves · {item:4234} Heavy Leather · {spell:3818} Cured Heavy Hide · {item:4291} Silken Thread
-	["{item:5966} is orange at 165 (yellow 185, green 195, grey 205): about 15 crafts to 180, a point every craft. Each takes 4 {item:4234}, 1 {spell:3818} and 1 {item:4291}. Make the 15 {spell:3818} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{item:5966} est orange à 165 (jaune 185, vert 195, gris 205) : environ 15 fabrications jusqu'à 180, un point par fabrication. Chaque fabrication demande 4 {item:4234}, 1 {spell:3818} et 1 {item:4291}. Fabriquez d'abord les 15 {spell:3818}. Le maître l'enseigne, et c'est la façon la moins chère de passer ces points selon les données.",
+	["{item:5966} is orange at 165 (yellow 185, green 195, grey 205): about 15 crafts to 180, a point every craft. Each takes 4 {item:4234}, 1 {spell:3818} and 1 {item:4291}. Make the 5 {spell:3818} first. Use the 10 {spell:3818} you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. If you got here without learning {spell:3818}, learn it now: an earlier step teaches it."] = "",
 
-	-- Step 28: Leatherworking recipes at 180
+	-- Step 31: Leatherworking recipes at 180
 	-- {skill:165} Leatherworking
 	["{skill:165} recipes at 180"] = "Recettes de {skill:165} à 180",
 	-- {spell:10507} Nightscape Headband
 	["Still at the Expert trainer: {spell:10507} (from 180)."] = "Toujours chez le maître Expert : {spell:10507} (dès 180).",
 
-	-- Step 29: Nightscape Headband to 213
+	-- Step 32: Nightscape Headband to 213
 	-- {item:8176} Nightscape Headband
 	["{item:8176} to 213"] = "{item:8176} jusqu'à 213",
 	-- {item:8176} Nightscape Headband · {item:4304} Thick Leather · {item:4291} Silken Thread
 	-- was: ["{item:8176} is orange at 180 (yellow 200, green 210, grey 220): about 41 crafts to 213. Each takes 5 {item:4304} and 2 {item:4291}. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{item:8176} est orange à 180 (jaune 200, vert 210, gris 220) : environ 41 fabrications jusqu'à 213. Chaque fabrication demande 5 {item:4304} et 2 {item:4291}. Le maître l'enseigne, et c'est la façon la moins chère de passer ces points selon les données."
 	["{item:8176} is orange at 180 (yellow 200, green 210, grey 220): about 41 crafts to 213, up to 46 for 9 players in 10 (the gathered materials above count that many). Each takes 5 {item:4304} and 2 {item:4291}. The trainer teaches it, and it is the cheapest way through these points in the data."] = "",
 
-	-- Step 30: Leatherworking recipes at 213
+	-- Step 33: Leatherworking recipes at 213
 	-- {skill:165} Leatherworking
 	["{skill:165} recipes at 213"] = "Recettes de {skill:165} à 213",
 	-- {spell:10548} Nightscape Pants · {npc:11097} Drakk Stonehand · {zone:1425} The Hinterlands · {npc:11098} Hahrana Ironhide · {zone:1444} Feralas · {skill:165} Leatherworking
 	["{spell:10548} (from 210) is taught only by the Artisan trainers: Alliance {npc:11097} ({zone:1425}); Horde {npc:11098} ({zone:1444}). You can train Artisan there now if you are level 35 (it needs {skill:165} 200), which saves the trip at 225."] = "{spell:10548} (à partir de 210) n'est enseigné que par les maîtres artisans : Alliance {npc:11097} ({zone:1425}) ; Horde {npc:11098} ({zone:1444}). Vous pouvez y apprendre le rang Artisan dès maintenant si vous êtes niveau 35 (il demande {skill:165} 200), ce qui vous épargne le trajet à 225.",
 
-	-- Step 31: Nightscape Pants to 225
+	-- Step 34: Nightscape Pants to 225
 	-- {item:8193} Nightscape Pants
 	["{item:8193} to 225"] = "{item:8193} jusqu'à 225",
 	-- {item:8193} Nightscape Pants · {item:4304} Thick Leather · {item:4291} Silken Thread · {skill:165} Leatherworking
 	["{item:8193} is orange at 213 (yellow 225, green 235, grey 245): about 12 crafts to 225, a point every craft. Each takes 14 {item:4304} and 4 {item:4291}. The trainer teaches it, and it is the cheapest way through these points in the data. {skill:165} 225 is a Legacy System milestone."] = "{item:8193} est orange à 213 (jaune 225, vert 235, gris 245) : environ 12 fabrications jusqu'à 225, un point à chaque fabrication. Chaque fabrication demande 14 {item:4304} et 4 {item:4291}. Le maître l'enseigne, et c'est la façon la moins chère de passer ces points selon les données. {skill:165} 225 est un palier du système d'Héritage.",
 
-	-- Step 32: Artisan Leatherworking
+	-- Step 35: Artisan Leatherworking
 	-- {skill:165} Leatherworking
 	["Artisan {skill:165}"] = "{skill:165} (Artisan)",
 	-- {skill:165} Leatherworking · {npc:11097} Drakk Stonehand · {zone:1425} The Hinterlands · {npc:11098} Hahrana Ironhide · {zone:1444} Feralas · {spell:19058} Rugged Armor Kit · {item:8170} Rugged Leather · {item:14047} Runecloth
 	["Artisan raises the cap from 225 to 300; it needs {skill:165} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:11097} ({zone:1425}); Horde {npc:11098} ({zone:1444}). This route trains it at {npc:11097} ({zone:1425}) for the Alliance and {npc:11098} ({zone:1444}) for the Horde, who also teach the recipes of 225-300: one trainer for every visit. Learn now: {spell:19058} (from 225). 225-300 takes about 3g 40s of recipes and 44g 90s of vendor goods, plus 1205 {item:8170} and 500 {item:14047} to gather or buy."] = "",
 
-	-- Step 33: Leatherworking 225-300: vendor goods
+	-- Step 36: Leatherworking 225-300: vendor goods
 	-- {skill:165} Leatherworking
 	["{skill:165} 225-300: vendor goods"] = "{skill:165} 225-300 : fournitures de marchand",
-	-- {item:2325} Black Dye · {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya
+	-- {item:2325} Black Dye · {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3366} Tamar
 	-- was: ["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Achetez d'un coup toute la part de cette tranche : 39 {item:2325} (3 po 90 pa) et 82 {item:14341} (41 po) ; environ 44 po 90 pa au total. La flèche indique le vendeur de votre faction le plus proche ({zone:1453} : {npc:1347}, {npc:1286} et {npc:5565} ; {zone:1454} : {npc:3364}, {npc:3367} et {npc:5817})."
-	["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:5565}; {zone:1454}: {npc:3364} and Tamar)."] = "",
+	["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347} and {npc:5565}; {zone:1454}: {npc:3364} and {npc:3366})."] = "",
 
-	-- Step 34: Pattern: Wicked Leather Gauntlets
+	-- Step 37: Pattern: Wicked Leather Gauntlets
 	-- {item:15725} Pattern: Wicked Leather Gauntlets · {item:15083} Wicked Leather Gauntlets · {skill:165} Leatherworking · {npc:12942} Leonard Porter · {zone:1422} Western Plaguelands · {npc:12943} Werg Thickblade
 	["{item:15725} teaches {item:15083} ({skill:165} 235) for 1g 20s. Sold by Alliance: {npc:12942} ({zone:1422}), limited stock; Horde: {npc:12943} ({zone:1422}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "{item:15725} enseigne {item:15083} ({skill:165} 235) pour 1 po 20 pa. En vente — Alliance : {npc:12942} ({zone:1422}), stock limité ; Horde : {npc:12943} ({zone:1422}), stock limité. Ses vendeurs en gardent un ou deux en stock, qui reviennent quelque temps après une vente ; il est lié quand on le ramasse, donc l'hôtel des ventes ne l'a jamais.",
 
-	-- Step 35: Pattern: Runic Leather Headband
+	-- Step 38: Pattern: Runic Leather Headband
 	-- {item:15756} Pattern: Runic Leather Headband · {item:15094} Runic Leather Headband · {skill:165} Leatherworking · {npc:12941} Jase Farlane · {zone:1423} Eastern Plaguelands
 	["{item:15756} teaches {item:15094} ({skill:165} 265) for 2g 20s. Sold by {npc:12941} ({zone:1423}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "{item:15756} enseigne {item:15094} ({skill:165} 265) pour 2 po 20 pa. En vente — {npc:12941} ({zone:1423}), stock limité. Ses vendeurs en gardent un ou deux en stock, qui reviennent quelque temps après une vente ; il est lié quand on le ramasse, donc l'hôtel des ventes ne l'a jamais.",
 
-	-- Step 36: Get Rugged Leather
+	-- Step 39: Get Rugged Leather
 	-- {item:8170} Rugged Leather
 	["Get {item:8170}"] = "",
-	-- {item:8170} Rugged Leather · {skill:165} Leatherworking · {item:15564} Rugged Armor Kit · {item:15083} Wicked Leather Gauntlets · {item:15094} Runic Leather Headband · {skill:393} Skinning
-	["You need 1205 {item:8170} for {skill:165} 225-300: {item:15564}, {item:15083} and {item:15094}. {skill:393}: beasts of level 48-60. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:8170} Rugged Leather · {skill:165} Leatherworking · {item:15083} Wicked Leather Gauntlets · {skill:393} Skinning
+	-- plural, as words: Rugged Armor Kits = {item:15564} Rugged Armor Kit · Runic Leather Headbands = {item:15094} Runic Leather Headband
+	["1205 {item:8170} for {skill:165} 225-300: 29 Rugged Armor Kits, 45 {item:15083} and 50 Runic Leather Headbands. {skill:393}: beasts of level 48-60. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
-	-- Step 37: Get Runecloth
+	-- Step 40: Get Runecloth
 	-- {item:14047} Runecloth
 	["Get {item:14047}"] = "",
-	-- {item:14047} Runecloth · {skill:165} Leatherworking · {item:15094} Runic Leather Headband
-	["You need 500 {item:14047} for {skill:165} 225-300: {item:15094}. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- {item:14047} Runecloth · {skill:165} Leatherworking
+	-- plural, as words: Runic Leather Headbands = {item:15094} Runic Leather Headband
+	["500 {item:14047} for {skill:165} 225-300: 50 Runic Leather Headbands. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
-	-- Step 38: Rugged Armor Kit to 239
+	-- Step 41: Rugged Armor Kit to 239
 	-- {item:15564} Rugged Armor Kit
 	["{item:15564} to 239"] = "{item:15564} jusqu'à 239",
 	-- {item:15564} Rugged Armor Kit · {item:8170} Rugged Leather · {npc:7866} Peter Galen · {zone:1447} Azshara · {npc:7867} Thorkaf Dragoneye · {zone:1418} Badlands · {item:8204} Tough Scorpid Gloves · {zone:1446} Tanaris · {item:8165} Worn Dragonscale · {npc:7868} Sarah Tanner · {zone:1427} Searing Gorge · {npc:7869} Brumn Winterhoof · {zone:1417} Arathi Highlands · {item:7077} Heart of Fire · {item:7079} Globe of Water · {item:7075} Core of Earth · {item:7081} Breath of Wind · {npc:7870} Caryssia Moonhunter · {zone:1444} Feralas · {npc:7871} Se'Jib · {zone:1434} Stranglethorn Vale · {item:8211} Wild Leather Vest · {npc:7852} Pratt McGrubben · {npc:7854} Jangdor Swiftstrider · {item:279941} Tanning Rack
@@ -245,7 +252,7 @@ return {
 	-- was: ["{item:15564} is yellow at 225 (yellow 225, green 235, grey 245): about 23 crafts to 239. Each takes 5 {item:8170}. Five {item:8170} a craft. Specialisation (optional): at 225 and character level 40. Dragonscale: {npc:7866} ({zone:1447}) or {npc:7867} ({zone:1418}) wants 2 Tough Scorpid Breastplates, 2 {item:8204} (patterns drop from the Wastewander bandits in {zone:1446}) and 10 {item:8165}. Elemental: {npc:7868} ({zone:1427}) or {npc:7869} ({zone:1417}) wants 2 each of {item:7077}, {item:7079}, {item:7075} and {item:7081}. Tribal (from 235): {npc:7870} ({zone:1444}) or {npc:7871} ({zone:1434}) wants a {item:8211} and Helmet, after the Wild Leather quests from {npc:7852} or {npc:7854} in {zone:1444}. On Forever the specialisation patterns need a {item:279941}. You can take only one; none is needed for 300, and the beta never tested them (it stopped at level 30)."] = "{item:15564} est jaune à 225 (jaune 225, vert 235, gris 245) : environ 23 fabrications jusqu'à 239. Chaque fabrication demande 5 {item:8170}. Cinq {item:8170} par fabrication. Spécialisation (facultative) : à 225 et au niveau 40. Écailles de dragon : {npc:7866} ({zone:1447}) ou {npc:7867} ({zone:1418}) demande 2 Cuirasses armées du scorpide, 2 {item:8204} (les patrons tombent sur les bandits Bat-le-désert de {zone:1446}) et 10 {item:8165}. Élémentaire : {npc:7868} ({zone:1427}) ou {npc:7869} ({zone:1417}) demande 2 de chacun : {item:7077}, {item:7079}, {item:7075} et {item:7081}. Tribal (dès 235) : {npc:7870} ({zone:1444}) ou {npc:7871} ({zone:1434}) demande un {item:8211} et un casque, après les quêtes du Cuir sauvage de {npc:7852} ou {npc:7854} à {zone:1444}. Sur Forever, les patrons de spécialisation demandent un {item:279941}. Vous ne pouvez en prendre qu'une ; aucune n'est nécessaire pour 300, et la bêta ne les a jamais testées (elle s'est arrêtée au niveau 30)."
 	["{item:15564} is yellow at 225 (yellow 225, green 235, grey 245): about 23 crafts to 239, up to 29 for 9 players in 10 (the gathered materials above count that many). Each takes 5 {item:8170}. Five {item:8170} a craft. Specialisation (optional): at 225 and character level 40. Dragonscale: {npc:7866} ({zone:1447}) or {npc:7867} ({zone:1418}) wants 2 Tough Scorpid Breastplates, 2 {item:8204} (patterns drop from the Wastewander bandits in {zone:1446}) and 10 {item:8165}. Elemental: {npc:7868} ({zone:1427}) or {npc:7869} ({zone:1417}) wants 2 each of {item:7077}, {item:7079}, {item:7075} and {item:7081}. Tribal (also from 225, as Forever's quest data asks): {npc:7870} ({zone:1444}) or {npc:7871} ({zone:1434}) wants a {item:8211} and Helmet, after the Wild Leather quests from {npc:7852} or {npc:7854} in {zone:1444}. On Forever the specialisation patterns need a {item:279941}. You can take only one; none is needed for 300, and the beta never tested them (it stopped at level 30)."] = "",
 
-	-- Step 39: Wicked Leather Gauntlets to 269
+	-- Step 42: Wicked Leather Gauntlets to 269
 	-- {item:15083} Wicked Leather Gauntlets
 	["{item:15083} to 269"] = "{item:15083} jusqu'à 269",
 	-- {item:15083} Wicked Leather Gauntlets · {item:8170} Rugged Leather · {item:2325} Black Dye · {item:14341} Rune Thread
@@ -253,7 +260,7 @@ return {
 	["{item:15083} is orange at 239 (yellow 255, green 265, grey 275): about 39 crafts to 269, up to 45 for 9 players in 10 (the gathered materials above count that many). Each takes 8 {item:8170}, 1 {item:2325} and 1 {item:14341}. Eight {item:8170} a craft; {item:2325} and {item:14341} from leatherworking or tailoring vendors."] = "",
 	["from the recipe in your bags"] = "avec la recette de vos sacs",
 
-	-- Step 40: Runic Leather Headband to 300
+	-- Step 43: Runic Leather Headband to 300
 	-- {item:15094} Runic Leather Headband
 	["{item:15094} to 300"] = "{item:15094} jusqu'à 300",
 	-- {item:15094} Runic Leather Headband · {item:8170} Rugged Leather · {item:14047} Runecloth · {item:14341} Rune Thread · {skill:165} Leatherworking
@@ -300,6 +307,7 @@ return {
 	-- ["Back to a {skill:165} trainer: {spell:10487} is taught from {skill:165} 195."] = "Retournez voir un maître de {skill:165} : {spell:10487} s'apprend dès {skill:165} 195.",
 	-- ["Back to a {skill:165} trainer: {spell:3763} is taught from {skill:165} 85."] = "Retournez voir un maître de {skill:165} : {spell:3763} s'apprend dès {skill:165} 85.",
 	-- ["Back to a {skill:165} trainer: {spell:3776} is taught from {skill:165} 175."] = "Retournez voir un maître de {skill:165} : {spell:3776} s'apprend dès {skill:165} 175.",
+	-- ["Back to a {skill:165} trainer: {spell:3780} (from 125, 7s 50c)."] = "Retournez voir un maître de métier ({skill:165}) : {spell:3780} (dès 125, 7 pa 50 pc).",
 	-- ["Back to a {skill:165} trainer: {spell:3817}, {spell:3768} are taught from {skill:165} 130."] = "Retournez voir un maître de {skill:165} : {spell:3817}, {spell:3768} s'apprendnent dès {skill:165} 130.",
 	-- ["Back to a {skill:165} trainer: {spell:7151} is taught from {skill:165} 170."] = "Retournez voir un maître de {skill:165} : {spell:7151} s'apprend dès {skill:165} 170.",
 	-- ["Back to a {skill:165} trainer: {spell:7156} is taught from {skill:165} 185."] = "Retournez voir un maître de {skill:165} : {spell:7156} s'apprend dès {skill:165} 185.",
@@ -308,6 +316,7 @@ return {
 	-- ["Back to a {skill:165} trainer: {spell:9074} is taught from {skill:165} 120."] = "Retournez voir un maître de {skill:165} : {spell:9074} s'apprend dès {skill:165} 120.",
 	-- ["Buy the whole bracket's share in one go: 29 {item:2321} (29s), 66 Salt (33s) and 145 {item:4291} (7g 25s); about 7g 87s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Achetez d'un coup toute la part de cette tranche : 29 {item:2321} (29 pa), 66 Sel (33 pa) et 145 {item:4291} (7 po 25 pa) ; environ 7 po 87 pa au total. La flèche indique le vendeur de votre faction le plus proche ({zone:1453} : {npc:1347}, {npc:1286} et {npc:5565} ; {zone:1454} : {npc:3364}, {npc:3367} et {npc:5817}).",
 	-- ["Buy the whole bracket's share in one go: 39 {item:2325} (3g 90s) and 82 {item:14341} (41g); about 44g 90s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Achetez d'un coup toute la part de cette tranche : 39 {item:2325} (3 po 90 pa) et 82 {item:14341} (41 po) ; environ 44 po 90 pa au total. La flèche indique le vendeur de votre faction le plus proche ({zone:1453} : {npc:1347}, {npc:1286} et {npc:5565} ; {zone:1454} : {npc:3364}, {npc:3367} et {npc:5817}).",
+	-- ["Buy the whole bracket's share in one go: 70 {item:2320} (7s) and 50 {item:2321} (50s); about 57s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Achetez d'un coup toute la part de cette tranche : 70 {item:2320} (7 pa) et 50 {item:2321} (50 pa) ; environ 57 pa au total. La flèche indique le vendeur de votre faction le plus proche ({zone:1453} : {npc:1347}, {npc:1286} et {npc:5565} ; {zone:1454} : {npc:3364}, {npc:3367} et {npc:5817}).",
 	-- ["Buy the whole bracket's share in one go: 8 {item:2321} (8s) and 32 {item:4291} (1g 60s); about 1g 68s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "Achetez d'un coup toute la part de cette tranche : 8 {item:2321} (8 pa) et 32 {item:4291} (1 po 60 pa) ; environ 1 po 68 pa au total. La flèche indique le vendeur de votre faction le plus proche ({zone:1453} : {npc:1347}, {npc:1286} et {npc:5565} ; {zone:1454} : {npc:3364}, {npc:3367} et {npc:5817}).",
 	-- ["Expert needs character level 20 and {skill:165} 125; it raises the cap to 225. Materials for 150-225 are worth about 61g in all."] = "Le rang Expert demande le niveau 20 et {skill:165} 125 ; il porte le maximum à 225. Les matériaux pour 150-225 valent environ 61 po au total.",
 	-- ["Expert raises the cap from 150 to 225; it needs {skill:165} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:11097} ({zone:1425}) and {npc:4212} ({zone:1457}); Horde {npc:11098} ({zone:1444}) and {npc:3007} ({zone:1456}). The arrow picks the nearest of your faction. 150-225 takes about 1g 68s of vendor goods, plus 257 {item:4304} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {item:4304} (from 155) and {item:8173} (from 175), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3. {item:8170} (from 205) takes a second trip, to other trainers (below)."] = "Expert porte le plafond de 150 à 225 ; il demande {skill:165} 125 et le niveau 20, vous pouvez donc l'apprendre à n'importe quelle visite dès 125. Seuls quelques maîtres l'enseignent : Alliance {npc:11097} ({zone:1425}) et {npc:4212} ({zone:1457}) ; Horde {npc:11098} ({zone:1444}) et {npc:3007} ({zone:1456}). La flèche indique le plus proche de votre faction. 150-225 demande environ 1 po 68 pa de fournitures de marchand, plus 257 {item:4304} à récolter ou acheter. Venez avec tout cela dans vos sacs (les étapes ci-dessus, le reste à l'hôtel des ventes) : ces maîtres enseignent aussi {item:4304} (dès 155) et {item:8173} (dès 175), et les fabrications ne demandent aucun atelier, alors fabriquez sur place et apprenez chaque recette dès que vous atteignez sa compétence. Un seul trajet au lieu de 3. {item:8170} (dès 205) demande un second trajet, vers d'autres maîtres (ci-dessous).",
@@ -377,7 +386,9 @@ return {
 	-- ["{item:4304} (Horde)"] = "{item:4304} (Horde)",
 	-- ["{item:4304} is orange at 155 (yellow 175, green 177, grey 180): about 23 crafts to 177. Each takes 6 {item:4234}. Six {item:4234} make one {item:4304}, orange until 175: keep them, the Thick Armor Kits next use them."] = "{item:4304} est orange à 155 (jaune 175, vert 177, gris 180) : environ 23 fabrications jusqu'à 177. Chaque fabrication demande 6 {item:4234}. Six {item:4234} donnent un {item:4304}, orange jusqu'à 175 : gardez-les, les Renforts d'armure épais suivants les utilisent.",
 	-- ["{item:4304} to 177"] = "{item:4304} jusqu'à 177",
+	-- ["{item:5964} is orange at 158 (yellow 170, green 180, grey 190): about 7 crafts to 165, a point every craft. Each takes 8 {item:4234}, 1 {spell:3818} and 2 {item:2321}. Make the 7 {spell:3818} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{item:5964} est orange à 158 (jaune 170, vert 180, gris 190) : environ 7 fabrications jusqu'à 165, un point par fabrication. Chaque fabrication demande 8 {item:4234}, 1 {spell:3818} et 2 {item:2321}. Fabriquez d'abord les 7 {spell:3818}. Le maître l'enseigne, et c'est la façon la moins chère de passer ces points selon les données.",
 	-- ["{item:5964} to 175"] = "{item:5964} jusqu'à 175",
+	-- ["{item:5966} is orange at 165 (yellow 185, green 195, grey 205): about 15 crafts to 180, a point every craft. Each takes 4 {item:4234}, 1 {spell:3818} and 1 {item:4291}. Make the 15 {spell:3818} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{item:5966} est orange à 165 (jaune 185, vert 195, gris 205) : environ 15 fabrications jusqu'à 180, un point par fabrication. Chaque fabrication demande 4 {item:4234}, 1 {spell:3818} et 1 {item:4291}. Fabriquez d'abord les 15 {spell:3818}. Le maître l'enseigne, et c'est la façon la moins chère de passer ces points selon les données.",
 	-- ["{item:5966} to 195"] = "{item:5966} jusqu'à 195",
 	-- ["{item:7279} to 75"] = "{item:7279} jusqu'à 75",
 	-- ["{item:7282} to 120"] = "{item:7282} jusqu'à 120",

@@ -17,8 +17,9 @@ return {
 	-- Step 2: Get Rough Stone
 	-- {item:2835} Rough Stone
 	["Get {item:2835}"] = "",
-	-- {item:2835} Rough Stone · {skill:164} Blacksmithing · {spell:2660} Rough Sharpening Stone · {spell:3320} Rough Grinding Stone · {skill:186} Mining · {object:1731} Copper Vein · {zone:1426} Dun Morogh · {zone:1429} Elwynn Forest · {zone:2521} Zephras Isle
-	["You need 195 {item:2835} for {skill:164} 1-75: {spell:2660} and {spell:3320}. {skill:186}: {object:1731} (skill 1) in {zone:1426} (1-10), {zone:1429} (1-10) and {zone:2521} (1-15). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:2835} Rough Stone · {skill:164} Blacksmithing · {skill:186} Mining · {object:1731} Copper Vein · {zone:1426} Dun Morogh · {zone:1429} Elwynn Forest · {zone:2521} Zephras Isle
+	-- plural, as words: Rough Sharpening Stones = {spell:2660} Rough Sharpening Stone · Rough Grinding Stones = {spell:3320} Rough Grinding Stone
+	["195 {item:2835} for {skill:164} 1-75: 47 Rough Sharpening Stones and 74 Rough Grinding Stones. {skill:186}: {object:1731} (skill 1) in {zone:1426} (1-10), {zone:1429} (1-10) and {zone:2521} (1-15). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 3: Rough Sharpening Stone to 35
 	-- {spell:2660} Rough Sharpening Stone
@@ -57,26 +58,29 @@ return {
 	-- Step 8: Get Medium Leather
 	-- {item:2319} Medium Leather
 	["Get {item:2319}"] = "",
-	-- {item:2319} Medium Leather · {skill:164} Blacksmithing · {item:7956} Bronze Warhammer · {skill:393} Skinning
-	["You need 25 {item:2319} for {skill:164} 75-150: {item:7956}. {skill:393}: beasts of level 18-30. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:2319} Medium Leather · {skill:164} Blacksmithing · {skill:393} Skinning
+	-- plural, as words: Bronze Warhammers = {item:7956} Bronze Warhammer
+	["25 {item:2319} for {skill:164} 75-150: 25 Bronze Warhammers. {skill:393}: beasts of level 18-30. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 9: Get Coarse Stone
 	-- {item:2836} Coarse Stone
 	["Get {item:2836}"] = "",
 	-- {item:2836} Coarse Stone · {skill:164} Blacksmithing · {spell:2672} Patterned Bronze Bracers · {skill:186} Mining · {object:1732} Tin Vein · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills · {zone:1437} Wetlands
-	["You need 100 {item:2836} for {skill:164} 75-150: {spell:2672}. {skill:186}: {object:1732} (skill 65) in {zone:1440} (18-30), {zone:1424} (20-30) and {zone:1437} (20-30). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["100 {item:2836} for {skill:164} 75-150: 25 {spell:2672}. {skill:186}: {object:1732} (skill 65) in {zone:1440} (18-30), {zone:1424} (20-30) and {zone:1437} (20-30). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 10: Get Copper Bar
 	-- {item:2840} Copper Bar
 	["Get {item:2840}"] = "",
-	-- {item:2840} Copper Bar · {skill:164} Blacksmithing · {spell:2666} Runed Copper Belt · {item:2770} Copper Ore · {skill:186} Mining
-	["You need 320 {item:2840} for {skill:164} 75-150: {spell:2666}. Mine {item:2770} and smelt it at a forge ({skill:186} 1). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:2840} Copper Bar · {skill:164} Blacksmithing · {item:2770} Copper Ore · {skill:186} Mining
+	-- plural, as words: Runed Copper Belts = {spell:2666} Runed Copper Belt
+	["320 {item:2840} for {skill:164} 75-150: 32 Runed Copper Belts. Mine {item:2770} and smelt it at a forge ({skill:186} 1). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 11: Get Bronze Bar
 	-- {item:2841} Bronze Bar
 	["Get {item:2841}"] = "",
-	-- {item:2841} Bronze Bar · {skill:164} Blacksmithing · {spell:2672} Patterned Bronze Bracers · {item:7956} Bronze Warhammer · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
-	["You need 325 {item:2841} for {skill:164} 75-150: {spell:2672} and {item:7956}. {skill:186}: smelt {item:2840} and {item:3576}. Or buy them at the Auction House."] = "",
+	-- {item:2841} Bronze Bar · {skill:164} Blacksmithing · {spell:2672} Patterned Bronze Bracers · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
+	-- plural, as words: Bronze Warhammers = {item:7956} Bronze Warhammer
+	["325 {item:2841} for {skill:164} 75-150: 25 {spell:2672} and 25 Bronze Warhammers. {skill:186}: smelt {item:2840} and {item:3576}. Or buy them at the Auction House."] = "",
 
 	-- Step 12: Runed Copper Belt to 100
 	-- {spell:2666} Runed Copper Belt
@@ -123,43 +127,48 @@ return {
 	-- {item:2838} Heavy Stone
 	["Get {item:2838}"] = "",
 	-- {item:2838} Heavy Stone · {skill:164} Blacksmithing · {item:6040} Golden Scale Bracers · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {zone:2548} Riverglades
-	["You need 60 {item:2838} for {skill:164} 150-225: {item:6040}. {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:2548} (38-47). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["60 {item:2838} for {skill:164} 150-225: 10 {item:6040}. {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:2548} (38-47). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 19: Get Iron Bar
 	-- {item:3575} Iron Bar
 	["Get {item:3575}"] = "",
 	-- {item:3575} Iron Bar · {skill:164} Blacksmithing · {spell:3501} Green Iron Bracers · {item:2772} Iron Ore · {skill:186} Mining
-	["You need 186 {item:3575} for {skill:164} 150-225: {spell:3501}. Mine {item:2772} and smelt it at a forge ({skill:186} 125). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["186 {item:3575} for {skill:164} 150-225: 31 {spell:3501}. Mine {item:2772} and smelt it at a forge ({skill:186} 125). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 20: Get Steel Bar
 	-- {item:3859} Steel Bar
 	["Get {item:3859}"] = "",
-	-- {item:3859} Steel Bar · {skill:164} Blacksmithing · {item:6040} Golden Scale Bracers · {item:7922} Steel Plate Helm · {item:2772} Iron Ore · {skill:186} Mining
-	["You need 302 {item:3859} for {skill:164} 150-225: {item:6040} and {item:7922}. Smelting makes them from {item:2772} ({skill:186} 165): about 302 {item:2772} for 302. The loops below are for the {item:2772}; the {skill:186} guide's loops give the rest. The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:3859} Steel Bar · {skill:164} Blacksmithing · {item:6040} Golden Scale Bracers · {item:2772} Iron Ore · {skill:186} Mining
+	-- plural, as words: Steel Plate Helms = {item:7922} Steel Plate Helm
+	["302 {item:3859} for {skill:164} 150-225: 10 {item:6040} and 18 Steel Plate Helms. Smelting makes them from {item:2772} ({skill:186} 165): about 302 {item:2772} for 302. The loops below are for the {item:2772}; the {skill:186} guide's loops give the rest. The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 21: Get Mithril Bar
 	-- {item:3860} Mithril Bar
 	["Get {item:3860}"] = "",
-	-- {item:3860} Mithril Bar · {skill:164} Blacksmithing · {item:7919} Heavy Mithril Gauntlet · {item:7933} Heavy Mithril Boots · {item:3858} Mithril Ore · {skill:186} Mining
-	["You need 230 {item:3860} for {skill:164} 150-225: {item:7919} and {item:7933}. Mine {item:3858} and smelt it at a forge ({skill:186} 175). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:3860} Mithril Bar · {skill:164} Blacksmithing · {item:7933} Heavy Mithril Boots · {item:3858} Mithril Ore · {skill:186} Mining
+	-- plural, as words: Heavy Mithril Gauntlets = {item:7919} Heavy Mithril Gauntlet
+	["230 {item:3860} for {skill:164} 150-225: 15 Heavy Mithril Gauntlets and 10 {item:7933}. Mine {item:3858} and smelt it at a forge ({skill:186} 175). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 22: Get Thick Leather
 	-- {item:4304} Thick Leather
 	["Get {item:4304}"] = "",
-	-- {item:4304} Thick Leather · {skill:164} Blacksmithing · {item:7933} Heavy Mithril Boots · {item:7945} Big Black Mace · {skill:393} Skinning
-	["You need 236 {item:4304} for {skill:164} 150-225: {item:7933} and {item:7945} (196 of them for 225-300: get them all now). {skill:393}: beasts of level 38-50. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:4304} Thick Leather · {skill:164} Blacksmithing · {item:7933} Heavy Mithril Boots · {skill:393} Skinning
+	-- plural, as words: Big Black Maces = {item:7945} Big Black Mace
+	["236 {item:4304} for {skill:164} 150-225: 50 {item:7933} and 18 Big Black Maces (196 of them for 225-300: get them all now). {skill:393}: beasts of level 38-50. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 23: Get Mageweave Cloth
 	-- {item:4338} Mageweave Cloth
 	["Get {item:4338}"] = "",
-	-- {item:4338} Mageweave Cloth · {skill:164} Blacksmithing · {item:7919} Heavy Mithril Gauntlet
-	["You need 60 {item:4338} for {skill:164} 150-225: {item:7919}. Humanoids of level 35-50 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4338} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- {item:4338} Mageweave Cloth · {skill:164} Blacksmithing
+	-- plural, as words: Heavy Mithril Gauntlets = {item:7919} Heavy Mithril Gauntlet
+	["60 {item:4338} for {skill:164} 150-225: 15 Heavy Mithril Gauntlets. Humanoids of level 35-50 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:4338} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
 	-- Step 24: Get Solid Stone
 	-- {item:7912} Solid Stone
 	["Get {item:7912}"] = "",
-	-- {item:7912} Solid Stone · {skill:164} Blacksmithing · {item:7922} Steel Plate Helm · {item:7945} Big Black Mace · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["You need 144 {item:7912} for {skill:164} 150-225: {item:7922} and {item:7945} (72 of them for 225-300: get them all now). {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:7912} Solid Stone · {skill:164} Blacksmithing · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
+	-- plural, as words: Steel Plate Helms = {item:7922} Steel Plate Helm · Big Black Maces = {item:7945} Big Black Mace
+	["144 {item:7912} for {skill:164} 150-225: 18 Steel Plate Helms and 18 Big Black Maces (72 of them for 225-300: get them all now). {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 25: Green Iron Bracers to 175
 	-- {spell:3501} Green Iron Bracers
@@ -225,24 +234,27 @@ return {
 	-- Step 34: Artisan Blacksmithing
 	-- {skill:164} Blacksmithing
 	["Artisan {skill:164}"] = "전문 {skill:164}",
-	-- {skill:164} Blacksmithing · {npc:2836} Brikk Keencraft · {zone:1434} Stranglethorn Vale · {spell:16640} Dense Weightstone · {spell:10001} Big Black Mace · {spell:16639} Dense Grinding Stone · {item:1210} Shadowgem · {item:3860} Mithril Bar · {item:7971} Black Pearl · {item:12365} Dense Stone · {npc:11278} Magnus Frostwake · {item:7909} Aquamarine · {item:7910} Star Ruby · {item:8170} Rugged Leather · {item:12359} Thorium Bar · {item:12799} Large Opal · {item:7077} Heart of Fire
-	["Artisan raises the cap from 225 to 300 for 5g (Classic's price; Forever's is not in the data); it needs {skill:164} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:2836} ({zone:1434}); Horde {npc:2836} ({zone:1434}). This route trains it at {npc:2836} ({zone:1434}) for the Alliance and {npc:2836} ({zone:1434}) for the Horde, who also teach the recipes of 225-300: one trainer for every visit. Learn now: {spell:16640} (from 225), {spell:10001} (from 205) and {spell:16639} (from 225). 225-300 takes 72 {item:1210}, 848 {item:3860}, 18 {item:7971} and 24 {item:12365} to gather or buy. From 250 the route splits: with {npc:11278}'s plans, about 55 more crafts and 22 {item:7909}, 22 {item:7910}, 212 {item:8170}, 2168 {item:12359}, 808 {item:12365} and 10 {item:12799}; with Auction House plans, about 55 crafts and 196 {item:7077} and 806 {item:12359}."] = "",
+	-- {skill:164} Blacksmithing · {npc:2836} Brikk Keencraft · {zone:1434} Stranglethorn Vale · {spell:16639} Dense Grinding Stone · {spell:10001} Big Black Mace · {item:1210} Shadowgem · {item:3860} Mithril Bar · {item:7971} Black Pearl · {item:12365} Dense Stone · {npc:11278} Magnus Frostwake · {item:7909} Aquamarine · {item:7910} Star Ruby · {item:8170} Rugged Leather · {item:12359} Thorium Bar · {item:12799} Large Opal · {item:7077} Heart of Fire
+	["Artisan raises the cap from 225 to 300 for 5g (Classic's price; Forever's is not in the data); it needs {skill:164} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:2836} ({zone:1434}); Horde {npc:2836} ({zone:1434}). This route trains it at {npc:2836} ({zone:1434}) for the Alliance and {npc:2836} ({zone:1434}) for the Horde, who also teach the recipes of 225-300: one trainer for every visit. Learn now: {spell:16639} (from 225) and {spell:10001} (from 205). 225-300 takes 72 {item:1210}, 848 {item:3860}, 18 {item:7971} and 96 {item:12365} to gather or buy. From 250 the route splits: with {npc:11278}'s plans, about 55 more crafts and 22 {item:7909}, 22 {item:7910}, 212 {item:8170}, 2168 {item:12359}, 740 {item:12365} and 10 {item:12799}; with Auction House plans, about 55 crafts and 196 {item:7077} and 806 {item:12359}."] = "",
 
 	-- Step 35: Get Shadowgem
 	-- {item:1210} Shadowgem
 	["Get {item:1210}"] = "",
-	-- {item:1210} Shadowgem · {skill:164} Blacksmithing · {item:7945} Big Black Mace · {object:1731} Copper Vein · {object:1732} Tin Vein · {object:1733} Silver Vein
-	["You need 72 {item:1210} for {skill:164} 225-300: {item:7945}. {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining. Or buy them at the Auction House."] = "",
+	-- {item:1210} Shadowgem · {skill:164} Blacksmithing · {object:1731} Copper Vein · {object:1732} Tin Vein · {object:1733} Silver Vein
+	-- plural, as words: Big Black Maces = {item:7945} Big Black Mace
+	["72 {item:1210} for {skill:164} 225-300: 18 Big Black Maces. {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining. Or buy them at the Auction House."] = "",
 
 	-- Step 36: Get Mithril Bar
-	-- {item:3860} Mithril Bar · {skill:164} Blacksmithing · {item:7933} Heavy Mithril Boots · {item:7945} Big Black Mace · {item:3858} Mithril Ore · {skill:186} Mining
-	["You need 848 {item:3860} for {skill:164} 225-300: {item:7933} and {item:7945}. Mine {item:3858} and smelt it at a forge ({skill:186} 175). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:3860} Mithril Bar · {skill:164} Blacksmithing · {item:7933} Heavy Mithril Boots · {item:3858} Mithril Ore · {skill:186} Mining
+	-- plural, as words: Big Black Maces = {item:7945} Big Black Mace
+	["848 {item:3860} for {skill:164} 225-300: 40 {item:7933} and 18 Big Black Maces. Mine {item:3858} and smelt it at a forge ({skill:186} 175). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 37: Get Dense Stone
 	-- {item:12365} Dense Stone
 	["Get {item:12365}"] = "",
-	-- {item:12365} Dense Stone · {skill:164} Blacksmithing · {item:12643} Dense Weightstone · {skill:186} Mining · {object:324} Small Thorium Vein · {zone:1448} Felwood · {zone:1451} Silithus · {zone:1452} Winterspring
-	["You need 24 {item:12365} for {skill:164} 225-300: {item:12643}. {skill:186}: {object:324} (skill 245) in {zone:1448} (48-55), {zone:1451} (55-60) and {zone:1452} (55-60). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:12365} Dense Stone · {skill:164} Blacksmithing · {skill:186} Mining · {object:324} Small Thorium Vein · {zone:1448} Felwood · {zone:1451} Silithus · {zone:1452} Winterspring
+	-- plural, as words: Dense Grinding Stones = {item:12644} Dense Grinding Stone
+	["96 {item:12365} for {skill:164} 225-300: 24 Dense Grinding Stones. {skill:186}: {object:324} (skill 245) in {zone:1448} (48-55), {zone:1451} (55-60) and {zone:1452} (55-60). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 38: Blacksmithing 225-300: Auction House
 	-- {skill:164} Blacksmithing
@@ -250,11 +262,11 @@ return {
 	-- {item:7971} Black Pearl
 	["What 225-300 takes that the Auction House sells and no step above farms: 18 {item:7971}. The counts drop by what your bags, bank and mail hold."] = "",
 
-	-- Step 39: Dense Weightstone to 235
-	-- {item:12643} Dense Weightstone
-	["{item:12643} to 235"] = "{item:12643}: 235까지",
-	-- {item:12643} Dense Weightstone · {item:12365} Dense Stone
-	["{item:12643} is orange at 225 (yellow 230, green 232, grey 235): about 17 crafts to 235, up to 24 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:12365}. One {item:12365} a craft (Thorium veins): cheap points at the start of Artisan."] = "",
+	-- Step 39: Dense Grinding Stone to 235
+	-- {item:12644} Dense Grinding Stone
+	["{item:12644} to 235"] = "",
+	-- {item:12644} Dense Grinding Stone · {item:12365} Dense Stone
+	["{item:12644} is orange at 225 (yellow 230, green 232, grey 235): about 17 crafts to 235, up to 24 for 9 players in 10 (the gathered materials above count that many). Each takes 4 {item:12365}. The trainer teaches it, and it is the cheapest way through these points in the data."] = "",
 
 	-- Step 40: Heavy Mithril Boots to 247
 	-- {item:7933} Heavy Mithril Boots
@@ -281,50 +293,53 @@ return {
 	-- {item:7909} Aquamarine
 	["Get {item:7909}"] = "",
 	-- {item:7909} Aquamarine · {skill:164} Blacksmithing · {quest:7654} Imperial Plate Boots · {object:2047} Truesilver Deposit · {object:123309} Ooze Covered Truesilver Deposit
-	["You need 22 {item:7909} for {skill:164} 250-300: {quest:7654}. {item:7909} turns up in about one {object:2047} or {object:123309} in 500: keep the ones you find while mining. Or buy them at the Auction House."] = "",
+	["22 {item:7909} for {skill:164} 250-300: 22 {quest:7654}. {item:7909} turns up in about one {object:2047} or {object:123309} in 500: keep the ones you find while mining. Or buy them at the Auction House."] = "",
 
 	-- Step 44: Get Star Ruby
 	-- {item:7910} Star Ruby
 	["Get {item:7910}"] = "",
 	-- {item:7910} Star Ruby · {skill:164} Blacksmithing · {quest:7654} Imperial Plate Boots · {object:2047} Truesilver Deposit · {object:123309} Ooze Covered Truesilver Deposit
-	["You need 22 {item:7910} for {skill:164} 250-300: {quest:7654}. {item:7910} turns up in about one {object:2047} or {object:123309} in 143: keep the ones you find while mining. Or buy them at the Auction House."] = "",
+	["22 {item:7910} for {skill:164} 250-300: 22 {quest:7654}. {item:7910} turns up in about one {object:2047} or {object:123309} in 143: keep the ones you find while mining. Or buy them at the Auction House."] = "",
 
 	-- Step 45: Get Rugged Leather
 	-- {item:8170} Rugged Leather
 	["Get {item:8170}"] = "",
-	-- {item:8170} Rugged Leather · {skill:164} Blacksmithing · {item:12773} Ornate Thorium Handaxe · {item:12775} Huge Thorium Battleaxe · {skill:393} Skinning
-	["You need 212 {item:8170} for {skill:164} 250-300: {item:12773} and {item:12775}. {skill:393}: beasts of level 48-60. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:8170} Rugged Leather · {skill:164} Blacksmithing · {skill:393} Skinning
+	-- plural, as words: Ornate Thorium Handaxes = {item:12773} Ornate Thorium Handaxe · Huge Thorium Battleaxes = {item:12775} Huge Thorium Battleaxe
+	["212 {item:8170} for {skill:164} 250-300: 5 Ornate Thorium Handaxes and 32 Huge Thorium Battleaxes. {skill:393}: beasts of level 48-60. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 46: Get Thorium Bar
 	-- {item:12359} Thorium Bar
 	["Get {item:12359}"] = "",
-	-- {item:12359} Thorium Bar · {skill:164} Blacksmithing · {item:12773} Ornate Thorium Handaxe · {item:12775} Huge Thorium Battleaxe · {quest:7654} Imperial Plate Boots · {item:10620} Thorium Ore · {skill:186} Mining
-	["You need 2168 {item:12359} for {skill:164} 250-300: {item:12773}, {item:12775} and {quest:7654}. Mine {item:10620} and smelt it at a forge ({skill:186} 250). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:12359} Thorium Bar · {skill:164} Blacksmithing · {quest:7654} Imperial Plate Boots · {item:10620} Thorium Ore · {skill:186} Mining
+	-- plural, as words: Ornate Thorium Handaxes = {item:12773} Ornate Thorium Handaxe · Huge Thorium Battleaxes = {item:12775} Huge Thorium Battleaxe
+	["2168 {item:12359} for {skill:164} 250-300: 5 Ornate Thorium Handaxes, 32 Huge Thorium Battleaxes and 22 {quest:7654}. Mine {item:10620} and smelt it at a forge ({skill:186} 250). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 47: Get Dense Stone
-	-- {item:12365} Dense Stone · {skill:164} Blacksmithing · {item:12773} Ornate Thorium Handaxe · {item:12775} Huge Thorium Battleaxe · {skill:186} Mining · {object:324} Small Thorium Vein · {zone:1448} Felwood · {zone:1451} Silithus · {zone:1452} Winterspring
-	["You need 808 {item:12365} for {skill:164} 250-300: {item:12773} and {item:12775}. {skill:186}: {object:324} (skill 245) in {zone:1448} (48-55), {zone:1451} (55-60) and {zone:1452} (55-60). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:12365} Dense Stone · {skill:164} Blacksmithing · {skill:186} Mining · {object:324} Small Thorium Vein · {zone:1448} Felwood · {zone:1451} Silithus · {zone:1452} Winterspring
+	-- plural, as words: Huge Thorium Battleaxes = {item:12775} Huge Thorium Battleaxe
+	["740 {item:12365} for {skill:164} 250-300: 32 Huge Thorium Battleaxes. {skill:186}: {object:324} (skill 245) in {zone:1448} (48-55), {zone:1451} (55-60) and {zone:1452} (55-60). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 48: Get Large Opal
 	-- {item:12799} Large Opal
 	["Get {item:12799}"] = "",
-	-- {item:12799} Large Opal · {skill:164} Blacksmithing · {item:12773} Ornate Thorium Handaxe · {object:175404} Rich Thorium Vein · {object:177388} Ooze Covered Rich Thorium Vein · {object:180215} Hakkari Thorium Vein
-	-- was: ["10 {item:12799} for {item:12773}: {item:12799} turns up in about one {object:175404}, {object:177388} or {object:180215} in 143: keep the ones you find while mining."] = "{item:12773}에 쓸 {item:12799} 10개: {item:12799}은(는) {object:175404}, {object:177388}, {object:180215} 약 143개 중 하나에서 나옵니다. 채광하며 얻은 것은 보관하십시오."
-	["You need 10 {item:12799} for {skill:164} 250-300: {item:12773}. {item:12799} turns up in about one {object:175404}, {object:177388} or {object:180215} in 143: keep the ones you find while mining. Or buy them at the Auction House."] = "",
+	-- {item:12799} Large Opal · {skill:164} Blacksmithing · {object:175404} Rich Thorium Vein · {object:177388} Ooze Covered Rich Thorium Vein · {object:180215} Hakkari Thorium Vein
+	-- plural, as words: Ornate Thorium Handaxes = {item:12773} Ornate Thorium Handaxe
+	["10 {item:12799} for {skill:164} 250-300: 5 Ornate Thorium Handaxes. {item:12799} turns up in about one {object:175404}, {object:177388} or {object:180215} in 143: keep the ones you find while mining. Or buy them at the Auction House."] = "",
 
 	-- Step 49: Ornate Thorium Handaxe to 255
 	-- {item:12773} Ornate Thorium Handaxe
 	["{item:12773} to 255"] = "{item:12773}: 255까지",
 	-- {item:12773} Ornate Thorium Handaxe · {item:12359} Thorium Bar · {item:12799} Large Opal · {item:12644} Dense Grinding Stone · {item:8170} Rugged Leather
 	-- was: ["{item:12773} is orange at 250 (yellow 275, green 287, grey 300): about 5 crafts to 255, a point every craft. Each takes 20 {item:12359}, 2 {item:12799}, 2 {item:12644} and 4 {item:8170}. Make the 10 {item:12644} first. {item:12799} turns up in about one Thorium vein in 130: buy the ten at the Auction House. Five crafts only, until the battleaxe plans can be used at 255. Needs an anvil nearby."] = "{item:12773}은(는) 250에 주황색입니다(노란색 275, 초록색 287, 회색 300). 255까지 약 5번 만드세요, 매번 포인트가 오릅니다. 한 번에 {item:12359} 20개, {item:12799} 2개, {item:12644} 2개, {item:8170} 4개. 먼저 {item:12644} 10개를 만드세요. {item:12799}은(는) 토륨 광맥 130개 중 하나 정도에서 나옵니다. 열 개는 경매장에서 사세요. 255에서 전투도끼 제조법을 쓸 수 있을 때까지 다섯 번뿐입니다. 근처에 모루가 필요합니다."
-	["{item:12773} is orange at 250 (yellow 275, green 287, grey 300): about 5 crafts to 255, a point every craft. Each takes 20 {item:12359}, 2 {item:12799}, 2 {item:12644} and 4 {item:8170}. Make the 10 {item:12644} first. {item:12799} turns up in about one Thorium vein in 130: buy the ten at the Auction House. Five crafts only, until the battleaxe plans can be used at 255. Needs an anvil nearby. If you got here without learning {item:12644}, learn it now: an earlier step teaches it."] = "",
+	["{item:12773} is orange at 250 (yellow 275, green 287, grey 300): about 5 crafts to 255, a point every craft. Each takes 20 {item:12359}, 2 {item:12799}, 2 {item:12644} and 4 {item:8170}. Use the 10 {item:12644} you made earlier; the counts above leave them out. {item:12799} turns up in about one Thorium vein in 130: buy the ten at the Auction House. Five crafts only, until the battleaxe plans can be used at 255. Needs an anvil nearby."] = "",
 
 	-- Step 50: Huge Thorium Battleaxe to 285
 	-- {item:12775} Huge Thorium Battleaxe
 	["{item:12775} to 285"] = "{item:12775}: 285까지",
 	-- {item:12775} Huge Thorium Battleaxe · {item:12359} Thorium Bar · {item:12644} Dense Grinding Stone · {item:8170} Rugged Leather · {quest:7654} Imperial Plate Boots
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar · Dense Grinding Stones = {item:12644} Dense Grinding Stone
-	["{item:12775} is orange at 255 (yellow 280, green 292, grey 305): about 31 crafts to 285, up to 32 for 9 players in 10 (the gathered materials above count that many). Each takes 40 {item:12359}, 6 {item:12644} and 6 {item:8170}. Make the 186 {item:12644} first. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the {quest:7654} take over. Needs an anvil nearby. If you got here without learning {item:12644}, learn it now: an earlier step teaches it."] = "",
+	["{item:12775} is orange at 255 (yellow 280, green 292, grey 305): about 31 crafts to 285, up to 32 for 9 players in 10 (the gathered materials above count that many). Each takes 40 {item:12359}, 6 {item:12644} and 6 {item:8170}. Make the 179 {item:12644} first. Use the 7 {item:12644} you made earlier; the counts above leave them out. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the {quest:7654} take over. Needs an anvil nearby. If you got here without learning {item:12644}, learn it now: an earlier step teaches it."] = "",
 
 	-- Step 51: Plans: Imperial Plate Boots
 	-- {npc:14567} Derotain Mudsipper · {zone:1446} Tanaris · {item:12700} Plans: Imperial Plate Boots · {skill:164} Blacksmithing · {item:12359} Thorium Bar · {quest:7654} Imperial Plate Boots · {quest:7652} A Blue Light Bargain
@@ -342,12 +357,14 @@ return {
 	-- Step 53: Get Heart of Fire
 	-- {item:7077} Heart of Fire
 	["Get {item:7077}"] = "",
-	-- {item:7077} Heart of Fire · {skill:164} Blacksmithing · {item:12416} Radiant Belt · {item:12419} Radiant Boots · {item:12420} Radiant Leggings · {npc:9878} Entropic Beast · {npc:6520} Scorching Elemental · {npc:5855} Magma Elemental
-	["You need 196 {item:7077} for {skill:164} 250-300: {item:12416}, {item:12419} and {item:12420}. {item:7077} drops most from {npc:9878}, {npc:6520} and {npc:5855}, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:7077} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- {item:7077} Heart of Fire · {skill:164} Blacksmithing · {item:12419} Radiant Boots · {item:12420} Radiant Leggings · {npc:9878} Entropic Beast · {npc:6520} Scorching Elemental · {npc:5855} Magma Elemental
+	-- plural, as words: Radiant Belts = {item:12416} Radiant Belt
+	["196 {item:7077} for {skill:164} 250-300: 22 Radiant Belts, 29 {item:12419} and 9 {item:12420}. {item:7077} drops most from {npc:9878}, {npc:6520} and {npc:5855}, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:7077} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
 	-- Step 54: Get Thorium Bar
-	-- {item:12359} Thorium Bar · {skill:164} Blacksmithing · {item:12416} Radiant Belt · {item:12419} Radiant Boots · {item:12420} Radiant Leggings · {item:10620} Thorium Ore · {skill:186} Mining
-	["You need 806 {item:12359} for {skill:164} 250-300: {item:12416}, {item:12419} and {item:12420}. Mine {item:10620} and smelt it at a forge ({skill:186} 250). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:12359} Thorium Bar · {skill:164} Blacksmithing · {item:12419} Radiant Boots · {item:12420} Radiant Leggings · {item:10620} Thorium Ore · {skill:186} Mining
+	-- plural, as words: Radiant Belts = {item:12416} Radiant Belt
+	["806 {item:12359} for {skill:164} 250-300: 22 Radiant Belts, 29 {item:12419} and 9 {item:12420}. Mine {item:10620} and smelt it at a forge ({skill:186} 250). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 55: Blacksmithing 250-300: Auction House
 	-- {skill:164} Blacksmithing
@@ -476,6 +493,7 @@ return {
 	-- ["{item:12365} comes from {object:324} nodes ({skill:186}); this is the densest cluster in the data. The Auction House works too."] = "{item:12365}은(는) {object:324} 채집지에서 나옵니다({skill:186}). 데이터상 가장 밀집된 곳입니다. 경매장도 됩니다.",
 	-- ["{item:12426} is orange at 285 (yellow 290, green 300, grey 310): about 19 crafts to 300. Each takes 34 {item:12359}, 1 {item:7910} and 1 {item:7909}. About 34 Thorium Bars a craft against the battleaxe's 40 and its grinding stones, orange to 290. Below character level 50 {npc:14567} has no quest for you: keep making Huge Thorium Battleaxes to 300 instead (yellow to 292, grey at 305: about twice the Thorium Bars). Needs an anvil nearby. {skill:164} 300 is a Legacy System milestone."] = "{item:12426}은(는) 285에 주황색입니다(노란색 290, 초록색 300, 회색 310). 300까지 약 19번 만드세요. 한 번에 {item:12359} 34개, {item:7910} 1개, {item:7909} 1개. 전투도끼의 40개와(과) 숫돌에 비해 제작당 토륨 주괴 약 34개. 290까지 주황색입니다. 캐릭터 레벨 50 미만이면 {npc:14567}에게 줄 퀘스트가 없습니다. 대신 거대한 토륨 전투도끼를 300까지 만드세요(292까지 노란색, 305에서 회색: 토륨 주괴가 약 두 배). 근처에 모루가 필요합니다. {skill:164} 300은(는) 유산 시스템 이정표입니다.",
 	-- ["{item:12643} is orange at 225 (yellow 230, green 232, grey 235): about 17 crafts to 235. Each takes 1 {item:12365}. One {item:12365} a craft (Thorium veins): cheap points at the start of Artisan."] = "{item:12643}은(는) 225에 주황색입니다(노란색 230, 초록색 232, 회색 235). 235까지 약 17번 만드세요. 한 번에 {item:12365} 1개. 제작당 {item:12365} 한 개(토륨 광맥). 전문 시작의 저렴한 포인트입니다.",
+	-- ["{item:12643} to 235"] = "{item:12643}: 235까지",
 	-- ["{item:12773} is orange at 250 (yellow 275, green 287, grey 300): about 5 crafts to 255, a point every craft. Each takes 20 {item:12359}, 2 {item:12799}, 2 {item:12644} and 4 {item:8170}. Make the 10 {item:12644} first. {item:12799} turns up in about one Thorium vein in 130: buy the ten at the Auction House. Five crafts only, until the battleaxe plans can be used at 255. Needs an anvil nearby."] = "{item:12773}은(는) 250에 주황색입니다(노란색 275, 초록색 287, 회색 300). 255까지 약 5번 만드세요, 매번 포인트가 오릅니다. 한 번에 {item:12359} 20개, {item:12799} 2개, {item:12644} 2개, {item:8170} 4개. 먼저 {item:12644} 10개를 만드세요. {item:12799}은(는) 토륨 광맥 130개 중 하나 정도에서 나옵니다. 열 개는 경매장에서 사세요. 255에서 전투도끼 제조법을 쓸 수 있을 때까지 다섯 번뿐입니다. 근처에 모루가 필요합니다.",
 	-- ["{item:12775} is orange at 255 (yellow 280, green 292, grey 305): about 31 crafts to 285. Each takes 40 {item:12359}, 6 {item:12644} and 6 {item:8170}. Make the 186 {item:12644} first. Plans from {npc:11278} ({area:2298}, {zone:1422}), unlimited stock, but they bind when picked up. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the {quest:7654} take over. Other ways through: world-drop plans from the Auction House (the Radiant pieces: about 820 Thorium Bars and 190 Hearts of Fire for the Radiant route) or the Merchant's Favor sets. Needs an anvil nearby."] = "{item:12775}은(는) 255에 주황색입니다(노란색 280, 초록색 292, 회색 305). 285까지 약 31번 만드세요. 한 번에 {item:12359} 40개, {item:12644} 6개, {item:8170} 6개. 먼저 {item:12644} 186개를 만드세요. 제조법은 {npc:11278}({area:2298}, {zone:1422})에게서. 재고 무제한이지만 주울 때 귀속됩니다. 제작당 토륨 주괴 마흔 개와(과) 조밀한 숫돌 여섯 개. 가장 비싼 구간이니 {quest:7654}가 이어받는 곳에서 멈추세요. 다른 방법: 경매장의 월드 드롭 제조법(찬란한 세트: 찬란한 루트에 토륨 주괴 약 820개와(과) 불의 심장 190개)이나 상인의 호의 세트. 근처에 모루가 필요합니다.",
 	-- ["{item:12775} is orange at 255 (yellow 280, green 292, grey 305): about 31 crafts to 285. Each takes 40 {item:12359}, 6 {item:12644} and 6 {item:8170}. Make the 186 {item:12644} first. Plans from {npc:11278} in {area:2298} ({zone:1422}): he is a ghost you see only with the {item:13544} trinket on (put it on inside {area:2298}), the reward of {npc:11216}'s {area:2057} chain that ends with {npc:10506} (level 55, a dungeon group). Unlimited stock, but the plans bind when picked up. Forty Thorium Bars and six Dense Grinding Stones a craft: the dearest stretch, so stop where the {quest:7654} take over. Without the trinket, the other ways through: world-drop plans from the Auction House (the Radiant pieces: about 820 Thorium Bars and 190 Hearts of Fire for the Radiant route) or the Merchant's Favor sets. Needs an anvil nearby."] = "{item:12775}은(는) 255에서 주황색입니다(노란색 280, 초록색 292, 회색 305): 285까지 약 31번 제작. 매번 {item:12359} 40개, {item:12644} 6개, {item:8170} 6개가 필요합니다. 먼저 {item:12644} 186개를 만드십시오. 도면은 {area:2298}({zone:1422})의 {npc:11278}에게서: 그는 {item:13544} 장신구를 착용해야만 보이는 유령이며({area:2298} 안에서 착용하십시오), 이 장신구는 {npc:10506}(55레벨, 던전 파티)(으)로 끝나는 {npc:11216}의 {area:2057} 연계 보상입니다. 재고는 무제한이지만 도면은 획득 시 귀속됩니다. 제작마다 토륨 주괴 마흔 개와 강도 높은 연마석 여섯 개: 가장 비싼 구간이니 {quest:7654}이(가) 이어받는 곳에서 멈추십시오. 장신구가 없다면 다른 방법: 경매장의 월드 드롭 도면(광휘 장비: 광휘 경로에 토륨 주괴 약 820개와 불의 심장 190개) 또는 상인의 호의 세트. 근처에 모루가 필요합니다.",

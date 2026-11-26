@@ -24,7 +24,7 @@ return {
 	-- {item:10940} Strange Dust
 	["Get {item:10940}"] = "",
 	-- {item:10940} Strange Dust · {skill:333} Enchanting · {spell:7420} Enchant Chest - Inferior Stamina
-	["You need 52 {item:10940} for {skill:333} 1-75: {spell:7420}. {skill:333}: disenchant green items of item level 5-20. Or buy them at the Auction House."] = "",
+	["52 {item:10940} for {skill:333} 1-75: 52 {spell:7420}. {skill:333}: disenchant green items of item level 5-20. Or buy them at the Auction House."] = "",
 
 	-- Step 4: Enchant Bracer - Inferior Stamina to 25
 	-- {spell:7418} Enchant Bracer - Inferior Stamina
@@ -64,23 +64,24 @@ return {
 	-- {item:1210} Shadowgem
 	["Get {item:1210}"] = "",
 	-- {item:1210} Shadowgem · {skill:333} Enchanting · {item:6339} Runed Silver Rod · {object:1731} Copper Vein · {object:1732} Tin Vein · {object:1733} Silver Vein
-	["You need 1 {item:1210} for {skill:333} 75-150: {item:6339}. {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining. Or buy it at the Auction House."] = "",
+	-- was: ["1 {item:1210} for {item:6339}: {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining."] = "1 {item:1210} pour {item:6339} : {item:1210} apparaît dans environ un {object:1731}, {object:1732} ou {object:1733} sur 100 : gardez ceux que vous trouvez en minant."
+	["1 {item:1210} for {skill:333} 75-150: {item:6339}. {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining. Or buy it at the Auction House."] = "",
 
 	-- Step 10: Get Silver Rod
 	-- {item:6338} Silver Rod
 	["Get {item:6338}"] = "",
 	-- {item:6338} Silver Rod · {skill:333} Enchanting · {item:6339} Runed Silver Rod · {skill:164} Blacksmithing
-	["You need 1 {item:6338} for {skill:333} 75-150: {item:6339}. {skill:164}: {item:6338}. Or buy it at the Auction House."] = "",
+	["1 {item:6338} for {skill:333} 75-150: {item:6339}. {skill:164}: {item:6338}. Or buy it at the Auction House."] = "",
 
 	-- Step 11: Get Strange Dust
 	-- {item:10940} Strange Dust · {skill:333} Enchanting · {spell:7420} Enchant Chest - Inferior Stamina · {spell:7771} Enchant Cloak - Minor Protection · {item:6339} Runed Silver Rod
-	["You need 136 {item:10940} for {skill:333} 75-150: {spell:7420}, {spell:7771} and {item:6339}. {skill:333}: disenchant green items of item level 5-20. Or buy them at the Auction House."] = "",
+	["136 {item:10940} for {skill:333} 75-150: 27 {spell:7420}, 53 {spell:7771} and {item:6339}. {skill:333}: disenchant green items of item level 5-20. Or buy them at the Auction House."] = "",
 
 	-- Step 12: Get Soul Dust
 	-- {item:11083} Soul Dust
 	["Get {item:11083}"] = "",
 	-- {item:11083} Soul Dust · {skill:333} Enchanting · {spell:13501} Enchant Bracer - Lesser Stamina
-	["You need 20 {item:11083} for {skill:333} 75-150: {spell:13501}. {skill:333}: disenchant green items of item level 21-30. Or buy them at the Auction House."] = "",
+	["20 {item:11083} for {skill:333} 75-150: 20 {spell:13501}. {skill:333}: disenchant green items of item level 21-30. Or buy them at the Auction House."] = "",
 
 	-- Step 13: Enchanting 75-150: Auction House
 	-- {skill:333} Enchanting
@@ -120,7 +121,7 @@ return {
 	["Get {item:5500} (Alliance)"] = "",
 	-- {item:5500} Iridescent Pearl · {skill:333} Enchanting · {item:11130} Runed Golden Rod
 	-- plural, as words: Giant Clams = {object:2744} Giant Clam
-	["You need 1 {item:5500} for {skill:333} 150-225: {item:11130}. Open the Giant Clams at the marked spot. Or buy it at the Auction House."] = "",
+	["1 {item:5500} for {skill:333} 150-225: {item:11130}. Open the Giant Clams at the marked spot. Or buy it at the Auction House."] = "",
 
 	-- Step 19: Get Iridescent Pearl (Horde)
 	-- {item:5500} Iridescent Pearl
@@ -131,41 +132,41 @@ return {
 	-- {item:11082} Greater Astral Essence
 	["Get {item:11082}"] = "",
 	-- {item:11082} Greater Astral Essence · {skill:333} Enchanting · {item:11130} Runed Golden Rod
-	["You need 1 {item:11082} for {skill:333} 150-225: {item:11130}. {skill:333}: disenchant green items of item level 16-25. Or buy it at the Auction House."] = "",
+	["1 {item:11082} for {skill:333} 150-225: {item:11130}. {skill:333}: disenchant green items of item level 16-25. Or buy it at the Auction House."] = "",
 
 	-- Step 21: Get Soul Dust
 	-- {item:11083} Soul Dust · {skill:333} Enchanting · {item:11130} Runed Golden Rod · {spell:13501} Enchant Bracer - Lesser Stamina · {spell:13637} Enchant Boots - Lesser Agility
-	["You need 55 {item:11083} for {skill:333} 150-225: {item:11130}, {spell:13501} and {spell:13637}. {skill:333}: disenchant green items of item level 21-30. Or buy them at the Auction House."] = "",
+	["55 {item:11083} for {skill:333} 150-225: {item:11130}, 12 {spell:13501} and 42 {spell:13637}. {skill:333}: disenchant green items of item level 21-30. Or buy them at the Auction House."] = "",
 
 	-- Step 22: Get Golden Rod
 	-- {item:11128} Golden Rod
 	["Get {item:11128}"] = "",
 	-- {item:11128} Golden Rod · {skill:333} Enchanting · {item:11130} Runed Golden Rod · {skill:164} Blacksmithing
-	["You need 1 {item:11128} for {skill:333} 150-225: {item:11130}. {skill:164}: {item:11128}. Or buy it at the Auction House."] = "",
+	["1 {item:11128} for {skill:333} 150-225: {item:11130}. {skill:164}: {item:11128}. Or buy it at the Auction House."] = "",
 
 	-- Step 23: Get Lesser Mystic Essence
 	-- {item:11134} Lesser Mystic Essence
 	["Get {item:11134}"] = "",
 	-- {item:11134} Lesser Mystic Essence · {skill:333} Enchanting · {spell:13663} Enchant Chest - Greater Intellect
-	["You need 10 {item:11134} for {skill:333} 150-225: {spell:13663}. {skill:333}: disenchant green items of item level 26-35. Or buy them at the Auction House."] = "",
+	["10 {item:11134} for {skill:333} 150-225: 10 {spell:13663}. {skill:333}: disenchant green items of item level 26-35. Or buy them at the Auction House."] = "",
 
 	-- Step 24: Get Greater Mystic Essence
 	-- {item:11135} Greater Mystic Essence
 	["Get {item:11135}"] = "",
 	-- {item:11135} Greater Mystic Essence · {skill:333} Enchanting · {item:11145} Runed Truesilver Rod
-	["You need 1 {item:11135} for {skill:333} 150-225: {item:11145}. {skill:333}: disenchant green items of item level 26-35. Or buy it at the Auction House."] = "",
+	["1 {item:11135} for {skill:333} 150-225: {item:11145}. {skill:333}: disenchant green items of item level 26-35. Or buy it at the Auction House."] = "",
 
 	-- Step 25: Get Vision Dust
 	-- {item:11137} Vision Dust
 	["Get {item:11137}"] = "",
 	-- {item:11137} Vision Dust · {skill:333} Enchanting · {item:11145} Runed Truesilver Rod · {spell:13746} Enchant Cloak - Greater Defense
-	["You need 21 {item:11137} for {skill:333} 150-225: {item:11145} and {spell:13746}. {skill:333}: disenchant green items of item level 31-40. Or buy them at the Auction House."] = "",
+	["21 {item:11137} for {skill:333} 150-225: {item:11145} and 20 {spell:13746}. {skill:333}: disenchant green items of item level 31-40. Or buy them at the Auction House."] = "",
 
 	-- Step 26: Get Truesilver Rod
 	-- {item:11144} Truesilver Rod
 	["Get {item:11144}"] = "",
 	-- {item:11144} Truesilver Rod · {skill:333} Enchanting · {item:11145} Runed Truesilver Rod · {skill:164} Blacksmithing
-	["You need 1 {item:11144} for {skill:333} 150-225: {item:11145}. {skill:164}: {item:11144}. Or buy it at the Auction House."] = "",
+	["1 {item:11144} for {skill:333} 150-225: {item:11145}. {skill:164}: {item:11144}. Or buy it at the Auction House."] = "",
 
 	-- Step 27: Enchanting 150-225: Auction House
 	-- {skill:333} Enchanting
@@ -248,18 +249,20 @@ return {
 	-- Step 40: Get Purple Lotus
 	-- {item:8831} Purple Lotus
 	["Get {item:8831}"] = "",
-	-- {item:8831} Purple Lotus · {skill:333} Enchanting · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["You need 41 {item:8831} for {skill:333} 225-300: {item:20747}. {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- {item:8831} Purple Lotus · {skill:333} Enchanting · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
+	-- plural, as words: Lesser Mana Oils = {item:20747} Lesser Mana Oil
+	["41 {item:8831} for {skill:333} 225-300: 41 Lesser Mana Oils. {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
 
 	-- Step 41: Get Vision Dust
 	-- {item:11137} Vision Dust · {skill:333} Enchanting · {spell:13815} Enchant Gloves - Agility
-	["You need 45 {item:11137} for {skill:333} 225-300: {spell:13815}. {skill:333}: disenchant green items of item level 31-40. Or buy them at the Auction House."] = "",
+	["45 {item:11137} for {skill:333} 225-300: 45 {spell:13815}. {skill:333}: disenchant green items of item level 31-40. Or buy them at the Auction House."] = "",
 
 	-- Step 42: Get Dream Dust
 	-- {item:11176} Dream Dust
 	["Get {item:11176}"] = "",
-	-- {item:11176} Dream Dust · {skill:333} Enchanting · {item:20747} Lesser Mana Oil · {spell:20017} Enchant Shield - Greater Stamina
-	["You need 233 {item:11176} for {skill:333} 225-300: {item:20747} and {spell:20017}. {skill:333}: disenchant green items of item level 41-50. Or buy them at the Auction House."] = "",
+	-- {item:11176} Dream Dust · {skill:333} Enchanting · {spell:20017} Enchant Shield - Greater Stamina
+	-- plural, as words: Lesser Mana Oils = {item:20747} Lesser Mana Oil
+	["233 {item:11176} for {skill:333} 225-300: 41 Lesser Mana Oils and 32 {spell:20017}. {skill:333}: disenchant green items of item level 41-50. Or buy them at the Auction House."] = "",
 
 	-- Step 43: Enchant Gloves - Agility to 253
 	-- {spell:13815} Enchant Gloves - Agility
