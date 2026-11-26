@@ -300,6 +300,8 @@ mod lookup_codex;
 mod lookup_elites;
 #[path = "lookup-guides.rs"]
 mod lookup_guides;
+#[path = "lookup-skyborne.rs"]
+mod lookup_skyborne;
 #[path = "lookup-tooltip-performance.rs"]
 mod lookup_tooltip_performance;
 #[path = "lua-helper-paths.rs"]
