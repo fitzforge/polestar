@@ -87,8 +87,16 @@ function goals() {
 		for (const m of block.matchAll(/t = "train", skill = "([^"]+)", skillLine = \d+, rank = (\d), rankMax = \d+, candidates = (.*)$/gm)) {
 			train.push({ skill: m[1], rank: Number(m[2]), npcs: npcsOf(m[3], `${m[1]} rank ${m[2]}`) });
 		}
+		// A rank of few trainers is pinned to one of them per side, with the bracket's learns (one visit per
+		// bracket): its trainers are the pinned goals' together.
+		for (const m of block.matchAll(/t = "train", npc = (\d+), npcName = "[^"]*", skill = "([^"]+)", skillLine = \d+, rank = (\d)/gm)) {
+			train.push({ skill: m[2], rank: Number(m[3]), npcs: [Number(m[1])] });
+		}
 		for (const m of block.matchAll(/t = "learn", spell = (\d+), spellName = "[^"]*", skillLine = (\d+), candidates = (.*)$/gm)) {
 			learn.push({ spell: Number(m[1]), line: Number(m[2]), npcs: npcsOf(m[3], `learn ${m[1]}`) });
+		}
+		for (const m of block.matchAll(/t = "learn", spell = (\d+), spellName = "[^"]*", npc = (\d+), npcName = "[^"]*", skillLine = (\d+)/gm)) {
+			learn.push({ spell: Number(m[1]), line: Number(m[3]), npcs: [Number(m[2])] });
 		}
 	}
 	return { train, learn };
@@ -96,7 +104,7 @@ function goals() {
 
 function trainSteps() {
 	const out = {};
-	for (const g of goals().train) (out[g.skill] ??= {})[g.rank] = g.npcs;
+	for (const g of goals().train) (out[g.skill] ??= {})[g.rank] = [...new Set([...((out[g.skill] || {})[g.rank] || []), ...g.npcs])].sort((a, b) => a - b);
 	return out;
 }
 
@@ -128,13 +136,14 @@ test("Oli's report (#1708): no train step points at a trainer who doesn't train 
 	assert.ok(!journeyman.includes(4611), 'Journeyman Alchemy: not Doctor Herbert Halsey');
 });
 
-test("Hotline's report (#1498) and #1708's learns: Linen Belt is not Josephine Lister's, Minor Mana Potion not Doctor Herbert Halsey's", () => {
+test("Hotline's report (#1498) and #1708's learns: Linen Belt is not Josephine Lister's, Elixir of Minor Fortitude not Doctor Herbert Halsey's", () => {
 	const { learn } = goals();
 	const of = (spell) => learn.filter((g) => g.spell === spell);
 	assert.ok(of(8776).length, 'the tailoring guide learns Linen Belt');
 	for (const g of of(8776)) assert.ok(!g.npcs.includes(4578), `Linen Belt: ${g.npcs}`);
-	assert.ok(of(2331).length, 'the alchemy guide learns Minor Mana Potion');
-	for (const g of of(2331)) assert.ok(!g.npcs.includes(4611), `Minor Mana Potion: ${g.npcs}`);
+	// Minor Mana Potion left the route in 0.4.4: Elixir of Minor Fortitude is the Journeyman recipe learned at 75.
+	assert.ok(of(2334).length, 'the alchemy guide learns Elixir of Minor Fortitude');
+	for (const g of of(2334)) assert.ok(!g.npcs.includes(4611), `Elixir of Minor Fortitude: ${g.npcs}`);
 });
 
 // Pyzx's report (#1956): at Blacksmithing 205 the guide sent him to Saru Steelfury for Heavy Mithril Breastplate,
@@ -146,7 +155,9 @@ test("Pyzx's report (#1956): recipes only the Artisan trainers teach are learned
 	const dir = path.join(__dirname, '..', 'guides', 'forever', 'professions');
 	const learns = (file, spell) => fs.readFileSync(path.join(dir, file), 'utf8').split('\n').filter((l) => new RegExp(`^\\s*learn ${spell}\\b`).test(l));
 	for (const [file, spell, npcs, what] of [
-		['blacksmithing.guide', 9959, [2836], 'Heavy Mithril Breastplate: Brikk Keencraft'],
+		// Heavy Mithril Breastplate left the route in 0.4.4 (Steel Plate Helm and Heavy Mithril Boots carry 200-225);
+		// the boots are on the same Artisan-only list.
+		['blacksmithing.guide', 9968, [2836], 'Heavy Mithril Boots: Brikk Keencraft'],
 		['leatherworking.guide', 10548, [11097, 11098], 'Nightscape Pants: Drakk Stonehand, Hahrana Ironhide'],
 		['tailoring.guide', 12072, [11052, 2399], 'Black Mageweave Headband: Timothy Worthington, Daryl Stack'],
 	]) {
@@ -162,7 +173,8 @@ test("Pyzx's report (#1956): recipes only the Artisan trainers teach are learned
 test('the Artisan Blacksmithing visit learns Brikk’s recipes from him for both factions (#3136)', () => {
 	const guide = fs.readFileSync(path.join(__dirname, '..', 'guides', 'forever', 'professions', 'blacksmithing.guide'), 'utf8');
 	const visit = guide.split('\nstep Artisan Blacksmithing\n')[1].split('\nstep ')[0];
-	for (const spell of [16639, 16640, 9968, 10001]) {
+	// Heavy Mithril Boots (9968) is learned at 215 now, from Brikk too (the #1956 test above).
+	for (const spell of [16639, 16640, 10001]) {
 		const learns = visit.split('\n').filter((line) => new RegExp(`^\\s*learn ${spell}\\b`).test(line));
 		assert.deepEqual(learns, ['Alliance', 'Horde'].map((side) => `  learn ${spell} npc 2836 only ${side}`));
 	}
