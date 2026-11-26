@@ -6,6 +6,10 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const os = require('node:os');
+const path = require('node:path');
+const { loadFaq, parseFaq, FAQ_DIR } = require('../tools/discord-bot/lib/faq');
 const { createChat, filedReply, LIMITS, NAUGHTY } = require('../tools/discord-bot/lib/chat');
 const { createSync, gatherRun } = require('../tools/discord-bot/lib/sync');
 const { fakeDiscord, fakeGitHub, fakeMedia, quietLog, FORUM, SUGGESTIONS, GUILD, BOT } = require('./helpers/discord-fakes');
@@ -13,12 +17,12 @@ const { fakeDiscord, fakeGitHub, fakeMedia, quietLog, FORUM, SUGGESTIONS, GUILD,
 const GENERAL = '1001';
 const HOUR = 60 * 60 * 1000;
 
-function setup() {
+function setup(faq = loadFaq(FAQ_DIR)) {
 	const discord = fakeDiscord();
 	for (let i = 0; i < 10; i++) discord.channels.set(String(1001 + i), { id: String(1001 + i), type: 0, name: `chat-${i}`, guild_id: GUILD });
 	let t = 1_000_000;
 	const clock = { now: () => t, advance: (ms) => (t += ms) };
-	const chat = createChat({ discord, forumId: FORUM, log: quietLog, now: clock.now });
+	const chat = createChat({ discord, forumId: FORUM, faq, log: quietLog, now: clock.now });
 	const say = (channel, content, extra = {}) => chat.dispatch('MESSAGE_CREATE', { channel_id: channel, content, author: { id: 'u1' }, ...extra });
 	return { discord, chat, clock, say };
 }
@@ -344,4 +348,65 @@ test('a Discord 400 names the refused fields in the error', async () => {
 	const { createDiscord } = require('../tools/discord-bot/lib/discord');
 	const d = createDiscord({ token: 't', api: 'http://x', fetch: async () => ({ ok: false, status: 400, json: async () => ({ message: 'Invalid Form Body', code: 50035, errors: { name: { _errors: [{ code: 'BASE_TYPE_MAX_LENGTH' }] } } }), text: async () => '' }) });
 	await assert.rejects(d.getChannel('1'), /400 Invalid Form Body .*"name".*BASE_TYPE_MAX_LENGTH/);
+});
+
+test('!dungeons and !dung answer with the text from faq/dungeons.md, any case, whole message only, pinging no one', async () => {
+	const { discord, say } = setup();
+	assert.equal(await say(GENERAL, '!dungeons'), true);
+	assert.equal(await say('1002', '  !DUNG ', { author: { id: 'u2' } }), true);
+	assert.equal(discord.sent.length, 2);
+	assert.ok(discord.sent[0].content.startsWith('**🏰 Are dungeons in the leveling guide?**\nNot yet, on purpose.'));
+	assert.ok(discord.sent[0].content.endsWith('Your leveling guide keeps your place in its own tab the whole time.'));
+	assert.ok(discord.sent[0].content.length < 2000);
+	assert.equal(discord.sent[0].content, discord.sent[1].content);
+	assert.deepEqual(discord.sent[0].users, []);
+	for (const text of ['!dungeons please', 'my !dung', '!dungeon']) assert.equal(await say('1003', text, { author: { id: 'u3' } }), false, text);
+});
+
+test('the FAQ answers hold the !bug caps, shared with it', async () => {
+	const { discord, say, clock } = setup();
+	await say(GENERAL, '!dungeons', { author: { id: 'a' } });
+	assert.equal(await say(GENERAL, '!dung', { author: { id: 'b' } }), false, 'channel, 10 minutes');
+	assert.equal(await say('1002', '!dung', { author: { id: 'a' } }), false, 'person, an hour');
+	assert.equal(await say(GENERAL, '!bug', { author: { id: 'c' } }), false, 'the channel cap is shared with !bug');
+	clock.advance(LIMITS.channelMs);
+	assert.equal(await say(GENERAL, '!dung', { author: { id: 'b' } }), true);
+	for (let i = 0; i < 4; i++) assert.equal(await say(String(1003 + i), '!dung', { author: { id: `p${i}` } }), true);
+	assert.equal(await say('1008', '!dung', { author: { id: 'z' } }), false, 'the 7th in an hour');
+	assert.equal(discord.sent.length, 6);
+});
+
+test('nothing from the FAQ in the #bugs forum or its threads, or to a bot', async () => {
+	const { discord, say } = setup();
+	discord.channels.set('2001', { id: '2001', type: 11, name: 'thread', parent_id: FORUM, guild_id: GUILD });
+	assert.equal(await say('2001', '!dungeons'), false);
+	assert.equal(await say(FORUM, '!dung'), false);
+	assert.equal(await say(GENERAL, '!dung', { author: { id: 'b', bot: true } }), false);
+	assert.equal(discord.sent.length, 0);
+});
+
+test('a FAQ file with a bad shape is refused with a line naming the file and the problem', () => {
+	const bad = (source, re) => assert.throws(() => parseFaq('x.md', source), re, source);
+	bad('!dungeons\n\ntext', /^Error: faq\/x\.md: the first line must be "Commands:/);
+	bad('Commands:\n\ntext', /faq\/x\.md: the first line|no commands/);
+	bad('Commands: dungeons\n\ntext', /"dungeons" is not a command/);
+	bad('Commands: !bug\n\ntext', /!bug is already used by the bot/);
+	bad('Commands: !a\n\n  \n', /no text/);
+	bad('Commands: !a\n\n' + 'x'.repeat(2001), /2001 characters; Discord allows 2000/);
+	const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'faq-'));
+	try {
+		fs.writeFileSync(path.join(dir, 'a.md'), 'Commands: !one, !Two\n\nAnswer one\n');
+		assert.deepEqual(loadFaq(dir), [{ file: 'a.md', commands: ['!one', '!two'], text: 'Answer one' }]);
+		fs.writeFileSync(path.join(dir, 'b.md'), 'Commands: !two\n\nAnswer two\n');
+		assert.throws(() => loadFaq(dir), /faq\/b\.md: !two is also in faq\/a\.md/);
+		fs.writeFileSync(path.join(dir, 'b.md'), 'no header');
+		assert.throws(() => loadFaq(dir), /faq\/b\.md: the first line/);
+	} finally {
+		fs.rmSync(dir, { recursive: true });
+	}
+});
+
+test('the shipped FAQ loads', () => {
+	const faq = loadFaq(FAQ_DIR);
+	assert.deepEqual(faq.find((e) => e.file === 'dungeons.md').commands, ['!dungeons', '!dung']);
 });
