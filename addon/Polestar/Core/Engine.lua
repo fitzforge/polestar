@@ -3164,8 +3164,10 @@ local picks = setmetatable({}, { __mode = "k" }) -- goal -> { list = { candidate
 -- even when frames are missing and travel cannot be measured; candidates in a
 -- zone far above the character (ZoneLevels) come after both. Within a
 -- tier: travel cost. Only the PLANNED nearest by straight line get the travel
--- planner's estimate (a set can hold one vendor per town in the world); the
--- rest count their straight-line running time. An unplaceable candidate counts
+-- planner's estimate (a set can hold one vendor per town in the world): the
+-- player's own trip from where they stand, the flights they know and the
+-- Hearthstone or a teleport when it pays counted (#3661); the rest count their
+-- straight-line running time. An unplaceable candidate counts
 -- as right here when it is on the player's own map, else after every placed one.
 -- A `train class` goal carries its step's zone (`zone`, a uiMapID): when that
 -- map has a trainer of the character's class, the others come after all of
@@ -3189,8 +3191,9 @@ Own.OUTGROWN = 8 -- tiers an outgrown class trainer drops (after continent, zone
 Own.trainerTop = {} -- class trainer npc -> the highest level it teaches, below the cap (ns.RegisterClassTrainerTops)
 -- Farm spots (`collect … nearest`): seconds to farm the items still missing
 -- there, and how many levels the spot's weakest mobs are above the player
--- (3 or more: too high).
-Own.TOO_HIGH = 3
+-- (2 or more: too high, the route rule "never send a solo player at mobs 2+
+-- levels above them"; Polestar 0.4.4, #3661).
+Own.TOO_HIGH = 2
 local function farmSeconds(goal, c)
 	local level = player.level or 1
 	local lo, hi = level, level
@@ -3301,7 +3304,7 @@ local function pickFor(goal)
 	if here then
 		for k = 1, math.min(Own.PLANNED, #list) do
 			local c = list[k]
-			local s = ns.TravelCost(here, c)
+			local s = ns.TravelCost(nil, c) -- from where the player stands: flights, the Hearthstone
 			if s then cost[c] = s end
 		end
 		table.sort(list, better)
@@ -3316,6 +3319,40 @@ local function chosen(goal)
 	if not goal.candidates then return nil end
 	local p = pickFor(goal)
 	return p.list[p.i]
+end
+
+-- A farm spot's numbers for the guide window (#3661): the kills and minutes
+-- the items still missing take at the chosen spot (`rate`: items a looted
+-- kill yields), how many levels its weakest mobs are above the player (nil at
+-- or below), and the second choice: the next spot of the ranking on another
+-- map, else the next one. Nil for no farm goal, no usable spot, or nothing
+-- left to farm.
+function Own.farmView(goal)
+	if goal.t ~= "collect" or goal.quest or not goal.candidates then return nil end
+	local p = pickFor(goal)
+	local c = p.list[p.i]
+	if not c then return nil end
+	local need = Own.needOf(goal) - (goal.item and Compat().GetItemCount(goal.item) or 0)
+	if need < 1 then return nil end
+	local secs, gap = farmSeconds(goal, c)
+	local rate = tonumber(c.rate) or 1
+	local n = #p.list
+	local second, after
+	for k = 1, n - 1 do
+		local o = p.list[(p.i - 1 + k) % n + 1]
+		after = after or o
+		if o.map ~= c.map then
+			second = o
+			break
+		end
+	end
+	second = second or after
+	return {
+		kills = rate > 0 and math.ceil(need / rate) or nil,
+		minutes = secs < Own.UNMEASURED and math.max(1, math.floor(secs / 60 + 0.5)) or nil,
+		above = gap > 0 and gap or nil,
+		second = second and { npcName = second.npcName, map = second.map, lvl = second.lvl } or nil,
+	}
 end
 
 -- The NPC a goal is done with (the chosen candidate's, if any; the banker
@@ -6719,6 +6756,8 @@ local function goalView(s, g, goal, stepStatus, group)
 		alternatives = alternatives,
 		spots = goal.spots and #goal.spots or nil, spread = goal.spread or nil, exact = goal.spots and Spots.exact(goal) or nil,
 		lvl = goal.candidates and chosen(goal) and chosen(goal).lvl or nil,
+		-- A farm spot's kills, minutes, level gap and second choice (Own.farmView).
+		farm = (status == "active" or status == "pending") and Own.farmView(goal) or nil,
 		unavailable = unavail and unavail.reason or nil,
 		waitsLevel = waitsLevel,
 		unavailableText = unavail and unavailableText(unavail) or nil,

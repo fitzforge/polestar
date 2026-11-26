@@ -40,5 +40,12 @@
   "name": "Stormwind City",
   "parent": 1415,
   "type": 3
+ },
+ "947": {
+  "areaId": null,
+  "id": 947,
+  "name": "Azeroth",
+  "parent": null,
+  "type": 1
  }
 }
