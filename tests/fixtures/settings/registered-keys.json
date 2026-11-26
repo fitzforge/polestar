@@ -86,6 +86,7 @@
 	"guideWindow.glyphSize",
 	"guideWindow.goalSize",
 	"guideWindow.guideTitle",
+	"guideWindow.handinRow",
 	"guideWindow.hideTaxi",
 	"guideWindow.idleAlpha",
 	"guideWindow.journeyStyle",

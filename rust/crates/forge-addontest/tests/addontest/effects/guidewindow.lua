@@ -230,6 +230,25 @@ return {
 				uistub.setStep(2)
 				uistub.setStep(3)
 			end },
+		-- The hand-in row: two finished quests in the log, none in the step (Handins.Ready, as the guide menu counts them).
+		["guideWindow.handinRow"] = {
+			prepare = function()
+				Polestar.psHandins = Polestar.Handins
+				Polestar.Handins = { Ready = function() return { 901, 902 } end }
+				uistub.setStep(2)
+				uistub.setStep(3)
+			end,
+			probe = function()
+				for _, l in ipairs(GF.lines) do
+					if l:IsShown() and l.psHandins then return l.psHandins end
+				end
+				return false
+			end,
+			cleanup = function()
+				Polestar.Handins, Polestar.psHandins = Polestar.psHandins, nil
+				uistub.setStep(2)
+				uistub.setStep(3)
+			end },
 		["guideWindow.foldAnim"] = fold,
 		-- The step's "N left out here" line (Engine.LeftOutHere, the fake Engine's answer for the step).
 		["guideWindow.leftOut"] = function()
