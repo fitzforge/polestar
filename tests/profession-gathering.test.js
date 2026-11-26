@@ -233,6 +233,14 @@ test('no Herbalism loop holds a herb its range\'s starting skill cannot pick (#2
 	assert.deepEqual([...new Set(bad)], []);
 });
 
+test('a band also offers its densest zones for a character past every zone\'s level: Winterspring\'s Small Thorium in Mining 245-275', { skip: hasData ? false : 'data/forever not built' }, () => {
+	const { plan } = require('../tools/lib/professions/gathering/build');
+	const { context } = require('../tools/lib/professions/gathering/common');
+	const { SPECS } = require('../tools/lib/professions/gathering/specs');
+	const band = plan(context(DATA), SPECS.find((s) => s.file === 'mining')).find((e) => e.kind === 'band' && e.from === 245);
+	assert.ok(band.loops.some((l) => l.zone === 1452), String(band.loops.map((l) => l.zone)));
+});
+
 test('live-frame spawns come out in the Era frame, so loops on redrawn maps match `coords era`', () => {
 	// A map Forever redrew: its live frame is offset from the Era frame and
 	// covers 800 yards instead of 1000.

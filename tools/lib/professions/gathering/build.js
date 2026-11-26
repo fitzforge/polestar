@@ -119,19 +119,22 @@ function rankIn(ctx, prof, band, zones, faction, level) {
 	return ranked.sort((a, b) => b.score - a.score || a.zone - b.zone);
 }
 
-// The zones a faction's loops for a band come from: the TOP best for a character at the band's start and
-// at its end (the engine skips a loop above the player), each race's own zone for the start and next
+// The zones a faction's loops for a band come from: the TOP best for a character at the band's start,
+// at its end and past every zone's level (the densest: Winterspring's Thorium and Icecap; the
+// engine skips a loop above the player), each race's own zone for the start and next
 // bands, and on a continent the faction lives on with none of those, its best zone when that is worth
 // WORTH of the best loop at least. [zone id]
 const TOP = 2;
 const WORTH = 0.25;
+const MAX_LEVEL = 60;
 function zonePicks(ctx, prof, band, faction) {
 	const zones = band.zones ? band.zones[faction] || [] : zonesFor(faction, band);
 	const keep = [];
 	const add = (r) => r && !keep.includes(r.zone) && keep.push(r.zone);
 	const low = rankIn(ctx, prof, band, zones, faction, skillLevel(band.from));
 	const high = rankIn(ctx, prof, band, zones, faction, skillLevel(band.to));
-	for (const r of [...low.slice(0, TOP), ...high.slice(0, TOP)]) add(r);
+	const top = rankIn(ctx, prof, band, band.zones ? zones : zonesFor(faction, { from: 300 }), faction, MAX_LEVEL);
+	for (const r of [...low.slice(0, TOP), ...high.slice(0, TOP), ...top.slice(0, TOP)]) add(r);
 	if (band.scope === 'start' || band.scope === 'next') for (const g of RACE_GROUPS[faction]) add(low.find((r) => g[band.scope].includes(r.zone)));
 	for (const g of REGIONS[faction]) {
 		if (keep.some((z) => continentOf(ctx, z) === g.c)) continue;
