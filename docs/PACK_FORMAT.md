@@ -619,8 +619,8 @@ Guide keys (the compiler writes them in this order):
 | `minLevel`, `maxLevel` | no | numbers; with `factionLevels`, the span of both sides' ranges |
 | `factionLevels` | no | a guide both factions play with each side's own levels (GUIDE_FORMAT, "Levels per faction"): `{ Alliance = { min = 45, max = 46 }, Horde = { min = 47, max = 48 } }`. Polestar 0.4.0 reads the player's side's range wherever it uses a guide's levels (`Guides.Levels`); an older Polestar loads the pack and reads `minLevel`/`maxLevel`, so no new format (an import string carrying it needs 0.4.0, whose import reads the key). A side without its `min`/`max` numbers refuses the guide |
 | `category` | no | `"Leveling"` (default), `"Class"`, `"Professions"`, `"Reputation"`, `"Legacy"`, `"Exploration"`, `"Collectibles"`, `"Miscellaneous"`, `"Dungeons"`; the compiler passes another name through with a warning |
-| `kind` | no | what the guide window shows for the guide (GUIDE_FORMAT, "Guide kind"): `"leveling"`, `"profession"`, `"reputation"`, `"dungeon"`, `"class"`, `"collectible"`, `"exploration"`, `"misc"`; without it, the category's. A `"dungeon"` guide names its dungeon by `dungeon` (a Dungeons key, `"wailing-caverns"`), else by its title. An older Polestar ignores both |
-| `dungeon` | no | a `kind = "dungeon"` guide's dungeon: the Dungeons key whose picture, levels, quests to pick up and way in the window shows |
+| `kind` | no | what the guide window shows for the guide (GUIDE_FORMAT, "Guide kind"): `"leveling"`, `"profession"`, `"reputation"`, `"dungeon"`, `"class"`, `"collectible"`, `"exploration"`, `"misc"`; without it, the category's. Written only when the guide's header sets it; an older Polestar ignores it (an import string carrying it needs 0.4.4, whose import reads the key) |
+| `dungeon` | no | a `kind = "dungeon"` guide's dungeon: the Dungeons key whose picture, levels, quests to pick up and way in the window shows (else its title names it). An older Polestar ignores it |
 | `folder` | no | the guide menu folder |
 | `keywords` | no | list of extra search words |
 | `collects` | no | list of item ids the guide obtains |
