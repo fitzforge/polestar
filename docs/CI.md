@@ -370,7 +370,10 @@ together.
 
 The route-speed, cadence and stretch gates' harnesses and baselines come
 from the release gates and live with the runner (`$POLESTAR_GATES`), not in
-the repository. A gate that cannot run (no data, no harness) fails like one
+the repository. Their Lua is the kit's own Lua 5.1.5 built from lua.org's source
+(`$POLESTAR_GATES/lua51/lua`, set as `LUA` by `run.sh`; the distro's `lua5.1`
+segfaulted on the runner in the route-speed `:reload` cases on 26 Nov 2026),
+and the distro's binary is the fallback when the kit has none. A gate that cannot run (no data, no harness) fails like one
 that finds something: nothing is skipped quietly.
 
 Each gate runs whatever the others did; the run's summary has a row per
