@@ -576,6 +576,7 @@ const SURFACES: &[(&str, &str, usize, &str, &str)] = &[
 	("Polestar/Maps/MobMarkers.lua", "r", 1, "GuideShown", "a legend row's chevron: with its row"),
 	("Polestar/Maps/RouteLines.lua", "mm", 1, "Hidden", "its driver, under the line's frame"),
 	("Polestar/Nav/MapCanvas.lua", "canvas", 1, "POLESTAR_HIDDEN", "a map's view frame, every map drawing's parent: hidden while Polestar is"),
+	("Polestar/Nav/MapCanvas.lua", "c", 1, "drop", "the frame on OpenMap's own view: hidden with the world map's view (so while Polestar is)"),
 	("Polestar/Maps/WorldMap.lua", "owner", 1, "Hidden", "the world map's info bar: off while hidden"),
 	("Polestar/QoL/XPMark.lua", "bar", 1, "Hidden", "the guide level on the XP bar: off while hidden"),
 	("Polestar/QoL/QuestXP.lua", "bar", 1, "Hidden", "the completed quest XP overlay: off while hidden"),

@@ -54,7 +54,11 @@
 --       "hide"   the map closed, or Polestar was hidden
 --       "tick"   every frame while the map is shown, after the above
 --   view.map, view.canvas, view.frame, view.shown, view.mapID, view.width,
---   view.height, view.scale, view.zoom (0..1), view.pinScale, view.alpha
+--   view.height, view.scale, view.zoom (0..1), view.pinScale, view.alpha,
+--   view.clip (the frame the canvas shows through, when it isn't the canvas's
+--   parent: OpenMap's view, below), view.covered (the world map's view while
+--   OpenMap's own view covers the map: what is drawn on it doesn't show, and
+--   takes no gamepad cursor)
 --   view:Level(levelType) -> the frame level the map gives pins of that level type
 --   view:PinScale(startScale, endScale) -> the scale MapCanvasPinMixin gives a
 --       pin with SetScalingLimits(1, startScale, endScale): constant on screen
@@ -64,7 +68,12 @@
 --       e.g. Polestar: UI's PolestarUIWorldMapCanvas): every module that draws
 --       on the world map draws on it too, with frames of its own. Call it once,
 --       after the frame is made; it is only read, as the world map is.
---   MapCanvas.OnAdd(fn)  fn(map) for every map added, now and later (modules)
+--   MapCanvas.Add(map, true)   a map that stands in for the world map over
+--       another addon's art (OpenMap's views, below): only the modules that
+--       asked for such maps draw on it (route lines, pins), not the ones that
+--       belong to Blizzard's art (unexplored areas, zone levels, the info bar).
+--   MapCanvas.OnAdd(fn, covers)  fn(map) for every map added, now and later
+--       (modules); with covers, for the stand-in maps too
 
 local ADDON, ns = ...
 
@@ -171,21 +180,221 @@ ns.On("POLESTAR_HIDDEN", function(hidden)
 	for _, view in pairs(views) do view.frame:SetShown(not hidden) end
 end)
 
-local added, onAdd = {}, {}
+local added, onAdd = {}, {} -- { map, covers } each; { fn, covers } each
 
-function MapCanvas.Add(map)
+function MapCanvas.Add(map, covers)
 	if not (type(map) == "table" and map.GetMapID and map.GetCanvas) or map == WorldMapFrame then return end
-	for i = 1, #added do if added[i] == map then return end end
-	added[#added + 1] = map
-	for i = 1, #onAdd do ns.SafeCall(onAdd[i], map) end
+	for i = 1, #added do if added[i].map == map then return end end
+	covers = covers and true or false
+	added[#added + 1] = { map = map, covers = covers }
+	for i = 1, #onAdd do
+		local h = onAdd[i]
+		if h.covers or not covers then ns.SafeCall(h.fn, map) end
+	end
 end
 
-function MapCanvas.OnAdd(fn)
-	onAdd[#onAdd + 1] = fn
-	for i = 1, #added do ns.SafeCall(fn, added[i]) end
+function MapCanvas.OnAdd(fn, covers)
+	local h = { fn = fn, covers = covers and true or false }
+	onAdd[#onAdd + 1] = h
+	for i = 1, #added do
+		local a = added[i]
+		if h.covers or not a.covers then ns.SafeCall(fn, a.map) end
+	end
 end
 
 -- The view of a map frame, when a module watches it.
 function MapCanvas.Get(map)
 	return views[map]
 end
+
+---------------------------------------------------------------------------
+-- OpenMap's own views (OpenMap, an optional world map addon; its
+-- OpenMapAPI). Two of them draw OpenMap's map on frames of its own over the
+-- world map and make the map's canvas see-through (its alpha 0), so what
+-- Polestar draws on that canvas doesn't show there (#4206):
+--   "pad"    its controller view (with the game's Gamepad UI on and its
+--            "OpenMap's map with the Gamepad UI" switch): a frame on the
+--            world map over its scroll frame, whose canvas, anchored by its
+--            top left on that frame's centre, is OpenMap's whole stitched
+--            world (OpenMapAPI's u, v times the canvas's size) at the view's
+--            zoom (its scale). OpenMapAPI.IsStitched says false.
+--   "fight"  its view while its own map is open in a fight: a frame on the
+--            scroll frame, whose canvas, anchored by its top left on that
+--            frame's top left, is laid out as the map's canvas (its size).
+-- OpenMapAPI has nothing for these views, so each is recognised by that
+-- shape, only read (the frames' children, points, size and scale). On its
+-- canvas Polestar puts a frame of its own, `host`, over the map the view
+-- shows, in that map's place, and adds `cover` with MapCanvas.Add(cover,
+-- true): a map whose canvas is `host`, so the route lines and pins draw
+-- there as on the world map, in percent of that map. The controller view's
+-- map is the one at its centre (OpenMapAPI.MapAt), or the zone or
+-- continent holding it, the first that spans FILL of the view across or
+-- down, placed through OpenMapAPI.WorldFromMap; in a fight, the world map's
+-- own. Nothing of OpenMap's is written or hooked: `host` is made with no
+-- parent and then set under its canvas, as Polestar's frames on the map are.
+-- Meanwhile the world map's view is `covered`.
+---------------------------------------------------------------------------
+
+local WORLD = 947             -- Azeroth: OpenMap's stitched world, above every continent
+local ART_LEVELS = 82         -- the levels over OpenMap's canvas its art takes (its 80, from the canvas's + 2)
+local FILL = 0.5              -- the controller view's map spans this share of the view (across or down)
+local ZOOM_SPAN = math.log(4) -- zoom percent 1 at four times the view that fits the map
+local OM_PIN_LEVELS = { PIN_FRAME_LEVEL_QUEST_BLOB = 1 } -- over `host`'s level; every other kind 2
+
+local om = { zoom = 0 }       -- the view up: frame, canvas, kind, map; zoom (0..1); the place host is set for
+local host                    -- Polestar's frame on OpenMap's canvas, over the map shown
+local worldView               -- the world map's view, watched for OpenMap's
+
+-- The stand-in map: what MapCanvas and the modules read of a map, answered
+-- from OpenMap's view (only read) and `host`.
+local cover = {}
+local coverLevels = {}
+function coverLevels:GetValidFrameLevel(levelType) return host:GetFrameLevel() + (OM_PIN_LEVELS[levelType] or 2) end
+function cover:GetMapID() return om.map end
+function cover:GetCanvas() return host end
+function cover:GetCanvasScale() return om.canvas and om.canvas:GetScale() or 1 end
+function cover:HasZoomLevels() return true end
+function cover:GetCanvasZoomPercent() return om.zoom end
+function cover:GetGlobalPinScale() return WorldMapFrame.GetGlobalPinScale and WorldMapFrame:GetGlobalPinScale() or 1 end
+function cover:GetGlobalAlpha() return 1 end
+function cover:GetPinFrameLevelsManager() return coverLevels end
+
+local function api()
+	local O = _G.OpenMapAPI
+	if type(O) == "table" and O.major == 1 and type(O.IsStitched) == "function" and type(O.WorldFromMap) == "function" then return O end
+end
+
+-- OpenMap's frame on the scroll frame `sc` among `parent`'s children (not
+-- the map's canvas), and its canvas: its first child, anchored by its top
+-- left on the frame's `relPoint` alone (with sameSize: the map canvas's size).
+local function findView(parent, sc, canvas, relPoint, sameSize)
+	local kids = { parent:GetChildren() }
+	for i = 1, #kids do
+		local f = kids[i]
+		if f ~= sc and f ~= canvas and f:IsShown() and f:GetNumPoints() > 0 and select(2, f:GetPoint(1)) == sc then
+			local c = f:GetChildren()
+			if c and c:GetNumPoints() == 1 then
+				local point, rel, relPoint2 = c:GetPoint(1)
+				if point == "TOPLEFT" and rel == f and relPoint2 == relPoint
+					and (not sameSize or (c:GetWidth() == canvas:GetWidth() and c:GetHeight() == canvas:GetHeight())) then
+					return f, c
+				end
+			end
+		end
+	end
+end
+
+-- A map's rectangle on OpenMap's stitched world (u, v: 0..1), or nil.
+local function worldRect(O, mapID)
+	if not mapID then return nil end
+	local ok, l, t = pcall(O.WorldFromMap, mapID, 0, 0)
+	local ok2, r, b = pcall(O.WorldFromMap, mapID, 1, 1)
+	if ok and ok2 and type(l) == "number" and type(t) == "number" and type(r) == "number" and type(b) == "number"
+		and r > l and b > t then
+		return l, t, r, b
+	end
+end
+
+-- The controller view's map: at its centre, widened to the first that spans
+-- FILL of it (W, H: the canvas's size, the stitched world's; px its scale).
+local function padMap(O, f, c, W, H, px)
+	if type(O.MapAt) ~= "function" then return om.map end
+	local _, _, _, x, y = c:GetPoint(1)
+	if type(x) ~= "number" or type(y) ~= "number" then return om.map end
+	local ok, m = pcall(O.MapAt, -x / W, y / H)
+	if not (ok and type(m) == "number") then return om.map end
+	local spanU, spanV = FILL * f:GetWidth() / (W * px), FILL * f:GetHeight() / (H * px)
+	local pick
+	for _ = 1, 8 do
+		local l, t, r, b = worldRect(O, m)
+		if l then
+			pick = m
+			if r - l >= spanU or b - t >= spanV then break end
+		end
+		local info = C_Map.GetMapInfo(m)
+		local parent = info and info.parentMapID
+		if not parent or parent == 0 or parent == WORLD then break end
+		m = parent
+	end
+	return pick or om.map
+end
+
+local function drop()
+	if not om.frame then return end
+	om.frame, om.canvas, om.kind = nil, nil, nil
+	if worldView then worldView.covered = false end
+	if host then host:Hide() end
+end
+
+-- Each frame of the open world map: OpenMap's view, if one covers it, and
+-- `host` where its map is.
+local function followOpenMap(view, what)
+	if what == "hide" then return drop() end
+	if what ~= "tick" then return end
+	local O, canvas = api(), view.canvas
+	if not O or canvas:GetAlpha() > 0 then return drop() end
+	local okS, stitched = pcall(O.IsStitched)
+	local kind = okS and stitched and "fight" or "pad"
+	local f, c = om.frame, om.canvas
+	if not (f and om.kind == kind and f:IsShown()) then
+		local sc = canvas:GetParent()
+		if kind == "pad" then
+			f, c = findView(view.map, sc, canvas, "CENTER")
+		else
+			-- (its canvas laid out as the map's: the same size)
+			f, c = findView(sc, sc, canvas, "TOPLEFT", true)
+		end
+		if not f then return drop() end
+	end
+	local W, H, px = c:GetWidth(), c:GetHeight(), c:GetScale()
+	if not (W and H and px and W > 0 and H > 0 and px > 0) then return drop() end
+	local mapID, l, t, r, b
+	if kind == "pad" then
+		mapID = padMap(O, f, c, W, H, px) or view.mapID
+		l, t, r, b = worldRect(O, mapID)
+		if not l then return drop() end
+	else
+		mapID, l, t, r, b = view.mapID, 0, 0, 1, 1
+	end
+	if not host then
+		host = ns.CreateFrameUnder("Frame", nil, c)
+		host:SetSize(1, 1)
+		MapCanvas.Add(cover, true)
+	end
+	if om.placed ~= c or om.map ~= mapID or om.l ~= l or om.t ~= t or om.r ~= r or om.b ~= b or om.w ~= W or om.h ~= H then
+		if host:GetParent() ~= c then host:SetParent(c) end
+		host:ClearAllPoints()
+		host:SetPoint("TOPLEFT", c, "TOPLEFT", l * W, -t * H)
+		host:SetSize((r - l) * W, (b - t) * H)
+		local level = c:GetFrameLevel() + ART_LEVELS
+		if type(O.ArtTopLevel) == "function" then
+			local ok, top = pcall(O.ArtTopLevel)
+			if ok and type(top) == "number" and top + 1 > level then level = top + 1 end
+		end
+		host:SetFrameLevel(level)
+		om.placed, om.l, om.t, om.r, om.b, om.w, om.h = c, l, t, r, b, W, H
+	end
+	local fit = math.min(f:GetWidth() / ((r - l) * W), f:GetHeight() / ((b - t) * H))
+	local zoom = fit > 0 and math.log(px / fit) / ZOOM_SPAN or 0
+	om.zoom = zoom < 0 and 0 or zoom > 1 and 1 or zoom
+	om.frame, om.canvas, om.kind, om.map = f, c, kind, mapID
+	view.covered = true
+	if not host:IsShown() then host:Show() end
+	local v = views[cover]
+	if v then v.clip = f end
+end
+
+-- Only with OpenMap loaded (an optional dependency: before Polestar).
+ns.OnLogin(function()
+	if not api() then return end
+	local function install()
+		if worldView or not WorldMapFrame then return worldView ~= nil end
+		worldView = MapCanvas.Watch(WorldMapFrame, followOpenMap)
+		return worldView ~= nil
+	end
+	if install() then return end
+	local function onLoaded(_, name)
+		if name == "Blizzard_WorldMap" and install() then ns.UnregisterEvent("ADDON_LOADED", onLoaded) end
+	end
+	ns.RegisterEvent("ADDON_LOADED", onLoaded)
+end)

@@ -4739,12 +4739,14 @@ Tested by `rust/crates/forge-addontest/tests/addontest/nav-handoff.rs` against a
 ```lua
 local view = Polestar.MapCanvas.Watch(map, fn)  -- map: WorldMapFrame or BattlefieldMapFrame; one view per map frame
 -- fn(view, what, elapsed): what = "show" | "map" | "size" | "scale" | "alpha" | "hide" | "tick"
--- view.map, view.canvas, view.frame, view.shown, view.mapID, view.width, view.height, view.scale, view.zoom, view.pinScale, view.alpha
+-- view.map, view.canvas, view.frame, view.shown, view.mapID, view.width, view.height, view.scale, view.zoom, view.pinScale, view.alpha,
+-- view.clip (the frame the canvas shows through, when not its parent), view.covered (OpenMap's own view covers this map)
 view:Level(levelType)              -- the frame level the map gives its pins of that level type
 view:PinScale(startScale, endScale) -- a map pin's scale under SetScalingLimits(1, startScale, endScale)
 Polestar.MapCanvas.Get(map) -> view | nil
 Polestar.MapCanvas.Add(map)        -- another addon's map canvas (a MapCanvasMixin frame): every module draws on it too
-Polestar.MapCanvas.OnAdd(fn)       -- fn(map) for every map added, now and later (the modules that draw)
+Polestar.MapCanvas.Add(map, true)  -- a map standing in for the world map over another addon's art: only modules that ask
+Polestar.MapCanvas.OnAdd(fn, covers) -- fn(map) for every map added, now and later (the modules that draw); covers: the stand-ins too
 ```
 
 `MapCanvas.Add` is for an addon that shows the world map in a canvas of its
@@ -4755,6 +4757,25 @@ planning show there as on `WorldMapFrame`, each module with frames of its own
 under that map's view. The map is only read, as the world map is; OpenMap's
 stitched view stays the world map's. Polestar: UI's call:
 [`Modules/WorldMap.lua`](https://github.com/rohkin/polestar-ui/blob/9c4bf908bdf264881366def2b079a2b716cc1668/Modules/WorldMap.lua#L62).
+
+OpenMap's own views are the stand-ins (#4206). Its controller view ("OpenMap's
+map with the Gamepad UI", with the game's Gamepad UI on) and its view in a
+fight draw its map on frames of its own over the world map and make the map's
+canvas see-through, so nothing Polestar draws on that canvas shows there, and
+`OpenMapAPI` (v4) says nothing about either. `Nav/MapCanvas.lua` recognises
+each by its shape, only read (a shown frame on the scroll frame whose first
+child, the view's canvas, is anchored by its top left on that frame's centre
+in the controller view, on its top left in a fight), puts a frame of its own
+on that canvas over the map the view shows (in the controller view the one at
+its centre, or the zone or continent around it that spans half the view,
+placed with `OpenMapAPI.MapAt` and `WorldFromMap`; in a fight the world map's
+own, over all of the canvas) and adds a stand-in map whose canvas is that
+frame with `MapCanvas.Add(map, true)`. The modules that draw over any map's
+art ask for stand-ins (`OnAdd(fn, true)`: Nav's pins, areas, regions and
+trail, the route lines) and draw there as on the world map; the ones that
+belong to Blizzard's art (zone levels, the info bar, unexplored areas) and
+alt-click planning don't. Meanwhile the world map's view is `covered`: its
+pins take no gamepad cursor and its route line doesn't redraw.
 
 The world map and the battlefield map are Lua (`Blizzard_MapCanvas`,
 `Blizzard_WorldMap`), and Forever's gamepad interface reads them from secure
