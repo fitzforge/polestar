@@ -151,6 +151,61 @@ fn the_close_button_and_escape_put_the_setup_back_key_for_key() {
 	}
 }
 
+// #4191: after Atlas, Standard or the ✕ gives the live guide window back every part it showed. Atlas kept the step
+// count's anchor (Polestar's ‹ button in it) in its own store, which leaving hides whole, so the ‹ stayed hidden
+// until a reload. Every frame of the window's parts, two levels down, shows as it did before Atlas.
+#[test]
+fn leaving_atlas_gives_the_window_back_every_part_it_showed() {
+	for how in ["standard", "close"] {
+		let out = run_with(
+			&format!(
+				r#"
+				uistub.setGuide(uistub.elwynn, 3)
+				stub.advance(6)
+				local GF = Polestar.UI.GuideFrame
+				local function shown()
+					local out, seen = {{}}, {{}}
+					local function walk(f, path, depth)
+						if seen[f] then return end
+						seen[f] = true
+						out[path] = f:IsShown() and true or false
+						if depth >= 2 then return end
+						for k, v in pairs(f) do
+							if type(k) == "string" and k ~= "parent" and type(v) == "table" and v.IsShown then walk(v, path .. "." .. k, depth + 1) end
+						end
+					end
+					local keys = {{}}
+					for k in pairs(GF.parts) do keys[#keys + 1] = k end
+					table.sort(keys)
+					for _, k in ipairs(keys) do
+						local v = GF.parts[k]
+						if type(v) == "table" and v.IsShown then walk(v, k, 0) end
+					end
+					return out
+				end
+				local before = shown()
+				LC.frame.Atlas:Click()
+				stub.advance(0.5)
+				local atlas = Polestar.Theme.LayoutId()
+				if "{how}" == "standard" then LC.frame.Standard:Click() else WN.frame.Close:Click() end
+				stub.advance(0.5)
+				GF.Render()
+				local after, lost = shown(), {{}}
+				for path, was in pairs(before) do
+					if was and after[path] == false then lost[#lost + 1] = path end
+				end
+				table.sort(lost)
+				local nav = GF.parts.nav
+				emit({{ atlas = atlas, layout = Polestar.Theme.LayoutId() or false, lost = table.concat(lost, ", "), arrows = {{ nav.Prev:IsVisible(), nav.Next:IsVisible() }} }})"#
+			),
+			Some(TUNED),
+		);
+		assert_eq!(json!([out["atlas"], out["layout"]]), json!(["atlas", false]), "{how}: Atlas, then Polestar's own layout");
+		assert_eq!(out["lost"], "", "{how}: every part shown before Atlas shows again");
+		assert_eq!(out["arrows"], json!([true, true]), "{how}: ‹ and › both show");
+	}
+}
+
 #[test]
 fn a_fresh_install_never_sees_it_install_s_look_step_offers_the_layout() {
 	let out = run_with("stub.advance(10)\nemit({ shown = card(), seen = PolestarDB.layoutCardSeen, snaps = #LC.Snapshots() })", None);
