@@ -40,7 +40,7 @@ return {
 
 	-- Step 7: Journeyman Cooking
 	-- {skill:185} Cooking
-	["Journeyman {skill:185}"] = "",
+	["Journeyman {skill:185}"] = "{skill:185} (Compagnon)",
 	-- {skill:185} Cooking
 	["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and no character level, and costs 5s. The arrow picks the nearest {skill:185} trainer of your faction."] = "",
 
@@ -132,7 +132,7 @@ return {
 
 	-- Step 43: Journeyman Fishing
 	-- {skill:356} Fishing
-	["Journeyman {skill:356}"] = "",
+	["Journeyman {skill:356}"] = "{skill:356} (Compagnon)",
 	-- {skill:356} Fishing
 	["Journeyman {skill:356} raises the cap to 150; it needs skill 50 and character level 10 (Forever's trainer lists ask for that level), and costs 5s. The arrow picks the nearest {skill:356} trainer of your faction."] = "",
 
@@ -214,19 +214,19 @@ return {
 
 	-- Step 74: Expert Fishing
 	-- {skill:356} Fishing
-	["Expert {skill:356}"] = "",
+	["Expert {skill:356}"] = "{skill:356} (Expert)",
 	-- {skill:356} Fishing · {item:16083} Expert Fishing - The Bass and You · {npc:2626} Old Man Heming · {zone:1434} Stranglethorn Vale · {area:35} Booty Bay · {area:392} Ratchet · {zone:1413} The Barrens · {item:6532} Bright Baubles · {item:279965} Fishing Rack · {area:2797} Blackfathom Deeps
 	["Expert {skill:356} (cap 225) is a book, not a trainer rank: {item:16083} (1g), {npc:2626} ({zone:1434}) sells it to both factions. Buy it and read it; it needs skill 125 and level 20. At level 20 the safe way to {area:35} is the boat from {area:392} in {zone:1413}. {npc:2626} also sells {item:6532} (+75 from skill 100, 2s 50c each), the lure for harder water. Forever's {item:279965} (a camping item, from {skill:356} 140) is a blueprint that drops from Gelihast in {area:2797}."] = "",
 	-- {item:16083} Expert Fishing - The Bass and You · {skill:356} Fishing
-	["Buy and read {item:16083} (Expert {skill:356})"] = "",
+	["Buy and read {item:16083} (Expert {skill:356})"] = "Achetez et lisez {item:16083} ({skill:356} Expert)",
 
 	-- Step 75: Expert Cooking
 	-- {skill:185} Cooking
-	["Expert {skill:185}"] = "",
+	["Expert {skill:185}"] = "{skill:185} (Expert)",
 	-- {skill:185} Cooking · {item:16072} Expert Cookbook · {npc:3955} Shandrina · {zone:1440} Ashenvale · {npc:12033} Wulan · {zone:1443} Desolace
 	["Expert {skill:185} (cap 225) is a book, not a trainer rank: {item:16072} (1g), sold by {npc:3955} ({zone:1440}) for the Alliance and {npc:12033} ({zone:1443}) for the Horde. Buy it and read it; it needs skill 125 and level 20."] = "",
 	-- {item:16072} Expert Cookbook · {skill:185} Cooking
-	["Buy and read {item:16072} (Expert {skill:185})"] = "",
+	["Buy and read {item:16072} (Expert {skill:185})"] = "Achetez et lisez {item:16072} ({skill:185} Expert)",
 
 	-- Step 76: Fishing: Ashenvale (150-190)
 	-- {skill:356} Fishing · {item:6308} Raw Bristle Whisker Catfish · {item:6289} Raw Longjaw Mud Snapper · {item:6361} Raw Rainbow Fin Albacore · {item:21071} Raw Sagefish · {item:6358} Oily Blackmouth · {object:180656} Sagefish School
@@ -290,63 +290,63 @@ return {
 
 	-- Step 93: Nat Pagle, Angler Extreme
 	-- {skill:356} Fishing · {npc:12919} Nat Pagle · {zone:1445} Dustwallow Marsh · {zone:1455} Ironforge
-	["Artisan {skill:356} (cap 300) comes from {npc:12919} in {zone:1445}. The fishing trainer in {zone:1455} sends you to him; the quest needs skill 225 and level 35."] = "",
+	["Artisan {skill:356} (cap 300) comes from {npc:12919} in {zone:1445}. The fishing trainer in {zone:1455} sends you to him; the quest needs skill 225 and level 35."] = "{skill:356} (Artisan) (plafond 300) s'obtient auprès de {npc:12919}, au {zone:1445}. Le maître de pêche d'{zone:1455} vous envoie à lui ; la quête demande la compétence 225 et le niveau 35.",
 
 	-- Step 94: Nat Pagle, Angler Extreme
 	-- {skill:356} Fishing · {npc:12919} Nat Pagle · {zone:1445} Dustwallow Marsh · {zone:1454} Orgrimmar
-	["Artisan {skill:356} (cap 300) comes from {npc:12919} in {zone:1445}. The fishing trainer in {zone:1454} sends you to him; the quest needs skill 225 and level 35."] = "",
+	["Artisan {skill:356} (cap 300) comes from {npc:12919} in {zone:1445}. The fishing trainer in {zone:1454} sends you to him; the quest needs skill 225 and level 35."] = "{skill:356} (Artisan) (plafond 300) s'obtient auprès de {npc:12919}, au {zone:1445}. Le maître de pêche d'{zone:1454} vous envoie à lui ; la quête demande la compétence 225 et le niveau 35.",
 
 	-- Step 95: Nat Pagle
 	-- {npc:12919} Nat Pagle
-	["{npc:12919} fishes from the shore of a small island off the east coast, south of Theramore; swim over from the coast."] = "",
+	["{npc:12919} fishes from the shore of a small island off the east coast, south of Theramore; swim over from the coast."] = "{npc:12919} pêche depuis le rivage d'un îlot au large de la côte est, au sud de Theramore ; rejoignez-le à la nage depuis la côte.",
 
 	-- Step 96: Sar'theris Striker
 	-- {zone:1443} Desolace · {area:598} Sar'theris Strand · {area:2408} Shadowprey Village · {item:16968} Sar'theris Striker
-	["Fish along the coast of {zone:1443} ({area:598} in the north-west, or the shore west of {area:2408}) until you catch a {item:16968}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "",
+	["Fish along the coast of {zone:1443} ({area:598} in the north-west, or the shore west of {area:2408}) until you catch a {item:16968}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "Pêchez le long de la côte de {zone:1443} ({area:598} au nord-ouest, ou le rivage à l'ouest de {area:2408}) jusqu'à prendre un {item:16968} : environ une prise sur cinq le remonte là-bas, et il ne mord nulle part ailleurs. À la compétence 225, rien ne s'échappe ici.",
 
 	-- Step 98: Feralas Ahi
 	-- {area:2521} Verdantis River · {zone:1444} Feralas · {area:2577} Dire Maul · {item:16967} Feralas Ahi · {item:6532} Bright Baubles
-	["Fish along the {area:2521} in {zone:1444} (south-east of {area:2577}) until you catch a {item:16967}: about one catch in five there brings it up, and it bites nowhere else. This water loses fish below skill 300: at 225 most get away, so put {item:6532} (+75) on the pole first."] = "",
+	["Fish along the {area:2521} in {zone:1444} (south-east of {area:2577}) until you catch a {item:16967}: about one catch in five there brings it up, and it bites nowhere else. This water loses fish below skill 300: at 225 most get away, so put {item:6532} (+75) on the pole first."] = "Pêchez le long de la {area:2521}, dans {zone:1444} (au sud-est de {area:2577}), jusqu'à prendre un {item:16967} : environ une prise sur cinq le remonte là-bas, et il ne mord nulle part ailleurs. Cette eau perd des poissons sous la compétence 300 : à 225, la plupart s'échappent, alors mettez d'abord une {item:6532} (+75) sur la canne.",
 
 	-- Step 99: Savage Coast Blue Sailfin
 	-- {zone:1434} Stranglethorn Vale · {area:301} Savage Coast · {item:16969} Savage Coast Blue Sailfin
-	["Fish along {zone:1434}'s {area:301} (the west shore) until you catch a {item:16969}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "",
+	["Fish along {zone:1434}'s {area:301} (the west shore) until you catch a {item:16969}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "Pêchez le long de {area:301} de {zone:1434} (le rivage ouest) jusqu'à prendre un {item:16969} : environ une prise sur cinq le remonte là-bas, et il ne mord nulle part ailleurs. À la compétence 225, rien ne s'échappe ici.",
 
 	-- Step 101: Misty Reed Mahi Mahi
 	-- {area:300} Misty Reed Strand · {zone:1435} Swamp of Sorrows · {item:16970} Misty Reed Mahi Mahi
-	["Fish along the {area:300} (the east shore of {zone:1435}) until you catch a {item:16970}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "",
+	["Fish along the {area:300} (the east shore of {zone:1435}) until you catch a {item:16970}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "Pêchez le long de {area:300} (le rivage est de {zone:1435}) jusqu'à prendre un {item:16970} : environ une prise sur cinq le remonte là-bas, et il ne mord nulle part ailleurs. À la compétence 225, rien ne s'échappe ici.",
 
 	-- Step 102: Nat Pagle
 	-- {skill:356} Fishing
-	["Artisan {skill:356}"] = "",
+	["Artisan {skill:356}"] = "{skill:356} (Artisan)",
 
 	-- Step 103: Dirge Quikcleave
 	-- {skill:185} Cooking · {npc:8125} Dirge Quikcleave · {area:976} Gadgetzan · {zone:1446} Tanaris · {zone:1455} Ironforge
-	["Artisan {skill:185} comes from {npc:8125} in {area:976} ({zone:1446}). The cooking trainer in {zone:1455} sends you; it needs skill 225 and level 35."] = "",
+	["Artisan {skill:185} comes from {npc:8125} in {area:976} ({zone:1446}). The cooking trainer in {zone:1455} sends you; it needs skill 225 and level 35."] = "{skill:185} (Artisan) s'apprend auprès de {npc:8125} à {area:976} ({zone:1446}). Le maître cuisinier de {zone:1455} vous y envoie ; requiert la compétence 225 et le niveau 35.",
 
 	-- Step 104: Dirge Quikcleave
 	-- {skill:185} Cooking · {npc:8125} Dirge Quikcleave · {area:976} Gadgetzan · {zone:1446} Tanaris · {zone:1454} Orgrimmar
-	["Artisan {skill:185} comes from {npc:8125} in {area:976} ({zone:1446}). The cooking trainer in {zone:1454} sends you; it needs skill 225 and level 35."] = "",
+	["Artisan {skill:185} comes from {npc:8125} in {area:976} ({zone:1446}). The cooking trainer in {zone:1454} sends you; it needs skill 225 and level 35."] = "{skill:185} (Artisan) s'apprend auprès de {npc:8125} à {area:976} ({zone:1446}). Le maître cuisinier d'{zone:1454} vous y envoie ; requiert la compétence 225 et le niveau 35.",
 
 	-- Step 105: Giant Eggs
 	-- plural, as words: Giant Eggs = {item:12207} Giant Egg
-	["Giant Eggs"] = "",
+	["Giant Eggs"] = "Oeufs géants",
 	-- {quest:6610} Clamlette Surprise · {item:7974} Zesty Clam Meat · {item:8932} Alterac Swiss · {zone:1446} Tanaris · {zone:1425} The Hinterlands · {npc:2929} Savage Owlbeast
 	-- plural, as words: Giant Eggs = {item:12207} Giant Egg
 	["{quest:6610} asks for 12 Giant Eggs, 10 {item:7974} and 20 {item:8932}: bring all three before you go to {zone:1446}, so you make the trip once. Giant Eggs drop from the owlbeasts of {zone:1425}: {npc:2929} (54%)."] = "",
 
 	-- Step 106: Alterac Swiss
 	-- {item:8932} Alterac Swiss
-	["Innkeepers and food vendors sell {item:8932}; the arrow picks the nearest."] = "",
+	["Innkeepers and food vendors sell {item:8932}; the arrow picks the nearest."] = "Les aubergistes et les marchands de nourriture vendent du {item:8932} ; la flèche indique le plus proche.",
 
 	-- Step 107: Zesty Clam Meat
 	-- {item:7974} Zesty Clam Meat · {zone:1445} Dustwallow Marsh · {zone:1446} Tanaris
 	-- plural, as words: Big-mouth Clams = {item:7973} Big-mouth Clam · Steeljaw Snappers = {npc:14123} Steeljaw Snapper
-	["{item:7974} comes from Big-mouth Clams: open each one, every clam holds one. The Muckshell crabs on the {zone:1445} coast south-west of Theramore drop a clam about seven kills in ten, so ten clams take about fifteen kills, on your way to {zone:1446}. The Steeljaw Snappers on {zone:1446}'s east coast drop them about one kill in three."] = "",
+	["{item:7974} comes from Big-mouth Clams: open each one, every clam holds one. The Muckshell crabs on the {zone:1445} coast south-west of Theramore drop a clam about seven kills in ten, so ten clams take about fifteen kills, on your way to {zone:1446}. The Steeljaw Snappers on {zone:1446}'s east coast drop them about one kill in three."] = "La {item:7974} vient des Palourdes à large bouche : ouvrez-les une à une, chaque palourde en contient une. Les crabes Bourbecoque sur la côte du {zone:1445}, au sud-ouest de Theramore, laissent tomber une palourde environ sept fois sur dix, donc dix palourdes demandent une quinzaine de victimes, sur votre route vers {zone:1446}. Les Mordeuses mâchoire d'acier de la côte est de {zone:1446} en laissent tomber environ une fois sur trois.",
 
 	-- Step 108: Clamlette Surprise
 	-- {skill:185} Cooking
-	["Artisan {skill:185}"] = "",
+	["Artisan {skill:185}"] = "{skill:185} (Artisan)",
 
 	-- Step 109: Recipes for Tanaris (Cooking to 300)
 	-- {zone:1446} Tanaris · {skill:185} Cooking

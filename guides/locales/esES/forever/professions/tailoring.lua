@@ -198,8 +198,8 @@ return {
 	-- Step 32: Get Ironweb Spider Silk
 	-- {item:14227} Ironweb Spider Silk
 	["Get {item:14227}"] = "",
-	-- {item:14227} Ironweb Spider Silk · {skill:197} Tailoring · {item:13867} Runecloth Shoulders · {npc:1822} Venom Mist Lurker · {npc:8762} Timberweb Recluse · {npc:5857} Searing Lava Spider
-	["You need 124 {item:14227} for {skill:197} 225-300: {item:13867}. {item:14227} drops most from {npc:1822}, {npc:8762} and {npc:5857}, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14227} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- {item:14227} Ironweb Spider Silk · {skill:197} Tailoring · {item:13867} Runecloth Shoulders · {npc:1824} Plague Lurker · {npc:11739} Rock Stalker · {npc:5857} Searing Lava Spider
+	["You need 124 {item:14227} for {skill:197} 225-300: {item:13867}. {item:14227} drops most from {npc:1824}, {npc:11739} and {npc:5857}, among others. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14227} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
 	-- Step 33: Tailoring 225-300: Auction House
 	-- {skill:197} Tailoring

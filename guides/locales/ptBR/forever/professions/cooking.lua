@@ -15,8 +15,8 @@ return {
 	-- Step 2: Get Stringy Wolf Meat
 	-- {item:2672} Stringy Wolf Meat
 	["Get {item:2672}"] = "",
-	-- {item:2672} Stringy Wolf Meat · {spell:2538} Charred Wolf Meat · {zone:1429} Elwynn Forest
-	["You need 50 {item:2672} for {spell:2538} (1-50). It drops from Prowler (86%) in {zone:1429}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- {item:2672} Stringy Wolf Meat · {spell:2538} Charred Wolf Meat · {npc:118} Prowler · {zone:1429} Elwynn Forest
+	["You need 50 {item:2672} for {spell:2538} (1-50). It drops from {npc:118} (86%) in {zone:1429}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
 	-- Step 3: Charred Wolf Meat (1-50)
 	-- {spell:2538} Charred Wolf Meat · {object:29784} Basic Campfire
@@ -182,8 +182,8 @@ return {
 	-- Step 39: Get Thunder Lizard Tail
 	-- {item:5470} Thunder Lizard Tail
 	["Get {item:5470}"] = "",
-	-- {item:5470} Thunder Lizard Tail · {item:5479} Crispy Lizard Tail · {zone:1413} The Barrens
-	["You need 30 {item:5470} for {item:5479} (100-130). It drops from Thunderhead (59%), Owatanka (35%) in {zone:1413}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
+	-- {item:5470} Thunder Lizard Tail · {item:5479} Crispy Lizard Tail · {npc:3239} Thunderhead · {zone:1413} The Barrens
+	["You need 30 {item:5470} for {item:5479} (100-130). It drops from {npc:3239} (59%), Owatanka (35%) in {zone:1413}. The arrow takes you to the best farm for your level: mobs at or below it first, then the most per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
 	-- Step 40: Crispy Lizard Tail (100-130)
 	-- {item:5479} Crispy Lizard Tail · {object:29784} Basic Campfire · {item:5488} Recipe: Crispy Lizard Tail · {npc:3489} Zargh · {item:3735} Recipe: Hot Lion Chops
