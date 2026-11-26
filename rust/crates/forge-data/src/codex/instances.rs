@@ -190,7 +190,14 @@ fn recorded_point(frames: &V, map: f64, x: f64, y: f64, expected: &[f64]) -> Opt
 /// Chasm (86 entries against 57 + 14 in the Cleft of Shadow), Ironforge 15.1,86.0 for the Hall of Thanes (166 against
 /// 80 below the city), where players stood when the game moved them in (#3562, #2447). There a recorded point within
 /// TABLE_YARDS of the table entry's door wins, the most-seen of them; elsewhere the most-seen point anywhere does.
+/// A table entry read from the recordings themselves (source kind "recording": where players' walks end before the
+/// loading screen) wins over every recorded `enter` point: that point is the last one the Recorder noted outside, which
+/// can lie far from the way in (Blackmaw Hold's, 37.6,38.7, is 530 yd from the end of the cave players walk into, #4032;
+/// Krol'dok Stronghold's 220 yd south of its cave).
 fn choose_entrance_point(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], corpse: Option<&super::client::Corpse>, zones: &V, frames: &V, prefer: &[f64]) -> V {
+	if table.truthy() && table.get("map").truthy() && table.get("source").get("kind").as_str() == Some("recording") {
+		return entrance_v(table.get("map").num(), round1(table.get("x").num()), round1(table.get("y").num()), false, false);
+	}
 	let items: Vec<V> = recorded.items().into_iter().filter(|r| num0(&r.get("n")) >= 2.0 || !CAPITAL_MAPS.contains(&r.get("map").num())).collect();
 	let most_seen = |a: &&V, b: &&V| ord(num0(&b.get("n")) - num0(&a.get("n")));
 	let door_map = table.get("map").num();
@@ -1039,5 +1046,27 @@ mod tests {
 		let rec = parse_json(r#"[{ "map": 1415, "x": 43.41, "y": 53.75, "n": 156 }, { "map": 1426, "x": 42, "y": 47.09, "n": 2 }]"#).unwrap();
 		let e = choose_entrance("Gnomeregan", &rec, &table, &[], None, &V::Null, &frames, &[]);
 		assert_eq!((e.get("map").num(), e.get("x").num(), e.get("y").num(), e.get("z").num()), (1426.0, 22.0, 38.7, 248.0));
+	}
+
+	/// #4032 (devanpy): Blackmaw Hold's portal is at the far end of a cave whose mouth is at Azshara 39,33.7. The
+	/// Recorder's entry points (37.57,38.68, twice) are the last point it noted outside, 530 yd from the portal; the
+	/// curated entry, read from where players' walks end before they go in, wins with the cave floor's height, so the
+	/// arrow's walk goes in by the mouth. Krol'dok Stronghold's entry (the small cave on the hill) likewise beats the
+	/// 63 entries noted 220 yd south of it.
+	#[test]
+	fn a_table_entry_read_from_players_recordings_beats_the_recorders_entry_points_4032() {
+		let text = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../../../data/codex/entrances.json")).unwrap();
+		let table = load_entrance_table(&text).unwrap();
+		let frames = parse_json(
+			r#"{ "1447": { "c": 1, "left": -3277.083, "right": -8347.916, "top": 5341.667, "bottom": 1960.417 },
+			     "2548": { "c": 0, "left": -1891.666, "right": -6741.666, "top": -6466.666, "bottom": -9700 } }"#,
+		)
+		.unwrap();
+		let rec = parse_json(r#"[{ "map": 1447, "x": 37.57, "y": 38.68, "n": 2 }, { "map": 1447, "x": 44.48, "y": 31.86, "n": 1 }]"#).unwrap();
+		let e = choose_entrance("Blackmaw Hold", &rec, &table.get("blackmaw-hold"), &[], None, &V::Null, &frames, &[1447.0]);
+		assert_eq!((e.get("map").num(), e.get("x").num(), e.get("y").num(), e.get("z").num()), (1447.0, 35.0, 23.5, 166.0));
+		let rec = parse_json(r#"[{ "map": 2548, "x": 36.88, "y": 44.1, "n": 63 }, { "map": 2548, "x": 37.49, "y": 37.99, "n": 29 }]"#).unwrap();
+		let e = choose_entrance("Krol'dok Stronghold", &rec, &table.get("kroldok-stronghold"), &[], None, &V::Null, &frames, &[2548.0]);
+		assert_eq!((e.get("map").num(), e.get("x").num(), e.get("y").num()), (2548.0, 37.5, 38.2));
 	}
 }

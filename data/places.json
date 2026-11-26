@@ -3253,6 +3253,17 @@
 			"issue": 3825
 		},
 		{
+			"id": "3868-573-2",
+			"quest": 573,
+			"objective": 2,
+			"at": { "map": 1434, "x": 28.9, "y": 61.96, "frame": "era" },
+			"note": "Mok'thardin's Enchantment: the Holy Spring itself, on the hilltop, where players fill the water. The point the step had (29.0,61.9) lies on the rocks above the spring, ground no walk reaches, so from the beach the arrow drew a straight line at the cliff; at the spring the walk goes up the hill by the way players take from the south-west (#3868, gidi_).",
+			"source": [
+				{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-25): 11 people looted Holy Spring Water at a median of 28.91,61.98, each walking up from 27.1,62.9 by 27.9,62.75 and 28.55,62.35" }
+			],
+			"issue": 3868
+		},
+		{
 			"id": "4095-4506-winna",
 			"faction": "Horde",
 			"quest": 4506,
