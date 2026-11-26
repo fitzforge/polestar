@@ -508,7 +508,7 @@ test('draft: specs add the camp recipe per faction, notes at a skill, a stop and
 	assert.match(text, /\n {2}learn 2\n {2}learn 900 only Alliance\n {2}learn 901 only Horde\n/);
 	assert.match(text, /A note at 30\./);
 	// Strange Dust: bought at the Auction House or disenchanted (Enchanting), one way at a time.
-	assert.match(text, /\nstep Get Strange Dust\n {2}tip You need 10 Strange Dust for Tailoring 1-75: R2\. Enchanting: disenchant green items of item level 5-20\. Or buy them at the Auction House\.\n {2}collect 70 x10 anywhere gather Enchanting 1\n {2}auction 70 x10\n/);
+	assert.match(text, /\nstep Get Strange Dust\n {2}tip 10 Strange Dust for Tailoring 1-75: \d+ R2s\. Enchanting: disenchant green items of item level 5-20\. Or buy them at the Auction House\.\n {2}collect 70 x10 anywhere gather Enchanting 1\n {2}auction 70 x10\n/);
 	assert.doesNotMatch(text, /^step Tailoring 1-75: Auction House$/m);
 	assert.match(text, /^# {4}70-75 nothing cheap \(see the last step\)$/m);
 	assert.match(text, /\nstep Tailoring 70-75\n {2}tip The last points come from elsewhere\.\n {2}skill Tailoring 75\n$/);
@@ -700,7 +700,7 @@ test('draft: cloth is a Get it step: what the band needs, the farm the arrow pic
 	const get = text.split('\n\n').find((b) => b.startsWith('step Get Linen Cloth'));
 	assert.match(
 		get,
-		/^step Get Linen Cloth\n {2}tip You need (\d+) Linen Cloth for Tailoring 1-75: R1\. Humanoids of level 5-20 drop it, and what you loot as you level counts\. The arrow takes you to the best farm for your level: [^\n]+ Or buy them at the Auction House\.\n {2}collect 2589 x\1 nearest gather levels 5-20\n {2}auction 2589 x\1$/,
+		/^step Get Linen Cloth\n {2}tip (\d+) Linen Cloth for Tailoring 1-75: \d+ R1s\. Humanoids of level 5-20 drop it, and what you loot as you level counts\. The arrow takes you to the best farm for your level: [^\n]+ Or buy them at the Auction House\.\n {2}collect 2589 x\1 nearest gather levels 5-20\n {2}auction 2589 x\1$/,
 	);
 	// The Auction House is the Get it step's last line: no Auction House step of its own for the cloth.
 	assert.doesNotMatch(text, /^step Tailoring 1-75: Auction House$/m);
@@ -709,7 +709,7 @@ test('draft: cloth is a Get it step: what the band needs, the farm the arrow pic
 	assert.deepEqual(materials, [{ from: 1, cap: 75, items: [{ item: 2589, name: 'Linen Cloth', count: Number(get.match(/x(\d+)/)[1]), uses: ['R1'] }] }]);
 	// No farm spot in the data: the cloth is counted in the bags as you level, the Auction House still last.
 	const bare = draftGuide('Tailoring', data, { to: 75, spec: {} }).text;
-	assert.match(bare, /\n {2}tip You need \d+ Linen Cloth for Tailoring 1-75: R1\. Humanoids of level 5-20 drop it: keep what you loot as you level, or take it from your bank\. Or buy them at the Auction House\.\n {2}collect 2589 x\d+ anywhere gather levels 5-20\n {2}auction 2589 x\d+\n/);
+	assert.match(bare, /\n {2}tip \d+ Linen Cloth for Tailoring 1-75: \d+ R1s\. Humanoids of level 5-20 drop it: keep what you loot as you level, or take it from your bank\. Or buy them at the Auction House\.\n {2}collect 2589 x\d+ anywhere gather levels 5-20\n {2}auction 2589 x\d+\n/);
 });
 
 test('draft: mob drops the compiler can place become one `collect … nearest` Get it step', async () => {
@@ -879,7 +879,7 @@ test('draft: starting-area herbs per race to Journeyman, rare node finds are a b
 	// Black Pearl (0.2%) gets no spot and is bought; Shadowgem (one vein in a hundred) is kept
 	// while mining or bought, and the rod's gem is "for Tonic Rod".
 	assert.doesNotMatch(text, /^ {2}collect 7971 /m);
-	assert.match(text, /\nstep Get Shadowgem\n(?: {2}zone Azeroth\n)? {2}tip You need 1 Shadowgem for Alchemy 1-75: Tonic Rod\. Shadowgem turns up in about one Copper Vein in 100: keep the ones you find while mining\. Or buy it at the Auction House\.\n {2}collect 1210 x1 anywhere gather Mining 1\n {2}auction 1210 x1\n/);
+	assert.match(text, /\nstep Get Shadowgem\n(?: {2}zone Azeroth\n)? {2}tip 1 Shadowgem for Alchemy 1-75: Tonic Rod\. Shadowgem turns up in about one Copper Vein in 100: keep the ones you find while mining\. Or buy it at the Auction House\.\n {2}collect 1210 x1 anywhere gather Mining 1\n {2}auction 1210 x1\n/);
 	// Each Get it step ends with its Auction House line; the Black Pearl, with no farm, is the Auction House step's.
 	assert.match(text, /\n {2}collect 765 x(\d+) @[^\n]+\n {2}auction 765 x\1\n/);
 	assert.match(text, /\nstep Alchemy 1-75: Auction House\n(?: {2}zone Azeroth\n)? {2}tip [^\n]+\n {2}auction 7971 x\d+\n/);

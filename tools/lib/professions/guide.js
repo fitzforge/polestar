@@ -619,9 +619,17 @@ function draftGuide(name, data, opts = {}) {
 			for (const n of seg.need) {
 				const t = totals.get(n.item);
 				if (t) t.count += n.count;
-				else totals.set(n.item, { item: n.item, count: n.count, src: n.src, uses: [] });
+				else totals.set(n.item, { item: n.item, count: n.count, src: n.src, uses: [], parts: [] });
 				const tt = totals.get(n.item);
 				for (const u of n.uses || [seg.recipe.name]) if (!tt.uses.includes(u)) tt.uses.push(u);
+				// The why line's parts: the crafts of the recipe this stretch levels on (9 players in 10, as the
+				// count is), or the tool the material goes into.
+				for (const u of n.uses || [seg.recipe.name]) {
+					const part = tt.parts.find((x) => x.name === u);
+					const add = u === seg.recipe.name ? seg.count90 : 0;
+					if (part) part.crafts += add;
+					else tt.parts.push({ name: u, crafts: add });
+				}
 			}
 		}
 		b.list = [...totals.values()].sort((a, c) => a.item - c.item);
@@ -654,6 +662,11 @@ function draftGuide(name, data, opts = {}) {
 			if (SIDES.some((s) => t.src[s].kind === 'mine') && t.count > p.count - (p.ahead || []).reduce((a, x) => a + x.count, 0)) continue;
 			p.count += t.count;
 			for (const u of t.uses) if (!p.uses.includes(u)) p.uses.push(u);
+			for (const x of t.parts) {
+				const part = p.parts.find((y) => y.name === x.name);
+				if (part) part.crafts += x.crafts;
+				else p.parts.push({ ...x });
+			}
 			p.ahead = [...(p.ahead || []), { count: t.count, from: b.from, cap: b.cap }, ...(t.ahead || [])];
 			b.list = b.list.filter((x) => x !== t);
 			b.gathered = b.gathered.filter((x) => x !== t);
@@ -1084,7 +1097,9 @@ function draftGuide(name, data, opts = {}) {
 			if (kinds.every((k) => k === 'vendor')) continue;
 			const need = SIDES.filter((side, i) => kinds[i] !== 'vendor');
 			const ahead = (t.ahead || []).map((a) => `${a.count} of them for ${a.from}-${a.cap}`);
-			const forWhat = `You need ${t.count} ${matName(t.item)} for ${P} ${b.from}-${b.cap}: ${D.list(t.uses)}${ahead.length ? ` (${D.list(ahead)}: get them all now)` : ''}.`;
+			// The why line leads: "57 Wool Cloth for Tailoring 75-150: 40 Woolen Capes."
+			const why = (t.parts || []).map((x) => (x.crafts > 0 ? D.crafts(x.crafts, x.name) : x.name));
+			const forWhat = `${t.count} ${matName(t.item)} for ${P} ${b.from}-${b.cap}: ${D.list(why.length ? why : t.uses)}${ahead.length ? ` (${D.list(ahead)}: get them all now)` : ''}.`;
 			// The collect's `gather` (with `facts`) when the Auction House sells the item.
 			const mark = (facts = '') => (sold.has(t.item) ? ` gather${facts}` : '');
 			const lastLine = sold.has(t.item) ? ` Or buy ${t.count > 1 ? 'them' : 'it'} at the Auction House.` : '';
