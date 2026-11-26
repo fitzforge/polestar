@@ -1858,6 +1858,7 @@ L["/pole mount: how to get it"] = "/pole mount : comment l'obtenir"
 L["No mount found on your target or mouseover."] = "Aucune monture sur votre cible ou sous la souris."
 L["Look up your target's mount"] = "Rechercher la monture de votre cible"
 L["Search guides, items, mounts, NPCs and quests"] = "Rechercher guides, objets, montures, PNJ et quêtes"
+-- L["Ctrl+Alt-click: guide me"] = ""
 
 -- Lookup/Options.lua
 L["Discovery"] = "Découverte"
@@ -1865,10 +1866,12 @@ L["How to get anything"] = "Comment tout obtenir"
 L["Search every item, mount, pet, NPC and quest, and see where it comes from (/pole lookup)."] = "Recherchez chaque objet, monture, mascotte, PNJ et quête, et voyez sa provenance (/pole lookup)."
 L["Sources on item tooltips"] = "Sources dans les bulles d'objet"
 L["The best one or two places to get an item, ranked for this character."] = "Le ou les deux meilleurs endroits pour obtenir un objet, classés pour ce personnage."
-L["Alt-click an item for a guide"] = "Alt-clic sur un objet pour un guide"
-L["Alt-click an item link, bag item or loot to open a guide that gets it."] = "Alt-clic sur un lien d'objet, un objet des sacs ou du butin ouvre un guide pour l'obtenir."
 L["Spot other players' mounts"] = "Repérer les montures des joueurs"
 L["Name the mount of a player you target or point at, and where it comes from (/pole mount)."] = "Nomme la monture d'un joueur ciblé ou survolé, et sa provenance (/pole mount)."
+-- L["Click an item for a guide"] = ""
+-- L["Alt-click an item link, bag item or loot to open a guide that gets it. You can require Ctrl as well below."] = ""
+-- L["Require Ctrl+Alt-click"] = ""
+-- L["Use Ctrl+Alt-click for Lookup instead of Alt-click. This replaces Ctrl+Alt-click item marking; the marking keys still work."] = ""
 
 -- Dungeons/Dungeons.lua
 L["Dungeon quests, bosses and entrances"] = "Quêtes, boss et entrées des donjons"
@@ -6094,3 +6097,5 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 -- L["Max height"] = "Hauteur max."
 -- L["%s: on this step"] = "%s : à cette étape"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Vos propres quêtes comme guide, dans un onglet à part : la flèche mène à la plus proche, puis à la suivante (/polestar free)."
+-- L["Alt-click an item for a guide"] = "Alt-clic sur un objet pour un guide"
+-- L["Alt-click an item link, bag item or loot to open a guide that gets it."] = "Alt-clic sur un lien d'objet, un objet des sacs ou du butin ouvre un guide pour l'obtenir."

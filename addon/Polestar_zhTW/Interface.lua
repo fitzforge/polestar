@@ -1846,6 +1846,7 @@ L["/pole mount: how to get it"] = "/pole mount：如何取得"
 L["No mount found on your target or mouseover."] = "你的目標或滑鼠指向的對象沒有坐騎。"
 L["Look up your target's mount"] = "查詢目標的坐騎"
 L["Search guides, items, mounts, NPCs and quests"] = "搜尋指南、物品、坐騎、NPC 與任務"
+-- L["Ctrl+Alt-click: guide me"] = ""
 
 -- Lookup/Options.lua
 L["Discovery"] = "探索"
@@ -1853,10 +1854,12 @@ L["How to get anything"] = "如何取得任何東西"
 L["Search every item, mount, pet, NPC and quest, and see where it comes from (/pole lookup)."] = "搜尋所有物品、坐騎、寵物、NPC 與任務，並查看其來源（/pole lookup）。"
 L["Sources on item tooltips"] = "物品滑鼠提示中的來源"
 L["The best one or two places to get an item, ranked for this character."] = "取得物品的最佳一兩個地點，依此角色排序。"
-L["Alt-click an item for a guide"] = "Alt-點擊物品開啟指南"
-L["Alt-click an item link, bag item or loot to open a guide that gets it."] = "Alt-點擊物品連結、背包物品或拾取物，開啟取得它的指南。"
 L["Spot other players' mounts"] = "辨識其他玩家的坐騎"
 L["Name the mount of a player you target or point at, and where it comes from (/pole mount)."] = "顯示你選取或指向之玩家的坐騎名稱與來源（/pole mount）。"
+-- L["Click an item for a guide"] = ""
+-- L["Alt-click an item link, bag item or loot to open a guide that gets it. You can require Ctrl as well below."] = ""
+-- L["Require Ctrl+Alt-click"] = ""
+-- L["Use Ctrl+Alt-click for Lookup instead of Alt-click. This replaces Ctrl+Alt-click item marking; the marking keys still work."] = ""
 
 -- Dungeons/Dungeons.lua
 L["Dungeon quests, bosses and entrances"] = "地城任務、首領與入口"
@@ -6035,3 +6038,5 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 -- L["Max height"] = "最大高度"
 -- L["%s: on this step"] = "%s：在此步驟"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "把你自己的任務當作指南，在單獨的分頁中：箭頭指向最近的任務，然後是下一個（/polestar free）。"
+-- L["Alt-click an item for a guide"] = "Alt-點擊物品開啟指南"
+-- L["Alt-click an item link, bag item or loot to open a guide that gets it."] = "Alt-點擊物品連結、背包物品或拾取物，開啟取得它的指南。"

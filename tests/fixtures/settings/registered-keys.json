@@ -122,6 +122,7 @@
 	"guideWindow.veil",
 	"guideWindow.xpLine",
 	"lookup.altClick",
+	"lookup.ctrlAltClick",
 	"lookup.enabled",
 	"lookup.mounts",
 	"lookup.tooltip",

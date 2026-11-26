@@ -1830,6 +1830,7 @@ L["/pole mount: how to get it"] = "/pole mount: как получить"
 L["No mount found on your target or mouseover."] = "У цели или под курсором нет транспорта."
 L["Look up your target's mount"] = "Узнать транспорт цели"
 L["Search guides, items, mounts, NPCs and quests"] = "Поиск гайдов, предметов, транспорта, NPC и заданий"
+-- L["Ctrl+Alt-click: guide me"] = ""
 
 -- Lookup/Options.lua
 L["Discovery"] = "Открытия"
@@ -1837,10 +1838,12 @@ L["How to get anything"] = "Как получить что угодно"
 L["Search every item, mount, pet, NPC and quest, and see where it comes from (/pole lookup)."] = "Ищите любой предмет, транспорт, питомца, NPC и задание и узнавайте, откуда они (/pole lookup)."
 L["Sources on item tooltips"] = "Источники в подсказках"
 L["The best one or two places to get an item, ranked for this character."] = "Одно-два лучших места получения предмета для этого персонажа."
-L["Alt-click an item for a guide"] = "Alt-щелчок по предмету — гайд"
-L["Alt-click an item link, bag item or loot to open a guide that gets it."] = "Alt-щелчок по ссылке, предмету в сумке или добыче открывает гайд к его получению."
 L["Spot other players' mounts"] = "Узнавать транспорт игроков"
 L["Name the mount of a player you target or point at, and where it comes from (/pole mount)."] = "Называет транспорт игрока в цели или под курсором и откуда он (/pole mount)."
+-- L["Click an item for a guide"] = ""
+-- L["Alt-click an item link, bag item or loot to open a guide that gets it. You can require Ctrl as well below."] = ""
+-- L["Require Ctrl+Alt-click"] = ""
+-- L["Use Ctrl+Alt-click for Lookup instead of Alt-click. This replaces Ctrl+Alt-click item marking; the marking keys still work."] = ""
 
 -- Dungeons/Dungeons.lua
 L["Dungeon quests, bosses and entrances"] = "Задания, боссы и входы подземелий"
@@ -6025,3 +6028,5 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 -- L["Max height"] = "Макс. высота"
 -- L["%s: on this step"] = "%s: на этом шаге"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Ваши собственные задания как гайд, на отдельной вкладке: стрелка ведет к ближайшему, затем к следующему (/polestar free)."
+-- L["Alt-click an item for a guide"] = "Alt-щелчок по предмету — гайд"
+-- L["Alt-click an item link, bag item or loot to open a guide that gets it."] = "Alt-щелчок по ссылке, предмету в сумке или добыче открывает гайд к его получению."

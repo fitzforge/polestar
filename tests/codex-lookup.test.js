@@ -20,6 +20,36 @@ const { runAddon, ADDONS } = require('./helpers/lua');
 const { localPacks } = require('./helpers/profile');
 const { assertTiming } = require('./helpers/timing');
 
+test('Lookup modifier reserves Ctrl+Alt for lookup instead of item marking', () => {
+	const [out] = runAddon({
+		stubs: ['stub_world.lua', 'stub_lookup_runtime.lua'],
+		addons: [{ name: 'Polestar', files: ['Core/Core.xml', 'Lookup/Lookup.xml', 'QoL/QoL.xml'] }],
+		login: true,
+		script: `
+local P, L, M = Polestar, Polestar.Lookup, Polestar.QoL.Marks
+local calls = 0
+L.Guide = function() calls = calls + 1; return "guide" end
+local function click(alt, ctrl, shift, button)
+	stub.keys.alt, stub.keys.ctrl, stub.keys.shift = alt, ctrl, shift
+	lookuprt.button = button or "LeftButton"
+	L.OnItemClick("item:123", 123)
+	M.OnItemClick("item:123", 123)
+	return calls, M.Get(123) or "none"
+end
+local a, am = click(true, false, false)
+local b, bm = click(true, true, false)
+P.Set("lookup.ctrlAltClick", true)
+local c, cm = click(true, false, false)
+local d, dm = click(true, true, false)
+local e = click(true, true, true)
+local f = click(true, true, false, "RightButton")
+P.Set("lookup.altClick", false)
+local g, gm = click(true, true, false)
+emit({a=a,am=am,b=b,bm=bm,c=c,cm=cm,d=d,dm=dm,e=e,f=f,g=g,gm=gm})`,
+	}).emitted;
+	assert.deepEqual(out, { a: 1, am: 'none', b: 1, bm: 'junk', c: 1, cm: 'junk', d: 2, dm: 'junk', e: 2, f: 2, g: 2, gm: 'keep' });
+});
+
 // Sorted ids, spread with gaps, in chunks of at most `per`, like the pack's.
 function chunks(ids, per) {
 	const out = [];
