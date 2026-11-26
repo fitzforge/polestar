@@ -74,23 +74,28 @@ const CAST_SECONDS = 12;
 //   Desolace (Horde).
 // - 190-225 for Cooking 175-225: Mithril Head Trout (or Rockscale Cod) water: northern Stranglethorn
 //   Vale, by the Expert Fishing book (Alliance), Shadowprey Village in Desolace (Horde).
-// - Tanaris's coast, beside Gadgetzan, from Artisan: Spotted Yellowtail to 300.
+// - 225-300 from Artisan: Spotted Yellowtail water that loses no fish from 225 (Dustwallow Marsh, where Nat
+//   Pagle's hand-in ends, and the other 225 waters), so no lure the whole band; Tanaris and the other 300
+//   waters (more Yellowtail, Glossy Mightfish) would need one for about two and a half hours.
 const BANDS = [
 	{ key: 'start', from: 1, to: 75, cookTo: 50, by: 'race', level: 1, maxLevel: 12, lure: 25, want: [6291, 6303], waters: { human: 1429, 'dwarf-gnome': 1426, nightelf: 1438, 'skyborne-a': 2521, 'orc-troll': 1411, tauren: 1412, undead: 1420, 'skyborne-h': 2521 } },
 	{ key: 'city', from: 75, to: 150, cookTo: 140, by: 'faction', level: 10, maxLevel: 22, lure: 75, want: [6289, 6308], waters: { Alliance: 1453, Horde: 1454 } },
 	{ key: 'catfish', from: 150, to: 190, cookTo: 175, by: 'faction', level: 20, maxLevel: 32, lure: 75, want: [6308], waters: { Alliance: 1440, Horde: 1443 } },
 	{ key: 'cod', from: 190, to: 225, cookTo: 225, by: 'faction', level: 20, maxLevel: 42, lure: 75, want: [6362, 8365], waters: { Alliance: 1434, Horde: 1443 } },
-	{ key: 'late', from: 225, to: 300, cookTo: 300, by: 'faction', level: 35, maxLevel: 52, lure: 100, want: [4603, 13754], waters: { Alliance: 1446, Horde: 1446 }, prefer: [1445] },
+	{ key: 'late', from: 225, to: 300, cookTo: 300, by: 'faction', level: 35, maxLevel: 52, lure: 0, want: [4603, 13754], waters: { Alliance: 1445, Horde: 1445 }, prefer: [1445] },
 ];
 
-// Lures (fishing.js): the cheapest one that closes the gap between the band's first skill and its
-// water's `full`.
+// Lures (fishing.js): the cheapest one usable at the band's first skill (Bright Baubles ask Fishing 100)
+// that closes the gap between that skill and its water's `full`, else the strongest usable one.
 const LURES = [
 	[fishing.SHINY_BAUBLE, 25],
 	[fishing.NIGHTCRAWLERS, 50],
 	[fishing.BRIGHT_BAUBLES, 75],
 	[fishing.FISH_ATTRACTOR, 100],
 ];
+// A lure lasts ten minutes; a catch takes a cast (CAST_SECONDS) and the loot and recast, about 15 s.
+const LURE_SECONDS = 600;
+const CATCH_SECONDS = CAST_SECONDS + 3;
 
 // Forever's own fish, for the tips: Whimsyfin, and its recipe (Savory Whimsyfin Delight).
 const WHIMSYFIN = 251524;
@@ -392,8 +397,11 @@ function plan(ctx) {
 				const waters = loops.length > 1 ? loops : [round];
 				const full = Math.max(0, ...waters.map((w) => w.full || 0));
 				const gap = full > band.from ? full - band.from : 0;
-				const lure = gap ? LURES.find(([, b]) => b >= gap) || LURES[LURES.length - 1] : null;
-				entries.push({ kind: 'band', band, group: g, round, loops: loops.length > 1 ? loops : null, need, kept: inv, catches, cook, shop: { recipes: shopRecipes, extras: [...extras], lure, full } });
+				const usable = LURES.filter(([id]) => fishing.lureSkill(ctx, id) <= band.from);
+				const lure = gap && usable.length ? usable.find(([, b]) => b >= gap) || usable[usable.length - 1] : null;
+				// Enough lures for every catch below the water's `full` (the skill's catches, Classic's rate).
+				const lures = lure ? Math.max(1, Math.ceil((fishing.catches(band.from, Math.min(full, band.to)) * CATCH_SECONDS) / LURE_SECONDS)) : 0;
+				entries.push({ kind: 'band', band, group: g, round, loops: loops.length > 1 ? loops : null, need, kept: inv, catches, cook, shop: { recipes: shopRecipes, extras: [...extras], lure, lures, full } });
 				for (const m of members) {
 					m.inv = Object.fromEntries(Object.entries(after).filter(([item, v]) => v >= 1 && !SEASONAL.has(Number(item))));
 					for (const r of shopRecipes) m.owned.add(r.spell);
@@ -579,8 +587,8 @@ function renderBand(ctx, e, mats) {
 		step(`Lures for ${label}`, [
 			only,
 			`when !skill Fishing ${shop.full}`,
-			`tip ${loops ? 'Some of these waters lose' : 'This water loses'} fish below Fishing ${shop.full}: a lure on the pole adds to your skill for ten minutes. ${itemName(ctx, shop.lure[0])}${fishing.note(ctx, shop.lure[0], shop.lure[1], true)} closes the gap from ${band.from}; three see you through.`,
-			`buy ${shop.lure[0]} x3 nearest`,
+			`tip ${loops ? 'Some of these waters lose' : 'This water loses'} fish below Fishing ${shop.full}: a lure on the pole adds to your skill for ten minutes. ${itemName(ctx, shop.lure[0])}${fishing.note(ctx, shop.lure[0], shop.lure[1], true)}${shop.lure[1] >= shop.full - band.from ? ` closes the gap from ${band.from}` : ` is the strongest you can use at ${band.from}`}: about ${shop.lures} see you to ${Math.min(shop.full, band.to)} (${Math.round((fishing.catches(band.from, Math.min(shop.full, band.to)) * CATCH_SECONDS) / 60)} minutes of fishing).`,
+			`buy ${shop.lure[0]} x${shop.lures} nearest`,
 		]);
 	}
 
