@@ -1008,7 +1008,7 @@
 			{ "node": "tests/guides-reported.test.js", "test": "forever/miscellaneous/cozy-sleeping-bag.guide: shatteredeagle's report (#1496): the Alliance way in only applies before Stonetalon" }
 		] },
 		"1498": { "tests": [
-			{ "node": "tests/profession-trainers.test.js", "test": "Hotline's report (#1498) and #1708's learns: Linen Belt is not Josephine Lister's, Minor Mana Potion not Doctor Herbert Halsey's" },
+			{ "node": "tests/profession-trainers.test.js", "test": "Hotline's report (#1498) and #1708's learns: Linen Belt is not Josephine Lister's, Elixir of Minor Fortitude not Doctor Herbert Halsey's" },
 			{ "cargo": "forge-data", "target": "lib", "file": "rust/crates/forge-data/src/professions/trainers.rs", "test": "specialists_are_no_apprentice_trainers_1498" }
 		] },
 		"1507": { "tests": [
@@ -1238,7 +1238,7 @@
 		] },
 		"1708": { "tests": [
 			{ "node": "tests/profession-trainers.test.js", "test": "Oli's report (#1708): no train step points at a trainer who doesn't train at the rank's skill yet" },
-			{ "node": "tests/profession-trainers.test.js", "test": "Hotline's report (#1498) and #1708's learns: Linen Belt is not Josephine Lister's, Minor Mana Potion not Doctor Herbert Halsey's" },
+			{ "node": "tests/profession-trainers.test.js", "test": "Hotline's report (#1498) and #1708's learns: Linen Belt is not Josephine Lister's, Elixir of Minor Fortitude not Doctor Herbert Halsey's" },
 			{ "cargo": "forge-guide", "target": "guide", "file": "rust/crates/forge-guide/tests/guide/dsl_smart.rs", "test": "train_and_learn_point_only_at_trainers_who_train_at_that_skill_1708" }
 		] },
 		"1724": { "tests": [
