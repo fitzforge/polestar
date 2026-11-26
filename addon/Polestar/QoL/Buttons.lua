@@ -3626,7 +3626,7 @@ local farTicker, farWatched
 local function refresh()
 	if not itemButton then return end
 	-- One view of the current step for all three buttons.
-	local view, raw = QoL.CurrentStep()
+	local view, raw = QoL.CurrentStep(true)
 	farWatch = nil
 	local guideShown = ns.GuideShown()
 	-- The step's item first; with none, a quest starter from the bags, glowing.
@@ -3879,7 +3879,7 @@ ns.RegisterEvent("BAG_UPDATE_DELAYED", function()
 	repaintItems()
 	refreshSoon()
 end)
-ns.RegisterEvent("QUEST_LOG_UPDATE", refreshOnLog)
+ns.On("QUEST_LOG_REFRESH", refreshOnLog)
 ns.RegisterEvent("BAG_UPDATE_COOLDOWN", repaintItems)
 -- Who may mark (Buttons.MarkRight) follows the group.
 ns.RegisterEvent("GROUP_ROSTER_UPDATE", refreshSoon)

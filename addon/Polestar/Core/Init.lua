@@ -858,6 +858,22 @@ function ns.RegisterEvent(event, fn, unit)
 	return true
 end
 
+-- The client can send dozens of quest-log updates in one frame. Readers
+-- refreshing a display or scheduling later work need its final contents once.
+-- Cache invalidation and handlers reacting to individual events stay immediate.
+do
+	local pending = false
+	local function refresh()
+		pending = false
+		ns.Fire("QUEST_LOG_REFRESH")
+	end
+	ns.RegisterEvent("QUEST_LOG_UPDATE", function()
+		if pending then return end
+		pending = true
+		ns.After(0, refresh)
+	end)
+end
+
 function ns.UnregisterEvent(event, fn, unit)
 	local bus = buses[unit or ""]
 	local list = bus and bus.handlers[event]

@@ -251,7 +251,7 @@ function Own.chainPast(q)
 	Own.pastGen[q], Own.pastVal[q] = stamp, found
 	return found or nil
 end
-for _, event in ipairs({ "QUEST_LOG_UPDATE", "QUEST_ACCEPTED", "QUEST_TURNED_IN", "QUEST_REMOVED" }) do
+for _, event in ipairs({ "QUEST_ACCEPTED", "QUEST_TURNED_IN", "QUEST_REMOVED" }) do
 	ns.RegisterEvent(event, function() Own.logStamp = Own.logStamp + 1 end)
 end
 
@@ -6689,7 +6689,7 @@ function Own.travelPurpose(s, g)
 	return nil
 end
 
-local function goalView(s, g, goal, stepStatus, group)
+local function goalView(s, g, goal, stepStatus, group, skipPurpose)
 	local status, cur, max, label, pkind
 	if stepStatus == "na" then
 		status = "na"
@@ -6778,7 +6778,7 @@ local function goalView(s, g, goal, stepStatus, group)
 		hearthText = (status == "active" or status == "pending") and Own.hearthText(goal) or nil,
 		-- A travel step's flight or walk on the live or viewed step: the work
 		-- it leads to (Own.travelPurpose, #1588).
-		purposeText = stepStatus == "current" and (goal.t == "fly" or goal.t == "goto") and (status == "active" or status == "pending")
+		purposeText = not skipPurpose and stepStatus == "current" and (goal.t == "fly" or goal.t == "goto") and (status == "active" or status == "pending")
 			and Own.travelPurpose(s, g) or nil,
 		-- A level goal still to reach: the XP it takes (Own.xpLeft).
 		xpLeft = goal.t == "level" and (status == "active" or status == "pending") and Own.xpLeft(goal) or nil,
@@ -13487,24 +13487,33 @@ end
 -- weakly: one no reader keeps goes with the next collection, never kept
 -- for memory's sake past its moment.
 Own.shared = { views = {}, weak = { __mode = "v" } }
-function Engine.GetStepView(i, shared)
+-- skipPurpose: buttons, bag glow and markers read goal state, never the travel
+-- subline. A shared full view serves either reader; a shorter one serves only them.
+function Engine.GetStepView(i, shared, skipPurpose)
+	if type(i) ~= "number" then return nil end
 	if shared and not Own.doneMemo then
 		local c, now, moment = Own.shared, GetTime(), ns.Moment()
 		if c.at ~= now or c.moment ~= moment or c.gen ~= generation or c.guide ~= guide then
 			c.at, c.moment, c.gen, c.guide, c.views = now, moment, generation, guide, setmetatable({}, c.weak)
+			c.short = nil
 		end
-		local v = c.views[i]
+		local views = c.views
+		if skipPurpose and views[i] == nil then
+			c.short = c.short or setmetatable({}, c.weak)
+			views = c.short
+		end
+		local v = views[i]
 		if v == nil then
-			v = Engine.GetStepView(i) or false
-			c.views[i] = v
+			v = Engine.GetStepView(i, false, skipPurpose) or false
+			views[i] = v
 		end
 		return v or nil
 	end
-	if Own.doneMemo then return Own.stepView(i) end
+	if Own.doneMemo then return Own.stepView(i, skipPurpose) end
 	Own.doneMemo = {}
 	local seen = Own.comingSeen
 	if seen == nil then Own.comingSeen = Own.momentComing() end
-	local ok, view = pcall(Own.stepView, i)
+	local ok, view = pcall(Own.stepView, i, skipPurpose)
 	Own.doneMemo, Own.comingSeen = nil, seen
 	if not ok then error(view, 0) end
 	return view
@@ -13529,8 +13538,8 @@ function Own.momentComing()
 	return m.seen
 end
 
-function Own.stepView(i)
-	if not guide or type(i) ~= "number" then return nil end
+function Own.stepView(i, skipPurpose)
+	if not guide then return nil end
 	local step = guide.steps[i]
 	if not step then return nil end
 	if not player then refreshPlayer() end
@@ -13539,7 +13548,7 @@ function Own.stepView(i)
 	local goals = {}
 	local shared
 	for g, goal in ipairs(step.goals) do
-		goals[g] = goalView(i, g, goal, status, groupOf[g])
+		goals[g] = goalView(i, g, goal, status, groupOf[g], skipPurpose)
 		goals[g].pinOpen = Own.pinOpen(i, goal) or nil
 		local v = goals[g]
 		if v.progress and v.progress.kind == "shared" and v.status ~= "skipped" then
@@ -16287,7 +16296,7 @@ end
 -- zone (which also ends the zone stay: dismissed lines may come back), the
 -- settings.
 function Own.hereChanged() Own.hereDirty = true end
-for _, event in ipairs({ "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_TURNED_IN", "QUEST_LOG_UPDATE", "UNIT_QUEST_LOG_CHANGED", "PLAYER_LEVEL_UP", "BAG_UPDATE_DELAYED" }) do
+for _, event in ipairs({ "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_TURNED_IN", "UNIT_QUEST_LOG_CHANGED", "PLAYER_LEVEL_UP", "BAG_UPDATE_DELAYED" }) do
 	ns.RegisterEvent(event, Own.hereChanged)
 end
 -- PLAYER_(UN)SKIPPED_QUEST comes after the skip's evaluation: one more.
@@ -18317,7 +18326,7 @@ end
 -- Every name below is declared in Forever's API documentation; RegisterEvent
 -- skips any a client build does not know.
 for _, event in ipairs({
-	"QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_LOG_UPDATE", "QUEST_WATCH_UPDATE",
+	"QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_WATCH_UPDATE",
 	"BAG_UPDATE_DELAYED", "PLAYER_ENTERING_WORLD", "PLAYER_MONEY",
 	-- level (a point inside a level: `level 12.5`)
 	"PLAYER_XP_UPDATE",
@@ -18430,10 +18439,6 @@ ns.RegisterEvent("HEARTHSTONE_BOUND", function()
 	end
 	requestUpdate()
 end)
-
--- The client fills the quest log after PLAYER_LOGIN; placing a tab waits for
--- the first QUEST_LOG_UPDATE (onUpdateEvent evaluates after it).
-ns.RegisterEvent("QUEST_LOG_UPDATE", function() logReady = true end)
 
 -- A quest leaving the log (abandoned, failed, or handed in) may be held
 -- (Own.holdLost); taking it again ends that.
@@ -19245,8 +19250,12 @@ function Engine.ReplaceSteps(id, steps)
 end
 
 ns.RegisterEvent("QUEST_LOG_UPDATE", function()
+	-- The first readable log releases placement. Subsequent updates refresh
+	-- the tabs and While-you're-here candidates together.
+	Own.logStamp = Own.logStamp + 1
+	logReady, Own.hereDirty = true, true
+	requestUpdate()
 	if not ns.IsLoggedIn() then return end
-	logReady = true
 	if next(Own.reworkedTabs) ~= nil then Own.followReworked() end
 	if not Own.feedSwept then
 		Own.feedSwept = true

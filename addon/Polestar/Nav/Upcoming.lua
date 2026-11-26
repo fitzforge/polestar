@@ -221,7 +221,8 @@ local function onQuestLog()
 		Upcoming.Refresh()
 	end)
 end
-for _, ev in ipairs({ "QUEST_TURNED_IN", "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_LOG_UPDATE" }) do ns.RegisterEvent(ev, onQuestLog) end
+ns.On("QUEST_LOG_REFRESH", onQuestLog)
+for _, ev in ipairs({ "QUEST_TURNED_IN", "QUEST_ACCEPTED", "QUEST_REMOVED" }) do ns.RegisterEvent(ev, onQuestLog) end
 ns.On("SETTING_CHANGED", function(path)
 	if Upcoming.KEYS[path] or path == "nav" or path == "ui" or path == "" then soon() end
 	if path == "pause.map" or path == "pause" then soon() end

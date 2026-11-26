@@ -774,7 +774,8 @@ local function queueCarried()
 	carriedQueued = true
 	ns.After(1, Plan.CheckCarried)
 end
-for _, event in ipairs({ "QUEST_LOG_UPDATE", "QUEST_TURNED_IN", "QUEST_REMOVED" }) do
+ns.On("QUEST_LOG_REFRESH", queueCarried)
+for _, event in ipairs({ "QUEST_TURNED_IN", "QUEST_REMOVED" }) do
 	ns.RegisterEvent(event, queueCarried)
 end
 for _, event in ipairs({ "GUIDES_REGISTERED", "PACKS_CHANGED", "ROUTE_CHOSEN", "CODEX_LOADED", "DUNGEON_ANSWERED" }) do

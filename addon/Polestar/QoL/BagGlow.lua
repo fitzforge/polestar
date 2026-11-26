@@ -251,7 +251,7 @@ end
 -- The step's items and the kept ones again; a repaint only when they changed.
 local function refresh()
 	if not glowing() then return end -- reset already clears both sets when hidden or switched off
-	local view, raw = QoL.CurrentStep()
+	local view, raw = QoL.CurrentStep(true)
 	local now = BagGlow.Items(view, raw)
 	local keep = {}
 	local E = ns.Engine
@@ -266,7 +266,7 @@ BagGlow.Refresh = refresh
 
 QoL.OnStep(refreshSoon)
 QoL.WhileOn("bagGlow", "BAG_UPDATE_DELAYED", refreshSoon)
-QoL.WhileOn("bagGlow", "QUEST_LOG_UPDATE", refreshOnLog)
+ns.On("QUEST_LOG_REFRESH", function() if QoL.On("bagGlow") then refreshOnLog() end end)
 local function reset()
 	items, kept = {}, {}
 	if glowing() then refreshSoon() end

@@ -272,7 +272,7 @@ end
 local stepSet = {}
 local function stepQuests()
 	local E = ns.Engine
-	local view = E and E.GetStepView and E.GetStepView(E.GetStepIndex())
+	local view = E and E.GetStepView and E.GetStepView(E.GetStepIndex(), true, true)
 	if not view then return nil end
 	wipe(stepSet)
 	for _, g in ipairs(view.goals or NONE) do
@@ -987,7 +987,7 @@ ns.OnLogin(function()
 	apply()
 end)
 ns.RegisterEvent("QUEST_TURNED_IN", function(_, qid) pruneHidden(qid) end)
-ns.RegisterEvent("QUEST_LOG_UPDATE", queue)
+ns.On("QUEST_LOG_REFRESH", queue)
 -- The Codex loaded (by the guide's engine, Lookup or /polestar spawns): the marks build.
 ns.On("CODEX_LOADED", function() if on() then rebuild(true) end end)
 -- Polestar hidden or shown again: the minimap's markers and Pins' view watch go or come back (the world map's go

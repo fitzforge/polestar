@@ -221,12 +221,12 @@ end)
 -- the view omits, such as `oi`, `target`, `location`).
 ---------------------------------------------------------------------------
 
-function QoL.CurrentStep()
+function QoL.CurrentStep(skipPurpose)
 	local E = ns.Engine
 	if not (E and E.GetStepIndex and E.GetStepView) then return nil end
 	local i = E.GetStepIndex()
 	if not i then return nil end
-	local view = E.GetStepView(i, true)
+	local view = E.GetStepView(i, true, skipPurpose)
 	if not view then return nil end
 	local guide = E.GetGuide and E.GetGuide()
 	local step = guide and guide.steps and guide.steps[i]
@@ -308,11 +308,12 @@ end
 -- view shows (a game event, a message, an Engine request, another timer of
 -- Polestar's) starts a new moment, and the next refresh builds a fresh one.
 -- A kill's burst asked for two views, one per refresh (#2555).
--- -> soon(), and onLog() for QUEST_LOG_UPDATE: the client sends it for much
--- that leaves the log as it was (several per kill, some per loot, fifty in a
--- burst), and a refresh that reads the step's view costs about half a
--- millisecond. A refresh that onLog asks for reads the step's part of the log
--- as it runs (readStepLog: one read per moment, whatever the number of
+-- -> soon(), and onLog() for QUEST_LOG_REFRESH. Many client log updates
+-- leave the step unchanged (several per kill, some per loot, fifty in a
+-- burst). Reading the step view costs about half a millisecond. onLog runs
+-- when the burst settles unless a refresh is already scheduled for another
+-- reason. It checks the step's part of the log (readStepLog: one read per
+-- moment, whatever the number of
 -- refreshes, and the step's view reads the same lines then), and a run asked
 -- for only by onLog skips fn when that part is as at its last run. The step
 -- itself changing comes through QoL.OnStep and soon() as before, the bags
@@ -342,7 +343,7 @@ function QoL.Coalesce(fn)
 		schedule()
 	end, function()
 		logged = true
-		schedule()
+		if not scheduled then run() end
 	end
 end
 

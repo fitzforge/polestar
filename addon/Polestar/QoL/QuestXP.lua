@@ -251,7 +251,7 @@ local function relist()
 	rescan()
 end
 local key = "questXPOverlay"
-QoL.WhileOn(key, "QUEST_LOG_UPDATE", rescan)
+ns.On("QUEST_LOG_REFRESH", function() if QoL.On(key) then rescan() end end)
 for _, event in ipairs({ "QUEST_DATA_LOAD_RESULT", "PLAYER_LEVEL_UP", "PLAYER_ENTERING_WORLD" }) do
 	QoL.WhileOn(key, event, function()
 		for id in pairs(rewards) do rewards[id] = nil end

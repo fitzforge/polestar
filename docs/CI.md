@@ -360,7 +360,7 @@ together.
 | Gate | What fails it |
 |---|---|
 | Node suite on the release data | any failing test among those that read the data: the guide suites, danger, levels, guide ends, while-here (`tools/ci-data-tests.js`; `ci.yml`'s push run has the rest), all but `perf.test.js` |
-| Perf budgets | `tests/perf.test.js` alone, its timing budgets enforced ([Timing budgets](#timing-budgets)): a figure over its scaled budget, but one `POLESTAR_PERF_WARN` names while its issue is open (now `burst`, #4066) |
+| Perf budgets | `tests/perf.test.js` alone, its timing budgets enforced ([Timing budgets](#timing-budgets)): any figure over its scaled budget |
 | Guide lint | a lint error, leveling or experimental guides |
 | Addon tests | any of forge-addontest's tests, all of them (the cached test binaries) |
 | Playtest | a guide stuck or failing, leveling or experimental |

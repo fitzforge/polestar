@@ -162,9 +162,10 @@ ns.On("SETTING_CHANGED", function(path)
 	if path == "routePlan.questie" or path == "routePlan" or path == "" then Integration.Refresh() end
 end)
 local function onEvent(event, name)
-	if event == "QUEST_LOG_UPDATE" or (event == "ADDON_LOADED" and name == "Questie") or (event == "PLAYER_REGEN_ENABLED" and pending) then Integration.Refresh() end
+	if (event == "ADDON_LOADED" and name == "Questie") or (event == "PLAYER_REGEN_ENABLED" and pending) then Integration.Refresh() end
 end
-for _, event in ipairs({ "ADDON_LOADED", "QUEST_LOG_UPDATE", "PLAYER_REGEN_ENABLED" }) do
+ns.On("QUEST_LOG_REFRESH", Integration.Refresh)
+for _, event in ipairs({ "ADDON_LOADED", "PLAYER_REGEN_ENABLED" }) do
 	ns.RegisterEvent(event, onEvent)
 end
 ns.OnLogin(Integration.Refresh)

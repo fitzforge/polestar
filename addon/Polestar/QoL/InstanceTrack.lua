@@ -160,7 +160,7 @@ QoL.WhileOn("instanceTrack", "ZONE_CHANGED_NEW_AREA", updateSoon)
 -- A retry: the pack refused in combat, or the log not loaded at login.
 local function again() if retry then updateSoon() end end
 ns.RegisterEvent("PLAYER_REGEN_ENABLED", again)
-ns.RegisterEvent("QUEST_LOG_UPDATE", again)
+ns.On("QUEST_LOG_REFRESH", again)
 ns.On("SETTING_CHANGED", function(path)
 	if path == "qol.instanceTrack" or path == "qol" or path == "" or path == "dungeons.enabled" then updateSoon() end
 end)

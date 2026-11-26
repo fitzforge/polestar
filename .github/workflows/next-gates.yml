@@ -83,7 +83,6 @@ jobs:
         continue-on-error: true
         env:
           POLESTAR_TIMING_BUDGETS: enforce
-          POLESTAR_PERF_WARN: burst # #4066
         run: node --test --test-timeout=900000 tests/perf.test.js 2>&1 | tee "$RUNNER_TEMP/gates/perf.log"
 
       - name: Guide texts
