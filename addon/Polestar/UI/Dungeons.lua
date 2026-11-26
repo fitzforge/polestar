@@ -50,7 +50,10 @@
 --   Bosses: kill order, name, known drops and the quests each one serves; a chest
 --   boss says Chest, the bosses after the encounters say Rare, Event or
 --   Optional.
---   Map: the entrance on its zone's painting, with the quest givers there.
+--   Map: the dungeon's own loading screen under the entrance line; a button on
+--   the picture's corner swaps it for the entrance on its zone's painting with
+--   the quest givers there, and back (for the session). A dungeon with no
+--   screen of its own keeps the map and has no button.
 -- Rows, blocks, tiles and cards are pooled and reused across pages.
 --
 -- Registered with UI.RegisterSection; opened by SHOW_DUNGEON(key).
@@ -75,6 +78,7 @@ local TILE_W, TILE_H, TILE_GAP = 200, 32, 8
 local CHAIN_H = 26
 local TIE_H = 24
 local MAP_H = 360
+local showMap = false -- the Map tab shows the map, not the loading screen (the toggle; this session only)
 local DOT = "  \194\183  "
 
 local DS = {}
@@ -1029,6 +1033,9 @@ function DS.Build(parent, shell)
 	pg.MapArt:SetPoint("TOPLEFT", pg.Body, "TOPLEFT", PAD, -24)
 	pg.MapArt.Entrance = entranceMarker(pg.MapArt)
 	pg.MapArt.Entrance:SetFrameLevel(pg.MapArt.Over:GetFrameLevel() + 3)
+	-- The picture's corner: the loading screen and the map swap (renderMap).
+	pg.MapToggle = W.IconButton(pg.MapArt.Over, "icon-explore", 28, L["Show the map: entrance and quest giver"], function() DS.ToggleMap() end, 16)
+	pg.MapToggle:SetPoint("TOPRIGHT", pg.MapArt, "TOPRIGHT", -8, -8)
 	pg.MapNote = W.Text(pg.Body, "note", "textDim")
 	pg.MapNote:SetWordWrap(true)
 	pg.MapNote:SetJustifyV("TOP")
@@ -2019,13 +2026,39 @@ local function renderBosses(key, f, plevel)
 	return y + 16
 end
 
+-- What the map would paint for a dungeon: "entrance" (its door on a zone the
+-- client paints), "zone" (that zone, no door known) or nil (no painting).
+local function mapKind(d)
+	local e = d.entrance
+	if not ZoneArt.Has((e and e.map) or d.zone) then return nil end
+	return (e and e.map) and "entrance" or "zone"
+end
+
+-- The Map tab: the dungeon's loading screen, or the map (the entrance and the
+-- quest givers on its zone) where it has no screen of its own or the toggle on
+-- the picture's corner asks for it. The toggle shows only where both exist.
 local function renderMap(key, d, f)
 	local art = pg.MapArt
 	local e = d.entrance
 	local side = SIDE[f]
-	local painted = paintDungeon(art, d, 1)
+	local screen = D().Screen and D().Screen(key)
+	local kind = mapKind(d)
+	local both = screen ~= nil and kind ~= nil
+	local painted
+	if screen and not (both and showMap) then
+		painted = ZoneArt.Screen(art, screen.file, screen.kind) and "screen" or nil
+	end
+	painted = painted or paintDungeon(art, d, 1)
 	art:Show()
 	pg.MapNote:Show()
+	if both then
+		local onMap = painted ~= "screen"
+		W.SetIcon(pg.MapToggle, onMap and "window" or "icon-explore")
+		pg.MapToggle.psTip = onMap and L["Show the loading screen"] or L["Show the map: entrance and quest giver"]
+		pg.MapToggle:Show()
+	else
+		pg.MapToggle:Hide()
+	end
 	local n = 0
 	if painted == "entrance" then
 		placeOn(art.Entrance, art, e.x, e.y)
@@ -2063,7 +2096,7 @@ local function renderMap(key, d, f)
 	if e then
 		local z = mapName(e.map) or d.zoneName or ""
 		text = format(L["The entrance, on %s (%.1f, %.1f)."], z, e.x or 0, e.y or 0)
-	elseif painted == "zone" then
+	elseif kind == "zone" then
 		text = format(L["The entrance of this dungeon is not known yet; it lies in %s."], d.zoneName or mapName(d.zone) or "")
 	else
 		text = L["The entrance of this dungeon is not known yet."]
@@ -2072,7 +2105,7 @@ local function renderMap(key, d, f)
 	local warn = e and enemyWarning(d, f)
 	if warn then text = warn .. "\n" .. text end
 	pg.MapNote:SetText(text)
-	shown.map, shown.givers = painted or "none", n
+	shown.map, shown.givers, shown.toggle = painted or "none", n, both
 	return 24 + MAP_H + 14 + pg.MapNote:GetStringHeight() + 24
 end
 
@@ -2486,6 +2519,13 @@ function DS.SetTab(key)
 			return
 		end
 	end
+end
+
+-- The Map tab's corner button: the loading screen, or the map in its place,
+-- for every dungeon until the next /reload.
+function DS.ToggleMap()
+	showMap = not showMap
+	refresh()
 end
 
 function DS.SetFaction(f)

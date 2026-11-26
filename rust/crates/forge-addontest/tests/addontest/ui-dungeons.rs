@@ -1044,30 +1044,149 @@ fn boss_drops_expand_one_boss_at_a_time_and_reuse_item_tiles() {
 	assert_eq!(out["hidden"], true);
 }
 
-#[test]
-fn map_the_entrance_on_its_zone_with_the_quest_givers_there() {
-	let out = run(r#"
-		-- The Barrens' painting: one art layer of 4x3 tiles.
+// The Barrens' and Westfall's paintings: one art layer of 4x3 tiles each.
+const PAINTED: &str = r#"
 		C_Map = C_Map or {}
-		C_Map.GetMapArtLayers = function(id) if id == 1413 then return { { layerWidth = 1002, layerHeight = 668, tileWidth = 256, tileHeight = 256 } } end return {} end
-		C_Map.GetMapArtLayerTextures = function(id) if id == 1413 then local t = {} for i = 1, 12 do t[i] = 100 + i end return t end return {} end
+		local painted = { [1413] = true, [1436] = true }
+		C_Map.GetMapArtLayers = function(id) if painted[id] then return { { layerWidth = 1002, layerHeight = 668, tileWidth = 256, tileHeight = 256 } } end return {} end
+		C_Map.GetMapArtLayerTextures = function(id) if painted[id] then local t = {} for i = 1, 12 do t[i] = 100 + i end return t end return {} end
+		local function anyGiver() for _, g in ipairs(DS.givers) do if g:IsShown() then return true end end return false end
+		local function pic(art) return { file = art.psPic and art.psPic.texture, shown = art.psPic ~= nil and art.psPic:IsShown(), tc = art.psPic and art.psPic.texCoord } end
+"#;
+
+// Fitz, 2026-11-26: the Dungeons page shows the dungeon's loading screen, not the map. The Map tab opens on it (Wailing
+// Caverns' own file, 131882, from the client's tables: Dungeons/ArtFiles.lua), cropped to the frame's shape with its
+// aspect kept, under the entrance line alone (the quest givers are marked on the map only), and a button on the
+// picture's corner offers the map.
+#[test]
+fn the_map_tab_opens_on_the_loading_screen_with_the_entrance_line_and_a_corner_button_for_the_map() {
+	let out = run(&format!(
+		r#"{PAINTED}
 		Polestar.Dungeons.Open("wailing-caverns")
 		DS.SetTab("map")
 		local _, _, pg = DS.Frames()
-		emit({ shown = DS.Shown(), note = pg.MapNote:GetText(), art = pg.MapArt:IsShown(), blocks = (function() for _, b in ipairs(DS.blocks) do if b:IsShown() then return true end end return false end)() })"#);
+		local art = pg.MapArt
+		emit({{ shown = DS.Shown(), note = pg.MapNote:GetText(), art = art:IsShown(), pic = pic(art), size = {{ art.psW, art.psH }}, fade = art.Fade:IsShown(), band = art.Band:IsShown(),
+			entrance = art.Entrance:IsShown(), givers = anyGiver(), toggle = {{ pg.MapToggle:IsShown(), pg.MapToggle.psTip, pg.MapToggle.psIconName }},
+			blocks = (function() for _, b in ipairs(DS.blocks) do if b:IsShown() then return true end end return false end)() }})"#
+	));
 	let out = &out[0];
-	assert_eq!(out["shown"]["map"], "entrance");
-	assert_eq!(out["shown"]["givers"], 2, "Nalpak (two quests) and Crane Operator Bigglefuzz; the shard starts inside");
-	assert!(is_match(out["note"].as_str().unwrap(), r"^The entrance, on The Barrens \(46\.0, 36\.4\)\."), "{}", out["note"]);
-	assert_eq!(out["art"], true);
+	assert_eq!((&out["shown"]["map"], &out["shown"]["toggle"], &out["shown"]["givers"]), (&json!("screen"), &json!(true), &json!(0)));
+	assert_eq!(out["note"], "The entrance, on The Barrens (46.0, 36.4).", "the entrance line only: no quest giver is marked on a picture");
+	assert_eq!((&out["art"], &out["entrance"], &out["givers"], &out["fade"], &out["band"]), (&json!(true), &json!(false), &json!(false), &json!(false), &json!(false)));
+	assert_eq!((&out["pic"]["file"], &out["pic"]["shown"]), (&json!(131882), &json!(true)), "Wailing Caverns' loading screen, by its file id");
+	// Classic's file is a 4:3 picture in a square texture, its painting in rows 0.23-0.80: cropped to the frame's shape, never stretched.
+	let tc: Vec<f64> = out["pic"]["tc"].as_array().unwrap().iter().map(|v| v.as_f64().unwrap()).collect();
+	let (w, h) = (out["size"][0].as_f64().unwrap(), out["size"][1].as_f64().unwrap());
+	assert!(((tc[1] - tc[0]) * 4.0 / 3.0 / (tc[3] - tc[2]) - w / h).abs() < 0.01, "the frame's shape: {tc:?}");
+	assert!(tc[0] >= 0.0 && tc[1] <= 1.0 && tc[2] >= 0.23 - 1e-9 && tc[3] <= 0.8 + 1e-9, "inside the painting: {tc:?}");
+	assert_eq!(out["toggle"], json!([true, "Show the map: entrance and quest giver", "icon-explore"]));
 	assert_eq!(out["blocks"], false, "the other tabs\u{2019} rows are hidden");
+}
+
+#[test]
+fn the_corner_button_swaps_to_the_map_with_the_entrance_and_the_quest_givers_and_back_for_every_dungeon_the_session_through() {
+	let out = run(&format!(
+		r#"{PAINTED}
+		local pg, art
+		local function state() return {{ map = DS.Shown().map, givers = DS.Shown().givers, pic = pic(art).shown, fade = art.Fade:IsShown(), entrance = art.Entrance:IsShown(), anyGiver = anyGiver(),
+			tip = pg.MapToggle.psTip, icon = pg.MapToggle.psIconName, toggle = pg.MapToggle:IsShown(), note = pg.MapNote:GetText() }} end
+		local out = {{}}
+		Polestar.Dungeons.Open("wailing-caverns")
+		local _, _, page = DS.Frames()
+		pg, art = page, page.MapArt
+		DS.SetTab("map")
+		out.screen = state()
+		pg.MapToggle:Click()
+		out.map = state()
+		out.tab = DS.Tab()
+		Polestar.Dungeons.Open("deadmines")
+		DS.SetTab("map")
+		out.deadmines = state()
+		DS.SetTab("bosses"); DS.SetTab("map")
+		out.again = DS.Shown().map
+		pg.MapToggle:Click()
+		out.back = state()
+		Polestar.Dungeons.Open("wailing-caverns")
+		DS.SetTab("map")
+		out.wc = DS.Shown().map
+		emit(out)"#
+	));
+	let out = &out[0];
+	assert_eq!(out["screen"]["map"], "screen");
+	let map = &out["map"];
+	assert_eq!((&map["map"], &map["givers"], &map["pic"], &map["fade"], &map["entrance"], &map["anyGiver"]), (&json!("entrance"), &json!(2), &json!(false), &json!(true), &json!(true), &json!(true)));
+	assert_eq!(out["tab"], "map", "the button keeps the tab");
+	assert_eq!((&map["tip"], &map["icon"]), (&json!("Show the loading screen"), &json!("window")));
+	assert!(is_match(map["note"].as_str().unwrap(), r"^The entrance, on The Barrens \(46\.0, 36\.4\)\. The 2 quest givers nearby are marked"), "{}", map["note"]);
+	assert_eq!((&out["deadmines"]["map"], &out["deadmines"]["toggle"], &out["deadmines"]["pic"]), (&json!("entrance"), &json!(true), &json!(false)), "the next dungeon opens on the map");
+	assert_eq!(out["again"], "entrance");
+	let back = &out["back"];
+	assert_eq!((&back["map"], &back["pic"], &back["fade"], &back["entrance"], &back["anyGiver"]), (&json!("screen"), &json!(true), &json!(false), &json!(false), &json!(false)));
+	assert_eq!((&back["tip"], &back["icon"]), (&json!("Show the map: entrance and quest giver"), &json!("icon-explore")));
+	assert_eq!(out["wc"], "screen");
+}
+
+// The toggle shows only where a screen and a map both exist; a dungeon with no screen of its own (the client's
+// table lists none for its map: an instance on a continent's own screen) keeps today's map.
+#[test]
+fn a_dungeon_with_no_screen_of_its_own_keeps_the_map_and_has_no_corner_button() {
+	let out = run(&format!(
+		r#"{PAINTED}
+		-- The client's table gives Wailing Caverns' map no screen of its own (nor a crop for a card).
+		Polestar.Dungeons.ArtFiles.narrow[43] = nil
+		Polestar.Dungeons.Art = function() return nil end
+		Polestar.Dungeons.Open("wailing-caverns")
+		DS.SetTab("map")
+		local _, _, pg = DS.Frames()
+		local art = pg.MapArt
+		local out = {{ screen = Polestar.Dungeons.Screen("wailing-caverns") or false, map = DS.Shown().map, givers = DS.Shown().givers, shownToggle = DS.Shown().toggle, pic = pic(art).shown, fade = art.Fade:IsShown(), entrance = art.Entrance:IsShown(),
+			toggle = pg.MapToggle:IsShown(), note = pg.MapNote:GetText() }}
+		painted[1413] = nil
+		DS.SetTab("quests"); DS.SetTab("map")
+		out.bare = {{ map = DS.Shown().map, toggle = pg.MapToggle:IsShown(), band = art.Band:IsShown() }}
+		emit(out)"#
+	));
+	let out = &out[0];
+	assert_eq!(out["screen"], false);
+	assert_eq!((&out["map"], &out["shownToggle"], &out["givers"]), (&json!("entrance"), &json!(false), &json!(2)));
+	assert_eq!((&out["pic"], &out["fade"], &out["entrance"], &out["toggle"]), (&json!(false), &json!(true), &json!(true), &json!(false)));
+	assert!(is_match(out["note"].as_str().unwrap(), r"^The entrance, on The Barrens \(46\.0, 36\.4\)\. The 2 quest givers nearby are marked"), "{}", out["note"]);
+	assert_eq!(out["bare"], json!({ "map": "none", "toggle": false, "band": true }));
+}
+
+#[test]
+fn the_dungeon_screens_come_from_the_client_files_narrow_for_classic_wide_for_forever_none_for_a_continents_own() {
+	let f = fixture("dungeons.json");
+	let mut codex = f["codex"].clone();
+	let mut inputs = f["inputs"].clone();
+	codex["instances"]["blackmaw-hold"]["map"] = json!(2974);
+	codex["instances"]["wailing-caverns"]["map"] = json!(2720);
+	inputs["client"]["instanceMaps"]
+		.as_array_mut()
+		.unwrap()
+		.push(json!({ "id": 2974, "name": "Blackmaw Hold", "raid": false, "players": null, "area": null, "areas": [], "inner": [], "zones": [], "corpse": null }));
+	let out = run_pack(
+		r#"
+		local D = Polestar.Dungeons
+		emit({ deadmines = D.Screen("deadmines"), blackmaw = D.Screen("blackmaw-hold"), searing = D.Screen("wailing-caverns") or false, nokey = D.Screen("nothing") or false,
+			art = D.Art("deadmines"), files = { narrow = D.ArtFiles.narrow[43], wide = D.ArtFiles.wide[2974], none = D.ArtFiles.narrow[2720] or D.ArtFiles.wide[2720] or false } })"#,
+		Some(pack_of(&codex, &inputs)),
+	);
+	let out = &out[0];
+	assert_eq!(out["deadmines"], json!({ "file": 131833, "kind": "narrow" }), "Classic: a 4:3 picture in a square file");
+	assert_eq!(out["blackmaw"], json!({ "file": 7963784, "kind": "wide" }), "Forever's own: 16:9");
+	assert_eq!((&out["searing"], &out["nokey"]), (&json!(false), &json!(false)), "map 2720 wears Eastern Kingdoms' screen: none of its own");
+	assert_eq!(out["art"]["file"], 131833, "the card's crop reads the same file");
+	assert_eq!(out["files"], json!({ "narrow": 131882, "wide": 7963784, "none": false }));
 }
 
 // Fitz, 2026-11-14 (the 50-60 band: "Missing game art for these zones"): Forever's Blackmaw Hold and The
 // Shaper's Terrace showed the bare night band and no zone. A dungeon whose door nobody has recorded takes the zone
 // the client's areas name it in (Blackmaw Hold: Azshara): its card and page paint that zone and name it, and the Map
 // tab says the door isn't known yet but where the dungeon lies. One with no zone at all (Alcaz Prison) wears its own
-// loading screen (Dungeons.Art), never the bare night band.
+// loading screen (Dungeons.Art), never the bare night band. Fitz, 2026-11-26: the Map tab opens on the loading screen
+// where there is one (the zone is the button's other picture, where the client paints it).
 #[test]
 fn a_dungeon_without_a_known_door_paints_its_zone_and_names_it_else_its_loading_screen_never_the_bare_band() {
 	let f = fixture("dungeons.json");
@@ -1099,10 +1218,13 @@ fn a_dungeon_without_a_known_door_paints_its_zone_and_names_it_else_its_loading_
 		local _, _, pg = DS.Frames()
 		out.bmSub, out.bmHeadBand = pg.Sub:GetText(), pg.Art.Band:IsShown()
 		DS.SetTab("map")
-		out.bmMap, out.bmNote = DS.Shown().map, pg.MapNote:GetText()
+		out.bmMap, out.bmNote, out.bmToggle = DS.Shown().map, pg.MapNote:GetText(), DS.Shown().toggle
+		pg.MapToggle:Click()
+		out.bmZone, out.bmZoneNote = DS.Shown().map, pg.MapNote:GetText()
+		pg.MapToggle:Click()
 		Polestar.Dungeons.Open("alcaz-prison")
 		DS.SetTab("map")
-		out.apMap, out.apNote, out.apHeadBand = DS.Shown().map, pg.MapNote:GetText(), pg.Art.Band:IsShown()
+		out.apMap, out.apNote, out.apHeadBand, out.apToggle = DS.Shown().map, pg.MapNote:GetText(), pg.Art.Band:IsShown(), DS.Shown().toggle
 		emit(out)"#,
 		Some(pack_of(&codex, &inputs)),
 	);
@@ -1111,10 +1233,12 @@ fn a_dungeon_without_a_known_door_paints_its_zone_and_names_it_else_its_loading_
 	assert!(out["bmStats"].as_str().unwrap().contains("Azshara"), "{}", out["bmStats"]);
 	assert!(out["bmSub"].as_str().unwrap().contains("Azshara"), "the page header names the zone: {}", out["bmSub"]);
 	assert_eq!(out["bmHeadBand"], false);
-	assert_eq!(out["bmMap"], "zone");
+	assert_eq!((&out["bmMap"], &out["bmToggle"]), (&json!("screen"), &json!(true)), "Blackmaw Hold: its loading screen, and the zone a button away");
+	assert_eq!(out["bmZone"], "zone");
 	assert_eq!(out["bmNote"], "The entrance of this dungeon is not known yet; it lies in Azshara.");
+	assert_eq!(out["bmZoneNote"], out["bmNote"]);
 	assert_eq!((&out["apArt"], &out["apBand"], &out["apPic"]), (&json!("picture"), &json!(false), &json!(true)), "Alcaz Prison: its loading screen");
-	assert_eq!((&out["apMap"], &out["apHeadBand"]), (&json!("picture"), &json!(false)));
+	assert_eq!((&out["apMap"], &out["apHeadBand"], &out["apToggle"]), (&json!("screen"), &json!(false), &json!(false)), "no zone, no map to swap to");
 	assert_eq!(out["apNote"], "The entrance of this dungeon is not known yet.");
 }
 
@@ -2487,4 +2611,55 @@ fn the_heads_up_s_button_picks_up_every_quest_the_game_gives_now_not_one_held_ba
 	let o = &out[0];
 	assert!(o["offer"].as_i64().is_some_and(|l| l > 20), "the heads-up's rule would hold Trouble at the Docks back at 20: {o}");
 	assert_eq!(o["accepts"], json!([959, 1486]), "the guide it opens takes Trouble at the Docks too: {o}");
+}
+
+// The gamepad holds the hub (UI/Gamepad.lua: Picker registers the window): every shown, enabled button under it is
+// a stop, so the corner button is one while the Map tab shows both pictures, and A swaps them as a click does.
+#[test]
+fn the_corner_button_is_a_gamepad_stop_a_swaps_the_picture_and_it_is_none_where_there_is_one_picture_only() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua", "stub_gamepad.lua"],
+		before: pack().stub_lua.clone(),
+		addons: vec![Addon::files("Polestar", &FILES)],
+		script: format!(
+			r#"uistub.install()
+stub.login()
+Polestar.Set("gamepad.withMouse", true)
+{SETUP}
+{PAINTED}
+		local G = Polestar.Gamepad
+		local function stop(pg)
+			for _, w in ipairs(G.Collect(PolestarPicker)) do if w == pg.MapToggle then return true end end
+			return false
+		end
+		Polestar.UI.ShowPicker()
+		stub.advance(0.3)
+		Polestar.Dungeons.Open("wailing-caverns")
+		DS.SetTab("map")
+		stub.advance(0.3)
+		local _, _, pg = DS.Frames()
+		local out = {{ stop = stop(pg), map = DS.Shown().map }}
+		-- The first press makes the focus the player's.
+		stub.press("PADDDOWN")
+		G.SetFocus(PolestarPicker, pg.MapToggle)
+		out.focused = G.Focused(PolestarPicker) == pg.MapToggle
+		stub.press("PAD1")
+		out.afterA = DS.Shown().map
+		out.tip = pg.MapToggle.psTip
+		stub.press("PAD1")
+		out.afterB = DS.Shown().map
+		-- The Barrens' painting gone: one picture only, no stop.
+		painted[1413] = nil
+		DS.SetTab("quests"); DS.SetTab("map")
+		out.single = {{ stop = stop(pg), map = DS.Shown().map }}
+		emit(out)"#
+		),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!((&out["stop"], &out["map"]), (&json!(true), &json!("screen")));
+	assert_eq!(out["focused"], true);
+	assert_eq!((&out["afterA"], &out["tip"]), (&json!("entrance"), &json!("Show the loading screen")), "A on the button: the map");
+	assert_eq!(out["afterB"], "screen", "and A again: the loading screen");
+	assert_eq!(out["single"], json!({ "stop": false, "map": "screen" }));
 }

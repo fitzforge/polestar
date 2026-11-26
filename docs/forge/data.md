@@ -159,7 +159,7 @@ it from. A cached file is never fetched again: client-table builds and pinned co
 | Part | What it fetches |
 |---|---|
 | `wago` | the game's tables `forge data build` reads, as CSV (wago.tools): the Classic Era build's map and faction tables, the Forever build's when no client is installed, the QuestXP table |
-| `builders` | the other builders' tables: itemdb's Classic Era item tables, the Codex's, professions' and travel's, and the pinned builds of the talent trees and the map overlays |
+| `builders` | the other builders' tables: itemdb's Classic Era item tables, the Codex's, professions' and travel's, and the pinned builds of the talent trees, the map overlays and the dungeons' loading screens |
 | `pfquest` | the open quest database's checkout, at its pinned commit |
 | `eglink`, `forever-vo` | players' game caches and dialog captures, at their pinned commits (read by `--kb`) |
 | `cmangos` | the open Classic server database dump, checked against its pinned sha256 |
@@ -442,9 +442,10 @@ first.
 | `forge data talents build` | `addon/Polestar/Talents/Builds.lua`; `check` fails when it is out of date or a plan breaks a rule | the plans in `talents/forever/*.json` and the Forever client's trait tables at a pinned build |
 | `forge data maps build` | `addon/Polestar/Maps/ZoneLevels.lua` | `data/forever` (npcs, zones, map frames) |
 | `forge data maps overlays` | `addon/Polestar/UI/ZoneArtOverlays.lua` | the Forever client's map-art tables at a pinned build |
+| `forge data maps art` | `addon/Polestar/Dungeons/ArtFiles.lua` | the Forever client's Map and LoadingScreens tables at a pinned build |
 | `forge data newquests` | `addon/Polestar/Quests/NewQuestIds.lua` (the "New in Forever" mark's ids; `--check` fails when it is out of date) | `data/forever/quests.json` and the QuestV2 tables of a pinned Classic Era and Forever build: a quest neither pfQuest nor the Era client holds is new |
 
-`itemdb`, `subzones`, `talents`, `maps overlays` and `newquests` fetch a missing table into `data/sources` unless `--offline`;
+`itemdb`, `subzones`, `talents`, `maps overlays`, `maps art` and `newquests` fetch a missing table into `data/sources` unless `--offline`;
 `codex`, `professions` and `travel` read the cache only: `forge data sources --only builders` fills it.
 
 Codex and gear are addon side products. They are not route inputs.

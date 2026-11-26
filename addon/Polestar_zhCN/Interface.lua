@@ -452,6 +452,13 @@
 --   Click to show quest guide actions.
 --   A guide to the items 1 quest in your log needs from where it is given, ending at the entrance.
 --   A guide to the items %d quests in your log need from where they are given, ending at the entrance.
+--
+-- Machine-translated, to be reviewed (0.4.4, 26 Nov 2026): the interface texts the Dungeons page's loading
+-- screen added, translated by an AI model (Claude Sonnet 5.5) in this file's own wording, and waiting for a
+-- native speaker's check. Reviewing one: keep or fix its line below, and take its key off this list. The
+-- interface texts:
+--   Show the map: entrance and quest giver
+--   Show the loading screen
 
 local ns = Polestar
 if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhCN") then return end
@@ -2504,6 +2511,8 @@ L["The quest giver nearby is marked; hover for their quests."] = "已标记附�
 L["The %d quest givers nearby are marked; hover for their quests."] = "已标记附近的 %d 个任务给予者；悬停查看其任务。"
 L["The entrance of this dungeon is not known yet."] = "此地下城的入口尚未知。"
 L["The entrance of this dungeon is not known yet; it lies in %s."] = "此地下城的入口尚未知；它位于%s。"
+L["Show the map: entrance and quest giver"] = "显示地图：入口和任务给予者"
+L["Show the loading screen"] = "显示载入画面"
 L["Attunement"] = "进入资格"
 L["Key"] = "钥匙"
 L["%s from %s"] = "%s，来自%s"
