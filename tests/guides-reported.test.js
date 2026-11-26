@@ -18476,6 +18476,21 @@ for (const guide of ['forever/alliance/40-50/01b-riverglades.guide', 'forever/ho
 	});
 }
 
+// #4187 (LaboredGuineaPig, 0.4.3): the first part's hand-in and the escort's accept are at Fuzzle's cage too, where 82
+// recorded people did both. Without a point the arrow's spots were his spawns' (47.1,50.6 between two of them, then
+// the middle of Sunnyglade, 45.6,47.8), and the arrow left the cage for them.
+for (const guide of ['forever/alliance/40-50/01b-riverglades.guide', 'forever/horde/40-50/01b-riverglades.guide']) {
+	test(`${guide}: Biting the Hand is handed in and the escort taken at Fuzzle's cage (#4187)`, { skip }, () => {
+		const list = goals(guide);
+		for (const [label, t, q] of [['turnin 94961', 'turnin', 94961], ['accept 94963', 'accept', 94963]]) {
+			const { goal } = list[at(list, label, is(t, q))];
+			assert.ok(goal.map === 2548 && Math.hypot(goal.x - 47.2, goal.y - 51.2) <= 0.5, `${label} is at the cage (${goal.x},${goal.y})`);
+			const arrow = (goal.spots || []).filter((s) => !s.alt);
+			assert.ok(arrow.length && arrow.every((s) => Math.hypot(s.x - 47.2, s.y - 51.2) <= 0.2), `${label}: the arrow leads to the cage alone: ${JSON.stringify(goal.spots)}`);
+		}
+	});
+}
+
 // #3001 (Edet, 0.4.1): the second Counting Out Time (4973) is repeatable, and the game never flags a repeatable quest as
 // completed, so after a relog the guide went back to it. The repeat is out of the route; the first one (4972) stays.
 test('forever/alliance/50-60/04-western-plaguelands.guide: no repeatable Counting Out Time (#3001)', { skip }, () => {
