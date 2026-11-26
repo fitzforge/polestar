@@ -1251,6 +1251,7 @@ fn a_guide_goal_after_a_reached_guide_goto_keeps_the_straight_arrow_from_the_mou
 		aim()
 		r.ahead = calls()
 		reached = true
+		nav.place(0, -400)                          -- at the mouth, where the goto was reached
 		nav.setWaypoint({ map = m, x = ix, y = iy, label = "Inside", stepIndex = 2, goalIndex = 2, kind = "collect", r = 5 })
 		r.inside = aim()
 		r.insideCalls = calls()
@@ -1260,7 +1261,7 @@ fn a_guide_goal_after_a_reached_guide_goto_keeps_the_straight_arrow_from_the_mou
 		emit(r)"#);
 	assert_eq!(out["mouth"], 1, "the goto is a goal like any other");
 	assert_eq!(out["ahead"], 2, "before the goto is reached, the goal after it is walked by the engine");
-	assert_eq!(out["inside"], json!(["travel", 450, 0, -450]), "once it is reached, the goal after it is straight");
+	assert_eq!(out["inside"], json!(["travel", 50, 0, -450]), "once it is reached, the goal after it is straight from there");
 	assert_eq!(out["insideCalls"], 2);
 	assert_eq!(out["afterTalk"], 3, "after a located goal that is no goto, the engine walks again");
 }
@@ -2856,6 +2857,32 @@ fn a_reached_way_in_keeps_the_straight_line_only_while_nothing_blocks_it_3488() 
 		emit(r)"#,
 	);
 	assert_eq!(out, json!({ "clear": true, "wall": false, "stays": false, "grind": true, "noFloor": true }));
+}
+
+// The Sapphires of Aku'Mai (Fitz, 0.4.4-try3): the way in, a cave's mouth 80 yd from the target, had been reached,
+// and the player walked off 700 yd: the arrow stayed a straight line from wherever they stood, over the ground above
+// the cave. A reached way in counts only while the player is no farther from the target than it is, plus 100 yd.
+#[test]
+fn a_reached_way_in_no_longer_holds_the_straight_line_once_the_player_has_left_it() {
+	let out = run_many(
+		r#"
+		local m, tx, ty = nav.mapPoint(0, 0)          -- the target, in the cave
+		local _, dx, dy = nav.mapPoint(0, 80)         -- the cave's mouth, a guide goto, reached
+		local guide = { steps = {
+			{ goals = { { t = "goto", map = m, x = dx, y = dy } } },
+			{ goals = { { t = "collect", map = m, x = tx, y = ty } } },
+		} }
+		Polestar.Engine.GetGuide = function() return guide end
+		Polestar.Engine.GoalDone = function(s, g) return s == 1 and g == 1 end
+		local t = { map = m, x = tx, y = ty, stepIndex = 2, goalIndex = 1, kind = "collect" }
+		local r = {}
+		nav.place(0, 80); r.atMouth = N.walk.FollowsGoto(t)
+		nav.place(0, 30); r.inside = N.walk.FollowsGoto(t)
+		nav.place(0, 170); r.nearBy = N.walk.FollowsGoto(t)
+		nav.place(0, 700); r.left = N.walk.FollowsGoto(t)
+		emit(r)"#,
+	);
+	assert_eq!(out, json!({ "atMouth": true, "inside": true, "nearBy": true, "left": false }));
 }
 
 // A boat from Testshire Docks (-900, 0) to Farland Pier (c1: 400, 0); on Farland,

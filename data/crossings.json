@@ -112,8 +112,9 @@
 			"id": "carbonite-felwood--moonglade",
 			"a": {
 				"map": 1448,
-				"x": 64.97,
-				"y": 8.36,
+				"x": 65.4,
+				"y": 1.1,
+				"z": 581,
 				"radius": 30
 			},
 			"b": {
@@ -121,14 +122,16 @@
 				"x": 35.77,
 				"y": 72.2,
 				"radius": 30
-			}
+			},
+			"source": "The Felwood end stands inside Timbermaw Hold's tunnel on its way north to Moonglade (the walking maps' tunnel floor, height 581), past where it leaves the way to Winterspring, not at the tunnel's Felwood mouth (64.97, 8.36): the tunnel is the crossing's way, and a player past the mouth was sent back to it (#4186)"
 		},
 		{
 			"id": "carbonite-felwood--winterspring",
 			"a": {
 				"map": 1448,
-				"x": 64.97,
-				"y": 8.36,
+				"x": 67.93,
+				"y": 4.7,
+				"z": 590,
 				"radius": 30
 			},
 			"b": {
@@ -136,7 +139,8 @@
 				"x": 27.96,
 				"y": 34.56,
 				"radius": 30
-			}
+			},
+			"source": "The Felwood end stands inside Timbermaw Hold's tunnel by its Winterspring exit (the walking maps' tunnel floor, height 590), not at its Felwood mouth (64.97, 8.36): the tunnel is the crossing's way, and a player past the mouth was sent back to it (#4186). The walk from Felwood to this end goes through the tunnel"
 		},
 		{
 			"id": "carbonite-durotar--orgrimmar",
@@ -1227,6 +1231,26 @@
 				{ "map": 1438, "x": 44.33, "y": 60.87, "z": 1266, "radius": 5 },
 				{ "map": 1438, "x": 44.37, "y": 62.15, "z": 1256, "radius": 6 },
 				{ "map": 1438, "x": 44.7, "y": 62.46, "z": 1256, "radius": 8 }
+			]
+		},
+		{
+			"id": "blackfathom-sunken-ruins",
+			"name": "Blackfathom Deeps",
+			"open": "mouth",
+			"note": "The tunnels under the Zoram Strand that lead to the Blackfathom Deeps portal, outside the instance, where the Sapphires of Aku'Mai grow: the walking maps join the pit of the sunken ruins to the strand by its stairs, but not the pit to the tunnels, which players reach by swimming down under a wall, so the walk to a crystal at its height was not found and the arrow drew a straight line north over the strand (in-game check, 0.4.4). The mouth is the top of the stairs down into the ruins (Ashenvale 14.44,14.19, the Blackfathom Deeps entrance and the guide's way in); the nodes follow the walking maps' way down the stairs to the pit and, past the swim, the tunnels' own walk north, their heights from the walking maps. Players' recordings (120 people going down from the strand, to 2026-11-26) take the same way: in at the pit (their first point below at a median of 14.18,14.57), swimming down by 14.06,13.9 and 13.7,13.55 to the tunnel floor at 13.25,13.2.",
+			"nodes": [
+				{ "map": 1440, "x": 14.44, "y": 14.19, "z": 10, "radius": 8 },
+				{ "map": 1440, "x": 14.49, "y": 13.66, "z": 4, "radius": 5 },
+				{ "map": 1440, "x": 13.98, "y": 13.44, "z": -1, "radius": 5 },
+				{ "map": 1440, "x": 13.84, "y": 14.09, "z": -7, "radius": 5 },
+				{ "map": 1440, "x": 13.76, "y": 13.77, "z": -16, "radius": 5 },
+				{ "map": 1440, "x": 13.48, "y": 13.22, "z": -11, "radius": 6 },
+				{ "map": 1440, "x": 13.19, "y": 12.9, "z": -15, "radius": 6 },
+				{ "map": 1440, "x": 13.33, "y": 12.57, "z": -12, "radius": 6 },
+				{ "map": 1440, "x": 13.6, "y": 11.9, "z": -10, "radius": 8 },
+				{ "map": 1440, "x": 13.84, "y": 11.27, "z": -8, "radius": 8 },
+				{ "map": 1440, "x": 13.84, "y": 10.6, "z": -12, "radius": 8 },
+				{ "map": 1440, "x": 13.84, "y": 10.19, "z": -14, "radius": 8 }
 			]
 		}
 	],

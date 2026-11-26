@@ -2493,9 +2493,9 @@ function Walk.LegPath(from, to)
 	return e.yards, e.hubs
 end
 
--- Leg i of the route is the last walk to a target after a guide `goto`: straight.
+-- Leg i of the route is the last walk to a target after a guide `goto`, starting at or past it: straight.
 local function afterGoto(legs, i)
-	return i == #legs and Walk.FollowsGoto(Nav.GetTarget())
+	return i == #legs and Walk.FollowsGoto(Nav.GetTarget(), legs[i].from)
 end
 
 -- Leg i is a walk drawn from its own search: not a piece of a split walk,
@@ -2956,7 +2956,12 @@ end
 -- Hand-made guide waypoints
 ---------------------------------------------------------------------------
 
-local gotoTarget, gotoStep, gotoGoal
+-- The way in found for a target (Walk.FollowsGoto): target, step, goal, yd (the goto's yards from the target), and
+-- the target's point c, x, y. One table: the file's main chunk is at its locals' limit.
+-- REACH: yards: a walk starting farther from the target than its way in is, by more than this, starts where the
+-- player has left the way in (walked off, died, flown elsewhere since reaching it): the straight line from there no
+-- longer applies (the Sapphires of Aku'Mai: a straight line north over the Zoram Strand from 700 yd away).
+local wayIn = { REACH = 100 }
 -- yards: a way in this far or nearer the target leads into it (a cave's
 -- mouth and the cave); a goto farther off, or on another continent, is the
 -- last trip's end, not a way in (the zeppelin tower before the Barrens, #1128)
@@ -2989,17 +2994,24 @@ end
 -- (city.GotoClear); a blocked one is walked like any other target. A kill or
 -- collect goal's spots stay straight: walked round, the nearest spot changes
 -- under the player and the arrow flips between two (the Elwynn stretch).
-function Walk.FollowsGoto(target)
-	if target ~= gotoTarget then
-		gotoTarget, gotoStep, gotoGoal = target, nil, nil
+-- A reached way in counts only while the walk starts no farther from the
+-- target than it is, plus wayIn.REACH: one who left it after reaching it is
+-- walked to the target like any other, by the approach chain where the target
+-- lies in one (the Blackfathom tunnels: back to the stairs into the ruins), never
+-- the straight line from wherever they now stand, which no plan replaced.
+function Walk.FollowsGoto(target, from)
+	local w = wayIn
+	if target ~= w.target then
+		w.target, w.step, w.goal, w.yd = target, nil, nil, nil
 		if type(target) ~= "table" or not (target.stepIndex and target.goalIndex) then return false end
 		local E = ns.Engine
 		local guide = E and E.GetGuide and E.GetGuide()
 		local steps = type(guide) == "table" and guide.steps
 		if type(steps) ~= "table" then return false end
 		local bc, bx, by = worldOf(target)
+		w.c, w.x, w.y = bc, bx, by
 		local s, g = target.stepIndex, target.goalIndex - 1
-		while s >= 1 and not gotoStep do
+		while s >= 1 and not w.step do
 			local goals = steps[s] and steps[s].goals
 			if type(goals) == "table" then
 				if g == nil then g = #goals end
@@ -3009,7 +3021,7 @@ function Walk.FollowsGoto(target)
 						local ac, ax, ay = worldOf(goal)
 						local d2 = ac and ac == bc and (ax - bx) ^ 2 + (ay - by) ^ 2 or nil
 						if goal.t == "goto" or not (d2 and d2 <= SAME_SPOT_YD * SAME_SPOT_YD) then
-							if goal.t == "goto" and d2 and d2 <= WAY_IN_YD * WAY_IN_YD then gotoStep, gotoGoal = s, k end
+							if goal.t == "goto" and d2 and d2 <= WAY_IN_YD * WAY_IN_YD then w.step, w.goal, w.yd = s, k, math.sqrt(d2) end
 							s = 0
 							break
 						end
@@ -3019,9 +3031,18 @@ function Walk.FollowsGoto(target)
 			s, g = s - 1, nil
 		end
 	end
-	if not gotoStep then return false end
+	if not w.step then return false end
 	local E = ns.Engine
-	if not (E and E.GoalDone and E.GoalDone(gotoStep, gotoGoal) == true) then return false end
+	if not (E and E.GoalDone and E.GoalDone(w.step, w.goal) == true) then return false end
+	-- From where the walk starts: a later leg's start (a flight's landing by the way in) when given, else the player.
+	local pc, px, py
+	if from then
+		pc, px, py = from.c, from.wx, from.wy
+	else
+		local C = ns.Compat
+		if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
+	end
+	if pc and px and w.x and pc == w.c and (px - w.x) ^ 2 + (py - w.y) ^ 2 > (w.yd + w.REACH) ^ 2 then return false end
 	if not city.NPC_KIND[target.kind] or target.spots or target.spot or target.area or target.search then return true end
 	return city.GotoClear(target)
 end

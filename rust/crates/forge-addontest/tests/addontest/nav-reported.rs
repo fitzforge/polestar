@@ -919,3 +919,79 @@ fn arathi_the_walk_to_foggy_mackreel_on_thandol_spans_broken_section_is_found_bo
 	let yards = yards_of(&points(&walk(arathi, foggy, Some("Alliance"))));
 	assert!(yards < 250.0, "the walk is {yards:.0} yd (players: about 180)");
 }
+
+// #4146 (gidi_), Orgrimmar, the Drag: the arrow to Zilzibin Drumlore (56.26, 46.80, height 47.5) led "into the wall on
+// the ground". The walking maps had no floor in his house: a walk at his height was not found, and the one without it
+// drew a straight line from the street through the wall. The way in from the street by his door (21 recorded players
+// stand at him inside) is a grid join now: from where the reporter stood, and back out, through the door.
+#[test]
+fn orgrimmar_the_walk_to_zilzibin_drumlore_goes_into_his_house_by_the_door_4146() {
+	forge_addontest::needs!("map-frames.json");
+	let drag = world(1454, 58.32, 49.95);
+	let zilzibin = Pt { c: 1, x: 1837.3, y: -4469.6, z: Some(47.5) };
+	joined_both_ways(drag, zilzibin, Some("Horde"), "Zilzibin Drumlore's house");
+	let door = world(1454, 57.1, 45.95);
+	let off = off_path(&points(&walk(drag, zilzibin, Some("Horde"))), door);
+	assert!(off < 4.0, "the walk passes {off:.1} yd from his door");
+	// The house has a floor at his height now, from the door to him (the walk's last stretch was drawn over none).
+	for p in [world(1454, 56.66, 46.25), Pt { z: None, ..zilzibin }] {
+		let zs = surfaces(p);
+		assert!(zs.iter().any(|z| (z - 47.5).abs() < 3.0), "a floor at about 47.5 at {:.1},{:.1}: {zs:?}", p.x, p.y);
+	}
+}
+
+const SURFACES: &str = r#"
+local Path = Polestar_NavEngine
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local s, n = {}, nil
+for _ = 1, 20 do
+	n = Path.SurfacesAt(@C, @X, @Y, s)
+	if n then break end
+	while #frames > 0 do table.remove(frames, 1)() end
+end
+local zs = {}
+for i = 1, n or 0 do zs[i] = s[i] end
+emit(zs)"#;
+
+// The heights of the walkable surfaces in a point's cell on the shipped maps (Path.SurfacesAt).
+fn surfaces(p: Pt) -> Vec<f64> {
+	let script = SURFACES.replace("@C", &p.c.to_string()).replace("@X", &p.x.to_string()).replace("@Y", &p.y.to_string());
+	let got = emitted(&RunAddon { stubs: vec!["stub_encoding.lua"], addons: vec![Addon::name("Polestar_Nav")], script, ..Default::default() }).into_iter().next().unwrap_or(Value::Null);
+	got.as_array().map(|a| a.iter().filter_map(Value::as_f64).collect()).unwrap_or_default()
+}
+
+// #4133 (haax-wow), Ironforge, the Great Forge: standing at the door of Finespindle's Leather Goods, the arrow to Gretta
+// Finespindle (height 504.5) sent the player off towards the Mystic Ward's tunnel. The walking maps did not join the
+// shop's floor to the Forge's walkway: the walk went round and ended short of her. The way in through the door (45
+// recorded players stand at her inside) is a grid join now: from where the reporter stood, and back out.
+#[test]
+fn ironforge_the_walk_to_gretta_finespindle_goes_into_her_shop_by_the_door_4133() {
+	forge_addontest::needs!("map-frames.json");
+	let door = world(1455, 40.64, 35.96);
+	let gretta = Pt { c: 0, x: -4742.7, y: -1020.4, z: Some(504.5) };
+	joined_both_ways(door, gretta, Some("Alliance"), "Finespindle's Leather Goods");
+	let yards = yards_of(&points(&walk(door, gretta, Some("Alliance"))));
+	assert!(yards < 40.0, "the walk in is {yards:.0} yd (23 yd straight)");
+}
+
+// #4024 (gidi_), Feralas: from the low ground south-west of Camp Mojache (67.51, 50.17) the arrow to the Woodpaw
+// Alphas' camp (65.94, 52.29, on the ridge at about 144) "lead me into a wall": the walk rode up the rock face on the
+// ridge's north side (67.15, 49.8 to 67.1, 50.0: 16 yd up in about 9), which riders in the recordings jump at and turn
+// back from. Both faces are cut now: the walk goes round, never up either face.
+#[test]
+fn feralas_the_walk_to_the_woodpaw_alphas_camp_does_not_ride_up_the_ridges_rock_faces_4024() {
+	forge_addontest::needs!("map-frames.json");
+	let from = world(1444, 67.51, 50.17);
+	for to in [world(1444, 65.94, 52.29), Pt { z: Some(143.5), ..world(1444, 66.09, 51.56) }] {
+		let got = walk(from, to, Some("Horde"));
+		assert!(truthy(&got), "the engine finds a walk");
+		let pts = points(&got);
+		let last = pts[pts.len() - 1];
+		assert!((last.0 - to.x).hypot(last.1 - to.y) < 10.0, "to the camp");
+		for (what, face) in [("north", world(1444, 67.14, 49.88)), ("east", world(1444, 67.41, 50.25))] {
+			let off = off_path(&pts, face);
+			assert!(off > 6.0, "the walk passes {off:.1} yd from the {what} face's climb");
+		}
+	}
+}

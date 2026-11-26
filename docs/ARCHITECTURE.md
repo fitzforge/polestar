@@ -5988,7 +5988,12 @@ walk stays inside one zone; between zones it goes only through
   (`banethil-barrow-den`, `-east`, `-lower`, #1341), one chain per branch
   sharing the way in, each node with its floor's height, so a player at a
   relic or at Oben Rageclaw is routed back to the mouth, never through the
-  rock, and one on the hill above is not held by them. A start inside a
+  rock, and one on the hill above is not held by them. The tunnels under the
+  Zoram Strand that lead to the Blackfathom Deeps portal
+  (`blackfathom-sunken-ruins`: the walking maps join the sunken ruins' pit to
+  the strand by its stairs but not the pit to the tunnels, which players
+  reach by a swim under a wall) take the walk to the top of the stairs first,
+  for the Sapphires of Aku'Mai. A start inside a
   chain on the arrow's live walk to the target (`Walk.LiveLeft`) walks on by
   it alone; otherwise it is also measured by the walking engine (keeping the
   player's last measure until the next) and that walk to the target (where

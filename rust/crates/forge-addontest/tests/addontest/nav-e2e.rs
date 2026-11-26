@@ -4874,3 +4874,187 @@ fn border_sweep() {
 	let flips: f64 = results.iter().map(|r| r["flips"].as_f64().unwrap_or(0.0)).sum();
 	eprintln!("border sweep: {} starts, {arrived} arrived, {stalled} stalled, {flips} flips -> {out_file}", results.len());
 }
+
+/// #4035 (Dillon, Human Priest 45, 0.4.2.2): the Magenta Cap Clusters grow in the Uldaman dig's tunnels under the
+/// Badlands' northern edge, below ground the walking maps give to Loch Modan (the hills above them). 0.4.2.2's planner
+/// put such a target in Loch Modan, so from the Badlands it sent the player up the pass into Loch Modan and back
+/// ("Ride to Loch Modan" twice) and the arrow stayed on the pass. Since #3018's rule (a walk the engine measured into a
+/// target from its own map's zone competes) the route walks in by the dig's mouth: from the middle of the Badlands and
+/// from Kargath, no leg goes through the Loch Modan crossing and a leg ends at the dig's mouth.
+#[test]
+fn t_4035_from_the_badlands_the_route_to_the_uldaman_dig_s_magenta_caps_goes_in_by_the_dig_s_mouth_not_through_loch_modan() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Alliance"
+		w.race, w.raceName = "Human", "Human"
+		w.setLevel(45)
+		local MOUTH = { -6089.9, -3175.2 } -- the dig's mouth, Badlands 44.06, 12.08
+		local function route(px, py, tx, ty, tz)
+			N.ClearTarget()
+			local _, v = C_Map.GetWorldPosFromMapPos(1418, CreateVector2D(px / 100, py / 100))
+			place(1418, v.x, v.y, 0)
+			stub.fire("ZONE_CHANGED_NEW_AREA")
+			stub.advance(1)
+			N.Sample()
+			N.SetTarget(1418, tx, ty, "Magenta Cap Clusters", "e", nil, tz)
+			for _ = 1, 200 do N.Sample(); stub.advance(0.05) end
+			local legs, ci = N.GetRoute()
+			local r = { legs = {}, crossing = false, mouth = false }
+			for i = ci or 1, #(legs or {}) do
+				local l = legs[i]
+				r.legs[#r.legs + 1] = l.kind .. "|" .. (l.step or "")
+				if l.crossing or l.step == "crossing" then r.crossing = true end
+				if l.to and l.to.wx and dist(l.to.wx, l.to.wy, MOUTH[1], MOUTH[2]) < 15 then r.mouth = true end
+			end
+			return r
+		end
+		emit({ middle = route(42.0, 40.0, 36.04, 12.84, 207.4), kargath = route(5.0, 47.0, 37.49, 15.09, 220.4) })"#,
+		true,
+	);
+	for from in ["middle", "kargath"] {
+		assert_eq!(out[from]["crossing"], false, "from {from}: no leg through the Loch Modan crossing: {out}");
+		assert_eq!(out[from]["mouth"], true, "from {from}: the route goes in by the dig's mouth: {out}");
+	}
+}
+
+/// #4186 (Meta, Scourge Paladin 55, 0.4.2.2): bound for Winterspring through Timbermaw Hold, the arrow and the minimap
+/// line pointed back to the tunnel's Felwood mouth the whole way through, until the player stood by the Winterspring
+/// exit. The crossing joined Felwood to Winterspring at the mouth, so a player past it, inside the tunnel (still
+/// Felwood), was routed back to it. The crossings to Winterspring and to Moonglade now take their Felwood end inside
+/// the tunnel, past where the ways part. Walking the tunnel from the mouth to the exit, no route leads back to the mouth.
+#[test]
+fn t_4186_walking_timbermaw_hold_s_tunnel_to_winterspring_the_route_never_leads_back_to_the_felwood_mouth() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Horde"
+		w.race, w.raceName = "Scourge", "Undead"
+		w.setLevel(55)
+		local MOUTH = { 6812.9, -2094.1 } -- the tunnel's Felwood mouth, Felwood 64.97, 8.36
+		local _, a = C_Map.GetWorldPosFromMapPos(1448, CreateVector2D(0.6300, 0.0900))
+		local _, b = C_Map.GetWorldPosFromMapPos(1448, CreateVector2D(0.6813, 0.0539))
+		local pts
+		Polestar_NavEngine.Find(1, { x = a.x, y = a.y }, { x = b.x, y = b.y, z = 590 }, function(p) pts = p end, { profile = "Horde" })
+		for _ = 1, 400 do if pts then break end stub.advance(0.05) end
+		place(1448, a.x, a.y, 0)
+		stub.fire("ZONE_CHANGED_NEW_AREA")
+		stub.advance(1)
+		N.Sample()
+		N.SetTarget(1452, 28.00, 34.60, "Into Winterspring", "e")
+		for _ = 1, 100 do N.Sample(); stub.advance(0.05) end
+		local r = { points = pts and #pts or 0, back = {}, inside = 0 }
+		local x, y, passed = a.x, a.y, false
+		for i = 2, #(pts or {}) do
+			local p = pts[i]
+			local n = math.max(1, math.ceil(dist(x, y, p.x, p.y) / 1.4))
+			for k = 1, n do
+				local px, py = x + (p.x - x) * k / n, y + (p.y - y) * k / n
+				place(N.danger.ZoneAt(1, px, py) or 1448, px, py, 0)
+				N.Sample()
+				stub.advance(0.2)
+			end
+			x, y = p.x, p.y
+			if dist(x, y, MOUTH[1], MOUTH[2]) < 30 then passed = true end
+			if passed and dist(x, y, MOUTH[1], MOUTH[2]) > 60 then
+				r.inside = r.inside + 1
+				local legs, ci = N.GetRoute()
+				local l = legs and legs[ci or 1]
+				if l and l.to and l.to.wx and dist(l.to.wx, l.to.wy, MOUTH[1], MOUTH[2]) < 30 then r.back[#r.back + 1] = i end
+			end
+		end
+		r.backs, r.back = #r.back, table.concat(r.back, ",")
+		emit(r)"#,
+		true,
+	);
+	assert!(f(&out["points"]) > 10.0, "the tunnel's walk is found: {out}");
+	assert!(f(&out["inside"]) > 10.0, "the walk passes the mouth and goes on inside: {out}");
+	assert_eq!(f(&out["backs"]), 0.0, "inside the tunnel, no route leads back to the Felwood mouth: {out}");
+}
+
+/// The Sapphires of Aku'Mai (quest 6563; Fitz's in-game check on 0.4.4-try3): the crystals grow in the tunnels under
+/// the Zoram Strand, below the sunken ruins at its north end, which players reach by the stairs into the ruins' pit and
+/// a swim under a wall. The guide's way in, a goto at the top of those stairs (14.5,14.2), had been reached earlier,
+/// so from Zoram'gar, 700 yd off, the arrow and the route line went straight north over the strand at the crystal and
+/// never re-planned (the straight line after a reached way in, Walk.FollowsGoto); and the walking maps join the pit
+/// to the strand but not to the tunnels, so no walk reached a crystal at its height. Now a way in counts only while
+/// the player is near it or past it, and the tunnels are an approach chain (`blackfathom-sunken-ruins`, its mouth at
+/// the top of the stairs): from where the player stood, for the guide's spawn spot with no height and for a crystal
+/// at its height, the route goes to the stairs and follows the chain down; walking down it (the client puts the
+/// player on Kalimdor's map below), the route stays in the tunnels and never leads back up.
+#[test]
+fn sapphires_of_aku_mai_from_the_zoram_strand_the_route_goes_down_the_sunken_ruins_stairs_and_through_the_tunnels() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Horde"
+		w.race, w.raceName = "Scourge", "Undead"
+		w.setLevel(26)
+		local MOUTH = { 4127.5, 867.3 } -- the top of the stairs into the sunken ruins, Ashenvale 14.44, 14.19
+		-- The guide: the ruins' goto (reached), then the collect.
+		local guide = { steps = {
+			{ goals = { { t = "goto", map = 1440, x = 14.5, y = 14.2, f = "e" } } },
+			{ goals = { { t = "collect", map = 1440, x = 13.59, y = 13.14, z = -16.1, f = "e" } } },
+		} }
+		Polestar.Engine.GetGuide = function() return guide end
+		Polestar.Engine.GoalDone = function(s, g) return s == 1 and g == 1 end
+		local function world(x, y) local _, v = C_Map.GetWorldPosFromMapPos(1440, CreateVector2D(x / 100, y / 100)); return v.x, v.y end
+		local function route()
+			local legs, ci = N.GetRoute()
+			local r = { legs = {}, mouth = false, chain = 0 }
+			for i = ci or 1, #(legs or {}) do
+				local l = legs[i]
+				r.legs[#r.legs + 1] = l.kind .. "|" .. (l.step or "")
+				if l.to and l.to.wx and dist(l.to.wx, l.to.wy, MOUTH[1], MOUTH[2]) < 10 then r.mouth = true end
+				if l.step == "chain" then r.chain = r.chain + 1 end
+			end
+			r.first = legs and legs[ci or 1] and legs[ci or 1].to and dist(legs[ci or 1].to.wx, legs[ci or 1].to.wy, MOUTH[1], MOUTH[2]) < 10 or false
+			r.follows = N.walk.FollowsGoto(N.GetTarget())
+			return r
+		end
+		local function from(tx, ty, tz)
+			Polestar.Fire("WAYPOINT_CHANGED", nil)
+			N.ClearTarget()
+			stub.advance(0.1)
+			local x, y = world(13.26, 32.10) -- where Fitz stood, south on the strand
+			place(1440, x, y, 0)
+			stub.fire("ZONE_CHANGED_NEW_AREA")
+			stub.advance(1)
+			N.Sample()
+			Polestar.Fire("WAYPOINT_CHANGED", { map = 1440, x = tx, y = ty, z = tz, f = "e", label = "Collect Sapphire of Aku'Mai",
+				stepIndex = 2, goalIndex = 1, kind = "collect", r = 5 })
+			for _ = 1, 300 do N.Sample(); stub.advance(0.05) end
+			return route()
+		end
+		local out = { spot = from(13.17, 13.49, nil), crystal = from(13.59, 13.14, -16.1), down = {} }
+		-- Down the stairs and through the tunnels along the chain, a step at a time (the floor followed, no height
+		-- from the client), the target a crystal further in.
+		local path = { {14.44,14.19}, {14.49,13.66}, {13.98,13.44}, {13.84,14.09}, {13.76,13.77}, {13.48,13.22}, {13.19,12.9}, {13.33,12.57}, {13.6,11.9} }
+		local x, y = world(path[1][1], path[1][2])
+		place(1440, x, y, 0)
+		stub.advance(1)
+		N.Sample()
+		Polestar.Fire("WAYPOINT_CHANGED", { map = 1440, x = 13.84, y = 11.79, f = "e", label = "Collect Sapphire of Aku'Mai", stepIndex = 2, goalIndex = 1, kind = "collect", r = 5 })
+		for _ = 1, 100 do N.Sample(); stub.advance(0.05) end
+		for i = 2, #path do
+			local nx, ny = world(path[i][1], path[i][2])
+			local n = math.max(1, math.ceil(dist(x, y, nx, ny) / 1.4))
+			for k = 1, n do
+				place(i >= 5 and 1414 or 1440, x + (nx - x) * k / n, y + (ny - y) * k / n, 0)
+				N.Sample()
+				stub.advance(0.2)
+			end
+			x, y = nx, ny
+			for _ = 1, 20 do N.Sample(); stub.advance(0.05) end
+			if i >= 5 then out.down[#out.down + 1] = route().mouth end
+		end
+		emit(out)"#,
+		true,
+	);
+	for target in ["spot", "crystal"] {
+		assert_eq!(out[target]["follows"], false, "{target}: 700 yd from the reached way in, no straight line from there: {out}");
+		assert_eq!(out[target]["first"], true, "{target}: the first leg is the walk to the top of the stairs into the sunken ruins: {out}");
+		assert!(f(&out[target]["chain"]) >= 3.0, "{target}: the route follows the chain down to the tunnels: {out}");
+	}
+	assert!(out["down"].as_array().is_some_and(|d| d.len() == 5 && d.iter().all(|m| m == false)), "walking down, never back up to the stairs: {out}");
+}
