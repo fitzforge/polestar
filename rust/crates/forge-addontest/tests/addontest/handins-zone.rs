@@ -24,14 +24,10 @@ assert(ui.Picker.View() == 'browse', 'the Browse tab is available')
 local lookup
 for _, b in ipairs(F.navButtons) do if b:IsShown() and b.psKey == 'Lookup' then lookup = b end end
 assert(lookup, 'Lookup is available without any generated guides'):Click()
-local function findAction()
-	for _, b in ipairs({F.Body:GetChildren()}) do
-		local label = rawget(b, 'Label')
-		if b:IsShown() and label and label:GetText() == 'Hand in quests in this zone' then return b end
-	end
-end
+local action = F.ZoneHandins
+assert(action:IsShown() and action.Title:GetText() == 'Hand in quests in this zone', 'the action is a Lookup list row')
 local loaded = C_AddOns.IsAddOnLoaded('Polestar_FreeMode')
-assert(findAction(), 'the zone hand-in action is visible in Browse > Lookup'):Click()
+action:Click()
 settle()
 local g = E.GetGuide()
 local empty = ui.GuideFrame.parts.empty
@@ -43,9 +39,20 @@ ui.ShowPicker()
 local generated
 for _, f in ipairs({F.Body:GetChildren()}) do
 	local guide = rawget(f, 'psGuide')
-	if f:IsShown() and guide and guide.id == g.id then generated = true end
+	if f:IsShown() and guide and guide.id == g.id then
+		assert(action:GetWidth() == f:GetWidth() and action:GetHeight() == f:GetHeight(), 'the action matches the guide rows')
+		local _, parent, _, x, y = action:GetPoint()
+		local _, guideParent, _, guideX, guideY = f:GetPoint()
+		assert(parent == guideParent and x == guideX and y - action:GetHeight() == guideY,
+			'the generated guide follows the action directly')
+		generated = true
+	end
 end
-assert(findAction(), 'the action stays available alongside the generated guide'):Click()
+ui.Picker.ToggleFolder('Lookup')
+assert(not action:IsShown(), 'folding Lookup hides its action row')
+ui.Picker.ToggleFolder('Lookup')
+assert(action:IsShown(), 'the action stays available alongside the generated guide')
+action:Click()
 emit({ loaded=loaded, opened=opened, refreshed=refreshed, generated=generated, reopened=tabIds() })
 "#,
 		true,

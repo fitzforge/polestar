@@ -1074,12 +1074,19 @@ local function foreverDoubleClick(self) rowDoubleClick(self:GetParent()) end
 -- cursor around it.
 local FOREVER_W, FOREVER_H, FOREVER_BOX = 16, 8, 18
 
+local function listRow()
+	local r = CreateFrame("Button", nil, win.Body)
+	r:SetHeight(ROW_H)
+	W.Hover(r)
+	r.Title = W.Text(r, "body", "text")
+	r.Title:SetPoint("LEFT", r, "LEFT", TEXT_X, 0)
+	return r
+end
+
 local function guideRow(i)
 	local r = rowPool[i]
 	if r then return r end
-	r = CreateFrame("Button", nil, win.Body)
-	r:SetHeight(ROW_H)
-	W.Hover(r)
+	r = listRow()
 	r.Selected = r:CreateTexture(nil, "BACKGROUND")
 	r.Selected:SetTexture(Theme.Media("white"))
 	r.Selected:SetAllPoints(r)
@@ -1104,7 +1111,6 @@ local function guideRow(i)
 	r.Rule:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X, 0)
 	r.Rule:SetPoint("TOPRIGHT", r, "TOPRIGHT", -TEXT_X, 0)
 	r.Rule:Hide()
-	r.Title = W.Text(r, "body", "text")
 	r.Range = W.Text(r, "body", "textMuted")
 	r.Range:SetPoint("LEFT", r.Title, "RIGHT", 5, 0)
 	-- A guide in one of Forever's new zones: the Forever mark after the
@@ -2718,14 +2724,17 @@ local function render()
 		y = y + ROW_H
 		visibleIds[#visibleIds + 1] = g.id
 	end
-	local empty, turnOn
-	win.ZoneHandins:SetShown(zoneHandins)
-	if zoneHandins then
-		W.SetButtonText(win.ZoneHandins, L["Hand in quests in this zone"])
-		win.ZoneHandins:ClearAllPoints()
-		win.ZoneHandins:SetPoint("TOPLEFT", win.Body, "TOPLEFT", ROW_X, -y)
-		y = y + win.ZoneHandins:GetHeight() + 12
+	local function zoneRow()
+		local r = win.ZoneHandins
+		r:ClearAllPoints()
+		r:SetPoint("TOPLEFT", win.Body, "TOPLEFT", ROW_X, -y)
+		r:SetWidth(width)
+		r.Title:SetWidth(width - TEXT_X * 2)
+		r:Show()
+		y = y + ROW_H
 	end
+	local empty, turnOn
+	win.ZoneHandins:Hide()
 	-- The last search's Codex matches go away first; a browse with a query
 	-- draws them again below.
 	if UI.HideLookupRows then UI.HideLookupRows(win.Body) end
@@ -2733,6 +2742,11 @@ local function render()
 		-- A search lists every match: no folder folds then.
 		local folds = query == ""
 		local lastFolder = false
+		if zoneHandins and (not entries[1] or entries[1].id ~= "Lookup") then
+			folder(L["Lookup"])
+			zoneRow()
+			lastFolder = true
+		end
 		-- Play next above the list, and its band marked while folded.
 		local sugFolder
 		if playNext then
@@ -2745,6 +2759,7 @@ local function render()
 			if e.kind == "folder" then
 				if lastFolder then y = y + 10 end
 				folder(e.text, e.count, folds and e.id or nil, e == sugFolder and folds and P.IsCollapsed(e.id))
+				if zoneHandins and e.id == "Lookup" and not P.IsCollapsed(e.id) then zoneRow() end
 				lastFolder = true
 			elseif not (folds and P.IsCollapsed(e.folder.id)) then
 				row(e.guide, tabNote(e.guide.id), e.title)
@@ -3009,9 +3024,12 @@ local function build()
 		if UI.Packs then UI.Packs.TurnOnOwnGuides() end
 	end, { primary = true })
 	win.TurnOn:Hide()
-	win.ZoneHandins = W.Button(win.Body, "", function()
+	win.ZoneHandins = listRow()
+	win.ZoneHandins.Title:SetText(L["Hand in quests in this zone"])
+	win.ZoneHandins.psPadLabel = L["Hand in quests in this zone"]
+	win.ZoneHandins:SetScript("OnClick", function()
 		if ns.Handins.StartZone() then win:Hide() end
-	end, { height = 32 })
+	end)
 	win.ZoneHandins:Hide()
 	-- Home's "Show all N" / "Show fewer" on the Other tabs label.
 	win.CardsMore = W.Button(win.Body, "", function()
