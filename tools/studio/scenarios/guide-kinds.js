@@ -7,7 +7,8 @@
 
 const TAILORING = 197; // SkillLine: Tailoring
 
-const OPEN = `local w, E = stub.world, Polestar.Engine
+// The 75-150 Get it step of `title`: the last one of that title before the Expert bracket's.
+const OPEN = (title = 'Get Wool Cloth') => `local w, E = stub.world, Polestar.Engine
 w.learnSkill(${TAILORING}, "Tailoring", 87, 150)
 w.addItem(2592, 8)
 stub.fire("SKILL_LINES_CHANGED")
@@ -16,7 +17,8 @@ stub.advance(2)
 local at
 for i = 1, E.GetStepCount() do
 	local v = E.GetStepView(i)
-	if v and v.title == "Get Wool Cloth" then at = i end
+	if v and v.title == "Pattern: Azure Silk Cloak" then break end
+	if v and v.title == "${title}" then at = i end
 end
 if at then E.Goto(at) end
 stub.advance(2)
@@ -36,7 +38,8 @@ module.exports = {
 	window: [1440, 690],
 	capture: ['PolestarGuideFrame'],
 	shots: {
-		getit: { title: 'Tailoring 87/150, Get Wool Cloth (75-150): the why line, the farm line, the skill line at the foot', lua: OPEN },
-		menu: { title: 'The ⋯ menu of a profession guide: materials and the nearest Tailoring trainer first', capture: ['PolestarGuideFrame', 'PolestarMenu'], lua: `${OPEN}\n${MENU}` },
+		getit: { title: 'Tailoring 87/150, Get Wool Cloth (75-150): the why line, the farm line, the skill line at the foot', lua: OPEN() },
+		silk: { title: 'Get Silk Cloth (75-150) at level 27: a farm over an hour says most of it drops as you level, or the Auction House', lua: OPEN('Get Silk Cloth') },
+		menu: { title: 'The ⋯ menu of a profession guide: materials and the nearest Tailoring trainer first', capture: ['PolestarGuideFrame', 'PolestarMenu'], lua: `${OPEN()}\n${MENU}` },
 	},
 };
