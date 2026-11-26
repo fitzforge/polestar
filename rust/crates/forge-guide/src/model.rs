@@ -501,6 +501,8 @@ pub struct Guide {
 	pub races: Vec<String>,
 	pub classes: Vec<String>,
 	pub category: Option<String>,
+	/// `kind` (what the guide window shows for it), when the guide sets one.
+	pub kind: Option<String>,
 	pub folder: Option<String>,
 	/// `next` options in order, each with its `when` predicate.
 	pub next: Vec<(String, Option<When>)>,
@@ -556,6 +558,9 @@ impl Guide {
 		}
 		if let Some(c) = &self.category {
 			line(format!("category {c}"));
+		}
+		if let Some(k) = &self.kind {
+			line(format!("kind {k}"));
 		}
 		if let Some(f) = &self.folder {
 			line(format!("folder {f}"));
@@ -645,6 +650,7 @@ impl Guide {
 			races: list(g.get("races")),
 			classes: list(g.get("classes")),
 			category: s(g.get("category")),
+			kind: s(g.get("kind")),
 			folder: s(g.get("folder")),
 			next,
 			pitch: s(g.get("pitch")),
