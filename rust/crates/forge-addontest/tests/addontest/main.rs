@@ -584,6 +584,8 @@ mod ui_update;
 mod ui_welcome;
 #[path = "ui-whatsnew.rs"]
 mod ui_whatsnew;
+#[path = "ui-when-passed.rs"]
+mod ui_when_passed;
 #[path = "ui-while-here.rs"]
 mod ui_while_here;
 #[path = "ui-window-drag.rs"]

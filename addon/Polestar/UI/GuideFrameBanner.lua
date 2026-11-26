@@ -56,7 +56,9 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- skipped step that holds nothing for the character (the view's `why`:
 	-- passed because its condition failed, its quest not in the log) is not
 	-- offered back: unskipped, it would still hold nothing (#2847). The card
-	-- says why; the banner offers the way back to the live step.
+	-- says why; the banner offers the way back to the live step. One the
+	-- route passed whose condition holds now (the view's `passedHeld`, #4158)
+	-- says so, with its Unskip.
 	local function awayNotice(E, g)
 		local view = GF.View()
 		if not (E.GetLiveStep and view and g) then return nil end
@@ -64,7 +66,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		if not index or index ~= view.index or index == live then return nil end
 		local skipped = view.skipped and not view.why
 		if not skipped and not live then return nil end
-		local a = { guideId = g.id, index = index, live = live, skipped = skipped and true or false }
+		local a = { guideId = g.id, index = index, live = live, skipped = skipped and true or false, passed = skipped and view.passedHeld and view.passed or nil }
 		if notices.away == g.id .. ":" .. index then return nil end
 		return a
 	end
@@ -613,7 +615,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		elseif kind == "away" then
 			banner.Icon:SetTexture(Theme.Media(n.skipped and "skip" or (n.live and n.index > n.live and "chevron-right" or "chevron-left")))
 			if n.skipped then
-				banner.Text:SetText(L["You skipped this step."])
+				banner.Text:SetText(n.passed or L["You skipped this step."])
 				local w = placeLink(banner.Jump, L["Unskip it"], 0, -4)
 				-- The way back to the live step stays beside it (LaterBanner).
 				if n.live and n.live ~= n.index then

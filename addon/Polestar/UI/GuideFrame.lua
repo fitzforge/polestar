@@ -1997,9 +1997,15 @@ GF.Part(function(GF)
 	-- (RoutePlan.OffRoute), each only with a count, each opening its list
 	-- (UI.ShowQuestRoom "later" / "offroute"). Read when the card is painted,
 	-- never on a frame tick. The second is off with the quest log notices
-	-- (guideWindow.questLogNotices, #4112).
+	-- (guideWindow.questLogNotices, #4112). Under them, what the guide's
+	-- quest chains left out (Engine.WhenPassed, #4158): a line per reason,
+	-- "Left out: Seereth Stonebreak · needs "Goblin Invasion" handed in (The
+	-- Barrens guide)", those naming another guide first, then in step order;
+	-- SHOWN titles per reason and SHOWN reasons at most, each with "+N more",
+	-- then "+N more steps left out" for the steps of the reasons not shown.
+	-- Nothing when no chain left a step out.
 	function GF.EndQuestLines(id)
-		local E, P = Engine(), ns.RoutePlan
+		local E, P, SHOWN = Engine(), ns.RoutePlan, 3
 		local carried = E and E.CarriedQuests and #E.CarriedQuests(id) or 0
 		local off = GF.On("questLogNotices") and P and P.OffRoute and P.OffRoute(id)
 		local stray = off and #off or 0
@@ -2012,6 +2018,40 @@ GF.Part(function(GF)
 		line(empty.Carried, carried, carried == 1 and L["1 quest in your log carries on to a later guide"]
 			or L["%d quests in your log carry on to later guides"]:format(carried), "later")
 		line(empty.Stray, stray, stray == 1 and L["1 quest isn't part of your route"] or L["%d quests aren't part of your route"]:format(stray), "offroute")
+		local reasons, of = {}, {}
+		for _, e in ipairs(E and E.WhenPassed and E.WhenPassed() or {}) do
+			local r = of[e.text]
+			if not r then
+				r = { text = e.text, other = e.other, first = e.step, n = 0, titles = {}, seen = {} }
+				of[e.text] = r
+				reasons[#reasons + 1] = r
+			end
+			r.n = r.n + 1
+			if not r.seen[e.title] then
+				r.seen[e.title] = true
+				r.titles[#r.titles + 1] = e.title
+			end
+		end
+		if #reasons == 0 then return end
+		table.sort(reasons, function(a, b)
+			if a.other ~= b.other then return a.other end
+			return a.first < b.first
+		end)
+		local lines, rest = {}, 0
+		for k, r in ipairs(reasons) do
+			if k > SHOWN then
+				rest = rest + r.n
+			else
+				local names = {}
+				for t = 1, math.min(SHOWN, #r.titles) do names[t] = r.titles[t] end
+				local who = table.concat(names, ", ")
+				if #r.titles > SHOWN then who = who .. " " .. L["+%d more"]:format(#r.titles - SHOWN) end
+				lines[#lines + 1] = L["Left out: %s"]:format(L["%s · %s"]:format(who, r.text))
+			end
+		end
+		if rest > 0 then lines[#lines + 1] = rest == 1 and L["+1 more step left out"] or L["+%d more steps left out"]:format(rest) end
+		empty.LeftOut:SetText(table.concat(lines, "\n"))
+		empty.LeftOut:Show()
 	end
 
 	local function setEmpty(kind)
@@ -2023,6 +2063,7 @@ GF.Part(function(GF)
 		empty.Stray:Hide()
 		local free = rawget(empty, "FreeLink")
 		if free then free:Hide() end
+		empty.LeftOut:Hide()
 		if GF.PlayNext then GF.PlayNext.Hide() end
 		local glyph, color = "emblem", "accent"
 		if kind == "noguides" and UI.Packs and UI.Packs.OursSwitchedOff() then
@@ -3849,6 +3890,13 @@ GF.Part(function(GF)
 		empty.Stray.psTip = L["No guide of your route takes, works or hands these in. Click to see them and keep or abandon each."]
 		empty.Stray:Hide()
 		empty.act = act
+
+		-- What the guide's conditions left out (GF.EndQuestLines), under the links.
+		empty.LeftOut = T(empty, "note", "textMuted")
+		empty.LeftOut:SetJustifyH("CENTER")
+		empty.LeftOut:SetWordWrap(true)
+		empty.LeftOut:SetSpacing(3)
+		empty.LeftOut:Hide()
 
 		-- The guide's progress with its percent, at the bottom.
 		foot = CreateFrame("Frame", nil, F)

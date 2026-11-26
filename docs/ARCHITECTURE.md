@@ -3797,7 +3797,14 @@ quests it left out (`feedSkips`), in `CharState().skipStored[guideId][step]`,
 and its undo (`Unskip`, `Goto`) takes them back with it, so a step passed at
 level 19 for `when level>=20` comes back at 20 once the skip is undone
 (`Own.skipStore`, `Own.skipRestore`; a step the player keeps meanwhile,
-`Own.keep`, stays). The pin is saved (`pins`), so a reload
+`Own.keep`, stays). A step the route passed because its `when` failed is
+saved as skipped too, with the route's mark beside it
+(`CharState().whenPassed[guideId][step]`, set by `Own.latchWhen` and
+`Own.settlePending`, dropped by the player's skips and unskips; #4158): the
+step list says "Not for you" and why, with no Unskip (one whose condition
+holds now says the guide passed it, with its Unskip), and the end card lists
+the quest chains left out. A skip saved without the mark reads as the
+player's. The pin is saved (`pins`), so a reload
 shows the step the player was looking at; it is released at the live step,
 and while the step it shows gets done it follows forward (behind the live
 step up to it, ahead of it to the next open step, latching the step's
