@@ -380,7 +380,9 @@ test('draft: a rank only a few trainers teach comes after the shopping, and its 
 	const steps = text.split('\n').filter((l) => l.startsWith('step '));
 	assert.ok(steps.indexOf('step Expert Tailoring') > steps.indexOf('step Tailoring 150-225: vendor goods'), steps.join('\n'));
 	assert.match(text, /these trainers also teach R2 \(from 160\), and the crafts need no station, so craft right here and learn each recipe as you reach its skill\. One trip instead of 2\./);
-	assert.match(text, /\n {2}tip Still at the Expert trainer: R2 \(from 160\)\.\n {2}learn 2\n/);
+	// The bracket's learns go to the trainer the rank is trained at, one per side.
+	assert.match(text, /\n {2}tip Still at the Expert trainer: R2 \(from 160\)\.\n {2}learn 2 npc 5 only Alliance\n {2}learn 2 npc 6 only Horde\n/);
+	assert.match(text, /\n {2}train Tailoring Expert npc 5 only Alliance\n {2}train Tailoring Expert npc 6 only Horde\n/);
 	// Journeyman is taught by every trainer: its step stays first.
 	assert.ok(steps.indexOf('step Journeyman Tailoring') < steps.indexOf('step Tailoring 75-150: vendor goods'));
 });
@@ -411,7 +413,8 @@ test('draft: a learn pinned to a later rank\'s trainers keeps its own trip after
 	];
 	const { text } = draftGuide('Tailoring', data, { to: 225, spec: { taughtBy: { 3: 'Artisan' } } });
 	assert.match(text, /these trainers also teach R2 \(from 160\), and the crafts need no station, so craft right here and learn each recipe as you reach its skill\. One trip instead of 2\. R3 \(from 200\) takes a second trip, to other trainers \(below\)\./);
-	assert.match(text, /\n {2}tip Still at the Expert trainer: R2 \(from 160\)\.\n {2}learn 2\n/);
+	// Telonis and Una (capitals) over Drakk and Hahrana for the Expert bracket's own visits.
+	assert.match(text, /\n {2}tip Still at the Expert trainer: R2 \(from 160\)\.\n {2}learn 2 npc 5 only Alliance\n {2}learn 2 npc 6 only Horde\n/);
 	assert.match(text, /R3 \(from 200\) is taught only by the Artisan trainers: Alliance Drakk \(The Hinterlands\); Horde Hahrana \(Feralas\)\./);
 	assert.match(text, /\n {2}learn 3 npc 7 only Alliance\n {2}learn 3 npc 8 only Horde\n/);
 });
@@ -748,10 +751,11 @@ test('draft: each bracket gets its materials in Get it steps after the vendor go
 	const order = [at(/^step Tailoring 1-75: vendor goods$/), at(/^step Get Linen Cloth$/), at(/^step Get Medium Leather/), at(/^step R1 to 75$/)];
 	assert.ok(order[0] >= 0 && order.every((v, i) => i === 0 || v > order[i - 1]), `vendor goods, cloth, leather, crafts: ${order}`);
 	// Every material the Auction House sells ends its own Get it step; no vendor good, nothing that binds when picked up.
-	for (const b of text.split('\n\n').filter((s) => s.startsWith('step Get '))) assert.match(b, /\n {2}auction (2589|4234) x75$/, b);
+	// Gathered materials count the crafts 9 players in 10 need (77 here, 75 expected).
+	for (const b of text.split('\n\n').filter((s) => s.startsWith('step Get '))) assert.match(b, /\n {2}auction (2589|4234) x77$/, b);
 	assert.doesNotMatch(text, /^step Tailoring 1-75: Auction House$/m);
 	// Cloth: its humanoids' levels; leather: the skill its beasts' lowest level asks (18: 80).
-	assert.match(text, /\n {2}collect 2589 x75 anywhere gather levels 5-20\n/);
+	assert.match(text, /\n {2}collect 2589 x77 anywhere gather levels 5-20\n/);
 	const skins = text.match(/^ {2}collect 4234 .*$/gm) || [];
 	assert.ok(skins.length > 0 && skins.every((l) => / gather Skinning 80$/.test(l)), skins.join('\n'));
 	assert.doesNotMatch(text, /^ {2}(collect|auction) 72 /m);
