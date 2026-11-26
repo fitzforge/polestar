@@ -235,6 +235,8 @@ return {
 	-- Step 45: Fuzzle
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["{npc:259158} wants out of {area:16723}: lead him west to his treasure at the edge of town and keep the cultists off him."] = "{npc:259158} veut quitter {area:16723} : escortez-le vers l'ouest jusqu'à son trésor à la lisière du village et protégez-le des cultistes.",
+	-- {npc:259158} Fuzzle
+	["{npc:259158} in his cage"] = "",
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["lead {npc:259158} out of {area:16723} to his treasure, west of the town"] = "menez {npc:259158} hors de {area:16723} jusqu'à son trésor, à l'ouest de la ville",
 

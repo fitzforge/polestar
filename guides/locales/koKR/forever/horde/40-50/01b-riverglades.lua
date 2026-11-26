@@ -184,6 +184,8 @@ return {
 	-- Step 42: Fuzzle
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["{npc:259158} wants out of {area:16723}: lead him west to his treasure at the edge of town and keep the cultists off him."] = "{npc:259158}은(는) {area:16723}을(를) 빠져나가고 싶어 합니다: 서쪽 마을 끝의 보물까지 데려가며 교단원을 막아 주십시오.",
+	-- {npc:259158} Fuzzle
+	["{npc:259158} in his cage"] = "",
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["lead {npc:259158} out of {area:16723} to his treasure, west of the town"] = "{npc:259158}을(를) {area:16723} 밖으로 데리고 마을 서쪽의 보물까지 가십시오",
 
