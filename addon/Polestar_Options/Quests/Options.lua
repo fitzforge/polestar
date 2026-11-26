@@ -129,14 +129,13 @@ end
 if ns.Free then
 	local F = ns.Free
 	local SEARCH = "free mode, no guide, own quests, quest log, nearest quest, xp per minute"
-	-- Its switch is a row (the tab is the character's, no setting holds it).
+	-- Its start is a button: the tab is the character's, no setting holds it; a second press goes back.
 	local ok, err = ns.RegisterOptions({
 		page = L["Questing"], tab = L["Quests"], section = L["Free mode"],
 		controls = {
-			{ kind = "toggle", label = L["Free mode"], search = SEARCH,
-				help = L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."],
-				get = function() return F.IsOn() end,
-				set = function(on) if on then F.Start() else F.Stop() end end },
+			{ kind = "button", icon = "icon-explore", button = L["Start"], label = L["Free mode"], search = SEARCH,
+				help = L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."],
+				onClick = function() F.Toggle() end },
 			{ kind = "dropdown", key = "free.pick", label = L["Which quest first"], search = SEARCH,
 				choices = { { value = "near", label = L["Nearest first"] }, { value = "xp", label = L["Most XP a minute first"] } },
 				help = L["Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes."] },

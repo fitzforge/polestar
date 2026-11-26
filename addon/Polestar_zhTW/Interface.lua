@@ -528,7 +528,7 @@
 --   Which quest first
 --   With no quest near, the zone with the most quests for your level comes first, the arrow to its givers.
 --   XP and drop rates
---   Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free).
+--   Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide.
 --   Your own quests as a guide: the arrow leads to the nearest one, then the next.
 --   Zone hints
 --   No quests in your log are ready to hand in.
@@ -1225,13 +1225,13 @@ L["Quest givers and turn-ins"] = "任務發布者與繳交"
 L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = "在 NPC 上列出它現在可給你的任務，以及你可以向它繳交的已完成任務。"
 L["Replace the game's quest lines"] = "取代遊戲的任務行"
 L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = "在怪物和物件上，略過遊戲自身針對這些滑鼠提示所列任務的行，讓每個任務只顯示一次。在小隊中遊戲的行會保留：它們會顯示隊伍的進度。"
-L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "把你自己的任務當作指南，在單獨的分頁中：箭頭指向最近的任務，然後是下一個（/polestar free）。"
 L["Which quest first"] = "先做哪個任務"
 L["Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes."] = "最近的優先：最快能到達的任務，然後是它附近的任務。每分鐘經驗最多的優先：任務給的經驗與路程和所需工作相比。"
 L["Zone hints"] = "地區提示"
 L["With no quest near, the zone with the most quests for your level comes first, the arrow to its givers."] = "附近沒有任務時，適合你等級任務最多的地區排在最前，箭頭指向發布任務的人。"
 L["XP and drop rates"] = "經驗和掉落率"
 L["The XP each hand-in pays, and a collect whose items rarely drop says so."] = "每次交任務獲得的經驗，以及物品很少掉落的收集目標會註明。"
+L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "把你自己的任務當作指南，在單獨的分頁中：箭頭指向最近的任務，然後是下一個（/polestar free）。再按一次返回你的指南。"
 
 -- Quests/Party.lua
 L["%s done"] = "%s 已完成"
@@ -6028,3 +6028,4 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 -- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "視窗最多能長到多高，以螢幕高度的比例計。較長的步驟可捲動查看。"
 -- L["Max height"] = "最大高度"
 -- L["%s: on this step"] = "%s：在此步驟"
+-- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "把你自己的任務當作指南，在單獨的分頁中：箭頭指向最近的任務，然後是下一個（/polestar free）。"

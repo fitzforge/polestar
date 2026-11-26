@@ -528,7 +528,7 @@
 --   Which quest first
 --   With no quest near, the zone with the most quests for your level comes first, the arrow to its givers.
 --   XP and drop rates
---   Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free).
+--   Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide.
 --   Your own quests as a guide: the arrow leads to the nearest one, then the next.
 --   Zone hints
 --   No quests in your log are ready to hand in.
@@ -1225,13 +1225,13 @@ L["Quest givers and turn-ins"] = "퀘스트 제공자와 제출"
 L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = "NPC에 지금 받을 수 있는 퀘스트와 그 NPC에게 제출할 수 있는 완료된 퀘스트를 표시합니다."
 L["Replace the game's quest lines"] = "게임의 퀘스트 줄 대체"
 L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = "몹과 오브젝트에서 이 툴팁이 표시하는 퀘스트에 대한 게임 기본 줄을 빼서 각 퀘스트가 한 번만 보이게 합니다. 파티 중에는 게임 기본 줄이 남습니다: 파티원의 진행 상황을 보여 주기 때문입니다."
-L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "내가 받은 퀘스트를 자체 탭의 가이드로: 화살표가 가장 가까운 퀘스트로, 그다음 퀘스트로 안내합니다 (/polestar free)."
 L["Which quest first"] = "어떤 퀘스트부터"
 L["Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes."] = "가까운 순: 가장 빨리 닿는 퀘스트, 그다음 그 주변 퀘스트. 분당 경험치 많은 순: 이동과 작업에 드는 시간 대비 퀘스트가 주는 경험치."
 L["Zone hints"] = "지역 추천"
 L["With no quest near, the zone with the most quests for your level comes first, the arrow to its givers."] = "가까운 퀘스트가 없으면, 레벨에 맞는 퀘스트가 가장 많은 지역이 먼저 나오고 화살표가 퀘스트를 주는 NPC로 안내합니다."
 L["XP and drop rates"] = "경험치와 획득 확률"
 L["The XP each hand-in pays, and a collect whose items rarely drop says so."] = "각 퀘스트 완료 시 받는 경험치, 그리고 아이템이 드물게 나오는 수집 목표에는 그렇다고 표시합니다."
+L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "내가 받은 퀘스트를 자체 탭의 가이드로: 화살표가 가장 가까운 퀘스트로, 그다음 퀘스트로 안내합니다 (/polestar free). 다시 누르면 가이드로 돌아갑니다."
 
 -- Quests/Party.lua
 L["%s done"] = "%s 완료"
@@ -6028,3 +6028,4 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 -- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "창이 커질 수 있는 높이(화면 대비 비율). 더 긴 단계는 스크롤됩니다."
 -- L["Max height"] = "최대 높이"
 -- L["%s: on this step"] = "%s: 같은 단계"
+-- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "내가 받은 퀘스트를 자체 탭의 가이드로: 화살표가 가장 가까운 퀘스트로, 그다음 퀘스트로 안내합니다 (/polestar free)."

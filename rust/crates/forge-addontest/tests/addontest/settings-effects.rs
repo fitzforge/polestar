@@ -73,6 +73,7 @@ const GROUPS: &[Group] = &[
 	Group { name: "questing_party", src: include_str!("effects/questing-party.lua") },
 	Group { name: "questing_gear", src: include_str!("effects/questing-gear.lua") },
 	Group { name: "questing_bagmarks", src: include_str!("effects/questing-bagmarks.lua") },
+	Group { name: "questing_freemode", src: include_str!("effects/questing-freemode.lua") },
 	Group { name: "guide_window", src: include_str!("effects/guide-window.lua") },
 	Group { name: "guide_hud", src: include_str!("effects/guide-hud.lua") },
 	Group { name: "guide_nav", src: include_str!("effects/guide-nav.lua") },

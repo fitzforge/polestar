@@ -197,7 +197,7 @@ emit({ titles = titles(), out = F.LeftOut() })
 	assert_eq!(out[1]["out"], serde_json::json!([7001]));
 	assert!(truthy(&out[1]["saved"]));
 	assert_eq!(strs(&out[2]["titles"])[0], "Gnoll Trouble");
-	assert!(out[2]["out"].as_array().map_or(true, |a| a.is_empty()), "{}", out[2]["out"]);
+	assert!(out[2]["out"].as_array().is_none_or(|a| a.is_empty()), "{}", out[2]["out"]);
 }
 
 #[test]
@@ -439,9 +439,10 @@ emit({ xp = xp, on = on, first = first, pick = Polestar.Get("free.pick"), off = 
 }
 
 #[test]
-fn the_settings_switch_starts_and_stops_it_beside_its_order_and_details() {
-	// Settings > Questing > Quests > Free mode (Polestar_Options/Quests/Options.lua): the switch is a row (the tab
-	// is the character's), then the order, zone hints and XP and drop rates.
+fn the_settings_button_starts_and_stops_it_beside_its_order_and_details() {
+	// Settings > Questing > Quests > Free mode (Polestar_Options/Quests/Options.lua): the start is a button (the tab
+	// is the character's, no setting holds it; pressed again it goes back), then the order, zone hints and XP and
+	// drop rates.
 	let out = run_with(
 		r#"
 take(7001)
@@ -452,14 +453,16 @@ local c = O.ControlByKey("free.pick")
 O.Select(c.page.key, c.tab)
 stub.advance(0.2)
 local rows = O.Controls(c.page.key, c.tab)
-local switch = rows["Free mode"]
-local before = switch.psGet()
-switch.psSet(true)
+local start
+for _, x in ipairs(O.AllControls()) do
+	if x.kind == "button" and x.label == "Free mode" then start = x end
+end
+start.onClick()
 stub.advance(1)
 local on, guide = F.IsOn(), E.GetGuide().id
-switch.psSet(false)
+start.onClick()
 stub.advance(1)
-emit({ page = c.page.key, tab = c.tab, hints = rows["free.hints"] ~= nil, details = rows["free.details"] ~= nil, before = before, on = on, guide = guide, after = F.IsOn() })
+emit({ page = c.page.key, tab = c.tab, hints = rows["free.hints"] ~= nil, details = rows["free.details"] ~= nil, on = on, guide = guide, after = F.IsOn() })
 "#,
 		&Opts { files: None, ..Default::default() },
 	);
@@ -467,7 +470,6 @@ emit({ page = c.page.key, tab = c.tab, hints = rows["free.hints"] ~= nil, detail
 	assert_eq!(text(&o["page"]), "questing");
 	assert_eq!(text(&o["tab"]), "Quests");
 	assert!(truthy(&o["hints"]) && truthy(&o["details"]));
-	assert!(!truthy(&o["before"]));
 	assert!(truthy(&o["on"]));
 	assert_eq!(text(&o["guide"]), "lookup/free/log");
 	assert!(!truthy(&o["after"]));

@@ -302,7 +302,7 @@
 --   Which quest first
 --   With no quest near, the zone with the most quests for your level comes first, the arrow to its givers.
 --   XP and drop rates
---   Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free).
+--   Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide.
 --   Your own quests as a guide: the arrow leads to the nearest one, then the next.
 --   Zone hints
 --   No quests in your log are ready to hand in.
@@ -2529,13 +2529,13 @@ L["Quest givers and turn-ins"] = "Questgeber und Abgaben"
 L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = "Nennt bei einem NPC die Quests, die er jetzt für dich hat, und die abgeschlossenen Quests, die du bei ihm abgeben kannst."
 L["Replace the game's quest lines"] = "Questzeilen des Spiels ersetzen"
 L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = "Lässt bei Mobs und Objekten die eigenen Zeilen des Spiels für die Quests weg, die diese Tooltips nennen, damit jede Quest nur einmal erscheint. In einer Gruppe bleiben die Zeilen des Spiels: Sie zeigen den Fortschritt deiner Gruppe."
-L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Deine eigenen Quests als Guide, in einem eigenen Tab: Der Pfeil führt zur nächsten, dann zur folgenden (/polestar free)."
 L["Which quest first"] = "Welche Quest zuerst"
 L["Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes."] = "Nächste zuerst: die Quest, die du am schnellsten erreichst, danach ihre Nachbarn. Meiste EP pro Minute zuerst: die EP einer Quest im Verhältnis zu Weg und Arbeit, die sie kostet."
 L["Zone hints"] = "Gebietstipps"
 L["With no quest near, the zone with the most quests for your level comes first, the arrow to its givers."] = "Ist keine Quest in der Nähe, kommt das Gebiet mit den meisten Quests für deine Stufe zuerst, der Pfeil zu seinen Questgebern."
 L["XP and drop rates"] = "EP und Beutechancen"
 L["The XP each hand-in pays, and a collect whose items rarely drop says so."] = "Die EP, die jede Abgabe bringt, und ein Sammelziel, dessen Gegenstände selten fallen, sagt es."
+L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "Deine eigenen Quests als Guide, in einem eigenen Tab: Der Pfeil führt zur nächsten, dann zur folgenden (/polestar free). Erneut drücken, um zu deinem Guide zurückzukehren."
 
 -- UI/Packs.lua (the pack report lines stay English: authors read them)
 L["turned off in the AddOns list"] = "in der AddOn-Liste ausgeschaltet"
@@ -5846,3 +5846,4 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 -- L["%s: on this step"] = "%s: bei diesem Schritt"
 -- L["Layout"] = "Layout"
 -- L["Your current design"] = "Dein aktuelles Design"
+-- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Deine eigenen Quests als Guide, in einem eigenen Tab: Der Pfeil führt zur nächsten, dann zur folgenden (/polestar free)."

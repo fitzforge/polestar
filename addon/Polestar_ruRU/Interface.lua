@@ -511,7 +511,7 @@
 --   Which quest first
 --   With no quest near, the zone with the most quests for your level comes first, the arrow to its givers.
 --   XP and drop rates
---   Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free).
+--   Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide.
 --   Your own quests as a guide: the arrow leads to the nearest one, then the next.
 --   Zone hints
 --   No quests in your log are ready to hand in.
@@ -1208,13 +1208,13 @@ L["Quest givers and turn-ins"] = "Выдача и сдача заданий"
 L["On an NPC, name the quests it has for you now and the finished quests you can hand in to it."] = "На NPC называть задания, которые он сейчас может вам дать, и выполненные задания, которые можно ему сдать."
 L["Replace the game's quest lines"] = "Заменять строки заданий игры"
 L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = "На противниках и объектах убирать собственные строки игры для заданий, указанных в этих подсказках, чтобы каждое задание показывалось один раз. В группе строки игры остаются: они показывают прогресс группы."
-L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Ваши собственные задания как гайд, на отдельной вкладке: стрелка ведет к ближайшему, затем к следующему (/polestar free)."
 L["Which quest first"] = "Какое задание первым"
 L["Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes."] = "Ближайшее — первым: задание, до которого быстрее всего добраться, затем соседние. Больше опыта в минуту — первым: опыт за задание в сравнении с дорогой и работой, которых оно требует."
 L["Zone hints"] = "Подсказки по зонам"
 L["With no quest near, the zone with the most quests for your level comes first, the arrow to its givers."] = "Если рядом нет заданий, первой идет зона с наибольшим числом заданий для вашего уровня, а стрелка ведет к тем, кто их дает."
 L["XP and drop rates"] = "Опыт и шанс добычи"
 L["The XP each hand-in pays, and a collect whose items rarely drop says so."] = "Опыт, который дает каждая сдача, и пометка у задания на сбор, если предметы выпадают редко."
+L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free). Press again to go back to your guide."] = "Ваши собственные задания как гайд, на отдельной вкладке: стрелка ведет к ближайшему, затем к следующему (/polestar free). Нажмите еще раз, чтобы вернуться к своему гайду."
 
 -- Quests/Party.lua
 L["%s done"] = "%s: готово"
@@ -6018,3 +6018,4 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 -- L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "Насколько высоким может стать окно, в доле экрана. Более длинный шаг прокручивается."
 -- L["Max height"] = "Макс. высота"
 -- L["%s: on this step"] = "%s: на этом шаге"
+-- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "Ваши собственные задания как гайд, на отдельной вкладке: стрелка ведет к ближайшему, затем к следующему (/polestar free)."
