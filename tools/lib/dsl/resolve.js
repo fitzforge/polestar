@@ -870,13 +870,14 @@ function applyLoopCandidates(step, s, err, faction, resolveZone) {
 		const r = l.r || LOOP_RADIUS;
 		const spots = l.pts.map(([x, y]) => ({ x, y, r }));
 		const c = { map: zone.id, x: spots[0].x, y: spots[0].y };
-		if (l.live) c.f = 'l';
+		// A compiled point is Era-frame with `f: 'e'`, Forever's own frame without `f`.
+		if (!l.live) c.f = 'e';
 		const o = l.only || {};
 		const sides = o.factions || (faction ? [faction] : null);
 		c.faction = sides && sides.length === 1 ? SIDE_TAG[sides[0]] : 'AH';
 		if (o.races) c.races = o.races;
 		if (o.classes) c.classes = o.classes;
-		c.lvl = [l.lvl, l.lvl];
+		c.lvl = { min: l.lvl, max: l.lvl };
 		c.lap = l.lap;
 		c[per] = l[per];
 		c.spotsPacked = spots.map((p) => [p.x, p.y, '', p.r].map((v) => (v === '' ? v : luaNumber(v, 2))).join(',')).join(';');

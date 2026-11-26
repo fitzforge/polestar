@@ -33,8 +33,8 @@ fn loop_lines_compile_to_the_skill_goal_s_loop_candidates_that_the_engine_regist
 	let at = pack.guides_of("test/loops");
 	let lua = pack.text(at);
 	// The steps sit in a deferred source string: quotes come escaped.
-	assert!(is_match(lua, r#"map = 1429, x = 40, y = 40, faction = \\?"AH\\?", lvl = \{ 6, 6 \}, lap = 300, gain = 2\.5, spotsPacked = \\?"40,40,,60;45,45,,60\\?""#), "{lua}");
-	assert!(is_match(lua, r#"faction = \\?"H\\?", lvl = \{ 9, 9 \}, lap = 420, gain = 4, spotsPacked = \\?"60,60,,30;62,64,,30;58,66,,30\\?""#), "{lua}");
+	assert!(is_match(lua, r#"map = 1429, x = 40, y = 40, f = \\?"e\\?", faction = \\?"AH\\?", lvl = \{ min = 6, max = 6 \}, lap = 300, gain = 2\.5, spotsPacked = \\?"40,40,,60;45,45,,60\\?""#), "{lua}");
+	assert!(is_match(lua, r#"f = \\?"e\\?", faction = \\?"H\\?", lvl = \{ min = 9, max = 9 \}, lap = 420, gain = 4, spotsPacked = \\?"60,60,,30;62,64,,30;58,66,,30\\?""#), "{lua}");
 	let file = serde_json::to_string(&pack.dir.join(at)).unwrap();
 	let out = emitted(&RunAddon { addons: vec![Addon::files("Polestar", &["Core/Core.xml"])], script: SCRIPT.replace("${TEST_PACK}", TEST_PACK).replace("${FILE}", &file), ..Default::default() });
 	let out = &out[0];

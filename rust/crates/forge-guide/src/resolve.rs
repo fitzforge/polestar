@@ -1646,8 +1646,9 @@ fn apply_loop_candidates(step: &V, s: &V, faction: &V, r: &mut R) {
 		let spots = V::from(spots);
 		let first = spots.at(0);
 		let c: V = obj! { "map" => zone.get("id"), "x" => first.get("x"), "y" => first.get("y") }.into();
-		if l.get("live").truthy() {
-			c.set("f", "l");
+		// A compiled point is Era-frame with `f = "e"`, Forever's own frame without `f`.
+		if !l.get("live").truthy() {
+			c.set("f", "e");
 		}
 		let o = l.get("only");
 		let mut sides = o.get("factions").items();
@@ -1662,7 +1663,7 @@ fn apply_loop_candidates(step: &V, s: &V, faction: &V, r: &mut R) {
 		c.set("faction", tag);
 		set_if(&c, "races", o.get("races"));
 		set_if(&c, "classes", o.get("classes"));
-		c.set("lvl", crate::arr![l.get("lvl"), l.get("lvl")]);
+		c.set("lvl", obj! { "min" => l.get("lvl"), "max" => l.get("lvl") });
 		c.set("lap", l.get("lap"));
 		c.set(per, l.get(per));
 		c.set("spotsPacked", crate::emit::pack_spots(&spots));
