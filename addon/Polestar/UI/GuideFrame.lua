@@ -673,12 +673,19 @@ GF.Part(function(GF)
 		end
 		local show = ns.QuestLogMenuItem and ns.QuestLogMenuItem(goal.quest)
 		if show then items[#items + 1] = show end
-		-- What this guide leaves out with it (Engine.SkipLoses), named in the tip.
-		local tip = L["This quest and the ones that follow from it are skipped, in every guide. Right-click it again to bring it back."]
-		local loses = E.SkipLoses and UI.SkipLosesText(E.SkipLoses(goal.quest))
-		if loses then tip = tip .. " " .. loses end
-		items[#items + 1] = { text = L["Skip this quest"], icon = "skip", tip = tip,
-			onClick = function() E.SkipQuest(goal.quest, true) end }
+		-- In Free mode (Lookup/Free.lua) pin it first or leave it out of the
+		-- list, in place of Skip, which skips it in every guide.
+		local free = ns.Free and ns.Free.RowItems(goal.quest)
+		if free then
+			for _, it in ipairs(free) do items[#items + 1] = it end
+		else
+			-- What this guide leaves out with it (Engine.SkipLoses), named in the tip.
+			local tip = L["This quest and the ones that follow from it are skipped, in every guide. Right-click it again to bring it back."]
+			local loses = E.SkipLoses and UI.SkipLosesText(E.SkipLoses(goal.quest))
+			if loses then tip = tip .. " " .. loses end
+			items[#items + 1] = { text = L["Skip this quest"], icon = "skip", tip = tip,
+				onClick = function() E.SkipQuest(goal.quest, true) end }
+		end
 		local link = ns.QuestLinkMenuItem and ns.QuestLinkMenuItem(goal.quest)
 		if link then items[#items + 1] = link end
 		W.ShowMenu(row, items)
@@ -2014,6 +2021,8 @@ GF.Part(function(GF)
 		empty.Secondary:Hide()
 		empty.Carried:Hide()
 		empty.Stray:Hide()
+		local free = rawget(empty, "FreeLink")
+		if free then free:Hide() end
 		if GF.PlayNext then GF.PlayNext.Hide() end
 		local glyph, color = "emblem", "accent"
 		if kind == "noguides" and UI.Packs and UI.Packs.OursSwitchedOff() then
@@ -2067,6 +2076,17 @@ GF.Part(function(GF)
 				W.SetButtonText(empty.Primary, L["Choose a guide"])
 				empty.Primary.psAction = function() UI.ShowPicker() end
 				empty.Primary:Show()
+			end
+			-- Or no guide at all: the quests the player picks up themselves (Free mode,
+			-- Lookup/Free.lua; its link made the first time it shows).
+			if ns.Free then
+				if not rawget(empty, "FreeLink") then
+					empty.FreeLink = W.Link(empty, "", empty.act, { role = "note" })
+					empty.FreeLink.psTip = L["Your own quests as a guide: the arrow leads to the nearest one, then the next."]
+				end
+				W.SetLinkText(empty.FreeLink, L["Or follow your own quests: Free mode"])
+				empty.FreeLink.psAction = function() ns.Free.Toggle() end
+				empty.FreeLink:Show()
 			end
 		elseif kind == "notyet" then
 			-- A Class guide the character cannot start yet (Engine.StartGate):
@@ -2122,6 +2142,21 @@ GF.Part(function(GF)
 			W.SetButtonText(empty.Secondary, L["Choose a guide"])
 			empty.Secondary.psAction = function() UI.ShowPicker() end
 			empty.Secondary:Show()
+		elseif kind == "complete" and ns.Free and E and E.GetGuide and ns.Free.IsGuide((E.GetGuide() or {}).id) then
+			-- Free mode with nothing in the log to lead to: pick up quests, or go
+			-- back to a guide.
+			glyph = "icon-explore"
+			empty.Title:SetText(L["No quests to lead to"])
+			empty.Text:SetText(L["Pick up quests and Free mode leads you to them."])
+			local back = ns.Free.ReturnTitle()
+			W.SetButtonText(empty.Primary, back and string.format(L["Return to %s"], back) or L["Choose a guide"])
+			empty.Primary.psAction = function() if back then ns.Free.Stop() else UI.ShowPicker() end end
+			empty.Primary:Show()
+			if back then
+				W.SetButtonText(empty.Secondary, L["Choose a guide"])
+				empty.Secondary.psAction = function() UI.ShowPicker() end
+				empty.Secondary:Show()
+			end
 		elseif kind == "complete" then
 			glyph, color = "check", "success"
 			local guide = E and E.GetGuide and E.GetGuide()
@@ -3813,6 +3848,7 @@ GF.Part(function(GF)
 		empty.Stray = W.Link(empty, "", act, { role = "note" })
 		empty.Stray.psTip = L["No guide of your route takes, works or hands these in. Click to see them and keep or abandon each."]
 		empty.Stray:Hide()
+		empty.act = act
 
 		-- The guide's progress with its percent, at the bottom.
 		foot = CreateFrame("Frame", nil, F)
