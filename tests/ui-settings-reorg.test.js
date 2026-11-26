@@ -318,7 +318,7 @@ test('pages and sections follow the player journey order', () => {
 	assert.deepEqual(sectionsOf(out, 'guide', 'Arrow & routes'), ['Arrow', 'Routes', 'Along the route', 'Getting around', 'Other waypoints']);
 
 	assert.deepEqual(tabsOf(out, 'questing'), ['Quests', 'Rewards & gear', 'Buttons', 'Group']);
-	assert.deepEqual(sectionsOf(out, 'questing', 'Quests'), ['Faster questing', 'Quest log', 'Quest data', 'Quest items']);
+	assert.deepEqual(sectionsOf(out, 'questing', 'Quests'), ['Faster questing', 'Quest log', 'Quest data', 'Quest items', 'Free mode']);
 	assert.deepEqual(sectionsOf(out, 'questing', 'Buttons'), ['Action buttons', 'Targeting']);
 	assert.deepEqual(sectionsOf(out, 'questing', 'Group'), ['Group', 'Party chat']);
 
