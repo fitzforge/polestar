@@ -298,6 +298,10 @@ GF.Part(function(GF)
 	} or nil
 	local provider = GF.content
 	local function Engine() return provider or ns.Engine end
+	local function runKey(guide)
+		local lookup = guide and guide.lookup
+		return lookup and lookup.kind == "run" and lookup.id or nil
+	end
 	local function Derived() return provider or DERIVED end
 	function GF.UseContent(c)
 		provider, GF.content = c, c
@@ -905,7 +909,7 @@ GF.Part(function(GF)
 	-- `who`: the person a goal of another group is done with (rowWho), said
 	-- first on its line; `aside`: a goal outside the focus, open goals step back.
 	-- `questHex`: the quest name's colour (the class-quest card's class colour).
-	local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing, noEscort, who, aside, questHex, noFinder)
+	local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing, noEscort, who, aside, questHex, noFinder, questDetail)
 		local sameGoal = sameStep and r.psGoal and r.psGoal.index == goal.index and r.psGoal.t == goal.t
 		r.psGoal = goal
 		local status = goal.status
@@ -929,6 +933,7 @@ GF.Part(function(GF)
 		local warn = goal.pinOpen and not done and not skipped
 		W.Color(r.Text, (done or skipped) and "textMuted" or (warn and "warning" or (goal.accent and "accent") or (aside and "textDim" or "text")))
 		local sub = UI.GoalSubline(goal, person.Where:IsShown() and person.psPlace and person.psPlace.map or nil, noParty, noMissing, noEscort, noFinder)
+		if questDetail then sub = sub and (questDetail .. "\n" .. sub) or questDetail end
 		if warn then
 			local open = goal.pinOpen == "along" and L["Its objectives are still open."]
 				or goal.pinOpen == "ticked" and L["Ticked by you, but the game still counts its objectives open: finish them first."]
@@ -2014,7 +2019,7 @@ GF.Part(function(GF)
 		line(empty.Stray, stray, stray == 1 and L["1 quest isn't part of your route"] or L["%d quests aren't part of your route"]:format(stray), "offroute")
 	end
 
-	local function setEmpty(kind)
+	local function setEmpty(kind, dungeon)
 		state = kind
 		local E, G = Engine(), ns.Guides
 		empty.Primary:Hide()
@@ -2142,6 +2147,18 @@ GF.Part(function(GF)
 			W.SetButtonText(empty.Secondary, L["Choose a guide"])
 			empty.Secondary.psAction = function() UI.ShowPicker() end
 			empty.Secondary:Show()
+		elseif kind == "runDone" then
+			glyph, color = "check", "success"
+			empty.Title:SetText(L["All objectives done"])
+			local Dg = ns.Dungeons
+			if UI.DungeonsSection and Dg.HandinGuide(dungeon) then
+				empty.Text:SetText("")
+				W.SetButtonText(empty.Primary, L["Hand in the quests"])
+				empty.Primary.psAction = function() UI.DungeonsSection.HandIn(dungeon) end
+				empty.Primary:Show()
+			else
+				empty.Text:SetText(Dg.HandinText(Dg.HandinPlan(dungeon)))
+			end
 		elseif kind == "complete" and ns.Free and E and E.GetGuide and ns.Free.IsGuide((E.GetGuide() or {}).id) then
 			-- Free mode with nothing in the log to lead to: pick up quests, or go
 			-- back to a guide.
@@ -2534,7 +2551,7 @@ GF.Part(function(GF)
 	-- the whole step" it names the next person of this step too, and "Person 2
 	-- of 8" counts them.
 	local function fillAfter(E, index, groups, focus)
-		if compact() then
+		if compact() or runKey(E.GetGuide and E.GetGuide()) then
 			after:Hide()
 			return
 		end
@@ -2748,6 +2765,7 @@ GF.Part(function(GF)
 		-- names (the live window's alone).
 		local CC = GF.live and UI.ClassCard or nil
 		local guide = E.GetGuide and E.GetGuide()
+		local run = runKey(guide)
 		local step = guide and guide.steps and guide.steps[view.index]
 		local classHex = CC and CC.Fill(guide, view.index, view) or nil
 		-- A class quest's accept reads inside the class card (UI/ClassCard.lua).
@@ -2777,7 +2795,11 @@ GF.Part(function(GF)
 			local finder = UI.FinderLine(goal) ~= nil
 			local raw = classHex and step and step.goals[goal.index]
 			local hex = raw and CC.Colours(raw) and classHex or nil
-			paintRow(r, goal, pop and true or false, sameFocus, isCurrent, party and partySaid[party], goal.quest and missingSaid[goal.quest], escort and escortSaid, who, aside, hex, finder and finderSaid)
+			-- The tracker lists multiple quests. Name the quest on the subline
+			-- when the main line names its objective or target instead.
+			local questDetail = run and goal.quest and goal.subjectKind ~= "quest" and goal.detail or nil
+			paintRow(r, goal, pop and true or false, sameFocus, isCurrent, party and partySaid[party], goal.quest and missingSaid[goal.quest],
+				escort and escortSaid, who, aside, hex, finder and finderSaid, questDetail)
 			if party then partySaid[party] = true end
 			if escort then escortSaid = true end
 			if finder then finderSaid = true end
@@ -2864,7 +2886,7 @@ GF.Part(function(GF)
 			return nil
 		end
 		fold.grow = nil
-		if wholeStep() or not focus then
+		if run or wholeStep() or not focus then
 			-- Every goal of the step in written order, the other persons' named
 			-- on their rows and stepped back while open.
 			for _, goal in ipairs(cardGoals(view, groups, focus)) do
@@ -3187,7 +3209,8 @@ GF.Part(function(GF)
 			view, shownIndex, shownGuide, shownFocus = nil, nil, guide.id, nil
 			-- No live step only because a step skip left the rest out (#1372):
 			-- not "Guide complete", but the skip and its undo.
-			setEmpty(E.SkippedOut and E.SkippedOut() and "skippedout" or "complete")
+			local dungeon = runKey(guide)
+			setEmpty(dungeon and "runDone" or E.SkippedOut and E.SkippedOut() and "skippedout" or "complete", dungeon)
 			showSteps(false)
 			GF.Layout()
 			GF.PaintProgress(true)
@@ -4050,7 +4073,7 @@ GF.Part(function(GF)
 		-- A finished guide's card counts the quests in the log (GF.EndQuestLines):
 		-- one taken, handed in or abandoned paints it afresh. Only on that card.
 		ns.RegisterEvent("QUEST_LOG_UPDATE", function()
-			if state == "complete" and F and F:IsShown() and ns.IsLoggedIn() then GF.Render() end
+			if (state == "complete" or state == "runDone") and F and F:IsShown() and ns.IsLoggedIn() then GF.Render() end
 		end)
 		ns.On("GUIDES_REGISTERED", whenReady(GF.Render))
 		ns.On("PACKS_CHANGED", whenReady(GF.Render))

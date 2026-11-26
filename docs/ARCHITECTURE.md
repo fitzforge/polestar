@@ -8910,12 +8910,17 @@ is closed first to make room), else in a new tab. A
 finished pick-up guide's "Guide complete" panel (UI/GuideFrame.lua) offers
 "Hand in the quests" while the dungeon has quests in the log.
 
-Inside a party dungeon, `Dungeons/Run.lua` offers a quest tracker once per
-visit when a journal quest is in the log. The offer waits for combat to end
-and has its own `dungeons.runOffer` setting. The `lookup/run/<key>` planner uses
-Lookup quest goals with live counts and inside turn-ins. Its goals carry no
-waypoints. The tab rebuilds when held quests change, survives reload, and
-closes on leaving, restoring the previous tab.
+Inside a party dungeon, `Dungeons/Run.lua` records the visit on entry and
+offers the quest tracker once, either on entry with a journal quest or after
+the first pickup inside. The offer waits for the player to be alive and out
+of combat and has its own `dungeons.runOffer` setting. The `lookup/run/<key>`
+planner puts all held quests' live objectives and inside turn-ins on one
+step, without waypoints. The tab survives reloads and rebuilds as the held
+quests change or the log becomes readable. With no work left, it shows
+"All objectives done" and offers a separate hand-in tab when the dungeon
+has a hand-in route. The Engine keeps no completion record for trackers.
+Leaving closes the tracker and clears it from Recently closed. The previous
+tab is restored only if the tracker was selected on exit.
 
 Attunements and keys (`addon/Polestar/Dungeons/Attune.lua`, planner kind
 `attune`, `lookup/attune/<key>:<id>`). A page's `attunement` list (Codex,

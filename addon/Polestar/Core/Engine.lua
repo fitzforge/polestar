@@ -443,6 +443,10 @@ function Own.everyStep(g)
 	return g ~= nil and not (g.category == nil or g.category == "Leveling")
 end
 
+function Own.runTracker(g)
+	return g.lookup and g.lookup.kind == "run"
+end
+
 -- behavior.skipGrey: an accept for a quest already grey for the character
 -- (Own.greyOut: the client's grey, paying less than full XP; or a `turnin ...
 -- direct`, handed in with no accept, the compiler giving it its quest's level
@@ -8483,6 +8487,8 @@ local function checkShape(g)
 		-- Its finish in the guide list is the old guide's too (checkShape, 0.3.5 reused ids).
 		if type(s.guideDone) == "table" then s.guideDone[g.id] = nil end
 	end
+	-- A tracker has no recorded finish, including tabs saved by older builds.
+	if Own.runTracker(g) and type(s.guideDone) == "table" then s.guideDone[g.id] = nil end
 	s.shapes[g.id] = h
 	s.shapeVersions[g.id] = Own.packVersion(g)
 	s.ownShapes[g.id] = shapeOf(g.base or g)
@@ -11208,8 +11214,9 @@ local function evaluateLoaded(active)
 		end
 	end
 
-	-- A skip that left the rest out is no completion (Engine.SkippedOut).
-	if not current and not Engine.SkippedOut() then
+	-- A tracker can run out of work and pick up again as the log changes.
+	-- A skip that left the rest out is no completion either (Engine.SkippedOut).
+	if not current and not Own.runTracker(guide) and not Engine.SkippedOut() then
 		local id = guide.id
 		if not completedFired[id] then
 			completedFired[id] = true
@@ -11532,6 +11539,15 @@ function Engine.ClosedTabs()
 		if g and not openIds[c.id] then out[#out + 1] = { guideId = c.id, title = g.title, at = c.at } end
 	end
 	return out
+end
+
+-- Drops a guide from Recently closed and forgets its saved tab view.
+function Engine.ForgetClosedTab(id)
+	local _, i = Own.closedEntry(id)
+	if not i then return end
+	table.remove(Own.closed, i)
+	persist()
+	fireTabs()
 end
 
 -- Reopen a closed tab: guide `id`'s, else the last one closed (of

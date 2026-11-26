@@ -12,7 +12,7 @@ function UnitIsGhost(unit) return unit == "player" and w.ghost end
 -- Wailing Caverns quests and IDs from tests/fixtures/codex/dungeons.json.
 -- Give the Glowing Shard an inside end to exercise the journal's inside branch.
 local page = [=[return { quests = {
-	{ id = 1486, title = "Deviate Hides" },
+	{ id = 1486, title = "Deviate Hides", finish = { kind = "npc", id = 5767, name = "Nalpak", map = 1413, x = 45.99, y = 35.66, f = "e" } },
 	{ id = 6981, title = "The Glowing Shard", finish = { kind = "npc", id = 5768, inside = true } },
 } }]=]
 local loaded = stub.addonLoaded
@@ -58,6 +58,18 @@ local function guide(name)
 	assert(P.RegisterGuide({ id = "lookup/" .. name, pack = "lookup", title = name, steps = { { goals = { { t = "note", text = name } } } } }))
 	return assert(E.OpenTab("lookup/" .. name))
 end
+local GF = P.UI.GuideFrame
+local function endPage()
+	local e = GF.parts.empty
+	return { shown = e:IsShown(), title = e.Title:GetText(),
+		button = e.Primary:IsShown() and e.Primary.Label:GetText() or false }
+end
+local function openRun()
+	enter("party", 43)
+	assert(asked())
+	offer().Open:Click()
+	assert(active() == id)
+end
 "#;
 
 fn run_with(before: &str, saved: &str, script: &str) -> Value {
@@ -97,14 +109,14 @@ fn offer_opens_and_rebuilds_the_run_tab_with_live_quest_progress_then_restores_t
 		w.accept(6981, {}, "The Glowing Shard")
 		stub.runTimers()
 		g = E.GetGuide()
-		local turnin = g.steps[2].goals[1]
-		local added = { count = #g.steps, turnin = turnin.t, quest = turnin.quest }
+		local turnin = E.GetStepView(E.GetLiveStep()).goals[2]
+		local added = { count = #g.steps[1].goals, turnin = turnin.t, quest = turnin.quest }
 		w.turnIn(6981)
 		stub.runTimers()
-		local removed = #E.GetGuide().steps
+		local removed = #E.GetStepView(E.GetLiveStep()).goals
 		w.abandon(1486)
 		stub.runTimers()
-		local empty = E.GetGuide().steps[1].goals[1].t
+		local empty = endPage().title
 		enter(nil)
 		emit({ before = before, opened = opened, after = after, added = added, removed = removed, empty = empty,
 			left = active(), tabs = #E.GetTabs(), closed = #E.ClosedTabs() })
@@ -122,7 +134,7 @@ fn offer_opens_and_rebuilds_the_run_tab_with_live_quest_progress_then_restores_t
 	assert_eq!(out["after"], json!({ "kind": "count", "cur": 4, "max": 20 }));
 	assert_eq!(out["added"], json!({ "count": 2, "turnin": "turnin", "quest": 6981 }));
 	assert_eq!(out["removed"], 1);
-	assert_eq!(out["empty"], "note");
+	assert_eq!(out["empty"], "All objectives done");
 	assert_eq!(out["left"], "lookup/leveling");
 	assert_eq!(out["tabs"], 2);
 	assert_eq!(out["closed"], 0);
@@ -373,4 +385,243 @@ fn a_visit_waits_for_the_journal_and_leaving_cancels_an_offer_deferred_in_combat
 	"#,
 	);
 	assert_eq!(out, json!([false, true, false]));
+}
+
+#[test]
+fn the_live_step_and_window_show_each_held_quest_when_the_log_changes() {
+	let out = run_with(
+		"hides()",
+		"",
+		r#"
+		openRun()
+		assert(not P.Get("ui.wholeStep"))
+		w.accept(6981, {}, "The Glowing Shard")
+		stub.runTimers()
+		local live = E.GetLiveStep()
+		local quests, labels = {}, {}
+		for _, g in ipairs(E.GetStepView(live).goals) do quests[#quests + 1] = {g.quest, g.t} end
+		for _, r in ipairs(GF.SkinParts().rows) do
+			if r:IsVisible() and r.psGoal and r.psGoal.quest then
+				local name = r.psGoal.quest == 1486 and "Deviate Hides" or "The Glowing Shard"
+				if (r.Text:GetText() .. r.Sub:GetText()):find(name, 1, true) then labels[#labels + 1] = name end
+			end
+		end
+		local steps, shown = E.GetStepCount(), F:IsShown()
+		w.turnIn(6981)
+		stub.runTimers()
+		local remaining = E.GetStepView(E.GetLiveStep()).goals[1]
+		emit({ live = live, steps = steps, shown = shown, quests = quests, labels = labels,
+			remaining = remaining.quest, progress = remaining.progress.cur })
+	"#,
+	);
+	assert_eq!(
+		out,
+		json!({ "live": 1, "steps": 1, "shown": true, "quests": [[1486, "collect"], [6981, "turnin"]],
+		"labels": ["Deviate Hides", "The Glowing Shard"], "remaining": 1486, "progress": 3 })
+	);
+}
+
+#[test]
+fn finished_objectives_open_the_hand_in_from_inside_without_completing_the_tracker() {
+	let out = run_with(
+		"hides()",
+		"",
+		r#"
+		local completions = 0
+		P.On("GUIDE_COMPLETED", function(gid) if gid == id then completions = completions + 1 end end)
+		openRun()
+		w.finish(1486)
+		stub.advance(0.25)
+		assert(P.Dungeons.HandinGuide("wailing-caverns"), "the completed quest has an outside hand-in")
+		local page, live = endPage(), E.GetLiveStep() or false
+		if page.button == "Hand in the quests" then GF.parts.empty.Primary:Click() end
+		local opened, count = active(), #E.GetTabs()
+		enter(nil)
+		emit({ page = page, live = live, opened = opened, count = count, left = active(), tabs = #E.GetTabs(),
+			completions = completions, done = P.CharState().guideDone[id] == true })
+	"#,
+	);
+	assert_eq!(
+		out,
+		json!({ "page": { "shown": true, "title": "All objectives done", "button": "Hand in the quests" },
+		"live": false, "opened": "lookup/handin/wailing-caverns", "count": 2, "left": "lookup/handin/wailing-caverns",
+		"tabs": 1, "completions": 0, "done": false })
+	);
+}
+
+#[test]
+fn removing_the_last_quest_shows_the_tracker_page_without_a_hand_in_button() {
+	for (before, remove) in [("hides()", "w.abandon(1486)"), ("w.onQuest(6981, {}, 'The Glowing Shard')", "w.turnIn(6981)")] {
+		let out = run_with(
+			before,
+			"",
+			&format!(
+				r#"
+				openRun()
+				{remove}
+				stub.advance(0.25)
+				emit({{ page = endPage(), live = E.GetLiveStep() or false, active = active(), done = P.CharState().guideDone[id] == true }})
+			"#
+			),
+		);
+		assert_eq!(
+			out,
+			json!({ "page": { "shown": true, "title": "All objectives done", "button": false },
+			"live": false, "active": "lookup/run/wailing-caverns", "done": false }),
+			"{remove}"
+		);
+	}
+}
+
+#[test]
+fn the_first_pickup_inside_offers_once_and_an_answered_entry_offer_does_not_repeat() {
+	let out = run_with(
+		"",
+		"",
+		r#"
+		enter("party", 43)
+		local empty = asked()
+		local saved = P.CharState().dungeonRun or {}
+		local recorded = saved.key == "wailing-caverns" and saved.map == 43
+		w.accept(1486, { 20 }, "Deviate Hides")
+		stub.runTimers()
+		local title = asked() and offer().Title:GetText() or false
+		offer().Later:Click()
+		w.accept(6981, {}, "The Glowing Shard")
+		stub.runTimers()
+		local repeated = asked()
+		enter(nil)
+		enter("party", 43)
+		offer().Later:Click()
+		w.abandon(6981)
+		w.accept(6981, {}, "The Glowing Shard")
+		stub.runTimers()
+		emit({ empty = empty, recorded = recorded, title = title, repeated = repeated, afterEntry = asked() })
+	"#,
+	);
+	assert_eq!(
+		out,
+		json!({ "empty": false, "recorded": true, "title": "You've picked up a quest for Wailing Caverns. Open the step tracker for your quests here?",
+		"repeated": false, "afterEntry": false })
+	);
+}
+
+#[test]
+fn a_reload_after_entering_empty_preserves_the_visit_and_still_allows_a_pickup_offer() {
+	let out = run_with(
+		"w.instanceKind, w.instanceMap = 'party', 43",
+		r#"PolestarCharDB = { dungeonRun = { map = 43, key = "wailing-caverns", asked = false } }"#,
+		r#"
+		local saved = P.CharState().dungeonRun
+		enter("party", 43, true)
+		local atReload = asked()
+		w.accept(1486, { 20 }, "Deviate Hides")
+		stub.runTimers()
+		emit({ same = P.CharState().dungeonRun == saved, reload = atReload,
+			pickup = asked() and offer().Title:GetText() or false })
+	"#,
+	);
+	assert_eq!(
+		out,
+		json!({ "same": true, "reload": false,
+		"pickup": "You've picked up a quest for Wailing Caverns. Open the step tracker for your quests here?" })
+	);
+}
+
+#[test]
+fn a_manually_closed_tracker_can_only_be_reopened_during_its_visit() {
+	let out = run_with(
+		"hides()",
+		"",
+		r#"
+		guide("leveling")
+		openRun()
+		local _, at = E.GetTabs()
+		E.CloseTab(at)
+		assert(E.ReopenClosedTab(id), "the tracker is reopenable during its visit")
+		local _, at = E.GetTabs()
+		E.CloseTab(at)
+		local before = E.ClosedTabs()[1].guideId
+		enter(nil)
+		emit({ before = before, closed = #E.ClosedTabs(), reopened = E.ReopenClosedTab(id) or false, active = active() })
+	"#,
+	);
+	assert_eq!(out, json!({ "before": "lookup/run/wailing-caverns", "closed": 0, "reopened": false, "active": "lookup/leveling" }));
+}
+
+#[test]
+fn leaving_keeps_the_tab_the_player_selected_inside() {
+	let out = run_with(
+		"hides()",
+		"",
+		r#"
+		local other = guide("another")
+		guide("leveling")
+		openRun()
+		E.SelectTab(other)
+		enter(nil)
+		emit({ active = active(), tabs = #E.GetTabs() })
+	"#,
+	);
+	assert_eq!(out, json!({ "active": "lookup/another", "tabs": 2 }));
+}
+
+#[test]
+fn an_unanswered_offer_returns_after_death_and_waits_for_combat_to_end() {
+	let out = run_with(
+		"hides()",
+		"",
+		r#"
+		enter("party", 43)
+		local before = asked()
+		w.ghost = true
+		stub.fire("PLAYER_DEAD")
+		stub.runTimers()
+		local dead = asked()
+		enter(nil)
+		enter("party", 43)
+		stub.inCombat, w.ghost = true, false
+		stub.fire("PLAYER_UNGHOST")
+		stub.runTimers()
+		local combat = asked()
+		stub.inCombat = false
+		stub.fire("PLAYER_REGEN_ENABLED")
+		stub.runTimers()
+		emit({ before, dead, combat, asked() })
+	"#,
+	);
+	assert_eq!(out, json!([true, false, false, true]));
+}
+
+#[test]
+fn the_restored_tracker_reads_quests_when_the_log_becomes_available() {
+	let out = run_with(
+		r#"
+		hides()
+		w.instanceKind, w.instanceMap = "party", 43
+		local onQuest, entries = C_QuestLog.IsOnQuest, C_QuestLog.GetNumQuestLogEntries
+		function C_QuestLog.IsOnQuest(q) if w.logReadable then return onQuest(q) end end
+		function C_QuestLog.GetNumQuestLogEntries() if w.logReadable then return entries() end end
+		"#,
+		r#"PolestarCharDB = { guide = "lookup/run/wailing-caverns", tabs = { "lookup/run/wailing-caverns" }, activeTab = 1,
+			dungeonRun = { map = 43, key = "wailing-caverns", asked = true } }"#,
+		r#"
+		P.Set("ui.instance", "show")
+		enter("party", 43, true)
+		assert(F:IsShown(), "test the visible window as the log loads")
+		local loading = { title = endPage().title, done = P.CharState().guideDone[id] == true }
+		w.logReadable = true
+		stub.fire("QUEST_LOG_UPDATE")
+		stub.advance(0.25)
+		local step = E.GetLiveStep()
+		local goal = step and E.GetStepView(step).goals[1]
+		emit({ loading = loading, active = active(), asked = asked(), empty = endPage().shown, step = step or false,
+			quest = goal and goal.quest, progress = goal and goal.progress.cur })
+	"#,
+	);
+	assert_eq!(
+		out,
+		json!({ "loading": { "title": "All objectives done", "done": false }, "active": "lookup/run/wailing-caverns",
+		"asked": false, "empty": false, "step": 1, "quest": 1486, "progress": 3 })
+	);
 }
