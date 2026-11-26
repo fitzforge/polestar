@@ -1220,7 +1220,8 @@ function Lookup.DropQuestSteps(src, player, from, direct)
 end
 
 local function dropSteps(ctx, row)
-	if (ns.Compat.GetItemCount(ctx.id, true) or 0) > 0 then return {} end
+	-- A recipe fetched as a prerequisite still only needs to be owned.
+	if not ctx.sourceGuide and (ns.Compat.GetItemCount(ctx.id, true) or 0) > 0 then return {} end
 	return Lookup.DropQuestSteps(row.src, ctx.player, ctx.from)
 end
 
@@ -1490,11 +1491,23 @@ function Lookup.BuildGuide(kind, id, ranked)
 	local name = entityName(kind, entity) or tostring(id)
 	local ctx = {
 		kind = kind, id = ITEM_KINDS[kind] and tonumber(id) or id, name = name, entity = entity,
-		player = Lookup.PlayerInfo(), from = ns.PlayerPoint(),
+		player = Lookup.PlayerInfo(), from = ns.PlayerPoint(), sourceGuide = ITEM_KINDS[kind],
 	}
 	local steps, err = build(ctx, row)
 	if not steps then return nil, err end
 	if #steps == 0 then return nil, "noguide" end
+	-- Opt in on the requested item's acquisition, after the builder added any
+	-- prerequisite steps. Quest rewards and reputation rows without a vendor
+	-- have no purchase, loot, gift or craft window of their own.
+	if ctx.sourceGuide then
+		local goals = steps[#steps].goals
+		local goal = goals[#goals]
+		local source = row.type
+		if goal.t == "buy" or source == "drop" or source == "object" or source == "gift" or source == "craft" then
+			goal.fresh = true
+			if source == "gift" then goal.npc = row.src.npc end
+		end
+	end
 	return placeGuide({
 		id = Lookup.GuideId(kind, id),
 		pack = "lookup",
