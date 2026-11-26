@@ -168,6 +168,14 @@ end
 
 -- A guide in one of Forever's new zones (Guides.InForeverZone): the Forever
 -- mark on its row and a "Forever" chip in its details.
+-- The Group tag: a guide that needs a group (dungeon and raid quests, elites).
+-- The leveling routes (Horde, Alliance, the starting zones) never wear it: a
+-- leveling player expects group quests along the way, so the tag says nothing
+-- there. Every other category keeps it.
+local function showsGroup(g)
+	return g.group == true and g.category ~= nil and g.category ~= "Leveling"
+end
+
 local function inForeverZone(g)
 	local G = ns.Guides
 	return G and G.InForeverZone and G.InForeverZone(g) or false
@@ -1207,7 +1215,7 @@ local function paintRow(r, g, note, width, title, home, suggested)
 	r.Range:SetText(lv and ("(" .. lv .. ")") or "")
 	local expW = inForeverZone(g) and (FOREVER_W + 4 + 4) or 0
 	r.Forever:SetShown(expW > 0)
-	local groupW = g.group == true and (W.SetChip(r.Group, L["Group"], "dungeon") + 6) or 0
+	local groupW = showsGroup(g) and (W.SetChip(r.Group, L["Group"], "dungeon") + 6) or 0
 	r.Group:SetShown(groupW > 0)
 	r.Group:ClearAllPoints()
 	r.Group:SetPoint("LEFT", expW > 0 and r.Forever or r.Range, "RIGHT", expW > 0 and 2 or 6, 0)
@@ -1360,7 +1368,7 @@ local function heroTitle(c, g, title)
 	local inner = c:GetWidth() - HERO_PAD * 2
 	local lv = UI.GuideLevels(g)
 	c.Range:SetText(lv and ("(" .. lv .. ")") or "")
-	local groupW = g.group == true and (W.SetChip(c.Group, L["Group"], "dungeon") + 8) or 0
+	local groupW = showsGroup(g) and (W.SetChip(c.Group, L["Group"], "dungeon") + 8) or 0
 	c.Group:SetShown(groupW > 0)
 	c.Title:SetWidth(0)
 	c.Title:SetText(title)
@@ -2009,7 +2017,7 @@ local function renderDetails(byId, tabs, active)
 	end
 	if inForeverZone(g) then addChip(L["Forever"]) end
 	if isExperimental(g) then addChip(L["Experimental"], "experimental") end
-	if g.group == true then addChip(L["Group"], "dungeon") end
+	if showsGroup(g) then addChip(L["Group"], "dungeon") end
 	addChip(ns.FactionName(g.faction) or L["Both factions"])
 	if type(g.races) == "table" then for _, race in ipairs(g.races) do addChip(UI.RaceName(race)) end end
 	if type(g.classes) == "table" then for _, cl in ipairs(g.classes) do addChip(UI.ClassName(cl)) end end
