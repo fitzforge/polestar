@@ -356,19 +356,23 @@ return {
 	-- plural, as words: Spitelash Sirens = {npc:6195} Spitelash Siren
 	["The Spitelash Sirens wander the ruins and the beach around the {area:1223}, just south of {npc:8395}. Only the Sirens carry the coral, not the Screamers."] = "As Sirenas Iralisca vagam pelas ruínas e pela praia ao redor de {area:1223}, logo ao sul de {npc:8395}. Só as Sirenas carregam o coral, não os Urradores.",
 
-	-- Step 80: Archmage Xylem
+	-- Step 80: Sanath Lim-yo
+	-- {npc:8395} Sanath Lim-yo
+	["Back north to {npc:8395}'s camp at the foot of the cliff and get off your mount: he teleports you up to Xylem again."] = "",
+
+	-- Step 81: Archmage Xylem
 	-- {npc:8395} Sanath Lim-yo
 	["Back up through {npc:8395}'s teleport."] = "De volta ao alto pelo teletransporte de {npc:8395}.",
 	-- {area:1417} Sunken Temple
 	["Xylem's last task, Destroy Morphaz, is in the {area:1417}: skip it."] = "A última tarefa de Tauriel, A destruição de Morphaz, fica em {area:1417}: pule-a.",
 
-	-- Step 82: Ravencrest Monument
+	-- Step 83: Ravencrest Monument
 	-- {zone:1447} Azshara · {npc:8392} Pilot Xiggs Fuselighter · {item:10444} Standard Issue Flare Gun
 	["Swim to the small island off the southern tip of {zone:1447}. If {npc:8392} isn't there, fire your {item:10444} to signal him, and wait for him to land."] = "Nade até a pequena ilha na ponta sul de {zone:1447}. Se {npc:8392} não estiver lá, dispare sua {item:10444} para sinalizar a ele e espere que ele pouse.",
 	-- {zone:1455} Ironforge · {zone:1422} Western Plaguelands
 	["Tymor in {zone:1455}, on the {zone:1422} guide's {zone:1455} stop: keep it"] = "",
 
-	-- Step 83: Talrendis Point
+	-- Step 84: Talrendis Point
 	-- {area:3137} Talrendis Point · {zone:1448} Felwood
 	["Back to Truesong at {area:3137}: {zone:1448}, the next guide, is a short ride west."] = "",
 

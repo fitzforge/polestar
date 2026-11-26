@@ -169,6 +169,8 @@ return {
 	["{npc:265809}: for {npc:5941}, on the shore south of Sen'jin"] = "{npc:265809}: для NPC {npc:5941}, на берегу к югу от Сен'джина",
 
 	-- Step 33: Razor Hill
+	-- {quest:5648} Garments of Spirituality · {spell:613} Lesser Heal · {npc:3706} Tai'jin
+	["Priests: {quest:5648} counts only {spell:613} (Rank 2). {npc:3706} trains priests too: learn it from her now if you have not yet."] = "",
 	-- {npc:266940} Turroc
 	["{npc:266940}, on the east side of town; inside"] = "",
 	-- {npc:3706} Tai'jin · {npc:266940} Turroc

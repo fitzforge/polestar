@@ -50,3 +50,22 @@ fn a_race_part_the_build_no_longer_has_is_removed_another_folder_of_that_name_is
 	std::fs::write(addons.join("PolestarPack_Parts_Dwarf/mine.lua"), "-- someone else").unwrap();
 	assert_match(&write_pack_dir(&out, &build(&pack_dir("again", true))).unwrap_err(), "not a generated race part");
 }
+
+// A retired.json entry may name the guide an old id became ({ "id", "to" }, #3924): Guides.lua lists every
+// retired id and the hash part names that guide. A `to` that is no guide of the pack is an error.
+#[test]
+fn a_retired_id_names_the_guide_it_became_and_a_to_no_guide_has_is_an_error_3924() {
+	let dir = pack_dir("to", false);
+	std::fs::write(dir.join("retired.json"), r#"["parts/old-elwynn", { "id": "parts/old-warrior", "to": "parts/human-warrior/01" }]"#).unwrap();
+	let files = build(&dir);
+	let main = files.iter().find(|(n, _)| n == "Guides.lua").map(|(_, c)| match c {
+		FileContent::Text(t) => t.clone(),
+		FileContent::Bytes(_) => unreachable!(),
+	});
+	assert_match(&main.unwrap(), r#"\nPolestar\.RetireGuides\("parts", \{\n\t"parts/old-elwynn",\n\t"parts/old-warrior",\n\t\["parts/old-warrior"\] = "parts/human-warrior/01",\n\}\)\n"#);
+	std::fs::write(dir.join("retired.json"), r#"[{ "id": "parts/old-warrior", "to": "parts/gone" }]"#).unwrap();
+	let (manifest, extra) = forge_guide::manifest::read_manifest(&dir, false);
+	let b = build_pack(&repo(), &dir, &manifest.unwrap(), extra, &fixture_data(), forge_guide::diag::Diagnostics::new(), BuildOpts { include_drafts: false, context: None, force: false }).unwrap();
+	let errors: Vec<String> = b.project.diag.errors().iter().map(|d| d.message.clone()).collect();
+	assert!(errors.iter().any(|m| m.contains(r#"goes to "parts/gone", which is not a guide of the pack"#)), "{errors:?}");
+}

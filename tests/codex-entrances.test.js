@@ -1,8 +1,10 @@
 'use strict';
 // Codex instance entrances (tools/lib/codex/instances.js chooseEntrance and
-// the curated table data/codex/entrances.json): a recording beats the
-// curated table, which beats a guide's goto, which beats the client's corpse
-// point (where a ghost returns), kept only as an approximate last resort.
+// the curated table data/codex/entrances.json): a curated entry read from
+// players' recordings beats the Recorder's raw entry points, a recording beats
+// any other curated entry, which beats a guide's goto, which beats the
+// client's corpse point (where a ghost returns), kept only as an approximate
+// last resort.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -64,6 +66,22 @@ test("chooseEntrance: inside a capital the recorded point at the table's door be
 	const field = { key: 'excavation-site-wetlands', map: 1437, x: 50.7, y: 61.1, source: 'https://example.org' };
 	const fieldRec = [{ map: 1437, x: 40, y: 40, n: 9 }, { map: 1437, x: 50.72, y: 61.12, n: 3 }];
 	assert.deepEqual(chooseEntrance({ name: 'x', zones: {}, frames: { 1437: WETLANDS }, prefer: [1437], recorded: fieldRec, table: field }), { map: 1437, x: 40, y: 40, f: null }, 'outside the capitals: the most-seen point');
+});
+
+// #4032 (devanpy): Blackmaw Hold's portal is at the far end of a cave whose mouth is at Azshara 39,33.7. The Recorder's
+// entry points (37.57,38.68, twice) are the last point it noted outside, 530 yd from the portal; the table's entry,
+// read from where players' walks end before they go in, carries the cave floor's height there, so the arrow's walk goes
+// in by the mouth. Krol'dok Stronghold's table entry (the small cave on the hill) likewise beats the 63 entries noted
+// 220 yd south of it.
+test("chooseEntrance: a table entry read from players' recordings beats the Recorder's entry points (#4032)", () => {
+	const t = loadEntranceTable();
+	const AZSHARA = { c: 1, left: -3277.083, right: -8347.916, top: 5341.667, bottom: 1960.417 };
+	const blackmaw = { name: 'Blackmaw Hold', zones: {}, frames: { 1447: AZSHARA }, prefer: [1447], table: t['blackmaw-hold'] };
+	const recorded = [{ map: 1447, x: 37.57, y: 38.68, n: 2 }, { map: 1447, x: 44.48, y: 31.86, n: 1 }];
+	assert.deepEqual(chooseEntrance({ ...blackmaw, recorded }), { map: 1447, x: 35, y: 23.5, f: null, z: 166 });
+	const RIVERGLADES = { c: 0, left: -1891.666, right: -6741.666, top: -6466.666, bottom: -9700 };
+	const kroldok = chooseEntrance({ name: "Krol'dok Stronghold", zones: {}, frames: { 2548: RIVERGLADES }, prefer: [2548], table: t['kroldok-stronghold'], recorded: [{ map: 2548, x: 36.88, y: 44.1, n: 63 }, { map: 2548, x: 37.49, y: 37.99, n: 29 }] });
+	assert.deepEqual(kroldok, { map: 2548, x: 37.5, y: 38.2, f: null });
 });
 
 test('a continent recording must land at the dungeon’s known zone', () => {

@@ -206,6 +206,8 @@ return {
 	["{npc:6094}, in the inn"] = "{npc:6094}, im Gasthaus",
 
 	-- Step 33: Dolanaar
+	-- {quest:5621} Garments of the Moon · {spell:613} Lesser Heal · {npc:3600} Laurna Morninglight
+	["Priests: {quest:5621} counts only {spell:613} (Rank 2). {npc:3600} trains priests too: learn it from her now if you have not yet."] = "",
 	-- {npc:3515} Corithras Moonrage
 	["{npc:3515}, south of the inn"] = "{npc:3515}, südlich des Gasthauses",
 	-- {npc:3608} Aldia

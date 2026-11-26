@@ -20,6 +20,8 @@ local start, scratch, Spare, options = Search.start, Search.scratch, Search.Spar
 -- batches such as Nav/Walk.lua's Walk.Measure, FindCost) waits, so a new waypoint's walk is drawn before the planner's
 -- measures run. Within each class the jobs take turns.
 local queue = {}
+-- scheduled: the GetTime() the next pump was armed at (Path.after), false while none is; pumped: a pump ran since the
+-- last Path.Busy().
 local scheduled, pumped = false, false
 local pump, combatWait
 
@@ -37,11 +39,55 @@ local function notify(job, callback, points, cost)
 	end
 end
 
-local function schedule()
-	if not scheduled and #queue > 0 then
-		scheduled = true
-		Path.after(pump)
+-- An armed pump that hasn't run within Path.pumpLate seconds is lost (#4149: every search then waited for it, the
+-- arrow on "Finding a walking route" until a reload): the next schedule() after that (a search asked or resumed, or
+-- the watch below) arms another. Each arm is its generation's function, so a lost pump that runs after all does
+-- nothing and two pumps never share a frame. Path.after failing counts as a lost arm, tried again Path.pumpLate
+-- later, and goes to the error frame: thrown back to the caller it was lost under Nav/Walk.lua's pcall.
+Path.pumpLate = 1
+local generation, arm = 0, nil
+local function newArm()
+	generation = generation + 1
+	local mine = generation
+	arm = function()
+		if mine == generation then
+			pump()
+		end
 	end
+end
+newArm()
+
+local function schedule()
+	if #queue == 0 then
+		return
+	end
+	local t = GetTime and GetTime() or 0
+	if scheduled then
+		if t - scheduled < Path.pumpLate then
+			return
+		end
+		newArm()
+	end
+	scheduled = t
+	local ok, err = pcall(Path.after, arm)
+	if not ok then
+		newArm()
+		geterrorhandler()(err)
+	end
+end
+
+-- The watch: while searches are queued, a look each frame for a lost pump when nothing else asks. Hidden at rest.
+local watch
+if CreateFrame then
+	watch = CreateFrame("Frame")
+	watch:Hide()
+	watch:SetScript("OnUpdate", function(self)
+		if #queue == 0 then
+			self:Hide()
+		elseif scheduled then
+			schedule()
+		end
+	end)
 end
 
 -- A job the player waits to see (a drawn path or the floor under them), against cost-only work.
@@ -250,8 +296,11 @@ local function rest()
 	end
 end
 
-pump = function()
-	scheduled, pumped = false, true
+-- The job a pump took off the queue and has neither put back nor answered yet.
+local inHand
+
+-- A pump's work: true while it waits out combat (PLAYER_REGEN_ENABLED schedules the next).
+local function slices()
 	if InCombatLockdown and InCombatLockdown() then
 		if not combatWait then
 			combatWait = CreateFrame("Frame")
@@ -262,7 +311,7 @@ pump = function()
 		end
 		combatWait:RegisterEvent("PLAYER_REGEN_ENABLED")
 		lastAt = nil
-		return
+		return true
 	end
 	local now = clock()
 	local t = GetTime and GetTime() or 0
@@ -287,6 +336,7 @@ pump = function()
 		end
 		local at, shared = nextJob()
 		local job = table.remove(queue, at)
+		inHand = job
 		local t0 = clock()
 		Deadline(math.min(finish, t0 + (not job.notify and shared and budget / 2 or budget)))
 		Expansions(job.expansions or 0)
@@ -314,6 +364,7 @@ pump = function()
 			end
 			-- A pause drops the queued answer; a batch's costs are already on the job, and this keeps why.
 			job.reason = type(cost) == "string" and cost or nil
+			inHand = nil
 			if not job.cancelled then
 				notify(job, job.callback, points, cost)
 			end
@@ -322,7 +373,7 @@ pump = function()
 			-- straight estimate (Nav/Walk.lua: the straight arrow, its line dashed, asked again only after a while); a
 			-- batch completes with the places it priced, the rest unpriced (job.capped, as Path.manyCap's). Its
 			-- half-searched scratch is dropped, never the next search's.
-			job.done, job.scratch, job.co, job.reason = true, nil, nil, "budget"
+			job.done, job.scratch, job.co, job.reason, inHand = true, nil, nil, "budget", nil
 			if not job.cancelled then
 				if job.targets then
 					job.capped = true
@@ -340,6 +391,7 @@ pump = function()
 			else
 				queue[#queue + 1] = job
 			end
+			inHand = nil
 			if job.progress then
 				notify(job, job.progress, job.costs)
 			end
@@ -352,7 +404,30 @@ pump = function()
 		prevSpent = lastAt and lastSpent or nil
 		lastAt, lastSpent = now, clock() - now
 	end
+end
+
+-- The pump clears `scheduled` first and arms the next one last, whatever its work does: a failure there (outside a
+-- search's coroutine, whose failure is its answer) answers the job in hand "error", as a search failing in its slice,
+-- and then goes on to the error frame. Until #4149 it lost that job, and nothing pumped until the next ask.
+pump = function()
+	scheduled, pumped = false, true
+	local ok, waiting = pcall(slices)
+	if ok then
+		if not waiting then
+			schedule()
+		end
+		return
+	end
+	Deadline(math.huge)
+	lastAt = nil
+	local job = inHand
+	inHand = nil
+	if job and not job.cancelled then
+		job.done, job.scratch, job.co, job.reason = true, nil, nil, "error"
+		notify(job, job.callback, nil, "error")
+	end
 	schedule()
+	error(waiting, 0)
 end
 
 -- Idle work skips frames a queued search holds or one since the last call spent, so they never share a budget.
@@ -371,6 +446,9 @@ end
 local function enqueue(job)
 	job.co, job.frames, job.cpu = coroutine.create(start), 0, 0
 	queue[#queue + 1] = job
+	if watch then
+		watch:Show()
+	end
 	schedule()
 	return job
 end
@@ -554,6 +632,9 @@ function Path.Resume(job)
 		job.paused = false
 		job.co = job.co or coroutine.create(start)
 		queue[#queue + 1] = job
+		if watch then
+			watch:Show()
+		end
 		schedule()
 	end
 end

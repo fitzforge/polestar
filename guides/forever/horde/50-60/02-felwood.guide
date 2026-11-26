@@ -102,8 +102,8 @@ step Orgrimmar
 step Jes'rimon
   zone Orgrimmar
   when complete 4300
-  tip Jes'rimon takes the ravasaur claws from Un'Goro; he stands in the Cleft of Shadow, a short walk from the middle of the city.
-  turnin 4300                           -- Jes'rimon, the Cleft of Shadow
+  tip Jes'rimon takes the ravasaur claws from Un'Goro; he is in The Drag, upstairs in one of its tallest buildings.
+  turnin 4300 -- Jes'rimon, upstairs in The Drag
 
 step Fly to Valormok
   zone Orgrimmar
@@ -141,7 +141,7 @@ step Ruins of Eldarath
   collect 10694 quest 3568.4 @47.4,46.3 map 1447 -- #4
 
 step Makrinni Burrowers
-  tip The Makrinni Burrowers (50-51) dig in the sands just east of the ruins, on the way north-east; they and the buried caches there give up the Highborne Treasure Fragments.
+  tip Izvi's Treasure Trowel 3000, in your bags, digs up the Highborne Treasure Fragments: use it on the sands just east of the ruins, where the Makrinni Burrowers (50-51) dig, on the way north-east. The Burrowers and the buried caches there give fragments too.
   collect 246684 quest 91568
 
 step Ekkal
@@ -177,11 +177,10 @@ step Seals of the Sin'dorei
   collect 246722 quest 91497.3        -- Seal of the Ranger, from Ranger Lydrea
 
 step Magus Rimtori
-  tip Back to the Sin'dorei Tome: hand in the seals, then use it to call Magus Rimtori.
-  tip Careful: Rimtori is level 55, and which crystal is linked to him is random: each of the other two summons a hostile infernal instead. Start at full health.
+  tip Back to the Sin'dorei Tome: hand in the seals and take An Explosive Gambit, which gives you the Seals of the Sin'dorei. Rimtori does not come from the Tome: stand beside one of the camp's tall crystals and use the Seals of the Sin'dorei from your bags; its crystal explodes and draws her. Which crystal is linked to her is random: each of the other two summons a hostile infernal instead. She is level 55: start at full health.
   turnin 91497                        -- Sin'dorei Tome of Summoning
   accept 91500                        -- An Explosive Gambit
-  collect 10597 quest 91500.1         -- Head of Magus Rimtori
+  collect 10597 quest 91500.1 -- Use the Seals of the Sin'dorei from your bags beside a crystal: Magus Rimtori (55) comes to the explosion and drops her head
   accept 91538                        -- Sin'dorei Tome of Summoning: for Jediga in Valormok
 
 step The Legashi satyrs
@@ -244,10 +243,10 @@ step Fly to Orgrimmar
 
 step Belgrom Rockmaul
   zone Orgrimmar
-  tip Belgrom is in the Valley of Honor, Zevrost and Jes'rimon in the Cleft of Shadow.
+  tip Belgrom is in the Valley of Honor, Zevrost in the Cleft of Shadow, and Jes'rimon in The Drag, upstairs in one of its tallest buildings.
   turnin 91531                        -- Belgrom Rockmaul
   turnin 91547                        -- Zevrost, the Cleft of Shadow
-  turnin 3541                         -- Jes'rimon, the Cleft of Shadow
+  turnin 3541 -- Jes'rimon, upstairs in The Drag
   accept 3563                         -- Jes'rimon: his payment goes back to Jediga, on the flight out
 
 step Class trainer
@@ -343,14 +342,14 @@ step Statue of Malorne
   accept 86612 object 661778 @42.0,47.3 -- Statue of Malorne
 
 step Irontree Woods
-  tip Follow the road north-east to Irontree Woods. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a Blood Amber; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are Kelek's.
+  tip Follow the road north-east to Irontree Woods: Angerclaw Grizzlies and Felpaw Ravagers roam the woods for Talo, and their organs are Kelek's. Maybess's Blood Amber comes from the Warpwood elementals inside Irontree Cavern, next.
   kill 8957 quest 4120.1
   kill 8961 quest 4120.2
   collect 277958 quest 86577.1        -- Putrescent Bear Organs, from the Angerclaw bears
   collect 277959 quest 86577.2        -- Putrescent Wolf Organs, from the Felpaw wolves
 
 step Irontree Woods
-  collect 11503 quest 4102            -- Below ground
+  collect 11503 quest 4102 -- Below ground: from the Warpwood elementals inside Irontree Cavern
 
 step Meilosh
   when rep "Timbermaw Hold" Friendly

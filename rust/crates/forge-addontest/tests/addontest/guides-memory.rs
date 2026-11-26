@@ -163,6 +163,49 @@ fn the_other_faction_s_part_stays_out_unless_a_saved_tab_needs_it() {
 	assert_eq!(saved[0], serde_json::json!({ "loads": 1, "guide": "forever/alliance/02-westfall" }), "the saved tab of an Alliance guide comes back on a Horde character");
 }
 
+// #3924: a saved tab of a guide no part has (renamed or taken out of Polestar) loaded both faction parts at every
+// login, so an Alliance character carried the Horde part and the other way round. The other faction's part comes
+// in only for a guide it has (the pack's PartGuides index); a tab of a guide no part has loads nothing, and a
+// retired one opens the guide it became, of the character's own faction.
+#[test]
+fn a_saved_tab_of_a_guide_no_part_has_never_loads_the_other_faction_s_part_3924() {
+	let run = |faction: &str, race: &str, tabs: &str| {
+		emitted(&RunAddon {
+			stubs: vec!["stub_world.lua", "stub_packs.lua"],
+			before: format!(
+				"{}\n{}\nlocal w = stub.world\nw.faction, w.race, w.raceName = {}, {}, {}",
+				pack_files("Polestar_Guides_Alliance"),
+				pack_files("Polestar_Guides_Horde"),
+				lua_string(faction),
+				lua_string(race),
+				lua_string(race)
+			),
+			addons: vec![Addon::name("Polestar"), Addon::name("Polestar_Guides")],
+			saved: vec![("Polestar".into(), format!("PolestarCharDB = {{ schema = 1, tabs = {{ {tabs} }}, activeTab = 1 }}"))],
+			login: true,
+			script: r#"local g = Polestar.Engine.GetGuide()
+emit({ alliance = stub.packLoads.Polestar_Guides_Alliance or 0, horde = stub.packLoads.Polestar_Guides_Horde or 0, guide = g and g.id or false })"#
+				.into(),
+		})[0]
+			.clone()
+	};
+	// A guide no release ever had: nothing loads, on either side.
+	let none = run("Horde", "Tauren", r#""forever/class/druid/no-such-guide""#);
+	assert_eq!((none["alliance"].as_i64(), none["horde"].as_i64()), (Some(0), Some(1)), "a Horde character with a tab of an unknown guide: {none}");
+	let none = run("Alliance", "Human", r#""forever/horde/40-50/no-such-guide""#);
+	assert_eq!((none["alliance"].as_i64(), none["horde"].as_i64()), (Some(1), Some(0)), "an Alliance character with a tab of an unknown guide: {none}");
+	// Taken out in 0.4.3 (retired): no other part, the character's own leveling guide in its place.
+	let drowned = run("Horde", "Tauren", r#""forever/miscellaneous/the-drowned-city-alliance""#);
+	assert_eq!(drowned["alliance"], 0, "{drowned}");
+	assert!(drowned["guide"].as_str().is_some_and(|g| g.starts_with("forever/horde/")), "the Horde leveling guide for the character: {drowned}");
+	// Moved in 0.3.3 (retired with its new id): the guide it became.
+	let stalk = run("Horde", "Tauren", r#""forever/class/shaman/stalk-with-the-earthmother""#);
+	assert_eq!(stalk, serde_json::json!({ "alliance": 0, "horde": 1, "guide": "forever/miscellaneous/stalk-with-the-earthmother" }));
+	// Another race's guide of the character's own faction (in its own part): the other part stays out.
+	let other_race = run("Alliance", "Dwarf", r#""forever/alliance/human/01-elwynn-forest""#);
+	assert_eq!(other_race["horde"], 0, "{other_race}");
+}
+
 // Baked legs in Polestar's own pack (formats 7 and 8, #3507): an Alliance zone guide ships in the faction part,
 // and so do its legs, one Legs_<race>.lua per Alliance race, each returning at once for a player of another race.
 // The faction part's guides load before its races' files, so Polestar.RegisterLegs finds the guide registered and

@@ -51,7 +51,10 @@
 //   levels       entry: MapDifficulty's "at least level N" message; min:
 //                ContentTuning MinLevelSquish of the map's LFGDungeons entries
 //                (or MapDifficulty's); max: the highest boss level, at most 60.
-//   entrance     best evidence first: a recorded entrance (Recorder `enter`,
+//   entrance     best evidence first: a curated table entry read from
+//                players' recordings (source kind "recording": where their
+//                walks end before the loading screen), else a recorded
+//                entrance (Recorder `enter`,
 //                the most-seen one inside the dungeon's known entrance
 //                zone; inside a capital, the most-seen one within
 //                TABLE_YARDS of the table's door), else the curated table
@@ -255,8 +258,13 @@ function chooseEntrance(args) {
 // Chasm (86 entries against 57 + 14 in the Cleft of Shadow), Ironforge 15.1,86.0 for the Hall of Thanes (166 against
 // 80 below the city), where players stood when the game moved them in (#3562, #2447). There a recorded point within
 // TABLE_YARDS of the table entry's door wins, the most-seen of them; elsewhere the most-seen point anywhere does.
+// A table entry read from the recordings themselves (source kind "recording": where players' walks end before the
+// loading screen) wins over every recorded `enter` point: that point is the last one the Recorder noted outside, which
+// can lie far from the way in (Blackmaw Hold's, 37.6,38.7, is 530 yd from the end of the cave players walk into, #4032;
+// Krol'dok Stronghold's 220 yd south of its cave).
 const TABLE_YARDS = 60;
 function chooseEntrancePoint({ name, recorded = [], table = null, guides = [], corpse = null, zones = {}, frames = {}, prefer = [] }) {
+	if (table && table.map && table.source && table.source.kind === 'recording') return { map: Number(table.map), x: round1(table.x), y: round1(table.y), f: null };
 	let rec = null;
 	let door = null;
 	const tf = table && CAPITAL_MAPS.has(Number(table.map)) && frames[table.map];

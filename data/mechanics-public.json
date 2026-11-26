@@ -17,6 +17,153 @@
 			],
 			"note": "Chief Engineer Scooty (2842) is offered from Sovik's (3413) chat option (gossip option 95758), never from his window's quest list. Source: players' in-game recordings to 2026-11-11: 11 people opened it, every one through that option, and no window of his in the recordings listed it; the player report #1762. The server data puts the same option in his menu, beside his goods, and asks for Rig Wars (2841) in the log: 10 of the 11 people had it, one did not."
 		},
+		"993": {
+			"steps": [
+				{ "n": 1, "action": "emote", "target": { "type": "npc", "id": 3695 }, "fact": "Grimclaw, the white bear by the road, knows where Volcor is: target him and type /wave, and he shows you the way to Volcor's cave.", "place": { "map": 1439, "x": 41.7, "y": 81.5, "f": "e" }, "confidence": "medium" }
+			],
+			"note": "A Lost Master (993): the quest's text only says to find Volcor (3692) in Darkshore; Grimclaw (3695), his bear, answers a wave by pointing the way. Source: the server data (Grimclaw's reaction to the Wave emote); the leveling guide's hand-in sends players into Blackwood Den. A help, not a requirement. #4046's sweep of the quests done with an emote."
+		},
+		"1950": {
+			"steps": [
+				{ "n": 1, "action": "emote", "target": { "type": "npc", "id": 6626 }, "fact": "\"Plucky\" Johnson is the small grey chicken pecking around the foot of the race track's lookout tower. Target him and type /beckon: he turns human for a short while, and only then can you talk to him.", "place": { "map": 1441, "x": 79.6, "y": 75.5, "f": "l" }, "confidence": "high" }
+			],
+			"note": "Get the Scoop (1950): Plucky (6626), the NPC its talk objective names, is a chicken nobody can talk to until a /beckon turns him human. Source: the server data (his reaction to the Beckon emote is a cast of \"Plucky\" Resumes Human Form, and no other emote does it); the Mage wand class guide says the same; Soffish's report (#4046), whose Lookup pick-up list for the Scarlet Monastery sent them to talk to him without it."
+		},
+		"2458": {
+			"steps": [
+				{ "n": 2, "action": "emote", "target": { "type": "npc", "id": 7233 }, "fact": "Once both flares are fired, walk up to Taskmaster Fizzule, target him and type /salute. In any other order he attacks.", "confidence": "high" }
+			],
+			"note": "Deep Cover (2458): Taskmaster Fizzule (7233) is contacted with two flares and then the salute. Source: the quest's own text (\"Fire off TWO flares, then approach Taskmaster Fizzule and perform the Shattered /Salute\"); the server data (his reaction to the Salute emote); the Rogue poisons guide's step. #4046's sweep of the quests done with an emote."
+		},
+		"2460": {
+			"steps": [
+				{ "n": 2, "action": "emote", "target": { "type": "npc", "id": 3401 }, "fact": "After you take the quest, Shenthul speaks three lines and salutes you. Then target him and type /salute.", "confidence": "high" }
+			],
+			"note": "The Shattered Salute (2460): the objective is a salute to Shenthul (3401), which the game stores as a kill of him. Source: the quest's own text (\"Perform the Shattered Salute on Shenthul\"); the server data (a salute at him gives this quest's credit); the Rogue poisons guide's step. #4046's sweep of the quests done with an emote."
+		},
+		"2608": {
+			"steps": [
+				{ "n": 1, "action": "emote", "target": { "type": "npc", "id": 7207 }, "fact": "Target Doc Mixilpixil and type /lay beside him, then stay down while he examines you.", "confidence": "high" }
+			],
+			"note": "The Touch of Zanzil (2608): the diagnosis starts when you lie down by Doc Mixilpixil (7207). Source: the quest's own text (\"/Lay down to be examined by Doc Mixilpixil\"); the server data (the Doc's reaction to that emote); the Duskwood leveling guide's step. #4046's sweep of the quests done with an emote."
+		},
+		"3861": {
+			"steps": [
+				{ "n": 2, "action": "emote", "target": { "type": "npc", "id": 620 }, "fact": "With the Special Chicken Feed in your bags, target your chicken and type /cheer at it until it turns friendly (green), then give it the feed. Right-clicking it before that attacks it.", "confidence": "high" }
+			],
+			"note": "CLUCK! (3861): the chicken takes the feed only once a cheer has made it friendly. Source: the quest's own text (\"/cheer at it before trying to give it the Special Chicken Feed\"); the Chicken Egg pet guide's step. #4046's sweep of the quests done with an emote."
+		},
+		"8312": {
+			"steps": [
+				{ "n": 1, "action": "emote", "target": { "type": "npc", "id": 11814 }, "fact": "Darkspear Gumdrop: take Incoming Gumdrop from Kali Remik in Sen'jin Village, target Kali Remik and type /train.", "confidence": "high" },
+				{ "n": 2, "action": "emote", "target": { "type": "npc", "id": 6929 }, "fact": "Orgrimmar Nougat: take Flexing for Nougat from Innkeeper Gryshka in Orgrimmar, target her and type /flex.", "confidence": "high" },
+				{ "n": 3, "action": "emote", "target": { "type": "npc", "id": 6741 }, "fact": "Undercity Mint: take Chicken Clucking for a Mint from Innkeeper Norman in the Undercity, target him and type /chicken.", "confidence": "high" },
+				{ "n": 4, "action": "emote", "target": { "type": "npc", "id": 6746 }, "fact": "Thunder Bluff Marzipan: take Dancing for Marzipan from Innkeeper Pala in Thunder Bluff, target her and type /dance.", "confidence": "high" }
+			],
+			"note": "Hallow's End Treats for Spoops! (8312): each of the four treats is the reward of a Hallow's End quest done with an emote (Incoming Gumdrop 8358, Flexing for Nougat 8359, Chicken Clucking for a Mint 8354, Dancing for Marzipan 8360). Source: the quest's own text (\"Perform the tricks they ask of you in exchange for the treats\") and each treat quest's text naming its emote; the server data (each NPC's emote reaction). #4046's sweep of the quests done with an emote."
+		},
+		"8353": {
+			"steps": [
+				{ "n": 1, "action": "emote", "target": { "type": "npc", "id": 5111 }, "fact": "Target Innkeeper Firebrew and type /chicken.", "confidence": "high" }
+			],
+			"note": "Chicken Clucking for a Mint (8353): the objective is a chicken emote at Innkeeper Firebrew (5111), which the game stores as a kill of her. Source: the quest's own text (\"Do a chicken emote at Innkeeper Firebrew\"); the server data (the emote gives the quest's credit). #4046's sweep of the quests done with an emote."
+		},
+		"8354": {
+			"steps": [
+				{ "n": 2, "action": "emote", "target": { "type": "npc", "id": 6741 }, "fact": "Target Innkeeper Norman and type /chicken.", "confidence": "high" }
+			],
+			"note": "Chicken Clucking for a Mint (8354): the objective is a chicken emote at Innkeeper Norman (6741), which the game stores as a kill of him. Source: the quest's own text (\"Do a chicken emote at Innkeeper Norman\"); the server data (his reaction to the emote). #4046's sweep of the quests done with an emote."
+		},
+		"8355": {
+			"steps": [
+				{ "n": 1, "action": "emote", "target": { "type": "npc", "id": 6826 }, "fact": "Target Talvash del Kissel and type /train.", "confidence": "high" }
+			],
+			"note": "Incoming Gumdrop (8355): the objective is a train emote at Talvash del Kissel (6826), which the game stores as a kill of him. Source: the quest's own text (\"Do a train emote at Talvash del Kissel\"); the server data (the emote gives the quest's credit). #4046's sweep of the quests done with an emote."
+		},
+		"8356": {
+			"steps": [
+				{ "n": 1, "action": "emote", "target": { "type": "npc", "id": 6740 }, "fact": "Target Innkeeper Allison and type /flex.", "confidence": "high" }
+			],
+			"note": "Flexing for Nougat (8356): the objective is a flex emote at Innkeeper Allison (6740), which the game stores as a kill of her. Source: the quest's own text (\"Do a flex emote at Innkeeper Allison\"); the server data (the emote gives the quest's credit). #4046's sweep of the quests done with an emote."
+		},
+		"8357": {
+			"steps": [
+				{ "n": 2, "action": "emote", "target": { "type": "npc", "id": 6735 }, "fact": "Target Innkeeper Saelienne and type /dance.", "confidence": "high" }
+			],
+			"note": "Dancing for Marzipan (8357): the objective is a dance emote at Innkeeper Saelienne (6735), which the game stores as a kill of her. Source: the quest's own text (\"Do a dance emote at Innkeeper Saelienne\"); the server data (the emote gives the quest's credit). #4046's sweep of the quests done with an emote."
+		},
+		"8358": {
+			"steps": [
+				{ "n": 2, "action": "emote", "target": { "type": "npc", "id": 11814 }, "fact": "Target Kali Remik and type /train.", "confidence": "high" }
+			],
+			"note": "Incoming Gumdrop (8358): the objective is a train emote at Kali Remik (11814), which the game stores as a kill. Source: the quest's own text (\"Do a train emote at Kali Remik\"); the server data (the emote gives the quest's credit). #4046's sweep of the quests done with an emote."
+		},
+		"8359": {
+			"steps": [
+				{ "n": 2, "action": "emote", "target": { "type": "npc", "id": 6929 }, "fact": "Target Innkeeper Gryshka and type /flex.", "confidence": "high" }
+			],
+			"note": "Flexing for Nougat (8359): the objective is a flex emote at Innkeeper Gryshka (6929), which the game stores as a kill of her. Source: the quest's own text (\"Do a flex emote at Innkeeper Gryshka\"); the server data (the emote gives the quest's credit). #4046's sweep of the quests done with an emote."
+		},
+		"8360": {
+			"steps": [
+				{ "n": 2, "action": "emote", "target": { "type": "npc", "id": 6746 }, "fact": "Target Innkeeper Pala and type /dance.", "confidence": "high" }
+			],
+			"note": "Dancing for Marzipan (8360): the objective is a dance emote at Innkeeper Pala (6746), which the game stores as a kill of her. Source: the quest's own text (\"Do a dance emote at Innkeeper Pala\"); the server data (the emote gives the quest's credit). #4046's sweep of the quests done with an emote."
+		},
+		"92596": {
+			"steps": [
+				{ "n": 1, "action": "emote", "fact": "Rathiril Sunlance asks you to sit with him: sit down (/sit) beside him, then talk to him.", "confidence": "medium" }
+			],
+			"note": "The High Order (92596): the quest's own text asks you to sit before you speak with Rathiril Sunlance (251903): \"Have a seat and speak with Rathiril Sunlance.\" #4046's sweep of the quests done with an emote."
+		},
+		"95998": {
+			"steps": [
+				{ "n": 1, "action": "emote", "target": { "type": "object", "id": 460003 }, "fact": "Sit down (/sit) by Sam's Basic Campfire and stay seated until the Boosted Rest buff appears.", "confidence": "high" }
+			],
+			"note": "The Great Outdoors (95998, Sam Sarsaparilla 263399): the quest's own text (\"Sit near Sam's Basic Campfire and wait until you receive the Boosted Rest buff\"); the Elwynn Forest leveling guide's step. #4046's sweep of the quests done with an emote."
+		},
+		"96101": {
+			"steps": [
+				{ "n": 1, "action": "emote", "target": { "type": "object", "id": 460003 }, "fact": "Sit down (/sit) by Raan's Basic Campfire and stay seated until the Boosted Rest buff appears.", "confidence": "high" }
+			],
+			"note": "The Great Outdoors (96101, Raan Wildwind 263664): the quest's own text (\"Sit near Raan's Basic Campfire and wait until you receive the Boosted Rest buff\"); the Zephras Isle leveling guides' step. #4046's sweep of the quests done with an emote."
+		},
+		"96604": {
+			"steps": [
+				{ "n": 1, "action": "emote", "target": { "type": "object", "id": 460003 }, "fact": "Sit down (/sit) by Brakk's Basic Campfire and stay seated until the Boosted Rest buff appears.", "confidence": "high" }
+			],
+			"note": "The Great Outdoors (96604, Brakk 265809): the quest's own text (\"Sit near Brakk's Basic Campfire and wait until you receive the Boosted Rest buff\"); the Durotar leveling guides' tip. #4046's sweep of the quests done with an emote."
+		},
+		"96605": {
+			"steps": [
+				{ "n": 1, "action": "emote", "target": { "type": "object", "id": 460003 }, "fact": "Sit down (/sit) by Kaga's Basic Campfire and stay seated until the Boosted Rest buff appears.", "confidence": "high" }
+			],
+			"note": "The Great Outdoors (96605, Kaga Wildhoof 265810): the quest's own text (\"Sit near Kaga's Basic Campfire and wait until you receive the Boosted Rest buff\"); the Mulgore leveling guide's step. #4046's sweep of the quests done with an emote."
+		},
+		"96606": {
+			"steps": [
+				{ "n": 1, "action": "emote", "target": { "type": "object", "id": 460003 }, "fact": "Sit down (/sit) by Lyreena's Basic Campfire and stay seated until the Boosted Rest buff appears.", "confidence": "high" }
+			],
+			"note": "The Great Outdoors (96606, Lyreena Duskblade 265811): the quest's own text (\"Sit near Lyreena's Basic Campfire and wait until you receive the Boosted Rest buff\"); the Teldrassil leveling guide's step. #4046's sweep of the quests done with an emote."
+		},
+		"96607": {
+			"steps": [
+				{ "n": 1, "action": "emote", "target": { "type": "object", "id": 460003 }, "fact": "Sit down (/sit) by Eleanor's Basic Campfire and stay seated until the Boosted Rest buff appears.", "confidence": "high" }
+			],
+			"note": "The Great Outdoors (96607, Eleanor Shackleton 265812): the quest's own text (\"Sit near Eleanor's Basic Campfire and wait until you receive the Boosted Rest buff\"); the Tirisfal Glades leveling guide's step. #4046's sweep of the quests done with an emote."
+		},
+		"96608": {
+			"steps": [
+				{ "n": 2, "action": "emote", "target": { "type": "object", "id": 460003 }, "fact": "Sit down (/sit) by Eric's Basic Campfire and stay seated until the Boosted Rest buff appears.", "confidence": "high" }
+			],
+			"note": "The Great Outdoors (96608, Eric Brighthammer 265813): the quest's own text (\"Sit near Eric's Basic Campfire and wait until you receive the Boosted Rest buff\"); the Dun Morogh leveling guides' tip. #4046's sweep of the quests done with an emote."
+		},
+		"97583": {
+			"steps": [
+				{ "n": 2, "action": "emote", "target": { "type": "npc", "id": 269452 }, "fact": "With the Nutritious Slime Sludge in your bags, target an Excitable Slime in the canals and type /dance until it dances back, then give it the sludge. If it seems tired, dance with it again.", "confidence": "medium" }
+			],
+			"note": "WRIGGLE. (97583): the slime takes the sludge once a dance has caught its attention. Source: the quest's own text (\"If it seems tired, try dancing with it again to catch its attention\"). #4046's sweep of the quests done with an emote."
+		},
 		"5527": {
 			"steps": [
 				{
@@ -595,16 +742,13 @@
 				},
 				{
 					"n": 2,
-					"action": "kill",
-					"target": {
-						"type": "npc",
-						"id": 252711
-					},
-					"fact": "At each pylon, kill a Decrepit Pylon Protector beside it, then use Repair and Recharge Pylon on the pylon.",
-					"confidence": "medium"
+					"action": "use-item",
+					"item": 271882,
+					"fact": "At each pylon, use the Pile of Pylon Parts the quest hands over: its Repair and Recharge Pylon takes four Coalesced Mana Crystals. The Decrepit Pylon Protectors guard the pylons; most players pull one away first, but no kill is needed.",
+					"confidence": "high"
 				}
 			],
-			"note": "Powering the Pylons (96018): the pylons are repaired with mana gathered with the Mana Sieve (255662) first; its objectives list only the Sieve and the two pylons. Source: the quest's own text (\"use it to collect Ancient Mana Crystals. Once you have acquired enough mana, empower the pylons\"); players' in-game recordings to 2026-11-17: the Unstable Mana Rifts (264149) seen by 54 people in Shen'dralas, and the pylons' lines ticking on a cast of spell 1289727 (30 people took the quest); Unholy's report (#2714), who counted four Coalesced Mana Crystals (255667) for each pylon."
+			"note": "Powering the Pylons (96018): the pylons are repaired with mana gathered with the Mana Sieve (255662) first; its objectives list only the Sieve and the two pylons. Source: the quest's own text (\"use it to collect Ancient Mana Crystals. Once you have acquired enough mana, empower the pylons\"); players' in-game recordings to 2026-11-17: the Unstable Mana Rifts (264149) seen by 54 people in Shen'dralas, and the pylons' lines ticking on a cast of spell 1289727 (30 people took the quest); Unholy's report (#2714), who counted four Coalesced Mana Crystals (255667) for each pylon. Spell 1289727 is the Pile of Pylon Parts' (271882, the quest's handed-over item; the client's item effect table), with four Coalesced Mana Crystals as its reagent (the client's spell reagent table); recordings to 2026-11-20: 79 of 79 pylon repairs ticked on it, 25 of them with no Decrepit Pylon Protector killed in the minute before (#4135)."
 		},
 		"96082": {
 			"kinds": [
@@ -980,6 +1124,22 @@
 				{ "n": 4, "action": "use-item", "item": 10690, "target": { "type": "object", "id": 152606 }, "place": { "map": 1447, "x": 47.4, "y": 46.3, "f": "e" }, "fact": "Stand in the Fourth Tide Pool, the northernmost, and use Empty Vial Labeled #4 (from the Box of Empty Vials): the vial fills; the pool itself cannot be clicked.", "confidence": "high" }
 			],
 			"note": "Seeping Corruption (3568): the quest's source item is the Box of Empty Vials (10695, the game's quest data), which holds Empty Vial Labeled #1-#4 (10687-10690); the four tide pools (152598, 152604, 152605, 152606) are spell-focus objects (type 8 in forever-db's object.jsonl), so each vial fills when it is used at its own pool. Source: the in-game check on #3857 (a level 54 Horde hunter at the Second Tide Pool: clicking the pool does nothing); the places are the #3211 record's, south to north."
+		},
+		"5561": {
+			"kinds": [
+				{
+					"kind": "use-item-on-mob",
+					"confidence": "high"
+				}
+			],
+			"params": [
+				{ "kind": "use-item-on-mob", "item": 13892, "npcs": [4700, 4701, 4702] }
+			],
+			"steps": [
+				{ "n": 1, "action": "use-item", "target": { "type": "npc", "id": 4700 }, "item": { "id": 13892 }, "fact": "Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo in the Kodo Graveyard: it becomes a tamed kodo that follows you. Don't kill it.", "confidence": "high" },
+				{ "n": 2, "action": "talk", "target": { "type": "npc", "id": 4700 }, "fact": "Walk the tamed kodo back to Smeed's camp and talk to it there: that counts it. Five kodos, one at a time.", "place": { "map": 1443, "x": 60.6, "y": 61.6, "f": "l" }, "confidence": "high" }
+			],
+			"note": "Kodo Roundup (5561): the five kodos are tamed with the Kodo Kombobulator (13892, given with the quest) and each counts once talked to at Smeed Scrabblescrew's camp; the game stores the objective as a kill credit (Aged, Dying or Ancient Kodo), so Lookup's quest guide said \"Kill Aged Kodo\" (#4188). Source: players' in-game recordings to 2026-11-10: 8 people ran it and the line ticked as they talked to a tamed Aged (13 times), Dying (19) or Ancient Kodo (9), never on a kill (correction 5561, #1614)."
 		}
 	}
 }

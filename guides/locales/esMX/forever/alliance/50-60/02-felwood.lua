@@ -239,8 +239,8 @@ return {
 	["The giant {npc:7765} sits just north-west of {npc:7775}'s camp."] = "El gigante {npc:7765} está sentado justo al noroeste del campamento de {npc:7775}.",
 
 	-- Step 51: Evoroot
-	-- {item:11242} Evoroot · {npc:7765} Rockbiter
-	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "La {item:11242} crece dentro de un edificio en ruinas al norte de {npc:7765}: entra por la brecha de su muro desde la cornisa de al lado.",
+	-- {item:11242} Evoroot · {npc:7765} Rockbiter · {npc:9467} Miblon Snarltooth
+	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it.\nOr the front door: {npc:9467} guards it, and the Bait Gregan sells draws him off when you use it beside him. Half the players in our recordings went in that way, half through the wall."] = "",
 
 	-- Step 52: Shay Leafrunner
 	-- {npc:7774} Shay Leafrunner · {item:9189} Shay's Bell
@@ -288,6 +288,7 @@ return {
 	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back."] = "Los sátiros Fuego de Jade ocupan la cañada al oeste del camino, con {npc:9454} al fondo.",
 	-- ["The vial is filled in {zone:1457}: keep it"] = "El vial se llena en {zone:1457}: guárdala",
 	-- ["The vial is filled in {zone:1457}: keep it; inside"] = "El vial se llena en {zone:1457}: guárdalo; adentro",
+	-- ["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "La {item:11242} crece dentro de un edificio en ruinas al norte de {npc:7765}: entra por la brecha de su muro desde la cornisa de al lado.",
 	-- ["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53."] = "Completa aquí hasta el nivel 52.69 antes de las entregas de {area:1763}: te llevan al nivel 53.",
 	-- ["Top up here to level 52.9 before the hand-ins at {area:2479}: they take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Completa aquí hasta el nivel 52.9 antes de las entregas de {area:2479}: te llevan al nivel 53. O, con un grupo, haz en su lugar la mazmorra {area:1417} o la mazmorra {area:2100}.",
 	-- ["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}. If you freed {npc:11018}, go back into {area:1770} for the succubus {npc:9518}; Trey Lightforge's remains lie beside her."] = "Usa {item:12922} en el pozo de la luna corrupto en medio de {area:1763}. Si liberaste a {npc:11018}, vuelve a {area:1770} por la súcubo {npc:9518}; los restos de Trey Forjaluz están a su lado.",

@@ -327,6 +327,7 @@ step Chillwind Camp
   tip Ride back south from Dalson's Tears to the camp.
   turnin 5220                         -- High Priestess MacDonnell
   accept 5222
+  level 55
   accept 5533                         -- Commander Ashlam Valorfist (from level 55)
   turnin 5533                         -- Alchemist Arbington
   accept 5537                         -- The skeletons of Andorhal, next on this guide
@@ -552,6 +553,7 @@ step Plaguewood: kill these as you meet them
 
 step Augustus the Touched
   tip Augustus lives in the ruined hut in Terrordale, and his receipt book lies in the ruined inn nearby. Egan stands by Augustus' hut.
+  tip Careful: a Nerubian Overseer (60, elite) walks Terrordale and the Terrorweb Tunnel south-west of it. Look for him before you ride in, and wait for him to pass.
   accept 6164                         -- Inside
   turnin 5281                         -- Egan
 

@@ -33,12 +33,8 @@ return {
 	["{quest:4084}'s {item:11172} and {item:11173} come from {area:1767} on this guide's ride north; {npc:9116} takes them at the end of the guide, back here."] = "",
 
 	-- Step 7: Rakaiah
-	-- {npc:11019} Jessir Moonbow · {npc:9518} Rakaiah · {item:13140} Blood Red Key · {area:1763} Jaedenar
-	["Only if {npc:11019} sent you after {npc:9518} (the {item:13140}'s chain): on the ride north, turn west into {area:1763}. {npc:9518} (56) stands by the remains of Trey Lightforge at the edge of the camp, well under you now; Trey's remains go back to {npc:11019} at the end of this guide."] = "",
-
-	-- Step 8: Remains of Trey Lightforge
-	-- {area:1763} Jaedenar · {npc:11019} Jessir Moonbow
-	["Trey Lightforge's remains lie at the edge of the {area:1763} camp, west of the road: they go back to {npc:11019} at the end of this guide."] = "Les restes de Trey Lightforge gisent au bord du camp de {area:1763}, à l'ouest de la route : ils retournent à {npc:11019} à la fin de ce guide.",
+	-- {npc:11019} Jessir Moonbow · {npc:9518} Rakaiah · {item:13140} Blood Red Key · {area:1763} Jaedenar · {area:1770} Shadow Hold
+	["Only if {npc:11019} sent you after {npc:9518} (the {item:13140}'s chain): on the ride north, turn west into {area:1763} and go into {area:1770}, the cave at the back of the camp. {npc:9518} (56) and the remains of Trey Lightforge are inside: kill her first, then the remains take her quest and give the next, which goes back to {npc:11019} at the end of this guide."] = "",
 
 	-- Step 9: Trull Failbane
 	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post
@@ -232,6 +228,7 @@ return {
 	-- ["Top up here to level 59.54 before the hand-ins at {area:1997} : they take you to level 60."] = "Montez ici jusqu'au niveau 59.54 avant de rendre les quêtes ({area:1997}) : elles vous font passer au niveau 60.",
 	-- ["Top up here to level 59.9 before the hand-ins at {area:618}: they take you to level 60."] = "Montez ici jusqu'au niveau 59.9 avant de rendre les quêtes ({area:618}) : elles vous font passer au niveau 60.",
 	-- ["Top up here to level 59.9 before the hand-ins at {zone:1452}: they take you to level 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "Gagnez de l'expérience ici jusqu'au niveau 59.9 avant de rendre les quêtes à {zone:1452} : elles vous amènent au niveau 60. Les Crocs acérés enragés (59) des {area:2249}, juste au nord de l'étrange source, donnent bien plus d'expérience que les furbolgs près de {area:1769}. Ou, en groupe, faites plutôt le donjon {area:2057} ou le donjon {area:2279}.",
+	-- ["Trey Lightforge's remains lie at the edge of the {area:1763} camp, west of the road: they go back to {npc:11019} at the end of this guide."] = "Les restes de Trey Lightforge gisent au bord du camp de {area:1763}, à l'ouest de la route : ils retournent à {npc:11019} à la fin de ce guide.",
 	-- ["Zeppelin to {zone:1454}"] = "Zeppelin pour {zone:1454}",
 	-- ["grind on {npc:7441}"] = "tuez en boucle : {npc:7441}",
 	-- ["grind on {npc:7446} at {area:2249}, {area:618}"] = "tuez en boucle : {npc:7446} à {area:2249}, {area:618}",

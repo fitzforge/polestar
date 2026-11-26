@@ -1030,6 +1030,7 @@ local function wire(b, onEnter)
 		if GameTooltip and onEnter then
 			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 			onEnter(self, GameTooltip)
+			if ns.Theme then ns.Theme.TipDots(GameTooltip) end
 			GameTooltip:Show()
 		end
 	end)
@@ -1978,7 +1979,10 @@ end
 -- after it, puts that icon back (none: SetRaidTarget 0) on a target the
 -- press left in place whose name is none of the macro's
 -- (Buttons.UndoStrayMark). A unit the press moved to, or one of its names
--- it kept, keeps the mark. Only the press that runs the macro counts: the
+-- it kept, keeps the mark. SetRaidTarget is protected in combat (#4201:
+-- ADDON_ACTION_FORBIDDEN on every such press), so under combat lockdown the
+-- mark stays: only a press the macro read as in a fight while the lockdown
+-- had not begun yet is put back. Only the press that runs the macro counts: the
 -- secure click acts on the press when useOnKeyDown (nil: the
 -- ActionButtonUseKeyDown CVar) says so, else on the release. (Fields, not
 -- locals: the file is at Lua's local limit.)
@@ -2006,7 +2010,7 @@ end
 function Buttons.UndoStrayMark(b, attr)
 	local guid, was = b.psMarkGuid, b.psMarkWas
 	b.psMarkGuid, b.psMarkWas = nil, nil
-	if not (guid and SetRaidTarget and UnitGUID) then return end
+	if not (guid and SetRaidTarget and UnitGUID) or QoL.InLockdown() then return end
 	if b:GetAttribute(attr == "macrotext1" and "type1" or "type") ~= "macro" then return end
 	local text = b:GetAttribute(attr)
 	if type(text) ~= "string" or not ("\n" .. text):find("\n/tm ", 1, true) then return end
@@ -3067,6 +3071,7 @@ do
 				if GameTooltip and GameTooltip:GetOwner() == self then
 					GameTooltip:ClearLines()
 					anchorTooltip(self, GameTooltip)
+					if ns.Theme then ns.Theme.TipDots(GameTooltip) end
 					GameTooltip:Show()
 				end
 				return

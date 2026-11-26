@@ -1510,7 +1510,11 @@ function ns.Print(...)
 	local n = select("#", ...)
 	local parts = {}
 	for i = 1, n do parts[i] = tostring((select(i, ...))) end
-	DEFAULT_CHAT_FRAME:AddMessage(PREFIX .. table.concat(parts, " "))
+	local text = PREFIX .. table.concat(parts, " ")
+	-- As the chat font draws it (a Russian client's has no "·", #4015).
+	local T, frame = ns.Theme, DEFAULT_CHAT_FRAME
+	if T and T.DotText and frame.GetFont then text = T.DotText(text, (frame:GetFont())) end
+	frame:AddMessage(text)
 end
 
 -- A line telling what Polestar did or wants by itself (a turn-in waiting on a
