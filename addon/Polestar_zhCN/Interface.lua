@@ -381,7 +381,6 @@
 --   A smarter arrow
 --   Walks that follow your own trail, boats and lifts it understands, flights it remembers, enemy towns it goes round.
 --   Guides named for their zones
---   Titles name the zones you quest in, in walking order. Camping 101 is in for every start-zone profession.
 --   Escorts are your choice
 --   Do it or Skip it, with how long other players' runs take and how often they fail.
 --   Windows your way
@@ -398,7 +397,6 @@
 -- speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
 --   %d quests for your level, %d of them here.
 --   %d quests for your level, all here.
---   1 quest for your level: %s gives it.
 --   About %s XP a minute
 --   Bring back left-out quests (%d)
 --   Free mode can't start: its folder Polestar_FreeMode or the Codex is missing or turned off.
@@ -413,7 +411,6 @@
 --   Low drop rate: %s
 --   Most XP a minute first
 --   Nearest first
---   Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes.
 --   No quests to lead to
 --   Or follow your own quests: Free mode
 --   Order: most XP a minute first
@@ -1126,7 +1123,7 @@ L["On an NPC, name the quests it has for you now and the finished quests you can
 L["Replace the game's quest lines"] = "替换游戏的任务行"
 L["On mobs and objects, leave out the game's own lines for the quests these tooltips name, so each quest shows once. In a group the game's lines stay: they show your party's progress."] = "若 Polestar 已在怪物或物体的悬浮提示中列出某项任务，就隐藏游戏自带的对应条目，避免重复显示。组队时会保留游戏自带条目，以便查看队友的任务进度。"
 L["Which quest first"] = "先做哪个任务"
-L["Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes."] = "最近的优先：最快能到达的任务，然后是它附近的任务。每分钟经验最多的优先：任务给的经验与路程和所需工作相比。"
+L["Nearest first: the quest you reach soonest, its neighbours after it. Most XP a minute first: the XP a quest pays over the walk and the work it takes."] = "最近的优先：先做最快能到达的任务，然后是它附近的任务。每分钟经验最多的优先：按任务给的经验除以路上和做任务花的时间来算。"
 L["Zone hints"] = "地区提示"
 L["With no quest near, the zone with the most quests for your level comes first, the arrow to its givers."] = "附近没有任务时，适合你等级任务最多的地区排在最前，箭头指向发布任务的人。"
 L["XP and drop rates"] = "经验和掉落率"
@@ -4262,7 +4259,7 @@ L["Caves, cities, flights and more. Found something off? Type %s."] = "洞穴、
 L["A smarter arrow"] = "更聪明的箭头"
 L["Walks that follow your own trail, boats and lifts it understands, flights it remembers, enemy towns it goes round."] = "路线会沿着你自己走过的路；能识别船只和电梯，记得你的飞行路线，并绕开敌方城镇。"
 L["Guides named for their zones"] = "按地区命名的指南"
-L["Titles name the zones you quest in, in walking order. Camping 101 is in for every start-zone profession."] = "标题写出你做任务的地区，按行进顺序排列。每个起始地区的所有专业都有 Camping 101。"
+L["Titles name the zones you quest in, in walking order. Camping 101 is in for every start-zone profession."] = "标题按行进顺序写出你做任务的地区。每个出生地区的每个专业都有露营 101。"
 L["Escorts are your choice"] = "护送任务由你决定"
 L["Do it or Skip it, with how long other players' runs take and how often they fail."] = "做或跳过，并显示其他玩家完成所需的时间和失败的频率。"
 L["Windows your way"] = "随你心意的窗口"
@@ -5653,7 +5650,7 @@ L["The hand-in guide could not load. Check that the Polestar_Codex addon is inst
 
 -- Free.lua
 L["Low drop rate: %s"] = "掉落率低：%s"
-L["1 quest for your level: %s gives it."] = "适合你等级的任务 1 个：由%s发布。"
+L["1 quest for your level: %s gives it."] = "适合你等级的任务有 1 个：是 %s 给的。"
 L["%d quests for your level, all here."] = "适合你等级的任务有 %d 个，全都在这里。"
 L["%d quests for your level, %d of them here."] = "适合你等级的任务有 %d 个，其中 %d 个在这里。"
 L["Quests for your level"] = "适合你等级的任务"
