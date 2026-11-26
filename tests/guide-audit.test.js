@@ -63,6 +63,44 @@ test("a banner's second action that would be cut takes its own line, and the ban
 	assert.equal(narrow.h - wide.h >= 22, true, `the banner grows by its line: ${narrow.h} vs ${wide.h}`);
 });
 
+// Two links never overlap, in either link mode, however long the first's label and however narrow the window
+// (the Free mode banner's "Return to <guide>" + "Most XP a minute first", the gear offer's "Wear it" + "Not this one").
+test("a banner's two links never overlap: right or under mode, long names, narrow widths", () => {
+	const rows = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		local banner = GF.parts.banner
+		local function rect(link)
+			local point, rel, relPoint, x, y = link:GetPoint(1)
+			local w = link:GetWidth()
+			if rel == banner.Text then
+				local left = x
+				if point == "TOPRIGHT" then left = banner.Text:GetWidth() + x - w end
+				return { l = left, r = left + w, t = y, b = y - 18 }
+			end
+			return { l = -1e9, r = -1e9, t = 1e9, b = 1e9 } -- beside the text, by the x: no row under it
+		end
+		local cases = {
+			{ "free", { xp = true, back = "Western Elwynn, Westfall and the Road to Darkshire" } },
+			{ "free", { xp = true, back = "Kobold Camp" } },
+			{ "wear", { link = "[Sword of the Crown]", pct = 12, slot = "MainHandSlot" } },
+		}
+		for _, mode in ipairs({ "right", "under" }) do
+			Polestar.Set("guideWindow.bannerLinks", mode)
+			for _, width in ipairs({ 220, 260, 400, 560 }) do
+				for i, c in ipairs(cases) do
+					banner.Later:Hide()
+					GF.LayoutBanner(width, true, c[1], c[2])
+					local a, b = rect(banner.Jump), rect(banner.Later)
+					emit({ mode = mode, width = width, case = i, later = banner.Later:IsShown(),
+						hit = a.l < b.r and b.l < a.r and a.b < b.t and b.b < a.t })
+				end
+			end
+		end`);
+	assert.ok(rows.length >= 24 && rows.every((r) => r.later), 'every case shows the second link');
+	const hit = rows.filter((r) => r.hit);
+	assert.deepEqual(hit, [], `links overlap: ${JSON.stringify(hit)}`);
+});
+
 test('the divider lines show in the opaque window only', () => {
 	const [opaque, clear] = run(`
 		uistub.setGuide(uistub.elwynn, 3)

@@ -42,9 +42,10 @@ async function main(argv) {
 	const github = dry ? dryRun(live) : live;
 	const defaultBranch = (await github.request('GET', `/repos/${github.repo}`)).default_branch;
 	const forumId = (env.DISCORD_FORUM_ID || '').trim() || null;
+	const suggestionsForumId = (env.SUGGESTIONS_FORUM_ID || '').trim() || null;
 	const discord = env.DISCORD_TOKEN && !dry ? createDiscord({ token: env.DISCORD_TOKEN }) : null;
 	const tell = discord
-		? (issue, prs) => onProgress({ discord, github, issue, prs, forumId })
+		? (issue, prs) => onProgress({ discord, github, issue, prs, forumId, suggestionsForumId })
 		: dry ? async (issue) => (console.log(`[dry-run] tell #${issue.number}'s Discord thread`), false) : null;
 	const pulls = await github.openPulls();
 

@@ -850,6 +850,9 @@ local function factsFor(s, entity, list, chain)
 		end
 		local new = ns.NewQuests and ns.NewQuests.TooltipText(s.id)
 		add(L["Origin"], new, "accent")
+		-- No recording or report has shown it on Forever yet (the Codex's unseen: the Nightmare Incursion missions);
+		-- the data build drops the mark once a recording shows the quest.
+		if e.unseen then add(L["Status"], L["Not seen on Forever yet"], "warning") end
 		if chain then add(L["Chain"], chainStepText(chain), chain.done and (chain.skippedCount or 0) == 0 and "success" or nil) end
 	elseif k == "instance" then
 		add(L["Type"], e.kind == "raid" and L["Raid"] or L["Dungeon"])

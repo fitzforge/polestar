@@ -181,11 +181,21 @@ function imageType(bytes) {
 	return null;
 }
 
+// The same for a video: MP4 or QuickTime (an `ftyp` box first), WebM or
+// Matroska (the EBML header), else null.
+function videoType(bytes) {
+	const b = bytes;
+	if (b.length >= 8 && b[4] === 0x66 && b[5] === 0x74 && b[6] === 0x79 && b[7] === 0x70) return 'mp4';
+	if (b.length >= 4 && b[0] === 0x1a && b[1] === 0x45 && b[2] === 0xdf && b[3] === 0xa3) return 'webm';
+	return null;
+}
+
 // The media branch: an orphan branch holding the screenshots, one commit per
 // file. Writes go one at a time (the contents API rejects a commit whose
 // branch moved underneath it) and a file already there is not written again.
-// Only images (by their bytes) up to maxBytes are copied.
-function createMedia({ github, repo = github.repo, branch, fetch: fetchImpl = fetch, maxBytes = 5 * 1024 * 1024 }) {
+// Only images and videos (by their bytes) are copied: images up to maxBytes,
+// videos up to videoMaxBytes (Discord's own upload limit without Nitro).
+function createMedia({ github, repo = github.repo, branch, fetch: fetchImpl = fetch, maxBytes = 5 * 1024 * 1024, videoMaxBytes = 10 * 1024 * 1024 }) {
 	const r = `/repos/${repo}`;
 	let ready = null;
 	let queue = Promise.resolve();
@@ -236,14 +246,25 @@ function createMedia({ github, repo = github.repo, branch, fetch: fetchImpl = fe
 	}
 
 	// Copies a Discord attachment and returns its permanent URL, or null when
-	// it is not an image, cannot be fetched or is too big (the caller links
+	// it is not an image or a video, cannot be fetched or is too big (the caller links
 	// Discord instead). An image over maxBytes (a full-size PNG screenshot
 	// often is) is taken as WebP from Discord's media proxy, under a .webp
-	// name: a 7.8 MB 2560x1440 PNG comes back as about 0.9 MB.
-	function copy(path, attachment, message) {
+	// name: a 7.8 MB 2560x1440 PNG comes back as about 0.9 MB. `onBytes(bytes)`,
+	// when given, gets what was copied (to attach it elsewhere too).
+	function copy(path, attachment, message, onBytes = null) {
 		const job = queue.then(async () => {
 			let url = attachment.url;
 			let at = path;
+			if (/^video\//.test(attachment.content_type || '')) {
+				if (!(attachment.size <= videoMaxBytes)) return null;
+				const res = await fetchImpl(url);
+				if (!res.ok) return null;
+				const bytes = new Uint8Array(await res.arrayBuffer());
+				if (bytes.length > videoMaxBytes || !videoType(bytes)) return null;
+				await put(at, bytes, message);
+				if (onBytes) onBytes(bytes);
+				return rawUrl(at);
+			}
 			if (!(attachment.size <= maxBytes)) {
 				if (!attachment.proxy_url || !/^image\//.test(attachment.content_type || '')) return null;
 				url = attachment.proxy_url + (attachment.proxy_url.includes('?') ? '&' : '?') + 'format=webp';
@@ -254,13 +275,14 @@ function createMedia({ github, repo = github.repo, branch, fetch: fetchImpl = fe
 			const bytes = new Uint8Array(await res.arrayBuffer());
 			if (bytes.length > maxBytes || !imageType(bytes)) return null;
 			await put(at, bytes, message);
+			if (onBytes) onBytes(bytes);
 			return rawUrl(at);
 		});
 		queue = job.catch(() => {});
 		return job;
 	}
 
-	return { copy, rawUrl, ensureBranch };
+	return { copy, rawUrl, ensureBranch, maxBytes, videoMaxBytes };
 }
 
-module.exports = { createGitHub, createMedia, imageType, GitHubError };
+module.exports = { createGitHub, createMedia, imageType, videoType, GitHubError };

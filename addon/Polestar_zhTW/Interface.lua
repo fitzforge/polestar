@@ -492,6 +492,23 @@
 --   Fewer folders
 --   Quit the game fully and start it again: Polestar is 22 folders now, not 45.
 --   Steps fixed in dozens of zones. Found something off? Type %s.
+--
+-- Machine-translated, to be reviewed (0.4.4 Dungeon Set 2 guides, 26 Nov 2026): translated by an AI model
+-- (Claude Opus 5.5) and waiting for a native speaker's check. Reviewing one: keep or fix it, and take it
+-- off this list. These guides' texts in guides/locales/zhTW/:
+--   forever/class/druid/dungeon-set-2
+--   forever/class/hunter/dungeon-set-2
+--   forever/class/mage/dungeon-set-2
+--   forever/class/paladin/dungeon-set-2
+--   forever/class/priest/dungeon-set-2
+--   forever/class/rogue/dungeon-set-2
+--   forever/class/shaman/dungeon-set-2
+--   forever/class/warlock/dungeon-set-2
+--   forever/class/warrior/dungeon-set-2
+--
+-- Machine-translated, to be reviewed (0.4.4 Lookup, 26 Nov 2026): translated by an AI model (Claude Opus 5.5)
+-- and waiting for a native speaker's check. Reviewing one: keep or fix its line below, and take its key off this list.
+--   Not seen on Forever yet
 -- Machine-translated, to be reviewed (#3701 Free mode, the finished-quest guide #2486 and the other lines new on
 -- next since 0.4.3, 26 Nov 2026):
 -- translated by an AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native
@@ -2515,6 +2532,7 @@ L["Finished, %d skipped"] = "已完成，跳過 %d 個"
 L["All %d done"] = "全部 %d 個已完成"
 L["Click to open its page."] = "點擊開啟其頁面。"
 L["Then any of: %s"] = "然後任一：%s"
+L["Not seen on Forever yet"] = "尚未在 Forever 中見到"
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "可繳交"
@@ -4163,7 +4181,6 @@ L["Clean up quest log"] = "清理任務日誌"
 L["Grey: no XP any more"] = "灰色：不再給予經驗值"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "路線不需要這些任務：它從不交付，或已不再給予經驗值。放棄會先在遊戲自己的視窗中確認。"
 L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "列出任務日誌中路線不需要的任務：它從不交付的，以及不再給予經驗值的灰色任務。每個都有一個會先確認的放棄按鈕。只要有這樣的任務，指南視窗的選單裡也有此項。"
-L["None of these has a known place to hand it in."] = "這些任務都沒有已知的繳交地點。"
 L["Where it is turned in is not known"] = "繳交地點未知"
 L["Finished quests you're still carrying"] = "仍未繳交的已完成任務"
 L["The route hands in every finished quest in your log."] = "路線會繳交日誌中所有已完成的任務。"
@@ -5727,7 +5744,7 @@ L["kept for %s"] = "保留給 %s"
 L["kept"] = "保留"
 L["Kept for %s: the route hands it in there."] = "保留給 %s：路線會在那裡繳交。"
 
--- Lookup/Handins.lua
+-- Handins.lua
 L["No quests in your log are ready to hand in."] = "任務日誌中沒有可繳交的任務。"
 L["Wait until combat ends to load the quest data."] = "請等戰鬥結束後再載入任務資料。"
 L["The hand-in guide could not load. Check that the Polestar_FreeMode addon is installed and enabled."] = "繳交任務指南無法載入。請檢查插件 Polestar_FreeMode 是否已安裝並啟用。"
@@ -5742,30 +5759,6 @@ L["Free mode: follow your own quests (on, off, nearest, xp)"] = "自由模式：
 -- UI/QuestLinks.lua
 L["Start quest guide"] = "開始任務指南"
 L["Click to show quest guide actions."] = "點擊顯示任務指南操作。"
-
--- Handins.lua
-L["Travel time to this hand-in is unknown. Its location is still shown."] = "前往此繳交處的路程時間未知。仍會顯示它的位置。"
-L["Hand-ins without a known location"] = "位置未知的繳交任務"
-L["Refining the travel order. Travel times are estimates."] = "正在優化路線順序。路程時間為估算值。"
-L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = "路程估算不完整。順序使用現有的估算和大致距離。"
-L["Waiting for your quest log."] = "正在等待你的任務日誌。"
-L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = "繳交任務指南無法載入。請檢查插件 Polestar_Codex 是否已安裝並啟用。"
-
--- Free.lua
-L["Low drop rate: %s"] = "掉落率低：%s"
-L["1 quest for your level: %s gives it."] = "適合你等級的任務 1 個：由%s發布。"
-L["%d quests for your level, all here."] = "適合你等級的任務有 %d 個，全都在這裡。"
-L["%d quests for your level, %d of them here."] = "適合你等級的任務有 %d 個，其中 %d 個在這裡。"
-L["Quests for your level"] = "適合你等級的任務"
-L["About %s XP a minute"] = "每分鐘約 %s 經驗"
-L["Order: nearest first"] = "順序：最近的優先"
-L["Order: most XP a minute first"] = "順序：每分鐘經驗最多的優先"
-L["Bring back left-out quests (%d)"] = "恢復被排除的任務（%d）"
-L["Unpin"] = "取消置頂"
-L["Pin to the top"] = "置頂"
-L["Free mode takes this quest first, whatever the order."] = "無論順序如何，自由模式都會先做這個任務。"
-L["Leave out of Free mode"] = "從自由模式中排除"
-L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "自由模式不再列出此任務。選單中的「恢復被排除的任務」會重新列出它。"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐頁重新設定 Polestar。每項選擇立即生效。"
@@ -6036,3 +6029,24 @@ L["Free mode stops listing this quest. The menu's Bring back left-out quests lis
 -- L["%s: on this step"] = "%s：在此步驟"
 -- L["Your own quests as a guide, in a tab of its own: the arrow leads to the nearest one, then the next (/polestar free)."] = "把你自己的任務當作指南，在單獨的分頁中：箭頭指向最近的任務，然後是下一個（/polestar free）。"
 -- L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "在戰鬥外點擊任務目標列或 NPC 標題時，也會選取該 NPC，並使用與目標按鈕相同的標記設定。這會取代你目前的目標；搜尋失敗時會清除目標。"
+-- L["None of these has a known place to hand it in."] = "這些任務都沒有已知的繳交地點。"
+-- L["Travel time to this hand-in is unknown. Its location is still shown."] = "前往此繳交處的路程時間未知。仍會顯示它的位置。"
+-- L["Hand-ins without a known location"] = "位置未知的繳交任務"
+-- L["Refining the travel order. Travel times are estimates."] = "正在優化路線順序。路程時間為估算值。"
+-- L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."] = "路程估算不完整。順序使用現有的估算和大致距離。"
+-- L["Waiting for your quest log."] = "正在等待你的任務日誌。"
+-- L["The hand-in guide could not load. Check that the Polestar_Codex addon is installed and enabled."] = "繳交任務指南無法載入。請檢查插件 Polestar_Codex 是否已安裝並啟用。"
+-- L["Low drop rate: %s"] = "掉落率低：%s"
+-- L["1 quest for your level: %s gives it."] = "適合你等級的任務 1 個：由%s發布。"
+-- L["%d quests for your level, all here."] = "適合你等級的任務有 %d 個，全都在這裡。"
+-- L["%d quests for your level, %d of them here."] = "適合你等級的任務有 %d 個，其中 %d 個在這裡。"
+-- L["Quests for your level"] = "適合你等級的任務"
+-- L["About %s XP a minute"] = "每分鐘約 %s 經驗"
+-- L["Order: nearest first"] = "順序：最近的優先"
+-- L["Order: most XP a minute first"] = "順序：每分鐘經驗最多的優先"
+-- L["Bring back left-out quests (%d)"] = "恢復被排除的任務（%d）"
+-- L["Unpin"] = "取消置頂"
+-- L["Pin to the top"] = "置頂"
+-- L["Free mode takes this quest first, whatever the order."] = "無論順序如何，自由模式都會先做這個任務。"
+-- L["Leave out of Free mode"] = "從自由模式中排除"
+-- L["Free mode stops listing this quest. The menu's Bring back left-out quests lists it again."] = "自由模式不再列出此任務。選單中的「恢復被排除的任務」會重新列出它。"
